@@ -18,8 +18,8 @@ warnings.filterwarnings('ignore')
 
 def init_qlib():
     """初始化 Qlib"""
-    workspace = Path(__file__).parent.parent
-    qlib_data_path = workspace / 'qlib_data' / 'bin'
+    # 使用绝对路径
+    qlib_data_path = Path('/Users/rziiiii/.openclaw/workspace/qlib_data/bin')
     
     if not qlib_data_path.exists():
         print(f"❌ Qlib 数据不存在: {qlib_data_path}")
