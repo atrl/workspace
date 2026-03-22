@@ -18,16 +18,26 @@ warnings.filterwarnings('ignore')
 
 def init_qlib():
     """初始化 Qlib"""
-    # 使用绝对路径
-    qlib_data_path = Path('/Users/rziiiii/.openclaw/workspace/qlib_data/bin')
+    # 尝试多个可能的路径
+    possible_paths = [
+        Path(__file__).parent.parent / 'qlib_data',
+        Path('/Users/rziiiii/.openclaw/workspace/qlib_data'),
+    ]
     
-    if not qlib_data_path.exists():
-        print(f"❌ Qlib 数据不存在: {qlib_data_path}")
+    qlib_data_path = None
+    for path in possible_paths:
+        if path.exists():
+            qlib_data_path = path
+            break
+    
+    if qlib_data_path is None:
+        print(f"❌ Qlib 数据不存在")
+        print(f"   尝试路径: {[str(p) for p in possible_paths]}")
         return False
     
     try:
         qlib.init(provider_uri=str(qlib_data_path), expression_cache=None, dataset_cache=None)
-        print(f"✅ Qlib 初始化成功")
+        print(f"✅ Qlib 初始化成功: {qlib_data_path}")
         return True
     except Exception as e:
         print(f"❌ Qlib 初始化失败: {e}")
