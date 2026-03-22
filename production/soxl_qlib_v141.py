@@ -28,8 +28,8 @@ warnings.filterwarnings('ignore')
 def init_qlib():
     """初始化 Qlib"""
     possible_paths = [
-        Path(__file__).parent.parent / 'qlib_data',
         Path('/Users/rziiiii/.openclaw/workspace/qlib_data'),
+        Path(__file__).parent.parent / 'qlib_data',
     ]
     
     qlib_data_path = None
@@ -44,7 +44,7 @@ def init_qlib():
     
     try:
         qlib.init(provider_uri=str(qlib_data_path), expression_cache=None, dataset_cache=None)
-        print(f"✅ Qlib 初始化成功")
+        print(f"✅ Qlib 初始化成功: {qlib_data_path}")
         return True
     except Exception as e:
         print(f"❌ Qlib 初始化失败: {e}")
