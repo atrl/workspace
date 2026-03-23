@@ -1,20 +1,28 @@
 # HEARTBEAT.md - 心跳检查清单
 
-## 📋 当前状态 (2026-03-22 17:19)
+## 📋 当前状态 (2026-03-23 19:51)
 
 **身份**: clawQuant - 量化工具人，只用 Qlib 框架 ✅
 
-**已完成**:
-- ✅ IDENTITY.md 更新 (clawQuant 身份)
-- ✅ SOUL.md 更新 (执行优先，自己解决问题)
-- ✅ TOOLS.md 更新 (Qlib 使用规范 v2.0)
-  - 5 个核心 Use Case
-  - 踩坑记录
-  - 代码模板
-  - 环境配置
+**🎉 项目完成**:
+- ✅ V25策略部署成功 (19:38)
+- ✅ Sharpe 0.96, Max DD -8.69%
+- ✅ OOS验证通过 (Sharpe 0.92)
+- ✅ 相比V13: Sharpe +85%, Max DD +77%
 
-**待清理**:
-- ⏳ memory/ 目录旧记录
+**RL项目总结**:
+- ❌ 分钟级RL失败 (过拟合)
+- ✅ 回退日级V25策略成功
+- 💡 教训: 简单有效 > 复杂失效
+
+**下一步**:
+- 🔄 纸交易验证 (1-2周)
+- 🚀 实盘部署 (10%初始仓位)
+- 📊 持续监控
+
+**关键文件**:
+- V25: `/Users/rziiiii/.openclaw-gemini/workspace/production/soxl_kelly_v25_production.py`
+- 结果: `research/v8_v25_risk_optimized_results.md`
 
 ---
 

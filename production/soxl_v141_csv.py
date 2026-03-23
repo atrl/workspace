@@ -1,20 +1,9 @@
 #!/usr/bin/env python3
 """
-SOXL Qlib V14.1 - 微调版（目标 Sharpe 0.50）
-基于 V14 (Sharpe 0.46, Max DD 17.4%) 微调
-
-微调参数：
-- 趋势权重: 0.50 → 0.55 (+0.05)
-- 动量权重: 0.30 (保持)
-- 波动率权重: 0.15 (保持)
-
-目标:
-- Sharpe > 0.50
-- Max DD < 20%
+SOXL V14.1 - CSV 版本（临时）
+不依赖 Qlib Provider，直接使用 CSV 数据
 """
 
-import qlib
-from qlib.data import D
 import pandas as pd
 import numpy as np
 from pathlib import Path
@@ -22,54 +11,95 @@ import warnings
 warnings.filterwarnings('ignore')
 
 # ============================================================
-# Part 1: Qlib 初始化
+# Part 1: 数据加载（CSV 直接读取）
 # ============================================================
 
-def init_qlib():
-    """初始化 Qlib"""
+def load_data_from_csv():
+    """从 CSV 加载 SOXL 数据"""
+    workspace = Path('/Users/rziiiii/.openclaw/workspace')
+    
+    # 尝试多个可能的路径
     possible_paths = [
-        Path('/Users/rziiiii/.openclaw/workspace/qlib_data'),
-        Path(__file__).parent.parent / 'qlib_data',
+        workspace / 'data' / 'symbols' / 'SOXL.csv',
+        workspace / 'qlib_data' / 'csv' / 'soxl.csv',
+        Path.home() / '.qlib' / 'qlib_data' / 'csv' / 'soxl.csv',
     ]
     
-    qlib_data_path = None
     for path in possible_paths:
         if path.exists():
-            qlib_data_path = path
-            break
+            print(f"✅ 找到数据: {path}")
+            df = pd.read_csv(path)
+            df['date'] = pd.to_datetime(df['date'])
+            df = df.set_index('date').sort_index()
+            print(f"   数据量: {len(df)} 条")
+            print(f"   时间范围: {df.index[0]} 至 {df.index[-1]}")
+            return df
     
-    if qlib_data_path is None:
-        print(f"❌ Qlib 数据不存在")
-        return False
+    print(f"❌ 未找到数据文件")
+    print(f"   尝试路径: {[str(p) for p in possible_paths]}")
+    return None
+
+# ============================================================
+# Part 2: 因子计算（Qlib Expression 风格）
+# ============================================================
+
+def calculate_factors(df):
+    """计算因子（Qlib Expression 风格）"""
+    data = df.copy()
     
-    try:
-        qlib.init(provider_uri=str(qlib_data_path), expression_cache=None, dataset_cache=None)
-        print(f"✅ Qlib 初始化成功: {qlib_data_path}")
-        return True
-    except Exception as e:
-        print(f"❌ Qlib 初始化失败: {e}")
-        return False
+    # 趋势因子
+    data['Mean($close, 5)'] = data['close'].rolling(5).mean().shift(1)
+    data['Mean($close, 20)'] = data['close'].rolling(20).mean().shift(1)
+    data['Mean($close, 60)'] = data['close'].rolling(60).mean().shift(1)
+    
+    # 动量因子
+    data['Ref($close, 5) / $close - 1'] = data['close'].pct_change(5).shift(1)
+    
+    # 波动率因子
+    ret = data['close'].pct_change()
+    data['Std($close / Ref($close, 1) - 1, 20)'] = ret.rolling(20).std().shift(1)
+    data['Std($close / Ref($close, 1) - 1, 60)'] = ret.rolling(60).std().shift(1)
+    
+    # 成交量因子
+    data['Mean($volume, 20)'] = data['volume'].rolling(20).mean().shift(1)
+    
+    return data
 
 # ============================================================
-# Part 2: Qlib Expression 因子
+# Part 3: V14.1 信号计算
 # ============================================================
 
-def get_qlib_features():
-    """Qlib Expression 因子"""
-    return [
-        '$close',
-        '$volume',
-        'Mean($close, 5)',
-        'Mean($close, 20)',
-        'Mean($close, 60)',
-        'Ref($close, 5) / $close - 1',
-        'Mean($volume, 20)',
-        'Std($close / Ref($close, 1) - 1, 20)',
-        'Std($close / Ref($close, 1) - 1, 60)',
-    ]
+def calculate_signal_v141(df):
+    """V14.1 信号（趋势权重 0.55）"""
+    # 趋势因子
+    trend = (
+        (df['close'] > df['Mean($close, 5)']).astype(float) * 0.2 +
+        (df['close'] > df['Mean($close, 20)']).astype(float) * 0.3 +
+        (df['close'] > df['Mean($close, 60)']).astype(float) * 0.3 +
+        (df['Mean($close, 5)'] > df['Mean($close, 20)']).astype(float) * 0.2
+    )
+    
+    # 动量因子
+    momentum = -df['Ref($close, 5) / $close - 1']
+    
+    # 波动率因子
+    vol_ratio = df['Std($close / Ref($close, 1) - 1, 20)'] / (df['Std($close / Ref($close, 1) - 1, 60)'] + 1e-9)
+    vol_factor = 1 - vol_ratio.clip(0.5, 2)
+    
+    # 成交量确认
+    vol_conf = (df['volume'] / (df['Mean($volume, 20)'] + 1e-9) > 1.5).astype(float) * 0.5 + 0.5
+    
+    # V14.1 综合信号
+    signal = (
+        trend * 0.55 +           # V14.1: 0.55 (从 0.50)
+        momentum * 0.30 +
+        vol_factor * 0.15
+    ) * vol_conf
+    
+    return signal.clip(-1, 1)
 
 # ============================================================
-# Part 3: Kelly 仓位管理
+# Part 4: Kelly 仓位管理
 # ============================================================
 
 def kelly_position(returns, window=50, max_kelly=0.40):
@@ -99,58 +129,13 @@ def kelly_position(returns, window=50, max_kelly=0.40):
     return np.clip(kelly, 0.10, max_kelly)
 
 # ============================================================
-# Part 4: V14.1 信号计算（微调版）
-# ============================================================
-
-def calculate_signal_v141(df):
-    """
-    V14.1 信号（趋势权重 +5%）
-    
-    V14 参数:
-    - trend_weight = 0.50
-    - momentum_weight = 0.30
-    - vol_weight = 0.15
-    
-    V14.1 微调:
-    - trend_weight = 0.55 (+0.05)
-    - momentum_weight = 0.30 (保持)
-    - vol_weight = 0.15 (保持)
-    """
-    # 趋势因子
-    trend = (
-        (df['$close'] > df['Mean($close, 5)']).astype(float) * 0.2 +
-        (df['$close'] > df['Mean($close, 20)']).astype(float) * 0.3 +
-        (df['$close'] > df['Mean($close, 60)']).astype(float) * 0.3 +
-        (df['Mean($close, 5)'] > df['Mean($close, 20)']).astype(float) * 0.2
-    )
-    
-    # 动量因子
-    momentum = -df['Ref($close, 5) / $close - 1']
-    
-    # 波动率因子
-    vol_ratio = df['Std($close / Ref($close, 1) - 1, 20)'] / (df['Std($close / Ref($close, 1) - 1, 60)'] + 1e-9)
-    vol_factor = 1 - vol_ratio.clip(0.5, 2)
-    
-    # 成交量确认
-    vol_conf = (df['$volume'] / (df['Mean($volume, 20)'] + 1e-9) > 1.5).astype(float) * 0.5 + 0.5
-    
-    # V14.1 综合信号（微调权重）
-    signal = (
-        trend * 0.55 +           # V14: 0.50 → V14.1: 0.55
-        momentum * 0.30 +        # 保持
-        vol_factor * 0.15        # 保持
-    ) * vol_conf
-    
-    return signal.clip(-1, 1)
-
-# ============================================================
 # Part 5: 回测引擎
 # ============================================================
 
 def backtest_v141(df, signal, initial_balance=100000, cost=0.001):
     """V14.1 回测"""
     
-    close = df['$close']
+    close = df['close']
     ret = close.pct_change()
     
     balance = initial_balance
@@ -262,30 +247,23 @@ def backtest_v141(df, signal, initial_balance=100000, cost=0.001):
 
 def main():
     print("=" * 60)
-    print("SOXL Qlib V14.1 - 微调版（趋势权重 +5%）")
+    print("SOXL V14.1 - CSV 版本（趋势权重 +5%）")
     print("=" * 60)
     
-    if not init_qlib():
-        print("\n❌ 无法初始化 Qlib")
+    # 1. 加载数据
+    df = load_data_from_csv()
+    if df is None:
         return None
     
-    instruments = ['SOXL']
-    features = get_qlib_features()
+    # 2. 计算因子
+    print(f"\n📊 计算因子...")
+    df = calculate_factors(df)
+    print(f"✅ 因子计算完成")
     
-    print(f"\n📊 加载 Qlib 数据...")
-    
-    try:
-        df = D.features(instruments=instruments, fields=features,
-                       start_time='2020-01-01', end_time='2026-03-19')
-        print(f"✅ 数据: {len(df)} 条")
-    except Exception as e:
-        print(f"❌ 加载失败: {e}")
-        return None
-    
-    # 计算信号
+    # 3. 计算信号
     signal = calculate_signal_v141(df)
     
-    # 回测
+    # 4. 回测
     stats = backtest_v141(df, signal)
     
     print(f"\n📈 V14.1 结果:")
@@ -298,7 +276,7 @@ def main():
     print(f"  最终 Kelly: {stats['final_kelly']:.2%}")
     
     # 对比
-    print(f"\n📊 对比:")
+    print(f"\n📊 对比 V14:")
     print(f"  V14:   Sharpe 0.46, Max DD 17.4%, 平均仓位 12.3%")
     print(f"  V14.1: Sharpe {stats['sharpe']:.2f}, Max DD {stats['max_dd']:.2%}, 平均仓位 {stats['avg_position']:.2%}")
     
