@@ -1,0 +1,48 @@
+# PPO Safe Configuration - 适合高波动标的（杠杆ETF、加密货币等）
+
+# 继承default配置
+_base_: ppo_default.yaml
+
+# 任务配置
+task:
+  name: "<TICKER>安全策略"
+  type: "single_asset_timing"
+  ticker: "<YOUR_TICKER>"  # 例如: SOXL, TQQQ, BTC-USD
+
+# 模拟器配置（更严格的风控）
+simulator:
+  initial_cash: 100000
+  transaction_cost: 0.002  # 20bp (更高的成本避免频繁交易)
+  max_steps: 240
+  
+  # 严格风控
+  stop_loss: 0.10          # 10%止损（更严格）
+  take_profit: 0.15        # 15%止盈
+  max_position: 0.80       # 最大80%仓位（降低）
+  min_position: 0.0
+  
+  # 极端行情保护
+  extreme_vol_threshold: 0.05
+  high_vix_threshold: 30
+  extreme_max_position: 0.5  # 极端行情最大50%仓位
+
+# PPO训练配置（更稳定）
+training:
+  algorithm: "PPO"
+  total_timesteps: 150000   # 更长训练
+  learning_rate: 1e-4       # 更低学习率
+  batch_size: 128           # 更大batch
+  clip_range: 0.05          # 更小clip
+  
+  hidden_dims: [128, 64]
+  max_grad_norm: 0.05       # 更严格梯度裁剪
+  gamma: 0.99
+  gae_lambda: 0.95
+
+# 奖励配置（惩罚高风险）
+reward:
+  step_return_weight: 0.8
+  risk_penalty_lambda: 1.0   # 更高的风险惩罚
+  action_cost_weight: 0.2    # 更高的交易成本惩罚
+  sharpe_bonus_weight: 0.2
+  drawdown_penalty: 0.5
