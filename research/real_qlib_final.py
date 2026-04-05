@@ -313,15 +313,15 @@ if __name__ == '__main__':
     # 创建 Provider
     provider = SOXLQlibProvider()
     
-    # 创建策略
+    # 创建策略（使用遗传算法优化后的参数）
     strategy = SOXLPanicStrategyQlib(
-        panic_threshold=-40,
-        panic_position=0.90,
-        trend_position=0.60,
-        vix_panic=25.0,
-        vix_extreme=30.0,
-        vix_greed=18.0,
-        stop_loss=-0.15,
+        panic_threshold=-35.2,
+        panic_position=0.98,
+        trend_position=0.4382,
+        vix_panic=20.4,
+        vix_extreme=28.5,
+        vix_greed=12.7,
+        stop_loss=-0.08,
     )
     
     # 运行回测
