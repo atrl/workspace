@@ -38,11 +38,13 @@ class SOXLQlibProvider(BaseProvider):
     def load(self) -> pd.DataFrame:
         """加载数据"""
         if self._data is None:
+            # 使用完整数据（2010-2026）
             df = pd.read_csv(
-                '/Users/rziiiii/.openclaw/workspace/data/soxl_with_vix.csv',
+                '/Users/rziiiii/.openclaw/workspace/data/soxl_with_vix_full.csv',
                 parse_dates=['date']
             )
-            df = df[df['date'] >= '2020-01-01'].set_index('date')
+            # 不再限制开始日期，使用全部数据
+            df = df.set_index('date')
             self._data = df
         return self._data
     
