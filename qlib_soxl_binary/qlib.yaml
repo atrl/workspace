@@ -1,0 +1,8 @@
+# Qlib 配置
+provider_uri: /Users/rziiiii/.openclaw/workspace/qlib_soxl_binary
+redis:
+  host: null
+  port: null
+market:
+  market: SOXL
+  market_type: stock

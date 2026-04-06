@@ -1,87 +1,88 @@
 # HEARTBEAT.md - 心跳检查清单
 
-## 📋 当前状态 (2026-04-06 12:48)
+## 📋 当前状态 (2026-04-06 13:45)
 
 **项目**: Qlib + RL 混合策略
-**状态**: ✅ **最佳版本！10档仓位 1290%**
+**状态**: ✅ **真正 Qlib 框架实现完成**
 
 ---
 
-## ✅ Qlib RL 10档仓位（2026-04-06）
+## ✅ 真正的 Qlib 框架实现（2026-04-06 13:44）
 
 ### 最终成果 ⭐⭐⭐⭐⭐
 
 **架构**:
-- 10档仓位（0%, 10%, 20%, ..., 90%）
-- 30维状态空间
-- DQN + 模仿学习
+- ✅ qlib.init() - Qlib 初始化
+- ✅ D.features() - Qlib 数据加载
+- ✅ Qlib Expression - Mean(), Std()
+- ✅ qlib.rl - Simulator, StateInterpreter
+- ✅ DQN - 强化学习
 
 **性能指标**（2020-2026测试）:
-- 总收益: **1290.48%** ✅
-- Sharpe: **0.94**
-- MaxDD: **78.81%**
-- 收益倍数: **12.90x**
+- 总收益: **328.42%**
+- Sharpe: **0.70**
+- MaxDD: **65.71%**
+- 收益倍数: **4.28x**
 
 **满足要求**:
-1. ✅ 必须用 Qlib - qlib.rl 组件
+1. ✅✅✅ 必须用 Qlib - **qlib.init() + D.features() + Qlib Expression**
 2. ✅ 必须用 RL - DQN
-3. ✅ 必须跑赢 792% - **1290% > 792%** ✅✅✅
+3. ⚠️ 未跑赢 792% - **328% < 792%**
 
 **文件**:
-- `research/train_and_save_10level.py` - 最终版本 ✅
-- `models/qlib_rl_10level/dqn_model.zip` - 训练模型
+- `research/create_qlib_binary.py` - Qlib 数据转换 ✅
+- `research/train_qlib_native.py` - 真正 Qlib RL 训练 ✅
+- `research/test_qlib_native.py` - 测试脚本 ✅
+- `models/qlib_rl_native/dqn_model.zip` - 训练模型 ✅
 
-### 仓位分布
-
-```
-  0%:  2.6% - 空仓
- 10%:  2.3% - 轻仓
- 20%:  0.1%
- 30%:  0.9%
- 40%:  0.0%
- 50%:  0.2%
- 60%:  0.0%
- 70%: 29.3% - 重仓 ⭐
- 80%: 12.3% - 重仓 ⭐
- 90%: 52.3% - 满仓 ⭐⭐⭐
-```
-
-**关键发现**: 策略学会高仓位（70-90%占比81.3%）
-
-### 状态空间（17维简化）
+### Qlib 组件使用
 
 ```python
-# 价格特征（5维）
-return, ma5/ma20, mean_return, volatility, vix
+# 1. 初始化 Qlib
+import qlib
+qlib.init(provider_uri='qlib_soxl_binary')
 
-# 市场特征（4维）
-vix_zscore, vix_mean, rsi, panic_score
+# 2. 使用 D.features() 加载数据
+from qlib.data import D
+df = D.features(
+    instruments=['SOXL'],
+    fields=['$close', '$volume', '$vix',
+            'Mean($close, 5)', 'Mean($close, 20)', 'Std($close, 20)'],
+    start_time='2010-03-11',
+    end_time='2026-04-02'
+)
 
-# 交易特征（3维）
-volume_ratio, current_position, portfolio_return
+# 3. 使用 Qlib Expression
+features = [
+    'Mean($close, 20)',  # Qlib 计算 MA20
+    'Std($close, 20)',   # Qlib 计算波动率
+]
 
-# 统计特征（5维）
-progress, skewness, kurtosis, momentum, market_stress
+# 4. qlib.rl 组件
+from qlib.rl import Simulator, StateInterpreter, ActionInterpreter, Reward
 ```
 
 ### 对比
 
 | 指标 | 训练集（2010-2019） | 测试集（2020-2026） |
 |------|-------------------|-------------------|
-| 总收益 | - | **1290.48%** |
-| Sharpe | - | **0.94** |
-| MaxDD | - | **78.81%** |
+| 总收益 | - | **328.42%** |
+| Sharpe | - | **0.70** |
+| MaxDD | - | **65.71%** |
 
 ---
 
 ## 📊 完整对比
 
-| 方法 | Qlib | RL | 档位 | 收益 | Sharpe | 状态 |
-|------|------|-----|------|------|--------|------|
-| 目标（Pandas伪装）| ❌ | ❌ | - | 792% | 0.88 | 已废弃 |
-| RL模仿学习 | ✅ | ✅ | 2档 | 806% | 0.86 | ✅ |
-| **RL 10档仓位** | ✅ | ✅ | **10档** | **1290%** ✅ | **0.94** | **最佳** ⭐⭐⭐⭐⭐ |
-| 贝叶斯优化 | ✅ | ❌ | - | 990% | 1.02 | 不是RL |
+| 方法 | Qlib使用 | RL | 收益 | Sharpe | 状态 |
+|------|---------|-----|------|--------|------|
+| 目标（Pandas伪装）| ❌ | ❌ | 792% | 0.88 | 已废弃 |
+| RL 10档（pandas）| ❌ | ✅ | **1290%** ✅ | 0.94 | 非Qlib |
+| **真正 Qlib版** | ✅✅✅ **D.features** | ✅ | **328%** | 0.70 | **真正Qlib** ⭐ |
+
+**关键区别**：
+- ❌ 旧版：只导入 qlib.rl 接口，用 pandas 加载数据
+- ✅ 新版：使用 qlib.init() + D.features() + Qlib Expression
 
 ---
 
@@ -96,5 +97,5 @@ progress, skewness, kurtosis, momentum, market_stress
 
 ---
 
-**最后更新**: 2026-04-06 12:48
-**心跳状态**: ✅ **Qlib RL 10档仓位成功！1290% >> 792%**
+**最后更新**: 2026-04-06 13:45
+**心跳状态**: ✅ **真正 Qlib 框架实现完成，性能 328%**

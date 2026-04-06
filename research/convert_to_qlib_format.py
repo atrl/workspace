@@ -1,225 +1,138 @@
 #!/usr/bin/env python3
 """
-将 SOXL 数据转换为 Qlib 数据格式
+将 SOXL 数据转换为 Qlib 格式
 
-Qlib 数据格式：
-  qlib_data/
-  ├── instruments/
-  │   └── all.txt         # 股票列表
-  ├── calendars/
-  │   └── day.txt         # 交易日历
-  └── features/
-      └── SOXL/
-          ├── close.day.bin    # 二进制数据
-          ├── open.day.bin
-          ├── high.day.bin
-          ├── low.day.bin
-          ├── volume.day.bin
-          └── vix.day.bin      # 外部数据
+步骤：
+1. 创建 Qlib 目录结构
+2. 转换 CSV 为 Qlib binary 格式
+3. 创建配置文件
 """
+import os
 import pandas as pd
 import numpy as np
 from pathlib import Path
-import struct
-from datetime import datetime
 
 print("="*70)
 print("转换 SOXL 数据为 Qlib 格式")
 print("="*70)
 
-# 配置
-DATA_DIR = Path("/Users/rziiiii/.openclaw/workspace/qlib_data")
-SOURCE_FILE = "/Users/rziiiii/.openclaw/workspace/data/soxl_soxx_vix_full.csv"
-
-# 创建目录
-(DATA_DIR / "instruments").mkdir(parents=True, exist_ok=True)
-(DATA_DIR / "calendars").mkdir(parents=True, exist_ok=True)
-(DATA_DIR / "features" / "SOXL").mkdir(parents=True, exist_ok=True)
-
-print(f"数据目录: {DATA_DIR}")
-
 # ============================================================
-# 1. 读取源数据
+# 1. 准备目录
 # ============================================================
 
-print("\n读取源数据...")
-df = pd.read_csv(SOURCE_FILE, parse_dates=['date'])
-print(f"源数据: {len(df)} records ({df['date'].min()} to {df['date'].max()})")
+QLIB_DIR = Path("/Users/rziiiii/.openclaw/workspace/qlib_soxl_data")
+(QLIB_DIR / "instruments").mkdir(parents=True, exist_ok=True)
+(QLIB_DIR / "calendars").mkdir(parents=True, exist_ok=True)
+(QLIB_DIR / "features").mkdir(parents=True, exist_ok=True)
+
+print(f"✅ Qlib 数据目录: {QLIB_DIR}")
 
 # ============================================================
-# 2. 创建交易日历
+# 2. 加载源数据
 # ============================================================
 
-print("\n创建交易日历...")
+print("\n加载源数据...")
+df = pd.read_csv(
+    "/Users/rziiiii/.openclaw/workspace/data/soxl_soxx_vix_full.csv",
+    parse_dates=['date']
+)
+df = df.sort_values('date')
+print(f"✅ 加载 {len(df)} 条记录 ({df['date'].min()} to {df['date'].max()})")
+
+# ============================================================
+# 3. 创建日历
+# ============================================================
+
+print("\n创建 Qlib 日历...")
 calendar = df['date'].dt.strftime('%Y-%m-%d').tolist()
-calendar_file = DATA_DIR / "calendars" / "day.txt"
-
+calendar_file = QLIB_DIR / "calendars" / "day.txt"
 with open(calendar_file, 'w') as f:
     f.write('\n'.join(calendar))
-
-print(f"✅ 交易日历: {calendar_file} ({len(calendar)} days)")
+print(f"✅ 日历: {len(calendar)} 天")
 
 # ============================================================
-# 3. 创建 instruments 列表
+# 4. 创建 instruments
 # ============================================================
 
-print("\n创建 instruments...")
-instruments_file = DATA_DIR / "instruments" / "all.txt"
-
+print("\n创建 Qlib instruments...")
+instruments_file = QLIB_DIR / "instruments" / "all.txt"
 with open(instruments_file, 'w') as f:
     f.write("SOXL\n")
-
-print(f"✅ Instruments: {instruments_file}")
+print(f"✅ Instruments: SOXL")
 
 # ============================================================
-# 4. 转换为 Qlib binary 格式
+# 5. 转换特征数据为 Qlib binary 格式
 # ============================================================
 
-print("\n转换为 Qlib binary 格式...")
+print("\n转换特征数据...")
 
-def to_qlib_binary(series: pd.Series, output_file: Path):
-    """
-    转换为 Qlib binary 格式
-    
-    Qlib binary 格式：
-    - 每条记录: [date_ordinal (int32), value (float32)]
-    - 按日期排序
-    """
-    # 准备数据
-    dates = series.index.map(lambda x: x.toordinal()).values.astype(np.int32)
-    values = series.values.astype(np.float32)
-    
-    # 写入二进制
-    with open(output_file, 'wb') as f:
-        for date_ord, value in zip(dates, values):
-            # Qlib 格式: int32(date) + float32(value)
-            f.write(struct.pack('<i', date_ord))  # little-endian int32
-            f.write(struct.pack('<f', value))     # little-endian float32
-    
-    return len(dates)
+# Qlib binary 格式说明：
+# - 小端字节序
+# - 每个值是 float64 (8 bytes)
+# - 按 instrument 分文件
+# - 文件名: features/SOXL/close.day.bin
 
-# 设置日期索引
-df_indexed = df.set_index('date')
-
-# 转换每个特征
 features = {
-    'close': df_indexed['soxl_close'],
-    'open': df_indexed['soxl_open'],
-    'high': df_indexed['soxl_high'],
-    'low': df_indexed['soxl_low'],
-    'volume': df_indexed['soxl_volume'],
-    'vix': df_indexed['vix'],
+    'close': df['soxl_close'].values,
+    'open': df['soxl_open'].values,
+    'high': df['soxl_high'].values,
+    'low': df['soxl_low'].values,
+    'volume': df['soxl_volume'].values,
+    'vix': df['vix'].values,
 }
 
-for name, series in features.items():
-    output_file = DATA_DIR / "features" / "SOXL" / f"{name}.day.bin"
-    count = to_qlib_binary(series, output_file)
-    print(f"  ✅ {name}.day.bin: {count} records")
+for feature_name, values in features.items():
+    # 转换为 float64
+    values = values.astype(np.float64)
+    
+    # 写入 binary 文件
+    bin_file = QLIB_DIR / "features" / "SOXL" / f"{feature_name}.day.bin"
+    bin_file.parent.mkdir(parents=True, exist_ok=True)
+    
+    with open(bin_file, 'wb') as f:
+        values.tofile(f)
+    
+    print(f"  ✅ {feature_name}: {len(values)} values")
 
 # ============================================================
-# 5. 创建 Qlib 配置文件
+# 6. 创建 Qlib 配置文件
 # ============================================================
 
 print("\n创建 Qlib 配置文件...")
 
-config = f"""# Qlib Configuration for SOXL
-provider_uri: {DATA_DIR}
-region: US
+config_yaml = f"""# Qlib 配置 - SOXL 数据
+provider_uri: {QLIB_DIR}
+redis:
+  host: null
+  port: null
+market:
+  market: SOXL
+  market_type: stock
 """
 
-config_file = DATA_DIR / "qlib.yaml"
+config_file = QLIB_DIR / "qlib.yaml"
 with open(config_file, 'w') as f:
-    f.write(config)
+    f.write(config_yaml)
 
-print(f"✅ 配置文件: {config_file}")
-
-# ============================================================
-# 6. 验证数据
-# ============================================================
-
-print("\n验证数据...")
-
-def read_qlib_binary(file_path: Path, n=5):
-    """读取前N条记录验证"""
-    data = []
-    with open(file_path, 'rb') as f:
-        for i in range(n):
-            date_bytes = f.read(4)
-            value_bytes = f.read(4)
-            
-            if not date_bytes:
-                break
-            
-            date_ord = struct.unpack('<i', date_bytes)[0]
-            value = struct.unpack('<f', value_bytes)[0]
-            date = datetime.fromordinal(date_ord)
-            
-            data.append((date, value))
-    
-    return data
-
-# 验证 close 数据
-close_file = DATA_DIR / "features" / "SOXL" / "close.day.bin"
-sample_data = read_qlib_binary(close_file, 5)
-
-print("\n样本数据 (close.day.bin):")
-for date, value in sample_data:
-    print(f"  {date.strftime('%Y-%m-%d')}: ${value:.2f}")
+print(f"✅ 配置: {config_file}")
 
 # ============================================================
-# 7. 总结
+# 7. 测试加载
 # ============================================================
 
 print("\n" + "="*70)
-print("✅ Qlib 数据格式转换完成！")
+print("测试 Qlib 数据加载")
 print("="*70)
-print(f"""
-数据目录结构：
-  {DATA_DIR}/
-  ├── instruments/
-  │   └── all.txt
-  ├── calendars/
-  │   └── day.txt
-  ├── features/
-  │   └── SOXL/
-  │       ├── close.day.bin
-  │       ├── open.day.bin
-  │       ├── high.day.bin
-  │       ├── low.day.bin
-  │       ├── volume.day.bin
-  │       └── vix.day.bin
-  └── qlib.yaml
-
-使用方法：
-  import qlib
-  from qlib.data import D
-  
-  # 初始化 Qlib
-  qlib.init(provider_uri='{DATA_DIR}')
-  
-  # 加载数据
-  df = D.features(
-      instruments=['SOXL'],
-      fields=['$close', '$volume', '$vix'],
-      start_time='2020-01-01',
-      end_time='2026-04-01'
-  )
-""")
-
-# ============================================================
-# 8. 测试 Qlib API
-# ============================================================
-
-print("\n测试 Qlib API...")
 
 try:
     import qlib
     from qlib.data import D
     
     # 初始化 Qlib
-    qlib.init(provider_uri=str(DATA_DIR))
+    qlib.init(provider_uri=str(QLIB_DIR))
+    print("✅ Qlib 初始化成功")
     
-    # 加载数据
+    # 测试加载
     test_df = D.features(
         instruments=['SOXL'],
         fields=['$close', '$volume', '$vix'],
@@ -227,12 +140,38 @@ try:
         end_time='2020-01-10'
     )
     
-    print("\n✅ Qlib API 测试成功！")
-    print(f"\n加载的数据（前5天）:")
-    print(test_df.head())
+    print("\n✅ D.features() 加载成功:")
+    print(test_df.head(10))
+    
+    # 检查数据质量
+    if len(test_df) > 0:
+        close_values = test_df['$close'].values
+        
+        if np.all(close_values > 0) and np.all(close_values < 1e6):
+            print(f"\n✅ 数据正常")
+            print(f"   Min: ${close_values.min():.2f}")
+            print(f"   Max: ${close_values.max():.2f}")
+            print(f"   Mean: ${close_values.mean():.2f}")
+        else:
+            print(f"\n⚠️ 数据异常")
+            print(f"   Min: {close_values.min()}")
+            print(f"   Max: {close_values.max()}")
+    else:
+        print("\n⚠️ 数据为空")
     
 except Exception as e:
-    print(f"\n❌ Qlib API 测试失败: {e}")
-    print("可能需要调整数据格式")
+    print(f"\n❌ 测试失败: {e}")
+    import traceback
+    traceback.print_exc()
 
 print("\n" + "="*70)
+print("完成！")
+print("="*70)
+print(f"""
+Qlib 数据目录: {QLIB_DIR}
+
+下一步：
+1. 在 RL 策略中使用 qlib.init(provider_uri='{QLIB_DIR}')
+2. 使用 D.features() 加载数据
+3. 使用 Qlib Expression 计算特征
+""")

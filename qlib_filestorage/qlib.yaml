@@ -1,0 +1,5 @@
+# Qlib FileStorage 配置
+provider_uri: /Users/rziiiii/.openclaw/workspace/qlib_filestorage/soxl_data
+redis:
+  host: null
+  port: null
