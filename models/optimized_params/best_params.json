@@ -1,0 +1,10 @@
+{
+  "panic_threshold": -25.0,
+  "vix_panic": 22.0,
+  "vix_extreme": 26.0,
+  "vix_greed": 15.0,
+  "train_return": 7.105706679367563,
+  "test_return": 9.906691717829313,
+  "test_sharpe": 1.018370215453188,
+  "test_maxdd": 0.5613466239140731
+}

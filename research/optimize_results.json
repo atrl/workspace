@@ -1,0 +1,191 @@
+{
+  "best_params": {
+    "panic_threshold": -25,
+    "vix_panic": 22,
+    "vix_extreme": 26,
+    "vix_greed": 15
+  },
+  "best_return": 9.906691717829313,
+  "all_results": [
+    {
+      "panic_threshold": -25,
+      "vix_panic": 22,
+      "vix_extreme": 26,
+      "vix_greed": 15,
+      "return": 9.906691717829313,
+      "sharpe": 1.018370215453188,
+      "max_dd": 0.5613466239140731
+    },
+    {
+      "panic_threshold": -30,
+      "vix_panic": 22,
+      "vix_extreme": 26,
+      "vix_greed": 15,
+      "return": 9.772221221187445,
+      "sharpe": 1.0197731609766618,
+      "max_dd": 0.5581925199149324
+    },
+    {
+      "panic_threshold": -25,
+      "vix_panic": 22,
+      "vix_extreme": 28,
+      "vix_greed": 15,
+      "return": 9.746319189516093,
+      "sharpe": 1.01766903647314,
+      "max_dd": 0.5655957235656162
+    },
+    {
+      "panic_threshold": -30,
+      "vix_panic": 22,
+      "vix_extreme": 28,
+      "vix_greed": 15,
+      "return": 9.740275871888247,
+      "sharpe": 1.022539439826275,
+      "max_dd": 0.558652745206022
+    },
+    {
+      "panic_threshold": -25,
+      "vix_panic": 22,
+      "vix_extreme": 30,
+      "vix_greed": 15,
+      "return": 9.502015760476356,
+      "sharpe": 1.0106215772123308,
+      "max_dd": 0.5674267833556871
+    },
+    {
+      "panic_threshold": -30,
+      "vix_panic": 22,
+      "vix_extreme": 30,
+      "vix_greed": 15,
+      "return": 9.496122172227851,
+      "sharpe": 1.0154304791679778,
+      "max_dd": 0.5605130703813291
+    },
+    {
+      "panic_threshold": -30,
+      "vix_panic": 20,
+      "vix_extreme": 26,
+      "vix_greed": 15,
+      "return": 9.388528999670047,
+      "sharpe": 1.000742957749369,
+      "max_dd": 0.5796166506909278
+    },
+    {
+      "panic_threshold": -30,
+      "vix_panic": 20,
+      "vix_extreme": 28,
+      "vix_greed": 15,
+      "return": 9.357721501310603,
+      "sharpe": 1.003241843920316,
+      "max_dd": 0.5800545587346498
+    },
+    {
+      "panic_threshold": -25,
+      "vix_panic": 20,
+      "vix_extreme": 26,
+      "vix_greed": 15,
+      "return": 9.303463176990656,
+      "sharpe": 0.9928813279742663,
+      "max_dd": 0.5826178058614401
+    },
+    {
+      "panic_threshold": -30,
+      "vix_panic": 22,
+      "vix_extreme": 26,
+      "vix_greed": 13,
+      "return": 9.293780128752289,
+      "sharpe": 1.0014166126406705,
+      "max_dd": 0.5644025094865446
+    },
+    {
+      "panic_threshold": -25,
+      "vix_panic": 22,
+      "vix_extreme": 26,
+      "vix_greed": 13,
+      "return": 9.280916747144552,
+      "sharpe": 0.9961385786073216,
+      "max_dd": 0.5674551576242264
+    },
+    {
+      "panic_threshold": -30,
+      "vix_panic": 22,
+      "vix_extreme": 26,
+      "vix_greed": 11,
+      "return": 9.270293329921984,
+      "sharpe": 1.0001393867777477,
+      "max_dd": 0.5644025094865441
+    },
+    {
+      "panic_threshold": -30,
+      "vix_panic": 22,
+      "vix_extreme": 28,
+      "vix_greed": 13,
+      "return": 9.263253611048121,
+      "sharpe": 1.0039855779289224,
+      "max_dd": 0.564402509486544
+    },
+    {
+      "panic_threshold": -30,
+      "vix_panic": 22,
+      "vix_extreme": 28,
+      "vix_greed": 11,
+      "return": 9.239836463033262,
+      "sharpe": 1.002689136054506,
+      "max_dd": 0.564402509486545
+    },
+    {
+      "panic_threshold": -25,
+      "vix_panic": 22,
+      "vix_extreme": 26,
+      "vix_greed": 11,
+      "return": 9.23102997425918,
+      "sharpe": 0.9941110625668822,
+      "max_dd": 0.5674551576242265
+    },
+    {
+      "panic_threshold": -25,
+      "vix_panic": 20,
+      "vix_extreme": 28,
+      "vix_greed": 15,
+      "return": 9.151960550637499,
+      "sharpe": 0.9918934715440363,
+      "max_dd": 0.5866608581491005
+    },
+    {
+      "panic_threshold": -35,
+      "vix_panic": 22,
+      "vix_extreme": 26,
+      "vix_greed": 15,
+      "return": 9.148201591831697,
+      "sharpe": 1.0048019986748236,
+      "max_dd": 0.552922539470148
+    },
+    {
+      "panic_threshold": -35,
+      "vix_panic": 22,
+      "vix_extreme": 28,
+      "vix_greed": 15,
+      "return": 9.129879780923138,
+      "sharpe": 1.0079288766584613,
+      "max_dd": 0.5529453877146585
+    },
+    {
+      "panic_threshold": -25,
+      "vix_panic": 22,
+      "vix_extreme": 28,
+      "vix_greed": 13,
+      "return": 9.129745644598204,
+      "sharpe": 0.9952253553420168,
+      "max_dd": 0.5674551576242264
+    },
+    {
+      "panic_threshold": -30,
+      "vix_panic": 20,
+      "vix_extreme": 30,
+      "vix_greed": 15,
+      "return": 9.122264232357587,
+      "sharpe": 0.9962195075869775,
+      "max_dd": 0.5818246730112312
+    }
+  ]
+}
