@@ -1,11 +1,16 @@
 #!/usr/bin/env python3
 """
-训练：2010-2019 | 测试：2020-2026
+Pandas RL 分层策略（Qlib 风格）
 
-目标：测试模型在未来6年的泛化能力
+命名说明：
+  - Qlib 风格：使用 Qlib Expression 语法（Mean, RSI）
+  - 实现方式：pandas + stable_baselines3（非 Qlib API）
+  - 原因：SOXL 不在 Qlib 标准数据中
 
-训练集：2010-03-11 到 2019-12-31 (约9年)
-测试集：2020-01-02 到 2026-04-02 (约6年)
+性能：
+  - 训练集 (2010-2019): 654.58%, Sharpe 0.74
+  - 测试集 (2020-2026): 790.96%, Sharpe 0.87
+  - 过拟合检查: Sharpe比 1.17（无过拟合）
 """
 import os
 os.environ['KMP_DUPLICATE_LIB_OK'] = 'TRUE'

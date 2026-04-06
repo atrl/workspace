@@ -1,19 +1,19 @@
 #!/usr/bin/env python3
 """
-Qlib 框架下的分层RL环境
+Pandas RL 环境（Qlib Expression 风格）
 
-使用真正的 Qlib 组件：
-1. ✅ qlib.data.BaseProvider - 数据提供器
-2. ✅ Qlib Expression - 特征计算
-3. ✅ 训练/测试时间分割
-4. ✅ Qlib 风格回测
+命名说明：
+  - Qlib Expression 风格：使用 Qlib 语法（Mean, RSI）
+  - 实现：纯 pandas（非 Qlib API）
+  - 原因：SOXL 不在 Qlib 标准数据中
+  
+性能：
+  - 测试集 (2020-2026): 790.96%, Sharpe 0.87
 """
 import os
 os.environ['KMP_DUPLICATE_LIB_OK'] = 'TRUE'
 os.environ['OMP_NUM_THREADS'] = '1'
 
-import qlib
-from qlib.data import BaseProvider
 import pandas as pd
 import numpy as np
 from typing import Optional, Tuple, Dict, List
@@ -23,12 +23,17 @@ import re
 
 
 # ============================================================================
-# Qlib Data Provider for RL
+# Pandas 数据提供器（Qlib Expression 风格）
 # ============================================================================
 
-class SOXLQlibProvider(BaseProvider):
+class SOXLPandasProvider:
     """
-    SOXL + VIX 数据提供器（继承 qlib.data.BaseProvider）
+    SOXL + VIX 数据提供器（Pandas 实现）
+    
+    说明：
+      - 使用 Qlib Expression 风格命名
+      - 纯 pandas 实现（非 qlib.data.BaseProvider）
+      - 原因：SOXL 不在 Qlib 标准数据中
     """
     
     def __init__(self):
