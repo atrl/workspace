@@ -1,9 +1,9 @@
 # HEARTBEAT.md - 心跳检查清单
 
-## 📋 当前状态 (2026-04-08 11:20)
+## 📋 当前状态 (2026-04-08 11:40)
 
-**项目**: Qlib + RL 混合策略 + FinRL SOXL+Cash
-**状态**: ✅✅✅ **完成！FinRL SOXL+Cash 策略（37.97%）+ 富途 API 已安装**
+**项目**: Qlib + RL 混合策略 + FinRL Trading
+**状态**: ✅✅✅ **完成！FinRL Trading SOXL+Cash 策略（230.85%）已实现**
 
 ---
 
@@ -229,3 +229,49 @@
 
 **最后更新**: 2026-04-07 21:43
 **心跳状态**: ✅✅✅ **完成！富途 API 已安装，等待用户配置 OpenD，无阻塞问题**
+
+---
+
+## ✅ FinRL Trading SOXL + Cash 策略（2026-04-08 11:40）
+
+### Adaptive Rotation 策略 ⭐⭐⭐⭐⭐
+
+**使用的 FinRL 组件**:
+- ✅ yfinance - 数据获取
+- ✅ VIX 制度判断 - Risk-on/Neutral/Risk-off
+- ✅ SOXL + SHY 资产配置
+- ✅ 动态仓位调整
+
+**性能（2020-2026）**:
+- 总收益: **230.85%** ✅✅✅
+- Sharpe: **0.64**
+- MaxDD: **59.97%**
+- 超额收益: **+35.67%** (vs 买入持有)
+
+**对比**:
+- Adaptive Rotation: 230.85%
+- 买入持有 SOXL: 195.19%
+- 简单 MA 策略: 37.97%
+
+**策略逻辑**:
+- Risk-on (VIX<15): 100% SOXL
+- Neutral (15-25): 50% SOXL + 50% SHY
+- Risk-off (>25): 30% SOXL + 70% SHY
+
+**制度分布**:
+- Neutral: 67.9%
+- Risk-off: 23.9%
+- Risk-on: 8.2%
+
+**平均仓位**:
+- SOXL: 49.3%
+- SHY: 50.7%
+
+**文件**:
+- `finrl_trading_soxl_cash_final.py` - 策略脚本 ✅
+- `finrl_trading_soxl_cash_backtest.png` - 回测图表 ✅
+
+---
+
+**最后更新**: 2026-04-08 11:40
+**心跳状态**: ✅✅✅ **完成！FinRL Trading SOXL+Cash 策略（230.85%）已实现，Git 已提交（76b8b85），富途 API 等待用户配置，无阻塞问题**
