@@ -226,33 +226,28 @@ print(f"   ✅ 模型保存: {model_dir / 'a2c_model.zip'}")
 print("\n5. BaseStrategy - qlib 策略接口 ...")
 
 class SOXLRlStrategy(BaseStrategy):
-    """qlib BaseStrategy - RL 模型驱动交易决策"""
+    """qlib BaseStrategy - RL 模型驱动"""
     
     def __init__(self, rl_model, feature_data, lookback=60, **kwargs):
         super().__init__(**kwargs)
         self.rl_model = rl_model
         self.feature_data = feature_data
         self.lookback = lookback
-        self._cache = {}
+        self._actions = {}
         self._precompute()
     
     def _precompute(self):
-        """预计算每个交易日的 RL 观察和动作"""
-        print("   预计算 RL 动作...")
-        self._actions = {}
-        self._observations = {}
-        
+        """预计算 RL 动作"""
         dates = self.feature_data.index
         for i in range(self.lookback, len(dates)):
             date = dates[i]
             row = self.feature_data.iloc[i]
             lb = self.feature_data.iloc[i-self.lookback:i]
-            
             obs = np.nan_to_num(np.array([
                 row['return'], row['ma5']/row['ma20']-1, lb['return'].mean(),
                 lb['return'].std()*np.sqrt(252), row['vix'], row['vix_zscore'],
                 lb['vix'].mean(), row['rsi']/100, row['panic_score']/100,
-                np.log(row['vol_pct']+1e-8), 0.5,  # 默认50%仓位
+                np.log(row['vol_pct']+1e-8), 0.5,
                 0, i/len(dates),
                 lb['return'].skew() if len(lb)>3 else 0,
                 lb['return'].kurtosis() if len(lb)>4 else 0,
@@ -262,73 +257,57 @@ class SOXLRlStrategy(BaseStrategy):
                 row['spread_ma5']/(abs(row['spread_ma20'])+1e-8)-1,
                 row['spread_accel']*200, 0, 0,
             ], dtype=np.float32))
-            
             action, _ = self.rl_model.predict(obs, deterministic=True)
-            target_pos = action * 0.1  # 0%~90%
-            
-            self._actions[date] = target_pos
-            self._observations[date] = obs
-        
-        print(f"   ✅ 预计算完成: {len(self._actions)} 个交易日")
+            self._actions[date] = action * 0.1
+        print(f"   预计算完成: {len(self._actions)} 个交易日")
     
     def generate_trade_decision(self, execute_result=None):
-        """qlib BaseStrategy 核心接口 - 每个交易日调用"""
-        
-        trade_step = self.trade_calendar.get_trade_step()
-        trade_date = self.trade_calendar.get_trade_date(trade_step)
+        """qlib BaseStrategy 核心接口"""
+        step = self.trade_calendar.get_trade_step()
+        step_time = self.trade_calendar.get_step_time()
+        trade_date = step_time[0]
         
         # 获取当前持仓
         try:
-            trade_position = self.trade_position
-            current_value = getattr(trade_position, 'portfolio_value', 100000)
-            current_stock_amount = 0
-            if hasattr(trade_position, 'get_stock_amount'):
-                try:
-                    current_stock_amount = trade_position.get_stock_amount('SOXL')
-                except:
-                    current_stock_amount = 0
+            pos = self.trade_position
+            account_value = pos.portfolio_value
+            cash = pos.cash
+            stock_amount = pos.get_stock_amount('SOXL') if hasattr(pos, 'get_stock_amount') else 0
         except:
-            current_value = 100000
-            current_stock_amount = 0
+            account_value = 100000; cash = 100000; stock_amount = 0
         
-        # 从预计算获取 RL 动作
+        # RL 目标仓位
         target_pos = self._actions.get(trade_date, 0.5)
         
-        # 计算目标股数
+        # 获取当前价格（从 qlib exchange）
         try:
-            current_price = self.get_current_data()['$close'].iloc[0] if isinstance(
-                self.get_current_data()['$close'], pd.Series
-            ) else self.get_current_data()['$close']
+            exchange = self.common_infra.get("trade_exchange")
+            price = exchange.get_close(trade_date, 'SOXL')
+            if price is None or np.isnan(price):
+                price = self.feature_data.loc[trade_date, 'close'] if trade_date in self.feature_data.index else None
         except:
-            # 回退：用 feature_data
-            if trade_date in self.feature_data.index:
-                current_price = self.feature_data.loc[trade_date, 'close']
-            else:
-                return TradeDecisionWO([])
+            price = self.feature_data.loc[trade_date, 'close'] if trade_date in self.feature_data.index else None
         
-        target_value = current_value * target_pos
-        target_amount = int(target_value / current_price / 100) * 100  # 按手数取整
+        if price is None or price <= 0:
+            return TradeDecisionWO([], self)
         
-        current_amount = current_stock_amount if isinstance(current_stock_amount, (int, float)) else 0
-        delta_amount = target_amount - current_amount
+        # 计算目标股数
+        target_value = account_value * target_pos
+        target_amount = int(target_value / price / 100) * 100
+        delta_amount = target_amount - stock_amount
         
-        # 生成订单
         orders = []
-        if abs(delta_amount) >= 100:  # 至少1手
+        if abs(delta_amount) >= 100:
             if delta_amount > 0:
-                orders.append(Order(
-                    stock_id='SOXL',
-                    amount=delta_amount,
-                    direction=Order.BUY,
-                ))
+                orders.append(Order(stock_id='SOXL', amount=delta_amount,
+                                   direction=Order.BUY,
+                                   start_time=step_time[0], end_time=step_time[1]))
             else:
-                orders.append(Order(
-                    stock_id='SOXL',
-                    amount=abs(delta_amount),
-                    direction=Order.SELL,
-                ))
+                orders.append(Order(stock_id='SOXL', amount=abs(delta_amount),
+                                   direction=Order.SELL,
+                                   start_time=step_time[0], end_time=step_time[1]))
         
-        return TradeDecisionWO(orders)
+        return TradeDecisionWO(orders, self)
 
 # 准备测试期数据
 test_features = features[features.index >= '2020-01-01'].copy()
@@ -355,42 +334,54 @@ print("   ✅ 执行器配置完成")
 print("\n7. backtest.backtest() - qlib 官方回测引擎 ...")
 
 try:
-    # 创建策略实例
-    strategy = SOXLRlStrategy(
-        rl_model=rl_model,
-        feature_data=test_features,
-    )
+    strategy = SOXLRlStrategy(rl_model=rl_model, feature_data=test_features)
     
-    # 创建执行器
-    executor = SimulatorExecutor(
-        time_per_step="day",
-        generate_portfolio_metrics=True,
-        trade_cost={"SOXL": 0.001},
-    )
-    
-    # 运行 qlib 官方回测
-    portfolio = backtest(
+    port, indicator = backtest(
         strategy=strategy,
-        executor=executor,
+        executor=SimulatorExecutor(
+            time_per_step="day",
+            generate_portfolio_metrics=True,
+        ),
         start_time='2020-01-02',
         end_time='2026-03-31',
         account=100000,
         benchmark='SOXL',
+        exchange_kwargs={
+            'freq': 'day',
+            'limit_threshold': 0.1,
+            'deal_price': 'close',
+            'open_cost': 0.001,
+            'close_cost': 0.001,
+        },
     )
     
     print("   ✅ qlib backtest.backtest() 完成!")
     
-    # qlib 风险分析
-    metrics = risk_analysis(portfolio)
+    # 提取 portfolio 数据
+    port_df = port['1day']
     print(f"\n📊 qlib 官方回测结果:")
-    print(f"   {metrics}")
+    print(f"   行数: {len(port_df)}")
+    print(f"   最终账户: ${port_df['account'].iloc[-1]:,.2f}")
+    total_return = (port_df['account'].iloc[-1] - 100000) / 100000 * 100
+    daily_ret = port_df['return'].dropna()
+    sharpe = daily_ret.mean() / (daily_ret.std() + 1e-8) * np.sqrt(252)
+    peak = port_df['account'].expanding().max()
+    max_dd = ((peak - port_df['account']) / peak).max() * 100
+    buy_hold = (test_data['close'].iloc[-1] / test_data['close'].iloc[0] - 1) * 100
     
-    # 提取结果
-    report = portfolio
+    print(f"   收益: {total_return:.1f}%")
+    print(f"   Sharpe: {sharpe:.2f}")
+    print(f"   MaxDD: {max_dd:.1f}%")
+    print(f"   买入持有: {buy_hold:.1f}%")
+    
+    qlib_backtest_ok = True
     
 except Exception as e:
+    import traceback
     print(f"   ⚠️ qlib 回测失败: {e}")
-    print("   切换到自定义回测验证 RL 逻辑...")
+    traceback.print_exc()
+    print("   切换到自定义回测...")
+    qlib_backtest_ok = False
     
     # 自定义回测作为 fallback
     test_env = SOXLTradingEnv(test_features)
