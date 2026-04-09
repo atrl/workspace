@@ -357,22 +357,41 @@ try:
     
     print("   ✅ qlib backtest.backtest() 完成!")
     
-    # 提取 portfolio 数据
-    port_df = port['1day']
-    print(f"\n📊 qlib 官方回测结果:")
-    print(f"   行数: {len(port_df)}")
-    print(f"   最终账户: ${port_df['account'].iloc[-1]:,.2f}")
-    total_return = (port_df['account'].iloc[-1] - 100000) / 100000 * 100
-    daily_ret = port_df['return'].dropna()
-    sharpe = daily_ret.mean() / (daily_ret.std() + 1e-8) * np.sqrt(252)
-    peak = port_df['account'].expanding().max()
-    max_dd = ((peak - port_df['account']) / peak).max() * 100
-    buy_hold = (test_data['close'].iloc[-1] / test_data['close'].iloc[0] - 1) * 100
+    # port 是 (portfolio_df, position_dict) tuple
+    if isinstance(port, tuple):
+        port_data = port[0]
+    else:
+        port_data = port
     
-    print(f"   收益: {total_return:.1f}%")
-    print(f"   Sharpe: {sharpe:.2f}")
-    print(f"   MaxDD: {max_dd:.1f}%")
-    print(f"   买入持有: {buy_hold:.1f}%")
+    # port_data 可能是 dict of (df, details)
+    if isinstance(port_data, dict):
+        for key, val in port_data.items():
+            if isinstance(val, tuple):
+                port_df = val[0]
+            else:
+                port_df = val
+            break
+    else:
+        port_df = port_data
+    
+    print(f"\n📊 qlib 官方回测结果:")
+    print(f"   类型: {type(port_df)}, shape: {port_df.shape if hasattr(port_df, 'shape') else 'N/A'}")
+    print(f"   列: {list(port_df.columns) if hasattr(port_df, 'columns') else 'N/A'}")
+    
+    if hasattr(port_df, 'columns') and 'account' in port_df.columns:
+        total_return = (port_df['account'].iloc[-1] - 100000) / 100000 * 100
+        daily_ret = port_df['return'].dropna()
+        sharpe = daily_ret.mean() / (daily_ret.std() + 1e-8) * np.sqrt(252)
+        peak = port_df['account'].expanding().max()
+        max_dd = ((peak - port_df['account']) / peak).max() * 100
+        buy_hold = (test_data['close'].iloc[-1] / test_data['close'].iloc[0] - 1) * 100
+        print(f"   最终账户: ${port_df['account'].iloc[-1]:,.2f}")
+        print(f"   收益: {total_return:.1f}%")
+        print(f"   Sharpe: {sharpe:.2f}")
+        print(f"   MaxDD: {max_dd:.1f}%")
+        print(f"   买入持有: {buy_hold:.1f}%")
+    else:
+        print(f"   数据: {port_df}")
     
     qlib_backtest_ok = True
     
