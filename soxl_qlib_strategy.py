@@ -1,8 +1,13 @@
 #!/usr/bin/env python3
 """
-SOXL Strategy - 完整 qlib 框架版（修复版）
+SOXL Strategy - 完整 qlib 框架版（修复版 v2）
 
-完整使用 qlib 5 大组件 + RL 模型
+修复：
+1. 每次新订单（绝对股数，不是调整）
+2. 用 df 价格（非 exchange.get_close）避免 adjusted_price 问题
+3. 5天交易间隔减少换手
+4. 仓位变化阈值 0.1
+5. 100万账户（避免100股粒度问题）
 """
 import os
 os.environ['KMP_DUPLICATE_LIB_OK'] = 'TRUE'
@@ -28,9 +33,10 @@ import matplotlib.dates as mdates
 
 QLIB_DATA_PATH = '/Users/rziiiii/.openclaw/workspace/qlib_soxl_binary'
 CSV_PATH = '/Users/rziiiii/.openclaw/workspace/data/soxl_soxx_vix_full.csv'
+ACCOUNT = 1000000  # 100万，避免100股粒度问题
 
 print("="*70)
-print("SOXL Strategy - 完整 qlib 框架版")
+print("SOXL Strategy - qlib 框架修复版 v2")
 print("="*70)
 
 # ============================================================
@@ -173,167 +179,163 @@ rl_model.learn(total_timesteps=500000)
 print("   ✅ A2C 训练完成")
 
 # ============================================================
-# 5. BaseStrategy
+# 5-7. BaseStrategy + SimulatorExecutor + backtest
 # ============================================================
-print("\n5. BaseStrategy + 6. SimulatorExecutor + 7. backtest.backtest() ...")
+print("\n5-7. qlib 官方回测 ...")
 
 class SOXLRlStrategy(BaseStrategy):
-    def __init__(self, rl_model, feature_data, lookback=60, **kwargs):
+    def __init__(self, rl_model, df, lookback=60, **kwargs):
         super().__init__(**kwargs)
         self.rl_model = rl_model
-        self.feature_data = feature_data
+        self.df = df
         self.lookback = lookback
-        self._actions = {}
-        self._precompute()
-    
-    def _precompute(self):
-        dates = self.feature_data.index
-        for i in range(self.lookback, len(dates)):
-            date = dates[i]
-            row = self.feature_data.iloc[i]
-            lb = self.feature_data.iloc[i-self.lookback:i]
-            obs = np.nan_to_num(np.array([
-                row['return'], row['ma5']/row['ma20']-1, lb['return'].mean(),
-                lb['return'].std()*np.sqrt(252), row['vix'], row['vix_zscore'],
-                lb['vix'].mean(), row['rsi']/100, row['panic_score']/100,
-                np.log(row['vol_pct']+1e-8), 0.5,
-                0, i/len(dates),
-                lb['return'].skew() if len(lb)>3 else 0,
-                lb['return'].kurtosis() if len(lb)>4 else 0,
-                row['vix_ma20']/20-1, row['vix']/row['vix_ma20']-1,
-                row['spread']*50, row['spread_trend']*100,
-                row['spread_ma5']*50, row['spread_ma20']*50,
-                row['spread_ma5']/(abs(row['spread_ma20'])+1e-8)-1,
-                row['spread_accel']*200, 0, 0,
-            ], dtype=np.float32))
-            action, _ = self.rl_model.predict(obs, deterministic=True)
-            self._actions[date] = action * 0.1
-        print(f"   预计算: {len(self._actions)} 个交易日")
+        self.target_position = 0.0
+        self.last_trade_step = -100
+        self.trade_count = 0
+        self.position_history = []
     
     def generate_trade_decision(self, execute_result=None):
-        step = self.trade_calendar.get_trade_step()
-        step_time = self.trade_calendar.get_step_time()
-        trade_date = step_time[0]
+        trade_step = self.trade_calendar.get_trade_step()
+        total_steps = self.trade_calendar.get_trade_len()
         
-        # 正确获取持仓信息
-        pos = self.trade_position
-        cash = pos.get_cash()
-        stock = pos.get_stock_amount('SOXL') if pos.check_stock('SOXL') else 0
-        
-        # 获取当前价格
-        try:
-            exchange = self.common_infra.get("trade_exchange")
-            price = exchange.get_close(trade_date, 'SOXL')
-            if price is None or np.isnan(float(price)):
-                price = None
-        except:
-            price = None
-        
-        if price is None and trade_date in self.feature_data.index:
-            price = float(self.feature_data.loc[trade_date, 'close'])
-        
-        if price is None or price <= 0:
+        if trade_step >= total_steps - 2:
             return TradeDecisionWO([], self)
         
-        # 账户总值 = 现金 + 持仓市值
-        account_value = cash + stock * price
+        # 获取当前和下一个交易日
+        trade_date = self.trade_calendar.get_step_time(trade_step)[0]
+        next_date = self.trade_calendar.get_step_time(trade_step + 1)[0]
         
-        # RL 目标仓位
-        target_pos = self._actions.get(trade_date, 0.5)
-        target_value = account_value * target_pos
-        target_stock = target_value / price
-        delta = target_stock - stock
+        if trade_date not in self.df.index:
+            return TradeDecisionWO([], self)
         
-        # 生成订单（整数股）
-        orders = []
-        if abs(delta) >= 1:  # 至少 1 股
-            if delta > 0:
-                orders.append(Order(stock_id='SOXL', amount=int(delta), direction=Order.BUY,
-                                   start_time=step_time[0], end_time=step_time[1]))
-            else:
-                orders.append(Order(stock_id='SOXL', amount=int(abs(delta)), direction=Order.SELL,
-                                   start_time=step_time[0], end_time=step_time[1]))
+        idx = self.df.index.get_loc(trade_date)
+        if idx < self.lookback:
+            return TradeDecisionWO([], self)
         
-        return TradeDecisionWO(orders, self)
+        row = self.df.iloc[idx]
+        lb = self.df.iloc[idx-self.lookback:idx]
+        
+        # RL 观察（25维）
+        obs = np.nan_to_num(np.array([
+            row['return'], row['ma5']/row['ma20']-1, lb['return'].mean(),
+            lb['return'].std()*np.sqrt(252), row['vix'], row['vix_zscore'],
+            lb['vix'].mean(), row['rsi']/100, row['panic_score']/100,
+            np.log(row['vol_pct']+1e-8), self.target_position,
+            0, idx/len(self.df),
+            lb['return'].skew() if len(lb)>3 else 0,
+            lb['return'].kurtosis() if len(lb)>4 else 0,
+            row['vix_ma20']/20-1, row['vix']/row['vix_ma20']-1,
+            row['spread']*50, row['spread_trend']*100,
+            row['spread_ma5']*50, row['spread_ma20']*50,
+            row['spread_ma5']/(abs(row['spread_ma20'])+1e-8)-1,
+            row['spread_accel']*200, 0, 0,
+        ], dtype=np.float32))
+        
+        action, _ = self.rl_model.predict(obs, deterministic=True)
+        new_position = int(action.item() if hasattr(action, 'item') else action) * 0.1
+        
+        # 仓位变化太小 → 不交易
+        if abs(new_position - self.target_position) < 0.1:
+            self.position_history.append(self.target_position)
+            return TradeDecisionWO([], self)
+        
+        # 交易间隔 ≥ 5天
+        if trade_step - self.last_trade_step < 5:
+            self.position_history.append(self.target_position)
+            return TradeDecisionWO([], self)
+        
+        # 用 df 的价格（避免 adjusted_price 问题）
+        price = row['close']
+        target_value = ACCOUNT * new_position
+        target_shares = int(target_value / price / 100) * 100  # 按100股取整
+        
+        if target_shares > 0:
+            order = Order(
+                stock_id='SOXL', amount=target_shares, direction=Order.BUY,
+                start_time=trade_date, end_time=next_date,
+            )
+            self.target_position = new_position
+            self.last_trade_step = trade_step
+            self.trade_count += 1
+            self.position_history.append(new_position)
+            return TradeDecisionWO([order], self)
+        
+        self.position_history.append(self.target_position)
+        return TradeDecisionWO([], self)
 
-# 运行 qlib 回测
-strategy = SOXLRlStrategy(rl_model=rl_model, feature_data=test_data)
+strategy = SOXLRlStrategy(rl_model=rl_model, df=test_data)
 
 port, indicator = backtest(
     strategy=strategy,
     executor=SimulatorExecutor(time_per_step='day', generate_portfolio_metrics=True),
     start_time='2020-01-02',
     end_time='2026-03-31',
-    account=100000,
+    account=ACCOUNT,
     benchmark='SOXL',
     exchange_kwargs={
         'freq': 'day',
-        'limit_threshold': None,
         'deal_price': 'close',
         'open_cost': 0.001,
         'close_cost': 0.001,
-        'min_cost': 0,
+        'min_cost': 5,
     },
 )
 
 # 解析结果
-port_df = port['1day'] if isinstance(port, dict) and '1day' in port else port
-if isinstance(port_df, tuple): port_df = port_df[0]
+pdf = port['1day'] if isinstance(port, dict) and '1day' in port else port
+if isinstance(pdf, tuple): pdf = pdf[0]
 
-print(f"\n📊 qlib 官方回测结果:")
-print(f"   行数: {len(port_df)}")
-
-total_return = (port_df['account'].iloc[-1] - 100000) / 100000 * 100
-daily_ret = port_df['return'].dropna()
-sharpe = daily_ret.mean() / (daily_ret.std() + 1e-8) * np.sqrt(252)
-peak = port_df['account'].expanding().max()
-max_dd = ((peak - port_df['account']) / peak).max() * 100
+final_value = pdf['account'].iloc[-1]
+total_return = (final_value / ACCOUNT - 1) * 100
+daily_ret = np.diff(pdf['account'].values) / pdf['account'].values[:-1]
+sharpe = np.mean(daily_ret) / (np.std(daily_ret) + 1e-8) * np.sqrt(252)
+peak = np.maximum.accumulate(pdf['account'].values)
+max_dd = np.max((peak - pdf['account'].values) / peak) * 100
 buy_hold = (test_data['close'].iloc[-1] / test_data['close'].iloc[0] - 1) * 100
 
-print(f"   最终: ${port_df['account'].iloc[-1]:,.2f}")
+print(f"\n📊 qlib 官方回测结果:")
+print(f"   账户: ${ACCOUNT:,}")
+print(f"   最终: ${final_value:,.2f}")
 print(f"   收益: {total_return:.1f}%")
 print(f"   Sharpe: {sharpe:.2f}")
 print(f"   MaxDD: {max_dd:.1f}%")
 print(f"   买入持有: {buy_hold:.1f}%")
 print(f"   超额: {total_return - buy_hold:+.1f}%")
+print(f"   交易次数: {strategy.trade_count}")
 
-# 交易统计
-trade_count = (port_df['turnover'] > 0).sum()
-print(f"   交易天数: {trade_count}")
-print(f"   总换手: {port_df['turnover'].sum():.2f}")
-print(f"   总成本: {port_df['cost'].sum():.2f}")
+# 仓位分布
+if strategy.position_history:
+    pos_arr = np.array(strategy.position_history)
+    print(f"\n   仓位分布:")
+    for i in range(10):
+        p = i * 0.1
+        c = (pos_arr == p).sum()
+        if c > 0: print(f"     {p:.0%}: {c:4d} ({c/len(pos_arr):.1%})")
 
-# ============================================================
 # 绘图
-# ============================================================
 print("\n绘图...")
 fig, axes = plt.subplots(3, 1, figsize=(16, 14))
 
 ax = axes[0]
-ax.plot(port_df.index, port_df['account']/1000, linewidth=2.5, color='#2E86AB', label='A2C Strategy')
-ax.plot(port_df.index, port_df['bench']*1000+100000, linewidth=1.5, color='gray', alpha=0.5, label='Benchmark')
-ax.set_title(f'SOXL Strategy (qlib framework)\nReturn: {total_return:.1f}% | Sharpe: {sharpe:.2f} | MaxDD: {max_dd:.0f}% | Buy&Hold: {buy_hold:.0f}%',
-            fontsize=13, fontweight='bold')
+ax.plot(pdf.index, pdf['account']/1000, linewidth=2.5, color='#2E86AB', label='A2C (qlib)')
+ax.fill_between(pdf.index, ACCOUNT/1000, pdf['account']/1000, alpha=0.2, color='#2E86AB')
+ax.set_title(f'SOXL Strategy (qlib Framework) | Return: {total_return:.1f}% | Sharpe: {sharpe:.2f} | MaxDD: {max_dd:.0f}%',
+            fontsize=14, fontweight='bold')
 ax.set_ylabel('Account ($K)'); ax.legend(); ax.grid(True, alpha=0.3)
 
 ax = axes[1]
-ax.fill_between(port_df.index, port_df['value'], alpha=0.5, color='#28A745', label='Stock Value')
-ax.plot(port_df.index, port_df['cash']/1000, linewidth=1, color='orange', alpha=0.7, label='Cash ($K)')
-ax.set_ylabel('Value ($K)'); ax.set_title('Position (Stock Value + Cash)', fontweight='bold')
+ax.plot(pdf.index, pdf['cash']/1000, linewidth=1.5, color='orange', label='Cash')
+ax.plot(pdf.index, pdf['value']/1000, linewidth=1.5, color='#28A745', label='Stock Value')
+ax.set_ylabel('$K'); ax.set_title('Cash + Stock Value', fontweight='bold')
 ax.legend(); ax.grid(True, alpha=0.3)
 
 ax = axes[2]
-vix_s = test_data['vix'].reindex(port_df.index).ffill()
-spread_s = test_data['spread_trend'].reindex(port_df.index).ffill()
-ax.plot(port_df.index, vix_s, color='red', alpha=0.7, label='VIX')
-ax2 = ax.twinx()
-ax2.fill_between(port_df.index, 0, spread_s*100, where=spread_s>0, alpha=0.3, color='green', label='Spread+')
-ax2.fill_between(port_df.index, 0, spread_s*100, where=spread_s<0, alpha=0.3, color='red', label='Spread-')
-ax2.set_ylabel('Spread Trend', color='purple')
+vix_s = test_data['vix'].reindex(pdf.index).ffill()
+ax.plot(pdf.index, vix_s, color='red', alpha=0.7, label='VIX')
+ax.axhline(y=25, color='orange', linestyle='--', alpha=0.5)
 ax.set_ylabel('VIX'); ax.set_xlabel('Date')
-ax.legend(loc='upper left'); ax2.legend(loc='upper right')
-ax.set_title('VIX & Spread Trend', fontweight='bold')
-ax.grid(True, alpha=0.3)
+ax.set_title('VIX', fontweight='bold')
+ax.legend(); ax.grid(True, alpha=0.3)
 ax.xaxis.set_major_locator(mdates.YearLocator())
 ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y'))
 
@@ -345,7 +347,7 @@ import subprocess
 subprocess.run(['git', 'add', 'soxl_qlib_strategy.py', 'soxl_qlib_strategy.png'],
                cwd='/Users/rziiiii/.openclaw/workspace')
 subprocess.run(['git', 'commit', '-m',
-                f'feat: SOXL qlib framework fixed - {total_return:.0f}% sharpe {sharpe:.2f}'],
+                f'feat: SOXL qlib framework v2 fixed - {total_return:.0f}% sharpe {sharpe:.2f}'],
                cwd='/Users/rziiiii/.openclaw/workspace')
 subprocess.run(['git', 'push'], cwd='/Users/rziiiii/.openclaw/workspace')
 print("✅ Git 已推送")
@@ -354,12 +356,13 @@ print(f"""
 ======================================================================
 ✅ 完整 qlib 框架:
 
-  1. qlib.init()                    ✅
-  2. D.features()                   ✅ SOXL close/volume
-  3. BaseStrategy                   ✅ generate_trade_decision()
-  4. SimulatorExecutor              ✅ 0.1% 成本
-  5. backtest.backtest()            ✅ 1569 步官方回测
+  1. qlib.init()          ✅
+  2. D.features()         ✅ SOXL close/volume
+  3. BaseStrategy         ✅ generate_trade_decision()
+  4. SimulatorExecutor    ✅ 0.1% 成本
+  5. backtest.backtest()  ✅ 官方回测引擎
 
+  修复: 每次新订单 + 固定基准 + 5天间隔 + 100万账户
   结果: {total_return:.1f}% | Sharpe {sharpe:.2f} | MaxDD {max_dd:.1f}%
 ======================================================================
 """)
