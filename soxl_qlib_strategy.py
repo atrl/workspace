@@ -314,10 +314,10 @@ qlib_train(
     initial_states=initials[:30],
     policy=policy,
     reward=SOXLReward(),
-    vessel_kwargs={'episode_per_iter': 5,
-                        'update_kwargs': {'batch_size': 64, 'repeat': 5}},
+    vessel_kwargs={'episode_per_iter': 10,
+                        'update_kwargs': {'batch_size': 64, 'repeat': 10}},
     trainer_kwargs={'finite_env_type': 'dummy', 'concurrency': 1,
-                    'max_iters': 50},
+                    'max_iters': 200},
 )
 print("    ✅ qlib.rl.train() 完成！")
 
