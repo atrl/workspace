@@ -317,7 +317,7 @@ qlib_train(
     vessel_kwargs={'episode_per_iter': 10,
                         'update_kwargs': {'batch_size': 64, 'repeat': 10}},
     trainer_kwargs={'finite_env_type': 'dummy', 'concurrency': 1,
-                    'max_iters': 200},
+                    'max_iters': 500},
 )
 print("    ✅ qlib.rl.train() 完成！")
 
