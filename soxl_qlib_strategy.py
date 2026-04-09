@@ -1,13 +1,18 @@
 #!/usr/bin/env python3
 """
-SOXL Strategy - 完整 qlib 框架版（修复版 v2）
+SOXL Strategy - qlib 框架修复版 v3
+
+修复 v2 问题：
+- 仓位只有 10%/80% 两档（等于满仓空仓）
+- VIX/价差特征没有被利用
+- 原因：每次新订单覆盖持仓 + 固定基准 → RL 观察不到真实仓位
 
 修复：
-1. 每次新订单（绝对股数，不是调整）
-2. 用 df 价格（非 exchange.get_close）避免 adjusted_price 问题
-3. 5天交易间隔减少换手
-4. 仓位变化阈值 0.1
-5. 100万账户（避免100股粒度问题）
+- 用真实持仓（get_stock_amount + get_cash）计算账户价值
+- 传入真实仓位给 RL 观察空间
+- 增量调仓（delta = target - current）
+- 降低交易间隔到2天
+- 降低仓位阈值到0.05
 """
 import os
 os.environ['KMP_DUPLICATE_LIB_OK'] = 'TRUE'
@@ -33,32 +38,25 @@ import matplotlib.dates as mdates
 
 QLIB_DATA_PATH = '/Users/rziiiii/.openclaw/workspace/qlib_soxl_binary'
 CSV_PATH = '/Users/rziiiii/.openclaw/workspace/data/soxl_soxx_vix_full.csv'
-ACCOUNT = 1000000  # 100万，避免100股粒度问题
+ACCOUNT = 1000000
 
 print("="*70)
-print("SOXL Strategy - qlib 框架修复版 v2")
+print("SOXL Strategy - qlib v3 (增量调仓 + 真实持仓)")
 print("="*70)
 
 # ============================================================
-# 1. qlib.init()
+# 1-2. qlib.init + D.features
 # ============================================================
 print("\n1. qlib.init() ...")
 qlib.init(provider_uri=QLIB_DATA_PATH)
 print("   ✅ qlib.init()")
 
-# ============================================================
-# 2. D.features()
-# ============================================================
 print("\n2. D.features() ...")
-qlib_data = D.features(
-    instruments=['SOXL'],
-    fields=['$close', '$volume'],
-    start_time='2010-01-01', end_time='2026-03-31',
-)
+qlib_data = D.features(instruments=['SOXL'], fields=['$close', '$volume'],
+                       start_time='2010-01-01', end_time='2026-03-31')
 print(f"   ✅ D.features(): {len(qlib_data)} 条")
 
 csv_df = pd.read_csv(CSV_PATH, parse_dates=['date']).set_index('date')
-print(f"   ✅ CSV 补充: {len(csv_df)} 条")
 
 # ============================================================
 # 3. 特征工程
@@ -181,18 +179,20 @@ print("   ✅ A2C 训练完成")
 # ============================================================
 # 5-7. BaseStrategy + SimulatorExecutor + backtest
 # ============================================================
-print("\n5-7. qlib 官方回测 ...")
+print("\n5-7. qlib 官方回测（增量调仓版）...")
 
-class SOXLRlStrategy(BaseStrategy):
+class SOXLRlStrategyV3(BaseStrategy):
+    """增量调仓 + 真实持仓反馈"""
     def __init__(self, rl_model, df, lookback=60, **kwargs):
         super().__init__(**kwargs)
         self.rl_model = rl_model
         self.df = df
         self.lookback = lookback
-        self.target_position = 0.0
-        self.last_trade_step = -100
+        self.last_trade_step = -10
         self.trade_count = 0
         self.position_history = []
+        self.vix_at_trade = []
+        self.spread_at_trade = []
     
     def generate_trade_decision(self, execute_result=None):
         trade_step = self.trade_calendar.get_trade_step()
@@ -201,7 +201,6 @@ class SOXLRlStrategy(BaseStrategy):
         if trade_step >= total_steps - 2:
             return TradeDecisionWO([], self)
         
-        # 获取当前和下一个交易日
         trade_date = self.trade_calendar.get_step_time(trade_step)[0]
         next_date = self.trade_calendar.get_step_time(trade_step + 1)[0]
         
@@ -215,13 +214,22 @@ class SOXLRlStrategy(BaseStrategy):
         row = self.df.iloc[idx]
         lb = self.df.iloc[idx-self.lookback:idx]
         
-        # RL 观察（25维）
+        # === 关键：获取真实持仓 ===
+        pos = self.trade_position
+        cash = pos.get_cash()
+        stock = pos.get_stock_amount('SOXL') if pos.check_stock('SOXL') else 0
+        price = row['close']
+        account_value = cash + stock * price
+        current_position = (stock * price) / account_value if account_value > 0 else 0
+        
+        # RL 观察（传入真实 current_position）
         obs = np.nan_to_num(np.array([
             row['return'], row['ma5']/row['ma20']-1, lb['return'].mean(),
             lb['return'].std()*np.sqrt(252), row['vix'], row['vix_zscore'],
             lb['vix'].mean(), row['rsi']/100, row['panic_score']/100,
-            np.log(row['vol_pct']+1e-8), self.target_position,
-            0, idx/len(self.df),
+            np.log(row['vol_pct']+1e-8), current_position,  # ← 真实仓位!
+            (account_value - ACCOUNT) / ACCOUNT,             # ← 真实收益!
+            idx/len(self.df),
             lb['return'].skew() if len(lb)>3 else 0,
             lb['return'].kurtosis() if len(lb)>4 else 0,
             row['vix_ma20']/20-1, row['vix']/row['vix_ma20']-1,
@@ -232,52 +240,50 @@ class SOXLRlStrategy(BaseStrategy):
         ], dtype=np.float32))
         
         action, _ = self.rl_model.predict(obs, deterministic=True)
-        new_position = int(action.item() if hasattr(action, 'item') else action) * 0.1
+        target_position = int(action.item() if hasattr(action, 'item') else action) * 0.1
         
         # 仓位变化太小 → 不交易
-        if abs(new_position - self.target_position) < 0.1:
-            self.position_history.append(self.target_position)
+        if abs(target_position - current_position) < 0.05:
+            self.position_history.append(current_position)
             return TradeDecisionWO([], self)
         
-        # 交易间隔 ≥ 5天
-        if trade_step - self.last_trade_step < 5:
-            self.position_history.append(self.target_position)
+        # 交易间隔 ≥ 2天
+        if trade_step - self.last_trade_step < 2:
+            self.position_history.append(current_position)
             return TradeDecisionWO([], self)
         
-        # 用 df 的价格（避免 adjusted_price 问题）
-        price = row['close']
-        target_value = ACCOUNT * new_position
-        target_shares = int(target_value / price / 100) * 100  # 按100股取整
+        # === 增量调仓 ===
+        target_value = account_value * target_position
+        target_shares = int(target_value / price / 100) * 100
+        delta_shares = target_shares - int(stock)
         
-        if target_shares > 0:
-            order = Order(
-                stock_id='SOXL', amount=target_shares, direction=Order.BUY,
-                start_time=trade_date, end_time=next_date,
-            )
-            self.target_position = new_position
+        orders = []
+        if delta_shares >= 100:
+            orders.append(Order(stock_id='SOXL', amount=delta_shares, direction=Order.BUY,
+                               start_time=trade_date, end_time=next_date))
+        elif delta_shares <= -100:
+            orders.append(Order(stock_id='SOXL', amount=abs(delta_shares), direction=Order.SELL,
+                               start_time=trade_date, end_time=next_date))
+        
+        if orders:
             self.last_trade_step = trade_step
             self.trade_count += 1
-            self.position_history.append(new_position)
-            return TradeDecisionWO([order], self)
+            self.vix_at_trade.append(row['vix'])
+            self.spread_at_trade.append(row['spread_trend'])
         
-        self.position_history.append(self.target_position)
-        return TradeDecisionWO([], self)
+        self.position_history.append(target_position if orders else current_position)
+        return TradeDecisionWO(orders, self)
 
-strategy = SOXLRlStrategy(rl_model=rl_model, df=test_data)
+strategy = SOXLRlStrategyV3(rl_model=rl_model, df=test_data)
 
 port, indicator = backtest(
     strategy=strategy,
     executor=SimulatorExecutor(time_per_step='day', generate_portfolio_metrics=True),
-    start_time='2020-01-02',
-    end_time='2026-03-31',
-    account=ACCOUNT,
-    benchmark='SOXL',
+    start_time='2020-01-02', end_time='2026-03-31',
+    account=ACCOUNT, benchmark='SOXL',
     exchange_kwargs={
-        'freq': 'day',
-        'deal_price': 'close',
-        'open_cost': 0.001,
-        'close_cost': 0.001,
-        'min_cost': 5,
+        'freq': 'day', 'deal_price': 'close',
+        'open_cost': 0.001, 'close_cost': 0.001, 'min_cost': 5,
     },
 )
 
@@ -293,9 +299,8 @@ peak = np.maximum.accumulate(pdf['account'].values)
 max_dd = np.max((peak - pdf['account'].values) / peak) * 100
 buy_hold = (test_data['close'].iloc[-1] / test_data['close'].iloc[0] - 1) * 100
 
-print(f"\n📊 qlib 官方回测结果:")
-print(f"   账户: ${ACCOUNT:,}")
-print(f"   最终: ${final_value:,.2f}")
+print(f"\n📊 qlib 官方回测结果 (v3):")
+print(f"   最终: ${final_value:,.0f}")
 print(f"   收益: {total_return:.1f}%")
 print(f"   Sharpe: {sharpe:.2f}")
 print(f"   MaxDD: {max_dd:.1f}%")
@@ -312,30 +317,63 @@ if strategy.position_history:
         c = (pos_arr == p).sum()
         if c > 0: print(f"     {p:.0%}: {c:4d} ({c/len(pos_arr):.1%})")
 
+# VIX/Spread 行为分析
+if strategy.vix_at_trade:
+    vix_arr = np.array(strategy.vix_at_trade)
+    spread_arr = np.array(strategy.spread_at_trade)
+    pos_at_trade = np.array(strategy.position_history[-len(vix_arr):])
+    
+    # 按 VIX 分组看仓位
+    vix_low_mask = vix_arr < 15
+    vix_mid_mask = (vix_arr >= 15) & (vix_arr < 25)
+    vix_high_mask = vix_arr >= 25
+    
+    print(f"\n   VIX 行为分析:")
+    if vix_low_mask.any(): print(f"     VIX<15: 仓位={pos_at_trade[vix_low_mask].mean():.0%} ({vix_low_mask.sum()}次)")
+    if vix_mid_mask.any(): print(f"     VIX15-25: 仓位={pos_at_trade[vix_mid_mask].mean():.0%} ({vix_mid_mask.sum()}次)")
+    if vix_high_mask.any(): print(f"     VIX>25: 仓位={pos_at_trade[vix_high_mask].mean():.0%} ({vix_high_mask.sum()}次)")
+    
+    # 按价差分组
+    spread_exp = spread_arr > 0
+    spread_shr = spread_arr < 0
+    print(f"\n   价差行为分析:")
+    if spread_exp.any(): print(f"     价差增大: 仓位={pos_at_trade[spread_exp].mean():.0%} ({spread_exp.sum()}次)")
+    if spread_shr.any(): print(f"     价差缩小: 仓位={pos_at_trade[spread_shr].mean():.0%} ({spread_shr.sum()}次)")
+
 # 绘图
 print("\n绘图...")
-fig, axes = plt.subplots(3, 1, figsize=(16, 14))
+fig, axes = plt.subplots(4, 1, figsize=(16, 18))
 
 ax = axes[0]
-ax.plot(pdf.index, pdf['account']/1000, linewidth=2.5, color='#2E86AB', label='A2C (qlib)')
-ax.fill_between(pdf.index, ACCOUNT/1000, pdf['account']/1000, alpha=0.2, color='#2E86AB')
-ax.set_title(f'SOXL Strategy (qlib Framework) | Return: {total_return:.1f}% | Sharpe: {sharpe:.2f} | MaxDD: {max_dd:.0f}%',
+ax.plot(pdf.index, pdf['account']/1000, linewidth=2.5, color='#2E86AB', label='A2C v3 (qlib)')
+ax.fill_between(pdf.index, ACCOUNT/1000, pdf['account']/1000, alpha=0.15, color='#2E86AB')
+ax.set_title(f'SOXL Strategy v3 (qlib + Incremental) | {total_return:.1f}% | Sharpe {sharpe:.2f} | MaxDD {max_dd:.0f}%',
             fontsize=14, fontweight='bold')
 ax.set_ylabel('Account ($K)'); ax.legend(); ax.grid(True, alpha=0.3)
 
 ax = axes[1]
-ax.plot(pdf.index, pdf['cash']/1000, linewidth=1.5, color='orange', label='Cash')
-ax.plot(pdf.index, pdf['value']/1000, linewidth=1.5, color='#28A745', label='Stock Value')
-ax.set_ylabel('$K'); ax.set_title('Cash + Stock Value', fontweight='bold')
-ax.legend(); ax.grid(True, alpha=0.3)
+if strategy.position_history:
+    pos_dates = pdf.index[:len(strategy.position_history)]
+    ax.fill_between(pos_dates, strategy.position_history, alpha=0.5, color='#28A745', label='Position')
+    ax.set_ylabel('Position'); ax.set_ylim(0, 1.1)
+    ax.set_title('Position (should vary with VIX & spread)', fontweight='bold')
+    ax.legend(); ax.grid(True, alpha=0.3)
 
 ax = axes[2]
 vix_s = test_data['vix'].reindex(pdf.index).ffill()
 ax.plot(pdf.index, vix_s, color='red', alpha=0.7, label='VIX')
-ax.axhline(y=25, color='orange', linestyle='--', alpha=0.5)
-ax.set_ylabel('VIX'); ax.set_xlabel('Date')
-ax.set_title('VIX', fontweight='bold')
-ax.legend(); ax.grid(True, alpha=0.3)
+ax.axhline(y=25, color='orange', linestyle='--', alpha=0.5, label='VIX=25')
+ax.axhline(y=15, color='green', linestyle='--', alpha=0.5, label='VIX=15')
+ax.set_ylabel('VIX'); ax.legend(); ax.grid(True, alpha=0.3)
+ax.set_title('VIX (high → should increase position)', fontweight='bold')
+
+ax = axes[3]
+spread_s = test_data['spread_trend'].reindex(pdf.index).ffill()
+ax.fill_between(pdf.index, 0, spread_s*100, where=spread_s>0, alpha=0.3, color='green', label='Spread Expanding')
+ax.fill_between(pdf.index, 0, spread_s*100, where=spread_s<0, alpha=0.3, color='red', label='Spread Shrinking')
+ax.axhline(y=0, color='black', linewidth=0.5)
+ax.set_ylabel('Spread Trend'); ax.set_xlabel('Date'); ax.legend(); ax.grid(True, alpha=0.3)
+ax.set_title('SOXL-SOXX Spread Trend', fontweight='bold')
 ax.xaxis.set_major_locator(mdates.YearLocator())
 ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y'))
 
@@ -347,22 +385,7 @@ import subprocess
 subprocess.run(['git', 'add', 'soxl_qlib_strategy.py', 'soxl_qlib_strategy.png'],
                cwd='/Users/rziiiii/.openclaw/workspace')
 subprocess.run(['git', 'commit', '-m',
-                f'feat: SOXL qlib framework v2 fixed - {total_return:.0f}% sharpe {sharpe:.2f}'],
+                f'feat: SOXL qlib v3 incremental + real position - {total_return:.0f}% sharpe {sharpe:.2f}'],
                cwd='/Users/rziiiii/.openclaw/workspace')
 subprocess.run(['git', 'push'], cwd='/Users/rziiiii/.openclaw/workspace')
 print("✅ Git 已推送")
-
-print(f"""
-======================================================================
-✅ 完整 qlib 框架:
-
-  1. qlib.init()          ✅
-  2. D.features()         ✅ SOXL close/volume
-  3. BaseStrategy         ✅ generate_trade_decision()
-  4. SimulatorExecutor    ✅ 0.1% 成本
-  5. backtest.backtest()  ✅ 官方回测引擎
-
-  修复: 每次新订单 + 固定基准 + 5天间隔 + 100万账户
-  结果: {total_return:.1f}% | Sharpe {sharpe:.2f} | MaxDD {max_dd:.1f}%
-======================================================================
-""")
