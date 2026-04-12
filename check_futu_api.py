@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 """
 检查富途 API 和 SOXL 大单数据
+
+说明：
+- 仅用于本机环境探测
+- 不要把这里的直连方式当成正式交易执行层
 """
 import sys
 

@@ -7,6 +7,10 @@
 2. 检查 OpenD 是否运行
 3. 连接 OpenD
 4. 获取 SOXL 数据
+
+说明：
+- 这是一次性联通性验证脚本，不参与主策略训练/回放/实盘链路
+- 如果后续恢复富途方向，应把能力迁移到正式 broker adapter，而不是继续扩张这个脚本
 """
 import sys
 sys.path.insert(0, '/Users/rziiiii/.openclaw/workspace/futu_venv/lib/python3.14/site-packages')

@@ -1,0 +1,25 @@
+# Guardrails
+
+- Read `AGENTS.md` before acting and treat it as the top-level workflow contract
+- Read `codex_exec_plans/active/2026-04-10-soxl-agent-loop.md` before choosing the next step
+- Work on `SOXL` only
+- Prefer one meaningful loop step per rotation:
+  - one validation run, or
+  - one harness improvement, or
+  - one production-layer improvement with verification
+- Do not re-implement already-finished promotion-gate or broker-adapter plumbing unless a concrete bug is found
+- Prefer validating the isolated balanced walk-forward harness before further cap/reward tuning
+- Update repo proof-of-work before finishing a rotation:
+  - active plan
+  - `memory/2026-04-12.md`
+- Prefer `src/soxl_quant/` over ad-hoc top-level scripts
+- Keep signal generation, sizing, broker execution, and reconciliation clearly separated
+- Do not use destructive git commands
+- Keep canonical promotion artifacts reserved for the fixed-split run:
+  - `artifacts/models/soxl_<profile>_actor.pt`
+  - `artifacts/models/soxl_<profile>_summary.json`
+- Walk-forward workers must write namespaced `wf_*` artifacts instead of clobbering the canonical summary during promotion evaluation
+- If you use the local `qlib_venv`, keep it qlib-compatible:
+  - `tianshou == 0.4.10` is required because `pyqlib 0.9.7` imports `tianshou.policy`
+  - `protobuf 3.19.x` breaks `mlflow` / `opentelemetry` during `qlib.init()`
+  - `protobuf 5.29.5` worked with this repo's `pyqlib` + `mlflow` stack

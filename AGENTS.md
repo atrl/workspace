@@ -210,3 +210,122 @@ The goal: Be helpful without being annoying. Check in a few times a day, do usef
 ## Make It Yours
 
 This is a starting point. Add your own conventions, style, and rules as you figure out what works.
+
+## SOXL Project Rules
+
+- This workspace's active quant target is `SOXL` only.
+- Prefer extending the package under `src/soxl_quant/` instead of adding new top-level experiment scripts.
+- Keep the lifecycle explicit:
+  - research/training in `src/soxl_quant/`
+  - execution adapters in `production/`
+  - experiment records in `codex_exec_plans/`
+- Every substantial experiment should append:
+  - hypothesis
+  - command
+  - key metrics
+  - keep/drop decision
+- Use `AGENTS.md` as the top-level operating contract. Do not create a parallel `agent.md` workflow.
+- For online deployment work, keep these boundaries separate:
+  - signal generation
+  - position sizing
+  - broker execution
+  - reconciliation and monitoring
+- Do not optimize directly on held-out `2022` labels. Treat `2022` as an evaluation window unless the split is explicitly redefined and documented.
+- If a training run claims improvement, record:
+  - fixed split result
+  - `2020` slice
+  - `2022` slice
+  - `2023-2024` slice
+  - walk-forward evidence when available
+
+## Symphony-Inspired Workflow
+
+`openai/symphony` is useful here as a workflow model, not as a mandate to copy its Elixir service directly.
+The important pattern is:
+
+- work is managed through repo-owned workflow docs
+- each task runs in an isolated, traceable loop
+- proof of work is written back to the repo
+- humans manage priorities; the agent executes the next concrete step
+
+For this workspace, `AGENTS.md` is the top-level workflow contract.
+Do not maintain a parallel `agent.md`.
+If Symphony or another orchestration layer is added later, it should point at this repo contract instead of inventing a second one.
+
+## Repository Workflow Contract
+
+Use this loop for every substantial SOXL task:
+
+1. Read startup context:
+   - `SOUL.md`
+   - `USER.md`
+   - `memory/YYYY-MM-DD.md` for today and yesterday
+   - `MEMORY.md` only in the main private session
+2. Read the execution harness:
+   - `AGENTS.md`
+   - `HEARTBEAT.md` if this is a heartbeat or background loop
+   - active file under `codex_exec_plans/active/`
+3. Inspect runtime state before acting:
+   - check whether training, replay, or validation is already running
+   - do not start overlapping runs that would corrupt artifacts or logs
+4. Execute exactly one meaningful loop:
+   - one validation run, or
+   - one harness improvement, or
+   - one production-layer improvement with verification
+5. Write proof of work back to the repo:
+   - command run
+   - files changed
+   - key metrics
+   - failure mode if the run failed
+   - keep / drop / next hypothesis decision
+6. Update continuity:
+   - append the result to the active plan
+   - add the important part to `memory/YYYY-MM-DD.md`
+   - move finished or abandoned plans into `codex_exec_plans/completed/`
+
+## Required Proof Of Work
+
+No experiment or implementation step is complete until the repo contains the result.
+Every substantial iteration should leave behind:
+
+- hypothesis
+- validation plan or implementation plan
+- command or procedure executed
+- result metrics or failure evidence
+- next action
+
+If the work touches execution or deployment, also record:
+
+- whether signal generation changed
+- whether position sizing changed
+- whether broker execution changed
+- whether replay / reconciliation still matches expectations
+
+## Current Active Workflow
+
+Current main thread:
+
+- active plan: `codex_exec_plans/active/2026-04-10-soxl-agent-loop.md`
+- target: qlib-native `SOXL` strategy with a repeatable non-leaking harness
+- current status:
+  - paper replay path exists
+  - actor artifact persistence exists
+  - hard drawdown cap materially improved `2022` exposure control
+  - full walk-forward and balanced retrains are still partially blocked by qlib shutdown issues on Python `3.14`
+
+Current priority order:
+
+1. Keep the hard cap with floor `0.4` as the working baseline unless a better documented result replaces it.
+2. Tune cap activation timing to preserve `2022` defense without giving up too much `2023-2024` performance.
+3. Isolate or eliminate the qlib shutdown failure so walk-forward runs finish cleanly and final metrics print reliably.
+4. Extend production work only behind clean boundaries:
+   - signal generation
+   - sizing
+   - broker adapter
+   - reconciliation / monitoring
+
+## Cadence
+
+- While active, produce at least one documented validation or harness improvement per hour.
+- If a long run is in flight, prepare and log the next hypothesis before the hour ends.
+- If a run fails, document the failure and tighten the harness instead of blindly retrying.

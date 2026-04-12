@@ -1,42 +1,32 @@
-# HEARTBEAT.md - 心跳检查清单
+# HEARTBEAT.md
 
-## 📋 当前状态 (2026-04-09 08:42)
+## Current focus
 
-**项目**: SOXL RL 策略 - VIX恐慌买入 + SOXL-SOXX价差趋势
-**状态**: ✅ **完整 qlib 框架版已跑通！**
+- Project: SOXL-only qlib-native research harness
+- Mode: agent-first experiment loop
+- Requirement: at least one idea validation per hour while work is active
 
----
+## Latest validated result (2026-04-11 17:48)
 
-## ✅ 最新成果 (2026-04-09)
+**Balanced walk-forward run completed:**
+- Full test (2020-2026): `368.7% / Sharpe 0.80 / MaxDD 51.6% / 894 trades`
+- test_2022 slice: `-26.5% / Sharpe -0.84 / MaxDD 34.6%` (improved from -39.8%)
+- WF_2022: `53.3% / Sharpe 0.38 / MaxDD 65.4%` (positive return in walk-forward 2022)
+- WF_2023_2024: `1.1% / Sharpe 0.10` (flat — needs investigation)
 
-### 完整 qlib 框架版
-- `soxl_qlib_strategy.py` ✅ 5个 qlib 组件全部使用
-- qlib 官方回测: 153.2%, Sharpe 0.69, MaxDD 90.5%
-- 自定义回测: 557.5%, Sharpe 0.90, MaxDD 50.4%
+## First checks on heartbeat
 
-### 最佳策略（自定义回测）
-- **A2C**: 683%, Sharpe 0.92, **MaxDD 40.9%**, 换手 9.5x
-- VIX相关 0.666 ✅（恐慌买入学到了）
-- 价差相关 0.157 ✅（价差趋势学到了）
+1. Read `codex_exec_plans/active/2026-04-10-soxl-agent-loop.md`
+2. Check whether any training run is still active
+3. If idle: run the next planned validation from the active plan
 
-### 思路验证
-- VIX极高 → 20日收益 13.98% ✅
-- VIX高+价差缩 → 5日 3.0%, 20日 6.54% ✅
-- 简单规则回测全军覆没 → 需要RL控制换手
+## Next hypotheses to validate
 
-### 版本历史
-| 版本 | 框架 | 收益 | Sharpe | MaxDD |
-|------|------|------|--------|-------|
-| qlib官方+A2C | qlib全套 | 153% | 0.69 | 90.5% |
-| 自定义+A2C | gym+sb3 | 683% | 0.92 | 40.9% |
-| 之前v1(DQN) | gym+sb3 | 878% | 0.96 | 65.2% |
+1. WF_2023_2024 flat at 1.1% — investigate whether reward shaping is too conservative in sideways markets
+2. Consider volatility-targeting position sizing to reduce MaxDD in walk-forward folds
 
----
+## Guardrails
 
-## ⏳ 待做
-- [ ] 提高qlib官方回测精度（解决按手数交易限制）
-- [ ] RD-Agent 安装（需虚拟环境）
-- [ ] 富途 API 配置 OpenD
-
-**最后更新**: 2026-04-09 08:42
-**心跳状态**: ✅ qlib框架版完成，无阻塞问题
+- No future leakage
+- No undocumented experiment
+- No stopping at "I have an idea" without logging the validation plan

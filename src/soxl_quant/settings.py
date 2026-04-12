@@ -1,0 +1,113 @@
+from __future__ import annotations
+
+from dataclasses import dataclass, field
+import re
+from pathlib import Path
+from typing import Any, Dict, Tuple
+
+import yaml
+
+ROOT = Path("/Users/rziiiii/.openclaw/workspace")
+CSV_PATH = ROOT / "data/soxl_soxx_vix_full.csv"
+QLIB_DATA_PATH = ROOT / "qlib_soxl_binary"
+RESULT_PNG = ROOT / "soxl_qlib_strategy_v2.png"
+RESULT_TXT = ROOT / "soxl_qlib_strategy_v2_results.txt"
+PROFILE_DIR = ROOT / "configs/soxl"
+MODEL_DIR = ROOT / "artifacts/models"
+RUNTIME_DIR = ROOT / "runtime/soxl"
+ACCOUNT = 1_000_000
+LOOKBACK = 60
+N_ACTIONS = 11
+EXTRA_OBS_DIM = 10
+TRAIN_SEG = ("2010-03-11", "2018-12-31")
+VALID_SEG = ("2019-01-01", "2019-12-31")
+TEST_SEG = ("2020-01-01", "2026-03-31")
+
+
+@dataclass(frozen=True)
+class RewardConfig:
+    return_scale: float
+    transaction_cost: float
+    turnover_penalty: float
+    drawdown_penalty: float
+    downside_penalty: float
+    risk_budget_penalty: float
+    high_exposure_penalty: float
+    smoothness_penalty: float
+    activity_bonus: float
+    inactivity_penalty: float
+
+
+@dataclass(frozen=True)
+class PositionCapConfig:
+    start_drawdown: float = 0.10
+    full_drawdown: float = 0.30
+    min_cap: float = 0.40
+    curve_power: float = 1.0
+
+
+@dataclass(frozen=True)
+class PromotionGateConfig:
+    max_test_2022_drawdown: float = 35.0
+    max_test_2022_avg_pos: float = 0.35
+    min_test_proxy_sharpe: float = 0.75
+    min_wf_2023_2024_return: float = 0.0
+    min_wf_2023_2024_sharpe: float = 0.0
+
+
+@dataclass(frozen=True)
+class StrategyConfig:
+    name: str
+    max_iters: int
+    episode_per_iter: int
+    episode_len: int
+    hidden_sizes: Tuple[int, ...]
+    lr: float
+    update_batch_size: int
+    update_repeat: int
+    reward: RewardConfig
+    position_cap: PositionCapConfig = field(default_factory=PositionCapConfig)
+    promotion_gate: PromotionGateConfig = field(default_factory=PromotionGateConfig)
+
+
+def artifact_stem(profile_name: str, artifact_tag: str = "") -> str:
+    """Build a stable artifact prefix for canonical and namespaced runs."""
+
+    stem = f"soxl_{profile_name}"
+    cleaned_tag = re.sub(r"[^a-zA-Z0-9._-]+", "_", artifact_tag.strip())
+    if cleaned_tag:
+        stem = f"{stem}_{cleaned_tag}"
+    return stem
+
+
+def model_artifact_path(profile_name: str, artifact_tag: str = "") -> Path:
+    return MODEL_DIR / f"{artifact_stem(profile_name, artifact_tag)}_actor.pt"
+
+
+def summary_artifact_path(profile_name: str, artifact_tag: str = "") -> Path:
+    return MODEL_DIR / f"{artifact_stem(profile_name, artifact_tag)}_summary.json"
+
+
+def _load_yaml(path: Path) -> Dict[str, Any]:
+    with path.open("r", encoding="utf-8") as f:
+        return yaml.safe_load(f) or {}
+
+
+def load_profile(name: str) -> StrategyConfig:
+    payload = _load_yaml(PROFILE_DIR / f"{name}.yaml")
+    reward = RewardConfig(**payload["reward"])
+    position_cap = PositionCapConfig(**payload.get("position_cap", {}))
+    promotion_gate = PromotionGateConfig(**payload.get("promotion_gate", {}))
+    return StrategyConfig(
+        name=payload["name"],
+        max_iters=int(payload["max_iters"]),
+        episode_per_iter=int(payload["episode_per_iter"]),
+        episode_len=int(payload.get("episode_len", 300)),
+        hidden_sizes=tuple(int(v) for v in payload["hidden_sizes"]),
+        lr=float(payload.get("lr", 3e-4)),
+        update_batch_size=int(payload.get("update_batch_size", 64)),
+        update_repeat=int(payload.get("update_repeat", 10)),
+        reward=reward,
+        position_cap=position_cap,
+        promotion_gate=promotion_gate,
+    )
