@@ -359,3 +359,115 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
   - drop the assumption that Python `3.14` is the only reproducer; the same qlib cleanup warnings still appear under the local `python3.11` environment, but they no longer block promotion persistence
 - Next action:
   - move from harness validation back to strategy improvement, using this refreshed promoted balanced bundle as the current documented baseline
+
+## Docs reframing 2026-04-13 12:05
+
+- Hypothesis:
+  - the repo contract has too much inherited OpenClaw workspace behavior and not
+    enough harness-first guidance
+  - if the top-level docs clearly separate continuity, execution state, and
+    reusable workflow knowledge, future agent work will drift less
+- Implementation:
+  - rewrote `AGENTS.md` as the top-level `SOXL` harness contract
+  - rewrote `WORKFLOW.md` as a thin execution router around one active workpad
+  - rewrote `SPEC.md` around the harness product instead of a loose quant
+    workspace framing
+  - kept `memory/` as the continuity layer and made `skills/` updates a
+    first-class distillation rule
+- Validation:
+  - confirmed the three top-level docs now agree on these roles:
+    - `memory/` for continuity
+    - `codex_exec_plans/active/` for live execution state
+    - `skills/` for reusable workflows
+  - confirmed the main contract no longer carries unrelated OpenClaw social /
+    heartbeat / ambient chat behavior
+- Keep / drop decision:
+  - keep `memory` as the only inherited continuity mechanism
+  - keep plan files as the primary work record
+  - keep skill maintenance as part of harness upkeep
+  - drop general OpenClaw workspace behavior from the top-level repo contract
+- Next action:
+  - when future tasks expose recurring friction, update repo docs or skills as
+    the durable fix instead of only patching the immediate task
+
+## Symphony workflow alignment 2026-04-13 14:20
+
+- Hypothesis:
+  - the copied `WORKFLOW.md` should follow Symphony's actual YAML frontmatter +
+    template-body format, not just a prose approximation
+  - since `LINEAR_API_KEY` is configured, the workflow should be wired to a real
+    Linear project instead of a repo-local substitute
+- Implementation:
+  - queried Linear and confirmed the `SOX` team existed but no project was
+    configured yet
+  - created a Linear project:
+    - name: `SOXL Harness`
+    - url: `https://linear.app/soxl/project/soxl-harness-4cd6b62a198a`
+    - project slug: `soxl-harness-4cd6b62a198a`
+  - rewrote `WORKFLOW.md` into Symphony-style structure:
+    - YAML frontmatter with `tracker.kind: linear`
+    - `tracker.api_key: $LINEAR_API_KEY`
+    - `tracker.project_slug: soxl-harness-4cd6b62a198a`
+    - workspace hooks and Codex app-server command
+    - `{{ issue.* }}` template body and single Linear workpad-comment flow
+  - adapted status handling to the current Linear team workflow:
+    - `Todo`
+    - `In Progress`
+    - `In Review`
+    - `Done`
+- Validation:
+  - confirmed env contains `LINEAR_API_KEY`
+  - confirmed the new Linear project exists and returns a usable project URL
+  - confirmed `WORKFLOW.md` now begins with valid Symphony-style YAML frontmatter
+- Keep / drop decision:
+  - keep Linear as the workflow tracker for Symphony
+  - keep repo docs and files as durable proof-of-work targets
+  - drop the repo-local fake tracker approach from `WORKFLOW.md`
+- Next action:
+  - if Symphony later requires the non-standard states `Rework` / `Human Review`
+    / `Merging`, either add those states in Linear or update the template again
+    to match the team workflow precisely
+
+## Symphony runnable setup 2026-04-13 14:30
+
+- Hypothesis:
+  - a configured `WORKFLOW.md` is not enough; the repo needs a direct way to
+    start Symphony and a direct way to seed Linear issues for the SOXL loop
+- Implementation:
+  - created missing Linear workflow states for the `SOX` team:
+    - `Rework`
+    - `Human Review`
+    - `Merging`
+  - updated `WORKFLOW.md` active states to match Symphony's expected shape
+  - created `scripts/run_symphony_soxl.sh`:
+    - clones `openai/symphony` into `$SYMPHONY_ROOT` when missing
+    - runs `mise trust`, `mise install`, `mix setup`, `mix build`
+    - starts `./bin/symphony` against this repo's `WORKFLOW.md`
+  - created `scripts/create_linear_soxl_issue.py`:
+    - resolves the `SOX` team
+    - resolves project `SOXL Harness`
+    - resolves the `Todo` state
+    - creates a new optimization issue in Linear
+  - created starter issue:
+    - `SOX-5`
+    - `Optimize SOXL harness: continue balanced cap-shape improvement`
+- Validation:
+  - confirmed Linear team now includes:
+    - `Rework`
+    - `Human Review`
+    - `Merging`
+  - validated helpers:
+    - `bash -n scripts/run_symphony_soxl.sh`
+    - `python3 -m py_compile scripts/create_linear_soxl_issue.py`
+    - result: `helpers: OK`
+  - confirmed created issue:
+    - `SOX-5` in project `SOXL Harness`
+    - current state: `Todo`
+- Keep / drop decision:
+  - keep Symphony as the Linear-driven orchestrator
+  - keep helper scripts in-repo so starting the harness and seeding work are one
+    command away
+  - drop the need for manual Linear issue creation for each new optimization loop
+- Next action:
+  - start Symphony with `scripts/run_symphony_soxl.sh` and let it claim `SOX-5`
+    from Linear

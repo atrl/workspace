@@ -2,145 +2,125 @@
 
 ## Project
 
-Build and operationalize a `qlib`-native trading workflow for `SOXL` only.
+Build and maintain a repeatable, non-leaking `SOXL` research and execution
+harness.
 
-This repository is not a general quant sandbox anymore.
-Its single active target is:
+This repository is not a general OpenClaw workspace and not a generic quant
+sandbox. It is a `SOXL`-focused harness for developing, validating, persisting,
+and operationalizing strategy behavior inside explicit boundaries.
 
-- `SOXL` signal generation
-- `SOXL` position sizing
-- `SOXL` paper-execution readiness
+## What The Harness Must Provide
 
-## Objective
+The project is successful when the repository supports:
 
-Produce a repeatable, non-leaking SOXL research and execution harness that:
+- reproducible training and validation
+- explicit separation between signal generation, position sizing, broker
+  execution, and reconciliation
+- persisted artifacts that can be replayed and audited
+- promotion or acceptance decisions backed by documented evidence
+- a clean handoff from research outputs to runtime boundaries without one-off
+  glue
 
-- beats the old qlib baseline on return or risk-adjusted quality
-- materially improves stressed-regime behavior, especially `2022`
-- preserves traceability from idea to validation to deployment boundary
-- supports replay and paper execution without rewriting the research path
+Raw performance matters, but only inside a trustworthy harness.
 
-## Current State
+## Scope
 
-The repository already has the core structure for the intended lifecycle:
+This repository is for `SOXL` only.
 
-- research and training:
-  - `src/soxl_quant/`
-- execution adapters and runners:
-  - `production/`
-- experiment harness and decision trail:
-  - `codex_exec_plans/`
+Out of scope:
 
-Documented current progress:
-
-- actor artifact persistence exists
-- paper replay exists
-- hard drawdown capping materially reduced chronic `2022` overexposure
-- walk-forward and balanced runs still suffer from qlib shutdown instability under Python `3.14`
-
-The current active thread is:
-
-- `codex_exec_plans/active/2026-04-10-soxl-agent-loop.md`
-
-## Non-Goals
-
-Do not use this repository for:
-
-- multi-ticker optimization beyond `SOXL`
+- multi-ticker optimization
 - undocumented ad-hoc experiments
-- tuning directly on held-out `2022` labels
-- collapsing signal generation, sizing, broker execution, and reconciliation into one opaque script
+- direct tuning on held-out `2022` labels outside the documented evaluation
+  framework
+- collapsing research, sizing, execution, and reconciliation into one opaque
+  script
 
 ## System Boundaries
 
 Keep these layers separate:
 
-1. Signal generation
-2. Position sizing
-3. Broker execution
-4. Reconciliation and monitoring
+1. signal generation
+2. position sizing
+3. broker execution
+4. reconciliation and monitoring
 
-Research code should live under `src/soxl_quant/`.
-Execution adapters should live under `production/`.
-Experiment records should live under `codex_exec_plans/`.
+Code should remain structured accordingly:
 
-## Success Criteria
+- research and training: `src/soxl_quant/`
+- execution adapters: `production/`
+- execution workpads: `codex_exec_plans/`
 
-A strategy direction is only considered promising if it leaves behind documented evidence including:
+## Harness Invariants
 
-- fixed-split result
-- `2020` slice
-- `2022` slice
-- `2023-2024` slice
-- walk-forward evidence when available
+- The harness must be non-leaking by default.
+- `2022` remains an evaluation window unless the split is explicitly redefined
+  and documented.
+- Any claim of improvement should include fixed-split evidence plus `2020`,
+  `2022`, `2023-2024`, and walk-forward evidence when available.
+- Artifact persistence, replayability, and traceability are first-class
+  acceptance criteria.
+- Chat history is not a source of truth.
 
-Operational progress is only considered real if:
+## Repo-Owned Sources Of Truth
 
-- artifacts can be persisted and replayed
-- commands can be reproduced from repo docs
-- paper execution can consume the model output without custom one-off glue
+Use these layers intentionally:
 
-## Primary Risks
+- `AGENTS.md`: operating rules
+- `WORKFLOW.md`: execution routing and completion gates
+- `codex_exec_plans/active/` and `codex_exec_plans/completed/`: task history
+  and proof of work
+- `memory/`: continuity across sessions
+- `skills/`: distilled reusable workflows and maintained operational knowledge
 
-- leakage through sampling, splits, or stress-window selection
-- overfitting toward return while degrading drawdown quality
-- policy behavior that remains overexposed during drawdowns
-- qlib lifecycle instability on Python `3.14`
-- undocumented experiments that cannot be audited later
+These roles should not blur together.
 
-## Workflow Contract
+## Knowledge Distillation
 
-This repo follows a Symphony-inspired, repo-owned workflow model.
-That means:
+This repo should get better as recurring work repeats.
 
-- the repository contains the operating contract
-- plans are explicit and versioned
-- each substantial task leaves proof of work in the repo
-- chat history is not the source of truth
+- Stable context and important continuity belong in `memory/`.
+- Live task state belongs in the active plan/workpad.
+- Reusable methods, troubleshooting flows, and recurring guardrails belong in
+  `skills/`.
+- When a used skill diverges from current practice, update the skill as part of
+  the work instead of leaving stale guidance behind.
 
-Top-level operating contract:
+## Current Working Model
 
-- `AGENTS.md`
+The repository already contains the main harness pieces:
 
-Execution harness:
+- qlib-native research and validation code
+- artifact persistence
+- runtime and paper-execution adapters
+- repo-owned plan files under `codex_exec_plans/`
 
-- `codex_exec_plans/README.md`
-- active plan in `codex_exec_plans/active/`
-- completed plans in `codex_exec_plans/completed/`
-
-Heartbeat / background loop contract:
-
-- `HEARTBEAT.md`
+The active thread lives under `codex_exec_plans/active/`.
 
 ## Required Per-Iteration Output
 
-Every substantial iteration should record:
+Every substantial iteration should leave behind a durable record of:
 
-- hypothesis
+- goal or hypothesis
 - command or procedure
-- result metrics or failure evidence
+- evidence or failure signal
 - keep / drop decision
 - next action
 
-If the work is implementation-heavy rather than experiment-heavy, record:
+If the work changes execution behavior, also record whether it changed:
 
-- what changed
-- how it was validated
-- what boundary it affects:
-  - signal
-  - sizing
-  - execution
-  - reconciliation
+- signal generation
+- position sizing
+- broker execution
+- reconciliation or monitoring
 
-## Immediate Priorities
+## Guiding Principle
 
-1. Keep the hard cap with floor `0.4` as the documented working baseline until replaced by a better validated result.
-2. Tune cap activation timing to improve `2023-2024` behavior without losing the `2022` defense.
-3. Isolate or eliminate qlib shutdown failures so walk-forward runs complete cleanly.
-4. Extend broker-adapter work without coupling it to actor training or replay logic.
+When a task reveals a weakness, prefer improving the harness itself:
 
-## How To Use This File
+- tighten validation
+- clarify interfaces
+- update repo-owned docs
+- distill reusable practice into skills
 
-Read `SPEC.md` to understand what the repository is trying to achieve.
-Read `AGENTS.md` to understand how work must be carried out.
-Read the active file in `codex_exec_plans/active/` to understand the current thread and next experiment.
+The repository should accumulate leverage, not just outputs.

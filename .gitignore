@@ -31,8 +31,36 @@ Thumbs.db
 # Logs
 *.log
 logs/
+log/
 
 # Temporary
 *.tmp
 *.bak
 finrl_trading/
+
+# Virtual environments
+.venv*/
+qlib_venv/
+futu_venv/
+
+# Runtime / orchestration state
+.ralph/done_count
+.ralph/handoffs/
+.ralph/history/
+.ralph/iteration
+.ralph/run.json
+.ralph/state.json
+.ralph/status
+.ralph/current.log
+runtime/
+
+# Artifacts / generated outputs
+artifacts/
+*.png
+memory/.dreams/
+memory/*.json
+soxl_qlib_strategy_v2_results.txt
+
+# Qlib generated data
+qlib_soxl_binary/features/
+.openclaw/

@@ -9,7 +9,6 @@
 
 ## In Progress
 
-- Ralph rotation 1 is running with Codex
 - Highest-priority repo task is still harness validation, not another reward/cap retune
 
 ## Next Steps
