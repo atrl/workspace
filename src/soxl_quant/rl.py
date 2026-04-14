@@ -177,29 +177,45 @@ def action_band_from_obs(obs: np.ndarray) -> Tuple[float, float]:
     return floor, cap
 
 
-def drawdown_position_cap(cumulative_drop: float, config: Optional[PositionCapConfig] = None) -> float:
+def drawdown_position_cap(
+    cumulative_drop: float,
+    obs: Optional[np.ndarray] = None,
+    config: Optional[PositionCapConfig] = None,
+) -> float:
     """硬性仓位上限：在持续回撤时强制压低仓位，防止死扛。
 
     当前使用幂函数 (scale^curve_power) 进行 shaping：
       - drop <= start_drawdown (默认 0.10) 时 cap = 1.0
-      - drop >= full_drawdown (默认 0.30) 时 cap = min_cap (默认 0.40)
+      - drop >= full_drawdown (默认 0.30) 时 cap = effective_min_cap
     
-    【优化方向】min_cap 目前是固定值。在牛市中可尝试动态放宽：
-      - 当 trend_gap_21>0 且 realized_vol<0.4 时，min_cap 提升到 0.60
-      - 当 regime_risk>0.65 时，min_cap 收紧到 0.30
-    这样可以在不同市场体制下获得更好的收益-回撤平衡。
+    【P0 优化】effective_min_cap 不再是固定值，而是根据市场状态动态调整：
+      - 牛市（realized_vol < 0.40 且 anchor_gap > 0.01）：min_cap 提升到 0.65
+      - 高风险市（regime_risk > 0.65）：min_cap 收紧到 0.30
+    这样在不同市场体制下获得更好的收益-回撤平衡。
     """
     cfg = config or DEFAULT_POSITION_CAP
+    effective_min_cap = float(cfg.min_cap)
+
+    # 动态调整 min_cap（P0 优化）
+    if obs is not None and len(obs) > 0:
+        realized_vol = float(np.nan_to_num(obs[STATIC_INDEX["realized_vol_10"]]))
+        anchor_gap = float(np.nan_to_num(obs[STATIC_INDEX["anchor_gap_180"]]))
+        regime_risk = float(np.nan_to_num(obs[STATIC_INDEX["regime_risk"]]))
+        if realized_vol < cfg.bull_vol_threshold and anchor_gap > cfg.bull_anchor_threshold:
+            effective_min_cap = max(effective_min_cap, float(cfg.bull_min_cap))
+        if regime_risk > cfg.bear_regime_threshold:
+            effective_min_cap = min(effective_min_cap, float(cfg.bear_min_cap))
+
     drop = max(float(cumulative_drop), 0.0)
     if drop <= cfg.start_drawdown:
         return 1.0
     if drop >= cfg.full_drawdown:
-        return float(cfg.min_cap)
+        return float(effective_min_cap)
     span = max(cfg.full_drawdown - cfg.start_drawdown, 1e-6)
     scale = (drop - cfg.start_drawdown) / span
     curve_power = max(float(getattr(cfg, "curve_power", 1.0)), 1e-6)
     shaped_scale = scale**curve_power
-    return float(1.0 - shaped_scale * (1.0 - cfg.min_cap))
+    return float(1.0 - shaped_scale * (1.0 - effective_min_cap))
 
 
 def action_to_position(action: int, obs: np.ndarray, config: Optional[PositionCapConfig] = None) -> float:
@@ -208,13 +224,16 @@ def action_to_position(action: int, obs: np.ndarray, config: Optional[PositionCa
     映射公式：position = floor + base * (cap - floor)
     其中 base = action / 10，cap 同时受 action_band 和 drawdown_position_cap 约束。
     
+    【P0 优化】drawdown_position_cap 现在接收 obs，支持根据市场状态动态调整 cap。
+    在牛市中 effective_min_cap 提升， actor 即使选择最大 action 也可以达到更高仓位。
+    
     【注意】N_ACTIONS=11 意味着最小粒度为 10%，这既是量化交易中的手数约束，
     也起到了自然正则化作用，避免过度频繁的微调。
     """
     base = float(BASE_ACTION_LEVELS[int(np.clip(action, 0, N_ACTIONS - 1))])
     floor, cap = action_band_from_obs(obs)
     cumulative_drop = max(-float(np.nan_to_num(obs[STATIC_INDEX["cum_drop_30"]])), 0.0)
-    cap = min(cap, drawdown_position_cap(cumulative_drop, config=config))
+    cap = min(cap, drawdown_position_cap(cumulative_drop, obs=obs, config=config))
     return float(np.clip(floor + base * (cap - floor), 0.0, 1.0))
 
 
@@ -427,6 +446,7 @@ class ContinuousReward(Reward):
         trapped_loser = max(holding_age - 0.22, 0.0) * max(-avg_entry_pnl - 0.02, 0.0) * max(-high_gap - 0.03, 0.0)
 
         # === 核心收益项 ===
+        # === 核心收益项 ===
         reward = pnl_ret * 100.0 * cfg.return_scale
         
         # === 交易成本与换手率惩罚 ===
@@ -450,8 +470,15 @@ class ContinuousReward(Reward):
         reward -= trapped_loser * (18.0 + 6.0 * regime_risk)       # 长期套牢且从高点回落
         
         # === 低仓位惩罚（防止踏空）===
-        # 以下两段是现有的“抄底激励”：在超跌后如果仓位太低会扣分。
-        # 【优化建议】可以新增一段“追涨激励”：在强趋势中如果仓位<0.4 也扣分。
+        # P0 优化：新增"追涨激励"，在强趋势中如果仓位过低会扣分。
+        # 原有的超跌抄底激励保持不变。
+        if anchor_gap > cfg.opportunity_threshold_anchor and pos < cfg.opportunity_threshold_pos:
+            reward -= cfg.opportunity_cost_penalty
+        # 附加条件：短趋势也向上且波动不大，仓位仍偏低
+        trend_gap = float(state["obs"][STATIC_INDEX["trend_gap_21"]])
+        if (trend_gap > cfg.opportunity_threshold_trend and realized_vol < 0.45 
+                and pos < cfg.opportunity_threshold_pos + 0.10):
+            reward -= cfg.opportunity_cost_penalty * 0.50
         if anchor_gap > 0.02 and regime_risk < 0.45 and pos < 0.30:
             reward -= 0.12
         if cum_drop_30 < -0.18 and regime_risk < 0.80 and pos < 0.20:

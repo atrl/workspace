@@ -216,10 +216,8 @@ def save_results(results: Dict[str, Dict[str, object]]) -> None:
     axes[1].grid(alpha=0.3)
     axes[1].legend()
 
-    # VIX is stored under the first result's benchmark symbol in the qlib store.
-    # For the plotting purpose we pick the first result's symbol; VIX data is identical.
-    first_symbol = list(results.keys())[0] if results else "SOXL"
-    vix = D.features([first_symbol], ["$vix"], start_time=TEST_SEG[0], end_time=TEST_SEG[1]).xs(first_symbol, level="instrument")["$vix"]
+    # VIX 数据统一存储在 SOXL 的 qlib binary 中，无论结果 key 是什么都从这里读取。
+    vix = D.features(["SOXL"], ["$vix"], start_time=TEST_SEG[0], end_time=TEST_SEG[1]).xs("SOXL", level="instrument")["$vix"]
     axes[2].plot(vix.index, vix.values, color="black", lw=1.3, label="VIX")
     axes[2].axhline(25, color="orange", ls="--", alpha=0.5)
     axes[2].axhline(15, color="green", ls="--", alpha=0.5)

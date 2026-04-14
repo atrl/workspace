@@ -17,10 +17,21 @@ reward:
   smoothness_penalty: 0.03
   activity_bonus: 1.20
   inactivity_penalty: 0.72
+  # P0: 踏空惩罚（低仓位惩罚）
+  opportunity_cost_penalty: 0.10
+  opportunity_threshold_pos: 0.35
+  opportunity_threshold_anchor: 0.03
+  opportunity_threshold_trend: 0.01
 position_cap:
   start_drawdown: 0.10
   full_drawdown: 0.30
   min_cap: 0.40
+  # P0: 动态 cap（牛市放宽 / 熊市收紧）
+  bull_min_cap: 0.65
+  bull_vol_threshold: 0.40
+  bull_anchor_threshold: 0.01
+  bear_min_cap: 0.30
+  bear_regime_threshold: 0.65
 promotion_gate:
   max_test_2022_drawdown: 35.0
   max_test_2022_avg_pos: 0.35

@@ -81,6 +81,7 @@ def validation_score(metrics: Dict[str, float]) -> float:
     【优化提示】如果后续发现模型在 valid 上收益高但 test 上回撤大，
     可提高 max_dd 的惩罚系数，或改用 Sortino 替代 Sharpe。
     """
+    return float(metrics["return"] + metrics["sharpe"] * 20.0 - metrics["max_dd"] * 0.12)
 
 
 def slice_frame(df, seg: Tuple[str, str]):

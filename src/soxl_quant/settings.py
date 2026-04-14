@@ -36,6 +36,11 @@ class RewardConfig:
     smoothness_penalty: float
     activity_bonus: float
     inactivity_penalty: float
+    # 踏空惩罚：在强趋势中仓位过低时扣分（新增，默认值保持向后兼容）
+    opportunity_cost_penalty: float = 0.10
+    opportunity_threshold_pos: float = 0.35
+    opportunity_threshold_anchor: float = 0.03
+    opportunity_threshold_trend: float = 0.01
 
 
 @dataclass(frozen=True)
@@ -44,6 +49,12 @@ class PositionCapConfig:
     full_drawdown: float = 0.30
     min_cap: float = 0.40
     curve_power: float = 1.0
+    # 动态 cap：牛市放宽 / 熊市收紧（新增，默认值保持向后兼容）
+    bull_min_cap: float = 0.65
+    bull_vol_threshold: float = 0.40
+    bull_anchor_threshold: float = 0.01
+    bear_min_cap: float = 0.30
+    bear_regime_threshold: float = 0.65
 
 
 @dataclass(frozen=True)
