@@ -1,9 +1,21 @@
 from __future__ import annotations
 
-"""Training and evaluation entrypoint for the SOXL qlib-native package.
+"""SOXL qlib-native 包的训练与评估入口。
 
-This module owns model selection and experiment output. It should not grow
-broker-specific execution logic; live/paper execution belongs in runtime.
+本模块负责模型选择、实验输出和晋升门控（promotion gate）。
+它不应包含 broker 相关的执行逻辑；实盘/模拟盘执行在 runtime.py 中。
+
+【训练流程概览】
+  1. build_dataset() 构建 train / valid / test 三段数据
+  2. build_initial_states() 把长序列切成多个 episode
+  3. qlib_train() 调用 tianshou PPO 进行训练
+  4. evaluate_split() 在 valid 集上评估，保存最佳 checkpoint
+  5. backtest_profile() 在 test 集上跑官方 qlib 回测
+  6. 检查 promotion_gate，决定是否允许模型晋升到 semi-auto / live
+
+【优化提示】
+  - 当前 walk_forward 是硬编码的 3 个窗口（wf_2020, wf_2022, wf_2023_2024）。
+  - 做多资产训练时，需要在此扩展 initial_states 的生成逻辑，支持从多只 ETF 采样。
 """
 
 import argparse
@@ -50,6 +62,7 @@ warnings.filterwarnings("ignore")
 WalkForwardWindow = Tuple[str, Tuple[str, str], Tuple[str, str], Tuple[str, str]]
 
 WALK_FORWARD_WINDOWS: Tuple[WalkForwardWindow, ...] = (
+    # 格式：(窗口名, train, valid, test)
     ("wf_2020", ("2010-03-11", "2018-12-31"), ("2019-01-01", "2019-12-31"), ("2020-01-01", "2020-12-31")),
     ("wf_2022", ("2010-03-11", "2020-12-31"), ("2021-01-01", "2021-12-31"), ("2022-01-01", "2022-12-31")),
     ("wf_2023_2024", ("2010-03-11", "2022-12-31"), ("2023-01-01", "2023-12-31"), ("2024-01-01", "2024-12-31")),
@@ -59,8 +72,15 @@ WORKER_RESULT_DIR = ROOT / "runtime" / "soxl" / "wf_workers"
 
 
 def validation_score(metrics: Dict[str, float]) -> float:
-    """Single-number selector used for checkpoint comparison on validation."""
-    return float(metrics["return"] + metrics["sharpe"] * 20.0 - metrics["max_dd"] * 0.12)
+    """模型选择用的单一评分函数。
+
+    公式：return + sharpe * 20 - max_dd * 0.12
+    Sharpe 的权重很高（×20），说明我们更看重风险调整后收益；
+    回撤惩罚相对温和（×0.12），避免模型过度保守导致收益过低。
+    
+    【优化提示】如果后续发现模型在 valid 上收益高但 test 上回撤大，
+    可提高 max_dd 的惩罚系数，或改用 Sortino 替代 Sharpe。
+    """
 
 
 def slice_frame(df, seg: Tuple[str, str]):

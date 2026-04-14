@@ -64,3 +64,4 @@ soxl_qlib_strategy_v2_results.txt
 # Qlib generated data
 qlib_soxl_binary/features/
 .openclaw/
+data/generalization/*.csv

@@ -2,10 +2,21 @@ from __future__ import annotations
 
 """Daily SOXL reinforcement-learning environment and policy helpers.
 
-The critical design choice here is that the actor does not output raw share
-counts. It outputs a coarse discrete intent, which is then translated into a
-position band constrained by regime-aware floors/caps and a hard drawdown cap.
-That keeps risk control enforceable even when the policy drifts.
+【设计核心】actor 不直接输出股数，而是输出一个离散的“意图”，
+再由 action_to_position 将其映射到一个受市场状态约束的仓位区间。
+这个区间由两部分共同决定：
+  1) 动态 floor/cap（基于 regime_risk、anchor_gap、vol_coef 等）
+  2) 硬性的 drawdown cap（基于 cum_drop_30 和 PositionCapConfig）
+这样即使策略漂移，风险控制系统仍然可以把仓位强行压在安全范围内。
+
+【已知优化方向】
+  1. 踏空惩罚：当前模型在强趋势中仓位偏低（最大仅 0.59），需要加入
+     对低仓位的 opportunity-cost 惩罚。
+  2. 动态 cap：drawdown_position_cap 的 min_cap 目前是固定值 0.4，
+     未来可以改为根据 trend_strength / realized_vol 动态调整。
+  3. 多资产训练：当前只在 SOXL 上训练，泛化到 TQQQ/TECL 时跑输 B&H。
+  4. 网络升级：当前是两层 MLP，未来可替换为 LSTM/Transformer 以利用
+     60 天的 LOOKBACK 时序信息。
 """
 
 from dataclasses import dataclass
@@ -50,13 +61,15 @@ class EpisodeSummary:
 
 @dataclass
 class PositionLedger:
-    """Track entry context that is not visible in raw market features.
+    """持仓账本：记录买入成本、加仓价、最高水位等人工不可见的上下文。
 
-    These fields let the reward distinguish between:
-
-    - a fresh add into strength
-    - a stale flat position doing nothing
-    - a long-held losing position that should likely be de-risked
+    这些信息让 reward 能够区分以下三种情况：
+      - 强势中新建仓（fresh add）
+      - 长期空仓无所事事（stale flat）
+      - 长期套牢应该减仓（trapped loser）
+    
+    【优化提示】账本信息只在 EXTRA_OBS_DIM 的最后 4 维暴露给 actor，
+    如果后续想加入更复杂的持仓记忆（如分段成本、加仓次数），可在此扩展。
     """
 
     avg_entry_price: float = 0.0
@@ -109,7 +122,12 @@ class EpisodeConfig(NamedTuple):
 
 
 def rebalance_threshold(regime_risk: float, realized_vol: float, trend_strength: float) -> float:
-    """Suppress tiny churn when the market state does not justify a rebalance."""
+    """抑制无效调仓：只有当状态变化足够大时才允许换仓。
+
+    当前阈值 0.015 ~ 0.03，在低波动市场中偏激进。
+    【优化方向】如果后续想降低换手率，可把阈值整体提高 30% ~ 50%，
+    或加入“冷却期”机制（调仓后至少 N 天才能再次调仓）。
+    """
     threshold = 0.015
     if regime_risk < 0.35 and realized_vol < 0.45 and trend_strength < 0.04:
         threshold = 0.03
@@ -119,11 +137,19 @@ def rebalance_threshold(regime_risk: float, realized_vol: float, trend_strength:
 
 
 def action_band_from_obs(obs: np.ndarray) -> Tuple[float, float]:
-    """Map market regime features into a tradable position band.
+    """将市场状态映射为可交易的仓位区间 [floor, cap]。
 
-    The actor chooses where inside the band to sit. The band itself encodes the
-    hard prior that SOXL should keep some core exposure in healthy uptrends and
-    should compress its ceiling when risk or volatility becomes abnormal.
+    actor 只决定在该区间内的具体位置。区间本身编码了硬先验：
+      - 健康上升趋势中保持一定底仓（floor 提升）
+      - 高风险或高波动时压缩天花板（cap 降低）
+    
+    【优化方向 1】当前 cap 最高只到 1.0，但 drawdown_position_cap 会进一步压低。
+    在泛化测试中发现模型最大仓位仅 ~0.59，牛市踏空严重。
+    建议：当 anchor_gap>0、trend_support 强、realized_vol<0.4 时，
+    允许 cap 提升到 0.85 ~ 1.0，同时放松 drawdown cap。
+    
+    【优化方向 2】如果做多资产训练，需要把 ETF 的波动率画像作为额外输入，
+    让模型自动调整 floor/cap 的敏感度。
     """
     regime_risk = float(np.nan_to_num(obs[STATIC_INDEX["regime_risk"]]))
     anchor_gap = float(np.nan_to_num(obs[STATIC_INDEX["anchor_gap_180"]]))
@@ -152,7 +178,17 @@ def action_band_from_obs(obs: np.ndarray) -> Tuple[float, float]:
 
 
 def drawdown_position_cap(cumulative_drop: float, config: Optional[PositionCapConfig] = None) -> float:
-    """Hard cap that overrides the actor during persistent drawdown regimes."""
+    """硬性仓位上限：在持续回撤时强制压低仓位，防止死扛。
+
+    当前使用幂函数 (scale^curve_power) 进行 shaping：
+      - drop <= start_drawdown (默认 0.10) 时 cap = 1.0
+      - drop >= full_drawdown (默认 0.30) 时 cap = min_cap (默认 0.40)
+    
+    【优化方向】min_cap 目前是固定值。在牛市中可尝试动态放宽：
+      - 当 trend_gap_21>0 且 realized_vol<0.4 时，min_cap 提升到 0.60
+      - 当 regime_risk>0.65 时，min_cap 收紧到 0.30
+    这样可以在不同市场体制下获得更好的收益-回撤平衡。
+    """
     cfg = config or DEFAULT_POSITION_CAP
     drop = max(float(cumulative_drop), 0.0)
     if drop <= cfg.start_drawdown:
@@ -167,6 +203,14 @@ def drawdown_position_cap(cumulative_drop: float, config: Optional[PositionCapCo
 
 
 def action_to_position(action: int, obs: np.ndarray, config: Optional[PositionCapConfig] = None) -> float:
+    """将离散的 action（0~10）映射为连续仓位 [0, 1]。
+
+    映射公式：position = floor + base * (cap - floor)
+    其中 base = action / 10，cap 同时受 action_band 和 drawdown_position_cap 约束。
+    
+    【注意】N_ACTIONS=11 意味着最小粒度为 10%，这既是量化交易中的手数约束，
+    也起到了自然正则化作用，避免过度频繁的微调。
+    """
     base = float(BASE_ACTION_LEVELS[int(np.clip(action, 0, N_ACTIONS - 1))])
     floor, cap = action_band_from_obs(obs)
     cumulative_drop = max(-float(np.nan_to_num(obs[STATIC_INDEX["cum_drop_30"]])), 0.0)
@@ -180,6 +224,15 @@ def build_price_path(df: pd.DataFrame, base_price: float = 100.0) -> np.ndarray:
 
 
 class SoxlSimulator(Simulator):
+    """轻量级日内模拟器，用于 PPO 训练阶段快速 rollout。
+
+    与 heavyweight 的 qlib backtest 不同，这里只做最简单的数学模拟：
+      nav_{t+1} = nav_t * (1 + position_t * return_{t+1} - turnover * 0.001)
+    0.1% 的假设交易成本已经内嵌其中。
+    
+    【优化方向】当前模拟器没有考虑滑点、开盘缺口、涨停跌停等微观结构。
+    如果未来要上线实盘，需要在 qlib backtest 中做更严格的冲击成本测试。
+    """
     def __init__(self, initial: EpisodeConfig, **kwargs):
         super().__init__(initial, **kwargs)
         self.df = pd.read_pickle(initial.pkl_path).iloc[initial.start_idx : initial.end_idx].copy()
@@ -199,6 +252,16 @@ class SoxlSimulator(Simulator):
         self.ledger = PositionLedger()
 
     def step(self, action: float) -> None:
+        """执行一步模拟。
+
+        逻辑顺序：
+          1. 用 rebalance_threshold 过滤掉过小的调仓
+          2. 用次日收益计算净值变化（含 0.1% 换手成本）
+          3. 更新账本和内部状态
+        
+        【优化方向】当前成本假设为固定 0.1%。如果交易次数继续优化降低，
+        这个假设是偏保守的；但如果未来换手率上升，需要考虑滑点模型。
+        """
         action = float(np.clip(action, 0, 1))
         if self.idx >= len(self.df) - 1:
             return
@@ -226,6 +289,16 @@ class SoxlSimulator(Simulator):
         self.idx += 1
 
     def get_state(self):
+        """构造当前状态向量（observation）。
+
+        观测向量由三部分拼接而成（总维度 = nf + EXTRA_OBS_DIM = 48）：
+          1. 38 维 engineered market features（来自 data.py 的 FEATURE_COLUMNS）
+          2. 4 维 lookback 统计量：均值 return、偏度、下行波动、进度百分比
+          3. 6 维 portfolio 状态：当前仓位、水下幅度、ledger（age, avg_pnl, add_pnl, high_gap）
+        
+        【优化方向】当前只使用了 lb["return"].mean/skew，没有利用完整的 60 天时序。
+        如果要升级网络为 LSTM，可在此返回 (60, nf) 的序列矩阵，而非展平向量。
+        """
         if self.idx >= len(self.df):
             obs = np.zeros(self.nf + EXTRA_OBS_DIM, dtype=np.float32)
             return {
@@ -307,17 +380,28 @@ class PositionAction(ActionInterpreter):
 
 
 class ContinuousReward(Reward):
+    """连续型奖励函数：评估交易质量，而不仅是收益率。
+
+    设计原则是有意不对称的：
+      - 在健康趋势中，允许一定程度的受控回撤
+      - 但对长期空仓无所事事（stale inactivity）和长期套牢仓位惩罚更重
+    
+    【泛化测试发现的问题】
+      1. 牛市踏空：TQQQ/TECL 在 2020-2021、2023-2024 大涨中仓位偏低，
+         当前 reward 对低仓位没有足够惩罚。
+      2. 换手率偏高：SOXL 训练出 578 次交易，成本侵蚀收益。
+    
+    【建议优化】
+      - 加入 opportunity_cost_penalty：当 anchor_gap>0.03 且 pos<0.30 时扣分
+      - 提高 turnover_penalty / smoothness_penalty 权重以降低交易频率
+      - 根据 ETF 品种动态调整 risk_budget_penalty（科技股容忍度 vs 宽基指数）
+    """
     def __init__(self, profile: StrategyConfig):
         super().__init__()
         self.profile = profile
 
     def reward(self, state):
-        """Reward trade quality, not just raw return.
-
-        The reward is intentionally asymmetric: it tolerates controlled pullback
-        in healthy trend regimes, but it punishes stale inactivity and long-held
-        losing exposure much more aggressively.
-        """
+        """计算单步奖励。"""
         cfg = self.profile.reward
         pos = float(state["pos"])
         prev_val = float(state["pval"])
@@ -342,22 +426,38 @@ class ContinuousReward(Reward):
         stale_position = max(holding_age - 0.30, 0.0) * max(0.025 - abs(avg_entry_pnl), 0.0)
         trapped_loser = max(holding_age - 0.22, 0.0) * max(-avg_entry_pnl - 0.02, 0.0) * max(-high_gap - 0.03, 0.0)
 
+        # === 核心收益项 ===
         reward = pnl_ret * 100.0 * cfg.return_scale
-        reward -= turnover * cfg.transaction_cost * 100.0
-        reward -= turnover * cfg.turnover_penalty
-        reward -= excess_drawdown * cfg.drawdown_penalty
-        reward -= downside_signal * cfg.downside_penalty
-        reward -= max(pos - (1.0 - 0.65 * regime_risk), 0.0) * cfg.risk_budget_penalty
-        reward -= max(pos - 0.85, 0.0) * cfg.high_exposure_penalty
-        reward -= (turnover**2) * cfg.smoothness_penalty
-        reward += min(turnover, 0.30) * min(activity_signal, 2.2) * cfg.activity_bonus
+        
+        # === 交易成本与换手率惩罚 ===
+        reward -= turnover * cfg.transaction_cost * 100.0          # 直接交易成本
+        reward -= turnover * cfg.turnover_penalty                  # 额外换手惩罚
+        reward -= (turnover**2) * cfg.smoothness_penalty           # 鼓励平滑、减少日内反复
+        reward += min(turnover, 0.30) * min(activity_signal, 2.2) * cfg.activity_bonus  # 但完全不动也不行
+        
+        # === 回撤与下行风险控制 ===
+        reward -= excess_drawdown * cfg.drawdown_penalty           # 超过容忍度的回撤重罚
+        reward -= downside_signal * cfg.downside_penalty           # 高下行波动环境惩罚
+        reward -= max(pos - (1.0 - 0.65 * regime_risk), 0.0) * cfg.risk_budget_penalty    # 风险预算超支
+        reward -= max(pos - 0.85, 0.0) * cfg.high_exposure_penalty # 硬性的高仓位惩罚
+        
+        # === 趋势保护奖励 ===
+        # 在健康趋势中，即使有小回撤，只要不超过容忍度且仓位不过低，给予微弱正奖励
         reward += min(drawdown, tolerated_drawdown) * min(pos, 0.80) * min(trend_support * 2.5, 0.18)
-        reward -= stale_position * (6.0 + 4.0 * activity_signal)
-        reward -= trapped_loser * (18.0 + 6.0 * regime_risk)
+        
+        # === 持仓质量惩罚 ===
+        reward -= stale_position * (6.0 + 4.0 * activity_signal)   # 长期空仓且在震荡中无所事事
+        reward -= trapped_loser * (18.0 + 6.0 * regime_risk)       # 长期套牢且从高点回落
+        
+        # === 低仓位惩罚（防止踏空）===
+        # 以下两段是现有的“抄底激励”：在超跌后如果仓位太低会扣分。
+        # 【优化建议】可以新增一段“追涨激励”：在强趋势中如果仓位<0.4 也扣分。
         if anchor_gap > 0.02 and regime_risk < 0.45 and pos < 0.30:
             reward -= 0.12
         if cum_drop_30 < -0.18 and regime_risk < 0.80 and pos < 0.20:
             reward -= 0.10
+        
+        # === 不活跃惩罚 ===
         if flat_steps >= 4:
             flat_drag = min((flat_steps - 3.0) / 6.0, 1.6)
             reward -= flat_drag * (0.20 + activity_signal * 0.9) * cfg.inactivity_penalty
@@ -365,15 +465,19 @@ class ContinuousReward(Reward):
             reward -= min(flat_steps / 8.0, 1.5) * cfg.inactivity_penalty
         if holding_age >= 0.35 and turnover < 0.02 and abs(avg_entry_pnl) < 0.02:
             reward -= (0.16 + holding_age * 0.14) * cfg.inactivity_penalty
+        
         return float(reward)
 
 
 def build_initial_states(pkl_path: Path, df: pd.DataFrame, profile: StrategyConfig, smoke: bool) -> List[EpisodeConfig]:
-    """Create episode start/end pairs with mild stress oversampling.
+    """生成训练用的 episode 起止点，并对高压力区间做过采样。
 
-    Oversampling is based only on state visible inside the training window. That
-    preserves the repo's non-leak rule while still exposing the policy to more
-    stressful paths than naive uniform sampling would.
+    过采样只基于训练窗口内部可见的状态（regime_risk、cum_drop_30），
+    不偷看未来标签，符合仓库的 non-leak 规则。
+    
+    【优化方向】当前只在单只 ETF（SOXL）上切 episode。
+    做多资产训练时，可以从多只 ETF 的 DataFrame 中轮流/随机采样 start_idx，
+    并在 EpisodeConfig 中携带 instrument 标识，实现跨品种训练。
     """
     episode_len = profile.episode_len
     frame_count = len(df) // episode_len

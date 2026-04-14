@@ -1,12 +1,22 @@
 from __future__ import annotations
 
-"""Official qlib backtest integration for a trained SOXL actor.
+"""基于 qlib 官方回测引擎的策略评估模块。
 
-This module is intentionally narrower than runtime: it exists to measure the
-policy under qlib's simulator, not to become a production execution engine.
+本模块故意保持精简：它的唯一目的是在 qlib 的仿真器下测量策略表现，
+而不是变成一个生产级执行引擎。生产执行逻辑在 runtime.py 中。
+
+【与训练模拟器的区别】
+  - 训练模拟器（SoxlSimulator）是轻量数学模拟，假设 0.1% 固定成本
+  - qlib backtest 更接近真实交易：支持开盘价/收盘价成交、最小佣金、
+    涨跌停处理、账户资金实时结算等
+  - 两者的 action→position 转换逻辑完全一致，保证训练与评估对齐
+
+【优化提示】
+  - 当前 benchmark 设为目标 ETF 本身，可直观对比策略 vs Buy&Hold。
+  - 若未来做模型集成（Ensemble），可在此新增 EnsembleRLStrategy。
 """
 
-from typing import Dict, List
+from typing import Dict, List, Tuple
 
 import matplotlib.dates as mdates
 import matplotlib.pyplot as plt
@@ -25,31 +35,41 @@ from .settings import ACCOUNT, LOOKBACK, PositionCapConfig, RESULT_PNG, RESULT_T
 
 
 class RLStrategy(BaseStrategy):
+    """qlib 策略包装器：把训练好的 actor 接入官方回测引擎。"""
     def __init__(
         self,
         actor: Actor,
         feature_df: pd.DataFrame,
         price_series: pd.Series,
         position_cap_config: PositionCapConfig,
+        symbol: str = "SOXL",
         **kwargs,
     ):
         super().__init__(**kwargs)
-        self.actor = actor
-        self.df = feature_df
-        self.price_series = price_series
+        self.actor = actor          # 训练好的 PPO actor
+        self.df = feature_df        # 测试集特征矩阵
+        self.price_series = price_series  # 对齐的价格序列
         self.position_cap_config = position_cap_config
-        self.last_step = -10
-        self.trades = 0
-        self.position_history: List[float] = []
-        self.ledger = PositionLedger()
+        self.symbol = symbol        # 当前交易的 ETF 代码
+        self.last_step = -10        # 冷却期计数，避免连续过度交易
+        self.trades = 0             # 总成交次数统计
+        self.position_history: List[float] = []  # 每日仓位记录，用于画图
+        self.ledger = PositionLedger()           # 持仓账本，与训练时一致
         self.peak_account_value = ACCOUNT
         self.price_path = self.price_series.reindex(self.df.index).ffill().bfill().to_numpy(dtype=np.float32)
 
     def generate_trade_decision(self, execute_result=None):
-        """Convert the actor's target weight into qlib orders.
+        """把 actor 的目标仓位转换为 qlib 的买卖订单。
 
-        The same action-to-position logic used by runtime is reused here so
-        backtest, replay, and eventual live execution stay aligned.
+        这里的 action→position→orders 链路与 runtime/live 执行完全一致，
+        确保 backtest、replay、实盘三端对齐。
+        
+        交易规则：
+          1. 用 make_observation 构造 48 维观测向量
+          2. actor 输出离散 action（0~10）
+          3. action_to_position 映射为连续仓位 [floor, cap]
+          4. 若仓位变化 > min_rebalance 且不在冷却期，则生成目标股数订单
+          5. 目标股数按 100 股取整（模拟最小交易单位）
         """
         step = self.trade_calendar.get_trade_step()
         if step >= self.trade_calendar.get_trade_len() - 2:
@@ -64,7 +84,7 @@ class RLStrategy(BaseStrategy):
 
         position = self.trade_position
         cash = position.get_cash()
-        shares = position.get_stock_amount("SOXL") if position.check_stock("SOXL") else 0
+        shares = position.get_stock_amount(self.symbol) if position.check_stock(self.symbol) else 0
         price = float(self.price_series.loc[trade_date])
         account_value = cash + shares * price
         self.peak_account_value = max(self.peak_account_value, account_value)
@@ -88,13 +108,14 @@ class RLStrategy(BaseStrategy):
             self.position_history.append(current_pos)
             return TradeDecisionWO([], self)
 
+        # 目标股数按手（100股）取整，模拟真实交易单位
         target_shares = int(account_value * target_pos / price / 100) * 100
         delta = target_shares - int(shares)
         orders = []
         if delta >= 100:
-            orders.append(Order("SOXL", delta, Order.BUY, trade_date, next_date))
+            orders.append(Order(self.symbol, delta, Order.BUY, trade_date, next_date))
         elif delta <= -100:
-            orders.append(Order("SOXL", abs(delta), Order.SELL, trade_date, next_date))
+            orders.append(Order(self.symbol, abs(delta), Order.SELL, trade_date, next_date))
         if orders:
             self.last_step = step
             self.trades += 1
@@ -108,21 +129,31 @@ def backtest_profile(
     feature_df: pd.DataFrame,
     price_series: pd.Series,
     position_cap_config: PositionCapConfig,
+    symbol: str = "SOXL",
+    test_seg: Tuple[str, str] = TEST_SEG,
 ) -> Dict[str, object]:
-    """Run the heavyweight qlib backtest used for reported headline metrics."""
+    """运行重量级 qlib 官方回测，产出 headline 指标（return / sharpe / max_dd）。
+
+    参数 test_seg 默认 ("2020-01-01", "2026-03-31")，这是仓库统一使用的
+    测试窗口，所有模型对比都应基于该窗口，避免 cherry-picking。
+    
+    成本假设：open_cost=0.001, close_cost=0.001, min_cost=5
+    这意味着单边交易成本 0.1%，且有最低 $5 佣金。
+    """
     strategy = RLStrategy(
         actor=actor,
         feature_df=feature_df,
         price_series=price_series,
         position_cap_config=position_cap_config,
+        symbol=symbol,
     )
     portfolio_metric, indicator_metric = qlib_backtest(
-        start_time=TEST_SEG[0],
-        end_time=TEST_SEG[1],
+        start_time=test_seg[0],
+        end_time=test_seg[1],
         strategy=strategy,
         executor=SimulatorExecutor(time_per_step="day", generate_portfolio_metrics=True),
         account=ACCOUNT,
-        benchmark="SOXL",
+        benchmark=symbol,
         exchange_kwargs=dict(freq="day", deal_price="close", open_cost=0.001, close_cost=0.001, min_cost=5),
     )
     pdf = portfolio_metric.get("1day", portfolio_metric)
@@ -185,7 +216,10 @@ def save_results(results: Dict[str, Dict[str, object]]) -> None:
     axes[1].grid(alpha=0.3)
     axes[1].legend()
 
-    vix = D.features(["SOXL"], ["$vix"], start_time=TEST_SEG[0], end_time=TEST_SEG[1]).xs("SOXL", level="instrument")["$vix"]
+    # VIX is stored under the first result's benchmark symbol in the qlib store.
+    # For the plotting purpose we pick the first result's symbol; VIX data is identical.
+    first_symbol = list(results.keys())[0] if results else "SOXL"
+    vix = D.features([first_symbol], ["$vix"], start_time=TEST_SEG[0], end_time=TEST_SEG[1]).xs(first_symbol, level="instrument")["$vix"]
     axes[2].plot(vix.index, vix.values, color="black", lw=1.3, label="VIX")
     axes[2].axhline(25, color="orange", ls="--", alpha=0.5)
     axes[2].axhline(15, color="green", ls="--", alpha=0.5)

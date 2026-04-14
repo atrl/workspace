@@ -1,14 +1,16 @@
 from __future__ import annotations
 
-"""SOXL/SOXX/VIX feature engineering for the daily RL harness.
+"""SOXL/SOXX/VIX 特征工程模块。
 
-The design intentionally splits features into two groups:
+设计上有意把特征分成两类：
+  1. qlib-native 的滚动特征：直接从二进制存储中读取（$close, Mean($close,21) 等）
+  2. pandas 手工构建的跨序列/体制特征：更容易维护和解释
 
-- qlib-native rolling features that can be read directly from the binary store
-- pandas-engineered cross-series/regime features that are easier to maintain
+这样数据源保持透明，避免把跨品种逻辑藏在晦涩的 qlib expression 里。
 
-This keeps the data source explicit and avoids hiding cross-instrument logic in
-opaque expressions.
+【泛化优化提示】
+  - 当前 hardcode 了 SOXL/SOXX 的列名映射，已通过参数化支持任意 ETF。
+  - 后续做多资产训练时，建议增加 instrument_id 和品种波动率画像特征。
 """
 
 from pathlib import Path
@@ -74,8 +76,25 @@ def _write_qlib_bin(path: Path, values: np.ndarray) -> None:
         binary.tofile(f)
 
 
-def refresh_qlib_binary(csv_path: Path, qlib_dir: Path) -> pd.DataFrame:
-    """Refresh the minimal qlib binary store used by the SOXL package."""
+def refresh_qlib_binary(
+    csv_path: Path,
+    qlib_dir: Path,
+    leveraged_etf: str = "SOXL",
+    underlying_etf: str = "SOXX",
+    leverage_ratio: float = 3.0,
+) -> pd.DataFrame:
+    """刷新最小化的 qlib 二进制存储。
+
+    这是整个数据管道的入口：读取 CSV → 生成 calendar/instruments/features → 写入 qlib_dir。
+    生成的目录结构满足 qlib 的 FileStorage 要求，训练、回测、运行时都从这里读数。
+    
+    【参数说明】
+      leveraged_etf  : 杠杆 ETF 代码（如 SOXL、TQQQ）
+      underlying_etf : 底层指数 ETF 代码（如 SOXX、QQQ）
+      leverage_ratio : 杠杆倍数（默认 3.0），用于后续 tracking_error 计算
+    
+    【优化提示】当前每次调用都会重写整个 qlib_dir。若数据量变大，可改为增量更新。
+    """
     df = pd.read_csv(csv_path, parse_dates=["date"]).sort_values("date").set_index("date")
     qlib_dir.mkdir(parents=True, exist_ok=True)
     (qlib_dir / "calendars").mkdir(exist_ok=True)
@@ -85,24 +104,26 @@ def refresh_qlib_binary(csv_path: Path, qlib_dir: Path) -> pd.DataFrame:
 
     start = calendar[0]
     end = calendar[-1]
-    instruments = f"SOXL\t{start}\t{end}\nSOXX\t{start}\t{end}\n"
+    instruments = f"{leveraged_etf}\t{start}\t{end}\n{underlying_etf}\t{start}\t{end}\n"
     (qlib_dir / "instruments/all.txt").write_text(instruments, encoding="utf-8")
 
+    lev_lower = leveraged_etf.lower()
+    und_lower = underlying_etf.lower()
     for inst, mapping in {
-        "SOXL": {
-            "open": "soxl_open",
-            "high": "soxl_high",
-            "low": "soxl_low",
-            "close": "soxl_close",
-            "volume": "soxl_volume",
+        leveraged_etf: {
+            "open": f"{lev_lower}_open",
+            "high": f"{lev_lower}_high",
+            "low": f"{lev_lower}_low",
+            "close": f"{lev_lower}_close",
+            "volume": f"{lev_lower}_volume",
             "vix": "vix",
         },
-        "SOXX": {
-            "open": "soxx_open",
-            "high": "soxx_high",
-            "low": "soxx_low",
-            "close": "soxx_close",
-            "volume": "soxx_volume",
+        underlying_etf: {
+            "open": f"{und_lower}_open",
+            "high": f"{und_lower}_high",
+            "low": f"{und_lower}_low",
+            "close": f"{und_lower}_close",
+            "volume": f"{und_lower}_volume",
         },
     }.items():
         for field_name, col_name in mapping.items():
@@ -134,8 +155,14 @@ def init_qlib(provider_uri: Path) -> None:
         qlib.init(provider_uri=str(provider_uri))
 
 
-def build_market_frame(start_time: str, end_time: str) -> Tuple[pd.DataFrame, pd.DataFrame]:
-    soxl_fields = [
+def build_market_frame(
+    start_time: str,
+    end_time: str,
+    leveraged_etf: str = "SOXL",
+    underlying_etf: str = "SOXX",
+) -> Tuple[pd.DataFrame, pd.DataFrame]:
+    """从 qlib 存储中读取指定时间窗口的原始行情数据。"""
+    lev_fields = [
         "$close",
         "$open",
         "$high",
@@ -153,7 +180,7 @@ def build_market_frame(start_time: str, end_time: str) -> Tuple[pd.DataFrame, pd
         "Std($close / Ref($close, 1) - 1, 63)",
         "Mean($volume, 21)",
     ]
-    soxx_fields = [
+    und_fields = [
         "$close",
         "$open",
         "$high",
@@ -162,9 +189,9 @@ def build_market_frame(start_time: str, end_time: str) -> Tuple[pd.DataFrame, pd
         "Ref($close, 5)",
         "Ref($close, 21)",
     ]
-    soxl = D.features(["SOXL"], soxl_fields, start_time=start_time, end_time=end_time).xs("SOXL", level="instrument")
-    soxx = D.features(["SOXX"], soxx_fields, start_time=start_time, end_time=end_time).xs("SOXX", level="instrument")
-    return soxl, soxx
+    lev = D.features([leveraged_etf], lev_fields, start_time=start_time, end_time=end_time).xs(leveraged_etf, level="instrument")
+    und = D.features([underlying_etf], und_fields, start_time=start_time, end_time=end_time).xs(underlying_etf, level="instrument")
+    return lev, und
 
 
 def _rolling_percentile(series: pd.Series, window: int) -> pd.Series:
@@ -180,40 +207,52 @@ def _streaks(mask: pd.Series) -> pd.Series:
     return pd.Series(out, index=mask.index, dtype=float)
 
 
-def engineer_feature_frame(soxl: pd.DataFrame, soxx: pd.DataFrame) -> Tuple[pd.DataFrame, pd.Series]:
-    """Build the regime-aware feature frame consumed by training and runtime.
+def engineer_feature_frame(
+    lev: pd.DataFrame,
+    und: pd.DataFrame,
+    leverage_ratio: float = 3.0,
+    leveraged_etf: str = "SOXL",
+) -> Tuple[pd.DataFrame, pd.Series]:
+    """构建体制感知（regime-aware）特征矩阵，供训练、回测、运行时使用。
 
-    The feature set emphasizes LETF-specific path dependency:
-
-    - long-trend anchor state
-    - persistent drawdown / downside pressure
-    - SOXL vs SOXX tracking error and decay
-    - VIX-derived stress context
+    特征设计围绕 LETF（杠杆 ETF）的路径依赖性：
+      - 长期趋势锚定状态（anchor_gap_180, anchor_slope_180）
+      - 持续回撤与下行压力（drawdown_63, downside_ratio_21, loss_streak_21）
+      - LETF vs 底层指数的 tracking error 和 decay（tracking_error_21, decay_63）
+      - VIX 驱动的压力环境（vix_level, vix_zscore, vix_percentile_252）
+    
+    【优化提示】
+      1. 当前 tracking_error 假设 leverage_ratio 固定（如 3.0）。
+         若未来测试 2x ETF（如 TQQQ 的同类 SSO），需确保传入正确杠杆倍数。
+      2. 做多资产训练时，建议在此加入品种画像特征：
+         - median_vol_252（该 ETF 的年化波动中位数）
+         - beta_to_spy（对 SPY 的 63 天滚动 beta）
+         - sector_id（半导体/科技/宽基）
     """
-    close = soxl["$close"].astype(float)
-    high = soxl["$high"].astype(float)
-    low = soxl["$low"].astype(float)
-    volume = soxl["$volume"].astype(float)
-    vix = soxl["$vix"].astype(float)
-    soxx_close = soxx["$close"].astype(float)
+    close = lev["$close"].astype(float)
+    high = lev["$high"].astype(float)
+    low = lev["$low"].astype(float)
+    volume = lev["$volume"].astype(float)
+    vix = lev["$vix"].astype(float)
+    und_close = und["$close"].astype(float)
 
-    soxl_ret = close.pct_change()
-    soxx_ret = soxx_close.pct_change()
+    lev_ret = close.pct_change()
+    und_ret = und_close.pct_change()
 
-    ma5 = soxl["Mean($close, 5)"].astype(float)
-    ma21 = soxl["Mean($close, 21)"].astype(float)
-    ma63 = soxl["Mean($close, 63)"].astype(float)
-    ma180 = soxl["Mean($close, 180)"].astype(float)
-    volume_ma21 = soxl["Mean($volume, 21)"].astype(float)
+    ma5 = lev["Mean($close, 5)"].astype(float)
+    ma21 = lev["Mean($close, 21)"].astype(float)
+    ma63 = lev["Mean($close, 63)"].astype(float)
+    ma180 = lev["Mean($close, 180)"].astype(float)
+    volume_ma21 = lev["Mean($volume, 21)"].astype(float)
 
     delta = close.diff()
     gain = delta.where(delta > 0, 0.0).rolling(14).mean()
     loss = (-delta.where(delta < 0, 0.0)).rolling(14).mean().clip(lower=1e-8)
     rsi = 100 - 100 / (1 + gain / loss)
 
-    realized_vol_10 = soxl["Std($close / Ref($close, 1) - 1, 10)"].astype(float) * np.sqrt(252)
-    realized_vol_21 = soxl["Std($close / Ref($close, 1) - 1, 21)"].astype(float) * np.sqrt(252)
-    realized_vol_63 = soxl["Std($close / Ref($close, 1) - 1, 63)"].astype(float) * np.sqrt(252)
+    realized_vol_10 = lev["Std($close / Ref($close, 1) - 1, 10)"].astype(float) * np.sqrt(252)
+    realized_vol_21 = lev["Std($close / Ref($close, 1) - 1, 21)"].astype(float) * np.sqrt(252)
+    realized_vol_63 = lev["Std($close / Ref($close, 1) - 1, 63)"].astype(float) * np.sqrt(252)
     vol_of_vol_21 = realized_vol_21.rolling(21).std()
 
     rolling_high_21 = close.rolling(21).max()
@@ -226,22 +265,22 @@ def engineer_feature_frame(soxl: pd.DataFrame, soxx: pd.DataFrame) -> Tuple[pd.D
     days_since_high_63 = close.rolling(63).apply(lambda x: len(x) - 1 - int(np.argmax(x)), raw=True) / 63.0
     below_anchor_ratio_63 = (close < ma180).rolling(63).mean()
     new_low_ratio_21 = (close <= close.rolling(21).min()).rolling(21).mean()
-    downside_ratio_10 = (soxl_ret < 0).rolling(10).mean()
-    downside_ratio_21 = (soxl_ret < 0).rolling(21).mean()
-    downside_semivol_21 = soxl_ret.where(soxl_ret < 0, 0.0).pow(2).rolling(21).mean().pow(0.5) * np.sqrt(252)
-    loss_streak_21 = _streaks(soxl_ret < 0).clip(upper=21) / 21.0
+    downside_ratio_10 = (lev_ret < 0).rolling(10).mean()
+    downside_ratio_21 = (lev_ret < 0).rolling(21).mean()
+    downside_semivol_21 = lev_ret.where(lev_ret < 0, 0.0).pow(2).rolling(21).mean().pow(0.5) * np.sqrt(252)
+    loss_streak_21 = _streaks(lev_ret < 0).clip(upper=21) / 21.0
     vol_coef_21 = realized_vol_21 / (realized_vol_21.rolling(252).median() + 1e-8)
 
     vix_zscore = (vix - vix.rolling(252).mean()) / (vix.rolling(252).std() + 1e-8)
     vix_percentile_252 = _rolling_percentile(vix, 252)
     vix_momentum_10 = vix.pct_change(10)
 
-    tracking_error = soxl_ret - 3.0 * soxx_ret
+    tracking_error = lev_ret - leverage_ratio * und_ret
     tracking_error_5 = tracking_error.rolling(5).mean()
     tracking_error_21 = tracking_error.rolling(21).mean()
     tracking_error_vol_21 = tracking_error.rolling(21).std()
-    decay_63 = (soxl_ret.rolling(63).sum() - 3.0 * soxx_ret.rolling(63).sum())
-    relative_strength_21 = soxl_ret.rolling(21).sum() - soxx_ret.rolling(21).sum()
+    decay_63 = (lev_ret.rolling(63).sum() - leverage_ratio * und_ret.rolling(63).sum())
+    relative_strength_21 = lev_ret.rolling(21).sum() - und_ret.rolling(21).sum()
 
     trend_gap_21 = ma5 / ma21 - 1.0
     trend_gap_63 = ma21 / ma63 - 1.0
@@ -251,8 +290,8 @@ def engineer_feature_frame(soxl: pd.DataFrame, soxx: pd.DataFrame) -> Tuple[pd.D
     anchor_slope_180 = ma180 / ma180.shift(21) - 1.0
     intraday_range = (high - low) / close
     volume_shock = volume / volume_ma21 - 1.0
-    mom_21 = soxl_ret.rolling(21).sum()
-    mom_63 = soxl_ret.rolling(63).sum()
+    mom_21 = lev_ret.rolling(21).sum()
+    mom_63 = lev_ret.rolling(63).sum()
 
     regime_risk = (
         0.22 * vix_percentile_252.fillna(0.0)
@@ -266,7 +305,7 @@ def engineer_feature_frame(soxl: pd.DataFrame, soxx: pd.DataFrame) -> Tuple[pd.D
 
     feature_df = pd.DataFrame(
         {
-            "return": soxl_ret,
+            "return": lev_ret,
             "anchor_gap_180": anchor_gap_180,
             "anchor_slope_180": anchor_slope_180,
             "trend_gap_21": trend_gap_21,
@@ -313,7 +352,7 @@ def engineer_feature_frame(soxl: pd.DataFrame, soxx: pd.DataFrame) -> Tuple[pd.D
     feature_df = feature_df[FEATURE_COLUMNS]
     feature_df.index.name = "datetime"
     multi_index = pd.MultiIndex.from_arrays(
-        [feature_df.index, np.repeat("SOXL", len(feature_df))],
+        [feature_df.index, np.repeat(leveraged_etf, len(feature_df))],
         names=["datetime", "instrument"],
     )
     feature_df.index = multi_index
@@ -321,21 +360,40 @@ def engineer_feature_frame(soxl: pd.DataFrame, soxx: pd.DataFrame) -> Tuple[pd.D
     return feature_df, price
 
 
-def build_feature_frame(start_time: str, end_time: str) -> Tuple[pd.DataFrame, pd.Series]:
-    soxl, soxx = build_market_frame(start_time, end_time)
-    return engineer_feature_frame(soxl, soxx)
+def build_feature_frame(
+    start_time: str,
+    end_time: str,
+    leveraged_etf: str = "SOXL",
+    underlying_etf: str = "SOXX",
+    leverage_ratio: float = 3.0,
+) -> Tuple[pd.DataFrame, pd.Series]:
+    lev, und = build_market_frame(start_time, end_time, leveraged_etf=leveraged_etf, underlying_etf=underlying_etf)
+    return engineer_feature_frame(lev, und, leverage_ratio=leverage_ratio, leveraged_etf=leveraged_etf)
 
 
 class SoxlDataHandler(DataHandlerLP):
-    def __init__(self, start_time: str, end_time: str):
+    def __init__(
+        self,
+        start_time: str,
+        end_time: str,
+        leveraged_etf: str = "SOXL",
+        underlying_etf: str = "SOXX",
+        leverage_ratio: float = 3.0,
+    ):
         # Keep both the feature frame and aligned price frame so training,
         # backtest, and runtime all read from the same daily source of truth.
-        feature_df, price = build_feature_frame(start_time, end_time)
+        feature_df, price = build_feature_frame(
+            start_time,
+            end_time,
+            leveraged_etf=leveraged_etf,
+            underlying_etf=underlying_etf,
+            leverage_ratio=leverage_ratio,
+        )
         self.price_frame = price.to_frame("price")
         self.feature_frame = feature_df
         loader_df = pd.concat({"feature": feature_df}, axis=1)
         super().__init__(
-            instruments=["SOXL"],
+            instruments=[leveraged_etf],
             start_time=start_time,
             end_time=end_time,
             data_loader=StaticDataLoader(loader_df),
@@ -347,10 +405,32 @@ class SoxlDataHandler(DataHandlerLP):
         )
 
 
-def build_dataset() -> DatasetH:
+def build_dataset(
+    leveraged_etf: str = "SOXL",
+    underlying_etf: str = "SOXX",
+    leverage_ratio: float = 3.0,
+    train_seg: Tuple[str, str] = TRAIN_SEG,
+    valid_seg: Tuple[str, str] = VALID_SEG,
+    test_seg: Tuple[str, str] = TEST_SEG,
+) -> DatasetH:
+    """构建 qlib DatasetH，划分 train / valid / test 三段。
+
+    【数据切分策略】
+      train: 2010-03-11 ~ 2018-12-31（约 9 年，策略学习期）
+      valid: 2019-01-01 ~ 2019-12-31（1 年，模型选择期）
+      test : 2020-01-01 ~ 2026-03-31（6+ 年，最终评估期）
+    
+    这是仓库的硬性规则，不要直接用 2022 数据做训练，否则会造成数据泄漏。
+    """
     return DatasetH(
-        handler=SoxlDataHandler(start_time=TRAIN_SEG[0], end_time=TEST_SEG[1]),
-        segments={"train": TRAIN_SEG, "valid": VALID_SEG, "test": TEST_SEG},
+        handler=SoxlDataHandler(
+            start_time=train_seg[0],
+            end_time=test_seg[1],
+            leveraged_etf=leveraged_etf,
+            underlying_etf=underlying_etf,
+            leverage_ratio=leverage_ratio,
+        ),
+        segments={"train": train_seg, "valid": valid_seg, "test": test_seg},
         fetch_kwargs={"level": "datetime"},
     )
 
