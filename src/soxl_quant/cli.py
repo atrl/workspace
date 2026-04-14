@@ -630,3 +630,6 @@ def main() -> None:
         if promotion:
             status = "eligible" if promotion.get("eligible") else "blocked"
             print(f"    promotion: {status}")
+
+if __name__ == "__main__":
+    main()
