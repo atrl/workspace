@@ -50,6 +50,11 @@ class RewardConfig:
     opportunity_threshold_pos: float = 0.35
     opportunity_threshold_anchor: float = 0.03
     opportunity_threshold_trend: float = 0.01
+    # PBRS 与动态 activity bonus（新增，默认值保持向后兼容）
+    pbrs_coef: float = 0.0
+    gated_activity_bonus: bool = False
+    activity_gate_vol_threshold: float = 0.55
+    activity_gate_regime_delta_threshold: float = 0.08
 
 
 @dataclass(frozen=True)

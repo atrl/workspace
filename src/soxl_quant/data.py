@@ -65,6 +65,13 @@ FEATURE_COLUMNS: List[str] = [
     "decay_63",
     "relative_strength_21",
     "regime_risk",
+    # VIX-free extensions (arXiv-inspired stress proxies)
+    "rsi_6",
+    "realized_kurtosis_21",
+    "jump_variation_5",
+    "vol_stress_score",
+    "regime_risk_no_vix",
+    "relative_volume_zscore",
 ]
 STATIC_INDEX = {name: idx for idx, name in enumerate(FEATURE_COLUMNS)}
 
@@ -293,6 +300,50 @@ def engineer_feature_frame(
     mom_21 = lev_ret.rolling(21).sum()
     mom_63 = lev_ret.rolling(63).sum()
 
+    # --- VIX-free stress proxies (ported from soxl_backtest/ + arXiv research) ---
+    # RSI6 fast-reversion gauge
+    delta6 = close.diff()
+    gain6 = delta6.where(delta6 > 0, 0.0).ewm(span=6, adjust=False).mean()
+    loss6 = (-delta6.where(delta6 < 0, 0.0)).ewm(span=6, adjust=False).mean().clip(lower=1e-8)
+    rsi_6 = 100 - 100 / (1 + gain6 / loss6)
+
+    # Realized kurtosis (tail-risk proxy, arXiv 2510.03236)
+    realized_kurtosis_21 = lev_ret.rolling(21).kurt().fillna(0.0)
+
+    # Jump variation: sum of squared returns on days where |return| > 3 * rolling_std
+    rolling_std_21 = lev_ret.rolling(21).std().fillna(lev_ret.std())
+    jump_mask = abs(lev_ret) > 3 * rolling_std_21
+    jump_variation_5 = (lev_ret.where(jump_mask, 0.0).pow(2)).rolling(5).sum()
+
+    # Relative volume z-score (EnhancedPanicCalculator volume_multiplier concept)
+    avg_volume_20 = volume.rolling(20).mean()
+    relative_volume_zscore = (volume - avg_volume_20) / (avg_volume_20.rolling(20).std() + 1e-8)
+
+    # Vol-stress score: composite price-only stress index
+    rv10_zscore = (realized_vol_10 - realized_vol_10.rolling(252).mean()) / (realized_vol_10.rolling(252).std() + 1e-8)
+    dd63_zscore = (drawdown_63 - drawdown_63.rolling(252).mean()) / (drawdown_63.rolling(252).std() + 1e-8)
+    ir_zscore = (intraday_range - intraday_range.rolling(252).mean()) / (intraday_range.rolling(252).std() + 1e-8)
+    vol_stress_score = (
+        0.30 * rv10_zscore.fillna(0.0)
+        + 0.25 * dd63_zscore.fillna(0.0)
+        + 0.20 * ir_zscore.fillna(0.0)
+        + 0.15 * volume_shock.fillna(0.0)
+        + 0.10 * realized_kurtosis_21.rank(pct=True).fillna(0.0)
+    )
+    # Normalize to [0, 1] percentile-like scale so it can slot into regime_risk weights
+    vol_stress_score = vol_stress_score.rank(pct=True).fillna(0.0)
+
+    # regime_risk without VIX (ablation feature)
+    regime_risk_no_vix = (
+        0.22 * vol_stress_score
+        + 0.18 * realized_vol_21.rank(pct=True).fillna(0.0)
+        + 0.18 * drawdown_63.abs().rank(pct=True).fillna(0.0)
+        + 0.15 * downside_ratio_21.fillna(0.0)
+        + 0.12 * downside_semivol_21.rank(pct=True).fillna(0.0)
+        + 0.08 * tracking_error_vol_21.rank(pct=True).fillna(0.0)
+        + 0.07 * loss_streak_21.fillna(0.0)
+    )
+
     regime_risk = (
         0.22 * vix_percentile_252.fillna(0.0)
         + 0.18 * realized_vol_21.rank(pct=True).fillna(0.0)
@@ -343,6 +394,12 @@ def engineer_feature_frame(
             "decay_63": decay_63 * 10.0,
             "relative_strength_21": relative_strength_21 * 10.0,
             "regime_risk": regime_risk,
+            "rsi_6": rsi_6 / 100.0,
+            "realized_kurtosis_21": realized_kurtosis_21,
+            "jump_variation_5": jump_variation_5 * 100.0,
+            "vol_stress_score": vol_stress_score,
+            "regime_risk_no_vix": regime_risk_no_vix,
+            "relative_volume_zscore": relative_volume_zscore,
             "close": close,
         }
     ).replace([np.inf, -np.inf], np.nan)

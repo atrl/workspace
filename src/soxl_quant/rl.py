@@ -27,6 +27,7 @@ from typing import Any, Dict, List, NamedTuple, Optional, Tuple
 import numpy as np
 import pandas as pd
 import torch
+import torch.nn as nn
 from gymnasium import spaces
 from qlib.rl.interpreter import ActionInterpreter, StateInterpreter
 from qlib.rl.reward import Reward
@@ -276,6 +277,7 @@ class SoxlSimulator(Simulator):
         self.last_step_return = 0.0
         self.flat_steps = 0
         self.prev_regime_risk = 0.0
+        self.prev_drawdown = 0.0
         self.nf = len(FEATURE_COLUMNS)
         self.asset_idx = getattr(initial, "asset_idx", 0)
         self.ledger = PositionLedger()
@@ -303,6 +305,8 @@ class SoxlSimulator(Simulator):
         )
         if abs(action - self.pos) < min_rebalance:
             action = self.pos
+        # PBRS: record drawdown *before* value update for potential shaping
+        self.prev_drawdown = abs(self.val / max(self.max_val, 1e-8) - 1.0)
         next_ret = float(self.df.iloc[self.idx + 1]["return"])
         turnover = abs(action - self.pos)
         gross_ret = action * next_ret
@@ -368,6 +372,7 @@ class SoxlSimulator(Simulator):
             "pval": self.prev_val,
             "turnover": self.last_turnover,
             "drawdown": abs(underwater),
+            "prev_drawdown": self.prev_drawdown,
             "step_return": self.last_step_return,
             "regime_risk": regime_risk,
             "regime_delta": regime_delta,
@@ -456,19 +461,31 @@ class ContinuousReward(Reward):
         # === 核心收益项 ===
         # === 核心收益项 ===
         reward = pnl_ret * 100.0 * cfg.return_scale
-        
+
+        # === PBRS (Potential-Based Reward Shaping) ===
+        # 以 -drawdown 为 potential，理论上不改变最优策略，但能加速学习
+        prev_drawdown = float(state.get("prev_drawdown", drawdown))
+        pbrs_delta = (-drawdown) - (-prev_drawdown)
+        reward += pbrs_delta * cfg.pbrs_coef
+
         # === 交易成本与换手率惩罚 ===
         reward -= turnover * cfg.transaction_cost * 100.0          # 直接交易成本
         reward -= turnover * cfg.turnover_penalty                  # 额外换手惩罚
         reward -= (turnover**2) * cfg.smoothness_penalty           # 鼓励平滑、减少日内反复
-        reward += min(turnover, 0.30) * min(activity_signal, 2.2) * cfg.activity_bonus  # 但完全不动也不行
-        
+        # 动态 activity bonus：只在市场 regime 明显切换或高波动时才奖励换手
+        if cfg.gated_activity_bonus:
+            regime_switch_flag = 1.0 if (regime_delta > cfg.activity_gate_regime_delta_threshold or realized_vol > cfg.activity_gate_vol_threshold) else 0.0
+            activity_bonus_eff = min(turnover, 0.30) * min(activity_signal, 2.2) * cfg.activity_bonus * regime_switch_flag
+        else:
+            activity_bonus_eff = min(turnover, 0.30) * min(activity_signal, 2.2) * cfg.activity_bonus
+        reward += activity_bonus_eff
+
         # === 回撤与下行风险控制 ===
         reward -= excess_drawdown * cfg.drawdown_penalty           # 超过容忍度的回撤重罚
         reward -= downside_signal * cfg.downside_penalty           # 高下行波动环境惩罚
         reward -= max(pos - (1.0 - 0.65 * regime_risk), 0.0) * cfg.risk_budget_penalty    # 风险预算超支
         reward -= max(pos - 0.85, 0.0) * cfg.high_exposure_penalty # 硬性的高仓位惩罚
-        
+
         # === 趋势保护奖励 ===
         # 在健康趋势中，即使有小回撤，只要不超过容忍度且仓位不过低，给予微弱正奖励
         reward += min(drawdown, tolerated_drawdown) * min(pos, 0.80) * min(trend_support * 2.5, 0.18)
@@ -549,20 +566,31 @@ def build_initial_states(
 
 
 class RegimeMoENet(torch.nn.Module):
-    """轻量级 Mixture-of-Experts 网络，让不同 regime 激活不同专家。
+    """轻量级 Mixture-of-Experts 网络，支持 Noisy Top-1 稀疏路由与 load-balancing loss.
 
-    设计：
-      - gate: obs -> Linear(32) -> ReLU -> Linear(n_experts) -> Softmax
-      - experts: n_experts 个独立 MLP，obs -> Linear(hidden_size) -> ReLU
-      - output: weighted sum -> Linear(hidden_size) 得到最终特征向量
+    升级点（基于 arXiv 2503.07137 / Switch Transformer）：
+      - Noisy Top-1 gating：训练时在 gate logits 上加高斯噪声，防止专家坍塌。
+      - Load-balancing auxiliary loss：标准 Switch-Transformer balance loss。
+      - Shared expert：始终激活一个共享专家，保留跨 regime 的公共知识。
     """
 
-    def __init__(self, obs_dim: int, hidden_size: int = 64, n_experts: int = 3, device: str = "cpu"):
+    def __init__(
+        self,
+        obs_dim: int,
+        hidden_size: int = 64,
+        n_experts: int = 3,
+        device: str = "cpu",
+        top_k: int = 1,
+        noise_std: float = 0.1,
+        shared_hidden_size: int = 16,
+    ):
         super().__init__()
         self.n_experts = n_experts
         self.hidden_size = hidden_size
         self.output_dim = hidden_size  # required by tianshou Actor/Critic
         self.device = device
+        self.top_k = top_k
+        self.noise_std = noise_std
         self.gate = torch.nn.Sequential(
             torch.nn.Linear(obs_dim, 32),
             torch.nn.ReLU(),
@@ -571,34 +599,141 @@ class RegimeMoENet(torch.nn.Module):
         self.experts = torch.nn.ModuleList(
             [torch.nn.Sequential(torch.nn.Linear(obs_dim, hidden_size), torch.nn.ReLU()) for _ in range(n_experts)]
         )
-        self.output = torch.nn.Linear(hidden_size, hidden_size)
+        self.shared_expert = torch.nn.Sequential(
+            torch.nn.Linear(obs_dim, shared_hidden_size),
+            torch.nn.ReLU(),
+        )
+        self.output = torch.nn.Linear(hidden_size + shared_hidden_size, hidden_size)
+        self._last_lb_loss: Optional[torch.Tensor] = None
+
+    def _load_balance_loss(self, gate_probs: torch.Tensor) -> torch.Tensor:
+        """Switch-Transformer style auxiliary balance loss."""
+        # gate_probs: (batch, n_experts) after softmax over all experts
+        f = gate_probs.mean(dim=0)  # fraction of batch routed to each expert
+        p = gate_probs.mean(dim=0)  # mean gate probability for each expert
+        loss = self.n_experts * (f * p).sum()
+        return loss
 
     def forward(self, obs, state: Any = None, info: Dict[str, Any] = None) -> Tuple[torch.Tensor, Any]:
         if not isinstance(obs, torch.Tensor):
             obs = torch.as_tensor(obs, device=self.device, dtype=torch.float32)
-        # tianshou collector may inject an extra batch dimension (e.g. [1, 1, 53]).
-        # Flatten all but the last dimension, compute, then restore the leading shape.
         orig_leading = obs.shape[:-1]
         if obs.ndim != 2:
             obs = obs.reshape(-1, obs.shape[-1])
-        gate_weights = torch.softmax(self.gate(obs), dim=-1)  # (batch, n_experts)
+        gate_logits = self.gate(obs)  # (batch, n_experts)
+
+        # noisy gating during training
+        if self.training and self.noise_std > 0:
+            noise = torch.randn_like(gate_logits) * self.noise_std
+            gate_logits = gate_logits + noise
+
+        # compute full softmax for load-balance loss
+        gate_probs_full = torch.softmax(gate_logits, dim=-1)
+        if self.training:
+            self._last_lb_loss = self._load_balance_loss(gate_probs_full)
+        else:
+            self._last_lb_loss = None
+
+        # top-k sparse routing
+        if self.top_k >= self.n_experts:
+            gate_weights = gate_probs_full
+        else:
+            topk_vals, topk_indices = torch.topk(gate_logits, self.top_k, dim=-1)
+            gate_weights = torch.zeros_like(gate_logits)
+            # scatter softmax of topk values back into zero tensor
+            softmax_topk = torch.softmax(topk_vals, dim=-1)
+            gate_weights.scatter_(-1, topk_indices, softmax_topk)
+
         expert_outs = torch.stack([expert(obs) for expert in self.experts], dim=1)  # (batch, n_experts, hidden)
-        weighted = (gate_weights.unsqueeze(-1) * expert_outs).sum(dim=1)  # (batch, hidden)
-        out = self.output(weighted)
+        routed = (gate_weights.unsqueeze(-1) * expert_outs).sum(dim=1)  # (batch, hidden)
+        shared = self.shared_expert(obs)
+        out = self.output(torch.cat([routed, shared], dim=-1))
         if orig_leading:
             out = out.reshape(*orig_leading, -1)
         return out, state
 
+    def get_load_balance_loss(self) -> Optional[torch.Tensor]:
+        return self._last_lb_loss
+
+
+class SoxlPPOPolicy(PPOPolicy):
+    """PPOPolicy 子类，自动将 RegimeMoENet 的 load-balance loss 加入总损失。"""
+
+    def __init__(self, *args, moe_lb_coef: float = 0.01, **kwargs: Any):
+        super().__init__(*args, **kwargs)
+        self._moe_lb_coef = moe_lb_coef
+
+    def learn(  # type: ignore[override]
+        self, batch: "Batch", batch_size: int, repeat: int, **kwargs: Any
+    ) -> Dict[str, List[float]]:
+        losses, clip_losses, vf_losses, ent_losses = [], [], [], []
+        for step in range(repeat):
+            if self._recompute_adv and step > 0:
+                batch = self._compute_returns(batch, self._buffer, self._indices)
+            for minibatch in batch.split(batch_size, merge_last=True):
+                dist = self(minibatch).dist
+                if self._norm_adv:
+                    mean, std = minibatch.adv.mean(), minibatch.adv.std()
+                    minibatch.adv = (minibatch.adv - mean) / (std + self._eps)
+                ratio = (dist.log_prob(minibatch.act) - minibatch.logp_old).exp().float()
+                ratio = ratio.reshape(ratio.size(0), -1).transpose(0, 1)
+                surr1 = ratio * minibatch.adv
+                surr2 = ratio.clamp(1.0 - self._eps_clip, 1.0 + self._eps_clip) * minibatch.adv
+                if self._dual_clip:
+                    clip1 = torch.min(surr1, surr2)
+                    clip2 = torch.max(clip1, self._dual_clip * minibatch.adv)
+                    clip_loss = -torch.where(minibatch.adv < 0, clip2, clip1).mean()
+                else:
+                    clip_loss = -torch.min(surr1, surr2).mean()
+                value = self.critic(minibatch.obs).flatten()
+                if self._value_clip:
+                    v_clip = minibatch.v_s + (value - minibatch.v_s).clamp(-self._eps_clip, self._eps_clip)
+                    vf1 = (minibatch.returns - value).pow(2)
+                    vf2 = (minibatch.returns - v_clip).pow(2)
+                    vf_loss = torch.max(vf1, vf2).mean()
+                else:
+                    vf_loss = (minibatch.returns - value).pow(2).mean()
+                ent_loss = dist.entropy().mean()
+                loss = clip_loss + self._weight_vf * vf_loss - self._weight_ent * ent_loss
+
+                # add MoE load-balance auxiliary loss
+                lb = None
+                if hasattr(self.actor, "net"):
+                    net = self.actor.net
+                    if hasattr(net, "get_load_balance_loss"):
+                        lb = net.get_load_balance_loss()
+                if lb is not None and isinstance(lb, torch.Tensor):
+                    loss = loss + self._moe_lb_coef * lb
+
+                self.optim.zero_grad()
+                loss.backward()
+                if self._grad_norm:
+                    nn.utils.clip_grad_norm_(
+                        self._actor_critic.parameters(), max_norm=self._grad_norm
+                    )
+                self.optim.step()
+                clip_losses.append(clip_loss.item())
+                vf_losses.append(vf_loss.item())
+                ent_losses.append(ent_loss.item())
+                losses.append(loss.item())
+        return {
+            "loss": losses,
+            "loss/clip": clip_losses,
+            "loss/vf": vf_losses,
+            "loss/ent": ent_losses,
+        }
+
 
 def build_policy(obs_dim: int, profile: StrategyConfig, use_moe: bool = False) -> Tuple[PPOPolicy, Actor]:
     if use_moe:
-        net = RegimeMoENet(obs_dim, hidden_size=64, n_experts=3, device="cpu")
+        net = RegimeMoENet(obs_dim, hidden_size=64, n_experts=3, device="cpu", top_k=1, noise_std=0.1)
     else:
         net = Net((obs_dim,), hidden_sizes=list(profile.hidden_sizes), device="cpu")
     actor = Actor(net, N_ACTIONS, device="cpu")
     critic = Critic(net, device="cpu")
     optim = torch.optim.Adam(list(actor.parameters()) + list(critic.parameters()), lr=profile.lr)
-    policy = PPOPolicy(
+    policy_cls = SoxlPPOPolicy if use_moe else PPOPolicy
+    policy = policy_cls(
         actor=actor,
         critic=critic,
         optim=optim,
@@ -611,6 +746,7 @@ def build_policy(obs_dim: int, profile: StrategyConfig, use_moe: bool = False) -
         reward_normalization=True,
         recompute_advantage=True,
         action_space=spaces.Discrete(N_ACTIONS),
+        moe_lb_coef=0.01 if use_moe else 0.0,
     )
     return policy, actor
 

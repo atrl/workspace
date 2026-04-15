@@ -22,6 +22,11 @@ reward:
   opportunity_threshold_pos: 0.40
   opportunity_threshold_anchor: 0.05
   opportunity_threshold_trend: 0.02
+  # PBRS 与动态 activity bonus
+  pbrs_coef: 0.15
+  gated_activity_bonus: true
+  activity_gate_vol_threshold: 0.55
+  activity_gate_regime_delta_threshold: 0.08
 position_cap:
   start_drawdown: 0.10
   full_drawdown: 0.30

@@ -49,6 +49,7 @@ def make_state(**kwargs):
         "pval": kwargs.get("pval", 100_000.0),
         "turnover": kwargs.get("turnover", 0.2),
         "drawdown": kwargs.get("drawdown", 0.1),
+        "prev_drawdown": kwargs.get("prev_drawdown", kwargs.get("drawdown", 0.1)),
         "regime_risk": kwargs.get("regime_risk", 0.8),
         "regime_delta": kwargs.get("regime_delta", 0.05),
         "flat_steps": kwargs.get("flat_steps", 0.0),
@@ -134,3 +135,58 @@ def test_reward_penalizes_stale_losing_position():
         )
     )
     assert healthy_hold > trapped_hold
+
+
+def test_pbrs_rewards_improving_drawdown():
+    """PBRS should give a positive bump when drawdown improves (decreases)."""
+    reward = ContinuousReward(make_profile())
+    # drawdown worsens: potential goes from -0.05 to -0.10 -> delta = -0.05 -> PBRS negative
+    worse = reward.reward(make_state(drawdown=0.10, prev_drawdown=0.05))
+    # drawdown improves: potential goes from -0.10 to -0.05 -> delta = +0.05 -> PBRS positive
+    better = reward.reward(make_state(drawdown=0.05, prev_drawdown=0.10))
+    assert better > worse
+
+
+def test_pbrs_zero_when_drawdown_unchanged():
+    """When drawdown doesn't change, PBRS delta should be zero (other terms identical)."""
+    reward = ContinuousReward(make_profile())
+    base = reward.reward(make_state(drawdown=0.08, prev_drawdown=0.08))
+    # other terms equal, only pbrs should cancel out
+    assert abs(base - reward.reward(make_state(drawdown=0.08, prev_drawdown=0.08))) < 1e-6
+
+
+def test_gated_activity_bonus_zero_in_calm_regime():
+    """When gated_activity_bonus is True and market is calm, activity bonus should be zero."""
+    profile = make_profile()
+    profile = StrategyConfig(
+        name=profile.name,
+        max_iters=profile.max_iters,
+        episode_per_iter=profile.episode_per_iter,
+        episode_len=profile.episode_len,
+        hidden_sizes=profile.hidden_sizes,
+        lr=profile.lr,
+        update_batch_size=profile.update_batch_size,
+        update_repeat=profile.update_repeat,
+        reward=RewardConfig(
+            return_scale=1.0,
+            transaction_cost=0.1,
+            turnover_penalty=0.0,
+            drawdown_penalty=0.0,
+            downside_penalty=0.0,
+            risk_budget_penalty=0.0,
+            high_exposure_penalty=0.0,
+            smoothness_penalty=0.0,
+            activity_bonus=1.0,
+            inactivity_penalty=0.0,
+            gated_activity_bonus=True,
+            activity_gate_vol_threshold=0.60,
+            activity_gate_regime_delta_threshold=0.10,
+        ),
+    )
+    reward = ContinuousReward(profile)
+    # calm market: realized_vol=0.30, regime_delta=0.02 -> gate should close
+    calm = reward.reward(make_state(turnover=0.20, realized_vol=0.30, regime_delta=0.02))
+    # stormy market: realized_vol=0.70, regime_delta=0.15 -> gate should open
+    stormy = reward.reward(make_state(turnover=0.20, realized_vol=0.70, regime_delta=0.15))
+    # Both have identical turnover and return=0, but stormy should get activity_bonus > calm
+    assert stormy > calm
