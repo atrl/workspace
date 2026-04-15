@@ -99,6 +99,7 @@ def run_etf_backtest(
     test_df = segment_frame(dataset, "test")
     price = dataset.handler.price_frame.droplevel("instrument")["price"].loc[test_df.index]
 
+    asset_idx = list(ETF_UNIVERSE.keys()).index(etf)
     print(f"Running backtest on {len(test_df)} rows ({test_df.index[0].date()} ~ {test_df.index[-1].date()}) ...")
     result = backtest_profile(
         actor=actor,
@@ -106,6 +107,7 @@ def run_etf_backtest(
         price_series=price,
         position_cap_config=position_cap_config,
         symbol=etf,
+        asset_idx=asset_idx,
         test_seg=test_seg,
     )
 

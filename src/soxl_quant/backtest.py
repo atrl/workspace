@@ -43,6 +43,7 @@ class RLStrategy(BaseStrategy):
         price_series: pd.Series,
         position_cap_config: PositionCapConfig,
         symbol: str = "SOXL",
+        asset_idx: int = 0,
         **kwargs,
     ):
         super().__init__(**kwargs)
@@ -51,6 +52,7 @@ class RLStrategy(BaseStrategy):
         self.price_series = price_series  # 对齐的价格序列
         self.position_cap_config = position_cap_config
         self.symbol = symbol        # 当前交易的 ETF 代码
+        self.asset_idx = asset_idx  # 资产 one-hot 索引
         self.last_step = -10        # 冷却期计数，避免连续过度交易
         self.trades = 0             # 总成交次数统计
         self.position_history: List[float] = []  # 每日仓位记录，用于画图
@@ -97,6 +99,7 @@ class RLStrategy(BaseStrategy):
             self.peak_account_value,
             self.ledger,
             self.price_path,
+            asset_idx=self.asset_idx,
         )
         regime_risk = float(self.df.iloc[idx]["regime_risk"])
         realized_vol = float(self.df.iloc[idx]["realized_vol_10"])
@@ -130,6 +133,7 @@ def backtest_profile(
     price_series: pd.Series,
     position_cap_config: PositionCapConfig,
     symbol: str = "SOXL",
+    asset_idx: int = 0,
     test_seg: Tuple[str, str] = TEST_SEG,
 ) -> Dict[str, object]:
     """运行重量级 qlib 官方回测，产出 headline 指标（return / sharpe / max_dd）。
@@ -146,6 +150,7 @@ def backtest_profile(
         price_series=price_series,
         position_cap_config=position_cap_config,
         symbol=symbol,
+        asset_idx=asset_idx,
     )
     portfolio_metric, indicator_metric = qlib_backtest(
         start_time=test_seg[0],

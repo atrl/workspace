@@ -44,14 +44,8 @@ qlib_venv/
 futu_venv/
 
 # Runtime / orchestration state
-.ralph/done_count
-.ralph/handoffs/
-.ralph/history/
-.ralph/iteration
-.ralph/run.json
-.ralph/state.json
-.ralph/status
-.ralph/current.log
+.ralph/
+.openclaw/
 runtime/
 
 # Artifacts / generated outputs

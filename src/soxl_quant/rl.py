@@ -20,8 +20,9 @@ from __future__ import annotations
 """
 
 from dataclasses import dataclass
+import random
 from pathlib import Path
-from typing import Dict, List, NamedTuple, Optional, Tuple
+from typing import Any, Dict, List, NamedTuple, Optional, Tuple
 
 import numpy as np
 import pandas as pd
@@ -35,7 +36,7 @@ from tianshou.utils.net.common import Net
 from tianshou.utils.net.discrete import Actor, Critic
 
 from .data import FEATURE_COLUMNS, STATIC_INDEX
-from .settings import EXTRA_OBS_DIM, LOOKBACK, N_ACTIONS, PositionCapConfig, StrategyConfig
+from .settings import EXTRA_OBS_DIM, LOOKBACK, N_ACTIONS, N_ASSETS, PositionCapConfig, StrategyConfig
 
 BASE_ACTION_LEVELS = np.linspace(0.0, 1.0, N_ACTIONS, dtype=np.float32)
 DEFAULT_POSITION_CAP = PositionCapConfig()
@@ -50,6 +51,9 @@ EXTRA_INDEX = {
     "avg_entry_pnl": len(FEATURE_COLUMNS) + 7,
     "last_add_pnl": len(FEATURE_COLUMNS) + 8,
     "high_gap": len(FEATURE_COLUMNS) + 9,
+    "drawdown_velocity_5": len(FEATURE_COLUMNS) + 10,
+    "regime_risk_max_60d": len(FEATURE_COLUMNS) + 11,
+    "vol_velocity_5": len(FEATURE_COLUMNS) + 12,
 }
 
 
@@ -119,6 +123,7 @@ class EpisodeConfig(NamedTuple):
     end_idx: int
     lookback: int = LOOKBACK
     cash: float = 100_000.0
+    asset_idx: int = 0
 
 
 def rebalance_threshold(regime_risk: float, realized_vol: float, trend_strength: float) -> float:
@@ -197,11 +202,15 @@ def drawdown_position_cap(
     effective_min_cap = float(cfg.min_cap)
 
     # 动态调整 min_cap（P0 优化）
+    # 【第二轮调参】牛市判定增加 trend_gap>0 条件，防止在震荡市中误放宽 cap。
     if obs is not None and len(obs) > 0:
         realized_vol = float(np.nan_to_num(obs[STATIC_INDEX["realized_vol_10"]]))
         anchor_gap = float(np.nan_to_num(obs[STATIC_INDEX["anchor_gap_180"]]))
+        trend_gap = float(np.nan_to_num(obs[STATIC_INDEX["trend_gap_21"]]))
         regime_risk = float(np.nan_to_num(obs[STATIC_INDEX["regime_risk"]]))
-        if realized_vol < cfg.bull_vol_threshold and anchor_gap > cfg.bull_anchor_threshold:
+        if (realized_vol < cfg.bull_vol_threshold
+                and anchor_gap > cfg.bull_anchor_threshold
+                and trend_gap > 0.0):
             effective_min_cap = max(effective_min_cap, float(cfg.bull_min_cap))
         if regime_risk > cfg.bear_regime_threshold:
             effective_min_cap = min(effective_min_cap, float(cfg.bear_min_cap))
@@ -268,6 +277,7 @@ class SoxlSimulator(Simulator):
         self.flat_steps = 0
         self.prev_regime_risk = 0.0
         self.nf = len(FEATURE_COLUMNS)
+        self.asset_idx = getattr(initial, "asset_idx", 0)
         self.ledger = PositionLedger()
 
     def step(self, action: float) -> None:
@@ -319,7 +329,7 @@ class SoxlSimulator(Simulator):
         如果要升级网络为 LSTM，可在此返回 (60, nf) 的序列矩阵，而非展平向量。
         """
         if self.idx >= len(self.df):
-            obs = np.zeros(self.nf + EXTRA_OBS_DIM, dtype=np.float32)
+            obs = np.zeros(self.nf + EXTRA_OBS_DIM + N_ASSETS, dtype=np.float32)
             return {
                 "obs": obs,
                 "pos": self.pos,
@@ -341,20 +351,18 @@ class SoxlSimulator(Simulator):
         regime_delta = regime_risk - self.prev_regime_risk
         self.prev_regime_risk = regime_risk
         ledger_snapshot = self.ledger.snapshot(float(self.price_path[self.idx]))
-        obs_list = list(row[FEATURE_COLUMNS].values.astype(np.float32))
-        obs_list.extend(
-            [
-                float(np.nan_to_num(lb["return"].mean())),
-                float(np.nan_to_num(lb["return"].skew())) if len(lb) > 3 else 0.0,
-                float(np.nan_to_num(downside_lookback**0.5)),
-                float(self.idx / len(self.df)),
-                float(self.pos),
-                float(underwater),
-                *ledger_snapshot,
-            ]
+        obs = make_observation(
+            self.df,
+            self.idx,
+            self.pos,
+            self.val,
+            self.max_val,
+            self.ledger,
+            self.price_path,
+            asset_idx=self.asset_idx,
         )
         return {
-            "obs": np.nan_to_num(np.array(obs_list, dtype=np.float32)),
+            "obs": obs,
             "pos": self.pos,
             "val": self.val,
             "pval": self.prev_val,
@@ -468,17 +476,20 @@ class ContinuousReward(Reward):
         # === 持仓质量惩罚 ===
         reward -= stale_position * (6.0 + 4.0 * activity_signal)   # 长期空仓且在震荡中无所事事
         reward -= trapped_loser * (18.0 + 6.0 * regime_risk)       # 长期套牢且从高点回落
-        
+
+
         # === 低仓位惩罚（防止踏空）===
         # P0 优化：新增"追涨激励"，在强趋势中如果仓位过低会扣分。
         # 原有的超跌抄底激励保持不变。
+        # 【第二轮调参】把惩罚门槛提高（anchor_gap>0.05）且权重降低（0.05），
+        # 避免在弱趋势或震荡市中盲目追高。
+        trend_gap = float(state["obs"][STATIC_INDEX["trend_gap_21"]])
         if anchor_gap > cfg.opportunity_threshold_anchor and pos < cfg.opportunity_threshold_pos:
             reward -= cfg.opportunity_cost_penalty
         # 附加条件：短趋势也向上且波动不大，仓位仍偏低
-        trend_gap = float(state["obs"][STATIC_INDEX["trend_gap_21"]])
-        if (trend_gap > cfg.opportunity_threshold_trend and realized_vol < 0.45 
-                and pos < cfg.opportunity_threshold_pos + 0.10):
-            reward -= cfg.opportunity_cost_penalty * 0.50
+        if (trend_gap > cfg.opportunity_threshold_trend and realized_vol < 0.45
+                and pos < cfg.opportunity_threshold_pos + 0.05):
+            reward -= cfg.opportunity_cost_penalty * 0.40
         if anchor_gap > 0.02 and regime_risk < 0.45 and pos < 0.30:
             reward -= 0.12
         if cum_drop_30 < -0.18 and regime_risk < 0.80 and pos < 0.20:
@@ -496,43 +507,94 @@ class ContinuousReward(Reward):
         return float(reward)
 
 
-def build_initial_states(pkl_path: Path, df: pd.DataFrame, profile: StrategyConfig, smoke: bool) -> List[EpisodeConfig]:
+def build_initial_states(
+    sources: List[Tuple[Path, pd.DataFrame, int]],
+    profile: StrategyConfig,
+    smoke: bool,
+) -> List[EpisodeConfig]:
     """生成训练用的 episode 起止点，并对高压力区间做过采样。
 
     过采样只基于训练窗口内部可见的状态（regime_risk、cum_drop_30），
     不偷看未来标签，符合仓库的 non-leak 规则。
     
-    【优化方向】当前只在单只 ETF（SOXL）上切 episode。
-    做多资产训练时，可以从多只 ETF 的 DataFrame 中轮流/随机采样 start_idx，
-    并在 EpisodeConfig 中携带 instrument 标识，实现跨品种训练。
+    现在支持从多只 ETF 的 DataFrame 中混合采样，并在 EpisodeConfig 中
+    携带 asset_idx，实现跨品种联合训练。
     """
     episode_len = profile.episode_len
-    frame_count = len(df) // episode_len
-    if smoke:
-        frame_count = min(frame_count, 4)
-    states: List[EpisodeConfig] = []
-    for i in range(frame_count):
-        start_idx = i * episode_len
-        end_idx = min((i + 1) * episode_len, len(df))
-        if (end_idx - start_idx) <= LOOKBACK + 2:
-            continue
-        state = EpisodeConfig(str(pkl_path), start_idx, end_idx)
-        states.append(state)
-        segment = df.iloc[start_idx:end_idx]
-        risk_score = float(segment["regime_risk"].mean())
-        drawdown_score = abs(float(segment["cum_drop_30"].min()))
-        repeats = 1
-        if risk_score > 0.58 or drawdown_score > 0.18:
-            repeats += 1
-        if risk_score > 0.42 and drawdown_score > 0.10:
-            repeats += 1
-        if not smoke:
-            states.extend([state] * max(repeats - 1, 0))
-    return states
+    all_states: List[EpisodeConfig] = []
+    for pkl_path, df, asset_idx in sources:
+        frame_count = len(df) // episode_len
+        if smoke:
+            frame_count = min(frame_count, 4)
+        for i in range(frame_count):
+            start_idx = i * episode_len
+            end_idx = min((i + 1) * episode_len, len(df))
+            if (end_idx - start_idx) <= LOOKBACK + 2:
+                continue
+            state = EpisodeConfig(str(pkl_path), start_idx, end_idx, asset_idx=asset_idx)
+            all_states.append(state)
+            segment = df.iloc[start_idx:end_idx]
+            risk_score = float(segment["regime_risk"].mean())
+            drawdown_score = abs(float(segment["cum_drop_30"].min()))
+            repeats = 1
+            if risk_score > 0.58 or drawdown_score > 0.18:
+                repeats += 1
+            if risk_score > 0.42 and drawdown_score > 0.10:
+                repeats += 1
+            if not smoke:
+                all_states.extend([state] * max(repeats - 1, 0))
+    if not smoke:
+        random.shuffle(all_states)
+    return all_states
 
 
-def build_policy(obs_dim: int, profile: StrategyConfig) -> Tuple[PPOPolicy, Actor]:
-    net = Net((obs_dim,), hidden_sizes=list(profile.hidden_sizes), device="cpu")
+class RegimeMoENet(torch.nn.Module):
+    """轻量级 Mixture-of-Experts 网络，让不同 regime 激活不同专家。
+
+    设计：
+      - gate: obs -> Linear(32) -> ReLU -> Linear(n_experts) -> Softmax
+      - experts: n_experts 个独立 MLP，obs -> Linear(hidden_size) -> ReLU
+      - output: weighted sum -> Linear(hidden_size) 得到最终特征向量
+    """
+
+    def __init__(self, obs_dim: int, hidden_size: int = 64, n_experts: int = 3, device: str = "cpu"):
+        super().__init__()
+        self.n_experts = n_experts
+        self.hidden_size = hidden_size
+        self.output_dim = hidden_size  # required by tianshou Actor/Critic
+        self.device = device
+        self.gate = torch.nn.Sequential(
+            torch.nn.Linear(obs_dim, 32),
+            torch.nn.ReLU(),
+            torch.nn.Linear(32, n_experts),
+        )
+        self.experts = torch.nn.ModuleList(
+            [torch.nn.Sequential(torch.nn.Linear(obs_dim, hidden_size), torch.nn.ReLU()) for _ in range(n_experts)]
+        )
+        self.output = torch.nn.Linear(hidden_size, hidden_size)
+
+    def forward(self, obs, state: Any = None, info: Dict[str, Any] = None) -> Tuple[torch.Tensor, Any]:
+        if not isinstance(obs, torch.Tensor):
+            obs = torch.as_tensor(obs, device=self.device, dtype=torch.float32)
+        # tianshou collector may inject an extra batch dimension (e.g. [1, 1, 53]).
+        # Flatten all but the last dimension, compute, then restore the leading shape.
+        orig_leading = obs.shape[:-1]
+        if obs.ndim != 2:
+            obs = obs.reshape(-1, obs.shape[-1])
+        gate_weights = torch.softmax(self.gate(obs), dim=-1)  # (batch, n_experts)
+        expert_outs = torch.stack([expert(obs) for expert in self.experts], dim=1)  # (batch, n_experts, hidden)
+        weighted = (gate_weights.unsqueeze(-1) * expert_outs).sum(dim=1)  # (batch, hidden)
+        out = self.output(weighted)
+        if orig_leading:
+            out = out.reshape(*orig_leading, -1)
+        return out, state
+
+
+def build_policy(obs_dim: int, profile: StrategyConfig, use_moe: bool = False) -> Tuple[PPOPolicy, Actor]:
+    if use_moe:
+        net = RegimeMoENet(obs_dim, hidden_size=64, n_experts=3, device="cpu")
+    else:
+        net = Net((obs_dim,), hidden_sizes=list(profile.hidden_sizes), device="cpu")
     actor = Actor(net, N_ACTIONS, device="cpu")
     critic = Critic(net, device="cpu")
     optim = torch.optim.Adam(list(actor.parameters()) + list(critic.parameters()), lr=profile.lr)
@@ -545,7 +607,9 @@ def build_policy(obs_dim: int, profile: StrategyConfig) -> Tuple[PPOPolicy, Acto
         gae_lambda=0.95,
         max_grad_norm=0.5,
         vf_coef=0.25,
-        ent_coef=0.0,
+        ent_coef=0.01,
+        reward_normalization=True,
+        recompute_advantage=True,
         action_space=spaces.Discrete(N_ACTIONS),
     )
     return policy, actor
@@ -566,6 +630,7 @@ def make_observation(
     peak_value: float,
     ledger: PositionLedger,
     price_path: np.ndarray,
+    asset_idx: int = 0,
 ) -> np.ndarray:
     """Build the actor input vector.
 
@@ -580,6 +645,16 @@ def make_observation(
     underwater = value / max(peak_value, 1e-8) - 1.0
     downside_lookback = lb["return"].where(lb["return"] < 0, 0.0).pow(2).mean()
     ledger_snapshot = ledger.snapshot(float(price_path[idx]))
+    one_hot = np.zeros(N_ASSETS, dtype=np.float32)
+    if 0 <= asset_idx < N_ASSETS:
+        one_hot[asset_idx] = 1.0
+    drawdown_velocity_5 = (
+        float(row["cum_drop_30"] - lb["cum_drop_30"].iloc[-6]) if len(lb) >= 6 else 0.0
+    )
+    regime_risk_max_60d = float(lb["regime_risk"].max()) if len(lb) > 0 else 0.0
+    vol_velocity_5 = (
+        float(row["realized_vol_10"] - lb["realized_vol_10"].iloc[-6]) if len(lb) >= 6 else 0.0
+    )
     obs = np.array(
         list(row[FEATURE_COLUMNS].values.astype(np.float32))
         + [
@@ -590,7 +665,11 @@ def make_observation(
             float(pos),
             float(underwater),
             *ledger_snapshot,
-        ],
+            drawdown_velocity_5,
+            regime_risk_max_60d,
+            vol_velocity_5,
+        ]
+        + list(one_hot),
         dtype=np.float32,
     )
     return np.nan_to_num(obs)
@@ -601,6 +680,7 @@ def evaluate_split(
     df: pd.DataFrame,
     cash0: float = 100_000.0,
     position_cap_config: Optional[PositionCapConfig] = None,
+    asset_idx: int = 0,
 ) -> Dict[str, float]:
     """Fast actor evaluation outside the heavyweight qlib backtest loop."""
     cash = cash0
@@ -611,7 +691,7 @@ def evaluate_split(
     values = [cash]
     positions = []
     for idx in range(LOOKBACK, len(df) - 1):
-        obs = make_observation(df, idx, pos, cash, peak, ledger, price_path)
+        obs = make_observation(df, idx, pos, cash, peak, ledger, price_path, asset_idx=asset_idx)
         action = actor_action(actor, obs)
         target_pos = action_to_position(action, obs, config=position_cap_config)
         row = df.iloc[idx]

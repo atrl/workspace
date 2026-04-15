@@ -46,6 +46,7 @@ from .settings import (
     CSV_PATH,
     EXTRA_OBS_DIM,
     MODEL_DIR,
+    N_ASSETS,
     PromotionGateConfig,
     QLIB_DATA_PATH,
     RESULT_PNG,
@@ -193,7 +194,7 @@ def slice_metrics(actor, df, slices: Dict[str, Tuple[str, str]], profile) -> Dic
         segment = slice_frame(df, seg)
         if len(segment) <= 120:
             continue
-        metrics[name] = evaluate_split(actor, segment, position_cap_config=profile.position_cap)
+        metrics[name] = evaluate_split(actor, segment, position_cap_config=profile.position_cap, asset_idx=0)
     return metrics
 
 
@@ -250,7 +251,7 @@ def train_with_selection(policy, actor, initial_states, obs_dim: int, profile, v
     stage_iters = profile.max_iters if smoke else min(20, profile.max_iters)
     completed = 0
     best_state = copy.deepcopy(actor.state_dict())
-    best_metrics = evaluate_split(actor, valid_df, position_cap_config=profile.position_cap)
+    best_metrics = evaluate_split(actor, valid_df, position_cap_config=profile.position_cap, asset_idx=0)
     best_score = validation_score(best_metrics)
     history = [{"iter": 0, "score": best_score, **best_metrics}]
 
@@ -270,7 +271,7 @@ def train_with_selection(policy, actor, initial_states, obs_dim: int, profile, v
             trainer_kwargs={"finite_env_type": "dummy", "concurrency": 1, "max_iters": current_iters},
         )
         completed += current_iters
-        metrics = evaluate_split(actor, valid_df, position_cap_config=profile.position_cap)
+        metrics = evaluate_split(actor, valid_df, position_cap_config=profile.position_cap, asset_idx=0)
         score = validation_score(metrics)
         history.append({"iter": completed, "score": score, **metrics})
         print(
@@ -295,22 +296,29 @@ def run_profile(
     smoke: bool,
     seed: int,
     artifact_tag: str = "",
+    multi_asset_sources=None,
+    use_moe: bool = False,
 ) -> Dict[str, object]:
     """Execute one full train -> select -> persist -> backtest cycle."""
-    obs_dim = len(FEATURE_COLUMNS) + EXTRA_OBS_DIM
-    pkl_path = ROOT / f"data/soxl_profile_{profile.name}.pkl"
-    train_df.to_pickle(pkl_path)
-    initial_states = build_initial_states(pkl_path, train_df, profile, smoke)
+    obs_dim = len(FEATURE_COLUMNS) + EXTRA_OBS_DIM + N_ASSETS
+    if multi_asset_sources:
+        initial_states = build_initial_states(multi_asset_sources, profile, smoke)
+    else:
+        pkl_path = ROOT / f"data/soxl_profile_{profile.name}.pkl"
+        train_df.to_pickle(pkl_path)
+        initial_states = build_initial_states([(pkl_path, train_df, 0)], profile, smoke)
     if not initial_states:
         raise RuntimeError(f"no initial states generated for profile={profile.name}")
 
+    effective_tag = f"{artifact_tag}_moe" if (use_moe and artifact_tag) else ("moe" if use_moe else artifact_tag)
+
     set_global_seed(seed)
     print(
-        f"\n[train:{profile.name}] seed={seed} episodes={len(initial_states)} "
+        f"\n[train:{profile.name}{'_moe' if use_moe else ''}] seed={seed} episodes={len(initial_states)} "
         f"iters={profile.max_iters} epi/iter={profile.episode_per_iter}"
     )
 
-    policy, actor = build_policy(obs_dim, profile)
+    policy, actor = build_policy(obs_dim, profile, use_moe=use_moe)
     selection = train_with_selection(
         policy=policy,
         actor=actor,
@@ -328,8 +336,8 @@ def run_profile(
     )
 
     MODEL_DIR.mkdir(parents=True, exist_ok=True)
-    model_path = model_artifact_path(profile.name, artifact_tag)
-    summary_path = summary_artifact_path(profile.name, artifact_tag)
+    model_path = model_artifact_path(profile.name, effective_tag)
+    summary_path = summary_artifact_path(profile.name, effective_tag)
     torch.save(
         {
             "profile": profile.name,
@@ -357,7 +365,7 @@ def run_profile(
         },
         profile,
     )
-    test_proxy = evaluate_split(actor, test_df, position_cap_config=profile.position_cap)
+    test_proxy = evaluate_split(actor, test_df, position_cap_config=profile.position_cap, asset_idx=0)
     promotion_report = build_promotion_report(profile, slice_result, test_proxy)
     summary_path.write_text(
         json.dumps(
@@ -382,7 +390,7 @@ def run_profile(
         ),
         encoding="utf-8",
     )
-    bt_result = backtest_profile(actor, test_df, price_series, position_cap_config=profile.position_cap)
+    bt_result = backtest_profile(actor, test_df, price_series, position_cap_config=profile.position_cap, asset_idx=0)
     bt_result["valid"] = valid_metrics
     bt_result["selection_history"] = selection["history"]
     bt_result["model_path"] = str(model_path)
@@ -425,7 +433,7 @@ def run_walk_forward(profile, full_df, price_frame, smoke: bool, seed: int) -> D
     return results
 
 
-def run_walk_forward_isolated(profile, smoke: bool, seed: int, skip_data_refresh: bool) -> Dict[str, Dict[str, object]]:
+def run_walk_forward_isolated(profile, smoke: bool, seed: int, skip_data_refresh: bool, multi_asset: bool = False, use_moe: bool = False) -> Dict[str, Dict[str, object]]:
     """Run each walk-forward window in a disposable subprocess.
 
     qlib occasionally dies during Python 3.14 shutdown after already computing
@@ -474,6 +482,10 @@ def run_walk_forward_isolated(profile, smoke: bool, seed: int, skip_data_refresh
             cmd.append("--smoke")
         if skip_data_refresh:
             cmd.append("--skip-data-refresh")
+        if multi_asset:
+            cmd.append("--multi-asset")
+        if use_moe:
+            cmd.append("--moe")
         proc = subprocess.run(cmd, cwd=str(ROOT), check=False)
         if not worker_output.exists():
             raise RuntimeError(f"walk-forward worker failed before writing result: {name} exit={proc.returncode}")
@@ -503,6 +515,41 @@ def run_worker_profile(args: argparse.Namespace) -> None:
     profile = load_profile(args.worker_run_profile)
     if args.smoke or args.worker_run_profile == "smoke":
         profile = load_profile("smoke")
+    multi_asset_sources = None
+    if args.multi_asset:
+        multi_asset_dir = ROOT / "data" / "multi_asset"
+        multi_asset_sources = []
+        etf_meta = {
+            "SOXL": ("SOXX", 3.0),
+            "TQQQ": ("QQQ", 3.0),
+            "UPRO": ("SPY", 3.0),
+            "SPXL": ("SPY", 3.0),
+            "TECL": ("XLK", 3.0),
+        }
+        for asset_idx, (etf, (underlying, leverage)) in enumerate(etf_meta.items()):
+            csv_path = ROOT / "data" / "generalization" / f"{etf.lower()}_with_underlying_vix.csv"
+            if not csv_path.exists():
+                continue
+            qlib_dir = multi_asset_dir / f"qlib_{etf.lower()}"
+            refresh_qlib_binary(
+                csv_path=csv_path,
+                qlib_dir=qlib_dir,
+                leveraged_etf=etf,
+                underlying_etf=underlying,
+                leverage_ratio=leverage,
+            )
+            init_qlib(qlib_dir)
+            ds = build_dataset(
+                leveraged_etf=etf,
+                underlying_etf=underlying,
+                leverage_ratio=leverage,
+            )
+            etf_train_df = segment_frame(ds, "train")
+            pkl_path = multi_asset_dir / f"{etf}_train.pkl"
+            etf_train_df.to_pickle(pkl_path)
+            multi_asset_sources.append((pkl_path, etf_train_df, asset_idx))
+        init_qlib(QLIB_DATA_PATH)
+
     result = run_profile(
         profile=profile,
         train_df=slice_frame(full_df, (args.worker_train_start, args.worker_train_end)),
@@ -512,6 +559,8 @@ def run_worker_profile(args: argparse.Namespace) -> None:
         smoke=args.smoke,
         seed=args.seed,
         artifact_tag=args.worker_window_name,
+        multi_asset_sources=multi_asset_sources,
+        use_moe=args.moe,
     )
     output_path = Path(args.worker_output)
     output_path.parent.mkdir(parents=True, exist_ok=True)
@@ -527,12 +576,14 @@ def parse_args() -> argparse.Namespace:
         "--profiles",
         nargs="+",
         default=["balanced", "aggressive"],
-        choices=["balanced", "aggressive", "smoke"],
+        choices=["balanced", "aggressive", "smoke", "balanced_budget"],
         help="profiles to train and backtest",
     )
     parser.add_argument("--smoke", action="store_true", help="force short smoke run")
     parser.add_argument("--skip-data-refresh", action="store_true", help="reuse existing qlib binary files")
     parser.add_argument("--walk-forward", action="store_true", help="run expanding-window walk-forward evaluation")
+    parser.add_argument("--multi-asset", action="store_true", help="train on pooled episodes from SOXL/TQQQ/UPRO/SPXL/TECL")
+    parser.add_argument("--moe", action="store_true", help="use Mixture-of-Experts network architecture")
     parser.add_argument("--seed", type=int, default=20260411, help="global random seed for Python, NumPy, and Torch")
     parser.add_argument("--worker-run-profile", default="", help=argparse.SUPPRESS)
     parser.add_argument("--worker-window-name", default="", help=argparse.SUPPRESS)
@@ -576,6 +627,49 @@ def main() -> None:
 
     print(f"[dataset] train={len(train_df)} valid={len(valid_df)} test={len(test_df)} features={len(FEATURE_COLUMNS)}")
 
+    # --- multi-asset training source preparation ---
+    multi_asset_sources = None
+    if args.multi_asset:
+        multi_asset_dir = ROOT / "data" / "multi_asset"
+        multi_asset_dir.mkdir(parents=True, exist_ok=True)
+        multi_asset_sources = []
+        etf_meta = {
+            "SOXL": ("SOXX", 3.0),
+            "TQQQ": ("QQQ", 3.0),
+            "UPRO": ("SPY", 3.0),
+            "SPXL": ("SPY", 3.0),
+            "TECL": ("XLK", 3.0),
+        }
+        for asset_idx, (etf, (underlying, leverage)) in enumerate(etf_meta.items()):
+            csv_path = ROOT / "data" / "generalization" / f"{etf.lower()}_with_underlying_vix.csv"
+            if not csv_path.exists():
+                print(f"[warn] missing {csv_path}, skipping {etf}")
+                continue
+            qlib_dir = multi_asset_dir / f"qlib_{etf.lower()}"
+            refresh_qlib_binary(
+                csv_path=csv_path,
+                qlib_dir=qlib_dir,
+                leveraged_etf=etf,
+                underlying_etf=underlying,
+                leverage_ratio=leverage,
+            )
+            init_qlib(qlib_dir)
+            ds = build_dataset(
+                leveraged_etf=etf,
+                underlying_etf=underlying,
+                leverage_ratio=leverage,
+            )
+            etf_train_df = segment_frame(ds, "train")
+            pkl_path = multi_asset_dir / f"{etf}_train.pkl"
+            etf_train_df.to_pickle(pkl_path)
+            multi_asset_sources.append((pkl_path, etf_train_df, asset_idx))
+            print(f"[multi-asset] {etf} train={len(etf_train_df)} rows -> {pkl_path.name}")
+        if not multi_asset_sources:
+            raise RuntimeError("no multi-asset sources available")
+        print(f"[multi-asset] total pooled episodes will be generated from {len(multi_asset_sources)} ETFs")
+        # Re-initialize qlib to the primary SOXL store so that backtest benchmarks are available.
+        init_qlib(QLIB_DATA_PATH)
+
     results: Dict[str, Dict[str, object]] = {}
     walk_forward_results: Dict[str, Dict[str, Dict[str, object]]] = {}
 
@@ -591,6 +685,8 @@ def main() -> None:
             price_series=price_series,
             smoke=args.smoke or name == "smoke",
             seed=args.seed,
+            multi_asset_sources=multi_asset_sources,
+            use_moe=args.moe,
         )
         results[profile.name] = bt_result
         print(
@@ -604,6 +700,7 @@ def main() -> None:
                 smoke=args.smoke or name == "smoke",
                 seed=args.seed,
                 skip_data_refresh=True,
+                multi_asset=args.multi_asset,
             )
             promotion_report = build_promotion_report(
                 profile,
