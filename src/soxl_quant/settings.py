@@ -7,7 +7,7 @@ from typing import Any, Dict, Tuple
 
 import yaml
 
-ROOT = Path("/Users/rziiiii/.openclaw/workspace")
+ROOT = Path(__file__).resolve().parents[2]
 CSV_PATH = ROOT / "data/soxl_soxx_vix_full.csv"
 QLIB_DATA_PATH = ROOT / "qlib_soxl_binary"
 RESULT_PNG = ROOT / "soxl_qlib_strategy_v2.png"

@@ -401,38 +401,6 @@ def run_profile(
     return bt_result
 
 
-def run_walk_forward(profile, full_df, price_frame, smoke: bool, seed: int) -> Dict[str, Dict[str, object]]:
-    """Run expanding-window walk-forward slices used by the non-leak harness."""
-    results: Dict[str, Dict[str, object]] = {}
-    for name, train_seg, valid_seg, test_seg in WALK_FORWARD_WINDOWS:
-        wf_profile = profile
-        train_slice = slice_frame(full_df, train_seg)
-        valid_slice = slice_frame(full_df, valid_seg)
-        test_slice = slice_frame(full_df, test_seg)
-        price_slice = price_frame.loc[test_seg[0] : test_seg[1]]
-        if min(len(train_slice), len(valid_slice), len(test_slice)) <= 120:
-            continue
-        print(
-            f"\n[walk-forward:{profile.name}:{name}] "
-            f"train={train_seg[0]}->{train_seg[1]} valid={valid_seg[0]}->{valid_seg[1]} test={test_seg[0]}->{test_seg[1]}"
-        )
-        result = run_profile(
-            profile=wf_profile,
-            train_df=train_slice,
-            valid_df=valid_slice,
-            test_df=test_slice,
-            price_series=price_slice,
-            smoke=smoke,
-            seed=seed,
-            artifact_tag=name,
-        )
-        results[name] = result
-        print(describe_metrics(f"walk-forward:{profile.name}:{name}", result))
-        if smoke:
-            break
-    return results
-
-
 def run_walk_forward_isolated(profile, smoke: bool, seed: int, skip_data_refresh: bool, multi_asset: bool = False, use_moe: bool = False) -> Dict[str, Dict[str, object]]:
     """Run each walk-forward window in a disposable subprocess.
 

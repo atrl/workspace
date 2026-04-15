@@ -23,6 +23,7 @@ from src.soxl_quant.rl import (
     FEATURE_COLUMNS,
     EXTRA_INDEX,
     build_policy,
+    build_price_path,
     make_observation,
     PositionLedger,
     LOOKBACK,
@@ -46,13 +47,6 @@ def load_actor(profile_name: str):
     actor.eval()
     return actor, profile, obs_dim
 
-
-def build_price_path(df: pd.DataFrame, base_price: float = 100.0) -> np.ndarray:
-    rets = df["return"].values
-    prices = [base_price]
-    for r in rets:
-        prices.append(prices[-1] * (1.0 + float(r)))
-    return np.array(prices, dtype=np.float32)
 
 
 def build_observation_matrix(df: pd.DataFrame, price_path: np.ndarray, asset_idx: int = 0):
