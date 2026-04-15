@@ -451,22 +451,12 @@ print(df.tail())
 
 ---
 
-## 通信 & 同步
-
-- **Primary Discord Channel**: `1480817719682142368` (Quant Metrics/Hypotheses)
-- **Hormuz Monitoring Channel**: `1476069524083310813` (Iran War/Shipping Status)
-- **Sync Rule**: 每个心跳必须报告任务进展
-
----
-
 ## 参考资料
 
 - **官方文档**: https://qlib.readthedocs.io/
 - **GitHub**: https://github.com/microsoft/qlib
-- **本地文档**: `/Users/rziiiii/.openclaw/workspace/docs/QLIB_STANDARDS.md`
 
 ---
 
 **版本**: v2.1
-**更新日期**: 2026-03-22
-**维护者**: clawQuant
+**更新日期**: 2026-04-15
