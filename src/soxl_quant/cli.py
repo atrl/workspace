@@ -340,6 +340,7 @@ def run_profile(
     artifact_tag: str = "",
     multi_asset_sources=None,
     use_moe: bool = False,
+    ablate_vix: bool = False,
 ) -> Dict[str, object]:
     """Execute one full train -> select -> persist -> backtest cycle."""
     obs_dim = len(FEATURE_COLUMNS) + EXTRA_OBS_DIM + N_ASSETS
@@ -352,7 +353,8 @@ def run_profile(
     if not initial_states:
         raise RuntimeError(f"no initial states generated for profile={profile.name}")
 
-    effective_tag = f"{artifact_tag}_moe" if (use_moe and artifact_tag) else ("moe" if use_moe else artifact_tag)
+    moe_tag = "moe_novix" if (use_moe and ablate_vix) else ("moe" if use_moe else "")
+    effective_tag = f"{artifact_tag}_{moe_tag}" if (artifact_tag and moe_tag) else (artifact_tag or moe_tag)
 
     set_global_seed(seed)
     print(
@@ -443,7 +445,7 @@ def run_profile(
     return bt_result
 
 
-def run_walk_forward_isolated(profile, smoke: bool, seed: int, skip_data_refresh: bool, multi_asset: bool = False, use_moe: bool = False) -> Dict[str, Dict[str, object]]:
+def run_walk_forward_isolated(profile, smoke: bool, seed: int, skip_data_refresh: bool, multi_asset: bool = False, use_moe: bool = False, ablate_vix: bool = False) -> Dict[str, Dict[str, object]]:
     """Run each walk-forward window in a disposable subprocess.
 
     qlib occasionally dies during Python 3.14 shutdown after already computing
@@ -496,6 +498,8 @@ def run_walk_forward_isolated(profile, smoke: bool, seed: int, skip_data_refresh
             cmd.append("--multi-asset")
         if use_moe:
             cmd.append("--moe")
+        if ablate_vix:
+            cmd.append("--ablate-vix")
         proc = subprocess.run(cmd, cwd=str(ROOT), check=False)
         if not worker_output.exists():
             raise RuntimeError(f"walk-forward worker failed before writing result: {name} exit={proc.returncode}")
@@ -513,7 +517,7 @@ def run_worker_profile(args: argparse.Namespace) -> None:
     patch_gym_compat()
     set_global_seed(args.seed)
     init_qlib(QLIB_DATA_PATH)
-    dataset = build_dataset()
+    dataset = build_dataset(ablate_vix=args.ablate_vix)
     full_df = pd.concat(
         [
             segment_frame(dataset, "train"),
@@ -540,6 +544,7 @@ def run_worker_profile(args: argparse.Namespace) -> None:
         artifact_tag=args.worker_window_name,
         multi_asset_sources=multi_asset_sources,
         use_moe=args.moe,
+        ablate_vix=args.ablate_vix,
     )
     output_path = Path(args.worker_output)
     output_path.parent.mkdir(parents=True, exist_ok=True)
@@ -563,6 +568,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--walk-forward", action="store_true", help="run expanding-window walk-forward evaluation")
     parser.add_argument("--multi-asset", action="store_true", help="train on pooled episodes from SOXL/TQQQ/UPRO/SPXL/TECL")
     parser.add_argument("--moe", action="store_true", help="use Mixture-of-Experts network architecture")
+    parser.add_argument("--ablate-vix", action="store_true", help="zero out VIX features and use regime_risk_no_vix")
     parser.add_argument("--seed", type=int, default=20260411, help="global random seed for Python, NumPy, and Torch")
     parser.add_argument("--worker-run-profile", default="", help=argparse.SUPPRESS)
     parser.add_argument("--worker-window-name", default="", help=argparse.SUPPRESS)
@@ -598,13 +604,15 @@ def main() -> None:
     probe = D.features(["SOXL", "SOXX"], ["$close"], start_time="2026-03-30", end_time="2026-04-02")
     print(f"[qlib] instruments ok: {sorted(probe.index.get_level_values('instrument').unique().tolist())}")
 
-    dataset = build_dataset()
+    dataset = build_dataset(ablate_vix=args.ablate_vix)
     train_df = segment_frame(dataset, "train")
     valid_df = segment_frame(dataset, "valid")
     test_df = segment_frame(dataset, "test")
     price_series = dataset.handler.price_frame.droplevel("instrument")["price"].loc[TEST_SEG[0] : TEST_SEG[1]]
 
     print(f"[dataset] train={len(train_df)} valid={len(valid_df)} test={len(test_df)} features={len(FEATURE_COLUMNS)}")
+    if args.ablate_vix:
+        print("[ablation] VIX features zeroed out, regime_risk -> regime_risk_no_vix")
 
     # --- multi-asset training source preparation ---
     multi_asset_sources = None
@@ -628,6 +636,7 @@ def main() -> None:
             seed=args.seed,
             multi_asset_sources=multi_asset_sources,
             use_moe=args.moe,
+            ablate_vix=args.ablate_vix,
         )
         results[profile.name] = bt_result
         print(
@@ -642,6 +651,8 @@ def main() -> None:
                 seed=args.seed,
                 skip_data_refresh=True,
                 multi_asset=args.multi_asset,
+                use_moe=args.moe,
+                ablate_vix=args.ablate_vix,
             )
             promotion_report = build_promotion_report(
                 profile,

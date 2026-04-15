@@ -219,6 +219,7 @@ def engineer_feature_frame(
     und: pd.DataFrame,
     leverage_ratio: float = 3.0,
     leveraged_etf: str = "SOXL",
+    ablate_vix: bool = False,
 ) -> Tuple[pd.DataFrame, pd.Series]:
     """构建体制感知（regime-aware）特征矩阵，供训练、回测、运行时使用。
 
@@ -405,6 +406,13 @@ def engineer_feature_frame(
     ).replace([np.inf, -np.inf], np.nan)
     feature_df = feature_df.dropna()
 
+    if ablate_vix:
+        feature_df["vix_level"] = 0.0
+        feature_df["vix_zscore"] = 0.0
+        feature_df["vix_percentile_252"] = 0.0
+        feature_df["vix_momentum_10"] = 0.0
+        feature_df["regime_risk"] = feature_df["regime_risk_no_vix"]
+
     price = feature_df.pop("close")
     feature_df = feature_df[FEATURE_COLUMNS]
     feature_df.index.name = "datetime"
@@ -423,9 +431,10 @@ def build_feature_frame(
     leveraged_etf: str = "SOXL",
     underlying_etf: str = "SOXX",
     leverage_ratio: float = 3.0,
+    ablate_vix: bool = False,
 ) -> Tuple[pd.DataFrame, pd.Series]:
     lev, und = build_market_frame(start_time, end_time, leveraged_etf=leveraged_etf, underlying_etf=underlying_etf)
-    return engineer_feature_frame(lev, und, leverage_ratio=leverage_ratio, leveraged_etf=leveraged_etf)
+    return engineer_feature_frame(lev, und, leverage_ratio=leverage_ratio, leveraged_etf=leveraged_etf, ablate_vix=ablate_vix)
 
 
 class SoxlDataHandler(DataHandlerLP):
@@ -436,6 +445,7 @@ class SoxlDataHandler(DataHandlerLP):
         leveraged_etf: str = "SOXL",
         underlying_etf: str = "SOXX",
         leverage_ratio: float = 3.0,
+        ablate_vix: bool = False,
     ):
         # Keep both the feature frame and aligned price frame so training,
         # backtest, and runtime all read from the same daily source of truth.
@@ -445,6 +455,7 @@ class SoxlDataHandler(DataHandlerLP):
             leveraged_etf=leveraged_etf,
             underlying_etf=underlying_etf,
             leverage_ratio=leverage_ratio,
+            ablate_vix=ablate_vix,
         )
         self.price_frame = price.to_frame("price")
         self.feature_frame = feature_df
@@ -469,6 +480,7 @@ def build_dataset(
     train_seg: Tuple[str, str] = TRAIN_SEG,
     valid_seg: Tuple[str, str] = VALID_SEG,
     test_seg: Tuple[str, str] = TEST_SEG,
+    ablate_vix: bool = False,
 ) -> DatasetH:
     """构建 qlib DatasetH，划分 train / valid / test 三段。
 
@@ -486,6 +498,7 @@ def build_dataset(
             leveraged_etf=leveraged_etf,
             underlying_etf=underlying_etf,
             leverage_ratio=leverage_ratio,
+            ablate_vix=ablate_vix,
         ),
         segments={"train": train_seg, "valid": valid_seg, "test": test_seg},
         fetch_kwargs={"level": "datetime"},
