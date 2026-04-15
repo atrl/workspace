@@ -30,6 +30,7 @@ from src.soxl_quant.data import (
 from src.soxl_quant.rl import build_policy
 from src.soxl_quant.settings import (
     ACCOUNT,
+    ETF_UNIVERSE,
     MODEL_DIR,
     TEST_SEG,
     TRAIN_SEG,
@@ -43,13 +44,7 @@ DATA_DIR = ROOT / "data" / "generalization"
 RUNTIME_DIR = ROOT / "runtime" / "generalization"
 QLIB_RUNTIME = RUNTIME_DIR / "qlib_stores"
 
-ETF_UNIVERSE = {
-    "SOXL": {"underlying": "SOXX", "leverage": 3.0},
-    "TQQQ": {"underlying": "QQQ", "leverage": 3.0},
-    "UPRO": {"underlying": "SPY", "leverage": 3.0},
-    "SPXL": {"underlying": "SPY", "leverage": 3.0},
-    "TECL": {"underlying": "XLK", "leverage": 3.0},
-}
+
 
 
 def load_actor(checkpoint_path: Path, profile: StrategyConfig):

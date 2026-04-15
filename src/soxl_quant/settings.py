@@ -24,6 +24,14 @@ TRAIN_SEG = ("2010-03-11", "2018-12-31")
 VALID_SEG = ("2019-01-01", "2019-12-31")
 TEST_SEG = ("2020-01-01", "2026-03-31")
 
+ETF_UNIVERSE = {
+    "SOXL": {"underlying": "SOXX", "leverage": 3.0},
+    "TQQQ": {"underlying": "QQQ", "leverage": 3.0},
+    "UPRO": {"underlying": "SPY", "leverage": 3.0},
+    "SPXL": {"underlying": "SPY", "leverage": 3.0},
+    "TECL": {"underlying": "XLK", "leverage": 3.0},
+}
+
 
 @dataclass(frozen=True)
 class RewardConfig:

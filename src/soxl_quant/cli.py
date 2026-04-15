@@ -44,6 +44,7 @@ from .data import FEATURE_COLUMNS, build_dataset, refresh_qlib_binary, init_qlib
 from .rl import ContinuousReward, PositionAction, SoxlSimulator, SoxlState, build_initial_states, build_policy, evaluate_split
 from .settings import (
     CSV_PATH,
+    ETF_UNIVERSE,
     EXTRA_OBS_DIM,
     MODEL_DIR,
     N_ASSETS,
@@ -212,6 +213,47 @@ def set_global_seed(seed: int) -> None:
     if hasattr(torch.backends, "cudnn"):
         torch.backends.cudnn.deterministic = True
         torch.backends.cudnn.benchmark = False
+
+
+def _build_multi_asset_sources(multi_asset_dir: Path, verbose: bool = True):
+    """Prepare pooled training episodes from multiple 3x ETFs."""
+    multi_asset_dir.mkdir(parents=True, exist_ok=True)
+    multi_asset_sources = []
+    for asset_idx, (etf, meta) in enumerate(ETF_UNIVERSE.items()):
+        underlying = meta["underlying"]
+        leverage = meta["leverage"]
+        csv_path = ROOT / "data" / "generalization" / f"{etf.lower()}_with_underlying_vix.csv"
+        if not csv_path.exists():
+            if verbose:
+                print(f"[warn] missing {csv_path}, skipping {etf}")
+            continue
+        qlib_dir = multi_asset_dir / f"qlib_{etf.lower()}"
+        refresh_qlib_binary(
+            csv_path=csv_path,
+            qlib_dir=qlib_dir,
+            leveraged_etf=etf,
+            underlying_etf=underlying,
+            leverage_ratio=leverage,
+        )
+        init_qlib(qlib_dir)
+        ds = build_dataset(
+            leveraged_etf=etf,
+            underlying_etf=underlying,
+            leverage_ratio=leverage,
+        )
+        etf_train_df = segment_frame(ds, "train")
+        pkl_path = multi_asset_dir / f"{etf}_train.pkl"
+        etf_train_df.to_pickle(pkl_path)
+        multi_asset_sources.append((pkl_path, etf_train_df, asset_idx))
+        if verbose:
+            print(f"[multi-asset] {etf} train={len(etf_train_df)} rows -> {pkl_path.name}")
+    if not multi_asset_sources:
+        raise RuntimeError("no multi-asset sources available")
+    if verbose:
+        print(f"[multi-asset] total pooled episodes will be generated from {len(multi_asset_sources)} ETFs")
+    # Re-initialize qlib to the primary SOXL store so that backtest benchmarks are available.
+    init_qlib(QLIB_DATA_PATH)
+    return multi_asset_sources
 
 
 def train_with_selection(policy, actor, initial_states, obs_dim: int, profile, valid_df, smoke: bool) -> Dict[str, object]:
@@ -485,38 +527,7 @@ def run_worker_profile(args: argparse.Namespace) -> None:
         profile = load_profile("smoke")
     multi_asset_sources = None
     if args.multi_asset:
-        multi_asset_dir = ROOT / "data" / "multi_asset"
-        multi_asset_sources = []
-        etf_meta = {
-            "SOXL": ("SOXX", 3.0),
-            "TQQQ": ("QQQ", 3.0),
-            "UPRO": ("SPY", 3.0),
-            "SPXL": ("SPY", 3.0),
-            "TECL": ("XLK", 3.0),
-        }
-        for asset_idx, (etf, (underlying, leverage)) in enumerate(etf_meta.items()):
-            csv_path = ROOT / "data" / "generalization" / f"{etf.lower()}_with_underlying_vix.csv"
-            if not csv_path.exists():
-                continue
-            qlib_dir = multi_asset_dir / f"qlib_{etf.lower()}"
-            refresh_qlib_binary(
-                csv_path=csv_path,
-                qlib_dir=qlib_dir,
-                leveraged_etf=etf,
-                underlying_etf=underlying,
-                leverage_ratio=leverage,
-            )
-            init_qlib(qlib_dir)
-            ds = build_dataset(
-                leveraged_etf=etf,
-                underlying_etf=underlying,
-                leverage_ratio=leverage,
-            )
-            etf_train_df = segment_frame(ds, "train")
-            pkl_path = multi_asset_dir / f"{etf}_train.pkl"
-            etf_train_df.to_pickle(pkl_path)
-            multi_asset_sources.append((pkl_path, etf_train_df, asset_idx))
-        init_qlib(QLIB_DATA_PATH)
+        multi_asset_sources = _build_multi_asset_sources(ROOT / "data" / "multi_asset", verbose=False)
 
     result = run_profile(
         profile=profile,
@@ -598,45 +609,7 @@ def main() -> None:
     # --- multi-asset training source preparation ---
     multi_asset_sources = None
     if args.multi_asset:
-        multi_asset_dir = ROOT / "data" / "multi_asset"
-        multi_asset_dir.mkdir(parents=True, exist_ok=True)
-        multi_asset_sources = []
-        etf_meta = {
-            "SOXL": ("SOXX", 3.0),
-            "TQQQ": ("QQQ", 3.0),
-            "UPRO": ("SPY", 3.0),
-            "SPXL": ("SPY", 3.0),
-            "TECL": ("XLK", 3.0),
-        }
-        for asset_idx, (etf, (underlying, leverage)) in enumerate(etf_meta.items()):
-            csv_path = ROOT / "data" / "generalization" / f"{etf.lower()}_with_underlying_vix.csv"
-            if not csv_path.exists():
-                print(f"[warn] missing {csv_path}, skipping {etf}")
-                continue
-            qlib_dir = multi_asset_dir / f"qlib_{etf.lower()}"
-            refresh_qlib_binary(
-                csv_path=csv_path,
-                qlib_dir=qlib_dir,
-                leveraged_etf=etf,
-                underlying_etf=underlying,
-                leverage_ratio=leverage,
-            )
-            init_qlib(qlib_dir)
-            ds = build_dataset(
-                leveraged_etf=etf,
-                underlying_etf=underlying,
-                leverage_ratio=leverage,
-            )
-            etf_train_df = segment_frame(ds, "train")
-            pkl_path = multi_asset_dir / f"{etf}_train.pkl"
-            etf_train_df.to_pickle(pkl_path)
-            multi_asset_sources.append((pkl_path, etf_train_df, asset_idx))
-            print(f"[multi-asset] {etf} train={len(etf_train_df)} rows -> {pkl_path.name}")
-        if not multi_asset_sources:
-            raise RuntimeError("no multi-asset sources available")
-        print(f"[multi-asset] total pooled episodes will be generated from {len(multi_asset_sources)} ETFs")
-        # Re-initialize qlib to the primary SOXL store so that backtest benchmarks are available.
-        init_qlib(QLIB_DATA_PATH)
+        multi_asset_sources = _build_multi_asset_sources(ROOT / "data" / "multi_asset", verbose=True)
 
     results: Dict[str, Dict[str, object]] = {}
     walk_forward_results: Dict[str, Dict[str, Dict[str, object]]] = {}

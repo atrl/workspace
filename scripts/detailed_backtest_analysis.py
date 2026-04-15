@@ -22,25 +22,16 @@ sys.path.insert(0, str(ROOT))
 from src.soxl_quant.backtest import backtest_profile
 from src.soxl_quant.data import build_dataset, init_qlib, refresh_qlib_binary, segment_frame
 from src.soxl_quant.rl import build_policy
-from src.soxl_quant.settings import ACCOUNT, MODEL_DIR, TEST_SEG, load_profile
+from src.soxl_quant.settings import ACCOUNT, ETF_UNIVERSE, MODEL_DIR, TEST_SEG, load_profile
 
 RUNTIME_DIR = ROOT / "runtime" / "generalization"
 DATA_DIR = ROOT / "data" / "generalization"
-
-ETF_UNIVERSE = {
-    "SOXL": {"underlying": "SOXX", "leverage": 3.0, "csv": "soxl_with_underlying_vix.csv"},
-    "TQQQ": {"underlying": "QQQ", "leverage": 3.0, "csv": "tqqq_with_underlying_vix.csv"},
-    "UPRO": {"underlying": "SPY", "leverage": 3.0, "csv": "upro_with_underlying_vix.csv"},
-    "SPXL": {"underlying": "SPY", "leverage": 3.0, "csv": "spxl_with_underlying_vix.csv"},
-    "TECL": {"underlying": "XLK", "leverage": 3.0, "csv": "tecl_with_underlying_vix.csv"},
-}
-
 
 def analyze_etf(etf: str, meta: dict, actor, profile, out_dir: Path):
     print(f"\n{'='*60}")
     print(f"Analyzing {etf} ...")
 
-    csv_path = DATA_DIR / meta["csv"]
+    csv_path = DATA_DIR / f"{etf.lower()}_with_underlying_vix.csv"
     qlib_dir = RUNTIME_DIR / "qlib_stores" / etf.lower()
 
     refresh_qlib_binary(

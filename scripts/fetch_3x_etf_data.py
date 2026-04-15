@@ -13,6 +13,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import sys
 import time
 from pathlib import Path
 
@@ -21,15 +22,11 @@ import requests
 import yfinance as yf
 
 ROOT = Path(__file__).resolve().parent.parent
-DATA_DIR = ROOT / "data" / "generalization"
+sys.path.insert(0, str(ROOT))
 
-ETF_UNIVERSE = {
-    "SOXL": {"underlying": "SOXX", "leverage": 3.0},
-    "TQQQ": {"underlying": "QQQ", "leverage": 3.0},
-    "UPRO": {"underlying": "SPY", "leverage": 3.0},
-    "SPXL": {"underlying": "SPY", "leverage": 3.0},
-    "TECL": {"underlying": "XLK", "leverage": 3.0},
-}
+from src.soxl_quant.settings import ETF_UNIVERSE
+
+DATA_DIR = ROOT / "data" / "generalization"
 
 ALPHA_VANTAGE_API_KEY = os.environ.get("ALPHA_VANTAGE_API_KEY", "")
 

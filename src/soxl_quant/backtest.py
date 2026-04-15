@@ -180,6 +180,8 @@ def backtest_profile(
 
 def save_results(results: Dict[str, Dict[str, object]]) -> None:
     """Persist chart and text summaries for the latest backtest batch."""
+    if not results:
+        return
     lines = ["SOXL qlib-native PPO backtest", "=" * 72, ""]
     fig, axes = plt.subplots(4, 1, figsize=(16, 14), sharex=True)
     colors = {"balanced": "#1f77b4", "aggressive": "#d62728"}
