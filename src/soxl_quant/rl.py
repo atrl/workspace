@@ -130,16 +130,13 @@ class EpisodeConfig(NamedTuple):
 def rebalance_threshold(regime_risk: float, realized_vol: float, trend_strength: float, vol_coef: float = 1.0) -> float:
     """抑制无效调仓：只有当状态变化足够大时才允许换仓。
 
-    当前阈值 0.015 ~ 0.03，在低波动市场中偏激进。
-    【vol-coefficient scaling】高波动时放宽阈值，减少高 vol 环境中的摩擦损耗。
+    原始基线 0.015 ~ 0.03。高波动时不额外压缩阈值，保持交易成本可控。
     """
     threshold = 0.015
     if regime_risk < 0.35 and realized_vol < 0.45 and trend_strength < 0.04:
         threshold = 0.03
     if regime_risk > 0.60 or realized_vol > 0.70 or trend_strength > 0.10:
         threshold = 0.008
-    if vol_coef > 1.30:
-        threshold /= min(vol_coef, 2.0)
     return threshold
 
 
@@ -169,7 +166,11 @@ def action_band_from_obs(obs: np.ndarray) -> Tuple[float, float]:
     cap = 0.95
 
     if anchor_gap > 0.02 and anchor_slope >= 0:
-        floor = 0.30
+        realized_vol_10 = float(np.nan_to_num(obs[STATIC_INDEX["realized_vol_10"]]))
+        if realized_vol_10 < 0.40:
+            floor = 0.50
+        else:
+            floor = 0.35
         cap = 1.00
     if regime_risk > 0.72 or (anchor_gap < -0.06 and anchor_slope < 0):
         floor = 0.05
@@ -756,7 +757,7 @@ class SoxlPPOPolicy(PPOPolicy):
         }
 
 
-def build_policy(obs_dim: int, profile: StrategyConfig, use_moe: bool = False) -> Tuple[PPOPolicy, Actor]:
+def build_policy(obs_dim: int, profile: StrategyConfig, use_moe: bool = False, **kwargs) -> Tuple[PPOPolicy, Actor]:
     if use_moe:
         net = RegimeMoENet(obs_dim, hidden_size=64, n_experts=3, device="cpu", top_k=1, noise_std=0.1)
     else:
@@ -765,7 +766,7 @@ def build_policy(obs_dim: int, profile: StrategyConfig, use_moe: bool = False) -
     critic = Critic(net, device="cpu")
     optim = torch.optim.Adam(list(actor.parameters()) + list(critic.parameters()), lr=profile.lr)
     policy_cls = SoxlPPOPolicy if use_moe else PPOPolicy
-    policy = policy_cls(
+    policy_kwargs = dict(
         actor=actor,
         critic=critic,
         optim=optim,
@@ -778,8 +779,11 @@ def build_policy(obs_dim: int, profile: StrategyConfig, use_moe: bool = False) -
         reward_normalization=True,
         recompute_advantage=True,
         action_space=spaces.Discrete(N_ACTIONS),
-        moe_lb_coef=0.01 if use_moe else 0.0,
     )
+    if use_moe:
+        policy_kwargs["moe_lb_coef"] = kwargs.get("moe_lb_coef", 0.01)
+    policy = policy_cls(**policy_kwargs)
+    return policy, actor
     return policy, actor
 
 

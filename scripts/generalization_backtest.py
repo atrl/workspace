@@ -47,10 +47,10 @@ QLIB_RUNTIME = RUNTIME_DIR / "qlib_stores"
 
 
 
-def load_actor(checkpoint_path: Path, profile: StrategyConfig):
+def load_actor(checkpoint_path: Path, profile: StrategyConfig, use_moe: bool = False):
     ckpt = torch.load(checkpoint_path, map_location="cpu", weights_only=False)
     obs_dim = int(ckpt["obs_dim"])
-    policy, actor = build_policy(obs_dim, profile)
+    policy, actor = build_policy(obs_dim, profile, use_moe=use_moe)
     actor.load_state_dict(ckpt["state_dict"])
     actor.eval()
     return actor
@@ -118,6 +118,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--profile", default="balanced", help="Profile name in configs/soxl/")
     parser.add_argument("--model", default="soxl_balanced_actor.pt", help="Model checkpoint filename")
+    parser.add_argument("--moe", action="store_true", help="Model uses Mixture-of-Experts architecture")
     parser.add_argument("--etf", help="Run a single ETF (default: all)")
     args = parser.parse_args()
 
@@ -126,7 +127,7 @@ def main():
     profile = load_profile(args.profile)
     model_path = MODEL_DIR / args.model
     print(f"Loading actor from {model_path} ...")
-    actor = load_actor(model_path, profile)
+    actor = load_actor(model_path, profile, use_moe=args.moe)
 
     targets = {args.etf.upper(): ETF_UNIVERSE[args.etf.upper()]} if args.etf else ETF_UNIVERSE
 

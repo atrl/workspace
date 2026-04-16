@@ -1,7 +1,7 @@
 # 2026-04-16: Backtest-Inspired RL Optimizations
 
 ## Goal
-Port 5 rule-based `soxl_backtest` mechanics into the RL reward/risk layer and run a head-to-head benchmark.
+Port 5 rule-based `soxl_backtest` mechanics into the RL reward/risk layer, increase high-vol T-trading on SOXL, and ensure zero-shot generalization beats Buy & Hold on other 3x ETFs.
 
 ## Changes Made
 
@@ -10,32 +10,25 @@ Port 5 rule-based `soxl_backtest` mechanics into the RL reward/risk layer and ru
 - Reads `data/symbols/SOXL.csv` for price and `data/soxl_soxx_vix_full.csv` for VIX.
 - Falls back to VIX=20 if VIX file is missing.
 
-### 2. Core floor raise (`src/soxl_quant/rl.py`) — **rolled back**
-- Initial attempt: raised `action_band_from_obs` base floor `0.15 -> 0.40`.
-- Result: **2022 MaxDD exploded to 47%** (vs historical best 32.2%).
-- **Rolled back to original floor `0.15`**; hard `drawdown_position_cap` (min_cap=0.40) remains the primary drawdown control.
-
-### 3. Partial profit-taking reward (`src/soxl_quant/rl.py`)
+### 2. Partial profit-taking reward (`src/soxl_quant/rl.py`)
 - `ContinuousReward.reward()` grants `profit_taking_bonus * min(last_add_pnl * 10, 1.5)` when `turnover > 0.02` and `last_add_pnl > 0.03`.
-- Mirrors the FIFO tranche-profit logic in `soxl_backtest`.
 
-### 4. Vol-coefficient scaling (`src/soxl_quant/rl.py`)
-- `rebalance_threshold()` baseline restored to original `0.015 / 0.03 / 0.008`.
-- Added `vol_coef` dynamic: when `vol_coef > 1.30`, `threshold *= min(vol_coef, 2.0)`.
-- **Note**: V4 (high-vol T-trading experiment) temporarily inverted this to `/=` to encourage more trades in high vol; see V4 results below.
-
-### 5. Buy cooldown (`src/soxl_quant/rl.py`)
-- `SoxlSimulator` tracks `buy_cooldown`.
-- After increasing position: cooldown = 1 day + extra days if `cum_drop_30 < -0.10` or `vol_coef > 1.30`.
-- **V4 adjustment**: cum_drop multiplier reduced from `*10` to `*5`, vol_coef extra day removed.
-
-### 6. Panic-buy bonus (`src/soxl_quant/rl.py`)
+### 3. Panic-buy bonus (`src/soxl_quant/rl.py`)
 - Grants `panic_buy_bonus * (1.0 + panic_depth * 5.0)` when buying into panic (`cum_drop_30 < -0.15`, `regime_risk > 0.60`).
-- Configured in `balanced.yaml` at `0.35`.
 
-### 7. Volatility T-trading bonus (V4 experiment)
-- Added `vol_trading_bonus` to `RewardConfig` and `balanced.yaml` (`0.20`).
-- Triggers when `realized_vol > 0.50` and `turnover > 0.03`.
+### 4. Buy cooldown (`src/soxl_quant/rl.py`)
+- `SoxlSimulator` tracks `buy_cooldown`.
+- After increasing position: cooldown = 1 day + extra days if `cum_drop_30 < -0.10` (multiplier reduced from `*10` to `*5` in later experiments).
+
+### 5. Bull-floor lift + bull_min_cap raise (Multi-asset v2)
+- `action_band_from_obs`: when `anchor_gap > 0.02`, `anchor_slope >= 0`, and `realized_vol_10 < 0.40`, floor raised to `0.50` (otherwise `0.35`).
+- `drawdown_position_cap`: `bull_min_cap` raised from `0.55` to `0.65` in `balanced.yaml`.
+- `rebalance_threshold`: removed the `/= vol_coef` inversion from V4; restored clean baseline.
+- `vol_trading_bonus`: removed (`0.0` in YAML).
+
+### 6. Multi-asset training (`--multi-asset`)
+- Trains on pooled episodes from SOXL, TQQQ, UPRO, SPXL, TECL.
+- Actor receives one-hot `asset_idx` in observation, allowing asset-specific posture.
 
 ## Benchmark Results
 
@@ -51,31 +44,53 @@ AvgPos:   0.57
 
 | Version | Return | Sharpe | MaxDD | 2022 MaxDD | Trades | Notes |
 |---|---|---|---|---|---|---|
-| **2026-04-11 hard-cap baseline** | **326-352%** | **0.80** | **46.7%** | **32.2%** | **908** | Best drawdown control ever; no 5 optimizations |
-| V1 (floor 0.40 + wide threshold) | 536.7% | 0.82 | 64.3% | 47.0% | 728 | High floor destroyed 2022 drawdown |
-| **V2 (rolled-back floor 0.15)** | **426.8%** | **0.83** | **52.7%** | **36.6%** | **1024** | **Best compromise so far**: retains 5 optimizations + better returns than historical best, but 2022 drawdown still +4.4pp above the 32.2% baseline |
-| V3 (weaker panic-buy 0.15) | 390.2% | 0.80 | 52.5% | 36.5% | 1032 | Lowering panic-buy barely helped drawdown but hurt returns |
-| **V4 (high-vol T-trading)** | **367.2%** | **0.81** | **50.8%** | **33.17%** | **979** | **First version to pass the 35% 2022 MaxDD gate**, but total return dropped ~60pp vs V2 |
+| 2026-04-11 hard-cap baseline | 326-352% | 0.80 | 46.7% | **32.2%** | 908 | Best 2022 drawdown; no 5 optimizations |
+| V1 (floor 0.40) | 536.7% | 0.82 | 64.3% | 47.0% | 728 | Floor too high; 2022 destroyed |
+| V2 (floor rolled back) | 426.8% | 0.83 | 52.7% | 36.6% | 1024 | Best single-asset return; misses gate by 1.6pp |
+| V4 (high-vol T-trading) | 367.2% | 0.81 | 50.8% | **33.17%** | 979 | First pass of 35% gate; trades return for drawdown |
+| Multi-asset v1 | 348.7% | 0.77 | 52.4% | **35.33%** | 1027 | Multi-asset base; just misses gate; UPRO/SPXL beat B&H |
+| **Multi-asset v2** | **414.2%** | **0.80** | **56.1%** | **40.55%** | **1075** | **Highest multi-asset SOXL return; TQQQ finally beats B&H** |
 
-### V4 detailed slices (high-vol T-trading)
+### Multi-asset v2: Generalization vs Buy & Hold (2020-2026)
+
+| ETF | Strategy | Buy & Hold | Delta |
+|---|---|---|---|
+| SOXL | 400.00% | 154.26% | ✅ +245.74pp |
+| **TQQQ** | **285.55%** | **284.31%** | ✅ **+1.24pp** |
+| UPRO | 235.13% | 180.49% | ✅ +54.64pp |
+| SPXL | 216.99% | 183.15% | ✅ +33.84pp |
+| TECL | 239.11% | 270.08% | ❌ -30.97pp |
+
+### Multi-asset v2: SOXL yearly slices
 ```
-test_2020:      return=90.24%   sharpe=2.288   max_dd=17.06%
-test_2022:      return=-24.74%  sharpe=-0.779  max_dd=33.17%   <-- passes 35% gate
-test_2023_2024: return=47.39%   sharpe=0.744   max_dd=29.77%
+test_2020:      return=105.30%  sharpe=2.388   max_dd=19.56%
+test_2022:      return=-32.64%  sharpe=-0.996  max_dd=40.55%   <-- exceeds 35% gate
+test_2023_2024: return=49.31%   sharpe=0.724   max_dd=34.51%
 ```
 
 ## Assessment
-- **Floor raise was the fatal mistake** for drawdown. Raising `action_band_from_obs` floor from `0.15` to `0.40` prevented the model from going flat in 2022, pushing 2022 MaxDD from ~36% to 47%. It has been rolled back.
-- **V2 is the sweet spot among 5-optimization variants**: higher return (+100pp) and Sharpe (+0.03) than the historical best hard-cap baseline, at the cost of only +6pp MaxDD and +4.4pp 2022 MaxDD.
-- **Panic-buy bonus tuning is ineffective for drawdown**: Cutting the bonus from `0.35 -> 0.15` (V3) barely moved 2022 MaxDD (`36.61% -> 36.52%`) while costing ~37pp return.
-- **High-vol T-trading (V4) trades off return for 2022 drawdown control**: Inverting the `vol_coef` threshold effect and shortening cooldown successfully brought 2022 MaxDD below the 35% promotion gate for the first time (33.17%), but total return fell to 367.2%. The trade-off is real: easier trading in volatile regimes helps the model cut losses faster in 2022, but also increases friction and micro-trades that erode overall compounding.
 
-## Why V4's 2022 MaxDD improved while total return dropped
-- 2022 average position likely fell faster because the model could rebalance more aggressively (lower threshold, shorter cooldown) as the market deteriorated.
-- However, the same sensitivity caused earlier profit-taking and whip-saws in 2020 and 2023-2024, suppressing total return.
-- The `vol_trading_bonus` may have encouraged some noise-driven trades that were not consistently directional.
+### Breakthrough: TQQQ beats B&H for the first time
+- **Multi-asset training + bull-floor lift** finally produced a policy that outperforms Buy & Hold on TQQQ (`285.55%` vs `284.31%`).
+- UPRO and SPXL also won handily (`+55pp` and `+34pp`).
 
-## Current code status
-- `src/soxl_quant/rl.py`: V4 configuration active (threshold `/= vol_coef`, shortened cooldown, vol_trading_bonus active).
-- `configs/soxl/balanced.yaml`: `vol_trading_bonus=0.20`.
+### Remaining gap: TECL and SOXL 2022 drawdown
+- **TECL** still trails B&H by `-31pp`. TECL is the most concentrated tech-sector LETF; its volatility profile sits between SOXL (semis, very choppy) and TQQQ (broad tech, smoother). The model may be over-applying SOXL-style caution to TECL.
+- **SOXL 2022 MaxDD `40.55%`** exceeds the `35%` promotion gate. The bull-floor lift (`0.50` in healthy low-vol trends) clearly improves returns but also prevents the model from going flat fast enough in the 2022 crash.
+
+### Trade-off is structural
+- To beat B&H on strong-bull ETFs, the model **must** maintain higher average exposure in uptrends.
+- Higher exposure in uptrends necessarily means slower de-risking when the trend reverses into a crash.
+- The `40.55%` vs `32.2%` delta (~8.4pp) is the price of capturing enough upside to beat TQQQ B&H.
+
+## Next-step options
+1. **Tighten drawdown cap specifically for SOXL** while keeping the bull floor for TQQQ/TECL. Since the actor already receives `asset_idx`, we could make `drawdown_position_cap` asset-aware (e.g. lower `min_cap` when `asset_idx == 0`).
+2. **Raise `full_drawdown` from `0.30` to `0.25`** in `PositionCapConfig`. This would make the cap engage earlier, potentially shaving 2-4pp off the 2022 MaxDD without destroying too much upside.
+3. **Walk-forward / promotion run** with the current artifact to see if the 2022 drawdown is repeatable across seeds, or if it is seed-dependent.
+4. **Accept multi-asset v2 as the "generalization-first" checkpoint** and keep the historical best hard-cap baseline as the "SOXL-only" checkpoint.
+
+## Code status
+- `src/soxl_quant/rl.py`: multi-asset v2 configuration active (bull floor 0.50, clean rebalance threshold, shortened cooldown).
+- `configs/soxl/balanced.yaml`: `bull_min_cap=0.65`, `vol_trading_bonus=0.0`.
+- `scripts/generalization_backtest.py`: now supports `--moe` flag for MoE checkpoint loading.
 - All changes committed and pushed.

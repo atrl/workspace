@@ -33,14 +33,14 @@ reward:
   panic_buy_cum_drop_threshold: -0.15
   panic_buy_regime_risk_threshold: 0.60
   cooldown_penalty: 0.0
-  vol_trading_bonus: 0.20
+  vol_trading_bonus: 0.0
 position_cap:
   start_drawdown: 0.10
   full_drawdown: 0.30
   min_cap: 0.40
   curve_power: 1.0
   # P0: 动态 cap（牛市放宽 / 熊市收紧）— 第二轮调参，放宽幅度降低
-  bull_min_cap: 0.55
+  bull_min_cap: 0.65
   bull_vol_threshold: 0.40
   bull_anchor_threshold: 0.02
   bear_min_cap: 0.30
