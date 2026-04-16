@@ -56,6 +56,7 @@ class RLStrategy(BaseStrategy):
         self.last_step = -10        # 冷却期计数，避免连续过度交易
         self.trades = 0             # 总成交次数统计
         self.position_history: List[float] = []  # 每日仓位记录，用于画图
+        self.trade_signals: List[Tuple[pd.Timestamp, float, float, str]] = []  # (date, price, position, type)
         self.ledger = PositionLedger()           # 持仓账本，与训练时一致
         self.peak_account_value = ACCOUNT
         self.price_path = self.price_series.reindex(self.df.index).ffill().bfill().to_numpy(dtype=np.float32)
@@ -104,9 +105,9 @@ class RLStrategy(BaseStrategy):
         regime_risk = float(self.df.iloc[idx]["regime_risk"])
         realized_vol = float(self.df.iloc[idx]["realized_vol_10"])
         trend_strength = abs(float(self.df.iloc[idx]["trend_gap_21"]))
-        min_rebalance = rebalance_threshold(regime_risk, realized_vol, trend_strength)
-
         target_pos = action_to_position(actor_action(self.actor, obs), obs, config=self.position_cap_config)
+        direction = "buy" if target_pos > current_pos else ("sell" if target_pos < current_pos else "neutral")
+        min_rebalance = rebalance_threshold(regime_risk, realized_vol, trend_strength, direction=direction)
         if abs(target_pos - current_pos) < min_rebalance or step - self.last_step < 1:
             self.position_history.append(current_pos)
             return TradeDecisionWO([], self)
@@ -123,6 +124,8 @@ class RLStrategy(BaseStrategy):
             self.last_step = step
             self.trades += 1
             self.ledger.update(current_pos, target_pos, price)
+            signal_type = "buy" if delta > 0 else "sell"
+            self.trade_signals.append((trade_date, price, target_pos if orders else current_pos, signal_type))
         self.position_history.append(target_pos if orders else current_pos)
         return TradeDecisionWO(orders, self)
 
@@ -175,6 +178,7 @@ def backtest_profile(
         "max_dd": float(((peak - account) / peak).max() * 100),
         "trades": strategy.trades,
         "position_history": strategy.position_history,
+        "trade_signals": strategy.trade_signals,
     }
 
 
@@ -193,6 +197,11 @@ def save_results(results: Dict[str, Dict[str, object]]) -> None:
         pos_hist = result["position_history"]
         if pos_hist:
             axes[1].plot(pdf.index[: len(pos_hist)], pos_hist, lw=1.5, color=color, alpha=0.9, label=name)
+        signals = result.get("trade_signals", [])
+        for date, price, pos, stype in signals:
+            marker = "^" if stype == "buy" else "v"
+            mcolor = "green" if stype == "buy" else "red"
+            axes[1].scatter(date, pos, marker=marker, color=mcolor, s=45, zorder=5, alpha=0.8)
         lines.extend(
             [
                 f"[{name}]",

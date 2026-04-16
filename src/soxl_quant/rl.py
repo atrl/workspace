@@ -127,17 +127,21 @@ class EpisodeConfig(NamedTuple):
     asset_idx: int = 0
 
 
-def rebalance_threshold(regime_risk: float, realized_vol: float, trend_strength: float, vol_coef: float = 1.0) -> float:
-    """抑制无效调仓：只有当状态变化足够大时才允许换仓。
-
-    【A/B 优化】大幅提高阈值并压缩高波动场景的灵敏度，减少摩擦损耗。
-    """
-    threshold = 0.04
+def rebalance_threshold(regime_risk: float, realized_vol: float, trend_strength: float, direction: str = "neutral") -> float:
+    """抑制无效调仓：非对称阈值，买入容易、卖出难，减少 whipsaw。"""
+    base_buy = 0.02
+    base_sell = 0.06
     if regime_risk < 0.35 and realized_vol < 0.45 and trend_strength < 0.04:
-        threshold = 0.08
+        base_buy = 0.04
+        base_sell = 0.12
     if regime_risk > 0.60 or realized_vol > 0.70 or trend_strength > 0.10:
-        threshold = 0.02
-    return threshold
+        base_buy = 0.01
+        base_sell = 0.03
+    if direction == "buy":
+        return base_buy
+    if direction == "sell":
+        return base_sell
+    return (base_buy + base_sell) / 2.0
 
 
 def action_band_from_obs(obs: np.ndarray) -> Tuple[float, float]:
@@ -301,11 +305,12 @@ class SoxlSimulator(Simulator):
         price = float(self.price_path[self.idx])
         vol_coef = float(np.nan_to_num(row["vol_coef_21"]))
         cum_drop_30 = float(np.nan_to_num(row["cum_drop_30"]))
+        direction = "buy" if action > self.pos else ("sell" if action < self.pos else "neutral")
         min_rebalance = rebalance_threshold(
             float(np.nan_to_num(row["regime_risk"])),
             float(np.nan_to_num(row["realized_vol_10"])),
             abs(float(np.nan_to_num(row["trend_gap_21"]))),
-            vol_coef=vol_coef,
+            direction=direction,
         )
         # Trade lock takes precedence over any action change
         if self.trade_lock > 0:
@@ -893,11 +898,12 @@ def evaluate_split(
         action = actor_action(actor, obs)
         target_pos = action_to_position(action, obs, config=position_cap_config)
         row = df.iloc[idx]
+        direction = "buy" if target_pos > pos else ("sell" if target_pos < pos else "neutral")
         min_rebalance = rebalance_threshold(
             float(np.nan_to_num(row["regime_risk"])),
             float(np.nan_to_num(row["realized_vol_10"])),
             abs(float(np.nan_to_num(row["trend_gap_21"]))),
-            vol_coef=float(np.nan_to_num(row["vol_coef_21"])),
+            direction=direction,
         )
         if abs(target_pos - pos) < min_rebalance:
             target_pos = pos
