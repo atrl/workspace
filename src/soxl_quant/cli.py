@@ -362,7 +362,7 @@ def run_profile(
         f"iters={profile.max_iters} epi/iter={profile.episode_per_iter}"
     )
 
-    policy, actor = build_policy(obs_dim, profile, use_moe=use_moe)
+    policy, actor = build_policy(obs_dim, profile, use_moe=use_moe, hard_regime_routing=use_moe)
     selection = train_with_selection(
         policy=policy,
         actor=actor,

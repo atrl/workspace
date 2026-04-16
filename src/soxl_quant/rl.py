@@ -166,11 +166,7 @@ def action_band_from_obs(obs: np.ndarray) -> Tuple[float, float]:
     cap = 0.95
 
     if anchor_gap > 0.02 and anchor_slope >= 0:
-        realized_vol_10 = float(np.nan_to_num(obs[STATIC_INDEX["realized_vol_10"]]))
-        if realized_vol_10 < 0.40:
-            floor = 0.50
-        else:
-            floor = 0.35
+        floor = 0.30
         cap = 1.00
     if regime_risk > 0.72 or (anchor_gap < -0.06 and anchor_slope < 0):
         floor = 0.05
@@ -616,6 +612,8 @@ class RegimeMoENet(torch.nn.Module):
         top_k: int = 1,
         noise_std: float = 0.1,
         shared_hidden_size: int = 16,
+        regime_risk_idx: Optional[int] = None,
+        hard_regime_routing: bool = False,
     ):
         super().__init__()
         self.n_experts = n_experts
@@ -624,6 +622,8 @@ class RegimeMoENet(torch.nn.Module):
         self.device = device
         self.top_k = top_k
         self.noise_std = noise_std
+        self.regime_risk_idx = regime_risk_idx
+        self.hard_regime_routing = hard_regime_routing
         self.gate = torch.nn.Sequential(
             torch.nn.Linear(obs_dim, 32),
             torch.nn.ReLU(),
@@ -676,6 +676,22 @@ class RegimeMoENet(torch.nn.Module):
             # scatter softmax of topk values back into zero tensor
             softmax_topk = torch.softmax(topk_vals, dim=-1)
             gate_weights.scatter_(-1, topk_indices, softmax_topk)
+
+        # Hard regime routing: override gate in extreme regimes
+        if self.hard_regime_routing and self.regime_risk_idx is not None:
+            regime_risk = obs[:, self.regime_risk_idx]
+            hard_weights = torch.zeros_like(gate_weights)
+            for b in range(gate_weights.shape[0]):
+                rr = float(regime_risk[b])
+                if rr < 0.35:
+                    hard_weights[b, 0] = 1.0
+                elif rr > 0.65:
+                    hard_weights[b, 2] = 1.0
+                else:
+                    # keep original top-1 expert
+                    expert_idx = int(gate_weights[b].argmax())
+                    hard_weights[b, expert_idx] = 1.0
+            gate_weights = hard_weights
 
         expert_outs = torch.stack([expert(obs) for expert in self.experts], dim=1)  # (batch, n_experts, hidden)
         routed = (gate_weights.unsqueeze(-1) * expert_outs).sum(dim=1)  # (batch, hidden)
@@ -757,9 +773,9 @@ class SoxlPPOPolicy(PPOPolicy):
         }
 
 
-def build_policy(obs_dim: int, profile: StrategyConfig, use_moe: bool = False, **kwargs) -> Tuple[PPOPolicy, Actor]:
+def build_policy(obs_dim: int, profile: StrategyConfig, use_moe: bool = False, hard_regime_routing: bool = False, **kwargs) -> Tuple[PPOPolicy, Actor]:
     if use_moe:
-        net = RegimeMoENet(obs_dim, hidden_size=64, n_experts=3, device="cpu", top_k=1, noise_std=0.1)
+        net = RegimeMoENet(obs_dim, hidden_size=64, n_experts=3, device="cpu", top_k=1, noise_std=0.1, regime_risk_idx=STATIC_INDEX["regime_risk"], hard_regime_routing=hard_regime_routing)
     else:
         net = Net((obs_dim,), hidden_sizes=list(profile.hidden_sizes), device="cpu")
     actor = Actor(net, N_ACTIONS, device="cpu")
