@@ -133,11 +133,11 @@ def rebalance_threshold(regime_risk: float, realized_vol: float, trend_strength:
     当前阈值 0.015 ~ 0.03，在低波动市场中偏激进。
     【vol-coefficient scaling】高波动时放宽阈值，减少高 vol 环境中的摩擦损耗。
     """
-    threshold = 0.025
+    threshold = 0.015
     if regime_risk < 0.35 and realized_vol < 0.45 and trend_strength < 0.04:
-        threshold = 0.05
+        threshold = 0.03
     if regime_risk > 0.60 or realized_vol > 0.70 or trend_strength > 0.10:
-        threshold = 0.012
+        threshold = 0.008
     if vol_coef > 1.30:
         threshold *= min(vol_coef, 2.0)
     return threshold
@@ -165,20 +165,20 @@ def action_band_from_obs(obs: np.ndarray) -> Tuple[float, float]:
     vix_zscore = float(np.nan_to_num(obs[STATIC_INDEX["vix_zscore"]]))
     vol_coef = float(np.nan_to_num(obs[STATIC_INDEX["vol_coef_21"]]))
 
-    floor = 0.40
+    floor = 0.15
     cap = 0.95
 
     if anchor_gap > 0.02 and anchor_slope >= 0:
-        floor = 0.55
+        floor = 0.30
         cap = 1.00
     if regime_risk > 0.72 or (anchor_gap < -0.06 and anchor_slope < 0):
-        floor = 0.30
+        floor = 0.05
         cap = 0.80
     if cum_drop_30 < -0.18 and vix_zscore < 2.8:
-        floor = max(floor, 0.45)
+        floor = max(floor, 0.18)
         cap = 1.00
     if vol_coef > 1.45:
-        floor = max(0.25, floor - 0.05)
+        floor = max(0.08, floor - 0.05)
         cap = min(cap, 0.90)
 
     return floor, cap
