@@ -127,18 +127,19 @@ class EpisodeConfig(NamedTuple):
     asset_idx: int = 0
 
 
-def rebalance_threshold(regime_risk: float, realized_vol: float, trend_strength: float) -> float:
+def rebalance_threshold(regime_risk: float, realized_vol: float, trend_strength: float, vol_coef: float = 1.0) -> float:
     """抑制无效调仓：只有当状态变化足够大时才允许换仓。
 
     当前阈值 0.015 ~ 0.03，在低波动市场中偏激进。
-    【优化方向】如果后续想降低换手率，可把阈值整体提高 30% ~ 50%，
-    或加入“冷却期”机制（调仓后至少 N 天才能再次调仓）。
+    【vol-coefficient scaling】高波动时放宽阈值，减少高 vol 环境中的摩擦损耗。
     """
-    threshold = 0.015
+    threshold = 0.025
     if regime_risk < 0.35 and realized_vol < 0.45 and trend_strength < 0.04:
-        threshold = 0.03
+        threshold = 0.05
     if regime_risk > 0.60 or realized_vol > 0.70 or trend_strength > 0.10:
-        threshold = 0.008
+        threshold = 0.012
+    if vol_coef > 1.30:
+        threshold *= min(vol_coef, 2.0)
     return threshold
 
 
@@ -164,20 +165,20 @@ def action_band_from_obs(obs: np.ndarray) -> Tuple[float, float]:
     vix_zscore = float(np.nan_to_num(obs[STATIC_INDEX["vix_zscore"]]))
     vol_coef = float(np.nan_to_num(obs[STATIC_INDEX["vol_coef_21"]]))
 
-    floor = 0.15
+    floor = 0.40
     cap = 0.95
 
     if anchor_gap > 0.02 and anchor_slope >= 0:
-        floor = 0.30
+        floor = 0.55
         cap = 1.00
     if regime_risk > 0.72 or (anchor_gap < -0.06 and anchor_slope < 0):
-        floor = 0.05
+        floor = 0.30
         cap = 0.80
     if cum_drop_30 < -0.18 and vix_zscore < 2.8:
-        floor = max(floor, 0.18)
+        floor = max(floor, 0.45)
         cap = 1.00
     if vol_coef > 1.45:
-        floor = max(0.08, floor - 0.05)
+        floor = max(0.25, floor - 0.05)
         cap = min(cap, 0.90)
 
     return floor, cap
@@ -278,6 +279,8 @@ class SoxlSimulator(Simulator):
         self.flat_steps = 0
         self.prev_regime_risk = 0.0
         self.prev_drawdown = 0.0
+        self.prev_pos = 0.0
+        self.buy_cooldown = 0
         self.nf = len(FEATURE_COLUMNS)
         self.asset_idx = getattr(initial, "asset_idx", 0)
         self.ledger = PositionLedger()
@@ -298,15 +301,24 @@ class SoxlSimulator(Simulator):
             return
         row = self.df.iloc[self.idx]
         price = float(self.price_path[self.idx])
+        vol_coef = float(np.nan_to_num(row["vol_coef_21"]))
+        cum_drop_30 = float(np.nan_to_num(row["cum_drop_30"]))
         min_rebalance = rebalance_threshold(
             float(np.nan_to_num(row["regime_risk"])),
             float(np.nan_to_num(row["realized_vol_10"])),
             abs(float(np.nan_to_num(row["trend_gap_21"]))),
+            vol_coef=vol_coef,
         )
+        # Buy cooldown: post-buy cooldown period
+        if self.buy_cooldown > 0:
+            if action > self.pos:
+                action = self.pos
+            self.buy_cooldown -= 1
         if abs(action - self.pos) < min_rebalance:
             action = self.pos
         # PBRS: record drawdown *before* value update for potential shaping
         self.prev_drawdown = abs(self.val / max(self.max_val, 1e-8) - 1.0)
+        self.prev_pos = self.pos
         next_ret = float(self.df.iloc[self.idx + 1]["return"])
         turnover = abs(action - self.pos)
         gross_ret = action * next_ret
@@ -318,6 +330,13 @@ class SoxlSimulator(Simulator):
         self.last_step_return = net_ret
         self.flat_steps = 0 if turnover > 0.02 else self.flat_steps + 1
         self.ledger.update(self.pos, action, price)
+        # Set cooldown if increasing position
+        if action > self.pos + 1e-6:
+            self.buy_cooldown = 1
+            if cum_drop_30 < -0.10:
+                self.buy_cooldown += max(0, int(abs(cum_drop_30) * 10))
+            if vol_coef > 1.30:
+                self.buy_cooldown += 1
         self.pos = action
         self.idx += 1
 
@@ -377,6 +396,8 @@ class SoxlSimulator(Simulator):
             "regime_risk": regime_risk,
             "regime_delta": regime_delta,
             "flat_steps": float(self.flat_steps),
+            "prev_pos": self.prev_pos,
+            "buy_cooldown": float(self.buy_cooldown),
             "done": False,
         }
 
@@ -496,14 +517,9 @@ class ContinuousReward(Reward):
 
 
         # === 低仓位惩罚（防止踏空）===
-        # P0 优化：新增"追涨激励"，在强趋势中如果仓位过低会扣分。
-        # 原有的超跌抄底激励保持不变。
-        # 【第二轮调参】把惩罚门槛提高（anchor_gap>0.05）且权重降低（0.05），
-        # 避免在弱趋势或震荡市中盲目追高。
         trend_gap = float(state["obs"][STATIC_INDEX["trend_gap_21"]])
         if anchor_gap > cfg.opportunity_threshold_anchor and pos < cfg.opportunity_threshold_pos:
             reward -= cfg.opportunity_cost_penalty
-        # 附加条件：短趋势也向上且波动不大，仓位仍偏低
         if (trend_gap > cfg.opportunity_threshold_trend and realized_vol < 0.45
                 and pos < cfg.opportunity_threshold_pos + 0.05):
             reward -= cfg.opportunity_cost_penalty * 0.40
@@ -511,6 +527,19 @@ class ContinuousReward(Reward):
             reward -= 0.12
         if cum_drop_30 < -0.18 and regime_risk < 0.80 and pos < 0.20:
             reward -= 0.10
+
+        # === Partial profit-taking reward ===
+        last_add_pnl = float(state["obs"][EXTRA_INDEX["last_add_pnl"]])
+        if turnover > 0.02 and last_add_pnl > 0.03:
+            reward += cfg.profit_taking_bonus * min(last_add_pnl * 10.0, 1.5)
+
+        # === Panic-buy bonus ===
+        prev_pos = float(state.get("prev_pos", pos))
+        if turnover > 0.02 and pos > prev_pos + 1e-6:
+            if (cum_drop_30 < cfg.panic_buy_cum_drop_threshold
+                    and regime_risk > cfg.panic_buy_regime_risk_threshold):
+                panic_depth = min(abs(cum_drop_30) - abs(cfg.panic_buy_cum_drop_threshold), 0.15)
+                reward += cfg.panic_buy_bonus * (1.0 + panic_depth * 5.0)
         
         # === 不活跃惩罚 ===
         if flat_steps >= 4:
@@ -835,6 +864,7 @@ def evaluate_split(
             float(np.nan_to_num(row["regime_risk"])),
             float(np.nan_to_num(row["realized_vol_10"])),
             abs(float(np.nan_to_num(row["trend_gap_21"]))),
+            vol_coef=float(np.nan_to_num(row["vol_coef_21"])),
         )
         if abs(target_pos - pos) < min_rebalance:
             target_pos = pos

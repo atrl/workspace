@@ -3,8 +3,18 @@ import pandas as pd
 import yfinance as yf
 from datetime import datetime, timedelta
 import json
-from longport.openapi import QuoteContext, Config, Period, AdjustType
-from market_data_manager import MarketDataManager
+try:
+    from longport.openapi import QuoteContext, Config, Period, AdjustType
+except Exception:
+    QuoteContext = Config = Period = AdjustType = None
+try:
+    from market_data_manager import MarketDataManager
+except Exception:
+    class MarketDataManager:
+        def get_market_data(self, *args, **kwargs):
+            raise NotImplementedError()
+        def get_vix_data(self, *args, **kwargs):
+            raise NotImplementedError()
 
 class DataFetcher(ABC):
     """数据获取基类"""
@@ -85,39 +95,27 @@ class YahooDataFetcher(DataFetcher):
     """使用Yahoo Finance获取数据"""
     
     def fetch_data(self, config):
-        """从Yahoo Finance获取股票和VIX数据"""
-        # 计算开始日期（额外获取30天数据用于计算指标）
+        """从本地CSV读取股票和VIX数据（兼容离线回测）"""
+        from pathlib import Path
         start_date = pd.to_datetime(config['START_DATE'])
         actual_start = start_date - timedelta(days=30)
         end_date = pd.to_datetime(config['END_DATE']) if config['END_DATE'] else datetime.now()
 
-        print(f"开始获取数据...")
-        print(f"股票代码: {config['STOCK_CODE']}")
-        print(f"数据时间范围: {actual_start.strftime('%Y-%m-%d')} 到 {end_date.strftime('%Y-%m-%d')}")
+        root = Path(__file__).resolve().parents[2]
+        stock_path = root / "data" / "symbols" / f"{config['STOCK_CODE']}.csv"
+        vix_path = root / "data" / "soxl_soxx_vix_full.csv"
 
-        # 获取股票数据
-        stock = yf.download(config['STOCK_CODE'], start=actual_start, end=end_date)
+        stock_df = pd.read_csv(stock_path, parse_dates=['date'])
+        stock_df = stock_df.rename(columns={'close': 'price'})
+        stock_df = stock_df[(stock_df['date'] >= actual_start) & (stock_df['date'] <= end_date)].copy()
 
-        # 准备数据框
-        df = pd.DataFrame(index=stock.index)
-        df.loc[:, 'date'] = stock.index
-        df.loc[:, 'price'] = stock['Close'].values
+        if vix_path.exists():
+            vix_df = pd.read_csv(vix_path, parse_dates=['date'])[['date', 'vix']]
+            df = pd.merge(stock_df[['date', 'price']], vix_df, on='date', how='left')
+        else:
+            df = stock_df[['date', 'price']].copy()
+            df['vix'] = 20.0
 
-        # 从数据库获取VIX数据
-        market_data_manager = MarketDataManager()
-        vix_df = market_data_manager.get_vix_data(
-            start_date=actual_start.strftime('%Y-%m-%d'),
-            end_date=end_date.strftime('%Y-%m-%d')
-        )
-        
-        # 将vix数据的日期索引设置为与股票数据相同的格式
-        vix_df['date'] = pd.to_datetime(vix_df['date'])
-        vix_df.set_index('date', inplace=True)
-        
-        # 将VIX数据重新索引到股票数据的日期上
-        df.loc[:, 'vix'] = vix_df.reindex(index=stock.index)['vix'].values
-   
-        print(f"过滤后剩余 {len(df)} 条数据")
-        print("数据获取完成")
-        
+        df['vix'] = df['vix'].ffill().bfill()
+        print(f"[local] 读取 {len(df)} 条数据")
         return df

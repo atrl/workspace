@@ -55,6 +55,12 @@ class RewardConfig:
     gated_activity_bonus: bool = False
     activity_gate_vol_threshold: float = 0.55
     activity_gate_regime_delta_threshold: float = 0.08
+    # soxl_backtest-inspired optimizations（新增，默认值保持向后兼容）
+    profit_taking_bonus: float = 0.0
+    panic_buy_bonus: float = 0.0
+    panic_buy_cum_drop_threshold: float = -0.15
+    panic_buy_regime_risk_threshold: float = 0.60
+    cooldown_penalty: float = 0.0
 
 
 @dataclass(frozen=True)
