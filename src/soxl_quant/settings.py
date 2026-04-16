@@ -61,6 +61,7 @@ class RewardConfig:
     panic_buy_cum_drop_threshold: float = -0.15
     panic_buy_regime_risk_threshold: float = 0.60
     cooldown_penalty: float = 0.0
+    vol_trading_bonus: float = 0.0
 
 
 @dataclass(frozen=True)

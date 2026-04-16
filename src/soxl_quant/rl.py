@@ -139,7 +139,7 @@ def rebalance_threshold(regime_risk: float, realized_vol: float, trend_strength:
     if regime_risk > 0.60 or realized_vol > 0.70 or trend_strength > 0.10:
         threshold = 0.008
     if vol_coef > 1.30:
-        threshold *= min(vol_coef, 2.0)
+        threshold /= min(vol_coef, 2.0)
     return threshold
 
 
@@ -334,9 +334,8 @@ class SoxlSimulator(Simulator):
         if action > self.pos + 1e-6:
             self.buy_cooldown = 1
             if cum_drop_30 < -0.10:
-                self.buy_cooldown += max(0, int(abs(cum_drop_30) * 10))
-            if vol_coef > 1.30:
-                self.buy_cooldown += 1
+                self.buy_cooldown += max(0, int(abs(cum_drop_30) * 5))
+            # vol_coef no longer extends cooldown (encourages T-trading in high vol)
         self.pos = action
         self.idx += 1
 
@@ -540,6 +539,10 @@ class ContinuousReward(Reward):
                     and regime_risk > cfg.panic_buy_regime_risk_threshold):
                 panic_depth = min(abs(cum_drop_30) - abs(cfg.panic_buy_cum_drop_threshold), 0.15)
                 reward += cfg.panic_buy_bonus * (1.0 + panic_depth * 5.0)
+
+        # === Volatility T-trading bonus ===
+        if realized_vol > 0.50 and turnover > 0.03:
+            reward += cfg.vol_trading_bonus * turnover
         
         # === 不活跃惩罚 ===
         if flat_steps >= 4:
