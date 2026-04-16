@@ -130,13 +130,13 @@ class EpisodeConfig(NamedTuple):
 def rebalance_threshold(regime_risk: float, realized_vol: float, trend_strength: float, vol_coef: float = 1.0) -> float:
     """抑制无效调仓：只有当状态变化足够大时才允许换仓。
 
-    原始基线 0.015 ~ 0.03。高波动时不额外压缩阈值，保持交易成本可控。
+    【A/B 优化】大幅提高阈值并压缩高波动场景的灵敏度，减少摩擦损耗。
     """
-    threshold = 0.015
+    threshold = 0.04
     if regime_risk < 0.35 and realized_vol < 0.45 and trend_strength < 0.04:
-        threshold = 0.03
+        threshold = 0.08
     if regime_risk > 0.60 or realized_vol > 0.70 or trend_strength > 0.10:
-        threshold = 0.008
+        threshold = 0.02
     return threshold
 
 
@@ -278,6 +278,7 @@ class SoxlSimulator(Simulator):
         self.prev_drawdown = 0.0
         self.prev_pos = 0.0
         self.buy_cooldown = 0
+        self.trade_lock = 0
         self.nf = len(FEATURE_COLUMNS)
         self.asset_idx = getattr(initial, "asset_idx", 0)
         self.ledger = PositionLedger()
@@ -306,6 +307,11 @@ class SoxlSimulator(Simulator):
             abs(float(np.nan_to_num(row["trend_gap_21"]))),
             vol_coef=vol_coef,
         )
+        # Trade lock takes precedence over any action change
+        if self.trade_lock > 0:
+            if abs(action - self.pos) >= min_rebalance:
+                action = self.pos
+            self.trade_lock -= 1
         # Buy cooldown: post-buy cooldown period
         if self.buy_cooldown > 0:
             if action > self.pos:
@@ -332,7 +338,10 @@ class SoxlSimulator(Simulator):
             self.buy_cooldown = 1
             if cum_drop_30 < -0.10:
                 self.buy_cooldown += max(0, int(abs(cum_drop_30) * 5))
-            # vol_coef no longer extends cooldown (encourages T-trading in high vol)
+        # Trade lock: freeze position for N days after any material trade
+        turnover = abs(action - self.pos)
+        if turnover > 0.02:
+            self.trade_lock = 3
         self.pos = action
         self.idx += 1
 
@@ -393,6 +402,7 @@ class SoxlSimulator(Simulator):
             "regime_delta": regime_delta,
             "flat_steps": float(self.flat_steps),
             "prev_pos": self.prev_pos,
+            "trade_lock": float(self.trade_lock),
             "buy_cooldown": float(self.buy_cooldown),
             "done": False,
         }

@@ -1,5 +1,5 @@
 name: balanced
-max_iters: 20
+max_iters: 80
 episode_per_iter: 10
 episode_len: 300
 hidden_sizes: [128, 64]
