@@ -222,6 +222,118 @@ qlib_venv/bin/python scripts/feature_analysis.py
 
 只有当 counterfactual backtest 显示“方向正确但幅度不够”时，再进入重训。
 
+## Historical-Best Feature Recall
+
+如果用户要求“分析历史最优策略哪里好、哪里差、该加什么特征”，不要停在收益对比。必须把 **历史最优基线** 本身拆成“擅长状态”和“失效状态”，然后把这两类状态映射回已有特征和缺失特征。
+
+默认流程：
+
+1. 选定当前历史最优基线
+  - 通常是当前 canonical summary，例如 `artifacts/models/soxl_balanced_summary.json`
+2. 先从 summary / detailed backtest 中定位：
+  - 最好的防守窗口
+  - 最好的趋势捕获窗口
+  - 最差的反弹错失窗口
+  - 最差的震荡 / 再启动窗口
+3. 读取已有 feature attribution：
+  - `runtime/feature_analysis/summary.json`
+  - `runtime/feature_analysis/shap_importance.csv`
+  - `runtime/feature_analysis/ic.csv`
+4. 回答这 3 个问题：
+  - 历史最优策略已经会看什么
+  - 历史最优策略不会看什么
+  - 下一轮应该补的是哪类状态特征，而不是哪一个孤立因子
+
+### Required Output Shape
+
+至少明确写出：
+
+- 好的地方：
+  - 哪些窗口明显跑赢
+  - 当时主要是什么特征状态
+- 差的地方：
+  - 哪些窗口明显落后
+  - 当时已有特征为什么不够
+- 特征召回：
+  - 当前最重要的 5-10 个特征到底在描述什么市场状态
+- 缺口判断：
+  - 缺的是趋势、风险、交易摩擦，还是状态转换特征
+
+### Feature Recall Heuristics
+
+默认把当前 top features 映射成 4 类状态语言，而不是只报名字：
+
+- 趋势确认：
+  - `anchor_gap_*`
+  - `trend_gap_*`
+  - `trend_slope_*`
+  - `relative_strength_*`
+- 压力持续：
+  - `drawdown_*`
+  - `cum_drop_*`
+  - `below_anchor_ratio_*`
+  - `days_since_high_*`
+  - `loss_streak_*`
+- 波动 / 恐慌：
+  - `vix_*`
+  - `realized_vol_*`
+  - `downside_*`
+  - `vol_stress_score`
+  - `regime_risk`
+- 路径依赖 / decay：
+  - `tracking_error_*`
+  - `decay_*`
+  - `jump_variation_*`
+
+如果一个基线在“持续熊市防守”很好，但在“暴跌后快速反弹”很差，默认优先怀疑：
+
+- 缺少 stress-release 特征
+- 缺少 rebound confirmation 特征
+- 缺少 regime persistence / regime release 特征
+
+而不是先加更多通用 momentum。
+
+## Effective Feature Optimization Methods
+
+这个 skill 不能只给 reward / cap 调参建议。默认还要提出 1-3 个 **可执行的特征优化方向**，并说明为什么它们比继续调 reward 更值得先试。
+
+优先级顺序：
+
+1. **Transition features**
+  - 用于识别“还在压力里”还是“压力正在解除”
+  - 例子：
+    - `regime_risk_delta_5`
+    - `vix_zscore_delta_5`
+    - `downside_ratio_10_delta_5`
+    - `vol_stress_score_delta_5`
+2. **Persistence / hazard features**
+  - 用于识别某种 regime 已持续多久，以及延续概率
+  - 例子：
+    - `days_above_stress_threshold`
+    - `days_below_anchor`
+    - `stress_cluster_size`
+3. **Cross-horizon disagreement features**
+  - 用于识别短期反转和长期结构是否冲突
+  - 例子：
+    - 短周期反弹为正，但 `anchor_gap_180` 仍显著为负
+    - 短期波动快速回落，但 `drawdown_63` 仍很深
+4. **Post-shock rebound features**
+  - 用于识别暴跌后的再进入窗口
+  - 例子：
+    - `days_since_20d_low`
+    - `rebound_from_20d_low`
+    - `positive_day_ratio_5_after_deep_drop`
+
+### Feature Proposal Guardrails
+
+- 不要把“再加几个类似的 momentum / vol 因子”当成有效特征优化。
+- 新特征必须尽量正交，优先补状态盲区，而不是堆叠相关因子。
+- 每个特征建议都要绑定一个失败窗口，例如：
+  - `2020-04` 暴跌反弹漏抓
+  - `2022-07` 熊市反弹漏抓
+  - `2023-01` 趋势重启识别太慢
+- 如果一个建议可以先通过 execution overlay 验证方向，就先做 counterfactual，再决定是否重训。
+
 ## Quant Reality Audit
 
 训练后复盘不能只看收益、Sharpe、MaxDD。默认还要补一次“量化现实性”检查，防止策略只在乐观假设里成立。

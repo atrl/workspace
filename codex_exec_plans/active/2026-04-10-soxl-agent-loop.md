@@ -51,7 +51,7 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
   - preserve staged checkpointing support as reusable harness infrastructure
   - move the next optimization loop to a structural lever:
     - execution-layer/routing overlay improvements
-    - or regime-persistence / stress-state feature additions
+    - or regime-persistence / stress-state / transition feature additions
 - Acceptance bar for the next mainline training branch:
   - `test_2022 avg_pos <= 0.32`
   - `test_2022 maxDD <= 35%`
@@ -135,6 +135,8 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
   - Completed `balanced_regime_gate_v2` and dropped it as well: reducing `activity_bonus`, `panic_buy_bonus`, and opportunity-cost pressure while increasing validation exposure penalties did not reduce out-of-sample stress exposure enough to matter.
 - 2026-04-17 23:11:
   - The last two failed branches point away from more reward-weight tuning and toward structural changes such as regime-persistence features or execution/routing overlays.
+- 2026-04-17 23:40:
+  - Reviewed the historical-best canonical `balanced` policy by good and bad windows and confirmed the main feature gap is not generic trend/risk coverage but missing transition-state representation: the model handles persistent stress and mature trends reasonably well, but it reacts too slowly to stress-release, bear-market rebounds, and early trend restarts.
 
 ## Current run
 
@@ -263,7 +265,7 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
     - `evaluate_split()` now persists `stress_avg_pos` and `stress_days`
   - actor bundle / summary now persist:
       - full `selection_score`
- - Latest `balanced_regime_gate_v2` evidence:
+- Latest `balanced_regime_gate_v2` evidence:
    - config:
      - `configs/soxl/balanced_regime_gate_v2.yaml`
    - saved summary:
@@ -289,6 +291,23 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
      - lowering trend encouragement did not change stress exposure enough out of sample
      - validation penalties on `avg_pos` and `stress_avg_pos` are not sufficient as a proxy for the real `2022` failure mode
      - future-data leakage, cost sensitivity, and replay gaps remain tracked separately; this branch failed on plain fixed-split risk/return before those secondary concerns became binding
+- Historical-best feature recall 2026-04-17 23:4x:
+  - report:
+    - `runtime/post_train_review/historical_balanced_feature_recall.md`
+  - key finding:
+    - canonical `balanced` already uses the current feature stack well for:
+      - persistent stress defense
+      - mature trend capture
+    - but it under-recognizes:
+      - stress-release transitions
+      - bear-market rebound re-entry
+      - early trend restarts after deep damage
+  - next feature direction:
+    - add transition and persistence features before another reward reweight experiment:
+      - `regime_risk_delta_*`
+      - `vol_stress_score_delta_*`
+      - days-in-stress / days-below-anchor persistence
+      - rebound-from-low / days-since-low style features
       - `feature_schema.signature`
     - added profile:
       - `configs/soxl/balanced_stress_select.yaml`
