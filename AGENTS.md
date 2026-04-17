@@ -117,6 +117,46 @@ recreated identically on the production host. Before adding new packages,
 verify they do not conflict with existing pinned deps (especially
 `protobuf`).
 
+## Harness Engineering
+
+This repository is engineered as a self-contained harness for autonomous agents.
+These rules determine whether the agent can operate reliably at scale.
+
+### Repository-Local Truth
+All knowledge required to make engineering decisions must live inside this
+repository. If a rule, pattern, or constraint exists only in human memory or
+chat history, it does not exist for the agent.
+
+### Mechanical Enforcement over Documentation
+Prefer lint, tests, and executable scripts over written instructions.
+- If a rule can be checked by code, it must be checked by code.
+- If a rule is documented but not yet enforced mechanically, treat it as a
+  temporary exception and open a plan to automate it.
+- The agent must run the existing test suite before declaring any task complete.
+
+### Executable Feedback Loops
+Every task must end with a validation step that produces pass/fail evidence
+the agent can read. Do not proceed based on assumption.
+Examples: `pytest`, `python scripts/backtest_validate.py`, `make check`.
+
+### Progressive Disclosure
+`AGENTS.md` is a map, not a manual. Deep context lives in:
+- `.codex/skills/` for reusable workflows
+- `SPEC.md` for project intent and invariants
+- `codex_exec_plans/active/` for the current execution context
+- `docs/` for detailed design documentation
+The agent should start here and navigate outward, not ingest everything at once.
+
+### Intent as Code
+A task without a written plan in `codex_exec_plans/active/` and explicit
+acceptance criteria is not allowed to start. The plan is the primary interface
+between human intent and agent execution.
+
+### Continuous Refactoring
+Agent-generated code drifts faster than human-written code. Every 3–5 tasks,
+dedicate one iteration to harness maintenance: delete dead code, fix flaky
+tests, consolidate duplicate scripts, and update stale skills.
+
 ## Red Lines
 
 - Do not exfiltrate private data.
@@ -142,7 +182,7 @@ Keep code in the intended locations:
 - workpads and decision trail: `codex_exec_plans/`
 - data and analysis scripts: `scripts/`
 
-## Harness Invariants
+## Research Constraints
 
 - Do not optimize directly on held-out `2022` labels unless the split is
   explicitly redefined and documented.
