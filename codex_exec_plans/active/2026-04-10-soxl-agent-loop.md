@@ -2,7 +2,7 @@
 
 Status: active
 Owner: Codex
-Last updated: 2026-04-17 23:11 CST
+Last updated: 2026-04-18 00:02 CST
 
 ## Goal
 
@@ -39,24 +39,20 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
 4. Checkpoint selection should likely stop earlier than the configured max iterations because validation appears to plateau around `20-80` iterations.
 5. Productionizing the strategy requires a clean separation between actor training, signal replay, and broker execution rather than more ad-hoc scripts.
 6. The latest mainline failures are being driven more by reward-side trend encouragement than by insufficiently tight bear caps.
+7. The canonical `balanced` feature stack is strong on persistent stress and mature trends, but weak on stress-release and restart transitions; transition-state features should be tested before more reward tuning.
 
 ## Current loop
 
-- `balanced_regime_gate_v2` also failed as a mainline branch.
-- Conclusion:
-  - simple reward-side dampening plus stronger validation exposure penalties did not transfer out of sample
-  - `2022` still remains the binding failure mode
-- Next branch direction:
-  - stop spending more loops on small reward-weight retunes of the same actor style
-  - preserve staged checkpointing support as reusable harness infrastructure
-  - move the next optimization loop to a structural lever:
-    - execution-layer/routing overlay improvements
-    - or regime-persistence / stress-state / transition feature additions
-- Acceptance bar for the next mainline training branch:
-  - `test_2022 avg_pos <= 0.32`
-  - `test_2022 maxDD <= 35%`
-  - `test_proxy maxDD <= 55%`
-  - no regression versus canonical `balanced` on total proxy Sharpe
+- Latest completed branch:
+  - `balanced_transition_state`
+- Result:
+  - dropped from mainline
+- Keep / drop:
+  - keep the diagnostic conclusion
+  - drop this first transition-feature batch from the shared default feature schema
+- Next direction:
+  - revisit transition awareness in smaller gated batches rather than widening the base feature schema all at once
+  - preserve canonical `balanced` as the mainline baseline
 
 ## Validation harness
 
@@ -137,18 +133,24 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
   - The last two failed branches point away from more reward-weight tuning and toward structural changes such as regime-persistence features or execution/routing overlays.
 - 2026-04-17 23:40:
   - Reviewed the historical-best canonical `balanced` policy by good and bad windows and confirmed the main feature gap is not generic trend/risk coverage but missing transition-state representation: the model handles persistent stress and mature trends reasonably well, but it reacts too slowly to stress-release, bear-market rebounds, and early trend restarts.
+- 2026-04-17 23:55:
+  - Started the next mainline loop as `balanced_transition_state`: keep canonical reward and cap rules fixed, add transition-state features only, and judge the branch on rebound / restart repair rather than on validation uplift alone.
+- 2026-04-18 00:02:
+  - Completed `balanced_transition_state` and dropped it from the default code path: the new features slightly improved a few rebound windows, but they materially worsened full `2022` risk and total proxy drawdown versus canonical `balanced`.
+- 2026-04-18 00:02:
+  - Added `scripts/export_profile_daily_backtest.py` so post-train reviews can export daily SOXL replay rows from saved artifacts without relying on brittle stdin-based qlib snippets.
 
 ## Current run
 
 - Latest completed run:
-  - `balanced_regime_gate_v2`
+  - `balanced_transition_state`
   - command:
-    - `qlib_venv/bin/python soxl_qlib_strategy_v2.py --profiles balanced_regime_gate_v2 --skip-data-refresh --seed 20260411`
+    - `qlib_venv/bin/python soxl_qlib_strategy_v2.py --profiles balanced_transition_state --skip-data-refresh --seed 20260411`
   - purpose:
-    - test whether weaker trend encouragement plus stronger validation exposure penalties can fix the `balanced_regime_gate` failure without over-tightening caps
+    - test whether transition / persistence features alone can repair rebound and restart recognition while keeping canonical reward and cap behavior fixed
   - outcome:
     - not promotable
-    - worse than both canonical `balanced` and `balanced_regime_gate`
+    - dropped from mainline after review
 - Latest validated outputs:
   - smoke artifact replay base:
     - `2024 paper = 164 commands / avg util 68.0% / end value 755,689`
@@ -308,6 +310,30 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
       - `vol_stress_score_delta_*`
       - days-in-stress / days-below-anchor persistence
       - rebound-from-low / days-since-low style features
+- `balanced_transition_state` evidence 2026-04-18 00:0x:
+  - summary:
+    - `artifacts/models/soxl_balanced_transition_state_summary.json`
+  - compare report:
+    - `runtime/post_train_review/balanced_transition_state_vs_balanced.md`
+  - daily replay evidence:
+    - `runtime/post_train_review/balanced_soxl_daily.csv`
+    - `runtime/post_train_review/balanced_transition_state_soxl_daily.csv`
+  - fixed-split result vs canonical `balanced`:
+    - validation score `61.42 -> 83.04`
+    - test proxy return `468.90% -> 472.85%`
+    - test proxy Sharpe `0.858 -> 0.819`
+    - test proxy maxDD `50.18% -> 58.97%`
+    - `2022` return `-25.82% -> -40.96%`
+    - `2022` maxDD `33.04% -> 46.45%`
+    - `2022` avg_pos `0.283 -> 0.397`
+  - targeted windows:
+    - `2020-04`: excess `-35.12% -> -35.09%`, avg_pos `0.261 -> 0.261`
+    - `2022-07`: excess `-29.78% -> -29.47%`, avg_pos `0.302 -> 0.291`
+    - `2022-11`: excess `-31.69% -> -28.28%`, avg_pos `0.433 -> 0.518`
+    - `2023-01`: excess `-23.06% -> -21.32%`, avg_pos `0.471 -> 0.539`
+  - interpretation:
+    - the first transition-feature batch improved a few rebound windows locally, but it did so by broadly increasing risk appetite rather than by cleanly timing transitions
+    - this confirms the direction is conceptually relevant, but the current encoding is too blunt for mainline use
       - `feature_schema.signature`
     - added profile:
       - `configs/soxl/balanced_stress_select.yaml`
