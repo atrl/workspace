@@ -1008,3 +1008,40 @@ Created `balanced_budget.yaml` with `max_iters=50`. However, the log file was ac
   - keep the comparison script lightweight and summary-driven; do not entangle it with the training path yet
 - Next action:
   - when future runs produce dedicated feature summaries per checkpoint, extend the review loop to pass `--latest-features` and `--previous-features`
+
+## Latest training check: `balanced_floor40_sym` vs canonical balanced 2026-04-17 13:xx
+
+- Goal:
+  - run the latest committed `balanced_floor40_sym` profile under the current codebase
+  - compare it against the current canonical qlib strategy `artifacts/models/soxl_balanced_summary.json`
+- Command:
+  - `qlib_venv/bin/python soxl_qlib_strategy_v2.py --profiles balanced_floor40_sym --skip-data-refresh --seed 20260411`
+- Validation evidence:
+  - final fixed-split backtest:
+    - `476.2% / Sharpe 0.79 / MaxDD 63.8% / trades 790`
+  - summary artifact:
+    - `artifacts/models/soxl_balanced_floor40_sym_summary.json`
+  - post-train review report:
+    - `runtime/post_train_review/floor40_sym_vs_canonical_balanced.md`
+- Comparison against canonical `soxl_balanced_summary.json`:
+  - canonical fixed split:
+    - `468.9% / Sharpe 0.86 / MaxDD 50.2%`
+  - latest `balanced_floor40_sym` fixed split:
+    - `443.7% test_proxy return / Sharpe 0.79 / MaxDD 61.5%`
+  - slice deltas:
+    - `test_2020`: return improved `+23.5pp`, but drawdown slightly worse
+    - `test_2022`: return worsened `-11.2pp`, maxDD worsened `+12.3pp`, avg_pos rose from `0.283` to `0.429`
+    - `test_2023_2024`: return improved `+7.7pp`, but drawdown worsened `+5.6pp`
+- Mechanism read:
+  - validation improved materially (`best_score 61.4 -> 80.1`), but OOS got worse
+  - the new profile is taking more exposure in both good and bad regimes
+  - the upside gain in `2020` / `2023-2024` is bought by holding too much risk through `2022`
+  - promotion gate regressed from pass to fail:
+    - `test_2022_max_dd`: `33.0 -> 45.4`
+    - `test_2022_avg_pos`: `0.283 -> 0.429`
+- Keep / drop decision:
+  - drop `balanced_floor40_sym` as the canonical qlib strategy candidate under the current harness
+  - keep it only as an aggressive, return-seeking branch if future work explicitly targets higher upside at the cost of risk
+- Next action:
+  - if the goal remains the best general qlib strategy inside the current harness, continue from canonical `balanced` instead of `balanced_floor40_sym`
+  - if revisiting this branch, first tighten stress-window de-risking rather than extending training depth further
