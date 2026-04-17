@@ -157,6 +157,40 @@ def compare_features(latest_features: dict[str, Any], previous_features: dict[st
     return findings
 
 
+def summarize_cost_audit(audit: dict[str, Any]) -> list[str]:
+    if audit.get("status") == "failed":
+        return [
+            f"成本审计未完成：{audit.get('reason')} ({audit.get('message', 'unknown error')}).",
+            "这不是性能结论，而是 harness / 可重放性问题；下一轮应先修复 artifact 与当前特征集的兼容性。",
+        ]
+    scenarios = audit.get("scenarios") or []
+    if len(scenarios) < 2:
+        return ["成本审计结果不足，无法判断摩擦鲁棒性。"]
+
+    base = scenarios[0]
+    findings: list[str] = []
+    for row in scenarios[1:]:
+        ret_delta = float(row.get("return", 0.0)) - float(base.get("return", 0.0))
+        sharpe_delta = float(row.get("sharpe", 0.0)) - float(base.get("sharpe", 0.0))
+        findings.append(
+            f"{row.get('name')}: return Δ={fmt_delta(ret_delta)} sharpe Δ={fmt_delta(sharpe_delta, 3)} "
+            f"under costs {fmt_num(row.get('open_cost'), 4)}/{fmt_num(row.get('close_cost'), 4)}."
+        )
+
+    worst = min(
+        scenarios[1:],
+        key=lambda row: float(row.get("return", float("inf"))) - float(base.get("return", 0.0)),
+    )
+    worst_ret_delta = float(worst.get("return", 0.0)) - float(base.get("return", 0.0))
+    if worst_ret_delta < -20.0:
+        findings.append("成本上调后收益塌陷明显，说明策略对摩擦敏感，下一轮应优先压换手或提高交易门槛。")
+    elif worst_ret_delta < -10.0:
+        findings.append("成本上调后收益回落较明显，建议把交易频率与成本鲁棒性纳入下一轮优化目标。")
+    else:
+        findings.append("成本上调后表现仍较稳，当前问题更像是风格暴露或 checkpoint 选择，而不是纯摩擦问题。")
+    return findings
+
+
 def build_report(args: argparse.Namespace) -> str:
     latest = load_json(args.latest)
     previous = load_json(args.previous)
@@ -232,6 +266,12 @@ def build_report(args: argparse.Namespace) -> str:
             lines.append("- Feature summaries were provided but did not contain comparable top lists.")
         lines.append("")
 
+    if args.latest_cost_audit:
+        lines.append("## Quant Reality Checks")
+        for finding in summarize_cost_audit(load_json(args.latest_cost_audit)):
+            lines.append(f"- {finding}")
+        lines.append("")
+
     lines.append("## Recommended Next Actions")
     d_2022_dd = delta(latest, previous, "slices", "test_2022", "max_dd")
     d_2324_ret = delta(latest, previous, "slices", "test_2023_2024", "return")
@@ -253,6 +293,8 @@ def build_report(args: argparse.Namespace) -> str:
         lines.append(f"- latest_features: `{args.latest_features}`")
     if args.previous_features:
         lines.append(f"- previous_features: `{args.previous_features}`")
+    if args.latest_cost_audit:
+        lines.append(f"- latest_cost_audit: `{args.latest_cost_audit}`")
     return "\n".join(lines) + "\n"
 
 
@@ -264,6 +306,7 @@ def main() -> None:
     parser.add_argument("--previous-label", help="Display label for the previous run")
     parser.add_argument("--latest-features", help="Optional path to latest feature summary JSON")
     parser.add_argument("--previous-features", help="Optional path to previous feature summary JSON")
+    parser.add_argument("--latest-cost-audit", help="Optional path to latest cost sensitivity audit JSON")
     parser.add_argument("--output", required=True, help="Path to output Markdown report")
     args = parser.parse_args()
 

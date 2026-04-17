@@ -222,6 +222,84 @@ qlib_venv/bin/python scripts/feature_analysis.py
 
 只有当 counterfactual backtest 显示“方向正确但幅度不够”时，再进入重训。
 
+## Quant Reality Audit
+
+训练后复盘不能只看收益、Sharpe、MaxDD。默认还要补一次“量化现实性”检查，防止策略只在乐观假设里成立。
+
+最低要检查这 5 项：
+
+1. **未来数据 / 泄漏**
+  - 特征是否只使用当下及过去可得信息
+  - 训练选择是否直接或间接使用了 `2022` / test 标签
+  - 如果结论依赖 test window 调参，必须明确标注为“诊断”，不能伪装成无泄漏选择
+2. **训练-回测成本一致性**
+  - 训练内成本假设和 qlib backtest 成本假设是否同向
+  - 如果训练假设明显乐观于回测，优先修正训练奖励或执行层
+3. **交易频率 / 摩擦鲁棒性**
+  - trade count 是否异常偏高
+  - 在更高成本下是否快速失真
+  - 如果对 15-20 bps 成本极敏感，优先压换手，不要先加特征
+4. **执行可实现性**
+  - lot size、最小佣金、close-price 成交假设是否过于理想
+  - 高波动窗口是否存在“看起来能交易、实际上难成交”的风险
+5. **容量 / 冲击成本**
+  - 当前仓位切换是否过大
+  - 若策略依赖频繁大幅调仓，必须把冲击成本列为未覆盖风险
+
+仓库内默认可先用固定 actor 做成本敏感性检查：
+
+```bash
+python scripts/cost_sensitivity_backtest.py \
+  --profile balanced \
+  --model artifacts/models/soxl_balanced_actor.pt \
+  --output runtime/post_train_review/balanced_cost_sensitivity.json
+```
+
+解释规则：
+
+- 成本上升后收益小幅下降但排名不变：
+  - 说明策略对摩擦相对稳健
+- 成本上升后 Sharpe / return 快速塌陷：
+  - 说明当前优化重点应转向交易压缩或更强 execution gate
+- stress window 已差，成本敏感性又高：
+  - 优先排除该分支，不要继续重训加特征
+
+## Auto-Optimization Rule
+
+skill 不能只给“建议列表”，还要默认决定下一轮最便宜、信息增益最高的实验。
+
+默认顺序：
+
+1. 先做固定 actor counterfactual
+2. 再做量化现实性检查
+3. 只有方向仍成立，才开真实重训
+
+默认决策树：
+
+- 如果 execution/risk overlay 已经能解释大部分变化：
+  - 下一轮继续 overlay 优化，不重训
+- 如果 counterfactual 方向正确，但真实重训只带来小幅改善：
+  - 下一轮优先改 checkpoint / model selection，而不是继续微调同一个参数
+- 如果成本敏感性很高：
+  - 下一轮优先降换手、增大 rebalance gate、提高 transaction_cost / turnover_penalty
+- 如果无泄漏风险没有关干净：
+  - 先修 harness，再停止性能优化
+- 如果 canonical baseline 仍明显更优：
+  - aggressive branch 降级为参考分支，不再当默认升级目标
+
+## Continuity Discipline
+
+不要每轮都新建 memory 文件。默认规则：
+
+- **当前线程内的实验过程**：
+  - 写入 `codex_exec_plans/active/...`
+- **跨会话仍值得保留的方法、决策、长期结论**：
+  - 才写入 `memory/...`
+- **只是一次局部 sweep 或单轮失败尝试**：
+  - 优先并入已有 memory 记录，不单独新建文件
+
+如果这次工作的新增信息不满足“以后还会反复用到”，就不要新增 memory。
+
 ### Optimization Mapping
 
 看到下面这些现象时，默认优先考虑对应方向：

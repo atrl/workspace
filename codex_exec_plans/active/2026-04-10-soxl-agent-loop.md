@@ -195,6 +195,24 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
   - evidence:
     - `runtime/post_train_review/floor40_sym_bear30_vs_floor40_sym.md`
     - `runtime/post_train_review/floor40_sym_bear30_vs_canonical_balanced.md`
+- Quant reality audit update 2026-04-17 15:4x:
+  - added reusable cost audit harness:
+    - `scripts/cost_sensitivity_backtest.py`
+  - `balanced_floor40_sym` cost sensitivity:
+    - base `493.0% / Sharpe 0.807 / MaxDD 62.46% / 792 trades`
+    - `15 bps`: `485.2% / Sharpe 0.803`
+    - `20 bps`: `433.7% / Sharpe 0.775`
+  - `balanced_floor40_sym_bear30` cost sensitivity:
+    - base `533.9% / Sharpe 0.824 / MaxDD 62.24% / 786 trades`
+    - `15 bps`: `515.9% / Sharpe 0.815`
+    - `20 bps`: `507.6% / Sharpe 0.811`
+  - interpretation:
+    - `bear30` is materially more friction-robust than `floor40_sym`
+    - the branch's remaining weakness is not mainly transaction cost sensitivity; it is still excessive stress-window exposure relative to canonical `balanced`
+  - canonical `balanced` audit status:
+    - `runtime/post_train_review/balanced_cost_sensitivity.json`
+    - failed with `obs_dim_mismatch` (`model_obs_dim=56`, current expected `64`)
+    - this is a harness replayability gap: the summary exists but the saved actor is no longer replay-compatible with the current feature set
 
 ## Next actions
 
@@ -207,9 +225,13 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
 4. Add a broker adapter interface for Futu/IB paper execution without changing the actor or replay code.
 5. For the `floor40_sym` branch, stop treating `bear_min_cap` as the main unlock:
   - `0.30` helps `2022`, but not enough to beat canonical `balanced`
-  - next branch should target earlier checkpoint locking or stronger stress-state routing so `2022` average exposure falls closer to `0.30-0.35`
+  - next branch should target stronger stress-state routing or a more risk-aware validation objective so `2022` average exposure falls closer to `0.30-0.35`
 6. Keep canonical `balanced` as the promotion baseline:
   - `balanced_floor40_sym_bear30` is a useful aggressive branch reference, not the new default strategy
+7. Fix canonical `balanced` replayability before treating it as the fully trusted reference:
+  - the current summary sidecar is reproducible as metadata, but the saved actor bundle is not replay-compatible with the current 64-dim feature set
+8. After replayability is restored, optimize by decision rule:
+  - if canonical `balanced` stays robust under cost audit, optimize selection metric / validation objective before changing reward or adding features
 
 ## Run completed 2026-04-11 17:48
 

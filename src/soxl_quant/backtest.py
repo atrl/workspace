@@ -138,13 +138,16 @@ def backtest_profile(
     symbol: str = "SOXL",
     asset_idx: int = 0,
     test_seg: Tuple[str, str] = TEST_SEG,
+    open_cost: float = 0.001,
+    close_cost: float = 0.001,
+    min_cost: float = 5.0,
 ) -> Dict[str, object]:
     """运行重量级 qlib 官方回测，产出 headline 指标（return / sharpe / max_dd）。
 
     参数 test_seg 默认 ("2020-01-01", "2026-03-31")，这是仓库统一使用的
     测试窗口，所有模型对比都应基于该窗口，避免 cherry-picking。
     
-    成本假设：open_cost=0.001, close_cost=0.001, min_cost=5
+    成本假设默认：open_cost=0.001, close_cost=0.001, min_cost=5
     这意味着单边交易成本 0.1%，且有最低 $5 佣金。
     """
     strategy = RLStrategy(
@@ -162,7 +165,13 @@ def backtest_profile(
         executor=SimulatorExecutor(time_per_step="day", generate_portfolio_metrics=True),
         account=ACCOUNT,
         benchmark=symbol,
-        exchange_kwargs=dict(freq="day", deal_price="close", open_cost=0.001, close_cost=0.001, min_cost=5),
+        exchange_kwargs=dict(
+            freq="day",
+            deal_price="close",
+            open_cost=float(open_cost),
+            close_cost=float(close_cost),
+            min_cost=float(min_cost),
+        ),
     )
     pdf = portfolio_metric.get("1day", portfolio_metric)
     if isinstance(pdf, tuple):

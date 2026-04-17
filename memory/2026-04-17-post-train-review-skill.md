@@ -47,3 +47,24 @@
 - Verified the generic rule on this repo:
   - fixed the latest `balanced_floor40_sym` actor and swept `bull_min_cap` / `bear_min_cap` / `bear_regime_threshold`
   - found that bull-floor changes barely move metrics, while tighter `bear_min_cap` modestly improves `2022` drawdown and `avg_pos`
+- Patched the skill again after review:
+  - added a `Quant Reality Audit` section:
+    - leak / future-data checks
+    - training-vs-backtest cost alignment
+    - transaction-cost sensitivity
+    - execution realism and impact/capacity notes
+  - added an `Auto-Optimization Rule`:
+    - default order is counterfactual -> realism audit -> real retrain
+    - next experiment is chosen by evidence, not by a generic suggestion list
+  - added `Continuity Discipline`:
+    - default to updating the active workpad
+    - only write `memory/` when the result is cross-session durable
+- Added reusable harness support for the skill:
+  - `scripts/cost_sensitivity_backtest.py`
+  - `compare_backtests.py --latest-cost-audit ...`
+- Immediate evidence from the new audit:
+  - `balanced_floor40_sym_bear30` is more friction-robust than `balanced_floor40_sym`
+  - canonical `balanced` currently has a replayability gap:
+    - saved actor bundle is `56` dims
+    - current feature set expects `64`
+    - so the baseline summary remains useful, but the actor artifact itself needs repair before full realism audits
