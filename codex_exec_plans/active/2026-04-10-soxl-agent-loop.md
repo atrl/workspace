@@ -2,7 +2,7 @@
 
 Status: active
 Owner: Codex
-Last updated: 2026-04-17 17:11 CST
+Last updated: 2026-04-17 22:39 CST
 
 ## Goal
 
@@ -108,6 +108,10 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
   - `regime_route_v1` modestly improved average `bear_2022` return / maxDD and reduced turnover versus `fast_reentry`, but it still failed to beat `cta_trend_hold` on overall proxy Sharpe/return, so the routing direction is kept while the exact multipliers are dropped as canonical defaults.
 - 2026-04-17 17:11:
   - Added chart zoom controls to the local dashboard so long `2020-2026` windows can be inspected with `6M/1Y/2Y/3Y` presets plus custom date bounds instead of relying only on coarse year filters.
+- 2026-04-17 17:23:
+  - Started `balanced_regime_gate` as the next mainline training branch: keep canonical `balanced` as the style anchor, add staged checkpointing plus explicit stress-exposure pressure, and only moderately tighten stress-side cap routing instead of importing the whole `stress_behavior` branch.
+- 2026-04-17 22:39:
+  - Completed the first `balanced_regime_gate` retrain and confirmed it is not promotable: validation score rose sharply, but fixed-split `2022` risk and total test proxy both regressed versus canonical `balanced`.
 
 ## Current run
 
@@ -310,16 +314,66 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
   - keep regime routing as the next execution/training direction
   - drop `regime_route_v1` parameterization as the current best universal overlay
 - Next action:
-  - training should not jump straight into a generic retrain
-  - first target a `balanced_regime_gate` branch that only borrows the parts that validated here:
-    - stronger stress-side sell bias
-    - lower stress-window average position
-    - moderate turnover compression
-  - avoid copying the current bull-state multipliers into training unchanged because they hurt `SOXL` / `TECL`
-  - checkpoint policy should also tighten:
-    - favor earlier checkpoints when `2022` avg position rises without a proportional proxy-Sharpe gain
+  - drop `balanced_regime_gate` as a promotion candidate
+  - next training branch should not increase trend-side exposure further; instead:
+    - keep staged checkpointing support
+    - tighten selection directly on `test_proxy`-aligned risk proxies by penalizing `avg_pos` and `stress_avg_pos` more aggressively, not less
+    - reduce bull-side encouragement rather than only tightening bear caps
+    - if revisiting this path, lower `activity_bonus` / `panic_buy_bonus` before moving `bear_min_cap` again
   - dashboard follow-up:
     - keep the new zoom controls and, if needed later, add an overview brush navigator instead of more static year buttons
+
+## `balanced_regime_gate` full retrain 2026-04-17 22:xx
+
+- Goal:
+  - test a middle path between canonical `balanced` and the failed stress-heavy branches
+  - import only three ideas:
+    - staged checkpoint scoring
+    - explicit validation penalty on stress-window average position
+    - moderately earlier stress-side cap tightening
+- Implementation:
+  - added profile:
+    - `configs/soxl/balanced_regime_gate.yaml`
+  - registered CLI entry:
+    - `src/soxl_quant/cli.py`
+  - config choices:
+    - `selection_score.avg_pos_penalty = 0.5`
+    - `selection_score.stress_avg_pos_penalty = 6.0`
+    - `position_cap.bear_min_cap = 0.27`
+    - `position_cap.bear_regime_threshold = 0.62`
+    - slightly tighter reward-side risk penalties than canonical `balanced`
+- Command:
+  - `qlib_venv/bin/python soxl_qlib_strategy_v2.py --profiles balanced_regime_gate --skip-data-refresh --seed 20260411`
+- Validation evidence:
+  - saved summary:
+    - `artifacts/models/soxl_balanced_regime_gate_summary.json`
+  - review:
+    - `runtime/post_train_review/balanced_regime_gate_vs_balanced.md`
+  - valid result:
+    - `53.5% / Sharpe 1.58 / MaxDD 26.0% / avg_pos 0.575 / stress_avg_pos 0.332`
+  - fixed-split proxy vs canonical `balanced`:
+    - return `468.90% -> 373.48%`
+    - Sharpe `0.858 -> 0.781`
+    - maxDD `50.18% -> 55.56%`
+  - `test_2022`:
+    - return `-25.82% -> -39.22%`
+    - maxDD `33.04% -> 43.41%`
+    - avg_pos `0.283 -> 0.370`
+  - `test_2023_2024`:
+    - return `43.52% -> 56.64%`
+    - maxDD `33.87% -> 30.99%`
+- Layer impact:
+  - signal generation:
+    - unchanged
+  - position sizing:
+    - changed through more aggressive cap / reward pressure
+  - broker execution:
+    - unchanged
+  - reconciliation and monitoring:
+    - unchanged
+- Keep / drop decision:
+  - keep staged checkpointing as a useful harness feature
+  - drop this parameterization because it still bought upside by carrying too much stress exposure
   - saved summary:
     - `artifacts/models/soxl_balanced_stress_behavior_summary.json`
   - fixed-split vs canonical `balanced`:
