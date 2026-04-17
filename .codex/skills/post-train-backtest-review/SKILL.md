@@ -173,6 +173,82 @@ qlib_venv/bin/python scripts/feature_analysis.py
 - 不要把 `selection_history` 中的最佳 iter 当成稳定结论；要看是否早熟、是否 plateau、是否后续退化。
 - 任何“改进”都应该回写到 workpad 或 memory，而不是只留在聊天里。
 
+## Current Strategy Improvement Plan
+
+这个 skill 不只是要“会复盘”，还要把当前仓库最值得做的改进方向说清楚。默认把当前策略分成两条线：
+
+- `canonical balanced`
+  - 当前默认最佳通用 qlib 策略
+  - 目标：保住 `2022` gate，同时尽量抬高 `2023-2024` 和总收益
+- `balanced_floor40_sym`
+  - 当前高收益但高风险分支
+  - 目标：只有在明确接受更激进风格时才继续
+
+### P0: 主线优先级
+
+当前默认优先顺序：
+
+1. 保住 canonical `balanced` 的 `2022` 风控通过状态
+2. 提升 `2023-2024` 收益和总 `test_proxy`
+3. 再考虑追求极高总回报分支
+
+如果一项改动让 `2022` gate 从通过变成失败，默认视为主线退化。
+
+### P1: 针对 canonical `balanced` 的优先改进
+
+这是当前最值得继续优化的路线。
+
+优先方向：
+
+- 提升 `2023-2024` 而不破坏 `2022`
+  - 优先看牛市放宽逻辑是否过于保守
+  - 但不要直接抬高全局 floor；优先做更精细的 regime-conditioned 放宽
+- 强化 checkpoint 选择
+  - 如果 validation 提升但 fixed-split 退化，优先改选择逻辑而不是继续训更久
+  - 默认优先检查 `20/40/60/80` 的 `selection_history`
+- 压缩无效交易
+  - 当前 trade count 仍明显高于规则策略
+  - 优先用更高 `rebalance_threshold`、最小 turnover gate、trade lock/cooldown，而不是再加更多 reward bonus
+
+### P2: 针对 `balanced_floor40_sym` 的补救顺序
+
+如果用户明确要求继续这条分支，默认补救顺序如下：
+
+1. 先修 `2022` 去风险，而不是继续加训练轮数
+2. 先压 `avg_pos`，再谈总收益
+3. 先看危机态/高风险态仓位控制，再看普通趋势收益
+
+优先检查：
+
+- `drawdown_position_cap`
+- stress / bear regime routing
+- crisis floor 是否过高
+- bull floor 是否在风险切换后仍滞留过久
+- `avg_pos` 在 `test_2022` 是否高于 `0.35`
+
+默认不要做的事：
+
+- 不要先把 `max_iters` 再拉长
+- 不要因为 validation 高就继续追这条线
+- 不要把 `2020` / `2023-2024` 的上涨收益当成足够理由忽视 `2022`
+
+### P3: 现阶段最可能有价值的实验
+
+如果用户让你直接给下一轮实验，默认优先从下面选，不要平均分配精力：
+
+1. `canonical balanced` 上做更细粒度的 stress de-risking
+  - 目标：保持 `2022` gate 通过，同时减少对 `2023-2024` 的压制
+2. `canonical balanced` 上做交易频率压缩
+  - 目标：减少微调交易，提高 Sharpe，避免靠更高暴露换收益
+3. checkpoint / early-stopping 改进
+  - 目标：避免“validation 更高但 OOS 更差”的选择偏差
+
+如果用户问“为什么不是先继续 floor40 分支”，默认回答：
+
+- 因为它目前已经证明自己是高暴露换收益的分支
+- 当前最缺的不是更多上涨暴露，而是更稳的主线提升
+- 在现有 harness 下，主线最佳策略仍应以 `promotion.eligible=true` 为硬约束
+
 ## References
 
 - 研究与行业实践摘要：读 `references/research-notes.md`

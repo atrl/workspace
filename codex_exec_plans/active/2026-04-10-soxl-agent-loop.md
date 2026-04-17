@@ -1045,3 +1045,21 @@ Created `balanced_budget.yaml` with `max_iters=50`. However, the log file was ac
 - Next action:
   - if the goal remains the best general qlib strategy inside the current harness, continue from canonical `balanced` instead of `balanced_floor40_sym`
   - if revisiting this branch, first tighten stress-window de-risking rather than extending training depth further
+
+## Skill patch: add current strategy improvement plan 2026-04-17 13:xx
+
+- Goal:
+  - patch `post-train-backtest-review` so it does not stop at generic post-train comparison
+  - encode the current repo-specific improvement roadmap for the active SOXL strategy
+- Implementation:
+  - updated `.codex/skills/post-train-backtest-review/SKILL.md`
+  - added a `Current Strategy Improvement Plan` section that:
+    - treats canonical `balanced` as the default mainline optimization target
+    - treats `balanced_floor40_sym` as a high-risk branch that must first fix stress-window de-risking
+    - prioritizes `2022` gate preservation, then `2023-2024` uplift, then upside-seeking branches
+    - tells future agents to prefer stress de-risking, trade compression, and checkpoint selection improvements before extending training depth
+- Validation:
+  - `python3 /Users/rziiiii/.codex/skills/.system/skill-creator/scripts/quick_validate.py .codex/skills/post-train-backtest-review`
+    - passed
+- Keep / drop decision:
+  - keep the roadmap inside the skill so future post-train reviews end with a repo-specific action plan, not only a generic diagnosis

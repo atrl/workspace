@@ -36,3 +36,7 @@
 ## Follow-up
 
 - If feature analysis becomes checkpoint-aware rather than only "latest model", wire those outputs into the same review loop using `--latest-features` and `--previous-features`.
+- The skill now also contains a repo-specific improvement roadmap:
+  - optimize canonical `balanced` first
+  - treat `balanced_floor40_sym` as an aggressive branch
+  - prefer stress-window de-risking, trade compression, and better checkpoint selection before longer training
