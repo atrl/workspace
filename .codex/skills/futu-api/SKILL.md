@@ -1,3 +1,8 @@
+---
+name: futu-api
+description: 富途 OpenAPI 使用指南。涵盖 OpenD 安装、行情/资金流向/逐笔成交数据获取，以及生产脚本运行方式。
+---
+
 # Futu API Skill - 富途 OpenAPI
 
 这个 skill 用于通过富途 API 获取真实的大单数据、资金流向等信息。
