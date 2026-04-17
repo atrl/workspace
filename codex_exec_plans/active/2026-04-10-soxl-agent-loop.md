@@ -2,7 +2,7 @@
 
 Status: active
 Owner: Codex
-Last updated: 2026-04-17 15:40 CST
+Last updated: 2026-04-17 16:18 CST
 
 ## Goal
 
@@ -102,7 +102,14 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
 ## Current run
 
 - Running:
-  - none
+  - `balanced_stress_behavior`
+  - command:
+    - `qlib_venv/bin/python soxl_qlib_strategy_v2.py --profiles balanced_stress_behavior --skip-data-refresh --seed 20260411`
+  - purpose:
+    - stop iterating on validation-score tweaks alone and directly change stress-window behavior through reward and cap routing
+  - expected readout:
+    - `test_2022` avg position and max drawdown must improve versus `balanced_stress_select`
+    - canonical `balanced` still remains the bar for promotion
 - Latest validated outputs:
   - smoke artifact replay base:
     - `2024 paper = 164 commands / avg util 68.0% / end value 755,689`
@@ -248,16 +255,78 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
   - keep / drop:
     - keep the new metadata + replayability guardrails
     - drop `balanced_stress_select` as the next canonical promotion candidate
+- Stress-behavior retrain 2026-04-17 17:1x:
+  - command:
+    - `qlib_venv/bin/python soxl_qlib_strategy_v2.py --profiles balanced_stress_behavior --skip-data-refresh --seed 20260411`
+  - saved summary:
+    - `artifacts/models/soxl_balanced_stress_behavior_summary.json`
+  - fixed-split vs canonical `balanced`:
+    - test proxy return `468.90% -> 424.57%`
+    - test proxy Sharpe `0.8579 -> 0.8071`
+    - test proxy maxDD `50.18% -> 55.91%`
+    - `2022` return `-25.82% -> -33.73%`
+    - `2022` maxDD `33.04% -> 39.57%`
+    - `2022` avg_pos `0.283 -> 0.360`
+    - `2023-2024` return `43.52% -> 51.52%`
+  - fixed-split vs `balanced_stress_select`:
+    - test proxy return roughly flat `424.33% -> 424.57%`
+    - test proxy maxDD improved `63.09% -> 55.91%`
+    - `2022` return improved `-39.36% -> -33.73%`
+    - `2022` maxDD improved `47.67% -> 39.57%`
+    - `2022` avg_pos improved `0.404 -> 0.360`
+  - selection history:
+    - best checkpoint already occurred at iter `20`
+    - later stages (`40/60/80`) all lost validation score
+    - implication:
+      - this branch is not blocked by longer training; the saved best state already reflects early stopping
+  - cost audit:
+    - `runtime/post_train_review/balanced_stress_behavior_cost_sensitivity.json`
+    - base `436.0% / Sharpe 0.796 / MaxDD 56.50% / 818 trades`
+    - `15 bps`: `419.0% / Sharpe 0.786`
+    - `20 bps`: `409.8% / Sharpe 0.780`
+    - interpretation:
+      - friction matters, but the primary failure remains OOS stress-window exposure versus canonical `balanced`
+  - keep / drop:
+    - keep the direction that stress-aware reward/cap changes can repair part of the `stress_select` damage
+    - drop `balanced_stress_behavior` as a promotion candidate because it still loses to canonical `balanced` on `2022` and total risk-adjusted test performance
+- Counterfactual overlay check 2026-04-17 17:2x:
+  - added harness utility:
+    - `scripts/position_cap_counterfactual.py`
+  - evidence:
+    - `runtime/post_train_review/balanced_overlay_variants.json`
+    - `runtime/post_train_review/balanced_overlay_counterfactual.json`
+  - fixed canonical `balanced` actor results:
+    - base:
+      - proxy `438.5% / Sharpe 0.792 / MaxDD 57.89%`
+      - `2022 = -36.9% / MaxDD 43.62% / avg_pos 0.373`
+    - `stress_behavior_cap_only`:
+      - proxy `381.0% / Sharpe 0.767 / MaxDD 55.55%`
+      - `2022 = -35.3% / MaxDD 41.53% / avg_pos 0.353`
+    - `later_full_cap`:
+      - proxy `458.4% / Sharpe 0.798 / MaxDD 60.14%`
+      - `2022 = -37.9% / MaxDD 44.93% / avg_pos 0.381`
+  - interpretation:
+    - cap-only overlays reproduce the expected trade-off:
+      - tighter cap modestly helps `2022` but gives up too much total return
+      - looser cap lifts return but worsens `2022`
+    - the next bottleneck is no longer floor / bear-cap alone; it is action-to-position mapping and trade gating
+  - harness note:
+    - qlib backtests launched from `python - <<'PY'` can fail under Python 3.14 spawn because child workers try to reopen `<stdin>`
+    - keep counterfactual runs in repo-local scripts instead of heredoc snippets
 
 ## Next actions
 
-1. Keep floor `0.4` fixed and tune the cap curve shape rather than delaying activation:
-  - delayed starts at `12%` and `15%` did not improve the smoke trade-off
-  - next sweep should test whether the ramp to the `0.40` floor should be less linear or should reach full restriction later than `30%` without moving the initial trigger off `10%`
-2. Keep measuring whether late-period weakness is specifically `2024`-regime related:
-  - use walk-forward and replay together rather than only the fixed `2022` slice
-3. Eliminate or isolate the Python 3.14 qlib shutdown failure so walk-forward windows can complete and print final metrics cleanly.
-4. Add a broker adapter interface for Futu/IB paper execution without changing the actor or replay code.
+1. Finish `balanced_stress_behavior` and compare it against canonical `balanced` first:
+  - done; branch improved over `balanced_stress_select` but still failed against canonical `balanced`
+2. Keep the new replay-compatibility layer and rerun canonical cost audit as the stable comparison reference:
+  - old actor bundles should remain auditable even when feature width changes
+3. Move to counterfactual execution overlays beyond position cap before another retrain:
+  - priority order:
+    - rebalance threshold / trade gate
+    - action-to-position mapping around stress states
+    - only then another reward retrain
+4. Eliminate or isolate the Python 3.14 qlib shutdown failure so walk-forward windows can complete and print final metrics cleanly.
+5. Add a broker adapter interface for Futu/IB paper execution without changing the actor or replay code.
 5. For the `floor40_sym` branch, stop treating `bear_min_cap` as the main unlock:
   - `0.30` helps `2022`, but not enough to beat canonical `balanced`
   - next branch should target stronger stress-state routing or a more risk-aware validation objective so `2022` average exposure falls closer to `0.30-0.35`

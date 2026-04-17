@@ -53,20 +53,14 @@ def main() -> None:
     actor, bundle_path, bundle = load_actor_bundle(args.profile, model_path=model_path)
     expected_obs_dim = len(FEATURE_COLUMNS) + EXTRA_OBS_DIM + N_ASSETS
     model_obs_dim = int(bundle.get("obs_dim", -1))
+    replay_warning = None
     if model_obs_dim != expected_obs_dim:
-        payload = {
-            "status": "failed",
+        replay_warning = {
             "reason": "obs_dim_mismatch",
-            "profile": args.profile,
-            "model": str(bundle_path),
             "model_obs_dim": model_obs_dim,
             "expected_obs_dim": expected_obs_dim,
-            "message": "saved actor bundle is not replay-compatible with the current feature set",
+            "message": "saved actor bundle uses an older feature width; replay adapts observations by truncation/padding",
         }
-        output_path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
-        print(f"[cost-sensitivity] failed: obs_dim mismatch model={model_obs_dim} expected={expected_obs_dim}")
-        print(f"[done] wrote {output_path}")
-        return
     position_cap = bundle_position_cap_config(bundle, args.profile)
 
     scenarios = []
@@ -98,8 +92,10 @@ def main() -> None:
 
     base = scenarios[0]
     payload = {
+        "status": "ok",
         "profile": args.profile,
         "model": str(bundle_path),
+        "replay_warning": replay_warning,
         "scenarios": scenarios,
         "deltas_vs_base": [
             {
@@ -114,6 +110,11 @@ def main() -> None:
     output_path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
 
     print(f"[cost-sensitivity] profile={args.profile} model={bundle_path.name}")
+    if replay_warning:
+        print(
+            f"  - replay warning: {replay_warning['reason']} "
+            f"model={replay_warning['model_obs_dim']} expected={replay_warning['expected_obs_dim']}"
+        )
     for row in scenarios:
         print(
             f"  - {row['name']}: return={row['return']:.1f}% sharpe={row['sharpe']:.3f} "

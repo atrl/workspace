@@ -836,10 +836,44 @@ def build_policy(obs_dim: int, profile: StrategyConfig, use_moe: bool = False, h
 
 
 def actor_action(actor: Actor, obs: np.ndarray) -> int:
+    obs = adapt_observation_for_actor(obs, actor)
     with torch.no_grad():
         out = actor(torch.as_tensor(obs, dtype=torch.float32).unsqueeze(0))
         logits = out[0] if isinstance(out, tuple) else out
         return int(logits.argmax(-1).item())
+
+
+def infer_actor_obs_dim(actor: Actor) -> int | None:
+    """Best-effort detection of the actor's expected observation width."""
+
+    seen = set()
+    stack = [actor]
+    while stack:
+        module = stack.pop()
+        if id(module) in seen:
+            continue
+        seen.add(id(module))
+        in_features = getattr(module, "in_features", None)
+        if isinstance(in_features, int) and in_features > 0:
+            return in_features
+        children = list(getattr(module, "children", lambda: [])())
+        stack.extend(reversed(children))
+    return None
+
+
+def adapt_observation(obs: np.ndarray, expected_obs_dim: int | None) -> np.ndarray:
+    """Trim or pad observations so old actor bundles remain replay-compatible."""
+
+    if expected_obs_dim is None or obs.shape[0] == expected_obs_dim:
+        return obs
+    if obs.shape[0] > expected_obs_dim:
+        return obs[:expected_obs_dim]
+    pad = np.zeros(expected_obs_dim - obs.shape[0], dtype=obs.dtype)
+    return np.concatenate([obs, pad], axis=0)
+
+
+def adapt_observation_for_actor(obs: np.ndarray, actor: Actor) -> np.ndarray:
+    return adapt_observation(obs, infer_actor_obs_dim(actor))
 
 
 def make_observation(

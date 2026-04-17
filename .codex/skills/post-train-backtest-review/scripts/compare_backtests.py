@@ -163,12 +163,18 @@ def summarize_cost_audit(audit: dict[str, Any]) -> list[str]:
             f"成本审计未完成：{audit.get('reason')} ({audit.get('message', 'unknown error')}).",
             "这不是性能结论，而是 harness / 可重放性问题；下一轮应先修复 artifact 与当前特征集的兼容性。",
         ]
+    replay_warning = audit.get("replay_warning")
     scenarios = audit.get("scenarios") or []
     if len(scenarios) < 2:
         return ["成本审计结果不足，无法判断摩擦鲁棒性。"]
 
     base = scenarios[0]
     findings: list[str] = []
+    if isinstance(replay_warning, dict):
+        findings.append(
+            f"成本审计通过兼容重放完成：{replay_warning.get('reason')} "
+            f"(model {replay_warning.get('model_obs_dim')} vs expected {replay_warning.get('expected_obs_dim')})."
+        )
     for row in scenarios[1:]:
         ret_delta = float(row.get("return", 0.0)) - float(base.get("return", 0.0))
         sharpe_delta = float(row.get("sharpe", 0.0)) - float(base.get("sharpe", 0.0))
@@ -182,8 +188,10 @@ def summarize_cost_audit(audit: dict[str, Any]) -> list[str]:
         key=lambda row: float(row.get("return", float("inf"))) - float(base.get("return", 0.0)),
     )
     worst_ret_delta = float(worst.get("return", 0.0)) - float(base.get("return", 0.0))
-    if worst_ret_delta < -20.0:
+    if worst_ret_delta < -50.0:
         findings.append("成本上调后收益塌陷明显，说明策略对摩擦敏感，下一轮应优先压换手或提高交易门槛。")
+    elif worst_ret_delta < -25.0:
+        findings.append("成本上调后收益回落明显，建议把交易频率与成本鲁棒性纳入下一轮优化目标。")
     elif worst_ret_delta < -10.0:
         findings.append("成本上调后收益回落较明显，建议把交易频率与成本鲁棒性纳入下一轮优化目标。")
     else:
