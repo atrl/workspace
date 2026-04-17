@@ -2,7 +2,7 @@
 
 Status: active
 Owner: Codex
-Last updated: 2026-04-17 16:58 CST
+Last updated: 2026-04-17 17:11 CST
 
 ## Goal
 
@@ -106,6 +106,8 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
   - Added a first regime-routed execution overlay `regime_route_v1` and reran the 5-ETF generalization harness.
 - 2026-04-17 16:58:
   - `regime_route_v1` modestly improved average `bear_2022` return / maxDD and reduced turnover versus `fast_reentry`, but it still failed to beat `cta_trend_hold` on overall proxy Sharpe/return, so the routing direction is kept while the exact multipliers are dropped as canonical defaults.
+- 2026-04-17 17:11:
+  - Added chart zoom controls to the local dashboard so long `2020-2026` windows can be inspected with `6M/1Y/2Y/3Y` presets plus custom date bounds instead of relying only on coarse year filters.
 
 ## Current run
 
@@ -316,6 +318,8 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
   - avoid copying the current bull-state multipliers into training unchanged because they hurt `SOXL` / `TECL`
   - checkpoint policy should also tighten:
     - favor earlier checkpoints when `2022` avg position rises without a proportional proxy-Sharpe gain
+  - dashboard follow-up:
+    - keep the new zoom controls and, if needed later, add an overview brush navigator instead of more static year buttons
   - saved summary:
     - `artifacts/models/soxl_balanced_stress_behavior_summary.json`
   - fixed-split vs canonical `balanced`:

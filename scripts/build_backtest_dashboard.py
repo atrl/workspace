@@ -334,13 +334,49 @@ def build_html(payload: dict[str, object]) -> str:
       color: var(--muted);
       font-size: 13px;
     }}
+    .zoom-tools {{
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin: 12px 0 14px;
+      align-items: end;
+    }}
+    .zoom-row {{
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+    }}
+    .zoom-field label {{
+      display: block;
+      margin-bottom: 6px;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+    }}
+    .date-input {{
+      width: 100%;
+      border: 1px solid var(--line);
+      background: #fffdf8;
+      color: var(--text);
+      border-radius: 12px;
+      padding: 10px 12px;
+      font: inherit;
+    }}
+    .button-link.ghost {{
+      background: transparent;
+      color: var(--text);
+    }}
     @media (max-width: 1100px) {{
       .hero, .chart-grid, .split {{ grid-template-columns: 1fr; }}
       .summary-grid, .window-bar {{ grid-template-columns: repeat(2, minmax(0, 1fr)); }}
+      .zoom-tools {{ grid-template-columns: repeat(2, minmax(0, 1fr)); }}
     }}
     @media (max-width: 720px) {{
       .shell {{ padding: 14px; }}
       .summary-grid, .window-bar {{ grid-template-columns: 1fr; }}
+      .zoom-tools {{ grid-template-columns: 1fr; }}
       .hero h1 {{ font-size: 28px; }}
     }}
   </style>
@@ -409,6 +445,36 @@ def build_html(payload: dict[str, object]) -> str:
           <button class="pill" data-range="2022">2022</button>
           <button class="pill" data-range="2023_2024">2023-2024</button>
         </div>
+        <div class="zoom-tools">
+          <div>
+            <div class="zoom-field">
+              <label>Zoom Preset</label>
+              <div class="zoom-row">
+                <button class="button-link ghost" data-zoom="6m" type="button">6M</button>
+                <button class="button-link ghost" data-zoom="1y" type="button">1Y</button>
+                <button class="button-link ghost" data-zoom="2y" type="button">2Y</button>
+                <button class="button-link ghost" data-zoom="3y" type="button">3Y</button>
+              </div>
+            </div>
+          </div>
+          <div class="zoom-field">
+            <label>Start Date</label>
+            <input id="startDateInput" class="date-input" type="date">
+          </div>
+          <div class="zoom-field">
+            <label>End Date</label>
+            <input id="endDateInput" class="date-input" type="date">
+          </div>
+          <div>
+            <div class="zoom-field">
+              <label>Zoom Action</label>
+              <div class="zoom-row">
+                <button class="button-link" id="applyZoomBtn" type="button">Apply</button>
+                <button class="button-link ghost" id="resetZoomBtn" type="button">Reset</button>
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="chart-meta" id="chartMeta"></div>
         <svg id="chartSvg" viewBox="0 0 980 320" preserveAspectRatio="none"></svg>
         <div class="legend" id="legend"></div>
@@ -449,6 +515,9 @@ def build_html(payload: dict[str, object]) -> str:
       etf: ETFS[0],
       chart: 'nav',
       range: 'all',
+      zoomMode: 'all',
+      zoomStart: null,
+      zoomEnd: null,
       rows: 100,
     }};
 
@@ -466,6 +535,10 @@ def build_html(payload: dict[str, object]) -> str:
     const windowBox = document.getElementById('windowBox');
     const rangeBox = document.getElementById('rangeBox');
     const chartMeta = document.getElementById('chartMeta');
+    const startDateInput = document.getElementById('startDateInput');
+    const endDateInput = document.getElementById('endDateInput');
+    const applyZoomBtn = document.getElementById('applyZoomBtn');
+    const resetZoomBtn = document.getElementById('resetZoomBtn');
 
     function fmtPct(v, digits = 2) {{
       return `${{(v * 100).toFixed(digits)}}%`;
@@ -485,12 +558,80 @@ def build_html(payload: dict[str, object]) -> str:
       return DATA.detailed[etf];
     }}
 
-    function getFilteredRows(rows) {{
+    function getRangeRows(rows) {{
       if (state.range === 'all') return rows;
       if (state.range === '2020') return rows.filter(r => String(r.datetime).startsWith('2020-'));
       if (state.range === '2022') return rows.filter(r => String(r.datetime).startsWith('2022-'));
       if (state.range === '2023_2024') return rows.filter(r => String(r.datetime).startsWith('2023-') || String(r.datetime).startsWith('2024-'));
       return rows;
+    }}
+
+    function getDateBounds(rows) {{
+      if (!rows.length) return {{ start: '', end: '' }};
+      return {{ start: rows[0].datetime, end: rows[rows.length - 1].datetime }};
+    }}
+
+    function getFilteredRows(rows) {{
+      let filtered = getRangeRows(rows);
+      if (state.zoomStart) {{
+        filtered = filtered.filter(r => String(r.datetime) >= state.zoomStart);
+      }}
+      if (state.zoomEnd) {{
+        filtered = filtered.filter(r => String(r.datetime) <= state.zoomEnd);
+      }}
+      return filtered;
+    }}
+
+    function shiftIsoDate(iso, months) {{
+      const dt = new Date(`${{iso}}T00:00:00Z`);
+      dt.setUTCMonth(dt.getUTCMonth() + months);
+      return dt.toISOString().slice(0, 10);
+    }}
+
+    function syncZoomInputs() {{
+      const bounds = getDateBounds(getRangeRows(getDetailed(state.etf).rows));
+      startDateInput.min = bounds.start;
+      startDateInput.max = bounds.end;
+      endDateInput.min = bounds.start;
+      endDateInput.max = bounds.end;
+      startDateInput.value = state.zoomStart || bounds.start;
+      endDateInput.value = state.zoomEnd || bounds.end;
+    }}
+
+    function applyZoomPreset(mode) {{
+      const bounds = getDateBounds(getRangeRows(getDetailed(state.etf).rows));
+      if (!bounds.start) return;
+      if (mode === 'all') {{
+        state.zoomMode = 'all';
+        state.zoomStart = null;
+        state.zoomEnd = null;
+      }} else {{
+        const monthsMap = {{ '6m': -6, '1y': -12, '2y': -24, '3y': -36 }};
+        const shifted = shiftIsoDate(bounds.end, monthsMap[mode]);
+        state.zoomMode = mode;
+        state.zoomStart = shifted < bounds.start ? bounds.start : shifted;
+        state.zoomEnd = bounds.end;
+      }}
+      syncZoomInputs();
+      renderChart();
+      renderRawTable();
+    }}
+
+    function applyCustomZoom() {{
+      const bounds = getDateBounds(getRangeRows(getDetailed(state.etf).rows));
+      let start = startDateInput.value || bounds.start;
+      let end = endDateInput.value || bounds.end;
+      if (start > end) {{
+        const tmp = start;
+        start = end;
+        end = tmp;
+      }}
+      state.zoomMode = 'custom';
+      state.zoomStart = start;
+      state.zoomEnd = end;
+      syncZoomInputs();
+      renderChart();
+      renderRawTable();
     }}
 
     function initControls() {{
@@ -502,6 +643,9 @@ def build_html(payload: dict[str, object]) -> str:
       }});
       etfSelect.addEventListener('change', e => {{
         state.etf = e.target.value;
+        state.zoomMode = 'all';
+        state.zoomStart = null;
+        state.zoomEnd = null;
         render();
       }});
       chartSelect.addEventListener('change', e => {{
@@ -517,10 +661,19 @@ def build_html(payload: dict[str, object]) -> str:
           document.querySelectorAll('.pill').forEach(x => x.classList.remove('active'));
           btn.classList.add('active');
           state.range = btn.dataset.range;
+          state.zoomMode = 'all';
+          state.zoomStart = null;
+          state.zoomEnd = null;
+          syncZoomInputs();
           renderChart();
           renderRawTable();
         }});
       }});
+      document.querySelectorAll('[data-zoom]').forEach(btn => {{
+        btn.addEventListener('click', () => applyZoomPreset(btn.dataset.zoom));
+      }});
+      applyZoomBtn.addEventListener('click', applyCustomZoom);
+      resetZoomBtn.addEventListener('click', () => applyZoomPreset('all'));
     }}
 
     function renderMetrics() {{
@@ -678,7 +831,7 @@ def build_html(payload: dict[str, object]) -> str:
         const key = d.getUTCFullYear();
         if (!yearMap.has(key)) yearMap.set(key, idx);
       }});
-      const tickEntries = Array.from(yearMap.entries()).filter(([year]) => state.range === 'all' || String(year).startsWith(state.range === '2023_2024' ? '2023' : state.range));
+      const tickEntries = Array.from(yearMap.entries());
       const axis = tickEntries.map(([year, idx]) => {{
         const xpos = x[idx];
         return `
@@ -705,14 +858,23 @@ def build_html(payload: dict[str, object]) -> str:
       }}
       if (rows.length) {{
         chartMeta.innerHTML = `
+          <span>Zoom: <span class="mono">${{state.zoomMode}}</span></span>
           <span>Window: <span class="mono">${{rows[0].datetime}}</span> → <span class="mono">${{rows[rows.length-1].datetime}}</span></span>
           <span>Rows: <span class="mono">${{rows.length}}</span></span>
           <span>Chart: <span class="mono">${{state.chart}}</span></span>
         `;
         rangeBox.innerHTML = `
           当前筛选: <span class="mono">${{state.range}}</span><br>
+          缩放模式: <span class="mono">${{state.zoomMode}}</span><br>
           实际显示: <span class="mono">${{rows[0].datetime}}</span> → <span class="mono">${{rows[rows.length-1].datetime}}</span><br>
           说明: 当前页面不显示 <span class="mono">2019 valid</span>，所以不会看到 2019 年的数据点。
+        `;
+      }} else {{
+        chartMeta.innerHTML = `<span>当前日期筛选下没有数据，请放宽缩放范围。</span>`;
+        rangeBox.innerHTML = `
+          当前筛选: <span class="mono">${{state.range}}</span><br>
+          缩放模式: <span class="mono">${{state.zoomMode}}</span><br>
+          说明: 当前日期区间没有命中任何样本。
         `;
       }}
     }}
@@ -739,6 +901,7 @@ def build_html(payload: dict[str, object]) -> str:
       etfSelect.value = state.etf;
       chartSelect.value = state.chart;
       rowsSelect.value = String(state.rows);
+      syncZoomInputs();
       renderMetrics();
       renderComparison();
       renderOverlay();
