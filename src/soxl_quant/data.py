@@ -14,6 +14,7 @@ from __future__ import annotations
 """
 
 from pathlib import Path
+import hashlib
 from typing import List, Tuple
 
 import numpy as np
@@ -74,6 +75,11 @@ FEATURE_COLUMNS: List[str] = [
     "relative_volume_zscore",
 ]
 STATIC_INDEX = {name: idx for idx, name in enumerate(FEATURE_COLUMNS)}
+
+
+def feature_schema_signature() -> str:
+    payload = "|".join(FEATURE_COLUMNS).encode("utf-8")
+    return hashlib.sha1(payload).hexdigest()[:12]
 
 
 def _write_qlib_bin(path: Path, values: np.ndarray) -> None:

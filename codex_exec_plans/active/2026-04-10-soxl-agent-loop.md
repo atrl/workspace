@@ -213,6 +213,41 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
     - `runtime/post_train_review/balanced_cost_sensitivity.json`
     - failed with `obs_dim_mismatch` (`model_obs_dim=56`, current expected `64`)
     - this is a harness replayability gap: the summary exists but the saved actor is no longer replay-compatible with the current feature set
+- Validation-score experiment 2026-04-17 16:0x:
+  - harness changes:
+    - added `selection_score` config support in `src/soxl_quant/settings.py`
+    - `evaluate_split()` now persists `stress_avg_pos` and `stress_days`
+    - actor bundle / summary now persist:
+      - full `selection_score`
+      - `feature_schema.signature`
+    - added profile:
+      - `configs/soxl/balanced_stress_select.yaml`
+  - command:
+    - `qlib_venv/bin/python soxl_qlib_strategy_v2.py --profiles balanced_stress_select --skip-data-refresh --seed 20260411`
+  - saved summary:
+    - `artifacts/models/soxl_balanced_stress_select_summary.json`
+  - summary vs canonical `balanced`:
+    - `test_proxy return 468.90% -> 424.33%`
+    - `test_proxy sharpe 0.858 -> 0.788`
+    - `test_proxy maxDD 50.18% -> 63.09%`
+    - `test_2022 return -25.82% -> -39.36%`
+    - `test_2022 maxDD 33.04% -> 47.67%`
+    - `test_2022 avg_pos 0.283 -> 0.404`
+    - `test_2023_2024 return 43.52% -> 53.14%`
+  - valid behavior:
+    - selected model persisted `valid.stress_avg_pos = 0.340` over `13` stress days
+    - but OOS stress behavior still failed badly, so the new score did not improve generalization
+  - cost audit:
+    - `runtime/post_train_review/balanced_stress_select_cost_sensitivity.json`
+    - base `563.0% / Sharpe 0.843 / MaxDD 64.33% / 891 trades`
+    - `15 bps`: `538.5% / Sharpe 0.831`
+    - `20 bps`: `513.7% / Sharpe 0.819`
+    - interpretation:
+      - this branch is not primarily failing because of cost fragility
+      - it is failing because the chosen style still overweights trend exposure and under-defends stress windows
+  - keep / drop:
+    - keep the new metadata + replayability guardrails
+    - drop `balanced_stress_select` as the next canonical promotion candidate
 
 ## Next actions
 
@@ -231,7 +266,10 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
 7. Fix canonical `balanced` replayability before treating it as the fully trusted reference:
   - the current summary sidecar is reproducible as metadata, but the saved actor bundle is not replay-compatible with the current 64-dim feature set
 8. After replayability is restored, optimize by decision rule:
-  - if canonical `balanced` stays robust under cost audit, optimize selection metric / validation objective before changing reward or adding features
+  - if canonical `balanced` stays robust under cost audit, optimize stress routing / exposure map before changing reward or adding features
+9. Do not keep iterating on validation-score tweaks alone:
+  - the first risk-aware score increased validation quality but worsened `2022` OOS materially
+  - next branch should change actor behavior directly, not just the checkpoint criterion
 
 ## Run completed 2026-04-11 17:48
 

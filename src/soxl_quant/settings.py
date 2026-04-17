@@ -91,6 +91,18 @@ class PromotionGateConfig:
 
 
 @dataclass(frozen=True)
+class SelectionScoreConfig:
+    return_weight: float = 1.0
+    sharpe_weight: float = 20.0
+    max_dd_penalty: float = 0.12
+    avg_pos_penalty: float = 0.0
+    stress_avg_pos_penalty: float = 0.0
+    stress_threshold: float = 0.65
+    staged_training: bool = True
+    stage_iters: int = 20
+
+
+@dataclass(frozen=True)
 class StrategyConfig:
     name: str
     max_iters: int
@@ -103,6 +115,7 @@ class StrategyConfig:
     reward: RewardConfig
     position_cap: PositionCapConfig = field(default_factory=PositionCapConfig)
     promotion_gate: PromotionGateConfig = field(default_factory=PromotionGateConfig)
+    selection_score: SelectionScoreConfig = field(default_factory=SelectionScoreConfig)
 
 
 def artifact_stem(profile_name: str, artifact_tag: str = "") -> str:
@@ -133,6 +146,7 @@ def load_profile(name: str) -> StrategyConfig:
     reward = RewardConfig(**payload["reward"])
     position_cap = PositionCapConfig(**payload.get("position_cap", {}))
     promotion_gate = PromotionGateConfig(**payload.get("promotion_gate", {}))
+    selection_score = SelectionScoreConfig(**payload.get("selection_score", {}))
     return StrategyConfig(
         name=payload["name"],
         max_iters=int(payload["max_iters"]),
@@ -145,4 +159,5 @@ def load_profile(name: str) -> StrategyConfig:
         reward=reward,
         position_cap=position_cap,
         promotion_gate=promotion_gate,
+        selection_score=selection_score,
     )

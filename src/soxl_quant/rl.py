@@ -901,6 +901,7 @@ def evaluate_split(
     cash0: float = 100_000.0,
     position_cap_config: Optional[PositionCapConfig] = None,
     asset_idx: int = 0,
+    stress_threshold: float = 0.65,
 ) -> Dict[str, float]:
     """Fast actor evaluation outside the heavyweight qlib backtest loop."""
     cash = cash0
@@ -910,14 +911,16 @@ def evaluate_split(
     price_path = build_price_path(df)
     values = [cash]
     positions = []
+    stress_positions = []
     for idx in range(LOOKBACK, len(df) - 1):
         obs = make_observation(df, idx, pos, cash, peak, ledger, price_path, asset_idx=asset_idx)
         action = actor_action(actor, obs)
         target_pos = action_to_position(action, obs, config=position_cap_config)
         row = df.iloc[idx]
+        regime_risk = float(np.nan_to_num(row["regime_risk"]))
         direction = "buy" if target_pos > pos else ("sell" if target_pos < pos else "neutral")
         min_rebalance = rebalance_threshold(
-            float(np.nan_to_num(row["regime_risk"])),
+            regime_risk,
             float(np.nan_to_num(row["realized_vol_10"])),
             abs(float(np.nan_to_num(row["trend_gap_21"]))),
             direction=direction,
@@ -931,6 +934,8 @@ def evaluate_split(
         ledger.update(pos, target_pos, float(price_path[idx]))
         pos = target_pos
         positions.append(pos)
+        if regime_risk >= stress_threshold:
+            stress_positions.append(pos)
         values.append(cash)
     account = np.array(values)
     daily_ret = np.diff(account) / account[:-1]
@@ -940,4 +945,6 @@ def evaluate_split(
         "sharpe": float(np.mean(daily_ret) / (np.std(daily_ret) + 1e-8) * np.sqrt(252)),
         "max_dd": float(np.max((peak_curve - account) / peak_curve) * 100),
         "avg_pos": float(np.mean(positions)) if positions else 0.0,
+        "stress_avg_pos": float(np.mean(stress_positions)) if stress_positions else 0.0,
+        "stress_days": float(len(stress_positions)),
     }

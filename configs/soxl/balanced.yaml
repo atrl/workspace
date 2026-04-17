@@ -51,3 +51,12 @@ promotion_gate:
   min_test_proxy_sharpe: 0.75
   min_wf_2023_2024_return: 0.0
   min_wf_2023_2024_sharpe: 0.0
+selection_score:
+  return_weight: 1.0
+  sharpe_weight: 20.0
+  max_dd_penalty: 0.12
+  avg_pos_penalty: 0.0
+  stress_avg_pos_penalty: 0.0
+  stress_threshold: 0.65
+  staged_training: false
+  stage_iters: 20

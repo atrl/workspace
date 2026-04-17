@@ -40,7 +40,7 @@ from qlib.rl.trainer.api import train as qlib_train
 
 from .backtest import backtest_profile, save_results
 from .compat import patch_gym_compat
-from .data import FEATURE_COLUMNS, build_dataset, refresh_qlib_binary, init_qlib, segment_frame
+from .data import FEATURE_COLUMNS, build_dataset, feature_schema_signature, refresh_qlib_binary, init_qlib, segment_frame
 from .rl import ContinuousReward, PositionAction, SoxlSimulator, SoxlState, build_initial_states, build_policy, evaluate_split
 from .settings import (
     CSV_PATH,
@@ -73,17 +73,24 @@ WALK_FORWARD_WINDOWS: Tuple[WalkForwardWindow, ...] = (
 WORKER_RESULT_DIR = ROOT / "runtime" / "soxl" / "wf_workers"
 
 
-def validation_score(metrics: Dict[str, float]) -> float:
+def validation_score(metrics: Dict[str, float], profile) -> float:
     """模型选择用的单一评分函数。
 
-    公式：return + sharpe * 20 - max_dd * 0.12
-    Sharpe 的权重很高（×20），说明我们更看重风险调整后收益；
-    回撤惩罚相对温和（×0.12），避免模型过度保守导致收益过低。
+    默认公式：return + sharpe * 20 - max_dd * 0.12
+    允许 profile 通过 `selection_score` 调整权重，并显式惩罚 validation
+    压力日的平均仓位，减少“valid 好看但 stress 风险偏高”的 checkpoint。
     
     【优化提示】如果后续发现模型在 valid 上收益高但 test 上回撤大，
     可提高 max_dd 的惩罚系数，或改用 Sortino 替代 Sharpe。
     """
-    return float(metrics["return"] + metrics["sharpe"] * 20.0 - metrics["max_dd"] * 0.12)
+    cfg = profile.selection_score
+    return float(
+        metrics["return"] * cfg.return_weight
+        + metrics["sharpe"] * cfg.sharpe_weight
+        - metrics["max_dd"] * cfg.max_dd_penalty
+        - metrics.get("avg_pos", 0.0) * cfg.avg_pos_penalty
+        - metrics.get("stress_avg_pos", 0.0) * cfg.stress_avg_pos_penalty
+    )
 
 
 def slice_frame(df, seg: Tuple[str, str]):
@@ -215,6 +222,19 @@ def serialize_position_cap(profile) -> Dict[str, float]:
     }
 
 
+def serialize_selection_score(profile) -> Dict[str, float | bool]:
+    return {
+        "return_weight": profile.selection_score.return_weight,
+        "sharpe_weight": profile.selection_score.sharpe_weight,
+        "max_dd_penalty": profile.selection_score.max_dd_penalty,
+        "avg_pos_penalty": profile.selection_score.avg_pos_penalty,
+        "stress_avg_pos_penalty": profile.selection_score.stress_avg_pos_penalty,
+        "stress_threshold": profile.selection_score.stress_threshold,
+        "staged_training": profile.selection_score.staged_training,
+        "stage_iters": profile.selection_score.stage_iters,
+    }
+
+
 def set_global_seed(seed: int) -> None:
     os.environ["PYTHONHASHSEED"] = str(seed)
     random.seed(seed)
@@ -280,7 +300,7 @@ def train_with_selection(policy, actor, initial_states, obs_dim: int, profile, v
     checkpoint every small block so we can stop on plateau instead of blindly
     trusting the final iteration.
     """
-    if profile.name == "balanced" and not smoke:
+    if not smoke and not profile.selection_score.staged_training:
         qlib_train(
             simulator_fn=SoxlSimulator,
             state_interpreter=SoxlState(obs_dim),
@@ -294,8 +314,13 @@ def train_with_selection(policy, actor, initial_states, obs_dim: int, profile, v
             },
             trainer_kwargs={"finite_env_type": "dummy", "concurrency": 1, "max_iters": profile.max_iters},
         )
-        final_metrics = evaluate_split(actor, valid_df, position_cap_config=profile.position_cap)
-        final_score = validation_score(final_metrics)
+        final_metrics = evaluate_split(
+            actor,
+            valid_df,
+            position_cap_config=profile.position_cap,
+            stress_threshold=profile.selection_score.stress_threshold,
+        )
+        final_score = validation_score(final_metrics, profile)
         history = [
             {"iter": 0, "score": final_score, **final_metrics},
             {"iter": profile.max_iters, "score": final_score, **final_metrics},
@@ -306,11 +331,17 @@ def train_with_selection(policy, actor, initial_states, obs_dim: int, profile, v
         )
         return {"best_metrics": final_metrics, "best_score": final_score, "history": history}
 
-    stage_iters = profile.max_iters if smoke else min(20, profile.max_iters)
+    stage_iters = profile.max_iters if smoke else min(profile.selection_score.stage_iters, profile.max_iters)
     completed = 0
     best_state = copy.deepcopy(actor.state_dict())
-    best_metrics = evaluate_split(actor, valid_df, position_cap_config=profile.position_cap, asset_idx=0)
-    best_score = validation_score(best_metrics)
+    best_metrics = evaluate_split(
+        actor,
+        valid_df,
+        position_cap_config=profile.position_cap,
+        asset_idx=0,
+        stress_threshold=profile.selection_score.stress_threshold,
+    )
+    best_score = validation_score(best_metrics, profile)
     history = [{"iter": 0, "score": best_score, **best_metrics}]
 
     while completed < profile.max_iters:
@@ -329,8 +360,14 @@ def train_with_selection(policy, actor, initial_states, obs_dim: int, profile, v
             trainer_kwargs={"finite_env_type": "dummy", "concurrency": 1, "max_iters": current_iters},
         )
         completed += current_iters
-        metrics = evaluate_split(actor, valid_df, position_cap_config=profile.position_cap, asset_idx=0)
-        score = validation_score(metrics)
+        metrics = evaluate_split(
+            actor,
+            valid_df,
+            position_cap_config=profile.position_cap,
+            asset_idx=0,
+            stress_threshold=profile.selection_score.stress_threshold,
+        )
+        score = validation_score(metrics, profile)
         history.append({"iter": completed, "score": score, **metrics})
         print(
             f"[valid:{profile.name}@{completed}] return={metrics['return']:.1f}% "
@@ -405,7 +442,14 @@ def run_profile(
             "hidden_sizes": list(profile.hidden_sizes),
             "obs_dim": obs_dim,
             "n_actions": int(getattr(actor, "output_dim", 0) or 11),
+            "feature_schema": {
+                "signature": feature_schema_signature(),
+                "feature_count": len(FEATURE_COLUMNS),
+                "extra_obs_dim": EXTRA_OBS_DIM,
+                "n_assets": N_ASSETS,
+            },
             "position_cap": serialize_position_cap(profile),
+            "selection_score": serialize_selection_score(profile),
             "state_dict": actor.state_dict(),
         },
         model_path,
@@ -427,7 +471,14 @@ def run_profile(
             {
                 "profile": profile.name,
                 "seed": seed,
+                "feature_schema": {
+                    "signature": feature_schema_signature(),
+                    "feature_count": len(FEATURE_COLUMNS),
+                    "extra_obs_dim": EXTRA_OBS_DIM,
+                    "n_assets": N_ASSETS,
+                },
                 "position_cap": serialize_position_cap(profile),
+                "selection_score": serialize_selection_score(profile),
                 "model_path": str(model_path),
                 "valid": valid_metrics,
                 "best_score": selection["best_score"],
@@ -566,7 +617,7 @@ def parse_args() -> argparse.Namespace:
         "--profiles",
         nargs="+",
         default=["balanced", "aggressive"],
-        choices=["balanced", "aggressive", "smoke", "balanced_budget", "balanced_floor40", "balanced_floor40_sym", "balanced_floor40_sym_bear30"],
+        choices=["balanced", "aggressive", "smoke", "balanced_budget", "balanced_floor40", "balanced_floor40_sym", "balanced_floor40_sym_bear30", "balanced_stress_select"],
         help="profiles to train and backtest",
     )
     parser.add_argument("--smoke", action="store_true", help="force short smoke run")
