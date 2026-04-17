@@ -113,14 +113,23 @@ class ExecutionConfig:
     stress_regime_threshold: float = 0.60
     stress_vol_threshold: float = 0.70
     stress_trend_threshold: float = 0.10
+    bull_trend_threshold: float = 0.05
     buy_threshold_multiplier: float = 1.0
     sell_threshold_multiplier: float = 1.0
+    bull_buy_threshold_multiplier: float = 1.0
+    bull_sell_threshold_multiplier: float = 1.0
+    stress_buy_threshold_multiplier: float = 1.0
+    stress_sell_threshold_multiplier: float = 1.0
     buy_cooldown_days: int = 1
+    bull_buy_cooldown_days: int = -1
+    stress_buy_cooldown_days: int = -1
     deep_drop_threshold: float = -0.15
     deep_drop_cooldown_min: int = 3
     deep_drop_cooldown_max: int = 20
     deep_drop_cooldown_scale: float = 30.0
     trade_lock_days: int = 3
+    bull_trade_lock_days: int = -1
+    stress_trade_lock_days: int = -1
     min_trade_turnover: float = 0.02
 
 

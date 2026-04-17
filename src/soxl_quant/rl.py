@@ -141,6 +141,50 @@ class EpisodeConfig(NamedTuple):
     asset_idx: int = 0
 
 
+def execution_regime(regime_risk: float, realized_vol: float, trend_strength: float, config: Optional[ExecutionConfig] = None) -> str:
+    cfg = config or DEFAULT_EXECUTION
+    if (
+        regime_risk > cfg.stress_regime_threshold
+        or realized_vol > cfg.stress_vol_threshold
+        or trend_strength > cfg.stress_trend_threshold
+    ):
+        return "stress"
+    if (
+        regime_risk < cfg.quiet_regime_threshold
+        and realized_vol < cfg.quiet_vol_threshold
+        and trend_strength > cfg.bull_trend_threshold
+    ):
+        return "bull"
+    return "base"
+
+
+def execution_trade_lock_days(config: Optional[ExecutionConfig], regime: str) -> int:
+    cfg = config or DEFAULT_EXECUTION
+    if regime == "bull" and cfg.bull_trade_lock_days >= 0:
+        return int(cfg.bull_trade_lock_days)
+    if regime == "stress" and cfg.stress_trade_lock_days >= 0:
+        return int(cfg.stress_trade_lock_days)
+    return int(cfg.trade_lock_days)
+
+
+def execution_buy_cooldown_days(
+    cum_drop_30: float,
+    config: Optional[ExecutionConfig],
+    regime: str,
+) -> int:
+    cfg = config or DEFAULT_EXECUTION
+    if cum_drop_30 < cfg.deep_drop_threshold:
+        return min(
+            cfg.deep_drop_cooldown_max,
+            max(cfg.deep_drop_cooldown_min, int(abs(cum_drop_30) * cfg.deep_drop_cooldown_scale)),
+        )
+    if regime == "bull" and cfg.bull_buy_cooldown_days >= 0:
+        return int(cfg.bull_buy_cooldown_days)
+    if regime == "stress" and cfg.stress_buy_cooldown_days >= 0:
+        return int(cfg.stress_buy_cooldown_days)
+    return int(cfg.buy_cooldown_days)
+
+
 def rebalance_threshold(
     regime_risk: float,
     realized_vol: float,
@@ -154,6 +198,7 @@ def rebalance_threshold(
     分支 (buy 0.02 / sell 0.06) 已被证明会显著降低收益（461.7%）。
     """
     cfg = config or DEFAULT_EXECUTION
+    regime = execution_regime(regime_risk, realized_vol, trend_strength, config=cfg)
     threshold = float(cfg.base_threshold)
     if (
         regime_risk < cfg.quiet_regime_threshold
@@ -171,6 +216,16 @@ def rebalance_threshold(
         threshold *= float(cfg.buy_threshold_multiplier)
     elif direction == "sell":
         threshold *= float(cfg.sell_threshold_multiplier)
+    if regime == "bull":
+        if direction == "buy":
+            threshold *= float(cfg.bull_buy_threshold_multiplier)
+        elif direction == "sell":
+            threshold *= float(cfg.bull_sell_threshold_multiplier)
+    elif regime == "stress":
+        if direction == "buy":
+            threshold *= float(cfg.stress_buy_threshold_multiplier)
+        elif direction == "sell":
+            threshold *= float(cfg.stress_sell_threshold_multiplier)
     return threshold
 
 
@@ -976,11 +1031,14 @@ def evaluate_split(
         target_pos = action_to_position(action, obs, config=position_cap_config)
         row = df.iloc[idx]
         regime_risk = float(np.nan_to_num(row["regime_risk"]))
+        realized_vol = float(np.nan_to_num(row["realized_vol_10"]))
+        trend_strength = abs(float(np.nan_to_num(row["trend_gap_21"])))
+        regime = execution_regime(regime_risk, realized_vol, trend_strength, config=exec_cfg)
         direction = "buy" if target_pos > pos else ("sell" if target_pos < pos else "neutral")
         min_rebalance = rebalance_threshold(
             regime_risk,
-            float(np.nan_to_num(row["realized_vol_10"])),
-            abs(float(np.nan_to_num(row["trend_gap_21"]))),
+            realized_vol,
+            trend_strength,
             direction=direction,
             config=exec_cfg,
         )
@@ -1000,18 +1058,9 @@ def evaluate_split(
         peak = max(peak, cash)
         ledger.update(pos, target_pos, float(price_path[idx]))
         if target_pos > pos + 1e-6:
-            if float(np.nan_to_num(row["cum_drop_30"])) < exec_cfg.deep_drop_threshold:
-                buy_cooldown = min(
-                    exec_cfg.deep_drop_cooldown_max,
-                    max(
-                        exec_cfg.deep_drop_cooldown_min,
-                        int(abs(float(np.nan_to_num(row["cum_drop_30"]))) * exec_cfg.deep_drop_cooldown_scale),
-                    ),
-                )
-            else:
-                buy_cooldown = exec_cfg.buy_cooldown_days
+            buy_cooldown = execution_buy_cooldown_days(float(np.nan_to_num(row["cum_drop_30"])), exec_cfg, regime)
         if turnover > exec_cfg.min_trade_turnover:
-            trade_lock = exec_cfg.trade_lock_days
+            trade_lock = execution_trade_lock_days(exec_cfg, regime)
         pos = target_pos
         positions.append(pos)
         if regime_risk >= stress_threshold:

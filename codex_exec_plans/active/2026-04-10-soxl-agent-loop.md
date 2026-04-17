@@ -2,7 +2,7 @@
 
 Status: active
 Owner: Codex
-Last updated: 2026-04-17 16:18 CST
+Last updated: 2026-04-17 16:58 CST
 
 ## Goal
 
@@ -98,6 +98,14 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
   - Real retrain with a tighter bear floor improved `balanced_floor40_sym` on `2022` and max drawdown, but still failed to beat canonical `balanced` on stress-window risk quality or promotion gates.
 - 2026-04-17 15:40:
   - Fixed artifact persistence so model bundles and summary JSON now include the full dynamic `position_cap` payload, not only base drawdown fields.
+- 2026-04-17 16:58:
+  - Verified the local dashboard was not missing `2020`; it intentionally renders only the fixed `test` window (`2020-01-02..2026-03-31`) and excludes `train=2010-2018` plus `valid=2019`.
+- 2026-04-17 16:58:
+  - Upgraded the dashboard to surface the split explicitly in-page via window/range notices and year ticks so test-window-only charts are harder to misread.
+- 2026-04-17 16:58:
+  - Added a first regime-routed execution overlay `regime_route_v1` and reran the 5-ETF generalization harness.
+- 2026-04-17 16:58:
+  - `regime_route_v1` modestly improved average `bear_2022` return / maxDD and reduced turnover versus `fast_reentry`, but it still failed to beat `cta_trend_hold` on overall proxy Sharpe/return, so the routing direction is kept while the exact multipliers are dropped as canonical defaults.
 
 ## Current run
 
@@ -258,6 +266,56 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
 - Stress-behavior retrain 2026-04-17 17:1x:
   - command:
     - `qlib_venv/bin/python soxl_qlib_strategy_v2.py --profiles balanced_stress_behavior --skip-data-refresh --seed 20260411`
+
+## Latest execution-overlay loop 2026-04-17 16:xx
+
+- Goal:
+  - resolve the dashboard date-window ambiguity
+  - test whether regime-routed execution logic generalizes better than the current one-size-fits-all overlay family across `SOXL`, `TQQQ`, `UPRO`, `SPXL`, `TECL`
+- Commands:
+  - `python3 scripts/execution_overlay_generalization.py --profile balanced --model artifacts/models/soxl_balanced_actor.pt --variants-json configs/soxl/execution_overlay_variants.json --output runtime/generalization/execution_overlay_results.json`
+  - `python3 scripts/build_backtest_dashboard.py`
+- Validation evidence:
+  - detailed ETF CSVs all begin at `2020-01-02` and end at `2026-03-31`; no `2020` data is missing
+  - updated dashboard:
+    - `runtime/generalization/dashboard.html`
+  - updated review:
+    - `runtime/generalization/execution_overlay_review.md`
+  - average overlay readout:
+    - `cta_trend_hold`: `291.7% / Sharpe 0.832 / MaxDD 46.86% / 216 trades`
+    - `regime_route_v1`: `268.7% / Sharpe 0.807 / MaxDD 47.14% / 360 trades`
+    - `fast_reentry`: `269.3% / Sharpe 0.806 / MaxDD 46.98% / 471 trades`
+  - `regime_route_v1` vs `fast_reentry`:
+    - average `bear_2022` return `-30.10% -> -29.27%`
+    - average `bear_2022` maxDD `34.25% -> 33.49%`
+    - average trades `471 -> 360`
+    - average `2023-2024` recovery return `66.49% -> 72.18%`
+  - failure to promote:
+    - still below `cta_trend_hold` on proxy return and Sharpe
+    - tech-heavy ETFs are mixed:
+      - `TQQQ` improved strongly
+      - `TECL` and `SOXL` still lag
+- Layer impact:
+  - signal generation:
+    - unchanged
+  - position sizing:
+    - unchanged
+  - broker execution:
+    - changed via regime-aware threshold / cooldown / lock routing
+  - reconciliation and monitoring:
+    - changed via richer dashboard split/window disclosure
+- Keep / drop decision:
+  - keep regime routing as the next execution/training direction
+  - drop `regime_route_v1` parameterization as the current best universal overlay
+- Next action:
+  - training should not jump straight into a generic retrain
+  - first target a `balanced_regime_gate` branch that only borrows the parts that validated here:
+    - stronger stress-side sell bias
+    - lower stress-window average position
+    - moderate turnover compression
+  - avoid copying the current bull-state multipliers into training unchanged because they hurt `SOXL` / `TECL`
+  - checkpoint policy should also tighten:
+    - favor earlier checkpoints when `2022` avg position rises without a proportional proxy-Sharpe gain
   - saved summary:
     - `artifacts/models/soxl_balanced_stress_behavior_summary.json`
   - fixed-split vs canonical `balanced`:

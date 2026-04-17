@@ -37,12 +37,19 @@ def load_csv_rows(path: Path) -> list[dict[str, object]]:
 def build_payload() -> dict[str, object]:
     detailed_summary = load_json(DETAIL_DIR / "summary.json")
     detailed_rows = {}
+    windows = {}
     for item in detailed_summary:
         etf = item["etf"]
+        rows = load_csv_rows(DETAIL_DIR / f"{etf.lower()}_detailed_trades.csv")
         detailed_rows[etf] = {
             "summary": item,
             "csv_path": f"detailed/{etf.lower()}_detailed_trades.csv",
-            "rows": load_csv_rows(DETAIL_DIR / f"{etf.lower()}_detailed_trades.csv"),
+            "rows": rows,
+        }
+        windows[etf] = {
+            "start": rows[0]["datetime"] if rows else "",
+            "end": rows[-1]["datetime"] if rows else "",
+            "rows": len(rows),
         }
     return {
         "generated_from": {
@@ -54,6 +61,7 @@ def build_payload() -> dict[str, object]:
             "execution_review": "runtime/generalization/execution_overlay_review.md",
         },
         "summary": detailed_summary,
+        "windows": windows,
         "detailed": detailed_rows,
         "results": load_json(RUNTIME_DIR / "results.json"),
         "rule_based": load_json(RUNTIME_DIR / "rule_based_results.json"),
@@ -153,6 +161,29 @@ def build_html(payload: dict[str, object]) -> str:
     .summary-grid {{
       grid-template-columns: repeat(4, minmax(0, 1fr));
       margin-bottom: 18px;
+    }}
+    .window-bar {{
+      display: grid;
+      grid-template-columns: 1.3fr 1fr 1fr;
+      gap: 18px;
+      margin-bottom: 18px;
+    }}
+    .notice {{
+      background: linear-gradient(135deg, rgba(154, 52, 18, 0.08), rgba(15, 118, 110, 0.06));
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 16px;
+    }}
+    .notice .title {{
+      font-size: 13px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 8px;
+    }}
+    .notice .body {{
+      font-size: 15px;
+      line-height: 1.5;
     }}
     .metric {{
       background: var(--panel-2);
@@ -295,13 +326,21 @@ def build_html(payload: dict[str, object]) -> str:
       border-radius: 16px;
       padding: 16px;
     }}
+    .chart-meta {{
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+      color: var(--muted);
+      font-size: 13px;
+    }}
     @media (max-width: 1100px) {{
       .hero, .chart-grid, .split {{ grid-template-columns: 1fr; }}
-      .summary-grid {{ grid-template-columns: repeat(2, minmax(0, 1fr)); }}
+      .summary-grid, .window-bar {{ grid-template-columns: repeat(2, minmax(0, 1fr)); }}
     }}
     @media (max-width: 720px) {{
       .shell {{ padding: 14px; }}
-      .summary-grid {{ grid-template-columns: 1fr; }}
+      .summary-grid, .window-bar {{ grid-template-columns: 1fr; }}
       .hero h1 {{ font-size: 28px; }}
     }}
   </style>
@@ -346,6 +385,21 @@ def build_html(payload: dict[str, object]) -> str:
 
     <div class="grid summary-grid" id="metricGrid"></div>
 
+    <div class="window-bar">
+      <div class="notice">
+        <div class="title">Evaluation Window</div>
+        <div class="body" id="windowBox"></div>
+      </div>
+      <div class="notice">
+        <div class="title">Chart Range</div>
+        <div class="body" id="rangeBox"></div>
+      </div>
+      <div class="notice">
+        <div class="title">Page Notes</div>
+        <div class="body">页面默认只展示 <span class="mono">test</span> 窗口，固定区间是 <span class="mono">2020-01-02</span> → <span class="mono">2026-03-31</span>。<span class="mono">2010-2018</span> 是 train、<span class="mono">2019</span> 是 valid，因此图上从 2020 年开始是设计行为，不是数据丢失。</div>
+      </div>
+    </div>
+
     <div class="chart-grid">
       <div class="card chart-panel">
         <h2 class="section-title">Main Chart</h2>
@@ -355,6 +409,7 @@ def build_html(payload: dict[str, object]) -> str:
           <button class="pill" data-range="2022">2022</button>
           <button class="pill" data-range="2023_2024">2023-2024</button>
         </div>
+        <div class="chart-meta" id="chartMeta"></div>
         <svg id="chartSvg" viewBox="0 0 980 320" preserveAspectRatio="none"></svg>
         <div class="legend" id="legend"></div>
       </div>
@@ -408,6 +463,9 @@ def build_html(payload: dict[str, object]) -> str:
     const legend = document.getElementById('legend');
     const rawTable = document.getElementById('rawTable');
     const csvLink = document.getElementById('csvLink');
+    const windowBox = document.getElementById('windowBox');
+    const rangeBox = document.getElementById('rangeBox');
+    const chartMeta = document.getElementById('chartMeta');
 
     function fmtPct(v, digits = 2) {{
       return `${{(v * 100).toFixed(digits)}}%`;
@@ -468,6 +526,7 @@ def build_html(payload: dict[str, object]) -> str:
     function renderMetrics() {{
       const detail = getDetailed(state.etf);
       const summary = detail.summary;
+      const window = DATA.windows[state.etf];
       const rl = DATA.results[state.etf];
       const rule = DATA.rule_based[state.etf];
       const cards = [
@@ -482,9 +541,9 @@ def build_html(payload: dict[str, object]) -> str:
           sub: `Return ${{fmtNum(rl.return)}}% | MaxDD ${{fmtNum(rl.max_dd)}}%`,
         }},
         {{
-          key: 'Trades',
+          key: 'Trades / Window',
           value: String(summary.trades),
-          sub: `BUY ${{summary.buy_count}} | SELL ${{summary.sell_count}}`,
+          sub: `BUY ${{summary.buy_count}} | SELL ${{summary.sell_count}} | ${{window.start}} → ${{window.end}}`,
         }},
         {{
           key: 'Rule-Based',
@@ -499,6 +558,12 @@ def build_html(payload: dict[str, object]) -> str:
           <div class="s">${{card.sub}}</div>
         </div>
       `).join('');
+      windowBox.innerHTML = `
+        当前 ETF: <span class="mono">${{state.etf}}</span><br>
+        Test window: <span class="mono">${{window.start}}</span> → <span class="mono">${{window.end}}</span><br>
+        Daily rows: <span class="mono">${{window.rows}}</span><br>
+        Split: train <span class="mono">2010-2018</span> | valid <span class="mono">2019</span> | test <span class="mono">2020-2026</span>
+      `;
     }}
 
     function renderComparison() {{
@@ -558,6 +623,7 @@ def build_html(payload: dict[str, object]) -> str:
       const top = 18;
       const bottom = 28;
       const x = rows.map((_, idx) => left + (idx / Math.max(rows.length - 1, 1)) * (width - left - right));
+      const dates = rows.map(r => new Date(r.datetime));
 
       let series = [];
       let tradeDots = [];
@@ -607,6 +673,19 @@ def build_html(payload: dict[str, object]) -> str:
 
       const gridYs = [top, top + (height - top - bottom) / 2, height - bottom];
       const grid = gridYs.map(y => `<line x1="${{left}}" y1="${{y}}" x2="${{width-right}}" y2="${{y}}" stroke="#d8ccbb" stroke-dasharray="4 6"/>`).join('');
+      const yearMap = new Map();
+      dates.forEach((d, idx) => {{
+        const key = d.getUTCFullYear();
+        if (!yearMap.has(key)) yearMap.set(key, idx);
+      }});
+      const tickEntries = Array.from(yearMap.entries()).filter(([year]) => state.range === 'all' || String(year).startsWith(state.range === '2023_2024' ? '2023' : state.range));
+      const axis = tickEntries.map(([year, idx]) => {{
+        const xpos = x[idx];
+        return `
+          <line x1="${{xpos}}" y1="${{height-bottom}}" x2="${{xpos}}" y2="${{height-bottom+6}}" stroke="#9f907e"/>
+          <text x="${{xpos}}" y="${{height-bottom+18}}" text-anchor="middle" font-size="12" fill="#6d6458">${{year}}</text>
+        `;
+      }}).join('');
       const paths = series.map(s => {{
         const pts = s.values.map((_, i) => [x[i], s.y[i]]);
         return `<polyline fill="none" stroke="${{s.color}}" stroke-width="2.5" points="${{polyline(pts)}}"/>`;
@@ -615,12 +694,26 @@ def build_html(payload: dict[str, object]) -> str:
       chartSvg.innerHTML = `
         <rect x="0" y="0" width="${{width}}" height="${{height}}" fill="transparent"/>
         ${{grid}}
+        <line x1="${{left}}" y1="${{height-bottom}}" x2="${{width-right}}" y2="${{height-bottom}}" stroke="#9f907e"/>
+        ${{axis}}
         ${{paths}}
         ${{dots}}
       `;
       legend.innerHTML = series.map(s => `<span><span class="dot" style="background:${{s.color}}"></span>${{s.name}}</span>`).join('');
       if (tradeDots.length) {{
         legend.innerHTML += `<span><span class="dot" style="background:#0f766e"></span>BUY</span><span><span class="dot" style="background:#b91c1c"></span>SELL</span>`;
+      }}
+      if (rows.length) {{
+        chartMeta.innerHTML = `
+          <span>Window: <span class="mono">${{rows[0].datetime}}</span> → <span class="mono">${{rows[rows.length-1].datetime}}</span></span>
+          <span>Rows: <span class="mono">${{rows.length}}</span></span>
+          <span>Chart: <span class="mono">${{state.chart}}</span></span>
+        `;
+        rangeBox.innerHTML = `
+          当前筛选: <span class="mono">${{state.range}}</span><br>
+          实际显示: <span class="mono">${{rows[0].datetime}}</span> → <span class="mono">${{rows[rows.length-1].datetime}}</span><br>
+          说明: 当前页面不显示 <span class="mono">2019 valid</span>，所以不会看到 2019 年的数据点。
+        `;
       }}
     }}
 

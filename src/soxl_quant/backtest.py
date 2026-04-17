@@ -30,7 +30,16 @@ from qlib.strategy.base import BaseStrategy
 from tianshou.utils.net.discrete import Actor
 
 from .data import FEATURE_COLUMNS
-from .rl import TrancheLedger, action_to_position, actor_action, make_observation, rebalance_threshold
+from .rl import (
+    TrancheLedger,
+    action_to_position,
+    actor_action,
+    execution_buy_cooldown_days,
+    execution_regime,
+    execution_trade_lock_days,
+    make_observation,
+    rebalance_threshold,
+)
 from .settings import ACCOUNT, LOOKBACK, ExecutionConfig, PositionCapConfig, RESULT_PNG, RESULT_TXT, TEST_SEG
 
 
@@ -109,6 +118,7 @@ class RLStrategy(BaseStrategy):
         regime_risk = float(self.df.iloc[idx]["regime_risk"])
         realized_vol = float(self.df.iloc[idx]["realized_vol_10"])
         trend_strength = abs(float(self.df.iloc[idx]["trend_gap_21"]))
+        regime = execution_regime(regime_risk, realized_vol, trend_strength, config=self.execution_config)
         target_pos = action_to_position(actor_action(self.actor, obs), obs, config=self.position_cap_config)
         direction = "buy" if target_pos > current_pos else ("sell" if target_pos < current_pos else "neutral")
         min_rebalance = rebalance_threshold(
@@ -145,18 +155,9 @@ class RLStrategy(BaseStrategy):
             cum_drop_30 = float(self.df.iloc[idx]["cum_drop_30"])
             turnover = abs(target_pos - current_pos)
             if target_pos > current_pos + 1e-6:
-                if cum_drop_30 < self.execution_config.deep_drop_threshold:
-                    self.buy_cooldown = min(
-                        self.execution_config.deep_drop_cooldown_max,
-                        max(
-                            self.execution_config.deep_drop_cooldown_min,
-                            int(abs(cum_drop_30) * self.execution_config.deep_drop_cooldown_scale),
-                        ),
-                    )
-                else:
-                    self.buy_cooldown = self.execution_config.buy_cooldown_days
+                self.buy_cooldown = execution_buy_cooldown_days(cum_drop_30, self.execution_config, regime)
             if turnover > self.execution_config.min_trade_turnover:
-                self.trade_lock = self.execution_config.trade_lock_days
+                self.trade_lock = execution_trade_lock_days(self.execution_config, regime)
             signal_type = "buy" if delta > 0 else "sell"
             self.trade_signals.append((trade_date, price, target_pos if orders else current_pos, signal_type))
         self.position_history.append(target_pos if orders else current_pos)

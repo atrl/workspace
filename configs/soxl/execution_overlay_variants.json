@@ -29,5 +29,22 @@
     "buy_cooldown_days": 0,
     "trade_lock_days": 1,
     "min_trade_turnover": 0.01
+  },
+  "regime_route_v1": {
+    "base_threshold": 0.04,
+    "quiet_threshold": 0.09,
+    "stress_threshold": 0.010,
+    "bull_trend_threshold": 0.05,
+    "bull_buy_threshold_multiplier": 1.15,
+    "bull_sell_threshold_multiplier": 1.20,
+    "stress_buy_threshold_multiplier": 1.60,
+    "stress_sell_threshold_multiplier": 0.70,
+    "buy_cooldown_days": 1,
+    "bull_buy_cooldown_days": 2,
+    "stress_buy_cooldown_days": 4,
+    "trade_lock_days": 3,
+    "bull_trade_lock_days": 5,
+    "stress_trade_lock_days": 1,
+    "min_trade_turnover": 0.02
   }
 }
