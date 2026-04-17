@@ -313,6 +313,60 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
   - harness note:
     - qlib backtests launched from `python - <<'PY'` can fail under Python 3.14 spawn because child workers try to reopen `<stdin>`
     - keep counterfactual runs in repo-local scripts instead of heredoc snippets
+- Execution overlay generalization 2026-04-17 21:2x:
+  - harness changes:
+    - added `ExecutionConfig` in `src/soxl_quant/settings.py`
+    - `rebalance_threshold()` now supports configurable execution overlays
+    - `evaluate_split()` and qlib `RLStrategy` now apply:
+      - directional buy/sell threshold multipliers
+      - buy cooldown
+      - trade lock
+      - minimum turnover gate
+    - added multi-ETF script:
+      - `scripts/execution_overlay_generalization.py`
+    - added tracked execution variant spec:
+      - `configs/soxl/execution_overlay_variants.json`
+  - command:
+    - `python3 scripts/execution_overlay_generalization.py --profile balanced --model artifacts/models/soxl_balanced_actor.pt --variants-json configs/soxl/execution_overlay_variants.json --output runtime/generalization/execution_overlay_results.json`
+  - output review:
+    - `runtime/generalization/execution_overlay_results.json`
+    - `runtime/generalization/execution_overlay_review.md`
+  - average across `SOXL/TQQQ/UPRO/SPXL/TECL`:
+    - `base`:
+      - avg proxy `280.2% / Sharpe 0.807 / MaxDD 49.86% / 297 trades`
+      - avg `bear_2022 = -30.1% / MaxDD 35.05%`
+    - `cta_trend_hold`:
+      - avg proxy `291.7% / Sharpe 0.832 / MaxDD 46.86% / 216 trades`
+      - avg `bear_2022 = -33.8% / MaxDD 37.54%`
+    - `cta_defensive`:
+      - avg proxy `264.1% / Sharpe 0.788 / MaxDD 48.49% / 332 trades`
+      - avg `bear_2022 = -30.4% / MaxDD 35.08%`
+    - `fast_reentry`:
+      - avg proxy `269.3% / Sharpe 0.806 / MaxDD 46.98% / 471 trades`
+      - avg `bear_2022 = -30.1% / MaxDD 34.25%`
+  - per-ETF winners:
+    - `SOXL`:
+      - best proxy Sharpe: `cta_defensive`
+      - best `2022` return: `base`
+    - `TQQQ`:
+      - best proxy Sharpe: `cta_trend_hold`
+      - best `2022` return: `base`
+    - `UPRO` / `SPXL`:
+      - best proxy Sharpe: `cta_trend_hold`
+      - best `2022` return: `cta_defensive`
+    - `TECL`:
+      - best proxy Sharpe and best `2022` return: `fast_reentry`
+  - interpretation:
+    - a single fixed execution overlay does not dominate all 3x ETFs
+    - `cta_trend_hold` is the most traditional CTA-like overlay on broad-index trend windows:
+      - fewer trades
+      - higher average Sharpe
+      - better `2020-2021` / `2023-2024` trend capture
+    - but it is too blunt for SOXL/TECL stress windows
+    - the next generic execution step should be regime-routed rather than globally fixed:
+      - trend-hold on broad low-vol bull states
+      - defensive sell bias in stress states
+      - avoid a single lock/cooldown rule across all 3x products
 
 ## Next actions
 
@@ -321,9 +375,10 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
 2. Keep the new replay-compatibility layer and rerun canonical cost audit as the stable comparison reference:
   - old actor bundles should remain auditable even when feature width changes
 3. Move to counterfactual execution overlays beyond position cap before another retrain:
-  - priority order:
-    - rebalance threshold / trade gate
-    - action-to-position mapping around stress states
+  - rebalance threshold / cooldown / trade-lock overlay sweep is now complete across all supported 3x ETFs
+  - next priority:
+    - regime-routed execution overlay
+    - then action-to-position mapping around stress states
     - only then another reward retrain
 4. Eliminate or isolate the Python 3.14 qlib shutdown failure so walk-forward windows can complete and print final metrics cleanly.
 5. Add a broker adapter interface for Futu/IB paper execution without changing the actor or replay code.

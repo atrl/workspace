@@ -1,0 +1,33 @@
+{
+  "base": {},
+  "cta_trend_hold": {
+    "base_threshold": 0.05,
+    "quiet_threshold": 0.10,
+    "stress_threshold": 0.015,
+    "buy_threshold_multiplier": 1.10,
+    "sell_threshold_multiplier": 1.10,
+    "buy_cooldown_days": 2,
+    "trade_lock_days": 5,
+    "min_trade_turnover": 0.03
+  },
+  "cta_defensive": {
+    "base_threshold": 0.05,
+    "quiet_threshold": 0.09,
+    "stress_threshold": 0.010,
+    "buy_threshold_multiplier": 1.50,
+    "sell_threshold_multiplier": 0.75,
+    "buy_cooldown_days": 3,
+    "trade_lock_days": 2,
+    "min_trade_turnover": 0.02
+  },
+  "fast_reentry": {
+    "base_threshold": 0.03,
+    "quiet_threshold": 0.06,
+    "stress_threshold": 0.008,
+    "buy_threshold_multiplier": 0.90,
+    "sell_threshold_multiplier": 0.90,
+    "buy_cooldown_days": 0,
+    "trade_lock_days": 1,
+    "min_trade_turnover": 0.01
+  }
+}

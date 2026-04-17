@@ -103,6 +103,28 @@ class SelectionScoreConfig:
 
 
 @dataclass(frozen=True)
+class ExecutionConfig:
+    base_threshold: float = 0.04
+    quiet_threshold: float = 0.08
+    stress_threshold: float = 0.012
+    quiet_regime_threshold: float = 0.35
+    quiet_vol_threshold: float = 0.45
+    quiet_trend_threshold: float = 0.04
+    stress_regime_threshold: float = 0.60
+    stress_vol_threshold: float = 0.70
+    stress_trend_threshold: float = 0.10
+    buy_threshold_multiplier: float = 1.0
+    sell_threshold_multiplier: float = 1.0
+    buy_cooldown_days: int = 1
+    deep_drop_threshold: float = -0.15
+    deep_drop_cooldown_min: int = 3
+    deep_drop_cooldown_max: int = 20
+    deep_drop_cooldown_scale: float = 30.0
+    trade_lock_days: int = 3
+    min_trade_turnover: float = 0.02
+
+
+@dataclass(frozen=True)
 class StrategyConfig:
     name: str
     max_iters: int
@@ -116,6 +138,7 @@ class StrategyConfig:
     position_cap: PositionCapConfig = field(default_factory=PositionCapConfig)
     promotion_gate: PromotionGateConfig = field(default_factory=PromotionGateConfig)
     selection_score: SelectionScoreConfig = field(default_factory=SelectionScoreConfig)
+    execution: ExecutionConfig = field(default_factory=ExecutionConfig)
 
 
 def artifact_stem(profile_name: str, artifact_tag: str = "") -> str:
@@ -147,6 +170,7 @@ def load_profile(name: str) -> StrategyConfig:
     position_cap = PositionCapConfig(**payload.get("position_cap", {}))
     promotion_gate = PromotionGateConfig(**payload.get("promotion_gate", {}))
     selection_score = SelectionScoreConfig(**payload.get("selection_score", {}))
+    execution = ExecutionConfig(**payload.get("execution", {}))
     return StrategyConfig(
         name=payload["name"],
         max_iters=int(payload["max_iters"]),
@@ -160,4 +184,5 @@ def load_profile(name: str) -> StrategyConfig:
         position_cap=position_cap,
         promotion_gate=promotion_gate,
         selection_score=selection_score,
+        execution=execution,
     )

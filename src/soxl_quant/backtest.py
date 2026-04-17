@@ -31,7 +31,7 @@ from tianshou.utils.net.discrete import Actor
 
 from .data import FEATURE_COLUMNS
 from .rl import TrancheLedger, action_to_position, actor_action, make_observation, rebalance_threshold
-from .settings import ACCOUNT, LOOKBACK, PositionCapConfig, RESULT_PNG, RESULT_TXT, TEST_SEG
+from .settings import ACCOUNT, LOOKBACK, ExecutionConfig, PositionCapConfig, RESULT_PNG, RESULT_TXT, TEST_SEG
 
 
 class RLStrategy(BaseStrategy):
@@ -42,6 +42,7 @@ class RLStrategy(BaseStrategy):
         feature_df: pd.DataFrame,
         price_series: pd.Series,
         position_cap_config: PositionCapConfig,
+        execution_config: ExecutionConfig | None = None,
         symbol: str = "SOXL",
         asset_idx: int = 0,
         **kwargs,
@@ -51,9 +52,12 @@ class RLStrategy(BaseStrategy):
         self.df = feature_df        # 测试集特征矩阵
         self.price_series = price_series  # 对齐的价格序列
         self.position_cap_config = position_cap_config
+        self.execution_config = execution_config or ExecutionConfig()
         self.symbol = symbol        # 当前交易的 ETF 代码
         self.asset_idx = asset_idx  # 资产 one-hot 索引
         self.last_step = -10        # 冷却期计数，避免连续过度交易
+        self.buy_cooldown = 0
+        self.trade_lock = 0
         self.trades = 0             # 总成交次数统计
         self.position_history: List[float] = []  # 每日仓位记录，用于画图
         self.trade_signals: List[Tuple[pd.Timestamp, float, float, str]] = []  # (date, price, position, type)
@@ -107,7 +111,21 @@ class RLStrategy(BaseStrategy):
         trend_strength = abs(float(self.df.iloc[idx]["trend_gap_21"]))
         target_pos = action_to_position(actor_action(self.actor, obs), obs, config=self.position_cap_config)
         direction = "buy" if target_pos > current_pos else ("sell" if target_pos < current_pos else "neutral")
-        min_rebalance = rebalance_threshold(regime_risk, realized_vol, trend_strength, direction=direction)
+        min_rebalance = rebalance_threshold(
+            regime_risk,
+            realized_vol,
+            trend_strength,
+            direction=direction,
+            config=self.execution_config,
+        )
+        if self.trade_lock > 0:
+            if abs(target_pos - current_pos) >= min_rebalance:
+                target_pos = current_pos
+            self.trade_lock -= 1
+        if self.buy_cooldown > 0:
+            if target_pos > current_pos:
+                target_pos = current_pos
+            self.buy_cooldown -= 1
         if abs(target_pos - current_pos) < min_rebalance or step - self.last_step < 1:
             self.position_history.append(current_pos)
             return TradeDecisionWO([], self)
@@ -124,6 +142,21 @@ class RLStrategy(BaseStrategy):
             self.last_step = step
             self.trades += 1
             self.ledger.update(current_pos, target_pos, price)
+            cum_drop_30 = float(self.df.iloc[idx]["cum_drop_30"])
+            turnover = abs(target_pos - current_pos)
+            if target_pos > current_pos + 1e-6:
+                if cum_drop_30 < self.execution_config.deep_drop_threshold:
+                    self.buy_cooldown = min(
+                        self.execution_config.deep_drop_cooldown_max,
+                        max(
+                            self.execution_config.deep_drop_cooldown_min,
+                            int(abs(cum_drop_30) * self.execution_config.deep_drop_cooldown_scale),
+                        ),
+                    )
+                else:
+                    self.buy_cooldown = self.execution_config.buy_cooldown_days
+            if turnover > self.execution_config.min_trade_turnover:
+                self.trade_lock = self.execution_config.trade_lock_days
             signal_type = "buy" if delta > 0 else "sell"
             self.trade_signals.append((trade_date, price, target_pos if orders else current_pos, signal_type))
         self.position_history.append(target_pos if orders else current_pos)
@@ -135,6 +168,7 @@ def backtest_profile(
     feature_df: pd.DataFrame,
     price_series: pd.Series,
     position_cap_config: PositionCapConfig,
+    execution_config: ExecutionConfig | None = None,
     symbol: str = "SOXL",
     asset_idx: int = 0,
     test_seg: Tuple[str, str] = TEST_SEG,
@@ -155,6 +189,7 @@ def backtest_profile(
         feature_df=feature_df,
         price_series=price_series,
         position_cap_config=position_cap_config,
+        execution_config=execution_config,
         symbol=symbol,
         asset_idx=asset_idx,
     )

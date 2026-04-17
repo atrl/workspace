@@ -37,10 +37,11 @@ from tianshou.utils.net.common import Net
 from tianshou.utils.net.discrete import Actor, Critic
 
 from .data import FEATURE_COLUMNS, STATIC_INDEX
-from .settings import EXTRA_OBS_DIM, LOOKBACK, N_ACTIONS, N_ASSETS, PositionCapConfig, StrategyConfig
+from .settings import EXTRA_OBS_DIM, LOOKBACK, N_ACTIONS, N_ASSETS, ExecutionConfig, PositionCapConfig, StrategyConfig
 
 BASE_ACTION_LEVELS = np.linspace(0.0, 1.0, N_ACTIONS, dtype=np.float32)
 DEFAULT_POSITION_CAP = PositionCapConfig()
+DEFAULT_EXECUTION = ExecutionConfig()
 EXTRA_INDEX = {
     "lookback_mean_return": len(FEATURE_COLUMNS) + 0,
     "lookback_return_skew": len(FEATURE_COLUMNS) + 1,
@@ -140,17 +141,36 @@ class EpisodeConfig(NamedTuple):
     asset_idx: int = 0
 
 
-def rebalance_threshold(regime_risk: float, realized_vol: float, trend_strength: float, direction: str = "neutral") -> float:
+def rebalance_threshold(
+    regime_risk: float,
+    realized_vol: float,
+    trend_strength: float,
+    direction: str = "neutral",
+    config: Optional[ExecutionConfig] = None,
+) -> float:
     """抑制无效调仓：对称高阈值，减少 whipsaw 与摩擦成本。
 
     基于 A+B 实验（symmetric 0.04/0.08）的回滚修复： asymmetric
     分支 (buy 0.02 / sell 0.06) 已被证明会显著降低收益（461.7%）。
     """
-    threshold = 0.04
-    if regime_risk < 0.35 and realized_vol < 0.45 and trend_strength < 0.04:
-        threshold = 0.08
-    if regime_risk > 0.60 or realized_vol > 0.70 or trend_strength > 0.10:
-        threshold = 0.012
+    cfg = config or DEFAULT_EXECUTION
+    threshold = float(cfg.base_threshold)
+    if (
+        regime_risk < cfg.quiet_regime_threshold
+        and realized_vol < cfg.quiet_vol_threshold
+        and trend_strength < cfg.quiet_trend_threshold
+    ):
+        threshold = float(cfg.quiet_threshold)
+    if (
+        regime_risk > cfg.stress_regime_threshold
+        or realized_vol > cfg.stress_vol_threshold
+        or trend_strength > cfg.stress_trend_threshold
+    ):
+        threshold = float(cfg.stress_threshold)
+    if direction == "buy":
+        threshold *= float(cfg.buy_threshold_multiplier)
+    elif direction == "sell":
+        threshold *= float(cfg.sell_threshold_multiplier)
     return threshold
 
 
@@ -934,6 +954,7 @@ def evaluate_split(
     df: pd.DataFrame,
     cash0: float = 100_000.0,
     position_cap_config: Optional[PositionCapConfig] = None,
+    execution_config: Optional[ExecutionConfig] = None,
     asset_idx: int = 0,
     stress_threshold: float = 0.65,
 ) -> Dict[str, float]:
@@ -942,6 +963,9 @@ def evaluate_split(
     peak = cash0
     pos = 0.0
     ledger = TrancheLedger()
+    exec_cfg = execution_config or DEFAULT_EXECUTION
+    buy_cooldown = 0
+    trade_lock = 0
     price_path = build_price_path(df)
     values = [cash]
     positions = []
@@ -958,7 +982,16 @@ def evaluate_split(
             float(np.nan_to_num(row["realized_vol_10"])),
             abs(float(np.nan_to_num(row["trend_gap_21"]))),
             direction=direction,
+            config=exec_cfg,
         )
+        if trade_lock > 0:
+            if abs(target_pos - pos) >= min_rebalance:
+                target_pos = pos
+            trade_lock -= 1
+        if buy_cooldown > 0:
+            if target_pos > pos:
+                target_pos = pos
+            buy_cooldown -= 1
         if abs(target_pos - pos) < min_rebalance:
             target_pos = pos
         next_ret = float(df.iloc[idx + 1]["return"])
@@ -966,6 +999,19 @@ def evaluate_split(
         cash *= 1.0 + target_pos * next_ret - turnover * 0.001
         peak = max(peak, cash)
         ledger.update(pos, target_pos, float(price_path[idx]))
+        if target_pos > pos + 1e-6:
+            if float(np.nan_to_num(row["cum_drop_30"])) < exec_cfg.deep_drop_threshold:
+                buy_cooldown = min(
+                    exec_cfg.deep_drop_cooldown_max,
+                    max(
+                        exec_cfg.deep_drop_cooldown_min,
+                        int(abs(float(np.nan_to_num(row["cum_drop_30"]))) * exec_cfg.deep_drop_cooldown_scale),
+                    ),
+                )
+            else:
+                buy_cooldown = exec_cfg.buy_cooldown_days
+        if turnover > exec_cfg.min_trade_turnover:
+            trade_lock = exec_cfg.trade_lock_days
         pos = target_pos
         positions.append(pos)
         if regime_risk >= stress_threshold:
