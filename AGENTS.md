@@ -29,6 +29,7 @@ Use these files for distinct roles. Do not collapse them together.
 - `codex_exec_plans/completed/`: completed or abandoned threads.
 - `memory/`: continuity across sessions.
 - `skills/`: reusable methods and maintained operational knowledge.
+- `.codex/skills/`: symlinked skills that Codex CLI auto-loads for this workspace.
 
 Chat history is not the durable record.
 
@@ -61,7 +62,8 @@ Every substantial loop should leave behind:
 
 ## Skill Distillation & Auto-Optimization
 
-`skills/` is where reusable method goes.
+`skills/` is where reusable method goes. `.codex/skills/` mirrors the active
+skills so Codex CLI can auto-load them in this workspace.
 
 - **Auto-skill rule**: After completing a complex task (5+ tool calls), fixing a
   tricky error, or discovering a non-trivial workflow, **evaluate and save** the
@@ -70,9 +72,16 @@ Every substantial loop should leave behind:
   troubleshooting method.
 - **Auto-patch rule**: If a skill is used and found stale, incomplete, or wrong,
   **patch it immediately** as part of the task instead of leaving it drifting.
-- **Optimization loop**: Every 3–5 related tasks, review the `skills/` directory
-  for duplication, outdated commands, or opportunities to consolidate. Merge
-  overlapping skills and sharpen descriptions.
+- **Optimization loop**: Every 3–5 related tasks, run the skill optimizer:
+  1. **Inventory** — list active skills in `skills/` (ignore `archive/`).
+  2. **Deduplicate** — merge skills that overlap >50% in purpose or commands.
+  3. **Refresh** — update each skill's front-matter and quick-start examples to
+     match current repo state.
+  4. **Re-index** — ensure `.codex/skills/` symlinks reflect the active skill set.
+  5. **Commit** — treat the optimization as a task and commit the result.
+- **Stale-skill rule**: If a skill has not been used in 30 days and has been
+  superseded by another skill or repo change, move it to `skills/archive/` and
+  remove its symlink from `.codex/skills/`.
 
 ## Auto-Commit Discipline
 
@@ -93,6 +102,21 @@ failure — and record the reason in memory if so.
 - When a failure exposes a missing guardrail, fix the harness, not just the
   immediate symptom.
 - Keep unrelated repo churn out of scope.
+
+## Environment
+
+This workspace uses two Python virtual environments:
+
+- **`qlib_venv`** (Python 3.11) — Primary research environment. Use for Qlib,
+  RL training, backtesting, and anything in `src/soxl_quant/` or `scripts/`.
+- **`futu_venv`** (Python 3.14) — Broker-specific environment for Futu API
+  scripts in `production/`. Kept separate because some Futu dependencies have
+  not been validated on 3.11.
+
+**Consolidation rule:** New packages should default to `qlib_venv`. Only add
+packages to `futu_venv` when they are strictly required by broker scripts and
+fail in `qlib_venv`. Reproducible requirements are frozen under
+`requirements/`.
 
 ## Red Lines
 
@@ -140,6 +164,7 @@ For every substantial iteration:
 5. write proof of work back to the repo
 6. update continuity in `memory/`
 7. **commit and push the changes**
+8. if a skill was created or modified, verify `.codex/skills/` is synced
 
 If a run fails, document the failure and tighten the harness instead of blindly
 retrying.
