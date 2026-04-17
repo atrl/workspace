@@ -40,3 +40,10 @@
   - optimize canonical `balanced` first
   - treat `balanced_floor40_sym` as an aggressive branch
   - prefer stress-window de-risking, trade compression, and better checkpoint selection before longer training
+- The skill was made more generic after review:
+  - added a universal quant optimization framework
+  - added a `counterfactual backtest before retrain` rule
+  - kept SOXL-specific priority as a secondary snapshot, not the main body
+- Verified the generic rule on this repo:
+  - fixed the latest `balanced_floor40_sym` actor and swept `bull_min_cap` / `bear_min_cap` / `bear_regime_threshold`
+  - found that bull-floor changes barely move metrics, while tighter `bear_min_cap` modestly improves `2022` drawdown and `avg_pos`

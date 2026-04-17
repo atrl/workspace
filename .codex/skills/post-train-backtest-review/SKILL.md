@@ -173,9 +173,75 @@ qlib_venv/bin/python scripts/feature_analysis.py
 - 不要把 `selection_history` 中的最佳 iter 当成稳定结论；要看是否早熟、是否 plateau、是否后续退化。
 - 任何“改进”都应该回写到 workpad 或 memory，而不是只留在聊天里。
 
-## Current Strategy Improvement Plan
+## Generic Quant Optimization Framework
 
-这个 skill 不只是要“会复盘”，还要把当前仓库最值得做的改进方向说清楚。默认把当前策略分成两条线：
+量化策略优化应该先通用，再实例化。默认把优化问题拆成 5 类，而不是直接跳到某个参数：
+
+1. **信号质量**
+  - 预测/动作是否真正区分了好环境和坏环境
+  - 现象：高换手但没有稳定 alpha；valid 好但不同窗口表现分裂
+2. **风险预算映射**
+  - 风险状态是否被正确翻译成仓位、杠杆、止损、cap
+  - 现象：熊市持仓过高；上涨期过度防守；收益主要来自暴露漂移
+3. **交易频率与摩擦**
+  - 策略是否在支付太多无效交易成本
+  - 现象：trade count 高、Sharpe 低、回测对交易成本敏感
+4. **模型选择偏差**
+  - 是否选中了 validation 上好看、但 OOS 不稳的 checkpoint
+  - 现象：selection history 上升，但 fixed-split / walk-forward 退化
+5. **执行层覆盖**
+  - 当前问题是 actor 本身，还是 actor 没问题但 execution/risk overlay 不对
+  - 现象：换一个 cap / floor / execution rule，结果明显变化
+
+### Default Optimization Order
+
+如果没有额外上下文，默认按这个顺序排查：
+
+1. 先排除模型选择偏差
+2. 再排除执行/风控 overlay 是否已经足够解释问题
+3. 再看交易频率和成本
+4. 最后才考虑新增特征或重训
+
+原因：
+
+- 很多“模型问题”其实是 checkpoint 选错
+- 很多“需要重训”的问题，其实先改 execution/risk 映射就能验证方向
+- 新特征和更长训练成本最高，也最容易引入额外过拟合
+
+### Counterfactual Rule
+
+如果一个建议可以通过 **固定 actor + 改 execution/risk 规则** 来测试，先做 counterfactual backtest，不要立刻重训。
+
+典型可先回测验证的建议：
+
+- 调整 `position_cap`
+- 调整 bull / bear regime cap
+- 调整最小仓位 / 最大仓位
+- 调整 trade gate / rebalance threshold
+- 调整 cooldown / trade lock
+
+只有当 counterfactual backtest 显示“方向正确但幅度不够”时，再进入重训。
+
+### Optimization Mapping
+
+看到下面这些现象时，默认优先考虑对应方向：
+
+- `2022` / stress window 恶化，`avg_pos` 升高：
+  - 优先查风险预算映射，不先查特征
+- `2023-2024` 变差且 trade count 很高：
+  - 优先查交易频率压缩，不先查更多 reward bonus
+- validation 提升但 OOS 退化：
+  - 优先查 checkpoint 选择和 early stopping
+- 总收益提升但 MaxDD 急剧放大：
+  - 优先查暴露/仓位映射，而不是把它当成“alpha 提升”
+- 改 execution overlay 就能明显改变结果：
+  - 说明当前最便宜的下一步是规则层优化，而非立即重训
+
+## Current SOXL Snapshot
+
+下面这部分只是当前仓库实例，不是通用原则本身。
+
+默认把当前策略分成两条线：
 
 - `canonical balanced`
   - 当前默认最佳通用 qlib 策略
@@ -184,7 +250,7 @@ qlib_venv/bin/python scripts/feature_analysis.py
   - 当前高收益但高风险分支
   - 目标：只有在明确接受更激进风格时才继续
 
-### P0: 主线优先级
+### Current Priority
 
 当前默认优先顺序：
 
@@ -194,60 +260,28 @@ qlib_venv/bin/python scripts/feature_analysis.py
 
 如果一项改动让 `2022` gate 从通过变成失败，默认视为主线退化。
 
-### P1: 针对 canonical `balanced` 的优先改进
+### Current Repo-Specific Directions
 
-这是当前最值得继续优化的路线。
+- 对 canonical `balanced`
+  - 优先做更精细的 stress de-risking
+  - 优先做交易频率压缩
+  - 优先改 checkpoint / early stopping
+- 对 `balanced_floor40_sym`
+  - 先修 `2022` 去风险，不先加训练轮数
+  - 先压 `avg_pos`，再谈总收益
+  - 先看危机态/高风险态仓位控制，再看普通趋势收益
 
-优先方向：
+### Current Example
 
-- 提升 `2023-2024` 而不破坏 `2022`
-  - 优先看牛市放宽逻辑是否过于保守
-  - 但不要直接抬高全局 floor；优先做更精细的 regime-conditioned 放宽
-- 强化 checkpoint 选择
-  - 如果 validation 提升但 fixed-split 退化，优先改选择逻辑而不是继续训更久
-  - 默认优先检查 `20/40/60/80` 的 `selection_history`
-- 压缩无效交易
-  - 当前 trade count 仍明显高于规则策略
-  - 优先用更高 `rebalance_threshold`、最小 turnover gate、trade lock/cooldown，而不是再加更多 reward bonus
+在当前仓库里，`balanced_floor40_sym` 的一个快速 counterfactual 例子是：
 
-### P2: 针对 `balanced_floor40_sym` 的补救顺序
+- 单独降低 `bull_min_cap` 几乎不改变 fixed-split 结果
+- 单独收紧 `bear_min_cap` 才会对 `2022` 暴露和回撤产生可见影响
 
-如果用户明确要求继续这条分支，默认补救顺序如下：
+这类现象说明：
 
-1. 先修 `2022` 去风险，而不是继续加训练轮数
-2. 先压 `avg_pos`，再谈总收益
-3. 先看危机态/高风险态仓位控制，再看普通趋势收益
-
-优先检查：
-
-- `drawdown_position_cap`
-- stress / bear regime routing
-- crisis floor 是否过高
-- bull floor 是否在风险切换后仍滞留过久
-- `avg_pos` 在 `test_2022` 是否高于 `0.35`
-
-默认不要做的事：
-
-- 不要先把 `max_iters` 再拉长
-- 不要因为 validation 高就继续追这条线
-- 不要把 `2020` / `2023-2024` 的上涨收益当成足够理由忽视 `2022`
-
-### P3: 现阶段最可能有价值的实验
-
-如果用户让你直接给下一轮实验，默认优先从下面选，不要平均分配精力：
-
-1. `canonical balanced` 上做更细粒度的 stress de-risking
-  - 目标：保持 `2022` gate 通过，同时减少对 `2023-2024` 的压制
-2. `canonical balanced` 上做交易频率压缩
-  - 目标：减少微调交易，提高 Sharpe，避免靠更高暴露换收益
-3. checkpoint / early-stopping 改进
-  - 目标：避免“validation 更高但 OOS 更差”的选择偏差
-
-如果用户问“为什么不是先继续 floor40 分支”，默认回答：
-
-- 因为它目前已经证明自己是高暴露换收益的分支
-- 当前最缺的不是更多上涨暴露，而是更稳的主线提升
-- 在现有 harness 下，主线最佳策略仍应以 `promotion.eligible=true` 为硬约束
+- 当前瓶颈更可能在 stress de-risking，而不是牛市放宽参数
+- 先做 counterfactual rule sweep，比直接重训更划算
 
 ## References
 

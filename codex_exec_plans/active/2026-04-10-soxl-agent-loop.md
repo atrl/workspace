@@ -1063,3 +1063,42 @@ Created `balanced_budget.yaml` with `max_iters=50`. However, the log file was ac
     - passed
 - Keep / drop decision:
   - keep the roadmap inside the skill so future post-train reviews end with a repo-specific action plan, not only a generic diagnosis
+
+## Counterfactual sweep before retrain 2026-04-17 15:xx
+
+- Goal:
+  - test the suggested optimization directions by backtesting rule/risk overlays first, before starting another training cycle
+  - verify whether `balanced_floor40_sym` is mainly a bull-floor problem or a stress de-risking problem
+- Procedure:
+  - loaded the freshly trained `artifacts/models/soxl_balanced_floor40_sym_actor.pt`
+  - kept actor weights fixed
+  - ran `evaluate_split()` sweeps over `test_proxy`, `test_2020`, `test_2022`, `test_2023_2024`
+- Sweep 1: `bull_min_cap`
+  - variants tested:
+    - `0.65` baseline
+    - `0.60`
+    - `0.55`
+    - `0.50`
+  - evidence:
+    - fixed-split metrics were effectively unchanged across the sweep
+  - decision:
+    - drop bull-floor relaxation as the first optimization lever for this branch
+- Sweep 2: stress de-risking
+  - variants tested:
+    - baseline
+    - `bear_regime_threshold=0.60`
+    - `bear_regime_threshold=0.55`
+    - `bear_min_cap=0.35`
+    - `bear_min_cap=0.30`
+    - combo `bear_regime_threshold=0.55`, `bear_min_cap=0.30`
+  - evidence:
+    - lowering `bear_regime_threshold` alone had almost no effect
+    - lowering `bear_min_cap` improved `2022` and total drawdown modestly:
+      - baseline `test_2022 maxDD = 45.35`, `avg_pos = 0.429`
+      - `bear_min_cap=0.30` => `test_2022 maxDD = 43.78`, `avg_pos = 0.398`
+      - `test_proxy maxDD = 60.74` vs baseline `61.55`
+    - the combo variant reduced drawdown further but hurt total return more sharply
+  - decision:
+    - keep stress de-risking as the first real lever
+    - do not assume bull-side relaxation is the main bottleneck
+    - when revisiting this branch, prefer moderate `bear_min_cap` tightening over blunt threshold changes
