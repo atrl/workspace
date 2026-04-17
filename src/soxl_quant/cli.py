@@ -199,6 +199,22 @@ def slice_metrics(actor, df, slices: Dict[str, Tuple[str, str]], profile) -> Dic
     return metrics
 
 
+def serialize_position_cap(profile) -> Dict[str, float]:
+    """Persist the full dynamic cap config so artifacts are self-describing."""
+
+    return {
+        "start_drawdown": profile.position_cap.start_drawdown,
+        "full_drawdown": profile.position_cap.full_drawdown,
+        "min_cap": profile.position_cap.min_cap,
+        "curve_power": profile.position_cap.curve_power,
+        "bull_min_cap": profile.position_cap.bull_min_cap,
+        "bull_vol_threshold": profile.position_cap.bull_vol_threshold,
+        "bull_anchor_threshold": profile.position_cap.bull_anchor_threshold,
+        "bear_min_cap": profile.position_cap.bear_min_cap,
+        "bear_regime_threshold": profile.position_cap.bear_regime_threshold,
+    }
+
+
 def set_global_seed(seed: int) -> None:
     os.environ["PYTHONHASHSEED"] = str(seed)
     random.seed(seed)
@@ -389,12 +405,7 @@ def run_profile(
             "hidden_sizes": list(profile.hidden_sizes),
             "obs_dim": obs_dim,
             "n_actions": int(getattr(actor, "output_dim", 0) or 11),
-            "position_cap": {
-                "start_drawdown": profile.position_cap.start_drawdown,
-                "full_drawdown": profile.position_cap.full_drawdown,
-                "min_cap": profile.position_cap.min_cap,
-                "curve_power": profile.position_cap.curve_power,
-            },
+            "position_cap": serialize_position_cap(profile),
             "state_dict": actor.state_dict(),
         },
         model_path,
@@ -416,12 +427,7 @@ def run_profile(
             {
                 "profile": profile.name,
                 "seed": seed,
-                "position_cap": {
-                    "start_drawdown": profile.position_cap.start_drawdown,
-                    "full_drawdown": profile.position_cap.full_drawdown,
-                    "min_cap": profile.position_cap.min_cap,
-                    "curve_power": profile.position_cap.curve_power,
-                },
+                "position_cap": serialize_position_cap(profile),
                 "model_path": str(model_path),
                 "valid": valid_metrics,
                 "best_score": selection["best_score"],
@@ -560,7 +566,7 @@ def parse_args() -> argparse.Namespace:
         "--profiles",
         nargs="+",
         default=["balanced", "aggressive"],
-        choices=["balanced", "aggressive", "smoke", "balanced_budget", "balanced_floor40", "balanced_floor40_sym"],
+        choices=["balanced", "aggressive", "smoke", "balanced_budget", "balanced_floor40", "balanced_floor40_sym", "balanced_floor40_sym_bear30"],
         help="profiles to train and backtest",
     )
     parser.add_argument("--smoke", action="store_true", help="force short smoke run")

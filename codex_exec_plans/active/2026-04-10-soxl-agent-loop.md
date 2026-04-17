@@ -2,7 +2,7 @@
 
 Status: active
 Owner: Codex
-Last updated: 2026-04-12 19:08 CST
+Last updated: 2026-04-17 15:40 CST
 
 ## Goal
 
@@ -92,6 +92,12 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
   - Wired `position_cap` config all the way through training selection, fast slice evaluation, qlib backtest, saved actor bundles, and paper replay.
 - 2026-04-12 19:08:
   - Ran seeded smoke A/B on delayed hard-cap activation and found both `12%` and `15%` starts worse than the `10%` baseline, so the default start stays at `10%`.
+- 2026-04-17 15:40:
+  - Ran full seeded `balanced_floor40_sym_bear30` retrain after a fixed-actor counterfactual sweep showed stress de-risking was the only lever that moved `2022`.
+- 2026-04-17 15:40:
+  - Real retrain with a tighter bear floor improved `balanced_floor40_sym` on `2022` and max drawdown, but still failed to beat canonical `balanced` on stress-window risk quality or promotion gates.
+- 2026-04-17 15:40:
+  - Fixed artifact persistence so model bundles and summary JSON now include the full dynamic `position_cap` payload, not only base drawdown fields.
 
 ## Current run
 
@@ -155,6 +161,40 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
   - qlib training/backtest lifecycle still does not shut down cleanly under the current Python 3.14 environment
   - the final walk-forward `2024` window remains partially blocked by this non-clean exit pattern
   - balanced retrains still cannot be relied on to persist artifacts after full trainer completion
+- Latest training check: `balanced_floor40_sym_bear30` vs `balanced_floor40_sym` vs canonical `balanced`:
+  - command:
+    - `qlib_venv/bin/python soxl_qlib_strategy_v2.py --profiles balanced_floor40_sym_bear30 --skip-data-refresh --seed 20260411`
+  - config:
+    - new profile `configs/soxl/balanced_floor40_sym_bear30.yaml`
+    - only intended change from `balanced_floor40_sym`: stress floor tightened to `bear_min_cap = 0.30`
+  - saved summary:
+    - `artifacts/models/soxl_balanced_floor40_sym_bear30_summary.json`
+  - full-test headline:
+    - `533.9% / Sharpe 0.82 / MaxDD 62.2% / 786 trades`
+  - fixed-split test proxy vs `balanced_floor40_sym`:
+    - return `443.67% -> 442.96%`
+    - Sharpe `0.7941 -> 0.7935`
+    - maxDD `61.55% -> 61.05%`
+    - `2022` return `-36.99% -> -35.30%`
+    - `2022` maxDD `45.35% -> 44.47%`
+    - `2022` avg_pos `0.429 -> 0.394`
+    - `2023-2024` return `51.17% -> 44.96%`
+    - interpretation:
+      - tighter bear floor transferred the fixed-actor sweep result into the real retrain on the defensive slice
+      - the gain was modest and was paid for with weaker `2023-2024`
+  - fixed-split test proxy vs canonical `balanced`:
+    - return `468.90% -> 442.96%`
+    - Sharpe `0.8579 -> 0.7935`
+    - maxDD `50.18% -> 61.05%`
+    - `2022` return `-25.82% -> -35.30%`
+    - `2022` maxDD `33.04% -> 44.47%`
+    - `2022` avg_pos `0.283 -> 0.394`
+    - interpretation:
+      - the whole `floor40_sym` family remains too exposed in stress despite better validation and higher `2020` upside
+      - the bottleneck is no longer "which stress floor value" alone; it is the actor style plus checkpoint selection
+  - evidence:
+    - `runtime/post_train_review/floor40_sym_bear30_vs_floor40_sym.md`
+    - `runtime/post_train_review/floor40_sym_bear30_vs_canonical_balanced.md`
 
 ## Next actions
 
@@ -165,6 +205,11 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
   - use walk-forward and replay together rather than only the fixed `2022` slice
 3. Eliminate or isolate the Python 3.14 qlib shutdown failure so walk-forward windows can complete and print final metrics cleanly.
 4. Add a broker adapter interface for Futu/IB paper execution without changing the actor or replay code.
+5. For the `floor40_sym` branch, stop treating `bear_min_cap` as the main unlock:
+  - `0.30` helps `2022`, but not enough to beat canonical `balanced`
+  - next branch should target earlier checkpoint locking or stronger stress-state routing so `2022` average exposure falls closer to `0.30-0.35`
+6. Keep canonical `balanced` as the promotion baseline:
+  - `balanced_floor40_sym_bear30` is a useful aggressive branch reference, not the new default strategy
 
 ## Run completed 2026-04-11 17:48
 
