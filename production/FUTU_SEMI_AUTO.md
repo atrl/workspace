@@ -28,7 +28,7 @@ This is the Futu OpenAPI integration for `SOXL`: model-driven, broker-backed, an
 
    Verify OpenD is reachable before trading:
    ```bash
-   futu_venv/bin/python production/check_futu_opend.py
+   qlib_venv/bin/python production/check_futu_opend.py
    ```
 
 2. **Authenticate**
@@ -38,8 +38,8 @@ This is the Futu OpenAPI integration for `SOXL`: model-driven, broker-backed, an
    - Ensure your Futu account has US stock simulated-trading enabled
 
 3. **Environment**
-   - `futu-api` is already installed in `futu_venv/`
-   - All scripts below should be run with `futu_venv/bin/python`
+   - `futu-api` is already installed in `qlib_venv/`
+   - All scripts below should be run with `qlib_venv/bin/python`
 
 ## Intended flow
 
@@ -48,7 +48,7 @@ This is the Futu OpenAPI integration for `SOXL`: model-driven, broker-backed, an
 3. Generate a daily signal with dry-run first:
 
 ```bash
-futu_venv/bin/python production/futu_manual_session.py --profile balanced --as-of 2026-04-15
+qlib_venv/bin/python production/futu_manual_session.py --profile balanced --as-of 2026-04-15
 ```
 
 4. Review the payload written under `runtime/soxl/futu-live-YYYY-MM-DD/`:
@@ -59,7 +59,7 @@ futu_venv/bin/python production/futu_manual_session.py --profile balanced --as-o
 5. Only after manual review, submit the order:
 
 ```bash
-futu_venv/bin/python production/futu_manual_session.py --profile balanced --as-of 2026-04-15 --submit
+qlib_venv/bin/python production/futu_manual_session.py --profile balanced --as-of 2026-04-15 --submit
 ```
 
 ## Replay mode (historical backtest through Futu paper account)
@@ -67,7 +67,7 @@ futu_venv/bin/python production/futu_manual_session.py --profile balanced --as-o
 Run a full date range against the Futu simulated account:
 
 ```bash
-futu_venv/bin/python production/soxl_futu_runner.py --profile balanced --start 2024-01-01 --end 2024-12-31
+qlib_venv/bin/python production/soxl_futu_runner.py --profile balanced --start 2024-01-01 --end 2024-12-31
 ```
 
 This will replay each day's signal and send orders to the Futu simulated account. Use with care on a clean paper account because it generates real broker state (fills, commissions, positions).

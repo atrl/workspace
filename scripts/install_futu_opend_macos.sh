@@ -32,4 +32,4 @@ echo "   ${INSTALL_DIR}/Futu_OpenD_${VERSION}_Mac/Futu_OpenD_${VERSION}_Mac/Futu
 echo "2. Start OpenD:"
 echo "   ${OPEND_APP}/Contents/MacOS/FutuOpenD"
 echo "3. Verify connectivity:"
-echo "   futu_venv/bin/python production/check_futu_opend.py"
+echo "   qlib_venv/bin/python production/check_futu_opend.py"

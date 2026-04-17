@@ -56,7 +56,7 @@ Installation
 
 4. Verify
    - Re-run this script after starting OpenD:
-       futu_venv/bin/python production/check_futu_opend.py
+       qlib_venv/bin/python production/check_futu_opend.py
 """)
     sys.exit(1)
 

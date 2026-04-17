@@ -960,12 +960,12 @@ Created `balanced_budget.yaml` with `max_iters=50`. However, the log file was ac
 - Validation:
   - `python3 -m py_compile production/futu_broker.py production/soxl_futu_runner.py production/futu_manual_session.py` passed
   - OpenD connectivity test: **OpenD is not currently running** on this machine
-  - `futu-api` is installed in `futu_venv/` (version 10.02.6218)
+  - `futu-api` is installed in `qlib_venv/` (version 10.02.6218)
 - Next step to go live (paper):
   1. **Install OpenD** — macOS users can now run `bash scripts/install_futu_opend_macos.sh` for automatic download and setup
   2. Authenticate with 富途牛牛 mobile app QR code scan
-  3. Verify OpenD is reachable: `futu_venv/bin/python production/check_futu_opend.py`
-  4. Run: `futu_venv/bin/python production/futu_manual_session.py --profile balanced --as-of <today> --submit`
+  3. Verify OpenD is reachable: `qlib_venv/bin/python production/check_futu_opend.py`
+  4. Run: `qlib_venv/bin/python production/futu_manual_session.py --profile balanced --as-of <today> --submit`
 - Blocker:
   - Cannot validate end-to-end order placement without a running OpenD instance and an authenticated Futu account
 - OpenD download resolved (2026-04-15):

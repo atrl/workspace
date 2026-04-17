@@ -48,7 +48,7 @@ OpenD 默认运行在 `127.0.0.1:11111`。
 在运行策略前，建议先检测 OpenD 是否可达：
 
 ```bash
-futu_venv/bin/python production/check_futu_opend.py
+qlib_venv/bin/python production/check_futu_opend.py
 ```
 
 ## 功能

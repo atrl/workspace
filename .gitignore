@@ -41,7 +41,6 @@ finrl_trading/
 # Virtual environments
 .venv*/
 qlib_venv/
-futu_venv/
 
 # Runtime / orchestration state
 .ralph/
@@ -59,3 +58,7 @@ soxl_qlib_strategy_v2_results.txt
 qlib_soxl_binary/features/
 .openclaw/
 data/generalization/*.csv
+
+# Ignore skill data/models
+.codex/skills/*/data/
+.codex/skills/*/models/
