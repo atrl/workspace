@@ -977,3 +977,34 @@ Created `balanced_budget.yaml` with `max_iters=50`. However, the log file was ac
   - `production/FUTU_SEMI_AUTO.md` — added automated + manual installation instructions
   - `skills/futu-api/SKILL.md` — updated OpenD download and startup guidance
   - `production/check_futu_opend.py` — diagnostic script with install instructions
+
+## Post-train review skill distillation 2026-04-17 21:xx
+
+- Goal:
+  - distill the recurring "train -> compare latest summary vs prior baseline -> explain good/bad windows -> propose next experiment" workflow into a repo-local skill
+  - make post-training review reproducible instead of relying on chat memory
+- Implementation:
+  - created repo-local skill:
+    - `.codex/skills/post-train-backtest-review/`
+  - added:
+    - `SKILL.md` with a fixed post-train review workflow based on `artifacts/models/*_summary.json`
+    - `scripts/compare_backtests.py` to compare two summary JSON files and emit a Markdown review
+    - `references/research-notes.md` with backtest-overfitting / DSR / walk-forward review guidance
+    - `agents/openai.yaml` so the skill is discoverable with a clear default prompt
+- Validation:
+  - `python3 /Users/rziiiii/.codex/skills/.system/skill-creator/scripts/quick_validate.py .codex/skills/post-train-backtest-review`
+    - passed
+  - sample run:
+    - `python3 .codex/skills/post-train-backtest-review/scripts/compare_backtests.py --latest artifacts/models/soxl_balanced_floor40_sym_moe_summary.json --previous artifacts/models/soxl_balanced_moe_summary.json --latest-label balanced_floor40_sym_moe --previous-label balanced_moe --output runtime/post_train_review/floor40_sym_vs_balanced_moe.md`
+    - wrote `runtime/post_train_review/floor40_sym_vs_balanced_moe.md`
+- Evidence:
+  - sample review correctly identified:
+    - `test_2022` degradation with higher `avg_pos`
+    - `2023-2024` upside improvement via higher exposure
+    - overall return-up / drawdown-up trade-off
+    - latest checkpoint peaking at iter `20`, suggesting early stopping
+- Keep / drop decision:
+  - keep the new skill as the default training-end review path
+  - keep the comparison script lightweight and summary-driven; do not entangle it with the training path yet
+- Next action:
+  - when future runs produce dedicated feature summaries per checkpoint, extend the review loop to pass `--latest-features` and `--previous-features`
