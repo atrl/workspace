@@ -2,7 +2,7 @@
 
 Status: active
 Owner: Codex
-Last updated: 2026-04-17 22:39 CST
+Last updated: 2026-04-17 23:11 CST
 
 ## Goal
 
@@ -38,6 +38,25 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
 3. Training should oversample stress-like windows from the train segment by state, not by future calendar year.
 4. Checkpoint selection should likely stop earlier than the configured max iterations because validation appears to plateau around `20-80` iterations.
 5. Productionizing the strategy requires a clean separation between actor training, signal replay, and broker execution rather than more ad-hoc scripts.
+6. The latest mainline failures are being driven more by reward-side trend encouragement than by insufficiently tight bear caps.
+
+## Current loop
+
+- `balanced_regime_gate_v2` also failed as a mainline branch.
+- Conclusion:
+  - simple reward-side dampening plus stronger validation exposure penalties did not transfer out of sample
+  - `2022` still remains the binding failure mode
+- Next branch direction:
+  - stop spending more loops on small reward-weight retunes of the same actor style
+  - preserve staged checkpointing support as reusable harness infrastructure
+  - move the next optimization loop to a structural lever:
+    - execution-layer/routing overlay improvements
+    - or regime-persistence / stress-state feature additions
+- Acceptance bar for the next mainline training branch:
+  - `test_2022 avg_pos <= 0.32`
+  - `test_2022 maxDD <= 35%`
+  - `test_proxy maxDD <= 55%`
+  - no regression versus canonical `balanced` on total proxy Sharpe
 
 ## Validation harness
 
@@ -112,18 +131,22 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
   - Started `balanced_regime_gate` as the next mainline training branch: keep canonical `balanced` as the style anchor, add staged checkpointing plus explicit stress-exposure pressure, and only moderately tighten stress-side cap routing instead of importing the whole `stress_behavior` branch.
 - 2026-04-17 22:39:
   - Completed the first `balanced_regime_gate` retrain and confirmed it is not promotable: validation score rose sharply, but fixed-split `2022` risk and total test proxy both regressed versus canonical `balanced`.
+- 2026-04-17 23:11:
+  - Completed `balanced_regime_gate_v2` and dropped it as well: reducing `activity_bonus`, `panic_buy_bonus`, and opportunity-cost pressure while increasing validation exposure penalties did not reduce out-of-sample stress exposure enough to matter.
+- 2026-04-17 23:11:
+  - The last two failed branches point away from more reward-weight tuning and toward structural changes such as regime-persistence features or execution/routing overlays.
 
 ## Current run
 
-- Running:
-  - `balanced_stress_behavior`
+- Latest completed run:
+  - `balanced_regime_gate_v2`
   - command:
-    - `qlib_venv/bin/python soxl_qlib_strategy_v2.py --profiles balanced_stress_behavior --skip-data-refresh --seed 20260411`
+    - `qlib_venv/bin/python soxl_qlib_strategy_v2.py --profiles balanced_regime_gate_v2 --skip-data-refresh --seed 20260411`
   - purpose:
-    - stop iterating on validation-score tweaks alone and directly change stress-window behavior through reward and cap routing
-  - expected readout:
-    - `test_2022` avg position and max drawdown must improve versus `balanced_stress_select`
-    - canonical `balanced` still remains the bar for promotion
+    - test whether weaker trend encouragement plus stronger validation exposure penalties can fix the `balanced_regime_gate` failure without over-tightening caps
+  - outcome:
+    - not promotable
+    - worse than both canonical `balanced` and `balanced_regime_gate`
 - Latest validated outputs:
   - smoke artifact replay base:
     - `2024 paper = 164 commands / avg util 68.0% / end value 755,689`
@@ -238,8 +261,34 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
   - harness changes:
     - added `selection_score` config support in `src/soxl_quant/settings.py`
     - `evaluate_split()` now persists `stress_avg_pos` and `stress_days`
-    - actor bundle / summary now persist:
+  - actor bundle / summary now persist:
       - full `selection_score`
+ - Latest `balanced_regime_gate_v2` evidence:
+   - config:
+     - `configs/soxl/balanced_regime_gate_v2.yaml`
+   - saved summary:
+     - `artifacts/models/soxl_balanced_regime_gate_v2_summary.json`
+   - comparison reports:
+     - `runtime/post_train_review/balanced_regime_gate_v2_vs_balanced.md`
+     - `runtime/post_train_review/balanced_regime_gate_v2_vs_v1.md`
+   - result vs canonical `balanced`:
+     - validation score `61.42 -> 70.86`
+     - test proxy return `468.90% -> 360.82%`
+     - test proxy maxDD `50.18% -> 62.89%`
+     - `2022` return `-25.82% -> -43.63%`
+     - `2022` maxDD `33.04% -> 49.52%`
+     - `2022` avg_pos `0.283 -> 0.368`
+   - result vs `balanced_regime_gate`:
+     - validation score `79.66 -> 70.86`
+     - test proxy return `373.48% -> 360.82%`
+     - test proxy maxDD `55.56% -> 62.89%`
+     - `2022` return `-39.22% -> -43.63%`
+     - `2022` maxDD `43.41% -> 49.52%`
+     - `2022` avg_pos `0.370 -> 0.368`
+   - interpretation:
+     - lowering trend encouragement did not change stress exposure enough out of sample
+     - validation penalties on `avg_pos` and `stress_avg_pos` are not sufficient as a proxy for the real `2022` failure mode
+     - future-data leakage, cost sensitivity, and replay gaps remain tracked separately; this branch failed on plain fixed-split risk/return before those secondary concerns became binding
       - `feature_schema.signature`
     - added profile:
       - `configs/soxl/balanced_stress_select.yaml`

@@ -1,0 +1,58 @@
+name: balanced_regime_gate_v2
+max_iters: 80
+episode_per_iter: 10
+episode_len: 300
+hidden_sizes: [128, 64]
+lr: 0.0003
+update_batch_size: 64
+update_repeat: 10
+reward:
+  return_scale: 1.15
+  transaction_cost: 0.08
+  turnover_penalty: 0.065
+  drawdown_penalty: 0.32
+  downside_penalty: 0.24
+  risk_budget_penalty: 0.34
+  high_exposure_penalty: 0.14
+  smoothness_penalty: 0.040
+  activity_bonus: 0.95
+  inactivity_penalty: 0.80
+  opportunity_cost_penalty: 0.02
+  opportunity_threshold_pos: 0.48
+  opportunity_threshold_anchor: 0.06
+  opportunity_threshold_trend: 0.03
+  pbrs_coef: 0.15
+  gated_activity_bonus: true
+  activity_gate_vol_threshold: 0.60
+  activity_gate_regime_delta_threshold: 0.10
+  profit_taking_bonus: 0.18
+  panic_buy_bonus: 0.12
+  panic_buy_cum_drop_threshold: -0.20
+  panic_buy_regime_risk_threshold: 0.62
+  cooldown_penalty: 0.0
+  vol_trading_bonus: 0.0
+position_cap:
+  start_drawdown: 0.09
+  full_drawdown: 0.29
+  min_cap: 0.38
+  curve_power: 1.0
+  bull_min_cap: 0.58
+  bull_vol_threshold: 0.38
+  bull_anchor_threshold: 0.025
+  bear_min_cap: 0.27
+  bear_regime_threshold: 0.62
+promotion_gate:
+  max_test_2022_drawdown: 35.0
+  max_test_2022_avg_pos: 0.35
+  min_test_proxy_sharpe: 0.75
+  min_wf_2023_2024_return: 0.0
+  min_wf_2023_2024_sharpe: 0.0
+selection_score:
+  return_weight: 1.0
+  sharpe_weight: 20.0
+  max_dd_penalty: 0.12
+  avg_pos_penalty: 2.0
+  stress_avg_pos_penalty: 12.0
+  stress_threshold: 0.65
+  staged_training: true
+  stage_iters: 20
