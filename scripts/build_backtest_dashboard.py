@@ -1,0 +1,671 @@
+#!/usr/bin/env python3
+"""Build a standalone local HTML dashboard for backtest inspection."""
+from __future__ import annotations
+
+import csv
+import json
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent.parent
+RUNTIME_DIR = ROOT / "runtime" / "generalization"
+DETAIL_DIR = RUNTIME_DIR / "detailed"
+OUTPUT_PATH = RUNTIME_DIR / "dashboard.html"
+
+
+def load_json(path: Path):
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def load_csv_rows(path: Path) -> list[dict[str, object]]:
+    with path.open("r", encoding="utf-8") as f:
+        reader = csv.DictReader(f)
+        rows = []
+        for row in reader:
+            parsed: dict[str, object] = {}
+            for key, value in row.items():
+                if key == "datetime" or key == "action":
+                    parsed[key] = value
+                    continue
+                try:
+                    parsed[key] = float(value)
+                except (TypeError, ValueError):
+                    parsed[key] = value
+            rows.append(parsed)
+        return rows
+
+
+def build_payload() -> dict[str, object]:
+    detailed_summary = load_json(DETAIL_DIR / "summary.json")
+    detailed_rows = {}
+    for item in detailed_summary:
+        etf = item["etf"]
+        detailed_rows[etf] = {
+            "summary": item,
+            "csv_path": f"detailed/{etf.lower()}_detailed_trades.csv",
+            "rows": load_csv_rows(DETAIL_DIR / f"{etf.lower()}_detailed_trades.csv"),
+        }
+    return {
+        "generated_from": {
+            "summary": "runtime/generalization/detailed/summary.json",
+            "detailed_dir": "runtime/generalization/detailed",
+            "results": "runtime/generalization/results.json",
+            "rule_based": "runtime/generalization/rule_based_results.json",
+            "execution_overlay": "runtime/generalization/execution_overlay_results.json",
+            "execution_review": "runtime/generalization/execution_overlay_review.md",
+        },
+        "summary": detailed_summary,
+        "detailed": detailed_rows,
+        "results": load_json(RUNTIME_DIR / "results.json"),
+        "rule_based": load_json(RUNTIME_DIR / "rule_based_results.json"),
+        "execution_overlay": load_json(RUNTIME_DIR / "execution_overlay_results.json"),
+        "execution_review": (RUNTIME_DIR / "execution_overlay_review.md").read_text(encoding="utf-8"),
+    }
+
+
+def build_html(payload: dict[str, object]) -> str:
+    payload_json = json.dumps(payload, ensure_ascii=False)
+    return f"""<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Backtest Dashboard</title>
+  <style>
+    :root {{
+      --bg: #f4efe6;
+      --panel: #fffaf2;
+      --panel-2: #f7f0e4;
+      --ink: #1b1a17;
+      --muted: #6d6458;
+      --line: #d8ccbb;
+      --accent: #9a3412;
+      --accent-2: #0f766e;
+      --good: #0f766e;
+      --bad: #b91c1c;
+      --shadow: 0 18px 40px rgba(63, 44, 26, 0.12);
+    }}
+    * {{ box-sizing: border-box; }}
+    body {{
+      margin: 0;
+      font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(154, 52, 18, 0.08), transparent 30%),
+        radial-gradient(circle at top right, rgba(15, 118, 110, 0.08), transparent 28%),
+        linear-gradient(180deg, #f9f4ec 0%, var(--bg) 100%);
+    }}
+    .shell {{
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 28px;
+    }}
+    .hero {{
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 18px;
+      margin-bottom: 18px;
+    }}
+    .card {{
+      background: rgba(255, 250, 242, 0.94);
+      border: 1px solid rgba(216, 204, 187, 0.9);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+      padding: 20px;
+    }}
+    .hero h1 {{
+      margin: 0 0 12px;
+      font-size: 34px;
+      line-height: 1;
+      letter-spacing: -0.04em;
+    }}
+    .sub {{
+      color: var(--muted);
+      line-height: 1.55;
+      margin: 0;
+    }}
+    .controls {{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: end;
+    }}
+    label {{
+      display: block;
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }}
+    select {{
+      min-width: 180px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: #fffdf8;
+      font-size: 14px;
+      color: var(--ink);
+    }}
+    .grid {{
+      display: grid;
+      gap: 18px;
+    }}
+    .summary-grid {{
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      margin-bottom: 18px;
+    }}
+    .metric {{
+      background: var(--panel-2);
+      border-radius: 18px;
+      padding: 18px;
+      border: 1px solid var(--line);
+    }}
+    .metric .k {{
+      color: var(--muted);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 10px;
+    }}
+    .metric .v {{
+      font-size: 30px;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+    }}
+    .metric .s {{
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 13px;
+    }}
+    .section-title {{
+      margin: 0 0 12px;
+      font-size: 18px;
+      letter-spacing: -0.02em;
+    }}
+    .chart-grid {{
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 18px;
+      margin-bottom: 18px;
+    }}
+    .chart-panel {{
+      min-height: 420px;
+    }}
+    .chart-tools {{
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }}
+    .pill {{
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: #fffdf8;
+      cursor: pointer;
+      color: var(--muted);
+      font-size: 13px;
+    }}
+    .pill.active {{
+      background: var(--ink);
+      color: white;
+      border-color: var(--ink);
+    }}
+    svg {{
+      width: 100%;
+      height: 320px;
+      display: block;
+      border-radius: 16px;
+      background: linear-gradient(180deg, #fffdf9 0%, #f7f0e4 100%);
+      border: 1px solid var(--line);
+    }}
+    .legend {{
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 13px;
+    }}
+    .dot {{
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      margin-right: 6px;
+    }}
+    .split {{
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 18px;
+      margin-bottom: 18px;
+    }}
+    table {{
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }}
+    th, td {{
+      padding: 10px 8px;
+      border-bottom: 1px solid var(--line);
+      text-align: right;
+      white-space: nowrap;
+    }}
+    th:first-child, td:first-child {{
+      text-align: left;
+    }}
+    .good {{ color: var(--good); }}
+    .bad {{ color: var(--bad); }}
+    .mono {{ font-family: ui-monospace, "SFMono-Regular", Menlo, monospace; }}
+    .raw-panel {{
+      margin-top: 18px;
+    }}
+    .raw-tools {{
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+      align-items: center;
+    }}
+    .button-link {{
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: var(--accent);
+      color: white;
+      text-decoration: none;
+      font-size: 13px;
+    }}
+    .table-wrap {{
+      max-height: 520px;
+      overflow: auto;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: #fffdf8;
+    }}
+    .review {{
+      white-space: pre-wrap;
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--muted);
+      background: #fffdf8;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 16px;
+    }}
+    @media (max-width: 1100px) {{
+      .hero, .chart-grid, .split {{ grid-template-columns: 1fr; }}
+      .summary-grid {{ grid-template-columns: repeat(2, minmax(0, 1fr)); }}
+    }}
+    @media (max-width: 720px) {{
+      .shell {{ padding: 14px; }}
+      .summary-grid {{ grid-template-columns: 1fr; }}
+      .hero h1 {{ font-size: 28px; }}
+    }}
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <div class="hero">
+      <div class="card">
+        <h1>Backtest Dashboard</h1>
+        <p class="sub">
+          本地查看器，直接展示详细回测原始数据、策略净值、Buy&Hold、超额收益、仓位、买卖点，
+          以及 execution overlay 与 rule-based 的对比。数据已内嵌进页面，直接打开
+          <span class="mono">runtime/generalization/dashboard.html</span> 即可查看。
+        </p>
+      </div>
+      <div class="card">
+        <div class="controls">
+          <div>
+            <label>ETF</label>
+            <select id="etfSelect"></select>
+          </div>
+          <div>
+            <label>Chart</label>
+            <select id="chartSelect">
+              <option value="nav">Strategy vs Buy&Hold</option>
+              <option value="excess">Excess Return %</option>
+              <option value="position">Position + Trades</option>
+              <option value="drawdown">Drawdown</option>
+            </select>
+          </div>
+          <div>
+            <label>Rows</label>
+            <select id="rowsSelect">
+              <option value="50">50</option>
+              <option value="100" selected>100</option>
+              <option value="250">250</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid summary-grid" id="metricGrid"></div>
+
+    <div class="chart-grid">
+      <div class="card chart-panel">
+        <h2 class="section-title">Main Chart</h2>
+        <div class="chart-tools">
+          <button class="pill active" data-range="all">All</button>
+          <button class="pill" data-range="2020">2020</button>
+          <button class="pill" data-range="2022">2022</button>
+          <button class="pill" data-range="2023_2024">2023-2024</button>
+        </div>
+        <svg id="chartSvg" viewBox="0 0 980 320" preserveAspectRatio="none"></svg>
+        <div class="legend" id="legend"></div>
+      </div>
+      <div class="card">
+        <h2 class="section-title">Rule-Based Comparison</h2>
+        <table id="comparisonTable"></table>
+      </div>
+    </div>
+
+    <div class="split">
+      <div class="card">
+        <h2 class="section-title">Execution Overlay</h2>
+        <table id="overlayTable"></table>
+      </div>
+      <div class="card">
+        <h2 class="section-title">Execution Review</h2>
+        <div class="review" id="reviewBox"></div>
+      </div>
+    </div>
+
+    <div class="card raw-panel">
+      <h2 class="section-title">Raw Daily Data</h2>
+      <div class="raw-tools">
+        <a id="csvLink" class="button-link" href="#" target="_blank" rel="noreferrer">Open Raw CSV</a>
+        <div class="sub">展示字段：datetime / strategy_nav / buyhold_nav / position / excess / excess_pct / action</div>
+      </div>
+      <div class="table-wrap">
+        <table id="rawTable"></table>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const DATA = {payload_json};
+    const ETFS = Object.keys(DATA.detailed);
+    const state = {{
+      etf: ETFS[0],
+      chart: 'nav',
+      range: 'all',
+      rows: 100,
+    }};
+
+    const etfSelect = document.getElementById('etfSelect');
+    const chartSelect = document.getElementById('chartSelect');
+    const rowsSelect = document.getElementById('rowsSelect');
+    const metricGrid = document.getElementById('metricGrid');
+    const comparisonTable = document.getElementById('comparisonTable');
+    const overlayTable = document.getElementById('overlayTable');
+    const reviewBox = document.getElementById('reviewBox');
+    const chartSvg = document.getElementById('chartSvg');
+    const legend = document.getElementById('legend');
+    const rawTable = document.getElementById('rawTable');
+    const csvLink = document.getElementById('csvLink');
+
+    function fmtPct(v, digits = 2) {{
+      return `${{(v * 100).toFixed(digits)}}%`;
+    }}
+
+    function fmtNum(v, digits = 2) {{
+      return Number(v).toFixed(digits);
+    }}
+
+    function fmtDelta(v, digits = 2) {{
+      const n = Number(v);
+      const sign = n > 0 ? '+' : '';
+      return `${{sign}}${{n.toFixed(digits)}}`;
+    }}
+
+    function getDetailed(etf) {{
+      return DATA.detailed[etf];
+    }}
+
+    function getFilteredRows(rows) {{
+      if (state.range === 'all') return rows;
+      if (state.range === '2020') return rows.filter(r => String(r.datetime).startsWith('2020-'));
+      if (state.range === '2022') return rows.filter(r => String(r.datetime).startsWith('2022-'));
+      if (state.range === '2023_2024') return rows.filter(r => String(r.datetime).startsWith('2023-') || String(r.datetime).startsWith('2024-'));
+      return rows;
+    }}
+
+    function initControls() {{
+      ETFS.forEach(etf => {{
+        const opt = document.createElement('option');
+        opt.value = etf;
+        opt.textContent = etf;
+        etfSelect.appendChild(opt);
+      }});
+      etfSelect.addEventListener('change', e => {{
+        state.etf = e.target.value;
+        render();
+      }});
+      chartSelect.addEventListener('change', e => {{
+        state.chart = e.target.value;
+        renderChart();
+      }});
+      rowsSelect.addEventListener('change', e => {{
+        state.rows = Number(e.target.value);
+        renderRawTable();
+      }});
+      document.querySelectorAll('.pill').forEach(btn => {{
+        btn.addEventListener('click', () => {{
+          document.querySelectorAll('.pill').forEach(x => x.classList.remove('active'));
+          btn.classList.add('active');
+          state.range = btn.dataset.range;
+          renderChart();
+          renderRawTable();
+        }});
+      }});
+    }}
+
+    function renderMetrics() {{
+      const detail = getDetailed(state.etf);
+      const summary = detail.summary;
+      const rl = DATA.results[state.etf];
+      const rule = DATA.rule_based[state.etf];
+      const cards = [
+        {{
+          key: 'Strategy Return',
+          value: fmtPct(summary.strategy_return),
+          sub: `Buy&Hold ${{fmtPct(summary.buyhold_return)}} | Excess ${{fmtPct(summary.excess_return)}}`,
+        }},
+        {{
+          key: 'QLib Proxy',
+          value: `${{fmtNum(rl.sharpe, 3)}}`,
+          sub: `Return ${{fmtNum(rl.return)}}% | MaxDD ${{fmtNum(rl.max_dd)}}%`,
+        }},
+        {{
+          key: 'Trades',
+          value: String(summary.trades),
+          sub: `BUY ${{summary.buy_count}} | SELL ${{summary.sell_count}}`,
+        }},
+        {{
+          key: 'Rule-Based',
+          value: `${{fmtNum(rule.sharpe, 3)}}`,
+          sub: `Return ${{fmtNum(rule.return)}}% | MaxDD ${{fmtNum(rule.max_dd)}}%`,
+        }},
+      ];
+      metricGrid.innerHTML = cards.map(card => `
+        <div class="metric">
+          <div class="k">${{card.key}}</div>
+          <div class="v">${{card.value}}</div>
+          <div class="s">${{card.sub}}</div>
+        </div>
+      `).join('');
+    }}
+
+    function renderComparison() {{
+      const summary = getDetailed(state.etf).summary;
+      const rl = DATA.results[state.etf];
+      const rule = DATA.rule_based[state.etf];
+      const rows = [
+        ['Model', 'Return', 'Sharpe', 'MaxDD', 'Trades', 'Avg Pos'],
+        ['RL', `${{fmtNum(rl.return)}}%`, fmtNum(rl.sharpe, 3), `${{fmtNum(rl.max_dd)}}%`, rl.trades, 'n/a'],
+        ['Rule', `${{fmtNum(rule.return)}}%`, fmtNum(rule.sharpe, 3), `${{fmtNum(rule.max_dd)}}%`, rule.trades, fmtNum(rule.avg_pos, 3)],
+        ['Detailed Excess', `${{fmtPct(summary.excess_return)}}`, 'n/a', `${{fmtPct(summary.max_dd_strategy)}}`, summary.trades, fmtNum(summary.max_position, 3)],
+      ];
+      comparisonTable.innerHTML = rows.map((row, idx) => `
+        <tr>${{row.map((cell, col) => idx === 0 ? `<th>${{cell}}</th>` : `<td>${{col === 0 ? cell : cell}}</td>`).join('')}}</tr>
+      `).join('');
+    }}
+
+    function renderOverlay() {{
+      const payload = DATA.execution_overlay.results[state.etf];
+      const scenarioKeys = Object.keys(DATA.execution_overlay.scenarios);
+      const header = ['Variant', 'Proxy Return', 'Sharpe', 'MaxDD', 'Trades', '2022 Return', '2022 MaxDD'];
+      const body = Object.entries(payload).map(([name, item]) => {{
+        const bear = item.scenarios.bear_2022;
+        return [
+          name,
+          `${{fmtNum(item.test_proxy.return)}}%`,
+          fmtNum(item.test_proxy.sharpe, 3),
+          `${{fmtNum(item.test_proxy.max_dd)}}%`,
+          item.test_proxy.trades,
+          `${{fmtNum(bear.return)}}%`,
+          `${{fmtNum(bear.max_dd)}}%`,
+        ];
+      }});
+      overlayTable.innerHTML = [header, ...body].map((row, idx) => `
+        <tr>${{row.map(cell => idx === 0 ? `<th>${{cell}}</th>` : `<td>${{cell}}</td>`).join('')}}</tr>
+      `).join('');
+      reviewBox.textContent = DATA.execution_review;
+    }}
+
+    function scale(values, minPx, maxPx) {{
+      const min = Math.min(...values);
+      const max = Math.max(...values);
+      const span = max - min || 1;
+      return values.map(v => minPx + ((v - min) / span) * (maxPx - minPx));
+    }}
+
+    function polyline(points) {{
+      return points.map(p => `${{p[0].toFixed(2)}},${{p[1].toFixed(2)}}`).join(' ');
+    }}
+
+    function renderChart() {{
+      const rows = getFilteredRows(getDetailed(state.etf).rows);
+      const width = 980;
+      const height = 320;
+      const left = 54;
+      const right = 22;
+      const top = 18;
+      const bottom = 28;
+      const x = rows.map((_, idx) => left + (idx / Math.max(rows.length - 1, 1)) * (width - left - right));
+
+      let series = [];
+      let tradeDots = [];
+      if (state.chart === 'nav') {{
+        const strategy = rows.map(r => r.strategy_nav);
+        const buyhold = rows.map(r => r.buyhold_nav);
+        const ys = scale([...strategy, ...buyhold], height - bottom, top);
+        series = [
+          {{ name: 'Strategy NAV', color: '#9a3412', values: strategy, y: ys.slice(0, strategy.length) }},
+          {{ name: 'Buy&Hold NAV', color: '#0f766e', values: buyhold, y: ys.slice(strategy.length) }},
+        ];
+      }} else if (state.chart === 'excess') {{
+        const excess = rows.map(r => r.excess_pct);
+        series = [
+          {{ name: 'Excess %', color: '#1b1a17', values: excess, y: scale(excess, height - bottom, top) }},
+        ];
+      }} else if (state.chart === 'position') {{
+        const position = rows.map(r => r.position);
+        series = [
+          {{ name: 'Position', color: '#1b1a17', values: position, y: scale(position, height - bottom, top) }},
+        ];
+        tradeDots = rows
+          .map((r, idx) => (r.action === 'BUY' || r.action === 'SELL') ? {{
+            x: x[idx],
+            y: scale(position, height - bottom, top)[idx],
+            color: r.action === 'BUY' ? '#0f766e' : '#b91c1c',
+            action: r.action,
+          }} : null)
+          .filter(Boolean);
+      }} else {{
+        const strategyDD = [];
+        const bhDD = [];
+        let peakA = -Infinity;
+        let peakB = -Infinity;
+        rows.forEach(r => {{
+          peakA = Math.max(peakA, r.strategy_nav);
+          peakB = Math.max(peakB, r.buyhold_nav);
+          strategyDD.push(r.strategy_nav / peakA - 1);
+          bhDD.push(r.buyhold_nav / peakB - 1);
+        }});
+        const ys = scale([...strategyDD, ...bhDD], top, height - bottom).map(v => height - v);
+        series = [
+          {{ name: 'Strategy DD', color: '#9a3412', values: strategyDD, y: ys.slice(0, strategyDD.length) }},
+          {{ name: 'Buy&Hold DD', color: '#0f766e', values: bhDD, y: ys.slice(strategyDD.length) }},
+        ];
+      }}
+
+      const gridYs = [top, top + (height - top - bottom) / 2, height - bottom];
+      const grid = gridYs.map(y => `<line x1="${{left}}" y1="${{y}}" x2="${{width-right}}" y2="${{y}}" stroke="#d8ccbb" stroke-dasharray="4 6"/>`).join('');
+      const paths = series.map(s => {{
+        const pts = s.values.map((_, i) => [x[i], s.y[i]]);
+        return `<polyline fill="none" stroke="${{s.color}}" stroke-width="2.5" points="${{polyline(pts)}}"/>`;
+      }}).join('');
+      const dots = tradeDots.map(dot => `<circle cx="${{dot.x}}" cy="${{dot.y}}" r="4.5" fill="${{dot.color}}"><title>${{dot.action}}</title></circle>`).join('');
+      chartSvg.innerHTML = `
+        <rect x="0" y="0" width="${{width}}" height="${{height}}" fill="transparent"/>
+        ${{grid}}
+        ${{paths}}
+        ${{dots}}
+      `;
+      legend.innerHTML = series.map(s => `<span><span class="dot" style="background:${{s.color}}"></span>${{s.name}}</span>`).join('');
+      if (tradeDots.length) {{
+        legend.innerHTML += `<span><span class="dot" style="background:#0f766e"></span>BUY</span><span><span class="dot" style="background:#b91c1c"></span>SELL</span>`;
+      }}
+    }}
+
+    function renderRawTable() {{
+      const rows = getFilteredRows(getDetailed(state.etf).rows).slice(-state.rows);
+      csvLink.href = getDetailed(state.etf).csv_path;
+      const header = ['datetime', 'strategy_nav', 'buyhold_nav', 'position', 'excess', 'excess_pct', 'action'];
+      const body = rows.map(r => [
+        r.datetime,
+        fmtNum(r.strategy_nav),
+        fmtNum(r.buyhold_nav),
+        fmtNum(r.position, 4),
+        fmtNum(r.excess),
+        fmtNum(r.excess_pct, 2),
+        r.action,
+      ]);
+      rawTable.innerHTML = [header, ...body].map((row, idx) => `
+        <tr>${{row.map((cell, col) => idx === 0 ? `<th>${{cell}}</th>` : `<td class="${{col === 6 && cell === 'BUY' ? 'good' : col === 6 && cell === 'SELL' ? 'bad' : ''}}">${{cell}}</td>`).join('')}}</tr>
+      `).join('');
+    }}
+
+    function render() {{
+      etfSelect.value = state.etf;
+      chartSelect.value = state.chart;
+      rowsSelect.value = String(state.rows);
+      renderMetrics();
+      renderComparison();
+      renderOverlay();
+      renderChart();
+      renderRawTable();
+    }}
+
+    initControls();
+    render();
+  </script>
+</body>
+</html>
+"""
+
+
+def main() -> None:
+    payload = build_payload()
+    OUTPUT_PATH.write_text(build_html(payload), encoding="utf-8")
+    print(f"[done] wrote {OUTPUT_PATH}")
+
+
+if __name__ == "__main__":
+    main()

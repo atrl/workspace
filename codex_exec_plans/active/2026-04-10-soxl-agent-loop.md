@@ -367,6 +367,25 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
       - trend-hold on broad low-vol bull states
       - defensive sell bias in stress states
       - avoid a single lock/cooldown rule across all 3x products
+- Local dashboard refresh 2026-04-17 21:4x:
+  - problem:
+    - local review was effectively limited to one static image plus scattered CSV/JSON artifacts
+    - this made it hard to inspect raw daily series, excess return behavior, and buy/sell timing together
+  - harness changes:
+    - added `scripts/build_backtest_dashboard.py`
+    - generated:
+      - `runtime/generalization/dashboard.html`
+  - page contents:
+    - ETF selector for all supported 3x ETFs
+    - strategy vs buy-and-hold chart
+    - excess return chart
+    - position + buy/sell markers
+    - rule-based comparison table
+    - execution overlay comparison table
+    - raw daily backtest table with CSV link
+  - usage:
+    - `python3 scripts/build_backtest_dashboard.py`
+    - open `runtime/generalization/dashboard.html` locally in a browser
 
 ## Next actions
 
