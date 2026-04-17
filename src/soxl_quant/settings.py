@@ -18,7 +18,7 @@ RUNTIME_DIR = ROOT / "runtime/soxl"
 ACCOUNT = 1_000_000
 LOOKBACK = 60
 N_ACTIONS = 11
-EXTRA_OBS_DIM = 13
+EXTRA_OBS_DIM = 15
 N_ASSETS = 5
 TRAIN_SEG = ("2010-03-11", "2018-12-31")
 VALID_SEG = ("2019-01-01", "2019-12-31")
@@ -62,6 +62,9 @@ class RewardConfig:
     panic_buy_regime_risk_threshold: float = 0.60
     cooldown_penalty: float = 0.0
     vol_trading_bonus: float = 0.0
+    # tranche-aware profit-taking / underwater-sell guardrails
+    underwater_sell_penalty: float = 0.0
+    tranche_profit_threshold: float = 0.03
 
 
 @dataclass(frozen=True)

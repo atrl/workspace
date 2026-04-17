@@ -560,7 +560,7 @@ def parse_args() -> argparse.Namespace:
         "--profiles",
         nargs="+",
         default=["balanced", "aggressive"],
-        choices=["balanced", "aggressive", "smoke", "balanced_budget"],
+        choices=["balanced", "aggressive", "smoke", "balanced_budget", "balanced_floor40", "balanced_floor40_sym"],
         help="profiles to train and backtest",
     )
     parser.add_argument("--smoke", action="store_true", help="force short smoke run")

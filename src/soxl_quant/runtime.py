@@ -25,7 +25,7 @@ import pandas as pd
 import torch
 
 from .data import build_dataset, init_qlib
-from .rl import PositionLedger, action_to_position, actor_action, build_policy, make_observation
+from .rl import TrancheLedger, action_to_position, actor_action, build_policy, make_observation
 from .settings import ACCOUNT, MODEL_DIR, PositionCapConfig, QLIB_DATA_PATH, load_profile
 
 
@@ -439,7 +439,7 @@ def _build_signal_intent(
     price_path: np.ndarray,
     idx: int,
     broker: BrokerAdapter,
-    ledger: PositionLedger,
+    ledger: TrancheLedger,
     peak_value: float,
     symbol: str = "SOXL",
 ) -> SignalIntent:
@@ -484,7 +484,7 @@ def replay_profile(
 
     actor, bundle_path, bundle = load_actor_bundle(profile_name, model_path=model_path)
     broker = broker or PaperBroker()
-    ledger = PositionLedger()
+    ledger = TrancheLedger()
     commands: List[ExecutionCommand] = []
     statuses: List[BrokerOrderStatus] = []
     executions: List[BrokerExecutionResult] = []
@@ -597,7 +597,7 @@ def plan_manual_session(
         raise ValueError(f"insufficient bars available up to {as_of}")
 
     actor, bundle_path, bundle = load_actor_bundle(profile_name, model_path=model_path)
-    ledger = PositionLedger()
+    ledger = TrancheLedger()
     price_path = price_slice.reindex(feature_df.index).ffill().bfill().to_numpy(dtype=np.float32)
     idx = len(feature_df) - 1
     current_price = float(price_path[idx])

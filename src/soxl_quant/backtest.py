@@ -30,7 +30,7 @@ from qlib.strategy.base import BaseStrategy
 from tianshou.utils.net.discrete import Actor
 
 from .data import FEATURE_COLUMNS
-from .rl import PositionLedger, action_to_position, actor_action, make_observation, rebalance_threshold
+from .rl import TrancheLedger, action_to_position, actor_action, make_observation, rebalance_threshold
 from .settings import ACCOUNT, LOOKBACK, PositionCapConfig, RESULT_PNG, RESULT_TXT, TEST_SEG
 
 
@@ -57,7 +57,7 @@ class RLStrategy(BaseStrategy):
         self.trades = 0             # 总成交次数统计
         self.position_history: List[float] = []  # 每日仓位记录，用于画图
         self.trade_signals: List[Tuple[pd.Timestamp, float, float, str]] = []  # (date, price, position, type)
-        self.ledger = PositionLedger()           # 持仓账本，与训练时一致
+        self.ledger = TrancheLedger()           # 持仓账本，与训练时一致
         self.peak_account_value = ACCOUNT
         self.price_path = self.price_series.reindex(self.df.index).ffill().bfill().to_numpy(dtype=np.float32)
 

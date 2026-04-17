@@ -52,9 +52,11 @@ EXTRA_INDEX = {
     "avg_entry_pnl": len(FEATURE_COLUMNS) + 7,
     "last_add_pnl": len(FEATURE_COLUMNS) + 8,
     "high_gap": len(FEATURE_COLUMNS) + 9,
-    "drawdown_velocity_5": len(FEATURE_COLUMNS) + 10,
-    "regime_risk_max_60d": len(FEATURE_COLUMNS) + 11,
-    "vol_velocity_5": len(FEATURE_COLUMNS) + 12,
+    "last_tranche_pnl": len(FEATURE_COLUMNS) + 10,
+    "n_tranches": len(FEATURE_COLUMNS) + 11,
+    "drawdown_velocity_5": len(FEATURE_COLUMNS) + 12,
+    "regime_risk_max_60d": len(FEATURE_COLUMNS) + 13,
+    "vol_velocity_5": len(FEATURE_COLUMNS) + 14,
 }
 
 
@@ -65,26 +67,24 @@ class EpisodeSummary:
 
 
 @dataclass
-class PositionLedger:
-    """持仓账本：记录买入成本、加仓价、最高水位等人工不可见的上下文。
+class TrancheLedger:
+    """持仓账本（带分段成本栈）：模拟 soxl_backtest 的 LIFO 获利了结逻辑。
 
-    这些信息让 reward 能够区分以下三种情况：
-      - 强势中新建仓（fresh add）
-      - 长期空仓无所事事（stale flat）
-      - 长期套牢应该减仓（trapped loser）
-    
-    【优化提示】账本信息只在 EXTRA_OBS_DIM 的最后 4 维暴露给 actor，
-    如果后续想加入更复杂的持仓记忆（如分段成本、加仓次数），可在此扩展。
+    每次加仓生成一个新的 tranche；减仓时优先卖出最近一笔 tranche。
+    这让 reward 能够识别“最后一笔买入已获利”的反弹卖出机会，
+    即使整体仓位仍然套牢。
     """
 
-    avg_entry_price: float = 0.0
-    last_add_price: float = 0.0
+    tranches: List[Dict[str, float]] = None
     high_water_price: float = 0.0
     days_in_position: int = 0
 
+    def __post_init__(self):
+        if self.tranches is None:
+            self.tranches = []
+
     def reset(self) -> None:
-        self.avg_entry_price = 0.0
-        self.last_add_price = 0.0
+        self.tranches = []
         self.high_water_price = 0.0
         self.days_in_position = 0
 
@@ -94,8 +94,7 @@ class PositionLedger:
             self.reset()
             return
         if prev_pos <= 1e-6:
-            self.avg_entry_price = price
-            self.last_add_price = price
+            self.tranches = [{"price": price, "shares": new_pos}]
             self.high_water_price = price
             self.days_in_position = 1
             return
@@ -104,18 +103,32 @@ class PositionLedger:
         self.high_water_price = max(self.high_water_price, price)
         if new_pos > prev_pos + 1e-6:
             add_size = max(new_pos - prev_pos, 0.0)
-            base_size = max(prev_pos, 1e-6)
-            self.avg_entry_price = (self.avg_entry_price * base_size + price * add_size) / max(base_size + add_size, 1e-6)
-            self.last_add_price = price
+            self.tranches.append({"price": price, "shares": add_size})
+        elif new_pos < prev_pos - 1e-6:
+            sell_size = prev_pos - new_pos
+            remaining = sell_size
+            while remaining > 1e-9 and self.tranches:
+                last = self.tranches[-1]
+                shares_sold = min(remaining, last["shares"])
+                last["shares"] -= shares_sold
+                if last["shares"] <= 1e-9:
+                    self.tranches.pop()
+                remaining -= shares_sold
 
-    def snapshot(self, price: float) -> Tuple[float, float, float, float]:
-        if self.days_in_position <= 0 or price <= 0:
-            return 0.0, 0.0, 0.0, 0.0
-        avg_pnl = price / max(self.avg_entry_price, 1e-6) - 1.0 if self.avg_entry_price > 0 else 0.0
-        add_pnl = price / max(self.last_add_price, 1e-6) - 1.0 if self.last_add_price > 0 else 0.0
-        high_gap = price / max(self.high_water_price, 1e-6) - 1.0 if self.high_water_price > 0 else 0.0
+    def snapshot(self, price: float) -> Tuple[float, float, float, float, float, float]:
+        if self.days_in_position <= 0 or price <= 0 or not self.tranches:
+            return 0.0, 0.0, 0.0, 0.0, 0.0, 0.0
+        total_shares = sum(t["shares"] for t in self.tranches)
+        total_cost = sum(t["price"] * t["shares"] for t in self.tranches)
+        avg_entry_price = total_cost / total_shares if total_shares > 0 else 0.0
+        avg_pnl = price / avg_entry_price - 1.0 if avg_entry_price > 0 else 0.0
+        last_add_price = self.tranches[-1]["price"] if self.tranches else 0.0
+        add_pnl = price / last_add_price - 1.0 if last_add_price > 0 else 0.0
+        high_gap = price / self.high_water_price - 1.0 if self.high_water_price > 0 else 0.0
         age = min(self.days_in_position / 63.0, 1.0)
-        return float(age), float(avg_pnl), float(add_pnl), float(high_gap)
+        last_tranche_pnl = add_pnl
+        n_tranches_ratio = min(len(self.tranches) / 10.0, 1.0)
+        return float(age), float(avg_pnl), float(add_pnl), float(high_gap), float(last_tranche_pnl), float(n_tranches_ratio)
 
 
 class EpisodeConfig(NamedTuple):
@@ -128,20 +141,17 @@ class EpisodeConfig(NamedTuple):
 
 
 def rebalance_threshold(regime_risk: float, realized_vol: float, trend_strength: float, direction: str = "neutral") -> float:
-    """抑制无效调仓：非对称阈值，买入容易、卖出难，减少 whipsaw。"""
-    base_buy = 0.02
-    base_sell = 0.06
+    """抑制无效调仓：对称高阈值，减少 whipsaw 与摩擦成本。
+
+    基于 A+B 实验（symmetric 0.04/0.08）的回滚修复： asymmetric
+    分支 (buy 0.02 / sell 0.06) 已被证明会显著降低收益（461.7%）。
+    """
+    threshold = 0.04
     if regime_risk < 0.35 and realized_vol < 0.45 and trend_strength < 0.04:
-        base_buy = 0.04
-        base_sell = 0.12
+        threshold = 0.08
     if regime_risk > 0.60 or realized_vol > 0.70 or trend_strength > 0.10:
-        base_buy = 0.01
-        base_sell = 0.03
-    if direction == "buy":
-        return base_buy
-    if direction == "sell":
-        return base_sell
-    return (base_buy + base_sell) / 2.0
+        threshold = 0.012
+    return threshold
 
 
 def action_band_from_obs(obs: np.ndarray) -> Tuple[float, float]:
@@ -166,20 +176,20 @@ def action_band_from_obs(obs: np.ndarray) -> Tuple[float, float]:
     vix_zscore = float(np.nan_to_num(obs[STATIC_INDEX["vix_zscore"]]))
     vol_coef = float(np.nan_to_num(obs[STATIC_INDEX["vol_coef_21"]]))
 
-    floor = 0.15
+    floor = 0.30
     cap = 0.95
 
     if anchor_gap > 0.02 and anchor_slope >= 0:
-        floor = 0.30
+        floor = 0.40
         cap = 1.00
     if regime_risk > 0.72 or (anchor_gap < -0.06 and anchor_slope < 0):
-        floor = 0.05
+        floor = 0.30
         cap = 0.80
     if cum_drop_30 < -0.18 and vix_zscore < 2.8:
-        floor = max(floor, 0.18)
+        floor = max(floor, 0.30)
         cap = 1.00
     if vol_coef > 1.45:
-        floor = max(0.08, floor - 0.05)
+        floor = max(0.20, floor - 0.05)
         cap = min(cap, 0.90)
 
     return floor, cap
@@ -285,7 +295,7 @@ class SoxlSimulator(Simulator):
         self.trade_lock = 0
         self.nf = len(FEATURE_COLUMNS)
         self.asset_idx = getattr(initial, "asset_idx", 0)
-        self.ledger = PositionLedger()
+        self.ledger = TrancheLedger()
 
     def step(self, action: float) -> None:
         """执行一步模拟。
@@ -338,11 +348,13 @@ class SoxlSimulator(Simulator):
         self.last_step_return = net_ret
         self.flat_steps = 0 if turnover > 0.02 else self.flat_steps + 1
         self.ledger.update(self.pos, action, price)
-        # Set cooldown if increasing position
+        # Set cooldown if increasing position (rule-based inspired)
         if action > self.pos + 1e-6:
-            self.buy_cooldown = 1
-            if cum_drop_30 < -0.10:
-                self.buy_cooldown += max(0, int(abs(cum_drop_30) * 5))
+            if cum_drop_30 < -0.15:
+                # Deep cumulative drop => long cooldown (up to ~20 days)
+                self.buy_cooldown = min(20, max(3, int(abs(cum_drop_30) * 30)))
+            else:
+                self.buy_cooldown = 1
         # Trade lock: freeze position for N days after any material trade
         turnover = abs(action - self.pos)
         if turnover > 0.02:
@@ -539,13 +551,18 @@ class ContinuousReward(Reward):
         if cum_drop_30 < -0.18 and regime_risk < 0.80 and pos < 0.20:
             reward -= 0.10
 
-        # === Partial profit-taking reward ===
-        last_add_pnl = float(state["obs"][EXTRA_INDEX["last_add_pnl"]])
-        if turnover > 0.02 and last_add_pnl > 0.03:
-            reward += cfg.profit_taking_bonus * min(last_add_pnl * 10.0, 1.5)
+        # === Tranche-aware profit-taking / underwater-sell guardrails ===
+        last_tranche_pnl = float(state["obs"][EXTRA_INDEX["last_tranche_pnl"]])
+        prev_pos = float(state.get("prev_pos", pos))
+        if turnover > 0.02 and pos < prev_pos - 1e-6:
+            # Selling: strongly reward taking profit on the last tranche,
+            # penalize dumping an underwater last tranche.
+            if last_tranche_pnl > cfg.tranche_profit_threshold:
+                reward += cfg.profit_taking_bonus * min(last_tranche_pnl * 12.0, 2.0)
+            elif last_tranche_pnl < -0.05:
+                reward -= cfg.underwater_sell_penalty * min(abs(last_tranche_pnl) * 8.0, 1.5)
 
         # === Panic-buy bonus ===
-        prev_pos = float(state.get("prev_pos", pos))
         if turnover > 0.02 and pos > prev_pos + 1e-6:
             if (cum_drop_30 < cfg.panic_buy_cum_drop_threshold
                     and regime_risk > cfg.panic_buy_regime_risk_threshold):
@@ -831,7 +848,7 @@ def make_observation(
     pos: float,
     value: float,
     peak_value: float,
-    ledger: PositionLedger,
+    ledger: TrancheLedger,
     price_path: np.ndarray,
     asset_idx: int = 0,
 ) -> np.ndarray:
@@ -889,7 +906,7 @@ def evaluate_split(
     cash = cash0
     peak = cash0
     pos = 0.0
-    ledger = PositionLedger()
+    ledger = TrancheLedger()
     price_path = build_price_path(df)
     values = [cash]
     positions = []
