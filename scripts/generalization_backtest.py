@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import csv
 import json
 import os
 import sys
@@ -43,6 +44,42 @@ from src.soxl_quant.settings import (
 DATA_DIR = ROOT / "data" / "generalization"
 RUNTIME_DIR = ROOT / "runtime" / "generalization"
 QLIB_RUNTIME = RUNTIME_DIR / "qlib_stores"
+
+
+def _export_detailed_csv(
+    out_path: Path,
+    portfolio_df: pd.DataFrame,
+    price_series: pd.Series,
+    position_history: list[float],
+    trade_signals: list[tuple],
+) -> None:
+    """Export daily rows compatible with dashboard detailed_trades.csv format."""
+    account = portfolio_df["account"].astype(float)
+    dates = account.index.strftime("%Y-%m-%d").tolist()
+    prices = price_series.reindex(account.index).fillna(method="ffill").values
+    # buy-and-hold NAV
+    initial_price = float(prices[0]) if len(prices) > 0 else 1.0
+    buyhold_nav = ACCOUNT * (prices / initial_price)
+
+    # action map from trade_signals
+    action_map: dict[str, str] = {}
+    for dt, _price, _pos, stype in trade_signals:
+        key = pd.Timestamp(dt).strftime("%Y-%m-%d")
+        action_map[key] = stype.upper()
+
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    with out_path.open("w", newline="", encoding="utf-8") as f:
+        writer = csv.writer(f)
+        writer.writerow(["datetime", "strategy_nav", "price", "buyhold_nav", "position", "excess", "excess_pct", "action"])
+        for i, dt in enumerate(dates):
+            strat_nav = float(account.iloc[i])
+            price = float(prices[i])
+            bh_nav = float(buyhold_nav[i])
+            pos = float(position_history[i]) if i < len(position_history) else 0.0
+            excess = strat_nav - bh_nav
+            excess_pct = (excess / bh_nav * 100) if bh_nav != 0 else 0.0
+            action = action_map.get(dt, "HOLD")
+            writer.writerow([dt, strat_nav, price, bh_nav, pos, excess, excess_pct, action])
 
 
 
@@ -106,11 +143,44 @@ def run_etf_backtest(
         test_seg=test_seg,
     )
 
+    # Compute buy-and-hold summary for dashboard summary.json compatibility
+    pdf = result["portfolio"]
+    if isinstance(pdf, tuple):
+        pdf = pdf[0]
+    account = pdf["account"].astype(float)
+    strategy_return = account.iloc[-1] / ACCOUNT - 1
+    buyhold_price = price.reindex(account.index).fillna(method="ffill")
+    buyhold_nav = ACCOUNT * (buyhold_price / buyhold_price.iloc[0])
+    buyhold_return = buyhold_nav.iloc[-1] / ACCOUNT - 1
+    excess_return = strategy_return - buyhold_return
+
+    peak_s = account.cummax()
+    max_dd_strategy = ((peak_s - account) / peak_s).max()
+    peak_b = buyhold_nav.cummax()
+    max_dd_buyhold = ((peak_b - buyhold_nav) / peak_b).max()
+
     return {
         "return": float(result["return"]),
         "sharpe": float(result["sharpe"]),
         "max_dd": float(result["max_dd"]),
         "trades": int(result["trades"]),
+        "_portfolio": pdf,
+        "_position_history": result["position_history"],
+        "_trade_signals": result.get("trade_signals", []),
+        "_price_series": price,
+        "_summary": {
+            "etf": etf,
+            "strategy_return": float(strategy_return),
+            "buyhold_return": float(buyhold_return),
+            "excess_return": float(excess_return),
+            "max_dd_strategy": float(max_dd_strategy),
+            "max_dd_buyhold": float(max_dd_buyhold),
+            "trades": int(result["trades"]),
+            "buy_count": sum(1 for _, _, _, t in result.get("trade_signals", []) if t == "buy"),
+            "sell_count": sum(1 for _, _, _, t in result.get("trade_signals", []) if t == "sell"),
+            "max_position": max(result["position_history"]) if result["position_history"] else 0.0,
+            "min_position": min(result["position_history"]) if result["position_history"] else 0.0,
+        },
     }
 
 
@@ -120,6 +190,7 @@ def main():
     parser.add_argument("--model", default="soxl_balanced_actor.pt", help="Model checkpoint filename")
     parser.add_argument("--moe", action="store_true", help="Model uses Mixture-of-Experts architecture")
     parser.add_argument("--etf", help="Run a single ETF (default: all)")
+    parser.add_argument("--tag", help="Version tag for saving detailed results (e.g. v2.1.0). If omitted, only aggregate results are saved.")
     args = parser.parse_args()
 
     RUNTIME_DIR.mkdir(parents=True, exist_ok=True)
@@ -131,7 +202,7 @@ def main():
 
     targets = {args.etf.upper(): ETF_UNIVERSE[args.etf.upper()]} if args.etf else ETF_UNIVERSE
 
-    results = {}
+    raw_results: dict[str, dict] = {}
     for etf, meta in targets.items():
         try:
             result = run_etf_backtest(
@@ -142,23 +213,53 @@ def main():
                 position_cap_config=profile.position_cap,
                 test_seg=TEST_SEG,
             )
-            results[etf] = result
+            raw_results[etf] = result
             print(f"Result: return={result['return']:.2f}% sharpe={result['sharpe']:.3f} max_dd={result['max_dd']:.2f}% trades={result['trades']}")
         except Exception as exc:
             print(f"ERROR running {etf}: {exc}")
             import traceback
             traceback.print_exc()
 
+    # Aggregate results (backward compatible)
+    agg_results = {etf: {k: v for k, v in r.items() if not k.startswith("_")} for etf, r in raw_results.items()}
     results_path = RUNTIME_DIR / "results.json"
     with open(results_path, "w", encoding="utf-8") as f:
-        json.dump(results, f, indent=2)
+        json.dump(agg_results, f, indent=2)
     print(f"\nResults saved to {results_path}")
+
+    # Versioned detailed export
+    if args.tag:
+        version_dir = RUNTIME_DIR / "versions" / args.tag
+        detail_dir = version_dir / "detailed"
+        detail_dir.mkdir(parents=True, exist_ok=True)
+        summary_items = []
+        for etf, r in raw_results.items():
+            csv_path = detail_dir / f"{etf.lower()}_detailed_trades.csv"
+            _export_detailed_csv(
+                csv_path,
+                r["_portfolio"],
+                r["_price_series"],
+                r["_position_history"],
+                r["_trade_signals"],
+            )
+            print(f"[version] {csv_path}")
+            summary_items.append(r["_summary"])
+        # summary.json compatible with dashboard
+        summary_path = detail_dir / "summary.json"
+        with open(summary_path, "w", encoding="utf-8") as f:
+            json.dump(summary_items, f, indent=2, ensure_ascii=False)
+        print(f"[version] {summary_path}")
+        # also save aggregate results under version
+        version_results_path = version_dir / "results.json"
+        with open(version_results_path, "w", encoding="utf-8") as f:
+            json.dump(agg_results, f, indent=2)
+        print(f"[version] {version_results_path}")
 
     # Text report
     lines = ["Generalization Backtest Report", "=" * 60, ""]
     lines.append(f"{'ETF':<8} {'Return':>10} {'Sharpe':>8} {'MaxDD':>10} {'Trades':>8}")
     lines.append("-" * 60)
-    for etf, r in results.items():
+    for etf, r in agg_results.items():
         lines.append(
             f"{etf:<8} {r['return']:>10.2f}% {r['sharpe']:>8.3f} {r['max_dd']:>10.2f}% {r['trades']:>8d}"
         )

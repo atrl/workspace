@@ -244,6 +244,67 @@ def compute_kelly_stats(trades: list[dict]) -> dict:
     }
 
 
+def _load_versioned_data(features: dict[str, dict[str, float]] | None) -> dict[str, dict]:
+    """Load all versioned backtest results from runtime/generalization/versions/."""
+    versioned: dict[str, dict] = {}
+    versions_dir = RUNTIME_DIR / "versions"
+    if not versions_dir.exists():
+        return versioned
+    for version_dir in sorted(versions_dir.iterdir()):
+        if not version_dir.is_dir():
+            continue
+        detail_dir = version_dir / "detailed"
+        summary_path = detail_dir / "summary.json"
+        if not summary_path.exists():
+            continue
+        try:
+            summary = load_json(summary_path)
+        except Exception:
+            continue
+        version_rows: dict[str, dict] = {}
+        version_windows: dict[str, dict] = {}
+        for item in summary:
+            etf = item.get("etf")
+            if not etf:
+                continue
+            csv_path = detail_dir / f"{etf.lower()}_detailed_trades.csv"
+            if not csv_path.exists():
+                continue
+            try:
+                rows = load_csv_rows(csv_path)
+            except Exception:
+                continue
+            if features:
+                for r in rows:
+                    dt = str(r["datetime"])
+                    r["_features"] = features.get(dt, {})
+            else:
+                for r in rows:
+                    r["_features"] = {}
+            regime_shapes = compute_regime_shapes(rows)
+            trades = compute_trades(rows)
+            kelly_stats = compute_kelly_stats(trades)
+            version_rows[etf] = {
+                "summary": item,
+                "csv_path": str(csv_path.relative_to(ROOT)),
+                "rows": rows,
+                "regime_shapes": regime_shapes,
+                "trades": trades,
+                "kelly": kelly_stats,
+            }
+            version_windows[etf] = {
+                "start": rows[0]["datetime"] if rows else "",
+                "end": rows[-1]["datetime"] if rows else "",
+                "rows": len(rows),
+            }
+        if version_rows:
+            versioned[version_dir.name] = {
+                "detailed": version_rows,
+                "windows": version_windows,
+            }
+    return versioned
+
+
 def build_payload() -> dict[str, object]:
     detailed_summary = load_json(DETAIL_DIR / "summary.json")
     detailed_rows = {}
@@ -275,6 +336,7 @@ def build_payload() -> dict[str, object]:
             "end": rows[-1]["datetime"] if rows else "",
             "rows": len(rows),
         }
+    versioned = _load_versioned_data(features)
     return {
         "generated_from": {
             "summary": "runtime/generalization/detailed/summary.json",
@@ -287,6 +349,7 @@ def build_payload() -> dict[str, object]:
         "summary": detailed_summary,
         "windows": windows,
         "detailed": detailed_rows,
+        "versioned": versioned,
         "results": load_json(RUNTIME_DIR / "results.json"),
         "rule_based": load_json(RUNTIME_DIR / "rule_based_results.json"),
         "execution_overlay": load_json(RUNTIME_DIR / "execution_overlay_results.json"),
@@ -924,6 +987,10 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
           <select id="etfSelect"></select>
         </div>
         <div class="toolbar-group">
+          <label>Model <span class="help-icon" data-tip="选择回测模型版本">?</span></label>
+          <select id="versionSelect"></select>
+        </div>
+        <div class="toolbar-group">
           <label>Range <span class="help-icon" data-tip="按年份快速筛选数据">?</span></label>
           <div class="pill-row">
             <button class="pill active" data-range="all">All</button>
@@ -1070,8 +1137,10 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     const DATA = {payload_json};
     const PLOTLY_LAYOUTS = {layouts_json};
     const ETFS = Object.keys(DATA.detailed);
+    const VERSIONS = Object.keys(DATA.versioned || {{}});
     const state = {{
       etf: ETFS[0],
+      version: '',
       range: 'all',
       zoomMode: 'all',
       zoomStart: null,
@@ -1081,6 +1150,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     }};
 
     const etfSelect = document.getElementById('etfSelect');
+    const versionSelect = document.getElementById('versionSelect');
     const metricGrid = document.getElementById('metricGrid');
     const tradeStatRow = document.getElementById('tradeStatRow');
     const stratStatRow = document.getElementById('stratStatRow');
@@ -1127,7 +1197,16 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     }}
 
     function getDetailed(etf) {{
+      if (state.version && DATA.versioned && DATA.versioned[state.version]) {{
+        return DATA.versioned[state.version].detailed[etf];
+      }}
       return DATA.detailed[etf];
+    }}
+    function getWindows(etf) {{
+      if (state.version && DATA.versioned && DATA.versioned[state.version]) {{
+        return DATA.versioned[state.version].windows[etf];
+      }}
+      return DATA.windows[etf];
     }}
     function getRangeRows(rows) {{
       if (state.range === 'all') return rows;
@@ -1202,8 +1281,27 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
         opt.textContent = etf;
         etfSelect.appendChild(opt);
       }});
+      // version selector
+      const defaultOpt = document.createElement('option');
+      defaultOpt.value = '';
+      defaultOpt.textContent = 'Current (default)';
+      versionSelect.appendChild(defaultOpt);
+      VERSIONS.forEach(v => {{
+        const opt = document.createElement('option');
+        opt.value = v;
+        opt.textContent = v;
+        versionSelect.appendChild(opt);
+      }});
       etfSelect.addEventListener('change', e => {{
         state.etf = e.target.value;
+        state.zoomMode = 'all';
+        state.zoomStart = null;
+        state.zoomEnd = null;
+        saveState();
+        render();
+      }});
+      versionSelect.addEventListener('change', e => {{
+        state.version = e.target.value;
         state.zoomMode = 'all';
         state.zoomStart = null;
         state.zoomEnd = null;
@@ -1310,7 +1408,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     function renderMetrics() {{
       const detail = getDetailed(state.etf);
       const summary = detail.summary;
-      const window = DATA.windows[state.etf];
+      const window = getWindows(state.etf);
       const rl = DATA.results[state.etf];
       const rule = DATA.rule_based[state.etf];
       const cards = [
@@ -1821,6 +1919,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
 
     function render() {{
       etfSelect.value = state.etf;
+      versionSelect.value = state.version || '';
       document.querySelectorAll('.pill').forEach(p => {{
         p.classList.toggle('active', p.dataset.range === state.range);
       }});
