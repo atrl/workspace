@@ -155,8 +155,8 @@ def test_pbrs_zero_when_drawdown_unchanged():
     assert abs(base - reward.reward(make_state(drawdown=0.08, prev_drawdown=0.08))) < 1e-6
 
 
-def test_gated_activity_bonus_zero_in_calm_regime():
-    """When gated_activity_bonus is True and market is calm, activity bonus should be zero."""
+def test_gated_activity_bonus_has_no_effect_in_current_reward():
+    """Current reward path no longer grants an activity bonus in any regime."""
     profile = make_profile()
     profile = StrategyConfig(
         name=profile.name,
@@ -184,9 +184,8 @@ def test_gated_activity_bonus_zero_in_calm_regime():
         ),
     )
     reward = ContinuousReward(profile)
-    # calm market: realized_vol=0.30, regime_delta=0.02 -> gate should close
+    # calm market: realized_vol=0.30, regime_delta=0.02
     calm = reward.reward(make_state(turnover=0.20, realized_vol=0.30, regime_delta=0.02))
-    # stormy market: realized_vol=0.70, regime_delta=0.15 -> gate should open
+    # stormy market: realized_vol=0.70, regime_delta=0.15
     stormy = reward.reward(make_state(turnover=0.20, realized_vol=0.70, regime_delta=0.15))
-    # Both have identical turnover and return=0, but stormy should get activity_bonus > calm
-    assert stormy > calm
+    assert abs(stormy - calm) < 1e-6

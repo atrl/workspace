@@ -177,6 +177,7 @@ class ModelConfig:
 @dataclass(frozen=True)
 class SamplingConfig:
     regime_stratified: bool = False
+    phase_balanced: bool = False
     mild_risk_threshold: float = 0.42
     severe_risk_threshold: float = 0.58
     mild_drawdown_threshold: float = 0.10
@@ -184,6 +185,17 @@ class SamplingConfig:
     mild_repeat: int = 2
     severe_repeat: int = 3
     persistent_stress_days: float = 0.30
+    trend_repeat: int = 2
+    rebound_repeat: int = 2
+    episode_stride: int = 0
+    bull_anchor_threshold: float = 0.04
+    bull_trend_threshold: float = 0.02
+    bull_vol_threshold: float = 0.45
+    bull_risk_threshold: float = 0.45
+    rebound_anchor_ceiling: float = -0.02
+    rebound_trend_floor: float = 0.01
+    rebound_risk_ceiling: float = 0.60
+    rebound_risk_release: float = 0.06
 
 
 @dataclass(frozen=True)

@@ -268,6 +268,7 @@ def serialize_model_config(profile) -> Dict[str, object]:
 def serialize_sampling_config(profile) -> Dict[str, object]:
     return {
         "regime_stratified": bool(profile.sampling.regime_stratified),
+        "phase_balanced": bool(profile.sampling.phase_balanced),
         "mild_risk_threshold": float(profile.sampling.mild_risk_threshold),
         "severe_risk_threshold": float(profile.sampling.severe_risk_threshold),
         "mild_drawdown_threshold": float(profile.sampling.mild_drawdown_threshold),
@@ -275,6 +276,17 @@ def serialize_sampling_config(profile) -> Dict[str, object]:
         "mild_repeat": int(profile.sampling.mild_repeat),
         "severe_repeat": int(profile.sampling.severe_repeat),
         "persistent_stress_days": float(profile.sampling.persistent_stress_days),
+        "trend_repeat": int(profile.sampling.trend_repeat),
+        "rebound_repeat": int(profile.sampling.rebound_repeat),
+        "episode_stride": int(profile.sampling.episode_stride),
+        "bull_anchor_threshold": float(profile.sampling.bull_anchor_threshold),
+        "bull_trend_threshold": float(profile.sampling.bull_trend_threshold),
+        "bull_vol_threshold": float(profile.sampling.bull_vol_threshold),
+        "bull_risk_threshold": float(profile.sampling.bull_risk_threshold),
+        "rebound_anchor_ceiling": float(profile.sampling.rebound_anchor_ceiling),
+        "rebound_trend_floor": float(profile.sampling.rebound_trend_floor),
+        "rebound_risk_ceiling": float(profile.sampling.rebound_risk_ceiling),
+        "rebound_risk_release": float(profile.sampling.rebound_risk_release),
     }
 
 
@@ -709,7 +721,7 @@ def parse_args() -> argparse.Namespace:
         "--profiles",
         nargs="+",
         default=["balanced", "aggressive"],
-        choices=["balanced", "aggressive", "smoke", "balanced_budget", "balanced_floor40", "balanced_floor40_sym", "balanced_floor40_sym_bear30", "balanced_stress_select", "balanced_stress_select_v2", "balanced_reward_guard", "balanced_structural_v1", "balanced_stress_behavior", "balanced_regime_gate", "balanced_regime_gate_v2", "balanced_checkpoint_review", "balanced_marginal_reward", "balanced_marginal_reward_quick", "balanced_decision_freq_quick", "balanced_tide_quick", "balanced_sac_quick", "smoke_marginal", "smoke_log_reward", "smoke_decision_freq", "smoke_log_freq", "smoke_marginal_freq", "smoke_marginal_high_scale", "smoke_obs_window3", "smoke_action5", "smoke_floor50", "smoke_tide", "smoke_hybrid", "smoke_combo", "smoke_quality", "smoke_nday", "smoke_sparse", "smoke_ppo_fixed", "smoke_sac"],
+        choices=["balanced", "aggressive", "smoke", "balanced_budget", "balanced_floor40", "balanced_floor40_sym", "balanced_floor40_sym_bear30", "balanced_stress_select", "balanced_stress_select_v2", "balanced_reward_guard", "balanced_structural_v1", "balanced_phase_sampling_v1", "balanced_stress_behavior", "balanced_regime_gate", "balanced_regime_gate_v2", "balanced_checkpoint_review", "balanced_marginal_reward", "balanced_marginal_reward_quick", "balanced_decision_freq_quick", "balanced_tide_quick", "balanced_sac_quick", "smoke_marginal", "smoke_log_reward", "smoke_decision_freq", "smoke_log_freq", "smoke_marginal_freq", "smoke_marginal_high_scale", "smoke_obs_window3", "smoke_action5", "smoke_floor50", "smoke_tide", "smoke_hybrid", "smoke_combo", "smoke_quality", "smoke_nday", "smoke_sparse", "smoke_ppo_fixed", "smoke_sac"],
         help="profiles to train and backtest",
     )
     parser.add_argument("--smoke", action="store_true", help="force short smoke run")

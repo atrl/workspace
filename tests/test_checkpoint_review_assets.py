@@ -48,3 +48,12 @@ def test_balanced_structural_v1_profile_exists():
     assert "observation_window: 10" in text
     assert "use_regime_router: true" in text
     assert "regime_stratified: true" in text
+
+
+def test_balanced_phase_sampling_v1_profile_exists():
+    path = ROOT / "configs" / "soxl" / "balanced_phase_sampling_v1.yaml"
+    text = path.read_text(encoding="utf-8")
+    assert "name: balanced_phase_sampling_v1" in text
+    assert "phase_balanced: true" in text
+    assert "episode_stride: 150" in text
+    assert "rebound_repeat: 3" in text

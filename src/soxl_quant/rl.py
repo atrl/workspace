@@ -885,12 +885,15 @@ def build_initial_states(
     observation_window = max(int(profile.model.observation_window), 1)
     decision_frequency = max(int(profile.decision_frequency), 1)
     for pkl_path, df, asset_idx in sources:
-        frame_count = len(df) // episode_len
+        stride = int(sampling.episode_stride) if int(sampling.episode_stride) > 0 else episode_len
+        max_start = max(len(df) - episode_len, 0)
+        start_indices = list(range(0, max_start + 1, stride))
+        if not start_indices:
+            start_indices = [0]
         if smoke:
-            frame_count = min(frame_count, 4)
-        for i in range(frame_count):
-            start_idx = i * episode_len
-            end_idx = min((i + 1) * episode_len, len(df))
+            start_indices = start_indices[:4]
+        for start_idx in start_indices:
+            end_idx = min(start_idx + episode_len, len(df))
             if (end_idx - start_idx) <= LOOKBACK + 2:
                 continue
             nday_window = max(int(profile.reward.nday_window), 1) if profile.reward.use_nday_reward else 1
@@ -907,11 +910,30 @@ def build_initial_states(
             segment = df.iloc[start_idx:end_idx]
             risk_score = float(segment["regime_risk"].mean())
             drawdown_score = abs(float(segment["cum_drop_30"].min()))
+            realized_vol = float(segment["realized_vol_10"].mean())
+            anchor_gap = float(segment["anchor_gap_180"].mean())
+            trend_gap = float(segment["trend_gap_21"].mean())
+            risk_head = float(segment["regime_risk"].head(min(len(segment), 20)).mean())
+            risk_tail = float(segment["regime_risk"].tail(min(len(segment), 20)).mean())
+            risk_release = risk_head - risk_tail
             persistent_stress = max(
                 float(segment["drawdown_streak_63"].max()),
                 float(segment["below_ma63_days"].max()),
                 float(segment["rolling_new_low_ratio_63"].mean()),
                 float(segment["negative_gap_frequency_21"].mean()),
+            )
+            is_bull_trend = (
+                anchor_gap > sampling.bull_anchor_threshold
+                and trend_gap > sampling.bull_trend_threshold
+                and realized_vol < sampling.bull_vol_threshold
+                and risk_score < sampling.bull_risk_threshold
+            )
+            is_rebound = (
+                anchor_gap < sampling.rebound_anchor_ceiling
+                and trend_gap > sampling.rebound_trend_floor
+                and risk_score < sampling.rebound_risk_ceiling
+                and risk_release > sampling.rebound_risk_release
+                and drawdown_score > sampling.mild_drawdown_threshold
             )
             repeats = 1
             if sampling.regime_stratified:
@@ -926,6 +948,11 @@ def build_initial_states(
                     or drawdown_score > sampling.mild_drawdown_threshold
                 ):
                     repeats = max(repeats, sampling.mild_repeat)
+            if sampling.phase_balanced:
+                if is_rebound:
+                    repeats = max(repeats, sampling.rebound_repeat)
+                elif is_bull_trend:
+                    repeats = max(repeats, sampling.trend_repeat)
             else:
                 if risk_score > 0.58 or drawdown_score > 0.18:
                     repeats += 1

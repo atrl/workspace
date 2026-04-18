@@ -98,3 +98,88 @@ def test_regime_stratified_sampling_oversamples_persistent_stress():
         states = build_initial_states([(pkl_path, df, 0)], profile, smoke=False)
         unique_states = {(state.start_idx, state.end_idx) for state in states}
         assert len(states) > len(unique_states)
+
+
+def _phase_balanced_profile() -> StrategyConfig:
+    return StrategyConfig(
+        name="balanced_phase_sampling_v1",
+        max_iters=80,
+        episode_per_iter=10,
+        episode_len=300,
+        hidden_sizes=(128, 64),
+        lr=3e-4,
+        update_batch_size=64,
+        update_repeat=10,
+        reward=RewardConfig(
+            return_scale=1.15,
+            transaction_cost=0.08,
+            turnover_penalty=0.05,
+            drawdown_penalty=0.28,
+            downside_penalty=0.20,
+            risk_budget_penalty=0.24,
+            high_exposure_penalty=0.08,
+            smoothness_penalty=0.03,
+            activity_bonus=1.25,
+            inactivity_penalty=0.80,
+        ),
+        sampling=SamplingConfig(
+            regime_stratified=True,
+            phase_balanced=True,
+            severe_repeat=3,
+            mild_repeat=2,
+            trend_repeat=2,
+            rebound_repeat=3,
+            episode_stride=150,
+        ),
+    )
+
+
+def _phase_frame(rows: int = 900) -> pd.DataFrame:
+    df = _synthetic_frame(rows)
+    seg = rows // 3
+    df.loc[: seg - 1, "regime_risk"] = np.linspace(0.70, 0.62, seg)
+    df.loc[: seg - 1, "cum_drop_30"] = np.linspace(-0.22, -0.18, seg)
+    df.loc[: seg - 1, "anchor_gap_180"] = np.linspace(-0.10, -0.06, seg)
+    df.loc[: seg - 1, "trend_gap_21"] = np.linspace(-0.03, 0.00, seg)
+    df.loc[: seg - 1, "realized_vol_10"] = np.linspace(0.70, 0.58, seg)
+
+    df.loc[seg : 2 * seg - 1, "regime_risk"] = np.linspace(0.62, 0.38, seg)
+    df.loc[seg : 2 * seg - 1, "cum_drop_30"] = np.linspace(-0.20, -0.08, seg)
+    df.loc[seg : 2 * seg - 1, "anchor_gap_180"] = np.linspace(-0.08, -0.03, seg)
+    df.loc[seg : 2 * seg - 1, "trend_gap_21"] = np.linspace(0.02, 0.05, seg)
+    df.loc[seg : 2 * seg - 1, "realized_vol_10"] = np.linspace(0.55, 0.36, seg)
+
+    df.loc[2 * seg :, "regime_risk"] = np.linspace(0.28, 0.20, rows - 2 * seg)
+    df.loc[2 * seg :, "cum_drop_30"] = np.linspace(-0.06, 0.02, rows - 2 * seg)
+    df.loc[2 * seg :, "anchor_gap_180"] = np.linspace(0.05, 0.11, rows - 2 * seg)
+    df.loc[2 * seg :, "trend_gap_21"] = np.linspace(0.03, 0.07, rows - 2 * seg)
+    df.loc[2 * seg :, "realized_vol_10"] = np.linspace(0.34, 0.24, rows - 2 * seg)
+    return df
+
+
+def test_episode_stride_creates_overlapping_windows():
+    profile = _phase_balanced_profile()
+    df = _phase_frame(900)
+    with tempfile.TemporaryDirectory() as tmpdir:
+        pkl_path = Path(tmpdir) / "train.pkl"
+        df.to_pickle(pkl_path)
+        states = build_initial_states([(pkl_path, df, 0)], profile, smoke=False)
+        unique_states = sorted({(state.start_idx, state.end_idx) for state in states})
+        assert len(unique_states) == 5
+        assert unique_states[1][0] == 150
+
+
+def test_phase_balanced_sampling_oversamples_rebound_and_trend():
+    profile = _phase_balanced_profile()
+    df = _phase_frame(900)
+    with tempfile.TemporaryDirectory() as tmpdir:
+        pkl_path = Path(tmpdir) / "train.pkl"
+        df.to_pickle(pkl_path)
+        states = build_initial_states([(pkl_path, df, 0)], profile, smoke=False)
+        counts = {}
+        for state in states:
+            key = (state.start_idx, state.end_idx)
+            counts[key] = counts.get(key, 0) + 1
+        assert counts[(150, 450)] >= 2
+        assert counts[(300, 600)] >= 3
+        assert counts[(600, 900)] >= 2
