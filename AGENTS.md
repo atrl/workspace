@@ -29,6 +29,8 @@ Use these files for distinct roles. Do not collapse them together.
 - `codex_exec_plans/completed/`: completed or abandoned threads.
 - `memory/`: continuity across sessions.
 - `.codex/skills/`: reusable methods and maintained operational knowledge. Codex CLI auto-loads skills from this path.
+- `configs/soxl/profile_registry.yaml`: profile lifecycle, canonical baselines, and retention intent.
+- `artifacts/retention_manifest.json`: generated cleanup ledger for model artifacts and repo noise.
 
 Chat history is not the durable record.
 
@@ -62,6 +64,62 @@ Every substantial loop should leave behind:
 - command or procedure
 - validation evidence or failure evidence
 - keep / drop / next-action decision
+
+When a loop changes profile lifecycle or retention:
+
+- record the canonical comparison baseline
+- record whether the profile is `canonical`, `candidate`, `ablation`, `dropped`, or `archived`
+- record whether the actor bundle is meant to be kept or summary-only
+
+## Profile Governance
+
+Profile sprawl is now a harness problem, not just a naming problem.
+
+- Every `configs/soxl/*.yaml` profile must have a row in `configs/soxl/profile_registry.yaml`.
+- The registry is the source of truth for:
+  - current canonical profile per family
+  - baseline lineage
+  - whether the actor bundle is retained
+  - whether the summary is retained
+- Before starting a new training branch, identify and write down:
+  - the canonical baseline
+  - the direct comparison baseline
+  - whether the new profile is meant to replace, diagnose, or ablate
+- A dropped profile keeps summary/review/memory evidence by default, but should not keep its actor checkpoint unless the registry explicitly says so.
+- New profile files are not allowed to accumulate without a registry status and a notes reference.
+
+## Code Boundaries
+
+Do not let `cli.py`, `settings.py`, or `rl.py` become mixed-purpose catch-alls.
+
+- `src/soxl_quant/settings.py` owns repo paths, constants, and artifact naming only.
+- `src/soxl_quant/config.py` owns typed config dataclasses and profile loading.
+- `src/soxl_quant/cli.py` owns orchestration only:
+  - argument parsing
+  - dataset/train/eval flow
+  - walk-forward dispatch
+  - persistence / promotion reporting
+- RL helper logic must be split by concern:
+  - execution rules
+  - positioning / caps
+  - observation construction
+  - reward
+  - policy / models
+  - evaluation
+- When a change alters one of those layers, keep the edit in that layer instead of patching another monolithic helper.
+
+## Retention And Cleanup
+
+Repository noise should be reduced continuously instead of in rare purges.
+
+- Root-level ad-hoc analysis scripts are temporary. Either move them into `scripts/` with a clear reusable purpose or delete them.
+- Generated caches such as `__pycache__` and `.DS_Store` should not survive task completion.
+- Use `qlib_venv/bin/python scripts/prune_artifacts.py` to regenerate `artifacts/retention_manifest.json`.
+- If cleanup is part of the task, prefer:
+  - keep summaries, reviews, workpads, and memory notes
+  - delete redundant actor checkpoints for dropped or archived profiles
+  - keep only registry-approved actor bundles
+- Do not delete large artifacts blindly; inspect the registry and manifest first.
 
 ## Skill Distillation & Auto-Optimization
 

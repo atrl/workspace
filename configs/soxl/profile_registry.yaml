@@ -97,13 +97,6 @@ profiles:
     keep_actor: false
     keep_summary: true
     notes_ref: memory/index.json
-  - name: balanced_floor40_sym_slow_bear_v2
-    family: balanced_floor40
-    status: ablation
-    baseline: balanced_floor40_sym_slow_bear
-    keep_actor: false
-    keep_summary: true
-    notes_ref: memory/index.json
   - name: balanced_floor40_sym_tconv
     family: balanced_floor40
     status: ablation

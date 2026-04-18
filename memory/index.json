@@ -766,6 +766,35 @@
     "excerpt": "# PPO 诊断报告与优化路线图 ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence > 日期: 2026-04-18 > 背景: RL 无法超越 rule-based baseline (688.6%)，怀疑 PPO 本身存在结构性问题 --- ## 一、核心发现：PPO 在金融 Trading 中确实表现较差 ### 1.1 多篇独立研究确认 PPO 的劣势 | 研究 | 算法比较 | 关键结论 | |------|---------|----"
   },
   {
+    "path": "memory/2026-04-18-profile-governance-and-retention-reset.md",
+    "date": "2026-04-18",
+    "title": "2026-04-18 Profile Governance And Retention Reset",
+    "kind": "review",
+    "profiles": [
+      "soxl"
+    ],
+    "status": "dropped",
+    "tags": [
+      "checkpoint-selection",
+      "dropped",
+      "eval-2022",
+      "review",
+      "soxl",
+      "walk-forward"
+    ],
+    "artifacts": [
+      "artifacts/models/soxl_balanced_actor.pt",
+      "artifacts/models/soxl_balanced_checkpoint_review_actor.pt",
+      "artifacts/models/soxl_balanced_wf_2020_actor.pt",
+      "artifacts/models/soxl_balanced_wf_2022_actor.pt",
+      "artifacts/models/soxl_balanced_wf_2023_2024_actor.pt",
+      "artifacts/models/soxl_smoke_actor.pt"
+    ],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "The harness had reached the point where `rl.py`, `cli.py`, and the profile set were too entangled to answer basic questions reliably: which profile is canonical which branches are just ablations which actor checkpoints should still exist wh",
+    "excerpt": "# 2026-04-18 Profile Governance And Retention Reset ## Context The harness had reached the point where `rl.py`, `cli.py`, and the profile set were too entangled to answer basic questions reliably: - which profile is canonical - which branches are just ablations - which actor chec"
+  },
+  {
     "path": "memory/2026-04-18-stress-release-delta-failure.md",
     "date": "2026-04-18",
     "title": "2026-04-18 stress-release delta feature trial",
@@ -829,6 +858,30 @@
     "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
     "summary": "A structural retrain with longer observation context, custom action levels, hard regime routing, and regime-stratified stress sampling improved stress exposure versus the failed reward-only branch, but it still failed promotion. `test_2022 avg_pos` passed at `0.338`, yet `test_2022 maxDD` remained too high at `39.86%` and `test_proxy Sharpe` fell to `0.739`. Keep the new harness support for model/sampling profiles, but drop `balanced_structural_v1` as a production candidate and ablate one structural lever at a time if model-side work continues.",
     "excerpt": "# 2026-04-18 structural model loop ## Context After the checkpoint-review, selector-only, and reward-only loops all failed, the next hypothesis was that the bottleneck had shifted from coefficients to model structure. This loop tested that directly. ## What changed - Added profil"
+  },
+  {
+    "path": "memory/2026-04-18-trade-compression-experiments.md",
+    "date": "2026-04-18",
+    "title": "Trade compression experiments: execution vs reward vs decision_frequency",
+    "kind": "experiment",
+    "profiles": [
+      "balanced_floor40_sym",
+      "soxl"
+    ],
+    "status": "reference",
+    "tags": [
+      "balanced_floor40_sym",
+      "completed",
+      "eval-2022",
+      "experiment",
+      "rule-based",
+      "soxl",
+      "stress-regime"
+    ],
+    "artifacts": [],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Four variants of trade-frequency compression tested on SOXL. decision_frequency=3 achieves the best 2022 MaxDD (38.4%) and good generalization, but sacrifices total return (698% -> 314%). Key insight: execution-layer compression (trade_lock, threshold, decision_frequency) is more effective than reward-layer compression for reducing drawdown without destroying returns.",
+    "excerpt": "# Trade Compression Experiments (2026-04-18) ## Context `balanced_floor40_sym` achieved 698.0% return but failed the 2022 MaxDD promotion gate (60.56% vs 35% limit) and traded 859 times vs rule-based 45. Goal: compress trades and improve drawdown control without surrendering the "
   },
   {
     "path": "memory/2026-04-18-transition-feature-batch-failure.md",

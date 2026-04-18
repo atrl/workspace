@@ -52,6 +52,7 @@ from .rl import (
     evaluate_split,
     observation_dim_for_profile,
 )
+from .config import list_profile_names
 from .settings import (
     CSV_PATH,
     ETF_UNIVERSE,
@@ -723,11 +724,12 @@ def run_worker_profile(args: argparse.Namespace) -> None:
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="SOXL qlib-native PPO strategy")
+    available_profiles = list_profile_names()
     parser.add_argument(
         "--profiles",
         nargs="+",
         default=["balanced", "aggressive"],
-        choices=["balanced", "aggressive", "smoke", "balanced_budget", "balanced_floor40", "balanced_floor40_sym", "balanced_floor40_sym_cap25", "balanced_floor40_sym_crisis30", "balanced_floor40_sym_crisis30_v2", "balanced_floor40_sym_v2", "balanced_floor40_sym_bear30", "balanced_floor40_sym_expectancy", "balanced_floor40_sym_expectancy_v2", "balanced_floor40_sym_velocity", "balanced_floor40_sym_tconv", "balanced_floor40_sym_velocity_rules", "balanced_floor40_sym_tight_crash", "balanced_floor40_sym_slow_bear", "balanced_floor40_sym_slow_bear_v2", "balanced_stress_select", "balanced_stress_select_v2", "balanced_reward_guard", "balanced_structural_v1", "balanced_phase_sampling_v1", "balanced_stress_behavior", "balanced_regime_gate", "balanced_regime_gate_v2", "balanced_checkpoint_review", "balanced_marginal_reward", "balanced_marginal_reward_quick", "balanced_decision_freq_quick", "balanced_tide_quick", "balanced_sac_quick", "smoke_marginal", "smoke_log_reward", "smoke_decision_freq", "smoke_log_freq", "smoke_marginal_freq", "smoke_marginal_high_scale", "smoke_obs_window3", "smoke_action5", "smoke_floor50", "smoke_tide", "smoke_hybrid", "smoke_combo", "smoke_quality", "smoke_nday", "smoke_sparse", "smoke_ppo_fixed", "smoke_sac"],
+        choices=available_profiles,
         help="profiles to train and backtest",
     )
     parser.add_argument("--smoke", action="store_true", help="force short smoke run")

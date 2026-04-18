@@ -1,25 +1,6 @@
 from __future__ import annotations
 
-import importlib.util
-import types
-import sys
-from pathlib import Path
-
-ROOT = Path(__file__).resolve().parents[1]
-if str(ROOT) not in sys.path:
-    sys.path.insert(0, str(ROOT))
-
-SETTINGS_PATH = ROOT / "src" / "soxl_quant" / "settings.py"
-spec = importlib.util.spec_from_file_location("soxl_quant_settings", SETTINGS_PATH)
-assert spec and spec.loader
-settings = importlib.util.module_from_spec(spec)
-sys.modules.setdefault("yaml", types.SimpleNamespace(safe_load=lambda *_args, **_kwargs: {}))
-sys.modules[spec.name] = settings
-spec.loader.exec_module(settings)
-
-artifact_stem = settings.artifact_stem
-model_artifact_path = settings.model_artifact_path
-summary_artifact_path = settings.summary_artifact_path
+from src.soxl_quant.settings import artifact_stem, model_artifact_path, summary_artifact_path
 
 
 def test_default_artifact_paths_stay_canonical():

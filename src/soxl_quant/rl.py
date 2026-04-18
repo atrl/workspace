@@ -56,28 +56,30 @@ class QNetwork(torch.nn.Module):
         return next(self.parameters()).device
 
 from .data import FEATURE_COLUMNS, STATIC_INDEX
-from .settings import DEFAULT_ACTION_LEVELS, EXTRA_OBS_DIM, LOOKBACK, N_ACTIONS, N_ASSETS, ExecutionConfig, PositionCapConfig, StrategyConfig
-
-BASE_ACTION_LEVELS = np.asarray(DEFAULT_ACTION_LEVELS, dtype=np.float32)
-DEFAULT_POSITION_CAP = PositionCapConfig()
-DEFAULT_EXECUTION = ExecutionConfig()
-EXTRA_INDEX = {
-    "lookback_mean_return": len(FEATURE_COLUMNS) + 0,
-    "lookback_return_skew": len(FEATURE_COLUMNS) + 1,
-    "lookback_downside": len(FEATURE_COLUMNS) + 2,
-    "episode_progress": len(FEATURE_COLUMNS) + 3,
-    "position": len(FEATURE_COLUMNS) + 4,
-    "underwater": len(FEATURE_COLUMNS) + 5,
-    "holding_age": len(FEATURE_COLUMNS) + 6,
-    "avg_entry_pnl": len(FEATURE_COLUMNS) + 7,
-    "last_add_pnl": len(FEATURE_COLUMNS) + 8,
-    "high_gap": len(FEATURE_COLUMNS) + 9,
-    "last_tranche_pnl": len(FEATURE_COLUMNS) + 10,
-    "n_tranches": len(FEATURE_COLUMNS) + 11,
-    "drawdown_velocity_5": len(FEATURE_COLUMNS) + 12,
-    "regime_risk_max_60d": len(FEATURE_COLUMNS) + 13,
-    "vol_velocity_5": len(FEATURE_COLUMNS) + 14,
-}
+from .config import ExecutionConfig, PositionCapConfig, StrategyConfig
+from .settings import LOOKBACK, N_ACTIONS, N_ASSETS
+from .rl_execution import (
+    DEFAULT_EXECUTION,
+    execution_buy_cooldown_days,
+    execution_regime,
+    execution_trade_lock_days,
+    rebalance_threshold,
+)
+from .rl_observation import (
+    EXTRA_INDEX,
+    adapt_observation,
+    adapt_observation_for_actor,
+    infer_actor_obs_dim,
+    make_observation,
+    observation_dim_for_profile,
+)
+from .rl_positioning import (
+    BASE_ACTION_LEVELS,
+    action_levels_for_profile,
+    action_to_position,
+    drawdown_position_cap,
+    rule_based_position,
+)
 
 
 @dataclass(frozen=True)
@@ -162,238 +164,6 @@ class EpisodeConfig(NamedTuple):
     decision_frequency: int = 1
     nday_window: int = 5
     execution_config: Optional[ExecutionConfig] = None
-
-
-def action_levels_for_profile(profile: Optional[StrategyConfig]) -> np.ndarray:
-    if profile is None:
-        return BASE_ACTION_LEVELS
-    return np.asarray(profile.model.action_levels, dtype=np.float32)
-
-
-def observation_dim_for_profile(profile: StrategyConfig) -> int:
-    window = max(int(profile.model.observation_window), 1)
-    return len(FEATURE_COLUMNS) * window + EXTRA_OBS_DIM + N_ASSETS
-
-
-def execution_regime(regime_risk: float, realized_vol: float, trend_strength: float, config: Optional[ExecutionConfig] = None) -> str:
-    cfg = config or DEFAULT_EXECUTION
-    if (
-        regime_risk > cfg.stress_regime_threshold
-        or realized_vol > cfg.stress_vol_threshold
-        or trend_strength > cfg.stress_trend_threshold
-    ):
-        return "stress"
-    if (
-        regime_risk < cfg.quiet_regime_threshold
-        and realized_vol < cfg.quiet_vol_threshold
-        and trend_strength > cfg.bull_trend_threshold
-    ):
-        return "bull"
-    return "base"
-
-
-def execution_trade_lock_days(config: Optional[ExecutionConfig], regime: str) -> int:
-    cfg = config or DEFAULT_EXECUTION
-    if regime == "bull" and cfg.bull_trade_lock_days >= 0:
-        return int(cfg.bull_trade_lock_days)
-    if regime == "stress" and cfg.stress_trade_lock_days >= 0:
-        return int(cfg.stress_trade_lock_days)
-    return int(cfg.trade_lock_days)
-
-
-def execution_buy_cooldown_days(
-    cum_drop_30: float,
-    config: Optional[ExecutionConfig],
-    regime: str,
-) -> int:
-    cfg = config or DEFAULT_EXECUTION
-    if cum_drop_30 < cfg.deep_drop_threshold:
-        return min(
-            cfg.deep_drop_cooldown_max,
-            max(cfg.deep_drop_cooldown_min, int(abs(cum_drop_30) * cfg.deep_drop_cooldown_scale)),
-        )
-    if regime == "bull" and cfg.bull_buy_cooldown_days >= 0:
-        return int(cfg.bull_buy_cooldown_days)
-    if regime == "stress" and cfg.stress_buy_cooldown_days >= 0:
-        return int(cfg.stress_buy_cooldown_days)
-    return int(cfg.buy_cooldown_days)
-
-
-def rebalance_threshold(
-    regime_risk: float,
-    realized_vol: float,
-    trend_strength: float,
-    direction: str = "neutral",
-    config: Optional[ExecutionConfig] = None,
-) -> float:
-    """抑制无效调仓：对称高阈值，减少 whipsaw 与摩擦成本。
-
-    基于 A+B 实验（symmetric 0.04/0.08）的回滚修复： asymmetric
-    分支 (buy 0.02 / sell 0.06) 已被证明会显著降低收益（461.7%）。
-    """
-    cfg = config or DEFAULT_EXECUTION
-    regime = execution_regime(regime_risk, realized_vol, trend_strength, config=cfg)
-    threshold = float(cfg.base_threshold)
-    if (
-        regime_risk < cfg.quiet_regime_threshold
-        and realized_vol < cfg.quiet_vol_threshold
-        and trend_strength < cfg.quiet_trend_threshold
-    ):
-        threshold = float(cfg.quiet_threshold)
-    if (
-        regime_risk > cfg.stress_regime_threshold
-        or realized_vol > cfg.stress_vol_threshold
-        or trend_strength > cfg.stress_trend_threshold
-    ):
-        threshold = float(cfg.stress_threshold)
-    if direction == "buy":
-        threshold *= float(cfg.buy_threshold_multiplier)
-    elif direction == "sell":
-        threshold *= float(cfg.sell_threshold_multiplier)
-    if regime == "bull":
-        if direction == "buy":
-            threshold *= float(cfg.bull_buy_threshold_multiplier)
-        elif direction == "sell":
-            threshold *= float(cfg.bull_sell_threshold_multiplier)
-    elif regime == "stress":
-        if direction == "buy":
-            threshold *= float(cfg.stress_buy_threshold_multiplier)
-        elif direction == "sell":
-            threshold *= float(cfg.stress_sell_threshold_multiplier)
-    return threshold
-
-
-def rule_based_position(obs: np.ndarray) -> float:
-    """Rule-based baseline position: midpoint of action band.
-
-    This serves as the 'core' position that RL overlays upon.
-    It encodes the hard prior: hold a reasonable base position
-    based on regime, trend, and drawdown.
-    """
-    floor, cap = action_band_from_obs(obs)
-    return (floor + cap) / 2.0
-
-
-def action_band_from_obs(obs: np.ndarray, hard_floor: Optional[float] = None) -> Tuple[float, float]:
-    """将市场状态映射为可交易的仓位区间 [floor, cap]。
-
-    actor 只决定在该区间内的具体位置。区间本身编码了硬先验：
-      - 健康上升趋势中保持一定底仓（floor 提升）
-      - 高风险或高波动时压缩天花板（cap 降低）
-    
-    【优化方向 1】当前 cap 最高只到 1.0，但 drawdown_position_cap 会进一步压低。
-    在泛化测试中发现模型最大仓位仅 ~0.59，牛市踏空严重。
-    建议：当 anchor_gap>0、trend_support 强、realized_vol<0.4 时，
-    允许 cap 提升到 0.85 ~ 1.0，同时放松 drawdown cap。
-    
-    【优化方向 2】如果做多资产训练，需要把 ETF 的波动率画像作为额外输入，
-    让模型自动调整 floor/cap 的敏感度。
-    """
-    regime_risk = float(np.nan_to_num(obs[STATIC_INDEX["regime_risk"]]))
-    anchor_gap = float(np.nan_to_num(obs[STATIC_INDEX["anchor_gap_180"]]))
-    anchor_slope = float(np.nan_to_num(obs[STATIC_INDEX["anchor_slope_180"]]))
-    cum_drop_30 = float(np.nan_to_num(obs[STATIC_INDEX["cum_drop_30"]]))
-    vix_zscore = float(np.nan_to_num(obs[STATIC_INDEX["vix_zscore"]]))
-    vol_coef = float(np.nan_to_num(obs[STATIC_INDEX["vol_coef_21"]]))
-
-    floor = hard_floor if hard_floor is not None else 0.30
-    cap = 0.95
-
-    if anchor_gap > 0.02 and anchor_slope >= 0:
-        floor = 0.40
-        cap = 1.00
-    if regime_risk > 0.72 or (anchor_gap < -0.06 and anchor_slope < 0):
-        floor = 0.30
-        cap = 0.80
-    if cum_drop_30 < -0.18 and vix_zscore < 2.8:
-        floor = max(floor, 0.30)
-        cap = 1.00
-    if vol_coef > 1.45:
-        floor = max(0.20, floor - 0.05)
-        cap = min(cap, 0.90)
-
-    # === Persistent slow-bear detection ===
-    # Distinguish 2020 V-shape (short, sharp) from 2022 slow grind (long, persistent)
-    drawdown_streak = float(np.nan_to_num(obs[STATIC_INDEX["drawdown_streak_63"]]))
-    below_anchor_ratio = float(np.nan_to_num(obs[STATIC_INDEX["below_anchor_ratio_63"]]))
-    if (drawdown_streak > 0.30 and below_anchor_ratio > 0.50
-            and anchor_gap < -0.02 and regime_risk > 0.45):
-        floor = 0.15
-        cap = min(cap, 0.35)
-
-    return floor, cap
-
-
-def drawdown_position_cap(
-    cumulative_drop: float,
-    obs: Optional[np.ndarray] = None,
-    config: Optional[PositionCapConfig] = None,
-) -> float:
-    """硬性仓位上限：在持续回撤时强制压低仓位，防止死扛。
-
-    当前使用幂函数 (scale^curve_power) 进行 shaping：
-      - drop <= start_drawdown (默认 0.10) 时 cap = 1.0
-      - drop >= full_drawdown (默认 0.30) 时 cap = effective_min_cap
-    
-    【P0 优化】effective_min_cap 不再是固定值，而是根据市场状态动态调整：
-      - 牛市（realized_vol < 0.40 且 anchor_gap > 0.01）：min_cap 提升到 0.65
-      - 高风险市（regime_risk > 0.65）：min_cap 收紧到 0.30
-    这样在不同市场体制下获得更好的收益-回撤平衡。
-    """
-    cfg = config or DEFAULT_POSITION_CAP
-    effective_min_cap = float(cfg.min_cap)
-
-    # 动态调整 min_cap（P0 优化）
-    # 【第二轮调参】牛市判定增加 trend_gap>0 条件，防止在震荡市中误放宽 cap。
-    if obs is not None and len(obs) > 0:
-        realized_vol = float(np.nan_to_num(obs[STATIC_INDEX["realized_vol_10"]]))
-        anchor_gap = float(np.nan_to_num(obs[STATIC_INDEX["anchor_gap_180"]]))
-        trend_gap = float(np.nan_to_num(obs[STATIC_INDEX["trend_gap_21"]]))
-        regime_risk = float(np.nan_to_num(obs[STATIC_INDEX["regime_risk"]]))
-        if (realized_vol < cfg.bull_vol_threshold
-                and anchor_gap > cfg.bull_anchor_threshold
-                and trend_gap > 0.0):
-            effective_min_cap = max(effective_min_cap, float(cfg.bull_min_cap))
-        if regime_risk > cfg.bear_regime_threshold:
-            effective_min_cap = min(effective_min_cap, float(cfg.bear_min_cap))
-
-    drop = max(float(cumulative_drop), 0.0)
-    if drop <= cfg.start_drawdown:
-        return 1.0
-    if drop >= cfg.full_drawdown:
-        return float(effective_min_cap)
-    span = max(cfg.full_drawdown - cfg.start_drawdown, 1e-6)
-    scale = (drop - cfg.start_drawdown) / span
-    curve_power = max(float(getattr(cfg, "curve_power", 1.0)), 1e-6)
-    shaped_scale = scale**curve_power
-    return float(1.0 - shaped_scale * (1.0 - effective_min_cap))
-
-
-def action_to_position(
-    action: int,
-    obs: np.ndarray,
-    config: Optional[PositionCapConfig] = None,
-    action_levels: Optional[np.ndarray] = None,
-    hard_floor: Optional[float] = None,
-) -> float:
-    """将离散的 action（0~10）映射为连续仓位 [0, 1]。
-
-    映射公式：position = floor + base * (cap - floor)
-    其中 base = action / 10，cap 同时受 action_band 和 drawdown_position_cap 约束。
-    
-    【P0 优化】drawdown_position_cap 现在接收 obs，支持根据市场状态动态调整 cap。
-    在牛市中 effective_min_cap 提升， actor 即使选择最大 action 也可以达到更高仓位。
-    
-    【注意】N_ACTIONS=11 意味着最小粒度为 10%，这既是量化交易中的手数约束，
-    也起到了自然正则化作用，避免过度频繁的微调。
-    """
-    levels = action_levels if action_levels is not None else BASE_ACTION_LEVELS
-    clipped = int(np.clip(action, 0, len(levels) - 1))
-    base = float(levels[clipped])
-    floor, cap = action_band_from_obs(obs, hard_floor=hard_floor)
-    cumulative_drop = max(-float(np.nan_to_num(obs[STATIC_INDEX["cum_drop_30"]])), 0.0)
-    cap = min(cap, drawdown_position_cap(cumulative_drop, obs=obs, config=config))
-    return float(np.clip(floor + base * (cap - floor), 0.0, 1.0))
 
 
 def build_price_path(df: pd.DataFrame, base_price: float = 100.0) -> np.ndarray:
@@ -1377,108 +1147,6 @@ def actor_action(actor: Actor, obs: np.ndarray) -> int:
         out = actor(torch.as_tensor(obs, dtype=torch.float32).unsqueeze(0))
         logits = out[0] if isinstance(out, tuple) else out
         return int(logits.argmax(-1).item())
-
-
-def infer_actor_obs_dim(actor: Actor) -> int | None:
-    """Best-effort detection of the actor's expected observation width."""
-
-    seen = set()
-    stack = [actor]
-    while stack:
-        module = stack.pop()
-        if id(module) in seen:
-            continue
-        seen.add(id(module))
-        # Custom nets (TiDE, MoE) may expose explicit input_dim
-        input_dim = getattr(module, "input_dim", None)
-        if isinstance(input_dim, int) and input_dim > 0:
-            return input_dim
-        in_features = getattr(module, "in_features", None)
-        if isinstance(in_features, int) and in_features > 0:
-            return in_features
-        children = list(getattr(module, "children", lambda: [])())
-        stack.extend(reversed(children))
-    return None
-
-
-def adapt_observation(obs: np.ndarray, expected_obs_dim: int | None) -> np.ndarray:
-    """Trim or pad observations so old actor bundles remain replay-compatible."""
-
-    if expected_obs_dim is None or obs.shape[0] == expected_obs_dim:
-        return obs
-    if obs.shape[0] > expected_obs_dim:
-        return obs[:expected_obs_dim]
-    pad = np.zeros(expected_obs_dim - obs.shape[0], dtype=obs.dtype)
-    return np.concatenate([obs, pad], axis=0)
-
-
-def adapt_observation_for_actor(obs: np.ndarray, actor: Actor) -> np.ndarray:
-    return adapt_observation(obs, infer_actor_obs_dim(actor))
-
-
-def make_observation(
-    df: pd.DataFrame,
-    idx: int,
-    pos: float,
-    value: float,
-    peak_value: float,
-    ledger: TrancheLedger,
-    price_path: np.ndarray,
-    asset_idx: int = 0,
-    observation_window: int = 1,
-) -> np.ndarray:
-    """Build the actor input vector.
-
-    Observation layout is:
-
-    1. engineered market/regime features from `FEATURE_COLUMNS`
-    2. recent path statistics from the lookback window
-    3. portfolio state such as position, underwater, and entry context
-    """
-    row = df.iloc[idx]
-    lb = df.iloc[idx - LOOKBACK : idx]
-    underwater = value / max(peak_value, 1e-8) - 1.0
-    downside_lookback = lb["return"].where(lb["return"] < 0, 0.0).pow(2).mean()
-    ledger_snapshot = ledger.snapshot(float(price_path[idx]))
-    one_hot = np.zeros(N_ASSETS, dtype=np.float32)
-    if 0 <= asset_idx < N_ASSETS:
-        one_hot[asset_idx] = 1.0
-    window = max(int(observation_window), 1)
-    history_features: list[float] = []
-    if window > 1:
-        history = df.iloc[idx - window + 1 : idx][FEATURE_COLUMNS]
-        if len(history) < window - 1:
-            pad_rows = np.zeros((window - 1 - len(history), len(FEATURE_COLUMNS)), dtype=np.float32)
-            history_values = np.vstack([pad_rows, history.to_numpy(dtype=np.float32)])
-        else:
-            history_values = history.to_numpy(dtype=np.float32)
-        history_features = history_values.reshape(-1).tolist()
-    drawdown_velocity_5 = (
-        float(row["cum_drop_30"] - lb["cum_drop_30"].iloc[-6]) if len(lb) >= 6 else 0.0
-    )
-    regime_risk_max_60d = float(lb["regime_risk"].max()) if len(lb) > 0 else 0.0
-    vol_velocity_5 = (
-        float(row["realized_vol_10"] - lb["realized_vol_10"].iloc[-6]) if len(lb) >= 6 else 0.0
-    )
-    obs = np.array(
-        list(row[FEATURE_COLUMNS].values.astype(np.float32))
-        + history_features
-        + [
-            float(np.nan_to_num(lb["return"].mean())),
-            float(np.nan_to_num(lb["return"].skew())) if len(lb) > 3 else 0.0,
-            float(np.nan_to_num(downside_lookback**0.5)),
-            float(idx / len(df)),
-            float(pos),
-            float(underwater),
-            *ledger_snapshot,
-            drawdown_velocity_5,
-            regime_risk_max_60d,
-            vol_velocity_5,
-        ]
-        + list(one_hot),
-        dtype=np.float32,
-    )
-    return np.nan_to_num(obs)
 
 
 def evaluate_split(

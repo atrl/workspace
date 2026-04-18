@@ -4,16 +4,17 @@ title: 'Trade compression experiments: execution vs reward vs decision_frequency
 kind: experiment
 profiles:
 - balanced_floor40_sym
-- balanced_floor40_sym_v2
-status: completed
+- soxl
+status: reference
 tags:
-- trade-compression
-- decision-frequency
-- execution-config
-- drawdown-control
-- generalization
-artifacts:
-- runtime/generalization/versions/v2_df3/
+- balanced_floor40_sym
+- completed
+- eval-2022
+- experiment
+- rule-based
+- soxl
+- stress-regime
+artifacts: []
 workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
 summary: 'Four variants of trade-frequency compression tested on SOXL. decision_frequency=3
   achieves the best 2022 MaxDD (38.4%) and good generalization, but sacrifices total

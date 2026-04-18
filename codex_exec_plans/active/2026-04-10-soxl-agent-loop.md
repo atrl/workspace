@@ -60,6 +60,54 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
     - whether any fixed-actor overlay passes more promotion checks than the retained actor
     - whether the next branch should stay in overlay / selection space or move back to retraining
 
+## Harness maintenance loop 2026-04-18 21:xx
+
+- Goal:
+  - stop profile/config drift from making `rl.py`, `cli.py`, and artifact retention opaque
+  - make the next model iteration start from explicit canonical/baseline/retention state
+- Planned edits:
+  - move typed profile loading into `src/soxl_quant/config.py`
+  - add `configs/soxl/profile_registry.yaml`
+  - narrow `src/soxl_quant/settings.py` to paths/constants/artifact naming
+  - make CLI profile discovery dynamic instead of hand-maintained choices
+  - split RL helper responsibilities into dedicated modules for execution, positioning, and observation construction
+  - regenerate retention manifest and delete registry-rejected actor bundles plus repo noise
+- Acceptance criteria:
+  - registry covers every profile config
+  - `AGENTS.md` documents profile lifecycle and cleanup rules
+  - `scripts/prune_artifacts.py` is registry-driven
+  - targeted validation passes after the refactor
+- Commands:
+  - `qlib_venv/bin/python -m py_compile src/soxl_quant/config.py src/soxl_quant/registry.py src/soxl_quant/settings.py src/soxl_quant/rl_execution.py src/soxl_quant/rl_positioning.py src/soxl_quant/rl_observation.py src/soxl_quant/rl.py src/soxl_quant/cli.py scripts/prune_artifacts.py`
+  - `PYTHONPATH=. qlib_venv/bin/python tests/test_artifact_paths.py`
+  - `PYTHONPATH=. qlib_venv/bin/python tests/test_position_cap.py`
+  - `PYTHONPATH=. qlib_venv/bin/python -c "import tests.test_profile_registry as t; t.test_registry_covers_all_profiles(); t.test_registry_has_single_canonical_per_family(); t.test_dropped_profiles_do_not_keep_actors(); print('test_profile_registry: OK')"`
+  - `PYTHONPATH=. qlib_venv/bin/python -c "import tests.test_structural_model as t; t.test_observation_window_expands_obs_dim(); t.test_make_observation_respects_window_layout(); t.test_regime_stratified_sampling_oversamples_persistent_stress(); t.test_episode_stride_creates_overlapping_windows(); t.test_phase_balanced_sampling_oversamples_rebound_and_trend(); print('test_structural_model: OK')"`
+  - `PYTHONPATH=. qlib_venv/bin/python scripts/prune_artifacts.py --apply`
+  - `PYTHONPATH=. qlib_venv/bin/python scripts/normalize_memory.py`
+  - `PYTHONPATH=. qlib_venv/bin/python scripts/check_harness.py`
+- Validation evidence:
+  - compile check passed for config/registry/settings/CLI/RL split files
+  - `test_artifact_paths: OK`
+  - `test_position_cap: OK`
+  - `test_profile_registry: OK`
+  - `test_structural_model: OK`
+  - cleanup manifest after registry tightening: `keep=88 delete=4`, final deletion freed `498421` bytes on the second pass after an initial broader cleanup freed `3971622` bytes
+  - `memory/index.json` rebuilt with `34` normalized notes
+  - `scripts/check_harness.py`: `passed=32 failures=0`
+  - actor inventory after cleanup:
+    - `soxl_balanced_actor.pt`
+    - `soxl_balanced_checkpoint_review_actor.pt`
+    - `soxl_balanced_wf_2020_actor.pt`
+    - `soxl_balanced_wf_2022_actor.pt`
+    - `soxl_balanced_wf_2023_2024_actor.pt`
+    - `soxl_smoke_actor.pt`
+- Keep / drop decision:
+  - keep the new config/registry split and registry-driven cleanup path
+  - keep summary/review evidence for dropped and archived profiles
+  - drop redundant actor bundles for ablation / archived / dropped profiles
+  - next RL decomposition pass should continue with reward / policy / evaluation extraction instead of reopening execution/positioning logic in `rl.py`
+
 ## Validation harness
 
 - Main run:

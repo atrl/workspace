@@ -1,52 +1,31 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
-"""Manifest-driven cleanup for superseded model artifacts."""
+"""Registry-driven cleanup for stale artifacts and obvious repo noise."""
 
 import argparse
 import json
-import re
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 MODEL_DIR = ROOT / "artifacts" / "models"
 MANIFEST_PATH = ROOT / "artifacts" / "retention_manifest.json"
-MEMORY_INDEX = ROOT / "memory" / "index.json"
-WORKPAD_PATH = ROOT / "codex_exec_plans" / "active" / "2026-04-10-soxl-agent-loop.md"
 
-CANONICAL_KEEP = {
-    "soxl_balanced_actor.pt",
-    "soxl_balanced_summary.json",
-    "soxl_smoke_actor.pt",
-    "soxl_smoke_summary.json",
-    "soxl_balanced_wf_2020_actor.pt",
-    "soxl_balanced_wf_2020_summary.json",
-    "soxl_balanced_wf_2022_actor.pt",
-    "soxl_balanced_wf_2022_summary.json",
-    "soxl_balanced_wf_2023_2024_actor.pt",
-    "soxl_balanced_wf_2023_2024_summary.json",
-}
+import sys
 
-DELETE_STEMS = {
-    "soxl_balanced_regime_gate_actor.pt",
-    "soxl_balanced_regime_gate_v2_actor.pt",
-    "soxl_balanced_stress_behavior_actor.pt",
-    "soxl_balanced_stress_release_delta_actor.pt",
-    "soxl_balanced_stress_select_actor.pt",
-    "soxl_balanced_transition_state_actor.pt",
-    "soxl_balanced_floor40_sym_bear30_actor.pt",
-    "soxl_balanced_curvepow2_actor.pt",
-    "soxl_balanced_actor_seed42.pt",
-    "soxl_smoke_actor_floor04.pt",
-    "soxl_smoke_actor_floor05.pt",
-    "soxl_smoke_actor_run1.pt",
-    "soxl_smoke_actor_run2.pt",
-    "soxl_smoke_actor_start010.pt",
-    "soxl_smoke_actor_start012.pt",
-    "soxl_smoke_actor_start015.pt",
-    "soxl_smoke_wf_2020_actor.pt",
-}
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from src.soxl_quant.registry import load_profile_registry
+from src.soxl_quant.settings import artifact_stem
+
+NOISE_PATHS = (
+    ROOT / "runtime" / ".DS_Store",
+    ROOT / "__pycache__",
+    ROOT / "src" / "soxl_quant" / "__pycache__",
+)
 
 
 def parse_args() -> argparse.Namespace:
@@ -55,49 +34,62 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def referenced_basenames() -> set[str]:
-    refs = set(CANONICAL_KEEP)
-    sources = [WORKPAD_PATH]
-    if MEMORY_INDEX.exists():
-        index = json.loads(MEMORY_INDEX.read_text(encoding="utf-8"))
-        for record in index:
-            for artifact in record.get("artifacts", []):
-                refs.add(Path(artifact).name)
-    for path in sources:
-        text = path.read_text(encoding="utf-8")
-        refs.update(re.findall(r"artifacts/models/([A-Za-z0-9._-]+)", text))
-    return refs
+def _registry_entry_for_name(profile_name: str, registry: dict[str, Any]) -> Any | None:
+    return registry.get(profile_name)
+
+
+def _profile_name_from_path(path: Path, *, allow_summary_namespace: bool) -> str | None:
+    name = path.name
+    if not name.startswith("soxl_"):
+        return None
+    stem = name.removeprefix("soxl_")
+    for suffix in ("_actor.pt", "_summary.json"):
+        if stem.endswith(suffix):
+            stem = stem[: -len(suffix)]
+            break
+    exact = ROOT / "configs" / "soxl" / f"{stem}.yaml"
+    if exact.exists():
+        return stem
+    if stem.startswith("balanced_wf_"):
+        return "balanced"
+    if not allow_summary_namespace:
+        return None
+    parts = stem.split("_")
+    for idx in range(len(parts), 1, -1):
+        candidate = "_".join(parts[:idx])
+        if (ROOT / "configs" / "soxl" / f"{candidate}.yaml").exists():
+            return candidate
+    return None
 
 
 def build_manifest() -> dict[str, Any]:
-    referenced = referenced_basenames()
-    entries = []
+    registry = load_profile_registry()
+    entries: list[dict[str, Any]] = []
     for path in sorted(MODEL_DIR.glob("*")):
-        basename = path.name
-        reason = "canonical keep"
         action = "keep"
-        if basename in referenced:
-            action = "keep"
-            reason = "referenced by memory/workpad or canonical set"
-        elif basename in DELETE_STEMS:
-            action = "delete"
-            reason = "superseded actor or redundant sweep output"
-        elif basename.endswith("_actor.pt") and any(
-            token in basename
-            for token in (
-                "regime_gate",
-                "stress_behavior",
-                "stress_release_delta",
-                "stress_select",
-                "transition_state",
-                "floor40_sym_bear30",
-            )
-        ):
-            action = "delete"
-            reason = "dropped branch actor"
-        elif basename.endswith(".json"):
-            action = "keep"
-            reason = "summary retained as evidence"
+        reason = "summary retained as evidence"
+        profile_name = _profile_name_from_path(path, allow_summary_namespace=path.name.endswith("_summary.json"))
+        entry = _registry_entry_for_name(profile_name, registry) if profile_name else None
+        if path.name.endswith("_actor.pt"):
+            if entry is None:
+                action = "delete"
+                reason = "actor has no registered profile"
+            elif entry.keep_actor:
+                action = "keep"
+                reason = f"registry keep_actor for {entry.status} profile"
+            else:
+                action = "delete"
+                reason = f"registry drop actor for {entry.status} profile"
+        elif path.name.endswith("_summary.json"):
+            if entry is None:
+                action = "keep"
+                reason = "summary retained even without registry match"
+            elif entry.keep_summary:
+                action = "keep"
+                reason = f"registry keep_summary for {entry.status} profile"
+            else:
+                action = "delete"
+                reason = f"registry drop summary for {entry.status} profile"
         entries.append(
             {
                 "path": str(path.relative_to(ROOT)),
@@ -106,7 +98,19 @@ def build_manifest() -> dict[str, Any]:
                 "size_bytes": path.stat().st_size,
             }
         )
-    manifest = {"generated_at": __import__("datetime").datetime.utcnow().isoformat() + "Z", "entries": entries}
+    for noise_path in NOISE_PATHS:
+        if not noise_path.exists():
+            continue
+        size_bytes = noise_path.stat().st_size if noise_path.is_file() else 0
+        entries.append(
+            {
+                "path": str(noise_path.relative_to(ROOT)),
+                "action": "delete",
+                "reason": "generated cache or filesystem noise",
+                "size_bytes": size_bytes,
+            }
+        )
+    manifest = {"generated_at": datetime.now(timezone.utc).isoformat(), "entries": entries}
     MANIFEST_PATH.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
     return manifest
 
@@ -120,9 +124,20 @@ def apply_manifest(manifest: dict[str, Any]) -> tuple[int, int]:
         path = ROOT / entry["path"]
         if not path.exists():
             continue
-        freed += path.stat().st_size
-        path.unlink()
-        deleted += 1
+        if path.is_file():
+            freed += path.stat().st_size
+            path.unlink()
+            deleted += 1
+            continue
+        if path.is_dir():
+            for child in sorted(path.rglob("*"), reverse=True):
+                if child.is_file():
+                    freed += child.stat().st_size
+                    child.unlink()
+                elif child.is_dir():
+                    child.rmdir()
+            path.rmdir()
+            deleted += 1
     return deleted, freed
 
 
