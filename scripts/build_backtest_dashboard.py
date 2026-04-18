@@ -530,6 +530,7 @@ def _build_layout_all() -> dict:
             row=i, col=1,
         )
     fig.update_yaxes(title_text="NAV", row=1, col=1)
+    fig.update_yaxes(title_text="Price", overlaying="y", side="right", showgrid=False, tickfont=dict(size=10), row=1, col=1)
     fig.update_yaxes(title_text="Pos", row=2, col=1)
     fig.update_yaxes(title_text="Excess %", row=3, col=1)
     fig.update_yaxes(title_text="DD %", row=4, col=1)
@@ -1918,6 +1919,11 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       const tradeMap = {{}};
       trades.forEach(t => {{ tradeMap[t.entry_date] = t; }});
 
+      // Build date maps for BUY <-> SELL click pairing
+      const buyToSell = {{}};
+      const sellToBuy = {{}};
+      trades.forEach(t => {{ buyToSell[t.entry_date] = t.exit_date; sellToBuy[t.exit_date] = t.entry_date; }});
+
       renderRegimeStrip(rows);
       renderPositionDist(rows);
       renderTradeList(trades);
@@ -1942,13 +1948,24 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
         hovertemplate: '%{{x}}<br>Buy&Hold: %{{y:,.2f}}<extra></extra>',
         xaxis: xa, yaxis: ya,
       }});
+      // Price on secondary y-axis
+      const prices = rows.map(r => r.price);
+      traces.push({{
+        x: dates, y: prices,
+        name: 'Price', type: 'scatter', mode: 'lines',
+        line: {{ color: '#8c7e6a', width: 1.2, dash: 'dot' }},
+        hovertemplate: '%{{x}}<br>Price: $%{{y:,.2f}}<extra></extra>',
+        xaxis: xa, yaxis: 'y2',
+        opacity: 0.6,
+      }});
       if (buyRows.length) {{
         traces.push({{
           x: buyRows.map(r => r.datetime),
           y: buyRows.map(r => r.price || r.strategy_nav),
           name: 'BUY', type: 'scatter', mode: 'markers',
-          marker: {{ symbol: 'triangle-up', size: 11, color: '{C_BUY}', line: {{ color: 'white', width: 1 }} }},
+          marker: {{ symbol: 'triangle-up', size: 12, color: '{C_BUY}', line: {{ color: 'white', width: 1.5 }} }},
           hovertemplate: '<b>BUY</b> %{{x}}<extra></extra>',
+          customdata: buyRows.map(r => buyToSell[r.datetime] || ''),
           xaxis: xa, yaxis: ya,
         }});
       }}
@@ -1957,8 +1974,9 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
           x: sellRows.map(r => r.datetime),
           y: sellRows.map(r => r.price || r.strategy_nav),
           name: 'SELL', type: 'scatter', mode: 'markers',
-          marker: {{ symbol: 'triangle-down', size: 11, color: '{C_SELL}', line: {{ color: 'white', width: 1 }} }},
+          marker: {{ symbol: 'triangle-down', size: 12, color: '{C_SELL}', line: {{ color: 'white', width: 1.5 }} }},
           hovertemplate: '<b>SELL</b> %{{x}}<extra></extra>',
+          customdata: sellRows.map(r => sellToBuy[r.datetime] || ''),
           xaxis: xa, yaxis: ya,
         }});
       }}
@@ -2012,6 +2030,21 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
           const dateStr = pt.x;
           const row = rows.find(r => r.datetime === dateStr);
           updateInfoPanel(row, tradeMap);
+        }});
+        gd.on('plotly_click', function(data) {{
+          const pt = data.points[0];
+          const pairedDate = pt.customdata;
+          if (pairedDate) {{
+            const dateStr = pt.x;
+            const start = dateStr < pairedDate ? dateStr : pairedDate;
+            const end = dateStr > pairedDate ? dateStr : pairedDate;
+            state.zoomStart = start;
+            state.zoomEnd = end;
+            state.zoomMode = 'custom';
+            saveState();
+            syncZoomInputs();
+            renderChart();
+          }}
         }});
       }});
 
