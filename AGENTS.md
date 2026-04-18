@@ -95,6 +95,10 @@ Profile sprawl is now a harness problem, not just a naming problem.
 
 Do not let `cli.py`, `settings.py`, or `rl.py` become mixed-purpose catch-alls.
 
+- Preferred code layout under `src/soxl_quant/` is now:
+  - `app/` for orchestration entrypoints
+  - `core/` for config, registry, constants, artifacts, and dataset helpers
+  - `policy/` for observation, reward, execution, positioning, evaluation, and model builders
 - `src/soxl_quant/settings.py` owns repo paths, constants, and artifact naming only.
 - `src/soxl_quant/config.py` owns typed config dataclasses and profile loading.
 - `src/soxl_quant/cli.py` owns orchestration only:

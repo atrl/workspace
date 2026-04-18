@@ -135,6 +135,20 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
   - keep legacy flat YAMLs as compatibility stubs until more profiles move
   - next migration wave should move the current active balanced-family candidates before touching archived noise profiles
 
+## Package-structure refactor 2026-04-18 22:xx
+
+- Goal:
+  - make the package layout visually match the intended architecture instead of leaving everything at the top level
+- Changes:
+  - added `src/soxl_quant/app/`
+  - added `src/soxl_quant/core/`
+  - added `src/soxl_quant/policy/`
+  - switched package/root entrypoints to `src.soxl_quant.app.cli`
+  - exposed compatibility wrappers so old imports still resolve while new code can target the structured paths
+- Validation target:
+  - compile/import graph stays clean
+  - harness checks remain green after entrypoint switch
+
 ## Validation harness
 
 - Main run:

@@ -1,5 +1,5 @@
 """SOXL-only qlib reinforcement learning package."""
 
-from .cli import main
+from .app.cli import main
 
 __all__ = ["main"]

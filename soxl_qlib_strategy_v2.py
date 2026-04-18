@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Thin CLI entrypoint for the SOXL qlib package."""
 
-from src.soxl_quant.cli import main
+from src.soxl_quant.app.cli import main
 
 
 if __name__ == "__main__":

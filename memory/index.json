@@ -737,6 +737,25 @@
     "excerpt": "# 2026-04-18: harness cleanup, indexed memory retrieval, and soft artifact prune ## Context The repo had accumulated three classes of avoidable friction: - docs still implied `pytest` was the default check path even though `qlib_venv` did not ship it - `memory/` had drifted into "
   },
   {
+    "path": "memory/2026-04-18-package-structure-refactor.md",
+    "date": "2026-04-18",
+    "title": "2026-04-18 Package Structure Refactor",
+    "kind": "decision",
+    "profiles": [
+      "moe"
+    ],
+    "status": "reference",
+    "tags": [
+      "decision",
+      "moe",
+      "reference"
+    ],
+    "artifacts": [],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "The repository had already started splitting responsibilities conceptually, but the filesystem still looked flat. That made the intended architecture hard to see and easy to ignore. Added new package directories under `src/soxl_quant/`: `ap",
+    "excerpt": "# 2026-04-18 Package Structure Refactor ## Context The repository had already started splitting responsibilities conceptually, but the filesystem still looked flat. That made the intended architecture hard to see and easy to ignore. ## Evidence - Added new package directories und"
+  },
+  {
     "path": "memory/2026-04-18-phase-balanced-training-failure.md",
     "date": "2026-04-18",
     "title": "2026-04-18 phase-balanced training failure",
