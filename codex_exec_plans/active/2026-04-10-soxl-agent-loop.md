@@ -309,6 +309,27 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
   - keep `rl.py` and `cli.py` only as backward-compatible facades
   - drop the old top-level `rl_*` helper modules
   - prefer directory READMEs and generated indexes over duplicating long directory-explainer notes in multiple places
+
+## Internal facade shrink 2026-04-19 00:xx
+
+- Goal:
+  - prove the repo itself no longer depends on `rl.py` and continue shrinking `app/train.py`
+- Changes:
+  - added `src/soxl_quant/app/artifacts.py` for artifact naming and summary/model persistence
+  - added `src/soxl_quant/app/workers.py` for walk-forward subprocess orchestration
+  - reduced `src/soxl_quant/app/train.py` to training and profile-run responsibilities only
+  - updated tests to import policy modules directly instead of routing through `src.soxl_quant.rl`
+- Commands:
+  - `PYTHONPATH=. qlib_venv/bin/python -m py_compile src/soxl_quant/app/artifacts.py src/soxl_quant/app/workers.py src/soxl_quant/app/train.py src/soxl_quant/app/cli.py tests/test_reward.py tests/test_structural_model.py tests/test_position_cap.py tests/test_runtime.py`
+  - `rg -n "from src\\.soxl_quant\\.rl import|from \\.rl import" src tests`
+  - `PYTHONPATH=. qlib_venv/bin/python scripts/check_harness.py`
+- Validation evidence:
+  - compile check passed for the new app modules and updated tests
+  - no internal `rl` import sites remain in `src/` or `tests/`
+  - `scripts/check_harness.py`: `passed=32 failures=0`
+- Keep / drop decision:
+  - keep `rl.py` only as an external compatibility shim
+  - keep new app submodules as the place to continue shrinking orchestration logic
   - saved review:
     - `runtime/post_train_review/balanced_checkpoint_review.md`
     - `runtime/post_train_review/balanced_checkpoint_review_vs_balanced.md`

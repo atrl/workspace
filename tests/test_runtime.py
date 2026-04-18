@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from src.soxl_quant.rl import TrancheLedger
+from src.soxl_quant.policy.environment import TrancheLedger
 from src.soxl_quant.runtime import SignalIntent, PaperBroker, reconcile_positions, risk_gate
 
 

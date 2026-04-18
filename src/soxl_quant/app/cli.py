@@ -19,7 +19,8 @@ from ..config import list_profile_names
 from ..data import FEATURE_COLUMNS, build_dataset, init_qlib, refresh_qlib_binary, segment_frame
 from ..settings import CSV_PATH, QLIB_DATA_PATH, RESULT_PNG, RESULT_TXT, TEST_SEG, load_profile
 from .promote import build_promotion_report, persist_promotion_report
-from .train import _build_multi_asset_sources, run_profile, run_walk_forward_isolated, run_worker_profile, set_global_seed
+from .train import _build_multi_asset_sources, run_profile, set_global_seed
+from .workers import run_walk_forward_isolated, run_worker_profile
 
 
 def parse_args() -> argparse.Namespace:

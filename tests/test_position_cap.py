@@ -9,7 +9,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from src.soxl_quant.data import FEATURE_COLUMNS, STATIC_INDEX
-from src.soxl_quant.rl import action_to_position, drawdown_position_cap
+from src.soxl_quant.policy.positioning import action_to_position, drawdown_position_cap
 from src.soxl_quant.settings import EXTRA_OBS_DIM, N_ACTIONS, PositionCapConfig
 
 

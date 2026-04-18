@@ -3,7 +3,8 @@ from __future__ import annotations
 import numpy as np
 
 from src.soxl_quant.data import FEATURE_COLUMNS, STATIC_INDEX
-from src.soxl_quant.rl import ContinuousReward, EXTRA_INDEX
+from src.soxl_quant.policy.observation import EXTRA_INDEX
+from src.soxl_quant.policy.reward import ContinuousReward
 from src.soxl_quant.settings import EXTRA_OBS_DIM, RewardConfig, StrategyConfig
 
 

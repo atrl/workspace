@@ -1,26 +1,17 @@
 from __future__ import annotations
 
-import argparse
 import copy
-import json
 import os
 import random
-import subprocess
-import sys
 from pathlib import Path
-from typing import Dict, Tuple
+from typing import Dict
 
 import numpy as np
-import pandas as pd
 import torch
 from qlib.rl.trainer.api import train as qlib_train
 
 from ..backtest import backtest_profile
-from ..compat import patch_gym_compat
 from ..data import (
-    FEATURE_COLUMNS,
-    build_dataset,
-    feature_schema_signature,
     init_qlib,
     refresh_qlib_binary,
     segment_frame,
@@ -34,93 +25,12 @@ from ..policy.reward import ContinuousReward
 from ..settings import (
     CSV_PATH,
     ETF_UNIVERSE,
-    EXTRA_OBS_DIM,
-    MODEL_DIR,
-    N_ASSETS,
     QLIB_DATA_PATH,
     ROOT,
-    TEST_SEG,
-    load_profile,
-    model_artifact_path,
-    summary_artifact_path,
 )
-from .evaluate import compact_result, describe_metrics, slice_frame, slice_metrics, validation_score
+from .artifacts import artifact_tag_suffix, persist_actor_bundle, persist_summary_bundle
+from .evaluate import slice_metrics, validation_score
 from .promote import build_promotion_report
-
-WalkForwardWindow = Tuple[str, Tuple[str, str], Tuple[str, str], Tuple[str, str]]
-
-WALK_FORWARD_WINDOWS: Tuple[WalkForwardWindow, ...] = (
-    ("wf_2020", ("2010-03-11", "2018-12-31"), ("2019-01-01", "2019-12-31"), ("2020-01-01", "2020-12-31")),
-    ("wf_2022", ("2010-03-11", "2020-12-31"), ("2021-01-01", "2021-12-31"), ("2022-01-01", "2022-12-31")),
-    ("wf_2023_2024", ("2010-03-11", "2022-12-31"), ("2023-01-01", "2023-12-31"), ("2024-01-01", "2024-12-31")),
-)
-
-WORKER_RESULT_DIR = ROOT / "runtime" / "soxl" / "wf_workers"
-
-
-def serialize_position_cap(profile) -> Dict[str, float]:
-    return {
-        "start_drawdown": profile.position_cap.start_drawdown,
-        "full_drawdown": profile.position_cap.full_drawdown,
-        "min_cap": profile.position_cap.min_cap,
-        "curve_power": profile.position_cap.curve_power,
-        "bull_min_cap": profile.position_cap.bull_min_cap,
-        "bull_vol_threshold": profile.position_cap.bull_vol_threshold,
-        "bull_anchor_threshold": profile.position_cap.bull_anchor_threshold,
-        "bear_min_cap": profile.position_cap.bear_min_cap,
-        "bear_regime_threshold": profile.position_cap.bear_regime_threshold,
-    }
-
-
-def serialize_selection_score(profile) -> Dict[str, float | bool]:
-    return {
-        "return_weight": profile.selection_score.return_weight,
-        "sharpe_weight": profile.selection_score.sharpe_weight,
-        "max_dd_penalty": profile.selection_score.max_dd_penalty,
-        "avg_pos_penalty": profile.selection_score.avg_pos_penalty,
-        "stress_avg_pos_penalty": profile.selection_score.stress_avg_pos_penalty,
-        "stress_threshold": profile.selection_score.stress_threshold,
-        "staged_training": profile.selection_score.staged_training,
-        "stage_iters": profile.selection_score.stage_iters,
-    }
-
-
-def serialize_model_config(profile) -> Dict[str, object]:
-    return {
-        "observation_window": int(profile.model.observation_window),
-        "action_levels": [float(v) for v in profile.model.action_levels],
-        "use_regime_router": bool(profile.model.use_regime_router),
-        "hard_regime_routing": bool(profile.model.hard_regime_routing),
-        "router_experts": int(profile.model.router_experts),
-        "router_top_k": int(profile.model.router_top_k),
-        "router_noise_std": float(profile.model.router_noise_std),
-    }
-
-
-def serialize_sampling_config(profile) -> Dict[str, object]:
-    return {
-        "regime_stratified": bool(profile.sampling.regime_stratified),
-        "phase_balanced": bool(profile.sampling.phase_balanced),
-        "mild_risk_threshold": float(profile.sampling.mild_risk_threshold),
-        "severe_risk_threshold": float(profile.sampling.severe_risk_threshold),
-        "mild_drawdown_threshold": float(profile.sampling.mild_drawdown_threshold),
-        "severe_drawdown_threshold": float(profile.sampling.severe_drawdown_threshold),
-        "mild_repeat": int(profile.sampling.mild_repeat),
-        "severe_repeat": int(profile.sampling.severe_repeat),
-        "persistent_stress_days": float(profile.sampling.persistent_stress_days),
-        "trend_repeat": int(profile.sampling.trend_repeat),
-        "rebound_repeat": int(profile.sampling.rebound_repeat),
-        "episode_stride": int(profile.sampling.episode_stride),
-        "bull_anchor_threshold": float(profile.sampling.bull_anchor_threshold),
-        "bull_trend_threshold": float(profile.sampling.bull_trend_threshold),
-        "bull_vol_threshold": float(profile.sampling.bull_vol_threshold),
-        "bull_risk_threshold": float(profile.sampling.bull_risk_threshold),
-        "rebound_anchor_ceiling": float(profile.sampling.rebound_anchor_ceiling),
-        "rebound_trend_floor": float(profile.sampling.rebound_trend_floor),
-        "rebound_risk_ceiling": float(profile.sampling.rebound_risk_ceiling),
-        "rebound_risk_release": float(profile.sampling.rebound_risk_release),
-    }
-
 
 def set_global_seed(seed: int) -> None:
     os.environ["PYTHONHASHSEED"] = str(seed)
@@ -321,8 +231,7 @@ def run_profile(
     if not initial_states:
         raise RuntimeError(f"no initial states generated for profile={profile.name}")
 
-    moe_tag = "moe_novix" if (use_moe and ablate_vix) else ("moe" if use_moe else "")
-    effective_tag = f"{artifact_tag}_{moe_tag}" if (artifact_tag and moe_tag) else (artifact_tag or moe_tag)
+    effective_tag = artifact_tag_suffix(artifact_tag, use_moe=use_moe, ablate_vix=ablate_vix)
 
     set_global_seed(seed)
     print(
@@ -347,30 +256,7 @@ def run_profile(
         f"best_score={selection['best_score']:.2f}"
     )
 
-    MODEL_DIR.mkdir(parents=True, exist_ok=True)
-    model_path = model_artifact_path(profile.name, effective_tag)
-    summary_path = summary_artifact_path(profile.name, effective_tag)
-    torch.save(
-        {
-            "profile": profile.name,
-            "seed": seed,
-            "hidden_sizes": list(profile.hidden_sizes),
-            "obs_dim": obs_dim,
-            "n_actions": int(getattr(actor, "output_dim", 0) or 11),
-            "feature_schema": {
-                "signature": feature_schema_signature(),
-                "feature_count": len(FEATURE_COLUMNS),
-                "extra_obs_dim": EXTRA_OBS_DIM,
-                "n_assets": N_ASSETS,
-            },
-            "position_cap": serialize_position_cap(profile),
-            "selection_score": serialize_selection_score(profile),
-            "model_config": serialize_model_config(profile),
-            "sampling_config": serialize_sampling_config(profile),
-            "state_dict": actor.state_dict(),
-        },
-        model_path,
-    )
+    model_path = persist_actor_bundle(profile, actor, obs_dim=obs_dim, seed=seed, effective_tag=effective_tag)
     slice_result = slice_metrics(
         actor,
         test_df,
@@ -392,32 +278,16 @@ def run_profile(
         hard_floor=profile.model.hard_floor,
     )
     promotion_report = build_promotion_report(profile, slice_result, test_proxy)
-    summary_path.write_text(
-        json.dumps(
-            {
-                "profile": profile.name,
-                "seed": seed,
-                "feature_schema": {
-                    "signature": feature_schema_signature(),
-                    "feature_count": len(FEATURE_COLUMNS),
-                    "extra_obs_dim": EXTRA_OBS_DIM,
-                    "n_assets": N_ASSETS,
-                },
-                "position_cap": serialize_position_cap(profile),
-                "selection_score": serialize_selection_score(profile),
-                "model_config": serialize_model_config(profile),
-                "sampling_config": serialize_sampling_config(profile),
-                "model_path": str(model_path),
-                "valid": valid_metrics,
-                "best_score": selection["best_score"],
-                "selection_history": selection["history"],
-                "slices": slice_result,
-                "test_proxy": test_proxy,
-                "promotion": promotion_report,
-            },
-            indent=2,
-        ),
-        encoding="utf-8",
+    summary_path = persist_summary_bundle(
+        profile=profile,
+        seed=seed,
+        effective_tag=effective_tag,
+        model_path=model_path,
+        valid_metrics=valid_metrics,
+        selection=selection,
+        slice_result=slice_result,
+        test_proxy=test_proxy,
+        promotion_report=promotion_report,
     )
     bt_result = backtest_profile(actor, test_df, price_series, position_cap_config=profile.position_cap, asset_idx=0)
     bt_result["valid"] = valid_metrics
@@ -429,119 +299,9 @@ def run_profile(
     bt_result["promotion"] = promotion_report
     return bt_result
 
-
-def run_walk_forward_isolated(
-    profile,
-    smoke: bool,
-    seed: int,
-    skip_data_refresh: bool,
-    multi_asset: bool = False,
-    use_moe: bool = False,
-    ablate_vix: bool = False,
-) -> Dict[str, Dict[str, object]]:
-    results: Dict[str, Dict[str, object]] = {}
-    WORKER_RESULT_DIR.mkdir(parents=True, exist_ok=True)
-    for name, train_seg, valid_seg, test_seg in WALK_FORWARD_WINDOWS:
-        print(
-            f"\n[walk-forward:{profile.name}:{name}:isolated] "
-            f"train={train_seg[0]}->{train_seg[1]} valid={valid_seg[0]}->{valid_seg[1]} test={test_seg[0]}->{test_seg[1]}"
-        )
-        worker_output = WORKER_RESULT_DIR / f"{profile.name}-{name}-seed{seed}.json"
-        if worker_output.exists():
-            worker_output.unlink()
-        cmd = [
-            sys.executable,
-            str(ROOT / "soxl_qlib_strategy_v2.py"),
-            "--profiles",
-            profile.name,
-            "--seed",
-            str(seed),
-            "--worker-run-profile",
-            profile.name,
-            "--worker-window-name",
-            name,
-            "--worker-train-start",
-            train_seg[0],
-            "--worker-train-end",
-            train_seg[1],
-            "--worker-valid-start",
-            valid_seg[0],
-            "--worker-valid-end",
-            valid_seg[1],
-            "--worker-test-start",
-            test_seg[0],
-            "--worker-test-end",
-            test_seg[1],
-            "--worker-output",
-            str(worker_output),
-        ]
-        if smoke:
-            cmd.append("--smoke")
-        if skip_data_refresh:
-            cmd.append("--skip-data-refresh")
-        if multi_asset:
-            cmd.append("--multi-asset")
-        if use_moe:
-            cmd.append("--moe")
-        if ablate_vix:
-            cmd.append("--ablate-vix")
-        proc = subprocess.run(cmd, cwd=str(ROOT), check=False)
-        if not worker_output.exists():
-            raise RuntimeError(f"walk-forward worker failed before writing result: {name} exit={proc.returncode}")
-        worker_payload = json.loads(worker_output.read_text(encoding="utf-8"))
-        results[name] = worker_payload
-        print(describe_metrics(f"walk-forward:{profile.name}:{name}", worker_payload))
-        if smoke:
-            break
-    return results
-
-
-def run_worker_profile(args: argparse.Namespace) -> None:
-    patch_gym_compat()
-    set_global_seed(args.seed)
-    init_qlib(QLIB_DATA_PATH)
-    dataset = build_dataset(ablate_vix=args.ablate_vix)
-    full_df = pd.concat(
-        [
-            segment_frame(dataset, "train"),
-            segment_frame(dataset, "valid"),
-            segment_frame(dataset, "test"),
-        ]
-    ).sort_index()
-    price_frame = dataset.handler.price_frame.droplevel("instrument")["price"].sort_index()
-    profile = load_profile(args.worker_run_profile)
-    if args.smoke or args.worker_run_profile == "smoke":
-        profile = load_profile("smoke")
-    multi_asset_sources = None
-    if args.multi_asset:
-        multi_asset_sources = _build_multi_asset_sources(ROOT / "data" / "multi_asset", verbose=False)
-
-    result = run_profile(
-        profile=profile,
-        train_df=slice_frame(full_df, (args.worker_train_start, args.worker_train_end)),
-        valid_df=slice_frame(full_df, (args.worker_valid_start, args.worker_valid_end)),
-        test_df=slice_frame(full_df, (args.worker_test_start, args.worker_test_end)),
-        price_series=price_frame.loc[args.worker_test_start : args.worker_test_end],
-        smoke=args.smoke,
-        seed=args.seed,
-        artifact_tag=args.worker_window_name,
-        multi_asset_sources=multi_asset_sources,
-        use_moe=args.moe,
-        ablate_vix=args.ablate_vix,
-    )
-    output_path = Path(args.worker_output)
-    output_path.parent.mkdir(parents=True, exist_ok=True)
-    output_path.write_text(json.dumps(compact_result(result), indent=2), encoding="utf-8")
-    os._exit(0)
-
-
 __all__ = [
-    "WALK_FORWARD_WINDOWS",
-    "WORKER_RESULT_DIR",
     "_build_multi_asset_sources",
     "run_profile",
-    "run_walk_forward_isolated",
-    "run_worker_profile",
     "set_global_seed",
     "train_with_selection",
 ]

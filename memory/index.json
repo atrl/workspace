@@ -979,8 +979,8 @@
     "profiles": [],
     "status": "reference",
     "tags": [
-      "completed",
-      "refactor"
+      "other",
+      "reference"
     ],
     "artifacts": [
       "runtime/README.md"
@@ -988,6 +988,22 @@
     "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
     "summary": "Consolidated real train/evaluate/promote ownership under app/, moved execution/observation/positioning implementations under policy/, deleted top-level rl_* helper modules, and tightened runtime/memory/experiments index guidance.",
     "excerpt": "# App And Policy Consolidation ## Context `src/soxl_quant/policy/` and `src/soxl_quant/app/` existed, but several files were still wrappers pointing back to top-level modules. The tree looked cleaner than it really was and kept `cli.py` plus `rl_*` as hidden coupling points. ## W"
+  },
+  {
+    "path": "memory/2026-04-19-internal-rl-facade-shrink.md",
+    "date": "2026-04-19",
+    "title": "Internal RL Facade Shrink",
+    "kind": "other",
+    "profiles": [],
+    "status": "reference",
+    "tags": [
+      "completed",
+      "refactor"
+    ],
+    "artifacts": [],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Split artifact persistence and walk-forward workers out of app/train.py and updated repo-internal tests/imports so internal code no longer depends on the rl compatibility facade.",
+    "excerpt": "# Internal RL Facade Shrink ## Context After the previous consolidation, `rl.py` was already a facade, but the next useful proof point was removing remaining repo-internal reliance on it and cutting `app/train.py` down further. ## What Changed - added `src/soxl_quant/app/artifact"
   },
   {
     "path": "memory/README.md",

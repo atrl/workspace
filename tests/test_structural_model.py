@@ -6,7 +6,8 @@ import numpy as np
 import pandas as pd
 
 from src.soxl_quant.data import FEATURE_COLUMNS
-from src.soxl_quant.rl import build_initial_states, make_observation, observation_dim_for_profile, TrancheLedger
+from src.soxl_quant.policy.environment import TrancheLedger, build_initial_states
+from src.soxl_quant.policy.observation import make_observation, observation_dim_for_profile
 from src.soxl_quant.settings import ModelConfig, RewardConfig, SamplingConfig, StrategyConfig
 
 
