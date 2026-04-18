@@ -94,6 +94,7 @@ def load_model_versions() -> list[dict]:
                     "valid_sharpe": valid.get("sharpe"),
                     "valid_max_dd": valid.get("max_dd"),
                     "promoted": data.get("promotion", False),
+                    "selection_history": data.get("selection_history", []),
                 }
             )
         except Exception:
@@ -512,35 +513,6 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       grid-template-columns: repeat(4, minmax(0, 1fr));
       margin-bottom: 18px;
     }}
-    .window-bar {{
-      display: grid;
-      grid-template-columns: 1.3fr 1fr 1fr;
-      gap: 18px;
-      margin-bottom: 18px;
-    }}
-    .status-strip {{
-      display: grid;
-      grid-template-columns: 1.1fr 1fr;
-      gap: 18px;
-      margin-bottom: 18px;
-    }}
-    .notice {{
-      background: linear-gradient(135deg, rgba(154, 52, 18, 0.08), rgba(15, 118, 110, 0.06));
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      padding: 16px;
-    }}
-    .notice .title {{
-      font-size: 13px;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-bottom: 8px;
-    }}
-    .notice .body {{
-      font-size: 15px;
-      line-height: 1.5;
-    }}
     .metric {{
       background: var(--panel-2);
       border-radius: 18px;
@@ -868,6 +840,17 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       background: rgba(154, 52, 18, 0.08);
       font-weight: 700;
     }}
+    .version-table tr.clickable-version {{
+      cursor: pointer;
+    }}
+    .version-table tr.clickable-version:hover {{
+      background: rgba(154, 52, 18, 0.04);
+    }}
+    .version-table tr.clickable-version.selected {{
+      background: rgba(154, 52, 18, 0.10);
+      outline: 2px solid var(--accent);
+      outline-offset: -2px;
+    }}
     .version-wrap {{
       max-height: 400px;
       overflow: auto;
@@ -898,7 +881,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       font-size: 13px;
     }}
     @media (max-width: 1100px) {{
-      .hero, .window-bar, .status-strip {{ grid-template-columns: 1fr; }}
+      .hero {{ grid-template-columns: 1fr; }}
       .summary-grid {{ grid-template-columns: repeat(2, minmax(0, 1fr)); }}
       .chart-wrapper {{ grid-template-columns: 1fr; }}
       .info-panel {{ display: none; }}
@@ -931,29 +914,6 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     </div>
 
     <div class="grid summary-grid" id="metricGrid"></div>
-
-    <div class="status-strip">
-      <div class="notice" id="statusStrip"></div>
-      <div class="notice">
-        <div class="title">Evidence Navigator</div>
-        <div class="source-list" id="sourceList"></div>
-      </div>
-    </div>
-
-    <div class="window-bar">
-      <div class="notice">
-        <div class="title">Evaluation Window</div>
-        <div class="body" id="windowBox"></div>
-      </div>
-      <div class="notice">
-        <div class="title">Chart Range</div>
-        <div class="body" id="rangeBox"></div>
-      </div>
-      <div class="notice">
-        <div class="title">Page Notes</div>
-        <div class="body">页面默认只展示 <span class="mono">test</span> 窗口，固定区间是 <span class="mono">2020-01-02</span> → <span class="mono">2026-03-31</span>。<span class="mono">2010-2018</span> 是 train、<span class="mono">2019</span> 是 valid。</div>
-      </div>
-    </div>
 
     <!-- Main Chart -->
     <div class="card chart-panel" id="mainChart">
@@ -1092,11 +1052,17 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     <div class="card" id="versionCompare">
       <h2 class="section-title">📚 Model Version Comparison — 历史策略对比</h2>
       <div class="raw-tools">
-        <div class="sub">从 <span class="mono">artifacts/models/</span> 读取所有历史训练版本的 test_proxy 指标。绿色高亮 = 该列最优值。</div>
+        <div class="sub">点击表格中的版本名查看训练曲线。绿色高亮 = 该列最优值。</div>
       </div>
       <div class="version-wrap">
         <table class="version-table" id="versionTable"></table>
       </div>
+    </div>
+
+    <!-- Training Curve -->
+    <div class="card" id="trainingCurve">
+      <h2 class="section-title">📈 Training Curve <span style="font-size:12px;color:var(--muted);font-weight:normal;">— 点击上方表格查看训练过程</span></h2>
+      <div id="trainingCurveChart" style="width:100%;height:360px;border-radius:16px;background:var(--panel);border:1px solid var(--line);"></div>
     </div>
   </div>
 
@@ -1121,11 +1087,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     const tradePerfTable = document.getElementById('tradePerfTable');
     const versionTable = document.getElementById('versionTable');
     const csvLink = document.getElementById('csvLink');
-    const windowBox = document.getElementById('windowBox');
-    const rangeBox = document.getElementById('rangeBox');
     const chartMeta = document.getElementById('chartMeta');
-    const statusStrip = document.getElementById('statusStrip');
-    const sourceList = document.getElementById('sourceList');
     const startDateInput = document.getElementById('startDateInput');
     const endDateInput = document.getElementById('endDateInput');
     const applyZoomBtn = document.getElementById('applyZoomBtn');
@@ -1380,34 +1342,6 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
           <div class="s">${{card.sub}}</div>
         </div>
       `).join('');
-      windowBox.innerHTML = `
-        当前 ETF: <span class="mono">${{state.etf}}</span><br>
-        Test window: <span class="mono">${{window.start}}</span> → <span class="mono">${{window.end}}</span><br>
-        Daily rows: <span class="mono">${{window.rows}}</span>
-      `;
-    }}
-
-    function renderStatusStrip() {{
-      const rl = DATA.results[state.etf];
-      const rule = DATA.rule_based[state.etf];
-      const betterSharpe = rl.sharpe >= rule.sharpe;
-      const betterReturn = rl.return >= rule.return;
-      const safer = rl.max_dd <= rule.max_dd;
-      statusStrip.innerHTML = `
-        <div class="title">Decision Snapshot</div>
-        <div class="body">
-          当前 ETF: <span class="mono">${{state.etf}}</span><br>
-          <span class="badge ${{betterReturn ? 'good' : 'bad'}}">Return ${{fmtDelta(rl.return - rule.return)}}pp</span>
-          <span class="badge ${{betterSharpe ? 'good' : 'bad'}}">Sharpe ${{fmtDelta(rl.sharpe - rule.sharpe, 3)}}</span>
-          <span class="badge ${{safer ? 'good' : 'bad'}}">MaxDD ${{fmtDelta(rule.max_dd - rl.max_dd)}}pp saved</span>
-        </div>
-      `;
-      sourceList.innerHTML = Object.entries(DATA.generated_from).map(([label, path]) => `
-        <div class="source-item">
-          <span>${{label}}</span>
-          <a href="${{path}}" target="_blank" rel="noreferrer">${{path}}</a>
-        </div>
-      `).join('');
     }}
 
     function renderTradeStats(k) {{
@@ -1538,6 +1472,72 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       }});
     }}
 
+    function renderTrainingCurve(idx) {{
+      const versions = DATA.model_versions || [];
+      if (idx == null || !versions[idx] || !versions[idx].selection_history || !versions[idx].selection_history.length) {{
+        Plotly.purge('trainingCurveChart');
+        document.getElementById('trainingCurveChart').innerHTML = `
+          <div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--muted);font-size:14px;">
+            点击上方表格中的版本名查看训练曲线
+          </div>
+        `;
+        return;
+      }}
+      const v = versions[idx];
+      const sh = v.selection_history;
+      const iters = sh.map(h => h.iter);
+      const returns = sh.map(h => h.return);
+      const sharpes = sh.map(h => h.sharpe);
+      const maxDds = sh.map(h => h.max_dd);
+
+      const traces = [
+        {{
+          x: iters, y: returns, name: 'Return',
+          type: 'scatter', mode: 'lines+markers',
+          line: {{ color: '{C_STRATEGY}', width: 2 }},
+          marker: {{ size: 6 }},
+          yaxis: 'y1',
+        }},
+        {{
+          x: iters, y: sharpes, name: 'Sharpe',
+          type: 'scatter', mode: 'lines+markers',
+          line: {{ color: '{C_BUYHOLD}', width: 2 }},
+          marker: {{ size: 6 }},
+          yaxis: 'y2',
+        }},
+        {{
+          x: iters, y: maxDds, name: 'MaxDD',
+          type: 'scatter', mode: 'lines+markers',
+          line: {{ color: '{C_BAD}', width: 2, dash: 'dot' }},
+          marker: {{ size: 6 }},
+          yaxis: 'y3',
+        }},
+      ];
+
+      const layout = {{
+        title: {{
+          text: `${{v.name}}${{v.promoted ? ' ★' : ''}} — 训练过程 (valid)`,
+          font: {{ size: 14, color: '{C_INK}' }},
+        }},
+        height: 340,
+        margin: {{ l: 60, r: 60, t: 50, b: 40 }},
+        paper_bgcolor: 'rgba(0,0,0,0)',
+        plot_bgcolor: '{C_PANEL}',
+        font: {{ family: 'ui-sans-serif, -apple-system, sans-serif', color: '{C_INK}', size: 11 }},
+        hovermode: 'x unified',
+        legend: {{ orientation: 'h', yanchor: 'bottom', y: 1.02, xanchor: 'right', x: 1 }},
+        xaxis: {{ title: 'Iteration', gridcolor: '{C_LINE}', showgrid: true }},
+        yaxis: {{ title: 'Return', side: 'left', gridcolor: '{C_LINE}', showgrid: true, titlefont: {{ color: '{C_STRATEGY}' }}, tickfont: {{ color: '{C_STRATEGY}' }} }},
+        yaxis2: {{ title: 'Sharpe', overlaying: 'y', side: 'right', showgrid: false, titlefont: {{ color: '{C_BUYHOLD}' }}, tickfont: {{ color: '{C_BUYHOLD}' }} }},
+        yaxis3: {{ title: 'MaxDD', overlaying: 'y', side: 'right', position: 0.98, showgrid: false, titlefont: {{ color: '{C_BAD}' }}, tickfont: {{ color: '{C_BAD}' }} }},
+      }};
+
+      Plotly.newPlot('trainingCurveChart', traces, layout, {{
+        responsive: true,
+        displayModeBar: false,
+      }});
+    }}
+
     function renderVersionTable() {{
       const versions = DATA.model_versions || [];
       if (!versions.length) {{
@@ -1545,7 +1545,6 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
         return;
       }}
 
-      // Find best values for highlighting
       const bestTestSharpe = Math.max(...versions.map(v => v.test_sharpe != null ? v.test_sharpe : -Infinity));
       const bestTestReturn = Math.max(...versions.map(v => v.test_return != null ? v.test_return : -Infinity));
       const bestTestMDD = Math.min(...versions.map(v => v.test_max_dd != null ? v.test_max_dd : Infinity));
@@ -1564,7 +1563,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       ]);
 
       versionTable.innerHTML = [header, ...body].map((row, ridx) => `
-        <tr>
+        <tr data-idx="${{ridx > 0 ? ridx - 1 : ''}}" class="${{ridx > 0 ? 'clickable-version' : ''}}">
           ${{row.map((cell, col) => {{
             if (ridx === 0) return `<th>${{cell}}</th>`;
             const v = versions[ridx - 1];
@@ -1577,6 +1576,16 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
           }}).join('')}}
         </tr>
       `).join('');
+
+      versionTable.querySelectorAll('tr.clickable-version').forEach(tr => {{
+        tr.addEventListener('click', () => {{
+          versionTable.querySelectorAll('tr.clickable-version').forEach(r => r.classList.remove('selected'));
+          tr.classList.add('selected');
+          const idx = parseInt(tr.dataset.idx, 10);
+          renderTrainingCurve(idx);
+          document.getElementById('trainingCurve').scrollIntoView({{ behavior: 'smooth', block: 'nearest' }});
+        }});
+      }});
     }}
 
     function renderRegimeStrip(rows) {{
@@ -1805,18 +1814,8 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
           <span>BUY: <span class="mono">${{buyRows.length}}</span></span>
           <span>SELL: <span class="mono">${{sellRows.length}}</span></span>
         `;
-        rangeBox.innerHTML = `
-          当前筛选: <span class="mono">${{state.range}}</span><br>
-          缩放模式: <span class="mono">${{state.zoomMode}}</span><br>
-          实际显示: <span class="mono">${{rows[0].datetime}}</span> → <span class="mono">${{rows[rows.length-1].datetime}}</span>
-        `;
       }} else {{
         chartMeta.innerHTML = `<span>当前日期筛选下没有数据，请放宽缩放范围。</span>`;
-        rangeBox.innerHTML = `
-          当前筛选: <span class="mono">${{state.range}}</span><br>
-          缩放模式: <span class="mono">${{state.zoomMode}}</span><br>
-          说明: 当前日期区间没有命中任何样本。
-        `;
       }}
     }}
 
@@ -1827,7 +1826,6 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       }});
       syncZoomInputs();
       renderMetrics();
-      renderStatusStrip();
       const allRows = getDetailed(state.etf).rows;
       const rows = getFilteredRows(allRows);
       const k = getDetailed(state.etf).kelly;
@@ -1836,6 +1834,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       renderStrategyStats(rows);
       renderTradeTable();
       renderVersionTable();
+      renderTrainingCurve(null);
     }}
 
     loadSavedState();
