@@ -15,6 +15,7 @@ ROOT = Path(__file__).resolve().parent.parent
 RUNTIME_DIR = ROOT / "runtime" / "generalization"
 DETAIL_DIR = RUNTIME_DIR / "detailed"
 FEATURES_PATH = ROOT / "data" / "features_v2.pkl"
+MODELS_DIR = ROOT / "artifacts" / "models"
 OUTPUT_PATH = RUNTIME_DIR / "dashboard.html"
 
 C_STRATEGY = "#9a3412"
@@ -69,6 +70,35 @@ def load_csv_rows(path: Path) -> list[dict[str, object]]:
                     parsed[key] = value
             rows.append(parsed)
         return rows
+
+
+def load_model_versions() -> list[dict]:
+    """Load all historical model versions from artifacts/models/*_summary.json."""
+    versions = []
+    if not MODELS_DIR.exists():
+        return versions
+    for f in sorted(MODELS_DIR.glob("*_summary.json")):
+        try:
+            data = json.loads(f.read_text(encoding="utf-8"))
+            name = f.stem.replace("_summary", "")
+            tp = data.get("test_proxy", {})
+            valid = data.get("valid", {})
+            versions.append(
+                {
+                    "name": name,
+                    "test_return": tp.get("return"),
+                    "test_sharpe": tp.get("sharpe"),
+                    "test_max_dd": tp.get("max_dd"),
+                    "test_avg_pos": tp.get("avg_pos"),
+                    "valid_return": valid.get("return"),
+                    "valid_sharpe": valid.get("sharpe"),
+                    "valid_max_dd": valid.get("max_dd"),
+                    "promoted": data.get("promotion", False),
+                }
+            )
+        except Exception:
+            continue
+    return versions
 
 
 def compute_regime_shapes(rows: list[dict]) -> list[dict]:
@@ -175,7 +205,6 @@ def compute_trades(rows: list[dict]) -> list[dict]:
 
 
 def compute_kelly_stats(trades: list[dict]) -> dict:
-    """Compute Kelly Criterion and Expectancy stats from trade list."""
     if not trades:
         return {}
     wins = [t["return_pct"] for t in trades if t["return_pct"] > 0]
@@ -183,20 +212,12 @@ def compute_kelly_stats(trades: list[dict]) -> dict:
     win_rate = len(wins) / len(trades) if trades else 0
     avg_win = sum(wins) / len(wins) if wins else 0
     avg_loss = sum(losses) / len(losses) if losses else 0
-    
-    # Kelly Criterion: f* = W - (1-W)/R  where R = avg_win / |avg_loss|
-    r = abs(avg_win / avg_loss) if avg_loss != 0 else float('inf')
-    kelly = win_rate - (1 - win_rate) / r if r != float('inf') and r > 0 else win_rate
-    
-    # Expectancy = (W * avg_win) - ((1-W) * |avg_loss|)
+    r = abs(avg_win / avg_loss) if avg_loss != 0 else float("inf")
+    kelly = win_rate - (1 - win_rate) / r if r != float("inf") and r > 0 else win_rate
     expectancy = (win_rate * avg_win) - ((1 - win_rate) * abs(avg_loss))
-    
-    # Profit Factor = gross_profit / gross_loss
     gross_profit = sum(wins)
     gross_loss = abs(sum(losses))
-    profit_factor = gross_profit / gross_loss if gross_loss > 0 else float('inf')
-    
-    # Max consecutive wins/losses
+    profit_factor = gross_profit / gross_loss if gross_loss > 0 else float("inf")
     max_win_streak = max_loss_streak = cur_win = cur_loss = 0
     for t in trades:
         if t["return_pct"] > 0:
@@ -207,7 +228,6 @@ def compute_kelly_stats(trades: list[dict]) -> dict:
             cur_loss += 1
             cur_win = 0
             max_loss_streak = max(max_loss_streak, cur_loss)
-    
     return {
         "total": len(trades),
         "win_rate": win_rate,
@@ -270,6 +290,7 @@ def build_payload() -> dict[str, object]:
         "rule_based": load_json(RUNTIME_DIR / "rule_based_results.json"),
         "execution_overlay": load_json(RUNTIME_DIR / "execution_overlay_results.json"),
         "execution_review": (RUNTIME_DIR / "execution_overlay_review.md").read_text(encoding="utf-8"),
+        "model_versions": load_model_versions(),
     }
 
 
@@ -313,33 +334,8 @@ def _build_layout_all() -> dict:
     return fig.to_plotly_json()["layout"]
 
 
-def _build_layout_single(title: str, y_title: str) -> dict:
-    fig = go.Figure()
-    fig.update_layout(
-        height=420,
-        margin=dict(l=60, r=30, t=60, b=40),
-        paper_bgcolor="rgba(0,0,0,0)",
-        plot_bgcolor=C_PANEL,
-        font=dict(family='ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif', color=C_INK, size=12),
-        hovermode="closest",
-        showlegend=True,
-        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1, bgcolor="rgba(255,250,242,0.8)"),
-        dragmode="zoom",
-        title=dict(text=title, font=dict(size=14)),
-        xaxis=dict(showgrid=True, gridcolor=C_LINE, tickfont=dict(size=11), showspikes=True, spikemode="across", spikecolor=C_MUTED, spikethickness=1, spikedash="dot"),
-        yaxis=dict(showgrid=True, gridcolor=C_LINE, tickfont=dict(size=11), title=y_title, showspikes=True, spikemode="across", spikecolor=C_MUTED, spikethickness=1, spikedash="dot"),
-    )
-    return fig.to_plotly_json()["layout"]
-
-
 def build_plotly_layouts() -> dict[str, dict]:
-    return {
-        "all": _build_layout_all(),
-        "nav": _build_layout_single("NAV + Trades", "NAV"),
-        "position": _build_layout_single("Position", "Position"),
-        "excess": _build_layout_single("Excess Return %", "Excess %"),
-        "drawdown": _build_layout_single("Drawdown", "DD %"),
-    }
+    return {"all": _build_layout_all()}
 
 
 def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
@@ -507,12 +503,6 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       background: var(--accent);
       color: white;
       border-color: var(--accent);
-    }}
-    .kb-hint {{
-      font-size: 10px;
-      color: var(--muted);
-      margin-left: 4px;
-      opacity: 0.7;
     }}
     .grid {{
       display: grid;
@@ -841,6 +831,51 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       background: linear-gradient(135deg, rgba(15, 118, 110, 0.08), rgba(154, 52, 18, 0.06));
     }}
 
+    /* Model version comparison */
+    .version-table {{
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }}
+    .version-table th, .version-table td {{
+      padding: 8px 10px;
+      border-bottom: 1px solid var(--line);
+      text-align: right;
+      white-space: nowrap;
+    }}
+    .version-table th:first-child, .version-table td:first-child {{
+      text-align: left;
+      position: sticky;
+      left: 0;
+      background: #fffdf8;
+      z-index: 1;
+    }}
+    .version-table th {{
+      background: var(--panel-2);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      position: sticky;
+      top: 0;
+      z-index: 2;
+    }}
+    .version-table td.promoted {{
+      background: rgba(15, 118, 110, 0.06);
+      font-weight: 600;
+    }}
+    .version-table td.best {{
+      background: rgba(154, 52, 18, 0.08);
+      font-weight: 700;
+    }}
+    .version-wrap {{
+      max-height: 400px;
+      overflow: auto;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: #fffdf8;
+    }}
+
     .good {{ color: var(--good); }}
     .bad {{ color: var(--bad); }}
     .mono {{ font-family: ui-monospace, "SFMono-Regular", Menlo, monospace; }}
@@ -884,12 +919,13 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       <div class="card">
         <h1>Backtest Dashboard</h1>
         <p class="sub">
-          交互式回测查看器。鼠标悬停查看当日特征，快捷键 1-5 切换视图，+/- 缩放，R 重置，←→ 平移。
+          交互式回测查看器。鼠标滚轮缩放，悬停查看特征，快捷键 +/- 缩放，R 重置，←→ 平移。
         </p>
         <div class="jump-links">
           <a class="badge" href="#mainChart">Main Chart</a>
           <a class="badge" href="#tradeStats">Trade Quality</a>
           <a class="badge" href="#tradeTable">Trade Performance</a>
+          <a class="badge" href="#versionCompare">Model Versions</a>
         </div>
       </div>
     </div>
@@ -928,16 +964,6 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
           <select id="etfSelect"></select>
         </div>
         <div class="toolbar-group">
-          <label>View <span class="help-icon" data-tip="图表布局：All=4子图，其他=单图聚焦">?</span></label>
-          <select id="viewSelect">
-            <option value="all">All Panels <span class="kb-hint">[1]</span></option>
-            <option value="nav">NAV + Trades <span class="kb-hint">[2]</span></option>
-            <option value="position">Position <span class="kb-hint">[3]</span></option>
-            <option value="excess">Excess Return <span class="kb-hint">[4]</span></option>
-            <option value="drawdown">Drawdown <span class="kb-hint">[5]</span></option>
-          </select>
-        </div>
-        <div class="toolbar-group">
           <label>Range <span class="help-icon" data-tip="按年份快速筛选数据">?</span></label>
           <div class="pill-row">
             <button class="pill active" data-range="all">All</button>
@@ -967,7 +993,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
           <label>Action</label>
           <div class="zoom-row">
             <button class="btn primary" id="applyZoomBtn" type="button">Apply</button>
-            <button class="btn" id="resetZoomBtn" type="button">Reset <span class="kb-hint">[R]</span></button>
+            <button class="btn" id="resetZoomBtn" type="button">Reset <span style="font-size:10px;color:var(--muted);margin-left:4px;opacity:0.7;">[R]</span></button>
           </div>
         </div>
       </div>
@@ -1061,6 +1087,17 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
         <table class="trade-table" id="tradePerfTable"></table>
       </div>
     </div>
+
+    <!-- Model Version Comparison -->
+    <div class="card" id="versionCompare">
+      <h2 class="section-title">📚 Model Version Comparison — 历史策略对比</h2>
+      <div class="raw-tools">
+        <div class="sub">从 <span class="mono">artifacts/models/</span> 读取所有历史训练版本的 test_proxy 指标。绿色高亮 = 该列最优值。</div>
+      </div>
+      <div class="version-wrap">
+        <table class="version-table" id="versionTable"></table>
+      </div>
+    </div>
   </div>
 
   <script>
@@ -1069,22 +1106,20 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     const ETFS = Object.keys(DATA.detailed);
     const state = {{
       etf: ETFS[0],
-      view: 'all',
       range: 'all',
       zoomMode: 'all',
       zoomStart: null,
       zoomEnd: null,
-      rows: 100,
       sortCol: 'return_pct',
       sortAsc: false,
     }};
 
     const etfSelect = document.getElementById('etfSelect');
-    const viewSelect = document.getElementById('viewSelect');
     const metricGrid = document.getElementById('metricGrid');
     const tradeStatRow = document.getElementById('tradeStatRow');
     const stratStatRow = document.getElementById('stratStatRow');
     const tradePerfTable = document.getElementById('tradePerfTable');
+    const versionTable = document.getElementById('versionTable');
     const csvLink = document.getElementById('csvLink');
     const windowBox = document.getElementById('windowBox');
     const rangeBox = document.getElementById('rangeBox');
@@ -1098,7 +1133,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     const infoEmpty = document.getElementById('infoEmpty');
     const infoContent = document.getElementById('infoContent');
     const regimeStrip = document.getElementById('regimeStrip');
-    const STORAGE_KEY = 'soxl-dashboard-state-v7';
+    const STORAGE_KEY = 'soxl-dashboard-state-v8';
 
     function fmtPct(v, digits = 2) {{
       return v == null ? 'n/a' : `${{(v * 100).toFixed(digits)}}%`;
@@ -1213,11 +1248,6 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
         saveState();
         render();
       }});
-      viewSelect.addEventListener('change', e => {{
-        state.view = e.target.value;
-        saveState();
-        renderChart();
-      }});
       document.querySelectorAll('.pill').forEach(btn => {{
         btn.addEventListener('click', () => {{
           document.querySelectorAll('.pill').forEach(x => x.classList.remove('active'));
@@ -1239,15 +1269,6 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
 
       document.addEventListener('keydown', e => {{
         if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT' || e.target.tagName === 'TEXTAREA') return;
-        const views = {{ '1': 'all', '2': 'nav', '3': 'position', '4': 'excess', '5': 'drawdown' }};
-        if (views[e.key]) {{
-          e.preventDefault();
-          viewSelect.value = views[e.key];
-          state.view = views[e.key];
-          saveState();
-          renderChart();
-          return;
-        }}
         if (e.key === '+' || e.key === '=') {{
           e.preventDefault();
           const bounds = getDateBounds(getRangeRows(getDetailed(state.etf).rows));
@@ -1448,7 +1469,6 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
         return;
       }}
 
-      // Sort
       trades.sort((a, b) => {{
         const av = a[state.sortCol];
         const bv = b[state.sortCol];
@@ -1458,26 +1478,12 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
         return state.sortAsc ? (av > bv ? 1 : -1) : (av > bv ? -1 : 1);
       }});
 
-      const headerMap = {{
-        'return_pct': '收益率',
-        'pnl': 'PnL',
-        'cumulative': '累计',
-        'days': '持仓',
-        'entry_date': '入场日期',
-        'exit_date': '出场日期',
-        'entry_price': '入场价',
-        'exit_price': '出场价',
-        'avg_vix': 'Avg VIX',
-        'avg_rsi': 'Avg RSI',
-      }};
-      const sortableCols = ['return_pct', 'pnl', 'cumulative', 'days', 'entry_date', 'exit_date', 'entry_price', 'exit_price', 'avg_vix', 'avg_rsi'];
-
       const header = ['#', '入场日期', '出场日期', '持仓', '入场价', '出场价', '收益率', 'PnL', '累计', 'Avg VIX', 'Avg RSI'];
       const colKeys = ['', 'entry_date', 'exit_date', 'days', 'entry_price', 'exit_price', 'return_pct', 'pnl', 'cumulative', 'avg_vix', 'avg_rsi'];
 
       let headerHtml = '<tr>' + header.map((h, idx) => {{
         const key = colKeys[idx];
-        const isSort = sortableCols.includes(key);
+        const isSort = key !== '';
         const cls = isSort && state.sortCol === key ? (state.sortAsc ? 'sort-asc' : 'sort-desc') : '';
         return `<th class="${{cls}}" data-col="${{key}}" ${{isSort ? '' : 'style="cursor:default"'}}>${{h}}</th>`;
       }}).join('') + '</tr>';
@@ -1500,7 +1506,6 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
 
       tradePerfTable.innerHTML = headerHtml + bodyHtml;
 
-      // Sort click handlers
       tradePerfTable.querySelectorAll('th[data-col]').forEach(th => {{
         th.addEventListener('click', () => {{
           const col = th.dataset.col;
@@ -1512,7 +1517,6 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
         }});
       }});
 
-      // Row click to zoom
       tradePerfTable.querySelectorAll('tr.clickable').forEach(tr => {{
         tr.addEventListener('click', () => {{
           const entry = tr.dataset.entry;
@@ -1532,6 +1536,47 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
           document.getElementById('mainChart').scrollIntoView({{ behavior: 'smooth' }});
         }});
       }});
+    }}
+
+    function renderVersionTable() {{
+      const versions = DATA.model_versions || [];
+      if (!versions.length) {{
+        versionTable.innerHTML = '<tr><th>无历史模型版本数据</th></tr>';
+        return;
+      }}
+
+      // Find best values for highlighting
+      const bestTestSharpe = Math.max(...versions.map(v => v.test_sharpe != null ? v.test_sharpe : -Infinity));
+      const bestTestReturn = Math.max(...versions.map(v => v.test_return != null ? v.test_return : -Infinity));
+      const bestTestMDD = Math.min(...versions.map(v => v.test_max_dd != null ? v.test_max_dd : Infinity));
+      const bestValidSharpe = Math.max(...versions.map(v => v.valid_sharpe != null ? v.valid_sharpe : -Infinity));
+
+      const header = ['Model', 'Test Return', 'Test Sharpe', 'Test MaxDD', 'Test AvgPos', 'Valid Return', 'Valid Sharpe', 'Valid MaxDD'];
+      const body = versions.map(v => [
+        v.name + (v.promoted ? ' ★' : ''),
+        v.test_return != null ? fmtNum(v.test_return, 1) + '%' : 'n/a',
+        v.test_sharpe != null ? fmtNum(v.test_sharpe, 3) : 'n/a',
+        v.test_max_dd != null ? fmtNum(v.test_max_dd, 1) + '%' : 'n/a',
+        v.test_avg_pos != null ? fmtNum(v.test_avg_pos, 3) : 'n/a',
+        v.valid_return != null ? fmtNum(v.valid_return, 1) + '%' : 'n/a',
+        v.valid_sharpe != null ? fmtNum(v.valid_sharpe, 3) : 'n/a',
+        v.valid_max_dd != null ? fmtNum(v.valid_max_dd, 1) + '%' : 'n/a',
+      ]);
+
+      versionTable.innerHTML = [header, ...body].map((row, ridx) => `
+        <tr>
+          ${{row.map((cell, col) => {{
+            if (ridx === 0) return `<th>${{cell}}</th>`;
+            const v = versions[ridx - 1];
+            let cls = v.promoted ? 'promoted' : '';
+            if (col === 1 && v.test_return === bestTestReturn) cls += ' best';
+            if (col === 2 && v.test_sharpe === bestTestSharpe) cls += ' best';
+            if (col === 3 && v.test_max_dd === bestTestMDD) cls += ' best';
+            if (col === 6 && v.valid_sharpe === bestValidSharpe) cls += ' best';
+            return `<td class="${{cls.trim()}}">${{cell}}</td>`;
+          }}).join('')}}
+        </tr>
+      `).join('');
     }}
 
     function renderRegimeStrip(rows) {{
@@ -1660,94 +1705,86 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       renderTradeList(trades);
 
       const traces = [];
-      const isAll = state.view === 'all';
       const xa = 'x', ya = 'y';
-      const xa2 = isAll ? 'x2' : 'x', ya2 = isAll ? 'y2' : 'y';
-      const xa3 = isAll ? 'x3' : 'x', ya3 = isAll ? 'y3' : 'y';
-      const xa4 = isAll ? 'x4' : 'x', ya4 = isAll ? 'y4' : 'y';
+      const xa2 = 'x2', ya2 = 'y2';
+      const xa3 = 'x3', ya3 = 'y3';
+      const xa4 = 'x4', ya4 = 'y4';
 
-      if (state.view === 'nav' || isAll) {{
+      traces.push({{
+        x: dates, y: strategyNav,
+        name: 'Strategy NAV', type: 'scatter', mode: 'lines',
+        line: {{ color: '{C_STRATEGY}', width: 2 }},
+        hovertemplate: '%{{x}}<br>Strategy: %{{y:,.2f}}<extra></extra>',
+        xaxis: xa, yaxis: ya,
+      }});
+      traces.push({{
+        x: dates, y: buyholdNav,
+        name: 'Buy&Hold NAV', type: 'scatter', mode: 'lines',
+        line: {{ color: '{C_BUYHOLD}', width: 2 }},
+        hovertemplate: '%{{x}}<br>Buy&Hold: %{{y:,.2f}}<extra></extra>',
+        xaxis: xa, yaxis: ya,
+      }});
+      if (buyRows.length) {{
         traces.push({{
-          x: dates, y: strategyNav,
-          name: 'Strategy NAV', type: 'scatter', mode: 'lines',
-          line: {{ color: '{C_STRATEGY}', width: 2 }},
-          hovertemplate: '%{{x}}<br>Strategy: %{{y:,.2f}}<extra></extra>',
+          x: buyRows.map(r => r.datetime),
+          y: buyRows.map(r => r.price || r.strategy_nav),
+          name: 'BUY', type: 'scatter', mode: 'markers',
+          marker: {{ symbol: 'triangle-up', size: 11, color: '{C_BUY}', line: {{ color: 'white', width: 1 }} }},
+          hovertemplate: '<b>BUY</b> %{{x}}<extra></extra>',
           xaxis: xa, yaxis: ya,
         }});
+      }}
+      if (sellRows.length) {{
         traces.push({{
-          x: dates, y: buyholdNav,
-          name: 'Buy&Hold NAV', type: 'scatter', mode: 'lines',
-          line: {{ color: '{C_BUYHOLD}', width: 2 }},
-          hovertemplate: '%{{x}}<br>Buy&Hold: %{{y:,.2f}}<extra></extra>',
+          x: sellRows.map(r => r.datetime),
+          y: sellRows.map(r => r.price || r.strategy_nav),
+          name: 'SELL', type: 'scatter', mode: 'markers',
+          marker: {{ symbol: 'triangle-down', size: 11, color: '{C_SELL}', line: {{ color: 'white', width: 1 }} }},
+          hovertemplate: '<b>SELL</b> %{{x}}<extra></extra>',
           xaxis: xa, yaxis: ya,
         }});
-        if (buyRows.length) {{
-          traces.push({{
-            x: buyRows.map(r => r.datetime),
-            y: buyRows.map(r => r.price || r.strategy_nav),
-            name: 'BUY', type: 'scatter', mode: 'markers',
-            marker: {{ symbol: 'triangle-up', size: 11, color: '{C_BUY}', line: {{ color: 'white', width: 1 }} }},
-            hovertemplate: '<b>BUY</b> %{{x}}<extra></extra>',
-            xaxis: xa, yaxis: ya,
-          }});
-        }}
-        if (sellRows.length) {{
-          traces.push({{
-            x: sellRows.map(r => r.datetime),
-            y: sellRows.map(r => r.price || r.strategy_nav),
-            name: 'SELL', type: 'scatter', mode: 'markers',
-            marker: {{ symbol: 'triangle-down', size: 11, color: '{C_SELL}', line: {{ color: 'white', width: 1 }} }},
-            hovertemplate: '<b>SELL</b> %{{x}}<extra></extra>',
-            xaxis: xa, yaxis: ya,
-          }});
-        }}
       }}
 
-      if (state.view === 'position' || isAll) {{
-        traces.push({{
-          x: dates, y: positions,
-          name: 'Position', type: 'bar',
-          marker: {{ color: positions.map(p => p > 0 ? 'rgba(15,118,110,0.7)' : 'rgba(109,100,88,0.4)') }},
-          hovertemplate: '%{{x}}<br>Pos: %{{y:.4f}}<extra></extra>',
-          xaxis: xa2, yaxis: ya2,
-        }});
-      }}
+      traces.push({{
+        x: dates, y: positions,
+        name: 'Position', type: 'bar',
+        marker: {{ color: positions.map(p => p > 0 ? 'rgba(15,118,110,0.7)' : 'rgba(109,100,88,0.4)') }},
+        hovertemplate: '%{{x}}<br>Pos: %{{y:.4f}}<extra></extra>',
+        xaxis: xa2, yaxis: ya2,
+      }});
 
-      if (state.view === 'excess' || isAll) {{
-        traces.push({{
-          x: dates, y: excessPct,
-          name: 'Excess %', type: 'scatter', mode: 'lines',
-          line: {{ color: '{C_INK}', width: 1.5 }},
-          fill: 'tozeroy',
-          fillcolor: 'rgba(27,26,23,0.08)',
-          hovertemplate: '%{{x}}<br>Excess: %{{y:.2f}}%<extra></extra>',
-          xaxis: xa3, yaxis: ya3,
-        }});
-      }}
+      traces.push({{
+        x: dates, y: excessPct,
+        name: 'Excess %', type: 'scatter', mode: 'lines',
+        line: {{ color: '{C_INK}', width: 1.5 }},
+        fill: 'tozeroy',
+        fillcolor: 'rgba(27,26,23,0.08)',
+        hovertemplate: '%{{x}}<br>Excess: %{{y:.2f}}%<extra></extra>',
+        xaxis: xa3, yaxis: ya3,
+      }});
 
-      if (state.view === 'drawdown' || isAll) {{
-        traces.push({{
-          x: dates, y: strategyDD,
-          name: 'Strategy DD', type: 'scatter', mode: 'lines',
-          line: {{ color: '{C_STRATEGY}', width: 1.5 }},
-          fill: 'tozeroy',
-          fillcolor: 'rgba(154,52,18,0.12)',
-          hovertemplate: '%{{x}}<br>Strat DD: %{{y:.2%}}<extra></extra>',
-          xaxis: xa4, yaxis: ya4,
-        }});
-        traces.push({{
-          x: dates, y: buyholdDD,
-          name: 'Buy&Hold DD', type: 'scatter', mode: 'lines',
-          line: {{ color: '{C_BUYHOLD}', width: 1.5 }},
-          fill: 'tozeroy',
-          fillcolor: 'rgba(15,118,110,0.10)',
-          hovertemplate: '%{{x}}<br>BH DD: %{{y:.2%}}<extra></extra>',
-          xaxis: xa4, yaxis: ya4,
-        }});
-      }}
+      traces.push({{
+        x: dates, y: strategyDD,
+        name: 'Strategy DD', type: 'scatter', mode: 'lines',
+        line: {{ color: '{C_STRATEGY}', width: 1.5 }},
+        fill: 'tozeroy',
+        fillcolor: 'rgba(154,52,18,0.12)',
+        hovertemplate: '%{{x}}<br>Strat DD: %{{y:.2%}}<extra></extra>',
+        xaxis: xa4, yaxis: ya4,
+      }});
+      traces.push({{
+        x: dates, y: buyholdDD,
+        name: 'Buy&Hold DD', type: 'scatter', mode: 'lines',
+        line: {{ color: '{C_BUYHOLD}', width: 1.5 }},
+        fill: 'tozeroy',
+        fillcolor: 'rgba(15,118,110,0.10)',
+        hovertemplate: '%{{x}}<br>BH DD: %{{y:.2%}}<extra></extra>',
+        xaxis: xa4, yaxis: ya4,
+      }});
 
       Plotly.react('plotlyChart', traces, layout, {{
         responsive: true,
+        scrollZoom: true,
         displayModeBar: true,
         modeBarButtonsToRemove: ['lasso2d', 'select2d'],
         displaylogo: false,
@@ -1765,7 +1802,6 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
           <span>Zoom: <span class="mono">${{state.zoomMode}}</span></span>
           <span>Window: <span class="mono">${{rows[0].datetime}}</span> → <span class="mono">${{rows[rows.length-1].datetime}}</span></span>
           <span>Rows: <span class="mono">${{rows.length}}</span></span>
-          <span>View: <span class="mono">${{state.view}}</span></span>
           <span>BUY: <span class="mono">${{buyRows.length}}</span></span>
           <span>SELL: <span class="mono">${{sellRows.length}}</span></span>
         `;
@@ -1786,7 +1822,6 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
 
     function render() {{
       etfSelect.value = state.etf;
-      viewSelect.value = state.view;
       document.querySelectorAll('.pill').forEach(p => {{
         p.classList.toggle('active', p.dataset.range === state.range);
       }});
@@ -1800,6 +1835,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       renderTradeStats(k);
       renderStrategyStats(rows);
       renderTradeTable();
+      renderVersionTable();
     }}
 
     loadSavedState();
