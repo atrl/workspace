@@ -24,7 +24,6 @@ C_SELL = "#b91c1c"
 C_INK = "#1b1a17"
 C_MUTED = "#6d6458"
 C_LINE = "#d8ccbb"
-C_BG = "#f4efe6"
 C_PANEL = "#fffaf2"
 C_GOOD = "#0f766e"
 C_BAD = "#b91c1c"
@@ -128,65 +127,10 @@ def compute_regime_shapes(rows: list[dict]) -> list[dict]:
     return shapes
 
 
-def compute_tear_sheet(rows: list[dict]) -> dict:
-    """Compute monthly returns heatmap data, yearly returns, daily return distribution."""
-    monthly: dict[int, dict[int, dict]] = {}
-    yearly: dict[int, dict] = {}
-    daily_rets_strategy = []
-    daily_rets_buyhold = []
-
-    prev = None
-    for row in rows:
-        if prev:
-            daily_rets_strategy.append(row["strategy_nav"] / prev["strategy_nav"] - 1)
-            daily_rets_buyhold.append(row["buyhold_nav"] / prev["buyhold_nav"] - 1)
-
-        dt = str(row["datetime"])
-        year = int(dt[:4])
-        month = int(dt[5:7])
-
-        if year not in monthly:
-            monthly[year] = {}
-        if month not in monthly[year]:
-            monthly[year][month] = {"first": row, "last": row}
-        else:
-            monthly[year][month]["last"] = row
-
-        if year not in yearly:
-            yearly[year] = {"first": row, "last": row}
-        else:
-            yearly[year]["last"] = row
-        prev = row
-
-    monthly_rets = []
-    years = sorted(monthly.keys())
-    for y in years:
-        for m in range(1, 13):
-            if m in monthly.get(y, {}):
-                d = monthly[y][m]
-                ret = d["last"]["strategy_nav"] / d["first"]["strategy_nav"] - 1
-                monthly_rets.append({"year": y, "month": m, "return": ret})
-            else:
-                monthly_rets.append({"year": y, "month": m, "return": None})
-
-    yearly_rets = []
-    for y in sorted(yearly.keys()):
-        d = yearly[y]
-        strat_ret = d["last"]["strategy_nav"] / d["first"]["strategy_nav"] - 1
-        bh_ret = d["last"]["buyhold_nav"] / d["first"]["buyhold_nav"] - 1
-        yearly_rets.append({"year": y, "strategy": strat_ret, "buyhold": bh_ret})
-
-    return {
-        "monthly_rets": monthly_rets,
-        "yearly_rets": yearly_rets,
-        "daily_rets_strategy": daily_rets_strategy,
-        "daily_rets_buyhold": daily_rets_buyhold,
-    }
-
-
 def compute_trades(rows: list[dict]) -> list[dict]:
     trades = []
     entry_idx = -1
+    cumulative = 0.0
     for i, row in enumerate(rows):
         if row["action"] == "BUY" and entry_idx < 0:
             entry_idx = i
@@ -194,14 +138,37 @@ def compute_trades(rows: list[dict]) -> list[dict]:
             entry_row = rows[entry_idx]
             entry_price = entry_row["price"] or entry_row["strategy_nav"]
             exit_price = row["price"] or row["strategy_nav"]
+            entry_nav = entry_row["strategy_nav"]
+            exit_nav = row["strategy_nav"]
             days = i - entry_idx
-            ret = entry_price > 0 and ((exit_price / entry_price - 1) * 100) or 0
+            ret_pct = entry_price > 0 and ((exit_price / entry_price - 1) * 100) or 0
+            pnl = exit_nav - entry_nav
+            cumulative += pnl
+
+            # compute avg features during holding period
+            vix_vals = []
+            rsi_vals = []
+            for j in range(entry_idx, i + 1):
+                f = rows[j].get("_features", {})
+                if f.get("vix") is not None:
+                    vix_vals.append(f["vix"])
+                if f.get("rsi") is not None:
+                    rsi_vals.append(f["rsi"])
+
             trades.append(
                 {
                     "entry_date": entry_row["datetime"],
                     "exit_date": row["datetime"],
                     "days": days,
-                    "return_pct": ret,
+                    "entry_price": entry_price,
+                    "exit_price": exit_price,
+                    "return_pct": ret_pct,
+                    "pnl": pnl,
+                    "cumulative": cumulative,
+                    "entry_nav": entry_nav,
+                    "exit_nav": exit_nav,
+                    "avg_vix": sum(vix_vals) / len(vix_vals) if vix_vals else None,
+                    "avg_rsi": sum(rsi_vals) / len(rsi_vals) if rsi_vals else None,
                 }
             )
             entry_idx = -1
@@ -224,14 +191,12 @@ def build_payload() -> dict[str, object]:
             for r in rows:
                 r["_features"] = {}
         regime_shapes = compute_regime_shapes(rows)
-        tear_sheet = compute_tear_sheet(rows)
         trades = compute_trades(rows)
         detailed_rows[etf] = {
             "summary": item,
             "csv_path": f"detailed/{etf.lower()}_detailed_trades.csv",
             "rows": rows,
             "regime_shapes": regime_shapes,
-            "tear_sheet": tear_sheet,
             "trades": trades,
         }
         windows[etf] = {
@@ -590,12 +555,6 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       background: rgba(185, 28, 28, 0.08);
       border-color: rgba(185, 28, 28, 0.20);
     }}
-    .chart-grid {{
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 18px;
-      margin-bottom: 18px;
-    }}
     .chart-panel {{ min-height: 420px; }}
     .chart-meta {{
       display: flex;
@@ -686,9 +645,6 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       text-transform: uppercase;
       letter-spacing: 0.08em;
       margin-bottom: 6px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
     }}
     .pos-bar-wrap {{
       display: flex;
@@ -736,22 +692,71 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     .trade-entry {{ color: var(--good); }}
     .trade-exit {{ color: var(--bad); }}
 
-    /* Tear sheet & analysis panels */
-    .analysis-grid {{
+    /* Trade performance table */
+    .trade-table-wrap {{
+      max-height: 520px;
+      overflow: auto;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: #fffdf8;
+    }}
+    .trade-table {{
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }}
+    .trade-table th, .trade-table td {{
+      padding: 8px 10px;
+      border-bottom: 1px solid var(--line);
+      text-align: right;
+      white-space: nowrap;
+    }}
+    .trade-table th:first-child, .trade-table td:first-child {{
+      text-align: left;
+      position: sticky;
+      left: 0;
+      background: #fffdf8;
+      z-index: 1;
+    }}
+    .trade-table th {{
+      background: var(--panel-2);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      position: sticky;
+      top: 0;
+      z-index: 2;
+    }}
+    .trade-table tr.clickable {{ cursor: pointer; }}
+    .trade-table tr.clickable:hover {{ background: rgba(154, 52, 18, 0.04); }}
+    .trade-table td.good {{ color: var(--good); font-weight: 700; }}
+    .trade-table td.bad {{ color: var(--bad); font-weight: 700; }}
+    .pnl-bar {{
+      display: inline-block;
+      height: 6px;
+      border-radius: 3px;
+      vertical-align: middle;
+      margin-right: 4px;
+    }}
+
+    .panel-grid {{
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 18px;
       margin-bottom: 18px;
     }}
-    .analysis-grid .card {{
-      min-height: 380px;
+    .panel-card {{
+      background: rgba(255, 250, 242, 0.94);
+      border: 1px solid rgba(216, 204, 187, 0.9);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+      padding: 20px;
     }}
-    .mini-chart {{
-      width: 100%;
-      height: 300px;
-      border-radius: 12px;
-      background: var(--panel);
-      border: 1px solid var(--line);
+    .panel-card h2 {{
+      margin: 0 0 14px;
+      font-size: 16px;
+      letter-spacing: -0.02em;
     }}
     .stat-row {{
       display: grid;
@@ -784,20 +789,6 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       margin-top: 4px;
     }}
 
-    table {{
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 13px;
-    }}
-    th, td {{
-      padding: 10px 8px;
-      border-bottom: 1px solid var(--line);
-      text-align: right;
-      white-space: nowrap;
-    }}
-    th:first-child, td:first-child {{ text-align: left; }}
-    tr.clickable {{ cursor: pointer; }}
-    tr.clickable:hover {{ background: rgba(154, 52, 18, 0.04); }}
     .good {{ color: var(--good); }}
     .bad {{ color: var(--bad); }}
     .mono {{ font-family: ui-monospace, "SFMono-Regular", Menlo, monospace; }}
@@ -819,19 +810,12 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       text-decoration: none;
       font-size: 13px;
     }}
-    .table-wrap {{
-      max-height: 400px;
-      overflow: auto;
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      background: #fffdf8;
-    }}
     @media (max-width: 1100px) {{
       .hero, .window-bar, .status-strip {{ grid-template-columns: 1fr; }}
       .summary-grid {{ grid-template-columns: repeat(2, minmax(0, 1fr)); }}
       .chart-wrapper {{ grid-template-columns: 1fr; }}
       .info-panel {{ display: none; }}
-      .analysis-grid {{ grid-template-columns: 1fr; }}
+      .panel-grid {{ grid-template-columns: 1fr; }}
       .stat-row {{ grid-template-columns: repeat(2, 1fr); }}
     }}
     @media (max-width: 720px) {{
@@ -848,13 +832,12 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       <div class="card">
         <h1>Backtest Dashboard</h1>
         <p class="sub">
-          交互式回测查看器。4 子图联动，鼠标悬停查看当日特征，快捷键 1-5 切换视图，+/- 缩放，R 重置，←→ 平移。
+          交互式回测查看器。鼠标悬停查看当日特征，快捷键 1-5 切换视图，+/- 缩放，R 重置，←→ 平移。
         </p>
         <div class="jump-links">
           <a class="badge" href="#mainChart">Main Chart</a>
-          <a class="badge" href="#tearSheet">Tear Sheet</a>
-          <a class="badge" href="#tradeAnalysis">Trade Analysis</a>
-          <a class="badge" href="#tradeLog">Trade Log</a>
+          <a class="badge" href="#tradeStats">Trade Stats</a>
+          <a class="badge" href="#tradeTable">Trade Performance</a>
         </div>
       </div>
     </div>
@@ -880,164 +863,150 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       </div>
       <div class="notice">
         <div class="title">Page Notes</div>
-        <div class="body">页面默认只展示 <span class="mono">test</span> 窗口，固定区间是 <span class="mono">2020-01-02</span> → <span class="mono">2026-03-31</span>。<span class="mono">2010-2018</span> 是 train、<span class="mono">2019</span> 是 valid，因此图上从 2020 年开始是设计行为，不是数据丢失。</div>
+        <div class="body">页面默认只展示 <span class="mono">test</span> 窗口，固定区间是 <span class="mono">2020-01-02</span> → <span class="mono">2026-03-31</span>。<span class="mono">2010-2018</span> 是 train、<span class="mono">2019</span> 是 valid。</div>
       </div>
     </div>
 
     <!-- Main Chart -->
-    <div class="chart-grid">
-      <div class="card chart-panel" id="mainChart">
-        <h2 class="section-title">Main Chart</h2>
-        <div class="chart-toolbar">
-          <div class="toolbar-group">
-            <label>ETF <span class="help-icon" data-tip="选择要查看的 ETF 标的">?</span></label>
-            <select id="etfSelect"></select>
-          </div>
-          <div class="toolbar-group">
-            <label>View <span class="help-icon" data-tip="图表布局：All=4子图，其他=单图聚焦">?</span></label>
-            <select id="viewSelect">
-              <option value="all">All Panels <span class="kb-hint">[1]</span></option>
-              <option value="nav">NAV + Trades <span class="kb-hint">[2]</span></option>
-              <option value="position">Position <span class="kb-hint">[3]</span></option>
-              <option value="excess">Excess Return <span class="kb-hint">[4]</span></option>
-              <option value="drawdown">Drawdown <span class="kb-hint">[5]</span></option>
-            </select>
-          </div>
-          <div class="toolbar-group">
-            <label>Rows <span class="help-icon" data-tip="Trade Log 表格显示行数">?</span></label>
-            <select id="rowsSelect">
-              <option value="50">50</option>
-              <option value="100" selected>100</option>
-              <option value="250">250</option>
-            </select>
-          </div>
-          <div class="toolbar-group">
-            <label>Range <span class="help-icon" data-tip="按年份快速筛选数据">?</span></label>
-            <div class="pill-row">
-              <button class="pill active" data-range="all">All</button>
-              <button class="pill" data-range="2020">2020</button>
-              <button class="pill" data-range="2022">2022</button>
-              <button class="pill" data-range="2023_2024">23-24</button>
-            </div>
-          </div>
-          <div class="toolbar-group">
-            <label>Zoom <span class="help-icon" data-tip="快速缩放到最近 N 个月 [+/-]">?</span></label>
-            <div class="zoom-row">
-              <button class="btn" data-zoom="6m">6M</button>
-              <button class="btn" data-zoom="1y">1Y</button>
-              <button class="btn" data-zoom="2y">2Y</button>
-              <button class="btn" data-zoom="3y">3Y</button>
-            </div>
-          </div>
-          <div class="toolbar-group">
-            <label>Start</label>
-            <input id="startDateInput" class="date-input" type="date">
-          </div>
-          <div class="toolbar-group">
-            <label>End</label>
-            <input id="endDateInput" class="date-input" type="date">
-          </div>
-          <div class="toolbar-group">
-            <label>Action</label>
-            <div class="zoom-row">
-              <button class="btn primary" id="applyZoomBtn" type="button">Apply</button>
-              <button class="btn" id="resetZoomBtn" type="button">Reset <span class="kb-hint">[R]</span></button>
-            </div>
+    <div class="card chart-panel" id="mainChart">
+      <h2 class="section-title">Main Chart</h2>
+      <div class="chart-toolbar">
+        <div class="toolbar-group">
+          <label>ETF <span class="help-icon" data-tip="选择要查看的 ETF 标的">?</span></label>
+          <select id="etfSelect"></select>
+        </div>
+        <div class="toolbar-group">
+          <label>View <span class="help-icon" data-tip="图表布局：All=4子图，其他=单图聚焦">?</span></label>
+          <select id="viewSelect">
+            <option value="all">All Panels <span class="kb-hint">[1]</span></option>
+            <option value="nav">NAV + Trades <span class="kb-hint">[2]</span></option>
+            <option value="position">Position <span class="kb-hint">[3]</span></option>
+            <option value="excess">Excess Return <span class="kb-hint">[4]</span></option>
+            <option value="drawdown">Drawdown <span class="kb-hint">[5]</span></option>
+          </select>
+        </div>
+        <div class="toolbar-group">
+          <label>Range <span class="help-icon" data-tip="按年份快速筛选数据">?</span></label>
+          <div class="pill-row">
+            <button class="pill active" data-range="all">All</button>
+            <button class="pill" data-range="2020">2020</button>
+            <button class="pill" data-range="2022">2022</button>
+            <button class="pill" data-range="2023_2024">23-24</button>
           </div>
         </div>
-        <div class="chart-meta" id="chartMeta"></div>
-        <div id="regimeStrip" class="regime-strip"></div>
-        <div class="chart-wrapper">
-          <div id="plotlyChart" style="width:100%;height:760px;border-radius:16px;background:var(--panel);border:1px solid var(--line);"></div>
-          <div class="info-panel" id="infoPanel">
-            <div class="info-title">📊 数据面板</div>
-            <div class="info-empty" id="infoEmpty">鼠标移到图表上查看当日数据</div>
-            <div id="infoContent" style="display:none;">
-              <div class="info-row highlight">
-                <span class="info-k">日期</span>
-                <span class="info-v" id="infoDate">-</span>
-              </div>
-              <div class="info-row">
-                <span class="info-k">Action</span>
-                <span class="info-v" id="infoAction">-</span>
-              </div>
-              <div class="info-row">
-                <span class="info-k">Price</span>
-                <span class="info-v" id="infoPrice">-</span>
-              </div>
-              <div class="info-row">
-                <span class="info-k">Strategy NAV</span>
-                <span class="info-v" id="infoStrat">-</span>
-              </div>
-              <div class="info-row">
-                <span class="info-k">Buy&Hold NAV</span>
-                <span class="info-v" id="infoBH">-</span>
-              </div>
-              <div class="info-row">
-                <span class="info-k">Position</span>
-                <span class="info-v" id="infoPos">-</span>
-              </div>
-              <div class="info-row">
-                <span class="info-k">Excess %</span>
-                <span class="info-v" id="infoExcess">-</span>
-              </div>
-              <div class="info-section">
-                <div class="info-section-title">市场特征</div>
-                <div class="info-row"><span class="info-k">VIX</span><span class="info-v" id="infoVix">-</span></div>
-                <div class="info-row"><span class="info-k">RSI</span><span class="info-v" id="infoRsi">-</span></div>
-                <div class="info-row"><span class="info-k">Volatility</span><span class="info-v" id="infoVol">-</span></div>
-                <div class="info-row"><span class="info-k">Spread</span><span class="info-v" id="infoSpread">-</span></div>
-                <div class="info-row"><span class="info-k">VIX z-score</span><span class="info-v" id="infoVixZ">-</span></div>
-                <div class="info-row"><span class="info-k">Spread Trend</span><span class="info-v" id="infoSpTr">-</span></div>
-                <div class="info-row"><span class="info-k">MA5/20</span><span class="info-v" id="infoMA">-</span></div>
-                <div class="info-row"><span class="info-k">Vol Strength</span><span class="info-v" id="infoVolStr">-</span></div>
-              </div>
-              <div class="info-section" id="tradeSection" style="display:none;">
-                <div class="info-section-title">交易详情</div>
-                <div class="info-row"><span class="info-k">入场日期</span><span class="info-v" id="tradeEntry">-</span></div>
-                <div class="info-row"><span class="info-k">出场日期</span><span class="info-v" id="tradeExit">-</span></div>
-                <div class="info-row"><span class="info-k">持仓天数</span><span class="info-v" id="tradeDays">-</span></div>
-                <div class="info-row"><span class="info-k">价格收益</span><span class="info-v" id="tradeRet">-</span></div>
-              </div>
-              <div class="info-section">
-                <div class="info-section-title">仓位分布</div>
-                <div id="posDist"></div>
-              </div>
-              <div class="info-section">
-                <div class="info-section-title">最近交易 <span style="font-weight:normal;color:var(--muted);">(最近5笔)</span></div>
-                <div class="trade-list" id="tradeList"></div>
-              </div>
+        <div class="toolbar-group">
+          <label>Zoom <span class="help-icon" data-tip="快速缩放到最近 N 个月 [+/-]">?</span></label>
+          <div class="zoom-row">
+            <button class="btn" data-zoom="6m">6M</button>
+            <button class="btn" data-zoom="1y">1Y</button>
+            <button class="btn" data-zoom="2y">2Y</button>
+            <button class="btn" data-zoom="3y">3Y</button>
+          </div>
+        </div>
+        <div class="toolbar-group">
+          <label>Start</label>
+          <input id="startDateInput" class="date-input" type="date">
+        </div>
+        <div class="toolbar-group">
+          <label>End</label>
+          <input id="endDateInput" class="date-input" type="date">
+        </div>
+        <div class="toolbar-group">
+          <label>Action</label>
+          <div class="zoom-row">
+            <button class="btn primary" id="applyZoomBtn" type="button">Apply</button>
+            <button class="btn" id="resetZoomBtn" type="button">Reset <span class="kb-hint">[R]</span></button>
+          </div>
+        </div>
+      </div>
+      <div class="chart-meta" id="chartMeta"></div>
+      <div id="regimeStrip" class="regime-strip"></div>
+      <div class="chart-wrapper">
+        <div id="plotlyChart" style="width:100%;height:760px;border-radius:16px;background:var(--panel);border:1px solid var(--line);"></div>
+        <div class="info-panel" id="infoPanel">
+          <div class="info-title">📊 数据面板</div>
+          <div class="info-empty" id="infoEmpty">鼠标移到图表上查看当日数据</div>
+          <div id="infoContent" style="display:none;">
+            <div class="info-row highlight">
+              <span class="info-k">日期</span>
+              <span class="info-v" id="infoDate">-</span>
+            </div>
+            <div class="info-row">
+              <span class="info-k">Action</span>
+              <span class="info-v" id="infoAction">-</span>
+            </div>
+            <div class="info-row">
+              <span class="info-k">Price</span>
+              <span class="info-v" id="infoPrice">-</span>
+            </div>
+            <div class="info-row">
+              <span class="info-k">Strategy NAV</span>
+              <span class="info-v" id="infoStrat">-</span>
+            </div>
+            <div class="info-row">
+              <span class="info-k">Buy&Hold NAV</span>
+              <span class="info-v" id="infoBH">-</span>
+            </div>
+            <div class="info-row">
+              <span class="info-k">Position</span>
+              <span class="info-v" id="infoPos">-</span>
+            </div>
+            <div class="info-row">
+              <span class="info-k">Excess %</span>
+              <span class="info-v" id="infoExcess">-</span>
+            </div>
+            <div class="info-section">
+              <div class="info-section-title">市场特征</div>
+              <div class="info-row"><span class="info-k">VIX</span><span class="info-v" id="infoVix">-</span></div>
+              <div class="info-row"><span class="info-k">RSI</span><span class="info-v" id="infoRsi">-</span></div>
+              <div class="info-row"><span class="info-k">Volatility</span><span class="info-v" id="infoVol">-</span></div>
+              <div class="info-row"><span class="info-k">Spread</span><span class="info-v" id="infoSpread">-</span></div>
+              <div class="info-row"><span class="info-k">VIX z-score</span><span class="info-v" id="infoVixZ">-</span></div>
+              <div class="info-row"><span class="info-k">Spread Trend</span><span class="info-v" id="infoSpTr">-</span></div>
+              <div class="info-row"><span class="info-k">MA5/20</span><span class="info-v" id="infoMA">-</span></div>
+              <div class="info-row"><span class="info-k">Vol Strength</span><span class="info-v" id="infoVolStr">-</span></div>
+            </div>
+            <div class="info-section" id="tradeSection" style="display:none;">
+              <div class="info-section-title">交易详情</div>
+              <div class="info-row"><span class="info-k">入场日期</span><span class="info-v" id="tradeEntry">-</span></div>
+              <div class="info-row"><span class="info-k">出场日期</span><span class="info-v" id="tradeExit">-</span></div>
+              <div class="info-row"><span class="info-k">持仓天数</span><span class="info-v" id="tradeDays">-</span></div>
+              <div class="info-row"><span class="info-k">价格收益</span><span class="info-v" id="tradeRet">-</span></div>
+            </div>
+            <div class="info-section">
+              <div class="info-section-title">仓位分布</div>
+              <div id="posDist"></div>
+            </div>
+            <div class="info-section">
+              <div class="info-section-title">最近交易 <span style="font-weight:normal;color:var(--muted);">(最近5笔)</span></div>
+              <div class="trade-list" id="tradeList"></div>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Analysis panels -->
-    <div class="analysis-grid">
-      <div class="card" id="tearSheet">
-        <h2 class="section-title">📈 Tear Sheet</h2>
-        <div class="stat-row" id="tearStats"></div>
-        <div id="monthlyHeatmap" class="mini-chart"></div>
-        <div id="yearlyBar" class="mini-chart" style="margin-top:14px;height:240px;"></div>
+    <!-- Trade Stats -->
+    <div class="panel-grid">
+      <div class="panel-card" id="tradeStats">
+        <h2>🎯 Trade Statistics</h2>
+        <div class="stat-row" id="tradeStatRow"></div>
       </div>
-      <div class="card" id="tradeAnalysis">
-        <h2 class="section-title">🎯 Trade Analysis</h2>
-        <div class="stat-row" id="tradeStats"></div>
-        <div id="tradeScatter" class="mini-chart"></div>
-        <div id="retDist" class="mini-chart" style="margin-top:14px;height:240px;"></div>
+      <div class="panel-card" id="strategyStats">
+        <h2>📈 Strategy Overview</h2>
+        <div class="stat-row" id="stratStatRow"></div>
       </div>
     </div>
 
-    <!-- Trade Log -->
-    <div class="card" id="tradeLog">
-      <h2 class="section-title">📝 Trade Log</h2>
+    <!-- Trade Performance Table -->
+    <div class="card" id="tradeTable">
+      <h2 class="section-title">📝 Trade Performance — 每笔 T 收益明细</h2>
       <div class="raw-tools">
         <a id="csvLink" class="button-link" href="#" target="_blank" rel="noreferrer">Open Raw CSV</a>
-        <div class="sub">点击表格行聚焦到图表对应日期。仅展示有信号（BUY/SELL/HOLD 变动）的交易日。</div>
+        <div class="sub">点击任意交易行可聚焦到图表对应区间。BUY → SELL 配对，展示每笔做 T 的入场/出场、持仓天数、收益率、PnL、累计收益、期间平均 VIX/RSI。</div>
       </div>
-      <div class="table-wrap">
-        <table id="rawTable"></table>
+      <div class="trade-table-wrap">
+        <table class="trade-table" id="tradePerfTable"></table>
       </div>
     </div>
   </div>
@@ -1058,11 +1027,10 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
 
     const etfSelect = document.getElementById('etfSelect');
     const viewSelect = document.getElementById('viewSelect');
-    const rowsSelect = document.getElementById('rowsSelect');
     const metricGrid = document.getElementById('metricGrid');
-    const tearStats = document.getElementById('tearStats');
-    const tradeStats = document.getElementById('tradeStats');
-    const rawTable = document.getElementById('rawTable');
+    const tradeStatRow = document.getElementById('tradeStatRow');
+    const stratStatRow = document.getElementById('stratStatRow');
+    const tradePerfTable = document.getElementById('tradePerfTable');
     const csvLink = document.getElementById('csvLink');
     const windowBox = document.getElementById('windowBox');
     const rangeBox = document.getElementById('rangeBox');
@@ -1076,7 +1044,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     const infoEmpty = document.getElementById('infoEmpty');
     const infoContent = document.getElementById('infoContent');
     const regimeStrip = document.getElementById('regimeStrip');
-    const STORAGE_KEY = 'soxl-dashboard-state-v5';
+    const STORAGE_KEY = 'soxl-dashboard-state-v6';
 
     function fmtPct(v, digits = 2) {{
       return v == null ? 'n/a' : `${{(v * 100).toFixed(digits)}}%`;
@@ -1088,6 +1056,12 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       const n = Number(v);
       const sign = n > 0 ? '+' : '';
       return `${{sign}}${{n.toFixed(digits)}}`;
+    }}
+    function fmtMoney(v) {{
+      if (v == null) return 'n/a';
+      const n = Number(v);
+      const sign = n >= 0 ? '+' : '';
+      return `${{sign}}${{n.toLocaleString('en-US', {{minimumFractionDigits:0, maximumFractionDigits:0}})}}`;
     }}
 
     function loadSavedState() {{
@@ -1156,7 +1130,6 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       saveState();
       syncZoomInputs();
       renderChart();
-      renderRawTable();
     }}
     function applyCustomZoom() {{
       const bounds = getDateBounds(getRangeRows(getDetailed(state.etf).rows));
@@ -1169,7 +1142,6 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       saveState();
       syncZoomInputs();
       renderChart();
-      renderRawTable();
     }}
 
     function initControls() {{
@@ -1192,11 +1164,6 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
         saveState();
         renderChart();
       }});
-      rowsSelect.addEventListener('change', e => {{
-        state.rows = Number(e.target.value);
-        saveState();
-        renderRawTable();
-      }});
       document.querySelectorAll('.pill').forEach(btn => {{
         btn.addEventListener('click', () => {{
           document.querySelectorAll('.pill').forEach(x => x.classList.remove('active'));
@@ -1208,7 +1175,6 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
           saveState();
           syncZoomInputs();
           renderChart();
-          renderRawTable();
         }});
       }});
       document.querySelectorAll('[data-zoom]').forEach(btn => {{
@@ -1342,8 +1308,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       windowBox.innerHTML = `
         当前 ETF: <span class="mono">${{state.etf}}</span><br>
         Test window: <span class="mono">${{window.start}}</span> → <span class="mono">${{window.end}}</span><br>
-        Daily rows: <span class="mono">${{window.rows}}</span><br>
-        Split: train <span class="mono">2010-2018</span> | valid <span class="mono">2019</span> | test <span class="mono">2020-2026</span>
+        Daily rows: <span class="mono">${{window.rows}}</span>
       `;
     }}
 
@@ -1370,109 +1335,20 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       `).join('');
     }}
 
-    function renderTearSheet(rows) {{
-      const ts = getDetailed(state.etf).tear_sheet;
-      const trades = getDetailed(state.etf).trades || [];
-
-      // Stats
-      const totalRet = rows.length > 0 ? (rows[rows.length-1].strategy_nav / rows[0].strategy_nav - 1) * 100 : 0;
-      const cagr = rows.length > 252 ? (Math.pow(rows[rows.length-1].strategy_nav / rows[0].strategy_nav, 252/rows.length) - 1) * 100 : totalRet;
-      const avgDailyRet = ts.daily_rets_strategy.length > 0 ? ts.daily_rets_strategy.reduce((a,b)=>a+b,0)/ts.daily_rets_strategy.length * 100 : 0;
-      const vol = ts.daily_rets_strategy.length > 1 ? Math.sqrt(ts.daily_rets_strategy.length/(ts.daily_rets_strategy.length-1)) * Math.sqrt(252) * 100 * Math.sqrt(ts.daily_rets_strategy.map(r=>r*r).reduce((a,b)=>a+b,0)/ts.daily_rets_strategy.length - Math.pow(ts.daily_rets_strategy.reduce((a,b)=>a+b,0)/ts.daily_rets_strategy.length, 2)) : 0;
-      const winRate = trades.length > 0 ? (trades.filter(t=>t.return_pct>0).length / trades.length * 100).toFixed(1) : 0;
-
-      tearStats.innerHTML = [
-        {{ k: '总收益', v: fmtNum(totalRet, 1)+'%', s: fmtNum((rows[rows.length-1].buyhold_nav/rows[0].buyhold_nav-1)*100,1)+'% BH' }},
-        {{ k: '年化收益', v: fmtNum(cagr, 1)+'%', s: '' }},
-        {{ k: '日收益', v: fmtNum(avgDailyRet, 3)+'%', s: '均值' }},
-        {{ k: '胜率', v: winRate+'%', s: trades.length+' 笔' }},
-      ].map(s => `
-        <div class="stat-cell">
-          <div class="sk">${{s.k}}</div>
-          <div class="sv" style="color:${{s.v.includes('-')?'var(--bad)':'var(--good)'}}">${{s.v}}</div>
-          <div class="ss">${{s.s}}</div>
-        </div>
-      `).join('');
-
-      // Monthly heatmap
-      const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-      const years = [...new Set(ts.monthly_rets.map(r=>r.year))].sort();
-      const z = years.map(y => months.map((_,m) => {{
-        const item = ts.monthly_rets.find(r=>r.year===y&&r.month===m+1);
-        return item ? item.return : null;
-      }}));
-      const heatmapTrace = {{
-        x: months,
-        y: years,
-        z: z,
-        type: 'heatmap',
-        colorscale: [[0, '#b91c1c'], [0.35, '#fffaf2'], [0.5, '#fffaf2'], [0.65, '#fffaf2'], [1, '#0f766e']],
-        zmid: 0,
-        showscale: true,
-        colorbar: {{ title: '月度收益', titleside: 'right', thickness: 12, len: 0.8 }},
-        hovertemplate: '%{{y}}-%{{x}}<br>收益: %{{z:.2%}}<extra></extra>',
-      }};
-      const heatmapLayout = {{
-        height: 260,
-        margin: {{ l: 50, r: 60, t: 20, b: 40 }},
-        paper_bgcolor: 'rgba(0,0,0,0)',
-        plot_bgcolor: C_PANEL,
-        font: {{ family: 'ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif', size: 11 }},
-        xaxis: {{ tickfont: {{ size: 10 }} }},
-        yaxis: {{ tickfont: {{ size: 10 }} }},
-      }};
-      Plotly.react('monthlyHeatmap', [heatmapTrace], heatmapLayout, {{ displayModeBar: false, displaylogo: false }});
-
-      // Yearly bar
-      const yStrat = ts.yearly_rets.map(r => r.strategy * 100);
-      const yBH = ts.yearly_rets.map(r => r.buyhold * 100);
-      const yearlyTrace1 = {{
-        x: ts.yearly_rets.map(r => r.year),
-        y: yStrat,
-        name: 'Strategy',
-        type: 'bar',
-        marker: {{ color: yStrat.map(v => v >= 0 ? C_STRATEGY : C_BAD) }},
-        hovertemplate: '%{{x}}<br>Strategy: %{{y:.2f}}%<extra></extra>',
-      }};
-      const yearlyTrace2 = {{
-        x: ts.yearly_rets.map(r => r.year),
-        y: yBH,
-        name: 'Buy&Hold',
-        type: 'bar',
-        marker: {{ color: yBH.map(v => v >= 0 ? C_BUYHOLD : '#6d6458') }},
-        hovertemplate: '%{{x}}<br>Buy&Hold: %{{y:.2f}}%<extra></extra>',
-      }};
-      const yearlyLayout = {{
-        height: 240,
-        margin: {{ l: 50, r: 20, t: 30, b: 40 }},
-        paper_bgcolor: 'rgba(0,0,0,0)',
-        plot_bgcolor: C_PANEL,
-        font: {{ family: 'ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif', size: 11 }},
-        barmode: 'group',
-        legend: {{ orientation: 'h', y: 1.1, x: 0.5, xanchor: 'center' }},
-        xaxis: {{ tickfont: {{ size: 10 }} }},
-        yaxis: {{ title: '年度收益 %', tickfont: {{ size: 10 }} }},
-      }};
-      Plotly.react('yearlyBar', [yearlyTrace1, yearlyTrace2], yearlyLayout, {{ displayModeBar: false, displaylogo: false }});
-    }}
-
-    function renderTradeAnalysis(rows) {{
-      const trades = getDetailed(state.etf).trades || [];
-      const ts = getDetailed(state.etf).tear_sheet;
-
-      // Stats
+    function renderTradeStats(trades) {{
       const wins = trades.filter(t => t.return_pct > 0);
       const losses = trades.filter(t => t.return_pct <= 0);
       const avgWin = wins.length > 0 ? wins.reduce((a,t)=>a+t.return_pct,0)/wins.length : 0;
       const avgLoss = losses.length > 0 ? losses.reduce((a,t)=>a+t.return_pct,0)/losses.length : 0;
       const avgDays = trades.length > 0 ? trades.reduce((a,t)=>a+t.days,0)/trades.length : 0;
       const profitFactor = losses.length > 0 && avgLoss !== 0 ? Math.abs((wins.length*avgWin)/(losses.length*avgLoss)) : (wins.length > 0 ? 999 : 0);
+      const totalRet = trades.length > 0 ? (trades[trades.length-1].cumulative / 1000000 * 100) : 0;
 
-      tradeStats.innerHTML = [
-        {{ k: '盈利笔数', v: String(wins.length), s: fmtNum(avgWin,2)+'% 均盈' }},
-        {{ k: '亏损笔数', v: String(losses.length), s: fmtNum(avgLoss,2)+'% 均亏' }},
-        {{ k: '平均持仓', v: fmtNum(avgDays,1)+'天', s: '' }},
-        {{ k: '盈亏比', v: fmtNum(profitFactor,2), s: '' }},
+      tradeStatRow.innerHTML = [
+        {{ k: '总交易', v: String(trades.length), s: '笔' }},
+        {{ k: '胜率', v: fmtNum(trades.length > 0 ? wins.length/trades.length*100 : 0, 1)+'%', s: `${{wins.length}} 盈 / ${{losses.length}} 亏` }},
+        {{ k: '平均持仓', v: fmtNum(avgDays, 1)+'天', s: '' }},
+        {{ k: '盈亏比', v: fmtNum(profitFactor, 2), s: '' }},
       ].map(s => `
         <div class="stat-cell">
           <div class="sk">${{s.k}}</div>
@@ -1480,81 +1356,89 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
           <div class="ss">${{s.s}}</div>
         </div>
       `).join('');
+    }}
 
-      // Trade scatter
-      const scatterTrace = {{
-        x: trades.map((t,i) => i+1),
-        y: trades.map(t => t.return_pct),
-        mode: 'markers',
-        type: 'scatter',
-        marker: {{
-          color: trades.map(t => t.return_pct >= 0 ? C_GOOD : C_BAD),
-          size: trades.map(t => Math.max(6, Math.min(18, Math.abs(t.return_pct) * 2))),
-          opacity: 0.8,
-          line: {{ width: 1, color: 'white' }},
-        }},
-        text: trades.map(t => `入场: ${{t.entryDate}}<br>出场: ${{t.exitDate}}<br>持有: ${{t.days}}天<br>收益: ${{fmtNum(t.return_pct,2)}}%`),
-        hovertemplate: '%{{text}}<extra></extra>',
-      }};
-      const scatterLayout = {{
-        height: 260,
-        margin: {{ l: 50, r: 20, t: 20, b: 40 }},
-        paper_bgcolor: 'rgba(0,0,0,0)',
-        plot_bgcolor: C_PANEL,
-        font: {{ family: 'ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif', size: 11 }},
-        xaxis: {{ title: '交易序号', tickfont: {{ size: 10 }} }},
-        yaxis: {{ title: '收益 %', tickfont: {{ size: 10 }} }},
-        shapes: [{{ type: 'line', x0: 0, x1: trades.length+1, y0: 0, y1: 0, line: {{ color: C_LINE, width: 1, dash: 'dot' }} }}],
-      }};
-      Plotly.react('tradeScatter', [scatterTrace], scatterLayout, {{ displayModeBar: false, displaylogo: false }});
+    function renderStrategyStats(rows) {{
+      if (!rows.length) {{
+        stratStatRow.innerHTML = '<div class="stat-cell"><div class="sk">无数据</div></div>';
+        return;
+      }}
+      const totalRet = (rows[rows.length-1].strategy_nav / rows[0].strategy_nav - 1) * 100;
+      const bhRet = (rows[rows.length-1].buyhold_nav / rows[0].buyhold_nav - 1) * 100;
+      const annRet = rows.length > 252 ? (Math.pow(rows[rows.length-1].strategy_nav / rows[0].strategy_nav, 252/rows.length) - 1) * 100 : totalRet;
+      let peak = rows[0].strategy_nav;
+      let mdd = 0;
+      for (const r of rows) {{
+        peak = Math.max(peak, r.strategy_nav);
+        mdd = Math.min(mdd, r.strategy_nav / peak - 1);
+      }}
+      stratStatRow.innerHTML = [
+        {{ k: '总收益', v: fmtNum(totalRet, 1)+'%', s: `BH ${{fmtNum(bhRet,1)}}%` }},
+        {{ k: '年化收益', v: fmtNum(annRet, 1)+'%', s: '' }},
+        {{ k: '最大回撤', v: fmtNum(mdd*100, 1)+'%', s: '' }},
+        {{ k: '超额收益', v: fmtNum(totalRet - bhRet, 1)+'%', s: '' }},
+      ].map(s => `
+        <div class="stat-cell">
+          <div class="sk">${{s.k}}</div>
+          <div class="sv" style="color:${{String(s.v).includes('-') ? 'var(--bad)' : 'var(--good)'}}">${{s.v}}</div>
+          <div class="ss">${{s.s}}</div>
+        </div>
+      `).join('');
+    }}
 
-      // Return distribution
-      const binSize = 2;
-      const allRets = ts.daily_rets_strategy.map(r => r * 100);
-      const minR = Math.floor((Math.min(...allRets, 0) - binSize) / binSize) * binSize;
-      const maxR = Math.ceil((Math.max(...allRets, 0) + binSize) / binSize) * binSize;
-      const bins = [];
-      for (let b = minR; b <= maxR; b += binSize) bins.push(b);
-      const stratCounts = new Array(bins.length).fill(0);
-      allRets.forEach(r => {{
-        const idx = Math.min(Math.floor((r - minR) / binSize), bins.length - 1);
-        stratCounts[idx]++;
+    function renderTradeTable(trades) {{
+      csvLink.href = getDetailed(state.etf).csv_path;
+      const allRows = getDetailed(state.etf).rows;
+      const maxRet = Math.max(...trades.map(t => Math.abs(t.return_pct)), 1);
+      const header = ['#', '入场日期', '出场日期', '持仓', '入场价', '出场价', '收益率', 'PnL', '累计', 'Avg VIX', 'Avg RSI'];
+      const body = trades.map((t, idx) => [
+        idx + 1,
+        t.entry_date,
+        t.exit_date,
+        t.days + '天',
+        fmtNum(t.entry_price, 2),
+        fmtNum(t.exit_price, 2),
+        fmtNum(t.return_pct, 2) + '%',
+        fmtMoney(t.pnl),
+        fmtMoney(t.cumulative),
+        t.avg_vix != null ? fmtNum(t.avg_vix, 2) : 'n/a',
+        t.avg_rsi != null ? fmtNum(t.avg_rsi, 2) : 'n/a',
+      ]);
+
+      tradePerfTable.innerHTML = [header, ...body].map((row, ridx) => `
+        <tr class="${{ridx > 0 ? 'clickable' : ''}}" data-entry="${{ridx > 0 ? trades[ridx-1].entry_date : ''}}" data-exit="${{ridx > 0 ? trades[ridx-1].exit_date : ''}}">
+          ${{row.map((cell, col) => {{
+            if (ridx === 0) return `<th>${{cell}}</th>`;
+            let cls = '';
+            if (col === 6 && trades[ridx-1].return_pct > 0) cls = 'good';
+            if (col === 6 && trades[ridx-1].return_pct <= 0) cls = 'bad';
+            if (col === 7 && trades[ridx-1].pnl > 0) cls = 'good';
+            if (col === 7 && trades[ridx-1].pnl <= 0) cls = 'bad';
+            return `<td class="${{cls}}">${{cell}}</td>`;
+          }}).join('')}}
+        </tr>
+      `).join('');
+
+      // Click to zoom chart
+      tradePerfTable.querySelectorAll('tr.clickable').forEach(tr => {{
+        tr.addEventListener('click', () => {{
+          const entry = tr.dataset.entry;
+          const exit = tr.dataset.exit;
+          if (!entry || !exit) return;
+          const sIdx = allRows.findIndex(r => r.datetime === entry);
+          const eIdx = allRows.findIndex(r => r.datetime === exit);
+          if (sIdx < 0 || eIdx < 0) return;
+          const start = Math.max(0, sIdx - 5);
+          const end = Math.min(allRows.length - 1, eIdx + 5);
+          state.zoomStart = allRows[start].datetime;
+          state.zoomEnd = allRows[end].datetime;
+          state.zoomMode = 'custom';
+          saveState();
+          syncZoomInputs();
+          renderChart();
+          document.getElementById('mainChart').scrollIntoView({{ behavior: 'smooth' }});
+        }});
       }});
-      const bhRets = ts.daily_rets_buyhold.map(r => r * 100);
-      const bhCounts = new Array(bins.length).fill(0);
-      bhRets.forEach(r => {{
-        const idx = Math.min(Math.floor((r - minR) / binSize), bins.length - 1);
-        bhCounts[idx]++;
-      }});
-      const binLabels = bins.map(b => `${{b}}~${{b+binSize}}`);
-      const distTrace1 = {{
-        x: binLabels,
-        y: stratCounts,
-        name: 'Strategy',
-        type: 'bar',
-        marker: {{ color: C_STRATEGY, opacity: 0.7 }},
-        hovertemplate: 'Strategy<br>%{{x}}%: %{{y}} 天<extra></extra>',
-      }};
-      const distTrace2 = {{
-        x: binLabels,
-        y: bhCounts,
-        name: 'Buy&Hold',
-        type: 'bar',
-        marker: {{ color: C_BUYHOLD, opacity: 0.7 }},
-        hovertemplate: 'Buy&Hold<br>%{{x}}%: %{{y}} 天<extra></extra>',
-      }};
-      const distLayout = {{
-        height: 240,
-        margin: {{ l: 50, r: 20, t: 30, b: 60 }},
-        paper_bgcolor: 'rgba(0,0,0,0)',
-        plot_bgcolor: C_PANEL,
-        font: {{ family: 'ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif', size: 11 }},
-        barmode: 'overlay',
-        legend: {{ orientation: 'h', y: 1.1, x: 0.5, xanchor: 'center' }},
-        xaxis: {{ title: '日收益区间 %', tickangle: -45, tickfont: {{ size: 9 }} }},
-        yaxis: {{ title: '天数', tickfont: {{ size: 10 }} }},
-      }};
-      Plotly.react('retDist', [distTrace1, distTrace2], distLayout, {{ displayModeBar: false, displaylogo: false }});
     }}
 
     function renderRegimeStrip(rows) {{
@@ -1603,7 +1487,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       container.innerHTML = recent.map(t => `
         <div class="trade-item">
           <span class="trade-entry">BUY</span> ${{t.entryDate}} → <span class="trade-exit">SELL</span> ${{t.exitDate}}<br>
-          持有 ${{t.days}} 天 | 收益 <span class="${{t.returnPct >= 0 ? 'good' : 'bad'}}">${{fmtNum(t.returnPct, 2)}}%</span>
+          持有 ${{t.days}} 天 | 收益 <span class="${{t.returnPct >= 0 ? 'good' : 'bad'}}">${{fmtNum(t.returnPct, 2)}}%</span> | PnL ${{fmtMoney(t.pnl)}}
         </div>
       `).join('');
     }}
@@ -1639,12 +1523,12 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       const tradeSection = document.getElementById('tradeSection');
       if (trade) {{
         tradeSection.style.display = 'block';
-        document.getElementById('tradeEntry').textContent = trade.entryDate;
-        document.getElementById('tradeExit').textContent = trade.exitDate;
+        document.getElementById('tradeEntry').textContent = trade.entry_date;
+        document.getElementById('tradeExit').textContent = trade.exit_date;
         document.getElementById('tradeDays').textContent = trade.days + ' 天';
         const retEl = document.getElementById('tradeRet');
-        retEl.textContent = fmtNum(trade.returnPct, 2) + '%';
-        retEl.style.color = trade.returnPct >= 0 ? 'var(--good)' : 'var(--bad)';
+        retEl.textContent = fmtNum(trade.return_pct, 2) + '%';
+        retEl.style.color = trade.return_pct >= 0 ? 'var(--good)' : 'var(--bad)';
       }} else {{
         tradeSection.style.display = 'none';
       }}
@@ -1676,7 +1560,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       const sellRows = rows.filter(r => r.action === 'SELL');
       const trades = getDetailed(state.etf).trades || [];
       const tradeMap = {{}};
-      trades.forEach(t => {{ tradeMap[t.entryDate] = t; }});
+      trades.forEach(t => {{ tradeMap[t.entry_date] = t; }});
 
       renderRegimeStrip(rows);
       renderPositionDist(rows);
@@ -1795,8 +1679,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
         rangeBox.innerHTML = `
           当前筛选: <span class="mono">${{state.range}}</span><br>
           缩放模式: <span class="mono">${{state.zoomMode}}</span><br>
-          实际显示: <span class="mono">${{rows[0].datetime}}</span> → <span class="mono">${{rows[rows.length-1].datetime}}</span><br>
-          说明: 当前页面不显示 <span class="mono">2019 valid</span>，所以不会看到 2019 年的数据点。
+          实际显示: <span class="mono">${{rows[0].datetime}}</span> → <span class="mono">${{rows[rows.length-1].datetime}}</span>
         `;
       }} else {{
         chartMeta.innerHTML = `<span>当前日期筛选下没有数据，请放宽缩放范围。</span>`;
@@ -1808,47 +1691,9 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       }}
     }}
 
-    function renderRawTable() {{
-      const allRows = getDetailed(state.etf).rows;
-      const rows = getFilteredRows(allRows).slice(-state.rows);
-      csvLink.href = getDetailed(state.etf).csv_path;
-      const header = ['datetime', 'strategy_nav', 'buyhold_nav', 'position', 'excess', 'excess_pct', 'action'];
-      const body = rows.map(r => [
-        r.datetime,
-        fmtNum(r.strategy_nav),
-        fmtNum(r.buyhold_nav),
-        fmtNum(r.position, 4),
-        fmtNum(r.excess),
-        fmtNum(r.excess_pct, 2),
-        r.action,
-      ]);
-      rawTable.innerHTML = [header, ...body].map((row, idx) => `
-        <tr class="clickable" data-date="${{row[0]}}">${{row.map((cell, col) => idx === 0 ? `<th>${{cell}}</th>` : `<td class="${{col === 6 && cell === 'BUY' ? 'good' : col === 6 && cell === 'SELL' ? 'bad' : ''}}">${{cell}}</td>`).join('')}}</tr>
-      `).join('');
-
-      rawTable.querySelectorAll('tr.clickable').forEach(tr => {{
-        tr.addEventListener('click', () => {{
-          const dateStr = tr.dataset.date;
-          const idx = allRows.findIndex(r => r.datetime === dateStr);
-          if (idx < 0) return;
-          const start = Math.max(0, idx - 15);
-          const end = Math.min(allRows.length - 1, idx + 15);
-          state.zoomStart = allRows[start].datetime;
-          state.zoomEnd = allRows[end].datetime;
-          state.zoomMode = 'custom';
-          saveState();
-          syncZoomInputs();
-          renderChart();
-          renderRawTable();
-          document.getElementById('mainChart').scrollIntoView({{ behavior: 'smooth' }});
-        }});
-      }});
-    }}
-
     function render() {{
       etfSelect.value = state.etf;
       viewSelect.value = state.view;
-      rowsSelect.value = String(state.rows);
       document.querySelectorAll('.pill').forEach(p => {{
         p.classList.toggle('active', p.dataset.range === state.range);
       }});
@@ -1857,10 +1702,11 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       renderStatusStrip();
       const allRows = getDetailed(state.etf).rows;
       const rows = getFilteredRows(allRows);
+      const trades = getDetailed(state.etf).trades || [];
       renderChart();
-      renderTearSheet(rows);
-      renderTradeAnalysis(rows);
-      renderRawTable();
+      renderTradeStats(trades);
+      renderStrategyStats(rows);
+      renderTradeTable(trades);
     }}
 
     loadSavedState();
