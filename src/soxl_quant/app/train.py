@@ -5,6 +5,7 @@ import random
 from pathlib import Path
 from typing import Dict
 
+import numpy as np
 import torch
 
 from ..backtest import backtest_profile

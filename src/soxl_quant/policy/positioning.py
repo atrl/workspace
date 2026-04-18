@@ -68,7 +68,7 @@ def action_band_from_obs(obs: np.ndarray, hard_floor: Optional[float] = None) ->
         and regime_risk > 0.45
     ):
         floor = 0.15
-        cap = min(cap, 0.50)
+        cap = min(cap, 0.35)
 
     return floor, cap
 
