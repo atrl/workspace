@@ -1,0 +1,351 @@
+profiles:
+  - name: aggressive
+    family: aggressive
+    status: candidate
+    baseline: balanced
+    keep_actor: false
+    keep_summary: true
+    notes_ref: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+  - name: balanced
+    family: balanced
+    status: canonical
+    baseline: balanced
+    keep_actor: true
+    keep_summary: true
+    notes_ref: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+  - name: balanced_budget
+    family: balanced
+    status: ablation
+    baseline: balanced
+    keep_actor: false
+    keep_summary: true
+    notes_ref: memory/index.json
+  - name: balanced_checkpoint_review
+    family: balanced
+    status: candidate
+    baseline: balanced
+    keep_actor: true
+    keep_summary: true
+    notes_ref: runtime/post_train_review/balanced_checkpoint_review.md
+  - name: balanced_decision_freq_quick
+    family: balanced
+    status: ablation
+    baseline: balanced
+    keep_actor: false
+    keep_summary: true
+    notes_ref: memory/index.json
+  - name: balanced_floor40
+    family: balanced_floor40
+    status: archived
+    baseline: balanced
+    keep_actor: false
+    keep_summary: true
+    notes_ref: memory/index.json
+  - name: balanced_floor40_sym
+    family: balanced_floor40
+    status: archived
+    baseline: balanced
+    keep_actor: false
+    keep_summary: true
+    notes_ref: runtime/post_train_review/floor40_sym_vs_canonical_balanced.md
+  - name: balanced_floor40_sym_bear30
+    family: balanced_floor40
+    status: dropped
+    baseline: balanced_floor40_sym
+    keep_actor: false
+    keep_summary: true
+    notes_ref: runtime/post_train_review/floor40_sym_bear30_vs_canonical_balanced.md
+  - name: balanced_floor40_sym_cap25
+    family: balanced_floor40
+    status: ablation
+    baseline: balanced_floor40_sym
+    keep_actor: false
+    keep_summary: true
+    notes_ref: memory/index.json
+  - name: balanced_floor40_sym_crisis30
+    family: balanced_floor40
+    status: ablation
+    baseline: balanced_floor40_sym
+    keep_actor: false
+    keep_summary: true
+    notes_ref: memory/index.json
+  - name: balanced_floor40_sym_crisis30_v2
+    family: balanced_floor40
+    status: ablation
+    baseline: balanced_floor40_sym_crisis30
+    keep_actor: false
+    keep_summary: true
+    notes_ref: memory/index.json
+  - name: balanced_floor40_sym_expectancy
+    family: balanced_floor40
+    status: ablation
+    baseline: balanced_floor40_sym
+    keep_actor: false
+    keep_summary: true
+    notes_ref: memory/index.json
+  - name: balanced_floor40_sym_expectancy_v2
+    family: balanced_floor40
+    status: ablation
+    baseline: balanced_floor40_sym_expectancy
+    keep_actor: false
+    keep_summary: true
+    notes_ref: memory/index.json
+  - name: balanced_floor40_sym_slow_bear
+    family: balanced_floor40
+    status: ablation
+    baseline: balanced_floor40_sym
+    keep_actor: false
+    keep_summary: true
+    notes_ref: memory/index.json
+  - name: balanced_floor40_sym_slow_bear_v2
+    family: balanced_floor40
+    status: ablation
+    baseline: balanced_floor40_sym_slow_bear
+    keep_actor: false
+    keep_summary: true
+    notes_ref: memory/index.json
+  - name: balanced_floor40_sym_tconv
+    family: balanced_floor40
+    status: ablation
+    baseline: balanced_floor40_sym
+    keep_actor: false
+    keep_summary: true
+    notes_ref: memory/index.json
+  - name: balanced_floor40_sym_tight_crash
+    family: balanced_floor40
+    status: ablation
+    baseline: balanced_floor40_sym
+    keep_actor: false
+    keep_summary: true
+    notes_ref: memory/index.json
+  - name: balanced_floor40_sym_v2
+    family: balanced_floor40
+    status: ablation
+    baseline: balanced_floor40_sym
+    keep_actor: false
+    keep_summary: true
+    notes_ref: memory/index.json
+  - name: balanced_floor40_sym_velocity
+    family: balanced_floor40
+    status: ablation
+    baseline: balanced_floor40_sym
+    keep_actor: false
+    keep_summary: true
+    notes_ref: memory/index.json
+  - name: balanced_floor40_sym_velocity_rules
+    family: balanced_floor40
+    status: ablation
+    baseline: balanced_floor40_sym_velocity
+    keep_actor: false
+    keep_summary: true
+    notes_ref: memory/index.json
+  - name: balanced_marginal_reward
+    family: balanced
+    status: ablation
+    baseline: balanced
+    keep_actor: false
+    keep_summary: true
+    notes_ref: memory/index.json
+  - name: balanced_marginal_reward_quick
+    family: balanced
+    status: ablation
+    baseline: balanced_marginal_reward
+    keep_actor: false
+    keep_summary: true
+    notes_ref: memory/index.json
+  - name: balanced_phase_sampling_v1
+    family: balanced
+    status: dropped
+    baseline: balanced
+    keep_actor: false
+    keep_summary: true
+    notes_ref: memory/2026-04-18-phase-balanced-training-failure.md
+  - name: balanced_regime_gate
+    family: balanced
+    status: dropped
+    baseline: balanced
+    keep_actor: false
+    keep_summary: true
+    notes_ref: memory/2026-04-17-balanced-regime-gate-failure.md
+  - name: balanced_regime_gate_v2
+    family: balanced
+    status: dropped
+    baseline: balanced_regime_gate
+    keep_actor: false
+    keep_summary: true
+    notes_ref: memory/2026-04-17-balanced-regime-gate-v2-failure.md
+  - name: balanced_reward_guard
+    family: balanced
+    status: dropped
+    baseline: balanced
+    keep_actor: false
+    keep_summary: true
+    notes_ref: runtime/post_train_review/balanced_reward_guard.md
+  - name: balanced_sac_quick
+    family: balanced
+    status: ablation
+    baseline: balanced
+    keep_actor: false
+    keep_summary: true
+    notes_ref: memory/index.json
+  - name: balanced_stress_behavior
+    family: balanced
+    status: dropped
+    baseline: balanced
+    keep_actor: false
+    keep_summary: true
+    notes_ref: runtime/post_train_review/balanced_stress_behavior_vs_balanced.md
+  - name: balanced_stress_select
+    family: balanced
+    status: dropped
+    baseline: balanced
+    keep_actor: false
+    keep_summary: true
+    notes_ref: runtime/post_train_review/balanced_stress_select_vs_balanced.md
+  - name: balanced_stress_select_v2
+    family: balanced
+    status: dropped
+    baseline: balanced_stress_select
+    keep_actor: false
+    keep_summary: true
+    notes_ref: runtime/post_train_review/balanced_stress_select_v2_vs_balanced.md
+  - name: balanced_structural_v1
+    family: balanced
+    status: dropped
+    baseline: balanced
+    keep_actor: false
+    keep_summary: true
+    notes_ref: memory/2026-04-18-structural-model-loop.md
+  - name: balanced_tide_quick
+    family: balanced
+    status: ablation
+    baseline: balanced
+    keep_actor: false
+    keep_summary: true
+    notes_ref: memory/index.json
+  - name: smoke
+    family: smoke
+    status: canonical
+    baseline: smoke
+    keep_actor: true
+    keep_summary: true
+    notes_ref: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+  - name: smoke_action5
+    family: smoke
+    status: archived
+    baseline: smoke
+    keep_actor: false
+    keep_summary: true
+    notes_ref: memory/index.json
+  - name: smoke_combo
+    family: smoke
+    status: archived
+    baseline: smoke
+    keep_actor: false
+    keep_summary: true
+    notes_ref: memory/index.json
+  - name: smoke_decision_freq
+    family: smoke
+    status: archived
+    baseline: smoke
+    keep_actor: false
+    keep_summary: true
+    notes_ref: memory/index.json
+  - name: smoke_floor50
+    family: smoke
+    status: archived
+    baseline: smoke
+    keep_actor: false
+    keep_summary: true
+    notes_ref: memory/index.json
+  - name: smoke_hybrid
+    family: smoke
+    status: archived
+    baseline: smoke
+    keep_actor: false
+    keep_summary: true
+    notes_ref: memory/index.json
+  - name: smoke_log_freq
+    family: smoke
+    status: archived
+    baseline: smoke
+    keep_actor: false
+    keep_summary: true
+    notes_ref: memory/index.json
+  - name: smoke_log_reward
+    family: smoke
+    status: archived
+    baseline: smoke
+    keep_actor: false
+    keep_summary: true
+    notes_ref: memory/index.json
+  - name: smoke_marginal
+    family: smoke
+    status: archived
+    baseline: smoke
+    keep_actor: false
+    keep_summary: true
+    notes_ref: memory/index.json
+  - name: smoke_marginal_freq
+    family: smoke
+    status: archived
+    baseline: smoke_marginal
+    keep_actor: false
+    keep_summary: true
+    notes_ref: memory/index.json
+  - name: smoke_marginal_high_scale
+    family: smoke
+    status: archived
+    baseline: smoke_marginal
+    keep_actor: false
+    keep_summary: true
+    notes_ref: memory/index.json
+  - name: smoke_nday
+    family: smoke
+    status: archived
+    baseline: smoke
+    keep_actor: false
+    keep_summary: true
+    notes_ref: memory/index.json
+  - name: smoke_obs_window3
+    family: smoke
+    status: archived
+    baseline: smoke
+    keep_actor: false
+    keep_summary: true
+    notes_ref: memory/index.json
+  - name: smoke_ppo_fixed
+    family: smoke
+    status: archived
+    baseline: smoke
+    keep_actor: false
+    keep_summary: true
+    notes_ref: memory/index.json
+  - name: smoke_quality
+    family: smoke
+    status: archived
+    baseline: smoke
+    keep_actor: false
+    keep_summary: true
+    notes_ref: memory/index.json
+  - name: smoke_sac
+    family: smoke
+    status: archived
+    baseline: smoke
+    keep_actor: false
+    keep_summary: true
+    notes_ref: memory/index.json
+  - name: smoke_sparse
+    family: smoke
+    status: archived
+    baseline: smoke
+    keep_actor: false
+    keep_summary: true
+    notes_ref: memory/index.json
+  - name: smoke_tide
+    family: smoke
+    status: archived
+    baseline: smoke
+    keep_actor: false
+    keep_summary: true
+    notes_ref: memory/index.json

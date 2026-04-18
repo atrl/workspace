@@ -7,6 +7,7 @@ import json
 import pickle
 from pathlib import Path
 
+import numpy as np
 import pandas as pd
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
@@ -48,6 +49,95 @@ def load_features() -> dict[str, dict[str, float]] | None:
         key = dt.strftime("%Y-%m-%d")
         records[key] = {c: (float(row[c]) if pd.notna(row[c]) else None) for c in available}
     return records
+
+
+def load_ohlc_and_indicators(etf: str) -> dict[str, dict]:
+    """Load OHLC from data/symbols/{etf}.csv and compute soxl_backtest indicators."""
+    csv_path = ROOT / "data" / "symbols" / f"{etf.upper()}.csv"
+    if not csv_path.exists():
+        return {}
+    df = pd.read_csv(csv_path, parse_dates=["date"])
+    df = df.sort_values("date").reset_index(drop=True)
+
+    # RSI6
+    delta = df["close"].diff()
+    gain = delta.where(delta > 0, 0).ewm(span=6, adjust=False).mean()
+    loss = (-delta.where(delta < 0, 0)).ewm(span=6, adjust=False).mean()
+    df["rsi6"] = 100 - (100 / (1 + gain / (loss + 1e-5)))
+
+    # MA180 (soxl_backtest calls it MA20 but uses window=180)
+    df["ma180"] = df["close"].rolling(window=180).mean()
+
+    # HV_20 (annualized)
+    returns = np.log(df["close"] / df["close"].shift(1))
+    df["hv_20"] = returns.rolling(window=20).std() * np.sqrt(252)
+
+    # VOL_COEF
+    hv_median = df["hv_20"].median()
+    if hv_median and hv_median > 0:
+        df["vol_coef"] = (df["hv_20"] / hv_median).clip(0.5, 2.0)
+    else:
+        df["vol_coef"] = 1.0
+
+    # VIX: try features_v2.pkl first, else fallback 20
+    vix_series = pd.Series(20.0, index=df.index)
+    if FEATURES_PATH.exists():
+        try:
+            with open(FEATURES_PATH, "rb") as f:
+                feat = pickle.load(f)
+            if "vix" in feat.columns:
+                feat_idx = pd.to_datetime(feat.index)
+                for i, row in df.iterrows():
+                    dt = row["date"]
+                    mask = feat_idx == pd.Timestamp(dt)
+                    if mask.any():
+                        vix_val = feat.loc[mask, "vix"].values
+                        if len(vix_val) > 0 and pd.notna(vix_val[0]):
+                            vix_series.iloc[i] = float(vix_val[0])
+        except Exception:
+            pass
+    df["vix"] = vix_series
+
+    # Panic Score (Sigmoid on VIX + RSI6 adjustment)
+    vix_low, vix_high, fear_min, fear_max, steepness = 10, 30, -100, 100, 0.5
+    vix_clipped = df["vix"].clip(vix_low, vix_high)
+    vix_mid = (vix_high + vix_low) / 2
+    sigmoid = 1 / (1 + np.exp(-(vix_mid - vix_clipped) * steepness))
+    df["base_panic"] = sigmoid * (fear_max - fear_min) + fear_min
+
+    def _adjust_panic(row):
+        rsi6 = row["rsi6"]
+        base = row["base_panic"]
+        if pd.isna(rsi6):
+            return base
+        if rsi6 <= 30:
+            return max(-150, base - (20 + (30 - rsi6) * 2.5))
+        elif rsi6 >= 70:
+            return min(150, base + (20 + (rsi6 - 70)))
+        return base
+
+    df["panic_score"] = df.apply(_adjust_panic, axis=1)
+
+    # Market state: overvalued (price > MA180)
+    df["market_state"] = df["close"] > df["ma180"]
+
+    result = {}
+    for _, row in df.iterrows():
+        key = row["date"].strftime("%Y-%m-%d")
+        result[key] = {
+            "open": float(row["open"]) if pd.notna(row["open"]) else None,
+            "high": float(row["high"]) if pd.notna(row["high"]) else None,
+            "low": float(row["low"]) if pd.notna(row["low"]) else None,
+            "close": float(row["close"]) if pd.notna(row["close"]) else None,
+            "volume": int(row["volume"]) if pd.notna(row["volume"]) else None,
+            "rsi6": float(row["rsi6"]) if pd.notna(row["rsi6"]) else None,
+            "ma180": float(row["ma180"]) if pd.notna(row["ma180"]) else None,
+            "hv_20": float(row["hv_20"]) if pd.notna(row["hv_20"]) else None,
+            "vol_coef": float(row["vol_coef"]) if pd.notna(row["vol_coef"]) else None,
+            "panic_score": float(row["panic_score"]) if pd.notna(row["panic_score"]) else None,
+            "market_state": bool(row["market_state"]) if pd.notna(row["market_state"]) else None,
+        }
+    return result
 
 
 def load_json(path: Path):
@@ -429,6 +519,7 @@ def build_payload() -> dict[str, object]:
     for item in detailed_summary:
         etf = item["etf"]
         rows = load_csv_rows(DETAIL_DIR / f"{etf.lower()}_detailed_trades.csv")
+        ohlc = load_ohlc_and_indicators(etf)
         if features:
             for r in rows:
                 dt = str(r["datetime"])
@@ -436,6 +527,11 @@ def build_payload() -> dict[str, object]:
         else:
             for r in rows:
                 r["_features"] = {}
+        # Merge OHLC + indicators into rows
+        for r in rows:
+            dt = str(r["datetime"])
+            if dt in ohlc:
+                r.update(ohlc[dt])
         regime_shapes = compute_regime_shapes(rows)
         trades = compute_trades(rows)
         kelly_stats = compute_kelly_stats(trades)
@@ -446,6 +542,7 @@ def build_payload() -> dict[str, object]:
             "regime_shapes": regime_shapes,
             "trades": trades,
             "kelly": kelly_stats,
+            "ohlc": ohlc,
         }
         windows[etf] = {
             "start": rows[0]["datetime"] if rows else "",
@@ -502,7 +599,7 @@ def _build_layout_all() -> dict:
         shared_xaxes=True,
         vertical_spacing=0.05,
         row_heights=[0.40, 0.20, 0.20, 0.20],
-        subplot_titles=("NAV + Trades + Price", "Position", "Excess Return %", "Drawdown"),
+        subplot_titles=("NAV + Trades + K-Line", "Position", "Excess Return %", "Drawdown"),
         specs=[[{"secondary_y": True}], [{}], [{}], [{}]],
     )
     fig.update_layout(
@@ -536,6 +633,7 @@ def _build_layout_all() -> dict:
     fig.update_yaxes(title_text="Excess %", row=3, col=1)
     fig.update_yaxes(title_text="DD %", row=4, col=1)
     fig.update_xaxes(title_text="Date", row=4, col=1)
+    fig.update_layout(xaxis_rangeslider_visible=False)
     return fig.to_plotly_json()["layout"]
 
 
@@ -1174,8 +1272,20 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
               <span class="info-v" id="infoAction">-</span>
             </div>
             <div class="info-row">
-              <span class="info-k">Price</span>
-              <span class="info-v" id="infoPrice">-</span>
+              <span class="info-k">Open</span>
+              <span class="info-v" id="infoOpen">-</span>
+            </div>
+            <div class="info-row">
+              <span class="info-k">High</span>
+              <span class="info-v" id="infoHigh">-</span>
+            </div>
+            <div class="info-row">
+              <span class="info-k">Low</span>
+              <span class="info-v" id="infoLow">-</span>
+            </div>
+            <div class="info-row">
+              <span class="info-k">Close</span>
+              <span class="info-v" id="infoClose">-</span>
             </div>
             <div class="info-row">
               <span class="info-k">Strategy NAV</span>
@@ -1195,6 +1305,11 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
             </div>
             <div class="info-section">
               <div class="info-section-title">市场特征</div>
+              <div class="info-row"><span class="info-k">State</span><span class="info-v" id="infoState">-</span></div>
+              <div class="info-row"><span class="info-k">Panic</span><span class="info-v" id="infoPanic">-</span></div>
+              <div class="info-row"><span class="info-k">RSI6</span><span class="info-v" id="infoRsi6">-</span></div>
+              <div class="info-row"><span class="info-k">HV20</span><span class="info-v" id="infoHv20">-</span></div>
+              <div class="info-row"><span class="info-k">VolCoef</span><span class="info-v" id="infoVolCoef">-</span></div>
               <div class="info-row"><span class="info-k">VIX</span><span class="info-v" id="infoVix">-</span></div>
               <div class="info-row"><span class="info-k">RSI</span><span class="info-v" id="infoRsi">-</span></div>
               <div class="info-row"><span class="info-k">Volatility</span><span class="info-v" id="infoVol">-</span></div>
@@ -1861,13 +1976,27 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       const f = row._features || {{}};
       document.getElementById('infoDate').textContent = row.datetime;
       const actionEl = document.getElementById('infoAction');
-      actionEl.textContent = row.action || 'HOLD';
-      actionEl.style.color = row.action === 'BUY' ? 'var(--good)' : row.action === 'SELL' ? 'var(--bad)' : 'var(--ink)';
-      document.getElementById('infoPrice').textContent = fmtNum(row.price || row.strategy_nav);
+      if (actionEl) {{
+        actionEl.textContent = row.action || 'HOLD';
+        actionEl.style.color = row.action === 'BUY' ? 'var(--good)' : row.action === 'SELL' ? 'var(--bad)' : 'var(--ink)';
+      }}
+      document.getElementById('infoOpen').textContent = row.open != null ? '$' + fmtNum(row.open, 2) : 'n/a';
+      document.getElementById('infoHigh').textContent = row.high != null ? '$' + fmtNum(row.high, 2) : 'n/a';
+      document.getElementById('infoLow').textContent = row.low != null ? '$' + fmtNum(row.low, 2) : 'n/a';
+      document.getElementById('infoClose').textContent = row.close != null ? '$' + fmtNum(row.close, 2) : 'n/a';
       document.getElementById('infoStrat').textContent = fmtNum(row.strategy_nav);
       document.getElementById('infoBH').textContent = fmtNum(row.buyhold_nav);
       document.getElementById('infoPos').textContent = fmtNum(row.position, 4);
       document.getElementById('infoExcess').textContent = fmtNum(row.excess_pct, 2) + '%';
+      const stateEl = document.getElementById('infoState');
+      if (row.market_state != null) {{
+        stateEl.textContent = row.market_state ? 'Overvalued 🔴' : 'Undervalued 🟢';
+        stateEl.style.color = row.market_state ? 'var(--bad)' : 'var(--good)';
+      }} else {{ stateEl.textContent = 'n/a'; stateEl.style.color = 'var(--ink)'; }}
+      document.getElementById('infoPanic').textContent = row.panic_score != null ? fmtNum(row.panic_score, 1) : 'n/a';
+      document.getElementById('infoRsi6').textContent = row.rsi6 != null ? fmtNum(row.rsi6, 1) : 'n/a';
+      document.getElementById('infoHv20').textContent = row.hv_20 != null ? fmtNum(row.hv_20, 3) : 'n/a';
+      document.getElementById('infoVolCoef').textContent = row.vol_coef != null ? fmtNum(row.vol_coef, 2) : 'n/a';
       document.getElementById('infoVix').textContent = f.vix != null ? fmtNum(f.vix, 2) : 'n/a';
       document.getElementById('infoRsi').textContent = f.rsi != null ? fmtNum(f.rsi, 2) : 'n/a';
       document.getElementById('infoVol').textContent = f.volatility != null ? fmtNum(f.volatility, 4) : 'n/a';
@@ -1897,7 +2026,35 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       const rows = getFilteredRows(allRows);
       const layout = JSON.parse(JSON.stringify(PLOTLY_LAYOUTS[state.view || 'all']));
       const shapes = getDetailed(state.etf).regime_shapes || [];
-      layout.shapes = shapes;
+      // Overvalued / Undervalued background shapes
+      const ovlShapes = [];
+      let curState = null, stateStart = null;
+      for (let i = 0; i < rows.length; i++) {{
+        const ms = rows[i].market_state;
+        if (ms !== curState) {{
+          if (curState !== null && stateStart !== null) {{
+            ovlShapes.push({{
+              type: 'rect',
+              x0: stateStart, x1: rows[i-1].datetime,
+              y0: 0, y1: 1, yref: 'paper',
+              fillcolor: curState ? 'rgba(185,28,28,0.05)' : 'rgba(15,118,110,0.05)',
+              line: {{width: 0}}, layer: 'below',
+            }});
+          }}
+          curState = ms;
+          stateStart = rows[i].datetime;
+        }}
+      }}
+      if (curState !== null && stateStart !== null) {{
+        ovlShapes.push({{
+          type: 'rect',
+          x0: stateStart, x1: rows[rows.length-1].datetime,
+          y0: 0, y1: 1, yref: 'paper',
+          fillcolor: curState ? 'rgba(185,28,28,0.05)' : 'rgba(15,118,110,0.05)',
+          line: {{width: 0}}, layer: 'below',
+        }});
+      }}
+      layout.shapes = shapes.concat(ovlShapes);
 
       const dates = rows.map(r => r.datetime);
       const strategyNav = rows.map(r => r.strategy_nav);
@@ -1949,15 +2106,33 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
         hovertemplate: '%{{x}}<br>Buy&Hold: %{{y:,.2f}}<extra></extra>',
         xaxis: xa, yaxis: ya,
       }});
-      // Price on secondary y-axis
-      const prices = rows.map(r => r.price);
-      traces.push({{
-        x: dates, y: prices,
-        name: 'Price', type: 'scatter', mode: 'lines',
-        line: {{ color: '#4a3f35', width: 1.5, dash: 'solid' }},
-        hovertemplate: '%{{x}}<br>Price: $%{{y:,.2f}}<extra></extra>',
-        xaxis: xa, yaxis: 'y2',
-      }});
+      // K-Line on secondary y-axis
+      const opens = [], highs = [], lows = [], closes = [], ma180Dates = [], ma180Vals = [];
+      for (const r of rows) {{
+        if (r.open != null) opens.push(r.open);
+        if (r.high != null) highs.push(r.high);
+        if (r.low != null) lows.push(r.low);
+        if (r.close != null) closes.push(r.close);
+        if (r.ma180 != null) {{ ma180Dates.push(r.datetime); ma180Vals.push(r.ma180); }}
+      }}
+      if (opens.length) {{
+        traces.push({{
+          x: dates, open: opens, high: highs, low: lows, close: closes,
+          name: 'SOXL', type: 'candlestick',
+          increasing: {{line: {{color: '#0f766e'}}, fillcolor: 'rgba(15,118,110,0.12)'}},
+          decreasing: {{line: {{color: '#b91c1c'}}, fillcolor: 'rgba(185,28,28,0.12)'}},
+          xaxis: xa, yaxis: 'y2',
+        }});
+      }}
+      if (ma180Vals.length) {{
+        traces.push({{
+          x: ma180Dates, y: ma180Vals,
+          name: 'MA180', type: 'scatter', mode: 'lines',
+          line: {{ color: '#9a3412', width: 1.5, dash: 'dash' }},
+          hovertemplate: '%{{x}}<br>MA180: $%{{y:,.2f}}<extra></extra>',
+          xaxis: xa, yaxis: 'y2',
+        }});
+      }}
       if (buyRows.length) {{
         traces.push({{
           x: buyRows.map(r => r.datetime),
@@ -2027,7 +2202,10 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       }}).then(gd => {{
         gd.on('plotly_hover', function(data) {{
           const pt = data.points[0];
-          const dateStr = pt.x;
+          let dateStr = pt.x;
+          if (dateStr instanceof Date) {{
+            dateStr = dateStr.toISOString().slice(0, 10);
+          }}
           const row = rows.find(r => r.datetime === dateStr);
           updateInfoPanel(row, tradeMap);
         }});

@@ -77,6 +77,18 @@ FEATURE_COLUMNS: List[str] = [
     "vol_stress_score",
     "regime_risk_no_vix",
     "relative_volume_zscore",
+    # Temporal differential / momentum velocity features (v3)
+    "mom_5",
+    "mom_10",
+    "anchor_gap_velocity_10",
+    "trend_gap_21_velocity",
+    "rsi_14_velocity_5",
+    "regime_risk_velocity_5",
+    "volume_shock_velocity_5",
+    "expectancy_proxy_21",
+    "sharpe_proxy_21",
+    "realized_skew_21",
+    "gain_streak_10",
 ]
 STATIC_INDEX = {name: idx for idx, name in enumerate(FEATURE_COLUMNS)}
 
@@ -370,6 +382,38 @@ def engineer_feature_frame(
         + 0.07 * loss_streak_21.fillna(0.0)
     )
 
+    # --- Temporal differential / momentum velocity features (v3) ---
+    # Short-term momentum for faster regime-transition detection
+    mom_5 = lev_ret.rolling(5).sum()
+    mom_10 = lev_ret.rolling(10).sum()
+
+    # Velocity features: rate-of-change in key regime indicators
+    anchor_gap_velocity_10 = anchor_gap_180 - anchor_gap_180.shift(10)
+    trend_gap_21_velocity = trend_gap_21 - trend_gap_21.shift(5)
+    rsi_14_velocity_5 = (rsi / 100.0).diff(5)
+    regime_risk_velocity_5 = regime_risk.diff(5)
+    volume_shock_velocity_5 = volume_shock - volume_shock.shift(5)
+
+    # Expectancy proxy: forward-statistical edge from recent history
+    # = (up_ratio * avg_up_return + down_ratio * avg_down_return) / avg_abs_return
+    up_mask = lev_ret > 0
+    down_mask = lev_ret < 0
+    up_days_ratio = up_mask.rolling(21).mean()
+    down_days_ratio = down_mask.rolling(21).mean()
+    avg_up_return = lev_ret.where(up_mask, 0.0).rolling(21).mean()
+    avg_down_return = lev_ret.where(down_mask, 0.0).rolling(21).mean()
+    avg_abs_return = lev_ret.abs().rolling(21).mean().clip(lower=1e-8)
+    expectancy_proxy_21 = (up_days_ratio * avg_up_return + down_days_ratio * avg_down_return) / avg_abs_return
+
+    # Sharpe proxy: risk-adjusted momentum over 21 days
+    sharpe_proxy_21 = lev_ret.rolling(21).mean() / (lev_ret.rolling(21).std().clip(lower=1e-8)) * np.sqrt(252)
+
+    # Realized skewness: tail asymmetry companion to kurtosis
+    realized_skew_21 = lev_ret.rolling(21).skew().fillna(0.0)
+
+    # Gain streak: symmetric to loss_streak_21
+    gain_streak_10 = _streaks(lev_ret > 0).clip(upper=10) / 10.0
+
     feature_df = pd.DataFrame(
         {
             "return": lev_ret,
@@ -420,6 +464,18 @@ def engineer_feature_frame(
             "vol_stress_score": vol_stress_score,
             "regime_risk_no_vix": regime_risk_no_vix,
             "relative_volume_zscore": relative_volume_zscore,
+            # Temporal differential / momentum velocity features (v3)
+            "mom_5": mom_5,
+            "mom_10": mom_10,
+            "anchor_gap_velocity_10": anchor_gap_velocity_10,
+            "trend_gap_21_velocity": trend_gap_21_velocity,
+            "rsi_14_velocity_5": rsi_14_velocity_5,
+            "regime_risk_velocity_5": regime_risk_velocity_5,
+            "volume_shock_velocity_5": volume_shock_velocity_5,
+            "expectancy_proxy_21": expectancy_proxy_21,
+            "sharpe_proxy_21": sharpe_proxy_21,
+            "realized_skew_21": realized_skew_21,
+            "gain_streak_10": gain_streak_10,
             "close": close,
         }
     ).replace([np.inf, -np.inf], np.nan)

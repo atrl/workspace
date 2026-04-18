@@ -312,6 +312,15 @@ def action_band_from_obs(obs: np.ndarray, hard_floor: Optional[float] = None) ->
         floor = max(0.20, floor - 0.05)
         cap = min(cap, 0.90)
 
+    # === Persistent slow-bear detection ===
+    # Distinguish 2020 V-shape (short, sharp) from 2022 slow grind (long, persistent)
+    drawdown_streak = float(np.nan_to_num(obs[STATIC_INDEX["drawdown_streak_63"]]))
+    below_anchor_ratio = float(np.nan_to_num(obs[STATIC_INDEX["below_anchor_ratio_63"]]))
+    if (drawdown_streak > 0.30 and below_anchor_ratio > 0.50
+            and anchor_gap < -0.02 and regime_risk > 0.45):
+        floor = 0.15
+        cap = min(cap, 0.35)
+
     return floor, cap
 
 
