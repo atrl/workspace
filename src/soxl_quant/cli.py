@@ -41,7 +41,17 @@ from qlib.rl.trainer.api import train as qlib_train
 from .backtest import backtest_profile, save_results
 from .compat import patch_gym_compat
 from .data import FEATURE_COLUMNS, build_dataset, feature_schema_signature, refresh_qlib_binary, init_qlib, segment_frame
-from .rl import ContinuousReward, PositionAction, SoxlSimulator, SoxlState, build_initial_states, build_policy, evaluate_split
+from .rl import (
+    ContinuousReward,
+    PositionAction,
+    SoxlSimulator,
+    SoxlState,
+    action_levels_for_profile,
+    build_initial_states,
+    build_policy,
+    evaluate_split,
+    observation_dim_for_profile,
+)
 from .settings import (
     CSV_PATH,
     ETF_UNIVERSE,
@@ -202,7 +212,14 @@ def slice_metrics(actor, df, slices: Dict[str, Tuple[str, str]], profile) -> Dic
         segment = slice_frame(df, seg)
         if len(segment) <= 120:
             continue
-        metrics[name] = evaluate_split(actor, segment, position_cap_config=profile.position_cap, asset_idx=0)
+        metrics[name] = evaluate_split(
+            actor,
+            segment,
+            position_cap_config=profile.position_cap,
+            asset_idx=0,
+            action_levels=action_levels_for_profile(profile),
+            observation_window=profile.model.observation_window,
+        )
     return metrics
 
 
@@ -232,6 +249,31 @@ def serialize_selection_score(profile) -> Dict[str, float | bool]:
         "stress_threshold": profile.selection_score.stress_threshold,
         "staged_training": profile.selection_score.staged_training,
         "stage_iters": profile.selection_score.stage_iters,
+    }
+
+
+def serialize_model_config(profile) -> Dict[str, object]:
+    return {
+        "observation_window": int(profile.model.observation_window),
+        "action_levels": [float(v) for v in profile.model.action_levels],
+        "use_regime_router": bool(profile.model.use_regime_router),
+        "hard_regime_routing": bool(profile.model.hard_regime_routing),
+        "router_experts": int(profile.model.router_experts),
+        "router_top_k": int(profile.model.router_top_k),
+        "router_noise_std": float(profile.model.router_noise_std),
+    }
+
+
+def serialize_sampling_config(profile) -> Dict[str, object]:
+    return {
+        "regime_stratified": bool(profile.sampling.regime_stratified),
+        "mild_risk_threshold": float(profile.sampling.mild_risk_threshold),
+        "severe_risk_threshold": float(profile.sampling.severe_risk_threshold),
+        "mild_drawdown_threshold": float(profile.sampling.mild_drawdown_threshold),
+        "severe_drawdown_threshold": float(profile.sampling.severe_drawdown_threshold),
+        "mild_repeat": int(profile.sampling.mild_repeat),
+        "severe_repeat": int(profile.sampling.severe_repeat),
+        "persistent_stress_days": float(profile.sampling.persistent_stress_days),
     }
 
 
@@ -306,13 +348,19 @@ def train_with_selection(policy, actor, initial_states, obs_dim: int, profile, v
             valid_df,
             position_cap_config=profile.position_cap,
             stress_threshold=profile.selection_score.stress_threshold,
+            action_levels=action_levels_for_profile(profile),
+            observation_window=profile.model.observation_window,
         )
         baseline_score = validation_score(baseline_metrics, profile)
         baseline_state = copy.deepcopy(actor.state_dict())
         qlib_train(
             simulator_fn=SoxlSimulator,
             state_interpreter=SoxlState(obs_dim),
-            action_interpreter=PositionAction(position_cap_config=profile.position_cap),
+            action_interpreter=PositionAction(
+                n_actions=len(action_levels_for_profile(profile)),
+                position_cap_config=profile.position_cap,
+                action_levels=action_levels_for_profile(profile),
+            ),
             initial_states=initial_states,
             policy=policy,
             reward=ContinuousReward(profile),
@@ -327,6 +375,8 @@ def train_with_selection(policy, actor, initial_states, obs_dim: int, profile, v
             valid_df,
             position_cap_config=profile.position_cap,
             stress_threshold=profile.selection_score.stress_threshold,
+            action_levels=action_levels_for_profile(profile),
+            observation_window=profile.model.observation_window,
         )
         final_score = validation_score(final_metrics, profile)
         history = [
@@ -351,6 +401,8 @@ def train_with_selection(policy, actor, initial_states, obs_dim: int, profile, v
         position_cap_config=profile.position_cap,
         asset_idx=0,
         stress_threshold=profile.selection_score.stress_threshold,
+        action_levels=action_levels_for_profile(profile),
+        observation_window=profile.model.observation_window,
     )
     best_score = validation_score(best_metrics, profile)
     history = [{"iter": 0, "score": best_score, **best_metrics}]
@@ -360,7 +412,11 @@ def train_with_selection(policy, actor, initial_states, obs_dim: int, profile, v
         qlib_train(
             simulator_fn=SoxlSimulator,
             state_interpreter=SoxlState(obs_dim),
-            action_interpreter=PositionAction(position_cap_config=profile.position_cap),
+            action_interpreter=PositionAction(
+                n_actions=len(action_levels_for_profile(profile)),
+                position_cap_config=profile.position_cap,
+                action_levels=action_levels_for_profile(profile),
+            ),
             initial_states=initial_states,
             policy=policy,
             reward=ContinuousReward(profile),
@@ -377,6 +433,8 @@ def train_with_selection(policy, actor, initial_states, obs_dim: int, profile, v
             position_cap_config=profile.position_cap,
             asset_idx=0,
             stress_threshold=profile.selection_score.stress_threshold,
+            action_levels=action_levels_for_profile(profile),
+            observation_window=profile.model.observation_window,
         )
         score = validation_score(metrics, profile)
         history.append({"iter": completed, "score": score, **metrics})
@@ -407,7 +465,7 @@ def run_profile(
     ablate_vix: bool = False,
 ) -> Dict[str, object]:
     """Execute one full train -> select -> persist -> backtest cycle."""
-    obs_dim = len(FEATURE_COLUMNS) + EXTRA_OBS_DIM + N_ASSETS
+    obs_dim = observation_dim_for_profile(profile)
     if multi_asset_sources:
         initial_states = build_initial_states(multi_asset_sources, profile, smoke)
     else:
@@ -461,6 +519,8 @@ def run_profile(
             },
             "position_cap": serialize_position_cap(profile),
             "selection_score": serialize_selection_score(profile),
+            "model_config": serialize_model_config(profile),
+            "sampling_config": serialize_sampling_config(profile),
             "state_dict": actor.state_dict(),
         },
         model_path,
@@ -475,7 +535,14 @@ def run_profile(
         },
         profile,
     )
-    test_proxy = evaluate_split(actor, test_df, position_cap_config=profile.position_cap, asset_idx=0)
+    test_proxy = evaluate_split(
+        actor,
+        test_df,
+        position_cap_config=profile.position_cap,
+        asset_idx=0,
+        action_levels=action_levels_for_profile(profile),
+        observation_window=profile.model.observation_window,
+    )
     promotion_report = build_promotion_report(profile, slice_result, test_proxy)
     summary_path.write_text(
         json.dumps(
@@ -490,6 +557,8 @@ def run_profile(
                 },
                 "position_cap": serialize_position_cap(profile),
                 "selection_score": serialize_selection_score(profile),
+                "model_config": serialize_model_config(profile),
+                "sampling_config": serialize_sampling_config(profile),
                 "model_path": str(model_path),
                 "valid": valid_metrics,
                 "best_score": selection["best_score"],
@@ -628,7 +697,7 @@ def parse_args() -> argparse.Namespace:
         "--profiles",
         nargs="+",
         default=["balanced", "aggressive"],
-        choices=["balanced", "aggressive", "smoke", "balanced_budget", "balanced_floor40", "balanced_floor40_sym", "balanced_floor40_sym_bear30", "balanced_stress_select", "balanced_stress_select_v2", "balanced_reward_guard", "balanced_stress_behavior", "balanced_regime_gate", "balanced_regime_gate_v2", "balanced_checkpoint_review"],
+        choices=["balanced", "aggressive", "smoke", "balanced_budget", "balanced_floor40", "balanced_floor40_sym", "balanced_floor40_sym_bear30", "balanced_stress_select", "balanced_stress_select_v2", "balanced_reward_guard", "balanced_structural_v1", "balanced_stress_behavior", "balanced_regime_gate", "balanced_regime_gate_v2", "balanced_checkpoint_review"],
         help="profiles to train and backtest",
     )
     parser.add_argument("--smoke", action="store_true", help="force short smoke run")

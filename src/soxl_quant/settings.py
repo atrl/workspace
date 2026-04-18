@@ -32,6 +32,8 @@ ETF_UNIVERSE = {
     "TECL": {"underlying": "XLK", "leverage": 3.0},
 }
 
+DEFAULT_ACTION_LEVELS = tuple(round(i / (N_ACTIONS - 1), 6) for i in range(N_ACTIONS))
+
 
 @dataclass(frozen=True)
 class RewardConfig:
@@ -134,6 +136,29 @@ class ExecutionConfig:
 
 
 @dataclass(frozen=True)
+class ModelConfig:
+    observation_window: int = 1
+    action_levels: Tuple[float, ...] = DEFAULT_ACTION_LEVELS
+    use_regime_router: bool = False
+    hard_regime_routing: bool = False
+    router_experts: int = 3
+    router_top_k: int = 1
+    router_noise_std: float = 0.1
+
+
+@dataclass(frozen=True)
+class SamplingConfig:
+    regime_stratified: bool = False
+    mild_risk_threshold: float = 0.42
+    severe_risk_threshold: float = 0.58
+    mild_drawdown_threshold: float = 0.10
+    severe_drawdown_threshold: float = 0.18
+    mild_repeat: int = 2
+    severe_repeat: int = 3
+    persistent_stress_days: float = 0.30
+
+
+@dataclass(frozen=True)
 class StrategyConfig:
     name: str
     max_iters: int
@@ -148,6 +173,8 @@ class StrategyConfig:
     promotion_gate: PromotionGateConfig = field(default_factory=PromotionGateConfig)
     selection_score: SelectionScoreConfig = field(default_factory=SelectionScoreConfig)
     execution: ExecutionConfig = field(default_factory=ExecutionConfig)
+    model: ModelConfig = field(default_factory=ModelConfig)
+    sampling: SamplingConfig = field(default_factory=SamplingConfig)
 
 
 def artifact_stem(profile_name: str, artifact_tag: str = "") -> str:
@@ -180,6 +207,11 @@ def load_profile(name: str) -> StrategyConfig:
     promotion_gate = PromotionGateConfig(**payload.get("promotion_gate", {}))
     selection_score = SelectionScoreConfig(**payload.get("selection_score", {}))
     execution = ExecutionConfig(**payload.get("execution", {}))
+    model_payload = dict(payload.get("model", {}))
+    if "action_levels" in model_payload:
+        model_payload["action_levels"] = tuple(float(v) for v in model_payload["action_levels"])
+    model = ModelConfig(**model_payload)
+    sampling = SamplingConfig(**payload.get("sampling", {}))
     return StrategyConfig(
         name=payload["name"],
         max_iters=int(payload["max_iters"]),
@@ -194,4 +226,6 @@ def load_profile(name: str) -> StrategyConfig:
         promotion_gate=promotion_gate,
         selection_score=selection_score,
         execution=execution,
+        model=model,
+        sampling=sampling,
     )

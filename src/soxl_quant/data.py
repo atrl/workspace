@@ -49,9 +49,13 @@ FEATURE_COLUMNS: List[str] = [
     "cum_drop_20",
     "cum_drop_30",
     "days_since_high_63",
+    "drawdown_streak_63",
+    "below_ma63_days",
     "below_anchor_ratio_63",
     "new_low_ratio_21",
+    "rolling_new_low_ratio_63",
     "loss_streak_21",
+    "negative_gap_frequency_21",
     "downside_ratio_10",
     "downside_ratio_21",
     "downside_semivol_21",
@@ -277,8 +281,13 @@ def engineer_feature_frame(
     cum_drop_30 = close / close.rolling(30).max() - 1.0
 
     days_since_high_63 = close.rolling(63).apply(lambda x: len(x) - 1 - int(np.argmax(x)), raw=True) / 63.0
+    drawdown_streak_63 = _streaks(drawdown_63 < 0).clip(upper=63) / 63.0
+    below_ma63_days = _streaks(close < ma63).clip(upper=63) / 63.0
     below_anchor_ratio_63 = (close < ma180).rolling(63).mean()
     new_low_ratio_21 = (close <= close.rolling(21).min()).rolling(21).mean()
+    rolling_new_low_ratio_63 = (close <= close.rolling(63).min()).rolling(63).mean()
+    prev_close = close.shift(1)
+    negative_gap_frequency_21 = ((lev["$open"].astype(float) / prev_close - 1.0) < -0.01).rolling(21).mean()
     downside_ratio_10 = (lev_ret < 0).rolling(10).mean()
     downside_ratio_21 = (lev_ret < 0).rolling(21).mean()
     downside_semivol_21 = lev_ret.where(lev_ret < 0, 0.0).pow(2).rolling(21).mean().pow(0.5) * np.sqrt(252)
@@ -384,9 +393,13 @@ def engineer_feature_frame(
             "cum_drop_20": cum_drop_20,
             "cum_drop_30": cum_drop_30,
             "days_since_high_63": days_since_high_63,
+            "drawdown_streak_63": drawdown_streak_63,
+            "below_ma63_days": below_ma63_days,
             "below_anchor_ratio_63": below_anchor_ratio_63,
             "new_low_ratio_21": new_low_ratio_21,
+            "rolling_new_low_ratio_63": rolling_new_low_ratio_63,
             "loss_streak_21": loss_streak_21,
+            "negative_gap_frequency_21": negative_gap_frequency_21,
             "downside_ratio_10": downside_ratio_10,
             "downside_ratio_21": downside_ratio_21,
             "downside_semivol_21": downside_semivol_21,

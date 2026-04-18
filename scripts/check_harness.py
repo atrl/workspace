@@ -23,6 +23,7 @@ DEFAULT_TEST_FILES = [
     "tests/test_regime_features.py",
     "tests/test_reward.py",
     "tests/test_runtime.py",
+    "tests/test_structural_model.py",
 ]
 
 DEFAULT_COMPILE_TARGETS = [

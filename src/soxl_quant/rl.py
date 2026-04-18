@@ -37,9 +37,9 @@ from tianshou.utils.net.common import Net
 from tianshou.utils.net.discrete import Actor, Critic
 
 from .data import FEATURE_COLUMNS, STATIC_INDEX
-from .settings import EXTRA_OBS_DIM, LOOKBACK, N_ACTIONS, N_ASSETS, ExecutionConfig, PositionCapConfig, StrategyConfig
+from .settings import DEFAULT_ACTION_LEVELS, EXTRA_OBS_DIM, LOOKBACK, N_ACTIONS, N_ASSETS, ExecutionConfig, PositionCapConfig, StrategyConfig
 
-BASE_ACTION_LEVELS = np.linspace(0.0, 1.0, N_ACTIONS, dtype=np.float32)
+BASE_ACTION_LEVELS = np.asarray(DEFAULT_ACTION_LEVELS, dtype=np.float32)
 DEFAULT_POSITION_CAP = PositionCapConfig()
 DEFAULT_EXECUTION = ExecutionConfig()
 EXTRA_INDEX = {
@@ -139,6 +139,18 @@ class EpisodeConfig(NamedTuple):
     lookback: int = LOOKBACK
     cash: float = 100_000.0
     asset_idx: int = 0
+    observation_window: int = 1
+
+
+def action_levels_for_profile(profile: Optional[StrategyConfig]) -> np.ndarray:
+    if profile is None:
+        return BASE_ACTION_LEVELS
+    return np.asarray(profile.model.action_levels, dtype=np.float32)
+
+
+def observation_dim_for_profile(profile: StrategyConfig) -> int:
+    window = max(int(profile.model.observation_window), 1)
+    return len(FEATURE_COLUMNS) * window + EXTRA_OBS_DIM + N_ASSETS
 
 
 def execution_regime(regime_risk: float, realized_vol: float, trend_strength: float, config: Optional[ExecutionConfig] = None) -> str:
@@ -315,7 +327,12 @@ def drawdown_position_cap(
     return float(1.0 - shaped_scale * (1.0 - effective_min_cap))
 
 
-def action_to_position(action: int, obs: np.ndarray, config: Optional[PositionCapConfig] = None) -> float:
+def action_to_position(
+    action: int,
+    obs: np.ndarray,
+    config: Optional[PositionCapConfig] = None,
+    action_levels: Optional[np.ndarray] = None,
+) -> float:
     """将离散的 action（0~10）映射为连续仓位 [0, 1]。
 
     映射公式：position = floor + base * (cap - floor)
@@ -327,7 +344,9 @@ def action_to_position(action: int, obs: np.ndarray, config: Optional[PositionCa
     【注意】N_ACTIONS=11 意味着最小粒度为 10%，这既是量化交易中的手数约束，
     也起到了自然正则化作用，避免过度频繁的微调。
     """
-    base = float(BASE_ACTION_LEVELS[int(np.clip(action, 0, N_ACTIONS - 1))])
+    levels = action_levels if action_levels is not None else BASE_ACTION_LEVELS
+    clipped = int(np.clip(action, 0, len(levels) - 1))
+    base = float(levels[clipped])
     floor, cap = action_band_from_obs(obs)
     cumulative_drop = max(-float(np.nan_to_num(obs[STATIC_INDEX["cum_drop_30"]])), 0.0)
     cap = min(cap, drawdown_position_cap(cumulative_drop, obs=obs, config=config))
@@ -370,6 +389,8 @@ class SoxlSimulator(Simulator):
         self.trade_lock = 0
         self.nf = len(FEATURE_COLUMNS)
         self.asset_idx = getattr(initial, "asset_idx", 0)
+        self.observation_window = max(int(getattr(initial, "observation_window", 1)), 1)
+        self.obs_dim = len(FEATURE_COLUMNS) * self.observation_window + EXTRA_OBS_DIM + N_ASSETS
         self.ledger = TrancheLedger()
 
     def step(self, action: float) -> None:
@@ -449,7 +470,7 @@ class SoxlSimulator(Simulator):
         如果要升级网络为 LSTM，可在此返回 (60, nf) 的序列矩阵，而非展平向量。
         """
         if self.idx >= len(self.df):
-            obs = np.zeros(self.nf + EXTRA_OBS_DIM + N_ASSETS, dtype=np.float32)
+            obs = np.zeros(self.obs_dim, dtype=np.float32)
             return {
                 "obs": obs,
                 "pos": self.pos,
@@ -480,6 +501,7 @@ class SoxlSimulator(Simulator):
             self.ledger,
             self.price_path,
             asset_idx=self.asset_idx,
+            observation_window=self.observation_window,
         )
         return {
             "obs": obs,
@@ -517,17 +539,28 @@ class SoxlState(StateInterpreter):
 
 
 class PositionAction(ActionInterpreter):
-    def __init__(self, n_actions: int = N_ACTIONS, position_cap_config: Optional[PositionCapConfig] = None):
+    def __init__(
+        self,
+        n_actions: int = N_ACTIONS,
+        position_cap_config: Optional[PositionCapConfig] = None,
+        action_levels: Optional[np.ndarray] = None,
+    ):
         super().__init__()
         self.n_actions = n_actions
         self.position_cap_config = position_cap_config
+        self.action_levels = action_levels if action_levels is not None else BASE_ACTION_LEVELS
 
     @property
     def action_space(self):
         return spaces.Discrete(self.n_actions)
 
     def interpret(self, state, action):
-        return action_to_position(int(action), state["obs"], config=self.position_cap_config)
+        return action_to_position(
+            int(action),
+            state["obs"],
+            config=self.position_cap_config,
+            action_levels=self.action_levels,
+        )
 
 
 class ContinuousReward(Reward):
@@ -675,6 +708,8 @@ def build_initial_states(
     """
     episode_len = profile.episode_len
     all_states: List[EpisodeConfig] = []
+    sampling = profile.sampling
+    observation_window = max(int(profile.model.observation_window), 1)
     for pkl_path, df, asset_idx in sources:
         frame_count = len(df) // episode_len
         if smoke:
@@ -684,16 +719,41 @@ def build_initial_states(
             end_idx = min((i + 1) * episode_len, len(df))
             if (end_idx - start_idx) <= LOOKBACK + 2:
                 continue
-            state = EpisodeConfig(str(pkl_path), start_idx, end_idx, asset_idx=asset_idx)
+            state = EpisodeConfig(
+                str(pkl_path),
+                start_idx,
+                end_idx,
+                asset_idx=asset_idx,
+                observation_window=observation_window,
+            )
             all_states.append(state)
             segment = df.iloc[start_idx:end_idx]
             risk_score = float(segment["regime_risk"].mean())
             drawdown_score = abs(float(segment["cum_drop_30"].min()))
+            persistent_stress = max(
+                float(segment["drawdown_streak_63"].max()),
+                float(segment["below_ma63_days"].max()),
+                float(segment["rolling_new_low_ratio_63"].mean()),
+                float(segment["negative_gap_frequency_21"].mean()),
+            )
             repeats = 1
-            if risk_score > 0.58 or drawdown_score > 0.18:
-                repeats += 1
-            if risk_score > 0.42 and drawdown_score > 0.10:
-                repeats += 1
+            if sampling.regime_stratified:
+                if (
+                    risk_score > sampling.severe_risk_threshold
+                    or drawdown_score > sampling.severe_drawdown_threshold
+                    or persistent_stress > sampling.persistent_stress_days
+                ):
+                    repeats = max(repeats, sampling.severe_repeat)
+                elif (
+                    risk_score > sampling.mild_risk_threshold
+                    or drawdown_score > sampling.mild_drawdown_threshold
+                ):
+                    repeats = max(repeats, sampling.mild_repeat)
+            else:
+                if risk_score > 0.58 or drawdown_score > 0.18:
+                    repeats += 1
+                if risk_score > 0.42 and drawdown_score > 0.10:
+                    repeats += 1
             if not smoke:
                 all_states.extend([state] * max(repeats - 1, 0))
     if not smoke:
@@ -881,14 +941,27 @@ class SoxlPPOPolicy(PPOPolicy):
 
 
 def build_policy(obs_dim: int, profile: StrategyConfig, use_moe: bool = False, hard_regime_routing: bool = False, **kwargs) -> Tuple[PPOPolicy, Actor]:
-    if use_moe:
-        net = RegimeMoENet(obs_dim, hidden_size=64, n_experts=3, device="cpu", top_k=1, noise_std=0.1, regime_risk_idx=STATIC_INDEX["regime_risk"], hard_regime_routing=hard_regime_routing)
+    model_cfg = profile.model
+    effective_use_moe = bool(use_moe or model_cfg.use_regime_router)
+    effective_hard_routing = bool(hard_regime_routing or model_cfg.hard_regime_routing)
+    action_levels = action_levels_for_profile(profile)
+    if effective_use_moe:
+        net = RegimeMoENet(
+            obs_dim,
+            hidden_size=64,
+            n_experts=int(model_cfg.router_experts),
+            device="cpu",
+            top_k=int(model_cfg.router_top_k),
+            noise_std=float(model_cfg.router_noise_std),
+            regime_risk_idx=STATIC_INDEX["regime_risk"],
+            hard_regime_routing=effective_hard_routing,
+        )
     else:
         net = Net((obs_dim,), hidden_sizes=list(profile.hidden_sizes), device="cpu")
-    actor = Actor(net, N_ACTIONS, device="cpu")
+    actor = Actor(net, len(action_levels), device="cpu")
     critic = Critic(net, device="cpu")
     optim = torch.optim.Adam(list(actor.parameters()) + list(critic.parameters()), lr=profile.lr)
-    policy_cls = SoxlPPOPolicy if use_moe else PPOPolicy
+    policy_cls = SoxlPPOPolicy if effective_use_moe else PPOPolicy
     policy_kwargs = dict(
         actor=actor,
         critic=critic,
@@ -901,12 +974,11 @@ def build_policy(obs_dim: int, profile: StrategyConfig, use_moe: bool = False, h
         ent_coef=0.01,
         reward_normalization=True,
         recompute_advantage=True,
-        action_space=spaces.Discrete(N_ACTIONS),
+        action_space=spaces.Discrete(len(action_levels)),
     )
-    if use_moe:
+    if effective_use_moe:
         policy_kwargs["moe_lb_coef"] = kwargs.get("moe_lb_coef", 0.01)
     policy = policy_cls(**policy_kwargs)
-    return policy, actor
     return policy, actor
 
 
@@ -960,6 +1032,7 @@ def make_observation(
     ledger: TrancheLedger,
     price_path: np.ndarray,
     asset_idx: int = 0,
+    observation_window: int = 1,
 ) -> np.ndarray:
     """Build the actor input vector.
 
@@ -977,6 +1050,16 @@ def make_observation(
     one_hot = np.zeros(N_ASSETS, dtype=np.float32)
     if 0 <= asset_idx < N_ASSETS:
         one_hot[asset_idx] = 1.0
+    window = max(int(observation_window), 1)
+    history_features: list[float] = []
+    if window > 1:
+        history = df.iloc[idx - window + 1 : idx][FEATURE_COLUMNS]
+        if len(history) < window - 1:
+            pad_rows = np.zeros((window - 1 - len(history), len(FEATURE_COLUMNS)), dtype=np.float32)
+            history_values = np.vstack([pad_rows, history.to_numpy(dtype=np.float32)])
+        else:
+            history_values = history.to_numpy(dtype=np.float32)
+        history_features = history_values.reshape(-1).tolist()
     drawdown_velocity_5 = (
         float(row["cum_drop_30"] - lb["cum_drop_30"].iloc[-6]) if len(lb) >= 6 else 0.0
     )
@@ -986,6 +1069,7 @@ def make_observation(
     )
     obs = np.array(
         list(row[FEATURE_COLUMNS].values.astype(np.float32))
+        + history_features
         + [
             float(np.nan_to_num(lb["return"].mean())),
             float(np.nan_to_num(lb["return"].skew())) if len(lb) > 3 else 0.0,
@@ -1012,6 +1096,8 @@ def evaluate_split(
     execution_config: Optional[ExecutionConfig] = None,
     asset_idx: int = 0,
     stress_threshold: float = 0.65,
+    action_levels: Optional[np.ndarray] = None,
+    observation_window: int = 1,
 ) -> Dict[str, float]:
     """Fast actor evaluation outside the heavyweight qlib backtest loop."""
     cash = cash0
@@ -1026,9 +1112,19 @@ def evaluate_split(
     positions = []
     stress_positions = []
     for idx in range(LOOKBACK, len(df) - 1):
-        obs = make_observation(df, idx, pos, cash, peak, ledger, price_path, asset_idx=asset_idx)
+        obs = make_observation(
+            df,
+            idx,
+            pos,
+            cash,
+            peak,
+            ledger,
+            price_path,
+            asset_idx=asset_idx,
+            observation_window=observation_window,
+        )
         action = actor_action(actor, obs)
-        target_pos = action_to_position(action, obs, config=position_cap_config)
+        target_pos = action_to_position(action, obs, config=position_cap_config, action_levels=action_levels)
         row = df.iloc[idx]
         regime_risk = float(np.nan_to_num(row["regime_risk"]))
         realized_vol = float(np.nan_to_num(row["realized_vol_10"]))

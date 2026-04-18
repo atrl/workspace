@@ -2,7 +2,7 @@
 
 Status: active
 Owner: Codex
-Last updated: 2026-04-18 10:40 CST
+Last updated: 2026-04-18 12:17 CST
 
 ## Goal
 
@@ -1803,3 +1803,110 @@ Created `balanced_budget.yaml` with `max_iters=50`. However, the log file was ac
   - move the next experiment to data / episode construction:
     - stress-set expansion
     - regime-stratified episode sampling
+
+## Structural model loop 2026-04-18 12:17
+
+- Goal:
+  - test the "模型问题" hypothesis directly instead of continuing reward / selector micro-tuning
+  - change model structure and episode construction together, while keeping the balanced family reward / cap logic broadly intact
+  - evaluate whether a regime-routed actor plus longer observation context can improve `2022` defense without losing the rest of the fixed split
+- Procedure:
+  - extended `StrategyConfig` with explicit `model` and `sampling` sections
+  - added profile-local model controls:
+    - `observation_window`
+    - custom `action_levels`
+    - regime-routed MoE actor toggles and router params
+  - added profile-local sampling controls:
+    - regime-stratified stress oversampling
+    - persistent-stress thresholds and repeat counts
+  - expanded the base feature frame with persistent-stress state:
+    - `drawdown_streak_63`
+    - `below_ma63_days`
+    - `rolling_new_low_ratio_63`
+    - `negative_gap_frequency_21`
+  - changed the RL path so observation size, action mapping, staged validation, and evaluation all respect profile-defined model shape
+  - added `configs/soxl/balanced_structural_v1.yaml`
+  - added structural-model tests and wired them into `scripts/check_harness.py`
+  - validated with:
+    - `qlib_venv/bin/python scripts/check_harness.py`
+  - trained with:
+    - `qlib_venv/bin/python soxl_qlib_strategy_v2.py --profiles balanced_structural_v1 --skip-data-refresh --seed 20260411`
+  - generated reviews:
+    - `qlib_venv/bin/python scripts/checkpoint_review.py --summary artifacts/models/soxl_balanced_structural_v1_summary.json --output runtime/post_train_review/balanced_structural_v1.md`
+    - `qlib_venv/bin/python .codex/skills/post-train-backtest-review/scripts/compare_backtests.py --latest artifacts/models/soxl_balanced_structural_v1_summary.json --previous artifacts/models/soxl_balanced_summary.json --output runtime/post_train_review/balanced_structural_v1_vs_balanced.md`
+    - `qlib_venv/bin/python .codex/skills/post-train-backtest-review/scripts/compare_backtests.py --latest artifacts/models/soxl_balanced_structural_v1_summary.json --previous artifacts/models/soxl_balanced_reward_guard_summary.json --output runtime/post_train_review/balanced_structural_v1_vs_reward_guard.md`
+- Evidence:
+  - structural config:
+    - `observation_window = 10`
+    - `action_levels = [0.0, 0.05, 0.10, 0.20, 0.30, 0.45, 0.60, 0.75, 0.90]`
+    - regime-routed actor enabled with `3` experts, `top_k = 1`, hard routing
+    - regime-stratified sampling enabled with persistent-stress oversampling
+  - harness evidence:
+    - `scripts/check_harness.py => passed=29 failures=0`
+  - training path:
+    - dataset feature count increased to `48`
+    - train episodes increased to `24`, confirming the stress-stratified episode builder actually changed the sample mix
+    - selection history:
+      - `iter 0 = 63.82`
+      - `iter 20 = 54.62`
+      - `iter 40 = 55.92`
+      - `iter 60 = 64.94`
+      - `iter 80 = 75.67`
+    - unlike the checkpoint-review branch, the best validation checkpoint moved back to the final stage
+  - fixed split:
+    - `test_2020 = 101.26% / Sharpe 2.35 / MaxDD 19.98% / avg_pos 0.472`
+    - `test_2022 = -31.27% / Sharpe -0.903 / MaxDD 39.86% / avg_pos 0.338`
+    - `test_2023_2024 = 45.53% / Sharpe 0.708 / MaxDD 33.47% / avg_pos 0.477`
+    - `test_proxy = 306.97% / Sharpe 0.739 / MaxDD 53.66% / avg_pos 0.469`
+  - promotion gate:
+    - passed:
+      - `test_2022_avg_pos = 0.338 <= 0.35`
+    - failed:
+      - `test_2022_max_dd = 39.86 > 35.0`
+      - `test_proxy_sharpe = 0.739 < 0.75`
+  - comparison:
+    - versus canonical `balanced`:
+      - `2020` improved slightly
+      - `2023-2024` improved slightly
+      - `2022` worsened on both return and max drawdown
+      - proxy quality fell materially:
+        - return `468.90 -> 306.97`
+        - Sharpe `0.858 -> 0.739`
+    - versus `balanced_reward_guard`:
+      - `2022 avg_pos` improved clearly:
+        - `0.412 -> 0.338`
+      - `2022 maxDD` improved clearly:
+        - `47.36 -> 39.86`
+      - but proxy Sharpe degraded:
+        - `0.830 -> 0.739`
+- Decision:
+  - keep:
+    - profile-local model/sampling config support
+    - variable observation window support
+    - regime-stratified episode builder
+    - staged structural-model tests
+  - drop:
+    - `balanced_structural_v1` as a promotable branch
+    - the assumption that a larger model + longer context + hard regime routing is enough on its own
+- Interpretation:
+  - this was not a wasted loop:
+    - the model-side changes succeeded at reducing stress exposure from the failed reward-only branch
+    - but they did not preserve canonical `balanced` risk-adjusted quality
+  - the main failure mode is now narrower:
+    - hard-routed specialization plus longer context improved de-risking only partially
+    - it still did not learn enough tail control to pass `2022 max_dd`
+    - and the added structure diluted overall proxy efficiency
+  - practical read:
+    - pure coefficient tuning is not the main lever
+    - but full structural expansion is also too blunt as a default replacement
+- Next action:
+  - keep the harness support for structural profiles, but do not switch the default actor family
+  - if model-side work continues, ablate one structural lever at a time:
+    - observation window only
+    - router only
+    - action grid only
+    - stratified sampling only
+  - judge each ablation first on:
+    - `test_2022 max_dd`
+    - `test_2022 avg_pos`
+    - `test_proxy sharpe`

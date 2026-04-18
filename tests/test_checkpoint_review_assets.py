@@ -39,3 +39,12 @@ def test_balanced_reward_guard_profile_exists():
     assert "drawdown_penalty: 0.34" in text
     assert "underwater_sell_penalty: 0.20" in text
     assert "staged_training: false" in text
+
+
+def test_balanced_structural_v1_profile_exists():
+    path = ROOT / "configs" / "soxl" / "balanced_structural_v1.yaml"
+    text = path.read_text(encoding="utf-8")
+    assert "name: balanced_structural_v1" in text
+    assert "observation_window: 10" in text
+    assert "use_regime_router: true" in text
+    assert "regime_stratified: true" in text

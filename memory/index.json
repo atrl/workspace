@@ -707,6 +707,45 @@
     "excerpt": "# 2026-04-18 stress-release delta feature trial ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## What ran - Profile: `balanced_stress_release_delta` - Command: - `qlib_venv/bin/python soxl_qlib_strategy_v2.py --profiles balanced_stress_release_de"
   },
   {
+    "path": "memory/2026-04-18-structural-model-loop.md",
+    "date": "2026-04-18",
+    "title": "2026-04-18 structural model loop",
+    "kind": "failure",
+    "profiles": [
+      "balanced",
+      "balanced_reward_guard",
+      "balanced_structural_v1",
+      "balanced_structural_v1_vs_balanced",
+      "balanced_structural_v1_vs_reward_guard",
+      "moe"
+    ],
+    "status": "dropped",
+    "tags": [
+      "balanced",
+      "balanced_reward_guard",
+      "balanced_structural_v1",
+      "balanced_structural_v1_vs_balanced",
+      "balanced_structural_v1_vs_reward_guard",
+      "checkpoint-selection",
+      "dropped",
+      "eval-2022",
+      "failure",
+      "moe",
+      "stress-regime"
+    ],
+    "artifacts": [
+      "artifacts/models/soxl_balanced_reward_guard_summary.json",
+      "artifacts/models/soxl_balanced_structural_v1_summary.json",
+      "artifacts/models/soxl_balanced_summary.json",
+      "runtime/post_train_review/balanced_structural_v1.md",
+      "runtime/post_train_review/balanced_structural_v1_vs_balanced.md",
+      "runtime/post_train_review/balanced_structural_v1_vs_reward_guard.md"
+    ],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "A structural retrain with longer observation context, custom action levels, hard regime routing, and regime-stratified stress sampling improved stress exposure versus the failed reward-only branch, but it still failed promotion. `test_2022 avg_pos` passed at `0.338`, yet `test_2022 maxDD` remained too high at `39.86%` and `test_proxy Sharpe` fell to `0.739`. Keep the new harness support for model/sampling profiles, but drop `balanced_structural_v1` as a production candidate and ablate one structural lever at a time if model-side work continues.",
+    "excerpt": "# 2026-04-18 structural model loop ## Context After the checkpoint-review, selector-only, and reward-only loops all failed, the next hypothesis was that the bottleneck had shifted from coefficients to model structure. This loop tested that directly. ## What changed - Added profil"
+  },
+  {
     "path": "memory/2026-04-18-transition-feature-batch-failure.md",
     "date": "2026-04-18",
     "title": "2026-04-18: first transition-feature batch failed as mainline",
