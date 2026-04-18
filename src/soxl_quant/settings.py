@@ -151,6 +151,9 @@ class ModelConfig:
     router_top_k: int = 1
     router_noise_std: float = 0.1
     hard_floor: Optional[float] = None
+    use_tide: bool = False
+    tide_hidden_size: int = 64
+    tide_dropout: float = 0.1
 
 
 @dataclass(frozen=True)

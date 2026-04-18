@@ -933,6 +933,115 @@ class RegimeMoENet(torch.nn.Module):
         return self._last_lb_loss
 
 
+class TiDENet(torch.nn.Module):
+    """Time Series Dense Encoder for RL policy network.
+
+    TiDE (Google, 2023) adapted for discrete-action RL:
+      - Feature projection per time step
+      - Temporal encoder + dense encoder-decoder with residual
+      - Static feature encoding
+      - Combined output for Actor/Critic
+
+    Reference: Long-term Forecasting with TiDE (arXiv:2304.08424)
+    """
+
+    def __init__(
+        self,
+        obs_dim: int,
+        hidden_size: int = 64,
+        feature_dim: int = 48,
+        observation_window: int = 1,
+        dropout: float = 0.1,
+        device: str = "cpu",
+    ):
+        super().__init__()
+        self.input_dim = obs_dim  # for infer_actor_obs_dim
+        self.output_dim = hidden_size
+        self.device = device
+        self.feature_dim = feature_dim
+        self.window = observation_window
+        self.temporal_dim = feature_dim * observation_window
+        self.static_dim = max(obs_dim - self.temporal_dim, 0)
+
+        # Feature projection: per-step feature_dim -> proj_dim
+        self.proj_dim = max(feature_dim // 2, 8)
+        self.feature_projection = torch.nn.Linear(feature_dim, self.proj_dim)
+
+        # Temporal encoder: flatten projected window and encode
+        temporal_flat_dim = self.proj_dim * observation_window
+        self.temporal_encoder = torch.nn.Sequential(
+            torch.nn.Linear(temporal_flat_dim, hidden_size),
+            torch.nn.ReLU(),
+            torch.nn.Dropout(dropout),
+        )
+
+        # Dense encoder: bottleneck
+        bottleneck_dim = max(hidden_size // 2, 16)
+        self.dense_encoder = torch.nn.Sequential(
+            torch.nn.Linear(hidden_size, bottleneck_dim),
+            torch.nn.ReLU(),
+            torch.nn.Dropout(dropout),
+        )
+
+        # Dense decoder
+        self.dense_decoder = torch.nn.Sequential(
+            torch.nn.Linear(bottleneck_dim, hidden_size),
+            torch.nn.ReLU(),
+            torch.nn.Dropout(dropout),
+        )
+
+        # Static feature encoder (if any static features exist)
+        if self.static_dim > 0:
+            self.static_encoder = torch.nn.Sequential(
+                torch.nn.Linear(self.static_dim, hidden_size // 2),
+                torch.nn.ReLU(),
+                torch.nn.Dropout(dropout),
+            )
+            self.output = torch.nn.Linear(hidden_size + hidden_size // 2, hidden_size)
+        else:
+            self.static_encoder = None
+            self.output = torch.nn.Linear(hidden_size, hidden_size)
+
+    def forward(self, obs, state=None, info=None):
+        if not isinstance(obs, torch.Tensor):
+            obs = torch.as_tensor(obs, device=self.device, dtype=torch.float32)
+        orig_leading = obs.shape[:-1]
+        if obs.ndim != 2:
+            obs = obs.reshape(-1, obs.shape[-1])
+        batch = obs.shape[0]
+
+        # Split temporal and static
+        temporal = obs[:, :self.temporal_dim]
+        static = obs[:, self.temporal_dim:] if self.static_dim > 0 else None
+
+        # Reshape temporal: (batch, window, feature_dim)
+        temporal = temporal.reshape(batch, self.window, self.feature_dim)
+
+        # Feature projection per time step
+        projected = self.feature_projection(temporal)  # (batch, window, proj_dim)
+
+        # Flatten and temporal encode
+        projected_flat = projected.reshape(batch, -1)
+        temporal_encoded = self.temporal_encoder(projected_flat)  # (batch, hidden_size)
+
+        # Dense encoder-decoder with residual
+        bottleneck = self.dense_encoder(temporal_encoded)
+        temporal_decoded = self.dense_decoder(bottleneck)
+        temporal_out = temporal_encoded + temporal_decoded  # residual
+
+        # Combine with static features
+        if self.static_encoder is not None and static is not None:
+            static_out = self.static_encoder(static)
+            combined = torch.cat([temporal_out, static_out], dim=-1)
+        else:
+            combined = temporal_out
+
+        out = self.output(combined)
+        if orig_leading:
+            out = out.reshape(*orig_leading, -1)
+        return out, state
+
+
 class SoxlPPOPolicy(PPOPolicy):
     """PPOPolicy 子类，自动将 RegimeMoENet 的 load-balance loss 加入总损失。"""
 
@@ -1004,9 +1113,19 @@ class SoxlPPOPolicy(PPOPolicy):
 def build_policy(obs_dim: int, profile: StrategyConfig, use_moe: bool = False, hard_regime_routing: bool = False, **kwargs) -> Tuple[PPOPolicy, Actor]:
     model_cfg = profile.model
     effective_use_moe = bool(use_moe or model_cfg.use_regime_router)
+    effective_use_tide = bool(model_cfg.use_tide)
     effective_hard_routing = bool(hard_regime_routing or model_cfg.hard_regime_routing)
     action_levels = action_levels_for_profile(profile)
-    if effective_use_moe:
+    if effective_use_tide:
+        net = TiDENet(
+            obs_dim,
+            hidden_size=int(model_cfg.tide_hidden_size),
+            feature_dim=len(FEATURE_COLUMNS),
+            observation_window=max(int(model_cfg.observation_window), 1),
+            dropout=float(model_cfg.tide_dropout),
+            device="cpu",
+        )
+    elif effective_use_moe:
         net = RegimeMoENet(
             obs_dim,
             hidden_size=64,
@@ -1061,6 +1180,10 @@ def infer_actor_obs_dim(actor: Actor) -> int | None:
         if id(module) in seen:
             continue
         seen.add(id(module))
+        # Custom nets (TiDE, MoE) may expose explicit input_dim
+        input_dim = getattr(module, "input_dim", None)
+        if isinstance(input_dim, int) and input_dim > 0:
+            return input_dim
         in_features = getattr(module, "in_features", None)
         if isinstance(in_features, int) and in_features > 0:
             return in_features
