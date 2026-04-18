@@ -243,7 +243,7 @@ def rebalance_threshold(
     return threshold
 
 
-def action_band_from_obs(obs: np.ndarray) -> Tuple[float, float]:
+def action_band_from_obs(obs: np.ndarray, hard_floor: Optional[float] = None) -> Tuple[float, float]:
     """将市场状态映射为可交易的仓位区间 [floor, cap]。
 
     actor 只决定在该区间内的具体位置。区间本身编码了硬先验：
@@ -265,7 +265,7 @@ def action_band_from_obs(obs: np.ndarray) -> Tuple[float, float]:
     vix_zscore = float(np.nan_to_num(obs[STATIC_INDEX["vix_zscore"]]))
     vol_coef = float(np.nan_to_num(obs[STATIC_INDEX["vol_coef_21"]]))
 
-    floor = 0.30
+    floor = hard_floor if hard_floor is not None else 0.30
     cap = 0.95
 
     if anchor_gap > 0.02 and anchor_slope >= 0:
@@ -334,6 +334,7 @@ def action_to_position(
     obs: np.ndarray,
     config: Optional[PositionCapConfig] = None,
     action_levels: Optional[np.ndarray] = None,
+    hard_floor: Optional[float] = None,
 ) -> float:
     """将离散的 action（0~10）映射为连续仓位 [0, 1]。
 
@@ -349,7 +350,7 @@ def action_to_position(
     levels = action_levels if action_levels is not None else BASE_ACTION_LEVELS
     clipped = int(np.clip(action, 0, len(levels) - 1))
     base = float(levels[clipped])
-    floor, cap = action_band_from_obs(obs)
+    floor, cap = action_band_from_obs(obs, hard_floor=hard_floor)
     cumulative_drop = max(-float(np.nan_to_num(obs[STATIC_INDEX["cum_drop_30"]])), 0.0)
     cap = min(cap, drawdown_position_cap(cumulative_drop, obs=obs, config=config))
     return float(np.clip(floor + base * (cap - floor), 0.0, 1.0))
@@ -580,11 +581,13 @@ class PositionAction(ActionInterpreter):
         n_actions: int = N_ACTIONS,
         position_cap_config: Optional[PositionCapConfig] = None,
         action_levels: Optional[np.ndarray] = None,
+        hard_floor: Optional[float] = None,
     ):
         super().__init__()
         self.n_actions = n_actions
         self.position_cap_config = position_cap_config
         self.action_levels = action_levels if action_levels is not None else BASE_ACTION_LEVELS
+        self.hard_floor = hard_floor
 
     @property
     def action_space(self):
@@ -596,6 +599,7 @@ class PositionAction(ActionInterpreter):
             state["obs"],
             config=self.position_cap_config,
             action_levels=self.action_levels,
+            hard_floor=self.hard_floor,
         )
 
 
@@ -1155,6 +1159,7 @@ def evaluate_split(
     stress_threshold: float = 0.65,
     action_levels: Optional[np.ndarray] = None,
     observation_window: int = 1,
+    hard_floor: Optional[float] = None,
 ) -> Dict[str, float]:
     """Fast actor evaluation outside the heavyweight qlib backtest loop."""
     cash = cash0
@@ -1181,7 +1186,7 @@ def evaluate_split(
             observation_window=observation_window,
         )
         action = actor_action(actor, obs)
-        target_pos = action_to_position(action, obs, config=position_cap_config, action_levels=action_levels)
+        target_pos = action_to_position(action, obs, config=position_cap_config, action_levels=action_levels, hard_floor=hard_floor)
         row = df.iloc[idx]
         regime_risk = float(np.nan_to_num(row["regime_risk"]))
         realized_vol = float(np.nan_to_num(row["realized_vol_10"]))

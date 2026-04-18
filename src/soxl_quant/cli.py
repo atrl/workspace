@@ -219,6 +219,7 @@ def slice_metrics(actor, df, slices: Dict[str, Tuple[str, str]], profile) -> Dic
             asset_idx=0,
             action_levels=action_levels_for_profile(profile),
             observation_window=profile.model.observation_window,
+            hard_floor=profile.model.hard_floor,
         )
     return metrics
 
@@ -350,6 +351,7 @@ def train_with_selection(policy, actor, initial_states, obs_dim: int, profile, v
             stress_threshold=profile.selection_score.stress_threshold,
             action_levels=action_levels_for_profile(profile),
             observation_window=profile.model.observation_window,
+            hard_floor=profile.model.hard_floor,
         )
         baseline_score = validation_score(baseline_metrics, profile)
         baseline_state = copy.deepcopy(actor.state_dict())
@@ -360,6 +362,7 @@ def train_with_selection(policy, actor, initial_states, obs_dim: int, profile, v
                 n_actions=len(action_levels_for_profile(profile)),
                 position_cap_config=profile.position_cap,
                 action_levels=action_levels_for_profile(profile),
+                hard_floor=profile.model.hard_floor,
             ),
             initial_states=initial_states,
             policy=policy,
@@ -377,6 +380,7 @@ def train_with_selection(policy, actor, initial_states, obs_dim: int, profile, v
             stress_threshold=profile.selection_score.stress_threshold,
             action_levels=action_levels_for_profile(profile),
             observation_window=profile.model.observation_window,
+            hard_floor=profile.model.hard_floor,
         )
         final_score = validation_score(final_metrics, profile)
         history = [
@@ -403,6 +407,7 @@ def train_with_selection(policy, actor, initial_states, obs_dim: int, profile, v
         stress_threshold=profile.selection_score.stress_threshold,
         action_levels=action_levels_for_profile(profile),
         observation_window=profile.model.observation_window,
+        hard_floor=profile.model.hard_floor,
     )
     best_score = validation_score(best_metrics, profile)
     history = [{"iter": 0, "score": best_score, **best_metrics}]
@@ -416,6 +421,7 @@ def train_with_selection(policy, actor, initial_states, obs_dim: int, profile, v
                 n_actions=len(action_levels_for_profile(profile)),
                 position_cap_config=profile.position_cap,
                 action_levels=action_levels_for_profile(profile),
+                hard_floor=profile.model.hard_floor,
             ),
             initial_states=initial_states,
             policy=policy,
@@ -435,6 +441,7 @@ def train_with_selection(policy, actor, initial_states, obs_dim: int, profile, v
             stress_threshold=profile.selection_score.stress_threshold,
             action_levels=action_levels_for_profile(profile),
             observation_window=profile.model.observation_window,
+            hard_floor=profile.model.hard_floor,
         )
         score = validation_score(metrics, profile)
         history.append({"iter": completed, "score": score, **metrics})
@@ -542,6 +549,7 @@ def run_profile(
         asset_idx=0,
         action_levels=action_levels_for_profile(profile),
         observation_window=profile.model.observation_window,
+        hard_floor=profile.model.hard_floor,
     )
     promotion_report = build_promotion_report(profile, slice_result, test_proxy)
     summary_path.write_text(
@@ -697,7 +705,7 @@ def parse_args() -> argparse.Namespace:
         "--profiles",
         nargs="+",
         default=["balanced", "aggressive"],
-        choices=["balanced", "aggressive", "smoke", "balanced_budget", "balanced_floor40", "balanced_floor40_sym", "balanced_floor40_sym_bear30", "balanced_stress_select", "balanced_stress_select_v2", "balanced_reward_guard", "balanced_structural_v1", "balanced_stress_behavior", "balanced_regime_gate", "balanced_regime_gate_v2", "balanced_checkpoint_review", "balanced_marginal_reward", "balanced_marginal_reward_quick", "balanced_decision_freq_quick", "smoke_marginal", "smoke_log_reward", "smoke_decision_freq", "smoke_log_freq", "smoke_marginal_freq", "smoke_marginal_high_scale", "smoke_obs_window3"],
+        choices=["balanced", "aggressive", "smoke", "balanced_budget", "balanced_floor40", "balanced_floor40_sym", "balanced_floor40_sym_bear30", "balanced_stress_select", "balanced_stress_select_v2", "balanced_reward_guard", "balanced_structural_v1", "balanced_stress_behavior", "balanced_regime_gate", "balanced_regime_gate_v2", "balanced_checkpoint_review", "balanced_marginal_reward", "balanced_marginal_reward_quick", "balanced_decision_freq_quick", "smoke_marginal", "smoke_log_reward", "smoke_decision_freq", "smoke_log_freq", "smoke_marginal_freq", "smoke_marginal_high_scale", "smoke_obs_window3", "smoke_action5", "smoke_floor50"],
         help="profiles to train and backtest",
     )
     parser.add_argument("--smoke", action="store_true", help="force short smoke run")

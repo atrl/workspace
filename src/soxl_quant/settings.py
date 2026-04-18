@@ -150,6 +150,7 @@ class ModelConfig:
     router_experts: int = 3
     router_top_k: int = 1
     router_noise_std: float = 0.1
+    hard_floor: Optional[float] = None
 
 
 @dataclass(frozen=True)
