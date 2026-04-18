@@ -2,7 +2,7 @@
 
 Status: active
 Owner: Codex
-Last updated: 2026-04-18 09:20 CST
+Last updated: 2026-04-18 10:40 CST
 
 ## Goal
 
@@ -44,23 +44,21 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
 ## Current loop
 
 - Latest completed branch:
-  - `balanced_transition_state`
+  - `balanced_stress_release_delta`
 - Result:
   - dropped from mainline
-- Next branch:
-  - `balanced_stress_release_delta`
-- Hypothesis:
-  - the useful part of transition awareness may be specifically the speed of stress release, not the full mixed transition bundle
-- Scope:
-  - add only:
-    - `regime_risk_delta_5`
-    - `vol_stress_score_delta_5`
-    - `downside_ratio_10_delta_5`
-  - keep canonical `balanced` reward, cap, and selection rules unchanged
-- Acceptance bar:
-  - any improvement in `2022-07`, `2022-11`, or `2023-01` must not come with another broad jump in full `test_2022 avg_pos`
-  - prefer `test_2022 avg_pos <= 0.33`
-  - avoid further `test_proxy_sharpe` degradation versus canonical `balanced`
+- Active optimization order:
+  - `checkpoint selection -> fixed-actor overlay -> retrain only if both fail`
+- Current hypothesis:
+  - recent failures are not mainly "missing one more feature"
+  - the search space should first be compressed by proving:
+    - whether the best checkpoint arrives earlier than max iters
+    - whether execution/risk overlays alone can repair the gate
+- Acceptance bar for this loop:
+  - produce durable evidence for:
+    - best checkpoint iter
+    - whether any fixed-actor overlay passes more promotion checks than the retained actor
+    - whether the next branch should stay in overlay / selection space or move back to retraining
 
 ## Validation harness
 
@@ -151,9 +149,54 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
   - Completed `balanced_stress_release_delta` and dropped it from the default code path: three narrow stress-release delta features improved a few rebound windows, but they still raised `2022` exposure and broke fixed-split promotion gates versus canonical `balanced`.
 - 2026-04-18 09:20:
   - The repeated transition-feature failures strengthen the generic optimization order in the review skill: next loop should favor fixed-actor execution/risk overlays and checkpoint-selection review before adding more state features.
+- 2026-04-18 10:40:
+  - Added a dedicated `balanced_checkpoint_review` profile plus repo-local review scripts so staged checkpoint-selection evidence and fixed-actor overlay rankings can be reproduced without ad-hoc notebook work.
+- 2026-04-18 10:40:
+  - Completed a fixed-actor `position_cap` sweep on the retained `balanced` actor and ranked the variants under `runtime/post_train_review/`.
+- 2026-04-18 10:40:
+  - No counterfactual overlay passed the full fixed-split gate. The best stress-side caps only moved `test_2022 avg_pos` from `0.369` to `0.353-0.354`, while `test_2022 max_dd` stayed above `43%`.
+- 2026-04-18 10:40:
+  - Completed `balanced_checkpoint_review` retrain and confirmed checkpoint choice matters but is not sufficient by itself: validation peaked at `iter 40`, yet the best selected checkpoint still failed fixed-split `2022` gates.
 
 ## Current run
 
+- Latest completed run:
+- Latest completed run:
+  - `balanced_checkpoint_review`
+  - command:
+    - `qlib_venv/bin/python soxl_qlib_strategy_v2.py --profiles balanced_checkpoint_review --skip-data-refresh --seed 20260411`
+  - purpose:
+    - isolate checkpoint-selection bias from feature/reward churn by rerunning canonical `balanced` behavior under explicit staged checkpointing
+  - saved summary:
+    - `artifacts/models/soxl_balanced_checkpoint_review_summary.json`
+  - saved review:
+    - `runtime/post_train_review/balanced_checkpoint_review.md`
+    - `runtime/post_train_review/balanced_checkpoint_review_vs_balanced.md`
+  - selection history:
+    - iter `0`: score `68.08`
+    - iter `20`: score `76.99`
+    - iter `40`: score `80.60`
+    - iter `60`: score `79.02`
+    - iter `80`: score `74.86`
+  - fixed-split result at selected checkpoint:
+    - test proxy `371.50% / Sharpe 0.765 / MaxDD 60.26%`
+    - `test_2022 = -39.54% / Sharpe -1.09 / MaxDD 46.30% / avg_pos 0.372`
+  - outcome:
+    - keep staged checkpoint review as a standard diagnostic
+    - drop this actor from promotion consideration
+- Latest completed loop:
+  - `balanced_position_cap_counterfactual`
+  - command:
+    - `qlib_venv/bin/python scripts/position_cap_counterfactual.py --profile balanced --model artifacts/models/soxl_balanced_actor.pt --variants-json configs/soxl/position_cap_overlay_variants.json --output runtime/post_train_review/balanced_position_cap_counterfactual.json`
+    - `qlib_venv/bin/python scripts/rank_counterfactual_variants.py --input runtime/post_train_review/balanced_position_cap_counterfactual.json --output runtime/post_train_review/balanced_position_cap_counterfactual_ranking.md`
+  - purpose:
+    - test whether fixed-actor stress-side cap routing alone can recover the `2022` gate before spending more budget on retraining
+  - top variants:
+    - `bear_floor25_regime060`: `2022 max_dd 43.55% / avg_pos 0.354 / proxy Sharpe 0.686`
+    - `bear_floor35_regime065`: proxy Sharpe `0.750`, but `2022 max_dd 46.05% / avg_pos 0.381`
+  - outcome:
+    - no overlay variant passed the full gate
+    - keep overlay as a partial lever only, not as a standalone answer
 - Latest completed run:
   - `balanced_stress_release_delta`
   - command:
@@ -251,10 +294,16 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
   - balanced retrains still cannot be relied on to persist artifacts after full trainer completion
 - Next action:
   - do not add more transition features immediately
-  - run a counterfactual execution-layer loop on the canonical `balanced` actor:
-    - tighten stress-side de-risking only during high `regime_risk` / `vol_stress_score` states
-    - test whether rebound windows can be preserved with a faster risk re-entry schedule that does not raise full-window `2022` average exposure
-  - in parallel, review whether checkpoint choice should bias earlier than the current full-run endpoint when validation jumps but OOS stress slices degrade
+  - use staged selection by default for new diagnostic retrains because `iter 40` beat `iter 80` on validation in the canonical replay
+  - keep the next change set single-layer:
+    - either `selection_score.stress_avg_pos_penalty`
+    - or execution/risk overlay
+    - but not feature + reward + cap together
+  - if a new retrain is started, prefer a `balanced_stress_select_v2` style branch:
+    - same feature schema
+    - same reward shape
+    - stronger selection-side stress penalty
+    - explicit evaluation against `test_2022 max_dd`, `test_2022 avg_pos`, and `test_proxy sharpe`
 - Latest training check: `balanced_floor40_sym_bear30` vs `balanced_floor40_sym` vs canonical `balanced`:
   - command:
     - `qlib_venv/bin/python soxl_qlib_strategy_v2.py --profiles balanced_floor40_sym_bear30 --skip-data-refresh --seed 20260411`

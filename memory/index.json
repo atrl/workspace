@@ -604,6 +604,50 @@
     "excerpt": "# 2026-04-17: RL beats rule-based SOXL return (698.0%) ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## Hypothesis The ~130pp gap between RL symmetric A+B (598.5%) and rule-based soxl_backtest (688.6%) was caused by three missing pieces: 1. Accid"
   },
   {
+    "path": "memory/2026-04-18-checkpoint-review-and-overlay-loop.md",
+    "date": "2026-04-18",
+    "title": "2026-04-18 checkpoint review and overlay loop",
+    "kind": "review",
+    "profiles": [
+      "balanced",
+      "balanced_checkpoint_review",
+      "balanced_checkpoint_review_vs_balanced",
+      "balanced_position_cap_counterfactual",
+      "balanced_position_cap_counterfactual_ranking",
+      "balanced_stress_select_v2",
+      "soxl"
+    ],
+    "status": "reference",
+    "tags": [
+      "balanced",
+      "balanced_checkpoint_review",
+      "balanced_checkpoint_review_vs_balanced",
+      "balanced_position_cap_counterfactual",
+      "balanced_position_cap_counterfactual_ranking",
+      "balanced_stress_select_v2",
+      "checkpoint-selection",
+      "eval-2022",
+      "execution-overlay",
+      "reference",
+      "review",
+      "soxl",
+      "stress-regime",
+      "transition-features"
+    ],
+    "artifacts": [
+      "artifacts/models/soxl_balanced_actor.pt",
+      "artifacts/models/soxl_balanced_checkpoint_review_summary.json",
+      "artifacts/models/soxl_balanced_summary.json",
+      "runtime/post_train_review/balanced_checkpoint_review.md",
+      "runtime/post_train_review/balanced_checkpoint_review_vs_balanced.md",
+      "runtime/post_train_review/balanced_position_cap_counterfactual.json",
+      "runtime/post_train_review/balanced_position_cap_counterfactual_ranking.md"
+    ],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Staged checkpoint review proved the best validation checkpoint appears at iter 40 rather than iter 80, but the selected actor still failed fixed-split 2022 gates. Fixed-actor position-cap sweeps improved 2022 avg_pos only marginally and never passed the full gate, so the next retrain should stay single-layer and bias toward selection-side stress penalties rather than new transition features.",
+    "excerpt": "# 2026-04-18 checkpoint review and overlay loop ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## Goal Compress the search space before starting another broad retrain by answering two questions: 1. is the current bottleneck partly just checkpoint-"
+  },
+  {
     "path": "memory/2026-04-18-harness-cleanup-and-memory-index.md",
     "date": "2026-04-18",
     "title": "2026-04-18: harness cleanup, indexed memory retrieval, and soft artifact prune",

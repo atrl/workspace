@@ -212,7 +212,10 @@ def normalize_memory_file(path: Path) -> dict[str, Any]:
 
 def build_index() -> list[dict[str, Any]]:
     records = [normalize_memory_file(path) for path in memory_markdown_paths()]
-    INDEX_PATH.write_text(json.dumps(records, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    INDEX_PATH.write_text(
+        json.dumps(records, indent=2, ensure_ascii=False, default=str) + "\n",
+        encoding="utf-8",
+    )
     return records
 
 

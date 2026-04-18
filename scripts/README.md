@@ -4,6 +4,7 @@ Primary harness entrypoints:
 
 - `build_backtest_dashboard.py`: rebuild the local static dashboard under `runtime/generalization/dashboard.html`.
 - `check_harness.py`: repo-owned validation entrypoint that replaces the missing `pytest` dependency path.
+- `checkpoint_review.py`: render a durable Markdown review from a saved summary JSON's selection history and gates.
 - `execution_overlay_generalization.py`: evaluate execution overlay variants against the retained balanced actor.
 - `generalization_backtest.py`: run the retained cross-ETF generalization backtest harness.
 - `feature_analysis.py`: generate feature importance / IC analysis outputs under `runtime/feature_analysis/`.
@@ -12,6 +13,7 @@ Primary harness entrypoints:
 - `memory_search.py`: query normalized memory metadata without opening every memory file.
 - `normalize_memory.py`: normalize `memory/*.md` into the shared front-matter schema and rebuild `memory/index.json`.
 - `prune_artifacts.py`: generate and optionally apply the retained artifact manifest.
+- `rank_counterfactual_variants.py`: sort fixed-actor counterfactual outputs by promotion-gate quality and write a Markdown ranking.
 
 Operational utilities:
 

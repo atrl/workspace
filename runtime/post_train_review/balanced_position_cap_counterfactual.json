@@ -1,0 +1,396 @@
+{
+  "profile": "balanced",
+  "model": "artifacts/models/soxl_balanced_actor.pt",
+  "variants": {
+    "base_bundle": {
+      "position_cap": {
+        "start_drawdown": 0.1,
+        "full_drawdown": 0.3,
+        "min_cap": 0.4,
+        "curve_power": 1.0,
+        "bull_min_cap": 0.65,
+        "bull_vol_threshold": 0.4,
+        "bull_anchor_threshold": 0.01,
+        "bear_min_cap": 0.3,
+        "bear_regime_threshold": 0.65
+      },
+      "test_proxy": {
+        "return": 303.38220947802546,
+        "sharpe": 0.6983641737657841,
+        "max_dd": 62.81659532256082,
+        "trades": 325
+      },
+      "slices": {
+        "test_2020": {
+          "return": 99.94722651829804,
+          "sharpe": 2.0817296534812524,
+          "max_dd": 24.02388630661925,
+          "avg_pos": 0.5561006808713999
+        },
+        "test_2022": {
+          "return": -37.3588877629095,
+          "sharpe": -1.0299748593500446,
+          "max_dd": 45.19822629644587,
+          "avg_pos": 0.3693495392833795
+        },
+        "test_2023_2024": {
+          "return": 57.519844779226204,
+          "sharpe": 0.7766938780859597,
+          "max_dd": 36.06369400135975,
+          "avg_pos": 0.5419846544369484
+        }
+      }
+    },
+    "bear_floor25_regime055": {
+      "position_cap": {
+        "start_drawdown": 0.1,
+        "full_drawdown": 0.3,
+        "min_cap": 0.4,
+        "curve_power": 1.0,
+        "bull_min_cap": 0.65,
+        "bull_vol_threshold": 0.4,
+        "bull_anchor_threshold": 0.01,
+        "bear_min_cap": 0.25,
+        "bear_regime_threshold": 0.55
+      },
+      "test_proxy": {
+        "return": 272.87627992088323,
+        "sharpe": 0.6773270673893009,
+        "max_dd": 60.46511991697301,
+        "trades": 318
+      },
+      "slices": {
+        "test_2020": {
+          "return": 92.62643891827236,
+          "sharpe": 2.0188427267692663,
+          "max_dd": 24.023886306619254,
+          "avg_pos": 0.5459701980643311
+        },
+        "test_2022": {
+          "return": -36.32712957409881,
+          "sharpe": -1.038896621800955,
+          "max_dd": 43.89766141423133,
+          "avg_pos": 0.35304161555030283
+        },
+        "test_2023_2024": {
+          "return": 62.51763798124177,
+          "sharpe": 0.8180511701959433,
+          "max_dd": 34.02811454766592,
+          "avg_pos": 0.5329048378857856
+        }
+      }
+    },
+    "bear_floor25_regime060": {
+      "position_cap": {
+        "start_drawdown": 0.1,
+        "full_drawdown": 0.3,
+        "min_cap": 0.4,
+        "curve_power": 1.0,
+        "bull_min_cap": 0.65,
+        "bull_vol_threshold": 0.4,
+        "bull_anchor_threshold": 0.01,
+        "bear_min_cap": 0.25,
+        "bear_regime_threshold": 0.6
+      },
+      "test_proxy": {
+        "return": 284.14668771989835,
+        "sharpe": 0.6862392746870686,
+        "max_dd": 60.083378511488874,
+        "trades": 320
+      },
+      "slices": {
+        "test_2020": {
+          "return": 92.62643891827236,
+          "sharpe": 2.0188427267692663,
+          "max_dd": 24.023886306619254,
+          "avg_pos": 0.5459701980643311
+        },
+        "test_2022": {
+          "return": -35.9543493278508,
+          "sharpe": -1.0196115778457404,
+          "max_dd": 43.547035827790594,
+          "avg_pos": 0.35375169005621193
+        },
+        "test_2023_2024": {
+          "return": 56.07774686604121,
+          "sharpe": 0.7674269028718068,
+          "max_dd": 34.066199137964475,
+          "avg_pos": 0.5371588596350076
+        }
+      }
+    },
+    "bear_floor30_regime060": {
+      "position_cap": {
+        "start_drawdown": 0.1,
+        "full_drawdown": 0.3,
+        "min_cap": 0.4,
+        "curve_power": 1.0,
+        "bull_min_cap": 0.65,
+        "bull_vol_threshold": 0.4,
+        "bull_anchor_threshold": 0.01,
+        "bear_min_cap": 0.3,
+        "bear_regime_threshold": 0.6
+      },
+      "test_proxy": {
+        "return": 308.12520176408754,
+        "sharpe": 0.7040829418088647,
+        "max_dd": 62.50037801624746,
+        "trades": 325
+      },
+      "slices": {
+        "test_2020": {
+          "return": 98.91939428251513,
+          "sharpe": 2.079105262671839,
+          "max_dd": 24.023886306619257,
+          "avg_pos": 0.5538052431746122
+        },
+        "test_2022": {
+          "return": -36.736767428636654,
+          "sharpe": -1.0121088253148247,
+          "max_dd": 44.671595600521115,
+          "avg_pos": 0.36694317102955165
+        },
+        "test_2023_2024": {
+          "return": 59.21640552348657,
+          "sharpe": 0.7899683434501753,
+          "max_dd": 34.243705079590356,
+          "avg_pos": 0.5386609958981536
+        }
+      }
+    },
+    "bear_floor30_regime065": {
+      "position_cap": {
+        "start_drawdown": 0.1,
+        "full_drawdown": 0.3,
+        "min_cap": 0.4,
+        "curve_power": 1.0,
+        "bull_min_cap": 0.65,
+        "bull_vol_threshold": 0.4,
+        "bull_anchor_threshold": 0.01,
+        "bear_min_cap": 0.3,
+        "bear_regime_threshold": 0.65
+      },
+      "test_proxy": {
+        "return": 303.38220947802546,
+        "sharpe": 0.6983641737657841,
+        "max_dd": 62.81659532256082,
+        "trades": 325
+      },
+      "slices": {
+        "test_2020": {
+          "return": 99.94722651829804,
+          "sharpe": 2.0817296534812524,
+          "max_dd": 24.02388630661925,
+          "avg_pos": 0.5561006808713999
+        },
+        "test_2022": {
+          "return": -37.3588877629095,
+          "sharpe": -1.0299748593500446,
+          "max_dd": 45.19822629644587,
+          "avg_pos": 0.3693495392833795
+        },
+        "test_2023_2024": {
+          "return": 57.519844779226204,
+          "sharpe": 0.7766938780859597,
+          "max_dd": 36.06369400135975,
+          "avg_pos": 0.5419846544369484
+        }
+      }
+    },
+    "bear_floor35_regime060": {
+      "position_cap": {
+        "start_drawdown": 0.1,
+        "full_drawdown": 0.3,
+        "min_cap": 0.4,
+        "curve_power": 1.0,
+        "bull_min_cap": 0.65,
+        "bull_vol_threshold": 0.4,
+        "bull_anchor_threshold": 0.01,
+        "bear_min_cap": 0.35,
+        "bear_regime_threshold": 0.6
+      },
+      "test_proxy": {
+        "return": 354.32866648815155,
+        "sharpe": 0.7365938354674451,
+        "max_dd": 61.522468040747526,
+        "trades": 317
+      },
+      "slices": {
+        "test_2020": {
+          "return": 103.90676733592747,
+          "sharpe": 2.1244340141016482,
+          "max_dd": 24.02388630661926,
+          "avg_pos": 0.5590127824149408
+        },
+        "test_2022": {
+          "return": -37.52941988498376,
+          "sharpe": -1.0040468083295437,
+          "max_dd": 45.78934795994095,
+          "avg_pos": 0.38013465200289154
+        },
+        "test_2023_2024": {
+          "return": 63.47399021616438,
+          "sharpe": 0.8171653051539833,
+          "max_dd": 33.278088845964696,
+          "avg_pos": 0.5451311664974071
+        }
+      }
+    },
+    "bear_floor35_regime065": {
+      "position_cap": {
+        "start_drawdown": 0.1,
+        "full_drawdown": 0.3,
+        "min_cap": 0.4,
+        "curve_power": 1.0,
+        "bull_min_cap": 0.65,
+        "bull_vol_threshold": 0.4,
+        "bull_anchor_threshold": 0.01,
+        "bear_min_cap": 0.35,
+        "bear_regime_threshold": 0.65
+      },
+      "test_proxy": {
+        "return": 375.4248091368677,
+        "sharpe": 0.7501185825771111,
+        "max_dd": 61.98678163184665,
+        "trades": 318
+      },
+      "slices": {
+        "test_2020": {
+          "return": 103.24040344289243,
+          "sharpe": 2.110105916640891,
+          "max_dd": 24.02388630661926,
+          "avg_pos": 0.559335965469104
+        },
+        "test_2022": {
+          "return": -37.83822649706403,
+          "sharpe": -1.0127893184409964,
+          "max_dd": 46.04859959176301,
+          "avg_pos": 0.3813378361298053
+        },
+        "test_2023_2024": {
+          "return": 60.77282537717319,
+          "sharpe": 0.7977521858892445,
+          "max_dd": 35.1718525519849,
+          "avg_pos": 0.5469457458442403
+        }
+      }
+    },
+    "bear_floor35_regime070": {
+      "position_cap": {
+        "start_drawdown": 0.1,
+        "full_drawdown": 0.3,
+        "min_cap": 0.4,
+        "curve_power": 1.0,
+        "bull_min_cap": 0.65,
+        "bull_vol_threshold": 0.4,
+        "bull_anchor_threshold": 0.01,
+        "bear_min_cap": 0.35,
+        "bear_regime_threshold": 0.7
+      },
+      "test_proxy": {
+        "return": 380.05893503607757,
+        "sharpe": 0.7531001834388481,
+        "max_dd": 62.53502416161007,
+        "trades": 327
+      },
+      "slices": {
+        "test_2020": {
+          "return": 106.51808309725577,
+          "sharpe": 2.1510885996729328,
+          "max_dd": 24.02388630661926,
+          "avg_pos": 0.5617707679229503
+        },
+        "test_2022": {
+          "return": -38.01596980975683,
+          "sharpe": -1.022401810616219,
+          "max_dd": 46.20286643604024,
+          "avg_pos": 0.3797381889478981
+        },
+        "test_2023_2024": {
+          "return": 61.833766189046216,
+          "sharpe": 0.805294582902161,
+          "max_dd": 35.171852551984905,
+          "avg_pos": 0.5472178546985903
+        }
+      }
+    },
+    "bull70_bear30_regime060": {
+      "position_cap": {
+        "start_drawdown": 0.1,
+        "full_drawdown": 0.3,
+        "min_cap": 0.4,
+        "curve_power": 1.0,
+        "bull_min_cap": 0.7,
+        "bull_vol_threshold": 0.4,
+        "bull_anchor_threshold": 0.01,
+        "bear_min_cap": 0.3,
+        "bear_regime_threshold": 0.6
+      },
+      "test_proxy": {
+        "return": 319.51476863842004,
+        "sharpe": 0.7127512708627439,
+        "max_dd": 62.40046235032287,
+        "trades": 327
+      },
+      "slices": {
+        "test_2020": {
+          "return": 98.83807133033906,
+          "sharpe": 2.0776065607816836,
+          "max_dd": 24.023886306619257,
+          "avg_pos": 0.5539005206294941
+        },
+        "test_2022": {
+          "return": -36.736767428636654,
+          "sharpe": -1.0121088253148247,
+          "max_dd": 44.671595600521115,
+          "avg_pos": 0.36694317102955165
+        },
+        "test_2023_2024": {
+          "return": 59.21640552348657,
+          "sharpe": 0.7899683434501753,
+          "max_dd": 34.243705079590356,
+          "avg_pos": 0.5386609958981536
+        }
+      }
+    },
+    "bull70_bear35_regime060": {
+      "position_cap": {
+        "start_drawdown": 0.1,
+        "full_drawdown": 0.3,
+        "min_cap": 0.4,
+        "curve_power": 1.0,
+        "bull_min_cap": 0.7,
+        "bull_vol_threshold": 0.4,
+        "bull_anchor_threshold": 0.01,
+        "bear_min_cap": 0.35,
+        "bear_regime_threshold": 0.6
+      },
+      "test_proxy": {
+        "return": 354.3319429491902,
+        "sharpe": 0.7366040909823273,
+        "max_dd": 61.5324868043304,
+        "trades": 316
+      },
+      "slices": {
+        "test_2020": {
+          "return": 103.82340570591788,
+          "sharpe": 2.122948516957627,
+          "max_dd": 24.02388630661926,
+          "avg_pos": 0.5591080598698227
+        },
+        "test_2022": {
+          "return": -37.52941988498376,
+          "sharpe": -1.0040468083295437,
+          "max_dd": 45.78934795994095,
+          "avg_pos": 0.38013465200289154
+        },
+        "test_2023_2024": {
+          "return": 63.47399021616438,
+          "sharpe": 0.8171653051539833,
+          "max_dd": 33.278088845964696,
+          "avg_pos": 0.5451311664974071
+        }
+      }
+    }
+  }
+}
