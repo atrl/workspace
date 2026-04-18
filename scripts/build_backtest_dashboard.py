@@ -80,7 +80,6 @@ def build_payload() -> dict[str, object]:
     for item in detailed_summary:
         etf = item["etf"]
         rows = load_csv_rows(DETAIL_DIR / f"{etf.lower()}_detailed_trades.csv")
-        # merge features by date
         if features:
             for r in rows:
                 dt = str(r["datetime"])
@@ -132,24 +131,24 @@ def _build_layout_all() -> dict:
         paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor=C_PANEL,
         font=dict(family='ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif', color=C_INK, size=12),
-        hovermode="x unified",
+        hovermode="closest",
         showlegend=True,
         legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1, bgcolor="rgba(255,250,242,0.8)"),
         dragmode="zoom",
     )
-    # Grid and axes styling
     for i in range(1, 5):
         fig.update_xaxes(
             showgrid=True, gridwidth=1, gridcolor=C_LINE,
             showticklabels=(i == 4), tickfont=dict(size=11),
+            showspikes=True, spikemode="across", spikecolor=C_MUTED, spikethickness=1, spikedash="dot",
             row=i, col=1,
         )
         fig.update_yaxes(
             showgrid=True, gridwidth=1, gridcolor=C_LINE,
             tickfont=dict(size=11),
+            showspikes=True, spikemode="across", spikecolor=C_MUTED, spikethickness=1, spikedash="dot",
             row=i, col=1,
         )
-    # Axis titles
     fig.update_yaxes(title_text="NAV", row=1, col=1)
     fig.update_yaxes(title_text="Pos", row=2, col=1)
     fig.update_yaxes(title_text="Excess %", row=3, col=1)
@@ -167,13 +166,13 @@ def _build_layout_single(title: str, y_title: str) -> dict:
         paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor=C_PANEL,
         font=dict(family='ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif', color=C_INK, size=12),
-        hovermode="x unified",
+        hovermode="closest",
         showlegend=True,
         legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1, bgcolor="rgba(255,250,242,0.8)"),
         dragmode="zoom",
         title=dict(text=title, font=dict(size=14)),
-        xaxis=dict(showgrid=True, gridcolor=C_LINE, tickfont=dict(size=11)),
-        yaxis=dict(showgrid=True, gridcolor=C_LINE, tickfont=dict(size=11), title=y_title),
+        xaxis=dict(showgrid=True, gridcolor=C_LINE, tickfont=dict(size=11), showspikes=True, spikemode="across", spikecolor=C_MUTED, spikethickness=1, spikedash="dot"),
+        yaxis=dict(showgrid=True, gridcolor=C_LINE, tickfont=dict(size=11), title=y_title, showspikes=True, spikemode="across", spikecolor=C_MUTED, spikethickness=1, spikedash="dot"),
     )
     return fig.to_plotly_json()["layout"]
 
@@ -270,6 +269,38 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       color: var(--muted);
       text-transform: uppercase;
       letter-spacing: 0.08em;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }}
+    .help-icon {{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 14px;
+      height: 14px;
+      border-radius: 999px;
+      background: var(--line);
+      color: var(--muted);
+      font-size: 10px;
+      cursor: help;
+      position: relative;
+    }}
+    .help-icon:hover::after {{
+      content: attr(data-tip);
+      position: absolute;
+      bottom: 120%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--ink);
+      color: white;
+      padding: 6px 10px;
+      border-radius: 8px;
+      font-size: 11px;
+      white-space: nowrap;
+      z-index: 100;
+      letter-spacing: 0;
+      text-transform: none;
     }}
     select, .date-input {{
       min-width: 140px;
@@ -415,7 +446,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     }}
     .chart-grid {{
       display: grid;
-      grid-template-columns: 2fr 1fr;
+      grid-template-columns: 3fr 1fr;
       gap: 18px;
       margin-bottom: 18px;
     }}
@@ -427,6 +458,72 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       margin-bottom: 10px;
       color: var(--muted);
       font-size: 13px;
+    }}
+    .chart-wrapper {{
+      display: grid;
+      grid-template-columns: 1fr 220px;
+      gap: 14px;
+      align-items: start;
+    }}
+    .info-panel {{
+      background: var(--panel-2);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 14px;
+      font-size: 12px;
+      line-height: 1.6;
+      min-height: 400px;
+    }}
+    .info-panel .info-title {{
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 10px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--line);
+    }}
+    .info-row {{
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 4px 0;
+      border-bottom: 1px solid rgba(216,204,187,0.4);
+    }}
+    .info-row .info-k {{
+      color: var(--muted);
+    }}
+    .info-row .info-v {{
+      font-weight: 600;
+      font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+    }}
+    .info-row.highlight {{
+      background: rgba(154, 52, 18, 0.06);
+      margin: 0 -14px;
+      padding: 4px 14px;
+      border-bottom: 1px solid var(--line);
+    }}
+    .info-row.highlight .info-k {{
+      color: var(--accent);
+      font-weight: 600;
+    }}
+    .info-empty {{
+      color: var(--muted);
+      font-style: italic;
+      text-align: center;
+      padding: 40px 0;
+    }}
+    .info-section {{
+      margin-top: 12px;
+      padding-top: 8px;
+      border-top: 1px solid var(--line);
+    }}
+    .info-section-title {{
+      font-size: 10px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 6px;
     }}
     .split {{
       display: grid;
@@ -507,6 +604,8 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     @media (max-width: 1100px) {{
       .hero, .chart-grid, .split, .status-strip {{ grid-template-columns: 1fr; }}
       .summary-grid, .window-bar {{ grid-template-columns: repeat(2, minmax(0, 1fr)); }}
+      .chart-wrapper {{ grid-template-columns: 1fr; }}
+      .info-panel {{ display: none; }}
     }}
     @media (max-width: 720px) {{
       .shell {{ padding: 14px; }}
@@ -564,11 +663,11 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
         <h2 class="section-title">Main Chart</h2>
         <div class="chart-toolbar">
           <div class="toolbar-group">
-            <label>ETF</label>
+            <label>ETF <span class="help-icon" data-tip="选择要查看的 ETF 标的">?</span></label>
             <select id="etfSelect"></select>
           </div>
           <div class="toolbar-group">
-            <label>View</label>
+            <label>View <span class="help-icon" data-tip="图表布局：All=4子图，其他=单图聚焦">?</span></label>
             <select id="viewSelect">
               <option value="all">All Panels</option>
               <option value="nav">NAV + Trades</option>
@@ -578,7 +677,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
             </select>
           </div>
           <div class="toolbar-group">
-            <label>Rows</label>
+            <label>Rows <span class="help-icon" data-tip="Raw Daily Data 表格显示行数">?</span></label>
             <select id="rowsSelect">
               <option value="50">50</option>
               <option value="100" selected>100</option>
@@ -586,7 +685,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
             </select>
           </div>
           <div class="toolbar-group">
-            <label>Range</label>
+            <label>Range <span class="help-icon" data-tip="按年份快速筛选数据">?</span></label>
             <div class="pill-row">
               <button class="pill active" data-range="all">All</button>
               <button class="pill" data-range="2020">2020</button>
@@ -595,7 +694,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
             </div>
           </div>
           <div class="toolbar-group">
-            <label>Zoom</label>
+            <label>Zoom <span class="help-icon" data-tip="快速缩放到最近 N 个月">?</span></label>
             <div class="zoom-row">
               <button class="btn" data-zoom="6m">6M</button>
               <button class="btn" data-zoom="1y">1Y</button>
@@ -620,7 +719,54 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
           </div>
         </div>
         <div class="chart-meta" id="chartMeta"></div>
-        <div id="plotlyChart" style="width:100%;height:760px;border-radius:16px;background:var(--panel);border:1px solid var(--line);"></div>
+        <div class="chart-wrapper">
+          <div id="plotlyChart" style="width:100%;height:760px;border-radius:16px;background:var(--panel);border:1px solid var(--line);"></div>
+          <div class="info-panel" id="infoPanel">
+            <div class="info-title">📊 数据面板</div>
+            <div class="info-empty" id="infoEmpty">鼠标移到图表上查看当日数据</div>
+            <div id="infoContent" style="display:none;">
+              <div class="info-row highlight">
+                <span class="info-k">日期</span>
+                <span class="info-v" id="infoDate">-</span>
+              </div>
+              <div class="info-row">
+                <span class="info-k">Action</span>
+                <span class="info-v" id="infoAction">-</span>
+              </div>
+              <div class="info-row">
+                <span class="info-k">Price</span>
+                <span class="info-v" id="infoPrice">-</span>
+              </div>
+              <div class="info-row">
+                <span class="info-k">Strategy NAV</span>
+                <span class="info-v" id="infoStrat">-</span>
+              </div>
+              <div class="info-row">
+                <span class="info-k">Buy&Hold NAV</span>
+                <span class="info-v" id="infoBH">-</span>
+              </div>
+              <div class="info-row">
+                <span class="info-k">Position</span>
+                <span class="info-v" id="infoPos">-</span>
+              </div>
+              <div class="info-row">
+                <span class="info-k">Excess %</span>
+                <span class="info-v" id="infoExcess">-</span>
+              </div>
+              <div class="info-section">
+                <div class="info-section-title">市场特征</div>
+                <div class="info-row"><span class="info-k">VIX</span><span class="info-v" id="infoVix">-</span></div>
+                <div class="info-row"><span class="info-k">RSI</span><span class="info-v" id="infoRsi">-</span></div>
+                <div class="info-row"><span class="info-k">Volatility</span><span class="info-v" id="infoVol">-</span></div>
+                <div class="info-row"><span class="info-k">Spread</span><span class="info-v" id="infoSpread">-</span></div>
+                <div class="info-row"><span class="info-k">VIX z-score</span><span class="info-v" id="infoVixZ">-</span></div>
+                <div class="info-row"><span class="info-k">Spread Trend</span><span class="info-v" id="infoSpTr">-</span></div>
+                <div class="info-row"><span class="info-k">MA5/20</span><span class="info-v" id="infoMA">-</span></div>
+                <div class="info-row"><span class="info-k">Vol Strength</span><span class="info-v" id="infoVolStr">-</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="card" id="ruleComparison">
         <h2 class="section-title">Rule-Based Comparison</h2>
@@ -683,6 +829,8 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     const endDateInput = document.getElementById('endDateInput');
     const applyZoomBtn = document.getElementById('applyZoomBtn');
     const resetZoomBtn = document.getElementById('resetZoomBtn');
+    const infoEmpty = document.getElementById('infoEmpty');
+    const infoContent = document.getElementById('infoContent');
     const STORAGE_KEY = 'soxl-dashboard-state-v3';
 
     function fmtPct(v, digits = 2) {{
@@ -939,25 +1087,31 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       reviewBox.textContent = DATA.execution_review;
     }}
 
-    function buildHoverText(row) {{
+    function updateInfoPanel(row) {{
+      if (!row) {{
+        infoEmpty.style.display = 'block';
+        infoContent.style.display = 'none';
+        return;
+      }}
+      infoEmpty.style.display = 'none';
+      infoContent.style.display = 'block';
       const f = row._features || {{}};
-      const parts = [
-        `<b>${{row.datetime}}</b>`,
-        `Price: ${{fmtNum(row.price || row.strategy_nav)}}`,
-        `Pos: ${{fmtNum(row.position, 4)}}`,
-        `Excess: ${{fmtNum(row.excess_pct, 2)}}%`,
-      ];
-      const featParts = [];
-      if (f.vix != null) featParts.push(`VIX: ${{fmtNum(f.vix, 2)}}`);
-      if (f.rsi != null) featParts.push(`RSI: ${{fmtNum(f.rsi, 2)}}`);
-      if (f.volatility != null) featParts.push(`Vol: ${{fmtNum(f.volatility, 4)}}`);
-      if (f.spread != null) featParts.push(`Spread: ${{fmtNum(f.spread, 4)}}`);
-      if (f.vix_zscore != null) featParts.push(`VIXz: ${{fmtNum(f.vix_zscore, 2)}}`);
-      if (f.spread_trend != null) featParts.push(`SpTr: ${{fmtNum(f.spread_trend, 4)}}`);
-      if (f.ma5_ma20 != null) featParts.push(`MA5/20: ${{fmtNum(f.ma5_ma20, 4)}}`);
-      if (f.vol_strength != null) featParts.push(`VolStr: ${{fmtNum(f.vol_strength, 4)}}`);
-      if (featParts.length) parts.push('<br>' + featParts.join(' | '));
-      return parts.join('<br>');
+      document.getElementById('infoDate').textContent = row.datetime;
+      document.getElementById('infoAction').textContent = row.action || 'HOLD';
+      document.getElementById('infoAction').style.color = row.action === 'BUY' ? 'var(--good)' : row.action === 'SELL' ? 'var(--bad)' : 'var(--ink)';
+      document.getElementById('infoPrice').textContent = fmtNum(row.price || row.strategy_nav);
+      document.getElementById('infoStrat').textContent = fmtNum(row.strategy_nav);
+      document.getElementById('infoBH').textContent = fmtNum(row.buyhold_nav);
+      document.getElementById('infoPos').textContent = fmtNum(row.position, 4);
+      document.getElementById('infoExcess').textContent = fmtNum(row.excess_pct, 2) + '%';
+      document.getElementById('infoVix').textContent = f.vix != null ? fmtNum(f.vix, 2) : 'n/a';
+      document.getElementById('infoRsi').textContent = f.rsi != null ? fmtNum(f.rsi, 2) : 'n/a';
+      document.getElementById('infoVol').textContent = f.volatility != null ? fmtNum(f.volatility, 4) : 'n/a';
+      document.getElementById('infoSpread').textContent = f.spread != null ? fmtNum(f.spread, 4) : 'n/a';
+      document.getElementById('infoVixZ').textContent = f.vix_zscore != null ? fmtNum(f.vix_zscore, 2) : 'n/a';
+      document.getElementById('infoSpTr').textContent = f.spread_trend != null ? fmtNum(f.spread_trend, 4) : 'n/a';
+      document.getElementById('infoMA').textContent = f.ma5_ma20 != null ? fmtNum(f.ma5_ma20, 4) : 'n/a';
+      document.getElementById('infoVolStr').textContent = f.vol_strength != null ? fmtNum(f.vol_strength, 4) : 'n/a';
     }}
 
     function renderChart() {{
@@ -979,7 +1133,6 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
         buyholdDD.push(r.buyhold_nav / peakB - 1);
       }}
 
-      const hoverTexts = rows.map(r => buildHoverText(r));
       const buyRows = rows.filter(r => r.action === 'BUY');
       const sellRows = rows.filter(r => r.action === 'SELL');
 
@@ -995,16 +1148,14 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
           x: dates, y: strategyNav,
           name: 'Strategy NAV', type: 'scatter', mode: 'lines',
           line: {{ color: '{C_STRATEGY}', width: 2 }},
-          text: hoverTexts,
-          hovertemplate: '%{{text}}<extra>Strategy</extra>',
+          hovertemplate: '%{{x}}<br>Strategy: %{{y:,.2f}}<extra></extra>',
           xaxis: xa, yaxis: ya,
         }});
         traces.push({{
           x: dates, y: buyholdNav,
           name: 'Buy&Hold NAV', type: 'scatter', mode: 'lines',
           line: {{ color: '{C_BUYHOLD}', width: 2 }},
-          text: hoverTexts,
-          hovertemplate: '%{{text}}<extra>Buy&Hold</extra>',
+          hovertemplate: '%{{x}}<br>Buy&Hold: %{{y:,.2f}}<extra></extra>',
           xaxis: xa, yaxis: ya,
         }});
         if (buyRows.length) {{
@@ -1013,8 +1164,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
             y: buyRows.map(r => r.price || r.strategy_nav),
             name: 'BUY', type: 'scatter', mode: 'markers',
             marker: {{ symbol: 'triangle-up', size: 11, color: '{C_BUY}', line: {{ color: 'white', width: 1 }} }},
-            text: buyRows.map(r => `<b>BUY</b><br>${{buildHoverText(r)}}`),
-            hovertemplate: '%{{text}}<extra>BUY</extra>',
+            hovertemplate: '<b>BUY</b> %{{x}}<extra></extra>',
             xaxis: xa, yaxis: ya,
           }});
         }}
@@ -1024,8 +1174,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
             y: sellRows.map(r => r.price || r.strategy_nav),
             name: 'SELL', type: 'scatter', mode: 'markers',
             marker: {{ symbol: 'triangle-down', size: 11, color: '{C_SELL}', line: {{ color: 'white', width: 1 }} }},
-            text: sellRows.map(r => `<b>SELL</b><br>${{buildHoverText(r)}}`),
-            hovertemplate: '%{{text}}<extra>SELL</extra>',
+            hovertemplate: '<b>SELL</b> %{{x}}<extra></extra>',
             xaxis: xa, yaxis: ya,
           }});
         }}
@@ -1036,8 +1185,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
           x: dates, y: positions,
           name: 'Position', type: 'bar',
           marker: {{ color: positions.map(p => p > 0 ? 'rgba(15,118,110,0.7)' : 'rgba(109,100,88,0.4)') }},
-          text: hoverTexts,
-          hovertemplate: '%{{text}}<extra>Position</extra>',
+          hovertemplate: '%{{x}}<br>Pos: %{{y:.4f}}<extra></extra>',
           xaxis: xa2, yaxis: ya2,
         }});
       }}
@@ -1049,8 +1197,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
           line: {{ color: '{C_INK}', width: 1.5 }},
           fill: 'tozeroy',
           fillcolor: 'rgba(27,26,23,0.08)',
-          text: hoverTexts,
-          hovertemplate: '%{{text}}<extra>Excess</extra>',
+          hovertemplate: '%{{x}}<br>Excess: %{{y:.2f}}%<extra></extra>',
           xaxis: xa3, yaxis: ya3,
         }});
       }}
@@ -1062,8 +1209,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
           line: {{ color: '{C_STRATEGY}', width: 1.5 }},
           fill: 'tozeroy',
           fillcolor: 'rgba(154,52,18,0.12)',
-          text: hoverTexts,
-          hovertemplate: '%{{text}}<extra>Strategy DD</extra>',
+          hovertemplate: '%{{x}}<br>Strat DD: %{{y:.2%}}<extra></extra>',
           xaxis: xa4, yaxis: ya4,
         }});
         traces.push({{
@@ -1072,8 +1218,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
           line: {{ color: '{C_BUYHOLD}', width: 1.5 }},
           fill: 'tozeroy',
           fillcolor: 'rgba(15,118,110,0.10)',
-          text: hoverTexts,
-          hovertemplate: '%{{text}}<extra>Buy&Hold DD</extra>',
+          hovertemplate: '%{{x}}<br>BH DD: %{{y:.2%}}<extra></extra>',
           xaxis: xa4, yaxis: ya4,
         }});
       }}
@@ -1083,6 +1228,16 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
         displayModeBar: true,
         modeBarButtonsToRemove: ['lasso2d', 'select2d'],
         displaylogo: false,
+      }}).then(gd => {{
+        gd.on('plotly_hover', function(data) {{
+          const pt = data.points[0];
+          const dateStr = pt.x;
+          const row = rows.find(r => r.datetime === dateStr);
+          updateInfoPanel(row);
+        }});
+        gd.on('plotly_unhover', function() {{
+          // keep last hovered row visible instead of clearing
+        }});
       }});
 
       if (rows.length) {{
