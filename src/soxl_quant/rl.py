@@ -709,21 +709,34 @@ class ContinuousReward(Reward):
         pbrs_delta = (-drawdown) - (-prev_drawdown)
         reward += pbrs_delta * cfg.pbrs_coef
 
-        # === 交易成本与换手率惩罚 ===
+        # === 交易成本与换手率惩罚（分层：小调仓重罚，大调仓轻罚）===
         if not cfg.use_marginal_reward and not cfg.use_log_reward:
-            # 直接交易成本：在 aggregate / log reward 模式下，成本已通过净值变化反映
-            # 但在 marginal reward 模式下需要显式扣除（因为 marginal 计算中未含 cost）
             reward -= turnover * cfg.transaction_cost * 100.0
-        # 额外换手惩罚（所有模式下都保留，作为对高频交易的二次约束）
-        reward -= turnover * cfg.turnover_penalty
-        reward -= (turnover**2) * cfg.smoothness_penalty           # 鼓励平滑、减少日内反复
-        # 动态 activity bonus：只在市场 regime 明显切换或高波动时才奖励换手
-        if cfg.gated_activity_bonus:
-            regime_switch_flag = 1.0 if (regime_delta > cfg.activity_gate_regime_delta_threshold or realized_vol > cfg.activity_gate_vol_threshold) else 0.0
-            activity_bonus_eff = min(turnover, 0.30) * min(activity_signal, 2.2) * cfg.activity_bonus * regime_switch_flag
+        if turnover < 0.15:
+            # 无意义微调 = 摩擦损耗，重罚
+            effective_turnover_penalty = cfg.turnover_penalty * 3.0
+            effective_smoothness = cfg.smoothness_penalty * 3.0
         else:
-            activity_bonus_eff = min(turnover, 0.30) * min(activity_signal, 2.2) * cfg.activity_bonus
-        reward += activity_bonus_eff
+            # 大波段调仓 = 有意义的决策，轻罚
+            effective_turnover_penalty = cfg.turnover_penalty
+            effective_smoothness = cfg.smoothness_penalty
+        reward -= turnover * effective_turnover_penalty
+        reward -= (turnover**2) * effective_smoothness
+        # 取消 activity bonus（不奖励换手）
+        # if cfg.gated_activity_bonus:
+        #     ...
+
+        # === 持仓稳定性奖励（新）：连续不动 = 策略稳定 ===
+        if flat_steps >= 3 and cfg.stability_bonus > 0:
+            stability_bonus = min((flat_steps - 2.0) / 8.0, 1.0) * cfg.stability_bonus
+            reward += stability_bonus
+
+        # === 趋势对齐奖励（新）：牛市重仓、熊市轻仓 ===
+        if cfg.trend_alignment_bonus > 0:
+            if anchor_gap > cfg.trend_alignment_threshold and pos > 0.55:
+                reward += cfg.trend_alignment_bonus
+            if anchor_gap < -cfg.trend_alignment_threshold and pos < 0.35:
+                reward += cfg.trend_alignment_bonus
 
         # === 回撤与下行风险控制 ===
         reward -= excess_drawdown * cfg.drawdown_penalty           # 超过容忍度的回撤重罚

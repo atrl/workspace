@@ -289,6 +289,10 @@ def _load_post_train_review_versions(features: dict[str, dict[str, float]] | Non
             }
             rows.append(row)
 
+        # Force close any open position at the last row so trade pairing works
+        if rows and rows[-1]["position"] > 0 and rows[-1]["action"] == "HOLD":
+            rows[-1]["action"] = "SELL"
+
         # Merge features
         if features:
             for r in rows:
@@ -522,6 +526,7 @@ def _build_layout_all() -> dict:
             showgrid=True, gridwidth=1, gridcolor=C_LINE,
             tickfont=dict(size=11),
             showspikes=True, spikemode="across", spikecolor=C_MUTED, spikethickness=1, spikedash="dot",
+            fixedrange=True,
             row=i, col=1,
         )
     fig.update_yaxes(title_text="NAV", row=1, col=1)
@@ -1095,19 +1100,11 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
 </head>
 <body>
   <div class="shell">
-    <div class="hero">
-      <div class="card">
-        <h1>Backtest Dashboard</h1>
-        <p class="sub">
-          交互式回测查看器。鼠标滚轮缩放，悬停查看特征，快捷键 +/- 缩放，R 重置，←→ 平移。
-        </p>
-        <div class="jump-links">
-          <a class="badge" href="#mainChart">Main Chart</a>
-          <a class="badge" href="#tradeStats">Trade Quality</a>
-          <a class="badge" href="#tradeTable">Trade Performance</a>
-          <a class="badge" href="#versionCompare">Model Versions</a>
-        </div>
-      </div>
+    <div class="jump-links" style="margin-bottom:18px;">
+      <a class="badge" href="#mainChart">Main Chart</a>
+      <a class="badge" href="#tradeStats">Trade Quality</a>
+      <a class="badge" href="#tradeTable">Trade Performance</a>
+      <a class="badge" href="#versionCompare">Model Versions</a>
     </div>
 
     <div class="grid summary-grid" id="metricGrid"></div>
@@ -1226,15 +1223,9 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     </div>
 
     <!-- Trade Quality Stats -->
-    <div class="panel-grid">
-      <div class="panel-card" id="tradeStats">
-        <h2>🎯 Trade Quality <span style="font-size:12px;color:var(--muted);font-weight:normal;">— Kelly / Expectancy / Profit Factor</span></h2>
-        <div class="stat-row" id="tradeStatRow"></div>
-      </div>
-      <div class="panel-card" id="strategyStats">
-        <h2>📈 Strategy Overview</h2>
-        <div class="stat-row" id="stratStatRow"></div>
-      </div>
+    <div class="card" id="tradeStats">
+      <h2 class="section-title">🎯 Trade Quality <span style="font-size:12px;color:var(--muted);font-weight:normal;">— Kelly / Expectancy / Profit Factor</span></h2>
+      <div class="stat-row" id="tradeStatRow"></div>
     </div>
 
     <!-- Trade Performance Table -->
@@ -1287,7 +1278,6 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     const versionSelect = document.getElementById('versionSelect');
     const metricGrid = document.getElementById('metricGrid');
     const tradeStatRow = document.getElementById('tradeStatRow');
-    const stratStatRow = document.getElementById('stratStatRow');
     const tradePerfTable = document.getElementById('tradePerfTable');
     const versionTable = document.getElementById('versionTable');
     const csvLink = document.getElementById('csvLink');
@@ -1592,35 +1582,6 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
         <div class="stat-cell ${{s.highlight ? 'kelly-highlight' : ''}}">
           <div class="sk">${{s.k}}</div>
           <div class="sv" style="color:${{s.color || (String(s.v).includes('-') ? 'var(--bad)' : 'var(--good)')}}">${{s.v}}</div>
-          <div class="ss">${{s.s}}</div>
-        </div>
-      `).join('');
-    }}
-
-    function renderStrategyStats(rows) {{
-      if (!rows.length) {{
-        stratStatRow.innerHTML = '<div class="stat-cell"><div class="sk">无数据</div></div>';
-        return;
-      }}
-      const totalRet = (rows[rows.length-1].strategy_nav / rows[0].strategy_nav - 1) * 100;
-      const bhRet = (rows[rows.length-1].buyhold_nav / rows[0].buyhold_nav - 1) * 100;
-      const annRet = rows.length > 252 ? (Math.pow(rows[rows.length-1].strategy_nav / rows[0].strategy_nav, 252/rows.length) - 1) * 100 : totalRet;
-      let peak = rows[0].strategy_nav;
-      let mdd = 0;
-      for (const r of rows) {{
-        peak = Math.max(peak, r.strategy_nav);
-        mdd = Math.min(mdd, r.strategy_nav / peak - 1);
-      }}
-      const k = getDetailed(state.etf).kelly;
-      stratStatRow.innerHTML = [
-        {{ k: '总收益', v: fmtNum(totalRet, 1)+'%', s: `BH ${{fmtNum(bhRet,1)}}%` }},
-        {{ k: '年化收益', v: fmtNum(annRet, 1)+'%', s: '' }},
-        {{ k: '最大回撤', v: fmtNum(mdd*100, 1)+'%', s: '' }},
-        {{ k: '最大连亏', v: String(k.max_loss_streak || 0)+'笔', s: `连盈 ${{k.max_win_streak || 0}}笔` }},
-      ].map(s => `
-        <div class="stat-cell">
-          <div class="sk">${{s.k}}</div>
-          <div class="sv" style="color:${{String(s.v).includes('-') ? 'var(--bad)' : 'var(--good)'}}">${{s.v}}</div>
           <div class="ss">${{s.s}}</div>
         </div>
       `).join('');
@@ -2064,7 +2025,6 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       const k = getDetailed(state.etf).kelly;
       renderChart();
       renderTradeStats(k);
-      renderStrategyStats(rows);
       renderTradeTable();
       renderVersionTable();
       renderTrainingCurve(null);

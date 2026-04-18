@@ -77,6 +77,18 @@ class RewardConfig:
     use_alpha_reward: bool = False
     alpha_scale: float = 1.0
     use_kelly_alpha: bool = False
+    # Stability & trend-alignment bonuses
+    stability_bonus: float = 0.0
+    trend_alignment_bonus: float = 0.0
+    trend_alignment_threshold: float = 0.03
+    # Three alternative reward modes
+    use_quality_reward: bool = False
+    quality_reward_scale: float = 1.0
+    use_nday_reward: bool = False
+    nday_window: int = 5
+    nday_reward_scale: float = 1.0
+    use_sparse_reward: bool = False
+    sparse_reward_scale: float = 1.0
 
 
 @dataclass(frozen=True)
