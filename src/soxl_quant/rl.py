@@ -243,6 +243,17 @@ def rebalance_threshold(
     return threshold
 
 
+def rule_based_position(obs: np.ndarray) -> float:
+    """Rule-based baseline position: midpoint of action band.
+
+    This serves as the 'core' position that RL overlays upon.
+    It encodes the hard prior: hold a reasonable base position
+    based on regime, trend, and drawdown.
+    """
+    floor, cap = action_band_from_obs(obs)
+    return (floor + cap) / 2.0
+
+
 def action_band_from_obs(obs: np.ndarray, hard_floor: Optional[float] = None) -> Tuple[float, float]:
     """将市场状态映射为可交易的仓位区间 [floor, cap]。
 
@@ -555,6 +566,8 @@ class SoxlSimulator(Simulator):
             "buy_cooldown": float(self.buy_cooldown),
             "period_alpha": (self.val - self.period_baseline_val) / self.period_start_val if self.period_start_val > 0 else 0.0,
             "is_decision_day": 1.0 if self._is_decision_day else 0.0,
+            "rule_pos": rule_based_position(obs),
+            "rule_return": rule_based_position(obs) * self.last_market_return,
             "done": False,
         }
 
@@ -582,18 +595,27 @@ class PositionAction(ActionInterpreter):
         position_cap_config: Optional[PositionCapConfig] = None,
         action_levels: Optional[np.ndarray] = None,
         hard_floor: Optional[float] = None,
+        use_hybrid_overlay: bool = False,
+        delta_levels: Optional[np.ndarray] = None,
     ):
         super().__init__()
         self.n_actions = n_actions
         self.position_cap_config = position_cap_config
         self.action_levels = action_levels if action_levels is not None else BASE_ACTION_LEVELS
         self.hard_floor = hard_floor
+        self.use_hybrid_overlay = use_hybrid_overlay
+        self.delta_levels = np.asarray(delta_levels if delta_levels is not None else [-0.15, 0.0, 0.15], dtype=np.float32)
 
     @property
     def action_space(self):
         return spaces.Discrete(self.n_actions)
 
     def interpret(self, state, action):
+        if self.use_hybrid_overlay:
+            rule_pos = rule_based_position(state["obs"])
+            clipped = int(np.clip(action, 0, len(self.delta_levels) - 1))
+            delta = float(self.delta_levels[clipped])
+            return float(np.clip(rule_pos + delta, 0.0, 1.0))
         return action_to_position(
             int(action),
             state["obs"],
@@ -659,13 +681,25 @@ class ContinuousReward(Reward):
             reward = math.log(1.0 + safe_ret) * 100.0 * cfg.return_scale * cfg.log_reward_scale
         elif cfg.use_marginal_reward:
             # Period-Aware Marginal Reward: 跨周期 alpha = 实际收益 - 基准收益
-            # 只在决策日发放 reward（非决策日 action 被强制覆盖，没有"决策"价值）
             period_alpha = float(state.get("period_alpha", 0.0))
             is_decision_day = float(state.get("is_decision_day", 1.0))
             if is_decision_day > 0.5:
                 reward = period_alpha * 100.0 * cfg.return_scale * cfg.marginal_return_scale
             else:
                 reward = 0.0
+        elif cfg.use_alpha_reward:
+            # Alpha Reward: RL is only rewarded for outperforming the rule-based baseline.
+            # This forces the model to learn "when to deviate from the rule" rather than
+            # "how to predict market direction".
+            step_return = float(state.get("step_return", 0.0))
+            rule_return = float(state.get("rule_return", 0.0))
+            alpha = step_return - rule_return
+            if cfg.use_kelly_alpha:
+                # Kelly-inspired: optimize geometric growth of alpha
+                safe_alpha = max(alpha, -0.999)
+                reward = math.log(1.0 + safe_alpha) * 100.0 * cfg.alpha_scale
+            else:
+                reward = alpha * 100.0 * cfg.alpha_scale
         else:
             reward = pnl_ret * 100.0 * cfg.return_scale
 
@@ -1138,7 +1172,8 @@ def build_policy(obs_dim: int, profile: StrategyConfig, use_moe: bool = False, h
         )
     else:
         net = Net((obs_dim,), hidden_sizes=list(profile.hidden_sizes), device="cpu")
-    actor = Actor(net, len(action_levels), device="cpu")
+    n_actions = len(action_levels) if not model_cfg.use_hybrid_overlay else len(model_cfg.delta_levels)
+    actor = Actor(net, n_actions, device="cpu")
     critic = Critic(net, device="cpu")
     optim = torch.optim.Adam(list(actor.parameters()) + list(critic.parameters()), lr=profile.lr)
     policy_cls = SoxlPPOPolicy if effective_use_moe else PPOPolicy

@@ -73,6 +73,10 @@ class RewardConfig:
     # Kelly-inspired log reward: reward = ln(1 + pnl_ret) to maximize long-term growth rate
     use_log_reward: bool = False
     log_reward_scale: float = 1.0
+    # Alpha reward: reward = actual_return - rule_based_return (RL only rewarded for beating rule-based)
+    use_alpha_reward: bool = False
+    alpha_scale: float = 1.0
+    use_kelly_alpha: bool = False
 
 
 @dataclass(frozen=True)
@@ -154,6 +158,8 @@ class ModelConfig:
     use_tide: bool = False
     tide_hidden_size: int = 64
     tide_dropout: float = 0.1
+    use_hybrid_overlay: bool = False
+    delta_levels: Tuple[float, ...] = (-0.15, 0.0, 0.15)
 
 
 @dataclass(frozen=True)
@@ -221,6 +227,8 @@ def load_profile(name: str) -> StrategyConfig:
     model_payload = dict(payload.get("model", {}))
     if "action_levels" in model_payload:
         model_payload["action_levels"] = tuple(float(v) for v in model_payload["action_levels"])
+    if "delta_levels" in model_payload:
+        model_payload["delta_levels"] = tuple(float(v) for v in model_payload["delta_levels"])
     model = ModelConfig(**model_payload)
     sampling = SamplingConfig(**payload.get("sampling", {}))
     return StrategyConfig(

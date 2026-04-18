@@ -359,10 +359,12 @@ def train_with_selection(policy, actor, initial_states, obs_dim: int, profile, v
             simulator_fn=SoxlSimulator,
             state_interpreter=SoxlState(obs_dim),
             action_interpreter=PositionAction(
-                n_actions=len(action_levels_for_profile(profile)),
+                n_actions=len(action_levels_for_profile(profile)) if not profile.model.use_hybrid_overlay else len(profile.model.delta_levels),
                 position_cap_config=profile.position_cap,
                 action_levels=action_levels_for_profile(profile),
                 hard_floor=profile.model.hard_floor,
+                use_hybrid_overlay=profile.model.use_hybrid_overlay,
+                delta_levels=np.asarray(profile.model.delta_levels, dtype=np.float32) if profile.model.use_hybrid_overlay else None,
             ),
             initial_states=initial_states,
             policy=policy,
@@ -418,10 +420,12 @@ def train_with_selection(policy, actor, initial_states, obs_dim: int, profile, v
             simulator_fn=SoxlSimulator,
             state_interpreter=SoxlState(obs_dim),
             action_interpreter=PositionAction(
-                n_actions=len(action_levels_for_profile(profile)),
+                n_actions=len(action_levels_for_profile(profile)) if not profile.model.use_hybrid_overlay else len(profile.model.delta_levels),
                 position_cap_config=profile.position_cap,
                 action_levels=action_levels_for_profile(profile),
                 hard_floor=profile.model.hard_floor,
+                use_hybrid_overlay=profile.model.use_hybrid_overlay,
+                delta_levels=np.asarray(profile.model.delta_levels, dtype=np.float32) if profile.model.use_hybrid_overlay else None,
             ),
             initial_states=initial_states,
             policy=policy,
@@ -705,7 +709,7 @@ def parse_args() -> argparse.Namespace:
         "--profiles",
         nargs="+",
         default=["balanced", "aggressive"],
-        choices=["balanced", "aggressive", "smoke", "balanced_budget", "balanced_floor40", "balanced_floor40_sym", "balanced_floor40_sym_bear30", "balanced_stress_select", "balanced_stress_select_v2", "balanced_reward_guard", "balanced_structural_v1", "balanced_stress_behavior", "balanced_regime_gate", "balanced_regime_gate_v2", "balanced_checkpoint_review", "balanced_marginal_reward", "balanced_marginal_reward_quick", "balanced_decision_freq_quick", "balanced_tide_quick", "smoke_marginal", "smoke_log_reward", "smoke_decision_freq", "smoke_log_freq", "smoke_marginal_freq", "smoke_marginal_high_scale", "smoke_obs_window3", "smoke_action5", "smoke_floor50", "smoke_tide"],
+        choices=["balanced", "aggressive", "smoke", "balanced_budget", "balanced_floor40", "balanced_floor40_sym", "balanced_floor40_sym_bear30", "balanced_stress_select", "balanced_stress_select_v2", "balanced_reward_guard", "balanced_structural_v1", "balanced_stress_behavior", "balanced_regime_gate", "balanced_regime_gate_v2", "balanced_checkpoint_review", "balanced_marginal_reward", "balanced_marginal_reward_quick", "balanced_decision_freq_quick", "balanced_tide_quick", "smoke_marginal", "smoke_log_reward", "smoke_decision_freq", "smoke_log_freq", "smoke_marginal_freq", "smoke_marginal_high_scale", "smoke_obs_window3", "smoke_action5", "smoke_floor50", "smoke_tide", "smoke_hybrid"],
         help="profiles to train and backtest",
     )
     parser.add_argument("--smoke", action="store_true", help="force short smoke run")
