@@ -1606,3 +1606,50 @@ Created `balanced_budget.yaml` with `max_iters=50`. However, the log file was ac
     - keep stress de-risking as the first real lever
     - do not assume bull-side relaxation is the main bottleneck
     - when revisiting this branch, prefer moderate `bear_min_cap` tightening over blunt threshold changes
+
+## Harness cleanup loop 2026-04-18 10:xx
+
+- Goal:
+  - reduce harness clutter before more training
+  - remove the broken `pytest` expectation from the active environment
+  - normalize `memory/` into an indexed retrieval layer so future loops do not re-read everything or repeat dropped branches
+  - prune superseded checkpoints while keeping canonical summaries and review evidence
+  - improve the static dashboard without adding another frontend stack
+- Commands:
+  - `qlib_venv/bin/python scripts/normalize_memory.py`
+  - `qlib_venv/bin/python scripts/memory_search.py balanced 2022 exposure --status dropped --top-k 5`
+  - `qlib_venv/bin/python scripts/prune_artifacts.py --apply`
+  - `qlib_venv/bin/python scripts/build_backtest_dashboard.py`
+  - `qlib_venv/bin/python scripts/check_harness.py`
+- Evidence:
+  - new repo-owned validation entrypoint:
+    - `scripts/check_harness.py`
+    - passed `21` assertion checks plus `13` `py_compile` targets inside `qlib_venv`
+  - normalized memory layer:
+    - `memory/*.md` now use shared front matter
+    - generated `memory/index.json`
+    - retrieval via `scripts/memory_search.py` now surfaces recent dropped `balanced*` / `2022` failures without full-directory reads
+  - script cleanup:
+    - removed low-reference one-off scripts:
+      - `scripts/ablate_moe_expert.py`
+      - `scripts/analyze_moe_regime.py`
+      - `scripts/detailed_backtest_analysis.py`
+      - `scripts/plot_generalization.py`
+      - `scripts/quick_plot_with_signals.py`
+      - `scripts/run_soxl_backtest_generalization.py`
+  - artifact cleanup:
+    - generated `artifacts/retention_manifest.json`
+    - deleted `15` superseded actor checkpoints
+    - freed `811,339` bytes while retaining canonical summaries and retained walk-forward artifacts
+  - dashboard polish:
+    - rebuilt `runtime/generalization/dashboard.html`
+    - page now includes decision snapshot, evidence navigator, local state persistence, and clearer delta tables
+- Keep / drop decision:
+  - keep the new indexed memory + manifest workflow as the default harness posture before new training
+  - keep static dashboard architecture; do not add a service-backed frontend yet
+  - drop the old assumption that `pytest` is the default executable validation path in this repo
+- Next action:
+  - before any new branch or retrain, run:
+    - `qlib_venv/bin/python scripts/memory_search.py balanced --status dropped --top-k 5`
+    - `qlib_venv/bin/python scripts/check_harness.py`
+  - only then start the next fixed-actor execution overlay or checkpoint-selection loop on canonical `balanced`

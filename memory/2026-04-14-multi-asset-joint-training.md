@@ -1,4 +1,29 @@
+---
+date: '2026-04-14'
+title: Multi-Asset Joint Training Results
+kind: review
+profiles:
+- soxl
+status: dropped
+tags:
+- dropped
+- review
+- soxl
+- walk-forward
+artifacts: []
+workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+summary: 'Legacy memory note normalized into the repo-wide schema. Date: 2026-04-14
+  Implemented multi-asset joint training with asset one-hot embedding. Training pool:
+  SOXL, TQQQ, UPRO, SPXL, TECL (all 3x leveraged ETFs). Observation dimension increa'
+---
+
 # Multi-Asset Joint Training Results
+
+## Context
+
+Legacy memory note normalized into the repo-wide schema.
+
+## Evidence
 
 Date: 2026-04-14
 
@@ -39,3 +64,11 @@ Multi-asset joint training + asset embedding is the right architectural directio
 ## Next steps
 - Run walk-forward validation to check if promotion gates can be cleared.
 - Consider adding sector/regime embeddings or a small LSTM to further squeeze the remaining TQQQ/TECL gap.
+
+## Decision
+
+See the summary and status fields in front matter.
+
+## Next Use
+
+Use `scripts/memory_search.py` before opening additional memory files.

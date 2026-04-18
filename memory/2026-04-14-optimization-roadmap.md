@@ -1,4 +1,37 @@
+---
+date: '2026-04-14'
+title: "SOXL \u6A21\u578B\u4F18\u5316\u8DEF\u7EBF\u56FE\uFF08\u57FA\u4E8E\u6CDB\u5316\
+  \u6D4B\u8BD5\u7ED3\u679C\uFF09"
+kind: review
+profiles:
+- soxl
+status: reference
+tags:
+- checkpoint-selection
+- eval-2022
+- reference
+- review
+- soxl
+- walk-forward
+artifacts:
+- runtime/generalization/detailed/
+- runtime/generalization/detailed/summary.json
+workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+summary: "Legacy memory note normalized into the repo-wide schema. > \u6D4B\u8BD5\u65E5\
+  \u671F\uFF1A2026-04-14 > \u6D4B\u8BD5\u6A21\u578B\uFF1Asoxl_balanced_actor.pt\uFF08\
+  PPO\uFF0C\u96F6\u6837\u672C\uFF09 > \u6CDB\u5316\u6807\u7684\uFF1ASOXL\u3001TQQQ\u3001\
+  UPRO\u3001SPXL\u3001TECL\uFF085\u53EA3\u500D\u6760\u6746ETF\uFF09 | ETF | \u7B56\
+  \u7565\u6536\u76CA | B&H \u6536\u76CA | \u8D85\u989D\u6536\u76CA | \u7B56\u7565\u56DE\
+  \u64A4 | B&H \u56DE\u64A4 | \u4EA4\u6613\u6B21\u6570 | |-----|----------|----------|"
+---
+
 # SOXL 模型优化路线图（基于泛化测试结果）
+
+## Context
+
+Legacy memory note normalized into the repo-wide schema.
+
+## Evidence
 
 > 测试日期：2026-04-14  
 > 测试模型：soxl_balanced_actor.pt（PPO，零样本）  
@@ -171,3 +204,11 @@
 - 泛化报告：`memory/2026-04-13-generalization.md`
 - 详细回测数据：`runtime/generalization/detailed/*.csv`
 - 汇总统计：`runtime/generalization/detailed/summary.json`
+
+## Decision
+
+See the summary and status fields in front matter.
+
+## Next Use
+
+Use `scripts/memory_search.py` before opening additional memory files.

@@ -71,6 +71,7 @@ Use these layers intentionally:
 - `codex_exec_plans/active/` and `codex_exec_plans/completed/`: task history
   and proof of work
 - `memory/`: continuity across sessions
+- `memory/index.json`: machine-readable memory retrieval index
 - `skills/`: distilled reusable workflows and maintained operational knowledge
 
 These roles should not blur together.

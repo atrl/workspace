@@ -1,4 +1,40 @@
+---
+date: '2026-04-15'
+title: MoE + Signal Diversification + Reward Optimization
+kind: decision
+profiles:
+- balanced
+- balanced_moe
+- moe
+- smoke
+- smoke_moe
+status: superseded
+tags:
+- balanced
+- balanced_moe
+- checkpoint-selection
+- decision
+- moe
+- smoke
+- smoke_moe
+- stress-regime
+- superseded
+- walk-forward
+artifacts: []
+workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+summary: "Legacy memory note normalized into the repo-wide schema. Date: 2026-04-15\
+  \ Execute the approved \"Approach A \u2013 Surgical Upgrade\" plan to: 1. Upgrade\
+  \ `RegimeMoENet` with noisy Top-1 sparse routing, load-balancing loss, and a shared\
+  \ expert. 2."
+---
+
 # MoE + Signal Diversification + Reward Optimization
+
+## Context
+
+Legacy memory note normalized into the repo-wide schema.
+
+## Evidence
 
 Date: 2026-04-15
 
@@ -50,3 +86,11 @@ Added 3 new test cases (all passing):
 1. Run a full `balanced` + `--moe` training (non-smoke) to establish a new baseline with the upgraded architecture.
 2. Run a VIX-ablation experiment: zero-out VIX columns and substitute `regime_risk_no_vix` to quantify the price-only signal quality.
 3. Compare walk-forward gates against the previous `balanced_moe` checkpoint (if any) to ensure we did not regress.
+
+## Decision
+
+See the summary and status fields in front matter.
+
+## Next Use
+
+Use `scripts/memory_search.py` before opening additional memory files.

@@ -1,4 +1,31 @@
+---
+date: '2026-04-16'
+title: '2026-04-16: Asymmetric Threshold Experiment (Option 1)'
+kind: review
+profiles:
+- soxl
+status: dropped
+tags:
+- dropped
+- eval-2022
+- review
+- rule-based
+- soxl
+- stress-regime
+artifacts: []
+workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+summary: Legacy memory note normalized into the repo-wide schema. Test "buy easy,
+  sell hard" asymmetric rebalance threshold while keeping the 3-day trade lock and
+  hard regime routing. `rebalance_threshold` now returns **direction-dependent threshold
+---
+
 # 2026-04-16: Asymmetric Threshold Experiment (Option 1)
+
+## Context
+
+Legacy memory note normalized into the repo-wide schema.
+
+## Evidence
 
 ## Goal
 Test "buy easy, sell hard" asymmetric rebalance threshold while keeping the 3-day trade lock and hard regime routing.
@@ -80,3 +107,11 @@ If the **primary goal is to maximize total return and close the gap to the 688.6
 1. **Revert to symmetric threshold** and pursue other levers (e.g. floor raise to 0.40, longer training, or asset-specific floors).
 2. **Keep asymmetric threshold** if promotion gate compliance is the hard constraint.
 3. **Hybrid approach**: asymmetric threshold only in high regime_risk (>0.55), symmetric elsewhere. This might capture the best of both worlds.
+
+## Decision
+
+See the summary and status fields in front matter.
+
+## Next Use
+
+Use `scripts/memory_search.py` before opening additional memory files.

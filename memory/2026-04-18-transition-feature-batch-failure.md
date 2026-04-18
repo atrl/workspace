@@ -1,4 +1,33 @@
+---
+date: '2026-04-18'
+title: '2026-04-18: first transition-feature batch failed as mainline'
+kind: failure
+profiles:
+- balanced
+- balanced_transition_state
+status: dropped
+tags:
+- balanced
+- balanced_transition_state
+- dropped
+- eval-2022
+- failure
+- stress-regime
+- transition-features
+artifacts: []
+workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+summary: 'Legacy memory note normalized into the repo-wide schema. New temporary branch:
+  `balanced_transition_state` Intent: keep canonical `balanced` reward, cap, and selection
+  rules fixed add transition / persistence features only test whether rebo'
+---
+
 # 2026-04-18: first transition-feature batch failed as mainline
+
+## Context
+
+Legacy memory note normalized into the repo-wide schema.
+
+## Evidence
 
 ## What was tried
 
@@ -59,3 +88,11 @@
   - or persistence counters
   - or restart flags
 - Do not widen the global base schema again until one family proves it can improve `2022` without broad exposure drift.
+
+## Decision
+
+See the summary and status fields in front matter.
+
+## Next Use
+
+Use `scripts/memory_search.py` before opening additional memory files.

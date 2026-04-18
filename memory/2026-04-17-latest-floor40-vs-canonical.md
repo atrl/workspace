@@ -1,4 +1,34 @@
+---
+date: '2026-04-17'
+title: '2026-04-17: Latest `balanced_floor40_sym` training loses to canonical balanced'
+kind: failure
+profiles:
+- balanced
+- balanced_floor40_sym
+status: dropped
+tags:
+- balanced
+- balanced_floor40_sym
+- dropped
+- eval-2022
+- failure
+- stress-regime
+artifacts:
+- artifacts/models/soxl_balanced_floor40_sym_summary.json
+- artifacts/models/soxl_balanced_summary.json
+workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+summary: 'Legacy memory note normalized into the repo-wide schema. `qlib_venv/bin/python
+  soxl_qlib_strategy_v2.py --profiles balanced_floor40_sym --skip-data-refresh --seed
+  20260411` Fixed split backtest log: `476.2% / Sharpe 0.79 / MaxDD 63.8% / 790'
+---
+
 # 2026-04-17: Latest `balanced_floor40_sym` training loses to canonical balanced
+
+## Context
+
+Legacy memory note normalized into the repo-wide schema.
+
+## Evidence
 
 ## Command
 
@@ -42,3 +72,11 @@
 
 - Keep canonical `balanced` as the baseline for future comparisons.
 - If this branch is revisited, the first target should be stress-window de-risking, not longer training.
+
+## Decision
+
+See the summary and status fields in front matter.
+
+## Next Use
+
+Use `scripts/memory_search.py` before opening additional memory files.

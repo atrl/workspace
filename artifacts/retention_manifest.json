@@ -1,0 +1,431 @@
+{
+  "generated_at": "2026-04-18T01:51:55.718579Z",
+  "entries": [
+    {
+      "path": "artifacts/models/soxl_balanced_actor.pt",
+      "action": "keep",
+      "reason": "referenced by memory/workpad or canonical set",
+      "size_bytes": 68773
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_actor_seed42.pt",
+      "action": "delete",
+      "reason": "superseded actor or redundant sweep output",
+      "size_bytes": 68773
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_budget_actor.pt",
+      "action": "keep",
+      "reason": "canonical keep",
+      "size_bytes": 67449
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_budget_summary.json",
+      "action": "keep",
+      "reason": "summary retained as evidence",
+      "size_bytes": 2662
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_curvepow2_actor.pt",
+      "action": "delete",
+      "reason": "superseded actor or redundant sweep output",
+      "size_bytes": 64677
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_curvepow2_summary.json",
+      "action": "keep",
+      "reason": "summary retained as evidence",
+      "size_bytes": 2473
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_floor40_moe_actor.pt",
+      "action": "keep",
+      "reason": "canonical keep",
+      "size_bytes": 93763
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_floor40_moe_summary.json",
+      "action": "keep",
+      "reason": "summary retained as evidence",
+      "size_bytes": 2884
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_floor40_sym_actor.pt",
+      "action": "keep",
+      "reason": "referenced by memory/workpad or canonical set",
+      "size_bytes": 73205
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_floor40_sym_bear30_actor.pt",
+      "action": "delete",
+      "reason": "superseded actor or redundant sweep output",
+      "size_bytes": 73289
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_floor40_sym_bear30_summary.json",
+      "action": "keep",
+      "reason": "referenced by memory/workpad or canonical set",
+      "size_bytes": 2896
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_floor40_sym_moe_actor.pt",
+      "action": "keep",
+      "reason": "canonical keep",
+      "size_bytes": 93851
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_floor40_sym_moe_summary.json",
+      "action": "keep",
+      "reason": "referenced by memory/workpad or canonical set",
+      "size_bytes": 2883
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_floor40_sym_summary.json",
+      "action": "keep",
+      "reason": "referenced by memory/workpad or canonical set",
+      "size_bytes": 2885
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_moe_actor.pt",
+      "action": "keep",
+      "reason": "referenced by memory/workpad or canonical set",
+      "size_bytes": 91603
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_moe_novix_actor.pt",
+      "action": "keep",
+      "reason": "canonical keep",
+      "size_bytes": 91799
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_moe_novix_summary.json",
+      "action": "keep",
+      "reason": "summary retained as evidence",
+      "size_bytes": 2245
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_moe_summary.json",
+      "action": "keep",
+      "reason": "referenced by memory/workpad or canonical set",
+      "size_bytes": 2244
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_regime_gate_actor.pt",
+      "action": "delete",
+      "reason": "superseded actor or redundant sweep output",
+      "size_bytes": 73717
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_regime_gate_summary.json",
+      "action": "keep",
+      "reason": "referenced by memory/workpad or canonical set",
+      "size_bytes": 4131
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_regime_gate_v2_actor.pt",
+      "action": "delete",
+      "reason": "superseded actor or redundant sweep output",
+      "size_bytes": 73753
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_regime_gate_v2_summary.json",
+      "action": "keep",
+      "reason": "referenced by memory/workpad or canonical set",
+      "size_bytes": 4141
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_stress_behavior_actor.pt",
+      "action": "delete",
+      "reason": "superseded actor or redundant sweep output",
+      "size_bytes": 73765
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_stress_behavior_summary.json",
+      "action": "keep",
+      "reason": "referenced by memory/workpad or canonical set",
+      "size_bytes": 4134
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_stress_release_delta_actor.pt",
+      "action": "delete",
+      "reason": "superseded actor or redundant sweep output",
+      "size_bytes": 75425
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_stress_release_delta_summary.json",
+      "action": "keep",
+      "reason": "referenced by memory/workpad or canonical set",
+      "size_bytes": 3307
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_stress_select_actor.pt",
+      "action": "delete",
+      "reason": "superseded actor or redundant sweep output",
+      "size_bytes": 73741
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_stress_select_summary.json",
+      "action": "keep",
+      "reason": "referenced by memory/workpad or canonical set",
+      "size_bytes": 4126
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_summary.json",
+      "action": "keep",
+      "reason": "referenced by memory/workpad or canonical set",
+      "size_bytes": 2464
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_summary_curvepow05_walkforward_seed20260411.json",
+      "action": "keep",
+      "reason": "summary retained as evidence",
+      "size_bytes": 2474
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_summary_curvepow06875_walkforward_seed20260411.json",
+      "action": "keep",
+      "reason": "summary retained as evidence",
+      "size_bytes": 2483
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_summary_curvepow075_fulldd025_walkforward_seed20260411.json",
+      "action": "keep",
+      "reason": "summary retained as evidence",
+      "size_bytes": 2489
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_summary_curvepow075_walkforward_seed20260411.json",
+      "action": "keep",
+      "reason": "summary retained as evidence",
+      "size_bytes": 2474
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_summary_curvepow078125_walkforward_seed20260411.json",
+      "action": "keep",
+      "reason": "summary retained as evidence",
+      "size_bytes": 2482
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_summary_curvepow08125_walkforward_seed20260411.json",
+      "action": "keep",
+      "reason": "summary retained as evidence",
+      "size_bytes": 2480
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_summary_curvepow0875_walkforward_seed20260411.json",
+      "action": "keep",
+      "reason": "summary retained as evidence",
+      "size_bytes": 2474
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_summary_seed12345.json",
+      "action": "keep",
+      "reason": "summary retained as evidence",
+      "size_bytes": 2228
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_summary_seed42.json",
+      "action": "keep",
+      "reason": "summary retained as evidence",
+      "size_bytes": 2223
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_summary_start008_curvepow075_walkforward_seed20260411.json",
+      "action": "keep",
+      "reason": "summary retained as evidence",
+      "size_bytes": 2487
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_summary_start012_curvepow075_walkforward_seed20260411.json",
+      "action": "keep",
+      "reason": "summary retained as evidence",
+      "size_bytes": 2475
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_transition_state_actor.pt",
+      "action": "delete",
+      "reason": "superseded actor or redundant sweep output",
+      "size_bytes": 78385
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_transition_state_summary.json",
+      "action": "keep",
+      "reason": "referenced by memory/workpad or canonical set",
+      "size_bytes": 3298
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_wf_2020_actor.pt",
+      "action": "keep",
+      "reason": "referenced by memory/workpad or canonical set",
+      "size_bytes": 68997
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_wf_2020_summary.json",
+      "action": "keep",
+      "reason": "referenced by memory/workpad or canonical set",
+      "size_bytes": 1868
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_wf_2022_actor.pt",
+      "action": "keep",
+      "reason": "referenced by memory/workpad or canonical set",
+      "size_bytes": 68997
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_wf_2022_summary.json",
+      "action": "keep",
+      "reason": "referenced by memory/workpad or canonical set",
+      "size_bytes": 1903
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_wf_2023_2024_actor.pt",
+      "action": "keep",
+      "reason": "referenced by memory/workpad or canonical set",
+      "size_bytes": 69121
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_wf_2023_2024_summary.json",
+      "action": "keep",
+      "reason": "referenced by memory/workpad or canonical set",
+      "size_bytes": 1891
+    },
+    {
+      "path": "artifacts/models/soxl_smoke_actor.pt",
+      "action": "keep",
+      "reason": "referenced by memory/workpad or canonical set",
+      "size_bytes": 31425
+    },
+    {
+      "path": "artifacts/models/soxl_smoke_actor_floor04.pt",
+      "action": "delete",
+      "reason": "superseded actor or redundant sweep output",
+      "size_bytes": 25857
+    },
+    {
+      "path": "artifacts/models/soxl_smoke_actor_floor05.pt",
+      "action": "delete",
+      "reason": "superseded actor or redundant sweep output",
+      "size_bytes": 25857
+    },
+    {
+      "path": "artifacts/models/soxl_smoke_actor_run1.pt",
+      "action": "keep",
+      "reason": "referenced by memory/workpad or canonical set",
+      "size_bytes": 25857
+    },
+    {
+      "path": "artifacts/models/soxl_smoke_actor_run2.pt",
+      "action": "keep",
+      "reason": "referenced by memory/workpad or canonical set",
+      "size_bytes": 25857
+    },
+    {
+      "path": "artifacts/models/soxl_smoke_actor_start010.pt",
+      "action": "delete",
+      "reason": "superseded actor or redundant sweep output",
+      "size_bytes": 25985
+    },
+    {
+      "path": "artifacts/models/soxl_smoke_actor_start012.pt",
+      "action": "delete",
+      "reason": "superseded actor or redundant sweep output",
+      "size_bytes": 25985
+    },
+    {
+      "path": "artifacts/models/soxl_smoke_actor_start015.pt",
+      "action": "delete",
+      "reason": "superseded actor or redundant sweep output",
+      "size_bytes": 25985
+    },
+    {
+      "path": "artifacts/models/soxl_smoke_moe_actor.pt",
+      "action": "keep",
+      "reason": "canonical keep",
+      "size_bytes": 93393
+    },
+    {
+      "path": "artifacts/models/soxl_smoke_moe_summary.json",
+      "action": "keep",
+      "reason": "summary retained as evidence",
+      "size_bytes": 2231
+    },
+    {
+      "path": "artifacts/models/soxl_smoke_summary.json",
+      "action": "keep",
+      "reason": "referenced by memory/workpad or canonical set",
+      "size_bytes": 3253
+    },
+    {
+      "path": "artifacts/models/soxl_smoke_summary_cap.json",
+      "action": "keep",
+      "reason": "referenced by memory/workpad or canonical set",
+      "size_bytes": 1450
+    },
+    {
+      "path": "artifacts/models/soxl_smoke_summary_curvepow05_walkforward_seed20260411.json",
+      "action": "keep",
+      "reason": "summary retained as evidence",
+      "size_bytes": 2455
+    },
+    {
+      "path": "artifacts/models/soxl_smoke_summary_curvepow20_walkforward_seed20260411.json",
+      "action": "keep",
+      "reason": "summary retained as evidence",
+      "size_bytes": 2445
+    },
+    {
+      "path": "artifacts/models/soxl_smoke_summary_floor04.json",
+      "action": "keep",
+      "reason": "referenced by memory/workpad or canonical set",
+      "size_bytes": 1449
+    },
+    {
+      "path": "artifacts/models/soxl_smoke_summary_floor05.json",
+      "action": "keep",
+      "reason": "referenced by memory/workpad or canonical set",
+      "size_bytes": 1449
+    },
+    {
+      "path": "artifacts/models/soxl_smoke_summary_run1.json",
+      "action": "keep",
+      "reason": "referenced by memory/workpad or canonical set",
+      "size_bytes": 1450
+    },
+    {
+      "path": "artifacts/models/soxl_smoke_summary_run2.json",
+      "action": "keep",
+      "reason": "referenced by memory/workpad or canonical set",
+      "size_bytes": 1450
+    },
+    {
+      "path": "artifacts/models/soxl_smoke_summary_start010.json",
+      "action": "keep",
+      "reason": "referenced by memory/workpad or canonical set",
+      "size_bytes": 1546
+    },
+    {
+      "path": "artifacts/models/soxl_smoke_summary_start012.json",
+      "action": "keep",
+      "reason": "referenced by memory/workpad or canonical set",
+      "size_bytes": 1551
+    },
+    {
+      "path": "artifacts/models/soxl_smoke_summary_start015.json",
+      "action": "keep",
+      "reason": "referenced by memory/workpad or canonical set",
+      "size_bytes": 1543
+    },
+    {
+      "path": "artifacts/models/soxl_smoke_wf_2020_actor.pt",
+      "action": "delete",
+      "reason": "superseded actor or redundant sweep output",
+      "size_bytes": 26145
+    },
+    {
+      "path": "artifacts/models/soxl_smoke_wf_2020_summary.json",
+      "action": "keep",
+      "reason": "summary retained as evidence",
+      "size_bytes": 1875
+    }
+  ]
+}

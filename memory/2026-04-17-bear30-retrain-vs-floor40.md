@@ -1,4 +1,40 @@
+---
+date: '2026-04-17'
+title: '2026-04-17: `balanced_floor40_sym_bear30` retrain'
+kind: review
+profiles:
+- balanced
+- balanced_floor40_sym
+- balanced_floor40_sym_bear30
+- soxl
+status: reference
+tags:
+- balanced
+- balanced_floor40_sym
+- balanced_floor40_sym_bear30
+- checkpoint-selection
+- eval-2022
+- reference
+- review
+- soxl
+- stress-regime
+artifacts:
+- artifacts/models/soxl_balanced_floor40_sym_bear30_summary.json
+- runtime/post_train_review/floor40_sym_bear30_vs_canonical_balanced.md
+- runtime/post_train_review/floor40_sym_bear30_vs_floor40_sym.md
+workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+summary: Legacy memory note normalized into the repo-wide schema. `qlib_venv/bin/python
+  soxl_qlib_strategy_v2.py --profiles balanced_floor40_sym_bear30 --skip-data-refresh
+  --seed 20260411` Added `configs/soxl/balanced_floor40_sym_bear30.yaml`. Regis
+---
+
 # 2026-04-17: `balanced_floor40_sym_bear30` retrain
+
+## Context
+
+Legacy memory note normalized into the repo-wide schema.
+
+## Evidence
 
 ## Command
 
@@ -56,3 +92,11 @@
 
 - `runtime/post_train_review/floor40_sym_bear30_vs_floor40_sym.md`
 - `runtime/post_train_review/floor40_sym_bear30_vs_canonical_balanced.md`
+
+## Decision
+
+See the summary and status fields in front matter.
+
+## Next Use
+
+Use `scripts/memory_search.py` before opening additional memory files.

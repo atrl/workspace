@@ -1,4 +1,34 @@
+---
+date: '2026-04-13'
+title: 2026-04-13 Generalization Backtest Report
+kind: review
+profiles:
+- soxl
+status: dropped
+tags:
+- checkpoint-selection
+- dropped
+- eval-2022
+- review
+- soxl
+artifacts:
+- runtime/generalization/comparison.png
+- runtime/generalization/qlib_stores/
+- runtime/generalization/report.txt
+- runtime/generalization/results.json
+workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+summary: Legacy memory note normalized into the repo-wide schema. Test whether the
+  SOXL-trained PPO actor (`soxl_balanced_actor.pt`) generalizes to other 3x leveraged
+  ETFs without retraining. | ETF | Underlying | Sector | |-----|-----------|--------
+---
+
 # 2026-04-13 Generalization Backtest Report
+
+## Context
+
+Legacy memory note normalized into the repo-wide schema.
+
+## Evidence
 
 ## Goal
 Test whether the SOXL-trained PPO actor (`soxl_balanced_actor.pt`) generalizes to other 3x leveraged ETFs without retraining.
@@ -53,3 +83,11 @@ Test whether the SOXL-trained PPO actor (`soxl_balanced_actor.pt`) generalizes t
 
 ## Conclusion
 The model exhibits **non-trivial zero-shot generalization**. It does not blow up on unseen 3x ETFs and produces positive risk-adjusted returns across the board. However, **absolute returns are highest on the training domain (SOXL)**, indicating there is still domain-specific value in the SOXL training distribution. A next step could be to train a single multi-ETF policy or ensemble to see if performance on TQQQ/UPRO/SPXL/TECL can be improved.
+
+## Decision
+
+See the summary and status fields in front matter.
+
+## Next Use
+
+Use `scripts/memory_search.py` before opening additional memory files.

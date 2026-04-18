@@ -1,4 +1,39 @@
+---
+date: '2026-04-16'
+title: "2026-04-16: A+B Breakthrough \u2013 High Threshold + Trade Lock + 80 Iters"
+kind: review
+profiles:
+- balanced
+- balanced_multiasset_ab_20260416_225734
+- moe
+- soxl
+status: dropped
+tags:
+- balanced
+- balanced_multiasset_ab_20260416_225734
+- checkpoint-selection
+- dropped
+- eval-2022
+- moe
+- review
+- rule-based
+- soxl
+artifacts:
+- artifacts/models/soxl_balanced_moe_actor.pt
+- runtime/generalization/results.json
+workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+summary: 'Legacy memory note normalized into the repo-wide schema. The RL model was
+  losing to the rule-based strategy primarily due to **friction from excessive micro-trades**
+  (~1000+ vs 45). Two levers were identified: **A**: Drastically raise `reba'
+---
+
 # 2026-04-16: A+B Breakthrough – High Threshold + Trade Lock + 80 Iters
+
+## Context
+
+Legacy memory note normalized into the repo-wide schema.
+
+## Evidence
 
 ## Hypothesis
 The RL model was losing to the rule-based strategy primarily due to **friction from excessive micro-trades** (~1000+ vs 45). Two levers were identified:
@@ -73,3 +108,11 @@ The rule-based strategy still out-earns the RL model on SOXL. The likely remaini
 - Model: `artifacts/models/soxl_balanced_moe_actor.pt`
 - Log: `log/balanced_multiasset_AB_20260416_225734.log`
 - Generalization: `runtime/generalization/results.json`
+
+## Decision
+
+See the summary and status fields in front matter.
+
+## Next Use
+
+Use `scripts/memory_search.py` before opening additional memory files.

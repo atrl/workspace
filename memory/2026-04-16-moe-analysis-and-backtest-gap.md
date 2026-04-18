@@ -1,4 +1,33 @@
+---
+date: '2026-04-16'
+title: '2026-04-16: MoE Regime Analysis & Gap to Rule-Based Backtest'
+kind: review
+profiles:
+- moe
+- soxl
+status: dropped
+tags:
+- dropped
+- eval-2022
+- execution-overlay
+- moe
+- review
+- rule-based
+- soxl
+artifacts: []
+workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+summary: Legacy memory note normalized into the repo-wide schema. Evaluated the multi-asset
+  v2 actor (`soxl_balanced_moe_actor.pt`) on the SOXL test set. Extracted gate softmax
+  probabilities for every trading day. Performed an **ablation study** by
+---
+
 # 2026-04-16: MoE Regime Analysis & Gap to Rule-Based Backtest
+
+## Context
+
+Legacy memory note normalized into the repo-wide schema.
+
+## Evidence
 
 ## 1. MoE Gate Routing Validity Analysis
 
@@ -164,3 +193,11 @@ Rationale:
 Trade-off:
 - 2022 MaxDD will likely increase (closer to the rule-based 69.9%), because a 50% floor prevents rapid de-risking.
 - But the return uplift should be large enough to justify it, especially if we keep the drawdown cap (`drawdown_position_cap`) at its current settings.
+
+## Decision
+
+See the summary and status fields in front matter.
+
+## Next Use
+
+Use `scripts/memory_search.py` before opening additional memory files.

@@ -1,4 +1,33 @@
+---
+date: '2026-04-15'
+title: VIX Ablation Experiment Results
+kind: decision
+profiles:
+- balanced
+- moe
+status: superseded
+tags:
+- balanced
+- decision
+- eval-2022
+- moe
+- stress-regime
+- superseded
+- walk-forward
+artifacts: []
+workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+summary: 'Legacy memory note normalized into the repo-wide schema. Date: 2026-04-15
+  Seed: 20260411 | Profile: balanced | Iters: 20 | Architecture: MoE **Baseline**:
+  `balanced` + `--moe` (VIX features fully enabled) **Ablation**: `balanced` + `--moe`'
+---
+
 # VIX Ablation Experiment Results
+
+## Context
+
+Legacy memory note normalized into the repo-wide schema.
+
+## Evidence
 
 Date: 2026-04-15
 Seed: 20260411 | Profile: balanced | Iters: 20 | Architecture: MoE
@@ -43,3 +72,11 @@ Seed: 20260411 | Profile: balanced | Iters: 20 | Architecture: MoE
 - **Keep both paths alive in the harness**: do not hard-delete VIX. Instead treat `--ablate-vix` as a permanent toggle.
 - **For future production deployment**, run walk-forward validation on *both* variants and select the one that clears the promotion gate (especially the `test_2022_max_dd <= 35%` criterion).
 - **Next step**: run walk-forward on both variants to see if the 2022 drawdown difference persists across multiple train/valid/test windows.
+
+## Decision
+
+See the summary and status fields in front matter.
+
+## Next Use
+
+Use `scripts/memory_search.py` before opening additional memory files.

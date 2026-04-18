@@ -168,6 +168,12 @@ def build_html(payload: dict[str, object]) -> str:
       gap: 18px;
       margin-bottom: 18px;
     }}
+    .status-strip {{
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 18px;
+      margin-bottom: 18px;
+    }}
     .notice {{
       background: linear-gradient(135deg, rgba(154, 52, 18, 0.08), rgba(15, 118, 110, 0.06));
       border: 1px solid var(--line);
@@ -212,6 +218,32 @@ def build_html(payload: dict[str, object]) -> str:
       margin: 0 0 12px;
       font-size: 18px;
       letter-spacing: -0.02em;
+    }}
+    .jump-links {{
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }}
+    .badge {{
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: #fffdf8;
+      border: 1px solid var(--line);
+      color: var(--ink);
+      font-size: 13px;
+      text-decoration: none;
+    }}
+    .badge.good {{
+      background: rgba(15, 118, 110, 0.10);
+      border-color: rgba(15, 118, 110, 0.25);
+    }}
+    .badge.bad {{
+      background: rgba(185, 28, 28, 0.08);
+      border-color: rgba(185, 28, 28, 0.20);
     }}
     .chart-grid {{
       display: grid;
@@ -368,8 +400,36 @@ def build_html(payload: dict[str, object]) -> str:
       background: transparent;
       color: var(--text);
     }}
+    .source-list {{
+      display: grid;
+      gap: 10px;
+    }}
+    .source-item {{
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      padding: 10px 12px;
+      background: #fffdf8;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      font-size: 13px;
+    }}
+    .source-item a {{
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+    }}
+    td.delta-good {{
+      color: var(--good);
+      font-weight: 700;
+    }}
+    td.delta-bad {{
+      color: var(--bad);
+      font-weight: 700;
+    }}
     @media (max-width: 1100px) {{
-      .hero, .chart-grid, .split {{ grid-template-columns: 1fr; }}
+      .hero, .chart-grid, .split, .status-strip {{ grid-template-columns: 1fr; }}
       .summary-grid, .window-bar {{ grid-template-columns: repeat(2, minmax(0, 1fr)); }}
       .zoom-tools {{ grid-template-columns: repeat(2, minmax(0, 1fr)); }}
     }}
@@ -391,6 +451,12 @@ def build_html(payload: dict[str, object]) -> str:
           以及 execution overlay 与 rule-based 的对比。数据已内嵌进页面，直接打开
           <span class="mono">runtime/generalization/dashboard.html</span> 即可查看。
         </p>
+        <div class="jump-links">
+          <a class="badge" href="#mainChart">Main Chart</a>
+          <a class="badge" href="#ruleComparison">Rule Comparison</a>
+          <a class="badge" href="#executionOverlay">Overlay Review</a>
+          <a class="badge" href="#rawDaily">Raw Daily Data</a>
+        </div>
       </div>
       <div class="card">
         <div class="controls">
@@ -421,6 +487,14 @@ def build_html(payload: dict[str, object]) -> str:
 
     <div class="grid summary-grid" id="metricGrid"></div>
 
+    <div class="status-strip">
+      <div class="notice" id="statusStrip"></div>
+      <div class="notice">
+        <div class="title">Evidence Navigator</div>
+        <div class="source-list" id="sourceList"></div>
+      </div>
+    </div>
+
     <div class="window-bar">
       <div class="notice">
         <div class="title">Evaluation Window</div>
@@ -437,7 +511,7 @@ def build_html(payload: dict[str, object]) -> str:
     </div>
 
     <div class="chart-grid">
-      <div class="card chart-panel">
+      <div class="card chart-panel" id="mainChart">
         <h2 class="section-title">Main Chart</h2>
         <div class="chart-tools">
           <button class="pill active" data-range="all">All</button>
@@ -479,14 +553,14 @@ def build_html(payload: dict[str, object]) -> str:
         <svg id="chartSvg" viewBox="0 0 980 320" preserveAspectRatio="none"></svg>
         <div class="legend" id="legend"></div>
       </div>
-      <div class="card">
+      <div class="card" id="ruleComparison">
         <h2 class="section-title">Rule-Based Comparison</h2>
         <table id="comparisonTable"></table>
       </div>
     </div>
 
     <div class="split">
-      <div class="card">
+      <div class="card" id="executionOverlay">
         <h2 class="section-title">Execution Overlay</h2>
         <table id="overlayTable"></table>
       </div>
@@ -496,7 +570,7 @@ def build_html(payload: dict[str, object]) -> str:
       </div>
     </div>
 
-    <div class="card raw-panel">
+    <div class="card raw-panel" id="rawDaily">
       <h2 class="section-title">Raw Daily Data</h2>
       <div class="raw-tools">
         <a id="csvLink" class="button-link" href="#" target="_blank" rel="noreferrer">Open Raw CSV</a>
@@ -535,10 +609,13 @@ def build_html(payload: dict[str, object]) -> str:
     const windowBox = document.getElementById('windowBox');
     const rangeBox = document.getElementById('rangeBox');
     const chartMeta = document.getElementById('chartMeta');
+    const statusStrip = document.getElementById('statusStrip');
+    const sourceList = document.getElementById('sourceList');
     const startDateInput = document.getElementById('startDateInput');
     const endDateInput = document.getElementById('endDateInput');
     const applyZoomBtn = document.getElementById('applyZoomBtn');
     const resetZoomBtn = document.getElementById('resetZoomBtn');
+    const STORAGE_KEY = 'soxl-dashboard-state-v2';
 
     function fmtPct(v, digits = 2) {{
       return `${{(v * 100).toFixed(digits)}}%`;
@@ -552,6 +629,19 @@ def build_html(payload: dict[str, object]) -> str:
       const n = Number(v);
       const sign = n > 0 ? '+' : '';
       return `${{sign}}${{n.toFixed(digits)}}`;
+    }}
+
+    function loadSavedState() {{
+      try {{
+        const parsed = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
+        if (!parsed) return;
+        Object.assign(state, parsed);
+      }} catch (_err) {{
+      }}
+    }}
+
+    function saveState() {{
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
     }}
 
     function getDetailed(etf) {{
@@ -612,6 +702,7 @@ def build_html(payload: dict[str, object]) -> str:
         state.zoomStart = shifted < bounds.start ? bounds.start : shifted;
         state.zoomEnd = bounds.end;
       }}
+      saveState();
       syncZoomInputs();
       renderChart();
       renderRawTable();
@@ -629,6 +720,7 @@ def build_html(payload: dict[str, object]) -> str:
       state.zoomMode = 'custom';
       state.zoomStart = start;
       state.zoomEnd = end;
+      saveState();
       syncZoomInputs();
       renderChart();
       renderRawTable();
@@ -646,14 +738,17 @@ def build_html(payload: dict[str, object]) -> str:
         state.zoomMode = 'all';
         state.zoomStart = null;
         state.zoomEnd = null;
+        saveState();
         render();
       }});
       chartSelect.addEventListener('change', e => {{
         state.chart = e.target.value;
+        saveState();
         renderChart();
       }});
       rowsSelect.addEventListener('change', e => {{
         state.rows = Number(e.target.value);
+        saveState();
         renderRawTable();
       }});
       document.querySelectorAll('.pill').forEach(btn => {{
@@ -664,6 +759,7 @@ def build_html(payload: dict[str, object]) -> str:
           state.zoomMode = 'all';
           state.zoomStart = null;
           state.zoomEnd = null;
+          saveState();
           syncZoomInputs();
           renderChart();
           renderRawTable();
@@ -719,6 +815,29 @@ def build_html(payload: dict[str, object]) -> str:
       `;
     }}
 
+    function renderStatusStrip() {{
+      const rl = DATA.results[state.etf];
+      const rule = DATA.rule_based[state.etf];
+      const betterSharpe = rl.sharpe >= rule.sharpe;
+      const betterReturn = rl.return >= rule.return;
+      const safer = rl.max_dd <= rule.max_dd;
+      statusStrip.innerHTML = `
+        <div class="title">Decision Snapshot</div>
+        <div class="body">
+          当前 ETF: <span class="mono">${{state.etf}}</span><br>
+          <span class="badge ${{betterReturn ? 'good' : 'bad'}}">Return ${{fmtDelta(rl.return - rule.return)}}pp</span>
+          <span class="badge ${{betterSharpe ? 'good' : 'bad'}}">Sharpe ${{fmtDelta(rl.sharpe - rule.sharpe, 3)}}</span>
+          <span class="badge ${{safer ? 'good' : 'bad'}}">MaxDD ${{fmtDelta(rule.max_dd - rl.max_dd)}}pp saved</span>
+        </div>
+      `;
+      sourceList.innerHTML = Object.entries(DATA.generated_from).map(([label, path]) => `
+        <div class="source-item">
+          <span>${{label}}</span>
+          <a href="${{path}}" target="_blank" rel="noreferrer">${{path}}</a>
+        </div>
+      `).join('');
+    }}
+
     function renderComparison() {{
       const summary = getDetailed(state.etf).summary;
       const rl = DATA.results[state.etf];
@@ -728,16 +847,22 @@ def build_html(payload: dict[str, object]) -> str:
         ['RL', `${{fmtNum(rl.return)}}%`, fmtNum(rl.sharpe, 3), `${{fmtNum(rl.max_dd)}}%`, rl.trades, 'n/a'],
         ['Rule', `${{fmtNum(rule.return)}}%`, fmtNum(rule.sharpe, 3), `${{fmtNum(rule.max_dd)}}%`, rule.trades, fmtNum(rule.avg_pos, 3)],
         ['Detailed Excess', `${{fmtPct(summary.excess_return)}}`, 'n/a', `${{fmtPct(summary.max_dd_strategy)}}`, summary.trades, fmtNum(summary.max_position, 3)],
+        ['Delta RL-Rule', `${{fmtDelta(rl.return - rule.return)}}pp`, fmtDelta(rl.sharpe - rule.sharpe, 3), `${{fmtDelta(rule.max_dd - rl.max_dd)}}pp`, rl.trades - rule.trades, 'n/a'],
       ];
       comparisonTable.innerHTML = rows.map((row, idx) => `
-        <tr>${{row.map((cell, col) => idx === 0 ? `<th>${{cell}}</th>` : `<td>${{col === 0 ? cell : cell}}</td>`).join('')}}</tr>
+        <tr>${{row.map((cell, col) => {{
+          if (idx === 0) return `<th>${{cell}}</th>`;
+          const deltaClass = idx === 4 && col > 0
+            ? (String(cell).startsWith('-') ? 'delta-bad' : 'delta-good')
+            : '';
+          return `<td class="${{deltaClass}}">${{cell}}</td>`;
+        }}).join('')}}</tr>
       `).join('');
     }}
 
     function renderOverlay() {{
       const payload = DATA.execution_overlay.results[state.etf];
-      const scenarioKeys = Object.keys(DATA.execution_overlay.scenarios);
-      const header = ['Variant', 'Proxy Return', 'Sharpe', 'MaxDD', 'Trades', '2022 Return', '2022 MaxDD'];
+      const header = ['Variant', 'Proxy Return', 'Sharpe', 'MaxDD', 'Trades', '2022 Return', '2022 MaxDD', 'Vs RL Return'];
       const body = Object.entries(payload).map(([name, item]) => {{
         const bear = item.scenarios.bear_2022;
         return [
@@ -748,10 +873,15 @@ def build_html(payload: dict[str, object]) -> str:
           item.test_proxy.trades,
           `${{fmtNum(bear.return)}}%`,
           `${{fmtNum(bear.max_dd)}}%`,
+          `${{fmtDelta(item.test_proxy.return - DATA.results[state.etf].return)}}pp`,
         ];
       }});
       overlayTable.innerHTML = [header, ...body].map((row, idx) => `
-        <tr>${{row.map(cell => idx === 0 ? `<th>${{cell}}</th>` : `<td>${{cell}}</td>`).join('')}}</tr>
+        <tr>${{row.map((cell, col) => {{
+          if (idx === 0) return `<th>${{cell}}</th>`;
+          const deltaClass = col === 7 ? (String(cell).startsWith('-') ? 'delta-bad' : 'delta-good') : '';
+          return `<td class="${{deltaClass}}">${{cell}}</td>`;
+        }}).join('')}}</tr>
       `).join('');
       reviewBox.textContent = DATA.execution_review;
     }}
@@ -903,12 +1033,14 @@ def build_html(payload: dict[str, object]) -> str:
       rowsSelect.value = String(state.rows);
       syncZoomInputs();
       renderMetrics();
+      renderStatusStrip();
       renderComparison();
       renderOverlay();
       renderChart();
       renderRawTable();
     }}
 
+    loadSavedState();
     initControls();
     render();
   </script>

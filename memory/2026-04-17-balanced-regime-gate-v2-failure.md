@@ -1,4 +1,38 @@
+---
+date: '2026-04-17'
+title: '2026-04-17: `balanced_regime_gate_v2` also failed'
+kind: failure
+profiles:
+- balanced
+- balanced_regime_gate
+- balanced_regime_gate_v2
+- soxl
+status: dropped
+tags:
+- balanced
+- balanced_regime_gate
+- balanced_regime_gate_v2
+- checkpoint-selection
+- dropped
+- eval-2022
+- execution-overlay
+- failure
+- soxl
+- stress-regime
+artifacts: []
+workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+summary: 'Legacy memory note normalized into the repo-wide schema. New profile: `configs/soxl/balanced_regime_gate_v2.yaml`
+  Intent: keep the moderate cap routing from `balanced_regime_gate` reduce trend-side
+  encouragement directly: lower `activity_bo'
+---
+
 # 2026-04-17: `balanced_regime_gate_v2` also failed
+
+## Context
+
+Legacy memory note normalized into the repo-wide schema.
+
+## Evidence
 
 ## What was tried
 
@@ -51,3 +85,11 @@
 - Move to structural levers:
   - regime-persistence / stress-state features
   - or execution-layer overlays / routing logic
+
+## Decision
+
+See the summary and status fields in front matter.
+
+## Next Use
+
+Use `scripts/memory_search.py` before opening additional memory files.

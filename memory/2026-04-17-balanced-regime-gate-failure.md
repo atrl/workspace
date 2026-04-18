@@ -1,4 +1,35 @@
+---
+date: '2026-04-17'
+title: '2026-04-17: `balanced_regime_gate` failed as a mainline candidate'
+kind: failure
+profiles:
+- balanced
+- balanced_regime_gate
+- soxl
+status: dropped
+tags:
+- balanced
+- balanced_regime_gate
+- checkpoint-selection
+- dropped
+- eval-2022
+- failure
+- soxl
+- stress-regime
+artifacts: []
+workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+summary: 'Legacy memory note normalized into the repo-wide schema. New profile: `configs/soxl/balanced_regime_gate.yaml`
+  Intent: keep canonical `balanced` as the style anchor add staged checkpoint scoring
+  penalize validation stress-window average pos'
+---
+
 # 2026-04-17: `balanced_regime_gate` failed as a mainline candidate
+
+## Context
+
+Legacy memory note normalized into the repo-wide schema.
+
+## Evidence
 
 ## What was tried
 
@@ -49,3 +80,11 @@
   - lower `panic_buy_bonus`
   - increase selection penalties on `avg_pos` and `stress_avg_pos`
   - only then revisit cap thresholds if needed
+
+## Decision
+
+See the summary and status fields in front matter.
+
+## Next Use
+
+Use `scripts/memory_search.py` before opening additional memory files.

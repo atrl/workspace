@@ -1,4 +1,36 @@
+---
+date: '2026-04-16'
+title: '2026-04-16: Backtest-Inspired RL Optimizations'
+kind: review
+profiles:
+- balanced
+- moe
+- soxl
+status: superseded
+tags:
+- balanced
+- checkpoint-selection
+- eval-2022
+- moe
+- review
+- rule-based
+- soxl
+- superseded
+- walk-forward
+artifacts: []
+workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+summary: Legacy memory note normalized into the repo-wide schema. Port 5 rule-based
+  `soxl_backtest` mechanics into the RL reward/risk layer, increase high-vol T-trading
+  on SOXL, and ensure zero-shot generalization beats Buy & Hold on other 3x ETFs.
+---
+
 # 2026-04-16: Backtest-Inspired RL Optimizations
+
+## Context
+
+Legacy memory note normalized into the repo-wide schema.
+
+## Evidence
 
 ## Goal
 Port 5 rule-based `soxl_backtest` mechanics into the RL reward/risk layer, increase high-vol T-trading on SOXL, and ensure zero-shot generalization beats Buy & Hold on other 3x ETFs.
@@ -94,3 +126,11 @@ test_2023_2024: return=49.31%   sharpe=0.724   max_dd=34.51%
 - `configs/soxl/balanced.yaml`: `bull_min_cap=0.65`, `vol_trading_bonus=0.0`.
 - `scripts/generalization_backtest.py`: now supports `--moe` flag for MoE checkpoint loading.
 - All changes committed and pushed.
+
+## Decision
+
+See the summary and status fields in front matter.
+
+## Next Use
+
+Use `scripts/memory_search.py` before opening additional memory files.

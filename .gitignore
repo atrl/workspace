@@ -46,12 +46,21 @@ qlib_venv/
 .ralph/
 .openclaw/
 runtime/
+!runtime/
+runtime/*
+!runtime/generalization/
+runtime/generalization/*
+!runtime/generalization/dashboard.html
 
 # Artifacts / generated outputs
 artifacts/
+!artifacts/
+artifacts/*
+!artifacts/retention_manifest.json
 *.png
 memory/.dreams/
 memory/*.json
+!memory/index.json
 soxl_qlib_strategy_v2_results.txt
 
 # Qlib generated data

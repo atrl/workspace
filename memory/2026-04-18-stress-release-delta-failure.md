@@ -1,4 +1,35 @@
+---
+date: '2026-04-18'
+title: 2026-04-18 stress-release delta feature trial
+kind: failure
+profiles:
+- balanced
+- balanced_stress_release_delta
+status: dropped
+tags:
+- balanced
+- balanced_stress_release_delta
+- checkpoint-selection
+- dropped
+- eval-2022
+- execution-overlay
+- failure
+- stress-regime
+- transition-features
+artifacts: []
+workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+summary: 'Legacy memory note normalized into the repo-wide schema. Profile: `balanced_stress_release_delta`
+  Command: `qlib_venv/bin/python soxl_qlib_strategy_v2.py --profiles balanced_stress_release_delta
+  --skip-data-refresh --seed 20260411` Feature'
+---
+
 # 2026-04-18 stress-release delta feature trial
+
+## Context
+
+Legacy memory note normalized into the repo-wide schema.
+
+## Evidence
 
 ## What ran
 
@@ -52,3 +83,10 @@
   - require no broad `2022` avg position increase
 3. Review checkpoint selection / early stopping whenever validation rises sharply but fixed-split OOS degrades.
 
+## Decision
+
+See the summary and status fields in front matter.
+
+## Next Use
+
+Use `scripts/memory_search.py` before opening additional memory files.

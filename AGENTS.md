@@ -40,6 +40,10 @@ when the active plan should carry that state.
 
 If you want future sessions to remember something important, write it down.
 
+Use the generated `memory/index.json` and `scripts/memory_search.py` before
+bulk-reading memory notes. Retrieval should start from the index, then open only
+the top matching notes unless that first pass is insufficient.
+
 ## Workpad Discipline
 
 The active plan file is the primary execution record.
@@ -137,7 +141,7 @@ Prefer lint, tests, and executable scripts over written instructions.
 ### Executable Feedback Loops
 Every task must end with a validation step that produces pass/fail evidence
 the agent can read. Do not proceed based on assumption.
-Examples: `pytest`, `python scripts/backtest_validate.py`, `make check`.
+Examples: `qlib_venv/bin/python scripts/check_harness.py`, `python scripts/backtest_validate.py`, `make check`.
 
 ### Progressive Disclosure
 `AGENTS.md` is a map, not a manual. Deep context lives in:
@@ -182,15 +186,6 @@ Keep code in the intended locations:
 - workpads and decision trail: `codex_exec_plans/`
 - data and analysis scripts: `scripts/`
 
-## Research Constraints
-
-- Do not optimize directly on held-out `2022` labels unless the split is
-  explicitly redefined and documented.
-- Treat `2022` as an evaluation window by default.
-- Any claim of improvement should include the fixed split, `2020`, `2022`,
-  `2023-2024`, and walk-forward evidence when available.
-- Artifact persistence, replayability, and validation traceability matter as
-  much as raw returns.
 
 ## Execution Standard
 
@@ -207,6 +202,12 @@ For every substantial iteration:
 
 If a run fails, document the failure and tighten the harness instead of blindly
 retrying.
+
+Before starting a new training or replay loop:
+
+1. query memory through `qlib_venv/bin/python scripts/memory_search.py ...`
+2. validate the harness through `qlib_venv/bin/python scripts/check_harness.py`
+3. inspect `artifacts/retention_manifest.json` before deleting or regenerating large artifacts
 
 ## Current Direction
 

@@ -1,4 +1,39 @@
+---
+date: '2026-04-17'
+title: '2026-04-17: Post-train backtest review skill'
+kind: skill
+profiles:
+- balanced
+- balanced_floor40_sym
+- balanced_floor40_sym_bear30
+- soxl
+status: active
+tags:
+- active
+- balanced
+- balanced_floor40_sym
+- balanced_floor40_sym_bear30
+- checkpoint-selection
+- eval-2022
+- skill
+- soxl
+- stress-regime
+- walk-forward
+artifacts:
+- runtime/post_train_review/floor40_sym_vs_balanced_moe.md
+workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+summary: 'Legacy memory note normalized into the repo-wide schema. Added repo-local
+  skill `.codex/skills/post-train-backtest-review/`. The skill standardizes how to
+  compare a new training result against a prior backtest using: `artifacts/models/*_sum'
+---
+
 # 2026-04-17: Post-train backtest review skill
+
+## Context
+
+Legacy memory note normalized into the repo-wide schema.
+
+## Evidence
 
 ## What changed
 
@@ -68,3 +103,11 @@
     - saved actor bundle is `56` dims
     - current feature set expects `64`
     - so the baseline summary remains useful, but the actor artifact itself needs repair before full realism audits
+
+## Decision
+
+See the summary and status fields in front matter.
+
+## Next Use
+
+Use `scripts/memory_search.py` before opening additional memory files.

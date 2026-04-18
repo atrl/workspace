@@ -1,0 +1,706 @@
+[
+  {
+    "path": "memory/2026-04-10.md",
+    "date": "2026-04-10",
+    "title": "2026-04-10",
+    "kind": "decision",
+    "profiles": [
+      "soxl"
+    ],
+    "status": "dropped",
+    "tags": [
+      "checkpoint-selection",
+      "decision",
+      "dropped",
+      "soxl"
+    ],
+    "artifacts": [],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Legacy memory note normalized into the repo-wide schema. 500轮 × 10 episodes: **301.1% / Sharpe 0.66 / MaxDD 73.9%** 比200轮(437%/0.85/40.2%)更差 → **过拟合** Git: 8a8fc45 结论: **200轮是最佳 checkpoint** 1. 7处 monkey-patch (gym→gymnasium兼容) 2. 没用 qlib 官",
+    "excerpt": "# 2026-04-10 ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## 500轮训练结果 (00:14 完成) - 500轮 × 10 episodes: **301.1% / Sharpe 0.66 / MaxDD 73.9%** - 比200轮(437%/0.85/40.2%)更差 → **过拟合** - Git: 8a8fc45 - 结论: **200轮是最佳 checkpoint** ## 代码优化方向 (10:28 开始) #"
+  },
+  {
+    "path": "memory/2026-04-11.md",
+    "date": "2026-04-11",
+    "title": "2026-04-11",
+    "kind": "failure",
+    "profiles": [
+      "balanced",
+      "smoke",
+      "soxl"
+    ],
+    "status": "dropped",
+    "tags": [
+      "balanced",
+      "checkpoint-selection",
+      "dropped",
+      "eval-2022",
+      "failure",
+      "smoke",
+      "soxl",
+      "stress-regime",
+      "walk-forward"
+    ],
+    "artifacts": [
+      "artifacts/models/soxl_",
+      "artifacts/models/soxl_balanced_summary.json",
+      "artifacts/models/soxl_smoke_actor.pt",
+      "artifacts/models/soxl_smoke_actor_run1.pt",
+      "artifacts/models/soxl_smoke_actor_run2.pt",
+      "artifacts/models/soxl_smoke_summary.json",
+      "artifacts/models/soxl_smoke_summary_cap.json",
+      "artifacts/models/soxl_smoke_summary_floor04.json",
+      "artifacts/models/soxl_smoke_summary_floor05.json",
+      "artifacts/models/soxl_smoke_summary_run1.json",
+      "artifacts/models/soxl_smoke_summary_run2.json",
+      "runtime/production",
+      "runtime/soxl/balanced-2024-01-01-2024-12-31",
+      "runtime/soxl/smoke-2024-01-01-2024-12-31"
+    ],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Legacy memory note normalized into the repo-wide schema. Reviewed `openai/symphony` as a workflow reference rather than something to mirror literally in this repo Pulled the useful parts into `AGENTS.md`: repo-owned workflow contract proof-",
+    "excerpt": "# 2026-04-11 ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## Workflow contract consolidation - Reviewed `openai/symphony` as a workflow reference rather than something to mirror literally in this repo - Pulled the useful parts into `AGENTS.md`: "
+  },
+  {
+    "path": "memory/2026-04-12.md",
+    "date": "2026-04-12",
+    "title": "2026-04-12",
+    "kind": "failure",
+    "profiles": [
+      "balanced",
+      "smoke",
+      "soxl"
+    ],
+    "status": "dropped",
+    "tags": [
+      "balanced",
+      "dropped",
+      "eval-2022",
+      "failure",
+      "smoke",
+      "soxl",
+      "walk-forward"
+    ],
+    "artifacts": [
+      "artifacts/models/soxl_",
+      "artifacts/models/soxl_balanced_summary.json",
+      "artifacts/models/soxl_balanced_wf_2020_summary.json",
+      "artifacts/models/soxl_balanced_wf_2022_summary.json",
+      "artifacts/models/soxl_balanced_wf_2023_2024_summary.json",
+      "artifacts/models/soxl_smoke_summary_start010.json",
+      "artifacts/models/soxl_smoke_summary_start012.json",
+      "artifacts/models/soxl_smoke_summary_start015.json",
+      "runtime/soxl/wf_workers/balanced-wf_2020-seed20260411.json",
+      "runtime/soxl/wf_workers/balanced-wf_2022-seed20260411.json",
+      "runtime/soxl/wf_workers/balanced-wf_2023_2024-seed20260411.json"
+    ],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Legacy memory note normalized into the repo-wide schema. Found that `configs/soxl/*.yaml` already exposed `position_cap.start_drawdown/full_drawdown/min_cap`, but `src/soxl_quant/rl.py` still hard-coded the cap curve Fixed the cap config to",
+    "excerpt": "# 2026-04-12 ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## Position-cap plumbing fix - Found that `configs/soxl/*.yaml` already exposed `position_cap.start_drawdown/full_drawdown/min_cap`, but `src/soxl_quant/rl.py` still hard-coded the cap cu"
+  },
+  {
+    "path": "memory/2026-04-13-generalization.md",
+    "date": "2026-04-13",
+    "title": "2026-04-13 Generalization Backtest Report",
+    "kind": "review",
+    "profiles": [
+      "soxl"
+    ],
+    "status": "dropped",
+    "tags": [
+      "checkpoint-selection",
+      "dropped",
+      "eval-2022",
+      "review",
+      "soxl"
+    ],
+    "artifacts": [
+      "runtime/generalization/comparison.png",
+      "runtime/generalization/qlib_stores/",
+      "runtime/generalization/report.txt",
+      "runtime/generalization/results.json"
+    ],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Legacy memory note normalized into the repo-wide schema. Test whether the SOXL-trained PPO actor (`soxl_balanced_actor.pt`) generalizes to other 3x leveraged ETFs without retraining. | ETF | Underlying | Sector | |-----|-----------|--------",
+    "excerpt": "# 2026-04-13 Generalization Backtest Report ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## Goal Test whether the SOXL-trained PPO actor (`soxl_balanced_actor.pt`) generalizes to other 3x leveraged ETFs without retraining. ## ETF Universe | ETF "
+  },
+  {
+    "path": "memory/2026-04-13.md",
+    "date": "2026-04-13",
+    "title": "2026-04-13",
+    "kind": "skill",
+    "profiles": [
+      "balanced",
+      "soxl"
+    ],
+    "status": "kept",
+    "tags": [
+      "balanced",
+      "kept",
+      "skill",
+      "soxl"
+    ],
+    "artifacts": [],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Legacy memory note normalized into the repo-wide schema. Rewrote the top-level repo contract to make this workspace explicitly a `SOXL` harness rather than a general OpenClaw-style workspace. `AGENTS.md` now keeps `memory/` as the continuit",
+    "excerpt": "# 2026-04-13 ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## Harness-docs reframing - Rewrote the top-level repo contract to make this workspace explicitly a `SOXL` harness rather than a general OpenClaw-style workspace. - `AGENTS.md` now keeps "
+  },
+  {
+    "path": "memory/2026-04-14-multi-asset-joint-training.md",
+    "date": "2026-04-14",
+    "title": "Multi-Asset Joint Training Results",
+    "kind": "review",
+    "profiles": [
+      "soxl"
+    ],
+    "status": "dropped",
+    "tags": [
+      "dropped",
+      "review",
+      "soxl",
+      "walk-forward"
+    ],
+    "artifacts": [],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Legacy memory note normalized into the repo-wide schema. Date: 2026-04-14 Implemented multi-asset joint training with asset one-hot embedding. Training pool: SOXL, TQQQ, UPRO, SPXL, TECL (all 3x leveraged ETFs). Observation dimension increa",
+    "excerpt": "# Multi-Asset Joint Training Results ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence Date: 2026-04-14 ## What changed - Implemented multi-asset joint training with asset one-hot embedding. - Training pool: SOXL, TQQQ, UPRO, SPXL, TECL (all 3x lever"
+  },
+  {
+    "path": "memory/2026-04-14-optimization-roadmap.md",
+    "date": "2026-04-14",
+    "title": "SOXL 模型优化路线图（基于泛化测试结果）",
+    "kind": "review",
+    "profiles": [
+      "soxl"
+    ],
+    "status": "reference",
+    "tags": [
+      "checkpoint-selection",
+      "eval-2022",
+      "reference",
+      "review",
+      "soxl",
+      "walk-forward"
+    ],
+    "artifacts": [
+      "runtime/generalization/detailed/",
+      "runtime/generalization/detailed/summary.json"
+    ],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Legacy memory note normalized into the repo-wide schema. > 测试日期：2026-04-14 > 测试模型：soxl_balanced_actor.pt（PPO，零样本） > 泛化标的：SOXL、TQQQ、UPRO、SPXL、TECL（5只3倍杠杆ETF） | ETF | 策略收益 | B&H 收益 | 超额收益 | 策略回撤 | B&H 回撤 | 交易次数 | |-----|----------|----------|",
+    "excerpt": "# SOXL 模型优化路线图（基于泛化测试结果） ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence > 测试日期：2026-04-14 > 测试模型：soxl_balanced_actor.pt（PPO，零样本） > 泛化标的：SOXL、TQQQ、UPRO、SPXL、TECL（5只3倍杠杆ETF） --- ## 一、当前表现复盘 ### 1.1 总体结果 | ETF | 策略收益 | B&H 收益 | 超额收益 | 策略回撤 | B&H 回撤 |"
+  },
+  {
+    "path": "memory/2026-04-14-p0-first-attempt.md",
+    "date": "2026-04-14",
+    "title": "P0 优化第一次尝试报告",
+    "kind": "review",
+    "profiles": [
+      "soxl"
+    ],
+    "status": "reference",
+    "tags": [
+      "reference",
+      "review",
+      "soxl"
+    ],
+    "artifacts": [],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Legacy memory note normalized into the repo-wide schema. 在 reward 函数中加入踏空惩罚（opportunity-cost penalty），并把 `drawdown_position_cap` 的 `min_cap` 从固定 0.40 改为动态调整： 牛市（realized_vol < 0.40 且 anchor_gap > 0.01）：min_cap 提升到 0.65 高风险市（regime_risk > 0.",
+    "excerpt": "# P0 优化第一次尝试报告 ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## 实验内容 在 reward 函数中加入踏空惩罚（opportunity-cost penalty），并把 `drawdown_position_cap` 的 `min_cap` 从固定 0.40 改为动态调整： - 牛市（realized_vol < 0.40 且 anchor_gap > 0.01）：min_cap 提升到 0.65 - 高风险市（regime"
+  },
+  {
+    "path": "memory/2026-04-15-moe-signal-reward-upgrade.md",
+    "date": "2026-04-15",
+    "title": "MoE + Signal Diversification + Reward Optimization",
+    "kind": "decision",
+    "profiles": [
+      "balanced",
+      "balanced_moe",
+      "moe",
+      "smoke",
+      "smoke_moe"
+    ],
+    "status": "superseded",
+    "tags": [
+      "balanced",
+      "balanced_moe",
+      "checkpoint-selection",
+      "decision",
+      "moe",
+      "smoke",
+      "smoke_moe",
+      "stress-regime",
+      "superseded",
+      "walk-forward"
+    ],
+    "artifacts": [],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Legacy memory note normalized into the repo-wide schema. Date: 2026-04-15 Execute the approved \"Approach A – Surgical Upgrade\" plan to: 1. Upgrade `RegimeMoENet` with noisy Top-1 sparse routing, load-balancing loss, and a shared expert. 2.",
+    "excerpt": "# MoE + Signal Diversification + Reward Optimization ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence Date: 2026-04-15 ## Goal Execute the approved \"Approach A – Surgical Upgrade\" plan to: 1. Upgrade `RegimeMoENet` with noisy Top-1 sparse routing, l"
+  },
+  {
+    "path": "memory/2026-04-15-vix-ablation-results.md",
+    "date": "2026-04-15",
+    "title": "VIX Ablation Experiment Results",
+    "kind": "decision",
+    "profiles": [
+      "balanced",
+      "moe"
+    ],
+    "status": "superseded",
+    "tags": [
+      "balanced",
+      "decision",
+      "eval-2022",
+      "moe",
+      "stress-regime",
+      "superseded",
+      "walk-forward"
+    ],
+    "artifacts": [],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Legacy memory note normalized into the repo-wide schema. Date: 2026-04-15 Seed: 20260411 | Profile: balanced | Iters: 20 | Architecture: MoE **Baseline**: `balanced` + `--moe` (VIX features fully enabled) **Ablation**: `balanced` + `--moe`",
+    "excerpt": "# VIX Ablation Experiment Results ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence Date: 2026-04-15 Seed: 20260411 | Profile: balanced | Iters: 20 | Architecture: MoE ## Experiment Design - **Baseline**: `balanced` + `--moe` (VIX features fully enab"
+  },
+  {
+    "path": "memory/2026-04-16-AB-optimization-breakthrough.md",
+    "date": "2026-04-16",
+    "title": "2026-04-16: A+B Breakthrough – High Threshold + Trade Lock + 80 Iters",
+    "kind": "review",
+    "profiles": [
+      "balanced",
+      "balanced_multiasset_ab_20260416_225734",
+      "moe",
+      "soxl"
+    ],
+    "status": "dropped",
+    "tags": [
+      "balanced",
+      "balanced_multiasset_ab_20260416_225734",
+      "checkpoint-selection",
+      "dropped",
+      "eval-2022",
+      "moe",
+      "review",
+      "rule-based",
+      "soxl"
+    ],
+    "artifacts": [
+      "artifacts/models/soxl_balanced_moe_actor.pt",
+      "runtime/generalization/results.json"
+    ],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Legacy memory note normalized into the repo-wide schema. The RL model was losing to the rule-based strategy primarily due to **friction from excessive micro-trades** (~1000+ vs 45). Two levers were identified: **A**: Drastically raise `reba",
+    "excerpt": "# 2026-04-16: A+B Breakthrough – High Threshold + Trade Lock + 80 Iters ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## Hypothesis The RL model was losing to the rule-based strategy primarily due to **friction from excessive micro-trades** (~100"
+  },
+  {
+    "path": "memory/2026-04-16-asymmetric-threshold-experiment.md",
+    "date": "2026-04-16",
+    "title": "2026-04-16: Asymmetric Threshold Experiment (Option 1)",
+    "kind": "review",
+    "profiles": [
+      "soxl"
+    ],
+    "status": "dropped",
+    "tags": [
+      "dropped",
+      "eval-2022",
+      "review",
+      "rule-based",
+      "soxl",
+      "stress-regime"
+    ],
+    "artifacts": [],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Legacy memory note normalized into the repo-wide schema. Test \"buy easy, sell hard\" asymmetric rebalance threshold while keeping the 3-day trade lock and hard regime routing. `rebalance_threshold` now returns **direction-dependent threshold",
+    "excerpt": "# 2026-04-16: Asymmetric Threshold Experiment (Option 1) ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## Goal Test \"buy easy, sell hard\" asymmetric rebalance threshold while keeping the 3-day trade lock and hard regime routing. ## Changes - `reb"
+  },
+  {
+    "path": "memory/2026-04-16-backtest-inspired-rl-optimizations.md",
+    "date": "2026-04-16",
+    "title": "2026-04-16: Backtest-Inspired RL Optimizations",
+    "kind": "review",
+    "profiles": [
+      "balanced",
+      "moe",
+      "soxl"
+    ],
+    "status": "superseded",
+    "tags": [
+      "balanced",
+      "checkpoint-selection",
+      "eval-2022",
+      "moe",
+      "review",
+      "rule-based",
+      "soxl",
+      "superseded",
+      "walk-forward"
+    ],
+    "artifacts": [],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Legacy memory note normalized into the repo-wide schema. Port 5 rule-based `soxl_backtest` mechanics into the RL reward/risk layer, increase high-vol T-trading on SOXL, and ensure zero-shot generalization beats Buy & Hold on other 3x ETFs.",
+    "excerpt": "# 2026-04-16: Backtest-Inspired RL Optimizations ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## Goal Port 5 rule-based `soxl_backtest` mechanics into the RL reward/risk layer, increase high-vol T-trading on SOXL, and ensure zero-shot generaliza"
+  },
+  {
+    "path": "memory/2026-04-16-hard-regime-routing-floor03.md",
+    "date": "2026-04-16",
+    "title": "Memory Note",
+    "kind": "decision",
+    "profiles": [],
+    "status": "reference",
+    "tags": [
+      "decision",
+      "reference"
+    ],
+    "artifacts": [],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Legacy memory note normalized into the repo-wide schema. See the summary and status fields in front matter. Use `scripts/memory_search.py` before opening additional memory files.",
+    "excerpt": "# Memory Note ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## Decision See the summary and status fields in front matter. ## Next Use Use `scripts/memory_search.py` before opening additional memory files."
+  },
+  {
+    "path": "memory/2026-04-16-moe-analysis-and-backtest-gap.md",
+    "date": "2026-04-16",
+    "title": "2026-04-16: MoE Regime Analysis & Gap to Rule-Based Backtest",
+    "kind": "review",
+    "profiles": [
+      "moe",
+      "soxl"
+    ],
+    "status": "dropped",
+    "tags": [
+      "dropped",
+      "eval-2022",
+      "execution-overlay",
+      "moe",
+      "review",
+      "rule-based",
+      "soxl"
+    ],
+    "artifacts": [],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Legacy memory note normalized into the repo-wide schema. Evaluated the multi-asset v2 actor (`soxl_balanced_moe_actor.pt`) on the SOXL test set. Extracted gate softmax probabilities for every trading day. Performed an **ablation study** by",
+    "excerpt": "# 2026-04-16: MoE Regime Analysis & Gap to Rule-Based Backtest ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## 1. MoE Gate Routing Validity Analysis ### Method - Evaluated the multi-asset v2 actor (`soxl_balanced_moe_actor.pt`) on the SOXL test "
+  },
+  {
+    "path": "memory/2026-04-17-balanced-regime-gate-failure.md",
+    "date": "2026-04-17",
+    "title": "2026-04-17: `balanced_regime_gate` failed as a mainline candidate",
+    "kind": "failure",
+    "profiles": [
+      "balanced",
+      "balanced_regime_gate",
+      "soxl"
+    ],
+    "status": "dropped",
+    "tags": [
+      "balanced",
+      "balanced_regime_gate",
+      "checkpoint-selection",
+      "dropped",
+      "eval-2022",
+      "failure",
+      "soxl",
+      "stress-regime"
+    ],
+    "artifacts": [],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Legacy memory note normalized into the repo-wide schema. New profile: `configs/soxl/balanced_regime_gate.yaml` Intent: keep canonical `balanced` as the style anchor add staged checkpoint scoring penalize validation stress-window average pos",
+    "excerpt": "# 2026-04-17: `balanced_regime_gate` failed as a mainline candidate ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## What was tried - New profile: - `configs/soxl/balanced_regime_gate.yaml` - Intent: - keep canonical `balanced` as the style ancho"
+  },
+  {
+    "path": "memory/2026-04-17-balanced-regime-gate-v2-failure.md",
+    "date": "2026-04-17",
+    "title": "2026-04-17: `balanced_regime_gate_v2` also failed",
+    "kind": "failure",
+    "profiles": [
+      "balanced",
+      "balanced_regime_gate",
+      "balanced_regime_gate_v2",
+      "soxl"
+    ],
+    "status": "dropped",
+    "tags": [
+      "balanced",
+      "balanced_regime_gate",
+      "balanced_regime_gate_v2",
+      "checkpoint-selection",
+      "dropped",
+      "eval-2022",
+      "execution-overlay",
+      "failure",
+      "soxl",
+      "stress-regime"
+    ],
+    "artifacts": [],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Legacy memory note normalized into the repo-wide schema. New profile: `configs/soxl/balanced_regime_gate_v2.yaml` Intent: keep the moderate cap routing from `balanced_regime_gate` reduce trend-side encouragement directly: lower `activity_bo",
+    "excerpt": "# 2026-04-17: `balanced_regime_gate_v2` also failed ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## What was tried - New profile: - `configs/soxl/balanced_regime_gate_v2.yaml` - Intent: - keep the moderate cap routing from `balanced_regime_gate`"
+  },
+  {
+    "path": "memory/2026-04-17-bear30-retrain-vs-floor40.md",
+    "date": "2026-04-17",
+    "title": "2026-04-17: `balanced_floor40_sym_bear30` retrain",
+    "kind": "review",
+    "profiles": [
+      "balanced",
+      "balanced_floor40_sym",
+      "balanced_floor40_sym_bear30",
+      "soxl"
+    ],
+    "status": "reference",
+    "tags": [
+      "balanced",
+      "balanced_floor40_sym",
+      "balanced_floor40_sym_bear30",
+      "checkpoint-selection",
+      "eval-2022",
+      "reference",
+      "review",
+      "soxl",
+      "stress-regime"
+    ],
+    "artifacts": [
+      "artifacts/models/soxl_balanced_floor40_sym_bear30_summary.json",
+      "runtime/post_train_review/floor40_sym_bear30_vs_canonical_balanced.md",
+      "runtime/post_train_review/floor40_sym_bear30_vs_floor40_sym.md"
+    ],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Legacy memory note normalized into the repo-wide schema. `qlib_venv/bin/python soxl_qlib_strategy_v2.py --profiles balanced_floor40_sym_bear30 --skip-data-refresh --seed 20260411` Added `configs/soxl/balanced_floor40_sym_bear30.yaml`. Regis",
+    "excerpt": "# 2026-04-17: `balanced_floor40_sym_bear30` retrain ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## Command - `qlib_venv/bin/python soxl_qlib_strategy_v2.py --profiles balanced_floor40_sym_bear30 --skip-data-refresh --seed 20260411` ## What chan"
+  },
+  {
+    "path": "memory/2026-04-17-dashboard-window-and-regime-route.md",
+    "date": "2026-04-17",
+    "title": "2026-04-17: Dashboard window clarified, regime-routed overlay is directional but not best",
+    "kind": "decision",
+    "profiles": [
+      "balanced_regime_gate",
+      "soxl"
+    ],
+    "status": "dropped",
+    "tags": [
+      "balanced_regime_gate",
+      "dashboard",
+      "decision",
+      "dropped",
+      "eval-2022",
+      "execution-overlay",
+      "soxl",
+      "stress-regime"
+    ],
+    "artifacts": [
+      "runtime/generalization/dashboard.html"
+    ],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Legacy memory note normalized into the repo-wide schema. `runtime/generalization/dashboard.html` only renders the fixed `test` window: `2020-01-02 .. 2026-03-31` The page does **not** show: `train = 2010-2018` `valid = 2019` The earlier imp",
+    "excerpt": "# 2026-04-17: Dashboard window clarified, regime-routed overlay is directional but not best ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## Dashboard clarification - `runtime/generalization/dashboard.html` only renders the fixed `test` window: -"
+  },
+  {
+    "path": "memory/2026-04-17-historical-balanced-feature-gap.md",
+    "date": "2026-04-17",
+    "title": "2026-04-17: historical-best `balanced` feature gap",
+    "kind": "failure",
+    "profiles": [
+      "balanced"
+    ],
+    "status": "dropped",
+    "tags": [
+      "balanced",
+      "dropped",
+      "failure",
+      "stress-regime",
+      "transition-features"
+    ],
+    "artifacts": [
+      "runtime/post_train_review/historical_balanced_feature_recall.md"
+    ],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Legacy memory note normalized into the repo-wide schema. Canonical `balanced` is already competent at: persistent stress defense mature trend capture Its main blind spot is: transition states especially stress-release, bear-market rebounds,",
+    "excerpt": "# 2026-04-17: historical-best `balanced` feature gap ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## Conclusion - Canonical `balanced` is already competent at: - persistent stress defense - mature trend capture - Its main blind spot is: - transi"
+  },
+  {
+    "path": "memory/2026-04-17-latest-floor40-vs-canonical.md",
+    "date": "2026-04-17",
+    "title": "2026-04-17: Latest `balanced_floor40_sym` training loses to canonical balanced",
+    "kind": "failure",
+    "profiles": [
+      "balanced",
+      "balanced_floor40_sym"
+    ],
+    "status": "dropped",
+    "tags": [
+      "balanced",
+      "balanced_floor40_sym",
+      "dropped",
+      "eval-2022",
+      "failure",
+      "stress-regime"
+    ],
+    "artifacts": [
+      "artifacts/models/soxl_balanced_floor40_sym_summary.json",
+      "artifacts/models/soxl_balanced_summary.json"
+    ],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Legacy memory note normalized into the repo-wide schema. `qlib_venv/bin/python soxl_qlib_strategy_v2.py --profiles balanced_floor40_sym --skip-data-refresh --seed 20260411` Fixed split backtest log: `476.2% / Sharpe 0.79 / MaxDD 63.8% / 790",
+    "excerpt": "# 2026-04-17: Latest `balanced_floor40_sym` training loses to canonical balanced ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## Command - `qlib_venv/bin/python soxl_qlib_strategy_v2.py --profiles balanced_floor40_sym --skip-data-refresh --seed "
+  },
+  {
+    "path": "memory/2026-04-17-post-train-review-skill.md",
+    "date": "2026-04-17",
+    "title": "2026-04-17: Post-train backtest review skill",
+    "kind": "skill",
+    "profiles": [
+      "balanced",
+      "balanced_floor40_sym",
+      "balanced_floor40_sym_bear30",
+      "soxl"
+    ],
+    "status": "active",
+    "tags": [
+      "active",
+      "balanced",
+      "balanced_floor40_sym",
+      "balanced_floor40_sym_bear30",
+      "checkpoint-selection",
+      "eval-2022",
+      "skill",
+      "soxl",
+      "stress-regime",
+      "walk-forward"
+    ],
+    "artifacts": [
+      "runtime/post_train_review/floor40_sym_vs_balanced_moe.md"
+    ],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Legacy memory note normalized into the repo-wide schema. Added repo-local skill `.codex/skills/post-train-backtest-review/`. The skill standardizes how to compare a new training result against a prior backtest using: `artifacts/models/*_sum",
+    "excerpt": "# 2026-04-17: Post-train backtest review skill ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## What changed - Added repo-local skill `.codex/skills/post-train-backtest-review/`. - The skill standardizes how to compare a new training result again"
+  },
+  {
+    "path": "memory/2026-04-17-rl-beats-rule-based.md",
+    "date": "2026-04-17",
+    "title": "2026-04-17: RL beats rule-based SOXL return (698.0%)",
+    "kind": "failure",
+    "profiles": [
+      "balanced_floor40",
+      "balanced_floor40_sym",
+      "soxl"
+    ],
+    "status": "superseded",
+    "tags": [
+      "balanced_floor40",
+      "balanced_floor40_sym",
+      "checkpoint-selection",
+      "eval-2022",
+      "failure",
+      "rule-based",
+      "soxl",
+      "superseded"
+    ],
+    "artifacts": [],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Legacy memory note normalized into the repo-wide schema. The ~130pp gap between RL symmetric A+B (598.5%) and rule-based soxl_backtest (688.6%) was caused by three missing pieces: 1. Accidentally reverted asymmetric thresholds (buy 0.02 / s",
+    "excerpt": "# 2026-04-17: RL beats rule-based SOXL return (698.0%) ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## Hypothesis The ~130pp gap between RL symmetric A+B (598.5%) and rule-based soxl_backtest (688.6%) was caused by three missing pieces: 1. Accid"
+  },
+  {
+    "path": "memory/2026-04-18-harness-cleanup-and-memory-index.md",
+    "date": "2026-04-18",
+    "title": "2026-04-18: harness cleanup, indexed memory retrieval, and soft artifact prune",
+    "kind": "ops",
+    "profiles": [
+      "balanced",
+      "balanced_floor40_sym",
+      "balanced_regime_gate"
+    ],
+    "status": "kept",
+    "tags": [
+      "balanced",
+      "balanced_floor40_sym",
+      "balanced_regime_gate",
+      "checkpoint-selection",
+      "dashboard",
+      "eval-2022",
+      "kept",
+      "ops",
+      "transition-features"
+    ],
+    "artifacts": [
+      "runtime/generalization/dashboard.html"
+    ],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Replaced the broken pytest expectation with a repo-owned check_harness entrypoint, normalized memory into front-matter plus index.json, deleted low-value scripts and superseded actor checkpoints, and upgraded the static dashboard with evidence navigation and persisted state.",
+    "excerpt": "# 2026-04-18: harness cleanup, indexed memory retrieval, and soft artifact prune ## Context The repo had accumulated three classes of avoidable friction: - docs still implied `pytest` was the default check path even though `qlib_venv` did not ship it - `memory/` had drifted into "
+  },
+  {
+    "path": "memory/2026-04-18-stress-release-delta-failure.md",
+    "date": "2026-04-18",
+    "title": "2026-04-18 stress-release delta feature trial",
+    "kind": "failure",
+    "profiles": [
+      "balanced",
+      "balanced_stress_release_delta"
+    ],
+    "status": "dropped",
+    "tags": [
+      "balanced",
+      "balanced_stress_release_delta",
+      "checkpoint-selection",
+      "dropped",
+      "eval-2022",
+      "execution-overlay",
+      "failure",
+      "stress-regime",
+      "transition-features"
+    ],
+    "artifacts": [],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Legacy memory note normalized into the repo-wide schema. Profile: `balanced_stress_release_delta` Command: `qlib_venv/bin/python soxl_qlib_strategy_v2.py --profiles balanced_stress_release_delta --skip-data-refresh --seed 20260411` Feature",
+    "excerpt": "# 2026-04-18 stress-release delta feature trial ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## What ran - Profile: `balanced_stress_release_delta` - Command: - `qlib_venv/bin/python soxl_qlib_strategy_v2.py --profiles balanced_stress_release_de"
+  },
+  {
+    "path": "memory/2026-04-18-transition-feature-batch-failure.md",
+    "date": "2026-04-18",
+    "title": "2026-04-18: first transition-feature batch failed as mainline",
+    "kind": "failure",
+    "profiles": [
+      "balanced",
+      "balanced_transition_state"
+    ],
+    "status": "dropped",
+    "tags": [
+      "balanced",
+      "balanced_transition_state",
+      "dropped",
+      "eval-2022",
+      "failure",
+      "stress-regime",
+      "transition-features"
+    ],
+    "artifacts": [],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Legacy memory note normalized into the repo-wide schema. New temporary branch: `balanced_transition_state` Intent: keep canonical `balanced` reward, cap, and selection rules fixed add transition / persistence features only test whether rebo",
+    "excerpt": "# 2026-04-18: first transition-feature batch failed as mainline ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## What was tried - New temporary branch: - `balanced_transition_state` - Intent: - keep canonical `balanced` reward, cap, and selection"
+  },
+  {
+    "path": "memory/README.md",
+    "date": "",
+    "title": "Memory",
+    "kind": "failure",
+    "profiles": [
+      "balanced"
+    ],
+    "status": "dropped",
+    "tags": [
+      "balanced",
+      "dropped",
+      "eval-2022",
+      "execution-overlay",
+      "failure"
+    ],
+    "artifacts": [],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "`memory/` is the continuity layer for decisions, failures, reviews, and reusable session context that should survive chat history. Every `memory/*.md` file uses YAML front matter plus Markdown body sections. Required front-matter fields: `d",
+    "excerpt": "# Memory `memory/` is the continuity layer for decisions, failures, reviews, and reusable session context that should survive chat history. ## Canonical Format Every `memory/*.md` file uses YAML front matter plus Markdown body sections. Required front-matter fields: - `date` - `t"
+  }
+]

@@ -1,4 +1,31 @@
+---
+date: '2026-04-14'
+title: "P0 \u4F18\u5316\u7B2C\u4E00\u6B21\u5C1D\u8BD5\u62A5\u544A"
+kind: review
+profiles:
+- soxl
+status: reference
+tags:
+- reference
+- review
+- soxl
+artifacts: []
+workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+summary: "Legacy memory note normalized into the repo-wide schema. \u5728 reward \u51FD\
+  \u6570\u4E2D\u52A0\u5165\u8E0F\u7A7A\u60E9\u7F5A\uFF08opportunity-cost penalty\uFF09\
+  \uFF0C\u5E76\u628A `drawdown_position_cap` \u7684 `min_cap` \u4ECE\u56FA\u5B9A 0.40\
+  \ \u6539\u4E3A\u52A8\u6001\u8C03\u6574\uFF1A \u725B\u5E02\uFF08realized_vol < 0.40\
+  \ \u4E14 anchor_gap > 0.01\uFF09\uFF1Amin_cap \u63D0\u5347\u5230 0.65 \u9AD8\u98CE\
+  \u9669\u5E02\uFF08regime_risk > 0."
+---
+
 # P0 优化第一次尝试报告
+
+## Context
+
+Legacy memory note normalized into the repo-wide schema.
+
+## Evidence
 
 ## 实验内容
 在 reward 函数中加入踏空惩罚（opportunity-cost penalty），并把 `drawdown_position_cap` 的 `min_cap` 从固定 0.40 改为动态调整：
@@ -52,3 +79,11 @@ SOXL 域内表现基本稳定，说明训练流程没有被破坏。
 
 ## 代码提交
 已提交到主分支：`5a53248 feat(P0): adaptive position cap + opportunity-cost penalty, fix regressions`
+
+## Decision
+
+See the summary and status fields in front matter.
+
+## Next Use
+
+Use `scripts/memory_search.py` before opening additional memory files.

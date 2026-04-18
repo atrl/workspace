@@ -1,14 +1,14 @@
 from __future__ import annotations
 
-from src.soxl_quant.rl import PositionLedger
+from src.soxl_quant.rl import TrancheLedger
 from src.soxl_quant.runtime import SignalIntent, PaperBroker, reconcile_positions, risk_gate
 
 
 def test_position_ledger_tracks_entry_and_age():
-    ledger = PositionLedger()
+    ledger = TrancheLedger()
     ledger.update(0.0, 0.4, 100.0)
     ledger.update(0.4, 0.4, 105.0)
-    age, avg_pnl, add_pnl, high_gap = ledger.snapshot(102.0)
+    age, avg_pnl, add_pnl, high_gap, _last_tranche_pnl, _n_tranches = ledger.snapshot(102.0)
     assert age > 0.0
     assert avg_pnl > 0.0
     assert add_pnl > 0.0
