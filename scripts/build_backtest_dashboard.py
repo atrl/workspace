@@ -1571,6 +1571,22 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
         tradeStatRow.innerHTML = '<div class="stat-cell"><div class="sk">无交易数据</div></div>';
         return;
       }}
+      // For data sources without discrete trade signals (e.g. post_train_review daily CSVs
+      // that only record position, not entry/exit actions), trade pairing may yield only
+      // 1 trade. Show a warning instead of misleading Kelly stats.
+      if (k.total <= 1) {{
+        tradeStatRow.innerHTML = `
+          <div class="stat-cell" style="grid-column:1/-1;text-align:left;">
+            <div class="sk" style="color:var(--accent);">⚠ 连续持仓策略</div>
+            <div style="font-size:13px;color:var(--muted);margin-top:6px;">
+              该模型版本的数据源只记录了每日仓位，没有离散买卖信号。<br>
+              整个回测期间仅 ${'{k.total}'} 笔完整持仓交易，无法计算有意义的 Kelly / Expectancy。<br>
+              切换到 <b>Current</b> 或其他有 detailed_trades.csv 的版本可查看逐笔交易质量。
+            </div>
+          </div>
+        `;
+        return;
+      }}
       const kellyPct = k.kelly * 100;
       const kellyColor = kellyPct > 0 ? 'var(--good)' : kellyPct < 0 ? 'var(--bad)' : 'var(--muted)';
       tradeStatRow.innerHTML = [

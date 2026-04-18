@@ -142,6 +142,7 @@ class EpisodeConfig(NamedTuple):
     asset_idx: int = 0
     observation_window: int = 1
     decision_frequency: int = 1
+    nday_window: int = 5
 
 
 def action_levels_for_profile(profile: Optional[StrategyConfig]) -> np.ndarray:
@@ -408,11 +409,18 @@ class SoxlSimulator(Simulator):
         self.obs_dim = len(FEATURE_COLUMNS) * self.observation_window + EXTRA_OBS_DIM + N_ASSETS
         self.ledger = TrancheLedger()
         self.decision_frequency = max(int(getattr(initial, "decision_frequency", 1)), 1)
+        self.nday_window = max(int(getattr(initial, "nday_window", 5)), 1)
         # Period-aware marginal reward tracking
         self.period_start_val = self.cash0
         self.period_baseline_val = self.cash0
         self.period_start_pos = 0.0
         self._is_decision_day = True
+        # N-day reward tracking
+        self.nday_start_val = self.cash0
+        self.nday_step_counter = 0
+        self.nday_reward_val = 0.0
+        # Sparse reward tracking
+        self.episode_start_val = self.cash0
 
     def step(self, action: float) -> None:
         """执行一步模拟。
@@ -502,6 +510,14 @@ class SoxlSimulator(Simulator):
             self.trade_lock = 3
         self.pos = action
         self.idx += 1
+        # N-day reward tracking
+        self.nday_step_counter += 1
+        if self.nday_step_counter % self.nday_window == 0:
+            nday_return = (self.val - self.nday_start_val) / max(self.nday_start_val, 1e-8)
+            self.nday_reward_val = nday_return
+            self.nday_start_val = self.val
+        else:
+            self.nday_reward_val = 0.0
 
     def get_state(self):
         """构造当前状态向量（observation）。
@@ -528,6 +544,8 @@ class SoxlSimulator(Simulator):
                 "regime_delta": 0.0,
                 "flat_steps": 0.0,
                 "done": True,
+                "nday_reward": 0.0,
+                "episode_start_val": self.episode_start_val,
             }
         row = self.df.iloc[self.idx]
         lb = self.df.iloc[self.idx - self.lookback : self.idx]
@@ -569,6 +587,8 @@ class SoxlSimulator(Simulator):
             "rule_pos": rule_based_position(obs),
             "rule_return": rule_based_position(obs) * self.last_market_return,
             "done": False,
+            "nday_reward": self.nday_reward_val,
+            "episode_start_val": self.episode_start_val,
         }
 
     def done(self) -> bool:
@@ -689,17 +709,46 @@ class ContinuousReward(Reward):
                 reward = 0.0
         elif cfg.use_alpha_reward:
             # Alpha Reward: RL is only rewarded for outperforming the rule-based baseline.
-            # This forces the model to learn "when to deviate from the rule" rather than
-            # "how to predict market direction".
             step_return = float(state.get("step_return", 0.0))
             rule_return = float(state.get("rule_return", 0.0))
             alpha = step_return - rule_return
             if cfg.use_kelly_alpha:
-                # Kelly-inspired: optimize geometric growth of alpha
                 safe_alpha = max(alpha, -0.999)
                 reward = math.log(1.0 + safe_alpha) * 100.0 * cfg.alpha_scale
             else:
                 reward = alpha * 100.0 * cfg.alpha_scale
+        elif cfg.use_quality_reward:
+            # === Quality-only Reward: 完全抛弃 pnl_ret，按操作质量打分 ===
+            reward = 0.0
+            # 1. 趋势对齐
+            if anchor_gap > cfg.trend_alignment_threshold and pos > 0.55:
+                reward += 1.0
+            elif anchor_gap < -cfg.trend_alignment_threshold and pos < 0.35:
+                reward += 1.0
+            else:
+                reward -= 0.3
+            # 2. 回撤控制
+            if drawdown > 0.15 and pos < 0.40:
+                reward += 0.5
+            elif drawdown > 0.15 and pos > 0.60:
+                reward -= 1.0
+            # 3. 调仓惩罚
+            reward -= turnover * 0.5
+            # 4. 稳定性奖励
+            if flat_steps >= 3:
+                reward += 0.2
+            reward *= cfg.quality_reward_scale
+        elif cfg.use_nday_reward:
+            # === N-day Cumulative Reward: 每 N 天给一次累计收益 ===
+            nday_reward = float(state.get("nday_reward", 0.0))
+            reward = nday_reward * 100.0 * cfg.return_scale * cfg.nday_reward_scale
+        elif cfg.use_sparse_reward:
+            # === Episode Sparse Reward: 只有 episode 结束才给 reward ===
+            if state.get("done", False):
+                episode_return = (float(state["val"]) - float(state["episode_start_val"])) / float(state["episode_start_val"])
+                reward = episode_return * 100.0 * cfg.return_scale * cfg.sparse_reward_scale
+            else:
+                reward = 0.0
         else:
             reward = pnl_ret * 100.0 * cfg.return_scale
 
@@ -826,6 +875,7 @@ def build_initial_states(
             end_idx = min((i + 1) * episode_len, len(df))
             if (end_idx - start_idx) <= LOOKBACK + 2:
                 continue
+            nday_window = max(int(profile.reward.nday_window), 1) if profile.reward.use_nday_reward else 1
             state = EpisodeConfig(
                 str(pkl_path),
                 start_idx,
@@ -833,6 +883,7 @@ def build_initial_states(
                 asset_idx=asset_idx,
                 observation_window=observation_window,
                 decision_frequency=decision_frequency,
+                nday_window=nday_window,
             )
             all_states.append(state)
             segment = df.iloc[start_idx:end_idx]
