@@ -840,6 +840,25 @@
     "excerpt": "# 2026-04-18 Profile Governance And Retention Reset ## Context The harness had reached the point where `rl.py`, `cli.py`, and the profile set were too entangled to answer basic questions reliably: - which profile is canonical - which branches are just ablations - which actor chec"
   },
   {
+    "path": "memory/2026-04-18-rl-policy-module-migration.md",
+    "date": "2026-04-18",
+    "title": "RL Policy Module Migration",
+    "kind": "failure",
+    "profiles": [
+      "moe"
+    ],
+    "status": "dropped",
+    "tags": [
+      "dropped",
+      "failure",
+      "moe"
+    ],
+    "artifacts": [],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Legacy memory note normalized into the repo-wide schema. Date: 2026-04-18 Context: package folders under `src/soxl_quant/` existed, but `src/soxl_quant/policy/*` was still mostly wrapper code pointing back into `src/soxl_quant/rl.py` that m",
+    "excerpt": "# RL Policy Module Migration ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence - Date: 2026-04-18 - Context: - package folders under `src/soxl_quant/` existed, but `src/soxl_quant/policy/*` was still mostly wrapper code pointing back into `src/soxl_q"
+  },
+  {
     "path": "memory/2026-04-18-stress-release-delta-failure.md",
     "date": "2026-04-18",
     "title": "2026-04-18 stress-release delta feature trial",

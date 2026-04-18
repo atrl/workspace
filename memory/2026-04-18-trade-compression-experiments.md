@@ -8,9 +8,9 @@ profiles:
 status: reference
 tags:
 - balanced_floor40_sym
-- completed
 - eval-2022
 - experiment
+- reference
 - rule-based
 - soxl
 - stress-regime

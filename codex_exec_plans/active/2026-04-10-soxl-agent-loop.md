@@ -258,6 +258,32 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
     - isolate checkpoint-selection bias from feature/reward churn by rerunning canonical `balanced` behavior under explicit staged checkpointing
   - saved summary:
     - `artifacts/models/soxl_balanced_checkpoint_review_summary.json`
+
+## RL module migration 2026-04-18 23:xx
+
+- Goal:
+  - finish the next real decomposition pass so `src/soxl_quant/rl.py` stops being the implementation bucket
+  - move policy environment, reward, model builders, and evaluation into `src/soxl_quant/policy/`
+- Scope:
+  - add `src/soxl_quant/policy/environment.py` for simulator/state/action/episode sampling
+  - move `ContinuousReward` into `policy/reward.py`
+  - move `RegimeMoENet`, `TiDENet`, `QNetwork`, `SoxlPPOPolicy` into `policy/models/`
+  - move `build_policy` and `actor_action` into `policy/policy_builder.py`
+  - move `evaluate_split` into `policy/evaluation.py`
+  - leave `src/soxl_quant/rl.py` as compatibility exports only
+- Commands:
+  - `PYTHONPATH=. qlib_venv/bin/python -m py_compile src/soxl_quant/rl.py src/soxl_quant/policy/environment.py src/soxl_quant/policy/reward.py src/soxl_quant/policy/policy_builder.py src/soxl_quant/policy/evaluation.py src/soxl_quant/policy/models/moe.py src/soxl_quant/policy/models/tide.py`
+  - `PYTHONPATH=. qlib_venv/bin/python - <<'PY' ... imports-ok ... PY`
+  - `PYTHONPATH=. qlib_venv/bin/python scripts/check_harness.py`
+- Validation evidence:
+  - all migrated policy modules compile
+  - legacy imports still resolve to the new implementations: `imports-ok True True True True`
+  - `scripts/check_harness.py`: `passed=32 failures=0`
+  - `RESULT_PNG` was checked and remains live in `src/soxl_quant/backtest.py` plus the legacy CLI output path; it is not safe dead code yet
+- Keep / drop decision:
+  - keep `rl.py` as a thin facade only
+  - keep result artifact path constants for now
+  - next cleanup can move result output ownership from legacy settings/constants into `core/artifacts.py`, but that is separate from this decomposition pass
   - saved review:
     - `runtime/post_train_review/balanced_checkpoint_review.md`
     - `runtime/post_train_review/balanced_checkpoint_review_vs_balanced.md`
