@@ -381,6 +381,7 @@ class SoxlSimulator(Simulator):
         self.max_val = self.cash0
         self.last_turnover = 0.0
         self.last_step_return = 0.0
+        self.last_market_return = 0.0
         self.flat_steps = 0
         self.prev_regime_risk = 0.0
         self.prev_drawdown = 0.0
@@ -442,6 +443,7 @@ class SoxlSimulator(Simulator):
         self.max_val = max(self.max_val, self.val)
         self.last_turnover = turnover
         self.last_step_return = net_ret
+        self.last_market_return = next_ret
         self.flat_steps = 0 if turnover > 0.02 else self.flat_steps + 1
         self.ledger.update(self.pos, action, price)
         # Set cooldown if increasing position (rule-based inspired)
@@ -516,6 +518,7 @@ class SoxlSimulator(Simulator):
             "regime_delta": regime_delta,
             "flat_steps": float(self.flat_steps),
             "prev_pos": self.prev_pos,
+            "market_return": self.last_market_return,
             "trade_lock": float(self.trade_lock),
             "buy_cooldown": float(self.buy_cooldown),
             "done": False,
@@ -611,8 +614,19 @@ class ContinuousReward(Reward):
         trapped_loser = max(holding_age - 0.22, 0.0) * max(-avg_entry_pnl - 0.02, 0.0) * max(-high_gap - 0.03, 0.0)
 
         # === 核心收益项 ===
-        # === 核心收益项 ===
-        reward = pnl_ret * 100.0 * cfg.return_scale
+        if cfg.use_marginal_reward:
+            # Marginal Expectancy Reward: 只奖励这笔调仓带来的边际价值
+            # 不调仓的基准收益 = prev_pos * market_return
+            # 实际净收益 = step_return（已含 0.1% 成本）
+            # 边际收益 = 实际净收益 - 不调仓基准
+            market_return = float(state.get("market_return", 0.0))
+            prev_pos = float(state.get("prev_pos", pos))
+            step_return = float(state.get("step_return", 0.0))
+            hold_return = prev_pos * market_return
+            marginal_return = step_return - hold_return
+            reward = marginal_return * 100.0 * cfg.return_scale * cfg.marginal_return_scale
+        else:
+            reward = pnl_ret * 100.0 * cfg.return_scale
 
         # === PBRS (Potential-Based Reward Shaping) ===
         # 以 -drawdown 为 potential，理论上不改变最优策略，但能加速学习
@@ -621,8 +635,11 @@ class ContinuousReward(Reward):
         reward += pbrs_delta * cfg.pbrs_coef
 
         # === 交易成本与换手率惩罚 ===
-        reward -= turnover * cfg.transaction_cost * 100.0          # 直接交易成本
-        reward -= turnover * cfg.turnover_penalty                  # 额外换手惩罚
+        if not cfg.use_marginal_reward:
+            # 直接交易成本：在 aggregate reward 模式下需要显式扣除
+            reward -= turnover * cfg.transaction_cost * 100.0
+        # 额外换手惩罚（marginal 模式下仍保留，作为对高频交易的二次约束）
+        reward -= turnover * cfg.turnover_penalty
         reward -= (turnover**2) * cfg.smoothness_penalty           # 鼓励平滑、减少日内反复
         # 动态 activity bonus：只在市场 regime 明显切换或高波动时才奖励换手
         if cfg.gated_activity_bonus:

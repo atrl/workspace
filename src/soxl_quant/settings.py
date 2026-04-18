@@ -67,6 +67,9 @@ class RewardConfig:
     # tranche-aware profit-taking / underwater-sell guardrails
     underwater_sell_penalty: float = 0.0
     tranche_profit_threshold: float = 0.03
+    # marginal expectancy reward: reward = marginal_pnl instead of aggregate pnl
+    use_marginal_reward: bool = False
+    marginal_return_scale: float = 1.0
 
 
 @dataclass(frozen=True)
