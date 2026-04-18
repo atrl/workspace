@@ -2,7 +2,7 @@
 
 Status: active
 Owner: Codex
-Last updated: 2026-04-18 00:02 CST
+Last updated: 2026-04-18 09:20 CST
 
 ## Goal
 
@@ -47,12 +47,20 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
   - `balanced_transition_state`
 - Result:
   - dropped from mainline
-- Keep / drop:
-  - keep the diagnostic conclusion
-  - drop this first transition-feature batch from the shared default feature schema
-- Next direction:
-  - revisit transition awareness in smaller gated batches rather than widening the base feature schema all at once
-  - preserve canonical `balanced` as the mainline baseline
+- Next branch:
+  - `balanced_stress_release_delta`
+- Hypothesis:
+  - the useful part of transition awareness may be specifically the speed of stress release, not the full mixed transition bundle
+- Scope:
+  - add only:
+    - `regime_risk_delta_5`
+    - `vol_stress_score_delta_5`
+    - `downside_ratio_10_delta_5`
+  - keep canonical `balanced` reward, cap, and selection rules unchanged
+- Acceptance bar:
+  - any improvement in `2022-07`, `2022-11`, or `2023-01` must not come with another broad jump in full `test_2022 avg_pos`
+  - prefer `test_2022 avg_pos <= 0.33`
+  - avoid further `test_proxy_sharpe` degradation versus canonical `balanced`
 
 ## Validation harness
 
@@ -139,9 +147,41 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
   - Completed `balanced_transition_state` and dropped it from the default code path: the new features slightly improved a few rebound windows, but they materially worsened full `2022` risk and total proxy drawdown versus canonical `balanced`.
 - 2026-04-18 00:02:
   - Added `scripts/export_profile_daily_backtest.py` so post-train reviews can export daily SOXL replay rows from saved artifacts without relying on brittle stdin-based qlib snippets.
+- 2026-04-18 09:20:
+  - Completed `balanced_stress_release_delta` and dropped it from the default code path: three narrow stress-release delta features improved a few rebound windows, but they still raised `2022` exposure and broke fixed-split promotion gates versus canonical `balanced`.
+- 2026-04-18 09:20:
+  - The repeated transition-feature failures strengthen the generic optimization order in the review skill: next loop should favor fixed-actor execution/risk overlays and checkpoint-selection review before adding more state features.
 
 ## Current run
 
+- Latest completed run:
+  - `balanced_stress_release_delta`
+  - command:
+    - `qlib_venv/bin/python soxl_qlib_strategy_v2.py --profiles balanced_stress_release_delta --skip-data-refresh --seed 20260411`
+  - purpose:
+    - test whether only stress-release speed features can repair rebound and restart recognition without the broader transition bundle
+  - outcome:
+    - not promotable
+    - dropped from mainline after review
+  - saved summary:
+    - `artifacts/models/soxl_balanced_stress_release_delta_summary.json`
+  - fixed-split vs canonical `balanced`:
+    - validation score `61.42 -> 87.01`
+    - test proxy return `468.90% -> 459.62%`
+    - test proxy Sharpe `0.858 -> 0.819`
+    - test proxy maxDD `50.18% -> 57.44%`
+    - `2022` return `-25.82% -> -37.38%`
+    - `2022` maxDD `33.04% -> 45.51%`
+    - `2022` avg_pos `0.283 -> 0.410`
+  - target-window replay deltas vs canonical `balanced`:
+    - `2020-04`: excess `-51.20% -> -51.18%`, avg_pos `0.261 -> 0.268`
+    - `2022-07`: excess `-52.98% -> -52.79%`, avg_pos `0.302 -> 0.293`
+    - `2022-11`: excess `-33.98% -> -32.31%`, avg_pos `0.433 -> 0.517`
+    - `2023-01`: excess `-33.32% -> -32.15%`, avg_pos `0.471 -> 0.481`
+  - interpretation:
+    - unlike the broader transition bundle, the narrow deltas do help a few rebound windows a little
+    - but the useful signal is still being expressed mainly as higher willingness to hold risk, not as cleaner transition discrimination
+    - that trade-off is not acceptable because it breaks both `test_2022_avg_pos` and `test_2022_max_dd`
 - Latest completed run:
   - `balanced_transition_state`
   - command:
@@ -209,6 +249,12 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
   - qlib training/backtest lifecycle still does not shut down cleanly under the current Python 3.14 environment
   - the final walk-forward `2024` window remains partially blocked by this non-clean exit pattern
   - balanced retrains still cannot be relied on to persist artifacts after full trainer completion
+- Next action:
+  - do not add more transition features immediately
+  - run a counterfactual execution-layer loop on the canonical `balanced` actor:
+    - tighten stress-side de-risking only during high `regime_risk` / `vol_stress_score` states
+    - test whether rebound windows can be preserved with a faster risk re-entry schedule that does not raise full-window `2022` average exposure
+  - in parallel, review whether checkpoint choice should bias earlier than the current full-run endpoint when validation jumps but OOS stress slices degrade
 - Latest training check: `balanced_floor40_sym_bear30` vs `balanced_floor40_sym` vs canonical `balanced`:
   - command:
     - `qlib_venv/bin/python soxl_qlib_strategy_v2.py --profiles balanced_floor40_sym_bear30 --skip-data-refresh --seed 20260411`
