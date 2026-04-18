@@ -2,7 +2,7 @@
 
 Status: active
 Owner: Codex
-Last updated: 2026-04-18 12:17 CST
+Last updated: 2026-04-18 16:26 CST
 
 ## Goal
 
@@ -1910,3 +1910,87 @@ Created `balanced_budget.yaml` with `max_iters=50`. However, the log file was ac
     - `test_2022 max_dd`
     - `test_2022 avg_pos`
     - `test_proxy sharpe`
+
+## Phase-balanced training loop 2026-04-18 16:26
+
+- Goal:
+  - stop optimizing only around `2022`
+  - test whether the training procedure itself is under-covering the bull / rebound regimes that drive weak excess in `2023-2025`
+  - keep canonical `balanced` reward, cap, and actor structure fixed, and change only the episode construction / sampling path
+- Procedure:
+  - extended `SamplingConfig` with phase-balanced controls:
+    - `phase_balanced`
+    - `trend_repeat`
+    - `rebound_repeat`
+    - `episode_stride`
+    - bull / rebound classification thresholds
+  - changed `build_initial_states()`:
+    - support rolling overlapping windows via `episode_stride`
+    - repeat not only stress windows, but also:
+      - bull-trend windows
+      - rebound / restart windows where long damage remains but short trend and risk release improve
+  - added `configs/soxl/balanced_phase_sampling_v1.yaml`
+  - added tests proving:
+    - overlapping windows are generated
+    - phase-balanced sampling oversamples rebound and bull windows
+  - fixed an outdated reward test whose assertion no longer matched the current reward implementation
+  - validated with:
+    - `qlib_venv/bin/python scripts/check_harness.py`
+  - trained with:
+    - `qlib_venv/bin/python soxl_qlib_strategy_v2.py --profiles balanced_phase_sampling_v1 --skip-data-refresh --seed 20260411`
+  - generated reviews:
+    - `qlib_venv/bin/python scripts/checkpoint_review.py --summary artifacts/models/soxl_balanced_phase_sampling_v1_summary.json --output runtime/post_train_review/balanced_phase_sampling_v1.md`
+    - `qlib_venv/bin/python .codex/skills/post-train-backtest-review/scripts/compare_backtests.py --latest artifacts/models/soxl_balanced_phase_sampling_v1_summary.json --previous artifacts/models/soxl_balanced_summary.json --output runtime/post_train_review/balanced_phase_sampling_v1_vs_balanced.md`
+    - `qlib_venv/bin/python .codex/skills/post-train-backtest-review/scripts/compare_backtests.py --latest artifacts/models/soxl_balanced_phase_sampling_v1_summary.json --previous artifacts/models/soxl_balanced_reward_guard_summary.json --output runtime/post_train_review/balanced_phase_sampling_v1_vs_reward_guard.md`
+    - `qlib_venv/bin/python scripts/diagnosis_phase1_phase2.py`
+- Evidence:
+  - harness evidence:
+    - `scripts/check_harness.py => passed=32 failures=0`
+  - training distribution:
+    - initial state collection size increased to `36`
+    - this confirms rolling windows plus phase-balanced repeats materially expanded the train sample coverage
+  - selection history:
+    - `iter 0 = 65.92`
+    - `iter 20 = 80.84`
+    - `iter 40 = 72.67`
+    - `iter 60 = 74.24`
+    - `iter 80 = 77.92`
+    - best checkpoint shifted to `iter 20`, not the final stage
+  - fixed split:
+    - `test_2020 = 121.83% / Sharpe 2.19 / MaxDD 22.21% / avg_pos 0.619`
+    - `test_2022 = -40.67% / Sharpe -1.22 / MaxDD 47.50% / avg_pos 0.364`
+    - `test_2023_2024 = 41.67% / Sharpe 0.64 / MaxDD 41.66% / avg_pos 0.572`
+    - `test_proxy = 306.89% / Sharpe 0.705 / MaxDD 63.94% / avg_pos 0.560`
+  - 2025-focused annual diagnosis from latest detailed replay:
+    - `2025` strategy return `35.98%` vs buy-and-hold `46.86%`, excess `-10.88%`
+    - worst quarters still include:
+      - `2025-Q2 = -35.59% excess / avg_pos 30.30%`
+      - `2025-Q3 = -22.45% excess / avg_pos 47.60%`
+  - comparison versus canonical `balanced`:
+    - `2020` improved:
+      - return `96.96 -> 121.83`
+    - but both target problem windows worsened:
+      - `2022 maxDD 33.04 -> 47.50`
+      - `2022 avg_pos 0.283 -> 0.364`
+      - `2023-2024 return 43.52 -> 41.67`
+      - `2023-2024 maxDD 33.87 -> 41.66`
+    - proxy quality deteriorated materially:
+      - return `468.90 -> 306.89`
+      - Sharpe `0.858 -> 0.705`
+  - interpretation from annual quarter diagnosis:
+    - `2024-2025` underperformance did not come from "missing bull samples" alone
+    - after broadening bull / rebound sampling, the actor mostly responded by raising exposure globally
+    - that higher exposure still failed to convert into better `2023-2025` excess and also broke `2022`
+- Decision:
+  - keep:
+    - rolling-window episode support
+    - phase-balanced sampling controls in the harness
+    - annual quarter diagnosis as a standard post-train cross-check when users ask about `2025`
+  - drop:
+    - `balanced_phase_sampling_v1` as a promotable branch
+    - the assumption that broader bull/rebound sampling alone solves the post-2022 excess problem
+- Next action:
+  - do not widen training distribution again without adding a second control layer
+  - the next training-method loop should combine:
+    - early-stop / checkpoint selection anchored around the `iter 20` peak
+    - and a tighter mechanism that preserves a core trend position without letting full-window exposure drift upward everywhere

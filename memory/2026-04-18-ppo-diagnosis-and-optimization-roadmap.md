@@ -1,4 +1,31 @@
+---
+date: '2026-04-18'
+title: "PPO \u8BCA\u65AD\u62A5\u544A\u4E0E\u4F18\u5316\u8DEF\u7EBF\u56FE"
+kind: review
+profiles:
+- smoke
+status: reference
+tags:
+- reference
+- review
+- rule-based
+- smoke
+artifacts: []
+workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+summary: "Legacy memory note normalized into the repo-wide schema. > \u65E5\u671F\
+  : 2026-04-18 > \u80CC\u666F: RL \u65E0\u6CD5\u8D85\u8D8A rule-based  baseline (688.6%)\uFF0C\
+  \u6000\u7591 PPO \u672C\u8EAB\u5B58\u5728\u7ED3\u6784\u6027\u95EE\u9898 | \u7814\
+  \u7A76 | \u7B97\u6CD5\u6BD4\u8F83 | \u5173\u952E\u7ED3\u8BBA | |------|---------|---------|\
+  \ | **FinRL Contest 2023-2024 Review** (Holzer et al., 20"
+---
+
 # PPO 诊断报告与优化路线图
+
+## Context
+
+Legacy memory note normalized into the repo-wide schema.
+
+## Evidence
 
 > 日期: 2026-04-18
 > 背景: RL 无法超越 rule-based  baseline (688.6%)，怀疑 PPO 本身存在结构性问题
@@ -39,7 +66,6 @@
 ### 问题 1：Actor 和 Critic 共享网络（最严重）
 
 ```python
-# 当前代码 (rl.py:1240-1242)
 net = TiDENet(...)  # 或 MLP
 actor = Actor(net, n_actions, device="cpu")
 critic = Critic(net, device="cpu")  # 共享同一个 net！
@@ -160,3 +186,11 @@ optim = torch.optim.Adam(list(actor.parameters()) + list(critic.parameters()), l
 - 跑 smoke 对比：current PPO vs 分离网络 PPO vs SAC-Discrete
 - 如果分离网络 PPO 有显著提升 → 问题在网络架构
 - 如果 SAC-Discrete 显著超越两者 → 问题是 PPO 算法本身
+
+## Decision
+
+See the summary and status fields in front matter.
+
+## Next Use
+
+Use `scripts/memory_search.py` before opening additional memory files.

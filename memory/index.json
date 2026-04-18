@@ -652,6 +652,36 @@
     "excerpt": "# 2026-04-18 checkpoint review and overlay loop ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## Goal Compress the search space before starting another broad retrain by answering two questions: 1. is the current bottleneck partly just checkpoint-"
   },
   {
+    "path": "memory/2026-04-18-decision-freq-marginal-reward.md",
+    "date": "2026-04-18",
+    "title": "2026-04-18: Decision Frequency=3 中等训练验证 + Period-Aware Marginal Reward",
+    "kind": "decision",
+    "profiles": [
+      "balanced",
+      "balanced_decision_freq_quick",
+      "smoke",
+      "smoke_decision_freq",
+      "smoke_marginal_freq",
+      "soxl"
+    ],
+    "status": "reference",
+    "tags": [
+      "balanced",
+      "balanced_decision_freq_quick",
+      "decision",
+      "eval-2022",
+      "reference",
+      "smoke",
+      "smoke_decision_freq",
+      "smoke_marginal_freq",
+      "soxl"
+    ],
+    "artifacts": [],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Legacy memory note normalized into the repo-wide schema. 1. 验证 decision_frequency=3 在 20-iters 中等训练下的稳定性 2. 实现并验证 Period-Aware Marginal Reward（跨周期 alpha reward） | Metric | Value | vs Canonical Balanced | |--------|-------|------------------",
+    "excerpt": "# 2026-04-18: Decision Frequency=3 中等训练验证 + Period-Aware Marginal Reward ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## 实验目标 1. 验证 decision_frequency=3 在 20-iters 中等训练下的稳定性 2. 实现并验证 Period-Aware Marginal Reward（跨周期 alpha reward） ## 结果汇总 ### Fre"
+  },
+  {
     "path": "memory/2026-04-18-harness-cleanup-and-memory-index.md",
     "date": "2026-04-18",
     "title": "2026-04-18: harness cleanup, indexed memory retrieval, and soft artifact prune",
@@ -679,6 +709,61 @@
     "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
     "summary": "Replaced the broken pytest expectation with a repo-owned check_harness entrypoint, normalized memory into front-matter plus index.json, deleted low-value scripts and superseded actor checkpoints, and upgraded the static dashboard with evidence navigation and persisted state.",
     "excerpt": "# 2026-04-18: harness cleanup, indexed memory retrieval, and soft artifact prune ## Context The repo had accumulated three classes of avoidable friction: - docs still implied `pytest` was the default check path even though `qlib_venv` did not ship it - `memory/` had drifted into "
+  },
+  {
+    "path": "memory/2026-04-18-phase-balanced-training-failure.md",
+    "date": "2026-04-18",
+    "title": "2026-04-18 phase-balanced training failure",
+    "kind": "failure",
+    "profiles": [
+      "balanced",
+      "balanced_phase_sampling_v1",
+      "balanced_phase_sampling_v1_vs_balanced",
+      "balanced_phase_sampling_v1_vs_reward_guard"
+    ],
+    "status": "dropped",
+    "tags": [
+      "balanced",
+      "balanced_phase_sampling_v1",
+      "balanced_phase_sampling_v1_vs_balanced",
+      "balanced_phase_sampling_v1_vs_reward_guard",
+      "checkpoint-selection",
+      "dropped",
+      "eval-2022",
+      "failure",
+      "stress-regime"
+    ],
+    "artifacts": [
+      "artifacts/models/soxl_balanced_phase_sampling_v1_summary.json",
+      "artifacts/models/soxl_balanced_reward_guard_summary.json",
+      "artifacts/models/soxl_balanced_summary.json",
+      "runtime/post_train_review/balanced_phase_sampling_v1.md",
+      "runtime/post_train_review/balanced_phase_sampling_v1_vs_balanced.md",
+      "runtime/post_train_review/balanced_phase_sampling_v1_vs_reward_guard.md"
+    ],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "A training-procedure experiment widened episode coverage with overlapping windows plus phase-balanced oversampling for stress, rebound, and bull-trend regimes. The broader sampling materially changed training (`36` episodes, best checkpoint at `iter 20`), but it did not repair post-2022 excess. `2025` still lagged buy-and-hold by `-10.88%`, `2023-2024` degraded on both return and drawdown, and `2022` broke badly (`47.50%` maxDD, `0.364` avg_pos). Keep the harness support, but drop the branch and do not assume broader bull sampling alone fixes the style gap.",
+    "excerpt": "# 2026-04-18 phase-balanced training failure ## Context The user called out that the problem is not only `2022`: excess in `2023`, `2024`, and `2025` has also been weak. This loop tested whether the training procedure itself was too stress-heavy and under-covering bull / restart "
+  },
+  {
+    "path": "memory/2026-04-18-ppo-diagnosis-and-optimization-roadmap.md",
+    "date": "2026-04-18",
+    "title": "PPO 诊断报告与优化路线图",
+    "kind": "review",
+    "profiles": [
+      "smoke"
+    ],
+    "status": "reference",
+    "tags": [
+      "reference",
+      "review",
+      "rule-based",
+      "smoke"
+    ],
+    "artifacts": [],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Legacy memory note normalized into the repo-wide schema. > 日期: 2026-04-18 > 背景: RL 无法超越 rule-based  baseline (688.6%)，怀疑 PPO 本身存在结构性问题 | 研究 | 算法比较 | 关键结论 | |------|---------|---------| | **FinRL Contest 2023-2024 Review** (Holzer et al., 20",
+    "excerpt": "# PPO 诊断报告与优化路线图 ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence > 日期: 2026-04-18 > 背景: RL 无法超越 rule-based baseline (688.6%)，怀疑 PPO 本身存在结构性问题 --- ## 一、核心发现：PPO 在金融 Trading 中确实表现较差 ### 1.1 多篇独立研究确认 PPO 的劣势 | 研究 | 算法比较 | 关键结论 | |------|---------|----"
   },
   {
     "path": "memory/2026-04-18-stress-release-delta-failure.md",

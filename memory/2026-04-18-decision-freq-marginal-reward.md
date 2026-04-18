@@ -1,4 +1,42 @@
+---
+date: '2026-04-18'
+title: "2026-04-18: Decision Frequency=3 \u4E2D\u7B49\u8BAD\u7EC3\u9A8C\u8BC1 + Period-Aware\
+  \ Marginal Reward"
+kind: decision
+profiles:
+- balanced
+- balanced_decision_freq_quick
+- smoke
+- smoke_decision_freq
+- smoke_marginal_freq
+- soxl
+status: reference
+tags:
+- balanced
+- balanced_decision_freq_quick
+- decision
+- eval-2022
+- reference
+- smoke
+- smoke_decision_freq
+- smoke_marginal_freq
+- soxl
+artifacts: []
+workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+summary: "Legacy memory note normalized into the repo-wide schema. 1. \u9A8C\u8BC1\
+  \ decision_frequency=3 \u5728 20-iters \u4E2D\u7B49\u8BAD\u7EC3\u4E0B\u7684\u7A33\
+  \u5B9A\u6027 2. \u5B9E\u73B0\u5E76\u9A8C\u8BC1 Period-Aware Marginal Reward\uFF08\
+  \u8DE8\u5468\u671F alpha reward\uFF09 | Metric | Value | vs Canonical Balanced |\
+  \ |--------|-------|------------------"
+---
+
 # 2026-04-18: Decision Frequency=3 中等训练验证 + Period-Aware Marginal Reward
+
+## Context
+
+Legacy memory note normalized into the repo-wide schema.
+
+## Evidence
 
 ## 实验目标
 1. 验证 decision_frequency=3 在 20-iters 中等训练下的稳定性
@@ -43,3 +81,11 @@ reward/freq 设置。
 2. **最高 ROI 方向**：回到 freq=1，但用 Period-Aware Marginal Reward
    改进 reward 设计（在日频下需要放大 signal）。
 3. **Marginal Reward 的 theory 仍然 valid**，但需更高 scale 和更长训练。
+
+## Decision
+
+See the summary and status fields in front matter.
+
+## Next Use
+
+Use `scripts/memory_search.py` before opening additional memory files.
