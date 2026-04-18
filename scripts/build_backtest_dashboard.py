@@ -1931,9 +1931,9 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
 
       const traces = [];
       const xa = 'x', ya = 'y';
-      const xa2 = 'x2', ya2 = 'y2';
-      const xa3 = 'x3', ya3 = 'y3';
-      const xa4 = 'x4', ya4 = 'y4';
+      const xa2 = 'x2', ya2 = 'y3';
+      const xa3 = 'x3', ya3 = 'y4';
+      const xa4 = 'x4', ya4 = 'y5';
 
       traces.push({{
         x: dates, y: strategyNav,
