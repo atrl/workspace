@@ -161,6 +161,7 @@ class EpisodeConfig(NamedTuple):
     observation_window: int = 1
     decision_frequency: int = 1
     nday_window: int = 5
+    execution_config: Optional[ExecutionConfig] = None
 
 
 def action_levels_for_profile(profile: Optional[StrategyConfig]) -> np.ndarray:
@@ -428,6 +429,7 @@ class SoxlSimulator(Simulator):
         self.ledger = TrancheLedger()
         self.decision_frequency = max(int(getattr(initial, "decision_frequency", 1)), 1)
         self.nday_window = max(int(getattr(initial, "nday_window", 5)), 1)
+        self.exec_cfg = initial.execution_config or DEFAULT_EXECUTION
         # Period-aware marginal reward tracking
         self.period_start_val = self.cash0
         self.period_baseline_val = self.cash0
@@ -485,6 +487,7 @@ class SoxlSimulator(Simulator):
             float(np.nan_to_num(row["realized_vol_10"])),
             abs(float(np.nan_to_num(row["trend_gap_21"]))),
             direction=direction,
+            config=self.exec_cfg,
         )
         # Trade lock takes precedence over any action change
         if self.trade_lock > 0:
@@ -517,15 +520,23 @@ class SoxlSimulator(Simulator):
         self.ledger.update(self.pos, action, price)
         # Set cooldown if increasing position (rule-based inspired)
         if action > self.pos + 1e-6:
-            if cum_drop_30 < -0.15:
-                # Deep cumulative drop => long cooldown (up to ~20 days)
-                self.buy_cooldown = min(20, max(3, int(abs(cum_drop_30) * 30)))
-            else:
-                self.buy_cooldown = 1
+            regime = execution_regime(
+                float(np.nan_to_num(row["regime_risk"])),
+                float(np.nan_to_num(row["realized_vol_10"])),
+                abs(float(np.nan_to_num(row["trend_gap_21"]))),
+                config=self.exec_cfg,
+            )
+            self.buy_cooldown = execution_buy_cooldown_days(cum_drop_30, self.exec_cfg, regime)
         # Trade lock: freeze position for N days after any material trade
         turnover = abs(action - self.pos)
-        if turnover > 0.02:
-            self.trade_lock = 3
+        if turnover > self.exec_cfg.min_trade_turnover:
+            regime = execution_regime(
+                float(np.nan_to_num(row["regime_risk"])),
+                float(np.nan_to_num(row["realized_vol_10"])),
+                abs(float(np.nan_to_num(row["trend_gap_21"]))),
+                config=self.exec_cfg,
+            )
+            self.trade_lock = execution_trade_lock_days(self.exec_cfg, regime)
         self.pos = action
         self.idx += 1
         # N-day reward tracking
@@ -905,6 +916,7 @@ def build_initial_states(
                 observation_window=observation_window,
                 decision_frequency=decision_frequency,
                 nday_window=nday_window,
+                execution_config=profile.execution,
             )
             all_states.append(state)
             segment = df.iloc[start_idx:end_idx]

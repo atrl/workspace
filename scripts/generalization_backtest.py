@@ -36,6 +36,7 @@ from src.soxl_quant.settings import (
     TEST_SEG,
     TRAIN_SEG,
     VALID_SEG,
+    ExecutionConfig,
     PositionCapConfig,
     StrategyConfig,
     load_profile,
@@ -100,6 +101,7 @@ def run_etf_backtest(
     actor,
     position_cap_config: PositionCapConfig,
     test_seg: tuple[str, str],
+    execution_config: ExecutionConfig | None = None,
 ) -> dict:
     csv_path = DATA_DIR / f"{etf.lower()}_with_underlying_vix.csv"
     qlib_dir = QLIB_RUNTIME / etf.lower()
@@ -138,6 +140,7 @@ def run_etf_backtest(
         feature_df=test_df,
         price_series=price,
         position_cap_config=position_cap_config,
+        execution_config=execution_config,
         symbol=etf,
         asset_idx=asset_idx,
         test_seg=test_seg,
@@ -212,6 +215,7 @@ def main():
                 actor=actor,
                 position_cap_config=profile.position_cap,
                 test_seg=TEST_SEG,
+                execution_config=profile.execution,
             )
             raw_results[etf] = result
             print(f"Result: return={result['return']:.2f}% sharpe={result['sharpe']:.3f} max_dd={result['max_dd']:.2f}% trades={result['trades']}")
