@@ -396,6 +396,11 @@ class SoxlSimulator(Simulator):
         self.obs_dim = len(FEATURE_COLUMNS) * self.observation_window + EXTRA_OBS_DIM + N_ASSETS
         self.ledger = TrancheLedger()
         self.decision_frequency = max(int(getattr(initial, "decision_frequency", 1)), 1)
+        # Period-aware marginal reward tracking
+        self.period_start_val = self.cash0
+        self.period_baseline_val = self.cash0
+        self.period_start_pos = 0.0
+        self._is_decision_day = True
 
     def step(self, action: float) -> None:
         """执行一步模拟。
@@ -419,11 +424,18 @@ class SoxlSimulator(Simulator):
         # === Decision frequency: non-decision days force hold ===
         is_decision_day = True
         if self.decision_frequency > 1:
-            # 从 lookback 后的第一天开始计数
             days_since_start = self.idx - self.lookback
             if days_since_start % self.decision_frequency != 0:
                 is_decision_day = False
                 action = self.pos  # 强制不调仓
+        
+        # === Period tracking for marginal reward ===
+        # On decision day, snapshot the start of a new evaluation period
+        if is_decision_day:
+            self.period_start_val = self.val
+            self.period_start_pos = self.pos
+            self.period_baseline_val = self.val
+        self._is_decision_day = is_decision_day
         
         row = self.df.iloc[self.idx]
         price = float(self.price_path[self.idx])
@@ -462,6 +474,8 @@ class SoxlSimulator(Simulator):
         self.last_step_return = net_ret
         self.last_market_return = next_ret
         self.flat_steps = 0 if turnover > 0.02 else self.flat_steps + 1
+        # Update baseline: what holding period_start_pos would have yielded
+        self.period_baseline_val *= 1.0 + self.period_start_pos * next_ret
         self.ledger.update(self.pos, action, price)
         # Set cooldown if increasing position (rule-based inspired)
         if action > self.pos + 1e-6:
@@ -538,6 +552,8 @@ class SoxlSimulator(Simulator):
             "market_return": self.last_market_return,
             "trade_lock": float(self.trade_lock),
             "buy_cooldown": float(self.buy_cooldown),
+            "period_alpha": (self.val - self.period_baseline_val) / self.period_start_val if self.period_start_val > 0 else 0.0,
+            "is_decision_day": 1.0 if self._is_decision_day else 0.0,
             "done": False,
         }
 
@@ -638,13 +654,14 @@ class ContinuousReward(Reward):
             safe_ret = max(pnl_ret, -0.999)  # 避免 wealth 接近 0 时 log → -∞
             reward = math.log(1.0 + safe_ret) * 100.0 * cfg.return_scale * cfg.log_reward_scale
         elif cfg.use_marginal_reward:
-            # Marginal Expectancy Reward: 只奖励这笔调仓带来的边际价值
-            market_return = float(state.get("market_return", 0.0))
-            prev_pos = float(state.get("prev_pos", pos))
-            step_return = float(state.get("step_return", 0.0))
-            hold_return = prev_pos * market_return
-            marginal_return = step_return - hold_return
-            reward = marginal_return * 100.0 * cfg.return_scale * cfg.marginal_return_scale
+            # Period-Aware Marginal Reward: 跨周期 alpha = 实际收益 - 基准收益
+            # 只在决策日发放 reward（非决策日 action 被强制覆盖，没有"决策"价值）
+            period_alpha = float(state.get("period_alpha", 0.0))
+            is_decision_day = float(state.get("is_decision_day", 1.0))
+            if is_decision_day > 0.5:
+                reward = period_alpha * 100.0 * cfg.return_scale * cfg.marginal_return_scale
+            else:
+                reward = 0.0
         else:
             reward = pnl_ret * 100.0 * cfg.return_scale
 
