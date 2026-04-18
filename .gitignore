@@ -51,6 +51,10 @@ runtime/*
 !runtime/generalization/
 runtime/generalization/*
 !runtime/generalization/dashboard.html
+!runtime/diagnosis/
+runtime/diagnosis/*
+!runtime/diagnosis/*.md
+!runtime/diagnosis/*.json
 
 # Artifacts / generated outputs
 artifacts/
