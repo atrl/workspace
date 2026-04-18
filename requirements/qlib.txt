@@ -111,6 +111,7 @@ mlflow-skinny==3.11.1
 mlflow-tracing==3.11.1
 mpmath==1.3.0
 multidict==6.7.1
+narwhals==2.19.0
 nbclient==0.10.4
 nbconvert==7.17.1
 nbformat==5.10.4
@@ -135,6 +136,7 @@ pettingzoo==1.25.0
 pexpect==4.9.0
 pillow==12.2.0
 platformdirs==4.9.6
+plotly==6.7.0
 prettytable==3.17.0
 prometheus_client==0.25.0
 prompt_toolkit==3.0.52
