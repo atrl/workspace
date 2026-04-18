@@ -1752,3 +1752,54 @@ Created `balanced_budget.yaml` with `max_iters=50`. However, the log file was ac
   - move the next loop one layer deeper than selection by changing the optimization target itself:
     - either add explicit downside / drawdown cost in reward
     - or train against a richer stress set than the current validation stress-days summary
+
+## Reward-only guard loop 2026-04-18 11:29
+
+- Goal:
+  - test whether a stricter training objective alone can recover `2022` exposure control without changing cap logic, feature schema, or selection scoring
+  - avoid another selector-only loop by moving one layer deeper into the optimization target
+- Procedure:
+  - added `configs/soxl/balanced_reward_guard.yaml`
+  - kept `position_cap` identical to canonical `balanced`
+  - kept `selection_score` identical to canonical `balanced`
+  - changed only reward weights toward crisis defense:
+    - higher `drawdown_penalty`, `downside_penalty`, `risk_budget_penalty`, `high_exposure_penalty`, `smoothness_penalty`
+    - lower upside-chasing terms such as `activity_bonus`, `opportunity_cost_penalty`, and `panic_buy_bonus`
+    - enabled tranche loss guardrail via `underwater_sell_penalty: 0.20`
+  - registered the profile in `src/soxl_quant/cli.py`
+  - validated with:
+    - `qlib_venv/bin/python scripts/check_harness.py`
+  - launched training:
+    - `qlib_venv/bin/python soxl_qlib_strategy_v2.py --profiles balanced_reward_guard --skip-data-refresh --seed 20260411`
+- Evidence:
+  - config validation passed:
+    - `tests/test_checkpoint_review_assets.py: ok (4 checks)`
+    - `scripts/check_harness.py => passed=25 failures=0`
+  - trained with:
+    - `qlib_venv/bin/python soxl_qlib_strategy_v2.py --profiles balanced_reward_guard --skip-data-refresh --seed 20260411`
+  - final validation:
+    - `return 55.81% / sharpe 1.552 / maxDD 29.36% / avg_pos 0.604`
+    - validation score `83.32`, higher than both canonical `balanced` and the selector-only branches
+  - fixed split:
+    - `test_2022 = -36.00% / Sharpe -0.719 / MaxDD 47.36% / avg_pos 0.412`
+    - `test_proxy = 523.36% / Sharpe 0.830 / MaxDD 62.27% / avg_pos 0.559`
+  - comparison:
+    - versus `balanced`:
+      - `test_2022 maxDD 33.04 -> 47.36`
+      - `test_2022 avg_pos 0.283 -> 0.412`
+      - `test_proxy Sharpe 0.858 -> 0.830`
+    - versus `balanced_stress_select_v2`:
+      - `test_proxy maxDD 63.28 -> 62.27`
+      - `test_2022 maxDD 46.28 -> 47.36`
+      - `test_2022 avg_pos 0.398 -> 0.412`
+  - harness gap exposed:
+    - non-staged `selection_history` previously duplicated final metrics at both `iter 0` and `iter max_iters`
+    - patched `src/soxl_quant/cli.py` so future non-staged runs record a true pre-train baseline and restore baseline weights if they outscore the trained actor
+- Decision:
+  - drop this reward-only guard branch
+  - stronger reward coefficients alone did not improve `2022` exposure control and instead pushed the policy toward even higher crisis exposure
+- Next action:
+  - stop micro-tuning selector penalties and reward coefficients as primary levers
+  - move the next experiment to data / episode construction:
+    - stress-set expansion
+    - regime-stratified episode sampling

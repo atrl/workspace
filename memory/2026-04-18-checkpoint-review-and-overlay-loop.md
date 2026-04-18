@@ -8,6 +8,7 @@ profiles:
 - balanced_checkpoint_review_vs_balanced
 - balanced_position_cap_counterfactual
 - balanced_position_cap_counterfactual_ranking
+- balanced_reward_guard
 - balanced_stress_select
 - balanced_stress_select_v2
 - soxl
@@ -18,6 +19,7 @@ tags:
 - balanced_checkpoint_review_vs_balanced
 - balanced_position_cap_counterfactual
 - balanced_position_cap_counterfactual_ranking
+- balanced_reward_guard
 - balanced_stress_select
 - balanced_stress_select_v2
 - checkpoint-selection
@@ -42,8 +44,10 @@ summary: Staged checkpoint review proved the best validation checkpoint appears 
   gates. Fixed-actor position-cap sweeps improved 2022 avg_pos only marginally and
   never passed the full gate. A follow-up single-layer retrain that raised `stress_avg_pos_penalty`
   from `10` to `25` also failed, with `test_2022 maxDD` still at `46.28%` and `avg_pos`
-  at `0.398`, so the next loop should stop tuning selector penalties and instead change
-  the optimization target or stress set.
+  at `0.398`. A reward-only `balanced_reward_guard` retrain also failed, worsening
+  `test_2022` to `47.36% maxDD / 0.412 avg_pos`, so the next loop should stop tuning
+  selector penalties and reward coefficients and instead change the stress set or
+  episode sampling itself.
 ---
 
 # 2026-04-18 checkpoint review and overlay loop
@@ -104,6 +108,27 @@ Compress the search space before starting another broad retrain by answering two
     - selection-only penalty tuning did not recover the `2022` gate
     - stress exposure measured on the current validation slice is too weak as the main selector
 
+- Reward-only guard retrain:
+  - `balanced_reward_guard` changed only reward coefficients while keeping cap and selector at canonical `balanced`
+  - validation:
+    - `55.81% / Sharpe 1.552 / MaxDD 29.36% / avg_pos 0.604`
+  - fixed-split:
+    - `test_2022 = -36.00% / maxDD 47.36% / avg_pos 0.412`
+    - `test_proxy Sharpe = 0.830`
+  - comparison:
+    - versus canonical `balanced`, both `2022 maxDD` and `2022 avg_pos` worsened materially
+    - versus `balanced_stress_select_v2`, `2022` also worsened slightly
+  - result:
+    - stronger reward coefficients alone did not recover crisis de-risking
+    - the model still learned higher stress exposure despite a harsher objective
+
+- Harness fix:
+  - non-staged `selection_history` was misleading because it duplicated final metrics at both `iter 0` and `iter max_iters`
+  - patched `src/soxl_quant/cli.py` so future non-staged runs now record:
+    - true pre-train validation metrics at `iter 0`
+    - true post-train metrics at `iter max_iters`
+    - baseline weights restored if the untrained actor outscored the trained actor
+
 ## Keep / Drop
 
 - Keep:
@@ -113,10 +138,11 @@ Compress the search space before starting another broad retrain by answering two
   - immediate return to transition-feature retrains
   - multi-layer sweeps that change feature, reward, cap, and selection together
   - further incremental tuning of `stress_avg_pos_penalty`
+  - further reward-coefficient micro-tuning as the primary next lever
 
 ## Next action
 
-If retraining continues, do not spend the next loop on another selector-penalty sweep. Change the optimization target itself and judge it first on:
+If retraining continues, do not spend the next loop on another selector-penalty or reward-coefficient sweep. Change the stress set or episode construction itself and judge it first on:
 
 - `test_2022 max_dd`
 - `test_2022 avg_pos`

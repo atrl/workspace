@@ -301,6 +301,14 @@ def train_with_selection(policy, actor, initial_states, obs_dim: int, profile, v
     trusting the final iteration.
     """
     if not smoke and not profile.selection_score.staged_training:
+        baseline_metrics = evaluate_split(
+            actor,
+            valid_df,
+            position_cap_config=profile.position_cap,
+            stress_threshold=profile.selection_score.stress_threshold,
+        )
+        baseline_score = validation_score(baseline_metrics, profile)
+        baseline_state = copy.deepcopy(actor.state_dict())
         qlib_train(
             simulator_fn=SoxlSimulator,
             state_interpreter=SoxlState(obs_dim),
@@ -322,13 +330,16 @@ def train_with_selection(policy, actor, initial_states, obs_dim: int, profile, v
         )
         final_score = validation_score(final_metrics, profile)
         history = [
-            {"iter": 0, "score": final_score, **final_metrics},
+            {"iter": 0, "score": baseline_score, **baseline_metrics},
             {"iter": profile.max_iters, "score": final_score, **final_metrics},
         ]
         print(
             f"[valid:{profile.name}@{profile.max_iters}] return={final_metrics['return']:.1f}% "
             f"sharpe={final_metrics['sharpe']:.2f} maxdd={final_metrics['max_dd']:.1f}% score={final_score:.2f}"
         )
+        if baseline_score > final_score:
+            actor.load_state_dict(baseline_state)
+            return {"best_metrics": baseline_metrics, "best_score": baseline_score, "history": history}
         return {"best_metrics": final_metrics, "best_score": final_score, "history": history}
 
     stage_iters = profile.max_iters if smoke else min(profile.selection_score.stage_iters, profile.max_iters)
@@ -617,7 +628,7 @@ def parse_args() -> argparse.Namespace:
         "--profiles",
         nargs="+",
         default=["balanced", "aggressive"],
-        choices=["balanced", "aggressive", "smoke", "balanced_budget", "balanced_floor40", "balanced_floor40_sym", "balanced_floor40_sym_bear30", "balanced_stress_select", "balanced_stress_select_v2", "balanced_stress_behavior", "balanced_regime_gate", "balanced_regime_gate_v2", "balanced_checkpoint_review"],
+        choices=["balanced", "aggressive", "smoke", "balanced_budget", "balanced_floor40", "balanced_floor40_sym", "balanced_floor40_sym_bear30", "balanced_stress_select", "balanced_stress_select_v2", "balanced_reward_guard", "balanced_stress_behavior", "balanced_regime_gate", "balanced_regime_gate_v2", "balanced_checkpoint_review"],
         help="profiles to train and backtest",
     )
     parser.add_argument("--smoke", action="store_true", help="force short smoke run")

@@ -30,3 +30,12 @@ def test_balanced_stress_select_v2_profile_exists():
     assert "name: balanced_stress_select_v2" in text
     assert "stress_avg_pos_penalty: 25.0" in text
     assert "staged_training: true" in text
+
+
+def test_balanced_reward_guard_profile_exists():
+    path = ROOT / "configs" / "soxl" / "balanced_reward_guard.yaml"
+    text = path.read_text(encoding="utf-8")
+    assert "name: balanced_reward_guard" in text
+    assert "drawdown_penalty: 0.34" in text
+    assert "underwater_sell_penalty: 0.20" in text
+    assert "staged_training: false" in text
