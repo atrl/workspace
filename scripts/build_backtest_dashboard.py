@@ -244,6 +244,118 @@ def compute_kelly_stats(trades: list[dict]) -> dict:
     }
 
 
+def _load_post_train_review_versions(features: dict[str, dict[str, float]] | None) -> dict[str, dict]:
+    """Load SOXL daily CSVs from runtime/post_train_review/ as versioned data."""
+    versioned: dict[str, dict] = {}
+    ptr_dir = ROOT / "runtime" / "post_train_review"
+    if not ptr_dir.exists():
+        return versioned
+
+    for csv_path in sorted(ptr_dir.glob("*_soxl_daily.csv")):
+        tag = csv_path.stem.replace("_soxl_daily", "")
+        try:
+            with csv_path.open("r", encoding="utf-8") as f:
+                reader = csv.DictReader(f)
+                raw_rows = list(reader)
+        except Exception:
+            continue
+        if not raw_rows:
+            continue
+
+        rows: list[dict[str, object]] = []
+        prev_pos = 0.0
+        for i, r in enumerate(raw_rows):
+            pos = float(r.get("position", 0.0))
+            strat_nav = float(r["strategy_nav"])
+            bh_nav = float(r["buyhold_nav"])
+            # Infer action from position changes
+            action = "HOLD"
+            if i > 0:
+                if prev_pos == 0.0 and pos > 0.0:
+                    action = "BUY"
+                elif prev_pos > 0.0 and pos == 0.0:
+                    action = "SELL"
+            prev_pos = pos
+
+            row: dict[str, object] = {
+                "datetime": r["datetime"],
+                "strategy_nav": strat_nav,
+                "price": float(r["price"]),
+                "buyhold_nav": bh_nav,
+                "position": pos,
+                "excess": strat_nav - bh_nav,
+                "excess_pct": (strat_nav / bh_nav - 1) * 100 if bh_nav != 0 else 0.0,
+                "action": action,
+            }
+            rows.append(row)
+
+        # Merge features
+        if features:
+            for r in rows:
+                dt = str(r["datetime"])
+                r["_features"] = features.get(dt, {})
+        else:
+            for r in rows:
+                r["_features"] = {}
+
+        # Compute summary from rows
+        strategy_return = rows[-1]["strategy_nav"] / rows[0]["strategy_nav"] - 1
+        buyhold_return = rows[-1]["buyhold_nav"] / rows[0]["buyhold_nav"] - 1
+        excess_return = strategy_return - buyhold_return
+        peak_s = rows[0]["strategy_nav"]
+        max_dd_strategy = 0.0
+        buy_count = sell_count = 0
+        max_pos = min_pos = rows[0]["position"]
+        for r in rows:
+            peak_s = max(peak_s, r["strategy_nav"])
+            max_dd_strategy = max(max_dd_strategy, (peak_s - r["strategy_nav"]) / peak_s)
+            if r["action"] == "BUY":
+                buy_count += 1
+            elif r["action"] == "SELL":
+                sell_count += 1
+            max_pos = max(max_pos, r["position"])
+            min_pos = min(min_pos, r["position"])
+
+        summary = {
+            "etf": "SOXL",
+            "strategy_return": strategy_return,
+            "buyhold_return": buyhold_return,
+            "excess_return": excess_return,
+            "max_dd_strategy": max_dd_strategy,
+            "max_dd_buyhold": 0.0,  # not computed here
+            "trades": buy_count + sell_count,
+            "buy_count": buy_count,
+            "sell_count": sell_count,
+            "max_position": max_pos,
+            "min_position": min_pos,
+        }
+
+        regime_shapes = compute_regime_shapes(rows)
+        trades = compute_trades(rows)
+        kelly_stats = compute_kelly_stats(trades)
+
+        versioned[tag] = {
+            "detailed": {
+                "SOXL": {
+                    "summary": summary,
+                    "csv_path": str(csv_path.relative_to(ROOT)),
+                    "rows": rows,
+                    "regime_shapes": regime_shapes,
+                    "trades": trades,
+                    "kelly": kelly_stats,
+                }
+            },
+            "windows": {
+                "SOXL": {
+                    "start": rows[0]["datetime"] if rows else "",
+                    "end": rows[-1]["datetime"] if rows else "",
+                    "rows": len(rows),
+                }
+            },
+        }
+    return versioned
+
+
 def _load_versioned_data(features: dict[str, dict[str, float]] | None) -> dict[str, dict]:
     """Load all versioned backtest results from runtime/generalization/versions/."""
     versioned: dict[str, dict] = {}
@@ -337,6 +449,27 @@ def build_payload() -> dict[str, object]:
             "rows": len(rows),
         }
     versioned = _load_versioned_data(features)
+    ptr_versioned = _load_post_train_review_versions(features)
+    versioned.update(ptr_versioned)
+
+    # Determine best version among those with detailed data
+    model_versions = load_model_versions()
+    best_version = ""
+    best_sharpe = -float("inf")
+    for mv in model_versions:
+        name = mv.get("name", "")
+        sharpe = mv.get("test_sharpe")
+        if sharpe is None:
+            continue
+        # Map summary name to version tag (strip soxl_ prefix)
+        tag_candidates = [name]
+        if name.startswith("soxl_"):
+            tag_candidates.append(name[5:])
+        for tag in tag_candidates:
+            if tag in versioned and sharpe > best_sharpe:
+                best_sharpe = sharpe
+                best_version = tag
+
     return {
         "generated_from": {
             "summary": "runtime/generalization/detailed/summary.json",
@@ -350,11 +483,12 @@ def build_payload() -> dict[str, object]:
         "windows": windows,
         "detailed": detailed_rows,
         "versioned": versioned,
+        "best_version": best_version,
         "results": load_json(RUNTIME_DIR / "results.json"),
         "rule_based": load_json(RUNTIME_DIR / "rule_based_results.json"),
         "execution_overlay": load_json(RUNTIME_DIR / "execution_overlay_results.json"),
         "execution_review": (RUNTIME_DIR / "execution_overlay_review.md").read_text(encoding="utf-8"),
-        "model_versions": load_model_versions(),
+        "model_versions": model_versions,
     }
 
 
@@ -1140,7 +1274,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     const VERSIONS = Object.keys(DATA.versioned || {{}});
     const state = {{
       etf: ETFS[0],
-      version: '',
+      version: DATA.best_version || '',
       range: 'all',
       zoomMode: 'all',
       zoomStart: null,
