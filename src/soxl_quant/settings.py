@@ -70,6 +70,9 @@ class RewardConfig:
     # marginal expectancy reward: reward = marginal_pnl instead of aggregate pnl
     use_marginal_reward: bool = False
     marginal_return_scale: float = 1.0
+    # Kelly-inspired log reward: reward = ln(1 + pnl_ret) to maximize long-term growth rate
+    use_log_reward: bool = False
+    log_reward_scale: float = 1.0
 
 
 @dataclass(frozen=True)
@@ -178,6 +181,7 @@ class StrategyConfig:
     execution: ExecutionConfig = field(default_factory=ExecutionConfig)
     model: ModelConfig = field(default_factory=ModelConfig)
     sampling: SamplingConfig = field(default_factory=SamplingConfig)
+    decision_frequency: int = 1
 
 
 def artifact_stem(profile_name: str, artifact_tag: str = "") -> str:
@@ -231,4 +235,5 @@ def load_profile(name: str) -> StrategyConfig:
         execution=execution,
         model=model,
         sampling=sampling,
+        decision_frequency=int(payload.get("decision_frequency", 1)),
     )

@@ -20,6 +20,7 @@ from __future__ import annotations
 """
 
 from dataclasses import dataclass
+import math
 import random
 from pathlib import Path
 from typing import Any, Dict, List, NamedTuple, Optional, Tuple
@@ -140,6 +141,7 @@ class EpisodeConfig(NamedTuple):
     cash: float = 100_000.0
     asset_idx: int = 0
     observation_window: int = 1
+    decision_frequency: int = 1
 
 
 def action_levels_for_profile(profile: Optional[StrategyConfig]) -> np.ndarray:
@@ -393,6 +395,7 @@ class SoxlSimulator(Simulator):
         self.observation_window = max(int(getattr(initial, "observation_window", 1)), 1)
         self.obs_dim = len(FEATURE_COLUMNS) * self.observation_window + EXTRA_OBS_DIM + N_ASSETS
         self.ledger = TrancheLedger()
+        self.decision_frequency = max(int(getattr(initial, "decision_frequency", 1)), 1)
 
     def step(self, action: float) -> None:
         """执行一步模拟。
@@ -402,12 +405,26 @@ class SoxlSimulator(Simulator):
           2. 用次日收益计算净值变化（含 0.1% 换手成本）
           3. 更新账本和内部状态
         
+        【decision_frequency > 1】: 非决策日强制保持仓位，不调仓。
+          actor 仍每天输出 action，但非决策日的 action 被覆盖为当前仓位。
+          这等价于降频训练：模型被迫学习在更长周期上决策。
+        
         【优化方向】当前成本假设为固定 0.1%。如果交易次数继续优化降低，
         这个假设是偏保守的；但如果未来换手率上升，需要考虑滑点模型。
         """
         action = float(np.clip(action, 0, 1))
         if self.idx >= len(self.df) - 1:
             return
+        
+        # === Decision frequency: non-decision days force hold ===
+        is_decision_day = True
+        if self.decision_frequency > 1:
+            # 从 lookback 后的第一天开始计数
+            days_since_start = self.idx - self.lookback
+            if days_since_start % self.decision_frequency != 0:
+                is_decision_day = False
+                action = self.pos  # 强制不调仓
+        
         row = self.df.iloc[self.idx]
         price = float(self.price_path[self.idx])
         vol_coef = float(np.nan_to_num(row["vol_coef_21"]))
@@ -614,11 +631,14 @@ class ContinuousReward(Reward):
         trapped_loser = max(holding_age - 0.22, 0.0) * max(-avg_entry_pnl - 0.02, 0.0) * max(-high_gap - 0.03, 0.0)
 
         # === 核心收益项 ===
-        if cfg.use_marginal_reward:
+        if cfg.use_log_reward:
+            # Kelly-inspired Log Reward: 最大化长期增长率
+            # ln(1 + r) 是凹函数，亏 1% 的惩罚 > 赚 1% 的奖励
+            # 累积 log-return = ln(W_T / W_0)，优化它等价于 Kelly criterion
+            safe_ret = max(pnl_ret, -0.999)  # 避免 wealth 接近 0 时 log → -∞
+            reward = math.log(1.0 + safe_ret) * 100.0 * cfg.return_scale * cfg.log_reward_scale
+        elif cfg.use_marginal_reward:
             # Marginal Expectancy Reward: 只奖励这笔调仓带来的边际价值
-            # 不调仓的基准收益 = prev_pos * market_return
-            # 实际净收益 = step_return（已含 0.1% 成本）
-            # 边际收益 = 实际净收益 - 不调仓基准
             market_return = float(state.get("market_return", 0.0))
             prev_pos = float(state.get("prev_pos", pos))
             step_return = float(state.get("step_return", 0.0))
@@ -635,10 +655,11 @@ class ContinuousReward(Reward):
         reward += pbrs_delta * cfg.pbrs_coef
 
         # === 交易成本与换手率惩罚 ===
-        if not cfg.use_marginal_reward:
-            # 直接交易成本：在 aggregate reward 模式下需要显式扣除
+        if not cfg.use_marginal_reward and not cfg.use_log_reward:
+            # 直接交易成本：在 aggregate / log reward 模式下，成本已通过净值变化反映
+            # 但在 marginal reward 模式下需要显式扣除（因为 marginal 计算中未含 cost）
             reward -= turnover * cfg.transaction_cost * 100.0
-        # 额外换手惩罚（marginal 模式下仍保留，作为对高频交易的二次约束）
+        # 额外换手惩罚（所有模式下都保留，作为对高频交易的二次约束）
         reward -= turnover * cfg.turnover_penalty
         reward -= (turnover**2) * cfg.smoothness_penalty           # 鼓励平滑、减少日内反复
         # 动态 activity bonus：只在市场 regime 明显切换或高波动时才奖励换手
@@ -727,6 +748,7 @@ def build_initial_states(
     all_states: List[EpisodeConfig] = []
     sampling = profile.sampling
     observation_window = max(int(profile.model.observation_window), 1)
+    decision_frequency = max(int(profile.decision_frequency), 1)
     for pkl_path, df, asset_idx in sources:
         frame_count = len(df) // episode_len
         if smoke:
@@ -742,6 +764,7 @@ def build_initial_states(
                 end_idx,
                 asset_idx=asset_idx,
                 observation_window=observation_window,
+                decision_frequency=decision_frequency,
             )
             all_states.append(state)
             segment = df.iloc[start_idx:end_idx]
