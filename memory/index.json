@@ -614,6 +614,7 @@
       "balanced_checkpoint_review_vs_balanced",
       "balanced_position_cap_counterfactual",
       "balanced_position_cap_counterfactual_ranking",
+      "balanced_stress_select",
       "balanced_stress_select_v2",
       "soxl"
     ],
@@ -624,6 +625,7 @@
       "balanced_checkpoint_review_vs_balanced",
       "balanced_position_cap_counterfactual",
       "balanced_position_cap_counterfactual_ranking",
+      "balanced_stress_select",
       "balanced_stress_select_v2",
       "checkpoint-selection",
       "eval-2022",
@@ -644,7 +646,7 @@
       "runtime/post_train_review/balanced_position_cap_counterfactual_ranking.md"
     ],
     "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
-    "summary": "Staged checkpoint review proved the best validation checkpoint appears at iter 40 rather than iter 80, but the selected actor still failed fixed-split 2022 gates. Fixed-actor position-cap sweeps improved 2022 avg_pos only marginally and never passed the full gate, so the next retrain should stay single-layer and bias toward selection-side stress penalties rather than new transition features.",
+    "summary": "Staged checkpoint review proved the best validation checkpoint appears at iter 40 rather than iter 80, but the selected actor still failed fixed-split 2022 gates. Fixed-actor position-cap sweeps improved 2022 avg_pos only marginally and never passed the full gate. A follow-up single-layer retrain that raised `stress_avg_pos_penalty` from `10` to `25` also failed, with `test_2022 maxDD` still at `46.28%` and `avg_pos` at `0.398`, so the next loop should stop tuning selector penalties and instead change the optimization target or stress set.",
     "excerpt": "# 2026-04-18 checkpoint review and overlay loop ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## Goal Compress the search space before starting another broad retrain by answering two questions: 1. is the current bottleneck partly just checkpoint-"
   },
   {

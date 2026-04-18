@@ -1702,3 +1702,53 @@ Created `balanced_budget.yaml` with `max_iters=50`. However, the log file was ac
     - `qlib_venv/bin/python scripts/memory_search.py balanced --status dropped --top-k 5`
     - `qlib_venv/bin/python scripts/check_harness.py`
   - only then start the next fixed-actor execution overlay or checkpoint-selection loop on canonical `balanced`
+
+## Selection-only stress penalty loop 2026-04-18 10:58
+
+- Goal:
+  - test whether a stronger selection-side stress exposure penalty alone can pull the staged `balanced` branch back under the fixed-split `2022` gates
+  - keep the loop single-layer by changing only `selection_score.stress_avg_pos_penalty`
+- Procedure:
+  - added `configs/soxl/balanced_stress_select_v2.yaml`
+  - increased `stress_avg_pos_penalty` from `10.0` to `25.0`
+  - kept features, reward, position-cap curve, and staged checkpoint flow unchanged
+  - registered the profile in `src/soxl_quant/cli.py`
+  - validated the harness with `qlib_venv/bin/python scripts/check_harness.py`
+  - trained with:
+    - `qlib_venv/bin/python soxl_qlib_strategy_v2.py --profiles balanced_stress_select_v2 --skip-data-refresh --seed 20260411`
+  - generated reviews:
+    - `qlib_venv/bin/python scripts/checkpoint_review.py --summary artifacts/models/soxl_balanced_stress_select_v2_summary.json --output runtime/post_train_review/balanced_stress_select_v2.md`
+    - `qlib_venv/bin/python .codex/skills/post-train-backtest-review/scripts/compare_backtests.py --latest artifacts/models/soxl_balanced_stress_select_v2_summary.json --previous artifacts/models/soxl_balanced_stress_select_summary.json --output runtime/post_train_review/balanced_stress_select_v2_vs_stress_select.md`
+    - `qlib_venv/bin/python .codex/skills/post-train-backtest-review/scripts/compare_backtests.py --latest artifacts/models/soxl_balanced_stress_select_v2_summary.json --previous artifacts/models/soxl_balanced_summary.json --output runtime/post_train_review/balanced_stress_select_v2_vs_balanced.md`
+- Evidence:
+  - validation selection path:
+    - `iter 0 = 59.03`
+    - `iter 20 = 65.20`
+    - `iter 40 = 67.03`
+    - `iter 60 = 56.78`
+    - `iter 80 = 71.11`
+  - selected checkpoint still landed at the final stage rather than an earlier stress-controlled point
+  - fixed split:
+    - `test_2022 = -34.68% / Sharpe -0.772 / MaxDD 46.28% / avg_pos 0.398`
+    - `test_proxy = 462.28% / Sharpe 0.817 / MaxDD 63.28% / avg_pos 0.534`
+  - versus `balanced_stress_select`:
+    - `test_2022 maxDD` improved only slightly: `47.67 -> 46.28`
+    - `test_2022 avg_pos` improved only slightly: `0.404 -> 0.398`
+    - `test_proxy Sharpe` improved slightly: `0.788 -> 0.817`
+    - overall `test maxDD` worsened: about `62.0%`
+  - versus canonical `balanced`:
+    - still materially worse on `2022` risk:
+      - `maxDD 46.28` vs `33.04`
+      - `avg_pos 0.398` vs `0.283`
+    - lost the original gate-passing behavior despite similar proxy Sharpe
+- Keep / Drop decision:
+  - keep:
+    - the single-layer discipline used in this loop
+    - staged review artifacts as the standard proof format
+  - drop:
+    - further tuning of `stress_avg_pos_penalty` as the next lever
+    - the assumption that validation stress exposure on 13 days is a strong enough training selector for `2022`
+- Next action:
+  - move the next loop one layer deeper than selection by changing the optimization target itself:
+    - either add explicit downside / drawdown cost in reward
+    - or train against a richer stress set than the current validation stress-days summary

@@ -22,3 +22,11 @@ def test_position_cap_overlay_variants_are_non_empty():
     assert "bear_floor25_regime055" in payload
     assert payload["bear_floor25_regime055"]["bear_min_cap"] == 0.25
     assert payload["bull70_bear35_regime060"]["bull_min_cap"] == 0.70
+
+
+def test_balanced_stress_select_v2_profile_exists():
+    path = ROOT / "configs" / "soxl" / "balanced_stress_select_v2.yaml"
+    text = path.read_text(encoding="utf-8")
+    assert "name: balanced_stress_select_v2" in text
+    assert "stress_avg_pos_penalty: 25.0" in text
+    assert "staged_training: true" in text

@@ -8,6 +8,7 @@ profiles:
 - balanced_checkpoint_review_vs_balanced
 - balanced_position_cap_counterfactual
 - balanced_position_cap_counterfactual_ranking
+- balanced_stress_select
 - balanced_stress_select_v2
 - soxl
 status: reference
@@ -17,6 +18,7 @@ tags:
 - balanced_checkpoint_review_vs_balanced
 - balanced_position_cap_counterfactual
 - balanced_position_cap_counterfactual_ranking
+- balanced_stress_select
 - balanced_stress_select_v2
 - checkpoint-selection
 - eval-2022
@@ -38,8 +40,10 @@ workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
 summary: Staged checkpoint review proved the best validation checkpoint appears at
   iter 40 rather than iter 80, but the selected actor still failed fixed-split 2022
   gates. Fixed-actor position-cap sweeps improved 2022 avg_pos only marginally and
-  never passed the full gate, so the next retrain should stay single-layer and bias
-  toward selection-side stress penalties rather than new transition features.
+  never passed the full gate. A follow-up single-layer retrain that raised `stress_avg_pos_penalty`
+  from `10` to `25` also failed, with `test_2022 maxDD` still at `46.28%` and `avg_pos`
+  at `0.398`, so the next loop should stop tuning selector penalties and instead change
+  the optimization target or stress set.
 ---
 
 # 2026-04-18 checkpoint review and overlay loop
@@ -84,6 +88,22 @@ Compress the search space before starting another broad retrain by answering two
   - result:
     - overlays are a partial lever, not a sufficient fix
 
+- Stronger selection-side stress penalty retrain:
+  - `balanced_stress_select_v2` changed only `selection_score.stress_avg_pos_penalty`:
+    - `10.0 -> 25.0`
+  - selection path:
+    - `59.03 -> 65.20 -> 67.03 -> 56.78 -> 71.11`
+  - selected checkpoint still came from `iter 80`
+  - fixed-split:
+    - `test_2022 = -34.68% / maxDD 46.28% / avg_pos 0.398`
+    - `test_proxy Sharpe = 0.817`
+  - comparison:
+    - slightly better than `balanced_stress_select`
+    - still clearly worse than canonical `balanced`
+  - result:
+    - selection-only penalty tuning did not recover the `2022` gate
+    - stress exposure measured on the current validation slice is too weak as the main selector
+
 ## Keep / Drop
 
 - Keep:
@@ -92,10 +112,11 @@ Compress the search space before starting another broad retrain by answering two
 - Drop:
   - immediate return to transition-feature retrains
   - multi-layer sweeps that change feature, reward, cap, and selection together
+  - further incremental tuning of `stress_avg_pos_penalty`
 
 ## Next action
 
-If retraining continues, start with a single-layer branch that changes only selection behavior, such as `balanced_stress_select_v2`, and judge it first on:
+If retraining continues, do not spend the next loop on another selector-penalty sweep. Change the optimization target itself and judge it first on:
 
 - `test_2022 max_dd`
 - `test_2022 avg_pos`

@@ -1,0 +1,156 @@
+{
+  "profile": "balanced_stress_select_v2",
+  "seed": 20260411,
+  "feature_schema": {
+    "signature": "4c4f41aec12b",
+    "feature_count": 44,
+    "extra_obs_dim": 15,
+    "n_assets": 5
+  },
+  "position_cap": {
+    "start_drawdown": 0.1,
+    "full_drawdown": 0.3,
+    "min_cap": 0.4,
+    "curve_power": 1.0,
+    "bull_min_cap": 0.65,
+    "bull_vol_threshold": 0.4,
+    "bull_anchor_threshold": 0.02,
+    "bear_min_cap": 0.3,
+    "bear_regime_threshold": 0.65
+  },
+  "selection_score": {
+    "return_weight": 1.0,
+    "sharpe_weight": 20.0,
+    "max_dd_penalty": 0.12,
+    "avg_pos_penalty": 0.0,
+    "stress_avg_pos_penalty": 25.0,
+    "stress_threshold": 0.65,
+    "staged_training": true,
+    "stage_iters": 20
+  },
+  "model_path": "/Users/rziiiii/.openclaw/workspace/artifacts/models/soxl_balanced_stress_select_v2_actor.pt",
+  "valid": {
+    "return": 53.78808806395583,
+    "sharpe": 1.5344047025056702,
+    "max_dd": 27.46855493081612,
+    "avg_pos": 0.5877642432064698,
+    "stress_avg_pos": 0.40263025690958504,
+    "stress_days": 13.0
+  },
+  "best_score": 71.11419909963168,
+  "selection_history": [
+    {
+      "iter": 0,
+      "score": 59.033018930564545,
+      "return": 41.0736534721535,
+      "sharpe": 1.4935825618181646,
+      "max_dd": 23.83633679063168,
+      "avg_pos": 0.4703002451295742,
+      "stress_avg_pos": 0.36207701452305824,
+      "stress_days": 13.0
+    },
+    {
+      "iter": 20,
+      "score": 65.19833756206803,
+      "return": 49.00700729469134,
+      "sharpe": 1.4462668844031084,
+      "max_dd": 28.111873249089143,
+      "avg_pos": 0.5878603668613617,
+      "stress_avg_pos": 0.37442330523179124,
+      "stress_days": 13.0
+    },
+    {
+      "iter": 40,
+      "score": 67.02930636427024,
+      "return": 49.56265883212869,
+      "sharpe": 1.503627916611071,
+      "max_dd": 27.52009667699377,
+      "avg_pos": 0.5683855986192595,
+      "stress_avg_pos": 0.3721399679536242,
+      "stress_days": 13.0
+    },
+    {
+      "iter": 60,
+      "score": 56.77726213584466,
+      "return": 42.25944773801078,
+      "sharpe": 1.358448651301677,
+      "max_dd": 28.21819935729958,
+      "avg_pos": 0.5558198330868446,
+      "stress_avg_pos": 0.3705989882129486,
+      "stress_days": 13.0
+    },
+    {
+      "iter": 80,
+      "score": 71.11419909963168,
+      "return": 53.78808806395583,
+      "sharpe": 1.5344047025056702,
+      "max_dd": 27.46855493081612,
+      "avg_pos": 0.5877642432064698,
+      "stress_avg_pos": 0.40263025690958504,
+      "stress_days": 13.0
+    }
+  ],
+  "slices": {
+    "test_2020": {
+      "return": 128.18001744645454,
+      "sharpe": 2.3686684334981254,
+      "max_dd": 22.26694821856698,
+      "avg_pos": 0.567958739033181,
+      "stress_avg_pos": 0.38774188085839123,
+      "stress_days": 48.0
+    },
+    "test_2022": {
+      "return": -34.676717983520064,
+      "sharpe": -0.7716712253838841,
+      "max_dd": 46.28321303049104,
+      "avg_pos": 0.3978537158134982,
+      "stress_avg_pos": 0.3392026386178652,
+      "stress_days": 129.0
+    },
+    "test_2023_2024": {
+      "return": 52.016979163833476,
+      "sharpe": 0.7337880537603136,
+      "max_dd": 37.2074211960474,
+      "avg_pos": 0.5482075461096517,
+      "stress_avg_pos": 0.36986094772763184,
+      "stress_days": 64.0
+    }
+  },
+  "test_proxy": {
+    "return": 462.28493917402494,
+    "sharpe": 0.81711643616712,
+    "max_dd": 63.281501086525616,
+    "avg_pos": 0.533913880646834,
+    "stress_avg_pos": 0.34852327816161977,
+    "stress_days": 379.0
+  },
+  "promotion": {
+    "eligible": false,
+    "fixed_split": {
+      "eligible": false,
+      "checks": {
+        "test_2022_max_dd": {
+          "passed": false,
+          "actual": 46.28321303049104,
+          "limit": 35.0
+        },
+        "test_2022_avg_pos": {
+          "passed": false,
+          "actual": 0.3978537158134982,
+          "limit": 0.35
+        },
+        "test_proxy_sharpe": {
+          "passed": true,
+          "actual": 0.81711643616712,
+          "limit": 0.75
+        }
+      }
+    },
+    "walk_forward": {
+      "eligible": false,
+      "checks": {},
+      "status": "missing"
+    },
+    "walk_forward_evaluated": false
+  }
+}
