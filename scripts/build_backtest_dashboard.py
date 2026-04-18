@@ -17,7 +17,6 @@ DETAIL_DIR = RUNTIME_DIR / "detailed"
 FEATURES_PATH = ROOT / "data" / "features_v2.pkl"
 OUTPUT_PATH = RUNTIME_DIR / "dashboard.html"
 
-# Design-system colours
 C_STRATEGY = "#9a3412"
 C_BUYHOLD = "#0f766e"
 C_BUY = "#0f766e"
@@ -36,7 +35,6 @@ FEATURE_COLS = [
 
 
 def load_features() -> dict[str, dict[str, float]] | None:
-    """Load features_v2.pkl and return {date_str: {feature: value}}."""
     if not FEATURES_PATH.exists():
         return None
     with open(FEATURES_PATH, "rb") as f:
@@ -72,6 +70,63 @@ def load_csv_rows(path: Path) -> list[dict[str, object]]:
         return rows
 
 
+def compute_regime_shapes(rows: list[dict]) -> list[dict]:
+    """Compute background shading rectangles for stress/calm regimes."""
+    shapes = []
+    if not rows:
+        return shapes
+    current_regime = None
+    current_start = None
+    prev_dt = None
+    for row in rows:
+        dt = str(row["datetime"])
+        f = row.get("_features", {})
+        vixz = f.get("vix_zscore")
+        regime = None
+        if vixz is not None:
+            if vixz > 2:
+                regime = "stress"
+            elif vixz < -1:
+                regime = "calm"
+        if regime != current_regime:
+            if current_regime and current_start and prev_dt:
+                fillcolor = "rgba(185,28,28,0.07)" if current_regime == "stress" else "rgba(15,118,110,0.07)"
+                shapes.append(
+                    {
+                        "type": "rect",
+                        "xref": "x",
+                        "yref": "paper",
+                        "x0": current_start,
+                        "x1": prev_dt,
+                        "y0": 0,
+                        "y1": 1,
+                        "fillcolor": fillcolor,
+                        "line": {"width": 0},
+                        "layer": "below",
+                    }
+                )
+            current_regime = regime
+            current_start = dt if regime else None
+        prev_dt = dt
+    if current_regime and current_start and prev_dt:
+        fillcolor = "rgba(185,28,28,0.07)" if current_regime == "stress" else "rgba(15,118,110,0.07)"
+        shapes.append(
+            {
+                "type": "rect",
+                "xref": "x",
+                "yref": "paper",
+                "x0": current_start,
+                "x1": prev_dt,
+                "y0": 0,
+                "y1": 1,
+                "fillcolor": fillcolor,
+                "line": {"width": 0},
+                "layer": "below",
+            }
+        )
+    return shapes
+
+
 def build_payload() -> dict[str, object]:
     detailed_summary = load_json(DETAIL_DIR / "summary.json")
     detailed_rows = {}
@@ -87,10 +142,12 @@ def build_payload() -> dict[str, object]:
         else:
             for r in rows:
                 r["_features"] = {}
+        regime_shapes = compute_regime_shapes(rows)
         detailed_rows[etf] = {
             "summary": item,
             "csv_path": f"detailed/{etf.lower()}_detailed_trades.csv",
             "rows": rows,
+            "regime_shapes": regime_shapes,
         }
         windows[etf] = {
             "start": rows[0]["datetime"] if rows else "",
@@ -117,7 +174,6 @@ def build_payload() -> dict[str, object]:
 
 
 def _build_layout_all() -> dict:
-    """4-subplot layout (default)."""
     fig = make_subplots(
         rows=4, cols=1,
         shared_xaxes=True,
@@ -158,7 +214,6 @@ def _build_layout_all() -> dict:
 
 
 def _build_layout_single(title: str, y_title: str) -> dict:
-    """Single-subplot layout for focused view."""
     fig = go.Figure()
     fig.update_layout(
         height=420,
@@ -353,6 +408,12 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       color: white;
       border-color: var(--accent);
     }}
+    .kb-hint {{
+      font-size: 10px;
+      color: var(--muted);
+      margin-left: 4px;
+      opacity: 0.7;
+    }}
     .grid {{
       display: grid;
       gap: 18px;
@@ -461,9 +522,22 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     }}
     .chart-wrapper {{
       display: grid;
-      grid-template-columns: 1fr 220px;
+      grid-template-columns: 1fr 240px;
       gap: 14px;
       align-items: start;
+    }}
+    .regime-strip {{
+      display: flex;
+      height: 10px;
+      border-radius: 5px;
+      overflow: hidden;
+      margin: 0 0 8px 0;
+      border: 1px solid var(--line);
+    }}
+    .regime-bar {{
+      flex: 1;
+      min-width: 1px;
+      cursor: crosshair;
     }}
     .info-panel {{
       background: var(--panel-2);
@@ -482,6 +556,9 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       margin-bottom: 10px;
       padding-bottom: 8px;
       border-bottom: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }}
     .info-row {{
       display: flex;
@@ -524,7 +601,55 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       text-transform: uppercase;
       letter-spacing: 0.08em;
       margin-bottom: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }}
+    .pos-bar-wrap {{
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin: 3px 0;
+    }}
+    .pos-bar-label {{
+      width: 40px;
+      font-size: 10px;
+      color: var(--muted);
+      text-align: right;
+    }}
+    .pos-bar-track {{
+      flex: 1;
+      height: 10px;
+      background: rgba(216,204,187,0.3);
+      border-radius: 5px;
+      overflow: hidden;
+    }}
+    .pos-bar-fill {{
+      height: 100%;
+      border-radius: 5px;
+      background: var(--accent-2);
+      opacity: 0.7;
+    }}
+    .pos-bar-pct {{
+      width: 32px;
+      font-size: 10px;
+      color: var(--muted);
+      text-align: right;
+      font-family: ui-monospace, monospace;
+    }}
+    .trade-list {{
+      max-height: 120px;
+      overflow-y: auto;
+    }}
+    .trade-item {{
+      padding: 4px 0;
+      border-bottom: 1px solid rgba(216,204,187,0.3);
+      font-size: 11px;
+      line-height: 1.4;
+    }}
+    .trade-item:last-child {{ border-bottom: none; }}
+    .trade-entry {{ color: var(--good); }}
+    .trade-exit {{ color: var(--bad); }}
     .split {{
       display: grid;
       grid-template-columns: 1.1fr 1fr;
@@ -543,6 +668,8 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       white-space: nowrap;
     }}
     th:first-child, td:first-child {{ text-align: left; }}
+    tr.clickable {{ cursor: pointer; }}
+    tr.clickable:hover {{ background: rgba(154, 52, 18, 0.04); }}
     .good {{ color: var(--good); }}
     .bad {{ color: var(--bad); }}
     .mono {{ font-family: ui-monospace, "SFMono-Regular", Menlo, monospace; }}
@@ -621,7 +748,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       <div class="card">
         <h1>Backtest Dashboard</h1>
         <p class="sub">
-          交互式回测查看器。4 子图联动（NAV + 买卖点、仓位、超额收益、回撤），鼠标悬停可查看当日特征（VIX、RSI、波动率等）。
+          交互式回测查看器。4 子图联动，鼠标悬停查看当日特征，快捷键 1-5 切换视图，+/- 缩放，R 重置，←→ 平移。
           直接打开 <span class="mono">runtime/generalization/dashboard.html</span> 即可查看。
         </p>
         <div class="jump-links">
@@ -669,11 +796,11 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
           <div class="toolbar-group">
             <label>View <span class="help-icon" data-tip="图表布局：All=4子图，其他=单图聚焦">?</span></label>
             <select id="viewSelect">
-              <option value="all">All Panels</option>
-              <option value="nav">NAV + Trades</option>
-              <option value="position">Position</option>
-              <option value="excess">Excess Return</option>
-              <option value="drawdown">Drawdown</option>
+              <option value="all">All Panels <span class="kb-hint">[1]</span></option>
+              <option value="nav">NAV + Trades <span class="kb-hint">[2]</span></option>
+              <option value="position">Position <span class="kb-hint">[3]</span></option>
+              <option value="excess">Excess Return <span class="kb-hint">[4]</span></option>
+              <option value="drawdown">Drawdown <span class="kb-hint">[5]</span></option>
             </select>
           </div>
           <div class="toolbar-group">
@@ -694,7 +821,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
             </div>
           </div>
           <div class="toolbar-group">
-            <label>Zoom <span class="help-icon" data-tip="快速缩放到最近 N 个月">?</span></label>
+            <label>Zoom <span class="help-icon" data-tip="快速缩放到最近 N 个月 [+/-]">?</span></label>
             <div class="zoom-row">
               <button class="btn" data-zoom="6m">6M</button>
               <button class="btn" data-zoom="1y">1Y</button>
@@ -714,11 +841,12 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
             <label>Action</label>
             <div class="zoom-row">
               <button class="btn primary" id="applyZoomBtn" type="button">Apply</button>
-              <button class="btn" id="resetZoomBtn" type="button">Reset</button>
+              <button class="btn" id="resetZoomBtn" type="button">Reset <span class="kb-hint">[R]</span></button>
             </div>
           </div>
         </div>
         <div class="chart-meta" id="chartMeta"></div>
+        <div id="regimeStrip" class="regime-strip"></div>
         <div class="chart-wrapper">
           <div id="plotlyChart" style="width:100%;height:760px;border-radius:16px;background:var(--panel);border:1px solid var(--line);"></div>
           <div class="info-panel" id="infoPanel">
@@ -764,6 +892,21 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
                 <div class="info-row"><span class="info-k">MA5/20</span><span class="info-v" id="infoMA">-</span></div>
                 <div class="info-row"><span class="info-k">Vol Strength</span><span class="info-v" id="infoVolStr">-</span></div>
               </div>
+              <div class="info-section" id="tradeSection" style="display:none;">
+                <div class="info-section-title">交易详情</div>
+                <div class="info-row"><span class="info-k">入场日期</span><span class="info-v" id="tradeEntry">-</span></div>
+                <div class="info-row"><span class="info-k">出场日期</span><span class="info-v" id="tradeExit">-</span></div>
+                <div class="info-row"><span class="info-k">持仓天数</span><span class="info-v" id="tradeDays">-</span></div>
+                <div class="info-row"><span class="info-k">价格收益</span><span class="info-v" id="tradeRet">-</span></div>
+              </div>
+              <div class="info-section">
+                <div class="info-section-title">仓位分布</div>
+                <div id="posDist"></div>
+              </div>
+              <div class="info-section">
+                <div class="info-section-title">最近交易 <span style="font-weight:normal;color:var(--muted);">(最近5笔)</span></div>
+                <div class="trade-list" id="tradeList"></div>
+              </div>
             </div>
           </div>
         </div>
@@ -789,7 +932,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       <h2 class="section-title">Raw Daily Data</h2>
       <div class="raw-tools">
         <a id="csvLink" class="button-link" href="#" target="_blank" rel="noreferrer">Open Raw CSV</a>
-        <div class="sub">展示字段：datetime / strategy_nav / buyhold_nav / position / excess / excess_pct / action / features</div>
+        <div class="sub">点击表格行可聚焦到图表对应日期。展示字段：datetime / strategy_nav / buyhold_nav / position / excess / excess_pct / action / features</div>
       </div>
       <div class="table-wrap">
         <table id="rawTable"></table>
@@ -831,13 +974,14 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     const resetZoomBtn = document.getElementById('resetZoomBtn');
     const infoEmpty = document.getElementById('infoEmpty');
     const infoContent = document.getElementById('infoContent');
-    const STORAGE_KEY = 'soxl-dashboard-state-v3';
+    const regimeStrip = document.getElementById('regimeStrip');
+    const STORAGE_KEY = 'soxl-dashboard-state-v4';
 
     function fmtPct(v, digits = 2) {{
       return `${{(v * 100).toFixed(digits)}}%`;
     }}
     function fmtNum(v, digits = 2) {{
-      return Number(v).toFixed(digits);
+      return v == null ? 'n/a' : Number(v).toFixed(digits);
     }}
     function fmtDelta(v, digits = 2) {{
       const n = Number(v);
@@ -880,9 +1024,9 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       }}
       return filtered;
     }}
-    function shiftIsoDate(iso, months) {{
+    function shiftIsoDate(iso, days) {{
       const dt = new Date(`${{iso}}T00:00:00Z`);
-      dt.setUTCMonth(dt.getUTCMonth() + months);
+      dt.setUTCDate(dt.getUTCDate() + days);
       return dt.toISOString().slice(0, 10);
     }}
     function syncZoomInputs() {{
@@ -902,7 +1046,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
         state.zoomStart = null;
         state.zoomEnd = null;
       }} else {{
-        const monthsMap = {{ '6m': -6, '1y': -12, '2y': -24, '3y': -36 }};
+        const monthsMap = {{ '6m': -180, '1y': -365, '2y': -730, '3y': -1095 }};
         const shifted = shiftIsoDate(bounds.end, monthsMap[mode]);
         state.zoomMode = mode;
         state.zoomStart = shifted < bounds.start ? bounds.start : shifted;
@@ -971,6 +1115,93 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       }});
       applyZoomBtn.addEventListener('click', applyCustomZoom);
       resetZoomBtn.addEventListener('click', () => applyZoomPreset('all'));
+
+      // Keyboard shortcuts
+      document.addEventListener('keydown', e => {{
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT' || e.target.tagName === 'TEXTAREA') return;
+        const views = {{ '1': 'all', '2': 'nav', '3': 'position', '4': 'excess', '5': 'drawdown' }};
+        if (views[e.key]) {{
+          e.preventDefault();
+          viewSelect.value = views[e.key];
+          state.view = views[e.key];
+          saveState();
+          renderChart();
+          return;
+        }}
+        if (e.key === '+' || e.key === '=') {{
+          e.preventDefault();
+          const bounds = getDateBounds(getRangeRows(getDetailed(state.etf).rows));
+          const s = state.zoomStart || bounds.start;
+          const e_ = state.zoomEnd || bounds.end;
+          const mid = new Date(`${{s}}T00:00:00Z`).getTime() + (new Date(`${{e_}}T00:00:00Z`).getTime() - new Date(`${{s}}T00:00:00Z`).getTime()) / 2;
+          const half = (new Date(`${{e_}}T00:00:00Z`).getTime() - new Date(`${{s}}T00:00:00Z`).getTime()) / 4;
+          const ns = new Date(mid - half).toISOString().slice(0,10);
+          const ne = new Date(mid + half).toISOString().slice(0,10);
+          state.zoomStart = ns < bounds.start ? bounds.start : ns;
+          state.zoomEnd = ne > bounds.end ? bounds.end : ne;
+          state.zoomMode = 'custom';
+          saveState();
+          syncZoomInputs();
+          renderChart();
+          return;
+        }}
+        if (e.key === '-' || e.key === '_') {{
+          e.preventDefault();
+          const bounds = getDateBounds(getRangeRows(getDetailed(state.etf).rows));
+          const s = state.zoomStart || bounds.start;
+          const e_ = state.zoomEnd || bounds.end;
+          const mid = new Date(`${{s}}T00:00:00Z`).getTime() + (new Date(`${{e_}}T00:00:00Z`).getTime() - new Date(`${{s}}T00:00:00Z`).getTime()) / 2;
+          const double = new Date(`${{e_}}T00:00:00Z`).getTime() - new Date(`${{s}}T00:00:00Z`).getTime();
+          const ns = new Date(mid - double).toISOString().slice(0,10);
+          const ne = new Date(mid + double).toISOString().slice(0,10);
+          state.zoomStart = ns < bounds.start ? bounds.start : ns;
+          state.zoomEnd = ne > bounds.end ? bounds.end : ne;
+          state.zoomMode = 'custom';
+          saveState();
+          syncZoomInputs();
+          renderChart();
+          return;
+        }}
+        if (e.key === 'r' || e.key === 'R') {{
+          e.preventDefault();
+          applyZoomPreset('all');
+          return;
+        }}
+        if (e.key === 'ArrowLeft') {{
+          e.preventDefault();
+          const bounds = getDateBounds(getRangeRows(getDetailed(state.etf).rows));
+          const s = state.zoomStart || bounds.start;
+          const e_ = state.zoomEnd || bounds.end;
+          const span = Math.max(1, Math.floor((new Date(`${{e_}}T00:00:00Z`).getTime() - new Date(`${{s}}T00:00:00Z`).getTime()) / (86400000 * 10)));
+          const ns = shiftIsoDate(s, -span);
+          const ne = shiftIsoDate(e_, -span);
+          state.zoomStart = ns < bounds.start ? bounds.start : ns;
+          state.zoomEnd = ne < bounds.start ? bounds.end : ne;
+          if (state.zoomStart === bounds.start && state.zoomEnd === bounds.end) {{ state.zoomMode = 'all'; state.zoomStart = null; state.zoomEnd = null; }}
+          else state.zoomMode = 'custom';
+          saveState();
+          syncZoomInputs();
+          renderChart();
+          return;
+        }}
+        if (e.key === 'ArrowRight') {{
+          e.preventDefault();
+          const bounds = getDateBounds(getRangeRows(getDetailed(state.etf).rows));
+          const s = state.zoomStart || bounds.start;
+          const e_ = state.zoomEnd || bounds.end;
+          const span = Math.max(1, Math.floor((new Date(`${{e_}}T00:00:00Z`).getTime() - new Date(`${{s}}T00:00:00Z`).getTime()) / (86400000 * 10)));
+          const ns = shiftIsoDate(s, span);
+          const ne = shiftIsoDate(e_, span);
+          state.zoomStart = ns > bounds.end ? bounds.start : ns;
+          state.zoomEnd = ne > bounds.end ? bounds.end : ne;
+          if (state.zoomStart === bounds.start && state.zoomEnd === bounds.end) {{ state.zoomMode = 'all'; state.zoomStart = null; state.zoomEnd = null; }}
+          else state.zoomMode = 'custom';
+          saveState();
+          syncZoomInputs();
+          renderChart();
+          return;
+        }}
+      }});
     }}
 
     function renderMetrics() {{
@@ -1087,7 +1318,85 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       reviewBox.textContent = DATA.execution_review;
     }}
 
-    function updateInfoPanel(row) {{
+    function computeTrades(rows) {{
+      const trades = [];
+      let entryIdx = -1;
+      for (let i = 0; i < rows.length; i++) {{
+        const r = rows[i];
+        if (r.action === 'BUY' && entryIdx < 0) {{
+          entryIdx = i;
+        }} else if (r.action === 'SELL' && entryIdx >= 0) {{
+          const entryRow = rows[entryIdx];
+          const entryPrice = entryRow.price || entryRow.strategy_nav;
+          const exitPrice = r.price || r.strategy_nav;
+          const days = i - entryIdx;
+          const ret = entryPrice > 0 ? ((exitPrice - entryPrice) / entryPrice * 100) : 0;
+          trades.push({{
+            entryDate: entryRow.datetime,
+            exitDate: r.datetime,
+            days: days,
+            returnPct: ret,
+            entryPrice: entryPrice,
+            exitPrice: exitPrice,
+          }});
+          entryIdx = -1;
+        }}
+      }}
+      return trades;
+    }}
+
+    function renderRegimeStrip(rows) {{
+      if (!rows.length) {{ regimeStrip.innerHTML = ''; return; }}
+      regimeStrip.innerHTML = rows.map(r => {{
+        const f = r._features || {{}};
+        const vz = f.vix_zscore;
+        let color = 'rgba(216,204,187,0.5)';
+        let title = `${{r.datetime}} 正常`;
+        if (vz != null) {{
+          if (vz > 2) {{ color = 'rgba(185,28,28,0.55)'; title = `${{r.datetime}} 高压力 (VIXz ${{fmtNum(vz,2)}})`; }}
+          else if (vz < -1) {{ color = 'rgba(15,118,110,0.4)'; title = `${{r.datetime}} 低波动 (VIXz ${{fmtNum(vz,2)}})`; }}
+        }}
+        return `<div class="regime-bar" style="background:${{color}}" title="${{title}}"></div>`;
+      }}).join('');
+    }}
+
+    function renderPositionDist(rows) {{
+      const bins = {{ '0': 0, '低(0-0.3)': 0, '中(0.3-0.7)': 0, '高(0.7-1)': 0 }};
+      rows.forEach(r => {{
+        const p = r.position;
+        if (p === 0) bins['0']++;
+        else if (p < 0.3) bins['低(0-0.3)']++;
+        else if (p < 0.7) bins['中(0.3-0.7)']++;
+        else bins['高(0.7-1)']++;
+      }});
+      const total = rows.length || 1;
+      const maxCount = Math.max(...Object.values(bins));
+      const container = document.getElementById('posDist');
+      container.innerHTML = Object.entries(bins).map(([label, count]) => {{
+        const pct = (count / total * 100).toFixed(1);
+        const width = maxCount > 0 ? (count / maxCount * 100).toFixed(1) : 0;
+        return `
+          <div class="pos-bar-wrap">
+            <div class="pos-bar-label">${{label}}</div>
+            <div class="pos-bar-track"><div class="pos-bar-fill" style="width:${{width}}%"></div></div>
+            <div class="pos-bar-pct">${{pct}}%</div>
+          </div>
+        `;
+      }}).join('');
+    }}
+
+    function renderTradeList(trades) {{
+      const container = document.getElementById('tradeList');
+      const recent = trades.slice(-5).reverse();
+      container.innerHTML = recent.map(t => `
+        <div class="trade-item">
+          <span class="trade-entry">BUY</span> ${{t.entryDate}} → <span class="trade-exit">SELL</span> ${{t.exitDate}}<br>
+          持有 ${{t.days}} 天 | 收益 <span class="${{t.returnPct >= 0 ? 'good' : 'bad'}}">${{fmtNum(t.returnPct, 2)}}%</span>
+        </div>
+      `).join('');
+    }}
+
+    function updateInfoPanel(row, tradeMap) {{
       if (!row) {{
         infoEmpty.style.display = 'block';
         infoContent.style.display = 'none';
@@ -1097,8 +1406,9 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       infoContent.style.display = 'block';
       const f = row._features || {{}};
       document.getElementById('infoDate').textContent = row.datetime;
-      document.getElementById('infoAction').textContent = row.action || 'HOLD';
-      document.getElementById('infoAction').style.color = row.action === 'BUY' ? 'var(--good)' : row.action === 'SELL' ? 'var(--bad)' : 'var(--ink)';
+      const actionEl = document.getElementById('infoAction');
+      actionEl.textContent = row.action || 'HOLD';
+      actionEl.style.color = row.action === 'BUY' ? 'var(--good)' : row.action === 'SELL' ? 'var(--bad)' : 'var(--ink)';
       document.getElementById('infoPrice').textContent = fmtNum(row.price || row.strategy_nav);
       document.getElementById('infoStrat').textContent = fmtNum(row.strategy_nav);
       document.getElementById('infoBH').textContent = fmtNum(row.buyhold_nav);
@@ -1112,15 +1422,32 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       document.getElementById('infoSpTr').textContent = f.spread_trend != null ? fmtNum(f.spread_trend, 4) : 'n/a';
       document.getElementById('infoMA').textContent = f.ma5_ma20 != null ? fmtNum(f.ma5_ma20, 4) : 'n/a';
       document.getElementById('infoVolStr').textContent = f.vol_strength != null ? fmtNum(f.vol_strength, 4) : 'n/a';
+
+      const trade = tradeMap[row.datetime];
+      const tradeSection = document.getElementById('tradeSection');
+      if (trade) {{
+        tradeSection.style.display = 'block';
+        document.getElementById('tradeEntry').textContent = trade.entryDate;
+        document.getElementById('tradeExit').textContent = trade.exitDate;
+        document.getElementById('tradeDays').textContent = trade.days + ' 天';
+        const retEl = document.getElementById('tradeRet');
+        retEl.textContent = fmtNum(trade.returnPct, 2) + '%';
+        retEl.style.color = trade.returnPct >= 0 ? 'var(--good)' : 'var(--bad)';
+      }} else {{
+        tradeSection.style.display = 'none';
+      }}
     }}
 
     function renderChart() {{
-      const rows = getFilteredRows(getDetailed(state.etf).rows);
+      const allRows = getDetailed(state.etf).rows;
+      const rows = getFilteredRows(allRows);
       const layout = JSON.parse(JSON.stringify(PLOTLY_LAYOUTS[state.view || 'all']));
+      const shapes = getDetailed(state.etf).regime_shapes || [];
+      layout.shapes = shapes;
+
       const dates = rows.map(r => r.datetime);
       const strategyNav = rows.map(r => r.strategy_nav);
       const buyholdNav = rows.map(r => r.buyhold_nav);
-      const prices = rows.map(r => r.price || r.strategy_nav);
       const positions = rows.map(r => r.position);
       const excessPct = rows.map(r => r.excess_pct);
 
@@ -1135,6 +1462,14 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
 
       const buyRows = rows.filter(r => r.action === 'BUY');
       const sellRows = rows.filter(r => r.action === 'SELL');
+      const trades = computeTrades(rows);
+      const tradeMap = {{}};
+      trades.forEach(t => {{ tradeMap[t.entryDate] = t; }});
+
+      // Update info panel extras
+      renderRegimeStrip(rows);
+      renderPositionDist(rows);
+      renderTradeList(trades);
 
       const traces = [];
       const isAll = state.view === 'all';
@@ -1233,10 +1568,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
           const pt = data.points[0];
           const dateStr = pt.x;
           const row = rows.find(r => r.datetime === dateStr);
-          updateInfoPanel(row);
-        }});
-        gd.on('plotly_unhover', function() {{
-          // keep last hovered row visible instead of clearing
+          updateInfoPanel(row, tradeMap);
         }});
       }});
 
@@ -1266,7 +1598,8 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     }}
 
     function renderRawTable() {{
-      const rows = getFilteredRows(getDetailed(state.etf).rows).slice(-state.rows);
+      const allRows = getDetailed(state.etf).rows;
+      const rows = getFilteredRows(allRows).slice(-state.rows);
       csvLink.href = getDetailed(state.etf).csv_path;
       const header = ['datetime', 'strategy_nav', 'buyhold_nav', 'position', 'excess', 'excess_pct', 'action'];
       const body = rows.map(r => [
@@ -1279,8 +1612,27 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
         r.action,
       ]);
       rawTable.innerHTML = [header, ...body].map((row, idx) => `
-        <tr>${{row.map((cell, col) => idx === 0 ? `<th>${{cell}}</th>` : `<td class="${{col === 6 && cell === 'BUY' ? 'good' : col === 6 && cell === 'SELL' ? 'bad' : ''}}">${{cell}}</td>`).join('')}}</tr>
+        <tr class="clickable" data-date="${{row[0]}}">${{row.map((cell, col) => idx === 0 ? `<th>${{cell}}</th>` : `<td class="${{col === 6 && cell === 'BUY' ? 'good' : col === 6 && cell === 'SELL' ? 'bad' : ''}}">${{cell}}</td>`).join('')}}</tr>
       `).join('');
+
+      // Table-to-chart linking
+      rawTable.querySelectorAll('tr.clickable').forEach(tr => {{
+        tr.addEventListener('click', () => {{
+          const dateStr = tr.dataset.date;
+          const idx = allRows.findIndex(r => r.datetime === dateStr);
+          if (idx < 0) return;
+          const start = Math.max(0, idx - 15);
+          const end = Math.min(allRows.length - 1, idx + 15);
+          state.zoomStart = allRows[start].datetime;
+          state.zoomEnd = allRows[end].datetime;
+          state.zoomMode = 'custom';
+          saveState();
+          syncZoomInputs();
+          renderChart();
+          renderRawTable();
+          document.getElementById('mainChart').scrollIntoView({{ behavior: 'smooth' }});
+        }});
+      }});
     }}
 
     function render() {{
