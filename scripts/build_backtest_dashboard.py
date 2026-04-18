@@ -26,6 +26,8 @@ C_MUTED = "#6d6458"
 C_LINE = "#d8ccbb"
 C_BG = "#f4efe6"
 C_PANEL = "#fffaf2"
+C_GOOD = "#0f766e"
+C_BAD = "#b91c1c"
 
 FEATURE_COLS = [
     "vix", "rsi", "volatility", "spread", "vix_zscore",
@@ -71,7 +73,6 @@ def load_csv_rows(path: Path) -> list[dict[str, object]]:
 
 
 def compute_regime_shapes(rows: list[dict]) -> list[dict]:
-    """Compute background shading rectangles for stress/calm regimes."""
     shapes = []
     if not rows:
         return shapes
@@ -127,6 +128,86 @@ def compute_regime_shapes(rows: list[dict]) -> list[dict]:
     return shapes
 
 
+def compute_tear_sheet(rows: list[dict]) -> dict:
+    """Compute monthly returns heatmap data, yearly returns, daily return distribution."""
+    monthly: dict[int, dict[int, dict]] = {}
+    yearly: dict[int, dict] = {}
+    daily_rets_strategy = []
+    daily_rets_buyhold = []
+
+    prev = None
+    for row in rows:
+        if prev:
+            daily_rets_strategy.append(row["strategy_nav"] / prev["strategy_nav"] - 1)
+            daily_rets_buyhold.append(row["buyhold_nav"] / prev["buyhold_nav"] - 1)
+
+        dt = str(row["datetime"])
+        year = int(dt[:4])
+        month = int(dt[5:7])
+
+        if year not in monthly:
+            monthly[year] = {}
+        if month not in monthly[year]:
+            monthly[year][month] = {"first": row, "last": row}
+        else:
+            monthly[year][month]["last"] = row
+
+        if year not in yearly:
+            yearly[year] = {"first": row, "last": row}
+        else:
+            yearly[year]["last"] = row
+        prev = row
+
+    monthly_rets = []
+    years = sorted(monthly.keys())
+    for y in years:
+        for m in range(1, 13):
+            if m in monthly.get(y, {}):
+                d = monthly[y][m]
+                ret = d["last"]["strategy_nav"] / d["first"]["strategy_nav"] - 1
+                monthly_rets.append({"year": y, "month": m, "return": ret})
+            else:
+                monthly_rets.append({"year": y, "month": m, "return": None})
+
+    yearly_rets = []
+    for y in sorted(yearly.keys()):
+        d = yearly[y]
+        strat_ret = d["last"]["strategy_nav"] / d["first"]["strategy_nav"] - 1
+        bh_ret = d["last"]["buyhold_nav"] / d["first"]["buyhold_nav"] - 1
+        yearly_rets.append({"year": y, "strategy": strat_ret, "buyhold": bh_ret})
+
+    return {
+        "monthly_rets": monthly_rets,
+        "yearly_rets": yearly_rets,
+        "daily_rets_strategy": daily_rets_strategy,
+        "daily_rets_buyhold": daily_rets_buyhold,
+    }
+
+
+def compute_trades(rows: list[dict]) -> list[dict]:
+    trades = []
+    entry_idx = -1
+    for i, row in enumerate(rows):
+        if row["action"] == "BUY" and entry_idx < 0:
+            entry_idx = i
+        elif row["action"] == "SELL" and entry_idx >= 0:
+            entry_row = rows[entry_idx]
+            entry_price = entry_row["price"] or entry_row["strategy_nav"]
+            exit_price = row["price"] or row["strategy_nav"]
+            days = i - entry_idx
+            ret = entry_price > 0 and ((exit_price / entry_price - 1) * 100) or 0
+            trades.append(
+                {
+                    "entry_date": entry_row["datetime"],
+                    "exit_date": row["datetime"],
+                    "days": days,
+                    "return_pct": ret,
+                }
+            )
+            entry_idx = -1
+    return trades
+
+
 def build_payload() -> dict[str, object]:
     detailed_summary = load_json(DETAIL_DIR / "summary.json")
     detailed_rows = {}
@@ -143,11 +224,15 @@ def build_payload() -> dict[str, object]:
             for r in rows:
                 r["_features"] = {}
         regime_shapes = compute_regime_shapes(rows)
+        tear_sheet = compute_tear_sheet(rows)
+        trades = compute_trades(rows)
         detailed_rows[etf] = {
             "summary": item,
             "csv_path": f"detailed/{etf.lower()}_detailed_trades.csv",
             "rows": rows,
             "regime_shapes": regime_shapes,
+            "tear_sheet": tear_sheet,
+            "trades": trades,
         }
         windows[etf] = {
             "start": rows[0]["datetime"] if rows else "",
@@ -507,7 +592,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     }}
     .chart-grid {{
       display: grid;
-      grid-template-columns: 3fr 1fr;
+      grid-template-columns: 1fr;
       gap: 18px;
       margin-bottom: 18px;
     }}
@@ -650,12 +735,55 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     .trade-item:last-child {{ border-bottom: none; }}
     .trade-entry {{ color: var(--good); }}
     .trade-exit {{ color: var(--bad); }}
-    .split {{
+
+    /* Tear sheet & analysis panels */
+    .analysis-grid {{
       display: grid;
-      grid-template-columns: 1.1fr 1fr;
+      grid-template-columns: 1fr 1fr;
       gap: 18px;
       margin-bottom: 18px;
     }}
+    .analysis-grid .card {{
+      min-height: 380px;
+    }}
+    .mini-chart {{
+      width: 100%;
+      height: 300px;
+      border-radius: 12px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+    }}
+    .stat-row {{
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 14px;
+    }}
+    .stat-cell {{
+      background: var(--panel-2);
+      border-radius: 12px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      text-align: center;
+    }}
+    .stat-cell .sk {{
+      font-size: 10px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 6px;
+    }}
+    .stat-cell .sv {{
+      font-size: 20px;
+      font-weight: 700;
+      font-family: ui-monospace, monospace;
+    }}
+    .stat-cell .ss {{
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 4px;
+    }}
+
     table {{
       width: 100%;
       border-collapse: collapse;
@@ -673,7 +801,6 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     .good {{ color: var(--good); }}
     .bad {{ color: var(--bad); }}
     .mono {{ font-family: ui-monospace, "SFMono-Regular", Menlo, monospace; }}
-    .raw-panel {{ margin-top: 18px; }}
     .raw-tools {{
       display: flex;
       gap: 12px;
@@ -693,50 +820,23 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       font-size: 13px;
     }}
     .table-wrap {{
-      max-height: 520px;
+      max-height: 400px;
       overflow: auto;
       border: 1px solid var(--line);
       border-radius: 16px;
       background: #fffdf8;
     }}
-    .review {{
-      white-space: pre-wrap;
-      font-size: 13px;
-      line-height: 1.6;
-      color: var(--muted);
-      background: #fffdf8;
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 16px;
-    }}
-    .source-list {{ display: grid; gap: 10px; }}
-    .source-item {{
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      align-items: center;
-      padding: 10px 12px;
-      background: #fffdf8;
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      font-size: 13px;
-    }}
-    .source-item a {{
-      color: var(--accent);
-      text-decoration: none;
-      font-weight: 600;
-    }}
-    td.delta-good {{ color: var(--good); font-weight: 700; }}
-    td.delta-bad {{ color: var(--bad); font-weight: 700; }}
     @media (max-width: 1100px) {{
-      .hero, .chart-grid, .split, .status-strip {{ grid-template-columns: 1fr; }}
-      .summary-grid, .window-bar {{ grid-template-columns: repeat(2, minmax(0, 1fr)); }}
+      .hero, .window-bar, .status-strip {{ grid-template-columns: 1fr; }}
+      .summary-grid {{ grid-template-columns: repeat(2, minmax(0, 1fr)); }}
       .chart-wrapper {{ grid-template-columns: 1fr; }}
       .info-panel {{ display: none; }}
+      .analysis-grid {{ grid-template-columns: 1fr; }}
+      .stat-row {{ grid-template-columns: repeat(2, 1fr); }}
     }}
     @media (max-width: 720px) {{
       .shell {{ padding: 14px; }}
-      .summary-grid, .window-bar {{ grid-template-columns: 1fr; }}
+      .summary-grid {{ grid-template-columns: 1fr; }}
       .hero h1 {{ font-size: 28px; }}
       .chart-toolbar {{ flex-direction: column; align-items: stretch; }}
     }}
@@ -749,13 +849,12 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
         <h1>Backtest Dashboard</h1>
         <p class="sub">
           交互式回测查看器。4 子图联动，鼠标悬停查看当日特征，快捷键 1-5 切换视图，+/- 缩放，R 重置，←→ 平移。
-          直接打开 <span class="mono">runtime/generalization/dashboard.html</span> 即可查看。
         </p>
         <div class="jump-links">
           <a class="badge" href="#mainChart">Main Chart</a>
-          <a class="badge" href="#ruleComparison">Rule Comparison</a>
-          <a class="badge" href="#executionOverlay">Overlay Review</a>
-          <a class="badge" href="#rawDaily">Raw Daily Data</a>
+          <a class="badge" href="#tearSheet">Tear Sheet</a>
+          <a class="badge" href="#tradeAnalysis">Trade Analysis</a>
+          <a class="badge" href="#tradeLog">Trade Log</a>
         </div>
       </div>
     </div>
@@ -785,6 +884,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       </div>
     </div>
 
+    <!-- Main Chart -->
     <div class="chart-grid">
       <div class="card chart-panel" id="mainChart">
         <h2 class="section-title">Main Chart</h2>
@@ -804,7 +904,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
             </select>
           </div>
           <div class="toolbar-group">
-            <label>Rows <span class="help-icon" data-tip="Raw Daily Data 表格显示行数">?</span></label>
+            <label>Rows <span class="help-icon" data-tip="Trade Log 表格显示行数">?</span></label>
             <select id="rowsSelect">
               <option value="50">50</option>
               <option value="100" selected>100</option>
@@ -911,28 +1011,30 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
           </div>
         </div>
       </div>
-      <div class="card" id="ruleComparison">
-        <h2 class="section-title">Rule-Based Comparison</h2>
-        <table id="comparisonTable"></table>
+    </div>
+
+    <!-- Analysis panels -->
+    <div class="analysis-grid">
+      <div class="card" id="tearSheet">
+        <h2 class="section-title">📈 Tear Sheet</h2>
+        <div class="stat-row" id="tearStats"></div>
+        <div id="monthlyHeatmap" class="mini-chart"></div>
+        <div id="yearlyBar" class="mini-chart" style="margin-top:14px;height:240px;"></div>
+      </div>
+      <div class="card" id="tradeAnalysis">
+        <h2 class="section-title">🎯 Trade Analysis</h2>
+        <div class="stat-row" id="tradeStats"></div>
+        <div id="tradeScatter" class="mini-chart"></div>
+        <div id="retDist" class="mini-chart" style="margin-top:14px;height:240px;"></div>
       </div>
     </div>
 
-    <div class="split">
-      <div class="card" id="executionOverlay">
-        <h2 class="section-title">Execution Overlay</h2>
-        <table id="overlayTable"></table>
-      </div>
-      <div class="card">
-        <h2 class="section-title">Execution Review</h2>
-        <div class="review" id="reviewBox"></div>
-      </div>
-    </div>
-
-    <div class="card raw-panel" id="rawDaily">
-      <h2 class="section-title">Raw Daily Data</h2>
+    <!-- Trade Log -->
+    <div class="card" id="tradeLog">
+      <h2 class="section-title">📝 Trade Log</h2>
       <div class="raw-tools">
         <a id="csvLink" class="button-link" href="#" target="_blank" rel="noreferrer">Open Raw CSV</a>
-        <div class="sub">点击表格行可聚焦到图表对应日期。展示字段：datetime / strategy_nav / buyhold_nav / position / excess / excess_pct / action / features</div>
+        <div class="sub">点击表格行聚焦到图表对应日期。仅展示有信号（BUY/SELL/HOLD 变动）的交易日。</div>
       </div>
       <div class="table-wrap">
         <table id="rawTable"></table>
@@ -958,9 +1060,8 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     const viewSelect = document.getElementById('viewSelect');
     const rowsSelect = document.getElementById('rowsSelect');
     const metricGrid = document.getElementById('metricGrid');
-    const comparisonTable = document.getElementById('comparisonTable');
-    const overlayTable = document.getElementById('overlayTable');
-    const reviewBox = document.getElementById('reviewBox');
+    const tearStats = document.getElementById('tearStats');
+    const tradeStats = document.getElementById('tradeStats');
     const rawTable = document.getElementById('rawTable');
     const csvLink = document.getElementById('csvLink');
     const windowBox = document.getElementById('windowBox');
@@ -975,10 +1076,10 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     const infoEmpty = document.getElementById('infoEmpty');
     const infoContent = document.getElementById('infoContent');
     const regimeStrip = document.getElementById('regimeStrip');
-    const STORAGE_KEY = 'soxl-dashboard-state-v4';
+    const STORAGE_KEY = 'soxl-dashboard-state-v5';
 
     function fmtPct(v, digits = 2) {{
-      return `${{(v * 100).toFixed(digits)}}%`;
+      return v == null ? 'n/a' : `${{(v * 100).toFixed(digits)}}%`;
     }}
     function fmtNum(v, digits = 2) {{
       return v == null ? 'n/a' : Number(v).toFixed(digits);
@@ -1116,7 +1217,6 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       applyZoomBtn.addEventListener('click', applyCustomZoom);
       resetZoomBtn.addEventListener('click', () => applyZoomPreset('all'));
 
-      // Keyboard shortcuts
       document.addEventListener('keydown', e => {{
         if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT' || e.target.tagName === 'TEXTAREA') return;
         const views = {{ '1': 'all', '2': 'nav', '3': 'position', '4': 'excess', '5': 'drawdown' }};
@@ -1270,79 +1370,191 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       `).join('');
     }}
 
-    function renderComparison() {{
-      const summary = getDetailed(state.etf).summary;
-      const rl = DATA.results[state.etf];
-      const rule = DATA.rule_based[state.etf];
-      const rows = [
-        ['Model', 'Return', 'Sharpe', 'MaxDD', 'Trades', 'Avg Pos'],
-        ['RL', `${{fmtNum(rl.return)}}%`, fmtNum(rl.sharpe, 3), `${{fmtNum(rl.max_dd)}}%`, rl.trades, 'n/a'],
-        ['Rule', `${{fmtNum(rule.return)}}%`, fmtNum(rule.sharpe, 3), `${{fmtNum(rule.max_dd)}}%`, rule.trades, fmtNum(rule.avg_pos, 3)],
-        ['Detailed Excess', `${{fmtPct(summary.excess_return)}}`, 'n/a', `${{fmtPct(summary.max_dd_strategy)}}`, summary.trades, fmtNum(summary.max_position, 3)],
-        ['Delta RL-Rule', `${{fmtDelta(rl.return - rule.return)}}pp`, fmtDelta(rl.sharpe - rule.sharpe, 3), `${{fmtDelta(rule.max_dd - rl.max_dd)}}pp`, rl.trades - rule.trades, 'n/a'],
-      ];
-      comparisonTable.innerHTML = rows.map((row, idx) => `
-        <tr>${{row.map((cell, col) => {{
-          if (idx === 0) return `<th>${{cell}}</th>`;
-          const deltaClass = idx === 4 && col > 0
-            ? (String(cell).startsWith('-') ? 'delta-bad' : 'delta-good')
-            : '';
-          return `<td class="${{deltaClass}}">${{cell}}</td>`;
-        }}).join('')}}</tr>
+    function renderTearSheet(rows) {{
+      const ts = getDetailed(state.etf).tear_sheet;
+      const trades = getDetailed(state.etf).trades || [];
+
+      // Stats
+      const totalRet = rows.length > 0 ? (rows[rows.length-1].strategy_nav / rows[0].strategy_nav - 1) * 100 : 0;
+      const cagr = rows.length > 252 ? (Math.pow(rows[rows.length-1].strategy_nav / rows[0].strategy_nav, 252/rows.length) - 1) * 100 : totalRet;
+      const avgDailyRet = ts.daily_rets_strategy.length > 0 ? ts.daily_rets_strategy.reduce((a,b)=>a+b,0)/ts.daily_rets_strategy.length * 100 : 0;
+      const vol = ts.daily_rets_strategy.length > 1 ? Math.sqrt(ts.daily_rets_strategy.length/(ts.daily_rets_strategy.length-1)) * Math.sqrt(252) * 100 * Math.sqrt(ts.daily_rets_strategy.map(r=>r*r).reduce((a,b)=>a+b,0)/ts.daily_rets_strategy.length - Math.pow(ts.daily_rets_strategy.reduce((a,b)=>a+b,0)/ts.daily_rets_strategy.length, 2)) : 0;
+      const winRate = trades.length > 0 ? (trades.filter(t=>t.return_pct>0).length / trades.length * 100).toFixed(1) : 0;
+
+      tearStats.innerHTML = [
+        {{ k: '总收益', v: fmtNum(totalRet, 1)+'%', s: fmtNum((rows[rows.length-1].buyhold_nav/rows[0].buyhold_nav-1)*100,1)+'% BH' }},
+        {{ k: '年化收益', v: fmtNum(cagr, 1)+'%', s: '' }},
+        {{ k: '日收益', v: fmtNum(avgDailyRet, 3)+'%', s: '均值' }},
+        {{ k: '胜率', v: winRate+'%', s: trades.length+' 笔' }},
+      ].map(s => `
+        <div class="stat-cell">
+          <div class="sk">${{s.k}}</div>
+          <div class="sv" style="color:${{s.v.includes('-')?'var(--bad)':'var(--good)'}}">${{s.v}}</div>
+          <div class="ss">${{s.s}}</div>
+        </div>
       `).join('');
+
+      // Monthly heatmap
+      const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      const years = [...new Set(ts.monthly_rets.map(r=>r.year))].sort();
+      const z = years.map(y => months.map((_,m) => {{
+        const item = ts.monthly_rets.find(r=>r.year===y&&r.month===m+1);
+        return item ? item.return : null;
+      }}));
+      const heatmapTrace = {{
+        x: months,
+        y: years,
+        z: z,
+        type: 'heatmap',
+        colorscale: [[0, '#b91c1c'], [0.35, '#fffaf2'], [0.5, '#fffaf2'], [0.65, '#fffaf2'], [1, '#0f766e']],
+        zmid: 0,
+        showscale: true,
+        colorbar: {{ title: '月度收益', titleside: 'right', thickness: 12, len: 0.8 }},
+        hovertemplate: '%{{y}}-%{{x}}<br>收益: %{{z:.2%}}<extra></extra>',
+      }};
+      const heatmapLayout = {{
+        height: 260,
+        margin: {{ l: 50, r: 60, t: 20, b: 40 }},
+        paper_bgcolor: 'rgba(0,0,0,0)',
+        plot_bgcolor: C_PANEL,
+        font: {{ family: 'ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif', size: 11 }},
+        xaxis: {{ tickfont: {{ size: 10 }} }},
+        yaxis: {{ tickfont: {{ size: 10 }} }},
+      }};
+      Plotly.react('monthlyHeatmap', [heatmapTrace], heatmapLayout, {{ displayModeBar: false, displaylogo: false }});
+
+      // Yearly bar
+      const yStrat = ts.yearly_rets.map(r => r.strategy * 100);
+      const yBH = ts.yearly_rets.map(r => r.buyhold * 100);
+      const yearlyTrace1 = {{
+        x: ts.yearly_rets.map(r => r.year),
+        y: yStrat,
+        name: 'Strategy',
+        type: 'bar',
+        marker: {{ color: yStrat.map(v => v >= 0 ? C_STRATEGY : C_BAD) }},
+        hovertemplate: '%{{x}}<br>Strategy: %{{y:.2f}}%<extra></extra>',
+      }};
+      const yearlyTrace2 = {{
+        x: ts.yearly_rets.map(r => r.year),
+        y: yBH,
+        name: 'Buy&Hold',
+        type: 'bar',
+        marker: {{ color: yBH.map(v => v >= 0 ? C_BUYHOLD : '#6d6458') }},
+        hovertemplate: '%{{x}}<br>Buy&Hold: %{{y:.2f}}%<extra></extra>',
+      }};
+      const yearlyLayout = {{
+        height: 240,
+        margin: {{ l: 50, r: 20, t: 30, b: 40 }},
+        paper_bgcolor: 'rgba(0,0,0,0)',
+        plot_bgcolor: C_PANEL,
+        font: {{ family: 'ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif', size: 11 }},
+        barmode: 'group',
+        legend: {{ orientation: 'h', y: 1.1, x: 0.5, xanchor: 'center' }},
+        xaxis: {{ tickfont: {{ size: 10 }} }},
+        yaxis: {{ title: '年度收益 %', tickfont: {{ size: 10 }} }},
+      }};
+      Plotly.react('yearlyBar', [yearlyTrace1, yearlyTrace2], yearlyLayout, {{ displayModeBar: false, displaylogo: false }});
     }}
 
-    function renderOverlay() {{
-      const payload = DATA.execution_overlay.results[state.etf];
-      const header = ['Variant', 'Proxy Return', 'Sharpe', 'MaxDD', 'Trades', '2022 Return', '2022 MaxDD', 'Vs RL Return'];
-      const body = Object.entries(payload).map(([name, item]) => {{
-        const bear = item.scenarios.bear_2022;
-        return [
-          name,
-          `${{fmtNum(item.test_proxy.return)}}%`,
-          fmtNum(item.test_proxy.sharpe, 3),
-          `${{fmtNum(item.test_proxy.max_dd)}}%`,
-          item.test_proxy.trades,
-          `${{fmtNum(bear.return)}}%`,
-          `${{fmtNum(bear.max_dd)}}%`,
-          `${{fmtDelta(item.test_proxy.return - DATA.results[state.etf].return)}}pp`,
-        ];
+    function renderTradeAnalysis(rows) {{
+      const trades = getDetailed(state.etf).trades || [];
+      const ts = getDetailed(state.etf).tear_sheet;
+
+      // Stats
+      const wins = trades.filter(t => t.return_pct > 0);
+      const losses = trades.filter(t => t.return_pct <= 0);
+      const avgWin = wins.length > 0 ? wins.reduce((a,t)=>a+t.return_pct,0)/wins.length : 0;
+      const avgLoss = losses.length > 0 ? losses.reduce((a,t)=>a+t.return_pct,0)/losses.length : 0;
+      const avgDays = trades.length > 0 ? trades.reduce((a,t)=>a+t.days,0)/trades.length : 0;
+      const profitFactor = losses.length > 0 && avgLoss !== 0 ? Math.abs((wins.length*avgWin)/(losses.length*avgLoss)) : (wins.length > 0 ? 999 : 0);
+
+      tradeStats.innerHTML = [
+        {{ k: '盈利笔数', v: String(wins.length), s: fmtNum(avgWin,2)+'% 均盈' }},
+        {{ k: '亏损笔数', v: String(losses.length), s: fmtNum(avgLoss,2)+'% 均亏' }},
+        {{ k: '平均持仓', v: fmtNum(avgDays,1)+'天', s: '' }},
+        {{ k: '盈亏比', v: fmtNum(profitFactor,2), s: '' }},
+      ].map(s => `
+        <div class="stat-cell">
+          <div class="sk">${{s.k}}</div>
+          <div class="sv">${{s.v}}</div>
+          <div class="ss">${{s.s}}</div>
+        </div>
+      `).join('');
+
+      // Trade scatter
+      const scatterTrace = {{
+        x: trades.map((t,i) => i+1),
+        y: trades.map(t => t.return_pct),
+        mode: 'markers',
+        type: 'scatter',
+        marker: {{
+          color: trades.map(t => t.return_pct >= 0 ? C_GOOD : C_BAD),
+          size: trades.map(t => Math.max(6, Math.min(18, Math.abs(t.return_pct) * 2))),
+          opacity: 0.8,
+          line: {{ width: 1, color: 'white' }},
+        }},
+        text: trades.map(t => `入场: ${{t.entryDate}}<br>出场: ${{t.exitDate}}<br>持有: ${{t.days}}天<br>收益: ${{fmtNum(t.return_pct,2)}}%`),
+        hovertemplate: '%{{text}}<extra></extra>',
+      }};
+      const scatterLayout = {{
+        height: 260,
+        margin: {{ l: 50, r: 20, t: 20, b: 40 }},
+        paper_bgcolor: 'rgba(0,0,0,0)',
+        plot_bgcolor: C_PANEL,
+        font: {{ family: 'ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif', size: 11 }},
+        xaxis: {{ title: '交易序号', tickfont: {{ size: 10 }} }},
+        yaxis: {{ title: '收益 %', tickfont: {{ size: 10 }} }},
+        shapes: [{{ type: 'line', x0: 0, x1: trades.length+1, y0: 0, y1: 0, line: {{ color: C_LINE, width: 1, dash: 'dot' }} }}],
+      }};
+      Plotly.react('tradeScatter', [scatterTrace], scatterLayout, {{ displayModeBar: false, displaylogo: false }});
+
+      // Return distribution
+      const binSize = 2;
+      const allRets = ts.daily_rets_strategy.map(r => r * 100);
+      const minR = Math.floor((Math.min(...allRets, 0) - binSize) / binSize) * binSize;
+      const maxR = Math.ceil((Math.max(...allRets, 0) + binSize) / binSize) * binSize;
+      const bins = [];
+      for (let b = minR; b <= maxR; b += binSize) bins.push(b);
+      const stratCounts = new Array(bins.length).fill(0);
+      allRets.forEach(r => {{
+        const idx = Math.min(Math.floor((r - minR) / binSize), bins.length - 1);
+        stratCounts[idx]++;
       }});
-      overlayTable.innerHTML = [header, ...body].map((row, idx) => `
-        <tr>${{row.map((cell, col) => {{
-          if (idx === 0) return `<th>${{cell}}</th>`;
-          const deltaClass = col === 7 ? (String(cell).startsWith('-') ? 'delta-bad' : 'delta-good') : '';
-          return `<td class="${{deltaClass}}">${{cell}}</td>`;
-        }}).join('')}}</tr>
-      `).join('');
-      reviewBox.textContent = DATA.execution_review;
-    }}
-
-    function computeTrades(rows) {{
-      const trades = [];
-      let entryIdx = -1;
-      for (let i = 0; i < rows.length; i++) {{
-        const r = rows[i];
-        if (r.action === 'BUY' && entryIdx < 0) {{
-          entryIdx = i;
-        }} else if (r.action === 'SELL' && entryIdx >= 0) {{
-          const entryRow = rows[entryIdx];
-          const entryPrice = entryRow.price || entryRow.strategy_nav;
-          const exitPrice = r.price || r.strategy_nav;
-          const days = i - entryIdx;
-          const ret = entryPrice > 0 ? ((exitPrice - entryPrice) / entryPrice * 100) : 0;
-          trades.push({{
-            entryDate: entryRow.datetime,
-            exitDate: r.datetime,
-            days: days,
-            returnPct: ret,
-            entryPrice: entryPrice,
-            exitPrice: exitPrice,
-          }});
-          entryIdx = -1;
-        }}
-      }}
-      return trades;
+      const bhRets = ts.daily_rets_buyhold.map(r => r * 100);
+      const bhCounts = new Array(bins.length).fill(0);
+      bhRets.forEach(r => {{
+        const idx = Math.min(Math.floor((r - minR) / binSize), bins.length - 1);
+        bhCounts[idx]++;
+      }});
+      const binLabels = bins.map(b => `${{b}}~${{b+binSize}}`);
+      const distTrace1 = {{
+        x: binLabels,
+        y: stratCounts,
+        name: 'Strategy',
+        type: 'bar',
+        marker: {{ color: C_STRATEGY, opacity: 0.7 }},
+        hovertemplate: 'Strategy<br>%{{x}}%: %{{y}} 天<extra></extra>',
+      }};
+      const distTrace2 = {{
+        x: binLabels,
+        y: bhCounts,
+        name: 'Buy&Hold',
+        type: 'bar',
+        marker: {{ color: C_BUYHOLD, opacity: 0.7 }},
+        hovertemplate: 'Buy&Hold<br>%{{x}}%: %{{y}} 天<extra></extra>',
+      }};
+      const distLayout = {{
+        height: 240,
+        margin: {{ l: 50, r: 20, t: 30, b: 60 }},
+        paper_bgcolor: 'rgba(0,0,0,0)',
+        plot_bgcolor: C_PANEL,
+        font: {{ family: 'ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif', size: 11 }},
+        barmode: 'overlay',
+        legend: {{ orientation: 'h', y: 1.1, x: 0.5, xanchor: 'center' }},
+        xaxis: {{ title: '日收益区间 %', tickangle: -45, tickfont: {{ size: 9 }} }},
+        yaxis: {{ title: '天数', tickfont: {{ size: 10 }} }},
+      }};
+      Plotly.react('retDist', [distTrace1, distTrace2], distLayout, {{ displayModeBar: false, displaylogo: false }});
     }}
 
     function renderRegimeStrip(rows) {{
@@ -1462,11 +1674,10 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
 
       const buyRows = rows.filter(r => r.action === 'BUY');
       const sellRows = rows.filter(r => r.action === 'SELL');
-      const trades = computeTrades(rows);
+      const trades = getDetailed(state.etf).trades || [];
       const tradeMap = {{}};
       trades.forEach(t => {{ tradeMap[t.entryDate] = t; }});
 
-      // Update info panel extras
       renderRegimeStrip(rows);
       renderPositionDist(rows);
       renderTradeList(trades);
@@ -1615,7 +1826,6 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
         <tr class="clickable" data-date="${{row[0]}}">${{row.map((cell, col) => idx === 0 ? `<th>${{cell}}</th>` : `<td class="${{col === 6 && cell === 'BUY' ? 'good' : col === 6 && cell === 'SELL' ? 'bad' : ''}}">${{cell}}</td>`).join('')}}</tr>
       `).join('');
 
-      // Table-to-chart linking
       rawTable.querySelectorAll('tr.clickable').forEach(tr => {{
         tr.addEventListener('click', () => {{
           const dateStr = tr.dataset.date;
@@ -1645,9 +1855,11 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       syncZoomInputs();
       renderMetrics();
       renderStatusStrip();
-      renderComparison();
-      renderOverlay();
+      const allRows = getDetailed(state.etf).rows;
+      const rows = getFilteredRows(allRows);
       renderChart();
+      renderTearSheet(rows);
+      renderTradeAnalysis(rows);
       renderRawTable();
     }}
 
