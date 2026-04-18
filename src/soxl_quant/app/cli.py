@@ -19,7 +19,8 @@ from ..config import list_profile_names
 from ..data import FEATURE_COLUMNS, build_dataset, init_qlib, refresh_qlib_binary, segment_frame
 from ..settings import CSV_PATH, QLIB_DATA_PATH, RESULT_PNG, RESULT_TXT, TEST_SEG, load_profile
 from .promote import build_promotion_report, persist_promotion_report
-from .train import _build_multi_asset_sources, run_profile, set_global_seed
+from .sources import build_multi_asset_sources
+from .train import run_profile, set_global_seed
 from .workers import run_walk_forward_isolated, run_worker_profile
 
 
@@ -86,7 +87,7 @@ def main() -> None:
 
     multi_asset_sources = None
     if args.multi_asset:
-        multi_asset_sources = _build_multi_asset_sources(Path(QLIB_DATA_PATH).parent / "multi_asset", verbose=True)
+        multi_asset_sources = build_multi_asset_sources(Path(QLIB_DATA_PATH).parent / "multi_asset", verbose=True)
 
     results: Dict[str, Dict[str, object]] = {}
     walk_forward_results: Dict[str, Dict[str, Dict[str, object]]] = {}

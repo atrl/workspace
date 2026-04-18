@@ -28,7 +28,7 @@ from src.soxl_quant.data import (
     refresh_qlib_binary,
     segment_frame,
 )
-from src.soxl_quant.rl import build_policy
+from src.soxl_quant.policy.policy_builder import build_policy
 from src.soxl_quant.settings import (
     ACCOUNT,
     ETF_UNIVERSE,

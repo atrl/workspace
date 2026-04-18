@@ -12,7 +12,7 @@ sys.path.insert(0, str(ROOT))
 
 from src.soxl_quant.backtest import backtest_profile
 from src.soxl_quant.data import build_dataset, init_qlib, segment_frame
-from src.soxl_quant.rl import evaluate_split
+from src.soxl_quant.policy.evaluation import evaluate_split
 from src.soxl_quant.runtime import bundle_position_cap_config, load_actor_bundle
 from src.soxl_quant.settings import QLIB_DATA_PATH, TEST_SEG, PositionCapConfig, load_profile
 

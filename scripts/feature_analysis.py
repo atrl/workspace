@@ -19,18 +19,13 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
 from src.soxl_quant.data import build_dataset, flatten_feature_frame, init_qlib, segment_frame
-from src.soxl_quant.rl import (
-    FEATURE_COLUMNS,
-    EXTRA_INDEX,
-    build_policy,
-    build_price_path,
-    make_observation,
-    PositionLedger,
-    LOOKBACK,
-)
+from src.soxl_quant.data import FEATURE_COLUMNS
+from src.soxl_quant.policy.environment import TrancheLedger, build_price_path
+from src.soxl_quant.policy.observation import EXTRA_INDEX, make_observation
+from src.soxl_quant.policy.policy_builder import build_policy
 from src.soxl_quant.settings import (
+    LOOKBACK,
     QLIB_DATA_PATH,
-    TEST_SEG,
     load_profile,
     model_artifact_path,
 )
@@ -52,7 +47,7 @@ def load_actor(profile_name: str):
 def build_observation_matrix(df: pd.DataFrame, price_path: np.ndarray, asset_idx: int = 0):
     """Build all observations for a dataframe (neutral position)."""
     obs_list = []
-    ledger = PositionLedger()
+    ledger = TrancheLedger()
     pos = 0.0
     val = 100_000.0
     peak = 100_000.0

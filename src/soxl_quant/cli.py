@@ -15,10 +15,12 @@ from .app.promote import (
     persist_promotion_report,
     walk_forward_promotion_report,
 )
-from .app.train import _build_multi_asset_sources, run_profile, set_global_seed, train_with_selection
+from .app.sources import build_multi_asset_sources
+from .app.train import run_profile, set_global_seed
+from .app.selection import train_with_selection
 
 __all__ = [
-    "_build_multi_asset_sources",
+    "build_multi_asset_sources",
     "build_promotion_report",
     "compact_result",
     "describe_metrics",

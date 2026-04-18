@@ -14,7 +14,8 @@ from ..compat import patch_gym_compat
 from ..data import build_dataset, init_qlib, segment_frame
 from ..settings import QLIB_DATA_PATH, ROOT, load_profile
 from .evaluate import compact_result, describe_metrics, slice_frame
-from .train import _build_multi_asset_sources, run_profile, set_global_seed
+from .sources import build_multi_asset_sources
+from .train import run_profile, set_global_seed
 
 WalkForwardWindow = Tuple[str, Tuple[str, str], Tuple[str, str], Tuple[str, str]]
 
@@ -111,7 +112,7 @@ def run_worker_profile(args: argparse.Namespace) -> None:
         profile = load_profile("smoke")
     multi_asset_sources = None
     if args.multi_asset:
-        multi_asset_sources = _build_multi_asset_sources(ROOT / "data" / "multi_asset", verbose=False)
+        multi_asset_sources = build_multi_asset_sources(ROOT / "data" / "multi_asset", verbose=False)
 
     result = run_profile(
         profile=profile,

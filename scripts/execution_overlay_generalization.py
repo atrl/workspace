@@ -12,7 +12,7 @@ sys.path.insert(0, str(ROOT))
 
 from src.soxl_quant.backtest import backtest_profile
 from src.soxl_quant.data import build_dataset, init_qlib, refresh_qlib_binary, segment_frame
-from src.soxl_quant.rl import evaluate_split
+from src.soxl_quant.policy.evaluation import evaluate_split
 from src.soxl_quant.runtime import bundle_position_cap_config, load_actor_bundle
 from src.soxl_quant.settings import ETF_UNIVERSE, ExecutionConfig, TEST_SEG, TRAIN_SEG, VALID_SEG, load_profile
 

@@ -330,6 +330,29 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
 - Keep / drop decision:
   - keep `rl.py` only as an external compatibility shim
   - keep new app submodules as the place to continue shrinking orchestration logic
+
+## Script and app-edge cleanup 2026-04-19 00:xx
+
+- Goal:
+  - remove the last repo-internal and script-level reliance on the `rl.py` facade
+  - keep `app/train.py` focused on profile-run orchestration instead of also owning source prep and selection mechanics
+- Changes:
+  - added `src/soxl_quant/app/sources.py` for multi-asset training source preparation
+  - added `src/soxl_quant/app/selection.py` for staged training and checkpoint-selection logic
+  - updated `app/train.py`, `app/cli.py`, `app/workers.py`, and top-level `cli.py` to use those submodules
+  - updated repo scripts to import `policy.*` or `app.*` directly instead of `src.soxl_quant.rl`
+  - repaired `scripts/feature_analysis.py` to use `TrancheLedger` and policy-layer helpers instead of stale RL names
+- Commands:
+  - `rg -n "src\\.soxl_quant\\.rl|from \\.rl import" src scripts tests`
+  - `PYTHONPATH=. qlib_venv/bin/python -m py_compile src/soxl_quant/app/sources.py src/soxl_quant/app/selection.py src/soxl_quant/app/train.py src/soxl_quant/app/cli.py src/soxl_quant/app/workers.py src/soxl_quant/cli.py scripts/export_profile_daily_backtest.py scripts/position_cap_counterfactual.py scripts/execution_overlay_generalization.py scripts/generalization_backtest.py scripts/feature_analysis.py`
+  - `PYTHONPATH=. qlib_venv/bin/python scripts/check_harness.py`
+- Validation evidence:
+  - grep for internal/script `rl` imports returned no matches
+  - compile check passed for new app submodules and migrated scripts
+  - `scripts/check_harness.py`: `passed=32 failures=0`
+- Keep / drop decision:
+  - keep `rl.py` only for external compatibility with old entrypoints
+  - keep future script imports pointed at `policy/` and `app/` directly
   - saved review:
     - `runtime/post_train_review/balanced_checkpoint_review.md`
     - `runtime/post_train_review/balanced_checkpoint_review_vs_balanced.md`

@@ -15,7 +15,7 @@ sys.path.insert(0, str(ROOT))
 
 from src.soxl_quant.backtest import backtest_profile
 from src.soxl_quant.data import build_dataset, init_qlib, segment_frame
-from src.soxl_quant.rl import build_policy
+from src.soxl_quant.policy.policy_builder import build_policy
 from src.soxl_quant.settings import ACCOUNT, MODEL_DIR, QLIB_DATA_PATH, TEST_SEG, load_profile
 
 

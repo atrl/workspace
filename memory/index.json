@@ -997,13 +997,29 @@
     "profiles": [],
     "status": "reference",
     "tags": [
-      "completed",
-      "refactor"
+      "other",
+      "reference"
     ],
     "artifacts": [],
     "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
     "summary": "Split artifact persistence and walk-forward workers out of app/train.py and updated repo-internal tests/imports so internal code no longer depends on the rl compatibility facade.",
     "excerpt": "# Internal RL Facade Shrink ## Context After the previous consolidation, `rl.py` was already a facade, but the next useful proof point was removing remaining repo-internal reliance on it and cutting `app/train.py` down further. ## What Changed - added `src/soxl_quant/app/artifact"
+  },
+  {
+    "path": "memory/2026-04-19-rl-facade-detached-from-scripts.md",
+    "date": "2026-04-19",
+    "title": "RL Facade Detached From Scripts",
+    "kind": "other",
+    "profiles": [],
+    "status": "reference",
+    "tags": [
+      "completed",
+      "refactor"
+    ],
+    "artifacts": [],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Moved multi-asset source prep and staged training into dedicated app modules, updated repo scripts to import policy/app layers directly, and reduced internal dependence on the rl compatibility facade to zero.",
+    "excerpt": "# RL Facade Detached From Scripts ## Context The previous step removed `rl.py` from internal code and tests, but several repo-owned scripts still imported it. That kept the compatibility facade in the active maintenance path. ## What Changed - added `src/soxl_quant/app/sources.py"
   },
   {
     "path": "memory/README.md",
