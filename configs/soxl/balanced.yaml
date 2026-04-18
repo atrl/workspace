@@ -1,3 +1,6 @@
+# Migrated canonical profile.
+# Edit the experiment-owned copy at:
+# experiments/canonical/balanced/profile.yaml
 name: balanced
 max_iters: 80
 episode_per_iter: 10

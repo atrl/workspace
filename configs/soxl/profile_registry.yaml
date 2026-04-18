@@ -12,7 +12,7 @@ profiles:
     baseline: balanced
     keep_actor: true
     keep_summary: true
-    notes_ref: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+    notes_ref: experiments/canonical/balanced/notes.md
   - name: balanced_budget
     family: balanced
     status: ablation
@@ -26,7 +26,7 @@ profiles:
     baseline: balanced
     keep_actor: true
     keep_summary: true
-    notes_ref: runtime/post_train_review/balanced_checkpoint_review.md
+    notes_ref: experiments/candidate/balanced_checkpoint_review/notes.md
   - name: balanced_decision_freq_quick
     family: balanced
     status: ablation
@@ -222,7 +222,7 @@ profiles:
     baseline: smoke
     keep_actor: true
     keep_summary: true
-    notes_ref: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+    notes_ref: experiments/canonical/smoke/notes.md
   - name: smoke_action5
     family: smoke
     status: archived

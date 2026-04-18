@@ -108,6 +108,33 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
   - drop redundant actor bundles for ablation / archived / dropped profiles
   - next RL decomposition pass should continue with reward / policy / evaluation extraction instead of reopening execution/positioning logic in `rl.py`
 
+## Experiment-directory migration 2026-04-18 22:xx
+
+- Goal:
+  - start moving away from flat `configs/soxl/*.yaml` toward experiment-owned profile packages
+  - colocate profile config with notes and expectations so the baseline/candidate intent is visible without reading registry + workpad + yaml separately
+- Scope:
+  - migrate only the three active anchor profiles first:
+    - `balanced`
+    - `balanced_checkpoint_review`
+    - `smoke`
+  - keep legacy flat config files as compatibility paths for now
+- Commands:
+  - `PYTHONPATH=. qlib_venv/bin/python -m py_compile src/soxl_quant/config.py src/soxl_quant/registry.py src/soxl_quant/cli.py`
+  - `PYTHONPATH=. qlib_venv/bin/python -c "import tests.test_profile_registry as t; t.test_registry_covers_all_profiles(); t.test_registry_has_single_canonical_per_family(); t.test_dropped_profiles_do_not_keep_actors(); t.test_migrated_profiles_resolve_to_experiment_dirs(); t.test_experiment_dir_lookup_for_migrated_profiles(); t.test_profile_listing_keeps_migrated_and_legacy_profiles(); print('test_profile_registry: OK')"`
+  - `PYTHONPATH=. qlib_venv/bin/python tests/test_checkpoint_review_assets.py`
+  - `PYTHONPATH=. qlib_venv/bin/python scripts/check_harness.py`
+- Validation evidence:
+  - `load_profile()` now resolves experiment directory first, then falls back to flat config
+  - `list_profile_names()` includes both migrated and legacy profiles without duplication
+  - `test_profile_registry: OK`
+  - `tests/test_checkpoint_review_assets.py`: OK
+  - `scripts/check_harness.py`: `passed=32 failures=0`
+- Keep / drop decision:
+  - keep experiment-directory-first loading
+  - keep legacy flat YAMLs as compatibility stubs until more profiles move
+  - next migration wave should move the current active balanced-family candidates before touching archived noise profiles
+
 ## Validation harness
 
 - Main run:

@@ -1,3 +1,6 @@
+# Migrated canonical smoke profile.
+# Edit the experiment-owned copy at:
+# experiments/canonical/smoke/profile.yaml
 name: smoke
 max_iters: 2
 episode_per_iter: 2

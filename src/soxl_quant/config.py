@@ -8,6 +8,7 @@ import yaml
 
 ROOT = Path(__file__).resolve().parents[2]
 PROFILE_DIR = ROOT / "configs" / "soxl"
+EXPERIMENTS_DIR = ROOT / "experiments"
 
 
 @dataclass(frozen=True)
@@ -204,13 +205,40 @@ def _load_yaml(path: Path) -> Dict[str, Any]:
         return yaml.safe_load(handle) or {}
 
 
+def experiment_profile_path(name: str) -> Path | None:
+    matches = sorted(EXPERIMENTS_DIR.glob(f"*/{name}/profile.yaml"))
+    if matches:
+        return matches[0]
+    return None
+
+
+def legacy_profile_path(name: str) -> Path:
+    return PROFILE_DIR / f"{name}.yaml"
+
+
+def resolve_profile_path(name: str) -> Path:
+    experiment_path = experiment_profile_path(name)
+    if experiment_path is not None:
+        return experiment_path
+    legacy_path = legacy_profile_path(name)
+    if legacy_path.exists():
+        return legacy_path
+    raise FileNotFoundError(f"unknown profile '{name}'")
+
+
+def experiment_dir_for_profile(name: str) -> Path | None:
+    path = experiment_profile_path(name)
+    return path.parent if path is not None else None
+
+
 def list_profile_names() -> list[str]:
-    names = sorted(path.stem for path in PROFILE_DIR.glob("*.yaml") if path.name != "profile_registry.yaml")
-    return names
+    legacy = {path.stem for path in PROFILE_DIR.glob("*.yaml") if path.name != "profile_registry.yaml"}
+    experiments = {path.parent.name for path in EXPERIMENTS_DIR.glob("*/*/profile.yaml")}
+    return sorted(legacy | experiments)
 
 
 def load_profile(name: str) -> StrategyConfig:
-    payload = _load_yaml(PROFILE_DIR / f"{name}.yaml")
+    payload = _load_yaml(resolve_profile_path(name))
     reward = RewardConfig(**payload["reward"])
     position_cap = PositionCapConfig(**payload.get("position_cap", {}))
     promotion_gate = PromotionGateConfig(**payload.get("promotion_gate", {}))

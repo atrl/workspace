@@ -682,6 +682,32 @@
     "excerpt": "# 2026-04-18: Decision Frequency=3 中等训练验证 + Period-Aware Marginal Reward ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## 实验目标 1. 验证 decision_frequency=3 在 20-iters 中等训练下的稳定性 2. 实现并验证 Period-Aware Marginal Reward（跨周期 alpha reward） ## 结果汇总 ### Fre"
   },
   {
+    "path": "memory/2026-04-18-experiment-directory-migration.md",
+    "date": "2026-04-18",
+    "title": "2026-04-18 Experiment Directory Migration",
+    "kind": "failure",
+    "profiles": [
+      "balanced",
+      "balanced_checkpoint_review",
+      "smoke",
+      "soxl"
+    ],
+    "status": "dropped",
+    "tags": [
+      "balanced",
+      "balanced_checkpoint_review",
+      "checkpoint-selection",
+      "dropped",
+      "failure",
+      "smoke",
+      "soxl"
+    ],
+    "artifacts": [],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "The flat `configs/soxl/*.yaml` layout still made profile intent too opaque even after adding a registry. The next step was to start colocating profile config with experiment-owned notes and expectations. Added `experiments/README.md`. Added",
+    "excerpt": "# 2026-04-18 Experiment Directory Migration ## Context The flat `configs/soxl/*.yaml` layout still made profile intent too opaque even after adding a registry. The next step was to start colocating profile config with experiment-owned notes and expectations. ## Evidence - Added `"
+  },
+  {
     "path": "memory/2026-04-18-harness-cleanup-and-memory-index.md",
     "date": "2026-04-18",
     "title": "2026-04-18: harness cleanup, indexed memory retrieval, and soft artifact prune",
@@ -871,9 +897,9 @@
     "status": "reference",
     "tags": [
       "balanced_floor40_sym",
-      "completed",
       "eval-2022",
       "experiment",
+      "reference",
       "rule-based",
       "soxl",
       "stress-regime"
