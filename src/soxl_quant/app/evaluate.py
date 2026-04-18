@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import Dict, Tuple
 
 import pandas as pd
+from qlib.data.dataset import DatasetH
 
 from ..policy.evaluation import evaluate_split
 from ..policy.positioning import action_levels_for_profile
@@ -20,6 +21,10 @@ def validation_score(metrics: Dict[str, float], profile) -> float:
 
 
 def slice_frame(df, seg: Tuple[str, str]):
+    if isinstance(df, DatasetH):
+        from ..data import segment_frame
+        # Use empty string as segment name if seg isn't a known segment
+        return segment_frame(df, seg[0])
     return df.loc[seg[0] : seg[1]].copy()
 
 

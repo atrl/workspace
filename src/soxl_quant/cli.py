@@ -38,3 +38,6 @@ __all__ = [
     "validation_score",
     "walk_forward_promotion_report",
 ]
+
+if __name__ == "__main__":
+    main()
