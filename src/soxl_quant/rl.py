@@ -34,8 +34,26 @@ from qlib.rl.interpreter import ActionInterpreter, StateInterpreter
 from qlib.rl.reward import Reward
 from qlib.rl.simulator import Simulator
 from tianshou.policy import PPOPolicy
+from tianshou.policy import DiscreteSACPolicy
 from tianshou.utils.net.common import Net
 from tianshou.utils.net.discrete import Actor, Critic
+
+
+class QNetwork(torch.nn.Module):
+    """Wrapper around Actor to use as Q-network for discrete SAC.
+    Actor.forward returns (logits, state), but SAC critic expects just logits.
+    """
+    def __init__(self, actor_net: Actor):
+        super().__init__()
+        self.net = actor_net
+
+    def forward(self, obs, state=None, info=None):
+        out, state = self.net(obs, state, info)
+        return out
+
+    @property
+    def device(self):
+        return next(self.parameters()).device
 
 from .data import FEATURE_COLUMNS, STATIC_INDEX
 from .settings import DEFAULT_ACTION_LEVELS, EXTRA_OBS_DIM, LOOKBACK, N_ACTIONS, N_ASSETS, ExecutionConfig, PositionCapConfig, StrategyConfig
@@ -1208,14 +1226,12 @@ class SoxlPPOPolicy(PPOPolicy):
         }
 
 
-def build_policy(obs_dim: int, profile: StrategyConfig, use_moe: bool = False, hard_regime_routing: bool = False, **kwargs) -> Tuple[PPOPolicy, Actor]:
-    model_cfg = profile.model
-    effective_use_moe = bool(use_moe or model_cfg.use_regime_router)
+def _build_net(obs_dim: int, profile: StrategyConfig, model_cfg):
     effective_use_tide = bool(model_cfg.use_tide)
-    effective_hard_routing = bool(hard_regime_routing or model_cfg.hard_regime_routing)
-    action_levels = action_levels_for_profile(profile)
+    effective_use_moe = bool(model_cfg.use_regime_router)
+    effective_hard_routing = bool(model_cfg.hard_regime_routing)
     if effective_use_tide:
-        net = TiDENet(
+        return TiDENet(
             obs_dim,
             hidden_size=int(model_cfg.tide_hidden_size),
             feature_dim=len(FEATURE_COLUMNS),
@@ -1224,7 +1240,7 @@ def build_policy(obs_dim: int, profile: StrategyConfig, use_moe: bool = False, h
             device="cpu",
         )
     elif effective_use_moe:
-        net = RegimeMoENet(
+        return RegimeMoENet(
             obs_dim,
             hidden_size=64,
             n_experts=int(model_cfg.router_experts),
@@ -1235,10 +1251,56 @@ def build_policy(obs_dim: int, profile: StrategyConfig, use_moe: bool = False, h
             hard_regime_routing=effective_hard_routing,
         )
     else:
-        net = Net((obs_dim,), hidden_sizes=list(profile.hidden_sizes), device="cpu")
+        return Net((obs_dim,), hidden_sizes=list(profile.hidden_sizes), device="cpu")
+
+
+def build_policy(obs_dim: int, profile: StrategyConfig, use_moe: bool = False, hard_regime_routing: bool = False, **kwargs):
+    model_cfg = profile.model
+    effective_use_moe = bool(use_moe or model_cfg.use_regime_router)
+    action_levels = action_levels_for_profile(profile)
     n_actions = len(action_levels) if not model_cfg.use_hybrid_overlay else len(model_cfg.delta_levels)
-    actor = Actor(net, n_actions, device="cpu")
-    critic = Critic(net, device="cpu")
+
+    if profile.algorithm == "sac":
+        # SAC-Discrete: twin critics + separate actor
+        # NOTE: For discrete SAC, critics output Q(s, a) for ALL actions (shape: batch, n_actions)
+        # Therefore we use Actor(net, n_actions, softmax_output=False) as the Q-network
+        actor_net = _build_net(obs_dim, profile, model_cfg)
+        critic1_net = _build_net(obs_dim, profile, model_cfg)
+        critic2_net = _build_net(obs_dim, profile, model_cfg)
+        actor = Actor(actor_net, n_actions, device="cpu")
+        critic1_raw = Actor(critic1_net, n_actions, softmax_output=False, device="cpu")
+        critic2_raw = Actor(critic2_net, n_actions, softmax_output=False, device="cpu")
+        critic1 = QNetwork(critic1_raw)
+        critic2 = QNetwork(critic2_raw)
+        actor_optim = torch.optim.Adam(actor.parameters(), lr=profile.lr)
+        critic1_optim = torch.optim.Adam(critic1.parameters(), lr=profile.lr)
+        critic2_optim = torch.optim.Adam(critic2.parameters(), lr=profile.lr)
+        policy = DiscreteSACPolicy(
+            actor=actor,
+            actor_optim=actor_optim,
+            critic1=critic1,
+            critic1_optim=critic1_optim,
+            critic2=critic2,
+            critic2_optim=critic2_optim,
+            tau=0.005,
+            gamma=profile.discount_factor,
+            alpha=profile.ent_coef,
+            reward_normalization=False,
+            estimation_step=1,
+            action_space=spaces.Discrete(n_actions),
+        )
+        return policy, actor
+
+    # PPO mode
+    if profile.separate_actor_critic:
+        actor_net = _build_net(obs_dim, profile, model_cfg)
+        critic_net = _build_net(obs_dim, profile, model_cfg)
+    else:
+        shared_net = _build_net(obs_dim, profile, model_cfg)
+        actor_net = shared_net
+        critic_net = shared_net
+    actor = Actor(actor_net, n_actions, device="cpu")
+    critic = Critic(critic_net, device="cpu")
     optim = torch.optim.Adam(list(actor.parameters()) + list(critic.parameters()), lr=profile.lr)
     policy_cls = SoxlPPOPolicy if effective_use_moe else PPOPolicy
     policy_kwargs = dict(
@@ -1246,14 +1308,14 @@ def build_policy(obs_dim: int, profile: StrategyConfig, use_moe: bool = False, h
         critic=critic,
         optim=optim,
         dist_fn=lambda logits: torch.distributions.Categorical(logits=logits),
-        discount_factor=0.99,
-        gae_lambda=0.95,
+        discount_factor=profile.discount_factor,
+        gae_lambda=profile.gae_lambda,
         max_grad_norm=0.5,
         vf_coef=0.25,
-        ent_coef=0.01,
+        ent_coef=profile.ent_coef,
         reward_normalization=True,
         recompute_advantage=True,
-        action_space=spaces.Discrete(len(action_levels)),
+        action_space=spaces.Discrete(n_actions),
     )
     if effective_use_moe:
         policy_kwargs["moe_lb_coef"] = kwargs.get("moe_lb_coef", 0.01)

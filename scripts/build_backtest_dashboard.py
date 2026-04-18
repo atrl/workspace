@@ -502,11 +502,12 @@ def _build_layout_all() -> dict:
         shared_xaxes=True,
         vertical_spacing=0.05,
         row_heights=[0.40, 0.20, 0.20, 0.20],
-        subplot_titles=("NAV + Trades", "Position", "Excess Return %", "Drawdown"),
+        subplot_titles=("NAV + Trades + Price", "Position", "Excess Return %", "Drawdown"),
+        specs=[[{"secondary_y": True}], [{}], [{}], [{}]],
     )
     fig.update_layout(
         height=760,
-        margin=dict(l=60, r=30, t=90, b=40),
+        margin=dict(l=60, r=60, t=90, b=40),
         paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor=C_PANEL,
         font=dict(family='ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif', color=C_INK, size=12),
@@ -529,8 +530,8 @@ def _build_layout_all() -> dict:
             fixedrange=True,
             row=i, col=1,
         )
-    fig.update_yaxes(title_text="NAV", row=1, col=1)
-    fig.update_yaxes(title_text="Price", overlaying="y", side="right", showgrid=False, tickfont=dict(size=10), row=1, col=1)
+    fig.update_yaxes(title_text="NAV", row=1, col=1, secondary_y=False)
+    fig.update_yaxes(title_text="Price", side="right", showgrid=False, tickfont=dict(size=10), row=1, col=1, secondary_y=True)
     fig.update_yaxes(title_text="Pos", row=2, col=1)
     fig.update_yaxes(title_text="Excess %", row=3, col=1)
     fig.update_yaxes(title_text="DD %", row=4, col=1)
@@ -1953,10 +1954,9 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       traces.push({{
         x: dates, y: prices,
         name: 'Price', type: 'scatter', mode: 'lines',
-        line: {{ color: '#8c7e6a', width: 1.2, dash: 'dot' }},
+        line: {{ color: '#4a3f35', width: 1.5, dash: 'solid' }},
         hovertemplate: '%{{x}}<br>Price: $%{{y:,.2f}}<extra></extra>',
         xaxis: xa, yaxis: 'y2',
-        opacity: 0.6,
       }});
       if (buyRows.length) {{
         traces.push({{
@@ -2033,7 +2033,9 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
         }});
         gd.on('plotly_click', function(data) {{
           const pt = data.points[0];
-          const pairedDate = pt.customdata;
+          const trace = pt.data;
+          const idx = pt.pointNumber;
+          const pairedDate = trace.customdata ? trace.customdata[idx] : null;
           if (pairedDate) {{
             const dateStr = pt.x;
             const start = dateStr < pairedDate ? dateStr : pairedDate;
@@ -2045,6 +2047,14 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
             syncZoomInputs();
             renderChart();
           }}
+        }});
+        gd.on('plotly_doubleclick', function() {{
+          state.zoomMode = 'all';
+          state.zoomStart = null;
+          state.zoomEnd = null;
+          saveState();
+          syncZoomInputs();
+          renderChart();
         }});
       }});
 

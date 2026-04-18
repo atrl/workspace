@@ -204,6 +204,12 @@ class StrategyConfig:
     model: ModelConfig = field(default_factory=ModelConfig)
     sampling: SamplingConfig = field(default_factory=SamplingConfig)
     decision_frequency: int = 1
+    # PPO / SAC algorithm selection and hyperparameters
+    algorithm: str = "ppo"
+    separate_actor_critic: bool = False
+    discount_factor: float = 0.99
+    gae_lambda: float = 0.95
+    ent_coef: float = 0.01
 
 
 def artifact_stem(profile_name: str, artifact_tag: str = "") -> str:
@@ -260,4 +266,9 @@ def load_profile(name: str) -> StrategyConfig:
         model=model,
         sampling=sampling,
         decision_frequency=int(payload.get("decision_frequency", 1)),
+        algorithm=str(payload.get("algorithm", "ppo")),
+        separate_actor_critic=bool(payload.get("separate_actor_critic", False)),
+        discount_factor=float(payload.get("discount_factor", 0.99)),
+        gae_lambda=float(payload.get("gae_lambda", 0.95)),
+        ent_coef=float(payload.get("ent_coef", 0.01)),
     )
