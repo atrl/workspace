@@ -30,16 +30,16 @@ from qlib.strategy.base import BaseStrategy
 from tianshou.utils.net.discrete import Actor
 
 from .data import FEATURE_COLUMNS
-from .rl import (
-    TrancheLedger,
-    action_to_position,
-    actor_action,
+from .policy.environment import TrancheLedger
+from .policy.execution import (
     execution_buy_cooldown_days,
     execution_regime,
     execution_trade_lock_days,
-    make_observation,
     rebalance_threshold,
 )
+from .policy.observation import make_observation
+from .policy.policy_builder import actor_action
+from .policy.positioning import action_to_position
 from .settings import ACCOUNT, LOOKBACK, ExecutionConfig, PositionCapConfig, RESULT_PNG, RESULT_TXT, TEST_SEG
 
 

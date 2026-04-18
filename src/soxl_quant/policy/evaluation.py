@@ -7,15 +7,15 @@ import pandas as pd
 from tianshou.utils.net.discrete import Actor
 
 from ..config import ExecutionConfig, PositionCapConfig
-from ..rl_execution import (
+from .execution import (
     DEFAULT_EXECUTION,
     execution_buy_cooldown_days,
     execution_regime,
     execution_trade_lock_days,
     rebalance_threshold,
 )
-from ..rl_observation import make_observation
-from ..rl_positioning import action_to_position
+from .observation import make_observation
+from .positioning import action_to_position
 from ..settings import LOOKBACK
 from .environment import TrancheLedger, build_price_path
 from .policy_builder import actor_action

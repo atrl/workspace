@@ -13,19 +13,34 @@ tags:
 - failure
 artifacts: []
 workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
-summary: '`memory/` is the continuity layer for decisions, failures, reviews, and
-  reusable session context that should survive chat history. Every `memory/*.md` file
-  uses YAML front matter plus Markdown body sections. Required front-matter fields:
-  `d'
+summary: '`memory/` is the continuity layer for durable decisions, failures, reviews,
+  and reusable session context that should survive chat history. Do not scan all notes
+  by hand first. Read in this order: 1. `memory/index.json` 2. `qlib_venv/bin/pyt'
 ---
 
 # Memory
 
-`memory/` is the continuity layer for decisions, failures, reviews, and reusable session context that should survive chat history.
+`memory/` is the continuity layer for durable decisions, failures, reviews, and reusable session context that should survive chat history.
 
-## Canonical Format
+## Read Order
 
-Every `memory/*.md` file uses YAML front matter plus Markdown body sections.
+Do not scan all notes by hand first.
+
+Read in this order:
+
+1. `memory/index.json`
+2. `qlib_venv/bin/python scripts/memory_search.py ...`
+3. only the top matching notes
+
+Examples:
+
+- `qlib_venv/bin/python scripts/memory_search.py balanced --status dropped --top-k 5`
+- `qlib_venv/bin/python scripts/memory_search.py 2022 exposure --profile balanced`
+- `qlib_venv/bin/python scripts/memory_search.py overlay --tag execution-overlay`
+
+## Note Format
+
+Every `memory/*.md` note should use YAML front matter plus a short Markdown body.
 
 Required front-matter fields:
 
@@ -47,20 +62,9 @@ Preferred body sections:
 - `## Decision`
 - `## Next Use`
 
-## Retrieval Workflow
+## Scope Rules
 
-Do not bulk-read every memory file before a new loop.
-
-Use the generated index first:
-
-- `qlib_venv/bin/python scripts/memory_search.py balanced --status dropped --top-k 5`
-- `qlib_venv/bin/python scripts/memory_search.py 2022 exposure --profile balanced`
-- `qlib_venv/bin/python scripts/memory_search.py overlay --tag execution-overlay`
-
-Open only the top-matching files unless the first pass is insufficient.
-
-## Write Rules
-
-- Put live task execution state in `codex_exec_plans/active/`, not in memory.
+- Put live execution state in `codex_exec_plans/active/`, not in memory.
 - Put durable keep/drop decisions and recurring failure patterns in memory.
-- When a memory note references a specific artifact or review file, include it in the `artifacts` field so future retrieval and pruning stay accurate.
+- When a note references a specific artifact or review file, include it in `artifacts` so retrieval and pruning stay aligned.
+- If two notes say nearly the same thing, keep the sharper one and link the artifact path instead of repeating long narrative.

@@ -972,6 +972,24 @@
     "excerpt": "# 2026-04-18: first transition-feature batch failed as mainline ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## What was tried - New temporary branch: - `balanced_transition_state` - Intent: - keep canonical `balanced` reward, cap, and selection"
   },
   {
+    "path": "memory/2026-04-19-app-and-policy-consolidation.md",
+    "date": "2026-04-19",
+    "title": "App And Policy Consolidation",
+    "kind": "other",
+    "profiles": [],
+    "status": "reference",
+    "tags": [
+      "completed",
+      "refactor"
+    ],
+    "artifacts": [
+      "runtime/README.md"
+    ],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Consolidated real train/evaluate/promote ownership under app/, moved execution/observation/positioning implementations under policy/, deleted top-level rl_* helper modules, and tightened runtime/memory/experiments index guidance.",
+    "excerpt": "# App And Policy Consolidation ## Context `src/soxl_quant/policy/` and `src/soxl_quant/app/` existed, but several files were still wrappers pointing back to top-level modules. The tree looked cleaner than it really was and kept `cli.py` plus `rl_*` as hidden coupling points. ## W"
+  },
+  {
     "path": "memory/README.md",
     "date": "",
     "title": "Memory",
@@ -989,7 +1007,7 @@
     ],
     "artifacts": [],
     "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
-    "summary": "`memory/` is the continuity layer for decisions, failures, reviews, and reusable session context that should survive chat history. Every `memory/*.md` file uses YAML front matter plus Markdown body sections. Required front-matter fields: `d",
-    "excerpt": "# Memory `memory/` is the continuity layer for decisions, failures, reviews, and reusable session context that should survive chat history. ## Canonical Format Every `memory/*.md` file uses YAML front matter plus Markdown body sections. Required front-matter fields: - `date` - `t"
+    "summary": "`memory/` is the continuity layer for durable decisions, failures, reviews, and reusable session context that should survive chat history. Do not scan all notes by hand first. Read in this order: 1. `memory/index.json` 2. `qlib_venv/bin/pyt",
+    "excerpt": "# Memory `memory/` is the continuity layer for durable decisions, failures, reviews, and reusable session context that should survive chat history. ## Read Order Do not scan all notes by hand first. Read in this order: 1. `memory/index.json` 2. `qlib_venv/bin/python scripts/memor"
   }
 ]

@@ -11,8 +11,8 @@ from tianshou.utils.net.discrete import Actor, Critic
 
 from ..config import StrategyConfig
 from ..data import FEATURE_COLUMNS, STATIC_INDEX
-from ..rl_observation import adapt_observation_for_actor
-from ..rl_positioning import action_levels_for_profile
+from .observation import adapt_observation_for_actor
+from .positioning import action_levels_for_profile
 from .environment import PositionAction, SoxlSimulator, SoxlState, build_initial_states
 from .models.moe import QNetwork, RegimeMoENet, SoxlPPOPolicy
 from .models.tide import TiDENet

@@ -13,15 +13,15 @@ from qlib.rl.simulator import Simulator
 
 from ..config import ExecutionConfig, PositionCapConfig, StrategyConfig
 from ..data import FEATURE_COLUMNS
-from ..rl_execution import (
+from .execution import (
     DEFAULT_EXECUTION,
     execution_buy_cooldown_days,
     execution_regime,
     execution_trade_lock_days,
     rebalance_threshold,
 )
-from ..rl_observation import EXTRA_OBS_DIM, make_observation
-from ..rl_positioning import (
+from .observation import EXTRA_OBS_DIM, make_observation
+from .positioning import (
     BASE_ACTION_LEVELS,
     action_to_position,
     rule_based_position,

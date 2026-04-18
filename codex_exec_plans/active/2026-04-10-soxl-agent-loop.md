@@ -284,6 +284,31 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
   - keep `rl.py` as a thin facade only
   - keep result artifact path constants for now
   - next cleanup can move result output ownership from legacy settings/constants into `core/artifacts.py`, but that is separate from this decomposition pass
+
+## App and policy consolidation 2026-04-19 00:xx
+
+- Goal:
+  - remove the last empty wrapper layers so the directory split reflects real ownership
+  - reduce confusion in `runtime/`, `memory/`, and `experiments/` by tightening index/read-order docs instead of keeping duplicated guidance scattered across notes
+- Changes:
+  - moved execution/observation/positioning implementations into `src/soxl_quant/policy/`
+  - deleted top-level `src/soxl_quant/rl_execution.py`, `src/soxl_quant/rl_observation.py`, and `src/soxl_quant/rl_positioning.py`
+  - moved training/evaluation/promotion orchestration into real `src/soxl_quant/app/{train,evaluate,promote,cli}.py` modules
+  - reduced `src/soxl_quant/cli.py` to a compatibility facade
+  - updated `backtest.py` and `runtime.py` to import policy-layer modules directly instead of routing through `rl.py`
+  - cleaned `memory/README.md` and added `runtime/README.md`; tightened experiment package read-order guidance in `experiments/README.md`
+- Commands:
+  - `PYTHONPATH=. qlib_venv/bin/python -m py_compile src/soxl_quant/cli.py src/soxl_quant/app/cli.py src/soxl_quant/app/train.py src/soxl_quant/app/evaluate.py src/soxl_quant/app/promote.py src/soxl_quant/policy/execution.py src/soxl_quant/policy/observation.py src/soxl_quant/policy/positioning.py src/soxl_quant/policy/environment.py src/soxl_quant/policy/reward.py src/soxl_quant/policy/policy_builder.py src/soxl_quant/policy/evaluation.py src/soxl_quant/backtest.py src/soxl_quant/runtime.py src/soxl_quant/rl.py`
+  - `PYTHONPATH=. qlib_venv/bin/python - <<'PY' ... imports-ok ... PY`
+  - `PYTHONPATH=. qlib_venv/bin/python scripts/check_harness.py`
+- Validation evidence:
+  - compile check passed for the split app and policy modules
+  - compatibility probe returned `imports-ok True True True True True True True`
+  - `scripts/check_harness.py`: `passed=32 failures=0`
+- Keep / drop decision:
+  - keep `rl.py` and `cli.py` only as backward-compatible facades
+  - drop the old top-level `rl_*` helper modules
+  - prefer directory READMEs and generated indexes over duplicating long directory-explainer notes in multiple places
   - saved review:
     - `runtime/post_train_review/balanced_checkpoint_review.md`
     - `runtime/post_train_review/balanced_checkpoint_review_vs_balanced.md`

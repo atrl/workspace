@@ -6,7 +6,7 @@ from qlib.rl.reward import Reward
 
 from ..config import StrategyConfig
 from ..data import STATIC_INDEX
-from ..rl_observation import EXTRA_INDEX
+from .observation import EXTRA_INDEX
 
 
 class ContinuousReward(Reward):
