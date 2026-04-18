@@ -608,7 +608,7 @@ def _build_layout_all() -> dict:
         paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor=C_PANEL,
         font=dict(family='ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif', color=C_INK, size=12),
-        hovermode="closest",
+        hovermode="x unified",
         showlegend=True,
         legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1, bgcolor="rgba(255,250,242,0.8)"),
         dragmode="zoom",
@@ -2172,6 +2172,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
         fillcolor: 'rgba(27,26,23,0.08)',
         hovertemplate: '%{{x}}<br>Excess: %{{y:.2f}}%<extra></extra>',
         xaxis: xa3, yaxis: ya3,
+        showlegend: false,
       }});
 
       traces.push({{
@@ -2182,6 +2183,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
         fillcolor: 'rgba(154,52,18,0.12)',
         hovertemplate: '%{{x}}<br>Strat DD: %{{y:.2%}}<extra></extra>',
         xaxis: xa4, yaxis: ya4,
+        showlegend: false,
       }});
       traces.push({{
         x: dates, y: buyholdDD,
@@ -2191,6 +2193,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
         fillcolor: 'rgba(15,118,110,0.10)',
         hovertemplate: '%{{x}}<br>BH DD: %{{y:.2%}}<extra></extra>',
         xaxis: xa4, yaxis: ya4,
+        showlegend: false,
       }});
 
       Plotly.react('plotlyChart', traces, layout, {{
