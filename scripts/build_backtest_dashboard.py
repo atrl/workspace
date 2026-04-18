@@ -145,7 +145,6 @@ def compute_trades(rows: list[dict]) -> list[dict]:
             pnl = exit_nav - entry_nav
             cumulative += pnl
 
-            # compute avg features during holding period
             vix_vals = []
             rsi_vals = []
             for j in range(entry_idx, i + 1):
@@ -175,6 +174,55 @@ def compute_trades(rows: list[dict]) -> list[dict]:
     return trades
 
 
+def compute_kelly_stats(trades: list[dict]) -> dict:
+    """Compute Kelly Criterion and Expectancy stats from trade list."""
+    if not trades:
+        return {}
+    wins = [t["return_pct"] for t in trades if t["return_pct"] > 0]
+    losses = [t["return_pct"] for t in trades if t["return_pct"] <= 0]
+    win_rate = len(wins) / len(trades) if trades else 0
+    avg_win = sum(wins) / len(wins) if wins else 0
+    avg_loss = sum(losses) / len(losses) if losses else 0
+    
+    # Kelly Criterion: f* = W - (1-W)/R  where R = avg_win / |avg_loss|
+    r = abs(avg_win / avg_loss) if avg_loss != 0 else float('inf')
+    kelly = win_rate - (1 - win_rate) / r if r != float('inf') and r > 0 else win_rate
+    
+    # Expectancy = (W * avg_win) - ((1-W) * |avg_loss|)
+    expectancy = (win_rate * avg_win) - ((1 - win_rate) * abs(avg_loss))
+    
+    # Profit Factor = gross_profit / gross_loss
+    gross_profit = sum(wins)
+    gross_loss = abs(sum(losses))
+    profit_factor = gross_profit / gross_loss if gross_loss > 0 else float('inf')
+    
+    # Max consecutive wins/losses
+    max_win_streak = max_loss_streak = cur_win = cur_loss = 0
+    for t in trades:
+        if t["return_pct"] > 0:
+            cur_win += 1
+            cur_loss = 0
+            max_win_streak = max(max_win_streak, cur_win)
+        else:
+            cur_loss += 1
+            cur_win = 0
+            max_loss_streak = max(max_loss_streak, cur_loss)
+    
+    return {
+        "total": len(trades),
+        "win_rate": win_rate,
+        "avg_win": avg_win,
+        "avg_loss": avg_loss,
+        "kelly": kelly,
+        "expectancy": expectancy,
+        "profit_factor": profit_factor,
+        "gross_profit": gross_profit,
+        "gross_loss": gross_loss,
+        "max_win_streak": max_win_streak,
+        "max_loss_streak": max_loss_streak,
+    }
+
+
 def build_payload() -> dict[str, object]:
     detailed_summary = load_json(DETAIL_DIR / "summary.json")
     detailed_rows = {}
@@ -192,12 +240,14 @@ def build_payload() -> dict[str, object]:
                 r["_features"] = {}
         regime_shapes = compute_regime_shapes(rows)
         trades = compute_trades(rows)
+        kelly_stats = compute_kelly_stats(trades)
         detailed_rows[etf] = {
             "summary": item,
             "csv_path": f"detailed/{etf.lower()}_detailed_trades.csv",
             "rows": rows,
             "regime_shapes": regime_shapes,
             "trades": trades,
+            "kelly": kelly_stats,
         }
         windows[etf] = {
             "start": rows[0]["datetime"] if rows else "",
@@ -692,7 +742,6 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     .trade-entry {{ color: var(--good); }}
     .trade-exit {{ color: var(--bad); }}
 
-    /* Trade performance table */
     .trade-table-wrap {{
       max-height: 520px;
       overflow: auto;
@@ -727,18 +776,18 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       position: sticky;
       top: 0;
       z-index: 2;
+      cursor: pointer;
+      user-select: none;
     }}
+    .trade-table th:hover {{
+      background: var(--line);
+    }}
+    .trade-table th.sort-asc::after {{ content: ' ▲'; font-size: 9px; }}
+    .trade-table th.sort-desc::after {{ content: ' ▼'; font-size: 9px; }}
     .trade-table tr.clickable {{ cursor: pointer; }}
     .trade-table tr.clickable:hover {{ background: rgba(154, 52, 18, 0.04); }}
     .trade-table td.good {{ color: var(--good); font-weight: 700; }}
     .trade-table td.bad {{ color: var(--bad); font-weight: 700; }}
-    .pnl-bar {{
-      display: inline-block;
-      height: 6px;
-      border-radius: 3px;
-      vertical-align: middle;
-      margin-right: 4px;
-    }}
 
     .panel-grid {{
       display: grid;
@@ -788,6 +837,9 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       color: var(--muted);
       margin-top: 4px;
     }}
+    .kelly-highlight {{
+      background: linear-gradient(135deg, rgba(15, 118, 110, 0.08), rgba(154, 52, 18, 0.06));
+    }}
 
     .good {{ color: var(--good); }}
     .bad {{ color: var(--bad); }}
@@ -836,7 +888,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
         </p>
         <div class="jump-links">
           <a class="badge" href="#mainChart">Main Chart</a>
-          <a class="badge" href="#tradeStats">Trade Stats</a>
+          <a class="badge" href="#tradeStats">Trade Quality</a>
           <a class="badge" href="#tradeTable">Trade Performance</a>
         </div>
       </div>
@@ -986,10 +1038,10 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       </div>
     </div>
 
-    <!-- Trade Stats -->
+    <!-- Trade Quality Stats -->
     <div class="panel-grid">
       <div class="panel-card" id="tradeStats">
-        <h2>🎯 Trade Statistics</h2>
+        <h2>🎯 Trade Quality <span style="font-size:12px;color:var(--muted);font-weight:normal;">— Kelly / Expectancy / Profit Factor</span></h2>
         <div class="stat-row" id="tradeStatRow"></div>
       </div>
       <div class="panel-card" id="strategyStats">
@@ -1003,7 +1055,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       <h2 class="section-title">📝 Trade Performance — 每笔 T 收益明细</h2>
       <div class="raw-tools">
         <a id="csvLink" class="button-link" href="#" target="_blank" rel="noreferrer">Open Raw CSV</a>
-        <div class="sub">点击任意交易行可聚焦到图表对应区间。BUY → SELL 配对，展示每笔做 T 的入场/出场、持仓天数、收益率、PnL、累计收益、期间平均 VIX/RSI。</div>
+        <div class="sub">点击表头可排序，点击交易行聚焦到图表对应区间。BUY → SELL 配对。</div>
       </div>
       <div class="trade-table-wrap">
         <table class="trade-table" id="tradePerfTable"></table>
@@ -1023,6 +1075,8 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       zoomStart: null,
       zoomEnd: null,
       rows: 100,
+      sortCol: 'return_pct',
+      sortAsc: false,
     }};
 
     const etfSelect = document.getElementById('etfSelect');
@@ -1044,7 +1098,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     const infoEmpty = document.getElementById('infoEmpty');
     const infoContent = document.getElementById('infoContent');
     const regimeStrip = document.getElementById('regimeStrip');
-    const STORAGE_KEY = 'soxl-dashboard-state-v6';
+    const STORAGE_KEY = 'soxl-dashboard-state-v7';
 
     function fmtPct(v, digits = 2) {{
       return v == null ? 'n/a' : `${{(v * 100).toFixed(digits)}}%`;
@@ -1335,24 +1389,22 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       `).join('');
     }}
 
-    function renderTradeStats(trades) {{
-      const wins = trades.filter(t => t.return_pct > 0);
-      const losses = trades.filter(t => t.return_pct <= 0);
-      const avgWin = wins.length > 0 ? wins.reduce((a,t)=>a+t.return_pct,0)/wins.length : 0;
-      const avgLoss = losses.length > 0 ? losses.reduce((a,t)=>a+t.return_pct,0)/losses.length : 0;
-      const avgDays = trades.length > 0 ? trades.reduce((a,t)=>a+t.days,0)/trades.length : 0;
-      const profitFactor = losses.length > 0 && avgLoss !== 0 ? Math.abs((wins.length*avgWin)/(losses.length*avgLoss)) : (wins.length > 0 ? 999 : 0);
-      const totalRet = trades.length > 0 ? (trades[trades.length-1].cumulative / 1000000 * 100) : 0;
-
+    function renderTradeStats(k) {{
+      if (!k || !k.total) {{
+        tradeStatRow.innerHTML = '<div class="stat-cell"><div class="sk">无交易数据</div></div>';
+        return;
+      }}
+      const kellyPct = k.kelly * 100;
+      const kellyColor = kellyPct > 0 ? 'var(--good)' : kellyPct < 0 ? 'var(--bad)' : 'var(--muted)';
       tradeStatRow.innerHTML = [
-        {{ k: '总交易', v: String(trades.length), s: '笔' }},
-        {{ k: '胜率', v: fmtNum(trades.length > 0 ? wins.length/trades.length*100 : 0, 1)+'%', s: `${{wins.length}} 盈 / ${{losses.length}} 亏` }},
-        {{ k: '平均持仓', v: fmtNum(avgDays, 1)+'天', s: '' }},
-        {{ k: '盈亏比', v: fmtNum(profitFactor, 2), s: '' }},
-      ].map(s => `
-        <div class="stat-cell">
+        {{ k: '总交易', v: String(k.total), s: `${{fmtNum(k.win_rate*100,1)}}% 盈 | ${{fmtNum((1-k.win_rate)*100,1)}}% 亏` }},
+        {{ k: '凯利比例', v: fmtNum(kellyPct, 1)+'%', s: `R=${{fmtNum(k.avg_win/Math.abs(k.avg_loss),2)}}`, color: kellyColor, highlight: true }},
+        {{ k: '期望收益', v: fmtNum(k.expectancy, 2)+'%', s: '每笔期望', color: k.expectancy >= 0 ? 'var(--good)' : 'var(--bad)' }},
+        {{ k: '收益因子', v: k.profit_factor > 900 ? '∞' : fmtNum(k.profit_factor, 2), s: '总盈/总亏' }},
+      ].map((s, idx) => `
+        <div class="stat-cell ${{s.highlight ? 'kelly-highlight' : ''}}">
           <div class="sk">${{s.k}}</div>
-          <div class="sv">${{s.v}}</div>
+          <div class="sv" style="color:${{s.color || (String(s.v).includes('-') ? 'var(--bad)' : 'var(--good)')}}">${{s.v}}</div>
           <div class="ss">${{s.s}}</div>
         </div>
       `).join('');
@@ -1372,11 +1424,12 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
         peak = Math.max(peak, r.strategy_nav);
         mdd = Math.min(mdd, r.strategy_nav / peak - 1);
       }}
+      const k = getDetailed(state.etf).kelly;
       stratStatRow.innerHTML = [
         {{ k: '总收益', v: fmtNum(totalRet, 1)+'%', s: `BH ${{fmtNum(bhRet,1)}}%` }},
         {{ k: '年化收益', v: fmtNum(annRet, 1)+'%', s: '' }},
         {{ k: '最大回撤', v: fmtNum(mdd*100, 1)+'%', s: '' }},
-        {{ k: '超额收益', v: fmtNum(totalRet - bhRet, 1)+'%', s: '' }},
+        {{ k: '最大连亏', v: String(k.max_loss_streak || 0)+'笔', s: `连盈 ${{k.max_win_streak || 0}}笔` }},
       ].map(s => `
         <div class="stat-cell">
           <div class="sk">${{s.k}}</div>
@@ -1386,40 +1439,80 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       `).join('');
     }}
 
-    function renderTradeTable(trades) {{
+    function renderTradeTable() {{
       csvLink.href = getDetailed(state.etf).csv_path;
       const allRows = getDetailed(state.etf).rows;
-      const maxRet = Math.max(...trades.map(t => Math.abs(t.return_pct)), 1);
-      const header = ['#', '入场日期', '出场日期', '持仓', '入场价', '出场价', '收益率', 'PnL', '累计', 'Avg VIX', 'Avg RSI'];
-      const body = trades.map((t, idx) => [
-        idx + 1,
-        t.entry_date,
-        t.exit_date,
-        t.days + '天',
-        fmtNum(t.entry_price, 2),
-        fmtNum(t.exit_price, 2),
-        fmtNum(t.return_pct, 2) + '%',
-        fmtMoney(t.pnl),
-        fmtMoney(t.cumulative),
-        t.avg_vix != null ? fmtNum(t.avg_vix, 2) : 'n/a',
-        t.avg_rsi != null ? fmtNum(t.avg_rsi, 2) : 'n/a',
-      ]);
+      let trades = [...(getDetailed(state.etf).trades || [])];
+      if (!trades.length) {{
+        tradePerfTable.innerHTML = '<tr><th>无交易数据</th></tr>';
+        return;
+      }}
 
-      tradePerfTable.innerHTML = [header, ...body].map((row, ridx) => `
-        <tr class="${{ridx > 0 ? 'clickable' : ''}}" data-entry="${{ridx > 0 ? trades[ridx-1].entry_date : ''}}" data-exit="${{ridx > 0 ? trades[ridx-1].exit_date : ''}}">
-          ${{row.map((cell, col) => {{
-            if (ridx === 0) return `<th>${{cell}}</th>`;
-            let cls = '';
-            if (col === 6 && trades[ridx-1].return_pct > 0) cls = 'good';
-            if (col === 6 && trades[ridx-1].return_pct <= 0) cls = 'bad';
-            if (col === 7 && trades[ridx-1].pnl > 0) cls = 'good';
-            if (col === 7 && trades[ridx-1].pnl <= 0) cls = 'bad';
-            return `<td class="${{cls}}">${{cell}}</td>`;
-          }}).join('')}}
+      // Sort
+      trades.sort((a, b) => {{
+        const av = a[state.sortCol];
+        const bv = b[state.sortCol];
+        if (av == null && bv == null) return 0;
+        if (av == null) return state.sortAsc ? -1 : 1;
+        if (bv == null) return state.sortAsc ? 1 : -1;
+        return state.sortAsc ? (av > bv ? 1 : -1) : (av > bv ? -1 : 1);
+      }});
+
+      const headerMap = {{
+        'return_pct': '收益率',
+        'pnl': 'PnL',
+        'cumulative': '累计',
+        'days': '持仓',
+        'entry_date': '入场日期',
+        'exit_date': '出场日期',
+        'entry_price': '入场价',
+        'exit_price': '出场价',
+        'avg_vix': 'Avg VIX',
+        'avg_rsi': 'Avg RSI',
+      }};
+      const sortableCols = ['return_pct', 'pnl', 'cumulative', 'days', 'entry_date', 'exit_date', 'entry_price', 'exit_price', 'avg_vix', 'avg_rsi'];
+
+      const header = ['#', '入场日期', '出场日期', '持仓', '入场价', '出场价', '收益率', 'PnL', '累计', 'Avg VIX', 'Avg RSI'];
+      const colKeys = ['', 'entry_date', 'exit_date', 'days', 'entry_price', 'exit_price', 'return_pct', 'pnl', 'cumulative', 'avg_vix', 'avg_rsi'];
+
+      let headerHtml = '<tr>' + header.map((h, idx) => {{
+        const key = colKeys[idx];
+        const isSort = sortableCols.includes(key);
+        const cls = isSort && state.sortCol === key ? (state.sortAsc ? 'sort-asc' : 'sort-desc') : '';
+        return `<th class="${{cls}}" data-col="${{key}}" ${{isSort ? '' : 'style="cursor:default"'}}>${{h}}</th>`;
+      }}).join('') + '</tr>';
+
+      const bodyHtml = trades.map((t, idx) => `
+        <tr class="clickable" data-entry="${{t.entry_date}}" data-exit="${{t.exit_date}}">
+          <td>${{idx + 1}}</td>
+          <td>${{t.entry_date}}</td>
+          <td>${{t.exit_date}}</td>
+          <td>${{t.days}}天</td>
+          <td>${{fmtNum(t.entry_price, 2)}}</td>
+          <td>${{fmtNum(t.exit_price, 2)}}</td>
+          <td class="${{t.return_pct > 0 ? 'good' : 'bad'}}">${{fmtNum(t.return_pct, 2)}}%</td>
+          <td class="${{t.pnl > 0 ? 'good' : 'bad'}}">${{fmtMoney(t.pnl)}}</td>
+          <td>${{fmtMoney(t.cumulative)}}</td>
+          <td>${{t.avg_vix != null ? fmtNum(t.avg_vix, 2) : 'n/a'}}</td>
+          <td>${{t.avg_rsi != null ? fmtNum(t.avg_rsi, 2) : 'n/a'}}</td>
         </tr>
       `).join('');
 
-      // Click to zoom chart
+      tradePerfTable.innerHTML = headerHtml + bodyHtml;
+
+      // Sort click handlers
+      tradePerfTable.querySelectorAll('th[data-col]').forEach(th => {{
+        th.addEventListener('click', () => {{
+          const col = th.dataset.col;
+          if (!col) return;
+          if (state.sortCol === col) state.sortAsc = !state.sortAsc;
+          else {{ state.sortCol = col; state.sortAsc = false; }}
+          saveState();
+          renderTradeTable();
+        }});
+      }});
+
+      // Row click to zoom
       tradePerfTable.querySelectorAll('tr.clickable').forEach(tr => {{
         tr.addEventListener('click', () => {{
           const entry = tr.dataset.entry;
@@ -1486,8 +1579,8 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       const recent = trades.slice(-5).reverse();
       container.innerHTML = recent.map(t => `
         <div class="trade-item">
-          <span class="trade-entry">BUY</span> ${{t.entryDate}} → <span class="trade-exit">SELL</span> ${{t.exitDate}}<br>
-          持有 ${{t.days}} 天 | 收益 <span class="${{t.returnPct >= 0 ? 'good' : 'bad'}}">${{fmtNum(t.returnPct, 2)}}%</span> | PnL ${{fmtMoney(t.pnl)}}
+          <span class="trade-entry">BUY</span> ${{t.entry_date}} → <span class="trade-exit">SELL</span> ${{t.exit_date}}<br>
+          持有 ${{t.days}} 天 | 收益 <span class="${{t.return_pct >= 0 ? 'good' : 'bad'}}">${{fmtNum(t.return_pct, 2)}}%</span> | PnL ${{fmtMoney(t.pnl)}}
         </div>
       `).join('');
     }}
@@ -1702,11 +1795,11 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       renderStatusStrip();
       const allRows = getDetailed(state.etf).rows;
       const rows = getFilteredRows(allRows);
-      const trades = getDetailed(state.etf).trades || [];
+      const k = getDetailed(state.etf).kelly;
       renderChart();
-      renderTradeStats(trades);
+      renderTradeStats(k);
       renderStrategyStats(rows);
-      renderTradeTable(trades);
+      renderTradeTable();
     }}
 
     loadSavedState();
