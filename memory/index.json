@@ -979,8 +979,8 @@
     "profiles": [],
     "status": "reference",
     "tags": [
-      "completed",
-      "refactor"
+      "other",
+      "reference"
     ],
     "artifacts": [],
     "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
@@ -1036,6 +1036,26 @@
     "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
     "summary": "Split artifact persistence and walk-forward workers out of app/train.py and updated repo-internal tests/imports so internal code no longer depends on the rl compatibility facade.",
     "excerpt": "# Internal RL Facade Shrink ## Context After the previous consolidation, `rl.py` was already a facade, but the next useful proof point was removing remaining repo-internal reliance on it and cutting `app/train.py` down further. ## What Changed - added `src/soxl_quant/app/artifact"
+  },
+  {
+    "path": "memory/2026-04-19-post-train-kelly-skill.md",
+    "date": "2026-04-19",
+    "title": "2026-04-19 post-train Kelly skill patch",
+    "kind": "skill",
+    "profiles": [],
+    "status": "kept",
+    "tags": [
+      "execution-overlay",
+      "kept",
+      "skill"
+    ],
+    "artifacts": [
+      "runtime/diagnosis/phase1_phase2_combined.json",
+      "runtime/diagnosis/soxl_trade_attribution.md"
+    ],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Patched `.codex/skills/post-train-backtest-review/` so post-train review now covers negative Kelly / Expectancy diagnosis, reward-alignment interpretation, fixed-actor counterfactual order, and optional external analysis stack boundaries. Validation used the existing trade-attribution artifacts plus skill quick-validate.",
+    "excerpt": "# 2026-04-19 post-train Kelly skill patch ## Context The post-train review skill already handled summary / slice / feature comparisons, but it did not standardize what to do when users asked why a model still produced negative-expectancy T trades. ## What changed - Extended `.cod"
   },
   {
     "path": "memory/2026-04-19-rl-facade-detached-from-scripts.md",

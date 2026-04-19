@@ -259,6 +259,163 @@ qlib_venv/bin/python scripts/feature_analysis.py
 - 缺口判断：
   - 缺的是趋势、风险、交易摩擦，还是状态转换特征
 
+## Trade-Quality And Negative-Kelly Audit
+
+如果用户问的是“模型为什么会做负期望的 T”“Kelly / Expectancy 为负说明学到了什么”，不要只重复总收益或 Sharpe。必须把 **训练 reward** 和 **交易级后果** 对齐起来看。
+
+### Core interpretation rule
+
+- 先区分：
+  - actor 是否学到了正的总体路径控制
+  - actor 是否学到了正的交易级 edge
+- `Kelly` / `Expectancy` 为负，不等于“模型没学到东西”。
+- 更常见的含义是：
+  - 模型学到了组合路径层面的 reward
+  - 但没有学到高质量、可支付摩擦成本的短线 / 做 T edge
+- 在这个仓库里，默认怀疑的不是“模型失灵”，而是：
+  - reward 对齐错位
+  - 执行阈值太低
+  - 微幅调仓过多
+  - 某些持仓周期段实际上是负期望
+
+### Repo workflow
+
+默认按这个顺序做，不要跳步：
+
+1. 先确认 summary 层是否已经说明 actor 值得保留
+  - 看 `promotion`
+  - 看 `slices.test_2022`
+  - 看 `test_proxy`
+2. 再看交易级归因，而不是直接对 Kelly 下结论
+  - 优先使用：
+    - `runtime/diagnosis/phase1_phase2_combined.json`
+    - `runtime/diagnosis/soxl_trade_attribution.md`
+  - 如果缺少产物，运行：
+
+```bash
+qlib_venv/bin/python scripts/diagnosis_phase1_phase2.py
+```
+
+3. 按两种分层检查负 edge 的位置
+  - `by_holding_period`
+  - `by_pos_change`
+4. 把负 edge bucket 映射回 reward / execution 机制
+  - 看 `src/soxl_quant/policy/reward.py`
+  - 看 profile 中的：
+    - `reward`
+    - `execution`
+    - `position_cap`
+5. 先做固定 actor 的 counterfactual，再决定要不要重训
+
+### Minimum questions to answer
+
+至少回答下面这些问题：
+
+1. 负 `Kelly` / `Expectancy` 是出现在：
+  - 全部交易
+  - 仅微幅调仓
+  - 仅 `3-10d`
+  - 仅特定压力窗口
+2. 这些负 edge 交易是否数量很多
+  - 如果数量小，可能只是噪声
+  - 如果数量大，说明策略行为被系统性鼓励
+3. 这些交易对总 PnL 的贡献是否低于摩擦成本
+4. 它们更像是：
+  - 信号弱
+  - 风险控制动作太碎
+  - reward 在鼓励“勤奋交易”
+  - execution 阈值太低
+
+### Mapping negative Kelly back to mechanism
+
+优先用下面这套映射，不要泛泛而谈：
+
+- `micro_<5%` 很弱：
+  - 优先怀疑再平衡阈值过低、trade lock 不够、actor 对微小状态变化过敏
+- `mid_3_10d` 为负：
+  - 优先怀疑做 T 逻辑在震荡里被反复打脸，reward 允许太多中短期反转
+- 整体 `Kelly` 为正但某些 bucket 为负：
+  - 说明策略主要靠少数长持仓赚钱，噪声交易在稀释 edge
+- `Sharpe` 还可以但交易级 `Expectancy` 很差：
+  - 说明收益主要来自仓位路径控制，不是来自高质量逐笔交易
+- `test_2022 avg_pos` 改善但交易级 `Kelly` 更差：
+  - 说明风险动作变多了，但动作质量不高
+
+### Reward-alignment diagnosis
+
+如果用户问“负期望时模型学到了什么奖励”，必须明确说出：
+
+- 当前 reward 优化的是：
+  - 单步组合收益
+  - drawdown / downside / risk budget
+  - inactivity / opportunity cost
+  - trend alignment / trapped loser / stale position
+- 这不等于直接优化：
+  - 每笔交易的 `Expectancy`
+  - 每类做 T 的净 alpha
+  - 成本后的 round-trip edge
+
+因此默认结论模板应该是：
+
+- 模型学到了 `aggregate path reward`
+- 但没有充分学到 `per-trade expectancy`
+- 当前负 edge bucket 更像是仓位轨迹控制的副产物，而不是独立 alpha 来源
+
+### Default counterfactual order
+
+当负 Kelly 集中在交易碎片化时，默认先做这些 fixed-actor 验证：
+
+1. 提高最小调仓阈值
+2. 增加 `trade_lock` / `cooldown`
+3. 过滤 `<5%` 微幅调仓
+4. 抑制 `3-10d` 内的来回反向交易
+5. 调整 bear / bull cap，而不是先改 reward
+
+只有当 fixed-actor 结果说明：
+
+- 方向正确但幅度不够
+
+才进入下一轮重训，并把训练目标改成更偏交易质量，例如：
+
+- round-trip 结算型 reward
+- 微调仓惩罚
+- short-hold flip 惩罚
+- 成本后 alpha 奖励
+
+### Output contract for Kelly review
+
+如果这一步被触发，最终复盘里要额外包含：
+
+1. 哪些交易 bucket 为负期望
+2. 它们的数量占比
+3. 它们的摩擦成本影响
+4. 它们对应的 reward / execution 机制
+5. 下一步优先做 fixed-actor 还是重训
+
+## Optional External Analysis Stack
+
+如果仓库内 summary 和 trade-attribution 还不够，再补外部工具，但不要让外部工具替代 repo 主验证链。
+
+- `vectorbt`
+  - 用途：trade-level forensics、逐笔分层、持仓时长 / PnL / cost sensitivity 统计
+  - 最适合回答“哪类交易在亏钱”
+- `QuantStats`
+  - 用途：HTML tear sheet、rolling Sharpe、drawdown、月度热图
+  - 最适合做训练后的人类可读汇报
+- `pyfolio` / `pyfolio-performance`
+  - 用途：传统收益路径和暴露分析
+  - 作为补充，不要替代本仓库的 promotion gate
+- `Qlib`
+  - 继续作为主训练 / 主回测 / 主 promotion 来源
+  - 不把外部分析结果当成 promotion 的唯一依据
+
+推荐组合：
+
+- `Qlib` 负责训练与 gate
+- 仓库内 trade attribution 脚本负责第一层诊断
+- `vectorbt` 负责更细的交易级法医分析
+- `QuantStats` 负责面向人的报告输出
+
 ### Feature Recall Heuristics
 
 默认把当前 top features 映射成 4 类状态语言，而不是只报名字：

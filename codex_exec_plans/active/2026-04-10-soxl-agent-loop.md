@@ -2213,3 +2213,42 @@ Created `balanced_budget.yaml` with `max_iters=50`. However, the log file was ac
   - the next training-method loop should combine:
     - early-stop / checkpoint selection anchored around the `iter 20` peak
     - and a tighter mechanism that preserves a core trend position without letting full-window exposure drift upward everywhere
+
+## Skill maintenance loop 2026-04-19 14:xx
+
+- Goal:
+  - patch the retained `post-train-backtest-review` skill so it covers negative `Kelly` / `Expectancy` questions instead of stopping at summary-level backtest comparison
+- Hypothesis:
+  - recent user questions expose a missing reusable workflow:
+    - what reward the model learned when trade-level `Kelly` is weak or negative
+    - how to map negative trade buckets back to reward / execution mechanisms
+    - which external tools are useful after the repo-local diagnostics are exhausted
+- Planned edits:
+  - update `.codex/skills/post-train-backtest-review/SKILL.md`
+  - record the patch in `memory/`
+  - validate the skill structure and the referenced repo artifacts
+- Commands:
+  - `python3 /Users/rziiiii/.codex/skills/.system/skill-creator/scripts/quick_validate.py .codex/skills/post-train-backtest-review`
+  - `qlib_venv/bin/python scripts/diagnosis_phase1_phase2.py`
+  - `qlib_venv/bin/python scripts/normalize_memory.py`
+  - `qlib_venv/bin/python scripts/check_harness.py`
+- Validation evidence:
+  - skill validation passed:
+    - `Skill is valid!`
+  - trade-attribution diagnostics still run clean against current repo artifacts:
+    - wrote `runtime/diagnosis/soxl_trade_attribution.md`
+    - wrote `runtime/diagnosis/period_slice_comparison.md`
+    - wrote `runtime/diagnosis/underperform_quarters.json`
+    - rewrote `runtime/diagnosis/phase1_phase2_combined.json`
+  - memory normalization completed:
+    - `normalized 43 memory notes`
+    - rewrote `memory/index.json`
+  - harness validation passed:
+    - `scripts/check_harness.py => passed=32 failures=0`
+    - note: existing `gym` deprecation warning still prints, but the harness check itself passed
+- Keep / drop decision:
+  - keep:
+    - the new negative-Kelly / reward-alignment review path in the retained skill
+    - repo-local trade attribution as the first diagnostic layer before external tooling
+  - drop:
+    - answering negative-Kelly questions ad hoc in chat without a reusable repo workflow
