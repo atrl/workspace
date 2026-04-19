@@ -1083,6 +1083,32 @@
     "excerpt": "# 2026-04-19 post-train Kelly skill patch ## Context The post-train review skill already handled summary / slice / feature comparisons, but it did not standardize what to do when users asked why a model still produced negative-expectancy T trades. ## What changed - Extended `.cod"
   },
   {
+    "path": "memory/2026-04-19-residual-rule-smoke-loop.md",
+    "date": "2026-04-19",
+    "title": "2026-04-19 residual-over-rule smoke loop",
+    "kind": "decision",
+    "profiles": [
+      "balanced",
+      "smoke",
+      "smoke_rule_residual_v1"
+    ],
+    "status": "kept",
+    "tags": [
+      "balanced",
+      "decision",
+      "eval-2022",
+      "execution-overlay",
+      "kept",
+      "rule-based",
+      "smoke",
+      "smoke_rule_residual_v1"
+    ],
+    "artifacts": [],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Implemented and smoke-tested a residual-over-rule path. The actor now learns a bounded delta around the rule-based base position, with rule-deviation and micro-churn penalties. The first smoke candidate materially improved the previously negative `3-10d` trade bucket to positive Kelly/expectancy and reduced total trade actions from the prior canonical diagnosis baseline, but `micro_<5%` rebalances remain weak and too frequent.",
+    "excerpt": "# 2026-04-19 residual-over-rule smoke loop ## Context The user asked for a direct trial of the \"rule-based anchor + RL residual T overlay\" idea rather than another abstract proposal. ## Evidence - Added unified hybrid overlay mapping across: - training - validation - qlib backtes"
+  },
+  {
     "path": "memory/2026-04-19-rl-facade-detached-from-scripts.md",
     "date": "2026-04-19",
     "title": "RL Facade Detached From Scripts",

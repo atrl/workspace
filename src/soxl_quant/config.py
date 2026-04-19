@@ -46,6 +46,11 @@ class RewardConfig:
     use_alpha_reward: bool = False
     alpha_scale: float = 1.0
     use_kelly_alpha: bool = False
+    rule_deviation_penalty: float = 0.0
+    micro_rebalance_penalty: float = 0.0
+    micro_rebalance_threshold: float = 0.05
+    short_hold_turnover_penalty: float = 0.0
+    short_hold_threshold: float = 0.16
     stability_bonus: float = 0.0
     trend_alignment_bonus: float = 0.0
     trend_alignment_threshold: float = 0.03

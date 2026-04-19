@@ -54,6 +54,7 @@ def make_state(**kwargs):
         "regime_risk": kwargs.get("regime_risk", 0.8),
         "regime_delta": kwargs.get("regime_delta", 0.05),
         "flat_steps": kwargs.get("flat_steps", 0.0),
+        "rule_pos": kwargs.get("rule_pos", 0.5),
     }
 
 
@@ -190,3 +191,66 @@ def test_gated_activity_bonus_has_no_effect_in_current_reward():
     # stormy market: realized_vol=0.70, regime_delta=0.15
     stormy = reward.reward(make_state(turnover=0.20, realized_vol=0.70, regime_delta=0.15))
     assert abs(stormy - calm) < 1e-6
+
+
+def test_rule_deviation_penalty_discourages_moving_far_from_rule():
+    profile = make_profile()
+    profile = StrategyConfig(
+        name=profile.name,
+        max_iters=profile.max_iters,
+        episode_per_iter=profile.episode_per_iter,
+        episode_len=profile.episode_len,
+        hidden_sizes=profile.hidden_sizes,
+        lr=profile.lr,
+        update_batch_size=profile.update_batch_size,
+        update_repeat=profile.update_repeat,
+        reward=RewardConfig(
+            return_scale=1.0,
+            transaction_cost=0.0,
+            turnover_penalty=0.0,
+            drawdown_penalty=0.0,
+            downside_penalty=0.0,
+            risk_budget_penalty=0.0,
+            high_exposure_penalty=0.0,
+            smoothness_penalty=0.0,
+            activity_bonus=0.0,
+            inactivity_penalty=0.0,
+            rule_deviation_penalty=2.0,
+        ),
+    )
+    reward = ContinuousReward(profile)
+    near_rule = reward.reward(make_state(pos=0.52, turnover=0.0, rule_pos=0.50))
+    far_rule = reward.reward(make_state(pos=0.80, turnover=0.0, rule_pos=0.50))
+    assert near_rule > far_rule
+
+
+def test_micro_rebalance_penalty_hits_small_turnover_more_than_large_turnover():
+    profile = make_profile()
+    profile = StrategyConfig(
+        name=profile.name,
+        max_iters=profile.max_iters,
+        episode_per_iter=profile.episode_per_iter,
+        episode_len=profile.episode_len,
+        hidden_sizes=profile.hidden_sizes,
+        lr=profile.lr,
+        update_batch_size=profile.update_batch_size,
+        update_repeat=profile.update_repeat,
+        reward=RewardConfig(
+            return_scale=1.0,
+            transaction_cost=0.0,
+            turnover_penalty=0.0,
+            drawdown_penalty=0.0,
+            downside_penalty=0.0,
+            risk_budget_penalty=0.0,
+            high_exposure_penalty=0.0,
+            smoothness_penalty=0.0,
+            activity_bonus=0.0,
+            inactivity_penalty=0.0,
+            micro_rebalance_penalty=1.0,
+            micro_rebalance_threshold=0.05,
+        ),
+    )
+    reward = ContinuousReward(profile)
+    tiny = reward.reward(make_state(turnover=0.01))
+    bigger = reward.reward(make_state(turnover=0.08))
+    assert bigger > tiny

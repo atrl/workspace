@@ -15,7 +15,7 @@ from .execution import (
     rebalance_threshold,
 )
 from .observation import make_observation
-from .positioning import action_to_position
+from .positioning import target_position_for_profile
 from ..settings import LOOKBACK
 from .environment import TrancheLedger, build_price_path
 from .policy_builder import actor_action
@@ -32,6 +32,8 @@ def evaluate_split(
     action_levels: Optional[np.ndarray] = None,
     observation_window: int = 1,
     hard_floor: Optional[float] = None,
+    use_hybrid_overlay: bool = False,
+    delta_levels: Optional[np.ndarray] = None,
 ) -> Dict[str, float]:
     cash = cash0
     peak = cash0
@@ -57,12 +59,14 @@ def evaluate_split(
             observation_window=observation_window,
         )
         action = actor_action(actor, obs)
-        target_pos = action_to_position(
+        target_pos = target_position_for_profile(
             action,
             obs,
             config=position_cap_config,
             action_levels=action_levels,
             hard_floor=hard_floor,
+            use_hybrid_overlay=use_hybrid_overlay,
+            delta_levels=delta_levels,
         )
         row = df.iloc[idx]
         regime_risk = float(np.nan_to_num(row["regime_risk"]))

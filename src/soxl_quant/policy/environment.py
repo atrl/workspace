@@ -23,8 +23,8 @@ from .execution import (
 from .observation import EXTRA_OBS_DIM, make_observation
 from .positioning import (
     BASE_ACTION_LEVELS,
-    action_to_position,
     rule_based_position,
+    target_position_for_profile,
 )
 from ..settings import LOOKBACK, N_ACTIONS, N_ASSETS
 
@@ -347,17 +347,14 @@ class PositionAction(ActionInterpreter):
         return spaces.Discrete(self.n_actions)
 
     def interpret(self, state, action):
-        if self.use_hybrid_overlay:
-            rule_pos = rule_based_position(state["obs"])
-            clipped = int(np.clip(action, 0, len(self.delta_levels) - 1))
-            delta = float(self.delta_levels[clipped])
-            return float(np.clip(rule_pos + delta, 0.0, 1.0))
-        return action_to_position(
+        return target_position_for_profile(
             int(action),
             state["obs"],
             config=self.position_cap_config,
             action_levels=self.action_levels,
             hard_floor=self.hard_floor,
+            use_hybrid_overlay=self.use_hybrid_overlay,
+            delta_levels=self.delta_levels if self.use_hybrid_overlay else None,
         )
 
 

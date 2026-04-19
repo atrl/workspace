@@ -105,6 +105,8 @@ def run_profile(
         action_levels=action_levels_for_profile(profile),
         observation_window=profile.model.observation_window,
         hard_floor=profile.model.hard_floor,
+        use_hybrid_overlay=profile.model.use_hybrid_overlay,
+        delta_levels=np.asarray(profile.model.delta_levels, dtype=np.float32) if profile.model.use_hybrid_overlay else None,
     )
     promotion_report = build_promotion_report(profile, slice_result, test_proxy)
     summary_path = persist_summary_bundle(
@@ -118,7 +120,14 @@ def run_profile(
         test_proxy=test_proxy,
         promotion_report=promotion_report,
     )
-    bt_result = backtest_profile(actor, test_df, price_series, position_cap_config=profile.position_cap, asset_idx=0)
+    bt_result = backtest_profile(
+        actor,
+        test_df,
+        price_series,
+        position_cap_config=profile.position_cap,
+        asset_idx=0,
+        model_config=profile.model,
+    )
     bt_result["valid"] = valid_metrics
     bt_result["selection_history"] = selection["history"]
     bt_result["model_path"] = str(model_path)

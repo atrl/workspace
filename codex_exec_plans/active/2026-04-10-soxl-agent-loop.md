@@ -2287,3 +2287,76 @@ Created `balanced_budget.yaml` with `max_iters=50`. However, the log file was ac
   - drop:
     - treating negative T-bucket Kelly as proof that the actor has no value
     - manual one-off Kelly writeups without a script-backed artifact path
+
+## Residual-over-rule smoke loop 2026-04-19 14:xx
+
+- Goal:
+  - test the smallest viable version of:
+    - rule-based base position
+    - RL residual delta around the base
+    - reward terms that penalize rule deviation and micro churn
+- Hypothesis:
+  - if RL is constrained to a bounded residual around the rule-based anchor, then:
+    - `3-10d` trade quality should improve versus the prior negative-Kelly diagnosis
+    - `micro_<5%` churn should still be the main remaining weakness
+    - train / validation / backtest mapping must stay consistent
+- Implementation:
+  - added unified hybrid action mapping in:
+    - `src/soxl_quant/policy/positioning.py`
+    - `src/soxl_quant/policy/environment.py`
+    - `src/soxl_quant/policy/evaluation.py`
+    - `src/soxl_quant/backtest.py`
+    - `src/soxl_quant/runtime.py`
+  - added reward controls in `src/soxl_quant/config.py` + `src/soxl_quant/policy/reward.py`:
+    - `rule_deviation_penalty`
+    - `micro_rebalance_penalty`
+    - `micro_rebalance_threshold`
+    - `short_hold_turnover_penalty`
+    - `short_hold_threshold`
+  - added candidate experiment package:
+    - `experiments/candidate/smoke_rule_residual_v1/`
+  - added reusable tooling:
+    - `scripts/trade_quality_audit.py`
+    - generalized `scripts/diagnosis_phase1_phase2.py`
+    - upgraded `scripts/export_profile_daily_backtest.py` to export `detailed_trades.csv` compatible rows with `action`
+- Commands:
+  - `PYTHONPATH=. qlib_venv/bin/python -m py_compile src/soxl_quant/config.py src/soxl_quant/policy/positioning.py src/soxl_quant/policy/environment.py src/soxl_quant/policy/evaluation.py src/soxl_quant/backtest.py src/soxl_quant/runtime.py src/soxl_quant/policy/reward.py src/soxl_quant/app/train.py src/soxl_quant/app/selection.py src/soxl_quant/app/artifacts.py scripts/trade_quality_audit.py`
+  - `PYTHONPATH=. qlib_venv/bin/python tests/test_position_cap.py`
+  - `PYTHONPATH=. qlib_venv/bin/python tests/test_reward.py`
+  - `PYTHONPATH=. qlib_venv/bin/python -c "import tests.test_profile_registry as t; t.test_registry_covers_all_profiles(); t.test_registry_has_single_canonical_per_family(); t.test_dropped_profiles_do_not_keep_actors(); t.test_migrated_profiles_resolve_to_experiment_dirs(); t.test_experiment_dir_lookup_for_migrated_profiles(); t.test_profile_listing_keeps_migrated_and_legacy_profiles(); print('test_profile_registry: OK')"`
+  - `PYTHONPATH=. qlib_venv/bin/python soxl_qlib_strategy_v2.py --profiles smoke_rule_residual_v1 --smoke --skip-data-refresh --seed 20260419`
+  - `PYTHONPATH=. qlib_venv/bin/python scripts/export_profile_daily_backtest.py --profile smoke_rule_residual_v1 --output runtime/post_train_review/smoke_rule_residual_v1_detailed_trades.csv`
+  - `PYTHONPATH=. qlib_venv/bin/python scripts/diagnosis_phase1_phase2.py --detail-csv runtime/post_train_review/smoke_rule_residual_v1_detailed_trades.csv --out-dir runtime/post_train_review/smoke_rule_residual_v1_diagnosis`
+  - `qlib_venv/bin/python scripts/trade_quality_audit.py --summary artifacts/models/soxl_smoke_rule_residual_v1_summary.json --diagnosis runtime/post_train_review/smoke_rule_residual_v1_diagnosis/phase1_phase2_combined.json --profile smoke_rule_residual_v1 --output runtime/post_train_review/smoke_rule_residual_v1_trade_quality_audit.md`
+  - `qlib_venv/bin/python scripts/check_harness.py`
+- Validation evidence:
+  - tests:
+    - `test_position_cap: OK`
+    - `test_profile_registry: OK`
+    - `tests/test_reward.py` exit `0`
+    - `scripts/check_harness.py => passed=35 failures=0`
+  - smoke summary:
+    - `valid = 70.23% / Sharpe 1.784 / MaxDD 27.33%`
+    - `test_2022 = -18.39% / Sharpe -0.932 / MaxDD 25.31% / avg_pos 0.199`
+    - `test_2023_2024 = 55.23% / Sharpe 0.835 / MaxDD 29.06% / avg_pos 0.429`
+    - `test_proxy = 600.81% / Sharpe 0.896 / MaxDD 53.42% / avg_pos 0.522`
+    - fixed-split gate `pass`, walk-forward not evaluated
+  - profile-specific trade-quality audit:
+    - `mid_3_10d = Kelly 0.3143 / Expectancy 3.64%`
+    - `small_5_15% = Kelly 0.2013 / Expectancy 2.89%`
+    - `micro_<5% = 56 trades / Kelly 0.0585 / Expectancy 0.73%`
+    - trade actions reduced to `316` vs prior canonical diagnosis `578`
+    - rough friction estimate reduced to `31.6%`
+  - caveat:
+    - the initial smoke training command exited with `joblib resource_tracker` warnings after artifacts were already written; exported summary and later downstream diagnostics were still produced successfully
+- Keep / drop decision:
+  - keep:
+    - residual-over-rule as a real direction worth escalating beyond smoke
+    - rule-deviation + micro-churn penalties
+    - the generalized diagnosis/export/audit toolchain
+  - drop:
+    - the assumption that the first residual profile already solved micro churn
+    - the assumption that hand-written Kelly reports are enough without profile-specific detailed exports
+- Next action:
+  - create a balanced-family quick candidate from this same structure
+  - tighten execution threshold / trade lock before broadening the residual action set

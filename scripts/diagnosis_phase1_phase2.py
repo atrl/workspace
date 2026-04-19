@@ -2,6 +2,7 @@
 """Phase 1 + Phase 2: 交易级归因、分层凯利、时段切片诊断"""
 from __future__ import annotations
 
+import argparse
 import csv
 import json
 from pathlib import Path
@@ -13,9 +14,16 @@ DETAIL_CSV = ROOT / "runtime" / "generalization" / "detailed" / "soxl_detailed_t
 OUT_DIR = ROOT / "runtime" / "diagnosis"
 
 
-def load_rows() -> list[dict]:
+def parse_args():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--detail-csv", default=str(DETAIL_CSV), help="Input detailed_trades.csv path")
+    parser.add_argument("--out-dir", default=str(OUT_DIR), help="Output directory for reports")
+    return parser.parse_args()
+
+
+def load_rows(detail_csv: Path) -> list[dict]:
     rows = []
-    with open(DETAIL_CSV, "r", encoding="utf-8") as f:
+    with open(detail_csv, "r", encoding="utf-8") as f:
         for r in csv.DictReader(f):
             rows.append({
                 "datetime": r["datetime"],
@@ -263,8 +271,8 @@ def analyze_periods(rows: list[dict]) -> dict:
     }
 
 
-def write_phase1_report(data: dict) -> str:
-    out = OUT_DIR / "soxl_trade_attribution.md"
+def write_phase1_report(data: dict, out_dir: Path) -> str:
+    out = out_dir / "soxl_trade_attribution.md"
     o = data["overall"]
     f = data["friction_estimate"]
     wl = data["win_loss_summary"]
@@ -348,8 +356,8 @@ def write_phase1_report(data: dict) -> str:
     return str(out)
 
 
-def write_phase2_report(data: dict) -> str:
-    out = OUT_DIR / "period_slice_comparison.md"
+def write_phase2_report(data: dict, out_dir: Path) -> str:
+    out = out_dir / "period_slice_comparison.md"
     
     lines = [
         "# SOXL 时段切片表现诊断报告",
@@ -409,8 +417,8 @@ def write_phase2_report(data: dict) -> str:
     return str(out)
 
 
-def write_underperform_json(data: dict) -> str:
-    out = OUT_DIR / "underperform_quarters.json"
+def write_underperform_json(data: dict, out_dir: Path) -> str:
+    out = out_dir / "underperform_quarters.json"
     # Export all quarters with excess < -5%
     bad = [r for r in data["quarterly"] if r["excess_return_pct"] < -5]
     out.write_text(json.dumps(bad, indent=2, ensure_ascii=False), encoding="utf-8")
@@ -418,17 +426,20 @@ def write_underperform_json(data: dict) -> str:
 
 
 def main():
-    OUT_DIR.mkdir(parents=True, exist_ok=True)
-    rows = load_rows()
+    args = parse_args()
+    detail_csv = Path(args.detail_csv)
+    out_dir = Path(args.out_dir)
+    out_dir.mkdir(parents=True, exist_ok=True)
+    rows = load_rows(detail_csv)
     trades = build_round_trips(rows)
     
     phase1 = analyze_trades(rows, trades)
-    p1_path = write_phase1_report(phase1)
+    p1_path = write_phase1_report(phase1, out_dir)
     print(f"Phase 1 report written: {p1_path}")
     
     phase2 = analyze_periods(rows)
-    p2_path = write_phase2_report(phase2)
-    up_path = write_underperform_json(phase2)
+    p2_path = write_phase2_report(phase2, out_dir)
+    up_path = write_underperform_json(phase2, out_dir)
     print(f"Phase 2 report written: {p2_path}")
     print(f"Underperform quarters written: {up_path}")
     
@@ -437,7 +448,7 @@ def main():
         "trade_analysis": phase1,
         "period_analysis": phase2,
     }
-    (OUT_DIR / "phase1_phase2_combined.json").write_text(
+    (out_dir / "phase1_phase2_combined.json").write_text(
         json.dumps(combined, indent=2, ensure_ascii=False), encoding="utf-8"
     )
     print("Combined JSON written.")

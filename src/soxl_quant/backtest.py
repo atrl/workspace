@@ -39,7 +39,7 @@ from .policy.execution import (
 )
 from .policy.observation import make_observation
 from .policy.policy_builder import actor_action
-from .policy.positioning import action_to_position
+from .policy.positioning import target_position_for_profile
 from .settings import ACCOUNT, LOOKBACK, ExecutionConfig, PositionCapConfig, RESULT_PNG, RESULT_TXT, TEST_SEG
 
 
@@ -56,6 +56,7 @@ class RLStrategy(BaseStrategy):
         asset_idx: int = 0,
         **kwargs,
     ):
+        self.model_config = kwargs.pop("model_config", None)
         super().__init__(**kwargs)
         self.actor = actor          # 训练好的 PPO actor
         self.df = feature_df        # 测试集特征矩阵
@@ -119,7 +120,16 @@ class RLStrategy(BaseStrategy):
         realized_vol = float(self.df.iloc[idx]["realized_vol_10"])
         trend_strength = abs(float(self.df.iloc[idx]["trend_gap_21"]))
         regime = execution_regime(regime_risk, realized_vol, trend_strength, config=self.execution_config)
-        target_pos = action_to_position(actor_action(self.actor, obs), obs, config=self.position_cap_config)
+        model_cfg = self.model_config
+        target_pos = target_position_for_profile(
+            actor_action(self.actor, obs),
+            obs,
+            config=self.position_cap_config,
+            action_levels=np.asarray(getattr(model_cfg, "action_levels", ()), dtype=np.float32) if model_cfg else None,
+            hard_floor=getattr(model_cfg, "hard_floor", None) if model_cfg else None,
+            use_hybrid_overlay=bool(getattr(model_cfg, "use_hybrid_overlay", False)) if model_cfg else False,
+            delta_levels=np.asarray(getattr(model_cfg, "delta_levels", ()), dtype=np.float32) if model_cfg and getattr(model_cfg, "use_hybrid_overlay", False) else None,
+        )
         direction = "buy" if target_pos > current_pos else ("sell" if target_pos < current_pos else "neutral")
         min_rebalance = rebalance_threshold(
             regime_risk,
@@ -176,6 +186,7 @@ def backtest_profile(
     open_cost: float = 0.001,
     close_cost: float = 0.001,
     min_cost: float = 5.0,
+    model_config=None,
 ) -> Dict[str, object]:
     """运行重量级 qlib 官方回测，产出 headline 指标（return / sharpe / max_dd）。
 
@@ -193,6 +204,7 @@ def backtest_profile(
         execution_config=execution_config,
         symbol=symbol,
         asset_idx=asset_idx,
+        model_config=model_config,
     )
     portfolio_metric, indicator_metric = qlib_backtest(
         start_time=test_seg[0],

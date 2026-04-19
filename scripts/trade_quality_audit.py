@@ -32,6 +32,16 @@ def bucket_name(buckets: dict[str, Any], key: str) -> dict[str, Any]:
     return buckets.get(key) or {}
 
 
+def bucket_label(bucket: dict[str, Any]) -> str:
+    expectancy = float(bucket.get("expectancy", 0.0) or 0.0)
+    kelly = float(bucket.get("kelly", 0.0) or 0.0)
+    if expectancy < 0 or kelly < 0:
+        return "negative"
+    if expectancy < 1.0 or kelly < 0.10:
+        return "weak"
+    return "positive"
+
+
 def render_report(summary: dict[str, Any], diagnosis: dict[str, Any], profile: str) -> str:
     trade = diagnosis.get("trade_analysis") or {}
     overall = trade.get("overall") or {}
@@ -47,6 +57,9 @@ def render_report(summary: dict[str, Any], diagnosis: dict[str, Any], profile: s
     micro_bucket = bucket_name(by_pos, "micro_<5%")
     small_bucket = bucket_name(by_pos, "small_5_15%")
     large_bucket = bucket_name(by_pos, "large_15%+")
+    mid_label = bucket_label(mid_bucket)
+    small_label = bucket_label(small_bucket)
+    micro_label = bucket_label(micro_bucket)
 
     total_trades = float(overall.get("total", 0) or 0)
     micro_trades = float(micro_bucket.get("total", 0) or 0)
@@ -143,21 +156,32 @@ def render_report(summary: dict[str, Any], diagnosis: dict[str, Any], profile: s
     lines.append("## Conclusion")
     lines.append("")
     lines.append(
-        f"- `mid_3_10d` is the clearest negative-expectancy bucket: "
+        f"- `mid_3_10d` quality is `{mid_label}`: "
         f"`Kelly {fmt_num(mid_bucket.get('kelly'), 4)} / Expectancy {fmt_num(mid_bucket.get('expectancy'))}%`"
     )
     lines.append(
-        f"- `small_5_15%` is also negative: "
+        f"- `small_5_15%` quality is `{small_label}`: "
         f"`Kelly {fmt_num(small_bucket.get('kelly'), 4)} / Expectancy {fmt_num(small_bucket.get('expectancy'))}%`"
     )
     lines.append(
-        f"- `micro_<5%` is near-flat but too frequent: "
+        f"- `micro_<5%` quality is `{micro_label}` and still frequency-heavy: "
         f"`Kelly {fmt_num(micro_bucket.get('kelly'), 4)} / Expectancy {fmt_num(micro_bucket.get('expectancy'))}%`"
     )
-    lines.append(
-        "- the actor still has portfolio-level value, but its T-style rebalances are partly a side-effect "
-        "of path control rather than a clean alpha source"
-    )
+    if mid_label == "negative" or small_label == "negative":
+        lines.append(
+            "- the actor still has portfolio-level value, but part of its T-style rebalancing remains a side-effect "
+            "of path control rather than a clean alpha source"
+        )
+    elif micro_label == "weak":
+        lines.append(
+            "- the residual overlay materially improved mid-horizon trade quality, but micro rebalancing is still too weak "
+            "relative to its frequency and friction load"
+        )
+    else:
+        lines.append(
+            "- the residual overlay is directionally closer to the desired shape: larger moves carry most of the edge, "
+            "while short-horizon buckets no longer show obvious negative expectancy"
+        )
     lines.append("")
     lines.append("## Next Action Order")
     lines.append("")

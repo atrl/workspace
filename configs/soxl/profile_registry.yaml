@@ -258,6 +258,13 @@ profiles:
     keep_actor: false
     keep_summary: true
     notes_ref: memory/index.json
+  - name: smoke_rule_residual_v1
+    family: smoke
+    status: candidate
+    baseline: smoke
+    keep_actor: false
+    keep_summary: true
+    notes_ref: experiments/candidate/smoke_rule_residual_v1/notes.md
   - name: smoke_log_freq
     family: smoke
     status: archived

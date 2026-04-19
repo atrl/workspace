@@ -9,7 +9,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from src.soxl_quant.data import FEATURE_COLUMNS, STATIC_INDEX
-from src.soxl_quant.policy.positioning import action_to_position, drawdown_position_cap
+from src.soxl_quant.policy.positioning import action_to_position, drawdown_position_cap, hybrid_overlay_position
 from src.soxl_quant.settings import EXTRA_OBS_DIM, N_ACTIONS, PositionCapConfig
 
 
@@ -66,9 +66,16 @@ def test_drawdown_position_cap_supports_slower_non_linear_ramp():
     assert slower_cap > linear_cap
 
 
+def test_hybrid_overlay_position_clips_delta_inside_current_band():
+    obs = make_obs(cum_drop_30=-0.02, regime_risk=0.2, anchor_gap_180=0.06, anchor_slope_180=0.01)
+    pos = hybrid_overlay_position(2, obs, delta_levels=np.asarray([-0.5, 0.0, 0.5], dtype=np.float32))
+    assert 0.4 <= pos <= 1.0
+
+
 if __name__ == "__main__":
     test_drawdown_position_cap_thresholds()
     test_action_to_position_applies_hard_cap_from_cumulative_drop()
     test_drawdown_position_cap_respects_delayed_start_config()
     test_drawdown_position_cap_supports_slower_non_linear_ramp()
+    test_hybrid_overlay_position_clips_delta_inside_current_band()
     print("test_position_cap: OK")

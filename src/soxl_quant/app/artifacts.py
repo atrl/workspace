@@ -40,6 +40,9 @@ def serialize_model_config(profile) -> Dict[str, object]:
     return {
         "observation_window": int(profile.model.observation_window),
         "action_levels": [float(v) for v in profile.model.action_levels],
+        "use_hybrid_overlay": bool(profile.model.use_hybrid_overlay),
+        "delta_levels": [float(v) for v in profile.model.delta_levels],
+        "hard_floor": None if profile.model.hard_floor is None else float(profile.model.hard_floor),
         "use_regime_router": bool(profile.model.use_regime_router),
         "hard_regime_routing": bool(profile.model.hard_regime_routing),
         "router_experts": int(profile.model.router_experts),

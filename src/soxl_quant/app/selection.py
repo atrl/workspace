@@ -35,6 +35,8 @@ def train_with_selection(policy, actor, initial_states, obs_dim: int, profile, v
             action_levels=action_levels_for_profile(profile),
             observation_window=profile.model.observation_window,
             hard_floor=profile.model.hard_floor,
+            use_hybrid_overlay=profile.model.use_hybrid_overlay,
+            delta_levels=np.asarray(profile.model.delta_levels, dtype=np.float32) if profile.model.use_hybrid_overlay else None,
         )
         baseline_score = validation_score(baseline_metrics, profile)
         baseline_state = copy.deepcopy(actor.state_dict())
@@ -60,6 +62,8 @@ def train_with_selection(policy, actor, initial_states, obs_dim: int, profile, v
             action_levels=action_levels_for_profile(profile),
             observation_window=profile.model.observation_window,
             hard_floor=profile.model.hard_floor,
+            use_hybrid_overlay=profile.model.use_hybrid_overlay,
+            delta_levels=np.asarray(profile.model.delta_levels, dtype=np.float32) if profile.model.use_hybrid_overlay else None,
         )
         final_score = validation_score(final_metrics, profile)
         history = [
@@ -88,6 +92,8 @@ def train_with_selection(policy, actor, initial_states, obs_dim: int, profile, v
         action_levels=action_levels_for_profile(profile),
         observation_window=profile.model.observation_window,
         hard_floor=profile.model.hard_floor,
+        use_hybrid_overlay=profile.model.use_hybrid_overlay,
+        delta_levels=np.asarray(profile.model.delta_levels, dtype=np.float32) if profile.model.use_hybrid_overlay else None,
     )
     best_score = validation_score(best_metrics, profile)
     history = [{"iter": 0, "score": best_score, **best_metrics}]
@@ -118,6 +124,8 @@ def train_with_selection(policy, actor, initial_states, obs_dim: int, profile, v
             action_levels=action_levels_for_profile(profile),
             observation_window=profile.model.observation_window,
             hard_floor=profile.model.hard_floor,
+            use_hybrid_overlay=profile.model.use_hybrid_overlay,
+            delta_levels=np.asarray(profile.model.delta_levels, dtype=np.float32) if profile.model.use_hybrid_overlay else None,
         )
         score = validation_score(metrics, profile)
         history.append({"iter": completed, "score": score, **metrics})

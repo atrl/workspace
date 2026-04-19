@@ -104,6 +104,15 @@ class ContinuousReward(Reward):
             stability_bonus = min((flat_steps - 2.0) / 8.0, 1.0) * cfg.stability_bonus
             reward += stability_bonus
 
+        rule_pos = float(state.get("rule_pos", pos))
+        if cfg.rule_deviation_penalty > 0:
+            reward -= abs(pos - rule_pos) * cfg.rule_deviation_penalty
+        if cfg.micro_rebalance_penalty > 0 and 0.0 < turnover < cfg.micro_rebalance_threshold:
+            micro_ratio = turnover / max(cfg.micro_rebalance_threshold, 1e-6)
+            reward -= (1.0 - micro_ratio) * cfg.micro_rebalance_penalty
+        if cfg.short_hold_turnover_penalty > 0 and turnover > 0.0 and holding_age < cfg.short_hold_threshold:
+            reward -= (1.0 - holding_age / max(cfg.short_hold_threshold, 1e-6)) * turnover * cfg.short_hold_turnover_penalty
+
         if cfg.trend_alignment_bonus > 0:
             if anchor_gap > cfg.trend_alignment_threshold and pos > 0.55:
                 reward += cfg.trend_alignment_bonus

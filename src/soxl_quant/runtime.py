@@ -28,7 +28,7 @@ from .data import build_dataset, init_qlib
 from .policy.environment import TrancheLedger
 from .policy.observation import make_observation
 from .policy.policy_builder import actor_action, build_policy
-from .policy.positioning import action_to_position
+from .policy.positioning import target_position_for_profile
 from .settings import ACCOUNT, MODEL_DIR, PositionCapConfig, QLIB_DATA_PATH, load_profile
 
 
@@ -452,7 +452,16 @@ def _build_signal_intent(
     current_position = broker.get_position(symbol, price)
     obs = make_observation(feature_df, idx, current_position, account.account_value, peak_value, ledger, price_path)
     action = actor_action(actor, obs)
-    target_position = action_to_position(action, obs, config=bundle_position_cap_config(bundle, profile_name))
+    model_cfg = load_profile(profile_name).model
+    target_position = target_position_for_profile(
+        action,
+        obs,
+        config=bundle_position_cap_config(bundle, profile_name),
+        action_levels=np.asarray(model_cfg.action_levels, dtype=np.float32),
+        hard_floor=model_cfg.hard_floor,
+        use_hybrid_overlay=bool(model_cfg.use_hybrid_overlay),
+        delta_levels=np.asarray(model_cfg.delta_levels, dtype=np.float32) if model_cfg.use_hybrid_overlay else None,
+    )
     regime_risk = float(feature_df.iloc[idx]["regime_risk"])
     return SignalIntent(
         date=str(pd.Timestamp(date).date()),

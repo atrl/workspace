@@ -23,6 +23,23 @@ def rule_based_position(obs: np.ndarray) -> float:
     return (floor + cap) / 2.0
 
 
+def hybrid_overlay_position(
+    action: int,
+    obs: np.ndarray,
+    config: Optional[PositionCapConfig] = None,
+    delta_levels: Optional[np.ndarray] = None,
+    hard_floor: Optional[float] = None,
+) -> float:
+    levels = np.asarray(delta_levels if delta_levels is not None else (-0.15, 0.0, 0.15), dtype=np.float32)
+    clipped = int(np.clip(action, 0, len(levels) - 1))
+    delta = float(levels[clipped])
+    floor, cap = action_band_from_obs(obs, hard_floor=hard_floor)
+    cumulative_drop = max(-float(np.nan_to_num(obs[STATIC_INDEX["cum_drop_30"]])), 0.0)
+    cap = min(cap, drawdown_position_cap(cumulative_drop, obs=obs, config=config))
+    base = float(np.clip(rule_based_position(obs), floor, cap))
+    return float(np.clip(base + delta, floor, cap))
+
+
 def action_band_from_obs(obs: np.ndarray, hard_floor: Optional[float] = None) -> Tuple[float, float]:
     regime_risk = float(np.nan_to_num(obs[STATIC_INDEX["regime_risk"]]))
     anchor_gap = float(np.nan_to_num(obs[STATIC_INDEX["anchor_gap_180"]]))
@@ -122,6 +139,32 @@ def action_to_position(
     return float(np.clip(floor + base * (cap - floor), 0.0, 1.0))
 
 
+def target_position_for_profile(
+    action: int,
+    obs: np.ndarray,
+    config: Optional[PositionCapConfig] = None,
+    action_levels: Optional[np.ndarray] = None,
+    hard_floor: Optional[float] = None,
+    use_hybrid_overlay: bool = False,
+    delta_levels: Optional[np.ndarray] = None,
+) -> float:
+    if use_hybrid_overlay:
+        return hybrid_overlay_position(
+            action,
+            obs,
+            config=config,
+            delta_levels=delta_levels,
+            hard_floor=hard_floor,
+        )
+    return action_to_position(
+        action,
+        obs,
+        config=config,
+        action_levels=action_levels,
+        hard_floor=hard_floor,
+    )
+
+
 __all__ = [
     "BASE_ACTION_LEVELS",
     "DEFAULT_POSITION_CAP",
@@ -129,5 +172,7 @@ __all__ = [
     "action_levels_for_profile",
     "action_to_position",
     "drawdown_position_cap",
+    "hybrid_overlay_position",
     "rule_based_position",
+    "target_position_for_profile",
 ]

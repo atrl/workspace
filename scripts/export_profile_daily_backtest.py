@@ -9,6 +9,7 @@ import sys
 
 import pandas as pd
 import torch
+import csv
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
@@ -24,6 +25,38 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--profile", required=True, help="Profile name, e.g. balanced or balanced_transition_state")
     parser.add_argument("--output", required=True, help="CSV path to write")
     return parser.parse_args()
+
+
+def export_detailed_csv(
+    out_path: Path,
+    portfolio_df: pd.DataFrame,
+    price_series: pd.Series,
+    position_history: list[float],
+    trade_signals: list[tuple],
+) -> None:
+    account = portfolio_df["account"].astype(float)
+    dates = account.index.strftime("%Y-%m-%d").tolist()
+    prices = price_series.reindex(account.index).ffill().values
+    initial_price = float(prices[0]) if len(prices) > 0 else 1.0
+    buyhold_nav = ACCOUNT * (prices / initial_price)
+
+    action_map: dict[str, str] = {}
+    for dt, _price, _pos, stype in trade_signals:
+        action_map[pd.Timestamp(dt).strftime("%Y-%m-%d")] = stype.upper()
+
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    with out_path.open("w", newline="", encoding="utf-8") as handle:
+        writer = csv.writer(handle)
+        writer.writerow(["datetime", "strategy_nav", "price", "buyhold_nav", "position", "excess", "excess_pct", "action"])
+        for idx, dt in enumerate(dates):
+            strat_nav = float(account.iloc[idx])
+            price = float(prices[idx])
+            bh_nav = float(buyhold_nav[idx])
+            pos = float(position_history[idx]) if idx < len(position_history) else 0.0
+            excess = strat_nav - bh_nav
+            excess_pct = (excess / bh_nav * 100.0) if bh_nav != 0 else 0.0
+            action = action_map.get(dt, "HOLD")
+            writer.writerow([dt, strat_nav, price, bh_nav, pos, excess, excess_pct, action])
 
 
 def main() -> None:
@@ -52,23 +85,18 @@ def main() -> None:
         feature_df=test_df,
         price_series=price,
         position_cap_config=profile.position_cap,
+        execution_config=profile.execution,
         symbol="SOXL",
         test_seg=TEST_SEG,
+        model_config=profile.model,
     )
-
-    portfolio = result["portfolio"]
-    pos_hist = result["position_history"]
-    aligned_pos = pd.Series([0.0] * (len(portfolio) - len(pos_hist)) + pos_hist, index=portfolio.index)
-
-    df = pd.DataFrame(index=portfolio.index)
-    df["strategy_nav"] = portfolio["account"].astype(float)
-    df["price"] = price.reindex(df.index).ffill().bfill().astype(float)
-    df["buyhold_nav"] = ACCOUNT * (df["price"] / df["price"].iloc[0])
-    df["position"] = aligned_pos.reindex(df.index).fillna(0.0)
-    df["strategy_ret"] = df["strategy_nav"].pct_change().fillna(0.0)
-    df["buyhold_ret"] = df["buyhold_nav"].pct_change().fillna(0.0)
-    df["excess_ret"] = df["strategy_ret"] - df["buyhold_ret"]
-    df.to_csv(output)
+    export_detailed_csv(
+        output,
+        result["portfolio"],
+        price,
+        result["position_history"],
+        result.get("trade_signals", []),
+    )
     print(output)
 
 
