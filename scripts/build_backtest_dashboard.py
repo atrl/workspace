@@ -643,15 +643,15 @@ def build_payload() -> dict[str, object]:
 
 def _build_layout_all() -> dict:
     fig = make_subplots(
-        rows=4, cols=1,
+        rows=5, cols=1,
         shared_xaxes=True,
         vertical_spacing=0.05,
-        row_heights=[0.40, 0.20, 0.20, 0.20],
-        subplot_titles=("NAV + Trades + K-Line", "Position", "Excess Return %", "Drawdown"),
-        specs=[[{"secondary_y": True}], [{}], [{}], [{}]],
+        row_heights=[0.24, 0.24, 0.16, 0.18, 0.18],
+        subplot_titles=("NAV", "Price + Signals", "Position", "Excess Return %", "Drawdown"),
+        specs=[[{}], [{}], [{}], [{}], [{}]],
     )
     fig.update_layout(
-        height=760,
+        height=920,
         margin=dict(l=60, r=60, t=90, b=40),
         paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor=C_PANEL,
@@ -661,10 +661,10 @@ def _build_layout_all() -> dict:
         legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1, bgcolor="rgba(255,250,242,0.8)"),
         dragmode="zoom",
     )
-    for i in range(1, 5):
+    for i in range(1, 6):
         fig.update_xaxes(
             showgrid=True, gridwidth=1, gridcolor=C_LINE,
-            showticklabels=(i == 4), tickfont=dict(size=11),
+            showticklabels=(i == 5), tickfont=dict(size=11),
             showspikes=True, spikemode="across", spikecolor=C_MUTED, spikethickness=1, spikedash="dot",
             row=i, col=1,
         )
@@ -675,12 +675,12 @@ def _build_layout_all() -> dict:
             fixedrange=True,
             row=i, col=1,
         )
-    fig.update_yaxes(title_text="NAV", row=1, col=1, secondary_y=False)
-    fig.update_yaxes(title_text="Price", side="right", showgrid=False, tickfont=dict(size=10), row=1, col=1, secondary_y=True)
-    fig.update_yaxes(title_text="Pos", row=2, col=1)
-    fig.update_yaxes(title_text="Excess %", row=3, col=1)
-    fig.update_yaxes(title_text="DD %", row=4, col=1)
-    fig.update_xaxes(title_text="Date", row=4, col=1)
+    fig.update_yaxes(title_text="NAV", row=1, col=1)
+    fig.update_yaxes(title_text="Price", row=2, col=1)
+    fig.update_yaxes(title_text="Pos", row=3, col=1)
+    fig.update_yaxes(title_text="Excess %", row=4, col=1)
+    fig.update_yaxes(title_text="DD %", row=5, col=1)
+    fig.update_xaxes(title_text="Date", row=5, col=1)
     fig.update_layout(xaxis_rangeslider_visible=False)
     return fig.to_plotly_json()["layout"]
 
@@ -2117,11 +2117,6 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       const dates = rows.map(r => r.datetime);
       const strategyNav = rows.map(r => r.strategy_nav);
       const buyholdNav = rows.map(r => r.buyhold_nav);
-      const baseNav = strategyNav.length ? strategyNav[0] : 1;
-      const basePrice = rows.length && rows[0].price ? rows[0].price : null;
-      const normalizedPriceNav = rows.map(r => (
-        basePrice && r.price != null ? baseNav * (r.price / basePrice) : null
-      ));
       const positions = rows.map(r => r.position);
       const excessPct = rows.map(r => r.excess_pct);
 
@@ -2151,9 +2146,10 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
 
       const traces = [];
       const xa = 'x', ya = 'y';
-      const xa2 = 'x2', ya2 = 'y3';
-      const xa3 = 'x3', ya3 = 'y4';
-      const xa4 = 'x4', ya4 = 'y5';
+      const xaPrice = 'x2', yaPrice = 'y2';
+      const xa2 = 'x3', ya2 = 'y3';
+      const xa3 = 'x4', ya3 = 'y4';
+      const xa4 = 'x5', ya4 = 'y5';
 
       traces.push({{
         x: dates, y: strategyNav,
@@ -2169,14 +2165,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
         hovertemplate: '%{{x}}<br>Buy&Hold: %{{y:,.2f}}<extra></extra>',
         xaxis: xa, yaxis: ya,
       }});
-      traces.push({{
-        x: dates, y: normalizedPriceNav,
-        name: 'Normalized Price', type: 'scatter', mode: 'lines',
-        line: {{ color: '#6d6458', width: 1.5, dash: 'dot' }},
-        hovertemplate: '%{{x}}<br>Normalized Price: %{{y:,.2f}}<extra></extra>',
-        xaxis: xa, yaxis: ya,
-      }});
-      // K-Line on secondary y-axis
+      // K-Line on dedicated price row
       const opens = [], highs = [], lows = [], closes = [], ma180Dates = [], ma180Vals = [];
       for (const r of rows) {{
         if (r.open != null) opens.push(r.open);
@@ -2191,7 +2180,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
           name: 'SOXL', type: 'candlestick',
           increasing: {{line: {{color: '#0f766e'}}, fillcolor: 'rgba(15,118,110,0.12)'}},
           decreasing: {{line: {{color: '#b91c1c'}}, fillcolor: 'rgba(185,28,28,0.12)'}},
-          xaxis: xa, yaxis: 'y2',
+          xaxis: xaPrice, yaxis: yaPrice,
         }});
       }}
       if (ma180Vals.length) {{
@@ -2200,7 +2189,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
           name: 'MA180', type: 'scatter', mode: 'lines',
           line: {{ color: '#9a3412', width: 1.5, dash: 'dash' }},
           hovertemplate: '%{{x}}<br>MA180: $%{{y:,.2f}}<extra></extra>',
-          xaxis: xa, yaxis: 'y2',
+          xaxis: xaPrice, yaxis: yaPrice,
         }});
       }}
       if (buyRows.length) {{
@@ -2212,7 +2201,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
           hovertemplate: '<b>BUY</b> %{{x}}<br>Price: $%{{y:.2f}}<br>NAV: %{{text}}<extra></extra>',
           text: buyRows.map(r => fmtNum(r.strategy_nav, 2)),
           customdata: buyRows.map(r => buyToSell[r.datetime] || ''),
-          xaxis: xa, yaxis: 'y2',
+          xaxis: xaPrice, yaxis: yaPrice,
         }});
       }}
       if (sellRows.length) {{
@@ -2224,7 +2213,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
           hovertemplate: '<b>SELL</b> %{{x}}<br>Price: $%{{y:.2f}}<br>NAV: %{{text}}<extra></extra>',
           text: sellRows.map(r => fmtNum(r.strategy_nav, 2)),
           customdata: sellRows.map(r => sellToBuy[r.datetime] || ''),
-          xaxis: xa, yaxis: 'y2',
+          xaxis: xaPrice, yaxis: yaPrice,
         }});
       }}
 
