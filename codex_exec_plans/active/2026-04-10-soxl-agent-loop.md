@@ -2434,3 +2434,55 @@ Created `balanced_budget.yaml` with `max_iters=50`. However, the log file was ac
 - Next action:
   - compare this candidate directly against canonical `balanced` on walk-forward before any promotion claim
   - test a lighter micro-threshold / trade-lock replay only if the goal is to cut friction rather than improve expectancy
+
+## Dashboard auto-latest fix 2026-04-19 19:xx
+
+- Goal:
+  - make post-train dashboard refresh automatic and default to the latest training view instead of sticking to an older saved or best-Sharpe view
+- Failure mode:
+  - training wrote summary artifacts, but the dashboard could still open on:
+    - an older `localStorage` selection
+    - an older historical `runtime/generalization/versions/*` snapshot
+  - and fresh full-train outputs were not automatically exported into the `*_soxl_daily.csv` convention that the dashboard loader already knew how to scan
+- Implementation:
+  - added `src/soxl_quant/app/dashboard.py`
+    - `export_review_daily_csv()`
+    - `rebuild_dashboard()`
+  - `run_profile()` now auto-exports:
+    - `runtime/post_train_review/<profile>_soxl_daily.csv`
+  - `persist_and_print_results()` now auto-runs:
+    - `scripts/build_backtest_dashboard.py`
+  - `scripts/build_backtest_dashboard.py` now:
+    - computes `latest_version`
+    - prefers `post_train_review` exports over older `runtime/generalization/versions/*` snapshots
+    - defaults JS state to `latest_version`
+    - upgrades browser state handling to `soxl-dashboard-state-v9`
+    - resets old non-manual saved state back to latest
+  - `scripts/export_profile_daily_backtest.py` now reuses the repo-owned CSV writer from `src/soxl_quant/app/dashboard.py`
+  - patched `.codex/skills/dashboard/SKILL.md` to document the auto-latest rule
+- Commands:
+  - `PYTHONPATH=. qlib_venv/bin/python tests/test_dashboard.py`
+  - `PYTHONPATH=. qlib_venv/bin/python -m py_compile src/soxl_quant/app/dashboard.py src/soxl_quant/app/train.py src/soxl_quant/app/reporting.py scripts/export_profile_daily_backtest.py scripts/build_backtest_dashboard.py`
+  - `PYTHONPATH=. qlib_venv/bin/python scripts/export_profile_daily_backtest.py --profile balanced_rule_residual_v1 --output runtime/post_train_review/balanced_rule_residual_v1_soxl_daily.csv`
+  - `PYTHONPATH=. qlib_venv/bin/python scripts/build_backtest_dashboard.py`
+  - `qlib_venv/bin/python scripts/check_harness.py`
+- Validation evidence:
+  - `tests/test_dashboard.py` passed
+  - compile check passed for app/dashboard + dashboard scripts
+  - fresh dashboard source exported:
+    - `runtime/post_train_review/balanced_rule_residual_v1_soxl_daily.csv`
+  - regenerated dashboard:
+    - `runtime/generalization/dashboard.html`
+  - generated HTML now contains:
+    - `"latest_version": "balanced_rule_residual_v1"`
+    - `version: DATA.latest_version || DATA.best_version || ''`
+    - `const STORAGE_KEY = 'soxl-dashboard-state-v9'`
+  - full harness validation still green:
+    - `scripts/check_harness.py => passed=35 failures=0`
+- Keep / drop decision:
+  - keep:
+    - auto-export + auto-rebuild as the post-train dashboard path
+    - latest-view preference over best-Sharpe preference for dashboard defaulting
+  - drop:
+    - relying on manual dashboard rebuild after each training run
+    - relying on stale browser state to decide what “current dashboard” means

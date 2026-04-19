@@ -12,6 +12,17 @@ qlib_venv/bin/python scripts/build_backtest_dashboard.py
 # Open runtime/generalization/dashboard.html in browser
 ```
 
+### Post-Train Default View
+After a training run, the harness should:
+1. export `runtime/post_train_review/<profile>_soxl_daily.csv`
+2. rebuild `runtime/generalization/dashboard.html`
+3. default the dashboard to the latest generated version, not the historical best-Sharpe version
+
+If the dashboard opens on an older run after fresh training, check:
+- whether the latest `*_soxl_daily.csv` was written
+- whether `scripts/build_backtest_dashboard.py` was rerun
+- whether browser localStorage is pinning a manual old version
+
 ### Add a New Subplot
 1. In `scripts/build_backtest_dashboard.py`, edit `_build_layout_all()`:
    - Increase `rows` in `make_subplots()`

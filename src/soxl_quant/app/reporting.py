@@ -4,11 +4,14 @@ from pathlib import Path
 
 from ..backtest import save_results
 from ..settings import RESULT_PNG, RESULT_TXT
+from .dashboard import rebuild_dashboard
 
 
 def persist_and_print_results(results, walk_forward_results) -> None:
     save_results(results)
+    dashboard_ok = rebuild_dashboard()
     print(f"\n[done] chart={RESULT_PNG.name} summary={RESULT_TXT.name}")
+    print(f"  - dashboard: {'refreshed' if dashboard_ok else 'refresh_failed'}")
     for name, result in results.items():
         print(
             f"  - {name}: {result['return']:.1f}% | Sharpe {result['sharpe']:.2f} | "

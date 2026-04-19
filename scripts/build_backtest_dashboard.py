@@ -192,6 +192,40 @@ def load_model_versions() -> list[dict]:
     return versions
 
 
+def select_best_version(model_versions: list[dict], versioned: dict[str, dict]) -> str:
+    best_version = ""
+    best_sharpe = -float("inf")
+    for mv in model_versions:
+        name = mv.get("name", "")
+        sharpe = mv.get("test_sharpe")
+        if sharpe is None:
+            continue
+        tag_candidates = [name]
+        if name.startswith("soxl_"):
+            tag_candidates.append(name[5:])
+        for tag in tag_candidates:
+            if tag in versioned and sharpe > best_sharpe:
+                best_sharpe = sharpe
+                best_version = tag
+    return best_version
+
+
+def select_latest_version(versioned: dict[str, dict]) -> str:
+    latest_version = ""
+    latest_priority = -1
+    latest_updated_at = -float("inf")
+    for tag, payload in versioned.items():
+        meta = payload.get("_meta", {})
+        updated_at = meta.get("updated_at", float("-inf"))
+        source_kind = meta.get("source_kind", "generalization_version")
+        priority = 1 if source_kind == "post_train_review" else 0
+        if priority > latest_priority or (priority == latest_priority and updated_at > latest_updated_at):
+            latest_priority = priority
+            latest_updated_at = updated_at
+            latest_version = tag
+    return latest_version
+
+
 def compute_regime_shapes(rows: list[dict]) -> list[dict]:
     shapes = []
     if not rows:
@@ -429,6 +463,11 @@ def _load_post_train_review_versions(features: dict[str, dict[str, float]] | Non
         kelly_stats = compute_kelly_stats(trades)
 
         versioned[tag] = {
+            "_meta": {
+                "updated_at": csv_path.stat().st_mtime,
+                "source": str(csv_path.relative_to(ROOT)),
+                "source_kind": "post_train_review",
+            },
             "detailed": {
                 "SOXL": {
                     "summary": summary,
@@ -505,6 +544,11 @@ def _load_versioned_data(features: dict[str, dict[str, float]] | None) -> dict[s
             }
         if version_rows:
             versioned[version_dir.name] = {
+                "_meta": {
+                    "updated_at": summary_path.stat().st_mtime,
+                    "source": str(summary_path.relative_to(ROOT)),
+                    "source_kind": "generalization_version",
+                },
                 "detailed": version_rows,
                 "windows": version_windows,
             }
@@ -553,23 +597,9 @@ def build_payload() -> dict[str, object]:
     ptr_versioned = _load_post_train_review_versions(features)
     versioned.update(ptr_versioned)
 
-    # Determine best version among those with detailed data
     model_versions = load_model_versions()
-    best_version = ""
-    best_sharpe = -float("inf")
-    for mv in model_versions:
-        name = mv.get("name", "")
-        sharpe = mv.get("test_sharpe")
-        if sharpe is None:
-            continue
-        # Map summary name to version tag (strip soxl_ prefix)
-        tag_candidates = [name]
-        if name.startswith("soxl_"):
-            tag_candidates.append(name[5:])
-        for tag in tag_candidates:
-            if tag in versioned and sharpe > best_sharpe:
-                best_sharpe = sharpe
-                best_version = tag
+    best_version = select_best_version(model_versions, versioned)
+    latest_version = select_latest_version(versioned)
 
     return {
         "generated_from": {
@@ -585,6 +615,7 @@ def build_payload() -> dict[str, object]:
         "detailed": detailed_rows,
         "versioned": versioned,
         "best_version": best_version,
+        "latest_version": latest_version,
         "results": load_json(RUNTIME_DIR / "results.json"),
         "rule_based": load_json(RUNTIME_DIR / "rule_based_results.json"),
         "execution_overlay": load_json(RUNTIME_DIR / "execution_overlay_results.json"),
@@ -1382,7 +1413,8 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     const VERSIONS = Object.keys(DATA.versioned || {{}});
     const state = {{
       etf: ETFS[0],
-      version: DATA.best_version || '',
+      version: DATA.latest_version || DATA.best_version || '',
+      versionSource: 'auto_latest',
       range: 'all',
       zoomMode: 'all',
       zoomStart: null,
@@ -1406,7 +1438,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     const infoEmpty = document.getElementById('infoEmpty');
     const infoContent = document.getElementById('infoContent');
     const regimeStrip = document.getElementById('regimeStrip');
-    const STORAGE_KEY = 'soxl-dashboard-state-v8';
+    const STORAGE_KEY = 'soxl-dashboard-state-v9';
 
     function fmtPct(v, digits = 2) {{
       return v == null ? 'n/a' : `${{(v * 100).toFixed(digits)}}%`;
@@ -1431,6 +1463,14 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
         const parsed = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
         if (!parsed) return;
         Object.assign(state, parsed);
+        if (parsed.versionSource !== 'manual' && parsed.versionSource !== 'current') {{
+          state.version = DATA.latest_version || DATA.best_version || '';
+          state.versionSource = 'auto_latest';
+        }}
+        if (state.version && (!DATA.versioned || !DATA.versioned[state.version])) {{
+          state.version = DATA.latest_version || DATA.best_version || '';
+          state.versionSource = 'auto_latest';
+        }}
       }} catch (_err) {{}}
     }}
     function saveState() {{
@@ -1543,6 +1583,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       }});
       versionSelect.addEventListener('change', e => {{
         state.version = e.target.value;
+        state.versionSource = state.version ? 'manual' : 'current';
         state.zoomMode = 'all';
         state.zoomStart = null;
         state.zoomEnd = null;

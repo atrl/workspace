@@ -17,6 +17,7 @@ from ..policy.policy_builder import build_policy
 from ..policy.positioning import action_levels_for_profile
 from ..settings import CSV_PATH, QLIB_DATA_PATH, ROOT
 from .artifacts import artifact_tag_suffix, persist_actor_bundle, persist_summary_bundle
+from .dashboard import export_review_daily_csv
 from .evaluate import slice_metrics
 from .promote import build_promotion_report
 from .selection import train_with_selection
@@ -135,6 +136,9 @@ def run_profile(
     bt_result["slices"] = slice_result
     bt_result["test_proxy"] = test_proxy
     bt_result["promotion"] = promotion_report
+    review_csv_path = export_review_daily_csv(profile.name, bt_result, price_series)
+    if review_csv_path is not None:
+        bt_result["review_daily_csv"] = str(review_csv_path)
     return bt_result
 
 __all__ = [
