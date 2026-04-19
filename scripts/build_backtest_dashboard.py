@@ -2194,10 +2194,11 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       if (buyRows.length) {{
         traces.push({{
           x: buyRows.map(r => r.datetime),
-          y: buyRows.map(r => r.price || r.strategy_nav),
+          y: buyRows.map(r => r.strategy_nav),
           name: 'BUY', type: 'scatter', mode: 'markers',
           marker: {{ symbol: 'triangle-up', size: 12, color: '{C_BUY}', line: {{ color: 'white', width: 1.5 }} }},
-          hovertemplate: '<b>BUY</b> %{{x}}<extra></extra>',
+          hovertemplate: '<b>BUY</b> %{{x}}<br>NAV: %{{y:,.2f}}<br>Price: $%{{text}}<extra></extra>',
+          text: buyRows.map(r => fmtNum(r.price, 2)),
           customdata: buyRows.map(r => buyToSell[r.datetime] || ''),
           xaxis: xa, yaxis: ya,
         }});
@@ -2205,10 +2206,11 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       if (sellRows.length) {{
         traces.push({{
           x: sellRows.map(r => r.datetime),
-          y: sellRows.map(r => r.price || r.strategy_nav),
+          y: sellRows.map(r => r.strategy_nav),
           name: 'SELL', type: 'scatter', mode: 'markers',
           marker: {{ symbol: 'triangle-down', size: 12, color: '{C_SELL}', line: {{ color: 'white', width: 1.5 }} }},
-          hovertemplate: '<b>SELL</b> %{{x}}<extra></extra>',
+          hovertemplate: '<b>SELL</b> %{{x}}<br>NAV: %{{y:,.2f}}<br>Price: $%{{text}}<extra></extra>',
+          text: sellRows.map(r => fmtNum(r.price, 2)),
           customdata: sellRows.map(r => sellToBuy[r.datetime] || ''),
           xaxis: xa, yaxis: ya,
         }});
