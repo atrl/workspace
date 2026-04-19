@@ -4,7 +4,7 @@ from pathlib import Path
 
 import pandas as pd
 
-from scripts.build_backtest_dashboard import select_best_version, select_latest_version
+from scripts.build_backtest_dashboard import normalize_post_train_review_rows, select_best_version, select_latest_version
 from src.soxl_quant.app.dashboard import review_daily_csv_path, write_review_daily_csv
 
 
@@ -61,3 +61,59 @@ def test_select_best_version_maps_soxl_prefix():
         "balanced": {"_meta": {"updated_at": 10}},
     }
     assert select_best_version(model_versions, versioned) == "balanced_rule_residual_v1"
+
+
+def test_normalize_post_train_review_rows_keeps_explicit_action_column():
+    rows = normalize_post_train_review_rows(
+        [
+            {
+                "datetime": "2024-01-02",
+                "strategy_nav": "1000000",
+                "price": "10",
+                "buyhold_nav": "1000000",
+                "position": "0.3",
+                "action": "HOLD",
+            },
+            {
+                "datetime": "2024-01-03",
+                "strategy_nav": "1010000",
+                "price": "10.1",
+                "buyhold_nav": "1005000",
+                "position": "0.4",
+                "action": "BUY",
+            },
+            {
+                "datetime": "2024-01-04",
+                "strategy_nav": "1005000",
+                "price": "10.0",
+                "buyhold_nav": "1001000",
+                "position": "0.2",
+                "action": "SELL",
+            },
+        ]
+    )
+    assert [r["action"] for r in rows] == ["HOLD", "BUY", "SELL"]
+
+
+def test_normalize_post_train_review_rows_falls_back_to_position_change_inference():
+    rows = normalize_post_train_review_rows(
+        [
+            {
+                "datetime": "2024-01-02",
+                "strategy_nav": "1000000",
+                "price": "10",
+                "buyhold_nav": "1000000",
+                "position": "0.3",
+                "action": "",
+            },
+            {
+                "datetime": "2024-01-03",
+                "strategy_nav": "1010000",
+                "price": "10.1",
+                "buyhold_nav": "1005000",
+                "position": "0.1",
+                "action": "",
+            },
+        ]
+    )
+    assert [r["action"] for r in rows] == ["BUY", "SELL"]

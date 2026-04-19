@@ -20,9 +20,10 @@ artifacts:
 - runtime/post_train_review/balanced_rule_residual_v1_soxl_daily.csv
 workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
 summary: Fixed the dashboard so training now auto-exports a review CSV, auto-rebuilds
-  the static HTML, and defaults to the latest post-train view instead of an older
-  best-Sharpe or browser-saved selection. The generated dashboard now resolves `latest_version`
-  to `balanced_rule_residual_v1`.
+  the static HTML, defaults to the latest post-train view instead of an older best-Sharpe
+  or browser-saved selection, preserves explicit post-train trade actions, and merges
+  OHLC/indicator fields back into post-train rows. The generated dashboard now resolves
+  `latest_version` to `balanced_rule_residual_v1`.
 ---
 
 # 2026-04-19 dashboard auto latest fix
@@ -43,6 +44,8 @@ The dashboard was not reliably showing the latest training result after a run fi
 - `scripts/build_backtest_dashboard.py` now:
   - computes `latest_version`
   - prefers `post_train_review` sources over historical `versions/*` snapshots
+  - preserves explicit CSV `action` values instead of collapsing the whole non-flat span into one trade
+  - merges `open/high/low/close/rsi6/hv_20/vol_coef/panic_score/market_state` into post-train rows
   - resets old non-manual browser state to latest through `soxl-dashboard-state-v9`
 
 ## Results
@@ -53,6 +56,9 @@ The dashboard was not reliably showing the latest training result after a run fi
 - Verified generated HTML contains:
   - `"latest_version": "balanced_rule_residual_v1"`
   - `versionSource: 'auto_latest'`
+- Verified latest residual view behavior:
+  - `balanced_rule_residual_v1` now yields `98` paired trades in dashboard trade analysis
+  - info panel fields that previously showed `n/a` on post-train rows now resolve from merged OHLC/indicator data
 - Validation:
   - `tests/test_dashboard.py` passed
   - `scripts/check_harness.py => passed=35 failures=0`

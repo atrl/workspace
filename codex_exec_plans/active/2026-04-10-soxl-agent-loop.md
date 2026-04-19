@@ -2477,6 +2477,19 @@ Created `balanced_budget.yaml` with `max_iters=50`. However, the log file was ac
     - `"latest_version": "balanced_rule_residual_v1"`
     - `version: DATA.latest_version || DATA.best_version || ''`
     - `const STORAGE_KEY = 'soxl-dashboard-state-v9'`
+  - post-train residual view integrity:
+    - loader now preserves explicit CSV `action` values instead of re-inferring only `0 -> >0` and `>0 -> 0`
+    - `balanced_rule_residual_v1` now yields `98` paired trades in dashboard trade analysis instead of collapsing into one long trade
+    - post-train rows now include merged OHLC / indicator fields:
+      - `open`
+      - `high`
+      - `low`
+      - `close`
+      - `rsi6`
+      - `hv_20`
+      - `vol_coef`
+      - `panic_score`
+      - `market_state`
   - full harness validation still green:
     - `scripts/check_harness.py => passed=35 failures=0`
 - Keep / drop decision:

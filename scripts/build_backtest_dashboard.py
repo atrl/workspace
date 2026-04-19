@@ -368,6 +368,47 @@ def compute_kelly_stats(trades: list[dict]) -> dict:
     }
 
 
+def infer_action_from_position(prev_pos: float | None, pos: float, index: int) -> str:
+    if index == 0:
+        return "BUY" if pos > 0 else "HOLD"
+    if prev_pos is None:
+        return "HOLD"
+    eps = 1e-9
+    if pos > prev_pos + eps:
+        return "BUY"
+    if pos < prev_pos - eps:
+        return "SELL"
+    return "HOLD"
+
+
+def normalize_post_train_review_rows(raw_rows: list[dict[str, str]]) -> list[dict[str, object]]:
+    rows: list[dict[str, object]] = []
+    prev_pos: float | None = None
+    for i, r in enumerate(raw_rows):
+        pos = float(r.get("position", 0.0))
+        strat_nav = float(r["strategy_nav"])
+        bh_nav = float(r["buyhold_nav"])
+        raw_action = str(r.get("action", "") or "").upper()
+        action = raw_action if raw_action in {"BUY", "SELL", "HOLD"} else infer_action_from_position(prev_pos, pos, i)
+
+        row: dict[str, object] = {
+            "datetime": r["datetime"],
+            "strategy_nav": strat_nav,
+            "price": float(r["price"]),
+            "buyhold_nav": bh_nav,
+            "position": pos,
+            "excess": strat_nav - bh_nav,
+            "excess_pct": (strat_nav / bh_nav - 1) * 100 if bh_nav != 0 else 0.0,
+            "action": action,
+        }
+        rows.append(row)
+        prev_pos = pos
+
+    if rows and rows[-1]["position"] > 0 and rows[-1]["action"] == "HOLD":
+        rows[-1]["action"] = "SELL"
+    return rows
+
+
 def _load_post_train_review_versions(features: dict[str, dict[str, float]] | None) -> dict[str, dict]:
     """Load SOXL daily CSVs from runtime/post_train_review/ as versioned data."""
     versioned: dict[str, dict] = {}
@@ -386,36 +427,8 @@ def _load_post_train_review_versions(features: dict[str, dict[str, float]] | Non
         if not raw_rows:
             continue
 
-        rows: list[dict[str, object]] = []
-        prev_pos = 0.0
-        for i, r in enumerate(raw_rows):
-            pos = float(r.get("position", 0.0))
-            strat_nav = float(r["strategy_nav"])
-            bh_nav = float(r["buyhold_nav"])
-            # Infer action from position changes
-            action = "HOLD"
-            if i > 0:
-                if prev_pos == 0.0 and pos > 0.0:
-                    action = "BUY"
-                elif prev_pos > 0.0 and pos == 0.0:
-                    action = "SELL"
-            prev_pos = pos
-
-            row: dict[str, object] = {
-                "datetime": r["datetime"],
-                "strategy_nav": strat_nav,
-                "price": float(r["price"]),
-                "buyhold_nav": bh_nav,
-                "position": pos,
-                "excess": strat_nav - bh_nav,
-                "excess_pct": (strat_nav / bh_nav - 1) * 100 if bh_nav != 0 else 0.0,
-                "action": action,
-            }
-            rows.append(row)
-
-        # Force close any open position at the last row so trade pairing works
-        if rows and rows[-1]["position"] > 0 and rows[-1]["action"] == "HOLD":
-            rows[-1]["action"] = "SELL"
+        rows = normalize_post_train_review_rows(raw_rows)
+        ohlc = load_ohlc_and_indicators("SOXL")
 
         # Merge features
         if features:
@@ -425,6 +438,10 @@ def _load_post_train_review_versions(features: dict[str, dict[str, float]] | Non
         else:
             for r in rows:
                 r["_features"] = {}
+        for r in rows:
+            dt = str(r["datetime"])
+            if dt in ohlc:
+                r.update(ohlc[dt])
 
         # Compute summary from rows
         strategy_return = rows[-1]["strategy_nav"] / rows[0]["strategy_nav"] - 1
