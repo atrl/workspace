@@ -1006,6 +1006,25 @@
     "excerpt": "# App And Policy Consolidation ## Context `src/soxl_quant/policy/` and `src/soxl_quant/app/` existed, but several files were still wrappers pointing back to top-level modules. The tree looked cleaner than it really was and kept `cli.py` plus `rl_*` as hidden coupling points. ## W"
   },
   {
+    "path": "memory/2026-04-19-balanced-trade-quality-audit.md",
+    "date": "2026-04-19",
+    "title": "2026-04-19 balanced trade quality audit",
+    "kind": "review",
+    "profiles": [
+      "balanced"
+    ],
+    "status": "kept",
+    "tags": [
+      "balanced",
+      "kept",
+      "review"
+    ],
+    "artifacts": [],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Applied the new post-train Kelly workflow to canonical `balanced`. The retained actor is still promotable at the portfolio level, but its edge is concentrated in larger and longer holds while `mid_3_10d`, `small_5_15%`, and most `micro_<5%` rebalances are weak or negative expectancy. Next optimization order stays fixed-actor trade compression before reward or architecture changes.",
+    "excerpt": "# 2026-04-19 balanced trade quality audit ## Context The Kelly patch to the post-train review skill needed a concrete repo artifact, not just workflow text. ## Evidence - Canonical `balanced` remains the best retained baseline at the summary level: - `test_proxy = 468.90% / Sharp"
+  },
+  {
     "path": "memory/2026-04-19-cli-shell-shrink.md",
     "date": "2026-04-19",
     "title": "CLI Shell Shrink",

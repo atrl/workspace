@@ -2252,3 +2252,30 @@ Created `balanced_budget.yaml` with `max_iters=50`. However, the log file was ac
     - repo-local trade attribution as the first diagnostic layer before external tooling
   - drop:
     - answering negative-Kelly questions ad hoc in chat without a reusable repo workflow
+
+## Post-train Kelly audit 2026-04-19 15:xx
+
+- Goal:
+  - convert the new negative-Kelly review path from skill guidance into an actual repo artifact
+- Procedure:
+  - reused:
+    - `artifacts/models/soxl_balanced_summary.json`
+    - `runtime/diagnosis/phase1_phase2_combined.json`
+    - `runtime/diagnosis/soxl_trade_attribution.md`
+    - `runtime/diagnosis/period_slice_comparison.md`
+  - wrote:
+    - `runtime/post_train_review/balanced_trade_quality_audit.md`
+- Validation evidence:
+  - audit grounded in existing generated diagnostics:
+    - `mid_3_10d: Kelly -0.3287 / Expectancy -3.02%`
+    - `small_5_15%: Kelly -0.0624 / Expectancy -0.52%`
+    - `micro_<5%: 109 trades / Kelly 0.0437 / Expectancy 0.38%`
+  - portfolio-level retained baseline still confirmed promotable:
+    - `test_proxy Sharpe 0.858`
+    - fixed-split gate `pass`
+- Keep / drop decision:
+  - keep:
+    - the canonical `balanced` actor as retained baseline
+    - trade-compression as the next cheap lever
+  - drop:
+    - treating negative T-bucket Kelly as proof that the actor has no value
