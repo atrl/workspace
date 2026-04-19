@@ -2,7 +2,7 @@
 
 Status: active
 Owner: Codex
-Last updated: 2026-04-18 16:26 CST
+Last updated: 2026-04-19 15:46 CST
 
 ## Goal
 
@@ -2360,3 +2360,77 @@ Created `balanced_budget.yaml` with `max_iters=50`. However, the log file was ac
 - Next action:
   - create a balanced-family quick candidate from this same structure
   - tighten execution threshold / trade lock before broadening the residual action set
+
+## Residual-over-rule full run 2026-04-19 15:xx
+
+- Goal:
+  - escalate the validated smoke residual-over-rule structure into one balanced-family full training candidate
+- Baselines:
+  - canonical baseline:
+    - `balanced`
+  - direct structural baseline:
+    - `smoke_rule_residual_v1`
+- Hypothesis:
+  - preserving `balanced` reward/cap style while switching action semantics to:
+    - `rule_pos + bounded delta`
+    - plus rule-deviation / micro-churn penalties
+  - should improve trade-quality relative to the old negative-Kelly diagnosis without collapsing fixed-split promotion quality
+- Acceptance bar for this loop:
+  - produce durable evidence for:
+    - full summary artifact
+    - profile-specific detailed backtest export
+    - profile-specific phase1/phase2 diagnosis
+    - profile-specific trade-quality audit
+    - keep / drop decision versus canonical `balanced`
+- Commands:
+  - `PYTHONPATH=. qlib_venv/bin/python -c "import tests.test_profile_registry as t; t.test_registry_covers_all_profiles(); t.test_registry_has_single_canonical_per_family(); t.test_dropped_profiles_do_not_keep_actors(); t.test_migrated_profiles_resolve_to_experiment_dirs(); t.test_experiment_dir_lookup_for_migrated_profiles(); t.test_profile_listing_keeps_migrated_and_legacy_profiles(); print('test_profile_registry: OK')"`
+  - `PYTHONPATH=. qlib_venv/bin/python soxl_qlib_strategy_v2.py --profiles balanced_rule_residual_v1 --skip-data-refresh --seed 20260419`
+  - `PYTHONPATH=. qlib_venv/bin/python scripts/export_profile_daily_backtest.py --profile balanced_rule_residual_v1 --output runtime/post_train_review/balanced_rule_residual_v1_detailed_trades.csv`
+  - `PYTHONPATH=. qlib_venv/bin/python scripts/diagnosis_phase1_phase2.py --detail-csv runtime/post_train_review/balanced_rule_residual_v1_detailed_trades.csv --out-dir runtime/post_train_review/balanced_rule_residual_v1_diagnosis`
+  - `qlib_venv/bin/python scripts/trade_quality_audit.py --summary artifacts/models/soxl_balanced_rule_residual_v1_summary.json --diagnosis runtime/post_train_review/balanced_rule_residual_v1_diagnosis/phase1_phase2_combined.json --profile balanced_rule_residual_v1 --output runtime/post_train_review/balanced_rule_residual_v1_trade_quality_audit.md`
+  - `qlib_venv/bin/python scripts/check_harness.py`
+- Validation evidence:
+  - pre-run registry validation:
+    - `test_profile_registry: OK`
+  - staged training selection:
+    - `@20 = 50.2% / Sharpe 1.47 / MaxDD 27.7% / score 76.18`
+    - `@40 = 59.1% / Sharpe 1.61 / MaxDD 29.3% / score 87.73`
+    - `@60 = 61.8% / Sharpe 1.69 / MaxDD 26.9% / score 92.34`
+    - `@80 = 54.9% / Sharpe 1.59 / MaxDD 26.2% / score 83.63`
+    - selected checkpoint:
+      - `@60`
+  - saved summary artifact:
+    - `artifacts/models/soxl_balanced_rule_residual_v1_summary.json`
+    - `valid = 61.80% / Sharpe 1.689 / MaxDD 26.90% / avg_pos 0.604`
+    - `test_2022 = -18.30% / Sharpe -0.950 / MaxDD 24.82% / avg_pos 0.195`
+    - `test_2023_2024 = 52.14% / Sharpe 0.838 / MaxDD 27.31% / avg_pos 0.400`
+    - `test_proxy = 672.33% / Sharpe 0.960 / MaxDD 46.42% / avg_pos 0.483`
+    - fixed-split promotion gate `pass`
+    - walk-forward gate `missing`
+  - profile-specific diagnosis + audit:
+    - `runtime/post_train_review/balanced_rule_residual_v1_detailed_trades.csv`
+    - `runtime/post_train_review/balanced_rule_residual_v1_diagnosis/phase1_phase2_combined.json`
+    - `runtime/post_train_review/balanced_rule_residual_v1_trade_quality_audit.md`
+    - `mid_3_10d = Kelly 0.3210 / Expectancy 4.33%`
+    - `small_5_15% = Kelly 0.1794 / Expectancy 2.32%`
+    - `micro_<5% = 48 trades / Kelly 0.2921 / Expectancy 4.49%`
+    - total trade actions `318`
+    - rough friction estimate `31.8%`
+  - underperform quarter audit:
+    - still lags buy-and-hold in persistent melt-up quarters such as:
+      - `2020-Q2`
+      - `2023-Q1`
+      - `2023-Q4`
+  - harness validation:
+    - `scripts/check_harness.py => passed=35 failures=0`
+- Keep / drop decision:
+  - keep:
+    - `balanced_rule_residual_v1` as the strongest residual-over-rule full candidate so far
+    - staged checkpoint selection because `@60` materially beat the final `@80` checkpoint
+    - the profile-specific export -> diagnosis -> audit path as the required post-train evidence chain
+  - drop:
+    - the old assumption that `micro_<5%` residual rebalances are necessarily low-quality noise
+    - the idea that more raw training iterations are better than staged selection
+- Next action:
+  - compare this candidate directly against canonical `balanced` on walk-forward before any promotion claim
+  - test a lighter micro-threshold / trade-lock replay only if the goal is to cut friction rather than improve expectancy

@@ -1006,6 +1006,44 @@
     "excerpt": "# App And Policy Consolidation ## Context `src/soxl_quant/policy/` and `src/soxl_quant/app/` existed, but several files were still wrappers pointing back to top-level modules. The tree looked cleaner than it really was and kept `cli.py` plus `rl_*` as hidden coupling points. ## W"
   },
   {
+    "path": "memory/2026-04-19-balanced-rule-residual-full-run.md",
+    "date": "2026-04-19",
+    "title": "2026-04-19 balanced residual-over-rule full run",
+    "kind": "decision",
+    "profiles": [
+      "balanced",
+      "balanced_rule_residual_v1",
+      "balanced_rule_residual_v1_detailed_trades",
+      "balanced_rule_residual_v1_diagnosis",
+      "balanced_rule_residual_v1_trade_quality_audit",
+      "smoke",
+      "soxl"
+    ],
+    "status": "kept",
+    "tags": [
+      "balanced",
+      "balanced_rule_residual_v1",
+      "balanced_rule_residual_v1_detailed_trades",
+      "balanced_rule_residual_v1_diagnosis",
+      "balanced_rule_residual_v1_trade_quality_audit",
+      "checkpoint-selection",
+      "decision",
+      "eval-2022",
+      "kept",
+      "smoke",
+      "soxl",
+      "walk-forward"
+    ],
+    "artifacts": [
+      "runtime/post_train_review/balanced_rule_residual_v1_detailed_trades.csv",
+      "runtime/post_train_review/balanced_rule_residual_v1_diagnosis/phase1_phase2_combined.json",
+      "runtime/post_train_review/balanced_rule_residual_v1_trade_quality_audit.md"
+    ],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Full `balanced_rule_residual_v1` training completed and selected the `@60` checkpoint over `@80`. The branch materially improved trade-quality versus the old negative-Kelly diagnosis, including positive `micro_<5%`, `small_5_15%`, and `mid_3_10d` buckets, while keeping `2022` drawdown/avg-pos controlled and lifting proxy Sharpe to `0.96`. It is strong enough to keep, but still needs walk-forward evidence before any promotion claim.",
+    "excerpt": "# 2026-04-19 balanced residual-over-rule full run ## Context The user asked for a full training run rather than another smoke-only or method-only answer. ## Evidence - Candidate experiment package: - `experiments/candidate/balanced_rule_residual_v1/` - Registry row added: - `conf"
+  },
+  {
     "path": "memory/2026-04-19-balanced-trade-quality-audit.md",
     "date": "2026-04-19",
     "title": "2026-04-19 balanced trade quality audit",

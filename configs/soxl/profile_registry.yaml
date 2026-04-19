@@ -174,6 +174,13 @@ profiles:
     keep_actor: false
     keep_summary: true
     notes_ref: runtime/post_train_review/balanced_reward_guard.md
+  - name: balanced_rule_residual_v1
+    family: balanced
+    status: candidate
+    baseline: balanced
+    keep_actor: false
+    keep_summary: true
+    notes_ref: experiments/candidate/balanced_rule_residual_v1/notes.md
   - name: balanced_sac_quick
     family: balanced
     status: ablation
