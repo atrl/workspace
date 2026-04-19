@@ -2117,6 +2117,11 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       const dates = rows.map(r => r.datetime);
       const strategyNav = rows.map(r => r.strategy_nav);
       const buyholdNav = rows.map(r => r.buyhold_nav);
+      const baseNav = strategyNav.length ? strategyNav[0] : 1;
+      const basePrice = rows.length && rows[0].price ? rows[0].price : null;
+      const normalizedPriceNav = rows.map(r => (
+        basePrice && r.price != null ? baseNav * (r.price / basePrice) : null
+      ));
       const positions = rows.map(r => r.position);
       const excessPct = rows.map(r => r.excess_pct);
 
@@ -2164,6 +2169,13 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
         hovertemplate: '%{{x}}<br>Buy&Hold: %{{y:,.2f}}<extra></extra>',
         xaxis: xa, yaxis: ya,
       }});
+      traces.push({{
+        x: dates, y: normalizedPriceNav,
+        name: 'Normalized Price', type: 'scatter', mode: 'lines',
+        line: {{ color: '#6d6458', width: 1.5, dash: 'dot' }},
+        hovertemplate: '%{{x}}<br>Normalized Price: %{{y:,.2f}}<extra></extra>',
+        xaxis: xa, yaxis: ya,
+      }});
       // K-Line on secondary y-axis
       const opens = [], highs = [], lows = [], closes = [], ma180Dates = [], ma180Vals = [];
       for (const r of rows) {{
@@ -2194,25 +2206,25 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       if (buyRows.length) {{
         traces.push({{
           x: buyRows.map(r => r.datetime),
-          y: buyRows.map(r => r.strategy_nav),
+          y: buyRows.map(r => r.price || r.close || r.strategy_nav),
           name: 'BUY', type: 'scatter', mode: 'markers',
           marker: {{ symbol: 'triangle-up', size: 12, color: '{C_BUY}', line: {{ color: 'white', width: 1.5 }} }},
-          hovertemplate: '<b>BUY</b> %{{x}}<br>NAV: %{{y:,.2f}}<br>Price: $%{{text}}<extra></extra>',
-          text: buyRows.map(r => fmtNum(r.price, 2)),
+          hovertemplate: '<b>BUY</b> %{{x}}<br>Price: $%{{y:.2f}}<br>NAV: %{{text}}<extra></extra>',
+          text: buyRows.map(r => fmtNum(r.strategy_nav, 2)),
           customdata: buyRows.map(r => buyToSell[r.datetime] || ''),
-          xaxis: xa, yaxis: ya,
+          xaxis: xa, yaxis: 'y2',
         }});
       }}
       if (sellRows.length) {{
         traces.push({{
           x: sellRows.map(r => r.datetime),
-          y: sellRows.map(r => r.strategy_nav),
+          y: sellRows.map(r => r.price || r.close || r.strategy_nav),
           name: 'SELL', type: 'scatter', mode: 'markers',
           marker: {{ symbol: 'triangle-down', size: 12, color: '{C_SELL}', line: {{ color: 'white', width: 1.5 }} }},
-          hovertemplate: '<b>SELL</b> %{{x}}<br>NAV: %{{y:,.2f}}<br>Price: $%{{text}}<extra></extra>',
-          text: sellRows.map(r => fmtNum(r.price, 2)),
+          hovertemplate: '<b>SELL</b> %{{x}}<br>Price: $%{{y:.2f}}<br>NAV: %{{text}}<extra></extra>',
+          text: sellRows.map(r => fmtNum(r.strategy_nav, 2)),
           customdata: sellRows.map(r => sellToBuy[r.datetime] || ''),
-          xaxis: xa, yaxis: ya,
+          xaxis: xa, yaxis: 'y2',
         }});
       }}
 
