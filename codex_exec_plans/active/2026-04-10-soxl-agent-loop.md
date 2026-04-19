@@ -2256,26 +2256,34 @@ Created `balanced_budget.yaml` with `max_iters=50`. However, the log file was ac
 ## Post-train Kelly audit 2026-04-19 15:xx
 
 - Goal:
-  - convert the new negative-Kelly review path from skill guidance into an actual repo artifact
+  - convert the new negative-Kelly review path from skill guidance into an actual repo-owned tool plus artifact
 - Procedure:
+  - added:
+    - `scripts/trade_quality_audit.py`
   - reused:
     - `artifacts/models/soxl_balanced_summary.json`
     - `runtime/diagnosis/phase1_phase2_combined.json`
     - `runtime/diagnosis/soxl_trade_attribution.md`
     - `runtime/diagnosis/period_slice_comparison.md`
-  - wrote:
+  - generated via script:
     - `runtime/post_train_review/balanced_trade_quality_audit.md`
 - Validation evidence:
-  - audit grounded in existing generated diagnostics:
+  - `PYTHONPATH=. qlib_venv/bin/python -m py_compile scripts/trade_quality_audit.py`
+  - `qlib_venv/bin/python scripts/trade_quality_audit.py --summary artifacts/models/soxl_balanced_summary.json --diagnosis runtime/diagnosis/phase1_phase2_combined.json --profile balanced --output runtime/post_train_review/balanced_trade_quality_audit.md`
+  - generated audit grounded in existing diagnostics:
     - `mid_3_10d: Kelly -0.3287 / Expectancy -3.02%`
     - `small_5_15%: Kelly -0.0624 / Expectancy -0.52%`
     - `micro_<5%: 109 trades / Kelly 0.0437 / Expectancy 0.38%`
   - portfolio-level retained baseline still confirmed promotable:
     - `test_proxy Sharpe 0.858`
     - fixed-split gate `pass`
+  - repo harness validation still green after adding the script:
+    - `scripts/check_harness.py => passed=32 failures=0`
 - Keep / drop decision:
   - keep:
     - the canonical `balanced` actor as retained baseline
+    - `scripts/trade_quality_audit.py` as the reusable negative-Kelly report path
     - trade-compression as the next cheap lever
   - drop:
     - treating negative T-bucket Kelly as proof that the actor has no value
+    - manual one-off Kelly writeups without a script-backed artifact path

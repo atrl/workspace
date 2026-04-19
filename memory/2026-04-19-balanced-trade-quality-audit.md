@@ -4,12 +4,17 @@ title: 2026-04-19 balanced trade quality audit
 kind: review
 profiles:
 - balanced
+- balanced_trade_quality_audit
 status: kept
 tags:
 - balanced
+- balanced_trade_quality_audit
 - kept
 - review
-artifacts: []
+artifacts:
+- artifacts/models/soxl_balanced_summary.json
+- runtime/diagnosis/phase1_phase2_combined.json
+- runtime/post_train_review/balanced_trade_quality_audit.md
 workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
 summary: Applied the new post-train Kelly workflow to canonical `balanced`. The retained
   actor is still promotable at the portfolio level, but its edge is concentrated in
@@ -22,10 +27,16 @@ summary: Applied the new post-train Kelly workflow to canonical `balanced`. The 
 
 ## Context
 
-The Kelly patch to the post-train review skill needed a concrete repo artifact, not just workflow text.
+The Kelly patch to the post-train review skill needed a concrete repo-owned tool and artifact, not just workflow text.
 
 ## Evidence
 
+- Added repo-owned generator:
+  - `scripts/trade_quality_audit.py`
+- Validation:
+  - `PYTHONPATH=. qlib_venv/bin/python -m py_compile scripts/trade_quality_audit.py`
+  - `qlib_venv/bin/python scripts/trade_quality_audit.py --summary artifacts/models/soxl_balanced_summary.json --diagnosis runtime/diagnosis/phase1_phase2_combined.json --profile balanced --output runtime/post_train_review/balanced_trade_quality_audit.md`
+  - `qlib_venv/bin/python scripts/check_harness.py`
 - Canonical `balanced` remains the best retained baseline at the summary level:
   - `test_proxy = 468.90% / Sharpe 0.858 / MaxDD 50.18%`
   - fixed-split promotion gate passed

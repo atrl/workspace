@@ -296,6 +296,16 @@ qlib_venv/bin/python scripts/feature_analysis.py
 qlib_venv/bin/python scripts/diagnosis_phase1_phase2.py
 ```
 
+  - 如果需要把结论固化成训练后审计报告，运行：
+
+```bash
+qlib_venv/bin/python scripts/trade_quality_audit.py \
+  --summary artifacts/models/<profile>_summary.json \
+  --diagnosis runtime/diagnosis/phase1_phase2_combined.json \
+  --profile <profile> \
+  --output runtime/post_train_review/<profile>_trade_quality_audit.md
+```
+
 3. 按两种分层检查负 edge 的位置
   - `by_holding_period`
   - `by_pos_change`
