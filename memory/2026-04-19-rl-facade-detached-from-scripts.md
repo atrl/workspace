@@ -5,8 +5,8 @@ kind: other
 profiles: []
 status: reference
 tags:
-- completed
-- refactor
+- other
+- reference
 artifacts: []
 workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
 summary: Moved multi-asset source prep and staged training into dedicated app modules,
