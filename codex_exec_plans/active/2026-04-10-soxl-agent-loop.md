@@ -372,6 +372,22 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
 - Keep / drop decision:
   - keep `app/cli.py` as a command shell only
   - keep setup/reporting behavior in dedicated modules instead of regrowing the CLI file
+
+## AGENTS contract refresh 2026-04-19 00:xx
+
+- Goal:
+  - update repo operating rules so future agent iterations follow the refactored structure instead of the historical monoliths
+- Changes:
+  - clarified that `src/soxl_quant/app/` is the primary orchestration surface and documented module-by-module ownership
+  - marked `src/soxl_quant/cli.py` and `src/soxl_quant/rl.py` as compatibility facades only
+  - added script-boundary rules so repo-owned scripts import `app/`, `policy/`, `core/`, or `runtime.py` directly
+  - added directory read-order guidance for `experiments/`, `runtime/`, and `memory/`
+  - added explicit compatibility-policy and cleanup notes for stale generated files
+- Validation:
+  - `AGENTS.md` now matches the current code layout under `src/soxl_quant/`
+  - no code-path changes required for this contract update
+- Keep / drop decision:
+  - keep `AGENTS.md` aligned with current structure whenever a refactor changes ownership boundaries
   - saved review:
     - `runtime/post_train_review/balanced_checkpoint_review.md`
     - `runtime/post_train_review/balanced_checkpoint_review_vs_balanced.md`

@@ -101,11 +101,18 @@ Do not let `cli.py`, `settings.py`, or `rl.py` become mixed-purpose catch-alls.
   - `policy/` for observation, reward, execution, positioning, evaluation, and model builders
 - `src/soxl_quant/settings.py` owns repo paths, constants, and artifact naming only.
 - `src/soxl_quant/config.py` owns typed config dataclasses and profile loading.
-- `src/soxl_quant/cli.py` owns orchestration only:
-  - argument parsing
-  - dataset/train/eval flow
-  - walk-forward dispatch
-  - persistence / promotion reporting
+- `src/soxl_quant/app/` is the primary orchestration surface:
+  - `cli.py`: command shell only
+  - `bootstrap.py`: runtime init, dataset bootstrap, multi-asset bootstrap wiring
+  - `train.py`: profile-run orchestration
+  - `selection.py`: staged training and checkpoint selection
+  - `sources.py`: multi-asset source preparation
+  - `workers.py`: walk-forward subprocess orchestration
+  - `evaluate.py`: validation scoring and slice helpers
+  - `promote.py`: promotion gate evaluation
+  - `reporting.py`: end-of-run result persistence and summary printing
+  - `artifacts.py`: actor bundle and summary persistence helpers
+- `src/soxl_quant/cli.py` is a compatibility facade, not the preferred place for new orchestration code.
 - RL helper logic must be split by concern:
   - execution rules
   - positioning / caps
@@ -113,7 +120,43 @@ Do not let `cli.py`, `settings.py`, or `rl.py` become mixed-purpose catch-alls.
   - reward
   - policy / models
   - evaluation
+- `src/soxl_quant/rl.py` is a legacy compatibility facade only. New code, tests, and repo-owned scripts should import from `src/soxl_quant/policy/` directly.
 - When a change alters one of those layers, keep the edit in that layer instead of patching another monolithic helper.
+
+## Script Boundaries
+
+Repo-owned scripts are treated as internal code, not external clients.
+
+- New or modified files under `scripts/` should import from `src/soxl_quant/app/`, `src/soxl_quant/policy/`, `src/soxl_quant/core/`, or `src/soxl_quant/runtime.py` directly.
+- Do not point new script work at `src/soxl_quant/rl.py` or `src/soxl_quant/cli.py` unless the task is explicitly about compatibility.
+- If a script still depends on a compatibility facade, that is refactor debt and should be cleaned up as part of the next related task.
+
+## Directory Read Order
+
+When orienting to the repo, prefer indexes and summaries before raw outputs.
+
+- `experiments/`:
+  - read `experiments/README.md`
+  - then `profile.yaml`
+  - then `expectations.md`
+  - then `notes.md`
+- `runtime/`:
+  - read `runtime/README.md`
+  - prefer summary markdown / JSON over raw logs and CSV first
+- `memory/`:
+  - read `memory/index.json`
+  - then query `scripts/memory_search.py`
+  - then open only top-matching notes
+
+## Compatibility Policy
+
+Compatibility facades exist to avoid breaking old entrypoints while the harness is being refactored.
+
+- Current compatibility surfaces:
+  - `src/soxl_quant/cli.py`
+  - `src/soxl_quant/rl.py`
+- New behavior must not be added to those files unless the task is specifically compatibility maintenance.
+- Every few refactor loops, shrink the exported surface of compatibility modules to the minimum still required by external callers.
 
 ## Retention And Cleanup
 
@@ -127,6 +170,7 @@ Repository noise should be reduced continuously instead of in rare purges.
   - delete redundant actor checkpoints for dropped or archived profiles
   - keep only registry-approved actor bundles
 - Do not delete large artifacts blindly; inspect the registry and manifest first.
+- `__pycache__/` and stale generated files under `src/soxl_quant/` are cleanup debt; remove them when they are encountered as part of nearby refactor or hygiene work.
 
 ## Skill Distillation & Auto-Optimization
 
