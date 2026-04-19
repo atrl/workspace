@@ -353,6 +353,25 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
 - Keep / drop decision:
   - keep `rl.py` only for external compatibility with old entrypoints
   - keep future script imports pointed at `policy/` and `app/` directly
+
+## CLI shell shrink 2026-04-19 00:xx
+
+- Goal:
+  - reduce `app/cli.py` to a thin entrypoint shell
+  - keep bootstrap/setup and final result printing out of the main command loop
+- Changes:
+  - added `src/soxl_quant/app/bootstrap.py` for runtime initialization, dataset loading, and multi-asset bootstrap
+  - added `src/soxl_quant/app/reporting.py` for end-of-run summaries and result persistence output
+  - reduced `src/soxl_quant/app/cli.py` from `152` lines to `93` lines
+- Commands:
+  - `PYTHONPATH=. qlib_venv/bin/python -m py_compile src/soxl_quant/app/bootstrap.py src/soxl_quant/app/reporting.py src/soxl_quant/app/cli.py src/soxl_quant/app/train.py src/soxl_quant/cli.py`
+  - `PYTHONPATH=. qlib_venv/bin/python scripts/check_harness.py`
+- Validation evidence:
+  - compile check passed for the new bootstrap/reporting modules and slimmed CLI
+  - `scripts/check_harness.py`: `passed=32 failures=0`
+- Keep / drop decision:
+  - keep `app/cli.py` as a command shell only
+  - keep setup/reporting behavior in dedicated modules instead of regrowing the CLI file
   - saved review:
     - `runtime/post_train_review/balanced_checkpoint_review.md`
     - `runtime/post_train_review/balanced_checkpoint_review_vs_balanced.md`

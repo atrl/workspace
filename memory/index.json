@@ -990,6 +990,22 @@
     "excerpt": "# App And Policy Consolidation ## Context `src/soxl_quant/policy/` and `src/soxl_quant/app/` existed, but several files were still wrappers pointing back to top-level modules. The tree looked cleaner than it really was and kept `cli.py` plus `rl_*` as hidden coupling points. ## W"
   },
   {
+    "path": "memory/2026-04-19-cli-shell-shrink.md",
+    "date": "2026-04-19",
+    "title": "CLI Shell Shrink",
+    "kind": "other",
+    "profiles": [],
+    "status": "reference",
+    "tags": [
+      "completed",
+      "refactor"
+    ],
+    "artifacts": [],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Split runtime bootstrap and end-of-run reporting out of app/cli.py so the CLI entrypoint is a thin orchestration shell rather than a mixed setup/execution/reporting file.",
+    "excerpt": "# CLI Shell Shrink ## Context After splitting training, workers, sources, and selection, `app/cli.py` still mixed setup, dataset bootstrap, profile loop, and final reporting. ## What Changed - added `src/soxl_quant/app/bootstrap.py` - added `src/soxl_quant/app/reporting.py` - red"
+  },
+  {
     "path": "memory/2026-04-19-internal-rl-facade-shrink.md",
     "date": "2026-04-19",
     "title": "Internal RL Facade Shrink",
@@ -1013,8 +1029,8 @@
     "profiles": [],
     "status": "reference",
     "tags": [
-      "completed",
-      "refactor"
+      "other",
+      "reference"
     ],
     "artifacts": [],
     "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
