@@ -49,8 +49,10 @@ class GRUNet(nn.Module):
 
         self.to(device)
 
-    def forward(self, obs: torch.Tensor, state=None, info=None):
+    def forward(self, obs, state=None, info=None):
         info = info or {}
+        if not isinstance(obs, torch.Tensor):
+            obs = torch.as_tensor(obs, dtype=torch.float32, device=self.device)
         batch_size = obs.shape[0]
         window_size = self.feature_dim * self.observation_window
 
