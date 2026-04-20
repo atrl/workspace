@@ -2221,10 +2221,8 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
 
       traces.push({{
         x: dates, y: positions,
-        name: 'Position %', type: 'scatter', mode: 'lines',
-        line: {{ color: '{C_GOOD}', width: 1.5, shape: 'hv' }},
-        fill: 'tozeroy',
-        fillcolor: 'rgba(15,118,110,0.16)',
+        name: 'Position %', type: 'bar',
+        marker: {{ color: positions.map(p => p > 0 ? 'rgba(15,118,110,0.7)' : 'rgba(109,100,88,0.4)') }},
         hovertemplate: '%{{x}}<br>Position: %{{y:.1%}}<extra></extra>',
         xaxis: xa2, yaxis: ya2,
       }});
