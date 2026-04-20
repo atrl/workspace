@@ -1,0 +1,71 @@
+name: balanced_rule_residual_v2
+max_iters: 80
+episode_per_iter: 10
+episode_len: 300
+hidden_sizes: [128, 64]
+lr: 0.0003
+update_batch_size: 64
+update_repeat: 10
+reward:
+  return_scale: 1.15
+  transaction_cost: 0.08
+  turnover_penalty: 0.05
+  drawdown_penalty: 0.28
+  downside_penalty: 0.20
+  risk_budget_penalty: 0.24
+  high_exposure_penalty: 0.08
+  smoothness_penalty: 0.03
+  activity_bonus: 1.25
+  inactivity_penalty: 0.80
+  opportunity_cost_penalty: 0.05
+  opportunity_threshold_pos: 0.40
+  opportunity_threshold_anchor: 0.05
+  opportunity_threshold_trend: 0.02
+  pbrs_coef: 0.15
+  gated_activity_bonus: true
+  activity_gate_vol_threshold: 0.55
+  activity_gate_regime_delta_threshold: 0.08
+  profit_taking_bonus: 0.25
+  panic_buy_bonus: 0.35
+  panic_buy_cum_drop_threshold: -0.15
+  panic_buy_regime_risk_threshold: 0.60
+  cooldown_penalty: 0.0
+  vol_trading_bonus: 0.0
+  # V2: enable Kelly-log alpha reward (growth-optimal formulation)
+  use_alpha_reward: true
+  alpha_scale: 3.0
+  use_kelly_alpha: true
+  rule_deviation_penalty: 1.00
+  micro_rebalance_penalty: 0.35
+  micro_rebalance_threshold: 0.05
+  short_hold_turnover_penalty: 2.25
+  short_hold_threshold: 0.16
+position_cap:
+  start_drawdown: 0.10
+  full_drawdown: 0.30
+  min_cap: 0.40
+  curve_power: 1.0
+  bull_min_cap: 0.65
+  bull_vol_threshold: 0.40
+  bull_anchor_threshold: 0.02
+  bear_min_cap: 0.30
+  bear_regime_threshold: 0.65
+promotion_gate:
+  max_test_2022_drawdown: 35.0
+  max_test_2022_avg_pos: 0.35
+  min_test_proxy_sharpe: 0.75
+  min_wf_2023_2024_return: 0.0
+  min_wf_2023_2024_sharpe: 0.0
+selection_score:
+  return_weight: 1.0
+  sharpe_weight: 20.0
+  max_dd_penalty: 0.12
+  avg_pos_penalty: 0.0
+  stress_avg_pos_penalty: 0.0
+  stress_threshold: 0.65
+  staged_training: true
+  stage_iters: 20
+model:
+  use_hybrid_overlay: true
+  delta_levels: [-0.10, -0.05, 0.0, 0.05, 0.10]
+  hard_floor: 0.20
