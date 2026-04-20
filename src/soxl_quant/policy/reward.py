@@ -165,18 +165,27 @@ class ContinuousReward(Reward):
         if realized_vol > 0.50 and turnover > 0.03:
             reward += cfg.vol_trading_bonus * turnover
 
-        # Episode-level max drawdown terminal penalty
+        # Episode-level max drawdown penalty — applied at EVERY step when drawdown worsens
+        # This gives the agent immediate feedback rather than relying solely on terminal credit assignment
+        if cfg.episode_drawdown_penalty > 0:
+            episode_max_dd = float(state.get("episode_max_dd", 0.0))
+            prev_episode_max_dd = float(state.get("prev_episode_max_dd", 0.0))
+            if episode_max_dd > prev_episode_max_dd:
+                increase = episode_max_dd - prev_episode_max_dd
+                # Immediate linear penalty on drawdown increase — agent feels it right away
+                reward -= increase * cfg.episode_drawdown_penalty * 100.0
+
+        # Terminal episode drawdown penalty — additional punishment at episode end
         if state.get("done", False) and cfg.episode_drawdown_penalty > 0:
             episode_max_dd = float(state.get("episode_max_dd", 0.0))
             excess_episode_dd = max(episode_max_dd - cfg.episode_drawdown_threshold, 0.0)
-            # Quadratic penalty: small drawdowns get small penalty, large drawdowns get severe penalty
-            reward -= (excess_episode_dd ** 2) * cfg.episode_drawdown_penalty * 100.0
+            # Linear penalty with large coefficient: must be on same scale as episode total reward
+            reward -= excess_episode_dd * cfg.episode_drawdown_penalty * 100.0
 
         # Downside asymmetry: amplify penalty when step return is negative
         if cfg.downside_asymmetry_coef > 1.0 and pnl_ret < 0:
-            # Scale the entire reward more negatively when we lose money
-            asymmetry_penalty = abs(pnl_ret) * (cfg.downside_asymmetry_coef - 1.0) * 100.0
-            reward -= asymmetry_penalty
+            # Multiply the ENTIRE reward (which is already negative) to make losses hurt more
+            reward *= cfg.downside_asymmetry_coef
 
         if flat_steps >= 4:
             flat_drag = min((flat_steps - 3.0) / 6.0, 1.6)
