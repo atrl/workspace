@@ -26,6 +26,35 @@ v2 baseline (hard_floor=0.20, [128,64], alpha_scale=3.0) achieved the best test 
 - Test Sharpe should stay competitive (>0.80)
 - 2022 bear-market avg_pos should drop toward v2's 0.18 level
 
+## Results (2026-04-20)
+
+| Metric | v2 | v8 |
+|--------|-----|-----|
+| Test Return | 521.3% | **539.3%** |
+| Test Sharpe | 0.86 | 0.85 |
+| Test MaxDD | **50.4%** | 53.4% |
+| test_2022 maxdd | 23.6% | 31.3% |
+| test_2022 avg_pos | 0.18 | 0.266 |
+| test_2022 return | -16.2% | -22.8% |
+| Valid Best Score | **104.61** | 89.54 |
+| Trades | 316 | 318 |
+
+### Milestone: First to Pass Fixed-Split Promotion Gate
+
+v8 is the **first experiment to pass all fixed-split criteria**:
+- test_2022_max_dd=31.31% ≤ 35.0% ✓
+- test_2022_avg_pos=0.266 ≤ 0.35 ✓
+- test_proxy_sharpe=0.883 ≥ 0.75 ✓
+
+Blocked only because walk-forward evaluation was not run.
+
+### Key Learnings
+
+1. **Stronger penalties did improve 2022 drawdown control** (31.3% vs v7's 33.9%) but at cost of learning quality
+2. **Valid score degraded severely** (89.54 vs v2's 104.61) — penalties overwhelming alpha signal
+3. **Overall MaxDD still above v2** (53.4% vs 50.4%) — penalties not sufficient for cross-period cumulative drawdown
+4. **2022 avg_pos remained elevated** (0.266 vs v2's 0.18) despite lower hard_floor — agent not de-risking as effectively
+
 ## Risk
 
 If step-level penalties are still too small relative to alpha reward, drawdown may not improve. Next step would be code-level reward redesign (episode-level max drawdown penalty or portfolio-path-dependent cap).
