@@ -52,11 +52,21 @@ class ContinuousReward(Reward):
             step_return = float(state.get("step_return", 0.0))
             rule_return = float(state.get("rule_return", 0.0))
             alpha = step_return - rule_return
+            # Regime-conditioned alpha scale
+            effective_alpha_scale = float(cfg.alpha_scale)
             if cfg.use_kelly_alpha:
+                if regime_risk < 0.35:
+                    effective_alpha_scale = float(cfg.alpha_scale) * 1.3
+                elif regime_risk > 0.60:
+                    effective_alpha_scale = float(cfg.alpha_scale) * 0.7
                 safe_alpha = max(alpha, -0.999)
-                reward = math.log(1.0 + safe_alpha) * 100.0 * cfg.alpha_scale
+                reward = math.log(1.0 + safe_alpha) * 100.0 * effective_alpha_scale
             else:
-                reward = alpha * 100.0 * cfg.alpha_scale
+                if regime_risk < 0.35:
+                    effective_alpha_scale = float(cfg.alpha_scale) * 1.3
+                elif regime_risk > 0.60:
+                    effective_alpha_scale = float(cfg.alpha_scale) * 0.7
+                reward = alpha * 100.0 * effective_alpha_scale
         elif cfg.use_quality_reward:
             reward = 0.0
             if anchor_gap > cfg.trend_alignment_threshold and pos > 0.55:

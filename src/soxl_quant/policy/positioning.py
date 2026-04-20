@@ -51,29 +51,29 @@ def action_band_from_obs(obs: np.ndarray, hard_floor: Optional[float] = None) ->
     trend_gap_vel = float(np.nan_to_num(obs[STATIC_INDEX["trend_gap_21_velocity"]]))
     regime_risk_vel = float(np.nan_to_num(obs[STATIC_INDEX["regime_risk_velocity_5"]]))
 
-    floor = hard_floor if hard_floor is not None else 0.30
+    floor = hard_floor if hard_floor is not None else 0.40
     cap = 0.95
 
     if anchor_gap > 0.02 and anchor_slope >= 0:
-        floor = 0.40
+        floor = 0.50
         cap = 1.00
     if regime_risk > 0.68 or (anchor_gap < -0.04 and anchor_slope < 0):
-        floor = 0.25
+        floor = 0.30
         cap = 0.70
     if cum_drop_30 < -0.18 and vix_zscore < 2.8:
-        floor = max(floor, 0.30)
+        floor = max(floor, 0.35)
         cap = min(cap, 0.70)
     if vol_coef > 1.45:
-        floor = max(0.20, floor - 0.05)
+        floor = max(0.30, floor - 0.05)
         cap = min(cap, 0.90)
     if anchor_gap_vel > 0.015 and cum_drop_30 < -0.08 and regime_risk_vel < 0.0:
-        floor = max(floor, 0.35)
+        floor = max(floor, 0.40)
         cap = max(cap, 0.90)
     elif anchor_gap_vel < -0.01 and trend_gap_vel < -0.005 and cum_drop_30 < -0.05:
-        floor = max(floor, 0.20)
+        floor = max(floor, 0.25)
         cap = min(cap, 0.65)
     elif regime_risk_vel > 0.08 and regime_risk > 0.50:
-        floor = max(floor, 0.25)
+        floor = max(floor, 0.30)
         cap = min(cap, 0.70)
 
     drawdown_streak = float(np.nan_to_num(obs[STATIC_INDEX["drawdown_streak_63"]]))
@@ -84,7 +84,7 @@ def action_band_from_obs(obs: np.ndarray, hard_floor: Optional[float] = None) ->
         and anchor_gap < -0.02
         and regime_risk > 0.45
     ):
-        floor = 0.15
+        floor = 0.25
         cap = min(cap, 0.35)
 
     return floor, cap
