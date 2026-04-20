@@ -14,6 +14,7 @@ from ..data import FEATURE_COLUMNS, STATIC_INDEX
 from .observation import adapt_observation_for_actor
 from .positioning import action_levels_for_profile
 from .environment import PositionAction, SoxlSimulator, SoxlState, build_initial_states
+from .models.gru import GRUNet
 from .models.moe import QNetwork, RegimeMoENet, SoxlPPOPolicy
 from .models.tide import TiDENet
 
@@ -29,6 +30,15 @@ def _build_net(obs_dim: int, profile: StrategyConfig, model_cfg):
             feature_dim=len(FEATURE_COLUMNS),
             observation_window=max(int(model_cfg.observation_window), 1),
             dropout=float(model_cfg.tide_dropout),
+            device="cpu",
+        )
+    if model_cfg.use_gru:
+        return GRUNet(
+            obs_dim,
+            feature_dim=len(FEATURE_COLUMNS),
+            observation_window=max(int(model_cfg.observation_window), 1),
+            gru_hidden_size=int(model_cfg.gru_hidden_size),
+            mlp_hidden_sizes=list(profile.hidden_sizes),
             device="cpu",
         )
     if effective_use_moe:

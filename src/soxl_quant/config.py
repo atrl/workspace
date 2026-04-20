@@ -156,6 +156,8 @@ class ModelConfig:
     use_temporal_conv: bool = False
     temporal_conv_channels: int = 32
     temporal_conv_kernel: int = 3
+    use_gru: bool = False
+    gru_hidden_size: int = 64
     use_hybrid_overlay: bool = False
     delta_levels: Tuple[float, ...] = (-0.15, 0.0, 0.15)
 
