@@ -2551,3 +2551,81 @@ Created `balanced_budget.yaml` with `max_iters=50`. However, the log file was ac
     4. Walk-forward evaluation for v14 to see if fixed_split pass generalizes
 - Memory note:
   - `memory/2026-04-20-v14-gru-ablation-results.md`
+
+## v15 weak penalty sweep 2026-04-20 19:xx
+
+- Goal:
+  - test whether terminal penalty strength has a smooth dial or a sharp threshold
+  - compare penalty=1.0 against v14 (0.0) and v12/v13 (2.0-4.0)
+- Profile:
+  - `experiments/candidate/balanced_rule_residual_v15/profile.yaml`
+- Command:
+  - `PYTHONPATH=. qlib_venv/bin/python soxl_qlib_strategy_v2.py --profiles balanced_rule_residual_v15 --skip-data-refresh --seed 20260420`
+- Evidence:
+  - valid best: `59.2% / Sharpe 1.55 / MaxDD 30.3% / score 86.59` (iter 20)
+  - test full: `525.4% / Sharpe 0.83 / MaxDD 58.6% / trades 328`
+  - test_2020: `101.1% / Sharpe 2.40 / MaxDD 17.1%`
+  - test_2022: `-24.5% / Sharpe -0.91 / MaxDD 33.0% / avg_pos 0.27`
+  - test_2023_2024: `53.7% / Sharpe 0.78 / MaxDD 34.8%`
+  - test_proxy: `589.0% / Sharpe 0.88 / MaxDD 58.2%`
+- Promotion gate:
+  - fixed_split: ALL PASSED (second consecutive profile!)
+    - test_2022_max_dd: 33.0% < 35% ✓
+    - test_2022_avg_pos: 0.27 < 0.35 ✓
+    - test_proxy_sharpe: 0.88 > 0.75 ✓
+  - walk_forward: missing — blocked
+- Non-monotonic penalty effect discovered:
+
+  | Penalty | Return | MaxDD | Verdict |
+  |---------|--------|-------|---------|
+  | 0.0 (v14) | 663.2% | 56.6% | Aggressive, high return |
+  | 1.0 (v15) | 525.4% | **58.6%** | **Worst of all — lower return, worse drawdown** |
+  | 2.0 (v13) | 492.3% | 48.8% | Conservative, best drawdown |
+  | 4.0 (v12) | 492.3% | 48.8% | Same as 2.0 — threshold saturated |
+
+- Key finding:
+  - Penalty=1.0 is in a "confused zone" — strong enough to distort rewards (~-214 vs ~-185 per episode), but not strong enough to reliably change behavior
+  - Effective range appears to be ≥2.0 or exactly 0.0; 1.0 is the worst setting
+- Decision:
+  - drop: penalty=1.0 as a viable setting
+  - keep: the threshold insight — penalty is a binary on/off switch, not a smooth dial
+- Next action:
+  - do not sweep penalty strengths between 0.0 and 2.0 further
+  - move to structural changes: increase observation_window with proven penalty=2.0
+- Memory note:
+  - `memory/2026-04-20-v15-weak-penalty-results.md`
+
+## v16 more temporal context 2026-04-20 19:xx
+
+- Goal:
+  - test whether increasing observation_window from 3→5 improves GRU decision quality
+  - keep proven penalty=2.0 (v13 baseline)
+- Profile:
+  - `experiments/candidate/balanced_rule_residual_v16/profile.yaml`
+- Command:
+  - `PYTHONPATH=. qlib_venv/bin/python soxl_qlib_strategy_v2.py --profiles balanced_rule_residual_v16 --skip-data-refresh --seed 20260420`
+- Evidence:
+  - valid best: `63.7% / Sharpe 1.71 / MaxDD 28.9% / score 94.32` (iter 60)
+  - test full: `632.4% / Sharpe 0.91 / MaxDD 50.1% / trades 334`
+  - test_2020: `102.8% / Sharpe 2.49 / MaxDD 16.7%`
+  - test_2022: `-23.6% / Sharpe -0.85 / MaxDD 32.7% / avg_pos 0.27`
+  - test_2023_2024: `57.9% / Sharpe 0.82 / MaxDD 33.6%`
+- Promotion gate:
+  - fixed_split: ALL PASSED (third consecutive!)
+    - test_2022_max_dd: 32.7% < 35% ✓
+    - test_2022_avg_pos: 0.27 < 0.35 ✓
+    - test_proxy_sharpe: 0.78 > 0.75 ✓ (barely)
+  - walk_forward: missing — blocked
+- Comparison vs v12/v13 (window=3, penalty=2.0-4.0):
+  - Return: 492% → 632% (+140pp)
+  - Sharpe: 0.85 → 0.91
+  - MaxDD: 48.8% → 50.1% (slight worsening, still < 50%)
+  - This is the best risk-adjusted GRU+penalty result to date.
+- Decision:
+  - keep: v16 as the current best GRU configuration
+  - keep: observation_window=5 as the new default for GRU profiles
+- Next action:
+  - test v17 with observation_window=10 to check for diminishing returns
+  - then consider walk-forward evaluation
+- Memory note:
+  - `memory/2026-04-20-v16-more-temporal-context.md`
