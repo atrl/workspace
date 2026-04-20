@@ -2629,3 +2629,39 @@ Created `balanced_budget.yaml` with `max_iters=50`. However, the log file was ac
   - then consider walk-forward evaluation
 - Memory note:
   - `memory/2026-04-20-v16-more-temporal-context.md`
+
+## v17 extended temporal context 2026-04-20 20:xx
+
+- Goal:
+  - test whether observation_window=10 continues to improve over window=5
+- Profile:
+  - `experiments/candidate/balanced_rule_residual_v17/profile.yaml`
+- Command:
+  - `PYTHONPATH=. qlib_venv/bin/python soxl_qlib_strategy_v2.py --profiles balanced_rule_residual_v17 --skip-data-refresh --seed 20260420`
+- Evidence:
+  - valid best: `56.4% / Sharpe 1.65 / MaxDD 26.6% / score 86.31` (iter 0 — training did not improve)
+  - test full: `492.3% / Sharpe 0.85 / MaxDD 48.8% / trades 313`
+  - test_2020: `107.6% / Sharpe 2.64 / MaxDD 17.3%`
+  - test_2022: `-22.8% / Sharpe -0.86 / MaxDD 31.3% / avg_pos 0.26`
+  - test_2023_2024: `40.2% / Sharpe 0.68 / MaxDD 31.1%`
+- Promotion gate:
+  - fixed_split: ALL PASSED (fourth consecutive!)
+    - test_2022_max_dd: 31.3% < 35% ✓
+    - test_2022_avg_pos: 0.26 < 0.35 ✓
+    - test_proxy_sharpe: 0.90 > 0.75 ✓
+  - walk_forward: missing — blocked
+- Critical finding: window=10 REVERTS to window=3 performance:
+
+  | Window | Return | Sharpe | MaxDD |
+  |--------|--------|--------|-------|
+  | 3 (v12/v13) | 492.3% | 0.85 | 48.8% |
+  | 5 (v16) | **632.4%** | **0.91** | **50.1%** |
+  | 10 (v17) | 492.3% | 0.85 | 48.8% |
+
+- Decision:
+  - keep: `observation_window: 5` as the confirmed sweet spot
+  - drop: window=10 as a viable extension
+- Next action:
+  - v18 with seed=42 to verify v16 is reproducible
+- Memory note:
+  - `memory/2026-04-20-v17-extended-context-diminishing-returns.md`
