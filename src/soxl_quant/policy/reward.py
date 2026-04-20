@@ -165,6 +165,19 @@ class ContinuousReward(Reward):
         if realized_vol > 0.50 and turnover > 0.03:
             reward += cfg.vol_trading_bonus * turnover
 
+        # Episode-level max drawdown terminal penalty
+        if state.get("done", False) and cfg.episode_drawdown_penalty > 0:
+            episode_max_dd = float(state.get("episode_max_dd", 0.0))
+            excess_episode_dd = max(episode_max_dd - cfg.episode_drawdown_threshold, 0.0)
+            # Quadratic penalty: small drawdowns get small penalty, large drawdowns get severe penalty
+            reward -= (excess_episode_dd ** 2) * cfg.episode_drawdown_penalty * 100.0
+
+        # Downside asymmetry: amplify penalty when step return is negative
+        if cfg.downside_asymmetry_coef > 1.0 and pnl_ret < 0:
+            # Scale the entire reward more negatively when we lose money
+            asymmetry_penalty = abs(pnl_ret) * (cfg.downside_asymmetry_coef - 1.0) * 100.0
+            reward -= asymmetry_penalty
+
         if flat_steps >= 4:
             flat_drag = min((flat_steps - 3.0) / 6.0, 1.6)
             reward -= flat_drag * (0.20 + activity_signal * 0.9) * cfg.inactivity_penalty

@@ -66,6 +66,9 @@ class RewardConfig:
     nday_reward_scale: float = 1.0
     use_sparse_reward: bool = False
     sparse_reward_scale: float = 1.0
+    episode_drawdown_penalty: float = 0.0
+    episode_drawdown_threshold: float = 0.20
+    downside_asymmetry_coef: float = 1.0
 
 
 @dataclass(frozen=True)

@@ -158,6 +158,7 @@ class SoxlSimulator(Simulator):
         self.nday_step_counter = 0
         self.nday_reward_val = 0.0
         self.episode_start_val = self.cash0
+        self.episode_max_dd = 0.0
 
     def step(self, action: float) -> None:
         action = float(np.clip(action, 0, 1))
@@ -208,6 +209,8 @@ class SoxlSimulator(Simulator):
         self.prev_val = self.val
         self.val *= 1.0 + net_ret
         self.max_val = max(self.max_val, self.val)
+        current_dd = abs(self.val / max(self.max_val, 1e-8) - 1.0)
+        self.episode_max_dd = max(self.episode_max_dd, current_dd)
         self.last_turnover = turnover
         self.last_step_return = net_ret
         self.last_market_return = next_ret
@@ -261,6 +264,7 @@ class SoxlSimulator(Simulator):
                 "done": True,
                 "nday_reward": 0.0,
                 "episode_start_val": self.episode_start_val,
+                "episode_max_dd": self.episode_max_dd,
             }
         row = self.df.iloc[self.idx]
         underwater = self.val / max(self.max_val, 1e-8) - 1.0
@@ -302,6 +306,7 @@ class SoxlSimulator(Simulator):
             "done": False,
             "nday_reward": self.nday_reward_val,
             "episode_start_val": self.episode_start_val,
+            "episode_max_dd": self.episode_max_dd,
         }
 
     def done(self) -> bool:
