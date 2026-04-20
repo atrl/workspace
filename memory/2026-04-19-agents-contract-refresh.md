@@ -5,8 +5,8 @@ kind: other
 profiles: []
 status: reference
 tags:
-- completed
-- refactor
+- other
+- reference
 artifacts: []
 workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
 summary: Refreshed AGENTS.md to match the current app/policy/core split, declared

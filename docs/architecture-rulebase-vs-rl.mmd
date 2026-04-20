@@ -1,0 +1,170 @@
+%% Rule-Based vs RL Architecture Comparison
+%% Render with: https://mermaid.live
+%% 
+%% ============================================================
+%% 图1: 完整架构对比
+%% ============================================================
+
+graph TB
+    subgraph DataInput["📊 数据输入"]
+        P[price / OHLC]
+        VIX[VIX 恐慌指数]
+        VOL[volume 成交量]
+    end
+
+    subgraph RuleBase["🔧 soxl_backtest — Rule-Based 策略"]
+        direction TB
+        
+        subgraph RB_Indicators["指标计算层"]
+            RSI6["RSI6<br/>超买超卖"]
+            HV["HV_20 / HV_30<br/>历史波动率"]
+            MA20["MA_180<br/>长期均线"]
+            SIGMOID["Sigmoid 映射<br/>VIX → [-100,100]"]
+            VM["Volume Multiplier<br/>log(相对成交量)"]
+            PANIC["🎯 Panic Score<br/>sigmoid(VIX) × VM + RSI6_adjustment"]
+            VOLCOEF["Vol Coef<br/>HV_20 / median, clip[0.5,2.0]"]
+        end
+        
+        subgraph RB_Buy["买入策略 BuyStrategy"]
+            B1["panic ≤ -50 ?"]
+            B2["日跌幅 ≤ -15% × vol_coef ?"]
+            B3["累积跌幅 ≤ -30% × vol_coef ?"]
+            B4["冷却期已过 ?"]
+            B5["position < 90% ?"]
+            BUY["✅ 执行买入"]
+        end
+        
+        subgraph RB_Sell["卖出策略 SellStrategy"]
+            S1["panic ≥ 85 ?"]
+            S2A["profit×pos ≥ 60% → 卖出95%"]
+            S2B["profit×pos ≥ 20% → 正常卖出"]
+            S2C["last_buy_profit ≥ 30%×vol_coef"]
+            S3["profit ≤ -20% → 止损卖出60%"]
+            SELL["✅ 执行卖出"]
+        end
+        
+        subgraph RB_Position["仓位管理 PositionManager"]
+            PM1["MIN_POSITION = 0.50<br/>⚠️ 永不清仓"]
+            PM2["MAX_POSITION = 0.90"]
+            PM3["FIFO 持仓栈<br/>跟踪每笔买入成本"]
+            PM4["每 20 天更新仓位"]
+        end
+        
+        SIGMOID --> VM --> PANIC
+        VIX --> SIGMOID
+        VOL --> VM
+        RSI6 --> PANIC
+        HV --> VOLCOEF
+        
+        PANIC --> B1
+        B1 -->|Yes| B2
+        B1 -->|Yes| B3
+        B2 -->|任一满足| B4
+        B3 -->|任一满足| B4
+        B4 -->|Yes| B5
+        B5 -->|Yes| BUY
+        BUY --> PM3
+        
+        PANIC --> S1
+        S1 -->|Yes| S2A
+        S1 -->|Yes| S2B
+        S1 -->|Yes| S2C
+        S3 --> SELL
+        S2A --> SELL
+        S2B --> SELL
+        S2C --> SELL
+        SELL --> PM3
+        
+        PM3 --> PM1
+        PM1 --> PM2
+        PM2 --> PM4
+    end
+
+    subgraph RL["🤖 src/soxl_quant — RL PPO 策略"]
+        direction TB
+        
+        subgraph RL_Features["特征工程层 (59维)"]
+            F1["trend_gap_21<br/>趋势偏离"]
+            F2["anchor_gap_180<br/>长期均线偏离"]
+            F3["realized_vol_10<br/>实现波动率"]
+            F4["vix_zscore<br/>VIX标准化"]
+            F5["cum_drop_30<br/>30日累积跌幅"]
+            F6["regime_risk<br/>制度风险评分"]
+            F7["drawdown_streak_63<br/>回撤天数"]
+            F8["📛 panic_score<br/>❌ 当前未使用"]
+        end
+        
+        subgraph RL_Extra["持仓状态 (15维)"]
+            E1["position 当前仓位"]
+            E2["underwater 是否浮亏"]
+            E3["holding_age 持仓天数"]
+            E4["avg_entry_pnl 平均成本盈亏"]
+            E5["last_tranche_pnl 最近加仓盈亏"]
+            E6["high_gap 距高点回撤"]
+            E7["n_tranches 持仓段数"]
+        end
+        
+        subgraph RL_Network["PPO 策略网络"]
+            OBS["🧠 Observation Vector<br/>59 + 15 = 74维"]
+            BACKBONE["MLP / MoE Backbone<br/>[128,64] hidden"]
+            ACTOR["Actor 策略头<br/>输出目标仓位"]
+            CRITIC["Critic 价值头<br/>评估状态价值"]
+        end
+        
+        subgraph RL_Execution["执行层 Execution"]
+            REGIME["regime 识别<br/>bull / base / stress"]
+            THRESH["rebalance_threshold<br/>bull:0.08 / base:0.04 / stress:0.012"]
+            COOLDOWN["buy_cooldown / trade_lock<br/>防止过度交易"]
+            DELTA["delta_levels<br/>[-0.10, -0.05, 0, 0.05, 0.10]"]
+            FLOOR["hard_floor = 0.20<br/>⚠️ 最低底仓"]
+            OVERLAY["hybrid_overlay<br/>RL动作 + 规则仓位"]
+        end
+        
+        subgraph RL_Reward["奖励函数 Reward"]
+            R1["step_return 组合收益"]
+            R2["rule_return 规则收益"]
+            R3["alpha = step - rule"]
+            R4["🎯 Kelly-alpha<br/>log(1+alpha) × 100 × 3.0"]
+            R5["PBRS 回撤惩罚"]
+            R6["turnover 换手率惩罚"]
+            R7["micro_rebalance 微调惩罚"]
+            R8["profit_taking 止盈奖励"]
+            R9["stale_position  stale惩罚"]
+        end
+        
+        P --> F1
+        P --> F2
+        P --> F5
+        VIX --> F4
+        VIX -.->|"❌ 未直接使用"| F8
+        
+        F1 & F2 & F3 & F4 & F5 & F6 & F7 --> OBS
+        E1 & E2 & E3 & E4 & E5 & E6 & E7 --> OBS
+        
+        OBS --> BACKBONE
+        BACKBONE --> ACTOR
+        BACKBONE --> CRITIC
+        
+        ACTOR -->|"目标仓位 action"| OVERLAY
+        REGIME --> THRESH
+        THRESH --> COOLDOWN
+        COOLDOWN --> DELTA
+        DELTA --> FLOOR
+        FLOOR --> OVERLAY
+        OVERLAY -->|"实际仓位"| E1
+        
+        R1 & R2 --> R3
+        R3 --> R4
+        R4 & R5 & R6 & R7 & R8 & R9 -->|"总奖励"| BACKBONE
+    end
+    
+    PM4 -->|"Return: 688.6%<br/>Trades: 45<br/>MaxDD: 69.7%"| RB_RESULT["📈 Rule-Based Result"]
+    OVERLAY -->|"Return: 521.3%<br/>Trades: 316<br/>MaxDD: 50.4%"| RL_RESULT["📉 RL v2 Result"]
+    
+    style PM1 fill:#ff6b6b,stroke:#c0392b,stroke-width:3px
+    style FLOOR fill:#ff6b6b,stroke:#c0392b,stroke-width:3px
+    style F8 fill:#ffd93d,stroke:#f39c12,stroke-width:3px
+    style PANIC fill:#4ecdc4,stroke:#16a085,stroke-width:2px
+    style R4 fill:#4ecdc4,stroke:#16a085,stroke-width:2px
+    style RB_RESULT fill:#2ecc71,stroke:#27ae60,stroke-width:2px
+    style RL_RESULT fill:#e74c3c,stroke:#c0392b,stroke-width:2px

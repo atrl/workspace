@@ -677,7 +677,7 @@ def _build_layout_all() -> dict:
         )
     fig.update_yaxes(title_text="NAV", row=1, col=1)
     fig.update_yaxes(title_text="Price", row=2, col=1)
-    fig.update_yaxes(title_text="Pos", row=3, col=1)
+    fig.update_yaxes(title_text="Position %", range=[0, 1], tickformat=".0%", row=3, col=1)
     fig.update_yaxes(title_text="Excess %", row=4, col=1)
     fig.update_yaxes(title_text="DD %", row=5, col=1)
     fig.update_xaxes(title_text="Date", row=5, col=1)
@@ -2219,9 +2219,11 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
 
       traces.push({{
         x: dates, y: positions,
-        name: 'Position', type: 'bar',
-        marker: {{ color: positions.map(p => p > 0 ? 'rgba(15,118,110,0.7)' : 'rgba(109,100,88,0.4)') }},
-        hovertemplate: '%{{x}}<br>Pos: %{{y:.4f}}<extra></extra>',
+        name: 'Position %', type: 'scatter', mode: 'lines',
+        line: {{ color: '{C_GOOD}', width: 1.5, shape: 'hv' }},
+        fill: 'tozeroy',
+        fillcolor: 'rgba(15,118,110,0.16)',
+        hovertemplate: '%{{x}}<br>Position: %{{y:.1%}}<extra></extra>',
         xaxis: xa2, yaxis: ya2,
       }});
 

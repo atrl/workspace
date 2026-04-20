@@ -5,8 +5,8 @@ kind: other
 profiles: []
 status: reference
 tags:
-- completed
-- refactor
+- other
+- reference
 artifacts: []
 workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
 summary: Split runtime bootstrap and end-of-run reporting out of app/cli.py so the
