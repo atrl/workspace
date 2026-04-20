@@ -53,6 +53,11 @@ class GRUNet(nn.Module):
         info = info or {}
         if not isinstance(obs, torch.Tensor):
             obs = torch.as_tensor(obs, dtype=torch.float32, device=self.device)
+        # Handle various input shapes from tianshou collector: 1D, 2D, or 3D
+        if obs.dim() == 1:
+            obs = obs.unsqueeze(0)
+        elif obs.dim() > 2:
+            obs = obs.view(-1, obs.shape[-1])
         batch_size = obs.shape[0]
         window_size = self.feature_dim * self.observation_window
 
