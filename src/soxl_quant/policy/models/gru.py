@@ -29,6 +29,8 @@ class GRUNet(nn.Module):
         extra_dim = obs_dim - feature_dim * observation_window
         self.extra_dim = max(extra_dim, 0)
 
+        # Expose input_dim so infer_actor_obs_dim finds the correct observation size
+        self.input_dim = obs_dim
         self.gru = nn.GRU(
             input_size=feature_dim,
             hidden_size=gru_hidden_size,
