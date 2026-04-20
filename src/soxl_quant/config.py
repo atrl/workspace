@@ -49,6 +49,7 @@ class RewardConfig:
     rule_deviation_penalty: float = 0.0
     micro_rebalance_penalty: float = 0.0
     micro_rebalance_threshold: float = 0.05
+    flat_trade_penalty: float = 0.0
     short_hold_turnover_penalty: float = 0.0
     short_hold_threshold: float = 0.16
     stability_bonus: float = 0.0

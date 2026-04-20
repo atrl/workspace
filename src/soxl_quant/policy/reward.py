@@ -120,6 +120,8 @@ class ContinuousReward(Reward):
         if cfg.micro_rebalance_penalty > 0 and 0.0 < turnover < cfg.micro_rebalance_threshold:
             micro_ratio = turnover / max(cfg.micro_rebalance_threshold, 1e-6)
             reward -= (1.0 - micro_ratio) * cfg.micro_rebalance_penalty
+        if cfg.flat_trade_penalty > 0.0 and turnover > 0.0:
+            reward -= cfg.flat_trade_penalty
         if cfg.short_hold_turnover_penalty > 0 and turnover > 0.0 and holding_age < cfg.short_hold_threshold:
             reward -= (1.0 - holding_age / max(cfg.short_hold_threshold, 1e-6)) * turnover * cfg.short_hold_turnover_penalty
 

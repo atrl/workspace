@@ -188,6 +188,20 @@ profiles:
     keep_actor: false
     keep_summary: true
     notes_ref: experiments/candidate/balanced_rule_residual_v2/notes.md
+  - name: balanced_rule_residual_v3
+    family: balanced
+    status: candidate
+    baseline: balanced_rule_residual_v2
+    keep_actor: false
+    keep_summary: true
+    notes_ref: experiments/candidate/balanced_rule_residual_v3/notes.md
+  - name: balanced_rule_residual_v4
+    family: balanced
+    status: candidate
+    baseline: balanced_rule_residual_v2
+    keep_actor: false
+    keep_summary: true
+    notes_ref: experiments/candidate/balanced_rule_residual_v4/notes.md
   - name: balanced_sac_quick
     family: balanced
     status: ablation
