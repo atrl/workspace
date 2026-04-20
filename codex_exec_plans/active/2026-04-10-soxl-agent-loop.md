@@ -2665,3 +2665,39 @@ Created `balanced_budget.yaml` with `max_iters=50`. However, the log file was ac
   - v18 with seed=42 to verify v16 is reproducible
 - Memory note:
   - `memory/2026-04-20-v17-extended-context-diminishing-returns.md`
+
+## v18 seed robustness check 2026-04-20 20:xx
+
+- Goal:
+  - verify whether v16's strong result (632.4% return) is reproducible with seed=42
+- Profile:
+  - `experiments/candidate/balanced_rule_residual_v18/profile.yaml`
+- Command:
+  - `PYTHONPATH=. qlib_venv/bin/python soxl_qlib_strategy_v2.py --profiles balanced_rule_residual_v18 --skip-data-refresh --seed 42`
+- Evidence:
+  - valid best: `61.8% / Sharpe 1.64 / MaxDD 27.7% / score 91.32` (iter 20)
+  - test full: `432.7% / Sharpe 0.81 / MaxDD 50.8% / trades 328`
+  - test_2020: `102.3% / Sharpe 2.38 / MaxDD 20.8%`
+  - test_2022: `-23.9% / Sharpe -0.92 / MaxDD 31.9% / avg_pos 0.26`
+  - test_2023_2024: `45.9% / Sharpe 0.72 / MaxDD 31.1%`
+- Promotion gate:
+  - fixed_split: ALL PASSED (fifth consecutive!)
+    - test_2022_max_dd: 31.9% < 35% ✓
+    - test_2022_avg_pos: 0.26 < 0.35 ✓
+    - test_proxy_sharpe: 0.90 > 0.75 ✓
+  - walk_forward: missing — blocked
+- Critical finding: 200pp return swing for same config:
+
+  | Seed | Return | Sharpe | MaxDD |
+  |------|--------|--------|-------|
+  | 20260420 (v16) | 632.4% | 0.91 | 50.1% |
+  | 42 (v18) | 432.7% | 0.81 | 50.8% |
+
+- Decision:
+  - keep: v16 config as the baseline for seed search
+  - keep: drawdown discipline is seed-robust (MaxDD ~50% regardless)
+  - insight: return is the variable to optimize via seed search
+- Next action:
+  - seed sweep with v16 config to find best initialization
+- Memory note:
+  - `memory/2026-04-20-v18-seed-robustness-check.md`
