@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import csv
+from datetime import datetime
 import json
 import pickle
 from pathlib import Path
@@ -627,6 +628,7 @@ def build_payload() -> dict[str, object]:
             "execution_overlay": "runtime/generalization/execution_overlay_results.json",
             "execution_review": "runtime/generalization/execution_overlay_review.md",
         },
+        "generated_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         "summary": detailed_summary,
         "windows": windows,
         "detailed": detailed_rows,
@@ -2304,6 +2306,8 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
 
       if (rows.length) {{
         chartMeta.innerHTML = `
+          <span>Built: <span class="mono">${{DATA.generated_at}}</span></span>
+          <span>Version: <span class="mono">${{state.version || 'current'}}</span></span>
           <span>Zoom: <span class="mono">${{state.zoomMode}}</span></span>
           <span>Window: <span class="mono">${{rows[0].datetime}}</span> → <span class="mono">${{rows[rows.length-1].datetime}}</span></span>
           <span>Rows: <span class="mono">${{rows.length}}</span></span>
