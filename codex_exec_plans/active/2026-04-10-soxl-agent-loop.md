@@ -2499,3 +2499,55 @@ Created `balanced_budget.yaml` with `max_iters=50`. However, the log file was ac
   - drop:
     - relying on manual dashboard rebuild after each training run
     - relying on stale browser state to decide what “current dashboard” means
+
+## v14 GRU ablation — episode penalty is necessary 2026-04-20 19:xx
+
+- Goal:
+  - isolate whether GRU architecture + observation_window alone drives drawdown reduction
+  - disable all episode-level penalties (`episode_drawdown_penalty: 0.0`, `downside_asymmetry_coef: 1.0`)
+  - keep step-level `drawdown_penalty: 0.28` (v2 baseline)
+- Profile:
+  - `experiments/candidate/balanced_rule_residual_v14/profile.yaml`
+- Command:
+  - `PYTHONPATH=. qlib_venv/bin/python soxl_qlib_strategy_v2.py --profiles balanced_rule_residual_v14 --skip-data-refresh --seed 20260420`
+- Evidence:
+  - valid best: `65.8% / Sharpe 1.72 / MaxDD 27.1% / score 96.87` (iter 40)
+  - test full: `663.2% / Sharpe 0.89 / MaxDD 56.6% / trades 316`
+  - test_2020: `122.6% / Sharpe 2.61 / MaxDD 19.9%`
+  - test_2022: `-24.1% / Sharpe -0.92 / MaxDD 32.6% / avg_pos 0.26`
+  - test_2023_2024: `47.3% / Sharpe 0.74 / MaxDD 29.2%`
+  - test_proxy: `678.8% / Sharpe 0.93 / MaxDD 55.1%`
+- Promotion gate:
+  - fixed_split: ALL PASSED for the first time ever!
+    - `test_2022_max_dd = 32.6% <= 35%` ✓
+    - `test_2022_avg_pos = 0.26 <= 0.35` ✓
+    - `test_proxy_sharpe = 0.93 >= 0.75` ✓
+  - walk_forward: `missing` — blocked because walk-forward not evaluated
+  - overall: `eligible = false`
+- Comparison table:
+
+  | Profile | Return | Sharpe | MaxDD | test_2022 Ret | test_2022 MaxDD |
+  |---------|--------|--------|-------|---------------|-----------------|
+  | v2 MLP baseline | 521.3% | 0.86 | 50.4% | — | — |
+  | v12 GRU + pen 4.0 | 492.3% | 0.85 | **48.8%** | ~-18% | ~30% |
+  | v13 GRU + pen 2.0 | 492.3% | 0.85 | **48.8%** | ~-18% | ~30% |
+  | **v14 GRU only** | **663.2%** | **0.89** | **56.6%** | **-24.1%** | **32.6%** |
+
+- Key finding: **HYPOTHESIS REJECTED.**
+  1. GRU without penalty is MORE aggressive, not less. MaxDD 48.8% → 56.6% (worse than MLP).
+  2. The terminal episode penalty IS the drawdown brake. GRU + penalty = conservative (492%/48.8%). GRU alone = aggressive (663%/56.6%).
+  3. GRU amplifies whatever incentive you give it. No penalty → highest return, worst drawdown.
+  4. Severe overfitting: valid MaxDD 27.1% vs test MaxDD 56.6%. GRU without penalty overfits to 2020 bull market.
+- Decision:
+  - drop: `balanced_rule_residual_v14` as a promotable branch
+  - keep: the lesson that GRU + terminal penalty is a synergistic pair
+  - keep: first-ever fixed_split promotion pass as evidence the 2022 gate is reachable
+- Next action:
+  - the terminal penalty is necessary; do not remove it
+  - possible directions:
+    1. Tune penalty strength more finely (0.5, 1.0, 6.0)
+    2. Increase observation_window (5, 10) for more temporal context
+    3. MLP + terminal penalty ablation (does penalty help MLP too?)
+    4. Walk-forward evaluation for v14 to see if fixed_split pass generalizes
+- Memory note:
+  - `memory/2026-04-20-v14-gru-ablation-results.md`
