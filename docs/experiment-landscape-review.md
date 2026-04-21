@@ -139,6 +139,7 @@ This table is the working summary for the most decision-relevant historical bran
 | balanced_rule_residual_v20 | rule_residual | balanced_rule_residual_v16 | candidate | penalty=3.0 ablation | 67.4 / 1.7 / 28.3 | 110.1 / 16.2 | -23.4 / 31.7 / 0.3 | 42.6 / 32.7 | 623.2 / 0.9 / 53.8 | pass |
 | balanced_rule_residual_v22 | rule_residual | balanced_rule_residual_v19 | candidate | VIX term-structure features | 62.9 / 1.6 / 30.6 | 115.6 / 16.2 | -24.5 / 32.7 / 0.3 | 37.9 / 32.4 | 695.5 / 0.9 / 54.5 | pass |
 | balanced_rule_residual_v23 | feature_only | balanced_rule_residual_v19 | dropped | narrow transition-state pack | 52.1 / 1.6 / 25.9 | 91.6 / 16.2 | -21.9 / 30.2 / 0.3 | 34.3 / 29.4 | 493.2 / 0.9 / 51.2 | pass |
+| balanced_rule_residual_v24 | structural | balanced_rule_residual_v19 | dropped | decision_frequency=2 + coarse 3-level residual deltas | 61.2 / 1.7 / 27.3 | 97.5 / 17.8 | -22.2 / 30.7 / 0.3 | 38.2 / 31.6 | 758.6 / 1.0 / 54.6 | pass |
 | balanced_transition_state | feature_only | — | — | transition/release features batch | 54.7 / 1.6 / 27.3 | 103.8 / 20.6 | -41.0 / 46.5 / 0.4 | 44.9 / 38.8 | 472.9 / 0.8 / 59.0 | fail |
 | balanced_structural_v1 | structural | balanced | dropped | longer context + routing + sampling | 47.3 / 1.6 / 25.9 | 101.3 / 20.0 | -31.3 / 39.9 / 0.3 | 45.5 / 33.5 | 307.0 / 0.7 / 53.7 | fail |
 | balanced_checkpoint_review | selection | balanced | candidate | earlier checkpoint selection | 52.6 / 1.6 / 26.7 | 114.7 / 21.3 | -39.5 / 46.3 / 0.4 | 39.6 / 38.7 | 371.5 / 0.8 / 60.3 | fail |
@@ -178,6 +179,7 @@ This table is the working summary for the most decision-relevant historical bran
 | `v20` | stronger terminal penalty | none vs `v19` | return down, DD not better | dominated; do not repeat |
 | `v22` | external VIX term-structure data | better `2020` DD and `2023-2024` DD | return drag in `2023-2024` | keep as candidate, needs seed + walk-forward |
 | `v23` | narrow transition-state pack | lower `2022` avg_pos / DD and lower proxy DD | large return loss in `2020`, `2023-2024`, proxy | drop; transition signal still maps to broad de-risking |
+| `v24` | lower-frequency coarse residual control | slight `2022` DD / avg_pos improvement | turnover exploded and `2023-2024` return fell | drop; coarse actions did not create real trade compression |
 
 ### Repeated Failure Directions
 
@@ -186,6 +188,7 @@ This table is the working summary for the most decision-relevant historical bran
 | reward-only tuning | `balanced_reward_guard`, repeated stress-penalty loops | validation can improve while `2022` and proxy DD worsen | stop treating coefficient sweeps as primary research |
 | bundled transition features | `balanced_transition_state` | local rebound timing improves, but overall exposure drifts up | transition work must be narrow and gated |
 | narrow transition features inside residual family | `balanced_rule_residual_v23` | stress DD improves without gate break | style still drifts too defensive and gives up too much upside | do not retry more transition features before proving a selective execution overlay |
+| naive temporal compression inside current execution path | `balanced_rule_residual_v24` | slightly lower `2022` exposure and DD | coarse deltas increased actual rebalances and still gave up upside | temporal abstraction needs action persistence or hierarchy, not just lower decision frequency |
 | selection-only rescue | `balanced_checkpoint_review`, `balanced_stress_select*` | better checkpoint choice helps diagnosis, not rescue | use for pruning search space, not as the end solution |
 | broad episode sampling | `balanced_phase_sampling_v1` | more coverage but worse `2022` and proxy Sharpe | sampling changes need a much tighter mechanism |
 | aggressive high-floor variants | `balanced_floor40_sym`, `balanced_regime_gate*` | better upside, broken stress gate | only valid as explicit aggressive branches |

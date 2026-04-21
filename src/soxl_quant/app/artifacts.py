@@ -147,7 +147,7 @@ def persist_summary_bundle(
             {
                 "profile": profile.name,
                 "seed": seed,
-                "feature_schema": feature_schema_payload(),
+                "feature_schema": feature_schema_payload(profile),
                 "position_cap": serialize_position_cap(profile),
                 "selection_score": serialize_selection_score(profile),
                 "model_config": serialize_model_config(profile),

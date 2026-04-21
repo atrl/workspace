@@ -796,6 +796,123 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
   - if another execution experiment needs a new state, add it in profile JSON /
     YAML as a custom regime instead of patching `ExecutionConfig` again
 
+## v24 low-frequency coarse-residual probe 2026-04-21 21:xx
+
+- Goal:
+  - run one genuinely new training loop that changes the decision timescale
+    without reopening failed overlay / transition-state paths
+  - test whether a medium-strength temporal abstraction on top of the retained
+    `v19` actor family can reduce drawdown and turnover without the severe
+    return collapse seen in earlier `decision_frequency=3` compression work
+- Canonical baseline:
+  - `balanced`
+- Direct comparison baseline:
+  - `balanced_rule_residual_v19`
+- Experiment role:
+  - `replace`
+- Target improvement window:
+  - full `test_2022`
+  - `2022-07`
+  - `2022-11`
+  - `test_2023_2024`
+- Accepted trade-off window:
+  - allow slightly weaker `test_2020` and full proxy return if:
+    - `test_2022` drawdown meaningfully improves
+    - turnover falls materially
+    - `test_2023_2024` does not collapse
+- Changed layer:
+  - `model`
+  - `selection`
+  - temporal control granularity
+- Closest historical success case:
+  - `balanced_decision_freq_quick`
+  - `decision_frequency=3` materially improved drawdown and generalization by
+    changing the decision timescale instead of reward coefficients
+- Closest historical failure case:
+  - `balanced_rule_residual_v23`
+  - narrow transition-state additions still became broad de-risking rather than
+    selective re-entry
+- Why this is not a duplicate:
+  - does not add another feature pack
+  - does not retune overlays or reward coefficients
+  - does not repeat pure `decision_frequency=3`; instead it combines:
+    - `decision_frequency=2`
+    - a compressed residual action set on top of the retained `v19` family
+  - the new mechanism is lower-frequency, lower-resolution residual control,
+    not another threshold or feature drift
+- External reference:
+  - Sutton, Precup, Singh (1999), `Between MDPs and Semi-MDPs`
+  - read: temporally extended decisions / options are a valid way to reduce
+    myopic primitive-action churn
+- Planned mechanism:
+  - start from `balanced_rule_residual_v19`
+  - set `decision_frequency: 2`
+  - compress hybrid residual action set from 5 deltas to 3 deltas
+  - keep feature schema fixed to isolate the timescale/action-resolution effect
+- Comparison-table row:
+  - `balanced_rule_residual_v24`
+- Planned edits:
+  - add experiment package:
+    - `experiments/candidate/balanced_rule_residual_v24/profile.yaml`
+    - `experiments/candidate/balanced_rule_residual_v24/expectations.md`
+    - `experiments/candidate/balanced_rule_residual_v24/notes.md`
+  - add registry row for `balanced_rule_residual_v24`
+  - after training, add durable conclusion row to
+    - `docs/experiment-landscape-review.md`
+- Pre-run validation:
+  - `PYTHONPATH=. qlib_venv/bin/python scripts/check_harness.py`
+- Planned commands:
+  - `PYTHONPATH=. qlib_venv/bin/python -c "import tests.test_profile_registry as t; t.test_registry_covers_all_profiles(); print('test_profile_registry: OK')"`
+  - `PYTHONPATH=. qlib_venv/bin/python scripts/check_harness.py`
+  - `PYTHONPATH=. qlib_venv/bin/python -m src.soxl_quant.cli --profiles balanced_rule_residual_v24 --skip-data-refresh --seed 12345`
+- Acceptance criteria:
+  - `test_2022_max_dd < v19`
+  - `test_2022_avg_pos <= v19`
+  - `trade_count < v19`
+  - `test_2023_2024_return >= 35%`
+  - `test_proxy_sharpe >= 0.80`
+- Validation evidence:
+  - pre-run:
+    - `PYTHONPATH=. qlib_venv/bin/python tests/test_summary_bundle.py` -> `test_summary_bundle: OK`
+    - `PYTHONPATH=. qlib_venv/bin/python tests/test_profile_registry.py`
+    - `PYTHONPATH=. qlib_venv/bin/python scripts/check_harness.py` -> `passed=39 failures=0`
+  - first training run reached checkpoint selection successfully, but summary persistence failed with:
+    - `TypeError: feature_schema_payload() missing 1 required positional argument: 'profile'`
+  - fixed the persistence bug in `src/soxl_quant/app/artifacts.py`, added regression test, and then recovered evaluation directly from the already-saved `soxl_balanced_rule_residual_v24_actor.pt`
+  - recovered actor evaluation:
+    - valid: `61.2% / 1.67 / 27.3% / avg_pos 0.601 / best_score 91.43`
+    - full test: `439.9% / 0.775 / 58.35% / 176 trades`
+    - test_2022: `-22.24% / -0.86 / 30.67% / avg_pos 0.257`
+    - test_2023_2024: `38.23% / 0.66 / 31.58%`
+    - test_proxy: `758.6% / 0.961 / 54.58%`
+    - artifacts:
+      - `artifacts/models/soxl_balanced_rule_residual_v24_actor.pt`
+      - `artifacts/models/soxl_balanced_rule_residual_v24_summary.json`
+      - `runtime/post_train_review/balanced_rule_residual_v24_soxl_daily.csv`
+- Comparison to `v19`:
+  - improved slightly on the intended 2022 control slice:
+    - `test_2022 max_dd 31.07 -> 30.67`
+    - `test_2022 avg_pos 0.261 -> 0.257`
+  - failed the main behavioral goal:
+    - trade count did not compress; review CSV trade markers show `35 -> 176`
+  - gave up too much retained upside:
+    - `test_2023_2024 return 43.60 -> 38.23`
+  - proxy quality is basically unchanged:
+    - `sharpe 0.946 -> 0.961`
+    - `max_dd 54.83 -> 54.58`
+- Keep / drop decision:
+  - drop `balanced_rule_residual_v24`
+  - archive the experiment package and keep only summary/review evidence plus the conclusion row
+  - keep the lesson, not the profile:
+    - medium-strength temporal abstraction on top of `v19` can shave a little 2022 exposure
+    - but coarse residual deltas do not create lower turnover; they create noisier discrete rebalance behavior
+- Next action:
+  - do not retry more `decision_frequency` / coarse-delta variants unless the execution layer also changes how rebalances are accumulated or throttled
+  - if temporal abstraction is revisited, it should be paired with:
+    - explicit action persistence / dwell constraints
+    - or a hierarchical rule/actor split
+    - not another coarse-action retrain on the current execution path
+
 ## RL module migration 2026-04-18 23:xx
 
 - Goal:

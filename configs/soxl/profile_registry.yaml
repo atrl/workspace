@@ -510,3 +510,10 @@ profiles:
   keep_actor: false
   keep_summary: true
   notes_ref: experiments/archive/balanced_rule_residual_v23/notes.md
+- name: balanced_rule_residual_v24
+  family: balanced
+  status: dropped
+  baseline: balanced_rule_residual_v19
+  keep_actor: false
+  keep_summary: true
+  notes_ref: experiments/archive/balanced_rule_residual_v24/notes.md

@@ -1808,6 +1808,30 @@
     "excerpt": "# 2026-04-21 v23 narrow transition-state probe ## Context This was the first residual-family retry of transition-state features after the repo had already dropped `balanced_transition_state` and `balanced_stress_release_delta`. The explicit goal was to see whether a much narrower"
   },
   {
+    "path": "memory/2026-04-21-v24-low-frequency-coarse-residual-failure.md",
+    "date": "2026-04-21",
+    "title": "2026-04-21 v24 low-frequency coarse residual failure",
+    "kind": "failure",
+    "profiles": [
+      "balanced_rule_residual_v19",
+      "balanced_rule_residual_v24"
+    ],
+    "status": "dropped",
+    "tags": [
+      "balanced_rule_residual_v19",
+      "balanced_rule_residual_v24",
+      "checkpoint-selection",
+      "dropped",
+      "eval-2022",
+      "execution-overlay",
+      "failure"
+    ],
+    "artifacts": [],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Experiment: `balanced_rule_residual_v24` Baseline: `balanced_rule_residual_v19` Mechanism: `decision_frequency: 2` hybrid residual deltas compressed to `[-0.08, 0.0, 0.08]` Intent: test whether medium-strength temporal abstraction can reduc",
+    "excerpt": "# 2026-04-21 v24 low-frequency coarse residual failure ## Context - Experiment: `balanced_rule_residual_v24` - Baseline: `balanced_rule_residual_v19` - Mechanism: - `decision_frequency: 2` - hybrid residual deltas compressed to `[-0.08, 0.0, 0.08]` - Intent: - test whether medium"
+  },
+  {
     "path": "memory/README.md",
     "date": "",
     "title": "Memory",
