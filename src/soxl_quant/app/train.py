@@ -143,6 +143,7 @@ def run_profile(
         use_hybrid_overlay=profile.model.use_hybrid_overlay,
         delta_levels=np.asarray(profile.model.delta_levels, dtype=np.float32) if profile.model.use_hybrid_overlay else None,
         feature_columns=feature_columns,
+        mode_router_config=profile.mode_router,
     )
     promotion_report = build_promotion_report(profile, slice_result, test_proxy)
     summary_path = persist_summary_bundle(
@@ -164,6 +165,7 @@ def run_profile(
         asset_idx=0,
         feature_columns=feature_columns,
         model_config=profile.model,
+        mode_router_config=profile.mode_router,
     )
     bt_result["valid"] = valid_metrics
     bt_result["selection_history"] = selection["history"]

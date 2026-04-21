@@ -1904,6 +1904,32 @@
     "excerpt": "# 2026-04-21 v24 low-frequency coarse residual failure ## Context - Experiment: `balanced_rule_residual_v24` - Baseline: `balanced_rule_residual_v19` - Mechanism: - `decision_frequency: 2` - hybrid residual deltas compressed to `[-0.08, 0.0, 0.08]` - Intent: - test whether medium"
   },
   {
+    "path": "memory/2026-04-22-balanced-rule-residual-mode-v1-train.md",
+    "date": "2026-04-22",
+    "title": "2026-04-22 balanced_rule_residual_mode_v1 training result",
+    "kind": "review",
+    "profiles": [
+      "balanced_rule_residual_mode_v1",
+      "balanced_rule_residual_v19"
+    ],
+    "status": "reference",
+    "tags": [
+      "balanced_rule_residual_mode_v1",
+      "balanced_rule_residual_v19",
+      "eval-2022",
+      "execution-overlay",
+      "reference",
+      "review",
+      "stress-regime"
+    ],
+    "artifacts": [
+      "artifacts/models/soxl_balanced_rule_residual_mode_v1_summary.json"
+    ],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "First full train of the mode-hierarchy scaffold over the retained `balanced_rule_residual_v19` family. This was the first attempt to add persistent rule-routed modes directly into train/eval/backtest/runtime instead of doing another overlay",
+    "excerpt": "# 2026-04-22 balanced_rule_residual_mode_v1 training result ## Context First full train of the mode-hierarchy scaffold over the retained `balanced_rule_residual_v19` family. This was the first attempt to add persistent rule-routed modes directly into train/eval/backtest/runtime i"
+  },
+  {
     "path": "memory/2026-04-22-mode-hierarchy-scaffold-start.md",
     "date": "2026-04-22",
     "title": "2026-04-22 Mode Hierarchy Scaffold Start",

@@ -12,6 +12,7 @@ from qlib.rl.interpreter import ActionInterpreter, StateInterpreter
 from qlib.rl.simulator import Simulator
 
 from ..config import ExecutionConfig, PositionCapConfig, StrategyConfig
+from ..config import ModeRouterConfig
 from ..data import FEATURE_COLUMNS, feature_columns_for_packs
 from .execution import (
     DEFAULT_EXECUTION,
@@ -20,6 +21,7 @@ from .execution import (
     execution_trade_lock_days,
     rebalance_threshold,
 )
+from .modes import ModeState, mode_band, route_mode
 from .observation import EXTRA_OBS_DIM, make_observation
 from .positioning import (
     BASE_ACTION_LEVELS,
@@ -115,6 +117,7 @@ class EpisodeConfig(NamedTuple):
     decision_frequency: int = 1
     nday_window: int = 5
     execution_config: Optional[ExecutionConfig] = None
+    mode_router: Optional[ModeRouterConfig] = None
 
 
 def build_price_path(df: pd.DataFrame, base_price: float = 100.0) -> np.ndarray:
@@ -155,6 +158,7 @@ class SoxlSimulator(Simulator):
         self.decision_frequency = max(int(getattr(initial, "decision_frequency", 1)), 1)
         self.nday_window = max(int(getattr(initial, "nday_window", 5)), 1)
         self.exec_cfg = initial.execution_config or DEFAULT_EXECUTION
+        self.mode_router_cfg = initial.mode_router or ModeRouterConfig()
         self.period_start_val = self.cash0
         self.period_baseline_val = self.cash0
         self.period_start_pos = 0.0
@@ -166,6 +170,8 @@ class SoxlSimulator(Simulator):
         self.episode_max_dd = 0.0
         self.prev_episode_max_dd = 0.0
         self.episode_returns: list[float] = []
+        self.mode_state = ModeState()
+        self._mode_state_idx = -1
 
     def step(self, action: float) -> None:
         action = float(np.clip(action, 0, 1))
@@ -194,6 +200,7 @@ class SoxlSimulator(Simulator):
         relative_strength = float(np.nan_to_num(row["relative_strength_21"]))
         vix_zscore = float(np.nan_to_num(row["vix_zscore"]))
         downside_ratio_10 = float(np.nan_to_num(row["downside_ratio_10"]))
+        current_mode = self.mode_state.name if self.mode_router_cfg.enabled else None
         direction = "buy" if action > self.pos else ("sell" if action < self.pos else "neutral")
         min_rebalance = rebalance_threshold(
             regime_risk,
@@ -204,6 +211,7 @@ class SoxlSimulator(Simulator):
             vix_zscore=vix_zscore,
             downside_ratio_10=downside_ratio_10,
             direction=direction,
+            mode=current_mode,
             config=self.exec_cfg,
         )
         if self.trade_lock > 0:
@@ -294,6 +302,7 @@ class SoxlSimulator(Simulator):
                 "episode_max_dd": self.episode_max_dd,
                 "prev_episode_max_dd": self.prev_episode_max_dd,
                 "episode_returns": list(self.episode_returns),
+                "mode": "flat_wait",
             }
         row = self.df.iloc[self.idx]
         underwater = self.val / max(self.max_val, 1e-8) - 1.0
@@ -312,6 +321,9 @@ class SoxlSimulator(Simulator):
             observation_window=self.observation_window,
             feature_columns=self.feature_columns,
         )
+        if self._mode_state_idx != self.idx:
+            self.mode_state = route_mode(obs, self.mode_state, self.mode_router_cfg)
+            self._mode_state_idx = self.idx
         rule_pos = rule_based_position(obs)
         return {
             "obs": obs,
@@ -338,6 +350,7 @@ class SoxlSimulator(Simulator):
             "episode_start_val": self.episode_start_val,
             "episode_max_dd": self.episode_max_dd,
             "prev_episode_max_dd": self.prev_episode_max_dd,
+            "mode": self.mode_state.name,
         }
 
     def done(self) -> bool:
@@ -366,6 +379,7 @@ class PositionAction(ActionInterpreter):
         hard_floor: Optional[float] = None,
         use_hybrid_overlay: bool = False,
         delta_levels: Optional[np.ndarray] = None,
+        mode_router_config=None,
     ):
         super().__init__()
         self.n_actions = n_actions
@@ -377,12 +391,14 @@ class PositionAction(ActionInterpreter):
             delta_levels if delta_levels is not None else [-0.15, 0.0, 0.15],
             dtype=np.float32,
         )
+        self.mode_router_config = mode_router_config
 
     @property
     def action_space(self):
         return spaces.Discrete(self.n_actions)
 
     def interpret(self, state, action):
+        current_mode = state.get("mode")
         return target_position_for_profile(
             int(action),
             state["obs"],
@@ -391,6 +407,7 @@ class PositionAction(ActionInterpreter):
             hard_floor=self.hard_floor,
             use_hybrid_overlay=self.use_hybrid_overlay,
             delta_levels=self.delta_levels if self.use_hybrid_overlay else None,
+            mode_band=mode_band(current_mode) if current_mode else None,
         )
 
 
@@ -428,6 +445,7 @@ def build_initial_states(
                 decision_frequency=decision_frequency,
                 nday_window=nday_window,
                 execution_config=profile.execution,
+                mode_router=profile.mode_router,
             )
             all_states.append(state)
             segment = df.iloc[start_idx:end_idx]

@@ -2,7 +2,7 @@
 
 Status: active
 Owner: Codex
-Last updated: 2026-04-21 09:40 CST
+Last updated: 2026-04-22 00:20 CST
 
 ## Goal
 
@@ -173,6 +173,56 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
 - Any claim of improvement must include walk-forward evidence.
 
 ## Decision log
+
+- 2026-04-22 00:06 (balanced_rule_residual_mode_v1 first full train):
+  - Goal:
+    - test whether persistent high-level modes can create a real regime-aware
+      control layer over the `v19` residual actor family instead of another
+      threshold-only overlay loop
+  - Closest historical success:
+    - `balanced_rule_residual_v19`
+    - `dwell_hold_v2`
+    - `regime_route_v1`
+  - Closest historical failure:
+    - `balanced_rule_residual_v24`
+  - New mechanism this time:
+    - rule-routed persistent mode hierarchy with per-mode action bands and
+      per-mode rebalance threshold scaling:
+      - `trend_hold`
+      - `defensive_hold`
+      - `crash_rebuild`
+      - `flat_wait`
+  - Command:
+    - `PYTHONPATH=. qlib_venv/bin/python soxl_qlib_strategy_v2.py --profiles balanced_rule_residual_mode_v1 --skip-data-refresh --seed 12345`
+  - Validation evidence:
+    - valid: `36.2% / Sharpe 1.17 / MaxDD 26.1%`
+    - test_2020: `64.3% / Sharpe 2.64 / MaxDD 10.6%`
+    - test_2022: `-13.1% / Sharpe -0.73 / MaxDD 16.5% / avg_pos 0.135`
+    - test_2023_2024: `43.0% / Sharpe 0.90 / MaxDD 20.1%`
+    - test_proxy: `886.1% / Sharpe 1.09 / MaxDD 42.3% / trades 327`
+  - Comparison vs `balanced_rule_residual_v19`:
+    - valid return falls `56.6% -> 36.2%`
+    - `test_2020` return falls `109.4% -> 64.3%`, but MaxDD improves
+      `18.1% -> 10.6%`
+    - `test_2022` materially improves:
+      - return `-22.5% -> -13.1%`
+      - MaxDD `31.1% -> 16.5%`
+      - avg_pos `0.261 -> 0.135`
+    - `test_2023_2024` retains return while cutting MaxDD
+      `37.3% -> 20.1%`
+    - `test_proxy` improves across return / Sharpe / MaxDD:
+      - `735.1% / 0.95 / 54.8%`
+      - `-> 886.1% / 1.09 / 42.3%`
+  - Keep / drop decision:
+    - keep the mode hierarchy scaffold
+    - keep `balanced_rule_residual_mode_v1` as `candidate`
+    - do not promote it as the new default because bull capture is still too
+      suppressed
+  - Next action:
+    - tune only the favorable-mode upside path:
+      - widen `trend_hold` upper band
+      - make `crash_rebuild` exit less conservative after stress release
+      - keep `defensive_hold` / `flat_wait` risk suppression intact
 
 - 2026-04-21 09:40 (v22 trained — VIX term-structure features on):
   - Trained `balanced_rule_residual_v22` with `SOXL_USE_VIX_TERM=1` seed=12345
@@ -452,6 +502,42 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
 - Next action:
   - thread `ModeState` through environment / evaluation / backtest / runtime
   - then create `balanced_rule_residual_mode_v1` as the first candidate package instead of reusing old overlay variants
+
+## balanced_rule_residual_mode_v1 first train 2026-04-22 00:xx
+
+- Goal:
+  - run the first full training loop for the mode-hierarchy scaffold instead of stopping at wiring only
+- Canonical baseline:
+  - `balanced_rule_residual_v19`
+- Direct comparison baseline:
+  - `balanced_rule_residual_v19`
+- Experiment role:
+  - `replace`
+- Changed layer:
+  - `execution`
+  - `model`
+- Closest historical success case:
+  - `balanced_rule_residual_v19` as the retained actor family anchor
+  - `dwell_hold_v2` / `regime_route_v1` as the two overlay archetypes to absorb structurally
+- Closest historical failure case:
+  - `balanced_rule_residual_v24`
+  - low-frequency compression without explicit behavior modes did not produce true temporal abstraction
+- Why this is not a duplicate:
+  - this run introduces explicit persistent modes and mode-constrained position bands, not another frequency/threshold tweak
+- Target improvement window:
+  - `test_2022`
+- Accepted trade-off window:
+  - modest proxy giveback is acceptable if churn drops materially and `test_2022` exposure / DD improve without breaking `test_2023_2024`
+- New mechanism being tested this time:
+  - rule-routed `trend_hold / defensive_hold / crash_rebuild / flat_wait` modes with dwell constraints
+- External reference:
+  - hierarchical / temporally abstract trading control (`TradeR`, `EarnHFT`, `Deep Stock Trading`)
+- Comparison-table row to update back into durable review:
+  - `balanced_rule_residual_mode_v1`
+- Planned commands:
+  - wire mode state through environment / evaluation / backtest / runtime
+  - create experiment package + registry row
+  - `PYTHONPATH=. qlib_venv/bin/python soxl_qlib_strategy_v2.py --profiles balanced_rule_residual_mode_v1 --skip-data-refresh --seed 12345`
 - 2026-04-12 19:08:
   - Wired `position_cap` config all the way through training selection, fast slice evaluation, qlib backtest, saved actor bundles, and paper replay.
 - 2026-04-12 19:08:

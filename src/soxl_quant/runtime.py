@@ -26,6 +26,7 @@ import torch
 
 from .data import build_dataset, feature_columns_for_packs, init_qlib
 from .policy.environment import TrancheLedger
+from .policy.modes import ModeState, mode_band, route_mode
 from .policy.observation import make_observation
 from .policy.policy_builder import actor_action, build_policy
 from .policy.positioning import target_position_for_profile
@@ -449,6 +450,7 @@ def _build_signal_intent(
     ledger: TrancheLedger,
     peak_value: float,
     symbol: str = "SOXL",
+    mode_state: Optional[ModeState] = None,
 ) -> SignalIntent:
     date = feature_df.index[idx]
     price = float(price_path[idx])
@@ -466,6 +468,7 @@ def _build_signal_intent(
         price_path,
         feature_columns=feature_columns,
     )
+    current_mode_state = route_mode(obs, mode_state, profile.mode_router)
     action = actor_action(actor, obs)
     model_cfg = profile.model
     target_position = target_position_for_profile(
@@ -476,6 +479,7 @@ def _build_signal_intent(
         hard_floor=model_cfg.hard_floor,
         use_hybrid_overlay=bool(model_cfg.use_hybrid_overlay),
         delta_levels=np.asarray(model_cfg.delta_levels, dtype=np.float32) if model_cfg.use_hybrid_overlay else None,
+        mode_band=mode_band(current_mode_state.name) if profile.mode_router.enabled else None,
     )
     regime_risk = float(feature_df.iloc[idx]["regime_risk"])
     return SignalIntent(
@@ -489,7 +493,7 @@ def _build_signal_intent(
         current_position=float(current_position),
         price=price,
         regime_risk=regime_risk,
-        note=f"regime={regime_risk:.2f}",
+        note=f"regime={regime_risk:.2f} mode={current_mode_state.name}",
     )
 
 
@@ -523,9 +527,34 @@ def replay_profile(
     approved_signals = 0
     blocked_signals = 0
     peak_value = ACCOUNT
+    mode_state = ModeState()
 
     for i in range(60, len(feature_df)):
-        signal = _build_signal_intent(actor, profile_name, bundle_path, bundle, feature_df, price_path, i, broker, ledger, peak_value)
+        signal = _build_signal_intent(
+            actor,
+            profile_name,
+            bundle_path,
+            bundle,
+            feature_df,
+            price_path,
+            i,
+            broker,
+            ledger,
+            peak_value,
+            mode_state=mode_state,
+        )
+        profile = load_profile(profile_name)
+        obs = make_observation(
+            feature_df,
+            i,
+            signal.current_position,
+            broker.get_account_snapshot(signal.date, signal.price).account_value,
+            peak_value,
+            ledger,
+            price_path,
+            feature_columns=feature_columns_for_packs(profile.feature.packs, profile.name),
+        )
+        mode_state = route_mode(obs, mode_state, profile.mode_router)
         decision = risk_gate(broker, signal)
         signals.append(signal)
         decisions.append(decision)

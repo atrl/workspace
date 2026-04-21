@@ -37,6 +37,7 @@ from .policy.execution import (
     execution_trade_lock_days,
     rebalance_threshold,
 )
+from .policy.modes import ModeState, mode_band, route_mode
 from .policy.observation import make_observation
 from .policy.policy_builder import actor_action
 from .policy.positioning import target_position_for_profile
@@ -52,6 +53,7 @@ class RLStrategy(BaseStrategy):
         price_series: pd.Series,
         position_cap_config: PositionCapConfig,
         execution_config: ExecutionConfig | None = None,
+        mode_router_config=None,
         symbol: str = "SOXL",
         asset_idx: int = 0,
         feature_columns=None,
@@ -64,6 +66,7 @@ class RLStrategy(BaseStrategy):
         self.price_series = price_series  # 对齐的价格序列
         self.position_cap_config = position_cap_config
         self.execution_config = execution_config or ExecutionConfig()
+        self.mode_router_config = mode_router_config
         self.symbol = symbol        # 当前交易的 ETF 代码
         self.asset_idx = asset_idx  # 资产 one-hot 索引
         self.feature_columns = list(feature_columns or FEATURE_COLUMNS)
@@ -76,6 +79,7 @@ class RLStrategy(BaseStrategy):
         self.ledger = TrancheLedger()           # 持仓账本，与训练时一致
         self.peak_account_value = ACCOUNT
         self.price_path = self.price_series.reindex(self.df.index).ffill().bfill().to_numpy(dtype=np.float32)
+        self.mode_state = ModeState()
 
     def generate_trade_decision(self, execute_result=None):
         """把 actor 的目标仓位转换为 qlib 的买卖订单。
@@ -119,6 +123,9 @@ class RLStrategy(BaseStrategy):
             asset_idx=self.asset_idx,
             feature_columns=self.feature_columns,
         )
+        mode_router_cfg = self.mode_router_config
+        if mode_router_cfg is not None:
+            self.mode_state = route_mode(obs, self.mode_state, mode_router_cfg)
         regime_risk = float(self.df.iloc[idx]["regime_risk"])
         realized_vol = float(self.df.iloc[idx]["realized_vol_10"])
         trend_strength = abs(float(self.df.iloc[idx]["trend_gap_21"]))
@@ -145,6 +152,7 @@ class RLStrategy(BaseStrategy):
             hard_floor=getattr(model_cfg, "hard_floor", None) if model_cfg else None,
             use_hybrid_overlay=bool(getattr(model_cfg, "use_hybrid_overlay", False)) if model_cfg else False,
             delta_levels=np.asarray(getattr(model_cfg, "delta_levels", ()), dtype=np.float32) if model_cfg and getattr(model_cfg, "use_hybrid_overlay", False) else None,
+            mode_band=mode_band(self.mode_state.name) if mode_router_cfg and getattr(mode_router_cfg, "enabled", False) else None,
         )
         direction = "buy" if target_pos > current_pos else ("sell" if target_pos < current_pos else "neutral")
         min_rebalance = rebalance_threshold(
@@ -156,6 +164,7 @@ class RLStrategy(BaseStrategy):
             vix_zscore=vix_zscore,
             downside_ratio_10=downside_ratio_10,
             direction=direction,
+            mode=self.mode_state.name if mode_router_cfg and getattr(mode_router_cfg, "enabled", False) else None,
             config=self.execution_config,
         )
         if self.trade_lock > 0:
@@ -199,6 +208,7 @@ def backtest_profile(
     price_series: pd.Series,
     position_cap_config: PositionCapConfig,
     execution_config: ExecutionConfig | None = None,
+    mode_router_config=None,
     symbol: str = "SOXL",
     asset_idx: int = 0,
     feature_columns=None,
@@ -222,6 +232,7 @@ def backtest_profile(
         price_series=price_series,
         position_cap_config=position_cap_config,
         execution_config=execution_config,
+        mode_router_config=mode_router_config,
         symbol=symbol,
         asset_idx=asset_idx,
         feature_columns=feature_columns,

@@ -15,6 +15,7 @@ from .execution import (
     execution_trade_lock_days,
     rebalance_threshold,
 )
+from .modes import ModeState, mode_band, route_mode
 from .observation import make_observation
 from .positioning import target_position_for_profile
 from ..settings import LOOKBACK
@@ -36,6 +37,7 @@ def evaluate_split(
     use_hybrid_overlay: bool = False,
     delta_levels: Optional[np.ndarray] = None,
     feature_columns: list[str] | tuple[str, ...] | None = None,
+    mode_router_config=None,
 ) -> Dict[str, float]:
     cash = cash0
     peak = cash0
@@ -48,6 +50,7 @@ def evaluate_split(
     values = [cash]
     positions = []
     stress_positions = []
+    mode_state = ModeState()
     for idx in range(LOOKBACK, len(df) - 1):
         obs = make_observation(
             df,
@@ -61,6 +64,7 @@ def evaluate_split(
             observation_window=observation_window,
             feature_columns=feature_columns or FEATURE_COLUMNS,
         )
+        mode_state = route_mode(obs, mode_state, mode_router_config) if mode_router_config is not None else ModeState(name="flat_wait", days_in_mode=1)
         action = actor_action(actor, obs)
         target_pos = target_position_for_profile(
             action,
@@ -70,6 +74,7 @@ def evaluate_split(
             hard_floor=hard_floor,
             use_hybrid_overlay=use_hybrid_overlay,
             delta_levels=delta_levels,
+            mode_band=mode_band(mode_state.name) if mode_router_config and getattr(mode_router_config, "enabled", False) else None,
         )
         row = df.iloc[idx]
         regime_risk = float(np.nan_to_num(row["regime_risk"]))
@@ -99,6 +104,7 @@ def evaluate_split(
             vix_zscore=vix_zscore,
             downside_ratio_10=downside_ratio_10,
             direction=direction,
+            mode=mode_state.name if mode_router_config and getattr(mode_router_config, "enabled", False) else None,
             config=exec_cfg,
         )
         if trade_lock > 0:

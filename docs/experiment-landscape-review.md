@@ -149,6 +149,7 @@ This table is the working summary for the most decision-relevant historical bran
 | balanced_rule_residual_v19 | rule_residual | balanced_rule_residual_v16 | candidate | seed-confirmed GRU baseline | 56.6 / 1.6 / 27.0 | 109.4 / 18.1 | -22.5 / 31.1 / 0.3 | 43.6 / 37.3 | 735.1 / 0.9 / 54.8 | pass |
 | balanced_rule_residual_v20 | rule_residual | balanced_rule_residual_v16 | candidate | penalty=3.0 ablation | 67.4 / 1.7 / 28.3 | 110.1 / 16.2 | -23.4 / 31.7 / 0.3 | 42.6 / 32.7 | 623.2 / 0.9 / 53.8 | pass |
 | balanced_rule_residual_v22 | rule_residual | balanced_rule_residual_v19 | candidate | VIX term-structure features | 62.9 / 1.6 / 30.6 | 115.6 / 16.2 | -24.5 / 32.7 / 0.3 | 37.9 / 32.4 | 695.5 / 0.9 / 54.5 | pass |
+| balanced_rule_residual_mode_v1 | structural | balanced_rule_residual_v19 | candidate | persistent mode hierarchy + mode bands | 36.2 / 1.2 / 26.1 | 64.3 / 10.6 | -13.1 / 16.5 / 0.1 | 43.0 / 20.1 | 886.1 / 1.1 / 42.3 | pass |
 | balanced_rule_residual_v23 | feature_only | balanced_rule_residual_v19 | dropped | narrow transition-state pack | 52.1 / 1.6 / 25.9 | 91.6 / 16.2 | -21.9 / 30.2 / 0.3 | 34.3 / 29.4 | 493.2 / 0.9 / 51.2 | pass |
 | balanced_rule_residual_v24 | structural | balanced_rule_residual_v19 | dropped | decision_frequency=2 + coarse 3-level residual deltas | 61.2 / 1.7 / 27.3 | 97.5 / 17.8 | -22.2 / 30.7 / 0.3 | 38.2 / 31.6 | 758.6 / 1.0 / 54.6 | pass |
 | balanced_transition_state | feature_only | — | — | transition/release features batch | 54.7 / 1.6 / 27.3 | 103.8 / 20.6 | -41.0 / 46.5 / 0.4 | 44.9 / 38.8 | 472.9 / 0.8 / 59.0 | fail |
@@ -189,6 +190,7 @@ This table is the working summary for the most decision-relevant historical bran
 | `v19` | seed-confirmed GRU baseline | highest proxy return in the family | `2023-2024` DD widened | keep as current high-return GRU anchor |
 | `v20` | stronger terminal penalty | none vs `v19` | return down, DD not better | dominated; do not repeat |
 | `v22` | external VIX term-structure data | better `2020` DD and `2023-2024` DD | return drag in `2023-2024` | keep as candidate, needs seed + walk-forward |
+| `mode_v1` | persistent mode hierarchy over residual actor | best `2022` / proxy DD control in the retained frontier | large validation and `2020` upside giveback | keep as candidate |
 | `v23` | narrow transition-state pack | lower `2022` avg_pos / DD and lower proxy DD | large return loss in `2020`, `2023-2024`, proxy | drop; transition signal still maps to broad de-risking |
 | `v24` | lower-frequency coarse residual control | slight `2022` DD / avg_pos improvement | turnover exploded and `2023-2024` return fell | drop; coarse actions did not create real trade compression |
 
@@ -213,6 +215,7 @@ This table is the working summary for the most decision-relevant historical bran
 | `balanced_rule_residual_v1` | best clean architecture change | whether later branches can dominate it on both DD and proxy Sharpe |
 | `balanced_rule_residual_v19` | best high-return GRU line with seed confirmation | walk-forward and regime-specific DD control |
 | `balanced_rule_residual_v22` | first clean external-risk feature win | whether DD gain survives seed variance without return drag |
+| `balanced_rule_residual_mode_v1` | first real temporal-abstraction scaffold inside the mainline RL family | whether bull participation can be recovered without reopening `2022` and proxy DD |
 | `balanced_floor40_sym_slow_bear` | shows aggressive family can be repaired partially | whether that logic can be ported without re-breaking stress |
 | `smoke_rule_residual_v1` | cheap residual sanity check | whether smoke findings transfer to full mainline consistently |
 

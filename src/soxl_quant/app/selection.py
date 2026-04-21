@@ -27,6 +27,7 @@ def build_action_interpreter(profile):
         hard_floor=profile.model.hard_floor,
         use_hybrid_overlay=profile.model.use_hybrid_overlay,
         delta_levels=np.asarray(profile.model.delta_levels, dtype=np.float32) if profile.model.use_hybrid_overlay else None,
+        mode_router_config=profile.mode_router,
     )
 
 
@@ -52,6 +53,7 @@ def train_with_selection(
             hard_floor=profile.model.hard_floor,
             use_hybrid_overlay=profile.model.use_hybrid_overlay,
             delta_levels=np.asarray(profile.model.delta_levels, dtype=np.float32) if profile.model.use_hybrid_overlay else None,
+            mode_router_config=profile.mode_router,
         )
         baseline_score = validation_score(baseline_metrics, profile)
         baseline_state = copy.deepcopy(actor.state_dict())
@@ -79,6 +81,7 @@ def train_with_selection(
             hard_floor=profile.model.hard_floor,
             use_hybrid_overlay=profile.model.use_hybrid_overlay,
             delta_levels=np.asarray(profile.model.delta_levels, dtype=np.float32) if profile.model.use_hybrid_overlay else None,
+            mode_router_config=profile.mode_router,
         )
         final_score = validation_score(final_metrics, profile)
         history = [
@@ -112,6 +115,7 @@ def train_with_selection(
             hard_floor=profile.model.hard_floor,
             use_hybrid_overlay=profile.model.use_hybrid_overlay,
             delta_levels=np.asarray(profile.model.delta_levels, dtype=np.float32) if profile.model.use_hybrid_overlay else None,
+            mode_router_config=profile.mode_router,
         )
 
     baseline_metrics = _eval_valid()

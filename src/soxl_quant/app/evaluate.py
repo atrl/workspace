@@ -65,6 +65,7 @@ def slice_metrics(actor, df, slices: Dict[str, Tuple[str, str]], profile) -> Dic
             action_levels=action_levels_for_profile(profile),
             observation_window=profile.model.observation_window,
             hard_floor=profile.model.hard_floor,
+            mode_router_config=profile.mode_router,
         )
     return metrics
 
