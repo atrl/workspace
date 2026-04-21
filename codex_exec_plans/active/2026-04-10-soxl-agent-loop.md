@@ -937,7 +937,94 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
 - Keep / drop decision:
   - keep `rl.py` as a thin facade only
   - keep result artifact path constants for now
-  - next cleanup can move result output ownership from legacy settings/constants into `core/artifacts.py`, but that is separate from this decomposition pass
+- next cleanup can move result output ownership from legacy settings/constants into `core/artifacts.py`, but that is separate from this decomposition pass
+
+## v19 dwell/throttle fixed-actor overlay diagnostic 2026-04-21 22:xx
+
+- Goal:
+  - test whether explicit execution-side dwell / throttle constraints can create
+    the temporal-abstraction effect that `v24` failed to deliver through retraining
+  - answer the cheaper question first before opening a hierarchical or
+    persistence-aware training branch
+- Canonical baseline:
+  - `balanced`
+- Direct comparison baseline:
+  - `balanced_rule_residual_v19`
+- Experiment role:
+  - `diagnose`
+- Target improvement window:
+  - `test_2022`
+  - `test_proxy`
+  - trade count / churn
+- Accepted trade-off window:
+  - allow some return give-back if:
+    - `test_2022` drawdown improves materially
+    - trade count falls materially
+    - `test_proxy` Sharpe stays above promotion floor
+- Changed layer:
+  - `execution`
+- Closest historical success case:
+  - `memory/2026-04-18-trade-compression-experiments.md`
+  - execution-side compression on the older floor40 branch was more effective
+    than reward penalties
+- Closest historical failure case:
+  - `balanced_rule_residual_v24`
+  - lower-frequency coarse action retraining did not reduce realized churn
+- Why this is not a duplicate:
+  - no new actor training
+  - tests hard execution persistence against the retained `v19` actor directly
+  - isolates whether the missing ingredient is execution accumulation rather than
+    another policy-learning pass
+- External reference:
+  - same temporal-abstraction motivation as `v24`, but translated into explicit
+    action persistence / hysteresis constraints at execution time
+- New mechanism:
+  - fixed-actor overlays that raise:
+    - `trade_lock_days`
+    - `min_trade_turnover`
+    - rebalance thresholds
+  - one asymmetric variant preserves faster sells in stress while throttling buys
+- Comparison-table row:
+  - no new master-table row unless a variant materially dominates current
+    overlays; otherwise record as diagnostic evidence only
+- Planned files:
+  - `runtime/post_train_review/v19_dwell_overlay_variants.json`
+  - `runtime/post_train_review/v19_dwell_overlay_diagnostic.json`
+- Planned command:
+  - `PYTHONPATH=. qlib_venv/bin/python scripts/execution_overlay_generalization.py --profile balanced_rule_residual_v19 --model artifacts/models/soxl_balanced_rule_residual_v19_actor.pt --variants-json runtime/post_train_review/v19_dwell_overlay_variants.json --output runtime/post_train_review/v19_dwell_overlay_diagnostic.json`
+- Acceptance criteria:
+  - at least one variant reduces SOXL proxy trades meaningfully versus base
+  - `bear_2022` maxdd improves or stays flat
+  - no variant collapses SOXL proxy Sharpe below `0.75`
+- Validation evidence:
+  - command completed and wrote:
+    - `runtime/post_train_review/v19_dwell_overlay_diagnostic.json`
+  - SOXL results:
+    - base: `412.7% / 0.837 / 48.79% / 313 trades | bear_2022 maxdd 31.32`
+    - `dwell_hold_v1`: `390.3% / 0.813 / 47.35% / 176 trades | bear_2022 maxdd 32.33`
+    - `dwell_hold_v2`: `418.4% / 0.822 / 48.30% / 135 trades | bear_2022 maxdd 31.59`
+    - `stress_asym_hold_v1`: `435.5% / 0.866 / 46.72% / 372 trades | bear_2022 maxdd 30.87`
+  - cross-ETF readout:
+    - `dwell_hold_v1` generalized best as a compression profile on `TQQQ` and `SPXL`
+    - `dwell_hold_v2` was strongest only on SOXL and degraded `TECL`
+    - `stress_asym_hold_v1` improved SOXL/DD but increased churn and was mixed elsewhere
+- Readout:
+  - explicit dwell/throttle overlays do work on the retained `v19` actor
+  - the failed `v24` temporal-compression idea was therefore not blocked by the actor family alone
+  - the missing ingredient was execution-side persistence, not another coarse-action retrain
+  - the best SOXL-specific cheap next step is now:
+    - fixed-actor overlay promotion testing around `dwell_hold_v2`
+  - the best generalized overlay candidate is weaker:
+    - `dwell_hold_v1` is safer cross-ETF but gives back more SOXL return
+- Keep / drop decision:
+  - keep the diagnostic conclusion
+  - keep `v19_dwell_overlay_variants.json` and the result JSON as repo evidence
+  - do not start a new temporal-compression retrain until a persistence-aware
+    execution path has been fully exploited
+- Next action:
+  - run a SOXL-only promotion-style fixed-split review for `dwell_hold_v2`
+  - if it holds up, compare it directly against existing overlay variants before
+    considering any new training branch
 
 ## App and policy consolidation 2026-04-19 00:xx
 

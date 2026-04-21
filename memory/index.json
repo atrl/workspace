@@ -1746,6 +1746,29 @@
     "excerpt": "# 2026-04-21 release overlay evaluation ## Context The repo already concluded that another generic overlay sweep would be duplicate work unless it introduced an explicit `release / re-entry` state beyond the existing `stress / bull / base` routing. That state was implemented and "
   },
   {
+    "path": "memory/2026-04-21-v19-dwell-overlay-diagnostic.md",
+    "date": "2026-04-21",
+    "title": "2026-04-21 v19 dwell overlay diagnostic",
+    "kind": "decision",
+    "profiles": [
+      "balanced_rule_residual_v19",
+      "soxl"
+    ],
+    "status": "reference",
+    "tags": [
+      "balanced_rule_residual_v19",
+      "decision",
+      "execution-overlay",
+      "reference",
+      "soxl",
+      "stress-regime"
+    ],
+    "artifacts": [],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Base actor: `balanced_rule_residual_v19` Motivation: `v24` showed that lower-frequency coarse retraining did not reduce realized churn, so the next cheap question was whether the missing ingredient was execution-side persistence. `dwell_hol",
+    "excerpt": "# 2026-04-21 v19 dwell overlay diagnostic ## Context - Base actor: `balanced_rule_residual_v19` - Motivation: `v24` showed that lower-frequency coarse retraining did not reduce realized churn, so the next cheap question was whether the missing ingredient was execution-side persis"
+  },
+  {
     "path": "memory/2026-04-21-v22-vix-term-structure-results.md",
     "date": "2026-04-21",
     "title": "2026-04-21 v22 VIX term-structure training results",
