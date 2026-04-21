@@ -42,6 +42,8 @@ reward:
   micro_rebalance_threshold: 0.05
   short_hold_turnover_penalty: 2.25
   short_hold_threshold: 0.16
+feature:
+  packs: [vix_term]
 position_cap:
   start_drawdown: 0.10
   full_drawdown: 0.30
@@ -79,8 +81,3 @@ model:
   observation_window: 5
   use_gru: true
   gru_hidden_size: 64
-# NOTE: v22 extends v19 feature schema with VIX term-structure / SKEW / VVIX
-# (5 extra columns). Training entrypoint must export SOXL_USE_VIX_TERM=1 so
-# `src/soxl_quant/data.py::engineer_feature_frame` emits the full 64-column
-# FEATURE_COLUMNS. Run via:
-#   SOXL_USE_VIX_TERM=1 qlib_venv/bin/python -m soxl_quant.cli train --profile balanced_rule_residual_v22

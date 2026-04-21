@@ -7,6 +7,7 @@ import pandas as pd
 from tianshou.utils.net.discrete import Actor
 
 from ..config import ExecutionConfig, PositionCapConfig
+from ..data import FEATURE_COLUMNS
 from .execution import (
     DEFAULT_EXECUTION,
     execution_buy_cooldown_days,
@@ -34,6 +35,7 @@ def evaluate_split(
     hard_floor: Optional[float] = None,
     use_hybrid_overlay: bool = False,
     delta_levels: Optional[np.ndarray] = None,
+    feature_columns: list[str] | tuple[str, ...] | None = None,
 ) -> Dict[str, float]:
     cash = cash0
     peak = cash0
@@ -57,6 +59,7 @@ def evaluate_split(
             price_path,
             asset_idx=asset_idx,
             observation_window=observation_window,
+            feature_columns=feature_columns or FEATURE_COLUMNS,
         )
         action = actor_action(actor, obs)
         target_pos = target_position_for_profile(

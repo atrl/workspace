@@ -54,6 +54,7 @@ class RLStrategy(BaseStrategy):
         execution_config: ExecutionConfig | None = None,
         symbol: str = "SOXL",
         asset_idx: int = 0,
+        feature_columns=None,
         **kwargs,
     ):
         self.model_config = kwargs.pop("model_config", None)
@@ -65,6 +66,7 @@ class RLStrategy(BaseStrategy):
         self.execution_config = execution_config or ExecutionConfig()
         self.symbol = symbol        # 当前交易的 ETF 代码
         self.asset_idx = asset_idx  # 资产 one-hot 索引
+        self.feature_columns = list(feature_columns or FEATURE_COLUMNS)
         self.last_step = -10        # 冷却期计数，避免连续过度交易
         self.buy_cooldown = 0
         self.trade_lock = 0
@@ -115,6 +117,7 @@ class RLStrategy(BaseStrategy):
             self.ledger,
             self.price_path,
             asset_idx=self.asset_idx,
+            feature_columns=self.feature_columns,
         )
         regime_risk = float(self.df.iloc[idx]["regime_risk"])
         realized_vol = float(self.df.iloc[idx]["realized_vol_10"])
@@ -198,6 +201,7 @@ def backtest_profile(
     execution_config: ExecutionConfig | None = None,
     symbol: str = "SOXL",
     asset_idx: int = 0,
+    feature_columns=None,
     test_seg: Tuple[str, str] = TEST_SEG,
     open_cost: float = 0.001,
     close_cost: float = 0.001,
@@ -220,6 +224,7 @@ def backtest_profile(
         execution_config=execution_config,
         symbol=symbol,
         asset_idx=asset_idx,
+        feature_columns=feature_columns,
         model_config=model_config,
     )
     portfolio_metric, indicator_metric = qlib_backtest(

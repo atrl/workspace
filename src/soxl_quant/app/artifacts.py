@@ -5,7 +5,7 @@ from typing import Dict
 
 import torch
 
-from ..data import FEATURE_COLUMNS, feature_schema_signature
+from ..data import feature_columns_for_packs, feature_schema_signature
 from ..settings import EXTRA_OBS_DIM, MODEL_DIR, N_ASSETS, model_artifact_path, summary_artifact_path
 
 
@@ -92,10 +92,11 @@ def serialize_warm_start(profile) -> Dict[str, object]:
     }
 
 
-def feature_schema_payload() -> Dict[str, object]:
+def feature_schema_payload(profile) -> Dict[str, object]:
+    feature_columns = feature_columns_for_packs(profile.feature.packs, profile.name)
     return {
-        "signature": feature_schema_signature(),
-        "feature_count": len(FEATURE_COLUMNS),
+        "signature": feature_schema_signature(profile.feature.packs, profile.name),
+        "feature_count": len(feature_columns),
         "extra_obs_dim": EXTRA_OBS_DIM,
         "n_assets": N_ASSETS,
     }
@@ -116,7 +117,7 @@ def persist_actor_bundle(profile, actor, obs_dim: int, seed: int, effective_tag:
             "hidden_sizes": list(profile.hidden_sizes),
             "obs_dim": obs_dim,
             "n_actions": int(getattr(actor, "output_dim", 0) or 11),
-            "feature_schema": feature_schema_payload(),
+            "feature_schema": feature_schema_payload(profile),
             "position_cap": serialize_position_cap(profile),
             "selection_score": serialize_selection_score(profile),
             "model_config": serialize_model_config(profile),

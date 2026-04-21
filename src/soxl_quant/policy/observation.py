@@ -7,35 +7,41 @@ import pandas as pd
 from tianshou.utils.net.discrete import Actor
 
 from ..config import StrategyConfig
-from ..data import FEATURE_COLUMNS
+from ..data import FEATURE_COLUMNS, feature_columns_for_packs
 from ..settings import EXTRA_OBS_DIM, LOOKBACK, N_ASSETS
 
 if TYPE_CHECKING:
     from .environment import TrancheLedger
 
 
-EXTRA_INDEX = {
-    "lookback_mean_return": len(FEATURE_COLUMNS) + 0,
-    "lookback_return_skew": len(FEATURE_COLUMNS) + 1,
-    "lookback_downside": len(FEATURE_COLUMNS) + 2,
-    "episode_progress": len(FEATURE_COLUMNS) + 3,
-    "position": len(FEATURE_COLUMNS) + 4,
-    "underwater": len(FEATURE_COLUMNS) + 5,
-    "holding_age": len(FEATURE_COLUMNS) + 6,
-    "avg_entry_pnl": len(FEATURE_COLUMNS) + 7,
-    "last_add_pnl": len(FEATURE_COLUMNS) + 8,
-    "high_gap": len(FEATURE_COLUMNS) + 9,
-    "last_tranche_pnl": len(FEATURE_COLUMNS) + 10,
-    "n_tranches": len(FEATURE_COLUMNS) + 11,
-    "drawdown_velocity_5": len(FEATURE_COLUMNS) + 12,
-    "regime_risk_max_60d": len(FEATURE_COLUMNS) + 13,
-    "vol_velocity_5": len(FEATURE_COLUMNS) + 14,
-}
+def extra_index(feature_columns: list[str] | tuple[str, ...] | None = None) -> dict[str, int]:
+    cols = list(feature_columns or FEATURE_COLUMNS)
+    return {
+        "lookback_mean_return": len(cols) + 0,
+        "lookback_return_skew": len(cols) + 1,
+        "lookback_downside": len(cols) + 2,
+        "episode_progress": len(cols) + 3,
+        "position": len(cols) + 4,
+        "underwater": len(cols) + 5,
+        "holding_age": len(cols) + 6,
+        "avg_entry_pnl": len(cols) + 7,
+        "last_add_pnl": len(cols) + 8,
+        "high_gap": len(cols) + 9,
+        "last_tranche_pnl": len(cols) + 10,
+        "n_tranches": len(cols) + 11,
+        "drawdown_velocity_5": len(cols) + 12,
+        "regime_risk_max_60d": len(cols) + 13,
+        "vol_velocity_5": len(cols) + 14,
+    }
+
+
+EXTRA_INDEX = extra_index(FEATURE_COLUMNS)
 
 
 def observation_dim_for_profile(profile: StrategyConfig) -> int:
     window = max(int(profile.model.observation_window), 1)
-    return len(FEATURE_COLUMNS) * window + EXTRA_OBS_DIM + N_ASSETS
+    feature_columns = feature_columns_for_packs(profile.feature.packs, profile.name)
+    return len(feature_columns) * window + EXTRA_OBS_DIM + N_ASSETS
 
 
 def infer_actor_obs_dim(actor: Actor) -> int | None:
@@ -80,7 +86,9 @@ def make_observation(
     price_path: np.ndarray,
     asset_idx: int = 0,
     observation_window: int = 1,
+    feature_columns: list[str] | tuple[str, ...] | None = None,
 ) -> np.ndarray:
+    selected_columns = list(feature_columns or FEATURE_COLUMNS)
     row = df.iloc[idx]
     lb = df.iloc[idx - LOOKBACK : idx]
     underwater = value / max(peak_value, 1e-8) - 1.0
@@ -92,9 +100,9 @@ def make_observation(
     window = max(int(observation_window), 1)
     history_features: list[float] = []
     if window > 1:
-        history = df.iloc[idx - window + 1 : idx][FEATURE_COLUMNS]
+        history = df.iloc[idx - window + 1 : idx][selected_columns]
         if len(history) < window - 1:
-            pad_rows = np.zeros((window - 1 - len(history), len(FEATURE_COLUMNS)), dtype=np.float32)
+            pad_rows = np.zeros((window - 1 - len(history), len(selected_columns)), dtype=np.float32)
             history_values = np.vstack([pad_rows, history.to_numpy(dtype=np.float32)])
         else:
             history_values = history.to_numpy(dtype=np.float32)
@@ -103,7 +111,7 @@ def make_observation(
     regime_risk_max_60d = float(lb["regime_risk"].max()) if len(lb) > 0 else 0.0
     vol_velocity_5 = float(row["realized_vol_10"] - lb["realized_vol_10"].iloc[-6]) if len(lb) >= 6 else 0.0
     obs = np.array(
-        list(row[FEATURE_COLUMNS].values.astype(np.float32))
+        list(row[selected_columns].values.astype(np.float32))
         + history_features
         + [
             float(np.nan_to_num(lb["return"].mean())),

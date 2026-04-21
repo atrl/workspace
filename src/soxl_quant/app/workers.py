@@ -98,7 +98,14 @@ def run_worker_profile(args: argparse.Namespace) -> None:
     patch_gym_compat()
     set_global_seed(args.seed)
     init_qlib(QLIB_DATA_PATH)
-    dataset = build_dataset(ablate_vix=args.ablate_vix)
+    profile = load_profile(args.worker_run_profile)
+    if args.smoke or args.worker_run_profile == "smoke":
+        profile = load_profile("smoke")
+    dataset = build_dataset(
+        ablate_vix=args.ablate_vix,
+        feature_packs=tuple(profile.feature.packs),
+        profile_name=profile.name,
+    )
     full_df = pd.concat(
         [
             segment_frame(dataset, "train"),
@@ -107,12 +114,13 @@ def run_worker_profile(args: argparse.Namespace) -> None:
         ]
     ).sort_index()
     price_frame = dataset.handler.price_frame.droplevel("instrument")["price"].sort_index()
-    profile = load_profile(args.worker_run_profile)
-    if args.smoke or args.worker_run_profile == "smoke":
-        profile = load_profile("smoke")
     multi_asset_sources = None
     if args.multi_asset:
-        multi_asset_sources = build_multi_asset_sources(ROOT / "data" / "multi_asset", verbose=False)
+        multi_asset_sources = build_multi_asset_sources(
+            ROOT / "data" / "multi_asset",
+            profile=profile,
+            verbose=False,
+        )
 
     result = run_profile(
         profile=profile,

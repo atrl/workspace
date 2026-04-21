@@ -2,9 +2,46 @@ from __future__ import annotations
 
 from typing import Optional
 
-from ..config import ExecutionConfig
+from ..config import ExecutionConfig, ExecutionRegimeConfig
 
 DEFAULT_EXECUTION = ExecutionConfig()
+
+
+def _regime_context(
+    regime_risk: float,
+    realized_vol: float,
+    trend_strength: float,
+    cum_drop_30: float,
+    relative_strength: float,
+    vix_zscore: float,
+    downside_ratio_10: float,
+) -> dict[str, float]:
+    return {
+        "regime_risk": float(regime_risk),
+        "realized_vol": float(realized_vol),
+        "trend_strength": float(trend_strength),
+        "cum_drop_30": float(cum_drop_30),
+        "relative_strength": float(relative_strength),
+        "vix_zscore": float(vix_zscore),
+        "downside_ratio_10": float(downside_ratio_10),
+    }
+
+
+def _matches_custom_regime(rule: ExecutionRegimeConfig, context: dict[str, float]) -> bool:
+    for key, expected in rule.conditions.items():
+        if key.endswith("_min"):
+            metric = key[:-4]
+            if context.get(metric, 0.0) < expected:
+                return False
+            continue
+        if key.endswith("_max"):
+            metric = key[:-4]
+            if context.get(metric, 0.0) > expected:
+                return False
+            continue
+        if context.get(key, 0.0) != expected:
+            return False
+    return True
 
 
 def execution_regime(
@@ -18,6 +55,15 @@ def execution_regime(
     config: Optional[ExecutionConfig] = None,
 ) -> str:
     cfg = config or DEFAULT_EXECUTION
+    context = _regime_context(
+        regime_risk=regime_risk,
+        realized_vol=realized_vol,
+        trend_strength=trend_strength,
+        cum_drop_30=cum_drop_30,
+        relative_strength=relative_strength,
+        vix_zscore=vix_zscore,
+        downside_ratio_10=downside_ratio_10,
+    )
     if (
         regime_risk > cfg.stress_regime_threshold
         or realized_vol > cfg.stress_vol_threshold
@@ -30,18 +76,17 @@ def execution_regime(
         and trend_strength > cfg.bull_trend_threshold
     ):
         return "bull"
-    if (
-        cfg.release_enabled
-        and cum_drop_30 <= cfg.release_cum_drop_ceiling
-        and regime_risk <= cfg.release_regime_ceiling
-        and realized_vol <= cfg.release_vol_ceiling
-        and trend_strength >= cfg.release_trend_floor
-        and relative_strength >= cfg.release_relative_strength_floor
-        and vix_zscore <= cfg.release_vix_zscore_ceiling
-        and downside_ratio_10 <= cfg.release_downside_ratio_ceiling
-    ):
-        return "release"
+    for custom_regime in cfg.custom_regimes:
+        if _matches_custom_regime(custom_regime, context):
+            return custom_regime.name
     return "base"
+
+
+def _custom_regime(cfg: ExecutionConfig, regime: str) -> Optional[ExecutionRegimeConfig]:
+    for item in cfg.custom_regimes:
+        if item.name == regime:
+            return item
+    return None
 
 
 def execution_trade_lock_days(config: Optional[ExecutionConfig], regime: str) -> int:
@@ -50,8 +95,9 @@ def execution_trade_lock_days(config: Optional[ExecutionConfig], regime: str) ->
         return int(cfg.bull_trade_lock_days)
     if regime == "stress" and cfg.stress_trade_lock_days >= 0:
         return int(cfg.stress_trade_lock_days)
-    if regime == "release" and cfg.release_trade_lock_days >= 0:
-        return int(cfg.release_trade_lock_days)
+    custom = _custom_regime(cfg, regime)
+    if custom is not None and custom.trade_lock_days >= 0:
+        return int(custom.trade_lock_days)
     return int(cfg.trade_lock_days)
 
 
@@ -70,8 +116,9 @@ def execution_buy_cooldown_days(
         return int(cfg.bull_buy_cooldown_days)
     if regime == "stress" and cfg.stress_buy_cooldown_days >= 0:
         return int(cfg.stress_buy_cooldown_days)
-    if regime == "release" and cfg.release_buy_cooldown_days >= 0:
-        return int(cfg.release_buy_cooldown_days)
+    custom = _custom_regime(cfg, regime)
+    if custom is not None and custom.buy_cooldown_days >= 0:
+        return int(custom.buy_cooldown_days)
     return int(cfg.buy_cooldown_days)
 
 
@@ -124,11 +171,13 @@ def rebalance_threshold(
             threshold *= float(cfg.stress_buy_threshold_multiplier)
         elif direction == "sell":
             threshold *= float(cfg.stress_sell_threshold_multiplier)
-    elif regime == "release":
-        if direction == "buy":
-            threshold *= float(cfg.release_buy_threshold_multiplier)
-        elif direction == "sell":
-            threshold *= float(cfg.release_sell_threshold_multiplier)
+    else:
+        custom = _custom_regime(cfg, regime)
+        if custom is not None:
+            if direction == "buy":
+                threshold *= float(custom.buy_threshold_multiplier)
+            elif direction == "sell":
+                threshold *= float(custom.sell_threshold_multiplier)
     return threshold
 
 

@@ -12,7 +12,7 @@ from qlib.rl.interpreter import ActionInterpreter, StateInterpreter
 from qlib.rl.simulator import Simulator
 
 from ..config import ExecutionConfig, PositionCapConfig, StrategyConfig
-from ..data import FEATURE_COLUMNS
+from ..data import FEATURE_COLUMNS, feature_columns_for_packs
 from .execution import (
     DEFAULT_EXECUTION,
     execution_buy_cooldown_days,
@@ -106,6 +106,8 @@ class EpisodeConfig(NamedTuple):
     pkl_path: str
     start_idx: int
     end_idx: int
+    profile_name: str = ""
+    feature_packs: Tuple[str, ...] = ()
     lookback: int = LOOKBACK
     cash: float = 100_000.0
     asset_idx: int = 0
@@ -145,7 +147,10 @@ class SoxlSimulator(Simulator):
         self.trade_lock = 0
         self.asset_idx = getattr(initial, "asset_idx", 0)
         self.observation_window = max(int(getattr(initial, "observation_window", 1)), 1)
-        self.obs_dim = len(FEATURE_COLUMNS) * self.observation_window + EXTRA_OBS_DIM + N_ASSETS
+        profile_name = getattr(initial, "profile_name", None)
+        feature_packs = getattr(initial, "feature_packs", ())
+        self.feature_columns = feature_columns_for_packs(feature_packs, profile_name)
+        self.obs_dim = len(self.feature_columns) * self.observation_window + EXTRA_OBS_DIM + N_ASSETS
         self.ledger = TrancheLedger()
         self.decision_frequency = max(int(getattr(initial, "decision_frequency", 1)), 1)
         self.nday_window = max(int(getattr(initial, "nday_window", 5)), 1)
@@ -305,6 +310,7 @@ class SoxlSimulator(Simulator):
             self.price_path,
             asset_idx=self.asset_idx,
             observation_window=self.observation_window,
+            feature_columns=self.feature_columns,
         )
         rule_pos = rule_based_position(obs)
         return {
@@ -415,6 +421,8 @@ def build_initial_states(
                 str(pkl_path),
                 start_idx,
                 end_idx,
+                profile_name=profile.name,
+                feature_packs=tuple(profile.feature.packs),
                 asset_idx=asset_idx,
                 observation_window=observation_window,
                 decision_frequency=decision_frequency,

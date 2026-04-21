@@ -42,6 +42,8 @@ reward:
   micro_rebalance_threshold: 0.05
   short_hold_turnover_penalty: 2.25
   short_hold_threshold: 0.16
+feature:
+  packs: [transition_v23]
 position_cap:
   start_drawdown: 0.10
   full_drawdown: 0.30
@@ -79,5 +81,3 @@ model:
   observation_window: 5
   use_gru: true
   gru_hidden_size: 64
-# NOTE: v23 extends the v19 schema with a narrow 6-column transition-state pack.
-# Training / replay entrypoints must export SOXL_USE_TRANSITION_V23=1.

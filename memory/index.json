@@ -1560,6 +1560,29 @@
     "excerpt": "# v8 Results: Passes Fixed-Split Promotion Gate, But Penalties Degrade Learning ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence Date: 2026-04-20 Profile: `balanced_rule_residual_v8` Baseline: `balanced_rule_residual_v2` (best drawdown), `v7` (previ"
   },
   {
+    "path": "memory/2026-04-21-core-extension-cleanup.md",
+    "date": "2026-04-21",
+    "title": "2026-04-21 core extension cleanup",
+    "kind": "failure",
+    "profiles": [
+      "balanced_rule_residual_v22",
+      "balanced_rule_residual_v23"
+    ],
+    "status": "dropped",
+    "tags": [
+      "balanced_rule_residual_v22",
+      "balanced_rule_residual_v23",
+      "dropped",
+      "execution-overlay",
+      "failure",
+      "transition-features"
+    ],
+    "artifacts": [],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Cleaned failed experiment mechanisms out of core runtime paths. Execution experiments now extend through declarative `custom_regimes`, and feature experiments now extend through profile-owned `feature.packs` plus optional experiment-local `extensions.py` files instead of env flags and shared dataclass field growth.",
+    "excerpt": "# 2026-04-21 core extension cleanup ## Context Recent failed experiments had left too much experiment-specific logic inside shared runtime modules: - `ExecutionConfig` grew `release_*` fields for one dropped overlay branch - `data.py` grew env-gated feature-schema mutation for `v"
+  },
+  {
     "path": "memory/2026-04-21-dashboard-slimming-and-overlay-order.md",
     "date": "2026-04-21",
     "title": "2026-04-21 dashboard slimming and next-step overlay order",

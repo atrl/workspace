@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from src.soxl_quant.config import ExecutionConfig
+from src.soxl_quant.config import ExecutionConfig, ExecutionRegimeConfig
 from src.soxl_quant.policy.execution import (
     execution_buy_cooldown_days,
     execution_regime,
@@ -80,14 +80,20 @@ def test_risk_gate_blocks_non_promoted_model():
 def test_execution_regime_detects_release_only_when_enabled():
     disabled = ExecutionConfig()
     enabled = ExecutionConfig(
-        release_enabled=True,
-        release_regime_ceiling=0.56,
-        release_vol_ceiling=0.60,
-        release_trend_floor=0.035,
-        release_relative_strength_floor=0.18,
-        release_vix_zscore_ceiling=0.35,
-        release_downside_ratio_ceiling=0.48,
-        release_cum_drop_ceiling=-0.10,
+        custom_regimes=(
+            ExecutionRegimeConfig(
+                name="release",
+                conditions={
+                    "cum_drop_30_max": -0.10,
+                    "regime_risk_max": 0.56,
+                    "realized_vol_max": 0.60,
+                    "trend_strength_min": 0.035,
+                    "relative_strength_min": 0.18,
+                    "vix_zscore_max": 0.35,
+                    "downside_ratio_10_max": 0.48,
+                },
+            ),
+        ),
     )
     kwargs = dict(
         regime_risk=0.50,
@@ -104,18 +110,24 @@ def test_execution_regime_detects_release_only_when_enabled():
 
 def test_release_overrides_make_buying_easier_and_faster():
     cfg = ExecutionConfig(
-        release_enabled=True,
-        release_regime_ceiling=0.56,
-        release_vol_ceiling=0.60,
-        release_trend_floor=0.035,
-        release_relative_strength_floor=0.18,
-        release_vix_zscore_ceiling=0.35,
-        release_downside_ratio_ceiling=0.48,
-        release_cum_drop_ceiling=-0.10,
-        release_buy_threshold_multiplier=0.72,
-        release_sell_threshold_multiplier=1.10,
-        release_buy_cooldown_days=0,
-        release_trade_lock_days=1,
+        custom_regimes=(
+            ExecutionRegimeConfig(
+                name="release",
+                conditions={
+                    "cum_drop_30_max": -0.10,
+                    "regime_risk_max": 0.56,
+                    "realized_vol_max": 0.60,
+                    "trend_strength_min": 0.035,
+                    "relative_strength_min": 0.18,
+                    "vix_zscore_max": 0.35,
+                    "downside_ratio_10_max": 0.48,
+                },
+                buy_threshold_multiplier=0.72,
+                sell_threshold_multiplier=1.10,
+                buy_cooldown_days=0,
+                trade_lock_days=1,
+            ),
+        ),
     )
     release_kwargs = dict(
         regime_risk=0.50,

@@ -13,10 +13,10 @@ from __future__ import annotations
   - 后续做多资产训练时，建议增加 instrument_id 和品种波动率画像特征。
 """
 
-import os
 from pathlib import Path
 import hashlib
-from typing import List, Tuple
+import importlib.util
+from typing import Any, Callable, List, Tuple
 
 import numpy as np
 import pandas as pd
@@ -28,43 +28,15 @@ from qlib.data.dataset.loader import StaticDataLoader
 
 from .settings import TEST_SEG, TRAIN_SEG, VALID_SEG
 
+from .config import experiment_dir_for_profile
+
 ROOT = Path(__file__).resolve().parents[2]
 EXTERNAL_DATA_DIR = ROOT / "data" / "external"
 
-
-def _vix_term_feature_flag() -> bool:
-    """Enable VIX term-structure + SKEW + VVIX features.
-
-    Gated behind an env var so existing actor bundles (trained with 59-feature
-    schema) stay replay-compatible by default. New profiles (v22+) should set
-    `SOXL_USE_VIX_TERM=1` in their training entrypoint before importing data.
-    """
-    return os.environ.get("SOXL_USE_VIX_TERM", "0") == "1"
+FeatureBuilder = Callable[[dict[str, Any]], dict[str, pd.Series]]
 
 
-def _transition_v23_feature_flag() -> bool:
-    """Enable the narrow v23 transition-state feature pack."""
-    return os.environ.get("SOXL_USE_TRANSITION_V23", "0") == "1"
-
-
-VIX_TERM_FEATURE_COLUMNS: List[str] = [
-    "vvix_zscore_252",
-    "vix_term_slope",
-    "vix_short_ratio",
-    "skew_zscore_252",
-    "vix_term_slope_velocity_5",
-]
-
-TRANSITION_V23_FEATURE_COLUMNS: List[str] = [
-    "vix_zscore_delta_5",
-    "downside_ratio_10_delta_5",
-    "days_above_stress_threshold_21",
-    "trend_slope_10",
-    "stress_then_relief_flag",
-    "trend_restart_flag",
-]
-
-FEATURE_COLUMNS: List[str] = [
+CORE_FEATURE_COLUMNS: List[str] = [
     "return",
     "anchor_gap_180",
     "anchor_slope_180",
@@ -127,15 +99,96 @@ FEATURE_COLUMNS: List[str] = [
     "realized_skew_21",
     "gain_streak_10",
 ]
-if _vix_term_feature_flag():
-    FEATURE_COLUMNS.extend(VIX_TERM_FEATURE_COLUMNS)
-if _transition_v23_feature_flag():
-    FEATURE_COLUMNS.extend(TRANSITION_V23_FEATURE_COLUMNS)
+FEATURE_COLUMNS: List[str] = list(CORE_FEATURE_COLUMNS)
 STATIC_INDEX = {name: idx for idx, name in enumerate(FEATURE_COLUMNS)}
 
 
-def feature_schema_signature() -> str:
-    payload = "|".join(FEATURE_COLUMNS).encode("utf-8")
+def _builtin_vix_term_pack(context: dict[str, Any]) -> dict[str, pd.Series]:
+    index = context["index"]
+    vix = context["vix"]
+    vvix = _align_external(_load_external_series("VVIX.csv", "VVIX"), index)
+    vix3m = _align_external(_load_external_series("VIX3M.csv", "CLOSE"), index)
+    vix9d = _align_external(_load_external_series("VIX9D.csv", "CLOSE"), index)
+    skew = _align_external(_load_external_series("SKEW.csv", "SKEW"), index)
+    vvix_zscore_252 = ((vvix - vvix.rolling(252).mean()) / (vvix.rolling(252).std() + 1e-8)).fillna(0.0)
+    vix_term_slope = (vix / vix3m.replace(0.0, np.nan) - 1.0).fillna(0.0)
+    vix_short_ratio = (vix9d / vix.replace(0.0, np.nan) - 1.0).fillna(0.0)
+    skew_zscore_252 = ((skew - skew.rolling(252).mean()) / (skew.rolling(252).std() + 1e-8)).fillna(0.0)
+    vix_term_slope_velocity_5 = (vix_term_slope - vix_term_slope.shift(5)).fillna(0.0)
+    return {
+        "vvix_zscore_252": vvix_zscore_252,
+        "vix_term_slope": vix_term_slope,
+        "vix_short_ratio": vix_short_ratio,
+        "skew_zscore_252": skew_zscore_252,
+        "vix_term_slope_velocity_5": vix_term_slope_velocity_5,
+    }
+
+
+BUILTIN_FEATURE_PACKS: dict[str, dict[str, Any]] = {
+    "vix_term": {
+        "columns": (
+            "vvix_zscore_252",
+            "vix_term_slope",
+            "vix_short_ratio",
+            "skew_zscore_252",
+            "vix_term_slope_velocity_5",
+        ),
+        "builder": _builtin_vix_term_pack,
+    }
+}
+
+
+def _load_experiment_extensions_module(profile_name: str | None):
+    if not profile_name:
+        return None
+    exp_dir = experiment_dir_for_profile(profile_name)
+    if exp_dir is None:
+        return None
+    path = exp_dir / "extensions.py"
+    if not path.exists():
+        return None
+    spec = importlib.util.spec_from_file_location(f"soxl_exp_ext_{profile_name}", path)
+    if spec is None or spec.loader is None:
+        return None
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def _feature_pack_registry(profile_name: str | None = None) -> dict[str, dict[str, Any]]:
+    registry = dict(BUILTIN_FEATURE_PACKS)
+    module = _load_experiment_extensions_module(profile_name)
+    if module is not None:
+        registry.update(getattr(module, "FEATURE_PACKS", {}))
+    return registry
+
+
+def feature_columns_for_packs(
+    feature_packs: Tuple[str, ...] | List[str] | None = None,
+    profile_name: str | None = None,
+) -> List[str]:
+    columns = list(CORE_FEATURE_COLUMNS)
+    registry = _feature_pack_registry(profile_name)
+    for pack in feature_packs or ():
+        payload = registry.get(pack)
+        if payload is None:
+            raise KeyError(f"unknown feature pack '{pack}' for profile={profile_name or '<default>'}")
+        columns.extend(list(payload["columns"]))
+    return columns
+
+
+def static_index_for_packs(
+    feature_packs: Tuple[str, ...] | List[str] | None = None,
+    profile_name: str | None = None,
+) -> dict[str, int]:
+    return {name: idx for idx, name in enumerate(feature_columns_for_packs(feature_packs, profile_name))}
+
+
+def feature_schema_signature(
+    feature_packs: Tuple[str, ...] | List[str] | None = None,
+    profile_name: str | None = None,
+) -> str:
+    payload = "|".join(feature_columns_for_packs(feature_packs, profile_name)).encode("utf-8")
     return hashlib.sha1(payload).hexdigest()[:12]
 
 
@@ -356,6 +409,8 @@ def engineer_feature_frame(
     leverage_ratio: float = 3.0,
     leveraged_etf: str = "SOXL",
     ablate_vix: bool = False,
+    feature_packs: Tuple[str, ...] | List[str] | None = None,
+    profile_name: str | None = None,
 ) -> Tuple[pd.DataFrame, pd.Series]:
     """构建体制感知（regime-aware）特征矩阵，供训练、回测、运行时使用。
 
@@ -497,16 +552,6 @@ def engineer_feature_frame(
         + 0.07 * loss_streak_21.fillna(0.0)
     )
 
-    transition_state = _build_transition_state_features(
-        anchor_gap_180=anchor_gap_180,
-        below_anchor_ratio_63=below_anchor_ratio_63,
-        relative_strength_21=relative_strength_21,
-        regime_risk=regime_risk,
-        vix_zscore=vix_zscore,
-        downside_ratio_10=downside_ratio_10,
-        trend_slope_10=trend_slope_10,
-    )
-
     # --- Temporal differential / momentum velocity features (v3) ---
     # Short-term momentum for faster regime-transition detection
     mom_5 = lev_ret.rolling(5).sum()
@@ -538,32 +583,6 @@ def engineer_feature_frame(
 
     # Gain streak: symmetric to loss_streak_21
     gain_streak_10 = _streaks(lev_ret > 0).clip(upper=10) / 10.0
-
-    # --- VIX term-structure / SKEW / VVIX (v22) ---
-    # Gated on SOXL_USE_VIX_TERM so existing 59-feature bundles stay replay-safe.
-    use_vix_term = _vix_term_feature_flag()
-    if use_vix_term:
-        idx = close.index
-        vvix = _align_external(_load_external_series("VVIX.csv", "VVIX"), idx)
-        vix3m = _align_external(_load_external_series("VIX3M.csv", "CLOSE"), idx)
-        vix9d = _align_external(_load_external_series("VIX9D.csv", "CLOSE"), idx)
-        skew = _align_external(_load_external_series("SKEW.csv", "SKEW"), idx)
-
-        vvix_zscore_252 = (
-            (vvix - vvix.rolling(252).mean()) / (vvix.rolling(252).std() + 1e-8)
-        ).fillna(0.0)
-        vix_term_slope = (vix / vix3m.replace(0.0, np.nan) - 1.0).fillna(0.0)
-        vix_short_ratio = (vix9d / vix.replace(0.0, np.nan) - 1.0).fillna(0.0)
-        skew_zscore_252 = (
-            (skew - skew.rolling(252).mean()) / (skew.rolling(252).std() + 1e-8)
-        ).fillna(0.0)
-        vix_term_slope_velocity_5 = (vix_term_slope - vix_term_slope.shift(5)).fillna(0.0)
-    else:
-        vvix_zscore_252 = None
-        vix_term_slope = None
-        vix_short_ratio = None
-        skew_zscore_252 = None
-        vix_term_slope_velocity_5 = None
 
     feature_df = pd.DataFrame(
         {
@@ -597,7 +616,6 @@ def engineer_feature_frame(
             "loss_streak_21": loss_streak_21,
             "negative_gap_frequency_21": negative_gap_frequency_21,
             "downside_ratio_10": downside_ratio_10,
-            "downside_ratio_10_delta_5": transition_state["downside_ratio_10_delta_5"],
             "downside_ratio_21": downside_ratio_21,
             "downside_semivol_21": downside_semivol_21,
             "vol_coef_21": vol_coef_21,
@@ -605,16 +623,12 @@ def engineer_feature_frame(
             "vix_zscore": vix_zscore,
             "vix_percentile_252": vix_percentile_252,
             "vix_momentum_10": vix_momentum_10,
-            "vix_zscore_delta_5": transition_state["vix_zscore_delta_5"],
             "tracking_error_5": tracking_error_5 * 20.0,
             "tracking_error_21": tracking_error_21 * 20.0,
             "tracking_error_vol_21": tracking_error_vol_21 * 20.0,
             "decay_63": decay_63 * 10.0,
             "relative_strength_21": relative_strength_21 * 10.0,
             "regime_risk": regime_risk,
-            "days_above_stress_threshold_21": transition_state["days_above_stress_threshold_21"],
-            "stress_then_relief_flag": transition_state["stress_then_relief_flag"],
-            "trend_restart_flag": transition_state["trend_restart_flag"],
             "rsi_6": rsi_6 / 100.0,
             "realized_kurtosis_21": realized_kurtosis_21,
             "jump_variation_5": jump_variation_5 * 100.0,
@@ -636,12 +650,26 @@ def engineer_feature_frame(
             "close": close,
         }
     ).replace([np.inf, -np.inf], np.nan)
-    if use_vix_term:
-        feature_df["vvix_zscore_252"] = vvix_zscore_252
-        feature_df["vix_term_slope"] = vix_term_slope
-        feature_df["vix_short_ratio"] = vix_short_ratio
-        feature_df["skew_zscore_252"] = skew_zscore_252
-        feature_df["vix_term_slope_velocity_5"] = vix_term_slope_velocity_5
+
+    context = {
+        "index": feature_df.index,
+        "close": close,
+        "vix": vix,
+        "anchor_gap_180": anchor_gap_180,
+        "below_anchor_ratio_63": below_anchor_ratio_63,
+        "relative_strength_21": relative_strength_21,
+        "regime_risk": regime_risk,
+        "vix_zscore": vix_zscore,
+        "downside_ratio_10": downside_ratio_10,
+        "trend_slope_10": trend_slope_10,
+    }
+    registry = _feature_pack_registry(profile_name)
+    for pack in feature_packs or ():
+        payload = registry.get(pack)
+        if payload is None:
+            raise KeyError(f"unknown feature pack '{pack}' for profile={profile_name or '<default>'}")
+        for column, series in payload["builder"](context).items():
+            feature_df[column] = series
     feature_df = feature_df.dropna()
 
     if ablate_vix:
@@ -652,7 +680,8 @@ def engineer_feature_frame(
         feature_df["regime_risk"] = feature_df["regime_risk_no_vix"]
 
     price = feature_df.pop("close")
-    feature_df = feature_df[FEATURE_COLUMNS]
+    selected_columns = feature_columns_for_packs(feature_packs, profile_name)
+    feature_df = feature_df[selected_columns]
     feature_df.index.name = "datetime"
     multi_index = pd.MultiIndex.from_arrays(
         [feature_df.index, np.repeat(leveraged_etf, len(feature_df))],
@@ -670,9 +699,19 @@ def build_feature_frame(
     underlying_etf: str = "SOXX",
     leverage_ratio: float = 3.0,
     ablate_vix: bool = False,
+    feature_packs: Tuple[str, ...] | List[str] | None = None,
+    profile_name: str | None = None,
 ) -> Tuple[pd.DataFrame, pd.Series]:
     lev, und = build_market_frame(start_time, end_time, leveraged_etf=leveraged_etf, underlying_etf=underlying_etf)
-    return engineer_feature_frame(lev, und, leverage_ratio=leverage_ratio, leveraged_etf=leveraged_etf, ablate_vix=ablate_vix)
+    return engineer_feature_frame(
+        lev,
+        und,
+        leverage_ratio=leverage_ratio,
+        leveraged_etf=leveraged_etf,
+        ablate_vix=ablate_vix,
+        feature_packs=feature_packs,
+        profile_name=profile_name,
+    )
 
 
 class SoxlDataHandler(DataHandlerLP):
@@ -684,6 +723,8 @@ class SoxlDataHandler(DataHandlerLP):
         underlying_etf: str = "SOXX",
         leverage_ratio: float = 3.0,
         ablate_vix: bool = False,
+        feature_packs: Tuple[str, ...] | List[str] | None = None,
+        profile_name: str | None = None,
     ):
         # Keep both the feature frame and aligned price frame so training,
         # backtest, and runtime all read from the same daily source of truth.
@@ -694,6 +735,8 @@ class SoxlDataHandler(DataHandlerLP):
             underlying_etf=underlying_etf,
             leverage_ratio=leverage_ratio,
             ablate_vix=ablate_vix,
+            feature_packs=feature_packs,
+            profile_name=profile_name,
         )
         self.price_frame = price.to_frame("price")
         self.feature_frame = feature_df
@@ -719,6 +762,8 @@ def build_dataset(
     valid_seg: Tuple[str, str] = VALID_SEG,
     test_seg: Tuple[str, str] = TEST_SEG,
     ablate_vix: bool = False,
+    feature_packs: Tuple[str, ...] | List[str] | None = None,
+    profile_name: str | None = None,
 ) -> DatasetH:
     """构建 qlib DatasetH，划分 train / valid / test 三段。
 
@@ -737,6 +782,8 @@ def build_dataset(
             underlying_etf=underlying_etf,
             leverage_ratio=leverage_ratio,
             ablate_vix=ablate_vix,
+            feature_packs=feature_packs,
+            profile_name=profile_name,
         ),
         segments={"train": train_seg, "valid": valid_seg, "test": test_seg},
         fetch_kwargs={"level": "datetime"},

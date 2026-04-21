@@ -9,7 +9,7 @@ import numpy as np
 import torch
 
 from ..backtest import backtest_profile
-from ..data import init_qlib, refresh_qlib_binary
+from ..data import feature_columns_for_packs, init_qlib, refresh_qlib_binary
 from ..policy.evaluation import evaluate_split
 from ..policy.environment import build_initial_states
 from ..policy.observation import observation_dim_for_profile
@@ -56,6 +56,7 @@ def run_profile(
     ablate_vix: bool = False,
 ) -> Dict[str, object]:
     obs_dim = observation_dim_for_profile(profile)
+    feature_columns = feature_columns_for_packs(profile.feature.packs, profile.name)
     if multi_asset_sources:
         initial_states = build_initial_states(multi_asset_sources, profile, smoke)
     else:
@@ -141,6 +142,7 @@ def run_profile(
         hard_floor=profile.model.hard_floor,
         use_hybrid_overlay=profile.model.use_hybrid_overlay,
         delta_levels=np.asarray(profile.model.delta_levels, dtype=np.float32) if profile.model.use_hybrid_overlay else None,
+        feature_columns=feature_columns,
     )
     promotion_report = build_promotion_report(profile, slice_result, test_proxy)
     summary_path = persist_summary_bundle(
@@ -160,6 +162,7 @@ def run_profile(
         price_series,
         position_cap_config=profile.position_cap,
         asset_idx=0,
+        feature_columns=feature_columns,
         model_config=profile.model,
     )
     bt_result["valid"] = valid_metrics

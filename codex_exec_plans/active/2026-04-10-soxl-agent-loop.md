@@ -729,6 +729,73 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
     - a new external-risk / cross-asset state provides information the current
       row-level release rules do not have
 
+## Core extension cleanup 2026-04-21 20:xx
+
+- Goal:
+  - remove failed experiment-specific logic from core `src/` paths where it
+    had become sticky infrastructure
+  - make future experiment deltas live in profile config or experiment-local
+    extension files instead of dataclass field growth or env-flag gating
+- Direct motivation:
+  - recent failed loops added:
+    - `release_*` fields directly into `ExecutionConfig`
+    - `SOXL_USE_TRANSITION_V23` and `SOXL_USE_VIX_TERM` gates into `data.py`
+  - both patterns make experiments mutate the default runtime path even when
+    the mechanism is already dropped
+- Mechanism:
+  - execution cleanup:
+    - replace release-specific config fields with generic
+      `execution.custom_regimes`
+    - keep core support for:
+      - built-in `stress / bull / base`
+      - declarative custom regimes defined in profile / overlay payloads
+  - feature cleanup:
+    - add `feature.packs` to profile config
+    - resolve schema with `feature_columns_for_packs(...)`
+    - allow experiment-local `extensions.py` to register feature packs
+  - migration examples:
+    - `balanced_rule_residual_v22` now declares `feature.packs: [vix_term]`
+    - archived `balanced_rule_residual_v23` now declares
+      `feature.packs: [transition_v23]`
+    - `experiments/archive/balanced_rule_residual_v23/extensions.py` owns the
+      dropped transition pack implementation
+- Edited files:
+  - `src/soxl_quant/config.py`
+  - `src/soxl_quant/data.py`
+  - `src/soxl_quant/policy/{execution,observation,environment,evaluation,policy_builder}.py`
+  - `src/soxl_quant/{backtest,runtime}.py`
+  - `src/soxl_quant/app/{artifacts,bootstrap,sources,train,workers}.py`
+  - `scripts/execution_overlay_generalization.py`
+  - `experiments/candidate/balanced_rule_residual_v22/profile.yaml`
+  - `experiments/archive/balanced_rule_residual_v23/{profile.yaml,extensions.py}`
+  - `configs/soxl/execution_overlay_variants.json`
+  - `tests/test_{runtime,regime_features}.py`
+- Validation:
+  - feature schema probe:
+    - default `59`
+    - `vix_term` pack `64`
+    - `transition_v23` pack `65`
+  - `PYTHONPATH=. qlib_venv/bin/python -m py_compile ...`
+  - `PYTHONPATH=. qlib_venv/bin/python tests/test_runtime.py`
+  - `PYTHONPATH=. qlib_venv/bin/python tests/test_regime_features.py`
+  - `PYTHONPATH=. qlib_venv/bin/python tests/test_structural_model.py`
+  - `PYTHONPATH=. qlib_venv/bin/python scripts/check_harness.py`
+  - result:
+    - `scripts/check_harness.py`: `passed=39 failures=0`
+- Keep / drop decision:
+  - keep:
+    - declarative `custom_regimes`
+    - profile-owned `feature.packs`
+    - experiment-local `extensions.py`
+  - drop:
+    - experiment-specific execution fields in shared dataclasses
+    - env-var-controlled feature-schema mutation in `src/soxl_quant/data.py`
+- Next action:
+  - future failed or archived feature experiments should move their custom
+    feature code into the experiment package, not back into `data.py`
+  - if another execution experiment needs a new state, add it in profile JSON /
+    YAML as a custom regime instead of patching `ExecutionConfig` again
+
 ## RL module migration 2026-04-18 23:xx
 
 - Goal:

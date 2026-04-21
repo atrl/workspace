@@ -6,7 +6,7 @@ from ..data import build_dataset, init_qlib, refresh_qlib_binary, segment_frame
 from ..settings import ETF_UNIVERSE, QLIB_DATA_PATH, ROOT
 
 
-def build_multi_asset_sources(multi_asset_dir: Path, verbose: bool = True):
+def build_multi_asset_sources(multi_asset_dir: Path, profile=None, verbose: bool = True):
     multi_asset_dir.mkdir(parents=True, exist_ok=True)
     multi_asset_sources = []
     for asset_idx, (etf, meta) in enumerate(ETF_UNIVERSE.items()):
@@ -30,6 +30,8 @@ def build_multi_asset_sources(multi_asset_dir: Path, verbose: bool = True):
             leveraged_etf=etf,
             underlying_etf=underlying,
             leverage_ratio=leverage,
+            feature_packs=tuple(profile.feature.packs) if profile else (),
+            profile_name=profile.name if profile else None,
         )
         etf_train_df = segment_frame(dataset, "train")
         pkl_path = multi_asset_dir / f"{etf}_train.pkl"

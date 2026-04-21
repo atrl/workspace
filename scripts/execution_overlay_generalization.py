@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+from dataclasses import asdict
 import json
 import sys
 from pathlib import Path
@@ -14,7 +15,8 @@ from src.soxl_quant.backtest import backtest_profile
 from src.soxl_quant.data import build_dataset, init_qlib, refresh_qlib_binary, segment_frame
 from src.soxl_quant.policy.evaluation import evaluate_split
 from src.soxl_quant.runtime import bundle_position_cap_config, load_actor_bundle
-from src.soxl_quant.settings import ETF_UNIVERSE, ExecutionConfig, TEST_SEG, TRAIN_SEG, VALID_SEG, load_profile
+from src.soxl_quant.settings import ETF_UNIVERSE, TEST_SEG, TRAIN_SEG, VALID_SEG, load_profile
+from src.soxl_quant.config import ExecutionConfig, ExecutionRegimeConfig
 
 DATA_DIR = ROOT / "data" / "generalization"
 RUNTIME_DIR = ROOT / "runtime" / "generalization"
@@ -44,11 +46,23 @@ def load_execution_variants(path: Path) -> dict[str, ExecutionConfig]:
     for name, overrides in payload.items():
         if not isinstance(overrides, dict):
             raise ValueError(f"variant {name} must map to an object")
-        variants[name] = ExecutionConfig(**overrides)
+        overrides = dict(overrides)
+        custom_regimes = tuple(
+            ExecutionRegimeConfig(
+                name=str(item["name"]),
+                conditions={str(k): float(v) for k, v in dict(item.get("conditions", {})).items()},
+                buy_threshold_multiplier=float(item.get("buy_threshold_multiplier", 1.0)),
+                sell_threshold_multiplier=float(item.get("sell_threshold_multiplier", 1.0)),
+                buy_cooldown_days=int(item.get("buy_cooldown_days", -1)),
+                trade_lock_days=int(item.get("trade_lock_days", -1)),
+            )
+            for item in overrides.pop("custom_regimes", [])
+        )
+        variants[name] = ExecutionConfig(custom_regimes=custom_regimes, **overrides)
     return variants
 
 
-def build_etf_dataset(etf: str, underlying: str, leverage: float):
+def build_etf_dataset(etf: str, underlying: str, leverage: float, profile):
     csv_path = DATA_DIR / f"{etf.lower()}_with_underlying_vix.csv"
     qlib_dir = QLIB_RUNTIME / etf.lower()
     refresh_qlib_binary(
@@ -66,6 +80,8 @@ def build_etf_dataset(etf: str, underlying: str, leverage: float):
         train_seg=TRAIN_SEG,
         valid_seg=VALID_SEG,
         test_seg=TEST_SEG,
+        feature_packs=tuple(profile.feature.packs),
+        profile_name=profile.name,
     )
     test_df = segment_frame(dataset, "test")
     price = dataset.handler.price_frame.droplevel("instrument")["price"].loc[test_df.index]
@@ -81,7 +97,7 @@ def main() -> None:
 
     results: dict[str, dict[str, object]] = {}
     for etf, meta in ETF_UNIVERSE.items():
-        test_df, price = build_etf_dataset(etf, meta["underlying"], meta["leverage"])
+        test_df, price = build_etf_dataset(etf, meta["underlying"], meta["leverage"], profile)
         asset_idx = list(ETF_UNIVERSE.keys()).index(etf)
         results[etf] = {}
         for variant_name, execution_cfg in execution_variants.items():
@@ -107,7 +123,10 @@ def main() -> None:
                 for name, (start, end) in SCENARIOS.items()
             }
             results[etf][variant_name] = {
-                "execution": execution_cfg.__dict__,
+                "execution": {
+                    **{k: v for k, v in execution_cfg.__dict__.items() if k != "custom_regimes"},
+                    "custom_regimes": [asdict(item) for item in execution_cfg.custom_regimes],
+                },
                 "test_proxy": {k: bt[k] for k in ("return", "sharpe", "max_dd", "trades")},
                 "scenarios": {
                     key: {metric: value[metric] for metric in ("return", "sharpe", "max_dd", "avg_pos")}

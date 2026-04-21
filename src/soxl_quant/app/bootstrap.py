@@ -7,7 +7,8 @@ from pathlib import Path
 from qlib.data import D
 
 from ..compat import patch_gym_compat
-from ..data import FEATURE_COLUMNS, build_dataset, init_qlib, refresh_qlib_binary, segment_frame
+from ..data import build_dataset, feature_columns_for_packs, init_qlib, refresh_qlib_binary, segment_frame
+from ..settings import load_profile
 from ..settings import CSV_PATH, QLIB_DATA_PATH, TEST_SEG
 from .sources import build_multi_asset_sources
 from .train import set_global_seed
@@ -35,19 +36,31 @@ def bootstrap_runtime(args):
     probe = D.features(["SOXL", "SOXX"], ["$close"], start_time="2026-03-30", end_time="2026-04-02")
     print(f"[qlib] instruments ok: {sorted(probe.index.get_level_values('instrument').unique().tolist())}")
 
-    dataset = build_dataset(ablate_vix=args.ablate_vix)
+    profile = None
+    if getattr(args, "profiles", None):
+        profile = load_profile(args.profiles[0])
+    dataset = build_dataset(
+        ablate_vix=args.ablate_vix,
+        feature_packs=tuple(profile.feature.packs) if profile else (),
+        profile_name=profile.name if profile else None,
+    )
     train_df = segment_frame(dataset, "train")
     valid_df = segment_frame(dataset, "valid")
     test_df = segment_frame(dataset, "test")
     price_series = dataset.handler.price_frame.droplevel("instrument")["price"].loc[TEST_SEG[0] : TEST_SEG[1]]
 
-    print(f"[dataset] train={len(train_df)} valid={len(valid_df)} test={len(test_df)} features={len(FEATURE_COLUMNS)}")
+    feature_count = len(feature_columns_for_packs(profile.feature.packs, profile.name)) if profile else len(feature_columns_for_packs(()))
+    print(f"[dataset] train={len(train_df)} valid={len(valid_df)} test={len(test_df)} features={feature_count}")
     if args.ablate_vix:
         print("[ablation] VIX features zeroed out, regime_risk -> regime_risk_no_vix")
 
     multi_asset_sources = None
     if args.multi_asset:
-        multi_asset_sources = build_multi_asset_sources(Path(QLIB_DATA_PATH).parent / "multi_asset", verbose=True)
+        multi_asset_sources = build_multi_asset_sources(
+            Path(QLIB_DATA_PATH).parent / "multi_asset",
+            profile=profile,
+            verbose=True,
+        )
 
     return dataset, train_df, valid_df, test_df, price_series, multi_asset_sources
 

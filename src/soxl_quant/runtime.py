@@ -24,7 +24,7 @@ import numpy as np
 import pandas as pd
 import torch
 
-from .data import build_dataset, init_qlib
+from .data import build_dataset, feature_columns_for_packs, init_qlib
 from .policy.environment import TrancheLedger
 from .policy.observation import make_observation
 from .policy.policy_builder import actor_action, build_policy
@@ -425,9 +425,13 @@ def reconcile_positions(date: str, expected_position: float, actual_position: fl
     )
 
 
-def _runtime_frame() -> Tuple[pd.DataFrame, pd.Series]:
+def _runtime_frame(profile_name: str = "balanced") -> Tuple[pd.DataFrame, pd.Series]:
     init_qlib(QLIB_DATA_PATH)
-    dataset = build_dataset()
+    profile = load_profile(profile_name)
+    dataset = build_dataset(
+        feature_packs=tuple(profile.feature.packs),
+        profile_name=profile.name,
+    )
     full_df = dataset.handler.feature_frame.droplevel("instrument").sort_index()
     price_series = dataset.handler.price_frame.droplevel("instrument")["price"].sort_index()
     return full_df, price_series
@@ -450,9 +454,20 @@ def _build_signal_intent(
     price = float(price_path[idx])
     account = broker.get_account_snapshot(str(pd.Timestamp(date).date()), price)
     current_position = broker.get_position(symbol, price)
-    obs = make_observation(feature_df, idx, current_position, account.account_value, peak_value, ledger, price_path)
+    profile = load_profile(profile_name)
+    feature_columns = feature_columns_for_packs(profile.feature.packs, profile.name)
+    obs = make_observation(
+        feature_df,
+        idx,
+        current_position,
+        account.account_value,
+        peak_value,
+        ledger,
+        price_path,
+        feature_columns=feature_columns,
+    )
     action = actor_action(actor, obs)
-    model_cfg = load_profile(profile_name).model
+    model_cfg = profile.model
     target_position = target_position_for_profile(
         action,
         obs,
@@ -488,7 +503,7 @@ def replay_profile(
 ) -> Dict[str, object]:
     """Replay the policy on daily bars using the same broker interface as live."""
 
-    full_df, price_series = _runtime_frame()
+    full_df, price_series = _runtime_frame(profile_name)
     feature_df = full_df.loc[start:end].copy()
     price_slice = price_series.loc[start:end].copy()
     if len(feature_df) <= 80:
@@ -602,7 +617,7 @@ def plan_manual_session(
     live order through a concrete broker adapter.
     """
 
-    full_df, price_series = _runtime_frame()
+    full_df, price_series = _runtime_frame(profile_name)
     feature_df = full_df.loc[:as_of].copy()
     price_slice = price_series.loc[:as_of].copy()
     if len(feature_df) <= 80:

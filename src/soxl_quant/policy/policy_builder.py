@@ -13,7 +13,7 @@ from tianshou.utils.net.common import Net
 from tianshou.utils.net.discrete import Actor, Critic
 
 from ..config import StrategyConfig
-from ..data import FEATURE_COLUMNS, STATIC_INDEX
+from ..data import FEATURE_COLUMNS, STATIC_INDEX, feature_columns_for_packs, static_index_for_packs
 from ..settings import LOOKBACK
 from .observation import adapt_observation_for_actor, make_observation
 from .positioning import action_levels_for_profile, rule_based_position
@@ -33,6 +33,8 @@ from .models.tide import TiDENet
 
 
 def _build_net(obs_dim: int, profile: StrategyConfig, model_cfg):
+    feature_columns = feature_columns_for_packs(profile.feature.packs, profile.name)
+    static_index = static_index_for_packs(profile.feature.packs, profile.name)
     effective_use_tide = bool(model_cfg.use_tide)
     effective_use_moe = bool(model_cfg.use_regime_router)
     effective_hard_routing = bool(model_cfg.hard_regime_routing)
@@ -40,7 +42,7 @@ def _build_net(obs_dim: int, profile: StrategyConfig, model_cfg):
         return TiDENet(
             obs_dim,
             hidden_size=int(model_cfg.tide_hidden_size),
-            feature_dim=len(FEATURE_COLUMNS),
+            feature_dim=len(feature_columns),
             observation_window=max(int(model_cfg.observation_window), 1),
             dropout=float(model_cfg.tide_dropout),
             device="cpu",
@@ -48,7 +50,7 @@ def _build_net(obs_dim: int, profile: StrategyConfig, model_cfg):
     if getattr(model_cfg, "use_attention", False):
         return WindowSelfAttentionNet(
             obs_dim,
-            feature_dim=len(FEATURE_COLUMNS),
+            feature_dim=len(feature_columns),
             observation_window=max(int(model_cfg.observation_window), 1),
             attention_dim=int(getattr(model_cfg, "attention_dim", 64)),
             attention_heads=int(getattr(model_cfg, "attention_heads", 4)),
@@ -58,7 +60,7 @@ def _build_net(obs_dim: int, profile: StrategyConfig, model_cfg):
     if model_cfg.use_gru:
         return GRUNet(
             obs_dim,
-            feature_dim=len(FEATURE_COLUMNS),
+            feature_dim=len(feature_columns),
             observation_window=max(int(model_cfg.observation_window), 1),
             gru_hidden_size=int(model_cfg.gru_hidden_size),
             mlp_hidden_sizes=list(profile.hidden_sizes),
@@ -72,7 +74,7 @@ def _build_net(obs_dim: int, profile: StrategyConfig, model_cfg):
             device="cpu",
             top_k=int(model_cfg.router_top_k),
             noise_std=float(model_cfg.router_noise_std),
-            regime_risk_idx=STATIC_INDEX["regime_risk"],
+            regime_risk_idx=static_index["regime_risk"],
             hard_regime_routing=effective_hard_routing,
         )
     return Net((obs_dim,), hidden_sizes=list(profile.hidden_sizes), device="cpu")
@@ -174,6 +176,7 @@ def build_warm_start_dataset(
     """
     rng = random.Random(rng_seed)
     use_hybrid = bool(profile.model.use_hybrid_overlay)
+    feature_columns = feature_columns_for_packs(profile.feature.packs, profile.name)
     if use_hybrid:
         levels = np.asarray(profile.model.delta_levels, dtype=np.float32)
         target_value = 0.0
@@ -214,6 +217,7 @@ def build_warm_start_dataset(
             price_path=price_path,
             asset_idx=episode.asset_idx,
             observation_window=episode.observation_window,
+            feature_columns=feature_columns,
         )
         rule_pos = float(rule_based_position(obs))
         if use_hybrid:

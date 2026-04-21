@@ -12,6 +12,11 @@ EXPERIMENTS_DIR = ROOT / "experiments"
 
 
 @dataclass(frozen=True)
+class FeatureConfig:
+    packs: Tuple[str, ...] = ()
+
+
+@dataclass(frozen=True)
 class RewardConfig:
     return_scale: float
     transaction_cost: float
@@ -115,6 +120,16 @@ class SelectionScoreConfig:
 
 
 @dataclass(frozen=True)
+class ExecutionRegimeConfig:
+    name: str
+    conditions: Dict[str, float] = field(default_factory=dict)
+    buy_threshold_multiplier: float = 1.0
+    sell_threshold_multiplier: float = 1.0
+    buy_cooldown_days: int = -1
+    trade_lock_days: int = -1
+
+
+@dataclass(frozen=True)
 class ExecutionConfig:
     base_threshold: float = 0.04
     quiet_threshold: float = 0.08
@@ -132,20 +147,10 @@ class ExecutionConfig:
     bull_sell_threshold_multiplier: float = 1.0
     stress_buy_threshold_multiplier: float = 1.0
     stress_sell_threshold_multiplier: float = 1.0
-    release_enabled: bool = False
-    release_regime_ceiling: float = 0.58
-    release_vol_ceiling: float = 0.62
-    release_trend_floor: float = 0.03
-    release_relative_strength_floor: float = 0.02
-    release_vix_zscore_ceiling: float = 0.75
-    release_downside_ratio_ceiling: float = 0.55
-    release_cum_drop_ceiling: float = -0.08
-    release_buy_threshold_multiplier: float = 1.0
-    release_sell_threshold_multiplier: float = 1.0
+    custom_regimes: Tuple[ExecutionRegimeConfig, ...] = ()
     buy_cooldown_days: int = 1
     bull_buy_cooldown_days: int = -1
     stress_buy_cooldown_days: int = -1
-    release_buy_cooldown_days: int = -1
     deep_drop_threshold: float = -0.15
     deep_drop_cooldown_min: int = 3
     deep_drop_cooldown_max: int = 20
@@ -153,7 +158,6 @@ class ExecutionConfig:
     trade_lock_days: int = 3
     bull_trade_lock_days: int = -1
     stress_trade_lock_days: int = -1
-    release_trade_lock_days: int = -1
     min_trade_turnover: float = 0.02
     max_drawdown_for_buy: float = 1.0
 
@@ -240,6 +244,7 @@ class StrategyConfig:
     update_batch_size: int
     update_repeat: int
     reward: RewardConfig
+    feature: FeatureConfig = field(default_factory=FeatureConfig)
     position_cap: PositionCapConfig = field(default_factory=PositionCapConfig)
     promotion_gate: PromotionGateConfig = field(default_factory=PromotionGateConfig)
     selection_score: SelectionScoreConfig = field(default_factory=SelectionScoreConfig)
@@ -295,13 +300,29 @@ def list_profile_names() -> list[str]:
 def load_profile(name: str) -> StrategyConfig:
     payload = _load_yaml(resolve_profile_path(name))
     reward = RewardConfig(**payload["reward"])
+    feature_payload = dict(payload.get("feature", {}))
+    if "packs" in feature_payload:
+        feature_payload["packs"] = tuple(str(v) for v in feature_payload["packs"])
+    feature = FeatureConfig(**feature_payload)
     position_cap = PositionCapConfig(**payload.get("position_cap", {}))
     promotion_gate = PromotionGateConfig(**payload.get("promotion_gate", {}))
     selection_payload = dict(payload.get("selection_score", {}))
     if "pareto_objectives" in selection_payload:
         selection_payload["pareto_objectives"] = tuple(str(v) for v in selection_payload["pareto_objectives"])
     selection_score = SelectionScoreConfig(**selection_payload)
-    execution = ExecutionConfig(**payload.get("execution", {}))
+    execution_payload = dict(payload.get("execution", {}))
+    custom_regimes = tuple(
+        ExecutionRegimeConfig(
+            name=str(item["name"]),
+            conditions={str(k): float(v) for k, v in dict(item.get("conditions", {})).items()},
+            buy_threshold_multiplier=float(item.get("buy_threshold_multiplier", 1.0)),
+            sell_threshold_multiplier=float(item.get("sell_threshold_multiplier", 1.0)),
+            buy_cooldown_days=int(item.get("buy_cooldown_days", -1)),
+            trade_lock_days=int(item.get("trade_lock_days", -1)),
+        )
+        for item in execution_payload.pop("custom_regimes", [])
+    )
+    execution = ExecutionConfig(custom_regimes=custom_regimes, **execution_payload)
     model_payload = dict(payload.get("model", {}))
     if "action_levels" in model_payload:
         model_payload["action_levels"] = tuple(float(v) for v in model_payload["action_levels"])
@@ -320,6 +341,7 @@ def load_profile(name: str) -> StrategyConfig:
         update_batch_size=int(payload.get("update_batch_size", 64)),
         update_repeat=int(payload.get("update_repeat", 10)),
         reward=reward,
+        feature=feature,
         position_cap=position_cap,
         promotion_gate=promotion_gate,
         selection_score=selection_score,
