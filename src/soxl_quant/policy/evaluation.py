@@ -72,12 +72,29 @@ def evaluate_split(
         regime_risk = float(np.nan_to_num(row["regime_risk"]))
         realized_vol = float(np.nan_to_num(row["realized_vol_10"]))
         trend_strength = abs(float(np.nan_to_num(row["trend_gap_21"])))
-        regime = execution_regime(regime_risk, realized_vol, trend_strength, config=exec_cfg)
+        cum_drop_30 = float(np.nan_to_num(row["cum_drop_30"]))
+        relative_strength = float(np.nan_to_num(row["relative_strength_21"]))
+        vix_zscore = float(np.nan_to_num(row["vix_zscore"]))
+        downside_ratio_10 = float(np.nan_to_num(row["downside_ratio_10"]))
+        regime = execution_regime(
+            regime_risk,
+            realized_vol,
+            trend_strength,
+            cum_drop_30=cum_drop_30,
+            relative_strength=relative_strength,
+            vix_zscore=vix_zscore,
+            downside_ratio_10=downside_ratio_10,
+            config=exec_cfg,
+        )
         direction = "buy" if target_pos > pos else ("sell" if target_pos < pos else "neutral")
         min_rebalance = rebalance_threshold(
             regime_risk,
             realized_vol,
             trend_strength,
+            cum_drop_30=cum_drop_30,
+            relative_strength=relative_strength,
+            vix_zscore=vix_zscore,
+            downside_ratio_10=downside_ratio_10,
             direction=direction,
             config=exec_cfg,
         )
@@ -97,7 +114,7 @@ def evaluate_split(
         peak = max(peak, cash)
         ledger.update(pos, target_pos, float(price_path[idx]))
         if target_pos > pos + 1e-6:
-            buy_cooldown = execution_buy_cooldown_days(float(np.nan_to_num(row["cum_drop_30"])), exec_cfg, regime)
+            buy_cooldown = execution_buy_cooldown_days(cum_drop_30, exec_cfg, regime)
         if turnover > exec_cfg.min_trade_turnover:
             trade_lock = execution_trade_lock_days(exec_cfg, regime)
         pos = target_pos

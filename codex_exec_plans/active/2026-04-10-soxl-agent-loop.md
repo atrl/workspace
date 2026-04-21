@@ -612,6 +612,63 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
   - drop the old habit of re-deriving keep / drop categories from chat instead
     of from repo-owned records
 
+## Release-state overlay implementation 2026-04-21 18:xx
+
+- Goal:
+  - start the next non-duplicate execution optimization loop by adding an
+    explicit `release / re-entry` state to the execution overlay layer
+  - keep the actor fixed and leave existing default behavior unchanged unless
+    the new state is explicitly enabled
+- Direct comparison anchor:
+  - `balanced_rule_residual_v19`
+- Closest historical success case:
+  - `regime_route_v1`
+  - validated regime routing as a direction and improved average `bear_2022`
+    behavior across the 5-ETF sweep
+- Closest historical failure case:
+  - generic fixed-overlay retuning without a new state
+  - on SOXL, `regime_route_v1` did not materially improve the bear window and
+    still gave up recovery return
+- New mechanism this time:
+  - add a fourth execution regime, `release`, in addition to `stress`, `bull`,
+    and `base`
+  - classify `release` using existing current-row state:
+    - `cum_drop_30`
+    - `relative_strength_21`
+    - `vix_zscore`
+    - `downside_ratio_10`
+    - `trend_gap_21`
+    - `realized_vol_10`
+    - `regime_risk`
+  - add release-specific overrides for:
+    - buy threshold
+    - sell threshold
+    - buy cooldown
+    - trade lock
+- Edited files:
+  - `src/soxl_quant/config.py`
+  - `src/soxl_quant/policy/execution.py`
+  - `src/soxl_quant/policy/evaluation.py`
+  - `src/soxl_quant/policy/environment.py`
+  - `src/soxl_quant/backtest.py`
+  - `configs/soxl/execution_overlay_variants.json`
+  - `tests/test_runtime.py`
+- Validation:
+  - `PYTHONPATH=. qlib_venv/bin/python tests/test_runtime.py`
+  - `PYTHONPATH=. qlib_venv/bin/python -m py_compile src/soxl_quant/config.py src/soxl_quant/policy/execution.py src/soxl_quant/policy/evaluation.py src/soxl_quant/policy/environment.py src/soxl_quant/backtest.py scripts/execution_overlay_generalization.py tests/test_runtime.py`
+  - `PYTHONPATH=. qlib_venv/bin/python scripts/check_harness.py`
+  - result:
+    - `tests/test_runtime.py`: OK (`7` checks)
+    - `scripts/check_harness.py`: `passed=39 failures=0`
+- Open evaluation step:
+  - fixed-actor overlay generalization run for `balanced_rule_residual_v19`
+    versus:
+    - `base`
+    - `regime_route_v1`
+    - `stress_release_route_v1`
+  - output path:
+    - `runtime/generalization/execution_overlay_results_v19_release.json`
+
 ## RL module migration 2026-04-18 23:xx
 
 - Goal:

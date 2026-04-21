@@ -119,7 +119,20 @@ class RLStrategy(BaseStrategy):
         regime_risk = float(self.df.iloc[idx]["regime_risk"])
         realized_vol = float(self.df.iloc[idx]["realized_vol_10"])
         trend_strength = abs(float(self.df.iloc[idx]["trend_gap_21"]))
-        regime = execution_regime(regime_risk, realized_vol, trend_strength, config=self.execution_config)
+        cum_drop_30 = float(self.df.iloc[idx]["cum_drop_30"])
+        relative_strength = float(self.df.iloc[idx]["relative_strength_21"])
+        vix_zscore = float(self.df.iloc[idx]["vix_zscore"])
+        downside_ratio_10 = float(self.df.iloc[idx]["downside_ratio_10"])
+        regime = execution_regime(
+            regime_risk,
+            realized_vol,
+            trend_strength,
+            cum_drop_30=cum_drop_30,
+            relative_strength=relative_strength,
+            vix_zscore=vix_zscore,
+            downside_ratio_10=downside_ratio_10,
+            config=self.execution_config,
+        )
         model_cfg = self.model_config
         target_pos = target_position_for_profile(
             actor_action(self.actor, obs),
@@ -135,6 +148,10 @@ class RLStrategy(BaseStrategy):
             regime_risk,
             realized_vol,
             trend_strength,
+            cum_drop_30=cum_drop_30,
+            relative_strength=relative_strength,
+            vix_zscore=vix_zscore,
+            downside_ratio_10=downside_ratio_10,
             direction=direction,
             config=self.execution_config,
         )
@@ -162,7 +179,6 @@ class RLStrategy(BaseStrategy):
             self.last_step = step
             self.trades += 1
             self.ledger.update(current_pos, target_pos, price)
-            cum_drop_30 = float(self.df.iloc[idx]["cum_drop_30"])
             turnover = abs(target_pos - current_pos)
             if target_pos > current_pos + 1e-6:
                 self.buy_cooldown = execution_buy_cooldown_days(cum_drop_30, self.execution_config, regime)

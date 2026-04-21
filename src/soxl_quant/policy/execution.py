@@ -11,6 +11,10 @@ def execution_regime(
     regime_risk: float,
     realized_vol: float,
     trend_strength: float,
+    cum_drop_30: float = 0.0,
+    relative_strength: float = 0.0,
+    vix_zscore: float = 0.0,
+    downside_ratio_10: float = 0.0,
     config: Optional[ExecutionConfig] = None,
 ) -> str:
     cfg = config or DEFAULT_EXECUTION
@@ -26,6 +30,17 @@ def execution_regime(
         and trend_strength > cfg.bull_trend_threshold
     ):
         return "bull"
+    if (
+        cfg.release_enabled
+        and cum_drop_30 <= cfg.release_cum_drop_ceiling
+        and regime_risk <= cfg.release_regime_ceiling
+        and realized_vol <= cfg.release_vol_ceiling
+        and trend_strength >= cfg.release_trend_floor
+        and relative_strength >= cfg.release_relative_strength_floor
+        and vix_zscore <= cfg.release_vix_zscore_ceiling
+        and downside_ratio_10 <= cfg.release_downside_ratio_ceiling
+    ):
+        return "release"
     return "base"
 
 
@@ -35,6 +50,8 @@ def execution_trade_lock_days(config: Optional[ExecutionConfig], regime: str) ->
         return int(cfg.bull_trade_lock_days)
     if regime == "stress" and cfg.stress_trade_lock_days >= 0:
         return int(cfg.stress_trade_lock_days)
+    if regime == "release" and cfg.release_trade_lock_days >= 0:
+        return int(cfg.release_trade_lock_days)
     return int(cfg.trade_lock_days)
 
 
@@ -53,6 +70,8 @@ def execution_buy_cooldown_days(
         return int(cfg.bull_buy_cooldown_days)
     if regime == "stress" and cfg.stress_buy_cooldown_days >= 0:
         return int(cfg.stress_buy_cooldown_days)
+    if regime == "release" and cfg.release_buy_cooldown_days >= 0:
+        return int(cfg.release_buy_cooldown_days)
     return int(cfg.buy_cooldown_days)
 
 
@@ -60,11 +79,24 @@ def rebalance_threshold(
     regime_risk: float,
     realized_vol: float,
     trend_strength: float,
+    cum_drop_30: float = 0.0,
+    relative_strength: float = 0.0,
+    vix_zscore: float = 0.0,
+    downside_ratio_10: float = 0.0,
     direction: str = "neutral",
     config: Optional[ExecutionConfig] = None,
 ) -> float:
     cfg = config or DEFAULT_EXECUTION
-    regime = execution_regime(regime_risk, realized_vol, trend_strength, config=cfg)
+    regime = execution_regime(
+        regime_risk,
+        realized_vol,
+        trend_strength,
+        cum_drop_30=cum_drop_30,
+        relative_strength=relative_strength,
+        vix_zscore=vix_zscore,
+        downside_ratio_10=downside_ratio_10,
+        config=cfg,
+    )
     threshold = float(cfg.base_threshold)
     if (
         regime_risk < cfg.quiet_regime_threshold
@@ -92,6 +124,11 @@ def rebalance_threshold(
             threshold *= float(cfg.stress_buy_threshold_multiplier)
         elif direction == "sell":
             threshold *= float(cfg.stress_sell_threshold_multiplier)
+    elif regime == "release":
+        if direction == "buy":
+            threshold *= float(cfg.release_buy_threshold_multiplier)
+        elif direction == "sell":
+            threshold *= float(cfg.release_sell_threshold_multiplier)
     return threshold
 
 

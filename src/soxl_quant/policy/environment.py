@@ -183,11 +183,21 @@ class SoxlSimulator(Simulator):
         row = self.df.iloc[self.idx]
         price = float(self.price_path[self.idx])
         cum_drop_30 = float(np.nan_to_num(row["cum_drop_30"]))
+        regime_risk = float(np.nan_to_num(row["regime_risk"]))
+        realized_vol = float(np.nan_to_num(row["realized_vol_10"]))
+        trend_strength = abs(float(np.nan_to_num(row["trend_gap_21"])))
+        relative_strength = float(np.nan_to_num(row["relative_strength_21"]))
+        vix_zscore = float(np.nan_to_num(row["vix_zscore"]))
+        downside_ratio_10 = float(np.nan_to_num(row["downside_ratio_10"]))
         direction = "buy" if action > self.pos else ("sell" if action < self.pos else "neutral")
         min_rebalance = rebalance_threshold(
-            float(np.nan_to_num(row["regime_risk"])),
-            float(np.nan_to_num(row["realized_vol_10"])),
-            abs(float(np.nan_to_num(row["trend_gap_21"]))),
+            regime_risk,
+            realized_vol,
+            trend_strength,
+            cum_drop_30=cum_drop_30,
+            relative_strength=relative_strength,
+            vix_zscore=vix_zscore,
+            downside_ratio_10=downside_ratio_10,
             direction=direction,
             config=self.exec_cfg,
         )
@@ -224,9 +234,13 @@ class SoxlSimulator(Simulator):
 
         if action > self.pos + 1e-6:
             regime = execution_regime(
-                float(np.nan_to_num(row["regime_risk"])),
-                float(np.nan_to_num(row["realized_vol_10"])),
-                abs(float(np.nan_to_num(row["trend_gap_21"]))),
+                regime_risk,
+                realized_vol,
+                trend_strength,
+                cum_drop_30=cum_drop_30,
+                relative_strength=relative_strength,
+                vix_zscore=vix_zscore,
+                downside_ratio_10=downside_ratio_10,
                 config=self.exec_cfg,
             )
             self.buy_cooldown = execution_buy_cooldown_days(cum_drop_30, self.exec_cfg, regime)
@@ -234,9 +248,13 @@ class SoxlSimulator(Simulator):
         turnover = abs(action - self.pos)
         if turnover > self.exec_cfg.min_trade_turnover:
             regime = execution_regime(
-                float(np.nan_to_num(row["regime_risk"])),
-                float(np.nan_to_num(row["realized_vol_10"])),
-                abs(float(np.nan_to_num(row["trend_gap_21"]))),
+                regime_risk,
+                realized_vol,
+                trend_strength,
+                cum_drop_30=cum_drop_30,
+                relative_strength=relative_strength,
+                vix_zscore=vix_zscore,
+                downside_ratio_10=downside_ratio_10,
                 config=self.exec_cfg,
             )
             self.trade_lock = execution_trade_lock_days(self.exec_cfg, regime)

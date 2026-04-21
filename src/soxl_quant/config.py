@@ -132,9 +132,20 @@ class ExecutionConfig:
     bull_sell_threshold_multiplier: float = 1.0
     stress_buy_threshold_multiplier: float = 1.0
     stress_sell_threshold_multiplier: float = 1.0
+    release_enabled: bool = False
+    release_regime_ceiling: float = 0.58
+    release_vol_ceiling: float = 0.62
+    release_trend_floor: float = 0.03
+    release_relative_strength_floor: float = 0.02
+    release_vix_zscore_ceiling: float = 0.75
+    release_downside_ratio_ceiling: float = 0.55
+    release_cum_drop_ceiling: float = -0.08
+    release_buy_threshold_multiplier: float = 1.0
+    release_sell_threshold_multiplier: float = 1.0
     buy_cooldown_days: int = 1
     bull_buy_cooldown_days: int = -1
     stress_buy_cooldown_days: int = -1
+    release_buy_cooldown_days: int = -1
     deep_drop_threshold: float = -0.15
     deep_drop_cooldown_min: int = 3
     deep_drop_cooldown_max: int = 20
@@ -142,6 +153,7 @@ class ExecutionConfig:
     trade_lock_days: int = 3
     bull_trade_lock_days: int = -1
     stress_trade_lock_days: int = -1
+    release_trade_lock_days: int = -1
     min_trade_turnover: float = 0.02
     max_drawdown_for_buy: float = 1.0
 
