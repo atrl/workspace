@@ -1642,6 +1642,38 @@
     "excerpt": "# 2026-04-21 v22 VIX term-structure training results ## Context Continuation of the 2026-04-20 Tier 1-B scaffolding task. That task wired external VVIX / VIX9D / VIX3M / SKEW series into `engineer_feature_frame` behind `SOXL_USE_VIX_TERM=1` and registered `balanced_rule_residual_"
   },
   {
+    "path": "memory/2026-04-21-v23-transition-state-probe.md",
+    "date": "2026-04-21",
+    "title": "2026-04-21 v23 narrow transition-state probe",
+    "kind": "failure",
+    "profiles": [
+      "balanced_rule_residual_v19",
+      "balanced_rule_residual_v23",
+      "balanced_stress_release_delta",
+      "balanced_transition_state",
+      "smoke"
+    ],
+    "status": "dropped",
+    "tags": [
+      "balanced_rule_residual_v19",
+      "balanced_rule_residual_v23",
+      "balanced_stress_release_delta",
+      "balanced_transition_state",
+      "checkpoint-selection",
+      "dropped",
+      "eval-2022",
+      "execution-overlay",
+      "failure",
+      "smoke",
+      "stress-regime",
+      "transition-features"
+    ],
+    "artifacts": [],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Trained `balanced_rule_residual_v23` as a narrow 6-feature transition-state clone of v19 under `SOXL_USE_TRANSITION_V23=1`. Fixed-split gate still passed, but the model became broadly more defensive rather than selectively better at stress-release. `test_2022` improved slightly while `test_2020`, `test_2023_2024`, and proxy return dropped sharply. Best checkpoint was iter 0, indicating the new feature pack did not survive training pressure. Branch dropped and archived.",
+    "excerpt": "# 2026-04-21 v23 narrow transition-state probe ## Context This was the first residual-family retry of transition-state features after the repo had already dropped `balanced_transition_state` and `balanced_stress_release_delta`. The explicit goal was to see whether a much narrower"
+  },
+  {
     "path": "memory/README.md",
     "date": "",
     "title": "Memory",

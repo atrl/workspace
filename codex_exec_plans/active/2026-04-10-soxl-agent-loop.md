@@ -379,6 +379,102 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
   - saved summary:
     - `artifacts/models/soxl_balanced_checkpoint_review_summary.json`
 
+## v23 transition-state probe 2026-04-21 12:xx
+
+- Goal:
+  - start the next mainline feature attempt as `balanced_rule_residual_v23`
+  - keep the successful `balanced_rule_residual_v19` stack fixed
+  - test whether a narrow transition-state feature pack can improve rebound /
+    restart timing without repeating the old 2022 exposure-drift failure
+- Canonical baseline:
+  - `balanced`
+- Direct comparison baseline:
+  - `balanced_rule_residual_v19`
+- Experiment role:
+  - `replace`
+- Target improvement window:
+  - `2020-04`
+  - `2022-07`
+  - `2022-11`
+  - `2023-01`
+  - full `test_2022`
+- Accepted trade-off window:
+  - allow flat to slightly weaker `test_2023_2024` return if `test_2022`
+    discipline remains intact
+- Changed layer:
+  - `feature`
+- Closest historical success case:
+  - `balanced_rule_residual_v22`
+  - narrow, feature-only additions improved drawdown shape without breaking the
+    fixed-split gate
+- Closest historical failure case:
+  - `balanced_transition_state`
+  - `balanced_stress_release_delta`
+  - both improved local release windows but widened full-window `2022`
+    exposure and drawdown
+- Why this is not a duplicate:
+  - keeps the `balanced_rule_residual_v19` architecture, reward, cap, and
+    execution fixed
+  - does not repeat the broad transition bundle
+  - adds only a 6-column transition pack and judges success primarily on
+    whether full `2022` discipline stays intact
+- External reference:
+  - `runtime/post_train_review/historical_balanced_feature_recall.md`
+  - repo-local rule anchor in `soxl_backtest`
+- Planned mechanism:
+  - `vix_zscore_delta_5`
+  - `downside_ratio_10_delta_5`
+  - `days_above_stress_threshold_21`
+  - `trend_slope_10`
+  - `stress_then_relief_flag`
+  - `trend_restart_flag`
+- Comparison-table row:
+  - `balanced_rule_residual_v23`
+- Pre-run validation:
+  - `PYTHONPATH=. qlib_venv/bin/python scripts/check_harness.py`
+  - result: `passed=35 failures=0`
+- Planned commands:
+  - `PYTHONPATH=. qlib_venv/bin/python -m py_compile src/soxl_quant/data.py tests/test_regime_features.py`
+  - `PYTHONPATH=. qlib_venv/bin/python tests/test_regime_features.py`
+  - `PYTHONPATH=. qlib_venv/bin/python -c "import tests.test_profile_registry as t; t.test_registry_covers_all_profiles(); t.test_candidate_directory_stays_narrow(); print('test_profile_registry: OK')"`
+  - `PYTHONPATH=. qlib_venv/bin/python scripts/check_harness.py`
+  - `SOXL_USE_TRANSITION_V23=1 PYTHONPATH=. qlib_venv/bin/python -m src.soxl_quant.cli --profiles balanced_rule_residual_v23 --smoke --skip-data-refresh --seed 12345`
+- Acceptance criteria:
+  - `test_2022_max_dd <= 35%`
+  - `test_2022_avg_pos <= 0.35`
+  - `test_proxy_sharpe >= 0.80`
+  - at least one transition objective improves versus `v19`
+- Validation evidence:
+  - `PYTHONPATH=. qlib_venv/bin/python -m py_compile src/soxl_quant/data.py tests/test_regime_features.py`
+  - `tests/test_regime_features.py`: OK
+  - `scripts/check_harness.py`: `passed=37 failures=0`
+  - training command:
+    - `SOXL_USE_TRANSITION_V23=1 PYTHONPATH=. qlib_venv/bin/python -m src.soxl_quant.cli --profiles balanced_rule_residual_v23 --smoke --skip-data-refresh --seed 12345`
+  - feature schema:
+    - `feature_count`: `59 -> 65`
+    - `signature`: `99a98f3b024c -> f9d5cf71e7f7`
+  - selected checkpoint:
+    - `iter 0` score `81.59`
+    - `iter 80` score `75.56`
+  - fixed-split slices vs `v19`:
+    - `test_2020`: `109.4 / 18.1 / 0.410 -> 91.6 / 16.2 / 0.376`
+    - `test_2022`: `-22.5 / 31.1 / 0.261 -> -21.9 / 30.2 / 0.250`
+    - `test_2023_2024`: `43.6 / 37.3 / 0.475 -> 34.3 / 29.4 / 0.421`
+    - `test_proxy`: `735.1 / 0.95 / 54.8 -> 493.2 / 0.89 / 51.2`
+  - CLI backtest output:
+    - `448.3% / Sharpe 0.85 / MaxDD 46.9% / 313 trades`
+  - post-train review:
+    - `runtime/post_train_review/balanced_rule_residual_v23_vs_v19.md`
+- Keep / drop decision:
+  - drop `balanced_rule_residual_v23`
+  - archive the package and keep summary/review evidence only
+  - do not promote the transition-feature direction into the active candidate set
+- Next action:
+  - return to the repo-wide optimization order:
+    - fixed-actor execution / risk overlay before more state-feature retraining
+    - if retraining resumes, prefer external-risk or selection methods that can
+      prove selective re-entry instead of broad de-risking
+
 ## RL module migration 2026-04-18 23:xx
 
 - Goal:

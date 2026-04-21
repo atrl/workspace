@@ -42,12 +42,26 @@ def _vix_term_feature_flag() -> bool:
     return os.environ.get("SOXL_USE_VIX_TERM", "0") == "1"
 
 
+def _transition_v23_feature_flag() -> bool:
+    """Enable the narrow v23 transition-state feature pack."""
+    return os.environ.get("SOXL_USE_TRANSITION_V23", "0") == "1"
+
+
 VIX_TERM_FEATURE_COLUMNS: List[str] = [
     "vvix_zscore_252",
     "vix_term_slope",
     "vix_short_ratio",
     "skew_zscore_252",
     "vix_term_slope_velocity_5",
+]
+
+TRANSITION_V23_FEATURE_COLUMNS: List[str] = [
+    "vix_zscore_delta_5",
+    "downside_ratio_10_delta_5",
+    "days_above_stress_threshold_21",
+    "trend_slope_10",
+    "stress_then_relief_flag",
+    "trend_restart_flag",
 ]
 
 FEATURE_COLUMNS: List[str] = [
@@ -115,6 +129,8 @@ FEATURE_COLUMNS: List[str] = [
 ]
 if _vix_term_feature_flag():
     FEATURE_COLUMNS.extend(VIX_TERM_FEATURE_COLUMNS)
+if _transition_v23_feature_flag():
+    FEATURE_COLUMNS.extend(TRANSITION_V23_FEATURE_COLUMNS)
 STATIC_INDEX = {name: idx for idx, name in enumerate(FEATURE_COLUMNS)}
 
 
@@ -261,6 +277,46 @@ def _streaks(mask: pd.Series) -> pd.Series:
     return pd.Series(out, index=mask.index, dtype=float)
 
 
+def _build_transition_state_features(
+    *,
+    anchor_gap_180: pd.Series,
+    below_anchor_ratio_63: pd.Series,
+    relative_strength_21: pd.Series,
+    regime_risk: pd.Series,
+    vix_zscore: pd.Series,
+    downside_ratio_10: pd.Series,
+    trend_slope_10: pd.Series,
+) -> dict[str, pd.Series]:
+    vix_zscore_delta_5 = vix_zscore - vix_zscore.shift(5)
+    downside_ratio_10_delta_5 = downside_ratio_10 - downside_ratio_10.shift(5)
+    stress_day_mask = (
+        (regime_risk > 0.60)
+        | (vix_zscore > 0.75)
+        | (downside_ratio_10 > 0.55)
+    )
+    days_above_stress_threshold_21 = stress_day_mask.astype(float).rolling(21).sum()
+    stress_then_relief_flag = (
+        (anchor_gap_180 < -0.02)
+        & (days_above_stress_threshold_21 >= 5.0)
+        & (vix_zscore_delta_5 < -0.35)
+        & (downside_ratio_10_delta_5 < -0.05)
+    ).astype(float)
+    trend_restart_flag = (
+        (anchor_gap_180 < -0.02)
+        & (below_anchor_ratio_63 > 0.55)
+        & (trend_slope_10 > 0.01)
+        & (relative_strength_21 > 0.05)
+        & (regime_risk < 0.60)
+    ).astype(float)
+    return {
+        "vix_zscore_delta_5": vix_zscore_delta_5,
+        "downside_ratio_10_delta_5": downside_ratio_10_delta_5,
+        "days_above_stress_threshold_21": days_above_stress_threshold_21,
+        "stress_then_relief_flag": stress_then_relief_flag,
+        "trend_restart_flag": trend_restart_flag,
+    }
+
+
 def _load_external_series(filename: str, value_col: str) -> pd.Series:
     """Load an external CSV from ``data/external/`` into a date-indexed Series.
 
@@ -380,6 +436,7 @@ def engineer_feature_frame(
     anchor_gap_180 = close / ma180 - 1.0
     trend_slope_21 = ma21 / ma21.shift(10) - 1.0
     trend_slope_63 = ma63 / ma63.shift(21) - 1.0
+    trend_slope_10 = ma5 / ma5.shift(5) - 1.0
     anchor_slope_180 = ma180 / ma180.shift(21) - 1.0
     intraday_range = (high - low) / close
     volume_shock = volume / volume_ma21 - 1.0
@@ -438,6 +495,16 @@ def engineer_feature_frame(
         + 0.12 * downside_semivol_21.rank(pct=True).fillna(0.0)
         + 0.08 * tracking_error_vol_21.rank(pct=True).fillna(0.0)
         + 0.07 * loss_streak_21.fillna(0.0)
+    )
+
+    transition_state = _build_transition_state_features(
+        anchor_gap_180=anchor_gap_180,
+        below_anchor_ratio_63=below_anchor_ratio_63,
+        relative_strength_21=relative_strength_21,
+        regime_risk=regime_risk,
+        vix_zscore=vix_zscore,
+        downside_ratio_10=downside_ratio_10,
+        trend_slope_10=trend_slope_10,
     )
 
     # --- Temporal differential / momentum velocity features (v3) ---
@@ -507,6 +574,7 @@ def engineer_feature_frame(
             "trend_gap_63": trend_gap_63,
             "trend_slope_21": trend_slope_21,
             "trend_slope_63": trend_slope_63,
+            "trend_slope_10": trend_slope_10,
             "rsi_14": rsi / 100.0,
             "mom_21": mom_21,
             "mom_63": mom_63,
@@ -529,6 +597,7 @@ def engineer_feature_frame(
             "loss_streak_21": loss_streak_21,
             "negative_gap_frequency_21": negative_gap_frequency_21,
             "downside_ratio_10": downside_ratio_10,
+            "downside_ratio_10_delta_5": transition_state["downside_ratio_10_delta_5"],
             "downside_ratio_21": downside_ratio_21,
             "downside_semivol_21": downside_semivol_21,
             "vol_coef_21": vol_coef_21,
@@ -536,12 +605,16 @@ def engineer_feature_frame(
             "vix_zscore": vix_zscore,
             "vix_percentile_252": vix_percentile_252,
             "vix_momentum_10": vix_momentum_10,
+            "vix_zscore_delta_5": transition_state["vix_zscore_delta_5"],
             "tracking_error_5": tracking_error_5 * 20.0,
             "tracking_error_21": tracking_error_21 * 20.0,
             "tracking_error_vol_21": tracking_error_vol_21 * 20.0,
             "decay_63": decay_63 * 10.0,
             "relative_strength_21": relative_strength_21 * 10.0,
             "regime_risk": regime_risk,
+            "days_above_stress_threshold_21": transition_state["days_above_stress_threshold_21"],
+            "stress_then_relief_flag": transition_state["stress_then_relief_flag"],
+            "trend_restart_flag": transition_state["trend_restart_flag"],
             "rsi_6": rsi_6 / 100.0,
             "realized_kurtosis_21": realized_kurtosis_21,
             "jump_variation_5": jump_variation_5 * 100.0,
