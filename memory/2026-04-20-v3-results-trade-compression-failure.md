@@ -1,10 +1,30 @@
 ---
 date: '2026-04-20'
-title: 'v3 Results: Trade Compression Failed — Root Cause Analysis'
-tags: [experiment, v3, trade-compression, root-cause]
+title: "v3 Results: Trade Compression Failed \u2014 Root Cause Analysis"
+kind: failure
+profiles: []
+status: dropped
+tags:
+- checkpoint-selection
+- dropped
+- eval-2022
+- execution-overlay
+- failure
+artifacts: []
+workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+summary: "Legacy memory note normalized into the repo-wide schema. | Metric | v2 |\
+  \ v3 Target | v3 Actual | \u0394 | |--------|-----|-----------|-----------|---|\
+  \ | Return | 521.3% | 600-650% | **569.7%** | +48.4pp | | Sharpe | 0.86 | 0.85-0.90\
+  \ | **0.86** |"
 ---
 
 # v3 Results and Trade Compression Failure Analysis
+
+## Context
+
+Legacy memory note normalized into the repo-wide schema.
+
+## Evidence
 
 ## v3 Actual Results
 
@@ -95,3 +115,11 @@ Combine **Option A + B + D**:
 3. Reduce `alpha_scale: 2.0` (from 3.0)
 4. Keep floor raise and regime-alpha from v3
 5. Target: trades 120-180, return 580-620%, Sharpe 0.85+
+
+## Decision
+
+See the summary and status fields in front matter.
+
+## Next Use
+
+Use `scripts/memory_search.py` before opening additional memory files.

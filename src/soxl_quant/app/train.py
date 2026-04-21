@@ -13,7 +13,11 @@ from ..data import init_qlib, refresh_qlib_binary
 from ..policy.evaluation import evaluate_split
 from ..policy.environment import build_initial_states
 from ..policy.observation import observation_dim_for_profile
-from ..policy.policy_builder import build_policy
+from ..policy.policy_builder import (
+    build_policy,
+    build_warm_start_dataset,
+    supervised_pretrain,
+)
 from ..policy.positioning import action_levels_for_profile
 from ..settings import CSV_PATH, QLIB_DATA_PATH, ROOT
 from .artifacts import artifact_tag_suffix, persist_actor_bundle, persist_summary_bundle
@@ -70,6 +74,34 @@ def run_profile(
     )
 
     policy, actor = build_policy(obs_dim, profile, use_moe=use_moe, hard_regime_routing=use_moe)
+
+    if profile.warm_start.enabled and not smoke:
+        print(
+            f"[warm-start:{profile.name}] sampling {profile.warm_start.sample_size} transitions "
+            f"for {profile.warm_start.steps} BC steps"
+        )
+        try:
+            ws_obs, ws_actions = build_warm_start_dataset(
+                initial_states,
+                profile,
+                sample_size=int(profile.warm_start.sample_size),
+                rng_seed=int(seed),
+            )
+            ws_stats = supervised_pretrain(
+                actor,
+                ws_obs,
+                ws_actions,
+                steps=int(profile.warm_start.steps),
+                lr=float(profile.warm_start.lr),
+                batch_size=int(profile.warm_start.batch_size),
+            )
+            print(
+                f"[warm-start:{profile.name}] final loss={ws_stats['loss']:.4f} "
+                f"acc={ws_stats['accuracy']:.3f} steps={ws_stats['steps']}"
+            )
+        except Exception as exc:
+            print(f"[warm-start:{profile.name}] skipped due to error: {exc!r}")
+
     selection = train_with_selection(
         policy=policy,
         actor=actor,
@@ -78,6 +110,7 @@ def run_profile(
         profile=profile,
         valid_df=valid_df,
         smoke=smoke,
+        test_df=test_df if profile.selection_score.use_pareto else None,
     )
     valid_metrics = selection["best_metrics"]
     print(

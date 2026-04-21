@@ -1,4 +1,32 @@
+---
+date: '2026-04-20'
+title: "v10: Episode-Level Drawdown Penalty \u2014 Code-Level Reward Redesign"
+kind: failure
+profiles:
+- balanced_rule_residual_v10
+- balanced_rule_residual_v2
+status: dropped
+tags:
+- balanced_rule_residual_v10
+- balanced_rule_residual_v2
+- checkpoint-selection
+- dropped
+- failure
+artifacts: []
+workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+summary: 'Legacy memory note normalized into the repo-wide schema. Date: 2026-04-20
+  Profile: `balanced_rule_residual_v10` Baseline: `balanced_rule_residual_v2` (best
+  valid score), `v8/v9` (failed hyperparameter tuning) v8 (strong penalties) and v9
+  (m'
+---
+
 # v10: Episode-Level Drawdown Penalty — Code-Level Reward Redesign
+
+## Context
+
+Legacy memory note normalized into the repo-wide schema.
+
+## Evidence
 
 Date: 2026-04-20
 Profile: `balanced_rule_residual_v10`
@@ -69,3 +97,11 @@ Next steps:
 1. **Network architecture**: Add LSTM/GRU layers to MLP
 2. **Feature engineering**: Expand feature set beyond 59 dimensions
 3. **Alternative algorithms**: Try SAC or DQN instead of PPO
+
+## Decision
+
+See the summary and status fields in front matter.
+
+## Next Use
+
+Use `scripts/memory_search.py` before opening additional memory files.

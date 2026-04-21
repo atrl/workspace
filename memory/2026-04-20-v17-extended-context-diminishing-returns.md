@@ -1,4 +1,33 @@
+---
+date: '2026-04-20'
+title: "v17 Results \u2014 Window=10 Reverts to Window=3 Performance"
+kind: decision
+profiles:
+- balanced_rule_residual_v17
+status: kept
+tags:
+- balanced_rule_residual_v17
+- checkpoint-selection
+- decision
+- eval-2022
+- kept
+- walk-forward
+artifacts:
+- artifacts/models/soxl_balanced_rule_residual_v17_actor.pt
+- artifacts/models/soxl_balanced_rule_residual_v17_summary.json
+workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+summary: Legacy memory note normalized into the repo-wide schema. **Date:** 2026-04-20
+  **Profile:** `balanced_rule_residual_v17` **Hypothesis:** More temporal context
+  (10 days) continues to improve over 5 days. **Result:** DIMINISHING RETURNS CONFIR
+---
+
 # v17 Results — Window=10 Reverts to Window=3 Performance
+
+## Context
+
+Legacy memory note normalized into the repo-wide schema.
+
+## Evidence
 
 **Date:** 2026-04-20
 **Profile:** `balanced_rule_residual_v17`
@@ -57,3 +86,11 @@ This is a critical hyperparameter finding. Future GRU profiles should use `obser
 - Log: `log/balanced_rule_residual_v17.log`
 - Summary: `artifacts/models/soxl_balanced_rule_residual_v17_summary.json`
 - Actor: `artifacts/models/soxl_balanced_rule_residual_v17_actor.pt`
+
+## Decision
+
+See the summary and status fields in front matter.
+
+## Next Use
+
+Use `scripts/memory_search.py` before opening additional memory files.

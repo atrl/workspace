@@ -1,4 +1,33 @@
+---
+date: '2026-04-20'
+title: "v14 GRU Ablation Results \u2014 Episode Penalty Is Necessary"
+kind: decision
+profiles:
+- balanced_rule_residual_v14
+status: reference
+tags:
+- balanced_rule_residual_v14
+- checkpoint-selection
+- decision
+- eval-2022
+- reference
+- walk-forward
+artifacts:
+- artifacts/models/soxl_balanced_rule_residual_v14_actor.pt
+- artifacts/models/soxl_balanced_rule_residual_v14_summary.json
+workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+summary: 'Legacy memory note normalized into the repo-wide schema. **Date:** 2026-04-20
+  **Profile:** `balanced_rule_residual_v14` **Hypothesis:** GRU architecture + observation_window
+  alone drives drawdown reduction (penalty is incidental). **Result:'
+---
+
 # v14 GRU Ablation Results — Episode Penalty Is Necessary
+
+## Context
+
+Legacy memory note normalized into the repo-wide schema.
+
+## Evidence
 
 **Date:** 2026-04-20
 **Profile:** `balanced_rule_residual_v14`
@@ -46,3 +75,11 @@ The GRU + terminal penalty combination is a **synergistic pair**: the GRU's temp
 - Log: `log/balanced_rule_residual_v14.log`
 - Summary: `artifacts/models/soxl_balanced_rule_residual_v14_summary.json`
 - Actor: `artifacts/models/soxl_balanced_rule_residual_v14_actor.pt`
+
+## Decision
+
+See the summary and status fields in front matter.
+
+## Next Use
+
+Use `scripts/memory_search.py` before opening additional memory files.

@@ -1,4 +1,33 @@
+---
+date: '2026-04-20'
+title: "v16 Results \u2014 More Temporal Context (window=5) Is a Big Win"
+kind: decision
+profiles:
+- balanced_rule_residual_v16
+status: kept
+tags:
+- balanced_rule_residual_v16
+- decision
+- eval-2022
+- kept
+- transition-features
+- walk-forward
+artifacts:
+- artifacts/models/soxl_balanced_rule_residual_v16_actor.pt
+- artifacts/models/soxl_balanced_rule_residual_v16_summary.json
+workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+summary: "Legacy memory note normalized into the repo-wide schema. **Date:** 2026-04-20\
+  \ **Profile:** `balanced_rule_residual_v16` **Hypothesis:** Increasing observation_window\
+  \ from 3\u21925 with proven penalty=2.0 improves GRU decision quality. **Result:*"
+---
+
 # v16 Results — More Temporal Context (window=5) Is a Big Win
+
+## Context
+
+Legacy memory note normalized into the repo-wide schema.
+
+## Evidence
 
 **Date:** 2026-04-20
 **Profile:** `balanced_rule_residual_v16`
@@ -58,3 +87,11 @@ Temporal context matters for GRU. 3 days was insufficient; 5 days gives the GRU 
 - Log: `log/balanced_rule_residual_v16.log`
 - Summary: `artifacts/models/soxl_balanced_rule_residual_v16_summary.json`
 - Actor: `artifacts/models/soxl_balanced_rule_residual_v16_actor.pt`
+
+## Decision
+
+See the summary and status fields in front matter.
+
+## Next Use
+
+Use `scripts/memory_search.py` before opening additional memory files.

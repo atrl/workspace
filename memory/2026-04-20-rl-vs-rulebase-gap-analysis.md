@@ -1,27 +1,34 @@
 ---
 date: '2026-04-20'
-title: 'RL vs Rule-Based 差距根因分析与下一步优化路线图'
-kind: analysis
+title: "RL vs Rule-Based \u5DEE\u8DDD\u6839\u56E0\u5206\u6790\u4E0E\u4E0B\u4E00\u6B65\
+  \u4F18\u5316\u8DEF\u7EBF\u56FE"
+kind: other
 profiles:
-- balanced_rule_residual_v2
-- soxl_backtest
+- soxl
 status: active
 tags:
-- gap-analysis
+- active
+- eval-2022
+- other
 - rule-based
-- panic-index
-- floor-optimization
-- trade-compression
-artifacts:
-- memory/2026-04-20-rl-vs-rulebase-gap-analysis.md
+- soxl
+- stress-regime
+artifacts: []
 workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
-summary: >
-  量化分析 RL (balanced_rule_residual_v2, 521.3%) 与 rule-based (688.6%)
-  之间 167pp 差距的五大根因。提出 panic-index 特征注入、底仓提升至 40-50%、
-  交易压缩至 <100 笔、regime-conditioned alpha scale 四条优化路径。
+summary: "\u91CF\u5316\u5206\u6790 RL (balanced_rule_residual_v2, 521.3%) \u4E0E rule-based\
+  \ (688.6%) \u4E4B\u95F4 167pp \u5DEE\u8DDD\u7684\u4E94\u5927\u6839\u56E0\u3002\u63D0\
+  \u51FA panic-index \u7279\u5F81\u6CE8\u5165\u3001\u5E95\u4ED3\u63D0\u5347\u81F3\
+  \ 40-50%\u3001 \u4EA4\u6613\u538B\u7F29\u81F3 <100 \u7B14\u3001regime-conditioned\
+  \ alpha scale \u56DB\u6761\u4F18\u5316\u8DEF\u5F84\u3002"
 ---
 
 # RL vs Rule-Based 差距根因分析
+
+## Context
+
+Legacy memory note normalized into the repo-wide schema.
+
+## Evidence
 
 ## 一、数据对比：差距在哪里
 
@@ -205,7 +212,6 @@ else:
 
 建议新增：
 ```python
-# 在 trend_strength > threshold 且 price > MA20 时
 if trend_strength > 0.7 and price > ma20:
     bonus += position * 0.5  # 持仓越高奖励越大
 ```
@@ -224,3 +230,11 @@ if trend_strength > 0.7 and price > ma20:
 | Trades | 45 | 316 | **80-120** |
 
 > 目标不是完全复制 Rule-Based，而是**在保留 RL 风控优势的同时，吸收 Rule-Based 的底仓 + Panic Index 优势**。
+
+## Decision
+
+See the summary and status fields in front matter.
+
+## Next Use
+
+Use `scripts/memory_search.py` before opening additional memory files.

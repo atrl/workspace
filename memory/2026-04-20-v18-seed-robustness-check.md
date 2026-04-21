@@ -1,4 +1,33 @@
+---
+date: '2026-04-20'
+title: "v18 Results \u2014 v16 Config Is Seed-Sensitive on Return"
+kind: decision
+profiles:
+- balanced_rule_residual_v18
+status: kept
+tags:
+- balanced_rule_residual_v18
+- decision
+- eval-2022
+- kept
+- stress-regime
+- walk-forward
+artifacts:
+- artifacts/models/soxl_balanced_rule_residual_v18_actor.pt
+- artifacts/models/soxl_balanced_rule_residual_v18_summary.json
+workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+summary: Legacy memory note normalized into the repo-wide schema. **Date:** 2026-04-20
+  **Profile:** `balanced_rule_residual_v18` **Hypothesis:** v16's strong result (632.4%
+  return) is reproducible with different seeds. **Result:** PARTIALLY REPRODUC
+---
+
 # v18 Results — v16 Config Is Seed-Sensitive on Return
+
+## Context
+
+Legacy memory note normalized into the repo-wide schema.
+
+## Evidence
 
 **Date:** 2026-04-20
 **Profile:** `balanced_rule_residual_v18`
@@ -56,3 +85,11 @@ The GRU + terminal penalty + window=5 architecture is **reliably good at drawdow
 - Log: `log/balanced_rule_residual_v18.log`
 - Summary: `artifacts/models/soxl_balanced_rule_residual_v18_summary.json`
 - Actor: `artifacts/models/soxl_balanced_rule_residual_v18_actor.pt`
+
+## Decision
+
+See the summary and status fields in front matter.
+
+## Next Use
+
+Use `scripts/memory_search.py` before opening additional memory files.

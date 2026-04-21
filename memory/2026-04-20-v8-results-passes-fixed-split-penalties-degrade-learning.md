@@ -1,4 +1,33 @@
+---
+date: '2026-04-20'
+title: 'v8 Results: Passes Fixed-Split Promotion Gate, But Penalties Degrade Learning'
+kind: failure
+profiles:
+- balanced_rule_residual_v2
+- balanced_rule_residual_v8
+status: kept
+tags:
+- balanced_rule_residual_v2
+- balanced_rule_residual_v8
+- checkpoint-selection
+- eval-2022
+- failure
+- kept
+- walk-forward
+artifacts: []
+workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+summary: 'Legacy memory note normalized into the repo-wide schema. Date: 2026-04-20
+  Profile: `balanced_rule_residual_v8` Baseline: `balanced_rule_residual_v2` (best
+  drawdown), `v7` (previous attempt) | Metric | v2 | v5 | v7 | v8 | |--------|-----|---'
+---
+
 # v8 Results: Passes Fixed-Split Promotion Gate, But Penalties Degrade Learning
+
+## Context
+
+Legacy memory note normalized into the repo-wide schema.
+
+## Evidence
 
 Date: 2026-04-20
 Profile: `balanced_rule_residual_v8`
@@ -62,3 +91,11 @@ Revert penalties to moderate levels and lower hard_floor for deeper de-risking:
 5. **hard_floor: 0.10** (lower than v2's 0.20) — allow deeper de-risking
 
 If v9 still fails to break 50% MaxDD, the v7 post-mortem recommendation applies: **code-level reward redesign** (episode-level max drawdown penalty).
+
+## Decision
+
+See the summary and status fields in front matter.
+
+## Next Use
+
+Use `scripts/memory_search.py` before opening additional memory files.

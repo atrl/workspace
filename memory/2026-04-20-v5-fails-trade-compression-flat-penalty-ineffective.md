@@ -1,4 +1,28 @@
+---
+date: '2026-04-20'
+title: "v5 Results: Flat Penalty 4x Stronger \u2014 Trade Compression Still Fails"
+kind: failure
+profiles: []
+status: dropped
+tags:
+- dropped
+- failure
+- rule-based
+artifacts: []
+workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+summary: 'Legacy memory note normalized into the repo-wide schema. Date: 2026-04-20
+  | Metric | v4 | v5 (4x penalty) | Delta | |--------|-----|-----------------|-------|
+  | Return | 730.8% | 780.7% | +50pp | | Sharpe | 0.90 | 0.93 | +0.03 | | MaxDD |
+  5'
+---
+
 # v5 Results: Flat Penalty 4x Stronger — Trade Compression Still Fails
+
+## Context
+
+Legacy memory note normalized into the repo-wide schema.
+
+## Evidence
 
 Date: 2026-04-20
 
@@ -32,3 +56,11 @@ A 4x increase in flat_trade_penalty (0.75→3.0) combined with longer trade_lock
 ## Decision
 - v5 → **dropped** (trade compression failed, keep summary only)
 - v6 → launched, targeting 120-180 trades
+
+## Decision
+
+See the summary and status fields in front matter.
+
+## Next Use
+
+Use `scripts/memory_search.py` before opening additional memory files.

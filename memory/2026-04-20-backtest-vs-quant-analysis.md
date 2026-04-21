@@ -1,28 +1,47 @@
 ---
 date: 2026-04-20
-title: SOXL Backtest vs SOXLQuant 深度对比与奖励函数优化分析
-kind: analysis
+title: "SOXL Backtest vs SOXLQuant \u6DF1\u5EA6\u5BF9\u6BD4\u4E0E\u5956\u52B1\u51FD\
+  \u6570\u4F18\u5316\u5206\u6790"
+kind: other
 profiles:
 - balanced
 - balanced_rule_residual_v1
-- soxl_backtest
+- moe
+- smoke
+- soxl
 status: kept
 tags:
-- analysis
-- reward-engineering
-- log-reward
-- kelly-criterion
-- backtest
-artifacts:
-- memory/2026-04-20-backtest-vs-quant-analysis.md
+- balanced
+- balanced_rule_residual_v1
+- checkpoint-selection
+- eval-2022
+- execution-overlay
+- kept
+- moe
+- other
+- smoke
+- soxl
+- stress-regime
+- walk-forward
+artifacts: []
 workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
-summary: >
-  全面对比 soxl_backtest（规则驱动）与 src/soxl_quant（RL驱动）的架构、信号、风控和绩效。
-  深入分析对数奖励 $R_t = \log(W_t/W_{t-1})$ 的理论优劣，指出其已实现在代码中但不足以单独使用。
-  推荐最佳模型的下一步优化：启用 Kelly-alpha 奖励、regime-conditioned scale、以及将 soxl_backtest 的 panic index 引入 observation。
+summary: "\u5168\u9762\u5BF9\u6BD4 soxl_backtest\uFF08\u89C4\u5219\u9A71\u52A8\uFF09\
+  \u4E0E src/soxl_quant\uFF08RL\u9A71\u52A8\uFF09\u7684\u67B6\u6784\u3001\u4FE1\u53F7\
+  \u3001\u98CE\u63A7\u548C\u7EE9\u6548\u3002 \u6DF1\u5165\u5206\u6790\u5BF9\u6570\u5956\
+  \u52B1 $R_t = \\log(W_t/W_{t-1})$ \u7684\u7406\u8BBA\u4F18\u52A3\uFF0C\u6307\u51FA\
+  \u5176\u5DF2\u5B9E\u73B0\u5728\u4EE3\u7801\u4E2D\u4F46\u4E0D\u8DB3\u4EE5\u5355\u72EC\
+  \u4F7F\u7528\u3002 \u63A8\u8350\u6700\u4F73\u6A21\u578B\u7684\u4E0B\u4E00\u6B65\u4F18\
+  \u5316\uFF1A\u542F\u7528 Kelly-alpha \u5956\u52B1\u3001regime-conditioned scale\u3001\
+  \u4EE5\u53CA\u5C06 soxl_backtest \u7684 panic index \u5F15\u5165 observation\u3002"
 ---
 
 # SOXL Backtest vs SOXLQuant 深度对比与奖励函数优化分析
+
+## Context
+
+Legacy memory note normalized into the repo-wide schema.
+
+## Evidence
 
 ## 一、两个系统的架构对比
 
@@ -247,7 +266,6 @@ $$R_t = \log(1 + \alpha_t) \times 100 \times alpha\_scale$$
 当前 `alpha_scale` 是标量（=3.0）。建议根据 regime 动态调整：
 
 ```python
-# 伪代码
 if realized_vol_10 < 0.30 and regime_risk < 0.35:
     effective_scale = alpha_scale * 1.3   # 低波动高信噪比，放大奖励
 elif realized_vol_10 > 0.60 or regime_risk > 0.65:
@@ -359,3 +377,11 @@ $$R_t^{variance} = -\lambda \cdot \widehat{\sigma^2}_{rolling}$$
 - **soxl_backtest** 是一个设计精良的规则系统，其 panic index 和波动率自适应逻辑经过验证。但它无法自适应市场结构变化。
 - **src/soxl_quant** 的 RL 系统已经超越了规则系统，特别是 `balanced_rule_residual_v1` 在回报、Sharpe、回撤和交易质量上全面优于 canonical `balanced`。
 - **soxl_backtest 的核心信号（panic index）尚未被 RL 系统直接利用**，这是一个明确的特征工程机会。
+
+## Decision
+
+See the summary and status fields in front matter.
+
+## Next Use
+
+Use `scripts/memory_search.py` before opening additional memory files.

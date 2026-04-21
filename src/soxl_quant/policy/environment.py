@@ -160,6 +160,7 @@ class SoxlSimulator(Simulator):
         self.episode_start_val = self.cash0
         self.episode_max_dd = 0.0
         self.prev_episode_max_dd = 0.0
+        self.episode_returns: list[float] = []
 
     def step(self, action: float) -> None:
         action = float(np.clip(action, 0, 1))
@@ -215,6 +216,7 @@ class SoxlSimulator(Simulator):
         self.episode_max_dd = max(self.episode_max_dd, current_dd)
         self.last_turnover = turnover
         self.last_step_return = net_ret
+        self.episode_returns.append(float(net_ret))
         self.last_market_return = next_ret
         self.flat_steps = 0 if turnover > 0.02 else self.flat_steps + 1
         self.period_baseline_val *= 1.0 + self.period_start_pos * next_ret
@@ -268,6 +270,7 @@ class SoxlSimulator(Simulator):
                 "episode_start_val": self.episode_start_val,
                 "episode_max_dd": self.episode_max_dd,
                 "prev_episode_max_dd": self.prev_episode_max_dd,
+                "episode_returns": list(self.episode_returns),
             }
         row = self.df.iloc[self.idx]
         underwater = self.val / max(self.max_val, 1e-8) - 1.0

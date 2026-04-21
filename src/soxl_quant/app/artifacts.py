@@ -48,6 +48,11 @@ def serialize_model_config(profile) -> Dict[str, object]:
         "router_experts": int(profile.model.router_experts),
         "router_top_k": int(profile.model.router_top_k),
         "router_noise_std": float(profile.model.router_noise_std),
+        "use_gru": bool(profile.model.use_gru),
+        "gru_hidden_size": int(profile.model.gru_hidden_size),
+        "use_attention": bool(getattr(profile.model, "use_attention", False)),
+        "attention_dim": int(getattr(profile.model, "attention_dim", 0)),
+        "attention_heads": int(getattr(profile.model, "attention_heads", 0)),
     }
 
 
@@ -73,6 +78,17 @@ def serialize_sampling_config(profile) -> Dict[str, object]:
         "rebound_trend_floor": float(profile.sampling.rebound_trend_floor),
         "rebound_risk_ceiling": float(profile.sampling.rebound_risk_ceiling),
         "rebound_risk_release": float(profile.sampling.rebound_risk_release),
+    }
+
+
+def serialize_warm_start(profile) -> Dict[str, object]:
+    ws = profile.warm_start
+    return {
+        "enabled": bool(ws.enabled),
+        "steps": int(ws.steps),
+        "lr": float(ws.lr),
+        "batch_size": int(ws.batch_size),
+        "sample_size": int(ws.sample_size),
     }
 
 
@@ -105,6 +121,7 @@ def persist_actor_bundle(profile, actor, obs_dim: int, seed: int, effective_tag:
             "selection_score": serialize_selection_score(profile),
             "model_config": serialize_model_config(profile),
             "sampling_config": serialize_sampling_config(profile),
+            "warm_start": serialize_warm_start(profile),
             "state_dict": actor.state_dict(),
         },
         model_path,
@@ -134,6 +151,7 @@ def persist_summary_bundle(
                 "selection_score": serialize_selection_score(profile),
                 "model_config": serialize_model_config(profile),
                 "sampling_config": serialize_sampling_config(profile),
+                "warm_start": serialize_warm_start(profile),
                 "model_path": str(model_path),
                 "valid": valid_metrics,
                 "best_score": selection["best_score"],
@@ -149,13 +167,47 @@ def persist_summary_bundle(
     return summary_path
 
 
+def load_actor_bundle(profile_name: str):
+    """Load a single actor bundle by profile name.
+
+    Thin wrapper around `soxl_quant.runtime.load_actor_bundle` that lives in
+    the `app` layer so scripts can import it without pulling in the full
+    runtime/paper-execution surface.
+    """
+    from ..runtime import load_actor_bundle as _runtime_load
+
+    return _runtime_load(profile_name)
+
+
+def load_actor_bundles(profile_names: list[str]) -> list:
+    """Load multiple actor bundles for ensemble evaluation.
+
+    Returns a list of (actor, bundle_path, bundle) tuples.
+    """
+    return [load_actor_bundle(name) for name in profile_names]
+
+
+def build_actor_ensemble(profile_names: list[str], method: str = "mean_logits"):
+    """Load several per-seed actors and wrap them in an `EnsembleActor`."""
+    from ..policy.policy_builder import EnsembleActor
+
+    bundles = load_actor_bundles(profile_names)
+    actors = [actor for actor, _, _ in bundles]
+    ensemble = EnsembleActor(actors, method=method)
+    return ensemble, bundles
+
+
 __all__ = [
     "artifact_tag_suffix",
+    "build_actor_ensemble",
     "feature_schema_payload",
+    "load_actor_bundle",
+    "load_actor_bundles",
     "persist_actor_bundle",
     "persist_summary_bundle",
     "serialize_model_config",
     "serialize_position_cap",
     "serialize_sampling_config",
     "serialize_selection_score",
+    "serialize_warm_start",
 ]

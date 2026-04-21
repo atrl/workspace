@@ -1,4 +1,32 @@
+---
+date: '2026-04-20'
+title: "v15 Weak Penalty Results \u2014 Penalty=1.0 Is in a Bad Zone"
+kind: decision
+profiles:
+- balanced_rule_residual_v15
+status: reference
+tags:
+- balanced_rule_residual_v15
+- decision
+- eval-2022
+- reference
+- walk-forward
+artifacts:
+- artifacts/models/soxl_balanced_rule_residual_v15_actor.pt
+- artifacts/models/soxl_balanced_rule_residual_v15_summary.json
+workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+summary: Legacy memory note normalized into the repo-wide schema. **Date:** 2026-04-20
+  **Profile:** `balanced_rule_residual_v15` **Hypothesis:** A weaker terminal penalty
+  (1.0) might find a sweet spot between v14 aggression and v12/v13 conservatism.
+---
+
 # v15 Weak Penalty Results — Penalty=1.0 Is in a Bad Zone
+
+## Context
+
+Legacy memory note normalized into the repo-wide schema.
+
+## Evidence
 
 **Date:** 2026-04-20
 **Profile:** `balanced_rule_residual_v15`
@@ -61,3 +89,11 @@ The effective operating range appears to be **≥2.0** for this seed and archite
 - Log: `log/balanced_rule_residual_v15.log`
 - Summary: `artifacts/models/soxl_balanced_rule_residual_v15_summary.json`
 - Actor: `artifacts/models/soxl_balanced_rule_residual_v15_actor.pt`
+
+## Decision
+
+See the summary and status fields in front matter.
+
+## Next Use
+
+Use `scripts/memory_search.py` before opening additional memory files.

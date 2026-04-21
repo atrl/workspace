@@ -69,6 +69,9 @@ class RewardConfig:
     episode_drawdown_penalty: float = 0.0
     episode_drawdown_threshold: float = 0.20
     downside_asymmetry_coef: float = 1.0
+    use_cvar_terminal: bool = False
+    cvar_terminal_coef: float = 0.0
+    cvar_terminal_alpha: float = 0.05
 
 
 @dataclass(frozen=True)
@@ -103,6 +106,12 @@ class SelectionScoreConfig:
     stress_threshold: float = 0.65
     staged_training: bool = True
     stage_iters: int = 20
+    use_pareto: bool = False
+    pareto_objectives: Tuple[str, ...] = (
+        "test_2022_max_dd",
+        "test_proxy_sharpe",
+        "test_2023_2024_return",
+    )
 
 
 @dataclass(frozen=True)
@@ -158,8 +167,30 @@ class ModelConfig:
     temporal_conv_kernel: int = 3
     use_gru: bool = False
     gru_hidden_size: int = 64
+    use_attention: bool = False
+    attention_dim: int = 64
+    attention_heads: int = 4
     use_hybrid_overlay: bool = False
     delta_levels: Tuple[float, ...] = (-0.15, 0.0, 0.15)
+
+
+@dataclass(frozen=True)
+class WarmStartConfig:
+    """Rule-based behavioral-cloning pretraining before RL.
+
+    When `enabled=True`, the actor is trained with cross-entropy on
+    (obs -> rule-based action) pairs for `steps` gradient updates. This
+    shifts the PPO initial policy from random to "mimic rule", which
+    reduces seed variance and speeds convergence.
+
+    `sample_size` controls how many transitions are drawn from the
+    training initial_states to build the supervised dataset.
+    """
+    enabled: bool = False
+    steps: int = 500
+    lr: float = 5e-4
+    batch_size: int = 128
+    sample_size: int = 2000
 
 
 @dataclass(frozen=True)
@@ -203,6 +234,7 @@ class StrategyConfig:
     execution: ExecutionConfig = field(default_factory=ExecutionConfig)
     model: ModelConfig = field(default_factory=ModelConfig)
     sampling: SamplingConfig = field(default_factory=SamplingConfig)
+    warm_start: WarmStartConfig = field(default_factory=WarmStartConfig)
     decision_frequency: int = 1
     algorithm: str = "ppo"
     separate_actor_critic: bool = False
@@ -253,7 +285,10 @@ def load_profile(name: str) -> StrategyConfig:
     reward = RewardConfig(**payload["reward"])
     position_cap = PositionCapConfig(**payload.get("position_cap", {}))
     promotion_gate = PromotionGateConfig(**payload.get("promotion_gate", {}))
-    selection_score = SelectionScoreConfig(**payload.get("selection_score", {}))
+    selection_payload = dict(payload.get("selection_score", {}))
+    if "pareto_objectives" in selection_payload:
+        selection_payload["pareto_objectives"] = tuple(str(v) for v in selection_payload["pareto_objectives"])
+    selection_score = SelectionScoreConfig(**selection_payload)
     execution = ExecutionConfig(**payload.get("execution", {}))
     model_payload = dict(payload.get("model", {}))
     if "action_levels" in model_payload:
@@ -262,6 +297,7 @@ def load_profile(name: str) -> StrategyConfig:
         model_payload["delta_levels"] = tuple(float(v) for v in model_payload["delta_levels"])
     model = ModelConfig(**model_payload)
     sampling = SamplingConfig(**payload.get("sampling", {}))
+    warm_start = WarmStartConfig(**payload.get("warm_start", {}))
     return StrategyConfig(
         name=payload["name"],
         max_iters=int(payload["max_iters"]),
@@ -278,6 +314,7 @@ def load_profile(name: str) -> StrategyConfig:
         execution=execution,
         model=model,
         sampling=sampling,
+        warm_start=warm_start,
         decision_frequency=int(payload.get("decision_frequency", 1)),
         algorithm=str(payload.get("algorithm", "ppo")),
         separate_actor_critic=bool(payload.get("separate_actor_critic", False)),

@@ -1191,6 +1191,405 @@
     "excerpt": "# RL Facade Detached From Scripts ## Context The previous step removed `rl.py` from internal code and tests, but several repo-owned scripts still imported it. That kept the compatibility facade in the active maintenance path. ## What Changed - added `src/soxl_quant/app/sources.py"
   },
   {
+    "path": "memory/2026-04-20-backtest-vs-quant-analysis.md",
+    "date": "2026-04-20",
+    "title": "SOXL Backtest vs SOXLQuant 深度对比与奖励函数优化分析",
+    "kind": "other",
+    "profiles": [
+      "balanced",
+      "balanced_rule_residual_v1",
+      "moe",
+      "smoke",
+      "soxl"
+    ],
+    "status": "kept",
+    "tags": [
+      "balanced",
+      "balanced_rule_residual_v1",
+      "checkpoint-selection",
+      "eval-2022",
+      "execution-overlay",
+      "kept",
+      "moe",
+      "other",
+      "smoke",
+      "soxl",
+      "stress-regime",
+      "walk-forward"
+    ],
+    "artifacts": [],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "全面对比 soxl_backtest（规则驱动）与 src/soxl_quant（RL驱动）的架构、信号、风控和绩效。 深入分析对数奖励 $R_t = \\log(W_t/W_{t-1})$ 的理论优劣，指出其已实现在代码中但不足以单独使用。 推荐最佳模型的下一步优化：启用 Kelly-alpha 奖励、regime-conditioned scale、以及将 soxl_backtest 的 panic index 引入 observation。",
+    "excerpt": "# SOXL Backtest vs SOXLQuant 深度对比与奖励函数优化分析 ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## 一、两个系统的架构对比 ### 1.1 soxl_backtest：规则驱动的传统回测 **核心信号：Panic Index（恐慌指数）** - 基础：VIX 通过 sigmoid 函数映射到 [-100, 100] 区间 - 调节：RSI6 超卖（<30）降低恐慌值，超买（>70）提高恐慌值 - 放大：交"
+  },
+  {
+    "path": "memory/2026-04-20-rl-vs-rulebase-gap-analysis.md",
+    "date": "2026-04-20",
+    "title": "RL vs Rule-Based 差距根因分析与下一步优化路线图",
+    "kind": "other",
+    "profiles": [
+      "soxl"
+    ],
+    "status": "active",
+    "tags": [
+      "active",
+      "eval-2022",
+      "other",
+      "rule-based",
+      "soxl",
+      "stress-regime"
+    ],
+    "artifacts": [],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "量化分析 RL (balanced_rule_residual_v2, 521.3%) 与 rule-based (688.6%) 之间 167pp 差距的五大根因。提出 panic-index 特征注入、底仓提升至 40-50%、 交易压缩至 <100 笔、regime-conditioned alpha scale 四条优化路径。",
+    "excerpt": "# RL vs Rule-Based 差距根因分析 ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## 一、数据对比：差距在哪里 ### 1.1 总体表现 | 指标 | Rule-Based | RL v2 (@40) | RL best (floor40_sym) | Gap (v2 vs RB) | |------|-----------|-------------|----------------------|-------------"
+  },
+  {
+    "path": "memory/2026-04-20-seed-sweep-clarified.md",
+    "date": "2026-04-20",
+    "title": "2026-04-20: Seed Sensitivity Clarified (v19)",
+    "kind": "decision",
+    "profiles": [],
+    "status": "kept",
+    "tags": [
+      "checkpoint-selection",
+      "decision",
+      "kept",
+      "walk-forward"
+    ],
+    "artifacts": [],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Legacy memory note normalized into the repo-wide schema. **CLI Backtest**: 635.1% return, Sharpe 0.90, MaxDD 51.0%, trades=336 **test_proxy**: 885.5% return, Sharpe 0.99, MaxDD 52.7% **fixed_split**: PASSED ✓ **Best checkpoint**: iter 20 (s",
+    "excerpt": "# 2026-04-20: Seed Sensitivity Clarified (v19) ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## v19 Results (seed=12345, same config as v16) - **CLI Backtest**: 635.1% return, Sharpe 0.90, MaxDD 51.0%, trades=336 - **test_proxy**: 885.5% return, "
+  },
+  {
+    "path": "memory/2026-04-20-tier1-2-3-harness-scaffolding.md",
+    "date": "2026-04-20",
+    "title": "2026-04-20 Tier 1/2/3 harness scaffolding",
+    "kind": "review",
+    "profiles": [
+      "balanced_rule_residual_v22",
+      "smoke",
+      "soxl"
+    ],
+    "status": "dropped",
+    "tags": [
+      "balanced_rule_residual_v22",
+      "checkpoint-selection",
+      "dropped",
+      "eval-2022",
+      "execution-overlay",
+      "review",
+      "smoke",
+      "soxl"
+    ],
+    "artifacts": [
+      "runtime/post_train_review/ensemble_v16_v18_v19.md"
+    ],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Legacy memory note normalized into the repo-wide schema. Implemented the full next-step plan harness laid out in `.cursor/plans/plan_next_src_experiments_5796dd14.plan.md`. No new training runs beyond the seed-ensemble evaluation; all addit",
+    "excerpt": "# 2026-04-20 Tier 1/2/3 harness scaffolding ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## What changed Implemented the full next-step plan harness laid out in `.cursor/plans/plan_next_src_experiments_5796dd14.plan.md`. No new training runs bey"
+  },
+  {
+    "path": "memory/2026-04-20-user-direction-pivot-drawdown-kelly-holistic.md",
+    "date": "2026-04-20",
+    "title": "User Direction Pivot: Stop Trade Compression, Focus on Drawdown + Kelly",
+    "kind": "decision",
+    "profiles": [],
+    "status": "kept",
+    "tags": [
+      "checkpoint-selection",
+      "decision",
+      "eval-2022",
+      "kept",
+      "stress-regime",
+      "walk-forward"
+    ],
+    "artifacts": [],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Legacy memory note normalized into the repo-wide schema. Date: 2026-04-20 > \"交易多不影响， 主要要控制回测和凯利期望 优化的方式应该是模型 奖励 特征结合的结果\" Translation: \"Many trades don't matter. The main thing is to control drawdown and Kelly expectancy. The optimization ap",
+    "excerpt": "# User Direction Pivot: Stop Trade Compression, Focus on Drawdown + Kelly ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence Date: 2026-04-20 ## User Feedback > \"交易多不影响， 主要要控制回测和凯利期望 优化的方式应该是模型 奖励 特征结合的结果\" Translation: \"Many trades don't matter. The m"
+  },
+  {
+    "path": "memory/2026-04-20-v10-episode-level-drawdown-penalty-code-redesign.md",
+    "date": "2026-04-20",
+    "title": "v10: Episode-Level Drawdown Penalty — Code-Level Reward Redesign",
+    "kind": "failure",
+    "profiles": [
+      "balanced_rule_residual_v10",
+      "balanced_rule_residual_v2"
+    ],
+    "status": "dropped",
+    "tags": [
+      "balanced_rule_residual_v10",
+      "balanced_rule_residual_v2",
+      "checkpoint-selection",
+      "dropped",
+      "failure"
+    ],
+    "artifacts": [],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Legacy memory note normalized into the repo-wide schema. Date: 2026-04-20 Profile: `balanced_rule_residual_v10` Baseline: `balanced_rule_residual_v2` (best valid score), `v8/v9` (failed hyperparameter tuning) v8 (strong penalties) and v9 (m",
+    "excerpt": "# v10: Episode-Level Drawdown Penalty — Code-Level Reward Redesign ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence Date: 2026-04-20 Profile: `balanced_rule_residual_v10` Baseline: `balanced_rule_residual_v2` (best valid score), `v8/v9` (failed hype"
+  },
+  {
+    "path": "memory/2026-04-20-v14-gru-ablation-results.md",
+    "date": "2026-04-20",
+    "title": "v14 GRU Ablation Results — Episode Penalty Is Necessary",
+    "kind": "decision",
+    "profiles": [
+      "balanced_rule_residual_v14"
+    ],
+    "status": "reference",
+    "tags": [
+      "balanced_rule_residual_v14",
+      "checkpoint-selection",
+      "decision",
+      "eval-2022",
+      "reference",
+      "walk-forward"
+    ],
+    "artifacts": [
+      "artifacts/models/soxl_balanced_rule_residual_v14_actor.pt",
+      "artifacts/models/soxl_balanced_rule_residual_v14_summary.json"
+    ],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Legacy memory note normalized into the repo-wide schema. **Date:** 2026-04-20 **Profile:** `balanced_rule_residual_v14` **Hypothesis:** GRU architecture + observation_window alone drives drawdown reduction (penalty is incidental). **Result:",
+    "excerpt": "# v14 GRU Ablation Results — Episode Penalty Is Necessary ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence **Date:** 2026-04-20 **Profile:** `balanced_rule_residual_v14` **Hypothesis:** GRU architecture + observation_window alone drives drawdown red"
+  },
+  {
+    "path": "memory/2026-04-20-v15-weak-penalty-results.md",
+    "date": "2026-04-20",
+    "title": "v15 Weak Penalty Results — Penalty=1.0 Is in a Bad Zone",
+    "kind": "decision",
+    "profiles": [
+      "balanced_rule_residual_v15"
+    ],
+    "status": "reference",
+    "tags": [
+      "balanced_rule_residual_v15",
+      "decision",
+      "eval-2022",
+      "reference",
+      "walk-forward"
+    ],
+    "artifacts": [
+      "artifacts/models/soxl_balanced_rule_residual_v15_actor.pt",
+      "artifacts/models/soxl_balanced_rule_residual_v15_summary.json"
+    ],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Legacy memory note normalized into the repo-wide schema. **Date:** 2026-04-20 **Profile:** `balanced_rule_residual_v15` **Hypothesis:** A weaker terminal penalty (1.0) might find a sweet spot between v14 aggression and v12/v13 conservatism.",
+    "excerpt": "# v15 Weak Penalty Results — Penalty=1.0 Is in a Bad Zone ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence **Date:** 2026-04-20 **Profile:** `balanced_rule_residual_v15` **Hypothesis:** A weaker terminal penalty (1.0) might find a sweet spot between"
+  },
+  {
+    "path": "memory/2026-04-20-v16-more-temporal-context.md",
+    "date": "2026-04-20",
+    "title": "v16 Results — More Temporal Context (window=5) Is a Big Win",
+    "kind": "decision",
+    "profiles": [
+      "balanced_rule_residual_v16"
+    ],
+    "status": "kept",
+    "tags": [
+      "balanced_rule_residual_v16",
+      "decision",
+      "eval-2022",
+      "kept",
+      "transition-features",
+      "walk-forward"
+    ],
+    "artifacts": [
+      "artifacts/models/soxl_balanced_rule_residual_v16_actor.pt",
+      "artifacts/models/soxl_balanced_rule_residual_v16_summary.json"
+    ],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Legacy memory note normalized into the repo-wide schema. **Date:** 2026-04-20 **Profile:** `balanced_rule_residual_v16` **Hypothesis:** Increasing observation_window from 3→5 with proven penalty=2.0 improves GRU decision quality. **Result:*",
+    "excerpt": "# v16 Results — More Temporal Context (window=5) Is a Big Win ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence **Date:** 2026-04-20 **Profile:** `balanced_rule_residual_v16` **Hypothesis:** Increasing observation_window from 3→5 with proven penalty="
+  },
+  {
+    "path": "memory/2026-04-20-v17-extended-context-diminishing-returns.md",
+    "date": "2026-04-20",
+    "title": "v17 Results — Window=10 Reverts to Window=3 Performance",
+    "kind": "decision",
+    "profiles": [
+      "balanced_rule_residual_v17"
+    ],
+    "status": "kept",
+    "tags": [
+      "balanced_rule_residual_v17",
+      "checkpoint-selection",
+      "decision",
+      "eval-2022",
+      "kept",
+      "walk-forward"
+    ],
+    "artifacts": [
+      "artifacts/models/soxl_balanced_rule_residual_v17_actor.pt",
+      "artifacts/models/soxl_balanced_rule_residual_v17_summary.json"
+    ],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Legacy memory note normalized into the repo-wide schema. **Date:** 2026-04-20 **Profile:** `balanced_rule_residual_v17` **Hypothesis:** More temporal context (10 days) continues to improve over 5 days. **Result:** DIMINISHING RETURNS CONFIR",
+    "excerpt": "# v17 Results — Window=10 Reverts to Window=3 Performance ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence **Date:** 2026-04-20 **Profile:** `balanced_rule_residual_v17` **Hypothesis:** More temporal context (10 days) continues to improve over 5 day"
+  },
+  {
+    "path": "memory/2026-04-20-v18-seed-robustness-check.md",
+    "date": "2026-04-20",
+    "title": "v18 Results — v16 Config Is Seed-Sensitive on Return",
+    "kind": "decision",
+    "profiles": [
+      "balanced_rule_residual_v18"
+    ],
+    "status": "kept",
+    "tags": [
+      "balanced_rule_residual_v18",
+      "decision",
+      "eval-2022",
+      "kept",
+      "stress-regime",
+      "walk-forward"
+    ],
+    "artifacts": [
+      "artifacts/models/soxl_balanced_rule_residual_v18_actor.pt",
+      "artifacts/models/soxl_balanced_rule_residual_v18_summary.json"
+    ],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Legacy memory note normalized into the repo-wide schema. **Date:** 2026-04-20 **Profile:** `balanced_rule_residual_v18` **Hypothesis:** v16's strong result (632.4% return) is reproducible with different seeds. **Result:** PARTIALLY REPRODUC",
+    "excerpt": "# v18 Results — v16 Config Is Seed-Sensitive on Return ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence **Date:** 2026-04-20 **Profile:** `balanced_rule_residual_v18` **Hypothesis:** v16's strong result (632.4% return) is reproducible with different"
+  },
+  {
+    "path": "memory/2026-04-20-v3-results-trade-compression-failure.md",
+    "date": "2026-04-20",
+    "title": "v3 Results: Trade Compression Failed — Root Cause Analysis",
+    "kind": "failure",
+    "profiles": [],
+    "status": "dropped",
+    "tags": [
+      "checkpoint-selection",
+      "dropped",
+      "eval-2022",
+      "execution-overlay",
+      "failure"
+    ],
+    "artifacts": [],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Legacy memory note normalized into the repo-wide schema. | Metric | v2 | v3 Target | v3 Actual | Δ | |--------|-----|-----------|-----------|---| | Return | 521.3% | 600-650% | **569.7%** | +48.4pp | | Sharpe | 0.86 | 0.85-0.90 | **0.86** |",
+    "excerpt": "# v3 Results and Trade Compression Failure Analysis ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## v3 Actual Results | Metric | v2 | v3 Target | v3 Actual | Δ | |--------|-----|-----------|-----------|---| | Return | 521.3% | 600-650% | **569.7"
+  },
+  {
+    "path": "memory/2026-04-20-v4-results-trade-compression-fails-again.md",
+    "date": "2026-04-20",
+    "title": "v4 Results: Trade Compression Fails Again — Trades Increase to 327",
+    "kind": "other",
+    "profiles": [
+      "balanced_rule_residual_v4"
+    ],
+    "status": "kept",
+    "tags": [
+      "balanced_rule_residual_v4",
+      "eval-2022",
+      "execution-overlay",
+      "kept",
+      "other"
+    ],
+    "artifacts": [],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Legacy memory note normalized into the repo-wide schema. v4 training completed. Despite aggressive trade compression design (flat penalty 1.20, longer lock 8 days, reduced alpha 2.0), **trades increased from 314 to 327**. Strategy is highly",
+    "excerpt": "# v4 Results: Trade Compression Fails Again ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## Summary v4 training completed. Despite aggressive trade compression design (flat penalty 1.20, longer lock 8 days, reduced alpha 2.0), **trades increased"
+  },
+  {
+    "path": "memory/2026-04-20-v5-fails-trade-compression-flat-penalty-ineffective.md",
+    "date": "2026-04-20",
+    "title": "v5 Results: Flat Penalty 4x Stronger — Trade Compression Still Fails",
+    "kind": "failure",
+    "profiles": [],
+    "status": "dropped",
+    "tags": [
+      "dropped",
+      "failure",
+      "rule-based"
+    ],
+    "artifacts": [],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Legacy memory note normalized into the repo-wide schema. Date: 2026-04-20 | Metric | v4 | v5 (4x penalty) | Delta | |--------|-----|-----------------|-------| | Return | 730.8% | 780.7% | +50pp | | Sharpe | 0.90 | 0.93 | +0.03 | | MaxDD | 5",
+    "excerpt": "# v5 Results: Flat Penalty 4x Stronger — Trade Compression Still Fails ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence Date: 2026-04-20 ## Results | Metric | v4 | v5 (4x penalty) | Delta | |--------|-----|-----------------|-------| | Return | 730.8"
+  },
+  {
+    "path": "memory/2026-04-20-v7-fails-larger-model-tighter-caps-worsen-drawdown.md",
+    "date": "2026-04-20",
+    "title": "v7 Post-Mortem: [256,128] + Stronger Penalties + Tighter Caps",
+    "kind": "review",
+    "profiles": [
+      "balanced_rule_residual_v2",
+      "balanced_rule_residual_v7"
+    ],
+    "status": "kept",
+    "tags": [
+      "balanced_rule_residual_v2",
+      "balanced_rule_residual_v7",
+      "eval-2022",
+      "kept",
+      "review"
+    ],
+    "artifacts": [],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Legacy memory note normalized into the repo-wide schema. Date: 2026-04-20 Profile: `balanced_rule_residual_v7` Baseline comparison: `balanced_rule_residual_v2` (best drawdown so far), `v5` (best return) | Metric | v2 (baseline) | v5 | v7 |",
+    "excerpt": "# v7 Post-Mortem: [256,128] + Stronger Penalties + Tighter Caps ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence Date: 2026-04-20 Profile: `balanced_rule_residual_v7` Baseline comparison: `balanced_rule_residual_v2` (best drawdown so far), `v5` (bes"
+  },
+  {
+    "path": "memory/2026-04-20-v8-results-passes-fixed-split-penalties-degrade-learning.md",
+    "date": "2026-04-20",
+    "title": "v8 Results: Passes Fixed-Split Promotion Gate, But Penalties Degrade Learning",
+    "kind": "failure",
+    "profiles": [
+      "balanced_rule_residual_v2",
+      "balanced_rule_residual_v8"
+    ],
+    "status": "kept",
+    "tags": [
+      "balanced_rule_residual_v2",
+      "balanced_rule_residual_v8",
+      "checkpoint-selection",
+      "eval-2022",
+      "failure",
+      "kept",
+      "walk-forward"
+    ],
+    "artifacts": [],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Legacy memory note normalized into the repo-wide schema. Date: 2026-04-20 Profile: `balanced_rule_residual_v8` Baseline: `balanced_rule_residual_v2` (best drawdown), `v7` (previous attempt) | Metric | v2 | v5 | v7 | v8 | |--------|-----|---",
+    "excerpt": "# v8 Results: Passes Fixed-Split Promotion Gate, But Penalties Degrade Learning ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence Date: 2026-04-20 Profile: `balanced_rule_residual_v8` Baseline: `balanced_rule_residual_v2` (best drawdown), `v7` (previ"
+  },
+  {
+    "path": "memory/2026-04-21-v22-vix-term-structure-results.md",
+    "date": "2026-04-21",
+    "title": "2026-04-21 v22 VIX term-structure training results",
+    "kind": "review",
+    "profiles": [
+      "balanced_rule_residual_v22",
+      "balanced_rule_residual_v22_vs_v19",
+      "smoke"
+    ],
+    "status": "reference",
+    "tags": [
+      "balanced_rule_residual_v22",
+      "balanced_rule_residual_v22_vs_v19",
+      "candidate",
+      "checkpoint-selection",
+      "eval-2022",
+      "review",
+      "smoke",
+      "stress-regime",
+      "walk-forward"
+    ],
+    "artifacts": [
+      "artifacts/models/soxl_balanced_rule_residual_v19_summary.json",
+      "runtime/post_train_review/balanced_rule_residual_v22_vs_v19.md"
+    ],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "First training run of balanced_rule_residual_v22 with SOXL_USE_VIX_TERM=1 (external VVIX / VIX9D / VIX3M / SKEW features added to the observation). Same seed (12345) and profile otherwise identical to v19 baseline. Feature count 59 → 64 and schema signature flipped as expected. All three fixed-split promotion gates still pass. New features buy stress-window MaxDD improvement (test_2020 −1.9pts, test_2023_2024 −4.9pts) at the cost of a 5.8pt return drag in test_2023_2024. Keep as candidate, do not flip defaults.",
+    "excerpt": "# 2026-04-21 v22 VIX term-structure training results ## Context Continuation of the 2026-04-20 Tier 1-B scaffolding task. That task wired external VVIX / VIX9D / VIX3M / SKEW series into `engineer_feature_frame` behind `SOXL_USE_VIX_TERM=1` and registered `balanced_rule_residual_"
+  },
+  {
     "path": "memory/README.md",
     "date": "",
     "title": "Memory",

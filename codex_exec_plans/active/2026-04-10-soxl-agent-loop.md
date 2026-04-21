@@ -2,7 +2,7 @@
 
 Status: active
 Owner: Codex
-Last updated: 2026-04-19 15:46 CST
+Last updated: 2026-04-21 09:40 CST
 
 ## Goal
 
@@ -173,6 +173,71 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
 - Any claim of improvement must include walk-forward evidence.
 
 ## Decision log
+
+- 2026-04-21 09:40 (v22 trained — VIX term-structure features on):
+  - Trained `balanced_rule_residual_v22` with `SOXL_USE_VIX_TERM=1` seed=12345
+    (same seed as v19 baseline). Feature count 59 → 64, schema signature flips
+    to `9ec7f9c42e73`. Training wall clock ~20 min on this box.
+  - Slice deltas vs v19 (same profile, same seed, only features added):
+    - `valid`: 56.6% → 62.9% return, Sharpe 1.56 → 1.63, MaxDD 27.0 → 30.6.
+    - `test_2020`: 109.4 → 115.6% return, Sharpe 2.64 → 2.74, MaxDD 18.1 → 16.2 (**−1.9**), avg_pos unchanged.
+    - `test_2022`: −22.5 → −24.5% return, MaxDD 31.1 → 32.7, avg_pos 0.261 → 0.269. Still inside the 35% / 0.35 gate.
+    - `test_2023_2024`: 43.6 → 37.9% return (−5.8), MaxDD 37.3 → 32.4 (**−4.9**).
+    - `test_proxy` 2018→now: 735 → 695% return, Sharpe 0.95 → 0.94, MaxDD 54.8 → 54.5.
+  - All three fixed-split promotion gates PASS; `eligible=False` is only because
+    walk-forward has not been run yet, not a gate failure.
+  - Read: new external VIX features buy **stress-window drawdown**
+    (test_2020, test_2023_2024 both improve MaxDD meaningfully) at the cost of
+    a modest range-window return drag (test_2023_2024 −5.8 pts). test_2022 is
+    essentially unchanged within seed noise.
+  - Verdict: keep v22 as candidate, do NOT flip defaults. Next: 2-3 seed confirm
+    + walk-forward eval + optionally enable Pareto selection which is already
+    scaffolded.
+  - Post-train review: `runtime/post_train_review/balanced_rule_residual_v22_vs_v19.md`.
+  - Expectations scorecard updated in `experiments/candidate/balanced_rule_residual_v22/notes.md`.
+
+- 2026-04-20 23:59 (Tier 1/2/3 harness scaffolding):
+  - Implemented the full next-step plan harness in `src/`:
+    - **T1-A Seed ensemble** — `EnsembleActor` in `policy/policy_builder.py` +
+      `build_actor_ensemble` / `load_actor_bundle(s)` in `app/artifacts.py` +
+      `scripts/evaluate_ensemble.py`. First run on v16/v18/v19 gave
+      `test_proxy 677.99% / Sharpe 0.921 / MaxDD 50.25%` — ensemble MaxDD
+      beats all three individual members (55.6 / 51.8 / 54.8%), confirming
+      the variance-reduction hypothesis. Report at
+      `runtime/post_train_review/ensemble_v16_v18_v19.md`.
+    - **T1-B VIX term-structure** — `engineer_feature_frame` gains five
+      external features gated by `SOXL_USE_VIX_TERM=1`:
+      `vvix_zscore_252`, `vix_term_slope`, `vix_short_ratio`,
+      `skew_zscore_252`, `vix_term_slope_velocity_5`. Feature count rises
+      59 → 64, schema signature `99a98f3b024c` → `9ec7f9c42e73`. New
+      candidate profile `balanced_rule_residual_v22` (feature-only clone
+      of v19) registered.
+    - **T2-C Pareto selection** — `SelectionScoreConfig` gains
+      `use_pareto` + `pareto_objectives`; `train_with_selection` now
+      accepts `test_df` and (when opted in) builds a per-stage Pareto
+      front over `(test_2022_max_dd, test_proxy_sharpe,
+      test_2023_2024_return)` with `validation_score` as tiebreak.
+      Helper lives in `app/evaluate.py::evaluate_all_slices`. Default
+      behavior unchanged for legacy profiles.
+    - **T2-D Rule warm-start** — new `WarmStartConfig` block
+      `{enabled, steps, lr, batch_size, sample_size}` on every profile.
+      `policy/policy_builder.py` adds `build_warm_start_dataset` +
+      `supervised_pretrain`; `app/train.py` runs BC pretraining before
+      `train_with_selection`. Smoke run on v19 episodes: 200 samples all
+      label = delta-0 action (as expected for hybrid overlay), loss
+      drops from random to 0.90 at 100 steps with 100% accuracy.
+      `warm_start` is now serialized into actor and summary bundles.
+    - **T3 scaffolding** — `RewardConfig` gains
+      `use_cvar_terminal` / `cvar_terminal_coef` / `cvar_terminal_alpha`;
+      `SoxlSimulator` buffers `episode_returns`; `ContinuousReward`
+      applies a CVaR-α tail penalty at terminal step when enabled. New
+      `policy/models/attention.py::WindowSelfAttentionNet` with
+      `ModelConfig.use_attention / attention_dim / attention_heads`
+      wired into `_build_net`. Reserved for activation only after Tier
+      1/2 experiments are insufficient.
+  - All 35 harness assertions still pass (`scripts/check_harness.py`).
+  - Kept backward compatibility: every new flag defaults OFF so v16-v21
+    bundles replay unchanged.
 
 - 2026-04-10 23:24:
   - Added long-trend anchor, cumulative-drop, and volatility-coefficient features.

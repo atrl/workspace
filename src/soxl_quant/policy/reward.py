@@ -182,6 +182,25 @@ class ContinuousReward(Reward):
             # Linear penalty with large coefficient: must be on same scale as episode total reward
             reward -= excess_episode_dd * cfg.episode_drawdown_penalty * 100.0
 
+        # Terminal CVaR penalty (Tier 3 reserved branch).
+        # Penalizes the mean of the worst `alpha` fraction of per-step returns
+        # in the episode. Activated only when cfg.use_cvar_terminal and episode
+        # is done. CVaR is negative for bad episodes, so we subtract it with a
+        # positive coefficient to turn it into a penalty on the absolute value.
+        if (
+            state.get("done", False)
+            and cfg.use_cvar_terminal
+            and cfg.cvar_terminal_coef > 0
+        ):
+            returns = state.get("episode_returns") or []
+            if returns:
+                sorted_returns = sorted(float(r) for r in returns)
+                alpha = max(min(float(cfg.cvar_terminal_alpha), 0.5), 1e-3)
+                tail_count = max(1, int(len(sorted_returns) * alpha))
+                cvar_tail = sum(sorted_returns[:tail_count]) / tail_count
+                # cvar_tail is typically negative; penalty = -cvar_tail * coef * 100
+                reward -= max(-cvar_tail, 0.0) * cfg.cvar_terminal_coef * 100.0
+
         # Downside asymmetry: amplify penalty when step return is negative
         if cfg.downside_asymmetry_coef > 1.0 and pnl_ret < 0:
             # Multiply the ENTIRE reward (which is already negative) to make losses hurt more

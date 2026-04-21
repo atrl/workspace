@@ -1,4 +1,31 @@
+---
+date: '2026-04-20'
+title: 'v7 Post-Mortem: [256,128] + Stronger Penalties + Tighter Caps'
+kind: review
+profiles:
+- balanced_rule_residual_v2
+- balanced_rule_residual_v7
+status: kept
+tags:
+- balanced_rule_residual_v2
+- balanced_rule_residual_v7
+- eval-2022
+- kept
+- review
+artifacts: []
+workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+summary: 'Legacy memory note normalized into the repo-wide schema. Date: 2026-04-20
+  Profile: `balanced_rule_residual_v7` Baseline comparison: `balanced_rule_residual_v2`
+  (best drawdown so far), `v5` (best return) | Metric | v2 (baseline) | v5 | v7 |'
+---
+
 # v7 Post-Mortem: [256,128] + Stronger Penalties + Tighter Caps
+
+## Context
+
+Legacy memory note normalized into the repo-wide schema.
+
+## Evidence
 
 Date: 2026-04-20
 Profile: `balanced_rule_residual_v7`
@@ -75,3 +102,11 @@ Revert to v2's successful architecture and enhance drawdown control via reward:
 6. Keep alpha_scale = 3.0 (v2 level) — higher sensitivity to negative alpha forces faster exits
 
 If v8 still fails to break 50% maxdd, next step is **code-level reward redesign**: episode-level max drawdown penalty or portfolio-path-dependent cap.
+
+## Decision
+
+See the summary and status fields in front matter.
+
+## Next Use
+
+Use `scripts/memory_search.py` before opening additional memory files.

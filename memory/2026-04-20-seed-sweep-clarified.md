@@ -1,4 +1,29 @@
+---
+date: '2026-04-20'
+title: '2026-04-20: Seed Sensitivity Clarified (v19)'
+kind: decision
+profiles: []
+status: kept
+tags:
+- checkpoint-selection
+- decision
+- kept
+- walk-forward
+artifacts: []
+workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+summary: "Legacy memory note normalized into the repo-wide schema. **CLI Backtest**:\
+  \ 635.1% return, Sharpe 0.90, MaxDD 51.0%, trades=336 **test_proxy**: 885.5% return,\
+  \ Sharpe 0.99, MaxDD 52.7% **fixed_split**: PASSED \u2713 **Best checkpoint**: iter\
+  \ 20 (s"
+---
+
 # 2026-04-20: Seed Sensitivity Clarified (v19)
+
+## Context
+
+Legacy memory note normalized into the repo-wide schema.
+
+## Evidence
 
 ## v19 Results (seed=12345, same config as v16)
 - **CLI Backtest**: 635.1% return, Sharpe 0.90, MaxDD 51.0%, trades=336
@@ -36,3 +61,11 @@ This is unprecedented consistency for the GRU + penalty=2.0 configuration.
 
 ## Next Action
 Walk-forward evaluation of v16 or v19 to confirm generalization beyond the fixed split.
+
+## Decision
+
+See the summary and status fields in front matter.
+
+## Next Use
+
+Use `scripts/memory_search.py` before opening additional memory files.

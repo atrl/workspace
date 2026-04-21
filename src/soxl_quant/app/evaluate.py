@@ -69,9 +69,117 @@ def slice_metrics(actor, df, slices: Dict[str, Tuple[str, str]], profile) -> Dic
     return metrics
 
 
+PARETO_SLICES: Dict[str, Tuple[str, str]] = {
+    "test_proxy": ("2020-01-01", "2026-03-31"),
+    "test_2022": ("2022-01-01", "2022-12-31"),
+    "test_2023_2024": ("2023-01-01", "2024-12-31"),
+}
+
+
+def evaluate_all_slices(actor, test_df, profile) -> Dict[str, Dict[str, float]]:
+    """Compute the slice metrics needed for Pareto checkpoint selection.
+
+    Returns a dict keyed by slice name with the full evaluate_split payload.
+    Kept in the `app` layer so both `selection.py` and the post-train review
+    pipeline can reuse it with identical semantics.
+    """
+    return slice_metrics(actor, test_df, PARETO_SLICES, profile)
+
+
+def pareto_objective_values(
+    slice_result: Dict[str, Dict[str, float]],
+    objectives: Tuple[str, ...],
+) -> Dict[str, float]:
+    """Map slice metrics onto the config's ordered Pareto objectives.
+
+    Known keys (all in "higher-is-better" space after sign conversion inside
+    `pareto_dominates`):
+      - test_2022_max_dd: lower is better (so we store raw and dominate on <=)
+      - test_proxy_sharpe: higher is better
+      - test_2023_2024_return: higher is better
+
+    Missing slices (e.g. too short) default to sentinel values that lose every
+    comparison so they never artificially gate out other checkpoints.
+    """
+    values: Dict[str, float] = {}
+    for obj in objectives:
+        if obj == "test_2022_max_dd":
+            values[obj] = float(slice_result.get("test_2022", {}).get("max_dd", float("inf")))
+        elif obj == "test_proxy_sharpe":
+            values[obj] = float(slice_result.get("test_proxy", {}).get("sharpe", float("-inf")))
+        elif obj == "test_2023_2024_return":
+            values[obj] = float(slice_result.get("test_2023_2024", {}).get("return", float("-inf")))
+        elif obj.endswith("_return"):
+            slice_name = obj.rsplit("_return", 1)[0]
+            values[obj] = float(slice_result.get(slice_name, {}).get("return", float("-inf")))
+        elif obj.endswith("_sharpe"):
+            slice_name = obj.rsplit("_sharpe", 1)[0]
+            values[obj] = float(slice_result.get(slice_name, {}).get("sharpe", float("-inf")))
+        elif obj.endswith("_max_dd"):
+            slice_name = obj.rsplit("_max_dd", 1)[0]
+            values[obj] = float(slice_result.get(slice_name, {}).get("max_dd", float("inf")))
+        else:
+            values[obj] = float("-inf")
+    return values
+
+
+def _objective_is_minimized(name: str) -> bool:
+    return name.endswith("_max_dd") or name.endswith("_drawdown") or name.endswith("_avg_pos")
+
+
+def pareto_dominates(
+    a: Dict[str, float],
+    b: Dict[str, float],
+    objectives: Tuple[str, ...],
+) -> bool:
+    """Return True if ``a`` dominates ``b`` across all listed objectives.
+
+    Objectives matching the min/max heuristic (`_max_dd` / `_drawdown` / `_avg_pos`
+    are minimized, everything else maximized).
+    """
+    strictly_better = False
+    for obj in objectives:
+        av, bv = a[obj], b[obj]
+        if _objective_is_minimized(obj):
+            if av > bv:
+                return False
+            if av < bv:
+                strictly_better = True
+        else:
+            if av < bv:
+                return False
+            if av > bv:
+                strictly_better = True
+    return strictly_better
+
+
+def pareto_front_indices(
+    candidates: list[Dict[str, float]],
+    objectives: Tuple[str, ...],
+) -> list[int]:
+    """Return the indices of the Pareto-optimal candidates."""
+    front: list[int] = []
+    for i, ci in enumerate(candidates):
+        dominated = False
+        for j, cj in enumerate(candidates):
+            if i == j:
+                continue
+            if pareto_dominates(cj, ci, objectives):
+                dominated = True
+                break
+        if not dominated:
+            front.append(i)
+    return front
+
+
 __all__ = [
+    "PARETO_SLICES",
     "compact_result",
     "describe_metrics",
+    "evaluate_all_slices",
+    "pareto_dominates",
+    "pareto_front_indices",
+    "pareto_objective_values",
     "slice_frame",
     "slice_metrics",
     "validation_score",

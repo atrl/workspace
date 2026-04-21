@@ -13,6 +13,7 @@ from __future__ import annotations
   - 后续做多资产训练时，建议增加 instrument_id 和品种波动率画像特征。
 """
 
+import os
 from pathlib import Path
 import hashlib
 from typing import List, Tuple
@@ -26,6 +27,28 @@ from qlib.data.dataset.handler import DataHandlerLP
 from qlib.data.dataset.loader import StaticDataLoader
 
 from .settings import TEST_SEG, TRAIN_SEG, VALID_SEG
+
+ROOT = Path(__file__).resolve().parents[2]
+EXTERNAL_DATA_DIR = ROOT / "data" / "external"
+
+
+def _vix_term_feature_flag() -> bool:
+    """Enable VIX term-structure + SKEW + VVIX features.
+
+    Gated behind an env var so existing actor bundles (trained with 59-feature
+    schema) stay replay-compatible by default. New profiles (v22+) should set
+    `SOXL_USE_VIX_TERM=1` in their training entrypoint before importing data.
+    """
+    return os.environ.get("SOXL_USE_VIX_TERM", "0") == "1"
+
+
+VIX_TERM_FEATURE_COLUMNS: List[str] = [
+    "vvix_zscore_252",
+    "vix_term_slope",
+    "vix_short_ratio",
+    "skew_zscore_252",
+    "vix_term_slope_velocity_5",
+]
 
 FEATURE_COLUMNS: List[str] = [
     "return",
@@ -90,6 +113,8 @@ FEATURE_COLUMNS: List[str] = [
     "realized_skew_21",
     "gain_streak_10",
 ]
+if _vix_term_feature_flag():
+    FEATURE_COLUMNS.extend(VIX_TERM_FEATURE_COLUMNS)
 STATIC_INDEX = {name: idx for idx, name in enumerate(FEATURE_COLUMNS)}
 
 
@@ -234,6 +259,39 @@ def _streaks(mask: pd.Series) -> pd.Series:
         streak = streak + 1 if bool(flag) else 0
         out.append(streak)
     return pd.Series(out, index=mask.index, dtype=float)
+
+
+def _load_external_series(filename: str, value_col: str) -> pd.Series:
+    """Load an external CSV from ``data/external/`` into a date-indexed Series.
+
+    Handles the two layouts shipping with this repo:
+      - DATE, VALUE
+      - DATE, OPEN, HIGH, LOW, CLOSE  (we use CLOSE)
+    """
+    path = EXTERNAL_DATA_DIR / filename
+    if not path.exists():
+        raise FileNotFoundError(f"missing external series: {path}")
+    df = pd.read_csv(path)
+    date_col = "DATE" if "DATE" in df.columns else df.columns[0]
+    df[date_col] = pd.to_datetime(df[date_col], errors="coerce")
+    df = df.dropna(subset=[date_col]).set_index(date_col).sort_index()
+    if value_col not in df.columns:
+        raise KeyError(f"{filename} missing column {value_col}; got {list(df.columns)}")
+    series = df[value_col].astype(float)
+    series.index.name = "date"
+    return series
+
+
+def _align_external(series: pd.Series, index: pd.Index) -> pd.Series:
+    """Reindex an external series onto the feature frame's trading calendar.
+
+    Forward-fills gaps (e.g. SKEW publishes daily, but reindexing to the ETF
+    calendar may introduce misalignment). Leading NaNs before external-data
+    coverage are filled with 0.0 so the feature is simply silent for that
+    period instead of dropping rows.
+    """
+    aligned = series.reindex(index, method="ffill")
+    return aligned.fillna(0.0)
 
 
 def engineer_feature_frame(
@@ -414,6 +472,32 @@ def engineer_feature_frame(
     # Gain streak: symmetric to loss_streak_21
     gain_streak_10 = _streaks(lev_ret > 0).clip(upper=10) / 10.0
 
+    # --- VIX term-structure / SKEW / VVIX (v22) ---
+    # Gated on SOXL_USE_VIX_TERM so existing 59-feature bundles stay replay-safe.
+    use_vix_term = _vix_term_feature_flag()
+    if use_vix_term:
+        idx = close.index
+        vvix = _align_external(_load_external_series("VVIX.csv", "VVIX"), idx)
+        vix3m = _align_external(_load_external_series("VIX3M.csv", "CLOSE"), idx)
+        vix9d = _align_external(_load_external_series("VIX9D.csv", "CLOSE"), idx)
+        skew = _align_external(_load_external_series("SKEW.csv", "SKEW"), idx)
+
+        vvix_zscore_252 = (
+            (vvix - vvix.rolling(252).mean()) / (vvix.rolling(252).std() + 1e-8)
+        ).fillna(0.0)
+        vix_term_slope = (vix / vix3m.replace(0.0, np.nan) - 1.0).fillna(0.0)
+        vix_short_ratio = (vix9d / vix.replace(0.0, np.nan) - 1.0).fillna(0.0)
+        skew_zscore_252 = (
+            (skew - skew.rolling(252).mean()) / (skew.rolling(252).std() + 1e-8)
+        ).fillna(0.0)
+        vix_term_slope_velocity_5 = (vix_term_slope - vix_term_slope.shift(5)).fillna(0.0)
+    else:
+        vvix_zscore_252 = None
+        vix_term_slope = None
+        vix_short_ratio = None
+        skew_zscore_252 = None
+        vix_term_slope_velocity_5 = None
+
     feature_df = pd.DataFrame(
         {
             "return": lev_ret,
@@ -479,6 +563,12 @@ def engineer_feature_frame(
             "close": close,
         }
     ).replace([np.inf, -np.inf], np.nan)
+    if use_vix_term:
+        feature_df["vvix_zscore_252"] = vvix_zscore_252
+        feature_df["vix_term_slope"] = vix_term_slope
+        feature_df["vix_short_ratio"] = vix_short_ratio
+        feature_df["skew_zscore_252"] = skew_zscore_252
+        feature_df["vix_term_slope_velocity_5"] = vix_term_slope_velocity_5
     feature_df = feature_df.dropna()
 
     if ablate_vix:

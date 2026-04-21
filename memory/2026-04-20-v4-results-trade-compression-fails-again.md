@@ -1,12 +1,30 @@
 ---
 date: '2026-04-20'
-title: 'v4 Results: Trade Compression Fails Again — Trades Increase to 327'
-kind: experiment-result
-profile: balanced_rule_residual_v4
-baseline: balanced_rule_residual_v3
+title: "v4 Results: Trade Compression Fails Again \u2014 Trades Increase to 327"
+kind: other
+profiles:
+- balanced_rule_residual_v4
+status: kept
+tags:
+- balanced_rule_residual_v4
+- eval-2022
+- execution-overlay
+- kept
+- other
+artifacts: []
+workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+summary: Legacy memory note normalized into the repo-wide schema. v4 training completed.
+  Despite aggressive trade compression design (flat penalty 1.20, longer lock 8 days,
+  reduced alpha 2.0), **trades increased from 314 to 327**. Strategy is highly
 ---
 
 # v4 Results: Trade Compression Fails Again
+
+## Context
+
+Legacy memory note normalized into the repo-wide schema.
+
+## Evidence
 
 ## Summary
 
@@ -66,3 +84,11 @@ Recommended v5 approach: flat_trade_penalty = 5.0 (4x increase) + trade_lock_day
 - Experiment: `experiments/candidate/balanced_rule_residual_v4/`
 - Log: `log/balanced_rule_residual_v4.log`
 - Model: `soxl_balanced_rule_residual_v4_actor.pt`
+
+## Decision
+
+See the summary and status fields in front matter.
+
+## Next Use
+
+Use `scripts/memory_search.py` before opening additional memory files.

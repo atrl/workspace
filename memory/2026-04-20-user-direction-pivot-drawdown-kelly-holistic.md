@@ -1,4 +1,33 @@
+---
+date: '2026-04-20'
+title: 'User Direction Pivot: Stop Trade Compression, Focus on Drawdown + Kelly'
+kind: decision
+profiles: []
+status: kept
+tags:
+- checkpoint-selection
+- decision
+- eval-2022
+- kept
+- stress-regime
+- walk-forward
+artifacts: []
+workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+summary: "Legacy memory note normalized into the repo-wide schema. Date: 2026-04-20\
+  \ > \"\u4EA4\u6613\u591A\u4E0D\u5F71\u54CD\uFF0C \u4E3B\u8981\u8981\u63A7\u5236\u56DE\
+  \u6D4B\u548C\u51EF\u5229\u671F\u671B \u4F18\u5316\u7684\u65B9\u5F0F\u5E94\u8BE5\u662F\
+  \u6A21\u578B \u5956\u52B1 \u7279\u5F81\u7ED3\u5408\u7684\u7ED3\u679C\" Translation:\
+  \ \"Many trades don't matter. The main thing is to control drawdown and Kelly expectancy.\
+  \ The optimization ap"
+---
+
 # User Direction Pivot: Stop Trade Compression, Focus on Drawdown + Kelly
+
+## Context
+
+Legacy memory note normalized into the repo-wide schema.
+
+## Evidence
 
 Date: 2026-04-20
 
@@ -43,3 +72,11 @@ The user is the ultimate arbiter of what matters. Trade count was a self-imposed
 - Control drawdown
 - Pass promotion gates
 - Good walk-forward performance
+
+## Decision
+
+See the summary and status fields in front matter.
+
+## Next Use
+
+Use `scripts/memory_search.py` before opening additional memory files.
