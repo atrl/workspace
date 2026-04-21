@@ -79,6 +79,22 @@ profile. Instead:
 4. If a proposal only changes thresholds, penalties, or naming inside an
    already-dropped direction, default to not running it.
 
+### Overlay Follow-Up
+
+The first explicit `release` overlay follow-up did not clear the bar for a new
+mechanism.
+
+- `stress_release_route_v1` added a coded `release` state over
+  `regime_route_v1`, but the realized SOXL `bear_2022` and
+  `recovery_2023_2024` slices were unchanged.
+- The small proxy-return change came mostly from marginal behavior elsewhere,
+  not from better selective re-entry in the windows that motivated the change.
+- Conclusion: keep `release` support as harness infrastructure, but drop this
+  parameterization as evidence that "release-state overlay" is currently solved.
+- Next overlay work is only valid if it first proves that the release state
+  fires on materially different rows or uses genuinely new information beyond
+  threshold drift on existing row-level features.
+
 ## Experiment Taxonomy
 
 The historical branches fall into a few repeatable categories:

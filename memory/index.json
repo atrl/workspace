@@ -1695,6 +1695,34 @@
     "excerpt": "# 2026-04-21 memory and experiments cleanup ## Context `experiments/` had accumulated too many historical packages under `candidate/`, and several package notes were duplicating result narratives already captured in `memory/`. ## What Changed - Kept only the real active set in `e"
   },
   {
+    "path": "memory/2026-04-21-release-overlay-evaluation.md",
+    "date": "2026-04-21",
+    "title": "2026-04-21 release overlay evaluation",
+    "kind": "failure",
+    "profiles": [
+      "balanced_rule_residual_v19",
+      "soxl"
+    ],
+    "status": "dropped",
+    "tags": [
+      "balanced_rule_residual_v19",
+      "checkpoint-selection",
+      "dropped",
+      "eval-2022",
+      "execution-overlay",
+      "failure",
+      "soxl",
+      "stress-regime"
+    ],
+    "artifacts": [
+      "runtime/generalization/execution_overlay_results_v19_release.json",
+      "runtime/generalization/execution_overlay_results_v19_release_subset.json"
+    ],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "The first explicit `release` execution overlay on top of `balanced_rule_residual_v19` did not produce a materially new behavior. `stress_release_route_v1` was effectively identical to `regime_route_v1` on the key SOXL bear/recovery slices, so this direction should not be treated as a successful next-step mechanism.",
+    "excerpt": "# 2026-04-21 release overlay evaluation ## Context The repo already concluded that another generic overlay sweep would be duplicate work unless it introduced an explicit `release / re-entry` state beyond the existing `stress / bull / base` routing. That state was implemented and "
+  },
+  {
     "path": "memory/2026-04-21-v22-vix-term-structure-results.md",
     "date": "2026-04-21",
     "title": "2026-04-21 v22 VIX term-structure training results",

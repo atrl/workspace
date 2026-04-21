@@ -669,6 +669,66 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
   - output path:
     - `runtime/generalization/execution_overlay_results_v19_release.json`
 
+## Release-state overlay evaluation 2026-04-21 19:xx
+
+- Goal:
+  - close the loop on the new `release` execution state with actual
+    backtest evidence before treating it as a valid next-step mechanism
+  - decide whether the next experiment should stay in execution space or move
+    back to selection / state-representation work
+- Direct comparison anchor:
+  - `regime_route_v1`
+- Closest historical success case:
+  - `regime_route_v1`
+  - it kept the generic routing direction alive by improving average bear-side
+    behavior across the earlier 5-ETF sweep
+- Closest historical failure case:
+  - generic overlay retuning
+  - repeated threshold drift changed turnover and return shape without solving
+    SOXL-specific selective re-entry
+- New mechanism tested:
+  - explicit `release` regime plus release-specific threshold / cooldown /
+    trade-lock overrides
+- Why this still failed the anti-duplication bar in practice:
+  - the first `release` parameterization barely changed realized behavior from
+    `regime_route_v1`
+  - on the key SOXL slices, `stress_release_route_v1` was identical to
+    `regime_route_v1` in:
+    - `bear_2022 return / maxDD / avg_pos`
+    - `recovery_2023_2024 return / maxDD / avg_pos`
+  - this means the added state existed in code, but it did not separate enough
+    rows in the evaluated path to become a materially new execution behavior
+- Validation evidence:
+  - result files:
+    - `runtime/generalization/execution_overlay_results_v19_release.json`
+    - `runtime/generalization/execution_overlay_results_v19_release_subset.json`
+  - SOXL readout:
+    - `base`: proxy `412.7 / 0.837 / 48.79`, `bear_2022 -23.2 / 31.32 / 0.262`,
+      `recovery_2023_2024 41.7 / 32.81 / 0.472`
+    - `regime_route_v1`: proxy `478.6 / 0.893 / 45.97`,
+      `bear_2022 -22.6 / 31.00 / 0.255`,
+      `recovery_2023_2024 43.0 / 34.55 / 0.464`
+    - `stress_release_route_v1`: proxy `482.8 / 0.896 / 46.29`,
+      `bear_2022 -22.6 / 31.00 / 0.255`,
+      `recovery_2023_2024 43.0 / 34.55 / 0.464`
+  - 5-ETF readout:
+    - `TQQQ`, `UPRO`, and `SPXL` were identical or effectively identical
+      between `regime_route_v1` and `stress_release_route_v1`
+    - `TECL` changed slightly on proxy return but did not improve the key
+      stress/recovery slices
+- Keep / drop decision:
+  - drop `stress_release_route_v1` as a valid next-step candidate
+  - keep the code path only as harness infrastructure for future
+    release-regime diagnostics, not as a promoted overlay
+  - do not treat this loop as a successful new mechanism
+- Next action:
+  - do not run another release overlay by threshold drift alone
+  - next valid attempts must prove one of:
+    - `release` rows are materially distinct and numerous enough to matter
+    - checkpoint selection can recover restart windows without widening `2022`
+    - a new external-risk / cross-asset state provides information the current
+      row-level release rules do not have
+
 ## RL module migration 2026-04-18 23:xx
 
 - Goal:
