@@ -4,7 +4,12 @@ from pathlib import Path
 
 import pandas as pd
 
-from scripts.build_backtest_dashboard import normalize_post_train_review_rows, select_best_version, select_latest_version
+from scripts.build_backtest_dashboard import (
+    compact_payload_rows,
+    normalize_post_train_review_rows,
+    select_best_version,
+    select_latest_version,
+)
 from src.soxl_quant.app.dashboard import review_daily_csv_path, write_review_daily_csv
 
 
@@ -117,3 +122,37 @@ def test_normalize_post_train_review_rows_falls_back_to_position_change_inferenc
         ]
     )
     assert [r["action"] for r in rows] == ["BUY", "SELL"]
+
+
+def test_compact_payload_rows_drops_redundant_market_metadata():
+    rows = compact_payload_rows(
+        [
+            {
+                "datetime": "2024-01-02",
+                "strategy_nav": 1_000_000.0,
+                "price": 10.0,
+                "buyhold_nav": 1_000_000.0,
+                "position": 0.4,
+                "excess": 0.0,
+                "excess_pct": 0.0,
+                "action": "BUY",
+                "open": 9.8,
+                "high": 10.1,
+                "low": 9.7,
+                "close": 10.0,
+                "_features": {"vix": 20.0},
+            }
+        ]
+    )
+    assert rows == [
+        {
+            "datetime": "2024-01-02",
+            "strategy_nav": 1_000_000.0,
+            "price": 10.0,
+            "buyhold_nav": 1_000_000.0,
+            "position": 0.4,
+            "excess": 0.0,
+            "excess_pct": 0.0,
+            "action": "BUY",
+        }
+    ]

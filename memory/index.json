@@ -1560,6 +1560,37 @@
     "excerpt": "# v8 Results: Passes Fixed-Split Promotion Gate, But Penalties Degrade Learning ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence Date: 2026-04-20 Profile: `balanced_rule_residual_v8` Baseline: `balanced_rule_residual_v2` (best drawdown), `v7` (previ"
   },
   {
+    "path": "memory/2026-04-21-dashboard-slimming-and-overlay-order.md",
+    "date": "2026-04-21",
+    "title": "2026-04-21 dashboard slimming and next-step overlay order",
+    "kind": "decision",
+    "profiles": [
+      "balanced",
+      "balanced_rule_residual_v19",
+      "balanced_rule_residual_v22",
+      "balanced_rule_residual_v23"
+    ],
+    "status": "active",
+    "tags": [
+      "active",
+      "balanced",
+      "balanced_rule_residual_v19",
+      "balanced_rule_residual_v22",
+      "balanced_rule_residual_v23",
+      "dashboard",
+      "decision",
+      "execution-overlay",
+      "stress-regime",
+      "transition-features"
+    ],
+    "artifacts": [
+      "runtime/generalization/dashboard.html"
+    ],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Slimmed `runtime/generalization/dashboard.html` by changing historical `versioned` payloads to carry only compact trading-series rows and reusing current per-ETF market metadata client-side by date. Dashboard size fell from 50.54 MB to 20.41 MB. Mainline optimization order remains fixed-actor execution/risk overlay before any new retraining branch.",
+    "excerpt": "# 2026-04-21 dashboard slimming and next-step overlay order ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## Dashboard result - Previous `runtime/generalization/dashboard.html`: `50.54 MB` - New `runtime/generalization/dashboard.html`: `20.41 MB`"
+  },
+  {
     "path": "memory/2026-04-21-experiment-landscape-and-gates.md",
     "date": "2026-04-21",
     "title": "2026-04-21 experiment landscape review and research gate hardening",

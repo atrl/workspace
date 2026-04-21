@@ -475,6 +475,41 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
     - if retraining resumes, prefer external-risk or selection methods that can
       prove selective re-entry instead of broad de-risking
 
+## Dashboard payload slimming 2026-04-21 13:xx
+
+- Goal:
+  - reduce `runtime/generalization/dashboard.html` size enough to remove the
+    current GitHub large-file warning
+  - keep the static dashboard architecture and preserve the main inspection
+    flow for current results plus historical version comparison
+- Direct motivation:
+  - latest push warned that `runtime/generalization/dashboard.html` is
+    `50.54 MB`
+  - payload breakdown shows:
+    - `detailed`: `9.82 MB`
+    - `versioned`: `40.48 MB`
+  - largest waste is embedding full per-day OHLC / feature metadata again for
+    every historical version
+- Planned mechanism:
+  - keep current `detailed` rows rich
+  - slim `versioned` rows down to trading-series essentials only
+  - hydrate shared market metadata client-side from the current per-ETF base
+    rows by `datetime`
+  - keep all historical version summary / training-curve data available
+- Acceptance criteria:
+  - dashboard rebuild succeeds
+  - `tests/test_dashboard.py` still passes
+  - resulting `runtime/generalization/dashboard.html` is materially smaller than
+    the previous `50.54 MB`
+  - version switching still works for the main chart and info panel
+- Expected next experiment after this maintenance loop:
+  - fixed-actor execution / risk overlay
+  - specifically:
+    - keep `balanced_rule_residual_v19` as direct comparison anchor
+    - use `balanced` / `balanced_rule_residual_v22` only as comparison rails
+    - test selective stress-release re-entry through overlay routing, not more
+      transition-state retraining
+
 ## RL module migration 2026-04-18 23:xx
 
 - Goal:

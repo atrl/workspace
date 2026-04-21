@@ -163,6 +163,25 @@ def load_csv_rows(path: Path) -> list[dict[str, object]]:
         return rows
 
 
+def compact_payload_rows(rows: list[dict[str, object]]) -> list[dict[str, object]]:
+    """Keep only the trading-series fields needed to rehydrate historical views."""
+    compact: list[dict[str, object]] = []
+    for row in rows:
+        compact.append(
+            {
+                "datetime": row["datetime"],
+                "strategy_nav": row["strategy_nav"],
+                "price": row.get("price"),
+                "buyhold_nav": row.get("buyhold_nav"),
+                "position": row.get("position"),
+                "excess": row.get("excess"),
+                "excess_pct": row.get("excess_pct"),
+                "action": row.get("action", "HOLD"),
+            }
+        )
+    return compact
+
+
 def load_model_versions() -> list[dict]:
     """Load all historical model versions from artifacts/models/*_summary.json."""
     versions = []
@@ -485,12 +504,13 @@ def _load_post_train_review_versions(features: dict[str, dict[str, float]] | Non
                 "updated_at": csv_path.stat().st_mtime,
                 "source": str(csv_path.relative_to(ROOT)),
                 "source_kind": "post_train_review",
+                "shared_market_data": True,
             },
             "detailed": {
                 "SOXL": {
                     "summary": summary,
                     "csv_path": str(csv_path.relative_to(ROOT)),
-                    "rows": rows,
+                    "rows": compact_payload_rows(rows),
                     "regime_shapes": regime_shapes,
                     "trades": trades,
                     "kelly": kelly_stats,
@@ -550,7 +570,7 @@ def _load_versioned_data(features: dict[str, dict[str, float]] | None) -> dict[s
             version_rows[etf] = {
                 "summary": item,
                 "csv_path": str(csv_path.relative_to(ROOT)),
-                "rows": rows,
+                "rows": compact_payload_rows(rows),
                 "regime_shapes": regime_shapes,
                 "trades": trades,
                 "kelly": kelly_stats,
@@ -566,6 +586,7 @@ def _load_versioned_data(features: dict[str, dict[str, float]] | None) -> dict[s
                     "updated_at": summary_path.stat().st_mtime,
                     "source": str(summary_path.relative_to(ROOT)),
                     "source_kind": "generalization_version",
+                    "shared_market_data": True,
                 },
                 "detailed": version_rows,
                 "windows": version_windows,
@@ -604,7 +625,6 @@ def build_payload() -> dict[str, object]:
             "regime_shapes": regime_shapes,
             "trades": trades,
             "kelly": kelly_stats,
-            "ohlc": ohlc,
         }
         windows[etf] = {
             "start": rows[0]["datetime"] if rows else "",
@@ -1457,7 +1477,32 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     const infoEmpty = document.getElementById('infoEmpty');
     const infoContent = document.getElementById('infoContent');
     const regimeStrip = document.getElementById('regimeStrip');
-    const STORAGE_KEY = 'soxl-dashboard-state-v9';
+    const STORAGE_KEY = 'soxl-dashboard-state-v10';
+    const hydratedVersionCache = {{}};
+    const baseRowLookup = Object.fromEntries(
+      ETFS.map(etf => [
+        etf,
+        Object.fromEntries(
+          (DATA.detailed[etf].rows || []).map(row => [
+            row.datetime,
+            {{
+              open: row.open,
+              high: row.high,
+              low: row.low,
+              close: row.close,
+              volume: row.volume,
+              rsi6: row.rsi6,
+              ma180: row.ma180,
+              hv_20: row.hv_20,
+              vol_coef: row.vol_coef,
+              panic_score: row.panic_score,
+              market_state: row.market_state,
+              _features: row._features || {{}},
+            }},
+          ])
+        ),
+      ])
+    );
 
     function fmtPct(v, digits = 2) {{
       return v == null ? 'n/a' : `${{(v * 100).toFixed(digits)}}%`;
@@ -1496,15 +1541,41 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
     }}
 
+    function hydrateVersionDetail(etf, version, detail) {{
+      if (!detail) return null;
+      const cacheKey = `${{version}}::${{etf}}`;
+      if (hydratedVersionCache[cacheKey]) return hydratedVersionCache[cacheKey];
+      const lookup = baseRowLookup[etf] || {{}};
+      const hydrated = {{
+        ...detail,
+        rows: (detail.rows || []).map(row => {{
+          const market = lookup[row.datetime] || {{}};
+          return {{
+            ...market,
+            ...row,
+            _features: market._features || {{}},
+          }};
+        }}),
+      }};
+      hydratedVersionCache[cacheKey] = hydrated;
+      return hydrated;
+    }}
+
     function getDetailed(etf) {{
       if (state.version && DATA.versioned && DATA.versioned[state.version]) {{
-        return DATA.versioned[state.version].detailed[etf];
+        const versionDetail = DATA.versioned[state.version].detailed[etf];
+        if (versionDetail) {{
+          return hydrateVersionDetail(etf, state.version, versionDetail);
+        }}
       }}
       return DATA.detailed[etf];
     }}
     function getWindows(etf) {{
       if (state.version && DATA.versioned && DATA.versioned[state.version]) {{
-        return DATA.versioned[state.version].windows[etf];
+        const versionWindows = DATA.versioned[state.version].windows[etf];
+        if (versionWindows) {{
+          return versionWindows;
+        }}
       }}
       return DATA.windows[etf];
     }}
@@ -1587,9 +1658,11 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       defaultOpt.textContent = 'Current (default)';
       versionSelect.appendChild(defaultOpt);
       VERSIONS.forEach(v => {{
+        const versionPayload = DATA.versioned[v] || {{}};
+        const etfCount = Object.keys(versionPayload.detailed || {{}}).length;
         const opt = document.createElement('option');
         opt.value = v;
-        opt.textContent = v;
+        opt.textContent = etfCount <= 1 ? `${{v}} (SOXL)` : v;
         versionSelect.appendChild(opt);
       }});
       etfSelect.addEventListener('change', e => {{
@@ -2303,6 +2376,8 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       }});
 
       if (rows.length) {{
+        const versionPayload = state.version && DATA.versioned ? DATA.versioned[state.version] : null;
+        const isFallbackView = Boolean(versionPayload && !((versionPayload.detailed || {{}})[state.etf]));
         chartMeta.innerHTML = `
           <span>Built: <span class="mono">${{DATA.generated_at}}</span></span>
           <span>Version: <span class="mono">${{state.version || 'current'}}</span></span>
@@ -2311,6 +2386,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
           <span>Rows: <span class="mono">${{rows.length}}</span></span>
           <span>BUY: <span class="mono">${{buyRows.length}}</span></span>
           <span>SELL: <span class="mono">${{sellRows.length}}</span></span>
+          ${{isFallbackView ? '<span>Market Data: <span class="mono">current ETF fallback</span></span>' : ''}}
         `;
       }} else {{
         chartMeta.innerHTML = `<span>当前日期筛选下没有数据，请放宽缩放范围。</span>`;
