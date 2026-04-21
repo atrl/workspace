@@ -574,6 +574,44 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
   - otherwise move back to checkpoint-selection or another genuinely new
     execution mechanism
 
+## Historical integration policy 2026-04-21 14:xx
+
+- Goal:
+  - convert the historical experiment archive into a durable keep / optional /
+    drop governance policy
+  - stop future work from "integrating" old wins by stacking multiple partially
+    useful mechanisms into one opaque profile
+- Mechanism:
+  - update `docs/experiment-landscape-review.md` with:
+    - `Core Keep Set`
+    - `Optional Module Set`
+    - `Permanent Drop Set`
+    - integration rules for future loops
+- Main retention decision:
+  - core keep:
+    - `balanced`
+    - `balanced_rule_residual` family
+    - `balanced_rule_residual_v19`
+    - harness governance + fixed-actor execution-evaluation path
+  - optional modules:
+    - `balanced_rule_residual_v22`
+    - checkpoint review / early selection
+    - smoke residual harness
+    - existing overlay routing study as an evaluation tool
+  - permanent drop directions:
+    - reward-only tuning
+    - broad transition feature bundles
+    - narrow transition retrains without selective execution
+    - generic overlay retuning without a new state
+    - bundled structural retries
+- Validation:
+  - `PYTHONPATH=. qlib_venv/bin/python scripts/normalize_memory.py`
+- Keep / drop decision:
+  - keep the landscape review as the single durable source for this governance
+    policy
+  - drop the old habit of re-deriving keep / drop categories from chat instead
+    of from repo-owned records
+
 ## RL module migration 2026-04-18 23:xx
 
 - Goal:

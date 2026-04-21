@@ -22,6 +22,63 @@ Current decision state:
 - Best high-return GRU point: `balanced_rule_residual_v19`
 - Best external-risk feature probe: `balanced_rule_residual_v22`
 
+## Retention Policy
+
+Historical experiments should now be retained by mechanism role, not by profile
+name or recency. The repo should keep one stable core, a small set of optional
+modules, and a clearly documented discard set.
+
+### Core Keep Set
+
+These are the mechanisms that future work should treat as the default retained
+stack.
+
+| layer | retained item | why it stays core | default posture |
+| --- | --- | --- | --- |
+| baseline control | `balanced` | still the cleanest stress-defense control profile | always keep as the control group |
+| mainline RL family | `balanced_rule_residual` | strongest durable architecture family | all new RL branches should start from this family |
+| high-return actor anchor | `balanced_rule_residual_v19` | best retained high-return GRU baseline with seed confirmation | direct comparison anchor for new mainline attempts |
+| harness governance | registry + archive + memory + comparison table | prevents duplicate research loops and profile sprawl | mandatory workflow infrastructure |
+| execution evaluation path | fixed-actor overlay sweep scripts and reviews | useful for testing execution hypotheses without retraining | keep as an evaluation tool, not a default alpha source |
+
+### Optional Module Set
+
+These mechanisms remain useful, but they should be treated as isolated,
+switchable modules rather than folded into the default stack all at once.
+
+| module | representative branch or tool | why it stays optional | usage rule |
+| --- | --- | --- | --- |
+| external-risk features | `balanced_rule_residual_v22` | first clean drawdown-shape gain from external VIX term-structure data | test as a narrow add-on over `v19`, not as a new baseline |
+| checkpoint review / early selection | `balanced_checkpoint_review`, selection history tooling | good at diagnosis and pruning weak late checkpoints | keep as a selector, do not treat it as a rescue mechanism |
+| smoke residual harness | `smoke_rule_residual_v1` | cheap direction-finding sanity check for residual-over-rule changes | use only for staging, not for promotion claims |
+| fixed-actor overlay routing | `regime_route_v1` study and overlay variants | validated execution-layer routing as a direction | only extend if a genuinely new state/mechanism is added |
+
+### Permanent Drop Set
+
+These directions should remain in the repo as evidence only. They should not be
+reopened as default candidate paths unless a future run introduces a clearly new
+mechanism and explicitly cites why the old failure no longer applies.
+
+| dropped direction | representative branches | repeated failure mode | reopen only if |
+| --- | --- | --- | --- |
+| reward-only tuning | `balanced_reward_guard`, repeated coefficient sweeps | validation can rise while `2022` and proxy risk worsen | reward is paired with a new state or execution mechanism |
+| broad transition feature bundles | `balanced_transition_state` | local rebound improvement, full-window exposure drift | the transition logic is narrowed and explicitly gated |
+| narrow transition retrains without selective execution | `balanced_rule_residual_v23` | lower DD came from broad de-risking, not better re-entry | paired with a new release/re-entry execution mechanism |
+| generic overlay retuning | `cta_*`, `fast_reentry`, `regime_route_v1` parameter drift | threshold changes do not solve SOXL-specific selective re-entry | a new execution state exists beyond `stress / bull / base` |
+| bundled structural retries | `balanced_structural_v1`, early MoE bundles | attribution collapses and one gain is offset elsewhere | one structural lever is isolated and ablated |
+
+### Integration Rule
+
+Future "integration" work should not merge historical wins into one large
+profile. Instead:
+
+1. Keep a single stable core stack centered on `balanced` and
+   `balanced_rule_residual_v19`.
+2. Treat every other historically useful idea as a switchable module.
+3. Turn on only one new module at a time during a new loop.
+4. If a proposal only changes thresholds, penalties, or naming inside an
+   already-dropped direction, default to not running it.
+
 ## Experiment Taxonomy
 
 The historical branches fall into a few repeatable categories:
