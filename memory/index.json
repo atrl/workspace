@@ -1904,6 +1904,28 @@
     "excerpt": "# 2026-04-21 v24 low-frequency coarse residual failure ## Context - Experiment: `balanced_rule_residual_v24` - Baseline: `balanced_rule_residual_v19` - Mechanism: - `decision_frequency: 2` - hybrid residual deltas compressed to `[-0.08, 0.0, 0.08]` - Intent: - test whether medium"
   },
   {
+    "path": "memory/2026-04-22-mode-hierarchy-scaffold-start.md",
+    "date": "2026-04-22",
+    "title": "2026-04-22 Mode Hierarchy Scaffold Start",
+    "kind": "decision",
+    "profiles": [
+      "balanced_rule_residual_mode_v1",
+      "soxl"
+    ],
+    "status": "active",
+    "tags": [
+      "active",
+      "balanced_rule_residual_mode_v1",
+      "decision",
+      "execution-overlay",
+      "soxl"
+    ],
+    "artifacts": [],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "The repo hit a clear optimization plateau on threshold, cooldown, and overlay retuning. The next step moved to a larger mechanism change: persistent high-level trading modes constraining the existing residual actor, rather than further sing",
+    "excerpt": "# 2026-04-22 Mode Hierarchy Scaffold Start ## Context The repo hit a clear optimization plateau on threshold, cooldown, and overlay retuning. The next step moved to a larger mechanism change: persistent high-level trading modes constraining the existing residual actor, rather tha"
+  },
+  {
     "path": "memory/README.md",
     "date": "",
     "title": "Memory",

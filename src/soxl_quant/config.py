@@ -191,6 +191,15 @@ class ModelConfig:
 
 
 @dataclass(frozen=True)
+class ModeRouterConfig:
+    enabled: bool = False
+    trend_hold_min_dwell_days: int = 12
+    defensive_hold_min_dwell_days: int = 6
+    crash_rebuild_min_dwell_days: int = 5
+    flat_wait_min_dwell_days: int = 4
+
+
+@dataclass(frozen=True)
 class WarmStartConfig:
     """Rule-based behavioral-cloning pretraining before RL.
 
@@ -250,6 +259,7 @@ class StrategyConfig:
     selection_score: SelectionScoreConfig = field(default_factory=SelectionScoreConfig)
     execution: ExecutionConfig = field(default_factory=ExecutionConfig)
     model: ModelConfig = field(default_factory=ModelConfig)
+    mode_router: ModeRouterConfig = field(default_factory=ModeRouterConfig)
     sampling: SamplingConfig = field(default_factory=SamplingConfig)
     warm_start: WarmStartConfig = field(default_factory=WarmStartConfig)
     decision_frequency: int = 1
@@ -329,6 +339,7 @@ def load_profile(name: str) -> StrategyConfig:
     if "delta_levels" in model_payload:
         model_payload["delta_levels"] = tuple(float(v) for v in model_payload["delta_levels"])
     model = ModelConfig(**model_payload)
+    mode_router = ModeRouterConfig(**payload.get("mode_router", {}))
     sampling = SamplingConfig(**payload.get("sampling", {}))
     warm_start = WarmStartConfig(**payload.get("warm_start", {}))
     return StrategyConfig(
@@ -347,6 +358,7 @@ def load_profile(name: str) -> StrategyConfig:
         selection_score=selection_score,
         execution=execution,
         model=model,
+        mode_router=mode_router,
         sampling=sampling,
         warm_start=warm_start,
         decision_frequency=int(payload.get("decision_frequency", 1)),

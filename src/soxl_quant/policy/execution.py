@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import Optional
 
 from ..config import ExecutionConfig, ExecutionRegimeConfig
+from .modes import mode_threshold_multiplier
 
 DEFAULT_EXECUTION = ExecutionConfig()
 
@@ -131,6 +132,7 @@ def rebalance_threshold(
     vix_zscore: float = 0.0,
     downside_ratio_10: float = 0.0,
     direction: str = "neutral",
+    mode: str | None = None,
     config: Optional[ExecutionConfig] = None,
 ) -> float:
     cfg = config or DEFAULT_EXECUTION
@@ -178,6 +180,7 @@ def rebalance_threshold(
                 threshold *= float(custom.buy_threshold_multiplier)
             elif direction == "sell":
                 threshold *= float(custom.sell_threshold_multiplier)
+    threshold *= mode_threshold_multiplier(mode, direction)
     return threshold
 
 

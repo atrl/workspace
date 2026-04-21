@@ -388,6 +388,70 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
   - do not explore more threshold-only merges between `dwell_hold_v2` and `regime_route_v1`
   - if overlay work continues, require a genuinely new execution state or new information source rather than recombining existing stress / dwell knobs
   - otherwise shift the next search step back to a new mechanism outside current overlay parameterization
+
+## mode hierarchy v1 scaffold 2026-04-22 00:xx
+
+- Goal:
+  - stop iterating on threshold-only overlay merges
+  - introduce a new mechanism: persistent high-level trading modes that constrain the existing residual actor
+- Canonical baseline:
+  - `balanced_rule_residual_v19`
+- Direct comparison baseline:
+  - execution frontier split between `dwell_hold_v2` and `regime_route_v1`
+- Experiment role:
+  - `diagnose`
+- Changed layer:
+  - `execution`
+  - `model`
+- Closest historical success case:
+  - `dwell_hold_v2` as the low-churn persistence archetype
+  - `regime_route_v1` as the crisis-control archetype
+- Closest historical failure case:
+  - `balanced_rule_residual_v24`
+  - coarse low-frequency control did not create true temporal abstraction
+- Why this is not a duplicate:
+  - this introduces explicit multi-day behavior modes with dwell rules instead of tuning a single-layer policy or execution thresholds
+- Target improvement window:
+  - `test_2022` without erasing `test_2023_2024`
+- Accepted trade-off window:
+  - allow modest proxy giveback if churn drops materially and stress slices improve with a stable mode path
+- New mechanism being tested this time:
+  - rule-routed persistent modes:
+    - `trend_hold`
+    - `defensive_hold`
+    - `crash_rebuild`
+    - `flat_wait`
+- External reference:
+  - hierarchical / temporally abstract trading control:
+    - `TradeR`
+    - `EarnHFT`
+    - `Deep Stock Trading`
+- Comparison-table row to update back into durable review:
+  - `mode hierarchy v1 scaffold`
+- Implementation plan:
+  - `docs/superpowers/plans/2026-04-21-mode-hierarchy-v1.md`
+- Completed in this loop:
+  - added `ModeRouterConfig` to `src/soxl_quant/config.py`
+  - added `src/soxl_quant/policy/modes.py`
+  - added mode-band support to `src/soxl_quant/policy/positioning.py`
+  - added optional `mode` multiplier path to `src/soxl_quant/policy/execution.py::rebalance_threshold`
+  - initially added a focused unit-test file, then removed it per user preference
+- Commands:
+  - `PYTHONPATH=. qlib_venv/bin/python tests/test_position_cap.py`
+- Validation evidence:
+  - `test_position_cap: OK`
+  - caught and fixed one regression during TDD:
+    - drawdown cap on the legacy no-mode path was temporarily broken by an overly broad `cap < floor` guard
+    - guard is now applied only when an explicit mode band is active
+- User preference update:
+  - do not add new unit tests for this line of work
+  - validate future steps by model backtest / harness outputs only
+- Keep / drop decision:
+  - keep the mode scaffold and the mode-band / threshold interfaces
+  - do not claim strategy improvement yet; the scaffold is not wired through simulator / evaluation / backtest / runtime main loops
+- Next action:
+  - thread `ModeState` through environment / evaluation / backtest / runtime
+  - then create `balanced_rule_residual_mode_v1` as the first candidate package instead of reusing old overlay variants
 - 2026-04-12 19:08:
   - Wired `position_cap` config all the way through training selection, fast slice evaluation, qlib backtest, saved actor bundles, and paper replay.
 - 2026-04-12 19:08:

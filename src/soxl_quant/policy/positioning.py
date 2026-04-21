@@ -23,19 +23,38 @@ def rule_based_position(obs: np.ndarray) -> float:
     return (floor + cap) / 2.0
 
 
+def _apply_mode_band(
+    floor: float,
+    cap: float,
+    position_band: Optional[Tuple[float, float]],
+) -> Tuple[float, float]:
+    if position_band is None:
+        return floor, cap
+    band_floor, band_cap = float(position_band[0]), float(position_band[1])
+    floor = max(0.0, band_floor)
+    cap = min(cap, band_cap)
+    if cap < floor:
+        cap = floor
+    return floor, cap
+
+
 def hybrid_overlay_position(
     action: int,
     obs: np.ndarray,
     config: Optional[PositionCapConfig] = None,
     delta_levels: Optional[np.ndarray] = None,
     hard_floor: Optional[float] = None,
+    mode_band: Optional[Tuple[float, float]] = None,
 ) -> float:
     levels = np.asarray(delta_levels if delta_levels is not None else (-0.15, 0.0, 0.15), dtype=np.float32)
     clipped = int(np.clip(action, 0, len(levels) - 1))
     delta = float(levels[clipped])
     floor, cap = action_band_from_obs(obs, hard_floor=hard_floor)
+    floor, cap = _apply_mode_band(floor, cap, mode_band)
     cumulative_drop = max(-float(np.nan_to_num(obs[STATIC_INDEX["cum_drop_30"]])), 0.0)
     cap = min(cap, drawdown_position_cap(cumulative_drop, obs=obs, config=config))
+    if mode_band is not None and cap < floor:
+        cap = floor
     base = float(np.clip(rule_based_position(obs), floor, cap))
     return float(np.clip(base + delta, floor, cap))
 
@@ -129,13 +148,17 @@ def action_to_position(
     config: Optional[PositionCapConfig] = None,
     action_levels: Optional[np.ndarray] = None,
     hard_floor: Optional[float] = None,
+    mode_band: Optional[Tuple[float, float]] = None,
 ) -> float:
     levels = action_levels if action_levels is not None else BASE_ACTION_LEVELS
     clipped = int(np.clip(action, 0, len(levels) - 1))
     base = float(levels[clipped])
     floor, cap = action_band_from_obs(obs, hard_floor=hard_floor)
+    floor, cap = _apply_mode_band(floor, cap, mode_band)
     cumulative_drop = max(-float(np.nan_to_num(obs[STATIC_INDEX["cum_drop_30"]])), 0.0)
     cap = min(cap, drawdown_position_cap(cumulative_drop, obs=obs, config=config))
+    if mode_band is not None and cap < floor:
+        cap = floor
     return float(np.clip(floor + base * (cap - floor), 0.0, 1.0))
 
 
@@ -147,6 +170,7 @@ def target_position_for_profile(
     hard_floor: Optional[float] = None,
     use_hybrid_overlay: bool = False,
     delta_levels: Optional[np.ndarray] = None,
+    mode_band: Optional[Tuple[float, float]] = None,
 ) -> float:
     if use_hybrid_overlay:
         return hybrid_overlay_position(
@@ -155,6 +179,7 @@ def target_position_for_profile(
             config=config,
             delta_levels=delta_levels,
             hard_floor=hard_floor,
+            mode_band=mode_band,
         )
     return action_to_position(
         action,
@@ -162,6 +187,7 @@ def target_position_for_profile(
         config=config,
         action_levels=action_levels,
         hard_floor=hard_floor,
+        mode_band=mode_band,
     )
 
 
