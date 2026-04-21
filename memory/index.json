@@ -1769,6 +1769,30 @@
     "excerpt": "# 2026-04-21 v19 dwell overlay diagnostic ## Context - Base actor: `balanced_rule_residual_v19` - Motivation: `v24` showed that lower-frequency coarse retraining did not reduce realized churn, so the next cheap question was whether the missing ingredient was execution-side persis"
   },
   {
+    "path": "memory/2026-04-21-v19-overlay-promotion-review.md",
+    "date": "2026-04-21",
+    "title": "2026-04-21 v19 overlay promotion review",
+    "kind": "review",
+    "profiles": [
+      "balanced_rule_residual_v19",
+      "soxl"
+    ],
+    "status": "kept",
+    "tags": [
+      "balanced_rule_residual_v19",
+      "eval-2022",
+      "execution-overlay",
+      "kept",
+      "review",
+      "soxl",
+      "stress-regime"
+    ],
+    "artifacts": [],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Base actor: `balanced_rule_residual_v19` Goal: compare the new dwell overlays against the existing SOXL overlay set on the same fixed-split promotion surface 1. `dwell_hold_v2` 2. `dwell_hold_v1` 3. `regime_route_v1` 4. `stress_release_rout",
+    "excerpt": "# 2026-04-21 v19 overlay promotion review ## Context - Base actor: `balanced_rule_residual_v19` - Goal: compare the new dwell overlays against the existing SOXL overlay set on the same fixed-split promotion surface ## Ranking 1. `dwell_hold_v2` 2. `dwell_hold_v1` 3. `regime_route"
+  },
+  {
     "path": "memory/2026-04-21-v22-vix-term-structure-results.md",
     "date": "2026-04-21",
     "title": "2026-04-21 v22 VIX term-structure training results",

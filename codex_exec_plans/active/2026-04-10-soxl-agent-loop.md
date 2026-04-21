@@ -1026,6 +1026,61 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
   - if it holds up, compare it directly against existing overlay variants before
     considering any new training branch
 
+## v19 SOXL overlay promotion review 2026-04-21 23:xx
+
+- Goal:
+  - rank `dwell_hold_v2` against the existing retained SOXL overlay set on the
+    same fixed-split surface
+  - decide whether the next step should optimize for:
+    - SOXL proxy return / Sharpe
+    - or stronger `2022` defense
+- Command:
+  - `PYTHONPATH=. qlib_venv/bin/python /tmp/overlay_promotion_review.py`
+- Output artifacts:
+  - `runtime/post_train_review/v19_overlay_promotion_review.json`
+  - `runtime/post_train_review/v19_overlay_promotion_review.md`
+- Ranking:
+  - `dwell_hold_v2`
+  - `dwell_hold_v1`
+  - `regime_route_v1`
+  - `stress_release_route_v1`
+  - `base`
+  - `stress_asym_hold_v1`
+  - `fast_reentry`
+  - `cta_defensive`
+  - `cta_trend_hold`
+- Key deltas:
+  - `dwell_hold_v2` vs base:
+    - proxy `774.1 / 0.968 / 51.79 -> 1061.2 / 1.064 / 44.42`
+    - `test_2023_2024 return 46.1 -> 56.9`
+    - `test_2022 max_dd 34.67 -> 34.73` (flat/slightly worse)
+  - `regime_route_v1` vs base:
+    - proxy `774.1 / 0.968 / 51.79 -> 808.0 / 0.994 / 49.66`
+    - `test_2022 max_dd 34.67 -> 32.61` (better crisis control)
+    - `test_2023_2024 return 46.1 -> 61.8`
+- Readout:
+  - `dwell_hold_v2` is the best SOXL fixed-split profit / efficiency overlay in
+    the current set
+  - but it is not the best `2022` protection overlay
+  - the overlay frontier has now split into two distinct directions:
+    - `dwell_hold_v2`: persistence / trend capture / lower churn
+    - `regime_route_v1`: better crisis-window defense
+  - therefore the next step should not be "pick the winner" blindly; it should
+    explicitly decide which objective is primary
+- Keep / drop decision:
+  - keep `dwell_hold_v2` as the top SOXL-specific carry candidate
+  - keep `regime_route_v1` as the best crisis-control reference
+  - drop `stress_release_route_v1` as non-incremental here because it remains
+    identical to `regime_route_v1` on this surface
+- Next action:
+  - run one targeted merge diagnostic:
+    - start from `dwell_hold_v2`
+    - add only the stress-side asymmetry needed to see if `2022` can improve
+      without giving back the proxy / churn gains
+  - if that fails, prefer explicit bifurcation:
+    - SOXL carry overlay track
+    - crisis-control overlay track
+
 ## App and policy consolidation 2026-04-19 00:xx
 
 - Goal:
