@@ -95,6 +95,17 @@ mechanism.
   fires on materially different rows or uses genuinely new information beyond
   threshold drift on existing row-level features.
 
+The next narrow merge attempt also failed to produce a new keeper.
+
+- `dwell_stress_merge_v1` tried to merge the low-churn `dwell_hold_v2` hold
+  skeleton with the stress-side asymmetry from `regime_route_v1`.
+- It did improve `test_2022` relative to `dwell_hold_v2`, but the cost was too
+  high: proxy return / Sharpe fell sharply, proxy MaxDD worsened to `60.6%`,
+  and trade count jumped from `121` to `358`.
+- Conclusion: recombining existing `dwell` and `stress` knobs is not a real new
+  mechanism. Keep `regime_route_v1` and `dwell_hold_v2` as separate frontier
+  points, and drop further threshold-only merges between them.
+
 ## Experiment Taxonomy
 
 The historical branches fall into a few repeatable categories:

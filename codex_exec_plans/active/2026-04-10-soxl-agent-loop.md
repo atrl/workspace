@@ -318,6 +318,76 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
   - Proved smoke reproducibility with two back-to-back seeded runs producing identical summary JSON and identical actor checkpoint hashes.
 - 2026-04-11 19:43:
   - Ran full seeded balanced training and confirmed deeper training depth did not fix `2022`; the saved balanced actor still carries high exposure through drawdowns.
+
+## v19 dwell-stress merge overlay diagnostic 2026-04-21 23:xx
+
+- Goal:
+  - test one narrow execution-only merge after the overlay promotion review
+  - preserve the `dwell_hold_v2` persistence / churn-compression gains while borrowing only the stress-side asymmetry that helped `regime_route_v1` and `stress_asym_hold_v1` defend `2022`
+- Canonical baseline:
+  - `balanced_rule_residual_v19`
+- Direct comparison baseline:
+  - `dwell_hold_v2`
+- Experiment role:
+  - `diagnose`
+- Changed layer:
+  - `execution`
+- Closest historical success case:
+  - `dwell_hold_v2` fixed-actor overlay promotion review
+  - strongest SOXL proxy / Sharpe overlay with materially lower churn than base
+- Closest historical failure case:
+  - `balanced_rule_residual_v24`
+  - low-frequency compression improved little on `2022` and weakened upside when compression was moved into the actor/training path
+- Why this is not a duplicate:
+  - this run does not retrain and does not repeat low-frequency actor compression
+  - it keeps the successful `dwell_hold_v2` hold skeleton fixed and changes only stress-side threshold / cooldown asymmetry in the execution layer
+- Target improvement window:
+  - `test_2022`
+- Accepted trade-off window:
+  - allow a modest giveback versus `dwell_hold_v2` on proxy return if `test_2022` max drawdown and return move materially toward `regime_route_v1`
+- New mechanism being tested this time:
+  - `dwell_hold_v2` plus stress-only buy/sell asymmetry and stress-only cooldown / lock overrides
+- External reference:
+  - internal reference class only for this loop: previous overlay frontier from `runtime/post_train_review/v19_overlay_promotion_review.md`
+  - no new training branch will be opened from this result without an external architecture / feature / reward reference
+- Comparison-table row to update back into durable review:
+  - `v19 fixed overlay merge diagnostic`
+- Planned commands:
+  - create merged execution variant JSON entry under `runtime/post_train_review/`
+  - run a fixed-actor SOXL review against `base`, `dwell_hold_v2`, `regime_route_v1`, and merged variant
+  - persist review markdown / JSON and update memory with keep/drop decision
+- Commands run:
+  - `PYTHONPATH=. qlib_venv/bin/python /tmp/v19_dwell_stress_merge_review.py`
+- Validation evidence:
+  - durable output:
+    - `runtime/post_train_review/v19_dwell_stress_merge_review.md`
+    - `runtime/post_train_review/v19_dwell_stress_merge_review.json`
+  - proxy-aligned review results:
+    - `regime_route_v1`: `659.1% / Sharpe 0.924 / MaxDD 48.85% / 464 trades`
+    - `dwell_hold_v2`: `626.8% / Sharpe 0.883 / MaxDD 50.56% / 121 trades`
+    - `base`: `567.4% / Sharpe 0.874 / MaxDD 49.28% / 332 trades`
+    - `dwell_stress_merge_v1`: `451.7% / Sharpe 0.810 / MaxDD 60.60% / 358 trades`
+  - slice deltas of interest:
+    - `dwell_stress_merge_v1` did improve `test_2022` versus `dwell_hold_v2` on return / DD / avg_pos:
+      - `-24.6% vs -26.4%`
+      - `31.90% vs 34.73%`
+      - `0.267 vs 0.285`
+    - but it paid for that with much worse proxy and churn:
+      - proxy `451.7% vs 626.8%`
+      - proxy maxDD `60.60% vs 50.56%`
+      - trades `358 vs 121`
+    - `regime_route_v1` remains the better crisis-control overlay frontier:
+      - better than merged on proxy, `2022`, and `2023-2024`
+- Keep / drop decision:
+  - drop `dwell_stress_merge_v1` as a follow-up direction
+  - keep the lesson that adding stress-side asymmetry on top of a long dwell lock reintroduces churn and loses the whole point of the dwell overlay
+  - keep the overlay frontier split:
+    - `regime_route_v1` for crisis control
+    - `dwell_hold_v2` for SOXL-specific low-churn persistence
+- Next action:
+  - do not explore more threshold-only merges between `dwell_hold_v2` and `regime_route_v1`
+  - if overlay work continues, require a genuinely new execution state or new information source rather than recombining existing stress / dwell knobs
+  - otherwise shift the next search step back to a new mechanism outside current overlay parameterization
 - 2026-04-12 19:08:
   - Wired `position_cap` config all the way through training selection, fast slice evaluation, qlib backtest, saved actor bundles, and paper replay.
 - 2026-04-12 19:08:
