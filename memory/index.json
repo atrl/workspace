@@ -1642,6 +1642,36 @@
     "excerpt": "# 2026-04-21 experiment landscape review and research gate hardening ## Context The repo had enough historical evidence to explain current strengths and repeated failures, but that knowledge was scattered across `memory/`, experiment notes, and pairwise post-train reviews. ## Wha"
   },
   {
+    "path": "memory/2026-04-21-historical-integration-policy.md",
+    "date": "2026-04-21",
+    "title": "2026-04-21 historical integration policy",
+    "kind": "decision",
+    "profiles": [
+      "balanced",
+      "balanced_rule_residual",
+      "balanced_rule_residual_v19",
+      "balanced_rule_residual_v22",
+      "smoke_rule_residual_v1"
+    ],
+    "status": "active",
+    "tags": [
+      "active",
+      "balanced",
+      "balanced_rule_residual",
+      "balanced_rule_residual_v19",
+      "balanced_rule_residual_v22",
+      "checkpoint-selection",
+      "decision",
+      "execution-overlay",
+      "smoke_rule_residual_v1",
+      "transition-features"
+    ],
+    "artifacts": [],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Added a durable historical integration policy to `docs/experiment-landscape-review.md`. The repo should now retain a single core stack (`balanced`, `balanced_rule_residual`, `v19`, and the harness governance path), treat `v22`, checkpoint review, smoke residual checks, and overlay studies as optional modules, and permanently demote reward-only tuning, broad transition bundles, narrow transition retrains without selective execution, generic overlay retuning, and bundled structural retries to evidence-only directions.",
+    "excerpt": "# 2026-04-21 historical integration policy ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## Purpose Future work should stop \"integrating\" history by stacking together every branch that once looked somewhat useful. Instead, the repo now keeps: - a"
+  },
+  {
     "path": "memory/2026-04-21-memory-experiments-cleanup.md",
     "date": "2026-04-21",
     "title": "2026-04-21 memory and experiments cleanup",
