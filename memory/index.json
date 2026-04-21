@@ -1769,6 +1769,31 @@
     "excerpt": "# 2026-04-21 v19 dwell overlay diagnostic ## Context - Base actor: `balanced_rule_residual_v19` - Motivation: `v24` showed that lower-frequency coarse retraining did not reduce realized churn, so the next cheap question was whether the missing ingredient was execution-side persis"
   },
   {
+    "path": "memory/2026-04-21-v19-dwell-stress-merge-review.md",
+    "date": "2026-04-21",
+    "title": "2026-04-21 v19 Dwell-Stress Merge Review",
+    "kind": "review",
+    "profiles": [
+      "soxl"
+    ],
+    "status": "active",
+    "tags": [
+      "active",
+      "eval-2022",
+      "execution-overlay",
+      "review",
+      "soxl",
+      "stress-regime"
+    ],
+    "artifacts": [
+      "runtime/post_train_review/v19_dwell_stress_merge_review.json",
+      "runtime/post_train_review/v19_dwell_stress_merge_review.md"
+    ],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Follow-up to the `v19` fixed-actor overlay frontier review. The goal was to test one narrow merge only: keep the low-frequency persistence behavior of `dwell_hold_v2`, then add only the stress-side asymmetry that had helped `regime_route_v1",
+    "excerpt": "# 2026-04-21 v19 Dwell-Stress Merge Review ## Context Follow-up to the `v19` fixed-actor overlay frontier review. The goal was to test one narrow merge only: keep the low-frequency persistence behavior of `dwell_hold_v2`, then add only the stress-side asymmetry that had helped `r"
+  },
+  {
     "path": "memory/2026-04-21-v19-overlay-promotion-review.md",
     "date": "2026-04-21",
     "title": "2026-04-21 v19 overlay promotion review",
