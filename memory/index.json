@@ -1560,6 +1560,35 @@
     "excerpt": "# v8 Results: Passes Fixed-Split Promotion Gate, But Penalties Degrade Learning ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence Date: 2026-04-20 Profile: `balanced_rule_residual_v8` Baseline: `balanced_rule_residual_v2` (best drawdown), `v7` (previ"
   },
   {
+    "path": "memory/2026-04-21-experiment-landscape-and-gates.md",
+    "date": "2026-04-21",
+    "title": "2026-04-21 experiment landscape review and research gate hardening",
+    "kind": "decision",
+    "profiles": [
+      "balanced",
+      "balanced_rule_residual",
+      "balanced_rule_residual_v1",
+      "balanced_rule_residual_v19",
+      "balanced_rule_residual_v22"
+    ],
+    "status": "kept",
+    "tags": [
+      "balanced",
+      "balanced_rule_residual",
+      "balanced_rule_residual_v1",
+      "balanced_rule_residual_v19",
+      "balanced_rule_residual_v22",
+      "decision",
+      "kept",
+      "stress-regime",
+      "transition-features"
+    ],
+    "artifacts": [],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Added a durable repo-wide experiment landscape review and hardened `AGENTS.md` so new experiments now require an explicit baseline, closest success/failure case, external evidence class, experiment card, and comparison-table row. The repo should now bias toward narrower, mechanism-new branches instead of repeating reward, threshold, or bundled-structure loops.",
+    "excerpt": "# 2026-04-21 experiment landscape review and research gate hardening ## Context The repo had enough historical evidence to explain current strengths and repeated failures, but that knowledge was scattered across `memory/`, experiment notes, and pairwise post-train reviews. ## Wha"
+  },
+  {
     "path": "memory/2026-04-21-v22-vix-term-structure-results.md",
     "date": "2026-04-21",
     "title": "2026-04-21 v22 VIX term-structure training results",
@@ -1573,9 +1602,9 @@
     "tags": [
       "balanced_rule_residual_v22",
       "balanced_rule_residual_v22_vs_v19",
-      "candidate",
       "checkpoint-selection",
       "eval-2022",
+      "reference",
       "review",
       "smoke",
       "stress-regime",

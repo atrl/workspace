@@ -10,9 +10,9 @@ status: reference
 tags:
 - balanced_rule_residual_v22
 - balanced_rule_residual_v22_vs_v19
-- candidate
 - checkpoint-selection
 - eval-2022
+- reference
 - review
 - smoke
 - stress-regime

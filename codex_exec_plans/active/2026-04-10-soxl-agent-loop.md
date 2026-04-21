@@ -196,6 +196,38 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
   - Post-train review: `runtime/post_train_review/balanced_rule_residual_v22_vs_v19.md`.
   - Expectations scorecard updated in `experiments/candidate/balanced_rule_residual_v22/notes.md`.
 
+- 2026-04-21 11:28 (historical experiment landscape review + AGENTS governance upgrade):
+  - Goal:
+    - stop repeating old experiment families under new names
+    - consolidate historical keep / drop decisions into one durable comparison surface
+    - harden the pre-run research gate so future branches must bring a real new mechanism
+  - Evidence sources reviewed:
+    - `artifacts/models/*_summary.json`
+    - `configs/soxl/profile_registry.yaml`
+    - `experiments/candidate/balanced_rule_residual_{1,16,19,20,22}/notes.md`
+    - `runtime/post_train_review/`
+    - `memory/2026-04-18-*`, `memory/2026-04-20-*`, `memory/2026-04-21-v22-vix-term-structure-results.md`
+  - New durable output:
+    - `docs/experiment-landscape-review.md`
+  - Main conclusions captured:
+    - canonical `balanced` remains the control baseline
+    - `balanced_rule_residual` is the clear mainline family
+    - reward-only and bundled multi-lever loops are the most repeated low-value failures
+    - next experiments must cite an external reference class and must name both the closest success and the closest failure case before running
+  - AGENTS hardening:
+    - added `Experiment Entry Gate`
+    - added `External-Evidence Requirement`
+    - added `Anti-Repetition Rule`
+    - added `Experiment Card Contract`
+    - added `Comparison Table Discipline`
+    - added `Pre-Run Reflection`
+  - Keep / drop decision:
+    - keep the new landscape review as the repo-wide comparison surface
+    - keep pairwise run-local reviews under `runtime/post_train_review/`
+    - drop any future experiment proposal that only renames threshold or penalty drift without a new mechanism
+  - Next action:
+    - use `docs/experiment-landscape-review.md` as the default pre-run briefing for the next candidate branch
+
 - 2026-04-20 23:59 (Tier 1/2/3 harness scaffolding):
   - Implemented the full next-step plan harness in `src/`:
     - **T1-A Seed ensemble** — `EnsembleActor` in `policy/policy_builder.py` +
