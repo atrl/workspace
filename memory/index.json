@@ -1591,6 +1591,28 @@
     "excerpt": "# 2026-04-21 dashboard slimming and next-step overlay order ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## Dashboard result - Previous `runtime/generalization/dashboard.html`: `50.54 MB` - New `runtime/generalization/dashboard.html`: `20.41 MB`"
   },
   {
+    "path": "memory/2026-04-21-existing-overlay-gap-review.md",
+    "date": "2026-04-21",
+    "title": "2026-04-21 existing overlay gap review",
+    "kind": "decision",
+    "profiles": [
+      "soxl"
+    ],
+    "status": "active",
+    "tags": [
+      "active",
+      "decision",
+      "eval-2022",
+      "execution-overlay",
+      "soxl",
+      "stress-regime"
+    ],
+    "artifacts": [],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Reviewed the existing fixed-actor execution overlay sweep before starting any new overlay work. The repo already validated the generic overlay direction with `regime_route_v1`, but on SOXL it did not materially improve the `2022` bear window and also gave up recovery return. Any next overlay loop that only retunes stress/bull thresholds would be duplicate work; the next valid overlay mechanism must introduce an explicit release/re-entry state.",
+    "excerpt": "# 2026-04-21 existing overlay gap review ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## Question Has the repo already implemented the overlay idea that was being proposed as the next step? ## Answer Yes, in the generic sense. The repository alr"
+  },
+  {
     "path": "memory/2026-04-21-experiment-landscape-and-gates.md",
     "date": "2026-04-21",
     "title": "2026-04-21 experiment landscape review and research gate hardening",

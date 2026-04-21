@@ -510,6 +510,70 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
     - test selective stress-release re-entry through overlay routing, not more
       transition-state retraining
 
+## Existing overlay gap review 2026-04-21 14:xx
+
+- Goal:
+  - verify whether the repo already solved the next-step overlay question
+  - avoid repeating the existing `execution overlay` search under a new name
+- Direct comparison anchors:
+  - fixed-actor overlay study:
+    - `runtime/generalization/execution_overlay_results.json`
+    - `runtime/generalization/execution_overlay_review.md`
+  - retained mainline actor:
+    - `balanced_rule_residual_v19`
+- Closest historical success case:
+  - `regime_route_v1`
+  - it improved average `bear_2022` return and maxDD versus simpler fast
+    re-entry / defensive overlays
+- Closest historical failure case:
+  - the full fixed-overlay sweep itself
+  - no single variant dominated all 5 ETFs or clearly solved SOXL-specific
+    selective re-entry
+- Why a new overlay loop would be duplicate unless narrowed:
+  - the repo already tested:
+    - `base`
+    - `cta_trend_hold`
+    - `cta_defensive`
+    - `fast_reentry`
+    - `regime_route_v1`
+  - any next step that only retunes stress / bull thresholds without adding a
+    new `release` state is parameter drift, not a new mechanism
+- Evidence review:
+  - average variant result:
+    - `regime_route_v1` had the best average `bear_2022` outcome across ETFs
+      (`-29.3%`, `33.49%` maxDD)
+    - but `cta_trend_hold` still had the best average proxy return / Sharpe
+      (`291.7%`, `0.832`)
+  - SOXL-specific result:
+    - `base`: proxy `329.1% / 0.718 / 62.84`, `bear_2022 -37.2 / 45.12`,
+      `recovery_2023_2024 60.1 / 36.08`
+    - `regime_route_v1`: proxy `268.5% / 0.673 / 62.03`, `bear_2022 -37.8 / 45.04`,
+      `recovery_2023_2024 48.5 / 37.40`
+    - read:
+      - on SOXL, the current regime-routing overlay did **not** improve the
+        bear window in a meaningful way
+      - it also gave up recovery return
+  - TECL-specific result:
+    - `regime_route_v1` did improve `bear_2022` (`-29.2 / 33.86 -> -27.9 / 31.51`)
+    - but did not dominate proxy Sharpe (`fast_reentry` stayed best)
+  - v19 retained actor baseline:
+    - `test_proxy`: `735.1% / 0.946 / 54.83`
+    - `test_2022`: `-22.5 / 31.07 / 0.261`
+    - `test_2023_2024`: `43.6 / 37.34 / 0.475`
+    - read:
+      - the historical cross-ETF overlay sweep is a different evaluation
+        surface than the retained SOXL fixed-split promotion gate
+      - current generic overlays are still far from a clean promotion-worthy
+        SOXL answer
+- Keep / drop decision:
+  - keep the conclusion that the overlay direction is valid
+  - drop the idea of another generic overlay sweep with only threshold tuning
+- Next action:
+  - only run another overlay loop if it introduces an explicit `release /
+    re-entry` state absent from `regime_route_v1`
+  - otherwise move back to checkpoint-selection or another genuinely new
+    execution mechanism
+
 ## RL module migration 2026-04-18 23:xx
 
 - Goal:
