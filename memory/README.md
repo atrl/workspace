@@ -66,5 +66,28 @@ Preferred body sections:
 
 - Put live execution state in `codex_exec_plans/active/`, not in memory.
 - Put durable keep/drop decisions and recurring failure patterns in memory.
+- Put active experiment cards in `experiments/`, not in memory.
+- Put full result narratives in `memory/` once a run has completed.
 - When a note references a specific artifact or review file, include it in `artifacts` so retrieval and pruning stay aligned.
 - If two notes say nearly the same thing, keep the sharper one and link the artifact path instead of repeating long narrative.
+
+## Relationship To `experiments/`
+
+`experiments/` and `memory/` serve different roles:
+
+- `experiments/`
+  - current or archived experiment packages
+  - config + expectation card + short notes
+- `memory/`
+  - result
+  - decision
+  - failure pattern
+  - continuity
+
+If both exist for the same profile:
+
+- `experiments/*/notes.md` should explain the intended mechanism and point to evidence
+- `memory/*.md` should hold the actual outcome and keep / drop conclusion
+
+When a package note starts duplicating the entire result writeup, shorten the
+package note and keep the result in memory.

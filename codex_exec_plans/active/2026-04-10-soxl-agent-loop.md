@@ -228,6 +228,29 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
   - Next action:
     - use `docs/experiment-landscape-review.md` as the default pre-run briefing for the next candidate branch
 
+- 2026-04-21 11:52 (memory / experiments dedupe and archive cleanup):
+  - Goal:
+    - reduce duplicate result narratives across `experiments/` and `memory/`
+    - shrink `experiments/candidate/` to the actual active set
+    - keep old package configs retrievable without leaving them mixed into the live candidate path
+  - Changes:
+    - moved historical packages from `experiments/candidate/` to `experiments/archive/`
+    - kept only:
+      - `balanced_rule_residual_v19`
+      - `balanced_rule_residual_v22`
+      - `smoke_rule_residual_v1`
+    - updated `experiments/README.md`, `experiments/archive/README.md`, and `memory/README.md`
+    - shortened duplicated active notes so full run results stay in `memory/`
+    - updated `profile_registry.yaml` notes refs and profile-registry tests
+  - Retrieval rule after cleanup:
+    - `docs/experiment-landscape-review.md`
+    - `configs/soxl/profile_registry.yaml`
+    - active or archive package
+    - `memory/index.json` / `scripts/memory_search.py`
+  - Keep / drop decision:
+    - keep archive packages for replayability and intent reconstruction
+    - drop the old pattern where `experiments/*/notes.md` and `memory/*.md` both carry the same full result narrative
+
 - 2026-04-20 23:59 (Tier 1/2/3 harness scaffolding):
   - Implemented the full next-step plan harness in `src/`:
     - **T1-A Seed ensemble** — `EnsembleActor` in `policy/policy_builder.py` +

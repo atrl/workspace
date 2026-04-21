@@ -22,11 +22,11 @@ profiles:
   notes_ref: memory/index.json
 - name: balanced_checkpoint_review
   family: balanced
-  status: candidate
+  status: archived
   baseline: balanced
   keep_actor: true
   keep_summary: true
-  notes_ref: experiments/candidate/balanced_checkpoint_review/notes.md
+  notes_ref: experiments/archive/balanced_checkpoint_review/notes.md
 - name: balanced_decision_freq_quick
   family: balanced
   status: ablation
@@ -176,130 +176,130 @@ profiles:
   notes_ref: runtime/post_train_review/balanced_reward_guard.md
 - name: balanced_rule_residual_v1
   family: balanced
-  status: candidate
+  status: archived
   baseline: balanced
   keep_actor: false
   keep_summary: true
-  notes_ref: experiments/candidate/balanced_rule_residual_v1/notes.md
+  notes_ref: experiments/archive/balanced_rule_residual_v1/notes.md
 - name: balanced_rule_residual_v2
   family: balanced
-  status: candidate
+  status: archived
   baseline: balanced_rule_residual_v1
   keep_actor: false
   keep_summary: true
-  notes_ref: experiments/candidate/balanced_rule_residual_v2/notes.md
+  notes_ref: experiments/archive/balanced_rule_residual_v2/notes.md
 - name: balanced_rule_residual_v3
   family: balanced
-  status: candidate
+  status: archived
   baseline: balanced_rule_residual_v2
   keep_actor: false
   keep_summary: true
-  notes_ref: experiments/candidate/balanced_rule_residual_v3/notes.md
+  notes_ref: experiments/archive/balanced_rule_residual_v3/notes.md
 - name: balanced_rule_residual_v4
   family: balanced
-  status: candidate
+  status: archived
   baseline: balanced_rule_residual_v2
   keep_actor: false
   keep_summary: true
-  notes_ref: experiments/candidate/balanced_rule_residual_v4/notes.md
+  notes_ref: experiments/archive/balanced_rule_residual_v4/notes.md
 - name: balanced_rule_residual_v5
   family: balanced
   status: dropped
   baseline: balanced_rule_residual_v2
   keep_actor: false
   keep_summary: true
-  notes_ref: experiments/candidate/balanced_rule_residual_v5/notes.md
+  notes_ref: experiments/archive/balanced_rule_residual_v5/notes.md
 - name: balanced_rule_residual_v6
   family: balanced
-  status: candidate
+  status: archived
   baseline: balanced_rule_residual_v2
   keep_actor: false
   keep_summary: true
-  notes_ref: experiments/candidate/balanced_rule_residual_v6/notes.md
+  notes_ref: experiments/archive/balanced_rule_residual_v6/notes.md
 - name: balanced_rule_residual_v7
   family: balanced
   status: dropped
   baseline: balanced_rule_residual_v5
   keep_actor: false
   keep_summary: true
-  notes_ref: experiments/candidate/balanced_rule_residual_v7/notes.md
+  notes_ref: experiments/archive/balanced_rule_residual_v7/notes.md
 - name: balanced_rule_residual_v8
   family: balanced
-  status: candidate
+  status: archived
   baseline: balanced_rule_residual_v2
   keep_actor: false
   keep_summary: true
-  notes_ref: experiments/candidate/balanced_rule_residual_v8/notes.md
+  notes_ref: experiments/archive/balanced_rule_residual_v8/notes.md
 - name: balanced_rule_residual_v9
   family: balanced
-  status: candidate
+  status: archived
   baseline: balanced_rule_residual_v2
   keep_actor: false
   keep_summary: true
-  notes_ref: experiments/candidate/balanced_rule_residual_v9/notes.md
+  notes_ref: experiments/archive/balanced_rule_residual_v9/notes.md
 - name: balanced_rule_residual_v10
   family: balanced
   status: dropped
   baseline: balanced_rule_residual_v2
   keep_actor: false
   keep_summary: true
-  notes_ref: experiments/candidate/balanced_rule_residual_v10/notes.md
+  notes_ref: experiments/archive/balanced_rule_residual_v10/notes.md
 - name: balanced_rule_residual_v11
   family: balanced
   status: dropped
   baseline: balanced_rule_residual_v2
   keep_actor: false
   keep_summary: true
-  notes_ref: experiments/candidate/balanced_rule_residual_v11/notes.md
+  notes_ref: experiments/archive/balanced_rule_residual_v11/notes.md
 - name: balanced_rule_residual_v12
   family: balanced
-  status: candidate
+  status: archived
   baseline: balanced_rule_residual_v2
   keep_actor: false
   keep_summary: true
-  notes_ref: experiments/candidate/balanced_rule_residual_v12/notes.md
+  notes_ref: experiments/archive/balanced_rule_residual_v12/notes.md
 - name: balanced_rule_residual_v13
   family: balanced
   status: dropped
   baseline: balanced_rule_residual_v2
   keep_actor: false
   keep_summary: true
-  notes_ref: experiments/candidate/balanced_rule_residual_v13/notes.md
+  notes_ref: experiments/archive/balanced_rule_residual_v13/notes.md
 - name: balanced_rule_residual_v14
   family: balanced
-  status: candidate
+  status: archived
   baseline: balanced_rule_residual_v2
   keep_actor: false
   keep_summary: true
-  notes_ref: experiments/candidate/balanced_rule_residual_v14/notes.md
+  notes_ref: experiments/archive/balanced_rule_residual_v14/notes.md
 - name: balanced_rule_residual_v15
   family: balanced
-  status: candidate
+  status: archived
   baseline: balanced_rule_residual_v2
   keep_actor: false
   keep_summary: true
-  notes_ref: experiments/candidate/balanced_rule_residual_v15/notes.md
+  notes_ref: experiments/archive/balanced_rule_residual_v15/notes.md
 - name: balanced_rule_residual_v16
   family: balanced
-  status: candidate
+  status: archived
   baseline: balanced_rule_residual_v13
   keep_actor: false
   keep_summary: true
-  notes_ref: experiments/candidate/balanced_rule_residual_v16/notes.md
+  notes_ref: experiments/archive/balanced_rule_residual_v16/notes.md
 - name: balanced_rule_residual_v17
   family: balanced
-  status: candidate
+  status: archived
   baseline: balanced_rule_residual_v16
   keep_actor: false
   keep_summary: true
-  notes_ref: experiments/candidate/balanced_rule_residual_v17/notes.md
+  notes_ref: experiments/archive/balanced_rule_residual_v17/notes.md
 - name: balanced_rule_residual_v18
   family: balanced
-  status: candidate
+  status: archived
   baseline: balanced_rule_residual_v16
   keep_actor: false
   keep_summary: true
-  notes_ref: experiments/candidate/balanced_rule_residual_v18/notes.md
+  notes_ref: experiments/archive/balanced_rule_residual_v18/notes.md
 - name: balanced_rule_residual_v19
   family: balanced
   status: candidate
@@ -484,18 +484,18 @@ profiles:
   notes_ref: memory/index.json
 - name: balanced_rule_residual_v20
   family: balanced
-  status: candidate
+  status: archived
   baseline: balanced_rule_residual_v16
   keep_actor: true
   keep_summary: true
-  notes_ref: experiments/candidate/balanced_rule_residual_v20/notes.md
+  notes_ref: experiments/archive/balanced_rule_residual_v20/notes.md
 - name: balanced_rule_residual_v21
   family: balanced
-  status: candidate
+  status: archived
   baseline: balanced_rule_residual_v19
   keep_actor: true
   keep_summary: true
-  notes_ref: experiments/candidate/balanced_rule_residual_v21/notes.md
+  notes_ref: experiments/archive/balanced_rule_residual_v21/notes.md
 - name: balanced_rule_residual_v22
   family: balanced
   status: candidate

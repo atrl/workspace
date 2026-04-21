@@ -320,11 +320,12 @@ Without that, the repo will keep repeating old branches under new names.
 - Canonical notes:
   - `experiments/canonical/balanced/notes.md`
 - Candidate notes:
-  - `experiments/candidate/balanced_rule_residual_v1/notes.md`
-  - `experiments/candidate/balanced_rule_residual_v16/notes.md`
   - `experiments/candidate/balanced_rule_residual_v19/notes.md`
-  - `experiments/candidate/balanced_rule_residual_v20/notes.md`
   - `experiments/candidate/balanced_rule_residual_v22/notes.md`
+- Archived milestone notes:
+  - `experiments/archive/balanced_rule_residual_v1/notes.md`
+  - `experiments/archive/balanced_rule_residual_v16/notes.md`
+  - `experiments/archive/balanced_rule_residual_v20/notes.md`
 - Registry:
   - `configs/soxl/profile_registry.yaml`
 - Summary metrics:

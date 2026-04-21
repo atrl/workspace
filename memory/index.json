@@ -1589,6 +1589,29 @@
     "excerpt": "# 2026-04-21 experiment landscape review and research gate hardening ## Context The repo had enough historical evidence to explain current strengths and repeated failures, but that knowledge was scattered across `memory/`, experiment notes, and pairwise post-train reviews. ## Wha"
   },
   {
+    "path": "memory/2026-04-21-memory-experiments-cleanup.md",
+    "date": "2026-04-21",
+    "title": "2026-04-21 memory and experiments cleanup",
+    "kind": "ops",
+    "profiles": [
+      "balanced_rule_residual_v19",
+      "balanced_rule_residual_v22",
+      "smoke_rule_residual_v1"
+    ],
+    "status": "kept",
+    "tags": [
+      "balanced_rule_residual_v19",
+      "balanced_rule_residual_v22",
+      "kept",
+      "ops",
+      "smoke_rule_residual_v1"
+    ],
+    "artifacts": [],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Reduced `experiments/candidate/` to the real active set (`balanced_rule_residual_v19`, `balanced_rule_residual_v22`, `smoke_rule_residual_v1`), moved older packages into `experiments/archive/`, clarified the split between experiment cards and memory result notes, and shortened duplicated active notes so result narratives now live in `memory/`.",
+    "excerpt": "# 2026-04-21 memory and experiments cleanup ## Context `experiments/` had accumulated too many historical packages under `candidate/`, and several package notes were duplicating result narratives already captured in `memory/`. ## What Changed - Kept only the real active set in `e"
+  },
+  {
     "path": "memory/2026-04-21-v22-vix-term-structure-results.md",
     "date": "2026-04-21",
     "title": "2026-04-21 v22 VIX term-structure training results",
