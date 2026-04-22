@@ -479,7 +479,7 @@ def _build_signal_intent(
         hard_floor=model_cfg.hard_floor,
         use_hybrid_overlay=bool(model_cfg.use_hybrid_overlay),
         delta_levels=np.asarray(model_cfg.delta_levels, dtype=np.float32) if model_cfg.use_hybrid_overlay else None,
-        mode_band=mode_band(current_mode_state.name) if profile.mode_router.enabled else None,
+        mode_band=mode_band(current_mode_state.name, profile.mode_router) if profile.mode_router.enabled else None,
     )
     regime_risk = float(feature_df.iloc[idx]["regime_risk"])
     return SignalIntent(

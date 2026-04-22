@@ -75,25 +75,41 @@ def route_mode(obs: np.ndarray, state: Optional[ModeState], cfg: ModeRouterConfi
     return next_mode(obs, state, cfg)
 
 
-def mode_band(mode: str) -> Tuple[float, float]:
+def mode_band(mode: str, cfg: ModeRouterConfig) -> Tuple[float, float]:
     if mode == "trend_hold":
-        return (0.65, 0.95)
+        return (float(cfg.trend_hold_floor), float(cfg.trend_hold_cap))
     if mode == "defensive_hold":
-        return (0.25, 0.60)
+        return (float(cfg.defensive_hold_floor), float(cfg.defensive_hold_cap))
     if mode == "crash_rebuild":
-        return (0.15, 0.55)
-    return (0.00, 0.25)
+        return (float(cfg.crash_rebuild_floor), float(cfg.crash_rebuild_cap))
+    return (float(cfg.flat_wait_floor), float(cfg.flat_wait_cap))
 
 
-def mode_threshold_multiplier(mode: Optional[str], direction: str) -> float:
+def mode_threshold_multiplier(mode: Optional[str], direction: str, cfg: ModeRouterConfig) -> float:
     if mode == "trend_hold":
-        return 1.35 if direction == "buy" else 1.10
+        return (
+            float(cfg.trend_hold_buy_threshold_multiplier)
+            if direction == "buy"
+            else float(cfg.trend_hold_sell_threshold_multiplier)
+        )
     if mode == "defensive_hold":
-        return 1.10 if direction == "buy" else 0.95
+        return (
+            float(cfg.defensive_hold_buy_threshold_multiplier)
+            if direction == "buy"
+            else float(cfg.defensive_hold_sell_threshold_multiplier)
+        )
     if mode == "crash_rebuild":
-        return 0.75 if direction == "buy" else 0.90
+        return (
+            float(cfg.crash_rebuild_buy_threshold_multiplier)
+            if direction == "buy"
+            else float(cfg.crash_rebuild_sell_threshold_multiplier)
+        )
     if mode == "flat_wait":
-        return 1.60 if direction == "buy" else 0.80
+        return (
+            float(cfg.flat_wait_buy_threshold_multiplier)
+            if direction == "buy"
+            else float(cfg.flat_wait_sell_threshold_multiplier)
+        )
     return 1.0
 
 

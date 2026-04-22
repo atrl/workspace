@@ -213,6 +213,7 @@ class SoxlSimulator(Simulator):
             direction=direction,
             mode=current_mode,
             config=self.exec_cfg,
+            mode_router_config=self.mode_router_cfg,
         )
         if self.trade_lock > 0:
             if abs(action - self.pos) >= min_rebalance:
@@ -407,7 +408,7 @@ class PositionAction(ActionInterpreter):
             hard_floor=self.hard_floor,
             use_hybrid_overlay=self.use_hybrid_overlay,
             delta_levels=self.delta_levels if self.use_hybrid_overlay else None,
-            mode_band=mode_band(current_mode) if current_mode else None,
+            mode_band=mode_band(current_mode, self.mode_router_config) if current_mode else None,
         )
 
 

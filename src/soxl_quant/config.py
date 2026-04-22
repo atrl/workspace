@@ -197,6 +197,22 @@ class ModeRouterConfig:
     defensive_hold_min_dwell_days: int = 6
     crash_rebuild_min_dwell_days: int = 5
     flat_wait_min_dwell_days: int = 4
+    trend_hold_floor: float = 0.65
+    trend_hold_cap: float = 0.95
+    defensive_hold_floor: float = 0.25
+    defensive_hold_cap: float = 0.60
+    crash_rebuild_floor: float = 0.15
+    crash_rebuild_cap: float = 0.55
+    flat_wait_floor: float = 0.00
+    flat_wait_cap: float = 0.25
+    trend_hold_buy_threshold_multiplier: float = 1.35
+    trend_hold_sell_threshold_multiplier: float = 1.10
+    defensive_hold_buy_threshold_multiplier: float = 1.10
+    defensive_hold_sell_threshold_multiplier: float = 0.95
+    crash_rebuild_buy_threshold_multiplier: float = 0.75
+    crash_rebuild_sell_threshold_multiplier: float = 0.90
+    flat_wait_buy_threshold_multiplier: float = 1.60
+    flat_wait_sell_threshold_multiplier: float = 0.80
 
 
 @dataclass(frozen=True)

@@ -2,10 +2,11 @@ from __future__ import annotations
 
 from typing import Optional
 
-from ..config import ExecutionConfig, ExecutionRegimeConfig
+from ..config import ExecutionConfig, ExecutionRegimeConfig, ModeRouterConfig
 from .modes import mode_threshold_multiplier
 
 DEFAULT_EXECUTION = ExecutionConfig()
+DEFAULT_MODE_ROUTER = ModeRouterConfig()
 
 
 def _regime_context(
@@ -134,8 +135,10 @@ def rebalance_threshold(
     direction: str = "neutral",
     mode: str | None = None,
     config: Optional[ExecutionConfig] = None,
+    mode_router_config: Optional[ModeRouterConfig] = None,
 ) -> float:
     cfg = config or DEFAULT_EXECUTION
+    mode_cfg = mode_router_config or DEFAULT_MODE_ROUTER
     regime = execution_regime(
         regime_risk,
         realized_vol,
@@ -180,7 +183,7 @@ def rebalance_threshold(
                 threshold *= float(custom.buy_threshold_multiplier)
             elif direction == "sell":
                 threshold *= float(custom.sell_threshold_multiplier)
-    threshold *= mode_threshold_multiplier(mode, direction)
+    threshold *= mode_threshold_multiplier(mode, direction, mode_cfg)
     return threshold
 
 

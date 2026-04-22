@@ -587,6 +587,93 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
 - 2026-04-18 10:40:
   - Completed `balanced_checkpoint_review` retrain and confirmed checkpoint choice matters but is not sufficient by itself: validation peaked at `iter 40`, yet the best selected checkpoint still failed fixed-split `2022` gates.
 
+## balanced_rule_residual_mode_v2 setup 2026-04-22 00:xx
+
+- Goal:
+  - recover bull participation from `mode_v1` without discarding the newly won
+    `2022` / proxy drawdown improvements
+  - move mode tuning out of hard-coded policy helpers so future experiments can
+    stay inside experiment packages
+- Canonical baseline:
+  - `balanced_rule_residual_v19`
+- Direct comparison baseline:
+  - `balanced_rule_residual_mode_v1`
+- Experiment role:
+  - `replace`
+- Changed layer:
+  - `execution`
+  - `model`
+- Closest historical success case:
+  - `balanced_rule_residual_mode_v1`
+  - proved persistent modes improve `2022` / proxy DD materially
+- Closest historical failure case:
+  - `balanced_rule_residual_v24`
+  - lower-frequency action changes without a real hierarchy failed to improve
+    behavior cleanly
+- Why this is not a duplicate:
+  - the new harness capability is config-owned mode behavior, which removes the
+    need to patch `src` for each mode experiment
+  - the candidate change itself is narrowly targeted to favorable-mode upside
+    recovery over a validated hierarchy scaffold
+- Target improvement window:
+  - validation
+  - `test_2020`
+- Accepted trade-off window:
+  - some giveback versus `mode_v1` is acceptable in `test_2022` and proxy DD
+    if the strategy stays materially better than `v19` on those axes
+- New mechanism being tested this time:
+  - profile-configurable mode bands and per-mode buy/sell threshold multipliers
+  - `mode_v2` widens `trend_hold` and accelerates `crash_rebuild` re-entry
+- External reference:
+  - hierarchical / temporally abstract trading control (`TradeR`, `EarnHFT`,
+    `Deep Stock Trading`)
+- Comparison-table row to update back into durable review:
+  - `balanced_rule_residual_mode_v2`
+- Planned commands:
+  - parameterize mode bands and threshold multipliers in `ModeRouterConfig`
+  - create `balanced_rule_residual_mode_v2` experiment package + registry row
+  - `PYTHONPATH=. qlib_venv/bin/python soxl_qlib_strategy_v2.py --profiles balanced_rule_residual_mode_v2 --skip-data-refresh --seed 12345`
+- Validation evidence:
+  - config-owned mode behavior now works end-to-end:
+    - mode bands
+    - per-mode buy/sell threshold multipliers
+  - compile check passed after wiring:
+    - `PYTHONPATH=. qlib_venv/bin/python -m py_compile src/soxl_quant/config.py src/soxl_quant/policy/modes.py src/soxl_quant/policy/execution.py src/soxl_quant/policy/environment.py src/soxl_quant/policy/evaluation.py src/soxl_quant/backtest.py src/soxl_quant/runtime.py`
+  - profile load sanity:
+    - `balanced_rule_residual_mode_v1 True 0.95 0.55 1.35 0.75`
+    - `balanced_rule_residual_mode_v2 True 1.0 0.7 1.15 0.6`
+- Run result:
+  - valid: `35.8% / Sharpe 1.18 / MaxDD 26.1%`
+  - test_2020: `42.6% / MaxDD 22.9%`
+  - test_2022: `-3.6% / MaxDD 13.5% / avg_pos 0.128`
+  - test_2023_2024: `47.2% / MaxDD 28.7%`
+  - test_proxy: `693.8% / Sharpe 1.01 / MaxDD 50.4% / trades 317`
+- Comparison vs `mode_v1`:
+  - validation unchanged in practice:
+    - return `36.2% -> 35.8%`
+    - Sharpe `1.17 -> 1.18`
+  - `test_2020` worsened sharply:
+    - return `64.3% -> 42.6%`
+    - MaxDD `10.6% -> 22.9%`
+  - `test_2022` improved further:
+    - return `-13.1% -> -3.6%`
+    - MaxDD `16.5% -> 13.5%`
+  - `test_2023_2024` return improved but DD widened:
+    - return `43.0% -> 47.2%`
+    - MaxDD `20.1% -> 28.7%`
+  - `test_proxy` lost too much of the retained `mode_v1` edge:
+    - return `886.1% -> 693.8%`
+    - Sharpe `1.09 -> 1.01`
+    - MaxDD `42.3% -> 50.4%`
+- Keep / drop decision:
+  - keep the config-owned mode extension points in the harness
+  - drop `balanced_rule_residual_mode_v2` as a profile parameterization
+  - keep `balanced_rule_residual_mode_v1` as the retained mode-hierarchy frontier
+- Next action:
+  - do not keep loosening favorable modes blindly
+  - any next mode-hierarchy attempt should target classification quality or
+    transition-state detection, not simply wider favorable-mode bands
+
 ## Current run
 
 - Latest completed run:

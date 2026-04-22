@@ -74,7 +74,7 @@ def evaluate_split(
             hard_floor=hard_floor,
             use_hybrid_overlay=use_hybrid_overlay,
             delta_levels=delta_levels,
-            mode_band=mode_band(mode_state.name) if mode_router_config and getattr(mode_router_config, "enabled", False) else None,
+            mode_band=mode_band(mode_state.name, mode_router_config) if mode_router_config and getattr(mode_router_config, "enabled", False) else None,
         )
         row = df.iloc[idx]
         regime_risk = float(np.nan_to_num(row["regime_risk"]))
@@ -106,6 +106,7 @@ def evaluate_split(
             direction=direction,
             mode=mode_state.name if mode_router_config and getattr(mode_router_config, "enabled", False) else None,
             config=exec_cfg,
+            mode_router_config=mode_router_config,
         )
         if trade_lock > 0:
             if abs(target_pos - pos) >= min_rebalance:

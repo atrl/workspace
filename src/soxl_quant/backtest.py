@@ -152,7 +152,7 @@ class RLStrategy(BaseStrategy):
             hard_floor=getattr(model_cfg, "hard_floor", None) if model_cfg else None,
             use_hybrid_overlay=bool(getattr(model_cfg, "use_hybrid_overlay", False)) if model_cfg else False,
             delta_levels=np.asarray(getattr(model_cfg, "delta_levels", ()), dtype=np.float32) if model_cfg and getattr(model_cfg, "use_hybrid_overlay", False) else None,
-            mode_band=mode_band(self.mode_state.name) if mode_router_cfg and getattr(mode_router_cfg, "enabled", False) else None,
+            mode_band=mode_band(self.mode_state.name, mode_router_cfg) if mode_router_cfg and getattr(mode_router_cfg, "enabled", False) else None,
         )
         direction = "buy" if target_pos > current_pos else ("sell" if target_pos < current_pos else "neutral")
         min_rebalance = rebalance_threshold(
@@ -166,6 +166,7 @@ class RLStrategy(BaseStrategy):
             direction=direction,
             mode=self.mode_state.name if mode_router_cfg and getattr(mode_router_cfg, "enabled", False) else None,
             config=self.execution_config,
+            mode_router_config=mode_router_cfg,
         )
         if self.trade_lock > 0:
             if abs(target_pos - current_pos) >= min_rebalance:

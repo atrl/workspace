@@ -1930,6 +1930,30 @@
     "excerpt": "# 2026-04-22 balanced_rule_residual_mode_v1 training result ## Context First full train of the mode-hierarchy scaffold over the retained `balanced_rule_residual_v19` family. This was the first attempt to add persistent rule-routed modes directly into train/eval/backtest/runtime i"
   },
   {
+    "path": "memory/2026-04-22-balanced-rule-residual-mode-v2-result.md",
+    "date": "2026-04-22",
+    "title": "2026-04-22 balanced_rule_residual_mode_v2 result",
+    "kind": "review",
+    "profiles": [
+      "balanced_rule_residual_mode_v1",
+      "balanced_rule_residual_mode_v2"
+    ],
+    "status": "dropped",
+    "tags": [
+      "balanced_rule_residual_mode_v1",
+      "balanced_rule_residual_mode_v2",
+      "dropped",
+      "eval-2022",
+      "review"
+    ],
+    "artifacts": [
+      "artifacts/models/soxl_balanced_rule_residual_mode_v2_summary.json"
+    ],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Second mode-hierarchy run after `balanced_rule_residual_mode_v1`. This loop had two goals: move mode behavior out of hard-coded helpers and into profile config test whether looser favorable modes could recover upside without losing the hier",
+    "excerpt": "# 2026-04-22 balanced_rule_residual_mode_v2 result ## Context Second mode-hierarchy run after `balanced_rule_residual_mode_v1`. This loop had two goals: - move mode behavior out of hard-coded helpers and into profile config - test whether looser favorable modes could recover upsi"
+  },
+  {
     "path": "memory/2026-04-22-mode-hierarchy-scaffold-start.md",
     "date": "2026-04-22",
     "title": "2026-04-22 Mode Hierarchy Scaffold Start",
