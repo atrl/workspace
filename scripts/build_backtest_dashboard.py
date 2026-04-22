@@ -688,6 +688,7 @@ def _build_layout_all() -> dict:
             showgrid=True, gridwidth=1, gridcolor=C_LINE,
             showticklabels=(i == 5), tickfont=dict(size=11),
             showspikes=True, spikemode="across", spikecolor=C_MUTED, spikethickness=1, spikedash="dot",
+            rangeslider_visible=False,
             row=i, col=1,
         )
         fig.update_yaxes(
