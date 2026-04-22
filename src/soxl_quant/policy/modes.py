@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Optional, Tuple
+from typing import Dict, Optional, Tuple
 
 import numpy as np
 
@@ -13,6 +13,20 @@ from ..data import STATIC_INDEX
 class ModeState:
     name: str = "flat_wait"
     days_in_mode: int = 0
+
+
+# Lazy singleton for learned router (loaded on first use)
+_learned_router: Optional["LearnedModeRouter"] = None
+
+
+def _get_learned_router(model_path: Optional[str]) -> "LearnedModeRouter":
+    global _learned_router
+    if _learned_router is None:
+        from .models.mode_classifier import LearnedModeRouter
+        if model_path is None or model_path == "":
+            model_path = "artifacts/models/mode_classifier.pt"
+        _learned_router = LearnedModeRouter(model_path)
+    return _learned_router
 
 
 def classify_rule_mode(obs: np.ndarray) -> str:
@@ -48,6 +62,12 @@ def classify_rule_mode(obs: np.ndarray) -> str:
     return "defensive_hold"
 
 
+def classify_learned_mode(obs: np.ndarray, model_path: Optional[str] = None) -> str:
+    """Classify mode using the learned classifier."""
+    router = _get_learned_router(model_path)
+    return router.classify(obs, STATIC_INDEX)
+
+
 def _min_dwell_days(mode: str, cfg: ModeRouterConfig) -> int:
     if mode == "trend_hold":
         return int(cfg.trend_hold_min_dwell_days)
@@ -59,7 +79,10 @@ def _min_dwell_days(mode: str, cfg: ModeRouterConfig) -> int:
 
 
 def next_mode(obs: np.ndarray, state: Optional[ModeState], cfg: ModeRouterConfig) -> ModeState:
-    target = classify_rule_mode(obs)
+    if getattr(cfg, "use_learned", False):
+        target = classify_learned_mode(obs, getattr(cfg, "learned_model_path", None))
+    else:
+        target = classify_rule_mode(obs)
     if state is None:
         return ModeState(name=target, days_in_mode=1)
     if state.name == target:

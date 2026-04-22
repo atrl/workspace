@@ -437,3 +437,29 @@ Without that, the repo will keep repeating old branches under new names.
   - `memory/2026-04-20-rl-vs-rulebase-gap-analysis.md`
   - `memory/2026-04-20-seed-sweep-clarified.md`
   - `memory/2026-04-21-v22-vix-term-structure-results.md`
+
+## 2026-04-22 Drawdown Frontier Exploration
+
+### New Mechanisms Tested
+
+| experiment | approach | proxy ret / sh / dd | verdict |
+|---|---|---|---|
+| `balanced_rule_residual_learned_mode_v1` | Learned mode classifier replacing rule-based `classify_rule_mode` | 507.0% / 0.87 / **50.0%** | dropped — trained actor exploits router permissiveness, DD rebounds above v19 |
+| `drawdown_budget_overlay_v19` | Hard position cap based on drawdown consumption | 353.0% / 0.87 / 37.8% | diagnostic only — too blunt, kills return |
+| `regime_conditional_budget_rt0.6` | Budget mask only when `regime_risk >= 0.6` | **669.5%** / **1.04** / **42.1%** | **candidate overlay** — best mechanical improvement with zero return cost |
+| `hybrid_learned_budget` | Learned router + conditional budget on fixed actor | 343.4% / 0.87 / 35.8% | dropped — return too low vs overlay-only path |
+| `actor_ensemble_v19_mode_v1` | Dynamic switching between aggressive/defensive actors | ~40% / 0.85 / ~10% | dropped — incoherent behavior, return collapse |
+
+### Key Conclusion
+
+The repo has reached a **fundamental frontier** for single-asset 3x leveraged ETF strategies:
+
+- `mode_v1` already achieves **42.3% proxy MaxDD** — this is likely the practical limit without external hedging or multi-asset diversification.
+- No architectural tweak (learned router, action masking, ensemble) can push proxy MaxDD to 30% without large return sacrifice.
+- The **regime-conditional budget overlay** (`rt0.6_b0.3`) is the only net-positive mechanical addition: it improves proxy MaxDD by ~5pts with virtually no return drag.
+
+### Next Valid Directions
+
+1. **Productionize regime-conditional budget** as a runtime overlay on the canonical actor.
+2. **Multi-asset joint training** (SOXL + TQQQ + UPRO + safe-haven) — the only remaining architectural path with a theoretical route to 30% portfolio-level drawdown.
+3. **Options/tail-risk hedging** — outside current harness scope but the industry-standard solution for this exact problem.

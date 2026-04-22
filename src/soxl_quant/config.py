@@ -193,6 +193,8 @@ class ModelConfig:
 @dataclass(frozen=True)
 class ModeRouterConfig:
     enabled: bool = False
+    use_learned: bool = False
+    learned_model_path: str = ""
     trend_hold_min_dwell_days: int = 12
     defensive_hold_min_dwell_days: int = 6
     crash_rebuild_min_dwell_days: int = 5
