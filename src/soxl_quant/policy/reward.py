@@ -30,13 +30,19 @@ class ContinuousReward(Reward):
         cum_drop_30 = float(state["obs"][STATIC_INDEX["cum_drop_30"]])
 
         # ============================================================
-        # SIMPLIFIED REWARD BRANCH
+        # MINIMAL REWARD BRANCH — major adjustment
+        # ============================================================
+        if getattr(cfg, "use_minimal_reward", False):
+            return self._minimal_reward(state, cfg, pos, turnover, drawdown, regime_risk)
+
+        # ============================================================
+        # SIMPLIFIED REWARD BRANCH (deprecated)
         # ============================================================
         if getattr(cfg, "use_simplified_reward", False):
             return self._simplified_reward(state, cfg, pos, pnl_ret, turnover, drawdown, regime_risk, realized_vol, anchor_gap, cum_drop_30, flat_steps)
 
         # ============================================================
-        # FULL LEGACY REWARD (unchanged)
+        # FULL LEGACY REWARD (backward compatibility)
         # ============================================================
         return self._legacy_reward(state, cfg, pos, prev_val, pnl_ret, turnover, drawdown, regime_risk, flat_steps, realized_vol, anchor_gap, cum_drop_30)
 
@@ -87,6 +93,54 @@ class ContinuousReward(Reward):
         # 5. Minimal inactivity penalty (to prevent permanent cash, but weak)
         if flat_steps >= 10 and realized_vol < 0.30 and anchor_gap > 0.01:
             reward -= 0.05
+
+        return float(reward)
+
+    def _minimal_reward(self, state, cfg, pos, turnover, drawdown, regime_risk):
+        """Truly minimal reward: 5 terms, ~10 parameters.
+
+        Hypothesis: the 200-line legacy reward creates conflicting gradients.
+        A clean 5-term reward + regime-conditional budget lets the model learn
+        cash-holding organically while the budget provides structural drawdown control.
+        """
+        # 1. Core alpha signal (Kelly-scaled, regime-modulated)
+        step_return = float(state.get("step_return", 0.0))
+        rule_return = float(state.get("rule_return", 0.0))
+        alpha = step_return - rule_return
+        alpha_scale = float(cfg.alpha_scale)
+        if regime_risk < 0.35:
+            alpha_scale *= 1.3
+        elif regime_risk > 0.60:
+            alpha_scale *= 0.7
+        safe_alpha = max(alpha, -0.999)
+        reward = math.log(1.0 + safe_alpha) * 100.0 * alpha_scale
+
+        # 2. Transaction costs (linear + quadratic for smoothness)
+        reward -= turnover * cfg.transaction_cost * 100.0
+        reward -= turnover * cfg.turnover_penalty
+        reward -= (turnover ** 2) * cfg.smoothness_penalty
+
+        # 3. Regime-conditional budget violation penalty
+        # When regime_risk >= threshold, position is capped at budget_cap.
+        # This integrates the proven rt0.6 overlay directly into training.
+        if getattr(cfg, "use_regime_budget", False):
+            budget = 1.0 if regime_risk < cfg.regime_budget_threshold else cfg.regime_budget_cap
+            if pos > budget + 1e-6:
+                reward -= (pos - budget) * cfg.regime_budget_penalty
+
+        # 4. Episode drawdown penalty (step-level)
+        if cfg.episode_drawdown_penalty > 0:
+            episode_max_dd = float(state.get("episode_max_dd", 0.0))
+            prev_episode_max_dd = float(state.get("prev_episode_max_dd", 0.0))
+            if episode_max_dd > prev_episode_max_dd:
+                increase = episode_max_dd - prev_episode_max_dd
+                reward -= increase * cfg.episode_drawdown_penalty * 100.0
+
+        # 5. Terminal drawdown penalty
+        if state.get("done", False) and cfg.episode_drawdown_penalty > 0:
+            episode_max_dd = float(state.get("episode_max_dd", 0.0))
+            excess = max(episode_max_dd - cfg.episode_drawdown_threshold, 0.0)
+            reward -= excess * cfg.episode_drawdown_penalty * 100.0
 
         return float(reward)
 

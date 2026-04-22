@@ -3887,3 +3887,34 @@ Created `balanced_budget.yaml` with `max_iters=50`. However, the log file was ac
     2. Seed sweep on v16 (window=5, penalty=2.0, GRU) to close the ~100pp gap to v19
 - Memory note:
   - `memory/2026-04-22-multi-asset-refined-v3-failure.md`
+
+## Minimal reward + regime budget v1 2026-04-22 09:xx
+
+- Goal:
+  - address three fundamental critiques: (1) cash doesn't reduce drawdown, (2) 80+ hard parameters, (3) no generalization
+  - strip reward from ~20 active terms to 5 terms
+  - integrate proven rt0.6 conditional budget directly into training reward
+- Hypothesis:
+  - conflicting gradients from 80 parameters prevent stable learning
+  - structural constraint (regime_budget) is more reliable than reward shaping
+  - model can learn cash-holding organically if not forced to trade
+- Profile:
+  - `experiments/candidate/balanced_rule_residual_minimal_v1/profile.yaml`
+- Mechanism delta vs v16:
+  - Reward terms: ~20 → 5 (alpha, turnover, smoothness, episode_dd, regime_budget)
+  - Activity pressure: removed (activity_bonus=0, inactivity=0)
+  - Trend participation: removed (opportunity_cost=0, trend_alignment=0)
+  - Crisis response: removed (panic_buy=0, profit_taking=0, downside=0)
+  - Drawdown control: episode_penalty + regime_budget only
+- Command:
+  - `PYTHONPATH=. qlib_venv/bin/python soxl_qlib_strategy_v2.py --profiles balanced_rule_residual_minimal_v1 --skip-data-refresh --seed 20260420`
+- Acceptance criteria:
+  - proxy return >= 500%
+  - proxy MaxDD <= 48%
+  - test_2022 MaxDD <= 35%
+  - seed robustness <= 150pp swing
+- Evidence:
+  - IN PROGRESS (task_id: bash-ou81ygfo)
+- Memory note:
+  - `experiments/candidate/balanced_rule_residual_minimal_v1/notes.md`
+  - `experiments/candidate/balanced_rule_residual_minimal_v1/expectations.md`
