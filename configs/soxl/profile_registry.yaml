@@ -573,3 +573,10 @@ profiles:
   keep_actor: false
   keep_summary: true
   notes_ref: experiments/candidate/balanced_rule_residual_minimal_v1/notes.md
+- name: balanced_rule_residual_moderate_v1
+  family: balanced
+  status: candidate
+  baseline: balanced_rule_residual_v16
+  keep_actor: true
+  keep_summary: true
+  notes_ref: experiments/candidate/balanced_rule_residual_moderate_v1/notes.md
