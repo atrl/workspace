@@ -490,3 +490,23 @@ The repo has reached a **fundamental frontier** for single-asset 3x leveraged ET
 2. **Seed sweep on v16** (GRU, window=5, penalty=2.0) — best risk-adjusted GRU config (632.4% / 0.91 / 50.1%) is seed-sensitive; a better seed may close the gap to v19.
 3. **Multi-asset revisited ONLY with architectural changes** — asset-specific heads, sector embeddings, volatility normalization, or generic reward. Current one-hot + shared actor is insufficient.
 4. **Options/tail-risk hedging** — outside current harness scope but the industry-standard solution for this exact problem.
+
+## 2026-04-22: Imitation Bonus Series (v1-v7)
+
+| Profile | Category | Baseline | Mechanism Delta | Proxy Ret | Proxy Sharpe | Proxy MaxDD | test_2022 MaxDD | test_2023_2024 Ret | test_2023_2024 MaxDD | Decision |
+|---------|----------|----------|-----------------|-----------|--------------|-------------|-----------------|--------------------|----------------------|----------|
+| balanced_rule_residual_imitation_v1 | candidate | v16 | imitation=0.20, decision=0.30 | 812.3% | 0.93 | 51.9% | 32.2% | 19.6% | 38.5% | dropped — overfitting |
+| balanced_rule_residual_imitation_v2 | candidate | v16 | imitation=0.10, tight DD controls | 448.3% | 0.85 | 46.9% | **30.2%** | 34.0% | **29.4%** | candidate — best MaxDD |
+| balanced_rule_residual_imitation_v3 | candidate | v16 | v4 + alpha=3.5 | 776.9% | 0.91 | 58.5% | 34.0% | 50.4% | 36.1% | dropped — MaxDD失控 |
+| balanced_rule_residual_imitation_v4 | candidate | v16 | v2 + strong participation | 500.8% | 0.86 | 49.4% | 31.3% | **51.8%** | 31.1% | **candidate — best balance** |
+| balanced_rule_residual_imitation_v5 | ablation | v16 | v4 + episodic=4.0 | 573.7% | 0.87 | 52.0% | 32.4% | 40.7% | 33.1% | dropped — worse than v4 |
+| balanced_rule_residual_imitation_v6 | ablation | v16 | v4 + hard_floor=0.10 | 481.6% | 0.81 | 53.2% | 34.3% | 42.5% | 36.0% | dropped — worse than v4 |
+| balanced_rule_residual_imitation_v7 | ablation | v16 | v2/v4 compromise | 686.3% | 0.93 | 52.2% | 31.9% | 40.4% | 33.3% | dropped — worse than v4 |
+
+### Key Conclusions
+
+1. **Imitation bonus works** for learning rulebase timing, but must be small (0.10) to avoid overfitting
+2. **v4 is the best compromise**: MaxDD 31.1-31.3% (very close to 30% target), test_2023_2024 return 51.8% (best)
+3. **v2 is the most conservative**: MaxDD 29.4-30.2% (meets target), but returns weak (34.0%)
+4. **Fundamental trade-off**: participation signals improve returns but increase MaxDD by ~2pp
+5. **Tightening drawdown controls beyond v2's level is counterproductive** (v5, v6 both worse)

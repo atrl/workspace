@@ -42,6 +42,12 @@ class ContinuousReward(Reward):
             return self._simplified_reward(state, cfg, pos, pnl_ret, turnover, drawdown, regime_risk, realized_vol, anchor_gap, cum_drop_30, flat_steps)
 
         # ============================================================
+        # MODERATE REWARD BRANCH (curated 12-term + imitation bonus)
+        # ============================================================
+        if getattr(cfg, "use_moderate_reward", False):
+            return self._moderate_reward(state, cfg, pos, prev_val, pnl_ret, turnover, drawdown, regime_risk, flat_steps, realized_vol, anchor_gap, cum_drop_30)
+
+        # ============================================================
         # FULL LEGACY REWARD (backward compatibility)
         # ============================================================
         return self._legacy_reward(state, cfg, pos, prev_val, pnl_ret, turnover, drawdown, regime_risk, flat_steps, realized_vol, anchor_gap, cum_drop_30)
@@ -141,6 +147,122 @@ class ContinuousReward(Reward):
             episode_max_dd = float(state.get("episode_max_dd", 0.0))
             excess = max(episode_max_dd - cfg.episode_drawdown_threshold, 0.0)
             reward -= excess * cfg.episode_drawdown_penalty * 100.0
+
+        return float(reward)
+
+    def _moderate_reward(self, state, cfg, pos, prev_val, pnl_ret, turnover, drawdown, regime_risk, flat_steps, realized_vol, anchor_gap, cum_drop_30):
+        """Moderate reward: curated 12-term + rulebase imitation bonus.
+
+        Design principles (from minimal-v1 failure analysis):
+        1. Core alpha (Kelly-log) is non-negotiable.
+        2. Episodic drawdown penalty > step-level for structural control.
+        3. Weak step-risk signals prevent over-exposure without micro-management.
+        4. Participation signals (trend_alignment, opportunity_cost) are essential
+           to prevent permanent conservatism.
+        5. Tactical bonuses (profit_taking, panic_buy) capture edge cases.
+        6. Cost controls keep turnover reasonable.
+        7. Imitation bonus provides a positive baseline for learning rulebase timing.
+        """
+        # --- 1. Core alpha (Kelly-log, regime-modulated) ---
+        step_return = float(state.get("step_return", 0.0))
+        rule_return = float(state.get("rule_return", 0.0))
+        alpha = step_return - rule_return
+        alpha_scale = float(cfg.alpha_scale)
+        if regime_risk < 0.35:
+            alpha_scale *= 1.3
+        elif regime_risk > 0.60:
+            alpha_scale *= 0.7
+        safe_alpha = max(alpha, -0.999)
+        reward = math.log(1.0 + safe_alpha) * 100.0 * alpha_scale
+
+        # --- 2. PBRS (potential-based reward shaping for drawdown) ---
+        prev_drawdown = float(state.get("prev_drawdown", drawdown))
+        pbrs_delta = (-drawdown) - (-prev_drawdown)
+        reward += pbrs_delta * cfg.pbrs_coef
+
+        # --- 3. Cost controls ---
+        reward -= turnover * cfg.transaction_cost * 100.0
+        if turnover < 0.15:
+            effective_turnover_penalty = cfg.turnover_penalty * 3.0
+            effective_smoothness = cfg.smoothness_penalty * 3.0
+        else:
+            effective_turnover_penalty = cfg.turnover_penalty
+            effective_smoothness = cfg.smoothness_penalty
+        reward -= turnover * effective_turnover_penalty
+        reward -= (turnover ** 2) * effective_smoothness
+
+        # --- 4. Weak step-level risk controls ---
+        reward -= max(drawdown - 0.06, 0.0) * cfg.drawdown_penalty
+        downside_signal = max(float(state["obs"][STATIC_INDEX["downside_semivol_21"]]), 0.0)
+        reward -= downside_signal * cfg.downside_penalty
+        reward -= max(pos - (1.0 - 0.65 * regime_risk), 0.0) * cfg.risk_budget_penalty
+        reward -= max(pos - 0.85, 0.0) * cfg.high_exposure_penalty
+
+        # --- 5. Participation signals (prevent permanent cash) ---
+        if cfg.trend_alignment_bonus > 0:
+            if anchor_gap > cfg.trend_alignment_threshold and pos > 0.55:
+                reward += cfg.trend_alignment_bonus
+            if anchor_gap < -cfg.trend_alignment_threshold and pos < 0.35:
+                reward += cfg.trend_alignment_bonus
+        if cfg.opportunity_cost_penalty > 0:
+            if anchor_gap > cfg.opportunity_threshold_anchor and pos < cfg.opportunity_threshold_pos:
+                reward -= cfg.opportunity_cost_penalty
+            trend_gap = float(state["obs"][STATIC_INDEX["trend_gap_21"]])
+            if trend_gap > cfg.opportunity_threshold_trend and realized_vol < 0.45 and pos < cfg.opportunity_threshold_pos + 0.05:
+                reward -= cfg.opportunity_cost_penalty * 0.40
+
+        # --- 6. Tactical bonuses ---
+        holding_age = max(float(state["obs"][EXTRA_INDEX["holding_age"]]), 0.0)
+        avg_entry_pnl = float(state["obs"][EXTRA_INDEX["avg_entry_pnl"]])
+        prev_pos = float(state.get("prev_pos", pos))
+        last_tranche_pnl = float(state["obs"][EXTRA_INDEX["last_tranche_pnl"]])
+        if turnover > 0.02 and pos < prev_pos - 1e-6:
+            if last_tranche_pnl > cfg.tranche_profit_threshold:
+                reward += cfg.profit_taking_bonus * min(last_tranche_pnl * 12.0, 2.0)
+            elif last_tranche_pnl < -0.05:
+                reward -= cfg.underwater_sell_penalty * min(abs(last_tranche_pnl) * 8.0, 1.5)
+        if turnover > 0.02 and pos > prev_pos + 1e-6:
+            if cum_drop_30 < cfg.panic_buy_cum_drop_threshold and regime_risk > cfg.panic_buy_regime_risk_threshold:
+                panic_depth = min(abs(cum_drop_30) - abs(cfg.panic_buy_cum_drop_threshold), 0.15)
+                reward += cfg.panic_buy_bonus * (1.0 + panic_depth * 5.0)
+
+        # --- 7. Micro-rebalance penalty ---
+        if cfg.micro_rebalance_penalty > 0 and 0.0 < turnover < cfg.micro_rebalance_threshold:
+            micro_ratio = turnover / max(cfg.micro_rebalance_threshold, 1e-6)
+            reward -= (1.0 - micro_ratio) * cfg.micro_rebalance_penalty
+
+        # --- 8. Episodic drawdown penalty ---
+        if cfg.episode_drawdown_penalty > 0:
+            episode_max_dd = float(state.get("episode_max_dd", 0.0))
+            prev_episode_max_dd = float(state.get("prev_episode_max_dd", 0.0))
+            if episode_max_dd > prev_episode_max_dd:
+                increase = episode_max_dd - prev_episode_max_dd
+                reward -= increase * cfg.episode_drawdown_penalty * 100.0
+        if state.get("done", False) and cfg.episode_drawdown_penalty > 0:
+            episode_max_dd = float(state.get("episode_max_dd", 0.0))
+            excess = max(episode_max_dd - cfg.episode_drawdown_threshold, 0.0)
+            reward -= excess * cfg.episode_drawdown_penalty * 100.0
+
+        # --- 9. Downside asymmetry ---
+        if cfg.downside_asymmetry_coef > 1.0 and pnl_ret < 0:
+            reward *= cfg.downside_asymmetry_coef
+
+        # --- 10. Rulebase imitation bonus (NEW) ---
+        if getattr(cfg, "rule_imitation_bonus", 0.0) > 0.0:
+            rule_pos = float(state.get("rule_pos", pos))
+            prev_rule_pos = float(state.get("prev_rule_pos", rule_pos))
+            # Position match bonus: dense positive baseline
+            position_similarity = 1.0 - min(abs(pos - rule_pos), 1.0)
+            imitation_reward = position_similarity * cfg.rule_imitation_bonus
+            # Decision point bonus: extra when rulebase trades and model follows
+            rule_turnover = abs(rule_pos - prev_rule_pos)
+            if rule_turnover > 0.03:
+                model_direction = pos - prev_pos
+                rule_direction = rule_pos - prev_rule_pos
+                if model_direction * rule_direction > 1e-12:
+                    decision_bonus = getattr(cfg, "rule_decision_bonus", 0.0) * min(1.0, rule_turnover / 0.10)
+                    imitation_reward += decision_bonus
+            reward += imitation_reward
 
         return float(reward)
 

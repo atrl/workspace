@@ -146,6 +146,8 @@ class SoxlSimulator(Simulator):
         self.prev_regime_risk = 0.0
         self.prev_drawdown = 0.0
         self.prev_pos = 0.0
+        self.prev_rule_pos = 0.0
+        self.rule_pos = 0.0
         self.buy_cooldown = 0
         self.trade_lock = 0
         self.asset_idx = getattr(initial, "asset_idx", 0)
@@ -326,6 +328,9 @@ class SoxlSimulator(Simulator):
             self.mode_state = route_mode(obs, self.mode_state, self.mode_router_cfg)
             self._mode_state_idx = self.idx
         rule_pos = rule_based_position(obs)
+        prev_rule_pos = self.rule_pos
+        self.prev_rule_pos = prev_rule_pos
+        self.rule_pos = rule_pos
         return {
             "obs": obs,
             "pos": self.pos,
@@ -339,6 +344,7 @@ class SoxlSimulator(Simulator):
             "regime_delta": regime_delta,
             "flat_steps": float(self.flat_steps),
             "prev_pos": self.prev_pos,
+            "prev_rule_pos": prev_rule_pos,
             "market_return": self.last_market_return,
             "trade_lock": float(self.trade_lock),
             "buy_cooldown": float(self.buy_cooldown),

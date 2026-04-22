@@ -79,10 +79,13 @@ class RewardConfig:
     cvar_terminal_alpha: float = 0.05
     use_simplified_reward: bool = False
     use_minimal_reward: bool = False
+    use_moderate_reward: bool = False
     use_regime_budget: bool = False
     regime_budget_threshold: float = 0.60
     regime_budget_cap: float = 0.30
     regime_budget_penalty: float = 0.50
+    rule_imitation_bonus: float = 0.0
+    rule_decision_bonus: float = 0.0
 
 
 @dataclass(frozen=True)
