@@ -1,6 +1,6 @@
 # SOXL Experiment Landscape Review
 
-Last updated: 2026-04-21
+Last updated: 2026-04-22
 
 ## Executive Summary
 
@@ -153,6 +153,9 @@ This table is the working summary for the most decision-relevant historical bran
 | balanced_rule_residual_mode_v2 | structural | balanced_rule_residual_mode_v1 | dropped | config-owned favorable-mode loosening | 35.8 / 1.2 / 26.1 | 42.6 / 22.9 | -3.6 / 13.5 / 0.1 | 47.2 / 28.7 | 693.8 / 1.0 / 50.4 | pass |
 | balanced_rule_residual_v23 | feature_only | balanced_rule_residual_v19 | dropped | narrow transition-state pack | 52.1 / 1.6 / 25.9 | 91.6 / 16.2 | -21.9 / 30.2 / 0.3 | 34.3 / 29.4 | 493.2 / 0.9 / 51.2 | pass |
 | balanced_rule_residual_v24 | structural | balanced_rule_residual_v19 | dropped | decision_frequency=2 + coarse 3-level residual deltas | 61.2 / 1.7 / 27.3 | 97.5 / 17.8 | -22.2 / 30.7 / 0.3 | 38.2 / 31.6 | 758.6 / 1.0 / 54.6 | pass |
+| balanced_rule_residual_simplified_v1 | reward_only | balanced_rule_residual_v19 | dropped | stripped reward to 5 terms + larger network + longer episode | 63.3 / 1.55 / 31.8 | 112.6 / 20.5 | -25.35 / 34.01 / — | 53.68 / 36.11 | 776.9 / 0.91 / 58.5 | blocked |
+| balanced_rule_residual_refined_v1 | reward_only | balanced_rule_residual_v19 | candidate | remove activity_bonus, strengthen risk, respect cash | 56.9 / 1.51 / 32.5 | 107.4 / 16.2 | -22.15 / 31.51 / — | 48.84 / 31.02 | 500.6 / 0.84 / 54.6 | blocked |
+| balanced_rule_residual_refined_v2 | reward_only | balanced_rule_residual_refined_v1 | candidate | add trend_alignment_bonus + moderate opportunity_cost | 68.9 / 1.79 / 27.1 | 108.6 / 17.8 | -22.60 / 31.91 / — | 63.33 / 29.70 | 556.9 / 0.87 / 53.0 | blocked |
 | balanced_transition_state | feature_only | — | — | transition/release features batch | 54.7 / 1.6 / 27.3 | 103.8 / 20.6 | -41.0 / 46.5 / 0.4 | 44.9 / 38.8 | 472.9 / 0.8 / 59.0 | fail |
 | balanced_structural_v1 | structural | balanced | dropped | longer context + routing + sampling | 47.3 / 1.6 / 25.9 | 101.3 / 20.0 | -31.3 / 39.9 / 0.3 | 45.5 / 33.5 | 307.0 / 0.7 / 53.7 | fail |
 | balanced_checkpoint_review | selection | balanced | candidate | earlier checkpoint selection | 52.6 / 1.6 / 26.7 | 114.7 / 21.3 | -39.5 / 46.3 / 0.4 | 39.6 / 38.7 | 371.5 / 0.8 / 60.3 | fail |
@@ -195,6 +198,9 @@ This table is the working summary for the most decision-relevant historical bran
 | `mode_v2` | looser favorable-mode config over `mode_v1` | best `2022` result in the hierarchy branch | proxy quality and `2020` both regressed vs `mode_v1` | drop |
 | `v23` | narrow transition-state pack | lower `2022` avg_pos / DD and lower proxy DD | large return loss in `2020`, `2023-2024`, proxy | drop; transition signal still maps to broad de-risking |
 | `v24` | lower-frequency coarse residual control | slight `2022` DD / avg_pos improvement | turnover exploded and `2023-2024` return fell | drop; coarse actions did not create real trade compression |
+| `simplified_v1` | stripped reward to 5 terms + larger net + longer episode | none — proxy DD worsened to 58.5%, test_2022 return fell to -25.4% | removed protective guardrails (stale_position, trapped_loser, downside_signal, explicit risk_budget) | drop; radical reward simplification removes necessary protective terms; cash respect requires incentive restructuring, not guardrail deletion |
+| `refined_v1` | remove activity_bonus, strengthen risk guardrails, reduce forced-trading pressure | best proxy DD (54.6%) and best test_2023_24 DD (31.0%) in the reward-only branch | proxy return collapsed 235pp (500.6% vs v19 735.1%), model overly conservative | candidate but blocked; needs better "when to participate" signal without blanket activity_bonus |
+| `refined_v2` | add trend_alignment_bonus (0.20) + raise opportunity_cost (0.04) | recovered 56pp return vs v1, best proxy DD in entire family (53.0%), excellent test_2023_24 (63.3%/29.7%) | still 178pp below v19 proxy return; 2021 bull participation remains weak | candidate but blocked; reward-only direction shows diminishing returns; next lever is structural or multi-asset |
 
 ### Repeated Failure Directions
 
