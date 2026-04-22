@@ -631,11 +631,18 @@ profiles:
   notes_ref: experiments/candidate/balanced_kelly_dynamic_v7/notes.md
 - name: balanced_kelly_execution_v8
   family: balanced
-  status: candidate
+  status: dropped
   baseline: balanced_rule_residual_imitation_v4
   keep_actor: false
   keep_summary: true
   notes_ref: experiments/candidate/balanced_kelly_execution_v8/notes.md
+- name: balanced_kelly_warmstart_v9
+  family: balanced
+  status: candidate
+  baseline: balanced_rule_residual_imitation_v4
+  keep_actor: true
+  keep_summary: true
+  notes_ref: experiments/candidate/balanced_kelly_warmstart_v9/notes.md
 - name: balanced_rule_residual_imitation_v5
   family: balanced
   status: candidate
@@ -664,3 +671,10 @@ profiles:
   keep_actor: true
   keep_summary: true
   notes_ref: experiments/candidate/balanced_rule_residual_imitation_v2_fix/notes.md
+- name: balanced_kelly_warmstart_v9b
+  family: balanced
+  status: candidate
+  baseline: balanced_kelly_warmstart_v9
+  keep_actor: false
+  keep_summary: true
+  notes_ref: experiments/candidate/balanced_kelly_warmstart_v9b/profile.yaml

@@ -76,6 +76,17 @@ def run_profile(
 
     policy, actor = build_policy(obs_dim, profile, use_moe=use_moe, hard_regime_routing=use_moe)
 
+    # Load from existing checkpoint if specified (warm-start from trained model)
+    if profile.checkpoint_path and not smoke:
+        ckpt = Path(profile.checkpoint_path)
+        if ckpt.exists():
+            print(f"[checkpoint:{profile.name}] loading from {ckpt}")
+            bundle = torch.load(ckpt, map_location="cpu")
+            actor.load_state_dict(bundle["state_dict"])
+            print(f"[checkpoint:{profile.name}] loaded successfully")
+        else:
+            print(f"[checkpoint:{profile.name}] WARNING: {ckpt} not found, using fresh init")
+
     if profile.warm_start.enabled and not smoke:
         print(
             f"[warm-start:{profile.name}] sampling {profile.warm_start.sample_size} transitions "

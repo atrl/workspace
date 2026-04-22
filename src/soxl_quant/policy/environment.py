@@ -285,6 +285,26 @@ class SoxlSimulator(Simulator):
         else:
             self.nday_reward_val = 0.0
 
+    def _compute_kelly_from_returns(self) -> tuple[float, float, float, float]:
+        """Compute rolling 21-day Kelly from self.df['return'] without requiring
+        the kelly feature pack.  Falls back to neutral values when insufficient
+        history is available."""
+        start = max(self.idx - 21, self.lookback)
+        window = self.df.iloc[start : self.idx]
+        if len(window) < 5:
+            return 0.0, 0.5, 1.0, 0.0
+        returns = window["return"].astype(float)
+        win_mask = returns > 0
+        win_rate = float(win_mask.mean())
+        avg_win = float(returns.where(win_mask, 0.0).mean())
+        avg_loss = float((-returns).where(~win_mask, 0.0).mean())
+        avg_loss = max(avg_loss, 1e-8)
+        odds = avg_win / avg_loss
+        kelly_raw = win_rate - (1.0 - win_rate) / odds
+        kelly_pos = float(np.clip(kelly_raw, -1.0, 1.5))
+        sharpe = float(returns.mean() / (returns.std() + 1e-8) * np.sqrt(252))
+        return kelly_pos, win_rate, odds, sharpe
+
     def get_state(self):
         if self.idx >= len(self.df) - 1:
             obs = np.zeros(self.obs_dim, dtype=np.float32)
@@ -352,10 +372,11 @@ class SoxlSimulator(Simulator):
             "is_decision_day": 1.0 if self._is_decision_day else 0.0,
             "rule_pos": rule_pos,
             "rule_return": rule_pos * self.last_market_return,
-            "kelly_position_21": float(row["kelly_position_21"]) if "kelly_position_21" in row.index else 0.0,
-            "win_rate_21": float(row["win_rate_21"]) if "win_rate_21" in row.index else 0.5,
-            "odds_21": float(row["odds_21"]) if "odds_21" in row.index else 1.0,
-            "sharpe_21": float(row["sharpe_21"]) if "sharpe_21" in row.index else 0.0,
+            # Prefer pre-computed kelly features (feature pack), otherwise compute on-the-fly
+            "kelly_position_21": float(row["kelly_position_21"]) if "kelly_position_21" in row.index else self._compute_kelly_from_returns()[0],
+            "win_rate_21": float(row["win_rate_21"]) if "win_rate_21" in row.index else self._compute_kelly_from_returns()[1],
+            "odds_21": float(row["odds_21"]) if "odds_21" in row.index else self._compute_kelly_from_returns()[2],
+            "sharpe_21": float(row["sharpe_21"]) if "sharpe_21" in row.index else self._compute_kelly_from_returns()[3],
             "done": False,
             "nday_reward": self.nday_reward_val,
             "episode_start_val": self.episode_start_val,

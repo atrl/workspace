@@ -294,6 +294,7 @@ class StrategyConfig:
     mode_router: ModeRouterConfig = field(default_factory=ModeRouterConfig)
     sampling: SamplingConfig = field(default_factory=SamplingConfig)
     warm_start: WarmStartConfig = field(default_factory=WarmStartConfig)
+    checkpoint_path: str = ""
     decision_frequency: int = 1
     algorithm: str = "ppo"
     separate_actor_critic: bool = False
@@ -374,6 +375,7 @@ def load_profile(name: str) -> StrategyConfig:
     mode_router = ModeRouterConfig(**payload.get("mode_router", {}))
     sampling = SamplingConfig(**payload.get("sampling", {}))
     warm_start = WarmStartConfig(**payload.get("warm_start", {}))
+    checkpoint_path = str(payload.get("checkpoint_path", ""))
     return StrategyConfig(
         name=payload["name"],
         max_iters=int(payload["max_iters"]),
@@ -393,6 +395,7 @@ def load_profile(name: str) -> StrategyConfig:
         mode_router=mode_router,
         sampling=sampling,
         warm_start=warm_start,
+        checkpoint_path=checkpoint_path,
         decision_frequency=int(payload.get("decision_frequency", 1)),
         algorithm=str(payload.get("algorithm", "ppo")),
         separate_actor_critic=bool(payload.get("separate_actor_critic", False)),
