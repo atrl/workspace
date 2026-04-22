@@ -458,6 +458,11 @@ Without that, the repo will keep repeating old branches under new names.
 | `drawdown_budget_overlay_v19` | Hard position cap based on drawdown consumption | 353.0% / 0.87 / 37.8% | diagnostic only — too blunt, kills return |
 | `regime_conditional_budget_rt0.6` | Budget mask only when `regime_risk >= 0.6` | **669.5%** / **1.04** / **42.1%** | **candidate overlay** — best mechanical improvement with zero return cost |
 | `hybrid_learned_budget` | Learned router + conditional budget on fixed actor | 343.4% / 0.87 / 35.8% | dropped — return too low vs overlay-only path |
+| `balanced_rule_residual_refined_v1` | Remove activity_bonus, reduce inactivity_penalty | 500.6% / 0.84 / 54.6% | dropped — too conservative, missed bull runs |
+| `balanced_rule_residual_refined_v2` | Add trend_alignment_bonus=0.20 | 556.9% / 0.87 / **53.0%** | candidate — best proxy DD in refined series, best test_2023_24 |
+| `balanced_rule_residual_refined_v3` | Strengthen trend incentives (alignment=0.30, opportunity=0.05) | **637.8%** / **0.89** / 54.9% | candidate — best refined return/sharpe but worse crisis behavior |
+| `balanced_rule_residual_refined_v4` | Midpoint params between v2/v3 | 480.0% / 0.84 / 54.2% | dropped — midpoint trap, non-linear interactions |
+| `multi_asset_refined_v3` | Joint train SOXL/TQQQ/UPRO/SPXL/TECL with refined_v3 reward | 388.6% / 0.78 / 49.7% | dropped — reward tuned for SOXL does not generalize; -249pp return vs single-asset |
 | `actor_ensemble_v19_mode_v1` | Dynamic switching between aggressive/defensive actors | ~40% / 0.85 / ~10% | dropped — incoherent behavior, return collapse |
 
 ### Key Conclusion
@@ -468,8 +473,19 @@ The repo has reached a **fundamental frontier** for single-asset 3x leveraged ET
 - No architectural tweak (learned router, action masking, ensemble) can push proxy MaxDD to 30% without large return sacrifice.
 - The **regime-conditional budget overlay** (`rt0.6_b0.3`) is the only net-positive mechanical addition: it improves proxy MaxDD by ~5pts with virtually no return drag.
 
+### Key Conclusion
+
+The repo has reached a **fundamental frontier** for single-asset 3x leveraged ETF strategies:
+
+- `mode_v1` already achieves **42.3% proxy MaxDD** — this is likely the practical limit without external hedging or multi-asset diversification.
+- No architectural tweak (learned router, action masking, ensemble) can push proxy MaxDD to 30% without large return sacrifice.
+- **Reward-only tuning is exhausted** — four refined iterations (v1-v4) show a sharp trade-off between return and DD, with no configuration beating v19's 735% return.
+- **Multi-asset with current architecture fails** — a single shared actor with simple one-hot embedding and SOXL-tuned reward drops return 249pp. Cross-asset generalization requires asset-specific heads, sector embeddings, or generic reward functions.
+- The **regime-conditional budget overlay** (`rt0.6_b0.3`) is the only net-positive mechanical addition: it improves proxy MaxDD by ~5pts with virtually no return drag.
+
 ### Next Valid Directions
 
 1. **Productionize regime-conditional budget** as a runtime overlay on the canonical actor.
-2. **Multi-asset joint training** (SOXL + TQQQ + UPRO + safe-haven) — the only remaining architectural path with a theoretical route to 30% portfolio-level drawdown.
-3. **Options/tail-risk hedging** — outside current harness scope but the industry-standard solution for this exact problem.
+2. **Seed sweep on v16** (GRU, window=5, penalty=2.0) — best risk-adjusted GRU config (632.4% / 0.91 / 50.1%) is seed-sensitive; a better seed may close the gap to v19.
+3. **Multi-asset revisited ONLY with architectural changes** — asset-specific heads, sector embeddings, volatility normalization, or generic reward. Current one-hot + shared actor is insufficient.
+4. **Options/tail-risk hedging** — outside current harness scope but the industry-standard solution for this exact problem.

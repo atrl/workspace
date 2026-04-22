@@ -3804,3 +3804,86 @@ Created `balanced_budget.yaml` with `max_iters=50`. However, the log file was ac
   - seed sweep with v16 config to find best initialization
 - Memory note:
   - `memory/2026-04-20-v18-seed-robustness-check.md`
+
+## Refined reward series v1-v4 2026-04-22
+
+- Goal:
+  - fix the forced-trading problem in v19 reward (activity_bonus=1.25 + inactivity_penalty=0.80 creates "must trade" pressure)
+  - respect cash as an asset, reduce conflicting gradients
+  - strengthen risk guardrails while keeping proven components (alpha reward, PBRS, profit_taking, panic_buy)
+- Philosophy:
+  - remove forced-trading incentives (activity_bonus → 0, inactivity_penalty ↓)
+  - add trend_alignment_bonus to recover participation in bull runs
+  - keep network at proven scale: [128,64] + GRU-64, episode_len=300
+- Results:
+
+  | Profile | proxy return | proxy sharpe | proxy MaxDD | test_2022 MaxDD | test_2023_24 ret | Notes |
+  |---------|-------------|-------------|------------|-----------------|------------------|-------|
+  | v19 baseline | 735.1% | 0.90 | 54.8% | 31.1% | 43.6% | Best return reference |
+  | refined_v1 | 500.6% | 0.84 | 54.6% | 31.5% | 48.8% | Too conservative, missed bull runs |
+  | refined_v2 | 556.9% | 0.87 | **53.0%** | ~30% | **63.3%** | Best proxy DD in family; best test_2023_24 |
+  | refined_v3 | **637.8%** | **0.89** | 54.9% | ~35% | ~63% | Best refined return; worse crisis behavior |
+  | refined_v4 | 480.0% | 0.84 | 54.2% | — | — | Midpoint params; worse than both v2/v3 |
+
+- Key findings:
+  1. Removing activity_bonus + reducing inactivity_penalty alone (v1) collapses return 235pp — model needs a "when to participate" signal
+  2. trend_alignment_bonus (v2: 0.20, v3: 0.30) is the correct participation signal — v2 recovers 56pp, v3 recovers 81pp more
+  3. Reward interactions are **non-linear** — midpoint v4 (alignment=0.25, opportunity=0.05) is worse than either extreme
+  4. **Trade-off is sharp**: v2 = defensive (53.0% DD), v3 = offensive (637.8% ret, 54.9% DD)
+  5. Neither clears promotion gate (v19 return = 735.1% is the bar)
+- Decision:
+  - refined_v1: dropped — too conservative
+  - refined_v2: keep as defensive candidate — best proxy DD, excellent test_2023_24
+  - refined_v3: keep as offensive candidate — best refined return/sharpe
+  - refined_v4: dropped — midpoint trap
+  - **reward-only direction exhausted** — four iterations show marginal returns, no path to beat v19
+- Next action:
+  - test refined_v3 in multi-asset joint training to see if cross-asset pooling improves generalization
+- Memory note:
+  - `memory/2026-04-22-simplified-reward-failure-and-refined-direction.md`
+
+## Multi-asset refined_v3 2026-04-22
+
+- Goal:
+  - test whether multi-asset joint training (SOXL/TQQQ/UPRO/SPXL/TECL) with refined_v3 reward improves SOXL in-domain performance
+  - 67 pooled episodes across 5 ETFs; asset one-hot embedding in observation
+- Command:
+  - `PYTHONPATH=. qlib_venv/bin/python soxl_qlib_strategy_v2.py --profiles balanced_rule_residual_refined_v3 --multi-asset --skip-data-refresh --seed 12345`
+- Evidence:
+  - test full: `388.6% / Sharpe 0.78 / MaxDD 49.7% / trades 326`
+  - test_2020: `122.5% / Sharpe 2.641 / MaxDD 18.77%`
+  - test_2022: `-24.0% / Sharpe -0.845 / MaxDD 33.23%`
+  - test_2023_2024: `47.6% / Sharpe 0.740 / MaxDD 33.74%`
+- Comparison vs single-asset refined_v3:
+
+  | Variant | Return | Sharpe | MaxDD | test_2020 | test_2022 | test_2023_24 |
+  |---------|--------|--------|-------|-----------|-----------|--------------|
+  | single-asset refined_v3 | **637.8%** | **0.89** | 54.9% | ~164% | ~-16% | ~63% |
+  | **multi-asset refined_v3** | **388.6%** | **0.78** | **49.7%** | 122.5% | -24.0% | 47.6% |
+
+- Promotion gate:
+  - fixed_split: passed (test_2022_max_dd 33.23% < 35%, test_2022_avg_pos < 0.35, test_proxy_sharpe 0.78 > 0.75)
+  - walk_forward: missing — blocked
+  - overall: `eligible = false` (return too low vs v19 baseline)
+- Key finding: **HYPOTHESIS REJECTED.**
+  1. Multi-asset with refined_v3 reward is **significantly worse** than single-asset (-249pp return)
+  2. The refined_v3 reward was **tuned for SOXL's specific volatility profile** — cross-asset pooling dilutes the signal
+  3. Stronger risk guardrails (hard_floor=0.15, opportunity_cost=0.05, trend_alignment=0.30) make the model overly conservative when exposed to other ETFs' volatility patterns
+  4. Compare with previous multi-asset (P0 baseline, 2026-04-14): 514% return / 58.3% MaxDD — the simpler reward generalized better
+  5. All test slices degraded: 2020 (-42pp), 2022 (-8pp worse return), 2023_24 (-15pp)
+- Decision:
+  - drop: multi-asset refined_v3 as a viable path
+  - keep: the lesson that reward tuned for single-asset does NOT generalize to multi-asset
+  - keep: single-asset refined_v3 as the better variant
+- Next action:
+  - do NOT run multi-asset with refined_v2 — same problem expected (reward tuned for SOXL)
+  - if multi-asset is revisited, need either:
+    1. Asset-specific reward parameters per ETF
+    2. Larger network with asset-specific heads
+    3. Sector/regime embeddings beyond simple one-hot
+    4. Or use a simpler, more generic reward (like P0 baseline) that doesn't overfit to SOXL
+  - pivot back to single-asset structural improvements:
+    1. Integrate regime-conditional budget overlay (rt0.6_b0.3) into production runtime — proven +5pt DD improvement at zero return cost
+    2. Seed sweep on v16 (window=5, penalty=2.0, GRU) to close the ~100pp gap to v19
+- Memory note:
+  - `memory/2026-04-22-multi-asset-refined-v3-failure.md`
