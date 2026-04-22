@@ -66,17 +66,29 @@ def evaluate_split(
         )
         mode_state = route_mode(obs, mode_state, mode_router_config) if mode_router_config is not None else ModeState(name="flat_wait", days_in_mode=1)
         action = actor_action(actor, obs)
+        row = df.iloc[idx]
+        # --- Kelly-aware dynamic hard floor (execution-layer) ---
+        effective_hard_floor = hard_floor
+        if hard_floor is not None and "kelly_position_21" in row.index:
+            kelly_pos = float(np.nan_to_num(row["kelly_position_21"]))
+            win_rate = float(np.nan_to_num(row["win_rate_21"]))
+            if kelly_pos > 0.20 and win_rate > 0.48:
+                realized_vol = float(np.nan_to_num(row["realized_vol_10"]))
+                vol_factor = 1.0
+                if realized_vol > 1.0:
+                    vol_factor = max(0.3, 1.0 - (realized_vol - 1.0))
+                kelly_floor = min(kelly_pos * 0.7, 0.45)
+                effective_hard_floor = max(hard_floor, kelly_floor * vol_factor)
         target_pos = target_position_for_profile(
             action,
             obs,
             config=position_cap_config,
             action_levels=action_levels,
-            hard_floor=hard_floor,
+            hard_floor=effective_hard_floor,
             use_hybrid_overlay=use_hybrid_overlay,
             delta_levels=delta_levels,
             mode_band=mode_band(mode_state.name, mode_router_config) if mode_router_config and getattr(mode_router_config, "enabled", False) else None,
         )
-        row = df.iloc[idx]
         regime_risk = float(np.nan_to_num(row["regime_risk"]))
         realized_vol = float(np.nan_to_num(row["realized_vol_10"]))
         trend_strength = abs(float(np.nan_to_num(row["trend_gap_21"])))

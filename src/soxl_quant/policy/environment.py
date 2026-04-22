@@ -13,7 +13,7 @@ from qlib.rl.simulator import Simulator
 
 from ..config import ExecutionConfig, PositionCapConfig, StrategyConfig
 from ..config import ModeRouterConfig
-from ..data import FEATURE_COLUMNS, feature_columns_for_packs
+from ..data import FEATURE_COLUMNS, STATIC_INDEX, feature_columns_for_packs
 from .execution import (
     DEFAULT_EXECUTION,
     execution_buy_cooldown_days,
@@ -410,12 +410,26 @@ class PositionAction(ActionInterpreter):
 
     def interpret(self, state, action):
         current_mode = state.get("mode")
+        # --- Kelly-aware dynamic hard floor (execution-layer, not learned) ---
+        hard_floor = self.hard_floor
+        if hard_floor is not None:
+            kelly_pos = float(state.get("kelly_position_21", 0.0))
+            win_rate = float(state.get("win_rate_21", 0.5))
+            # When Kelly shows clear positive edge, raise the minimum allowed exposure
+            if kelly_pos > 0.20 and win_rate > 0.48:
+                realized_vol = max(float(state["obs"][STATIC_INDEX["realized_vol_10"]]), 0.0)
+                vol_factor = 1.0
+                if realized_vol > 1.0:
+                    vol_factor = max(0.3, 1.0 - (realized_vol - 1.0))
+                # Blend: raise floor up to 70% of Kelly suggestion, capped at 0.45
+                kelly_floor = min(kelly_pos * 0.7, 0.45)
+                hard_floor = max(hard_floor, kelly_floor * vol_factor)
         return target_position_for_profile(
             int(action),
             state["obs"],
             config=self.position_cap_config,
             action_levels=self.action_levels,
-            hard_floor=self.hard_floor,
+            hard_floor=hard_floor,
             use_hybrid_overlay=self.use_hybrid_overlay,
             delta_levels=self.delta_levels if self.use_hybrid_overlay else None,
             mode_band=mode_band(current_mode, self.mode_router_config) if current_mode else None,
