@@ -122,9 +122,13 @@ conviction.
   opportunity_cost (0.06) + lower hard_floor (0.15). Results: 637.8%/0.89/54.9%
   (+81pp ret vs v2, +1.9pp DD). Clear trade-off: more trend incentive = more
   return but worse DD in stress and post-stress windows.
-- `refined_v4`: in progress — midpoint parameters (trend_alignment=0.25,
-  opportunity_cost=0.05, hard_floor=0.18). Final reward-only sweet spot attempt.
-- Next: if refined_v4 does not achieve >650% return with DD < 54%, the
-  reward-only direction is exhausted. Pivot to:
-  1. Multi-asset joint training with refined_v2 reward (best DD control)
-  2. Structural improvements (mode router, attention, etc.)
+- `refined_v4`: dropped — midpoint parameters (trend_alignment=0.25,
+  opportunity_cost=0.05, hard_floor=0.18). Result: 480.0%/0.84/54.2%, worse
+  than v1. Reward interactions are non-linear — midpoint does not work.
+- **Reward-only direction exhausted**. v2 (defensive, 53.0% DD) and v3
+  (offensive, 637.8% ret) are the two best points. Neither clears promotion.
+- Multi-asset joint training: IN PROGRESS — using refined_v3 reward design
+  across SOXL/TQQQ/UPRO/SPXL/TECL. Goal: pooled regime learning improves
+  return without sacrificing DD control.
+- Next: evaluate multi-asset results. If SOXL in-domain DD stays < 55% and
+  return improves vs single-asset refined_v3, keep as candidate.
