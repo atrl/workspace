@@ -86,6 +86,7 @@ class RewardConfig:
     regime_budget_penalty: float = 0.50
     rule_imitation_bonus: float = 0.0
     rule_decision_bonus: float = 0.0
+    bottomless_pit_penalty: float = 0.0
 
 
 @dataclass(frozen=True)

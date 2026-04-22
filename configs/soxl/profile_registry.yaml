@@ -629,3 +629,10 @@ profiles:
   keep_actor: true
   keep_summary: true
   notes_ref: experiments/candidate/balanced_rule_residual_imitation_v7/notes.md
+- name: balanced_rule_residual_imitation_v2_fix
+  family: balanced
+  status: candidate
+  baseline: balanced_rule_residual_imitation_v2
+  keep_actor: true
+  keep_summary: true
+  notes_ref: experiments/candidate/balanced_rule_residual_imitation_v2_fix/notes.md

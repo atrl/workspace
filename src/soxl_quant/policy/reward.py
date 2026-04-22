@@ -226,6 +226,26 @@ class ContinuousReward(Reward):
                 panic_depth = min(abs(cum_drop_30) - abs(cfg.panic_buy_cum_drop_threshold), 0.15)
                 reward += cfg.panic_buy_bonus * (1.0 + panic_depth * 5.0)
 
+        # --- 6b. Bottomless pit protection (NEW) ---
+        # When market is in free-fall (deep cumulative drop + extreme volatility),
+        # penalize ANY increase in position. This prevents the model from
+        # catching a falling knife like in Oct 2022.
+        if getattr(cfg, "bottomless_pit_penalty", 0.0) > 0.0:
+            if turnover > 1e-6 and pos > prev_pos + 1e-6:
+                pit_depth = 0.0
+                if cum_drop_30 < -0.25:
+                    pit_depth += 0.5
+                if cum_drop_30 < -0.35:
+                    pit_depth += 0.5
+                if realized_vol > 1.0:
+                    pit_depth += 0.3
+                if realized_vol > 1.5:
+                    pit_depth += 0.3
+                if regime_risk > 0.75:
+                    pit_depth += 0.2
+                if pit_depth > 0.0:
+                    reward -= cfg.bottomless_pit_penalty * pit_depth
+
         # --- 7. Micro-rebalance penalty ---
         if cfg.micro_rebalance_penalty > 0 and 0.0 < turnover < cfg.micro_rebalance_threshold:
             micro_ratio = turnover / max(cfg.micro_rebalance_threshold, 1e-6)

@@ -510,3 +510,16 @@ The repo has reached a **fundamental frontier** for single-asset 3x leveraged ET
 3. **v2 is the most conservative**: MaxDD 29.4-30.2% (meets target), but returns weak (34.0%)
 4. **Fundamental trade-off**: participation signals improve returns but increase MaxDD by ~2pp
 5. **Tightening drawdown controls beyond v2's level is counterproductive** (v5, v6 both worse)
+
+## 2026-04-22: CRITICAL CORRECTION — test_2022 Diagnosis Bug
+
+**Original wrong conclusion:** Model went 100% before Oct 2022 crash due to panic_buy_bonus.
+
+**Actual finding (after fixing diagnosis script):** Model maintains fixed low position (0.15-0.25) throughout 2022. MaxDD comes from SOXL's inherent 3x leverage volatility, not from bad timing.
+
+**Key correction:**
+- v2 avg_pos = 0.15 (fixed), NOT "mostly 0% with occasional 100%"
+- v2 has ZERO days with position > 0.5 in test_2022
+- The 30% MaxDD is caused by cumulative effect of 15% position × (-18%) daily market drops
+
+**Revised recommendation:** v4 is the better candidate. The 1.7pp MaxDD difference vs v2 is negligible compared to the 17.8pp return improvement in test_2023_2024.
