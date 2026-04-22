@@ -610,11 +610,25 @@ profiles:
   notes_ref: experiments/candidate/balanced_rule_residual_imitation_v4/notes.md
 - name: balanced_kelly_dynamic_v5
   family: balanced
-  status: candidate
+  status: dropped
   baseline: balanced_rule_residual_imitation_v4
   keep_actor: false
   keep_summary: true
   notes_ref: experiments/candidate/balanced_kelly_dynamic_v5/notes.md
+- name: balanced_kelly_dynamic_v6
+  family: balanced
+  status: dropped
+  baseline: balanced_kelly_dynamic_v5
+  keep_actor: false
+  keep_summary: true
+  notes_ref: experiments/candidate/balanced_kelly_dynamic_v6/notes.md
+- name: balanced_kelly_dynamic_v7
+  family: balanced
+  status: candidate
+  baseline: balanced_kelly_dynamic_v6
+  keep_actor: false
+  keep_summary: true
+  notes_ref: experiments/candidate/balanced_kelly_dynamic_v7/notes.md
 - name: balanced_rule_residual_imitation_v5
   family: balanced
   status: candidate

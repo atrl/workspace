@@ -212,19 +212,27 @@ class ContinuousReward(Reward):
                 reward -= cfg.opportunity_cost_penalty * 0.40
 
         # --- 5b. Kelly criterion tracking (prevent fixed low-position collapse) ---
-        # When recent 21-day statistics show positive edge, encourage the model
-        # to size up dynamically instead of staying at minimum exposure.
-        if getattr(cfg, "kelly_tracking_penalty", 0.0) > 0.0:
+        # v5/v6 failure: penalty-based tracking (deviation * penalty) was too weak
+        # to overcome episode_drawdown fear. Switched to BONUS-based tracking:
+        # when Kelly shows positive edge, REWARD alignment instead of punishing deviation.
+        kelly_bonus = getattr(cfg, "kelly_tracking_bonus", 0.0)
+        if kelly_bonus > 0.0:
             kelly_pos = float(state.get("kelly_position_21", 0.0))
-            if abs(kelly_pos) > getattr(cfg, "kelly_min_signal", 0.1):
-                # Clip to actionable long-only range
-                target = max(0.0, min(1.0, kelly_pos))
-                # Volatility attenuation: historical Kelly is less reliable in extreme vol
-                attenuation = 1.0
-                if getattr(cfg, "kelly_vol_attenuation", True) and realized_vol > 1.0:
-                    attenuation = max(0.0, 1.0 - (realized_vol - 1.0))
-                deviation = abs(pos - target)
-                reward -= deviation * cfg.kelly_tracking_penalty * attenuation
+            win_rate = float(state.get("win_rate_21", 0.5))
+            sharpe = float(state.get("sharpe_21", 0.0))
+            # Only activate when Kelly signal is clearly positive
+            if kelly_pos > getattr(cfg, "kelly_min_signal", 0.1):
+                # Signal quality: require decent win-rate and non-negative Sharpe
+                signal_quality = max(0.0, (win_rate - 0.45) * 3.0) * (1.0 if sharpe > 0 else 0.5)
+                if signal_quality > 0.0:
+                    target = min(kelly_pos, 1.0)
+                    # Reward increases as position approaches Kelly target
+                    alignment = max(0.0, 1.0 - abs(pos - target))
+                    # Volatility attenuation: dampen bonus in extreme vol regimes
+                    attenuation = 1.0
+                    if getattr(cfg, "kelly_vol_attenuation", True) and realized_vol > 1.0:
+                        attenuation = max(0.2, 1.0 - (realized_vol - 1.0) * 0.8)
+                    reward += alignment * kelly_bonus * signal_quality * attenuation
 
         # --- 6. Tactical bonuses ---
         holding_age = max(float(state["obs"][EXTRA_INDEX["holding_age"]]), 0.0)
