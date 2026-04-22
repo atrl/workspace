@@ -77,6 +77,7 @@ class RewardConfig:
     use_cvar_terminal: bool = False
     cvar_terminal_coef: float = 0.0
     cvar_terminal_alpha: float = 0.05
+    use_simplified_reward: bool = False
 
 
 @dataclass(frozen=True)

@@ -24,13 +24,77 @@ class ContinuousReward(Reward):
         turnover = float(state.get("turnover", 0.0))
         drawdown = float(state.get("drawdown", 0.0))
         regime_risk = float(state.get("regime_risk", 0.0))
-        regime_delta = abs(float(state.get("regime_delta", 0.0)))
         flat_steps = float(state.get("flat_steps", 0.0))
-        downside_signal = max(float(state["obs"][STATIC_INDEX["downside_semivol_21"]]), 0.0)
         realized_vol = max(float(state["obs"][STATIC_INDEX["realized_vol_10"]]), 0.0)
-        trend_strength = abs(float(state["obs"][STATIC_INDEX["trend_gap_21"]]))
         anchor_gap = float(state["obs"][STATIC_INDEX["anchor_gap_180"]])
         cum_drop_30 = float(state["obs"][STATIC_INDEX["cum_drop_30"]])
+
+        # ============================================================
+        # SIMPLIFIED REWARD BRANCH
+        # ============================================================
+        if getattr(cfg, "use_simplified_reward", False):
+            return self._simplified_reward(state, cfg, pos, pnl_ret, turnover, drawdown, regime_risk, realized_vol, anchor_gap, cum_drop_30, flat_steps)
+
+        # ============================================================
+        # FULL LEGACY REWARD (unchanged)
+        # ============================================================
+        return self._legacy_reward(state, cfg, pos, prev_val, pnl_ret, turnover, drawdown, regime_risk, flat_steps, realized_vol, anchor_gap, cum_drop_30)
+
+    def _simplified_reward(self, state, cfg, pos, pnl_ret, turnover, drawdown, regime_risk, realized_vol, anchor_gap, cum_drop_30, flat_steps):
+        """Minimal reward: alpha + drawdown control + transaction cost.
+
+        Hypothesis: the 200-line legacy reward creates conflicting gradients.
+        A clean 3-term reward lets the model learn cash-holding organically.
+        """
+        step_return = float(state.get("step_return", 0.0))
+        rule_return = float(state.get("rule_return", 0.0))
+        alpha = step_return - rule_return
+
+        # 1. Core alpha signal (Kelly-scaled)
+        effective_alpha_scale = float(cfg.alpha_scale)
+        if regime_risk < 0.35:
+            effective_alpha_scale *= 1.3
+        elif regime_risk > 0.60:
+            effective_alpha_scale *= 0.7
+        safe_alpha = max(alpha, -0.999)
+        reward = math.log(1.0 + safe_alpha) * 100.0 * effective_alpha_scale
+
+        # 2. Transaction cost
+        reward -= turnover * cfg.transaction_cost * 100.0
+        reward -= turnover * cfg.turnover_penalty
+        reward -= (turnover ** 2) * cfg.smoothness_penalty
+
+        # 3. Drawdown control — the ONLY risk term
+        # Immediate penalty when drawdown worsens (proportional to increase)
+        if cfg.episode_drawdown_penalty > 0:
+            episode_max_dd = float(state.get("episode_max_dd", 0.0))
+            prev_episode_max_dd = float(state.get("prev_episode_max_dd", 0.0))
+            if episode_max_dd > prev_episode_max_dd:
+                increase = episode_max_dd - prev_episode_max_dd
+                reward -= increase * cfg.episode_drawdown_penalty * 100.0
+
+        # Terminal penalty on excess drawdown
+        if state.get("done", False) and cfg.episode_drawdown_penalty > 0:
+            episode_max_dd = float(state.get("episode_max_dd", 0.0))
+            excess_episode_dd = max(episode_max_dd - cfg.episode_drawdown_threshold, 0.0)
+            reward -= excess_episode_dd * cfg.episode_drawdown_penalty * 100.0
+
+        # 4. Excess position penalty (only when drawdown is already elevated)
+        # This replaces the complex risk_budget_penalty + high_exposure_penalty
+        if drawdown > 0.10 and pos > 0.50:
+            reward -= (drawdown - 0.10) * (pos - 0.50) * 2.0
+
+        # 5. Minimal inactivity penalty (to prevent permanent cash, but weak)
+        if flat_steps >= 10 and realized_vol < 0.30 and anchor_gap > 0.01:
+            reward -= 0.05
+
+        return float(reward)
+
+    def _legacy_reward(self, state, cfg, pos, prev_val, pnl_ret, turnover, drawdown, regime_risk, flat_steps, realized_vol, anchor_gap, cum_drop_30):
+        """Original 200-line reward function — kept for backward compatibility."""
+        regime_delta = abs(float(state.get("regime_delta", 0.0)))
+        downside_signal = max(float(state["obs"][STATIC_INDEX["downside_semivol_21"]]), 0.0)
+        trend_strength = abs(float(state["obs"][STATIC_INDEX["trend_gap_21"]]))
         holding_age = max(float(state["obs"][EXTRA_INDEX["holding_age"]]), 0.0)
         avg_entry_pnl = float(state["obs"][EXTRA_INDEX["avg_entry_pnl"]])
         high_gap = float(state["obs"][EXTRA_INDEX["high_gap"]])
@@ -52,7 +116,6 @@ class ContinuousReward(Reward):
             step_return = float(state.get("step_return", 0.0))
             rule_return = float(state.get("rule_return", 0.0))
             alpha = step_return - rule_return
-            # Regime-conditioned alpha scale
             effective_alpha_scale = float(cfg.alpha_scale)
             if cfg.use_kelly_alpha:
                 if regime_risk < 0.35:
@@ -165,28 +228,18 @@ class ContinuousReward(Reward):
         if realized_vol > 0.50 and turnover > 0.03:
             reward += cfg.vol_trading_bonus * turnover
 
-        # Episode-level max drawdown penalty — applied at EVERY step when drawdown worsens
-        # This gives the agent immediate feedback rather than relying solely on terminal credit assignment
         if cfg.episode_drawdown_penalty > 0:
             episode_max_dd = float(state.get("episode_max_dd", 0.0))
             prev_episode_max_dd = float(state.get("prev_episode_max_dd", 0.0))
             if episode_max_dd > prev_episode_max_dd:
                 increase = episode_max_dd - prev_episode_max_dd
-                # Immediate linear penalty on drawdown increase — agent feels it right away
                 reward -= increase * cfg.episode_drawdown_penalty * 100.0
 
-        # Terminal episode drawdown penalty — additional punishment at episode end
         if state.get("done", False) and cfg.episode_drawdown_penalty > 0:
             episode_max_dd = float(state.get("episode_max_dd", 0.0))
             excess_episode_dd = max(episode_max_dd - cfg.episode_drawdown_threshold, 0.0)
-            # Linear penalty with large coefficient: must be on same scale as episode total reward
             reward -= excess_episode_dd * cfg.episode_drawdown_penalty * 100.0
 
-        # Terminal CVaR penalty (Tier 3 reserved branch).
-        # Penalizes the mean of the worst `alpha` fraction of per-step returns
-        # in the episode. Activated only when cfg.use_cvar_terminal and episode
-        # is done. CVaR is negative for bad episodes, so we subtract it with a
-        # positive coefficient to turn it into a penalty on the absolute value.
         if (
             state.get("done", False)
             and cfg.use_cvar_terminal
@@ -198,12 +251,9 @@ class ContinuousReward(Reward):
                 alpha = max(min(float(cfg.cvar_terminal_alpha), 0.5), 1e-3)
                 tail_count = max(1, int(len(sorted_returns) * alpha))
                 cvar_tail = sum(sorted_returns[:tail_count]) / tail_count
-                # cvar_tail is typically negative; penalty = -cvar_tail * coef * 100
                 reward -= max(-cvar_tail, 0.0) * cfg.cvar_terminal_coef * 100.0
 
-        # Downside asymmetry: amplify penalty when step return is negative
         if cfg.downside_asymmetry_coef > 1.0 and pnl_ret < 0:
-            # Multiply the ENTIRE reward (which is already negative) to make losses hurt more
             reward *= cfg.downside_asymmetry_coef
 
         if flat_steps >= 4:
