@@ -568,8 +568,8 @@ profiles:
   notes_ref: experiments/candidate/balanced_rule_residual_refined_v4/notes.md
 - name: balanced_rule_residual_minimal_v1
   family: balanced
-  status: candidate
+  status: dropped
   baseline: balanced_rule_residual_v16
-  keep_actor: true
+  keep_actor: false
   keep_summary: true
   notes_ref: experiments/candidate/balanced_rule_residual_minimal_v1/notes.md

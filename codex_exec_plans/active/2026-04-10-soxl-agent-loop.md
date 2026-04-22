@@ -3918,3 +3918,53 @@ Created `balanced_budget.yaml` with `max_iters=50`. However, the log file was ac
 - Memory note:
   - `experiments/candidate/balanced_rule_residual_minimal_v1/notes.md`
   - `experiments/candidate/balanced_rule_residual_minimal_v1/expectations.md`
+
+## Minimal reward + regime budget v1 — RESULTS 2026-04-22
+
+- Evidence:
+  - test full: `492.3% / Sharpe 0.85 / MaxDD 48.8% / trades 313`
+  - test_2020: `107.6% / Sharpe 2.635 / MaxDD 17.31%`
+  - test_2022: `-22.77% / Sharpe -0.864 / MaxDD 31.31% / avg_pos 0.26`
+  - test_2023_2024: `40.24% / Sharpe 0.682 / MaxDD 31.07%`
+  - test_proxy: `569.9% / Sharpe 0.904 / MaxDD 52.5%`
+- Promotion gate:
+  - fixed_split: ALL PASSED
+    - test_2022_max_dd: 31.3% < 35% ✓
+    - test_2022_avg_pos: 0.26 < 0.35 ✓
+    - test_proxy_sharpe: 0.90 > 0.75 ✓
+  - walk_forward: missing — blocked
+- Critical finding: **TRAINING DEGRADED FROM ITER 0**
+  - iter 0 (random init): valid `56.4% / 1.65 / 26.6%` — BEST
+  - iter 20: valid `56.4% / 1.47 / 32.6%`
+  - iter 40: valid `46.8% / 1.33 / 30.2%`
+  - iter 60: valid `52.7% / 1.47 / 31.1%`
+  - iter 80: valid `36.2% / 1.12 / 33.5%` — WORST
+  - The model became MORE conservative as training progressed, not less
+- Comparison vs v16 (same seed=20260420):
+
+  | Metric | v16 | minimal_v1 | Delta |
+  |--------|-----|-----------|-------|
+  | proxy return | **632.4%** | **492.3%** | **-140pp** |
+  | proxy sharpe | **0.91** | 0.85 | -0.06 |
+  | proxy MaxDD | 50.1% | **48.8%** | -1.3pp |
+  | test_2023_24 ret | **57.9%** | **40.2%** | **-17.7pp** |
+
+- Key finding: **HYPOTHESIS REJECTED.**
+  1. Minimal reward (5 terms) reverts to v12/v13 baseline performance (492%/0.85/48.8%)
+  2. The "extra" reward terms in v16 (activity_bonus, profit_taking, panic_buy, opportunity_cost) are responsible for ~140pp of return
+  3. Removing ALL participation signals causes training to degrade — model loses "when to hold cash, when to participate"
+  4. Regime budget IN training is NOT equivalent to budget overlay on fixed actor:
+     - Fixed overlay (v19 + rt0.6): +5pt DD, ~0 return cost
+     - Training with budget: +1.3pt DD, -140pp return cost
+     - When trained with budget, model never learns aggressive behavior; it adapts around the constraint
+  5. Cash is NOT sufficient for drawdown control. The model needs explicit "participation signals" to know when to deploy capital.
+- Decision:
+  - drop: `balanced_rule_residual_minimal_v1` as a promotable branch
+  - keep: the lesson that participation signals (trend_alignment, opportunity_cost) are necessary, not noise
+  - keep: the insight that budget overlay works best on FIXED actors, not during training
+- Next action:
+  - do NOT pursue further reward minimalization
+  - the correct major adjustment is structural constraint (mode hierarchy, budget overlay) + selective reward simplification (remove micro-management terms, keep participation signals)
+  - candidate next step: test a "moderate" reward that keeps trend_alignment + opportunity_cost but removes stale/trapped/micro/flat_trade terms
+- Memory note:
+  - `memory/2026-04-22-minimal-reward-v1-results.md`

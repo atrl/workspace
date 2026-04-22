@@ -463,6 +463,7 @@ Without that, the repo will keep repeating old branches under new names.
 | `balanced_rule_residual_refined_v3` | Strengthen trend incentives (alignment=0.30, opportunity=0.05) | **637.8%** / **0.89** / 54.9% | candidate — best refined return/sharpe but worse crisis behavior |
 | `balanced_rule_residual_refined_v4` | Midpoint params between v2/v3 | 480.0% / 0.84 / 54.2% | dropped — midpoint trap, non-linear interactions |
 | `multi_asset_refined_v3` | Joint train SOXL/TQQQ/UPRO/SPXL/TECL with refined_v3 reward | 388.6% / 0.78 / 49.7% | dropped — reward tuned for SOXL does not generalize; -249pp return vs single-asset |
+| `balanced_rule_residual_minimal_v1` | Strip reward to 5 terms + regime budget in training | 492.3% / 0.85 / 48.8% | dropped — training degraded from iter 0; random init outperformed 80 iters; budget in training kills return |
 | `actor_ensemble_v19_mode_v1` | Dynamic switching between aggressive/defensive actors | ~40% / 0.85 / ~10% | dropped — incoherent behavior, return collapse |
 
 ### Key Conclusion
