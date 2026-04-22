@@ -118,8 +118,13 @@ conviction.
   opportunity_cost (0.04). Results: proxy 556.9%/0.87/53.0% (+56pp ret vs v1,
   -1.6pp DD). Best proxy DD in entire family. Excellent test_2023_24
   (63.3%/29.7%). But still 178pp below v19 return.
-- `refined_v3`: in progress — stronger trend_alignment_bonus (0.30) +
-  opportunity_cost (0.06) + lower hard_floor (0.15). Last attempt at
-  reward-only recovery before pivoting to multi-asset or structural changes.
-- Next: if refined_v3 cannot recover to >650% proxy return with DD < 54%,
-  pivot to multi-asset joint training or mode-router structural approach
+- `refined_v3`: candidate but blocked — stronger trend_alignment (0.30) +
+  opportunity_cost (0.06) + lower hard_floor (0.15). Results: 637.8%/0.89/54.9%
+  (+81pp ret vs v2, +1.9pp DD). Clear trade-off: more trend incentive = more
+  return but worse DD in stress and post-stress windows.
+- `refined_v4`: in progress — midpoint parameters (trend_alignment=0.25,
+  opportunity_cost=0.05, hard_floor=0.18). Final reward-only sweet spot attempt.
+- Next: if refined_v4 does not achieve >650% return with DD < 54%, the
+  reward-only direction is exhausted. Pivot to:
+  1. Multi-asset joint training with refined_v2 reward (best DD control)
+  2. Structural improvements (mode router, attention, etc.)
