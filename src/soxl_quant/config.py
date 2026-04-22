@@ -87,6 +87,10 @@ class RewardConfig:
     rule_imitation_bonus: float = 0.0
     rule_decision_bonus: float = 0.0
     bottomless_pit_penalty: float = 0.0
+    # Kelly criterion tracking
+    kelly_tracking_penalty: float = 0.0
+    kelly_vol_attenuation: bool = True
+    kelly_min_signal: float = 0.1
 
 
 @dataclass(frozen=True)

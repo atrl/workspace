@@ -211,6 +211,21 @@ class ContinuousReward(Reward):
             if trend_gap > cfg.opportunity_threshold_trend and realized_vol < 0.45 and pos < cfg.opportunity_threshold_pos + 0.05:
                 reward -= cfg.opportunity_cost_penalty * 0.40
 
+        # --- 5b. Kelly criterion tracking (prevent fixed low-position collapse) ---
+        # When recent 21-day statistics show positive edge, encourage the model
+        # to size up dynamically instead of staying at minimum exposure.
+        if getattr(cfg, "kelly_tracking_penalty", 0.0) > 0.0:
+            kelly_pos = float(state.get("kelly_position_21", 0.0))
+            if abs(kelly_pos) > getattr(cfg, "kelly_min_signal", 0.1):
+                # Clip to actionable long-only range
+                target = max(0.0, min(1.0, kelly_pos))
+                # Volatility attenuation: historical Kelly is less reliable in extreme vol
+                attenuation = 1.0
+                if getattr(cfg, "kelly_vol_attenuation", True) and realized_vol > 1.0:
+                    attenuation = max(0.0, 1.0 - (realized_vol - 1.0))
+                deviation = abs(pos - target)
+                reward -= deviation * cfg.kelly_tracking_penalty * attenuation
+
         # --- 6. Tactical bonuses ---
         holding_age = max(float(state["obs"][EXTRA_INDEX["holding_age"]]), 0.0)
         avg_entry_pnl = float(state["obs"][EXTRA_INDEX["avg_entry_pnl"]])

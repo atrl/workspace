@@ -608,6 +608,13 @@ profiles:
   keep_actor: true
   keep_summary: true
   notes_ref: experiments/candidate/balanced_rule_residual_imitation_v4/notes.md
+- name: balanced_kelly_dynamic_v5
+  family: balanced
+  status: candidate
+  baseline: balanced_rule_residual_imitation_v4
+  keep_actor: false
+  keep_summary: true
+  notes_ref: experiments/candidate/balanced_kelly_dynamic_v5/notes.md
 - name: balanced_rule_residual_imitation_v5
   family: balanced
   status: candidate

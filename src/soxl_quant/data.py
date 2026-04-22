@@ -103,6 +103,21 @@ FEATURE_COLUMNS: List[str] = list(CORE_FEATURE_COLUMNS)
 STATIC_INDEX = {name: idx for idx, name in enumerate(FEATURE_COLUMNS)}
 
 
+def _builtin_kelly_pack(context: dict[str, Any]) -> dict[str, pd.Series]:
+    """Rolling Kelly criterion features: signal-quality / timing-goodness.
+
+    These features encode the statistical edge of the recent 21-day window,
+    allowing the policy to learn dynamic position sizing instead of collapsing
+    to a fixed low-exposure regime.
+    """
+    return {
+        "kelly_position_21": context["kelly_position_21"],
+        "win_rate_21": context["win_rate_21"],
+        "odds_21": context["odds_21"],
+        "sharpe_21": context["sharpe_21"],
+    }
+
+
 def _builtin_vix_term_pack(context: dict[str, Any]) -> dict[str, pd.Series]:
     index = context["index"]
     vix = context["vix"]
@@ -125,6 +140,15 @@ def _builtin_vix_term_pack(context: dict[str, Any]) -> dict[str, pd.Series]:
 
 
 BUILTIN_FEATURE_PACKS: dict[str, dict[str, Any]] = {
+    "kelly": {
+        "columns": (
+            "kelly_position_21",
+            "win_rate_21",
+            "odds_21",
+            "sharpe_21",
+        ),
+        "builder": _builtin_kelly_pack,
+    },
     "vix_term": {
         "columns": (
             "vvix_zscore_252",
@@ -584,6 +608,20 @@ def engineer_feature_frame(
     # Gain streak: symmetric to loss_streak_21
     gain_streak_10 = _streaks(lev_ret > 0).clip(upper=10) / 10.0
 
+    # --- Rolling Kelly criterion features (signal-quality / timing-goodness) ---
+    # 21-day rolling window for win-rate, odds, and Kelly-optimal position
+    win_mask = lev_ret > 0
+    loss_mask = lev_ret < 0
+    win_rate_21 = win_mask.rolling(21).mean()
+    avg_win_21 = lev_ret.where(win_mask, 0.0).rolling(21).mean()
+    avg_loss_21 = (-lev_ret).where(loss_mask, 0.0).rolling(21).mean().clip(lower=1e-8)
+    odds_21 = avg_win_21 / avg_loss_21
+    # Kelly fraction: f* = (p*b - q) / b  =>  win_rate - (1-win_rate)/odds
+    kelly_raw = win_rate_21 - (1.0 - win_rate_21) / odds_21.clip(lower=1e-8)
+    kelly_position_21 = kelly_raw.clip(-1.0, 1.5)
+    # Pure 21-day Sharpe (annualized) for signal-quality context
+    sharpe_21 = lev_ret.rolling(21).mean() / (lev_ret.rolling(21).std().clip(lower=1e-8)) * np.sqrt(252)
+
     feature_df = pd.DataFrame(
         {
             "return": lev_ret,
@@ -662,6 +700,11 @@ def engineer_feature_frame(
         "vix_zscore": vix_zscore,
         "downside_ratio_10": downside_ratio_10,
         "trend_slope_10": trend_slope_10,
+        # Kelly pack context
+        "kelly_position_21": kelly_position_21,
+        "win_rate_21": win_rate_21,
+        "odds_21": odds_21,
+        "sharpe_21": sharpe_21,
     }
     registry = _feature_pack_registry(profile_name)
     for pack in feature_packs or ():
