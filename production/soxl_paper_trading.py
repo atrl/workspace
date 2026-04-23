@@ -127,6 +127,56 @@ def _determine_level(decision, reconcile) -> str:
     return "info"
 
 
+PAPER_TRADING_CSV = RUNTIME_DIR / "paper_trading" / "paper_trading_soxl_daily.csv"
+
+
+def _append_daily_csv(
+    date: str,
+    price: float,
+    strategy_nav: float,
+    position: float,
+    action: str,
+    csv_path: Path = PAPER_TRADING_CSV,
+) -> None:
+    """Append a daily row to the cumulative paper-trading CSV (dashboard-compatible)."""
+    csv_path.parent.mkdir(parents=True, exist_ok=True)
+    prev_bh_nav = None
+    prev_price = None
+    if csv_path.exists():
+        df = pd.read_csv(csv_path)
+        if not df.empty:
+            prev_bh_nav = float(df["buyhold_nav"].iloc[-1])
+            prev_price = float(df["price"].iloc[-1])
+
+    if prev_bh_nav is not None and prev_price is not None and prev_price > 0:
+        buyhold_nav = prev_bh_nav * (price / prev_price)
+    else:
+        buyhold_nav = ACCOUNT
+
+    excess = strategy_nav - buyhold_nav
+    excess_pct = (excess / buyhold_nav * 100) if buyhold_nav != 0 else 0.0
+
+    row = {
+        "datetime": date,
+        "strategy_nav": round(strategy_nav, 6),
+        "price": round(price, 6),
+        "buyhold_nav": round(buyhold_nav, 6),
+        "position": round(position, 6),
+        "excess": round(excess, 6),
+        "excess_pct": round(excess_pct, 6),
+        "action": action,
+    }
+
+    import csv as csv_module
+    write_header = not csv_path.exists() or csv_path.stat().st_size == 0
+    with csv_path.open("a", newline="", encoding="utf-8") as f:
+        writer = csv_module.DictWriter(f, fieldnames=list(row.keys()))
+        if write_header:
+            writer.writeheader()
+        writer.writerow(row)
+    print(f"[paper] appended to {csv_path}")
+
+
 def healthcheck(args: argparse.Namespace) -> Dict[str, object]:
     results: Dict[str, object] = {}
 
@@ -245,6 +295,7 @@ def main() -> None:
 
         # 6. Execution
         executed = False
+        commands = []
         if decision.approved and not args.dry_run:
             commands, statuses, exec_result = broker.place_target_position(
                 date=signal.date,
@@ -269,14 +320,13 @@ def main() -> None:
             level = _determine_level(decision, reconcile)
             notifier.send(title=title, body=body, level=level)
 
-        # 8. Persist
+        # 8. Persist JSON
         run_dir = RUNTIME_DIR / "paper_trading" / signal.date
         run_dir.mkdir(parents=True, exist_ok=True)
         for name, value in result.items():
             (run_dir / f"{name}.json").write_text(
                 json.dumps(asdict(value), ensure_ascii=False, indent=2), encoding="utf-8"
             )
-        # Also write a summary line
         summary = {
             "date": signal.date,
             "profile": profile_name,
@@ -291,6 +341,20 @@ def main() -> None:
         }
         (run_dir / "summary.json").write_text(json.dumps(summary, indent=2, default=str), encoding="utf-8")
         print(f"[paper] output={run_dir}")
+
+        # 9. Append to cumulative CSV for dashboard
+        if not args.dry_run:
+            if commands and len(commands) > 0:
+                action = commands[0].side
+            else:
+                action = "HOLD"
+            _append_daily_csv(
+                date=signal.date,
+                price=signal.price,
+                strategy_nav=account.account_value,
+                position=account.position,
+                action=action,
+            )
 
     finally:
         if hasattr(broker, "disconnect"):

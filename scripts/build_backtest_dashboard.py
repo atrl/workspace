@@ -434,100 +434,106 @@ def normalize_post_train_review_rows(raw_rows: list[dict[str, str]]) -> list[dic
 
 
 def _load_post_train_review_versions(features: dict[str, dict[str, float]] | None) -> dict[str, dict]:
-    """Load SOXL daily CSVs from runtime/post_train_review/ as versioned data."""
+    """Load SOXL daily CSVs from runtime/post_train_review/ and runtime/soxl/paper_trading/ as versioned data."""
     versioned: dict[str, dict] = {}
-    ptr_dir = ROOT / "runtime" / "post_train_review"
-    if not ptr_dir.exists():
-        return versioned
 
-    for csv_path in sorted(ptr_dir.glob("*_soxl_daily.csv")):
-        tag = csv_path.stem.replace("_soxl_daily", "")
-        try:
-            with csv_path.open("r", encoding="utf-8") as f:
-                reader = csv.DictReader(f)
-                raw_rows = list(reader)
-        except Exception:
+    dirs_to_scan = [
+        ROOT / "runtime" / "post_train_review",
+        ROOT / "runtime" / "soxl" / "paper_trading",
+    ]
+
+    for ptr_dir in dirs_to_scan:
+        if not ptr_dir.exists():
             continue
-        if not raw_rows:
-            continue
+        for csv_path in sorted(ptr_dir.glob("*_soxl_daily.csv")):
+            tag = csv_path.stem.replace("_soxl_daily", "")
+            try:
+                with csv_path.open("r", encoding="utf-8") as f:
+                    reader = csv.DictReader(f)
+                    raw_rows = list(reader)
+            except Exception:
+                continue
+            if not raw_rows:
+                continue
 
-        rows = normalize_post_train_review_rows(raw_rows)
-        ohlc = load_ohlc_and_indicators("SOXL")
+            rows = normalize_post_train_review_rows(raw_rows)
+            ohlc = load_ohlc_and_indicators("SOXL")
 
-        # Merge features
-        if features:
+            # Merge features
+            if features:
+                for r in rows:
+                    dt = str(r["datetime"])
+                    r["_features"] = features.get(dt, {})
+            else:
+                for r in rows:
+                    r["_features"] = {}
             for r in rows:
                 dt = str(r["datetime"])
-                r["_features"] = features.get(dt, {})
-        else:
+                if dt in ohlc:
+                    r.update(ohlc[dt])
+
+            # Compute summary from rows
+            strategy_return = rows[-1]["strategy_nav"] / rows[0]["strategy_nav"] - 1
+            buyhold_return = rows[-1]["buyhold_nav"] / rows[0]["buyhold_nav"] - 1
+            excess_return = strategy_return - buyhold_return
+            peak_s = rows[0]["strategy_nav"]
+            max_dd_strategy = 0.0
+            buy_count = sell_count = 0
+            max_pos = min_pos = rows[0]["position"]
             for r in rows:
-                r["_features"] = {}
-        for r in rows:
-            dt = str(r["datetime"])
-            if dt in ohlc:
-                r.update(ohlc[dt])
+                peak_s = max(peak_s, r["strategy_nav"])
+                max_dd_strategy = max(max_dd_strategy, (peak_s - r["strategy_nav"]) / peak_s)
+                if r["action"] == "BUY":
+                    buy_count += 1
+                elif r["action"] == "SELL":
+                    sell_count += 1
+                max_pos = max(max_pos, r["position"])
+                min_pos = min(min_pos, r["position"])
 
-        # Compute summary from rows
-        strategy_return = rows[-1]["strategy_nav"] / rows[0]["strategy_nav"] - 1
-        buyhold_return = rows[-1]["buyhold_nav"] / rows[0]["buyhold_nav"] - 1
-        excess_return = strategy_return - buyhold_return
-        peak_s = rows[0]["strategy_nav"]
-        max_dd_strategy = 0.0
-        buy_count = sell_count = 0
-        max_pos = min_pos = rows[0]["position"]
-        for r in rows:
-            peak_s = max(peak_s, r["strategy_nav"])
-            max_dd_strategy = max(max_dd_strategy, (peak_s - r["strategy_nav"]) / peak_s)
-            if r["action"] == "BUY":
-                buy_count += 1
-            elif r["action"] == "SELL":
-                sell_count += 1
-            max_pos = max(max_pos, r["position"])
-            min_pos = min(min_pos, r["position"])
+            summary = {
+                "etf": "SOXL",
+                "strategy_return": strategy_return,
+                "buyhold_return": buyhold_return,
+                "excess_return": excess_return,
+                "max_dd_strategy": max_dd_strategy,
+                "max_dd_buyhold": 0.0,  # not computed here
+                "trades": buy_count + sell_count,
+                "buy_count": buy_count,
+                "sell_count": sell_count,
+                "max_position": max_pos,
+                "min_position": min_pos,
+            }
 
-        summary = {
-            "etf": "SOXL",
-            "strategy_return": strategy_return,
-            "buyhold_return": buyhold_return,
-            "excess_return": excess_return,
-            "max_dd_strategy": max_dd_strategy,
-            "max_dd_buyhold": 0.0,  # not computed here
-            "trades": buy_count + sell_count,
-            "buy_count": buy_count,
-            "sell_count": sell_count,
-            "max_position": max_pos,
-            "min_position": min_pos,
-        }
+            regime_shapes = compute_regime_shapes(rows)
+            trades = compute_trades(rows)
+            kelly_stats = compute_kelly_stats(trades)
 
-        regime_shapes = compute_regime_shapes(rows)
-        trades = compute_trades(rows)
-        kelly_stats = compute_kelly_stats(trades)
-
-        versioned[tag] = {
-            "_meta": {
-                "updated_at": csv_path.stat().st_mtime,
-                "source": str(csv_path.relative_to(ROOT)),
-                "source_kind": "post_train_review",
-                "shared_market_data": True,
-            },
-            "detailed": {
-                "SOXL": {
-                    "summary": summary,
-                    "csv_path": str(csv_path.relative_to(ROOT)),
-                    "rows": compact_payload_rows(rows),
-                    "regime_shapes": regime_shapes,
-                    "trades": trades,
-                    "kelly": kelly_stats,
-                }
-            },
-            "windows": {
-                "SOXL": {
-                    "start": rows[0]["datetime"] if rows else "",
-                    "end": rows[-1]["datetime"] if rows else "",
-                    "rows": len(rows),
-                }
-            },
-        }
+            source_kind = "paper_trading" if "paper_trading" in str(csv_path) else "post_train_review"
+            versioned[tag] = {
+                "_meta": {
+                    "updated_at": csv_path.stat().st_mtime,
+                    "source": str(csv_path.relative_to(ROOT)),
+                    "source_kind": source_kind,
+                    "shared_market_data": True,
+                },
+                "detailed": {
+                    "SOXL": {
+                        "summary": summary,
+                        "csv_path": str(csv_path.relative_to(ROOT)),
+                        "rows": compact_payload_rows(rows),
+                        "regime_shapes": regime_shapes,
+                        "trades": trades,
+                        "kelly": kelly_stats,
+                    }
+                },
+                "windows": {
+                    "SOXL": {
+                        "start": rows[0]["datetime"] if rows else "",
+                        "end": rows[-1]["datetime"] if rows else "",
+                        "rows": len(rows),
+                    }
+                },
+            }
     return versioned
 
 

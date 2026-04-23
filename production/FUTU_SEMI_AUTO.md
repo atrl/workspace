@@ -113,11 +113,49 @@ The runner executes the closed loop every invocation:
 6. **Notification** — pushes a summary via Bark (iOS), macOS native, or console fallback.
 7. **Persistence** — writes `signal.json`, `risk_gate.json`, `account.json`, `reconcile.json`, and `summary.json` under `runtime/soxl/paper_trading/<date>/`.
 
-### Scheduling (cron example)
+### Unified Scheduler (recommended)
+
+`production/soxl_daily_scheduler.py` runs the full pipeline in one shot:
+
+```bash
+# Paper broker (default)
+PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py
+
+# Futu simulated account
+PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py --broker futu --unlock-password XXX
+
+# Dry-run (signal + dashboard, no orders)
+PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py --dry-run
+```
+
+Pipeline order:
+1. Market data update (incremental fetch + qlib refresh)
+2. Paper-trading signal generation + execution
+3. Dashboard rebuild (`runtime/generalization/dashboard.html`)
+4. Completion notification via Bark / macOS
+
+### macOS LaunchAgent (recommended over cron)
+
+1. Edit `production/com.soxl.daily.scheduler.plist` and fill in your `BARK_KEY`.
+2. Install:
+   ```bash
+   cp production/com.soxl.daily.scheduler.plist ~/Library/LaunchAgents/
+   launchctl load ~/Library/LaunchAgents/com.soxl.daily.scheduler.plist
+   ```
+3. Verify:
+   ```bash
+   launchctl list | grep com.soxl.daily.scheduler
+   ```
+4. Unload when needed:
+   ```bash
+   launchctl unload ~/Library/LaunchAgents/com.soxl.daily.scheduler.plist
+   ```
+
+### Manual cron (alternative)
 
 ```bash
 # Every trading day at 16:35 ET (after US market close)
-35 16 * * 1-5 cd /path/to/workspace && PYTHONPATH=. qlib_venv/bin/python production/soxl_paper_trading.py >> runtime/soxl/paper_trading/cron.log 2>&1
+35 16 * * 1-5 cd /path/to/workspace && PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py >> runtime/soxl/paper_trading/scheduler.log 2>&1
 ```
 
 ### Notification Setup (Bark)
@@ -136,6 +174,17 @@ The runner executes the closed loop every invocation:
    ```bash
    PYTHONPATH=. qlib_venv/bin/python production/soxl_paper_trading.py --no-notify
    ```
+
+## Dashboard Auto-Update
+
+The daily scheduler automatically rebuilds `runtime/generalization/dashboard.html` after each paper-trading run. Paper-trading results are appended to `runtime/soxl/paper_trading/paper_trading_soxl_daily.csv` in the same format as post-train review outputs, so they appear as a new versioned series in the dashboard.
+
+To rebuild the dashboard manually:
+```bash
+PYTHONPATH=. qlib_venv/bin/python scripts/build_backtest_dashboard.py
+```
+
+Then open `runtime/generalization/dashboard.html` in a browser.
 
 ## Current limitations
 
