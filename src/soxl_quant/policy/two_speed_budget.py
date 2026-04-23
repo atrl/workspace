@@ -3,6 +3,8 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Mapping
 
+import pandas as pd
+
 
 DEFAULT_MODE_SLACK = {
     "trend_hold": 0.35,
@@ -94,10 +96,71 @@ def maybe_rebalance_position(
     return target
 
 
+def _position_column(frame: pd.DataFrame, preferred: str) -> str:
+    if preferred in frame.columns:
+        return preferred
+    if "position" in frame.columns:
+        return "position"
+    raise ValueError(f"frame missing `{preferred}` or `position` column")
+
+
+def compose_budget_usage_policy_frame(
+    slow: pd.DataFrame,
+    fast: pd.DataFrame,
+    config: TwoSpeedBudgetConfig | None = None,
+) -> pd.DataFrame:
+    """Compose two daily policy paths into an auditable budget-usage path.
+
+    The slow path owns the coarse risk mode. The fast path is interpreted as a
+    0..1 usage ratio inside that mode's allowed band.
+    """
+
+    cfg = config or TwoSpeedBudgetConfig()
+    slow_pos_col = _position_column(slow, "slow_position")
+    fast_pos_col = _position_column(fast, "fast_position")
+    frame = slow[["datetime", slow_pos_col]].rename(columns={slow_pos_col: "slow_position"}).merge(
+        fast[["datetime", fast_pos_col]].rename(columns={fast_pos_col: "fast_position"}),
+        on="datetime",
+        how="inner",
+    )
+    if frame.empty:
+        raise ValueError("slow/fast policy frames have no overlapping datetimes")
+
+    current = 0.0
+    days_since_trade = cfg.trade_lock_days
+    modes: list[str] = []
+    raw_targets: list[float] = []
+    targets: list[float] = []
+    fast_usage: list[float] = []
+    for _, row in frame.iterrows():
+        slow_pos = float(row["slow_position"])
+        usage = max(0.0, min(float(row["fast_position"]), 1.0))
+        mode = infer_mode_from_slow_position(slow_pos)
+        raw = compose_budget_usage_position(usage, mode, cfg)
+        target = maybe_rebalance_position(current, raw, days_since_trade, cfg)
+        if abs(target - current) >= cfg.trade_threshold:
+            days_since_trade = 0
+        else:
+            days_since_trade += 1
+        current = target
+        modes.append(mode)
+        raw_targets.append(raw)
+        targets.append(target)
+        fast_usage.append(usage)
+
+    out = frame.copy()
+    out["mode"] = modes
+    out["fast_usage"] = fast_usage
+    out["raw_two_speed_position"] = raw_targets
+    out["position"] = targets
+    return out
+
+
 __all__ = [
     "DEFAULT_MODE_BANDS",
     "DEFAULT_MODE_SLACK",
     "TwoSpeedBudgetConfig",
+    "compose_budget_usage_policy_frame",
     "compose_budget_usage_position",
     "compose_two_speed_position",
     "infer_mode_from_slow_position",

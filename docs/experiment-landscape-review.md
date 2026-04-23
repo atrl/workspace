@@ -508,6 +508,7 @@ The repo has reached a **fundamental frontier** for single-asset 3x leveraged ET
 | balanced_rule_residual_imitation_v4_budget | execution_gate | v4 | config-owned regime-conditional position budget, smoke seed=12345 | 721.1% | 0.94 | 51.0% | 36.3% | 38.6% | 41.5% | candidate scaffold only — mechanism runs, smoke actor fails strict DD gate |
 | two_speed_mode_budget_v1 | execution_gate | mode_v1 + imitation_v4 | fixed-signal slow mode anchor + fast participation slack replay | 1398.3% | 1.10 | 51.6% | 33.9% | 156.7% | 31.4% | dropped — proxy/restart improved, strict 2022 DD still fails |
 | risk_budget_usage_v1 | execution_gate | mode_v1 + imitation_v4 | fixed-signal mode risk bands + fast path as budget usage ratio | 2003.6% | 1.25 | 45.0% | 25.6% | 127.8% | 32.1% | candidate replay — passes all fixed-replay gates; needs runtime/backtest parity |
+| risk_budget_oracle_distill_v1 | diagnostic | risk_budget_usage_v1 | no-promotion full-replay oracle BC capacity probe | 363.8% | 1.09 | 23.7% | 11.0% | 58.5% | 19.3% | dropped — even held-out replay labels do not recover fixed replay upside in one actor |
 
 ### Key Conclusions
 
@@ -644,3 +645,23 @@ replay (`2003.6%`). The bottleneck is now narrower: train-split reconstruction
 of the fast expert does not contain the full-usage behavior that made held-out
 fixed replay attractive, and PPO again erases rather than improves the useful
 initialization.
+
+## 2026-04-23: Risk-Budget Oracle Distillation
+
+This no-promotion diagnostic trained the same `budget_usage` actor from the full
+fixed replay daily path. The label set did contain full-usage action-4 examples:
+`{0: 127, 1: 436, 2: 383, 3: 423, 4: 139}` over `1508` samples.
+
+Result:
+
+- BC accuracy: `0.711`, loss `1.195`.
+- `test_2022`: `-5.5% / Sharpe -0.350 / MaxDD 11.0% / avg_pos 0.117`.
+- `test_2023_2024`: `58.5% / Sharpe 1.180 / MaxDD 19.3% / avg_pos 0.271`.
+- `test_proxy`: `363.8% / Sharpe 1.090 / MaxDD 23.7% / avg_pos 0.264`.
+
+Decision: drop as promotable by construction and treat it as a capacity
+diagnostic. Even with held-out replay labels, the single actor did not approach
+the fixed replay's `2003.6%` proxy return. The next valid iteration should stop
+trying to compress the two-speed mechanism into one PPO actor and instead keep a
+separate, auditable policy composer where the mode layer owns risk bands and the
+fast layer supplies budget usage.

@@ -174,6 +174,63 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
 
 ## Decision log
 
+- 2026-04-23 23:xx (risk_budget_oracle_distill_v1 + composer extraction):
+  - Goal:
+    - implement the next plan after the model bottleneck review:
+      no-promotion oracle distillation plus a reusable policy composer instead
+      of another PPO/reward/cap tuning loop
+  - Canonical baseline:
+    - `balanced`
+  - Direct comparison baseline:
+    - `risk_budget_usage_v1`
+    - `risk_budget_bc_warmstart_v1`
+    - fixed replay `risk_budget_usage_v1`
+  - Experiment role:
+    - `diagnose`
+  - Changed layer:
+    - `execution`
+    - `selection`
+    - `model`
+  - Closest historical success case:
+    - fixed replay `risk_budget_usage_v1` passed all replay gates with
+      `test_proxy 2003.6% / Sharpe 1.248 / MaxDD 45.0%`
+  - Closest historical failure case:
+    - `risk_budget_bc_warmstart_v1` had no action-4 train labels and reached
+      only `test_proxy 250.7%`
+  - Why this is not a duplicate:
+    - this is an explicit no-promotion capacity diagnostic and code extraction
+      of the policy composer, not a new reward/cap/PPO branch
+  - New mechanism this time:
+    - `build_budget_usage_oracle_dataset_from_frame()` derives labels from a
+      replay daily path
+    - `compose_budget_usage_policy_frame()` makes the slow-mode/fast-usage
+      composer a reusable policy function rather than script-local logic
+  - External reference:
+    - DAgger / behavior-cloning distribution-shift literature:
+      `https://proceedings.mlr.press/v15/ross11a.html`
+    - hierarchical RL / temporal abstraction:
+      `https://proceedings.neurips.cc/paper/2016/hash/f442d33fa06832082290ad8544a8da27-Abstract.html`
+  - Comparison-table row:
+    - `risk_budget_oracle_distill_v1`
+  - Commands:
+    - `PYTHONPATH=. /Users/rziiiii/.openclaw/workspace/qlib_venv/bin/python tests/test_budget_usage_bc.py`
+    - `PYTHONPATH=. /Users/rziiiii/.openclaw/workspace/qlib_venv/bin/python tests/test_two_speed_budget.py`
+    - `PYTHONPATH=. /Users/rziiiii/.openclaw/workspace/qlib_venv/bin/python scripts/build_budget_usage_oracle_actor.py --profile risk_budget_oracle_distill_v1 --skip-data-refresh --steps 1600 --sample-size 0`
+  - Validation evidence:
+    - oracle labels: `{0: 127, 1: 436, 2: 383, 3: 423, 4: 139}` over `1508`
+      samples
+    - BC stats: loss `1.195`, accuracy `0.711`
+    - `test_2022`: `-5.5% / Sharpe -0.350 / MaxDD 11.0% / avg_pos 0.117`
+    - `test_2023_2024`: `58.5% / Sharpe 1.180 / MaxDD 19.3% / avg_pos 0.271`
+    - `test_proxy`: `363.8% / Sharpe 1.090 / MaxDD 23.7% / avg_pos 0.264`
+  - Keep / drop decision:
+    - drop `risk_budget_oracle_distill_v1` as promotable by construction
+    - keep the diagnostic artifact, profile card, and composer extraction
+  - Next action:
+    - stop trying to compress the successful two-speed replay into a single
+      PPO actor; productize explicit runtime policy composition where the mode
+      layer owns risk bands and the fast layer supplies budget usage
+
 - 2026-04-23 21:xx (risk_budget_usage_v1 actor-backed parity):
   - Goal:
     - restore or regenerate the missing `balanced_rule_residual_imitation_v4`

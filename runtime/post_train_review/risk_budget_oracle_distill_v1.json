@@ -1,0 +1,54 @@
+{
+  "profile": "risk_budget_oracle_distill_v1",
+  "replay_daily": "runtime/post_train_review/risk_budget_usage_v1_soxl_daily.csv",
+  "seed": 20260411,
+  "samples": 1508,
+  "label_distribution": {
+    "0": 127,
+    "1": 436,
+    "2": 383,
+    "3": 423,
+    "4": 139
+  },
+  "bc_stats": {
+    "loss": 1.1950087547302246,
+    "accuracy": 0.7109375,
+    "steps": 1600
+  },
+  "model_path": "artifacts/models/soxl_risk_budget_oracle_distill_v1_oracle_actor.pt",
+  "slices": {
+    "test_2020": {
+      "return": 35.65268739388321,
+      "sharpe": 1.3221490926737138,
+      "max_dd": 25.907427589160815,
+      "avg_pos": 0.32044270833333327,
+      "stress_avg_pos": 0.19947916666666665,
+      "stress_days": 48.0
+    },
+    "test_2022": {
+      "return": -5.48122981776229,
+      "sharpe": -0.3502264179498721,
+      "max_dd": 10.979278892185746,
+      "avg_pos": 0.1174342105263158,
+      "stress_avg_pos": 0.07810077519379845,
+      "stress_days": 129.0
+    },
+    "test_2023_2024": {
+      "return": 58.46721945805391,
+      "sharpe": 1.1795719365382686,
+      "max_dd": 19.342500525819357,
+      "avg_pos": 0.2709410142871528,
+      "stress_avg_pos": 0.11382792657241225,
+      "stress_days": 64.0
+    }
+  },
+  "test_proxy": {
+    "return": 363.83923510198974,
+    "sharpe": 1.090048410693592,
+    "max_dd": 23.71589994175477,
+    "avg_pos": 0.2644779911141259,
+    "stress_avg_pos": 0.1111175598856799,
+    "stress_days": 379.0
+  },
+  "decision": "no-promotion diagnostic only; labels come from held-out replay daily path"
+}
