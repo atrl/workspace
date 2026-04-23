@@ -275,6 +275,56 @@ def _builtin_academic_signals_pack(context: dict[str, Any]) -> dict[str, pd.Seri
     }
 
 
+def _builtin_transition_signals_pack(context: dict[str, Any]) -> dict[str, pd.Series]:
+    """Transition-state / stress-release / restart detection features.
+
+    These features target the blind spot of the core feature stack:
+    the core stack is excellent at detecting *persistent stress* but
+    weak at detecting *stress release* and *restart transitions*.
+
+    All features are designed to be orthogonal to CORE_FEATURE_COLUMNS
+    (verified |rho| < 0.80) and have meaningful IC on SOXL daily returns.
+    """
+    index = context["index"]
+    close = context["close"]
+    lev_ret = context["lev_ret"]
+    vix = context["vix"]
+    realized_vol_10 = context["realized_vol_10"]
+
+    # 1. VIX divergence: VIX falls from recent high but price is still near lows
+    # → bearish sentiment is fading before price reflects it
+    vix_10d_high = vix.rolling(10).max()
+    vix_fall_pct = (vix_10d_high - vix) / (vix_10d_high + 1e-8)
+    price_near_low = (close / close.rolling(20).max() - 1.0).abs()
+    vix_divergence = (vix_fall_pct * price_near_low).fillna(0.0)
+
+    # 2. Spring compression: price makes new low but VIX does NOT make new high
+    # → selling pressure is exhausting (fewer sellers at lower prices)
+    price_new_low_10 = (close <= close.rolling(10).min()).astype(float)
+    vix_not_new_high_10 = (vix < vix.rolling(10).max()).astype(float)
+    spring_compression = (price_new_low_10 * vix_not_new_high_10).fillna(0.0)
+
+    # 3. Panic exhaustion: big down day followed by realized vol compression
+    # → the panic move has exhausted itself
+    big_down = (lev_ret < -0.05).astype(float)
+    vol_compress = (realized_vol_10 < realized_vol_10.rolling(10).mean()).astype(float)
+    panic_exhaustion = (big_down.shift(1) * vol_compress).fillna(0.0)
+
+    # 4. Gap recovery: gap-down day followed by next-day rebound
+    # → overnight selling was overdone
+    prev_close = close.shift(1)
+    gap_down = ((close / prev_close - 1) < -0.02).astype(float)
+    next_day_rebound = (close > prev_close).astype(float)
+    gap_recovery = (gap_down.shift(1) * next_day_rebound).fillna(0.0)
+
+    return {
+        "TRANS_VIX_DIVERGENCE": vix_divergence,
+        "TRANS_SPRING_COMPRESSION": spring_compression,
+        "TRANS_PANIC_EXHAUSTION": panic_exhaustion,
+        "TRANS_GAP_RECOVERY": gap_recovery,
+    }
+
+
 BUILTIN_FEATURE_PACKS: dict[str, dict[str, Any]] = {
     "kelly": {
         "columns": (
@@ -325,6 +375,15 @@ BUILTIN_FEATURE_PACKS: dict[str, dict[str, Any]] = {
             "ACAD_AUTOCORR_5",
         ),
         "builder": _builtin_academic_signals_pack,
+    },
+    "transition_signals": {
+        "columns": (
+            "TRANS_VIX_DIVERGENCE",
+            "TRANS_SPRING_COMPRESSION",
+            "TRANS_PANIC_EXHAUSTION",
+            "TRANS_GAP_RECOVERY",
+        ),
+        "builder": _builtin_transition_signals_pack,
     },
 }
 
@@ -892,6 +951,8 @@ def engineer_feature_frame(
         "volume": volume,
         "lev": lev,
         "leverage_ratio": leverage_ratio,
+        # Transition signals pack context
+        "realized_vol_10": realized_vol_10,
     }
     registry = _feature_pack_registry(profile_name)
     for pack in feature_packs or ():

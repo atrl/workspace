@@ -258,7 +258,7 @@ def main():
     init_qlib(Path("qlib_soxl_binary"))
 
     print(f"Loading SOXL data ({args.start} ~ {args.end})...")
-    feature_df, price = build_feature_frame(args.start, args.end, feature_packs=("rulebase_signals", "academic_signals"))
+    feature_df, price = build_feature_frame(args.start, args.end, feature_packs=("rulebase_signals", "academic_signals", "transition_signals"))
     feature_df = feature_df.droplevel("instrument")
     price = price.droplevel("instrument")
 
