@@ -4377,3 +4377,46 @@ Created `balanced_budget.yaml` with `max_iters=50`. However, the log file was ac
 - `docs/factor_research/backtest_TRANS_*.csv`: standalone signal backtests
 - `docs/factor_research/factor_ic_results.csv`: IC test results
 - `experiments/candidate/balanced_rule_residual_v19_transition/`: experiment package
+
+## Feature mining: extended exploration 2026-04-23
+
+### Additional signals discovered beyond initial 4
+
+| Feature | Type | 5d IC | pos_ratio | Standalone PF | Status |
+|---------|------|-------|-----------|---------------|--------|
+| TRANS_VOL_TERM_ZSCORE | Continuous | +0.08 | 58.2% | TBD | ✅ Added |
+| TRANS_VOV_TREND | Continuous | +0.13 | 62.0% | TBD | ✅ Added |
+| TRANS_TE_EXPANSION | Binary | NaN | 58.7% | TBD | ⚠️ Added |
+
+### Dropped directions (no incremental value)
+- Academic signals: already linearly captured by existing momentum/drawdown proxies
+- VWAP deviation, trend alignment, mom_recent_vs_old: high correlation with existing features
+- Time effects (day-of-week, month): no predictive power on SOXL
+- Price position 252d: same info as anchor_gap_180
+- Beta change, lead-lag correlation, decay accel: weak IC
+
+### Key statistical insight from regime analysis
+- All regime states have positive forward 5d return (SOXL is structurally long-biased)
+- BUT risk-adjusted returns differ dramatically:
+  - VIX < 20: Sharpe=0.19
+  - VIX 20-30: Sharpe=1.17
+  - VIX >= 30: Sharpe=1.78
+- Bear momentum (mom<-10%) has highest raw return (2.55% / 5d)
+- Implication: optimal strategy is not "avoid risk" but "size positions by regime"
+
+### transition_signals pack final composition (7 features)
+1. TRANS_VIX_DIVERGENCE — VIX falls but price near lows (IC=+0.21)
+2. TRANS_SPRING_COMPRESSION — price new low, VIX not new high (IC=+0.12)
+3. TRANS_PANIC_EXHAUSTION — big down + vol compression (IC=+0.08)
+4. TRANS_GAP_RECOVERY — gap-down followed by rebound (IC=+0.06)
+5. TRANS_VOL_TERM_ZSCORE — 10d/63d vol term structure (IC=+0.08)
+6. TRANS_VOV_TREND — vol-of-vol trend (IC=+0.13)
+7. TRANS_TE_EXPANSION — tracking error expansion (binary, pos_ratio=58.7%)
+
+All verified orthogonal to CORE_FEATURE_COLUMNS.
+Pack increases feature count from 59 → 66 (+7).
+
+### Next action
+- Run full 80-iteration training for v19_transition
+- If full training validates the hypothesis (return ≥ 500%, MaxDD improvement), promote to core
+- If not, keep as optional pack; the standalone signals are still valuable for signal-overlay strategies
