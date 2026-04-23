@@ -86,6 +86,57 @@ This will replay each day's signal and send orders to the Futu simulated account
 - Target position exceeds the execution cap
 - Saved model summary does not include a passing `promotion` block
 
+## Daily Paper-Trading Runner (Auto Loop)
+
+`production/soxl_paper_trading.py` provides a fully automated daily loop:
+
+```bash
+# Paper broker (local simulation, default)
+PYTHONPATH=. qlib_venv/bin/python production/soxl_paper_trading.py
+
+# Futu simulated account
+PYTHONPATH=. qlib_venv/bin/python production/soxl_paper_trading.py --broker futu --unlock-password XXX
+
+# Dry-run (signal only, no orders)
+PYTHONPATH=. qlib_venv/bin/python production/soxl_paper_trading.py --dry-run
+
+# Health check
+PYTHONPATH=. qlib_venv/bin/python production/soxl_paper_trading.py --healthcheck
+```
+
+The runner executes the closed loop every invocation:
+1. **Data update** — incrementally fetches latest SOXL/SOXX/VIX from yfinance, merges into `data/soxl_soxx_vix_full.csv`, refreshes `qlib_soxl_binary/`.
+2. **Auto model selection** — scans `artifacts/models/` for the best promoted model of the given family (default `balanced`). Override with `--profile <name>`.
+3. **Signal generation** — runs `plan_manual_session()` for the latest available bar.
+4. **Risk gate** — applies the same runtime checks as live execution.
+5. **Order placement** — submits the target position through the selected broker (skipped in `--dry-run`).
+6. **Notification** — pushes a summary via Bark (iOS), macOS native, or console fallback.
+7. **Persistence** — writes `signal.json`, `risk_gate.json`, `account.json`, `reconcile.json`, and `summary.json` under `runtime/soxl/paper_trading/<date>/`.
+
+### Scheduling (cron example)
+
+```bash
+# Every trading day at 16:35 ET (after US market close)
+35 16 * * 1-5 cd /path/to/workspace && PYTHONPATH=. qlib_venv/bin/python production/soxl_paper_trading.py >> runtime/soxl/paper_trading/cron.log 2>&1
+```
+
+### Notification Setup (Bark)
+
+1. Install [Bark](https://apps.apple.com/us/app/bark-custom-notifications/id1403753865) on your iPhone.
+2. Copy your device key from the app.
+3. Export it in your shell profile (`~/.zshrc`):
+   ```bash
+   export BARK_KEY="your_device_key_here"
+   ```
+4. Test:
+   ```bash
+   PYTHONPATH=. qlib_venv/bin/python production/notify.py --title "Test" --body "Hello from SOXL"
+   ```
+5. Disable Bark and fall back to macOS notification:
+   ```bash
+   PYTHONPATH=. qlib_venv/bin/python production/soxl_paper_trading.py --no-notify
+   ```
+
 ## Current limitations
 
 - This is a scaffold, not a fully proven live system
@@ -93,3 +144,4 @@ This will replay each day's signal and send orders to the Futu simulated account
 - Fill reconciliation assumes immediate submit semantics; async fills are not polled yet
 - `futu-api` and OpenD must be installed and running separately
 - Only single-symbol (US.SOXL) execution is implemented
+- yfinance free tier may rate-limit on rapid successive calls; the daily runner is designed for once-per-day invocation

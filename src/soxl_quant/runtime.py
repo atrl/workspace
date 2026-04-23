@@ -15,6 +15,7 @@ same control flow instead of drifting into separate ad-hoc scripts.
 """
 
 import json
+import sys
 from abc import ABC, abstractmethod
 from dataclasses import asdict, dataclass
 from pathlib import Path
@@ -217,6 +218,62 @@ def promotion_gate_status(model_path: Path) -> Tuple[bool, str]:
     if not promotion.get("eligible", False):
         return False, "model failed promotion gate"
     return True, "model passed promotion gate"
+
+
+def best_model_for_family(family: str = "balanced") -> Path:
+    """自动选择通过 promotion gate 且 best_score 最高的模型。
+
+    扫描 ``artifacts/models/soxl_{family}*_actor.pt``，过滤通过 promotion gate
+    的候选，读取对应 summary 的 ``best_score`` 取最高者。
+
+    若无任何候选通过 gate，降级到 ``latest_model_path(family)`` 并打印警告。
+    """
+    candidates = sorted(MODEL_DIR.glob(f"soxl_{family}*_actor.pt"))
+    if not candidates:
+        raise FileNotFoundError(f"no model artifacts found for family={family}")
+
+    scored: List[Tuple[Path, float]] = []
+    for path in candidates:
+        ok, reason = promotion_gate_status(path)
+        if not ok:
+            continue
+        summary_path = summary_path_for_model(path)
+        try:
+            payload = json.loads(summary_path.read_text(encoding="utf-8"))
+            score = float(payload.get("best_score", float("-inf")))
+        except Exception:
+            score = float("-inf")
+        scored.append((path, score))
+
+    if scored:
+        best_path, best_score = max(scored, key=lambda x: x[1])
+        print(f"[auto_select] family={family} model={best_path.name} score={best_score:.2f}")
+        return best_path
+
+    # Fallback
+    fallback = latest_model_path(family)
+    print(
+        f"[auto_select] WARNING: no promoted model for family={family}; "
+        f"falling back to {fallback.name}",
+        file=sys.stderr,
+    )
+    return fallback
+
+
+def auto_select_profile(family: str = "balanced") -> Tuple[str, Path]:
+    """返回选中的 profile 名和模型路径。
+
+    Profile 名从模型文件名解析：``soxl_{profile}_actor.pt``。
+    """
+    model_path = best_model_for_family(family)
+    stem = model_path.name.replace("_actor.pt", "")
+    # Remove "soxl_" prefix to get profile name
+    prefix = "soxl_"
+    if stem.startswith(prefix):
+        profile_name = stem[len(prefix):]
+    else:
+        profile_name = family
+    return profile_name, model_path
 
 
 class PaperBroker(BrokerAdapter):
