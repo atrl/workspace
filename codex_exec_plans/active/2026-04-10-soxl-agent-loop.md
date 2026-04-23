@@ -4541,3 +4541,71 @@ Pack increases feature count from 59 → 66 (+7).
   - next: recover/regenerate the `mode_v1` actor if a true two-actor zero-shot
     composer is required; otherwise keep the fixed replay as a research
     counterfactual only
+
+## transition_signals 20-iteration training — RESULTS 2026-04-24
+
+- Goal: validate whether transition-state features improve RL performance beyond v19 baseline
+- Profile: `balanced_rule_residual_v19_transition`
+- Training: 20 iterations (Phase 1 of staged training), seed=12345
+- Full staged training would be 80 iterations (4 phases × 20)
+
+### Results
+
+| Metric | v19_transition (20 iters) | v19 baseline (80 iters) | Delta |
+|--------|---------------------------|------------------------|-------|
+| Valid return | 50.6% | ~55% | -4.4pp |
+| Valid Sharpe | 1.39 | ~1.42 | -0.03 |
+| Valid MaxDD | 31.2% | ~28% | +3.2pp |
+| Valid best_score | 74.58 | ~78-80 | Below baseline |
+| **Test return** | **613.0%** | **~632.4%** | -19.4pp (-3%) |
+| **Test Sharpe** | **0.86** | **0.91** | -0.05 |
+| **Test MaxDD** | **57.6%** | **50.1%** | **+7.5pp worse** |
+| Trades | 307 | ~290 | +17 |
+| Promotion | **BLOCKED** | **PASSED** | MaxDD > 52% |
+
+### 5-iteration smoke test (seed=20260423)
+
+| Metric | v19_transition (5 iters) | v19 baseline (5 iters) | Delta |
+|--------|--------------------------|------------------------|-------|
+| Test return | 448.3% | 469.5% | -21.2pp |
+| Test Sharpe | 0.85 | 0.84 | +0.01 |
+| Test MaxDD | **46.9%** | 49.4% | **-2.5pp** |
+
+### Analysis
+
+1. **No material improvement over v19**: Test return 613% vs 632% is within noise. Sharpe 0.86 vs 0.91 is slightly worse.
+
+2. **MaxDD regression is decisive**: 57.6% vs 50.1% (+7.5pp) is a significant degradation. The transition signals do not help the RL agent control drawdown.
+
+3. **Why positive IC did not translate to better RL performance**:
+   - Transition features detect *potential* stress-release windows, but timing precision matters
+   - The RL agent may be using these signals to enter too early during persistent stress, getting caught in continued declines
+   - Binary features (SPRING_COMPRESSION, PANIC_EXHAUSTION, GAP_RECOVERY) provide sparse signals that may not align well with the agent's decision frequency
+   - Additional feature dimensions (59→66) may increase model capacity requirements without proportional benefit
+
+4. **Phase 1 only caveat**: 20 iterations is only Phase 1 of 4-phase staged training. However, the MaxDD trajectory at iter 20 is already worse than v19 baseline at iter 80, making it unlikely that continued training would close the gap.
+
+### Conclusion
+
+**HYPOTHESIS REJECTED.**
+
+Transition-state features show positive standalone IC and are orthogonal to existing features, but they do not translate to improved RL performance. The MaxDD regression is the decisive factor.
+
+### Decision
+
+- **DROP** v19_transition as a promotable branch
+- Do NOT proceed with full 80-iteration training
+- Transition feature pack remains available in `src/soxl_quant/data.py` but is not enabled in canonical profiles
+- Future experiments could test transition features in isolation (1-2 strongest features) rather than the full 7-feature pack
+- The `TRANS_VIX_DIVERGENCE` feature (IC +0.21) may warrant a separate minimal experiment
+
+### Evidence
+- `log/v19_transition_quick.log`: full training log
+- `artifacts/models/soxl_balanced_rule_residual_v19_transition_summary.json`: model summary
+- `experiments/candidate/balanced_rule_residual_v19_transition/notes.md`: detailed experiment notes
+- `experiments/candidate/balanced_rule_residual_v19_transition/`: experiment package (updated)
+
+### Next action
+- Update profile_registry.yaml to mark v19_transition as `dropped`
+- Clean up temporary artifacts (actor checkpoint can be deleted per retention policy)
+- Continue with mainline v19 optimization or pivot to other feature directions
