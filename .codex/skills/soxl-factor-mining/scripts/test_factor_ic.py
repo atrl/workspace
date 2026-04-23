@@ -167,6 +167,7 @@ def main():
     parser.add_argument("--horizons", default="1,5,10,20", help="Comma-separated horizons")
     parser.add_argument("--start", default="2019-01-01", help="Test start date")
     parser.add_argument("--end", default="2026-04-01", help="Test end date")
+    parser.add_argument("--feature-packs", default="rulebase_signals,academic_signals,transition_signals", help="Comma-separated feature packs to load")
     parser.add_argument("--backfill", action="store_true", help="Write results to DB")
     args = parser.parse_args()
 
@@ -176,8 +177,9 @@ def main():
     init_qlib(Path("qlib_soxl_binary"))
 
     # Load data
-    print(f"Loading SOXL feature frame ({args.start} ~ {args.end})...")
-    feature_df, price = build_feature_frame(args.start, args.end, feature_packs=("rulebase_signals", "academic_signals", "transition_signals"))
+    packs = tuple(str(v).strip() for v in args.feature_packs.split(","))
+    print(f"Loading SOXL feature frame ({args.start} ~ {args.end}) with packs={packs}...")
+    feature_df, price = build_feature_frame(args.start, args.end, feature_packs=packs)
     feature_df = feature_df.droplevel("instrument")
     price = price.droplevel("instrument")
     print(f"  Loaded: {len(feature_df)} rows, {len(feature_df.columns)} features")

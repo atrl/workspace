@@ -329,13 +329,13 @@ def _builtin_transition_signals_pack(context: dict[str, Any]) -> dict[str, pd.Se
     vov = context.get("vol_of_vol_21")
     vov_trend = (vov - vov.shift(10)).fillna(0.0)
 
-    # 7. Tracking error expansion: 21d TE above its 63d average
+    # 7. Tracking error z-score: 21d TE relative to its 63d history
     # → deviation from underlying is unsustainable, mean-reversion likely
     und_ret = context.get("und_ret")
     leverage_ratio = context.get("leverage_ratio", 3.0)
     tracking_error = lev_ret - leverage_ratio * und_ret
     te_21 = tracking_error.rolling(21).std() * np.sqrt(252)
-    te_expansion = (te_21 > te_21.rolling(63).mean()).astype(float).fillna(0.0)
+    te_zscore = ((te_21 - te_21.rolling(63).mean()) / (te_21.rolling(63).std() + 1e-8)).fillna(0.0)
 
     return {
         "TRANS_VIX_DIVERGENCE": vix_divergence,
@@ -344,7 +344,7 @@ def _builtin_transition_signals_pack(context: dict[str, Any]) -> dict[str, pd.Se
         "TRANS_GAP_RECOVERY": gap_recovery,
         "TRANS_VOL_TERM_ZSCORE": vol_term_zscore,
         "TRANS_VOV_TREND": vov_trend,
-        "TRANS_TE_EXPANSION": te_expansion,
+        "TRANS_TE_ZSCORE": te_zscore,
     }
 
 
@@ -407,7 +407,7 @@ BUILTIN_FEATURE_PACKS: dict[str, dict[str, Any]] = {
             "TRANS_GAP_RECOVERY",
             "TRANS_VOL_TERM_ZSCORE",
             "TRANS_VOV_TREND",
-            "TRANS_TE_EXPANSION",
+            "TRANS_TE_ZSCORE",
         ),
         "builder": _builtin_transition_signals_pack,
     },
