@@ -177,7 +177,7 @@ def main():
 
     # Load data
     print(f"Loading SOXL feature frame ({args.start} ~ {args.end})...")
-    feature_df, price = build_feature_frame(args.start, args.end, feature_packs=("rulebase_signals",))
+    feature_df, price = build_feature_frame(args.start, args.end, feature_packs=("rulebase_signals", "academic_signals"))
     feature_df = feature_df.droplevel("instrument")
     price = price.droplevel("instrument")
     print(f"  Loaded: {len(feature_df)} rows, {len(feature_df.columns)} features")

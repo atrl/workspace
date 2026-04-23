@@ -198,6 +198,83 @@ def _builtin_rulebase_signals_pack(context: dict[str, Any]) -> dict[str, pd.Seri
     }
 
 
+def _builtin_academic_signals_pack(context: dict[str, Any]) -> dict[str, pd.Series]:
+    """Academic-literature-derived signal features for SOXL factor mining.
+
+    Design principle: only retain features that are NOT highly correlated
+    (|rho| < 0.80) with existing CORE_FEATURE_COLUMNS.
+
+    References:
+    - Bollerslev, Tauchen, Zhou (2009): variance risk premium predicts returns
+    - Amaya et al. (2015): realized skewness predicts cross-sectional returns
+    - Moreira & Muir (2017): volatility-scaled momentum
+    - Qiao et al. (2022): upside/downside realized semi-variances
+    - Cheng & Madhavan (2009): LETF volatility drag
+    - Amihud (2002): illiquidity proxy
+    """
+    index = context["index"]
+    close = context["close"]
+    lev_ret = context["lev_ret"]
+    vix_level = context["vix_level"]
+    realized_vol_21 = context["realized_vol_21"]
+    mom_21 = context["mom_21"]
+    downside_semivol_21 = context["downside_semivol_21"]
+    und_ret = context.get("und_ret")
+    volume = context.get("volume")
+    lev_df = context.get("lev")
+    leverage_ratio = context.get("leverage_ratio", 3.0)
+
+    # --- DROPPED (high correlation with existing features) ---
+    # ACAD_DOWN_UP_RATIO  → rho(mom_21) = -0.89
+    # ACAD_VOL_SCALED_MOMENTUM → rho(sharpe_proxy_21) = +1.00
+    # ACAD_DOWN_RUNS      → rho(loss_streak_21) = +1.00
+    #
+    # We keep the raw building blocks so RL can learn nonlinear combos,
+    # but drop the composite forms that are linearly redundant.
+
+    # 1. Variance Risk Premium proxy — only 20d passes; keep as long-horizon signal
+    vrp = (vix_level.pow(2) - realized_vol_21.pow(2)).fillna(0.0)
+
+    # 2. Realized skewness (21-day) — weak standalone, but may interact nonlinearly
+    realized_skew_21 = lev_ret.rolling(21).skew().fillna(0.0)
+
+    # 3. Volatility drag proxy — Cheng & Madhavan (2009)
+    vol_drag = (0.5 * realized_vol_21.pow(2) * (21.0 / 252.0) - abs(mom_21)).fillna(0.0)
+
+    # 4. Amihud illiquidity z-score — orthogonal liquidity stress signal
+    dollar_volume = close * volume
+    amihud_21 = (lev_ret.abs() / (dollar_volume + 1e-8)).rolling(21).mean() * 1e6
+    amihud_zscore = ((amihud_21 - amihud_21.rolling(252).mean()) /
+                     (amihud_21.rolling(252).std() + 1e-8)).fillna(0.0)
+
+    # 5. LETF beta deviation — captures "overheating" vs "underperforming"
+    # Despite weak standalone IC, this is a genuinely new microstructure signal
+    cov_21 = lev_ret.rolling(21).cov(und_ret)
+    var_21 = und_ret.rolling(21).var().clip(lower=1e-8)
+    realized_beta_21 = (cov_21 / var_21).fillna(leverage_ratio)
+    beta_deviation = (realized_beta_21 - leverage_ratio).fillna(0.0)
+
+    # 6. Intraday reversal (21-day mean) — orthogonal mean-reversion signal
+    o = lev_df["$open"].astype(float)
+    h = lev_df["$high"].astype(float)
+    l = lev_df["$low"].astype(float)
+    intraday_momentum = ((close - o) / (h - l + 1e-8)).fillna(0.0)
+    intraday_reversal_21 = intraday_momentum.rolling(21).mean().fillna(0.0)
+
+    # 7. Autocorrelation (5-day) — reversal vs momentum regime detector
+    autocorr_5 = lev_ret.rolling(5).apply(lambda x: pd.Series(x).autocorr(1), raw=False).fillna(0.0)
+
+    return {
+        "ACAD_VARIANCE_RISK_PREMIUM": vrp,
+        "ACAD_REALIZED_SKEWNESS_21": realized_skew_21,
+        "ACAD_VOLATILITY_DRAG": vol_drag,
+        "ACAD_AMIHUD_ZSCORE": amihud_zscore,
+        "ACAD_BETA_DEVIATION": beta_deviation,
+        "ACAD_INTRADAY_REVERSAL_21": intraday_reversal_21,
+        "ACAD_AUTOCORR_5": autocorr_5,
+    }
+
+
 BUILTIN_FEATURE_PACKS: dict[str, dict[str, Any]] = {
     "kelly": {
         "columns": (
@@ -236,6 +313,18 @@ BUILTIN_FEATURE_PACKS: dict[str, dict[str, Any]] = {
             "RB_VIX_TERM_STRESS",
         ),
         "builder": _builtin_rulebase_signals_pack,
+    },
+    "academic_signals": {
+        "columns": (
+            "ACAD_VARIANCE_RISK_PREMIUM",
+            "ACAD_REALIZED_SKEWNESS_21",
+            "ACAD_VOLATILITY_DRAG",
+            "ACAD_AMIHUD_ZSCORE",
+            "ACAD_BETA_DEVIATION",
+            "ACAD_INTRADAY_REVERSAL_21",
+            "ACAD_AUTOCORR_5",
+        ),
+        "builder": _builtin_academic_signals_pack,
     },
 }
 
@@ -795,6 +884,14 @@ def engineer_feature_frame(
         "vol_stress_score": vol_stress_score,
         "vix_term_slope": feature_df.get("vix_term_slope"),
         "vix_short_ratio": feature_df.get("vix_short_ratio"),
+        # Academic signals pack context
+        "vix_level": vix / 50.0,
+        "mom_21": mom_21,
+        "downside_semivol_21": downside_semivol_21,
+        "und_ret": und_ret,
+        "volume": volume,
+        "lev": lev,
+        "leverage_ratio": leverage_ratio,
     }
     registry = _feature_pack_registry(profile_name)
     for pack in feature_packs or ():

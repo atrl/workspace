@@ -4208,3 +4208,44 @@ Created `balanced_budget.yaml` with `max_iters=50`. However, the log file was ac
   - candidate next step: test a "moderate" reward that keeps trend_alignment + opportunity_cost but removes stale/trapped/micro/flat_trade terms
 - Memory note:
   - `memory/2026-04-22-minimal-reward-v1-results.md`
+
+## Academic factor mining Phase 1 — RESULTS 2026-04-23
+
+- Goal: mine orthogonal academic signals to inject into `balanced_rule_residual_v19`
+- Method: test 10+ paper-derived factors through IC test → signal backtest → correlation screen
+- Tested factors:
+  - `ACAD_VARIANCE_RISK_PREMIUM` (Bollerslev et al. 2009): 20d only, weak
+  - `ACAD_REALIZED_SKEWNESS_21` (Amaya et al. 2015): failed all horizons
+  - `ACAD_VOL_SCALED_MOMENTUM` (Moreira & Muir 2017): strong negative IC (-0.39), but ρ=+1.00 with `sharpe_proxy_21` → dropped
+  - `ACAD_DOWN_UP_RATIO` (Qiao et al. 2022): strong IC (+0.32~0.38), but ρ=-0.89 with `mom_21` → dropped
+  - `ACAD_VOLATILITY_DRAG` (Cheng & Madhavan 2009): 1d/10d pass, standalone PF 1.09, independent
+  - `ACAD_AMIHUD_ZSCORE` (Amihud 2002): 1d/5d/10d pass (5d IC=+0.131), PF=1.21, **independent**, signal count very low (n=6-29)
+  - `ACAD_BETA_DEVIATION`: failed all horizons
+  - `ACAD_AUTOCORR_5`: failed all horizons
+  - `ACAD_INTRADAY_REVERSAL_21`: strong negative IC (-0.36), PF=1.21, **independent**, but reverse signal
+  - `ACAD_DOWN_RUNS`: strong IC (+0.14~0.22), but ρ=+1.00 with `loss_streak_21` → dropped
+- Key finding: **Most classic academic factors are already linearly captured by existing SOXL features.**
+  - Momentum proxies → mom_21, sharpe_proxy_21
+  - Drawdown/stress proxies → loss_streak_21, downside_semivol_21
+  - The only genuinely new signals are microstructure-based (Amihud, intraday reversal, beta deviation)
+  - Microstructure signals have weak standalone predictive power on daily SOXL returns
+- Remaining candidates for RL injection:
+  - `ACAD_AMIHUD_ZSCORE`: best standalone PF (1.21), orthogonal, but very sparse signals
+  - `ACAD_INTRADAY_REVERSAL_21`: strong negative IC, orthogonal, but standalone PF only 1.21
+  - `ACAD_VOLATILITY_DRAG`: partial IC pass, orthogonal, PF 1.09
+- Decision:
+  - Phase 1 complete. No academic factor passes all three gates (IC + backtest + low-correlation) with flying colors.
+  - Proceed to Phase 2: inject remaining candidates into a short RL smoke test to see if nonlinear interaction adds value.
+  - If smoke test fails, abandon academic_signals pack and pivot to other feature directions.
+- Commands:
+  - `PYTHONPATH=. qlib_venv/bin/python .codex/skills/soxl-factor-mining/scripts/test_factor_ic.py --feature ACAD_AMIHUD_ZSCORE --start 2019-01-01 --end 2025-12-31`
+  - `PYTHONPATH=. qlib_venv/bin/python .codex/skills/soxl-factor-mining/scripts/backtest_signal.py --feature ACAD_AMIHUD_ZSCORE --horizon 5 --sweep`
+  - `PYTHONPATH=. qlib_venv/bin/python .codex/skills/soxl-factor-mining/scripts/analyze_correlation.py --candidates ACAD_AMIHUD_ZSCORE`
+- Evidence:
+  - `docs/factor_research/factor_ic_results.csv`
+  - `docs/factor_research/backtest_*.csv`
+  - `docs/factor_research/feature_correlation_matrix.csv`
+- Keep / drop decision:
+  - keep: `ACAD_AMIHUD_ZSCORE`, `ACAD_INTRADAY_REVERSAL_21`, `ACAD_VOLATILITY_DRAG` in academic_signals pack
+  - drop: `ACAD_DOWN_UP_RATIO`, `ACAD_VOL_SCALED_MOMENTUM`, `ACAD_DOWN_RUNS` (highly correlated)
+  - next: RL smoke test with `balanced_rule_residual_v19_academic`
