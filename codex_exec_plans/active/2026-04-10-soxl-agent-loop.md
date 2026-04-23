@@ -174,6 +174,73 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
 
 ## Decision log
 
+- 2026-04-23 21:xx (risk_budget_usage_v1 actor-backed parity):
+  - Goal:
+    - restore or regenerate the missing `balanced_rule_residual_imitation_v4`
+      actor, then run `risk_budget_usage_v1` through the real actor/runtime
+      path instead of daily-path replay
+  - Canonical baseline:
+    - `balanced`
+  - Direct comparison baseline:
+    - `balanced_rule_residual_imitation_v4`
+    - `risk_budget_usage_v1` fixed replay
+  - Experiment role:
+    - `diagnose`
+  - Changed layer:
+    - `selection`
+    - `execution`
+  - Target improvement window:
+    - actor-backed `test_2022` MaxDD and avg_pos must remain close to replay
+      evidence
+  - Accepted trade-off window:
+    - `test_2023_2024` can trail replay if `test_proxy` Sharpe and 2022 risk
+      control remain materially better than `imitation_v4`
+  - Closest historical success case:
+    - `risk_budget_usage_v1` fixed replay passed all replay gates
+  - Closest historical failure case:
+    - `two_speed_mode_budget_v1` restored participation but missed strict
+      `test_2022 MaxDD <= 30%`
+  - Why this is not a duplicate:
+    - this validates the same mechanism through actor/runtime semantics rather
+      than already-executed daily paths
+  - New mechanism this time:
+    - no new reward or hyperparameter tuning; the test is actor-backed parity
+      for `model.position_mapping: budget_usage`
+  - External reference:
+    - hierarchical / temporally abstract trading control and risk-governor
+      budget usage design already recorded in `risk_budget_usage_v1` notes
+  - Comparison-table row:
+    - update `risk_budget_usage_v1` if actor-backed parity produces metrics
+  - Baseline evidence:
+    - `scripts/check_harness.py`: `passed=49 failures=0`
+    - git/artifact search found no retained
+      `soxl_balanced_rule_residual_imitation_v4_actor.pt`, so actor must be
+      regenerated before parity can run
+  - Runtime fixes:
+    - data refresh was required because the existing qlib binary had `SOXL`
+      only and failed on missing `SOXX`
+    - added regression coverage for `PositionAction(position_mapping=...)`
+      because the first training attempt exposed that the action interpreter
+      did not store the mapping field
+  - Commands:
+    - `PYTHONPATH=. /Users/rziiiii/.openclaw/workspace/qlib_venv/bin/python soxl_qlib_strategy_v2.py --profiles balanced_rule_residual_imitation_v4 --seed 20260411`
+    - `PYTHONPATH=. /Users/rziiiii/.openclaw/workspace/qlib_venv/bin/python scripts/evaluate_actor_profile_parity.py --profile risk_budget_usage_v1 --model artifacts/models/soxl_balanced_rule_residual_imitation_v4_actor.pt --output-json runtime/post_train_review/risk_budget_usage_v1_actor_parity.json --output-md runtime/post_train_review/risk_budget_usage_v1_actor_parity.md --output-daily runtime/post_train_review/risk_budget_usage_v1_actor_parity_soxl_daily.csv`
+    - `PYTHONPATH=. /Users/rziiiii/.openclaw/workspace/qlib_venv/bin/python soxl_qlib_strategy_v2.py --profiles risk_budget_usage_v1 --skip-data-refresh --seed 20260411`
+  - Validation evidence:
+    - regenerated `imitation_v4`: `test_proxy 586.5% / Sharpe 0.924 / MaxDD 50.9%`; `test_2022 MaxDD 30.2%`
+    - `imitation_v4` actor under `budget_usage`: `test_proxy 77.5% / Sharpe 0.647 / MaxDD 18.9% / avg_pos 0.141`
+    - native `risk_budget_usage_v1`: `test_proxy 274.4% / Sharpe 0.942 / MaxDD 32.5% / avg_pos 0.269`
+    - native `risk_budget_usage_v1` fixed gate: passed `test_2022 MaxDD 18.7%`, `test_2022 avg_pos 0.127`, `test_proxy Sharpe 0.942`
+  - Keep / drop decision:
+    - keep the runtime mapping, parity script, and regenerated `imitation_v4`
+      actor artifact
+    - do not promote actor-backed `risk_budget_usage_v1`; it controls risk but
+      does not reproduce replay upside
+  - Next action:
+    - train budget usage with supervised warm start / behavior cloning from the
+      replay daily path, then PPO fine-tune; do not continue hard reward or cap
+      parameter tuning
+
 - 2026-04-23 18:xx (risk_budget_usage_v1 fixed-signal replay):
   - Goal:
     - test whether RL/actor output is more useful as a risk-budget usage ratio

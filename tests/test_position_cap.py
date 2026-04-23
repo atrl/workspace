@@ -16,6 +16,7 @@ from src.soxl_quant.policy.positioning import (
     max_position_for_budget,
     target_position_for_profile,
 )
+from src.soxl_quant.policy.environment import PositionAction
 from src.soxl_quant.settings import EXTRA_OBS_DIM, N_ACTIONS, PositionBudgetConfig, PositionCapConfig
 
 
@@ -150,6 +151,22 @@ def test_budget_usage_mapping_uses_hybrid_action_count_when_present():
     assert high == 0.50
 
 
+def test_position_action_interpreter_threads_budget_usage_mapping():
+    obs = make_obs(cum_drop_30=-0.02, regime_risk=0.2, anchor_gap_180=0.06, anchor_slope_180=0.01)
+    interpreter = PositionAction(
+        n_actions=5,
+        action_levels=np.asarray([round(i / 10, 6) for i in range(11)], dtype=np.float32),
+        use_hybrid_overlay=True,
+        delta_levels=np.asarray([-0.10, -0.05, 0.0, 0.05, 0.10], dtype=np.float32),
+        mode_router_config=None,
+        position_mapping="budget_usage",
+    )
+
+    high = interpreter.interpret({"obs": obs, "mode": None, "drawdown": 0.0}, 4)
+
+    assert high == 1.0
+
+
 if __name__ == "__main__":
     test_drawdown_position_cap_thresholds()
     test_action_to_position_applies_hard_cap_from_cumulative_drop()
@@ -160,4 +177,5 @@ if __name__ == "__main__":
     test_position_budget_only_caps_high_regime_rows()
     test_target_position_can_interpret_action_as_mode_budget_usage()
     test_budget_usage_mapping_uses_hybrid_action_count_when_present()
+    test_position_action_interpreter_threads_budget_usage_mapping()
     print("test_position_cap: OK")

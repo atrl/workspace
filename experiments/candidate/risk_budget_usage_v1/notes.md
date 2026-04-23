@@ -91,6 +91,40 @@ slightly different execution timing than runtime signal generation. The next
 step must implement the same budget-usage composition in the runtime/backtest
 path and compare against this replay.
 
+## Actor-Backed Parity Result
+
+Command:
+
+```bash
+PYTHONPATH=. /Users/rziiiii/.openclaw/workspace/qlib_venv/bin/python scripts/evaluate_actor_profile_parity.py \
+  --profile risk_budget_usage_v1 \
+  --model artifacts/models/soxl_balanced_rule_residual_imitation_v4_actor.pt \
+  --output-json runtime/post_train_review/risk_budget_usage_v1_actor_parity.json \
+  --output-md runtime/post_train_review/risk_budget_usage_v1_actor_parity.md \
+  --output-daily runtime/post_train_review/risk_budget_usage_v1_actor_parity_soxl_daily.csv
+```
+
+Regenerated `imitation_v4` actor under `budget_usage` mapping:
+
+- `test_2020`: `19.0% / Sharpe 1.189 / MaxDD 17.6% / avg_pos 0.158`.
+- `test_2022`: `-0.8% / Sharpe -0.083 / MaxDD 4.6% / avg_pos 0.043`.
+- `test_2023_2024`: `23.5% / Sharpe 0.899 / MaxDD 16.7% / avg_pos 0.144`.
+- `test_proxy`: `77.5% / Sharpe 0.647 / MaxDD 18.9% / avg_pos 0.141`.
+- qlib backtest: `148.9% / Sharpe 0.839 / MaxDD 22.2% / 206 trades`.
+
+Native `risk_budget_usage_v1` PPO actor:
+
+- `test_2020`: `40.9% / Sharpe 1.609 / MaxDD 23.7% / avg_pos 0.274`.
+- `test_2022`: `-17.3% / Sharpe -1.213 / MaxDD 18.7% / avg_pos 0.127`.
+- `test_2023_2024`: `82.8% / Sharpe 1.440 / MaxDD 16.3% / avg_pos 0.295`.
+- `test_proxy`: `274.4% / Sharpe 0.942 / MaxDD 32.5% / avg_pos 0.269`.
+- qlib backtest: `335.6% / Sharpe 0.88 / MaxDD 40.4% / 291 trades`.
+
+Decision: do not promote. The runtime mapping is valid, but PPO trained under
+this reward discovers a conservative budget-usage policy rather than the replay
+scale. The next model branch should use supervised budget-usage warm start from
+the replay path before PPO, instead of more hard parameter tuning.
+
 ## Comparison-Table Row Key
 
 `risk_budget_usage_v1`

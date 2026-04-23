@@ -110,3 +110,22 @@ Blocker: the current artifact inventory retains
 `soxl_balanced_rule_residual_imitation_v4_summary.json` but not
 `soxl_balanced_rule_residual_imitation_v4_actor.pt`, so full actor-backed parity
 must wait for actor restoration or regeneration.
+
+## Actor-Backed Follow-Up
+
+The missing `imitation_v4` actor was regenerated with seed `20260411`, then
+evaluated under `risk_budget_usage_v1`.
+
+Evidence:
+
+- regenerated `imitation_v4`: `test_proxy 586.5% / Sharpe 0.924 / MaxDD 50.9%`;
+  `test_2022 MaxDD 30.2%`.
+- same actor reinterpreted as budget usage: `test_proxy 77.5% / Sharpe 0.647 /
+  MaxDD 18.9% / avg_pos 0.141`.
+- native `risk_budget_usage_v1` PPO actor: `test_proxy 274.4% / Sharpe 0.942 /
+  MaxDD 32.5% / avg_pos 0.269`; `test_2022 MaxDD 18.7%, avg_pos 0.127`.
+
+Decision: do not promote actor-backed `risk_budget_usage_v1`. The runtime
+mapping works, but PPO under portfolio reward learns a conservative usage scale.
+Next branch should use supervised budget-usage warm start / behavior cloning from
+the replay daily path before PPO fine-tuning.

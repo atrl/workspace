@@ -415,6 +415,7 @@ class PositionAction(ActionInterpreter):
         delta_levels: Optional[np.ndarray] = None,
         mode_router_config=None,
         position_budget_config=None,
+        position_mapping: str = "default",
     ):
         super().__init__()
         self.n_actions = n_actions
@@ -428,6 +429,7 @@ class PositionAction(ActionInterpreter):
         )
         self.mode_router_config = mode_router_config
         self.position_budget_config = position_budget_config
+        self.position_mapping = str(position_mapping)
 
     @property
     def action_space(self):

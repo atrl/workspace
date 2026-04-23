@@ -597,3 +597,18 @@ budget_usage`, and `risk_budget_usage_v1` has a candidate profile with the repla
 mode bands encoded in `mode_router`. Do not promote yet: actor-backed parity is
 still blocked until the retained `balanced_rule_residual_imitation_v4` actor
 checkpoint is restored or regenerated.
+
+Actor-backed follow-up on seed `20260411` restored the missing `imitation_v4`
+actor and tested the real runtime path. The fixed replay did not carry over:
+reinterpreting the regenerated `imitation_v4` actor as budget usage produced
+`77.5% / Sharpe 0.647 / MaxDD 18.9%` on `test_proxy`, with average position only
+`0.141`. Native PPO training under the same `budget_usage` mapping improved to
+`274.4% / Sharpe 0.942 / MaxDD 32.5%`, and passed fixed-split gates
+(`test_2022 MaxDD 18.7%, avg_pos 0.127`), but remained far below the fixed
+replay's `2003.6% / Sharpe 1.248`.
+
+Decision: keep the mapping infrastructure and actor-backed diagnostic, but do
+not promote. The evidence now points to an actor calibration problem: portfolio
+reward alone learns a conservative usage scale. The next branch should use
+supervised budget-usage warm start / behavior cloning from the replay daily path,
+then PPO fine-tune, rather than more reward coefficient or hard-cap tuning.
