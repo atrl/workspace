@@ -1,3 +1,8 @@
+---
+name: dashboard
+description: Use when generating, maintaining, debugging, or visually verifying the SOXL interactive backtest dashboard
+---
+
 # Dashboard Skill
 
 ## Purpose
