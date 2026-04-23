@@ -45,6 +45,7 @@ qlib_venv/
 # Runtime / orchestration state
 .ralph/
 .openclaw/
+.worktrees/
 runtime/
 !runtime/
 runtime/*
