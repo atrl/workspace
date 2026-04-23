@@ -4284,3 +4284,47 @@ Created `balanced_budget.yaml` with `max_iters=50`. However, the log file was ac
   - `docs/factor_research/factor_ic_results.csv`
   - `docs/factor_research/backtest_*.csv`
   - Smoke test artifacts deleted (not representative of full training)
+
+## risk_budget_bc_warmstart_v1 — PLAN 2026-04-23
+
+- Goal: test whether supervised budget-usage behavior cloning can close the
+  return gap between `risk_budget_usage_v1` replay and PPO actor behavior.
+- Canonical baseline: `balanced_rule_residual_imitation_v4`.
+- Direct comparison baseline: native `risk_budget_usage_v1` PPO actor.
+- Experiment role: `diagnose`.
+- Target improvement window: `test_proxy` and `test_2023_2024` return versus
+  native `risk_budget_usage_v1`.
+- Accepted trade-off window: proxy MaxDD may rise if strict `test_2022` gate
+  still passes.
+- Changed layer: `model` + `selection`.
+- External reference: behavior cloning / DAGGER-style supervised policy
+  initialization before policy-gradient updates.
+- Closest historical success case: fixed replay `risk_budget_usage_v1`
+  (`test_proxy 2003.6% / Sharpe 1.248 / MaxDD 45.0%`, `test_2022 MaxDD 25.6%`).
+- Closest historical failure case: native `risk_budget_usage_v1` PPO
+  (`test_proxy 274.4% / Sharpe 0.942`, conservative avg_pos 0.269).
+- Why not duplicate: changes the optimization path by initializing actor logits
+  from train-split fast-expert budget-usage labels before PPO; not a cap/reward
+  coefficient drift.
+- Comparison-table row: `risk_budget_bc_warmstart_v1`.
+- Planned commands:
+  - `PYTHONPATH=. qlib_venv/bin/python scripts/build_budget_usage_bc_actor.py --profile risk_budget_bc_warmstart_v1 --skip-data-refresh`
+  - `PYTHONPATH=. qlib_venv/bin/python soxl_qlib_strategy_v2.py --profiles risk_budget_bc_warmstart_v1 --skip-data-refresh --seed 20260411`
+  - `PYTHONPATH=. qlib_venv/bin/python scripts/check_harness.py`
+- Result:
+  - BC command used data refresh to avoid incomplete worktree qlib binary:
+    `PYTHONPATH=. /Users/rziiiii/.openclaw/workspace/qlib_venv/bin/python scripts/build_budget_usage_bc_actor.py --profile risk_budget_bc_warmstart_v1 --seed 20260411`
+  - PPO command:
+    `PYTHONPATH=. /Users/rziiiii/.openclaw/workspace/qlib_venv/bin/python soxl_qlib_strategy_v2.py --profiles risk_budget_bc_warmstart_v1 --skip-data-refresh --seed 20260411`
+  - BC samples: `1904`; label distribution `{1: 422, 2: 710, 3: 772}`; no action-4 labels.
+  - BC stats: loss `0.950989`, accuracy `0.960938`.
+  - selection: iter 0 score `37.23`; iter 5/10 score `30.84`; best kept BC initialization.
+  - `test_2020`: `36.0% / Sharpe 1.493 / MaxDD 20.5% / avg_pos 0.296`.
+  - `test_2022`: `-5.0% / Sharpe -0.345 / MaxDD 10.7% / avg_pos 0.108`.
+  - `test_2023_2024`: `49.0% / Sharpe 1.010 / MaxDD 20.1% / avg_pos 0.273`.
+  - `test_proxy`: `250.7% / Sharpe 0.911 / MaxDD 27.3% / avg_pos 0.266`.
+  - qlib backtest headline: `229.5% / Sharpe 0.84 / MaxDD 29.0% / trades 304`.
+- Decision:
+  - drop as promotable; fixed-split risk passes, but proxy return does not beat native `risk_budget_usage_v1` (`274.4%`).
+  - keep code path and evidence as a diagnostic.
+  - next: do not keep tuning this BC source; either run an explicit no-promotion upper-bound distillation from full replay daily labels, or pivot to an auditable runtime composer instead of forcing one PPO actor to rediscover two-speed behavior.

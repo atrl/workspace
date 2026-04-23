@@ -19,6 +19,7 @@ if str(ROOT) not in sys.path:
 DEFAULT_TEST_FILES = [
     "tests/test_artifact_paths.py",
     "tests/test_checkpoint_review_assets.py",
+    "tests/test_budget_usage_bc.py",
     "tests/test_position_cap.py",
     "tests/test_regime_features.py",
     "tests/test_reward.py",
@@ -36,6 +37,7 @@ DEFAULT_COMPILE_TARGETS = [
     "src/soxl_quant/policy/two_speed_budget.py",
     "src/soxl_quant/cli.py",
     "scripts/build_backtest_dashboard.py",
+    "scripts/build_budget_usage_bc_actor.py",
     "scripts/check_harness.py",
     "scripts/checkpoint_review.py",
     "scripts/memory_search.py",

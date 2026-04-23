@@ -16,7 +16,8 @@ from ..config import StrategyConfig
 from ..data import FEATURE_COLUMNS, STATIC_INDEX, feature_columns_for_packs, static_index_for_packs
 from ..settings import LOOKBACK
 from .observation import adapt_observation_for_actor, make_observation
-from .positioning import action_levels_for_profile, rule_based_position
+from .modes import ModeState, mode_band, route_mode
+from .positioning import action_levels_for_profile, rule_based_position, target_position_for_profile
 from .environment import (
     EpisodeConfig,
     PositionAction,
@@ -273,6 +274,148 @@ def supervised_pretrain(
     return {"loss": last_loss, "accuracy": last_acc, "steps": int(steps)}
 
 
+def budget_usage_action_label(usage: float, n_actions: int) -> int:
+    """Map a continuous budget usage ratio to the nearest discrete action."""
+
+    if n_actions <= 1:
+        return 0
+    clipped = float(np.clip(usage, 0.0, 1.0))
+    levels = np.linspace(0.0, 1.0, int(n_actions), dtype=np.float32)
+    return int(np.argmin(np.abs(levels - clipped)))
+
+
+def build_budget_usage_warm_start_dataset_from_frame(
+    df: pd.DataFrame,
+    profile: StrategyConfig,
+    expert_actor: Actor,
+    expert_profile: StrategyConfig,
+    sample_size: int = 2000,
+    rng_seed: int = 0,
+    asset_idx: int = 0,
+) -> tuple[np.ndarray, np.ndarray]:
+    """Build BC labels that treat an expert fast position as budget usage.
+
+    The rollout stays inside the supplied frame, so callers can pass only the
+    train split and avoid teaching from held-out fixed-split windows.
+    """
+
+    if len(df) <= LOOKBACK + 2:
+        raise ValueError("budget-usage warm-start requires a frame longer than LOOKBACK")
+
+    target_feature_columns = feature_columns_for_packs(profile.feature.packs, profile.name)
+    expert_feature_columns = feature_columns_for_packs(expert_profile.feature.packs, expert_profile.name)
+    target_action_count = len(profile.model.delta_levels) if profile.model.use_hybrid_overlay else len(action_levels_for_profile(profile))
+    target_price_path = build_price_path(df)
+    expert_price_path = target_price_path
+
+    target_cash = 100_000.0
+    target_peak = target_cash
+    target_pos = 0.0
+    target_ledger = TrancheLedger()
+    target_mode_state = ModeState()
+
+    expert_cash = 100_000.0
+    expert_peak = expert_cash
+    expert_pos = 0.0
+    expert_ledger = TrancheLedger()
+    expert_mode_state = ModeState()
+
+    obs_list: list[np.ndarray] = []
+    action_list: list[int] = []
+
+    for idx in range(LOOKBACK, len(df) - 1):
+        target_obs = make_observation(
+            df,
+            idx,
+            target_pos,
+            target_cash,
+            target_peak,
+            target_ledger,
+            target_price_path,
+            asset_idx=asset_idx,
+            observation_window=profile.model.observation_window,
+            feature_columns=target_feature_columns,
+        )
+        if profile.mode_router and getattr(profile.mode_router, "enabled", False):
+            target_mode_state = route_mode(target_obs, target_mode_state, profile.mode_router)
+
+        expert_obs = make_observation(
+            df,
+            idx,
+            expert_pos,
+            expert_cash,
+            expert_peak,
+            expert_ledger,
+            expert_price_path,
+            asset_idx=asset_idx,
+            observation_window=expert_profile.model.observation_window,
+            feature_columns=expert_feature_columns,
+        )
+        if expert_profile.mode_router and getattr(expert_profile.mode_router, "enabled", False):
+            expert_mode_state = route_mode(expert_obs, expert_mode_state, expert_profile.mode_router)
+
+        expert_action = actor_action(expert_actor, expert_obs)
+        expert_fast_position = target_position_for_profile(
+            expert_action,
+            expert_obs,
+            config=expert_profile.position_cap,
+            action_levels=action_levels_for_profile(expert_profile),
+            hard_floor=expert_profile.model.hard_floor,
+            use_hybrid_overlay=expert_profile.model.use_hybrid_overlay,
+            delta_levels=np.asarray(expert_profile.model.delta_levels, dtype=np.float32)
+            if expert_profile.model.use_hybrid_overlay
+            else None,
+            mode_band=mode_band(expert_mode_state.name, expert_profile.mode_router)
+            if expert_profile.mode_router and getattr(expert_profile.mode_router, "enabled", False)
+            else None,
+            position_budget_config=expert_profile.position_budget,
+            current_drawdown=max(1.0 - expert_cash / max(expert_peak, 1e-8), 0.0),
+            position_mapping=expert_profile.model.position_mapping,
+        )
+        label = budget_usage_action_label(expert_fast_position, target_action_count)
+        obs_list.append(target_obs)
+        action_list.append(label)
+
+        target_pos = target_position_for_profile(
+            label,
+            target_obs,
+            config=profile.position_cap,
+            action_levels=action_levels_for_profile(profile),
+            hard_floor=profile.model.hard_floor,
+            use_hybrid_overlay=profile.model.use_hybrid_overlay,
+            delta_levels=np.asarray(profile.model.delta_levels, dtype=np.float32)
+            if profile.model.use_hybrid_overlay
+            else None,
+            mode_band=mode_band(target_mode_state.name, profile.mode_router)
+            if profile.mode_router and getattr(profile.mode_router, "enabled", False)
+            else None,
+            position_budget_config=profile.position_budget,
+            current_drawdown=max(1.0 - target_cash / max(target_peak, 1e-8), 0.0),
+            position_mapping=profile.model.position_mapping,
+        )
+
+        next_ret = float(df.iloc[idx + 1]["return"])
+        target_cash *= 1.0 + target_pos * next_ret
+        target_peak = max(target_peak, target_cash)
+        target_ledger.update(target_pos, target_pos, float(target_price_path[idx]))
+
+        expert_cash *= 1.0 + expert_fast_position * next_ret
+        expert_peak = max(expert_peak, expert_cash)
+        expert_ledger.update(expert_pos, expert_fast_position, float(expert_price_path[idx]))
+        expert_pos = expert_fast_position
+
+    if not obs_list:
+        raise RuntimeError("budget-usage warm-start produced 0 samples")
+
+    if sample_size > 0 and len(obs_list) > sample_size:
+        rng = random.Random(rng_seed)
+        indices = sorted(rng.sample(range(len(obs_list)), int(sample_size)))
+        obs_list = [obs_list[i] for i in indices]
+        action_list = [action_list[i] for i in indices]
+
+    return np.stack(obs_list, axis=0), np.asarray(action_list, dtype=np.int64)
+
+
 def actor_action(actor: Actor, obs: np.ndarray) -> int:
     if isinstance(actor, EnsembleActor):
         return actor.action(obs)
@@ -359,6 +502,8 @@ __all__ = [
     "SoxlSimulator",
     "SoxlState",
     "actor_action",
+    "budget_usage_action_label",
+    "build_budget_usage_warm_start_dataset_from_frame",
     "build_initial_states",
     "build_policy",
     "build_warm_start_dataset",

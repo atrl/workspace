@@ -612,3 +612,35 @@ not promote. The evidence now points to an actor calibration problem: portfolio
 reward alone learns a conservative usage scale. The next branch should use
 supervised budget-usage warm start / behavior cloning from the replay daily path,
 then PPO fine-tune, rather than more reward coefficient or hard-cap tuning.
+
+## 2026-04-23: Risk-Budget BC Warm-Start
+
+This branch tested whether supervised behavior cloning could teach the
+`risk_budget_usage_v1` actor the missing budget-usage scale before PPO.
+
+Mechanism:
+
+- target profile: `risk_budget_bc_warmstart_v1`
+- expert: retained `balanced_rule_residual_imitation_v4` actor
+- labels: train-split fast expert position interpreted as a 5-action
+  budget-usage label
+- PPO fine-tune: low learning rate `0.00005`, `10` max iters, staged every `5`
+  iters
+
+Result:
+
+- BC dataset: `1904` samples, label distribution `{1: 422, 2: 710, 3: 772}`;
+  action-4 full-usage labels were absent.
+- BC accuracy: `0.961`, loss `0.951`.
+- selected checkpoint: iter `0`; PPO iter 5/10 reduced valid score
+  (`37.23 -> 30.84`).
+- `test_2022`: `-5.0% / Sharpe -0.345 / MaxDD 10.7% / avg_pos 0.108`.
+- `test_2023_2024`: `49.0% / Sharpe 1.010 / MaxDD 20.1%`.
+- `test_proxy`: `250.7% / Sharpe 0.911 / MaxDD 27.3% / avg_pos 0.266`.
+
+Decision: drop as promotable. It passed fixed-split risk, but did not beat
+native `risk_budget_usage_v1` return (`274.4%`) and remained far below fixed
+replay (`2003.6%`). The bottleneck is now narrower: train-split reconstruction
+of the fast expert does not contain the full-usage behavior that made held-out
+fixed replay attractive, and PPO again erases rather than improves the useful
+initialization.

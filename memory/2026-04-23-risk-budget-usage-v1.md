@@ -129,3 +129,24 @@ Decision: do not promote actor-backed `risk_budget_usage_v1`. The runtime
 mapping works, but PPO under portfolio reward learns a conservative usage scale.
 Next branch should use supervised budget-usage warm start / behavior cloning from
 the replay daily path before PPO fine-tuning.
+
+## BC Warm-Start Follow-Up
+
+`risk_budget_bc_warmstart_v1` built train-split supervised labels from the
+retained `balanced_rule_residual_imitation_v4` actor, then fine-tuned with low-lr
+PPO.
+
+Evidence:
+
+- BC samples: `1904`; label distribution `{1: 422, 2: 710, 3: 772}`.
+- No action-4 full-usage labels appeared in the train-split reconstruction.
+- BC accuracy: `0.961`, loss `0.951`.
+- PPO selected iter 0; iter 5/10 lowered valid score from `37.23` to `30.84`.
+- final selected `test_proxy`: `250.7% / Sharpe 0.911 / MaxDD 27.3% / avg_pos
+  0.266`.
+- final selected `test_2022`: `MaxDD 10.7% / avg_pos 0.108`.
+
+Decision: drop as promotable. The branch controlled risk but did not beat native
+`risk_budget_usage_v1` (`274.4% proxy return`). The key diagnostic is that the
+train-split fast expert did not provide the high-usage labels needed to reproduce
+the fixed replay upside.
