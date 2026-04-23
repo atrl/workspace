@@ -317,11 +317,34 @@ def _builtin_transition_signals_pack(context: dict[str, Any]) -> dict[str, pd.Se
     next_day_rebound = (close > prev_close).astype(float)
     gap_recovery = (gap_down.shift(1) * next_day_rebound).fillna(0.0)
 
+    # 5. Volatility term structure z-score: 10d vs 63d realized vol
+    # → steep contango/backwardation in realized vol predicts stress changes
+    rv10 = realized_vol_10
+    rv63 = context.get("realized_vol_63")
+    vol_term = rv10 / (rv63 + 1e-8)
+    vol_term_zscore = ((vol_term - vol_term.rolling(63).mean()) / (vol_term.rolling(63).std() + 1e-8)).fillna(0.0)
+
+    # 6. Volatility-of-volatility trend: change in vol uncertainty
+    # → rising vov = market uncertain about uncertainty = potential inflection
+    vov = context.get("vol_of_vol_21")
+    vov_trend = (vov - vov.shift(10)).fillna(0.0)
+
+    # 7. Tracking error z-score: 21d TE relative to its 63d history
+    # → deviation from underlying is unsustainable, mean-reversion likely
+    und_ret = context.get("und_ret")
+    leverage_ratio = context.get("leverage_ratio", 3.0)
+    tracking_error = lev_ret - leverage_ratio * und_ret
+    te_21 = tracking_error.rolling(21).std() * np.sqrt(252)
+    te_zscore = ((te_21 - te_21.rolling(63).mean()) / (te_21.rolling(63).std() + 1e-8)).fillna(0.0)
+
     return {
         "TRANS_VIX_DIVERGENCE": vix_divergence,
         "TRANS_SPRING_COMPRESSION": spring_compression,
         "TRANS_PANIC_EXHAUSTION": panic_exhaustion,
         "TRANS_GAP_RECOVERY": gap_recovery,
+        "TRANS_VOL_TERM_ZSCORE": vol_term_zscore,
+        "TRANS_VOV_TREND": vov_trend,
+        "TRANS_TE_ZSCORE": te_zscore,
     }
 
 
@@ -382,6 +405,9 @@ BUILTIN_FEATURE_PACKS: dict[str, dict[str, Any]] = {
             "TRANS_SPRING_COMPRESSION",
             "TRANS_PANIC_EXHAUSTION",
             "TRANS_GAP_RECOVERY",
+            "TRANS_VOL_TERM_ZSCORE",
+            "TRANS_VOV_TREND",
+            "TRANS_TE_ZSCORE",
         ),
         "builder": _builtin_transition_signals_pack,
     },
@@ -953,6 +979,9 @@ def engineer_feature_frame(
         "leverage_ratio": leverage_ratio,
         # Transition signals pack context
         "realized_vol_10": realized_vol_10,
+        "realized_vol_63": realized_vol_63,
+        "vol_of_vol_21": vol_of_vol_21,
+        "und_ret": und_ret,
     }
     registry = _feature_pack_registry(profile_name)
     for pack in feature_packs or ():

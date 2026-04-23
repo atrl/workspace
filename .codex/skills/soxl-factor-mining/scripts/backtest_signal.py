@@ -253,12 +253,14 @@ def main():
     parser.add_argument("--backfill", action="store_true", help="Write to DB")
     parser.add_argument("--start", default="2019-01-01")
     parser.add_argument("--end", default="2026-04-01")
+    parser.add_argument("--feature-packs", default="rulebase_signals,academic_signals,transition_signals", help="Comma-separated feature packs to load")
     args = parser.parse_args()
 
     init_qlib(Path("qlib_soxl_binary"))
 
-    print(f"Loading SOXL data ({args.start} ~ {args.end})...")
-    feature_df, price = build_feature_frame(args.start, args.end, feature_packs=("rulebase_signals", "academic_signals", "transition_signals"))
+    packs = tuple(str(v).strip() for v in args.feature_packs.split(","))
+    print(f"Loading SOXL data ({args.start} ~ {args.end}) with packs={packs}...")
+    feature_df, price = build_feature_frame(args.start, args.end, feature_packs=packs)
     feature_df = feature_df.droplevel("instrument")
     price = price.droplevel("instrument")
 

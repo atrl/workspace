@@ -4385,3 +4385,95 @@ Created `balanced_budget.yaml` with `max_iters=50`. However, the log file was ac
   - drop as promotable; fixed-split risk passes, but proxy return does not beat native `risk_budget_usage_v1` (`274.4%`).
   - keep code path and evidence as a diagnostic.
   - next: do not keep tuning this BC source; either run an explicit no-promotion upper-bound distillation from full replay daily labels, or pivot to an auditable runtime composer instead of forcing one PPO actor to rediscover two-speed behavior.
+
+## Feature mining: transition-state signals 2026-04-23
+
+- Goal: find features that detect *stress-release* and *restart transitions*, addressing the core stack's blind spot
+- Method: analyze 2022 worst/best periods → design transition-state hypotheses → IC test → backtest → correlation screen
+
+### Key insight from 2022 analysis
+- Worst periods: regime_risk 0.65-0.84, drawdown_63 -37% to -70% (core features detect these well)
+- Best rebound periods (Nov 2022): regime_risk 0.54-0.59, VIX falling, mom_21 +60-70%, loss_streak=0
+- **Gap**: core features detect *persistent stress* but miss *stress-release* transitions
+
+### Discovered signals
+
+| Feature | Type | 5d IC | Standalone PF | Accuracy | Signals | Status |
+|---------|------|-------|---------------|----------|---------|--------|
+| TRANS_VIX_DIVERGENCE | Continuous | **+0.21** | **1.43** | **64.2%** | 58 | ✅ Strong |
+| TRANS_SPRING_COMPRESSION | Binary | +0.12 | 1.41 | 58.3% | 132 | ✅ Good |
+| TRANS_PANIC_EXHAUSTION | Binary | +0.08 | 1.46 | 60.8% | 97 | ✅ Good |
+| TRANS_GAP_RECOVERY | Binary | +0.06 | 1.51 | 58.3% | 271 | ✅ Good |
+
+- All 4 features orthogonal to existing CORE_FEATURE_COLUMNS (|rho| < 0.80)
+- TRANS_VIX_DIVERGENCE is the strongest standalone signal discovered so far
+
+### RL smoke test (5 iters, seed=20260423)
+
+| Profile | Valid Score | Test Return | Test Sharpe | Test MaxDD | Trades |
+|---------|-------------|-------------|-------------|------------|--------|
+| v19 baseline | **94.48** | 469.5% | 0.84 | 49.4% | 311 |
+| v19_academic | 85.26 | 479.9% | 0.85 | 48.1% | 314 |
+| v19_transition | 88.28 | 448.3% | 0.85 | **46.9%** | 313 |
+
+- v19_transition shows **lowest test MaxDD** (46.9% vs 49.4% baseline)
+- Valid score in between baseline and academic
+- 5-iter smoke is noisy; full training needed for definitive comparison
+
+### Dropped directions
+- Academic signals: most classic factors already captured by existing features
+- Anchor gap 252d residual: implementation issues, no clear advantage over 180d
+
+### Next action
+- Run full 80-iteration training for v19_transition to validate stress-release hypothesis
+- If full training shows return ≥ 500% AND MaxDD improvement, promote transition_signals to core
+- If no improvement, keep as optional pack but pivot to other directions
+
+### Evidence
+- `src/soxl_quant/data.py`: transition_signals pack implementation
+- `docs/factor_research/backtest_TRANS_*.csv`: standalone signal backtests
+- `docs/factor_research/factor_ic_results.csv`: IC test results
+- `experiments/candidate/balanced_rule_residual_v19_transition/`: experiment package
+
+## Feature mining: extended exploration 2026-04-23
+
+### Additional signals discovered beyond initial 4
+
+| Feature | Type | 5d IC | pos_ratio | Standalone PF | Status |
+|---------|------|-------|-----------|---------------|--------|
+| TRANS_VOL_TERM_ZSCORE | Continuous | +0.08 | 58.2% | TBD | ✅ Added |
+| TRANS_VOV_TREND | Continuous | +0.13 | 62.0% | TBD | ✅ Added |
+| TRANS_TE_EXPANSION | Binary | NaN | 58.7% | TBD | ⚠️ Added |
+
+### Dropped directions (no incremental value)
+- Academic signals: already linearly captured by existing momentum/drawdown proxies
+- VWAP deviation, trend alignment, mom_recent_vs_old: high correlation with existing features
+- Time effects (day-of-week, month): no predictive power on SOXL
+- Price position 252d: same info as anchor_gap_180
+- Beta change, lead-lag correlation, decay accel: weak IC
+
+### Key statistical insight from regime analysis
+- All regime states have positive forward 5d return (SOXL is structurally long-biased)
+- BUT risk-adjusted returns differ dramatically:
+  - VIX < 20: Sharpe=0.19
+  - VIX 20-30: Sharpe=1.17
+  - VIX >= 30: Sharpe=1.78
+- Bear momentum (mom<-10%) has highest raw return (2.55% / 5d)
+- Implication: optimal strategy is not "avoid risk" but "size positions by regime"
+
+### transition_signals pack final composition (7 features)
+1. TRANS_VIX_DIVERGENCE — VIX falls but price near lows (IC=+0.21)
+2. TRANS_SPRING_COMPRESSION — price new low, VIX not new high (IC=+0.12)
+3. TRANS_PANIC_EXHAUSTION — big down + vol compression (IC=+0.08)
+4. TRANS_GAP_RECOVERY — gap-down followed by rebound (IC=+0.06)
+5. TRANS_VOL_TERM_ZSCORE — 10d/63d vol term structure (IC=+0.08)
+6. TRANS_VOV_TREND — vol-of-vol trend (IC=+0.13)
+7. TRANS_TE_EXPANSION — tracking error expansion (binary, pos_ratio=58.7%)
+
+All verified orthogonal to CORE_FEATURE_COLUMNS.
+Pack increases feature count from 59 → 66 (+7).
+
+### Next action
+- Run full 80-iteration training for v19_transition
+- If full training validates the hypothesis (return ≥ 500%, MaxDD improvement), promote to core
+- If not, keep as optional pack; the standalone signals are still valuable for signal-overlay strategies

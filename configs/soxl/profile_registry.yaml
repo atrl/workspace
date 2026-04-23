@@ -734,3 +734,10 @@ profiles:
   keep_actor: false
   keep_summary: true
   notes_ref: experiments/candidate/balanced_rule_residual_v19_academic/notes.md
+- name: balanced_rule_residual_v19_transition
+  family: balanced
+  status: candidate
+  baseline: balanced_rule_residual_v19
+  keep_actor: false
+  keep_summary: true
+  notes_ref: experiments/candidate/balanced_rule_residual_v19_transition/notes.md
