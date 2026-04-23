@@ -2211,6 +2211,32 @@
     "excerpt": "# Position Budget Productionization Smoke ## Context The bottleneck review showed reward-only tuning and architecture swaps are not the current frontier. The repeated failure is selective participation under risk: the harness can suppress exposure, but it still struggles to loose"
   },
   {
+    "path": "memory/2026-04-23-risk-budget-oracle-distillation.md",
+    "date": "2026-04-23",
+    "title": "Risk-budget oracle distillation and composer extraction",
+    "kind": "review",
+    "profiles": [
+      "risk_budget_oracle_distill_v1",
+      "risk_budget_usage_v1"
+    ],
+    "status": "dropped",
+    "tags": [
+      "risk_budget_oracle_distill_v1",
+      "risk_budget_usage_v1",
+      "dropped",
+      "eval-2022",
+      "execution-overlay",
+      "review"
+    ],
+    "artifacts": [
+      "runtime/post_train_review/risk_budget_oracle_distill_v1.json",
+      "runtime/post_train_review/risk_budget_oracle_distill_v1.md"
+    ],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "No-promotion oracle distillation used full fixed-replay daily labels for risk_budget_usage_v1. The label set contained action-4 full usage, but the single actor reached only test_proxy 363.8% / Sharpe 1.090 / MaxDD 23.7%, far below fixed replay 2003.6%. Keep the reusable composer extraction; stop trying to compress the two-speed mechanism into one PPO actor.",
+    "excerpt": "# Risk-budget oracle distillation and composer extraction ## Context `risk_budget_usage_v1` fixed replay passed the replay gates, while actor-backed parity, native PPO, and train-split BC warm-start failed to reproduce the upside. The remaining question was whether a single actor"
+  },
+  {
     "path": "memory/2026-04-23-risk-budget-usage-v1.md",
     "date": "2026-04-23",
     "title": "Risk-budget usage replay candidate",

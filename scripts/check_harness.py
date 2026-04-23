@@ -38,6 +38,7 @@ DEFAULT_COMPILE_TARGETS = [
     "src/soxl_quant/cli.py",
     "scripts/build_backtest_dashboard.py",
     "scripts/build_budget_usage_bc_actor.py",
+    "scripts/build_budget_usage_oracle_actor.py",
     "scripts/check_harness.py",
     "scripts/checkpoint_review.py",
     "scripts/memory_search.py",

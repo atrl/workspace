@@ -13,6 +13,7 @@ import pandas as pd
 
 from src.soxl_quant.policy.two_speed_budget import (
     TwoSpeedBudgetConfig,
+    compose_budget_usage_policy_frame,
     compose_budget_usage_position,
     compose_two_speed_position,
     infer_mode_from_slow_position,
@@ -102,6 +103,19 @@ def compose_two_speed_frame(
 ) -> pd.DataFrame:
     frame = slow.merge(fast, on="datetime", how="inner")
     price = _price_from_frame(frame)
+    if composition == "budget_usage":
+        policy_frame = compose_budget_usage_policy_frame(
+            frame[["datetime", "slow_position"]],
+            frame[["datetime", "fast_position"]],
+            config,
+        )
+        out = replay_positions(policy_frame, "position", price, config.trade_threshold)
+        out["mode"] = policy_frame["mode"].to_numpy()
+        out["slow_position"] = policy_frame["slow_position"].to_numpy()
+        out["fast_position"] = policy_frame["fast_position"].to_numpy()
+        out["raw_two_speed_position"] = policy_frame["raw_two_speed_position"].to_numpy()
+        return out
+
     current = 0.0
     days_since_trade = config.trade_lock_days
     targets = []

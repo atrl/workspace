@@ -9,6 +9,8 @@ from src.soxl_quant.config import load_profile
 from src.soxl_quant.data import FEATURE_COLUMNS
 from src.soxl_quant.policy.policy_builder import (
     budget_usage_action_label,
+    budget_usage_action_label_from_position,
+    build_budget_usage_oracle_dataset_from_frame,
     build_budget_usage_warm_start_dataset_from_frame,
 )
 from src.soxl_quant.settings import LOOKBACK
@@ -45,6 +47,67 @@ def test_budget_usage_action_label_maps_usage_to_nearest_discrete_action():
     assert budget_usage_action_label(1.7, 5) == 4
 
 
+def test_budget_usage_action_label_from_position_uses_mode_band():
+    profile = load_profile("risk_budget_usage_v1")
+
+    assert budget_usage_action_label_from_position(0.25, "flat_wait", profile, 5) == 4
+    assert budget_usage_action_label_from_position(0.45, "trend_hold", profile, 5) == 0
+    assert budget_usage_action_label_from_position(0.95, "trend_hold", profile, 5) == 4
+
+
+def test_budget_usage_oracle_dataset_uses_daily_replay_labels():
+    profile = load_profile("risk_budget_usage_v1")
+    frame = _sample_frame()
+    daily = pd.DataFrame(
+        {
+            "datetime": frame["datetime"].iloc[LOOKBACK : LOOKBACK + 8].to_numpy(),
+            "position": [0.25, 0.25, 0.45, 0.95, 0.10, 0.45, 0.65, 0.00],
+            "mode": [
+                "flat_wait",
+                "flat_wait",
+                "trend_hold",
+                "trend_hold",
+                "defensive_hold",
+                "defensive_hold",
+                "crash_rebuild",
+                "flat_wait",
+            ],
+        }
+    )
+
+    obs, actions = build_budget_usage_oracle_dataset_from_frame(
+        frame,
+        replay_daily=daily,
+        profile=profile,
+        sample_size=0,
+    )
+
+    assert obs.shape[0] == len(daily)
+    assert actions.tolist() == [4, 4, 0, 4, 0, 4, 4, 0]
+
+
+def test_budget_usage_oracle_dataset_accepts_datetime_index():
+    profile = load_profile("risk_budget_usage_v1")
+    frame = _sample_frame()
+    daily = pd.DataFrame(
+        {
+            "datetime": frame["datetime"].iloc[LOOKBACK : LOOKBACK + 2].to_numpy(),
+            "position": [0.25, 0.95],
+            "mode": ["flat_wait", "trend_hold"],
+        }
+    )
+    indexed = frame.set_index("datetime")
+
+    _obs, actions = build_budget_usage_oracle_dataset_from_frame(
+        indexed,
+        replay_daily=daily,
+        profile=profile,
+        sample_size=0,
+    )
+
+    assert actions.tolist() == [4, 4]
+
+
 def test_budget_usage_bc_dataset_uses_expert_fast_position_as_usage_label():
     profile = load_profile("risk_budget_usage_v1")
     base_expert_profile = load_profile("balanced_rule_residual_imitation_v4")
@@ -79,5 +142,8 @@ def test_budget_usage_bc_dataset_uses_expert_fast_position_as_usage_label():
 
 if __name__ == "__main__":
     test_budget_usage_action_label_maps_usage_to_nearest_discrete_action()
+    test_budget_usage_action_label_from_position_uses_mode_band()
+    test_budget_usage_oracle_dataset_uses_daily_replay_labels()
+    test_budget_usage_oracle_dataset_accepts_datetime_index()
     test_budget_usage_bc_dataset_uses_expert_fast_position_as_usage_label()
     print("test_budget_usage_bc: OK")

@@ -284,6 +284,114 @@ def budget_usage_action_label(usage: float, n_actions: int) -> int:
     return int(np.argmin(np.abs(levels - clipped)))
 
 
+def budget_usage_action_label_from_position(
+    position: float,
+    mode: str,
+    profile: StrategyConfig,
+    n_actions: int,
+) -> int:
+    """Map an oracle target position back to a budget-usage action label."""
+
+    if profile.mode_router and getattr(profile.mode_router, "enabled", False):
+        floor, cap = mode_band(str(mode), profile.mode_router)
+    else:
+        floor, cap = (0.0, 1.0)
+    floor = float(floor)
+    cap = float(cap)
+    if cap <= floor:
+        usage = 0.0
+    else:
+        usage = (float(position) - floor) / (cap - floor)
+    return budget_usage_action_label(usage, n_actions)
+
+
+def build_budget_usage_oracle_dataset_from_frame(
+    df: pd.DataFrame,
+    replay_daily: pd.DataFrame,
+    profile: StrategyConfig,
+    sample_size: int = 2000,
+    rng_seed: int = 0,
+    asset_idx: int = 0,
+) -> tuple[np.ndarray, np.ndarray]:
+    """Build no-promotion BC labels from a replay daily path.
+
+    This is for representational-capacity diagnosis. Passing held-out replay
+    rows is allowed only for a no-promotion upper-bound experiment.
+    """
+
+    if len(df) <= LOOKBACK + 2:
+        raise ValueError("oracle budget-usage dataset requires a frame longer than LOOKBACK")
+    required = {"datetime", "position", "mode"}
+    missing = required.difference(replay_daily.columns)
+    if missing:
+        raise ValueError(f"replay daily missing required columns: {sorted(missing)}")
+
+    label_frame = replay_daily[list(required)].copy()
+    label_frame["datetime"] = pd.to_datetime(label_frame["datetime"])
+    label_by_date = {
+        pd.Timestamp(row["datetime"]).normalize(): (float(row["position"]), str(row["mode"]))
+        for _, row in label_frame.iterrows()
+    }
+
+    def row_date(idx: int) -> pd.Timestamp:
+        if "datetime" in df.columns:
+            return pd.Timestamp(df.iloc[idx]["datetime"]).normalize()
+        return pd.Timestamp(df.index[idx]).normalize()
+
+    feature_columns = feature_columns_for_packs(profile.feature.packs, profile.name)
+    target_action_count = len(profile.model.delta_levels) if profile.model.use_hybrid_overlay else len(action_levels_for_profile(profile))
+    price_path = build_price_path(df)
+    cash = 100_000.0
+    peak = cash
+    pos = 0.0
+    ledger = TrancheLedger()
+    obs_list: list[np.ndarray] = []
+    action_list: list[int] = []
+
+    for idx in range(LOOKBACK, len(df) - 1):
+        date = row_date(idx)
+        if date not in label_by_date:
+            continue
+        oracle_pos, oracle_mode = label_by_date[date]
+        obs = make_observation(
+            df,
+            idx,
+            pos,
+            cash,
+            peak,
+            ledger,
+            price_path,
+            asset_idx=asset_idx,
+            observation_window=profile.model.observation_window,
+            feature_columns=feature_columns,
+        )
+        label = budget_usage_action_label_from_position(
+            oracle_pos,
+            oracle_mode,
+            profile,
+            target_action_count,
+        )
+        obs_list.append(obs)
+        action_list.append(label)
+
+        next_ret = float(df.iloc[idx + 1]["return"])
+        cash *= 1.0 + oracle_pos * next_ret
+        peak = max(peak, cash)
+        ledger.update(pos, oracle_pos, float(price_path[idx]))
+        pos = oracle_pos
+
+    if not obs_list:
+        raise RuntimeError("oracle budget-usage dataset produced 0 samples")
+
+    if sample_size > 0 and len(obs_list) > sample_size:
+        rng = random.Random(rng_seed)
+        indices = sorted(rng.sample(range(len(obs_list)), int(sample_size)))
+        obs_list = [obs_list[i] for i in indices]
+        action_list = [action_list[i] for i in indices]
+
+    return np.stack(obs_list, axis=0), np.asarray(action_list, dtype=np.int64)
+
+
 def build_budget_usage_warm_start_dataset_from_frame(
     df: pd.DataFrame,
     profile: StrategyConfig,
@@ -503,6 +611,8 @@ __all__ = [
     "SoxlState",
     "actor_action",
     "budget_usage_action_label",
+    "budget_usage_action_label_from_position",
+    "build_budget_usage_oracle_dataset_from_frame",
     "build_budget_usage_warm_start_dataset_from_frame",
     "build_initial_states",
     "build_policy",

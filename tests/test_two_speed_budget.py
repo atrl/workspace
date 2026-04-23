@@ -1,7 +1,10 @@
 from __future__ import annotations
 
+import pandas as pd
+
 from src.soxl_quant.policy.two_speed_budget import (
     TwoSpeedBudgetConfig,
+    compose_budget_usage_policy_frame,
     compose_budget_usage_position,
     compose_two_speed_position,
     infer_mode_from_slow_position,
@@ -52,6 +55,20 @@ def test_compose_budget_usage_position_preserves_full_derisking():
     assert compose_budget_usage_position(0.0, "crash_rebuild", cfg) == 0.25
 
 
+def test_compose_budget_usage_policy_frame_keeps_audit_columns():
+    dates = pd.date_range("2020-01-01", periods=3, freq="B")
+    slow = pd.DataFrame({"datetime": dates, "slow_position": [0.20, 0.50, 0.70]})
+    fast = pd.DataFrame({"datetime": dates, "fast_position": [1.00, 0.00, 0.50]})
+    cfg = TwoSpeedBudgetConfig(trade_threshold=0.0, trade_lock_days=0)
+
+    out = compose_budget_usage_policy_frame(slow, fast, cfg)
+
+    assert out["mode"].tolist() == ["flat_wait", "crash_rebuild", "trend_hold"]
+    assert out["raw_two_speed_position"].round(4).tolist() == [0.25, 0.25, 0.70]
+    assert out["position"].round(4).tolist() == [0.25, 0.25, 0.70]
+    assert out["fast_usage"].tolist() == [1.0, 0.0, 0.5]
+
+
 if __name__ == "__main__":
     test_compose_two_speed_position_caps_fast_signal_by_mode_slack()
     test_compose_two_speed_position_keeps_fast_derisking()
@@ -59,4 +76,5 @@ if __name__ == "__main__":
     test_infer_mode_from_slow_position_maps_defensive_bands()
     test_compose_budget_usage_position_maps_fast_signal_inside_mode_band()
     test_compose_budget_usage_position_preserves_full_derisking()
+    test_compose_budget_usage_policy_frame_keeps_audit_columns()
     print("test_two_speed_budget: OK")
