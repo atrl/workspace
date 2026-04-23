@@ -4477,3 +4477,67 @@ Pack increases feature count from 59 → 66 (+7).
 - Run full 80-iteration training for v19_transition
 - If full training validates the hypothesis (return ≥ 500%, MaxDD improvement), promote to core
 - If not, keep as optional pack; the standalone signals are still valuable for signal-overlay strategies
+
+## risk_budget_usage_v1 cross-ETF stress/generalization — PLAN 2026-04-24
+
+- Goal: test the newly merged `risk_budget_usage_v1` mechanism under stricter
+  capability checks and across the supported 3x ETF universe.
+- Canonical baseline: fixed replay `risk_budget_usage_v1` on SOXL.
+- Direct comparison baseline: actor-backed `risk_budget_usage_v1` parity using
+  the retained `balanced_rule_residual_imitation_v4` actor.
+- Experiment role: `diagnose`.
+- Target improvement window: cross-ETF `test_proxy` and `bear_2022` stability
+  for `SOXL`, `TQQQ`, `UPRO`, `SPXL`, `TECL`.
+- Accepted trade-off window: non-SOXL ETF returns may trail buy-and-hold if
+  drawdown compression is clearly preserved; SOXL should remain directionally
+  consistent with the existing fixed replay.
+- Changed layer: `execution` + `data` evaluation only; no new training.
+- External reference: leveraged ETF volatility-drag / path-dependence literature
+  already cited in the v19 academic factor notes, especially Cheng & Madhavan
+  (2009); this loop tests whether the budget/mode mechanism survives related
+  3x ETF paths rather than fitting SOXL only.
+- Closest historical success case: fixed replay `risk_budget_usage_v1`
+  (`test_proxy 2003.6% / Sharpe 1.248 / MaxDD 45.0%`, `test_2022 MaxDD 25.6%`).
+- Closest historical failure case: multi-asset `refined_v3` shared actor and
+  actor-backed `risk_budget_usage_v1`; both showed that SOXL-tuned behavior
+  does not automatically generalize.
+- Why not duplicate: this is not another threshold drift; it freezes the
+  composer/runtime mapping and changes only the evaluation universe. The loop
+  explicitly separates fixed SOXL signal transfer from actor-backed budget
+  mapping because the retained `mode_v1` actor bundle is not currently present.
+- Comparison-table row: `risk_budget_usage_v1_cross_etf`.
+- Planned commands:
+  - `PYTHONPATH=. qlib_venv/bin/python scripts/check_harness.py`
+  - add/run a repo-owned diagnostic script that writes
+    `runtime/post_train_review/risk_budget_usage_v1_cross_etf.{json,md}`
+  - `PYTHONPATH=. qlib_venv/bin/python scripts/check_harness.py`
+- Result:
+  - Harness pre-check passed: `passed=56 failures=0`.
+  - Added `scripts/risk_budget_usage_cross_etf.py`.
+  - Corrected the first run because actor/runtime backtest omitted
+    `mode_router_config` and profile feature columns; final run passes both.
+  - Command:
+    `PYTHONPATH=. qlib_venv/bin/python scripts/risk_budget_usage_cross_etf.py`
+  - Fixed SOXL signal transfer:
+    - `SOXL`: `2030.3% / Sharpe 1.252 / MaxDD 44.9%`
+    - `TQQQ`: `823.4% / Sharpe 1.287 / MaxDD 29.6%`
+    - `UPRO`: `427.4% / Sharpe 1.148 / MaxDD 22.8%`
+    - `SPXL`: `429.7% / Sharpe 1.154 / MaxDD 22.9%`
+    - `TECL`: `965.5% / Sharpe 1.260 / MaxDD 30.6%`
+  - Actor budget runtime:
+    - `SOXL`: `144.4% / Sharpe 0.827 / MaxDD 22.1%`
+    - `TQQQ`: `51.2% / Sharpe 0.473 / MaxDD 22.7%`
+    - `UPRO`: `35.2% / Sharpe 0.436 / MaxDD 22.3%`
+    - `SPXL`: `28.1% / Sharpe 0.372 / MaxDD 22.9%`
+    - `TECL`: `46.0% / Sharpe 0.429 / MaxDD 23.7%`
+  - Artifacts:
+    - `runtime/post_train_review/risk_budget_usage_v1_cross_etf.json`
+    - `runtime/post_train_review/risk_budget_usage_v1_cross_etf.md`
+    - `runtime/post_train_review/risk_budget_usage_v1_cross_etf_daily/`
+- Decision:
+  - keep the diagnostic and fixed signal transfer evidence
+  - do not promote actor/runtime path; it generalizes risk compression but not
+    return participation
+  - next: recover/regenerate the `mode_v1` actor if a true two-actor zero-shot
+    composer is required; otherwise keep the fixed replay as a research
+    counterfactual only

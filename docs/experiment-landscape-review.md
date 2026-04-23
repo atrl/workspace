@@ -509,6 +509,7 @@ The repo has reached a **fundamental frontier** for single-asset 3x leveraged ET
 | two_speed_mode_budget_v1 | execution_gate | mode_v1 + imitation_v4 | fixed-signal slow mode anchor + fast participation slack replay | 1398.3% | 1.10 | 51.6% | 33.9% | 156.7% | 31.4% | dropped — proxy/restart improved, strict 2022 DD still fails |
 | risk_budget_usage_v1 | execution_gate | mode_v1 + imitation_v4 | fixed-signal mode risk bands + fast path as budget usage ratio | 2003.6% | 1.25 | 45.0% | 25.6% | 127.8% | 32.1% | candidate replay — passes all fixed-replay gates; needs runtime/backtest parity |
 | risk_budget_oracle_distill_v1 | diagnostic | risk_budget_usage_v1 | no-promotion full-replay oracle BC capacity probe | 363.8% | 1.09 | 23.7% | 11.0% | 58.5% | 19.3% | dropped — even held-out replay labels do not recover fixed replay upside in one actor |
+| risk_budget_usage_v1_cross_etf | diagnostic | risk_budget_usage_v1 | fixed SOXL signal transfer + actor budget runtime across SOXL/TQQQ/UPRO/SPXL/TECL | fixed 427-2030%; actor 28-144% | fixed 1.15-1.29; actor 0.37-0.83 | fixed 22.8-44.9%; actor 22.1-23.7% | fixed 15.7-29.2%; actor 13.7-22.0% | fixed 33-183%; actor 4-36% | fixed 13.9-39.0%; actor 4.8-23.3% | diagnostic — fixed timing path transfers, deployable actor/runtime participation does not |
 
 ### Key Conclusions
 
@@ -665,3 +666,39 @@ the fixed replay's `2003.6%` proxy return. The next valid iteration should stop
 trying to compress the two-speed mechanism into one PPO actor and instead keep a
 separate, auditable policy composer where the mode layer owns risk bands and the
 fast layer supplies budget usage.
+
+## 2026-04-23: Risk-Budget Cross-ETF Diagnostic
+
+This diagnostic froze the merged `risk_budget_usage_v1` mechanism and tested two
+separable capabilities across the supported 3x ETF universe:
+
+- `fixed_signal_transfer`: apply the existing SOXL fixed replay position path to
+  each ETF's own price series.
+- `actor_budget_runtime`: run the retained `balanced_rule_residual_imitation_v4`
+  actor under the `risk_budget_usage_v1` budget-usage mapping on each ETF.
+
+The retained `balanced_rule_residual_mode_v1` actor bundle is absent, so this is
+not a full two-actor zero-shot composer. It is a stress test that separates
+path-timing transfer from deployable actor/runtime transfer.
+
+Result:
+
+- Fixed SOXL signal transfer remained strong on all ETFs:
+  - `SOXL`: `2030.3% / Sharpe 1.252 / MaxDD 44.9%`
+  - `TQQQ`: `823.4% / Sharpe 1.287 / MaxDD 29.6%`
+  - `UPRO`: `427.4% / Sharpe 1.148 / MaxDD 22.8%`
+  - `SPXL`: `429.7% / Sharpe 1.154 / MaxDD 22.9%`
+  - `TECL`: `965.5% / Sharpe 1.260 / MaxDD 30.6%`
+- Actor budget runtime preserved drawdown compression but lost most
+  participation:
+  - `SOXL`: `144.4% / Sharpe 0.827 / MaxDD 22.1%`
+  - `TQQQ`: `51.2% / Sharpe 0.473 / MaxDD 22.7%`
+  - `UPRO`: `35.2% / Sharpe 0.436 / MaxDD 22.3%`
+  - `SPXL`: `28.1% / Sharpe 0.372 / MaxDD 22.9%`
+  - `TECL`: `46.0% / Sharpe 0.429 / MaxDD 23.7%`
+
+Decision: keep the cross-ETF diagnostic tool and the fixed-signal result as
+evidence that the timing path is not SOXL-only in a narrow price-transfer sense.
+Do not promote the actor/runtime path: it generalizes risk compression, not
+return participation. The missing frontier remains an auditable two-actor
+composer or a recoverable mode actor bundle, not more single-actor PPO tuning.

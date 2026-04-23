@@ -2211,6 +2211,33 @@
     "excerpt": "# Position Budget Productionization Smoke ## Context The bottleneck review showed reward-only tuning and architecture swaps are not the current frontier. The repeated failure is selective participation under risk: the harness can suppress exposure, but it still struggles to loose"
   },
   {
+    "path": "memory/2026-04-23-risk-budget-cross-etf.md",
+    "date": "2026-04-23",
+    "title": "Risk-budget usage cross-ETF diagnostic",
+    "kind": "review",
+    "profiles": [
+      "risk_budget_usage_v1",
+      "balanced_rule_residual_imitation_v4"
+    ],
+    "status": "dropped",
+    "tags": [
+      "risk_budget_usage_v1",
+      "balanced_rule_residual_imitation_v4",
+      "dropped",
+      "execution-overlay",
+      "generalization",
+      "review"
+    ],
+    "artifacts": [
+      "runtime/post_train_review/risk_budget_usage_v1_cross_etf.json",
+      "runtime/post_train_review/risk_budget_usage_v1_cross_etf.md",
+      "runtime/post_train_review/risk_budget_usage_v1_cross_etf_daily/"
+    ],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Cross-ETF diagnostic split risk_budget_usage_v1 into fixed SOXL signal transfer and actor budget runtime. The fixed signal transferred strongly across SOXL/TQQQ/UPRO/SPXL/TECL, but the deployable actor/runtime path produced only 28-144% proxy return with Sharpe 0.37-0.83. Keep the diagnostic; do not promote actor runtime.",
+    "excerpt": "# Risk-budget usage cross-ETF diagnostic ## Context `risk_budget_usage_v1` fixed replay is strong on SOXL, but previous actor parity and oracle distillation showed the single actor cannot reproduce the fixed composer. This loop tested whether the mechanism survives the supported 3x ETF universe."
+  },
+  {
     "path": "memory/2026-04-23-risk-budget-oracle-distillation.md",
     "date": "2026-04-23",
     "title": "Risk-budget oracle distillation and composer extraction",
