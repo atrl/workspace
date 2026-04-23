@@ -145,6 +145,10 @@ def load_json(path: Path):
     return json.loads(path.read_text(encoding="utf-8"))
 
 
+def load_json_or(path: Path, default):
+    return load_json(path) if path.exists() else default
+
+
 def load_csv_rows(path: Path) -> list[dict[str, object]]:
     with path.open("r", encoding="utf-8") as f:
         reader = csv.DictReader(f)
@@ -595,7 +599,8 @@ def _load_versioned_data(features: dict[str, dict[str, float]] | None) -> dict[s
 
 
 def build_payload() -> dict[str, object]:
-    detailed_summary = load_json(DETAIL_DIR / "summary.json")
+    detailed_summary_path = DETAIL_DIR / "summary.json"
+    detailed_summary = load_json(detailed_summary_path) if detailed_summary_path.exists() else []
     detailed_rows = {}
     windows = {}
     features = load_features()
@@ -655,10 +660,12 @@ def build_payload() -> dict[str, object]:
         "versioned": versioned,
         "best_version": best_version,
         "latest_version": latest_version,
-        "results": load_json(RUNTIME_DIR / "results.json"),
-        "rule_based": load_json(RUNTIME_DIR / "rule_based_results.json"),
-        "execution_overlay": load_json(RUNTIME_DIR / "execution_overlay_results.json"),
-        "execution_review": (RUNTIME_DIR / "execution_overlay_review.md").read_text(encoding="utf-8"),
+        "results": load_json_or(RUNTIME_DIR / "results.json", {}),
+        "rule_based": load_json_or(RUNTIME_DIR / "rule_based_results.json", {}),
+        "execution_overlay": load_json_or(RUNTIME_DIR / "execution_overlay_results.json", {}),
+        "execution_review": (RUNTIME_DIR / "execution_overlay_review.md").read_text(encoding="utf-8")
+        if (RUNTIME_DIR / "execution_overlay_review.md").exists()
+        else "",
         "model_versions": model_versions,
     }
 

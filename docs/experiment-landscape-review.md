@@ -502,6 +502,7 @@ The repo has reached a **fundamental frontier** for single-asset 3x leveraged ET
 | balanced_rule_residual_imitation_v5 | ablation | v16 | v4 + episodic=4.0 | 573.7% | 0.87 | 52.0% | 32.4% | 40.7% | 33.1% | dropped — worse than v4 |
 | balanced_rule_residual_imitation_v6 | ablation | v16 | v4 + hard_floor=0.10 | 481.6% | 0.81 | 53.2% | 34.3% | 42.5% | 36.0% | dropped — worse than v4 |
 | balanced_rule_residual_imitation_v7 | ablation | v16 | v2/v4 compromise | 686.3% | 0.93 | 52.2% | 31.9% | 40.4% | 33.3% | dropped — worse than v4 |
+| balanced_rule_residual_imitation_v4_budget | execution_gate | v4 | config-owned regime-conditional position budget, smoke seed=12345 | 721.1% | 0.94 | 51.0% | 36.3% | 38.6% | 41.5% | candidate scaffold only — mechanism runs, smoke actor fails strict DD gate |
 
 ### Key Conclusions
 
@@ -523,3 +524,21 @@ The repo has reached a **fundamental frontier** for single-asset 3x leveraged ET
 - The 30% MaxDD is caused by cumulative effect of 15% position × (-18%) daily market drops
 
 **Revised recommendation:** v4 is the better candidate. The 1.7pp MaxDD difference vs v2 is negligible compared to the 17.8pp return improvement in test_2023_2024.
+
+## 2026-04-23: Position Budget Productionization
+
+The next implementation converted the drawdown-budget prototype into a
+config-owned `position_budget` layer used by evaluation, qlib backtest, runtime
+signal generation, and training action interpretation.
+
+Key result from `balanced_rule_residual_imitation_v4_budget` smoke, seed 12345:
+
+- `test_proxy`: `721.1% / Sharpe 0.94 / MaxDD 51.0%`
+- `test_2022`: `-33.5% / Sharpe -1.34 / MaxDD 36.3% / avg_pos 0.271`
+- `test_2023_2024`: `38.6% / Sharpe 0.62 / MaxDD 41.5%`
+- qlib backtest: `577.3% / Sharpe 0.86 / MaxDD 50.2% / 305 trades`
+
+Decision: keep the position-budget plumbing and candidate scaffold, but do not
+promote the smoke actor. The evidence reinforces the current bottleneck:
+conditional hard constraints are useful infrastructure, but budgeted retraining
+does not by itself solve selective restart participation.

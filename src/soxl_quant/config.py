@@ -107,6 +107,19 @@ class PositionCapConfig:
 
 
 @dataclass(frozen=True)
+class PositionBudgetConfig:
+    enabled: bool = False
+    budget: float = 0.30
+    regime_threshold: float = 0.60
+    thresholds: Tuple[Tuple[float, float, float], ...] = (
+        (0.0, 0.30, 1.00),
+        (0.30, 0.60, 0.70),
+        (0.60, 0.90, 0.45),
+        (0.90, float("inf"), 0.15),
+    )
+
+
+@dataclass(frozen=True)
 class PromotionGateConfig:
     max_test_2022_drawdown: float = 35.0
     max_test_2022_avg_pos: float = 0.35
@@ -287,6 +300,7 @@ class StrategyConfig:
     reward: RewardConfig
     feature: FeatureConfig = field(default_factory=FeatureConfig)
     position_cap: PositionCapConfig = field(default_factory=PositionCapConfig)
+    position_budget: PositionBudgetConfig = field(default_factory=PositionBudgetConfig)
     promotion_gate: PromotionGateConfig = field(default_factory=PromotionGateConfig)
     selection_score: SelectionScoreConfig = field(default_factory=SelectionScoreConfig)
     execution: ExecutionConfig = field(default_factory=ExecutionConfig)
@@ -348,6 +362,12 @@ def load_profile(name: str) -> StrategyConfig:
         feature_payload["packs"] = tuple(str(v) for v in feature_payload["packs"])
     feature = FeatureConfig(**feature_payload)
     position_cap = PositionCapConfig(**payload.get("position_cap", {}))
+    budget_payload = dict(payload.get("position_budget", {}))
+    if "thresholds" in budget_payload:
+        budget_payload["thresholds"] = tuple(
+            tuple(float(v) for v in row) for row in budget_payload["thresholds"]
+        )
+    position_budget = PositionBudgetConfig(**budget_payload)
     promotion_gate = PromotionGateConfig(**payload.get("promotion_gate", {}))
     selection_payload = dict(payload.get("selection_score", {}))
     if "pareto_objectives" in selection_payload:
@@ -388,6 +408,7 @@ def load_profile(name: str) -> StrategyConfig:
         reward=reward,
         feature=feature,
         position_cap=position_cap,
+        position_budget=position_budget,
         promotion_gate=promotion_gate,
         selection_score=selection_score,
         execution=execution,

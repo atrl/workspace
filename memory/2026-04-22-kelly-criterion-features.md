@@ -1,4 +1,33 @@
+---
+date: '2026-04-22'
+title: "Kelly Criterion Dynamic Position Control \u2014 Implementation"
+kind: failure
+profiles:
+- balanced_kelly_dynamic_v5
+- soxl
+status: dropped
+tags:
+- balanced_kelly_dynamic_v5
+- dropped
+- eval-2022
+- failure
+- soxl
+- walk-forward
+artifacts: []
+workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+summary: Legacy memory note normalized into the repo-wide schema. Implemented rolling
+  Kelly criterion features and Kelly tracking reward penalty to address the fixed
+  low-position collapse observed in v2/v4 models. 1. **`src/soxl_quant/data.py`**
+  Add
+---
+
 # Kelly Criterion Dynamic Position Control — Implementation
+
+## Context
+
+Legacy memory note normalized into the repo-wide schema.
+
+## Evidence
 
 ## What Was Done
 
@@ -64,3 +93,11 @@ Watch for:
 - Dynamic position in 2022 (pos_std > 0.10 vs v4's ~0.05)
 - Walk-forward 2023-2024 return improvement (target > 80%)
 - test_2022 MaxDD staying < 33%
+
+## Decision
+
+See the summary and status fields in front matter.
+
+## Next Use
+
+Use `scripts/memory_search.py` before opening additional memory files.

@@ -1,25 +1,35 @@
 ---
 date: '2026-04-22'
-title: Learned Mode Classifier + Hybrid Experiments — Full Results
-type: review
+title: "Learned Mode Classifier + Hybrid Experiments \u2014 Full Results"
+kind: failure
 profiles:
-- balanced_rule_residual_v19
-- balanced_rule_residual_mode_v1
 - balanced_rule_residual_learned_mode_v1
+- balanced_rule_residual_mode_v1
+- balanced_rule_residual_v19
+- moe
+- soxl
 status: reference
 tags:
-- learned-mode-router
-- mode-classifier
-- drawdown-budget
-- actor-ensemble
-- approach-a
-- approach-c
-- hybrid
-- phase1
-- transition-discrimination
-- fundamental-frontier
+- balanced_rule_residual_learned_mode_v1
+- balanced_rule_residual_mode_v1
+- balanced_rule_residual_v19
+- eval-2022
+- execution-overlay
+- failure
+- moe
+- reference
+- rule-based
+- soxl
+- transition-features
+- walk-forward
+artifacts: []
 workpad: /Users/rziiiii/.kimi/plans/guy-gardner-black-hawk-silk.md
-summary: 'Comprehensive evaluation of three architectural approaches to break the 40% drawdown barrier. Learned mode classifier achieves 38.2% MaxDD on fixed actor but training adapts away from it. Regime-conditional budget masking preserves return while modestly improving drawdown. Actor ensemble fails. No configuration achieves 30% proxy MaxDD without large return sacrifice. The frontier appears to be ~35-42% for this leverage level and asset class.'
+summary: Comprehensive evaluation of three architectural approaches to break the 40%
+  drawdown barrier. Learned mode classifier achieves 38.2% MaxDD on fixed actor but
+  training adapts away from it. Regime-conditional budget masking preserves return
+  while modestly improving drawdown. Actor ensemble fails. No configuration achieves
+  30% proxy MaxDD without large return sacrifice. The frontier appears to be ~35-42%
+  for this leverage level and asset class.
 ---
 
 # Learned Mode Classifier + Hybrid Experiments — Full Results

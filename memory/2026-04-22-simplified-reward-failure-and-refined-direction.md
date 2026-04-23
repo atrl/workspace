@@ -3,22 +3,31 @@ date: '2026-04-22'
 title: Simplified Reward Failure and Refined Direction
 kind: review
 profiles:
-- balanced_rule_residual_simplified_v1
-- balanced_rule_residual_refined_v1
-status: in_progress
+- soxl
+status: reference
 tags:
-- reward
-- cash-respect
-- multi-asset
-- network-size
+- eval-2022
+- in_progress
+- review
+- soxl
+- stress-regime
+artifacts: []
 workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
-artifacts:
-- experiments/candidate/balanced_rule_residual_simplified_v1/
-- experiments/candidate/balanced_rule_residual_refined_v1/
-summary: 'simplified_v1 failed: proxy MaxDD 58.5% vs v19 54.8%. Root cause: stripping reward removed necessary guardrails (stale_position, trapped_loser, downside_signal, risk_budget). User wants: cash respected, conflicting gradients reduced, generalization to other 3x ETFs. New approach: remove activity_bonus (forced trading), reduce inactivity_penalty, strengthen risk guardrails, keep proven components. Network returns to [128,64]+GRU-64. Multi-asset joint training is the next frontier after single-asset reward is fixed.'
+summary: 'simplified_v1 failed: proxy MaxDD 58.5% vs v19 54.8%. Root cause: stripping
+  reward removed necessary guardrails (stale_position, trapped_loser, downside_signal,
+  risk_budget). User wants: cash respected, conflicting gradients reduced, generalization
+  to other 3x ETFs. New approach: remove activity_bonus (forced trading), reduce inactivity_penalty,
+  strengthen risk guardrails, keep proven components. Network returns to [128,64]+GRU-64.
+  Multi-asset joint training is the next frontier after single-asset reward is fixed.'
 ---
 
 # Simplified Reward Failure and Refined Direction
+
+## Context
+
+Legacy memory note normalized into the repo-wide schema.
+
+## Evidence
 
 ## What happened with simplified_v1
 
@@ -132,3 +141,11 @@ conviction.
   return without sacrificing DD control.
 - Next: evaluate multi-asset results. If SOXL in-domain DD stays < 55% and
   return improves vs single-asset refined_v3, keep as candidate.
+
+## Decision
+
+See the summary and status fields in front matter.
+
+## Next Use
+
+Use `scripts/memory_search.py` before opening additional memory files.

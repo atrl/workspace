@@ -41,7 +41,7 @@ from .policy.modes import ModeState, mode_band, route_mode
 from .policy.observation import make_observation
 from .policy.policy_builder import actor_action
 from .policy.positioning import target_position_for_profile
-from .settings import ACCOUNT, LOOKBACK, ExecutionConfig, PositionCapConfig, RESULT_PNG, RESULT_TXT, TEST_SEG
+from .settings import ACCOUNT, LOOKBACK, ExecutionConfig, PositionBudgetConfig, PositionCapConfig, RESULT_PNG, RESULT_TXT, TEST_SEG
 
 
 class RLStrategy(BaseStrategy):
@@ -52,6 +52,7 @@ class RLStrategy(BaseStrategy):
         feature_df: pd.DataFrame,
         price_series: pd.Series,
         position_cap_config: PositionCapConfig,
+        position_budget_config: PositionBudgetConfig | None = None,
         execution_config: ExecutionConfig | None = None,
         mode_router_config=None,
         symbol: str = "SOXL",
@@ -65,6 +66,7 @@ class RLStrategy(BaseStrategy):
         self.df = feature_df        # 测试集特征矩阵
         self.price_series = price_series  # 对齐的价格序列
         self.position_cap_config = position_cap_config
+        self.position_budget_config = position_budget_config
         self.execution_config = execution_config or ExecutionConfig()
         self.mode_router_config = mode_router_config
         self.symbol = symbol        # 当前交易的 ETF 代码
@@ -153,6 +155,8 @@ class RLStrategy(BaseStrategy):
             use_hybrid_overlay=bool(getattr(model_cfg, "use_hybrid_overlay", False)) if model_cfg else False,
             delta_levels=np.asarray(getattr(model_cfg, "delta_levels", ()), dtype=np.float32) if model_cfg and getattr(model_cfg, "use_hybrid_overlay", False) else None,
             mode_band=mode_band(self.mode_state.name, mode_router_cfg) if mode_router_cfg and getattr(mode_router_cfg, "enabled", False) else None,
+            position_budget_config=self.position_budget_config,
+            current_drawdown=max(1.0 - account_value / max(self.peak_account_value, 1e-8), 0.0),
         )
         direction = "buy" if target_pos > current_pos else ("sell" if target_pos < current_pos else "neutral")
         min_rebalance = rebalance_threshold(
@@ -208,6 +212,7 @@ def backtest_profile(
     feature_df: pd.DataFrame,
     price_series: pd.Series,
     position_cap_config: PositionCapConfig,
+    position_budget_config: PositionBudgetConfig | None = None,
     execution_config: ExecutionConfig | None = None,
     mode_router_config=None,
     symbol: str = "SOXL",
@@ -232,6 +237,7 @@ def backtest_profile(
         feature_df=feature_df,
         price_series=price_series,
         position_cap_config=position_cap_config,
+        position_budget_config=position_budget_config,
         execution_config=execution_config,
         mode_router_config=mode_router_config,
         symbol=symbol,

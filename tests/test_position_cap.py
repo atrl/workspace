@@ -9,8 +9,14 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from src.soxl_quant.data import FEATURE_COLUMNS, STATIC_INDEX
-from src.soxl_quant.policy.positioning import action_to_position, drawdown_position_cap, hybrid_overlay_position
-from src.soxl_quant.settings import EXTRA_OBS_DIM, N_ACTIONS, PositionCapConfig
+from src.soxl_quant.policy.positioning import (
+    action_to_position,
+    drawdown_position_cap,
+    hybrid_overlay_position,
+    max_position_for_budget,
+    target_position_for_profile,
+)
+from src.soxl_quant.settings import EXTRA_OBS_DIM, N_ACTIONS, PositionBudgetConfig, PositionCapConfig
 
 
 def make_obs(cum_drop_30: float, regime_risk: float = 0.2, anchor_gap_180: float = 0.03, anchor_slope_180: float = 0.01) -> np.ndarray:
@@ -72,10 +78,47 @@ def test_hybrid_overlay_position_clips_delta_inside_current_band():
     assert 0.4 <= pos <= 1.0
 
 
+def test_max_position_for_budget_uses_consumed_budget_buckets():
+    cfg = PositionBudgetConfig(enabled=True, budget=0.30)
+
+    assert max_position_for_budget(0.05, cfg) == 1.00
+    assert max_position_for_budget(0.12, cfg) == 0.70
+    assert max_position_for_budget(0.21, cfg) == 0.45
+    assert max_position_for_budget(0.30, cfg) == 0.15
+
+
+def test_position_budget_only_caps_high_regime_rows():
+    cfg = PositionBudgetConfig(enabled=True, budget=0.30, regime_threshold=0.60)
+    calm_obs = make_obs(cum_drop_30=-0.02, regime_risk=0.59, anchor_gap_180=0.06, anchor_slope_180=0.01)
+    stress_obs = make_obs(cum_drop_30=-0.02, regime_risk=0.60, anchor_gap_180=0.06, anchor_slope_180=0.01)
+
+    calm_pos = target_position_for_profile(
+        2,
+        calm_obs,
+        delta_levels=np.asarray([-0.5, 0.0, 0.5], dtype=np.float32),
+        use_hybrid_overlay=True,
+        position_budget_config=cfg,
+        current_drawdown=0.21,
+    )
+    stress_pos = target_position_for_profile(
+        2,
+        stress_obs,
+        delta_levels=np.asarray([-0.5, 0.0, 0.5], dtype=np.float32),
+        use_hybrid_overlay=True,
+        position_budget_config=cfg,
+        current_drawdown=0.21,
+    )
+
+    assert calm_pos > 0.45
+    assert stress_pos == 0.45
+
+
 if __name__ == "__main__":
     test_drawdown_position_cap_thresholds()
     test_action_to_position_applies_hard_cap_from_cumulative_drop()
     test_drawdown_position_cap_respects_delayed_start_config()
     test_drawdown_position_cap_supports_slower_non_linear_ramp()
     test_hybrid_overlay_position_clips_delta_inside_current_band()
+    test_max_position_for_budget_uses_consumed_budget_buckets()
+    test_position_budget_only_caps_high_regime_rows()
     print("test_position_cap: OK")

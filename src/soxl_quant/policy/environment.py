@@ -412,6 +412,7 @@ class PositionAction(ActionInterpreter):
         use_hybrid_overlay: bool = False,
         delta_levels: Optional[np.ndarray] = None,
         mode_router_config=None,
+        position_budget_config=None,
     ):
         super().__init__()
         self.n_actions = n_actions
@@ -424,6 +425,7 @@ class PositionAction(ActionInterpreter):
             dtype=np.float32,
         )
         self.mode_router_config = mode_router_config
+        self.position_budget_config = position_budget_config
 
     @property
     def action_space(self):
@@ -454,6 +456,8 @@ class PositionAction(ActionInterpreter):
             use_hybrid_overlay=self.use_hybrid_overlay,
             delta_levels=self.delta_levels if self.use_hybrid_overlay else None,
             mode_band=mode_band(current_mode, self.mode_router_config) if current_mode else None,
+            position_budget_config=self.position_budget_config,
+            current_drawdown=float(state.get("drawdown", 0.0)),
         )
 
 

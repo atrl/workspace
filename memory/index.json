@@ -1954,6 +1954,146 @@
     "excerpt": "# 2026-04-22 balanced_rule_residual_mode_v2 result ## Context Second mode-hierarchy run after `balanced_rule_residual_mode_v1`. This loop had two goals: - move mode behavior out of hard-coded helpers and into profile config - test whether looser favorable modes could recover upsi"
   },
   {
+    "path": "memory/2026-04-22-imitation-bonus-full-experiment.md",
+    "date": "2026-04-22",
+    "title": "2026-04-22: Rulebase Imitation Bonus — Full Experiment Series (v1-v7)",
+    "kind": "review",
+    "profiles": [],
+    "status": "kept",
+    "tags": [
+      "eval-2022",
+      "kept",
+      "review",
+      "walk-forward"
+    ],
+    "artifacts": [],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Legacy memory note normalized into the repo-wide schema. 针对跑不过rulebase的问题，如果在rulebase的\"埋点\"上给超额奖励，能提高学习rulebase的能力吗？ Imitation bonus DOES improve the model's ability to learn rulebase timing, as evidenced by v1's 812% proxy return (vs v16 ba",
+    "excerpt": "# 2026-04-22: Rulebase Imitation Bonus — Full Experiment Series (v1-v7) ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## Original Question 针对跑不过rulebase的问题，如果在rulebase的\"埋点\"上给超额奖励，能提高学习rulebase的能力吗？ ## Answer: Yes, but with important caveats Imita"
+  },
+  {
+    "path": "memory/2026-04-22-imitation-bonus-test2022-correction.md",
+    "date": "2026-04-22",
+    "title": "2026-04-22: CRITICAL CORRECTION — test_2022 Diagnosis",
+    "kind": "decision",
+    "profiles": [
+      "soxl"
+    ],
+    "status": "reference",
+    "tags": [
+      "decision",
+      "eval-2022",
+      "reference",
+      "soxl",
+      "walk-forward"
+    ],
+    "artifacts": [],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Legacy memory note normalized into the repo-wide schema. Initial diagnosis claimed the model went 100% position right before the Oct 2022 crash: ``` 2022-10-07: model_pos=1.00, market=-17.69% → single day -17.7% ``` Root cause identified as",
+    "excerpt": "# 2026-04-22: CRITICAL CORRECTION — test_2022 Diagnosis ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## Original (Wrong) Conclusion Initial diagnosis claimed the model went 100% position right before the Oct 2022 crash: ``` 2022-10-07: model_pos"
+  },
+  {
+    "path": "memory/2026-04-22-imitation-bonus-v1.md",
+    "date": "2026-04-22",
+    "title": "2026-04-22: Rulebase Imitation Bonus v1",
+    "kind": "review",
+    "profiles": [
+      "balanced_rule_residual_imitation_v1",
+      "soxl"
+    ],
+    "status": "dropped",
+    "tags": [
+      "balanced_rule_residual_imitation_v1",
+      "checkpoint-selection",
+      "dropped",
+      "eval-2022",
+      "review",
+      "soxl"
+    ],
+    "artifacts": [],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Legacy memory note normalized into the repo-wide schema. 针对跑不过rulebase的问题，如果在rulebase的\"埋点\"上给超额奖励，能提高学习rulebase的能力吗？ Rulebase: 688.6% / 0.824 / 69.88% (45 trades) v16 best model: 632.4% / 0.91 / 50.1% Gap: model underperforms by 56pp on raw",
+    "excerpt": "# 2026-04-22: Rulebase Imitation Bonus v1 ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## Question 针对跑不过rulebase的问题，如果在rulebase的\"埋点\"上给超额奖励，能提高学习rulebase的能力吗？ ## Analysis - Rulebase: 688.6% / 0.824 / 69.88% (45 trades) - v16 best model: 632.4% / "
+  },
+  {
+    "path": "memory/2026-04-22-kelly-criterion-features.md",
+    "date": "2026-04-22",
+    "title": "Kelly Criterion Dynamic Position Control — Implementation",
+    "kind": "failure",
+    "profiles": [
+      "balanced_kelly_dynamic_v5",
+      "soxl"
+    ],
+    "status": "dropped",
+    "tags": [
+      "balanced_kelly_dynamic_v5",
+      "dropped",
+      "eval-2022",
+      "failure",
+      "soxl",
+      "walk-forward"
+    ],
+    "artifacts": [],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Legacy memory note normalized into the repo-wide schema. Implemented rolling Kelly criterion features and Kelly tracking reward penalty to address the fixed low-position collapse observed in v2/v4 models. 1. **`src/soxl_quant/data.py`** Add",
+    "excerpt": "# Kelly Criterion Dynamic Position Control — Implementation ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## What Was Done Implemented rolling Kelly criterion features and Kelly tracking reward penalty to address the fixed low-position collapse o"
+  },
+  {
+    "path": "memory/2026-04-22-learned-mode-classifier-and-hybrid-experiments.md",
+    "date": "2026-04-22",
+    "title": "Learned Mode Classifier + Hybrid Experiments — Full Results",
+    "kind": "failure",
+    "profiles": [
+      "balanced_rule_residual_learned_mode_v1",
+      "balanced_rule_residual_mode_v1",
+      "balanced_rule_residual_v19",
+      "moe",
+      "soxl"
+    ],
+    "status": "reference",
+    "tags": [
+      "balanced_rule_residual_learned_mode_v1",
+      "balanced_rule_residual_mode_v1",
+      "balanced_rule_residual_v19",
+      "eval-2022",
+      "execution-overlay",
+      "failure",
+      "moe",
+      "reference",
+      "rule-based",
+      "soxl",
+      "transition-features",
+      "walk-forward"
+    ],
+    "artifacts": [],
+    "workpad": "/Users/rziiiii/.kimi/plans/guy-gardner-black-hawk-silk.md",
+    "summary": "Comprehensive evaluation of three architectural approaches to break the 40% drawdown barrier. Learned mode classifier achieves 38.2% MaxDD on fixed actor but training adapts away from it. Regime-conditional budget masking preserves return while modestly improving drawdown. Actor ensemble fails. No configuration achieves 30% proxy MaxDD without large return sacrifice. The frontier appears to be ~35-42% for this leverage level and asset class.",
+    "excerpt": "# Learned Mode Classifier + Hybrid Experiments — Full Results ## Context Plan: Breaking the 40% Drawdown Barrier. Three approaches tested: - **A:** Learned hierarchical risk budget (learned mode classifier replacing rule-based) - **B:** Supervised MoE gate with tail-risk auxiliar"
+  },
+  {
+    "path": "memory/2026-04-22-minimal-reward-v1-results.md",
+    "date": "2026-04-22",
+    "title": "Minimal Reward v1 Results — Hypothesis Rejected",
+    "kind": "failure",
+    "profiles": [
+      "balanced_rule_residual_minimal_v1"
+    ],
+    "status": "reference",
+    "tags": [
+      "balanced_rule_residual_minimal_v1",
+      "checkpoint-selection",
+      "eval-2022",
+      "execution-overlay",
+      "failure",
+      "reference",
+      "stress-regime"
+    ],
+    "artifacts": [],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Minimal reward (5 terms) + regime budget in training produced 492.3%/0.85/48.8% — identical to v12/v13 baseline. Training degraded from iter 0 (random init was best). The \"extra\" reward terms (activity_bonus, profit_taking, panic_buy, opportunity_cost) contribute ~140pp of return. Participation signals are necessary, not noise. Budget overlay works on fixed actors, not during training.",
+    "excerpt": "# Minimal Reward v1 Results — Hypothesis Rejected ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## Experiment - **Profile**: `balanced_rule_residual_minimal_v1` - **Seed**: 20260420 - **Hypothesis**: Strip reward from ~20 terms to 5 terms + integ"
+  },
+  {
     "path": "memory/2026-04-22-mode-hierarchy-scaffold-start.md",
     "date": "2026-04-22",
     "title": "2026-04-22 Mode Hierarchy Scaffold Start",
@@ -1974,6 +2114,101 @@
     "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
     "summary": "The repo hit a clear optimization plateau on threshold, cooldown, and overlay retuning. The next step moved to a larger mechanism change: persistent high-level trading modes constraining the existing residual actor, rather than further sing",
     "excerpt": "# 2026-04-22 Mode Hierarchy Scaffold Start ## Context The repo hit a clear optimization plateau on threshold, cooldown, and overlay retuning. The next step moved to a larger mechanism change: persistent high-level trading modes constraining the existing residual actor, rather tha"
+  },
+  {
+    "path": "memory/2026-04-22-multi-asset-refined-v3-failure.md",
+    "date": "2026-04-22",
+    "title": "Multi-Asset Joint Training with Refined_v3 Reward — Failure Analysis",
+    "kind": "failure",
+    "profiles": [
+      "balanced_rule_residual_refined_v3",
+      "soxl"
+    ],
+    "status": "reference",
+    "tags": [
+      "balanced_rule_residual_refined_v3",
+      "eval-2022",
+      "execution-overlay",
+      "failure",
+      "reference",
+      "soxl"
+    ],
+    "artifacts": [],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Multi-asset joint training with refined_v3 reward produced 388.6% return vs 637.8% single-asset (-249pp). The refined reward was tuned for SOXL's specific volatility profile and does not generalize to TQQQ/UPRO/SPXL/TECL. All test slices degraded. Multi-asset with a single shared actor and simple one-hot embedding is not viable with asset-specific reward tuning.",
+    "excerpt": "# Multi-Asset Joint Training with Refined_v3 Reward — Failure Analysis ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## Experiment - **Profile**: `balanced_rule_residual_refined_v3` - **Flag**: `--multi-asset` - **Assets**: SOXL, TQQQ, UPRO, SPXL"
+  },
+  {
+    "path": "memory/2026-04-22-phase0-drawdown-budget-prototype.md",
+    "date": "2026-04-22",
+    "title": "Phase 0 — Drawdown Budget Action Masking Prototype Results",
+    "kind": "review",
+    "profiles": [
+      "balanced_rule_residual_mode_v1",
+      "balanced_rule_residual_v19"
+    ],
+    "status": "reference",
+    "tags": [
+      "balanced_rule_residual_mode_v1",
+      "balanced_rule_residual_v19",
+      "eval-2022",
+      "reference",
+      "review",
+      "rule-based",
+      "stress-regime",
+      "transition-features"
+    ],
+    "artifacts": [],
+    "workpad": "/Users/rziiiii/.kimi/plans/guy-gardner-black-hawk-silk.md",
+    "summary": "Prototype of Approach C (drawdown-budget position masking) on fixed actors. Pure mechanical masking works but kills return. Regime-conditional masking (only active when regime_risk > 0.6) preserves return while modestly improving drawdown. mode_v1 already achieves 32% proxy MaxDD, making pure masking redundant. Core bottleneck is transition discrimination, not raw drawdown control.",
+    "excerpt": "# Phase 0 — Drawdown Budget Action Masking Prototype Results ## Context Plan: Breaking the 40% Drawdown Barrier. Approach C is the fastest-to-validate mechanic: move drawdown control from reward penalties to hard action-space constraints. Goal of Phase 0 is to measure the mechani"
+  },
+  {
+    "path": "memory/2026-04-22-simplified-reward-failure-and-refined-direction.md",
+    "date": "2026-04-22",
+    "title": "Simplified Reward Failure and Refined Direction",
+    "kind": "review",
+    "profiles": [
+      "soxl"
+    ],
+    "status": "reference",
+    "tags": [
+      "eval-2022",
+      "in_progress",
+      "review",
+      "soxl",
+      "stress-regime"
+    ],
+    "artifacts": [],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "simplified_v1 failed: proxy MaxDD 58.5% vs v19 54.8%. Root cause: stripping reward removed necessary guardrails (stale_position, trapped_loser, downside_signal, risk_budget). User wants: cash respected, conflicting gradients reduced, generalization to other 3x ETFs. New approach: remove activity_bonus (forced trading), reduce inactivity_penalty, strengthen risk guardrails, keep proven components. Network returns to [128,64]+GRU-64. Multi-asset joint training is the next frontier after single-asset reward is fixed.",
+    "excerpt": "# Simplified Reward Failure and Refined Direction ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## What happened with simplified_v1 Training completed. Results vs v19 baseline: | metric | v19 | simplified_v1 | delta | |--------|-----|------------"
+  },
+  {
+    "path": "memory/2026-04-23-position-budget-productionization.md",
+    "date": "2026-04-23",
+    "title": "Position Budget Productionization Smoke",
+    "kind": "decision",
+    "profiles": [
+      "balanced_rule_residual_imitation_v4",
+      "balanced_rule_residual_imitation_v4_budget",
+      "smoke"
+    ],
+    "status": "reference",
+    "tags": [
+      "balanced_rule_residual_imitation_v4",
+      "balanced_rule_residual_imitation_v4_budget",
+      "candidate",
+      "dashboard",
+      "decision",
+      "eval-2022",
+      "execution-overlay",
+      "smoke"
+    ],
+    "artifacts": [],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Config-owned regime-conditional position budget plumbing was added across evaluation, qlib backtest, runtime, and training action interpretation. Smoke seed=12345 ran end-to-end but failed strict drawdown promotion; keep the infrastructure and candidate scaffold, do not promote the smoke actor.",
+    "excerpt": "# Position Budget Productionization Smoke ## Context The bottleneck review showed reward-only tuning and architecture swaps are not the current frontier. The repeated failure is selective participation under risk: the harness can suppress exposure, but it still struggles to loose"
   },
   {
     "path": "memory/README.md",

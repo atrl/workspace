@@ -1,21 +1,34 @@
 ---
 date: '2026-04-22'
-title: Multi-Asset Joint Training with Refined_v3 Reward — Failure Analysis
-type: review
+title: "Multi-Asset Joint Training with Refined_v3 Reward \u2014 Failure Analysis"
+kind: failure
 profiles:
 - balanced_rule_residual_refined_v3
+- soxl
 status: reference
 tags:
-- multi-asset
-- joint-training
-- cross-asset-generalization
-- reward-overfitting
-- soxl-only
+- balanced_rule_residual_refined_v3
+- eval-2022
+- execution-overlay
+- failure
+- reference
+- soxl
+artifacts: []
 workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
-summary: 'Multi-asset joint training with refined_v3 reward produced 388.6% return vs 637.8% single-asset (-249pp). The refined reward was tuned for SOXL''s specific volatility profile and does not generalize to TQQQ/UPRO/SPXL/TECL. All test slices degraded. Multi-asset with a single shared actor and simple one-hot embedding is not viable with asset-specific reward tuning.'
+summary: Multi-asset joint training with refined_v3 reward produced 388.6% return
+  vs 637.8% single-asset (-249pp). The refined reward was tuned for SOXL's specific
+  volatility profile and does not generalize to TQQQ/UPRO/SPXL/TECL. All test slices
+  degraded. Multi-asset with a single shared actor and simple one-hot embedding is
+  not viable with asset-specific reward tuning.
 ---
 
 # Multi-Asset Joint Training with Refined_v3 Reward — Failure Analysis
+
+## Context
+
+Legacy memory note normalized into the repo-wide schema.
+
+## Evidence
 
 ## Experiment
 
@@ -84,3 +97,11 @@ summary: 'Multi-asset joint training with refined_v3 reward produced 388.6% retu
 - cross-asset-generalization
 - refined_v3
 - soxl-only
+
+## Decision
+
+See the summary and status fields in front matter.
+
+## Next Use
+
+Use `scripts/memory_search.py` before opening additional memory files.

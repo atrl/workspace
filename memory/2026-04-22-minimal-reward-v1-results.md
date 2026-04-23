@@ -1,21 +1,34 @@
 ---
 date: '2026-04-22'
-title: Minimal Reward v1 Results — Hypothesis Rejected
-type: review
+title: "Minimal Reward v1 Results \u2014 Hypothesis Rejected"
+kind: failure
 profiles:
 - balanced_rule_residual_minimal_v1
 status: reference
 tags:
-- minimal-reward
-- reward-simplification
-- participation-signal
-- regime-budget
-- training-degradation
+- balanced_rule_residual_minimal_v1
+- checkpoint-selection
+- eval-2022
+- execution-overlay
+- failure
+- reference
+- stress-regime
+artifacts: []
 workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
-summary: 'Minimal reward (5 terms) + regime budget in training produced 492.3%/0.85/48.8% — identical to v12/v13 baseline. Training degraded from iter 0 (random init was best). The "extra" reward terms (activity_bonus, profit_taking, panic_buy, opportunity_cost) contribute ~140pp of return. Participation signals are necessary, not noise. Budget overlay works on fixed actors, not during training.'
+summary: "Minimal reward (5 terms) + regime budget in training produced 492.3%/0.85/48.8%\
+  \ \u2014 identical to v12/v13 baseline. Training degraded from iter 0 (random init\
+  \ was best). The \"extra\" reward terms (activity_bonus, profit_taking, panic_buy,\
+  \ opportunity_cost) contribute ~140pp of return. Participation signals are necessary,\
+  \ not noise. Budget overlay works on fixed actors, not during training."
 ---
 
 # Minimal Reward v1 Results — Hypothesis Rejected
+
+## Context
+
+Legacy memory note normalized into the repo-wide schema.
+
+## Evidence
 
 ## Experiment
 
@@ -91,3 +104,11 @@ Not reward minimalization. Instead:
 - regime-budget-in-training
 - training-degradation
 - reward-complexity
+
+## Decision
+
+See the summary and status fields in front matter.
+
+## Next Use
+
+Use `scripts/memory_search.py` before opening additional memory files.
