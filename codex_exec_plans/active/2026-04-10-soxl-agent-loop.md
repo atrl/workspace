@@ -4328,3 +4328,52 @@ Created `balanced_budget.yaml` with `max_iters=50`. However, the log file was ac
   - drop as promotable; fixed-split risk passes, but proxy return does not beat native `risk_budget_usage_v1` (`274.4%`).
   - keep code path and evidence as a diagnostic.
   - next: do not keep tuning this BC source; either run an explicit no-promotion upper-bound distillation from full replay daily labels, or pivot to an auditable runtime composer instead of forcing one PPO actor to rediscover two-speed behavior.
+
+## Feature mining: transition-state signals 2026-04-23
+
+- Goal: find features that detect *stress-release* and *restart transitions*, addressing the core stack's blind spot
+- Method: analyze 2022 worst/best periods → design transition-state hypotheses → IC test → backtest → correlation screen
+
+### Key insight from 2022 analysis
+- Worst periods: regime_risk 0.65-0.84, drawdown_63 -37% to -70% (core features detect these well)
+- Best rebound periods (Nov 2022): regime_risk 0.54-0.59, VIX falling, mom_21 +60-70%, loss_streak=0
+- **Gap**: core features detect *persistent stress* but miss *stress-release* transitions
+
+### Discovered signals
+
+| Feature | Type | 5d IC | Standalone PF | Accuracy | Signals | Status |
+|---------|------|-------|---------------|----------|---------|--------|
+| TRANS_VIX_DIVERGENCE | Continuous | **+0.21** | **1.43** | **64.2%** | 58 | ✅ Strong |
+| TRANS_SPRING_COMPRESSION | Binary | +0.12 | 1.41 | 58.3% | 132 | ✅ Good |
+| TRANS_PANIC_EXHAUSTION | Binary | +0.08 | 1.46 | 60.8% | 97 | ✅ Good |
+| TRANS_GAP_RECOVERY | Binary | +0.06 | 1.51 | 58.3% | 271 | ✅ Good |
+
+- All 4 features orthogonal to existing CORE_FEATURE_COLUMNS (|rho| < 0.80)
+- TRANS_VIX_DIVERGENCE is the strongest standalone signal discovered so far
+
+### RL smoke test (5 iters, seed=20260423)
+
+| Profile | Valid Score | Test Return | Test Sharpe | Test MaxDD | Trades |
+|---------|-------------|-------------|-------------|------------|--------|
+| v19 baseline | **94.48** | 469.5% | 0.84 | 49.4% | 311 |
+| v19_academic | 85.26 | 479.9% | 0.85 | 48.1% | 314 |
+| v19_transition | 88.28 | 448.3% | 0.85 | **46.9%** | 313 |
+
+- v19_transition shows **lowest test MaxDD** (46.9% vs 49.4% baseline)
+- Valid score in between baseline and academic
+- 5-iter smoke is noisy; full training needed for definitive comparison
+
+### Dropped directions
+- Academic signals: most classic factors already captured by existing features
+- Anchor gap 252d residual: implementation issues, no clear advantage over 180d
+
+### Next action
+- Run full 80-iteration training for v19_transition to validate stress-release hypothesis
+- If full training shows return ≥ 500% AND MaxDD improvement, promote transition_signals to core
+- If no improvement, keep as optional pack but pivot to other directions
+
+### Evidence
+- `src/soxl_quant/data.py`: transition_signals pack implementation
+- `docs/factor_research/backtest_TRANS_*.csv`: standalone signal backtests
+- `docs/factor_research/factor_ic_results.csv`: IC test results
+- `experiments/candidate/balanced_rule_residual_v19_transition/`: experiment package
