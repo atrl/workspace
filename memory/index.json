@@ -2174,7 +2174,7 @@
     "status": "reference",
     "tags": [
       "eval-2022",
-      "in_progress",
+      "reference",
       "review",
       "soxl",
       "stress-regime"
@@ -2198,17 +2198,45 @@
     "tags": [
       "balanced_rule_residual_imitation_v4",
       "balanced_rule_residual_imitation_v4_budget",
-      "candidate",
       "dashboard",
       "decision",
       "eval-2022",
       "execution-overlay",
+      "reference",
       "smoke"
     ],
     "artifacts": [],
     "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
     "summary": "Config-owned regime-conditional position budget plumbing was added across evaluation, qlib backtest, runtime, and training action interpretation. Smoke seed=12345 ran end-to-end but failed strict drawdown promotion; keep the infrastructure and candidate scaffold, do not promote the smoke actor.",
     "excerpt": "# Position Budget Productionization Smoke ## Context The bottleneck review showed reward-only tuning and architecture swaps are not the current frontier. The repeated failure is selective participation under risk: the harness can suppress exposure, but it still struggles to loose"
+  },
+  {
+    "path": "memory/2026-04-23-two-speed-mode-budget-v1.md",
+    "date": "2026-04-23",
+    "title": "Two-speed mode budget replay dropped",
+    "kind": "failure",
+    "profiles": [
+      "balanced_rule_residual_imitation_v4_soxl_daily",
+      "balanced_rule_residual_mode_v1_soxl_daily",
+      "soxl"
+    ],
+    "status": "dropped",
+    "tags": [
+      "balanced_rule_residual_imitation_v4_soxl_daily",
+      "balanced_rule_residual_mode_v1_soxl_daily",
+      "dropped",
+      "eval-2022",
+      "failure",
+      "soxl"
+    ],
+    "artifacts": [
+      "runtime/post_train_review/balanced_rule_residual_imitation_v4_soxl_daily.csv",
+      "runtime/post_train_review/balanced_rule_residual_mode_v1_soxl_daily.csv",
+      "runtime/post_train_review/two_speed_mode_budget_v1."
+    ],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Fixed-signal two-speed replay combined mode_v1 as the slow risk anchor with imitation_v4 as the fast participation path. Proxy and restart participation improved, but test_2022 MaxDD remained 33.9%, above the strict 30% gate. Keep the replay tool and drop the candidate; next work should avoid mild slack/budget retrains and require stronger crisis-state protection or external hedge mechanics.",
+    "excerpt": "# Two-speed mode budget replay dropped ## Context The current bottleneck is not training depth. `mode_v1` provides the best retained risk-quality frontier, while `imitation_v4` improves restart participation but misses the strict 30% drawdown target. This replay tested whether a "
   },
   {
     "path": "memory/README.md",

@@ -7,7 +7,7 @@ profiles:
 status: reference
 tags:
 - eval-2022
-- in_progress
+- reference
 - review
 - soxl
 - stress-regime

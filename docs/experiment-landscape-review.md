@@ -503,6 +503,7 @@ The repo has reached a **fundamental frontier** for single-asset 3x leveraged ET
 | balanced_rule_residual_imitation_v6 | ablation | v16 | v4 + hard_floor=0.10 | 481.6% | 0.81 | 53.2% | 34.3% | 42.5% | 36.0% | dropped — worse than v4 |
 | balanced_rule_residual_imitation_v7 | ablation | v16 | v2/v4 compromise | 686.3% | 0.93 | 52.2% | 31.9% | 40.4% | 33.3% | dropped — worse than v4 |
 | balanced_rule_residual_imitation_v4_budget | execution_gate | v4 | config-owned regime-conditional position budget, smoke seed=12345 | 721.1% | 0.94 | 51.0% | 36.3% | 38.6% | 41.5% | candidate scaffold only — mechanism runs, smoke actor fails strict DD gate |
+| two_speed_mode_budget_v1 | execution_gate | mode_v1 + imitation_v4 | fixed-signal slow mode anchor + fast participation slack replay | 1398.3% | 1.10 | 51.6% | 33.9% | 156.7% | 31.4% | dropped — proxy/restart improved, strict 2022 DD still fails |
 
 ### Key Conclusions
 
@@ -542,3 +543,25 @@ Decision: keep the position-budget plumbing and candidate scaffold, but do not
 promote the smoke actor. The evidence reinforces the current bottleneck:
 conditional hard constraints are useful infrastructure, but budgeted retraining
 does not by itself solve selective restart participation.
+
+## 2026-04-23: Two-Speed Mode Budget Counterfactual
+
+This diagnostic tested a fixed-signal composition instead of retraining:
+
+- slow risk anchor: `balanced_rule_residual_mode_v1` daily position path
+- fast participation signal: `balanced_rule_residual_imitation_v4` daily position path
+- composition: cap the fast position by per-mode slack over the slow position,
+  then filter micro rebalances with `trade_threshold=0.04` and
+  `trade_lock_days=5`
+
+Result:
+
+- `test_2022`: `-16.5% / Sharpe -0.224 / MaxDD 33.9% / avg_pos 0.289`
+- `test_2023_2024`: `156.7% / Sharpe 1.278 / MaxDD 31.4%`
+- `test_proxy`: `1398.3% / Sharpe 1.100 / MaxDD 51.6% / trades 171`
+
+Decision: drop as a promotable candidate because it still misses the strict
+`test_2022 MaxDD <= 30%` gate. Keep the replay tool because it narrows the
+bottleneck: two-speed composition can restore participation and improve proxy
+quality, but single-asset SOXL crisis path drawdown still needs stricter crisis
+state protection or a different protection layer rather than mild mode slack.

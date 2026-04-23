@@ -10,11 +10,11 @@ status: reference
 tags:
 - balanced_rule_residual_imitation_v4
 - balanced_rule_residual_imitation_v4_budget
-- candidate
 - dashboard
 - decision
 - eval-2022
 - execution-overlay
+- reference
 - smoke
 artifacts: []
 workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md

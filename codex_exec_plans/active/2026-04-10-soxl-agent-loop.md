@@ -174,6 +174,65 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
 
 ## Decision log
 
+- 2026-04-23 17:xx (two_speed_mode_budget_v1 fixed-signal replay):
+  - Goal:
+    - diagnose the current model bottleneck without another reward/feature
+      retrain by combining the retained `mode_v1` risk anchor with the
+      participation-focused `imitation_v4` path
+  - Canonical baseline:
+    - `balanced`
+  - Direct comparison baseline:
+    - `balanced_rule_residual_mode_v1`
+    - `balanced_rule_residual_imitation_v4`
+  - Experiment role:
+    - `diagnose`
+  - Changed layer:
+    - `execution`
+    - `selection`
+  - Closest historical success case:
+    - `balanced_rule_residual_mode_v1`, which materially improved `2022` and
+      proxy drawdown
+    - `balanced_rule_residual_imitation_v4`, which restored restart
+      participation better than the conservative imitation variants
+  - Closest historical failure case:
+    - `balanced_rule_residual_mode_v2`, where loosening favorable modes damaged
+      `2020` and proxy quality
+    - `balanced_rule_residual_v23`, where transition features became broad
+      de-risking rather than selective re-entry
+  - Why this is not a duplicate:
+    - no retraining and no threshold-only overlay merge
+    - the test explicitly decouples slow risk budget from fast participation
+      using existing daily paths
+  - New mechanism this time:
+    - fixed-signal two-speed replay:
+      - slow layer: `mode_v1` position path
+      - fast layer: `imitation_v4` position path
+      - per-mode slack cap plus micro-rebalance filter
+  - External reference:
+    - hierarchical / temporally abstract trading control (`TradeR`, `EarnHFT`,
+      `Deep Stock Trading`)
+    - internal `soxl_backtest` risk-gating reference class
+  - Comparison-table row:
+    - `two_speed_mode_budget_v1`
+  - Command:
+    - `PYTHONPATH=. /Users/rziiiii/.openclaw/workspace/qlib_venv/bin/python scripts/replay_two_speed_mode_budget.py --slow-daily /Users/rziiiii/.openclaw/workspace/runtime/post_train_review/balanced_rule_residual_mode_v1_soxl_daily.csv --fast-daily /Users/rziiiii/.openclaw/workspace/runtime/post_train_review/balanced_rule_residual_imitation_v4_soxl_daily.csv`
+  - Validation evidence:
+    - `test_2022`: `-16.5% / Sharpe -0.224 / MaxDD 33.9% / avg_pos 0.289`
+    - `test_2023_2024`: `156.7% / Sharpe 1.278 / MaxDD 31.4%`
+    - `test_proxy`: `1398.3% / Sharpe 1.100 / MaxDD 51.6% / trades 171`
+    - acceptance checks passed except strict `test_2022 MaxDD <= 30%`
+    - `PYTHONPATH=. /Users/rziiiii/.openclaw/workspace/qlib_venv/bin/python scripts/check_harness.py`: `passed=45 failures=0`
+  - Keep / drop decision:
+    - drop `two_speed_mode_budget_v1` as a promotable candidate
+    - keep the reusable replay tool and archived experiment notes
+    - keep the diagnosis that participation can be restored without global
+      exposure drift, but single-asset SOXL crisis path drawdown still needs a
+      stronger crisis-state protection layer
+  - Next action:
+    - do not retrain another mild slack/budget branch
+    - if continuing, test stricter crisis-state cap or external hedge/overlay
+      mechanics rather than more reward coefficient tuning
+
 - 2026-04-23 13:xx (balanced_rule_residual_imitation_v4_budget smoke):
   - Goal:
     - analyze the current model bottleneck and test the next highest-evidence

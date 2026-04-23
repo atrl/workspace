@@ -24,6 +24,7 @@ DEFAULT_TEST_FILES = [
     "tests/test_reward.py",
     "tests/test_runtime.py",
     "tests/test_structural_model.py",
+    "tests/test_two_speed_budget.py",
 ]
 
 DEFAULT_COMPILE_TARGETS = [
@@ -32,6 +33,7 @@ DEFAULT_COMPILE_TARGETS = [
     "src/soxl_quant/data.py",
     "src/soxl_quant/rl.py",
     "src/soxl_quant/runtime.py",
+    "src/soxl_quant/policy/two_speed_budget.py",
     "src/soxl_quant/cli.py",
     "scripts/build_backtest_dashboard.py",
     "scripts/check_harness.py",
@@ -41,6 +43,7 @@ DEFAULT_COMPILE_TARGETS = [
     "scripts/normalize_memory.py",
     "scripts/prune_artifacts.py",
     "scripts/rank_counterfactual_variants.py",
+    "scripts/replay_two_speed_mode_budget.py",
     "production/soxl_paper_runner.py",
 ]
 
