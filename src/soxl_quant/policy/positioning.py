@@ -4,12 +4,13 @@ from typing import Optional, Tuple
 
 import numpy as np
 
-from ..config import PositionCapConfig, StrategyConfig
+from ..config import PositionBudgetConfig, PositionCapConfig, StrategyConfig
 from ..data import STATIC_INDEX
 from ..settings import DEFAULT_ACTION_LEVELS
 
 BASE_ACTION_LEVELS = np.asarray(DEFAULT_ACTION_LEVELS, dtype=np.float32)
 DEFAULT_POSITION_CAP = PositionCapConfig()
+DEFAULT_POSITION_BUDGET = PositionBudgetConfig()
 
 
 def action_levels_for_profile(profile: Optional[StrategyConfig]) -> np.ndarray:
@@ -142,6 +143,33 @@ def drawdown_position_cap(
     return float(1.0 - shaped_scale * (1.0 - effective_min_cap))
 
 
+def max_position_for_budget(
+    current_drawdown: float,
+    config: Optional[PositionBudgetConfig] = None,
+) -> float:
+    cfg = config or DEFAULT_POSITION_BUDGET
+    consumed = max(float(current_drawdown), 0.0) / max(float(cfg.budget), 1e-6)
+    for start, end, max_pos in cfg.thresholds:
+        if float(start) <= consumed < float(end):
+            return float(max_pos)
+    return float(cfg.thresholds[-1][2])
+
+
+def apply_position_budget(
+    target_position: float,
+    obs: np.ndarray,
+    current_drawdown: float,
+    config: Optional[PositionBudgetConfig] = None,
+) -> float:
+    cfg = config or DEFAULT_POSITION_BUDGET
+    if not cfg.enabled:
+        return float(target_position)
+    regime_risk = float(np.nan_to_num(obs[STATIC_INDEX["regime_risk"]]))
+    if regime_risk < float(cfg.regime_threshold):
+        return float(target_position)
+    return float(min(target_position, max_position_for_budget(current_drawdown, cfg)))
+
+
 def action_to_position(
     action: int,
     obs: np.ndarray,
@@ -171,9 +199,11 @@ def target_position_for_profile(
     use_hybrid_overlay: bool = False,
     delta_levels: Optional[np.ndarray] = None,
     mode_band: Optional[Tuple[float, float]] = None,
+    position_budget_config: Optional[PositionBudgetConfig] = None,
+    current_drawdown: float = 0.0,
 ) -> float:
     if use_hybrid_overlay:
-        return hybrid_overlay_position(
+        target = hybrid_overlay_position(
             action,
             obs,
             config=config,
@@ -181,24 +211,29 @@ def target_position_for_profile(
             hard_floor=hard_floor,
             mode_band=mode_band,
         )
-    return action_to_position(
-        action,
-        obs,
-        config=config,
-        action_levels=action_levels,
-        hard_floor=hard_floor,
-        mode_band=mode_band,
-    )
+    else:
+        target = action_to_position(
+            action,
+            obs,
+            config=config,
+            action_levels=action_levels,
+            hard_floor=hard_floor,
+            mode_band=mode_band,
+        )
+    return apply_position_budget(target, obs, current_drawdown, position_budget_config)
 
 
 __all__ = [
     "BASE_ACTION_LEVELS",
     "DEFAULT_POSITION_CAP",
+    "DEFAULT_POSITION_BUDGET",
     "action_band_from_obs",
     "action_levels_for_profile",
     "action_to_position",
+    "apply_position_budget",
     "drawdown_position_cap",
     "hybrid_overlay_position",
+    "max_position_for_budget",
     "rule_based_position",
     "target_position_for_profile",
 ]

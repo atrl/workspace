@@ -174,6 +174,48 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
 
 ## Decision log
 
+- 2026-04-23 13:xx (balanced_rule_residual_imitation_v4_budget smoke):
+  - Goal:
+    - analyze the current model bottleneck and test the next highest-evidence
+      optimization mechanism in an isolated worktree
+  - Closest historical success:
+    - `balanced_rule_residual_imitation_v4`
+    - `regime_conditional_budget_rt0.6`
+  - Closest historical failure:
+    - unconditional drawdown-budget masking
+    - `balanced_rule_residual_minimal_v1`
+  - Bottleneck diagnosis:
+    - model capacity / reward-only tuning is not the current bottleneck
+    - the active bottleneck is selective participation under risk: the model can
+      cut exposure, but hard constraints and participation incentives still
+      trade off sharply in restart and high-volatility windows
+  - New mechanism this time:
+    - added a config-owned `position_budget` layer that applies a hard position
+      cap only when `regime_risk >= 0.60`, based on consumed drawdown budget
+  - Command:
+    - `PYTHONPATH=. /Users/rziiiii/.openclaw/workspace/qlib_venv/bin/python soxl_qlib_strategy_v2.py --profiles balanced_rule_residual_imitation_v4_budget --smoke --seed 12345`
+  - Validation evidence:
+    - fixed split smoke summary:
+      - valid: `40.5% / Sharpe 1.23 / MaxDD 31.2%`
+      - test_2020: `132.4% / Sharpe 2.32 / MaxDD 23.1%`
+      - test_2022: `-33.5% / Sharpe -1.34 / MaxDD 36.3% / avg_pos 0.271`
+      - test_2023_2024: `38.6% / Sharpe 0.62 / MaxDD 41.5%`
+      - test_proxy: `721.1% / Sharpe 0.94 / MaxDD 51.0%`
+      - qlib backtest: `577.3% / Sharpe 0.86 / MaxDD 50.2% / 305 trades`
+    - `scripts/check_harness.py`: `passed=41 failures=0`
+    - dashboard optional-input refresh fixed and verified with
+      `scripts/build_backtest_dashboard.py`
+  - Keep / drop decision:
+    - keep the reusable `position_budget` config and runtime/evaluation plumbing
+    - keep `balanced_rule_residual_imitation_v4_budget` as a candidate scaffold
+    - do not promote the smoke actor; it fails the strict `test_2022 MaxDD <= 30%`
+      gate and worsens `test_2023_2024` MaxDD
+  - Next action:
+    - use this as a hard-constraint evaluation scaffold, not as proof that
+      budgeted training is solved
+    - next optimization should compare fixed-actor overlays or restore a retained
+      `imitation_v4` actor before retraining another reward branch
+
 - 2026-04-22 00:06 (balanced_rule_residual_mode_v1 first full train):
   - Goal:
     - test whether persistent high-level modes can create a real regime-aware

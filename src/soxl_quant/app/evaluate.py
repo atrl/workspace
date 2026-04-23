@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from typing import Dict, Tuple
 
+import numpy as np
 import pandas as pd
 from qlib.data.dataset import DatasetH
 
@@ -60,11 +61,14 @@ def slice_metrics(actor, df, slices: Dict[str, Tuple[str, str]], profile) -> Dic
             actor,
             segment,
             position_cap_config=profile.position_cap,
+            position_budget_config=profile.position_budget,
             execution_config=profile.execution,
             asset_idx=0,
             action_levels=action_levels_for_profile(profile),
             observation_window=profile.model.observation_window,
             hard_floor=profile.model.hard_floor,
+            use_hybrid_overlay=profile.model.use_hybrid_overlay,
+            delta_levels=np.asarray(profile.model.delta_levels, dtype=np.float32) if profile.model.use_hybrid_overlay else None,
             mode_router_config=profile.mode_router,
         )
     return metrics

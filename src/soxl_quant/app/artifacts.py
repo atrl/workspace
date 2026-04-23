@@ -23,6 +23,15 @@ def serialize_position_cap(profile) -> Dict[str, float]:
     }
 
 
+def serialize_position_budget(profile) -> Dict[str, object]:
+    return {
+        "enabled": bool(profile.position_budget.enabled),
+        "budget": float(profile.position_budget.budget),
+        "regime_threshold": float(profile.position_budget.regime_threshold),
+        "thresholds": [[float(v) for v in row] for row in profile.position_budget.thresholds],
+    }
+
+
 def serialize_selection_score(profile) -> Dict[str, float | bool]:
     return {
         "return_weight": profile.selection_score.return_weight,
@@ -119,6 +128,7 @@ def persist_actor_bundle(profile, actor, obs_dim: int, seed: int, effective_tag:
             "n_actions": int(getattr(actor, "output_dim", 0) or 11),
             "feature_schema": feature_schema_payload(profile),
             "position_cap": serialize_position_cap(profile),
+            "position_budget": serialize_position_budget(profile),
             "selection_score": serialize_selection_score(profile),
             "model_config": serialize_model_config(profile),
             "sampling_config": serialize_sampling_config(profile),
@@ -149,6 +159,7 @@ def persist_summary_bundle(
                 "seed": seed,
                 "feature_schema": feature_schema_payload(profile),
                 "position_cap": serialize_position_cap(profile),
+                "position_budget": serialize_position_budget(profile),
                 "selection_score": serialize_selection_score(profile),
                 "model_config": serialize_model_config(profile),
                 "sampling_config": serialize_sampling_config(profile),

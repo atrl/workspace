@@ -6,7 +6,7 @@ import numpy as np
 import pandas as pd
 from tianshou.utils.net.discrete import Actor
 
-from ..config import ExecutionConfig, PositionCapConfig
+from ..config import ExecutionConfig, PositionBudgetConfig, PositionCapConfig
 from ..data import FEATURE_COLUMNS
 from .execution import (
     DEFAULT_EXECUTION,
@@ -28,6 +28,7 @@ def evaluate_split(
     df: pd.DataFrame,
     cash0: float = 100_000.0,
     position_cap_config: Optional[PositionCapConfig] = None,
+    position_budget_config: Optional[PositionBudgetConfig] = None,
     execution_config: Optional[ExecutionConfig] = None,
     asset_idx: int = 0,
     stress_threshold: float = 0.65,
@@ -88,6 +89,8 @@ def evaluate_split(
             use_hybrid_overlay=use_hybrid_overlay,
             delta_levels=delta_levels,
             mode_band=mode_band(mode_state.name, mode_router_config) if mode_router_config and getattr(mode_router_config, "enabled", False) else None,
+            position_budget_config=position_budget_config,
+            current_drawdown=max(1.0 - cash / max(peak, 1e-8), 0.0),
         )
         regime_risk = float(np.nan_to_num(row["regime_risk"]))
         realized_vol = float(np.nan_to_num(row["realized_vol_10"]))

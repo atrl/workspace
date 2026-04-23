@@ -1,26 +1,27 @@
 ---
 date: '2026-04-22'
-title: Phase 0 — Drawdown Budget Action Masking Prototype Results
+title: "Phase 0 \u2014 Drawdown Budget Action Masking Prototype Results"
 kind: review
 profiles:
-- balanced_rule_residual_v19
 - balanced_rule_residual_mode_v1
+- balanced_rule_residual_v19
 status: reference
 tags:
-- drawdown-budget
-- action-masking
-- phase0
-- prototype
-- approach-c
-artifacts:
-- runtime/post_train_review/drawdown_budget_sweep.json
-- runtime/post_train_review/drawdown_budget_conditional.json
+- balanced_rule_residual_mode_v1
+- balanced_rule_residual_v19
+- eval-2022
+- reference
+- review
+- rule-based
+- stress-regime
+- transition-features
+artifacts: []
 workpad: /Users/rziiiii/.kimi/plans/guy-gardner-black-hawk-silk.md
-summary: 'Prototype of Approach C (drawdown-budget position masking) on fixed actors.
+summary: Prototype of Approach C (drawdown-budget position masking) on fixed actors.
   Pure mechanical masking works but kills return. Regime-conditional masking (only
   active when regime_risk > 0.6) preserves return while modestly improving drawdown.
   mode_v1 already achieves 32% proxy MaxDD, making pure masking redundant. Core bottleneck
-  is transition discrimination, not raw drawdown control.'
+  is transition discrimination, not raw drawdown control.
 ---
 
 # Phase 0 — Drawdown Budget Action Masking Prototype Results
