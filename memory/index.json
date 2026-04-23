@@ -2185,6 +2185,29 @@
     "excerpt": "# Simplified Reward Failure and Refined Direction ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## What happened with simplified_v1 Training completed. Results vs v19 baseline: | metric | v19 | simplified_v1 | delta | |--------|-----|------------"
   },
   {
+    "path": "memory/2026-04-22-v10-attention-simplified-reward-failure.md",
+    "date": "2026-04-22",
+    "title": "v10 Attention + Simplified Reward + Kelly — Failure Report",
+    "kind": "failure",
+    "profiles": [
+      "balanced_kelly_attention_v10"
+    ],
+    "status": "dropped",
+    "tags": [
+      "balanced_kelly_attention_v10",
+      "checkpoint-selection",
+      "dropped",
+      "eval-2022",
+      "execution-overlay",
+      "failure",
+      "stress-regime"
+    ],
+    "artifacts": [],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Legacy memory note normalized into the repo-wide schema. **Profile**: `balanced_kelly_attention_v10` **Hypothesis**: A fundamentally re-architected approach would break the \"fixed low-position collapse\": Network: GRU → WindowSelfAttentionNe",
+    "excerpt": "# v10 Attention + Simplified Reward + Kelly — Failure Report ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## Experiment - **Profile**: `balanced_kelly_attention_v10` - **Hypothesis**: A fundamentally re-architected approach would break the \"fixe"
+  },
+  {
     "path": "memory/2026-04-23-position-budget-productionization.md",
     "date": "2026-04-23",
     "title": "Position Budget Productionization Smoke",
@@ -2216,49 +2239,34 @@
     "title": "Risk-budget usage cross-ETF diagnostic",
     "kind": "review",
     "profiles": [
-      "risk_budget_usage_v1",
-      "balanced_rule_residual_imitation_v4"
+      "balanced_rule_residual_mode_v1",
+      "soxl"
     ],
     "status": "dropped",
     "tags": [
-      "risk_budget_usage_v1",
-      "balanced_rule_residual_imitation_v4",
+      "balanced_rule_residual_mode_v1",
       "dropped",
-      "execution-overlay",
-      "generalization",
-      "review"
+      "review",
+      "soxl"
     ],
-    "artifacts": [
-      "runtime/post_train_review/risk_budget_usage_v1_cross_etf.json",
-      "runtime/post_train_review/risk_budget_usage_v1_cross_etf.md",
-      "runtime/post_train_review/risk_budget_usage_v1_cross_etf_daily/"
-    ],
+    "artifacts": [],
     "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
     "summary": "Cross-ETF diagnostic split risk_budget_usage_v1 into fixed SOXL signal transfer and actor budget runtime. The fixed signal transferred strongly across SOXL/TQQQ/UPRO/SPXL/TECL, but the deployable actor/runtime path produced only 28-144% proxy return with Sharpe 0.37-0.83. Keep the diagnostic; do not promote actor runtime.",
-    "excerpt": "# Risk-budget usage cross-ETF diagnostic ## Context `risk_budget_usage_v1` fixed replay is strong on SOXL, but previous actor parity and oracle distillation showed the single actor cannot reproduce the fixed composer. This loop tested whether the mechanism survives the supported 3x ETF universe."
+    "excerpt": "# Risk-budget usage cross-ETF diagnostic ## Context `risk_budget_usage_v1` fixed replay is strong on SOXL, but previous actor parity and oracle distillation showed the single actor cannot reproduce the fixed composer. This loop tested whether the mechanism survives the supported "
   },
   {
     "path": "memory/2026-04-23-risk-budget-oracle-distillation.md",
     "date": "2026-04-23",
     "title": "Risk-budget oracle distillation and composer extraction",
     "kind": "review",
-    "profiles": [
-      "risk_budget_oracle_distill_v1",
-      "risk_budget_usage_v1"
-    ],
+    "profiles": [],
     "status": "dropped",
     "tags": [
-      "risk_budget_oracle_distill_v1",
-      "risk_budget_usage_v1",
       "dropped",
       "eval-2022",
-      "execution-overlay",
       "review"
     ],
-    "artifacts": [
-      "runtime/post_train_review/risk_budget_oracle_distill_v1.json",
-      "runtime/post_train_review/risk_budget_oracle_distill_v1.md"
-    ],
+    "artifacts": [],
     "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
     "summary": "No-promotion oracle distillation used full fixed-replay daily labels for risk_budget_usage_v1. The label set contained action-4 full usage, but the single actor reached only test_proxy 363.8% / Sharpe 1.090 / MaxDD 23.7%, far below fixed replay 2003.6%. Keep the reusable composer extraction; stop trying to compress the two-speed mechanism into one PPO actor.",
     "excerpt": "# Risk-budget oracle distillation and composer extraction ## Context `risk_budget_usage_v1` fixed replay passed the replay gates, while actor-backed parity, native PPO, and train-split BC warm-start failed to reproduce the upside. The remaining question was whether a single actor"
@@ -2269,16 +2277,21 @@
     "title": "Risk-budget usage replay candidate",
     "kind": "review",
     "profiles": [
+      "balanced_rule_residual_imitation_v4",
       "balanced_rule_residual_imitation_v4_soxl_daily",
-      "balanced_rule_residual_mode_v1_soxl_daily"
+      "balanced_rule_residual_mode_v1_soxl_daily",
+      "soxl"
     ],
     "status": "reference",
     "tags": [
+      "balanced_rule_residual_imitation_v4",
       "balanced_rule_residual_imitation_v4_soxl_daily",
       "balanced_rule_residual_mode_v1_soxl_daily",
-      "candidate",
+      "checkpoint-selection",
       "eval-2022",
-      "review"
+      "reference",
+      "review",
+      "soxl"
     ],
     "artifacts": [
       "runtime/backtest",
@@ -2291,6 +2304,26 @@
     "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
     "summary": "Fixed replay treated imitation_v4 as a budget usage ratio inside mode_v1 risk bands. It passed all replay acceptance checks: test_2022 MaxDD 25.6%, avg_pos 0.214, test_proxy 2003.6% / Sharpe 1.248 / MaxDD 45.0%. Keep as candidate fixed-replay mechanism; next step must implement runtime/backtest parity before any promotion claim.",
     "excerpt": "# Risk-budget usage replay candidate ## Context The prior `two_speed_mode_budget_v1` composition used `mode_v1` as a slow anchor and let `imitation_v4` participate above that anchor by mode slack. It improved proxy quality but still failed strict `test_2022 MaxDD <= 30%`. `risk_b"
+  },
+  {
+    "path": "memory/2026-04-23-soxl-factor-mining-skill.md",
+    "date": "2026-04-23",
+    "title": "SOXL 特征挖掘 Skill 适配完成",
+    "kind": "skill",
+    "profiles": [
+      "soxl"
+    ],
+    "status": "dropped",
+    "tags": [
+      "dropped",
+      "skill",
+      "soxl",
+      "stress-regime"
+    ],
+    "artifacts": [],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Legacy memory note normalized into the repo-wide schema. 将 agentic-alpha 的因子挖掘方法论适配到 SOXL 单标的择时场景，建立独立于 RL 训练的特征挖掘、验证、入库体系。 原始：每日截面 Spearman（多股票横截面排名） 适配：滚动 21 日时序 Pearson 相关（单标的时间序列） 判定标准：`mean_ic > 0.03`, `ic_positive_ratio > 0.55`, `ic_t",
+    "excerpt": "# SOXL 特征挖掘 Skill 适配完成 ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## 目标 将 agentic-alpha 的因子挖掘方法论适配到 SOXL 单标的择时场景，建立独立于 RL 训练的特征挖掘、验证、入库体系。 ## 核心适配 ### 1. 从截面 Rank IC 转时序 IC - 原始：每日截面 Spearman（多股票横截面排名） - 适配：滚动 21 日时序 Pearson 相关（单标的时间序列） - 判定标准"
   },
   {
     "path": "memory/2026-04-23-two-speed-mode-budget-v1.md",
@@ -2319,6 +2352,52 @@
     "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
     "summary": "Fixed-signal two-speed replay combined mode_v1 as the slow risk anchor with imitation_v4 as the fast participation path. Proxy and restart participation improved, but test_2022 MaxDD remained 33.9%, above the strict 30% gate. Keep the replay tool and drop the candidate; next work should avoid mild slack/budget retrains and require stronger crisis-state protection or external hedge mechanics.",
     "excerpt": "# Two-speed mode budget replay dropped ## Context The current bottleneck is not training depth. `mode_v1` provides the best retained risk-quality frontier, while `imitation_v4` improves restart participation but misses the strict 30% drawdown target. This replay tested whether a "
+  },
+  {
+    "path": "memory/2026-04-24-hierarchical-online-budget-generalization.md",
+    "date": "2026-04-24",
+    "title": "Hierarchical online budget runtime generalization",
+    "kind": "review",
+    "profiles": [
+      "balanced_rule_residual_imitation_v4",
+      "soxl"
+    ],
+    "status": "dropped",
+    "tags": [
+      "balanced_rule_residual_imitation_v4",
+      "dropped",
+      "eval-2022",
+      "review",
+      "soxl"
+    ],
+    "artifacts": [],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Implemented a deployable hierarchical online composer with explicit slow mode refresh above the retained imitation_v4 actor. Rule-router variants improved safety modestly, and learned-router variants lifted proxy return to 102-415 percent across the 3x ETF set, but all remained materially below fixed replay and the learned variants spent more 2022 drawdown budget. Keep the composer as a runtime diagnostic, not a production promotion.",
+    "excerpt": "# Hierarchical online budget runtime generalization ## Context The fixed `risk_budget_usage_v1` replay is still much stronger than any single actor/runtime form. This loop tested whether making the runtime explicitly hierarchical would recover part of that gap without another tra"
+  },
+  {
+    "path": "memory/2026-04-24-transition-signals-rejected.md",
+    "date": "2026-04-24",
+    "title": "Transition Signals Experiment Rejected",
+    "kind": "review",
+    "profiles": [
+      "balanced_rule_residual_v19_transition"
+    ],
+    "status": "dropped",
+    "tags": [
+      "balanced_rule_residual_v19_transition",
+      "checkpoint-selection",
+      "dropped",
+      "eval-2022",
+      "execution-overlay",
+      "review",
+      "stress-regime",
+      "transition-features"
+    ],
+    "artifacts": [],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Legacy memory note normalized into the repo-wide schema. Date: 2026-04-24 Profile: `balanced_rule_residual_v19_transition` Hypothesis: transition-state features (stress-release detection) would improve RL performance Method: add 7 transitio",
+    "excerpt": "# Transition Signals Experiment Rejected ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence Date: 2026-04-24 ## Experiment - Profile: `balanced_rule_residual_v19_transition` - Hypothesis: transition-state features (stress-release detection) would impr"
   },
   {
     "path": "memory/README.md",

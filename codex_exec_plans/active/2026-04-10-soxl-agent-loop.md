@@ -4542,6 +4542,73 @@ Pack increases feature count from 59 → 66 (+7).
     composer is required; otherwise keep the fixed replay as a research
     counterfactual only
 
+## hierarchical online budget runtime generalization — RESULT 2026-04-24
+
+- Goal: implement a truly deployable two-layer runtime for the retained
+  `imitation_v4` actor and measure whether an explicit slow mode layer closes
+  the gap between fixed replay and current actor runtime.
+- Canonical baseline: fixed replay `risk_budget_usage_v1`.
+- Direct comparison baseline: current actor-backed `risk_budget_usage_v1`
+  runtime with the existing daily mode router.
+- Experiment role: `diagnose`.
+- Target improvement window: raise cross-ETF `test_proxy` participation over the
+  current actor runtime while keeping `test_2022` drawdown materially below the
+  fixed replay path.
+- Accepted trade-off window: some `2022` drawdown increase is acceptable if the
+  gain is broad across the 3x ETF set and remains clearly below fixed replay.
+- Changed layer: `execution` only; no training changes.
+- External reference: hierarchical / temporally abstract control already cited
+  for the risk-budget line (`TradeR`, `EarnHFT`, options-style risk governor
+  decomposition). This loop makes that abstraction explicit in runtime instead
+  of trying to distill it back into one actor.
+- Closest historical success case: fixed replay `risk_budget_usage_v1`.
+- Closest historical failure case: actor-backed `risk_budget_usage_v1` parity
+  and oracle distillation; both preserved risk control but failed to recover
+  replay participation.
+- Why not duplicate: this changes the executable runtime shape itself by adding
+  a stateful slow refresh layer with configurable cadence and router source; it
+  is not another replay or BC/PPO branch.
+- Comparison-table row: `hierarchical_online_budget_generalization`.
+- New mechanism this time:
+  - `src/soxl_quant/policy/hierarchical_composer.py` provides a reusable slow
+    mode-refresh state machine plus budget-usage target mapping.
+  - `scripts/hierarchical_online_budget_generalization.py` compares current
+    actor runtime against rule/learned hierarchical variants across
+    `SOXL/TQQQ/UPRO/SPXL/TECL`.
+- Commands:
+  - `PYTHONPATH=. qlib_venv/bin/python tests/test_hierarchical_composer.py`
+  - `PYTHONPATH=. qlib_venv/bin/python -m py_compile src/soxl_quant/policy/hierarchical_composer.py scripts/hierarchical_online_budget_generalization.py`
+  - `PYTHONPATH=. qlib_venv/bin/python scripts/hierarchical_online_budget_generalization.py`
+- Validation evidence:
+  - `tests/test_hierarchical_composer.py`: OK
+  - SOXL:
+    - `actor_runtime`: `178.2% / Sharpe 0.969 / MaxDD 22.6%`, `2022 MaxDD 22.5%`
+    - `hier_rule_slow5`: `123.3% / Sharpe 0.877 / MaxDD 22.8%`, `2022 MaxDD 22.6%`
+    - `hier_learned_daily`: `415.2% / Sharpe 1.082 / MaxDD 29.1%`, `2022 MaxDD 27.1%`
+  - Cross-ETF best variants:
+    - `TQQQ`: `hier_learned_slow5` -> `214.4% / 0.990 / 25.9%`, `2022 MaxDD 21.7%`
+    - `UPRO`: `hier_learned_slow5` -> `131.9% / 0.929 / 18.3%`, `2022 MaxDD 14.8%`
+    - `SPXL`: `hier_learned_slow5` -> `134.3% / 0.952 / 17.2%`, `2022 MaxDD 14.9%`
+    - `TECL`: `hier_learned_slow5` -> `201.1% / 0.896 / 31.4%`, `2022 MaxDD 22.1%`
+  - Rule-router hierarchy was consistently safer than current runtime on
+    `TQQQ/UPRO/SPXL/TECL`, but only mildly better on return.
+  - Learned-router hierarchy recovered more participation, but usually paid for
+    it with a visible 2022 / full-proxy drawdown increase and still remained
+    far below fixed replay.
+  - Artifacts:
+    - `runtime/post_train_review/hierarchical_online_budget_generalization.json`
+    - `runtime/post_train_review/hierarchical_online_budget_generalization.md`
+    - `runtime/post_train_review/hierarchical_online_budget_daily/`
+- Decision:
+  - keep the hierarchical composer module and diagnostic script
+  - do not promote any current hierarchical runtime as production-ready
+  - strongest deployable direction is `learned router + slow refresh`, but it
+    still does not match the fixed replay edge and spends more drawdown budget
+    than the current conservative actor runtime
+- Next:
+  - if this line continues, focus on improving the fast actor's usage policy
+    under the learned-router regime instead of changing refresh cadence again
+
 ## transition_signals 20-iteration training — RESULTS 2026-04-24
 
 - Goal: validate whether transition-state features improve RL performance beyond v19 baseline
