@@ -174,6 +174,58 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
 
 ## Decision log
 
+- 2026-04-23 18:xx (risk_budget_usage_v1 fixed-signal replay):
+  - Goal:
+    - test whether RL/actor output is more useful as a risk-budget usage ratio
+      than as a direct target position or additive slack signal
+  - Canonical baseline:
+    - `balanced`
+  - Direct comparison baseline:
+    - `balanced_rule_residual_mode_v1`
+    - `balanced_rule_residual_imitation_v4`
+    - `two_speed_mode_budget_v1`
+  - Experiment role:
+    - `diagnose`
+  - Changed layer:
+    - `execution`
+    - `position sizing`
+  - Closest historical success case:
+    - `balanced_rule_residual_mode_v1` as the slow risk-governor frontier
+    - `balanced_rule_residual_imitation_v4` as the fast participation frontier
+  - Closest historical failure case:
+    - `two_speed_mode_budget_v1`, where fast participation plus mode slack
+      improved proxy quality but still failed strict `test_2022 MaxDD <= 30%`
+  - Why this is not a duplicate:
+    - it changes the interpretation of RL output from target position to budget
+      usage ratio inside mode-owned bands
+  - New mechanism this time:
+    - fixed replay with mode risk bands:
+      - `flat_wait`: `0.00..0.25`
+      - `defensive_hold`: `0.10..0.45`
+      - `crash_rebuild`: `0.25..0.65`
+      - `trend_hold`: `0.45..0.95`
+  - External reference:
+    - hierarchical / temporally abstract trading control (`TradeR`, `EarnHFT`,
+      `Deep Stock Trading`)
+    - risk-governor / volatility-targeting reference class
+  - Comparison-table row:
+    - `risk_budget_usage_v1`
+  - Command:
+    - `PYTHONPATH=. /Users/rziiiii/.openclaw/workspace/qlib_venv/bin/python scripts/replay_two_speed_mode_budget.py --slow-daily /Users/rziiiii/.openclaw/workspace/runtime/post_train_review/balanced_rule_residual_mode_v1_soxl_daily.csv --fast-daily /Users/rziiiii/.openclaw/workspace/runtime/post_train_review/balanced_rule_residual_imitation_v4_soxl_daily.csv --composition budget_usage --profile-name risk_budget_usage_v1 --output-json runtime/post_train_review/risk_budget_usage_v1.json --output-md runtime/post_train_review/risk_budget_usage_v1.md --output-daily runtime/post_train_review/risk_budget_usage_v1_soxl_daily.csv`
+  - Validation evidence:
+    - `test_2020`: `239.0% / Sharpe 2.285 / MaxDD 21.7% / avg_pos 0.490`
+    - `test_2022`: `-17.1% / Sharpe -0.358 / MaxDD 25.6% / avg_pos 0.214`
+    - `test_2023_2024`: `127.8% / Sharpe 1.278 / MaxDD 32.1% / avg_pos 0.389`
+    - `test_proxy`: `2003.6% / Sharpe 1.248 / MaxDD 45.0% / trades 188`
+    - all replay acceptance gates passed
+    - `PYTHONPATH=. /Users/rziiiii/.openclaw/workspace/qlib_venv/bin/python scripts/check_harness.py`: `passed=47 failures=0`
+  - Keep / drop decision:
+    - keep `risk_budget_usage_v1` as a candidate replay mechanism
+    - do not promote yet because this is not runtime/backtest parity
+  - Next action:
+    - implement the same budget-usage interpretation inside the runtime/backtest
+      position path and compare against replay before training
+
 - 2026-04-23 17:xx (two_speed_mode_budget_v1 fixed-signal replay):
   - Goal:
     - diagnose the current model bottleneck without another reward/feature

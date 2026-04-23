@@ -13,6 +13,7 @@ import pandas as pd
 
 from src.soxl_quant.policy.two_speed_budget import (
     TwoSpeedBudgetConfig,
+    compose_budget_usage_position,
     compose_two_speed_position,
     infer_mode_from_slow_position,
     maybe_rebalance_position,
@@ -97,6 +98,7 @@ def compose_two_speed_frame(
     slow: pd.DataFrame,
     fast: pd.DataFrame,
     config: TwoSpeedBudgetConfig,
+    composition: str = "slack",
 ) -> pd.DataFrame:
     frame = slow.merge(fast, on="datetime", how="inner")
     price = _price_from_frame(frame)
@@ -109,7 +111,10 @@ def compose_two_speed_frame(
         slow_pos = float(row["slow_position"])
         fast_pos = float(row["fast_position"])
         mode = infer_mode_from_slow_position(slow_pos)
-        raw = compose_two_speed_position(slow_pos, fast_pos, mode, config)
+        if composition == "budget_usage":
+            raw = compose_budget_usage_position(fast_pos, mode, config)
+        else:
+            raw = compose_two_speed_position(slow_pos, fast_pos, mode, config)
         target = maybe_rebalance_position(current, raw, days_since_trade, config)
         if abs(target - current) >= config.trade_threshold:
             days_since_trade = 0
@@ -168,9 +173,9 @@ def _format_metrics(metrics: Dict[str, float]) -> str:
 def write_markdown(path: Path, payload: Dict[str, object]) -> None:
     rows: Iterable[Tuple[str, Dict[str, Dict[str, float]]]] = payload["variants"].items()  # type: ignore[assignment]
     lines = [
-        "# Two-Speed Mode Budget v1",
+        f"# {payload['profile']}",
         "",
-        "Fixed-signal counterfactual combining the slow `mode_v1` risk anchor with the fast `imitation_v4` participation path.",
+        str(payload["description"]),
         "",
         "| variant | test_2020 ret/sh/dd | test_2022 ret/sh/dd/pos | test_2023_2024 ret/sh/dd | proxy ret/sh/dd/trades |",
         "| --- | --- | --- | --- | --- |",
@@ -194,6 +199,13 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--slow-daily", required=True, type=Path)
     parser.add_argument("--fast-daily", required=True, type=Path)
     parser.add_argument("--v19-daily", type=Path)
+    parser.add_argument("--profile-name", default="two_speed_mode_budget_v1")
+    parser.add_argument(
+        "--composition",
+        choices=("slack", "budget_usage"),
+        default="slack",
+        help="slack caps the fast path above the slow anchor; budget_usage treats the fast path as usage ratio inside mode bands",
+    )
     parser.add_argument("--output-json", default=Path("runtime/post_train_review/two_speed_mode_budget_v1.json"), type=Path)
     parser.add_argument("--output-md", default=Path("runtime/post_train_review/two_speed_mode_budget_v1.md"), type=Path)
     parser.add_argument("--output-daily", default=Path("runtime/post_train_review/two_speed_mode_budget_v1_soxl_daily.csv"), type=Path)
@@ -205,20 +217,20 @@ def main() -> int:
     cfg = TwoSpeedBudgetConfig()
     slow = _read_daily(args.slow_daily, "slow")
     fast = _read_daily(args.fast_daily, "fast")
-    composed = compose_two_speed_frame(slow, fast, cfg)
+    composed = compose_two_speed_frame(slow, fast, cfg, composition=args.composition)
     price_frame = slow.merge(fast, on="datetime", how="inner")
     price = _price_from_frame(price_frame)
 
     variants: Dict[str, Dict[str, Dict[str, float]]] = {
         "mode_v1_slow": summarize_daily(replay_positions(price_frame, "slow_position", price, cfg.trade_threshold)),
         "imitation_v4_fast": summarize_daily(replay_positions(price_frame, "fast_position", price, cfg.trade_threshold)),
-        "two_speed_mode_budget_v1": summarize_daily(composed),
+        args.profile_name: summarize_daily(composed),
     }
     if args.v19_daily is not None:
         v19 = _read_daily(args.v19_daily, "v19").merge(price_frame[["datetime"]], on="datetime", how="inner")
         variants["v19_reference"] = summarize_daily(replay_positions(v19, "v19_position", price, cfg.trade_threshold))
 
-    two = variants["two_speed_mode_budget_v1"]
+    two = variants[args.profile_name]
     fast_metrics = variants["imitation_v4_fast"]
     passes = {
         "test_2022_max_dd_le_30": two["test_2022"]["max_dd"] <= 30.0,
@@ -228,9 +240,18 @@ def main() -> int:
         "proxy_dd_improves_fast_by_2pt": two["test_proxy"]["max_dd"] <= fast_metrics["test_proxy"]["max_dd"] - 2.0,
     }
     payload: Dict[str, object] = {
-        "profile": "two_speed_mode_budget_v1",
+        "profile": args.profile_name,
+        "description": (
+            "Fixed-signal counterfactual combining the slow `mode_v1` risk governor "
+            "with the fast `imitation_v4` path as a budget-usage signal."
+            if args.composition == "budget_usage"
+            else "Fixed-signal counterfactual combining the slow `mode_v1` risk anchor "
+            "with the fast `imitation_v4` participation path."
+        ),
         "config": {
+            "composition": args.composition,
             "mode_slack": dict(cfg.mode_slack),
+            "mode_bands": {k: list(v) for k, v in cfg.mode_bands.items()},
             "trade_threshold": cfg.trade_threshold,
             "trade_lock_days": cfg.trade_lock_days,
         },
@@ -243,10 +264,10 @@ def main() -> int:
     args.output_json.write_text(json.dumps(payload, indent=2, sort_keys=True), encoding="utf-8")
     composed.to_csv(args.output_daily, index=False)
     write_markdown(args.output_md, payload)
-    print(f"[two-speed] decision={payload['decision']}")
-    print(f"[two-speed] json={args.output_json}")
-    print(f"[two-speed] md={args.output_md}")
-    print(f"[two-speed] daily={args.output_daily}")
+    print(f"[replay] decision={payload['decision']}")
+    print(f"[replay] json={args.output_json}")
+    print(f"[replay] md={args.output_md}")
+    print(f"[replay] daily={args.output_daily}")
     return 0
 
 

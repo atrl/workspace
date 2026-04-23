@@ -504,6 +504,7 @@ The repo has reached a **fundamental frontier** for single-asset 3x leveraged ET
 | balanced_rule_residual_imitation_v7 | ablation | v16 | v2/v4 compromise | 686.3% | 0.93 | 52.2% | 31.9% | 40.4% | 33.3% | dropped — worse than v4 |
 | balanced_rule_residual_imitation_v4_budget | execution_gate | v4 | config-owned regime-conditional position budget, smoke seed=12345 | 721.1% | 0.94 | 51.0% | 36.3% | 38.6% | 41.5% | candidate scaffold only — mechanism runs, smoke actor fails strict DD gate |
 | two_speed_mode_budget_v1 | execution_gate | mode_v1 + imitation_v4 | fixed-signal slow mode anchor + fast participation slack replay | 1398.3% | 1.10 | 51.6% | 33.9% | 156.7% | 31.4% | dropped — proxy/restart improved, strict 2022 DD still fails |
+| risk_budget_usage_v1 | execution_gate | mode_v1 + imitation_v4 | fixed-signal mode risk bands + fast path as budget usage ratio | 2003.6% | 1.25 | 45.0% | 25.6% | 127.8% | 32.1% | candidate replay — passes all fixed-replay gates; needs runtime/backtest parity |
 
 ### Key Conclusions
 
@@ -565,3 +566,29 @@ Decision: drop as a promotable candidate because it still misses the strict
 bottleneck: two-speed composition can restore participation and improve proxy
 quality, but single-asset SOXL crisis path drawdown still needs stricter crisis
 state protection or a different protection layer rather than mild mode slack.
+
+## 2026-04-23: Risk-Budget Usage Replay
+
+This follow-up kept the same two source paths but changed the composition:
+
+- slow layer: `mode_v1` owns the risk regime and allowed band
+- fast layer: `imitation_v4` is interpreted as a budget usage ratio, not a
+  direct target position
+- default bands:
+  - `flat_wait`: `0.00..0.25`
+  - `defensive_hold`: `0.10..0.45`
+  - `crash_rebuild`: `0.25..0.65`
+  - `trend_hold`: `0.45..0.95`
+
+Result:
+
+- `test_2020`: `239.0% / Sharpe 2.285 / MaxDD 21.7% / avg_pos 0.490`
+- `test_2022`: `-17.1% / Sharpe -0.358 / MaxDD 25.6% / avg_pos 0.214`
+- `test_2023_2024`: `127.8% / Sharpe 1.278 / MaxDD 32.1% / avg_pos 0.389`
+- `test_proxy`: `2003.6% / Sharpe 1.248 / MaxDD 45.0% / trades 188`
+
+Decision: keep as a candidate replay mechanism. This is the first fixed replay
+that restores upside participation while passing the strict 2022 drawdown gate.
+Do not promote yet: the next step must implement the same budget-usage
+composition inside runtime/backtest position mapping and verify parity against
+this replay.

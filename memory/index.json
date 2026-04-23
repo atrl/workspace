@@ -2211,6 +2211,35 @@
     "excerpt": "# Position Budget Productionization Smoke ## Context The bottleneck review showed reward-only tuning and architecture swaps are not the current frontier. The repeated failure is selective participation under risk: the harness can suppress exposure, but it still struggles to loose"
   },
   {
+    "path": "memory/2026-04-23-risk-budget-usage-v1.md",
+    "date": "2026-04-23",
+    "title": "Risk-budget usage replay candidate",
+    "kind": "review",
+    "profiles": [
+      "balanced_rule_residual_imitation_v4_soxl_daily",
+      "balanced_rule_residual_mode_v1_soxl_daily"
+    ],
+    "status": "reference",
+    "tags": [
+      "balanced_rule_residual_imitation_v4_soxl_daily",
+      "balanced_rule_residual_mode_v1_soxl_daily",
+      "candidate",
+      "eval-2022",
+      "review"
+    ],
+    "artifacts": [
+      "runtime/backtest",
+      "runtime/post_train_review/balanced_rule_residual_imitation_v4_soxl_daily.csv",
+      "runtime/post_train_review/balanced_rule_residual_mode_v1_soxl_daily.csv",
+      "runtime/post_train_review/risk_budget_usage_v1.json",
+      "runtime/post_train_review/risk_budget_usage_v1.md",
+      "runtime/post_train_review/risk_budget_usage_v1_soxl_daily.csv"
+    ],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Fixed replay treated imitation_v4 as a budget usage ratio inside mode_v1 risk bands. It passed all replay acceptance checks: test_2022 MaxDD 25.6%, avg_pos 0.214, test_proxy 2003.6% / Sharpe 1.248 / MaxDD 45.0%. Keep as candidate fixed-replay mechanism; next step must implement runtime/backtest parity before any promotion claim.",
+    "excerpt": "# Risk-budget usage replay candidate ## Context The prior `two_speed_mode_budget_v1` composition used `mode_v1` as a slow anchor and let `imitation_v4` participate above that anchor by mode slack. It improved proxy quality but still failed strict `test_2022 MaxDD <= 30%`. `risk_b"
+  },
+  {
     "path": "memory/2026-04-23-two-speed-mode-budget-v1.md",
     "date": "2026-04-23",
     "title": "Two-speed mode budget replay dropped",
