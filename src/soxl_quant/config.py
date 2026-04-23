@@ -196,6 +196,7 @@ DEFAULT_ACTION_LEVELS = tuple(round(i / 10, 6) for i in range(11))
 class ModelConfig:
     observation_window: int = 1
     action_levels: Tuple[float, ...] = DEFAULT_ACTION_LEVELS
+    position_mapping: str = "default"
     use_regime_router: bool = False
     hard_regime_routing: bool = False
     router_experts: int = 3

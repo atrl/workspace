@@ -157,6 +157,7 @@ class RLStrategy(BaseStrategy):
             mode_band=mode_band(self.mode_state.name, mode_router_cfg) if mode_router_cfg and getattr(mode_router_cfg, "enabled", False) else None,
             position_budget_config=self.position_budget_config,
             current_drawdown=max(1.0 - account_value / max(self.peak_account_value, 1e-8), 0.0),
+            position_mapping=str(getattr(model_cfg, "position_mapping", "default")) if model_cfg else "default",
         )
         direction = "buy" if target_pos > current_pos else ("sell" if target_pos < current_pos else "neutral")
         min_rebalance = rebalance_threshold(

@@ -67,6 +67,23 @@ Keep as a candidate fixed-replay mechanism. Do not promote it yet: the result is
 from daily-path replay, not a full runtime/qlib backtest or actor-trained
 profile.
 
+## Runtime/Profile Parity Wiring
+
+The candidate now has a repo-owned profile at
+`experiments/candidate/risk_budget_usage_v1/profile.yaml`.
+
+- `model.position_mapping: budget_usage` means the actor output is interpreted
+  as a usage ratio inside the current mode-owned band.
+- For hybrid actors, the usage grid is derived from `delta_levels`, so the
+  existing 5-action `imitation_v4` actor maps to `0%, 25%, 50%, 75%, 100%`
+  band usage instead of accidentally using the default 11-action grid.
+- `mode_router` encodes the replay bands:
+  `flat_wait=0.00..0.25`, `defensive_hold=0.10..0.45`,
+  `crash_rebuild=0.25..0.65`, `trend_hold=0.45..0.95`.
+- Actor-backed parity is still blocked until the retained
+  `balanced_rule_residual_imitation_v4` actor checkpoint is restored; the
+  current artifact inventory retains the summary but not the actor bundle.
+
 ## Failure Mode To Check Next
 
 This could be a replay-composition artifact if the source daily paths encode

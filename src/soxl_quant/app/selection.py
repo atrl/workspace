@@ -56,6 +56,7 @@ def train_with_selection(
             use_hybrid_overlay=profile.model.use_hybrid_overlay,
             delta_levels=np.asarray(profile.model.delta_levels, dtype=np.float32) if profile.model.use_hybrid_overlay else None,
             mode_router_config=profile.mode_router,
+            position_mapping=profile.model.position_mapping,
         )
         baseline_score = validation_score(baseline_metrics, profile)
         baseline_state = copy.deepcopy(actor.state_dict())
@@ -85,6 +86,7 @@ def train_with_selection(
             use_hybrid_overlay=profile.model.use_hybrid_overlay,
             delta_levels=np.asarray(profile.model.delta_levels, dtype=np.float32) if profile.model.use_hybrid_overlay else None,
             mode_router_config=profile.mode_router,
+            position_mapping=profile.model.position_mapping,
         )
         final_score = validation_score(final_metrics, profile)
         history = [
@@ -120,6 +122,7 @@ def train_with_selection(
             use_hybrid_overlay=profile.model.use_hybrid_overlay,
             delta_levels=np.asarray(profile.model.delta_levels, dtype=np.float32) if profile.model.use_hybrid_overlay else None,
             mode_router_config=profile.mode_router,
+            position_mapping=profile.model.position_mapping,
         )
 
     baseline_metrics = _eval_valid()

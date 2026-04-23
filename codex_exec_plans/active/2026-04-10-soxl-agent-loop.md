@@ -218,6 +218,26 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
     - `test_2023_2024`: `127.8% / Sharpe 1.278 / MaxDD 32.1% / avg_pos 0.389`
     - `test_proxy`: `2003.6% / Sharpe 1.248 / MaxDD 45.0% / trades 188`
     - all replay acceptance gates passed
+  - 2026-04-23 runtime parity follow-up:
+    - added `model.position_mapping: budget_usage` as a profile-owned action
+      interpretation layer
+    - wired the mapping through training action interpretation, evaluation,
+      qlib backtest, runtime signal generation, and daily backtest export
+    - added `experiments/candidate/risk_budget_usage_v1/profile.yaml` and a
+      registry row
+    - regression guard:
+      - hybrid actor budget usage derives the usage grid from `delta_levels`
+        (`5` actions -> `0%,25%,50%,75%,100%`) instead of the default 11-action
+        direct-position grid
+    - Baseline / validation:
+      - `scripts/check_harness.py --skip-compile`: `passed=49 failures=0`
+      - profile load smoke:
+        `risk_budget_usage_v1 budget_usage 5 True`
+    - Blocker:
+      - artifact inventory currently has
+        `soxl_balanced_rule_residual_imitation_v4_summary.json` but no retained
+        `soxl_balanced_rule_residual_imitation_v4_actor.pt`, so full
+        actor-backed parity cannot be run yet
     - `PYTHONPATH=. /Users/rziiiii/.openclaw/workspace/qlib_venv/bin/python scripts/check_harness.py`: `passed=47 failures=0`
   - Keep / drop decision:
     - keep `risk_budget_usage_v1` as a candidate replay mechanism

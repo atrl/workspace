@@ -113,6 +113,43 @@ def test_position_budget_only_caps_high_regime_rows():
     assert stress_pos == 0.45
 
 
+def test_target_position_can_interpret_action_as_mode_budget_usage():
+    obs = make_obs(cum_drop_30=-0.02, regime_risk=0.2, anchor_gap_180=0.06, anchor_slope_180=0.01)
+    low = target_position_for_profile(
+        0,
+        obs,
+        action_levels=np.asarray([0.0, 0.5, 1.0], dtype=np.float32),
+        mode_band=(0.10, 0.50),
+        position_mapping="budget_usage",
+    )
+    high = target_position_for_profile(
+        2,
+        obs,
+        action_levels=np.asarray([0.0, 0.5, 1.0], dtype=np.float32),
+        mode_band=(0.10, 0.50),
+        position_mapping="budget_usage",
+    )
+
+    assert low == 0.10
+    assert high == 0.50
+
+
+def test_budget_usage_mapping_uses_hybrid_action_count_when_present():
+    obs = make_obs(cum_drop_30=-0.02, regime_risk=0.2, anchor_gap_180=0.06, anchor_slope_180=0.01)
+
+    high = target_position_for_profile(
+        4,
+        obs,
+        action_levels=np.asarray([round(i / 10, 6) for i in range(11)], dtype=np.float32),
+        use_hybrid_overlay=True,
+        delta_levels=np.asarray([-0.10, -0.05, 0.0, 0.05, 0.10], dtype=np.float32),
+        mode_band=(0.10, 0.50),
+        position_mapping="budget_usage",
+    )
+
+    assert high == 0.50
+
+
 if __name__ == "__main__":
     test_drawdown_position_cap_thresholds()
     test_action_to_position_applies_hard_cap_from_cumulative_drop()
@@ -121,4 +158,6 @@ if __name__ == "__main__":
     test_hybrid_overlay_position_clips_delta_inside_current_band()
     test_max_position_for_budget_uses_consumed_budget_buckets()
     test_position_budget_only_caps_high_regime_rows()
+    test_target_position_can_interpret_action_as_mode_budget_usage()
+    test_budget_usage_mapping_uses_hybrid_action_count_when_present()
     print("test_position_cap: OK")

@@ -589,6 +589,8 @@ Result:
 
 Decision: keep as a candidate replay mechanism. This is the first fixed replay
 that restores upside participation while passing the strict 2022 drawdown gate.
-Do not promote yet: the next step must implement the same budget-usage
-composition inside runtime/backtest position mapping and verify parity against
-this replay.
+Runtime/backtest support now exists through `model.position_mapping:
+budget_usage`, and `risk_budget_usage_v1` has a candidate profile with the replay
+mode bands encoded in `mode_router`. Do not promote yet: actor-backed parity is
+still blocked until the retained `balanced_rule_residual_imitation_v4` actor
+checkpoint is restored or regenerated.

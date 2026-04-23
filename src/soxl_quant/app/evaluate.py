@@ -70,6 +70,7 @@ def slice_metrics(actor, df, slices: Dict[str, Tuple[str, str]], profile) -> Dic
             use_hybrid_overlay=profile.model.use_hybrid_overlay,
             delta_levels=np.asarray(profile.model.delta_levels, dtype=np.float32) if profile.model.use_hybrid_overlay else None,
             mode_router_config=profile.mode_router,
+            position_mapping=profile.model.position_mapping,
         )
     return metrics
 

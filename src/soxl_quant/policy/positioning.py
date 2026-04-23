@@ -190,6 +190,26 @@ def action_to_position(
     return float(np.clip(floor + base * (cap - floor), 0.0, 1.0))
 
 
+def action_to_budget_usage_position(
+    action: int,
+    obs: np.ndarray,
+    config: Optional[PositionCapConfig] = None,
+    action_levels: Optional[np.ndarray] = None,
+    hard_floor: Optional[float] = None,
+    mode_band: Optional[Tuple[float, float]] = None,
+) -> float:
+    levels = action_levels if action_levels is not None else BASE_ACTION_LEVELS
+    clipped = int(np.clip(action, 0, len(levels) - 1))
+    usage = float(np.clip(levels[clipped], 0.0, 1.0))
+    floor, cap = action_band_from_obs(obs, hard_floor=hard_floor)
+    floor, cap = _apply_mode_band(floor, cap, mode_band)
+    cumulative_drop = max(-float(np.nan_to_num(obs[STATIC_INDEX["cum_drop_30"]])), 0.0)
+    cap = min(cap, drawdown_position_cap(cumulative_drop, obs=obs, config=config))
+    if mode_band is not None and cap < floor:
+        cap = floor
+    return float(np.clip(floor + usage * (cap - floor), 0.0, 1.0))
+
+
 def target_position_for_profile(
     action: int,
     obs: np.ndarray,
@@ -201,8 +221,20 @@ def target_position_for_profile(
     mode_band: Optional[Tuple[float, float]] = None,
     position_budget_config: Optional[PositionBudgetConfig] = None,
     current_drawdown: float = 0.0,
+    position_mapping: str = "default",
 ) -> float:
-    if use_hybrid_overlay:
+    if position_mapping == "budget_usage":
+        if delta_levels is not None:
+            action_levels = np.linspace(0.0, 1.0, len(delta_levels), dtype=np.float32)
+        target = action_to_budget_usage_position(
+            action,
+            obs,
+            config=config,
+            action_levels=action_levels,
+            hard_floor=hard_floor,
+            mode_band=mode_band,
+        )
+    elif use_hybrid_overlay:
         target = hybrid_overlay_position(
             action,
             obs,
@@ -229,6 +261,7 @@ __all__ = [
     "DEFAULT_POSITION_BUDGET",
     "action_band_from_obs",
     "action_levels_for_profile",
+    "action_to_budget_usage_position",
     "action_to_position",
     "apply_position_budget",
     "drawdown_position_cap",

@@ -539,6 +539,7 @@ def _build_signal_intent(
         mode_band=mode_band(current_mode_state.name, profile.mode_router) if profile.mode_router.enabled else None,
         position_budget_config=profile.position_budget,
         current_drawdown=max(1.0 - account.account_value / max(peak_value, 1e-8), 0.0),
+        position_mapping=model_cfg.position_mapping,
     )
     regime_risk = float(feature_df.iloc[idx]["regime_risk"])
     return SignalIntent(

@@ -76,3 +76,37 @@ Implement runtime/backtest parity:
 - actor/RL output is interpreted as budget usage ratio
 - validation must reproduce the replay direction on fixed split and test proxy
   before any training branch is justified
+
+## Runtime Parity Follow-Up
+
+Implemented the profile/runtime wiring for the same mechanism:
+
+- `ModelConfig.position_mapping` supports `default` and `budget_usage`.
+- `budget_usage` is threaded through `PositionAction`, `evaluate_split`,
+  `backtest_profile`, runtime signal generation, and the daily backtest export
+  script.
+- `experiments/candidate/risk_budget_usage_v1/profile.yaml` owns the replay mode
+  bands and is registered in `configs/soxl/profile_registry.yaml`.
+- Hybrid actors derive budget usage from `delta_levels`, so the 5-action
+  `imitation_v4` actor maps to full 0..1 usage.
+
+Validation:
+
+```bash
+PYTHONPATH=. /Users/rziiiii/.openclaw/workspace/qlib_venv/bin/python scripts/check_harness.py --skip-compile
+# [summary] passed=49 failures=0
+
+PYTHONPATH=. /Users/rziiiii/.openclaw/workspace/qlib_venv/bin/python - <<'PY'
+from src.soxl_quant.config import load_profile
+p = load_profile('risk_budget_usage_v1')
+assert p.model.position_mapping == 'budget_usage'
+assert p.mode_router.enabled is True
+print(p.name, p.model.position_mapping, len(p.model.delta_levels), p.mode_router.enabled)
+PY
+# risk_budget_usage_v1 budget_usage 5 True
+```
+
+Blocker: the current artifact inventory retains
+`soxl_balanced_rule_residual_imitation_v4_summary.json` but not
+`soxl_balanced_rule_residual_imitation_v4_actor.pt`, so full actor-backed parity
+must wait for actor restoration or regeneration.

@@ -39,6 +39,7 @@ def evaluate_split(
     delta_levels: Optional[np.ndarray] = None,
     feature_columns: list[str] | tuple[str, ...] | None = None,
     mode_router_config=None,
+    position_mapping: str = "default",
 ) -> Dict[str, float]:
     cash = cash0
     peak = cash0
@@ -91,6 +92,7 @@ def evaluate_split(
             mode_band=mode_band(mode_state.name, mode_router_config) if mode_router_config and getattr(mode_router_config, "enabled", False) else None,
             position_budget_config=position_budget_config,
             current_drawdown=max(1.0 - cash / max(peak, 1e-8), 0.0),
+            position_mapping=position_mapping,
         )
         regime_risk = float(np.nan_to_num(row["regime_risk"]))
         realized_vol = float(np.nan_to_num(row["realized_vol_10"]))

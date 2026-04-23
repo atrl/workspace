@@ -52,6 +52,7 @@ def main() -> None:
         feature_df=test_df,
         price_series=price,
         position_cap_config=profile.position_cap,
+        position_budget_config=profile.position_budget,
         execution_config=profile.execution,
         symbol="SOXL",
         test_seg=TEST_SEG,

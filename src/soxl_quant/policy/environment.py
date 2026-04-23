@@ -118,6 +118,7 @@ class EpisodeConfig(NamedTuple):
     nday_window: int = 5
     execution_config: Optional[ExecutionConfig] = None
     mode_router: Optional[ModeRouterConfig] = None
+    position_mapping: str = "default"
 
 
 def build_price_path(df: pd.DataFrame, base_price: float = 100.0) -> np.ndarray:
@@ -161,6 +162,7 @@ class SoxlSimulator(Simulator):
         self.nday_window = max(int(getattr(initial, "nday_window", 5)), 1)
         self.exec_cfg = initial.execution_config or DEFAULT_EXECUTION
         self.mode_router_cfg = initial.mode_router or ModeRouterConfig()
+        self.position_mapping = str(getattr(initial, "position_mapping", "default"))
         self.period_start_val = self.cash0
         self.period_baseline_val = self.cash0
         self.period_start_pos = 0.0
@@ -458,6 +460,7 @@ class PositionAction(ActionInterpreter):
             mode_band=mode_band(current_mode, self.mode_router_config) if current_mode else None,
             position_budget_config=self.position_budget_config,
             current_drawdown=float(state.get("drawdown", 0.0)),
+            position_mapping=self.position_mapping,
         )
 
 
@@ -496,6 +499,7 @@ def build_initial_states(
                 nday_window=nday_window,
                 execution_config=profile.execution,
                 mode_router=profile.mode_router,
+                position_mapping=profile.model.position_mapping,
             )
             all_states.append(state)
             segment = df.iloc[start_idx:end_idx]
