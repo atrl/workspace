@@ -139,6 +139,65 @@ def _builtin_vix_term_pack(context: dict[str, Any]) -> dict[str, pd.Series]:
     }
 
 
+def _builtin_rulebase_signals_pack(context: dict[str, Any]) -> dict[str, pd.Series]:
+    """Rulebase-derived signal features for independent factor mining.
+
+    Decomposes soxl_backtest/ rulebase logic (panic score, buy/sell conditions,
+    volatility regime) into independently testable time-series signals.
+    """
+    index = context["index"]
+    vix_zscore = context["vix_zscore"].fillna(0.0)
+    sigmoid_vix = 1.0 / (1.0 + np.exp(-vix_zscore * 2.0))
+    rsi6_val = (context["rsi_6"] / 100.0).fillna(0.5)
+    rsi6_adjustment = pd.Series(0.0, index=index)
+    rsi6_adjustment[rsi6_val <= 0.30] = -(0.30 - rsi6_val[rsi6_val <= 0.30]) * 2.5
+    rsi6_adjustment[rsi6_val >= 0.70] = (rsi6_val[rsi6_val >= 0.70] - 0.70) * 1.0
+    vol_coef_safe = context["vol_coef_21"].replace(0.0, np.nan).fillna(1.0)
+    daily_return = context["lev_ret"].fillna(0.0)
+    cum_drop_30 = context["cum_drop_30"]
+    days_since_high_63 = context["days_since_high_63"]
+    below_anchor_ratio_63 = context["below_anchor_ratio_63"]
+    anchor_gap_180 = context["anchor_gap_180"]
+    realized_vol_21 = context["realized_vol_21"]
+    volume_shock = context["volume_shock"]
+    vol_stress_score = context["vol_stress_score"]
+
+    panic_score_proxy = (sigmoid_vix * context["relative_volume_zscore"].fillna(0.0) + rsi6_adjustment)
+    daily_drop_severity = daily_return / (vol_coef_safe + 1e-8)
+    cumulative_drop_severity = cum_drop_30 / (vol_coef_safe + 1e-8)
+    rsi6_oversold = ((0.30 - rsi6_val).clip(lower=0) / 0.30).fillna(0.0)
+    rsi6_overbought = ((rsi6_val - 0.70).clip(lower=0) / 0.30).fillna(0.0)
+    buy_composite = panic_score_proxy * 0.3 + daily_drop_severity * 0.4 + cumulative_drop_severity * 0.3
+    sell_composite = (
+        rsi6_overbought * 0.4
+        + ((cum_drop_30 + 0.30).clip(lower=0, upper=0.60) / 0.60) * 0.3
+        + ((cum_drop_30 + 0.20).clip(lower=0, upper=0.20) / 0.20) * 0.3
+    )
+    vix_term_slope = context.get("vix_term_slope")
+    vix_short_ratio = context.get("vix_short_ratio")
+    if vix_term_slope is not None and vix_short_ratio is not None:
+        vix_term_stress = (vix_term_slope * vix_short_ratio).fillna(0.0)
+    else:
+        vix_term_stress = pd.Series(0.0, index=index)
+
+    return {
+        "RB_PANIC_SCORE_PROXY": panic_score_proxy,
+        "RB_DAILY_DROP_SEVERITY": daily_drop_severity,
+        "RB_CUMULATIVE_DROP_SEVERITY": cumulative_drop_severity,
+        "RB_RSI6_OVERSOLD": rsi6_oversold,
+        "RB_RSI6_OVERBOUGHT": rsi6_overbought,
+        "RB_VOL_REGIME": vol_coef_safe,
+        "RB_BUY_COMPOSITE": buy_composite,
+        "RB_SELL_COMPOSITE": sell_composite,
+        "RB_PROFIT_TAKE_PROXY": ((cum_drop_30 + 0.30).clip(lower=0, upper=0.60) / 0.60).fillna(0.0),
+        "RB_COOLDOWN_PROXY": (days_since_high_63 * (1.0 - below_anchor_ratio_63)).fillna(0.0),
+        "RB_STOP_LOSS_PROXY": ((cum_drop_30 + 0.20).clip(lower=0, upper=0.20) / 0.20).fillna(0.0),
+        "RB_VOLUME_STRESS": (volume_shock * vol_stress_score).fillna(0.0),
+        "RB_TREND_REVERSAL": (anchor_gap_180 * (1.0 + realized_vol_21)).fillna(0.0),
+        "RB_VIX_TERM_STRESS": vix_term_stress,
+    }
+
+
 BUILTIN_FEATURE_PACKS: dict[str, dict[str, Any]] = {
     "kelly": {
         "columns": (
@@ -158,7 +217,26 @@ BUILTIN_FEATURE_PACKS: dict[str, dict[str, Any]] = {
             "vix_term_slope_velocity_5",
         ),
         "builder": _builtin_vix_term_pack,
-    }
+    },
+    "rulebase_signals": {
+        "columns": (
+            "RB_PANIC_SCORE_PROXY",
+            "RB_DAILY_DROP_SEVERITY",
+            "RB_CUMULATIVE_DROP_SEVERITY",
+            "RB_RSI6_OVERSOLD",
+            "RB_RSI6_OVERBOUGHT",
+            "RB_VOL_REGIME",
+            "RB_BUY_COMPOSITE",
+            "RB_SELL_COMPOSITE",
+            "RB_PROFIT_TAKE_PROXY",
+            "RB_COOLDOWN_PROXY",
+            "RB_STOP_LOSS_PROXY",
+            "RB_VOLUME_STRESS",
+            "RB_TREND_REVERSAL",
+            "RB_VIX_TERM_STRESS",
+        ),
+        "builder": _builtin_rulebase_signals_pack,
+    },
 }
 
 
@@ -705,6 +783,18 @@ def engineer_feature_frame(
         "win_rate_21": win_rate_21,
         "odds_21": odds_21,
         "sharpe_21": sharpe_21,
+        # Rulebase signals pack context
+        "rsi_6": rsi_6,
+        "relative_volume_zscore": relative_volume_zscore,
+        "vol_coef_21": vol_coef_21,
+        "cum_drop_30": cum_drop_30,
+        "lev_ret": lev_ret,
+        "days_since_high_63": days_since_high_63,
+        "realized_vol_21": realized_vol_21,
+        "volume_shock": volume_shock,
+        "vol_stress_score": vol_stress_score,
+        "vix_term_slope": feature_df.get("vix_term_slope"),
+        "vix_short_ratio": feature_df.get("vix_short_ratio"),
     }
     registry = _feature_pack_registry(profile_name)
     for pack in feature_packs or ():

@@ -1,11 +1,17 @@
 {
-  "generated_at": "2026-04-21T13:39:31.489047+00:00",
+  "generated_at": "2026-04-22T14:09:16.637542+00:00",
   "entries": [
     {
       "path": "artifacts/models/balanced_unit_summary.json",
       "action": "keep",
       "reason": "summary retained even without registry match",
       "size_bytes": 2513
+    },
+    {
+      "path": "artifacts/models/mode_classifier.pt",
+      "action": "keep",
+      "reason": "summary retained as evidence",
+      "size_bytes": 8253
     },
     {
       "path": "artifacts/models/soxl_balanced_actor.pt",
@@ -146,6 +152,90 @@
       "size_bytes": 4312
     },
     {
+      "path": "artifacts/models/soxl_balanced_kelly_attention_v10_actor.pt",
+      "action": "delete",
+      "reason": "actor has no registered profile",
+      "size_bytes": 171286
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_kelly_attention_v10_summary.json",
+      "action": "keep",
+      "reason": "summary retained even without registry match",
+      "size_bytes": 4974
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_kelly_dynamic_v5_actor.pt",
+      "action": "delete",
+      "reason": "actor has no registered profile",
+      "size_bytes": 183893
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_kelly_dynamic_v5_summary.json",
+      "action": "keep",
+      "reason": "summary retained even without registry match",
+      "size_bytes": 4683
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_kelly_dynamic_v6_actor.pt",
+      "action": "delete",
+      "reason": "actor has no registered profile",
+      "size_bytes": 183893
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_kelly_dynamic_v6_summary.json",
+      "action": "keep",
+      "reason": "summary retained even without registry match",
+      "size_bytes": 4683
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_kelly_dynamic_v7_actor.pt",
+      "action": "delete",
+      "reason": "actor has no registered profile",
+      "size_bytes": 183893
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_kelly_dynamic_v7_summary.json",
+      "action": "keep",
+      "reason": "summary retained even without registry match",
+      "size_bytes": 4683
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_kelly_execution_v8_actor.pt",
+      "action": "delete",
+      "reason": "actor has no registered profile",
+      "size_bytes": 183925
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_kelly_execution_v8_summary.json",
+      "action": "keep",
+      "reason": "summary retained even without registry match",
+      "size_bytes": 4689
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_kelly_warmstart_v9_actor.pt",
+      "action": "delete",
+      "reason": "actor has no registered profile",
+      "size_bytes": 180853
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_kelly_warmstart_v9_summary.json",
+      "action": "keep",
+      "reason": "summary retained even without registry match",
+      "size_bytes": 4695
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_kelly_warmstart_v9b_actor.pt",
+      "action": "delete",
+      "reason": "actor has no registered profile",
+      "size_bytes": 180869
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_kelly_warmstart_v9b_summary.json",
+      "action": "keep",
+      "reason": "summary retained even without registry match",
+      "size_bytes": 4697
+    },
+    {
       "path": "artifacts/models/soxl_balanced_marginal_reward_quick_summary.json",
       "action": "keep",
       "reason": "registry keep_summary for ablation profile",
@@ -186,6 +276,210 @@
       "action": "keep",
       "reason": "registry keep_summary for dropped profile",
       "size_bytes": 3283
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_imitation_v1_actor.pt",
+      "action": "delete",
+      "reason": "actor has no registered profile",
+      "size_bytes": 180981
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_imitation_v1_summary.json",
+      "action": "keep",
+      "reason": "summary retained even without registry match",
+      "size_bytes": 5551
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_imitation_v2_actor.pt",
+      "action": "delete",
+      "reason": "actor has no registered profile",
+      "size_bytes": 180981
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_imitation_v2_fix_actor.pt",
+      "action": "delete",
+      "reason": "actor has no registered profile",
+      "size_bytes": 181109
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_imitation_v2_fix_summary.json",
+      "action": "keep",
+      "reason": "summary retained even without registry match",
+      "size_bytes": 4727
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_imitation_v2_summary.json",
+      "action": "keep",
+      "reason": "summary retained even without registry match",
+      "size_bytes": 5500
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_imitation_v3_actor.pt",
+      "action": "delete",
+      "reason": "actor has no registered profile",
+      "size_bytes": 180981
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_imitation_v3_summary.json",
+      "action": "keep",
+      "reason": "summary retained even without registry match",
+      "size_bytes": 4993
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_imitation_v4_actor.pt",
+      "action": "delete",
+      "reason": "actor has no registered profile",
+      "size_bytes": 180981
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_imitation_v4_summary.json",
+      "action": "keep",
+      "reason": "summary retained even without registry match",
+      "size_bytes": 4713
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_imitation_v5_actor.pt",
+      "action": "delete",
+      "reason": "actor has no registered profile",
+      "size_bytes": 180981
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_imitation_v5_summary.json",
+      "action": "keep",
+      "reason": "summary retained even without registry match",
+      "size_bytes": 4711
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_imitation_v6_actor.pt",
+      "action": "delete",
+      "reason": "actor has no registered profile",
+      "size_bytes": 180981
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_imitation_v6_summary.json",
+      "action": "keep",
+      "reason": "summary retained even without registry match",
+      "size_bytes": 4715
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_imitation_v7_actor.pt",
+      "action": "delete",
+      "reason": "actor has no registered profile",
+      "size_bytes": 180981
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_imitation_v7_summary.json",
+      "action": "keep",
+      "reason": "summary retained even without registry match",
+      "size_bytes": 4712
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_learned_mode_v1_actor.pt",
+      "action": "delete",
+      "reason": "actor has no registered profile",
+      "size_bytes": 181093
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_learned_mode_v1_summary.json",
+      "action": "keep",
+      "reason": "summary retained even without registry match",
+      "size_bytes": 5558
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_minimal_v1_actor.pt",
+      "action": "delete",
+      "reason": "actor has no registered profile",
+      "size_bytes": 180949
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_minimal_v1_summary.json",
+      "action": "keep",
+      "reason": "summary retained even without registry match",
+      "size_bytes": 5549
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_mode_v1_actor.pt",
+      "action": "delete",
+      "reason": "actor has no registered profile",
+      "size_bytes": 180901
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_mode_v1_summary.json",
+      "action": "keep",
+      "reason": "summary retained even without registry match",
+      "size_bytes": 5552
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_mode_v2_actor.pt",
+      "action": "delete",
+      "reason": "actor has no registered profile",
+      "size_bytes": 180901
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_mode_v2_summary.json",
+      "action": "keep",
+      "reason": "summary retained even without registry match",
+      "size_bytes": 5547
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_refined_v1_actor.pt",
+      "action": "delete",
+      "reason": "actor has no registered profile",
+      "size_bytes": 180949
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_refined_v1_summary.json",
+      "action": "keep",
+      "reason": "summary retained even without registry match",
+      "size_bytes": 5542
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_refined_v2_actor.pt",
+      "action": "delete",
+      "reason": "actor has no registered profile",
+      "size_bytes": 180949
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_refined_v2_summary.json",
+      "action": "keep",
+      "reason": "summary retained even without registry match",
+      "size_bytes": 5547
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_refined_v3_actor.pt",
+      "action": "delete",
+      "reason": "actor has no registered profile",
+      "size_bytes": 180949
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_refined_v3_summary.json",
+      "action": "keep",
+      "reason": "summary retained even without registry match",
+      "size_bytes": 5542
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_refined_v4_actor.pt",
+      "action": "delete",
+      "reason": "actor has no registered profile",
+      "size_bytes": 180949
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_refined_v4_summary.json",
+      "action": "keep",
+      "reason": "summary retained even without registry match",
+      "size_bytes": 5554
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_simplified_v1_actor.pt",
+      "action": "delete",
+      "reason": "actor has no registered profile",
+      "size_bytes": 584261
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_simplified_v1_summary.json",
+      "action": "keep",
+      "reason": "summary retained even without registry match",
+      "size_bytes": 6109
     },
     {
       "path": "artifacts/models/soxl_balanced_rule_residual_v10_actor.pt",
@@ -378,12 +672,6 @@
       "action": "keep",
       "reason": "summary retained even without registry match",
       "size_bytes": 4644
-    },
-    {
-      "path": "artifacts/models/soxl_balanced_rule_residual_v24_actor.pt",
-      "action": "delete",
-      "reason": "actor has no registered profile",
-      "size_bytes": 180325
     },
     {
       "path": "artifacts/models/soxl_balanced_rule_residual_v24_summary.json",

@@ -80,6 +80,7 @@ class RewardConfig:
     use_simplified_reward: bool = False
     use_minimal_reward: bool = False
     use_moderate_reward: bool = False
+    use_kelly_reward: bool = False
     use_regime_budget: bool = False
     regime_budget_threshold: float = 0.60
     regime_budget_cap: float = 0.30

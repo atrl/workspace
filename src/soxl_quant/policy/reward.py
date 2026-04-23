@@ -48,6 +48,12 @@ class ContinuousReward(Reward):
             return self._moderate_reward(state, cfg, pos, prev_val, pnl_ret, turnover, drawdown, regime_risk, flat_steps, realized_vol, anchor_gap, cum_drop_30)
 
         # ============================================================
+        # KELLY REWARD BRANCH (v10: 3-term minimal + Kelly alignment)
+        # ============================================================
+        if getattr(cfg, "use_kelly_reward", False):
+            return self._kelly_reward(state, cfg, pos, turnover, realized_vol)
+
+        # ============================================================
         # FULL LEGACY REWARD (backward compatibility)
         # ============================================================
         return self._legacy_reward(state, cfg, pos, prev_val, pnl_ret, turnover, drawdown, regime_risk, flat_steps, realized_vol, anchor_gap, cum_drop_30)
@@ -99,6 +105,44 @@ class ContinuousReward(Reward):
         # 5. Minimal inactivity penalty (to prevent permanent cash, but weak)
         if flat_steps >= 10 and realized_vol < 0.30 and anchor_gap > 0.01:
             reward -= 0.05
+
+        return float(reward)
+
+    def _kelly_reward(self, state, cfg, pos, turnover, realized_vol):
+        """v10 Kelly-centric minimal reward: 3 terms only.
+
+        Hypothesis: v4/v5-v9 failed because the reward function had too many
+        conflicting terms.  A pure 3-term reward (alpha + Kelly alignment +
+        transaction cost) gives the model a single clear signal to follow.
+        """
+        # 1. Core alpha (Kelly-log scaled)
+        step_return = float(state.get("step_return", 0.0))
+        rule_return = float(state.get("rule_return", 0.0))
+        alpha = step_return - rule_return
+        safe_alpha = max(alpha, -0.999)
+        reward = math.log(1.0 + safe_alpha) * 100.0 * float(cfg.alpha_scale)
+
+        # 2. Kelly alignment bonus (the ONLY new term)
+        kelly_bonus = getattr(cfg, "kelly_tracking_bonus", 0.0)
+        if kelly_bonus > 0.0:
+            kelly_pos = float(state.get("kelly_position_21", 0.0))
+            win_rate = float(state.get("win_rate_21", 0.5))
+            # Activate when Kelly shows positive edge
+            if kelly_pos > getattr(cfg, "kelly_min_signal", 0.15) and win_rate > 0.45:
+                target = min(kelly_pos, 1.0)
+                # Signal quality: require decent win-rate + non-negative Sharpe
+                sharpe = float(state.get("sharpe_21", 0.0))
+                signal_quality = max(0.0, (win_rate - 0.45) * 3.0) * (1.0 if sharpe > 0 else 0.5)
+                if signal_quality > 0.0:
+                    alignment = max(0.0, 1.0 - abs(pos - target))
+                    # Volatility attenuation
+                    attenuation = 1.0
+                    if getattr(cfg, "kelly_vol_attenuation", True) and realized_vol > 1.0:
+                        attenuation = max(0.2, 1.0 - (realized_vol - 1.0) * 0.8)
+                    reward += alignment * kelly_bonus * signal_quality * attenuation
+
+        # 3. Transaction cost (keep turnover reasonable)
+        reward -= turnover * cfg.transaction_cost * 100.0
 
         return float(reward)
 

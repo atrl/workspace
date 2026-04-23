@@ -699,3 +699,17 @@ profiles:
   keep_actor: false
   keep_summary: true
   notes_ref: experiments/candidate/balanced_kelly_warmstart_v9b/profile.yaml
+- name: balanced_kelly_attention_v10
+  family: balanced
+  status: dropped
+  baseline: balanced_rule_residual_imitation_v4
+  keep_actor: false
+  keep_summary: true
+  notes_ref: experiments/candidate/balanced_kelly_attention_v10/profile.yaml
+- name: balanced_conservative_ft
+  family: balanced
+  status: candidate
+  baseline: balanced
+  keep_actor: true
+  keep_summary: true
+  notes_ref: experiments/candidate/balanced_conservative_ft/notes.md

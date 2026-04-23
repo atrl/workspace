@@ -158,6 +158,7 @@ This table is the working summary for the most decision-relevant historical bran
 | balanced_rule_residual_refined_v2 | reward_only | balanced_rule_residual_refined_v1 | candidate | add trend_alignment_bonus + moderate opportunity_cost | 68.9 / 1.79 / 27.1 | 108.6 / 17.8 | -22.60 / 31.91 / — | 63.33 / 29.70 | 556.9 / 0.87 / 53.0 | blocked |
 | balanced_rule_residual_refined_v3 | reward_only | balanced_rule_residual_refined_v2 | candidate | stronger trend_alignment (0.30) + opportunity_cost (0.06) | 58.7 / 1.61 / 28.9 | 109.0 / 22.3 | -24.57 / 32.59 / — | 46.42 / 33.07 | 637.8 / 0.89 / 54.9 | blocked |
 | balanced_rule_residual_refined_v4 | reward_only | balanced_rule_residual_refined_v2 | dropped | midpoint between v2 and v3 | 60.4 / 1.68 / 26.6 | 109.0 / 17.8 | -22.01 / 30.95 / — | 38.12 / 33.25 | 480.0 / 0.84 / 54.2 | blocked |
+| balanced_kelly_attention_v10 | architecture | balanced_rule_residual_imitation_v4 | dropped | Attention + Kelly + simplified reward + stride=100 | 58.8 / 1.57 / 30.3 | 97.3 / 19.3 | -24.19 / 32.55 / 0.26 | 43.03 / 32.60 | 553.3 / 0.85 / 53.2 | blocked |
 | balanced_transition_state | feature_only | — | — | transition/release features batch | 54.7 / 1.6 / 27.3 | 103.8 / 20.6 | -41.0 / 46.5 / 0.4 | 44.9 / 38.8 | 472.9 / 0.8 / 59.0 | fail |
 | balanced_structural_v1 | structural | balanced | dropped | longer context + routing + sampling | 47.3 / 1.6 / 25.9 | 101.3 / 20.0 | -31.3 / 39.9 / 0.3 | 45.5 / 33.5 | 307.0 / 0.7 / 53.7 | fail |
 | balanced_checkpoint_review | selection | balanced | candidate | earlier checkpoint selection | 52.6 / 1.6 / 26.7 | 114.7 / 21.3 | -39.5 / 46.3 / 0.4 | 39.6 / 38.7 | 371.5 / 0.8 / 60.3 | fail |
@@ -205,6 +206,7 @@ This table is the working summary for the most decision-relevant historical bran
 | `refined_v2` | add trend_alignment_bonus (0.20) + raise opportunity_cost (0.04) | recovered 56pp return vs v1, best proxy DD in entire family (53.0%), excellent test_2023_24 (63.3%/29.7%) | still 178pp below v19 proxy return; 2021 bull participation remains weak | candidate but blocked; reward-only direction shows diminishing returns; next lever is structural or multi-asset |
 | `refined_v3` | stronger trend_alignment (0.30) + opportunity_cost (0.06) + lower hard_floor (0.15) | recovered another 81pp vs v2 (637.8%), best proxy return in refined series | proxy DD rose 1.9pp, test_2022 and test_2023_24 both worsened vs v2 | candidate but blocked; the return/DD trade-off is now clear; v3 is more aggressive, v2 is more defensive |
 | `refined_v4` | midpoint between v2 and v3 parameters | none — proxy return fell to 480.0%, worse than v1 | midpoint parameters created a worse combination than either extreme | drop; no evidence that linear interpolation between v2 and v3 is valid; reward interactions are non-linear |
+| `kelly_attention_v10` | Attention network + Kelly features + simplified 5-term reward + 3× data via stride=100 | valid score briefly exceeded v4 (86.53 at iter 20 vs 86.31) — first time any post-v4 training improved valid | test_2022 return=-24.2%, proxy DD=53.2%, full test return=553% vs v4 688.6%; valid improvement did not generalize | drop; valid-test divergence is the real problem; model overfits valid slice by iter 20 then degrades; Attention architecture and Kelly features are not the bottleneck |
 
 ### Repeated Failure Directions
 
@@ -218,6 +220,7 @@ This table is the working summary for the most decision-relevant historical bran
 | broad episode sampling | `balanced_phase_sampling_v1` | more coverage but worse `2022` and proxy Sharpe | sampling changes need a much tighter mechanism |
 | aggressive high-floor variants | `balanced_floor40_sym`, `balanced_regime_gate*` | better upside, broken stress gate | only valid as explicit aggressive branches |
 | large bundled structures | `balanced_structural_v1`, early MoE branches | one metric improves, efficiency collapses elsewhere | ablate one structural lever at a time |
+| architecture swaps hoping to escape local optimum | `balanced_kelly_attention_v10` | Attention + Kelly + simplified reward allowed transient valid improvement (86.53 at iter 20) but test metrics worsened dramatically | the local optimum is not an architecture problem; valid-test divergence means the valid slice is not representative; fix evaluation before retraining |
 
 ### Branches Still Worth Retaining
 
