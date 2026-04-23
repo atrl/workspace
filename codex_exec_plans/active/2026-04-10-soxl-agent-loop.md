@@ -4249,3 +4249,38 @@ Created `balanced_budget.yaml` with `max_iters=50`. However, the log file was ac
   - keep: `ACAD_AMIHUD_ZSCORE`, `ACAD_INTRADAY_REVERSAL_21`, `ACAD_VOLATILITY_DRAG` in academic_signals pack
   - drop: `ACAD_DOWN_UP_RATIO`, `ACAD_VOL_SCALED_MOMENTUM`, `ACAD_DOWN_RUNS` (highly correlated)
   - next: RL smoke test with `balanced_rule_residual_v19_academic`
+
+## Academic factor mining Phase 2 — RL smoke test 2026-04-23
+
+- Controlled comparison: v19 vs v19_academic, same seed (20260423), same reduced training (5 iters, 4 epi/iter)
+- Results:
+
+  | Metric | v19 baseline | v19_academic | Delta |
+  |--------|-------------|--------------|-------|
+  | Valid return | 65.0% | 57.4% | -7.6pp |
+  | Valid Sharpe | 1.65 | 1.57 | -0.08 |
+  | Valid MaxDD | 29.0% | 30.2% | +1.2pp |
+  | Valid score | 94.48 | 85.26 | -9.22 |
+  | Test return | 469.5% | 479.9% | +10.4pp |
+  | Test Sharpe | 0.84 | 0.85 | +0.01 |
+  | Test MaxDD | 49.4% | 48.1% | -1.3pp |
+  | Trades | 311 | 314 | +3 |
+
+- Interpretation:
+  - Validation metrics slightly worse for v19_academic
+  - Test metrics slightly better, but within noise margin (~1-2%)
+  - No clear head-start advantage from academic signals even at early training
+  - Feature count: v19=59, v19_academic=66 (+7 academic features)
+- Decision:
+  - **DROP v19_academic as a promotable branch**
+  - Academic microstructure signals (Amihud, intraday reversal, vol drag) do not add clear value to SOXL RL
+  - The academic_signals pack can remain in code as an optional feature pack, but should not be a priority direction
+  - Root cause: SOXL daily returns are dominated by regime/momentum factors that are already well-captured by existing features; microstructure/liquidity signals are too weak at daily frequency
+- Next action:
+  - Do NOT pursue full training for v19_academic
+  - Pivot back to mainline v19 optimization: address test_2022 weakness (-39.8%) through execution overlay or reward tuning
+  - If future feature work is needed, explore transition-state features (stress-release, restart detection) rather than academic signals
+- Evidence:
+  - `docs/factor_research/factor_ic_results.csv`
+  - `docs/factor_research/backtest_*.csv`
+  - Smoke test artifacts deleted (not representative of full training)
