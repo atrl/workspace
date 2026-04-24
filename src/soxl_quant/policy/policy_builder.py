@@ -17,6 +17,7 @@ from ..data import FEATURE_COLUMNS, STATIC_INDEX, feature_columns_for_packs, sta
 from ..settings import LOOKBACK
 from .observation import adapt_observation_for_actor, make_observation
 from .modes import ModeState, mode_band, route_mode
+from .mode_conditioning import append_mode_one_hot
 from .positioning import action_levels_for_profile, rule_based_position, target_position_for_profile
 from .environment import (
     EpisodeConfig,
@@ -392,6 +393,37 @@ def build_budget_usage_oracle_dataset_from_frame(
     return np.stack(obs_list, axis=0), np.asarray(action_list, dtype=np.int64)
 
 
+def build_mode_conditioned_budget_usage_oracle_dataset_from_frame(
+    df: pd.DataFrame,
+    replay_daily: pd.DataFrame,
+    profile: StrategyConfig,
+    sample_size: int = 2000,
+    rng_seed: int = 0,
+    asset_idx: int = 0,
+) -> tuple[np.ndarray, np.ndarray]:
+    """Build oracle labels and append the replay mode one-hot to each obs."""
+
+    obs_array, action_array = build_budget_usage_oracle_dataset_from_frame(
+        df,
+        replay_daily=replay_daily,
+        profile=profile,
+        sample_size=0,
+        rng_seed=rng_seed,
+        asset_idx=asset_idx,
+    )
+    mode_frame = replay_daily[["mode"]].copy()
+    conditioned_obs = np.stack(
+        [append_mode_one_hot(obs, str(mode)) for obs, mode in zip(obs_array, mode_frame["mode"].tolist())],
+        axis=0,
+    )
+    if sample_size > 0 and len(conditioned_obs) > sample_size:
+        rng = random.Random(rng_seed)
+        indices = sorted(rng.sample(range(len(conditioned_obs)), int(sample_size)))
+        conditioned_obs = conditioned_obs[indices]
+        action_array = action_array[indices]
+    return conditioned_obs, action_array
+
+
 def build_budget_usage_warm_start_dataset_from_frame(
     df: pd.DataFrame,
     profile: StrategyConfig,
@@ -613,6 +645,7 @@ __all__ = [
     "budget_usage_action_label",
     "budget_usage_action_label_from_position",
     "build_budget_usage_oracle_dataset_from_frame",
+    "build_mode_conditioned_budget_usage_oracle_dataset_from_frame",
     "build_budget_usage_warm_start_dataset_from_frame",
     "build_initial_states",
     "build_policy",
