@@ -2376,6 +2376,27 @@
     "excerpt": "# Hierarchical online budget runtime generalization ## Context The fixed `risk_budget_usage_v1` replay is still much stronger than any single actor/runtime form. This loop tested whether making the runtime explicitly hierarchical would recover part of that gap without another tra"
   },
   {
+    "path": "memory/2026-04-24-risk-budget-learned-oracle-distill.md",
+    "date": "2026-04-24",
+    "title": "Learned-router oracle distillation diagnostic",
+    "kind": "review",
+    "profiles": [],
+    "status": "dropped",
+    "tags": [
+      "dropped",
+      "eval-2022",
+      "review"
+    ],
+    "artifacts": [
+      "runtime/post_train_review/hierarchical_online_budget_daily/soxl_hier_learned_slow5.csv",
+      "runtime/post_train_review/risk_budget_learned_oracle_distill_v1.json",
+      "runtime/post_train_review/risk_budget_learned_oracle_distill_v1.md"
+    ],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "No-promotion oracle distillation from the deployable learned-router slow5 daily path reached test_proxy 412.9 percent, Sharpe 1.042, and MaxDD 28.7 percent. This is stronger than the prior oracle distill but still far below the target path, so the bottleneck remains single-actor capacity in the learned-router regime.",
+    "excerpt": "# Learned-router oracle distillation diagnostic ## Context The hierarchical runtime diagnostic suggested that the best deployable line is a learned router with slow refresh. This loop tested whether a single actor can represent that line when trained directly on the resulting dai"
+  },
+  {
     "path": "memory/2026-04-24-transition-signals-rejected.md",
     "date": "2026-04-24",
     "title": "Transition Signals Experiment Rejected",

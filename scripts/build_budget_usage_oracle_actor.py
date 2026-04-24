@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
-"""No-promotion oracle distillation from a fixed replay daily path."""
+"""No-promotion oracle distillation from a replay daily path."""
 
 import argparse
 import json
@@ -74,7 +74,7 @@ def write_markdown(path: Path, payload: dict[str, object]) -> None:
     lines = [
         f"# {payload['profile']} Oracle Distillation",
         "",
-        "No-promotion diagnostic trained from the fixed replay daily path.",
+        "No-promotion diagnostic trained from a replay daily path.",
         "",
         "This actor is an upper-bound capacity probe only. It uses replay labels from held-out dates and must not be promoted.",
         "",

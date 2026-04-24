@@ -4609,6 +4609,63 @@ Pack increases feature count from 59 → 66 (+7).
   - if this line continues, focus on improving the fast actor's usage policy
     under the learned-router regime instead of changing refresh cadence again
 
+## learned-router fast-actor capacity probe — PLAN 2026-04-24
+
+- Goal: start the next loop by testing whether the fast actor can represent the
+  strongest deployable learned-router runtime path when trained directly on that
+  path's daily labels.
+- Canonical baseline: fixed replay `risk_budget_usage_v1`.
+- Direct comparison baseline:
+  - `hier_learned_slow5` from `hierarchical_online_budget_generalization`
+  - `risk_budget_oracle_distill_v1`
+- Experiment role: `diagnose`.
+- Target improvement window: recover `hier_learned_slow5` participation on SOXL
+  while staying inside its learned-router runtime semantics.
+- Accepted trade-off window: this is no-promotion by construction; weaker
+  `2022` than the conservative actor is acceptable if the actor approaches the
+  learned-router runtime path.
+- Changed layer: `model` + `selection` diagnostic only; no PPO training yet.
+- External reference:
+  - DAgger / imitation-learning capacity probes:
+    `https://proceedings.mlr.press/v15/ross11a.html`
+  - hierarchical / temporally abstract trading control:
+    `https://proceedings.neurips.cc/paper/2016/hash/f442d33fa06832082290ad8544a8da27-Abstract.html`
+- Closest historical success case:
+  - `hier_learned_slow5`: deployable best variant across `TQQQ/UPRO/SPXL/TECL`
+    in the new hierarchical runtime diagnostic.
+- Closest historical failure case:
+  - `risk_budget_oracle_distill_v1`: even fixed replay labels did not give the
+    actor enough capacity to match the replay edge.
+- Why not duplicate:
+  - this is not the fixed replay counterfactual again; it distills the strongest
+    deployable learned-router runtime path and therefore tests a different
+    target policy family.
+- Comparison-table row:
+  - `risk_budget_learned_oracle_distill_v1`
+- Planned commands:
+  - `PYTHONPATH=. qlib_venv/bin/python scripts/build_budget_usage_oracle_actor.py --profile risk_budget_learned_oracle_distill_v1 --replay-daily runtime/post_train_review/hierarchical_online_budget_daily/soxl_hier_learned_slow5.csv --skip-data-refresh --steps 1600 --sample-size 0 --output-json runtime/post_train_review/risk_budget_learned_oracle_distill_v1.json --output-md runtime/post_train_review/risk_budget_learned_oracle_distill_v1.md`
+  - `PYTHONPATH=. qlib_venv/bin/python scripts/check_harness.py`
+- Result:
+  - command completed and wrote:
+    - `runtime/post_train_review/risk_budget_learned_oracle_distill_v1.json`
+    - `runtime/post_train_review/risk_budget_learned_oracle_distill_v1.md`
+  - dataset:
+    - samples `1508`
+    - label distribution `{0: 238, 1: 1138, 2: 48, 3: 52, 4: 32}`
+    - BC loss / accuracy `1.124 / 0.781`
+  - fixed-split probe:
+    - `test_2020`: `72.5% / Sharpe 3.162 / MaxDD 8.0% / avg_pos 0.286`
+    - `test_2022`: `-11.7% / Sharpe -1.054 / MaxDD 13.2% / avg_pos 0.105`
+    - `test_2023_2024`: `78.6% / Sharpe 1.130 / MaxDD 24.9% / avg_pos 0.336`
+    - `test_proxy`: `412.9% / Sharpe 1.042 / MaxDD 28.7% / avg_pos 0.296`
+- Decision:
+  - drop as promotable by construction
+  - keep as the best current single-actor capacity probe in the learned-router
+    regime, but it still does not recover the target path strongly enough
+- Next:
+  - if the learned-router line continues, change fast-actor capacity or
+    observation/training target; do not spend another loop only on cadence
+
 ## transition_signals 20-iteration training — RESULTS 2026-04-24
 
 - Goal: validate whether transition-state features improve RL performance beyond v19 baseline
