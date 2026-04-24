@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-24T15:16:51.072476+00:00",
+  "generated_at": "2026-04-24T15:29:34.361139+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -680,6 +680,12 @@
       "bytes": 3305
     },
     {
+      "path": "runtime/model/cards/risk_budget_usage_v2/card.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 1694
+    },
+    {
       "path": "runtime/model/cards/smoke/card.md",
       "category": "model",
       "suffix": ".md",
@@ -725,7 +731,7 @@
       "path": "runtime/model/knowledge.md",
       "category": "model",
       "suffix": ".md",
-      "bytes": 13342
+      "bytes": 13468
     },
     {
       "path": "runtime/model/reviews/balanced_checkpoint_review.md",

@@ -59,6 +59,35 @@ def next_hierarchical_state(
     )
 
 
+def _scale_band_by_vol(
+    band: tuple[float, float],
+    obs: np.ndarray,
+    router_cfg: ModeRouterConfig,
+) -> tuple[float, float]:
+    """Scale mode band width based on realized volatility.
+
+    High vol -> compress band (reduce risk exposure).
+    Low vol -> expand band (increase participation).
+    """
+    if not getattr(router_cfg, "use_dynamic_bands", False):
+        return band
+    from ..data import STATIC_INDEX
+    realized_vol = float(np.nan_to_num(obs[STATIC_INDEX["realized_vol_10"]]))
+    baseline = float(router_cfg.dynamic_band_vol_baseline)
+    sensitivity = float(router_cfg.dynamic_band_vol_sensitivity)
+    min_scale = float(router_cfg.dynamic_band_min_scale)
+    max_scale = float(router_cfg.dynamic_band_max_scale)
+    scale = 1.0 - (realized_vol - baseline) * sensitivity
+    scale = max(min_scale, min(max_scale, scale))
+    floor, cap = float(band[0]), float(band[1])
+    width = cap - floor
+    centre = (floor + cap) / 2.0
+    new_width = width * scale
+    new_floor = max(0.0, centre - new_width / 2.0)
+    new_cap = min(1.0, centre + new_width / 2.0)
+    return (new_floor, new_cap)
+
+
 def hierarchical_budget_target_position(
     action: int,
     obs: np.ndarray,
@@ -67,7 +96,11 @@ def hierarchical_budget_target_position(
     current_drawdown: float = 0.0,
 ) -> float:
     router_cfg = profile.mode_router
-    active_band = mode_band(active_mode, router_cfg) if router_cfg and getattr(router_cfg, "enabled", False) else None
+    if router_cfg and getattr(router_cfg, "enabled", False):
+        active_band = mode_band(active_mode, router_cfg)
+        active_band = _scale_band_by_vol(active_band, obs, router_cfg)
+    else:
+        active_band = None
     return target_position_for_profile(
         action,
         obs,

@@ -136,9 +136,65 @@ position = mode_floor + usage_ratio × (mode_cap - mode_floor)
 | `risk_budget_bc_warmstart_v1` | BC warmstart + PPO fine-tune | 待验证 |
 | replay composition | mode_v1 + imitation_v4 路径组合 | Sharpe=1.248 (replay) |
 
+## 扩展迭代
+
+### v2: Mode-Conditional Reward + Dynamic Band Scaling
+
+在 v1 基础上引入两个互补扩展：
+
+#### 1. Mode-Conditional Reward Shaping
+
+在 moderate reward 中根据当前 mode 动态调整奖励/惩罚，强化 mode 语义：
+
+| Mode | Reward 调整 | 目的 |
+|------|------------|------|
+| flat_wait | `flat_wait_pos_penalty` × pos（非零仓位惩罚） | 强化空仓等待 |
+| crash_rebuild | `crash_rebuild_bonus` × Δpos（加仓奖励） | 鼓励底部重建 |
+| trend_hold | `trend_hold_alignment_multiplier` × alignment_bonus | 放大趋势对齐奖励 |
+| defensive_hold | `defensive_hold_neutral_bonus`（中性稳定奖励） | 防止漂移 |
+
+配置项（`RewardConfig`）：
+- `mode_conditional_reward_enabled: bool`
+- `flat_wait_pos_penalty: float`
+- `crash_rebuild_bonus: float`
+- `trend_hold_alignment_multiplier: float`
+- `defensive_hold_neutral_bonus: float`
+
+实现：`src/soxl_quant/policy/reward.py::_moderate_reward()`
+
+#### 2. Dynamic Band Scaling
+
+根据 realized_vol_10 动态缩放 mode band 宽度：
+
+```
+scale = 1.0 - (realized_vol - baseline) × sensitivity
+scale = clamp(scale, min_scale, max_scale)
+new_width = original_width × scale
+```
+
+- 高波动（vol > baseline）→ scale < 1.0 → 压缩 band → 降低风险暴露
+- 低波动（vol < baseline）→ scale > 1.0 → 扩展 band → 增加参与机会
+
+配置项（`ModeRouterConfig`）：
+- `use_dynamic_bands: bool`
+- `dynamic_band_vol_baseline: float`（默认 0.50）
+- `dynamic_band_vol_sensitivity: float`（默认 0.30）
+- `dynamic_band_min_scale: float`（默认 0.60）
+- `dynamic_band_max_scale: float`（默认 1.20）
+
+实现：`src/soxl_quant/policy/hierarchical_composer.py::_scale_band_by_vol()`
+
+#### v2 实验包
+
+- `experiments/candidate/risk_budget_usage_v2/`
+- 目标：proxy Sharpe ≥ 0.95，test_2022 MaxDD ≤ 20%
+- Baseline：`risk_budget_usage_v1`
+- Changed layer：`reward` + `execution` (mode router)
+
 ## 待挖掘方向
 
-- [ ] **Band 动态调整**: 根据 vol_regime 实时缩放 band 宽度
+- [x] **Band 动态调整** — 已在 v2 实现
+- [x] **Mode 条件 reward** — 已在 v2 实现
 - [ ] **Mode 预测而非推断**: 让 Actor 直接输出 mode + usage，而非只输出 usage
 - [ ] **Multi-mode 混合**: 允许多个 mode 的加权混合（soft routing）
 - [ ] **Stress 专用 reward**: 在 stress 态下增大仓位惩罚系数

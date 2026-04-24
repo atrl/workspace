@@ -293,6 +293,25 @@ class ContinuousReward(Reward):
                 panic_depth = min(abs(cum_drop_30) - abs(cfg.panic_buy_cum_drop_threshold), 0.15)
                 reward += cfg.panic_buy_bonus * (1.0 + panic_depth * 5.0)
 
+        # --- 6a. Mode-conditional reward shaping (for risk_budget_usage) ---
+        if getattr(cfg, "mode_conditional_reward_enabled", False):
+            current_mode = str(state.get("mode", "defensive_hold"))
+            # flat_wait: penalize ANY non-zero position (strong cash-holding signal)
+            if cfg.flat_wait_pos_penalty > 0.0 and current_mode == "flat_wait" and pos > 1e-6:
+                reward -= cfg.flat_wait_pos_penalty * pos
+            # crash_rebuild: bonus for increasing position (encourage bottom-fishing)
+            if cfg.crash_rebuild_bonus > 0.0 and current_mode == "crash_rebuild" and pos > prev_pos + 1e-6:
+                reward += cfg.crash_rebuild_bonus * min(pos - prev_pos, 0.10) * 10.0
+            # trend_hold: amplify trend alignment bonus
+            if cfg.trend_hold_alignment_multiplier != 1.0 and current_mode == "trend_hold" and cfg.trend_alignment_bonus > 0:
+                if anchor_gap > cfg.trend_alignment_threshold and pos > 0.55:
+                    reward += cfg.trend_alignment_bonus * (cfg.trend_hold_alignment_multiplier - 1.0)
+                if anchor_gap < -cfg.trend_alignment_threshold and pos < 0.35:
+                    reward += cfg.trend_alignment_bonus * (cfg.trend_hold_alignment_multiplier - 1.0)
+            # defensive_hold: small neutral bonus to prevent drifting out
+            if cfg.defensive_hold_neutral_bonus > 0.0 and current_mode == "defensive_hold":
+                reward += cfg.defensive_hold_neutral_bonus
+
         # --- 6b. Bottomless pit protection (NEW) ---
         # When market is in free-fall (deep cumulative drop + extreme volatility),
         # penalize ANY increase in position. This prevents the model from

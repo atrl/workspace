@@ -92,6 +92,12 @@ class RewardConfig:
     kelly_tracking_bonus: float = 0.0
     kelly_vol_attenuation: bool = True
     kelly_min_signal: float = 0.1
+    # Mode-conditional reward shaping (for risk_budget_usage architecture)
+    mode_conditional_reward_enabled: bool = False
+    flat_wait_pos_penalty: float = 0.0
+    crash_rebuild_bonus: float = 0.0
+    trend_hold_alignment_multiplier: float = 1.0
+    defensive_hold_neutral_bonus: float = 0.0
 
 
 @dataclass(frozen=True)
@@ -244,6 +250,12 @@ class ModeRouterConfig:
     crash_rebuild_sell_threshold_multiplier: float = 0.90
     flat_wait_buy_threshold_multiplier: float = 1.60
     flat_wait_sell_threshold_multiplier: float = 0.80
+    # Dynamic band scaling based on volatility regime
+    use_dynamic_bands: bool = False
+    dynamic_band_vol_baseline: float = 0.50
+    dynamic_band_vol_sensitivity: float = 0.30
+    dynamic_band_min_scale: float = 0.60
+    dynamic_band_max_scale: float = 1.20
 
 
 @dataclass(frozen=True)

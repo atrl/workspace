@@ -133,6 +133,7 @@
 | [`balanced_kelly`](experiments/candidate/balanced_kelly/) | candidate | kelly v5–v10 (合并) | 🟡 迭代 |
 | [`balanced_conservative_ft`](experiments/candidate/balanced_conservative_ft/) | candidate | conservative_ft | 🟡 迭代 |
 | [`risk_budget_usage_v1`](experiments/candidate/risk_budget_usage_v1/) | candidate | risk_budget_usage_v1, bc_warmstart_v1 | 🟡 最佳候选 |
+| [`risk_budget_usage_v2`](experiments/candidate/risk_budget_usage_v2/) | candidate | risk_budget_usage_v2 | 🟡 扩展中 |
 | [`balanced_rule_residual_v19_academic`](experiments/candidate/balanced_rule_residual_v19_academic/) | candidate | v19_academic | ⚪ 未运行 |
 | [`balanced_rule_residual_moderate_v1`](experiments/candidate/balanced_rule_residual_moderate_v1/) | candidate | moderate_v1 | ⚪ 未运行 |
 | [`smoke_rule_residual_v1`](experiments/candidate/smoke_rule_residual_v1/) | candidate | smoke_rule_residual | ⚪ 未运行 |
