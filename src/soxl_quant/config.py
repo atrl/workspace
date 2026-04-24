@@ -223,6 +223,7 @@ class ModelConfig:
     attention_heads: int = 4
     use_hybrid_overlay: bool = False
     delta_levels: Tuple[float, ...] = (-0.15, 0.0, 0.15)
+    use_mode_conditioned_input: bool = False
 
 
 @dataclass(frozen=True)

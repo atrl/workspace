@@ -147,6 +147,10 @@ class RLStrategy(BaseStrategy):
             config=self.execution_config,
         )
         model_cfg = self.model_config
+        model_cfg = self.model_config
+        if model_cfg and getattr(model_cfg, "use_mode_conditioned_input", False):
+            from .policy.mode_conditioning import append_mode_one_hot
+            obs = append_mode_one_hot(obs, str(self.mode_state.name if self.mode_state else "flat_wait"))
         raw_action = actor_action(self.actor, obs)
         target_pos = target_position_for_profile(
             raw_action,

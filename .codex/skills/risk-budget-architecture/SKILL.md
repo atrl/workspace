@@ -191,10 +191,38 @@ new_width = original_width × scale
 - Baseline：`risk_budget_usage_v1`
 - Changed layer：`reward` + `execution` (mode router)
 
+### v3: Mode-Conditioned Actor Input
+
+在 v2 基础上，将当前 mode 的 one-hot 向量附加到 Actor 的 observation 中：
+
+```
+observation (~50 dims) + mode_one_hot (4 dims) → GRU → MLP → action
+```
+
+实现要点：
+- `ModelConfig.use_mode_conditioned_input: bool`
+- `observation_dim_for_profile()` 自动 +4 维
+- `SoxlState.interpret()` 在返回 obs 前附加 mode one-hot
+- `backtest.py` 在调用 actor 前同样附加 mode one-hot
+- Mode 编码顺序：`[trend_hold, defensive_hold, crash_rebuild, flat_wait]`
+
+预期效果：
+- 降低学习 mode-specific 策略的样本复杂度
+- 改善 mode 过渡期的平滑性
+- Actor 直接"知道"自己处于哪个 risk regime
+
+#### v3 实验包
+
+- `experiments/candidate/risk_budget_usage_v3/`
+- 目标：proxy Sharpe ≥ 0.95，test_2022 MaxDD ≤ 18%
+- Baseline：`risk_budget_usage_v2`
+- Changed layer：`network` (observation input)
+
 ## 待挖掘方向
 
 - [x] **Band 动态调整** — 已在 v2 实现
 - [x] **Mode 条件 reward** — 已在 v2 实现
+- [x] **Mode-conditioned input** — 已在 v3 实现
 - [ ] **Mode 预测而非推断**: 让 Actor 直接输出 mode + usage，而非只输出 usage
 - [ ] **Multi-mode 混合**: 允许多个 mode 的加权混合（soft routing）
 - [ ] **Stress 专用 reward**: 在 stress 态下增大仓位惩罚系数

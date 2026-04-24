@@ -63,7 +63,7 @@ def train_with_selection(
         baseline_state = copy.deepcopy(actor.state_dict())
         qlib_train(
             simulator_fn=SoxlSimulator,
-            state_interpreter=SoxlState(obs_dim),
+            state_interpreter=SoxlState(obs_dim, use_mode_conditioned_input=profile.model.use_mode_conditioned_input),
             action_interpreter=build_action_interpreter(profile),
             initial_states=initial_states,
             policy=policy,
@@ -153,7 +153,7 @@ def train_with_selection(
         current_iters = min(stage_iters, profile.max_iters - completed)
         qlib_train(
             simulator_fn=SoxlSimulator,
-            state_interpreter=SoxlState(obs_dim),
+            state_interpreter=SoxlState(obs_dim, use_mode_conditioned_input=profile.model.use_mode_conditioned_input),
             action_interpreter=build_action_interpreter(profile),
             initial_states=initial_states,
             policy=policy,

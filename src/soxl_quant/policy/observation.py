@@ -41,7 +41,11 @@ EXTRA_INDEX = extra_index(FEATURE_COLUMNS)
 def observation_dim_for_profile(profile: StrategyConfig) -> int:
     window = max(int(profile.model.observation_window), 1)
     feature_columns = feature_columns_for_packs(profile.feature.packs, profile.name)
-    return len(feature_columns) * window + EXTRA_OBS_DIM + N_ASSETS
+    base = len(feature_columns) * window + EXTRA_OBS_DIM + N_ASSETS
+    if getattr(profile.model, "use_mode_conditioned_input", False):
+        from .mode_conditioning import MODE_ONE_HOT_ORDER
+        base += len(MODE_ONE_HOT_ORDER)
+    return base
 
 
 def infer_actor_obs_dim(actor: Actor) -> int | None:

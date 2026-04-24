@@ -392,16 +392,21 @@ class SoxlSimulator(Simulator):
 
 
 class SoxlState(StateInterpreter):
-    def __init__(self, obs_dim: int):
+    def __init__(self, obs_dim: int, use_mode_conditioned_input: bool = False):
         super().__init__()
         self.obs_dim = obs_dim
+        self.use_mode_conditioned_input = bool(use_mode_conditioned_input)
 
     @property
     def observation_space(self):
         return spaces.Box(-np.inf, np.inf, (self.obs_dim,), dtype=np.float32)
 
     def interpret(self, state):
-        return state["obs"]
+        obs = state["obs"]
+        if self.use_mode_conditioned_input:
+            from .mode_conditioning import append_mode_one_hot
+            obs = append_mode_one_hot(obs, str(state.get("mode", "flat_wait")))
+        return obs
 
 
 class PositionAction(ActionInterpreter):
