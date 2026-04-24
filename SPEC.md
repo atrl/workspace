@@ -70,9 +70,13 @@ Use these layers intentionally:
 - `WORKFLOW.md`: execution routing and completion gates
 - `codex_exec_plans/active/` and `codex_exec_plans/completed/`: task history
   and proof of work
+- `docs/research_knowledge/`: mechanism-specific conclusions and reusable
+  research guidance
 - `memory/`: continuity across sessions
 - `memory/index.json`: machine-readable memory retrieval index
 - `skills/`: distilled reusable workflows and maintained operational knowledge
+- `data/datasets.yaml`: machine-readable registry for raw, processed, qlib, and
+  training-cache data assets
 
 These roles should not blur together.
 
@@ -81,7 +85,9 @@ These roles should not blur together.
 This repo should get better as recurring work repeats.
 
 - Stable context and important continuity belong in `memory/`.
-- Live task state belongs in the active plan/workpad.
+- Live task state belongs in the compact active plan/workpad.
+- Historical workpad detail belongs in `codex_exec_plans/completed/`.
+- Mechanism-specific conclusions belong in `docs/research_knowledge/`.
 - Reusable methods, troubleshooting flows, and recurring guardrails belong in
   `skills/`.
 - When a used skill diverges from current practice, update the skill as part of

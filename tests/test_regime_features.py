@@ -3,6 +3,7 @@ from __future__ import annotations
 import numpy as np
 import pandas as pd
 
+from src.soxl_quant.settings import CSV_PATH
 from src.soxl_quant.data import (
     FEATURE_COLUMNS,
     _build_transition_state_features,
@@ -12,7 +13,7 @@ from src.soxl_quant.data import (
 
 
 def test_regime_feature_frame_has_expected_columns():
-    df = pd.read_csv("data/soxl_soxx_vix_full.csv", parse_dates=["date"]).set_index("date")
+    df = pd.read_csv(CSV_PATH, parse_dates=["date"]).set_index("date")
     soxl = pd.DataFrame(
         {
             "$close": df["soxl_close"],

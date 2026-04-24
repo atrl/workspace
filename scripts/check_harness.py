@@ -44,7 +44,9 @@ DEFAULT_COMPILE_TARGETS = [
     "scripts/build_budget_usage_bc_actor.py",
     "scripts/build_budget_usage_oracle_actor.py",
     "scripts/build_budget_usage_regression_probe.py",
+    "scripts/check_experiment_cards.py",
     "scripts/check_harness.py",
+    "scripts/check_research_knowledge.py",
     "scripts/checkpoint_review.py",
     "scripts/hierarchical_online_budget_generalization.py",
     "scripts/memory_search.py",
@@ -53,6 +55,7 @@ DEFAULT_COMPILE_TARGETS = [
     "scripts/prune_artifacts.py",
     "scripts/rank_counterfactual_variants.py",
     "scripts/replay_two_speed_mode_budget.py",
+    "scripts/update_data_registry.py",
     "production/soxl_paper_runner.py",
 ]
 

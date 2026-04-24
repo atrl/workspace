@@ -1,4 +1,32 @@
+---
+date: '2026-04-24'
+title: "2026-04-24: Regime-Conditional Overlay Discovery \u2014 vol_stress"
+kind: review
+profiles: []
+status: kept
+tags:
+- execution-overlay
+- kept
+- review
+- stress-regime
+- transition-features
+- walk-forward
+artifacts:
+- runtime/post_train_review/regime_conditional_ic_analysis.md
+- runtime/post_train_review/regime_overlay_test_results.md
+workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+summary: Legacy memory note normalized into the repo-wide schema. After regime-conditional
+  IC analysis revealed that feature predictive power is highly regime-dependent, we
+  tested execution overlays using existing features with regime gating. **Majo
+---
+
 # 2026-04-24: Regime-Conditional Overlay Discovery — vol_stress
+
+## Context
+
+Legacy memory note normalized into the repo-wide schema.
+
+## Evidence
 
 ## Discovery
 
@@ -87,3 +115,11 @@ overlay:
   bull_threshold: 0.8
   boost: 0.10
 ```
+
+## Decision
+
+See the summary and status fields in front matter.
+
+## Next Use
+
+Use `scripts/memory_search.py` before opening additional memory files.

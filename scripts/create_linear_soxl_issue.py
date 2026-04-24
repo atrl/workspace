@@ -119,7 +119,7 @@ def main() -> None:
             "Reference files:\\n"
             "- AGENTS.md\\n"
             "- SPEC.md\\n"
-            "- codex_exec_plans/active/2026-04-10-soxl-agent-loop.md\\n"
+            "- codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md\\n"
         )
     issue = create_issue(title, description)
     print(json.dumps(issue, ensure_ascii=False, indent=2))

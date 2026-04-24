@@ -31,7 +31,7 @@ from .settings import TEST_SEG, TRAIN_SEG, VALID_SEG
 from .config import experiment_dir_for_profile
 
 ROOT = Path(__file__).resolve().parents[2]
-EXTERNAL_DATA_DIR = ROOT / "data" / "external"
+EXTERNAL_DATA_DIR = ROOT / "data" / "raw" / "external"
 
 FeatureBuilder = Callable[[dict[str, Any]], dict[str, pd.Series]]
 

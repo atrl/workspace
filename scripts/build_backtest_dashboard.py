@@ -53,8 +53,8 @@ def load_features() -> dict[str, dict[str, float]] | None:
 
 
 def load_ohlc_and_indicators(etf: str) -> dict[str, dict]:
-    """Load OHLC from data/symbols/{etf}.csv and compute soxl_backtest indicators."""
-    csv_path = ROOT / "data" / "symbols" / f"{etf.upper()}.csv"
+    """Load OHLC from data/raw/symbols/{etf}.csv and compute soxl_backtest indicators."""
+    csv_path = ROOT / "data" / "raw" / "symbols" / f"{etf.upper()}.csv"
     if not csv_path.exists():
         return {}
     df = pd.read_csv(csv_path, parse_dates=["date"])

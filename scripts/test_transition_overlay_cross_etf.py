@@ -29,11 +29,11 @@ def parse_args():
 
 
 ETF_CONFIG = {
-    "SOXL": ("/Users/rziiiii/.openclaw/workspace/qlib_soxl_binary", "SOXX"),
-    "TQQQ": ("/Users/rziiiii/.openclaw/workspace/multi_asset/qlib_tqqq", "QQQ"),
-    "UPRO": ("/Users/rziiiii/.openclaw/workspace/multi_asset/qlib_upro", "SPY"),
-    "SPXL": ("/Users/rziiiii/.openclaw/workspace/multi_asset/qlib_spxl", "SPY"),
-    "TECL": ("/Users/rziiiii/.openclaw/workspace/multi_asset/qlib_tecl", "XLK"),
+    "SOXL": (str(ROOT / "data" / "qlib" / "soxl"), "SOXX"),
+    "TQQQ": (str(ROOT / "data" / "qlib" / "tqqq"), "QQQ"),
+    "UPRO": (str(ROOT / "data" / "qlib" / "upro"), "SPY"),
+    "SPXL": (str(ROOT / "data" / "qlib" / "spxl"), "SPY"),
+    "TECL": (str(ROOT / "data" / "qlib" / "tecl"), "XLK"),
 }
 
 

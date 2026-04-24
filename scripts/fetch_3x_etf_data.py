@@ -5,8 +5,8 @@ Sources:
     yfinance      - free, unlimited (default)
     alphavantage  - requires ALPHA_VANTAGE_API_KEY env var, 5 calls/minute on free tier
 
-Outputs CSVs compatible with the SOXL quant pipeline under:
-    data/generalization/{source}/{ETF}_with_underlying_vix.csv
+Outputs CSVs compatible with the leveraged ETF pipeline under:
+    data/processed/panels/{ETF}_with_underlying_vix.csv
 """
 from __future__ import annotations
 
@@ -24,9 +24,8 @@ import yfinance as yf
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
+from src.soxl_quant.core.dataset import get_market_panel_path
 from src.soxl_quant.settings import ETF_UNIVERSE
-
-DATA_DIR = ROOT / "data" / "generalization"
 
 ALPHA_VANTAGE_API_KEY = os.environ.get("ALPHA_VANTAGE_API_KEY", "")
 
@@ -135,13 +134,11 @@ def main():
     parser.add_argument("--etf", help="Single ETF to fetch (default: all)")
     args = parser.parse_args()
 
-    out_dir = DATA_DIR / args.source
-    out_dir.mkdir(parents=True, exist_ok=True)
-
     targets = {args.etf.upper(): ETF_UNIVERSE[args.etf.upper()]} if args.etf else ETF_UNIVERSE
 
     for etf, meta in targets.items():
-        out_path = out_dir / f"{etf.lower()}_with_underlying_vix.csv"
+        out_path = get_market_panel_path(etf)
+        out_path.parent.mkdir(parents=True, exist_ok=True)
         try:
             df = build_etf_csv(etf, meta["underlying"], args.source)
             df.to_csv(out_path, index=False)

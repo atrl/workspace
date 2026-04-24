@@ -1,85 +1,39 @@
 # Experiments
 
-This directory is the preferred home for experiment packages, but not for every
-historical run narrative.
+`experiments/` stores concise runnable experiment cards. It is not a result-log archive and should not duplicate `runtime/` outputs or `memory/` narratives.
 
-The intent is to keep model configuration and experiment-card intent together,
-so a reader can answer:
+## Structure
 
-- what profile is this
-- why does it exist
-- what should it beat or protect against
+- `canonical/<name>/` — long-lived baseline profiles.
+- `candidate/<name>/` — active promotion or diagnostic candidates only.
+- `archive/<name>/` — inactive historical packages kept for retrieval.
+- `index.md` — compact table linking packages to registry status and evidence.
 
-Structure:
+## Package Contract
 
-- `canonical/<name>/`
-  - long-lived baseline profiles
-- `candidate/<name>/`
-  - current diagnostic or promotion candidates only
-- `archive/<name>/`
-  - frozen historical experiment packages that are no longer active candidates
+Active `canonical/` and `candidate/` packages must contain:
 
-Each experiment package should keep these files together:
+- `profile.yaml` — runnable config.
+- `notes.md` — short experiment card: motivation, baseline, mechanism delta, evidence links.
+- `expectations.md` — acceptance criteria, expected trade-off, failure mode, comparison row key.
 
-- `profile.yaml`
-- `notes.md`
-- `expectations.md`
-
-Package responsibilities are intentionally narrow:
-
-- `profile.yaml`
-  - runnable config
-- `expectations.md`
-  - acceptance bar, intended deltas, success / failure conditions
-- `notes.md`
-  - short experiment card:
-    - motivation
-    - baseline
-    - mechanism delta
-    - links to result evidence
-
-Do not treat `notes.md` as the full run log once results exist elsewhere.
-Long result writeups, keep / drop decisions, and historical comparisons belong in:
+Long result writeups, keep/drop decisions, and historical comparisons belong in:
 
 - `memory/`
 - `runtime/post_train_review/`
+- `runtime/generalization/`
 - `docs/experiment-landscape-review.md`
+- `docs/research_knowledge/`
 
-Read order inside one experiment package:
+## Read Order
 
-1. `profile.yaml`
-2. `expectations.md`
-3. `notes.md`
-
-The loader currently supports both:
-
-- `experiments/<status>/<name>/profile.yaml`
-- legacy `configs/soxl/<name>.yaml`
-
-During migration, the experiments path takes precedence when both exist.
-
-If multiple experiment packages seem to say the same thing, the canonical package wins over candidate packages; candidate packages should only capture the delta from canonical behavior.
-
-## Active vs Archived
-
-The `candidate/` directory should stay narrow. If a profile is no longer an
-active promotion or diagnostic branch, move its package to `archive/` instead of
-leaving it in `candidate/`.
-
-The registry remains the lifecycle source of truth. A package living under
-`archive/` does not imply the profile's registry status must literally be
-`archived`; it only means the package is no longer part of the active
-candidate set.
-
-## Retrieval Rule
-
-Use this read order when revisiting old work:
-
-1. `docs/experiment-landscape-review.md`
+1. `experiments/index.md`
 2. `configs/soxl/profile_registry.yaml`
-3. the relevant experiment package in `candidate/` or `archive/`
-4. `memory/index.json` + `scripts/memory_search.py`
-5. `runtime/post_train_review/` for pairwise diffs
+3. package `profile.yaml`
+4. package `expectations.md`
+5. package `notes.md`
+6. linked `memory/` or `runtime/` evidence
 
-If both `experiments/` and `memory/` mention the same run, keep the experiment
-package short and let `memory/` hold the result narrative.
+## Validation
+
+Run `PYTHONPATH=. qlib_venv/bin/python scripts/check_experiment_cards.py` after adding, moving, or retiring packages.

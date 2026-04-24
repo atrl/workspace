@@ -45,9 +45,9 @@ from src.soxl_quant.policy.policy_builder import actor_action, build_policy
 from src.soxl_quant.policy.positioning import target_position_for_profile
 from src.soxl_quant.settings import ACCOUNT, ETF_UNIVERSE, LOOKBACK, MODEL_DIR, TEST_SEG, TRAIN_SEG, VALID_SEG, load_profile
 
-DATA_DIR = ROOT / "data" / "generalization"
+DATA_DIR = ROOT / "data" / "processed" / "panels"
 RUNTIME_DIR = ROOT / "runtime" / "generalization"
-QLIB_RUNTIME = RUNTIME_DIR / "qlib_stores"
+QLIB_RUNTIME = ROOT / "data" / "qlib"
 
 
 def parse_args() -> argparse.Namespace:

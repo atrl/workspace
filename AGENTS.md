@@ -27,10 +27,15 @@ Use these files for distinct roles. Do not collapse them together.
 - `WORKFLOW.md`: execution routing and state rules.
 - `codex_exec_plans/active/`: the live workpad for the current thread.
 - `codex_exec_plans/completed/`: completed or abandoned threads.
+- `docs/research_knowledge/`: mechanism-specific research conclusions split by
+  factor, data, model selection, network, reward, execution, and multi-asset
+  lines.
 - `memory/`: continuity across sessions.
 - `.codex/skills/`: reusable methods and maintained operational knowledge. Codex CLI auto-loads skills from this path.
 - `configs/soxl/profile_registry.yaml`: profile lifecycle, canonical baselines, and retention intent.
 - `experiments/`: experiment-owned profile packages with colocated notes and expectations.
+- `data/datasets.yaml`: generated data registry for raw symbols, processed
+  panels, qlib stores, and training caches.
 - `artifacts/retention_manifest.json`: generated cleanup ledger for model artifacts and repo noise.
 
 Chat history is not the durable record.
@@ -262,12 +267,17 @@ Repo-owned scripts are treated as internal code, not external clients.
 When orienting to the repo, prefer indexes and summaries before raw outputs.
 
 - `experiments/`:
-  - read `experiments/README.md`
+  - read `experiments/index.md`
+  - then `experiments/README.md`
   - then `profile.yaml`
   - then `expectations.md`
   - then `notes.md`
+- `docs/research_knowledge/`:
+  - read `docs/research_knowledge/index.md`
+  - then the one mechanism file relevant to the proposed change
 - `runtime/`:
   - read `runtime/README.md`
+  - then `runtime/evidence_index.json`
   - prefer summary markdown / JSON over raw logs and CSV first
 - `memory/`:
   - read `memory/index.json`

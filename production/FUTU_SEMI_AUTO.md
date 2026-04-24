@@ -105,7 +105,7 @@ PYTHONPATH=. qlib_venv/bin/python production/soxl_paper_trading.py --healthcheck
 ```
 
 The runner executes the closed loop every invocation:
-1. **Data update** — incrementally fetches latest SOXL/SOXX/VIX from yfinance, merges into `data/soxl_soxx_vix_full.csv`, refreshes `qlib_soxl_binary/`.
+1. **Data update** — incrementally fetches latest SOXL/SOXX/VIX from yfinance, merges into `data/processed/panels/soxl_soxx_vix_full.csv`, refreshes `data/qlib/soxl/`.
 2. **Auto model selection** — scans `artifacts/models/` for the best promoted model of the given family (default `balanced`). Override with `--profile <name>`.
 3. **Signal generation** — runs `plan_manual_session()` for the latest available bar.
 4. **Risk gate** — applies the same runtime checks as live execution.

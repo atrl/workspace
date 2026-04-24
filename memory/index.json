@@ -2354,6 +2354,27 @@
     "excerpt": "# Two-speed mode budget replay dropped ## Context The current bottleneck is not training depth. `mode_v1` provides the best retained risk-quality frontier, while `imitation_v4` improves restart participation but misses the strict 30% drawdown target. This replay tested whether a "
   },
   {
+    "path": "memory/2026-04-24-harness-structure-migration.md",
+    "date": "2026-04-24",
+    "title": "2026-04-24 harness structure migration",
+    "kind": "ops",
+    "profiles": [
+      "soxl"
+    ],
+    "status": "kept",
+    "tags": [
+      "kept",
+      "ops",
+      "soxl"
+    ],
+    "artifacts": [
+      "runtime/evidence_index.json"
+    ],
+    "workpad": "codex_exec_plans/active/current.md",
+    "summary": "Split the oversized active workpad into compact current state plus completed archives, separated research knowledge by mechanism category, introduced data and runtime indexes, and narrowed experiment packages back toward concise cards. The repo-local .codex skill rename was attempted but filesystem approval blocked writes to .codex/skills in this session.",
+    "excerpt": "# 2026-04-24 harness structure migration ## Context The active workpad had grown past 4,900 lines, the experiment landscape mixed unrelated mechanisms, `experiments/` duplicated runtime and memory narratives, and data paths were split across root CSVs, `data/generalization`, `dat"
+  },
+  {
     "path": "memory/2026-04-24-hierarchical-online-budget-generalization.md",
     "date": "2026-04-24",
     "title": "Hierarchical online budget runtime generalization",
@@ -2374,6 +2395,29 @@
     "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
     "summary": "Implemented a deployable hierarchical online composer with explicit slow mode refresh above the retained imitation_v4 actor. Rule-router variants improved safety modestly, and learned-router variants lifted proxy return to 102-415 percent across the 3x ETF set, but all remained materially below fixed replay and the learned variants spent more 2022 drawdown budget. Keep the composer as a runtime diagnostic, not a production promotion.",
     "excerpt": "# Hierarchical online budget runtime generalization ## Context The fixed `risk_budget_usage_v1` replay is still much stronger than any single actor/runtime form. This loop tested whether making the runtime explicitly hierarchical would recover part of that gap without another tra"
+  },
+  {
+    "path": "memory/2026-04-24-regime-overlay-discovery.md",
+    "date": "2026-04-24",
+    "title": "2026-04-24: Regime-Conditional Overlay Discovery — vol_stress",
+    "kind": "review",
+    "profiles": [],
+    "status": "kept",
+    "tags": [
+      "execution-overlay",
+      "kept",
+      "review",
+      "stress-regime",
+      "transition-features",
+      "walk-forward"
+    ],
+    "artifacts": [
+      "runtime/post_train_review/regime_conditional_ic_analysis.md",
+      "runtime/post_train_review/regime_overlay_test_results.md"
+    ],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Legacy memory note normalized into the repo-wide schema. After regime-conditional IC analysis revealed that feature predictive power is highly regime-dependent, we tested execution overlays using existing features with regime gating. **Majo",
+    "excerpt": "# 2026-04-24: Regime-Conditional Overlay Discovery — vol_stress ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## Discovery After regime-conditional IC analysis revealed that feature predictive power is highly regime-dependent, we tested execution"
   },
   {
     "path": "memory/2026-04-24-risk-budget-learned-attention-oracle-distill.md",

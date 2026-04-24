@@ -18,9 +18,9 @@ from src.soxl_quant.runtime import bundle_position_cap_config, load_actor_bundle
 from src.soxl_quant.settings import ETF_UNIVERSE, TEST_SEG, TRAIN_SEG, VALID_SEG, load_profile
 from src.soxl_quant.config import ExecutionConfig, ExecutionRegimeConfig
 
-DATA_DIR = ROOT / "data" / "generalization"
+DATA_DIR = ROOT / "data" / "processed" / "panels"
 RUNTIME_DIR = ROOT / "runtime" / "generalization"
-QLIB_RUNTIME = RUNTIME_DIR / "qlib_stores"
+QLIB_RUNTIME = ROOT / "data" / "qlib"
 SCENARIOS = {
     "crash_rebound_2020": ("2020-02-01", "2020-06-30"),
     "bull_trend_2020_2021": ("2020-07-01", "2021-12-31"),

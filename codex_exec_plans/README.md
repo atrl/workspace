@@ -1,28 +1,19 @@
 # Codex Execution Plans
 
-This directory is the execution harness for SOXL research.
+`codex_exec_plans/` is the live task and handoff surface. It should stay compact enough for agents to read before every substantial loop.
 
-## Layout
+## Read Order
 
-- `active/`: plans currently being worked
-- `completed/`: plans that finished or were superseded
+1. `active/current.md` — current goal, active acceptance criteria, latest evidence, next action.
+2. Any other short active topic workpad under `active/`.
+3. `docs/research_knowledge/index.md` — mechanism-specific research memory.
+4. `memory/index.json` plus `scripts/memory_search.py` — durable decisions and historical notes.
+5. `runtime/` evidence only after the index points to a relevant output.
 
-## Per-plan requirements
+## Size Budget
 
-Each plan should include:
+Active workpads are not archives. Keep each active Markdown file at or below `300` lines. Move completed loops to `completed/YYYY-MM/` and link them from `active/current.md` when still relevant.
 
-- Goal
-- Current baseline
-- Hypotheses
-- Validation harness
-- Exit criteria
-- Decision log
-- Latest result
-- Next action
+## Completed Threads
 
-## Rules
-
-- One active plan per main optimization thread.
-- Update the active plan before or immediately after each validation run.
-- If a direction is abandoned, record why and move the plan to `completed/`.
-- Do not rely on chat history as the primary experiment log.
+Completed or abandoned workpads keep the detailed command/evidence trail. They are searchable history, not the default startup surface.

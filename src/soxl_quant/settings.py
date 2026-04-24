@@ -18,8 +18,13 @@ from .config import (
 )
 
 ROOT = Path(__file__).resolve().parents[2]
-CSV_PATH = ROOT / "data/soxl_soxx_vix_full.csv"
-QLIB_DATA_PATH = ROOT / "qlib_soxl_binary"
+DATA_DIR = ROOT / "data"
+RAW_DATA_DIR = DATA_DIR / "raw"
+PROCESSED_DATA_DIR = DATA_DIR / "processed"
+CACHE_DATA_DIR = DATA_DIR / "cache"
+QLIB_STORE_DIR = DATA_DIR / "qlib"
+CSV_PATH = PROCESSED_DATA_DIR / "panels" / "soxl_soxx_vix_full.csv"
+QLIB_DATA_PATH = QLIB_STORE_DIR / "soxl"
 RESULT_PNG = ROOT / "soxl_qlib_strategy_v2.png"
 RESULT_TXT = ROOT / "soxl_qlib_strategy_v2_results.txt"
 PROFILE_DIR = ROOT / "configs/soxl"

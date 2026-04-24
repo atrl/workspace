@@ -31,7 +31,7 @@ frequency, lower-resolution residual decisions:
 ## Evidence Links
 
 - Active workpad:
-  - `codex_exec_plans/active/2026-04-10-soxl-agent-loop.md`
+  - `codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md`
 - Historical trade-compression note:
   - `memory/2026-04-18-trade-compression-experiments.md`
 - Frontier summary:

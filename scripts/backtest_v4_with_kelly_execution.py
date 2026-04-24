@@ -25,7 +25,7 @@ from src.soxl_quant.runtime import load_actor_bundle
 
 
 def main():
-    qlib.init(provider_uri=str(ROOT / "qlib_soxl_binary"))
+    qlib.init(provider_uri=str(ROOT / "data" / "qlib" / "soxl"))
 
     # Load v4 model (best baseline)
     v4_profile = load_profile("balanced_rule_residual_imitation_v4")

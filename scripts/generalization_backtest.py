@@ -42,9 +42,9 @@ from src.soxl_quant.settings import (
     load_profile,
 )
 
-DATA_DIR = ROOT / "data" / "generalization"
+DATA_DIR = ROOT / "data" / "processed" / "panels"
 RUNTIME_DIR = ROOT / "runtime" / "generalization"
-QLIB_RUNTIME = RUNTIME_DIR / "qlib_stores"
+QLIB_RUNTIME = ROOT / "data" / "qlib"
 
 
 def _export_detailed_csv(
