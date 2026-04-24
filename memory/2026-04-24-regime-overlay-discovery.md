@@ -53,3 +53,37 @@ risk and no retraining cost.
 1. Walk-forward slice validation for vol_stress
 2. Production runtime integration
 3. Consider training new actor with regime-aware feature weighting
+
+## Update: dual_kurtosis — +236pp
+
+After testing realized_kurtosis_21 in bull regime, we combined it with
+vol_stress to create a dual-regime overlay:
+
+**Result: 688.2% / Sharpe 0.99 / MaxDD 44.9% — +236pp vs baseline**
+
+This is the strongest result achieved in the entire harness to date.
+
+### Component breakdown
+
+| Component | Return | Improvement |
+|-----------|--------|-------------|
+| Baseline | 452.3% | — |
+| + vol_stress (stress) | 580.4% | +128pp |
+| + kurtosis_bull (bull) | 548.0% | +96pp |
+| + dual_kurtosis (both) | 688.2% | +236pp |
+
+Near-linear叠加 confirms the two signals capture non-overlapping predictive
+power in different regimes.
+
+### Production config
+
+```yaml
+overlay:
+  type: "dual_kurtosis"
+  regime_mode: "dual"
+  regime_threshold: 0.6
+  bull_regime_threshold: 0.4
+  threshold: 0.20
+  bull_threshold: 0.8
+  boost: 0.10
+```

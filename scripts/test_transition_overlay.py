@@ -23,12 +23,15 @@ def parse_args():
     parser.add_argument("--overlay", choices=[
         "none", "vix_divergence", "spring_compression", "panic_exhaustion",
         "vix_zscore_delta", "regime_risk_delta", "combined_vix", "fake_breakout",
-        "vol_stress", "downside_bull", "dual_regime", "vol_vix_combo", "rv63_stress"
+        "vol_stress", "downside_bull", "dual_regime", "vol_vix_combo", "rv63_stress",
+        "kurtosis_bull", "dual_kurtosis"
     ], default="none")
     parser.add_argument("--threshold", type=float, default=0.05)
     parser.add_argument("--boost", type=float, default=0.1)
     parser.add_argument("--regime-threshold", type=float, default=0.6)
     parser.add_argument("--bull-regime-threshold", type=float, default=0.4)
+    parser.add_argument("--bull-threshold", type=float, default=0.8,
+                        help="Threshold for bull-regime signals (kurtosis_bull, dual_kurtosis)")
     parser.add_argument("--regime-mode", choices=["stress", "bull", "dual"], default="stress")
     parser.add_argument("--feature-packs", default="", help="Comma-separated feature packs")
     return parser.parse_args()
@@ -78,8 +81,10 @@ def main():
             "regime_threshold": args.regime_threshold,
             "regime_mode": args.regime_mode,
         }
-        if args.overlay in ("dual_regime",):
+        if args.overlay in ("dual_regime", "dual_kurtosis"):
             overlay_config["bull_regime_threshold"] = args.bull_regime_threshold
+        if args.overlay in ("dual_kurtosis", "kurtosis_bull"):
+            overlay_config["bull_threshold"] = args.bull_threshold
 
     result = backtest_profile(
         actor=actor,

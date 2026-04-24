@@ -232,6 +232,16 @@ class RLStrategy(BaseStrategy):
                         signal_val = float(self.df.iloc[idx].get("downside_ratio_10", 0.0))
                         if signal_val >= threshold:
                             target_pos = min(target_pos + boost, 1.0)
+                elif overlay_type == "dual_kurtosis":
+                    # Stress: vol_stress, Bull: kurtosis_bull
+                    if regime_risk >= regime_thresh:
+                        signal_val = float(self.df.iloc[idx].get("vol_of_vol_21", 0.0))
+                        if signal_val >= threshold:
+                            target_pos = min(target_pos + boost, 1.0)
+                    elif regime_risk <= oc.get("bull_regime_threshold", 0.4):
+                        signal_val = float(self.df.iloc[idx].get("realized_kurtosis_21", 0.0))
+                        if signal_val >= oc.get("bull_threshold", 0.8):
+                            target_pos = min(target_pos + boost, 1.0)
                 elif overlay_type == "vol_vix_combo":
                     # Both vol_of_vol AND VIX divergence must agree in stress regime
                     vol_val = float(self.df.iloc[idx].get("vol_of_vol_21", 0.0))
@@ -243,6 +253,11 @@ class RLStrategy(BaseStrategy):
                 elif overlay_type == "rv63_stress":
                     # Realized vol spike in stress regime = high conviction entry
                     signal_val = float(self.df.iloc[idx].get("realized_vol_63", 0.0))
+                    if signal_val >= threshold:
+                        target_pos = min(target_pos + boost, 1.0)
+                elif overlay_type == "kurtosis_bull":
+                    # High kurtosis in bull regime = fat-tail event = mean-reversion entry
+                    signal_val = float(self.df.iloc[idx].get("realized_kurtosis_21", 0.0))
                     if signal_val >= threshold:
                         target_pos = min(target_pos + boost, 1.0)
         direction = "buy" if target_pos > current_pos else ("sell" if target_pos < current_pos else "neutral")

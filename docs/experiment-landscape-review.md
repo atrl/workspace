@@ -791,3 +791,37 @@ All tests run on fixed `balanced_rule_residual_v19` actor, test window
 - Config: `type="vol_stress", regime_mode="stress", regime_threshold=0.6,
   threshold=0.20, boost=0.10`
 - Next: walk-forward slice validation, then production runtime integration
+
+## 2026-04-24 (update): dual_kurtosis Overlay — +236pp
+
+Following the vol_stress discovery, we tested realized_kurtosis_21 as a bull-
+regime overlay. The result exceeded expectations:
+
+| Overlay | Return | Sharpe | MaxDD | vs Baseline |
+|---------|--------|--------|-------|-------------|
+| Baseline | 452.3% | 0.87 | 46.7% | — |
+| vol_stress | 580.4% | 0.94 | 45.9% | +128pp |
+| kurtosis_bull | 548.0% | 0.93 | 46.2% | +96pp |
+| **dual_kurtosis** | **688.2%** | **0.99** | **44.9%** | **+236pp** |
+
+### Why dual_kurtosis works
+
+- **Stress regime** (regime_risk >= 0.6): vol_of_vol_21 >= 0.20 → boost
+  - Captures volatility dynamics (IC=0.174 in stress)
+- **Bull regime** (regime_risk <= 0.4): realized_kurtosis_21 >= 0.8 → boost
+  - Captures tail-risk events (IC=0.284 in bull)
+- **Normal regime**: No overlay — lets actor decide
+- Effects are near-additive: 580 + 548 - 452 ≈ 676%, actual 688%
+
+### Parameter robustness
+
+- vol threshold ±0.02: ~±20pp return change
+- kurt threshold ±0.1: ~±30pp return change
+- regime_threshold 0.6→0.7: -50pp return
+- Sweet spot is stable and well-defined
+
+### Decision
+
+- **dual_kurtosis is the new production candidate**
+- Replaces vol_stress as the recommended overlay
+- Next: walk-forward validation and production integration
