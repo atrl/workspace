@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-24T13:38:46.257567+00:00",
+  "generated_at": "2026-04-24T14:58:37.286577+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -114,6 +114,90 @@
       "category": "execution",
       "suffix": ".md",
       "bytes": 714
+    },
+    {
+      "path": "runtime/execution/generalization/report.txt",
+      "category": "execution",
+      "suffix": ".txt",
+      "bytes": 458
+    },
+    {
+      "path": "runtime/execution/generalization/results.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 679
+    },
+    {
+      "path": "runtime/execution/generalization/versions/migration_v1/detailed/spxl_detailed_trades.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 199054
+    },
+    {
+      "path": "runtime/execution/generalization/versions/migration_v1/detailed/summary.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 385
+    },
+    {
+      "path": "runtime/execution/generalization/versions/migration_v1/detailed/tqqq_detailed_trades.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 199511
+    },
+    {
+      "path": "runtime/execution/generalization/versions/migration_v1/detailed/upro_detailed_trades.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 198979
+    },
+    {
+      "path": "runtime/execution/generalization/versions/migration_v1/results.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 138
+    },
+    {
+      "path": "runtime/execution/generalization/versions/migration_v1_full/detailed/soxl_detailed_trades.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 199700
+    },
+    {
+      "path": "runtime/execution/generalization/versions/migration_v1_full/detailed/spxl_detailed_trades.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 199054
+    },
+    {
+      "path": "runtime/execution/generalization/versions/migration_v1_full/detailed/summary.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 1910
+    },
+    {
+      "path": "runtime/execution/generalization/versions/migration_v1_full/detailed/tecl_detailed_trades.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 199930
+    },
+    {
+      "path": "runtime/execution/generalization/versions/migration_v1_full/detailed/tqqq_detailed_trades.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 199511
+    },
+    {
+      "path": "runtime/execution/generalization/versions/migration_v1_full/detailed/upro_detailed_trades.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 198979
+    },
+    {
+      "path": "runtime/execution/generalization/versions/migration_v1_full/results.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 679
     },
     {
       "path": "runtime/execution/knowledge.md",
@@ -1262,10 +1346,16 @@
       "bytes": 1088
     },
     {
+      "path": "runtime/multi_asset/cards/zero_shot_migration_v1/card.md",
+      "category": "multi_asset",
+      "suffix": ".md",
+      "bytes": 2395
+    },
+    {
       "path": "runtime/multi_asset/knowledge.md",
       "category": "multi_asset",
       "suffix": ".md",
-      "bytes": 747
+      "bytes": 874
     },
     {
       "path": "runtime/network/cards/attention/card.md",

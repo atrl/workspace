@@ -37,14 +37,19 @@ direction: harness
 - c) **Regime-conditioned action space**: stress 态时减少 action levels（如只保留 [0, 0.2, 0.4]）
 - d) **Stress episode 过采样**: 在 training batch 中增加 2022 类 episode 的比例
 
-### 2. Multi-Asset 泛化（P1）
+### 2. Multi-Asset 泛化（P1）— 部分完成
 
-**问题**: 当前仅 SOXL 单标训练，多资产迁移未启动。
-**已知失败教训**: 需要 generic reward + volatility normalization + asset-specific heads。
+**已完成**:
+- ✅ **Zero-shot migration v1**: SOXL actor 在 TQQQ/UPRO/SPXL/TECL 上回测
+  - TQQQ Sharpe=0.867（甚至优于 SOXL 的 0.846）
+  - UPRO/SPXL Sharpe~0.83-0.84，MaxDD 更低（~38%）
+  - TECL Sharpe=0.716（相对最弱）
+- 结论: 零样本迁移可行，核心特征具有跨资产通用性
+
 **待尝试方向**:
-- a) **TQQQ 迁移测试**: 使用现有 SOXL actor 直接回测 TQQQ，量化 gap
-- b) **共享 backbone 实验**: GRU 共享 + 每个资产一个 MLP head
-- c) **Volatility normalization**: 将 realized_vol 按资产历史中位数标准化
+- a) **联合训练**: shared backbone + asset-specific head，对比零样本 gap
+- b) **Volatility normalization**: 将 realized_vol 按资产历史中位数标准化
+- c) **分析 TECL 弱势原因**: 成份股差异 vs 特征适配度
 
 ---
 

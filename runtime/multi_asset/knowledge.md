@@ -8,6 +8,7 @@
 | 配置 | 类别 | 状态 | 关键指标 | 卡片 |
 |------|------|------|----------|------|
 | SOXL Baseline | single_asset_baseline | ✅ Baseline | SOXL only | [card](cards/soxl_baseline/card.md) |
+| Zero-Shot Migration v1 | zero_shot_transfer | ✅ Completed | 5 ETFs tested | [card](cards/zero_shot_migration_v1/card.md) |
 
 ## 核心结论
 
