@@ -10,12 +10,11 @@ tags:
 - ops
 - soxl
 artifacts:
+- evidence/diagnosis
+- evidence/feature_analysis
+- evidence/generalization
 - evidence/index.json
-- evidence/runtime/data
-- runtime/diagnosis
-- runtime/feature_analysis
-- runtime/generalization
-- runtime/post_train_review
+- evidence/post_train_review
 - runtime/soxl/
 workpad: codex_exec_plans/active/current.md
 summary: Runtime is now execution state only, generated research artifacts live under
@@ -23,13 +22,12 @@ summary: Runtime is now execution state only, generated research artifacts live 
   harness.
 ---
 
-# Source boundary refactor for evidence/runtime/data
+# Source boundary refactor for evidence, runtime, and data
 
 ## Context
 
-Legacy memory note normalized into the repo-wide schema.
-
-## Evidence
+The previous cleanup still left responsibilities blurred between `memory/`,
+`experiments/`, `production/`, `runtime/`, and physical data paths.
 
 ## Decision
 
@@ -61,11 +59,3 @@ Keep responsibilities narrow:
 ## Next Use
 
 Before future automated iteration, start from `codex_exec_plans/active/current.md`, then use `docs/research_knowledge/index.md`, `experiments/index.md`, `evidence/index.json`, and `data/datasets.yaml`. Do not add new generated research outputs under `runtime/`.
-
-## Decision
-
-See the summary and status fields in front matter.
-
-## Next Use
-
-Use `scripts/memory_search.py` before opening additional memory files.
