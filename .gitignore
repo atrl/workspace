@@ -58,7 +58,15 @@ runtime/*
 !runtime/execution/
 !runtime/execution/**
 !runtime/data/
+!runtime/data/**
 !runtime/network/
+!runtime/network/**
+!runtime/reward/
+!runtime/reward/**
+!runtime/multi_asset/
+!runtime/multi_asset/**
+!runtime/harness/
+!runtime/harness/**
 runtime/**/*.png
 runtime/**/*.log
 

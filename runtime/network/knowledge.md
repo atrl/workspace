@@ -5,19 +5,19 @@
 
 ## 架构索引
 
-| Profile | Arch | Return | Sharpe | MaxDD | AvgPos | 状态 | 卡片 |
-|---------|------|--------|--------|-------|--------|------|------|
-| balanced_kelly_attention_v10 | Attn | 386 | 0.76 | 59.12 | 0.55 | 🟡 Moderate | [card](cards/attention_v10/card.md) |
-| smoke_tide | TiDE | 307 | 0.69 | 70.60 | 0.62 | 🟡 Moderate | [card](cards/tide/card.md) |
-| balanced | GRU | 407 | 0.82 | 52.75 | 0.48 | 🟡 Good | [card](cards/gru_baseline/card.md) |
-| smoke | GRU | 298 | 0.68 | 76.83 | 0.73 | 🟡 Moderate | [card](cards/gru_smoke/card.md) |
+| 架构 | 类别 | 状态 | 实验数 | 关键指标 | 卡片 |
+|------|------|------|--------|----------|------|
+| GRU | recurrent | ✅ Canonical | 60+ | Sharpe 0.69-2.24 | [card](cards/gru/card.md) |
+| Attention | attention | 🟡 No improvement | 1 | Sharpe 0.76 | [card](cards/attention/card.md) |
+| TiDE | temporal_decomposition | 🟡 No improvement | 1 | Sharpe 0.69 | [card](cards/tide/card.md) |
+| MLP Fallback | dense | ⚪ Unused | 0 | — | [card](cards/mlp_fallback/card.md) |
 
 ## 核心结论
 
-1. **GRU-64 + [128,64] MLP 是当前主架构**。
-2. **Attention 替换 GRU 无提升**：同规模下指标无差异。
-3. **MoE 未显著超越 dense**：路由负载不均衡。
-4. **TiDE 未超越 GRU**：时序分解网络无优势。
+1. **GRU-64 + [128,64] MLP 是当前主架构**，observation_window=5。
+2. **Attention 替换 GRU 无提升**：同规模下指标无差异，计算成本更高。
+3. **TiDE 未超越 GRU**：时序分解网络无优势，可能与短窗口（5步）有关。
+4. **MoE 未实际实验**：代码存在但未在 SOXL 上跑过完整训练。
 
 ## 待验证方向
 

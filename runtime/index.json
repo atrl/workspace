@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-24T13:17:29.863627+00:00",
+  "generated_at": "2026-04-24T13:38:46.257567+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -1268,130 +1268,58 @@
       "bytes": 747
     },
     {
-      "path": "runtime/network/cards/attention_v10/card.md",
+      "path": "runtime/network/cards/attention/card.md",
       "category": "network",
       "suffix": ".md",
-      "bytes": 677
+      "bytes": 1305
     },
     {
-      "path": "runtime/network/cards/gru_baseline/card.md",
+      "path": "runtime/network/cards/gru/card.md",
       "category": "network",
       "suffix": ".md",
-      "bytes": 620
+      "bytes": 1823
     },
     {
-      "path": "runtime/network/cards/gru_smoke/card.md",
+      "path": "runtime/network/cards/mlp_fallback/card.md",
       "category": "network",
       "suffix": ".md",
-      "bytes": 625
+      "bytes": 888
     },
     {
       "path": "runtime/network/cards/tide/card.md",
       "category": "network",
       "suffix": ".md",
-      "bytes": 635
+      "bytes": 1318
     },
     {
       "path": "runtime/network/knowledge.md",
       "category": "network",
       "suffix": ".md",
-      "bytes": 1083
+      "bytes": 1131
     },
     {
-      "path": "runtime/reward/cards/imitation_v1/card.md",
+      "path": "runtime/reward/cards/base_log/card.md",
       "category": "reward",
       "suffix": ".md",
-      "bytes": 766
+      "bytes": 1244
     },
     {
-      "path": "runtime/reward/cards/imitation_v2/card.md",
+      "path": "runtime/reward/cards/imitation/card.md",
       "category": "reward",
       "suffix": ".md",
-      "bytes": 766
+      "bytes": 1881
     },
     {
-      "path": "runtime/reward/cards/imitation_v2_fix/card.md",
+      "path": "runtime/reward/cards/kelly_alpha/card.md",
       "category": "reward",
       "suffix": ".md",
-      "bytes": 774
-    },
-    {
-      "path": "runtime/reward/cards/imitation_v3/card.md",
-      "category": "reward",
-      "suffix": ".md",
-      "bytes": 766
-    },
-    {
-      "path": "runtime/reward/cards/imitation_v4/card.md",
-      "category": "reward",
-      "suffix": ".md",
-      "bytes": 766
-    },
-    {
-      "path": "runtime/reward/cards/imitation_v5/card.md",
-      "category": "reward",
-      "suffix": ".md",
-      "bytes": 766
-    },
-    {
-      "path": "runtime/reward/cards/imitation_v6/card.md",
-      "category": "reward",
-      "suffix": ".md",
-      "bytes": 766
-    },
-    {
-      "path": "runtime/reward/cards/imitation_v7/card.md",
-      "category": "reward",
-      "suffix": ".md",
-      "bytes": 766
-    },
-    {
-      "path": "runtime/reward/cards/kelly_attention_v10/card.md",
-      "category": "reward",
-      "suffix": ".md",
-      "bytes": 759
-    },
-    {
-      "path": "runtime/reward/cards/kelly_dynamic_v5/card.md",
-      "category": "reward",
-      "suffix": ".md",
-      "bytes": 749
-    },
-    {
-      "path": "runtime/reward/cards/kelly_dynamic_v6/card.md",
-      "category": "reward",
-      "suffix": ".md",
-      "bytes": 749
-    },
-    {
-      "path": "runtime/reward/cards/kelly_dynamic_v7/card.md",
-      "category": "reward",
-      "suffix": ".md",
-      "bytes": 749
-    },
-    {
-      "path": "runtime/reward/cards/kelly_execution_v8/card.md",
-      "category": "reward",
-      "suffix": ".md",
-      "bytes": 753
-    },
-    {
-      "path": "runtime/reward/cards/kelly_warmstart_v9/card.md",
-      "category": "reward",
-      "suffix": ".md",
-      "bytes": 753
-    },
-    {
-      "path": "runtime/reward/cards/kelly_warmstart_v9b/card.md",
-      "category": "reward",
-      "suffix": ".md",
-      "bytes": 755
+      "bytes": 2083
     },
     {
       "path": "runtime/reward/knowledge.md",
       "category": "reward",
       "suffix": ".md",
-      "bytes": 2478
+      "bytes": 1135
     }
   ]
 }
