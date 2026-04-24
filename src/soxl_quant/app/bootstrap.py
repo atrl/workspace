@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import os
 import warnings
-from pathlib import Path
 
 from qlib.data import D
 
@@ -57,7 +56,6 @@ def bootstrap_runtime(args):
     multi_asset_sources = None
     if args.multi_asset:
         multi_asset_sources = build_multi_asset_sources(
-            Path(QLIB_DATA_PATH).parent / "multi_asset",
             profile=profile,
             verbose=True,
         )

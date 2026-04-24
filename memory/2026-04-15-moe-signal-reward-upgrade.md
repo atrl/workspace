@@ -21,7 +21,7 @@ tags:
 - superseded
 - walk-forward
 artifacts: []
-workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
 summary: "Legacy memory note normalized into the repo-wide schema. Date: 2026-04-15\
   \ Execute the approved \"Approach A \u2013 Surgical Upgrade\" plan to: 1. Upgrade\
   \ `RegimeMoENet` with noisy Top-1 sparse routing, load-balancing loss, and a shared\

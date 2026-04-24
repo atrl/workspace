@@ -22,7 +22,7 @@ tags:
 - smoke_marginal_freq
 - soxl
 artifacts: []
-workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
 summary: "Legacy memory note normalized into the repo-wide schema. 1. \u9A8C\u8BC1\
   \ decision_frequency=3 \u5728 20-iters \u4E2D\u7B49\u8BAD\u7EC3\u4E0B\u7684\u7A33\
   \u5B9A\u6027 2. \u5B9E\u73B0\u5E76\u9A8C\u8BC1 Period-Aware Marginal Reward\uFF08\

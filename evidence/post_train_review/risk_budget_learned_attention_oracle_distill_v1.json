@@ -1,9 +1,9 @@
 {
-  "profile": "risk_budget_learned_conditioned_oracle_distill_v1",
-  "replay_daily": "runtime/post_train_review/hierarchical_online_budget_daily/soxl_hier_learned_slow5.csv",
+  "profile": "risk_budget_learned_attention_oracle_distill_v1",
+  "replay_daily": "evidence/post_train_review/hierarchical_online_budget_daily/soxl_hier_learned_slow5.csv",
   "seed": 20260411,
   "samples": 1508,
-  "condition_on_mode": true,
+  "condition_on_mode": false,
   "label_distribution": {
     "0": 238,
     "1": 1138,
@@ -12,11 +12,11 @@
     "4": 32
   },
   "bc_stats": {
-    "loss": 1.125072717666626,
-    "accuracy": 0.78125,
+    "loss": 1.1860829591751099,
+    "accuracy": 0.71875,
     "steps": 1600
   },
-  "model_path": "artifacts/models/soxl_risk_budget_learned_conditioned_oracle_distill_v1_oracle_actor.pt",
+  "model_path": "artifacts/models/soxl_risk_budget_learned_attention_oracle_distill_v1_oracle_actor.pt",
   "slices": {
     "test_2020": {
       "return": 72.49060500443296,
@@ -35,20 +35,20 @@
       "stress_days": 129.0
     },
     "test_2023_2024": {
-      "return": 77.66238986256091,
-      "sharpe": 1.1136016908145123,
-      "max_dd": 24.891521297956913,
-      "avg_pos": 0.3409163785207163,
+      "return": 78.61733778827396,
+      "sharpe": 1.1301196988762339,
+      "max_dd": 24.89152129795698,
+      "avg_pos": 0.33568422502231976,
       "stress_avg_pos": 0.119140625,
       "stress_days": 64.0
     }
   },
   "test_proxy": {
-    "return": 387.13398725308446,
-    "sharpe": 1.0079779441632009,
-    "max_dd": 30.12423800459791,
-    "avg_pos": 0.29837943757600116,
-    "stress_avg_pos": 0.12303431504713198,
+    "return": 412.9203899547084,
+    "sharpe": 1.0421685573091277,
+    "max_dd": 28.65925697334542,
+    "avg_pos": 0.29591367103070493,
+    "stress_avg_pos": 0.12022479341259731,
     "stress_days": 379.0
   },
   "decision": "no-promotion diagnostic only; labels come from held-out replay daily path"

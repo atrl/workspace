@@ -13,7 +13,7 @@ tags:
 - kept
 - review
 artifacts: []
-workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
 summary: 'Legacy memory note normalized into the repo-wide schema. Date: 2026-04-20
   Profile: `balanced_rule_residual_v7` Baseline comparison: `balanced_rule_residual_v2`
   (best drawdown so far), `v5` (best return) | Metric | v2 (baseline) | v5 | v7 |'

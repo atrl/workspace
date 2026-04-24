@@ -18,7 +18,7 @@ tags:
 - superseded
 - walk-forward
 artifacts: []
-workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
 summary: Legacy memory note normalized into the repo-wide schema. Port 5 rule-based
   `soxl_backtest` mechanics into the RL reward/risk layer, increase high-vol T-trading
   on SOXL, and ensure zero-shot generalization beats Buy & Hold on other 3x ETFs.
@@ -39,7 +39,7 @@ Port 5 rule-based `soxl_backtest` mechanics into the RL reward/risk layer, incre
 
 ### 1. Mocked `soxl_backtest` data fetcher (`soxl_backtest/data/data_fetcher.py`)
 - Replaced Yahoo Finance / Longbridge API dependency with local CSV reader.
-- Reads `data/symbols/SOXL.csv` for price and `data/soxl_soxx_vix_full.csv` for VIX.
+- Reads `data/raw/symbols/SOXL.csv` for price and `data/processed/panels/soxl_soxx_vix_full.csv` for VIX.
 - Falls back to VIX=20 if VIX file is missing.
 
 ### 2. Partial profit-taking reward (`src/soxl_quant/rl.py`)

@@ -8,7 +8,7 @@ tags:
 - other
 - reference
 artifacts: []
-workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
 summary: Split artifact persistence and walk-forward workers out of app/train.py and
   updated repo-internal tests/imports so internal code no longer depends on the rl
   compatibility facade.

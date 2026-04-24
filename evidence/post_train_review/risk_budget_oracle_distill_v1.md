@@ -6,7 +6,7 @@ This actor is an upper-bound capacity probe only. It uses replay labels from hel
 
 ## Dataset
 
-- replay_daily: `runtime/post_train_review/risk_budget_usage_v1_soxl_daily.csv`
+- replay_daily: `evidence/post_train_review/risk_budget_usage_v1_soxl_daily.csv`
 - samples: `1508`
 - label_distribution: `{'0': 127, '1': 436, '2': 383, '3': 423, '4': 139}`
 

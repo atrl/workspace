@@ -15,7 +15,7 @@ tags:
 - soxl
 - stress-regime
 artifacts: []
-workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
 summary: 'Four variants of trade-frequency compression tested on SOXL. decision_frequency=3
   achieves the best 2022 MaxDD (38.4%) and good generalization, but sacrifices total
   return (698% -> 314%). Key insight: execution-layer compression (trade_lock, threshold,

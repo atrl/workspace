@@ -8,7 +8,7 @@ tags:
 - other
 - reference
 artifacts: []
-workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
 summary: Refreshed AGENTS.md to match the current app/policy/core split, declared
   cli.py and rl.py compatibility-only, added script-boundary rules, and documented
   preferred read order for experiments, runtime, and memory.

@@ -13,7 +13,7 @@ tags:
 - soxl
 - stress-regime
 artifacts: []
-workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
 summary: Reviewed the existing fixed-actor execution overlay sweep before starting
   any new overlay work. The repo already validated the generic overlay direction with
   `regime_route_v1`, but on SOXL it did not materially improve the `2022` bear window

@@ -13,7 +13,7 @@ tags:
 - execution-overlay
 - soxl
 artifacts: []
-workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
 summary: 'The repo hit a clear optimization plateau on threshold, cooldown, and overlay
   retuning. The next step moved to a larger mechanism change: persistent high-level
   trading modes constraining the existing residual actor, rather than further sing'
@@ -33,7 +33,7 @@ further single-layer parameter drift.
 - Plan:
   - `docs/superpowers/plans/2026-04-21-mode-hierarchy-v1.md`
 - Workpad:
-  - `codex_exec_plans/active/2026-04-10-soxl-agent-loop.md`
+  - `codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md`
 
 Implemented scaffold only in this loop:
 

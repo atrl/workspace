@@ -44,8 +44,8 @@ Command:
 
 ```bash
 PYTHONPATH=. /Users/rziiiii/.openclaw/workspace/qlib_venv/bin/python scripts/replay_two_speed_mode_budget.py \
-  --slow-daily /Users/rziiiii/.openclaw/workspace/runtime/post_train_review/balanced_rule_residual_mode_v1_soxl_daily.csv \
-  --fast-daily /Users/rziiiii/.openclaw/workspace/runtime/post_train_review/balanced_rule_residual_imitation_v4_soxl_daily.csv
+  --slow-daily /Users/rziiiii/.openclaw/workspace/evidence/post_train_review/balanced_rule_residual_mode_v1_soxl_daily.csv \
+  --fast-daily /Users/rziiiii/.openclaw/workspace/evidence/post_train_review/balanced_rule_residual_imitation_v4_soxl_daily.csv
 ```
 
 Key metrics:

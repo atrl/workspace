@@ -19,7 +19,7 @@ from src.soxl_quant.settings import ETF_UNIVERSE, TEST_SEG, TRAIN_SEG, VALID_SEG
 from src.soxl_quant.config import ExecutionConfig, ExecutionRegimeConfig
 
 DATA_DIR = ROOT / "data" / "processed" / "panels"
-RUNTIME_DIR = ROOT / "runtime" / "generalization"
+RUNTIME_DIR = ROOT / "evidence" / "generalization"
 QLIB_RUNTIME = ROOT / "data" / "qlib"
 SCENARIOS = {
     "crash_rebound_2020": ("2020-02-01", "2020-06-30"),

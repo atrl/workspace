@@ -4,7 +4,7 @@ No-promotion diagnostic trained from a replay daily path with a continuous usage
 
 ## Dataset
 
-- replay_daily: `runtime/post_train_review/hierarchical_online_budget_daily/soxl_hier_learned_slow5.csv`
+- replay_daily: `evidence/post_train_review/hierarchical_online_budget_daily/soxl_hier_learned_slow5.csv`
 - samples: `1508`
 - target_mean: `0.247283`
 - target_std: `0.176626`

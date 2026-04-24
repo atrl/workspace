@@ -50,11 +50,11 @@ No reward, position-cap, execution, checkpoint-selection, or sampling changes.
 - Landscape anchor:
   - `docs/experiment-landscape-review.md`
 - Historical feature recall:
-  - `runtime/post_train_review/historical_balanced_feature_recall.md`
+  - `evidence/post_train_review/historical_balanced_feature_recall.md`
 - Result memory note:
   - `memory/2026-04-21-v23-transition-state-probe.md`
 - Pairwise review target:
-  - `runtime/post_train_review/balanced_rule_residual_v23_vs_v19.md`
+  - `evidence/post_train_review/balanced_rule_residual_v23_vs_v19.md`
 
 ## Training command
 
@@ -69,7 +69,7 @@ SOXL_USE_TRANSITION_V23=1 PYTHONPATH=. qlib_venv/bin/python -m src.soxl_quant.cl
 - Summary artifact:
   - `artifacts/models/soxl_balanced_rule_residual_v23_summary.json`
 - Pairwise review:
-  - `runtime/post_train_review/balanced_rule_residual_v23_vs_v19.md`
+  - `evidence/post_train_review/balanced_rule_residual_v23_vs_v19.md`
 - Decision:
   - dropped and archived
 

@@ -18,8 +18,8 @@ Command:
 PYTHONPATH=. qlib_venv/bin/python scripts/execution_overlay_generalization.py \
   --profile balanced_rule_residual_v19 \
   --model artifacts/models/soxl_balanced_rule_residual_v19_actor.pt \
-  --variants-json runtime/post_train_review/v19_dwell_overlay_variants.json \
-  --output runtime/post_train_review/v19_dwell_overlay_diagnostic.json
+  --variants-json evidence/post_train_review/v19_dwell_overlay_variants.json \
+  --output evidence/post_train_review/v19_dwell_overlay_diagnostic.json
 ```
 
 ## SOXL Result

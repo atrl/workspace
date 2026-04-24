@@ -1,9 +1,8 @@
 {
-  "profile": "risk_budget_learned_attention_oracle_distill_v1",
-  "replay_daily": "runtime/post_train_review/hierarchical_online_budget_daily/soxl_hier_learned_slow5.csv",
+  "profile": "risk_budget_learned_oracle_distill_v1",
+  "replay_daily": "evidence/post_train_review/hierarchical_online_budget_daily/soxl_hier_learned_slow5.csv",
   "seed": 20260411,
   "samples": 1508,
-  "condition_on_mode": false,
   "label_distribution": {
     "0": 238,
     "1": 1138,
@@ -12,11 +11,11 @@
     "4": 32
   },
   "bc_stats": {
-    "loss": 1.1860829591751099,
-    "accuracy": 0.71875,
+    "loss": 1.123583197593689,
+    "accuracy": 0.78125,
     "steps": 1600
   },
-  "model_path": "artifacts/models/soxl_risk_budget_learned_attention_oracle_distill_v1_oracle_actor.pt",
+  "model_path": "artifacts/models/soxl_risk_budget_learned_oracle_distill_v1_oracle_actor.pt",
   "slices": {
     "test_2020": {
       "return": 72.49060500443296,

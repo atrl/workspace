@@ -1,6 +1,6 @@
 {
   "profile": "risk_budget_learned_usage_regression_v1",
-  "replay_daily": "runtime/post_train_review/hierarchical_online_budget_daily/soxl_hier_learned_slow5.csv",
+  "replay_daily": "evidence/post_train_review/hierarchical_online_budget_daily/soxl_hier_learned_slow5.csv",
   "seed": 20260411,
   "samples": 1508,
   "target_mean": 0.24728280305862427,

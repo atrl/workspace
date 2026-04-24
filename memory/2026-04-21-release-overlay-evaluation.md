@@ -16,9 +16,9 @@ tags:
 - soxl
 - stress-regime
 artifacts:
-- runtime/generalization/execution_overlay_results_v19_release.json
-- runtime/generalization/execution_overlay_results_v19_release_subset.json
-workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+- evidence/generalization/execution_overlay_results_v19_release.json
+- evidence/generalization/execution_overlay_results_v19_release_subset.json
+workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
 summary: The first explicit `release` execution overlay on top of `balanced_rule_residual_v19`
   did not produce a materially new behavior. `stress_release_route_v1` was effectively
   identical to `regime_route_v1` on the key SOXL bear/recovery slices, so this direction
@@ -37,8 +37,8 @@ evaluated against the fixed actor `balanced_rule_residual_v19`.
 ## Evidence
 
 - Result files:
-  - `runtime/generalization/execution_overlay_results_v19_release.json`
-  - `runtime/generalization/execution_overlay_results_v19_release_subset.json`
+  - `evidence/generalization/execution_overlay_results_v19_release.json`
+  - `evidence/generalization/execution_overlay_results_v19_release_subset.json`
 - SOXL key readout:
   - `base`: proxy `412.7 / 0.837 / 48.79`, `bear_2022 -23.2 / 31.32 / 0.262`,
     `recovery_2023_2024 41.7 / 32.81 / 0.472`

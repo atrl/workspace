@@ -10,7 +10,7 @@ tags:
 - moe
 - reference
 artifacts: []
-workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
 summary: 'The repository had already started splitting responsibilities conceptually,
   but the filesystem still looked flat. That made the intended architecture hard to
   see and easy to ignore. Added new package directories under `src/soxl_quant/`: `ap'

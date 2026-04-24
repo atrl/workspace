@@ -17,13 +17,13 @@ That means the next feature loop should not add more generic trend or more gener
 - Strategy slices:
   - `artifacts/models/soxl_balanced_summary.json`
 - SOXL detailed daily path:
-  - `runtime/generalization/detailed/soxl_detailed_trades.csv`
+  - `evidence/generalization/detailed/soxl_detailed_trades.csv`
 - Existing feature attribution:
-  - `runtime/feature_analysis/summary.json`
-  - `runtime/feature_analysis/shap_importance.csv`
-  - `runtime/feature_analysis/ic.csv`
+  - `evidence/feature_analysis/summary.json`
+  - `evidence/feature_analysis/shap_importance.csv`
+  - `evidence/feature_analysis/ic.csv`
 - Scenario decomposition:
-  - `runtime/generalization/execution_overlay_results.json`
+  - `evidence/generalization/execution_overlay_results.json`
 
 ## Where `balanced` Is Good
 

@@ -647,7 +647,7 @@ def _build_transition_state_features(
 
 
 def _load_external_series(filename: str, value_col: str) -> pd.Series:
-    """Load an external CSV from ``data/external/`` into a date-indexed Series.
+    """Load an external CSV from ``data/raw/external/`` into a date-indexed Series.
 
     Handles the two layouts shipping with this repo:
       - DATE, VALUE

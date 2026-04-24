@@ -10,8 +10,8 @@ from collections import defaultdict
 import numpy as np
 
 ROOT = Path(__file__).resolve().parent.parent
-DETAIL_CSV = ROOT / "runtime" / "generalization" / "detailed" / "soxl_detailed_trades.csv"
-OUT_DIR = ROOT / "runtime" / "diagnosis"
+DETAIL_CSV = ROOT / "evidence" / "generalization" / "detailed" / "soxl_detailed_trades.csv"
+OUT_DIR = ROOT / "evidence" / "diagnosis"
 
 
 def parse_args():

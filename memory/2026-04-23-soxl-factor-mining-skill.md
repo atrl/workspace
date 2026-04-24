@@ -11,7 +11,7 @@ tags:
 - soxl
 - stress-regime
 artifacts: []
-workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
 summary: "Legacy memory note normalized into the repo-wide schema. \u5C06 agentic-alpha\
   \ \u7684\u56E0\u5B50\u6316\u6398\u65B9\u6CD5\u8BBA\u9002\u914D\u5230 SOXL \u5355\
   \u6807\u7684\u62E9\u65F6\u573A\u666F\uFF0C\u5EFA\u7ACB\u72EC\u7ACB\u4E8E RL \u8BAD\

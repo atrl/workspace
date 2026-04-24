@@ -8,7 +8,7 @@ tags:
 - other
 - reference
 artifacts: []
-workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
 summary: Split runtime bootstrap and end-of-run reporting out of app/cli.py so the
   CLI entrypoint is a thin orchestration shell rather than a mixed setup/execution/reporting
   file.

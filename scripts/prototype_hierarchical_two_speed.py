@@ -357,7 +357,7 @@ def main():
     parser.add_argument("--flat-budget", type=float, default=0.30)
     parser.add_argument("--hard-floor", type=float, default=0.20)
     parser.add_argument("--profile", type=str, default="balanced", help="Profile for feature/execution config")
-    parser.add_argument("--output", type=str, default="runtime/post_train_review/hierarchical_overlay.json")
+    parser.add_argument("--output", type=str, default="evidence/post_train_review/hierarchical_overlay.json")
     parser.add_argument("--skip-data-refresh", action="store_true")
     args = parser.parse_args()
 

@@ -13,7 +13,7 @@ tags:
 - dropped
 - failure
 artifacts: []
-workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
 summary: 'Legacy memory note normalized into the repo-wide schema. Date: 2026-04-20
   Profile: `balanced_rule_residual_v10` Baseline: `balanced_rule_residual_v2` (best
   valid score), `v8/v9` (failed hyperparameter tuning) v8 (strong penalties) and v9

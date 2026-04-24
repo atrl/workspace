@@ -117,7 +117,6 @@ def run_worker_profile(args: argparse.Namespace) -> None:
     multi_asset_sources = None
     if args.multi_asset:
         multi_asset_sources = build_multi_asset_sources(
-            ROOT / "data" / "multi_asset",
             profile=profile,
             verbose=False,
         )

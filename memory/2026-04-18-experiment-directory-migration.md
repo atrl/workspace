@@ -17,7 +17,7 @@ tags:
 - smoke
 - soxl
 artifacts: []
-workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
 summary: The flat `configs/soxl/*.yaml` layout still made profile intent too opaque
   even after adding a registry. The next step was to start colocating profile config
   with experiment-owned notes and expectations. Added `experiments/README.md`. Added

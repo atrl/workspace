@@ -26,7 +26,7 @@ SOXL_USE_VIX_TERM=1 qlib_venv/bin/python -m soxl_quant.cli train \
 - Primary result note:
   - `memory/2026-04-21-v22-vix-term-structure-results.md`
 - Pairwise review:
-  - `runtime/post_train_review/balanced_rule_residual_v22_vs_v19.md`
+  - `evidence/post_train_review/balanced_rule_residual_v22_vs_v19.md`
 - Frontier summary:
   - `docs/experiment-landscape-review.md`
 

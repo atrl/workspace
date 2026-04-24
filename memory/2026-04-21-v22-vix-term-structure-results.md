@@ -19,8 +19,8 @@ tags:
 - walk-forward
 artifacts:
 - artifacts/models/soxl_balanced_rule_residual_v19_summary.json
-- runtime/post_train_review/balanced_rule_residual_v22_vs_v19.md
-workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+- evidence/post_train_review/balanced_rule_residual_v22_vs_v19.md
+workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
 summary: "First training run of balanced_rule_residual_v22 with SOXL_USE_VIX_TERM=1\
   \ (external VVIX / VIX9D / VIX3M / SKEW features added to the observation). Same\
   \ seed (12345) and profile otherwise identical to v19 baseline. Feature count 59\
@@ -125,4 +125,4 @@ Promotion gates (fixed-split): all three PASS —
 
 - Scaffolding: `memory/2026-04-20-tier1-2-3-harness-scaffolding.md`
 - Baseline comparator: `artifacts/models/soxl_balanced_rule_residual_v19_summary.json`
-- Post-train review: `runtime/post_train_review/balanced_rule_residual_v22_vs_v19.md`
+- Post-train review: `evidence/post_train_review/balanced_rule_residual_v22_vs_v19.md`

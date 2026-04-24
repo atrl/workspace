@@ -26,4 +26,4 @@ This directory is the mechanism-level recall surface for SOXL and related levera
 - `balanced` remains the control baseline.
 - `balanced_rule_residual` is the successful residual family.
 - `configs/soxl/profile_registry.yaml` remains the profile lifecycle source of truth.
-- `runtime/` remains generated evidence; do not move runtime logs into experiment cards.
+- `evidence/` remains generated research evidence; do not move runtime logs into experiment cards.

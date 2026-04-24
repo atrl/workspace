@@ -20,8 +20,8 @@ Active `canonical/` and `candidate/` packages must contain:
 Long result writeups, keep/drop decisions, and historical comparisons belong in:
 
 - `memory/`
-- `runtime/post_train_review/`
-- `runtime/generalization/`
+- `evidence/post_train_review/`
+- `evidence/generalization/`
 - `docs/experiment-landscape-review.md`
 - `docs/research_knowledge/`
 
@@ -32,7 +32,7 @@ Long result writeups, keep/drop decisions, and historical comparisons belong in:
 3. package `profile.yaml`
 4. package `expectations.md`
 5. package `notes.md`
-6. linked `memory/` or `runtime/` evidence
+6. linked `memory/` or `evidence/` evidence
 
 ## Validation
 

@@ -1,17 +1,16 @@
-# Runtime Evidence
+# Runtime State
 
-`runtime/` contains generated evidence only. Do not use it as the primary experiment card or memory surface.
+`runtime/` contains execution state only. Do not use it for research evidence,
+experiment cards, or continuity notes.
 
 ## Read Order
 
-1. `runtime/evidence_index.json` for generated evidence pointers.
-2. `runtime/post_train_review/` for pairwise or local run reviews.
-3. `runtime/generalization/` for cross-ETF and dashboard evidence.
-4. `runtime/diagnosis/` for trade-quality, Kelly, and slice diagnostics.
-5. `runtime/soxl/` for paper-trading and execution traces.
+1. `runtime/soxl/` for paper-trading and execution traces.
+2. `production/` for broker adapters and operational scripts.
+3. `evidence/index.json` for generated research and review outputs.
 
-## Durable Summaries
+## Boundary
 
-- Major historical conclusions belong in `docs/experiment-landscape-review.md` and `docs/research_knowledge/`.
-- Run-specific decisions belong in `memory/`.
+- Research outputs belong in `evidence/`.
 - Experiment intent belongs in `experiments/`.
+- Run-specific decisions and continuity belong in `memory/`.

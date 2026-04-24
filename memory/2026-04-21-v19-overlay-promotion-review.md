@@ -15,7 +15,7 @@ tags:
 - soxl
 - stress-regime
 artifacts: []
-workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
 summary: 'Base actor: `balanced_rule_residual_v19` Goal: compare the new dwell overlays
   against the existing SOXL overlay set on the same fixed-split promotion surface
   1. `dwell_hold_v2` 2. `dwell_hold_v1` 3. `regime_route_v1` 4. `stress_release_rout'

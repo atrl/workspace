@@ -17,7 +17,7 @@ tags:
 - stress-regime
 - transition-features
 artifacts: []
-workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
 summary: 'Legacy memory note normalized into the repo-wide schema. Profile: `balanced_stress_release_delta`
   Command: `qlib_venv/bin/python soxl_qlib_strategy_v2.py --profiles balanced_stress_release_delta
   --skip-data-refresh --seed 20260411` Feature'

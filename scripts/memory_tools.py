@@ -13,7 +13,7 @@ import yaml
 ROOT = Path(__file__).resolve().parents[1]
 MEMORY_DIR = ROOT / "memory"
 INDEX_PATH = MEMORY_DIR / "index.json"
-ACTIVE_WORKPAD = ROOT / "codex_exec_plans" / "active" / "2026-04-10-soxl-agent-loop.md"
+ACTIVE_WORKPAD = ROOT / "codex_exec_plans" / "active" / "current.md"
 
 KIND_ORDER = ("experiment", "decision", "failure", "review", "ops", "skill", "other")
 STATUS_ORDER = ("kept", "dropped", "superseded", "active", "reference")
@@ -112,7 +112,7 @@ def infer_profiles(title: str, body: str) -> list[str]:
 
 def infer_artifacts(body: str) -> list[str]:
     matches = re.findall(
-        r"(artifacts/models/[A-Za-z0-9._/-]+|runtime/[A-Za-z0-9._/-]+)",
+        r"(artifacts/models/[A-Za-z0-9._/-]+|runtime/[A-Za-z0-9._/-]+|evidence/[A-Za-z0-9._/-]+)",
         body,
     )
     return sorted(set(matches))

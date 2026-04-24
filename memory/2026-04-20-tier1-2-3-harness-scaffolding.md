@@ -17,8 +17,8 @@ tags:
 - smoke
 - soxl
 artifacts:
-- runtime/post_train_review/ensemble_v16_v18_v19.md
-workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+- evidence/post_train_review/ensemble_v16_v18_v19.md
+workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
 summary: Legacy memory note normalized into the repo-wide schema. Implemented the
   full next-step plan harness laid out in `.cursor/plans/plan_next_src_experiments_5796dd14.plan.md`.
   No new training runs beyond the seed-ensemble evaluation; all addit
@@ -56,7 +56,7 @@ new profiles can opt into.
 
   Ensemble MaxDD strictly beats every member — variance-reduction
   hypothesis confirmed. Report:
-  `runtime/post_train_review/ensemble_v16_v18_v19.md`.
+  `evidence/post_train_review/ensemble_v16_v18_v19.md`.
 
 - **VIX term-structure features** — `src/soxl_quant/data.py` gains five
   external-data features gated behind `SOXL_USE_VIX_TERM=1`:

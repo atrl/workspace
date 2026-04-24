@@ -44,8 +44,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--lr", type=float, default=5e-4)
     parser.add_argument("--batch-size", type=int, default=128)
     parser.add_argument("--artifact-tag", default="bc")
-    parser.add_argument("--output-json", type=Path, default=Path("runtime/post_train_review/risk_budget_bc_warmstart_v1_bc.json"))
-    parser.add_argument("--output-md", type=Path, default=Path("runtime/post_train_review/risk_budget_bc_warmstart_v1_bc.md"))
+    parser.add_argument("--output-json", type=Path, default=Path("evidence/post_train_review/risk_budget_bc_warmstart_v1_bc.json"))
+    parser.add_argument("--output-md", type=Path, default=Path("evidence/post_train_review/risk_budget_bc_warmstart_v1_bc.md"))
     parser.add_argument("--skip-data-refresh", action="store_true")
     return parser.parse_args()
 

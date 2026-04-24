@@ -13,7 +13,7 @@ tags:
 - review
 - soxl
 artifacts: []
-workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
 summary: Implemented a deployable hierarchical online composer with explicit slow
   mode refresh above the retained imitation_v4 actor. Rule-router variants improved
   safety modestly, and learned-router variants lifted proxy return to 102-415 percent

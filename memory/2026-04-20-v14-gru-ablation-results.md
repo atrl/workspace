@@ -15,7 +15,7 @@ tags:
 artifacts:
 - artifacts/models/soxl_balanced_rule_residual_v14_actor.pt
 - artifacts/models/soxl_balanced_rule_residual_v14_summary.json
-workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
 summary: 'Legacy memory note normalized into the repo-wide schema. **Date:** 2026-04-20
   **Profile:** `balanced_rule_residual_v14` **Hypothesis:** GRU architecture + observation_window
   alone drives drawdown reduction (penalty is incidental). **Result:'

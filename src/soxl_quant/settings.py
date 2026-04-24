@@ -16,9 +16,11 @@ from .config import (
     StrategyConfig,
     load_profile,
 )
+from .core.universe import load_etf_universe
 
 ROOT = Path(__file__).resolve().parents[2]
 DATA_DIR = ROOT / "data"
+EVIDENCE_DIR = ROOT / "evidence"
 RAW_DATA_DIR = DATA_DIR / "raw"
 PROCESSED_DATA_DIR = DATA_DIR / "processed"
 CACHE_DATA_DIR = DATA_DIR / "cache"
@@ -39,13 +41,7 @@ TRAIN_SEG = ("2010-03-11", "2018-12-31")
 VALID_SEG = ("2019-01-01", "2019-12-31")
 TEST_SEG = ("2020-01-01", "2026-03-31")
 
-ETF_UNIVERSE = {
-    "SOXL": {"underlying": "SOXX", "leverage": 3.0},
-    "TQQQ": {"underlying": "QQQ", "leverage": 3.0},
-    "UPRO": {"underlying": "SPY", "leverage": 3.0},
-    "SPXL": {"underlying": "SPY", "leverage": 3.0},
-    "TECL": {"underlying": "XLK", "leverage": 3.0},
-}
+ETF_UNIVERSE = load_etf_universe()
 
 
 def artifact_stem(profile_name: str, artifact_tag: str = "") -> str:

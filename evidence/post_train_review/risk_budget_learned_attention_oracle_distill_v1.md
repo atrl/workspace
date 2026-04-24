@@ -6,7 +6,7 @@ This actor is an upper-bound capacity probe only. It uses replay labels from hel
 
 ## Dataset
 
-- replay_daily: `runtime/post_train_review/hierarchical_online_budget_daily/soxl_hier_learned_slow5.csv`
+- replay_daily: `evidence/post_train_review/hierarchical_online_budget_daily/soxl_hier_learned_slow5.csv`
 - samples: `1508`
 - label_distribution: `{'0': 238, '1': 1138, '2': 48, '3': 52, '4': 32}`
 

@@ -55,12 +55,12 @@ Command:
 ```bash
 PYTHONPATH=. /Users/rziiiii/.openclaw/workspace/qlib_venv/bin/python scripts/build_budget_usage_regression_probe.py \
   --profile risk_budget_learned_usage_regression_v1 \
-  --replay-daily runtime/post_train_review/hierarchical_online_budget_daily/soxl_hier_learned_slow5.csv \
+  --replay-daily evidence/post_train_review/hierarchical_online_budget_daily/soxl_hier_learned_slow5.csv \
   --skip-data-refresh \
   --steps 2000 \
   --sample-size 0 \
-  --output-json runtime/post_train_review/risk_budget_learned_usage_regression_v1.json \
-  --output-md runtime/post_train_review/risk_budget_learned_usage_regression_v1.md
+  --output-json evidence/post_train_review/risk_budget_learned_usage_regression_v1.json \
+  --output-md evidence/post_train_review/risk_budget_learned_usage_regression_v1.md
 ```
 
 Evidence:

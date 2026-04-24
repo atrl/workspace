@@ -1,14 +1,11 @@
 from __future__ import annotations
 
-from pathlib import Path
-
 from ..core.dataset import get_market_panel_path, get_qlib_dir, get_training_cache_path
 from ..data import build_dataset, init_qlib, refresh_qlib_binary, segment_frame
 from ..settings import ETF_UNIVERSE, QLIB_DATA_PATH
 
 
-def build_multi_asset_sources(multi_asset_dir: Path, profile=None, verbose: bool = True):
-    multi_asset_dir.mkdir(parents=True, exist_ok=True)
+def build_multi_asset_sources(profile=None, verbose: bool = True):
     multi_asset_sources = []
     for asset_idx, (etf, meta) in enumerate(ETF_UNIVERSE.items()):
         underlying = meta["underlying"]

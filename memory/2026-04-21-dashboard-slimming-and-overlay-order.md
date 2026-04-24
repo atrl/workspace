@@ -20,9 +20,9 @@ tags:
 - stress-regime
 - transition-features
 artifacts:
-- runtime/generalization/dashboard.html
-workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
-summary: Slimmed `runtime/generalization/dashboard.html` by changing historical `versioned`
+- evidence/generalization/dashboard.html
+workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
+summary: Slimmed `evidence/generalization/dashboard.html` by changing historical `versioned`
   payloads to carry only compact trading-series rows and reusing current per-ETF market
   metadata client-side by date. Dashboard size fell from 50.54 MB to 20.41 MB. Mainline
   optimization order remains fixed-actor execution/risk overlay before any new retraining
@@ -39,8 +39,8 @@ Legacy memory note normalized into the repo-wide schema.
 
 ## Dashboard result
 
-- Previous `runtime/generalization/dashboard.html`: `50.54 MB`
-- New `runtime/generalization/dashboard.html`: `20.41 MB`
+- Previous `evidence/generalization/dashboard.html`: `50.54 MB`
+- New `evidence/generalization/dashboard.html`: `20.41 MB`
 - Mechanism:
   - keep current `detailed` rows rich
   - strip historical `versioned` rows down to trading-series essentials

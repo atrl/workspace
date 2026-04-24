@@ -20,7 +20,7 @@ tags:
 - soxl
 - stress-regime
 artifacts: []
-workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
 summary: 'Legacy memory note normalized into the repo-wide schema. New profile: `configs/soxl/balanced_regime_gate_v2.yaml`
   Intent: keep the moderate cap routing from `balanced_regime_gate` reduce trend-side
   encouragement directly: lower `activity_bo'

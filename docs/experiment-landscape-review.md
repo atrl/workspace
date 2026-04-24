@@ -48,5 +48,5 @@ Before starting any new run:
 - Historical narrative: `docs/research_knowledge/experiment-landscape-review-legacy.md`
 - Memory index: `memory/index.json`
 - Profile registry: `configs/soxl/profile_registry.yaml`
-- Runtime reviews: `runtime/post_train_review/`
-- Generalization evidence: `runtime/generalization/`
+- Runtime reviews: `evidence/post_train_review/`
+- Generalization evidence: `evidence/generalization/`

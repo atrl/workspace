@@ -14,7 +14,7 @@ tags:
 - soxl
 - stress-regime
 artifacts: []
-workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
 summary: "\u91CF\u5316\u5206\u6790 RL (balanced_rule_residual_v2, 521.3%) \u4E0E rule-based\
   \ (688.6%) \u4E4B\u95F4 167pp \u5DEE\u8DDD\u7684\u4E94\u5927\u6839\u56E0\u3002\u63D0\
   \u51FA panic-index \u7279\u5F81\u6CE8\u5165\u3001\u5E95\u4ED3\u63D0\u5347\u81F3\

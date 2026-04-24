@@ -18,8 +18,9 @@ tags:
 - ops
 - transition-features
 artifacts:
-- runtime/generalization/dashboard.html
-workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+- evidence/generalization/dashboard.html
+- evidence/source
+workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
 summary: Replaced the broken pytest expectation with a repo-owned check_harness entrypoint,
   normalized memory into front-matter plus index.json, deleted low-value scripts and
   superseded actor checkpoints, and upgraded the static dashboard with evidence navigation
@@ -62,7 +63,7 @@ The repo had accumulated three classes of avoidable friction:
   - result: deleted `15` superseded actor checkpoints, freed `811,339` bytes
 - Dashboard rebuild:
   - `qlib_venv/bin/python scripts/build_backtest_dashboard.py`
-  - result: refreshed `runtime/generalization/dashboard.html`
+  - result: refreshed `evidence/generalization/dashboard.html`
 
 ## Decision
 

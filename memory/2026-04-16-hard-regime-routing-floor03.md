@@ -8,7 +8,7 @@ tags:
 - decision
 - reference
 artifacts: []
-workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
 summary: Legacy memory note normalized into the repo-wide schema. See the summary
   and status fields in front matter. Use `scripts/memory_search.py` before opening
   additional memory files.

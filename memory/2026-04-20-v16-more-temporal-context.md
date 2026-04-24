@@ -15,7 +15,7 @@ tags:
 artifacts:
 - artifacts/models/soxl_balanced_rule_residual_v16_actor.pt
 - artifacts/models/soxl_balanced_rule_residual_v16_summary.json
-workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
 summary: "Legacy memory note normalized into the repo-wide schema. **Date:** 2026-04-20\
   \ **Profile:** `balanced_rule_residual_v16` **Hypothesis:** Increasing observation_window\
   \ from 3\u21925 with proven penalty=2.0 improves GRU decision quality. **Result:*"

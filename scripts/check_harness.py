@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import importlib.util
 import py_compile
+import subprocess
 import sys
 import traceback
 from pathlib import Path
@@ -41,12 +42,14 @@ DEFAULT_COMPILE_TARGETS = [
     "src/soxl_quant/policy/usage_regression.py",
     "src/soxl_quant/cli.py",
     "scripts/build_backtest_dashboard.py",
+    "scripts/build_evidence_index.py",
     "scripts/build_budget_usage_bc_actor.py",
     "scripts/build_budget_usage_oracle_actor.py",
     "scripts/build_budget_usage_regression_probe.py",
     "scripts/check_experiment_cards.py",
     "scripts/check_harness.py",
     "scripts/check_research_knowledge.py",
+    "scripts/check_source_boundaries.py",
     "scripts/checkpoint_review.py",
     "scripts/hierarchical_online_budget_generalization.py",
     "scripts/memory_search.py",
@@ -57,6 +60,11 @@ DEFAULT_COMPILE_TARGETS = [
     "scripts/replay_two_speed_mode_budget.py",
     "scripts/update_data_registry.py",
     "production/soxl_paper_runner.py",
+]
+
+DEFAULT_COMMAND_CHECKS = [
+    ["scripts/build_evidence_index.py", "--check"],
+    ["scripts/check_source_boundaries.py"],
 ]
 
 
@@ -98,6 +106,27 @@ def run_compile(paths: list[Path]) -> list[str]:
             py_compile.compile(str(path), doraise=True)
         except py_compile.PyCompileError as exc:
             failures.append(f"{path}\n{exc.msg}")
+    return failures
+
+
+def run_command_checks(commands: list[list[str]]) -> list[str]:
+    failures: list[str] = []
+    for command in commands:
+        proc = subprocess.run(
+            [sys.executable, *command],
+            cwd=str(ROOT),
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+        label = " ".join(command)
+        if proc.returncode == 0:
+            print(f"  - {label}: ok")
+            continue
+        failures.append(
+            f"{label}\nstdout:\n{proc.stdout.rstrip()}\nstderr:\n{proc.stderr.rstrip()}"
+        )
+        print(f"  - {label}: failed")
     return failures
 
 
@@ -148,6 +177,9 @@ def main() -> int:
             print(f"  - py_compile: failed ({len(compile_failures)} targets)")
         else:
             print(f"  - py_compile: ok ({len(compile_paths)} targets)")
+
+    print("[check] running repository boundary checks")
+    failures.extend(run_command_checks(DEFAULT_COMMAND_CHECKS))
 
     print(f"[summary] passed={total_passed} failures={len(failures)}")
     if failures:

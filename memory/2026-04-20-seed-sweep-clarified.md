@@ -10,7 +10,7 @@ tags:
 - kept
 - walk-forward
 artifacts: []
-workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
 summary: "Legacy memory note normalized into the repo-wide schema. **CLI Backtest**:\
   \ 635.1% return, Sharpe 0.90, MaxDD 51.0%, trades=336 **test_proxy**: 885.5% return,\
   \ Sharpe 0.99, MaxDD 52.7% **fixed_split**: PASSED \u2713 **Best checkpoint**: iter\

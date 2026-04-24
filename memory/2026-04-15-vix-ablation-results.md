@@ -15,7 +15,7 @@ tags:
 - superseded
 - walk-forward
 artifacts: []
-workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
 summary: 'Legacy memory note normalized into the repo-wide schema. Date: 2026-04-15
   Seed: 20260411 | Profile: balanced | Iters: 20 | Architecture: MoE **Baseline**:
   `balanced` + `--moe` (VIX features fully enabled) **Ablation**: `balanced` + `--moe`'

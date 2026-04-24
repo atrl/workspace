@@ -17,9 +17,9 @@ tags:
 - soxl
 - stress-regime
 artifacts:
-- runtime/generalization/dashboard.html
-workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
-summary: 'Legacy memory note normalized into the repo-wide schema. `runtime/generalization/dashboard.html`
+- evidence/generalization/dashboard.html
+workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
+summary: 'Legacy memory note normalized into the repo-wide schema. `evidence/generalization/dashboard.html`
   only renders the fixed `test` window: `2020-01-02 .. 2026-03-31` The page does **not**
   show: `train = 2010-2018` `valid = 2019` The earlier imp'
 ---
@@ -34,7 +34,7 @@ Legacy memory note normalized into the repo-wide schema.
 
 ## Dashboard clarification
 
-- `runtime/generalization/dashboard.html` only renders the fixed `test` window:
+- `evidence/generalization/dashboard.html` only renders the fixed `test` window:
   - `2020-01-02 .. 2026-03-31`
 - The page does **not** show:
   - `train = 2010-2018`

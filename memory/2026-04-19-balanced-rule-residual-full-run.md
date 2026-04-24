@@ -25,10 +25,10 @@ tags:
 - soxl
 - walk-forward
 artifacts:
-- runtime/post_train_review/balanced_rule_residual_v1_detailed_trades.csv
-- runtime/post_train_review/balanced_rule_residual_v1_diagnosis/phase1_phase2_combined.json
-- runtime/post_train_review/balanced_rule_residual_v1_trade_quality_audit.md
-workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+- evidence/post_train_review/balanced_rule_residual_v1_detailed_trades.csv
+- evidence/post_train_review/balanced_rule_residual_v1_diagnosis/phase1_phase2_combined.json
+- evidence/post_train_review/balanced_rule_residual_v1_trade_quality_audit.md
+workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
 summary: Full `balanced_rule_residual_v1` training completed and selected the `@60`
   checkpoint over `@80`. The branch materially improved trade-quality versus the old
   negative-Kelly diagnosis, including positive `micro_<5%`, `small_5_15%`, and `mid_3_10d`
@@ -52,9 +52,9 @@ The user asked for a full training run rather than another smoke-only or method-
 - Full training command:
   - `PYTHONPATH=. qlib_venv/bin/python soxl_qlib_strategy_v2.py --profiles balanced_rule_residual_v1 --skip-data-refresh --seed 20260419`
 - Post-train evidence chain:
-  - `runtime/post_train_review/balanced_rule_residual_v1_detailed_trades.csv`
-  - `runtime/post_train_review/balanced_rule_residual_v1_diagnosis/phase1_phase2_combined.json`
-  - `runtime/post_train_review/balanced_rule_residual_v1_trade_quality_audit.md`
+  - `evidence/post_train_review/balanced_rule_residual_v1_detailed_trades.csv`
+  - `evidence/post_train_review/balanced_rule_residual_v1_diagnosis/phase1_phase2_combined.json`
+  - `evidence/post_train_review/balanced_rule_residual_v1_trade_quality_audit.md`
 
 ## Results
 

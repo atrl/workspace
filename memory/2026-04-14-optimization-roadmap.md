@@ -14,9 +14,9 @@ tags:
 - soxl
 - walk-forward
 artifacts:
-- runtime/generalization/detailed/
-- runtime/generalization/detailed/summary.json
-workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+- evidence/generalization/detailed/
+- evidence/generalization/detailed/summary.json
+workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
 summary: "Legacy memory note normalized into the repo-wide schema. > \u6D4B\u8BD5\u65E5\
   \u671F\uFF1A2026-04-14 > \u6D4B\u8BD5\u6A21\u578B\uFF1Asoxl_balanced_actor.pt\uFF08\
   PPO\uFF0C\u96F6\u6837\u672C\uFF09 > \u6CDB\u5316\u6807\u7684\uFF1ASOXL\u3001TQQQ\u3001\
@@ -202,8 +202,8 @@ Legacy memory note normalized into the repo-wide schema.
 ## 五、相关文件
 
 - 泛化报告：`memory/2026-04-13-generalization.md`
-- 详细回测数据：`runtime/generalization/detailed/*.csv`
-- 汇总统计：`runtime/generalization/detailed/summary.json`
+- 详细回测数据：`evidence/generalization/detailed/*.csv`
+- 汇总统计：`evidence/generalization/detailed/summary.json`
 
 ## Decision
 

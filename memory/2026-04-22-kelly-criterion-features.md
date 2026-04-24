@@ -14,7 +14,7 @@ tags:
 - soxl
 - walk-forward
 artifacts: []
-workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
 summary: Legacy memory note normalized into the repo-wide schema. Implemented rolling
   Kelly criterion features and Kelly tracking reward penalty to address the fixed
   low-position collapse observed in v2/v4 models. 1. **`src/soxl_quant/data.py`**

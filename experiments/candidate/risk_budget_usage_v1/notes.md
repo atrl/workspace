@@ -45,13 +45,13 @@ Command:
 
 ```bash
 PYTHONPATH=. /Users/rziiiii/.openclaw/workspace/qlib_venv/bin/python scripts/replay_two_speed_mode_budget.py \
-  --slow-daily /Users/rziiiii/.openclaw/workspace/runtime/post_train_review/balanced_rule_residual_mode_v1_soxl_daily.csv \
-  --fast-daily /Users/rziiiii/.openclaw/workspace/runtime/post_train_review/balanced_rule_residual_imitation_v4_soxl_daily.csv \
+  --slow-daily /Users/rziiiii/.openclaw/workspace/evidence/post_train_review/balanced_rule_residual_mode_v1_soxl_daily.csv \
+  --fast-daily /Users/rziiiii/.openclaw/workspace/evidence/post_train_review/balanced_rule_residual_imitation_v4_soxl_daily.csv \
   --composition budget_usage \
   --profile-name risk_budget_usage_v1 \
-  --output-json runtime/post_train_review/risk_budget_usage_v1.json \
-  --output-md runtime/post_train_review/risk_budget_usage_v1.md \
-  --output-daily runtime/post_train_review/risk_budget_usage_v1_soxl_daily.csv
+  --output-json evidence/post_train_review/risk_budget_usage_v1.json \
+  --output-md evidence/post_train_review/risk_budget_usage_v1.md \
+  --output-daily evidence/post_train_review/risk_budget_usage_v1_soxl_daily.csv
 ```
 
 Key metrics:
@@ -99,9 +99,9 @@ Command:
 PYTHONPATH=. /Users/rziiiii/.openclaw/workspace/qlib_venv/bin/python scripts/evaluate_actor_profile_parity.py \
   --profile risk_budget_usage_v1 \
   --model artifacts/models/soxl_balanced_rule_residual_imitation_v4_actor.pt \
-  --output-json runtime/post_train_review/risk_budget_usage_v1_actor_parity.json \
-  --output-md runtime/post_train_review/risk_budget_usage_v1_actor_parity.md \
-  --output-daily runtime/post_train_review/risk_budget_usage_v1_actor_parity_soxl_daily.csv
+  --output-json evidence/post_train_review/risk_budget_usage_v1_actor_parity.json \
+  --output-md evidence/post_train_review/risk_budget_usage_v1_actor_parity.md \
+  --output-daily evidence/post_train_review/risk_budget_usage_v1_actor_parity_soxl_daily.csv
 ```
 
 Regenerated `imitation_v4` actor under `budget_usage` mapping:

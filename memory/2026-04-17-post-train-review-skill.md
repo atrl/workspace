@@ -20,8 +20,8 @@ tags:
 - stress-regime
 - walk-forward
 artifacts:
-- runtime/post_train_review/floor40_sym_vs_balanced_moe.md
-workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+- evidence/post_train_review/floor40_sym_vs_balanced_moe.md
+workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
 summary: 'Legacy memory note normalized into the repo-wide schema. Added repo-local
   skill `.codex/skills/post-train-backtest-review/`. The skill standardizes how to
   compare a new training result against a prior backtest using: `artifacts/models/*_sum'
@@ -58,7 +58,7 @@ Legacy memory note normalized into the repo-wide schema.
 - Skill validation passed via:
   - `python3 /Users/rziiiii/.codex/skills/.system/skill-creator/scripts/quick_validate.py .codex/skills/post-train-backtest-review`
 - Sample report generated at:
-  - `runtime/post_train_review/floor40_sym_vs_balanced_moe.md`
+  - `evidence/post_train_review/floor40_sym_vs_balanced_moe.md`
 
 ## External references baked into the skill
 

@@ -15,7 +15,7 @@ tags:
 - stress-regime
 - transition-features
 artifacts: []
-workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
 summary: 'Legacy memory note normalized into the repo-wide schema. Date: 2026-04-24
   Profile: `balanced_rule_residual_v19_transition` Hypothesis: transition-state features
   (stress-release detection) would improve RL performance Method: add 7 transitio'

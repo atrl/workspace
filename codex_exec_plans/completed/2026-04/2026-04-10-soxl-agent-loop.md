@@ -281,7 +281,7 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
       did not store the mapping field
   - Commands:
     - `PYTHONPATH=. /Users/rziiiii/.openclaw/workspace/qlib_venv/bin/python soxl_qlib_strategy_v2.py --profiles balanced_rule_residual_imitation_v4 --seed 20260411`
-    - `PYTHONPATH=. /Users/rziiiii/.openclaw/workspace/qlib_venv/bin/python scripts/evaluate_actor_profile_parity.py --profile risk_budget_usage_v1 --model artifacts/models/soxl_balanced_rule_residual_imitation_v4_actor.pt --output-json runtime/post_train_review/risk_budget_usage_v1_actor_parity.json --output-md runtime/post_train_review/risk_budget_usage_v1_actor_parity.md --output-daily runtime/post_train_review/risk_budget_usage_v1_actor_parity_soxl_daily.csv`
+    - `PYTHONPATH=. /Users/rziiiii/.openclaw/workspace/qlib_venv/bin/python scripts/evaluate_actor_profile_parity.py --profile risk_budget_usage_v1 --model artifacts/models/soxl_balanced_rule_residual_imitation_v4_actor.pt --output-json evidence/post_train_review/risk_budget_usage_v1_actor_parity.json --output-md evidence/post_train_review/risk_budget_usage_v1_actor_parity.md --output-daily evidence/post_train_review/risk_budget_usage_v1_actor_parity_soxl_daily.csv`
     - `PYTHONPATH=. /Users/rziiiii/.openclaw/workspace/qlib_venv/bin/python soxl_qlib_strategy_v2.py --profiles risk_budget_usage_v1 --skip-data-refresh --seed 20260411`
   - Validation evidence:
     - regenerated `imitation_v4`: `test_proxy 586.5% / Sharpe 0.924 / MaxDD 50.9%`; `test_2022 MaxDD 30.2%`
@@ -335,7 +335,7 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
   - Comparison-table row:
     - `risk_budget_usage_v1`
   - Command:
-    - `PYTHONPATH=. /Users/rziiiii/.openclaw/workspace/qlib_venv/bin/python scripts/replay_two_speed_mode_budget.py --slow-daily /Users/rziiiii/.openclaw/workspace/runtime/post_train_review/balanced_rule_residual_mode_v1_soxl_daily.csv --fast-daily /Users/rziiiii/.openclaw/workspace/runtime/post_train_review/balanced_rule_residual_imitation_v4_soxl_daily.csv --composition budget_usage --profile-name risk_budget_usage_v1 --output-json runtime/post_train_review/risk_budget_usage_v1.json --output-md runtime/post_train_review/risk_budget_usage_v1.md --output-daily runtime/post_train_review/risk_budget_usage_v1_soxl_daily.csv`
+    - `PYTHONPATH=. /Users/rziiiii/.openclaw/workspace/qlib_venv/bin/python scripts/replay_two_speed_mode_budget.py --slow-daily /Users/rziiiii/.openclaw/workspace/evidence/post_train_review/balanced_rule_residual_mode_v1_soxl_daily.csv --fast-daily /Users/rziiiii/.openclaw/workspace/evidence/post_train_review/balanced_rule_residual_imitation_v4_soxl_daily.csv --composition budget_usage --profile-name risk_budget_usage_v1 --output-json evidence/post_train_review/risk_budget_usage_v1.json --output-md evidence/post_train_review/risk_budget_usage_v1.md --output-daily evidence/post_train_review/risk_budget_usage_v1_soxl_daily.csv`
   - Validation evidence:
     - `test_2020`: `239.0% / Sharpe 2.285 / MaxDD 21.7% / avg_pos 0.490`
     - `test_2022`: `-17.1% / Sharpe -0.358 / MaxDD 25.6% / avg_pos 0.214`
@@ -411,7 +411,7 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
   - Comparison-table row:
     - `two_speed_mode_budget_v1`
   - Command:
-    - `PYTHONPATH=. /Users/rziiiii/.openclaw/workspace/qlib_venv/bin/python scripts/replay_two_speed_mode_budget.py --slow-daily /Users/rziiiii/.openclaw/workspace/runtime/post_train_review/balanced_rule_residual_mode_v1_soxl_daily.csv --fast-daily /Users/rziiiii/.openclaw/workspace/runtime/post_train_review/balanced_rule_residual_imitation_v4_soxl_daily.csv`
+    - `PYTHONPATH=. /Users/rziiiii/.openclaw/workspace/qlib_venv/bin/python scripts/replay_two_speed_mode_budget.py --slow-daily /Users/rziiiii/.openclaw/workspace/evidence/post_train_review/balanced_rule_residual_mode_v1_soxl_daily.csv --fast-daily /Users/rziiiii/.openclaw/workspace/evidence/post_train_review/balanced_rule_residual_imitation_v4_soxl_daily.csv`
   - Validation evidence:
     - `test_2022`: `-16.5% / Sharpe -0.224 / MaxDD 33.9% / avg_pos 0.289`
     - `test_2023_2024`: `156.7% / Sharpe 1.278 / MaxDD 31.4%`
@@ -540,7 +540,7 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
   - Verdict: keep v22 as candidate, do NOT flip defaults. Next: 2-3 seed confirm
     + walk-forward eval + optionally enable Pareto selection which is already
     scaffolded.
-  - Post-train review: `runtime/post_train_review/balanced_rule_residual_v22_vs_v19.md`.
+  - Post-train review: `evidence/post_train_review/balanced_rule_residual_v22_vs_v19.md`.
   - Expectations scorecard updated in `experiments/candidate/balanced_rule_residual_v22/notes.md`.
 
 - 2026-04-21 11:28 (historical experiment landscape review + AGENTS governance upgrade):
@@ -552,7 +552,7 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
     - `artifacts/models/*_summary.json`
     - `configs/soxl/profile_registry.yaml`
     - `experiments/candidate/balanced_rule_residual_{1,16,19,20,22}/notes.md`
-    - `runtime/post_train_review/`
+    - `evidence/post_train_review/`
     - `memory/2026-04-18-*`, `memory/2026-04-20-*`, `memory/2026-04-21-v22-vix-term-structure-results.md`
   - New durable output:
     - `docs/experiment-landscape-review.md`
@@ -570,7 +570,7 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
     - added `Pre-Run Reflection`
   - Keep / drop decision:
     - keep the new landscape review as the repo-wide comparison surface
-    - keep pairwise run-local reviews under `runtime/post_train_review/`
+    - keep pairwise run-local reviews under `evidence/post_train_review/`
     - drop any future experiment proposal that only renames threshold or penalty drift without a new mechanism
   - Next action:
     - use `docs/experiment-landscape-review.md` as the default pre-run briefing for the next candidate branch
@@ -606,7 +606,7 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
       `test_proxy 677.99% / Sharpe 0.921 / MaxDD 50.25%` — ensemble MaxDD
       beats all three individual members (55.6 / 51.8 / 54.8%), confirming
       the variance-reduction hypothesis. Report at
-      `runtime/post_train_review/ensemble_v16_v18_v19.md`.
+      `evidence/post_train_review/ensemble_v16_v18_v19.md`.
     - **T1-B VIX term-structure** — `engineer_feature_frame` gains five
       external features gated by `SOXL_USE_VIX_TERM=1`:
       `vvix_zscore_252`, `vix_term_slope`, `vix_short_ratio`,
@@ -695,20 +695,20 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
 - New mechanism being tested this time:
   - `dwell_hold_v2` plus stress-only buy/sell asymmetry and stress-only cooldown / lock overrides
 - External reference:
-  - internal reference class only for this loop: previous overlay frontier from `runtime/post_train_review/v19_overlay_promotion_review.md`
+  - internal reference class only for this loop: previous overlay frontier from `evidence/post_train_review/v19_overlay_promotion_review.md`
   - no new training branch will be opened from this result without an external architecture / feature / reward reference
 - Comparison-table row to update back into durable review:
   - `v19 fixed overlay merge diagnostic`
 - Planned commands:
-  - create merged execution variant JSON entry under `runtime/post_train_review/`
+  - create merged execution variant JSON entry under `evidence/post_train_review/`
   - run a fixed-actor SOXL review against `base`, `dwell_hold_v2`, `regime_route_v1`, and merged variant
   - persist review markdown / JSON and update memory with keep/drop decision
 - Commands run:
   - `PYTHONPATH=. qlib_venv/bin/python /tmp/v19_dwell_stress_merge_review.py`
 - Validation evidence:
   - durable output:
-    - `runtime/post_train_review/v19_dwell_stress_merge_review.md`
-    - `runtime/post_train_review/v19_dwell_stress_merge_review.json`
+    - `evidence/post_train_review/v19_dwell_stress_merge_review.md`
+    - `evidence/post_train_review/v19_dwell_stress_merge_review.json`
   - proxy-aligned review results:
     - `regime_route_v1`: `659.1% / Sharpe 0.924 / MaxDD 48.85% / 464 trades`
     - `dwell_hold_v2`: `626.8% / Sharpe 0.883 / MaxDD 50.56% / 121 trades`
@@ -878,7 +878,7 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
 - 2026-04-18 10:40:
   - Added a dedicated `balanced_checkpoint_review` profile plus repo-local review scripts so staged checkpoint-selection evidence and fixed-actor overlay rankings can be reproduced without ad-hoc notebook work.
 - 2026-04-18 10:40:
-  - Completed a fixed-actor `position_cap` sweep on the retained `balanced` actor and ranked the variants under `runtime/post_train_review/`.
+  - Completed a fixed-actor `position_cap` sweep on the retained `balanced` actor and ranked the variants under `evidence/post_train_review/`.
 - 2026-04-18 10:40:
   - No counterfactual overlay passed the full fixed-split gate. The best stress-side caps only moved `test_2022 avg_pos` from `0.369` to `0.353-0.354`, while `test_2022 max_dd` stayed above `43%`.
 - 2026-04-18 10:40:
@@ -1023,7 +1023,7 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
   - adds only a 6-column transition pack and judges success primarily on
     whether full `2022` discipline stays intact
 - External reference:
-  - `runtime/post_train_review/historical_balanced_feature_recall.md`
+  - `evidence/post_train_review/historical_balanced_feature_recall.md`
   - repo-local rule anchor in `soxl_backtest`
 - Planned mechanism:
   - `vix_zscore_delta_5`
@@ -1068,7 +1068,7 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
   - CLI backtest output:
     - `448.3% / Sharpe 0.85 / MaxDD 46.9% / 313 trades`
   - post-train review:
-    - `runtime/post_train_review/balanced_rule_residual_v23_vs_v19.md`
+    - `evidence/post_train_review/balanced_rule_residual_v23_vs_v19.md`
 - Keep / drop decision:
   - drop `balanced_rule_residual_v23`
   - archive the package and keep summary/review evidence only
@@ -1082,12 +1082,12 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
 ## Dashboard payload slimming 2026-04-21 13:xx
 
 - Goal:
-  - reduce `runtime/generalization/dashboard.html` size enough to remove the
+  - reduce `evidence/generalization/dashboard.html` size enough to remove the
     current GitHub large-file warning
   - keep the static dashboard architecture and preserve the main inspection
     flow for current results plus historical version comparison
 - Direct motivation:
-  - latest push warned that `runtime/generalization/dashboard.html` is
+  - latest push warned that `evidence/generalization/dashboard.html` is
     `50.54 MB`
   - payload breakdown shows:
     - `detailed`: `9.82 MB`
@@ -1103,7 +1103,7 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
 - Acceptance criteria:
   - dashboard rebuild succeeds
   - `tests/test_dashboard.py` still passes
-  - resulting `runtime/generalization/dashboard.html` is materially smaller than
+  - resulting `evidence/generalization/dashboard.html` is materially smaller than
     the previous `50.54 MB`
   - version switching still works for the main chart and info panel
 - Expected next experiment after this maintenance loop:
@@ -1121,8 +1121,8 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
   - avoid repeating the existing `execution overlay` search under a new name
 - Direct comparison anchors:
   - fixed-actor overlay study:
-    - `runtime/generalization/execution_overlay_results.json`
-    - `runtime/generalization/execution_overlay_review.md`
+    - `evidence/generalization/execution_overlay_results.json`
+    - `evidence/generalization/execution_overlay_review.md`
   - retained mainline actor:
     - `balanced_rule_residual_v19`
 - Closest historical success case:
@@ -1271,7 +1271,7 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
     - `regime_route_v1`
     - `stress_release_route_v1`
   - output path:
-    - `runtime/generalization/execution_overlay_results_v19_release.json`
+    - `evidence/generalization/execution_overlay_results_v19_release.json`
 
 ## Release-state overlay evaluation 2026-04-21 19:xx
 
@@ -1304,8 +1304,8 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
     rows in the evaluated path to become a materially new execution behavior
 - Validation evidence:
   - result files:
-    - `runtime/generalization/execution_overlay_results_v19_release.json`
-    - `runtime/generalization/execution_overlay_results_v19_release_subset.json`
+    - `evidence/generalization/execution_overlay_results_v19_release.json`
+    - `evidence/generalization/execution_overlay_results_v19_release_subset.json`
   - SOXL readout:
     - `base`: proxy `412.7 / 0.837 / 48.79`, `bear_2022 -23.2 / 31.32 / 0.262`,
       `recovery_2023_2024 41.7 / 32.81 / 0.472`
@@ -1492,7 +1492,7 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
     - artifacts:
       - `artifacts/models/soxl_balanced_rule_residual_v24_actor.pt`
       - `artifacts/models/soxl_balanced_rule_residual_v24_summary.json`
-      - `runtime/post_train_review/balanced_rule_residual_v24_soxl_daily.csv`
+      - `evidence/post_train_review/balanced_rule_residual_v24_soxl_daily.csv`
 - Comparison to `v19`:
   - improved slightly on the intended 2022 control slice:
     - `test_2022 max_dd 31.07 -> 30.67`
@@ -1592,17 +1592,17 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
   - no new master-table row unless a variant materially dominates current
     overlays; otherwise record as diagnostic evidence only
 - Planned files:
-  - `runtime/post_train_review/v19_dwell_overlay_variants.json`
-  - `runtime/post_train_review/v19_dwell_overlay_diagnostic.json`
+  - `evidence/post_train_review/v19_dwell_overlay_variants.json`
+  - `evidence/post_train_review/v19_dwell_overlay_diagnostic.json`
 - Planned command:
-  - `PYTHONPATH=. qlib_venv/bin/python scripts/execution_overlay_generalization.py --profile balanced_rule_residual_v19 --model artifacts/models/soxl_balanced_rule_residual_v19_actor.pt --variants-json runtime/post_train_review/v19_dwell_overlay_variants.json --output runtime/post_train_review/v19_dwell_overlay_diagnostic.json`
+  - `PYTHONPATH=. qlib_venv/bin/python scripts/execution_overlay_generalization.py --profile balanced_rule_residual_v19 --model artifacts/models/soxl_balanced_rule_residual_v19_actor.pt --variants-json evidence/post_train_review/v19_dwell_overlay_variants.json --output evidence/post_train_review/v19_dwell_overlay_diagnostic.json`
 - Acceptance criteria:
   - at least one variant reduces SOXL proxy trades meaningfully versus base
   - `bear_2022` maxdd improves or stays flat
   - no variant collapses SOXL proxy Sharpe below `0.75`
 - Validation evidence:
   - command completed and wrote:
-    - `runtime/post_train_review/v19_dwell_overlay_diagnostic.json`
+    - `evidence/post_train_review/v19_dwell_overlay_diagnostic.json`
   - SOXL results:
     - base: `412.7% / 0.837 / 48.79% / 313 trades | bear_2022 maxdd 31.32`
     - `dwell_hold_v1`: `390.3% / 0.813 / 47.35% / 176 trades | bear_2022 maxdd 32.33`
@@ -1641,8 +1641,8 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
 - Command:
   - `PYTHONPATH=. qlib_venv/bin/python /tmp/overlay_promotion_review.py`
 - Output artifacts:
-  - `runtime/post_train_review/v19_overlay_promotion_review.json`
-  - `runtime/post_train_review/v19_overlay_promotion_review.md`
+  - `evidence/post_train_review/v19_overlay_promotion_review.json`
+  - `evidence/post_train_review/v19_overlay_promotion_review.md`
 - Ranking:
   - `dwell_hold_v2`
   - `dwell_hold_v1`
@@ -1789,8 +1789,8 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
 - Keep / drop decision:
   - keep `AGENTS.md` aligned with current structure whenever a refactor changes ownership boundaries
   - saved review:
-    - `runtime/post_train_review/balanced_checkpoint_review.md`
-    - `runtime/post_train_review/balanced_checkpoint_review_vs_balanced.md`
+    - `evidence/post_train_review/balanced_checkpoint_review.md`
+    - `evidence/post_train_review/balanced_checkpoint_review_vs_balanced.md`
   - selection history:
     - iter `0`: score `68.08`
     - iter `20`: score `76.99`
@@ -1806,8 +1806,8 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
 - Latest completed loop:
   - `balanced_position_cap_counterfactual`
   - command:
-    - `qlib_venv/bin/python scripts/position_cap_counterfactual.py --profile balanced --model artifacts/models/soxl_balanced_actor.pt --variants-json configs/soxl/position_cap_overlay_variants.json --output runtime/post_train_review/balanced_position_cap_counterfactual.json`
-    - `qlib_venv/bin/python scripts/rank_counterfactual_variants.py --input runtime/post_train_review/balanced_position_cap_counterfactual.json --output runtime/post_train_review/balanced_position_cap_counterfactual_ranking.md`
+    - `qlib_venv/bin/python scripts/position_cap_counterfactual.py --profile balanced --model artifacts/models/soxl_balanced_actor.pt --variants-json configs/soxl/position_cap_overlay_variants.json --output evidence/post_train_review/balanced_position_cap_counterfactual.json`
+    - `qlib_venv/bin/python scripts/rank_counterfactual_variants.py --input evidence/post_train_review/balanced_position_cap_counterfactual.json --output evidence/post_train_review/balanced_position_cap_counterfactual_ranking.md`
   - purpose:
     - test whether fixed-actor stress-side cap routing alone can recover the `2022` gate before spending more budget on retraining
   - top variants:
@@ -1955,8 +1955,8 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
       - the whole `floor40_sym` family remains too exposed in stress despite better validation and higher `2020` upside
       - the bottleneck is no longer "which stress floor value" alone; it is the actor style plus checkpoint selection
   - evidence:
-    - `runtime/post_train_review/floor40_sym_bear30_vs_floor40_sym.md`
-    - `runtime/post_train_review/floor40_sym_bear30_vs_canonical_balanced.md`
+    - `evidence/post_train_review/floor40_sym_bear30_vs_floor40_sym.md`
+    - `evidence/post_train_review/floor40_sym_bear30_vs_canonical_balanced.md`
 - Quant reality audit update 2026-04-17 15:4x:
   - added reusable cost audit harness:
     - `scripts/cost_sensitivity_backtest.py`
@@ -1972,7 +1972,7 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
     - `bear30` is materially more friction-robust than `floor40_sym`
     - the branch's remaining weakness is not mainly transaction cost sensitivity; it is still excessive stress-window exposure relative to canonical `balanced`
   - canonical `balanced` audit status:
-    - `runtime/post_train_review/balanced_cost_sensitivity.json`
+    - `evidence/post_train_review/balanced_cost_sensitivity.json`
     - failed with `obs_dim_mismatch` (`model_obs_dim=56`, current expected `64`)
     - this is a harness replayability gap: the summary exists but the saved actor is no longer replay-compatible with the current feature set
 - Validation-score experiment 2026-04-17 16:0x:
@@ -1987,8 +1987,8 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
    - saved summary:
      - `artifacts/models/soxl_balanced_regime_gate_v2_summary.json`
    - comparison reports:
-     - `runtime/post_train_review/balanced_regime_gate_v2_vs_balanced.md`
-     - `runtime/post_train_review/balanced_regime_gate_v2_vs_v1.md`
+     - `evidence/post_train_review/balanced_regime_gate_v2_vs_balanced.md`
+     - `evidence/post_train_review/balanced_regime_gate_v2_vs_v1.md`
    - result vs canonical `balanced`:
      - validation score `61.42 -> 70.86`
      - test proxy return `468.90% -> 360.82%`
@@ -2009,7 +2009,7 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
      - future-data leakage, cost sensitivity, and replay gaps remain tracked separately; this branch failed on plain fixed-split risk/return before those secondary concerns became binding
 - Historical-best feature recall 2026-04-17 23:4x:
   - report:
-    - `runtime/post_train_review/historical_balanced_feature_recall.md`
+    - `evidence/post_train_review/historical_balanced_feature_recall.md`
   - key finding:
     - canonical `balanced` already uses the current feature stack well for:
       - persistent stress defense
@@ -2028,10 +2028,10 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
   - summary:
     - `artifacts/models/soxl_balanced_transition_state_summary.json`
   - compare report:
-    - `runtime/post_train_review/balanced_transition_state_vs_balanced.md`
+    - `evidence/post_train_review/balanced_transition_state_vs_balanced.md`
   - daily replay evidence:
-    - `runtime/post_train_review/balanced_soxl_daily.csv`
-    - `runtime/post_train_review/balanced_transition_state_soxl_daily.csv`
+    - `evidence/post_train_review/balanced_soxl_daily.csv`
+    - `evidence/post_train_review/balanced_transition_state_soxl_daily.csv`
   - fixed-split result vs canonical `balanced`:
     - validation score `61.42 -> 83.04`
     - test proxy return `468.90% -> 472.85%`
@@ -2067,7 +2067,7 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
     - selected model persisted `valid.stress_avg_pos = 0.340` over `13` stress days
     - but OOS stress behavior still failed badly, so the new score did not improve generalization
   - cost audit:
-    - `runtime/post_train_review/balanced_stress_select_cost_sensitivity.json`
+    - `evidence/post_train_review/balanced_stress_select_cost_sensitivity.json`
     - base `563.0% / Sharpe 0.843 / MaxDD 64.33% / 891 trades`
     - `15 bps`: `538.5% / Sharpe 0.831`
     - `20 bps`: `513.7% / Sharpe 0.819`
@@ -2087,14 +2087,14 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
   - resolve the dashboard date-window ambiguity
   - test whether regime-routed execution logic generalizes better than the current one-size-fits-all overlay family across `SOXL`, `TQQQ`, `UPRO`, `SPXL`, `TECL`
 - Commands:
-  - `python3 scripts/execution_overlay_generalization.py --profile balanced --model artifacts/models/soxl_balanced_actor.pt --variants-json configs/soxl/execution_overlay_variants.json --output runtime/generalization/execution_overlay_results.json`
+  - `python3 scripts/execution_overlay_generalization.py --profile balanced --model artifacts/models/soxl_balanced_actor.pt --variants-json configs/soxl/execution_overlay_variants.json --output evidence/generalization/execution_overlay_results.json`
   - `python3 scripts/build_backtest_dashboard.py`
 - Validation evidence:
   - detailed ETF CSVs all begin at `2020-01-02` and end at `2026-03-31`; no `2020` data is missing
   - updated dashboard:
-    - `runtime/generalization/dashboard.html`
+    - `evidence/generalization/dashboard.html`
   - updated review:
-    - `runtime/generalization/execution_overlay_review.md`
+    - `evidence/generalization/execution_overlay_review.md`
   - average overlay readout:
     - `cta_trend_hold`: `291.7% / Sharpe 0.832 / MaxDD 46.86% / 216 trades`
     - `regime_route_v1`: `268.7% / Sharpe 0.807 / MaxDD 47.14% / 360 trades`
@@ -2156,7 +2156,7 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
   - saved summary:
     - `artifacts/models/soxl_balanced_regime_gate_summary.json`
   - review:
-    - `runtime/post_train_review/balanced_regime_gate_vs_balanced.md`
+    - `evidence/post_train_review/balanced_regime_gate_vs_balanced.md`
   - valid result:
     - `53.5% / Sharpe 1.58 / MaxDD 26.0% / avg_pos 0.575 / stress_avg_pos 0.332`
   - fixed-split proxy vs canonical `balanced`:
@@ -2204,7 +2204,7 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
     - implication:
       - this branch is not blocked by longer training; the saved best state already reflects early stopping
   - cost audit:
-    - `runtime/post_train_review/balanced_stress_behavior_cost_sensitivity.json`
+    - `evidence/post_train_review/balanced_stress_behavior_cost_sensitivity.json`
     - base `436.0% / Sharpe 0.796 / MaxDD 56.50% / 818 trades`
     - `15 bps`: `419.0% / Sharpe 0.786`
     - `20 bps`: `409.8% / Sharpe 0.780`
@@ -2217,8 +2217,8 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
   - added harness utility:
     - `scripts/position_cap_counterfactual.py`
   - evidence:
-    - `runtime/post_train_review/balanced_overlay_variants.json`
-    - `runtime/post_train_review/balanced_overlay_counterfactual.json`
+    - `evidence/post_train_review/balanced_overlay_variants.json`
+    - `evidence/post_train_review/balanced_overlay_counterfactual.json`
   - fixed canonical `balanced` actor results:
     - base:
       - proxy `438.5% / Sharpe 0.792 / MaxDD 57.89%`
@@ -2251,10 +2251,10 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
     - added tracked execution variant spec:
       - `configs/soxl/execution_overlay_variants.json`
   - command:
-    - `python3 scripts/execution_overlay_generalization.py --profile balanced --model artifacts/models/soxl_balanced_actor.pt --variants-json configs/soxl/execution_overlay_variants.json --output runtime/generalization/execution_overlay_results.json`
+    - `python3 scripts/execution_overlay_generalization.py --profile balanced --model artifacts/models/soxl_balanced_actor.pt --variants-json configs/soxl/execution_overlay_variants.json --output evidence/generalization/execution_overlay_results.json`
   - output review:
-    - `runtime/generalization/execution_overlay_results.json`
-    - `runtime/generalization/execution_overlay_review.md`
+    - `evidence/generalization/execution_overlay_results.json`
+    - `evidence/generalization/execution_overlay_review.md`
   - average across `SOXL/TQQQ/UPRO/SPXL/TECL`:
     - `base`:
       - avg proxy `280.2% / Sharpe 0.807 / MaxDD 49.86% / 297 trades`
@@ -2298,7 +2298,7 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
   - harness changes:
     - added `scripts/build_backtest_dashboard.py`
     - generated:
-      - `runtime/generalization/dashboard.html`
+      - `evidence/generalization/dashboard.html`
   - page contents:
     - ETF selector for all supported 3x ETFs
     - strategy vs buy-and-hold chart
@@ -2309,7 +2309,7 @@ Build a `qlib`-native SOXL strategy that beats the old 200-iteration baseline on
     - raw daily backtest table with CSV link
   - usage:
     - `python3 scripts/build_backtest_dashboard.py`
-    - open `runtime/generalization/dashboard.html` locally in a browser
+    - open `evidence/generalization/dashboard.html` locally in a browser
 
 ## Next actions
 
@@ -3167,8 +3167,8 @@ Created `balanced_budget.yaml` with `max_iters=50`. However, the log file was ac
   - `python3 /Users/rziiiii/.codex/skills/.system/skill-creator/scripts/quick_validate.py .codex/skills/post-train-backtest-review`
     - passed
   - sample run:
-    - `python3 .codex/skills/post-train-backtest-review/scripts/compare_backtests.py --latest artifacts/models/soxl_balanced_floor40_sym_moe_summary.json --previous artifacts/models/soxl_balanced_moe_summary.json --latest-label balanced_floor40_sym_moe --previous-label balanced_moe --output runtime/post_train_review/floor40_sym_vs_balanced_moe.md`
-    - wrote `runtime/post_train_review/floor40_sym_vs_balanced_moe.md`
+    - `python3 .codex/skills/post-train-backtest-review/scripts/compare_backtests.py --latest artifacts/models/soxl_balanced_floor40_sym_moe_summary.json --previous artifacts/models/soxl_balanced_moe_summary.json --latest-label balanced_floor40_sym_moe --previous-label balanced_moe --output evidence/post_train_review/floor40_sym_vs_balanced_moe.md`
+    - wrote `evidence/post_train_review/floor40_sym_vs_balanced_moe.md`
 - Evidence:
   - sample review correctly identified:
     - `test_2022` degradation with higher `avg_pos`
@@ -3194,7 +3194,7 @@ Created `balanced_budget.yaml` with `max_iters=50`. However, the log file was ac
   - summary artifact:
     - `artifacts/models/soxl_balanced_floor40_sym_summary.json`
   - post-train review report:
-    - `runtime/post_train_review/floor40_sym_vs_canonical_balanced.md`
+    - `evidence/post_train_review/floor40_sym_vs_canonical_balanced.md`
 - Comparison against canonical `soxl_balanced_summary.json`:
   - canonical fixed split:
     - `468.9% / Sharpe 0.86 / MaxDD 50.2%`
@@ -3310,7 +3310,7 @@ Created `balanced_budget.yaml` with `max_iters=50`. However, the log file was ac
     - deleted `15` superseded actor checkpoints
     - freed `811,339` bytes while retaining canonical summaries and retained walk-forward artifacts
   - dashboard polish:
-    - rebuilt `runtime/generalization/dashboard.html`
+    - rebuilt `evidence/generalization/dashboard.html`
     - page now includes decision snapshot, evidence navigator, local state persistence, and clearer delta tables
 - Keep / drop decision:
   - keep the new indexed memory + manifest workflow as the default harness posture before new training
@@ -3336,9 +3336,9 @@ Created `balanced_budget.yaml` with `max_iters=50`. However, the log file was ac
   - trained with:
     - `qlib_venv/bin/python soxl_qlib_strategy_v2.py --profiles balanced_stress_select_v2 --skip-data-refresh --seed 20260411`
   - generated reviews:
-    - `qlib_venv/bin/python scripts/checkpoint_review.py --summary artifacts/models/soxl_balanced_stress_select_v2_summary.json --output runtime/post_train_review/balanced_stress_select_v2.md`
-    - `qlib_venv/bin/python .codex/skills/post-train-backtest-review/scripts/compare_backtests.py --latest artifacts/models/soxl_balanced_stress_select_v2_summary.json --previous artifacts/models/soxl_balanced_stress_select_summary.json --output runtime/post_train_review/balanced_stress_select_v2_vs_stress_select.md`
-    - `qlib_venv/bin/python .codex/skills/post-train-backtest-review/scripts/compare_backtests.py --latest artifacts/models/soxl_balanced_stress_select_v2_summary.json --previous artifacts/models/soxl_balanced_summary.json --output runtime/post_train_review/balanced_stress_select_v2_vs_balanced.md`
+    - `qlib_venv/bin/python scripts/checkpoint_review.py --summary artifacts/models/soxl_balanced_stress_select_v2_summary.json --output evidence/post_train_review/balanced_stress_select_v2.md`
+    - `qlib_venv/bin/python .codex/skills/post-train-backtest-review/scripts/compare_backtests.py --latest artifacts/models/soxl_balanced_stress_select_v2_summary.json --previous artifacts/models/soxl_balanced_stress_select_summary.json --output evidence/post_train_review/balanced_stress_select_v2_vs_stress_select.md`
+    - `qlib_venv/bin/python .codex/skills/post-train-backtest-review/scripts/compare_backtests.py --latest artifacts/models/soxl_balanced_stress_select_v2_summary.json --previous artifacts/models/soxl_balanced_summary.json --output evidence/post_train_review/balanced_stress_select_v2_vs_balanced.md`
 - Evidence:
   - validation selection path:
     - `iter 0 = 59.03`
@@ -3451,9 +3451,9 @@ Created `balanced_budget.yaml` with `max_iters=50`. However, the log file was ac
   - trained with:
     - `qlib_venv/bin/python soxl_qlib_strategy_v2.py --profiles balanced_structural_v1 --skip-data-refresh --seed 20260411`
   - generated reviews:
-    - `qlib_venv/bin/python scripts/checkpoint_review.py --summary artifacts/models/soxl_balanced_structural_v1_summary.json --output runtime/post_train_review/balanced_structural_v1.md`
-    - `qlib_venv/bin/python .codex/skills/post-train-backtest-review/scripts/compare_backtests.py --latest artifacts/models/soxl_balanced_structural_v1_summary.json --previous artifacts/models/soxl_balanced_summary.json --output runtime/post_train_review/balanced_structural_v1_vs_balanced.md`
-    - `qlib_venv/bin/python .codex/skills/post-train-backtest-review/scripts/compare_backtests.py --latest artifacts/models/soxl_balanced_structural_v1_summary.json --previous artifacts/models/soxl_balanced_reward_guard_summary.json --output runtime/post_train_review/balanced_structural_v1_vs_reward_guard.md`
+    - `qlib_venv/bin/python scripts/checkpoint_review.py --summary artifacts/models/soxl_balanced_structural_v1_summary.json --output evidence/post_train_review/balanced_structural_v1.md`
+    - `qlib_venv/bin/python .codex/skills/post-train-backtest-review/scripts/compare_backtests.py --latest artifacts/models/soxl_balanced_structural_v1_summary.json --previous artifacts/models/soxl_balanced_summary.json --output evidence/post_train_review/balanced_structural_v1_vs_balanced.md`
+    - `qlib_venv/bin/python .codex/skills/post-train-backtest-review/scripts/compare_backtests.py --latest artifacts/models/soxl_balanced_structural_v1_summary.json --previous artifacts/models/soxl_balanced_reward_guard_summary.json --output evidence/post_train_review/balanced_structural_v1_vs_reward_guard.md`
 - Evidence:
   - structural config:
     - `observation_window = 10`
@@ -3558,9 +3558,9 @@ Created `balanced_budget.yaml` with `max_iters=50`. However, the log file was ac
   - trained with:
     - `qlib_venv/bin/python soxl_qlib_strategy_v2.py --profiles balanced_phase_sampling_v1 --skip-data-refresh --seed 20260411`
   - generated reviews:
-    - `qlib_venv/bin/python scripts/checkpoint_review.py --summary artifacts/models/soxl_balanced_phase_sampling_v1_summary.json --output runtime/post_train_review/balanced_phase_sampling_v1.md`
-    - `qlib_venv/bin/python .codex/skills/post-train-backtest-review/scripts/compare_backtests.py --latest artifacts/models/soxl_balanced_phase_sampling_v1_summary.json --previous artifacts/models/soxl_balanced_summary.json --output runtime/post_train_review/balanced_phase_sampling_v1_vs_balanced.md`
-    - `qlib_venv/bin/python .codex/skills/post-train-backtest-review/scripts/compare_backtests.py --latest artifacts/models/soxl_balanced_phase_sampling_v1_summary.json --previous artifacts/models/soxl_balanced_reward_guard_summary.json --output runtime/post_train_review/balanced_phase_sampling_v1_vs_reward_guard.md`
+    - `qlib_venv/bin/python scripts/checkpoint_review.py --summary artifacts/models/soxl_balanced_phase_sampling_v1_summary.json --output evidence/post_train_review/balanced_phase_sampling_v1.md`
+    - `qlib_venv/bin/python .codex/skills/post-train-backtest-review/scripts/compare_backtests.py --latest artifacts/models/soxl_balanced_phase_sampling_v1_summary.json --previous artifacts/models/soxl_balanced_summary.json --output evidence/post_train_review/balanced_phase_sampling_v1_vs_balanced.md`
+    - `qlib_venv/bin/python .codex/skills/post-train-backtest-review/scripts/compare_backtests.py --latest artifacts/models/soxl_balanced_phase_sampling_v1_summary.json --previous artifacts/models/soxl_balanced_reward_guard_summary.json --output evidence/post_train_review/balanced_phase_sampling_v1_vs_reward_guard.md`
     - `qlib_venv/bin/python scripts/diagnosis_phase1_phase2.py`
 - Evidence:
   - harness evidence:
@@ -3636,10 +3636,10 @@ Created `balanced_budget.yaml` with `max_iters=50`. However, the log file was ac
   - skill validation passed:
     - `Skill is valid!`
   - trade-attribution diagnostics still run clean against current repo artifacts:
-    - wrote `runtime/diagnosis/soxl_trade_attribution.md`
-    - wrote `runtime/diagnosis/period_slice_comparison.md`
-    - wrote `runtime/diagnosis/underperform_quarters.json`
-    - rewrote `runtime/diagnosis/phase1_phase2_combined.json`
+    - wrote `evidence/diagnosis/soxl_trade_attribution.md`
+    - wrote `evidence/diagnosis/period_slice_comparison.md`
+    - wrote `evidence/diagnosis/underperform_quarters.json`
+    - rewrote `evidence/diagnosis/phase1_phase2_combined.json`
   - memory normalization completed:
     - `normalized 43 memory notes`
     - rewrote `memory/index.json`
@@ -3662,14 +3662,14 @@ Created `balanced_budget.yaml` with `max_iters=50`. However, the log file was ac
     - `scripts/trade_quality_audit.py`
   - reused:
     - `artifacts/models/soxl_balanced_summary.json`
-    - `runtime/diagnosis/phase1_phase2_combined.json`
-    - `runtime/diagnosis/soxl_trade_attribution.md`
-    - `runtime/diagnosis/period_slice_comparison.md`
+    - `evidence/diagnosis/phase1_phase2_combined.json`
+    - `evidence/diagnosis/soxl_trade_attribution.md`
+    - `evidence/diagnosis/period_slice_comparison.md`
   - generated via script:
-    - `runtime/post_train_review/balanced_trade_quality_audit.md`
+    - `evidence/post_train_review/balanced_trade_quality_audit.md`
 - Validation evidence:
   - `PYTHONPATH=. qlib_venv/bin/python -m py_compile scripts/trade_quality_audit.py`
-  - `qlib_venv/bin/python scripts/trade_quality_audit.py --summary artifacts/models/soxl_balanced_summary.json --diagnosis runtime/diagnosis/phase1_phase2_combined.json --profile balanced --output runtime/post_train_review/balanced_trade_quality_audit.md`
+  - `qlib_venv/bin/python scripts/trade_quality_audit.py --summary artifacts/models/soxl_balanced_summary.json --diagnosis evidence/diagnosis/phase1_phase2_combined.json --profile balanced --output evidence/post_train_review/balanced_trade_quality_audit.md`
   - generated audit grounded in existing diagnostics:
     - `mid_3_10d: Kelly -0.3287 / Expectancy -3.02%`
     - `small_5_15%: Kelly -0.0624 / Expectancy -0.52%`
@@ -3725,9 +3725,9 @@ Created `balanced_budget.yaml` with `max_iters=50`. However, the log file was ac
   - `PYTHONPATH=. qlib_venv/bin/python tests/test_reward.py`
   - `PYTHONPATH=. qlib_venv/bin/python -c "import tests.test_profile_registry as t; t.test_registry_covers_all_profiles(); t.test_registry_has_single_canonical_per_family(); t.test_dropped_profiles_do_not_keep_actors(); t.test_migrated_profiles_resolve_to_experiment_dirs(); t.test_experiment_dir_lookup_for_migrated_profiles(); t.test_profile_listing_keeps_migrated_and_legacy_profiles(); print('test_profile_registry: OK')"`
   - `PYTHONPATH=. qlib_venv/bin/python soxl_qlib_strategy_v2.py --profiles smoke_rule_residual_v1 --smoke --skip-data-refresh --seed 20260419`
-  - `PYTHONPATH=. qlib_venv/bin/python scripts/export_profile_daily_backtest.py --profile smoke_rule_residual_v1 --output runtime/post_train_review/smoke_rule_residual_v1_detailed_trades.csv`
-  - `PYTHONPATH=. qlib_venv/bin/python scripts/diagnosis_phase1_phase2.py --detail-csv runtime/post_train_review/smoke_rule_residual_v1_detailed_trades.csv --out-dir runtime/post_train_review/smoke_rule_residual_v1_diagnosis`
-  - `qlib_venv/bin/python scripts/trade_quality_audit.py --summary artifacts/models/soxl_smoke_rule_residual_v1_summary.json --diagnosis runtime/post_train_review/smoke_rule_residual_v1_diagnosis/phase1_phase2_combined.json --profile smoke_rule_residual_v1 --output runtime/post_train_review/smoke_rule_residual_v1_trade_quality_audit.md`
+  - `PYTHONPATH=. qlib_venv/bin/python scripts/export_profile_daily_backtest.py --profile smoke_rule_residual_v1 --output evidence/post_train_review/smoke_rule_residual_v1_detailed_trades.csv`
+  - `PYTHONPATH=. qlib_venv/bin/python scripts/diagnosis_phase1_phase2.py --detail-csv evidence/post_train_review/smoke_rule_residual_v1_detailed_trades.csv --out-dir evidence/post_train_review/smoke_rule_residual_v1_diagnosis`
+  - `qlib_venv/bin/python scripts/trade_quality_audit.py --summary artifacts/models/soxl_smoke_rule_residual_v1_summary.json --diagnosis evidence/post_train_review/smoke_rule_residual_v1_diagnosis/phase1_phase2_combined.json --profile smoke_rule_residual_v1 --output evidence/post_train_review/smoke_rule_residual_v1_trade_quality_audit.md`
   - `qlib_venv/bin/python scripts/check_harness.py`
 - Validation evidence:
   - tests:
@@ -3785,9 +3785,9 @@ Created `balanced_budget.yaml` with `max_iters=50`. However, the log file was ac
 - Commands:
   - `PYTHONPATH=. qlib_venv/bin/python -c "import tests.test_profile_registry as t; t.test_registry_covers_all_profiles(); t.test_registry_has_single_canonical_per_family(); t.test_dropped_profiles_do_not_keep_actors(); t.test_migrated_profiles_resolve_to_experiment_dirs(); t.test_experiment_dir_lookup_for_migrated_profiles(); t.test_profile_listing_keeps_migrated_and_legacy_profiles(); print('test_profile_registry: OK')"`
   - `PYTHONPATH=. qlib_venv/bin/python soxl_qlib_strategy_v2.py --profiles balanced_rule_residual_v1 --skip-data-refresh --seed 20260419`
-  - `PYTHONPATH=. qlib_venv/bin/python scripts/export_profile_daily_backtest.py --profile balanced_rule_residual_v1 --output runtime/post_train_review/balanced_rule_residual_v1_detailed_trades.csv`
-  - `PYTHONPATH=. qlib_venv/bin/python scripts/diagnosis_phase1_phase2.py --detail-csv runtime/post_train_review/balanced_rule_residual_v1_detailed_trades.csv --out-dir runtime/post_train_review/balanced_rule_residual_v1_diagnosis`
-  - `qlib_venv/bin/python scripts/trade_quality_audit.py --summary artifacts/models/soxl_balanced_rule_residual_v1_summary.json --diagnosis runtime/post_train_review/balanced_rule_residual_v1_diagnosis/phase1_phase2_combined.json --profile balanced_rule_residual_v1 --output runtime/post_train_review/balanced_rule_residual_v1_trade_quality_audit.md`
+  - `PYTHONPATH=. qlib_venv/bin/python scripts/export_profile_daily_backtest.py --profile balanced_rule_residual_v1 --output evidence/post_train_review/balanced_rule_residual_v1_detailed_trades.csv`
+  - `PYTHONPATH=. qlib_venv/bin/python scripts/diagnosis_phase1_phase2.py --detail-csv evidence/post_train_review/balanced_rule_residual_v1_detailed_trades.csv --out-dir evidence/post_train_review/balanced_rule_residual_v1_diagnosis`
+  - `qlib_venv/bin/python scripts/trade_quality_audit.py --summary artifacts/models/soxl_balanced_rule_residual_v1_summary.json --diagnosis evidence/post_train_review/balanced_rule_residual_v1_diagnosis/phase1_phase2_combined.json --profile balanced_rule_residual_v1 --output evidence/post_train_review/balanced_rule_residual_v1_trade_quality_audit.md`
   - `qlib_venv/bin/python scripts/check_harness.py`
 - Validation evidence:
   - pre-run registry validation:
@@ -3808,9 +3808,9 @@ Created `balanced_budget.yaml` with `max_iters=50`. However, the log file was ac
     - fixed-split promotion gate `pass`
     - walk-forward gate `missing`
   - profile-specific diagnosis + audit:
-    - `runtime/post_train_review/balanced_rule_residual_v1_detailed_trades.csv`
-    - `runtime/post_train_review/balanced_rule_residual_v1_diagnosis/phase1_phase2_combined.json`
-    - `runtime/post_train_review/balanced_rule_residual_v1_trade_quality_audit.md`
+    - `evidence/post_train_review/balanced_rule_residual_v1_detailed_trades.csv`
+    - `evidence/post_train_review/balanced_rule_residual_v1_diagnosis/phase1_phase2_combined.json`
+    - `evidence/post_train_review/balanced_rule_residual_v1_trade_quality_audit.md`
     - `mid_3_10d = Kelly 0.3210 / Expectancy 4.33%`
     - `small_5_15% = Kelly 0.1794 / Expectancy 2.32%`
     - `micro_<5% = 48 trades / Kelly 0.2921 / Expectancy 4.49%`
@@ -3842,19 +3842,19 @@ Created `balanced_budget.yaml` with `max_iters=50`. However, the log file was ac
 - Failure mode:
   - training wrote summary artifacts, but the dashboard could still open on:
     - an older `localStorage` selection
-    - an older historical `runtime/generalization/versions/*` snapshot
+    - an older historical `evidence/generalization/versions/*` snapshot
   - and fresh full-train outputs were not automatically exported into the `*_soxl_daily.csv` convention that the dashboard loader already knew how to scan
 - Implementation:
   - added `src/soxl_quant/app/dashboard.py`
     - `export_review_daily_csv()`
     - `rebuild_dashboard()`
   - `run_profile()` now auto-exports:
-    - `runtime/post_train_review/<profile>_soxl_daily.csv`
+    - `evidence/post_train_review/<profile>_soxl_daily.csv`
   - `persist_and_print_results()` now auto-runs:
     - `scripts/build_backtest_dashboard.py`
   - `scripts/build_backtest_dashboard.py` now:
     - computes `latest_version`
-    - prefers `post_train_review` exports over older `runtime/generalization/versions/*` snapshots
+    - prefers `post_train_review` exports over older `evidence/generalization/versions/*` snapshots
     - defaults JS state to `latest_version`
     - upgrades browser state handling to `soxl-dashboard-state-v9`
     - resets old non-manual saved state back to latest
@@ -3863,16 +3863,16 @@ Created `balanced_budget.yaml` with `max_iters=50`. However, the log file was ac
 - Commands:
   - `PYTHONPATH=. qlib_venv/bin/python tests/test_dashboard.py`
   - `PYTHONPATH=. qlib_venv/bin/python -m py_compile src/soxl_quant/app/dashboard.py src/soxl_quant/app/train.py src/soxl_quant/app/reporting.py scripts/export_profile_daily_backtest.py scripts/build_backtest_dashboard.py`
-  - `PYTHONPATH=. qlib_venv/bin/python scripts/export_profile_daily_backtest.py --profile balanced_rule_residual_v1 --output runtime/post_train_review/balanced_rule_residual_v1_soxl_daily.csv`
+  - `PYTHONPATH=. qlib_venv/bin/python scripts/export_profile_daily_backtest.py --profile balanced_rule_residual_v1 --output evidence/post_train_review/balanced_rule_residual_v1_soxl_daily.csv`
   - `PYTHONPATH=. qlib_venv/bin/python scripts/build_backtest_dashboard.py`
   - `qlib_venv/bin/python scripts/check_harness.py`
 - Validation evidence:
   - `tests/test_dashboard.py` passed
   - compile check passed for app/dashboard + dashboard scripts
   - fresh dashboard source exported:
-    - `runtime/post_train_review/balanced_rule_residual_v1_soxl_daily.csv`
+    - `evidence/post_train_review/balanced_rule_residual_v1_soxl_daily.csv`
   - regenerated dashboard:
-    - `runtime/generalization/dashboard.html`
+    - `evidence/generalization/dashboard.html`
   - generated HTML now contains:
     - `"latest_version": "balanced_rule_residual_v1"`
     - `version: DATA.latest_version || DATA.best_version || ''`
@@ -4509,7 +4509,7 @@ Pack increases feature count from 59 → 66 (+7).
 - Planned commands:
   - `PYTHONPATH=. qlib_venv/bin/python scripts/check_harness.py`
   - add/run a repo-owned diagnostic script that writes
-    `runtime/post_train_review/risk_budget_usage_v1_cross_etf.{json,md}`
+    `evidence/post_train_review/risk_budget_usage_v1_cross_etf.{json,md}`
   - `PYTHONPATH=. qlib_venv/bin/python scripts/check_harness.py`
 - Result:
   - Harness pre-check passed: `passed=56 failures=0`.
@@ -4531,9 +4531,9 @@ Pack increases feature count from 59 → 66 (+7).
     - `SPXL`: `28.1% / Sharpe 0.372 / MaxDD 22.9%`
     - `TECL`: `46.0% / Sharpe 0.429 / MaxDD 23.7%`
   - Artifacts:
-    - `runtime/post_train_review/risk_budget_usage_v1_cross_etf.json`
-    - `runtime/post_train_review/risk_budget_usage_v1_cross_etf.md`
-    - `runtime/post_train_review/risk_budget_usage_v1_cross_etf_daily/`
+    - `evidence/post_train_review/risk_budget_usage_v1_cross_etf.json`
+    - `evidence/post_train_review/risk_budget_usage_v1_cross_etf.md`
+    - `evidence/post_train_review/risk_budget_usage_v1_cross_etf_daily/`
 - Decision:
   - keep the diagnostic and fixed signal transfer evidence
   - do not promote actor/runtime path; it generalizes risk compression but not
@@ -4596,9 +4596,9 @@ Pack increases feature count from 59 → 66 (+7).
     it with a visible 2022 / full-proxy drawdown increase and still remained
     far below fixed replay.
   - Artifacts:
-    - `runtime/post_train_review/hierarchical_online_budget_generalization.json`
-    - `runtime/post_train_review/hierarchical_online_budget_generalization.md`
-    - `runtime/post_train_review/hierarchical_online_budget_daily/`
+    - `evidence/post_train_review/hierarchical_online_budget_generalization.json`
+    - `evidence/post_train_review/hierarchical_online_budget_generalization.md`
+    - `evidence/post_train_review/hierarchical_online_budget_daily/`
 - Decision:
   - keep the hierarchical composer module and diagnostic script
   - do not promote any current hierarchical runtime as production-ready
@@ -4643,12 +4643,12 @@ Pack increases feature count from 59 → 66 (+7).
 - Comparison-table row:
   - `risk_budget_learned_oracle_distill_v1`
 - Planned commands:
-  - `PYTHONPATH=. qlib_venv/bin/python scripts/build_budget_usage_oracle_actor.py --profile risk_budget_learned_oracle_distill_v1 --replay-daily runtime/post_train_review/hierarchical_online_budget_daily/soxl_hier_learned_slow5.csv --skip-data-refresh --steps 1600 --sample-size 0 --output-json runtime/post_train_review/risk_budget_learned_oracle_distill_v1.json --output-md runtime/post_train_review/risk_budget_learned_oracle_distill_v1.md`
+  - `PYTHONPATH=. qlib_venv/bin/python scripts/build_budget_usage_oracle_actor.py --profile risk_budget_learned_oracle_distill_v1 --replay-daily evidence/post_train_review/hierarchical_online_budget_daily/soxl_hier_learned_slow5.csv --skip-data-refresh --steps 1600 --sample-size 0 --output-json evidence/post_train_review/risk_budget_learned_oracle_distill_v1.json --output-md evidence/post_train_review/risk_budget_learned_oracle_distill_v1.md`
   - `PYTHONPATH=. qlib_venv/bin/python scripts/check_harness.py`
 - Result:
   - command completed and wrote:
-    - `runtime/post_train_review/risk_budget_learned_oracle_distill_v1.json`
-    - `runtime/post_train_review/risk_budget_learned_oracle_distill_v1.md`
+    - `evidence/post_train_review/risk_budget_learned_oracle_distill_v1.json`
+    - `evidence/post_train_review/risk_budget_learned_oracle_distill_v1.md`
   - dataset:
     - samples `1508`
     - label distribution `{0: 238, 1: 1138, 2: 48, 3: 52, 4: 32}`
@@ -4695,7 +4695,7 @@ Pack increases feature count from 59 → 66 (+7).
   - `risk_budget_learned_conditioned_oracle_distill_v1`
 - Commands:
   - `PYTHONPATH=. qlib_venv/bin/python tests/test_budget_usage_bc.py`
-  - `PYTHONPATH=. qlib_venv/bin/python scripts/build_budget_usage_oracle_actor.py --profile risk_budget_learned_conditioned_oracle_distill_v1 --replay-daily runtime/post_train_review/hierarchical_online_budget_daily/soxl_hier_learned_slow5.csv --condition-on-mode --skip-data-refresh --steps 1600 --sample-size 0 --output-json runtime/post_train_review/risk_budget_learned_conditioned_oracle_distill_v1.json --output-md runtime/post_train_review/risk_budget_learned_conditioned_oracle_distill_v1.md`
+  - `PYTHONPATH=. qlib_venv/bin/python scripts/build_budget_usage_oracle_actor.py --profile risk_budget_learned_conditioned_oracle_distill_v1 --replay-daily evidence/post_train_review/hierarchical_online_budget_daily/soxl_hier_learned_slow5.csv --condition-on-mode --skip-data-refresh --steps 1600 --sample-size 0 --output-json evidence/post_train_review/risk_budget_learned_conditioned_oracle_distill_v1.json --output-md evidence/post_train_review/risk_budget_learned_conditioned_oracle_distill_v1.md`
 - Result:
   - `tests/test_budget_usage_bc.py`: OK
   - samples `1508`, label distribution `{0: 238, 1: 1138, 2: 48, 3: 52, 4: 32}`
@@ -4739,7 +4739,7 @@ Pack increases feature count from 59 → 66 (+7).
   - `risk_budget_learned_usage_regression_v1`
 - Planned commands:
   - `PYTHONPATH=. qlib_venv/bin/python tests/test_budget_usage_bc.py`
-  - `PYTHONPATH=. qlib_venv/bin/python scripts/build_budget_usage_regression_probe.py --profile risk_budget_learned_usage_regression_v1 --replay-daily runtime/post_train_review/hierarchical_online_budget_daily/soxl_hier_learned_slow5.csv --skip-data-refresh --steps 2000 --sample-size 0 --output-json runtime/post_train_review/risk_budget_learned_usage_regression_v1.json --output-md runtime/post_train_review/risk_budget_learned_usage_regression_v1.md`
+  - `PYTHONPATH=. qlib_venv/bin/python scripts/build_budget_usage_regression_probe.py --profile risk_budget_learned_usage_regression_v1 --replay-daily evidence/post_train_review/hierarchical_online_budget_daily/soxl_hier_learned_slow5.csv --skip-data-refresh --steps 2000 --sample-size 0 --output-json evidence/post_train_review/risk_budget_learned_usage_regression_v1.json --output-md evidence/post_train_review/risk_budget_learned_usage_regression_v1.md`
 - Result:
   - `tests/test_budget_usage_bc.py`: OK
   - samples `1508`
@@ -4783,7 +4783,7 @@ Pack increases feature count from 59 → 66 (+7).
 - Comparison-table row:
   - `risk_budget_learned_attention_oracle_distill_v1`
 - Planned commands:
-  - `PYTHONPATH=. qlib_venv/bin/python scripts/build_budget_usage_oracle_actor.py --profile risk_budget_learned_attention_oracle_distill_v1 --replay-daily runtime/post_train_review/hierarchical_online_budget_daily/soxl_hier_learned_slow5.csv --skip-data-refresh --steps 1600 --sample-size 0 --output-json runtime/post_train_review/risk_budget_learned_attention_oracle_distill_v1.json --output-md runtime/post_train_review/risk_budget_learned_attention_oracle_distill_v1.md`
+  - `PYTHONPATH=. qlib_venv/bin/python scripts/build_budget_usage_oracle_actor.py --profile risk_budget_learned_attention_oracle_distill_v1 --replay-daily evidence/post_train_review/hierarchical_online_budget_daily/soxl_hier_learned_slow5.csv --skip-data-refresh --steps 1600 --sample-size 0 --output-json evidence/post_train_review/risk_budget_learned_attention_oracle_distill_v1.json --output-md evidence/post_train_review/risk_budget_learned_attention_oracle_distill_v1.md`
   - `PYTHONPATH=. qlib_venv/bin/python scripts/check_harness.py`
 - Result:
   - samples `1508`
@@ -4911,6 +4911,6 @@ Transition-state features show positive standalone IC and are orthogonal to exis
 4. Update experiment-landscape-review.md with corrected analysis
 
 ### Evidence
-- `runtime/post_train_review/transition_overlay_sweep_results.md`
+- `evidence/post_train_review/transition_overlay_sweep_results.md`
 - `scripts/test_transition_overlay.py`
 - Modified `src/soxl_quant/backtest.py` with overlay_config support

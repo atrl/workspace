@@ -1,5 +1,5 @@
 {
-  "daily_csv": "runtime/post_train_review/risk_budget_usage_v1_actor_parity_soxl_daily.csv",
+  "daily_csv": "evidence/post_train_review/risk_budget_usage_v1_actor_parity_soxl_daily.csv",
   "model": "artifacts/models/soxl_balanced_rule_residual_imitation_v4_actor.pt",
   "model_position_mapping": "budget_usage",
   "model_profile": "balanced_rule_residual_imitation_v4",

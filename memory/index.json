@@ -15,7 +15,7 @@
       "soxl"
     ],
     "artifacts": [],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Legacy memory note normalized into the repo-wide schema. 500轮 × 10 episodes: **301.1% / Sharpe 0.66 / MaxDD 73.9%** 比200轮(437%/0.85/40.2%)更差 → **过拟合** Git: 8a8fc45 结论: **200轮是最佳 checkpoint** 1. 7处 monkey-patch (gym→gymnasium兼容) 2. 没用 qlib 官",
     "excerpt": "# 2026-04-10 ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## 500轮训练结果 (00:14 完成) - 500轮 × 10 episodes: **301.1% / Sharpe 0.66 / MaxDD 73.9%** - 比200轮(437%/0.85/40.2%)更差 → **过拟合** - Git: 8a8fc45 - 结论: **200轮是最佳 checkpoint** ## 代码优化方向 (10:28 开始) #"
   },
@@ -57,7 +57,7 @@
       "runtime/soxl/balanced-2024-01-01-2024-12-31",
       "runtime/soxl/smoke-2024-01-01-2024-12-31"
     ],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Legacy memory note normalized into the repo-wide schema. Reviewed `openai/symphony` as a workflow reference rather than something to mirror literally in this repo Pulled the useful parts into `AGENTS.md`: repo-owned workflow contract proof-",
     "excerpt": "# 2026-04-11 ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## Workflow contract consolidation - Reviewed `openai/symphony` as a workflow reference rather than something to mirror literally in this repo - Pulled the useful parts into `AGENTS.md`: "
   },
@@ -94,7 +94,7 @@
       "runtime/soxl/wf_workers/balanced-wf_2022-seed20260411.json",
       "runtime/soxl/wf_workers/balanced-wf_2023_2024-seed20260411.json"
     ],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Legacy memory note normalized into the repo-wide schema. Found that `configs/soxl/*.yaml` already exposed `position_cap.start_drawdown/full_drawdown/min_cap`, but `src/soxl_quant/rl.py` still hard-coded the cap curve Fixed the cap config to",
     "excerpt": "# 2026-04-12 ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## Position-cap plumbing fix - Found that `configs/soxl/*.yaml` already exposed `position_cap.start_drawdown/full_drawdown/min_cap`, but `src/soxl_quant/rl.py` still hard-coded the cap cu"
   },
@@ -115,12 +115,12 @@
       "soxl"
     ],
     "artifacts": [
-      "runtime/generalization/comparison.png",
-      "runtime/generalization/qlib_stores/",
-      "runtime/generalization/report.txt",
-      "runtime/generalization/results.json"
+      "evidence/generalization/comparison.png",
+      "evidence/generalization/qlib_stores/",
+      "evidence/generalization/report.txt",
+      "evidence/generalization/results.json"
     ],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Legacy memory note normalized into the repo-wide schema. Test whether the SOXL-trained PPO actor (`soxl_balanced_actor.pt`) generalizes to other 3x leveraged ETFs without retraining. | ETF | Underlying | Sector | |-----|-----------|--------",
     "excerpt": "# 2026-04-13 Generalization Backtest Report ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## Goal Test whether the SOXL-trained PPO actor (`soxl_balanced_actor.pt`) generalizes to other 3x leveraged ETFs without retraining. ## ETF Universe | ETF "
   },
@@ -141,7 +141,7 @@
       "soxl"
     ],
     "artifacts": [],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Legacy memory note normalized into the repo-wide schema. Rewrote the top-level repo contract to make this workspace explicitly a `SOXL` harness rather than a general OpenClaw-style workspace. `AGENTS.md` now keeps `memory/` as the continuit",
     "excerpt": "# 2026-04-13 ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## Harness-docs reframing - Rewrote the top-level repo contract to make this workspace explicitly a `SOXL` harness rather than a general OpenClaw-style workspace. - `AGENTS.md` now keeps "
   },
@@ -161,7 +161,7 @@
       "walk-forward"
     ],
     "artifacts": [],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Legacy memory note normalized into the repo-wide schema. Date: 2026-04-14 Implemented multi-asset joint training with asset one-hot embedding. Training pool: SOXL, TQQQ, UPRO, SPXL, TECL (all 3x leveraged ETFs). Observation dimension increa",
     "excerpt": "# Multi-Asset Joint Training Results ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence Date: 2026-04-14 ## What changed - Implemented multi-asset joint training with asset one-hot embedding. - Training pool: SOXL, TQQQ, UPRO, SPXL, TECL (all 3x lever"
   },
@@ -183,10 +183,10 @@
       "walk-forward"
     ],
     "artifacts": [
-      "runtime/generalization/detailed/",
-      "runtime/generalization/detailed/summary.json"
+      "evidence/generalization/detailed/",
+      "evidence/generalization/detailed/summary.json"
     ],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Legacy memory note normalized into the repo-wide schema. > 测试日期：2026-04-14 > 测试模型：soxl_balanced_actor.pt（PPO，零样本） > 泛化标的：SOXL、TQQQ、UPRO、SPXL、TECL（5只3倍杠杆ETF） | ETF | 策略收益 | B&H 收益 | 超额收益 | 策略回撤 | B&H 回撤 | 交易次数 | |-----|----------|----------|",
     "excerpt": "# SOXL 模型优化路线图（基于泛化测试结果） ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence > 测试日期：2026-04-14 > 测试模型：soxl_balanced_actor.pt（PPO，零样本） > 泛化标的：SOXL、TQQQ、UPRO、SPXL、TECL（5只3倍杠杆ETF） --- ## 一、当前表现复盘 ### 1.1 总体结果 | ETF | 策略收益 | B&H 收益 | 超额收益 | 策略回撤 | B&H 回撤 |"
   },
@@ -205,7 +205,7 @@
       "soxl"
     ],
     "artifacts": [],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Legacy memory note normalized into the repo-wide schema. 在 reward 函数中加入踏空惩罚（opportunity-cost penalty），并把 `drawdown_position_cap` 的 `min_cap` 从固定 0.40 改为动态调整： 牛市（realized_vol < 0.40 且 anchor_gap > 0.01）：min_cap 提升到 0.65 高风险市（regime_risk > 0.",
     "excerpt": "# P0 优化第一次尝试报告 ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## 实验内容 在 reward 函数中加入踏空惩罚（opportunity-cost penalty），并把 `drawdown_position_cap` 的 `min_cap` 从固定 0.40 改为动态调整： - 牛市（realized_vol < 0.40 且 anchor_gap > 0.01）：min_cap 提升到 0.65 - 高风险市（regime"
   },
@@ -235,7 +235,7 @@
       "walk-forward"
     ],
     "artifacts": [],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Legacy memory note normalized into the repo-wide schema. Date: 2026-04-15 Execute the approved \"Approach A – Surgical Upgrade\" plan to: 1. Upgrade `RegimeMoENet` with noisy Top-1 sparse routing, load-balancing loss, and a shared expert. 2.",
     "excerpt": "# MoE + Signal Diversification + Reward Optimization ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence Date: 2026-04-15 ## Goal Execute the approved \"Approach A – Surgical Upgrade\" plan to: 1. Upgrade `RegimeMoENet` with noisy Top-1 sparse routing, l"
   },
@@ -259,7 +259,7 @@
       "walk-forward"
     ],
     "artifacts": [],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Legacy memory note normalized into the repo-wide schema. Date: 2026-04-15 Seed: 20260411 | Profile: balanced | Iters: 20 | Architecture: MoE **Baseline**: `balanced` + `--moe` (VIX features fully enabled) **Ablation**: `balanced` + `--moe`",
     "excerpt": "# VIX Ablation Experiment Results ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence Date: 2026-04-15 Seed: 20260411 | Profile: balanced | Iters: 20 | Architecture: MoE ## Experiment Design - **Baseline**: `balanced` + `--moe` (VIX features fully enab"
   },
@@ -288,9 +288,9 @@
     ],
     "artifacts": [
       "artifacts/models/soxl_balanced_moe_actor.pt",
-      "runtime/generalization/results.json"
+      "evidence/generalization/results.json"
     ],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Legacy memory note normalized into the repo-wide schema. The RL model was losing to the rule-based strategy primarily due to **friction from excessive micro-trades** (~1000+ vs 45). Two levers were identified: **A**: Drastically raise `reba",
     "excerpt": "# 2026-04-16: A+B Breakthrough – High Threshold + Trade Lock + 80 Iters ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## Hypothesis The RL model was losing to the rule-based strategy primarily due to **friction from excessive micro-trades** (~100"
   },
@@ -312,7 +312,7 @@
       "stress-regime"
     ],
     "artifacts": [],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Legacy memory note normalized into the repo-wide schema. Test \"buy easy, sell hard\" asymmetric rebalance threshold while keeping the 3-day trade lock and hard regime routing. `rebalance_threshold` now returns **direction-dependent threshold",
     "excerpt": "# 2026-04-16: Asymmetric Threshold Experiment (Option 1) ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## Goal Test \"buy easy, sell hard\" asymmetric rebalance threshold while keeping the 3-day trade lock and hard regime routing. ## Changes - `reb"
   },
@@ -339,7 +339,7 @@
       "walk-forward"
     ],
     "artifacts": [],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Legacy memory note normalized into the repo-wide schema. Port 5 rule-based `soxl_backtest` mechanics into the RL reward/risk layer, increase high-vol T-trading on SOXL, and ensure zero-shot generalization beats Buy & Hold on other 3x ETFs.",
     "excerpt": "# 2026-04-16: Backtest-Inspired RL Optimizations ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## Goal Port 5 rule-based `soxl_backtest` mechanics into the RL reward/risk layer, increase high-vol T-trading on SOXL, and ensure zero-shot generaliza"
   },
@@ -355,7 +355,7 @@
       "reference"
     ],
     "artifacts": [],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Legacy memory note normalized into the repo-wide schema. See the summary and status fields in front matter. Use `scripts/memory_search.py` before opening additional memory files.",
     "excerpt": "# Memory Note ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## Decision See the summary and status fields in front matter. ## Next Use Use `scripts/memory_search.py` before opening additional memory files."
   },
@@ -379,7 +379,7 @@
       "soxl"
     ],
     "artifacts": [],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Legacy memory note normalized into the repo-wide schema. Evaluated the multi-asset v2 actor (`soxl_balanced_moe_actor.pt`) on the SOXL test set. Extracted gate softmax probabilities for every trading day. Performed an **ablation study** by",
     "excerpt": "# 2026-04-16: MoE Regime Analysis & Gap to Rule-Based Backtest ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## 1. MoE Gate Routing Validity Analysis ### Method - Evaluated the multi-asset v2 actor (`soxl_balanced_moe_actor.pt`) on the SOXL test "
   },
@@ -405,7 +405,7 @@
       "stress-regime"
     ],
     "artifacts": [],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Legacy memory note normalized into the repo-wide schema. New profile: `configs/soxl/balanced_regime_gate.yaml` Intent: keep canonical `balanced` as the style anchor add staged checkpoint scoring penalize validation stress-window average pos",
     "excerpt": "# 2026-04-17: `balanced_regime_gate` failed as a mainline candidate ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## What was tried - New profile: - `configs/soxl/balanced_regime_gate.yaml` - Intent: - keep canonical `balanced` as the style ancho"
   },
@@ -434,7 +434,7 @@
       "stress-regime"
     ],
     "artifacts": [],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Legacy memory note normalized into the repo-wide schema. New profile: `configs/soxl/balanced_regime_gate_v2.yaml` Intent: keep the moderate cap routing from `balanced_regime_gate` reduce trend-side encouragement directly: lower `activity_bo",
     "excerpt": "# 2026-04-17: `balanced_regime_gate_v2` also failed ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## What was tried - New profile: - `configs/soxl/balanced_regime_gate_v2.yaml` - Intent: - keep the moderate cap routing from `balanced_regime_gate`"
   },
@@ -463,10 +463,10 @@
     ],
     "artifacts": [
       "artifacts/models/soxl_balanced_floor40_sym_bear30_summary.json",
-      "runtime/post_train_review/floor40_sym_bear30_vs_canonical_balanced.md",
-      "runtime/post_train_review/floor40_sym_bear30_vs_floor40_sym.md"
+      "evidence/post_train_review/floor40_sym_bear30_vs_canonical_balanced.md",
+      "evidence/post_train_review/floor40_sym_bear30_vs_floor40_sym.md"
     ],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Legacy memory note normalized into the repo-wide schema. `qlib_venv/bin/python soxl_qlib_strategy_v2.py --profiles balanced_floor40_sym_bear30 --skip-data-refresh --seed 20260411` Added `configs/soxl/balanced_floor40_sym_bear30.yaml`. Regis",
     "excerpt": "# 2026-04-17: `balanced_floor40_sym_bear30` retrain ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## Command - `qlib_venv/bin/python soxl_qlib_strategy_v2.py --profiles balanced_floor40_sym_bear30 --skip-data-refresh --seed 20260411` ## What chan"
   },
@@ -491,11 +491,11 @@
       "stress-regime"
     ],
     "artifacts": [
-      "runtime/generalization/dashboard.html"
+      "evidence/generalization/dashboard.html"
     ],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
-    "summary": "Legacy memory note normalized into the repo-wide schema. `runtime/generalization/dashboard.html` only renders the fixed `test` window: `2020-01-02 .. 2026-03-31` The page does **not** show: `train = 2010-2018` `valid = 2019` The earlier imp",
-    "excerpt": "# 2026-04-17: Dashboard window clarified, regime-routed overlay is directional but not best ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## Dashboard clarification - `runtime/generalization/dashboard.html` only renders the fixed `test` window: -"
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
+    "summary": "Legacy memory note normalized into the repo-wide schema. `evidence/generalization/dashboard.html` only renders the fixed `test` window: `2020-01-02 .. 2026-03-31` The page does **not** show: `train = 2010-2018` `valid = 2019` The earlier imp",
+    "excerpt": "# 2026-04-17: Dashboard window clarified, regime-routed overlay is directional but not best ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## Dashboard clarification - `evidence/generalization/dashboard.html` only renders the fixed `test` window: "
   },
   {
     "path": "memory/2026-04-17-historical-balanced-feature-gap.md",
@@ -514,9 +514,9 @@
       "transition-features"
     ],
     "artifacts": [
-      "runtime/post_train_review/historical_balanced_feature_recall.md"
+      "evidence/post_train_review/historical_balanced_feature_recall.md"
     ],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Legacy memory note normalized into the repo-wide schema. Canonical `balanced` is already competent at: persistent stress defense mature trend capture Its main blind spot is: transition states especially stress-release, bear-market rebounds,",
     "excerpt": "# 2026-04-17: historical-best `balanced` feature gap ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## Conclusion - Canonical `balanced` is already competent at: - persistent stress defense - mature trend capture - Its main blind spot is: - transi"
   },
@@ -542,7 +542,7 @@
       "artifacts/models/soxl_balanced_floor40_sym_summary.json",
       "artifacts/models/soxl_balanced_summary.json"
     ],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Legacy memory note normalized into the repo-wide schema. `qlib_venv/bin/python soxl_qlib_strategy_v2.py --profiles balanced_floor40_sym --skip-data-refresh --seed 20260411` Fixed split backtest log: `476.2% / Sharpe 0.79 / MaxDD 63.8% / 790",
     "excerpt": "# 2026-04-17: Latest `balanced_floor40_sym` training loses to canonical balanced ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## Command - `qlib_venv/bin/python soxl_qlib_strategy_v2.py --profiles balanced_floor40_sym --skip-data-refresh --seed "
   },
@@ -571,9 +571,9 @@
       "walk-forward"
     ],
     "artifacts": [
-      "runtime/post_train_review/floor40_sym_vs_balanced_moe.md"
+      "evidence/post_train_review/floor40_sym_vs_balanced_moe.md"
     ],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Legacy memory note normalized into the repo-wide schema. Added repo-local skill `.codex/skills/post-train-backtest-review/`. The skill standardizes how to compare a new training result against a prior backtest using: `artifacts/models/*_sum",
     "excerpt": "# 2026-04-17: Post-train backtest review skill ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## What changed - Added repo-local skill `.codex/skills/post-train-backtest-review/`. - The skill standardizes how to compare a new training result again"
   },
@@ -599,7 +599,7 @@
       "superseded"
     ],
     "artifacts": [],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Legacy memory note normalized into the repo-wide schema. The ~130pp gap between RL symmetric A+B (598.5%) and rule-based soxl_backtest (688.6%) was caused by three missing pieces: 1. Accidentally reverted asymmetric thresholds (buy 0.02 / s",
     "excerpt": "# 2026-04-17: RL beats rule-based SOXL return (698.0%) ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## Hypothesis The ~130pp gap between RL symmetric A+B (598.5%) and rule-based soxl_backtest (688.6%) was caused by three missing pieces: 1. Accid"
   },
@@ -642,12 +642,12 @@
       "artifacts/models/soxl_balanced_actor.pt",
       "artifacts/models/soxl_balanced_checkpoint_review_summary.json",
       "artifacts/models/soxl_balanced_summary.json",
-      "runtime/post_train_review/balanced_checkpoint_review.md",
-      "runtime/post_train_review/balanced_checkpoint_review_vs_balanced.md",
-      "runtime/post_train_review/balanced_position_cap_counterfactual.json",
-      "runtime/post_train_review/balanced_position_cap_counterfactual_ranking.md"
+      "evidence/post_train_review/balanced_checkpoint_review.md",
+      "evidence/post_train_review/balanced_checkpoint_review_vs_balanced.md",
+      "evidence/post_train_review/balanced_position_cap_counterfactual.json",
+      "evidence/post_train_review/balanced_position_cap_counterfactual_ranking.md"
     ],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Staged checkpoint review proved the best validation checkpoint appears at iter 40 rather than iter 80, but the selected actor still failed fixed-split 2022 gates. Fixed-actor position-cap sweeps improved 2022 avg_pos only marginally and never passed the full gate. A follow-up single-layer retrain that raised `stress_avg_pos_penalty` from `10` to `25` also failed, with `test_2022 maxDD` still at `46.28%` and `avg_pos` at `0.398`. A reward-only `balanced_reward_guard` retrain also failed, worsening `test_2022` to `47.36% maxDD / 0.412 avg_pos`, so the next loop should stop tuning selector penalties and reward coefficients and instead change the stress set or episode sampling itself.",
     "excerpt": "# 2026-04-18 checkpoint review and overlay loop ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## Goal Compress the search space before starting another broad retrain by answering two questions: 1. is the current bottleneck partly just checkpoint-"
   },
@@ -677,7 +677,7 @@
       "soxl"
     ],
     "artifacts": [],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Legacy memory note normalized into the repo-wide schema. 1. 验证 decision_frequency=3 在 20-iters 中等训练下的稳定性 2. 实现并验证 Period-Aware Marginal Reward（跨周期 alpha reward） | Metric | Value | vs Canonical Balanced | |--------|-------|------------------",
     "excerpt": "# 2026-04-18: Decision Frequency=3 中等训练验证 + Period-Aware Marginal Reward ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## 实验目标 1. 验证 decision_frequency=3 在 20-iters 中等训练下的稳定性 2. 实现并验证 Period-Aware Marginal Reward（跨周期 alpha reward） ## 结果汇总 ### Fre"
   },
@@ -703,7 +703,7 @@
       "soxl"
     ],
     "artifacts": [],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "The flat `configs/soxl/*.yaml` layout still made profile intent too opaque even after adding a registry. The next step was to start colocating profile config with experiment-owned notes and expectations. Added `experiments/README.md`. Added",
     "excerpt": "# 2026-04-18 Experiment Directory Migration ## Context The flat `configs/soxl/*.yaml` layout still made profile intent too opaque even after adding a registry. The next step was to start colocating profile config with experiment-owned notes and expectations. ## Evidence - Added `"
   },
@@ -730,9 +730,10 @@
       "transition-features"
     ],
     "artifacts": [
-      "runtime/generalization/dashboard.html"
+      "evidence/generalization/dashboard.html",
+      "evidence/source"
     ],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Replaced the broken pytest expectation with a repo-owned check_harness entrypoint, normalized memory into front-matter plus index.json, deleted low-value scripts and superseded actor checkpoints, and upgraded the static dashboard with evidence navigation and persisted state.",
     "excerpt": "# 2026-04-18: harness cleanup, indexed memory retrieval, and soft artifact prune ## Context The repo had accumulated three classes of avoidable friction: - docs still implied `pytest` was the default check path even though `qlib_venv` did not ship it - `memory/` had drifted into "
   },
@@ -751,7 +752,7 @@
       "reference"
     ],
     "artifacts": [],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "The repository had already started splitting responsibilities conceptually, but the filesystem still looked flat. That made the intended architecture hard to see and easy to ignore. Added new package directories under `src/soxl_quant/`: `ap",
     "excerpt": "# 2026-04-18 Package Structure Refactor ## Context The repository had already started splitting responsibilities conceptually, but the filesystem still looked flat. That made the intended architecture hard to see and easy to ignore. ## Evidence - Added new package directories und"
   },
@@ -782,11 +783,11 @@
       "artifacts/models/soxl_balanced_phase_sampling_v1_summary.json",
       "artifacts/models/soxl_balanced_reward_guard_summary.json",
       "artifacts/models/soxl_balanced_summary.json",
-      "runtime/post_train_review/balanced_phase_sampling_v1.md",
-      "runtime/post_train_review/balanced_phase_sampling_v1_vs_balanced.md",
-      "runtime/post_train_review/balanced_phase_sampling_v1_vs_reward_guard.md"
+      "evidence/post_train_review/balanced_phase_sampling_v1.md",
+      "evidence/post_train_review/balanced_phase_sampling_v1_vs_balanced.md",
+      "evidence/post_train_review/balanced_phase_sampling_v1_vs_reward_guard.md"
     ],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "A training-procedure experiment widened episode coverage with overlapping windows plus phase-balanced oversampling for stress, rebound, and bull-trend regimes. The broader sampling materially changed training (`36` episodes, best checkpoint at `iter 20`), but it did not repair post-2022 excess. `2025` still lagged buy-and-hold by `-10.88%`, `2023-2024` degraded on both return and drawdown, and `2022` broke badly (`47.50%` maxDD, `0.364` avg_pos). Keep the harness support, but drop the branch and do not assume broader bull sampling alone fixes the style gap.",
     "excerpt": "# 2026-04-18 phase-balanced training failure ## Context The user called out that the problem is not only `2022`: excess in `2023`, `2024`, and `2025` has also been weak. This loop tested whether the training procedure itself was too stress-heavy and under-covering bull / restart "
   },
@@ -806,7 +807,7 @@
       "smoke"
     ],
     "artifacts": [],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Legacy memory note normalized into the repo-wide schema. > 日期: 2026-04-18 > 背景: RL 无法超越 rule-based  baseline (688.6%)，怀疑 PPO 本身存在结构性问题 | 研究 | 算法比较 | 关键结论 | |------|---------|---------| | **FinRL Contest 2023-2024 Review** (Holzer et al., 20",
     "excerpt": "# PPO 诊断报告与优化路线图 ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence > 日期: 2026-04-18 > 背景: RL 无法超越 rule-based baseline (688.6%)，怀疑 PPO 本身存在结构性问题 --- ## 一、核心发现：PPO 在金融 Trading 中确实表现较差 ### 1.1 多篇独立研究确认 PPO 的劣势 | 研究 | 算法比较 | 关键结论 | |------|---------|----"
   },
@@ -835,7 +836,7 @@
       "artifacts/models/soxl_balanced_wf_2023_2024_actor.pt",
       "artifacts/models/soxl_smoke_actor.pt"
     ],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "The harness had reached the point where `rl.py`, `cli.py`, and the profile set were too entangled to answer basic questions reliably: which profile is canonical which branches are just ablations which actor checkpoints should still exist wh",
     "excerpt": "# 2026-04-18 Profile Governance And Retention Reset ## Context The harness had reached the point where `rl.py`, `cli.py`, and the profile set were too entangled to answer basic questions reliably: - which profile is canonical - which branches are just ablations - which actor chec"
   },
@@ -854,7 +855,7 @@
       "moe"
     ],
     "artifacts": [],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Legacy memory note normalized into the repo-wide schema. Date: 2026-04-18 Context: package folders under `src/soxl_quant/` existed, but `src/soxl_quant/policy/*` was still mostly wrapper code pointing back into `src/soxl_quant/rl.py` that m",
     "excerpt": "# RL Policy Module Migration ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence - Date: 2026-04-18 - Context: - package folders under `src/soxl_quant/` existed, but `src/soxl_quant/policy/*` was still mostly wrapper code pointing back into `src/soxl_q"
   },
@@ -880,7 +881,7 @@
       "transition-features"
     ],
     "artifacts": [],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Legacy memory note normalized into the repo-wide schema. Profile: `balanced_stress_release_delta` Command: `qlib_venv/bin/python soxl_qlib_strategy_v2.py --profiles balanced_stress_release_delta --skip-data-refresh --seed 20260411` Feature",
     "excerpt": "# 2026-04-18 stress-release delta feature trial ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## What ran - Profile: `balanced_stress_release_delta` - Command: - `qlib_venv/bin/python soxl_qlib_strategy_v2.py --profiles balanced_stress_release_de"
   },
@@ -915,11 +916,11 @@
       "artifacts/models/soxl_balanced_reward_guard_summary.json",
       "artifacts/models/soxl_balanced_structural_v1_summary.json",
       "artifacts/models/soxl_balanced_summary.json",
-      "runtime/post_train_review/balanced_structural_v1.md",
-      "runtime/post_train_review/balanced_structural_v1_vs_balanced.md",
-      "runtime/post_train_review/balanced_structural_v1_vs_reward_guard.md"
+      "evidence/post_train_review/balanced_structural_v1.md",
+      "evidence/post_train_review/balanced_structural_v1_vs_balanced.md",
+      "evidence/post_train_review/balanced_structural_v1_vs_reward_guard.md"
     ],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "A structural retrain with longer observation context, custom action levels, hard regime routing, and regime-stratified stress sampling improved stress exposure versus the failed reward-only branch, but it still failed promotion. `test_2022 avg_pos` passed at `0.338`, yet `test_2022 maxDD` remained too high at `39.86%` and `test_proxy Sharpe` fell to `0.739`. Keep the new harness support for model/sampling profiles, but drop `balanced_structural_v1` as a production candidate and ablate one structural lever at a time if model-side work continues.",
     "excerpt": "# 2026-04-18 structural model loop ## Context After the checkpoint-review, selector-only, and reward-only loops all failed, the next hypothesis was that the bottleneck had shifted from coefficients to model structure. This loop tested that directly. ## What changed - Added profil"
   },
@@ -943,7 +944,7 @@
       "stress-regime"
     ],
     "artifacts": [],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Four variants of trade-frequency compression tested on SOXL. decision_frequency=3 achieves the best 2022 MaxDD (38.4%) and good generalization, but sacrifices total return (698% -> 314%). Key insight: execution-layer compression (trade_lock, threshold, decision_frequency) is more effective than reward-layer compression for reducing drawdown without destroying returns.",
     "excerpt": "# Trade Compression Experiments (2026-04-18) ## Context `balanced_floor40_sym` achieved 698.0% return but failed the 2022 MaxDD promotion gate (60.56% vs 35% limit) and traded 859 times vs rule-based 45. Goal: compress trades and improve drawdown control without surrendering the "
   },
@@ -967,7 +968,7 @@
       "transition-features"
     ],
     "artifacts": [],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Legacy memory note normalized into the repo-wide schema. New temporary branch: `balanced_transition_state` Intent: keep canonical `balanced` reward, cap, and selection rules fixed add transition / persistence features only test whether rebo",
     "excerpt": "# 2026-04-18: first transition-feature batch failed as mainline ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## What was tried - New temporary branch: - `balanced_transition_state` - Intent: - keep canonical `balanced` reward, cap, and selection"
   },
@@ -983,7 +984,7 @@
       "reference"
     ],
     "artifacts": [],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Refreshed AGENTS.md to match the current app/policy/core split, declared cli.py and rl.py compatibility-only, added script-boundary rules, and documented preferred read order for experiments, runtime, and memory.",
     "excerpt": "# AGENTS Contract Refresh ## Context The codebase has already moved away from monolithic `cli.py` and `rl.py`, but the repo contract still described the older ownership model too loosely. ## What Changed - documented `src/soxl_quant/app/` module ownership in detail - marked top-l"
   },
@@ -1001,7 +1002,7 @@
     "artifacts": [
       "runtime/README.md"
     ],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Consolidated real train/evaluate/promote ownership under app/, moved execution/observation/positioning implementations under policy/, deleted top-level rl_* helper modules, and tightened runtime/memory/experiments index guidance.",
     "excerpt": "# App And Policy Consolidation ## Context `src/soxl_quant/policy/` and `src/soxl_quant/app/` existed, but several files were still wrappers pointing back to top-level modules. The tree looked cleaner than it really was and kept `cli.py` plus `rl_*` as hidden coupling points. ## W"
   },
@@ -1035,11 +1036,11 @@
       "walk-forward"
     ],
     "artifacts": [
-      "runtime/post_train_review/balanced_rule_residual_v1_detailed_trades.csv",
-      "runtime/post_train_review/balanced_rule_residual_v1_diagnosis/phase1_phase2_combined.json",
-      "runtime/post_train_review/balanced_rule_residual_v1_trade_quality_audit.md"
+      "evidence/post_train_review/balanced_rule_residual_v1_detailed_trades.csv",
+      "evidence/post_train_review/balanced_rule_residual_v1_diagnosis/phase1_phase2_combined.json",
+      "evidence/post_train_review/balanced_rule_residual_v1_trade_quality_audit.md"
     ],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Full `balanced_rule_residual_v1` training completed and selected the `@60` checkpoint over `@80`. The branch materially improved trade-quality versus the old negative-Kelly diagnosis, including positive `micro_<5%`, `small_5_15%`, and `mid_3_10d` buckets, while keeping `2022` drawdown/avg-pos controlled and lifting proxy Sharpe to `0.96`. It is strong enough to keep, but still needs walk-forward evidence before any promotion claim.",
     "excerpt": "# 2026-04-19 balanced residual-over-rule full run ## Context The user asked for a full training run rather than another smoke-only or method-only answer. ## Evidence - Candidate experiment package: - `experiments/candidate/balanced_rule_residual_v1/` - Registry row added: - `conf"
   },
@@ -1061,10 +1062,10 @@
     ],
     "artifacts": [
       "artifacts/models/soxl_balanced_summary.json",
-      "runtime/diagnosis/phase1_phase2_combined.json",
-      "runtime/post_train_review/balanced_trade_quality_audit.md"
+      "evidence/diagnosis/phase1_phase2_combined.json",
+      "evidence/post_train_review/balanced_trade_quality_audit.md"
     ],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Applied the new post-train Kelly workflow to canonical `balanced`. The retained actor is still promotable at the portfolio level, but its edge is concentrated in larger and longer holds while `mid_3_10d`, `small_5_15%`, and most `micro_<5%` rebalances are weak or negative expectancy. Next optimization order stays fixed-actor trade compression before reward or architecture changes.",
     "excerpt": "# 2026-04-19 balanced trade quality audit ## Context The Kelly patch to the post-train review skill needed a concrete repo-owned tool and artifact, not just workflow text. ## Evidence - Added repo-owned generator: - `scripts/trade_quality_audit.py` - Validation: - `PYTHONPATH=. q"
   },
@@ -1080,7 +1081,7 @@
       "reference"
     ],
     "artifacts": [],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Split runtime bootstrap and end-of-run reporting out of app/cli.py so the CLI entrypoint is a thin orchestration shell rather than a mixed setup/execution/reporting file.",
     "excerpt": "# CLI Shell Shrink ## Context After splitting training, workers, sources, and selection, `app/cli.py` still mixed setup, dataset bootstrap, profile loop, and final reporting. ## What Changed - added `src/soxl_quant/app/bootstrap.py` - added `src/soxl_quant/app/reporting.py` - red"
   },
@@ -1104,11 +1105,11 @@
       "soxl"
     ],
     "artifacts": [
-      "runtime/generalization/dashboard.html",
-      "runtime/post_train_review/",
-      "runtime/post_train_review/balanced_rule_residual_v1_soxl_daily.csv"
+      "evidence/generalization/dashboard.html",
+      "evidence/post_train_review/",
+      "evidence/post_train_review/balanced_rule_residual_v1_soxl_daily.csv"
     ],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Fixed the dashboard so training now auto-exports a review CSV, auto-rebuilds the static HTML, defaults to the latest post-train view instead of an older best-Sharpe or browser-saved selection, preserves explicit post-train trade actions, and merges OHLC/indicator fields back into post-train rows. The generated dashboard now resolves `latest_version` to `balanced_rule_residual_v1`.",
     "excerpt": "# 2026-04-19 dashboard auto latest fix ## Context The dashboard was not reliably showing the latest training result after a run finished. ## Evidence - Added `src/soxl_quant/app/dashboard.py` to own: - post-train SOXL daily CSV export - dashboard rebuild invocation - `run_profile"
   },
@@ -1124,7 +1125,7 @@
       "reference"
     ],
     "artifacts": [],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Split artifact persistence and walk-forward workers out of app/train.py and updated repo-internal tests/imports so internal code no longer depends on the rl compatibility facade.",
     "excerpt": "# Internal RL Facade Shrink ## Context After the previous consolidation, `rl.py` was already a facade, but the next useful proof point was removing remaining repo-internal reliance on it and cutting `app/train.py` down further. ## What Changed - added `src/soxl_quant/app/artifact"
   },
@@ -1141,10 +1142,10 @@
       "skill"
     ],
     "artifacts": [
-      "runtime/diagnosis/phase1_phase2_combined.json",
-      "runtime/diagnosis/soxl_trade_attribution.md"
+      "evidence/diagnosis/phase1_phase2_combined.json",
+      "evidence/diagnosis/soxl_trade_attribution.md"
     ],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Patched `.codex/skills/post-train-backtest-review/` so post-train review now covers negative Kelly / Expectancy diagnosis, reward-alignment interpretation, fixed-actor counterfactual order, and optional external analysis stack boundaries. Validation used the existing trade-attribution artifacts plus skill quick-validate.",
     "excerpt": "# 2026-04-19 post-train Kelly skill patch ## Context The post-train review skill already handled summary / slice / feature comparisons, but it did not standardize what to do when users asked why a model still produced negative-expectancy T trades. ## What changed - Extended `.cod"
   },
@@ -1170,7 +1171,7 @@
       "smoke_rule_residual_v1"
     ],
     "artifacts": [],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Implemented and smoke-tested a residual-over-rule path. The actor now learns a bounded delta around the rule-based base position, with rule-deviation and micro-churn penalties. The first smoke candidate materially improved the previously negative `3-10d` trade bucket to positive Kelly/expectancy and reduced total trade actions from the prior canonical diagnosis baseline, but `micro_<5%` rebalances remain weak and too frequent.",
     "excerpt": "# 2026-04-19 residual-over-rule smoke loop ## Context The user asked for a direct trial of the \"rule-based anchor + RL residual T overlay\" idea rather than another abstract proposal. ## Evidence - Added unified hybrid overlay mapping across: - training - validation - qlib backtes"
   },
@@ -1186,7 +1187,7 @@
       "reference"
     ],
     "artifacts": [],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Moved multi-asset source prep and staged training into dedicated app modules, updated repo scripts to import policy/app layers directly, and reduced internal dependence on the rl compatibility facade to zero.",
     "excerpt": "# RL Facade Detached From Scripts ## Context The previous step removed `rl.py` from internal code and tests, but several repo-owned scripts still imported it. That kept the compatibility facade in the active maintenance path. ## What Changed - added `src/soxl_quant/app/sources.py"
   },
@@ -1218,7 +1219,7 @@
       "walk-forward"
     ],
     "artifacts": [],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "全面对比 soxl_backtest（规则驱动）与 src/soxl_quant（RL驱动）的架构、信号、风控和绩效。 深入分析对数奖励 $R_t = \\log(W_t/W_{t-1})$ 的理论优劣，指出其已实现在代码中但不足以单独使用。 推荐最佳模型的下一步优化：启用 Kelly-alpha 奖励、regime-conditioned scale、以及将 soxl_backtest 的 panic index 引入 observation。",
     "excerpt": "# SOXL Backtest vs SOXLQuant 深度对比与奖励函数优化分析 ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## 一、两个系统的架构对比 ### 1.1 soxl_backtest：规则驱动的传统回测 **核心信号：Panic Index（恐慌指数）** - 基础：VIX 通过 sigmoid 函数映射到 [-100, 100] 区间 - 调节：RSI6 超卖（<30）降低恐慌值，超买（>70）提高恐慌值 - 放大：交"
   },
@@ -1240,7 +1241,7 @@
       "stress-regime"
     ],
     "artifacts": [],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "量化分析 RL (balanced_rule_residual_v2, 521.3%) 与 rule-based (688.6%) 之间 167pp 差距的五大根因。提出 panic-index 特征注入、底仓提升至 40-50%、 交易压缩至 <100 笔、regime-conditioned alpha scale 四条优化路径。",
     "excerpt": "# RL vs Rule-Based 差距根因分析 ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## 一、数据对比：差距在哪里 ### 1.1 总体表现 | 指标 | Rule-Based | RL v2 (@40) | RL best (floor40_sym) | Gap (v2 vs RB) | |------|-----------|-------------|----------------------|-------------"
   },
@@ -1258,7 +1259,7 @@
       "walk-forward"
     ],
     "artifacts": [],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Legacy memory note normalized into the repo-wide schema. **CLI Backtest**: 635.1% return, Sharpe 0.90, MaxDD 51.0%, trades=336 **test_proxy**: 885.5% return, Sharpe 0.99, MaxDD 52.7% **fixed_split**: PASSED ✓ **Best checkpoint**: iter 20 (s",
     "excerpt": "# 2026-04-20: Seed Sensitivity Clarified (v19) ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## v19 Results (seed=12345, same config as v16) - **CLI Backtest**: 635.1% return, Sharpe 0.90, MaxDD 51.0%, trades=336 - **test_proxy**: 885.5% return, "
   },
@@ -1284,9 +1285,9 @@
       "soxl"
     ],
     "artifacts": [
-      "runtime/post_train_review/ensemble_v16_v18_v19.md"
+      "evidence/post_train_review/ensemble_v16_v18_v19.md"
     ],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Legacy memory note normalized into the repo-wide schema. Implemented the full next-step plan harness laid out in `.cursor/plans/plan_next_src_experiments_5796dd14.plan.md`. No new training runs beyond the seed-ensemble evaluation; all addit",
     "excerpt": "# 2026-04-20 Tier 1/2/3 harness scaffolding ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## What changed Implemented the full next-step plan harness laid out in `.cursor/plans/plan_next_src_experiments_5796dd14.plan.md`. No new training runs bey"
   },
@@ -1306,7 +1307,7 @@
       "walk-forward"
     ],
     "artifacts": [],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Legacy memory note normalized into the repo-wide schema. Date: 2026-04-20 > \"交易多不影响， 主要要控制回测和凯利期望 优化的方式应该是模型 奖励 特征结合的结果\" Translation: \"Many trades don't matter. The main thing is to control drawdown and Kelly expectancy. The optimization ap",
     "excerpt": "# User Direction Pivot: Stop Trade Compression, Focus on Drawdown + Kelly ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence Date: 2026-04-20 ## User Feedback > \"交易多不影响， 主要要控制回测和凯利期望 优化的方式应该是模型 奖励 特征结合的结果\" Translation: \"Many trades don't matter. The m"
   },
@@ -1328,7 +1329,7 @@
       "failure"
     ],
     "artifacts": [],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Legacy memory note normalized into the repo-wide schema. Date: 2026-04-20 Profile: `balanced_rule_residual_v10` Baseline: `balanced_rule_residual_v2` (best valid score), `v8/v9` (failed hyperparameter tuning) v8 (strong penalties) and v9 (m",
     "excerpt": "# v10: Episode-Level Drawdown Penalty — Code-Level Reward Redesign ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence Date: 2026-04-20 Profile: `balanced_rule_residual_v10` Baseline: `balanced_rule_residual_v2` (best valid score), `v8/v9` (failed hype"
   },
@@ -1353,7 +1354,7 @@
       "artifacts/models/soxl_balanced_rule_residual_v14_actor.pt",
       "artifacts/models/soxl_balanced_rule_residual_v14_summary.json"
     ],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Legacy memory note normalized into the repo-wide schema. **Date:** 2026-04-20 **Profile:** `balanced_rule_residual_v14` **Hypothesis:** GRU architecture + observation_window alone drives drawdown reduction (penalty is incidental). **Result:",
     "excerpt": "# v14 GRU Ablation Results — Episode Penalty Is Necessary ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence **Date:** 2026-04-20 **Profile:** `balanced_rule_residual_v14` **Hypothesis:** GRU architecture + observation_window alone drives drawdown red"
   },
@@ -1377,7 +1378,7 @@
       "artifacts/models/soxl_balanced_rule_residual_v15_actor.pt",
       "artifacts/models/soxl_balanced_rule_residual_v15_summary.json"
     ],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Legacy memory note normalized into the repo-wide schema. **Date:** 2026-04-20 **Profile:** `balanced_rule_residual_v15` **Hypothesis:** A weaker terminal penalty (1.0) might find a sweet spot between v14 aggression and v12/v13 conservatism.",
     "excerpt": "# v15 Weak Penalty Results — Penalty=1.0 Is in a Bad Zone ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence **Date:** 2026-04-20 **Profile:** `balanced_rule_residual_v15` **Hypothesis:** A weaker terminal penalty (1.0) might find a sweet spot between"
   },
@@ -1402,7 +1403,7 @@
       "artifacts/models/soxl_balanced_rule_residual_v16_actor.pt",
       "artifacts/models/soxl_balanced_rule_residual_v16_summary.json"
     ],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Legacy memory note normalized into the repo-wide schema. **Date:** 2026-04-20 **Profile:** `balanced_rule_residual_v16` **Hypothesis:** Increasing observation_window from 3→5 with proven penalty=2.0 improves GRU decision quality. **Result:*",
     "excerpt": "# v16 Results — More Temporal Context (window=5) Is a Big Win ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence **Date:** 2026-04-20 **Profile:** `balanced_rule_residual_v16` **Hypothesis:** Increasing observation_window from 3→5 with proven penalty="
   },
@@ -1427,7 +1428,7 @@
       "artifacts/models/soxl_balanced_rule_residual_v17_actor.pt",
       "artifacts/models/soxl_balanced_rule_residual_v17_summary.json"
     ],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Legacy memory note normalized into the repo-wide schema. **Date:** 2026-04-20 **Profile:** `balanced_rule_residual_v17` **Hypothesis:** More temporal context (10 days) continues to improve over 5 days. **Result:** DIMINISHING RETURNS CONFIR",
     "excerpt": "# v17 Results — Window=10 Reverts to Window=3 Performance ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence **Date:** 2026-04-20 **Profile:** `balanced_rule_residual_v17` **Hypothesis:** More temporal context (10 days) continues to improve over 5 day"
   },
@@ -1452,7 +1453,7 @@
       "artifacts/models/soxl_balanced_rule_residual_v18_actor.pt",
       "artifacts/models/soxl_balanced_rule_residual_v18_summary.json"
     ],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Legacy memory note normalized into the repo-wide schema. **Date:** 2026-04-20 **Profile:** `balanced_rule_residual_v18` **Hypothesis:** v16's strong result (632.4% return) is reproducible with different seeds. **Result:** PARTIALLY REPRODUC",
     "excerpt": "# v18 Results — v16 Config Is Seed-Sensitive on Return ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence **Date:** 2026-04-20 **Profile:** `balanced_rule_residual_v18` **Hypothesis:** v16's strong result (632.4% return) is reproducible with different"
   },
@@ -1471,7 +1472,7 @@
       "failure"
     ],
     "artifacts": [],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Legacy memory note normalized into the repo-wide schema. | Metric | v2 | v3 Target | v3 Actual | Δ | |--------|-----|-----------|-----------|---| | Return | 521.3% | 600-650% | **569.7%** | +48.4pp | | Sharpe | 0.86 | 0.85-0.90 | **0.86** |",
     "excerpt": "# v3 Results and Trade Compression Failure Analysis ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## v3 Actual Results | Metric | v2 | v3 Target | v3 Actual | Δ | |--------|-----|-----------|-----------|---| | Return | 521.3% | 600-650% | **569.7"
   },
@@ -1492,7 +1493,7 @@
       "other"
     ],
     "artifacts": [],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Legacy memory note normalized into the repo-wide schema. v4 training completed. Despite aggressive trade compression design (flat penalty 1.20, longer lock 8 days, reduced alpha 2.0), **trades increased from 314 to 327**. Strategy is highly",
     "excerpt": "# v4 Results: Trade Compression Fails Again ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## Summary v4 training completed. Despite aggressive trade compression design (flat penalty 1.20, longer lock 8 days, reduced alpha 2.0), **trades increased"
   },
@@ -1509,7 +1510,7 @@
       "rule-based"
     ],
     "artifacts": [],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Legacy memory note normalized into the repo-wide schema. Date: 2026-04-20 | Metric | v4 | v5 (4x penalty) | Delta | |--------|-----|-----------------|-------| | Return | 730.8% | 780.7% | +50pp | | Sharpe | 0.90 | 0.93 | +0.03 | | MaxDD | 5",
     "excerpt": "# v5 Results: Flat Penalty 4x Stronger — Trade Compression Still Fails ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence Date: 2026-04-20 ## Results | Metric | v4 | v5 (4x penalty) | Delta | |--------|-----|-----------------|-------| | Return | 730.8"
   },
@@ -1531,7 +1532,7 @@
       "review"
     ],
     "artifacts": [],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Legacy memory note normalized into the repo-wide schema. Date: 2026-04-20 Profile: `balanced_rule_residual_v7` Baseline comparison: `balanced_rule_residual_v2` (best drawdown so far), `v5` (best return) | Metric | v2 (baseline) | v5 | v7 |",
     "excerpt": "# v7 Post-Mortem: [256,128] + Stronger Penalties + Tighter Caps ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence Date: 2026-04-20 Profile: `balanced_rule_residual_v7` Baseline comparison: `balanced_rule_residual_v2` (best drawdown so far), `v5` (bes"
   },
@@ -1555,7 +1556,7 @@
       "walk-forward"
     ],
     "artifacts": [],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Legacy memory note normalized into the repo-wide schema. Date: 2026-04-20 Profile: `balanced_rule_residual_v8` Baseline: `balanced_rule_residual_v2` (best drawdown), `v7` (previous attempt) | Metric | v2 | v5 | v7 | v8 | |--------|-----|---",
     "excerpt": "# v8 Results: Passes Fixed-Split Promotion Gate, But Penalties Degrade Learning ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence Date: 2026-04-20 Profile: `balanced_rule_residual_v8` Baseline: `balanced_rule_residual_v2` (best drawdown), `v7` (previ"
   },
@@ -1578,7 +1579,7 @@
       "transition-features"
     ],
     "artifacts": [],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Cleaned failed experiment mechanisms out of core runtime paths. Execution experiments now extend through declarative `custom_regimes`, and feature experiments now extend through profile-owned `feature.packs` plus optional experiment-local `extensions.py` files instead of env flags and shared dataclass field growth.",
     "excerpt": "# 2026-04-21 core extension cleanup ## Context Recent failed experiments had left too much experiment-specific logic inside shared runtime modules: - `ExecutionConfig` grew `release_*` fields for one dropped overlay branch - `data.py` grew env-gated feature-schema mutation for `v"
   },
@@ -1607,11 +1608,11 @@
       "transition-features"
     ],
     "artifacts": [
-      "runtime/generalization/dashboard.html"
+      "evidence/generalization/dashboard.html"
     ],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
-    "summary": "Slimmed `runtime/generalization/dashboard.html` by changing historical `versioned` payloads to carry only compact trading-series rows and reusing current per-ETF market metadata client-side by date. Dashboard size fell from 50.54 MB to 20.41 MB. Mainline optimization order remains fixed-actor execution/risk overlay before any new retraining branch.",
-    "excerpt": "# 2026-04-21 dashboard slimming and next-step overlay order ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## Dashboard result - Previous `runtime/generalization/dashboard.html`: `50.54 MB` - New `runtime/generalization/dashboard.html`: `20.41 MB`"
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
+    "summary": "Slimmed `evidence/generalization/dashboard.html` by changing historical `versioned` payloads to carry only compact trading-series rows and reusing current per-ETF market metadata client-side by date. Dashboard size fell from 50.54 MB to 20.41 MB. Mainline optimization order remains fixed-actor execution/risk overlay before any new retraining branch.",
+    "excerpt": "# 2026-04-21 dashboard slimming and next-step overlay order ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## Dashboard result - Previous `evidence/generalization/dashboard.html`: `50.54 MB` - New `evidence/generalization/dashboard.html`: `20.41 M"
   },
   {
     "path": "memory/2026-04-21-existing-overlay-gap-review.md",
@@ -1631,7 +1632,7 @@
       "stress-regime"
     ],
     "artifacts": [],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Reviewed the existing fixed-actor execution overlay sweep before starting any new overlay work. The repo already validated the generic overlay direction with `regime_route_v1`, but on SOXL it did not materially improve the `2022` bear window and also gave up recovery return. Any next overlay loop that only retunes stress/bull thresholds would be duplicate work; the next valid overlay mechanism must introduce an explicit release/re-entry state.",
     "excerpt": "# 2026-04-21 existing overlay gap review ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## Question Has the repo already implemented the overlay idea that was being proposed as the next step? ## Answer Yes, in the generic sense. The repository alr"
   },
@@ -1660,7 +1661,7 @@
       "transition-features"
     ],
     "artifacts": [],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Added a durable repo-wide experiment landscape review and hardened `AGENTS.md` so new experiments now require an explicit baseline, closest success/failure case, external evidence class, experiment card, and comparison-table row. The repo should now bias toward narrower, mechanism-new branches instead of repeating reward, threshold, or bundled-structure loops.",
     "excerpt": "# 2026-04-21 experiment landscape review and research gate hardening ## Context The repo had enough historical evidence to explain current strengths and repeated failures, but that knowledge was scattered across `memory/`, experiment notes, and pairwise post-train reviews. ## Wha"
   },
@@ -1690,7 +1691,7 @@
       "transition-features"
     ],
     "artifacts": [],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Added a durable historical integration policy to `docs/experiment-landscape-review.md`. The repo should now retain a single core stack (`balanced`, `balanced_rule_residual`, `v19`, and the harness governance path), treat `v22`, checkpoint review, smoke residual checks, and overlay studies as optional modules, and permanently demote reward-only tuning, broad transition bundles, narrow transition retrains without selective execution, generic overlay retuning, and bundled structural retries to evidence-only directions.",
     "excerpt": "# 2026-04-21 historical integration policy ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## Purpose Future work should stop \"integrating\" history by stacking together every branch that once looked somewhat useful. Instead, the repo now keeps: - a"
   },
@@ -1713,7 +1714,7 @@
       "smoke_rule_residual_v1"
     ],
     "artifacts": [],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Reduced `experiments/candidate/` to the real active set (`balanced_rule_residual_v19`, `balanced_rule_residual_v22`, `smoke_rule_residual_v1`), moved older packages into `experiments/archive/`, clarified the split between experiment cards and memory result notes, and shortened duplicated active notes so result narratives now live in `memory/`.",
     "excerpt": "# 2026-04-21 memory and experiments cleanup ## Context `experiments/` had accumulated too many historical packages under `candidate/`, and several package notes were duplicating result narratives already captured in `memory/`. ## What Changed - Kept only the real active set in `e"
   },
@@ -1738,10 +1739,10 @@
       "stress-regime"
     ],
     "artifacts": [
-      "runtime/generalization/execution_overlay_results_v19_release.json",
-      "runtime/generalization/execution_overlay_results_v19_release_subset.json"
+      "evidence/generalization/execution_overlay_results_v19_release.json",
+      "evidence/generalization/execution_overlay_results_v19_release_subset.json"
     ],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "The first explicit `release` execution overlay on top of `balanced_rule_residual_v19` did not produce a materially new behavior. `stress_release_route_v1` was effectively identical to `regime_route_v1` on the key SOXL bear/recovery slices, so this direction should not be treated as a successful next-step mechanism.",
     "excerpt": "# 2026-04-21 release overlay evaluation ## Context The repo already concluded that another generic overlay sweep would be duplicate work unless it introduced an explicit `release / re-entry` state beyond the existing `stress / bull / base` routing. That state was implemented and "
   },
@@ -1764,7 +1765,7 @@
       "stress-regime"
     ],
     "artifacts": [],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Base actor: `balanced_rule_residual_v19` Motivation: `v24` showed that lower-frequency coarse retraining did not reduce realized churn, so the next cheap question was whether the missing ingredient was execution-side persistence. `dwell_hol",
     "excerpt": "# 2026-04-21 v19 dwell overlay diagnostic ## Context - Base actor: `balanced_rule_residual_v19` - Motivation: `v24` showed that lower-frequency coarse retraining did not reduce realized churn, so the next cheap question was whether the missing ingredient was execution-side persis"
   },
@@ -1786,10 +1787,10 @@
       "stress-regime"
     ],
     "artifacts": [
-      "runtime/post_train_review/v19_dwell_stress_merge_review.json",
-      "runtime/post_train_review/v19_dwell_stress_merge_review.md"
+      "evidence/post_train_review/v19_dwell_stress_merge_review.json",
+      "evidence/post_train_review/v19_dwell_stress_merge_review.md"
     ],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Follow-up to the `v19` fixed-actor overlay frontier review. The goal was to test one narrow merge only: keep the low-frequency persistence behavior of `dwell_hold_v2`, then add only the stress-side asymmetry that had helped `regime_route_v1",
     "excerpt": "# 2026-04-21 v19 Dwell-Stress Merge Review ## Context Follow-up to the `v19` fixed-actor overlay frontier review. The goal was to test one narrow merge only: keep the low-frequency persistence behavior of `dwell_hold_v2`, then add only the stress-side asymmetry that had helped `r"
   },
@@ -1813,7 +1814,7 @@
       "stress-regime"
     ],
     "artifacts": [],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Base actor: `balanced_rule_residual_v19` Goal: compare the new dwell overlays against the existing SOXL overlay set on the same fixed-split promotion surface 1. `dwell_hold_v2` 2. `dwell_hold_v1` 3. `regime_route_v1` 4. `stress_release_rout",
     "excerpt": "# 2026-04-21 v19 overlay promotion review ## Context - Base actor: `balanced_rule_residual_v19` - Goal: compare the new dwell overlays against the existing SOXL overlay set on the same fixed-split promotion surface ## Ranking 1. `dwell_hold_v2` 2. `dwell_hold_v1` 3. `regime_route"
   },
@@ -1841,9 +1842,9 @@
     ],
     "artifacts": [
       "artifacts/models/soxl_balanced_rule_residual_v19_summary.json",
-      "runtime/post_train_review/balanced_rule_residual_v22_vs_v19.md"
+      "evidence/post_train_review/balanced_rule_residual_v22_vs_v19.md"
     ],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "First training run of balanced_rule_residual_v22 with SOXL_USE_VIX_TERM=1 (external VVIX / VIX9D / VIX3M / SKEW features added to the observation). Same seed (12345) and profile otherwise identical to v19 baseline. Feature count 59 → 64 and schema signature flipped as expected. All three fixed-split promotion gates still pass. New features buy stress-window MaxDD improvement (test_2020 −1.9pts, test_2023_2024 −4.9pts) at the cost of a 5.8pt return drag in test_2023_2024. Keep as candidate, do not flip defaults.",
     "excerpt": "# 2026-04-21 v22 VIX term-structure training results ## Context Continuation of the 2026-04-20 Tier 1-B scaffolding task. That task wired external VVIX / VIX9D / VIX3M / SKEW series into `engineer_feature_frame` behind `SOXL_USE_VIX_TERM=1` and registered `balanced_rule_residual_"
   },
@@ -1875,7 +1876,7 @@
       "transition-features"
     ],
     "artifacts": [],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Trained `balanced_rule_residual_v23` as a narrow 6-feature transition-state clone of v19 under `SOXL_USE_TRANSITION_V23=1`. Fixed-split gate still passed, but the model became broadly more defensive rather than selectively better at stress-release. `test_2022` improved slightly while `test_2020`, `test_2023_2024`, and proxy return dropped sharply. Best checkpoint was iter 0, indicating the new feature pack did not survive training pressure. Branch dropped and archived.",
     "excerpt": "# 2026-04-21 v23 narrow transition-state probe ## Context This was the first residual-family retry of transition-state features after the repo had already dropped `balanced_transition_state` and `balanced_stress_release_delta`. The explicit goal was to see whether a much narrower"
   },
@@ -1899,7 +1900,7 @@
       "failure"
     ],
     "artifacts": [],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Experiment: `balanced_rule_residual_v24` Baseline: `balanced_rule_residual_v19` Mechanism: `decision_frequency: 2` hybrid residual deltas compressed to `[-0.08, 0.0, 0.08]` Intent: test whether medium-strength temporal abstraction can reduc",
     "excerpt": "# 2026-04-21 v24 low-frequency coarse residual failure ## Context - Experiment: `balanced_rule_residual_v24` - Baseline: `balanced_rule_residual_v19` - Mechanism: - `decision_frequency: 2` - hybrid residual deltas compressed to `[-0.08, 0.0, 0.08]` - Intent: - test whether medium"
   },
@@ -1925,7 +1926,7 @@
     "artifacts": [
       "artifacts/models/soxl_balanced_rule_residual_mode_v1_summary.json"
     ],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "First full train of the mode-hierarchy scaffold over the retained `balanced_rule_residual_v19` family. This was the first attempt to add persistent rule-routed modes directly into train/eval/backtest/runtime instead of doing another overlay",
     "excerpt": "# 2026-04-22 balanced_rule_residual_mode_v1 training result ## Context First full train of the mode-hierarchy scaffold over the retained `balanced_rule_residual_v19` family. This was the first attempt to add persistent rule-routed modes directly into train/eval/backtest/runtime i"
   },
@@ -1949,7 +1950,7 @@
     "artifacts": [
       "artifacts/models/soxl_balanced_rule_residual_mode_v2_summary.json"
     ],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Second mode-hierarchy run after `balanced_rule_residual_mode_v1`. This loop had two goals: move mode behavior out of hard-coded helpers and into profile config test whether looser favorable modes could recover upside without losing the hier",
     "excerpt": "# 2026-04-22 balanced_rule_residual_mode_v2 result ## Context Second mode-hierarchy run after `balanced_rule_residual_mode_v1`. This loop had two goals: - move mode behavior out of hard-coded helpers and into profile config - test whether looser favorable modes could recover upsi"
   },
@@ -1967,7 +1968,7 @@
       "walk-forward"
     ],
     "artifacts": [],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Legacy memory note normalized into the repo-wide schema. 针对跑不过rulebase的问题，如果在rulebase的\"埋点\"上给超额奖励，能提高学习rulebase的能力吗？ Imitation bonus DOES improve the model's ability to learn rulebase timing, as evidenced by v1's 812% proxy return (vs v16 ba",
     "excerpt": "# 2026-04-22: Rulebase Imitation Bonus — Full Experiment Series (v1-v7) ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## Original Question 针对跑不过rulebase的问题，如果在rulebase的\"埋点\"上给超额奖励，能提高学习rulebase的能力吗？ ## Answer: Yes, but with important caveats Imita"
   },
@@ -1988,7 +1989,7 @@
       "walk-forward"
     ],
     "artifacts": [],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Legacy memory note normalized into the repo-wide schema. Initial diagnosis claimed the model went 100% position right before the Oct 2022 crash: ``` 2022-10-07: model_pos=1.00, market=-17.69% → single day -17.7% ``` Root cause identified as",
     "excerpt": "# 2026-04-22: CRITICAL CORRECTION — test_2022 Diagnosis ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## Original (Wrong) Conclusion Initial diagnosis claimed the model went 100% position right before the Oct 2022 crash: ``` 2022-10-07: model_pos"
   },
@@ -2011,7 +2012,7 @@
       "soxl"
     ],
     "artifacts": [],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Legacy memory note normalized into the repo-wide schema. 针对跑不过rulebase的问题，如果在rulebase的\"埋点\"上给超额奖励，能提高学习rulebase的能力吗？ Rulebase: 688.6% / 0.824 / 69.88% (45 trades) v16 best model: 632.4% / 0.91 / 50.1% Gap: model underperforms by 56pp on raw",
     "excerpt": "# 2026-04-22: Rulebase Imitation Bonus v1 ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## Question 针对跑不过rulebase的问题，如果在rulebase的\"埋点\"上给超额奖励，能提高学习rulebase的能力吗？ ## Analysis - Rulebase: 688.6% / 0.824 / 69.88% (45 trades) - v16 best model: 632.4% / "
   },
@@ -2034,7 +2035,7 @@
       "walk-forward"
     ],
     "artifacts": [],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Legacy memory note normalized into the repo-wide schema. Implemented rolling Kelly criterion features and Kelly tracking reward penalty to address the fixed low-position collapse observed in v2/v4 models. 1. **`src/soxl_quant/data.py`** Add",
     "excerpt": "# Kelly Criterion Dynamic Position Control — Implementation ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## What Was Done Implemented rolling Kelly criterion features and Kelly tracking reward penalty to address the fixed low-position collapse o"
   },
@@ -2089,7 +2090,7 @@
       "stress-regime"
     ],
     "artifacts": [],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Minimal reward (5 terms) + regime budget in training produced 492.3%/0.85/48.8% — identical to v12/v13 baseline. Training degraded from iter 0 (random init was best). The \"extra\" reward terms (activity_bonus, profit_taking, panic_buy, opportunity_cost) contribute ~140pp of return. Participation signals are necessary, not noise. Budget overlay works on fixed actors, not during training.",
     "excerpt": "# Minimal Reward v1 Results — Hypothesis Rejected ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## Experiment - **Profile**: `balanced_rule_residual_minimal_v1` - **Seed**: 20260420 - **Hypothesis**: Strip reward from ~20 terms to 5 terms + integ"
   },
@@ -2111,7 +2112,7 @@
       "soxl"
     ],
     "artifacts": [],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "The repo hit a clear optimization plateau on threshold, cooldown, and overlay retuning. The next step moved to a larger mechanism change: persistent high-level trading modes constraining the existing residual actor, rather than further sing",
     "excerpt": "# 2026-04-22 Mode Hierarchy Scaffold Start ## Context The repo hit a clear optimization plateau on threshold, cooldown, and overlay retuning. The next step moved to a larger mechanism change: persistent high-level trading modes constraining the existing residual actor, rather tha"
   },
@@ -2134,7 +2135,7 @@
       "soxl"
     ],
     "artifacts": [],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Multi-asset joint training with refined_v3 reward produced 388.6% return vs 637.8% single-asset (-249pp). The refined reward was tuned for SOXL's specific volatility profile and does not generalize to TQQQ/UPRO/SPXL/TECL. All test slices degraded. Multi-asset with a single shared actor and simple one-hot embedding is not viable with asset-specific reward tuning.",
     "excerpt": "# Multi-Asset Joint Training with Refined_v3 Reward — Failure Analysis ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## Experiment - **Profile**: `balanced_rule_residual_refined_v3` - **Flag**: `--multi-asset` - **Assets**: SOXL, TQQQ, UPRO, SPXL"
   },
@@ -2180,7 +2181,7 @@
       "stress-regime"
     ],
     "artifacts": [],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "simplified_v1 failed: proxy MaxDD 58.5% vs v19 54.8%. Root cause: stripping reward removed necessary guardrails (stale_position, trapped_loser, downside_signal, risk_budget). User wants: cash respected, conflicting gradients reduced, generalization to other 3x ETFs. New approach: remove activity_bonus (forced trading), reduce inactivity_penalty, strengthen risk guardrails, keep proven components. Network returns to [128,64]+GRU-64. Multi-asset joint training is the next frontier after single-asset reward is fixed.",
     "excerpt": "# Simplified Reward Failure and Refined Direction ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## What happened with simplified_v1 Training completed. Results vs v19 baseline: | metric | v19 | simplified_v1 | delta | |--------|-----|------------"
   },
@@ -2203,7 +2204,7 @@
       "stress-regime"
     ],
     "artifacts": [],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Legacy memory note normalized into the repo-wide schema. **Profile**: `balanced_kelly_attention_v10` **Hypothesis**: A fundamentally re-architected approach would break the \"fixed low-position collapse\": Network: GRU → WindowSelfAttentionNe",
     "excerpt": "# v10 Attention + Simplified Reward + Kelly — Failure Report ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## Experiment - **Profile**: `balanced_kelly_attention_v10` - **Hypothesis**: A fundamentally re-architected approach would break the \"fixe"
   },
@@ -2229,7 +2230,7 @@
       "smoke"
     ],
     "artifacts": [],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Config-owned regime-conditional position budget plumbing was added across evaluation, qlib backtest, runtime, and training action interpretation. Smoke seed=12345 ran end-to-end but failed strict drawdown promotion; keep the infrastructure and candidate scaffold, do not promote the smoke actor.",
     "excerpt": "# Position Budget Productionization Smoke ## Context The bottleneck review showed reward-only tuning and architecture swaps are not the current frontier. The repeated failure is selective participation under risk: the harness can suppress exposure, but it still struggles to loose"
   },
@@ -2250,7 +2251,7 @@
       "soxl"
     ],
     "artifacts": [],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Cross-ETF diagnostic split risk_budget_usage_v1 into fixed SOXL signal transfer and actor budget runtime. The fixed signal transferred strongly across SOXL/TQQQ/UPRO/SPXL/TECL, but the deployable actor/runtime path produced only 28-144% proxy return with Sharpe 0.37-0.83. Keep the diagnostic; do not promote actor runtime.",
     "excerpt": "# Risk-budget usage cross-ETF diagnostic ## Context `risk_budget_usage_v1` fixed replay is strong on SOXL, but previous actor parity and oracle distillation showed the single actor cannot reproduce the fixed composer. This loop tested whether the mechanism survives the supported "
   },
@@ -2267,7 +2268,7 @@
       "review"
     ],
     "artifacts": [],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "No-promotion oracle distillation used full fixed-replay daily labels for risk_budget_usage_v1. The label set contained action-4 full usage, but the single actor reached only test_proxy 363.8% / Sharpe 1.090 / MaxDD 23.7%, far below fixed replay 2003.6%. Keep the reusable composer extraction; stop trying to compress the two-speed mechanism into one PPO actor.",
     "excerpt": "# Risk-budget oracle distillation and composer extraction ## Context `risk_budget_usage_v1` fixed replay passed the replay gates, while actor-backed parity, native PPO, and train-split BC warm-start failed to reproduce the upside. The remaining question was whether a single actor"
   },
@@ -2294,14 +2295,14 @@
       "soxl"
     ],
     "artifacts": [
-      "runtime/backtest",
-      "runtime/post_train_review/balanced_rule_residual_imitation_v4_soxl_daily.csv",
-      "runtime/post_train_review/balanced_rule_residual_mode_v1_soxl_daily.csv",
-      "runtime/post_train_review/risk_budget_usage_v1.json",
-      "runtime/post_train_review/risk_budget_usage_v1.md",
-      "runtime/post_train_review/risk_budget_usage_v1_soxl_daily.csv"
+      "evidence/post_train_review/balanced_rule_residual_imitation_v4_soxl_daily.csv",
+      "evidence/post_train_review/balanced_rule_residual_mode_v1_soxl_daily.csv",
+      "evidence/post_train_review/risk_budget_usage_v1.json",
+      "evidence/post_train_review/risk_budget_usage_v1.md",
+      "evidence/post_train_review/risk_budget_usage_v1_soxl_daily.csv",
+      "runtime/backtest"
     ],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Fixed replay treated imitation_v4 as a budget usage ratio inside mode_v1 risk bands. It passed all replay acceptance checks: test_2022 MaxDD 25.6%, avg_pos 0.214, test_proxy 2003.6% / Sharpe 1.248 / MaxDD 45.0%. Keep as candidate fixed-replay mechanism; next step must implement runtime/backtest parity before any promotion claim.",
     "excerpt": "# Risk-budget usage replay candidate ## Context The prior `two_speed_mode_budget_v1` composition used `mode_v1` as a slow anchor and let `imitation_v4` participate above that anchor by mode slack. It improved proxy quality but still failed strict `test_2022 MaxDD <= 30%`. `risk_b"
   },
@@ -2321,7 +2322,7 @@
       "stress-regime"
     ],
     "artifacts": [],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Legacy memory note normalized into the repo-wide schema. 将 agentic-alpha 的因子挖掘方法论适配到 SOXL 单标的择时场景，建立独立于 RL 训练的特征挖掘、验证、入库体系。 原始：每日截面 Spearman（多股票横截面排名） 适配：滚动 21 日时序 Pearson 相关（单标的时间序列） 判定标准：`mean_ic > 0.03`, `ic_positive_ratio > 0.55`, `ic_t",
     "excerpt": "# SOXL 特征挖掘 Skill 适配完成 ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## 目标 将 agentic-alpha 的因子挖掘方法论适配到 SOXL 单标的择时场景，建立独立于 RL 训练的特征挖掘、验证、入库体系。 ## 核心适配 ### 1. 从截面 Rank IC 转时序 IC - 原始：每日截面 Spearman（多股票横截面排名） - 适配：滚动 21 日时序 Pearson 相关（单标的时间序列） - 判定标准"
   },
@@ -2345,11 +2346,11 @@
       "soxl"
     ],
     "artifacts": [
-      "runtime/post_train_review/balanced_rule_residual_imitation_v4_soxl_daily.csv",
-      "runtime/post_train_review/balanced_rule_residual_mode_v1_soxl_daily.csv",
-      "runtime/post_train_review/two_speed_mode_budget_v1."
+      "evidence/post_train_review/balanced_rule_residual_imitation_v4_soxl_daily.csv",
+      "evidence/post_train_review/balanced_rule_residual_mode_v1_soxl_daily.csv",
+      "evidence/post_train_review/two_speed_mode_budget_v1."
     ],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Fixed-signal two-speed replay combined mode_v1 as the slow risk anchor with imitation_v4 as the fast participation path. Proxy and restart participation improved, but test_2022 MaxDD remained 33.9%, above the strict 30% gate. Keep the replay tool and drop the candidate; next work should avoid mild slack/budget retrains and require stronger crisis-state protection or external hedge mechanics.",
     "excerpt": "# Two-speed mode budget replay dropped ## Context The current bottleneck is not training depth. `mode_v1` provides the best retained risk-quality frontier, while `imitation_v4` improves restart participation but misses the strict 30% drawdown target. This replay tested whether a "
   },
@@ -2368,7 +2369,7 @@
       "soxl"
     ],
     "artifacts": [
-      "runtime/evidence_index.json"
+      "evidence/index.json"
     ],
     "workpad": "codex_exec_plans/active/current.md",
     "summary": "Split the oversized active workpad into compact current state plus completed archives, separated research knowledge by mechanism category, introduced data and runtime indexes, and narrowed experiment packages back toward concise cards. The repo-local .codex skill rename was attempted but filesystem approval blocked writes to .codex/skills in this session.",
@@ -2392,7 +2393,7 @@
       "soxl"
     ],
     "artifacts": [],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Implemented a deployable hierarchical online composer with explicit slow mode refresh above the retained imitation_v4 actor. Rule-router variants improved safety modestly, and learned-router variants lifted proxy return to 102-415 percent across the 3x ETF set, but all remained materially below fixed replay and the learned variants spent more 2022 drawdown budget. Keep the composer as a runtime diagnostic, not a production promotion.",
     "excerpt": "# Hierarchical online budget runtime generalization ## Context The fixed `risk_budget_usage_v1` replay is still much stronger than any single actor/runtime form. This loop tested whether making the runtime explicitly hierarchical would recover part of that gap without another tra"
   },
@@ -2412,10 +2413,10 @@
       "walk-forward"
     ],
     "artifacts": [
-      "runtime/post_train_review/regime_conditional_ic_analysis.md",
-      "runtime/post_train_review/regime_overlay_test_results.md"
+      "evidence/post_train_review/regime_conditional_ic_analysis.md",
+      "evidence/post_train_review/regime_overlay_test_results.md"
     ],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Legacy memory note normalized into the repo-wide schema. After regime-conditional IC analysis revealed that feature predictive power is highly regime-dependent, we tested execution overlays using existing features with regime gating. **Majo",
     "excerpt": "# 2026-04-24: Regime-Conditional Overlay Discovery — vol_stress ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## Discovery After regime-conditional IC analysis revealed that feature predictive power is highly regime-dependent, we tested execution"
   },
@@ -2432,11 +2433,11 @@
       "review"
     ],
     "artifacts": [
-      "runtime/post_train_review/hierarchical_online_budget_daily/soxl_hier_learned_slow5.csv",
-      "runtime/post_train_review/risk_budget_learned_attention_oracle_distill_v1.json",
-      "runtime/post_train_review/risk_budget_learned_attention_oracle_distill_v1.md"
+      "evidence/post_train_review/hierarchical_online_budget_daily/soxl_hier_learned_slow5.csv",
+      "evidence/post_train_review/risk_budget_learned_attention_oracle_distill_v1.json",
+      "evidence/post_train_review/risk_budget_learned_attention_oracle_distill_v1.md"
     ],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Swapping the learned-router oracle probe backbone from GRU to attention produced effectively identical policy metrics. This compresses the search space further: same-scale backbone swaps are not enough to close the learned-router gap.",
     "excerpt": "# Learned-router attention oracle distillation ## Context After head and conditioning variants failed, this loop tested whether a small attention backbone could beat the GRU oracle probe on the same teacher path. ## Evidence Command: ```bash PYTHONPATH=. qlib_venv/bin/python scri"
   },
@@ -2453,11 +2454,11 @@
       "review"
     ],
     "artifacts": [
-      "runtime/post_train_review/hierarchical_online_budget_daily/soxl_hier_learned_slow5.csv",
-      "runtime/post_train_review/risk_budget_learned_conditioned_oracle_distill_v1.json",
-      "runtime/post_train_review/risk_budget_learned_conditioned_oracle_distill_v1.md"
+      "evidence/post_train_review/hierarchical_online_budget_daily/soxl_hier_learned_slow5.csv",
+      "evidence/post_train_review/risk_budget_learned_conditioned_oracle_distill_v1.json",
+      "evidence/post_train_review/risk_budget_learned_conditioned_oracle_distill_v1.md"
     ],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Explicit slow-mode one-hot conditioning did not improve the learned-router oracle distillation probe. Proxy return fell from 412.9 percent to 387.1 percent and MaxDD rose from 28.7 percent to 30.1 percent, so simple regime identity is not the missing ingredient.",
     "excerpt": "# Learned-router conditioned oracle distillation diagnostic ## Context After the learned-router oracle probe, the next cheapest question was whether the fast actor simply needed explicit slow-mode identity. ## Evidence Command: ```bash PYTHONPATH=. qlib_venv/bin/python scripts/bu"
   },
@@ -2474,11 +2475,11 @@
       "review"
     ],
     "artifacts": [
-      "runtime/post_train_review/hierarchical_online_budget_daily/soxl_hier_learned_slow5.csv",
-      "runtime/post_train_review/risk_budget_learned_oracle_distill_v1.json",
-      "runtime/post_train_review/risk_budget_learned_oracle_distill_v1.md"
+      "evidence/post_train_review/hierarchical_online_budget_daily/soxl_hier_learned_slow5.csv",
+      "evidence/post_train_review/risk_budget_learned_oracle_distill_v1.json",
+      "evidence/post_train_review/risk_budget_learned_oracle_distill_v1.md"
     ],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "No-promotion oracle distillation from the deployable learned-router slow5 daily path reached test_proxy 412.9 percent, Sharpe 1.042, and MaxDD 28.7 percent. This is stronger than the prior oracle distill but still far below the target path, so the bottleneck remains single-actor capacity in the learned-router regime.",
     "excerpt": "# Learned-router oracle distillation diagnostic ## Context The hierarchical runtime diagnostic suggested that the best deployable line is a learned router with slow refresh. This loop tested whether a single actor can represent that line when trained directly on the resulting dai"
   },
@@ -2495,13 +2496,40 @@
       "review"
     ],
     "artifacts": [
-      "runtime/post_train_review/hierarchical_online_budget_daily/soxl_hier_learned_slow5.csv",
-      "runtime/post_train_review/risk_budget_learned_usage_regression_v1.json",
-      "runtime/post_train_review/risk_budget_learned_usage_regression_v1.md"
+      "evidence/post_train_review/hierarchical_online_budget_daily/soxl_hier_learned_slow5.csv",
+      "evidence/post_train_review/risk_budget_learned_usage_regression_v1.json",
+      "evidence/post_train_review/risk_budget_learned_usage_regression_v1.md"
     ],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Continuous usage regression on the learned-router teacher path fit the labels very well but produced a much worse policy than the learned-router oracle classifier. Proxy return fell to 222.8 percent and MaxDD rose to 34.7 percent, so discrete label quantization is not the main bottleneck.",
     "excerpt": "# Learned-router usage regression probe ## Context The next cheap question after the failed mode-conditioning probe was whether the 5-bin action head itself was the bottleneck. ## Evidence Command: ```bash PYTHONPATH=. qlib_venv/bin/python scripts/build_budget_usage_regression_pr"
+  },
+  {
+    "path": "memory/2026-04-24-source-boundary-refactor.md",
+    "date": "2026-04-24",
+    "title": "Source boundary refactor for evidence, runtime, experiments, memory, and data",
+    "kind": "ops",
+    "profiles": [
+      "soxl"
+    ],
+    "status": "kept",
+    "tags": [
+      "kept",
+      "ops",
+      "soxl"
+    ],
+    "artifacts": [
+      "evidence/index.json",
+      "evidence/runtime/data",
+      "runtime/diagnosis",
+      "runtime/feature_analysis",
+      "runtime/generalization",
+      "runtime/post_train_review",
+      "runtime/soxl/"
+    ],
+    "workpad": "codex_exec_plans/active/current.md",
+    "summary": "Runtime is now execution state only, generated research artifacts live under evidence, 3x ETF universe config is explicit, and boundary drift is checked by the harness.",
+    "excerpt": "# Source boundary refactor for evidence/runtime/data ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## Decision Keep responsibilities narrow: - `runtime/`: live execution state only, currently `runtime/soxl/`. - `evidence/`: generated research and"
   },
   {
     "path": "memory/2026-04-24-transition-signals-rejected.md",
@@ -2523,7 +2551,7 @@
       "transition-features"
     ],
     "artifacts": [],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "Legacy memory note normalized into the repo-wide schema. Date: 2026-04-24 Profile: `balanced_rule_residual_v19_transition` Hypothesis: transition-state features (stress-release detection) would improve RL performance Method: add 7 transitio",
     "excerpt": "# Transition Signals Experiment Rejected ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence Date: 2026-04-24 ## Experiment - Profile: `balanced_rule_residual_v19_transition` - Hypothesis: transition-state features (stress-release detection) would impr"
   },
@@ -2544,7 +2572,7 @@
       "failure"
     ],
     "artifacts": [],
-    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "workpad": "codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md",
     "summary": "`memory/` is the continuity layer for durable decisions, failures, reviews, and reusable session context that should survive chat history. Do not scan all notes by hand first. Read in this order: 1. `memory/index.json` 2. `qlib_venv/bin/pyt",
     "excerpt": "# Memory `memory/` is the continuity layer for durable decisions, failures, reviews, and reusable session context that should survive chat history. ## Read Order Do not scan all notes by hand first. Read in this order: 1. `memory/index.json` 2. `qlib_venv/bin/python scripts/memor"
   }

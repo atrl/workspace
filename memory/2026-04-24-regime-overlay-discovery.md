@@ -12,9 +12,9 @@ tags:
 - transition-features
 - walk-forward
 artifacts:
-- runtime/post_train_review/regime_conditional_ic_analysis.md
-- runtime/post_train_review/regime_overlay_test_results.md
-workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+- evidence/post_train_review/regime_conditional_ic_analysis.md
+- evidence/post_train_review/regime_overlay_test_results.md
+workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
 summary: Legacy memory note normalized into the repo-wide schema. After regime-conditional
   IC analysis revealed that feature predictive power is highly regime-dependent, we
   tested execution overlays using existing features with regime gating. **Majo
@@ -72,8 +72,8 @@ risk and no retraining cost.
 - `src/soxl_quant/backtest.py`: Added `regime_mode`, `vol_stress`,
   `downside_bull`, `dual_regime`, `vol_vix_combo`, `rv63_stress` overlay types
 - `scripts/test_transition_overlay.py`: Updated to support new overlay types
-- `runtime/post_train_review/regime_conditional_ic_analysis.md`: Regime IC analysis
-- `runtime/post_train_review/regime_overlay_test_results.md`: Complete overlay results
+- `evidence/post_train_review/regime_conditional_ic_analysis.md`: Regime IC analysis
+- `evidence/post_train_review/regime_overlay_test_results.md`: Complete overlay results
 - `docs/experiment-landscape-review.md`: Added overlay comparison section
 
 ## Next Actions

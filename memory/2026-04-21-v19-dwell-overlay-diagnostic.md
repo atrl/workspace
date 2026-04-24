@@ -14,7 +14,7 @@ tags:
 - soxl
 - stress-regime
 artifacts: []
-workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
 summary: 'Base actor: `balanced_rule_residual_v19` Motivation: `v24` showed that lower-frequency
   coarse retraining did not reduce realized churn, so the next cheap question was
   whether the missing ingredient was execution-side persistence. `dwell_hol'

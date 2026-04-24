@@ -9,10 +9,10 @@ tags:
 - eval-2022
 - review
 artifacts:
-- runtime/post_train_review/hierarchical_online_budget_daily/soxl_hier_learned_slow5.csv
-- runtime/post_train_review/risk_budget_learned_oracle_distill_v1.json
-- runtime/post_train_review/risk_budget_learned_oracle_distill_v1.md
-workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+- evidence/post_train_review/hierarchical_online_budget_daily/soxl_hier_learned_slow5.csv
+- evidence/post_train_review/risk_budget_learned_oracle_distill_v1.json
+- evidence/post_train_review/risk_budget_learned_oracle_distill_v1.md
+workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
 summary: No-promotion oracle distillation from the deployable learned-router slow5
   daily path reached test_proxy 412.9 percent, Sharpe 1.042, and MaxDD 28.7 percent.
   This is stronger than the prior oracle distill but still far below the target path,
@@ -34,12 +34,12 @@ Command:
 ```bash
 PYTHONPATH=. qlib_venv/bin/python scripts/build_budget_usage_oracle_actor.py \
   --profile risk_budget_learned_oracle_distill_v1 \
-  --replay-daily runtime/post_train_review/hierarchical_online_budget_daily/soxl_hier_learned_slow5.csv \
+  --replay-daily evidence/post_train_review/hierarchical_online_budget_daily/soxl_hier_learned_slow5.csv \
   --skip-data-refresh \
   --steps 1600 \
   --sample-size 0 \
-  --output-json runtime/post_train_review/risk_budget_learned_oracle_distill_v1.json \
-  --output-md runtime/post_train_review/risk_budget_learned_oracle_distill_v1.md
+  --output-json evidence/post_train_review/risk_budget_learned_oracle_distill_v1.json \
+  --output-md evidence/post_train_review/risk_budget_learned_oracle_distill_v1.md
 ```
 
 Results:

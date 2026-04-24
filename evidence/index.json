@@ -1,0 +1,641 @@
+{
+  "generated_at": "2026-04-24T07:17:08.732200+00:00",
+  "entries": [
+    {
+      "path": "evidence/README.md",
+      "evidence_type": "root",
+      "suffix": ".md",
+      "bytes": 746
+    },
+    {
+      "path": "evidence/diagnosis/deep_dive_rl_vs_rulebased.md",
+      "evidence_type": "diagnosis",
+      "suffix": ".md",
+      "bytes": 12868
+    },
+    {
+      "path": "evidence/diagnosis/feature_correlation_raw.json",
+      "evidence_type": "diagnosis",
+      "suffix": ".json",
+      "bytes": 4142
+    },
+    {
+      "path": "evidence/diagnosis/model_adjustment_roadmap.md",
+      "evidence_type": "diagnosis",
+      "suffix": ".md",
+      "bytes": 8491
+    },
+    {
+      "path": "evidence/diagnosis/new_feature_scan.md",
+      "evidence_type": "diagnosis",
+      "suffix": ".md",
+      "bytes": 4334
+    },
+    {
+      "path": "evidence/diagnosis/period_slice_comparison.md",
+      "evidence_type": "diagnosis",
+      "suffix": ".md",
+      "bytes": 2220
+    },
+    {
+      "path": "evidence/diagnosis/phase1_phase2_combined.json",
+      "evidence_type": "diagnosis",
+      "suffix": ".json",
+      "bytes": 13282
+    },
+    {
+      "path": "evidence/diagnosis/soxl_trade_attribution.md",
+      "evidence_type": "diagnosis",
+      "suffix": ".md",
+      "bytes": 2009
+    },
+    {
+      "path": "evidence/diagnosis/underperform_quarters.json",
+      "evidence_type": "diagnosis",
+      "suffix": ".json",
+      "bytes": 2657
+    },
+    {
+      "path": "evidence/generalization/comparison.png",
+      "evidence_type": "generalization",
+      "suffix": ".png",
+      "bytes": 93368
+    },
+    {
+      "path": "evidence/generalization/dashboard-headless.png",
+      "evidence_type": "generalization",
+      "suffix": ".png",
+      "bytes": 211160
+    },
+    {
+      "path": "evidence/generalization/dashboard.html",
+      "evidence_type": "generalization",
+      "suffix": ".html",
+      "bytes": 33555670
+    },
+    {
+      "path": "evidence/generalization/detailed/soxl_strategy_vs_buyhold.png",
+      "evidence_type": "generalization",
+      "suffix": ".png",
+      "bytes": 931523
+    },
+    {
+      "path": "evidence/generalization/detailed/spxl_strategy_vs_buyhold.png",
+      "evidence_type": "generalization",
+      "suffix": ".png",
+      "bytes": 809757
+    },
+    {
+      "path": "evidence/generalization/detailed/tecl_strategy_vs_buyhold.png",
+      "evidence_type": "generalization",
+      "suffix": ".png",
+      "bytes": 905577
+    },
+    {
+      "path": "evidence/generalization/detailed/tqqq_strategy_vs_buyhold.png",
+      "evidence_type": "generalization",
+      "suffix": ".png",
+      "bytes": 882980
+    },
+    {
+      "path": "evidence/generalization/detailed/upro_strategy_vs_buyhold.png",
+      "evidence_type": "generalization",
+      "suffix": ".png",
+      "bytes": 810095
+    },
+    {
+      "path": "evidence/generalization/soxl_strategy_vs_buyhold.png",
+      "evidence_type": "generalization",
+      "suffix": ".png",
+      "bytes": 930994
+    },
+    {
+      "path": "evidence/post_train_review/balanced_checkpoint_review.md",
+      "evidence_type": "post_train_review",
+      "suffix": ".md",
+      "bytes": 1479
+    },
+    {
+      "path": "evidence/post_train_review/balanced_checkpoint_review_vs_balanced.md",
+      "evidence_type": "post_train_review",
+      "suffix": ".md",
+      "bytes": 1985
+    },
+    {
+      "path": "evidence/post_train_review/balanced_phase_sampling_v1.md",
+      "evidence_type": "post_train_review",
+      "suffix": ".md",
+      "bytes": 1479
+    },
+    {
+      "path": "evidence/post_train_review/balanced_phase_sampling_v1_vs_balanced.md",
+      "evidence_type": "post_train_review",
+      "suffix": ".md",
+      "bytes": 1987
+    },
+    {
+      "path": "evidence/post_train_review/balanced_phase_sampling_v1_vs_reward_guard.md",
+      "evidence_type": "post_train_review",
+      "suffix": ".md",
+      "bytes": 1787
+    },
+    {
+      "path": "evidence/post_train_review/balanced_position_cap_counterfactual.json",
+      "evidence_type": "post_train_review",
+      "suffix": ".json",
+      "bytes": 11406
+    },
+    {
+      "path": "evidence/post_train_review/balanced_position_cap_counterfactual_ranking.md",
+      "evidence_type": "post_train_review",
+      "suffix": ".md",
+      "bytes": 3062
+    },
+    {
+      "path": "evidence/post_train_review/balanced_reward_guard.md",
+      "evidence_type": "post_train_review",
+      "suffix": ".md",
+      "bytes": 1187
+    },
+    {
+      "path": "evidence/post_train_review/balanced_reward_guard_vs_balanced.md",
+      "evidence_type": "post_train_review",
+      "suffix": ".md",
+      "bytes": 1825
+    },
+    {
+      "path": "evidence/post_train_review/balanced_reward_guard_vs_stress_select_v2.md",
+      "evidence_type": "post_train_review",
+      "suffix": ".md",
+      "bytes": 1744
+    },
+    {
+      "path": "evidence/post_train_review/balanced_stress_select_v2.md",
+      "evidence_type": "post_train_review",
+      "suffix": ".md",
+      "bytes": 1477
+    },
+    {
+      "path": "evidence/post_train_review/balanced_stress_select_v2_vs_balanced.md",
+      "evidence_type": "post_train_review",
+      "suffix": ".md",
+      "bytes": 1811
+    },
+    {
+      "path": "evidence/post_train_review/balanced_stress_select_v2_vs_stress_select.md",
+      "evidence_type": "post_train_review",
+      "suffix": ".md",
+      "bytes": 1851
+    },
+    {
+      "path": "evidence/post_train_review/balanced_structural_v1.md",
+      "evidence_type": "post_train_review",
+      "suffix": ".md",
+      "bytes": 1471
+    },
+    {
+      "path": "evidence/post_train_review/balanced_structural_v1_vs_balanced.md",
+      "evidence_type": "post_train_review",
+      "suffix": ".md",
+      "bytes": 1708
+    },
+    {
+      "path": "evidence/post_train_review/balanced_structural_v1_vs_reward_guard.md",
+      "evidence_type": "post_train_review",
+      "suffix": ".md",
+      "bytes": 1811
+    },
+    {
+      "path": "evidence/post_train_review/balanced_trade_quality_audit.md",
+      "evidence_type": "post_train_review",
+      "suffix": ".md",
+      "bytes": 2080
+    },
+    {
+      "path": "evidence/post_train_review/hierarchical_online_budget_daily/soxl_actor_runtime.csv",
+      "evidence_type": "post_train_review",
+      "suffix": ".csv",
+      "bytes": 227885
+    },
+    {
+      "path": "evidence/post_train_review/hierarchical_online_budget_daily/soxl_hier_learned_daily.csv",
+      "evidence_type": "post_train_review",
+      "suffix": ".csv",
+      "bytes": 235813
+    },
+    {
+      "path": "evidence/post_train_review/hierarchical_online_budget_daily/soxl_hier_learned_slow5.csv",
+      "evidence_type": "post_train_review",
+      "suffix": ".csv",
+      "bytes": 235972
+    },
+    {
+      "path": "evidence/post_train_review/hierarchical_online_budget_daily/soxl_hier_rule_daily.csv",
+      "evidence_type": "post_train_review",
+      "suffix": ".csv",
+      "bytes": 232327
+    },
+    {
+      "path": "evidence/post_train_review/hierarchical_online_budget_daily/soxl_hier_rule_slow5.csv",
+      "evidence_type": "post_train_review",
+      "suffix": ".csv",
+      "bytes": 233301
+    },
+    {
+      "path": "evidence/post_train_review/hierarchical_online_budget_daily/spxl_actor_runtime.csv",
+      "evidence_type": "post_train_review",
+      "suffix": ".csv",
+      "bytes": 225613
+    },
+    {
+      "path": "evidence/post_train_review/hierarchical_online_budget_daily/spxl_hier_learned_daily.csv",
+      "evidence_type": "post_train_review",
+      "suffix": ".csv",
+      "bytes": 230580
+    },
+    {
+      "path": "evidence/post_train_review/hierarchical_online_budget_daily/spxl_hier_learned_slow5.csv",
+      "evidence_type": "post_train_review",
+      "suffix": ".csv",
+      "bytes": 230602
+    },
+    {
+      "path": "evidence/post_train_review/hierarchical_online_budget_daily/spxl_hier_rule_daily.csv",
+      "evidence_type": "post_train_review",
+      "suffix": ".csv",
+      "bytes": 229199
+    },
+    {
+      "path": "evidence/post_train_review/hierarchical_online_budget_daily/spxl_hier_rule_slow5.csv",
+      "evidence_type": "post_train_review",
+      "suffix": ".csv",
+      "bytes": 228976
+    },
+    {
+      "path": "evidence/post_train_review/hierarchical_online_budget_daily/tecl_actor_runtime.csv",
+      "evidence_type": "post_train_review",
+      "suffix": ".csv",
+      "bytes": 226466
+    },
+    {
+      "path": "evidence/post_train_review/hierarchical_online_budget_daily/tecl_hier_learned_daily.csv",
+      "evidence_type": "post_train_review",
+      "suffix": ".csv",
+      "bytes": 233003
+    },
+    {
+      "path": "evidence/post_train_review/hierarchical_online_budget_daily/tecl_hier_learned_slow5.csv",
+      "evidence_type": "post_train_review",
+      "suffix": ".csv",
+      "bytes": 232027
+    },
+    {
+      "path": "evidence/post_train_review/hierarchical_online_budget_daily/tecl_hier_rule_daily.csv",
+      "evidence_type": "post_train_review",
+      "suffix": ".csv",
+      "bytes": 230012
+    },
+    {
+      "path": "evidence/post_train_review/hierarchical_online_budget_daily/tecl_hier_rule_slow5.csv",
+      "evidence_type": "post_train_review",
+      "suffix": ".csv",
+      "bytes": 230895
+    },
+    {
+      "path": "evidence/post_train_review/hierarchical_online_budget_daily/tqqq_actor_runtime.csv",
+      "evidence_type": "post_train_review",
+      "suffix": ".csv",
+      "bytes": 226235
+    },
+    {
+      "path": "evidence/post_train_review/hierarchical_online_budget_daily/tqqq_hier_learned_daily.csv",
+      "evidence_type": "post_train_review",
+      "suffix": ".csv",
+      "bytes": 231658
+    },
+    {
+      "path": "evidence/post_train_review/hierarchical_online_budget_daily/tqqq_hier_learned_slow5.csv",
+      "evidence_type": "post_train_review",
+      "suffix": ".csv",
+      "bytes": 231921
+    },
+    {
+      "path": "evidence/post_train_review/hierarchical_online_budget_daily/tqqq_hier_rule_daily.csv",
+      "evidence_type": "post_train_review",
+      "suffix": ".csv",
+      "bytes": 229827
+    },
+    {
+      "path": "evidence/post_train_review/hierarchical_online_budget_daily/tqqq_hier_rule_slow5.csv",
+      "evidence_type": "post_train_review",
+      "suffix": ".csv",
+      "bytes": 230263
+    },
+    {
+      "path": "evidence/post_train_review/hierarchical_online_budget_daily/upro_actor_runtime.csv",
+      "evidence_type": "post_train_review",
+      "suffix": ".csv",
+      "bytes": 225701
+    },
+    {
+      "path": "evidence/post_train_review/hierarchical_online_budget_daily/upro_hier_learned_daily.csv",
+      "evidence_type": "post_train_review",
+      "suffix": ".csv",
+      "bytes": 230862
+    },
+    {
+      "path": "evidence/post_train_review/hierarchical_online_budget_daily/upro_hier_learned_slow5.csv",
+      "evidence_type": "post_train_review",
+      "suffix": ".csv",
+      "bytes": 230698
+    },
+    {
+      "path": "evidence/post_train_review/hierarchical_online_budget_daily/upro_hier_rule_daily.csv",
+      "evidence_type": "post_train_review",
+      "suffix": ".csv",
+      "bytes": 229433
+    },
+    {
+      "path": "evidence/post_train_review/hierarchical_online_budget_daily/upro_hier_rule_slow5.csv",
+      "evidence_type": "post_train_review",
+      "suffix": ".csv",
+      "bytes": 229130
+    },
+    {
+      "path": "evidence/post_train_review/hierarchical_online_budget_generalization.json",
+      "evidence_type": "post_train_review",
+      "suffix": ".json",
+      "bytes": 25077
+    },
+    {
+      "path": "evidence/post_train_review/hierarchical_online_budget_generalization.md",
+      "evidence_type": "post_train_review",
+      "suffix": ".md",
+      "bytes": 2050
+    },
+    {
+      "path": "evidence/post_train_review/risk_budget_bc_warmstart_v1_bc.json",
+      "evidence_type": "post_train_review",
+      "suffix": ".json",
+      "bytes": 1545
+    },
+    {
+      "path": "evidence/post_train_review/risk_budget_bc_warmstart_v1_bc.md",
+      "evidence_type": "post_train_review",
+      "suffix": ".md",
+      "bytes": 951
+    },
+    {
+      "path": "evidence/post_train_review/risk_budget_learned_attention_oracle_distill_v1.json",
+      "evidence_type": "post_train_review",
+      "suffix": ".json",
+      "bytes": 1600
+    },
+    {
+      "path": "evidence/post_train_review/risk_budget_learned_attention_oracle_distill_v1.md",
+      "evidence_type": "post_train_review",
+      "suffix": ".md",
+      "bytes": 1080
+    },
+    {
+      "path": "evidence/post_train_review/risk_budget_learned_conditioned_oracle_distill_v1.json",
+      "evidence_type": "post_train_review",
+      "suffix": ".json",
+      "bytes": 1603
+    },
+    {
+      "path": "evidence/post_train_review/risk_budget_learned_conditioned_oracle_distill_v1.md",
+      "evidence_type": "post_train_review",
+      "suffix": ".md",
+      "bytes": 1084
+    },
+    {
+      "path": "evidence/post_train_review/risk_budget_learned_oracle_distill_v1.json",
+      "evidence_type": "post_train_review",
+      "suffix": ".json",
+      "bytes": 1549
+    },
+    {
+      "path": "evidence/post_train_review/risk_budget_learned_oracle_distill_v1.md",
+      "evidence_type": "post_train_review",
+      "suffix": ".md",
+      "bytes": 1060
+    },
+    {
+      "path": "evidence/post_train_review/risk_budget_learned_usage_regression_v1.json",
+      "evidence_type": "post_train_review",
+      "suffix": ".json",
+      "bytes": 1474
+    },
+    {
+      "path": "evidence/post_train_review/risk_budget_learned_usage_regression_v1.md",
+      "evidence_type": "post_train_review",
+      "suffix": ".md",
+      "bytes": 886
+    },
+    {
+      "path": "evidence/post_train_review/risk_budget_oracle_distill_v1.json",
+      "evidence_type": "post_train_review",
+      "suffix": ".json",
+      "bytes": 1521
+    },
+    {
+      "path": "evidence/post_train_review/risk_budget_oracle_distill_v1.md",
+      "evidence_type": "post_train_review",
+      "suffix": ".md",
+      "bytes": 1029
+    },
+    {
+      "path": "evidence/post_train_review/risk_budget_usage_v1.json",
+      "evidence_type": "post_train_review",
+      "suffix": ".json",
+      "bytes": 3518
+    },
+    {
+      "path": "evidence/post_train_review/risk_budget_usage_v1.md",
+      "evidence_type": "post_train_review",
+      "suffix": ".md",
+      "bytes": 985
+    },
+    {
+      "path": "evidence/post_train_review/risk_budget_usage_v1_actor_parity.json",
+      "evidence_type": "post_train_review",
+      "suffix": ".json",
+      "bytes": 1461
+    },
+    {
+      "path": "evidence/post_train_review/risk_budget_usage_v1_actor_parity.md",
+      "evidence_type": "post_train_review",
+      "suffix": ".md",
+      "bytes": 1358
+    },
+    {
+      "path": "evidence/post_train_review/risk_budget_usage_v1_actor_parity_soxl_daily.csv",
+      "evidence_type": "post_train_review",
+      "suffix": ".csv",
+      "bytes": 198520
+    },
+    {
+      "path": "evidence/post_train_review/risk_budget_usage_v1_cross_etf.json",
+      "evidence_type": "post_train_review",
+      "suffix": ".json",
+      "bytes": 11334
+    },
+    {
+      "path": "evidence/post_train_review/risk_budget_usage_v1_cross_etf.md",
+      "evidence_type": "post_train_review",
+      "suffix": ".md",
+      "bytes": 2127
+    },
+    {
+      "path": "evidence/post_train_review/risk_budget_usage_v1_cross_etf_daily/soxl_actor_budget_runtime.csv",
+      "evidence_type": "post_train_review",
+      "suffix": ".csv",
+      "bytes": 198470
+    },
+    {
+      "path": "evidence/post_train_review/risk_budget_usage_v1_cross_etf_daily/soxl_fixed_signal_transfer.csv",
+      "evidence_type": "post_train_review",
+      "suffix": ".csv",
+      "bytes": 187455
+    },
+    {
+      "path": "evidence/post_train_review/risk_budget_usage_v1_cross_etf_daily/spxl_actor_budget_runtime.csv",
+      "evidence_type": "post_train_review",
+      "suffix": ".csv",
+      "bytes": 200292
+    },
+    {
+      "path": "evidence/post_train_review/risk_budget_usage_v1_cross_etf_daily/spxl_fixed_signal_transfer.csv",
+      "evidence_type": "post_train_review",
+      "suffix": ".csv",
+      "bytes": 188015
+    },
+    {
+      "path": "evidence/post_train_review/risk_budget_usage_v1_cross_etf_daily/tecl_actor_budget_runtime.csv",
+      "evidence_type": "post_train_review",
+      "suffix": ".csv",
+      "bytes": 199234
+    },
+    {
+      "path": "evidence/post_train_review/risk_budget_usage_v1_cross_etf_daily/tecl_fixed_signal_transfer.csv",
+      "evidence_type": "post_train_review",
+      "suffix": ".csv",
+      "bytes": 187541
+    },
+    {
+      "path": "evidence/post_train_review/risk_budget_usage_v1_cross_etf_daily/tqqq_actor_budget_runtime.csv",
+      "evidence_type": "post_train_review",
+      "suffix": ".csv",
+      "bytes": 199810
+    },
+    {
+      "path": "evidence/post_train_review/risk_budget_usage_v1_cross_etf_daily/tqqq_fixed_signal_transfer.csv",
+      "evidence_type": "post_train_review",
+      "suffix": ".csv",
+      "bytes": 188022
+    },
+    {
+      "path": "evidence/post_train_review/risk_budget_usage_v1_cross_etf_daily/upro_actor_budget_runtime.csv",
+      "evidence_type": "post_train_review",
+      "suffix": ".csv",
+      "bytes": 200248
+    },
+    {
+      "path": "evidence/post_train_review/risk_budget_usage_v1_cross_etf_daily/upro_fixed_signal_transfer.csv",
+      "evidence_type": "post_train_review",
+      "suffix": ".csv",
+      "bytes": 187866
+    },
+    {
+      "path": "evidence/post_train_review/risk_budget_usage_v1_soxl_daily.csv",
+      "evidence_type": "post_train_review",
+      "suffix": ".csv",
+      "bytes": 279183
+    },
+    {
+      "path": "evidence/post_train_review/smoke_rule_residual_v1_diagnosis/period_slice_comparison.md",
+      "evidence_type": "post_train_review",
+      "suffix": ".md",
+      "bytes": 2218
+    },
+    {
+      "path": "evidence/post_train_review/smoke_rule_residual_v1_diagnosis/phase1_phase2_combined.json",
+      "evidence_type": "post_train_review",
+      "suffix": ".json",
+      "bytes": 13291
+    },
+    {
+      "path": "evidence/post_train_review/smoke_rule_residual_v1_diagnosis/soxl_trade_attribution.md",
+      "evidence_type": "post_train_review",
+      "suffix": ".md",
+      "bytes": 2009
+    },
+    {
+      "path": "evidence/post_train_review/smoke_rule_residual_v1_trade_quality_audit.md",
+      "evidence_type": "post_train_review",
+      "suffix": ".md",
+      "bytes": 2105
+    },
+    {
+      "path": "evidence/post_train_review/two_speed_mode_budget_v1.json",
+      "evidence_type": "post_train_review",
+      "suffix": ".json",
+      "bytes": 3078
+    },
+    {
+      "path": "evidence/post_train_review/two_speed_mode_budget_v1.md",
+      "evidence_type": "post_train_review",
+      "suffix": ".md",
+      "bytes": 978
+    },
+    {
+      "path": "evidence/post_train_review/two_speed_mode_budget_v1_soxl_daily.csv",
+      "evidence_type": "post_train_review",
+      "suffix": ".csv",
+      "bytes": 279651
+    },
+    {
+      "path": "evidence/post_train_review/v19_dwell_overlay_diagnostic.json",
+      "evidence_type": "post_train_review",
+      "suffix": ".json",
+      "bytes": 46528
+    },
+    {
+      "path": "evidence/post_train_review/v19_dwell_overlay_diagnostic.md",
+      "evidence_type": "post_train_review",
+      "suffix": ".md",
+      "bytes": 1889
+    },
+    {
+      "path": "evidence/post_train_review/v19_dwell_overlay_variants.json",
+      "evidence_type": "post_train_review",
+      "suffix": ".json",
+      "bytes": 1499
+    },
+    {
+      "path": "evidence/post_train_review/v19_dwell_stress_merge_review.json",
+      "evidence_type": "post_train_review",
+      "suffix": ".json",
+      "bytes": 11105
+    },
+    {
+      "path": "evidence/post_train_review/v19_dwell_stress_merge_review.md",
+      "evidence_type": "post_train_review",
+      "suffix": ".md",
+      "bytes": 914
+    },
+    {
+      "path": "evidence/post_train_review/v19_overlay_promotion_review.json",
+      "evidence_type": "post_train_review",
+      "suffix": ".json",
+      "bytes": 12306
+    },
+    {
+      "path": "evidence/post_train_review/v19_overlay_promotion_review.md",
+      "evidence_type": "post_train_review",
+      "suffix": ".md",
+      "bytes": 1391
+    }
+  ]
+}

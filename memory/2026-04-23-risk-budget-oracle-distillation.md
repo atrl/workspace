@@ -9,7 +9,7 @@ tags:
 - eval-2022
 - review
 artifacts: []
-workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
 summary: No-promotion oracle distillation used full fixed-replay daily labels for
   risk_budget_usage_v1. The label set contained action-4 full usage, but the single
   actor reached only test_proxy 363.8% / Sharpe 1.090 / MaxDD 23.7%, far below fixed

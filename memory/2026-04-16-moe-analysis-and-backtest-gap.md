@@ -15,7 +15,7 @@ tags:
 - rule-based
 - soxl
 artifacts: []
-workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
 summary: Legacy memory note normalized into the repo-wide schema. Evaluated the multi-asset
   v2 actor (`soxl_balanced_moe_actor.pt`) on the SOXL test set. Extracted gate softmax
   probabilities for every trading day. Performed an **ablation study** by
@@ -81,7 +81,7 @@ Legacy memory note normalized into the repo-wide schema.
 
 ### Method
 - Used the existing rule-based harness (50% min position, panic-buy / profit-taking logic) on all five 3x ETFs.
-- Data fetched from local `data/symbols/{ETF}.csv` with mocked VIX from `data/soxl_soxx_vix_full.csv`.
+- Data fetched from local `data/raw/symbols/{ETF}.csv` with mocked VIX from `data/processed/panels/soxl_soxx_vix_full.csv`.
 
 ### Results (2020-01-02 ~ 2026-03-31)
 

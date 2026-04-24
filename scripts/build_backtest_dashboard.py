@@ -14,11 +14,11 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
 ROOT = Path(__file__).resolve().parent.parent
-RUNTIME_DIR = ROOT / "runtime" / "generalization"
-DETAIL_DIR = RUNTIME_DIR / "detailed"
+GENERALIZATION_DIR = ROOT / "evidence" / "generalization"
+DETAIL_DIR = GENERALIZATION_DIR / "detailed"
 FEATURES_PATH = ROOT / "data" / "features_v2.pkl"
 MODELS_DIR = ROOT / "artifacts" / "models"
-OUTPUT_PATH = RUNTIME_DIR / "dashboard.html"
+OUTPUT_PATH = GENERALIZATION_DIR / "dashboard.html"
 
 C_STRATEGY = "#9a3412"
 C_BUYHOLD = "#0f766e"
@@ -434,11 +434,11 @@ def normalize_post_train_review_rows(raw_rows: list[dict[str, str]]) -> list[dic
 
 
 def _load_post_train_review_versions(features: dict[str, dict[str, float]] | None) -> dict[str, dict]:
-    """Load SOXL daily CSVs from runtime/post_train_review/ and runtime/soxl/paper_trading/ as versioned data."""
+    """Load SOXL daily CSVs from evidence/post_train_review/ and runtime/soxl/paper_trading/ as versioned data."""
     versioned: dict[str, dict] = {}
 
     dirs_to_scan = [
-        ROOT / "runtime" / "post_train_review",
+        ROOT / "evidence" / "post_train_review",
         ROOT / "runtime" / "soxl" / "paper_trading",
     ]
 
@@ -538,7 +538,7 @@ def _load_post_train_review_versions(features: dict[str, dict[str, float]] | Non
 
 
 def _load_versioned_data(features: dict[str, dict[str, float]] | None) -> dict[str, dict]:
-    """Load all versioned backtest results from runtime/generalization/versions/."""
+    """Load all versioned backtest results from evidence/generalization/versions/."""
     versioned: dict[str, dict] = {}
     versions_dir = RUNTIME_DIR / "versions"
     if not versions_dir.exists():
@@ -652,12 +652,12 @@ def build_payload() -> dict[str, object]:
 
     return {
         "generated_from": {
-            "summary": "runtime/generalization/detailed/summary.json",
-            "detailed_dir": "runtime/generalization/detailed",
-            "results": "runtime/generalization/results.json",
-            "rule_based": "runtime/generalization/rule_based_results.json",
-            "execution_overlay": "runtime/generalization/execution_overlay_results.json",
-            "execution_review": "runtime/generalization/execution_overlay_review.md",
+            "summary": "evidence/generalization/detailed/summary.json",
+            "detailed_dir": "evidence/generalization/detailed",
+            "results": "evidence/generalization/results.json",
+            "rule_based": "evidence/generalization/rule_based_results.json",
+            "execution_overlay": "evidence/generalization/execution_overlay_results.json",
+            "execution_review": "evidence/generalization/execution_overlay_review.md",
         },
         "generated_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         "summary": detailed_summary,

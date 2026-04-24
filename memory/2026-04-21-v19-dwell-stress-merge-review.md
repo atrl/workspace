@@ -13,9 +13,9 @@ tags:
 - soxl
 - stress-regime
 artifacts:
-- runtime/post_train_review/v19_dwell_stress_merge_review.json
-- runtime/post_train_review/v19_dwell_stress_merge_review.md
-workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+- evidence/post_train_review/v19_dwell_stress_merge_review.json
+- evidence/post_train_review/v19_dwell_stress_merge_review.md
+workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
 summary: 'Follow-up to the `v19` fixed-actor overlay frontier review. The goal was
   to test one narrow merge only: keep the low-frequency persistence behavior of `dwell_hold_v2`,
   then add only the stress-side asymmetry that had helped `regime_route_v1'
@@ -35,10 +35,10 @@ This was intentionally an execution-layer diagnostic, not a retraining loop.
 ## Evidence
 
 - Workpad:
-  - `codex_exec_plans/active/2026-04-10-soxl-agent-loop.md`
+  - `codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md`
 - Review artifacts:
-  - `runtime/post_train_review/v19_dwell_stress_merge_review.md`
-  - `runtime/post_train_review/v19_dwell_stress_merge_review.json`
+  - `evidence/post_train_review/v19_dwell_stress_merge_review.md`
+  - `evidence/post_train_review/v19_dwell_stress_merge_review.json`
 - Command:
   - `PYTHONPATH=. qlib_venv/bin/python /tmp/v19_dwell_stress_merge_review.py`
 

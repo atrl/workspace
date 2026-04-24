@@ -15,7 +15,7 @@ tags:
 - execution-overlay
 - failure
 artifacts: []
-workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
 summary: 'Experiment: `balanced_rule_residual_v24` Baseline: `balanced_rule_residual_v19`
   Mechanism: `decision_frequency: 2` hybrid residual deltas compressed to `[-0.08,
   0.0, 0.08]` Intent: test whether medium-strength temporal abstraction can reduc'

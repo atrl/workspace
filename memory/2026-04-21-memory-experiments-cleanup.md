@@ -14,7 +14,7 @@ tags:
 - ops
 - smoke_rule_residual_v1
 artifacts: []
-workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
 summary: Reduced `experiments/candidate/` to the real active set (`balanced_rule_residual_v19`,
   `balanced_rule_residual_v22`, `smoke_rule_residual_v1`), moved older packages into
   `experiments/archive/`, clarified the split between experiment cards and memory

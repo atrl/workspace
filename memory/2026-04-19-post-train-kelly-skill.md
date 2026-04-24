@@ -9,9 +9,9 @@ tags:
 - kept
 - skill
 artifacts:
-- runtime/diagnosis/phase1_phase2_combined.json
-- runtime/diagnosis/soxl_trade_attribution.md
-workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+- evidence/diagnosis/phase1_phase2_combined.json
+- evidence/diagnosis/soxl_trade_attribution.md
+workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
 summary: Patched `.codex/skills/post-train-backtest-review/` so post-train review
   now covers negative Kelly / Expectancy diagnosis, reward-alignment interpretation,
   fixed-actor counterfactual order, and optional external analysis stack boundaries.
@@ -42,8 +42,8 @@ The post-train review skill already handled summary / slice / feature comparison
 ## Validation evidence
 
 - Verified the new workflow against existing repo artifacts:
-  - `runtime/diagnosis/phase1_phase2_combined.json`
-  - `runtime/diagnosis/soxl_trade_attribution.md`
+  - `evidence/diagnosis/phase1_phase2_combined.json`
+  - `evidence/diagnosis/soxl_trade_attribution.md`
 - Skill structure validation:
   - `python3 /Users/rziiiii/.codex/skills/.system/skill-creator/scripts/quick_validate.py .codex/skills/post-train-backtest-review`
 

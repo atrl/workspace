@@ -14,7 +14,7 @@ tags:
 - reference
 - stress-regime
 artifacts: []
-workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
 summary: "Minimal reward (5 terms) + regime budget in training produced 492.3%/0.85/48.8%\
   \ \u2014 identical to v12/v13 baseline. Training degraded from iter 0 (random init\
   \ was best). The \"extra\" reward terms (activity_bonus, profit_taking, panic_buy,\

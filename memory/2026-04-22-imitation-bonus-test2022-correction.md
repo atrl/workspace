@@ -12,7 +12,7 @@ tags:
 - soxl
 - walk-forward
 artifacts: []
-workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
 summary: "Legacy memory note normalized into the repo-wide schema. Initial diagnosis\
   \ claimed the model went 100% position right before the Oct 2022 crash: ``` 2022-10-07:\
   \ model_pos=1.00, market=-17.69% \u2192 single day -17.7% ``` Root cause identified\

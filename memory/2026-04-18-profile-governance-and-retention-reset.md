@@ -19,7 +19,7 @@ artifacts:
 - artifacts/models/soxl_balanced_wf_2022_actor.pt
 - artifacts/models/soxl_balanced_wf_2023_2024_actor.pt
 - artifacts/models/soxl_smoke_actor.pt
-workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
 summary: 'The harness had reached the point where `rl.py`, `cli.py`, and the profile
   set were too entangled to answer basic questions reliably: which profile is canonical
   which branches are just ablations which actor checkpoints should still exist wh'

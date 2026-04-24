@@ -1,6 +1,6 @@
 {
   "profile": "risk_budget_oracle_distill_v1",
-  "replay_daily": "runtime/post_train_review/risk_budget_usage_v1_soxl_daily.csv",
+  "replay_daily": "evidence/post_train_review/risk_budget_usage_v1_soxl_daily.csv",
   "seed": 20260411,
   "samples": 1508,
   "label_distribution": {
