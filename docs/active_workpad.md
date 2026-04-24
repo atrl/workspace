@@ -14,6 +14,8 @@ direction: harness
 - ✅ memory/ 整合到 runtime/<direction>/knowledge.md
 - ✅ experiments/ 精简（删除 archive，合并重复分支）
 - ✅ experiments/ 合并到 runtime/：每个实验包精确链接到对应 model card，knowledge.md 新增实验包索引表
+- ✅ risk_budget_usage_v1 card 添加完整 Mermaid 架构图（观测层→Actor→ModeRouter→BudgetUsage→PositionCalc→Execution）
+- ✅ 创建 skill `.codex/skills/risk-budget-architecture/SKILL.md`，记录架构组件、历史表现、待挖掘方向
 - ✅ artifacts/ 按 family 拆分（canonical/balanced/smoke/risk_budget/other）
 - ✅ skills 重命名（soxl-factor-* → leveraged-etf-factor-*）+ _index.json
 - ✅ 知识卡片重组：每个实验独立文件夹 + 统一格式 + 结论

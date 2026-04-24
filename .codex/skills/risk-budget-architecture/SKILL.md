@@ -1,116 +1,153 @@
-# Risk-Budget Architecture
+# Risk Budget Usage 架构
 
-## When to use
+## 用途
 
-Use when designing or debugging a SOXL trading strategy that uses **budget-usage position mapping** instead of direct target-position mapping. This architecture is the only profile family that has passed the fixed-split promotion gate (test_2022 MaxDD < 30%, avg_pos < 0.35, Sharpe > 0.90).
+记录 `risk_budget_usage_v1` 及其变体的两速风险预算架构。该架构是当前 harness 中表现最好的候选模型（Sharpe=0.942，2022 MaxDD=18.7%），核心思想是：
 
-## Core Idea
+> **慢速路径定区间，快速路径定用量。**
 
-Instead of the actor outputting an absolute position (e.g., 0.60 = 60% invested), the actor outputs a **budget usage ratio** (e.g., 0.50 = use 50% of the current mode-owned risk band). A slow mode-router layer decides the allowed risk band, and the fast actor only decides how much of that band to consume.
-
-```
-Traditional:  Actor → target_position ∈ [0, 1]
-Budget-Usage: Actor → usage_ratio ∈ [0, 1] → position = band_floor + usage × (band_cap - band_floor)
-```
-
-## Architecture Diagram
+## 架构概览
 
 ```mermaid
-flowchart TD
-    A[Market State] --> B{Mode Router}
-    B -->|flat_wait| C[Band 0.00-0.25]
-    B -->|defensive_hold| D[Band 0.10-0.45]
-    B -->|crash_rebuild| E[Band 0.25-0.65]
-    B -->|trend_hold| F[Band 0.45-0.95]
-    C & D & E & F --> G[Actor: delta ∈ [-0.10, -0.05, 0, 0.05, 0.10]]
-    G --> H[Usage = map_delta_to_ratio]
-    H --> I[Position = floor + usage × (cap - floor)]
-    I --> J[Position Cap Overlay]
-    J --> K[Final Position]
+graph TB
+    subgraph Observation[观测层]
+        O1[时序特征 ~50维]
+        O2[regime_risk / anchor_gap / cum_drop_30 / vix_zscore]
+        O3[vol_coef / trend_gap / drawdown_streak / below_anchor_ratio]
+    end
+
+    subgraph Actor[Actor 网络]
+        A1[GRU-64 编码]
+        A2[MLP 128→64]
+        A3[输出: 5-action delta]
+    end
+
+    subgraph ModeRouter[Mode Router 慢速风险锚定]
+        M1{infer_mode_from_slow_position}
+        M1 -->|pos ≤ 0.25| F[flat_wait<br/>band: 0.00-0.25]
+        M1 -->|pos ≤ 0.40| D[defensive_hold<br/>band: 0.10-0.45]
+        M1 -->|pos ≤ 0.60| C[crash_rebuild<br/>band: 0.25-0.65]
+        M1 -->|pos > 0.60| T[trend_hold<br/>band: 0.45-0.95]
+    end
+
+    subgraph BudgetUsage[Budget Usage 映射]
+        B1{delta_levels}
+        B1 -->|-0.10| U0[usage=0%]
+        B1 -->|-0.05| U25[usage=25%]
+        B1 -->|0.00| U50[usage=50%]
+        B1 -->|+0.05| U75[usage=75%]
+        B1 -->|+0.10| U100[usage=100%]
+    end
+
+    subgraph PositionCalc[仓位计算]
+        P1[floor + usage × band_width]
+        P2 -->|cum_drop_30| P3[drawdown_position_cap]
+        P3 -->|start_dd=0.10<br/>full_dd=0.30| P4[min_cap=0.40]
+    end
+
+    subgraph Execution[执行层]
+        E1[|target - current| ≥ threshold?]
+        E1 -->|base: 0.04| E2[执行调仓]
+        E1 -->|quiet: 0.08| E3[放宽阈值]
+        E1 -->|stress: 0.012| E4[紧缩阈值]
+        E2 --> E5[trade_lock=5天]
+    end
+
+    O1 --> A1
+    A3 --> B1
+    F & D & C & T --> P1
+    U0 & U25 & U50 & U75 & U100 --> P1
+    P1 --> P2
+    P4 --> E1
 ```
 
-## Mode Bands (risk_budget_usage_v1)
+## 关键组件
 
-| Mode | Floor | Cap | Typical Regime |
-|------|-------|-----|----------------|
-| flat_wait | 0.00 | 0.25 | High regime_risk, no trend |
-| defensive_hold | 0.10 | 0.45 | Medium risk, bearish bias |
-| crash_rebuild | 0.25 | 0.65 | Deep drawdown, early rebound |
-| trend_hold | 0.45 | 0.95 | Confirmed trend, bull market |
+### 1. Mode Router（慢速风险锚定）
 
-## Key Configuration
+由 rule-based 慢速路径（或 `balanced_rule_residual_mode_v1` actor）决定当前风险模式：
 
-```yaml
-model:
-  position_mapping: budget_usage    # Critical: switches from target_position to budget_usage
-  use_hybrid_overlay: true
-  delta_levels: [-0.10, -0.05, 0.0, 0.05, 0.10]  # 5 actions → [0%, 25%, 50%, 75%, 100%]
-  hard_floor: 0.20
+| Mode | Floor | Cap | 含义 |
+|------|-------|-----|------|
+| flat_wait | 0.00 | 0.25 | 空仓/极低仓位等待 |
+| defensive_hold | 0.10 | 0.45 | 防御性持有 |
+| crash_rebuild | 0.25 | 0.65 | 崩盘后重建仓位 |
+| trend_hold | 0.45 | 0.95 | 趋势确认后持有 |
 
-mode_router:
-  enabled: true
-  flat_wait_floor: 0.00
-  flat_wait_cap: 0.25
-  defensive_hold_floor: 0.10
-  defensive_hold_cap: 0.45
-  crash_rebuild_floor: 0.25
-  crash_rebuild_cap: 0.65
-  trend_hold_floor: 0.45
-  trend_hold_cap: 0.95
+实现：`src/soxl_quant/policy/two_speed_budget.py::infer_mode_from_slow_position()`
 
-position_cap:
-  start_drawdown: 0.10    # Start reducing cap at 10% drawdown
-  full_drawdown: 0.30     # Reach min_cap at 30% drawdown
-  min_cap: 0.40
-  bull_min_cap: 0.65      # Higher minimum in bull regime
-  bear_min_cap: 0.30      # Lower minimum in bear regime
+### 2. Budget Usage 映射（快速路径）
+
+Actor 输出 `delta ∈ {-0.10, -0.05, 0, +0.05, +0.10}`，在 `position_mapping: budget_usage` 模式下被映射为 usage ratio：
+
+| Delta | Usage Ratio |
+|-------|-------------|
+| -0.10 | 0% |
+| -0.05 | 25% |
+| 0.00 | 50% |
+| +0.05 | 75% |
+| +0.10 | 100% |
+
+实现：`src/soxl_quant/policy/positioning.py::action_to_budget_usage_position()`
+
+### 3. 仓位计算
+
+```
+position = mode_floor + usage_ratio × (mode_cap - mode_floor)
 ```
 
-## Reward Design
+然后经过 `drawdown_position_cap` 动态压缩：
+- cum_drop_30 ≤ 10%: cap = 1.0
+- cum_drop_30 ≥ 30%: cap = min_cap (0.40 normal, 0.65 bull, 0.30 bear)
+- 之间线性插值
 
-The reward function disables pure log-return (`return_scale: 0.0`) and relies on:
+### 4. 执行层
 
-| Component | Coefficient | Purpose |
-|-----------|-------------|---------|
-| Kelly-alpha | alpha_scale=3.2 | Signal quality from rolling win rate / PF |
-| Risk budget penalty | 0.25 | Penalize exceeding mode-owned band |
-| Micro-rebalance penalty | 0.50 | Stop tiny position adjustments (<5%) |
-| Episode drawdown penalty | 3.5 | Strong penalty for >10% intra-episode DD |
-| Opportunity cost penalty | 0.20 | Penalize being too flat during rallies |
-| Trend alignment bonus | 0.40 | Reward positions aligned with trend |
+- **base_threshold**: 0.04 — 正常阈值
+- **quiet_threshold**: 0.08 — 低波动期放宽
+- **stress_threshold**: 0.012 — 高波动期紧缩
+- **trade_lock_days**: 5 — 防抖锁定
 
-**Disabled**: activity_bonus, inactivity_penalty, return_scale (pure log)
+## 历史表现
 
-## Best Known Result
+| 指标 | 值 |
+|------|-----|
+| test_proxy Return | 274% |
+| test_proxy Sharpe | 0.942 |
+| test_proxy MaxDD | 32.5% |
+| test_2022 Return | -17.3% |
+| test_2022 MaxDD | **18.7%** |
+| test_2022 avg_pos | **0.127** |
 
-From `risk_budget_usage_v1` (native PPO actor):
+**这是唯一通过 test_2022 promotion gate 的候选模型**（MaxDD < 30%, avg_pos < 0.35）。
 
-| Window | Return | Sharpe | MaxDD | AvgPos |
-|--------|--------|--------|-------|--------|
-| test_2020 | 40.9% | 1.61 | 23.7% | 0.27 |
-| test_2022 | -17.3% | -1.21 | **18.7%** | **0.13** |
-| test_2023_2024 | 82.8% | 1.44 | 16.3% | 0.30 |
-| test_proxy | 274.4% | **0.94** | 32.5% | 0.27 |
+## 为什么它有效
 
-**Promotion gate**: ✅ test_2022 MaxDD=18.7% (<30%), ✅ avg_pos=0.127 (<0.35), ✅ Sharpe=0.942 (>0.90)
+1. **风险区间隔离**: Mode Router 在 crisis 时强制进入 flat_wait/defensive_hold 低区间
+2. **用量而非绝对值**: Actor 只决定「用多少预算」，而非「仓位多少」，避免 Actor 在压力下过度加仓
+3. **双层风控**: Mode band + drawdown cap 双重约束
+4. **保守执行**: stress_threshold=0.012 在高波动时几乎禁止调仓
 
-## Common Pitfalls
+## 实验变体
 
-1. **Replay vs Actor gap**: Fixed-replay composition (using already-executed daily paths) gives Sharpe=1.25, but native PPO training under this reward only achieves Sharpe=0.94. The replay is an *upper bound* — do not expect the actor to match it without supervised warm-start.
+| 变体 | 差异 | 结果 |
+|------|------|------|
+| `risk_budget_usage_v1` | PPO 原生训练 | Sharpe=0.942 |
+| `risk_budget_bc_warmstart_v1` | BC warmstart + PPO fine-tune | 待验证 |
+| replay composition | mode_v1 + imitation_v4 路径组合 | Sharpe=1.248 (replay) |
 
-2. **Conservative policy**: PPO tends to learn conservative usage ratios. The avg_pos (0.27) is much lower than canonical balanced (0.52). This is good for risk control but may miss violent rebounds.
+## 待挖掘方向
 
-3. **Missing walk-forward**: The profile passed fixed-split gate but walk-forward validation is missing. Always run walk-forward before promoting.
+- [ ] **Band 动态调整**: 根据 vol_regime 实时缩放 band 宽度
+- [ ] **Mode 预测而非推断**: 让 Actor 直接输出 mode + usage，而非只输出 usage
+- [ ] **Multi-mode 混合**: 允许多个 mode 的加权混合（soft routing）
+- [ ] **Stress 专用 reward**: 在 stress 态下增大仓位惩罚系数
+- [ ] **Supervised warmstart**: 用 replay composition 路径做 BC warmstart
 
-## Next Experiments to Try
+## 相关文件
 
-- **Supervised warm-start**: Pre-train actor on replay path decisions, then PPO fine-tune.
-- **Dynamic band adjustment**: Let band width shrink in high-volatility regimes instead of fixed bands.
-- **Multi-asset budget**: Allocate a single risk budget across multiple ETFs instead of per-asset.
-
-## References
-
-- Card: `runtime/model/cards/risk_budget_usage_v1/card.md`
-- Experiment notes: `experiments/candidate/risk_budget_usage_v1/notes.md`
-- Profile: `experiments/candidate/risk_budget_usage_v1/profile.yaml`
-- Artifact: `artifacts/risk_budget_family/soxl_risk_budget_usage_v1_summary.json`
+- `src/soxl_quant/policy/two_speed_budget.py` — 核心组合逻辑
+- `src/soxl_quant/policy/positioning.py` — budget_usage 映射
+- `experiments/candidate/risk_budget_usage_v1/profile.yaml` — 完整配置
+- `experiments/candidate/risk_budget_usage_v1/notes.md` — 实验记录
+- `runtime/model/cards/risk_budget_usage_v1/card.md` — 运行时卡片
