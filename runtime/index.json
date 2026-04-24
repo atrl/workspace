@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-24T12:25:50.157234+00:00",
+  "generated_at": "2026-04-24T12:37:32.510659+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -8,16 +8,118 @@
       "bytes": 1198
     },
     {
+      "path": "runtime/data/cards/soxl_data_pipeline/card.md",
+      "category": "data",
+      "suffix": ".md",
+      "bytes": 1214
+    },
+    {
       "path": "runtime/data/knowledge.md",
       "category": "data",
       "suffix": ".md",
-      "bytes": 1530
+      "bytes": 1340
+    },
+    {
+      "path": "runtime/execution/cards/balanced_floor40/card.md",
+      "category": "execution",
+      "suffix": ".md",
+      "bytes": 679
+    },
+    {
+      "path": "runtime/execution/cards/balanced_floor40_sym/card.md",
+      "category": "execution",
+      "suffix": ".md",
+      "bytes": 691
+    },
+    {
+      "path": "runtime/execution/cards/balanced_floor40_sym_bear30/card.md",
+      "category": "execution",
+      "suffix": ".md",
+      "bytes": 705
+    },
+    {
+      "path": "runtime/execution/cards/balanced_floor40_sym_cap25/card.md",
+      "category": "execution",
+      "suffix": ".md",
+      "bytes": 699
+    },
+    {
+      "path": "runtime/execution/cards/balanced_floor40_sym_crisis30/card.md",
+      "category": "execution",
+      "suffix": ".md",
+      "bytes": 709
+    },
+    {
+      "path": "runtime/execution/cards/balanced_floor40_sym_crisis30_v2/card.md",
+      "category": "execution",
+      "suffix": ".md",
+      "bytes": 711
+    },
+    {
+      "path": "runtime/execution/cards/balanced_floor40_sym_expectancy/card.md",
+      "category": "execution",
+      "suffix": ".md",
+      "bytes": 713
+    },
+    {
+      "path": "runtime/execution/cards/balanced_floor40_sym_slow_bear/card.md",
+      "category": "execution",
+      "suffix": ".md",
+      "bytes": 707
+    },
+    {
+      "path": "runtime/execution/cards/balanced_floor40_sym_tconv/card.md",
+      "category": "execution",
+      "suffix": ".md",
+      "bytes": 699
+    },
+    {
+      "path": "runtime/execution/cards/balanced_floor40_sym_tight_crash/card.md",
+      "category": "execution",
+      "suffix": ".md",
+      "bytes": 715
+    },
+    {
+      "path": "runtime/execution/cards/balanced_floor40_sym_v2/card.md",
+      "category": "execution",
+      "suffix": ".md",
+      "bytes": 697
+    },
+    {
+      "path": "runtime/execution/cards/balanced_floor40_sym_velocity/card.md",
+      "category": "execution",
+      "suffix": ".md",
+      "bytes": 705
+    },
+    {
+      "path": "runtime/execution/cards/balanced_floor40_sym_velocity_rules/card.md",
+      "category": "execution",
+      "suffix": ".md",
+      "bytes": 717
+    },
+    {
+      "path": "runtime/execution/cards/balanced_rule_residual_learned_mode_v1/card.md",
+      "category": "execution",
+      "suffix": ".md",
+      "bytes": 730
+    },
+    {
+      "path": "runtime/execution/cards/balanced_rule_residual_mode_v1/card.md",
+      "category": "execution",
+      "suffix": ".md",
+      "bytes": 714
+    },
+    {
+      "path": "runtime/execution/cards/balanced_rule_residual_mode_v2/card.md",
+      "category": "execution",
+      "suffix": ".md",
+      "bytes": 714
     },
     {
       "path": "runtime/execution/knowledge.md",
       "category": "execution",
       "suffix": ".md",
-      "bytes": 3665
+      "bytes": 3393
     },
     {
       "path": "runtime/factor/analysis/backtest_ACAD_AMIHUD_ZSCORE.csv",
@@ -122,16 +224,490 @@
       "bytes": 73473
     },
     {
+      "path": "runtime/factor/cards/acad_amihud_zscore/card.md",
+      "category": "factor",
+      "suffix": ".md",
+      "bytes": 609
+    },
+    {
+      "path": "runtime/factor/cards/acad_down_runs/card.md",
+      "category": "factor",
+      "suffix": ".md",
+      "bytes": 603
+    },
+    {
+      "path": "runtime/factor/cards/acad_down_up_ratio/card.md",
+      "category": "factor",
+      "suffix": ".md",
+      "bytes": 597
+    },
+    {
+      "path": "runtime/factor/cards/acad_down_up_ratio_63/card.md",
+      "category": "factor",
+      "suffix": ".md",
+      "bytes": 599
+    },
+    {
+      "path": "runtime/factor/cards/acad_intraday_reversal_21/card.md",
+      "category": "factor",
+      "suffix": ".md",
+      "bytes": 672
+    },
+    {
+      "path": "runtime/factor/cards/acad_volatility_drag/card.md",
+      "category": "factor",
+      "suffix": ".md",
+      "bytes": 604
+    },
+    {
+      "path": "runtime/factor/cards/rb_buy_composite/card.md",
+      "category": "factor",
+      "suffix": ".md",
+      "bytes": 909
+    },
+    {
+      "path": "runtime/factor/cards/rb_cooldown_proxy/card.md",
+      "category": "factor",
+      "suffix": ".md",
+      "bytes": 806
+    },
+    {
+      "path": "runtime/factor/cards/rb_cumulative_drop_severity/card.md",
+      "category": "factor",
+      "suffix": ".md",
+      "bytes": 697
+    },
+    {
+      "path": "runtime/factor/cards/rb_daily_drop_severity/card.md",
+      "category": "factor",
+      "suffix": ".md",
+      "bytes": 672
+    },
+    {
+      "path": "runtime/factor/cards/rb_panic_score_proxy/card.md",
+      "category": "factor",
+      "suffix": ".md",
+      "bytes": 914
+    },
+    {
+      "path": "runtime/factor/cards/rb_profit_take_proxy/card.md",
+      "category": "factor",
+      "suffix": ".md",
+      "bytes": 713
+    },
+    {
+      "path": "runtime/factor/cards/rb_rsi6_overbought/card.md",
+      "category": "factor",
+      "suffix": ".md",
+      "bytes": 689
+    },
+    {
+      "path": "runtime/factor/cards/rb_rsi6_oversold/card.md",
+      "category": "factor",
+      "suffix": ".md",
+      "bytes": 853
+    },
+    {
+      "path": "runtime/factor/cards/rb_sell_composite/card.md",
+      "category": "factor",
+      "suffix": ".md",
+      "bytes": 732
+    },
+    {
+      "path": "runtime/factor/cards/rb_stop_loss_proxy/card.md",
+      "category": "factor",
+      "suffix": ".md",
+      "bytes": 687
+    },
+    {
+      "path": "runtime/factor/cards/rb_trend_reversal/card.md",
+      "category": "factor",
+      "suffix": ".md",
+      "bytes": 677
+    },
+    {
+      "path": "runtime/factor/cards/rb_vix_term_stress/card.md",
+      "category": "factor",
+      "suffix": ".md",
+      "bytes": 678
+    },
+    {
+      "path": "runtime/factor/cards/rb_vol_regime/card.md",
+      "category": "factor",
+      "suffix": ".md",
+      "bytes": 644
+    },
+    {
+      "path": "runtime/factor/cards/rb_volume_stress/card.md",
+      "category": "factor",
+      "suffix": ".md",
+      "bytes": 857
+    },
+    {
+      "path": "runtime/factor/cards/regime_risk/card.md",
+      "category": "factor",
+      "suffix": ".md",
+      "bytes": 589
+    },
+    {
+      "path": "runtime/factor/cards/regime_risk_no_vix/card.md",
+      "category": "factor",
+      "suffix": ".md",
+      "bytes": 571
+    },
+    {
+      "path": "runtime/factor/cards/trans_te_zscore/card.md",
+      "category": "factor",
+      "suffix": ".md",
+      "bytes": 564
+    },
+    {
+      "path": "runtime/factor/cards/trans_vix_divergence/card.md",
+      "category": "factor",
+      "suffix": ".md",
+      "bytes": 612
+    },
+    {
+      "path": "runtime/factor/cards/vol_stress_score/card.md",
+      "category": "factor",
+      "suffix": ".md",
+      "bytes": 547
+    },
+    {
       "path": "runtime/factor/knowledge.md",
       "category": "factor",
       "suffix": ".md",
-      "bytes": 11279
+      "bytes": 4635
+    },
+    {
+      "path": "runtime/harness/cards/harness_validation/card.md",
+      "category": "harness",
+      "suffix": ".md",
+      "bytes": 1262
     },
     {
       "path": "runtime/harness/knowledge.md",
       "category": "harness",
       "suffix": ".md",
-      "bytes": 1141
+      "bytes": 945
+    },
+    {
+      "path": "runtime/model/cards/balanced/card.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 900
+    },
+    {
+      "path": "runtime/model/cards/balanced_checkpoint_review/card.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 972
+    },
+    {
+      "path": "runtime/model/cards/balanced_conservative_ft/card.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 956
+    },
+    {
+      "path": "runtime/model/cards/balanced_floor40/card.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 991
+    },
+    {
+      "path": "runtime/model/cards/balanced_floor40_sym/card.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 1003
+    },
+    {
+      "path": "runtime/model/cards/balanced_floor40_sym_bear30/card.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 1017
+    },
+    {
+      "path": "runtime/model/cards/balanced_floor40_sym_cap25/card.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 1013
+    },
+    {
+      "path": "runtime/model/cards/balanced_floor40_sym_crisis30/card.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 1023
+    },
+    {
+      "path": "runtime/model/cards/balanced_floor40_sym_crisis30_v2/card.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 1028
+    },
+    {
+      "path": "runtime/model/cards/balanced_floor40_sym_expectancy/card.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 1030
+    },
+    {
+      "path": "runtime/model/cards/balanced_floor40_sym_slow_bear/card.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 1024
+    },
+    {
+      "path": "runtime/model/cards/balanced_floor40_sym_tconv/card.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 1013
+    },
+    {
+      "path": "runtime/model/cards/balanced_floor40_sym_tight_crash/card.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 1029
+    },
+    {
+      "path": "runtime/model/cards/balanced_floor40_sym_v2/card.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 1011
+    },
+    {
+      "path": "runtime/model/cards/balanced_floor40_sym_velocity/card.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 1019
+    },
+    {
+      "path": "runtime/model/cards/balanced_floor40_sym_velocity_rules/card.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 1031
+    },
+    {
+      "path": "runtime/model/cards/balanced_kelly_attention_v10/card.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 985
+    },
+    {
+      "path": "runtime/model/cards/balanced_kelly_dynamic_v5/card.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 984
+    },
+    {
+      "path": "runtime/model/cards/balanced_kelly_dynamic_v6/card.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 984
+    },
+    {
+      "path": "runtime/model/cards/balanced_kelly_dynamic_v7/card.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 984
+    },
+    {
+      "path": "runtime/model/cards/balanced_kelly_execution_v8/card.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 988
+    },
+    {
+      "path": "runtime/model/cards/balanced_kelly_warmstart_v9/card.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 988
+    },
+    {
+      "path": "runtime/model/cards/balanced_kelly_warmstart_v9b/card.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 990
+    },
+    {
+      "path": "runtime/model/cards/balanced_rule_residual_imitation_v1/card.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 1030
+    },
+    {
+      "path": "runtime/model/cards/balanced_rule_residual_imitation_v2/card.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 1033
+    },
+    {
+      "path": "runtime/model/cards/balanced_rule_residual_imitation_v2_fix/card.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 1038
+    },
+    {
+      "path": "runtime/model/cards/balanced_rule_residual_imitation_v3/card.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 1030
+    },
+    {
+      "path": "runtime/model/cards/balanced_rule_residual_imitation_v4/card.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 1030
+    },
+    {
+      "path": "runtime/model/cards/balanced_rule_residual_imitation_v5/card.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 1030
+    },
+    {
+      "path": "runtime/model/cards/balanced_rule_residual_imitation_v6/card.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 1030
+    },
+    {
+      "path": "runtime/model/cards/balanced_rule_residual_imitation_v7/card.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 1030
+    },
+    {
+      "path": "runtime/model/cards/balanced_rule_residual_learned_mode_v1/card.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 987
+    },
+    {
+      "path": "runtime/model/cards/balanced_rule_residual_minimal_v1/card.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 1007
+    },
+    {
+      "path": "runtime/model/cards/balanced_rule_residual_mode_v1/card.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 971
+    },
+    {
+      "path": "runtime/model/cards/balanced_rule_residual_mode_v2/card.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 970
+    },
+    {
+      "path": "runtime/model/cards/balanced_rule_residual_refined_v1/card.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 1007
+    },
+    {
+      "path": "runtime/model/cards/balanced_rule_residual_refined_v2/card.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 1007
+    },
+    {
+      "path": "runtime/model/cards/balanced_rule_residual_refined_v3/card.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 1007
+    },
+    {
+      "path": "runtime/model/cards/balanced_rule_residual_refined_v4/card.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 1007
+    },
+    {
+      "path": "runtime/model/cards/balanced_rule_residual_simplified_v1/card.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 1013
+    },
+    {
+      "path": "runtime/model/cards/balanced_rule_residual_v16/card.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 997
+    },
+    {
+      "path": "runtime/model/cards/balanced_rule_residual_v17/card.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 993
+    },
+    {
+      "path": "runtime/model/cards/balanced_rule_residual_v18/card.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 993
+    },
+    {
+      "path": "runtime/model/cards/balanced_rule_residual_v19/card.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 949
+    },
+    {
+      "path": "runtime/model/cards/balanced_rule_residual_v19_transition/card.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 1015
+    },
+    {
+      "path": "runtime/model/cards/balanced_rule_residual_v20/card.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 993
+    },
+    {
+      "path": "runtime/model/cards/balanced_rule_residual_v22/card.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 993
+    },
+    {
+      "path": "runtime/model/cards/balanced_rule_residual_v23/card.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 996
+    },
+    {
+      "path": "runtime/model/cards/balanced_rule_residual_v24/card.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 996
+    },
+    {
+      "path": "runtime/model/cards/risk_budget_bc_warmstart_v1/card.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 971
+    },
+    {
+      "path": "runtime/model/cards/risk_budget_usage_v1/card.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 958
+    },
+    {
+      "path": "runtime/model/cards/smoke/card.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 945
+    },
+    {
+      "path": "runtime/model/cards/smoke_tide/card.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 955
     },
     {
       "path": "runtime/model/diagnosis/deep_dive_rl_vs_rulebased.md",
@@ -185,7 +761,7 @@
       "path": "runtime/model/knowledge.md",
       "category": "model",
       "suffix": ".md",
-      "bytes": 7342
+      "bytes": 10521
     },
     {
       "path": "runtime/model/reviews/balanced_checkpoint_review.md",
@@ -716,6 +1292,12 @@
       "bytes": 1391
     },
     {
+      "path": "runtime/multi_asset/cards/soxl_baseline/card.md",
+      "category": "multi_asset",
+      "suffix": ".md",
+      "bytes": 1088
+    },
+    {
       "path": "runtime/multi_asset/generalization/dashboard.html",
       "category": "multi_asset",
       "suffix": ".html",
@@ -725,19 +1307,133 @@
       "path": "runtime/multi_asset/knowledge.md",
       "category": "multi_asset",
       "suffix": ".md",
-      "bytes": 1476
+      "bytes": 747
+    },
+    {
+      "path": "runtime/network/cards/balanced/card.md",
+      "category": "network",
+      "suffix": ".md",
+      "bytes": 620
+    },
+    {
+      "path": "runtime/network/cards/balanced_kelly_attention_v10/card.md",
+      "category": "network",
+      "suffix": ".md",
+      "bytes": 677
+    },
+    {
+      "path": "runtime/network/cards/smoke/card.md",
+      "category": "network",
+      "suffix": ".md",
+      "bytes": 625
+    },
+    {
+      "path": "runtime/network/cards/smoke_tide/card.md",
+      "category": "network",
+      "suffix": ".md",
+      "bytes": 635
     },
     {
       "path": "runtime/network/knowledge.md",
       "category": "network",
       "suffix": ".md",
-      "bytes": 2074
+      "bytes": 1096
+    },
+    {
+      "path": "runtime/reward/cards/balanced_kelly_attention_v10/card.md",
+      "category": "reward",
+      "suffix": ".md",
+      "bytes": 759
+    },
+    {
+      "path": "runtime/reward/cards/balanced_kelly_dynamic_v5/card.md",
+      "category": "reward",
+      "suffix": ".md",
+      "bytes": 749
+    },
+    {
+      "path": "runtime/reward/cards/balanced_kelly_dynamic_v6/card.md",
+      "category": "reward",
+      "suffix": ".md",
+      "bytes": 749
+    },
+    {
+      "path": "runtime/reward/cards/balanced_kelly_dynamic_v7/card.md",
+      "category": "reward",
+      "suffix": ".md",
+      "bytes": 749
+    },
+    {
+      "path": "runtime/reward/cards/balanced_kelly_execution_v8/card.md",
+      "category": "reward",
+      "suffix": ".md",
+      "bytes": 753
+    },
+    {
+      "path": "runtime/reward/cards/balanced_kelly_warmstart_v9/card.md",
+      "category": "reward",
+      "suffix": ".md",
+      "bytes": 753
+    },
+    {
+      "path": "runtime/reward/cards/balanced_kelly_warmstart_v9b/card.md",
+      "category": "reward",
+      "suffix": ".md",
+      "bytes": 755
+    },
+    {
+      "path": "runtime/reward/cards/balanced_rule_residual_imitation_v1/card.md",
+      "category": "reward",
+      "suffix": ".md",
+      "bytes": 766
+    },
+    {
+      "path": "runtime/reward/cards/balanced_rule_residual_imitation_v2/card.md",
+      "category": "reward",
+      "suffix": ".md",
+      "bytes": 766
+    },
+    {
+      "path": "runtime/reward/cards/balanced_rule_residual_imitation_v2_fix/card.md",
+      "category": "reward",
+      "suffix": ".md",
+      "bytes": 774
+    },
+    {
+      "path": "runtime/reward/cards/balanced_rule_residual_imitation_v3/card.md",
+      "category": "reward",
+      "suffix": ".md",
+      "bytes": 766
+    },
+    {
+      "path": "runtime/reward/cards/balanced_rule_residual_imitation_v4/card.md",
+      "category": "reward",
+      "suffix": ".md",
+      "bytes": 766
+    },
+    {
+      "path": "runtime/reward/cards/balanced_rule_residual_imitation_v5/card.md",
+      "category": "reward",
+      "suffix": ".md",
+      "bytes": 766
+    },
+    {
+      "path": "runtime/reward/cards/balanced_rule_residual_imitation_v6/card.md",
+      "category": "reward",
+      "suffix": ".md",
+      "bytes": 766
+    },
+    {
+      "path": "runtime/reward/cards/balanced_rule_residual_imitation_v7/card.md",
+      "category": "reward",
+      "suffix": ".md",
+      "bytes": 766
     },
     {
       "path": "runtime/reward/knowledge.md",
       "category": "reward",
       "suffix": ".md",
-      "bytes": 3197
+      "bytes": 2725
     }
   ]
 }
