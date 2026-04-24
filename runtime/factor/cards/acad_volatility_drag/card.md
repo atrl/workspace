@@ -29,6 +29,10 @@ Volatility drag，预期方向: negative
 
 Sharpe=-0.032，学术因子在 SOXL 上无效。
 
+
+## 参考文献
+
+- Cheng & Madhavan (2009): LETF volatility drag
 ## 与基线/相关实验的差异
 
 学术因子与 rulebase/transition 因子的差异待补充。

@@ -29,6 +29,10 @@ Consecutive down runs，预期方向: negative
 
 Sharpe=-0.289，学术因子在 SOXL 上无效。
 
+
+## 参考文献
+
+- 原创: consecutive down runs mean-reversion
 ## 与基线/相关实验的差异
 
 学术因子与 rulebase/transition 因子的差异待补充。

@@ -7,10 +7,10 @@
 
 | Profile | Arch | Return | Sharpe | MaxDD | AvgPos | 状态 | 卡片 |
 |---------|------|--------|--------|-------|--------|------|------|
-| balanced_kelly_attention_v10 | Attn | 386 | 0.76 | 59.12 | 0.55 | 🟡 Moderate | [card](cards/balanced_kelly_attention_v10/card.md) |
-| smoke_tide | TiDE | 307 | 0.69 | 70.60 | 0.62 | 🟡 Moderate | [card](cards/smoke_tide/card.md) |
-| balanced | GRU | 407 | 0.82 | 52.75 | 0.48 | 🟡 Good | [card](cards/balanced/card.md) |
-| smoke | GRU | 298 | 0.68 | 76.83 | 0.73 | 🟡 Moderate | [card](cards/smoke/card.md) |
+| balanced_kelly_attention_v10 | Attn | 386 | 0.76 | 59.12 | 0.55 | 🟡 Moderate | [card](cards/attention_v10/card.md) |
+| smoke_tide | TiDE | 307 | 0.69 | 70.60 | 0.62 | 🟡 Moderate | [card](cards/tide/card.md) |
+| balanced | GRU | 407 | 0.82 | 52.75 | 0.48 | 🟡 Good | [card](cards/gru_baseline/card.md) |
+| smoke | GRU | 298 | 0.68 | 76.83 | 0.73 | 🟡 Moderate | [card](cards/gru_smoke/card.md) |
 
 ## 核心结论
 

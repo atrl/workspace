@@ -26,6 +26,10 @@ Multi-signal stress index with VIX
 
 核心 composite 特征，用于训练。
 
+
+## 参考文献
+
+- 原创: 多信号 composite stress index
 ## 与基线/相关实验的差异
 
 与单一因子的差异在于综合多个信号。

@@ -30,6 +30,10 @@ Intraday reversal 21d，预期方向: negative
 
 Sharpe=+0.326，有一定效果但不够强。
 
+
+## 参考文献
+
+- 原创: intraday momentum reversal (orthogonal to existing features)
 ## 与基线/相关实验的差异
 
 学术因子与 rulebase/transition 因子的差异待补充。

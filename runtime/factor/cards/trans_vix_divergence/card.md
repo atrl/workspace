@@ -29,6 +29,10 @@ VIX falls but price near lows → sentiment fading
 
 Sharpe=+1.041，transition 信号非常强。
 
+
+## 参考文献
+
+- 原创: VIX 回落但价格未反弹 → sentiment fading
 ## 与基线/相关实验的差异
 
 Transition 信号专门检测 stress release，与 core features 互补。

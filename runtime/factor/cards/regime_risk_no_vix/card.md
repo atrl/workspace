@@ -26,6 +26,10 @@ VIX 缺失时的降级方案。
 
 核心 composite 特征，作为 ablation 备用。
 
+
+## 参考文献
+
+- 原创: VIX-free ablation
 ## 与基线/相关实验的差异
 
 与单一因子的差异在于综合多个信号。

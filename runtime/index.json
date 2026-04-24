@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-24T12:37:32.510659+00:00",
+  "generated_at": "2026-04-24T13:17:29.863627+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -188,24 +188,6 @@
       "bytes": 1980
     },
     {
-      "path": "runtime/factor/analysis/backtest_TRANS_GAP_RECOVERY.csv",
-      "category": "factor",
-      "suffix": ".csv",
-      "bytes": 1
-    },
-    {
-      "path": "runtime/factor/analysis/backtest_TRANS_PANIC_EXHAUSTION.csv",
-      "category": "factor",
-      "suffix": ".csv",
-      "bytes": 1
-    },
-    {
-      "path": "runtime/factor/analysis/backtest_TRANS_SPRING_COMPRESSION.csv",
-      "category": "factor",
-      "suffix": ".csv",
-      "bytes": 1
-    },
-    {
       "path": "runtime/factor/analysis/backtest_TRANS_VIX_DIVERGENCE.csv",
       "category": "factor",
       "suffix": ".csv",
@@ -227,151 +209,151 @@
       "path": "runtime/factor/cards/acad_amihud_zscore/card.md",
       "category": "factor",
       "suffix": ".md",
-      "bytes": 609
+      "bytes": 662
     },
     {
       "path": "runtime/factor/cards/acad_down_runs/card.md",
       "category": "factor",
       "suffix": ".md",
-      "bytes": 603
+      "bytes": 668
     },
     {
       "path": "runtime/factor/cards/acad_down_up_ratio/card.md",
       "category": "factor",
       "suffix": ".md",
-      "bytes": 597
+      "bytes": 684
     },
     {
       "path": "runtime/factor/cards/acad_down_up_ratio_63/card.md",
       "category": "factor",
       "suffix": ".md",
-      "bytes": 599
+      "bytes": 686
     },
     {
       "path": "runtime/factor/cards/acad_intraday_reversal_21/card.md",
       "category": "factor",
       "suffix": ".md",
-      "bytes": 672
+      "bytes": 761
     },
     {
       "path": "runtime/factor/cards/acad_volatility_drag/card.md",
       "category": "factor",
       "suffix": ".md",
-      "bytes": 604
+      "bytes": 670
     },
     {
       "path": "runtime/factor/cards/rb_buy_composite/card.md",
       "category": "factor",
       "suffix": ".md",
-      "bytes": 909
+      "bytes": 965
     },
     {
       "path": "runtime/factor/cards/rb_cooldown_proxy/card.md",
       "category": "factor",
       "suffix": ".md",
-      "bytes": 806
+      "bytes": 859
     },
     {
       "path": "runtime/factor/cards/rb_cumulative_drop_severity/card.md",
       "category": "factor",
       "suffix": ".md",
-      "bytes": 697
+      "bytes": 747
     },
     {
       "path": "runtime/factor/cards/rb_daily_drop_severity/card.md",
       "category": "factor",
       "suffix": ".md",
-      "bytes": 672
+      "bytes": 722
     },
     {
       "path": "runtime/factor/cards/rb_panic_score_proxy/card.md",
       "category": "factor",
       "suffix": ".md",
-      "bytes": 914
+      "bytes": 975
     },
     {
       "path": "runtime/factor/cards/rb_profit_take_proxy/card.md",
       "category": "factor",
       "suffix": ".md",
-      "bytes": 713
+      "bytes": 763
     },
     {
       "path": "runtime/factor/cards/rb_rsi6_overbought/card.md",
       "category": "factor",
       "suffix": ".md",
-      "bytes": 689
+      "bytes": 738
     },
     {
       "path": "runtime/factor/cards/rb_rsi6_oversold/card.md",
       "category": "factor",
       "suffix": ".md",
-      "bytes": 853
+      "bytes": 902
     },
     {
       "path": "runtime/factor/cards/rb_sell_composite/card.md",
       "category": "factor",
       "suffix": ".md",
-      "bytes": 732
+      "bytes": 788
     },
     {
       "path": "runtime/factor/cards/rb_stop_loss_proxy/card.md",
       "category": "factor",
       "suffix": ".md",
-      "bytes": 687
+      "bytes": 737
     },
     {
       "path": "runtime/factor/cards/rb_trend_reversal/card.md",
       "category": "factor",
       "suffix": ".md",
-      "bytes": 677
+      "bytes": 727
     },
     {
       "path": "runtime/factor/cards/rb_vix_term_stress/card.md",
       "category": "factor",
       "suffix": ".md",
-      "bytes": 678
+      "bytes": 739
     },
     {
       "path": "runtime/factor/cards/rb_vol_regime/card.md",
       "category": "factor",
       "suffix": ".md",
-      "bytes": 644
+      "bytes": 697
     },
     {
       "path": "runtime/factor/cards/rb_volume_stress/card.md",
       "category": "factor",
       "suffix": ".md",
-      "bytes": 857
+      "bytes": 911
     },
     {
       "path": "runtime/factor/cards/regime_risk/card.md",
       "category": "factor",
       "suffix": ".md",
-      "bytes": 589
+      "bytes": 650
     },
     {
       "path": "runtime/factor/cards/regime_risk_no_vix/card.md",
       "category": "factor",
       "suffix": ".md",
-      "bytes": 571
+      "bytes": 617
     },
     {
       "path": "runtime/factor/cards/trans_te_zscore/card.md",
       "category": "factor",
       "suffix": ".md",
-      "bytes": 564
+      "bytes": 622
     },
     {
       "path": "runtime/factor/cards/trans_vix_divergence/card.md",
       "category": "factor",
       "suffix": ".md",
-      "bytes": 612
+      "bytes": 690
     },
     {
       "path": "runtime/factor/cards/vol_stress_score/card.md",
       "category": "factor",
       "suffix": ".md",
-      "bytes": 547
+      "bytes": 620
     },
     {
       "path": "runtime/factor/knowledge.md",
@@ -716,12 +698,6 @@
       "bytes": 12868
     },
     {
-      "path": "runtime/model/diagnosis/feature_correlation_raw.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 4142
-    },
-    {
       "path": "runtime/model/diagnosis/model_adjustment_roadmap.md",
       "category": "model",
       "suffix": ".md",
@@ -740,28 +716,16 @@
       "bytes": 2220
     },
     {
-      "path": "runtime/model/diagnosis/phase1_phase2_combined.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 13282
-    },
-    {
       "path": "runtime/model/diagnosis/soxl_trade_attribution.md",
       "category": "model",
       "suffix": ".md",
       "bytes": 2009
     },
     {
-      "path": "runtime/model/diagnosis/underperform_quarters.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 2657
-    },
-    {
       "path": "runtime/model/knowledge.md",
       "category": "model",
       "suffix": ".md",
-      "bytes": 10521
+      "bytes": 11321
     },
     {
       "path": "runtime/model/reviews/balanced_checkpoint_review.md",
@@ -1298,37 +1262,31 @@
       "bytes": 1088
     },
     {
-      "path": "runtime/multi_asset/generalization/dashboard.html",
-      "category": "multi_asset",
-      "suffix": ".html",
-      "bytes": 33555670
-    },
-    {
       "path": "runtime/multi_asset/knowledge.md",
       "category": "multi_asset",
       "suffix": ".md",
       "bytes": 747
     },
     {
-      "path": "runtime/network/cards/balanced/card.md",
-      "category": "network",
-      "suffix": ".md",
-      "bytes": 620
-    },
-    {
-      "path": "runtime/network/cards/balanced_kelly_attention_v10/card.md",
+      "path": "runtime/network/cards/attention_v10/card.md",
       "category": "network",
       "suffix": ".md",
       "bytes": 677
     },
     {
-      "path": "runtime/network/cards/smoke/card.md",
+      "path": "runtime/network/cards/gru_baseline/card.md",
+      "category": "network",
+      "suffix": ".md",
+      "bytes": 620
+    },
+    {
+      "path": "runtime/network/cards/gru_smoke/card.md",
       "category": "network",
       "suffix": ".md",
       "bytes": 625
     },
     {
-      "path": "runtime/network/cards/smoke_tide/card.md",
+      "path": "runtime/network/cards/tide/card.md",
       "category": "network",
       "suffix": ".md",
       "bytes": 635
@@ -1337,103 +1295,103 @@
       "path": "runtime/network/knowledge.md",
       "category": "network",
       "suffix": ".md",
-      "bytes": 1096
+      "bytes": 1083
     },
     {
-      "path": "runtime/reward/cards/balanced_kelly_attention_v10/card.md",
-      "category": "reward",
-      "suffix": ".md",
-      "bytes": 759
-    },
-    {
-      "path": "runtime/reward/cards/balanced_kelly_dynamic_v5/card.md",
-      "category": "reward",
-      "suffix": ".md",
-      "bytes": 749
-    },
-    {
-      "path": "runtime/reward/cards/balanced_kelly_dynamic_v6/card.md",
-      "category": "reward",
-      "suffix": ".md",
-      "bytes": 749
-    },
-    {
-      "path": "runtime/reward/cards/balanced_kelly_dynamic_v7/card.md",
-      "category": "reward",
-      "suffix": ".md",
-      "bytes": 749
-    },
-    {
-      "path": "runtime/reward/cards/balanced_kelly_execution_v8/card.md",
-      "category": "reward",
-      "suffix": ".md",
-      "bytes": 753
-    },
-    {
-      "path": "runtime/reward/cards/balanced_kelly_warmstart_v9/card.md",
-      "category": "reward",
-      "suffix": ".md",
-      "bytes": 753
-    },
-    {
-      "path": "runtime/reward/cards/balanced_kelly_warmstart_v9b/card.md",
-      "category": "reward",
-      "suffix": ".md",
-      "bytes": 755
-    },
-    {
-      "path": "runtime/reward/cards/balanced_rule_residual_imitation_v1/card.md",
+      "path": "runtime/reward/cards/imitation_v1/card.md",
       "category": "reward",
       "suffix": ".md",
       "bytes": 766
     },
     {
-      "path": "runtime/reward/cards/balanced_rule_residual_imitation_v2/card.md",
+      "path": "runtime/reward/cards/imitation_v2/card.md",
       "category": "reward",
       "suffix": ".md",
       "bytes": 766
     },
     {
-      "path": "runtime/reward/cards/balanced_rule_residual_imitation_v2_fix/card.md",
+      "path": "runtime/reward/cards/imitation_v2_fix/card.md",
       "category": "reward",
       "suffix": ".md",
       "bytes": 774
     },
     {
-      "path": "runtime/reward/cards/balanced_rule_residual_imitation_v3/card.md",
+      "path": "runtime/reward/cards/imitation_v3/card.md",
       "category": "reward",
       "suffix": ".md",
       "bytes": 766
     },
     {
-      "path": "runtime/reward/cards/balanced_rule_residual_imitation_v4/card.md",
+      "path": "runtime/reward/cards/imitation_v4/card.md",
       "category": "reward",
       "suffix": ".md",
       "bytes": 766
     },
     {
-      "path": "runtime/reward/cards/balanced_rule_residual_imitation_v5/card.md",
+      "path": "runtime/reward/cards/imitation_v5/card.md",
       "category": "reward",
       "suffix": ".md",
       "bytes": 766
     },
     {
-      "path": "runtime/reward/cards/balanced_rule_residual_imitation_v6/card.md",
+      "path": "runtime/reward/cards/imitation_v6/card.md",
       "category": "reward",
       "suffix": ".md",
       "bytes": 766
     },
     {
-      "path": "runtime/reward/cards/balanced_rule_residual_imitation_v7/card.md",
+      "path": "runtime/reward/cards/imitation_v7/card.md",
       "category": "reward",
       "suffix": ".md",
       "bytes": 766
+    },
+    {
+      "path": "runtime/reward/cards/kelly_attention_v10/card.md",
+      "category": "reward",
+      "suffix": ".md",
+      "bytes": 759
+    },
+    {
+      "path": "runtime/reward/cards/kelly_dynamic_v5/card.md",
+      "category": "reward",
+      "suffix": ".md",
+      "bytes": 749
+    },
+    {
+      "path": "runtime/reward/cards/kelly_dynamic_v6/card.md",
+      "category": "reward",
+      "suffix": ".md",
+      "bytes": 749
+    },
+    {
+      "path": "runtime/reward/cards/kelly_dynamic_v7/card.md",
+      "category": "reward",
+      "suffix": ".md",
+      "bytes": 749
+    },
+    {
+      "path": "runtime/reward/cards/kelly_execution_v8/card.md",
+      "category": "reward",
+      "suffix": ".md",
+      "bytes": 753
+    },
+    {
+      "path": "runtime/reward/cards/kelly_warmstart_v9/card.md",
+      "category": "reward",
+      "suffix": ".md",
+      "bytes": 753
+    },
+    {
+      "path": "runtime/reward/cards/kelly_warmstart_v9b/card.md",
+      "category": "reward",
+      "suffix": ".md",
+      "bytes": 755
     },
     {
       "path": "runtime/reward/knowledge.md",
       "category": "reward",
       "suffix": ".md",
-      "bytes": 2725
+      "bytes": 2478
     }
   ]
 }

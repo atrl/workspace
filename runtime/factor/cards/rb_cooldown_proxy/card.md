@@ -36,6 +36,10 @@
 
 Standalone backtest Sharpe=+0.938，信号有效。Profit factor=1.40，准确率=0.588。
 
+
+## 参考文献
+
+- rulebase 启发: 冷却期代理
 ## 与基线/相关实验的差异
 
 与基线或其他因子的差异待补充。

@@ -106,3 +106,12 @@
 - [ ] 改变 stress set 或 episode 采样策略
 - [ ] 引入外部对冲机制降低 2022 MaxDD
 - [ ] v22 的 walk-forward 完整验证结果
+## 诊断报告
+
+| 报告 | 内容 | 文件 |
+|------|------|------|
+| 模型调整路线图 | 硬底仓+RL战术叠加层、特征盲区、微幅调仓问题 | [diagnosis/model_adjustment_roadmap.md](diagnosis/model_adjustment_roadmap.md) |
+| 新特征扫描 | VIX期限结构、期权隐含特征、外部数据源 | [diagnosis/new_feature_scan.md](diagnosis/new_feature_scan.md) |
+| RL vs Rule-Based 深度复盘 | 交易哲学差距、持仓模式对比 | [diagnosis/deep_dive_rl_vs_rulebased.md](diagnosis/deep_dive_rl_vs_rulebased.md) |
+| 时段切片诊断 | 年度/季度表现归因 | [diagnosis/period_slice_comparison.md](diagnosis/period_slice_comparison.md) |
+| 交易级归因 | Kelly诊断、分层分析 | [diagnosis/soxl_trade_attribution.md](diagnosis/soxl_trade_attribution.md) |

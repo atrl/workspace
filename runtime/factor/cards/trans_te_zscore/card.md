@@ -26,6 +26,10 @@ Tracking error deviation unsustainable
 
 IC=+0.0724 验证有效，但缺少 standalone backtest。
 
+
+## 参考文献
+
+- 原创: tracking error mean-reversion
 ## 与基线/相关实验的差异
 
 Transition 信号专门检测 stress release，与 core features 互补。

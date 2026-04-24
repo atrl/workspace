@@ -31,6 +31,10 @@
 
 尚未进行 standalone backtest 或 IC 验证。
 
+
+## 参考文献
+
+- rulebase 启发: buy strategy
 ## 与基线/相关实验的差异
 
 与基线或其他因子的差异待补充。
