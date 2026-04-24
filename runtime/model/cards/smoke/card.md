@@ -41,6 +41,13 @@ Profile: `smoke`
 
 与 canonical `balanced` 基线的差异：smoke 是快速验证配置，通常使用更少特征和更短训练。
 
+
+## 实验原始记录
+
+详细配置、动机和迭代历史见：
+- `experiments/canonical/smoke/notes.md`
+- `experiments/canonical/smoke/expectations.md`
+- `experiments/canonical/smoke/profile.yaml`
 ## 下一步
 
 - 分析未通过 gate 的原因

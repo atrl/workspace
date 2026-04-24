@@ -115,3 +115,24 @@
 | RL vs Rule-Based 深度复盘 | 交易哲学差距、持仓模式对比 | [diagnosis/deep_dive_rl_vs_rulebased.md](diagnosis/deep_dive_rl_vs_rulebased.md) |
 | 时段切片诊断 | 年度/季度表现归因 | [diagnosis/period_slice_comparison.md](diagnosis/period_slice_comparison.md) |
 | 交易级归因 | Kelly诊断、分层分析 | [diagnosis/soxl_trade_attribution.md](diagnosis/soxl_trade_attribution.md) |
+
+## 实验包索引
+
+以下 `experiments/` 目录中的实验包保留完整配置、动机和迭代历史，与上表中的运行时卡片一一对应。
+
+| 实验包 | 类型 | 包含 Profile | 状态 |
+|--------|------|-------------|------|
+| [`balanced`](experiments/canonical/balanced/) | canonical | balanced | 🔵 基线 |
+| [`smoke`](experiments/canonical/smoke/) | canonical | smoke | 🔵 基线 |
+| [`balanced_rule_residual_v19`](experiments/candidate/balanced_rule_residual_v19/) | candidate | v19 | 🟢 优秀 |
+| [`balanced_rule_residual_v22`](experiments/candidate/balanced_rule_residual_v22/) | candidate | v22 系列 | 🟡 迭代 |
+| [`balanced_rule_residual_refined_v2`](experiments/candidate/balanced_rule_residual_refined_v2/) | candidate | refined_v2 | 🟡 迭代 |
+| [`balanced_rule_residual_refined_v3`](experiments/candidate/balanced_rule_residual_refined_v3/) | candidate | refined_v3 | 🟡 迭代 |
+| [`balanced_rule_residual_mode_v1`](experiments/candidate/balanced_rule_residual_mode_v1/) | candidate | mode_v1/v2 | 🟡 迭代 |
+| [`balanced_rule_residual_imitation`](experiments/candidate/balanced_rule_residual_imitation/) | candidate | imitation v1–v7 (合并) | 🟡 迭代 |
+| [`balanced_kelly`](experiments/candidate/balanced_kelly/) | candidate | kelly v5–v10 (合并) | 🟡 迭代 |
+| [`balanced_conservative_ft`](experiments/candidate/balanced_conservative_ft/) | candidate | conservative_ft | 🟡 迭代 |
+| [`risk_budget_usage_v1`](experiments/candidate/risk_budget_usage_v1/) | candidate | risk_budget_usage_v1, bc_warmstart_v1 | 🟡 最佳候选 |
+| [`balanced_rule_residual_v19_academic`](experiments/candidate/balanced_rule_residual_v19_academic/) | candidate | v19_academic | ⚪ 未运行 |
+| [`balanced_rule_residual_moderate_v1`](experiments/candidate/balanced_rule_residual_moderate_v1/) | candidate | moderate_v1 | ⚪ 未运行 |
+| [`smoke_rule_residual_v1`](experiments/candidate/smoke_rule_residual_v1/) | candidate | smoke_rule_residual | ⚪ 未运行 |

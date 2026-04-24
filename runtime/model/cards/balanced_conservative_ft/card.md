@@ -41,6 +41,13 @@ Profile: `balanced_conservative_ft`
 
 与 canonical `balanced` 基线的差异：具体差异待补充。
 
+
+## 实验原始记录
+
+详细配置、动机和迭代历史见：
+- `experiments/candidate/balanced_conservative_ft/notes.md`
+- `experiments/candidate/balanced_conservative_ft/expectations.md`
+- `experiments/candidate/balanced_conservative_ft/profile.yaml`
 ## 下一步
 
 - 分析未通过 gate 的原因

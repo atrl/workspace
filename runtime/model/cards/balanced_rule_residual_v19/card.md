@@ -41,6 +41,13 @@ Profile: `balanced_rule_residual_v19`
 
 与 canonical `balanced` 基线的差异：同属 balanced 系列，具体参数差异见方法配置。
 
+
+## 实验原始记录
+
+详细配置、动机和迭代历史见：
+- `experiments/candidate/balanced_rule_residual_v19/notes.md`
+- `experiments/candidate/balanced_rule_residual_v19/expectations.md`
+- `experiments/candidate/balanced_rule_residual_v19/profile.yaml`
 ## 下一步
 
 - 重新评估假设

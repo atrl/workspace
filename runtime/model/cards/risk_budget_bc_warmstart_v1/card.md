@@ -41,6 +41,13 @@ Profile: `risk_budget_bc_warmstart_v1`
 
 与 canonical `balanced` 基线的差异：引入风险预算约束，avg_pos 通常更低。
 
+
+## 实验原始记录
+
+详细配置、动机和迭代历史见：
+- `experiments/candidate/risk_budget_usage_v1/notes.md`
+- `experiments/candidate/risk_budget_usage_v1/expectations.md`
+- `experiments/candidate/risk_budget_usage_v1/profile.yaml`
 ## 下一步
 
 - 分析未通过 gate 的原因

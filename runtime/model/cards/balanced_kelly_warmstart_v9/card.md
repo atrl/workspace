@@ -41,6 +41,13 @@ Profile: `balanced_kelly_warmstart_v9`
 
 与 canonical `balanced` 基线的差异：奖励函数包含 Kelly 项，与纯 log 奖励不同。
 
+
+## 实验原始记录
+
+详细配置、动机和迭代历史见：
+- `experiments/candidate/balanced_kelly/notes.md`
+- `experiments/candidate/balanced_kelly/expectations.md`
+- `experiments/candidate/balanced_kelly/profile.yaml`
 ## 下一步
 
 - 分析未通过 gate 的原因

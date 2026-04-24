@@ -41,6 +41,13 @@ Profile: `balanced_rule_residual_imitation_v3`
 
 与 canonical `balanced` 基线的差异：包含 rulebase 模仿奖励，收敛更快但可能过拟合历史买入点。
 
+
+## 实验原始记录
+
+详细配置、动机和迭代历史见：
+- `experiments/candidate/balanced_rule_residual_imitation/notes.md`
+- `experiments/candidate/balanced_rule_residual_imitation/expectations.md`
+- `experiments/candidate/balanced_rule_residual_imitation/profile.yaml`
 ## 下一步
 
 - 分析未通过 gate 的原因

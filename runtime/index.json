@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-24T14:58:37.286577+00:00",
+  "generated_at": "2026-04-24T15:14:23.120985+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -114,90 +114,6 @@
       "category": "execution",
       "suffix": ".md",
       "bytes": 714
-    },
-    {
-      "path": "runtime/execution/generalization/report.txt",
-      "category": "execution",
-      "suffix": ".txt",
-      "bytes": 458
-    },
-    {
-      "path": "runtime/execution/generalization/results.json",
-      "category": "execution",
-      "suffix": ".json",
-      "bytes": 679
-    },
-    {
-      "path": "runtime/execution/generalization/versions/migration_v1/detailed/spxl_detailed_trades.csv",
-      "category": "execution",
-      "suffix": ".csv",
-      "bytes": 199054
-    },
-    {
-      "path": "runtime/execution/generalization/versions/migration_v1/detailed/summary.json",
-      "category": "execution",
-      "suffix": ".json",
-      "bytes": 385
-    },
-    {
-      "path": "runtime/execution/generalization/versions/migration_v1/detailed/tqqq_detailed_trades.csv",
-      "category": "execution",
-      "suffix": ".csv",
-      "bytes": 199511
-    },
-    {
-      "path": "runtime/execution/generalization/versions/migration_v1/detailed/upro_detailed_trades.csv",
-      "category": "execution",
-      "suffix": ".csv",
-      "bytes": 198979
-    },
-    {
-      "path": "runtime/execution/generalization/versions/migration_v1/results.json",
-      "category": "execution",
-      "suffix": ".json",
-      "bytes": 138
-    },
-    {
-      "path": "runtime/execution/generalization/versions/migration_v1_full/detailed/soxl_detailed_trades.csv",
-      "category": "execution",
-      "suffix": ".csv",
-      "bytes": 199700
-    },
-    {
-      "path": "runtime/execution/generalization/versions/migration_v1_full/detailed/spxl_detailed_trades.csv",
-      "category": "execution",
-      "suffix": ".csv",
-      "bytes": 199054
-    },
-    {
-      "path": "runtime/execution/generalization/versions/migration_v1_full/detailed/summary.json",
-      "category": "execution",
-      "suffix": ".json",
-      "bytes": 1910
-    },
-    {
-      "path": "runtime/execution/generalization/versions/migration_v1_full/detailed/tecl_detailed_trades.csv",
-      "category": "execution",
-      "suffix": ".csv",
-      "bytes": 199930
-    },
-    {
-      "path": "runtime/execution/generalization/versions/migration_v1_full/detailed/tqqq_detailed_trades.csv",
-      "category": "execution",
-      "suffix": ".csv",
-      "bytes": 199511
-    },
-    {
-      "path": "runtime/execution/generalization/versions/migration_v1_full/detailed/upro_detailed_trades.csv",
-      "category": "execution",
-      "suffix": ".csv",
-      "bytes": 198979
-    },
-    {
-      "path": "runtime/execution/generalization/versions/migration_v1_full/results.json",
-      "category": "execution",
-      "suffix": ".json",
-      "bytes": 679
     },
     {
       "path": "runtime/execution/knowledge.md",
@@ -461,7 +377,7 @@
       "path": "runtime/model/cards/balanced/card.md",
       "category": "model",
       "suffix": ".md",
-      "bytes": 900
+      "bytes": 1110
     },
     {
       "path": "runtime/model/cards/balanced_checkpoint_review/card.md",
@@ -473,7 +389,7 @@
       "path": "runtime/model/cards/balanced_conservative_ft/card.md",
       "category": "model",
       "suffix": ".md",
-      "bytes": 956
+      "bytes": 1214
     },
     {
       "path": "runtime/model/cards/balanced_floor40/card.md",
@@ -587,61 +503,61 @@
       "path": "runtime/model/cards/balanced_kelly_warmstart_v9/card.md",
       "category": "model",
       "suffix": ".md",
-      "bytes": 988
+      "bytes": 1216
     },
     {
       "path": "runtime/model/cards/balanced_kelly_warmstart_v9b/card.md",
       "category": "model",
       "suffix": ".md",
-      "bytes": 990
+      "bytes": 1218
     },
     {
       "path": "runtime/model/cards/balanced_rule_residual_imitation_v1/card.md",
       "category": "model",
       "suffix": ".md",
-      "bytes": 1030
+      "bytes": 1312
     },
     {
       "path": "runtime/model/cards/balanced_rule_residual_imitation_v2/card.md",
       "category": "model",
       "suffix": ".md",
-      "bytes": 1033
+      "bytes": 1315
     },
     {
       "path": "runtime/model/cards/balanced_rule_residual_imitation_v2_fix/card.md",
       "category": "model",
       "suffix": ".md",
-      "bytes": 1038
+      "bytes": 1320
     },
     {
       "path": "runtime/model/cards/balanced_rule_residual_imitation_v3/card.md",
       "category": "model",
       "suffix": ".md",
-      "bytes": 1030
+      "bytes": 1312
     },
     {
       "path": "runtime/model/cards/balanced_rule_residual_imitation_v4/card.md",
       "category": "model",
       "suffix": ".md",
-      "bytes": 1030
+      "bytes": 1312
     },
     {
       "path": "runtime/model/cards/balanced_rule_residual_imitation_v5/card.md",
       "category": "model",
       "suffix": ".md",
-      "bytes": 1030
+      "bytes": 1312
     },
     {
       "path": "runtime/model/cards/balanced_rule_residual_imitation_v6/card.md",
       "category": "model",
       "suffix": ".md",
-      "bytes": 1030
+      "bytes": 1312
     },
     {
       "path": "runtime/model/cards/balanced_rule_residual_imitation_v7/card.md",
       "category": "model",
       "suffix": ".md",
-      "bytes": 1030
+      "bytes": 1312
     },
     {
       "path": "runtime/model/cards/balanced_rule_residual_learned_mode_v1/card.md",
@@ -659,13 +575,13 @@
       "path": "runtime/model/cards/balanced_rule_residual_mode_v1/card.md",
       "category": "model",
       "suffix": ".md",
-      "bytes": 971
+      "bytes": 1247
     },
     {
       "path": "runtime/model/cards/balanced_rule_residual_mode_v2/card.md",
       "category": "model",
       "suffix": ".md",
-      "bytes": 970
+      "bytes": 1246
     },
     {
       "path": "runtime/model/cards/balanced_rule_residual_refined_v1/card.md",
@@ -677,13 +593,13 @@
       "path": "runtime/model/cards/balanced_rule_residual_refined_v2/card.md",
       "category": "model",
       "suffix": ".md",
-      "bytes": 1007
+      "bytes": 1292
     },
     {
       "path": "runtime/model/cards/balanced_rule_residual_refined_v3/card.md",
       "category": "model",
       "suffix": ".md",
-      "bytes": 1007
+      "bytes": 1292
     },
     {
       "path": "runtime/model/cards/balanced_rule_residual_refined_v4/card.md",
@@ -719,7 +635,7 @@
       "path": "runtime/model/cards/balanced_rule_residual_v19/card.md",
       "category": "model",
       "suffix": ".md",
-      "bytes": 949
+      "bytes": 1213
     },
     {
       "path": "runtime/model/cards/balanced_rule_residual_v19_transition/card.md",
@@ -737,7 +653,7 @@
       "path": "runtime/model/cards/balanced_rule_residual_v22/card.md",
       "category": "model",
       "suffix": ".md",
-      "bytes": 993
+      "bytes": 1257
     },
     {
       "path": "runtime/model/cards/balanced_rule_residual_v23/card.md",
@@ -755,19 +671,19 @@
       "path": "runtime/model/cards/risk_budget_bc_warmstart_v1/card.md",
       "category": "model",
       "suffix": ".md",
-      "bytes": 971
+      "bytes": 1217
     },
     {
       "path": "runtime/model/cards/risk_budget_usage_v1/card.md",
       "category": "model",
       "suffix": ".md",
-      "bytes": 958
+      "bytes": 1204
     },
     {
       "path": "runtime/model/cards/smoke/card.md",
       "category": "model",
       "suffix": ".md",
-      "bytes": 945
+      "bytes": 1146
     },
     {
       "path": "runtime/model/cards/smoke_tide/card.md",
@@ -809,7 +725,7 @@
       "path": "runtime/model/knowledge.md",
       "category": "model",
       "suffix": ".md",
-      "bytes": 11321
+      "bytes": 13342
     },
     {
       "path": "runtime/model/reviews/balanced_checkpoint_review.md",

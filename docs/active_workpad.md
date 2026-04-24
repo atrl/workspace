@@ -13,6 +13,7 @@ direction: harness
 - ✅ 删除 codex_exec_plans/，迁移至 docs/active_workpad.md
 - ✅ memory/ 整合到 runtime/<direction>/knowledge.md
 - ✅ experiments/ 精简（删除 archive，合并重复分支）
+- ✅ experiments/ 合并到 runtime/：每个实验包精确链接到对应 model card，knowledge.md 新增实验包索引表
 - ✅ artifacts/ 按 family 拆分（canonical/balanced/smoke/risk_budget/other）
 - ✅ skills 重命名（soxl-factor-* → leveraged-etf-factor-*）+ _index.json
 - ✅ 知识卡片重组：每个实验独立文件夹 + 统一格式 + 结论
