@@ -1,50 +1,39 @@
 # DATA Knowledge
 
-> 最后更新: 2026-04-24  
+> 最后更新: 2026-04-24
 > 该方向负责数据管道、qlib store、外部数据接入和数据质量监控。
 
-## 核心结论
+## Data Configuration Comparison Table
 
-1. **qlib store 已构建 5 只 3x ETF**: SOXL, TQQQ, UPRO, SPXL, TECL。
-2. **外部数据源注册在 data/datasets.yaml**: VIX、宏观指标通过统一 registry 管理。
-3. **训练/验证/测试切分**: 2010-2018 train / 2019 valid / 2020-2024 test（固定切分）。
-4. **Walk-forward 窗口**: 2020, 2022, 2023-2024 三个独立测试窗口用于验证泛化。
+| Profile | Return | Sharpe | MaxDD | AvgPos | FS | WF | Feature Note | Verdict |
+|---------|--------|--------|-------|--------|----|----|--------------|---------|
+| balanced_floor40_sym_velocity | 591 | 0.891 | 60.1 | 0.517 | ❌ | ❌ | Velocity features | 🟡 Good |
+| balanced_rule_residual_v19_transition | 519 | 0.824 | 60.9 | 0.568 | ❌ | ❌ | Transition signals | 🟡 Good |
+| balanced_floor40_sym_velocity_rules | 386 | 0.800 | 62.3 | 0.456 | ❌ | ❌ | Velocity features | 🟡 Good |
 
-## 数据集清单
+### Verdict Legend
 
-| 数据集 | 路径 | 说明 |
-|--------|------|------|
-| SOXL qlib store | `data/qlib/soxl/` | 主训练标的，日频 |
-| TQQQ/UPRO/SPXL/TECL | `data/qlib/{symbol}/` | 泛化测试标的 |
-| VIX 外部数据 | `data/raw/external/vix.csv` | 日频 VIX spot |
-| datasets.yaml | `data/datasets.yaml` | 统一数据注册表 |
+- ✅ **Strong** — Sharpe > 1.5 and MaxDD < 30%
+- 🟡 **Good** — Sharpe > 0.8
+- 🟡 **Gate-pass** — Passed fixed-split or walk-forward gate
+- 🟡 **Moderate** — Sharpe > 0.5
+- ❌ **Weak** — Sharpe <= 0.5
 
-## 特征工程管道
+## Core Conclusions
 
-```
-raw CSV → qlib init → DataHandlerLP → engineer_feature_frame()
-                                    ↓
-                          CORE_FEATURE_COLUMNS (~50 features)
-                                    ↓
-                          feature_packs (transition, kelly, etc.)
-```
+1. **SOXL 数据覆盖**: 2010-01-01 至 2025-12-31，包含 OHLCV + VIX。
+2. **外部数据**: VIX3M, VIX9D, SKEW, VVIX 已接入（qlib store）。
+3. **Feature 稳定性**: 50 core features + 14 rulebase + 7 academic + 7 transition。
+4. **VIX-free 替代**: regime_risk_no_vix 在 VIX 缺失时可用。
 
 ## 有效方法 ✅
 
-| 方法 | 说明 |
-|------|------|
-| qlib binary store | 标准化存储，加速训练数据加载 |
-| datasets.yaml 注册 | 统一管理 raw/processed/qlib 三级数据 |
-| 外部数据注入 | VIX 等外部特征通过 external data frame 合并 |
+| 方法 | 验证结果 |
+|------|---------|
+| Qlib store 标准化 | 数据一致性通过 |
+| 外部数据对齐 | ffill + 0-fill，避免 NaN 丢行 |
 
 ## 待验证方向
 
-- [ ] 分钟频数据接入（当前仅日频）
-- [ ] 宏观因子（利率、信用利差）与 LETF 的相关性面板
-- [ ] 数据刷新自动化（当前需手动触发）
-
----
-
-## 实验记录（参考）
-
-见 memory archive 原始记录，按日期排序。
+- [ ] 多资产联合数据管道（TQQQ/UPRO/SPXL/TECL）
+- [ ] 实时数据延迟模拟

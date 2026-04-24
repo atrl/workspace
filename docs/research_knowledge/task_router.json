@@ -13,7 +13,7 @@
     "data": {
       "use_when": "raw CSV refresh, qlib stores, processed panels, training caches, external volatility inputs",
       "knowledge": "docs/research_knowledge/data.md",
-      "skills": ["qlib-rl-trading"],
+      "skills": ["leveraged-etf-factor-research"],
       "memory_query": ["data", "qlib", "multi asset", "registry"],
       "runtime": ["runtime/data/"],
       "validation": ["scripts/update_data_registry.py --check", "scripts/check_source_boundaries.py"]
@@ -29,7 +29,7 @@
     "network": {
       "use_when": "GRU, attention, MoE, mode classifier, temporal context, asset-specific heads",
       "knowledge": "docs/research_knowledge/networks.md",
-      "skills": ["qlib-rl-trading", "post-train-backtest-review"],
+      "skills": ["post-train-backtest-review"],
       "memory_query": ["network", "GRU", "attention", "MoE", "classifier"],
       "runtime": ["runtime/network/", "runtime/model/reviews/"],
       "validation": ["scripts/check_harness.py"]
@@ -53,7 +53,7 @@
     "multi_asset": {
       "use_when": "TQQQ, UPRO, SPXL, TECL transfer tests or shared leveraged-ETF training",
       "knowledge": "docs/research_knowledge/multi_asset.md",
-      "skills": ["qlib-rl-trading", "leveraged-etf-signal-backtest"],
+      "skills": ["leveraged-etf-signal-backtest"],
       "memory_query": ["multi asset", "TQQQ", "UPRO", "SPXL", "TECL", "cross ETF"],
       "runtime": ["runtime/multi_asset/generalization/", "runtime/data/"],
       "validation": ["scripts/update_data_registry.py --check", "scripts/check_harness.py"]

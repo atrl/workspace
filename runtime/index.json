@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-24T12:08:57.983748+00:00",
+  "generated_at": "2026-04-24T12:25:50.157234+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -11,13 +11,13 @@
       "path": "runtime/data/knowledge.md",
       "category": "data",
       "suffix": ".md",
-      "bytes": 1745
+      "bytes": 1530
     },
     {
       "path": "runtime/execution/knowledge.md",
       "category": "execution",
       "suffix": ".md",
-      "bytes": 2650
+      "bytes": 3665
     },
     {
       "path": "runtime/factor/analysis/backtest_ACAD_AMIHUD_ZSCORE.csv",
@@ -125,13 +125,13 @@
       "path": "runtime/factor/knowledge.md",
       "category": "factor",
       "suffix": ".md",
-      "bytes": 2749
+      "bytes": 11279
     },
     {
       "path": "runtime/harness/knowledge.md",
       "category": "harness",
       "suffix": ".md",
-      "bytes": 2301
+      "bytes": 1141
     },
     {
       "path": "runtime/model/diagnosis/deep_dive_rl_vs_rulebased.md",
@@ -185,7 +185,7 @@
       "path": "runtime/model/knowledge.md",
       "category": "model",
       "suffix": ".md",
-      "bytes": 2260
+      "bytes": 7342
     },
     {
       "path": "runtime/model/reviews/balanced_checkpoint_review.md",
@@ -725,19 +725,19 @@
       "path": "runtime/multi_asset/knowledge.md",
       "category": "multi_asset",
       "suffix": ".md",
-      "bytes": 2233
+      "bytes": 1476
     },
     {
       "path": "runtime/network/knowledge.md",
       "category": "network",
       "suffix": ".md",
-      "bytes": 2426
+      "bytes": 2074
     },
     {
       "path": "runtime/reward/knowledge.md",
       "category": "reward",
       "suffix": ".md",
-      "bytes": 2679
+      "bytes": 3197
     }
   ]
 }
