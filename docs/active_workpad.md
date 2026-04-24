@@ -28,6 +28,11 @@ direction: harness
   - 12 个卡片移动，14 个跳过（合并实验共享或纯 artifact summary）
   - runtime/model/knowledge.md 链接更新指向 experiments/
   - build_runtime_index.py 支持扫描 experiments/ 目录
+- ✅ **risk_budget_usage_v2 训练完成** (seed=42)
+  - test_proxy: Sharpe=0.884, MaxDD=20.6%, avg_pos=0.180
+  - test_2022: MaxDD=7.4%, avg_pos=0.070（显著改善但过度保守）
+  - Promotion: blocked (Sharpe < 0.95)
+  - 诊断: flat_wait_pos_penalty 太强，需调参
 - ✅ artifacts/ 按 family 拆分（canonical/balanced/smoke/risk_budget/other）
 - ✅ skills 重命名（soxl-factor-* → leveraged-etf-factor-*）+ _index.json
 - ✅ 知识卡片重组：每个实验独立文件夹 + 统一格式 + 结论

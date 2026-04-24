@@ -86,11 +86,37 @@ mode_router:
 
 ## Result
 
-(TBD — run training and fill in)
+Command:
+```bash
+PYTHONPATH=. qlib_venv/bin/python -m src.soxl_quant.cli \
+  --profiles risk_budget_usage_v2 --seed 42 --skip-data-refresh
+```
+
+| 切片 | Return | Sharpe | MaxDD | AvgPos | StressAvgPos |
+|------|--------|--------|-------|--------|-------------|
+| test_proxy | 158.3% | **0.884** | 20.6% | 0.180 | 0.070 |
+| test_2020 | 27.7% | 1.515 | 16.7% | 0.210 | 0.097 |
+| test_2022 | -3.2% | -0.272 | **7.4%** | **0.070** | 0.035 |
+| test_2023_2024 | 40.1% | 1.227 | 15.4% | 0.179 | 0.098 |
+| valid | 12.7% | 0.795 | 17.1% | 0.255 | 0.095 |
+
+### Promotion Gate
+
+- test_2022 MaxDD: 7.4% < 20.0% ✅
+- test_2022 avg_pos: 0.070 < 0.15 ✅
+- test_proxy Sharpe: 0.884 < 0.95 ❌ (未达标)
 
 ## Decision
 
-(TBD)
+**Keep as candidate, parameter tuning needed.**
+
+v2 的 mode-conditional reward + dynamic band scaling 确实让策略更保守：
+- ✅ 2022 MaxDD 从 18.7% → 7.4%（显著改善）
+- ✅ 2022 avg_pos 从 0.127 → 0.070（更保守）
+- ❌ proxy Sharpe 从 0.942 → 0.884（未达 0.95 目标）
+- ❌ 2020/2023-2024 回报下降（过度保守）
+
+**诊断**: `flat_wait_pos_penalty=0.15` 可能太强，导致 Actor 在 flat_wait 模式下过度空仓，错失重启参与机会。下一步应降低该惩罚或提高 `crash_rebuild_bonus`。
 
 ## Comparison-Table Row Key
 

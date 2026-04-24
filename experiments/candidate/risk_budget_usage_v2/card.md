@@ -49,7 +49,35 @@ original_band ──→ new_band = centre ± (width × scale / 2)
 
 ## 结果
 
-(TBD — 训练完成后填写)
+| 切片 | Return | Sharpe | MaxDD | AvgPos | StressAvgPos |
+|------|--------|--------|-------|--------|-------------|
+| test_proxy | 158.3% | **0.884** | 20.6% | 0.180 | 0.070 |
+| test_2020 | 27.7% | 1.515 | 16.7% | 0.210 | 0.097 |
+| test_2022 | -3.2% | -0.272 | **7.4%** | **0.070** | 0.035 |
+| test_2023_2024 | 40.1% | 1.227 | 15.4% | 0.179 | 0.098 |
+| valid | 12.7% | 0.795 | 17.1% | 0.255 | 0.095 |
+
+### 与 v1 对比
+
+| 指标 | v1 | v2 | 变化 |
+|------|-----|-----|------|
+| proxy Sharpe | 0.942 | 0.884 | ↓ 未达 0.95 目标 |
+| proxy MaxDD | 32.5% | 20.6% | ↓ 改善 |
+| 2022 MaxDD | 18.7% | 7.4% | ↓ 显著改善 |
+| 2022 avg_pos | 0.127 | 0.070 | ↓ 更保守 |
+| 2020 Return | 40.9% | 27.7% | ↓ 下降 |
+| 2023-24 Return | 82.8% | 40.1% | ↓ 下降 |
+
+## 结论
+
+**Keep as candidate, parameter tuning needed.**
+
+v2 的 mode-conditional reward + dynamic band scaling 让策略显著更保守：
+- ✅ 2022 MaxDD 从 18.7% → 7.4%（极端优秀）
+- ❌ proxy Sharpe 从 0.942 → 0.884（未达 0.95 目标）
+- ❌ 2020/2023-2024 回报下降（过度保守，错失参与机会）
+
+**诊断**: `flat_wait_pos_penalty=0.15` 可能太强，导致 flat_wait 模式下过度空仓。
 
 ## 实验原始记录
 
@@ -60,5 +88,5 @@ original_band ──→ new_band = centre ± (width × scale / 2)
 
 ## 下一步
 
-- 运行训练并验证指标
-- 对比 v1 的 replay 路径和 actor-backed 结果
+- 降低 `flat_wait_pos_penalty`（如 0.15 → 0.08）或提高 `crash_rebuild_bonus`
+- 重新训练 v2-tuned，验证 Sharpe 是否回升到 0.95+
