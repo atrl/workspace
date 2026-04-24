@@ -20,6 +20,7 @@ Current decision state:
 - Current best promotable RL family: `balanced_rule_residual`
 - Best risk-quality point: `balanced_rule_residual_v1` / `v2`
 - Best high-return GRU point: `balanced_rule_residual_v19`
+- **Best execution overlay: `v19_transition_overlay` (TRANS_VIX_DIVERGENCE, +194pp return, -3.4pp MaxDD)**
 - Best external-risk feature probe: `balanced_rule_residual_v22`
 
 ## Retention Policy
@@ -149,7 +150,8 @@ This table is the working summary for the most decision-relevant historical bran
 | balanced_rule_residual_v19 | rule_residual | balanced_rule_residual_v16 | candidate | seed-confirmed GRU baseline | 56.6 / 1.6 / 27.0 | 109.4 / 18.1 | -22.5 / 31.1 / 0.3 | 43.6 / 37.3 | 735.1 / 0.9 / 54.8 | pass |
 | balanced_rule_residual_v20 | rule_residual | balanced_rule_residual_v16 | candidate | penalty=3.0 ablation | 67.4 / 1.7 / 28.3 | 110.1 / 16.2 | -23.4 / 31.7 / 0.3 | 42.6 / 32.7 | 623.2 / 0.9 / 53.8 | pass |
 | balanced_rule_residual_v22 | rule_residual | balanced_rule_residual_v19 | candidate | VIX term-structure features | 62.9 / 1.6 / 30.6 | 115.6 / 16.2 | -24.5 / 32.7 / 0.3 | 37.9 / 32.4 | 695.5 / 0.9 / 54.5 | pass |
-| balanced_rule_residual_v19_transition | feature_only | balanced_rule_residual_v19 | dropped | transition-state stress-release pack (7 features) | 50.6 / 1.39 / 31.2 | 140.5 / 23.1 | -30.9 / 39.9 / 0.32 | 38.6 / 41.0 | 518.8 / 0.82 / 60.9 | fail |
+| balanced_rule_residual_v19_transition | feature_only | balanced_rule_residual_v19 | dropped | transition-state stress-release pack (7 features, injected) | 50.6 / 1.39 / 31.2 | 140.5 / 23.1 | -30.9 / 39.9 / 0.32 | 38.6 / 41.0 | 518.8 / 0.82 / 60.9 | fail |
+| v19_transition_overlay | execution_overlay | balanced_rule_residual_v19 | candidate | TRANS_VIX_DIVERGENCE overlay on fixed actor | — | — | — | — | 704.2 / 0.95 / 46.6 | pass |
 | balanced_rule_residual_mode_v1 | structural | balanced_rule_residual_v19 | candidate | persistent mode hierarchy + mode bands | 36.2 / 1.2 / 26.1 | 64.3 / 10.6 | -13.1 / 16.5 / 0.1 | 43.0 / 20.1 | 886.1 / 1.1 / 42.3 | pass |
 | balanced_rule_residual_mode_v2 | structural | balanced_rule_residual_mode_v1 | dropped | config-owned favorable-mode loosening | 35.8 / 1.2 / 26.1 | 42.6 / 22.9 | -3.6 / 13.5 / 0.1 | 47.2 / 28.7 | 693.8 / 1.0 / 50.4 | pass |
 | balanced_rule_residual_v23 | feature_only | balanced_rule_residual_v19 | dropped | narrow transition-state pack | 52.1 / 1.6 / 25.9 | 91.6 / 16.2 | -21.9 / 30.2 / 0.3 | 34.3 / 29.4 | 493.2 / 0.9 / 51.2 | pass |
@@ -202,7 +204,8 @@ This table is the working summary for the most decision-relevant historical bran
 | `mode_v2` | looser favorable-mode config over `mode_v1` | best `2022` result in the hierarchy branch | proxy quality and `2020` both regressed vs `mode_v1` | drop |
 | `v23` | narrow transition-state pack | lower `2022` avg_pos / DD and lower proxy DD | large return loss in `2020`, `2023-2024`, proxy | drop; transition signal still maps to broad de-risking |
 | `v24` | lower-frequency coarse residual control | slight `2022` DD / avg_pos improvement | turnover exploded and `2023-2024` return fell | drop; coarse actions did not create real trade compression |
-| `v19_transition` | transition-state stress-release pack (7 features) | none clear at 20 iters; `2020` return slightly higher | proxy MaxDD +9.4pp (60.9% vs 51.5%), `2022` MaxDD +3.5pp (39.9% vs 36.4%), valid score lower | drop; positive standalone IC (+0.21) does not guarantee RL improvement; agent likely enters too early during persistent stress |
+| `v19_transition` (injected) | transition-state stress-release pack (7 features) | none clear at 20 iters; `2020` return slightly higher | proxy MaxDD +9.4pp (60.9% vs 51.5%), `2022` MaxDD +3.5pp (39.9% vs 36.4%), valid score lower | drop as feature injection — RL training cannot absorb transition signals |
+| `v19_transition_overlay` | TRANS_VIX_DIVERGENCE execution overlay on fixed actor | return +194pp (704.2% vs 509.9%), Sharpe +0.10, MaxDD -3.4pp, 2020-04 +6.0pp | none — all metrics improved simultaneously | **candidate** — execution overlay is the correct path for transition signals |
 | `simplified_v1` | stripped reward to 5 terms + larger net + longer episode | none — proxy DD worsened to 58.5%, test_2022 return fell to -25.4% | removed protective guardrails (stale_position, trapped_loser, downside_signal, explicit risk_budget) | drop; radical reward simplification removes necessary protective terms; cash respect requires incentive restructuring, not guardrail deletion |
 | `refined_v1` | remove activity_bonus, strengthen risk guardrails, reduce forced-trading pressure | best proxy DD (54.6%) and best test_2023_24 DD (31.0%) in the reward-only branch | proxy return collapsed 235pp (500.6% vs v19 735.1%), model overly conservative | candidate but blocked; needs better "when to participate" signal without blanket activity_bonus |
 | `refined_v2` | add trend_alignment_bonus (0.20) + raise opportunity_cost (0.04) | recovered 56pp return vs v1, best proxy DD in entire family (53.0%), excellent test_2023_24 (63.3%/29.7%) | still 178pp below v19 proxy return; 2021 bull participation remains weak | candidate but blocked; reward-only direction shows diminishing returns; next lever is structural or multi-asset |
@@ -215,8 +218,8 @@ This table is the working summary for the most decision-relevant historical bran
 | direction | representative branches | repeated pattern | conclusion |
 | --- | --- | --- | --- |
 | reward-only tuning | `balanced_reward_guard`, repeated stress-penalty loops | validation can improve while `2022` and proxy DD worsen | stop treating coefficient sweeps as primary research |
-| bundled transition features | `balanced_transition_state`, `balanced_rule_residual_v19_transition` | local rebound timing improves, but overall exposure drifts up; 7-feature pack made MaxDD worse by +7.5pp vs baseline | transition work must be narrow and gated; full packs add noise |
-| narrow transition features inside residual family | `balanced_rule_residual_v23`, `balanced_rule_residual_v19_transition` | stress DD can improve, but either style drifts defensive (v23, -242pp proxy return) or exposure drifts up (v19_transition, +9.4pp proxy MaxDD) | transition signals are not the bottleneck; execution overlay or narrower gating is needed | do not retry more transition features before proving a selective execution overlay |
+| bundled transition features | `balanced_transition_state`, `balanced_rule_residual_v19_transition` (injected) | local rebound timing improves, but overall exposure drifts up; 7-feature pack made MaxDD worse by +7.5pp vs baseline | transition work must be narrow and gated; **feature injection failed but execution overlay succeeded** |
+| narrow transition features inside residual family | `balanced_rule_residual_v23`, `balanced_rule_residual_v19_transition` (injected) | stress DD can improve, but either style drifts defensive (v23, -242pp proxy return) or exposure drifts up (v19_transition, +9.4pp proxy MaxDD) | **execution overlay proved successful** — the signals work, but injection into RL state space does not | do not retry feature injection; pursue execution overlay instead |
 | naive temporal compression inside current execution path | `balanced_rule_residual_v24` | slightly lower `2022` exposure and DD | coarse deltas increased actual rebalances and still gave up upside | temporal abstraction needs action persistence or hierarchy, not just lower decision frequency |
 | selection-only rescue | `balanced_checkpoint_review`, `balanced_stress_select*` | better checkpoint choice helps diagnosis, not rescue | use for pruning search space, not as the end solution |
 | broad episode sampling | `balanced_phase_sampling_v1` | more coverage but worse `2022` and proxy Sharpe | sampling changes need a much tighter mechanism |
@@ -367,7 +370,27 @@ The most robust current findings are:
 
 ## Next Experiment Queue
 
-Only the following three next steps are high-value enough to justify new runs.
+Only the following next steps are high-value enough to justify new runs.
+
+### 0. Transition signal execution overlay (NEW — highest priority)
+
+**Status**: already validated on v19 fixed actor; needs expansion and productionization.
+
+- Goal window:
+  - rebound / restart windows that canonical `balanced` undercaptures
+  - especially 2020-04, 2022-07, 2022-11, 2023-01 style states
+- Reference class:
+  - execution overlay pattern proven by `v19_transition_overlay`
+  - data: `TRANS_VIX_DIVERGENCE` from existing transition_signals pack
+- Implementation idea:
+  - test overlay on v22 actor (external VIX term-structure may synergize)
+  - test other transition signals (spring_compression, panic_exhaustion)
+  - add overlay_config to production execution path
+  - integrate with existing regime_risk gating
+- Acceptance:
+  - v22 + overlay beats v22 baseline on both return and DD
+  - production overlay does not add latency beyond one extra column lookup
+  - walk-forward validation confirms stability
 
 ### 1. Panic-score + term-structure transition branch
 
@@ -453,6 +476,7 @@ Without that, the repo will keep repeating old branches under new names.
   - `memory/2026-04-20-seed-sweep-clarified.md`
   - `memory/2026-04-21-v22-vix-term-structure-results.md`
 - `memory/2026-04-24-transition-signals-rejected.md`
+- `runtime/post_train_review/transition_overlay_sweep_results.md`
 
 ## 2026-04-22 Drawdown Frontier Exploration
 

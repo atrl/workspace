@@ -1,4 +1,34 @@
+---
+date: '2026-04-23'
+title: "SOXL \u7279\u5F81\u6316\u6398 Skill \u9002\u914D\u5B8C\u6210"
+kind: skill
+profiles:
+- soxl
+status: dropped
+tags:
+- dropped
+- skill
+- soxl
+- stress-regime
+artifacts: []
+workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+summary: "Legacy memory note normalized into the repo-wide schema. \u5C06 agentic-alpha\
+  \ \u7684\u56E0\u5B50\u6316\u6398\u65B9\u6CD5\u8BBA\u9002\u914D\u5230 SOXL \u5355\
+  \u6807\u7684\u62E9\u65F6\u573A\u666F\uFF0C\u5EFA\u7ACB\u72EC\u7ACB\u4E8E RL \u8BAD\
+  \u7EC3\u7684\u7279\u5F81\u6316\u6398\u3001\u9A8C\u8BC1\u3001\u5165\u5E93\u4F53\u7CFB\
+  \u3002 \u539F\u59CB\uFF1A\u6BCF\u65E5\u622A\u9762 Spearman\uFF08\u591A\u80A1\u7968\
+  \u6A2A\u622A\u9762\u6392\u540D\uFF09 \u9002\u914D\uFF1A\u6EDA\u52A8 21 \u65E5\u65F6\
+  \u5E8F Pearson \u76F8\u5173\uFF08\u5355\u6807\u7684\u65F6\u95F4\u5E8F\u5217\uFF09\
+  \ \u5224\u5B9A\u6807\u51C6\uFF1A`mean_ic > 0.03`, `ic_positive_ratio > 0.55`, `ic_t"
+---
+
 # SOXL 特征挖掘 Skill 适配完成
+
+## Context
+
+Legacy memory note normalized into the repo-wide schema.
+
+## Evidence
 
 ## 目标
 将 agentic-alpha 的因子挖掘方法论适配到 SOXL 单标的择时场景，建立独立于 RL 训练的特征挖掘、验证、入库体系。
@@ -91,3 +121,11 @@
 1. 对负向特征（RB_SELL_COMPOSITE, RB_STOP_LOSS_PROXY 等）单独验证其作为“风险预警”信号的价值
 2. 将 Accepted 特征通过 profile 的 `feature_packs` 配置注入 RL 观测空间进行训练测试
 3. 建立自动化的因子挖掘流水线（cron / github action）
+
+## Decision
+
+See the summary and status fields in front matter.
+
+## Next Use
+
+Use `scripts/memory_search.py` before opening additional memory files.

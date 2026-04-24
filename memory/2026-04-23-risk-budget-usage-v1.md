@@ -3,15 +3,20 @@ date: 2026-04-23
 title: Risk-budget usage replay candidate
 kind: review
 profiles:
+- balanced_rule_residual_imitation_v4
 - balanced_rule_residual_imitation_v4_soxl_daily
 - balanced_rule_residual_mode_v1_soxl_daily
+- soxl
 status: reference
 tags:
+- balanced_rule_residual_imitation_v4
 - balanced_rule_residual_imitation_v4_soxl_daily
 - balanced_rule_residual_mode_v1_soxl_daily
-- candidate
+- checkpoint-selection
 - eval-2022
+- reference
 - review
+- soxl
 artifacts:
 - runtime/backtest
 - runtime/post_train_review/balanced_rule_residual_imitation_v4_soxl_daily.csv

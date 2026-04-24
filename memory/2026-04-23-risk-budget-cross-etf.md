@@ -3,22 +3,20 @@ date: '2026-04-23'
 title: Risk-budget usage cross-ETF diagnostic
 kind: review
 profiles:
-- risk_budget_usage_v1
-- balanced_rule_residual_imitation_v4
+- balanced_rule_residual_mode_v1
+- soxl
 status: dropped
 tags:
-- risk_budget_usage_v1
-- balanced_rule_residual_imitation_v4
+- balanced_rule_residual_mode_v1
 - dropped
-- execution-overlay
-- generalization
 - review
-artifacts:
-- runtime/post_train_review/risk_budget_usage_v1_cross_etf.json
-- runtime/post_train_review/risk_budget_usage_v1_cross_etf.md
-- runtime/post_train_review/risk_budget_usage_v1_cross_etf_daily/
+- soxl
+artifacts: []
 workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
-summary: Cross-ETF diagnostic split risk_budget_usage_v1 into fixed SOXL signal transfer and actor budget runtime. The fixed signal transferred strongly across SOXL/TQQQ/UPRO/SPXL/TECL, but the deployable actor/runtime path produced only 28-144% proxy return with Sharpe 0.37-0.83. Keep the diagnostic; do not promote actor runtime.
+summary: Cross-ETF diagnostic split risk_budget_usage_v1 into fixed SOXL signal transfer
+  and actor budget runtime. The fixed signal transferred strongly across SOXL/TQQQ/UPRO/SPXL/TECL,
+  but the deployable actor/runtime path produced only 28-144% proxy return with Sharpe
+  0.37-0.83. Keep the diagnostic; do not promote actor runtime.
 ---
 
 # Risk-budget usage cross-ETF diagnostic

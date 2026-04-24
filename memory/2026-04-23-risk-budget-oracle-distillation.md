@@ -2,20 +2,13 @@
 date: '2026-04-23'
 title: Risk-budget oracle distillation and composer extraction
 kind: review
-profiles:
-- risk_budget_oracle_distill_v1
-- risk_budget_usage_v1
+profiles: []
 status: dropped
 tags:
-- risk_budget_oracle_distill_v1
-- risk_budget_usage_v1
 - dropped
 - eval-2022
-- execution-overlay
 - review
-artifacts:
-- runtime/post_train_review/risk_budget_oracle_distill_v1.json
-- runtime/post_train_review/risk_budget_oracle_distill_v1.md
+artifacts: []
 workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
 summary: No-promotion oracle distillation used full fixed-replay daily labels for
   risk_budget_usage_v1. The label set contained action-4 full usage, but the single

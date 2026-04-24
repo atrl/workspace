@@ -1,4 +1,32 @@
+---
+date: '2026-04-22'
+title: "v10 Attention + Simplified Reward + Kelly \u2014 Failure Report"
+kind: failure
+profiles:
+- balanced_kelly_attention_v10
+status: dropped
+tags:
+- balanced_kelly_attention_v10
+- checkpoint-selection
+- dropped
+- eval-2022
+- execution-overlay
+- failure
+- stress-regime
+artifacts: []
+workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+summary: "Legacy memory note normalized into the repo-wide schema. **Profile**: `balanced_kelly_attention_v10`\
+  \ **Hypothesis**: A fundamentally re-architected approach would break the \"fixed\
+  \ low-position collapse\": Network: GRU \u2192 WindowSelfAttentionNe"
+---
+
 # v10 Attention + Simplified Reward + Kelly — Failure Report
+
+## Context
+
+Legacy memory note normalized into the repo-wide schema.
+
+## Evidence
 
 ## Experiment
 
@@ -100,3 +128,11 @@ Next directions to consider:
    correlates with better test metrics; if not, the reward is misaligned
 5. **Behavioral cloning from v4** — train a new network to imitate v4's actions without
    PPO fine-tuning, then see if PPO can improve from that starting point
+
+## Decision
+
+See the summary and status fields in front matter.
+
+## Next Use
+
+Use `scripts/memory_search.py` before opening additional memory files.

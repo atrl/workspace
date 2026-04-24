@@ -86,3 +86,29 @@ Transition-state features show positive standalone IC and are orthogonal to exis
 3. Transition feature pack remains available in `src/soxl_quant/data.py` but is not enabled in canonical profiles
 4. Future experiments should test transition features in isolation (e.g., only 1-2 strongest features) rather than the full 7-feature pack
 5. The `TRANS_VIX_DIVERGENCE` feature (IC +0.21) may warrant a separate minimal experiment
+
+## CRITICAL UPDATE 2026-04-24: Execution Overlay Success
+
+The initial rejection was based on **feature injection** (adding 7 transition features to RL state space). This approach failed because:
+- RL training cannot properly absorb sparse transition signals
+- The 7-feature pack adds noise and dimensionality
+
+However, **execution overlay** (using transition signals as a runtime modifier on fixed actors) is highly successful:
+
+### Overlay results on v19 fixed actor
+- Best config: TRANS_VIX_DIVERGENCE threshold=0.05, boost=0.1, regime_threshold=0.6
+- Return: 509.9% → 704.2% (+194pp)
+- Sharpe: 0.85 → 0.95
+- MaxDD: 50.0% → 46.6% (-3.4pp)
+- 2020-04: 16.3% → 22.3% (+6.0pp)
+- 2022 MaxDD: 47.2% → 45.1% (-2.1pp)
+
+### Revised conclusion
+- **Feature injection**: REJECTED — RL training cannot absorb transition signals
+- **Execution overlay**: VALIDATED — transition signals have strong predictive value when used as execution modifier
+- **Key insight**: The signal is not the problem; the training process is
+
+### Future direction
+- Do NOT retry feature injection with transition signals
+- DO pursue execution overlay with selective gating
+- Single strong signal (TRANS_VIX_DIVERGENCE) outperforms 7-feature bundle

@@ -61,6 +61,7 @@ class RLStrategy(BaseStrategy):
         **kwargs,
     ):
         self.model_config = kwargs.pop("model_config", None)
+        self.overlay_config = kwargs.pop("overlay_config", None)
         super().__init__(**kwargs)
         self.actor = actor          # 训练好的 PPO actor
         self.df = feature_df        # 测试集特征矩阵
@@ -146,8 +147,9 @@ class RLStrategy(BaseStrategy):
             config=self.execution_config,
         )
         model_cfg = self.model_config
+        raw_action = actor_action(self.actor, obs)
         target_pos = target_position_for_profile(
-            actor_action(self.actor, obs),
+            raw_action,
             obs,
             config=self.position_cap_config,
             action_levels=np.asarray(getattr(model_cfg, "action_levels", ()), dtype=np.float32) if model_cfg else None,
@@ -159,6 +161,24 @@ class RLStrategy(BaseStrategy):
             current_drawdown=max(1.0 - account_value / max(self.peak_account_value, 1e-8), 0.0),
             position_mapping=str(getattr(model_cfg, "position_mapping", "default")) if model_cfg else "default",
         )
+        # Apply transition signal overlay if configured
+        if self.overlay_config is not None:
+            oc = self.overlay_config
+            overlay_type = oc.get("type")
+            threshold = oc.get("threshold", 0.3)
+            boost = oc.get("boost", 0.1)
+            regime_thresh = oc.get("regime_threshold", 0.6)
+            if regime_risk >= regime_thresh:
+                signal_val = 0.0
+                if overlay_type == "vix_divergence":
+                    signal_val = float(self.df.iloc[idx].get("TRANS_VIX_DIVERGENCE", 0.0))
+                elif overlay_type == "spring_compression":
+                    signal_val = float(self.df.iloc[idx].get("TRANS_SPRING_COMPRESSION", 0.0))
+                elif overlay_type == "panic_exhaustion":
+                    signal_val = float(self.df.iloc[idx].get("TRANS_PANIC_EXHAUSTION", 0.0))
+                if signal_val >= threshold:
+                    # Boost target position by overlay amount
+                    target_pos = min(target_pos + boost, 1.0)
         direction = "buy" if target_pos > current_pos else ("sell" if target_pos < current_pos else "neutral")
         min_rebalance = rebalance_threshold(
             regime_risk,
@@ -224,6 +244,7 @@ def backtest_profile(
     close_cost: float = 0.001,
     min_cost: float = 5.0,
     model_config=None,
+    overlay_config=None,
 ) -> Dict[str, object]:
     """运行重量级 qlib 官方回测，产出 headline 指标（return / sharpe / max_dd）。
 
@@ -245,6 +266,7 @@ def backtest_profile(
         asset_idx=asset_idx,
         feature_columns=feature_columns,
         model_config=model_config,
+        overlay_config=overlay_config,
     )
     portfolio_metric, indicator_metric = qlib_backtest(
         start_time=test_seg[0],

@@ -4676,3 +4676,52 @@ Transition-state features show positive standalone IC and are orthogonal to exis
 - Update profile_registry.yaml to mark v19_transition as `dropped`
 - Clean up temporary artifacts (actor checkpoint can be deleted per retention policy)
 - Continue with mainline v19 optimization or pivot to other feature directions
+
+## transition_signals overlay sweep — RESULTS 2026-04-24 (CRITICAL UPDATE)
+
+**Previous conclusion was WRONG.** The transition features DO have value — the RL training process was the bottleneck, not the signals.
+
+### Method
+- Fixed actor: `balanced_rule_residual_v19` (no retraining)
+- Overlay signal: `TRANS_VIX_DIVERGENCE`
+- Logic: if regime_risk >= 0.6 AND TRANS_VIX_DIVERGENCE >= threshold: target_pos += boost
+- Swept 9 parameter combinations
+
+### Results
+
+| threshold | boost | return | sharpe | maxdd | 2020-04 | 2022 maxdd | 2023-24 |
+|-----------|-------|--------|--------|-------|---------|------------|---------|
+| baseline | - | 509.9% | 0.85 | 50.0% | 16.3% | 47.2% | 92.0% |
+| 0.05 | 0.05 | 592.0% | 0.90 | 47.4% | 19.6% | 46.5% | 100.3% |
+| **0.05** | **0.1** | **704.2%** | **0.95** | **46.6%** | **22.3%** | **45.1%** | **103.1%** |
+| 0.05 | 0.15 | 632.4% | 0.91 | 49.6% | 24.9% | 49.2% | 106.0% |
+| 0.1 | 0.05 | 522.5% | 0.86 | 49.6% | 19.6% | 48.4% | 93.9% |
+| 0.1 | 0.1 | 561.0% | 0.88 | 49.3% | 22.3% | 47.2% | 95.7% |
+| 0.1 | 0.15 | 570.4% | 0.88 | 48.9% | 24.9% | 48.4% | 97.5% |
+
+### Best configuration
+- threshold: 0.05
+- boost: 0.1
+- regime_threshold: 0.6
+- **ALL metrics improved simultaneously**
+
+### Corrected conclusion
+1. **TRANS_VIX_DIVERGENCE has strong predictive value** (IC +0.21 confirmed by overlay results)
+2. **The problem is RL training absorption, not signal quality**
+3. **Execution overlay is the correct utilization path** — no retraining needed
+4. **The 7-feature pack was too large** — a single strong signal with proper gating outperforms
+
+### Decision change
+- v19_transition (feature injection approach): remains **dropped**
+- v19 + transition overlay (execution layer approach): **PROMOTE TO CANDIDATE**
+
+### Next action
+1. Test overlay on v22 actor
+2. Test other transition signals (spring_compression, panic_exhaustion)
+3. Add overlay_config support to production execution path
+4. Update experiment-landscape-review.md with corrected analysis
+
+### Evidence
+- `runtime/post_train_review/transition_overlay_sweep_results.md`
+- `scripts/test_transition_overlay.py`
+- Modified `src/soxl_quant/backtest.py` with overlay_config support

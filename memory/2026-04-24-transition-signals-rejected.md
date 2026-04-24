@@ -1,4 +1,33 @@
+---
+date: '2026-04-24'
+title: Transition Signals Experiment Rejected
+kind: review
+profiles:
+- balanced_rule_residual_v19_transition
+status: dropped
+tags:
+- balanced_rule_residual_v19_transition
+- checkpoint-selection
+- dropped
+- eval-2022
+- execution-overlay
+- review
+- stress-regime
+- transition-features
+artifacts: []
+workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
+summary: 'Legacy memory note normalized into the repo-wide schema. Date: 2026-04-24
+  Profile: `balanced_rule_residual_v19_transition` Hypothesis: transition-state features
+  (stress-release detection) would improve RL performance Method: add 7 transitio'
+---
+
 # Transition Signals Experiment Rejected
+
+## Context
+
+Legacy memory note normalized into the repo-wide schema.
+
+## Evidence
 
 Date: 2026-04-24
 
@@ -26,3 +55,11 @@ Positive standalone IC (+0.21 for TRANS_VIX_DIVERGENCE) does NOT guarantee RL im
 - Test 1-2 strongest transition features in isolation (not full 7-feature pack)
 - Focus on execution overlay or reward tuning for test_2022 improvement
 - The core gap (stress-release detection) remains unaddressed
+
+## Decision
+
+See the summary and status fields in front matter.
+
+## Next Use
+
+Use `scripts/memory_search.py` before opening additional memory files.
