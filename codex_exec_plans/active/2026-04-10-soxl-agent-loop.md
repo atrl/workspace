@@ -4754,6 +4754,50 @@ Pack increases feature count from 59 → 66 (+7).
   - do not spend another loop only on swapping the same teacher path from
     classification to scalar regression
 
+## learned-router attention oracle probe — PLAN 2026-04-24
+
+- Goal: test whether the remaining learned-router oracle gap is mostly backbone
+  capacity by replacing the GRU oracle backbone with attention.
+- Canonical baseline: fixed replay `risk_budget_usage_v1`.
+- Direct comparison baseline:
+  - `risk_budget_learned_oracle_distill_v1`
+  - `risk_budget_learned_usage_regression_v1`
+- Experiment role: `diagnose`.
+- Target improvement window: beat the GRU learned-router oracle probe on
+  `test_proxy` and `test_2023_2024`.
+- Accepted trade-off window: none beyond the no-promotion diagnostic; this
+  should show a clear capacity gain or be dropped.
+- Changed layer: `network`.
+- External reference:
+  - attention sequence modeling as a stronger alternative to small recurrent
+    backbones for non-uniform temporal signal extraction.
+- Closest historical success case:
+  - `risk_budget_learned_oracle_distill_v1` remains the strongest learned-router
+    single-actor probe.
+- Closest historical failure case:
+  - `risk_budget_learned_usage_regression_v1` showed that head changes alone do
+    not help.
+- Why not duplicate:
+  - this is the first learned-router oracle probe that isolates backbone
+    capacity while keeping the same teacher path and same discrete supervision.
+- Comparison-table row:
+  - `risk_budget_learned_attention_oracle_distill_v1`
+- Planned commands:
+  - `PYTHONPATH=. qlib_venv/bin/python scripts/build_budget_usage_oracle_actor.py --profile risk_budget_learned_attention_oracle_distill_v1 --replay-daily runtime/post_train_review/hierarchical_online_budget_daily/soxl_hier_learned_slow5.csv --skip-data-refresh --steps 1600 --sample-size 0 --output-json runtime/post_train_review/risk_budget_learned_attention_oracle_distill_v1.json --output-md runtime/post_train_review/risk_budget_learned_attention_oracle_distill_v1.md`
+  - `PYTHONPATH=. qlib_venv/bin/python scripts/check_harness.py`
+- Result:
+  - samples `1508`
+  - label distribution `{0: 238, 1: 1138, 2: 48, 3: 52, 4: 32}`
+  - BC loss / accuracy `1.186 / 0.719`
+  - `test_2022`: `-11.7% / Sharpe -1.054 / MaxDD 13.2% / avg_pos 0.105`
+  - `test_2023_2024`: `78.6% / Sharpe 1.130 / MaxDD 24.9% / avg_pos 0.336`
+  - `test_proxy`: `412.9% / Sharpe 1.042 / MaxDD 28.7% / avg_pos 0.296`
+- Decision:
+  - drop; attention produced effectively the same learned-router oracle probe as
+    the GRU backbone
+  - do not spend another loop on a same-scale backbone swap without a larger
+    sequence/state redesign
+
 ## transition_signals 20-iteration training — RESULTS 2026-04-24
 
 - Goal: validate whether transition-state features improve RL performance beyond v19 baseline

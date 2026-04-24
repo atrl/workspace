@@ -541,6 +541,7 @@ The repo has reached a **fundamental frontier** for single-asset 3x leveraged ET
 | risk_budget_learned_oracle_distill_v1 | diagnostic | hierarchical learned-router runtime | no-promotion oracle BC from deployable `hier_learned_slow5` daily path | 412.9% | 1.04 | 28.7% | 13.2% | 78.6% | 24.9% | dropped — stronger than prior oracle, but still not enough to close the learned-router runtime gap with one actor |
 | risk_budget_learned_conditioned_oracle_distill_v1 | diagnostic | risk_budget_learned_oracle_distill_v1 | explicit slow-mode one-hot appended to the learned-router oracle actor input | 387.1% | 1.01 | 30.1% | 13.2% | 77.7% | 24.9% | dropped — explicit mode conditioning did not improve the learned-router oracle probe |
 | risk_budget_learned_usage_regression_v1 | diagnostic | risk_budget_learned_oracle_distill_v1 | continuous usage regression head instead of 5-bin classification on the same learned-router teacher path | 222.8% | 0.77 | 34.7% | 17.6% | 63.0% | 25.7% | dropped — low train loss but materially worse policy, so quantization is not the main bottleneck |
+| risk_budget_learned_attention_oracle_distill_v1 | diagnostic | risk_budget_learned_oracle_distill_v1 | attention backbone instead of GRU on the same learned-router teacher path | 412.9% | 1.04 | 28.7% | 13.2% | 78.6% | 24.9% | dropped — effectively identical to the GRU oracle probe, so small backbone swap is not enough |
 
 ### Key Conclusions
 
