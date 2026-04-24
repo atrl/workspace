@@ -210,6 +210,23 @@ def action_to_budget_usage_position(
     return float(np.clip(floor + usage * (cap - floor), 0.0, 1.0))
 
 
+def budget_usage_to_position(
+    usage: float,
+    obs: np.ndarray,
+    config: Optional[PositionCapConfig] = None,
+    hard_floor: Optional[float] = None,
+    mode_band: Optional[Tuple[float, float]] = None,
+) -> float:
+    clipped_usage = float(np.clip(usage, 0.0, 1.0))
+    floor, cap = action_band_from_obs(obs, hard_floor=hard_floor)
+    floor, cap = _apply_mode_band(floor, cap, mode_band)
+    cumulative_drop = max(-float(np.nan_to_num(obs[STATIC_INDEX["cum_drop_30"]])), 0.0)
+    cap = min(cap, drawdown_position_cap(cumulative_drop, obs=obs, config=config))
+    if mode_band is not None and cap < floor:
+        cap = floor
+    return float(np.clip(floor + clipped_usage * (cap - floor), 0.0, 1.0))
+
+
 def target_position_for_profile(
     action: int,
     obs: np.ndarray,
@@ -261,6 +278,7 @@ __all__ = [
     "DEFAULT_POSITION_BUDGET",
     "action_band_from_obs",
     "action_levels_for_profile",
+    "budget_usage_to_position",
     "action_to_budget_usage_position",
     "action_to_position",
     "apply_position_budget",

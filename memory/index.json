@@ -2418,6 +2418,27 @@
     "excerpt": "# Learned-router oracle distillation diagnostic ## Context The hierarchical runtime diagnostic suggested that the best deployable line is a learned router with slow refresh. This loop tested whether a single actor can represent that line when trained directly on the resulting dai"
   },
   {
+    "path": "memory/2026-04-24-risk-budget-learned-usage-regression.md",
+    "date": "2026-04-24",
+    "title": "Learned-router usage regression probe",
+    "kind": "review",
+    "profiles": [],
+    "status": "dropped",
+    "tags": [
+      "dropped",
+      "eval-2022",
+      "review"
+    ],
+    "artifacts": [
+      "runtime/post_train_review/hierarchical_online_budget_daily/soxl_hier_learned_slow5.csv",
+      "runtime/post_train_review/risk_budget_learned_usage_regression_v1.json",
+      "runtime/post_train_review/risk_budget_learned_usage_regression_v1.md"
+    ],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Continuous usage regression on the learned-router teacher path fit the labels very well but produced a much worse policy than the learned-router oracle classifier. Proxy return fell to 222.8 percent and MaxDD rose to 34.7 percent, so discrete label quantization is not the main bottleneck.",
+    "excerpt": "# Learned-router usage regression probe ## Context The next cheap question after the failed mode-conditioning probe was whether the 5-bin action head itself was the bottleneck. ## Evidence Command: ```bash PYTHONPATH=. qlib_venv/bin/python scripts/build_budget_usage_regression_pr"
+  },
+  {
     "path": "memory/2026-04-24-transition-signals-rejected.md",
     "date": "2026-04-24",
     "title": "Transition Signals Experiment Rejected",

@@ -4708,6 +4708,52 @@ Pack increases feature count from 59 → 66 (+7).
   - do not spend another loop only on conditioning the same GRU actor with the
     same targets
 
+## learned-router usage-regression probe — PLAN 2026-04-24
+
+- Goal: test whether the learned-router oracle gap is partly caused by coarse
+  5-bin action quantization by replacing the discrete classification head with a
+  continuous usage regression head.
+- Canonical baseline: fixed replay `risk_budget_usage_v1`.
+- Direct comparison baseline:
+  - `risk_budget_learned_oracle_distill_v1`
+  - `risk_budget_learned_conditioned_oracle_distill_v1`
+- Experiment role: `diagnose`.
+- Target improvement window: beat the unconditioned learned-router oracle probe
+  on `test_proxy` and `test_2023_2024`.
+- Accepted trade-off window: some `2022` drift is acceptable inside the
+  no-promotion diagnostic if the probe materially closes the proxy gap.
+- Changed layer: `model` head / learning target.
+- External reference:
+  - continuous sizing / control heads preserve amplitude information that
+    discrete bins can discard.
+- Closest historical success case:
+  - `risk_budget_learned_oracle_distill_v1`: strongest current single-actor
+    learned-router probe.
+- Closest historical failure case:
+  - `risk_budget_learned_conditioned_oracle_distill_v1`: adding regime identity
+    did not help.
+- Why not duplicate:
+  - same teacher path, different learning target; this specifically tests
+    whether quantization is the bottleneck.
+- Comparison-table row:
+  - `risk_budget_learned_usage_regression_v1`
+- Planned commands:
+  - `PYTHONPATH=. qlib_venv/bin/python tests/test_budget_usage_bc.py`
+  - `PYTHONPATH=. qlib_venv/bin/python scripts/build_budget_usage_regression_probe.py --profile risk_budget_learned_usage_regression_v1 --replay-daily runtime/post_train_review/hierarchical_online_budget_daily/soxl_hier_learned_slow5.csv --skip-data-refresh --steps 2000 --sample-size 0 --output-json runtime/post_train_review/risk_budget_learned_usage_regression_v1.json --output-md runtime/post_train_review/risk_budget_learned_usage_regression_v1.md`
+- Result:
+  - `tests/test_budget_usage_bc.py`: OK
+  - samples `1508`
+  - target mean / std `0.247 / 0.177`
+  - train loss / MAE `0.00230 / 0.0351`
+  - `test_2022`: `-15.1% / Sharpe -1.436 / MaxDD 17.6% / avg_pos 0.102`
+  - `test_2023_2024`: `63.0% / Sharpe 0.978 / MaxDD 25.7% / avg_pos 0.332`
+  - `test_proxy`: `222.8% / Sharpe 0.772 / MaxDD 34.7% / avg_pos 0.303`
+- Decision:
+  - drop; continuous usage regression was materially worse than the learned-router
+    oracle classification probe
+  - do not spend another loop only on swapping the same teacher path from
+    classification to scalar regression
+
 ## transition_signals 20-iteration training — RESULTS 2026-04-24
 
 - Goal: validate whether transition-state features improve RL performance beyond v19 baseline
