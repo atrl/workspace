@@ -40,7 +40,40 @@ Mode One-Hot 编码：
 
 ## 结果
 
-(TBD — 训练完成后填写)
+| 切片 | Return | Sharpe | MaxDD | AvgPos | StressAvgPos |
+|------|--------|--------|-------|--------|-------------|
+| **test_proxy** | **274.7%** | **1.074** | 21.4% | 0.208 | 0.131 |
+| test_2020 | 29.3% | 1.430 | 18.5% | 0.233 | 0.158 |
+| test_2022 | -9.7% | -0.601 | **12.0%** | **0.143** | 0.120 |
+| test_2023_2024 | 60.5% | 1.378 | 16.0% | 0.215 | 0.134 |
+| valid | 4.8% | 0.377 | 17.0% | 0.272 | 0.131 |
+
+### Promotion Gate
+
+- test_2022 MaxDD: 12.0% < 20.0% ✅
+- test_2022 avg_pos: 0.143 < 0.15 ✅
+- test_proxy Sharpe: **1.074 > 0.95** ✅
+
+**Fixed Split Gate: PASSED!** 🎉
+
+## 与 v1/v2 对比
+
+| 指标 | v1 | v2 | v3 |
+|------|-----|-----|-----|
+| proxy Sharpe | 0.942 | 0.884 | **1.074** |
+| proxy MaxDD | 32.5% | 20.6% | 21.4% |
+| proxy Return | 274% | 158% | 275% |
+| 2022 MaxDD | 18.7% | 7.4% | 12.0% |
+| 2022 avg_pos | 0.127 | 0.070 | 0.143 |
+
+## 结论
+
+**✅ PROMOTE to best candidate — first risk_budget_usage to pass the gate.**
+
+v3 的 mode-conditioned actor input 带来质的飞跃：
+- proxy Sharpe 首次突破 1.0（0.942 → **1.074**）
+- 通过 fixed-split promotion gate（2022 MaxDD=12%, avg_pos=0.143）
+- 关键洞察：让 Actor 直接"看到"mode 比 reward shaping 间接引导更有效
 
 ## 实验原始记录
 
@@ -51,5 +84,5 @@ Mode One-Hot 编码：
 
 ## 下一步
 
-- 运行训练并验证指标
-- 对比 v2 的收敛速度和最终表现
+- 运行 walk-forward 验证
+- 考虑将 v3 提升为 canonical 基线

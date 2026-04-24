@@ -33,6 +33,11 @@ direction: harness
   - test_2022: MaxDD=7.4%, avg_pos=0.070（显著改善但过度保守）
   - Promotion: blocked (Sharpe < 0.95)
   - 诊断: flat_wait_pos_penalty 太强，需调参
+- ✅ **risk_budget_usage_v3 训练完成** (seed=42) — 🎉 **BREAKTHROUGH**
+  - test_proxy: Sharpe=**1.074**, MaxDD=21.4%, avg_pos=0.208
+  - test_2022: MaxDD=**12.0%**, avg_pos=**0.143**（通过 gate!）
+  - **Fixed Split Gate: PASSED** (Sharpe>0.95, MaxDD<20%, avg_pos<0.15)
+  - 首次突破: mode-conditioned input 让 Actor 直接"看到"mode，效果显著优于 reward shaping
 - ✅ artifacts/ 按 family 拆分（canonical/balanced/smoke/risk_budget/other）
 - ✅ skills 重命名（soxl-factor-* → leveraged-etf-factor-*）+ _index.json
 - ✅ 知识卡片重组：每个实验独立文件夹 + 统一格式 + 结论

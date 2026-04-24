@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-24T15:49:56.378778+00:00",
+  "generated_at": "2026-04-24T15:59:22.612543+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -377,7 +377,7 @@
       "path": "runtime/index.json",
       "category": "root",
       "suffix": ".json",
-      "bytes": 40702
+      "bytes": 40863
     },
     {
       "path": "runtime/model/cards/balanced_checkpoint_review/card.md",
@@ -1058,6 +1058,12 @@
       "bytes": 195987
     },
     {
+      "path": "runtime/model/reviews/risk_budget_usage_v3_soxl_daily.csv",
+      "category": "model",
+      "suffix": ".csv",
+      "bytes": 194909
+    },
+    {
       "path": "runtime/model/reviews/smoke_rule_residual_v1_diagnosis/period_slice_comparison.md",
       "category": "model",
       "suffix": ".md",
@@ -1433,7 +1439,7 @@
       "path": "experiments/candidate/risk_budget_usage_v3/card.md",
       "category": "experiments/candidate",
       "suffix": ".md",
-      "bytes": 1276
+      "bytes": 2471
     },
     {
       "path": "experiments/candidate/risk_budget_usage_v3/expectations.md",
@@ -1445,7 +1451,7 @@
       "path": "experiments/candidate/risk_budget_usage_v3/notes.md",
       "category": "experiments/candidate",
       "suffix": ".md",
-      "bytes": 1812
+      "bytes": 3350
     },
     {
       "path": "experiments/candidate/smoke_rule_residual_v1/expectations.md",

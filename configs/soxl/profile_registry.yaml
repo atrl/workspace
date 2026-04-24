@@ -629,6 +629,20 @@ profiles:
   keep_actor: false
   keep_summary: true
   notes_ref: experiments/candidate/risk_budget_usage_v1/notes.md
+- name: risk_budget_usage_v2
+  family: balanced
+  status: ablation
+  baseline: risk_budget_usage_v1
+  keep_actor: false
+  keep_summary: true
+  notes_ref: experiments/candidate/risk_budget_usage_v2/notes.md
+- name: risk_budget_usage_v3
+  family: balanced
+  status: candidate
+  baseline: risk_budget_usage_v1
+  keep_actor: true
+  keep_summary: true
+  notes_ref: experiments/candidate/risk_budget_usage_v3/notes.md
 - name: risk_budget_bc_warmstart_v1
   family: balanced
   status: dropped
