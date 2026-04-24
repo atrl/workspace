@@ -13,7 +13,7 @@ tags:
 - soxl
 - stress-regime
 artifacts: []
-workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
+workpad: memory/index.json
 summary: Legacy memory note normalized into the repo-wide schema. Test "buy easy,
   sell hard" asymmetric rebalance threshold while keeping the 3-day trade lock and
   hard regime routing. `rebalance_threshold` now returns **direction-dependent threshold

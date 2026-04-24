@@ -9,7 +9,7 @@ tags:
 - reference
 artifacts:
 - runtime/README.md
-workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
+workpad: memory/index.json
 summary: Consolidated real train/evaluate/promote ownership under app/, moved execution/observation/positioning
   implementations under policy/, deleted top-level rl_* helper modules, and tightened
   runtime/memory/experiments index guidance.

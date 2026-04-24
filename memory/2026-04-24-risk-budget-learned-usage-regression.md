@@ -9,10 +9,10 @@ tags:
 - eval-2022
 - review
 artifacts:
-- evidence/post_train_review/hierarchical_online_budget_daily/soxl_hier_learned_slow5.csv
-- evidence/post_train_review/risk_budget_learned_usage_regression_v1.json
-- evidence/post_train_review/risk_budget_learned_usage_regression_v1.md
-workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
+- runtime/model/reviews/hierarchical_online_budget_daily/soxl_hier_learned_slow5.csv
+- runtime/model/reviews/risk_budget_learned_usage_regression_v1.json
+- runtime/model/reviews/risk_budget_learned_usage_regression_v1.md
+workpad: memory/index.json
 summary: Continuous usage regression on the learned-router teacher path fit the labels
   very well but produced a much worse policy than the learned-router oracle classifier.
   Proxy return fell to 222.8 percent and MaxDD rose to 34.7 percent, so discrete label
@@ -33,12 +33,12 @@ Command:
 ```bash
 PYTHONPATH=. qlib_venv/bin/python scripts/build_budget_usage_regression_probe.py \
   --profile risk_budget_learned_usage_regression_v1 \
-  --replay-daily evidence/post_train_review/hierarchical_online_budget_daily/soxl_hier_learned_slow5.csv \
+  --replay-daily runtime/model/reviews/hierarchical_online_budget_daily/soxl_hier_learned_slow5.csv \
   --skip-data-refresh \
   --steps 2000 \
   --sample-size 0 \
-  --output-json evidence/post_train_review/risk_budget_learned_usage_regression_v1.json \
-  --output-md evidence/post_train_review/risk_budget_learned_usage_regression_v1.md
+  --output-json runtime/model/reviews/risk_budget_learned_usage_regression_v1.json \
+  --output-md runtime/model/reviews/risk_budget_learned_usage_regression_v1.md
 ```
 
 Result:

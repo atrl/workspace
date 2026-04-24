@@ -10,7 +10,7 @@ tags:
 - review
 - soxl
 artifacts: []
-workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
+workpad: memory/index.json
 summary: "Legacy memory note normalized into the repo-wide schema. \u5728 reward \u51FD\
   \u6570\u4E2D\u52A0\u5165\u8E0F\u7A7A\u60E9\u7F5A\uFF08opportunity-cost penalty\uFF09\
   \uFF0C\u5E76\u628A `drawdown_position_cap` \u7684 `min_cap` \u4ECE\u56FA\u5B9A 0.40\

@@ -22,10 +22,10 @@ artifacts:
 - artifacts/models/soxl_balanced_phase_sampling_v1_summary.json
 - artifacts/models/soxl_balanced_reward_guard_summary.json
 - artifacts/models/soxl_balanced_summary.json
-- evidence/post_train_review/balanced_phase_sampling_v1.md
-- evidence/post_train_review/balanced_phase_sampling_v1_vs_balanced.md
-- evidence/post_train_review/balanced_phase_sampling_v1_vs_reward_guard.md
-workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
+- runtime/model/reviews/balanced_phase_sampling_v1.md
+- runtime/model/reviews/balanced_phase_sampling_v1_vs_balanced.md
+- runtime/model/reviews/balanced_phase_sampling_v1_vs_reward_guard.md
+workpad: memory/index.json
 summary: A training-procedure experiment widened episode coverage with overlapping
   windows plus phase-balanced oversampling for stress, rebound, and bull-trend regimes.
   The broader sampling materially changed training (`36` episodes, best checkpoint
@@ -54,9 +54,9 @@ The user called out that the problem is not only `2022`: excess in `2023`, `2024
 
 - `qlib_venv/bin/python scripts/check_harness.py`
 - `qlib_venv/bin/python soxl_qlib_strategy_v2.py --profiles balanced_phase_sampling_v1 --skip-data-refresh --seed 20260411`
-- `qlib_venv/bin/python scripts/checkpoint_review.py --summary artifacts/models/soxl_balanced_phase_sampling_v1_summary.json --output evidence/post_train_review/balanced_phase_sampling_v1.md`
-- `qlib_venv/bin/python .codex/skills/post-train-backtest-review/scripts/compare_backtests.py --latest artifacts/models/soxl_balanced_phase_sampling_v1_summary.json --previous artifacts/models/soxl_balanced_summary.json --output evidence/post_train_review/balanced_phase_sampling_v1_vs_balanced.md`
-- `qlib_venv/bin/python .codex/skills/post-train-backtest-review/scripts/compare_backtests.py --latest artifacts/models/soxl_balanced_phase_sampling_v1_summary.json --previous artifacts/models/soxl_balanced_reward_guard_summary.json --output evidence/post_train_review/balanced_phase_sampling_v1_vs_reward_guard.md`
+- `qlib_venv/bin/python scripts/checkpoint_review.py --summary artifacts/models/soxl_balanced_phase_sampling_v1_summary.json --output runtime/model/reviews/balanced_phase_sampling_v1.md`
+- `qlib_venv/bin/python .codex/skills/post-train-backtest-review/scripts/compare_backtests.py --latest artifacts/models/soxl_balanced_phase_sampling_v1_summary.json --previous artifacts/models/soxl_balanced_summary.json --output runtime/model/reviews/balanced_phase_sampling_v1_vs_balanced.md`
+- `qlib_venv/bin/python .codex/skills/post-train-backtest-review/scripts/compare_backtests.py --latest artifacts/models/soxl_balanced_phase_sampling_v1_summary.json --previous artifacts/models/soxl_balanced_reward_guard_summary.json --output runtime/model/reviews/balanced_phase_sampling_v1_vs_reward_guard.md`
 - `qlib_venv/bin/python scripts/diagnosis_phase1_phase2.py`
 
 ## Evidence

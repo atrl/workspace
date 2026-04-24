@@ -11,7 +11,7 @@ tags:
 - rule-based
 - smoke
 artifacts: []
-workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
+workpad: memory/index.json
 summary: "Legacy memory note normalized into the repo-wide schema. > \u65E5\u671F\
   : 2026-04-18 > \u80CC\u666F: RL \u65E0\u6CD5\u8D85\u8D8A rule-based  baseline (688.6%)\uFF0C\
   \u6000\u7591 PPO \u672C\u8EAB\u5B58\u5728\u7ED3\u6784\u6027\u95EE\u9898 | \u7814\

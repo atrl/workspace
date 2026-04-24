@@ -7,9 +7,9 @@ from pathlib import Path
 
 import pandas as pd
 
-from ..settings import ACCOUNT, EVIDENCE_DIR, ROOT
+from ..settings import ACCOUNT, ROOT
 
-POST_TRAIN_REVIEW_DIR = EVIDENCE_DIR / "post_train_review"
+POST_TRAIN_REVIEW_DIR = ROOT / "runtime" / "model" / "reviews"
 DASHBOARD_BUILD_SCRIPT = ROOT / "scripts" / "build_backtest_dashboard.py"
 
 

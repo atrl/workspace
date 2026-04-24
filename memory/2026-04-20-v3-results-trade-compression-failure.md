@@ -11,7 +11,7 @@ tags:
 - execution-overlay
 - failure
 artifacts: []
-workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
+workpad: memory/index.json
 summary: "Legacy memory note normalized into the repo-wide schema. | Metric | v2 |\
   \ v3 Target | v3 Actual | \u0394 | |--------|-----|-----------|-----------|---|\
   \ | Return | 521.3% | 600-650% | **569.7%** | +48.4pp | | Sharpe | 0.86 | 0.85-0.90\

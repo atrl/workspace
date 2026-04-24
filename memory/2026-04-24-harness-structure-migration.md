@@ -10,10 +10,10 @@ tags:
 - ops
 - soxl
 artifacts:
-- evidence/index.json
+- runtime/index.json
 workpad: codex_exec_plans/active/current.md
-summary: Split the oversized active workpad into compact current state plus completed
-  archives, separated research knowledge by mechanism category, introduced data and
+summary: Split the oversized active workpad into compact current state plus memory
+  retrieval, separated research knowledge by mechanism category, introduced data and
   runtime indexes, and narrowed experiment packages back toward concise cards. The
   repo-local .codex skill rename was attempted but filesystem approval blocked writes
   to .codex/skills in this session.
@@ -28,11 +28,11 @@ The active workpad had grown past 4,900 lines, the experiment landscape mixed un
 ## What changed
 
 - Added compact startup workpad: `codex_exec_plans/active/current.md`.
-- Moved historical active workpads into `codex_exec_plans/completed/2026-04/`.
+- Moved historical active workpads into `memory/index.json`.
 - Split mechanism-level conclusions into `docs/research_knowledge/`.
 - Replaced `docs/experiment-landscape-review.md` with a compact landing page and kept the legacy narrative at `docs/research_knowledge/experiment-landscape-review-legacy.md`.
 - Added data registry layout and generated `data/datasets.yaml`.
-- Added `evidence/index.json` and later clarified runtime as execution state only.
+- Added `runtime/index.json`; later runtime became the category-organized generated-output surface.
 - Added validation scripts for research knowledge, experiment cards, and data registry.
 - Narrowed `experiments/candidate/` according to registry status and generated missing active card files.
 

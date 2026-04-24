@@ -20,8 +20,8 @@ tags:
 - soxl
 artifacts:
 - artifacts/models/soxl_balanced_moe_actor.pt
-- evidence/generalization/results.json
-workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
+- runtime/execution/generalization/results.json
+workpad: memory/index.json
 summary: 'Legacy memory note normalized into the repo-wide schema. The RL model was
   losing to the rule-based strategy primarily due to **friction from excessive micro-trades**
   (~1000+ vs 45). Two levers were identified: **A**: Drastically raise `reba'
@@ -107,7 +107,7 @@ The rule-based strategy still out-earns the RL model on SOXL. The likely remaini
 ## Artifacts
 - Model: `artifacts/models/soxl_balanced_moe_actor.pt`
 - Log: `log/balanced_multiasset_AB_20260416_225734.log`
-- Generalization: `evidence/generalization/results.json`
+- Generalization: `runtime/execution/generalization/results.json`
 
 ## Decision
 

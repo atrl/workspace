@@ -112,19 +112,19 @@ def infer_profiles(title: str, body: str) -> list[str]:
 
 def infer_artifacts(body: str) -> list[str]:
     matches = re.findall(
-        r"(artifacts/models/[A-Za-z0-9._/-]+|runtime/[A-Za-z0-9._/-]+|evidence/[A-Za-z0-9._/-]+)",
+        r"(artifacts/models/[A-Za-z0-9._/-]+|runtime/[A-Za-z0-9._/-]+)",
         body,
     )
     normalized: list[str] = []
     for match in matches:
         if match.startswith("runtime/post_train_review"):
-            normalized.append(match.replace("runtime/post_train_review", "evidence/post_train_review", 1))
+            normalized.append(match.replace("runtime/post_train_review", "runtime/model/reviews", 1))
         elif match.startswith("runtime/generalization"):
-            normalized.append(match.replace("runtime/generalization", "evidence/generalization", 1))
+            normalized.append(match.replace("runtime/generalization", "runtime/execution/generalization", 1))
         elif match.startswith("runtime/diagnosis"):
-            normalized.append(match.replace("runtime/diagnosis", "evidence/diagnosis", 1))
+            normalized.append(match.replace("runtime/diagnosis", "runtime/model/diagnosis", 1))
         elif match.startswith("runtime/feature_analysis"):
-            normalized.append(match.replace("runtime/feature_analysis", "evidence/feature_analysis", 1))
+            normalized.append(match.replace("runtime/feature_analysis", "runtime/factor/analysis", 1))
         else:
             normalized.append(match)
     return sorted(set(normalized))

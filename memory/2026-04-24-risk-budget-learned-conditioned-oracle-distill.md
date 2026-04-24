@@ -9,10 +9,10 @@ tags:
 - eval-2022
 - review
 artifacts:
-- evidence/post_train_review/hierarchical_online_budget_daily/soxl_hier_learned_slow5.csv
-- evidence/post_train_review/risk_budget_learned_conditioned_oracle_distill_v1.json
-- evidence/post_train_review/risk_budget_learned_conditioned_oracle_distill_v1.md
-workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
+- runtime/model/reviews/hierarchical_online_budget_daily/soxl_hier_learned_slow5.csv
+- runtime/model/reviews/risk_budget_learned_conditioned_oracle_distill_v1.json
+- runtime/model/reviews/risk_budget_learned_conditioned_oracle_distill_v1.md
+workpad: memory/index.json
 summary: Explicit slow-mode one-hot conditioning did not improve the learned-router
   oracle distillation probe. Proxy return fell from 412.9 percent to 387.1 percent
   and MaxDD rose from 28.7 percent to 30.1 percent, so simple regime identity is not
@@ -33,13 +33,13 @@ Command:
 ```bash
 PYTHONPATH=. qlib_venv/bin/python scripts/build_budget_usage_oracle_actor.py \
   --profile risk_budget_learned_conditioned_oracle_distill_v1 \
-  --replay-daily evidence/post_train_review/hierarchical_online_budget_daily/soxl_hier_learned_slow5.csv \
+  --replay-daily runtime/model/reviews/hierarchical_online_budget_daily/soxl_hier_learned_slow5.csv \
   --condition-on-mode \
   --skip-data-refresh \
   --steps 1600 \
   --sample-size 0 \
-  --output-json evidence/post_train_review/risk_budget_learned_conditioned_oracle_distill_v1.json \
-  --output-md evidence/post_train_review/risk_budget_learned_conditioned_oracle_distill_v1.md
+  --output-json runtime/model/reviews/risk_budget_learned_conditioned_oracle_distill_v1.json \
+  --output-md runtime/model/reviews/risk_budget_learned_conditioned_oracle_distill_v1.md
 ```
 
 Result:

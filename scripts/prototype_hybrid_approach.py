@@ -180,7 +180,7 @@ def main():
             print(f"{label:<22} {sname:<16} {r:>9.1f}% {sh:>8.2f} {dd:>7.1f}% {ap:>8.3f} {sp:>10.3f}")
     print("="*110)
 
-    out = Path("evidence/post_train_review/hybrid_learned_budget.json")
+    out = Path("runtime/model/reviews/hybrid_learned_budget.json")
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(results, indent=2, ensure_ascii=False), encoding="utf-8")
     print(f"\nWrote {out}")

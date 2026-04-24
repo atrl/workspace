@@ -43,7 +43,7 @@ from src.soxl_quant.settings import (
 )
 
 DATA_DIR = ROOT / "data" / "processed" / "panels"
-RUNTIME_DIR = ROOT / "evidence" / "generalization"
+RUNTIME_DIR = ROOT / "runtime" / "execution" / "generalization"
 QLIB_RUNTIME = ROOT / "data" / "qlib"
 
 

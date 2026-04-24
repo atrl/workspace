@@ -54,7 +54,7 @@ def _display_path(path: Path) -> str:
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--profile", default="risk_budget_oracle_distill_v1")
-    parser.add_argument("--replay-daily", type=Path, default=Path("evidence/post_train_review/risk_budget_usage_v1_soxl_daily.csv"))
+    parser.add_argument("--replay-daily", type=Path, default=Path("runtime/model/reviews/risk_budget_usage_v1_soxl_daily.csv"))
     parser.add_argument("--seed", type=int, default=20260411)
     parser.add_argument("--sample-size", type=int, default=0, help="0 means use every overlapping replay row")
     parser.add_argument("--steps", type=int, default=1600)
@@ -62,8 +62,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--batch-size", type=int, default=128)
     parser.add_argument("--artifact-tag", default="oracle")
     parser.add_argument("--condition-on-mode", action="store_true")
-    parser.add_argument("--output-json", type=Path, default=Path("evidence/post_train_review/risk_budget_oracle_distill_v1.json"))
-    parser.add_argument("--output-md", type=Path, default=Path("evidence/post_train_review/risk_budget_oracle_distill_v1.md"))
+    parser.add_argument("--output-json", type=Path, default=Path("runtime/model/reviews/risk_budget_oracle_distill_v1.json"))
+    parser.add_argument("--output-md", type=Path, default=Path("runtime/model/reviews/risk_budget_oracle_distill_v1.md"))
     parser.add_argument("--skip-data-refresh", action="store_true")
     return parser.parse_args()
 

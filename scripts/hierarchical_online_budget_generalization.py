@@ -46,7 +46,7 @@ from src.soxl_quant.policy.positioning import target_position_for_profile
 from src.soxl_quant.settings import ACCOUNT, ETF_UNIVERSE, LOOKBACK, MODEL_DIR, TEST_SEG, TRAIN_SEG, VALID_SEG, load_profile
 
 DATA_DIR = ROOT / "data" / "processed" / "panels"
-RUNTIME_DIR = ROOT / "evidence" / "generalization"
+RUNTIME_DIR = ROOT / "runtime" / "execution" / "generalization"
 QLIB_RUNTIME = ROOT / "data" / "qlib"
 
 
@@ -57,17 +57,17 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--output-json",
         type=Path,
-        default=ROOT / "evidence" / "post_train_review" / "hierarchical_online_budget_generalization.json",
+        default=ROOT / "runtime" / "model" / "reviews" / "hierarchical_online_budget_generalization.json",
     )
     parser.add_argument(
         "--output-md",
         type=Path,
-        default=ROOT / "evidence" / "post_train_review" / "hierarchical_online_budget_generalization.md",
+        default=ROOT / "runtime" / "model" / "reviews" / "hierarchical_online_budget_generalization.md",
     )
     parser.add_argument(
         "--daily-dir",
         type=Path,
-        default=ROOT / "evidence" / "post_train_review" / "hierarchical_online_budget_daily",
+        default=ROOT / "runtime" / "model" / "reviews" / "hierarchical_online_budget_daily",
     )
     return parser.parse_args()
 

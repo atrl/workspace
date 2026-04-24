@@ -17,7 +17,7 @@ tags:
 - smoke
 - smoke_rule_residual_v1
 artifacts: []
-workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
+workpad: memory/index.json
 summary: Implemented and smoke-tested a residual-over-rule path. The actor now learns
   a bounded delta around the rule-based base position, with rule-deviation and micro-churn
   penalties. The first smoke candidate materially improved the previously negative

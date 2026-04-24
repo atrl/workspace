@@ -23,7 +23,7 @@ tags:
 - stress-regime
 - transition-features
 artifacts: []
-workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
+workpad: memory/index.json
 summary: Trained `balanced_rule_residual_v23` as a narrow 6-feature transition-state
   clone of v19 under `SOXL_USE_TRANSITION_V23=1`. Fixed-split gate still passed, but
   the model became broadly more defensive rather than selectively better at stress-release.

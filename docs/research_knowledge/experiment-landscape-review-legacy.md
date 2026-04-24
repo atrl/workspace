@@ -465,7 +465,7 @@ Without that, the repo will keep repeating old branches under new names.
 - Summary metrics:
   - `artifacts/models/*_summary.json`
 - Historical review:
-  - `evidence/post_train_review/`
+  - `runtime/model/reviews/`
 - Continuity:
   - `memory/2026-04-18-checkpoint-review-and-overlay-loop.md`
   - `memory/2026-04-18-structural-model-loop.md`
@@ -476,7 +476,7 @@ Without that, the repo will keep repeating old branches under new names.
   - `memory/2026-04-20-seed-sweep-clarified.md`
   - `memory/2026-04-21-v22-vix-term-structure-results.md`
 - `memory/2026-04-24-transition-signals-rejected.md`
-- `evidence/post_train_review/transition_overlay_sweep_results.md`
+- `runtime/model/reviews/transition_overlay_sweep_results.md`
 
 ## 2026-04-22 Drawdown Frontier Exploration
 

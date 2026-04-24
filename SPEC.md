@@ -68,8 +68,7 @@ Use these layers intentionally:
 
 - `AGENTS.md`: operating rules
 - `WORKFLOW.md`: execution routing and completion gates
-- `codex_exec_plans/active/` and `codex_exec_plans/completed/`: task history
-  and proof of work
+- `codex_exec_plans/active/`: current task state and proof of work
 - `docs/research_knowledge/`: mechanism-specific conclusions and reusable
   research guidance
 - `memory/`: continuity across sessions
@@ -86,7 +85,7 @@ This repo should get better as recurring work repeats.
 
 - Stable context and important continuity belong in `memory/`.
 - Live task state belongs in the compact active plan/workpad.
-- Historical workpad detail belongs in `codex_exec_plans/completed/`.
+- Historical task detail is distilled into `memory/` and `docs/research_knowledge/`.
 - Mechanism-specific conclusions belong in `docs/research_knowledge/`.
 - Reusable methods, troubleshooting flows, and recurring guardrails belong in
   `skills/`.

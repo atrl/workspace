@@ -14,7 +14,7 @@ tags:
 - failure
 - stress-regime
 artifacts: []
-workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
+workpad: memory/index.json
 summary: "Legacy memory note normalized into the repo-wide schema. **Profile**: `balanced_kelly_attention_v10`\
   \ **Hypothesis**: A fundamentally re-architected approach would break the \"fixed\
   \ low-position collapse\": Network: GRU \u2192 WindowSelfAttentionNe"

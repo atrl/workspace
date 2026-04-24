@@ -17,7 +17,7 @@ tags:
 - soxl
 - superseded
 artifacts: []
-workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
+workpad: memory/index.json
 summary: 'Legacy memory note normalized into the repo-wide schema. The ~130pp gap
   between RL symmetric A+B (598.5%) and rule-based soxl_backtest (688.6%) was caused
   by three missing pieces: 1. Accidentally reverted asymmetric thresholds (buy 0.02

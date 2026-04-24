@@ -316,7 +316,7 @@ def main():
     parser.add_argument("--profile", default="balanced_rule_residual_v19", help="Profile name")
     parser.add_argument("--model-path", default=None, help="Optional custom model path")
     parser.add_argument("--budgets", default="no_budget,0.35,0.30,0.28,0.25", help="Comma-separated budget values")
-    parser.add_argument("--output", default="evidence/post_train_review/drawdown_budget_sweep.json", help="Output JSON path")
+    parser.add_argument("--output", default="runtime/model/reviews/drawdown_budget_sweep.json", help="Output JSON path")
     args = parser.parse_args()
 
     budget_list: List[Optional[float]] = []

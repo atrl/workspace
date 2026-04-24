@@ -32,9 +32,9 @@ from src.soxl_quant.settings import (
 )
 
 DATA_DIR = ROOT / "data" / "processed" / "panels"
-RUNTIME_DIR = ROOT / "evidence" / "generalization"
+RUNTIME_DIR = ROOT / "runtime" / "execution" / "generalization"
 QLIB_RUNTIME = ROOT / "data" / "qlib"
-DEFAULT_FIXED_DAILY = ROOT / "evidence" / "post_train_review" / "risk_budget_usage_v1_soxl_daily.csv"
+DEFAULT_FIXED_DAILY = ROOT / "runtime" / "model" / "reviews" / "risk_budget_usage_v1_soxl_daily.csv"
 
 
 def parse_args() -> argparse.Namespace:
@@ -45,17 +45,17 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--output-json",
         type=Path,
-        default=ROOT / "evidence" / "post_train_review" / "risk_budget_usage_v1_cross_etf.json",
+        default=ROOT / "runtime" / "model" / "reviews" / "risk_budget_usage_v1_cross_etf.json",
     )
     parser.add_argument(
         "--output-md",
         type=Path,
-        default=ROOT / "evidence" / "post_train_review" / "risk_budget_usage_v1_cross_etf.md",
+        default=ROOT / "runtime" / "model" / "reviews" / "risk_budget_usage_v1_cross_etf.md",
     )
     parser.add_argument(
         "--daily-dir",
         type=Path,
-        default=ROOT / "evidence" / "post_train_review" / "risk_budget_usage_v1_cross_etf_daily",
+        default=ROOT / "runtime" / "model" / "reviews" / "risk_budget_usage_v1_cross_etf_daily",
     )
     return parser.parse_args()
 

@@ -12,7 +12,7 @@ tags:
 - stress-regime
 - walk-forward
 artifacts: []
-workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
+workpad: memory/index.json
 summary: "Legacy memory note normalized into the repo-wide schema. Date: 2026-04-20\
   \ > \"\u4EA4\u6613\u591A\u4E0D\u5F71\u54CD\uFF0C \u4E3B\u8981\u8981\u63A7\u5236\u56DE\
   \u6D4B\u548C\u51EF\u5229\u671F\u671B \u4F18\u5316\u7684\u65B9\u5F0F\u5E94\u8BE5\u662F\

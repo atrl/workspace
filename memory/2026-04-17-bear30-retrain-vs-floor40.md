@@ -20,9 +20,9 @@ tags:
 - stress-regime
 artifacts:
 - artifacts/models/soxl_balanced_floor40_sym_bear30_summary.json
-- evidence/post_train_review/floor40_sym_bear30_vs_canonical_balanced.md
-- evidence/post_train_review/floor40_sym_bear30_vs_floor40_sym.md
-workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
+- runtime/model/reviews/floor40_sym_bear30_vs_canonical_balanced.md
+- runtime/model/reviews/floor40_sym_bear30_vs_floor40_sym.md
+workpad: memory/index.json
 summary: Legacy memory note normalized into the repo-wide schema. `qlib_venv/bin/python
   soxl_qlib_strategy_v2.py --profiles balanced_floor40_sym_bear30 --skip-data-refresh
   --seed 20260411` Added `configs/soxl/balanced_floor40_sym_bear30.yaml`. Regis
@@ -90,8 +90,8 @@ Legacy memory note normalized into the repo-wide schema.
 
 ## Evidence
 
-- `evidence/post_train_review/floor40_sym_bear30_vs_floor40_sym.md`
-- `evidence/post_train_review/floor40_sym_bear30_vs_canonical_balanced.md`
+- `runtime/model/reviews/floor40_sym_bear30_vs_floor40_sym.md`
+- `runtime/model/reviews/floor40_sym_bear30_vs_canonical_balanced.md`
 
 ## Decision
 

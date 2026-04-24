@@ -20,7 +20,6 @@ from .core.universe import load_etf_universe
 
 ROOT = Path(__file__).resolve().parents[2]
 DATA_DIR = ROOT / "data"
-EVIDENCE_DIR = ROOT / "evidence"
 RAW_DATA_DIR = DATA_DIR / "raw"
 PROCESSED_DATA_DIR = DATA_DIR / "processed"
 CACHE_DATA_DIR = DATA_DIR / "cache"

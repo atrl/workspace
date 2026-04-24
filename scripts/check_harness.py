@@ -42,7 +42,7 @@ DEFAULT_COMPILE_TARGETS = [
     "src/soxl_quant/policy/usage_regression.py",
     "src/soxl_quant/cli.py",
     "scripts/build_backtest_dashboard.py",
-    "scripts/build_evidence_index.py",
+    "scripts/build_runtime_index.py",
     "scripts/build_budget_usage_bc_actor.py",
     "scripts/build_budget_usage_oracle_actor.py",
     "scripts/build_budget_usage_regression_probe.py",
@@ -63,7 +63,7 @@ DEFAULT_COMPILE_TARGETS = [
 ]
 
 DEFAULT_COMMAND_CHECKS = [
-    ["scripts/build_evidence_index.py", "--check"],
+    ["scripts/build_runtime_index.py", "--check"],
     ["scripts/check_source_boundaries.py"],
 ]
 

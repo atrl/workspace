@@ -12,7 +12,7 @@ tags:
 - kept
 - other
 artifacts: []
-workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
+workpad: memory/index.json
 summary: Legacy memory note normalized into the repo-wide schema. v4 training completed.
   Despite aggressive trade compression design (flat penalty 1.20, longer lock 8 days,
   reduced alpha 2.0), **trades increased from 314 to 327**. Strategy is highly

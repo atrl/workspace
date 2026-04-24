@@ -12,8 +12,8 @@ tags:
 - stress-regime
 - transition-features
 artifacts:
-- evidence/post_train_review/historical_balanced_feature_recall.md
-workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
+- runtime/model/reviews/historical_balanced_feature_recall.md
+workpad: memory/index.json
 summary: 'Legacy memory note normalized into the repo-wide schema. Canonical `balanced`
   is already competent at: persistent stress defense mature trend capture Its main
   blind spot is: transition states especially stress-release, bear-market rebounds,'
@@ -51,7 +51,7 @@ Legacy memory note normalized into the repo-wide schema.
 
 ## Evidence
 
-- `evidence/post_train_review/historical_balanced_feature_recall.md`
+- `runtime/model/reviews/historical_balanced_feature_recall.md`
 
 ## Decision
 

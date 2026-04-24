@@ -1,0 +1,372 @@
+{
+  "profile": "risk_budget_usage_v1",
+  "model": "/Users/rziiiii/.openclaw/workspace/artifacts/models/soxl_balanced_rule_residual_imitation_v4_actor.pt",
+  "fixed_daily": "/Users/rziiiii/.openclaw/workspace/runtime/model/reviews/risk_budget_usage_v1_soxl_daily.csv",
+  "test_seg": [
+    "2020-01-01",
+    "2026-03-31"
+  ],
+  "results": {
+    "SOXL": {
+      "fixed_signal_transfer": {
+        "test_2020": {
+          "return": 239.36819010551628,
+          "sharpe": 2.2856822628045803,
+          "max_dd": 21.6960973174233,
+          "avg_pos": 0.48959571456166007,
+          "trades": 34
+        },
+        "test_2022": {
+          "return": -16.928754059229977,
+          "sharpe": -0.35143487878504104,
+          "max_dd": 25.5301757939837,
+          "avg_pos": 0.2142470793884462,
+          "trades": 27
+        },
+        "test_2023_2024": {
+          "return": 129.16987054566897,
+          "sharpe": 1.2858535946235294,
+          "max_dd": 32.04197298085531,
+          "avg_pos": 0.38870307608326693,
+          "trades": 60
+        },
+        "test_proxy": {
+          "return": 2030.3062001184478,
+          "sharpe": 1.2521050374373492,
+          "max_dd": 44.862928675044444,
+          "avg_pos": 0.3909823486467814,
+          "trades": 188
+        }
+      },
+      "actor_budget_runtime": {
+        "test_2020": {
+          "return": 30.252935433044414,
+          "sharpe": 1.3555032484596004,
+          "max_dd": 18.04385666494194,
+          "avg_pos": 0.2261956518768687,
+          "trades": 14
+        },
+        "test_2022": {
+          "return": -18.10488718775012,
+          "sharpe": -1.3176638102635747,
+          "max_dd": 21.968719798546527,
+          "avg_pos": 0.12098736053231665,
+          "trades": 18
+        },
+        "test_2023_2024": {
+          "return": 55.386933079438386,
+          "sharpe": 1.2992759603572257,
+          "max_dd": 13.791653367853366,
+          "avg_pos": 0.17834451280274513,
+          "trades": 32
+        },
+        "test_proxy": {
+          "return": 144.44331510844233,
+          "sharpe": 0.8266135497740832,
+          "max_dd": 22.082737532242046,
+          "avg_pos": 0.18654085784488464,
+          "trades": 94
+        }
+      },
+      "buyhold": {
+        "test_proxy": {
+          "return": 154.2625757729895,
+          "sharpe": 0.6943248988371059,
+          "max_dd": 90.4605135959504,
+          "avg_pos": 1.0,
+          "trades": 1
+        }
+      },
+      "decision": "risk transfers, return weak"
+    },
+    "TQQQ": {
+      "fixed_signal_transfer": {
+        "test_2020": {
+          "return": 152.29899472876417,
+          "sharpe": 2.2159560234255262,
+          "max_dd": 25.483961408384285,
+          "avg_pos": 0.48959571456166007,
+          "trades": 34
+        },
+        "test_2022": {
+          "return": -25.355180406838397,
+          "sharpe": -1.0783259170187647,
+          "max_dd": 29.17121381876615,
+          "avg_pos": 0.2142470793884462,
+          "trades": 27
+        },
+        "test_2023_2024": {
+          "return": 105.15094368969473,
+          "sharpe": 1.6681852030781377,
+          "max_dd": 23.618876210556117,
+          "avg_pos": 0.38870307608326693,
+          "trades": 60
+        },
+        "test_proxy": {
+          "return": 823.3509075984778,
+          "sharpe": 1.286738625529899,
+          "max_dd": 29.57569591145876,
+          "avg_pos": 0.3909823486467814,
+          "trades": 188
+        }
+      },
+      "actor_budget_runtime": {
+        "test_2020": {
+          "return": 18.395117334575616,
+          "sharpe": 1.0352065309802576,
+          "max_dd": 17.54344778605995,
+          "avg_pos": 0.24905657779723261,
+          "trades": 18
+        },
+        "test_2022": {
+          "return": -13.296430742700949,
+          "sharpe": -1.508237248708141,
+          "max_dd": 13.661937612808181,
+          "avg_pos": 0.1148738607512305,
+          "trades": 10
+        },
+        "test_2023_2024": {
+          "return": 33.45672196111822,
+          "sharpe": 0.8655477373805742,
+          "max_dd": 16.344239270896043,
+          "avg_pos": 0.33272746303653133,
+          "trades": 41
+        },
+        "test_proxy": {
+          "return": 51.17203877160543,
+          "sharpe": 0.47314971613091544,
+          "max_dd": 22.71385646677038,
+          "avg_pos": 0.2686684743717202,
+          "trades": 104
+        }
+      },
+      "buyhold": {
+        "test_proxy": {
+          "return": 284.3072301869803,
+          "sharpe": 0.6673872643447178,
+          "max_dd": 81.65984683990169,
+          "avg_pos": 1.0,
+          "trades": 1
+        }
+      },
+      "decision": "risk transfers, return weak"
+    },
+    "UPRO": {
+      "fixed_signal_transfer": {
+        "test_2020": {
+          "return": 93.7030987169333,
+          "sharpe": 1.7287779619462038,
+          "max_dd": 19.87185379569014,
+          "avg_pos": 0.48959571456166007,
+          "trades": 34
+        },
+        "test_2022": {
+          "return": -12.588059534090657,
+          "sharpe": -0.6434620476614957,
+          "max_dd": 15.75692828058482,
+          "avg_pos": 0.2142470793884462,
+          "trades": 27
+        },
+        "test_2023_2024": {
+          "return": 48.74044019778982,
+          "sharpe": 1.2421377065921941,
+          "max_dd": 21.34985936316281,
+          "avg_pos": 0.38870307608326693,
+          "trades": 60
+        },
+        "test_proxy": {
+          "return": 427.40245042764985,
+          "sharpe": 1.148002378103134,
+          "max_dd": 22.808344058359864,
+          "avg_pos": 0.3909823486467814,
+          "trades": 188
+        }
+      },
+      "actor_budget_runtime": {
+        "test_2020": {
+          "return": 19.440408941421516,
+          "sharpe": 1.5424907827678935,
+          "max_dd": 11.271653442982254,
+          "avg_pos": 0.2852437715800907,
+          "trades": 18
+        },
+        "test_2022": {
+          "return": -17.902327932156503,
+          "sharpe": -1.7926604870232907,
+          "max_dd": 18.75033006110228,
+          "avg_pos": 0.14242006458430617,
+          "trades": 14
+        },
+        "test_2023_2024": {
+          "return": 21.815809377563955,
+          "sharpe": 0.7789708818726166,
+          "max_dd": 13.57014294333953,
+          "avg_pos": 0.3631980536218419,
+          "trades": 41
+        },
+        "test_proxy": {
+          "return": 35.239356265544956,
+          "sharpe": 0.43587594901555254,
+          "max_dd": 22.291525224436135,
+          "avg_pos": 0.2986771328598421,
+          "trades": 112
+        }
+      },
+      "buyhold": {
+        "test_proxy": {
+          "return": 180.49004808421128,
+          "sharpe": 0.5832710835051705,
+          "max_dd": 76.81682246404172,
+          "avg_pos": 1.0,
+          "trades": 1
+        }
+      },
+      "decision": "risk transfers, return weak"
+    },
+    "SPXL": {
+      "fixed_signal_transfer": {
+        "test_2020": {
+          "return": 93.38818295949814,
+          "sharpe": 1.7314516610043549,
+          "max_dd": 19.85267998944675,
+          "avg_pos": 0.48959571456166007,
+          "trades": 34
+        },
+        "test_2022": {
+          "return": -12.454603272387955,
+          "sharpe": -0.6366701864757607,
+          "max_dd": 15.705214109388532,
+          "avg_pos": 0.2142470793884462,
+          "trades": 27
+        },
+        "test_2023_2024": {
+          "return": 49.18318124879937,
+          "sharpe": 1.2549584959914315,
+          "max_dd": 21.312284704376406,
+          "avg_pos": 0.38870307608326693,
+          "trades": 60
+        },
+        "test_proxy": {
+          "return": 429.67416160962716,
+          "sharpe": 1.1544752554896536,
+          "max_dd": 22.874280926089614,
+          "avg_pos": 0.3909823486467814,
+          "trades": 188
+        }
+      },
+      "actor_budget_runtime": {
+        "test_2020": {
+          "return": 18.648598100433354,
+          "sharpe": 1.4917566433213594,
+          "max_dd": 11.252438467340216,
+          "avg_pos": 0.28225446012229477,
+          "trades": 18
+        },
+        "test_2022": {
+          "return": -17.931768717193776,
+          "sharpe": -1.8005821201138472,
+          "max_dd": 19.055516116420122,
+          "avg_pos": 0.14912115295954922,
+          "trades": 13
+        },
+        "test_2023_2024": {
+          "return": 21.27235691897129,
+          "sharpe": 0.7765542034347878,
+          "max_dd": 12.749989052061645,
+          "avg_pos": 0.3541380217465759,
+          "trades": 46
+        },
+        "test_proxy": {
+          "return": 28.067324020309425,
+          "sharpe": 0.3724100142557387,
+          "max_dd": 22.868438550102123,
+          "avg_pos": 0.29617176842606463,
+          "trades": 115
+        }
+      },
+      "buyhold": {
+        "test_proxy": {
+          "return": 183.15088834656575,
+          "sharpe": 0.5852307818746985,
+          "max_dd": 76.85611980154455,
+          "avg_pos": 1.0,
+          "trades": 1
+        }
+      },
+      "decision": "risk transfers, return weak"
+    },
+    "TECL": {
+      "fixed_signal_transfer": {
+        "test_2020": {
+          "return": 137.74311553242865,
+          "sharpe": 1.9113106569778873,
+          "max_dd": 26.677338357376502,
+          "avg_pos": 0.48959571456166007,
+          "trades": 34
+        },
+        "test_2022": {
+          "return": -19.927951264500386,
+          "sharpe": -0.7000282140168412,
+          "max_dd": 24.065036251369857,
+          "avg_pos": 0.2142470793884462,
+          "trades": 27
+        },
+        "test_2023_2024": {
+          "return": 107.44829863096884,
+          "sharpe": 1.5957888550161188,
+          "max_dd": 22.47637725588055,
+          "avg_pos": 0.38870307608326693,
+          "trades": 60
+        },
+        "test_proxy": {
+          "return": 965.5155799021619,
+          "sharpe": 1.2602325767471443,
+          "max_dd": 30.56130075563641,
+          "avg_pos": 0.3909823486467814,
+          "trades": 188
+        }
+      },
+      "actor_budget_runtime": {
+        "test_2020": {
+          "return": 11.933414646244046,
+          "sharpe": 0.7035729216933567,
+          "max_dd": 19.500470277435028,
+          "avg_pos": 0.2434932484441306,
+          "trades": 19
+        },
+        "test_2022": {
+          "return": -18.972400303109072,
+          "sharpe": -1.6090490042650927,
+          "max_dd": 20.716854907200236,
+          "avg_pos": 0.13134878788778837,
+          "trades": 12
+        },
+        "test_2023_2024": {
+          "return": 24.329358322764882,
+          "sharpe": 0.6721113710305228,
+          "max_dd": 16.62175120476642,
+          "avg_pos": 0.2613746655938473,
+          "trades": 43
+        },
+        "test_proxy": {
+          "return": 46.02937818859105,
+          "sharpe": 0.42853167542515064,
+          "max_dd": 23.661011813526443,
+          "avg_pos": 0.23841048005846502,
+          "trades": 115
+        }
+      },
+      "buyhold": {
+        "test_proxy": {
+          "return": 270.07579041423463,
+          "sharpe": 0.6694646933981638,
+          "max_dd": 77.95579949613318,
+          "avg_pos": 1.0,
+          "trades": 1
+        }
+      },
+      "decision": "risk transfers, return weak"
+    }
+  },
+  "interpretation": "A result only counts as promotable if actor_budget_runtime, not just fixed_signal_transfer, keeps drawdown controlled and preserves enough participation across ETFs. Fixed signal transfer is a timing-path stress test and remains exposed to SOXL test-path selection bias."
+}

@@ -12,7 +12,7 @@ tags:
 - execution-overlay
 - failure
 artifacts: []
-workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
+workpad: memory/index.json
 summary: '`memory/` is the continuity layer for durable decisions, failures, reviews,
   and reusable session context that should survive chat history. Do not scan all notes
   by hand first. Read in this order: 1. `memory/index.json` 2. `qlib_venv/bin/pyt'

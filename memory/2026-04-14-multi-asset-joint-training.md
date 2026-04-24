@@ -11,7 +11,7 @@ tags:
 - soxl
 - walk-forward
 artifacts: []
-workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
+workpad: memory/index.json
 summary: 'Legacy memory note normalized into the repo-wide schema. Date: 2026-04-14
   Implemented multi-asset joint training with asset one-hot embedding. Training pool:
   SOXL, TQQQ, UPRO, SPXL, TECL (all 3x leveraged ETFs). Observation dimension increa'

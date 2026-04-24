@@ -14,7 +14,7 @@ tags:
 - review
 artifacts:
 - artifacts/models/soxl_balanced_rule_residual_mode_v2_summary.json
-workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
+workpad: memory/index.json
 summary: 'Second mode-hierarchy run after `balanced_rule_residual_mode_v1`. This loop
   had two goals: move mode behavior out of hard-coded helpers and into profile config
   test whether looser favorable modes could recover upside without losing the hier'

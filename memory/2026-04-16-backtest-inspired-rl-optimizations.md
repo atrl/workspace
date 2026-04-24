@@ -18,7 +18,7 @@ tags:
 - superseded
 - walk-forward
 artifacts: []
-workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
+workpad: memory/index.json
 summary: Legacy memory note normalized into the repo-wide schema. Port 5 rule-based
   `soxl_backtest` mechanics into the RL reward/risk layer, increase high-vol T-trading
   on SOXL, and ensure zero-shot generalization beats Buy & Hold on other 3x ETFs.

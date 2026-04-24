@@ -26,7 +26,7 @@ Use these files for distinct roles. Do not collapse them together.
 - `SPEC.md`: project intent, invariants, and boundaries.
 - `WORKFLOW.md`: execution routing and state rules.
 - `codex_exec_plans/active/`: the live workpad for the current thread.
-- `codex_exec_plans/completed/`: completed or abandoned threads.
+- `memory/index.json`: completed or abandoned thread summaries.
 - `docs/research_knowledge/`: mechanism-specific research conclusions split by
   factor, data, model selection, network, reward, execution, and multi-asset
   lines.
@@ -192,7 +192,7 @@ The implementer should not need to guess what success means.
 The repository must maintain a single durable comparison surface for historical conclusions.
 
 - Major conclusions belong in `docs/experiment-landscape-review.md`.
-- Pairwise or run-local reviews can still live under `evidence/post_train_review/`.
+- Pairwise or run-local reviews can still live under `runtime/model/reviews/`.
 - A training or replay loop is not complete until its conclusion is reflected in the durable comparison record.
 
 Every completed experiment must add or update a row containing:
@@ -277,7 +277,7 @@ When orienting to the repo, prefer indexes and summaries before raw outputs.
   - then the one mechanism file relevant to the proposed change
 - `runtime/`:
   - read `runtime/README.md`
-  - then `evidence/index.json`
+  - then `runtime/index.json`
   - prefer summary markdown / JSON over raw logs and CSV first
 - `memory/`:
   - read `memory/index.json`

@@ -16,4 +16,4 @@ Keep a concise runnable card for registry status `candidate`.
 
 - Registry notes: `experiments/candidate/balanced_rule_residual_refined_v3/notes.md`
 
-Long result narratives belong in `memory/` or `evidence/`, not this card.
+Long result narratives belong in `memory/` or `runtime/`, not this card.

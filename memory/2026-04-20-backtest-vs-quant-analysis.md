@@ -24,7 +24,7 @@ tags:
 - stress-regime
 - walk-forward
 artifacts: []
-workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
+workpad: memory/index.json
 summary: "\u5168\u9762\u5BF9\u6BD4 soxl_backtest\uFF08\u89C4\u5219\u9A71\u52A8\uFF09\
   \u4E0E src/soxl_quant\uFF08RL\u9A71\u52A8\uFF09\u7684\u67B6\u6784\u3001\u4FE1\u53F7\
   \u3001\u98CE\u63A7\u548C\u7EE9\u6548\u3002 \u6DF1\u5165\u5206\u6790\u5BF9\u6570\u5956\

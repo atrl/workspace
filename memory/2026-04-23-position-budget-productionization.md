@@ -17,7 +17,7 @@ tags:
 - reference
 - smoke
 artifacts: []
-workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
+workpad: memory/index.json
 summary: Config-owned regime-conditional position budget plumbing was added across
   evaluation, qlib backtest, runtime, and training action interpretation. Smoke seed=12345
   ran end-to-end but failed strict drawdown promotion; keep the infrastructure and

@@ -34,11 +34,11 @@ artifacts:
 - artifacts/models/soxl_balanced_actor.pt
 - artifacts/models/soxl_balanced_checkpoint_review_summary.json
 - artifacts/models/soxl_balanced_summary.json
-- evidence/post_train_review/balanced_checkpoint_review.md
-- evidence/post_train_review/balanced_checkpoint_review_vs_balanced.md
-- evidence/post_train_review/balanced_position_cap_counterfactual.json
-- evidence/post_train_review/balanced_position_cap_counterfactual_ranking.md
-workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
+- runtime/model/reviews/balanced_checkpoint_review.md
+- runtime/model/reviews/balanced_checkpoint_review_vs_balanced.md
+- runtime/model/reviews/balanced_position_cap_counterfactual.json
+- runtime/model/reviews/balanced_position_cap_counterfactual_ranking.md
+workpad: memory/index.json
 summary: Staged checkpoint review proved the best validation checkpoint appears at
   iter 40 rather than iter 80, but the selected actor still failed fixed-split 2022
   gates. Fixed-actor position-cap sweeps improved 2022 avg_pos only marginally and
@@ -68,10 +68,10 @@ Compress the search space before starting another broad retrain by answering two
 ## Commands
 
 - `qlib_venv/bin/python soxl_qlib_strategy_v2.py --profiles balanced_checkpoint_review --skip-data-refresh --seed 20260411`
-- `qlib_venv/bin/python scripts/checkpoint_review.py --summary artifacts/models/soxl_balanced_checkpoint_review_summary.json --output evidence/post_train_review/balanced_checkpoint_review.md`
-- `qlib_venv/bin/python .codex/skills/post-train-backtest-review/scripts/compare_backtests.py --latest artifacts/models/soxl_balanced_checkpoint_review_summary.json --previous artifacts/models/soxl_balanced_summary.json --output evidence/post_train_review/balanced_checkpoint_review_vs_balanced.md`
-- `qlib_venv/bin/python scripts/position_cap_counterfactual.py --profile balanced --model artifacts/models/soxl_balanced_actor.pt --variants-json configs/soxl/position_cap_overlay_variants.json --output evidence/post_train_review/balanced_position_cap_counterfactual.json`
-- `qlib_venv/bin/python scripts/rank_counterfactual_variants.py --input evidence/post_train_review/balanced_position_cap_counterfactual.json --output evidence/post_train_review/balanced_position_cap_counterfactual_ranking.md`
+- `qlib_venv/bin/python scripts/checkpoint_review.py --summary artifacts/models/soxl_balanced_checkpoint_review_summary.json --output runtime/model/reviews/balanced_checkpoint_review.md`
+- `qlib_venv/bin/python .codex/skills/post-train-backtest-review/scripts/compare_backtests.py --latest artifacts/models/soxl_balanced_checkpoint_review_summary.json --previous artifacts/models/soxl_balanced_summary.json --output runtime/model/reviews/balanced_checkpoint_review_vs_balanced.md`
+- `qlib_venv/bin/python scripts/position_cap_counterfactual.py --profile balanced --model artifacts/models/soxl_balanced_actor.pt --variants-json configs/soxl/position_cap_overlay_variants.json --output runtime/model/reviews/balanced_position_cap_counterfactual.json`
+- `qlib_venv/bin/python scripts/rank_counterfactual_variants.py --input runtime/model/reviews/balanced_position_cap_counterfactual.json --output runtime/model/reviews/balanced_position_cap_counterfactual_ranking.md`
 
 ## Evidence
 

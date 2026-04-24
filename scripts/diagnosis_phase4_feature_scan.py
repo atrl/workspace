@@ -9,7 +9,7 @@ import numpy as np
 import pandas as pd
 
 ROOT = Path(__file__).resolve().parent.parent
-OUT_DIR = ROOT / "evidence" / "diagnosis"
+OUT_DIR = ROOT / "runtime" / "model" / "diagnosis"
 DATA_DIR = ROOT / "data"
 EXTERNAL_DIR = DATA_DIR / "external"
 

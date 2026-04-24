@@ -16,7 +16,7 @@ tags:
 - stress-regime
 artifacts:
 - artifacts/models/soxl_balanced_rule_residual_mode_v1_summary.json
-workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
+workpad: memory/index.json
 summary: First full train of the mode-hierarchy scaffold over the retained `balanced_rule_residual_v19`
   family. This was the first attempt to add persistent rule-routed modes directly
   into train/eval/backtest/runtime instead of doing another overlay

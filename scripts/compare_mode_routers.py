@@ -207,7 +207,7 @@ def main():
             print(f"{router_labels[router]:<16} {sname:<16} {r:>9.1f}% {sh:>8.2f} {dd:>7.1f}% {ap:>8.3f} {sp:>10.3f}")
     print("="*105)
 
-    out = Path("evidence/post_train_review/mode_router_comparison.json")
+    out = Path("runtime/model/reviews/mode_router_comparison.json")
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(results, indent=2, ensure_ascii=False), encoding="utf-8")
     print(f"\nWrote {out}")

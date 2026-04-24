@@ -37,7 +37,7 @@ design.
 
 - The script must mark the output as no-promotion.
 - The label distribution must report whether action-4 full usage exists.
-- The result must be recorded in `evidence/post_train_review/` and the landscape
+- The result must be recorded in `runtime/model/reviews/` and the landscape
   table.
 
 ## Expected Trade-Off

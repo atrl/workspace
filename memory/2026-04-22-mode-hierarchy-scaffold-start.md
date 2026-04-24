@@ -4,16 +4,14 @@ title: 2026-04-22 Mode Hierarchy Scaffold Start
 kind: decision
 profiles:
 - balanced_rule_residual_mode_v1
-- soxl
 status: active
 tags:
 - active
 - balanced_rule_residual_mode_v1
 - decision
 - execution-overlay
-- soxl
 artifacts: []
-workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
+workpad: memory/index.json
 summary: 'The repo hit a clear optimization plateau on threshold, cooldown, and overlay
   retuning. The next step moved to a larger mechanism change: persistent high-level
   trading modes constraining the existing residual actor, rather than further sing'
@@ -33,7 +31,7 @@ further single-layer parameter drift.
 - Plan:
   - `docs/superpowers/plans/2026-04-21-mode-hierarchy-v1.md`
 - Workpad:
-  - `codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md`
+  - `memory/index.json`
 
 Implemented scaffold only in this loop:
 

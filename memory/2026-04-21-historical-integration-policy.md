@@ -21,7 +21,7 @@ tags:
 - smoke_rule_residual_v1
 - transition-features
 artifacts: []
-workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
+workpad: memory/index.json
 summary: Added a durable historical integration policy to `docs/experiment-landscape-review.md`.
   The repo should now retain a single core stack (`balanced`, `balanced_rule_residual`,
   `v19`, and the harness governance path), treat `v22`, checkpoint review, smoke residual

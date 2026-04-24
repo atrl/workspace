@@ -20,7 +20,7 @@ tags:
 - stress-regime
 - transition-features
 artifacts: []
-workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
+workpad: memory/index.json
 summary: Added a durable repo-wide experiment landscape review and hardened `AGENTS.md`
   so new experiments now require an explicit baseline, closest success/failure case,
   external evidence class, experiment card, and comparison-table row. The repo should

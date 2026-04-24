@@ -125,7 +125,7 @@ def main():
     print("\nTop 15 features by mean |SHAP|:")
     print(shap_df.head(15).to_string(index=False))
     
-    out_dir = ROOT / "evidence" / "feature_analysis"
+    out_dir = ROOT / "runtime" / "factor" / "analysis"
     out_dir.mkdir(parents=True, exist_ok=True)
     ic_df.to_csv(out_dir / "ic.csv", index=False)
     shap_df.to_csv(out_dir / "shap_importance.csv", index=False)

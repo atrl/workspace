@@ -9,7 +9,7 @@ tags:
 - failure
 - rule-based
 artifacts: []
-workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
+workpad: memory/index.json
 summary: 'Legacy memory note normalized into the repo-wide schema. Date: 2026-04-20
   | Metric | v4 | v5 (4x penalty) | Delta | |--------|-----|-----------------|-------|
   | Return | 730.8% | 780.7% | +50pp | | Sharpe | 0.90 | 0.93 | +0.03 | | MaxDD |

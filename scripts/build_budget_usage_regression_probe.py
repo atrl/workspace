@@ -98,14 +98,14 @@ class UsageRegressionModel(nn.Module):
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--profile", default="risk_budget_learned_usage_regression_v1")
-    parser.add_argument("--replay-daily", type=Path, default=Path("evidence/post_train_review/hierarchical_online_budget_daily/soxl_hier_learned_slow5.csv"))
+    parser.add_argument("--replay-daily", type=Path, default=Path("runtime/model/reviews/hierarchical_online_budget_daily/soxl_hier_learned_slow5.csv"))
     parser.add_argument("--seed", type=int, default=20260411)
     parser.add_argument("--sample-size", type=int, default=0)
     parser.add_argument("--steps", type=int, default=2000)
     parser.add_argument("--lr", type=float, default=5e-4)
     parser.add_argument("--batch-size", type=int, default=128)
-    parser.add_argument("--output-json", type=Path, default=Path("evidence/post_train_review/risk_budget_learned_usage_regression_v1.json"))
-    parser.add_argument("--output-md", type=Path, default=Path("evidence/post_train_review/risk_budget_learned_usage_regression_v1.md"))
+    parser.add_argument("--output-json", type=Path, default=Path("runtime/model/reviews/risk_budget_learned_usage_regression_v1.json"))
+    parser.add_argument("--output-md", type=Path, default=Path("runtime/model/reviews/risk_budget_learned_usage_regression_v1.md"))
     parser.add_argument("--skip-data-refresh", action="store_true")
     return parser.parse_args()
 

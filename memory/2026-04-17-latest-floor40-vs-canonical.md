@@ -16,7 +16,7 @@ tags:
 artifacts:
 - artifacts/models/soxl_balanced_floor40_sym_summary.json
 - artifacts/models/soxl_balanced_summary.json
-workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
+workpad: memory/index.json
 summary: 'Legacy memory note normalized into the repo-wide schema. `qlib_venv/bin/python
   soxl_qlib_strategy_v2.py --profiles balanced_floor40_sym --skip-data-refresh --seed
   20260411` Fixed split backtest log: `476.2% / Sharpe 0.79 / MaxDD 63.8% / 790'

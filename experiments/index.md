@@ -1,6 +1,6 @@
 # Experiment Card Index
 
-`experiments/` stores runnable intent cards only. Generated evidence and result narratives live in `evidence/` and `memory/`.
+`experiments/` stores runnable intent cards only. Generated evidence and result narratives live in `runtime/` and `memory/`.
 
 | Profile | Package | Registry status | Family | Baseline | Evidence |
 |---|---|---|---|---|---|

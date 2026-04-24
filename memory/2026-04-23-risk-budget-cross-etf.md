@@ -12,7 +12,7 @@ tags:
 - review
 - soxl
 artifacts: []
-workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
+workpad: memory/index.json
 summary: Cross-ETF diagnostic split risk_budget_usage_v1 into fixed SOXL signal transfer
   and actor budget runtime. The fixed signal transferred strongly across SOXL/TQQQ/UPRO/SPXL/TECL,
   but the deployable actor/runtime path produced only 28-144% proxy return with Sharpe

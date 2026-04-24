@@ -15,7 +15,7 @@ tags:
 - rule-based
 - soxl
 artifacts: []
-workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
+workpad: memory/index.json
 summary: Legacy memory note normalized into the repo-wide schema. Evaluated the multi-asset
   v2 actor (`soxl_balanced_moe_actor.pt`) on the SOXL test set. Extracted gate softmax
   probabilities for every trading day. Performed an **ablation study** by

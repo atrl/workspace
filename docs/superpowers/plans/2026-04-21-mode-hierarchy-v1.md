@@ -206,7 +206,7 @@ git commit -m "feat: wire mode state through harness paths"
 - Create: `experiments/candidate/balanced_rule_residual_mode_v1/notes.md`
 - Create: `experiments/candidate/balanced_rule_residual_mode_v1/expectations.md`
 - Modify: `configs/soxl/profile_registry.yaml`
-- Modify: `codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md`
+- Modify: `memory/index.json`
 
 - [ ] **Step 1: Write minimal implementation**
 
@@ -228,7 +228,7 @@ Expected: PASS
 - [ ] **Step 3: Commit**
 
 ```bash
-git add experiments/candidate/balanced_rule_residual_mode_v1 configs/soxl/profile_registry.yaml codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
+git add experiments/candidate/balanced_rule_residual_mode_v1 configs/soxl/profile_registry.yaml memory/index.json
 git commit -m "feat: add first mode hierarchy candidate profile"
 ```
 
@@ -263,12 +263,12 @@ Expected: `failures=0`
 - [ ] **Step 3: Record evidence**
 
 Update:
-- `codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md`
+- `memory/index.json`
 - a new memory note summarizing the scaffold result
 
 - [ ] **Step 4: Commit**
 
 ```bash
-git add codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md memory/
+git add memory/index.json memory/
 git commit -m "chore: record mode hierarchy scaffold validation"
 ```

@@ -220,9 +220,9 @@ def parse_args() -> argparse.Namespace:
         default="slack",
         help="slack caps the fast path above the slow anchor; budget_usage treats the fast path as usage ratio inside mode bands",
     )
-    parser.add_argument("--output-json", default=Path("evidence/post_train_review/two_speed_mode_budget_v1.json"), type=Path)
-    parser.add_argument("--output-md", default=Path("evidence/post_train_review/two_speed_mode_budget_v1.md"), type=Path)
-    parser.add_argument("--output-daily", default=Path("evidence/post_train_review/two_speed_mode_budget_v1_soxl_daily.csv"), type=Path)
+    parser.add_argument("--output-json", default=Path("runtime/model/reviews/two_speed_mode_budget_v1.json"), type=Path)
+    parser.add_argument("--output-md", default=Path("runtime/model/reviews/two_speed_mode_budget_v1.md"), type=Path)
+    parser.add_argument("--output-daily", default=Path("runtime/model/reviews/two_speed_mode_budget_v1_soxl_daily.csv"), type=Path)
     return parser.parse_args()
 
 

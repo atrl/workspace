@@ -15,10 +15,10 @@ tags:
 - failure
 - soxl
 artifacts:
-- evidence/post_train_review/balanced_rule_residual_imitation_v4_soxl_daily.csv
-- evidence/post_train_review/balanced_rule_residual_mode_v1_soxl_daily.csv
-- evidence/post_train_review/two_speed_mode_budget_v1.
-workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
+- runtime/model/reviews/balanced_rule_residual_imitation_v4_soxl_daily.csv
+- runtime/model/reviews/balanced_rule_residual_mode_v1_soxl_daily.csv
+- runtime/model/reviews/two_speed_mode_budget_v1.
+workpad: memory/index.json
 summary: Fixed-signal two-speed replay combined mode_v1 as the slow risk anchor with
   imitation_v4 as the fast participation path. Proxy and restart participation improved,
   but test_2022 MaxDD remained 33.9%, above the strict 30% gate. Keep the replay tool
@@ -42,8 +42,8 @@ Command:
 
 ```bash
 PYTHONPATH=. /Users/rziiiii/.openclaw/workspace/qlib_venv/bin/python scripts/replay_two_speed_mode_budget.py \
-  --slow-daily /Users/rziiiii/.openclaw/workspace/evidence/post_train_review/balanced_rule_residual_mode_v1_soxl_daily.csv \
-  --fast-daily /Users/rziiiii/.openclaw/workspace/evidence/post_train_review/balanced_rule_residual_imitation_v4_soxl_daily.csv
+  --slow-daily /Users/rziiiii/.openclaw/workspace/runtime/model/reviews/balanced_rule_residual_mode_v1_soxl_daily.csv \
+  --fast-daily /Users/rziiiii/.openclaw/workspace/runtime/model/reviews/balanced_rule_residual_imitation_v4_soxl_daily.csv
 ```
 
 Result:
@@ -68,7 +68,7 @@ Keep:
 
 - `src/soxl_quant/policy/two_speed_budget.py`
 - `scripts/replay_two_speed_mode_budget.py`
-- `evidence/post_train_review/two_speed_mode_budget_v1.*`
+- `runtime/model/reviews/two_speed_mode_budget_v1.*`
 - archived experiment notes
 
 ## Next

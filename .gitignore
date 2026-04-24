@@ -49,13 +49,18 @@ qlib_venv/
 runtime/
 !runtime/
 runtime/*
-!runtime/generalization/
-runtime/generalization/*
-!runtime/generalization/dashboard.html
-!runtime/diagnosis/
-runtime/diagnosis/*
-!runtime/diagnosis/*.md
-!runtime/diagnosis/*.json
+!runtime/README.md
+!runtime/index.json
+!runtime/model/
+!runtime/model/**
+!runtime/factor/
+!runtime/factor/**
+!runtime/execution/
+!runtime/execution/**
+!runtime/data/
+!runtime/network/
+runtime/**/*.png
+runtime/**/*.log
 
 # Artifacts / generated outputs
 artifacts/

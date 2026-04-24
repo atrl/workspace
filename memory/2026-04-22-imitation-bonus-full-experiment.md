@@ -10,7 +10,7 @@ tags:
 - review
 - walk-forward
 artifacts: []
-workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
+workpad: memory/index.json
 summary: "Legacy memory note normalized into the repo-wide schema. \u9488\u5BF9\u8DD1\
   \u4E0D\u8FC7rulebase\u7684\u95EE\u9898\uFF0C\u5982\u679C\u5728rulebase\u7684\"\u57CB\
   \u70B9\"\u4E0A\u7ED9\u8D85\u989D\u5956\u52B1\uFF0C\u80FD\u63D0\u9AD8\u5B66\u4E60\

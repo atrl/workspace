@@ -18,13 +18,13 @@ tags:
 - review
 - soxl
 artifacts:
-- evidence/post_train_review/balanced_rule_residual_imitation_v4_soxl_daily.csv
-- evidence/post_train_review/balanced_rule_residual_mode_v1_soxl_daily.csv
-- evidence/post_train_review/risk_budget_usage_v1.json
-- evidence/post_train_review/risk_budget_usage_v1.md
-- evidence/post_train_review/risk_budget_usage_v1_soxl_daily.csv
 - runtime/backtest
-workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
+- runtime/model/reviews/balanced_rule_residual_imitation_v4_soxl_daily.csv
+- runtime/model/reviews/balanced_rule_residual_mode_v1_soxl_daily.csv
+- runtime/model/reviews/risk_budget_usage_v1.json
+- runtime/model/reviews/risk_budget_usage_v1.md
+- runtime/model/reviews/risk_budget_usage_v1_soxl_daily.csv
+workpad: memory/index.json
 summary: 'Fixed replay treated imitation_v4 as a budget usage ratio inside mode_v1
   risk bands. It passed all replay acceptance checks: test_2022 MaxDD 25.6%, avg_pos
   0.214, test_proxy 2003.6% / Sharpe 1.248 / MaxDD 45.0%. Keep as candidate fixed-replay
@@ -49,13 +49,13 @@ Command:
 
 ```bash
 PYTHONPATH=. /Users/rziiiii/.openclaw/workspace/qlib_venv/bin/python scripts/replay_two_speed_mode_budget.py \
-  --slow-daily /Users/rziiiii/.openclaw/workspace/evidence/post_train_review/balanced_rule_residual_mode_v1_soxl_daily.csv \
-  --fast-daily /Users/rziiiii/.openclaw/workspace/evidence/post_train_review/balanced_rule_residual_imitation_v4_soxl_daily.csv \
+  --slow-daily /Users/rziiiii/.openclaw/workspace/runtime/model/reviews/balanced_rule_residual_mode_v1_soxl_daily.csv \
+  --fast-daily /Users/rziiiii/.openclaw/workspace/runtime/model/reviews/balanced_rule_residual_imitation_v4_soxl_daily.csv \
   --composition budget_usage \
   --profile-name risk_budget_usage_v1 \
-  --output-json evidence/post_train_review/risk_budget_usage_v1.json \
-  --output-md evidence/post_train_review/risk_budget_usage_v1.md \
-  --output-daily evidence/post_train_review/risk_budget_usage_v1_soxl_daily.csv
+  --output-json runtime/model/reviews/risk_budget_usage_v1.json \
+  --output-md runtime/model/reviews/risk_budget_usage_v1.md \
+  --output-daily runtime/model/reviews/risk_budget_usage_v1_soxl_daily.csv
 ```
 
 Metrics:

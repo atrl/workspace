@@ -17,7 +17,7 @@ For historical retrieval, prefer this order:
 2. `configs/soxl/profile_registry.yaml`
 3. `memory/index.json` + `scripts/memory_search.py`
 4. the relevant archive package
-5. `evidence/post_train_review/` for pairwise comparisons
+5. `runtime/model/reviews/` for pairwise comparisons
 
 Archive packages are intentionally allowed to be less polished than active
 candidate packages, but they should still keep:

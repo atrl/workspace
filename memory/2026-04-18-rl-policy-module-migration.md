@@ -10,7 +10,7 @@ tags:
 - failure
 - moe
 artifacts: []
-workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
+workpad: memory/index.json
 summary: 'Legacy memory note normalized into the repo-wide schema. Date: 2026-04-18
   Context: package folders under `src/soxl_quant/` existed, but `src/soxl_quant/policy/*`
   was still mostly wrapper code pointing back into `src/soxl_quant/rl.py` that m'

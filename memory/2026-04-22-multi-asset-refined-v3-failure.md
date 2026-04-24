@@ -14,7 +14,7 @@ tags:
 - reference
 - soxl
 artifacts: []
-workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
+workpad: memory/index.json
 summary: Multi-asset joint training with refined_v3 reward produced 388.6% return
   vs 637.8% single-asset (-249pp). The refined reward was tuned for SOXL's specific
   volatility profile and does not generalize to TQQQ/UPRO/SPXL/TECL. All test slices

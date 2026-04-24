@@ -38,4 +38,4 @@ them should improve recognition of:
 
 - `balanced_rule_residual_v19` (seed=12345, 59-feature).
 - Slice report target:
-  `evidence/post_train_review/balanced_rule_residual_v22_vs_v19.md`.
+  `runtime/model/reviews/balanced_rule_residual_v22_vs_v19.md`.

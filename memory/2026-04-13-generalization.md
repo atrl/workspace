@@ -12,11 +12,11 @@ tags:
 - review
 - soxl
 artifacts:
-- evidence/generalization/comparison.png
-- evidence/generalization/qlib_stores/
-- evidence/generalization/report.txt
-- evidence/generalization/results.json
-workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
+- runtime/execution/generalization/comparison.png
+- runtime/execution/generalization/qlib_stores/
+- runtime/execution/generalization/report.txt
+- runtime/execution/generalization/results.json
+workpad: memory/index.json
 summary: Legacy memory note normalized into the repo-wide schema. Test whether the
   SOXL-trained PPO actor (`soxl_balanced_actor.pt`) generalizes to other 3x leveraged
   ETFs without retraining. | ETF | Underlying | Sector | |-----|-----------|--------
@@ -45,7 +45,7 @@ Test whether the SOXL-trained PPO actor (`soxl_balanced_actor.pt`) generalizes t
 ## Method
 1. Fetched daily OHLCV for each ETF + underlying + VIX via `yfinance`.
 2. Refactored `src/soxl_quant/data.py` and `src/soxl_quant/backtest.py` to be symbol-agnostic (parameterized ETF symbol, underlying symbol, and leverage ratio).
-3. Built per-ETF qlib binary stores under `evidence/generalization/qlib_stores/`.
+3. Built per-ETF qlib binary stores under `runtime/execution/generalization/qlib_stores/`.
 4. Ran zero-shot backtests using the existing `soxl_balanced_actor.pt` checkpoint.
 5. Test window: `2020-01-02` to `2026-03-31` (1,569 trading days).
 
@@ -77,9 +77,9 @@ Test whether the SOXL-trained PPO actor (`soxl_balanced_actor.pt`) generalizes t
 
 ## Artifacts
 - Data: `data/generalization/*_with_underlying_vix.csv`
-- Results: `evidence/generalization/results.json`
-- Report: `evidence/generalization/report.txt`
-- Chart: `evidence/generalization/comparison.png`
+- Results: `runtime/execution/generalization/results.json`
+- Report: `runtime/execution/generalization/report.txt`
+- Chart: `runtime/execution/generalization/comparison.png`
 
 ## Conclusion
 The model exhibits **non-trivial zero-shot generalization**. It does not blow up on unseen 3x ETFs and produces positive risk-adjusted returns across the board. However, **absolute returns are highest on the training domain (SOXL)**, indicating there is still domain-specific value in the SOXL training distribution. A next step could be to train a single multi-ETF policy or ensemble to see if performance on TQQQ/UPRO/SPXL/TECL can be improved.

@@ -8,7 +8,7 @@ Usage:
     PYTHONPATH=. qlib_venv/bin/python scripts/sweep_hierarchical_overlay.py \
         --delta-actor artifacts/models/soxl_balanced_actor.pt \
         --base-policy rule --mode-router rule \
-        --output evidence/post_train_review/hierarchical_sweep.json
+        --output runtime/model/reviews/hierarchical_sweep.json
 """
 
 from __future__ import annotations
@@ -115,7 +115,7 @@ def main():
     parser.add_argument("--delta-actor", type=str, required=True)
     parser.add_argument("--base-actor", type=str, default=None)
     parser.add_argument("--profile", type=str, default="balanced")
-    parser.add_argument("--output", type=str, default="evidence/post_train_review/hierarchical_sweep.json")
+    parser.add_argument("--output", type=str, default="runtime/model/reviews/hierarchical_sweep.json")
     parser.add_argument("--skip-data-refresh", action="store_true")
     args = parser.parse_args()
 

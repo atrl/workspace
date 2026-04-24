@@ -8,7 +8,7 @@ tags:
 - other
 - reference
 artifacts: []
-workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
+workpad: memory/index.json
 summary: Moved multi-asset source prep and staged training into dedicated app modules,
   updated repo scripts to import policy/app layers directly, and reduced internal
   dependence on the rl compatibility facade to zero.

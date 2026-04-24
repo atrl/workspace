@@ -15,7 +15,7 @@ tags:
 - stress-regime
 - transition-features
 artifacts: []
-workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
+workpad: memory/index.json
 summary: 'Legacy memory note normalized into the repo-wide schema. New temporary branch:
   `balanced_transition_state` Intent: keep canonical `balanced` reward, cap, and selection
   rules fixed add transition / persistence features only test whether rebo'

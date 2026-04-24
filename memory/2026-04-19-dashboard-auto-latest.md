@@ -15,10 +15,10 @@ tags:
 - kept
 - soxl
 artifacts:
-- evidence/generalization/dashboard.html
-- evidence/post_train_review/
-- evidence/post_train_review/balanced_rule_residual_v1_soxl_daily.csv
-workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
+- runtime/execution/generalization/dashboard.html
+- runtime/model/reviews/
+- runtime/model/reviews/balanced_rule_residual_v1_soxl_daily.csv
+workpad: memory/index.json
 summary: Fixed the dashboard so training now auto-exports a review CSV, auto-rebuilds
   the static HTML, defaults to the latest post-train view instead of an older best-Sharpe
   or browser-saved selection, preserves explicit post-train trade actions, and merges
@@ -38,9 +38,9 @@ The dashboard was not reliably showing the latest training result after a run fi
   - post-train SOXL daily CSV export
   - dashboard rebuild invocation
 - `run_profile()` now writes:
-  - `evidence/post_train_review/<profile>_soxl_daily.csv`
+  - `runtime/model/reviews/<profile>_soxl_daily.csv`
 - `persist_and_print_results()` now rebuilds:
-  - `evidence/generalization/dashboard.html`
+  - `runtime/execution/generalization/dashboard.html`
 - `scripts/build_backtest_dashboard.py` now:
   - computes `latest_version`
   - prefers `post_train_review` sources over historical `versions/*` snapshots
@@ -51,8 +51,8 @@ The dashboard was not reliably showing the latest training result after a run fi
 ## Results
 
 - Generated:
-  - `evidence/post_train_review/balanced_rule_residual_v1_soxl_daily.csv`
-  - `evidence/generalization/dashboard.html`
+  - `runtime/model/reviews/balanced_rule_residual_v1_soxl_daily.csv`
+  - `runtime/execution/generalization/dashboard.html`
 - Verified generated HTML contains:
   - `"latest_version": "balanced_rule_residual_v1"`
   - `versionSource: 'auto_latest'`

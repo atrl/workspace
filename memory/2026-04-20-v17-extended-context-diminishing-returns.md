@@ -15,7 +15,7 @@ tags:
 artifacts:
 - artifacts/models/soxl_balanced_rule_residual_v17_actor.pt
 - artifacts/models/soxl_balanced_rule_residual_v17_summary.json
-workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
+workpad: memory/index.json
 summary: Legacy memory note normalized into the repo-wide schema. **Date:** 2026-04-20
   **Profile:** `balanced_rule_residual_v17` **Hypothesis:** More temporal context
   (10 days) continues to improve over 5 days. **Result:** DIMINISHING RETURNS CONFIR

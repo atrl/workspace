@@ -14,7 +14,7 @@ tags:
 - failure
 - transition-features
 artifacts: []
-workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
+workpad: memory/index.json
 summary: Cleaned failed experiment mechanisms out of core runtime paths. Execution
   experiments now extend through declarative `custom_regimes`, and feature experiments
   now extend through profile-owned `feature.packs` plus optional experiment-local

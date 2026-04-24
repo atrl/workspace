@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate source-of-truth boundaries between memory, experiments, evidence, runtime, production, and data."""
+"""Validate source-of-truth boundaries between memory, experiments, runtime, production, and data."""
 from __future__ import annotations
 
 from pathlib import Path
@@ -7,17 +7,13 @@ import sys
 
 ROOT = Path(__file__).resolve().parent.parent
 OLD_ACTIVE_WORKPAD = "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md"
-MOVED_RUNTIME_PREFIXES = (
-    "runtime/post_train_review",
-    "runtime/generalization",
-    "runtime/diagnosis",
-    "runtime/feature_analysis",
-)
-EVIDENCE_PREFIXES = (
+RETIRED_EVIDENCE_PREFIXES = (
+    "evidence/",
     "evidence/post_train_review",
     "evidence/generalization",
     "evidence/diagnosis",
     "evidence/feature_analysis",
+    "evidence/index.json",
 )
 OLD_DATA_PREFIXES = (
     "data/generalization",
@@ -47,6 +43,21 @@ def read(path: Path) -> str:
 def main() -> int:
     failures: list[str] = []
 
+    if (ROOT / "evidence").exists():
+        failures.append("top-level evidence/ directory should not exist; use runtime/<category>/")
+    if (ROOT / "multi_asset").exists():
+        failures.append("top-level multi_asset/ directory should not exist; use data/qlib and data/cache")
+
+    completed = ROOT / "codex_exec_plans" / "completed"
+    if completed.exists():
+        leftovers = [
+            path
+            for path in completed.rglob("*")
+            if path.is_file() and path.name != ".gitkeep"
+        ]
+        if leftovers:
+            failures.append("memory/index.json contains historical workpads; use memory/index.json")
+
     for path in iter_text_files("memory"):
         text = read(path)
         if OLD_ACTIVE_WORKPAD in text:
@@ -56,27 +67,27 @@ def main() -> int:
         text = read(path)
         if "experiments/candidate/" in text and "/archive/" in str(path):
             failures.append(f"{path.relative_to(ROOT)} archive card references candidate path")
-        for prefix in MOVED_RUNTIME_PREFIXES:
+        for prefix in RETIRED_EVIDENCE_PREFIXES:
             if prefix in text:
-                failures.append(f"{path.relative_to(ROOT)} references runtime evidence path {prefix}")
+                failures.append(f"{path.relative_to(ROOT)} references retired evidence path {prefix}")
 
     runtime = ROOT / "runtime"
     if runtime.exists():
         for child in runtime.iterdir():
-            if child.name not in {"README.md", "soxl"}:
+            if child.name not in {"README.md", "index.json", "soxl", "model", "data", "factor", "network", "execution"}:
                 failures.append(f"runtime contains non-runtime surface: {child.relative_to(ROOT)}")
 
     for path in iter_text_files("production"):
         text = read(path)
-        for prefix in MOVED_RUNTIME_PREFIXES:
+        for prefix in RETIRED_EVIDENCE_PREFIXES:
             if prefix in text:
-                failures.append(f"{path.relative_to(ROOT)} references research evidence path {prefix}")
+                failures.append(f"{path.relative_to(ROOT)} references retired evidence path {prefix}")
 
     for path in iter_text_files("docs"):
         text = read(path)
-        for prefix in MOVED_RUNTIME_PREFIXES:
+        for prefix in RETIRED_EVIDENCE_PREFIXES:
             if prefix in text:
-                failures.append(f"{path.relative_to(ROOT)} references old runtime evidence path {prefix}")
+                failures.append(f"{path.relative_to(ROOT)} references retired evidence path {prefix}")
 
     for path in iter_text_files("scripts", "src", "production"):
         if path.name == "check_source_boundaries.py":

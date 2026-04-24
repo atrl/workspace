@@ -12,7 +12,7 @@ Do not assume a branch is undertrained when validation improves but `test_2022` 
 
 - `memory/2026-04-18-checkpoint-review-and-overlay-loop.md`
 - `memory/2026-04-18-phase-balanced-training-failure.md`
-- `evidence/post_train_review/`
+- `runtime/model/reviews/`
 
 ## Reusable Method
 

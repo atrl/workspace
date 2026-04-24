@@ -12,7 +12,7 @@ tags:
 - soxl
 - stress-regime
 artifacts: []
-workpad: codex_exec_plans/completed/2026-04/2026-04-10-soxl-agent-loop.md
+workpad: memory/index.json
 summary: 'simplified_v1 failed: proxy MaxDD 58.5% vs v19 54.8%. Root cause: stripping
   reward removed necessary guardrails (stale_position, trapped_loser, downside_signal,
   risk_budget). User wants: cash respected, conflicting gradients reduced, generalization
