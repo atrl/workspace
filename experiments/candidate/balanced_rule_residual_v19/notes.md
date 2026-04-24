@@ -1,3 +1,9 @@
+---
+title: balanced_rule_residual_v19
+direction: model
+status: candidate
+---
+
 # balanced_rule_residual_v19 — Seed Sweep Anchor
 
 ## Hypothesis
@@ -16,11 +22,11 @@ Testing seed=12345 to sample a third point in the seed distribution.
 ## Evidence Links
 
 - Primary result note:
-  - `memory/2026-04-20-seed-sweep-clarified.md`
+  - `runtime/model/2026-04-20-seed-sweep-clarified.md`
 - Frontier summary:
   - `docs/experiment-landscape-review.md`
 - Summary artifact:
-  - `artifacts/models/soxl_balanced_rule_residual_v19_summary.json`
+  - `artifacts/balanced_family/soxl_balanced_rule_residual_v19_summary.json`
 
 ## Current Role
 

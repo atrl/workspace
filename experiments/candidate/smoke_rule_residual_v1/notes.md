@@ -1,3 +1,9 @@
+---
+title: smoke_rule_residual_v1
+direction: model
+status: candidate
+---
+
 # Smoke Rule Residual V1
 
 Candidate smoke profile for the first residual-over-rule experiment.

@@ -1,3 +1,9 @@
+---
+title: risk_budget_usage_v1
+direction: model
+status: candidate
+---
+
 # risk_budget_usage_v1
 
 ## Motivation
@@ -46,7 +52,7 @@ Command:
 ```bash
 PYTHONPATH=. /Users/rziiiii/.openclaw/workspace/qlib_venv/bin/python scripts/replay_two_speed_mode_budget.py \
   --slow-daily /Users/rziiiii/.openclaw/workspace/runtime/model/reviews/balanced_rule_residual_mode_v1_soxl_daily.csv \
-  --fast-daily /Users/rziiiii/.openclaw/workspace/runtime/model/reviews/balanced_rule_residual_imitation_v4_soxl_daily.csv \
+  --fast-daily /Users/rziiiii/.openclaw/workspace/runtime/model/reviews/balanced_rule_residual_imitation_soxl_daily.csv \
   --composition budget_usage \
   --profile-name risk_budget_usage_v1 \
   --output-json runtime/model/reviews/risk_budget_usage_v1.json \
@@ -81,7 +87,7 @@ The candidate now has a repo-owned profile at
   `flat_wait=0.00..0.25`, `defensive_hold=0.10..0.45`,
   `crash_rebuild=0.25..0.65`, `trend_hold=0.45..0.95`.
 - Actor-backed parity is still blocked until the retained
-  `balanced_rule_residual_imitation_v4` actor checkpoint is restored; the
+  `balanced_rule_residual_imitation` actor checkpoint is restored; the
   current artifact inventory retains the summary but not the actor bundle.
 
 ## Failure Mode To Check Next
@@ -98,7 +104,7 @@ Command:
 ```bash
 PYTHONPATH=. /Users/rziiiii/.openclaw/workspace/qlib_venv/bin/python scripts/evaluate_actor_profile_parity.py \
   --profile risk_budget_usage_v1 \
-  --model artifacts/models/soxl_balanced_rule_residual_imitation_v4_actor.pt \
+  --model artifacts/balanced_family/soxl_balanced_rule_residual_imitation_actor.pt \
   --output-json runtime/model/reviews/risk_budget_usage_v1_actor_parity.json \
   --output-md runtime/model/reviews/risk_budget_usage_v1_actor_parity.md \
   --output-daily runtime/model/reviews/risk_budget_usage_v1_actor_parity_soxl_daily.csv

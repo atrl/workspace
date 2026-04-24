@@ -1,3 +1,9 @@
+---
+title: balanced_kelly
+direction: model
+status: candidate
+---
+
 # balanced_kelly — Iteration History
 
 ## balanced_kelly_warmstart_v9
@@ -54,4 +60,4 @@ Keep a concise runnable card for registry status `candidate`.
 
 - Registry notes: `experiments/candidate/balanced_kelly_warmstart_v9b/profile.yaml`
 
-Long result narratives belong in `memory/` or `runtime/`, not this card.
+Long result narratives belong in `runtime/model/` or `runtime/`, not this card.

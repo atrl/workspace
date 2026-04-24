@@ -1,3 +1,9 @@
+---
+title: balanced
+direction: model
+status: candidate
+---
+
 # Balanced
 
 Canonical balanced baseline for SOXL.

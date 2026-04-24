@@ -1,3 +1,9 @@
+---
+title: balanced_rule_residual_v22
+direction: model
+status: candidate
+---
+
 # balanced_rule_residual_v22 notes
 
 ## Intent
@@ -24,7 +30,7 @@ SOXL_USE_VIX_TERM=1 qlib_venv/bin/python -m soxl_quant.cli train \
 ## Evidence Links
 
 - Primary result note:
-  - `memory/2026-04-21-v22-vix-term-structure-results.md`
+  - `runtime/model/2026-04-21-v22-vix-term-structure-results.md`
 - Pairwise review:
   - `runtime/model/reviews/balanced_rule_residual_v22_vs_v19.md`
 - Frontier summary:

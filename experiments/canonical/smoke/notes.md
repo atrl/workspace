@@ -1,3 +1,9 @@
+---
+title: smoke
+direction: model
+status: candidate
+---
+
 # Smoke
 
 Canonical harness smoke profile.

@@ -1,3 +1,9 @@
+---
+title: balanced_rule_residual_imitation
+direction: model
+status: candidate
+---
+
 # balanced_rule_residual_imitation — Iteration History
 
 ## balanced_rule_residual_imitation_v1
@@ -136,9 +142,9 @@ Reducing max_iters to 40 + increasing participation signals + reducing imitation
 
 
 ---
-## balanced_rule_residual_imitation_v4
+## balanced_rule_residual_imitation
 
-# balanced_rule_residual_imitation_v4
+# balanced_rule_residual_imitation
 
 ## Motivation
 
@@ -170,20 +176,20 @@ By keeping v2's tight drawdown controls but aggressively increasing trend_alignm
 ## Acceptance Criteria
 
 ---
-## balanced_rule_residual_imitation_v4_budget
+## balanced_rule_residual_imitation_budget
 
-# balanced_rule_residual_imitation_v4_budget
+# balanced_rule_residual_imitation_budget
 
 ## Motivation
 
-`balanced_rule_residual_imitation_v4` is the best participation-focused imitation branch, but it misses the stricter 30% MaxDD target by roughly 1-1.3pp on `test_2022` and `test_2023_2024`.
+`balanced_rule_residual_imitation` is the best participation-focused imitation branch, but it misses the stricter 30% MaxDD target by roughly 1-1.3pp on `test_2022` and `test_2023_2024`.
 
 The drawdown-budget prototype showed that unconditional hard masking is too blunt, while regime-conditional masking at `regime_risk >= 0.60` and `budget=0.30` improved drawdown with little return drag on the v19 fixed actor.
 
 ## External Reference
 
 - Internal open-source-style reference: `soxl_backtest` panic/risk gating mechanics.
-- Existing harness evidence: `memory/2026-04-22-phase0-drawdown-budget-prototype.md`.
+- Existing harness evidence: `runtime/model/2026-04-22-phase0-drawdown-budget-prototype.md`.
 
 ## Hypothesis
 

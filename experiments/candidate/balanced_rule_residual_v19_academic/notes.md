@@ -1,3 +1,9 @@
+---
+title: balanced_rule_residual_v19_academic
+direction: model
+status: candidate
+---
+
 # balanced_rule_residual_v19_academic
 
 ## Motivation

@@ -1,3 +1,9 @@
+---
+title: balanced_rule_residual_refined_v3
+direction: model
+status: candidate
+---
+
 # balanced_rule_residual_refined_v3
 
 ## Motivation
@@ -16,4 +22,4 @@ Keep a concise runnable card for registry status `candidate`.
 
 - Registry notes: `experiments/candidate/balanced_rule_residual_refined_v3/notes.md`
 
-Long result narratives belong in `memory/` or `runtime/`, not this card.
+Long result narratives belong in `runtime/model/` or `runtime/`, not this card.

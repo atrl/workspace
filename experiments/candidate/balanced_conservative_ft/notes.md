@@ -1,3 +1,9 @@
+---
+title: balanced_conservative_ft
+direction: model
+status: candidate
+---
+
 # balanced_conservative_ft — Conservative PPO Fine-tuning from BC Pretrain
 
 ## Hypothesis

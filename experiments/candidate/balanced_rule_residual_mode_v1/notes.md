@@ -1,3 +1,9 @@
+---
+title: balanced_rule_residual_mode_v1
+direction: model
+status: candidate
+---
+
 # balanced_rule_residual_mode_v1 — Mode Hierarchy Scaffold
 
 ## Motivation
