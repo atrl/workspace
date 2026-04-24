@@ -22,11 +22,14 @@ def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument("--overlay", choices=[
         "none", "vix_divergence", "spring_compression", "panic_exhaustion",
-        "vix_zscore_delta", "regime_risk_delta", "combined_vix", "fake_breakout"
+        "vix_zscore_delta", "regime_risk_delta", "combined_vix", "fake_breakout",
+        "vol_stress", "downside_bull", "dual_regime", "vol_vix_combo", "rv63_stress"
     ], default="none")
     parser.add_argument("--threshold", type=float, default=0.05)
     parser.add_argument("--boost", type=float, default=0.1)
     parser.add_argument("--regime-threshold", type=float, default=0.6)
+    parser.add_argument("--bull-regime-threshold", type=float, default=0.4)
+    parser.add_argument("--regime-mode", choices=["stress", "bull", "dual"], default="stress")
     parser.add_argument("--feature-packs", default="", help="Comma-separated feature packs")
     return parser.parse_args()
 
@@ -73,7 +76,10 @@ def main():
             "threshold": args.threshold,
             "boost": args.boost,
             "regime_threshold": args.regime_threshold,
+            "regime_mode": args.regime_mode,
         }
+        if args.overlay in ("dual_regime",):
+            overlay_config["bull_regime_threshold"] = args.bull_regime_threshold
 
     result = backtest_profile(
         actor=actor,

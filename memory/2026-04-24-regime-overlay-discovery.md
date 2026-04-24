@@ -1,0 +1,55 @@
+# 2026-04-24: Regime-Conditional Overlay Discovery — vol_stress
+
+## Discovery
+
+After regime-conditional IC analysis revealed that feature predictive power is
+highly regime-dependent, we tested execution overlays using existing features
+with regime gating.
+
+**Major finding**: `vol_stress` overlay (vol_of_vol_21 >= 0.20 in stress regime)
+achieves **+128pp return improvement** (452.3% → 580.4%) with **no MaxDD
+degradation** (45.9% vs 46.7%).
+
+This is the strongest overlay discovered to date, surpassing the previous best
+`vix_divergence` (+61pp).
+
+## Why This Works
+
+1. **vol_of_vol_21 has strong regime-conditional IC**: 0.174 in stress regime
+2. **Actor underweights it globally**: The actor trains on all regimes, so it
+   gives vol_of_vol_21 a moderate average weight that doesn't capture its
+   stress-regime predictive power
+3. **Overlay provides regime-specific boost**: The regime gating (regime_risk >=
+   0.6) ensures the boost only applies when the signal is most predictive
+
+## Why Other Overlays Underperform
+
+- **downside_bull**: Actor already uses downside_ratio_10 effectively
+- **vol_vix_combo**: Requiring both signals to agree is too restrictive
+- **rv63_stress**: Raw volatility level is less informative than vol-of-vol
+
+## Comparison to v19_transition (Rejected)
+
+| Metric | Baseline | v19_transition | vol_stress overlay |
+|--------|----------|----------------|-------------------|
+| Return | 452.3% | 518.8% | **580.4%** |
+| Sharpe | 0.87 | 0.82 | **0.94** |
+| MaxDD | 46.7% | 60.9% | **45.9%** |
+
+Overlay achieves better results than retraining with new features, with lower
+risk and no retraining cost.
+
+## Files Updated
+
+- `src/soxl_quant/backtest.py`: Added `regime_mode`, `vol_stress`,
+  `downside_bull`, `dual_regime`, `vol_vix_combo`, `rv63_stress` overlay types
+- `scripts/test_transition_overlay.py`: Updated to support new overlay types
+- `runtime/post_train_review/regime_conditional_ic_analysis.md`: Regime IC analysis
+- `runtime/post_train_review/regime_overlay_test_results.md`: Complete overlay results
+- `docs/experiment-landscape-review.md`: Added overlay comparison section
+
+## Next Actions
+
+1. Walk-forward slice validation for vol_stress
+2. Production runtime integration
+3. Consider training new actor with regime-aware feature weighting

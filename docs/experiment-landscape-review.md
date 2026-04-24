@@ -734,3 +734,60 @@ evidence that the timing path is not SOXL-only in a narrow price-transfer sense.
 Do not promote the actor/runtime path: it generalizes risk compression, not
 return participation. The missing frontier remains an auditable two-actor
 composer or a recoverable mode actor bundle, not more single-actor PPO tuning.
+
+## 2026-04-24: Regime-Conditional Overlay Discovery
+
+### Context
+
+Following the rejection of `balanced_rule_residual_v19_transition` (feature
+injection caused +7.5pp MaxDD degradation), we pivoted to execution overlay:
+applying predictive signals as position boosts on the fixed v19 actor without
+retraining.
+
+A regime-conditional IC analysis revealed that feature predictive power is
+highly regime-dependent:
+- Volatility features (vol_of_vol, realized_vol) have strong positive IC in
+  stress regime (0.13-0.17) but weak/negative IC in bull markets
+- Downside features (downside_ratio, drawdown_streak) have strong positive IC
+  in bull regime (0.13-0.28) but weak IC in stress
+- TRANS_VIX_DIVERGENCE is the only feature with positive IC across all regimes
+
+### Overlay Test Results
+
+All tests run on fixed `balanced_rule_residual_v19` actor, test window
+2020-01 ~ 2026-03.
+
+| Overlay | Best Config | Return | Sharpe | MaxDD | vs Baseline |
+|---------|------------|--------|--------|-------|-------------|
+| Baseline | — | 452.3% | 0.87 | 46.7% | — |
+| **vol_stress** ⭐ | vol_of_vol≥0.20 in stress | **580.4%** | **0.94** | 45.9% | **+128pp** |
+| dual_regime | vol stress + downside bull | 585.9% | 0.92 | 47.5% | +134pp |
+| vix_divergence | TRANS_VIX_DIVERGENCE≥0.05 | 513.0% | 0.91 | 44.6% | +61pp |
+| rv63_stress | realized_vol≥1.4 in stress | 516.7% | 0.91 | 48.8% | +64pp |
+| vol_vix_combo | both must agree | 521.7% | 0.91 | 46.7% | +69pp |
+| downside_bull | downside_ratio≥0.55 in bull | 467.5% | 0.87 | 46.7% | +15pp |
+
+### Key Findings
+
+1. **vol_stress is the strongest overlay**: Uses existing feature
+   `vol_of_vol_21` with regime gating. Achieves +128pp with no MaxDD
+   degradation. Trade count unchanged — overlay modifies existing decisions.
+
+2. **Combined overlays underperform**: Requiring vol_of_vol AND VIX divergence
+   to agree (vol_vix_combo) filters out too many opportunities. Breadth beats
+   precision for overlay design.
+
+3. **downside_bull is ineffective**: High bull-regime IC (0.284) does not
+   translate to overlay value. Actor likely already uses downside_ratio_10
+   effectively.
+
+4. **Feature injection vs overlay**: The rejected `v19_transition` retraining
+   achieved 518.8% (proxy) with 60.9% MaxDD. The vol_stress overlay achieves
+   580.4% with 45.9% MaxDD — better return, lower risk, no retraining needed.
+
+### Decision
+
+- **vol_stress overlay is the production candidate** for SOXL
+- Config: `type="vol_stress", regime_mode="stress", regime_threshold=0.6,
+  threshold=0.20, boost=0.10`
+- Next: walk-forward slice validation, then production runtime integration

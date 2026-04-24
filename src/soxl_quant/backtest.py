@@ -168,7 +168,15 @@ class RLStrategy(BaseStrategy):
             threshold = oc.get("threshold", 0.3)
             boost = oc.get("boost", 0.1)
             regime_thresh = oc.get("regime_threshold", 0.6)
-            if regime_risk >= regime_thresh:
+            regime_mode = oc.get("regime_mode", "stress")  # "stress", "bull", or "dual"
+            regime_active = False
+            if regime_mode == "stress":
+                regime_active = regime_risk >= regime_thresh
+            elif regime_mode == "bull":
+                regime_active = regime_risk <= regime_thresh
+            elif regime_mode == "dual":
+                regime_active = True  # handle in type-specific logic
+            if regime_active:
                 signal_val = 0.0
                 if overlay_type == "vix_divergence":
                     signal_val = float(self.df.iloc[idx].get("TRANS_VIX_DIVERGENCE", 0.0))
@@ -204,6 +212,39 @@ class RLStrategy(BaseStrategy):
                     fb_val = float(self.df.iloc[idx].get("CLOSE_VS_MA21_AFTER_DD", 0.0))
                     if fb_val >= threshold:
                         target_pos = max(target_pos - boost, 0.0)
+                elif overlay_type == "vol_stress":
+                    # Vol of vol spike in stress regime = high conviction entry
+                    signal_val = float(self.df.iloc[idx].get("vol_of_vol_21", 0.0))
+                    if signal_val >= threshold:
+                        target_pos = min(target_pos + boost, 1.0)
+                elif overlay_type == "downside_bull":
+                    # High short-term downside in bull regime = mean-reversion entry
+                    signal_val = float(self.df.iloc[idx].get("downside_ratio_10", 0.0))
+                    if signal_val >= threshold:
+                        target_pos = min(target_pos + boost, 1.0)
+                elif overlay_type == "dual_regime":
+                    # Stress: vol_stress, Bull: downside_bull
+                    if regime_risk >= regime_thresh:
+                        signal_val = float(self.df.iloc[idx].get("vol_of_vol_21", 0.0))
+                        if signal_val >= threshold:
+                            target_pos = min(target_pos + boost, 1.0)
+                    elif regime_risk <= oc.get("bull_regime_threshold", 0.4):
+                        signal_val = float(self.df.iloc[idx].get("downside_ratio_10", 0.0))
+                        if signal_val >= threshold:
+                            target_pos = min(target_pos + boost, 1.0)
+                elif overlay_type == "vol_vix_combo":
+                    # Both vol_of_vol AND VIX divergence must agree in stress regime
+                    vol_val = float(self.df.iloc[idx].get("vol_of_vol_21", 0.0))
+                    vix_val = float(self.df.iloc[idx].get("TRANS_VIX_DIVERGENCE", 0.0))
+                    vol_thresh = oc.get("vol_threshold", threshold)
+                    vix_thresh = oc.get("vix_threshold", 0.05)
+                    if vol_val >= vol_thresh and vix_val >= vix_thresh:
+                        target_pos = min(target_pos + boost, 1.0)
+                elif overlay_type == "rv63_stress":
+                    # Realized vol spike in stress regime = high conviction entry
+                    signal_val = float(self.df.iloc[idx].get("realized_vol_63", 0.0))
+                    if signal_val >= threshold:
+                        target_pos = min(target_pos + boost, 1.0)
         direction = "buy" if target_pos > current_pos else ("sell" if target_pos < current_pos else "neutral")
         min_rebalance = rebalance_threshold(
             regime_risk,
