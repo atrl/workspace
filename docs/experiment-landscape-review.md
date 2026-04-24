@@ -33,6 +33,7 @@ This file is now the compact landing page and master comparison surface. Detaile
 | phase-balanced sampling | sampling | `balanced` | broader episode coverage | widened risk globally; best checkpoint was early | keep harness support, drop branch | do not widen sampling alone |
 | reward-only variants | reward | `balanced` / residual branches | penalty or bonus drift | often increased conservatism or low-position collapse | drop repeated pattern | require new reward design and evidence |
 | multi-asset refined reward | multi-asset | single-asset refined run | shared actor over SOXL/TQQQ/UPRO/SPXL/TECL | all slices degraded vs single asset | drop | add generic reward, volatility normalization, asset-specific heads before retrain |
+| `risk_budget_usage_v3` | network / execution | `risk_budget_usage_v1` | mode-conditioned actor input (one-hot) | proxy Sharpe 1.074 but actual backtest 0.87; wf_2022 MaxDD 59.0%, wf_2023_2024 Sharpe 0.22; severe overfit | candidate (blocked) | diagnose proxy-to-backtest gap and mode info leak before v4; test on proven baseline first |
 
 ## Required Workflow
 

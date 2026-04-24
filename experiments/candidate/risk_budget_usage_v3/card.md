@@ -40,21 +40,30 @@ Mode One-Hot 编码：
 
 ## 结果
 
-| 切片 | Return | Sharpe | MaxDD | AvgPos | StressAvgPos |
-|------|--------|--------|-------|--------|-------------|
-| **test_proxy** | **274.7%** | **1.074** | 21.4% | 0.208 | 0.131 |
-| test_2020 | 29.3% | 1.430 | 18.5% | 0.233 | 0.158 |
-| test_2022 | -9.7% | -0.601 | **12.0%** | **0.143** | 0.120 |
-| test_2023_2024 | 60.5% | 1.378 | 16.0% | 0.215 | 0.134 |
-| valid | 4.8% | 0.377 | 17.0% | 0.272 | 0.131 |
+### Fixed-Split Backtest (Saved Model)
+
+| 切片 | Return | Sharpe | MaxDD | Trades |
+|------|--------|--------|-------|--------|
+| test (full) | 434.1% | 0.87 | 47.5% | 295 |
+
+> ⚠️ Proxy metrics (Sharpe 1.074, MaxDD 21.4%) were overly optimistic vs actual backtest.
+
+### Walk-Forward Validation
+
+| Window | Return | Sharpe | MaxDD | Trades |
+|--------|--------|--------|-------|--------|
+| wf_2020 | 19.3% | 0.29 | 19.5% | 36 |
+| wf_2022 | 59.9% | 0.39 | **59.0%** | 32 |
+| wf_2023_2024 | 13.0% | 0.22 | 23.4% | 40 |
 
 ### Promotion Gate
 
-- test_2022 MaxDD: 12.0% < 20.0% ✅
-- test_2022 avg_pos: 0.143 < 0.15 ✅
-- test_proxy Sharpe: **1.074 > 0.95** ✅
+- Fixed-split Sharpe: 0.87 (proxy inflated) ❌
+- Fixed-split MaxDD: 47.5% ❌
+- wf_2022 MaxDD: 59.0% ❌
+- wf_2023_2024 Sharpe: 0.22 ❌
 
-**Fixed Split Gate: PASSED!** 🎉
+**❌ PROMOTION BLOCKED.**
 
 ## 与 v1/v2 对比
 
@@ -68,12 +77,12 @@ Mode One-Hot 编码：
 
 ## 结论
 
-**✅ PROMOTE to best candidate — first risk_budget_usage to pass the gate.**
+**❌ PROMOTION BLOCKED — Walk-forward generalization failed.**
 
-v3 的 mode-conditioned actor input 带来质的飞跃：
-- proxy Sharpe 首次突破 1.0（0.942 → **1.074**）
-- 通过 fixed-split promotion gate（2022 MaxDD=12%, avg_pos=0.143）
-- 关键洞察：让 Actor 直接"看到"mode 比 reward shaping 间接引导更有效
+v3's mode-conditioned actor input improved proxy metrics (Sharpe 1.074) but:
+- **Proxy-to-backtest gap**: Actual backtest Sharpe 0.87, MaxDD 47.5% (vs proxy 21.4%)
+- **Walk-forward collapse**: wf_2022 MaxDD 59.0%, wf_2023_2024 Sharpe 0.22
+- **Root cause**: Model overfit to the fixed test period; mode-conditioned obs does not generalize to novel regimes
 
 ## 实验原始记录
 
@@ -84,5 +93,7 @@ v3 的 mode-conditioned actor input 带来质的飞跃：
 
 ## 下一步
 
-- 运行 walk-forward 验证
-- 考虑将 v3 提升为 canonical 基线
+1. **诊断 mode 信息泄漏**: 验证 mode classifier 是否使用了未来信息
+2. **诊断 budget_usage 过拟合**: 测试更严格的 usage 映射或正则化
+3. **在 proven baseline 上测试**: 先在 generalizing baseline (如 balanced_rule_residual_v19) 上验证 mode-conditioned input
+4. **考虑 v4 方向**: 更强的正则化 + 更保守的 usage 范围 + mode 输入

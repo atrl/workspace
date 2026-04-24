@@ -60,27 +60,43 @@ All other configs identical to v2.
 
 ## Result
 
+### Fixed-Split (Full Backtest with Saved Model)
+
 Command:
 ```bash
-PYTHONPATH=. qlib_venv/bin/python -m src.soxl_quant.cli \
+PYTHONPATH=. qlib_venv/bin/python soxl_qlib_strategy_v2.py \
   --profiles risk_budget_usage_v3 --seed 42 --skip-data-refresh
 ```
 
-| 切片 | Return | Sharpe | MaxDD | AvgPos | StressAvgPos |
-|------|--------|--------|-------|--------|-------------|
-| test_proxy | **274.7%** | **1.074** | 21.4% | 0.208 | 0.131 |
-| test_2020 | 29.3% | 1.430 | 18.5% | 0.233 | 0.158 |
-| test_2022 | -9.7% | -0.601 | **12.0%** | **0.143** | 0.120 |
-| test_2023_2024 | 60.5% | 1.378 | 16.0% | 0.215 | 0.134 |
-| valid | 4.8% | 0.377 | 17.0% | 0.272 | 0.131 |
+| 切片 | Return | Sharpe | MaxDD | Trades |
+|------|--------|--------|-------|--------|
+| test (full) | **434.1%** | **0.87** | 47.5% | 295 |
+
+> ⚠️ Proxy metrics from training eval were overly optimistic (Sharpe 1.074, MaxDD 21.4%).
+> Actual backtest on saved model: Sharpe 0.87, MaxDD 47.5%. Significant discrepancy.
+
+### Walk-Forward Validation
+
+Command:
+```bash
+PYTHONPATH=. qlib_venv/bin/python soxl_qlib_strategy_v2.py \
+  --profiles risk_budget_usage_v3 --seed 42 --skip-data-refresh --walk-forward
+```
+
+| Window | Train | Valid | Test | Return | Sharpe | MaxDD | Trades |
+|--------|-------|-------|------|--------|--------|-------|--------|
+| wf_2020 | 2010-03→2018-12 | 2019 | 2020 | 19.3% | 0.29 | 19.5% | 36 |
+| wf_2022 | 2010-03→2020-12 | 2021 | 2022 | 59.9% | 0.39 | **59.0%** | 32 |
+| wf_2023_2024 | 2010-03→2022-12 | 2023 | 2024 | 13.0% | 0.22 | 23.4% | 40 |
 
 ### Promotion Gate
 
-- test_2022 MaxDD: 12.0% < 20.0% ✅
-- test_2022 avg_pos: 0.143 < 0.15 ✅
-- test_proxy Sharpe: **1.074 > 0.95** ✅
+- Fixed-split Sharpe: 0.87 (proxy was 1.074) — gap exposes overfit to eval slice
+- Fixed-split MaxDD: 47.5% — far above acceptable threshold
+- Walk-forward wf_2022 MaxDD: **59.0%** — catastrophic
+- Walk-forward wf_2023_2024 Sharpe: 0.22 — no edge
 
-**Fixed Split Gate: PASSED!** Walk-forward 尚未运行。
+**❌ PROMOTION BLOCKED.** Walk-forward generalization failed dramatically.
 
 ## 与 v1/v2 对比
 
@@ -94,14 +110,24 @@ PYTHONPATH=. qlib_venv/bin/python -m src.soxl_quant.cli \
 
 ## Decision
 
-**✅ PROMOTE to best candidate.**
+**❌ PROMOTION BLOCKED — Walk-forward generalization failed.**
 
-v3 的 mode-conditioned actor input 带来了质的飞跃：
-- proxy Sharpe 从 0.942 → **1.074**（首次突破 1.0！）
-- 同时通过 fixed-split promotion gate（2022 MaxDD=12%, avg_pos=0.143）
-- 这是 risk_budget_usage 系列中第一个通过 gate 的版本
+v3's mode-conditioned actor input produced excellent proxy metrics (Sharpe 1.074) and passed the fixed-split gate on proxy eval, but:
 
-**关键洞察**: 让 Actor 直接"看到"当前 mode（one-hot），比仅通过 reward shaping 间接引导更有效。网络可以显式学习不同 mode 下的 usage 分布，避免了 v2 中 reward 信号过强导致的过度保守问题。
+1. **Proxy-to-backtest gap**: Proxy Sharpe 1.074 → Actual backtest Sharpe 0.87, MaxDD 21.4% → 47.5%. The eval metric was overly optimistic.
+2. **Walk-forward collapse**: 
+   - wf_2022 MaxDD = 59.0% (vs 12.0% proxy) — catastrophic regime failure
+   - wf_2023_2024 Sharpe = 0.22 — no predictive edge in latest data
+   - wf_2020 Sharpe = 0.29 — weak in calm markets
+3. **The model overfit to the specific test period** and fails to generalize when trained on earlier data and tested on held-out years.
+
+**关键洞察**: Mode-conditioned actor input improves fixed-split proxy metrics but does NOT solve generalization. The network likely memorizes mode-specific behavior that happens to work in the fixed test window but fails in truly novel regimes (especially 2022 crash, 2023-2024 chop).
+
+**Next action**: Before iterating to v4, must diagnose:
+- Is the mode classifier itself leaking future information into the observation?
+- Is the budget_usage mapping too expressive, allowing the actor to overfit?
+- Would stronger regularization (dropout, smaller network, entropy bonus) help?
+- Should we test mode-conditioned input on a proven generalizing baseline first?
 
 ## Comparison-Table Row Key
 

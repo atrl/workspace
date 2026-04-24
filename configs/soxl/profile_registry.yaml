@@ -643,6 +643,8 @@ profiles:
   keep_actor: true
   keep_summary: true
   notes_ref: experiments/candidate/risk_budget_usage_v3/notes.md
+  wf_status: blocked
+  wf_notes: wf_2022 MaxDD 59.0%, wf_2023_2024 Sharpe 0.22; proxy-to-backtest gap (Sharpe 1.074 vs 0.87)
 - name: risk_budget_bc_warmstart_v1
   family: balanced
   status: dropped
