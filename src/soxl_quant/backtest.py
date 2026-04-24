@@ -172,13 +172,38 @@ class RLStrategy(BaseStrategy):
                 signal_val = 0.0
                 if overlay_type == "vix_divergence":
                     signal_val = float(self.df.iloc[idx].get("TRANS_VIX_DIVERGENCE", 0.0))
+                    if signal_val >= threshold:
+                        target_pos = min(target_pos + boost, 1.0)
                 elif overlay_type == "spring_compression":
                     signal_val = float(self.df.iloc[idx].get("TRANS_SPRING_COMPRESSION", 0.0))
+                    if signal_val >= threshold:
+                        target_pos = min(target_pos + boost, 1.0)
                 elif overlay_type == "panic_exhaustion":
                     signal_val = float(self.df.iloc[idx].get("TRANS_PANIC_EXHAUSTION", 0.0))
-                if signal_val >= threshold:
-                    # Boost target position by overlay amount
-                    target_pos = min(target_pos + boost, 1.0)
+                    if signal_val >= threshold:
+                        target_pos = min(target_pos + boost, 1.0)
+                elif overlay_type == "vix_zscore_delta":
+                    # VIX zscore falling rapidly in stress regime = potential relief
+                    signal_val = float(self.df.iloc[idx].get("VIX_ZSCORE_DELTA_5", 0.0))
+                    if signal_val <= -threshold:
+                        target_pos = min(target_pos + boost, 1.0)
+                elif overlay_type == "regime_risk_delta":
+                    # Regime risk falling rapidly in stress regime = potential relief
+                    signal_val = float(self.df.iloc[idx].get("REGIME_RISK_DELTA_5", 0.0))
+                    if signal_val <= -threshold:
+                        target_pos = min(target_pos + boost, 1.0)
+                elif overlay_type == "combined_vix":
+                    # Both VIX divergence AND VIX zscore delta must agree
+                    div_val = float(self.df.iloc[idx].get("TRANS_VIX_DIVERGENCE", 0.0))
+                    delta_val = float(self.df.iloc[idx].get("VIX_ZSCORE_DELTA_5", 0.0))
+                    if div_val >= threshold and delta_val <= -threshold:
+                        target_pos = min(target_pos + boost, 1.0)
+                elif overlay_type == "fake_breakout":
+                    # Negative overlay: reduce position when price bounces too far above MA21 during deep drawdown
+                    # IC = -0.1335: high values predict poor forward returns
+                    fb_val = float(self.df.iloc[idx].get("CLOSE_VS_MA21_AFTER_DD", 0.0))
+                    if fb_val >= threshold:
+                        target_pos = max(target_pos - boost, 0.0)
         direction = "buy" if target_pos > current_pos else ("sell" if target_pos < current_pos else "neutral")
         min_rebalance = rebalance_threshold(
             regime_risk,

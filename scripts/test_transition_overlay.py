@@ -20,12 +20,28 @@ from src.soxl_quant.settings import MODEL_DIR, QLIB_DATA_PATH, TEST_SEG, load_pr
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--overlay", choices=["none", "vix_divergence", "spring_compression", "panic_exhaustion"], default="none")
-    parser.add_argument("--threshold", type=float, default=0.3, help="Transition signal threshold")
-    parser.add_argument("--boost", type=float, default=0.1, help="Position boost when signal fires")
-    parser.add_argument("--regime-threshold", type=float, default=0.6, help="Minimum regime_risk to activate overlay")
-    parser.add_argument("--feature-packs", default="", help="Comma-separated feature packs (e.g. transition_signals)")
+    parser.add_argument("--overlay", choices=[
+        "none", "vix_divergence", "spring_compression", "panic_exhaustion",
+        "vix_zscore_delta", "regime_risk_delta", "combined_vix", "fake_breakout"
+    ], default="none")
+    parser.add_argument("--threshold", type=float, default=0.05)
+    parser.add_argument("--boost", type=float, default=0.1)
+    parser.add_argument("--regime-threshold", type=float, default=0.6)
+    parser.add_argument("--feature-packs", default="", help="Comma-separated feature packs")
     return parser.parse_args()
+
+
+def add_derived_features(df: pd.DataFrame, price: pd.Series) -> pd.DataFrame:
+    """Add derived delta features for overlay testing."""
+    df = df.copy()
+    df["VIX_ZSCORE_DELTA_5"] = df["vix_zscore"].diff(5).fillna(0.0)
+    df["REGIME_RISK_DELTA_5"] = df["regime_risk"].diff(5).fillna(0.0)
+    # Fake breakout feature
+    ma21 = price.rolling(21).mean()
+    df["CLOSE_VS_MA21"] = (price / ma21 - 1.0).fillna(0.0)
+    deep_dd = (df["drawdown_63"] < -0.15).astype(float)
+    df["CLOSE_VS_MA21_AFTER_DD"] = (df["CLOSE_VS_MA21"] * deep_dd).fillna(0.0)
+    return df
 
 
 def main():
@@ -34,14 +50,12 @@ def main():
 
     profile = load_profile("balanced_rule_residual_v19")
     
-    # Parse feature packs
     packs = tuple(args.feature_packs.split(",")) if args.feature_packs else ()
-    
     dataset = build_dataset(feature_packs=packs)
     test_df = segment_frame(dataset, "test")
     price = dataset.handler.price_frame.droplevel("instrument")["price"].loc[test_df.index]
+    test_df = add_derived_features(test_df, price)
 
-    # Load v19 actor
     ckpt = torch.load(MODEL_DIR / "soxl_balanced_rule_residual_v19_actor.pt", map_location="cpu", weights_only=False)
     _, actor = build_policy(
         int(ckpt["obs_dim"]),
@@ -52,7 +66,6 @@ def main():
     actor.load_state_dict(ckpt["state_dict"])
     actor.eval()
 
-    # Build overlay config
     overlay_config = None
     if args.overlay != "none":
         overlay_config = {
@@ -78,17 +91,14 @@ def main():
     label = args.overlay if args.overlay != "none" else "baseline"
     print(f"\n[{label}] return={result['return']:.1f}% sharpe={result['sharpe']:.2f} maxdd={result['max_dd']:.1f}% trades={result['trades']}")
 
-    # Window analysis
     pdf = result["portfolio"]
     account = pdf["account"].astype(float)
     
-    # 2020-04
     apr_2020 = account.loc["2020-04-01":"2020-04-30"]
     if len(apr_2020) > 1:
         ret_2020_04 = (apr_2020.iloc[-1] / apr_2020.iloc[0] - 1) * 100
         print(f"  2020-04 return: {ret_2020_04:.1f}%")
     
-    # 2022
     yr_2022 = account.loc["2022-01-01":"2022-12-31"]
     if len(yr_2022) > 1:
         ret_2022 = (yr_2022.iloc[-1] / yr_2022.iloc[0] - 1) * 100
@@ -96,7 +106,6 @@ def main():
         dd_2022 = ((peak - yr_2022) / peak).max() * 100
         print(f"  2022 return: {ret_2022:.1f}%  maxdd: {dd_2022:.1f}%")
     
-    # 2023-2024
     yr_2324 = account.loc["2023-01-01":"2024-12-31"]
     if len(yr_2324) > 1:
         ret_2324 = (yr_2324.iloc[-1] / yr_2324.iloc[0] - 1) * 100
