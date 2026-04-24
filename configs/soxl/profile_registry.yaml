@@ -650,6 +650,13 @@ profiles:
   keep_actor: false
   keep_summary: true
   notes_ref: experiments/archive/risk_budget_learned_oracle_distill_v1/notes.md
+- name: risk_budget_learned_conditioned_oracle_distill_v1
+  family: balanced
+  status: dropped
+  baseline: risk_budget_learned_oracle_distill_v1
+  keep_actor: false
+  keep_summary: true
+  notes_ref: experiments/archive/risk_budget_learned_conditioned_oracle_distill_v1/notes.md
 - name: balanced_kelly_dynamic_v5
   family: balanced
   status: dropped

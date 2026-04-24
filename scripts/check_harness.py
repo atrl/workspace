@@ -36,6 +36,7 @@ DEFAULT_COMPILE_TARGETS = [
     "src/soxl_quant/rl.py",
     "src/soxl_quant/runtime.py",
     "src/soxl_quant/policy/hierarchical_composer.py",
+    "src/soxl_quant/policy/mode_conditioning.py",
     "src/soxl_quant/policy/two_speed_budget.py",
     "src/soxl_quant/cli.py",
     "scripts/build_backtest_dashboard.py",

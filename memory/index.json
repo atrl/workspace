@@ -2376,6 +2376,27 @@
     "excerpt": "# Hierarchical online budget runtime generalization ## Context The fixed `risk_budget_usage_v1` replay is still much stronger than any single actor/runtime form. This loop tested whether making the runtime explicitly hierarchical would recover part of that gap without another tra"
   },
   {
+    "path": "memory/2026-04-24-risk-budget-learned-conditioned-oracle-distill.md",
+    "date": "2026-04-24",
+    "title": "Learned-router conditioned oracle distillation diagnostic",
+    "kind": "review",
+    "profiles": [],
+    "status": "dropped",
+    "tags": [
+      "dropped",
+      "eval-2022",
+      "review"
+    ],
+    "artifacts": [
+      "runtime/post_train_review/hierarchical_online_budget_daily/soxl_hier_learned_slow5.csv",
+      "runtime/post_train_review/risk_budget_learned_conditioned_oracle_distill_v1.json",
+      "runtime/post_train_review/risk_budget_learned_conditioned_oracle_distill_v1.md"
+    ],
+    "workpad": "codex_exec_plans/active/2026-04-10-soxl-agent-loop.md",
+    "summary": "Explicit slow-mode one-hot conditioning did not improve the learned-router oracle distillation probe. Proxy return fell from 412.9 percent to 387.1 percent and MaxDD rose from 28.7 percent to 30.1 percent, so simple regime identity is not the missing ingredient.",
+    "excerpt": "# Learned-router conditioned oracle distillation diagnostic ## Context After the learned-router oracle probe, the next cheapest question was whether the fast actor simply needed explicit slow-mode identity. ## Evidence Command: ```bash PYTHONPATH=. qlib_venv/bin/python scripts/bu"
+  },
+  {
     "path": "memory/2026-04-24-risk-budget-learned-oracle-distill.md",
     "date": "2026-04-24",
     "title": "Learned-router oracle distillation diagnostic",

@@ -4666,6 +4666,48 @@ Pack increases feature count from 59 → 66 (+7).
   - if the learned-router line continues, change fast-actor capacity or
     observation/training target; do not spend another loop only on cadence
 
+## learned-router conditioned fast-actor probe — RESULT 2026-04-24
+
+- Goal: test whether explicit slow-mode identity helps the learned-router fast
+  actor capacity probe.
+- Canonical baseline: fixed replay `risk_budget_usage_v1`.
+- Direct comparison baseline:
+  - `risk_budget_learned_oracle_distill_v1`
+  - deployable `hier_learned_slow5`
+- Experiment role: `diagnose`.
+- Target improvement window: beat the unconditioned learned-router oracle probe
+  on `test_proxy` and `test_2023_2024` without worsening `test_2022`.
+- Accepted trade-off window: none beyond no-promotion diagnostics; this should
+  show a clear capacity gain or be dropped.
+- Changed layer: `model` input only.
+- External reference:
+  - conditional lower policies / option identity in hierarchical control
+- Closest historical success case:
+  - `risk_budget_learned_oracle_distill_v1` reached `412.9% / 1.042 / 28.7%`
+    on proxy.
+- Closest historical failure case:
+  - prior single-actor oracle probes all trailed their target paths even with
+    held-out labels.
+- Why not duplicate:
+  - this is the first explicit-mode-conditioned fast-actor probe; prior runs
+    required the actor to infer regime implicitly.
+- Comparison-table row:
+  - `risk_budget_learned_conditioned_oracle_distill_v1`
+- Commands:
+  - `PYTHONPATH=. qlib_venv/bin/python tests/test_budget_usage_bc.py`
+  - `PYTHONPATH=. qlib_venv/bin/python scripts/build_budget_usage_oracle_actor.py --profile risk_budget_learned_conditioned_oracle_distill_v1 --replay-daily runtime/post_train_review/hierarchical_online_budget_daily/soxl_hier_learned_slow5.csv --condition-on-mode --skip-data-refresh --steps 1600 --sample-size 0 --output-json runtime/post_train_review/risk_budget_learned_conditioned_oracle_distill_v1.json --output-md runtime/post_train_review/risk_budget_learned_conditioned_oracle_distill_v1.md`
+- Result:
+  - `tests/test_budget_usage_bc.py`: OK
+  - samples `1508`, label distribution `{0: 238, 1: 1138, 2: 48, 3: 52, 4: 32}`
+  - BC loss / accuracy `1.125 / 0.781`
+  - `test_2022`: `-11.7% / Sharpe -1.054 / MaxDD 13.2% / avg_pos 0.105`
+  - `test_2023_2024`: `77.7% / Sharpe 1.114 / MaxDD 24.9% / avg_pos 0.341`
+  - `test_proxy`: `387.1% / Sharpe 1.008 / MaxDD 30.1% / avg_pos 0.298`
+- Decision:
+  - drop; explicit mode one-hot did not improve the learned-router oracle probe
+  - do not spend another loop only on conditioning the same GRU actor with the
+    same targets
+
 ## transition_signals 20-iteration training — RESULTS 2026-04-24
 
 - Goal: validate whether transition-state features improve RL performance beyond v19 baseline
