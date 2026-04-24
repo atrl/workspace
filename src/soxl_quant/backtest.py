@@ -260,6 +260,11 @@ class RLStrategy(BaseStrategy):
                     signal_val = float(self.df.iloc[idx].get("realized_kurtosis_21", 0.0))
                     if signal_val >= threshold:
                         target_pos = min(target_pos + boost, 1.0)
+                elif overlay_type == "te_vol_stress":
+                    # Tracking error vol spike in stress regime = high conviction entry
+                    signal_val = float(self.df.iloc[idx].get("tracking_error_vol_21", 0.0))
+                    if signal_val >= threshold:
+                        target_pos = min(target_pos + boost, 1.0)
         direction = "buy" if target_pos > current_pos else ("sell" if target_pos < current_pos else "neutral")
         min_rebalance = rebalance_threshold(
             regime_risk,
@@ -454,3 +459,4 @@ def save_results(results: Dict[str, Dict[str, object]]) -> None:
     plt.tight_layout()
     plt.savefig(RESULT_PNG, dpi=250, bbox_inches="tight")
     RESULT_TXT.write_text("\n".join(lines), encoding="utf-8")
+# Note: te_vol_stress overlay added dynamically below overlay block
