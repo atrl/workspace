@@ -15,9 +15,9 @@ Reward-only tuning, stronger penalties, imitation bonuses, or simplified rewards
 
 ## Evidence Path
 
-- `memory/2026-04-22-simplified-reward-failure-and-refined-direction.md`
-- `memory/2026-04-22-imitation-bonus-full-experiment.md`
-- `memory/2026-04-19-post-train-kelly-skill.md`
+- `runtime/reward/knowledge.md`
+- `runtime/reward/knowledge.md`
+- `runtime/reward/knowledge.md`
 
 ## Reusable Method
 

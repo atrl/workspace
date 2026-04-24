@@ -15,8 +15,8 @@ Larger bundled structures, attention swaps, or MoE additions do not automaticall
 
 ## Evidence Path
 
-- `memory/2026-04-22-learned-mode-classifier-and-hybrid-experiments.md`
-- `memory/2026-04-22-v10-attention-simplified-reward-failure.md`
+- `runtime/network/knowledge.md`
+- `runtime/network/knowledge.md`
 - `docs/experiment-landscape-review.md`
 
 ## Reusable Method

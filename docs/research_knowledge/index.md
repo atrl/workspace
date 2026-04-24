@@ -27,7 +27,7 @@ Machine-readable route: `task_router.json`.
 
 ## Memory Role
 
-`memory/` is not a task category. It is evidence retrieval behind the selected direction. Do not start by reading broad memory files; start from `task_router.json`, then query memory for the chosen direction.
+`memory/` is not a task category. It is evidence retrieval behind the selected direction. Do not start by reading broad memory files; start from `task_router.json`, then query runtime knowledge for the chosen direction.
 
 ## Canonical Anchors
 

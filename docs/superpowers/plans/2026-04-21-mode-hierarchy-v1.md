@@ -206,7 +206,7 @@ git commit -m "feat: wire mode state through harness paths"
 - Create: `experiments/candidate/balanced_rule_residual_mode_v1/notes.md`
 - Create: `experiments/candidate/balanced_rule_residual_mode_v1/expectations.md`
 - Modify: `configs/soxl/profile_registry.yaml`
-- Modify: `memory/index.json`
+- Modify: `memory/_archive_index.json`
 
 - [ ] **Step 1: Write minimal implementation**
 
@@ -228,14 +228,14 @@ Expected: PASS
 - [ ] **Step 3: Commit**
 
 ```bash
-git add experiments/candidate/balanced_rule_residual_mode_v1 configs/soxl/profile_registry.yaml memory/index.json
+git add experiments/candidate/balanced_rule_residual_mode_v1 configs/soxl/profile_registry.yaml memory/_archive_index.json
 git commit -m "feat: add first mode hierarchy candidate profile"
 ```
 
 ### Task 6: Verify Harness Compatibility
 
 **Files:**
-- Modify: `memory/2026-04-21-*.md` as needed
+- Modify: `runtime/model/knowledge.md-*.md` as needed
 
 - [ ] **Step 1: Run focused backtest validation**
 
@@ -263,12 +263,12 @@ Expected: `failures=0`
 - [ ] **Step 3: Record evidence**
 
 Update:
-- `memory/index.json`
+- `memory/_archive_index.json`
 - a new memory note summarizing the scaffold result
 
 - [ ] **Step 4: Commit**
 
 ```bash
-git add memory/index.json memory/
+git add memory/_archive_index.json memory/
 git commit -m "chore: record mode hierarchy scaffold validation"
 ```

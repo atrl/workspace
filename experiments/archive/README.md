@@ -15,7 +15,7 @@ For historical retrieval, prefer this order:
 
 1. `docs/experiment-landscape-review.md`
 2. `configs/soxl/profile_registry.yaml`
-3. `memory/index.json` + `scripts/memory_search.py`
+3. `memory/_archive_index.json` + `scripts/check_skills.py`
 4. the relevant archive package
 5. `runtime/model/reviews/` for pairwise comparisons
 

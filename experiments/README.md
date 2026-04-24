@@ -1,6 +1,6 @@
 # Experiments
 
-`experiments/` stores concise runnable experiment cards. It is not a result-log archive and should not duplicate `runtime/` outputs or `memory/` narratives.
+`experiments/` stores concise runnable experiment cards. It is not a result-log archive and should not duplicate `runtime/` outputs or `runtime/<direction>/knowledge.md` narratives.
 
 ## Structure
 
@@ -19,7 +19,7 @@ Active `canonical/` and `candidate/` packages must contain:
 
 Long result writeups, keep/drop decisions, and historical comparisons belong in:
 
-- `memory/`
+- `runtime/<direction>/knowledge.md`
 - `runtime/model/reviews/`
 - `runtime/execution/generalization/`
 - `docs/experiment-landscape-review.md`
@@ -32,7 +32,7 @@ Long result writeups, keep/drop decisions, and historical comparisons belong in:
 3. package `profile.yaml`
 4. package `expectations.md`
 5. package `notes.md`
-6. linked `memory/` or `runtime/` evidence
+6. linked `runtime/<direction>/knowledge.md` or `runtime/` evidence
 
 ## Validation
 

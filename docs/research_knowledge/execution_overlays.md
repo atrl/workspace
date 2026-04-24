@@ -15,9 +15,9 @@ Generic overlay retuning is not enough when `test_2022` max drawdown and average
 
 ## Evidence Path
 
-- `memory/2026-04-23-position-budget-productionization.md`
-- `memory/2026-04-23-risk-budget-usage-v1.md`
-- `memory/2026-04-22-balanced-rule-residual-mode-v1-train.md`
+- `runtime/execution/knowledge.md`
+- `runtime/execution/knowledge.md`
+- `runtime/model/knowledge.md`
 
 ## Reusable Method
 

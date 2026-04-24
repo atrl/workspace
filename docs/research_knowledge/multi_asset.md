@@ -15,8 +15,8 @@ A single shared actor plus one-hot asset identity failed with SOXL-tuned rewards
 
 ## Evidence Path
 
-- `memory/2026-04-14-multi-asset-joint-training.md`
-- `memory/2026-04-22-multi-asset-refined-v3-failure.md`
+- `runtime/multi_asset/knowledge.md`
+- `runtime/multi_asset/knowledge.md`
 - `runtime/execution/generalization/`
 
 ## Reusable Method
