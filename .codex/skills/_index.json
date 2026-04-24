@@ -1,0 +1,194 @@
+{
+  "version": 1,
+  "generated_at": "2026-04-24",
+  "purpose": "Skill registry with direction mapping, versioning, and stale detection.",
+  "skills": {
+    "brainstorming": {
+      "direction": "harness",
+      "version": "1.0.0",
+      "last_used": "2026-04-22",
+      "use_count": 5,
+      "stale_after_days": 90,
+      "status": "active"
+    },
+    "dashboard": {
+      "direction": "execution",
+      "version": "1.0.0",
+      "last_used": "2026-04-21",
+      "use_count": 8,
+      "stale_after_days": 60,
+      "status": "active"
+    },
+    "dispatching-parallel-agents": {
+      "direction": "harness",
+      "version": "1.0.0",
+      "last_used": "2026-04-22",
+      "use_count": 2,
+      "stale_after_days": 90,
+      "status": "active"
+    },
+    "executing-plans": {
+      "direction": "harness",
+      "version": "1.0.0",
+      "last_used": "2026-04-22",
+      "use_count": 3,
+      "stale_after_days": 90,
+      "status": "active"
+    },
+    "finishing-a-development-branch": {
+      "direction": "harness",
+      "version": "1.0.0",
+      "last_used": "2026-04-18",
+      "use_count": 1,
+      "stale_after_days": 90,
+      "status": "active"
+    },
+    "futu-api": {
+      "direction": "production",
+      "version": "1.0.0",
+      "last_used": "2026-04-05",
+      "use_count": 2,
+      "stale_after_days": 60,
+      "status": "active"
+    },
+    "post-train-backtest-review": {
+      "direction": "model",
+      "version": "1.0.0",
+      "last_used": "2026-04-22",
+      "use_count": 12,
+      "stale_after_days": 60,
+      "status": "active"
+    },
+    "qlib-rl-trading": {
+      "direction": "model",
+      "version": "1.0.0",
+      "last_used": "2026-04-20",
+      "use_count": 15,
+      "stale_after_days": 60,
+      "status": "active"
+    },
+    "receiving-code-review": {
+      "direction": "harness",
+      "version": "1.0.0",
+      "last_used": "2026-04-18",
+      "use_count": 1,
+      "stale_after_days": 90,
+      "status": "active"
+    },
+    "requesting-code-review": {
+      "direction": "harness",
+      "version": "1.0.0",
+      "last_used": "2026-04-18",
+      "use_count": 1,
+      "stale_after_days": 90,
+      "status": "active"
+    },
+    "rl-kelly-integration": {
+      "direction": "reward",
+      "version": "1.0.0",
+      "last_used": "2026-04-22",
+      "use_count": 6,
+      "stale_after_days": 60,
+      "status": "active"
+    },
+    "leveraged-etf-factor-mining": {
+      "direction": "factor",
+      "version": "2.0.0",
+      "last_used": "2026-04-23",
+      "use_count": 2,
+      "stale_after_days": 30,
+      "status": "active",
+      "aliases": ["soxl-factor-mining"]
+    },
+    "leveraged-etf-factor-research": {
+      "direction": "factor",
+      "version": "2.0.0",
+      "last_used": "2026-04-23",
+      "use_count": 2,
+      "stale_after_days": 30,
+      "status": "active",
+      "aliases": ["soxl-factor-research"]
+    },
+    "leveraged-etf-signal-backtest": {
+      "direction": "factor",
+      "version": "2.0.0",
+      "last_used": "2026-04-23",
+      "use_count": 2,
+      "stale_after_days": 30,
+      "status": "active",
+      "aliases": ["soxl-signal-backtest"]
+    },
+    "subagent-driven-development": {
+      "direction": "harness",
+      "version": "1.0.0",
+      "last_used": "2026-04-22",
+      "use_count": 2,
+      "stale_after_days": 90,
+      "status": "active"
+    },
+    "systematic-debugging": {
+      "direction": "harness",
+      "version": "1.0.0",
+      "last_used": "2026-04-20",
+      "use_count": 4,
+      "stale_after_days": 90,
+      "status": "active"
+    },
+    "test-driven-development": {
+      "direction": "harness",
+      "version": "1.0.0",
+      "last_used": "2026-04-18",
+      "use_count": 1,
+      "stale_after_days": 90,
+      "status": "active"
+    },
+    "using-git-worktrees": {
+      "direction": "harness",
+      "version": "1.0.0",
+      "last_used": "2026-04-18",
+      "use_count": 1,
+      "stale_after_days": 90,
+      "status": "active"
+    },
+    "using-superpowers": {
+      "direction": "harness",
+      "version": "1.0.0",
+      "last_used": "2026-04-22",
+      "use_count": 3,
+      "stale_after_days": 90,
+      "status": "active"
+    },
+    "verification-before-completion": {
+      "direction": "harness",
+      "version": "1.0.0",
+      "last_used": "2026-04-20",
+      "use_count": 5,
+      "stale_after_days": 90,
+      "status": "active"
+    },
+    "writing-plans": {
+      "direction": "harness",
+      "version": "1.0.0",
+      "last_used": "2026-04-23",
+      "use_count": 4,
+      "stale_after_days": 90,
+      "status": "active"
+    },
+    "writing-skills": {
+      "direction": "harness",
+      "version": "1.0.0",
+      "last_used": "2026-04-23",
+      "use_count": 2,
+      "stale_after_days": 90,
+      "status": "active"
+    }
+  },
+  "directions": {
+    "factor": ["leveraged-etf-factor-mining", "leveraged-etf-factor-research", "leveraged-etf-signal-backtest"],
+    "model": ["post-train-backtest-review", "qlib-rl-trading"],
+    "reward": ["rl-kelly-integration"],
+    "execution": ["dashboard"],
+    "production": ["futu-api"],
+    "harness": ["brainstorming", "dispatching-parallel-agents", "executing-plans", "finishing-a-development-branch", "receiving-code-review", "requesting-code-review", "subagent-driven-development", "systematic-debugging", "test-driven-development", "using-git-worktrees", "using-superpowers", "verification-before-completion", "writing-plans", "writing-skills"]
+  }
+}

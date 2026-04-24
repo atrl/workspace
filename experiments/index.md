@@ -1,71 +1,34 @@
 # Experiment Card Index
 
-`experiments/` stores runnable intent cards only. Generated evidence and result narratives live in `runtime/` and `memory/`.
+`experiments/` stores runnable intent cards only. Generated evidence and result narratives live in `runtime/` and `docs/research_knowledge/`.
 
-| Profile | Package | Registry status | Family | Baseline | Evidence |
-|---|---|---|---|---|---|
-| `balanced` | `experiments/canonical/balanced/` | `canonical` | `balanced` | `balanced` | `experiments/canonical/balanced/notes.md` |
-| `smoke` | `experiments/canonical/smoke/` | `canonical` | `smoke` | `smoke` | `experiments/canonical/smoke/notes.md` |
-| `balanced_conservative_ft` | `experiments/candidate/balanced_conservative_ft/` | `candidate` | `balanced` | `balanced` | `experiments/candidate/balanced_conservative_ft/notes.md` |
-| `balanced_kelly_warmstart_v9` | `experiments/candidate/balanced_kelly_warmstart_v9/` | `candidate` | `balanced` | `balanced_rule_residual_imitation_v4` | `experiments/candidate/balanced_kelly_warmstart_v9/notes.md` |
-| `balanced_kelly_warmstart_v9b` | `experiments/candidate/balanced_kelly_warmstart_v9b/` | `candidate` | `balanced` | `balanced_kelly_warmstart_v9` | `experiments/candidate/balanced_kelly_warmstart_v9b/profile.yaml` |
-| `balanced_rule_residual_imitation_v1` | `experiments/candidate/balanced_rule_residual_imitation_v1/` | `candidate` | `balanced` | `balanced_rule_residual_v16` | `experiments/candidate/balanced_rule_residual_imitation_v1/notes.md` |
-| `balanced_rule_residual_imitation_v2` | `experiments/candidate/balanced_rule_residual_imitation_v2/` | `candidate` | `balanced` | `balanced_rule_residual_v16` | `experiments/candidate/balanced_rule_residual_imitation_v2/notes.md` |
-| `balanced_rule_residual_imitation_v2_fix` | `experiments/candidate/balanced_rule_residual_imitation_v2_fix/` | `candidate` | `balanced` | `balanced_rule_residual_imitation_v2` | `experiments/candidate/balanced_rule_residual_imitation_v2_fix/notes.md` |
-| `balanced_rule_residual_imitation_v3` | `experiments/candidate/balanced_rule_residual_imitation_v3/` | `candidate` | `balanced` | `balanced_rule_residual_v16` | `experiments/candidate/balanced_rule_residual_imitation_v3/notes.md` |
-| `balanced_rule_residual_imitation_v4` | `experiments/candidate/balanced_rule_residual_imitation_v4/` | `candidate` | `balanced` | `balanced_rule_residual_v16` | `experiments/candidate/balanced_rule_residual_imitation_v4/notes.md` |
-| `balanced_rule_residual_imitation_v4_budget` | `experiments/candidate/balanced_rule_residual_imitation_v4_budget/` | `candidate` | `balanced` | `balanced_rule_residual_imitation_v4` | `experiments/candidate/balanced_rule_residual_imitation_v4_budget/notes.md` |
-| `balanced_rule_residual_imitation_v5` | `experiments/candidate/balanced_rule_residual_imitation_v5/` | `candidate` | `balanced` | `balanced_rule_residual_v16` | `experiments/candidate/balanced_rule_residual_imitation_v5/notes.md` |
-| `balanced_rule_residual_imitation_v6` | `experiments/candidate/balanced_rule_residual_imitation_v6/` | `candidate` | `balanced` | `balanced_rule_residual_v16` | `experiments/candidate/balanced_rule_residual_imitation_v6/notes.md` |
-| `balanced_rule_residual_imitation_v7` | `experiments/candidate/balanced_rule_residual_imitation_v7/` | `candidate` | `balanced` | `balanced_rule_residual_v16` | `experiments/candidate/balanced_rule_residual_imitation_v7/notes.md` |
-| `balanced_rule_residual_mode_v1` | `experiments/candidate/balanced_rule_residual_mode_v1/` | `candidate` | `balanced` | `balanced_rule_residual_v19` | `experiments/candidate/balanced_rule_residual_mode_v1/notes.md` |
-| `balanced_rule_residual_moderate_v1` | `experiments/candidate/balanced_rule_residual_moderate_v1/` | `candidate` | `balanced` | `balanced_rule_residual_v16` | `experiments/candidate/balanced_rule_residual_moderate_v1/notes.md` |
-| `balanced_rule_residual_refined_v2` | `experiments/candidate/balanced_rule_residual_refined_v2/` | `candidate` | `balanced` | `balanced_rule_residual_v19` | `experiments/candidate/balanced_rule_residual_refined_v2/notes.md` |
-| `balanced_rule_residual_refined_v3` | `experiments/candidate/balanced_rule_residual_refined_v3/` | `candidate` | `balanced` | `balanced_rule_residual_v19` | `experiments/candidate/balanced_rule_residual_refined_v3/notes.md` |
-| `balanced_rule_residual_v19` | `experiments/candidate/balanced_rule_residual_v19/` | `candidate` | `balanced` | `balanced_rule_residual_v16` | `experiments/candidate/balanced_rule_residual_v19/notes.md` |
-| `balanced_rule_residual_v19_academic` | `experiments/candidate/balanced_rule_residual_v19_academic/` | `candidate` | `balanced` | `balanced_rule_residual_v19` | `experiments/candidate/balanced_rule_residual_v19_academic/notes.md` |
-| `balanced_rule_residual_v22` | `experiments/candidate/balanced_rule_residual_v22/` | `candidate` | `balanced` | `balanced_rule_residual_v19` | `experiments/candidate/balanced_rule_residual_v22/notes.md` |
-| `risk_budget_usage_v1` | `experiments/candidate/risk_budget_usage_v1/` | `candidate` | `balanced` | `balanced_rule_residual_imitation_v4` | `experiments/candidate/risk_budget_usage_v1/notes.md` |
-| `smoke_rule_residual_v1` | `experiments/candidate/smoke_rule_residual_v1/` | `candidate` | `smoke` | `smoke` | `experiments/candidate/smoke_rule_residual_v1/notes.md` |
-| `balanced_checkpoint_review` | `experiments/archive/balanced_checkpoint_review/` | `archived` | `balanced` | `balanced` | `experiments/archive/balanced_checkpoint_review/notes.md` |
-| `balanced_kelly_attention_v10` | `experiments/archive/balanced_kelly_attention_v10/` | `dropped` | `balanced` | `balanced_rule_residual_imitation_v4` | `experiments/candidate/balanced_kelly_attention_v10/profile.yaml` |
-| `balanced_kelly_dynamic_v5` | `experiments/archive/balanced_kelly_dynamic_v5/` | `dropped` | `balanced` | `balanced_rule_residual_imitation_v4` | `experiments/candidate/balanced_kelly_dynamic_v5/notes.md` |
-| `balanced_kelly_dynamic_v6` | `experiments/archive/balanced_kelly_dynamic_v6/` | `dropped` | `balanced` | `balanced_kelly_dynamic_v5` | `experiments/candidate/balanced_kelly_dynamic_v6/notes.md` |
-| `balanced_kelly_dynamic_v7` | `experiments/archive/balanced_kelly_dynamic_v7/` | `dropped` | `balanced` | `balanced_kelly_dynamic_v6` | `experiments/candidate/balanced_kelly_dynamic_v7/notes.md` |
-| `balanced_kelly_execution_v8` | `experiments/archive/balanced_kelly_execution_v8/` | `dropped` | `balanced` | `balanced_rule_residual_imitation_v4` | `experiments/candidate/balanced_kelly_execution_v8/notes.md` |
-| `balanced_rule_residual_learned_mode_v1` | `experiments/archive/balanced_rule_residual_learned_mode_v1/` | `dropped` | `balanced` | `balanced_rule_residual_v19` | `experiments/archive/balanced_rule_residual_learned_mode_v1/notes.md` |
-| `balanced_rule_residual_minimal_v1` | `experiments/archive/balanced_rule_residual_minimal_v1/` | `dropped` | `balanced` | `balanced_rule_residual_v16` | `experiments/candidate/balanced_rule_residual_minimal_v1/notes.md` |
-| `balanced_rule_residual_mode_v2` | `experiments/archive/balanced_rule_residual_mode_v2/` | `dropped` | `balanced` | `balanced_rule_residual_mode_v1` | `experiments/archive/balanced_rule_residual_mode_v2/notes.md` |
-| `balanced_rule_residual_refined_v1` | `experiments/archive/balanced_rule_residual_refined_v1/` | `dropped` | `balanced` | `balanced_rule_residual_v19` | `experiments/candidate/balanced_rule_residual_refined_v1/notes.md` |
-| `balanced_rule_residual_refined_v4` | `experiments/archive/balanced_rule_residual_refined_v4/` | `dropped` | `balanced` | `balanced_rule_residual_v19` | `experiments/candidate/balanced_rule_residual_refined_v4/notes.md` |
-| `balanced_rule_residual_simplified_v1` | `experiments/archive/balanced_rule_residual_simplified_v1/` | `dropped` | `balanced` | `balanced_rule_residual_v19` | `experiments/candidate/balanced_rule_residual_simplified_v1/notes.md` |
-| `balanced_rule_residual_v1` | `experiments/archive/balanced_rule_residual_v1/` | `archived` | `balanced` | `balanced` | `experiments/archive/balanced_rule_residual_v1/notes.md` |
-| `balanced_rule_residual_v10` | `experiments/archive/balanced_rule_residual_v10/` | `dropped` | `balanced` | `balanced_rule_residual_v2` | `experiments/archive/balanced_rule_residual_v10/notes.md` |
-| `balanced_rule_residual_v11` | `experiments/archive/balanced_rule_residual_v11/` | `dropped` | `balanced` | `balanced_rule_residual_v2` | `experiments/archive/balanced_rule_residual_v11/notes.md` |
-| `balanced_rule_residual_v12` | `experiments/archive/balanced_rule_residual_v12/` | `archived` | `balanced` | `balanced_rule_residual_v2` | `experiments/archive/balanced_rule_residual_v12/notes.md` |
-| `balanced_rule_residual_v13` | `experiments/archive/balanced_rule_residual_v13/` | `dropped` | `balanced` | `balanced_rule_residual_v2` | `experiments/archive/balanced_rule_residual_v13/notes.md` |
-| `balanced_rule_residual_v14` | `experiments/archive/balanced_rule_residual_v14/` | `archived` | `balanced` | `balanced_rule_residual_v2` | `experiments/archive/balanced_rule_residual_v14/notes.md` |
-| `balanced_rule_residual_v15` | `experiments/archive/balanced_rule_residual_v15/` | `archived` | `balanced` | `balanced_rule_residual_v2` | `experiments/archive/balanced_rule_residual_v15/notes.md` |
-| `balanced_rule_residual_v16` | `experiments/archive/balanced_rule_residual_v16/` | `archived` | `balanced` | `balanced_rule_residual_v13` | `experiments/archive/balanced_rule_residual_v16/notes.md` |
-| `balanced_rule_residual_v17` | `experiments/archive/balanced_rule_residual_v17/` | `archived` | `balanced` | `balanced_rule_residual_v16` | `experiments/archive/balanced_rule_residual_v17/notes.md` |
-| `balanced_rule_residual_v18` | `experiments/archive/balanced_rule_residual_v18/` | `archived` | `balanced` | `balanced_rule_residual_v16` | `experiments/archive/balanced_rule_residual_v18/notes.md` |
-| `balanced_rule_residual_v19_transition` | `experiments/archive/balanced_rule_residual_v19_transition/` | `dropped` | `balanced` | `balanced_rule_residual_v19` | `experiments/candidate/balanced_rule_residual_v19_transition/notes.md` |
-| `balanced_rule_residual_v2` | `experiments/archive/balanced_rule_residual_v2/` | `archived` | `balanced` | `balanced_rule_residual_v1` | `experiments/archive/balanced_rule_residual_v2/notes.md` |
-| `balanced_rule_residual_v20` | `experiments/archive/balanced_rule_residual_v20/` | `archived` | `balanced` | `balanced_rule_residual_v16` | `experiments/archive/balanced_rule_residual_v20/notes.md` |
-| `balanced_rule_residual_v21` | `experiments/archive/balanced_rule_residual_v21/` | `archived` | `balanced` | `balanced_rule_residual_v19` | `experiments/archive/balanced_rule_residual_v21/notes.md` |
-| `balanced_rule_residual_v23` | `experiments/archive/balanced_rule_residual_v23/` | `dropped` | `balanced` | `balanced_rule_residual_v19` | `experiments/archive/balanced_rule_residual_v23/notes.md` |
-| `balanced_rule_residual_v24` | `experiments/archive/balanced_rule_residual_v24/` | `dropped` | `balanced` | `balanced_rule_residual_v19` | `experiments/archive/balanced_rule_residual_v24/notes.md` |
-| `balanced_rule_residual_v3` | `experiments/archive/balanced_rule_residual_v3/` | `archived` | `balanced` | `balanced_rule_residual_v2` | `experiments/archive/balanced_rule_residual_v3/notes.md` |
-| `balanced_rule_residual_v4` | `experiments/archive/balanced_rule_residual_v4/` | `archived` | `balanced` | `balanced_rule_residual_v2` | `experiments/archive/balanced_rule_residual_v4/notes.md` |
-| `balanced_rule_residual_v5` | `experiments/archive/balanced_rule_residual_v5/` | `dropped` | `balanced` | `balanced_rule_residual_v2` | `experiments/archive/balanced_rule_residual_v5/notes.md` |
-| `balanced_rule_residual_v6` | `experiments/archive/balanced_rule_residual_v6/` | `archived` | `balanced` | `balanced_rule_residual_v2` | `experiments/archive/balanced_rule_residual_v6/notes.md` |
-| `balanced_rule_residual_v7` | `experiments/archive/balanced_rule_residual_v7/` | `dropped` | `balanced` | `balanced_rule_residual_v5` | `experiments/archive/balanced_rule_residual_v7/notes.md` |
-| `balanced_rule_residual_v8` | `experiments/archive/balanced_rule_residual_v8/` | `archived` | `balanced` | `balanced_rule_residual_v2` | `experiments/archive/balanced_rule_residual_v8/notes.md` |
-| `balanced_rule_residual_v9` | `experiments/archive/balanced_rule_residual_v9/` | `archived` | `balanced` | `balanced_rule_residual_v2` | `experiments/archive/balanced_rule_residual_v9/notes.md` |
-| `risk_budget_bc_warmstart_v1` | `experiments/archive/risk_budget_bc_warmstart_v1/` | `dropped` | `balanced` | `risk_budget_usage_v1` | `experiments/candidate/risk_budget_bc_warmstart_v1/notes.md` |
-| `risk_budget_learned_attention_oracle_distill_v1` | `experiments/archive/risk_budget_learned_attention_oracle_distill_v1/` | `dropped` | `balanced` | `risk_budget_learned_oracle_distill_v1` | `experiments/archive/risk_budget_learned_attention_oracle_distill_v1/notes.md` |
-| `risk_budget_learned_conditioned_oracle_distill_v1` | `experiments/archive/risk_budget_learned_conditioned_oracle_distill_v1/` | `dropped` | `balanced` | `risk_budget_learned_oracle_distill_v1` | `experiments/archive/risk_budget_learned_conditioned_oracle_distill_v1/notes.md` |
-| `risk_budget_learned_oracle_distill_v1` | `experiments/archive/risk_budget_learned_oracle_distill_v1/` | `dropped` | `balanced` | `risk_budget_usage_v1` | `experiments/archive/risk_budget_learned_oracle_distill_v1/notes.md` |
-| `risk_budget_learned_usage_regression_v1` | `experiments/archive/risk_budget_learned_usage_regression_v1/` | `dropped` | `balanced` | `risk_budget_learned_oracle_distill_v1` | `experiments/archive/risk_budget_learned_usage_regression_v1/notes.md` |
-| `risk_budget_oracle_distill_v1` | `experiments/archive/risk_budget_oracle_distill_v1/` | `dropped` | `balanced` | `risk_budget_usage_v1` | `experiments/archive/risk_budget_oracle_distill_v1/notes.md` |
-| `two_speed_mode_budget_v1` | `experiments/archive/two_speed_mode_budget_v1/` | `unregistered` | `` | `` | `` |
+## Canonical Baselines
+
+| Profile | Package | Family | Evidence |
+|---|---|---|---|
+| `balanced` | `experiments/canonical/balanced/` | `balanced` | `experiments/canonical/balanced/notes.md` |
+| `smoke` | `experiments/canonical/smoke/` | `smoke` | `experiments/canonical/smoke/notes.md` |
+
+## Active Candidates
+
+| Profile | Package | Family | Baseline | Evidence |
+|---|---|---|---|---|
+| `balanced_conservative_ft` | `experiments/candidate/balanced_conservative_ft/` | `balanced` | `balanced` | `notes.md` |
+| `balanced_kelly` | `experiments/candidate/balanced_kelly/` | `balanced` | `balanced_rule_residual_imitation_v4` | `notes.md` (merged v9/v9b) |
+| `balanced_rule_residual_imitation` | `experiments/candidate/balanced_rule_residual_imitation/` | `balanced` | `balanced_rule_residual_v16` | `notes.md` (merged v1-v7) |
+| `balanced_rule_residual_mode_v1` | `experiments/candidate/balanced_rule_residual_mode_v1/` | `balanced` | `balanced_rule_residual_v19` | `notes.md` |
+| `balanced_rule_residual_moderate_v1` | `experiments/candidate/balanced_rule_residual_moderate_v1/` | `balanced` | `balanced_rule_residual_v16` | `notes.md` |
+| `balanced_rule_residual_refined_v2` | `experiments/candidate/balanced_rule_residual_refined_v2/` | `balanced` | `balanced_rule_residual_v19` | `notes.md` |
+| `balanced_rule_residual_refined_v3` | `experiments/candidate/balanced_rule_residual_refined_v3/` | `balanced` | `balanced_rule_residual_v19` | `notes.md` |
+| `balanced_rule_residual_v19` | `experiments/candidate/balanced_rule_residual_v19/` | `balanced` | `balanced_rule_residual_v16` | `notes.md` |
+| `balanced_rule_residual_v19_academic` | `experiments/candidate/balanced_rule_residual_v19_academic/` | `balanced` | `balanced_rule_residual_v19` | `notes.md` |
+| `balanced_rule_residual_v22` | `experiments/candidate/balanced_rule_residual_v22/` | `balanced` | `balanced_rule_residual_v19` | `notes.md` |
+| `risk_budget_usage_v1` | `experiments/candidate/risk_budget_usage_v1/` | `balanced` | `balanced_rule_residual_imitation_v4` | `notes.md` |
+| `smoke_rule_residual_v1` | `experiments/candidate/smoke_rule_residual_v1/` | `smoke` | `smoke` | `notes.md` |
+
+## Archive (by family)
+
+- **balanced_rule_residual** evolution: v1 → v2 → v3,4,6,8,9 → v12,14,15,16,17,18,20,21
+  - `experiments/archive/balanced_rule_residual_v{1,2,3,4,6,8,9,12,14,15,16,17,18,20,21}/`
+  - Most retain `profile.yaml` only; notes trimmed to ≤50 lines.
+- **checkpoint_review**: `experiments/archive/balanced_checkpoint_review/`

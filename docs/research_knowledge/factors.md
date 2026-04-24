@@ -10,15 +10,15 @@ Do not promote a feature because it improves a local validation window if it inc
 
 ## Use With Skills
 
-- `soxl-factor-research` for hypothesis generation.
-- `soxl-factor-mining` for IC / stability / correlation checks.
+- `leveraged-etf-factor-research` for hypothesis generation.
+- `leveraged-etf-factor-mining` for IC / stability / correlation checks.
 - `soxl-signal-backtest` for independent signal validation before RL changes.
 
 ## Evidence Path
 
 - `runtime/factor/analysis/`
 - `data/soxl_factor_library.db`
-- `memory/2026-04-23-soxl-factor-mining-skill.md`
+- `runtime/factor/knowledge.md`
 
 ## Reusable Method
 

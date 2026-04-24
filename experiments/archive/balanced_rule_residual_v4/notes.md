@@ -48,26 +48,5 @@ All other parameters identical to v3.
 - **Best checkpoint**: @80 (valid score 106.03)
 - **Test**: Return 730.8% | Sharpe 0.90 | MaxDD 55.7% | Trades 327
 - **test_2020**: 116.70% / Sharpe 2.45 / MaxDD 18.39%
-- **test_2022**: -25.02% / Sharpe -0.91 / MaxDD 33.24%
-- **test_2023_2024**: 69.00% / Sharpe 0.89 / MaxDD 31.17%
-- **Promotion**: BLOCKED (trades 327 >> target 150-220)
 
-## Key Finding: Trade Compression Failed Again
-
-Trades **increased** from 314 (v3) to 327 (v4) despite:
-- Flat penalty of 1.20 per trade
-- Longer lock (5→8 days)
-- Reduced alpha_scale (3.0→2.0)
-
-**Root cause hypothesis**: The agent found significantly more alpha (730.8% vs 569.7%), making the 1.20 penalty per trade economically trivial. The strategy is highly profitable — it can afford the penalty. The penalty is a cost of doing business, not a deterrent.
-
-## Risk
-- Flat penalty may cause agent to become too passive, missing legitimate opportunities
-- Longer lock may miss rapid regime shifts (e.g., March 2020 crash)
-- Lower alpha_scale may reduce return if agent stops taking profitable trades
-- If trades drop below 100, strategy may be too sluggish
-
-## Promotion Criteria
-- Trades 120-180 AND return >= v3 (569.7%)
-- Valid score >= 100
-- 2022 MaxDD <= 35%
+_(Trimmed by prune_experiments.py)_

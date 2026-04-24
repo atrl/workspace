@@ -48,39 +48,5 @@ five root causes. v3 attacks the top three simultaneously:
 
 | Metric | v2 | v3 (target) | v3 (actual) | Δ |
 |--------|-----|-------------|-------------|---|
-| Return | 521.3% | 600-650% | **569.7%** | +48.4pp |
-| Sharpe | 0.86 | 0.85-0.90 | **0.86** | = |
-| MaxDD | 50.4% | 55-60% | **53.6%** | +3.2pp |
-| Trades | 316 | 150-220 | **314** | -2 |
-| Valid best | 104.61 @40 | — | **101.07 @60** | -3.54 |
 
-### Sub-period breakdown
-| Period | Return | Sharpe | MaxDD |
-|--------|--------|--------|-------|
-| 2020 | +99.68% | 2.289 | 19.27% |
-| 2022 | -23.82% | -0.885 | 32.27% |
-| 2023-2024 | +53.87% | 0.780 | 33.14% |
-
-### Assessment
-- **Return**: Modest improvement (+48pp) but fell short of 600-650% target.
-- **Trade compression**: COMPLETE FAILURE. 314 trades vs target 150-220. The threshold/lock/penalty changes had **zero effect**. This is the #1 issue to diagnose.
-- **Valid score**: 101.07 @60 is **worse** than v2's 104.61 @40. Promotion blocked.
-- **MaxDD**: 53.6% is within tolerance but slightly worse than v2.
-- **2022 performance**: Still poor (-23.8%), similar to v2. Floor raise did not help bear market.
-
-## Root Cause Analysis (Post-Hoc)
-
-1. **Trade compression failed**: The `base_threshold`, `trade_lock_days`, `micro_rebalance_penalty`, and `micro_rebalance_threshold` parameters were changed but trades only dropped from 316→314. This suggests either:
-   - The execution layer is not respecting these parameters
-   - The RL agent is learning to trade at the boundary exactly to avoid penalties
-   - The trade count metric counts something different than expected
-
-2. **Valid score regression**: Best valid @60 (101.07) < v2 @40 (104.61). The regime-alpha conditioning may have introduced instability in later stages.
-
-## Risk
-- Higher floor → higher MaxDD (could breach 60%)
-- Fewer trades → slower adaptation to regime shifts
-- If 2022 MaxDD exceeds 35%, promotion gate may block
-
-## Next Action
-**Diagnose trade compression failure** before attempting v4. The 167pp gap to rule-based (688.6%) is still dominated by excessive trading (314 vs 45).
+_(Trimmed by prune_experiments.py)_

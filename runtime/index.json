@@ -1,17 +1,23 @@
 {
-  "generated_at": "2026-04-24T10:59:02.875720+00:00",
+  "generated_at": "2026-04-24T11:50:34.977528+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
       "category": "root",
       "suffix": ".md",
-      "bytes": 935
+      "bytes": 1198
     },
     {
-      "path": "runtime/execution/generalization/dashboard.html",
+      "path": "runtime/data/knowledge.md",
+      "category": "data",
+      "suffix": ".md",
+      "bytes": 446
+    },
+    {
+      "path": "runtime/execution/knowledge.md",
       "category": "execution",
-      "suffix": ".html",
-      "bytes": 33555670
+      "suffix": ".md",
+      "bytes": 5339
     },
     {
       "path": "runtime/factor/analysis/backtest_ACAD_AMIHUD_ZSCORE.csv",
@@ -116,6 +122,18 @@
       "bytes": 73473
     },
     {
+      "path": "runtime/factor/knowledge.md",
+      "category": "factor",
+      "suffix": ".md",
+      "bytes": 6510
+    },
+    {
+      "path": "runtime/harness/knowledge.md",
+      "category": "harness",
+      "suffix": ".md",
+      "bytes": 3415
+    },
+    {
       "path": "runtime/model/diagnosis/deep_dive_rl_vs_rulebased.md",
       "category": "model",
       "suffix": ".md",
@@ -162,6 +180,12 @@
       "category": "model",
       "suffix": ".json",
       "bytes": 2657
+    },
+    {
+      "path": "runtime/model/knowledge.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 20626
     },
     {
       "path": "runtime/model/reviews/balanced_checkpoint_review.md",
@@ -690,6 +714,30 @@
       "category": "model",
       "suffix": ".md",
       "bytes": 1391
+    },
+    {
+      "path": "runtime/multi_asset/generalization/dashboard.html",
+      "category": "multi_asset",
+      "suffix": ".html",
+      "bytes": 33555670
+    },
+    {
+      "path": "runtime/multi_asset/knowledge.md",
+      "category": "multi_asset",
+      "suffix": ".md",
+      "bytes": 1272
+    },
+    {
+      "path": "runtime/network/knowledge.md",
+      "category": "network",
+      "suffix": ".md",
+      "bytes": 1309
+    },
+    {
+      "path": "runtime/reward/knowledge.md",
+      "category": "reward",
+      "suffix": ".md",
+      "bytes": 1726
     }
   ]
 }

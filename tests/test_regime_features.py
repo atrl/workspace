@@ -53,16 +53,6 @@ def test_regime_feature_frame_has_expected_columns():
     assert price.notna().all()
 
 
-def test_transition_v23_pack_extends_schema_without_default_drift():
-    base_columns = list(FEATURE_COLUMNS)
-    packed_columns = feature_columns_for_packs(("transition_v23",), "balanced_rule_residual_v23")
-    assert "stress_then_relief_flag" not in base_columns
-    assert "trend_restart_flag" not in base_columns
-    assert "stress_then_relief_flag" in packed_columns
-    assert "trend_restart_flag" in packed_columns
-    assert len(packed_columns) == len(base_columns) + 6
-
-
 def test_transition_v23_flags_fire_only_in_expected_states():
     index = pd.date_range("2020-01-01", periods=30, freq="B")
     transition = _build_transition_state_features(

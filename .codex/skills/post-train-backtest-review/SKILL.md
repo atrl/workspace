@@ -24,7 +24,7 @@ description: 在每次训练或回测结束后，对最新模型与上一版本/
 优先使用仓库已有产物，而不是口头回忆：
 
 - 主输入：
-  - `artifacts/models/*_summary.json`
+  - `artifacts/<family>/*_summary.json` (e.g. `artifacts/balanced_family/`, `artifacts/canonical/`)
 - 可选补充：
   - `runtime/feature_analysis/summary.json`
   - `runtime/generalization/detailed/*.csv`
@@ -63,8 +63,8 @@ description: 在每次训练或回测结束后，对最新模型与上一版本/
 
 ```bash
 python .codex/skills/post-train-backtest-review/scripts/compare_backtests.py \
-  --latest artifacts/models/<latest>_summary.json \
-  --previous artifacts/models/<previous>_summary.json \
+  --latest artifacts/<family>/<latest>_summary.json \
+  --previous artifacts/<family>/<previous>_summary.json \
   --output runtime/post_train_review/<label>.md
 ```
 
@@ -229,7 +229,7 @@ qlib_venv/bin/python scripts/feature_analysis.py
 默认流程：
 
 1. 选定当前历史最优基线
-  - 通常是当前 canonical summary，例如 `artifacts/models/soxl_balanced_summary.json`
+  - 通常是当前 canonical summary，例如 `artifacts/canonical/soxl_balanced_summary.json`
 2. 先从 summary / detailed backtest 中定位：
   - 最好的防守窗口
   - 最好的趋势捕获窗口
@@ -300,7 +300,7 @@ qlib_venv/bin/python scripts/diagnosis_phase1_phase2.py
 
 ```bash
 qlib_venv/bin/python scripts/trade_quality_audit.py \
-  --summary artifacts/models/<profile>_summary.json \
+  --summary artifacts/<family>/<profile>_summary.json \
   --diagnosis runtime/diagnosis/phase1_phase2_combined.json \
   --profile <profile> \
   --output runtime/post_train_review/<profile>_trade_quality_audit.md
@@ -530,7 +530,7 @@ qlib_venv/bin/python scripts/trade_quality_audit.py \
 ```bash
 python scripts/cost_sensitivity_backtest.py \
   --profile balanced \
-  --model artifacts/models/soxl_balanced_actor.pt \
+  --model artifacts/canonical/soxl_balanced_actor.pt \
   --output runtime/post_train_review/balanced_cost_sensitivity.json
 ```
 

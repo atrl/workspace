@@ -6,7 +6,7 @@ This directory is the task-direction router for SOXL and related leveraged-ETF s
 
 | Direction | Knowledge | Skills | Use when |
 |---|---|---|---|
-| Factor | `factors.md` | `soxl-factor-research`, `soxl-factor-mining`, `soxl-signal-backtest` | feature hypotheses, IC, rulebase-derived signals, independent signal validation |
+| Factor | `factors.md` | `leveraged-etf-factor-research`, `leveraged-etf-factor-mining`, `leveraged-etf-signal-backtest` | feature hypotheses, IC, rulebase-derived signals, independent signal validation |
 | Data | `data.md` | `qlib-rl-trading` | raw CSVs, qlib stores, processed panels, training caches, external volatility inputs |
 | Model selection | `model_selection.md` | `post-train-backtest-review` | checkpoints, promotion gates, fixed splits, early stopping, actor retention |
 | Network | `networks.md` | `qlib-rl-trading`, `post-train-backtest-review` | GRU, attention, MoE, mode classifiers, temporal context, asset-specific heads |

@@ -48,13 +48,5 @@ v8 is the **first experiment to pass all fixed-split criteria**:
 
 Blocked only because walk-forward evaluation was not run.
 
-### Key Learnings
 
-1. **Stronger penalties did improve 2022 drawdown control** (31.3% vs v7's 33.9%) but at cost of learning quality
-2. **Valid score degraded severely** (89.54 vs v2's 104.61) — penalties overwhelming alpha signal
-3. **Overall MaxDD still above v2** (53.4% vs 50.4%) — penalties not sufficient for cross-period cumulative drawdown
-4. **2022 avg_pos remained elevated** (0.266 vs v2's 0.18) despite lower hard_floor — agent not de-risking as effectively
-
-## Risk
-
-If step-level penalties are still too small relative to alpha reward, drawdown may not improve. Next step would be code-level reward redesign (episode-level max drawdown penalty or portfolio-path-dependent cap).
+_(Trimmed by prune_experiments.py)_

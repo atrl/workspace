@@ -49,48 +49,4 @@ Testing penalty=3.0 with the proven GRU+window=5 config to see if:
 
 ### Penalty=3.0 is WORSE than 2.0 across the board
 
-| Metric | v19 (penalty=2.0) | v20 (penalty=3.0) | Δ |
-|--------|-------------------|-------------------|---|
-| CLI Return | 635.1% | 551.8% | **-83pp** |
-| CLI Sharpe | 0.90 | 0.86 | -0.04 |
-| CLI MaxDD | 51.0% | 51.7% | **+0.7pp** |
-| Proxy Return | 885.5% | 623.2% | **-262pp** |
-| Proxy Sharpe | 0.99 | 0.90 | -0.09 |
-| Trades | 336 | 319 | -17 |
-
-**Critical finding**: penalty=3.0 is **strictly dominated** by penalty=2.0.
-- Return drops significantly
-- Drawdown actually gets slightly WORSE (not better!)
-- The policy becomes less active (fewer trades) but not more effective
-
-This contradicts the v12/v13 finding that 2.0-4.0 were "identical".
-The difference: v12/v13 had no GRU and window=3. With GRU+window=5,
-the policy is more sensitive to penalty strength. The temporal model
-learns to exploit the penalty structure, and 3.0 pushes it into a
-suboptimal basin.
-
-### Selection Pattern Shift
-Best checkpoint moved from iter 20 (v19) to iter 60 (v20).
-Higher penalty needs more training to converge — the policy takes
-longer to find a stable basin under stronger constraints.
-
-### 7th Consecutive fixed_split Pass
-v14-v20 all pass. The drawdown discipline is deeply embedded now.
-
-## Lessons
-
-1. **penalty=2.0 is the sweet spot** for GRU+window=5. Going higher hurts returns
-   without improving drawdown.
-2. **v12/v13's "2.0-4.0 identical" finding does NOT generalize** to the GRU config.
-3. **Best checkpoint timing depends on penalty strength**: 2.0 converges by iter 20,
-   3.0 needs iter 60.
-4. **The ~50% MaxDD floor is structural** — no amount of terminal penalty tweaking
-   has broken below it. To go lower, need different mechanisms (position_cap,
-   regime-specific behavior, etc.).
-
-## Next Actions
-
-- Revert to penalty=2.0 (v19 config is the current best).
-- Try increasing network capacity: `gru_hidden_size: 128` (currently 64).
-  The temporal model might be bottlenecked by representation capacity.
-- OR try fine-tuning observation_window: test 4 or 6 days.
+_(Trimmed by prune_experiments.py)_

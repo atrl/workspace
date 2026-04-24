@@ -48,11 +48,5 @@ Input: (batch, 184)  # 3×59 features + 6 extra + 1 asset
 
 - GRU should learn to track drawdown state through hidden state
 - Terminal penalty should now be effective because GRU can associate current actions with future terminal penalty
-- Lower downside asymmetry (1.5) should reduce excessive risk-chasing
-- Test MaxDD should improve toward v2's 50.4%
 
-## Risk
-
-- GRU adds ~12K parameters — could overfit on 14 training episodes
-- Training might be slower (~20% slower due to sequential processing)
-- If GRU doesn't help, next step is to try LSTM or Transformer
+_(Trimmed by prune_experiments.py)_

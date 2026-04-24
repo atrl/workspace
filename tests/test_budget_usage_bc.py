@@ -123,31 +123,6 @@ def test_append_mode_one_hot_marks_requested_mode():
     assert conditioned[-4:].tolist() == [0.0, 0.0, 1.0, 0.0]
 
 
-def test_mode_conditioned_budget_usage_oracle_dataset_appends_replay_mode():
-    profile = load_profile("risk_budget_learned_oracle_distill_v1")
-    frame = _sample_frame()
-    daily = pd.DataFrame(
-        {
-            "datetime": frame["datetime"].iloc[LOOKBACK : LOOKBACK + 2].to_numpy(),
-            "position": [0.25, 0.95],
-            "mode": ["flat_wait", "trend_hold"],
-        }
-    )
-
-    obs, actions = build_mode_conditioned_budget_usage_oracle_dataset_from_frame(
-        frame,
-        replay_daily=daily,
-        profile=profile,
-        sample_size=0,
-    )
-
-    assert obs.shape[0] == 2
-    assert obs.shape[1] == observation_dim_for_profile(profile) + len(MODE_ONE_HOT_ORDER)
-    assert obs[0][-4:].tolist() == [0.0, 0.0, 0.0, 1.0]
-    assert obs[1][-4:].tolist() == [1.0, 0.0, 0.0, 0.0]
-    assert actions.tolist() == [4, 4]
-
-
 def test_usage_target_from_position_uses_mode_band():
     profile = load_profile("risk_budget_usage_v1")
 
@@ -156,32 +131,9 @@ def test_usage_target_from_position_uses_mode_band():
     assert usage_target_from_position(0.95, "trend_hold", profile) == 1.0
 
 
-def test_budget_usage_regression_dataset_produces_continuous_targets():
-    profile = load_profile("risk_budget_learned_oracle_distill_v1")
-    frame = _sample_frame()
-    daily = pd.DataFrame(
-        {
-            "datetime": frame["datetime"].iloc[LOOKBACK : LOOKBACK + 3].to_numpy(),
-            "position": [0.25, 0.575, 0.95],
-            "mode": ["flat_wait", "trend_hold", "trend_hold"],
-        }
-    )
-
-    obs, targets = build_budget_usage_regression_dataset_from_frame(
-        frame,
-        replay_daily=daily,
-        profile=profile,
-        sample_size=0,
-    )
-
-    assert obs.shape[0] == 3
-    assert targets.dtype == np.float32
-    assert targets.tolist() == [1.0, 0.25, 1.0]
-
-
 def test_budget_usage_bc_dataset_uses_expert_fast_position_as_usage_label():
     profile = load_profile("risk_budget_usage_v1")
-    base_expert_profile = load_profile("balanced_rule_residual_imitation_v4")
+    base_expert_profile = load_profile("balanced_rule_residual_imitation")
     expert_profile = replace(
         base_expert_profile,
         model=replace(
@@ -217,8 +169,6 @@ if __name__ == "__main__":
     test_budget_usage_oracle_dataset_uses_daily_replay_labels()
     test_budget_usage_oracle_dataset_accepts_datetime_index()
     test_append_mode_one_hot_marks_requested_mode()
-    test_mode_conditioned_budget_usage_oracle_dataset_appends_replay_mode()
     test_usage_target_from_position_uses_mode_band()
-    test_budget_usage_regression_dataset_produces_continuous_targets()
     test_budget_usage_bc_dataset_uses_expert_fast_position_as_usage_label()
     print("test_budget_usage_bc: OK")

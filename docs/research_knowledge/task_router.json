@@ -5,7 +5,7 @@
     "factor": {
       "use_when": "feature hypotheses, IC checks, rulebase-derived factors, signal validation",
       "knowledge": "docs/research_knowledge/factors.md",
-      "skills": ["soxl-factor-research", "soxl-factor-mining", "soxl-signal-backtest"],
+      "skills": ["leveraged-etf-factor-research", "leveraged-etf-factor-mining", "leveraged-etf-signal-backtest"],
       "memory_query": ["factor", "feature", "signal", "rulebase"],
       "runtime": ["runtime/factor/analysis/"],
       "validation": ["scripts/check_research_knowledge.py", "scripts/check_source_boundaries.py"]
@@ -53,9 +53,9 @@
     "multi_asset": {
       "use_when": "TQQQ, UPRO, SPXL, TECL transfer tests or shared leveraged-ETF training",
       "knowledge": "docs/research_knowledge/multi_asset.md",
-      "skills": ["qlib-rl-trading", "soxl-signal-backtest"],
+      "skills": ["qlib-rl-trading", "leveraged-etf-signal-backtest"],
       "memory_query": ["multi asset", "TQQQ", "UPRO", "SPXL", "TECL", "cross ETF"],
-      "runtime": ["runtime/execution/generalization/", "runtime/data/"],
+      "runtime": ["runtime/multi_asset/generalization/", "runtime/data/"],
       "validation": ["scripts/update_data_registry.py --check", "scripts/check_harness.py"]
     }
   }

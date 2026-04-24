@@ -13,8 +13,8 @@ Before doing substantial work:
 1. Read `AGENTS.md`.
 2. Read `SPEC.md`.
 3. Read `WORKFLOW.md`.
-4. Read the active workpad under `codex_exec_plans/active/`.
-5. Read `memory/` for any continuity worth carrying forward.
+4. Read `docs/active_workpad.md` for the current active task context.
+5. Read `runtime/<direction>/knowledge.md` for continuity in the chosen direction.
 
 Do not ask permission for this startup sequence.
 
@@ -25,16 +25,15 @@ Use these files for distinct roles. Do not collapse them together.
 - `AGENTS.md`: top-level operating contract.
 - `SPEC.md`: project intent, invariants, and boundaries.
 - `WORKFLOW.md`: execution routing and state rules.
-- `codex_exec_plans/active/`: the live workpad for the current thread.
-- `memory/index.json`: completed or abandoned thread summaries.
+- `docs/active_workpad.md`: the live workpad for the current thread.
 - `docs/research_knowledge/index.md`: first-stop task direction router.
 - `docs/research_knowledge/task_router.json`: machine-readable mapping from
-  task direction to knowledge file, skill, memory query, runtime path, and
+  task direction to knowledge file, skill, runtime query path, and
   validation commands.
 - `docs/research_knowledge/`: mechanism-specific research conclusions split by
   factor, data, model selection, network, reward, execution, and multi-asset
   lines.
-- `memory/`: continuity across sessions.
+- `runtime/<direction>/knowledge.md`: continuity across sessions, organized by task direction.
 - `.codex/skills/`: reusable methods and maintained operational knowledge. Codex CLI auto-loads skills from this path.
 - `configs/soxl/profile_registry.yaml`: profile lifecycle, canonical baselines, and retention intent.
 - `experiments/`: experiment-owned profile packages with colocated notes and expectations.
@@ -46,7 +45,7 @@ Chat history is not the durable record.
 
 ## Task Direction Routing
 
-Before reading broad memory or starting implementation, classify the task into
+Before reading broad runtime knowledge or starting implementation, classify the task into
 exactly one primary direction:
 
 - `factor`: feature hypotheses, IC checks, rulebase-derived signals, signal backtests.
@@ -64,30 +63,28 @@ route determines:
 
 1. which `docs/research_knowledge/*.md` file to read,
 2. which `.codex/skills/*` workflow to invoke,
-3. which terms to pass to `scripts/memory_search.py`,
+3. which `runtime/<direction>/knowledge.md` to query for historical context,
 4. which `runtime/<category>/` paths can be opened first,
 5. which validation commands prove the task.
 
-`memory/` is not a direction. It is evidence retrieval behind the selected
-direction. Do not bulk-read memory before choosing the route.
+`runtime/<direction>/knowledge.md` is not a starting point. It is evidence retrieval behind the selected
+direction. Do not bulk-read all knowledge files before choosing the route.
 
-## Memory
+## Runtime Knowledge
 
-`memory/` is the continuity layer. Keep it narrow — key decisions, blockers, and
-context worth carrying forward. Do not use memory as the main execution checklist
-when the active plan should carry that state.
+`runtime/<direction>/knowledge.md` is the continuity layer. It accumulates key
+decisions, blockers, and context worth carrying forward per direction.
+Do not use it as the main execution checklist when the active workpad should
+carry that state.
 
-If you want future sessions to remember something important, write it down.
+If you want future sessions to remember something important, write it into the
+relevant `runtime/<direction>/knowledge.md` or the experiment's `notes.md`.
 
-Use the generated `memory/index.json` and `scripts/memory_search.py` before
-bulk-reading memory notes. Retrieval should start from the index, then open only
-the top matching notes unless that first pass is insufficient.
+Knowledge retrieval must be scoped by task direction. Example:
 
-Memory retrieval must be scoped by task direction. Example:
-
-- factor work: `qlib_venv/bin/python scripts/memory_search.py factor signal rulebase`
-- model-selection work: `qlib_venv/bin/python scripts/memory_search.py checkpoint selection promotion`
-- execution work: `qlib_venv/bin/python scripts/memory_search.py overlay position budget mode routing`
+- factor work: read `runtime/factor/knowledge.md` then open `runtime/factor/analysis/`
+- model-selection work: read `runtime/model/knowledge.md` then open `runtime/model/reviews/`
+- execution work: read `runtime/execution/knowledge.md` then open `runtime/execution/`
 
 ## Workpad Discipline
 
@@ -317,10 +314,10 @@ When orienting to the repo, prefer indexes and summaries before raw outputs.
   - read `runtime/README.md`
   - then `runtime/index.json`
   - prefer summary markdown / JSON over raw logs and CSV first
-- `memory/`:
-  - read `memory/index.json`
-  - then query `scripts/memory_search.py`
-  - then open only top-matching notes
+- `runtime/<direction>/knowledge.md`:
+  - read after choosing a task direction
+  - then open the corresponding `runtime/<category>/` paths
+  - prefer summary markdown over raw logs and CSV first
 
 ## Compatibility Policy
 
@@ -431,12 +428,12 @@ Examples: `qlib_venv/bin/python scripts/check_harness.py`, `python scripts/backt
 `AGENTS.md` is a map, not a manual. Deep context lives in:
 - `.codex/skills/` for reusable workflows
 - `SPEC.md` for project intent and invariants
-- `codex_exec_plans/active/` for the current execution context
+- `docs/active_workpad.md` for the current execution context
 - `docs/` for detailed design documentation
 The agent should start here and navigate outward, not ingest everything at once.
 
 ### Intent as Code
-A task without a written plan in `codex_exec_plans/active/` and explicit
+A task without a written plan in `docs/active_workpad.md` and explicit
 acceptance criteria is not allowed to start. The plan is the primary interface
 between human intent and agent execution.
 
@@ -467,7 +464,7 @@ Keep code in the intended locations:
 
 - research and training: `src/soxl_quant/`
 - execution adapters: `production/`
-- workpads and decision trail: `codex_exec_plans/`
+- workpads and decision trail: `docs/active_workpad.md`
 - data and analysis scripts: `scripts/`
 
 
@@ -480,7 +477,7 @@ For every substantial iteration:
 3. run exactly one meaningful loop
 4. validate the result
 5. write proof of work back to the repo
-6. update continuity in `memory/`
+6. update continuity in `runtime/<direction>/knowledge.md` or the experiment's `notes.md`
 7. **commit and push the changes**
 8. if a skill was created or modified, verify `.codex/skills/` is synced
 
@@ -495,7 +492,7 @@ Before starting a new training or replay loop:
 
 ## Current Direction
 
-The active thread lives under `codex_exec_plans/active/`.
+The active thread lives under `docs/active_workpad.md`.
 
 Current repo intent:
 
