@@ -23,8 +23,11 @@ direction: harness
   - 新建 runtime card `runtime/model/cards/risk_budget_usage_v2/card.md`
 - ✅ risk_budget_usage_v3 扩展实现：
   - Mode-Conditioned Actor Input（config.py + observation.py + environment.py + backtest.py + selection.py）
-  - 新建实验包 `experiments/candidate/risk_budget_usage_v3/`（notes.md + expectations.md + profile.yaml）
-  - 新建 runtime card `runtime/model/cards/risk_budget_usage_v3/card.md`
+  - 新建实验包 `experiments/candidate/risk_budget_usage_v3/`（notes.md + expectations.md + profile.yaml + card.md）
+- ✅ 实验卡片共置重组：将 runtime/model/cards/ 下有对应实验包的 card.md 移动到 experiments/ 下
+  - 12 个卡片移动，14 个跳过（合并实验共享或纯 artifact summary）
+  - runtime/model/knowledge.md 链接更新指向 experiments/
+  - build_runtime_index.py 支持扫描 experiments/ 目录
 - ✅ artifacts/ 按 family 拆分（canonical/balanced/smoke/risk_budget/other）
 - ✅ skills 重命名（soxl-factor-* → leveraged-etf-factor-*）+ _index.json
 - ✅ 知识卡片重组：每个实验独立文件夹 + 统一格式 + 结论

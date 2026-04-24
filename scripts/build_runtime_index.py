@@ -10,35 +10,56 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 RUNTIME_DIR = ROOT / "runtime"
+EXPERIMENTS_DIR = ROOT / "experiments"
 INDEX_PATH = RUNTIME_DIR / "index.json"
 INDEXED_SUFFIXES = {".csv", ".html", ".json", ".md", ".txt"}
 SKIP_DIRS = {"soxl"}
 
 
 def runtime_category(path: Path) -> str:
-    relative = path.relative_to(RUNTIME_DIR)
-    return relative.parts[0] if len(relative.parts) > 1 else "root"
-
-
-def build_index() -> dict:
-    entries = []
-    for path in sorted(RUNTIME_DIR.rglob("*")):
+    try:
         relative = path.relative_to(RUNTIME_DIR)
+        return relative.parts[0] if len(relative.parts) > 1 else "root"
+    except ValueError:
+        pass
+    try:
+        relative = path.relative_to(EXPERIMENTS_DIR)
+        return f"experiments/{relative.parts[0]}" if len(relative.parts) > 1 else "experiments"
+    except ValueError:
+        return "other"
+
+
+def _scan_directory(base_dir: Path, entries: list, root: Path) -> None:
+    for path in sorted(base_dir.rglob("*")):
+        relative = path.relative_to(base_dir)
         if relative.parts and relative.parts[0] in SKIP_DIRS:
             continue
-        if not path.is_file() or path == INDEX_PATH or path.suffix.lower() not in INDEXED_SUFFIXES:
+        if not path.is_file() or path.suffix.lower() not in INDEXED_SUFFIXES:
             continue
         entries.append(
             {
-                "path": str(path.relative_to(ROOT)),
+                "path": str(path.relative_to(root)),
                 "category": runtime_category(path),
                 "suffix": path.suffix.lower(),
                 "bytes": path.stat().st_size,
             }
         )
+
+
+def build_index() -> dict:
+    entries = []
+    _scan_directory(RUNTIME_DIR, entries, ROOT)
+    _scan_directory(EXPERIMENTS_DIR, entries, ROOT)
+    # De-duplicate by path
+    seen = set()
+    unique_entries = []
+    for e in entries:
+        if e["path"] not in seen:
+            seen.add(e["path"])
+            unique_entries.append(e)
     return {
         "generated_at": datetime.now(timezone.utc).isoformat(),
-        "entries": entries,
+        "entries": unique_entries,
     }
 
 

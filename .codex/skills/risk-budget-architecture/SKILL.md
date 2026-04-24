@@ -228,10 +228,25 @@ observation (~50 dims) + mode_one_hot (4 dims) → GRU → MLP → action
 - [ ] **Stress 专用 reward**: 在 stress 态下增大仓位惩罚系数
 - [ ] **Supervised warmstart**: 用 replay composition 路径做 BC warmstart
 
+## 文件组织
+
+实验包采用**共置（colocation）**原则：每个实验的所有文件放在同一个目录下。
+
+```
+experiments/candidate/risk_budget_usage_v1/
+├── notes.md          # 动机、假设、结果
+├── expectations.md   # 预期与失败模式
+├── profile.yaml      # 完整配置
+└── card.md           # 运行时卡片（与实验共置）
+```
+
+runtime/model/knowledge.md 中的索引表直接链接到 experiments/ 下的 card.md，
+不再在 runtime/model/cards/ 中保留重复副本。
+
 ## 相关文件
 
 - `src/soxl_quant/policy/two_speed_budget.py` — 核心组合逻辑
 - `src/soxl_quant/policy/positioning.py` — budget_usage 映射
 - `experiments/candidate/risk_budget_usage_v1/profile.yaml` — 完整配置
 - `experiments/candidate/risk_budget_usage_v1/notes.md` — 实验记录
-- `runtime/model/cards/risk_budget_usage_v1/card.md` — 运行时卡片
+- `experiments/candidate/risk_budget_usage_v1/card.md` — 运行时卡片
