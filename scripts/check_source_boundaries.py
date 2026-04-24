@@ -47,6 +47,8 @@ def main() -> int:
         failures.append("top-level evidence/ directory should not exist; use runtime/<category>/")
     if (ROOT / "multi_asset").exists():
         failures.append("top-level multi_asset/ directory should not exist; use data/qlib and data/cache")
+    if (ROOT / "docs" / "factor_research").exists():
+        failures.append("docs/factor_research/ should not exist; generated factor outputs belong in runtime/factor/analysis")
 
     completed = ROOT / "codex_exec_plans" / "completed"
     if completed.exists():

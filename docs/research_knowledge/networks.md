@@ -8,6 +8,11 @@ Network changes are only justified when they address a specific behavioral bottl
 
 Larger bundled structures, attention swaps, or MoE additions do not automatically repair drawdown or restart behavior and can hide whether the issue is policy, reward, execution, or data.
 
+## Use With Skills
+
+- `qlib-rl-trading` for training workflow constraints.
+- `post-train-backtest-review` for behavior and slice diagnostics after architecture changes.
+
 ## Evidence Path
 
 - `memory/2026-04-22-learned-mode-classifier-and-hybrid-experiments.md`

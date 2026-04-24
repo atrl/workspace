@@ -8,6 +8,10 @@ The harness needs one registry-backed path for raw symbols, external volatility 
 
 Scattered paths such as `data/generalization`, `data/multi_asset`, root-level profile pickles, and ad-hoc qlib stores make refresh state hard to audit and encourage scripts to duplicate path logic.
 
+## Use With Skills
+
+- `qlib-rl-trading` for registry-backed data preparation and qlib dataset refresh.
+
 ## Evidence Path
 
 - `data/datasets.yaml`

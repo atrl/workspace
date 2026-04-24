@@ -8,6 +8,11 @@ Fixed-actor overlays are the cleanest way to separate actor behavior from positi
 
 Generic overlay retuning is not enough when `test_2022` max drawdown and average position remain too high; widening favorable-mode envelopes also degraded other windows.
 
+## Use With Skills
+
+- `post-train-backtest-review` for fixed-actor overlay comparison.
+- `dashboard` for visual verification of execution/dashboard outputs.
+
 ## Evidence Path
 
 - `memory/2026-04-23-position-budget-productionization.md`

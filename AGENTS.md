@@ -27,6 +27,10 @@ Use these files for distinct roles. Do not collapse them together.
 - `WORKFLOW.md`: execution routing and state rules.
 - `codex_exec_plans/active/`: the live workpad for the current thread.
 - `memory/index.json`: completed or abandoned thread summaries.
+- `docs/research_knowledge/index.md`: first-stop task direction router.
+- `docs/research_knowledge/task_router.json`: machine-readable mapping from
+  task direction to knowledge file, skill, memory query, runtime path, and
+  validation commands.
 - `docs/research_knowledge/`: mechanism-specific research conclusions split by
   factor, data, model selection, network, reward, execution, and multi-asset
   lines.
@@ -40,6 +44,33 @@ Use these files for distinct roles. Do not collapse them together.
 
 Chat history is not the durable record.
 
+## Task Direction Routing
+
+Before reading broad memory or starting implementation, classify the task into
+exactly one primary direction:
+
+- `factor`: feature hypotheses, IC checks, rulebase-derived signals, signal backtests.
+- `data`: raw CSVs, qlib stores, processed panels, training caches, external data.
+- `model_selection`: checkpoints, fixed splits, promotion gates, actor retention.
+- `network`: GRU, attention, MoE, mode classifiers, asset-specific heads.
+- `reward`: Kelly, penalties, imitation, activity, opportunity cost, trade quality.
+- `execution`: fixed-actor overlays, position budgets, mode routing, dashboards.
+- `multi_asset`: TQQQ/UPRO/SPXL/TECL transfer tests or shared 3x ETF training.
+- `production`: broker adapters, paper/live execution, reconciliation, monitoring.
+- `harness`: repo structure, validation, cleanup, docs, skills, automation.
+
+Use `docs/research_knowledge/task_router.json` for research directions. The
+route determines:
+
+1. which `docs/research_knowledge/*.md` file to read,
+2. which `.codex/skills/*` workflow to invoke,
+3. which terms to pass to `scripts/memory_search.py`,
+4. which `runtime/<category>/` paths can be opened first,
+5. which validation commands prove the task.
+
+`memory/` is not a direction. It is evidence retrieval behind the selected
+direction. Do not bulk-read memory before choosing the route.
+
 ## Memory
 
 `memory/` is the continuity layer. Keep it narrow — key decisions, blockers, and
@@ -51,6 +82,12 @@ If you want future sessions to remember something important, write it down.
 Use the generated `memory/index.json` and `scripts/memory_search.py` before
 bulk-reading memory notes. Retrieval should start from the index, then open only
 the top matching notes unless that first pass is insufficient.
+
+Memory retrieval must be scoped by task direction. Example:
+
+- factor work: `qlib_venv/bin/python scripts/memory_search.py factor signal rulebase`
+- model-selection work: `qlib_venv/bin/python scripts/memory_search.py checkpoint selection promotion`
+- execution work: `qlib_venv/bin/python scripts/memory_search.py overlay position budget mode routing`
 
 ## Workpad Discipline
 
@@ -274,6 +311,7 @@ When orienting to the repo, prefer indexes and summaries before raw outputs.
   - then `notes.md`
 - `docs/research_knowledge/`:
   - read `docs/research_knowledge/index.md`
+  - read `docs/research_knowledge/task_router.json`
   - then the one mechanism file relevant to the proposed change
 - `runtime/`:
   - read `runtime/README.md`

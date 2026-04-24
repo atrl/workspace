@@ -16,14 +16,16 @@ Restructure the harness knowledge, workpad, experiment, skill, and data surfaces
 
 ## Active Task
 
-- Implementation: collapse source-of-truth surfaces into category-first iteration paths.
+- Direction: `harness` cleanup for task routing and knowledge retrieval.
+- Implementation: make every future iteration choose a primary task direction before reading memory or runtime artifacts.
 - Acceptance criteria:
   - active workpads stay short and indexed: done via `current.md` plus `memory/index.json`
   - research knowledge is split by mechanism category: done via `docs/research_knowledge/`
+  - task direction routes connect knowledge -> skill -> memory query -> runtime path: done via `docs/research_knowledge/task_router.json`
   - experiment packages are concise cards, not runtime logs: done via card checks
   - data paths are registry-backed and ready for automated refresh checks: done via `data/datasets.yaml`
   - generated research artifacts are category-organized under `runtime/`
-  - stale boundary regressions are mechanically blocked: done via `scripts/check_source_boundaries.py`
+  - stale boundary regressions are mechanically blocked: done via `scripts/check_source_boundaries.py` and `scripts/check_research_task_router.py`
 
 ## Evidence Links
 
@@ -32,6 +34,7 @@ Restructure the harness knowledge, workpad, experiment, skill, and data surfaces
 - Experiment index: `experiments/index.md`
 - Data registry: `data/datasets.yaml`
 - Runtime index: `runtime/index.json`
+- Task router: `docs/research_knowledge/task_router.json`
 
 ## Commands
 
@@ -49,8 +52,9 @@ Restructure the harness knowledge, workpad, experiment, skill, and data surfaces
 - `scripts/update_data_registry.py --check`: OK, symbols=5, panels=10, qlib=6.
 - `scripts/build_runtime_index.py --check`: OK.
 - `scripts/check_source_boundaries.py`: OK.
-- `scripts/check_harness.py`: OK, passed=62, failures=0.
+- `scripts/check_research_task_router.py`: OK, directions=7.
+- `scripts/check_harness.py`: OK, passed=62, failures=0, py_compile targets=30.
 
 ## Next Action
 
-Validate, commit, and push the category-first cleanup.
+Validate, commit, and push the task-direction router cleanup.

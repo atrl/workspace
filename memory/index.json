@@ -2319,7 +2319,9 @@
       "soxl",
       "stress-regime"
     ],
-    "artifacts": [],
+    "artifacts": [
+      "runtime/factor/analysis/"
+    ],
     "workpad": "memory/index.json",
     "summary": "Legacy memory note normalized into the repo-wide schema. 将 agentic-alpha 的因子挖掘方法论适配到 SOXL 单标的择时场景，建立独立于 RL 训练的特征挖掘、验证、入库体系。 原始：每日截面 Spearman（多股票横截面排名） 适配：滚动 21 日时序 Pearson 相关（单标的时间序列） 判定标准：`mean_ic > 0.03`, `ic_positive_ratio > 0.55`, `ic_t",
     "excerpt": "# SOXL 特征挖掘 Skill 适配完成 ## Context Legacy memory note normalized into the repo-wide schema. ## Evidence ## 目标 将 agentic-alpha 的因子挖掘方法论适配到 SOXL 单标的择时场景，建立独立于 RL 训练的特征挖掘、验证、入库体系。 ## 核心适配 ### 1. 从截面 Rank IC 转时序 IC - 原始：每日截面 Spearman（多股票横截面排名） - 适配：滚动 21 日时序 Pearson 相关（单标的时间序列） - 判定标准"
@@ -2557,6 +2559,24 @@
     "workpad": "codex_exec_plans/active/current.md",
     "summary": "Runtime is now execution state only, generated research artifacts live under evidence, 3x ETF universe config is explicit, and boundary drift is checked by the harness.",
     "excerpt": "# Source boundary refactor for evidence, runtime, and data ## Context The previous cleanup still left responsibilities blurred between `memory/`, `experiments/`, `production/`, `runtime/`, and physical data paths. ## Decision Keep responsibilities narrow: - `runtime/`: live execu"
+  },
+  {
+    "path": "memory/2026-04-24-task-direction-router.md",
+    "date": "2026-04-24",
+    "title": "Task direction router for research knowledge and skills",
+    "kind": "ops",
+    "profiles": [],
+    "status": "kept",
+    "tags": [
+      "kept",
+      "ops"
+    ],
+    "artifacts": [
+      "runtime/factor/analysis/"
+    ],
+    "workpad": "codex_exec_plans/active/current.md",
+    "summary": "Added a task-direction router so future sessions classify work as factor, data, model_selection, network, reward, execution, or multi_asset before querying memory or opening runtime artifacts. Research knowledge now links directly to relevant skills and route-specific memory queries.",
+    "excerpt": "# Task direction router for research knowledge and skills ## Context The previous cleanup still left an important ambiguity: `memory/` looked like a parallel task surface, while `docs/research_knowledge/` and `.codex/skills/` were not directly connected. That made it unclear whet"
   },
   {
     "path": "memory/2026-04-24-transition-signals-rejected.md",

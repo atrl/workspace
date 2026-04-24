@@ -8,6 +8,10 @@ Checkpoint choice often matters more than longer training. Several branches peak
 
 Do not assume a branch is undertrained when validation improves but `test_2022` average position or max drawdown worsens.
 
+## Use With Skills
+
+- `post-train-backtest-review` for checkpoint comparison, fixed-split diagnosis, and promotion review.
+
 ## Evidence Path
 
 - `memory/2026-04-18-checkpoint-review-and-overlay-loop.md`

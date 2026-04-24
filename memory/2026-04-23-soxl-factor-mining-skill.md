@@ -10,7 +10,8 @@ tags:
 - skill
 - soxl
 - stress-regime
-artifacts: []
+artifacts:
+- runtime/factor/analysis/
 workpad: memory/index.json
 summary: "Legacy memory note normalized into the repo-wide schema. \u5C06 agentic-alpha\
   \ \u7684\u56E0\u5B50\u6316\u6398\u65B9\u6CD5\u8BBA\u9002\u914D\u5230 SOXL \u5355\
@@ -105,7 +106,7 @@ Legacy memory note normalized into the repo-wide schema.
 - `.codex/skills/soxl-signal-backtest/` — 信号回测 skill
 - `.codex/skills/soxl-factor-research/` — 特征研究 skill
 - `data/soxl_factor_library.db` — SQLite 因子库
-- `docs/factor_research/` — 研究文档和结果
+- `runtime/factor/analysis/` — 研究文档和结果
 
 ## 修改文件
 

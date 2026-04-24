@@ -1,0 +1,62 @@
+{
+  "version": 1,
+  "purpose": "Route each new iteration by task direction before reading raw memory or runtime artifacts.",
+  "directions": {
+    "factor": {
+      "use_when": "feature hypotheses, IC checks, rulebase-derived factors, signal validation",
+      "knowledge": "docs/research_knowledge/factors.md",
+      "skills": ["soxl-factor-research", "soxl-factor-mining", "soxl-signal-backtest"],
+      "memory_query": ["factor", "feature", "signal", "rulebase"],
+      "runtime": ["runtime/factor/analysis/"],
+      "validation": ["scripts/check_research_knowledge.py", "scripts/check_source_boundaries.py"]
+    },
+    "data": {
+      "use_when": "raw CSV refresh, qlib stores, processed panels, training caches, external volatility inputs",
+      "knowledge": "docs/research_knowledge/data.md",
+      "skills": ["qlib-rl-trading"],
+      "memory_query": ["data", "qlib", "multi asset", "registry"],
+      "runtime": ["runtime/data/"],
+      "validation": ["scripts/update_data_registry.py --check", "scripts/check_source_boundaries.py"]
+    },
+    "model_selection": {
+      "use_when": "checkpoint choice, promotion gates, fixed split comparison, early stopping, actor retention",
+      "knowledge": "docs/research_knowledge/model_selection.md",
+      "skills": ["post-train-backtest-review"],
+      "memory_query": ["checkpoint", "selection", "promotion", "fixed split"],
+      "runtime": ["runtime/model/reviews/", "runtime/model/diagnosis/"],
+      "validation": ["scripts/check_harness.py"]
+    },
+    "network": {
+      "use_when": "GRU, attention, MoE, mode classifier, temporal context, asset-specific heads",
+      "knowledge": "docs/research_knowledge/networks.md",
+      "skills": ["qlib-rl-trading", "post-train-backtest-review"],
+      "memory_query": ["network", "GRU", "attention", "MoE", "classifier"],
+      "runtime": ["runtime/network/", "runtime/model/reviews/"],
+      "validation": ["scripts/check_harness.py"]
+    },
+    "reward": {
+      "use_when": "reward penalties, Kelly terms, imitation, activity, opportunity cost, trade-quality shaping",
+      "knowledge": "docs/research_knowledge/rewards.md",
+      "skills": ["rl-kelly-integration", "post-train-backtest-review"],
+      "memory_query": ["reward", "Kelly", "imitation", "activity", "opportunity cost"],
+      "runtime": ["runtime/model/reviews/", "runtime/model/diagnosis/"],
+      "validation": ["scripts/check_harness.py"]
+    },
+    "execution": {
+      "use_when": "fixed-actor overlays, position budgets, mode routing, dashboards, runtime mapping",
+      "knowledge": "docs/research_knowledge/execution_overlays.md",
+      "skills": ["post-train-backtest-review", "dashboard"],
+      "memory_query": ["overlay", "execution", "position budget", "mode routing"],
+      "runtime": ["runtime/execution/", "runtime/model/reviews/"],
+      "validation": ["scripts/build_runtime_index.py --check", "scripts/check_harness.py"]
+    },
+    "multi_asset": {
+      "use_when": "TQQQ, UPRO, SPXL, TECL transfer tests or shared leveraged-ETF training",
+      "knowledge": "docs/research_knowledge/multi_asset.md",
+      "skills": ["qlib-rl-trading", "soxl-signal-backtest"],
+      "memory_query": ["multi asset", "TQQQ", "UPRO", "SPXL", "TECL", "cross ETF"],
+      "runtime": ["runtime/execution/generalization/", "runtime/data/"],
+      "validation": ["scripts/update_data_registry.py --check", "scripts/check_harness.py"]
+    }
+  }
+}

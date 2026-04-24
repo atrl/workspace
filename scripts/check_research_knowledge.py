@@ -20,6 +20,7 @@ REQUIRED_FILES = [
 REQUIRED_HEADINGS = [
     "## Retained Insight",
     "## Failed Pattern",
+    "## Use With Skills",
     "## Evidence Path",
     "## Reusable Method",
     "## Next Valid Experiment Type",
@@ -30,9 +31,12 @@ ACTIVE_LINE_BUDGET = 300
 def main() -> int:
     failures: list[str] = []
     index_path = KNOWLEDGE_DIR / "index.md"
+    router_path = KNOWLEDGE_DIR / "task_router.json"
     index_text = index_path.read_text(encoding="utf-8") if index_path.exists() else ""
     if not index_text:
         failures.append("missing docs/research_knowledge/index.md")
+    if not router_path.exists():
+        failures.append("missing docs/research_knowledge/task_router.json")
     for name in REQUIRED_FILES:
         path = KNOWLEDGE_DIR / name
         if not path.exists():

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-24T10:34:51.198907+00:00",
+  "generated_at": "2026-04-24T10:59:02.875720+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -12,6 +12,108 @@
       "category": "execution",
       "suffix": ".html",
       "bytes": 33555670
+    },
+    {
+      "path": "runtime/factor/analysis/backtest_ACAD_AMIHUD_ZSCORE.csv",
+      "category": "factor",
+      "suffix": ".csv",
+      "bytes": 1973
+    },
+    {
+      "path": "runtime/factor/analysis/backtest_ACAD_DOWN_RUNS.csv",
+      "category": "factor",
+      "suffix": ".csv",
+      "bytes": 1286
+    },
+    {
+      "path": "runtime/factor/analysis/backtest_ACAD_DOWN_UP_RATIO.csv",
+      "category": "factor",
+      "suffix": ".csv",
+      "bytes": 1973
+    },
+    {
+      "path": "runtime/factor/analysis/backtest_ACAD_DOWN_UP_RATIO_63.csv",
+      "category": "factor",
+      "suffix": ".csv",
+      "bytes": 1947
+    },
+    {
+      "path": "runtime/factor/analysis/backtest_ACAD_INTRADAY_REVERSAL_21.csv",
+      "category": "factor",
+      "suffix": ".csv",
+      "bytes": 2026
+    },
+    {
+      "path": "runtime/factor/analysis/backtest_ACAD_VOLATILITY_DRAG.csv",
+      "category": "factor",
+      "suffix": ".csv",
+      "bytes": 2009
+    },
+    {
+      "path": "runtime/factor/analysis/backtest_RB_BUY_COMPOSITE.csv",
+      "category": "factor",
+      "suffix": ".csv",
+      "bytes": 1977
+    },
+    {
+      "path": "runtime/factor/analysis/backtest_RB_COOLDOWN_PROXY.csv",
+      "category": "factor",
+      "suffix": ".csv",
+      "bytes": 1861
+    },
+    {
+      "path": "runtime/factor/analysis/backtest_RB_PANIC_SCORE_PROXY.csv",
+      "category": "factor",
+      "suffix": ".csv",
+      "bytes": 1976
+    },
+    {
+      "path": "runtime/factor/analysis/backtest_RB_RSI6_OVERSOLD.csv",
+      "category": "factor",
+      "suffix": ".csv",
+      "bytes": 1012
+    },
+    {
+      "path": "runtime/factor/analysis/backtest_RB_VOLUME_STRESS.csv",
+      "category": "factor",
+      "suffix": ".csv",
+      "bytes": 1980
+    },
+    {
+      "path": "runtime/factor/analysis/backtest_TRANS_GAP_RECOVERY.csv",
+      "category": "factor",
+      "suffix": ".csv",
+      "bytes": 1
+    },
+    {
+      "path": "runtime/factor/analysis/backtest_TRANS_PANIC_EXHAUSTION.csv",
+      "category": "factor",
+      "suffix": ".csv",
+      "bytes": 1
+    },
+    {
+      "path": "runtime/factor/analysis/backtest_TRANS_SPRING_COMPRESSION.csv",
+      "category": "factor",
+      "suffix": ".csv",
+      "bytes": 1
+    },
+    {
+      "path": "runtime/factor/analysis/backtest_TRANS_VIX_DIVERGENCE.csv",
+      "category": "factor",
+      "suffix": ".csv",
+      "bytes": 1888
+    },
+    {
+      "path": "runtime/factor/analysis/factor_ic_results.csv",
+      "category": "factor",
+      "suffix": ".csv",
+      "bytes": 466
+    },
+    {
+      "path": "runtime/factor/analysis/feature_correlation_matrix.csv",
+      "category": "factor",
+      "suffix": ".csv",
+      "bytes": 73473
     },
     {
       "path": "runtime/model/diagnosis/deep_dive_rl_vs_rulebased.md",

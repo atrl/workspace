@@ -8,9 +8,15 @@ Rulebase-derived timing signals can be useful as independent factors when judged
 
 Do not promote a feature because it improves a local validation window if it increases fixed-split `test_2022` exposure or duplicates existing core features above the correlation budget.
 
+## Use With Skills
+
+- `soxl-factor-research` for hypothesis generation.
+- `soxl-factor-mining` for IC / stability / correlation checks.
+- `soxl-signal-backtest` for independent signal validation before RL changes.
+
 ## Evidence Path
 
-- `docs/factor_research/`
+- `runtime/factor/analysis/`
 - `data/soxl_factor_library.db`
 - `memory/2026-04-23-soxl-factor-mining-skill.md`
 

@@ -8,6 +8,11 @@ The successful family keeps useful risk guardrails while avoiding activity terms
 
 Reward-only tuning, stronger penalties, imitation bonuses, or simplified rewards repeatedly failed when they increased conservatism globally or created fixed low-position collapse.
 
+## Use With Skills
+
+- `rl-kelly-integration` for Kelly/reward design lessons.
+- `post-train-backtest-review` for trade-quality and slice diagnostics after reward changes.
+
 ## Evidence Path
 
 - `memory/2026-04-22-simplified-reward-failure-and-refined-direction.md`

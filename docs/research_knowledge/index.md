@@ -1,25 +1,33 @@
 # Research Knowledge Index
 
-This directory is the mechanism-level recall surface for SOXL and related leveraged-ETF strategy work. Start here before opening runtime logs or long memory notes.
+This directory is the task-direction router for SOXL and related leveraged-ETF strategy work. Start here before opening raw memory notes, runtime artifacts, or experiment packages.
 
-## Categories
+## First Decision: What Kind Of Task Is This?
 
-| Category | File | Use when |
-|---|---|---|
-| Factors | `factors.md` | evaluating feature hypotheses, rulebase-derived signals, IC, or signal validation |
-| Data | `data.md` | refreshing CSVs, qlib stores, feature caches, or external volatility data |
-| Model selection | `model_selection.md` | choosing checkpoints, promotion gates, fixed splits, or early stopping |
-| Networks | `networks.md` | changing GRU/attention/MoE/asset-head architecture |
-| Rewards | `rewards.md` | changing reward penalties, opportunity cost, Kelly, imitation, or activity terms |
-| Execution overlays | `execution_overlays.md` | changing fixed-actor risk budgets, mode routing, position caps, or runtime mapping |
-| Multi-asset | `multi_asset.md` | testing SOXL logic against TQQQ/UPRO/SPXL/TECL or shared 3x ETF training |
+| Direction | Knowledge | Skills | Use when |
+|---|---|---|---|
+| Factor | `factors.md` | `soxl-factor-research`, `soxl-factor-mining`, `soxl-signal-backtest` | feature hypotheses, IC, rulebase-derived signals, independent signal validation |
+| Data | `data.md` | `qlib-rl-trading` | raw CSVs, qlib stores, processed panels, training caches, external volatility inputs |
+| Model selection | `model_selection.md` | `post-train-backtest-review` | checkpoints, promotion gates, fixed splits, early stopping, actor retention |
+| Network | `networks.md` | `qlib-rl-trading`, `post-train-backtest-review` | GRU, attention, MoE, mode classifiers, temporal context, asset-specific heads |
+| Reward | `rewards.md` | `rl-kelly-integration`, `post-train-backtest-review` | reward penalties, Kelly, imitation, activity, opportunity cost, trade quality |
+| Execution | `execution_overlays.md` | `post-train-backtest-review`, `dashboard` | fixed-actor overlays, position budgets, mode routing, dashboards, runtime mapping |
+| Multi-asset | `multi_asset.md` | `qlib-rl-trading`, `soxl-signal-backtest` | TQQQ/UPRO/SPXL/TECL transfer tests or shared leveraged-ETF training |
+
+Machine-readable route: `task_router.json`.
 
 ## Retrieval Rule
 
-1. Read the category file for the proposed mechanism.
-2. Check `docs/experiment-landscape-review.md` for the master comparison table.
-3. Query `memory/index.json` through `scripts/memory_search.py` for exact evidence.
-4. Open runtime artifacts only after a category file or memory note points to them.
+1. Pick exactly one primary direction from the table above.
+2. Read that direction's knowledge file.
+3. Invoke the listed skill before changing code or running a new experiment.
+4. Query memory with the route's `memory_query` terms through `scripts/memory_search.py`.
+5. Open runtime artifacts only from the route's `runtime` paths.
+6. Record the chosen direction in `codex_exec_plans/active/current.md` before execution.
+
+## Memory Role
+
+`memory/` is not a task category. It is evidence retrieval behind the selected direction. Do not start by reading broad memory files; start from `task_router.json`, then query memory for the chosen direction.
 
 ## Canonical Anchors
 
