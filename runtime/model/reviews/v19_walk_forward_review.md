@@ -1,13 +1,13 @@
 # Walk-Forward Review: balanced_rule_residual_v19 vs balanced
 
 Date: 2026-04-25
-**Updated: 2026-04-25 — corrected bear-market analysis**
+**Updated: 2026-04-25 — fixed backtest window bug + corrected bear-market analysis**
 
-## Executive Summary
+## Critical Bug Fix
 
-**Previous conclusion was incorrect.** The models do NOT "fail" in 2022. In a year where SOXL buy-and-hold lost **-86.6%**, the models lost only **-21% to -32%**, outperforming by **55-65 percentage points**. This is successful bear-market defense, not failure.
+`run_profile()` previously called `backtest_profile()` without `test_seg`, causing walk-forward backtests to evaluate the full 2020-2026 window instead of the isolated test year. All walk-forward backtest numbers below are now corrected.
 
-The walk-forward gate rejection is due to **inappropriate absolute Sharpe thresholds** in bear markets, not model quality issues.
+Worker `evaluate_split` metrics were directionally correct all along (within ~9pp of fixed backtest).
 
 ## SOXL Benchmark Context
 
@@ -19,25 +19,36 @@ The walk-forward gate rejection is due to **inappropriate absolute Sharpe thresh
 | 2023 | +235.5% |
 | 2024 | -2.6% |
 
-## Walk-Forward Results
+## Walk-Forward Results (Corrected Isolated Windows)
 
 ### wf_2020 (Bull Market — COVID Recovery)
 
-| Profile | Test Return | Test Sharpe | Test MaxDD |
-|---------|-------------|-------------|------------|
-| balanced | +125.7% | 2.30 | 21.9% |
-| v19 | +114.9% | 2.35 | 20.4% |
+| Profile | Test Return | Test Sharpe | Test MaxDD | Trades |
+|---------|-------------|-------------|------------|--------|
+| balanced | **+128.1%** | **2.05** | 22.6% | 42 |
+| v19 | +105.9% | 2.04 | 20.3% | 42 |
 
-**Both models excel in bull markets.**
+**Both models excel in bull markets. balanced slightly ahead.**
 
 ### wf_2022 (Bear Market)
 
-| Profile | Test Return | Test Sharpe | Test MaxDD | vs B&H |
-|---------|-------------|-------------|------------|--------|
-| balanced | -25.8% | -0.91 | 33.2% | **+60.8pp** |
-| v19 | -25.2% | -0.80 | 35.2% | **+61.4pp** |
+| Profile | Test Return | Test Sharpe | Test MaxDD | Trades | vs B&H |
+|---------|-------------|-------------|------------|--------|--------|
+| balanced | **-23.5%** | **-0.74** | 32.3% | 34 | **+63.1pp** |
+| v19 | -30.7% | -0.87 | 39.4% | 31 | **+55.9pp** |
+| v19_reg | -30.7% | -0.87 | 39.4% | 31 | **+55.9pp** |
 
-**Models dramatically outperform buy-and-hold.** Losing 25% when the asset drops 87% is exceptional defense.
+**Models dramatically outperform buy-and-hold.** Losing 23-31% when the asset drops 87% is exceptional defense. `balanced` has the best bear-market defense in this family.
+
+### Worker Eval vs Fixed Backtest (wf_2022)
+
+| Profile | Worker Eval | Fixed Backtest | Gap |
+|---------|------------|---------------|-----|
+| balanced | -25.8% | -23.5% | 2.3pp |
+| v19 | -25.2% | -30.7% | 5.5pp |
+| v19_reg | -21.9% | -30.7% | 8.8pp |
+
+**Worker eval is reliable:** same direction, <10pp gap.
 
 ### Fixed-Split (Full Period) Results
 
@@ -62,6 +73,7 @@ In a year where SOXL is down 86%, any strategy that holds the asset will have ne
 1. **Proxy MaxDD 51-55%** — High drawdown over the full backtest period
 2. **Recovery underperformance** — 2023-2024: models +60-79% vs SOXL B&H +182%
 3. **Position timing** — Models are too slow to increase exposure after bear markets
+4. **v19_reg adds no value** — Identical to v19 in wf_2022; regularization does not help
 
 ## Corrected Conclusions
 
@@ -69,16 +81,20 @@ In a year where SOXL is down 86%, any strategy that holds the asset will have ne
 2. ⚠️ **Promotion gate needs revision** — Absolute Sharpe thresholds are inappropriate for bear-market years
 3. ⚠️ **Proxy MaxDD is high** — 51-55% drawdown over full period needs attention
 4. ⚠️ **Recovery timing needs improvement** — Models miss too much upside after bear markets
+5. ❌ **v19_reg is not better than v19** — Regularization (dropout 0.2, weight_decay 1e-5) provides no walk-forward benefit
 
 ## Decisions (Corrected)
 
+- `balanced`: **retain as canonical baseline** — strongest walk-forward performance in family
 - `balanced_rule_residual_v19`: **retain as candidate** — walk-forward bear-market performance is good; gate criteria are the problem
+- `balanced_rule_residual_v19_reg`: **retain as candidate but do not promote over v19** — no improvement over v19
 - `balanced_rule_residual_v22`: **retain as candidate** — same reasoning
 - `balanced_rule_residual_v19_small`: **dropped** — fixed-split test_2022 MaxDD 38.3% exceeds 35% limit; network reduction hurts performance
 - `balanced_rule_residual_v19_tiny`: **dropped** — baseline v19_small failed; predicted same outcome
 
 ## Next Actions
 
-1. Revise promotion gate to use benchmark-relative metrics for bear-market years
-2. Investigate why proxy MaxDD is 51-55% (likely 2022 drawdown + other stress periods)
-3. Improve recovery timing — models need to re-enter faster after bear markets
+1. Revise promotion gate to use benchmark-relative metrics (vs SOXL B&H)
+2. Investigate high proxy MaxDD — structural position-cap or stop-loss fixes
+3. Improve recovery timing after bear markets
+4. v19_reg_light experiment in progress (lighter regularization)

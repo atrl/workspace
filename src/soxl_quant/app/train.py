@@ -170,6 +170,10 @@ def run_profile(
         test_proxy=test_proxy,
         promotion_report=promotion_report,
     )
+    test_seg = (
+        str(test_df.index.min().date()) if hasattr(test_df.index.min(), "date") else str(test_df.index.min()),
+        str(test_df.index.max().date()) if hasattr(test_df.index.max(), "date") else str(test_df.index.max()),
+    )
     bt_result = backtest_profile(
         actor,
         test_df,
@@ -180,6 +184,7 @@ def run_profile(
         feature_columns=feature_columns,
         model_config=profile.model,
         mode_router_config=profile.mode_router,
+        test_seg=test_seg,
     )
     bt_result["valid"] = valid_metrics
     bt_result["selection_history"] = selection["history"]

@@ -308,7 +308,7 @@ profiles:
   keep_summary: true
   notes_ref: runtime/model/reviews/v19_walk_forward_review.md
   wf_status: failed
-  wf_notes: wf_2020 Sharpe 2.35 (bull OK); wf_2022 Sharpe -0.80, return -25.2%, MaxDD 35.2%; canonical balanced equally bad (Sharpe -0.91). Family-level bear-market failure.
+  wf_notes: wf_2020 return +105.9% Sharpe 2.04 MaxDD 20.3% (bull OK); wf_2022 return -30.7% Sharpe -0.87 MaxDD 39.4% — vs SOXL B&H -86.6%, outperforms by +55.9pp. Bear-market defense is successful; gate rejection due to inappropriate absolute Sharpe threshold in bear year. Worker eval (-25.2%) directionally correct, 5.5pp gap from fixed backtest (-30.7%).
 - name: balanced_rule_residual_learned_mode_v1
   family: balanced
   status: dropped
@@ -770,7 +770,7 @@ profiles:
     keep_summary: true
     notes_ref: runtime/model/reviews/v19_reg_walk_forward_review.md
     wf_status: completed
-    wf_notes: Walk-forward complete. wf_2020 +181.3% Sharpe 0.59; wf_2022 +42.2% Sharpe 0.34 MaxDD 61.6%; wf_2023_2024 -7.1% Sharpe 0.05 MaxDD 43.4%. vs v19: wf_2022 v19=+67.6% > v19_reg=+42.2%. Promotion blocked. Worker eval (-23.9%) massively differs from backtest (+42.2%) — 66pp gap.
+    wf_notes: Walk-forward complete. BUG FIXED: prior backtest used full 2020-2026 window due to missing test_seg. Corrected isolated-window backtest: wf_2020 +102.5% Sharpe 1.92 MaxDD 20.8%; wf_2022 -30.7% Sharpe -0.87 MaxDD 39.4%; wf_2024 -17.4% Sharpe -0.30 MaxDD 35.6%. vs v19: wf_2020 v19=+105.9% > v19_reg=+102.5%, wf_2022 identical. Worker eval (-21.9%) directionally correct, 8.8pp gap from fixed backtest. Regularization does NOT improve walk-forward over v19.
   - name: balanced_rule_residual_v19_reg_light
     family: balanced
     status: candidate
