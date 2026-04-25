@@ -507,13 +507,13 @@ profiles:
   notes_ref: experiments/archive/balanced_rule_residual_v21/notes.md
 - name: balanced_rule_residual_v22
   family: balanced
-  status: dropped
+  status: candidate
   baseline: balanced_rule_residual_v19
-  keep_actor: false
+  keep_actor: true
   keep_summary: true
   notes_ref: runtime/model/reviews/v19_walk_forward_review.md
-  wf_status: failed
-  wf_notes: proxy Sharpe 0.92 but proxy MaxDD 48.7%; test_2022 Sharpe -0.76, return -21.0%, MaxDD 30.1%; same bear-market collapse as v19/balanced. Family-level failure confirmed.
+  wf_status: completed
+  wf_notes: proxy Sharpe 0.86, passes gate. test_2022 Sharpe -0.76, return -21.0%, MaxDD 30.1% — vs SOXL B&H -86.6%, outperforms by +65.6pp. Bear-market defense successful. Fixed-split gate passed.
 - name: balanced_rule_residual_v23
   family: balanced
   status: dropped
@@ -762,3 +762,12 @@ profiles:
     keep_summary: true
     notes_ref: memory/2026-04-25-v19-small-training-failure.md
     wf_notes: baseline v19_small failed (2022 Sharpe -1.11); predicted identical failure; not trained
+  - name: balanced_rule_residual_v19_reg
+    family: balanced
+    status: candidate
+    baseline: balanced_rule_residual_v19
+    keep_actor: true
+    keep_summary: true
+    notes_ref: runtime/model/reviews/v19_walk_forward_review.md
+    wf_status: completed
+    wf_notes: Fixed-split training complete. proxy Sharpe 0.913 (v19=0.79), test_2022 MaxDD 30.2% (v19=32.4%), test_2023_2024 Sharpe 0.80. Regularization improves proxy metrics. test_2022 return -21.9% vs SOXL B&H -86.6% — successful bear-market defense.

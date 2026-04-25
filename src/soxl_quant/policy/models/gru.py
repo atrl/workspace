@@ -19,12 +19,14 @@ class GRUNet(nn.Module):
         gru_hidden_size: int,
         mlp_hidden_sizes: list[int],
         device: str = "cpu",
+        dropout: float = 0.0,
     ):
         super().__init__()
         self.feature_dim = feature_dim
         self.observation_window = observation_window
         self.gru_hidden_size = gru_hidden_size
         self.device = device
+        self.dropout_p = dropout
 
         extra_dim = obs_dim - feature_dim * observation_window
         self.extra_dim = max(extra_dim, 0)
@@ -40,12 +42,19 @@ class GRUNet(nn.Module):
         mlp_input_dim = gru_hidden_size + self.extra_dim
         layers = []
         prev_dim = mlp_input_dim
-        for h in mlp_hidden_sizes:
+        for i, h in enumerate(mlp_hidden_sizes):
             layers.append(nn.Linear(prev_dim, h))
             layers.append(nn.ReLU(inplace=True))
+            if dropout > 0.0:
+                layers.append(nn.Dropout(p=dropout))
             prev_dim = h
         self.mlp = nn.Sequential(*layers)
         self.output_dim = prev_dim
+
+        if dropout > 0.0:
+            self.gru_dropout = nn.Dropout(p=dropout)
+        else:
+            self.gru_dropout = None
 
         self.to(device)
 
@@ -77,6 +86,8 @@ class GRUNet(nn.Module):
         # GRU
         gru_out, hidden = self.gru(window_features, state)
         gru_last = gru_out[:, -1, :]  # (batch, gru_hidden_size)
+        if self.gru_dropout is not None:
+            gru_last = self.gru_dropout(gru_last)
 
         # Concatenate with extra features
         if extra_features is not None:

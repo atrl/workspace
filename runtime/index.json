@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-25T09:07:39.188348+00:00",
+  "generated_at": "2026-04-25T13:17:09.670087+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -656,10 +656,16 @@
       "bytes": 1744
     },
     {
+      "path": "runtime/model/reviews/balanced_rule_residual_v19_reg_soxl_daily.csv",
+      "category": "model",
+      "suffix": ".csv",
+      "bytes": 179385
+    },
+    {
       "path": "runtime/model/reviews/balanced_rule_residual_v19_small_soxl_daily.csv",
       "category": "model",
       "suffix": ".csv",
-      "bytes": 197401
+      "bytes": 88635
     },
     {
       "path": "runtime/model/reviews/balanced_rule_residual_v19_soxl_daily.csv",
@@ -671,7 +677,7 @@
       "path": "runtime/model/reviews/balanced_rule_residual_v22_soxl_daily.csv",
       "category": "model",
       "suffix": ".csv",
-      "bytes": 196319
+      "bytes": 88569
     },
     {
       "path": "runtime/model/reviews/balanced_soxl_daily.csv",
@@ -1139,7 +1145,7 @@
       "path": "runtime/model/reviews/v19_walk_forward_review.md",
       "category": "model",
       "suffix": ".md",
-      "bytes": 4129
+      "bytes": 3598
     },
     {
       "path": "runtime/multi_asset/cards/soxl_baseline/card.md",

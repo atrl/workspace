@@ -218,6 +218,7 @@ class ModelConfig:
     temporal_conv_kernel: int = 3
     use_gru: bool = False
     gru_hidden_size: int = 64
+    dropout: float = 0.0
     use_attention: bool = False
     attention_dim: int = 64
     attention_heads: int = 4
@@ -330,6 +331,7 @@ class StrategyConfig:
     discount_factor: float = 0.99
     gae_lambda: float = 0.95
     ent_coef: float = 0.01
+    weight_decay: float = 0.0
 
 
 def _load_yaml(path: Path) -> Dict[str, Any]:
@@ -438,4 +440,5 @@ def load_profile(name: str) -> StrategyConfig:
         discount_factor=float(payload.get("discount_factor", 0.99)),
         gae_lambda=float(payload.get("gae_lambda", 0.95)),
         ent_coef=float(payload.get("ent_coef", 0.01)),
+        weight_decay=float(payload.get("weight_decay", 0.0)),
     )

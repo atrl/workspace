@@ -67,6 +67,7 @@ def _build_net(obs_dim: int, profile: StrategyConfig, model_cfg):
             gru_hidden_size=int(model_cfg.gru_hidden_size),
             mlp_hidden_sizes=list(profile.hidden_sizes),
             device="cpu",
+            dropout=float(getattr(model_cfg, "dropout", 0.0)),
         )
     if effective_use_moe:
         return RegimeMoENet(
@@ -105,9 +106,10 @@ def build_policy(
         critic2_raw = Actor(critic2_net, n_actions, softmax_output=False, device="cpu")
         critic1 = QNetwork(critic1_raw)
         critic2 = QNetwork(critic2_raw)
-        actor_optim = torch.optim.Adam(actor.parameters(), lr=profile.lr)
-        critic1_optim = torch.optim.Adam(critic1.parameters(), lr=profile.lr)
-        critic2_optim = torch.optim.Adam(critic2.parameters(), lr=profile.lr)
+        wd = float(getattr(profile, "weight_decay", 0.0))
+        actor_optim = torch.optim.Adam(actor.parameters(), lr=profile.lr, weight_decay=wd)
+        critic1_optim = torch.optim.Adam(critic1.parameters(), lr=profile.lr, weight_decay=wd)
+        critic2_optim = torch.optim.Adam(critic2.parameters(), lr=profile.lr, weight_decay=wd)
         policy = DiscreteSACPolicy(
             actor=actor,
             actor_optim=actor_optim,
@@ -133,7 +135,8 @@ def build_policy(
         critic_net = shared_net
     actor = Actor(actor_net, n_actions, device="cpu")
     critic = Critic(critic_net, device="cpu")
-    optim = torch.optim.Adam(list(actor.parameters()) + list(critic.parameters()), lr=profile.lr)
+    wd = float(getattr(profile, "weight_decay", 0.0))
+    optim = torch.optim.Adam(list(actor.parameters()) + list(critic.parameters()), lr=profile.lr, weight_decay=wd)
     policy_cls = SoxlPPOPolicy if effective_use_moe else PPOPolicy
     policy_kwargs = dict(
         actor=actor,
