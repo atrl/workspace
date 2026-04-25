@@ -745,3 +745,20 @@ profiles:
   keep_actor: false
   keep_summary: true
   notes_ref: experiments/candidate/balanced_rule_residual_v19_transition/notes.md
+  - name: balanced_rule_residual_v19_small
+    family: balanced
+    status: dropped
+    baseline: balanced_rule_residual_v19
+    keep_actor: false
+    keep_summary: true
+    notes_ref: memory/2026-04-25-v19-small-training-failure.md
+    wf_status: failed
+    wf_notes: proxy Sharpe 0.84 passes threshold but test_2022 Sharpe -1.11, return -31.6%, MaxDD 38.3%; worst bear-market performance in residual family. test_2023_2024 MaxDD 41.9% also poor.
+  - name: balanced_rule_residual_v19_tiny
+    family: balanced
+    status: dropped
+    baseline: balanced_rule_residual_v19_small
+    keep_actor: false
+    keep_summary: true
+    notes_ref: memory/2026-04-25-v19-small-training-failure.md
+    wf_notes: baseline v19_small failed (2022 Sharpe -1.11); predicted identical failure; not trained
