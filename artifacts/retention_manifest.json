@@ -1,17 +1,95 @@
 {
-  "generated_at": "2026-04-25T05:00:38.225835+00:00",
+  "generated_at": "2026-04-25T08:02:23.655117+00:00",
   "entries": [
     {
       "path": "artifacts/models/soxl_balanced_actor.pt",
       "action": "keep",
       "reason": "registry keep_actor for canonical profile",
-      "size_bytes": 68773
+      "size_bytes": 82597
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_v19_actor.pt",
+      "action": "delete",
+      "reason": "registry drop actor for dropped profile",
+      "size_bytes": 181093
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_v19_summary.json",
+      "action": "keep",
+      "reason": "registry keep_summary for dropped profile",
+      "size_bytes": 5872
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_v19_wf_2020_actor.pt",
+      "action": "delete",
+      "reason": "actor has no registered profile",
+      "size_bytes": 181221
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_v19_wf_2020_summary.json",
+      "action": "keep",
+      "reason": "registry keep_summary for dropped profile",
+      "size_bytes": 5380
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_v19_wf_2022_actor.pt",
+      "action": "delete",
+      "reason": "actor has no registered profile",
+      "size_bytes": 181221
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_v19_wf_2022_summary.json",
+      "action": "keep",
+      "reason": "registry keep_summary for dropped profile",
+      "size_bytes": 5398
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_v22_summary.json",
+      "action": "keep",
+      "reason": "registry keep_summary for dropped profile",
+      "size_bytes": 5885
     },
     {
       "path": "artifacts/models/soxl_balanced_summary.json",
       "action": "keep",
       "reason": "registry keep_summary for canonical profile",
-      "size_bytes": 2464
+      "size_bytes": 5225
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_wf_2020_actor.pt",
+      "action": "keep",
+      "reason": "registry keep_actor for canonical profile",
+      "size_bytes": 82821
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_wf_2020_summary.json",
+      "action": "keep",
+      "reason": "registry keep_summary for canonical profile",
+      "size_bytes": 4489
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_wf_2022_actor.pt",
+      "action": "keep",
+      "reason": "registry keep_actor for canonical profile",
+      "size_bytes": 82821
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_wf_2022_summary.json",
+      "action": "keep",
+      "reason": "registry keep_summary for canonical profile",
+      "size_bytes": 4510
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_wf_2023_2024_actor.pt",
+      "action": "keep",
+      "reason": "registry keep_actor for canonical profile",
+      "size_bytes": 82881
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_wf_2023_2024_summary.json",
+      "action": "keep",
+      "reason": "registry keep_summary for canonical profile",
+      "size_bytes": 4455
     },
     {
       "path": "artifacts/models/soxl_risk_budget_usage_v2_summary.json",

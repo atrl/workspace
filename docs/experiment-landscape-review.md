@@ -35,6 +35,7 @@ This file is now the compact landing page and master comparison surface. Detaile
 | multi-asset refined reward | multi-asset | single-asset refined run | shared actor over SOXL/TQQQ/UPRO/SPXL/TECL | all slices degraded vs single asset | drop | add generic reward, volatility normalization, asset-specific heads before retrain |
 | `risk_budget_usage_v3` | network / execution | `risk_budget_usage_v1` | mode-conditioned actor input (one-hot) | proxy Sharpe 1.074 but actual backtest 0.87; wf_2022 MaxDD 59.0%, wf_2023_2024 Sharpe 0.22; severe overfit | candidate (blocked) | diagnose proxy-to-backtest gap and mode info leak before v4; test on proven baseline first |
 | `balanced_rule_residual_v19` walk-forward | model selection / validation | `balanced` | fixed-split best candidate under walk-forward test | wf_2020 Sharpe 2.35 (excellent bull); wf_2022 Sharpe **-0.80**, return -25.2%, MaxDD 35.2%; balanced canonical equally bad (Sharpe -0.91) | **drop** | family-level bear-market failure; solve generalization before new residual variants |
+| `balanced_rule_residual_v22` | model / reward | `v19` | v19 variant with adjusted reward coefficients | proxy Sharpe 0.92 but proxy MaxDD 48.7%; test_2022 Sharpe **-0.76**, return -21.0%, MaxDD 30.1%; identical bear-market collapse pattern | **drop** | confirms family-level failure; no residual variant survives 2022 without bear-market-aware training |
 
 
 ## Required Workflow
