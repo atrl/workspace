@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-25T03:51:37.633782+00:00",
+  "generated_at": "2026-04-25T03:57:08.824586+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -377,7 +377,7 @@
       "path": "runtime/index.json",
       "category": "root",
       "suffix": ".json",
-      "bytes": 41140
+      "bytes": 41630
     },
     {
       "path": "runtime/model/cards/balanced_checkpoint_review/card.md",
@@ -1250,6 +1250,12 @@
       "bytes": 942
     },
     {
+      "path": "experiments/archive/balanced_checkpoint_review/notes.md",
+      "category": "experiments/archive",
+      "suffix": ".md",
+      "bytes": 477
+    },
+    {
       "path": "experiments/archive/balanced_kelly/card.md",
       "category": "experiments/archive",
       "suffix": ".md",
@@ -1290,6 +1296,18 @@
       "category": "experiments/archive",
       "suffix": ".md",
       "bytes": 851
+    },
+    {
+      "path": "experiments/candidate/aggressive/expectations.md",
+      "category": "experiments/candidate",
+      "suffix": ".md",
+      "bytes": 534
+    },
+    {
+      "path": "experiments/candidate/aggressive/notes.md",
+      "category": "experiments/candidate",
+      "suffix": ".md",
+      "bytes": 581
     },
     {
       "path": "experiments/candidate/balanced_conservative_ft/card.md",
@@ -1517,7 +1535,7 @@
       "path": "experiments/index.md",
       "category": "experiments",
       "suffix": ".md",
-      "bytes": 3015
+      "bytes": 3111
     }
   ]
 }

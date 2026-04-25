@@ -7,7 +7,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def test_balanced_checkpoint_review_profile_loads():
-    path = ROOT / "configs" / "soxl" / "balanced_checkpoint_review.yaml"
+    path = ROOT / "experiments" / "archive" / "balanced_checkpoint_review" / "profile.yaml"
     text = path.read_text(encoding="utf-8")
     assert "name: balanced_checkpoint_review" in text
     assert "staged_training: true" in text

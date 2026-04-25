@@ -10,7 +10,7 @@ import yaml
 ROOT = Path(__file__).resolve().parent.parent
 EXPERIMENTS = ROOT / "experiments"
 REGISTRY = ROOT / "configs" / "soxl" / "profile_registry.yaml"
-ALLOWED_STATUSES = {"canonical", "candidate", "archive", "ablation", "dropped"}
+ALLOWED_STATUSES = {"canonical", "candidate", "archive", "ablation", "dropped", "archived"}
 
 # Line-count limits per status
 NOTES_MAX_LINES = {

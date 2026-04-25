@@ -13,6 +13,7 @@
 
 | Profile | Package | Family | Baseline | Evidence |
 |---|---|---|---|---|
+| `aggressive` | `experiments/candidate/aggressive/` | `aggressive` | `balanced` | `notes.md` |
 | `balanced_conservative_ft` | `experiments/candidate/balanced_conservative_ft/` | `balanced` | `balanced` | `notes.md` |
 | `balanced_rule_residual_mode_v1` | `experiments/candidate/balanced_rule_residual_mode_v1/` | `balanced` | `balanced_rule_residual_v19` | `notes.md` |
 | `balanced_rule_residual_moderate_v1` | `experiments/candidate/balanced_rule_residual_moderate_v1/` | `balanced` | `balanced_rule_residual_v16` | `notes.md` |

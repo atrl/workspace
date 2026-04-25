@@ -5,7 +5,7 @@ profiles:
   baseline: balanced
   keep_actor: false
   keep_summary: true
-  notes_ref: codex_exec_plans/active/current.md
+  notes_ref: experiments/candidate/aggressive/notes.md
 - name: balanced
   family: balanced
   status: canonical
