@@ -24,6 +24,8 @@
 | `balanced_rule_residual_v19_academic` | `experiments/candidate/balanced_rule_residual_v19_academic/` | `balanced` | `balanced_rule_residual_v19` | `notes.md` |
 | `balanced_rule_residual_v22` | `experiments/candidate/balanced_rule_residual_v22/` | `balanced` | `balanced_rule_residual_v19` | `notes.md` |
 | `risk_budget_usage_v1` | `experiments/candidate/risk_budget_usage_v1/` | `balanced` | `balanced_rule_residual_imitation_v4` | `notes.md` |
+| `risk_budget_usage_v2` | `experiments/candidate/risk_budget_usage_v2/` | `balanced` | `risk_budget_usage_v1` | `notes.md` |
+| `risk_budget_usage_v3` | `experiments/candidate/risk_budget_usage_v3/` | `balanced` | `risk_budget_usage_v1` | `notes.md` |
 | `smoke_rule_residual_v1` | `experiments/candidate/smoke_rule_residual_v1/` | `smoke` | `smoke` | `notes.md` |
 
 ## Archive (by family)
