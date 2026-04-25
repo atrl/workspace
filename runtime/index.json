@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-25T04:27:58.907501+00:00",
+  "generated_at": "2026-04-25T04:29:22.398282+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -1226,12 +1226,6 @@
       "bytes": 1135
     },
     {
-      "path": "experiments/README.md",
-      "category": "experiments",
-      "suffix": ".md",
-      "bytes": 1426
-    },
-    {
       "path": "experiments/candidate/aggressive/notes.md",
       "category": "experiments/candidate",
       "suffix": ".md",
@@ -1314,12 +1308,6 @@
       "category": "experiments/canonical",
       "suffix": ".md",
       "bytes": 479
-    },
-    {
-      "path": "experiments/index.md",
-      "category": "experiments",
-      "suffix": ".md",
-      "bytes": 3111
     }
   ]
 }
