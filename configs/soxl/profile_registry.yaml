@@ -768,6 +768,15 @@ profiles:
     baseline: balanced_rule_residual_v19
     keep_actor: true
     keep_summary: true
-    notes_ref: runtime/model/reviews/v19_walk_forward_review.md
+    notes_ref: runtime/model/reviews/v19_reg_walk_forward_review.md
     wf_status: completed
-    wf_notes: Fixed-split training complete. proxy Sharpe 0.913 (v19=0.79), test_2022 MaxDD 30.2% (v19=32.4%), test_2023_2024 Sharpe 0.80. Regularization improves proxy metrics. test_2022 return -21.9% vs SOXL B&H -86.6% — successful bear-market defense.
+    wf_notes: Walk-forward complete. wf_2020 +181.3% Sharpe 0.59; wf_2022 +42.2% Sharpe 0.34 MaxDD 61.6%; wf_2023_2024 -7.1% Sharpe 0.05 MaxDD 43.4%. vs v19: wf_2022 v19=+67.6% > v19_reg=+42.2%. Promotion blocked. Worker eval (-23.9%) massively differs from backtest (+42.2%) — 66pp gap.
+  - name: balanced_rule_residual_v19_reg_light
+    family: balanced
+    status: candidate
+    baseline: balanced_rule_residual_v19_reg
+    keep_actor: true
+    keep_summary: true
+    notes_ref: codex_exec_plans/active/2026-04-25-v19-reg-light.md
+    wf_status: pending
+    wf_notes: Tuned regularization: dropout 0.1 + weight_decay 1e-6. Hypothesis: preserves wf_2022 improvement while recovering wf_2023_2024 performance.
