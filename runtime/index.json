@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-25T04:22:08.046188+00:00",
+  "generated_at": "2026-04-25T04:23:54.062024+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -372,12 +372,6 @@
       "category": "harness",
       "suffix": ".md",
       "bytes": 945
-    },
-    {
-      "path": "runtime/index.json",
-      "category": "root",
-      "suffix": ".json",
-      "bytes": 39073
     },
     {
       "path": "runtime/model/cards/balanced_checkpoint_review/card.md",
@@ -1248,30 +1242,6 @@
       "category": "experiments/archive",
       "suffix": ".md",
       "bytes": 942
-    },
-    {
-      "path": "experiments/archive/balanced_checkpoint_review/notes.md",
-      "category": "experiments/archive",
-      "suffix": ".md",
-      "bytes": 477
-    },
-    {
-      "path": "experiments/archive/balanced_kelly/notes.md",
-      "category": "experiments/archive",
-      "suffix": ".md",
-      "bytes": 241
-    },
-    {
-      "path": "experiments/archive/balanced_rule_residual_imitation/notes.md",
-      "category": "experiments/archive",
-      "suffix": ".md",
-      "bytes": 277
-    },
-    {
-      "path": "experiments/archive/risk_budget_usage_v2/notes.md",
-      "category": "experiments/archive",
-      "suffix": ".md",
-      "bytes": 255
     },
     {
       "path": "experiments/candidate/aggressive/expectations.md",

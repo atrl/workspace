@@ -14,6 +14,7 @@ EXPERIMENTS_DIR = ROOT / "experiments"
 INDEX_PATH = RUNTIME_DIR / "index.json"
 INDEXED_SUFFIXES = {".csv", ".html", ".json", ".md", ".txt"}
 SKIP_DIRS = {"soxl"}
+SKIP_PATHS = {"runtime/index.json"}
 
 
 def runtime_category(path: Path) -> str:
@@ -36,9 +37,12 @@ def _scan_directory(base_dir: Path, entries: list, root: Path) -> None:
             continue
         if not path.is_file() or path.suffix.lower() not in INDEXED_SUFFIXES:
             continue
+        rel_path = str(path.relative_to(root))
+        if rel_path in SKIP_PATHS:
+            continue
         entries.append(
             {
-                "path": str(path.relative_to(root)),
+                "path": rel_path,
                 "category": runtime_category(path),
                 "suffix": path.suffix.lower(),
                 "bytes": path.stat().st_size,
