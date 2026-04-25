@@ -24,6 +24,8 @@ def load_registry() -> dict[str, Any]:
 
 def package_dirs() -> dict[str, list[Path]]:
     result: dict[str, list[Path]] = {}
+    if not EXPERIMENTS.exists():
+        return result
     for status_dir in sorted(EXPERIMENTS.iterdir()):
         if not status_dir.is_dir():
             continue
@@ -91,21 +93,22 @@ def main() -> int:
                     )
 
     # 4. Legacy yaml files without experiments package
-    for yaml_path in sorted(CONFIGS_DIR.glob("*.yaml")):
-        if yaml_path.name == "profile_registry.yaml":
-            continue
-        name = yaml_path.stem
-        has_package = any(
-            (pkg / "profile.yaml").exists() and pkg.name == name
-            for status_pkgs in packages.values()
-            for pkg in status_pkgs
-        )
-        if not has_package:
-            row = registry.get(name)
-            status = row.get("status", "unknown") if row else "unknown"
-            issues.append(
-                f"[LEGACY_YAML] {yaml_path.relative_to(ROOT)} has no experiments/ package (registry={status})"
+    if EXPERIMENTS.exists():
+        for yaml_path in sorted(CONFIGS_DIR.glob("*.yaml")):
+            if yaml_path.name == "profile_registry.yaml":
+                continue
+            name = yaml_path.stem
+            has_package = any(
+                (pkg / "profile.yaml").exists() and pkg.name == name
+                for status_pkgs in packages.values()
+                for pkg in status_pkgs
             )
+            if not has_package:
+                row = registry.get(name)
+                status = row.get("status", "unknown") if row else "unknown"
+                issues.append(
+                    f"[LEGACY_YAML] {yaml_path.relative_to(ROOT)} has no experiments/ package (registry={status})"
+                )
 
     # 5. Artifacts that should be pruned
     for artifact in sorted(MODEL_DIR.glob("*")):

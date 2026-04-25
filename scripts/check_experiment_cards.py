@@ -27,6 +27,8 @@ def registry_by_name() -> dict[str, dict]:
 
 def package_dirs() -> list[Path]:
     dirs: list[Path] = []
+    if not EXPERIMENTS.exists():
+        return dirs
     for status_dir in sorted(EXPERIMENTS.iterdir()):
         if not status_dir.is_dir() or status_dir.name not in ALLOWED_STATUSES:
             continue
