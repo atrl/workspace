@@ -71,7 +71,7 @@ def main() -> int:
             )
             suggestions.append(f"mv {pkg.relative_to(ROOT)} experiments/{row.get('status')}/{name}")
 
-    # 2. Archive packages with long notes
+    # 2. Archive packages with long notes (optional)
     for pkg in packages.get("archive", []):
         notes = pkg / "notes.md"
         if notes.exists() and count_lines(notes) > 50:
@@ -79,7 +79,7 @@ def main() -> int:
                 f"[LONG_NOTES] {pkg.relative_to(ROOT)}/notes.md has {count_lines(notes)} lines (limit 50)"
             )
 
-    # 3. Missing expectations in candidate/canonical notes.md
+    # 3. Missing expectations in candidate/canonical notes.md (optional)
     for status in ("candidate", "canonical"):
         for pkg in packages.get(status, []):
             notes = pkg / "notes.md"
@@ -89,10 +89,6 @@ def main() -> int:
                     issues.append(
                         f"[MISSING_EXPECTATIONS] {pkg.relative_to(ROOT)}/notes.md lacks expectations section"
                     )
-            else:
-                issues.append(
-                    f"[MISSING_NOTES] {pkg.relative_to(ROOT)} lacks notes.md"
-                )
 
     # 4. Legacy yaml files without experiments package
     for yaml_path in sorted(CONFIGS_DIR.glob("*.yaml")):

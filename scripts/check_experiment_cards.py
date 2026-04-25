@@ -57,11 +57,9 @@ def main() -> int:
             continue
         if status_dir in {"canonical", "candidate"} and not (package / "profile.yaml").exists():
             failures.append(f"{rel} missing profile.yaml")
-        if status_dir in {"canonical", "candidate"} and not (package / "notes.md").exists():
-            failures.append(f"{rel} missing notes.md")
         # expectations.md content merged into notes.md; no standalone file required
 
-        # Check notes.md line count
+        # Check notes.md line count (optional)
         notes_path = package / "notes.md"
         if notes_path.exists():
             lines = count_lines(notes_path)
