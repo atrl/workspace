@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-25T04:53:15.927974+00:00",
+  "generated_at": "2026-04-25T05:02:12.782114+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -102,12 +102,6 @@
       "category": "execution",
       "suffix": ".md",
       "bytes": 730
-    },
-    {
-      "path": "runtime/execution/cards/balanced_rule_residual_mode_v1/card.md",
-      "category": "execution",
-      "suffix": ".md",
-      "bytes": 714
     },
     {
       "path": "runtime/execution/cards/balanced_rule_residual_mode_v2/card.md",
@@ -1056,42 +1050,6 @@
       "category": "model",
       "suffix": ".csv",
       "bytes": 195987
-    },
-    {
-      "path": "runtime/model/reviews/risk_budget_usage_v3_soxl_daily.csv",
-      "category": "model",
-      "suffix": ".csv",
-      "bytes": 88901
-    },
-    {
-      "path": "runtime/model/reviews/risk_budget_usage_v3_wf_review.md",
-      "category": "model",
-      "suffix": ".md",
-      "bytes": 3887
-    },
-    {
-      "path": "runtime/model/reviews/smoke_rule_residual_v1_diagnosis/period_slice_comparison.md",
-      "category": "model",
-      "suffix": ".md",
-      "bytes": 2218
-    },
-    {
-      "path": "runtime/model/reviews/smoke_rule_residual_v1_diagnosis/phase1_phase2_combined.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 13291
-    },
-    {
-      "path": "runtime/model/reviews/smoke_rule_residual_v1_diagnosis/soxl_trade_attribution.md",
-      "category": "model",
-      "suffix": ".md",
-      "bytes": 2009
-    },
-    {
-      "path": "runtime/model/reviews/smoke_rule_residual_v1_trade_quality_audit.md",
-      "category": "model",
-      "suffix": ".md",
-      "bytes": 2105
     },
     {
       "path": "runtime/model/reviews/two_speed_mode_budget_v1.json",
