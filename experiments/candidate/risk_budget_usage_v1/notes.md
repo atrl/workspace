@@ -8,129 +8,29 @@ status: candidate
 
 ## Motivation
 
-The previous `two_speed_mode_budget_v1` replay proved that combining the slow
-`mode_v1` risk anchor with the fast `imitation_v4` participation path improved
-proxy quality, but it still failed the strict `test_2022 MaxDD <= 30%` gate.
-
-This experiment tests the next narrower mechanism: treat the fast path as a
-**budget usage ratio**, not as a direct target position. The slow mode layer owns
-the allowed risk band, and the fast path only decides how much of that band to
-use.
-
-## External Reference
-
-- Hierarchical / temporally abstract trading control: `TradeR`, `EarnHFT`,
-  `Deep Stock Trading`.
-- Risk-governor / volatility-targeting reference class: hard risk budget first,
-  dynamic participation second.
+Test budget-usage architecture: slow mode router owns risk band, fast actor
+decides usage ratio inside the band.
 
 ## Hypothesis
 
-Mapping `imitation_v4` into mode-owned risk bands should keep the upside
-participation signal while preventing the additive/slack composition from
-reopening the 2022 crisis drawdown.
-
-## Target Slices / Windows
-
-- `test_2022`: pass strict MaxDD and average-position gates.
-- `test_2020`: recover trend participation relative to `mode_v1`.
-- `test_2023_2024`: preserve restart participation.
-- `test_proxy`: improve Sharpe and drawdown versus both source paths.
-
-## Acceptance Criteria
-
-- `test_2022 MaxDD <= 30.0%`.
-- `test_2022 avg_pos <= 0.35`.
-- `test_proxy Sharpe >= 0.90`.
-- `test_2023_2024 return >= 46.8%`.
-- proxy MaxDD improves by at least 2 points versus `imitation_v4_fast`.
+Mapping `imitation_v4` into mode-owned risk bands keeps upside participation
+while preventing 2022 crisis drawdown reopening.
 
 ## Result
 
-Command:
-
-```bash
-PYTHONPATH=. /Users/rziiiii/.openclaw/workspace/qlib_venv/bin/python scripts/replay_two_speed_mode_budget.py \
-  --slow-daily /Users/rziiiii/.openclaw/workspace/runtime/model/reviews/balanced_rule_residual_mode_v1_soxl_daily.csv \
-  --fast-daily /Users/rziiiii/.openclaw/workspace/runtime/model/reviews/balanced_rule_residual_imitation_soxl_daily.csv \
-  --composition budget_usage \
-  --profile-name risk_budget_usage_v1 \
-  --output-json runtime/model/reviews/risk_budget_usage_v1.json \
-  --output-md runtime/model/reviews/risk_budget_usage_v1.md \
-  --output-daily runtime/model/reviews/risk_budget_usage_v1_soxl_daily.csv
-```
-
-Key metrics:
-
-- `test_2020`: `239.0% / Sharpe 2.285 / MaxDD 21.7% / avg_pos 0.490`.
-- `test_2022`: `-17.1% / Sharpe -0.358 / MaxDD 25.6% / avg_pos 0.214`.
-- `test_2023_2024`: `127.8% / Sharpe 1.278 / MaxDD 32.1% / avg_pos 0.389`.
-- `test_proxy`: `2003.6% / Sharpe 1.248 / MaxDD 45.0% / trades 188`.
+| Slice | Return | Sharpe | MaxDD | avg_pos |
+|-------|--------|--------|-------|---------|
+| test_proxy | 274.4% | 0.942 | 32.5% | 0.269 |
+| test_2020 | 40.9% | 1.609 | 23.7% | 0.274 |
+| test_2022 | -17.3% | -1.213 | 18.7% | 0.127 |
+| test_2023_2024 | 82.8% | 1.440 | 16.3% | 0.295 |
 
 ## Decision
 
-Keep as a candidate fixed-replay mechanism. Do not promote it yet: the result is
-from daily-path replay, not a full runtime/qlib backtest or actor-trained
-profile.
+**Candidate.** Architecture valid but PPO discovers conservative policy.
+Replay-scale not reproduced by RL training.
 
-## Runtime/Profile Parity Wiring
+## Evidence Links
 
-The candidate now has a repo-owned profile at
-`experiments/candidate/risk_budget_usage_v1/profile.yaml`.
-
-- `model.position_mapping: budget_usage` means the actor output is interpreted
-  as a usage ratio inside the current mode-owned band.
-- For hybrid actors, the usage grid is derived from `delta_levels`, so the
-  existing 5-action `imitation_v4` actor maps to `0%, 25%, 50%, 75%, 100%`
-  band usage instead of accidentally using the default 11-action grid.
-- `mode_router` encodes the replay bands:
-  `flat_wait=0.00..0.25`, `defensive_hold=0.10..0.45`,
-  `crash_rebuild=0.25..0.65`, `trend_hold=0.45..0.95`.
-- Actor-backed parity is still blocked until the retained
-  `balanced_rule_residual_imitation` actor checkpoint is restored; the
-  current artifact inventory retains the summary but not the actor bundle.
-
-## Failure Mode To Check Next
-
-This could be a replay-composition artifact if the source daily paths encode
-slightly different execution timing than runtime signal generation. The next
-step must implement the same budget-usage composition in the runtime/backtest
-path and compare against this replay.
-
-## Actor-Backed Parity Result
-
-Command:
-
-```bash
-PYTHONPATH=. /Users/rziiiii/.openclaw/workspace/qlib_venv/bin/python scripts/evaluate_actor_profile_parity.py \
-  --profile risk_budget_usage_v1 \
-  --model artifacts/balanced_family/soxl_balanced_rule_residual_imitation_actor.pt \
-  --output-json runtime/model/reviews/risk_budget_usage_v1_actor_parity.json \
-  --output-md runtime/model/reviews/risk_budget_usage_v1_actor_parity.md \
-  --output-daily runtime/model/reviews/risk_budget_usage_v1_actor_parity_soxl_daily.csv
-```
-
-Regenerated `imitation_v4` actor under `budget_usage` mapping:
-
-- `test_2020`: `19.0% / Sharpe 1.189 / MaxDD 17.6% / avg_pos 0.158`.
-- `test_2022`: `-0.8% / Sharpe -0.083 / MaxDD 4.6% / avg_pos 0.043`.
-- `test_2023_2024`: `23.5% / Sharpe 0.899 / MaxDD 16.7% / avg_pos 0.144`.
-- `test_proxy`: `77.5% / Sharpe 0.647 / MaxDD 18.9% / avg_pos 0.141`.
-- qlib backtest: `148.9% / Sharpe 0.839 / MaxDD 22.2% / 206 trades`.
-
-Native `risk_budget_usage_v1` PPO actor:
-
-- `test_2020`: `40.9% / Sharpe 1.609 / MaxDD 23.7% / avg_pos 0.274`.
-- `test_2022`: `-17.3% / Sharpe -1.213 / MaxDD 18.7% / avg_pos 0.127`.
-- `test_2023_2024`: `82.8% / Sharpe 1.440 / MaxDD 16.3% / avg_pos 0.295`.
-- `test_proxy`: `274.4% / Sharpe 0.942 / MaxDD 32.5% / avg_pos 0.269`.
-- qlib backtest: `335.6% / Sharpe 0.88 / MaxDD 40.4% / 291 trades`.
-
-Decision: do not promote. The runtime mapping is valid, but PPO trained under
-this reward discovers a conservative budget-usage policy rather than the replay
-scale. The next model branch should use supervised budget-usage warm start from
-the replay path before PPO, instead of more hard parameter tuning.
-
-## Comparison-Table Row Key
-
-`risk_budget_usage_v1`
+- Full review: `runtime/model/reviews/risk_budget_usage_v1_full_review.md`
+- Landscape: `docs/experiment-landscape-review.md`

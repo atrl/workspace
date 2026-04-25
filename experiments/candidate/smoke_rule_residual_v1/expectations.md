@@ -1,8 +1,23 @@
-# Expectations
+# Expectations: smoke_rule_residual_v1
 
-- Must prove that residual-over-rule wiring is consistent across train, validation, and backtest.
-- Must stay cheap and smoke-scale; this profile is for structure validation, not promotion claims.
-- The first success criterion is behavioral:
-  - actor actions only move around the rule-based base position
-  - small residual churn is penalized more than in canonical `smoke`
-- If the smoke run completes and emits a coherent summary, the next step can escalate to a balanced-family quick profile.
+## Acceptance Criteria
+
+- Training completes without harness breakage
+- Smoke backtest produces non-NaN results
+- Rule residual mechanism is functional (position = rule + bounded delta)
+
+## Expected Trade-off
+
+- Smoke profiles are intentionally lightweight (2 iters, 2 episodes)
+- Not meant to match production quality metrics
+- Purpose is structural validation only
+
+## Failure Modes
+
+- Rule residual overlay breaks position calculation → NaN or crash
+- Reward terms incompatible with smoke scale → training divergence
+- Profile config missing required fields → harness error
+
+## Comparison-Table Row Key
+
+`smoke_rule_residual_v1`

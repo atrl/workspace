@@ -45,9 +45,9 @@ Profile: `balanced_rule_residual_imitation_v1`
 ## 实验原始记录
 
 详细配置、动机和迭代历史见：
-- `experiments/candidate/balanced_rule_residual_imitation/notes.md`
-- `experiments/candidate/balanced_rule_residual_imitation/expectations.md`
-- `experiments/candidate/balanced_rule_residual_imitation/profile.yaml`
+- `experiments/archive/balanced_rule_residual_imitation/notes.md`
+- `experiments/archive/balanced_rule_residual_imitation/expectations.md`
+- `experiments/archive/balanced_rule_residual_imitation/profile.yaml`
 ## 下一步
 
 - 分析未通过 gate 的原因

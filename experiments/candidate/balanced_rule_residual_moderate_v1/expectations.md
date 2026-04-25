@@ -1,31 +1,25 @@
 # Expectations: balanced_rule_residual_moderate_v1
 
-## Baseline
+## Acceptance Criteria
 
-- Direct comparison: `balanced_rule_residual_v16` (seed=20260420)
-  - 632.4% proxy return / 0.91 sharpe / 50.1% MaxDD / 334 trades
-- Alternative comparison: `balanced_rule_residual_refined_v3` (seed=12345)
-  - 637.8% proxy return / 0.89 sharpe / 54.9% MaxDD
+- proxy return >= 550% (above refined_v2, closer to v16)
+- proxy MaxDD <= 50%
+- test_2022 MaxDD <= 35%
+- test_2022 avg_pos <= 0.35
+- seed robustness: <=150pp swing vs another seed
 
-## Expected Behavior
+## Expected Trade-off
 
-1. Training should be stable (no degradation from iter 0 like minimal_v1)
-2. Valid MaxDD should be ~28-30% (similar to v16)
-3. Return should be between v16 and refined_v3 (580-650% range)
-4. Trades should be ~300-350
-5. Step-level penalties are weaker, so stress behavior may be slightly more aggressive
+- Lower step-level penalties → slightly higher return, slightly worse DD
+- trend_alignment vs activity_bonus → more principled, potentially more seed-robust
+- Removal of rule_deviation → less constraint on beating the rule
 
-## Red Flags
+## Failure Modes
 
-- valid best iter=0 (no learning, like minimal_v1)
-- proxy return < 500% (participation signals insufficient)
-- proxy MaxDD > 55% (step penalties too weak)
-- test_2022 MaxDD > 38%
+- Step-level penalties too weak → MaxDD > 52%
+- trend_alignment insufficient vs activity_bonus → return < 500%
+- Missing rule_deviation → excessive deviation from rule causes choppy behavior
 
-## Success Indicators
+## Comparison-Table Row Key
 
-- valid MaxDD < 30%
-- proxy MaxDD < 50%
-- proxy return > 550%
-- test_2022 MaxDD < 33%
-- trades between 280-380
+`balanced_rule_residual_moderate_v1`

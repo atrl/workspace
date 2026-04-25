@@ -1,17 +1,22 @@
 # Expectations: balanced_rule_residual_v19_academic
 
-## Closest historical success
-- `balanced_rule_residual_v19`: seed=12345, proxy `632.4% / Sharpe 0.91 / MaxDD 50.1%`
+## Acceptance Criteria
 
-## Closest historical failure
-- `balanced_rule_residual_v16` without kelly/rulebase: ~400-450% return range
-- `balanced_rule_residual_minimal_v1`: stripping features/reward terms caused -140pp return loss
+- proxy return >= 500%
+- proxy MaxDD <= 52%
+- test_2022 MaxDD <= 35%
+- Must beat v19 on at least 2 of: proxy return, proxy Sharpe, test_2022 MaxDD
 
-## Why this is not a duplicate
-- First test of academic microstructure signals (Amihud, intraday reversal, volatility drag) in SOXL RL context
-- Previous feature additions were rulebase-derived (panic score, RSI6 composites) or VIX term structure
-- Academic signals target liquidity stress and intraday patterns, not regime state
+## Expected Trade-off
 
-## External reference
-- Amihud (2002): "Illiquidity and stock returns"
-- Cheng & Madhavan (2009): "The Dynamics of Leveraged and Inverse ETFs"
+- If academic signals are useful: +20-50pp proxy return, tighter drawdown
+- If academic signals are noise: no improvement or slight degradation due to expanded obs dim
+
+## Failure Modes
+
+- No improvement over v19 → academic_signals pack is not valuable for SOXL RL
+- Training instability → obs dim expansion from 56 → 63 hurts GRU learning
+
+## Comparison-Table Row Key
+
+`balanced_rule_residual_v19_academic`

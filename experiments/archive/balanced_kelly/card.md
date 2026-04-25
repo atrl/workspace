@@ -45,9 +45,9 @@ Profile: `balanced_kelly_warmstart_v9`
 ## 实验原始记录
 
 详细配置、动机和迭代历史见：
-- `experiments/candidate/balanced_kelly/notes.md`
-- `experiments/candidate/balanced_kelly/expectations.md`
-- `experiments/candidate/balanced_kelly/profile.yaml`
+- `experiments/archive/balanced_kelly/notes.md`
+- `experiments/archive/balanced_kelly/expectations.md`
+- `experiments/archive/balanced_kelly/profile.yaml`
 ## 下一步
 
 - 分析未通过 gate 的原因
