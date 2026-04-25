@@ -47,6 +47,11 @@ def _profile_name_from_path(path: Path, *, allow_summary_namespace: bool) -> str
         if stem.endswith(suffix):
             stem = stem[: -len(suffix)]
             break
+    # Check experiments/ first (preferred location)
+    experiment_matches = sorted(ROOT.glob(f"experiments/*/{stem}/profile.yaml"))
+    if experiment_matches:
+        return stem
+    # Fallback to legacy configs/soxl/
     exact = ROOT / "configs" / "soxl" / f"{stem}.yaml"
     if exact.exists():
         return stem
@@ -57,6 +62,9 @@ def _profile_name_from_path(path: Path, *, allow_summary_namespace: bool) -> str
     parts = stem.split("_")
     for idx in range(len(parts), 1, -1):
         candidate = "_".join(parts[:idx])
+        experiment_matches = sorted(ROOT.glob(f"experiments/*/{candidate}/profile.yaml"))
+        if experiment_matches:
+            return candidate
         if (ROOT / "configs" / "soxl" / f"{candidate}.yaml").exists():
             return candidate
     return None

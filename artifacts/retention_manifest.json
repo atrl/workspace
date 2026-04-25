@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-25T03:42:58.954154+00:00",
+  "generated_at": "2026-04-25T03:59:52.507617+00:00",
   "entries": [
     {
       "path": "artifacts/models/soxl_balanced_actor.pt",
@@ -14,63 +14,39 @@
       "size_bytes": 2464
     },
     {
-      "path": "artifacts/models/soxl_risk_budget_usage_v2_actor.pt",
-      "action": "delete",
-      "reason": "actor has no registered profile",
-      "size_bytes": 180997
-    },
-    {
       "path": "artifacts/models/soxl_risk_budget_usage_v2_summary.json",
       "action": "keep",
-      "reason": "summary retained even without registry match",
+      "reason": "registry keep_summary for ablation profile",
       "size_bytes": 5034
     },
     {
       "path": "artifacts/models/soxl_risk_budget_usage_v3_actor.pt",
-      "action": "delete",
-      "reason": "actor has no registered profile",
+      "action": "keep",
+      "reason": "registry keep_actor for candidate profile",
       "size_bytes": 180997
     },
     {
       "path": "artifacts/models/soxl_risk_budget_usage_v3_summary.json",
       "action": "keep",
-      "reason": "summary retained even without registry match",
+      "reason": "registry keep_summary for candidate profile",
       "size_bytes": 5292
-    },
-    {
-      "path": "artifacts/models/soxl_risk_budget_usage_v3_wf_2020_actor.pt",
-      "action": "delete",
-      "reason": "actor has no registered profile",
-      "size_bytes": 181125
     },
     {
       "path": "artifacts/models/soxl_risk_budget_usage_v3_wf_2020_summary.json",
       "action": "keep",
-      "reason": "summary retained even without registry match",
+      "reason": "registry keep_summary for candidate profile",
       "size_bytes": 4500
-    },
-    {
-      "path": "artifacts/models/soxl_risk_budget_usage_v3_wf_2022_actor.pt",
-      "action": "delete",
-      "reason": "actor has no registered profile",
-      "size_bytes": 181125
     },
     {
       "path": "artifacts/models/soxl_risk_budget_usage_v3_wf_2022_summary.json",
       "action": "keep",
-      "reason": "summary retained even without registry match",
+      "reason": "registry keep_summary for candidate profile",
       "size_bytes": 4528
-    },
-    {
-      "path": "artifacts/models/soxl_risk_budget_usage_v3_wf_2023_2024_actor.pt",
-      "action": "delete",
-      "reason": "actor has no registered profile",
-      "size_bytes": 181205
     },
     {
       "path": "artifacts/models/soxl_risk_budget_usage_v3_wf_2023_2024_summary.json",
       "action": "keep",
-      "reason": "summary retained even without registry match",
+      "reason": "registry keep_summary for candidate profile",
       "size_bytes": 4499
     },
     {
