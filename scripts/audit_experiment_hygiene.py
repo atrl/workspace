@@ -79,12 +79,19 @@ def main() -> int:
                 f"[LONG_NOTES] {pkg.relative_to(ROOT)}/notes.md has {count_lines(notes)} lines (limit 50)"
             )
 
-    # 3. Missing expectations.md in candidate/canonical
+    # 3. Missing expectations in candidate/canonical notes.md
     for status in ("candidate", "canonical"):
         for pkg in packages.get(status, []):
-            if not (pkg / "expectations.md").exists():
+            notes = pkg / "notes.md"
+            if notes.exists():
+                text = notes.read_text(encoding="utf-8").lower()
+                if "## expectations" not in text:
+                    issues.append(
+                        f"[MISSING_EXPECTATIONS] {pkg.relative_to(ROOT)}/notes.md lacks expectations section"
+                    )
+            else:
                 issues.append(
-                    f"[MISSING_EXPECTATIONS] {pkg.relative_to(ROOT)} lacks expectations.md"
+                    f"[MISSING_NOTES] {pkg.relative_to(ROOT)} lacks notes.md"
                 )
 
     # 4. Legacy yaml files without experiments package
