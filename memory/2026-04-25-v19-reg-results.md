@@ -49,3 +49,26 @@ Adding dropout (0.2) and weight decay (1e-5) to GRUNet would reduce bull-market 
 - `src/soxl_quant/policy/policy_builder.py`: Pass dropout to GRUNet, weight_decay to Adam
 - `src/soxl_quant/config.py`: Added dropout and weight_decay fields
 - `configs/soxl/balanced_rule_residual_v19_reg.yaml`: New profile
+
+## v19_reg_light Update (2026-04-26 00:17)
+
+### Walk-Forward Results
+- wf_2020: Sharpe 2.36, Ret 115.6%, MaxDD 20.1% — BEST bull market in family
+- wf_2022: Sharpe -0.86, Ret -21.9%, MaxDD 30.2%
+- wf_2023_2024: Sharpe -0.38, Ret -24.3%, MaxDD 41.9%
+
+### Regularization Trade-off Summary
+
+| Setting | wf_2020 Sh | wf_2022 Sh | wf_2024 Sh |
+|---------|------------|------------|------------|
+| v19 (none) | 2.35 | -0.80 | **-0.23** |
+| v19_reg_light (0.1/1e-6) | **2.36** | -0.86 | -0.38 |
+| v19_reg (0.2/1e-5) | 2.20 | **-0.73** | -0.44 |
+
+**Key insight**: Regularization strength creates a Pareto frontier. No single setting improves both bear-market windows. Stronger reg → better wf_2022 but worse wf_2023_2024. Weaker reg → better wf_2020 but no wf_2022 improvement.
+
+### Next Direction
+Regularization alone is insufficient. Consider:
+1. Regime-dependent dropout (higher in bull, lower in bear)
+2. Combine v22 (VIX features) + v19_reg (regularization)
+3. Explicit regime-conditioned policy architecture
