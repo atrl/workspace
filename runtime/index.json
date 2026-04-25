@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-25T03:57:08.824586+00:00",
+  "generated_at": "2026-04-25T04:22:08.046188+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -377,7 +377,7 @@
       "path": "runtime/index.json",
       "category": "root",
       "suffix": ".json",
-      "bytes": 41630
+      "bytes": 39073
     },
     {
       "path": "runtime/model/cards/balanced_checkpoint_review/card.md",
@@ -1256,46 +1256,22 @@
       "bytes": 477
     },
     {
-      "path": "experiments/archive/balanced_kelly/card.md",
-      "category": "experiments/archive",
-      "suffix": ".md",
-      "bytes": 1210
-    },
-    {
       "path": "experiments/archive/balanced_kelly/notes.md",
       "category": "experiments/archive",
       "suffix": ".md",
-      "bytes": 1434
-    },
-    {
-      "path": "experiments/archive/balanced_rule_residual_imitation/card.md",
-      "category": "experiments/archive",
-      "suffix": ".md",
-      "bytes": 1306
+      "bytes": 241
     },
     {
       "path": "experiments/archive/balanced_rule_residual_imitation/notes.md",
       "category": "experiments/archive",
       "suffix": ".md",
-      "bytes": 2159
-    },
-    {
-      "path": "experiments/archive/risk_budget_usage_v2/card.md",
-      "category": "experiments/archive",
-      "suffix": ".md",
-      "bytes": 518
-    },
-    {
-      "path": "experiments/archive/risk_budget_usage_v2/expectations.md",
-      "category": "experiments/archive",
-      "suffix": ".md",
-      "bytes": 1126
+      "bytes": 277
     },
     {
       "path": "experiments/archive/risk_budget_usage_v2/notes.md",
       "category": "experiments/archive",
       "suffix": ".md",
-      "bytes": 851
+      "bytes": 255
     },
     {
       "path": "experiments/candidate/aggressive/expectations.md",
@@ -1307,13 +1283,7 @@
       "path": "experiments/candidate/aggressive/notes.md",
       "category": "experiments/candidate",
       "suffix": ".md",
-      "bytes": 581
-    },
-    {
-      "path": "experiments/candidate/balanced_conservative_ft/card.md",
-      "category": "experiments/candidate",
-      "suffix": ".md",
-      "bytes": 1214
+      "bytes": 233
     },
     {
       "path": "experiments/candidate/balanced_conservative_ft/expectations.md",
@@ -1325,13 +1295,7 @@
       "path": "experiments/candidate/balanced_conservative_ft/notes.md",
       "category": "experiments/candidate",
       "suffix": ".md",
-      "bytes": 1098
-    },
-    {
-      "path": "experiments/candidate/balanced_rule_residual_mode_v1/card.md",
-      "category": "experiments/candidate",
-      "suffix": ".md",
-      "bytes": 1247
+      "bytes": 261
     },
     {
       "path": "experiments/candidate/balanced_rule_residual_mode_v1/expectations.md",
@@ -1343,7 +1307,7 @@
       "path": "experiments/candidate/balanced_rule_residual_mode_v1/notes.md",
       "category": "experiments/candidate",
       "suffix": ".md",
-      "bytes": 936
+      "bytes": 273
     },
     {
       "path": "experiments/candidate/balanced_rule_residual_moderate_v1/expectations.md",
@@ -1355,13 +1319,7 @@
       "path": "experiments/candidate/balanced_rule_residual_moderate_v1/notes.md",
       "category": "experiments/candidate",
       "suffix": ".md",
-      "bytes": 885
-    },
-    {
-      "path": "experiments/candidate/balanced_rule_residual_refined_v2/card.md",
-      "category": "experiments/candidate",
-      "suffix": ".md",
-      "bytes": 1292
+      "bytes": 281
     },
     {
       "path": "experiments/candidate/balanced_rule_residual_refined_v2/expectations.md",
@@ -1373,13 +1331,7 @@
       "path": "experiments/candidate/balanced_rule_residual_refined_v2/notes.md",
       "category": "experiments/candidate",
       "suffix": ".md",
-      "bytes": 1784
-    },
-    {
-      "path": "experiments/candidate/balanced_rule_residual_refined_v3/card.md",
-      "category": "experiments/candidate",
-      "suffix": ".md",
-      "bytes": 1292
+      "bytes": 279
     },
     {
       "path": "experiments/candidate/balanced_rule_residual_refined_v3/expectations.md",
@@ -1394,18 +1346,6 @@
       "bytes": 472
     },
     {
-      "path": "experiments/candidate/balanced_rule_residual_refined_v3/notes_multi_asset.md",
-      "category": "experiments/candidate",
-      "suffix": ".md",
-      "bytes": 1764
-    },
-    {
-      "path": "experiments/candidate/balanced_rule_residual_v19/card.md",
-      "category": "experiments/candidate",
-      "suffix": ".md",
-      "bytes": 1213
-    },
-    {
       "path": "experiments/candidate/balanced_rule_residual_v19/expectations.md",
       "category": "experiments/candidate",
       "suffix": ".md",
@@ -1415,7 +1355,7 @@
       "path": "experiments/candidate/balanced_rule_residual_v19/notes.md",
       "category": "experiments/candidate",
       "suffix": ".md",
-      "bytes": 906
+      "bytes": 265
     },
     {
       "path": "experiments/candidate/balanced_rule_residual_v19_academic/expectations.md",
@@ -1427,13 +1367,7 @@
       "path": "experiments/candidate/balanced_rule_residual_v19_academic/notes.md",
       "category": "experiments/candidate",
       "suffix": ".md",
-      "bytes": 1747
-    },
-    {
-      "path": "experiments/candidate/balanced_rule_residual_v22/card.md",
-      "category": "experiments/candidate",
-      "suffix": ".md",
-      "bytes": 1257
+      "bytes": 283
     },
     {
       "path": "experiments/candidate/balanced_rule_residual_v22/expectations.md",
@@ -1445,13 +1379,7 @@
       "path": "experiments/candidate/balanced_rule_residual_v22/notes.md",
       "category": "experiments/candidate",
       "suffix": ".md",
-      "bytes": 839
-    },
-    {
-      "path": "experiments/candidate/risk_budget_usage_v1/card.md",
-      "category": "experiments/candidate",
-      "suffix": ".md",
-      "bytes": 735
+      "bytes": 265
     },
     {
       "path": "experiments/candidate/risk_budget_usage_v1/expectations.md",
@@ -1463,13 +1391,7 @@
       "path": "experiments/candidate/risk_budget_usage_v1/notes.md",
       "category": "experiments/candidate",
       "suffix": ".md",
-      "bytes": 940
-    },
-    {
-      "path": "experiments/candidate/risk_budget_usage_v3/card.md",
-      "category": "experiments/candidate",
-      "suffix": ".md",
-      "bytes": 990
+      "bytes": 253
     },
     {
       "path": "experiments/candidate/risk_budget_usage_v3/expectations.md",
@@ -1481,7 +1403,7 @@
       "path": "experiments/candidate/risk_budget_usage_v3/notes.md",
       "category": "experiments/candidate",
       "suffix": ".md",
-      "bytes": 1474
+      "bytes": 253
     },
     {
       "path": "experiments/candidate/smoke_rule_residual_v1/expectations.md",
@@ -1496,12 +1418,6 @@
       "bytes": 472
     },
     {
-      "path": "experiments/canonical/balanced/card.md",
-      "category": "experiments/canonical",
-      "suffix": ".md",
-      "bytes": 1110
-    },
-    {
       "path": "experiments/canonical/balanced/expectations.md",
       "category": "experiments/canonical",
       "suffix": ".md",
@@ -1512,12 +1428,6 @@
       "category": "experiments/canonical",
       "suffix": ".md",
       "bytes": 335
-    },
-    {
-      "path": "experiments/canonical/smoke/card.md",
-      "category": "experiments/canonical",
-      "suffix": ".md",
-      "bytes": 1146
     },
     {
       "path": "experiments/canonical/smoke/expectations.md",
