@@ -15,6 +15,7 @@ from plotly.subplots import make_subplots
 
 ROOT = Path(__file__).resolve().parent.parent
 GENERALIZATION_DIR = ROOT / "runtime" / "execution" / "generalization"
+RUNTIME_DIR = GENERALIZATION_DIR
 DETAIL_DIR = GENERALIZATION_DIR / "detailed"
 FEATURES_PATH = ROOT / "data" / "features_v2.pkl"
 MODELS_DIR = ROOT / "artifacts" / "models"
