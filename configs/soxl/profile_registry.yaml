@@ -302,11 +302,13 @@ profiles:
   notes_ref: experiments/archive/balanced_rule_residual_v18/notes.md
 - name: balanced_rule_residual_v19
   family: balanced
-  status: candidate
+  status: dropped
   baseline: balanced_rule_residual_v16
   keep_actor: false
   keep_summary: true
-  notes_ref: experiments/candidate/balanced_rule_residual_v19/notes.md
+  notes_ref: runtime/model/reviews/v19_walk_forward_review.md
+  wf_status: failed
+  wf_notes: wf_2020 Sharpe 2.35 (bull OK); wf_2022 Sharpe -0.80, return -25.2%, MaxDD 35.2%; canonical balanced equally bad (Sharpe -0.91). Family-level bear-market failure.
 - name: balanced_rule_residual_learned_mode_v1
   family: balanced
   status: dropped

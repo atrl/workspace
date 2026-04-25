@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-25T05:02:45.429242+00:00",
+  "generated_at": "2026-04-25T07:41:18.495879+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -656,6 +656,18 @@
       "bytes": 1744
     },
     {
+      "path": "runtime/model/reviews/balanced_rule_residual_v19_soxl_daily.csv",
+      "category": "model",
+      "suffix": ".csv",
+      "bytes": 99579
+    },
+    {
+      "path": "runtime/model/reviews/balanced_soxl_daily.csv",
+      "category": "model",
+      "suffix": ".csv",
+      "bytes": 99945
+    },
+    {
       "path": "runtime/model/reviews/balanced_stress_select_v2.md",
       "category": "model",
       "suffix": ".md",
@@ -1110,6 +1122,12 @@
       "category": "model",
       "suffix": ".md",
       "bytes": 1391
+    },
+    {
+      "path": "runtime/model/reviews/v19_walk_forward_review.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 4129
     },
     {
       "path": "runtime/multi_asset/cards/soxl_baseline/card.md",
