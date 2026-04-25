@@ -12,10 +12,10 @@ EXPERIMENTS = ROOT / "experiments"
 REGISTRY = ROOT / "configs" / "soxl" / "profile_registry.yaml"
 ALLOWED_STATUSES = {"canonical", "candidate", "archive", "ablation", "dropped", "archived"}
 
-# Line-count limits per status
+# Line-count limits per status (expectations merged into notes)
 NOTES_MAX_LINES = {
-    "canonical": 60,
-    "candidate": 60,
+    "canonical": 80,
+    "candidate": 80,
     "archive": 50,
 }
 
@@ -59,8 +59,7 @@ def main() -> int:
             failures.append(f"{rel} missing profile.yaml")
         if status_dir in {"canonical", "candidate"} and not (package / "notes.md").exists():
             failures.append(f"{rel} missing notes.md")
-        if status_dir in {"canonical", "candidate"} and not (package / "expectations.md").exists():
-            failures.append(f"{rel} missing expectations.md")
+        # expectations.md content merged into notes.md; no standalone file required
 
         # Check notes.md line count
         notes_path = package / "notes.md"
