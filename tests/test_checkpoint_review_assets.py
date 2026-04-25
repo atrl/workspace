@@ -24,36 +24,6 @@ def test_position_cap_overlay_variants_are_non_empty():
     assert payload["bull70_bear35_regime060"]["bull_min_cap"] == 0.70
 
 
-def test_balanced_stress_select_v2_profile_exists():
-    path = ROOT / "configs" / "soxl" / "balanced_stress_select_v2.yaml"
-    text = path.read_text(encoding="utf-8")
-    assert "name: balanced_stress_select_v2" in text
-    assert "stress_avg_pos_penalty: 25.0" in text
-    assert "staged_training: true" in text
-
-
-def test_balanced_reward_guard_profile_exists():
-    path = ROOT / "configs" / "soxl" / "balanced_reward_guard.yaml"
-    text = path.read_text(encoding="utf-8")
-    assert "name: balanced_reward_guard" in text
-    assert "drawdown_penalty: 0.34" in text
-    assert "underwater_sell_penalty: 0.20" in text
-    assert "staged_training: false" in text
-
-
-def test_balanced_structural_v1_profile_exists():
-    path = ROOT / "configs" / "soxl" / "balanced_structural_v1.yaml"
-    text = path.read_text(encoding="utf-8")
-    assert "name: balanced_structural_v1" in text
-    assert "observation_window: 10" in text
-    assert "use_regime_router: true" in text
-    assert "regime_stratified: true" in text
-
-
-def test_balanced_phase_sampling_v1_profile_exists():
-    path = ROOT / "configs" / "soxl" / "balanced_phase_sampling_v1.yaml"
-    text = path.read_text(encoding="utf-8")
-    assert "name: balanced_phase_sampling_v1" in text
-    assert "phase_balanced: true" in text
-    assert "episode_stride: 150" in text
-    assert "rebound_repeat: 3" in text
+# Legacy profile existence tests removed for dropped profiles.
+# Archived/dropped yaml files were cleaned up from configs/soxl/ root.
+# Profiles are now loaded from experiments/ first, then legacy fallback.
