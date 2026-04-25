@@ -1,6 +1,3 @@
-# Migrated canonical profile.
-# Edit the experiment-owned copy at:
-# experiments/canonical/balanced/profile.yaml
 name: balanced
 max_iters: 80
 episode_per_iter: 10
@@ -20,17 +17,14 @@ reward:
   smoothness_penalty: 0.03
   activity_bonus: 1.25
   inactivity_penalty: 0.80
-  # P0: 踏空惩罚（低仓位惩罚）— 第二轮调参，权重降低、门槛提高
   opportunity_cost_penalty: 0.05
   opportunity_threshold_pos: 0.40
   opportunity_threshold_anchor: 0.05
   opportunity_threshold_trend: 0.02
-  # PBRS 与动态 activity bonus
   pbrs_coef: 0.15
   gated_activity_bonus: true
   activity_gate_vol_threshold: 0.55
   activity_gate_regime_delta_threshold: 0.08
-  # soxl_backtest-inspired optimizations
   profit_taking_bonus: 0.25
   panic_buy_bonus: 0.35
   panic_buy_cum_drop_threshold: -0.15
@@ -42,7 +36,6 @@ position_cap:
   full_drawdown: 0.30
   min_cap: 0.40
   curve_power: 1.0
-  # P0: 动态 cap（牛市放宽 / 熊市收紧）— 第二轮调参，放宽幅度降低
   bull_min_cap: 0.65
   bull_vol_threshold: 0.40
   bull_anchor_threshold: 0.02
