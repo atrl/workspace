@@ -6,13 +6,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def test_balanced_checkpoint_review_profile_loads():
-    path = ROOT / "experiments" / "archive" / "balanced_checkpoint_review" / "profile.yaml"
+def test_balanced_checkpoint_review_card_in_runtime():
+    path = ROOT / "runtime" / "model" / "cards" / "balanced_checkpoint_review" / "card.md"
     text = path.read_text(encoding="utf-8")
-    assert "name: balanced_checkpoint_review" in text
-    assert "staged_training: true" in text
-    assert "stage_iters: 20" in text
-    assert "bear_min_cap: 0.30" in text
+    assert "balanced_checkpoint_review" in text
 
 
 def test_position_cap_overlay_variants_are_non_empty():

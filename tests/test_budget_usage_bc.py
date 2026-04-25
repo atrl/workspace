@@ -133,7 +133,7 @@ def test_usage_target_from_position_uses_mode_band():
 
 def test_budget_usage_bc_dataset_uses_expert_fast_position_as_usage_label():
     profile = load_profile("risk_budget_usage_v1")
-    base_expert_profile = load_profile("balanced_rule_residual_imitation")
+    base_expert_profile = load_profile("balanced_rule_residual_v19")
     expert_profile = replace(
         base_expert_profile,
         model=replace(
