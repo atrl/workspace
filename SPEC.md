@@ -62,57 +62,11 @@ Code should remain structured accordingly:
   acceptance criteria.
 - Chat history is not a source of truth.
 
-## Repo-Owned Sources Of Truth
+## Sources Of Truth
 
-Use these layers intentionally:
-
-- `AGENTS.md`: operating rules
-- `WORKFLOW.md`: execution routing and completion gates
-- `codex_exec_plans/active/`: current task state and proof of work
-- `docs/research_knowledge/`: mechanism-specific conclusions and reusable
-  research guidance
-- `runtime/<direction>/knowledge.md`: continuity across sessions, organized by task direction
-- `runtime/`: unified profile configurations and registry (coupled with runtime state)
-- `.codex/skills/`: distilled reusable workflows and maintained operational knowledge
-- `data/datasets.yaml`: machine-readable registry for raw, processed, qlib, and
-  training-cache data assets
-
-These roles should not blur together.
-
-## Knowledge Distillation
-
-See `AGENTS.md` "Skill Distillation & Auto-Optimization" and "Runtime Knowledge"
-for the full rules. In short:
-
-- `runtime/<direction>/knowledge.md` — continuity per direction
-- `docs/research_knowledge/` — mechanism-specific conclusions
-- `.codex/skills/` — reusable workflows and guardrails
-- Update stale skills immediately when divergence is found.
-
-## Current Working Model
-
-The repository already contains the main harness pieces:
-
-- qlib-native research and validation code
-- artifact persistence
-- runtime and paper-execution adapters
-- repo-owned plan files under `codex_exec_plans/`
-
-The active thread lives under `codex_exec_plans/active/`.
-
-## Required Per-Iteration Output
-
-See `AGENTS.md` "Execution Standard" for the full per-iteration checklist.
-Briefly: every loop leaves goal, command, evidence, keep/drop decision, and next
-action in the repo.
+See `AGENTS.md` "Sources Of Truth" for the complete layered index.
 
 ## Guiding Principle
 
-When a task reveals a weakness, prefer improving the harness itself:
-
-- tighten validation
-- clarify interfaces
-- update repo-owned docs
-- distill reusable practice into skills
-
-The repository should accumulate leverage, not just outputs.
+When a task reveals a weakness, improve the harness itself. The repository should
+accumulate leverage, not just outputs.

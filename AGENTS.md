@@ -139,124 +139,28 @@ Profile sprawl is now a harness problem, not just a naming problem.
 - A dropped profile keeps summary/review/continuity evidence by default, but should not keep its actor checkpoint unless the registry explicitly says so.
 - New profile files are not allowed to accumulate without a registry status and a notes reference.
 
-## Experiment Entry Gate
+## Experiment Governance
 
-New experiments are not allowed to start from "maybe this knob helps".
+A new experiment is not ready to run until the workpad or notes file contains:
 
-Before any new training, replay, or profile branch is created, write down:
+- **Baselines**: canonical and direct comparison
+- **Role**: `replace`, `diagnose`, or `ablate`
+- **Target window** (e.g. `test_2022`, walk-forward) and **accepted trade-off**
+- **Changed layer**: `feature`, `network`, `model`, `reward`, `execution`, `selection`, `sampling`, or `data`
+- **External reference**: paper, project, dataset, feature family, architecture, model-selection method, or reward design
+- **Hypothesis, acceptance criteria, expected trade-off, failure mode**
+- **Comparison-table row key**
 
-- canonical baseline
-- direct comparison baseline
-- experiment role:
-  - `replace`
-  - `diagnose`
-  - `ablate`
-- target improvement window:
-  - for example `test_2022`, restart windows, `test_2023_2024`, or walk-forward
-- accepted trade-off window:
-  - what may get slightly worse without invalidating the run
-- changed layer:
-  - `feature`
-  - `network`
-  - `model`
-  - `reward`
-  - `execution`
-  - `selection`
-  - `sampling`
-  - `data`
+Before starting, query repo history and answer:
+1. closest historical success case
+2. closest historical failure case
+3. why this run is not a duplicate of either
 
-If those fields are missing, the experiment is not ready to run.
+Default to **not running** if the difference is only a stronger penalty, a slightly different threshold, a renamed profile, or a larger bundle of already-failed levers.
 
-## External-Evidence Requirement
+After completion, add a comparison-table row (profile, category, baseline, mechanism delta, key metrics, keep/drop decision, next action) to `docs/experiment-landscape-review.md`. A run not important enough for a table row is probably not important enough to run.
 
-Future experiments must expand the search space, not rename old loops.
-
-Every new experiment must cite at least one of:
-
-- reference paper
-- open-source project
-- new dataset
-- new feature family
-- new network architecture
-- new model-selection method
-- new reward-function design
-
-The reference must be written into the experiment notes or active workpad before the run starts.
-
-Repeating a prior branch with only threshold or coefficient drift is not enough unless the workpad explains:
-
-- which historical branch it is most similar to
-- why that branch failed or succeeded
-- what concrete new mechanism now exists
-
-## Anti-Repetition Rule
-
-Exploration breadth is now a harness constraint.
-
-Before starting a new experiment, query the repo history and answer:
-
-1. what is the closest historical success case
-2. what is the closest historical failure case
-3. why is this run not a duplicate of either
-
-If the difference is only:
-
-- a stronger penalty
-- a slightly different threshold
-- a renamed profile
-- a larger bundle of already-failed levers
-
-then default to not running it.
-
-## Experiment Card Contract
-
-Every new experiment package or notes file must contain:
-
-- motivation
-- external reference
-- hypothesis
-- target slices / windows
-- acceptance criteria
-- expected trade-off
-- failure mode
-- comparison-table row key
-
-The implementer should not need to guess what success means.
-
-## Comparison Table Discipline
-
-The repository must maintain a single durable comparison surface for historical conclusions.
-
-- Major conclusions belong in `docs/experiment-landscape-review.md`.
-- Pairwise or run-local reviews can still live under `runtime/model/`.
-- A training or replay loop is not complete until its conclusion is reflected in the durable comparison record.
-
-Every completed experiment must add or update a row containing:
-
-- profile name
-- category
-- baseline
-- mechanism delta
-- key metrics
-- keep / drop / candidate decision
-- next action
-
-If a run is not important enough to earn a row in the comparison table, it is probably not important enough to run.
-
-## Pre-Run Reflection
-
-Before the next experiment begins, review both:
-
-- where past strategies were clearly strong
-- where past strategies were clearly weak
-
-At minimum, write down:
-
-- the success windows to preserve
-- the failure windows to improve
-- why the new proposal should improve the weak windows without erasing the strong ones
-
-This reflection must live in the workpad or experiment notes, not only in chat.
+Pre-run reflection: write down the success windows to preserve, the failure windows to improve, and why the new proposal fixes the weak windows without erasing the strong ones.
 
 ## Code Boundaries
 
