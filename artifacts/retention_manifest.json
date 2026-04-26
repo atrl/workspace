@@ -1,23 +1,179 @@
 {
-  "generated_at": "2026-04-25T08:02:23.655117+00:00",
+  "generated_at": "2026-04-26T05:41:10.506575+00:00",
   "entries": [
     {
       "path": "artifacts/models/soxl_balanced_actor.pt",
       "action": "keep",
-      "reason": "registry keep_actor for canonical profile",
+      "reason": "registry keep_actor for archived profile",
       "size_bytes": 82597
     },
     {
       "path": "artifacts/models/soxl_balanced_rule_residual_v19_actor.pt",
+      "action": "keep",
+      "reason": "registry keep_actor for canonical profile",
+      "size_bytes": 181093
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_v19_lowcap_actor.pt",
+      "action": "delete",
+      "reason": "registry drop actor for candidate profile",
+      "size_bytes": 181205
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_v19_lowcap_summary.json",
+      "action": "keep",
+      "reason": "registry keep_summary for candidate profile",
+      "size_bytes": 6816
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_v19_reg_actor.pt",
+      "action": "keep",
+      "reason": "registry keep_actor for candidate profile",
+      "size_bytes": 181221
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_v19_reg_light_actor.pt",
+      "action": "keep",
+      "reason": "registry keep_actor for candidate profile",
+      "size_bytes": 181381
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_v19_reg_light_summary.json",
+      "action": "keep",
+      "reason": "registry keep_summary for candidate profile",
+      "size_bytes": 6141
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_v19_reg_light_wf_2020_actor.pt",
+      "action": "delete",
+      "reason": "actor has no registered profile",
+      "size_bytes": 181637
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_v19_reg_light_wf_2020_summary.json",
+      "action": "keep",
+      "reason": "registry keep_summary for candidate profile",
+      "size_bytes": 5397
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_v19_reg_light_wf_2022_actor.pt",
+      "action": "delete",
+      "reason": "actor has no registered profile",
+      "size_bytes": 181637
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_v19_reg_light_wf_2022_summary.json",
+      "action": "keep",
+      "reason": "registry keep_summary for candidate profile",
+      "size_bytes": 5350
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_v19_reg_light_wf_2023_2024_actor.pt",
+      "action": "delete",
+      "reason": "actor has no registered profile",
+      "size_bytes": 181781
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_v19_reg_light_wf_2023_2024_summary.json",
+      "action": "keep",
+      "reason": "registry keep_summary for candidate profile",
+      "size_bytes": 5319
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_v19_reg_summary.json",
+      "action": "keep",
+      "reason": "registry keep_summary for candidate profile",
+      "size_bytes": 6092
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_v19_reg_wf_2020_actor.pt",
+      "action": "delete",
+      "reason": "actor has no registered profile",
+      "size_bytes": 181413
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_v19_reg_wf_2020_summary.json",
+      "action": "keep",
+      "reason": "registry keep_summary for candidate profile",
+      "size_bytes": 5387
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_v19_reg_wf_2022_actor.pt",
+      "action": "delete",
+      "reason": "actor has no registered profile",
+      "size_bytes": 181413
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_v19_reg_wf_2022_summary.json",
+      "action": "keep",
+      "reason": "registry keep_summary for candidate profile",
+      "size_bytes": 5413
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_v19_reg_wf_2023_2024_actor.pt",
+      "action": "delete",
+      "reason": "actor has no registered profile",
+      "size_bytes": 181621
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_v19_reg_wf_2023_2024_summary.json",
+      "action": "keep",
+      "reason": "registry keep_summary for candidate profile",
+      "size_bytes": 5297
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_v19_small_actor.pt",
       "action": "delete",
       "reason": "registry drop actor for dropped profile",
-      "size_bytes": 181093
+      "size_bytes": 26821
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_v19_small_summary.json",
+      "action": "keep",
+      "reason": "registry keep_summary for dropped profile",
+      "size_bytes": 6133
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_v19_small_wf_2020_actor.pt",
+      "action": "delete",
+      "reason": "actor has no registered profile",
+      "size_bytes": 27061
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_v19_small_wf_2020_summary.json",
+      "action": "keep",
+      "reason": "registry keep_summary for dropped profile",
+      "size_bytes": 5384
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_v19_small_wf_2022_actor.pt",
+      "action": "delete",
+      "reason": "actor has no registered profile",
+      "size_bytes": 27061
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_v19_small_wf_2022_summary.json",
+      "action": "keep",
+      "reason": "registry keep_summary for dropped profile",
+      "size_bytes": 5409
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_v19_small_wf_2023_2024_actor.pt",
+      "action": "delete",
+      "reason": "actor has no registered profile",
+      "size_bytes": 27195
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_v19_small_wf_2023_2024_summary.json",
+      "action": "keep",
+      "reason": "registry keep_summary for dropped profile",
+      "size_bytes": 5319
     },
     {
       "path": "artifacts/models/soxl_balanced_rule_residual_v19_summary.json",
       "action": "keep",
-      "reason": "registry keep_summary for dropped profile",
-      "size_bytes": 5872
+      "reason": "registry keep_summary for canonical profile",
+      "size_bytes": 6119
     },
     {
       "path": "artifacts/models/soxl_balanced_rule_residual_v19_wf_2020_actor.pt",
@@ -28,7 +184,7 @@
     {
       "path": "artifacts/models/soxl_balanced_rule_residual_v19_wf_2020_summary.json",
       "action": "keep",
-      "reason": "registry keep_summary for dropped profile",
+      "reason": "registry keep_summary for canonical profile",
       "size_bytes": 5380
     },
     {
@@ -40,55 +196,109 @@
     {
       "path": "artifacts/models/soxl_balanced_rule_residual_v19_wf_2022_summary.json",
       "action": "keep",
-      "reason": "registry keep_summary for dropped profile",
+      "reason": "registry keep_summary for canonical profile",
       "size_bytes": 5398
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_v19_wf_2023_2024_actor.pt",
+      "action": "delete",
+      "reason": "actor has no registered profile",
+      "size_bytes": 181301
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_v19_wf_2023_2024_summary.json",
+      "action": "keep",
+      "reason": "registry keep_summary for canonical profile",
+      "size_bytes": 5302
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_v22_actor.pt",
+      "action": "keep",
+      "reason": "registry keep_actor for candidate profile",
+      "size_bytes": 184933
     },
     {
       "path": "artifacts/models/soxl_balanced_rule_residual_v22_summary.json",
       "action": "keep",
-      "reason": "registry keep_summary for dropped profile",
-      "size_bytes": 5885
+      "reason": "registry keep_summary for candidate profile",
+      "size_bytes": 6117
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_v22_wf_2020_actor.pt",
+      "action": "delete",
+      "reason": "actor has no registered profile",
+      "size_bytes": 185061
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_v22_wf_2020_summary.json",
+      "action": "keep",
+      "reason": "registry keep_summary for candidate profile",
+      "size_bytes": 5370
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_v22_wf_2022_actor.pt",
+      "action": "delete",
+      "reason": "actor has no registered profile",
+      "size_bytes": 185061
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_v22_wf_2022_summary.json",
+      "action": "keep",
+      "reason": "registry keep_summary for candidate profile",
+      "size_bytes": 5398
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_v22_wf_2023_2024_actor.pt",
+      "action": "delete",
+      "reason": "actor has no registered profile",
+      "size_bytes": 185141
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_v22_wf_2023_2024_summary.json",
+      "action": "keep",
+      "reason": "registry keep_summary for candidate profile",
+      "size_bytes": 5301
     },
     {
       "path": "artifacts/models/soxl_balanced_summary.json",
       "action": "keep",
-      "reason": "registry keep_summary for canonical profile",
+      "reason": "registry keep_summary for archived profile",
       "size_bytes": 5225
     },
     {
       "path": "artifacts/models/soxl_balanced_wf_2020_actor.pt",
       "action": "keep",
-      "reason": "registry keep_actor for canonical profile",
+      "reason": "registry keep_actor for archived profile",
       "size_bytes": 82821
     },
     {
       "path": "artifacts/models/soxl_balanced_wf_2020_summary.json",
       "action": "keep",
-      "reason": "registry keep_summary for canonical profile",
+      "reason": "registry keep_summary for archived profile",
       "size_bytes": 4489
     },
     {
       "path": "artifacts/models/soxl_balanced_wf_2022_actor.pt",
       "action": "keep",
-      "reason": "registry keep_actor for canonical profile",
+      "reason": "registry keep_actor for archived profile",
       "size_bytes": 82821
     },
     {
       "path": "artifacts/models/soxl_balanced_wf_2022_summary.json",
       "action": "keep",
-      "reason": "registry keep_summary for canonical profile",
+      "reason": "registry keep_summary for archived profile",
       "size_bytes": 4510
     },
     {
       "path": "artifacts/models/soxl_balanced_wf_2023_2024_actor.pt",
       "action": "keep",
-      "reason": "registry keep_actor for canonical profile",
+      "reason": "registry keep_actor for archived profile",
       "size_bytes": 82881
     },
     {
       "path": "artifacts/models/soxl_balanced_wf_2023_2024_summary.json",
       "action": "keep",
-      "reason": "registry keep_summary for canonical profile",
+      "reason": "registry keep_summary for archived profile",
       "size_bytes": 4455
     },
     {
@@ -101,13 +311,13 @@
       "path": "artifacts/models/soxl_smoke_actor.pt",
       "action": "keep",
       "reason": "registry keep_actor for canonical profile",
-      "size_bytes": 32257
+      "size_bytes": 35969
     },
     {
       "path": "artifacts/models/soxl_smoke_summary.json",
       "action": "keep",
       "reason": "registry keep_summary for canonical profile",
-      "size_bytes": 3883
+      "size_bytes": 5628
     },
     {
       "path": "__pycache__",
