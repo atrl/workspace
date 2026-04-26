@@ -94,6 +94,9 @@ Regularization is not the solution. The core problems are:
 - v19 remains the stronger baseline
 
 ## Next Actions
-1. Fix worker evaluation to align with backtest
+1. ✅ Fix worker evaluation to align with backtest — COMMITTED 69bddd6
+   - Modified `run_profile` in `src/soxl_quant/app/train.py`
+   - `test_proxy` now uses `backtest_profile` return/sharpe/max_dd instead of `evaluate_split`
+   - This fixes both fixed-split promotion gate AND walk-forward worker eval
 2. Address structural MaxDD (position caps, stop losses)
 3. Analyze 2023 regime shift
