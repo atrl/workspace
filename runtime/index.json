@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-26T01:45:00.876480+00:00",
+  "generated_at": "2026-04-26T03:41:50.678242+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -1092,6 +1092,12 @@
       "category": "model",
       "suffix": ".csv",
       "bytes": 195987
+    },
+    {
+      "path": "runtime/model/reviews/smoke_soxl_daily.csv",
+      "category": "model",
+      "suffix": ".csv",
+      "bytes": 199075
     },
     {
       "path": "runtime/model/reviews/two_speed_mode_budget_v1.json",
