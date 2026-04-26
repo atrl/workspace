@@ -10,8 +10,7 @@ Primary harness entrypoints:
 - `feature_analysis.py`: generate feature importance / IC analysis outputs under `runtime/factor/analysis/`.
 - `cost_sensitivity_backtest.py`: replay retained artifacts under alternative cost assumptions for review.
 - `export_profile_daily_backtest.py`: export daily replay rows from saved model artifacts for review diffs.
-- `memory_search.py`: query normalized memory metadata without opening every memory file.
-- `normalize_memory.py`: normalize `memory/*.md` into the shared front-matter schema and rebuild `memory/index.json`.
+- `build_runtime_index.py`: regenerate `runtime/index.json` for fast knowledge retrieval.
 - `prune_artifacts.py`: generate and optionally apply the retained artifact manifest.
 - `rank_counterfactual_variants.py`: sort fixed-actor counterfactual outputs by promotion-gate quality and write a Markdown ranking.
 
@@ -23,6 +22,5 @@ Operational utilities:
 
 Validation order before starting a new training loop:
 
-1. `qlib_venv/bin/python scripts/memory_search.py balanced --status dropped --top-k 5`
-2. `qlib_venv/bin/python scripts/check_harness.py`
-3. only then run a new training or replay command
+1. `qlib_venv/bin/python scripts/check_harness.py`
+2. only then run a new training or replay command

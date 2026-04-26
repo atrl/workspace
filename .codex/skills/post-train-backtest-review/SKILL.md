@@ -28,7 +28,7 @@ description: 在每次训练或回测结束后，对最新模型与上一版本/
 - 可选补充：
   - `runtime/feature_analysis/summary.json`
   - `runtime/generalization/detailed/*.csv`
-  - `memory/*.md`
+  - `runtime/<direction>/knowledge.md`
   - `codex_exec_plans/active/*.md`
 
 仓库里最重要的比较字段通常是：
@@ -573,7 +573,7 @@ skill 不能只给“建议列表”，还要默认决定下一轮最便宜、�
 - **当前线程内的实验过程**：
   - 写入 `codex_exec_plans/active/...`
 - **跨会话仍值得保留的方法、决策、长期结论**：
-  - 才写入 `memory/...`
+  - 才写入 `runtime/<direction>/knowledge.md`
 - **只是一次局部 sweep 或单轮失败尝试**：
   - 优先并入已有 memory 记录，不单独新建文件
 

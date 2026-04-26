@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-26T05:35:43.186304+00:00",
+  "generated_at": "2026-04-26T05:46:40.564786+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -356,6 +356,24 @@
       "bytes": 5988
     },
     {
+      "path": "runtime/harness/2026-04-17-balanced-regime-gate-failure.md",
+      "category": "harness",
+      "suffix": ".md",
+      "bytes": 2525
+    },
+    {
+      "path": "runtime/harness/2026-04-17-balanced-regime-gate-v2-failure.md",
+      "category": "harness",
+      "suffix": ".md",
+      "bytes": 2692
+    },
+    {
+      "path": "runtime/harness/2026-04-18-phase-balanced-training-failure.md",
+      "category": "harness",
+      "suffix": ".md",
+      "bytes": 4546
+    },
+    {
       "path": "runtime/harness/cards/harness_validation/card.md",
       "category": "harness",
       "suffix": ".md",
@@ -366,6 +384,12 @@
       "category": "harness",
       "suffix": ".md",
       "bytes": 4189
+    },
+    {
+      "path": "runtime/model/2026-04-18-structural-model-loop.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 5216
     },
     {
       "path": "runtime/model/cards/balanced_checkpoint_review/card.md",

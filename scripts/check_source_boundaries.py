@@ -50,7 +50,7 @@ def main() -> int:
     if (ROOT / "docs" / "factor_research").exists():
         failures.append("docs/factor_research/ should not exist; generated factor outputs belong in runtime/factor/analysis")
 
-    for path in iter_text_files("codex_exec_plans", "runtime"):
+    for path in iter_text_files("codex_exec_plans"):
         text = read(path)
         if OLD_ACTIVE_WORKPAD in text:
             failures.append(f"{path.relative_to(ROOT)} references old active workpad")

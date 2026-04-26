@@ -152,21 +152,21 @@ profiles:
   baseline: balanced
   keep_actor: false
   keep_summary: true
-  notes_ref: memory/2026-04-18-phase-balanced-training-failure.md
+  notes_ref: runtime/harness/2026-04-18-phase-balanced-training-failure.md
 - name: balanced_regime_gate
   family: balanced
   status: dropped
   baseline: balanced
   keep_actor: false
   keep_summary: true
-  notes_ref: memory/2026-04-17-balanced-regime-gate-failure.md
+  notes_ref: runtime/harness/2026-04-17-balanced-regime-gate-failure.md
 - name: balanced_regime_gate_v2
   family: balanced
   status: dropped
   baseline: balanced_regime_gate
   keep_actor: false
   keep_summary: true
-  notes_ref: memory/2026-04-17-balanced-regime-gate-v2-failure.md
+  notes_ref: runtime/harness/2026-04-17-balanced-regime-gate-v2-failure.md
 - name: balanced_reward_guard
   family: balanced
   status: dropped
@@ -357,7 +357,7 @@ profiles:
   baseline: balanced
   keep_actor: false
   keep_summary: true
-  notes_ref: memory/2026-04-18-structural-model-loop.md
+  notes_ref: runtime/model/2026-04-18-structural-model-loop.md
 - name: balanced_tide_quick
   family: balanced
   status: ablation

@@ -134,7 +134,7 @@ Profile sprawl is now a harness problem, not just a naming problem.
   - the canonical baseline
   - the direct comparison baseline
   - whether the new profile is meant to replace, diagnose, or ablate
-- A dropped profile keeps summary/review/memory evidence by default, but should not keep its actor checkpoint unless the registry explicitly says so.
+- A dropped profile keeps summary/review/continuity evidence by default, but should not keep its actor checkpoint unless the registry explicitly says so.
 - New profile files are not allowed to accumulate without a registry status and a notes reference.
 
 ## Experiment Entry Gate
@@ -337,7 +337,7 @@ Repository noise should be reduced continuously instead of in rare purges.
 - Generated caches such as `__pycache__` and `.DS_Store` should not survive task completion.
 - Use `qlib_venv/bin/python scripts/prune_artifacts.py` to regenerate `artifacts/retention_manifest.json`.
 - If cleanup is part of the task, prefer:
-  - keep summaries, reviews, workpads, and memory notes
+  - keep summaries, reviews, workpads, and runtime knowledge notes
   - delete redundant actor checkpoints for dropped or archived profiles
   - keep only registry-approved actor bundles
 - Do not delete large artifacts blindly; inspect the registry and manifest first.
@@ -372,7 +372,7 @@ Every task that changes files in the repo **must** end with:
 3. `git push` to sync evidence to the remote.
 
 Only skip push when there is a confirmed lack of write permission or network
-failure — and record the reason in memory if so.
+failure — and record the reason in runtime/harness/knowledge.md if so.
 
 ## Default Posture
 
@@ -417,7 +417,7 @@ Prefer lint, tests, and executable scripts over written instructions.
 - If a rule is documented but not yet enforced mechanically, treat it as a
   temporary exception and open a plan to automate it.
 - The agent must run the existing test suite before declaring any task complete.
-- If a research workflow rule is repeated more than twice in docs or memory, plan to enforce it mechanically through scripts, templates, or checks.
+- If a research workflow rule is repeated more than twice in docs or runtime knowledge files, plan to enforce it mechanically through scripts, templates, or checks.
 
 ### Executable Feedback Loops
 Every task must end with a validation step that produces pass/fail evidence
