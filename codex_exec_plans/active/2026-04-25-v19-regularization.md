@@ -108,6 +108,8 @@ No single variant dominates. v19 remains the strongest all-around baseline.
 ## Next Actions
 1. ✅ Fix worker evaluation to align with backtest
 2. ✅ Recalibrate promotion gate thresholds
-3. Address structural MaxDD (position caps, stop losses)
-4. Analyze 2023 regime shift
-5. Run smoke test to verify `run_profile` modifications work end-to-end
+3. ✅ Run smoke test to verify `run_profile` modifications work end-to-end
+   - Result: PASS. test_proxy and test_2022 now use backtest_profile metrics.
+   - Fixed-split gate passes: MaxDD 49.4% < 55%, Sharpe 0.88 > 0.50, avg_pos 0.27 < 0.35
+4. Address structural MaxDD (position caps, stop losses)
+5. Analyze 2023 regime shift
