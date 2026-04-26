@@ -269,6 +269,15 @@ class RLStrategy(BaseStrategy):
                     signal_val = float(self.df.iloc[idx].get("tracking_error_vol_21", 0.0))
                     if signal_val >= threshold:
                         target_pos = min(target_pos + boost, 1.0)
+                elif overlay_type == "multi_factor":
+                    # Composite score from multiple features
+                    weights = oc.get("weights", {})
+                    score = 0.0
+                    for feat_name, weight in weights.items():
+                        feat_val = float(self.df.iloc[idx].get(feat_name, 0.0))
+                        score += weight * feat_val
+                    if score >= threshold:
+                        target_pos = min(target_pos + boost, 1.0)
         direction = "buy" if target_pos > current_pos else ("sell" if target_pos < current_pos else "neutral")
         min_rebalance = rebalance_threshold(
             regime_risk,
