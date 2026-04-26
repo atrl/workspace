@@ -205,7 +205,7 @@ git commit -m "feat: wire mode state through harness paths"
 - Create: `experiments/candidate/balanced_rule_residual_mode_v1/profile.yaml`
 - Create: `experiments/candidate/balanced_rule_residual_mode_v1/notes.md`
 - Create: `experiments/candidate/balanced_rule_residual_mode_v1/expectations.md`
-- Modify: `configs/soxl/profile_registry.yaml`
+- Modify: `runtime/configs/profile_registry.yaml`
 - Modify: `runtime/index.json`
 
 - [ ] **Step 1: Write minimal implementation**
@@ -228,7 +228,7 @@ Expected: PASS
 - [ ] **Step 3: Commit**
 
 ```bash
-git add experiments/candidate/balanced_rule_residual_mode_v1 configs/soxl/profile_registry.yaml runtime/index.json
+git add experiments/candidate/balanced_rule_residual_mode_v1 runtime/configs/profile_registry.yaml runtime/index.json
 git commit -m "feat: add first mode hierarchy candidate profile"
 ```
 

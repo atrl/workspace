@@ -18,7 +18,7 @@ tags:
 - stress-regime
 artifacts: []
 workpad: codex_exec_plans/active/2026-04-10-soxl-agent-loop.md
-summary: 'Legacy memory note normalized into the repo-wide schema. New profile: `configs/soxl/balanced_regime_gate.yaml`
+summary: 'Legacy memory note normalized into the repo-wide schema. New profile: `runtime/configs/balanced_regime_gate.yaml`
   Intent: keep canonical `balanced` as the style anchor add staged checkpoint scoring
   penalize validation stress-window average pos'
 ---
@@ -34,7 +34,7 @@ Legacy memory note normalized into the repo-wide schema.
 ## What was tried
 
 - New profile:
-  - `configs/soxl/balanced_regime_gate.yaml`
+  - `runtime/configs/balanced_regime_gate.yaml`
 - Intent:
   - keep canonical `balanced` as the style anchor
   - add staged checkpoint scoring

@@ -7,7 +7,7 @@ from typing import Any, Dict, Tuple
 import yaml
 
 ROOT = Path(__file__).resolve().parents[2]
-PROFILE_DIR = ROOT / "configs" / "soxl"
+PROFILE_DIR = ROOT / "runtime" / "configs"
 EXPERIMENTS_DIR = ROOT / "experiments"
 
 

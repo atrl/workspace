@@ -51,7 +51,7 @@ def _profile_name_from_path(path: Path, *, allow_summary_namespace: bool) -> str
     experiment_matches = sorted(ROOT.glob(f"experiments/*/{stem}/profile.yaml"))
     if experiment_matches:
         return stem
-    # Fallback to legacy configs/soxl/
+    # Fallback to legacy runtime/configs/
     exact = ROOT / "configs" / "soxl" / f"{stem}.yaml"
     if exact.exists():
         return stem

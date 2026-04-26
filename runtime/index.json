@@ -1,11 +1,35 @@
 {
-  "generated_at": "2026-04-26T05:46:40.564786+00:00",
+  "generated_at": "2026-04-26T06:06:39.646219+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
       "category": "root",
       "suffix": ".md",
       "bytes": 1198
+    },
+    {
+      "path": "runtime/configs/execution_overlay_variants.json",
+      "category": "configs",
+      "suffix": ".json",
+      "bytes": 2459
+    },
+    {
+      "path": "runtime/configs/optimization_notes.md",
+      "category": "configs",
+      "suffix": ".md",
+      "bytes": 2908
+    },
+    {
+      "path": "runtime/configs/position_cap_overlay_variants.json",
+      "category": "configs",
+      "suffix": ".json",
+      "bytes": 933
+    },
+    {
+      "path": "runtime/configs/reference_notes.md",
+      "category": "configs",
+      "suffix": ".md",
+      "bytes": 3041
     },
     {
       "path": "runtime/data/cards/soxl_data_pipeline/card.md",
@@ -359,13 +383,13 @@
       "path": "runtime/harness/2026-04-17-balanced-regime-gate-failure.md",
       "category": "harness",
       "suffix": ".md",
-      "bytes": 2525
+      "bytes": 2531
     },
     {
       "path": "runtime/harness/2026-04-17-balanced-regime-gate-v2-failure.md",
       "category": "harness",
       "suffix": ".md",
-      "bytes": 2692
+      "bytes": 2698
     },
     {
       "path": "runtime/harness/2026-04-18-phase-balanced-training-failure.md",
@@ -617,7 +641,7 @@
       "path": "runtime/model/knowledge.md",
       "category": "model",
       "suffix": ".md",
-      "bytes": 23074
+      "bytes": 23077
     },
     {
       "path": "runtime/model/reviews/balanced_checkpoint_review.md",
@@ -1253,7 +1277,7 @@
       "path": "runtime/network/knowledge.md",
       "category": "network",
       "suffix": ".md",
-      "bytes": 13510
+      "bytes": 13513
     },
     {
       "path": "runtime/reward/cards/base_log/card.md",

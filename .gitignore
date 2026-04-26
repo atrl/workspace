@@ -46,29 +46,17 @@ qlib_venv/
 .ralph/
 .openclaw/
 .worktrees/
-runtime/
-!runtime/
-runtime/*
-!runtime/README.md
-!runtime/index.json
-!runtime/model/
-!runtime/model/**
-!runtime/factor/
-!runtime/factor/**
-!runtime/execution/
-!runtime/execution/**
-!runtime/data/
-!runtime/data/**
-!runtime/network/
-!runtime/network/**
-!runtime/reward/
-!runtime/reward/**
-!runtime/multi_asset/
-!runtime/multi_asset/**
-!runtime/harness/
-!runtime/harness/**
+
+# Runtime generated artifacts (ignore temp/large outputs, keep knowledge and configs)
 runtime/**/*.png
 runtime/**/*.log
+runtime/**/*.csv.gz
+runtime/**/*.pkl
+runtime/**/*.pt
+runtime/soxl/wf_workers/
+runtime/soxl/paper_trading/
+runtime/execution/dashboard/
+runtime/model/reviews/*.csv
 
 # Artifacts / generated outputs
 artifacts/
@@ -76,9 +64,7 @@ artifacts/
 artifacts/*
 !artifacts/retention_manifest.json
 *.png
-memory/.dreams/
-memory/*.json
-!memory/index.json
+
 soxl_qlib_strategy_v2_results.txt
 
 # Qlib generated data

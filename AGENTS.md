@@ -35,7 +35,7 @@ Use these files for distinct roles. Do not collapse them together.
   lines.
 - `runtime/<direction>/knowledge.md`: continuity across sessions, organized by task direction.
 - `.codex/skills/`: reusable methods and maintained operational knowledge. Codex CLI auto-loads skills from this path.
-- `configs/soxl/profile_registry.yaml`: profile lifecycle, canonical baselines, and retention intent.
+- `runtime/configs/profile_registry.yaml`: profile lifecycle, canonical baselines, and retention intent.
 - `experiments/`: experiment-owned profile packages with colocated notes and expectations.
 - `data/datasets.yaml`: generated data registry for raw symbols, processed
   panels, qlib stores, and training caches.
@@ -122,9 +122,9 @@ When a loop changes profile lifecycle or retention:
 
 Profile sprawl is now a harness problem, not just a naming problem.
 
-- Every `configs/soxl/*.yaml` profile must have a row in `configs/soxl/profile_registry.yaml`.
+- Every `runtime/configs/*.yaml` profile must have a row in `runtime/configs/profile_registry.yaml`.
 - New active profile work should prefer `experiments/<status>/<name>/profile.yaml` plus colocated `notes.md` and `expectations.md`.
-- Legacy flat files under `configs/soxl/*.yaml` are compatibility paths during migration, not the preferred place for new work.
+- Legacy flat files under `runtime/configs/*.yaml` are compatibility paths during migration, not the preferred place for new work.
 - The registry is the source of truth for:
   - current canonical profile per family
   - baseline lineage
