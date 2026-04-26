@@ -19,7 +19,7 @@ qlib_venv/bin/python scripts/build_backtest_dashboard.py
 
 ### Post-Train Default View
 After a training run, the harness should:
-1. export `runtime/post_train_review/<profile>_soxl_daily.csv`
+1. export `runtime/soxl/post_train_review/<profile>_soxl_daily.csv`
 2. rebuild `runtime/generalization/dashboard.html`
 3. default the dashboard to the latest generated version, not the historical best-Sharpe version
 

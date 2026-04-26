@@ -35,7 +35,7 @@ Use these files for distinct roles. Do not collapse them together.
   lines.
 - `runtime/<direction>/knowledge.md`: continuity across sessions, organized by task direction.
 - `.codex/skills/`: reusable methods and maintained operational knowledge. Codex CLI auto-loads skills from this path.
-- `runtime/harness/card/registry/profile.yaml`: profile lifecycle registry, canonical baselines, and retention intent.
+- `runtime/harness/cards/registry/profile.yaml`: profile lifecycle registry, canonical baselines, and retention intent.
 - `experiments/`: experiment-owned profile packages with colocated notes and expectations.
 - `data/datasets.yaml`: generated data registry for raw symbols, processed
   panels, qlib stores, and training caches.
@@ -122,9 +122,9 @@ When a loop changes profile lifecycle or retention:
 
 Profile sprawl is now a harness problem, not just a naming problem.
 
-- Every profile yaml (found under `runtime/<direction>/card/<name>/profile.yaml`) must have a row in `runtime/harness/card/registry/profile.yaml`.
+- Every profile yaml (found under `runtime/<direction>/cards/<name>/profile.yaml`) must have a row in `runtime/harness/cards/registry/profile.yaml`.
 - New active profile work should prefer `experiments/<status>/<name>/profile.yaml` plus colocated `notes.md` and `expectations.md`.
-- Legacy flat files under `runtime/<direction>/card/<name>/profile.yaml` are compatibility paths during migration, not the preferred place for new work.
+- Legacy flat files under `runtime/<direction>/cards/<name>/profile.yaml` are the canonical profile location; `experiments/<status>/<name>/profile.yaml` is preferred for new work.
 - The registry is the source of truth for:
   - current canonical profile per family
   - baseline lineage
@@ -495,8 +495,8 @@ Before starting a new training or replay loop:
 
 When creating a new experiment profile:
 
-1. create `runtime/<direction>/card/<name>/profile.yaml` with the full configuration
-2. add a row to `runtime/harness/card/registry/profile.yaml` with baseline, status, and notes_ref
+1. create `runtime/<direction>/cards/<name>/profile.yaml` with the full configuration
+2. add a row to `runtime/harness/cards/registry/profile.yaml` with baseline, status, and notes_ref
 3. colocate experiment notes in `runtime/<direction>/knowledge.md` or a dedicated note under the card directory
 4. do not create a separate top-level `configs/` or `experiments/` directory for the profile
 

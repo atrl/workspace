@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-26T06:47:08.951105+00:00",
+  "generated_at": "2026-04-26T10:42:59.807783+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -641,7 +641,7 @@
       "path": "runtime/model/knowledge.md",
       "category": "model",
       "suffix": ".md",
-      "bytes": 23082
+      "bytes": 23083
     },
     {
       "path": "runtime/model/reviews/balanced_checkpoint_review.md",
@@ -654,6 +654,348 @@
       "category": "model",
       "suffix": ".md",
       "bytes": 1985
+    },
+    {
+      "path": "runtime/model/reviews/balanced_family/soxl_balanced_checkpoint_review_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 4122
+    },
+    {
+      "path": "runtime/model/reviews/balanced_family/soxl_balanced_conservative_ft_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 4669
+    },
+    {
+      "path": "runtime/model/reviews/balanced_family/soxl_balanced_floor40_moe_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 2884
+    },
+    {
+      "path": "runtime/model/reviews/balanced_family/soxl_balanced_floor40_sym_bear30_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 2896
+    },
+    {
+      "path": "runtime/model/reviews/balanced_family/soxl_balanced_floor40_sym_cap25_moe_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 5141
+    },
+    {
+      "path": "runtime/model/reviews/balanced_family/soxl_balanced_floor40_sym_crisis30_moe_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 4587
+    },
+    {
+      "path": "runtime/model/reviews/balanced_family/soxl_balanced_floor40_sym_crisis30_v2_moe_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 4600
+    },
+    {
+      "path": "runtime/model/reviews/balanced_family/soxl_balanced_floor40_sym_expectancy_moe_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 5150
+    },
+    {
+      "path": "runtime/model/reviews/balanced_family/soxl_balanced_floor40_sym_expectancy_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 4312
+    },
+    {
+      "path": "runtime/model/reviews/balanced_family/soxl_balanced_floor40_sym_moe_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 2883
+    },
+    {
+      "path": "runtime/model/reviews/balanced_family/soxl_balanced_floor40_sym_slow_bear_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 4592
+    },
+    {
+      "path": "runtime/model/reviews/balanced_family/soxl_balanced_floor40_sym_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 2885
+    },
+    {
+      "path": "runtime/model/reviews/balanced_family/soxl_balanced_floor40_sym_tconv_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 4299
+    },
+    {
+      "path": "runtime/model/reviews/balanced_family/soxl_balanced_floor40_sym_tight_crash_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 4591
+    },
+    {
+      "path": "runtime/model/reviews/balanced_family/soxl_balanced_floor40_sym_v2_moe_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 4585
+    },
+    {
+      "path": "runtime/model/reviews/balanced_family/soxl_balanced_floor40_sym_v2_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 4295
+    },
+    {
+      "path": "runtime/model/reviews/balanced_family/soxl_balanced_floor40_sym_velocity_rules_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 4325
+    },
+    {
+      "path": "runtime/model/reviews/balanced_family/soxl_balanced_floor40_sym_velocity_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 4312
+    },
+    {
+      "path": "runtime/model/reviews/balanced_family/soxl_balanced_kelly_attention_v10_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 4974
+    },
+    {
+      "path": "runtime/model/reviews/balanced_family/soxl_balanced_kelly_dynamic_v5_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 4683
+    },
+    {
+      "path": "runtime/model/reviews/balanced_family/soxl_balanced_kelly_dynamic_v6_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 4683
+    },
+    {
+      "path": "runtime/model/reviews/balanced_family/soxl_balanced_kelly_dynamic_v7_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 4683
+    },
+    {
+      "path": "runtime/model/reviews/balanced_family/soxl_balanced_kelly_execution_v8_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 4689
+    },
+    {
+      "path": "runtime/model/reviews/balanced_family/soxl_balanced_kelly_warmstart_v9_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 4695
+    },
+    {
+      "path": "runtime/model/reviews/balanced_family/soxl_balanced_kelly_warmstart_v9b_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 4697
+    },
+    {
+      "path": "runtime/model/reviews/balanced_family/soxl_balanced_moe_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 2244
+    },
+    {
+      "path": "runtime/model/reviews/balanced_family/soxl_balanced_rule_residual_imitation_v1_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 5551
+    },
+    {
+      "path": "runtime/model/reviews/balanced_family/soxl_balanced_rule_residual_imitation_v2_fix_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 4727
+    },
+    {
+      "path": "runtime/model/reviews/balanced_family/soxl_balanced_rule_residual_imitation_v2_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 5500
+    },
+    {
+      "path": "runtime/model/reviews/balanced_family/soxl_balanced_rule_residual_imitation_v3_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 4993
+    },
+    {
+      "path": "runtime/model/reviews/balanced_family/soxl_balanced_rule_residual_imitation_v4_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 5065
+    },
+    {
+      "path": "runtime/model/reviews/balanced_family/soxl_balanced_rule_residual_imitation_v5_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 4711
+    },
+    {
+      "path": "runtime/model/reviews/balanced_family/soxl_balanced_rule_residual_imitation_v6_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 4715
+    },
+    {
+      "path": "runtime/model/reviews/balanced_family/soxl_balanced_rule_residual_imitation_v7_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 4712
+    },
+    {
+      "path": "runtime/model/reviews/balanced_family/soxl_balanced_rule_residual_learned_mode_v1_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 5558
+    },
+    {
+      "path": "runtime/model/reviews/balanced_family/soxl_balanced_rule_residual_minimal_v1_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 5549
+    },
+    {
+      "path": "runtime/model/reviews/balanced_family/soxl_balanced_rule_residual_mode_v1_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 5552
+    },
+    {
+      "path": "runtime/model/reviews/balanced_family/soxl_balanced_rule_residual_mode_v2_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 5547
+    },
+    {
+      "path": "runtime/model/reviews/balanced_family/soxl_balanced_rule_residual_refined_v1_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 5542
+    },
+    {
+      "path": "runtime/model/reviews/balanced_family/soxl_balanced_rule_residual_refined_v2_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 5547
+    },
+    {
+      "path": "runtime/model/reviews/balanced_family/soxl_balanced_rule_residual_refined_v3_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 5542
+    },
+    {
+      "path": "runtime/model/reviews/balanced_family/soxl_balanced_rule_residual_refined_v4_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 5554
+    },
+    {
+      "path": "runtime/model/reviews/balanced_family/soxl_balanced_rule_residual_simplified_v1_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 6109
+    },
+    {
+      "path": "runtime/model/reviews/balanced_family/soxl_balanced_rule_residual_v16_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 5286
+    },
+    {
+      "path": "runtime/model/reviews/balanced_family/soxl_balanced_rule_residual_v17_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 5278
+    },
+    {
+      "path": "runtime/model/reviews/balanced_family/soxl_balanced_rule_residual_v18_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 5271
+    },
+    {
+      "path": "runtime/model/reviews/balanced_family/soxl_balanced_rule_residual_v19_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 5046
+    },
+    {
+      "path": "runtime/model/reviews/balanced_family/soxl_balanced_rule_residual_v19_transition_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 5064
+    },
+    {
+      "path": "runtime/model/reviews/balanced_family/soxl_balanced_rule_residual_v19_wf_2020_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 4767
+    },
+    {
+      "path": "runtime/model/reviews/balanced_family/soxl_balanced_rule_residual_v19_wf_2022_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 4796
+    },
+    {
+      "path": "runtime/model/reviews/balanced_family/soxl_balanced_rule_residual_v20_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 5265
+    },
+    {
+      "path": "runtime/model/reviews/balanced_family/soxl_balanced_rule_residual_v22_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 4689
+    },
+    {
+      "path": "runtime/model/reviews/balanced_family/soxl_balanced_rule_residual_v23_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 4644
+    },
+    {
+      "path": "runtime/model/reviews/balanced_family/soxl_balanced_rule_residual_v24_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 4386
+    },
+    {
+      "path": "runtime/model/reviews/balanced_family/soxl_balanced_wf_2020_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 1868
+    },
+    {
+      "path": "runtime/model/reviews/balanced_family/soxl_balanced_wf_2022_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 1903
+    },
+    {
+      "path": "runtime/model/reviews/balanced_family/soxl_balanced_wf_2023_2024_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 1891
     },
     {
       "path": "runtime/model/reviews/balanced_phase_sampling_v1.md",
@@ -786,6 +1128,18 @@
       "category": "model",
       "suffix": ".md",
       "bytes": 2080
+    },
+    {
+      "path": "runtime/model/reviews/canonical/soxl_balanced_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 2464
+    },
+    {
+      "path": "runtime/model/reviews/canonical/soxl_smoke_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 3883
     },
     {
       "path": "runtime/model/reviews/hierarchical_online_budget_daily/soxl_actor_runtime.csv",
@@ -950,6 +1304,12 @@
       "bytes": 2050
     },
     {
+      "path": "runtime/model/reviews/other/balanced_unit_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 2513
+    },
+    {
       "path": "runtime/model/reviews/risk_budget_bc_warmstart_v1_bc.json",
       "category": "model",
       "suffix": ".json",
@@ -960,6 +1320,18 @@
       "category": "model",
       "suffix": ".md",
       "bytes": 951
+    },
+    {
+      "path": "runtime/model/reviews/risk_budget_family/soxl_risk_budget_bc_warmstart_v1_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 5372
+    },
+    {
+      "path": "runtime/model/reviews/risk_budget_family/soxl_risk_budget_usage_v1_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 5052
     },
     {
       "path": "runtime/model/reviews/risk_budget_family_review.md",
@@ -1146,6 +1518,12 @@
       "category": "model",
       "suffix": ".csv",
       "bytes": 195987
+    },
+    {
+      "path": "runtime/model/reviews/smoke_family/soxl_smoke_tide_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 3895
     },
     {
       "path": "runtime/model/reviews/smoke_soxl_daily.csv",

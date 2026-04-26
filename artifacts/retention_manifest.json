@@ -1,46 +1,64 @@
 {
-  "generated_at": "2026-04-26T05:41:10.506575+00:00",
+  "generated_at": "2026-04-26T10:43:05.859463+00:00",
   "entries": [
     {
-      "path": "artifacts/models/soxl_balanced_actor.pt",
+      "path": "artifacts/models/mode_classifier.pt",
       "action": "keep",
-      "reason": "registry keep_actor for archived profile",
+      "reason": "summary retained as evidence",
+      "size_bytes": 8253
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_actor.pt",
+      "action": "delete",
+      "reason": "actor has no registered profile",
       "size_bytes": 82597
     },
     {
-      "path": "artifacts/models/soxl_balanced_rule_residual_v19_actor.pt",
+      "path": "artifacts/models/soxl_balanced_actor_legacy_apr15.pt",
       "action": "keep",
-      "reason": "registry keep_actor for canonical profile",
+      "reason": "summary retained as evidence",
+      "size_bytes": 68773
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_checkpoint_review_actor.pt",
+      "action": "delete",
+      "reason": "actor has no registered profile",
+      "size_bytes": 73789
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_rule_residual_v19_actor.pt",
+      "action": "delete",
+      "reason": "actor has no registered profile",
       "size_bytes": 181093
     },
     {
       "path": "artifacts/models/soxl_balanced_rule_residual_v19_lowcap_actor.pt",
       "action": "delete",
-      "reason": "registry drop actor for candidate profile",
+      "reason": "actor has no registered profile",
       "size_bytes": 181205
     },
     {
       "path": "artifacts/models/soxl_balanced_rule_residual_v19_lowcap_summary.json",
       "action": "keep",
-      "reason": "registry keep_summary for candidate profile",
+      "reason": "summary retained even without registry match",
       "size_bytes": 6816
     },
     {
       "path": "artifacts/models/soxl_balanced_rule_residual_v19_reg_actor.pt",
-      "action": "keep",
-      "reason": "registry keep_actor for candidate profile",
+      "action": "delete",
+      "reason": "actor has no registered profile",
       "size_bytes": 181221
     },
     {
       "path": "artifacts/models/soxl_balanced_rule_residual_v19_reg_light_actor.pt",
-      "action": "keep",
-      "reason": "registry keep_actor for candidate profile",
+      "action": "delete",
+      "reason": "actor has no registered profile",
       "size_bytes": 181381
     },
     {
       "path": "artifacts/models/soxl_balanced_rule_residual_v19_reg_light_summary.json",
       "action": "keep",
-      "reason": "registry keep_summary for candidate profile",
+      "reason": "summary retained even without registry match",
       "size_bytes": 6141
     },
     {
@@ -52,7 +70,7 @@
     {
       "path": "artifacts/models/soxl_balanced_rule_residual_v19_reg_light_wf_2020_summary.json",
       "action": "keep",
-      "reason": "registry keep_summary for candidate profile",
+      "reason": "summary retained even without registry match",
       "size_bytes": 5397
     },
     {
@@ -64,7 +82,7 @@
     {
       "path": "artifacts/models/soxl_balanced_rule_residual_v19_reg_light_wf_2022_summary.json",
       "action": "keep",
-      "reason": "registry keep_summary for candidate profile",
+      "reason": "summary retained even without registry match",
       "size_bytes": 5350
     },
     {
@@ -76,13 +94,13 @@
     {
       "path": "artifacts/models/soxl_balanced_rule_residual_v19_reg_light_wf_2023_2024_summary.json",
       "action": "keep",
-      "reason": "registry keep_summary for candidate profile",
+      "reason": "summary retained even without registry match",
       "size_bytes": 5319
     },
     {
       "path": "artifacts/models/soxl_balanced_rule_residual_v19_reg_summary.json",
       "action": "keep",
-      "reason": "registry keep_summary for candidate profile",
+      "reason": "summary retained even without registry match",
       "size_bytes": 6092
     },
     {
@@ -94,7 +112,7 @@
     {
       "path": "artifacts/models/soxl_balanced_rule_residual_v19_reg_wf_2020_summary.json",
       "action": "keep",
-      "reason": "registry keep_summary for candidate profile",
+      "reason": "summary retained even without registry match",
       "size_bytes": 5387
     },
     {
@@ -106,7 +124,7 @@
     {
       "path": "artifacts/models/soxl_balanced_rule_residual_v19_reg_wf_2022_summary.json",
       "action": "keep",
-      "reason": "registry keep_summary for candidate profile",
+      "reason": "summary retained even without registry match",
       "size_bytes": 5413
     },
     {
@@ -118,19 +136,19 @@
     {
       "path": "artifacts/models/soxl_balanced_rule_residual_v19_reg_wf_2023_2024_summary.json",
       "action": "keep",
-      "reason": "registry keep_summary for candidate profile",
+      "reason": "summary retained even without registry match",
       "size_bytes": 5297
     },
     {
       "path": "artifacts/models/soxl_balanced_rule_residual_v19_small_actor.pt",
       "action": "delete",
-      "reason": "registry drop actor for dropped profile",
+      "reason": "actor has no registered profile",
       "size_bytes": 26821
     },
     {
       "path": "artifacts/models/soxl_balanced_rule_residual_v19_small_summary.json",
       "action": "keep",
-      "reason": "registry keep_summary for dropped profile",
+      "reason": "summary retained even without registry match",
       "size_bytes": 6133
     },
     {
@@ -142,7 +160,7 @@
     {
       "path": "artifacts/models/soxl_balanced_rule_residual_v19_small_wf_2020_summary.json",
       "action": "keep",
-      "reason": "registry keep_summary for dropped profile",
+      "reason": "summary retained even without registry match",
       "size_bytes": 5384
     },
     {
@@ -154,7 +172,7 @@
     {
       "path": "artifacts/models/soxl_balanced_rule_residual_v19_small_wf_2022_summary.json",
       "action": "keep",
-      "reason": "registry keep_summary for dropped profile",
+      "reason": "summary retained even without registry match",
       "size_bytes": 5409
     },
     {
@@ -166,13 +184,13 @@
     {
       "path": "artifacts/models/soxl_balanced_rule_residual_v19_small_wf_2023_2024_summary.json",
       "action": "keep",
-      "reason": "registry keep_summary for dropped profile",
+      "reason": "summary retained even without registry match",
       "size_bytes": 5319
     },
     {
       "path": "artifacts/models/soxl_balanced_rule_residual_v19_summary.json",
       "action": "keep",
-      "reason": "registry keep_summary for canonical profile",
+      "reason": "summary retained even without registry match",
       "size_bytes": 6119
     },
     {
@@ -184,7 +202,7 @@
     {
       "path": "artifacts/models/soxl_balanced_rule_residual_v19_wf_2020_summary.json",
       "action": "keep",
-      "reason": "registry keep_summary for canonical profile",
+      "reason": "summary retained even without registry match",
       "size_bytes": 5380
     },
     {
@@ -196,7 +214,7 @@
     {
       "path": "artifacts/models/soxl_balanced_rule_residual_v19_wf_2022_summary.json",
       "action": "keep",
-      "reason": "registry keep_summary for canonical profile",
+      "reason": "summary retained even without registry match",
       "size_bytes": 5398
     },
     {
@@ -208,19 +226,19 @@
     {
       "path": "artifacts/models/soxl_balanced_rule_residual_v19_wf_2023_2024_summary.json",
       "action": "keep",
-      "reason": "registry keep_summary for canonical profile",
+      "reason": "summary retained even without registry match",
       "size_bytes": 5302
     },
     {
       "path": "artifacts/models/soxl_balanced_rule_residual_v22_actor.pt",
-      "action": "keep",
-      "reason": "registry keep_actor for candidate profile",
+      "action": "delete",
+      "reason": "actor has no registered profile",
       "size_bytes": 184933
     },
     {
       "path": "artifacts/models/soxl_balanced_rule_residual_v22_summary.json",
       "action": "keep",
-      "reason": "registry keep_summary for candidate profile",
+      "reason": "summary retained even without registry match",
       "size_bytes": 6117
     },
     {
@@ -232,7 +250,7 @@
     {
       "path": "artifacts/models/soxl_balanced_rule_residual_v22_wf_2020_summary.json",
       "action": "keep",
-      "reason": "registry keep_summary for candidate profile",
+      "reason": "summary retained even without registry match",
       "size_bytes": 5370
     },
     {
@@ -244,7 +262,7 @@
     {
       "path": "artifacts/models/soxl_balanced_rule_residual_v22_wf_2022_summary.json",
       "action": "keep",
-      "reason": "registry keep_summary for candidate profile",
+      "reason": "summary retained even without registry match",
       "size_bytes": 5398
     },
     {
@@ -256,13 +274,13 @@
     {
       "path": "artifacts/models/soxl_balanced_rule_residual_v22_wf_2023_2024_summary.json",
       "action": "keep",
-      "reason": "registry keep_summary for candidate profile",
+      "reason": "summary retained even without registry match",
       "size_bytes": 5301
     },
     {
       "path": "artifacts/models/soxl_balanced_summary.json",
       "action": "keep",
-      "reason": "registry keep_summary for archived profile",
+      "reason": "summary retained even without registry match",
       "size_bytes": 5225
     },
     {
@@ -270,6 +288,12 @@
       "action": "keep",
       "reason": "registry keep_actor for archived profile",
       "size_bytes": 82821
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_wf_2020_actor_legacy_apr15.pt",
+      "action": "keep",
+      "reason": "summary retained as evidence",
+      "size_bytes": 68997
     },
     {
       "path": "artifacts/models/soxl_balanced_wf_2020_summary.json",
@@ -284,6 +308,12 @@
       "size_bytes": 82821
     },
     {
+      "path": "artifacts/models/soxl_balanced_wf_2022_actor_legacy_apr15.pt",
+      "action": "keep",
+      "reason": "summary retained as evidence",
+      "size_bytes": 68997
+    },
+    {
       "path": "artifacts/models/soxl_balanced_wf_2022_summary.json",
       "action": "keep",
       "reason": "registry keep_summary for archived profile",
@@ -294,6 +324,12 @@
       "action": "keep",
       "reason": "registry keep_actor for archived profile",
       "size_bytes": 82881
+    },
+    {
+      "path": "artifacts/models/soxl_balanced_wf_2023_2024_actor_legacy_apr15.pt",
+      "action": "keep",
+      "reason": "summary retained as evidence",
+      "size_bytes": 69121
     },
     {
       "path": "artifacts/models/soxl_balanced_wf_2023_2024_summary.json",
@@ -309,14 +345,20 @@
     },
     {
       "path": "artifacts/models/soxl_smoke_actor.pt",
-      "action": "keep",
-      "reason": "registry keep_actor for canonical profile",
+      "action": "delete",
+      "reason": "actor has no registered profile",
       "size_bytes": 35969
+    },
+    {
+      "path": "artifacts/models/soxl_smoke_actor_legacy_apr15.pt",
+      "action": "keep",
+      "reason": "summary retained as evidence",
+      "size_bytes": 32257
     },
     {
       "path": "artifacts/models/soxl_smoke_summary.json",
       "action": "keep",
-      "reason": "registry keep_summary for canonical profile",
+      "reason": "summary retained even without registry match",
       "size_bytes": 5628
     },
     {

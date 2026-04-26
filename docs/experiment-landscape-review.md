@@ -61,6 +61,6 @@ Before starting any new run:
 
 - Historical narrative: `docs/research_knowledge/experiment-landscape-review-legacy.md`
 - Runtime knowledge: `runtime/<direction>/knowledge.md`
-- Profile registry: `runtime/harness/card/registry/profile.yaml`
+- Profile registry: `runtime/harness/cards/registry/profile.yaml`
 - Runtime reviews: `runtime/model/reviews/`
 - Generalization evidence: `runtime/execution/generalization/`

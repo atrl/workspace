@@ -24,7 +24,7 @@ description: 在每次训练或回测结束后，对最新模型与上一版本/
 优先使用仓库已有产物，而不是口头回忆：
 
 - 主输入：
-  - `artifacts/<family>/*_summary.json` (e.g. `artifacts/balanced_family/`, `artifacts/canonical/`)
+  - `runtime/model/reviews/<family>/*_summary.json` (e.g. `runtime/model/reviews/balanced_family/`, `runtime/model/reviews/canonical/`)
 - 可选补充：
   - `runtime/feature_analysis/summary.json`
   - `runtime/generalization/detailed/*.csv`
@@ -65,7 +65,7 @@ description: 在每次训练或回测结束后，对最新模型与上一版本/
 python .codex/skills/post-train-backtest-review/scripts/compare_backtests.py \
   --latest artifacts/<family>/<latest>_summary.json \
   --previous artifacts/<family>/<previous>_summary.json \
-  --output runtime/post_train_review/<label>.md
+  --output runtime/soxl/post_train_review/<label>.md
 ```
 
 如果你还有特征归因产物，一并传入：
@@ -76,7 +76,7 @@ python .codex/skills/post-train-backtest-review/scripts/compare_backtests.py \
   --previous artifacts/models/<previous>_summary.json \
   --latest-features runtime/feature_analysis/<latest>/summary.json \
   --previous-features runtime/feature_analysis/<previous>/summary.json \
-  --output runtime/post_train_review/<label>.md
+  --output runtime/soxl/post_train_review/<label>.md
 ```
 
 ### 3. Classify good windows and bad windows
@@ -229,7 +229,7 @@ qlib_venv/bin/python scripts/feature_analysis.py
 默认流程：
 
 1. 选定当前历史最优基线
-  - 通常是当前 canonical summary，例如 `artifacts/canonical/soxl_balanced_summary.json`
+  - 通常是当前 canonical summary，例如 `runtime/model/reviews/canonical/soxl_balanced_summary.json`
 2. 先从 summary / detailed backtest 中定位：
   - 最好的防守窗口
   - 最好的趋势捕获窗口
@@ -303,7 +303,7 @@ qlib_venv/bin/python scripts/trade_quality_audit.py \
   --summary artifacts/<family>/<profile>_summary.json \
   --diagnosis runtime/diagnosis/phase1_phase2_combined.json \
   --profile <profile> \
-  --output runtime/post_train_review/<profile>_trade_quality_audit.md
+  --output runtime/soxl/post_train_review/<profile>_trade_quality_audit.md
 ```
 
 3. 按两种分层检查负 edge 的位置
@@ -530,8 +530,8 @@ qlib_venv/bin/python scripts/trade_quality_audit.py \
 ```bash
 python scripts/cost_sensitivity_backtest.py \
   --profile balanced \
-  --model artifacts/canonical/soxl_balanced_actor.pt \
-  --output runtime/post_train_review/balanced_cost_sensitivity.json
+  --model artifacts/models/soxl_balanced_actor.pt \
+  --output runtime/soxl/post_train_review/balanced_cost_sensitivity.json
 ```
 
 解释规则：
