@@ -12,9 +12,11 @@ Before doing substantial work:
 
 1. Read `AGENTS.md`.
 2. Read `SPEC.md`.
-3. Read `WORKFLOW.md`.
-4. Read `docs/active_workpad.md` for the current active task context.
-5. Read `runtime/<direction>/knowledge.md` for continuity in the chosen direction.
+3. Read `docs/active_workpad.md` for the current active task context.
+4. Read `runtime/<direction>/knowledge.md` for continuity in the chosen direction.
+
+`WORKFLOW.md` is an external orchestration template (Symphony/Linear). Read it only when
+using the Symphony automation layer; it is not part of the agent's core startup.
 
 Do not ask permission for this startup sequence.
 
@@ -451,24 +453,16 @@ tests, consolidate duplicate scripts, and update stale skills.
 
 ## Project Boundaries
 
-This workspace is for `SOXL` only.
+See `SPEC.md` for scope, system boundaries, and layer separation.
 
-Keep these layers separate:
-
-1. signal generation
-2. position sizing
-3. broker execution
-4. reconciliation and monitoring
-
-Keep code and state in the intended locations:
-
+Quick reference:
 - research and training: `src/soxl_quant/`
 - execution adapters: `production/`
 - workpads and decision trail: `docs/active_workpad.md`
 - data and analysis scripts: `scripts/`
-- unified runtime state + config: `runtime/` (profiles, registry, knowledge, reviews, backtest outputs)
+- unified runtime state + config: `runtime/`
 
-`runtime/` is the single writable surface for both configuration and generated state. Do not split config into a separate top-level directory.
+`runtime/` is the single writable surface for both configuration and generated state.
 
 ## Worktree Policy
 

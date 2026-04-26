@@ -81,16 +81,13 @@ These roles should not blur together.
 
 ## Knowledge Distillation
 
-This repo should get better as recurring work repeats.
+See `AGENTS.md` "Skill Distillation & Auto-Optimization" and "Runtime Knowledge"
+for the full rules. In short:
 
-- Stable context and important continuity belong in `runtime/<direction>/knowledge.md`.
-- Live task state belongs in the compact active plan/workpad.
-- Historical task detail is distilled into `runtime/<direction>/knowledge.md` and `docs/research_knowledge/`.
-- Mechanism-specific conclusions belong in `docs/research_knowledge/`.
-- Reusable methods, troubleshooting flows, and recurring guardrails belong in
-  `skills/`.
-- When a used skill diverges from current practice, update the skill as part of
-  the work instead of leaving stale guidance behind.
+- `runtime/<direction>/knowledge.md` — continuity per direction
+- `docs/research_knowledge/` — mechanism-specific conclusions
+- `.codex/skills/` — reusable workflows and guardrails
+- Update stale skills immediately when divergence is found.
 
 ## Current Working Model
 
@@ -105,20 +102,9 @@ The active thread lives under `codex_exec_plans/active/`.
 
 ## Required Per-Iteration Output
 
-Every substantial iteration should leave behind a durable record of:
-
-- goal or hypothesis
-- command or procedure
-- evidence or failure signal
-- keep / drop decision
-- next action
-
-If the work changes execution behavior, also record whether it changed:
-
-- signal generation
-- position sizing
-- broker execution
-- reconciliation or monitoring
+See `AGENTS.md` "Execution Standard" for the full per-iteration checklist.
+Briefly: every loop leaves goal, command, evidence, keep/drop decision, and next
+action in the repo.
 
 ## Guiding Principle
 
