@@ -1,0 +1,63 @@
+{
+  "return": 239.1591913949919,
+  "sharpe": 0.6425521562204424,
+  "max_dd": 81.97161746902978,
+  "trades": 43,
+  "valid": {
+    "return": 62.40919813998937,
+    "sharpe": 1.566439328381804,
+    "max_dd": 30.655663362929257,
+    "avg_pos": 0.6585177024387565,
+    "stress_avg_pos": 0.5100725741913685,
+    "stress_days": 13.0
+  },
+  "slices": {
+    "test_2020": {
+      "return": 96.87369674597264,
+      "sharpe": 2.039443927158599,
+      "max_dd": 26.624815216444603,
+      "avg_pos": 0.5321753545741862,
+      "stress_avg_pos": 0.2942770095542073,
+      "stress_days": 48.0
+    }
+  },
+  "test_proxy": {
+    "return": 96.87369674597264,
+    "sharpe": 2.039443927158599,
+    "max_dd": 26.624815216444603,
+    "avg_pos": 0.5321753545741862,
+    "stress_avg_pos": 0.2942770095542073,
+    "stress_days": 48.0
+  },
+  "promotion": {
+    "eligible": false,
+    "fixed_split": {
+      "eligible": false,
+      "checks": {
+        "test_2022_max_dd": {
+          "passed": false,
+          "actual": Infinity,
+          "limit": 35.0
+        },
+        "test_2022_avg_pos": {
+          "passed": false,
+          "actual": Infinity,
+          "limit": 0.35
+        },
+        "test_proxy_sharpe": {
+          "passed": true,
+          "actual": 2.039443927158599,
+          "limit": 0.75
+        }
+      }
+    },
+    "walk_forward": {
+      "eligible": false,
+      "checks": {},
+      "status": "missing"
+    },
+    "walk_forward_evaluated": false
+  },
+  "model_path": "/Users/rziiiii/.openclaw/workspace/artifacts/models/soxl_balanced_rule_residual_v19_small_wf_2020_actor.pt",
+  "summary_path": "/Users/rziiiii/.openclaw/workspace/artifacts/models/soxl_balanced_rule_residual_v19_small_wf_2020_summary.json"
+}
