@@ -89,3 +89,4 @@ data/generalization/*.csv
 # Ignore skill data/models
 .codex/skills/*/data/
 .codex/skills/*/models/
+!runtime/post_train_review/
