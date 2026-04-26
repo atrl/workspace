@@ -122,9 +122,9 @@ When a loop changes profile lifecycle or retention:
 
 Profile sprawl is now a harness problem, not just a naming problem.
 
-- Every `runtime/*.yaml` profile must have a row in `runtime/profile_registry.yaml`.
+- Every profile yaml (found under `runtime/<direction>/`) must have a row in `runtime/profile_registry.yaml`.
 - New active profile work should prefer `experiments/<status>/<name>/profile.yaml` plus colocated `notes.md` and `expectations.md`.
-- Legacy flat files under `runtime/*.yaml` are compatibility paths during migration, not the preferred place for new work.
+- Legacy flat files under `runtime/<direction>/` are compatibility paths during migration, not the preferred place for new work.
 - The registry is the source of truth for:
   - current canonical profile per family
   - baseline lineage
