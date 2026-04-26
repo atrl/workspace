@@ -131,7 +131,7 @@ PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py --dry-run
 Pipeline order:
 1. Market data update (incremental fetch + qlib refresh)
 2. Paper-trading signal generation + execution
-3. Dashboard rebuild (`runtime/execution/generalization/dashboard.html`)
+3. Dashboard rebuild (`dashboard.html`)
 4. Completion notification via Bark / macOS
 
 ### macOS LaunchAgent (recommended over cron)
@@ -177,14 +177,14 @@ Pipeline order:
 
 ## Dashboard Auto-Update
 
-The daily scheduler automatically rebuilds `runtime/execution/generalization/dashboard.html` after each paper-trading run. Paper-trading results are appended to `runtime/soxl/paper_trading/paper_trading_soxl_daily.csv` in the same format as post-train review outputs, so they appear as a new versioned series in the dashboard.
+The daily scheduler automatically rebuilds `dashboard.html` after each paper-trading run. Paper-trading results are appended to `runtime/soxl/paper_trading/paper_trading_soxl_daily.csv` in the same format as post-train review outputs, so they appear as a new versioned series in the dashboard.
 
 To rebuild the dashboard manually:
 ```bash
 PYTHONPATH=. qlib_venv/bin/python scripts/build_backtest_dashboard.py
 ```
 
-Then open `runtime/execution/generalization/dashboard.html` in a browser.
+Then open `dashboard.html` in a browser.
 
 ## Current limitations
 

@@ -20,7 +20,7 @@ RUNTIME_DIR = GENERALIZATION_DIR
 DETAIL_DIR = GENERALIZATION_DIR / "detailed"
 FEATURES_PATH = ROOT / "data" / "features_v2.pkl"
 MODELS_DIR = ROOT / "runtime" / "model" / "card"
-OUTPUT_PATH = GENERALIZATION_DIR / "dashboard.html"
+OUTPUT_PATH = ROOT / "dashboard.html"
 
 C_STRATEGY = "#9a3412"
 C_BUYHOLD = "#0f766e"
