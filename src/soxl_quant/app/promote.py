@@ -51,6 +51,14 @@ def walk_forward_promotion_report(
             "limit": float(gate.min_wf_2023_2024_sharpe),
         },
     }
+    # Relative outperformance check (if configured)
+    if gate.min_wf_relative_outperformance != 0.0:
+        rel_ret = float(wf_2023_2024.get("relative_return", float("-inf"))) if wf_2023_2024 else float("-inf")
+        checks["wf_2023_2024_relative"] = {
+            "passed": rel_ret >= gate.min_wf_relative_outperformance,
+            "actual": rel_ret,
+            "limit": float(gate.min_wf_relative_outperformance),
+        }
     eligible = all(item["passed"] for item in checks.values())
     return {"eligible": eligible, "checks": checks}
 

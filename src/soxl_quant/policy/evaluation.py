@@ -152,6 +152,10 @@ def evaluate_split(
     account = np.array(values)
     daily_ret = np.diff(account) / account[:-1]
     peak_curve = np.maximum.accumulate(account)
+    # Buy-and-hold benchmark (same entry/exit timing as actor)
+    bh_start = float(price_path[LOOKBACK])
+    bh_end = float(price_path[len(df) - 2])
+    buy_and_hold_return = (bh_end / bh_start - 1.0) * 100.0
     return {
         "return": (account[-1] / account[0] - 1) * 100,
         "sharpe": float(np.mean(daily_ret) / (np.std(daily_ret) + 1e-8) * np.sqrt(252)),
@@ -159,6 +163,8 @@ def evaluate_split(
         "avg_pos": float(np.mean(positions)) if positions else 0.0,
         "stress_avg_pos": float(np.mean(stress_positions)) if stress_positions else 0.0,
         "stress_days": float(len(stress_positions)),
+        "buy_and_hold_return": buy_and_hold_return,
+        "relative_return": (account[-1] / account[0] - 1) * 100 - buy_and_hold_return,
     }
 
 

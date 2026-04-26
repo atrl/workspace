@@ -37,18 +37,24 @@ def describe_metrics(name: str, metrics: Dict[str, float]) -> str:
 
 
 def compact_result(result: Dict[str, object]) -> Dict[str, object]:
-    return {
+    test_proxy = result.get("test_proxy", {})
+    payload = {
         "return": float(result["return"]),
         "sharpe": float(result["sharpe"]),
         "max_dd": float(result["max_dd"]),
         "trades": int(result["trades"]),
         "valid": result.get("valid", {}),
         "slices": result.get("slices", {}),
-        "test_proxy": result.get("test_proxy", {}),
+        "test_proxy": test_proxy,
         "promotion": result.get("promotion", {}),
         "model_path": result.get("model_path", ""),
         "summary_path": result.get("summary_path", ""),
     }
+    # Propagate relative performance metrics if available
+    for key in ("buy_and_hold_return", "relative_return"):
+        if key in test_proxy:
+            payload[key] = float(test_proxy[key])
+    return payload
 
 
 def slice_metrics(actor, df, slices: Dict[str, Tuple[str, str]], profile) -> Dict[str, Dict[str, float]]:

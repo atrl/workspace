@@ -60,6 +60,7 @@ promotion_gate:
   min_test_proxy_sharpe: 0.75
   min_wf_2023_2024_return: 0.0
   min_wf_2023_2024_sharpe: 0.0
+  min_wf_relative_outperformance: 0.0
 selection_score:
   return_weight: 1.0
   sharpe_weight: 20.0

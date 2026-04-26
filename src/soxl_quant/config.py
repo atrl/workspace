@@ -133,6 +133,7 @@ class PromotionGateConfig:
     min_test_proxy_sharpe: float = 0.75
     min_wf_2023_2024_return: float = 0.0
     min_wf_2023_2024_sharpe: float = 0.0
+    min_wf_relative_outperformance: float = 0.0  # actor return minus buy-and-hold return
 
 
 @dataclass(frozen=True)
