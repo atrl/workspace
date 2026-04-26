@@ -21,6 +21,7 @@ DETAIL_DIR = GENERALIZATION_DIR / "detailed"
 FEATURES_PATH = ROOT / "data" / "features_v2.pkl"
 MODELS_DIR = ROOT / "runtime" / "model" / "card"
 OUTPUT_PATH = ROOT / "dashboard.html"
+DASHBOARD_DATA_DIR = ROOT / "dashboard_data"
 
 C_STRATEGY = "#9a3412"
 C_BUYHOLD = "#0f766e"
@@ -755,6 +756,63 @@ def sanitize_json_floats(raw: str) -> str:
     raw = re.sub(r'(?<!["\w])-Infinity(?!["\w])', 'null', raw)
     raw = re.sub(r'(?<!["\w])Infinity(?!["\w])', 'null', raw)
     return raw
+
+
+def write_versioned_json(versioned: dict[str, dict]) -> None:
+    """Write each version's per-ETF data as individual JSON files."""
+    versioned_dir = DASHBOARD_DATA_DIR / "versioned"
+    versioned_dir.mkdir(parents=True, exist_ok=True)
+    for tag, payload in versioned.items():
+        tag_dir = versioned_dir / tag
+        tag_dir.mkdir(parents=True, exist_ok=True)
+        for etf, detail in (payload.get("detailed") or {}).items():
+            out_path = tag_dir / f"{etf.upper()}.json"
+            out_path.write_text(
+                sanitize_json_floats(json.dumps(detail, ensure_ascii=False)),
+                encoding="utf-8",
+            )
+
+
+def write_model_versions_json(model_versions: list[dict]) -> None:
+    out_path = DASHBOARD_DATA_DIR / "model_versions.json"
+    out_path.write_text(
+        sanitize_json_floats(json.dumps(model_versions, ensure_ascii=False)),
+        encoding="utf-8",
+    )
+
+
+def write_index_json(
+    detailed: dict,
+    versioned: dict[str, dict],
+    model_versions: list[dict],
+    best_version: str,
+    latest_version: str,
+) -> None:
+    """Write a lightweight index with ETF lists, version metadata, and summaries."""
+    index = {
+        "generated_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "etfs": list(detailed.keys()),
+        "versions": list(versioned.keys()),
+        "best_version": best_version,
+        "latest_version": latest_version,
+        "version_summaries": {},
+    }
+    for tag, payload in versioned.items():
+        index["version_summaries"][tag] = {
+            "etfs": list((payload.get("detailed") or {}).keys()),
+            "windows": payload.get("windows", {}),
+            "meta": payload.get("_meta", {}),
+        }
+    # Also include current/detailed summaries
+    index["detailed_summaries"] = {
+        etf: detail.get("summary", {}) for etf, detail in detailed.items()
+    }
+    index["model_version_count"] = len(model_versions)
+    out_path = DASHBOARD_DATA_DIR / "index.json"
+    out_path.write_text(
+        sanitize_json_floats(json.dumps(index, ensure_ascii=False)),
+        encoding="utf-8",
+    )
 
 
 def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
@@ -1560,18 +1618,21 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     );
 
     function fmtPct(v, digits = 2) {{
-      return v == null ? 'n/a' : `${{(v * 100).toFixed(digits)}}%`;
+      if (v == null || !Number.isFinite(v)) return 'n/a';
+      return `${{(v * 100).toFixed(digits)}}%`;
     }}
     function fmtNum(v, digits = 2) {{
-      return v == null ? 'n/a' : Number(v).toFixed(digits);
+      if (v == null || !Number.isFinite(v)) return 'n/a';
+      return Number(v).toFixed(digits);
     }}
     function fmtDelta(v, digits = 2) {{
       const n = Number(v);
+      if (!Number.isFinite(n)) return 'n/a';
       const sign = n > 0 ? '+' : '';
       return `${{sign}}${{n.toFixed(digits)}}`;
     }}
     function fmtMoney(v) {{
-      if (v == null) return 'n/a';
+      if (v == null || !Number.isFinite(v)) return 'n/a';
       const n = Number(v);
       const sign = n >= 0 ? '+' : '';
       return `${{sign}}${{n.toLocaleString('en-US', {{minimumFractionDigits:0, maximumFractionDigits:0}})}}`;
@@ -1633,7 +1694,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
           return versionWindows;
         }}
       }}
-      return DATA.windows[etf];
+      return DATA.windows[etf] || {{ start: '', end: '', rows: 0 }};
     }}
     function getRangeRows(rows) {{
       if (state.range === 'all') return rows;
@@ -1729,13 +1790,16 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
         saveState();
         render();
       }});
-      versionSelect.addEventListener('change', e => {{
+      versionSelect.addEventListener('change', async e => {{
         state.version = e.target.value;
         state.versionSource = state.version ? 'manual' : 'current';
         state.zoomMode = 'all';
         state.zoomStart = null;
         state.zoomEnd = null;
         saveState();
+        if (state.version && !DATA.versioned[state.version]) {{
+          await loadVersionData(state.version, state.etf);
+        }}
         render();
       }});
       document.querySelectorAll('.pill').forEach(btn => {{
@@ -1835,12 +1899,111 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       }});
     }}
 
+    const DATA_BASE = 'dashboard_data';
+    let _indexLoaded = false;
+    let _modelVersionsLoaded = false;
+
+    function showLoading(msg) {{
+      chartMeta.innerHTML = `<span style="color:var(--accent);">⏳ ${{msg}}</span>`;
+    }}
+    function hideLoading() {{
+      chartMeta.innerHTML = '';
+    }}
+
+    async function loadJson(path) {{
+      try {{
+        const res = await fetch(path);
+        if (!res.ok) throw new Error(`${{res.status}} ${{res.statusText}}`);
+        return await res.json();
+      }} catch (err) {{
+        console.warn('Failed to load', path, err);
+        return null;
+      }}
+    }}
+
+    async function loadIndex() {{
+      if (_indexLoaded) return;
+      const idx = await loadJson(`${{DATA_BASE}}/index.json`);
+      if (!idx) return;
+      _indexLoaded = true;
+      // Populate version selector from index
+      versionSelect.innerHTML = '';
+      const defaultOpt = document.createElement('option');
+      defaultOpt.value = '';
+      defaultOpt.textContent = 'Current (default)';
+      versionSelect.appendChild(defaultOpt);
+      (idx.versions || []).forEach(v => {{
+        const vs = idx.version_summaries[v] || {{}};
+        const etfCount = Object.keys(vs.etfs || {{}}).length;
+        const opt = document.createElement('option');
+        opt.value = v;
+        opt.textContent = etfCount <= 1 ? `${{v}} (SOXL)` : v;
+        versionSelect.appendChild(opt);
+      }});
+      // Restore selection if valid
+      if (state.version && idx.versions && idx.versions.includes(state.version)) {{
+        versionSelect.value = state.version;
+        // Auto-load version data if not already cached
+        if (!DATA.versioned[state.version]) {{
+          loadVersionData(state.version, state.etf).then(() => render());
+        }}
+      }}
+    }}
+
+    async function loadModelVersions() {{
+      if (_modelVersionsLoaded) return;
+      const mvs = await loadJson(`${{DATA_BASE}}/model_versions.json`);
+      if (!mvs) return;
+      _modelVersionsLoaded = true;
+      DATA.model_versions = mvs;
+      renderVersionTable();
+      // If a version was selected before model_versions loaded, try to render its training curve
+      if (state.version) {{
+        const idx = DATA.model_versions.findIndex(v => v.name === state.version);
+        if (idx >= 0) renderTrainingCurve(idx);
+      }}
+    }}
+
+    async function loadVersionData(version, etf) {{
+      if (!version || DATA.versioned[version]) return;
+      showLoading(`正在加载 ${{version}} / ${{etf}} ...`);
+      const data = await loadJson(`${{DATA_BASE}}/versioned/${{version}}/${{etf}}.json`);
+      hideLoading();
+      if (!data) {{
+        alert(`无法加载版本 ${{version}} 的数据。请确认使用了 HTTP server 运行。`);
+        return;
+      }}
+      if (!DATA.versioned[version]) DATA.versioned[version] = {{}};
+      DATA.versioned[version].detailed = {{ [etf]: data }};
+      // Also need windows; reconstruct from data.rows if not present
+      const rows = data.rows || [];
+      DATA.versioned[version].windows = {{
+        [etf]: {{
+          start: rows[0] ? rows[0].datetime : '',
+          end: rows[rows.length - 1] ? rows[rows.length - 1].datetime : '',
+          rows: rows.length,
+        }}
+      }};
+    }}
+
+    function initAsyncData() {{
+      // Detect file:// protocol and show banner
+      if (window.location.protocol === 'file:') {{
+        const banner = document.createElement('div');
+        banner.style.cssText = 'background:rgba(154,52,18,0.08);border:1px solid var(--accent);border-radius:12px;padding:12px 16px;margin-bottom:18px;font-size:13px;color:var(--accent);';
+        banner.innerHTML = '⚠️ 当前通过 file:// 协议打开，版本切换和模型对比功能不可用。请运行 <code>python -m http.server</code> 后通过 http://localhost:8000 访问以获得完整功能。';
+        document.querySelector('.shell').insertBefore(banner, document.querySelector('.shell').firstChild);
+        return; // Skip async loads on file protocol
+      }}
+      loadIndex().then(() => loadModelVersions());
+    }}
+
     function renderMetrics() {{
       const detail = getDetailed(state.etf);
       const summary = detail.summary;
       const window = getWindows(state.etf);
-      const rl = DATA.results[state.etf];
-      const rule = DATA.rule_based[state.etf];
+      const rl = DATA.results[state.etf] || {{}};
+      const rule = DATA.rule_based[state.etf] || {{}};
       const cards = [
         {{
           key: 'Strategy Return',
@@ -1910,7 +2073,13 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     }}
 
     function renderTradeTable() {{
-      csvLink.href = getDetailed(state.etf).csv_path;
+      const csvPath = getDetailed(state.etf).csv_path;
+      if (csvPath) {{
+        csvLink.style.display = '';
+        csvLink.href = csvPath;
+      }} else {{
+        csvLink.style.display = 'none';
+      }}
       const allRows = getDetailed(state.etf).rows;
       let trades = [...(getDetailed(state.etf).trades || [])];
       if (!trades.length) {{
@@ -2485,6 +2654,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     loadSavedState();
     initControls();
     render();
+    initAsyncData();
   </script>
 </body>
 </html>
@@ -2492,10 +2662,31 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
 
 
 def main() -> None:
+    DASHBOARD_DATA_DIR.mkdir(parents=True, exist_ok=True)
     payload = build_payload()
     layouts = build_plotly_layouts()
-    OUTPUT_PATH.write_text(build_html(payload, layouts), encoding="utf-8")
+
+    # Write split data files
+    write_versioned_json(payload.get("versioned", {}))
+    write_model_versions_json(payload.get("model_versions", []))
+    write_index_json(
+        payload.get("detailed", {}),
+        payload.get("versioned", {}),
+        payload.get("model_versions", []),
+        payload.get("best_version", ""),
+        payload.get("latest_version", ""),
+    )
+
+    # Build HTML with reduced inline payload (default view only)
+    inline_payload = dict(payload)
+    inline_payload["versioned"] = {}
+    inline_payload["model_versions"] = []
+    OUTPUT_PATH.write_text(build_html(inline_payload, layouts), encoding="utf-8")
     print(f"[done] wrote {OUTPUT_PATH}")
+    print(f"[done] wrote {DASHBOARD_DATA_DIR}/index.json")
+    print(f"[done] wrote {DASHBOARD_DATA_DIR}/model_versions.json")
+    vc = len(payload.get('versioned', {}))
+    print(f"[done] wrote {DASHBOARD_DATA_DIR}/versioned/ ({vc} versions)")
 
 
 if __name__ == "__main__":
