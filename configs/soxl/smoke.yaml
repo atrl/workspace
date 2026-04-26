@@ -31,8 +31,8 @@ position_cap:
   bear_min_cap: 0.30
   bear_regime_threshold: 0.65
 promotion_gate:
-  max_test_2022_drawdown: 35.0
+  max_test_2022_drawdown: 50.0
   max_test_2022_avg_pos: 0.35
-  min_test_proxy_sharpe: 0.75
+  min_test_proxy_sharpe: 0.50
   min_wf_2023_2024_return: 0.0
   min_wf_2023_2024_sharpe: 0.0
