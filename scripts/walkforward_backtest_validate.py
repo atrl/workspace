@@ -81,6 +81,11 @@ def main():
         worker_path = Path(f"runtime/soxl/wf_workers/{args.profile}-{wf_name}-seed42.json")
         worker = json.loads(worker_path.read_text()) if worker_path.exists() else {}
 
+        # Compute buy-and-hold return for the window
+        price_seg = price.loc[test_seg[0]:test_seg[1]]
+        bnh_return = (price_seg.iloc[-1] / price_seg.iloc[0] - 1) * 100 if len(price_seg) > 1 else 0.0
+        relative_outperformance = result["return"] - bnh_return
+
         summary = {
             "profile": args.profile,
             "window": wf_name,
@@ -90,6 +95,10 @@ def main():
                 "max_dd": result["max_dd"],
                 "trades": result["trades"],
             },
+            "buy_and_hold": {
+                "return": bnh_return,
+            },
+            "relative_outperformance": relative_outperformance,
             "worker_eval": {
                 "return": worker.get("return"),
                 "sharpe": worker.get("sharpe"),

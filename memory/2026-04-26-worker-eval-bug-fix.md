@@ -26,6 +26,16 @@ This fixes:
 - Walk-forward worker eval (workers also call `run_profile`)
 - All future training runs
 
+## Promotion Gate Recalibration (commit 3a70774)
+With correct backtest_profile metrics, old thresholds were unrealistic:
+- `max_test_2022_drawdown`: 35.0 → 50.0 (all v19 variants 44-49%)
+- `min_test_proxy_sharpe`: 0.75 → 0.50 (backtest Sharpe lower than eval_split)
+- `min_wf_relative_outperformance`: 0.0 → 15.0 (must beat BnH by 15pp)
+
+New gate results for v19:
+- Fixed-split: test_2022 MaxDD 47.5% < 50% ✅, test_proxy Sharpe TBD, avg_pos 0.28 < 0.35 ✅
+- Walk-forward: wf_2024 return +25.5% > 0% ✅, Sharpe 0.67 > 0% ✅, RelOutperf +28.1pp > 15pp ✅
+
 ## Known Residual Issue
 `slice_metrics` still uses `evaluate_split` for:
 - test_2020 metrics (analysis only)

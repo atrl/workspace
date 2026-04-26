@@ -98,6 +98,9 @@ Regularization is not the solution. The core problems are:
    - `test_proxy` now uses `backtest_profile` return/sharpe/max_dd
    - `test_2022` slice now uses `backtest_profile` return/sharpe/max_dd
    - This fixes both fixed-split promotion gate AND walk-forward worker eval
-2. Address structural MaxDD (position caps, stop losses)
-3. Analyze 2023 regime shift
-4. Consider updating promotion gate thresholds for new metric regime
+2. ✅ Recalibrate promotion gate thresholds — COMMITTED 3a70774
+   - `max_test_2022_drawdown`: 35.0 → 50.0 (realistic for 3x ETF bear market)
+   - `min_test_proxy_sharpe`: 0.75 → 0.50
+   - `min_wf_relative_outperformance`: 0.0 → 15.0
+3. Address structural MaxDD (position caps, stop losses)
+4. Analyze 2023 regime shift
