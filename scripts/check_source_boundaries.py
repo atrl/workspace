@@ -66,7 +66,7 @@ def main() -> int:
     runtime = ROOT / "runtime"
     if runtime.exists():
         for child in runtime.iterdir():
-            if child.name not in {"README.md", "index.json", "soxl", "model", "data", "factor", "network", "execution", "multi_asset", "harness", "reward", "configs"}:
+            if child.name not in {"README.md", "index.json", "profile_registry.yaml", "soxl", "model", "data", "factor", "network", "execution", "multi_asset", "harness", "reward", "universes"}:
                 failures.append(f"runtime contains non-runtime surface: {child.relative_to(ROOT)}")
 
     for path in iter_text_files("production"):
@@ -95,9 +95,9 @@ def main() -> int:
             if prefix in text:
                 failures.append(f"{path.relative_to(ROOT)} embeds old provider path {prefix}")
 
-    universe_path = ROOT / "runtime" / "configs" / "universes" / "3x_etf_core.yaml"
+    universe_path = ROOT / "runtime" / "universes" / "3x_etf_core.yaml"
     if not universe_path.exists():
-        failures.append("missing runtime/configs/universes/3x_etf_core.yaml")
+        failures.append("missing runtime/universes/3x_etf_core.yaml")
 
     if failures:
         print("check_source_boundaries: FAIL")

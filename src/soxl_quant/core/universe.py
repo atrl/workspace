@@ -8,7 +8,7 @@ from typing import Any
 import yaml
 
 ROOT = Path(__file__).resolve().parents[3]
-UNIVERSE_DIR = ROOT / "runtime" / "configs" / "universes"
+UNIVERSE_DIR = ROOT / "runtime" / "universes"
 DEFAULT_UNIVERSE = "3x_etf_core"
 
 

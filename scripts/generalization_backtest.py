@@ -189,7 +189,7 @@ def run_etf_backtest(
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--profile", default="balanced", help="Profile name in runtime/configs/")
+    parser.add_argument("--profile", default="balanced", help="Profile name in runtime/")
     parser.add_argument("--model", default="soxl_balanced_actor.pt", help="Model checkpoint filename")
     parser.add_argument("--moe", action="store_true", help="Model uses Mixture-of-Experts architecture")
     parser.add_argument("--etf", help="Run a single ETF (default: all)")

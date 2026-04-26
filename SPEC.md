@@ -72,7 +72,7 @@ Use these layers intentionally:
 - `docs/research_knowledge/`: mechanism-specific conclusions and reusable
   research guidance
 - `runtime/<direction>/knowledge.md`: continuity across sessions, organized by task direction
-- `runtime/configs/`: unified profile configurations and registry (coupled with runtime state)
+- `runtime/`: unified profile configurations and registry (coupled with runtime state)
 - `.codex/skills/`: distilled reusable workflows and maintained operational knowledge
 - `data/datasets.yaml`: machine-readable registry for raw, processed, qlib, and
   training-cache data assets

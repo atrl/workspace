@@ -209,7 +209,7 @@ Adding dropout (0.2) and weight decay (1e-5) to GRUNet would reduce bull-market 
 - `src/soxl_quant/policy/models/gru.py`: Added dropout parameter
 - `src/soxl_quant/policy/policy_builder.py`: Pass dropout to GRUNet, weight_decay to Adam
 - `src/soxl_quant/config.py`: Added dropout and weight_decay fields
-- `runtime/configs/balanced_rule_residual_v19_reg.yaml`: New profile
+- `runtime/balanced_rule_residual_v19_reg.yaml`: New profile
 
 ## v19_reg_light Update (2026-04-26 00:17)
 

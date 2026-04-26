@@ -1,35 +1,11 @@
 {
-  "generated_at": "2026-04-26T06:06:39.646219+00:00",
+  "generated_at": "2026-04-26T06:17:53.370578+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
       "category": "root",
       "suffix": ".md",
       "bytes": 1198
-    },
-    {
-      "path": "runtime/configs/execution_overlay_variants.json",
-      "category": "configs",
-      "suffix": ".json",
-      "bytes": 2459
-    },
-    {
-      "path": "runtime/configs/optimization_notes.md",
-      "category": "configs",
-      "suffix": ".md",
-      "bytes": 2908
-    },
-    {
-      "path": "runtime/configs/position_cap_overlay_variants.json",
-      "category": "configs",
-      "suffix": ".json",
-      "bytes": 933
-    },
-    {
-      "path": "runtime/configs/reference_notes.md",
-      "category": "configs",
-      "suffix": ".md",
-      "bytes": 3041
     },
     {
       "path": "runtime/data/cards/soxl_data_pipeline/card.md",
@@ -134,10 +110,22 @@
       "bytes": 714
     },
     {
+      "path": "runtime/execution/execution_overlay_variants.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 2459
+    },
+    {
       "path": "runtime/execution/knowledge.md",
       "category": "execution",
       "suffix": ".md",
       "bytes": 3393
+    },
+    {
+      "path": "runtime/execution/position_cap_overlay_variants.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 933
     },
     {
       "path": "runtime/factor/analysis/backtest_ACAD_AMIHUD_ZSCORE.csv",
@@ -383,13 +371,13 @@
       "path": "runtime/harness/2026-04-17-balanced-regime-gate-failure.md",
       "category": "harness",
       "suffix": ".md",
-      "bytes": 2531
+      "bytes": 2515
     },
     {
       "path": "runtime/harness/2026-04-17-balanced-regime-gate-v2-failure.md",
       "category": "harness",
       "suffix": ".md",
-      "bytes": 2698
+      "bytes": 2682
     },
     {
       "path": "runtime/harness/2026-04-18-phase-balanced-training-failure.md",
@@ -408,6 +396,18 @@
       "category": "harness",
       "suffix": ".md",
       "bytes": 4189
+    },
+    {
+      "path": "runtime/harness/optimization_notes.md",
+      "category": "harness",
+      "suffix": ".md",
+      "bytes": 2908
+    },
+    {
+      "path": "runtime/harness/reference_notes.md",
+      "category": "harness",
+      "suffix": ".md",
+      "bytes": 3041
     },
     {
       "path": "runtime/model/2026-04-18-structural-model-loop.md",
@@ -641,7 +641,7 @@
       "path": "runtime/model/knowledge.md",
       "category": "model",
       "suffix": ".md",
-      "bytes": 23077
+      "bytes": 23069
     },
     {
       "path": "runtime/model/reviews/balanced_checkpoint_review.md",
@@ -1277,7 +1277,7 @@
       "path": "runtime/network/knowledge.md",
       "category": "network",
       "suffix": ".md",
-      "bytes": 13513
+      "bytes": 13505
     },
     {
       "path": "runtime/reward/cards/base_log/card.md",

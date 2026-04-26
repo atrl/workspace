@@ -7,7 +7,7 @@ from typing import Any, Dict, Tuple
 import yaml
 
 ROOT = Path(__file__).resolve().parents[2]
-PROFILE_DIR = ROOT / "runtime" / "configs"
+PROFILE_DIR = ROOT / "runtime"
 EXPERIMENTS_DIR = ROOT / "experiments"
 
 
@@ -347,8 +347,11 @@ def experiment_profile_path(name: str) -> Path | None:
     return None
 
 
-def legacy_profile_path(name: str) -> Path:
-    return PROFILE_DIR / f"{name}.yaml"
+def legacy_profile_path(name: str) -> Path | None:
+    for path in PROFILE_DIR.rglob(f"{name}.yaml"):
+        if path.name != "profile_registry.yaml":
+            return path
+    return None
 
 
 def resolve_profile_path(name: str) -> Path:
@@ -356,7 +359,7 @@ def resolve_profile_path(name: str) -> Path:
     if experiment_path is not None:
         return experiment_path
     legacy_path = legacy_profile_path(name)
-    if legacy_path.exists():
+    if legacy_path is not None and legacy_path.exists():
         return legacy_path
     raise FileNotFoundError(f"unknown profile '{name}'")
 
@@ -367,7 +370,7 @@ def experiment_dir_for_profile(name: str) -> Path | None:
 
 
 def list_profile_names() -> list[str]:
-    legacy = {path.stem for path in PROFILE_DIR.glob("*.yaml") if path.name != "profile_registry.yaml"}
+    legacy = {path.stem for path in PROFILE_DIR.rglob("*.yaml") if path.name != "profile_registry.yaml"}
     experiments = {path.parent.name for path in EXPERIMENTS_DIR.glob("*/*/profile.yaml")}
     return sorted(legacy | experiments)
 
