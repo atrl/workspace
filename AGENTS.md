@@ -493,6 +493,13 @@ Before starting a new training or replay loop:
 2. validate the harness through `qlib_venv/bin/python scripts/check_harness.py`
 3. inspect `artifacts/retention_manifest.json` before deleting or regenerating large artifacts
 
+When creating a new experiment profile:
+
+1. create `runtime/<direction>/card/<name>/profile.yaml` with the full configuration
+2. add a row to `runtime/harness/card/registry/profile.yaml` with baseline, status, and notes_ref
+3. colocate experiment notes in `runtime/<direction>/knowledge.md` or a dedicated note under the card directory
+4. do not create a separate top-level `configs/` or `experiments/` directory for the profile
+
 ## Current Direction
 
 The active thread lives under `docs/active_workpad.md`.
