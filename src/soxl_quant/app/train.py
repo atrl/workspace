@@ -192,7 +192,25 @@ def run_profile(
         test_proxy["return"] = bt_result["return"]
         test_proxy["sharpe"] = bt_result["sharpe"]
         test_proxy["max_dd"] = bt_result["max_dd"]
-        # Rebuild promotion report with corrected test_proxy
+        # Also fix test_2022 slice metrics (used for fixed-split gate: max_dd check)
+        if "test_2022" in slice_result:
+            bt_2022 = backtest_profile(
+                actor,
+                test_df,
+                price_series,
+                position_cap_config=profile.position_cap,
+                position_budget_config=profile.position_budget,
+                asset_idx=0,
+                feature_columns=feature_columns,
+                model_config=profile.model,
+                mode_router_config=profile.mode_router,
+                test_seg=("2022-01-01", "2022-12-31"),
+            )
+            if "return" in bt_2022 and "sharpe" in bt_2022 and "max_dd" in bt_2022:
+                slice_result["test_2022"]["return"] = bt_2022["return"]
+                slice_result["test_2022"]["sharpe"] = bt_2022["sharpe"]
+                slice_result["test_2022"]["max_dd"] = bt_2022["max_dd"]
+        # Rebuild promotion report with corrected metrics
         promotion_report = build_promotion_report(profile, slice_result, test_proxy)
     bt_result["valid"] = valid_metrics
     bt_result["selection_history"] = selection["history"]
