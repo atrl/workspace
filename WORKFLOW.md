@@ -97,7 +97,7 @@ repo skills may also rely on the `linear_graphql` tool when available.
 - `SPEC.md` defines project intent and invariants.
 - This repository is for `SOXL` only.
 - Durable proof of work must still be written back into the repo, especially
-  under `codex_exec_plans/` and `memory/`.
+  under `codex_exec_plans/` and `runtime/<direction>/knowledge.md`.
 
 ## Status map
 
@@ -156,7 +156,7 @@ repo skills may also rely on the `linear_graphql` tool when available.
 6. Re-check acceptance criteria before considering the issue ready for review.
 7. Write durable proof of work back to the repo:
    - update the relevant workpad file under `codex_exec_plans/` when needed
-   - update `memory/YYYY-MM-DD.md` with the important continuity note
+   - update `runtime/<direction>/knowledge.md` with the important continuity note
    - update any affected docs or skills when reusable workflow knowledge changed
 
 ## Step 3: Review handling

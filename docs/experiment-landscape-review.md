@@ -53,14 +53,14 @@ This file is now the compact landing page and master comparison surface. Detaile
 Before starting any new run:
 
 1. Read the relevant file in `docs/research_knowledge/`.
-2. Query `memory/_archive_index.json` with `runtime/<direction>/knowledge.md`.
+2. Query the relevant `runtime/<direction>/knowledge.md` for historical context.
 3. Record closest success, closest failure, new mechanism, target window, accepted trade-off, and comparison-table row key in the active workpad or experiment card.
 4. Add or update a master table row when the loop completes.
 
 ## Evidence Paths
 
 - Historical narrative: `docs/research_knowledge/experiment-landscape-review-legacy.md`
-- Memory index: `memory/_archive_index.json`
+- Runtime knowledge: `runtime/<direction>/knowledge.md`
 - Profile registry: `configs/soxl/profile_registry.yaml`
 - Runtime reviews: `runtime/model/reviews/`
 - Generalization evidence: `runtime/execution/generalization/`

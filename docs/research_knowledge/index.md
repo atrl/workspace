@@ -21,13 +21,13 @@ Machine-readable route: `task_router.json`.
 1. Pick exactly one primary direction from the table above.
 2. Read that direction's knowledge file.
 3. Invoke the listed skill before changing code or running a new experiment.
-4. Query memory with the route's `memory_query` terms through `scripts/memory_search.py`.
+4. Query historical context from the relevant `runtime/<direction>/knowledge.md`.
 5. Open runtime artifacts only from the route's `runtime` paths.
 6. Record the chosen direction in `codex_exec_plans/active/current.md` before execution.
 
 ## Memory Role
 
-`memory/` is not a task category. It is evidence retrieval behind the selected direction. Do not start by reading broad memory files; start from `task_router.json`, then query runtime knowledge for the chosen direction.
+`runtime/<direction>/knowledge.md` is not a starting point. It is evidence retrieval behind the selected direction. Do not start by reading broad runtime knowledge files; start from `task_router.json`, then query the relevant `runtime/<direction>/knowledge.md` for the chosen direction.
 
 ## Canonical Anchors
 

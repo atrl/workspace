@@ -486,7 +486,7 @@ retrying.
 
 Before starting a new training or replay loop:
 
-1. query memory through `qlib_venv/bin/python scripts/memory_search.py ...`
+1. query historical context through the relevant `runtime/<direction>/knowledge.md`
 2. validate the harness through `qlib_venv/bin/python scripts/check_harness.py`
 3. inspect `artifacts/retention_manifest.json` before deleting or regenerating large artifacts
 

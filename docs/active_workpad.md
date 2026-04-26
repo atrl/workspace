@@ -11,7 +11,7 @@ direction: harness
 ## 本次已完成（代码整理迭代）
 
 - ✅ 删除 codex_exec_plans/，迁移至 docs/active_workpad.md
-- ✅ memory/ 整合到 runtime/<direction>/knowledge.md
+- ✅ memory/ 已迁移到 runtime/<direction>/knowledge.md 并删除
 - ✅ experiments/ 精简（删除 archive，合并重复分支）
 - ✅ experiments/ 合并到 runtime/：每个实验包精确链接到对应 model card，knowledge.md 新增实验包索引表
 - ✅ risk_budget_usage_v1 card 添加完整 Mermaid 架构图（观测层→Actor→ModeRouter→BudgetUsage→PositionCalc→Execution）

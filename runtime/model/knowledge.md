@@ -138,3 +138,215 @@
 | [`balanced_rule_residual_v19_academic`](experiments/candidate/balanced_rule_residual_v19_academic/) | candidate | v19_academic | ⚪ 未运行 |
 | [`balanced_rule_residual_moderate_v1`](experiments/candidate/balanced_rule_residual_moderate_v1/) | candidate | moderate_v1 | ⚪ 未运行 |
 | [`smoke_rule_residual_v1`](experiments/candidate/smoke_rule_residual_v1/) | candidate | smoke_rule_residual | ⚪ 未运行 |
+
+
+<!-- MIGRATED FROM memory/2026-04-25-correction-bear-market-analysis.md -->
+
+# Correction: Bear-Market Analysis Was Wrong
+
+Date: 2026-04-25
+
+## Error
+
+Previous analysis concluded that v19, v22, and balanced "failed" walk-forward validation on 2022, calling it a "family-level bear-market failure." **This was incorrect.**
+
+## Missing Context
+
+**SOXL buy-and-hold in 2022: -86.6%**
+
+The models "only" lost 21-32%, outperforming by 55-65 percentage points. This is successful bear-market defense, not failure.
+
+## Corrected Assessment
+
+| Profile | 2022 Return | vs SOXL B&H | Assessment |
+|---------|------------|-------------|------------|
+| balanced | -25.8% | +60.8pp | ✅ Successful defense |
+| v19 | -25.2% | +61.4pp | ✅ Successful defense |
+| v22 | -21.0% | +65.6pp | ✅ Successful defense |
+| v19_small | -31.6% | +55.0pp | ✅ Defense OK, but gate fails on MaxDD |
+
+## Why the Gate Rejected Them
+
+The walk-forward promotion gate uses absolute thresholds:
+- test_proxy_sharpe > 0.75
+- test_max_dd < 35%
+
+In a year where SOXL drops 86%, any strategy holding the asset will have negative returns and negative Sharpe. The gate should use **benchmark-relative metrics** (information ratio vs SOXL) instead of absolute Sharpe.
+
+## Real Issues (Not Bear-Market Defense)
+
+1. **Proxy MaxDD 51-55%** — High drawdown over full backtest period
+2. **Recovery underperformance** — 2023-2024: models +60-79% vs SOXL B&H +182%
+3. **Slow re-entry** — Models are too defensive after bear markets, miss upside
+
+## Registry Corrections
+
+- v19: restored to `candidate` (was incorrectly marked `dropped`)
+- v22: restored to `candidate` (was incorrectly marked `dropped`)
+- v19_small: remains `dropped` (fixed-split test_2022 MaxDD 38.3% exceeds 35% limit)
+- v19_tiny: remains `dropped` (baseline v19_small failed)
+
+## Files Updated
+
+- `runtime/model/reviews/v19_walk_forward_review.md` — corrected
+- `docs/experiment-landscape-review.md` — corrected
+- `configs/soxl/profile_registry.yaml` — corrected
+
+
+
+<!-- MIGRATED FROM memory/2026-04-25-walk-forward-v19-results.md -->
+
+# Walk-Forward Validation: balanced_rule_residual_v19
+
+## Goal
+Validate whether `balanced_rule_residual_v19` — the strongest fixed-split candidate — generalizes under walk-forward conditions.
+
+## Motivation
+- `risk_budget_usage_v3` passed fixed-split gate but collapsed in walk-forward (wf_2022 MaxDD 59%, wf_2023_2024 Sharpe 0.22)
+- This proves **fixed-split metrics are not sufficient** for promotion
+- `v19` has never been walk-forward validated; this is the largest knowledge gap in the repo
+- If `v19` fails walk-forward, the entire residual family narrative must be rewritten
+
+## Closest Success
+- `balanced_rule_residual_v19` fixed-split gate pass (proxy Sharpe ~0.97, 2022 MaxDD ~15%)
+- `balanced` canonical baseline (stable, but never walk-forward validated either)
+
+## Closest Failure
+- `risk_budget_usage_v3` walk-forward collapse
+- `balanced_rule_residual_mode_v2` envelope loosening degraded other windows
+
+## Experiment Role
+`diagnose` — validate generalization of the best fixed-split candidate before declaring any new mechanism
+
+## Target Windows
+- wf_2020: train 2010-03→2018-12, valid 2019, test 2020
+- wf_2022: train 2010-03→2020-12, valid 2021, test 2022
+- wf_2023_2024: train 2010-03→2022-12, valid 2023, test 2024
+
+## Acceptance Criteria
+- wf_2022 MaxDD < 35.0% (v19 promotion gate)
+- wf_2022 avg_pos < 0.35
+- wf_2023_2024 Sharpe > 0.0
+- No proxy-to-backtest gap > 0.15 Sharpe points
+
+## Accepted Trade-Off
+- Sharpe may be lower than fixed-split (proxy ~0.97)
+- Trade count may be lower in stress windows
+
+## Changed Layer
+`model_selection` / `validation` — no new network/reward/execution changes
+
+## Baseline
+- Direct comparison: `balanced` canonical (ran walk-forward in parallel)
+- Canonical: `balanced`
+
+## Commands
+1. Walk-forward `balanced` (has actor, no retrain needed):
+   ```
+   qlib_venv/bin/python soxl_qlib_strategy_v2.py --profiles balanced --walk-forward --seed 42
+   ```
+2. Walk-forward `balanced_rule_residual_v19` (needs retrain):
+   ```
+   qlib_venv/bin/python soxl_qlib_strategy_v2.py --profiles balanced_rule_residual_v19 --walk-forward --seed 42
+   ```
+
+## Evidence Path
+- Results: `runtime/soxl/wf_workers/balanced_rule_residual_v19-wf_*-seed42.json`
+- Review: `runtime/model/reviews/v19_walk_forward_review.md`
+
+## Results
+
+### wf_2020 (Bull)
+- balanced: test Sharpe 2.30, return +125.8%, MaxDD 21.9%
+- v19: test Sharpe 2.35, return +114.9%, MaxDD 20.4%
+
+### wf_2022 (Bear)
+- balanced: test Sharpe **-0.91**, return **-25.8%**, MaxDD 33.2%
+- v19: test Sharpe **-0.80**, return **-25.2%**, MaxDD 35.2%
+
+### Promotion Gates
+- balanced: ❌ FAIL (Sharpe -0.91 < 0.75)
+- v19: ❌ FAIL (MaxDD 35.2% > 35%, Sharpe -0.80 < 0.75)
+
+## Conclusion
+
+**Both models fail walk-forward on 2022 bear market.** This is a family-level failure, not v19-specific. The canonical `balanced` is equally broken.
+
+The fundamental problem: training data (2010-2021) lacks prolonged secular bear markets. Models overfit to bull patterns and collapse during sustained drawdowns.
+
+## Decision
+- `balanced_rule_residual_v19`: **drop** — walk-forward failure confirmed
+- Next: solve bear-market generalization before any new residual-family experiments
+
+## Next Action
+- Add bear-market-aware training (synthetic episodes, longer history, or regime-specific sampling)
+- Consider credit spread / yield curve features as leading bear indicators
+- Re-evaluate reward function for prolonged stress periods
+
+
+
+<!-- MIGRATED FROM memory/2026-04-25-walk-forward-v19-small-v22-complete.md -->
+
+# Walk-Forward Completion: v19_small and v22
+
+## Date
+2026-04-25
+
+## Goal
+Validate whether network simplification (v19_small) or VIX term features (v22) improve walk-forward generalization beyond the v19 baseline.
+
+## Results
+
+### Walk-Forward Comparison Table
+
+| Profile | wf_2020 Ret | wf_2022 Ret | wf_2023_24 Ret | wf_2020 Sharpe | wf_2022 Sharpe | wf_2023_24 Sharpe |
+|---------|-------------|-------------|----------------|----------------|----------------|-------------------|
+| balanced | 125.7% | -25.8% | -15.2% | 2.30 | -0.91 | -0.22 |
+| v19 | 114.9% | -25.2% | -18.7% | 2.35 | -0.80 | -0.23 |
+| v19_small | 96.9% | -31.6% | -17.1% | 2.04 | -1.11 | -0.27 |
+| v22 | 117.7% | -23.5% | -22.5% | 2.27 | -0.84 | -0.36 |
+
+### Key Findings
+
+1. **ALL models fail walk-forward in bear markets** - no exceptions. Every profile loses money in wf_2022 and wf_2023_2024.
+
+2. **v19_small is WORSE than v19 in every way**:
+   - wf_2022: -31.6% vs -25.2% (v19), Sharpe -1.11 vs -0.80
+   - wf_2023_2024: -17.1% vs -18.7% (v19) - slightly better but still bad
+   - Network simplification (hidden=[32], gru=16) made bear-market performance significantly worse
+
+3. **v22 shows marginal 2022 improvement but worse 2023-2024**:
+   - wf_2022: -23.5% vs -25.2% (v19) - best bear-market return, but still deeply negative
+   - wf_2023_2024: -22.5% vs -18.7% (v19) - WORSE than v19
+   - VIX term features provide marginal 2022 improvement but degrade 2023-2024 performance
+
+4. **balanced is still the "best" for 2023-2024** (-15.2%), but all are negative
+
+5. **Fixed-split metrics are unreliable predictors**:
+   - v19 fixed-split proxy Sharpe: 0.97 → walk-forward wf_2022 Sharpe: -0.80
+   - v22 fixed-split 2022 Sharpe: -0.76 → walk-forward wf_2022 Sharpe: -0.84 (similar)
+   - v19_small fixed-split 2022 Sharpe: -1.11 → walk-forward wf_2022 Sharpe: -1.11 (identical)
+
+## Conclusions
+
+- **Overfitting is NOT a capacity problem**: Simplifying the network (v19_small) made performance worse, not better. The model needs capacity but is overfitting due to insufficient regularization, data diversity, or reward design.
+- **VIX term features do not solve generalization**: Marginal improvement in 2022 (-23.5% vs -25.2%) is not meaningful, and 2023-2024 degradation (-22.5% vs -18.7%) is worse.
+- **The fundamental problem is bear-market generalization**: All models perform well in bull markets (wf_2020 Sharpe 2.0+) but fail catastrophically in bear markets.
+- **Walk-forward is the ONLY valid promotion standard**: Fixed-split metrics (even test_2022/test_2023_2024) are not reliable predictors of true generalization.
+
+## Next Actions
+
+1. Do NOT run more network-size ablations (v19_tiny should not be launched)
+2. Do NOT run more feature-pack variants without a fundamental change
+3. Focus on mechanisms that explicitly address bear-market generalization:
+   - Bear-market-aware reward shaping (e.g., penalize losses asymmetrically)
+   - Data augmentation or adversarial training
+   - Explicit regime detection and regime-conditioned policies
+   - Curriculum learning that includes bear-market episodes
+   - Regularization techniques (dropout, weight decay, early stopping on validation)
+4. Before any new experiment, must cite external reference and explain why it should improve bear-market generalization specifically
+
+## Files Changed
+- `scripts/build_backtest_dashboard.py`: Fixed `RUNTIME_DIR` NameError
+- `docs/experiment-landscape-review.md`: Updated v19, v19_small, v22 rows with walk-forward data
+

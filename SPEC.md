@@ -71,9 +71,8 @@ Use these layers intentionally:
 - `codex_exec_plans/active/`: current task state and proof of work
 - `docs/research_knowledge/`: mechanism-specific conclusions and reusable
   research guidance
-- `memory/`: continuity across sessions
-- `memory/index.json`: machine-readable memory retrieval index
-- `skills/`: distilled reusable workflows and maintained operational knowledge
+- `runtime/<direction>/knowledge.md`: continuity across sessions, organized by task direction
+- `.codex/skills/`: distilled reusable workflows and maintained operational knowledge
 - `data/datasets.yaml`: machine-readable registry for raw, processed, qlib, and
   training-cache data assets
 
@@ -83,9 +82,9 @@ These roles should not blur together.
 
 This repo should get better as recurring work repeats.
 
-- Stable context and important continuity belong in `memory/`.
+- Stable context and important continuity belong in `runtime/<direction>/knowledge.md`.
 - Live task state belongs in the compact active plan/workpad.
-- Historical task detail is distilled into `memory/` and `docs/research_knowledge/`.
+- Historical task detail is distilled into `runtime/<direction>/knowledge.md` and `docs/research_knowledge/`.
 - Mechanism-specific conclusions belong in `docs/research_knowledge/`.
 - Reusable methods, troubleshooting flows, and recurring guardrails belong in
   `skills/`.
