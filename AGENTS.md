@@ -100,25 +100,8 @@ The active plan file is the primary execution record.
   depends on a behavior change.
 - A task is not complete until the repository contains the proof of work.
 
-Every substantial loop should leave behind:
-
-- goal or hypothesis
-- command or procedure
-- validation evidence or failure evidence
-- keep / drop / next-action decision
-
-Before starting any new experiment loop, the active workpad must also state:
-
-- closest historical success case
-- closest historical failure case
-- the new mechanism being tested this time
-- the row that will be added back into the comparison table
-
-When a loop changes profile lifecycle or retention:
-
-- record the canonical comparison baseline
-- record whether the profile is `canonical`, `candidate`, `ablation`, `dropped`, or `archived`
-- record whether the actor bundle is meant to be kept or summary-only
+Every substantial loop should leave behind: goal, command, evidence, keep/drop
+decision, and next action. See "Execution Standard" below for the full checklist.
 
 ## Profile Governance
 
