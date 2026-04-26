@@ -69,5 +69,5 @@ changelog:
 
 ## 输出
 
-- `runtime/factor/analysis/signal_validation_report.md` 模板
+- `runtime/factor/signal_validation_report.md` 模板
 - `data/etf_factor_library.db`的`feature_backtests`表（按symbol分区）

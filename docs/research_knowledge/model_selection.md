@@ -16,7 +16,7 @@ Do not assume a branch is undertrained when validation improves but `test_2022` 
 
 - `runtime/model/knowledge.md`
 - `runtime/model/knowledge.md`
-- `runtime/model/reviews/`
+- `runtime/model/`
 
 ## Reusable Method
 

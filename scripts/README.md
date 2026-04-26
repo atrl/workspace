@@ -7,7 +7,7 @@ Primary harness entrypoints:
 - `checkpoint_review.py`: render a durable Markdown review from a saved summary JSON's selection history and gates.
 - `execution_overlay_generalization.py`: evaluate execution overlay variants against the retained balanced actor.
 - `generalization_backtest.py`: run the retained cross-ETF generalization backtest harness.
-- `feature_analysis.py`: generate feature importance / IC analysis outputs under `runtime/factor/analysis/`.
+- `feature_analysis.py`: generate feature importance / IC analysis outputs under `runtime/factor/`.
 - `cost_sensitivity_backtest.py`: replay retained artifacts under alternative cost assumptions for review.
 - `export_profile_daily_backtest.py`: export daily replay rows from saved model artifacts for review diffs.
 - `build_runtime_index.py`: regenerate `runtime/index.json` for fast knowledge retrieval.

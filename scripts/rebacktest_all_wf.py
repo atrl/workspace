@@ -76,6 +76,6 @@ for profile_name, actor_path, test_start, test_end, window_name in actors:
     except Exception as e:
         print(f"ERROR {window_name}: {e}")
 
-with open("runtime/model/reviews/walk_forward_rebacktest_results.json", "w") as f:
+with open("runtime/model/walk_forward_rebacktest_results.json", "w") as f:
     json.dump(results, f, indent=2)
-print("\nSaved to runtime/model/reviews/walk_forward_rebacktest_results.json")
+print("\nSaved to runtime/model/walk_forward_rebacktest_results.json")

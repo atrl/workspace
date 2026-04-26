@@ -24,7 +24,7 @@ description: 在每次训练或回测结束后，对最新模型与上一版本/
 优先使用仓库已有产物，而不是口头回忆：
 
 - 主输入：
-  - `runtime/model/reviews/<family>/*_summary.json` (e.g. `runtime/model/reviews/balanced_family/`, `runtime/model/reviews/canonical/`)
+  - `artifacts/<family>/*_summary.json` (e.g. `artifacts/balanced_family/`, `artifacts/canonical/`)
 - 可选补充：
   - `runtime/feature_analysis/summary.json`
   - `runtime/generalization/detailed/*.csv`
@@ -229,7 +229,7 @@ qlib_venv/bin/python scripts/feature_analysis.py
 默认流程：
 
 1. 选定当前历史最优基线
-  - 通常是当前 canonical summary，例如 `runtime/model/reviews/canonical/soxl_balanced_summary.json`
+  - 通常是当前 canonical summary，例如 `artifacts/canonical/soxl_balanced_summary.json`
 2. 先从 summary / detailed backtest 中定位：
   - 最好的防守窗口
   - 最好的趋势捕获窗口

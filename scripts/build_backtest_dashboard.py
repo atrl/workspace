@@ -435,18 +435,19 @@ def normalize_post_train_review_rows(raw_rows: list[dict[str, str]]) -> list[dic
 
 
 def _load_post_train_review_versions(features: dict[str, dict[str, float]] | None) -> dict[str, dict]:
-    """Load SOXL daily CSVs from runtime/model/reviews/ and runtime/soxl/paper_trading/ as versioned data."""
+    """Load SOXL daily CSVs from runtime/model/cards/ and runtime/soxl/paper_trading/ as versioned data."""
     versioned: dict[str, dict] = {}
 
     dirs_to_scan = [
-        ROOT / "runtime" / "model" / "reviews",
-        ROOT / "runtime" / "soxl" / "paper_trading",
+        (ROOT / "runtime" / "model" / "cards", True),   # (path, recursive)
+        (ROOT / "runtime" / "soxl" / "paper_trading", False),
     ]
 
-    for ptr_dir in dirs_to_scan:
+    for ptr_dir, recursive in dirs_to_scan:
         if not ptr_dir.exists():
             continue
-        for csv_path in sorted(ptr_dir.glob("*_soxl_daily.csv")):
+        globber = ptr_dir.rglob if recursive else ptr_dir.glob
+        for csv_path in sorted(globber("*_soxl_daily.csv")):
             tag = csv_path.stem.replace("_soxl_daily", "")
             try:
                 with csv_path.open("r", encoding="utf-8") as f:

@@ -14,7 +14,7 @@ Usage:
                  balanced_rule_residual_v18 \
                  balanced_rule_residual_v19 \
         --anchor balanced_rule_residual_v19 \
-        --output runtime/model/reviews/ensemble_v16_v18_v19
+        --output runtime/model/ensemble_v16_v18_v19
 
 Reads from existing artifacts only; no training is triggered.
 """

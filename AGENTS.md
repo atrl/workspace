@@ -82,8 +82,8 @@ relevant `runtime/<direction>/knowledge.md` or the experiment's `notes.md`.
 
 Knowledge retrieval must be scoped by task direction. Example:
 
-- factor work: read `runtime/factor/knowledge.md` then open `runtime/factor/analysis/`
-- model-selection work: read `runtime/model/knowledge.md` then open `runtime/model/reviews/`
+- factor work: read `runtime/factor/knowledge.md` then open `runtime/factor/`
+- model-selection work: read `runtime/model/knowledge.md` then open `runtime/model/`
 - execution work: read `runtime/execution/knowledge.md` then open `runtime/execution/`
 
 ## Workpad Discipline
@@ -226,7 +226,7 @@ The implementer should not need to guess what success means.
 The repository must maintain a single durable comparison surface for historical conclusions.
 
 - Major conclusions belong in `docs/experiment-landscape-review.md`.
-- Pairwise or run-local reviews can still live under `runtime/model/reviews/`.
+- Pairwise or run-local reviews can still live under `runtime/model/`.
 - A training or replay loop is not complete until its conclusion is reflected in the durable comparison record.
 
 Every completed experiment must add or update a row containing:

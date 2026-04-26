@@ -16,7 +16,7 @@ Do not promote a feature because it improves a local validation window if it inc
 
 ## Evidence Path
 
-- `runtime/factor/analysis/`
+- `runtime/factor/`
 - `data/soxl_factor_library.db`
 - `runtime/factor/knowledge.md`
 

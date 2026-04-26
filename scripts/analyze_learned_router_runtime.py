@@ -106,7 +106,7 @@ def analyze():
         print(f"  Rule:    {r['rule_distribution']}")
         print(f"  Learned: {r['learned_distribution']}")
 
-    out = Path("runtime/model/reviews/learned_router_runtime_analysis.json")
+    out = Path("runtime/model/learned_router_runtime_analysis.json")
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(results, indent=2, ensure_ascii=False), encoding="utf-8")
     print(f"\nWrote {out}")
