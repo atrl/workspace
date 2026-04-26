@@ -1,0 +1,17 @@
+{
+  "profile": "balanced_rule_residual_v19",
+  "window": "wf_2020",
+  "main_backtest": {
+    "return": 92.78398049317364,
+    "sharpe": 1.9564915994750638,
+    "max_dd": 20.001190492181397,
+    "trades": 24
+  },
+  "worker_eval": {
+    "return": 184.0490948956871,
+    "sharpe": 0.5875845173997135
+  },
+  "gap": {
+    "return": -91.26511440251345
+  }
+}
