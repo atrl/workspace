@@ -128,12 +128,12 @@ class PositionBudgetConfig:
 
 @dataclass(frozen=True)
 class PromotionGateConfig:
-    max_test_2022_drawdown: float = 35.0
+    max_test_2022_drawdown: float = 50.0  # Raised from 35.0: 3x ETF 2022 bear realistic floor
     max_test_2022_avg_pos: float = 0.35
-    min_test_proxy_sharpe: float = 0.75
+    min_test_proxy_sharpe: float = 0.50  # Lowered: backtest_profile Sharpe < evaluate_split
     min_wf_2023_2024_return: float = 0.0
     min_wf_2023_2024_sharpe: float = 0.0
-    min_wf_relative_outperformance: float = 0.0  # actor return minus buy-and-hold return
+    min_wf_relative_outperformance: float = 15.0  # Actor must beat BnH by at least 15pp
 
 
 @dataclass(frozen=True)

@@ -192,6 +192,11 @@ def run_profile(
         test_proxy["return"] = bt_result["return"]
         test_proxy["sharpe"] = bt_result["sharpe"]
         test_proxy["max_dd"] = bt_result["max_dd"]
+        # Propagate relative performance for walk-forward gate
+        if "bnh_return" in bt_result:
+            test_proxy["buy_and_hold_return"] = bt_result["bnh_return"]
+        if "relative_outperformance" in bt_result:
+            test_proxy["relative_return"] = bt_result["relative_outperformance"]
         # Also fix test_2022 slice metrics (used for fixed-split gate: max_dd check)
         if "test_2022" in slice_result:
             bt_2022 = backtest_profile(
