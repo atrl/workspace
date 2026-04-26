@@ -777,6 +777,6 @@ profiles:
     baseline: balanced_rule_residual_v19_reg
     keep_actor: true
     keep_summary: true
-    notes_ref: codex_exec_plans/active/2026-04-25-v19-reg-light.md
-    wf_status: pending
-    wf_notes: Tuned regularization: dropout 0.1 + weight_decay 1e-6. Hypothesis: preserves wf_2022 improvement while recovering wf_2023_2024 performance.
+    notes_ref: codex_exec_plans/completed/2026-04-25-v19-reg-light.md
+    wf_status: blocked
+    wf_notes: Walk-forward blocked. wf_2022 -21.9% (vs v19 -25.2%), wf_2023_2024 -24.3% (vs v19 -18.7%). Lower regularization did not recover 2023_2024 performance.
