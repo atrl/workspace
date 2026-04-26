@@ -15,23 +15,25 @@ Root cause: `evaluate_split` uses simplified cost model (0.1% per trade), no min
 - Walk-forward comparisons were invalid
 - v19 was incorrectly assessed as failing walk-forward
 
-## Fix (commit 69bddd6)
+## Fix (commits 69bddd6, a2fcf65)
 Modified `run_profile` in `src/soxl_quant/app/train.py`:
 - After `backtest_profile` returns, copy `return`, `sharpe`, `max_dd` into `test_proxy`
-- Rebuild promotion report with corrected `test_proxy`
+- Also run `backtest_profile` on `test_2022` window and replace slice metrics
+- Rebuild promotion report with corrected metrics
 
 This fixes:
-- Fixed-split promotion gate
+- Fixed-split promotion gate (test_proxy + test_2022_max_dd)
 - Walk-forward worker eval (workers also call `run_profile`)
 - All future training runs
 
 ## Known Residual Issue
-`slice_metrics` (and `evaluate_all_slices`) still uses `evaluate_split` for:
-- test_2022 MaxDD
-- test_2023_2024 return
+`slice_metrics` still uses `evaluate_split` for:
+- test_2020 metrics (analysis only)
+- test_2023_2024 return (Pareto selection if use_pareto=True)
 - Pareto checkpoint selection (if use_pareto=True)
 
-These are NOT used for promotion gate but can mislead analysis and Pareto selection.
+These are NOT used for promotion gate but can mislead analysis.
+Since `use_pareto` defaults to `False`, this is not urgent.
 Fix when Pareto selection is enabled or when per-slice accuracy becomes critical.
 
 ## Validation Tool
