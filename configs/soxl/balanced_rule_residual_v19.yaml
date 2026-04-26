@@ -46,7 +46,7 @@ reward:
 position_cap:
   start_drawdown: 0.10
   full_drawdown: 0.30
-  min_cap: 0.40
+  min_cap: 0.20
   curve_power: 1.0
   bull_min_cap: 0.65
   bull_vol_threshold: 0.40

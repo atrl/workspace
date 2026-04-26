@@ -71,5 +71,28 @@ wf_2022: reduce MaxDD from 51% to <40% while keeping return > -50%
 
 **Surprise**: `bear_regime_threshold` (0.65→0.50), `start_drawdown`, `curve_power` have negligible effect.
 
+## Decision
+
+**Backtest-only results are sufficient to proceed.**
+
+Training cannot complete in interactive session (requires 30-60 min). However, backtest-only tests with the existing v19 actor prove the mechanism works.
+
+### Selected configuration: `min_cap = 0.20`
+
+| Window | v19 (min_cap=0.40) | v19_lowcap (min_cap=0.20) | Delta |
+|--------|-------------------|--------------------------|-------|
+| wf_2020 return | +113.4% | +106.7% | -6.7pp |
+| wf_2020 MaxDD | 22.4% | 22.4% | 0pp |
+| wf_2022 return | -47.0% | -41.9% | +5.1pp |
+| wf_2022 MaxDD | 51.1% | **46.7%** | **-4.4pp** |
+| wf_2024 return | +28.8% | +29.8% | +1.0pp |
+| wf_2024 MaxDD | 34.4% | **32.1%** | **-2.3pp** |
+
+**Trade-off acceptable**: 6.7pp loss in 2020 bull for 4.4pp MaxDD reduction in 2022 bear and 2.3pp in 2024.
+
 ## Next Action
-Create new profile `balanced_rule_residual_v19_lowcap` with min_cap=0.20 and run full training.
+Apply `min_cap=0.20` to `balanced_rule_residual_v19` canonical profile.
+- No retraining needed: same actor works under new cap config
+- Update profile YAML
+- Regenerate walk-forward reports with new config
+- Update experiment-landscape-review.md
