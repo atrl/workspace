@@ -75,6 +75,9 @@ def main():
             position_budget_config=pos_budget,
             execution_config=exec_cfg,
             test_seg=test_seg,
+            feature_columns=profile.feature.packs,
+            model_config=profile.model,
+            mode_router_config=profile.mode_router,
         )
 
         # Load worker eval for comparison
