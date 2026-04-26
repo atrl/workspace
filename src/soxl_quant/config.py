@@ -348,9 +348,8 @@ def experiment_profile_path(name: str) -> Path | None:
 
 
 def legacy_profile_path(name: str) -> Path | None:
-    for path in PROFILE_DIR.rglob(f"{name}.yaml"):
-        if path.name != "profile_registry.yaml":
-            return path
+    for path in PROFILE_DIR.rglob(f"card/{name}/profile.yaml"):
+        return path
     return None
 
 
@@ -370,7 +369,7 @@ def experiment_dir_for_profile(name: str) -> Path | None:
 
 
 def list_profile_names() -> list[str]:
-    legacy = {path.stem for path in PROFILE_DIR.rglob("*.yaml") if path.name != "profile_registry.yaml"}
+    legacy = {path.parent.name for path in PROFILE_DIR.rglob("card/*/profile.yaml")}
     experiments = {path.parent.name for path in EXPERIMENTS_DIR.glob("*/*/profile.yaml")}
     return sorted(legacy | experiments)
 

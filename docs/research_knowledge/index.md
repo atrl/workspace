@@ -33,5 +33,5 @@ Machine-readable route: `task_router.json`.
 
 - `balanced` remains the control baseline.
 - `balanced_rule_residual` is the successful residual family.
-- `runtime/harness/profile_registry.yaml` remains the profile lifecycle source of truth.
+- `runtime/harness/card/registry/profile.yaml` remains the profile lifecycle source of truth.
 - `runtime/` remains generated research evidence; do not move runtime logs into experiment cards.

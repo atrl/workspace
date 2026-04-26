@@ -190,7 +190,7 @@ In a year where SOXL drops 86%, any strategy holding the asset will have negativ
 
 - `runtime/model/reviews/v19_walk_forward_review.md` — corrected
 - `docs/experiment-landscape-review.md` — corrected
-- `runtime/harness/profile_registry.yaml` — corrected
+- `runtime/harness/card/registry/profile.yaml` — corrected
 
 
 
