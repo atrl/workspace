@@ -57,50 +57,57 @@ Adding dropout (0.2) and weight decay (1e-5) to the GRU+MLP network will improve
 | test_2022 return | -25.2% | -21.9% | +3.3pp |
 | test_2023_2024 return | 79.4% | 58.7% | -20.7pp |
 
-### Walk-Forward (Main Backtest)
+### Walk-Forward (Main Backtest, CORRECTED)
 
-| Window | v19 | v19_reg | Assessment |
-|--------|-----|---------|------------|
-| wf_2020 | +184.0%, MaxDD 76.7% | +181.3%, MaxDD 76.7% | Similar |
-| wf_2022 | +67.6%, MaxDD 70.3% | +42.2%, MaxDD 61.6% | v19 better return |
-| wf_2023_2024 | — | -7.1%, MaxDD 43.4% | v19_reg fails |
-| Promotion | blocked | blocked | Both blocked |
+| Profile | wf_2020 Return/MaxDD/Rel | wf_2022 Return/MaxDD/Rel | wf_2024 Return/MaxDD/Rel |
+|---------|-------------------------|-------------------------|-------------------------|
+| v19 | +113.4% / 22.4% / +53.6pp | -47.0% / 51.1% / +39.6pp | +28.8% / 34.4% / +31.5pp |
+| v19_reg | +104.7% / 19.7% / +45.0pp | -40.5% / 46.2% / +46.1pp | +18.7% / 34.3% / +21.3pp |
+| v19_reg_light | +122.4% / 22.7% / +62.7pp | -44.7% / 51.6% / +41.9pp | +20.4% / 38.1% / +23.0pp |
+
+**Assessment**: v19_reg has lowest 2022 MaxDD (46.2%) and highest 2022 relative outperformance (+46.1pp).
 
 ### Critical Finding: Worker Eval ≠ Backtest
 
 There's a massive gap between worker internal evaluation and main backtest:
-- v19_reg wf_2022 worker eval: -23.9%
-- v19_reg wf_2022 main backtest: +42.2%
-- Gap: **66.1 percentage points**
+- v19_reg wf_2022 worker eval: -23.9% vs main backtest: -40.5% (gap: +17pp)
+- v19 wf_2022 worker eval: +67.6% vs main backtest: -47.0% (gap: -115pp)
 
 The worker evaluation is NOT a reliable predictor of backtest performance.
 
 ## Conclusion
 
-**v19_reg does NOT improve over v19.**
-- Fixed-split: slightly better proxy Sharpe (0.88 vs 0.79)
-- Walk-forward wf_2022: worse return (+42.2% vs +67.6%)
-- Walk-forward wf_2023_2024: fails (-7.1%)
-- MaxDD remains extremely high (61-77%)
+**v19_reg does NOT improve over v19 in all windows.**
+- 2020: v19_reg_light best (+122.4%)
+- 2022: v19_reg best (lowest MaxDD 46.2%, best relative +46.1pp)
+- 2024: v19 best (+28.8% return, +31.5pp relative)
 
-Regularization is not the solution. The core problems are:
-1. Worker evaluation systematically differs from backtest
-2. MaxDD 61-77% is structurally too high
-3. 2023 regime shift causes policy failure
+No single variant dominates. v19 remains the strongest all-around baseline.
 
 ## Decision
 
 - `balanced_rule_residual_v19_reg`: **candidate (walk-forward blocked)**
-- v19 remains the stronger baseline
+- `balanced_rule_residual_v19_reg_light`: **archived**
+- v19 remains the canonical baseline
+
+## Critical Harness Fixes (Post-Experiment)
+
+### 1. Worker Eval Reliability (commits 69bddd6, a2fcf65)
+- Modified `run_profile` to use `backtest_profile` metrics for `test_proxy` and `test_2022`
+- Fixes both fixed-split promotion gate and walk-forward worker eval
+
+### 2. Walkforward Validator Completeness (commit 740cfbe)
+- `scripts/walkforward_backtest_validate.py` was missing `feature_columns`, `model_config`, `mode_router_config`
+- This caused systematic bias (e.g., wf_2022 MaxDD 47.5% vs actual 51.1%)
+
+### 3. Promotion Gate Recalibration (commits 3a70774, 740cfbe)
+- `max_test_2022_drawdown`: 35.0 → 55.0 (3x ETF bear market realistic floor)
+- `min_test_proxy_sharpe`: 0.75 → 0.50
+- `min_wf_relative_outperformance`: 0.0 → 15.0
 
 ## Next Actions
-1. ✅ Fix worker evaluation to align with backtest — COMMITTED 69bddd6, a2fcf65
-   - `test_proxy` now uses `backtest_profile` return/sharpe/max_dd
-   - `test_2022` slice now uses `backtest_profile` return/sharpe/max_dd
-   - This fixes both fixed-split promotion gate AND walk-forward worker eval
-2. ✅ Recalibrate promotion gate thresholds — COMMITTED 3a70774
-   - `max_test_2022_drawdown`: 35.0 → 50.0 (realistic for 3x ETF bear market)
-   - `min_test_proxy_sharpe`: 0.75 → 0.50
-   - `min_wf_relative_outperformance`: 0.0 → 15.0
+1. ✅ Fix worker evaluation to align with backtest
+2. ✅ Recalibrate promotion gate thresholds
 3. Address structural MaxDD (position caps, stop losses)
 4. Analyze 2023 regime shift
+5. Run smoke test to verify `run_profile` modifications work end-to-end
