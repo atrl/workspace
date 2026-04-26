@@ -2,20 +2,22 @@
 """Check skills for stale path references and outdated content."""
 from __future__ import annotations
 
+import re
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 SKILLS_DIR = ROOT / ".codex" / "skills"
 
-# Known retired paths that should not appear in skills
-RETIRED_PATHS = [
-    "artifacts/models/",
-    "artifacts/",
-    "runtime/*/cards/",
-    "runtime/soxl/post_train_review/",
-    "memory/",
-    "configs/soxl/",
+# Known retired path patterns that should not appear in skills
+# Each tuple is (regex_pattern, human_readable_description)
+RETIRED_PATTERNS: list[tuple[str, str]] = [
+    (r"runtime/\w+/cards/", "runtime/<dir>/cards/"),
+    (r"artifacts/models/", "artifacts/models/"),
+    (r"artifacts/(?!retention_manifest)", "artifacts/"),  # allow retention_manifest mention if needed
+    (r"runtime/soxl/post_train_review/", "runtime/soxl/post_train_review/"),
+    (r"memory/", "memory/"),
+    (r"configs/soxl/", "configs/soxl/"),
 ]
 
 
@@ -27,9 +29,9 @@ def check_skill(skill_path: Path) -> list[str]:
         issues.append(f"  unreadable: {e}")
         return issues
 
-    for retired in RETIRED_PATHS:
-        if retired in text:
-            issues.append(f"  stale path '{retired}'")
+    for pattern, description in RETIRED_PATTERNS:
+        if re.search(pattern, text):
+            issues.append(f"  stale path '{description}'")
     return issues
 
 
