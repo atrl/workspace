@@ -90,9 +90,28 @@ Training cannot complete in interactive session (requires 30-60 min). However, b
 
 **Trade-off acceptable**: 6.7pp loss in 2020 bull for 4.4pp MaxDD reduction in 2022 bear and 2.3pp in 2024.
 
+## Results
+
+### Applied: `min_cap=0.20` to canonical v19 profile
+
+New walk-forward metrics (commit 1f68837):
+| Window | Return | MaxDD | Sharpe | vs BnH |
+|--------|--------|-------|--------|--------|
+| wf_2020 | +106.7% | 22.4% | 1.95 | +46.9pp |
+| wf_2022 | -41.9% | 46.7% | -1.32 | +44.7pp |
+| wf_2024 | +29.8% | 32.1% | 0.71 | +32.4pp |
+
+### Assessment
+- MaxDD reduced from 51.1% to 46.7% (-4.4pp) ✅
+- Return improved in 2022 and 2024 ✅
+- 2020 bull participation slightly reduced (-6.7pp) — acceptable trade-off
+- Target <40% MaxDD NOT reached; 46.7% is the floor achievable with cap-only changes
+
+### Why <40% is not reachable with cap changes alone
+- Actor already reduces position to 0.17-0.31 in stress
+- 2022 Jan-Feb crash: -26.3% in 2 months with avg position 0.38
+- Even with min_cap=0, SOXL's inherent volatility makes <40% MaxDD extremely difficult
+
 ## Next Action
-Apply `min_cap=0.20` to `balanced_rule_residual_v19` canonical profile.
-- No retraining needed: same actor works under new cap config
-- Update profile YAML
-- Regenerate walk-forward reports with new config
-- Update experiment-landscape-review.md
+- Move workpad to completed
+- Future experiments should explore: earlier regime detection (not just cap), stop-loss mechanisms, or multi-day position smoothing
