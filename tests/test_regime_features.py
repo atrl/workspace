@@ -53,6 +53,61 @@ def test_regime_feature_frame_has_expected_columns():
     assert price.notna().all()
 
 
+def test_transition_signal_pack_includes_signed_tracking_error_reversion():
+    df = pd.read_csv(CSV_PATH, parse_dates=["date"]).set_index("date")
+    soxl = pd.DataFrame(
+        {
+            "$close": df["soxl_close"],
+            "$open": df["soxl_open"],
+            "$high": df["soxl_high"],
+            "$low": df["soxl_low"],
+            "$volume": df["soxl_volume"],
+            "$vix": df["vix"],
+            "Mean($close, 5)": df["soxl_close"].rolling(5).mean(),
+            "Mean($close, 21)": df["soxl_close"].rolling(21).mean(),
+            "Mean($close, 63)": df["soxl_close"].rolling(63).mean(),
+            "Mean($close, 180)": df["soxl_close"].rolling(180).mean(),
+            "Std($close / Ref($close, 1) - 1, 10)": df["soxl_close"].pct_change().rolling(10).std(),
+            "Std($close / Ref($close, 1) - 1, 21)": df["soxl_close"].pct_change().rolling(21).std(),
+            "Std($close / Ref($close, 1) - 1, 63)": df["soxl_close"].pct_change().rolling(63).std(),
+            "Mean($volume, 21)": df["soxl_volume"].rolling(21).mean(),
+        }
+    )
+    soxx = pd.DataFrame(
+        {
+            "$close": df["soxx_close"],
+            "$open": df["soxx_open"],
+            "$high": df["soxx_high"],
+            "$low": df["soxx_low"],
+            "$volume": df["soxx_volume"],
+        }
+    )
+
+    feature_df, _ = engineer_feature_frame(soxl, soxx, feature_packs=("transition_signals",))
+    flat = feature_df.droplevel("instrument")
+
+    expected_columns = {
+        "SIGNED_TE_REVERSION_5",
+        "SIGNED_TE_REVERSION_10",
+        "SIGNED_TE_REVERSION_21",
+    }
+    assert expected_columns.issubset(set(feature_columns_for_packs(("transition_signals",))))
+    assert expected_columns.issubset(set(flat.columns))
+    assert flat[list(expected_columns)].replace([np.inf, -np.inf], np.nan).notna().all().all()
+
+    close = soxl["$close"].astype(float).reindex(flat.index)
+    und_close = soxx["$close"].astype(float).reindex(flat.index)
+    tracking_error = close.pct_change() - 3.0 * und_close.pct_change()
+    rolling_signed_te = tracking_error.rolling(10).sum()
+    expected = -(
+        (rolling_signed_te - rolling_signed_te.rolling(252).mean())
+        / (rolling_signed_te.rolling(252).std() + 1e-8)
+    )
+    expected = expected.reindex(flat.index).dropna()
+    actual = flat["SIGNED_TE_REVERSION_10"].reindex(expected.index)
+    assert np.allclose(actual.tail(100).to_numpy(), expected.tail(100).to_numpy(), atol=1e-8)
+
+
 def test_transition_v23_flags_fire_only_in_expected_states():
     index = pd.date_range("2020-01-01", periods=30, freq="B")
     transition = _build_transition_state_features(

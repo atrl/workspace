@@ -52,6 +52,23 @@ direction: harness
 
 ## 当前待验证假设
 
+### 0. Crypto-style 单资产因子参考（factor）— 本次完成
+
+**问题**: 用户提出 SOXL 个股/单ETF择时更像币圈单一资产量化，询问可参考的因子。
+
+**本次执行**:
+- 新增 `SIGNED_TE_REVERSION_*` 到 `transition_signals` feature pack：
+  `-zscore(rolling_sum(SOXL_return - 3 * SOXX_return, window), 252d)`，窗口为 5d / 10d / 21d。
+- 新增 `scripts/evaluate_signed_te_reversion.py`，输出 IC、standalone backtest、core correlation evidence。
+- 新增因子卡片 `runtime/factor/card/signed_te_reversion/card.md`。
+
+**结果**:
+- Best IC: `SIGNED_TE_REVERSION_21`, h=20, IC mean=+0.014, positive ratio=0.516 → 未过 IC gate。
+- Best standalone: `SIGNED_TE_REVERSION_10`, threshold=0.5, Sharpe=+0.561, PF=1.228, accuracy=0.546 → 有正收益但方向稳定性不足。
+- Correlation: 10d max core rho=0.577 通过；5d max core rho=0.811 未过相关性预算。
+
+**结论**: 不加入 core RL schema。若继续，只围绕 `SIGNED_TE_REVERSION_10` 做 regime-gated ablation，不推广 5/10/21 全家族。
+
 ### 1. 2022 Stress Window 过仓问题（P0）
 
 **问题**: canonical `balanced` 在 test_2022 的 avg_pos ~0.38，promotion gate 要求 < 0.35。

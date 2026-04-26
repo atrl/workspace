@@ -29,6 +29,7 @@
 | ACAD_DOWN_RUNS | academic | mean-reversion | ❌ Invalid | Sharpe=-0.289 | [card](cards/acad_down_runs/card.md) |
 | TRANS_VIX_DIVERGENCE | transition | mean-reversion | ✅ Strong | Sharpe=+1.041 | [card](cards/trans_vix_divergence/card.md) |
 | TRANS_TE_ZSCORE | transition | mean-reversion | 🟡 IC only | IC=+0.072 | [card](cards/trans_te_zscore/card.md) |
+| SIGNED_TE_REVERSION | crypto analogue | transition | 🟡 Candidate / blocked | Sharpe=+0.561, IC=+0.014 | [card](card/signed_te_reversion/card.md) |
 | regime_risk | core | composite | ✅ Core | 训练主特征 | [card](cards/regime_risk/card.md) |
 | regime_risk_no_vix | core | composite | 🟡 Ablated | VIX-free | [card](cards/regime_risk_no_vix/card.md) |
 | vol_stress_score | core | composite | 🟡 VIX-free proxy | 纯价格 stress | [card](cards/vol_stress_score/card.md) |
@@ -48,6 +49,7 @@
 3. **RB_RSI6_OVERSOLD** 和 **ACAD_DOWN_RUNS**  standalone 无效，但可能在组合中有价值。
 4. **mom_21 ↔ relative_strength_21** 等高度冗余对需要处理（|rho|=1.0）。
 5. 大部分 rulebase 和 academic 因子尚未进行 standalone 验证。
+6. **SIGNED_TE_REVERSION** 是 crypto funding/basis 类比因子：10d standalone 有正收益（Sharpe=+0.561, PF=1.228），但 IC mean=+0.014、positive ratio=0.516 未过门槛；不加入 core RL schema。
 
 ## 特征冗余（|rho| > 0.85）
 
@@ -116,3 +118,28 @@ For overlay design:
 The "multi-factor" intuition (more features = better) is wrong for execution overlays
 when features are correlated. Regime separation is the key edge.
 
+<!-- 2026-04-26: crypto-style signed tracking-error factor -->
+
+# 2026-04-26: SIGNED_TE_REVERSION Candidate
+
+## Question
+
+Can a crypto futures basis / funding-rate analogue improve SOXL single-asset timing?
+
+## Answer: Not as a direct standalone promotion
+
+`SIGNED_TE_REVERSION_* = -zscore(rolling_sum(SOXL_return - 3 * SOXX_return, window), 252d)`
+was added to the `transition_signals` pack and evaluated over 5d / 10d / 21d windows.
+
+| Check | Best result | Gate |
+|-------|-------------|------|
+| IC | `SIGNED_TE_REVERSION_21`, h=20, mean=+0.014, positive_ratio=0.516 | Fail (`mean_ic > 0.03`, positive_ratio > 0.55 required) |
+| Standalone backtest | `SIGNED_TE_REVERSION_10`, threshold=0.5, Sharpe=+0.561, PF=1.228, accuracy=0.546 | Mixed |
+| Correlation | `SIGNED_TE_REVERSION_10` max core rho=0.577 | Pass |
+| Family correlation | `SIGNED_TE_REVERSION_5` max core rho=0.811 | Fail for 5d variant |
+
+## Lesson
+
+The crypto-style basis/funding analogy has some executable signal in the 10d variant,
+but the direction is not stable enough for feature promotion. If revisited, test only
+`SIGNED_TE_REVERSION_10` under regime gating; do not add the full 5/10/21 family to core features.

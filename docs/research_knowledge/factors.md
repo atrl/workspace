@@ -8,6 +8,11 @@ Rulebase-derived timing signals can be useful as independent factors when judged
 
 Do not promote a feature because it improves a local validation window if it increases fixed-split `test_2022` exposure or duplicates existing core features above the correlation budget.
 
+Crypto futures basis / funding-rate analogues should be treated as transition
+candidates, not direct core features. `SIGNED_TE_REVERSION_10` showed standalone
+Sharpe/PF promise but failed IC direction-stability gates, so it needs regime
+gating before any RL promotion.
+
 ## Use With Skills
 
 - `leveraged-etf-factor-research` for hypothesis generation.

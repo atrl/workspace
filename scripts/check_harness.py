@@ -21,6 +21,7 @@ DEFAULT_TEST_FILES = [
     "tests/test_artifact_paths.py",
     "tests/test_checkpoint_review_assets.py",
     "tests/test_budget_usage_bc.py",
+    "tests/test_factor_evaluation.py",
     "tests/test_hierarchical_composer.py",
     "tests/test_position_cap.py",
     "tests/test_regime_features.py",
@@ -50,6 +51,7 @@ DEFAULT_COMPILE_TARGETS = [
     "scripts/check_research_task_router.py",
     "scripts/check_source_boundaries.py",
     "scripts/checkpoint_review.py",
+    "scripts/evaluate_signed_te_reversion.py",
 
     "scripts/prune_artifacts.py",
     "scripts/rank_counterfactual_variants.py",

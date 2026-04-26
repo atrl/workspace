@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-26T12:45:52.485461+00:00",
+  "generated_at": "2026-04-26T15:26:47.203863+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -332,6 +332,24 @@
       "bytes": 617
     },
     {
+      "path": "runtime/factor/card/signed_te_reversion/backtest_SIGNED_TE_REVERSION.csv",
+      "category": "factor",
+      "suffix": ".csv",
+      "bytes": 1691
+    },
+    {
+      "path": "runtime/factor/card/signed_te_reversion/card.md",
+      "category": "factor",
+      "suffix": ".md",
+      "bytes": 1384
+    },
+    {
+      "path": "runtime/factor/card/signed_te_reversion/correlation_SIGNED_TE_REVERSION.csv",
+      "category": "factor",
+      "suffix": ".csv",
+      "bytes": 248
+    },
+    {
       "path": "runtime/factor/card/trans_te_zscore/card.md",
       "category": "factor",
       "suffix": ".md",
@@ -371,7 +389,13 @@
       "path": "runtime/factor/knowledge.md",
       "category": "factor",
       "suffix": ".md",
-      "bytes": 5988
+      "bytes": 7539
+    },
+    {
+      "path": "runtime/factor/signed_te_reversion_ic.csv",
+      "category": "factor",
+      "suffix": ".csv",
+      "bytes": 1641
     },
     {
       "path": "runtime/harness/2026-04-17-balanced-regime-gate-failure.md",

@@ -337,7 +337,19 @@ def _builtin_transition_signals_pack(context: dict[str, Any]) -> dict[str, pd.Se
     te_21 = tracking_error.rolling(21).std() * np.sqrt(252)
     te_zscore = ((te_21 - te_21.rolling(63).mean()) / (te_21.rolling(63).std() + 1e-8)).fillna(0.0)
 
-    return {
+    # 8. Signed tracking-error reversion: crypto funding/basis analogue.
+    # Negative signed TE means SOXL underperformed its 3x underlying path;
+    # the negated z-score is positive when the dislocation should rebound.
+    signed_te_reversion: dict[str, pd.Series] = {}
+    for window in (5, 10, 21):
+        signed_te = tracking_error.rolling(window).sum()
+        signed_te_zscore = (
+            (signed_te - signed_te.rolling(252).mean())
+            / (signed_te.rolling(252).std() + 1e-8)
+        )
+        signed_te_reversion[f"SIGNED_TE_REVERSION_{window}"] = (-signed_te_zscore).fillna(0.0)
+
+    features = {
         "TRANS_VIX_DIVERGENCE": vix_divergence,
         "TRANS_SPRING_COMPRESSION": spring_compression,
         "TRANS_PANIC_EXHAUSTION": panic_exhaustion,
@@ -346,6 +358,8 @@ def _builtin_transition_signals_pack(context: dict[str, Any]) -> dict[str, pd.Se
         "TRANS_VOV_TREND": vov_trend,
         "TRANS_TE_ZSCORE": te_zscore,
     }
+    features.update(signed_te_reversion)
+    return features
 
 
 BUILTIN_FEATURE_PACKS: dict[str, dict[str, Any]] = {
@@ -408,6 +422,9 @@ BUILTIN_FEATURE_PACKS: dict[str, dict[str, Any]] = {
             "TRANS_VOL_TERM_ZSCORE",
             "TRANS_VOV_TREND",
             "TRANS_TE_ZSCORE",
+            "SIGNED_TE_REVERSION_5",
+            "SIGNED_TE_REVERSION_10",
+            "SIGNED_TE_REVERSION_21",
         ),
         "builder": _builtin_transition_signals_pack,
     },
