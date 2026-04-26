@@ -53,6 +53,7 @@ DEFAULT_COMPILE_TARGETS = [
     "scripts/checkpoint_review.py",
     "scripts/evaluate_intraday_rejection.py",
     "scripts/evaluate_signed_te_reversion.py",
+    "scripts/evaluate_signed_te_stress_gate.py",
 
     "scripts/prune_artifacts.py",
     "scripts/rank_counterfactual_variants.py",

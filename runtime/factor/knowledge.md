@@ -30,6 +30,7 @@
 | TRANS_VIX_DIVERGENCE | transition | mean-reversion | ✅ Strong | Sharpe=+1.041 | [card](cards/trans_vix_divergence/card.md) |
 | TRANS_TE_ZSCORE | transition | mean-reversion | 🟡 IC only | IC=+0.072 | [card](cards/trans_te_zscore/card.md) |
 | SIGNED_TE_REVERSION | crypto analogue | transition | 🟡 Candidate / blocked | Sharpe=+0.561, IC=+0.014 | [card](card/signed_te_reversion/card.md) |
+| SIGNED_TE_REVERSION_10_STRESS_GATE | crypto analogue | transition | 🟡 Candidate / blocked | PF=1.351, Acc=0.590 | [card](card/signed_te_stress_gate/card.md) |
 | INTRADAY_REJECTION_EVENT | crypto analogue | transition | ❌ Blocked | Sharpe=+0.261, PF=1.078 | [card](card/intraday_rejection_event/card.md) |
 | regime_risk | core | composite | ✅ Core | 训练主特征 | [card](cards/regime_risk/card.md) |
 | regime_risk_no_vix | core | composite | 🟡 Ablated | VIX-free | [card](cards/regime_risk_no_vix/card.md) |
@@ -51,7 +52,8 @@
 4. **mom_21 ↔ relative_strength_21** 等高度冗余对需要处理（|rho|=1.0）。
 5. 大部分 rulebase 和 academic 因子尚未进行 standalone 验证。
 6. **SIGNED_TE_REVERSION** 是 crypto funding/basis 类比因子：10d standalone 有正收益（Sharpe=+0.561, PF=1.228），但 IC mean=+0.014、positive ratio=0.516 未过门槛；不加入 core RL schema。
-7. **INTRADAY_REJECTION_EVENT** 是 crypto liquidation-wick 类比因子：正交性尚可（max core rho=0.444），但 direction stability 和 standalone backtest 都失败；不要再裸测 wick rejection，除非增加明确 regime gate。
+7. **SIGNED_TE_REVERSION_10_STRESS_GATE** 证明 stress-release gate 能提高执行质量（PF=1.351、accuracy=0.590、max core rho=0.388），但 IC positive ratio 因信号稀疏仅 0.036，仍不进入 RL feature promotion。
+8. **INTRADAY_REJECTION_EVENT** 是 crypto liquidation-wick 类比因子：正交性尚可（max core rho=0.444），但 direction stability 和 standalone backtest 都失败；不要再裸测 wick rejection，除非增加明确 regime gate。
 
 ## 特征冗余（|rho| > 0.85）
 
@@ -145,6 +147,31 @@ was added to the `transition_signals` pack and evaluated over 5d / 10d / 21d win
 The crypto-style basis/funding analogy has some executable signal in the 10d variant,
 but the direction is not stable enough for feature promotion. If revisited, test only
 `SIGNED_TE_REVERSION_10` under regime gating; do not add the full 5/10/21 family to core features.
+
+<!-- 2026-04-26: signed TE stress-release gate -->
+
+# 2026-04-26: SIGNED_TE_REVERSION_10_STRESS_GATE Candidate
+
+## Question
+
+Can stress-release gating fix the direction instability of `SIGNED_TE_REVERSION_10`?
+
+## Answer: Partially, but not enough for promotion
+
+The gated variant keeps `SIGNED_TE_REVERSION_10` only when either VIX divergence is high
+or recent elevated `regime_risk` is dropping over 5 days.
+
+| Check | Best result | Gate |
+|-------|-------------|------|
+| IC | h=20, mean=+0.0130, positive_ratio=0.036 | Fail |
+| Standalone backtest | PF=1.351, accuracy=0.590, Sharpe=+0.373, maxDD=-49.9%, signals=210 | Mixed / executable |
+| Correlation | max core rho=0.388 vs `realized_vol_10` | Pass |
+
+## Lesson
+
+The gate improves trade quality versus the naked signal, but the signal is too sparse
+and does not meet the IC promotion gate. Keep as an execution-overlay candidate only;
+do not promote to core RL features without a dedicated sparse-event validation rule.
 
 <!-- 2026-04-26: crypto-style intraday rejection factor -->
 

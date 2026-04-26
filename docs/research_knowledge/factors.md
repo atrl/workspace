@@ -13,6 +13,11 @@ candidates, not direct core features. `SIGNED_TE_REVERSION_10` showed standalone
 Sharpe/PF promise but failed IC direction-stability gates, so it needs regime
 gating before any RL promotion.
 
+Stress-release gating improves the executable quality of `SIGNED_TE_REVERSION_10`
+(PF=1.351, accuracy=0.590), but the resulting signal is sparse and still fails
+the standard IC positive-ratio gate. Treat it as an execution-overlay candidate,
+not a core feature, unless the harness adds an explicit sparse-event validation rule.
+
 Crypto liquidation-wick analogues are weaker: `INTRADAY_REJECTION_EVENT` passed
 the correlation budget but failed both IC direction stability and standalone
 backtest. Do not retry naked wick rejection without a regime gate.

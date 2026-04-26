@@ -69,6 +69,21 @@ direction: harness
 
 **结论**: 不加入 core RL schema。若继续，只围绕 `SIGNED_TE_REVERSION_10` 做 regime-gated ablation，不推广 5/10/21 全家族。
 
+### 0a. `SIGNED_TE_REVERSION_10 × stress-release gate`（factor）— 本次完成
+
+**本次执行**:
+- 新增 `scripts/evaluate_signed_te_stress_gate.py`，只测试 `SIGNED_TE_REVERSION_10` 与 stress-release gate 的组合。
+- Gate 定义：`TRANS_VIX_DIVERGENCE >= threshold` 或 `recent regime_risk elevated && regime_risk 5d drop >= threshold`。
+- 保存证据到 `runtime/factor/card/signed_te_stress_gate/`。
+
+**结果**:
+- Best variant: `te0.50_vix0.10_risk0.55_drop0.03`
+- IC: h=20, mean=+0.0130, positive ratio=0.036 → 未过 IC gate。
+- Standalone: Sharpe=+0.373, PF=1.351, accuracy=0.590, num_signals=210, maxDD=-49.9% → trade quality 有改善。
+- Correlation: max core rho=0.388 vs `realized_vol_10` → 相关性预算通过。
+
+**结论**: gate 能提升交易质量，但信号太稀疏且 IC gate 未过；保留为 execution-overlay candidate，不进入 core RL feature promotion。
+
 ### 0b. Crypto-style wick rejection 因子（factor）— 本次完成
 
 **本次执行**:

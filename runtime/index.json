@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-26T15:38:11.545814+00:00",
+  "generated_at": "2026-04-26T15:55:16.868442+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -368,6 +368,24 @@
       "bytes": 248
     },
     {
+      "path": "runtime/factor/card/signed_te_stress_gate/backtest_SIGNED_TE_STRESS_GATE.csv",
+      "category": "factor",
+      "suffix": ".csv",
+      "bytes": 15957
+    },
+    {
+      "path": "runtime/factor/card/signed_te_stress_gate/card.md",
+      "category": "factor",
+      "suffix": ".md",
+      "bytes": 1229
+    },
+    {
+      "path": "runtime/factor/card/signed_te_stress_gate/correlation_SIGNED_TE_STRESS_GATE.csv",
+      "category": "factor",
+      "suffix": ".csv",
+      "bytes": 183
+    },
+    {
       "path": "runtime/factor/card/trans_te_zscore/card.md",
       "category": "factor",
       "suffix": ".md",
@@ -413,13 +431,19 @@
       "path": "runtime/factor/knowledge.md",
       "category": "factor",
       "suffix": ".md",
-      "bytes": 8992
+      "bytes": 10366
     },
     {
       "path": "runtime/factor/signed_te_reversion_ic.csv",
       "category": "factor",
       "suffix": ".csv",
       "bytes": 1641
+    },
+    {
+      "path": "runtime/factor/signed_te_stress_gate_ic.csv",
+      "category": "factor",
+      "suffix": ".csv",
+      "bytes": 650
     },
     {
       "path": "runtime/harness/2026-04-17-balanced-regime-gate-failure.md",
