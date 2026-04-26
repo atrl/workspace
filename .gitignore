@@ -50,6 +50,7 @@ qlib_venv/
 # Runtime generated artifacts (ignore temp/large outputs, keep knowledge and configs)
 runtime/**/*.png
 runtime/**/*.log
+runtime/**/*.csv
 runtime/**/*.csv.gz
 runtime/**/*.pkl
 runtime/**/*.pt
@@ -57,6 +58,8 @@ runtime/soxl/wf_workers/
 runtime/soxl/paper_trading/
 runtime/execution/dashboard/
 runtime/model/reviews/*.csv
+runtime/**/hierarchical_online_budget_generalization.json
+runtime/**/walk_forward_rebacktest_results.json
 
 # Artifacts / generated outputs
 artifacts/

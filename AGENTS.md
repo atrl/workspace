@@ -470,6 +470,20 @@ Keep code and state in the intended locations:
 
 `runtime/` is the single writable surface for both configuration and generated state. Do not split config into a separate top-level directory.
 
+## Worktree Policy
+
+Use git worktrees only for **short-lived experimental branches** that need isolation from `main`.
+
+- **Location:** `.worktrees/<branch-name>/` (already ignored by `.gitignore`)
+- **Naming:** match the branch name exactly
+- **Lifecycle:**
+  1. Create worktree when starting a substantial experiment branch
+  2. Run the experiment, collect evidence
+  3. Merge or cherry-pick conclusions back to `main`
+  4. Delete the worktree immediately after the branch is merged or abandoned
+- **Do not** use worktrees for long-term development or as a secondary workspace
+- **Do not** commit worktree contents to the repository (`.worktrees/` is in `.gitignore`)
+- Before creating a worktree, verify `.worktrees/` is ignored: `git check-ignore -q .worktrees`
 
 ## Execution Standard
 
