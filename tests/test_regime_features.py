@@ -108,6 +108,68 @@ def test_transition_signal_pack_includes_signed_tracking_error_reversion():
     assert np.allclose(actual.tail(100).to_numpy(), expected.tail(100).to_numpy(), atol=1e-8)
 
 
+def test_transition_signal_pack_includes_intraday_rejection_event():
+    df = pd.read_csv(CSV_PATH, parse_dates=["date"]).set_index("date")
+    soxl = pd.DataFrame(
+        {
+            "$close": df["soxl_close"],
+            "$open": df["soxl_open"],
+            "$high": df["soxl_high"],
+            "$low": df["soxl_low"],
+            "$volume": df["soxl_volume"],
+            "$vix": df["vix"],
+            "Mean($close, 5)": df["soxl_close"].rolling(5).mean(),
+            "Mean($close, 21)": df["soxl_close"].rolling(21).mean(),
+            "Mean($close, 63)": df["soxl_close"].rolling(63).mean(),
+            "Mean($close, 180)": df["soxl_close"].rolling(180).mean(),
+            "Std($close / Ref($close, 1) - 1, 10)": df["soxl_close"].pct_change().rolling(10).std(),
+            "Std($close / Ref($close, 1) - 1, 21)": df["soxl_close"].pct_change().rolling(21).std(),
+            "Std($close / Ref($close, 1) - 1, 63)": df["soxl_close"].pct_change().rolling(63).std(),
+            "Mean($volume, 21)": df["soxl_volume"].rolling(21).mean(),
+        }
+    )
+    soxx = pd.DataFrame(
+        {
+            "$close": df["soxx_close"],
+            "$open": df["soxx_open"],
+            "$high": df["soxx_high"],
+            "$low": df["soxx_low"],
+            "$volume": df["soxx_volume"],
+        }
+    )
+
+    feature_df, _ = engineer_feature_frame(soxl, soxx, feature_packs=("transition_signals",))
+    flat = feature_df.droplevel("instrument")
+
+    assert "INTRADAY_REJECTION_EVENT" in feature_columns_for_packs(("transition_signals",))
+    assert "INTRADAY_REJECTION_EVENT" in flat.columns
+    assert flat["INTRADAY_REJECTION_EVENT"].notna().all()
+    assert (flat["INTRADAY_REJECTION_EVENT"] >= 0.0).all()
+
+    aligned = soxl.reindex(flat.index)
+    intraday_range = (aligned["$high"] - aligned["$low"]) / aligned["$close"]
+    range_zscore = (
+        (intraday_range - intraday_range.rolling(252).mean())
+        / (intraday_range.rolling(252).std() + 1e-8)
+    ).clip(lower=0.0)
+    day_range = (aligned["$high"] - aligned["$low"]).clip(lower=1e-8)
+    close_location = ((aligned["$close"] - aligned["$low"]) / day_range).clip(0.0, 1.0)
+    lower_wick_ratio = (
+        (pd.concat([aligned["$open"], aligned["$close"]], axis=1).min(axis=1) - aligned["$low"])
+        / day_range
+    ).clip(0.0, 1.0)
+    avg_volume_20 = aligned["$volume"].rolling(20).mean()
+    relative_volume_zscore = (
+        (aligned["$volume"] - avg_volume_20)
+        / (avg_volume_20.rolling(20).std() + 1e-8)
+    ).clip(lower=0.0)
+    expected = (
+        lower_wick_ratio * close_location * range_zscore * (1.0 + relative_volume_zscore)
+    ).fillna(0.0)
+    actual = flat["INTRADAY_REJECTION_EVENT"].reindex(expected.index)
+    assert np.allclose(actual.tail(100).to_numpy(), expected.tail(100).to_numpy(), atol=1e-8)
+
+
 def test_transition_v23_flags_fire_only_in_expected_states():
     index = pd.date_range("2020-01-01", periods=30, freq="B")
     transition = _build_transition_state_features(

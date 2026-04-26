@@ -51,6 +51,7 @@ DEFAULT_COMPILE_TARGETS = [
     "scripts/check_research_task_router.py",
     "scripts/check_source_boundaries.py",
     "scripts/checkpoint_review.py",
+    "scripts/evaluate_intraday_rejection.py",
     "scripts/evaluate_signed_te_reversion.py",
 
     "scripts/prune_artifacts.py",

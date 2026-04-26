@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-26T15:26:47.203863+00:00",
+  "generated_at": "2026-04-26T15:38:11.545814+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -206,6 +206,24 @@
       "bytes": 670
     },
     {
+      "path": "runtime/factor/card/intraday_rejection_event/backtest_INTRADAY_REJECTION_EVENT.csv",
+      "category": "factor",
+      "suffix": ".csv",
+      "bytes": 919
+    },
+    {
+      "path": "runtime/factor/card/intraday_rejection_event/card.md",
+      "category": "factor",
+      "suffix": ".md",
+      "bytes": 1155
+    },
+    {
+      "path": "runtime/factor/card/intraday_rejection_event/correlation_INTRADAY_REJECTION_EVENT.csv",
+      "category": "factor",
+      "suffix": ".csv",
+      "bytes": 129
+    },
+    {
       "path": "runtime/factor/card/rb_buy_composite/backtest_RB_BUY_COMPOSITE.csv",
       "category": "factor",
       "suffix": ".csv",
@@ -386,10 +404,16 @@
       "bytes": 73473
     },
     {
+      "path": "runtime/factor/intraday_rejection_event_ic.csv",
+      "category": "factor",
+      "suffix": ".csv",
+      "bytes": 613
+    },
+    {
       "path": "runtime/factor/knowledge.md",
       "category": "factor",
       "suffix": ".md",
-      "bytes": 7539
+      "bytes": 8992
     },
     {
       "path": "runtime/factor/signed_te_reversion_ic.csv",

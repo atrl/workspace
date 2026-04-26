@@ -290,6 +290,7 @@ def _builtin_transition_signals_pack(context: dict[str, Any]) -> dict[str, pd.Se
     lev_ret = context["lev_ret"]
     vix = context["vix"]
     realized_vol_10 = context["realized_vol_10"]
+    lev_df = context.get("lev")
 
     # 1. VIX divergence: VIX falls from recent high but price is still near lows
     # → bearish sentiment is fading before price reflects it
@@ -349,6 +350,32 @@ def _builtin_transition_signals_pack(context: dict[str, Any]) -> dict[str, pd.Se
         )
         signed_te_reversion[f"SIGNED_TE_REVERSION_{window}"] = (-signed_te_zscore).fillna(0.0)
 
+    # 9. Intraday rejection event: crypto-style panic wick analogue.
+    # Long lower wick + close near high + unusually wide / high-volume day
+    # indicates sellers were absorbed during the session.
+    if lev_df is not None:
+        open_price = lev_df["$open"].astype(float)
+        high = lev_df["$high"].astype(float)
+        low = lev_df["$low"].astype(float)
+        day_range = (high - low).clip(lower=1e-8)
+        intraday_range = (high - low) / close
+        range_zscore = (
+            (intraday_range - intraday_range.rolling(252).mean())
+            / (intraday_range.rolling(252).std() + 1e-8)
+        ).clip(lower=0.0)
+        close_location = ((close - low) / day_range).clip(0.0, 1.0)
+        lower_wick_ratio = (
+            (pd.concat([open_price, close], axis=1).min(axis=1) - low)
+            / day_range
+        ).clip(0.0, 1.0)
+        relative_volume = context.get("relative_volume_zscore")
+        volume_boost = relative_volume.clip(lower=0.0) if relative_volume is not None else pd.Series(0.0, index=index)
+        intraday_rejection_event = (
+            lower_wick_ratio * close_location * range_zscore * (1.0 + volume_boost)
+        ).fillna(0.0)
+    else:
+        intraday_rejection_event = pd.Series(0.0, index=index)
+
     features = {
         "TRANS_VIX_DIVERGENCE": vix_divergence,
         "TRANS_SPRING_COMPRESSION": spring_compression,
@@ -357,6 +384,7 @@ def _builtin_transition_signals_pack(context: dict[str, Any]) -> dict[str, pd.Se
         "TRANS_VOL_TERM_ZSCORE": vol_term_zscore,
         "TRANS_VOV_TREND": vov_trend,
         "TRANS_TE_ZSCORE": te_zscore,
+        "INTRADAY_REJECTION_EVENT": intraday_rejection_event,
     }
     features.update(signed_te_reversion)
     return features
@@ -422,6 +450,7 @@ BUILTIN_FEATURE_PACKS: dict[str, dict[str, Any]] = {
             "TRANS_VOL_TERM_ZSCORE",
             "TRANS_VOV_TREND",
             "TRANS_TE_ZSCORE",
+            "INTRADAY_REJECTION_EVENT",
             "SIGNED_TE_REVERSION_5",
             "SIGNED_TE_REVERSION_10",
             "SIGNED_TE_REVERSION_21",

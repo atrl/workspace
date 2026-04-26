@@ -69,6 +69,21 @@ direction: harness
 
 **结论**: 不加入 core RL schema。若继续，只围绕 `SIGNED_TE_REVERSION_10` 做 regime-gated ablation，不推广 5/10/21 全家族。
 
+### 0b. Crypto-style wick rejection 因子（factor）— 本次完成
+
+**本次执行**:
+- 新增 `INTRADAY_REJECTION_EVENT` 到 `transition_signals` feature pack：
+  `lower_wick_ratio * close_location * positive_intraday_range_zscore * (1 + positive_relative_volume_zscore)`。
+- 新增 `scripts/evaluate_intraday_rejection.py`，输出 IC、standalone backtest、core correlation evidence。
+- 新增因子卡片 `runtime/factor/card/intraday_rejection_event/card.md`。
+
+**结果**:
+- Best IC: h=20, IC mean=+0.0157, positive ratio=0.215 → 未过 IC gate。
+- Best standalone: threshold=0.0, Sharpe=+0.261, PF=1.078, accuracy=0.529, total_return=-53.9% → 未过 backtest gate。
+- Correlation: max core rho=0.444 vs `volume_shock` → 相关性预算通过。
+
+**结论**: 裸 wick rejection 不适合 SOXL daily timing；后续除非加 stress-release / VIX divergence / post-crash compression gate，否则不要重复裸测。
+
 ### 1. 2022 Stress Window 过仓问题（P0）
 
 **问题**: canonical `balanced` 在 test_2022 的 avg_pos ~0.38，promotion gate 要求 < 0.35。

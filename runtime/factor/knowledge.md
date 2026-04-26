@@ -30,6 +30,7 @@
 | TRANS_VIX_DIVERGENCE | transition | mean-reversion | ✅ Strong | Sharpe=+1.041 | [card](cards/trans_vix_divergence/card.md) |
 | TRANS_TE_ZSCORE | transition | mean-reversion | 🟡 IC only | IC=+0.072 | [card](cards/trans_te_zscore/card.md) |
 | SIGNED_TE_REVERSION | crypto analogue | transition | 🟡 Candidate / blocked | Sharpe=+0.561, IC=+0.014 | [card](card/signed_te_reversion/card.md) |
+| INTRADAY_REJECTION_EVENT | crypto analogue | transition | ❌ Blocked | Sharpe=+0.261, PF=1.078 | [card](card/intraday_rejection_event/card.md) |
 | regime_risk | core | composite | ✅ Core | 训练主特征 | [card](cards/regime_risk/card.md) |
 | regime_risk_no_vix | core | composite | 🟡 Ablated | VIX-free | [card](cards/regime_risk_no_vix/card.md) |
 | vol_stress_score | core | composite | 🟡 VIX-free proxy | 纯价格 stress | [card](cards/vol_stress_score/card.md) |
@@ -50,6 +51,7 @@
 4. **mom_21 ↔ relative_strength_21** 等高度冗余对需要处理（|rho|=1.0）。
 5. 大部分 rulebase 和 academic 因子尚未进行 standalone 验证。
 6. **SIGNED_TE_REVERSION** 是 crypto funding/basis 类比因子：10d standalone 有正收益（Sharpe=+0.561, PF=1.228），但 IC mean=+0.014、positive ratio=0.516 未过门槛；不加入 core RL schema。
+7. **INTRADAY_REJECTION_EVENT** 是 crypto liquidation-wick 类比因子：正交性尚可（max core rho=0.444），但 direction stability 和 standalone backtest 都失败；不要再裸测 wick rejection，除非增加明确 regime gate。
 
 ## 特征冗余（|rho| > 0.85）
 
@@ -143,3 +145,28 @@ was added to the `transition_signals` pack and evaluated over 5d / 10d / 21d win
 The crypto-style basis/funding analogy has some executable signal in the 10d variant,
 but the direction is not stable enough for feature promotion. If revisited, test only
 `SIGNED_TE_REVERSION_10` under regime gating; do not add the full 5/10/21 family to core features.
+
+<!-- 2026-04-26: crypto-style intraday rejection factor -->
+
+# 2026-04-26: INTRADAY_REJECTION_EVENT Blocked
+
+## Question
+
+Can crypto-style liquidation wick / panic rejection improve SOXL single-asset timing?
+
+## Answer: No as a naked standalone signal
+
+`INTRADAY_REJECTION_EVENT = lower_wick_ratio * close_location * positive_intraday_range_zscore * (1 + positive_relative_volume_zscore)`
+was added to the `transition_signals` pack and evaluated as an event-style intraday reversal factor.
+
+| Check | Best result | Gate |
+|-------|-------------|------|
+| IC | h=20, mean=+0.0157, positive_ratio=0.215 | Fail |
+| Standalone backtest | threshold=0.0, Sharpe=+0.261, PF=1.078, accuracy=0.529, total_return=-53.9% | Fail |
+| Correlation | max core rho=0.444 vs `volume_shock` | Pass |
+
+## Lesson
+
+The wick/rejection pattern is not enough by itself for SOXL daily timing. The factor
+is orthogonal enough to be a building block, but it should not be promoted or retested
+without a clear regime gate such as stress-release, VIX divergence, or post-crash compression.
