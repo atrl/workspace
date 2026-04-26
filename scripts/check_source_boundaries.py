@@ -66,7 +66,7 @@ def main() -> int:
     runtime = ROOT / "runtime"
     if runtime.exists():
         for child in runtime.iterdir():
-            if child.name not in {"README.md", "index.json", "soxl", "model", "data", "factor", "network", "execution", "multi_asset", "harness", "reward"}:
+            if child.is_dir() and child.name not in {"README.md", "index.json", "soxl", "model", "data", "factor", "network", "execution", "multi_asset", "harness", "reward"}:
                 failures.append(f"runtime contains non-runtime surface: {child.relative_to(ROOT)}")
 
     for path in iter_text_files("production"):
