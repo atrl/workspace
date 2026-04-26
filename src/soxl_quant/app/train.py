@@ -186,6 +186,14 @@ def run_profile(
         mode_router_config=profile.mode_router,
         test_seg=test_seg,
     )
+    # CRITICAL FIX: Use main backtest metrics instead of evaluate_split metrics
+    # evaluate_split has systematic gaps of 80-110pp vs backtest_profile
+    if "return" in bt_result and "sharpe" in bt_result and "max_dd" in bt_result:
+        test_proxy["return"] = bt_result["return"]
+        test_proxy["sharpe"] = bt_result["sharpe"]
+        test_proxy["max_dd"] = bt_result["max_dd"]
+        # Rebuild promotion report with corrected test_proxy
+        promotion_report = build_promotion_report(profile, slice_result, test_proxy)
     bt_result["valid"] = valid_metrics
     bt_result["selection_history"] = selection["history"]
     bt_result["model_path"] = str(model_path)
