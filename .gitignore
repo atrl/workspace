@@ -65,7 +65,8 @@ runtime/**/walk_forward_rebacktest_results.json
 artifacts/
 !artifacts/
 artifacts/*
-!artifacts/retention_manifest.json
+runtime/**/*.json
+!runtime/index.json
 *.png
 
 soxl_qlib_strategy_v2_results.txt
@@ -79,5 +80,4 @@ data/generalization/*.csv
 .codex/skills/*/data/
 .codex/skills/*/models/
 !runtime/soxl/
-!runtime/soxl/post_train_review/**
-!runtime/soxl/post_train_review/
+

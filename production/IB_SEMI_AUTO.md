@@ -5,7 +5,7 @@ This is the first production shape for `SOXL`: model-driven, broker-backed, and 
 ## Intended flow
 
 1. Train and validate the actor with `src/soxl_quant/cli.py`.
-2. Persist the selected actor under `artifacts/models/`.
+2. Persist the selected actor under `runtime/model/card/`.
 3. Generate a daily signal with:
 
 ```bash

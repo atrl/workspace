@@ -35,11 +35,11 @@ Use these files for distinct roles. Do not collapse them together.
   lines.
 - `runtime/<direction>/knowledge.md`: continuity across sessions, organized by task direction.
 - `.codex/skills/`: reusable methods and maintained operational knowledge. Codex CLI auto-loads skills from this path.
-- `runtime/harness/cards/registry/profile.yaml`: profile lifecycle registry, canonical baselines, and retention intent.
+- `runtime/harness/card/registry/profile.yaml`: profile lifecycle registry, canonical baselines, and retention intent.
 - `experiments/`: experiment-owned profile packages with colocated notes and expectations.
 - `data/datasets.yaml`: generated data registry for raw symbols, processed
   panels, qlib stores, and training caches.
-- `artifacts/retention_manifest.json`: generated cleanup ledger for model artifacts and repo noise.
+- `runtime/harness/card/registry/retention_manifest.json`: generated cleanup ledger for model artifacts and repo noise.
 
 Chat history is not the durable record.
 
@@ -122,9 +122,9 @@ When a loop changes profile lifecycle or retention:
 
 Profile sprawl is now a harness problem, not just a naming problem.
 
-- Every profile yaml (found under `runtime/<direction>/cards/<name>/profile.yaml`) must have a row in `runtime/harness/cards/registry/profile.yaml`.
+- Every profile yaml (found under `runtime/<direction>/card/<name>/profile.yaml`) must have a row in `runtime/harness/card/registry/profile.yaml`.
 - New active profile work should prefer `experiments/<status>/<name>/profile.yaml` plus colocated `notes.md` and `expectations.md`.
-- Legacy flat files under `runtime/<direction>/cards/<name>/profile.yaml` are the canonical profile location; `experiments/<status>/<name>/profile.yaml` is preferred for new work.
+- Legacy flat files under `runtime/<direction>/card/<name>/profile.yaml` are the canonical profile location; `experiments/<status>/<name>/profile.yaml` is preferred for new work.
 - The registry is the source of truth for:
   - current canonical profile per family
   - baseline lineage
@@ -335,7 +335,7 @@ Repository noise should be reduced continuously instead of in rare purges.
 
 - Root-level ad-hoc analysis scripts are temporary. Either move them into `scripts/` with a clear reusable purpose or delete them.
 - Generated caches such as `__pycache__` and `.DS_Store` should not survive task completion.
-- Use `qlib_venv/bin/python scripts/prune_artifacts.py` to regenerate `artifacts/retention_manifest.json`.
+- Use `qlib_venv/bin/python scripts/prune_artifacts.py` to regenerate `runtime/harness/card/registry/retention_manifest.json`.
 - If cleanup is part of the task, prefer:
   - keep summaries, reviews, workpads, and runtime knowledge notes
   - delete redundant actor checkpoints for dropped or archived profiles
@@ -505,12 +505,12 @@ Before starting a new training or replay loop:
 
 1. query historical context through the relevant `runtime/<direction>/knowledge.md`
 2. validate the harness through `qlib_venv/bin/python scripts/check_harness.py`
-3. inspect `artifacts/retention_manifest.json` before deleting or regenerating large artifacts
+3. inspect `runtime/harness/card/registry/retention_manifest.json` before deleting or regenerating large artifacts
 
 When creating a new experiment profile:
 
-1. create `runtime/<direction>/cards/<name>/profile.yaml` with the full configuration
-2. add a row to `runtime/harness/cards/registry/profile.yaml` with baseline, status, and notes_ref
+1. create `runtime/<direction>/card/<name>/profile.yaml` with the full configuration
+2. add a row to `runtime/harness/card/registry/profile.yaml` with baseline, status, and notes_ref
 3. colocate experiment notes in `runtime/<direction>/knowledge.md` or a dedicated note under the card directory
 4. do not create a separate top-level `configs/` or `experiments/` directory for the profile
 

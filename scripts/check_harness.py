@@ -63,6 +63,7 @@ DEFAULT_COMMAND_CHECKS = [
     ["scripts/check_research_knowledge.py"],
     ["scripts/check_research_task_router.py"],
     ["scripts/check_source_boundaries.py"],
+    ["scripts/check_skills.py"],
 ]
 
 

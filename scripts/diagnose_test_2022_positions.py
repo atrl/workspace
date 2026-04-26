@@ -56,7 +56,7 @@ def run_diagnosis():
     obs_dim = len(feature_columns) * profile.model.observation_window + EXTRA_OBS_DIM + N_ASSETS
     policy_result = build_policy(obs_dim, profile)
     policy = policy_result[0] if isinstance(policy_result, tuple) else policy_result
-    bundle_path = 'artifacts/models/soxl_balanced_rule_residual_imitation_v2_actor.pt'
+    bundle_path = 'runtime/model/card/balanced_rule_residual_imitation_v2/soxl_balanced_rule_residual_imitation_v2_actor.pt'
     bundle = torch.load(bundle_path, map_location='cpu')
     policy.actor.load_state_dict(bundle['state_dict'])
     policy.actor.eval()

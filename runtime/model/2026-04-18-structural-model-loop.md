@@ -23,9 +23,9 @@ tags:
 - moe
 - stress-regime
 artifacts:
-- artifacts/models/soxl_balanced_reward_guard_summary.json
-- artifacts/models/soxl_balanced_structural_v1_summary.json
-- artifacts/models/soxl_balanced_summary.json
+- runtime/model/card/soxl_balanced_reward_guard_summary.json
+- runtime/model/card/soxl_balanced_structural_v1_summary.json
+- runtime/model/card/soxl_balanced_summary.json
 - runtime/post_train_review/balanced_structural_v1.md
 - runtime/post_train_review/balanced_structural_v1_vs_balanced.md
 - runtime/post_train_review/balanced_structural_v1_vs_reward_guard.md
@@ -65,9 +65,9 @@ After the checkpoint-review, selector-only, and reward-only loops all failed, th
 
 - `qlib_venv/bin/python scripts/check_harness.py`
 - `qlib_venv/bin/python soxl_qlib_strategy_v2.py --profiles balanced_structural_v1 --skip-data-refresh --seed 20260411`
-- `qlib_venv/bin/python scripts/checkpoint_review.py --summary artifacts/models/soxl_balanced_structural_v1_summary.json --output runtime/post_train_review/balanced_structural_v1.md`
-- `qlib_venv/bin/python .codex/skills/post-train-backtest-review/scripts/compare_backtests.py --latest artifacts/models/soxl_balanced_structural_v1_summary.json --previous artifacts/models/soxl_balanced_summary.json --output runtime/post_train_review/balanced_structural_v1_vs_balanced.md`
-- `qlib_venv/bin/python .codex/skills/post-train-backtest-review/scripts/compare_backtests.py --latest artifacts/models/soxl_balanced_structural_v1_summary.json --previous artifacts/models/soxl_balanced_reward_guard_summary.json --output runtime/post_train_review/balanced_structural_v1_vs_reward_guard.md`
+- `qlib_venv/bin/python scripts/checkpoint_review.py --summary runtime/model/card/soxl_balanced_structural_v1_summary.json --output runtime/post_train_review/balanced_structural_v1.md`
+- `qlib_venv/bin/python .codex/skills/post-train-backtest-review/scripts/compare_backtests.py --latest runtime/model/card/soxl_balanced_structural_v1_summary.json --previous runtime/model/card/soxl_balanced_summary.json --output runtime/post_train_review/balanced_structural_v1_vs_balanced.md`
+- `qlib_venv/bin/python .codex/skills/post-train-backtest-review/scripts/compare_backtests.py --latest runtime/model/card/soxl_balanced_structural_v1_summary.json --previous runtime/model/card/soxl_balanced_reward_guard_summary.json --output runtime/post_train_review/balanced_structural_v1_vs_reward_guard.md`
 
 ## Evidence
 

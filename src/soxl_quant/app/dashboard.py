@@ -9,12 +9,11 @@ import pandas as pd
 
 from ..settings import ACCOUNT, ROOT
 
-POST_TRAIN_REVIEW_DIR = ROOT / "runtime" / "model" / "reviews"
 DASHBOARD_BUILD_SCRIPT = ROOT / "scripts" / "build_backtest_dashboard.py"
 
 
 def review_daily_csv_path(profile_name: str) -> Path:
-    return POST_TRAIN_REVIEW_DIR / f"{profile_name}_soxl_daily.csv"
+    return ROOT / "runtime" / "model" / "card" / profile_name / f"{profile_name}_soxl_daily.csv"
 
 
 def write_review_daily_csv(

@@ -73,7 +73,7 @@ def evaluate_with_router(
     # Pre-load learned router if needed
     learned_router = None
     if router_type == ModeRouterType.LEARNED:
-        learned_router = LearnedModeRouter("artifacts/models/mode_classifier.pt")
+        learned_router = LearnedModeRouter("runtime/model/card/mode_classifier/mode_classifier.pt")
 
     for idx in range(LOOKBACK, len(df) - 1):
         obs = make_observation(df, idx, pos, cash, peak, ledger, price_path,
@@ -158,7 +158,7 @@ def main():
 
     init_qlib(QLIB_DATA_PATH)
     profile = load_profile(args.actor)
-    bundle_path = Path(f"artifacts/models/soxl_{args.actor}_actor.pt")
+    bundle_path = Path(f"runtime/model/card/{args.actor}/soxl_{args.actor}_actor.pt")
     bundle = torch.load(bundle_path, map_location="cpu")
     _, actor = build_policy(int(bundle["obs_dim"]), profile)
     actor.load_state_dict(bundle["state_dict"])

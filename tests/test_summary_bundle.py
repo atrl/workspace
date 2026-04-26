@@ -9,7 +9,7 @@ from src.soxl_quant.config import load_profile
 
 def test_persist_summary_bundle_includes_profile_feature_schema(tmp_path: Path | None = None):
     profile = load_profile("balanced")
-    output_dir = tmp_path or Path("artifacts/models")
+    output_dir = tmp_path or Path("runtime/model/card")
     output_dir.mkdir(parents=True, exist_ok=True)
 
     original_summary_artifact_path = artifact_module.summary_artifact_path

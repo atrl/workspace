@@ -6,7 +6,7 @@ description: Use when generating, maintaining, debugging, or visually verifying 
 # Dashboard Skill
 
 ## Purpose
-Generate and maintain the interactive backtest dashboard (`runtime/generalization/dashboard.html`) for the SOXL harness. The dashboard is a standalone HTML file that uses Plotly.js for interactive charts and requires no server.
+Generate and maintain the interactive backtest dashboard (`runtime/execution/generalization/dashboard.html`) for the SOXL harness. The dashboard is a standalone HTML file that uses Plotly.js for interactive charts and requires no server.
 
 ## Workflow
 
@@ -14,13 +14,13 @@ Generate and maintain the interactive backtest dashboard (`runtime/generalizatio
 ```bash
 cd /Users/rziiiii/.openclaw/workspace
 qlib_venv/bin/python scripts/build_backtest_dashboard.py
-# Open runtime/generalization/dashboard.html in browser
+# Open runtime/execution/generalization/dashboard.html in browser
 ```
 
 ### Post-Train Default View
 After a training run, the harness should:
-1. export `runtime/soxl/post_train_review/<profile>_soxl_daily.csv`
-2. rebuild `runtime/generalization/dashboard.html`
+1. export `runtime/execution/card/<profile>/<profile>_soxl_daily.csv`
+2. rebuild `runtime/execution/generalization/dashboard.html`
 3. default the dashboard to the latest generated version, not the historical best-Sharpe version
 
 If the dashboard opens on an older run after fresh training, check:
@@ -91,10 +91,10 @@ The dashboard uses a **single 4-subplot layout** (All Panels). No view selector.
 
 ## Key Files
 - `scripts/build_backtest_dashboard.py` — dashboard generator
-- `runtime/generalization/dashboard.html` — generated output
+- `runtime/execution/generalization/dashboard.html` — generated output
 - `data/features_v2.pkl` — feature data merged into hover tooltips
-- `runtime/generalization/detailed/` — per-ETF CSV backtest data
-- `artifacts/models/*_summary.json` — model version history for comparison table
+- `runtime/execution/generalization/detailed/` — per-ETF CSV backtest data
+- `runtime/model/card/*/*_summary.json` — model version history for comparison table
 
 ## Design System Colours
 | Token | Hex | Usage |
@@ -147,7 +147,7 @@ The dashboard uses a **single 4-subplot layout** (All Panels). No view selector.
 - **收益因子** (Profit Factor): `gross_profit / abs(gross_loss)`
 
 ### Model Version Comparison
-- 自动扫描 `artifacts/models/*_summary.json`
+- 自动扫描 `runtime/model/card/*/*_summary.json`
 - 展示所有历史版本的 `test_proxy` 和 `valid` 指标
 - 绿色高亮每列最优值
 - ★ 标记已晋升 (promoted) 的版本
@@ -166,5 +166,5 @@ The dashboard uses a **single 4-subplot layout** (All Panels). No view selector.
 - The generated HTML embeds all data inline. For >5 ETFs or very long histories, consider splitting into per-ETF pages or lazy-loading data.
 
 ### Model versions not showing
-- Verify `artifacts/models/*_summary.json` exists and contains `test_proxy` / `valid` fields
+- Verify `runtime/model/card/*/*_summary.json` exists and contains `test_proxy` / `valid` fields
 - Check browser console for JS errors in `renderVersionTable()`

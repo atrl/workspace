@@ -266,7 +266,7 @@ def main():
     parser.add_argument("--forward-window", type=int, default=10)
     parser.add_argument("--epochs", type=int, default=80)
     parser.add_argument("--seed", type=int, default=42)
-    parser.add_argument("--output", default="artifacts/models/mode_classifier.pt")
+    parser.add_argument("--output", default="runtime/model/card/mode_classifier/mode_classifier.pt")
     args = parser.parse_args()
 
     print("[fit_learned_mode_classifier] Building dataset...")

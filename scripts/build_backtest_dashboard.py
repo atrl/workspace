@@ -15,10 +15,11 @@ from plotly.subplots import make_subplots
 
 ROOT = Path(__file__).resolve().parent.parent
 GENERALIZATION_DIR = ROOT / "runtime" / "execution" / "generalization"
+GENERALIZATION_DIR.mkdir(parents=True, exist_ok=True)
 RUNTIME_DIR = GENERALIZATION_DIR
 DETAIL_DIR = GENERALIZATION_DIR / "detailed"
 FEATURES_PATH = ROOT / "data" / "features_v2.pkl"
-MODELS_DIR = ROOT / "artifacts" / "models"
+MODELS_DIR = ROOT / "runtime" / "model" / "card"
 OUTPUT_PATH = GENERALIZATION_DIR / "dashboard.html"
 
 C_STRATEGY = "#9a3412"
@@ -188,7 +189,7 @@ def compact_payload_rows(rows: list[dict[str, object]]) -> list[dict[str, object
 
 
 def load_model_versions() -> list[dict]:
-    """Load all historical model versions from artifacts/models/*_summary.json."""
+    """Load all historical model versions from runtime/model/card/*/*_summary.json."""
     versions = []
     if not MODELS_DIR.exists():
         return versions
@@ -435,11 +436,11 @@ def normalize_post_train_review_rows(raw_rows: list[dict[str, str]]) -> list[dic
 
 
 def _load_post_train_review_versions(features: dict[str, dict[str, float]] | None) -> dict[str, dict]:
-    """Load SOXL daily CSVs from runtime/model/cards/ and runtime/soxl/paper_trading/ as versioned data."""
+    """Load SOXL daily CSVs from runtime/model/card/ and runtime/soxl/paper_trading/ as versioned data."""
     versioned: dict[str, dict] = {}
 
     dirs_to_scan = [
-        (ROOT / "runtime" / "model" / "cards", True),   # (path, recursive)
+        (ROOT / "runtime" / "model" / "card", True),   # (path, recursive)
         (ROOT / "runtime" / "soxl" / "paper_trading", False),
     ]
 

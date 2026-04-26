@@ -7,7 +7,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def test_balanced_checkpoint_review_card_in_runtime():
-    path = ROOT / "runtime" / "model" / "cards" / "balanced_checkpoint_review" / "card.md"
+    path = ROOT / "runtime" / "model" / "card" / "balanced_checkpoint_review" / "card.md"
     text = path.read_text(encoding="utf-8")
     assert "balanced_checkpoint_review" in text
 

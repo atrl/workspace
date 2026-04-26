@@ -24,7 +24,7 @@ def _get_learned_router(model_path: Optional[str]) -> "LearnedModeRouter":
     if _learned_router is None:
         from .models.mode_classifier import LearnedModeRouter
         if model_path is None or model_path == "":
-            model_path = "artifacts/models/mode_classifier.pt"
+            model_path = "runtime/model/card/mode_classifier/mode_classifier.pt"
         _learned_router = LearnedModeRouter(model_path)
     return _learned_router
 

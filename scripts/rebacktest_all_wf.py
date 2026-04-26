@@ -55,13 +55,13 @@ def rebacktest_actor(profile_name, actor_path, test_start, test_end, window_name
     }
 
 actors = [
-    ("balanced", "artifacts/models/soxl_balanced_wf_2020_actor.pt", "2020-01-01", "2020-12-31", "balanced_wf_2020"),
-    ("balanced", "artifacts/models/soxl_balanced_wf_2022_actor.pt", "2022-01-01", "2022-12-31", "balanced_wf_2022"),
-    ("balanced_rule_residual_v19", "artifacts/models/soxl_balanced_rule_residual_v19_wf_2020_actor.pt", "2020-01-01", "2020-12-31", "v19_wf_2020"),
-    ("balanced_rule_residual_v19", "artifacts/models/soxl_balanced_rule_residual_v19_wf_2022_actor.pt", "2022-01-01", "2022-12-31", "v19_wf_2022"),
-    ("balanced_rule_residual_v19_reg", "artifacts/models/soxl_balanced_rule_residual_v19_reg_wf_2020_actor.pt", "2020-01-01", "2020-12-31", "v19_reg_wf_2020"),
-    ("balanced_rule_residual_v19_reg", "artifacts/models/soxl_balanced_rule_residual_v19_reg_wf_2022_actor.pt", "2022-01-01", "2022-12-31", "v19_reg_wf_2022"),
-    ("balanced_rule_residual_v19_reg", "artifacts/models/soxl_balanced_rule_residual_v19_reg_wf_2023_2024_actor.pt", "2024-01-01", "2024-12-31", "v19_reg_wf_2024"),
+    ("balanced", "runtime/model/card/balanced_wf_2020/soxl_balanced_wf_2020_actor.pt", "2020-01-01", "2020-12-31", "balanced_wf_2020"),
+    ("balanced", "runtime/model/card/balanced_wf_2022/soxl_balanced_wf_2022_actor.pt", "2022-01-01", "2022-12-31", "balanced_wf_2022"),
+    ("balanced_rule_residual_v19", "runtime/model/card/balanced_rule_residual_v19_wf_2020/soxl_balanced_rule_residual_v19_wf_2020_actor.pt", "2020-01-01", "2020-12-31", "v19_wf_2020"),
+    ("balanced_rule_residual_v19", "runtime/model/card/balanced_rule_residual_v19_wf_2022/soxl_balanced_rule_residual_v19_wf_2022_actor.pt", "2022-01-01", "2022-12-31", "v19_wf_2022"),
+    ("balanced_rule_residual_v19_reg", "runtime/model/card/balanced_rule_residual_v19_reg_wf_2020/soxl_balanced_rule_residual_v19_reg_wf_2020_actor.pt", "2020-01-01", "2020-12-31", "v19_reg_wf_2020"),
+    ("balanced_rule_residual_v19_reg", "runtime/model/card/balanced_rule_residual_v19_reg_wf_2022/soxl_balanced_rule_residual_v19_reg_wf_2022_actor.pt", "2022-01-01", "2022-12-31", "v19_reg_wf_2022"),
+    ("balanced_rule_residual_v19_reg", "runtime/model/card/balanced_rule_residual_v19_reg_wf_2023_2024/soxl_balanced_rule_residual_v19_reg_wf_2023_2024_actor.pt", "2024-01-01", "2024-12-31", "v19_reg_wf_2024"),
 ]
 
 results = []

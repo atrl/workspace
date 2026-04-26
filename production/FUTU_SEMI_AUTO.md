@@ -44,7 +44,7 @@ This is the Futu OpenAPI integration for `SOXL`: model-driven, broker-backed, an
 ## Intended flow
 
 1. Train and validate the actor with `src/soxl_quant/cli.py`.
-2. Persist the selected actor under `artifacts/models/` (must pass promotion gate).
+2. Persist the selected actor under `runtime/model/card/` (must pass promotion gate).
 3. Generate a daily signal with dry-run first:
 
 ```bash
@@ -106,7 +106,7 @@ PYTHONPATH=. qlib_venv/bin/python production/soxl_paper_trading.py --healthcheck
 
 The runner executes the closed loop every invocation:
 1. **Data update** — incrementally fetches latest SOXL/SOXX/VIX from yfinance, merges into `data/processed/panels/soxl_soxx_vix_full.csv`, refreshes `data/qlib/soxl/`.
-2. **Auto model selection** — scans `artifacts/models/` for the best promoted model of the given family (default `balanced`). Override with `--profile <name>`.
+2. **Auto model selection** — scans `runtime/model/card/` for the best promoted model of the given family (default `balanced`). Override with `--profile <name>`.
 3. **Signal generation** — runs `plan_manual_session()` for the latest available bar.
 4. **Risk gate** — applies the same runtime checks as live execution.
 5. **Order placement** — submits the target position through the selected broker (skipped in `--dry-run`).

@@ -241,7 +241,7 @@ experiments/candidate/risk_budget_usage_v1/
 ```
 
 runtime/model/knowledge.md 中的索引表直接链接到 experiments/ 下的 card.md，
-不再在 runtime/model/cards/ 中保留重复副本。
+不再在 runtime/model/card/ 中保留重复副本。
 
 ## 相关文件
 

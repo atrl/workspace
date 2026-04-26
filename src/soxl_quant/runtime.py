@@ -175,7 +175,7 @@ class BrokerAdapter(ABC):
 
 
 def latest_model_path(profile_name: str) -> Path:
-    path = MODEL_DIR / f"soxl_{profile_name}_actor.pt"
+    path = MODEL_DIR / profile_name / f"soxl_{profile_name}_actor.pt"
     if not path.exists():
         raise FileNotFoundError(f"missing model artifact: {path}")
     return path
@@ -223,12 +223,12 @@ def promotion_gate_status(model_path: Path) -> Tuple[bool, str]:
 def best_model_for_family(family: str = "balanced") -> Path:
     """自动选择通过 promotion gate 且 best_score 最高的模型。
 
-    扫描 ``artifacts/models/soxl_{family}*_actor.pt``，过滤通过 promotion gate
+    扫描 ``runtime/model/card/*/soxl_{family}*_actor.pt``，过滤通过 promotion gate
     的候选，读取对应 summary 的 ``best_score`` 取最高者。
 
     若无任何候选通过 gate，降级到 ``latest_model_path(family)`` 并打印警告。
     """
-    candidates = sorted(MODEL_DIR.glob(f"soxl_{family}*_actor.pt"))
+    candidates = sorted(MODEL_DIR.rglob(f"soxl_{family}*_actor.pt"))
     if not candidates:
         raise FileNotFoundError(f"no model artifacts found for family={family}")
 

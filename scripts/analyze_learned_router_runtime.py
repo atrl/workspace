@@ -31,12 +31,12 @@ def analyze():
         "test_2023_2024": ("2023-01-01", "2024-12-31"),
     }
 
-    learned_router = LearnedModeRouter("artifacts/models/mode_classifier.pt")
+    learned_router = LearnedModeRouter("runtime/model/card/mode_classifier/mode_classifier.pt")
     rule_cfg = profile.mode_router
     learned_cfg = ModeRouterConfig(
         enabled=True,
         use_learned=True,
-        learned_model_path="artifacts/models/mode_classifier.pt",
+        learned_model_path="runtime/model/card/mode_classifier/mode_classifier.pt",
         trend_hold_min_dwell_days=rule_cfg.trend_hold_min_dwell_days,
         defensive_hold_min_dwell_days=rule_cfg.defensive_hold_min_dwell_days,
         crash_rebuild_min_dwell_days=rule_cfg.crash_rebuild_min_dwell_days,

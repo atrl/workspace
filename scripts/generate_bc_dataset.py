@@ -16,13 +16,13 @@ Usage:
 
     # Generate from existing actor (behavioral cloning from v4/v19)
     PYTHONPATH=. qlib_venv/bin/python scripts/generate_bc_dataset.py \
-        --actor artifacts/models/soxl_balanced_actor.pt \
+        --actor runtime/model/card/balanced/soxl_balanced_actor.pt \
         --output data/bc_actor_dataset.pkl \
         --n-samples 10000
 
     # Generate mixed dataset (rulebase + actor)
     PYTHONPATH=. qlib_venv/bin/python scripts/generate_bc_dataset.py \
-        --actor artifacts/models/soxl_balanced_actor.pt \
+        --actor runtime/model/card/balanced/soxl_balanced_actor.pt \
         --mix-ratio 0.5 \
         --output data/bc_mixed_dataset.pkl \
         --n-samples 10000

@@ -7,7 +7,7 @@ Usage:
     PYTHONPATH=. qlib_venv/bin/python scripts/bc_pretrain.py \
         --bc-dataset data/bc_rulebase_10k.pkl \
         --profile balanced \
-        --output artifacts/models/bc_pretrain_actor.pt \
+        --output runtime/model/card/bc_pretrain/bc_pretrain_actor.pt \
         --steps 5000 --lr 0.0003 --batch-size 256
 """
 
@@ -29,7 +29,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--bc-dataset", type=str, required=True)
     parser.add_argument("--profile", type=str, default="balanced")
-    parser.add_argument("--output", type=str, default="artifacts/models/bc_pretrain_actor.pt")
+    parser.add_argument("--output", type=str, default="runtime/model/card/bc_pretrain/bc_pretrain_actor.pt")
     parser.add_argument("--steps", type=int, default=5000)
     parser.add_argument("--lr", type=float, default=0.0003)
     parser.add_argument("--batch-size", type=int, default=256)
