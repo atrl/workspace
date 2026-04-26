@@ -783,7 +783,8 @@ profiles:
 
 - name: balanced_rule_residual_v19_lowcap
   family: balanced
-  status: candidate
+  status: dropped
   baseline: balanced_rule_residual_v19
-  keep_actor: true
+  keep_actor: false
   keep_summary: true
+  notes: "Retrained actor with min_cap=0.20 worsens walk-forward vs old actor + new cap. New actor: wf_2022 MaxDD 52.8% (vs 46.7%), wf_2024 return +10.9% (vs +29.8%). Old actor + min_cap=0.20 cap is superior."
