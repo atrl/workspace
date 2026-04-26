@@ -193,10 +193,12 @@ def load_model_versions() -> list[dict]:
     versions = []
     if not MODELS_DIR.exists():
         return versions
-    for f in sorted(MODELS_DIR.glob("*_summary.json")):
+    for f in sorted(MODELS_DIR.rglob("*_summary.json")):
         try:
             data = json.loads(f.read_text(encoding="utf-8"))
-            name = f.stem.replace("_summary", "")
+            raw_name = f.stem.replace("_summary", "")
+            # Files are named soxl_<name>_summary.json; strip soxl_ prefix if present
+            name = raw_name[5:] if raw_name.startswith("soxl_") else raw_name
             tp = data.get("test_proxy", {})
             valid = data.get("valid", {})
             versions.append(
@@ -649,6 +651,22 @@ def build_payload() -> dict[str, object]:
     ptr_versioned = _load_post_train_review_versions(features)
     versioned.update(ptr_versioned)
 
+    # If no detailed data exists but versioned data does, populate from latest version
+    # so that the dashboard has a default ETF to display.
+    if not detailed_rows and versioned:
+        latest_tag = select_latest_version(versioned)
+        if latest_tag and latest_tag in versioned:
+            latest_payload = versioned[latest_tag]
+            for etf, detail in (latest_payload.get("detailed") or {}).items():
+                detailed_rows[etf] = detail
+                windows[etf] = latest_payload.get("windows", {}).get(etf, {
+                    "start": detail["rows"][0]["datetime"] if detail.get("rows") else "",
+                    "end": detail["rows"][-1]["datetime"] if detail.get("rows") else "",
+                    "rows": len(detail.get("rows", [])),
+                })
+                if detailed_summary is not None and isinstance(detailed_summary, list):
+                    detailed_summary.append(detail.get("summary", {}))
+
     model_versions = load_model_versions()
     best_version = select_best_version(model_versions, versioned)
     latest_version = select_latest_version(versioned)
@@ -728,9 +746,20 @@ def build_plotly_layouts() -> dict[str, dict]:
     return {"all": _build_layout_all()}
 
 
+def sanitize_json_floats(raw: str) -> str:
+    """Replace JSON-invalid NaN / Infinity / -Infinity with null."""
+    import re
+    # Match bare NaN / Infinity / -Infinity that appear as JSON values
+    # (not inside strings). Use negative lookbehind/lookahead for quotes.
+    raw = re.sub(r'(?<!["\w])NaN(?!["\w])', 'null', raw)
+    raw = re.sub(r'(?<!["\w])-Infinity(?!["\w])', 'null', raw)
+    raw = re.sub(r'(?<!["\w])Infinity(?!["\w])', 'null', raw)
+    return raw
+
+
 def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
-    payload_json = json.dumps(payload, ensure_ascii=False)
-    layouts_json = json.dumps(layouts, ensure_ascii=False)
+    payload_json = sanitize_json_floats(json.dumps(payload, ensure_ascii=False))
+    layouts_json = sanitize_json_floats(json.dumps(layouts, ensure_ascii=False))
     return f"""<!doctype html>
 <html lang="zh-CN">
 <head>
@@ -1465,10 +1494,19 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
   <script>
     const DATA = {payload_json};
     const PLOTLY_LAYOUTS = {layouts_json};
-    const ETFS = Object.keys(DATA.detailed);
+    const ETFS = (() => {{
+      const fromDetailed = Object.keys(DATA.detailed || {{}});
+      if (fromDetailed.length) return fromDetailed;
+      // Fallback: collect ETFs from versioned data
+      const etfs = new Set();
+      Object.values(DATA.versioned || {{}}).forEach(v => {{
+        Object.keys(v.detailed || {{}}).forEach(e => etfs.add(e));
+      }});
+      return Array.from(etfs);
+    }})();
     const VERSIONS = Object.keys(DATA.versioned || {{}});
     const state = {{
-      etf: ETFS[0],
+      etf: ETFS[0] || 'SOXL',
       version: DATA.latest_version || DATA.best_version || '',
       versionSource: 'auto_latest',
       range: 'all',
@@ -1579,13 +1617,14 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     }}
 
     function getDetailed(etf) {{
+      if (!etf) return {{ rows: [], summary: {{}}, trades: [], kelly: {{}}, regime_shapes: [] }};
       if (state.version && DATA.versioned && DATA.versioned[state.version]) {{
         const versionDetail = DATA.versioned[state.version].detailed[etf];
         if (versionDetail) {{
           return hydrateVersionDetail(etf, state.version, versionDetail);
         }}
       }}
-      return DATA.detailed[etf];
+      return DATA.detailed[etf] || {{ rows: [], summary: {{}}, trades: [], kelly: {{}}, regime_shapes: [] }};
     }}
     function getWindows(etf) {{
       if (state.version && DATA.versioned && DATA.versioned[state.version]) {{
@@ -2411,21 +2450,36 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     }}
 
     function render() {{
-      etfSelect.value = state.etf;
-      versionSelect.value = state.version || '';
-      document.querySelectorAll('.pill').forEach(p => {{
-        p.classList.toggle('active', p.dataset.range === state.range);
-      }});
-      syncZoomInputs();
-      renderMetrics();
-      const allRows = getDetailed(state.etf).rows;
-      const rows = getFilteredRows(allRows);
-      const k = getDetailed(state.etf).kelly;
-      renderChart();
-      renderTradeStats(k);
-      renderTradeTable();
-      renderVersionTable();
-      renderTrainingCurve(null);
+      try {{
+        etfSelect.value = state.etf;
+        versionSelect.value = state.version || '';
+        document.querySelectorAll('.pill').forEach(p => {{
+          p.classList.toggle('active', p.dataset.range === state.range);
+        }});
+        syncZoomInputs();
+        renderMetrics();
+        const detail = getDetailed(state.etf);
+        const allRows = detail.rows || [];
+        const rows = getFilteredRows(allRows);
+        const k = detail.kelly || {{}};
+        renderChart();
+        renderTradeStats(k);
+        renderTradeTable();
+        renderVersionTable();
+        renderTrainingCurve(null);
+      }} catch (err) {{
+        console.error('Dashboard render error:', err);
+        document.getElementById('plotlyChart').innerHTML = `
+          <div style="display:flex;align-items:center;justify-content:center;height:100%;flex-direction:column;gap:12px;color:var(--muted);">
+            <div style="font-size:18px;font-weight:600;color:var(--bad);">⚠ 数据加载异常</div>
+            <div style="font-size:13px;max-width:500px;text-align:center;line-height:1.6;">
+              ${{err.message}}<br>
+              请检查浏览器控制台获取详细信息，或尝试清除 localStorage 后刷新页面。
+            </div>
+            <button class="btn primary" onclick="localStorage.removeItem('${{STORAGE_KEY}}');location.reload();">清除缓存并刷新</button>
+          </div>
+        `;
+      }}
     }}
 
     loadSavedState();
