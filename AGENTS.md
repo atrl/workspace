@@ -460,12 +460,15 @@ Keep these layers separate:
 3. broker execution
 4. reconciliation and monitoring
 
-Keep code in the intended locations:
+Keep code and state in the intended locations:
 
 - research and training: `src/soxl_quant/`
 - execution adapters: `production/`
 - workpads and decision trail: `docs/active_workpad.md`
 - data and analysis scripts: `scripts/`
+- unified runtime state + config: `runtime/` (profiles, registry, knowledge, reviews, backtest outputs)
+
+`runtime/` is the single writable surface for both configuration and generated state. Do not split config into a separate top-level directory.
 
 
 ## Execution Standard
