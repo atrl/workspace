@@ -236,21 +236,11 @@ Repository noise should be reduced continuously instead of in rare purges.
 
 `.codex/skills/` is where reusable method lives. Codex CLI auto-loads skills from this path.
 
-- **Auto-skill rule**: After completing a complex task (5+ tool calls), fixing a
-  tricky error, or discovering a non-trivial workflow, **evaluate and save** the
-  approach as a skill (or update an existing skill). Do not turn ordinary session
-  progress into a skill — distill the reusable workflow, guardrail, or
-  troubleshooting method.
-- **Auto-patch rule**: If a skill is used and found stale, incomplete, or wrong,
-  **patch it immediately** as part of the task instead of leaving it drifting.
-- **Optimization loop**: Every 3–5 related tasks, run the skill optimizer:
-  1. **Inventory** — list active skills in `.codex/skills/`.
-  2. **Deduplicate** — merge skills that overlap >50% in purpose or commands.
-  3. **Refresh** — update each skill's front-matter and quick-start examples to
-     match current repo state.
-  4. **Commit** — treat the optimization as a task and commit the result.
-- **Stale-skill rule**: If a skill has not been used in 30 days and has been
-  superseded by another skill or repo change, delete it from `.codex/skills/`.
+- After a complex task (5+ tool calls) or tricky fix, evaluate whether the
+  approach deserves a new or updated skill. Patch stale skills immediately.
+- Every 3–5 related tasks, inventory `.codex/skills/`, deduplicate overlaps,
+  refresh front-matter, and commit. Delete skills unused for 30 days that have
+  been superseded.
 
 ## Auto-Commit Discipline
 
@@ -265,12 +255,10 @@ failure — and record the reason in runtime/harness/knowledge.md if so.
 
 ## Default Posture
 
-- Operate autonomously inside this repository.
-- Prefer improving shared harness paths over creating one-off scripts.
-- Prefer explicit interfaces, configs, and validation over hidden conventions.
-- When a failure exposes a missing guardrail, fix the harness, not just the
-  immediate symptom.
-- Keep unrelated repo churn out of scope.
+- Prefer improving shared harness paths over one-off scripts.
+- Prefer explicit interfaces and validation over hidden conventions.
+- Fix the harness, not just the symptom, when a failure exposes a gap.
+- Keep unrelated churn out of scope.
 
 ## Environment
 
@@ -289,47 +277,6 @@ against `qlib_venv`. Reproducible requirements are frozen in
 recreated identically on the production host. Before adding new packages,
 verify they do not conflict with existing pinned deps (especially
 `protobuf`).
-
-## Harness Engineering
-
-This repository is engineered as a self-contained harness for autonomous agents.
-These rules determine whether the agent can operate reliably at scale.
-
-### Repository-Local Truth
-All knowledge required to make engineering decisions must live inside this
-repository. If a rule, pattern, or constraint exists only in human memory or
-chat history, it does not exist for the agent.
-
-### Mechanical Enforcement over Documentation
-Prefer lint, tests, and executable scripts over written instructions.
-- If a rule can be checked by code, it must be checked by code.
-- If a rule is documented but not yet enforced mechanically, treat it as a
-  temporary exception and open a plan to automate it.
-- The agent must run the existing test suite before declaring any task complete.
-- If a research workflow rule is repeated more than twice in docs or runtime knowledge files, plan to enforce it mechanically through scripts, templates, or checks.
-
-### Executable Feedback Loops
-Every task must end with a validation step that produces pass/fail evidence
-the agent can read. Do not proceed based on assumption.
-Examples: `qlib_venv/bin/python scripts/check_harness.py`, `python scripts/backtest_validate.py`, `make check`.
-
-### Progressive Disclosure
-`AGENTS.md` is a map, not a manual. Deep context lives in:
-- `.codex/skills/` for reusable workflows
-- `SPEC.md` for project intent and invariants
-- `docs/active_workpad.md` for the current execution context
-- `docs/` for detailed design documentation
-The agent should start here and navigate outward, not ingest everything at once.
-
-### Intent as Code
-A task without a written plan in `docs/active_workpad.md` and explicit
-acceptance criteria is not allowed to start. The plan is the primary interface
-between human intent and agent execution.
-
-### Continuous Refactoring
-Agent-generated code drifts faster than human-written code. Every 3–5 tasks,
-dedicate one iteration to harness maintenance: delete dead code, fix flaky
-tests, consolidate duplicate scripts, and update stale skills.
 
 ## Red Lines
 
