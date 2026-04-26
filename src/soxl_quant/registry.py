@@ -9,7 +9,7 @@ import yaml
 from .config import PROFILE_DIR, list_profile_names
 
 ROOT = Path(__file__).resolve().parents[2]
-REGISTRY_PATH = PROFILE_DIR / "profile_registry.yaml"
+REGISTRY_PATH = ROOT / "runtime" / "harness" / "profile_registry.yaml"
 
 
 @dataclass(frozen=True)
