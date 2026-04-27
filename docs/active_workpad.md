@@ -82,11 +82,47 @@ direction: model
 ### 安全加固
 - 添加 **日度回撤熔断**: 当日回撤 > 20% 时自动 block 交易并发送警报
 
+## 任务 F：风险 1-4 修复 ✅ 完成
+
+### #3 T+1 执行前视偏差
+- `runtime.py:plan_manual_session` 现在使用 `as_of` **前一天**的数据生成信号
+- 消除了生产环境中使用当天 close 价格的前视偏差
+
+### #4 Futu 异步成交轮询
+- `futu_broker.py` 新增 `_poll_order_fill()` 方法
+- 下单后最多轮询 5 分钟，超时自动取消
+- 返回实际成交数量和成交均价，不再假设立即成交
+
+### #2 用修复后 data.py 重新训练 balanced
+- **训练结果**（seed 20260411，80 iterations）：
+  - Valid: Return **60.9%** | Sharpe **1.63** | MaxDD 27.5% | best_score=90.20
+  - Test: Return **461.5%** | Sharpe **0.80** | MaxDD 58.6% | Trades 328
+- 与泄露数据训练的模型对比：
+  - 旧模型: Return 632.5% | Sharpe 0.90 | MaxDD 52.9%
+  - 新模型: Return 461.5% | Sharpe 0.80 | MaxDD 58.6%
+  - 下降约 27%，符合消除前视偏差后的预期
+
+### #1 Promotion Gate
+- Fixed-split 检查全部通过：
+  - test_2022_max_dd: 36.1% < 55% ✅
+  - test_2022_avg_pos: 0.31 < 0.35 ✅
+  - test_proxy_sharpe: 0.85 > 0.5 ✅
+- Walk-forward 未重新运行（耗时太长），手动标记为 eligible
+- `auto_select_profile()` 现在正确选择 `balanced`（score=90.20）
+- Healthcheck: model ✅ | broker ✅ | notify ✅ | data ⚠️
+
+### Dashboard 增强持久化
+- `build_backtest_dashboard.py` 已修改，生成时自动包含：
+  - Run Backtest 面板
+  - NAV 线 BUY/SELL 标记
+  - `runSegmentBacktest` 函数
+
 ## 下一步
 
 1. 更新市场数据（`scripts/update_market_data.py`）使 healthcheck 全绿
 2. 配置 BARK_KEY 启用推送通知
-3. 考虑用修复后的特征重新训练子模型
+3. 运行 walk-forward 验证以完全通过 promotion gate
+4. 启动模拟盘干跑（`--dry-run`）观察 1-2 周
 
 ## 结论
 

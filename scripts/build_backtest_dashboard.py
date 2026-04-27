@@ -1428,6 +1428,15 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
             <button class="btn" id="resetZoomBtn" type="button">Reset <span style="font-size:10px;color:var(--muted);margin-left:4px;opacity:0.7;">[R]</span></button>
           </div>
         </div>
+        <div class="toolbar-group">
+          <label>Run Backtest <span class="help-icon" data-tip="选择模型并在当前日期区间运行回测">?</span></label>
+          <div class="zoom-row">
+            <select id="runProfileSelect" style="min-width:120px;padding:9px 10px;border-radius:12px;border:1px solid var(--line);background:#fffdf8;font-size:13px;">
+              <option value="">Select profile...</option>
+            </select>
+            <button class="btn primary" id="runBacktestBtn" type="button">▶ Run</button>
+          </div>
+        </div>
       </div>
       <div class="chart-meta" id="chartMeta"></div>
       <div id="regimeStrip" class="regime-strip"></div>
@@ -1821,6 +1830,20 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       applyZoomBtn.addEventListener('click', applyCustomZoom);
       resetZoomBtn.addEventListener('click', () => applyZoomPreset('all'));
 
+      // Populate run-profile selector from versionSelect options
+      const runProfileSelect = document.getElementById('runProfileSelect');
+      versionSelect.querySelectorAll('option').forEach(opt => {{
+        if (opt.value) {{
+          const ropt = document.createElement('option');
+          ropt.value = opt.value;
+          ropt.textContent = opt.textContent;
+          runProfileSelect.appendChild(ropt);
+        }}
+      }});
+
+      // Run backtest button
+      document.getElementById('runBacktestBtn').addEventListener('click', runSegmentBacktest);
+
       document.addEventListener('keydown', e => {{
         if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT' || e.target.tagName === 'TEXTAREA') return;
         if (e.key === '+' || e.key === '=') {{
@@ -1897,6 +1920,67 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
           return;
         }}
       }});
+    }}
+
+    async function runSegmentBacktest() {{
+      const profile = document.getElementById('runProfileSelect').value;
+      if (!profile) {{
+        alert('Please select a profile first');
+        return;
+      }}
+      const start = startDateInput.value;
+      const end = endDateInput.value;
+      if (!start || !end) {{
+        alert('Please set start and end dates');
+        return;
+      }}
+
+      showLoading(`Running backtest: ${{profile}} [${{start}} → ${{end}}]...`);
+      try {{
+        const resp = await fetch('http://localhost:8765/api/run-backtest', {{
+          method: 'POST',
+          headers: {{ 'Content-Type': 'application/json' }},
+          body: JSON.stringify({{ profile, start_date: start, end_date: end, tag: '' }}),
+        }});
+        if (!resp.ok) {{
+          const err = await resp.json().catch(() => ({{ error: `HTTP ${{resp.status}}` }}));
+          throw new Error(err.error || `HTTP ${{resp.status}}`);
+        }}
+        const data = await resp.json();
+        if (data.error) {{
+          throw new Error(data.error);
+        }}
+
+        // Inject result into DATA.detailed for current ETF
+        DATA.detailed[state.etf] = {{
+          summary: {{
+            strategy_return: data.summary.return / 100,
+            buyhold_return: (data.rows[data.rows.length - 1].buyhold_nav / data.rows[0].buyhold_nav - 1),
+            excess_return: (data.rows[data.rows.length - 1].strategy_nav / data.rows[0].strategy_nav - 1) - (data.rows[data.rows.length - 1].buyhold_nav / data.rows[0].buyhold_nav - 1),
+            max_dd_strategy: Math.abs(data.summary.max_dd) / 100,
+            max_dd_buyhold: 0,
+            trades: data.summary.trades,
+            buy_count: data.rows.filter(r => r.action === 'BUY').length,
+            sell_count: data.rows.filter(r => r.action === 'SELL').length,
+            max_position: Math.max(...data.rows.map(r => r.position)),
+            min_position: Math.min(...data.rows.map(r => r.position)),
+          }},
+          rows: data.rows,
+          trades: data.trades,
+          csv_path: null,
+          kelly: {{}},
+          regime_shapes: [],
+        }};
+        DATA.windows[state.etf] = data.windows.SOXL;
+
+        hideLoading();
+        render();
+        chartMeta.innerHTML = `<span style="color:var(--good);">✓ Backtest complete: Return ${{data.summary.return}}% | Sharpe ${{data.summary.sharpe}} | Trades ${{data.summary.trades}}</span>`;
+      }} catch (err) {{
+        hideLoading();
+        chartMeta.innerHTML = `<span style="color:var(--bad);">✗ ${{err.message}}</span>`;
+        console.error(err);
+      }}
     }}
 
     const DATA_BASE = 'dashboard_data';
@@ -2465,6 +2549,29 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
         hovertemplate: '%{{x}}<br>Buy&Hold: %{{y:,.2f}}<extra></extra>',
         xaxis: xa, yaxis: ya,
       }});
+      // BUY/SELL markers on NAV line
+      if (buyRows.length) {{
+        traces.push({{
+          x: buyRows.map(r => r.datetime),
+          y: buyRows.map(r => r.strategy_nav),
+          name: 'BUY (NAV)', type: 'scatter', mode: 'markers',
+          marker: {{ symbol: 'triangle-up', size: 10, color: '#0f766e', line: {{ color: 'white', width: 1 }} }},
+          hovertemplate: '<b>BUY</b> %{{x}}<br>NAV: %{{y:,.2f}}<extra></extra>',
+          xaxis: xa, yaxis: ya,
+          showlegend: false,
+        }});
+      }}
+      if (sellRows.length) {{
+        traces.push({{
+          x: sellRows.map(r => r.datetime),
+          y: sellRows.map(r => r.strategy_nav),
+          name: 'SELL (NAV)', type: 'scatter', mode: 'markers',
+          marker: {{ symbol: 'triangle-down', size: 10, color: '#b91c1c', line: {{ color: 'white', width: 1 }} }},
+          hovertemplate: '<b>SELL</b> %{{x}}<br>NAV: %{{y:,.2f}}<extra></extra>',
+          xaxis: xa, yaxis: ya,
+          showlegend: false,
+        }});
+      }}
       // K-Line on dedicated price row
       const opens = [], highs = [], lows = [], closes = [], ma180Dates = [], ma180Vals = [];
       for (const r of rows) {{
