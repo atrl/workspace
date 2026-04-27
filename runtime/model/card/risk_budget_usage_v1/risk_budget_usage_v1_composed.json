@@ -1,0 +1,187 @@
+{
+  "profile": "risk_budget_usage_v1",
+  "composition": "budget_usage",
+  "description": "Fixed-signal counterfactual combining the slow mode_v1 risk governor with the fast imitation_v4 path as a budget-usage signal.",
+  "config": {
+    "composition": "budget_usage",
+    "mode_bands": {
+      "trend_hold": [
+        0.45,
+        0.95
+      ],
+      "crash_rebuild": [
+        0.25,
+        0.65
+      ],
+      "defensive_hold": [
+        0.1,
+        0.45
+      ],
+      "flat_wait": [
+        0.0,
+        0.25
+      ]
+    },
+    "mode_slack": {
+      "trend_hold": 0.35,
+      "crash_rebuild": 0.25,
+      "defensive_hold": 0.1,
+      "flat_wait": 0.05
+    },
+    "trade_lock_days": 5,
+    "trade_threshold": 0.04
+  },
+  "variants": {
+    "mode_v1_slow": {
+      "test_proxy": {
+        "return": 1545.8539454634263,
+        "sharpe": 1.2106225879059889,
+        "max_dd": 49.96288553654099,
+        "avg_pos": 0.37739154615710646,
+        "stress_avg_pos": 0.3497120383530452,
+        "stress_days": 509,
+        "buy_and_hold_return": 146.14672276868944,
+        "relative_return": 1399.7072226947369,
+        "trades": 178
+      },
+      "slices": {
+        "test_2020": {
+          "return": 137.80065435815922,
+          "sharpe": 1.7434739458594262,
+          "max_dd": 22.504740145868407,
+          "avg_pos": 0.47293914842687756,
+          "stress_avg_pos": 0.6179672757615383,
+          "stress_days": 39,
+          "buy_and_hold_return": 59.775308381142665,
+          "relative_return": 78.02534597701656,
+          "trades": 31
+        },
+        "test_2022": {
+          "return": -8.130248498215009,
+          "sharpe": -0.11069051684835549,
+          "max_dd": 20.338287955123004,
+          "avg_pos": 0.17829245036015937,
+          "stress_avg_pos": 0.192598486069149,
+          "stress_days": 94,
+          "buy_and_hold_return": -86.58807173239424,
+          "relative_return": 78.45782323417923,
+          "trades": 21
+        },
+        "test_2023_2024": {
+          "return": 144.76352139149208,
+          "sharpe": 1.3899493066601891,
+          "max_dd": 31.576022597063158,
+          "avg_pos": 0.38918326342828685,
+          "stress_avg_pos": 0.3235630850910314,
+          "stress_days": 223,
+          "buy_and_hold_return": 191.773509269949,
+          "relative_return": -47.00998787845691,
+          "trades": 62
+        }
+      }
+    },
+    "imitation_v4_fast": {
+      "test_proxy": {
+        "return": 1545.8539454634263,
+        "sharpe": 1.2106225879059889,
+        "max_dd": 49.96288553654099,
+        "avg_pos": 0.37739154615710646,
+        "stress_avg_pos": 0.3497120383530452,
+        "stress_days": 509,
+        "buy_and_hold_return": 146.14672276868944,
+        "relative_return": 1399.7072226947369,
+        "trades": 178
+      },
+      "slices": {
+        "test_2020": {
+          "return": 137.80065435815922,
+          "sharpe": 1.7434739458594262,
+          "max_dd": 22.504740145868407,
+          "avg_pos": 0.47293914842687756,
+          "stress_avg_pos": 0.6179672757615383,
+          "stress_days": 39,
+          "buy_and_hold_return": 59.775308381142665,
+          "relative_return": 78.02534597701656,
+          "trades": 31
+        },
+        "test_2022": {
+          "return": -8.130248498215009,
+          "sharpe": -0.11069051684835549,
+          "max_dd": 20.338287955123004,
+          "avg_pos": 0.17829245036015937,
+          "stress_avg_pos": 0.192598486069149,
+          "stress_days": 94,
+          "buy_and_hold_return": -86.58807173239424,
+          "relative_return": 78.45782323417923,
+          "trades": 21
+        },
+        "test_2023_2024": {
+          "return": 144.76352139149208,
+          "sharpe": 1.3899493066601891,
+          "max_dd": 31.576022597063158,
+          "avg_pos": 0.38918326342828685,
+          "stress_avg_pos": 0.3235630850910314,
+          "stress_days": 223,
+          "buy_and_hold_return": 191.773509269949,
+          "relative_return": -47.00998787845691,
+          "trades": 62
+        }
+      }
+    },
+    "risk_budget_usage_v1": {
+      "test_proxy": {
+        "return": 1545.8539454634263,
+        "sharpe": 1.2106225879059889,
+        "max_dd": 49.96288553654099,
+        "avg_pos": 0.37739154615710646,
+        "stress_avg_pos": 0.3497120383530452,
+        "stress_days": 509,
+        "buy_and_hold_return": 146.14672276868944,
+        "relative_return": 1399.7072226947369,
+        "trades": 178
+      },
+      "slices": {
+        "test_2020": {
+          "return": 137.80065435815922,
+          "sharpe": 1.7434739458594262,
+          "max_dd": 22.504740145868407,
+          "avg_pos": 0.47293914842687756,
+          "stress_avg_pos": 0.6179672757615383,
+          "stress_days": 39,
+          "buy_and_hold_return": 59.775308381142665,
+          "relative_return": 78.02534597701656,
+          "trades": 31
+        },
+        "test_2022": {
+          "return": -8.130248498215009,
+          "sharpe": -0.11069051684835549,
+          "max_dd": 20.338287955123004,
+          "avg_pos": 0.17829245036015937,
+          "stress_avg_pos": 0.192598486069149,
+          "stress_days": 94,
+          "buy_and_hold_return": -86.58807173239424,
+          "relative_return": 78.45782323417923,
+          "trades": 21
+        },
+        "test_2023_2024": {
+          "return": 144.76352139149208,
+          "sharpe": 1.3899493066601891,
+          "max_dd": 31.576022597063158,
+          "avg_pos": 0.38918326342828685,
+          "stress_avg_pos": 0.3235630850910314,
+          "stress_days": 223,
+          "buy_and_hold_return": 191.773509269949,
+          "relative_return": -47.00998787845691,
+          "trades": 62
+        }
+      }
+    }
+  },
+  "acceptance": {
+    "test_proxy_sharpe_ge_090": true,
+    "test_2022_max_dd_le_30": true,
+    "test_2022_avg_pos_le_035": true,
+    "test_2023_2024_return_ge_468": true
+  },
+  "decision": "candidate"
+}

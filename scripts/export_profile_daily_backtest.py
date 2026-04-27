@@ -16,7 +16,7 @@ from src.soxl_quant.backtest import backtest_profile
 from src.soxl_quant.app.dashboard import write_review_daily_csv
 from src.soxl_quant.data import build_dataset, init_qlib, segment_frame
 from src.soxl_quant.policy.policy_builder import build_policy
-from src.soxl_quant.settings import MODEL_DIR, QLIB_DATA_PATH, TEST_SEG, load_profile
+from src.soxl_quant.settings import MODEL_DIR, QLIB_DATA_PATH, TEST_SEG, load_profile, model_artifact_path
 
 
 def parse_args() -> argparse.Namespace:
@@ -37,7 +37,7 @@ def main() -> None:
     price = dataset.handler.price_frame.droplevel("instrument")["price"].loc[test_df.index]
 
     profile = load_profile(args.profile)
-    ckpt = torch.load(MODEL_DIR / f"soxl_{args.profile}_actor.pt", map_location="cpu", weights_only=False)
+    ckpt = torch.load(model_artifact_path(args.profile), map_location="cpu", weights_only=False)
     _, actor = build_policy(
         int(ckpt["obs_dim"]),
         profile,
