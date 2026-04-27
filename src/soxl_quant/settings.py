@@ -52,8 +52,8 @@ def artifact_stem(profile_name: str, artifact_tag: str = "") -> str:
 
 
 def model_artifact_path(profile_name: str, artifact_tag: str = "") -> Path:
-    return MODEL_DIR / f"{artifact_stem(profile_name, artifact_tag)}_actor.pt"
+    return MODEL_DIR / profile_name / f"{artifact_stem(profile_name, artifact_tag)}_actor.pt"
 
 
 def summary_artifact_path(profile_name: str, artifact_tag: str = "") -> Path:
-    return MODEL_DIR / f"{artifact_stem(profile_name, artifact_tag)}_summary.json"
+    return MODEL_DIR / profile_name / f"{artifact_stem(profile_name, artifact_tag)}_summary.json"

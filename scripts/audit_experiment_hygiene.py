@@ -12,7 +12,7 @@ import yaml
 ROOT = Path(__file__).resolve().parent.parent
 EXPERIMENTS = ROOT / "experiments"
 REGISTRY = ROOT / "runtime" / "harness" / "profile_registry.yaml"
-MODEL_DIR = ROOT / "artifacts" / "models"
+MODEL_DIR = ROOT / "runtime" / "model" / "card"
 CONFIGS_DIR = ROOT / "configs" / "soxl"
 ALLOWED_STATUSES = {"canonical", "candidate", "archive", "ablation", "dropped"}
 
@@ -111,7 +111,7 @@ def main() -> int:
                 )
 
     # 5. Artifacts that should be pruned
-    for artifact in sorted(MODEL_DIR.glob("*")):
+    for artifact in sorted(MODEL_DIR.rglob("*_actor.pt")):
         name = artifact.name
         profile_name = profile_name_from_artifact(name)
         if not profile_name:

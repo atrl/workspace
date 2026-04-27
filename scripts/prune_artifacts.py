@@ -10,7 +10,7 @@ from pathlib import Path
 from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
-MODEL_DIR = ROOT / "artifacts" / "models"
+MODEL_DIR = ROOT / "runtime" / "model" / "card"
 MANIFEST_PATH = ROOT / "artifacts" / "retention_manifest.json"
 
 import sys
@@ -73,7 +73,7 @@ def _profile_name_from_path(path: Path, *, allow_summary_namespace: bool) -> str
 def build_manifest() -> dict[str, Any]:
     registry = load_profile_registry()
     entries: list[dict[str, Any]] = []
-    for path in sorted(MODEL_DIR.glob("*")):
+    for path in sorted(MODEL_DIR.rglob("*_actor.pt")):
         action = "keep"
         reason = "summary retained as evidence"
         profile_name = _profile_name_from_path(path, allow_summary_namespace=path.name.endswith("_summary.json"))
