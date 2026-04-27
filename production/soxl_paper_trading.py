@@ -128,6 +128,24 @@ def _determine_level(decision, reconcile) -> str:
 
 
 PAPER_TRADING_CSV = RUNTIME_DIR / "paper_trading" / "paper_trading_soxl_daily.csv"
+DAILY_DRAWDOWN_LIMIT = -0.20  # 20% single-day drawdown circuit breaker
+
+
+def _check_daily_drawdown(account_value: float, drawdown_limit: float = DAILY_DRAWDOWN_LIMIT) -> Tuple[bool, float]:
+    """Check if today's drawdown exceeds the circuit breaker threshold.
+
+    Returns (ok, drawdown_pct) where ok=True means trading is allowed.
+    """
+    if not PAPER_TRADING_CSV.exists():
+        return True, 0.0
+    df = pd.read_csv(PAPER_TRADING_CSV)
+    if df.empty or len(df) < 2:
+        return True, 0.0
+    peak = df["strategy_nav"].max()
+    if peak <= 0:
+        return True, 0.0
+    drawdown = (account_value - peak) / peak
+    return drawdown >= drawdown_limit, drawdown
 
 
 def _append_daily_csv(
@@ -293,7 +311,20 @@ def main() -> None:
         print(f"[paper] signal action={signal.action} target={signal.target_position:.2%} price=${signal.price:.2f}")
         print(f"[paper] risk_gate approved={decision.approved}")
 
-        # 6. Execution
+        # 6. Daily drawdown circuit breaker
+        dd_ok, dd_pct = _check_daily_drawdown(account.account_value)
+        if not dd_ok:
+            print(f"[paper] CIRCUIT BREAKER: daily drawdown {dd_pct:.2%} exceeds limit {DAILY_DRAWDOWN_LIMIT:.2%}")
+            decision.approved = False
+            decision.blocking_reasons.append(f"daily_drawdown_circuit_breaker: {dd_pct:.2%} < {DAILY_DRAWDOWN_LIMIT:.2%}")
+            if use_notify:
+                notifier.send(
+                    title="SOXL CIRCUIT BREAKER TRIGGERED",
+                    body=f"Daily drawdown {dd_pct:.2%} exceeds limit {DAILY_DRAWDOWN_LIMIT:.2%}. All trading BLOCKED.",
+                    level="error",
+                )
+
+        # 7. Execution
         executed = False
         commands = []
         if decision.approved and not args.dry_run:

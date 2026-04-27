@@ -32,7 +32,27 @@
 | Proxy | 4 | 衍生绩效指标 |
 | Composite | 3 | 多信号 stress 指数 |
 
+## 数据泄露修复（2026-04-27）
+
+### 问题
+`engineer_feature_frame()` 中的 `regime_risk`、`vol_stress_score` 等核心特征使用了**全序列** `.rank(pct=True)`。由于 feature frame 跨越 train+valid+test（`start_time=train_seg[0], end_time=test_seg[1]`），训练数据获得了未来信息。
+
+### 修复
+- 8 处 `.rank(pct=True)` → `_rolling_percentile(..., 252)`
+- `jump_variation_5` 的 full-series std fallback → `expanding().std()`
+
+### 影响评估
+- `balanced` test_proxy Return 下降 ~12%（1958.9% → 1729.3%）
+- 泄露确实存在但非灾难性
+- 修复后 MaxDD 反而改善（-52.9% → -50.1%）
+
+### 教训
+- 所有 percentile/rank 操作必须用滚动窗口
+- 已有 `_rolling_percentile()` 安全函数，但未全面应用
+- 未来添加新特征时必须强制审查是否有 look-ahead
+
 ## 待验证方向
 
 - [ ] 多资产联合数据管道（TQQQ/UPRO/SPXL/TECL）
 - [ ] 实时数据延迟模拟
+- [ ] 修复泄露后重新训练子模型

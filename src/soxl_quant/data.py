@@ -831,7 +831,7 @@ def engineer_feature_frame(
     realized_kurtosis_21 = lev_ret.rolling(21).kurt().fillna(0.0)
 
     # Jump variation: sum of squared returns on days where |return| > 3 * rolling_std
-    rolling_std_21 = lev_ret.rolling(21).std().fillna(lev_ret.std())
+    rolling_std_21 = lev_ret.rolling(21).std().fillna(lev_ret.expanding().std())
     jump_mask = abs(lev_ret) > 3 * rolling_std_21
     jump_variation_5 = (lev_ret.where(jump_mask, 0.0).pow(2)).rolling(5).sum()
 
@@ -848,29 +848,29 @@ def engineer_feature_frame(
         + 0.25 * dd63_zscore.fillna(0.0)
         + 0.20 * ir_zscore.fillna(0.0)
         + 0.15 * volume_shock.fillna(0.0)
-        + 0.10 * realized_kurtosis_21.rank(pct=True).fillna(0.0)
+        + 0.10 * _rolling_percentile(realized_kurtosis_21, 252).fillna(0.0)
     )
     # Normalize to [0, 1] percentile-like scale so it can slot into regime_risk weights
-    vol_stress_score = vol_stress_score.rank(pct=True).fillna(0.0)
+    vol_stress_score = _rolling_percentile(vol_stress_score, 252).fillna(0.0)
 
     # regime_risk without VIX (ablation feature)
     regime_risk_no_vix = (
         0.22 * vol_stress_score
-        + 0.18 * realized_vol_21.rank(pct=True).fillna(0.0)
-        + 0.18 * drawdown_63.abs().rank(pct=True).fillna(0.0)
+        + 0.18 * _rolling_percentile(realized_vol_21, 252).fillna(0.0)
+        + 0.18 * _rolling_percentile(drawdown_63.abs(), 252).fillna(0.0)
         + 0.15 * downside_ratio_21.fillna(0.0)
-        + 0.12 * downside_semivol_21.rank(pct=True).fillna(0.0)
-        + 0.08 * tracking_error_vol_21.rank(pct=True).fillna(0.0)
+        + 0.12 * _rolling_percentile(downside_semivol_21, 252).fillna(0.0)
+        + 0.08 * _rolling_percentile(tracking_error_vol_21, 252).fillna(0.0)
         + 0.07 * loss_streak_21.fillna(0.0)
     )
 
     regime_risk = (
         0.22 * vix_percentile_252.fillna(0.0)
-        + 0.18 * realized_vol_21.rank(pct=True).fillna(0.0)
-        + 0.18 * drawdown_63.abs().rank(pct=True).fillna(0.0)
+        + 0.18 * _rolling_percentile(realized_vol_21, 252).fillna(0.0)
+        + 0.18 * _rolling_percentile(drawdown_63.abs(), 252).fillna(0.0)
         + 0.15 * downside_ratio_21.fillna(0.0)
-        + 0.12 * downside_semivol_21.rank(pct=True).fillna(0.0)
-        + 0.08 * tracking_error_vol_21.rank(pct=True).fillna(0.0)
+        + 0.12 * _rolling_percentile(downside_semivol_21, 252).fillna(0.0)
+        + 0.08 * _rolling_percentile(tracking_error_vol_21, 252).fillna(0.0)
         + 0.07 * loss_streak_21.fillna(0.0)
     )
 
