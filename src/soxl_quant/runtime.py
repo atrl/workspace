@@ -707,10 +707,17 @@ def plan_manual_session(
     """
 
     full_df, price_series = _runtime_frame(profile_name)
-    feature_df = full_df.loc[:as_of].copy()
-    price_slice = price_series.loc[:as_of].copy()
+    # T+1 execution: use data up to the day BEFORE as_of for signal generation
+    # to avoid lookahead bias from using as_of's close price in production.
+    # The signal is generated after as_of's close and executed on the next trading day.
+    valid_dates = full_df.index[full_df.index < as_of]
+    if len(valid_dates) == 0:
+        raise ValueError(f"no data available before {as_of}")
+    signal_as_of = str(valid_dates[-1])[:10]
+    feature_df = full_df.loc[:signal_as_of].copy()
+    price_slice = price_series.loc[:signal_as_of].copy()
     if len(feature_df) <= 80:
-        raise ValueError(f"insufficient bars available up to {as_of}")
+        raise ValueError(f"insufficient bars available up to {signal_as_of}")
 
     actor, bundle_path, bundle = load_actor_bundle(profile_name, model_path=model_path)
     ledger = TrancheLedger()

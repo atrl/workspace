@@ -3,7 +3,8 @@ from __future__ import annotations
 
 """Futu OpenAPI adapter for the SOXL runtime contract (paper/simulate mode)."""
 
-from typing import List, Sequence, Tuple
+import time
+from typing import List, Optional, Sequence, Tuple
 
 from src.soxl_quant.runtime import (
     AccountSnapshot,
@@ -211,29 +212,73 @@ class FutuBroker(BrokerAdapter):
         order_id = str(data.get("order_id", data.get("orderId", "")))
         broker_side = "BUY" if delta > 0 else "SELL"
         command = ExecutionCommand(date, symbol, broker_side, abs(delta), price, target_position, reason)
+
+        # Poll for fill (up to 5 minutes)
+        filled, filled_qty, avg_fill_price = self._poll_order_fill(order_id, timeout_sec=300)
+
+        if filled:
+            status_msg = f"filled {filled_qty} @ {avg_fill_price:.2f}"
+            resulting_position = target_position
+        else:
+            status_msg = "timeout / partial fill"
+            resulting_position = snapshot.position  # remain at current position
+
         broker_status = BrokerOrderStatus(
             date=date,
             symbol=symbol,
             side=broker_side,
             quantity=abs(delta),
-            avg_price=price,
-            status="submitted",
+            avg_price=avg_fill_price if filled else price,
+            status="filled" if filled else "timeout",
             broker_order_id=order_id,
-            message="submitted to Futu simulate",
+            message=status_msg,
         )
-        # Assume immediate fill for simulation planning (Futu async fills need poll)
-        resulting_position = target_position
         result = BrokerExecutionResult(
             submitted=True,
             broker_name=self.broker_name,
-            status="submitted",
+            status="filled" if filled else "timeout",
             target_position=target_position,
             resulting_position=resulting_position,
             broker_order_id=order_id,
-            filled_qty=0,
-            avg_price=0.0,
+            filled_qty=filled_qty,
+            avg_price=avg_fill_price,
         )
         return [command], [broker_status], result
+
+    def _poll_order_fill(
+        self,
+        order_id: str,
+        timeout_sec: int = 300,
+        poll_interval: int = 5,
+    ) -> Tuple[bool, int, float]:
+        """Poll order status until filled, rejected, or timeout.
+
+        Returns:
+            (filled: bool, filled_qty: int, avg_price: float)
+        """
+        futu = self._import_futu()
+        deadline = time.time() + timeout_sec
+        while time.time() < deadline:
+            if self._trade_ctx is None:
+                return False, 0, 0.0
+            ret, data = self._trade_ctx.order_list_query(
+                status_filter_list=[futu.OrderStatus.FILLED_PART, futu.OrderStatus.SUBMITTED],
+                trd_env=futu.TrdEnv.SIMULATE,
+            )
+            if ret == futu.RET_OK and data is not None and len(data) > 0:
+                for _, row in data.iterrows():
+                    if str(row.get("order_id", "")) == order_id:
+                        status = row.get("order_status", "")
+                        dealt_qty = int(row.get("dealt_qty", 0) or 0)
+                        dealt_avg = float(row.get("dealt_avg_price", 0.0) or 0.0)
+                        if status in (futu.OrderStatus.FILLED_ALL, "FILLED_ALL", "FILLED"):
+                            return True, dealt_qty, dealt_avg
+                        if status in (futu.OrderStatus.CANCELLED_ALL, "CANCELLED_ALL", "REJECTED"):
+                            return False, dealt_qty, dealt_avg
+            time.sleep(poll_interval)
+        # Timeout: attempt to cancel
+        self.cancel_order(order_id)
+        return False, 0, 0.0
 
     def cancel_order(self, order_id: str) -> bool:
         futu = self._import_futu()
