@@ -22,7 +22,10 @@ from src.soxl_quant.settings import MODEL_DIR, QLIB_DATA_PATH, TEST_SEG, load_pr
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Export daily SOXL backtest rows for a saved profile actor.")
     parser.add_argument("--profile", required=True, help="Profile name, e.g. balanced or balanced_transition_state")
+    parser.add_argument("--tag", default="", help="Artifact tag, e.g. wf_2020")
     parser.add_argument("--output", required=True, help="CSV path to write")
+    parser.add_argument("--test-start", default="", help="Override test start date (for walk-forward windows)")
+    parser.add_argument("--test-end", default="", help="Override test end date (for walk-forward windows)")
     return parser.parse_args()
 
 
@@ -34,10 +37,17 @@ def main() -> None:
     init_qlib(QLIB_DATA_PATH)
     dataset = build_dataset()
     test_df = segment_frame(dataset, "test")
+
+    if args.test_start and args.test_end:
+        test_df = test_df.loc[args.test_start:args.test_end]
+        test_seg = (args.test_start, args.test_end)
+    else:
+        test_seg = TEST_SEG
+
     price = dataset.handler.price_frame.droplevel("instrument")["price"].loc[test_df.index]
 
     profile = load_profile(args.profile)
-    ckpt = torch.load(model_artifact_path(args.profile), map_location="cpu", weights_only=False)
+    ckpt = torch.load(model_artifact_path(args.profile, args.tag), map_location="cpu", weights_only=False)
     _, actor = build_policy(
         int(ckpt["obs_dim"]),
         profile,
@@ -55,7 +65,7 @@ def main() -> None:
         position_budget_config=profile.position_budget,
         execution_config=profile.execution,
         symbol="SOXL",
-        test_seg=TEST_SEG,
+        test_seg=test_seg,
         model_config=profile.model,
     )
     write_review_daily_csv(

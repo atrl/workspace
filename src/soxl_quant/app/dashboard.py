@@ -12,8 +12,9 @@ from ..settings import ACCOUNT, ROOT
 DASHBOARD_BUILD_SCRIPT = ROOT / "scripts" / "build_backtest_dashboard.py"
 
 
-def review_daily_csv_path(profile_name: str) -> Path:
-    return ROOT / "runtime" / "model" / "card" / profile_name / f"{profile_name}_soxl_daily.csv"
+def review_daily_csv_path(profile_name: str, tag: str = "") -> Path:
+    filename = f"{profile_name}_{tag}_soxl_daily.csv" if tag else f"{profile_name}_soxl_daily.csv"
+    return ROOT / "runtime" / "model" / "card" / profile_name / filename
 
 
 def write_review_daily_csv(
@@ -49,12 +50,12 @@ def write_review_daily_csv(
     return out_path
 
 
-def export_review_daily_csv(profile_name: str, bt_result: dict, price_series: pd.Series) -> Path | None:
+def export_review_daily_csv(profile_name: str, bt_result: dict, price_series: pd.Series, tag: str = "") -> Path | None:
     portfolio_df = bt_result.get("portfolio")
     if portfolio_df is None:
         return None
     return write_review_daily_csv(
-        review_daily_csv_path(profile_name),
+        review_daily_csv_path(profile_name, tag),
         portfolio_df,
         price_series,
         bt_result.get("position_history", []),

@@ -224,7 +224,7 @@ def run_profile(
     bt_result["slices"] = slice_result
     bt_result["test_proxy"] = test_proxy
     bt_result["promotion"] = promotion_report
-    review_csv_path = export_review_daily_csv(profile.name, bt_result, price_series)
+    review_csv_path = export_review_daily_csv(profile.name, bt_result, price_series, effective_tag)
     if review_csv_path is not None:
         bt_result["review_daily_csv"] = str(review_csv_path)
     return bt_result
