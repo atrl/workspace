@@ -98,6 +98,29 @@ def main() -> None:
     except Exception as exc:
         msg = str(exc)
         print(f"[scheduler] FAILED: {msg}", file=sys.stderr)
+        # If data update failed due to rate limiting, try dry-run with existing data
+        if "Too Many Requests" in msg or "Rate limited" in msg:
+            print("[scheduler] Data source rate-limited. Retrying with --skip-data-update...", file=sys.stderr)
+            try:
+                retry_cmd = paper_cmd + ["--skip-data-update"]
+                _run(retry_cmd, "paper trading (skip data update)")
+                if not args.skip_dashboard:
+                    dash_cmd = [venv_python, "scripts/build_backtest_dashboard.py"]
+                    _run(dash_cmd, "dashboard build")
+                if use_notify:
+                    notifier.send(
+                        title="SOXL Daily Pipeline OK (cached data)",
+                        body="Data update skipped due to rate limit. Used cached data.",
+                        level="warning",
+                    )
+                print("[scheduler] all done (with cached data)")
+                sys.exit(0)
+            except Exception as exc2:
+                msg2 = str(exc2)
+                print(f"[scheduler] RETRY FAILED: {msg2}", file=sys.stderr)
+                if use_notify:
+                    notifier.send(title="SOXL Daily Pipeline FAILED", body=msg2, level="error")
+                sys.exit(1)
         if use_notify:
             notifier.send(title="SOXL Daily Pipeline FAILED", body=msg, level="error")
         sys.exit(1)

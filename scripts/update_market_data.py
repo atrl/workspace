@@ -25,9 +25,13 @@ from src.soxl_quant.data import refresh_qlib_binary
 from src.soxl_quant.settings import CSV_PATH, QLIB_DATA_PATH
 
 
-def _fetch_yfinance(ticker: str, start: str | None = None, retries: int = 3) -> pd.DataFrame:
-    """从 yfinance 拉取数据，返回标准列名的 DataFrame。"""
+def _fetch_yfinance(ticker: str, start: str | None = None, retries: int = 5) -> pd.DataFrame:
+    """从 yfinance 拉取数据，返回标准列名的 DataFrame。
+
+    使用指数退避重试策略应对 yfinance 速率限制。
+    """
     import time
+    import random
     last_exc = None
     for attempt in range(1, retries + 1):
         try:
@@ -52,8 +56,9 @@ def _fetch_yfinance(ticker: str, start: str | None = None, retries: int = 3) -> 
         except Exception as exc:
             last_exc = exc
             if attempt < retries:
-                sleep_sec = attempt * 3
-                print(f"[yfinance] {ticker} attempt {attempt} failed: {exc}. Retrying in {sleep_sec}s...")
+                # Exponential backoff with jitter: 10s, 20s, 40s, 80s, 160s
+                sleep_sec = min(10 * (2 ** (attempt - 1)) + random.randint(0, 5), 180)
+                print(f"[yfinance] {ticker} attempt {attempt}/{retries} failed: {exc}. Retrying in {sleep_sec}s...")
                 time.sleep(sleep_sec)
     raise RuntimeError(f"Failed to fetch {ticker} from yfinance after {retries} attempts: {last_exc}")
 
