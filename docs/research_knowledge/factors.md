@@ -38,6 +38,16 @@ backtest. Do not retry naked wick rejection without a regime gate.
 
 Use the leveraged ETF factor workflow: hypothesize from rulebase or literature, generate the feature, run IC / decay / stability / correlation checks, then run independent signal backtests before touching RL profiles.
 
+## Cross-Market Factor Adaptation Lesson
+
+Cross-sectional stock-selection factors (e.g. CICC price-volume handbook) do
+not automatically translate to LETF single-asset timing.  The most promising
+adaptation — return-volume sync correlation — reversed direction (positive vs
+negative in A-shares) and only passes IC gates, not standalone backtest gates.
+Always verify correlation with `sharpe_proxy_21`, `mom_21`, and
+`relative_strength_21` before building momentum/reversal adaptations; these
+dimensions are already saturated in the core stack.
+
 ## Next Valid Experiment Type
 
 Generalize accepted SOXL factor checks to another 3x ETF with explicit asset metadata and compare whether signal direction, horizon, and correlation budget survive outside semiconductors.

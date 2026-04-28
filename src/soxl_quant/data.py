@@ -390,6 +390,70 @@ def _builtin_transition_signals_pack(context: dict[str, Any]) -> dict[str, pd.Se
     return features
 
 
+def _builtin_cicc_price_volume_pack(context: dict[str, Any]) -> dict[str, pd.Series]:
+    """CICC low-frequency price-volume factors adapted for SOXL single-asset timing.
+
+    References:
+    - 中金量化《低频价量因子参考手册》: mmt_range_M, corr_ret_turn_post,
+      corr_ret_turnd, liq_turn_std_6M
+    - Adapted from cross-sectional stock-selection to time-series LETF timing.
+    """
+    index = context["index"]
+    close = context["close"]
+    high = context.get("high")
+    low = context.get("low")
+    lev_ret = context["lev_ret"]
+    volume = context.get("volume")
+    mom_21 = context.get("mom_21")
+    volume_shock = context.get("volume_shock")
+
+    # 1. Momentum adjusted by intraday range (volatility-scaled reversal)
+    # mmt_range_M analogue: monthly return / average daily amplitude
+    if high is not None and low is not None and mom_21 is not None:
+        daily_amplitude = (high / low - 1.0).fillna(0.0)
+        avg_amplitude_21 = daily_amplitude.rolling(21).mean().fillna(0.0)
+        mom_range_m = (mom_21 / (avg_amplitude_21 + 1e-8)).fillna(0.0)
+    else:
+        mom_range_m = pd.Series(0.0, index=index)
+
+    # 2. Volume-leads-return correlation (information diffusion early stage)
+    # corr(volume[t-5:t], return[t:t+5]) — positive predicts future returns
+    if volume is not None and lev_ret is not None:
+        volume_lead_return = (
+            volume.rolling(5)
+            .corr(lev_ret.shift(-5))
+            .fillna(0.0)
+        )
+    else:
+        volume_lead_return = pd.Series(0.0, index=index)
+
+    # 3. Return-volume sync correlation (information diffusion late stage)
+    # corr(abs(return[t-20:t]), volume[t-20:t]) — negative predicts future returns
+    if volume is not None and lev_ret is not None:
+        return_volume_sync = (
+            lev_ret.abs()
+            .rolling(20)
+            .corr(volume)
+            .fillna(0.0)
+        )
+    else:
+        return_volume_sync = pd.Series(0.0, index=index)
+
+    # 4. Volume-shock volatility (turnover std analogue)
+    # Unstable volume predicts negative future returns
+    if volume_shock is not None:
+        volume_shock_std = volume_shock.rolling(63).std().fillna(0.0)
+    else:
+        volume_shock_std = pd.Series(0.0, index=index)
+
+    return {
+        "CICC_MOM_RANGE_M": mom_range_m,
+        "CICC_VOLUME_LEAD_RETURN": volume_lead_return,
+        "CICC_RETURN_VOLUME_SYNC": return_volume_sync,
+        "CICC_VOLUME_SHOCK_STD": volume_shock_std,
+    }
+
+
 BUILTIN_FEATURE_PACKS: dict[str, dict[str, Any]] = {
     "kelly": {
         "columns": (
@@ -456,6 +520,15 @@ BUILTIN_FEATURE_PACKS: dict[str, dict[str, Any]] = {
             "SIGNED_TE_REVERSION_21",
         ),
         "builder": _builtin_transition_signals_pack,
+    },
+    "cicc_price_volume": {
+        "columns": (
+            "CICC_MOM_RANGE_M",
+            "CICC_VOLUME_LEAD_RETURN",
+            "CICC_RETURN_VOLUME_SYNC",
+            "CICC_VOLUME_SHOCK_STD",
+        ),
+        "builder": _builtin_cicc_price_volume_pack,
     },
 }
 
@@ -990,6 +1063,8 @@ def engineer_feature_frame(
     context = {
         "index": feature_df.index,
         "close": close,
+        "high": high,
+        "low": low,
         "vix": vix,
         "anchor_gap_180": anchor_gap_180,
         "below_anchor_ratio_63": below_anchor_ratio_63,

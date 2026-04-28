@@ -173,6 +173,62 @@ The gate improves trade quality versus the naked signal, but the signal is too s
 and does not meet the IC promotion gate. Keep as an execution-overlay candidate only;
 do not promote to core RL features without a dedicated sparse-event validation rule.
 
+<!-- 2026-04-28: CICC price-volume factors adapted for SOXL -->
+
+## Question
+
+Can low-frequency price-volume factors from CICC cross-sectional research
+(动量&反转, 波动率, 流动性, 量价相关性) be adapted into useful
+SOXL single-asset timing features?
+
+## Answer: Mostly No, with one IC-only Candidate
+
+Four factors were constructed and evaluated via `scripts/evaluate_factor_pack.py`:
+
+| Factor | IC Mean (best h) | IC+Ratio | Max Core ρ | Sharpe (best) | PF | Acc | Verdict |
+|--------|-----------------|----------|-----------|--------------|----|-----|---------|
+| CICC_RETURN_VOLUME_SYNC | +0.031 (h=20) | **0.584** | 0.349 | +0.81 | 1.15 | 0.54 | 🟡 IC only |
+| CICC_VOLUME_SHOCK_STD | +0.021 (h=20) | 0.589 | 0.306 | +0.66 | 1.14 | 0.53 | ❌ IC<0.03 |
+| CICC_VOLUME_LEAD_RETURN | -0.008 (h=20) | 0.482 | 0.065 | +0.81 | 1.15 | 0.54 | ❌ Wrong dir |
+| CICC_MOM_RANGE_M | +0.006 (h=10) | 0.510 | **0.981** | +0.75 | 1.17 | 0.53 | ❌ Redundant |
+
+### Key Findings
+
+1. **CICC_RETURN_VOLUME_SYNC** is the only factor with meaningful IC stability
+   (mean=+0.031, positive_ratio=0.584, t=14.6).  The direction is **positive**
+   (higher return-volume correlation predicts higher future returns), which is
+   opposite to the A-stock finding (negative).  This may reflect LETF-specific
+   microstructure: high volume-return correlation in SOXL indicates informed
+   participation rather than late-stage distribution.
+
+2. **CICC_MOM_RANGE_M** is linearly redundant with `sharpe_proxy_21` (|ρ|=0.981).
+   The volatility-scaled momentum concept is already captured by existing core
+   features.  Do not retry without a genuinely orthogonal construction.
+
+3. **CICC_VOLUME_LEAD_RETURN** (lead-lag volume-return correlation) has the
+   wrong sign and weak stability.  The 5-day lead-lag window may be too short
+   for SOXL's daily dynamics.
+
+4. **CICC_VOLUME_SHOCK_STD** has decent positive_ratio (0.589) but IC mean
+   (0.021) below the 0.03 gate.  Direction is correct but strength is marginal.
+
+### Lesson
+
+- Cross-sectional factor ideas do not automatically translate to LETF timing.
+- The most promising adaptation (return-volume sync) passes IC gates but fails
+  standalone backtest gates (PF<1.2, Acc<0.55).  Treat as **regime-gated or
+  composite building block**, not a direct standalone signal.
+- Before retrying "momentum / reversal" adaptations, check correlation with
+  `sharpe_proxy_21`, `mom_21`, and `relative_strength_21` — these dimensions
+  are already well-covered by the core feature stack.
+
+## Next Valid Experiment Type
+
+Test CICC_RETURN_VOLUME_SYNC under explicit regime gating (e.g. only when
+`regime_risk` > 0.6 or `vol_stress_score` > 0.7) to see if the signal becomes
+executable in stress periods.  Alternatively, test whether adding it to an
+existing composite (e.g. `RB_BUY_COMPOSITE`) improves any metric.
+
 <!-- 2026-04-26: crypto-style intraday rejection factor -->
 
 # 2026-04-26: INTRADAY_REJECTION_EVENT Blocked
