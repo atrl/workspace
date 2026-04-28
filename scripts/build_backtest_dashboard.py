@@ -3048,7 +3048,9 @@ def main() -> None:
 
     # Build HTML with reduced inline payload (default view only)
     inline_payload = dict(payload)
-    inline_payload["versioned"] = {}
+    # Keep version keys for immediate dropdown population, strip heavy detailed data
+    for v in list(inline_payload.get("versioned", {}).keys()):
+        inline_payload["versioned"][v] = {}
     inline_payload["model_versions"] = []
     OUTPUT_PATH.write_text(build_html(inline_payload, layouts), encoding="utf-8")
     print(f"[done] wrote {OUTPUT_PATH}")
