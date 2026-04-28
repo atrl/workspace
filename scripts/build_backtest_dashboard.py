@@ -1429,7 +1429,13 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
           </div>
         </div>
         <div class="toolbar-group">
-          <label>Run Backtest <span class="help-icon" data-tip="选择模型并在当前日期区间运行回测">?</span></label>
+          <label>Slice & Recompute <span class="help-icon" data-tip="以当前选中的日期区间为起点，重新计算收益率、回撤、交易统计（纯前端，无需服务器）">?</span></label>
+          <div class="zoom-row">
+            <button class="btn primary" id="sliceRecomputeBtn" type="button">🔄 Recompute</button>
+          </div>
+        </div>
+        <div class="toolbar-group">
+          <label>Run Model Backtest <span class="help-icon" data-tip="选择模型并在当前日期区间运行回测（需要本地启动 dashboard_server.py）">?</span></label>
           <div class="zoom-row">
             <select id="runProfileSelect" style="min-width:120px;padding:9px 10px;border-radius:12px;border:1px solid var(--line);background:#fffdf8;font-size:13px;">
               <option value="">Select profile...</option>
@@ -1437,6 +1443,12 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
             <button class="btn primary" id="runBacktestBtn" type="button">▶ Run</button>
           </div>
         </div>
+      </div>
+      <div id="segmentBanner" style="display:none;background:rgba(15,118,110,0.08);border:1px solid rgba(15,118,110,0.3);border-radius:12px;padding:10px 14px;margin-bottom:10px;font-size:13px;color:var(--accent-2);align-items:center;gap:8px;">
+        <span>📍 Segment View</span>
+        <span id="segmentRange" style="font-family:ui-monospace,monospace;font-weight:600;"></span>
+        <span style="color:var(--muted);">— 所有指标已按该区间重新计算</span>
+        <button class="btn" id="clearSegmentBtn" type="button" style="margin-left:auto;padding:6px 12px;font-size:12px;">Restore Full Range</button>
       </div>
       <div class="chart-meta" id="chartMeta"></div>
       <div id="regimeStrip" class="regime-strip"></div>
@@ -1582,6 +1594,9 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       zoomEnd: null,
       sortCol: 'return_pct',
       sortAsc: false,
+      segmentMode: false,
+      segmentKey: '',
+      segmentCache: {{}},
     }};
 
     const etfSelect = document.getElementById('etfSelect');
@@ -1660,6 +1675,10 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
           state.version = DATA.latest_version || DATA.best_version || '';
           state.versionSource = 'auto_latest';
         }}
+        // Segment cache is not persisted; always start clean
+        state.segmentMode = false;
+        state.segmentKey = '';
+        state.segmentCache = {{}};
       }} catch (_err) {{}}
     }}
     function saveState() {{
@@ -1686,8 +1705,15 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       return hydrated;
     }}
 
+    function getSegmentKey(etf, version, start, end) {{
+      return `${{etf}}::${{version || 'current'}}::${{start}}::${{end}}`;
+    }}
+
     function getDetailed(etf) {{
       if (!etf) return {{ rows: [], summary: {{}}, trades: [], kelly: {{}}, regime_shapes: [] }};
+      if (state.segmentMode && state.segmentKey && state.segmentCache[state.segmentKey]) {{
+        return state.segmentCache[state.segmentKey];
+      }}
       if (state.version && DATA.versioned && DATA.versioned[state.version]) {{
         const versionDetail = DATA.versioned[state.version].detailed[etf];
         if (versionDetail) {{
@@ -1696,6 +1722,181 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       }}
       return DATA.detailed[etf] || {{ rows: [], summary: {{}}, trades: [], kelly: {{}}, regime_shapes: [] }};
     }}
+    function computeTradesFromRows(rows) {{
+      const trades = [];
+      let entryIdx = -1;
+      let cumulative = 0.0;
+      for (let i = 0; i < rows.length; i++) {{
+        const row = rows[i];
+        if (row.action === 'BUY' && entryIdx < 0) {{
+          entryIdx = i;
+        }} else if (row.action === 'SELL' && entryIdx >= 0) {{
+          const entryRow = rows[entryIdx];
+          const entryPrice = entryRow.price || entryRow.close || entryRow.strategy_nav;
+          const exitPrice = row.price || row.close || row.strategy_nav;
+          const days = i - entryIdx;
+          const retPct = entryPrice > 0 ? ((exitPrice / entryPrice - 1) * 100) : 0;
+          const pnl = row.strategy_nav - entryRow.strategy_nav;
+          cumulative += pnl;
+          const vixVals = [];
+          const rsiVals = [];
+          for (let j = entryIdx; j <= i; j++) {{
+            const f = rows[j]._features || {{}};
+            if (f.vix != null) vixVals.push(f.vix);
+            if (f.rsi != null) rsiVals.push(f.rsi);
+          }}
+          trades.push({{
+            entry_date: entryRow.datetime,
+            exit_date: row.datetime,
+            days: days,
+            entry_price: entryPrice,
+            exit_price: exitPrice,
+            return_pct: retPct,
+            pnl: pnl,
+            cumulative: cumulative,
+            entry_nav: entryRow.strategy_nav,
+            exit_nav: row.strategy_nav,
+            avg_vix: vixVals.length ? (vixVals.reduce((a,b)=>a+b,0) / vixVals.length) : null,
+            avg_rsi: rsiVals.length ? (rsiVals.reduce((a,b)=>a+b,0) / rsiVals.length) : null,
+          }});
+          entryIdx = -1;
+        }}
+      }}
+      return trades;
+    }}
+
+    function computeKellyStatsFromTrades(trades) {{
+      if (!trades || !trades.length) return {{}};
+      const wins = trades.filter(t => t.return_pct > 0).map(t => t.return_pct);
+      const losses = trades.filter(t => t.return_pct <= 0).map(t => t.return_pct);
+      const winRate = trades.length ? (wins.length / trades.length) : 0;
+      const avgWin = wins.length ? (wins.reduce((a,b)=>a+b,0) / wins.length) : 0;
+      const avgLoss = losses.length ? (losses.reduce((a,b)=>a+b,0) / losses.length) : 0;
+      const r = avgLoss !== 0 ? Math.abs(avgWin / avgLoss) : Infinity;
+      const kelly = r !== Infinity && r > 0 ? (winRate - (1 - winRate) / r) : winRate;
+      const expectancy = (winRate * avgWin) - ((1 - winRate) * Math.abs(avgLoss));
+      const grossProfit = wins.reduce((a,b)=>a+b,0);
+      const grossLoss = Math.abs(losses.reduce((a,b)=>a+b,0));
+      const profitFactor = grossLoss > 0 ? (grossProfit / grossLoss) : Infinity;
+      let maxWinStreak = 0, maxLossStreak = 0, curWin = 0, curLoss = 0;
+      for (const t of trades) {{
+        if (t.return_pct > 0) {{ curWin++; curLoss = 0; maxWinStreak = Math.max(maxWinStreak, curWin); }}
+        else {{ curLoss++; curWin = 0; maxLossStreak = Math.max(maxLossStreak, curLoss); }}
+      }}
+      return {{
+        total: trades.length,
+        win_rate: winRate,
+        avg_win: avgWin,
+        avg_loss: avgLoss,
+        kelly: kelly,
+        expectancy: expectancy,
+        profit_factor: profitFactor,
+        gross_profit: grossProfit,
+        gross_loss: grossLoss,
+        max_win_streak: maxWinStreak,
+        max_loss_streak: maxLossStreak,
+      }};
+    }}
+
+    function sliceAndRecompute(rows, start, end) {{
+      if (!rows || !rows.length) return {{ rows: [], summary: {{}}, trades: [], kelly: {{}}, regime_shapes: [] }};
+      const sliced = rows.filter(r => String(r.datetime) >= start && String(r.datetime) <= end);
+      if (!sliced.length) return {{ rows: [], summary: {{}}, trades: [], kelly: {{}}, regime_shapes: [] }};
+      const firstRow = sliced[0];
+      const lastRow = sliced[sliced.length - 1];
+      const initialNav = 1000000.0;
+      const stratScale = firstRow.strategy_nav > 0 ? (initialNav / firstRow.strategy_nav) : 1;
+      const bhScale = firstRow.buyhold_nav > 0 ? (initialNav / firstRow.buyhold_nav) : 1;
+
+      const newRows = [];
+      let peakS = -Infinity;
+      let maxDdStrategy = 0.0;
+      let buyCount = 0, sellCount = 0;
+      let maxPos = firstRow.position, minPos = firstRow.position;
+
+      for (const r of sliced) {{
+        const nav = r.strategy_nav * stratScale;
+        const bhNav = r.buyhold_nav * bhScale;
+        const excess = nav - bhNav;
+        const excessPct = bhNav !== 0 ? (excess / bhNav * 100) : 0.0;
+        peakS = Math.max(peakS, nav);
+        maxDdStrategy = Math.max(maxDdStrategy, (peakS - nav) / peakS);
+        if (r.action === 'BUY') buyCount++;
+        else if (r.action === 'SELL') sellCount++;
+        maxPos = Math.max(maxPos, r.position);
+        minPos = Math.min(minPos, r.position);
+        newRows.push({{
+          ...r,
+          strategy_nav: nav,
+          buyhold_nav: bhNav,
+          excess: excess,
+          excess_pct: excessPct,
+        }});
+      }}
+
+      const strategyReturn = firstRow.strategy_nav > 0 ? (lastRow.strategy_nav / firstRow.strategy_nav - 1) : 0;
+      const buyholdReturn = firstRow.buyhold_nav > 0 ? (lastRow.buyhold_nav / firstRow.buyhold_nav - 1) : 0;
+      const excessReturn = strategyReturn - buyholdReturn;
+
+      const trades = computeTradesFromRows(newRows);
+      const kelly = computeKellyStatsFromTrades(trades);
+
+      const summary = {{
+        etf: state.etf,
+        strategy_return: strategyReturn,
+        buyhold_return: buyholdReturn,
+        excess_return: excessReturn,
+        max_dd_strategy: maxDdStrategy,
+        max_dd_buyhold: 0,
+        trades: buyCount + sellCount,
+        buy_count: buyCount,
+        sell_count: sellCount,
+        max_position: maxPos,
+        min_position: minPos,
+      }};
+
+      return {{
+        rows: newRows,
+        summary: summary,
+        trades: trades,
+        kelly: kelly,
+        regime_shapes: [],
+        csv_path: null,
+      }};
+    }}
+
+    function recomputeSegment() {{
+      const bounds = getDateBounds(getRangeRows(getDetailed(state.etf).rows));
+      const start = state.zoomStart || bounds.start;
+      const end = state.zoomEnd || bounds.end;
+      if (!start || !end || start >= end) {{
+        chartMeta.innerHTML = '<span style="color:var(--bad);">✗ 请选择一个有效的日期区间</span>';
+        return;
+      }}
+      const sourceRows = (() => {{
+        if (state.version && DATA.versioned && DATA.versioned[state.version]) {{
+          const vd = DATA.versioned[state.version].detailed[state.etf];
+          if (vd) return hydrateVersionDetail(state.etf, state.version, vd).rows;
+        }}
+        return (DATA.detailed[state.etf] || {{}}).rows || [];
+      }})();
+      const key = getSegmentKey(state.etf, state.version, start, end);
+      if (!state.segmentCache[key]) {{
+        state.segmentCache[key] = sliceAndRecompute(sourceRows, start, end);
+      }}
+      state.segmentMode = true;
+      state.segmentKey = key;
+      saveState();
+      render();
+      chartMeta.innerHTML = `<span style="color:var(--good);">✓ Segment recomputed: ${{start}} → ${{end}}</span>`;
+    }}
+
+    function clearSegmentMode() {{
+      state.segmentMode = false;
+      state.segmentKey = '';
+      saveState();
+    }}
+
     function getWindows(etf) {{
       if (state.version && DATA.versioned && DATA.versioned[state.version]) {{
         const versionWindows = DATA.versioned[state.version].windows[etf];
@@ -1747,6 +1948,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
         state.zoomMode = 'all';
         state.zoomStart = null;
         state.zoomEnd = null;
+        clearSegmentMode();
       }} else {{
         const monthsMap = {{ '6m': -180, '1y': -365, '2y': -730, '3y': -1095 }};
         const shifted = shiftIsoDate(bounds.end, monthsMap[mode]);
@@ -1796,6 +1998,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
         state.zoomMode = 'all';
         state.zoomStart = null;
         state.zoomEnd = null;
+        clearSegmentMode();
         saveState();
         render();
       }});
@@ -1805,6 +2008,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
         state.zoomMode = 'all';
         state.zoomStart = null;
         state.zoomEnd = null;
+        clearSegmentMode();
         saveState();
         if (state.version && !DATA.versioned[state.version]) {{
           await loadVersionData(state.version, state.etf);
@@ -1819,6 +2023,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
           state.zoomMode = 'all';
           state.zoomStart = null;
           state.zoomEnd = null;
+          clearSegmentMode();
           saveState();
           syncZoomInputs();
           renderChart();
@@ -1839,6 +2044,15 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
           ropt.textContent = opt.textContent;
           runProfileSelect.appendChild(ropt);
         }}
+      }});
+
+      // Slice & Recompute button
+      document.getElementById('sliceRecomputeBtn').addEventListener('click', recomputeSegment);
+
+      // Clear segment mode button
+      document.getElementById('clearSegmentBtn').addEventListener('click', () => {{
+        clearSegmentMode();
+        render();
       }});
 
       // Run backtest button
@@ -2085,7 +2299,13 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     function renderMetrics() {{
       const detail = getDetailed(state.etf);
       const summary = detail.summary;
-      const window = getWindows(state.etf);
+      let window = getWindows(state.etf);
+      if (state.segmentMode && state.segmentKey && state.segmentCache[state.segmentKey]) {{
+        const seg = state.segmentCache[state.segmentKey];
+        if (seg.rows && seg.rows.length) {{
+          window = {{ start: seg.rows[0].datetime, end: seg.rows[seg.rows.length-1].datetime, rows: seg.rows.length }};
+        }}
+      }}
       const rl = DATA.results[state.etf] || {{}};
       const rule = DATA.rule_based[state.etf] || {{}};
       const cards = [
@@ -2701,6 +2921,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
           state.zoomMode = 'all';
           state.zoomStart = null;
           state.zoomEnd = null;
+          clearSegmentMode();
           saveState();
           syncZoomInputs();
           renderChart();
@@ -2733,6 +2954,20 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
           p.classList.toggle('active', p.dataset.range === state.range);
         }});
         syncZoomInputs();
+        // Segment banner
+        const banner = document.getElementById('segmentBanner');
+        const segmentRange = document.getElementById('segmentRange');
+        if (state.segmentMode && state.segmentKey && state.segmentCache[state.segmentKey]) {{
+          const seg = state.segmentCache[state.segmentKey];
+          if (seg.rows && seg.rows.length) {{
+            banner.style.display = 'flex';
+            segmentRange.textContent = `${{seg.rows[0].datetime}} → ${{seg.rows[seg.rows.length-1].datetime}}`;
+          }} else {{
+            banner.style.display = 'none';
+          }}
+        }} else {{
+          banner.style.display = 'none';
+        }}
         renderMetrics();
         const detail = getDetailed(state.etf);
         const allRows = detail.rows || [];
