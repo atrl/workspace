@@ -67,6 +67,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--notify", action="store_true", default=True)
     parser.add_argument("--no-notify", action="store_true")
     parser.add_argument("--initial-cash", type=float, default=ACCOUNT)
+    parser.add_argument("--skip-promotion-gate", action="store_true", help="Skip model promotion gate check (for testing)")
     return parser.parse_args()
 
 
@@ -133,8 +134,12 @@ def main() -> None:
         note=f"composed(slow={args.slow_profile}:{slow_pos:.2%}, fast={args.fast_profile}:{fast_pos:.2%}, mode={mode}, raw={raw_target:.2%})",
     )
 
-    from pathlib import Path
-    decision = risk_gate(broker, signal, model_ready=promotion_gate_status(Path(slow_signal.model_path)))
+    if args.skip_promotion_gate:
+        model_ready = (True, "promotion gate skipped by flag")
+    else:
+        from pathlib import Path
+        model_ready = promotion_gate_status(Path(slow_signal.model_path))
+    decision = risk_gate(broker, signal, model_ready=model_ready)
 
     payload = {
         "date": slow_signal.date,
