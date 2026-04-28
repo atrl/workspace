@@ -1807,26 +1807,32 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       const firstRow = sliced[0];
       const lastRow = sliced[sliced.length - 1];
       const initialNav = 1000000.0;
-      const stratScale = firstRow.strategy_nav > 0 ? (initialNav / firstRow.strategy_nav) : 1;
-      const bhScale = firstRow.buyhold_nav > 0 ? (initialNav / firstRow.buyhold_nav) : 1;
+      const stratNav0 = Number(firstRow.strategy_nav) || 1;
+      const bhNav0 = Number(firstRow.buyhold_nav) || 1;
+      const stratScale = stratNav0 > 0 ? (initialNav / stratNav0) : 1;
+      const bhScale = bhNav0 > 0 ? (initialNav / bhNav0) : 1;
 
       const newRows = [];
       let peakS = -Infinity;
       let maxDdStrategy = 0.0;
       let buyCount = 0, sellCount = 0;
-      let maxPos = firstRow.position, minPos = firstRow.position;
+      let maxPos = Number(firstRow.position) || 0;
+      let minPos = Number(firstRow.position) || 0;
 
       for (const r of sliced) {{
-        const nav = r.strategy_nav * stratScale;
-        const bhNav = r.buyhold_nav * bhScale;
+        const rawNav = Number(r.strategy_nav) || 0;
+        const rawBh = Number(r.buyhold_nav) || 0;
+        const nav = rawNav * stratScale;
+        const bhNav = rawBh * bhScale;
         const excess = nav - bhNav;
         const excessPct = bhNav !== 0 ? (excess / bhNav * 100) : 0.0;
         peakS = Math.max(peakS, nav);
         maxDdStrategy = Math.max(maxDdStrategy, (peakS - nav) / peakS);
         if (r.action === 'BUY') buyCount++;
         else if (r.action === 'SELL') sellCount++;
-        maxPos = Math.max(maxPos, r.position);
-        minPos = Math.min(minPos, r.position);
+        const pos = Number(r.position) || 0;
+        maxPos = Math.max(maxPos, pos);
+        minPos = Math.min(minPos, pos);
         newRows.push({{
           ...r,
           strategy_nav: nav,
@@ -1836,8 +1842,8 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
         }});
       }}
 
-      const strategyReturn = firstRow.strategy_nav > 0 ? (lastRow.strategy_nav / firstRow.strategy_nav - 1) : 0;
-      const buyholdReturn = firstRow.buyhold_nav > 0 ? (lastRow.buyhold_nav / firstRow.buyhold_nav - 1) : 0;
+      const strategyReturn = stratNav0 > 0 ? ((Number(lastRow.strategy_nav) || 0) / stratNav0 - 1) : 0;
+      const buyholdReturn = bhNav0 > 0 ? ((Number(lastRow.buyhold_nav) || 0) / bhNav0 - 1) : 0;
       const excessReturn = strategyReturn - buyholdReturn;
 
       const trades = computeTradesFromRows(newRows);
@@ -1868,29 +1874,38 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     }}
 
     function recomputeSegment() {{
-      const bounds = getDateBounds(getRangeRows(getDetailed(state.etf).rows));
-      const start = state.zoomStart || bounds.start;
-      const end = state.zoomEnd || bounds.end;
-      if (!start || !end || start >= end) {{
-        chartMeta.innerHTML = '<span style="color:var(--bad);">✗ 请选择一个有效的日期区间</span>';
-        return;
-      }}
-      const sourceRows = (() => {{
-        if (state.version && DATA.versioned && DATA.versioned[state.version]) {{
-          const vd = DATA.versioned[state.version].detailed[state.etf];
-          if (vd) return hydrateVersionDetail(state.etf, state.version, vd).rows;
+      try {{
+        const bounds = getDateBounds(getRangeRows(getDetailed(state.etf).rows));
+        const start = state.zoomStart || bounds.start;
+        const end = state.zoomEnd || bounds.end;
+        if (!start || !end || start >= end) {{
+          chartMeta.innerHTML = '<span style="color:var(--bad);">✗ 请选择一个有效的日期区间</span>';
+          return;
         }}
-        return (DATA.detailed[state.etf] || {{}}).rows || [];
-      }})();
-      const key = getSegmentKey(state.etf, state.version, start, end);
-      if (!state.segmentCache[key]) {{
-        state.segmentCache[key] = sliceAndRecompute(sourceRows, start, end);
+        const sourceRows = (() => {{
+          if (state.version && DATA.versioned && DATA.versioned[state.version]) {{
+            const vd = DATA.versioned[state.version].detailed[state.etf];
+            if (vd) return hydrateVersionDetail(state.etf, state.version, vd).rows;
+          }}
+          return (DATA.detailed[state.etf] || {{}}).rows || [];
+        }})();
+        if (!sourceRows || !sourceRows.length) {{
+          chartMeta.innerHTML = '<span style="color:var(--bad);">✗ 当前版本没有可用数据</span>';
+          return;
+        }}
+        const key = getSegmentKey(state.etf, state.version, start, end);
+        if (!state.segmentCache[key]) {{
+          state.segmentCache[key] = sliceAndRecompute(sourceRows, start, end);
+        }}
+        state.segmentMode = true;
+        state.segmentKey = key;
+        saveState();
+        render();
+        chartMeta.innerHTML = `<span style="color:var(--good);">✓ Segment recomputed: ${{start}} → ${{end}}</span>`;
+      }} catch (err) {{
+        chartMeta.innerHTML = `<span style="color:var(--bad);">✗ Recompute error: ${{err.message}}</span>`;
+        console.error('recomputeSegment error:', err);
       }}
-      state.segmentMode = true;
-      state.segmentKey = key;
-      saveState();
-      render();
-      chartMeta.innerHTML = `<span style="color:var(--good);">✓ Segment recomputed: ${{start}} → ${{end}}</span>`;
     }}
 
     function clearSegmentMode() {{
@@ -2248,6 +2263,15 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
           loadVersionData(state.version, state.etf).then(() => render());
         }}
       }}
+      // Sync run-profile selector
+      const runProfileSelect = document.getElementById('runProfileSelect');
+      runProfileSelect.innerHTML = '<option value=\"\">Select profile...</option>';
+      (idx.versions || []).forEach(v => {{
+        const ropt = document.createElement('option');
+        ropt.value = v;
+        ropt.textContent = v;
+        runProfileSelect.appendChild(ropt);
+      }});
     }}
 
     async function loadModelVersions() {{
@@ -2274,7 +2298,8 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
         return;
       }}
       if (!DATA.versioned[version]) DATA.versioned[version] = {{}};
-      DATA.versioned[version].detailed = {{ [etf]: data }};
+      if (!DATA.versioned[version].detailed) DATA.versioned[version].detailed = {{}};
+      DATA.versioned[version].detailed[etf] = data;
       // Also need windows; reconstruct from data.rows if not present
       const rows = data.rows || [];
       DATA.versioned[version].windows = {{
