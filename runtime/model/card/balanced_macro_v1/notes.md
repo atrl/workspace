@@ -65,11 +65,66 @@
 2. 模型能学到有意义的策略（trade 数量与 baseline 接近）
 3. 初步指标在同一数量级，未出现明显退化
 
-## 完整训练（80 iters / 10 epi / seed 42）
+## 完整训练结果（80 iters / 10 epi / seed 42）
 
-- 后台任务已启动，预计 1-2 小时完成
-- Log: `runtime/model/card/balanced_macro_v1/full_train.log`
-- 完成后将自动生成 backtest summary、dashboard 更新、actor checkpoint
+**Status**: ✅ 完成
+
+### 关键指标
+
+| Metric | balanced_macro_v1 | balanced baseline (seed 20260411) | Delta |
+|--------|-------------------|-----------------------------------|-------|
+| **Valid** | | | |
+| Return | 60.6% | 60.9% | -0.3pp |
+| Sharpe | 1.47 | 1.63 | -0.16 |
+| MaxDD | 32.7% | 27.5% | +5.2pp |
+| Score | 86.15 | 90.20 | -4.05 |
+| **Test Proxy** | | | |
+| Return | 450.3% | 521.2% | -70.9pp |
+| Sharpe | 0.78 | 0.85 | -0.07 |
+| MaxDD | 58.3% | 53.9% | +4.4pp |
+| **test_2020** | | | |
+| Return | **144.4%** | 112.4% | **+32.0pp** |
+| Sharpe | **2.26** | 2.17 | **+0.09** |
+| MaxDD | 25.3% | 22.3% | +3.0pp |
+| **test_2022** | | | |
+| Return | **-35.5%** | -28.2% | **-7.3pp** |
+| Sharpe | **-1.00** | -0.87 | **-0.13** |
+| MaxDD | **39.5%** | 36.1% | **+3.4pp** |
+| AvgPos | 0.37 | 0.31 | +0.06 |
+| **test_2023_2024** | | | |
+| Return | **82.5%** | 48.5% | **+34.0pp** |
+| Sharpe | **0.87** | 0.70 | **+0.17** |
+| MaxDD | 38.6% | 38.3% | +0.3pp |
+
+### 结论
+
+1. **macro features 改善了 bull/recovery 期间的表现**：2020 (+32pp) 和 2023-2024 (+34pp) 均有显著提升
+2. **macro features 恶化了 bear market 期间的表现**：2022 (-7.3pp, MaxDD +3.4pp) — 这与假设相反
+3. **整体 test proxy 略差**：450% vs 521%，但 slice 层面呈现明显的 regime-dependent 差异
+4. **Valid 表现下降**：score 86.15 vs 90.20，macro features 在 2015-2018 期间可能引入了 noise
+
+### 假设失败的可能原因
+
+1. **Seed 差异**：baseline seed=20260411, macro_v1 seed=42。需要相同 seed 的 baseline 才能排除 random variance。
+2. **Macro 信号 staleness**：credit spread 是月度数据，forward-fill 到日度可能在 fast-moving bear market（如 2022）中反应过慢。
+3. **Signal-to-noise 问题**：宏观指标在 recovery 期提供了有价值的 context，但在 sustained bear 期间可能因为滞后性导致模型加仓过早或减仓过晚。
+4. **特征缩放问题**：macro features 的数值范围（如 credit spread 0-6%）与 technical features（ mostly z-score / percentile）不同，可能对 GRU+MLP 的 learning 造成干扰。
+
+### Ablations 进行中
+
+- [x] balanced_macro_v1 (seed 42, 80 iters) — 完成
+- [ ] balanced baseline (seed 42, 80 iters) — 后台运行中 (task: bash-6wadn9i6)
+- [ ] Walk-forward 验证 — 待 baseline ablation 完成后决定
+
+### 下一步
+
+1. **等待 baseline seed 42 完成**，进行 direct fixed-split 对比
+2. 如果 2022 差异确认（非 seed variance），则分析 macro feature staleness 问题
+3. 考虑 walk-forward 验证（如果 fixed-split 差异有意义）
+4. 特征工程改进方向：
+   - 对 macro features 做 regime-conditioned normalization
+   - 尝试 macro + technical 的交互特征（如 credit_spread × regime_risk）
+   - 减少宏观特征数量，只保留最有效的 2-3 个
 
 ## 数据覆盖
 

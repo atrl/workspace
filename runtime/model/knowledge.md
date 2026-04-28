@@ -350,3 +350,46 @@ Validate whether network simplification (v19_small) or VIX term features (v22) i
 - `scripts/build_backtest_dashboard.py`: Fixed `RUNTIME_DIR` NameError
 - `docs/experiment-landscape-review.md`: Updated v19, v19_small, v22 rows with walk-forward data
 
+
+---
+
+## 2026-04-28: Macro Feature Pack (`balanced_macro_v1`) — FAILED
+
+### 实验设计
+- Baseline: `balanced` (seed 42, 59 features)
+- Variant: `balanced_macro_v1` (seed 42, 69 features, +10 macro: credit spread, yield curve, DXY, oil)
+- 训练迭代: 80 iters
+- 唯一差异: `feature.packs` 增加 `macro_signals`
+
+### 结果对比 (same seed)
+
+| 指标 | balanced | balanced_macro_v1 | 差异 |
+|------|----------|-------------------|------|
+| valid best score | 82.10 | 86.15 | +4.05 |
+| test_proxy Return | **605.2%** | 450.3% | **-154.9pp** |
+| test_proxy Sharpe | **0.89** | 0.78 | **-0.11** |
+| test_2020 Return | 126.4% | 144.4% | +18.0pp |
+| **test_2022 avg_pos** | **0.328** ✅ | **0.368** ❌ | **+0.040** |
+| test_2022 Return | -36.7% | -35.5% | +1.2pp |
+| test_2023_2024 Return | 62.4% | **82.5%** | **+20.1pp** |
+
+### Promotion Gate
+- balanced: **eligible** (test_2022_avg_pos=0.328 < 0.35)
+- balanced_macro_v1: **BLOCKED** (test_2022_avg_pos=0.368 > 0.35)
+
+### 关键发现
+1. **Macro 特征使 bear market 更激进**: test_2022 avg_pos 从 0.328 升至 0.368，与预期相反
+2. **Valid score 改善但 proxy 收益下降**: 过拟合于 valid set (2015-2019)
+3. **Recovery 期改善**: 2023-2024 Return +20pp，宏观特征可能帮助识别 bull market
+4. **test_proxy 整体退化**: Return -26%, Sharpe -0.11
+
+### 结论
+- `balanced_macro_v1` **不通过 promotion gate**，不建议替换 baseline
+- 宏观特征在当前形式下（z-score + delta 的 10 维连续输入）对 RL 代理是**噪声而非信号**
+- 原因假设: (a) 宏观信号与 price action 相比太弱被淹没; (b) z-score 处理丢失方向信息; (c) 需要 macro-aware position cap 而非直接 policy 输入
+
+### 后续方向
+1. **先验证宏观信号 IC** — 独立回测宏观信号的预测力
+2. **若 IC 验证通过** → 尝试 macro-aware position cap（不直接输入 policy，而是硬性限制 bear market 最大仓位）
+3. **不继续直接 policy 输入的 macro 特征实验**
+
