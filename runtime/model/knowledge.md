@@ -393,3 +393,39 @@ Validate whether network simplification (v19_small) or VIX term features (v22) i
 2. **若 IC 验证通过** → 尝试 macro-aware position cap（不直接输入 policy，而是硬性限制 bear market 最大仓位）
 3. **不继续直接 policy 输入的 macro 特征实验**
 
+
+---
+
+## 2026-04-28 (续): Macro Signal IC 验证 — 确认放弃
+
+### IC 验证结果
+
+独立计算 14 个宏观信号变体 vs SOXL forward returns (1d/5d/10d/21d) 的 Spearman IC：
+
+| 信号 | IC(1d) | IC(5d) | IC(21d) | IR(5d) |
+|------|--------|--------|---------|--------|
+| MACRO_CREDIT_SPREAD | -0.003 | +0.024 | +0.006 | +0.40 |
+| MACRO_YC_10Y2Y | +0.022 | +0.020 | +0.017 | +0.40 |
+| MACRO_CREDIT_SPREAD_ZSCORE_252 | -0.015 | +0.012 | -0.002 | +0.18 |
+| **MACRO_YC_10Y2Y_ZSCORE_252** | +0.016 | **+0.026** | **+0.027** | **+0.74** |
+| MACRO_DXY_ZSCORE_252 | +0.020 | +0.015 | +0.003 | +0.32 |
+| **MACRO_OIL_ZSCORE_252** | **-0.039** | **-0.040** | -0.021 | **-1.00** |
+| MACRO_YC_10Y2Y_DELTA_21 | +0.005 | +0.006 | +0.021 | +0.14 |
+
+### 关键发现
+1. **所有 |IC| < 0.04** — 极弱信号，无 standalone alpha
+2. **高 IR 来自低波动而非高预测力** — IC std 仅 0.03-0.05，稳定但幅度极小
+3. **Regime 间方向翻转** — 同一信号在 bull/bear 中预测方向相反（如 CREDIT_SPREAD_ZSCORE: bull IC=+0.027, bear IC=-0.053）
+4. **样本期仅 6 年（2020-2026）**，无法做可靠的 regime-specific 分析
+
+### 决策
+- **永久放弃 macro 特征作为 direct policy input**
+- 不再尝试不同预处理、macro-aware position cap、或其他宏观数据源
+- `balanced_macro_v1` 保留为失败档案，但不继续投入
+- `macro_signals` feature pack 代码保留在 data.py 中但不再激活
+
+### 证据路径
+- IC 脚本: `scripts/compute_macro_ic.py`
+- IC 结果: `runtime/model/card/macro_ic_analysis/ic_results.json`
+- IC 摘要: `runtime/model/card/macro_ic_analysis/ic_summary.txt`
+
