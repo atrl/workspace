@@ -212,12 +212,45 @@ Four factors were constructed and evaluated via `scripts/evaluate_factor_pack.py
 4. **CICC_VOLUME_SHOCK_STD** has decent positive_ratio (0.589) but IC mean
    (0.021) below the 0.03 gate.  Direction is correct but strength is marginal.
 
+### SHAP 验证（balanced profile 基线）
+
+运行 `scripts/feature_analysis.py` 获取当前模型的 SHAP 重要性：
+
+| SHAP Rank | Feature | mean_abs_shap | Spearman IC |
+|-----------|---------|---------------|-------------|
+| 1 | sharpe_proxy_21 | 0.049 | -0.032 |
+| 2 | realized_skew_21 | 0.028 | — |
+| 3 | anchor_gap_180 | 0.022 | — |
+| 4 | vix_momentum_10 | 0.022 | — |
+| 5 | episode_progress | 0.020 | — |
+| 6 | decay_63 | 0.019 | — |
+| 7 | realized_kurtosis_21 | 0.015 | — |
+| 8 | vol_velocity_5 | 0.014 | — |
+| 9 | relative_volume_zscore | 0.013 | +0.035 |
+| 10 | below_anchor_ratio_63 | 0.011 | — |
+
+**CICC_RETURN_VOLUME_SYNC 与 SHAP Top-10 的相关性**：
+
+| SHAP Top Feature | |ρ| |
+|------------------|-----|
+| sharpe_proxy_21 (SHAP #1) | **0.069** |
+| vix_momentum_10 (SHAP #4) | **0.001** |
+| relative_volume_zscore (SHAP #9) | **0.023** |
+| realized_kurtosis_21 (SHAP #7) | 0.349 |
+
+**结论**: CICC_RETURN_VOLUME_SYNC 与模型当前最依赖的特征几乎完全正交。
+`sharpe_proxy_21` 的 SHAP 重要性是 #1，但新因子与它只有 0.069 的相关性。
+这意味着模型目前没有通过任何现有特征来捕捉"量价同步程度"这个维度。
+
 ### Lesson
 
 - Cross-sectional factor ideas do not automatically translate to LETF timing.
 - The most promising adaptation (return-volume sync) passes IC gates but fails
   standalone backtest gates (PF<1.2, Acc<0.55).  Treat as **regime-gated or
   composite building block**, not a direct standalone signal.
+- **SHAP 基线 + 相关性检查**是判断新因子是否有增量价值的有效前置步骤：
+  如果新因子与 SHAP Top-3 特征都低相关（|ρ|<0.20），即使 standalone backtest
+  未过门槛，也值得尝试 regime-gated 或加入 RL feature schema 看 SHAP 变化。
 - Before retrying "momentum / reversal" adaptations, check correlation with
   `sharpe_proxy_21`, `mom_21`, and `relative_strength_21` — these dimensions
   are already well-covered by the core feature stack.

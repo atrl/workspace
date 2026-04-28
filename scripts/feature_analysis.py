@@ -7,6 +7,7 @@ import os
 import sys
 from pathlib import Path
 
+import argparse
 import numpy as np
 import pandas as pd
 import shap
@@ -30,7 +31,7 @@ from src.soxl_quant.settings import (
     model_artifact_path,
 )
 
-PROFILE_NAME = "balanced"
+DEFAULT_PROFILE = "balanced"
 
 def load_actor(profile_name: str):
     profile = load_profile(profile_name)
@@ -41,6 +42,13 @@ def load_actor(profile_name: str):
     actor.load_state_dict(ckpt["state_dict"])
     actor.eval()
     return actor, profile, obs_dim
+
+
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--profile", default=DEFAULT_PROFILE, help="profile name to load actor from")
+    parser.add_argument("--output-dir", type=Path, default=ROOT / "runtime" / "factor" / "analysis")
+    return parser.parse_args()
 
 
 
@@ -107,8 +115,9 @@ def shap_analysis(actor, df: pd.DataFrame, price_path: np.ndarray, n_background:
 
 
 def main():
-    print("Loading actor...")
-    actor, profile, obs_dim = load_actor(PROFILE_NAME)
+    args = parse_args()
+    print(f"Loading actor (profile={args.profile})...")
+    actor, profile, obs_dim = load_actor(args.profile)
     
     print("Loading SOXL data...")
     init_qlib(QLIB_DATA_PATH)
@@ -125,19 +134,19 @@ def main():
     print("\nTop 15 features by mean |SHAP|:")
     print(shap_df.head(15).to_string(index=False))
     
-    out_dir = ROOT / "runtime" / "factor" / "analysis"
-    out_dir.mkdir(parents=True, exist_ok=True)
-    ic_df.to_csv(out_dir / "ic.csv", index=False)
-    shap_df.to_csv(out_dir / "shap_importance.csv", index=False)
-    
+    args.output_dir.mkdir(parents=True, exist_ok=True)
+    ic_df.to_csv(args.output_dir / "ic.csv", index=False)
+    shap_df.to_csv(args.output_dir / "shap_importance.csv", index=False)
+
     summary = {
+        "profile": args.profile,
         "top_ic": ic_df.head(10).to_dict(orient="records"),
         "top_shap": shap_df.head(10).to_dict(orient="records"),
     }
-    with open(out_dir / "summary.json", "w") as f:
+    with open(args.output_dir / "summary.json", "w") as f:
         json.dump(summary, f, indent=2)
-    
-    print(f"\nResults saved to {out_dir}")
+
+    print(f"\nResults saved to {args.output_dir}")
 
 
 if __name__ == "__main__":
