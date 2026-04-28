@@ -183,6 +183,54 @@ direction: model
 - ❌ Macro-aware position cap（底层信号无预测力，cap 也无意义）
 - ❌ 更多宏观数据源（gold, unemployment, CPI 等）
 
+---
+
+## 附：Dashboard 数据区间问题排查 ✅
+
+### 用户反馈
+1. "重新计算后 2026 年就没有数据了"
+2. "每次热 compute 后都会限制时间区间"
+3. "而且没有到今天的最新数据"
+
+### 根因分析
+
+**根因 1: `TEST_SEG` 硬编码为 `("2020-01-01", "2026-03-31")`**
+- `src/soxl_quant/settings.py:41`
+- `dashboard_server.py` 的 Run Backtest 使用 `_segment_frame(dataset, "test")`
+- qlib 的 test segment 被 TEST_SEG 限制，导致 backtest 无法使用 2026-03-31 之后的数据
+- 即使 qlib 数据本身已更新到 2026-04-27，backtest 仍被截断
+
+**根因 2: `build_backtest_dashboard.py` 使用 stale raw CSV**
+- `load_ohlc_and_indicators()` 从 `data/raw/symbols/SOXL.csv` 加载
+- Raw CSV 最新日期: 2026-04-01
+- 但 processed CSV `soxl_soxx_vix_full.csv` 已更新到 2026-04-27
+
+**根因 3: yfinance rate limit 导致 raw 数据更新失败**
+- `scripts/update_market_data.py` 连续失败：`Too Many Requests`
+- 需要等待 rate limit 重置后重试
+
+### 修复
+
+1. **更新 `TEST_SEG` 为 `("2020-01-01", "2026-12-31")`**
+   - `src/soxl_quant/settings.py`
+   - `src/soxl_quant/app/evaluate.py`（改用 TEST_SEG 变量引用）
+   - `scripts/compare_mode_routers.py`
+   - `scripts/analyze_learned_router_runtime.py`
+   - `src/soxl_quant/backtest.py` / `data.py` 文档同步更新
+
+2. **更新 `build_backtest_dashboard.py` 优先使用 processed CSV**
+   - `load_ohlc_and_indicators()` 现在优先读取 `data/processed/panels/soxl_soxx_vix_full.csv`
+   - VIX 也优先从 processed CSV 读取
+
+3. **已重建 dashboard**
+   - `dashboard.html` 和 `dashboard_data/` 已更新
+   - OHLC overlay 现在覆盖到 2026-04-27
+
+### 待办
+- [ ] yfinance rate limit 重置后运行 `update_market_data.py` 更新 raw CSV
+- [ ] 用新 TEST_SEG 重新运行关键 profile 的 backtest，生成新的 `*_soxl_daily.csv`（延伸到 2026-04-27）
+- [ ] 重新运行 `build_backtest_dashboard.py` 更新 versioned backtest 数据
+
 ## 清理工作
 
 - [x] 保留 `balanced_macro_v1` 档案（profile.yaml + summary + actor checkpoint）作为失败证据

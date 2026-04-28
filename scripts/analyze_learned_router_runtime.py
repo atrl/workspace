@@ -15,7 +15,7 @@ from src.soxl_quant.policy.environment import TrancheLedger, build_price_path
 from src.soxl_quant.policy.modes import classify_rule_mode, route_mode, ModeState, ModeRouterConfig
 from src.soxl_quant.policy.models.mode_classifier import LearnedModeRouter
 from src.soxl_quant.policy.observation import make_observation
-from src.soxl_quant.settings import LOOKBACK, QLIB_DATA_PATH, load_profile
+from src.soxl_quant.settings import LOOKBACK, QLIB_DATA_PATH, TEST_SEG, load_profile
 
 
 def analyze():
@@ -25,7 +25,7 @@ def analyze():
     df = dataset.handler.feature_frame.droplevel("instrument").sort_index()
 
     slices = {
-        "test_proxy": ("2020-01-01", "2026-03-31"),
+        "test_proxy": TEST_SEG,
         "test_2020": ("2020-01-01", "2020-12-31"),
         "test_2022": ("2022-01-01", "2022-12-31"),
         "test_2023_2024": ("2023-01-01", "2024-12-31"),

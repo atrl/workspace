@@ -8,6 +8,7 @@ from qlib.data.dataset import DatasetH
 
 from ..policy.evaluation import evaluate_split
 from ..policy.positioning import action_levels_for_profile
+from ..settings import TEST_SEG
 
 
 def validation_score(metrics: Dict[str, float], profile) -> float:
@@ -82,7 +83,7 @@ def slice_metrics(actor, df, slices: Dict[str, Tuple[str, str]], profile) -> Dic
 
 
 PARETO_SLICES: Dict[str, Tuple[str, str]] = {
-    "test_proxy": ("2020-01-01", "2026-03-31"),
+    "test_proxy": TEST_SEG,
     "test_2022": ("2022-01-01", "2022-12-31"),
     "test_2023_2024": ("2023-01-01", "2024-12-31"),
 }

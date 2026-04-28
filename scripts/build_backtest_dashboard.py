@@ -56,12 +56,25 @@ def load_features() -> dict[str, dict[str, float]] | None:
 
 
 def load_ohlc_and_indicators(etf: str) -> dict[str, dict]:
-    """Load OHLC from data/raw/symbols/{etf}.csv and compute soxl_backtest indicators."""
-    csv_path = ROOT / "data" / "raw" / "symbols" / f"{etf.upper()}.csv"
-    if not csv_path.exists():
-        return {}
-    df = pd.read_csv(csv_path, parse_dates=["date"])
-    df = df.sort_values("date").reset_index(drop=True)
+    """Load OHLC from data/processed/panels/ (preferred) or data/raw/symbols/ and compute soxl_backtest indicators."""
+    # Prefer processed panel (kept up-to-date by update_market_data.py)
+    processed_path = ROOT / "data" / "processed" / "panels" / "soxl_soxx_vix_full.csv"
+    if etf.upper() == "SOXL" and processed_path.exists():
+        df = pd.read_csv(processed_path, parse_dates=["date"])
+        df = df.sort_values("date").reset_index(drop=True)
+        df = df.rename(columns={
+            "soxl_open": "open",
+            "soxl_high": "high",
+            "soxl_low": "low",
+            "soxl_close": "close",
+            "soxl_volume": "volume",
+        })
+    else:
+        csv_path = ROOT / "data" / "raw" / "symbols" / f"{etf.upper()}.csv"
+        if not csv_path.exists():
+            return {}
+        df = pd.read_csv(csv_path, parse_dates=["date"])
+        df = df.sort_values("date").reset_index(drop=True)
 
     # RSI6
     delta = df["close"].diff()
@@ -83,9 +96,11 @@ def load_ohlc_and_indicators(etf: str) -> dict[str, dict]:
     else:
         df["vol_coef"] = 1.0
 
-    # VIX: try features_v2.pkl first, else fallback 20
+    # VIX: prefer processed panel, then features_v2.pkl, then fallback 20
     vix_series = pd.Series(20.0, index=df.index)
-    if FEATURES_PATH.exists():
+    if etf.upper() == "SOXL" and processed_path.exists() and "vix" in df.columns:
+        vix_series = df["vix"].fillna(20.0)
+    elif FEATURES_PATH.exists():
         try:
             with open(FEATURES_PATH, "rb") as f:
                 feat = pickle.load(f)

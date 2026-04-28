@@ -347,7 +347,7 @@ def backtest_profile(
 ) -> Dict[str, object]:
     """运行重量级 qlib 官方回测，产出 headline 指标（return / sharpe / max_dd）。
 
-    参数 test_seg 默认 ("2020-01-01", "2026-03-31")，这是仓库统一使用的
+    参数 test_seg 默认 TEST_SEG，这是仓库统一使用的
     测试窗口，所有模型对比都应基于该窗口，避免 cherry-picking。
     
     成本假设默认：open_cost=0.001, close_cost=0.001, min_cost=5
