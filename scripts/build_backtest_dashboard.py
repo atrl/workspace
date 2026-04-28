@@ -461,6 +461,8 @@ def _load_post_train_review_versions(features: dict[str, dict[str, float]] | Non
                 continue
             if not raw_rows:
                 continue
+            if len(raw_rows) < 10:
+                continue
 
             rows = normalize_post_train_review_rows(raw_rows)
             ohlc = load_ohlc_and_indicators("SOXL")
