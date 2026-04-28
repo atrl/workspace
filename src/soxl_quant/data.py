@@ -454,6 +454,60 @@ def _builtin_cicc_price_volume_pack(context: dict[str, Any]) -> dict[str, pd.Ser
     }
 
 
+def _builtin_macro_signals_pack(context: dict[str, Any]) -> dict[str, pd.Series]:
+    """Macro leading-indicator features from FRED for regime prediction.
+
+    Designed to fill the blind spot of technical/microstructure features:
+    credit spreads and yield curves are leading indicators of economic stress
+    that often precede equity bear markets by months.
+    """
+    index = context["index"]
+
+    # Credit spread (BAA - DGS10, monthly, forward-filled to daily)
+    credit_spread = _align_external(_load_external_series("credit_spread_baa.csv", "credit_spread"), index)
+    credit_spread_zscore_252 = (
+        (credit_spread - credit_spread.rolling(252).mean()) / (credit_spread.rolling(252).std() + 1e-8)
+    ).fillna(0.0)
+    credit_spread_delta_21 = (credit_spread - credit_spread.shift(21)).fillna(0.0)
+
+    # Yield curve slopes
+    yc_10y2y = _align_external(_load_external_series("yield_curve_10y2y.csv", "value"), index)
+    yc_10y2y_zscore_252 = (
+        (yc_10y2y - yc_10y2y.rolling(252).mean()) / (yc_10y2y.rolling(252).std() + 1e-8)
+    ).fillna(0.0)
+    yc_10y2y_delta_21 = (yc_10y2y - yc_10y2y.shift(21)).fillna(0.0)
+
+    yc_10y3m = _align_external(_load_external_series("yield_curve_10y3m.csv", "value"), index)
+    yc_10y3m_zscore_252 = (
+        (yc_10y3m - yc_10y3m.rolling(252).mean()) / (yc_10y3m.rolling(252).std() + 1e-8)
+    ).fillna(0.0)
+
+    # DXY (trade-weighted dollar)
+    dxy = _align_external(_load_external_series("dxy_broad.csv", "value"), index)
+    dxy_zscore_252 = (
+        (dxy - dxy.rolling(252).mean()) / (dxy.rolling(252).std() + 1e-8)
+    ).fillna(0.0)
+
+    # Oil (WTI)
+    oil = _align_external(_load_external_series("oil_wti.csv", "value"), index)
+    oil_zscore_252 = (
+        (oil - oil.rolling(252).mean()) / (oil.rolling(252).std() + 1e-8)
+    ).fillna(0.0)
+
+    return {
+        "MACRO_CREDIT_SPREAD": credit_spread,
+        "MACRO_CREDIT_SPREAD_ZSCORE_252": credit_spread_zscore_252,
+        "MACRO_CREDIT_SPREAD_DELTA_21": credit_spread_delta_21,
+        "MACRO_YC_10Y2Y": yc_10y2y,
+        "MACRO_YC_10Y2Y_ZSCORE_252": yc_10y2y_zscore_252,
+        "MACRO_YC_10Y2Y_DELTA_21": yc_10y2y_delta_21,
+        "MACRO_YC_10Y3M": yc_10y3m,
+        "MACRO_YC_10Y3M_ZSCORE_252": yc_10y3m_zscore_252,
+        "MACRO_DXY_ZSCORE_252": dxy_zscore_252,
+        "MACRO_OIL_ZSCORE_252": oil_zscore_252,
+    }
+
+
 BUILTIN_FEATURE_PACKS: dict[str, dict[str, Any]] = {
     "kelly": {
         "columns": (
@@ -529,6 +583,21 @@ BUILTIN_FEATURE_PACKS: dict[str, dict[str, Any]] = {
             "CICC_VOLUME_SHOCK_STD",
         ),
         "builder": _builtin_cicc_price_volume_pack,
+    },
+    "macro_signals": {
+        "columns": (
+            "MACRO_CREDIT_SPREAD",
+            "MACRO_CREDIT_SPREAD_ZSCORE_252",
+            "MACRO_CREDIT_SPREAD_DELTA_21",
+            "MACRO_YC_10Y2Y",
+            "MACRO_YC_10Y2Y_ZSCORE_252",
+            "MACRO_YC_10Y2Y_DELTA_21",
+            "MACRO_YC_10Y3M",
+            "MACRO_YC_10Y3M_ZSCORE_252",
+            "MACRO_DXY_ZSCORE_252",
+            "MACRO_OIL_ZSCORE_252",
+        ),
+        "builder": _builtin_macro_signals_pack,
     },
 }
 

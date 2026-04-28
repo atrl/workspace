@@ -13,6 +13,13 @@ profiles:
   keep_actor: true
   keep_summary: true
   notes_ref: experiments/canonical/balanced/notes.md
+- name: balanced_macro_v1
+  family: balanced
+  status: candidate
+  baseline: balanced
+  keep_actor: true
+  keep_summary: true
+  notes_ref: runtime/model/card/balanced_macro_v1/notes.md
 - name: balanced_budget
   family: balanced
   status: ablation
