@@ -533,4 +533,11 @@ profiles:
   notes_ref: codex_exec_plans/completed/2026-04-25-v19-reg-light.md
   wf_status: blocked
   wf_notes: Walk-forward blocked. wf_2022 -21.9% (vs v19 -25.2%), wf_2023_2024 -24.3% (vs v19 -18.7%). Lower regularization did not recover 2023_2024 performance.
+- name: balanced_rule_residual_v19_moe
+  family: balanced
+  status: candidate
+  baseline: balanced_rule_residual_v19
+  keep_actor: true
+  keep_summary: true
+  notes_ref: runtime/model/card/balanced_rule_residual_v19_moe/notes.md
 

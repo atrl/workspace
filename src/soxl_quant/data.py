@@ -714,7 +714,7 @@ def refresh_qlib_binary(
         },
     }.items():
         for field_name, col_name in mapping.items():
-            _write_qlib_bin(qlib_dir / f"features/{inst}/{field_name}.day.bin", df[col_name].to_numpy())
+            _write_qlib_bin(qlib_dir / f"features/{inst.lower()}/{field_name}.day.bin", df[col_name].to_numpy())
 
     (qlib_dir / "qlib.yaml").write_text(
         "\n".join(
