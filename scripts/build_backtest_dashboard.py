@@ -1899,7 +1899,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
         }}
         const sourceRows = (() => {{
           if (state.version && DATA.versioned && DATA.versioned[state.version]) {{
-            const vd = DATA.versioned[state.version].detailed[state.etf];
+            const vd = (DATA.versioned[state.version].detailed || {{}})[state.etf];
             if (vd) return hydrateVersionDetail(state.etf, state.version, vd).rows;
           }}
           return (DATA.detailed[state.etf] || {{}}).rows || [];
@@ -1931,7 +1931,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
 
     function getWindows(etf) {{
       if (state.version && DATA.versioned && DATA.versioned[state.version]) {{
-        const versionWindows = DATA.versioned[state.version].windows[etf];
+        const versionWindows = (DATA.versioned[state.version].windows || {{}})[etf];
         if (versionWindows) {{
           return versionWindows;
         }}
