@@ -1,4 +1,5 @@
 profiles:
+profiles:
 - name: aggressive
   family: aggressive
   status: candidate
@@ -55,13 +56,6 @@ profiles:
   keep_actor: false
   keep_summary: true
   notes_ref: runtime/model/cards/balanced_floor40_sym/
-- name: balanced_floor40_sym_bear30
-  family: balanced_floor40
-  status: dropped
-  baseline: balanced_floor40_sym
-  keep_actor: false
-  keep_summary: true
-  notes_ref: runtime/model/cards/balanced_floor40_sym_bear30/
 - name: balanced_floor40_sym_cap25
   family: balanced_floor40
   status: ablation
@@ -153,34 +147,6 @@ profiles:
   keep_actor: false
   keep_summary: true
   notes_ref: runtime/harness/knowledge.md
-- name: balanced_phase_sampling_v1
-  family: balanced
-  status: dropped
-  baseline: balanced
-  keep_actor: false
-  keep_summary: true
-  notes_ref: runtime/harness/2026-04-18-phase-balanced-training-failure.md
-- name: balanced_regime_gate
-  family: balanced
-  status: dropped
-  baseline: balanced
-  keep_actor: false
-  keep_summary: true
-  notes_ref: runtime/harness/2026-04-17-balanced-regime-gate-failure.md
-- name: balanced_regime_gate_v2
-  family: balanced
-  status: dropped
-  baseline: balanced_regime_gate
-  keep_actor: false
-  keep_summary: true
-  notes_ref: runtime/harness/2026-04-17-balanced-regime-gate-v2-failure.md
-- name: balanced_reward_guard
-  family: balanced
-  status: dropped
-  baseline: balanced
-  keep_actor: false
-  keep_summary: true
-  notes_ref: runtime/model/cards/balanced/balanced_reward_guard.md
 - name: balanced_rule_residual_v1
   family: balanced
   status: archived
@@ -209,13 +175,6 @@ profiles:
   keep_actor: false
   keep_summary: true
   notes_ref: experiments/archive/balanced_rule_residual_v4/notes.md
-- name: balanced_rule_residual_v5
-  family: balanced
-  status: dropped
-  baseline: balanced_rule_residual_v2
-  keep_actor: false
-  keep_summary: true
-  notes_ref: experiments/archive/balanced_rule_residual_v5/notes.md
 - name: balanced_rule_residual_v6
   family: balanced
   status: archived
@@ -223,13 +182,6 @@ profiles:
   keep_actor: false
   keep_summary: true
   notes_ref: experiments/archive/balanced_rule_residual_v6/notes.md
-- name: balanced_rule_residual_v7
-  family: balanced
-  status: dropped
-  baseline: balanced_rule_residual_v5
-  keep_actor: false
-  keep_summary: true
-  notes_ref: experiments/archive/balanced_rule_residual_v7/notes.md
 - name: balanced_rule_residual_v8
   family: balanced
   status: archived
@@ -244,20 +196,6 @@ profiles:
   keep_actor: false
   keep_summary: true
   notes_ref: experiments/archive/balanced_rule_residual_v9/notes.md
-- name: balanced_rule_residual_v10
-  family: balanced
-  status: dropped
-  baseline: balanced_rule_residual_v2
-  keep_actor: false
-  keep_summary: true
-  notes_ref: experiments/archive/balanced_rule_residual_v10/notes.md
-- name: balanced_rule_residual_v11
-  family: balanced
-  status: dropped
-  baseline: balanced_rule_residual_v2
-  keep_actor: false
-  keep_summary: true
-  notes_ref: experiments/archive/balanced_rule_residual_v11/notes.md
 - name: balanced_rule_residual_v12
   family: balanced
   status: archived
@@ -265,13 +203,6 @@ profiles:
   keep_actor: false
   keep_summary: true
   notes_ref: experiments/archive/balanced_rule_residual_v12/notes.md
-- name: balanced_rule_residual_v13
-  family: balanced
-  status: dropped
-  baseline: balanced_rule_residual_v2
-  keep_actor: false
-  keep_summary: true
-  notes_ref: experiments/archive/balanced_rule_residual_v13/notes.md
 - name: balanced_rule_residual_v14
   family: balanced
   status: archived
@@ -316,20 +247,6 @@ profiles:
   notes_ref: runtime/model/cards/balanced_rule_residual_v19/v19_walk_forward_review.md
   wf_status: completed
   wf_notes: "wf_2020 return +105.9% Sharpe 2.04 MaxDD 20.3% (bull OK); wf_2022 return -30.7% Sharpe -0.87 MaxDD 39.4% — vs SOXL B&H -86.6%, outperforms by +55.9pp. Bear-market defense successful. Promotion gate PASSED after recalibration (2022 MaxDD 39.4% < 55%, proxy Sharpe > 0.50). Corrected backtest metrics with test_seg isolation. Best production candidate in residual family."
-- name: balanced_rule_residual_learned_mode_v1
-  family: balanced
-  status: dropped
-  baseline: balanced_rule_residual_v19
-  keep_actor: false
-  keep_summary: true
-  notes_ref: experiments/archive/balanced_rule_residual_learned_mode_v1/notes.md
-- name: balanced_rule_residual_mode_v2
-  family: balanced
-  status: dropped
-  baseline: balanced_rule_residual_mode_v1
-  keep_actor: false
-  keep_summary: true
-  notes_ref: experiments/archive/balanced_rule_residual_mode_v2/notes.md
 - name: balanced_sac_quick
   family: balanced
   status: ablation
@@ -337,34 +254,6 @@ profiles:
   keep_actor: false
   keep_summary: true
   notes_ref: runtime/harness/knowledge.md
-- name: balanced_stress_behavior
-  family: balanced
-  status: dropped
-  baseline: balanced
-  keep_actor: false
-  keep_summary: true
-  notes_ref: runtime/model/cards/balanced/
-- name: balanced_stress_select
-  family: balanced
-  status: dropped
-  baseline: balanced
-  keep_actor: false
-  keep_summary: true
-  notes_ref: runtime/model/cards/balanced/
-- name: balanced_stress_select_v2
-  family: balanced
-  status: dropped
-  baseline: balanced_stress_select
-  keep_actor: false
-  keep_summary: true
-  notes_ref: runtime/model/cards/balanced/balanced_stress_select_v2_vs_balanced.md
-- name: balanced_structural_v1
-  family: balanced
-  status: dropped
-  baseline: balanced
-  keep_actor: false
-  keep_summary: true
-  notes_ref: runtime/model/2026-04-18-structural-model-loop.md
 - name: balanced_tide_quick
   family: balanced
   status: ablation
@@ -521,48 +410,6 @@ profiles:
   notes_ref: runtime/model/cards/balanced_rule_residual_v19/v19_walk_forward_review.md
   wf_status: completed
   wf_notes: proxy Sharpe 0.86, passes gate. test_2022 Sharpe -0.76, return -21.0%, MaxDD 30.1% — vs SOXL B&H -86.6%, outperforms by +65.6pp. Bear-market defense successful. Fixed-split gate passed.
-- name: balanced_rule_residual_v23
-  family: balanced
-  status: dropped
-  baseline: balanced_rule_residual_v19
-  keep_actor: false
-  keep_summary: true
-  notes_ref: experiments/archive/balanced_rule_residual_v23/notes.md
-- name: balanced_rule_residual_v24
-  family: balanced
-  status: dropped
-  baseline: balanced_rule_residual_v19
-  keep_actor: false
-  keep_summary: true
-  notes_ref: experiments/archive/balanced_rule_residual_v24/notes.md
-- name: balanced_rule_residual_simplified_v1
-  family: balanced
-  status: dropped
-  baseline: balanced_rule_residual_v19
-  keep_actor: false
-  keep_summary: true
-  notes_ref: experiments/candidate/balanced_rule_residual_simplified_v1/notes.md
-- name: balanced_rule_residual_refined_v1
-  family: balanced
-  status: dropped
-  baseline: balanced_rule_residual_v19
-  keep_actor: false
-  keep_summary: true
-  notes_ref: experiments/candidate/balanced_rule_residual_refined_v1/notes.md
-- name: balanced_rule_residual_refined_v4
-  family: balanced
-  status: dropped
-  baseline: balanced_rule_residual_v19
-  keep_actor: false
-  keep_summary: true
-  notes_ref: experiments/candidate/balanced_rule_residual_refined_v4/notes.md
-- name: balanced_rule_residual_minimal_v1
-  family: balanced
-  status: dropped
-  baseline: balanced_rule_residual_v16
-  keep_actor: false
-  keep_summary: true
-  notes_ref: experiments/candidate/balanced_rule_residual_minimal_v1/notes.md
 - name: balanced_rule_residual_imitation_v1
   family: balanced
   status: candidate
@@ -626,76 +473,6 @@ profiles:
   keep_actor: false
   keep_summary: true
   notes_ref: runtime/model/risk_budget_family_review.md
-- name: risk_budget_bc_warmstart_v1
-  family: balanced
-  status: dropped
-  baseline: risk_budget_usage_v1
-  keep_actor: false
-  keep_summary: true
-  notes_ref: experiments/candidate/risk_budget_bc_warmstart_v1/notes.md
-- name: risk_budget_oracle_distill_v1
-  family: balanced
-  status: dropped
-  baseline: risk_budget_usage_v1
-  keep_actor: false
-  keep_summary: true
-  notes_ref: experiments/archive/risk_budget_oracle_distill_v1/notes.md
-- name: risk_budget_learned_oracle_distill_v1
-  family: balanced
-  status: dropped
-  baseline: risk_budget_usage_v1
-  keep_actor: false
-  keep_summary: true
-  notes_ref: experiments/archive/risk_budget_learned_oracle_distill_v1/notes.md
-- name: risk_budget_learned_conditioned_oracle_distill_v1
-  family: balanced
-  status: dropped
-  baseline: risk_budget_learned_oracle_distill_v1
-  keep_actor: false
-  keep_summary: true
-  notes_ref: experiments/archive/risk_budget_learned_conditioned_oracle_distill_v1/notes.md
-- name: risk_budget_learned_usage_regression_v1
-  family: balanced
-  status: dropped
-  baseline: risk_budget_learned_oracle_distill_v1
-  keep_actor: false
-  keep_summary: true
-  notes_ref: experiments/archive/risk_budget_learned_usage_regression_v1/notes.md
-- name: risk_budget_learned_attention_oracle_distill_v1
-  family: balanced
-  status: dropped
-  baseline: risk_budget_learned_oracle_distill_v1
-  keep_actor: false
-  keep_summary: true
-  notes_ref: experiments/archive/risk_budget_learned_attention_oracle_distill_v1/notes.md
-- name: balanced_kelly_dynamic_v5
-  family: balanced
-  status: dropped
-  baseline: balanced_rule_residual_imitation_v4
-  keep_actor: false
-  keep_summary: true
-  notes_ref: experiments/candidate/balanced_kelly_dynamic_v5/notes.md
-- name: balanced_kelly_dynamic_v6
-  family: balanced
-  status: dropped
-  baseline: balanced_kelly_dynamic_v5
-  keep_actor: false
-  keep_summary: true
-  notes_ref: experiments/candidate/balanced_kelly_dynamic_v6/notes.md
-- name: balanced_kelly_dynamic_v7
-  family: balanced
-  status: dropped
-  baseline: balanced_kelly_dynamic_v6
-  keep_actor: false
-  keep_summary: true
-  notes_ref: experiments/candidate/balanced_kelly_dynamic_v7/notes.md
-- name: balanced_kelly_execution_v8
-  family: balanced
-  status: dropped
-  baseline: balanced_rule_residual_imitation_v4
-  keep_actor: false
-  keep_summary: true
-  notes_ref: experiments/candidate/balanced_kelly_execution_v8/notes.md
 - name: balanced_kelly_warmstart_v9
   family: balanced
   status: candidate
@@ -738,37 +515,6 @@ profiles:
   keep_actor: false
   keep_summary: true
   notes_ref: experiments/candidate/balanced_kelly_warmstart_v9b/profile.yaml
-- name: balanced_kelly_attention_v10
-  family: balanced
-  status: dropped
-  baseline: balanced_rule_residual_imitation_v4
-  keep_actor: false
-  keep_summary: true
-  notes_ref: experiments/candidate/balanced_kelly_attention_v10/profile.yaml
-- name: balanced_rule_residual_v19_transition
-  family: balanced
-  status: dropped
-  baseline: balanced_rule_residual_v19
-  keep_actor: false
-  keep_summary: true
-  notes_ref: experiments/candidate/balanced_rule_residual_v19_transition/notes.md
-- name: balanced_rule_residual_v19_small
-  family: balanced
-  status: dropped
-  baseline: balanced_rule_residual_v19
-  keep_actor: false
-  keep_summary: true
-  notes_ref: runtime/network/knowledge.md
-  wf_status: failed
-  wf_notes: proxy Sharpe 0.84 passes threshold but test_2022 Sharpe -1.11, return -31.6%, MaxDD 38.3%; worst bear-market performance in residual family. test_2023_2024 MaxDD 41.9% also poor.
-- name: balanced_rule_residual_v19_tiny
-  family: balanced
-  status: dropped
-  baseline: balanced_rule_residual_v19_small
-  keep_actor: false
-  keep_summary: true
-  notes_ref: runtime/network/knowledge.md
-  wf_notes: baseline v19_small failed (2022 Sharpe -1.11); predicted identical failure; not trained
 - name: balanced_rule_residual_v19_reg
   family: balanced
   status: candidate
@@ -788,10 +534,3 @@ profiles:
   wf_status: blocked
   wf_notes: Walk-forward blocked. wf_2022 -21.9% (vs v19 -25.2%), wf_2023_2024 -24.3% (vs v19 -18.7%). Lower regularization did not recover 2023_2024 performance.
 
-- name: balanced_rule_residual_v19_lowcap
-family: balanced
-status: dropped
-baseline: balanced_rule_residual_v19
-keep_actor: false
-keep_summary: true
-notes: "Retrained actor with min_cap=0.20 worsens walk-forward vs old actor + new cap. New actor: wf_2022 MaxDD 52.8% (vs 46.7%), wf_2024 return +10.9% (vs +29.8%). Old actor + min_cap=0.20 cap is superior."
