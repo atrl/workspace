@@ -227,6 +227,32 @@ def budget_usage_to_position(
     return float(np.clip(floor + clipped_usage * (cap - floor), 0.0, 1.0))
 
 
+def core50_position(
+    action: int,
+    obs: np.ndarray,
+    config: Optional[PositionCapConfig] = None,
+    action_levels: Optional[np.ndarray] = None,
+    hard_floor: Optional[float] = None,
+    mode_band: Optional[Tuple[float, float]] = None,
+) -> float:
+    """Core50 position mapping: action_level [0,1] -> position [0.50, 0.90].
+
+    Drawdown cap can still force position below 0.50 during crisis.
+    """
+    levels = action_levels if action_levels is not None else BASE_ACTION_LEVELS
+    clipped = int(np.clip(action, 0, len(levels) - 1))
+    base = float(levels[clipped])
+    floor, cap = action_band_from_obs(obs, hard_floor=hard_floor)
+    floor, cap = _apply_mode_band(floor, cap, mode_band)
+    cumulative_drop = max(-float(np.nan_to_num(obs[STATIC_INDEX["cum_drop_30"]])), 0.0)
+    cap = min(cap, drawdown_position_cap(cumulative_drop, obs=obs, config=config))
+    if mode_band is not None and cap < floor:
+        cap = floor
+    # Map action level to [0.50, 0.90]; allow drawdown cap to reduce below 0.50
+    target = 0.50 + base * 0.40
+    return float(np.clip(target, 0.0, cap))
+
+
 def target_position_for_profile(
     action: int,
     obs: np.ndarray,
@@ -244,6 +270,15 @@ def target_position_for_profile(
         if delta_levels is not None:
             action_levels = np.linspace(0.0, 1.0, len(delta_levels), dtype=np.float32)
         target = action_to_budget_usage_position(
+            action,
+            obs,
+            config=config,
+            action_levels=action_levels,
+            hard_floor=hard_floor,
+            mode_band=mode_band,
+        )
+    elif position_mapping == "core50":
+        target = core50_position(
             action,
             obs,
             config=config,
@@ -286,5 +321,6 @@ __all__ = [
     "hybrid_overlay_position",
     "max_position_for_budget",
     "rule_based_position",
+    "core50_position",
     "target_position_for_profile",
 ]
