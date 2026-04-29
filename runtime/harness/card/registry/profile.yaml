@@ -245,6 +245,13 @@ profiles:
   keep_actor: true
   keep_summary: true
   notes_ref: runtime/model/card/balanced_core50/notes.md
+- name: balanced_trade_lock
+  family: balanced
+  status: candidate
+  baseline: balanced_rule_residual_v19
+  keep_actor: true
+  keep_summary: true
+  notes_ref: runtime/model/card/balanced_trade_lock/notes.md
 - name: balanced_rule_residual_v19
   family: balanced
   status: canonical
