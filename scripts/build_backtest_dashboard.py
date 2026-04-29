@@ -1732,7 +1732,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
         return state.segmentCache[state.segmentKey];
       }}
       if (state.version && DATA.versioned && DATA.versioned[state.version]) {{
-        const versionDetail = DATA.versioned[state.version].detailed[etf];
+        const versionDetail = (DATA.versioned[state.version].detailed || {{}})[etf];
         if (versionDetail) {{
           return hydrateVersionDetail(etf, state.version, versionDetail);
         }}
