@@ -288,7 +288,10 @@ Macro特征实验已完成并确认放弃。基于最新方向梳理，P0三个�
 - [x] 6. Smoke test: `balanced_core50` 快速训练验证代码正确性 [auto] — 已完成
   - 结果: 训练80 iters通过无报错, valid best score=72.85, test return=571.5% Sharpe=0.87 MaxDD=59.8% trades=288
   - `core50` position mapping 工作正常, promotion blocked (预期, 未调参)
-- [ ] 7. Smoke test: `balanced_trade_lock` 回测（复用v19 actor，只改execution配置） [auto]
+- [x] 7. Smoke test: `balanced_trade_lock` 回测验证 [auto] — 已完成
+  - 注意: v19 actor checkpoint 缺失, 改为直接训练 `balanced_trade_lock`
+  - 结果: 训练80 iters通过无报错, valid best score=79.69, test return=1012.5% Sharpe=0.98 MaxDD=58.4% trades=297
+  - trades=297 已低于目标400, execution config 生效, promotion blocked (预期, 未调参)
 
 ## 证据 / Blockers
 
