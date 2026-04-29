@@ -1,0 +1,12 @@
+[Unit]
+Description=SOXL Auto-Experiment Kimi Agent
+After=network.target
+
+[Service]
+Type=oneshot
+ExecStart=/home/rziiiii/dev/workspace/scripts/kimi_auto_experiment.sh
+WorkingDirectory=/home/rziiiii/dev/workspace
+Environment="PATH=/usr/local/bin:/usr/bin:/bin:/home/rziiiii/.local/bin"
+Environment="HOME=/home/rziiiii"
+StandardOutput=append:/home/rziiiii/dev/workspace/runtime/harness/auto_experiment.log
+StandardError=append:/home/rziiiii/dev/workspace/runtime/harness/auto_experiment.log
