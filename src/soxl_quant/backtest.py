@@ -367,9 +367,14 @@ def backtest_profile(
         model_config=model_config,
         overlay_config=overlay_config,
     )
+    # Guard against backtest end_date being the very last calendar date,
+    # which causes qlib to crash with IndexError when looking up next date.
+    cal = D.calendar(freq="day")
+    end_dt = min(pd.Timestamp(test_seg[1]), pd.Timestamp(cal[-2]))
+    safe_test_seg = (test_seg[0], str(end_dt.date()))
     portfolio_metric, indicator_metric = qlib_backtest(
-        start_time=test_seg[0],
-        end_time=test_seg[1],
+        start_time=safe_test_seg[0],
+        end_time=safe_test_seg[1],
         strategy=strategy,
         executor=SimulatorExecutor(time_per_step="day", generate_portfolio_metrics=True),
         account=ACCOUNT,
