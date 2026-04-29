@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-29T01:14:39.957068+00:00",
+  "generated_at": "2026-04-29T01:17:45.412688+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -662,12 +662,6 @@
       "bytes": 993
     },
     {
-      "path": "runtime/model/card/macro_ic_analysis/ic_summary.txt",
-      "category": "model",
-      "suffix": ".txt",
-      "bytes": 15830
-    },
-    {
       "path": "runtime/model/card/risk_budget_usage_v1/risk_budget_usage_v1.md",
       "category": "model",
       "suffix": ".md",
@@ -702,12 +696,6 @@
       "category": "model",
       "suffix": ".md",
       "bytes": 955
-    },
-    {
-      "path": "runtime/model/card/two_speed_mode_budget_v1/two_speed_mode_budget_v1.md",
-      "category": "model",
-      "suffix": ".md",
-      "bytes": 978
     },
     {
       "path": "runtime/model/deep_dive_rl_vs_rulebased.md",
