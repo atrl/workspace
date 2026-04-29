@@ -210,6 +210,7 @@ class ModelConfig:
     router_experts: int = 3
     router_top_k: int = 1
     router_noise_std: float = 0.1
+    moe_lb_coef: float = 0.01
     hard_floor: float | None = None
     use_tide: bool = False
     tide_hidden_size: int = 64
