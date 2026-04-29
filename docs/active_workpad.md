@@ -285,7 +285,9 @@ Macro特征实验已完成并确认放弃。基于最新方向梳理，P0三个�
 - [x] 3. 创建 `balanced_core50` profile YAML [auto] — 已完成
 - [x] 4. 创建 `balanced_trade_lock` profile YAML [auto] — 已完成
 - [x] 5. 在 `src/soxl_quant/policy/positioning.py` 中新增 `core50` position mapping [auto] — 已完成
-- [ ] 6. Smoke test: `balanced_core50` 快速训练 (10 iters) 验证代码正确性 [auto]
+- [x] 6. Smoke test: `balanced_core50` 快速训练验证代码正确性 [auto] — 已完成
+  - 结果: 训练80 iters通过无报错, valid best score=72.85, test return=571.5% Sharpe=0.87 MaxDD=59.8% trades=288
+  - `core50` position mapping 工作正常, promotion blocked (预期, 未调参)
 - [ ] 7. Smoke test: `balanced_trade_lock` 回测（复用v19 actor，只改execution配置） [auto]
 
 ## 证据 / Blockers
