@@ -42,7 +42,26 @@ Macro特征实验已完成并确认放弃。基于最新方向梳理，P0三个�
 - **Hypothesis**: regime_stratified + phase_balanced 采样可改善bear market generalization
 - **Accepted trade-off**: 训练时间可能增加，valid score 可能下降
 - **Target window**: wf_2022 Sharpe > -0.80, wf_2024 Sharpe > -0.23
-- **状态**: Profile YAML ✅ 已创建，待 smoke test
+- **状态**: Smoke test ✅ 通过，fixed split gate 全通过，待 walk-forward
+
+---
+
+## Smoke Test 结果汇总
+
+| 指标 | v19 baseline | core50 | trade_lock | curriculum |
+|------|-------------|--------|------------|------------|
+| Valid score | ~82 | 72.85 | 79.69 | **86.36** |
+| test_proxy Return | 605% | 574% | 695% | **702%** |
+| test_proxy Sharpe | 0.89 | 0.85 | 0.92 | **0.97** |
+| test_2022 Return | -36.7% | -34.5% | -37.5% | **-28.9%** |
+| test_2022 avg_pos | 0.328 | 0.366 ❌ | 0.315 ✅ | **0.283** ✅ |
+| test_2023_2024 Return | 62.4% | 39.1% | 54.7% | 44.9% |
+| Fixed split gate | PASSED | BLOCKED | PASSED | PASSED |
+
+### curriculum 关键发现
+- **Bear market 防御显著改善**：test_2022 return -28.9% vs v19 -36.7%，avg_pos 0.283（更防御）
+- **Recovery 期表现下降**：test_2023_2024 return 44.9% vs v19 62.4%
+- 呈现清晰的 trade-off：防御性提升 vs recovery 踏空
 
 ---
 
@@ -56,7 +75,7 @@ Macro特征实验已完成并确认放弃。基于最新方向梳理，P0三个�
 - [x] 6. Smoke test: `balanced_core50` 快速训练验证代码正确性 [auto] — 已完成
 - [x] 7. Smoke test: `balanced_trade_lock` 回测验证 [auto] — 已完成
 - [x] 8. 创建 `balanced_curriculum` profile YAML — 已完成
-- [ ] 9. Smoke test: `balanced_curriculum` 快速训练验证
+- [x] 9. Smoke test: `balanced_curriculum` 快速训练验证 — 已完成
 - [ ] 10. Walk-forward: `balanced_trade_lock`
 - [ ] 11. Walk-forward: `balanced_core50`（调参后）
 - [ ] 12. Walk-forward: `balanced_curriculum`
@@ -67,13 +86,15 @@ Macro特征实验已完成并确认放弃。基于最新方向梳理，P0三个�
 - 自动化脚本: `scripts/kimi_auto_experiment.sh`
 - Prompt模板: `.codex/prompts/auto_experiment.md`
 - `balanced_curriculum` profile: `runtime/model/card/balanced_curriculum/profile.yaml`
-- `balanced_curriculum` notes: `runtime/model/card/balanced_curriculum/notes.md`
+- `balanced_curriculum` summary: `runtime/model/card/balanced_curriculum/soxl_balanced_curriculum_summary.json`
 
 ## 决策
 
 - **P0三个方向并行**，不互相等待
-- **优先完成 smoke test 和 walk-forward**
-- 所有实验必须通过walk-forward验证才能考虑promotion
+- **优先完成 walk-forward 验证**
+- `balanced_curriculum` smoke test 结果 promising，优先安排 walk-forward
+- `balanced_trade_lock` fixed split 表现稳定，次优先 walk-forward
+- `balanced_core50` 需要调参优化 avg_pos 后才能 walk-forward
 
 ---
 
