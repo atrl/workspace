@@ -133,7 +133,7 @@ Macro特征实验已完成并确认放弃。基于最新方向梳理，P0三个�
 - [ ] 17. 分析三个方向walk-forward结果，决定下一步 [auto]
 - [x] 18. 创建 `balanced_core50_v2` profile (底仓降至40%) [auto] — 已完成
 - [ ] 19. Smoke test: `balanced_core50_v2` [auto]
-- [ ] 20. 创建 `balanced_rule_residual_v19_reg_v22` profile (P1方向D) [auto]
+- [x] 20. 创建 `balanced_rule_residual_v19_reg_v22` profile (P1方向D) [auto] — 已完成
 - [ ] 21. Smoke test: `balanced_rule_residual_v19_reg_v22` [auto]
 
 ## 证据 / Blockers
