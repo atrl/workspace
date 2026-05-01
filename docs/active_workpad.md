@@ -1,12 +1,12 @@
 ---
 date: '2026-05-01'
-title: 'P0/P1 实验方向并行推进 — 重大突破: trade_lock + v22 通过 fixed split'
+title: 'P0/P1 Walk-forward 全部完成 — 系统性失败诊断'
 kind: experiment
 status: active
 direction: model
 ---
 
-# 当前活跃任务: P0/P1 并行推进 — 两个候选通过 fixed split gate
+# 当前活跃任务: Walk-forward 系统性失败 — 根本性诊断
 
 > 日期: 2026-05-01
 > 来源: `runtime/model/exploration_roadmap_2026-04-29.md`
@@ -78,13 +78,29 @@ direction: model
 | wf_2022 | -29.8% | -1.08 | 32.1% | 0.280 | ❌ return/sharpe |
 | wf_2023_2024 | -10.2% | -0.12 | 33.9% | 0.412 | ❌ all |
 
-### `balanced_core50` (seed=42, 运行中)
+### `balanced_core50` (seed=42, 已完成)
 
 | Window | test_return | test_sharpe | test_max_dd | test_avg_pos | eligible |
 |--------|-------------|-------------|-------------|--------------|----------|
-| wf_2020 | 109.8% | 1.86 | 23.0% | 0.585 | ❌ avg_pos |
-| wf_2022 | -41.6% | -1.28 | 43.9% | 0.360 | ❌ all |
-| wf_2023_2024 | ⏳ 运行中 | | | | |
+| wf_2020 | 115.0% | 2.05 | 20.5% | 0.567 | ❌ avg_pos |
+| wf_2022 | -41.1% | -1.28 | 43.4% | 0.362 | ❌ all |
+| wf_2023_2024 | -14.2% | -0.24 | 32.7% | — | ❌ return |
+
+### `balanced_rule_residual_v19_reg_v22` (seed=42, 已完成)
+
+| Window | test_return | test_sharpe | test_max_dd | test_avg_pos | eligible |
+|--------|-------------|-------------|-------------|--------------|----------|
+| wf_2020 | 97.7% | 1.96 | 19.3% | — | ✅ |
+| wf_2022 | -30.3% | -0.92 | 35.3% | — | ❌ return/sharpe |
+| wf_2023_2024 | -15.3% | -0.21 | 35.4% | — | ❌ return/sharpe |
+
+### `balanced_trade_lock` (seed=123, 已完成)
+
+| Window | test_return | test_sharpe | test_max_dd | test_avg_pos | eligible |
+|--------|-------------|-------------|-------------|--------------|----------|
+| wf_2020 | 96.1% | 1.74 | 25.0% | — | ✅ |
+| wf_2022 | -28.7% | -0.89 | 33.8% | — | ❌ return/sharpe |
+| wf_2023_2024 | -16.0% | -0.29 | 34.5% | — | ❌ return/sharpe |
 
 ---
 
@@ -106,27 +122,38 @@ direction: model
    - 降低底仓 10pp 仅改善 MaxDD 2.5pp，收益却下降 90pp
    - 硬底仓不是解决 MaxDD 的有效手段
 
-4. **Walk-forward 根本性困难仍未解决**
-   - 历史数据显示: fixed split promising → walk-forward 失败的概率极高
-   - trade_lock seed=123 和 v22 的 walk-forward 结果是关键验证
-   - 如果它们也失败，说明问题在 model capacity / validation design，而非具体超参数
+4. **Walk-forward 根本性困难 — 系统性失败确认**
+   - **所有三个方向（core50, trade_lock, v22）的 walk-forward 均失败**
+   - 共同模式: wf_2020 表现优秀 (+96~115%), wf_2022 亏损 (-28~41%), wf_2023_2024 亏损 (-14~16%)
+   - **关键发现**: wf_2022 和 wf_2023_2024 均为负收益，说明模型无法泛化到 2022+ 的市场环境
+   - 这不是超参数问题，而是 **model capacity / validation design / regime adaptation** 的根本性缺陷
+   - fixed split 通过但 walk-forward 失败，说明 fixed split 的 test_2022 并非真正 OOS
+
+5. **Smoke test 种子稳健性验证完成**
+   - 4个额外 smoke test 已完成（存在 model file contention，结果仅供参考）
+   - trade_lock seed=456: return=1012.5% Sharpe=0.98 MaxDD=58.4% → blocked
+   - trade_lock seed=789: return=776.4% Sharpe=0.99 MaxDD=50.6% → blocked
+   - v22 seed=123: return=1099.3% Sharpe=1.00 MaxDD=59.6% → blocked
+   - v22 seed=456: return=795.5% Sharpe=0.96 MaxDD=56.0% → blocked
+   - 观察: 不同 seed 确实产生不同 risk profile，但并发写入同一 model 文件导致结果不可靠
 
 ---
 
 ## Next Action
 
 - [x] 1-15. 历史任务已完成
-- [x] 16. Walk-forward: `balanced_core50` wf_2023_2024 — 运行中 (PID 619365, wf_2020 worker 进行中)
+- [x] 16. Walk-forward: `balanced_core50` wf_2023_2024 — **已完成，wf_2023_2024 return=-14.2% 失败**
 - [x] 17. 分析三个方向walk-forward结果 — 完成
 - [x] 18. 创建 `balanced_core50_v2` profile — 已完成
 - [x] 19. Smoke test: `balanced_core50_v2` — 已完成，avg_pos=0.365 仍失败
 - [x] 20. 创建 `balanced_rule_residual_v19_reg_v22` profile — 已完成
 - [x] 21. Smoke test: `balanced_rule_residual_v19_reg_v22` — **已完成，fixed_split eligible=TRUE!**
 - [x] 22. Smoke test: `balanced_trade_lock` seed=123 — **已完成，fixed_split eligible=TRUE!**
-- [ ] 23. Walk-forward: `balanced_trade_lock` seed=123 — **待启动**
-- [ ] 24. Walk-forward: `balanced_rule_residual_v19_reg_v22` seed=42 — **待启动**
-- [ ] 25. 等待 core50 walk-forward 完成
-- [ ] 26. 如果任一 walk-forward 通过，启动 promotion 流程
+- [x] 23. Walk-forward: `balanced_trade_lock` seed=123 — **已完成，wf_2023_2024 return=-16.0% 失败**
+- [x] 24. Walk-forward: `balanced_rule_residual_v19_reg_v22` seed=42 — **已完成，wf_2023_2024 return=-15.3% 失败**
+- [x] 25. 等待 core50 walk-forward 完成 — **已完成**
+- [x] 26. 等待 4个额外 smoke test 完成 (trade_lock seeds 456/789, v22 seeds 123/456) — **已完成，全部 blocked**
+- [ ] 27. **根本性诊断**: 所有 walk-forward 在 2022+ 均失败，需分析原因并制定下一步策略
 
 ---
 
@@ -141,6 +168,7 @@ direction: model
 
 - **`balanced_core50` / `core50_v2` 方向降级为 P2**，硬底仓不是有效解决方案
 - **`balanced_curriculum` 已归档**，不再投入资源
-- **P0 优先级**: `balanced_trade_lock` seed=123 walk-forward > `balanced_rule_residual_v19_reg_v22` walk-forward
-- **如果两个 walk-forward 均失败**: 需要根本性重构 validation design 或 model capacity
-- **如果任一 walk-forward 通过**: 立即启动 promotion，成为新的 canonical baseline
+- **Walk-forward 系统性失败 — 所有方向在 2022+ 市场环境均失效**
+- **P0 优先级转移**: 从 "超参数/特征搜索" → **"根本性诊断: 为什么所有模型在 2022+ 失败"**
+- **假设**: 2022-2024 市场 regime 与训练期（2010-2021）存在结构性差异，模型缺乏 regime adaptation 能力
+- **下一步**: 分析失败原因（regime shift? overfitting? action space? reward design?），制定针对性修复策略
