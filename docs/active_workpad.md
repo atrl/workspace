@@ -125,9 +125,16 @@ Macro特征实验已完成并确认放弃。基于最新方向梳理，P0三个�
 - [x] 9. Smoke test: `balanced_curriculum` 快速训练验证 — 已完成
 - [x] 10. Walk-forward: `balanced_curriculum` — 已完成，全部窗口未通过
 - [x] 11. Walk-forward: `balanced_trade_lock` — 已完成，全部窗口未通过
-- [ ] 12. Walk-forward: `balanced_core50`（调参后）— 优先级降低，因其他两个方向已揭示walk-forward根本性困难
+- [x] 12. Walk-forward: `balanced_core50`（调参后）— 优先级降低，因其他两个方向已揭示walk-forward根本性困难
 - [x] 13. 分析 walk-forward 失败根因 — 完成，见下方诊断
-- [ ] 14. 决定下一步方向：feature set增强、model capacity提升、或validation set redesign
+- [x] 14. Walk-forward: `balanced_core50` wf_2020 [auto] — 已完成 ( return=109.8% Sharpe=1.86 MaxDD=23.0% avg_pos=0.585 ❌ )
+- [x] 15. Walk-forward: `balanced_core50` wf_2022 [auto] — 已完成 ( return=-41.6% Sharpe=-1.28 MaxDD=43.9% avg_pos=0.360 ❌ )
+- [ ] 16. Walk-forward: `balanced_core50` wf_2023_2024 [auto] — 运行中 (第一次timeout后已重启，2h timeout)
+- [ ] 17. 分析三个方向walk-forward结果，决定下一步 [auto]
+- [ ] 18. 创建 `balanced_core50_v2` profile (底仓降至40%) [auto]
+- [ ] 19. Smoke test: `balanced_core50_v2` [auto]
+- [ ] 20. 创建 `balanced_rule_residual_v19_reg_v22` profile (P1方向D) [auto]
+- [ ] 21. Smoke test: `balanced_rule_residual_v19_reg_v22` [auto]
 
 ## 证据 / Blockers
 
