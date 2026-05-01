@@ -131,7 +131,7 @@ Macro特征实验已完成并确认放弃。基于最新方向梳理，P0三个�
 - [x] 15. Walk-forward: `balanced_core50` wf_2022 [auto] — 已完成 ( return=-41.6% Sharpe=-1.28 MaxDD=43.9% avg_pos=0.360 ❌ )
 - [ ] 16. Walk-forward: `balanced_core50` wf_2023_2024 [auto] — 运行中 (第一次timeout后已重启，2h timeout)
 - [ ] 17. 分析三个方向walk-forward结果，决定下一步 [auto]
-- [ ] 18. 创建 `balanced_core50_v2` profile (底仓降至40%) [auto]
+- [x] 18. 创建 `balanced_core50_v2` profile (底仓降至40%) [auto] — 已完成
 - [ ] 19. Smoke test: `balanced_core50_v2` [auto]
 - [ ] 20. 创建 `balanced_rule_residual_v19_reg_v22` profile (P1方向D) [auto]
 - [ ] 21. Smoke test: `balanced_rule_residual_v19_reg_v22` [auto]

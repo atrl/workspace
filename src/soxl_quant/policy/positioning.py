@@ -227,18 +227,17 @@ def budget_usage_to_position(
     return float(np.clip(floor + clipped_usage * (cap - floor), 0.0, 1.0))
 
 
-def core50_position(
+def _core_position(
     action: int,
     obs: np.ndarray,
+    core_floor: float,
+    core_range: float,
     config: Optional[PositionCapConfig] = None,
     action_levels: Optional[np.ndarray] = None,
     hard_floor: Optional[float] = None,
     mode_band: Optional[Tuple[float, float]] = None,
 ) -> float:
-    """Core50 position mapping: action_level [0,1] -> position [0.50, 0.90].
-
-    Drawdown cap can still force position below 0.50 during crisis.
-    """
+    """Generic core position mapping: action_level [0,1] -> position [core_floor, core_floor+core_range]."""
     levels = action_levels if action_levels is not None else BASE_ACTION_LEVELS
     clipped = int(np.clip(action, 0, len(levels) - 1))
     base = float(levels[clipped])
@@ -248,9 +247,38 @@ def core50_position(
     cap = min(cap, drawdown_position_cap(cumulative_drop, obs=obs, config=config))
     if mode_band is not None and cap < floor:
         cap = floor
-    # Map action level to [0.50, 0.90]; allow drawdown cap to reduce below 0.50
-    target = 0.50 + base * 0.40
+    target = core_floor + base * core_range
     return float(np.clip(target, 0.0, cap))
+
+
+def core50_position(
+    action: int,
+    obs: np.ndarray,
+    config: Optional[PositionCapConfig] = None,
+    action_levels: Optional[np.ndarray] = None,
+    hard_floor: Optional[float] = None,
+    mode_band: Optional[Tuple[float, float]] = None,
+) -> float:
+    """Core50 position mapping: action_level [0,1] -> position [0.50, 0.90]."""
+    return _core_position(
+        action, obs, core_floor=0.50, core_range=0.40,
+        config=config, action_levels=action_levels, hard_floor=hard_floor, mode_band=mode_band,
+    )
+
+
+def core40_position(
+    action: int,
+    obs: np.ndarray,
+    config: Optional[PositionCapConfig] = None,
+    action_levels: Optional[np.ndarray] = None,
+    hard_floor: Optional[float] = None,
+    mode_band: Optional[Tuple[float, float]] = None,
+) -> float:
+    """Core40 position mapping: action_level [0,1] -> position [0.40, 0.90]."""
+    return _core_position(
+        action, obs, core_floor=0.40, core_range=0.50,
+        config=config, action_levels=action_levels, hard_floor=hard_floor, mode_band=mode_band,
+    )
 
 
 def target_position_for_profile(
@@ -279,6 +307,15 @@ def target_position_for_profile(
         )
     elif position_mapping == "core50":
         target = core50_position(
+            action,
+            obs,
+            config=config,
+            action_levels=action_levels,
+            hard_floor=hard_floor,
+            mode_band=mode_band,
+        )
+    elif position_mapping == "core40":
+        target = core40_position(
             action,
             obs,
             config=config,
@@ -321,6 +358,7 @@ __all__ = [
     "hybrid_overlay_position",
     "max_position_for_budget",
     "rule_based_position",
+    "core40_position",
     "core50_position",
     "target_position_for_profile",
 ]

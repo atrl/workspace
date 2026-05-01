@@ -245,6 +245,13 @@ profiles:
   keep_actor: true
   keep_summary: true
   notes_ref: runtime/model/card/balanced_core50/notes.md
+- name: balanced_core50_v2
+  family: balanced
+  status: candidate
+  baseline: balanced_core50
+  keep_actor: true
+  keep_summary: true
+  notes_ref: runtime/model/card/balanced_core50_v2/notes.md
 - name: balanced_trade_lock
   family: balanced
   status: candidate
