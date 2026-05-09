@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-"""增量更新 SOXL/SOXX/VIX 日数据到主 CSV 并刷新 qlib 二进制存储。
+"""增量更新 SOXL/SOXX/VIX 日数据到主 CSV，并同步 raw/qlib 本地数据面。
 
 用法:
     python scripts/update_market_data.py [--dry-run] [--force-full]
+    python scripts/update_market_data.py --local-only
 
 环境依赖:
     yfinance (已包含在 requirements/qlib.txt 中)
@@ -15,6 +16,7 @@ from datetime import datetime, timedelta
 from pathlib import Path
 
 import pandas as pd
+import requests
 import yfinance as yf
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -22,7 +24,31 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from src.soxl_quant.data import refresh_qlib_binary
-from src.soxl_quant.settings import CSV_PATH, QLIB_DATA_PATH
+from src.soxl_quant.settings import CSV_PATH, QLIB_DATA_PATH, RAW_DATA_DIR
+
+RAW_SYMBOL_DIR = RAW_DATA_DIR / "symbols"
+RAW_EXTERNAL_DIR = RAW_DATA_DIR / "external"
+DNS_ERROR_SNIPPETS = (
+    "could not resolve host",
+    "failed to resolve",
+    "name or service not known",
+    "nodename nor servname provided",
+)
+
+
+def _is_dns_failure(exc: Exception) -> bool:
+    message = str(exc).lower()
+    return any(snippet in message for snippet in DNS_ERROR_SNIPPETS)
+
+
+def _raise_fetch_error(ticker: str, exc: Exception) -> None:
+    if _is_dns_failure(exc):
+        raise RuntimeError(
+            f"Failed to fetch {ticker}: DNS/network unavailable in current environment. "
+            "Re-run in a network-enabled environment or use --local-only to sync raw/qlib "
+            "from the existing canonical panel."
+        ) from exc
+    raise RuntimeError(f"Failed to fetch {ticker}: {exc}") from exc
 
 
 def _fetch_yfinance(ticker: str, start: str | None = None, retries: int = 5) -> pd.DataFrame:
@@ -54,6 +80,8 @@ def _fetch_yfinance(ticker: str, start: str | None = None, retries: int = 5) -> 
                 df["close"] = df["adj_close"]
             return df[["date", "open", "high", "low", "close", "volume"]].copy()
         except Exception as exc:
+            if _is_dns_failure(exc):
+                _raise_fetch_error(ticker, exc)
             last_exc = exc
             if attempt < retries:
                 # Exponential backoff with jitter: 10s, 20s, 40s, 80s, 160s
@@ -63,6 +91,51 @@ def _fetch_yfinance(ticker: str, start: str | None = None, retries: int = 5) -> 
     raise RuntimeError(f"Failed to fetch {ticker} from yfinance after {retries} attempts: {last_exc}")
 
 
+def _fetch_yahoo_api(ticker: str, start: str | None = None) -> pd.DataFrame:
+    """Fetch daily OHLCV from Yahoo Finance v8 API."""
+    fetch_start = start or "2000-01-01"
+    end = (datetime.now() + timedelta(days=1)).strftime("%Y-%m-%d")
+    start_ts = int(pd.Timestamp(fetch_start).timestamp())
+    end_ts = int(pd.Timestamp(end).timestamp())
+    url = (
+        f"https://query1.finance.yahoo.com/v8/finance/chart/{ticker}"
+        f"?interval=1d&period1={start_ts}&period2={end_ts}"
+    )
+    try:
+        response = requests.get(
+            url,
+            timeout=60,
+            headers={
+                "User-Agent": (
+                    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+                    "AppleWebKit/537.36 (KHTML, like Gecko) "
+                    "Chrome/120.0.0.0 Safari/537.36"
+                )
+            },
+        )
+        response.raise_for_status()
+        data = response.json()
+        result = data["chart"]["result"][0]
+        timestamps = result["timestamp"]
+        quote = result["indicators"]["quote"][0]
+    except Exception as exc:
+        _raise_fetch_error(ticker, exc)
+
+    frame = pd.DataFrame(
+        {
+            "date": [pd.Timestamp(ts, unit="s") for ts in timestamps],
+            "open": quote["open"],
+            "high": quote["high"],
+            "low": quote["low"],
+            "close": quote["close"],
+            "volume": quote["volume"],
+        }
+    )
+    if frame.empty:
+        raise RuntimeError(f"No data returned for {ticker} from Yahoo Finance API")
+    return frame
+
+
 def _load_master_csv(path: Path) -> pd.DataFrame:
     if not path.exists():
         raise FileNotFoundError(f"Master CSV not found: {path}")
@@ -70,10 +143,70 @@ def _load_master_csv(path: Path) -> pd.DataFrame:
     return df.sort_values("date").reset_index(drop=True)
 
 
+def _normalize_symbol_view(master: pd.DataFrame, prefix: str) -> pd.DataFrame:
+    frame = master[
+        [
+            "date",
+            f"{prefix}_open",
+            f"{prefix}_high",
+            f"{prefix}_low",
+            f"{prefix}_close",
+            f"{prefix}_volume",
+        ]
+    ].copy()
+    frame = frame.rename(
+        columns={
+            f"{prefix}_open": "open",
+            f"{prefix}_high": "high",
+            f"{prefix}_low": "low",
+            f"{prefix}_close": "close",
+            f"{prefix}_volume": "volume",
+        }
+    )
+    frame["date"] = pd.to_datetime(frame["date"]).dt.strftime("%Y-%m-%d")
+    return frame
+
+
+def build_local_surface_frames(master: pd.DataFrame) -> dict[str, pd.DataFrame]:
+    """Derive raw/external mirror CSVs from the canonical processed panel."""
+    return {
+        "data/raw/symbols/SOXL.csv": _normalize_symbol_view(master, "soxl"),
+        "data/raw/symbols/SOXX.csv": _normalize_symbol_view(master, "soxx"),
+        "data/raw/external/VIX.csv": pd.DataFrame(
+            {
+                "DATE": pd.to_datetime(master["date"]).dt.strftime("%Y-%m-%d"),
+                "CLOSE": master["vix"].astype(float),
+            }
+        ),
+    }
+
+
+def sync_local_data_surfaces(
+    csv_path: Path = CSV_PATH,
+    dry_run: bool = False,
+) -> dict[str, object]:
+    master = _load_master_csv(csv_path)
+    frames = build_local_surface_frames(master)
+    for relative_path, frame in frames.items():
+        target = ROOT / relative_path
+        print(f"[sync] {relative_path} rows={len(frame)} last={frame.iloc[-1, 0]}")
+        if dry_run:
+            continue
+        target.parent.mkdir(parents=True, exist_ok=True)
+        frame.to_csv(target, index=False)
+    return {
+        "targets": sorted(frames),
+        "rows": len(master),
+        "last_date": master["date"].max().strftime("%Y-%m-%d"),
+        "dry_run": dry_run,
+    }
+
+
 def update_master_csv(
     csv_path: Path = CSV_PATH,
     dry_run: bool = False,
     force_full: bool = False,
+    provider: str = "yfinance",
 ) -> dict:
     """增量更新主 CSV。
 
@@ -91,11 +224,16 @@ def update_master_csv(
         start_dt = last_date - timedelta(days=10)
         start = start_dt.strftime("%Y-%m-%d")
 
-    print(f"[update] last_date={last_date.date()} fetch_start={start or 'max'}")
+    print(f"[update] last_date={last_date.date()} fetch_start={start or 'max'} provider={provider}")
 
-    soxl = _fetch_yfinance("SOXL", start=start)
-    soxx = _fetch_yfinance("SOXX", start=start)
-    vix = _fetch_yfinance("^VIX", start=start).drop(columns=["open", "high", "low", "volume"]).rename(
+    fetcher = {
+        "yfinance": _fetch_yfinance,
+        "yahoo_api": _fetch_yahoo_api,
+    }[provider]
+
+    soxl = fetcher("SOXL", start=start)
+    soxx = fetcher("SOXX", start=start)
+    vix = fetcher("^VIX", start=start).drop(columns=["open", "high", "low", "volume"]).rename(
         columns={"close": "vix"}
     )
 
@@ -177,15 +315,55 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--dry-run", action="store_true", help="Do not write files")
     parser.add_argument("--force-full", action="store_true", help="Force full re-download (slow)")
     parser.add_argument("--skip-qlib", action="store_true", help="Skip qlib binary refresh")
+    parser.add_argument(
+        "--provider",
+        default="yfinance",
+        choices=["yfinance", "yahoo_api"],
+        help="Remote market data provider when fetching new rows",
+    )
+    parser.add_argument(
+        "--local-only",
+        action="store_true",
+        help="Skip remote fetch and only sync raw/qlib surfaces from the existing canonical panel",
+    )
     return parser.parse_args()
 
 
-def main() -> dict:
+def main(argv: list[str] | None = None) -> dict:
+    if argv is not None:
+        original_argv = sys.argv[:]
+        sys.argv = [sys.argv[0], *argv]
+    else:
+        original_argv = None
     args = parse_args()
-    result = update_master_csv(dry_run=args.dry_run, force_full=args.force_full)
-    if not args.skip_qlib:
-        refresh_qlib(dry_run=args.dry_run)
-    return result
+    try:
+        if args.local_only:
+            state = _load_master_csv(CSV_PATH)
+            result = {
+                "before_rows": len(state),
+                "after_rows": len(state),
+                "new_rows": 0,
+                "last_date": state["date"].max().strftime("%Y-%m-%d"),
+                "dry_run": args.dry_run,
+                "mode": "local-only",
+            }
+            print(
+                f"[update] local-only rows={result['after_rows']} "
+                f"last_date={result['last_date']}"
+            )
+        else:
+            result = update_master_csv(
+                dry_run=args.dry_run,
+                force_full=args.force_full,
+                provider=args.provider,
+            )
+        sync_local_data_surfaces(dry_run=args.dry_run)
+        if not args.skip_qlib:
+            refresh_qlib(dry_run=args.dry_run)
+        return result
+    finally:
+        if original_argv is not None:
+            sys.argv = original_argv
 
 
 if __name__ == "__main__":

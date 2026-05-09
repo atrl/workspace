@@ -1,6 +1,6 @@
 # DATA Knowledge
 
-> 最后更新: 2026-04-24
+> 最后更新: 2026-05-09
 > 该方向负责数据管道、qlib store、外部数据接入和数据质量监控。
 
 ## 数据配置索引
@@ -11,10 +11,39 @@
 
 ## 核心结论
 
-1. **SOXL 数据覆盖**: 2010-01-01 至 2025-12-31，包含 OHLCV + VIX。
+1. **SOXL canonical 数据覆盖**: `2010-03-11` 至 `2026-04-27`，包含 OHLCV + VIX。
 2. **外部数据**: VIX3M, VIX9D, SKEW, VVIX 已接入（qlib store）。
 3. **Feature 稳定性**: 50 core features + 14 rulebase + 7 academic + 7 transition。
 4. **VIX-free 替代**: regime_risk_no_vix 在 VIX 缺失时可用。
+
+## Canonical Panel Sync（2026-05-09）
+
+### 问题
+
+仓库内已经存在最新的 canonical panel `data/processed/panels/soxl_soxx_vix_full.csv`，但下游 `raw/` 面和部分历史认知还停留在更旧的 `2026-04-01` 状态，容易让后续 agent 误判为“数据没更新”。
+
+### 这次修复
+
+- `scripts/update_market_data.py` 新增 `--local-only`
+- canonical panel 现在会同步镜像到：
+  - `data/raw/symbols/SOXL.csv`
+  - `data/raw/symbols/SOXX.csv`
+  - `data/raw/external/VIX.csv`
+- `scripts/update_data_yahoo_api.py` 收口为 canonical updater 的兼容入口，避免两套刷新逻辑漂移
+
+### 当前环境限制
+
+本自动化运行环境对 Yahoo 端点存在 **DNS / 网络不可达** 问题。这里的 live refresh 失败根因不是 `yfinance` 速率限制，而是当前 run 无法解析外部域名。
+
+### 操作指引
+
+- 在**无网络**自动化环境里，用：
+  - `PYTHONPATH=. qlib_venv/bin/python scripts/update_market_data.py --local-only`
+- 在**可联网**环境里，再用：
+  - `PYTHONPATH=. qlib_venv/bin/python scripts/update_market_data.py`
+  - 或 `PYTHONPATH=. qlib_venv/bin/python scripts/update_data_yahoo_api.py`
+- 完成后始终刷新 registry：
+  - `PYTHONPATH=. qlib_venv/bin/python scripts/update_data_registry.py`
 
 ## 50 Core Features 主题分类
 

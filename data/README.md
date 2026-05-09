@@ -14,9 +14,9 @@
 
 ## Refresh Rule
 
-1. Refresh raw CSVs or external inputs.
-2. Rebuild processed panels.
-3. Rebuild qlib stores and training caches.
+1. In a network-enabled environment, refresh the canonical SOXL panel with `PYTHONPATH=. qlib_venv/bin/python scripts/update_market_data.py`.
+2. In a sandboxed or no-network environment, sync local downstream surfaces from the existing canonical panel with `PYTHONPATH=. qlib_venv/bin/python scripts/update_market_data.py --local-only`.
+3. Rebuild qlib stores and any training caches that depend on the updated panel.
 4. Run `PYTHONPATH=. qlib_venv/bin/python scripts/update_data_registry.py`.
 5. Validate with `PYTHONPATH=. qlib_venv/bin/python scripts/update_data_registry.py --check`.
 

@@ -1,12 +1,96 @@
 ---
-date: '2026-04-28'
-title: 'Macro Feature Pack Evaluation — balanced_macro_v1 vs balanced (same seed)'
-kind: experiment
+date: '2026-05-09'
+title: 'Data Surface Sync + Bottleneck Reset'
+kind: workpad
 status: active
-direction: model
+direction: data
 ---
 
-# Macro Feature Pack Evaluation
+# Data Surface Sync + Bottleneck Reset
+
+## Goal
+
+1. Refresh the repo-owned local data surfaces from the canonical SOXL/SOXX/VIX panel.
+2. Re-ground the next optimization loop on the current frontier instead of the stale macro branch.
+
+## Scope
+
+This pass is a `data` / `harness` / `execution` diagnosis loop, not a new training run.
+
+## Baselines And Role
+
+- Canonical baseline: `balanced_rule_residual_v19`
+- Direct comparison baseline: `risk_budget_usage_v1`
+- Role: `diagnose`
+- Target window: local canonical panel through `2026-04-27`
+- Accepted trade-off: no live internet refresh inside the current sandboxed automation environment
+- Changed layer: `data`
+- External reference: Yahoo Finance transport path (`yfinance` vs direct chart API) as the current update-source boundary
+- Comparison-table row key: `data_surface_sync_2026_05_09`
+
+## Closest Historical Cases
+
+1. Closest success case: dashboard freshness fix that extended `TEST_SEG` and re-pointed consumers to `data/processed/panels/soxl_soxx_vix_full.csv`
+2. Closest failure case: the stale raw-data path that kept `data/raw/symbols/SOXL.csv` at `2026-04-01` while the canonical panel already reached `2026-04-27`
+3. Why this loop is not a duplicate:
+   It does not introduce a new feature/model mechanism. It closes the harness gap between canonical processed data and downstream raw/qlib consumers, and it documents the real blocker for live refresh in this automation environment.
+
+## Evidence
+
+### Commands
+
+```bash
+PYTHONPATH=. qlib_venv/bin/python scripts/update_market_data.py --local-only
+PYTHONPATH=. qlib_venv/bin/python scripts/update_data_registry.py
+```
+
+### Observed State Before Sync
+
+- `data/raw/symbols/SOXL.csv` ended at `2026-04-01`
+- `data/processed/panels/soxl_soxx_vix_full.csv` already ended at `2026-04-27`
+- `data/qlib/soxl/calendars/day.txt` already ended at `2026-04-27`
+
+### Observed State After Sync
+
+- `data/raw/symbols/SOXL.csv` synced to `2026-04-27`
+- `data/raw/symbols/SOXX.csv` created/synced to `2026-04-27`
+- `data/raw/external/VIX.csv` created/synced to `2026-04-27`
+- `data/qlib/soxl/` rebuilt from the canonical panel
+- `data/datasets.yaml` regenerated successfully
+
+### Live Refresh Blocker
+
+Both `requests` and `yfinance` failed with DNS resolution errors against Yahoo endpoints in this automation environment. The blocker here is not rate limiting; it is lack of outbound name resolution / network access from the current run.
+
+## Bottleneck Reset
+
+Current project bottleneck is **not**:
+
+- another macro feature injection
+- another looser mode envelope
+- another more-conservative risk-budget ablation
+- another “maybe training not enough” guess
+
+Current project bottleneck **is**:
+
+- **re-entry / recovery timing after de-risking**
+
+Evidence trail:
+
+- `risk_budget_usage_v1` has excellent 2022 defense but still recovers too slowly versus SOXL buy-and-hold
+- `balanced_rule_residual_v19` / `v22` remain defensively acceptable but also lag 2023-2024 upside
+- `balanced_macro_v1` improved recovery but worsened bear-market exposure, so it does not solve the real trade-off
+- `runtime/execution/knowledge.md` already has `显式 release/re-entry overlay` as the next valid execution line
+
+## Next Action
+
+1. Keep local data sync on the canonical panel path; do not treat stale `raw/` dates as the primary blocker anymore.
+2. Open the next narrow optimization loop around **release/re-entry overlay / faster recovery timing**, using `balanced_rule_residual_v19` and `risk_budget_usage_v1` as comparison anchors.
+3. Avoid more macro-input or more-conservative budget branches unless they introduce a genuinely new recovery mechanism with external justification.
+
+---
+
+## Archived Snapshot: 2026-04-28 Macro Evaluation
 
 ## 背景
 

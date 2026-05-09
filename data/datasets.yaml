@@ -5,6 +5,12 @@ external:
     path: data/raw/external/SKEW.csv
     rows: 9124
     start: null
+  VIX:
+    end: null
+    exists: true
+    path: data/raw/external/VIX.csv
+    rows: 4057
+    start: null
   VIX3M:
     end: null
     exists: true
@@ -29,7 +35,55 @@ external:
     path: data/raw/external/VVIX.csv
     rows: 5001
     start: null
-generated_at: '2026-04-24T04:03:31.623228+00:00'
+  baa_yield:
+    end: null
+    exists: true
+    path: data/raw/external/baa_yield.csv
+    rows: 1287
+    start: null
+  credit_spread_baa:
+    end: null
+    exists: true
+    path: data/raw/external/credit_spread_baa.csv
+    rows: 491
+    start: null
+  credit_spread_hy:
+    end: null
+    exists: true
+    path: data/raw/external/credit_spread_hy.csv
+    rows: 793
+    start: null
+  dxy_broad:
+    end: null
+    exists: true
+    path: data/raw/external/dxy_broad.csv
+    rows: 5092
+    start: null
+  oil_wti:
+    end: null
+    exists: true
+    path: data/raw/external/oil_wti.csv
+    rows: 10143
+    start: null
+  treasury_10y:
+    end: null
+    exists: true
+    path: data/raw/external/treasury_10y.csv
+    rows: 16063
+    start: null
+  yield_curve_10y2y:
+    end: null
+    exists: true
+    path: data/raw/external/yield_curve_10y2y.csv
+    rows: 12472
+    start: null
+  yield_curve_10y3m:
+    end: null
+    exists: true
+    path: data/raw/external/yield_curve_10y3m.csv
+    rows: 11081
+    start: null
+generated_at: '2026-05-09T02:13:41.728447+00:00'
 layout:
   processed_panels: data/processed/panels/<asset>_with_underlying_vix.csv
   qlib: data/qlib/<asset>/
@@ -38,10 +92,10 @@ layout:
   training_cache: data/cache/training/<profile>.pkl
 processed_panels:
   soxl_soxx_vix_full:
-    end: '2026-04-02'
+    end: '2026-04-27'
     exists: true
     path: data/processed/panels/soxl_soxx_vix_full.csv
-    rows: 4041
+    rows: 4057
     start: '2010-03-11'
   soxl_with_underlying_vix:
     end: '2026-04-13'
@@ -130,11 +184,17 @@ qlib:
     path: data/qlib/upro
 symbols:
   SOXL:
-    end: '2026-04-01'
+    end: '2026-04-27'
     exists: true
     path: data/raw/symbols/SOXL.csv
-    rows: 1570
-    start: '2020-01-02'
+    rows: 4057
+    start: '2010-03-11'
+  SOXX:
+    end: '2026-04-27'
+    exists: true
+    path: data/raw/symbols/SOXX.csv
+    rows: 4057
+    start: '2010-03-11'
   SPXL:
     end: '2026-04-15'
     exists: true
