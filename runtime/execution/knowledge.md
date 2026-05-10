@@ -1,6 +1,6 @@
 # EXECUTION Knowledge
 
-> 最后更新: 2026-04-24
+> 最后更新: 2026-05-10
 > 该方向负责执行层策略：仓位管理、交易频率控制、mode routing 和 overlay。
 
 ## 执行策略索引
@@ -34,9 +34,12 @@
 3. **Trade lock（3-day cooldown）有效**。
 4. **Regime-conditional overlay 有方向性**。
 5. **Generic overlay retuning 是重复工作**。
+6. **Generic `fast_reentry` 不是答案**：它能改善恢复期收益，但在 proxy Sharpe / MaxDD 上被 `dwell_hold_v2` 压制。
+7. **当前瓶颈是低换手的 selective release / re-entry classification**：`regime_route_v1` 证明更聪明的放行有价值，但 churn 明显升高。
 
 ## 待验证方向
 
-- [ ] 显式 release/re-entry overlay
+- [ ] 显式 selective release/re-entry overlay（优先 `dwell_hold_v2` / `regime_route_v1` 风格，不再泛化搜索 `fast_reentry`）
 - [ ] 动态 decision frequency
 - [ ] 仓位上限与 VIX term structure 联动
+- [ ] budget-usage actor/runtime mismatch 诊断

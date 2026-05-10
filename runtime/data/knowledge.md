@@ -35,6 +35,12 @@
 
 本自动化运行环境对 Yahoo 端点存在 **DNS / 网络不可达** 问题。这里的 live refresh 失败根因不是 `yfinance` 速率限制，而是当前 run 无法解析外部域名。
 
+### 2026-05-10 Revalidation
+
+- `data/processed/panels/soxl_soxx_vix_full.csv`、`data/raw/symbols/SOXL.csv`、`data/raw/symbols/SOXX.csv`、`data/raw/external/VIX.csv`、`data/qlib/soxl/calendars/day.txt` 仍然全部对齐到 `2026-04-27`
+- 直接请求 `https://query1.finance.yahoo.com/v8/finance/chart/SOXL` 仍然报 `NameResolutionError`
+- 结论：当前 automation 环境下“数据更新”已收敛为环境问题，不是仓库内部数据面不一致
+
 ### 操作指引
 
 - 在**无网络**自动化环境里，用：

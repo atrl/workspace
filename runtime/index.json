@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-09T02:12:54.316899+00:00",
+  "generated_at": "2026-05-10T02:06:59.166762+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -17,7 +17,7 @@
       "path": "runtime/data/knowledge.md",
       "category": "data",
       "suffix": ".md",
-      "bytes": 3518
+      "bytes": 3983
     },
     {
       "path": "runtime/data/leakage_validation_report.json",
@@ -107,7 +107,7 @@
       "path": "runtime/execution/knowledge.md",
       "category": "execution",
       "suffix": ".md",
-      "bytes": 3393
+      "bytes": 3841
     },
     {
       "path": "runtime/execution/position_cap_overlay_variants.json",

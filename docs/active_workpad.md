@@ -1,5 +1,5 @@
 ---
-date: '2026-05-09'
+date: '2026-05-10'
 title: 'Data Surface Sync + Bottleneck Reset'
 kind: workpad
 status: active
@@ -62,6 +62,48 @@ PYTHONPATH=. qlib_venv/bin/python scripts/update_data_registry.py
 
 Both `requests` and `yfinance` failed with DNS resolution errors against Yahoo endpoints in this automation environment. The blocker here is not rate limiting; it is lack of outbound name resolution / network access from the current run.
 
+## 2026-05-10 Recheck
+
+### Commands
+
+```bash
+PYTHONPATH=. qlib_venv/bin/python - <<'PY'
+import pandas as pd
+from pathlib import Path
+paths = {
+    "panel": Path("data/processed/panels/soxl_soxx_vix_full.csv"),
+    "raw_soxl": Path("data/raw/symbols/SOXL.csv"),
+    "raw_soxx": Path("data/raw/symbols/SOXX.csv"),
+    "raw_vix": Path("data/raw/external/VIX.csv"),
+}
+for name, path in paths.items():
+    df = pd.read_csv(path)
+    date_col = "date" if "date" in df.columns else df.columns[0]
+    print(name, len(df), df[date_col].iloc[-1])
+cal = Path("data/qlib/soxl/calendars/day.txt")
+lines = [line.strip() for line in cal.read_text().splitlines() if line.strip()]
+print("qlib_calendar", len(lines), lines[-1])
+PY
+
+PYTHONPATH=. qlib_venv/bin/python - <<'PY'
+import requests
+try:
+    requests.get(
+        "https://query1.finance.yahoo.com/v8/finance/chart/SOXL?interval=1d&period1=0&period2=1",
+        timeout=20,
+    ).raise_for_status()
+    print("unexpected_success")
+except Exception as exc:
+    print(type(exc).__name__, str(exc))
+PY
+```
+
+### Observed State
+
+- Canonical panel, `raw/` mirrors, and qlib calendar all still end at `2026-04-27`.
+- Live refresh remains blocked on `query1.finance.yahoo.com` name resolution.
+- There is no newer local data to unlock inside this sandboxed automation run.
+
 ## Bottleneck Reset
 
 Current project bottleneck is **not**:
@@ -73,7 +115,8 @@ Current project bottleneck is **not**:
 
 Current project bottleneck **is**:
 
-- **re-entry / recovery timing after de-risking**
+- **selective re-entry / recovery timing after de-risking under low-churn constraints**
+- **execution/runtime mapping quality, not generic threshold loosening**
 
 Evidence trail:
 
@@ -81,12 +124,15 @@ Evidence trail:
 - `balanced_rule_residual_v19` / `v22` remain defensively acceptable but also lag 2023-2024 upside
 - `balanced_macro_v1` improved recovery but worsened bear-market exposure, so it does not solve the real trade-off
 - `runtime/execution/knowledge.md` already has `显式 release/re-entry overlay` as the next valid execution line
+- `runtime/model/card/balanced_rule_residual_v19/v19_overlay_promotion_review.md` shows `fast_reentry` improves `2023-2024` return over `base` (`59.3%` vs `46.1%`) but still trails `dwell_hold_v2` on proxy Sharpe / drawdown (`0.949 / 51.06%` vs `1.064 / 44.42%`)
+- `runtime/model/card/balanced_rule_residual_v19/v19_dwell_stress_merge_review.md` shows `regime_route_v1` further improves recovery (`61.8%`) and 2022 drawdown (`32.61%`) but at much higher churn (`464` trades vs `121` for `dwell_hold_v2`)
+- `runtime/model/card/risk_budget_usage_v1/risk_budget_usage_v1_full_review.md` shows the composed counterfactual is strong, while the native PPO actor is much more conservative, so part of the bottleneck is training/runtime mismatch rather than missing macro context
 
 ## Next Action
 
-1. Keep local data sync on the canonical panel path; do not treat stale `raw/` dates as the primary blocker anymore.
-2. Open the next narrow optimization loop around **release/re-entry overlay / faster recovery timing**, using `balanced_rule_residual_v19` and `risk_budget_usage_v1` as comparison anchors.
-3. Avoid more macro-input or more-conservative budget branches unless they introduce a genuinely new recovery mechanism with external justification.
+1. Keep local data sync on the canonical panel path; do not treat data freshness as the primary blocker until a network-enabled run can extend the canonical panel beyond `2026-04-27`.
+2. Open the next narrow optimization loop around **selective release/re-entry classification**, starting from the retained low-churn overlay evidence (`dwell_hold_v2`) or route-based evidence (`regime_route_v1`) instead of generic `fast_reentry`.
+3. Treat retraining as a second-stage step only if a fixed-actor selective re-entry counterfactual shows the direction is valid but current actors still cannot express it.
 
 ---
 
