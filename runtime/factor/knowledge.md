@@ -286,3 +286,34 @@ was added to the `transition_signals` pack and evaluated as an event-style intra
 The wick/rejection pattern is not enough by itself for SOXL daily timing. The factor
 is orthogonal enough to be a building block, but it should not be promoted or retested
 without a clear regime gate such as stress-release, VIX divergence, or post-crash compression.
+
+<!-- 2026-05-10: release-signals RL pack ablation -->
+
+# 2026-05-10: RELEASE_SIGNALS_V1 RL Injection Ablation
+
+## Question
+
+If the retained release-style factors are injected together into PPO state,
+does the actor learn a cleaner recovery classifier?
+
+## Answer: It learns recovery upside, but not selectivity
+
+`release_signals_v1 = RB_COOLDOWN_PROXY + TRANS_VIX_DIVERGENCE + CICC_RETURN_VOLUME_SYNC`
+was added as a narrow built-in pack and retrained on top of `balanced_rule_residual_v22`
+as `balanced_rule_residual_v22_release_v1`.
+
+Corrected replay under the current harness showed:
+
+| Window | `v22` | `v22_release_v1` | Verdict |
+|--------|-------|------------------|---------|
+| `test_proxy` | `1099.1% / 0.976 / 53.21% / 0.498` | `1350.3% / 1.010 / 53.26% / 0.520` | Upside improves |
+| `test_2022` | `-41.8% / -1.335 / 43.63% / 0.241` | `-46.3% / -1.480 / 48.45% / 0.252` | Defense worsens |
+| `test_2023_2024` | `180.2% / 1.336 / 31.91% / 0.486` | `234.3% / 1.479 / 32.80% / 0.509` | Recovery improves |
+
+## Lesson
+
+- The retained release factors are real enough to move policy behavior.
+- Direct RL injection makes them act like **ungated bullish pressure**, not a conditional release rule.
+- The next valid line is **gated use**:
+  fixed-actor overlay, low-churn route, or explicit release classifier.
+- Do not widen this into a larger release pack or assume more training epochs will fix it.

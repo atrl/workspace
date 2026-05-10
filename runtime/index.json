@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-10T02:06:59.166762+00:00",
+  "generated_at": "2026-05-10T07:59:14.697881+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -473,7 +473,7 @@
       "path": "runtime/factor/knowledge.md",
       "category": "factor",
       "suffix": ".md",
-      "bytes": 14713
+      "bytes": 16119
     },
     {
       "path": "runtime/factor/signed_te_reversion_ic.csv",
@@ -521,7 +521,7 @@
       "path": "runtime/harness/knowledge.md",
       "category": "harness",
       "suffix": ".md",
-      "bytes": 4189
+      "bytes": 5443
     },
     {
       "path": "runtime/harness/optimization_notes.md",
@@ -1578,6 +1578,24 @@
       "category": "model",
       "suffix": ".json",
       "bytes": 4719
+    },
+    {
+      "path": "runtime/model/card/balanced_rule_residual_v22_release_v1/notes.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 3295
+    },
+    {
+      "path": "runtime/model/card/balanced_rule_residual_v22_release_v1/soxl_balanced_rule_residual_v22_release_v1_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 6110
+    },
+    {
+      "path": "runtime/model/card/balanced_rule_residual_v22_release_v1/v22_release_v1_backtest_review.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 2480
     },
     {
       "path": "runtime/model/card/balanced_rule_residual_v22_wf_2020/soxl_balanced_rule_residual_v22_wf_2020_summary.json",

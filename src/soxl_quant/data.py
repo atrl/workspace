@@ -454,6 +454,22 @@ def _builtin_cicc_price_volume_pack(context: dict[str, Any]) -> dict[str, pd.Ser
     }
 
 
+def _builtin_release_signals_v1_pack(context: dict[str, Any]) -> dict[str, pd.Series]:
+    """Low-churn release / re-entry factor pack.
+
+    Curates the strongest retained restart signals into a narrow pack instead
+    of reopening the full transition / macro feature search space.
+    """
+    rulebase = _builtin_rulebase_signals_pack(context)
+    transition = _builtin_transition_signals_pack(context)
+    cicc = _builtin_cicc_price_volume_pack(context)
+    return {
+        "RB_COOLDOWN_PROXY": rulebase["RB_COOLDOWN_PROXY"],
+        "TRANS_VIX_DIVERGENCE": transition["TRANS_VIX_DIVERGENCE"],
+        "CICC_RETURN_VOLUME_SYNC": cicc["CICC_RETURN_VOLUME_SYNC"],
+    }
+
+
 def _builtin_macro_signals_pack(context: dict[str, Any]) -> dict[str, pd.Series]:
     """Macro leading-indicator features from FRED for regime prediction.
 
@@ -583,6 +599,14 @@ BUILTIN_FEATURE_PACKS: dict[str, dict[str, Any]] = {
             "CICC_VOLUME_SHOCK_STD",
         ),
         "builder": _builtin_cicc_price_volume_pack,
+    },
+    "release_signals_v1": {
+        "columns": (
+            "RB_COOLDOWN_PROXY",
+            "TRANS_VIX_DIVERGENCE",
+            "CICC_RETURN_VOLUME_SYNC",
+        ),
+        "builder": _builtin_release_signals_v1_pack,
     },
     "macro_signals": {
         "columns": (

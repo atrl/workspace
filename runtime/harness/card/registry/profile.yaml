@@ -410,6 +410,13 @@ profiles:
   notes_ref: runtime/model/cards/balanced_rule_residual_v19/v19_walk_forward_review.md
   wf_status: completed
   wf_notes: proxy Sharpe 0.86, passes gate. test_2022 Sharpe -0.76, return -21.0%, MaxDD 30.1% — vs SOXL B&H -86.6%, outperforms by +65.6pp. Bear-market defense successful. Fixed-split gate passed.
+- name: balanced_rule_residual_v22_release_v1
+  family: balanced
+  status: ablation
+  baseline: balanced_rule_residual_v22
+  keep_actor: false
+  keep_summary: true
+  notes_ref: runtime/model/card/balanced_rule_residual_v22_release_v1/notes.md
 - name: balanced_rule_residual_imitation_v1
   family: balanced
   status: candidate
@@ -533,4 +540,3 @@ profiles:
   notes_ref: codex_exec_plans/completed/2026-04-25-v19-reg-light.md
   wf_status: blocked
   wf_notes: Walk-forward blocked. wf_2022 -21.9% (vs v19 -25.2%), wf_2023_2024 -24.3% (vs v19 -18.7%). Lower regularization did not recover 2023_2024 performance.
-

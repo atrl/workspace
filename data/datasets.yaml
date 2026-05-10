@@ -83,7 +83,7 @@ external:
     path: data/raw/external/yield_curve_10y3m.csv
     rows: 11081
     start: null
-generated_at: '2026-05-09T02:13:41.728447+00:00'
+generated_at: '2026-05-10T07:12:44.889387+00:00'
 layout:
   processed_panels: data/processed/panels/<asset>_with_underlying_vix.csv
   qlib: data/qlib/<asset>/

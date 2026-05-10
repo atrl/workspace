@@ -1,39 +1,45 @@
 ---
 date: '2026-05-10'
-title: 'Data Surface Sync + Bottleneck Reset'
+title: 'Data Refresh + Release-Pack Optimization Loop'
 kind: workpad
 status: active
-direction: data
+direction: factor
 ---
 
-# Data Surface Sync + Bottleneck Reset
+# Data Refresh + Release-Pack Optimization Loop
 
 ## Goal
 
 1. Refresh the repo-owned local data surfaces from the canonical SOXL/SOXX/VIX panel.
-2. Re-ground the next optimization loop on the current frontier instead of the stale macro branch.
+2. Run one narrow release/re-entry feature training loop on the retained residual frontier.
 
 ## Scope
 
-This pass is a `data` / `harness` / `execution` diagnosis loop, not a new training run.
+This pass is a `data` revalidation plus one `factor` / `model_selection` ablation loop.
+It is not a broad mode retune, reward retune, or macro-feature retry.
 
 ## Baselines And Role
 
 - Canonical baseline: `balanced_rule_residual_v19`
-- Direct comparison baseline: `risk_budget_usage_v1`
-- Role: `diagnose`
-- Target window: local canonical panel through `2026-04-27`
-- Accepted trade-off: no live internet refresh inside the current sandboxed automation environment
-- Changed layer: `data`
-- External reference: Yahoo Finance transport path (`yfinance` vs direct chart API) as the current update-source boundary
-- Comparison-table row key: `data_surface_sync_2026_05_09`
+- Direct comparison baseline: `balanced_rule_residual_v22`
+- Role: `ablate`
+- Target window: fixed-split `test_2022` / `test_2023_2024`, with `test_proxy` as the secondary check
+- Accepted trade-off: allow modest `test_2020` giveback if recovery improves without breaking `test_2022` avg_pos / MaxDD gates
+- Changed layer: `feature`
+- External reference:
+  - rulebase restart timing proxy `RB_COOLDOWN_PROXY`
+  - transition release signal `TRANS_VIX_DIVERGENCE`
+  - CICC low-frequency price-volume factor `CICC_RETURN_VOLUME_SYNC`
+- Comparison-table row key: `balanced_rule_residual_v22_release_v1`
 
 ## Closest Historical Cases
 
-1. Closest success case: dashboard freshness fix that extended `TEST_SEG` and re-pointed consumers to `data/processed/panels/soxl_soxx_vix_full.csv`
-2. Closest failure case: the stale raw-data path that kept `data/raw/symbols/SOXL.csv` at `2026-04-01` while the canonical panel already reached `2026-04-27`
+1. Closest success case:
+   `dwell_hold_v2` fixed-actor overlay improved recovery under low churn, and `balanced_rule_residual_v22` retained acceptable defensive behavior on fixed split.
+2. Closest failure case:
+   `balanced_rule_residual_v19_transition` broad transition-feature retrain and `balanced_macro_v1` broad macro pack both improved recovery narratives while reopening unwanted bear-market exposure / proxy degradation.
 3. Why this loop is not a duplicate:
-   It does not introduce a new feature/model mechanism. It closes the harness gap between canonical processed data and downstream raw/qlib consumers, and it documents the real blocker for live refresh in this automation environment.
+   It does not reopen the full `transition_signals` or `macro_signals` packs. It only curates three retained release/re-entry factors with prior standalone evidence into a narrow pack, keeping the retained v22 residual stack unchanged otherwise.
 
 ## Evidence
 
@@ -104,6 +110,59 @@ PY
 - Live refresh remains blocked on `query1.finance.yahoo.com` name resolution.
 - There is no newer local data to unlock inside this sandboxed automation run.
 
+## Narrow Release-Pack Loop
+
+- New profile: `balanced_rule_residual_v22_release_v1`
+- Feature pack: `release_signals_v1`
+  - `RB_COOLDOWN_PROXY`
+  - `TRANS_VIX_DIVERGENCE`
+  - `CICC_RETURN_VOLUME_SYNC`
+- Hypothesis:
+  A narrow release pack can teach the retained residual actor to re-risk earlier in recovery windows without repeating the broad-transition failure mode of lifting `test_2022` exposure.
+- Acceptance criteria:
+  - keep `test_2022 avg_pos <= 0.35`
+  - keep `test_2022 maxdd <= 55%`
+  - keep `test_proxy sharpe >= 0.50`
+  - improve `test_2023_2024` return or Sharpe over `balanced_rule_residual_v22`
+- Expected trade-off:
+  mild `test_2020` giveback is acceptable if recovery improves materially without proxy drawdown blowout
+- Failure mode:
+  valid / proxy improve while `test_2022 avg_pos` or proxy MaxDD rises in the same way as prior broad transition / macro retrains
+- Planned command:
+
+```bash
+PYTHONPATH=. qlib_venv/bin/python soxl_qlib_strategy_v2.py --profiles balanced_rule_residual_v22_release_v1 --skip-data-refresh --seed 20260411
+```
+
+### Training Readout
+
+- Training completed successfully after the terminal-date backtest fix in `src/soxl_quant/backtest.py`.
+- Validation still liked the mechanism:
+  - best valid snapshot: `return=61.0%`, `sharpe=1.662`, `maxdd=27.84%`
+  - iter `20` was close (`60.3% / 1.684 / 26.89%`)
+  - iter `40` degraded (`52.9% / 1.635 / 27.04%`)
+- This is weak evidence that "train longer" is the answer. The mechanism signal is already visible by iter `0-20`; later training does not resolve the trade-off.
+
+### Corrected Replay Backtest
+
+Replay method: `scripts/run_segment_backtest.py` under the current harness after the terminal-date fix.
+
+| window | `balanced_rule_residual_v22` | `balanced_rule_residual_v22_release_v1` | readout |
+|---|---|---|---|
+| `test_proxy` | `1099.1% / 0.976 / 53.21% / 0.498 / 169 trades` | `1350.3% / 1.010 / 53.26% / 0.520 / 172 trades` | proxy and upside improve; exposure lifts slightly |
+| `test_2020` | `37.3% / 0.812 / 45.75% / 0.408 / 23 trades` | `42.7% / 0.860 / 44.95% / 0.430 / 22 trades` | mild bull improvement |
+| `test_2022` | `-41.8% / -1.335 / 43.63% / 0.241 / 21 trades` | `-46.3% / -1.480 / 48.45% / 0.252 / 19 trades` | defense worsens in the wrong direction |
+| `test_2023_2024` | `180.2% / 1.336 / 31.91% / 0.486 / 52 trades` | `234.3% / 1.479 / 32.80% / 0.509 / 47 trades` | recovery improves materially |
+
+### Decision
+
+- Keep `balanced_rule_residual_v22_release_v1` as **ablation evidence**, not a replacement candidate.
+- The curated trio improves recovery, but it does so by teaching a broader `risk-on` bias rather than a selective release rule:
+  - `test_2022 avg_pos` stays below the hard gate (`0.252 < 0.35`) but still drifts upward vs `v22`
+  - `test_2022 maxdd` widens by `4.82pp`
+  - proxy max drawdown is flat, so the pack is not adding cleaner timing, only more exposure
+- Durable review: `runtime/model/card/balanced_rule_residual_v22_release_v1/v22_release_v1_backtest_review.md`
+
 ## Bottleneck Reset
 
 Current project bottleneck is **not**:
@@ -117,6 +176,7 @@ Current project bottleneck **is**:
 
 - **selective re-entry / recovery timing after de-risking under low-churn constraints**
 - **execution/runtime mapping quality, not generic threshold loosening**
+- **factor usage quality, not raw factor availability**: the retained release factors are good enough to move behavior, but direct RL injection makes them act like ungated bullish pressure
 
 Evidence trail:
 
@@ -127,12 +187,13 @@ Evidence trail:
 - `runtime/model/card/balanced_rule_residual_v19/v19_overlay_promotion_review.md` shows `fast_reentry` improves `2023-2024` return over `base` (`59.3%` vs `46.1%`) but still trails `dwell_hold_v2` on proxy Sharpe / drawdown (`0.949 / 51.06%` vs `1.064 / 44.42%`)
 - `runtime/model/card/balanced_rule_residual_v19/v19_dwell_stress_merge_review.md` shows `regime_route_v1` further improves recovery (`61.8%`) and 2022 drawdown (`32.61%`) but at much higher churn (`464` trades vs `121` for `dwell_hold_v2`)
 - `runtime/model/card/risk_budget_usage_v1/risk_budget_usage_v1_full_review.md` shows the composed counterfactual is strong, while the native PPO actor is much more conservative, so part of the bottleneck is training/runtime mismatch rather than missing macro context
+- `runtime/model/card/balanced_rule_residual_v22_release_v1/v22_release_v1_backtest_review.md` shows the new release pack improves `2023-2024` materially but worsens `2022`, which means the current model is not learning a conditional release classifier from these signals alone
 
 ## Next Action
 
 1. Keep local data sync on the canonical panel path; do not treat data freshness as the primary blocker until a network-enabled run can extend the canonical panel beyond `2026-04-27`.
-2. Open the next narrow optimization loop around **selective release/re-entry classification**, starting from the retained low-churn overlay evidence (`dwell_hold_v2`) or route-based evidence (`regime_route_v1`) instead of generic `fast_reentry`.
-3. Treat retraining as a second-stage step only if a fixed-actor selective re-entry counterfactual shows the direction is valid but current actors still cannot express it.
+2. Open the next narrow optimization loop around **gated selective release/re-entry classification**, using `RB_COOLDOWN_PROXY`, `TRANS_VIX_DIVERGENCE`, and `CICC_RETURN_VOLUME_SYNC` as release gates inside a low-churn fixed-actor overlay before trying another retrain.
+3. Treat retraining as a second-stage step only if the fixed-actor gated release counterfactual improves `2023-2024` without reopening `2022` drawdown.
 
 ---
 

@@ -170,6 +170,60 @@ def test_transition_signal_pack_includes_intraday_rejection_event():
     assert np.allclose(actual.tail(100).to_numpy(), expected.tail(100).to_numpy(), atol=1e-8)
 
 
+def test_release_signal_pack_curates_reentry_signals():
+    df = pd.read_csv(CSV_PATH, parse_dates=["date"]).set_index("date")
+    soxl = pd.DataFrame(
+        {
+            "$close": df["soxl_close"],
+            "$open": df["soxl_open"],
+            "$high": df["soxl_high"],
+            "$low": df["soxl_low"],
+            "$volume": df["soxl_volume"],
+            "$vix": df["vix"],
+            "Mean($close, 5)": df["soxl_close"].rolling(5).mean(),
+            "Mean($close, 21)": df["soxl_close"].rolling(21).mean(),
+            "Mean($close, 63)": df["soxl_close"].rolling(63).mean(),
+            "Mean($close, 180)": df["soxl_close"].rolling(180).mean(),
+            "Std($close / Ref($close, 1) - 1, 10)": df["soxl_close"].pct_change().rolling(10).std(),
+            "Std($close / Ref($close, 1) - 1, 21)": df["soxl_close"].pct_change().rolling(21).std(),
+            "Std($close / Ref($close, 1) - 1, 63)": df["soxl_close"].pct_change().rolling(63).std(),
+            "Mean($volume, 21)": df["soxl_volume"].rolling(21).mean(),
+        }
+    )
+    soxx = pd.DataFrame(
+        {
+            "$close": df["soxx_close"],
+            "$open": df["soxx_open"],
+            "$high": df["soxx_high"],
+            "$low": df["soxx_low"],
+            "$volume": df["soxx_volume"],
+        }
+    )
+
+    curated_columns = {
+        "RB_COOLDOWN_PROXY",
+        "TRANS_VIX_DIVERGENCE",
+        "CICC_RETURN_VOLUME_SYNC",
+    }
+    assert curated_columns.issubset(set(feature_columns_for_packs(("release_signals_v1",))))
+
+    release_df, _ = engineer_feature_frame(soxl, soxx, feature_packs=("release_signals_v1",))
+    reference_df, _ = engineer_feature_frame(
+        soxl,
+        soxx,
+        feature_packs=("rulebase_signals", "transition_signals", "cicc_price_volume"),
+    )
+    release_flat = release_df.droplevel("instrument")
+    reference_flat = reference_df.droplevel("instrument")
+    for column in curated_columns:
+        assert column in release_flat.columns
+        assert np.allclose(
+            release_flat[column].tail(100).to_numpy(),
+            reference_flat[column].tail(100).to_numpy(),
+            atol=1e-8,
+        )
+
+
 def test_transition_v23_flags_fire_only_in_expected_states():
     index = pd.date_range("2020-01-01", periods=30, freq="B")
     transition = _build_transition_state_features(

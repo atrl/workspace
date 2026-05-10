@@ -1,6 +1,6 @@
 # HARNESS Knowledge
 
-> 最后更新: 2026-04-24
+> 最后更新: 2026-05-10
 > 该方向负责仓库结构、工具链、验证脚本和 agent 工作流。
 
 ## 验证索引
@@ -104,3 +104,36 @@ v19 outperforms buy-and-hold in ALL walk-forward windows:
 
 The "failure" was entirely a measurement artifact.
 
+<!-- 2026-05-10: terminal-date backtest fix -->
+
+# 2026-05-10 Terminal-Date Backtest Fix
+
+## Problem
+
+After refreshing local data surfaces to `2026-04-27`, training a new profile could
+finish PPO optimization and then crash during the final qlib replay with:
+
+`IndexError: index ... is out of bounds for axis 0 with size ...`
+
+Root cause: qlib day backtest internally asks for `calendar_index + 1`. When the
+requested end date is the final available trading day, returning `TradeDecisionWO([], self)`
+at that terminal step is still unsafe.
+
+## Fix
+
+- Added `_normalize_backtest_seg()` to `src/soxl_quant/backtest.py`
+- When a requested end date lands on the final available calendar day, clamp replay
+  to the penultimate trading day before calling `qlib_backtest`
+- Added regression tests in `tests/test_backtest.py`
+
+## Operational Guidance
+
+- Use `scripts/run_segment_backtest.py` from a real file entrypoint for replay validation.
+- Avoid stdin-driven quick scripts for qlib replay in this repo; macOS multiprocessing
+  can fail with `<stdin>` path errors.
+
+## Impact
+
+- New training runs no longer die at the final replay step when local data reaches
+  the current calendar tail.
+- This keeps the data-refresh loop from masquerading as a model bug.

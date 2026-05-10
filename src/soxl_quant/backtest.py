@@ -44,6 +44,36 @@ from .policy.positioning import target_position_for_profile
 from .settings import ACCOUNT, LOOKBACK, ExecutionConfig, PositionBudgetConfig, PositionCapConfig, RESULT_PNG, RESULT_TXT, TEST_SEG
 
 
+def _normalize_backtest_seg(index: pd.Index | pd.MultiIndex, test_seg: Tuple[str, str]) -> Tuple[str, str]:
+    """Clamp qlib backtest end dates to a safe calendar interval.
+
+    Qlib day backtests derive each step's right boundary from `calendar[i + 1]`.
+    When the requested end date lands on the final available trading day, there
+    is no next boundary and qlib raises an `IndexError`. In that case we step
+    the effective end date back by one trading day.
+    """
+    if isinstance(index, pd.MultiIndex):
+        dates = pd.Index(index.get_level_values("datetime")).unique().sort_values()
+    else:
+        dates = pd.Index(index).unique().sort_values()
+    if len(dates) < 2:
+        raise ValueError("backtest requires at least two trading dates")
+
+    start = pd.Timestamp(test_seg[0])
+    end = pd.Timestamp(test_seg[1])
+    first = pd.Timestamp(dates[0])
+    last = pd.Timestamp(dates[-1])
+    safe_last = pd.Timestamp(dates[-2])
+
+    if start < first:
+        start = first
+    if end >= last:
+        end = safe_last
+    if start > end:
+        raise ValueError(f"invalid normalized backtest segment: start={start} end={end}")
+    return str(start.date()), str(end.date())
+
+
 class RLStrategy(BaseStrategy):
     """qlib 策略包装器：把训练好的 actor 接入官方回测引擎。"""
     def __init__(
@@ -367,9 +397,10 @@ def backtest_profile(
         model_config=model_config,
         overlay_config=overlay_config,
     )
+    effective_test_seg = _normalize_backtest_seg(feature_df.index, test_seg)
     portfolio_metric, indicator_metric = qlib_backtest(
-        start_time=test_seg[0],
-        end_time=test_seg[1],
+        start_time=effective_test_seg[0],
+        end_time=effective_test_seg[1],
         strategy=strategy,
         executor=SimulatorExecutor(time_per_step="day", generate_portfolio_metrics=True),
         account=ACCOUNT,
@@ -397,6 +428,7 @@ def backtest_profile(
         "trades": strategy.trades,
         "position_history": strategy.position_history,
         "trade_signals": strategy.trade_signals,
+        "effective_test_seg": effective_test_seg,
     }
 
 
