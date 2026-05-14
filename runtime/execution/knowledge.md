@@ -1,6 +1,6 @@
 # EXECUTION Knowledge
 
-> 最后更新: 2026-05-10
+> 最后更新: 2026-05-14
 > 该方向负责执行层策略：仓位管理、交易频率控制、mode routing 和 overlay。
 
 ## 执行策略索引
@@ -26,6 +26,7 @@
 | balanced_rule_residual_learned_mode_v1 | mode | 507 | 0.87 | 50.01 | 0.47 | — | 🟡 Good | [card](cards/balanced_rule_residual_learned_mode_v1/card.md) |
 | balanced_rule_residual_mode_v1 | mode | 886 | 1.09 | 42.32 | 0.45 | — | 🟡 Good | [card](cards/balanced_rule_residual_mode_v1/card.md) |
 | balanced_rule_residual_mode_v2 | mode | 694 | 1.01 | 50.40 | 0.45 | — | 🟡 Good | [card](cards/balanced_rule_residual_mode_v2/card.md) |
+| selective_release_overlay_v1 | overlay | 1415 | 1.11 | 54.30 | 0.52 | 40.64 | 🟢 Counterfactual | [card](card/selective_release_overlay_v1/selective_release_overlay_review.md) |
 
 ## 核心结论
 
@@ -36,10 +37,35 @@
 5. **Generic overlay retuning 是重复工作**。
 6. **Generic `fast_reentry` 不是答案**：它能改善恢复期收益，但在 proxy Sharpe / MaxDD 上被 `dwell_hold_v2` 压制。
 7. **当前瓶颈是低换手的 selective release / re-entry classification**：`regime_route_v1` 证明更聪明的放行有价值，但 churn 明显升高。
+8. **固定 v22 actor 的 selective release gate 已证明方向正确**：`selective_release_recovery_v1` 把 `test_2023_2024` 从 `57.12% / 0.719` 提到 `82.10% / 0.877`，`test_2022` 完全不变，`test_proxy` 从 `1132.19% / 1.043 / 56.48%` 提到 `1415.10% / 1.105 / 54.30%`。
 
 ## 待验证方向
 
-- [ ] 显式 selective release/re-entry overlay（优先 `dwell_hold_v2` / `regime_route_v1` 风格，不再泛化搜索 `fast_reentry`）
+- [x] 显式 selective release/re-entry overlay（优先 `dwell_hold_v2` / `regime_route_v1` 风格，不再泛化搜索 `fast_reentry`）— fixed v22 actor counterfactual retained as `selective_release_recovery_v1`
+- [ ] 对 `selective_release_recovery_v1` 做 walk-forward actor validation，再决定是否进入 runtime overlay / governed execution profile
 - [ ] 动态 decision frequency
 - [ ] 仓位上限与 VIX term structure 联动
 - [ ] budget-usage actor/runtime mismatch 诊断
+
+## 2026-05-14: Selective Release Overlay Counterfactual
+
+Question: can retained release factors improve recovery if they are gated in execution instead of injected directly into PPO state?
+
+Answer: yes on the fixed `balanced_rule_residual_v22` actor.
+
+| Variant | test_proxy | test_2022 | test_2023_2024 | Decision |
+|---|---:|---:|---:|---|
+| baseline | `1132.19% / 1.043 / 56.48% / avg_pos 0.5226` | `-30.97% / -0.764 / 40.64% / avg_pos 0.3304` | `57.12% / 0.719 / 34.87% / avg_pos 0.5402` | control |
+| `selective_release_recovery_v1` | `1415.10% / 1.105 / 54.30% / avg_pos 0.5230` | unchanged | `82.10% / 0.877 / 36.95% / avg_pos 0.5510` | retain counterfactual |
+
+Mechanism:
+
+- Gate requires `RB_COOLDOWN_PROXY` plus either `TRANS_VIX_DIVERGENCE` or `CICC_RETURN_VOLUME_SYNC`.
+- The best retained config uses `boost=0.08`, `max_target=0.65`, `max_regime_risk=0.60`, `cooldown_threshold=0.20`, `vix_threshold=0.05`, `volume_sync_threshold=0.70`.
+- It does not fire in `2022`, which is why bear-market exposure and drawdown remain unchanged.
+
+Decision:
+
+- Do not retrain another release-pack PPO branch yet.
+- Next valid loop is walk-forward actor validation for the same overlay.
+- If it survives, encode it as a governed execution overlay/profile rather than expanding the model feature pack.

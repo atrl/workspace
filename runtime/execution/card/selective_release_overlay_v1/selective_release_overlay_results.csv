@@ -1,0 +1,17 @@
+variant,window,overlay_config,return,sharpe,max_dd,avg_pos,trades
+baseline,test_proxy,{},1132.194,1.0431,56.4821,0.522627,172
+baseline,test_2020,{},131.13,2.1602,20.9184,0.5356,27
+baseline,test_2022,{},-30.9725,-0.7637,40.6407,0.330425,21
+baseline,test_2023_2024,{},57.1224,0.7193,34.8703,0.540196,50
+selective_release_cicc_v1,test_proxy,"{""boost"": 0.05, ""cooldown_threshold"": 0.25, ""max_regime_risk"": 0.62, ""max_target"": 0.62, ""type"": ""selective_release"", ""vix_threshold"": 0.04, ""volume_sync_threshold"": 0.68}",1253.4664,1.0675,59.2229,0.526001,169
+selective_release_cicc_v1,test_2020,"{""boost"": 0.05, ""cooldown_threshold"": 0.25, ""max_regime_risk"": 0.62, ""max_target"": 0.62, ""type"": ""selective_release"", ""vix_threshold"": 0.04, ""volume_sync_threshold"": 0.68}",131.13,2.1602,20.9184,0.5356,27
+selective_release_cicc_v1,test_2022,"{""boost"": 0.05, ""cooldown_threshold"": 0.25, ""max_regime_risk"": 0.62, ""max_target"": 0.62, ""type"": ""selective_release"", ""vix_threshold"": 0.04, ""volume_sync_threshold"": 0.68}",-30.9725,-0.7637,40.6407,0.330425,21
+selective_release_cicc_v1,test_2023_2024,"{""boost"": 0.05, ""cooldown_threshold"": 0.25, ""max_regime_risk"": 0.62, ""max_target"": 0.62, ""type"": ""selective_release"", ""vix_threshold"": 0.04, ""volume_sync_threshold"": 0.68}",58.7363,0.73,34.4086,0.541778,50
+selective_release_tight_v1,test_proxy,"{""boost"": 0.05, ""cooldown_threshold"": 0.3, ""max_regime_risk"": 0.58, ""max_target"": 0.6, ""type"": ""selective_release"", ""vix_threshold"": 0.05, ""volume_sync_threshold"": 0.72}",1253.8159,1.0737,54.3437,0.522576,170
+selective_release_tight_v1,test_2020,"{""boost"": 0.05, ""cooldown_threshold"": 0.3, ""max_regime_risk"": 0.58, ""max_target"": 0.6, ""type"": ""selective_release"", ""vix_threshold"": 0.05, ""volume_sync_threshold"": 0.72}",131.13,2.1602,20.9184,0.5356,27
+selective_release_tight_v1,test_2022,"{""boost"": 0.05, ""cooldown_threshold"": 0.3, ""max_regime_risk"": 0.58, ""max_target"": 0.6, ""type"": ""selective_release"", ""vix_threshold"": 0.05, ""volume_sync_threshold"": 0.72}",-30.9725,-0.7637,40.6407,0.330425,21
+selective_release_tight_v1,test_2023_2024,"{""boost"": 0.05, ""cooldown_threshold"": 0.3, ""max_regime_risk"": 0.58, ""max_target"": 0.6, ""type"": ""selective_release"", ""vix_threshold"": 0.05, ""volume_sync_threshold"": 0.72}",58.4722,0.7284,34.4061,0.541119,50
+selective_release_recovery_v1,test_proxy,"{""boost"": 0.08, ""cooldown_threshold"": 0.2, ""max_regime_risk"": 0.6, ""max_target"": 0.65, ""type"": ""selective_release"", ""vix_threshold"": 0.05, ""volume_sync_threshold"": 0.7}",1415.1046,1.1051,54.2956,0.523038,171
+selective_release_recovery_v1,test_2020,"{""boost"": 0.08, ""cooldown_threshold"": 0.2, ""max_regime_risk"": 0.6, ""max_target"": 0.65, ""type"": ""selective_release"", ""vix_threshold"": 0.05, ""volume_sync_threshold"": 0.7}",131.13,2.1602,20.9184,0.5356,27
+selective_release_recovery_v1,test_2022,"{""boost"": 0.08, ""cooldown_threshold"": 0.2, ""max_regime_risk"": 0.6, ""max_target"": 0.65, ""type"": ""selective_release"", ""vix_threshold"": 0.05, ""volume_sync_threshold"": 0.7}",-30.9725,-0.7637,40.6407,0.330425,21
+selective_release_recovery_v1,test_2023_2024,"{""boost"": 0.08, ""cooldown_threshold"": 0.2, ""max_regime_risk"": 0.6, ""max_target"": 0.65, ""type"": ""selective_release"", ""vix_threshold"": 0.05, ""volume_sync_threshold"": 0.7}",82.0975,0.8766,36.9476,0.550991,50

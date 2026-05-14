@@ -44,6 +44,36 @@ from .policy.positioning import target_position_for_profile
 from .settings import ACCOUNT, LOOKBACK, ExecutionConfig, PositionBudgetConfig, PositionCapConfig, RESULT_PNG, RESULT_TXT, TEST_SEG
 
 
+def apply_selective_release_overlay(
+    target_pos: float,
+    row: pd.Series,
+    regime_risk: float,
+    overlay_config: dict,
+) -> float:
+    """Boost exposure only when retained release signals agree inside a regime band."""
+    min_regime = float(overlay_config.get("min_regime_risk", float("-inf")))
+    max_regime = float(overlay_config.get("max_regime_risk", float("inf")))
+    if not (min_regime <= float(regime_risk) <= max_regime):
+        return float(target_pos)
+
+    cooldown = float(row.get("RB_COOLDOWN_PROXY", 0.0))
+    vix_divergence = float(row.get("TRANS_VIX_DIVERGENCE", 0.0))
+    volume_sync = float(row.get("CICC_RETURN_VOLUME_SYNC", 0.0))
+
+    cooldown_ready = cooldown >= float(overlay_config.get("cooldown_threshold", 0.25))
+    release_ready = (
+        vix_divergence >= float(overlay_config.get("vix_threshold", 0.04))
+        or volume_sync >= float(overlay_config.get("volume_sync_threshold", 0.68))
+    )
+    if not (cooldown_ready and release_ready):
+        return float(target_pos)
+
+    boost = float(overlay_config.get("boost", 0.05))
+    max_target = float(overlay_config.get("max_target", 1.0))
+    boosted = min(float(target_pos) + boost, max_target)
+    return round(max(float(target_pos), boosted), 10)
+
+
 def _normalize_backtest_seg(index: pd.Index | pd.MultiIndex, test_seg: Tuple[str, str]) -> Tuple[str, str]:
     """Clamp qlib backtest end dates to a safe calendar interval.
 
@@ -199,115 +229,123 @@ class RLStrategy(BaseStrategy):
         if self.overlay_config is not None:
             oc = self.overlay_config
             overlay_type = oc.get("type")
-            threshold = oc.get("threshold", 0.3)
-            boost = oc.get("boost", 0.1)
-            regime_thresh = oc.get("regime_threshold", 0.6)
-            regime_mode = oc.get("regime_mode", "stress")  # "stress", "bull", or "dual"
-            regime_active = False
-            if regime_mode == "stress":
-                regime_active = regime_risk >= regime_thresh
-            elif regime_mode == "bull":
-                regime_active = regime_risk <= regime_thresh
-            elif regime_mode == "dual":
-                regime_active = True  # handle in type-specific logic
-            if regime_active:
-                signal_val = 0.0
-                if overlay_type == "vix_divergence":
-                    signal_val = float(self.df.iloc[idx].get("TRANS_VIX_DIVERGENCE", 0.0))
-                    if signal_val >= threshold:
-                        target_pos = min(target_pos + boost, 1.0)
-                elif overlay_type == "spring_compression":
-                    signal_val = float(self.df.iloc[idx].get("TRANS_SPRING_COMPRESSION", 0.0))
-                    if signal_val >= threshold:
-                        target_pos = min(target_pos + boost, 1.0)
-                elif overlay_type == "panic_exhaustion":
-                    signal_val = float(self.df.iloc[idx].get("TRANS_PANIC_EXHAUSTION", 0.0))
-                    if signal_val >= threshold:
-                        target_pos = min(target_pos + boost, 1.0)
-                elif overlay_type == "vix_zscore_delta":
-                    # VIX zscore falling rapidly in stress regime = potential relief
-                    signal_val = float(self.df.iloc[idx].get("VIX_ZSCORE_DELTA_5", 0.0))
-                    if signal_val <= -threshold:
-                        target_pos = min(target_pos + boost, 1.0)
-                elif overlay_type == "regime_risk_delta":
-                    # Regime risk falling rapidly in stress regime = potential relief
-                    signal_val = float(self.df.iloc[idx].get("REGIME_RISK_DELTA_5", 0.0))
-                    if signal_val <= -threshold:
-                        target_pos = min(target_pos + boost, 1.0)
-                elif overlay_type == "combined_vix":
-                    # Both VIX divergence AND VIX zscore delta must agree
-                    div_val = float(self.df.iloc[idx].get("TRANS_VIX_DIVERGENCE", 0.0))
-                    delta_val = float(self.df.iloc[idx].get("VIX_ZSCORE_DELTA_5", 0.0))
-                    if div_val >= threshold and delta_val <= -threshold:
-                        target_pos = min(target_pos + boost, 1.0)
-                elif overlay_type == "fake_breakout":
-                    # Negative overlay: reduce position when price bounces too far above MA21 during deep drawdown
-                    # IC = -0.1335: high values predict poor forward returns
-                    fb_val = float(self.df.iloc[idx].get("CLOSE_VS_MA21_AFTER_DD", 0.0))
-                    if fb_val >= threshold:
-                        target_pos = max(target_pos - boost, 0.0)
-                elif overlay_type == "vol_stress":
-                    # Vol of vol spike in stress regime = high conviction entry
-                    signal_val = float(self.df.iloc[idx].get("vol_of_vol_21", 0.0))
-                    if signal_val >= threshold:
-                        target_pos = min(target_pos + boost, 1.0)
-                elif overlay_type == "downside_bull":
-                    # High short-term downside in bull regime = mean-reversion entry
-                    signal_val = float(self.df.iloc[idx].get("downside_ratio_10", 0.0))
-                    if signal_val >= threshold:
-                        target_pos = min(target_pos + boost, 1.0)
-                elif overlay_type == "dual_regime":
-                    # Stress: vol_stress, Bull: downside_bull
-                    if regime_risk >= regime_thresh:
+            if overlay_type == "selective_release":
+                target_pos = apply_selective_release_overlay(
+                    target_pos,
+                    self.df.iloc[idx],
+                    regime_risk,
+                    oc,
+                )
+            else:
+                threshold = oc.get("threshold", 0.3)
+                boost = oc.get("boost", 0.1)
+                regime_thresh = oc.get("regime_threshold", 0.6)
+                regime_mode = oc.get("regime_mode", "stress")  # "stress", "bull", or "dual"
+                regime_active = False
+                if regime_mode == "stress":
+                    regime_active = regime_risk >= regime_thresh
+                elif regime_mode == "bull":
+                    regime_active = regime_risk <= regime_thresh
+                elif regime_mode == "dual":
+                    regime_active = True  # handle in type-specific logic
+                if regime_active:
+                    signal_val = 0.0
+                    if overlay_type == "vix_divergence":
+                        signal_val = float(self.df.iloc[idx].get("TRANS_VIX_DIVERGENCE", 0.0))
+                        if signal_val >= threshold:
+                            target_pos = min(target_pos + boost, 1.0)
+                    elif overlay_type == "spring_compression":
+                        signal_val = float(self.df.iloc[idx].get("TRANS_SPRING_COMPRESSION", 0.0))
+                        if signal_val >= threshold:
+                            target_pos = min(target_pos + boost, 1.0)
+                    elif overlay_type == "panic_exhaustion":
+                        signal_val = float(self.df.iloc[idx].get("TRANS_PANIC_EXHAUSTION", 0.0))
+                        if signal_val >= threshold:
+                            target_pos = min(target_pos + boost, 1.0)
+                    elif overlay_type == "vix_zscore_delta":
+                        # VIX zscore falling rapidly in stress regime = potential relief
+                        signal_val = float(self.df.iloc[idx].get("VIX_ZSCORE_DELTA_5", 0.0))
+                        if signal_val <= -threshold:
+                            target_pos = min(target_pos + boost, 1.0)
+                    elif overlay_type == "regime_risk_delta":
+                        # Regime risk falling rapidly in stress regime = potential relief
+                        signal_val = float(self.df.iloc[idx].get("REGIME_RISK_DELTA_5", 0.0))
+                        if signal_val <= -threshold:
+                            target_pos = min(target_pos + boost, 1.0)
+                    elif overlay_type == "combined_vix":
+                        # Both VIX divergence AND VIX zscore delta must agree
+                        div_val = float(self.df.iloc[idx].get("TRANS_VIX_DIVERGENCE", 0.0))
+                        delta_val = float(self.df.iloc[idx].get("VIX_ZSCORE_DELTA_5", 0.0))
+                        if div_val >= threshold and delta_val <= -threshold:
+                            target_pos = min(target_pos + boost, 1.0)
+                    elif overlay_type == "fake_breakout":
+                        # Negative overlay: reduce position when price bounces too far above MA21 during deep drawdown
+                        # IC = -0.1335: high values predict poor forward returns
+                        fb_val = float(self.df.iloc[idx].get("CLOSE_VS_MA21_AFTER_DD", 0.0))
+                        if fb_val >= threshold:
+                            target_pos = max(target_pos - boost, 0.0)
+                    elif overlay_type == "vol_stress":
+                        # Vol of vol spike in stress regime = high conviction entry
                         signal_val = float(self.df.iloc[idx].get("vol_of_vol_21", 0.0))
                         if signal_val >= threshold:
                             target_pos = min(target_pos + boost, 1.0)
-                    elif regime_risk <= oc.get("bull_regime_threshold", 0.4):
+                    elif overlay_type == "downside_bull":
+                        # High short-term downside in bull regime = mean-reversion entry
                         signal_val = float(self.df.iloc[idx].get("downside_ratio_10", 0.0))
                         if signal_val >= threshold:
                             target_pos = min(target_pos + boost, 1.0)
-                elif overlay_type == "dual_kurtosis":
-                    # Stress: vol_stress, Bull: kurtosis_bull
-                    if regime_risk >= regime_thresh:
-                        signal_val = float(self.df.iloc[idx].get("vol_of_vol_21", 0.0))
+                    elif overlay_type == "dual_regime":
+                        # Stress: vol_stress, Bull: downside_bull
+                        if regime_risk >= regime_thresh:
+                            signal_val = float(self.df.iloc[idx].get("vol_of_vol_21", 0.0))
+                            if signal_val >= threshold:
+                                target_pos = min(target_pos + boost, 1.0)
+                        elif regime_risk <= oc.get("bull_regime_threshold", 0.4):
+                            signal_val = float(self.df.iloc[idx].get("downside_ratio_10", 0.0))
+                            if signal_val >= threshold:
+                                target_pos = min(target_pos + boost, 1.0)
+                    elif overlay_type == "dual_kurtosis":
+                        # Stress: vol_stress, Bull: kurtosis_bull
+                        if regime_risk >= regime_thresh:
+                            signal_val = float(self.df.iloc[idx].get("vol_of_vol_21", 0.0))
+                            if signal_val >= threshold:
+                                target_pos = min(target_pos + boost, 1.0)
+                        elif regime_risk <= oc.get("bull_regime_threshold", 0.4):
+                            signal_val = float(self.df.iloc[idx].get("realized_kurtosis_21", 0.0))
+                            if signal_val >= oc.get("bull_threshold", 0.8):
+                                target_pos = min(target_pos + boost, 1.0)
+                    elif overlay_type == "vol_vix_combo":
+                        # Both vol_of_vol AND VIX divergence must agree in stress regime
+                        vol_val = float(self.df.iloc[idx].get("vol_of_vol_21", 0.0))
+                        vix_val = float(self.df.iloc[idx].get("TRANS_VIX_DIVERGENCE", 0.0))
+                        vol_thresh = oc.get("vol_threshold", threshold)
+                        vix_thresh = oc.get("vix_threshold", 0.05)
+                        if vol_val >= vol_thresh and vix_val >= vix_thresh:
+                            target_pos = min(target_pos + boost, 1.0)
+                    elif overlay_type == "rv63_stress":
+                        # Realized vol spike in stress regime = high conviction entry
+                        signal_val = float(self.df.iloc[idx].get("realized_vol_63", 0.0))
                         if signal_val >= threshold:
                             target_pos = min(target_pos + boost, 1.0)
-                    elif regime_risk <= oc.get("bull_regime_threshold", 0.4):
+                    elif overlay_type == "kurtosis_bull":
+                        # High kurtosis in bull regime = fat-tail event = mean-reversion entry
                         signal_val = float(self.df.iloc[idx].get("realized_kurtosis_21", 0.0))
-                        if signal_val >= oc.get("bull_threshold", 0.8):
+                        if signal_val >= threshold:
                             target_pos = min(target_pos + boost, 1.0)
-                elif overlay_type == "vol_vix_combo":
-                    # Both vol_of_vol AND VIX divergence must agree in stress regime
-                    vol_val = float(self.df.iloc[idx].get("vol_of_vol_21", 0.0))
-                    vix_val = float(self.df.iloc[idx].get("TRANS_VIX_DIVERGENCE", 0.0))
-                    vol_thresh = oc.get("vol_threshold", threshold)
-                    vix_thresh = oc.get("vix_threshold", 0.05)
-                    if vol_val >= vol_thresh and vix_val >= vix_thresh:
-                        target_pos = min(target_pos + boost, 1.0)
-                elif overlay_type == "rv63_stress":
-                    # Realized vol spike in stress regime = high conviction entry
-                    signal_val = float(self.df.iloc[idx].get("realized_vol_63", 0.0))
-                    if signal_val >= threshold:
-                        target_pos = min(target_pos + boost, 1.0)
-                elif overlay_type == "kurtosis_bull":
-                    # High kurtosis in bull regime = fat-tail event = mean-reversion entry
-                    signal_val = float(self.df.iloc[idx].get("realized_kurtosis_21", 0.0))
-                    if signal_val >= threshold:
-                        target_pos = min(target_pos + boost, 1.0)
-                elif overlay_type == "te_vol_stress":
-                    # Tracking error vol spike in stress regime = high conviction entry
-                    signal_val = float(self.df.iloc[idx].get("tracking_error_vol_21", 0.0))
-                    if signal_val >= threshold:
-                        target_pos = min(target_pos + boost, 1.0)
-                elif overlay_type == "multi_factor":
-                    # Composite score from multiple features
-                    weights = oc.get("weights", {})
-                    score = 0.0
-                    for feat_name, weight in weights.items():
-                        feat_val = float(self.df.iloc[idx].get(feat_name, 0.0))
-                        score += weight * feat_val
-                    if score >= threshold:
-                        target_pos = min(target_pos + boost, 1.0)
+                    elif overlay_type == "te_vol_stress":
+                        # Tracking error vol spike in stress regime = high conviction entry
+                        signal_val = float(self.df.iloc[idx].get("tracking_error_vol_21", 0.0))
+                        if signal_val >= threshold:
+                            target_pos = min(target_pos + boost, 1.0)
+                    elif overlay_type == "multi_factor":
+                        # Composite score from multiple features
+                        weights = oc.get("weights", {})
+                        score = 0.0
+                        for feat_name, weight in weights.items():
+                            feat_val = float(self.df.iloc[idx].get(feat_name, 0.0))
+                            score += weight * feat_val
+                        if score >= threshold:
+                            target_pos = min(target_pos + boost, 1.0)
         direction = "buy" if target_pos > current_pos else ("sell" if target_pos < current_pos else "neutral")
         min_rebalance = rebalance_threshold(
             regime_risk,

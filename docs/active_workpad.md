@@ -195,6 +195,77 @@ Evidence trail:
 2. Open the next narrow optimization loop around **gated selective release/re-entry classification**, using `RB_COOLDOWN_PROXY`, `TRANS_VIX_DIVERGENCE`, and `CICC_RETURN_VOLUME_SYNC` as release gates inside a low-churn fixed-actor overlay before trying another retrain.
 3. Treat retraining as a second-stage step only if the fixed-actor gated release counterfactual improves `2023-2024` without reopening `2022` drawdown.
 
+## 2026-05-14 Automation Run
+
+### Data Refresh
+
+Commands:
+
+```bash
+PYTHONPATH=. qlib_venv/bin/python scripts/update_market_data.py --local-only
+PYTHONPATH=. qlib_venv/bin/python scripts/update_data_registry.py
+PYTHONPATH=. qlib_venv/bin/python - <<'PY'
+import requests
+try:
+    requests.get("https://query1.finance.yahoo.com/v8/finance/chart/SOXL?interval=1d&period1=0&period2=1", timeout=20).raise_for_status()
+except Exception as exc:
+    print(type(exc).__name__, str(exc))
+PY
+```
+
+Observed state:
+
+- Local canonical panel, raw mirrors, and qlib calendar remain aligned at `2026-04-27`.
+- `data/datasets.yaml` was regenerated at `2026-05-14T02:02:18Z`.
+- Live Yahoo access is still blocked by DNS / name resolution in this automation environment (`query1.finance.yahoo.com` cannot resolve).
+
+### Bottleneck Brainstorm
+
+The current bottleneck is not data freshness or insufficient PPO iterations. The
+release pack already moved behavior in `balanced_rule_residual_v22_release_v1`,
+but ungated RL injection acted like broad bullish pressure. The right next test
+was therefore a fixed-actor execution separation test: keep the v22 actor fixed,
+add only a low-churn release gate, and require the gate to use retained factor
+evidence (`RB_COOLDOWN_PROXY`, `TRANS_VIX_DIVERGENCE`, `CICC_RETURN_VOLUME_SYNC`).
+
+Feature distribution check:
+
+- `CICC_RETURN_VOLUME_SYNC` is materially higher in `2023-2024` than `2022`
+  (median `0.6238` vs `0.2756`), making it a useful recovery discriminator.
+- `regime_risk` is lower in `2023-2024` than `2022` (median `0.3721` vs `0.6821`),
+  so a `max_regime_risk` gate can avoid bear-market release.
+- `RB_COOLDOWN_PROXY` is also stronger in `2023-2024` (median `0.1383`, p75 `0.3684`)
+  than `2022` (median `0.0000`, p75 `0.1361`).
+
+### Selective Release Overlay Loop
+
+Command:
+
+```bash
+PYTHONPATH=. qlib_venv/bin/python scripts/evaluate_selective_release_overlay.py --profile balanced_rule_residual_v22
+```
+
+Evidence:
+
+- Review: `runtime/execution/card/selective_release_overlay_v1/selective_release_overlay_review.md`
+- CSV: `runtime/execution/card/selective_release_overlay_v1/selective_release_overlay_results.csv`
+- JSON: `runtime/execution/card/selective_release_overlay_v1/selective_release_overlay_results.json`
+
+Best counterfactual: `selective_release_recovery_v1`
+
+| window | baseline v22 fixed actor | selective release | readout |
+|---|---:|---:|---|
+| `test_proxy` | `1132.19% / 1.043 / 56.48% / avg_pos 0.5226 / 172 trades` | `1415.10% / 1.105 / 54.30% / avg_pos 0.5230 / 171 trades` | better return, Sharpe, and drawdown |
+| `test_2020` | `131.13% / 2.160 / 20.92% / avg_pos 0.5356 / 27 trades` | unchanged | no bull-market side effect |
+| `test_2022` | `-30.97% / -0.764 / 40.64% / avg_pos 0.3304 / 21 trades` | unchanged | bear defense not reopened |
+| `test_2023_2024` | `57.12% / 0.719 / 34.87% / avg_pos 0.5402 / 50 trades` | `82.10% / 0.877 / 36.95% / avg_pos 0.5510 / 50 trades` | recovery improved with modest drawdown cost |
+
+Decision:
+
+- Keep `selective_release_recovery_v1` as the retained execution counterfactual.
+- Do not start another PPO retrain yet; this fixed-actor result is stronger evidence that the bottleneck is runtime gating / release classification.
+- Next action is walk-forward actor validation for the same overlay, then convert to a governed execution overlay/profile only if the benefit survives.
+
 ---
 
 ## Archived Snapshot: 2026-04-28 Macro Evaluation

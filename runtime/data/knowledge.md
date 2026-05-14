@@ -1,6 +1,6 @@
 # DATA Knowledge
 
-> 最后更新: 2026-05-09
+> 最后更新: 2026-05-14
 > 该方向负责数据管道、qlib store、外部数据接入和数据质量监控。
 
 ## 数据配置索引
@@ -40,6 +40,13 @@
 - `data/processed/panels/soxl_soxx_vix_full.csv`、`data/raw/symbols/SOXL.csv`、`data/raw/symbols/SOXX.csv`、`data/raw/external/VIX.csv`、`data/qlib/soxl/calendars/day.txt` 仍然全部对齐到 `2026-04-27`
 - 直接请求 `https://query1.finance.yahoo.com/v8/finance/chart/SOXL` 仍然报 `NameResolutionError`
 - 结论：当前 automation 环境下“数据更新”已收敛为环境问题，不是仓库内部数据面不一致
+
+### 2026-05-14 Revalidation
+
+- `PYTHONPATH=. qlib_venv/bin/python scripts/update_market_data.py --local-only` 成功同步 canonical panel 到 raw mirrors 与 `data/qlib/soxl/`。
+- `PYTHONPATH=. qlib_venv/bin/python scripts/update_data_registry.py` 成功刷新 `data/datasets.yaml`，`generated_at=2026-05-14T02:02:18Z`。
+- Canonical panel、raw SOXL/SOXX/VIX、qlib calendar 仍然全部对齐到 `2026-04-27`，没有更新的本地源可继续推进。
+- 直接请求 Yahoo chart endpoint 仍然报 `NameResolutionError`，因此 live refresh 依然是当前 automation 环境网络限制，不是数据管线逻辑问题。
 
 ### 操作指引
 

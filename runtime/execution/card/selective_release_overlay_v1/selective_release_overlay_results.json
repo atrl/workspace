@@ -1,0 +1,174 @@
+{
+  "context": {
+    "actor_feature_count": 64,
+    "dataset_feature_packs": [
+      "vix_term",
+      "release_signals_v1"
+    ],
+    "model_path": "runtime/model/card/balanced_rule_residual_v22/soxl_balanced_rule_residual_v22_actor.pt",
+    "profile": "balanced_rule_residual_v22",
+    "tag": ""
+  },
+  "rows": [
+    {
+      "avg_pos": 0.522627,
+      "max_dd": 56.4821,
+      "overlay_config": "{}",
+      "return": 1132.194,
+      "sharpe": 1.0431,
+      "trades": 172,
+      "variant": "baseline",
+      "window": "test_proxy"
+    },
+    {
+      "avg_pos": 0.5356,
+      "max_dd": 20.9184,
+      "overlay_config": "{}",
+      "return": 131.13,
+      "sharpe": 2.1602,
+      "trades": 27,
+      "variant": "baseline",
+      "window": "test_2020"
+    },
+    {
+      "avg_pos": 0.330425,
+      "max_dd": 40.6407,
+      "overlay_config": "{}",
+      "return": -30.9725,
+      "sharpe": -0.7637,
+      "trades": 21,
+      "variant": "baseline",
+      "window": "test_2022"
+    },
+    {
+      "avg_pos": 0.540196,
+      "max_dd": 34.8703,
+      "overlay_config": "{}",
+      "return": 57.1224,
+      "sharpe": 0.7193,
+      "trades": 50,
+      "variant": "baseline",
+      "window": "test_2023_2024"
+    },
+    {
+      "avg_pos": 0.526001,
+      "max_dd": 59.2229,
+      "overlay_config": "{\"boost\": 0.05, \"cooldown_threshold\": 0.25, \"max_regime_risk\": 0.62, \"max_target\": 0.62, \"type\": \"selective_release\", \"vix_threshold\": 0.04, \"volume_sync_threshold\": 0.68}",
+      "return": 1253.4664,
+      "sharpe": 1.0675,
+      "trades": 169,
+      "variant": "selective_release_cicc_v1",
+      "window": "test_proxy"
+    },
+    {
+      "avg_pos": 0.5356,
+      "max_dd": 20.9184,
+      "overlay_config": "{\"boost\": 0.05, \"cooldown_threshold\": 0.25, \"max_regime_risk\": 0.62, \"max_target\": 0.62, \"type\": \"selective_release\", \"vix_threshold\": 0.04, \"volume_sync_threshold\": 0.68}",
+      "return": 131.13,
+      "sharpe": 2.1602,
+      "trades": 27,
+      "variant": "selective_release_cicc_v1",
+      "window": "test_2020"
+    },
+    {
+      "avg_pos": 0.330425,
+      "max_dd": 40.6407,
+      "overlay_config": "{\"boost\": 0.05, \"cooldown_threshold\": 0.25, \"max_regime_risk\": 0.62, \"max_target\": 0.62, \"type\": \"selective_release\", \"vix_threshold\": 0.04, \"volume_sync_threshold\": 0.68}",
+      "return": -30.9725,
+      "sharpe": -0.7637,
+      "trades": 21,
+      "variant": "selective_release_cicc_v1",
+      "window": "test_2022"
+    },
+    {
+      "avg_pos": 0.541778,
+      "max_dd": 34.4086,
+      "overlay_config": "{\"boost\": 0.05, \"cooldown_threshold\": 0.25, \"max_regime_risk\": 0.62, \"max_target\": 0.62, \"type\": \"selective_release\", \"vix_threshold\": 0.04, \"volume_sync_threshold\": 0.68}",
+      "return": 58.7363,
+      "sharpe": 0.73,
+      "trades": 50,
+      "variant": "selective_release_cicc_v1",
+      "window": "test_2023_2024"
+    },
+    {
+      "avg_pos": 0.522576,
+      "max_dd": 54.3437,
+      "overlay_config": "{\"boost\": 0.05, \"cooldown_threshold\": 0.3, \"max_regime_risk\": 0.58, \"max_target\": 0.6, \"type\": \"selective_release\", \"vix_threshold\": 0.05, \"volume_sync_threshold\": 0.72}",
+      "return": 1253.8159,
+      "sharpe": 1.0737,
+      "trades": 170,
+      "variant": "selective_release_tight_v1",
+      "window": "test_proxy"
+    },
+    {
+      "avg_pos": 0.5356,
+      "max_dd": 20.9184,
+      "overlay_config": "{\"boost\": 0.05, \"cooldown_threshold\": 0.3, \"max_regime_risk\": 0.58, \"max_target\": 0.6, \"type\": \"selective_release\", \"vix_threshold\": 0.05, \"volume_sync_threshold\": 0.72}",
+      "return": 131.13,
+      "sharpe": 2.1602,
+      "trades": 27,
+      "variant": "selective_release_tight_v1",
+      "window": "test_2020"
+    },
+    {
+      "avg_pos": 0.330425,
+      "max_dd": 40.6407,
+      "overlay_config": "{\"boost\": 0.05, \"cooldown_threshold\": 0.3, \"max_regime_risk\": 0.58, \"max_target\": 0.6, \"type\": \"selective_release\", \"vix_threshold\": 0.05, \"volume_sync_threshold\": 0.72}",
+      "return": -30.9725,
+      "sharpe": -0.7637,
+      "trades": 21,
+      "variant": "selective_release_tight_v1",
+      "window": "test_2022"
+    },
+    {
+      "avg_pos": 0.541119,
+      "max_dd": 34.4061,
+      "overlay_config": "{\"boost\": 0.05, \"cooldown_threshold\": 0.3, \"max_regime_risk\": 0.58, \"max_target\": 0.6, \"type\": \"selective_release\", \"vix_threshold\": 0.05, \"volume_sync_threshold\": 0.72}",
+      "return": 58.4722,
+      "sharpe": 0.7284,
+      "trades": 50,
+      "variant": "selective_release_tight_v1",
+      "window": "test_2023_2024"
+    },
+    {
+      "avg_pos": 0.523038,
+      "max_dd": 54.2956,
+      "overlay_config": "{\"boost\": 0.08, \"cooldown_threshold\": 0.2, \"max_regime_risk\": 0.6, \"max_target\": 0.65, \"type\": \"selective_release\", \"vix_threshold\": 0.05, \"volume_sync_threshold\": 0.7}",
+      "return": 1415.1046,
+      "sharpe": 1.1051,
+      "trades": 171,
+      "variant": "selective_release_recovery_v1",
+      "window": "test_proxy"
+    },
+    {
+      "avg_pos": 0.5356,
+      "max_dd": 20.9184,
+      "overlay_config": "{\"boost\": 0.08, \"cooldown_threshold\": 0.2, \"max_regime_risk\": 0.6, \"max_target\": 0.65, \"type\": \"selective_release\", \"vix_threshold\": 0.05, \"volume_sync_threshold\": 0.7}",
+      "return": 131.13,
+      "sharpe": 2.1602,
+      "trades": 27,
+      "variant": "selective_release_recovery_v1",
+      "window": "test_2020"
+    },
+    {
+      "avg_pos": 0.330425,
+      "max_dd": 40.6407,
+      "overlay_config": "{\"boost\": 0.08, \"cooldown_threshold\": 0.2, \"max_regime_risk\": 0.6, \"max_target\": 0.65, \"type\": \"selective_release\", \"vix_threshold\": 0.05, \"volume_sync_threshold\": 0.7}",
+      "return": -30.9725,
+      "sharpe": -0.7637,
+      "trades": 21,
+      "variant": "selective_release_recovery_v1",
+      "window": "test_2022"
+    },
+    {
+      "avg_pos": 0.550991,
+      "max_dd": 36.9476,
+      "overlay_config": "{\"boost\": 0.08, \"cooldown_threshold\": 0.2, \"max_regime_risk\": 0.6, \"max_target\": 0.65, \"type\": \"selective_release\", \"vix_threshold\": 0.05, \"volume_sync_threshold\": 0.7}",
+      "return": 82.0975,
+      "sharpe": 0.8766,
+      "trades": 50,
+      "variant": "selective_release_recovery_v1",
+      "window": "test_2023_2024"
+    }
+  ]
+}

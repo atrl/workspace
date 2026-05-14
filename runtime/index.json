@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-10T07:59:14.697881+00:00",
+  "generated_at": "2026-05-14T02:17:18.046110+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -17,7 +17,7 @@
       "path": "runtime/data/knowledge.md",
       "category": "data",
       "suffix": ".md",
-      "bytes": 3983
+      "bytes": 4615
     },
     {
       "path": "runtime/data/leakage_validation_report.json",
@@ -98,6 +98,24 @@
       "bytes": 717
     },
     {
+      "path": "runtime/execution/card/selective_release_overlay_v1/selective_release_overlay_results.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 3455
+    },
+    {
+      "path": "runtime/execution/card/selective_release_overlay_v1/selective_release_overlay_results.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 6308
+    },
+    {
+      "path": "runtime/execution/card/selective_release_overlay_v1/selective_release_overlay_review.md",
+      "category": "execution",
+      "suffix": ".md",
+      "bytes": 3236
+    },
+    {
       "path": "runtime/execution/execution_overlay_variants.json",
       "category": "execution",
       "suffix": ".json",
@@ -107,7 +125,7 @@
       "path": "runtime/execution/knowledge.md",
       "category": "execution",
       "suffix": ".md",
-      "bytes": 3841
+      "bytes": 5830
     },
     {
       "path": "runtime/execution/position_cap_overlay_variants.json",
@@ -1583,7 +1601,7 @@
       "path": "runtime/model/card/balanced_rule_residual_v22_release_v1/notes.md",
       "category": "model",
       "suffix": ".md",
-      "bytes": 3295
+      "bytes": 3291
     },
     {
       "path": "runtime/model/card/balanced_rule_residual_v22_release_v1/soxl_balanced_rule_residual_v22_release_v1_summary.json",
