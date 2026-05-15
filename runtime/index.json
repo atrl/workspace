@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-14T02:17:18.046110+00:00",
+  "generated_at": "2026-05-15T02:14:54.108238+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -17,7 +17,7 @@
       "path": "runtime/data/knowledge.md",
       "category": "data",
       "suffix": ".md",
-      "bytes": 4615
+      "bytes": 5110
     },
     {
       "path": "runtime/data/leakage_validation_report.json",
@@ -116,6 +116,24 @@
       "bytes": 3236
     },
     {
+      "path": "runtime/execution/card/selective_release_walkforward_v1/selective_release_walkforward_results.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 4866
+    },
+    {
+      "path": "runtime/execution/card/selective_release_walkforward_v1/selective_release_walkforward_results.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 10748
+    },
+    {
+      "path": "runtime/execution/card/selective_release_walkforward_v1/selective_release_walkforward_review.md",
+      "category": "execution",
+      "suffix": ".md",
+      "bytes": 2318
+    },
+    {
       "path": "runtime/execution/execution_overlay_variants.json",
       "category": "execution",
       "suffix": ".json",
@@ -125,7 +143,7 @@
       "path": "runtime/execution/knowledge.md",
       "category": "execution",
       "suffix": ".md",
-      "bytes": 5830
+      "bytes": 7400
     },
     {
       "path": "runtime/execution/position_cap_overlay_variants.json",

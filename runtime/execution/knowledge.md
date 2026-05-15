@@ -38,11 +38,13 @@
 6. **Generic `fast_reentry` 不是答案**：它能改善恢复期收益，但在 proxy Sharpe / MaxDD 上被 `dwell_hold_v2` 压制。
 7. **当前瓶颈是低换手的 selective release / re-entry classification**：`regime_route_v1` 证明更聪明的放行有价值，但 churn 明显升高。
 8. **固定 v22 actor 的 selective release gate 已证明方向正确**：`selective_release_recovery_v1` 把 `test_2023_2024` 从 `57.12% / 0.719` 提到 `82.10% / 0.877`，`test_2022` 完全不变，`test_proxy` 从 `1132.19% / 1.043 / 56.48%` 提到 `1415.10% / 1.105 / 54.30%`。
+9. **walk-forward actor 验证未通过 runtime promotion**：`selective_release_walkforward_v1` 显示三种既有 release gate 在 `wf_2023_2024` 有 `6-18` 个 eligible days，但 `changed_days=0`，说明当前执行映射吸收了 boost；不要直接治理化该 overlay。
 
 ## 待验证方向
 
 - [x] 显式 selective release/re-entry overlay（优先 `dwell_hold_v2` / `regime_route_v1` 风格，不再泛化搜索 `fast_reentry`）— fixed v22 actor counterfactual retained as `selective_release_recovery_v1`
-- [ ] 对 `selective_release_recovery_v1` 做 walk-forward actor validation，再决定是否进入 runtime overlay / governed execution profile
+- [x] 对 `selective_release_recovery_v1` 做 walk-forward actor validation，再决定是否进入 runtime overlay / governed execution profile — blocked for promotion because WF actor orders do not change
+- [ ] 诊断 `wf_2023_2024` eligible release days 为什么被 actor target / rebalance threshold / trade lock 吸收
 - [ ] 动态 decision frequency
 - [ ] 仓位上限与 VIX term structure 联动
 - [ ] budget-usage actor/runtime mismatch 诊断
@@ -69,3 +71,24 @@ Decision:
 - Do not retrain another release-pack PPO branch yet.
 - Next valid loop is walk-forward actor validation for the same overlay.
 - If it survives, encode it as a governed execution overlay/profile rather than expanding the model feature pack.
+
+## 2026-05-15: Selective Release Walk-Forward Actor Validation
+
+Question: does the retained release overlay survive when applied to saved `balanced_rule_residual_v22` walk-forward actors?
+
+Answer: no, not as an executable runtime overlay yet.
+
+| Variant | wf_2020 | wf_2022 | wf_2023_2024 | Decision |
+|---|---:|---:|---:|---|
+| baseline | `113.17% / 2.015 / 19.47%` | `-34.11% / -0.926 / 38.27%` | `-20.21% / -0.277 / 38.54%` | control |
+| `selective_release_recovery_v1` | unchanged, `0` eligible days | unchanged, `0` eligible days | unchanged, `18` eligible days but `0` changed days | block runtime promotion |
+
+Mechanism:
+
+- The release signals do identify 2024 recovery days, so the factor side is not the primary failure.
+- The overlay boost is absorbed by actor target / execution mapping, because eligible days do not translate into changed orders.
+
+Decision:
+
+- Keep `selective_release_overlay_v1` as fixed full-window counterfactual evidence only.
+- Do not promote it to a governed runtime profile until an explicit target-lift / rebalance-bypass test changes orders while preserving `wf_2022`.

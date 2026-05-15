@@ -31,6 +31,7 @@ DEFAULT_TEST_FILES = [
     "tests/test_two_speed_budget.py",
     "tests/test_update_market_data.py",
     "tests/test_selective_release_overlay.py",
+    "tests/test_selective_release_walkforward.py",
 ]
 
 DEFAULT_COMPILE_TARGETS = [
@@ -57,6 +58,7 @@ DEFAULT_COMPILE_TARGETS = [
     "scripts/evaluate_signed_te_reversion.py",
     "scripts/evaluate_signed_te_stress_gate.py",
     "scripts/evaluate_selective_release_overlay.py",
+    "scripts/evaluate_selective_release_walkforward.py",
 
     "scripts/prune_artifacts.py",
     "scripts/rank_counterfactual_variants.py",

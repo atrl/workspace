@@ -58,6 +58,13 @@
 - 完成后始终刷新 registry：
   - `PYTHONPATH=. qlib_venv/bin/python scripts/update_data_registry.py`
 
+### 2026-05-15 Revalidation
+
+- `PYTHONPATH=. qlib_venv/bin/python scripts/update_market_data.py --local-only` 成功同步 canonical panel 到 raw mirrors，并重建 `data/qlib/soxl`。
+- `PYTHONPATH=. qlib_venv/bin/python scripts/update_data_registry.py` 成功刷新 registry。
+- Canonical panel、raw SOXL/SOXX/VIX、qlib calendar 继续全部对齐到 `2026-04-27`。
+- 直接请求 Yahoo chart endpoint 仍然报 `NameResolutionError`，当前 automation 运行仍无法 live refresh。
+
 ## 50 Core Features 主题分类
 
 | 主题 | 特征数 | 关键驱动 |

@@ -266,6 +266,70 @@ Decision:
 - Do not start another PPO retrain yet; this fixed-actor result is stronger evidence that the bottleneck is runtime gating / release classification.
 - Next action is walk-forward actor validation for the same overlay, then convert to a governed execution overlay/profile only if the benefit survives.
 
+## 2026-05-15 Automation Recheck
+
+### Data Refresh
+
+Commands:
+
+```bash
+PYTHONPATH=. qlib_venv/bin/python scripts/update_market_data.py --local-only
+PYTHONPATH=. qlib_venv/bin/python scripts/update_data_registry.py
+PYTHONPATH=. qlib_venv/bin/python - <<'PY'
+import requests
+try:
+    requests.get("https://query1.finance.yahoo.com/v8/finance/chart/SOXL?interval=1d&period1=0&period2=1", timeout=20).raise_for_status()
+except Exception as exc:
+    print(type(exc).__name__, str(exc))
+PY
+```
+
+Observed state:
+
+- Local-only sync succeeded and rebuilt `data/qlib/soxl`.
+- Canonical panel, raw SOXL/SOXX/VIX mirrors, and qlib calendar all remain aligned at `2026-04-27`.
+- Live Yahoo refresh is still blocked by DNS / name resolution in this automation environment.
+
+### Walk-Forward Selective Release Validation
+
+Command:
+
+```bash
+MPLCONFIGDIR=/private/tmp/mplconfig PYTHONPATH=. qlib_venv/bin/python scripts/evaluate_selective_release_walkforward.py --profile balanced_rule_residual_v22 --all-variants
+```
+
+Evidence:
+
+- Review: `runtime/execution/card/selective_release_walkforward_v1/selective_release_walkforward_review.md`
+- CSV: `runtime/execution/card/selective_release_walkforward_v1/selective_release_walkforward_results.csv`
+- JSON: `runtime/execution/card/selective_release_walkforward_v1/selective_release_walkforward_results.json`
+
+Key result:
+
+| actor_window | baseline | best prior gate | readout |
+|---|---:|---:|---|
+| `wf_2020` | `113.17% / 2.015 / 19.47% / avg_pos 0.5322` | unchanged | no release signal days |
+| `wf_2022` | `-34.11% / -0.926 / 38.27% / avg_pos 0.3216` | unchanged | no release signal days, defense not reopened |
+| `wf_2023_2024` | `-20.21% / -0.277 / 38.54% / avg_pos 0.4764` | unchanged | release signals fire, but execution absorbs the overlay |
+
+Detailed readout:
+
+- `selective_release_cicc_v1` has `16` eligible days in `wf_2023_2024`, but `0` changed days.
+- `selective_release_tight_v1` has `6` eligible days in `wf_2023_2024`, but `0` changed days.
+- `selective_release_recovery_v1` has `18` eligible days in `wf_2023_2024`, but `0` changed days.
+
+Decision:
+
+- Do **not** promote `selective_release_recovery_v1` into runtime/profile governance yet.
+- The fixed full-window actor benefit from 2026-05-14 does not survive the walk-forward actor check as an executable change.
+- The updated bottleneck is narrower: release factors can identify 2024 recovery days, but the current execution mapping can absorb the boost without changing actual orders.
+
+Next action:
+
+1. Keep data refresh on local canonical sync until a network-enabled run can extend beyond `2026-04-27`.
+2. Diagnose target/position absorption on `wf_2023_2024` eligible days before retraining.
+3. If the next fixed-actor test changes orders, constrain it to an execution mechanism such as target-lift vs rebalance-threshold bypass; do not add another ungated PPO feature branch.
+
 ---
 
 ## Archived Snapshot: 2026-04-28 Macro Evaluation
