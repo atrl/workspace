@@ -8,6 +8,8 @@ import numpy as np
 import pandas as pd
 import torch
 from gymnasium import spaces
+
+DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 from tianshou.policy import DiscreteSACPolicy, PPOPolicy
 from tianshou.utils.net.common import Net
 from tianshou.utils.net.discrete import Actor, Critic
@@ -47,8 +49,8 @@ def _build_net(obs_dim: int, profile: StrategyConfig, model_cfg):
             feature_dim=len(feature_columns),
             observation_window=max(int(model_cfg.observation_window), 1),
             dropout=float(model_cfg.tide_dropout),
-            device="cpu",
-        )
+            device=DEVICE,
+        ).to(DEVICE)
     if getattr(model_cfg, "use_attention", False):
         return WindowSelfAttentionNet(
             obs_dim,
@@ -57,7 +59,7 @@ def _build_net(obs_dim: int, profile: StrategyConfig, model_cfg):
             attention_dim=int(getattr(model_cfg, "attention_dim", 64)),
             attention_heads=int(getattr(model_cfg, "attention_heads", 4)),
             mlp_hidden_sizes=list(profile.hidden_sizes),
-            device="cpu",
+            device=DEVICE,
         )
     if model_cfg.use_gru:
         return GRUNet(
@@ -66,21 +68,21 @@ def _build_net(obs_dim: int, profile: StrategyConfig, model_cfg):
             observation_window=max(int(model_cfg.observation_window), 1),
             gru_hidden_size=int(model_cfg.gru_hidden_size),
             mlp_hidden_sizes=list(profile.hidden_sizes),
-            device="cpu",
+            device=DEVICE,
             dropout=float(getattr(model_cfg, "dropout", 0.0)),
-        )
+        ).to(DEVICE)
     if effective_use_moe:
         return RegimeMoENet(
             obs_dim,
-            hidden_size=64,
+            hidden_size=int(profile.hidden_sizes[0]) if profile.hidden_sizes else 64,
             n_experts=int(model_cfg.router_experts),
-            device="cpu",
+            device=DEVICE,
             top_k=int(model_cfg.router_top_k),
             noise_std=float(model_cfg.router_noise_std),
             regime_risk_idx=static_index["regime_risk"],
             hard_regime_routing=effective_hard_routing,
-        )
-    return Net((obs_dim,), hidden_sizes=list(profile.hidden_sizes), device="cpu")
+        ).to(DEVICE)
+    return Net((obs_dim,), hidden_sizes=list(profile.hidden_sizes), device=DEVICE).to(DEVICE)
 
 
 def build_policy(
@@ -101,11 +103,11 @@ def build_policy(
         actor_net = _build_net(obs_dim, profile, model_cfg)
         critic1_net = _build_net(obs_dim, profile, model_cfg)
         critic2_net = _build_net(obs_dim, profile, model_cfg)
-        actor = Actor(actor_net, n_actions, device="cpu")
-        critic1_raw = Actor(critic1_net, n_actions, softmax_output=False, device="cpu")
-        critic2_raw = Actor(critic2_net, n_actions, softmax_output=False, device="cpu")
-        critic1 = QNetwork(critic1_raw)
-        critic2 = QNetwork(critic2_raw)
+        actor = Actor(actor_net, n_actions, device=DEVICE).to(DEVICE)
+        critic1_raw = Actor(critic1_net, n_actions, softmax_output=False, device=DEVICE).to(DEVICE)
+        critic2_raw = Actor(critic2_net, n_actions, softmax_output=False, device=DEVICE).to(DEVICE)
+        critic1 = QNetwork(critic1_raw).to(DEVICE)
+        critic2 = QNetwork(critic2_raw).to(DEVICE)
         wd = float(getattr(profile, "weight_decay", 0.0))
         actor_optim = torch.optim.Adam(actor.parameters(), lr=profile.lr, weight_decay=wd)
         critic1_optim = torch.optim.Adam(critic1.parameters(), lr=profile.lr, weight_decay=wd)
@@ -133,8 +135,8 @@ def build_policy(
         shared_net = _build_net(obs_dim, profile, model_cfg)
         actor_net = shared_net
         critic_net = shared_net
-    actor = Actor(actor_net, n_actions, device="cpu")
-    critic = Critic(critic_net, device="cpu")
+    actor = Actor(actor_net, n_actions, device=DEVICE).to(DEVICE)
+    critic = Critic(critic_net, device=DEVICE).to(DEVICE)
     wd = float(getattr(profile, "weight_decay", 0.0))
     optim = torch.optim.Adam(list(actor.parameters()) + list(critic.parameters()), lr=profile.lr, weight_decay=wd)
     policy_cls = SoxlPPOPolicy if effective_use_moe else PPOPolicy
@@ -153,7 +155,7 @@ def build_policy(
         action_space=spaces.Discrete(n_actions),
     )
     if effective_use_moe:
-        policy_kwargs["moe_lb_coef"] = kwargs.get("moe_lb_coef", 0.01)
+        policy_kwargs["moe_lb_coef"] = getattr(model_cfg, "moe_lb_coef", kwargs.get("moe_lb_coef", 0.01))
     policy = policy_cls(**policy_kwargs)
     return policy, actor
 
@@ -564,7 +566,8 @@ def actor_action(actor: Actor, obs: np.ndarray) -> int:
         return actor.action(obs)
     obs = adapt_observation_for_actor(obs, actor)
     with torch.no_grad():
-        out = actor(torch.as_tensor(obs, dtype=torch.float32).unsqueeze(0))
+        device = next(actor.parameters()).device
+        out = actor(torch.as_tensor(obs, dtype=torch.float32, device=device).unsqueeze(0))
         logits = out[0] if isinstance(out, tuple) else out
         return int(logits.argmax(-1).item())
 
@@ -613,7 +616,8 @@ class EnsembleActor:
             for actor, weight in zip(self.actors, self.weights):
                 adapted = adapt_observation_for_actor(obs, actor)
                 with torch.no_grad():
-                    out = actor(torch.as_tensor(adapted, dtype=torch.float32).unsqueeze(0))
+                    device = next(actor.parameters()).device
+                    out = actor(torch.as_tensor(adapted, dtype=torch.float32, device=device).unsqueeze(0))
                     logits = out[0] if isinstance(out, tuple) else out
                     idxs.append(float(logits.argmax(-1).item()) * weight)
             return int(round(sum(idxs)))
@@ -622,7 +626,8 @@ class EnsembleActor:
         for actor, weight in zip(self.actors, self.weights):
             adapted = adapt_observation_for_actor(obs, actor)
             with torch.no_grad():
-                out = actor(torch.as_tensor(adapted, dtype=torch.float32).unsqueeze(0))
+                device = next(actor.parameters()).device
+                out = actor(torch.as_tensor(adapted, dtype=torch.float32, device=device).unsqueeze(0))
                 logits = out[0] if isinstance(out, tuple) else out
                 probs = torch.softmax(logits, dim=-1) * weight
             if probs_accum is None:

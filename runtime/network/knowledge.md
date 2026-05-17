@@ -10,6 +10,7 @@
 | GRU | recurrent | ✅ Canonical | 60+ | Sharpe 0.69-2.24 | [card](cards/gru/card.md) |
 | Attention | attention | 🟡 No improvement | 1 | Sharpe 0.76 | [card](cards/attention/card.md) |
 | TiDE | temporal_decomposition | 🟡 No improvement | 1 | Sharpe 0.69 | [card](cards/tide/card.md) |
+| MoE (RegimeMoENet) | mixture_of_experts | 🟡 Trained, weaker than baseline | 1 | proxy Sharpe 1.00, 2022 Ret -25.4% | `balanced_rule_residual_v19_moe` |
 | MLP Fallback | dense | ⚪ Unused | 0 | — | [card](cards/mlp_fallback/card.md) |
 
 ## 核心结论
@@ -17,7 +18,7 @@
 1. **GRU-64 + [128,64] MLP 是当前主架构**，observation_window=5。
 2. **Attention 替换 GRU 无提升**：同规模下指标无差异，计算成本更高。
 3. **TiDE 未超越 GRU**：时序分解网络无优势，可能与短窗口（5步）有关。
-4. **MoE 未实际实验**：代码存在但未在 SOXL 上跑过完整训练。
+4. **MoE 首次实验完成但弱于基线**：RegimeMoENet (3 experts, top-1) 在固定切分上通过晋升门，但 proxy Sharpe 1.00 低于 v19 (~1.15)，test_2022 收益 -25.4% 差于 v19 (~-18%)。训练过程中出现明显退化（iter 0 score=81.9 → iter 80 score=64.4），疑似学习率过高或负载均衡损失太弱。
 
 ## 待验证方向
 
@@ -331,4 +332,68 @@ Priority is bear-market generalization:
 2. **Sampling**: Oversample stress episodes during training
 3. **Reward**: Add bear-market-specific penalties
 4. **Features**: Add leading indicators (credit spreads, yield curve)
+
+
+
+<!-- MIGRATED FROM memory/2026-04-29-moe-first-training.md -->
+
+# MoE First Training: `balanced_rule_residual_v19_moe`
+
+**Date**: 2026-04-29
+**Profile**: `balanced_rule_residual_v19_moe`
+**Direction**: network
+**Status**: trained, underperforms baseline
+
+## Architecture
+
+- Gate: Linear(obs_dim → 32) + ReLU + Linear(32 → 3 experts) + softmax
+- 3 Experts: each Linear(obs_dim → 64) + ReLU
+- Shared expert: Linear(obs_dim → 16) + ReLU
+- Output: Linear(64+16 → 64) + ReLU + Linear(64 → action_dim)
+- Top-k=1 routing, load-balance loss coef=0.01, noise_std=0.1
+- No hard regime routing
+
+## Results (seed=42, 80 iters staged)
+
+### Training Dynamics
+- **Best checkpoint**: iter 0 (score=81.92, return=53.95%, sharpe=1.56)
+- **Degradation**: Score fell to 64.37 by iter 80
+- This indicates overtraining — the policy learned initially but then degraded
+
+### Slice Metrics
+
+| Slice | Return | Sharpe | MaxDD | AvgPos |
+|-------|--------|--------|-------|--------|
+| test_2020 | +101.1% | 2.22 | 20.1% | 0.52 |
+| test_2022 | -25.4% | -0.64 | 32.6% | 0.31 |
+| test_2023_2024 | +37.2% | 0.61 | 36.7% | 0.50 |
+| **test_proxy** | **+857.8%** | **1.00** | **53.5%** | **0.49** |
+
+### Promotion Gate
+- Fixed-split: **PASS** (all 3 checks passed)
+- Walk-forward: Not evaluated
+
+### vs v19 Baseline (approximate)
+
+| Metric | v19_moe | v19 (baseline) | Δ |
+|--------|---------|----------------|---|
+| proxy Sharpe | 1.00 | ~1.15 | -0.15 |
+| test_2022 Return | -25.4% | ~-18% | -7.4pp |
+| test_2023_2024 Return | +37.2% | ~+48% | -10.8pp |
+| test_2020 Return | +101.1% | ~+95% | +6.1pp |
+
+## Diagnosis
+
+1. **Overtraining degradation**: Best score at iter 0 — LR=3e-4 may be too high for MoE stability.
+2. **Load-balance loss too weak**: coef=0.01 may not be enough to force expert diversity; gate may collapse to single expert.
+3. **No regime specialization**: test_2022 underperformance (-25.4% vs -18%) suggests experts did not learn distinct regime behaviors.
+4. **Simpler per-expert networks**: Linear+ReLU vs GRU+MLP may underfit on complex bull patterns.
+
+## Next Experiments
+
+1. **LR sweep**: Try 1e-4 and 5e-5
+2. **Load-balance strength**: Increase to 0.05 or 0.1
+3. **Intermediate selection**: Evaluate every 5-10 iters instead of 20
+4. **Gate analysis**: Log expert usage distribution per regime
+5. **Hybrid**: GRU backbone + MoE head (instead of replacing GRU entirely)
 

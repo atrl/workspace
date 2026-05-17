@@ -29,7 +29,7 @@ contourpy==1.3.3
 cryptography==46.0.7
 cvxpy==1.8.2
 cycler==0.12.1
-databricks-sdk==0.102.0
+databricks-sdk
 debugpy==1.8.20
 decorator==5.2.1
 deepdiff==7.0.1
@@ -121,9 +121,9 @@ notebook_shim==0.2.4
 notebook==7.5.5
 numba==0.65.0
 numpy==2.4.4
-opentelemetry-api==1.41.0
-opentelemetry-proto==1.41.0
-opentelemetry-sdk==1.41.0
+opentelemetry-api
+opentelemetry-proto
+opentelemetry-sdk
 opentelemetry-semantic-conventions==0.62b0
 ordered-set==4.1.0
 osqp==1.1.1
@@ -194,7 +194,7 @@ tensorboard==2.20.0
 termcolor==3.3.0
 terminado==0.18.1
 threadpoolctl==3.6.0
-tianshou==0.4.10
+tianshou
 tinycss2==1.4.0
 torch==2.11.0
 tornado==6.5.5

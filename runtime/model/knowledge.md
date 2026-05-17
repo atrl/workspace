@@ -429,3 +429,92 @@ Validate whether network simplification (v19_small) or VIX term features (v22) i
 - IC 结果: `runtime/model/card/macro_ic_analysis/ic_results.json`
 - IC 摘要: `runtime/model/card/macro_ic_analysis/ic_summary.txt`
 
+
+
+---
+
+## 2026-04-30: P0 三方向 walk-forward 结果
+
+### `balanced_curriculum` walk-forward (全部完成)
+
+| Window | valid_score | test_return | test_sharpe | test_max_dd | test_avg_pos | eligible |
+|--------|-------------|-------------|-------------|-------------|--------------|----------|
+| wf_2020 | 95.16 | +101.8% | 2.24 | 20.1% | 0.515 | ❌ (avg_pos > 0.35) |
+| wf_2022 | 52.28 | -29.0% | -0.68 | 35.2% | 0.334 | ❌ (sharpe < 0.50) |
+| wf_2023_2024 | 59.12 | -16.0% | -0.30 | 35.4% | 0.420 | ❌ (return < 0%, sharpe < 0) |
+
+### `balanced_trade_lock` walk-forward (全部完成)
+
+| Window | valid_score | test_return | test_sharpe | test_max_dd | test_avg_pos | eligible |
+|--------|-------------|-------------|-------------|-------------|--------------|----------|
+| wf_2020 | 96.17 | +90.2% | 2.09 | 24.2% | 0.497 | ❌ (avg_pos > 0.35) |
+| wf_2022 | 64.14 | -29.8% | -1.08 | 32.1% | 0.280 | ❌ (sharpe < 0.50) |
+| wf_2023_2024 | 57.72 | -10.2% | -0.12 | 33.9% | 0.412 | ❌ (return < 0%, sharpe < 0) |
+
+### 关键发现
+
+1. **两个完全不同的干预方向产生几乎相同的walk-forward失败模式**
+   - curriculum (sampling) 和 trade_lock (execution) 的 wf_2022 结果几乎一致: -29.0% vs -29.8%
+   - wf_2023_2024 也非常接近: -16.0% vs -10.2%
+   - 这强烈说明问题不在sampling或execution层，而在model capacity / feature set / training dynamics
+
+2. **Fixed split 与 walk-forward 存在巨大鸿沟**
+   - curriculum fixed-split test_2023_2024: +44.9% → walk-forward: -16.0% (差距60pp)
+   - 说明模型在fixed split中利用了未来信息（通过curriculum采样的regime分布），但在expanding window中无法复现
+
+3. **Validation set 失去预测价值**
+   - 所有window的valid_score都很高(52-96)，但test表现分化严重
+   - wf_2020 valid_score 95+ → test 优秀; wf_2022 valid_score 52-64 → test 负收益
+   - valid score 不能区分会成功和会失败的window
+
+4. **Bull market window (wf_2020) 表现优秀，但avg_pos过高**
+   - wf_2020 两个profile均产生90-100%+收益，但avg_pos 0.497-0.515 > 0.35 gate
+   - 说明模型在bull market中几乎全仓，缺乏 nuanced positioning
+
+### 决策
+- **永久放弃 `balanced_curriculum` 和 `balanced_trade_lock` 作为独立方向**
+- 两个方向均已完成walk-forward验证，结果明确为negative
+- 不继续迭代调参（severe_repeat, trade_lock_days等）
+- 将精力转向识别walk-forward失败的根因：可能是feature set不足以区分regime，或model capacity不足，或training dynamics问题
+
+### 证据路径
+- `balanced_curriculum` profile: `runtime/model/card/balanced_curriculum/profile.yaml`
+- `balanced_trade_lock` profile: `runtime/model/card/balanced_trade_lock/profile.yaml`
+- `balanced_curriculum` wf summaries: `runtime/model/card/balanced_curriculum/soxl_balanced_curriculum_wf_20{20,22,23_2024}_summary.json`
+- `balanced_trade_lock` wf summaries: `runtime/model/card/balanced_trade_lock/soxl_balanced_trade_lock_wf_20{20,22,23_2024}_summary.json`
+- 实验总览: `docs/experiment-landscape-review.md`
+
+## 2026-05-01 重大突破
+
+### 首次有候选通过 fixed split promotion gate
+
+两个候选profile首次同时通过 fixed split 全部三个checks：
+
+| Profile | Seed | test_2022 MaxDD | test_2022 avg_pos | test_proxy Sharpe | fixed_split |
+|---------|------|-----------------|-------------------|-------------------|-------------|
+| `balanced_trade_lock` | **123** | **29.9%** ✅ | **0.269** ✅ | **1.007** ✅ | **TRUE** |
+| `balanced_rule_residual_v19_reg_v22` | **42** | **32.9%** ✅ | **0.320** ✅ | **1.022** ✅ | **TRUE** |
+
+### Seed 效应
+- `trade_lock` seed=42: test_2022 MaxDD=58.4% (FAILED)
+- `trade_lock` seed=123: test_2022 MaxDD=29.9% (PASSED)
+- 相同超参数，不同随机初始化导致完全不同的risk profile
+- 暗示模型对initialization敏感，存在多个局部最优解
+
+### VIX期限结构特征
+- `v22` 新增5个VIX特征: vvix_zscore_252, vix_term_slope, vix_short_ratio, skew_zscore_252, vix_term_slope_velocity_5
+- 特征从59→64，外部数据确认存在
+- 首次有带新特征的profile通过fixed split
+
+### core50方向证伪
+- core50 (50%底仓): MaxDD=59.8%, avg_pos=0.366 → FAILED
+- core50_v2 (40%底仓): MaxDD=57.3%, avg_pos=0.365 → FAILED
+- 降低底仓10pp仅改善MaxDD 2.5pp，收益下降90pp
+- 硬底仓不是解决MaxDD的有效手段
+
+### Walk-forward 待验证
+- `balanced_trade_lock` seed=123 walk-forward: 已启动（PID 621445）
+- `balanced_rule_residual_v19_reg_v22` seed=42 walk-forward: 已启动（task bash-9sp8gik0）
+- `balanced_core50` walk-forward: 运行中（task bash-4ljlyb37，wf_2020 worker进行中）
+- 历史模式: fixed split promising → walk-forward 失败概率极高
+- 如果walk-forward仍失败，需根本性重构validation design或model capacity

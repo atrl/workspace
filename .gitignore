@@ -83,3 +83,5 @@ data/generalization/*.csv
 
 /dashboard.html
 /dashboard_data/
+# Qlib binary features (regenerated from CSV)
+data/qlib/**/features/
