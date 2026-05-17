@@ -66,6 +66,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--dry-run", action="store_true", help="Signal only, no broker interaction")
     parser.add_argument("--notify", action="store_true", default=True)
     parser.add_argument("--no-notify", action="store_true")
+    parser.add_argument("--discord", action="store_true", help="Also send notifications to Discord")
     parser.add_argument("--initial-cash", type=float, default=ACCOUNT)
     parser.add_argument("--skip-promotion-gate", action="store_true", help="Skip model promotion gate check (for testing)")
     return parser.parse_args()
@@ -212,7 +213,7 @@ def main() -> None:
         encoding="utf-8",
     )
 
-    notifier = get_notifier(prefer_bark=True) if args.notify and not args.no_notify else None
+    notifier = get_notifier(prefer_bark=True, include_discord=args.discord) if args.notify and not args.no_notify else None
     if notifier:
         title = f"SOXL COMPOSED {'EXEC' if result.success else 'FAIL'} | {slow_signal.date}"
         body = (

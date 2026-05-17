@@ -85,3 +85,4 @@ data/generalization/*.csv
 /dashboard_data/
 # Qlib binary features (regenerated from CSV)
 data/qlib/**/features/
+.env.discord

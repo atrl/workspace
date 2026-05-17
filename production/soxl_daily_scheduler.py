@@ -36,6 +36,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--profile", default="")
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--no-notify", action="store_true")
+    parser.add_argument("--discord", action="store_true", help="Also send notifications to Discord")
     parser.add_argument("--skip-data-update", action="store_true")
     parser.add_argument("--skip-dashboard", action="store_true")
     return parser.parse_args()
@@ -56,7 +57,7 @@ def _run(cmd: list[str], description: str) -> None:
 def main() -> None:
     args = parse_args()
     use_notify = not args.no_notify
-    notifier = get_notifier(prefer_bark=True) if use_notify else None
+    notifier = get_notifier(prefer_bark=True, include_discord=args.discord) if use_notify else None
 
     venv_python = str(ROOT / "qlib_venv" / "bin" / "python")
 

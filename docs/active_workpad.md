@@ -573,3 +573,54 @@ Next action:
 - IC 分析脚本: `scripts/compute_macro_ic.py`
 - IC 结果: `runtime/model/card/macro_ic_analysis/ic_results.json`
 - IC 摘要: `runtime/model/card/macro_ic_analysis/ic_summary.txt`
+
+---
+
+## 2026-05-17 Discord 通知集成
+
+### 变更
+
+- `production/notify.py`: 新增 `DiscordNotifier` 和 `MultiNotifier`
+  - 支持 `DISCORD_BOT_TOKEN` / `DISCORD_CHANNEL_ID` 环境变量
+  - 自动从 `.env.discord` 读取 token（环境变量优先）
+  - `get_notifier(include_discord=True)` 同时发送 Bark/macOS + Discord
+  - Cloudflare 403 修复：添加 `User-Agent` header
+- `production/soxl_paper_trading.py`: 新增 `--discord` 参数
+- `production/soxl_daily_scheduler.py`: 新增 `--discord` 参数
+- `production/composed_session.py`: 新增 `--discord` 参数
+
+### 权限验证
+
+| 频道 | ID | 状态 |
+|------|-----|------|
+| `#general` | 1474219222904082606 | ✅ 可读可写 |
+| `#tradingagent` | 1475287062553956565 | ✅ 可读可写 (默认目标) |
+| `#moon` | 1476061424382906561 | ✅ 可读可写 |
+| `#options` | 1476879729624612926 | ✅ 可读可写 |
+| `#being` | 1483370904372379768 | ✅ 可读可写 |
+| `#soxl` | 1485666024865927309 | ❌ Missing Access |
+| `#daily` | 1504487456572182639 | ❌ Missing Access |
+
+Bot 无法访问 `#soxl` 和 `#daily`（需要服务器管理员在频道权限中添加 bot）。当前默认频道设为 `#tradingagent`。
+
+### 环境变量更新
+
+`~/.zshrc` 中的 `DISCORD_BOT_TOKEN` 已更新为最新有效 token。
+
+### 测试命令
+
+```bash
+# 仅 Discord
+PYTHONPATH=. qlib_venv/bin/python production/notify.py --discord --title "Test" --body "Hello"
+
+# Bark + Discord
+PYTHONPATH=. qlib_venv/bin/python production/notify.py --discord --title "Test" --body "Hello"
+
+# Paper trading with Discord
+PYTHONPATH=. qlib_venv/bin/python production/soxl_paper_trading.py --discord --dry-run
+```
+
+### 已知限制
+
+- `soxl` / `daily` 频道需管理员手动授权 bot 的 `Send Messages` 权限
+- 消息长度受 Discord 2000 字符限制（自动截断）

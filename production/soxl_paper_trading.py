@@ -50,6 +50,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--market-order", action="store_true", help="Use market order (Futu only)")
     parser.add_argument("--notify", action="store_true", default=True, help="Send notifications")
     parser.add_argument("--no-notify", action="store_true", help="Disable notifications")
+    parser.add_argument("--discord", action="store_true", help="Also send notifications to Discord")
     parser.add_argument("--dry-run", action="store_true", help="Signal only, do not place orders")
     parser.add_argument("--healthcheck", action="store_true", help="Run health checks and exit")
     parser.add_argument("--skip-data-update", action="store_true", help="Skip market data update")
@@ -234,7 +235,7 @@ def healthcheck(args: argparse.Namespace) -> Dict[str, object]:
                 pass
     results["broker"] = {"ok": broker_ok, "msg": broker_msg}
 
-    notifier = get_notifier(prefer_bark=True)
+    notifier = get_notifier(prefer_bark=True, include_discord=args.discord)
     results["notify"] = {"channel": notifier.__class__.__name__}
 
     all_ok = data_ok and model_ok and broker_ok
@@ -251,7 +252,7 @@ def main() -> None:
         sys.exit(0 if results["all_ok"] else 1)
 
     use_notify = args.notify and not args.no_notify
-    notifier = get_notifier(prefer_bark=True) if use_notify else None
+    notifier = get_notifier(prefer_bark=True, include_discord=args.discord) if use_notify else None
 
     # 1. Data update
     if not args.skip_data_update:
