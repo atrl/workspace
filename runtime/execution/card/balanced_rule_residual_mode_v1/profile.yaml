@@ -9,7 +9,7 @@ update_repeat: 10
 reward:
   return_scale: 1.15
   transaction_cost: 0.08
-  turnover_penalty: 0.05
+  turnover_penalty: 0.15
   drawdown_penalty: 0.28
   downside_penalty: 0.20
   risk_budget_penalty: 0.24
@@ -38,8 +38,8 @@ reward:
   alpha_scale: 3.0
   use_kelly_alpha: true
   rule_deviation_penalty: 1.00
-  micro_rebalance_penalty: 0.35
-  micro_rebalance_threshold: 0.05
+  micro_rebalance_penalty: 0.50
+  micro_rebalance_threshold: 0.10
   short_hold_turnover_penalty: 2.25
   short_hold_threshold: 0.16
 feature:
