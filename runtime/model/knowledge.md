@@ -638,3 +638,26 @@ Decision:
   selection is part of the hypothesis.
 - This does not change the current runtime canonical model; v22 remains selected
   through corrected complete walk-forward scoring.
+
+## 2026-05-21 Checkpoint Retention Harness Support
+
+The v22 asset audit led to a harness fix rather than an immediate retrain.
+
+Change:
+
+- Added default-off `checkpoint_retention` profile config.
+- Training selection can now return retained stage/top-N actor states.
+- Artifact persistence can write retained checkpoint actor bundles without
+  mutating the selected actor.
+- Summaries can record replayable `retained_checkpoints` paths.
+
+Evidence:
+
+- `tests/test_checkpoint_retention.py`
+- `runtime/harness/card/checkpoint_retention_v1/notes.md`
+
+Decision:
+
+- Existing profiles remain unchanged because retention defaults to disabled.
+- The next governed model run should opt in with `checkpoint_retention.enabled`
+  and retain enough stage/top-N actors to make checkpoint review replayable.

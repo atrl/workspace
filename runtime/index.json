@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-20T23:37:34.641094+00:00",
+  "generated_at": "2026-05-20T23:48:16.509647+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -650,6 +650,12 @@
       "bytes": 4562
     },
     {
+      "path": "runtime/harness/card/checkpoint_retention_v1/notes.md",
+      "category": "harness",
+      "suffix": ".md",
+      "bytes": 1738
+    },
+    {
       "path": "runtime/harness/card/harness_validation/card.md",
       "category": "harness",
       "suffix": ".md",
@@ -665,7 +671,7 @@
       "path": "runtime/harness/knowledge.md",
       "category": "harness",
       "suffix": ".md",
-      "bytes": 6384
+      "bytes": 7520
     },
     {
       "path": "runtime/harness/optimization_notes.md",
@@ -1880,6 +1886,12 @@
       "bytes": 1778
     },
     {
+      "path": "runtime/model/card/balanced_unit_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 2995
+    },
+    {
       "path": "runtime/model/card/balanced_wf_2020/soxl_balanced_wf_2020_summary.json",
       "category": "model",
       "suffix": ".json",
@@ -2315,7 +2327,7 @@
       "path": "runtime/model/knowledge.md",
       "category": "model",
       "suffix": ".md",
-      "bytes": 37146
+      "bytes": 37939
     },
     {
       "path": "runtime/model/model_adjustment_roadmap.md",

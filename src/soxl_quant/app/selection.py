@@ -33,6 +33,36 @@ def build_action_interpreter(profile):
     )
 
 
+def select_retained_checkpoints(candidates: list[dict], profile) -> list[dict]:
+    cfg = getattr(profile, "checkpoint_retention", None)
+    if cfg is None or not bool(cfg.enabled):
+        return []
+
+    by_iter: dict[int, dict] = {}
+
+    def _add(candidate: dict, reason: str) -> None:
+        iter_value = int(candidate["iter"])
+        entry = by_iter.get(iter_value)
+        if entry is None:
+            entry = dict(candidate)
+            entry["reasons"] = []
+            by_iter[iter_value] = entry
+        if reason not in entry["reasons"]:
+            entry["reasons"].append(reason)
+
+    if bool(cfg.keep_stage):
+        for candidate in candidates:
+            _add(candidate, "stage")
+
+    keep_top_n = max(0, int(cfg.keep_top_n))
+    if keep_top_n:
+        ranked = sorted(candidates, key=lambda row: float(row.get("score", float("-inf"))), reverse=True)
+        for candidate in ranked[:keep_top_n]:
+            _add(candidate, "top_n")
+
+    return [by_iter[key] for key in sorted(by_iter)]
+
+
 def train_with_selection(
     policy,
     actor,
@@ -90,9 +120,14 @@ def train_with_selection(
             position_mapping=profile.model.position_mapping,
         )
         final_score = validation_score(final_metrics, profile)
+        final_state = copy.deepcopy(actor.state_dict())
         history = [
             {"iter": 0, "score": baseline_score, **baseline_metrics},
             {"iter": profile.max_iters, "score": final_score, **final_metrics},
+        ]
+        checkpoint_candidates = [
+            {"iter": 0, "score": baseline_score, "metrics": baseline_metrics, "state_dict": baseline_state},
+            {"iter": profile.max_iters, "score": final_score, "metrics": final_metrics, "state_dict": final_state},
         ]
         print(
             f"[valid:{profile.name}@{profile.max_iters}] return={final_metrics['return']:.1f}% "
@@ -100,8 +135,18 @@ def train_with_selection(
         )
         if baseline_score > final_score:
             actor.load_state_dict(baseline_state)
-            return {"best_metrics": baseline_metrics, "best_score": baseline_score, "history": history}
-        return {"best_metrics": final_metrics, "best_score": final_score, "history": history}
+            return {
+                "best_metrics": baseline_metrics,
+                "best_score": baseline_score,
+                "history": history,
+                "retained_checkpoints": select_retained_checkpoints(checkpoint_candidates, profile),
+            }
+        return {
+            "best_metrics": final_metrics,
+            "best_score": final_score,
+            "history": history,
+            "retained_checkpoints": select_retained_checkpoints(checkpoint_candidates, profile),
+        }
 
     stage_iters = profile.max_iters if smoke else min(profile.selection_score.stage_iters, profile.max_iters)
     completed = 0
@@ -128,10 +173,14 @@ def train_with_selection(
 
     baseline_metrics = _eval_valid()
     baseline_score = validation_score(baseline_metrics, profile)
-    best_state = copy.deepcopy(actor.state_dict())
+    baseline_state = copy.deepcopy(actor.state_dict())
+    best_state = baseline_state
     best_metrics = baseline_metrics
     best_score = baseline_score
     history = [{"iter": 0, "score": baseline_score, **baseline_metrics}]
+    checkpoint_candidates = [
+        {"iter": 0, "score": baseline_score, "metrics": baseline_metrics, "state_dict": baseline_state}
+    ]
 
     # Pareto candidate ledger: each entry is (state_dict, valid_metrics, valid_score, objectives)
     pareto_entries: list[dict] = []
@@ -168,6 +217,10 @@ def train_with_selection(
         metrics = _eval_valid()
         score = validation_score(metrics, profile)
         entry = {"iter": completed, "score": score, **metrics}
+        current_state = copy.deepcopy(actor.state_dict())
+        checkpoint_candidates.append(
+            {"iter": completed, "score": score, "metrics": metrics, "state_dict": current_state}
+        )
 
         if use_pareto:
             slices = evaluate_all_slices(actor, test_df, profile)
@@ -176,7 +229,7 @@ def train_with_selection(
             pareto_entries.append(
                 {
                     "iter": completed,
-                    "state": copy.deepcopy(actor.state_dict()),
+                    "state": current_state,
                     "valid_metrics": metrics,
                     "valid_score": score,
                     "objectives": objectives,
@@ -218,7 +271,12 @@ def train_with_selection(
         )
 
     actor.load_state_dict(best_state)
-    return {"best_metrics": best_metrics, "best_score": best_score, "history": history}
+    return {
+        "best_metrics": best_metrics,
+        "best_score": best_score,
+        "history": history,
+        "retained_checkpoints": select_retained_checkpoints(checkpoint_candidates, profile),
+    }
 
 
-__all__ = ["build_action_interpreter", "train_with_selection"]
+__all__ = ["build_action_interpreter", "select_retained_checkpoints", "train_with_selection"]

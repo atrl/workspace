@@ -20,7 +20,12 @@ from ..policy.policy_builder import (
 )
 from ..policy.positioning import action_levels_for_profile
 from ..settings import CSV_PATH, QLIB_DATA_PATH, ROOT
-from .artifacts import artifact_tag_suffix, persist_actor_bundle, persist_summary_bundle
+from .artifacts import (
+    artifact_tag_suffix,
+    persist_actor_bundle,
+    persist_retained_checkpoint_bundles,
+    persist_summary_bundle,
+)
 from .dashboard import export_review_daily_csv
 from .evaluate import slice_metrics
 from .promote import build_promotion_report
@@ -132,6 +137,14 @@ def run_profile(
     )
 
     model_path = persist_actor_bundle(profile, actor, obs_dim=obs_dim, seed=seed, effective_tag=effective_tag)
+    retained_checkpoint_records = persist_retained_checkpoint_bundles(
+        profile=profile,
+        actor=actor,
+        obs_dim=obs_dim,
+        seed=seed,
+        effective_tag=effective_tag,
+        retained_checkpoints=selection.get("retained_checkpoints", []),
+    )
     slice_result = slice_metrics(
         actor,
         test_df,
@@ -169,6 +182,7 @@ def run_profile(
         slice_result=slice_result,
         test_proxy=test_proxy,
         promotion_report=promotion_report,
+        retained_checkpoints=retained_checkpoint_records,
     )
     test_seg = (
         str(test_df.index.min().date()) if hasattr(test_df.index.min(), "date") else str(test_df.index.min()),
@@ -219,6 +233,7 @@ def run_profile(
         promotion_report = build_promotion_report(profile, slice_result, test_proxy)
     bt_result["valid"] = valid_metrics
     bt_result["selection_history"] = selection["history"]
+    bt_result["retained_checkpoints"] = retained_checkpoint_records
     bt_result["model_path"] = str(model_path)
     bt_result["summary_path"] = str(summary_path)
     bt_result["slices"] = slice_result

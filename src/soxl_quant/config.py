@@ -155,6 +155,13 @@ class SelectionScoreConfig:
 
 
 @dataclass(frozen=True)
+class CheckpointRetentionConfig:
+    enabled: bool = False
+    keep_stage: bool = False
+    keep_top_n: int = 0
+
+
+@dataclass(frozen=True)
 class ExecutionRegimeConfig:
     name: str
     conditions: Dict[str, float] = field(default_factory=dict)
@@ -329,6 +336,7 @@ class StrategyConfig:
     position_budget: PositionBudgetConfig = field(default_factory=PositionBudgetConfig)
     promotion_gate: PromotionGateConfig = field(default_factory=PromotionGateConfig)
     selection_score: SelectionScoreConfig = field(default_factory=SelectionScoreConfig)
+    checkpoint_retention: CheckpointRetentionConfig = field(default_factory=CheckpointRetentionConfig)
     execution: ExecutionConfig = field(default_factory=ExecutionConfig)
     execution_overlay: ExecutionOverlayConfig = field(default_factory=ExecutionOverlayConfig)
     model: ModelConfig = field(default_factory=ModelConfig)
@@ -418,6 +426,7 @@ def load_profile(name: str) -> StrategyConfig:
     if "pareto_objectives" in selection_payload:
         selection_payload["pareto_objectives"] = tuple(str(v) for v in selection_payload["pareto_objectives"])
     selection_score = SelectionScoreConfig(**selection_payload)
+    checkpoint_retention = CheckpointRetentionConfig(**payload.get("checkpoint_retention", {}))
     execution_payload = dict(payload.get("execution", {}))
     custom_regimes = tuple(
         ExecutionRegimeConfig(
@@ -457,6 +466,7 @@ def load_profile(name: str) -> StrategyConfig:
         position_budget=position_budget,
         promotion_gate=promotion_gate,
         selection_score=selection_score,
+        checkpoint_retention=checkpoint_retention,
         execution=execution,
         execution_overlay=execution_overlay,
         model=model,

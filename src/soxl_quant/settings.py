@@ -5,6 +5,7 @@ from pathlib import Path
 
 from .config import (
     DEFAULT_ACTION_LEVELS,
+    CheckpointRetentionConfig,
     ExecutionConfig,
     ModelConfig,
     PositionBudgetConfig,

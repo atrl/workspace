@@ -113,3 +113,9 @@ state is still pending: latest executed v19, selected model v22.
 for Vercel serving (`vercel.json`, `dashboard.html`, `dashboard_data/index.json`,
 `dashboard_data/model_versions.json`, 25 version payloads, latest
 `paper_trading`). This does not prove a remote deployment URL is live.
+
+2026-05-21 checkpoint-retention harness update: training profiles can now opt in
+to default-off `checkpoint_retention` and persist stage/top-N actor bundles with
+summary `retained_checkpoints`. This removes the v22 audit's immediate
+replayability gap for future governed model runs; no existing profile behavior
+changes until a profile enables it.

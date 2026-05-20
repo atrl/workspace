@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from ..config import (
     DEFAULT_ACTION_LEVELS,
+    CheckpointRetentionConfig,
     EXPERIMENTS_DIR,
     PROFILE_DIR,
     ExecutionConfig,
@@ -24,6 +25,7 @@ from ..config import (
 
 __all__ = [
     "DEFAULT_ACTION_LEVELS",
+    "CheckpointRetentionConfig",
     "EXPERIMENTS_DIR",
     "PROFILE_DIR",
     "ExecutionConfig",

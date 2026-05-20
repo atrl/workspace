@@ -20,6 +20,7 @@ if str(ROOT) not in sys.path:
 DEFAULT_TEST_FILES = [
     "tests/test_artifact_paths.py",
     "tests/test_checkpoint_review_assets.py",
+    "tests/test_checkpoint_retention.py",
     "tests/test_budget_usage_bc.py",
     "tests/test_factor_evaluation.py",
     "tests/test_hierarchical_composer.py",

@@ -3433,3 +3433,51 @@ Decision:
   bundle and routing config are ready for Vercel serving.
 - Evidence card:
   `runtime/production/card/vercel_static_bundle_audit_v1/notes.md`
+
+## 2026-05-21 Checkpoint Retention Harness Support
+
+Goal:
+
+- Remove the immediate model-optimization harness bottleneck exposed by the v22
+  checkpoint asset audit: stage summaries existed, but intermediate actors were
+  not replayable.
+
+Design:
+
+- Add default-off profile config:
+  `checkpoint_retention.enabled`, `checkpoint_retention.keep_stage`, and
+  `checkpoint_retention.keep_top_n`.
+- Keep selection and persistence separated:
+  - `src/soxl_quant/app/selection.py` returns retained checkpoint candidates.
+  - `src/soxl_quant/app/artifacts.py` writes actor bundles from retained
+    `state_dict`s.
+  - `src/soxl_quant/app/train.py` stores summary `retained_checkpoints`.
+- Do not change existing profile behavior unless an experiment explicitly opts
+  into checkpoint retention.
+
+TDD evidence:
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_checkpoint_retention.py -q
+# red first on missing retention interfaces; green after implementation
+# 6 passed
+```
+
+Implemented files:
+
+- `src/soxl_quant/config.py`
+- `src/soxl_quant/core/config.py`
+- `src/soxl_quant/settings.py`
+- `src/soxl_quant/app/selection.py`
+- `src/soxl_quant/app/artifacts.py`
+- `src/soxl_quant/app/train.py`
+- `tests/test_checkpoint_retention.py`
+- `scripts/check_harness.py`
+
+Decision:
+
+- This is harness support, not a promoted model change.
+- The next model experiment can now opt in to stage/top-N actor retention and
+  produce replayable checkpoint evidence.
+- Evidence card:
+  `runtime/harness/card/checkpoint_retention_v1/notes.md`

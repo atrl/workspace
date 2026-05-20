@@ -164,3 +164,35 @@ and `thread_goals` was simply empty. No SOXL harness state was corrupt.
 
 `PYTHONPATH=. qlib_venv/bin/python scripts/check_harness.py` passed with
 68 checks and 0 failures after the cleanup.
+
+<!-- 2026-05-21: checkpoint retention harness support -->
+
+# 2026-05-21 Checkpoint Retention Harness Support
+
+## Problem
+
+The canonical v22 checkpoint audit showed summary selection rows at iter `0`
+and iter `80`, but only the final actor was retained. Future model optimization
+needs replayable intermediate actors, otherwise checkpoint review remains
+summary-only.
+
+## Fix
+
+- Added `CheckpointRetentionConfig` with default-off profile fields:
+  `enabled`, `keep_stage`, and `keep_top_n`.
+- Added stage/top-N retention selection in `src/soxl_quant/app/selection.py`.
+- Added retained actor persistence and summary metadata in
+  `src/soxl_quant/app/artifacts.py`.
+- Connected retained checkpoint records through `src/soxl_quant/app/train.py`.
+
+## Validation
+
+- `tests/test_checkpoint_retention.py` covers config defaults, retention
+  selection, actor persistence, and summary metadata.
+- Evidence card:
+  `runtime/harness/card/checkpoint_retention_v1/notes.md`
+
+## Operational Guidance
+
+Leave retention disabled for existing profiles. Enable it only in a governed
+model experiment where checkpoint selection is part of the hypothesis.

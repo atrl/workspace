@@ -45,6 +45,15 @@ def serialize_selection_score(profile) -> Dict[str, float | bool]:
     }
 
 
+def serialize_checkpoint_retention(profile) -> Dict[str, object]:
+    cfg = profile.checkpoint_retention
+    return {
+        "enabled": bool(cfg.enabled),
+        "keep_stage": bool(cfg.keep_stage),
+        "keep_top_n": int(cfg.keep_top_n),
+    }
+
+
 def serialize_model_config(profile) -> Dict[str, object]:
     return {
         "observation_window": int(profile.model.observation_window),
@@ -116,9 +125,10 @@ def artifact_tag_suffix(artifact_tag: str, use_moe: bool, ablate_vix: bool) -> s
     return f"{artifact_tag}_{moe_tag}" if (artifact_tag and moe_tag) else (artifact_tag or moe_tag)
 
 
-def persist_actor_bundle(profile, actor, obs_dim: int, seed: int, effective_tag: str):
+def persist_actor_bundle(profile, actor, obs_dim: int, seed: int, effective_tag: str, state_dict_override=None):
     MODEL_DIR.mkdir(parents=True, exist_ok=True)
     model_path = model_artifact_path(profile.name, effective_tag)
+    state_dict = state_dict_override if state_dict_override is not None else actor.state_dict()
     torch.save(
         {
             "profile": profile.name,
@@ -130,14 +140,51 @@ def persist_actor_bundle(profile, actor, obs_dim: int, seed: int, effective_tag:
             "position_cap": serialize_position_cap(profile),
             "position_budget": serialize_position_budget(profile),
             "selection_score": serialize_selection_score(profile),
+            "checkpoint_retention": serialize_checkpoint_retention(profile),
             "model_config": serialize_model_config(profile),
             "sampling_config": serialize_sampling_config(profile),
             "warm_start": serialize_warm_start(profile),
-            "state_dict": actor.state_dict(),
+            "state_dict": state_dict,
         },
         model_path,
     )
     return model_path
+
+
+def _checkpoint_tag(effective_tag: str, iter_value: int) -> str:
+    suffix = f"checkpoint_iter{int(iter_value)}"
+    return f"{effective_tag}_{suffix}" if effective_tag else suffix
+
+
+def persist_retained_checkpoint_bundles(
+    profile,
+    actor,
+    obs_dim: int,
+    seed: int,
+    effective_tag: str,
+    retained_checkpoints: list[dict],
+) -> list[dict]:
+    records: list[dict] = []
+    for checkpoint in retained_checkpoints:
+        iter_value = int(checkpoint["iter"])
+        path = persist_actor_bundle(
+            profile=profile,
+            actor=actor,
+            obs_dim=obs_dim,
+            seed=seed,
+            effective_tag=_checkpoint_tag(effective_tag, iter_value),
+            state_dict_override=checkpoint["state_dict"],
+        )
+        records.append(
+            {
+                "iter": iter_value,
+                "score": float(checkpoint["score"]),
+                "path": str(path),
+                "reasons": list(checkpoint.get("reasons", [])),
+                "metrics": dict(checkpoint.get("metrics", {})),
+            }
+        )
+    return records
 
 
 def persist_summary_bundle(
@@ -150,7 +197,9 @@ def persist_summary_bundle(
     slice_result,
     test_proxy,
     promotion_report,
+    retained_checkpoints=None,
 ):
+    retained_checkpoints = retained_checkpoints or []
     summary_path = summary_artifact_path(profile.name, effective_tag)
     summary_path.write_text(
         json.dumps(
@@ -161,10 +210,12 @@ def persist_summary_bundle(
                 "position_cap": serialize_position_cap(profile),
                 "position_budget": serialize_position_budget(profile),
                 "selection_score": serialize_selection_score(profile),
+                "checkpoint_retention": serialize_checkpoint_retention(profile),
                 "model_config": serialize_model_config(profile),
                 "sampling_config": serialize_sampling_config(profile),
                 "warm_start": serialize_warm_start(profile),
                 "model_path": str(model_path),
+                "retained_checkpoints": retained_checkpoints,
                 "valid": valid_metrics,
                 "best_score": selection["best_score"],
                 "selection_history": selection["history"],
@@ -216,8 +267,10 @@ __all__ = [
     "load_actor_bundle",
     "load_actor_bundles",
     "persist_actor_bundle",
+    "persist_retained_checkpoint_bundles",
     "persist_summary_bundle",
     "serialize_model_config",
+    "serialize_checkpoint_retention",
     "serialize_position_cap",
     "serialize_sampling_config",
     "serialize_selection_score",
