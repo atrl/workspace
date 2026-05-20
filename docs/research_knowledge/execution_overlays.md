@@ -56,8 +56,16 @@ runtime profile.
 The promotion-review packaging loop confirms that distinction. The review card
 for `selective_release_recovery_post_release_cap_v1` passes the walk-forward and
 fixed-actor checks, but records `runtime_auto_select_allowed=false` because the
-overlay is not yet profile-bound production runtime behavior and the base v22
-actor sidecar has not passed the model promotion gate.
+overlay still requires explicit production governance before scheduler
+auto-selection.
+
+The profile-bound dry-run loop closes the runtime plumbing gap without changing
+the auto-selection decision. `balanced_rule_residual_v22` now binds
+`selective_release_recovery_post_release_cap_v1`, runtime adds
+`release_signals_v1`, paper dry-run emits overlay diagnostics, and non-dry-run
+orders can advance overlay state. The blocker is now governance only:
+`auto_select_allowed=false` and the base v22 actor sidecar still reports
+`walk-forward promotion gate not evaluated`.
 
 ## Failed Pattern
 
@@ -82,9 +90,10 @@ Keep actor fixed, run daily replay or overlay sweeps, then compare mode/window s
 
 ## Next Valid Experiment Type
 
-If continuing this candidate, build a profile-bound runtime overlay / dry-run
-replay path that can prove scheduler behavior before live selection. If runtime
-integration is deferred, choose the next narrow model-optimization experiment
+The profile-bound runtime overlay / dry-run replay path now exists. If
+continuing this candidate, the next step is explicit model-promotion sidecar
+governance for v22/post-release-cap runtime use before scheduler auto-selection.
+If approval is deferred, choose the next narrow model-optimization experiment
 from current evidence. Avoid full trade-lock bypass, unguarded shortening,
 static entry-threshold tuning, more favorable-mode exposure, or another direct
 release-pack retrain.

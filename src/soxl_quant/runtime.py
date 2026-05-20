@@ -24,13 +24,22 @@ import numpy as np
 import pandas as pd
 import torch
 
+from .backtest import (
+    apply_selective_release_overlay,
+    selective_release_execution_guard_ready,
+    selective_release_gate_ready,
+    selective_release_post_release_de_risk_ready,
+    selective_release_post_release_target_cap,
+)
+from .config import StrategyConfig
 from .data import build_dataset, feature_columns_for_packs, init_qlib
+from .policy.execution_overlays import overlay_config as named_execution_overlay_config
 from .policy.environment import TrancheLedger
 from .policy.modes import ModeState, mode_band, route_mode
 from .policy.observation import make_observation
 from .policy.policy_builder import actor_action, build_policy
 from .policy.positioning import target_position_for_profile
-from .settings import ACCOUNT, MODEL_DIR, PositionCapConfig, QLIB_DATA_PATH, load_profile
+from .settings import ACCOUNT, MODEL_DIR, PositionCapConfig, QLIB_DATA_PATH, ROOT, load_profile
 
 
 @dataclass(frozen=True)
@@ -46,6 +55,32 @@ class SignalIntent:
     price: float
     regime_risk: float
     note: str
+    target_before_overlay: float = 0.0
+    execution_overlay: str = ""
+    overlay_gate_ready: bool = False
+    overlay_execution_ready: bool = False
+    post_release_state_days: int = 0
+    post_release_drawdown: float = 0.0
+
+
+@dataclass(frozen=True)
+class RuntimeExecutionOverlayState:
+    state_days: int = 0
+    peak_account_value: float = ACCOUNT
+
+
+@dataclass(frozen=True)
+class RuntimeExecutionOverlayDecision:
+    name: str
+    enabled: bool
+    target_before_overlay: float
+    target_after_overlay: float
+    target_after_post_release_cap: float
+    gate_ready: bool
+    execution_ready: bool
+    post_release_de_risk_ready: bool
+    post_release_state_days_before: int
+    post_release_drawdown: float
 
 
 @dataclass(frozen=True)
@@ -196,6 +231,176 @@ def bundle_position_cap_config(bundle: Dict[str, object], profile_name: str) -> 
     if isinstance(payload, dict):
         return PositionCapConfig(**payload)
     return load_profile(profile_name).position_cap
+
+
+def runtime_feature_packs(profile: StrategyConfig) -> Tuple[str, ...]:
+    packs = list(profile.feature.packs)
+    if profile.execution_overlay.enabled and profile.execution_overlay.name.startswith("selective_release"):
+        packs.append("release_signals_v1")
+    return tuple(dict.fromkeys(packs))
+
+
+def execution_overlay_state_path(profile: StrategyConfig) -> Path | None:
+    if not profile.execution_overlay.state_path:
+        return None
+    path = Path(profile.execution_overlay.state_path)
+    return path if path.is_absolute() else ROOT / path
+
+
+def load_runtime_execution_overlay_state(
+    profile: StrategyConfig,
+    *,
+    account_value: float = ACCOUNT,
+) -> RuntimeExecutionOverlayState:
+    path = execution_overlay_state_path(profile)
+    if path is None or not path.exists():
+        return RuntimeExecutionOverlayState(peak_account_value=float(account_value))
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    return RuntimeExecutionOverlayState(
+        state_days=int(payload.get("state_days", 0)),
+        peak_account_value=float(payload.get("peak_account_value", account_value)),
+    )
+
+
+def save_runtime_execution_overlay_state(
+    profile: StrategyConfig,
+    state: RuntimeExecutionOverlayState,
+    *,
+    date: str,
+) -> None:
+    path = execution_overlay_state_path(profile)
+    if path is None:
+        return
+    path.parent.mkdir(parents=True, exist_ok=True)
+    payload = {
+        "date": date,
+        "profile": profile.name,
+        "overlay": profile.execution_overlay.name,
+        "state_days": int(state.state_days),
+        "peak_account_value": float(state.peak_account_value),
+    }
+    path.write_text(json.dumps(payload, indent=2, ensure_ascii=False), encoding="utf-8")
+
+
+def next_runtime_execution_overlay_state(
+    profile: StrategyConfig,
+    *,
+    previous_state: RuntimeExecutionOverlayState,
+    signal: SignalIntent,
+    account_value: float,
+    order_submitted: bool,
+) -> RuntimeExecutionOverlayState:
+    if not profile.execution_overlay.enabled or not profile.execution_overlay.name:
+        return previous_state
+
+    if (
+        order_submitted
+        and signal.execution_overlay == profile.execution_overlay.name
+        and signal.overlay_execution_ready
+        and signal.target_position > signal.current_position + 1e-6
+    ):
+        overlay = named_execution_overlay_config(profile.execution_overlay.name)
+        return RuntimeExecutionOverlayState(
+            state_days=max(int(overlay.get("post_release_state_days", 0)), 0),
+            peak_account_value=max(float(account_value), 1e-8),
+        )
+
+    if previous_state.state_days > 0:
+        next_days = max(int(previous_state.state_days) - 1, 0)
+        return RuntimeExecutionOverlayState(
+            state_days=next_days,
+            peak_account_value=(
+                max(float(previous_state.peak_account_value), float(account_value))
+                if next_days > 0
+                else float(account_value)
+            ),
+        )
+    return RuntimeExecutionOverlayState(peak_account_value=float(account_value))
+
+
+def apply_runtime_execution_overlay(
+    profile: StrategyConfig,
+    *,
+    target_position: float,
+    row: pd.Series,
+    regime_risk: float,
+    current_position: float,
+    current_drawdown: float,
+    account_value: float,
+    state: RuntimeExecutionOverlayState | None = None,
+) -> Tuple[float, RuntimeExecutionOverlayDecision]:
+    if not profile.execution_overlay.enabled or not profile.execution_overlay.name:
+        target = round(float(target_position), 10)
+        return target, RuntimeExecutionOverlayDecision(
+            name="",
+            enabled=False,
+            target_before_overlay=target,
+            target_after_overlay=target,
+            target_after_post_release_cap=target,
+            gate_ready=False,
+            execution_ready=False,
+            post_release_de_risk_ready=False,
+            post_release_state_days_before=0,
+            post_release_drawdown=0.0,
+        )
+
+    overlay = named_execution_overlay_config(profile.execution_overlay.name)
+    state = state or RuntimeExecutionOverlayState(peak_account_value=float(account_value))
+    state_days = int(state.state_days)
+    release_peak = (
+        max(float(state.peak_account_value), float(account_value))
+        if state_days > 0
+        else float(account_value)
+    )
+    release_drawdown = (
+        max(1.0 - float(account_value) / max(release_peak, 1e-8), 0.0)
+        if state_days > 0
+        else 0.0
+    )
+
+    target_before = float(target_position)
+    gate_ready = selective_release_gate_ready(row, regime_risk, overlay)
+    target_after_overlay = apply_selective_release_overlay(
+        target_before,
+        row,
+        regime_risk,
+        overlay,
+        current_pos=current_position,
+        current_drawdown=current_drawdown,
+    )
+    execution_ready = selective_release_execution_guard_ready(
+        row,
+        regime_risk,
+        overlay,
+        current_pos=current_position,
+        target_pos=target_after_overlay,
+        current_drawdown=current_drawdown,
+    )
+    de_risk_ready = selective_release_post_release_de_risk_ready(
+        overlay,
+        release_state_days=state_days,
+        release_drawdown=release_drawdown,
+    )
+    target_after_cap = selective_release_post_release_target_cap(
+        target_after_overlay,
+        overlay,
+        release_state_days=state_days,
+        release_drawdown=release_drawdown,
+    )
+    target = round(float(target_after_cap), 10)
+    decision = RuntimeExecutionOverlayDecision(
+        name=profile.execution_overlay.name,
+        enabled=True,
+        target_before_overlay=round(target_before, 10),
+        target_after_overlay=round(float(target_after_overlay), 10),
+        target_after_post_release_cap=target,
+        gate_ready=bool(gate_ready),
+        execution_ready=bool(execution_ready),
+        post_release_de_risk_ready=bool(de_risk_ready),
+        post_release_state_days_before=state_days,
+        post_release_drawdown=round(float(release_drawdown), 10),
+    )
+    return target, decision
 
 
 def summary_path_for_model(model_path: Path) -> Path:
@@ -497,7 +702,7 @@ def _runtime_frame(profile_name: str = "balanced") -> Tuple[pd.DataFrame, pd.Ser
     init_qlib(QLIB_DATA_PATH)
     profile = load_profile(profile_name)
     dataset = build_dataset(
-        feature_packs=tuple(profile.feature.packs),
+        feature_packs=runtime_feature_packs(profile),
         profile_name=profile.name,
     )
     full_df = dataset.handler.feature_frame.droplevel("instrument").sort_index()
@@ -552,6 +757,23 @@ def _build_signal_intent(
         position_mapping=model_cfg.position_mapping,
     )
     regime_risk = float(feature_df.iloc[idx]["regime_risk"])
+    target_before_overlay = float(target_position)
+    overlay_state = load_runtime_execution_overlay_state(profile, account_value=account.account_value)
+    target_position, overlay_decision = apply_runtime_execution_overlay(
+        profile,
+        target_position=target_position,
+        row=feature_df.iloc[idx],
+        regime_risk=regime_risk,
+        current_position=current_position,
+        current_drawdown=max(1.0 - account.account_value / max(peak_value, 1e-8), 0.0),
+        account_value=account.account_value,
+        state=overlay_state,
+    )
+    overlay_note = (
+        f" overlay={overlay_decision.name}"
+        if overlay_decision.enabled
+        else ""
+    )
     return SignalIntent(
         date=str(pd.Timestamp(date).date()),
         symbol=symbol,
@@ -563,7 +785,13 @@ def _build_signal_intent(
         current_position=float(current_position),
         price=price,
         regime_risk=regime_risk,
-        note=f"regime={regime_risk:.2f} mode={current_mode_state.name}",
+        note=f"regime={regime_risk:.2f} mode={current_mode_state.name}{overlay_note}",
+        target_before_overlay=float(target_before_overlay),
+        execution_overlay=overlay_decision.name,
+        overlay_gate_ready=overlay_decision.gate_ready,
+        overlay_execution_ready=overlay_decision.execution_ready,
+        post_release_state_days=overlay_decision.post_release_state_days_before,
+        post_release_drawdown=overlay_decision.post_release_drawdown,
     )
 
 
@@ -761,6 +989,10 @@ def plan_manual_session(
         "risk_gate": decision,
         "account": account,
         "reconcile": reconcile,
+        "execution_overlay_state": load_runtime_execution_overlay_state(
+            load_profile(profile_name),
+            account_value=account.account_value,
+        ),
     }
     if output_dir is not None:
         output_dir.mkdir(parents=True, exist_ok=True)

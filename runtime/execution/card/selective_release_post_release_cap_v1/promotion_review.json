@@ -2,7 +2,10 @@
   "variant": "selective_release_recovery_post_release_cap_v1",
   "decision": "promotion_review_candidate",
   "runtime_auto_select_allowed": false,
-  "runtime_auto_select_reason": "overlay is not profile-bound production runtime behavior and the base v22 actor sidecar has not passed the model promotion gate",
+  "runtime_auto_select_reason": "profile binds overlay but keeps auto_select_allowed=false and the base actor has not passed the model promotion gate",
+  "runtime_profile_auto_select_allowed": false,
+  "model_promotion_gate_passed": false,
+  "model_promotion_reason": "walk-forward promotion gate not evaluated",
   "checks": {
     "wf_2022_unchanged": {
       "passed": true,
@@ -50,6 +53,10 @@
           "trades": 0.0
         }
       }
+    },
+    "runtime_profile_bound": {
+      "passed": true,
+      "detail": "profile binds the overlay to runtime execution config"
     }
   }
 }

@@ -33,11 +33,13 @@ from src.soxl_quant.runtime import (
     BrokerAdapter,
     PaperBroker,
     auto_select_profile,
+    next_runtime_execution_overlay_state,
     plan_manual_session,
     promotion_gate_status,
     reconcile_positions,
+    save_runtime_execution_overlay_state,
 )
-from src.soxl_quant.settings import ACCOUNT, QLIB_DATA_PATH, RUNTIME_DIR
+from src.soxl_quant.settings import ACCOUNT, QLIB_DATA_PATH, RUNTIME_DIR, load_profile
 
 
 def parse_args() -> argparse.Namespace:
@@ -432,6 +434,16 @@ def main() -> None:
             account, reconcile = _post_execution_audit(signal, decision, broker)
             result["account"] = account
             result["reconcile"] = reconcile
+            profile_cfg = load_profile(profile_name)
+            overlay_state = next_runtime_execution_overlay_state(
+                profile_cfg,
+                previous_state=result["execution_overlay_state"],
+                signal=signal,
+                account_value=account.account_value,
+                order_submitted=executed,
+            )
+            save_runtime_execution_overlay_state(profile_cfg, overlay_state, date=signal.date)
+            result["execution_overlay_state"] = overlay_state
 
         # 7. Notification
         if use_notify:

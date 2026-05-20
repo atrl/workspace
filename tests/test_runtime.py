@@ -1,11 +1,16 @@
 from __future__ import annotations
 
 import json
+from dataclasses import replace
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
+import pandas as pd
+
 import src.soxl_quant.runtime as runtime
 from src.soxl_quant.config import ExecutionConfig, ExecutionRegimeConfig
+from src.soxl_quant.config import load_profile
+from src.soxl_quant.policy.execution_overlays import POST_RELEASE_CAP_VARIANT
 from src.soxl_quant.policy.execution import (
     execution_buy_cooldown_days,
     execution_regime,
@@ -13,7 +18,18 @@ from src.soxl_quant.policy.execution import (
     rebalance_threshold,
 )
 from src.soxl_quant.policy.environment import TrancheLedger
-from src.soxl_quant.runtime import SignalIntent, PaperBroker, reconcile_positions, risk_gate
+from src.soxl_quant.runtime import (
+    RuntimeExecutionOverlayState,
+    SignalIntent,
+    PaperBroker,
+    apply_runtime_execution_overlay,
+    load_runtime_execution_overlay_state,
+    next_runtime_execution_overlay_state,
+    reconcile_positions,
+    risk_gate,
+    runtime_feature_packs,
+    save_runtime_execution_overlay_state,
+)
 
 
 def _write_actor_with_summary(root: Path, profile: str, *, promoted: bool, score: float) -> Path:
@@ -62,6 +78,96 @@ def test_best_model_for_family_selects_highest_promoted_score():
             assert runtime.best_model_for_family("balanced") != weaker
         finally:
             runtime.MODEL_DIR = previous_model_dir
+
+
+def test_profile_bound_runtime_overlay_loads_release_signals_but_blocks_auto_select():
+    profile = load_profile("balanced_rule_residual_v22")
+
+    assert profile.execution_overlay.enabled is True
+    assert profile.execution_overlay.name == POST_RELEASE_CAP_VARIANT
+    assert profile.execution_overlay.auto_select_allowed is False
+    assert runtime_feature_packs(profile) == ("vix_term", "release_signals_v1")
+
+
+def test_profile_bound_runtime_overlay_relative_state_path_loads_default_state():
+    profile = load_profile("balanced_rule_residual_v22")
+
+    state = load_runtime_execution_overlay_state(profile, account_value=95_000.0)
+
+    assert state == RuntimeExecutionOverlayState(state_days=0, peak_account_value=95_000.0)
+
+
+def test_runtime_overlay_caps_post_release_target_after_state_drawdown():
+    profile = load_profile("balanced_rule_residual_v22")
+    row = pd.Series(
+        {
+            "RB_COOLDOWN_PROXY": 0.30,
+            "TRANS_VIX_DIVERGENCE": 0.08,
+            "CICC_RETURN_VOLUME_SYNC": 0.20,
+        }
+    )
+
+    target, decision = apply_runtime_execution_overlay(
+        profile,
+        target_position=0.50,
+        row=row,
+        regime_risk=0.50,
+        current_position=0.40,
+        current_drawdown=0.01,
+        account_value=95_000.0,
+        state=RuntimeExecutionOverlayState(state_days=12, peak_account_value=100_000.0),
+    )
+
+    assert target == 0.55
+    assert decision.enabled is True
+    assert decision.name == POST_RELEASE_CAP_VARIANT
+    assert decision.gate_ready is True
+    assert decision.execution_ready is True
+    assert decision.post_release_de_risk_ready is True
+    assert decision.target_before_overlay == 0.50
+    assert decision.target_after_overlay == 0.58
+    assert decision.target_after_post_release_cap == 0.55
+
+
+def test_runtime_overlay_state_activates_after_release_order_and_roundtrips():
+    with TemporaryDirectory() as tmp:
+        profile = load_profile("balanced_rule_residual_v22")
+        profile = replace(
+            profile,
+            execution_overlay=replace(
+                profile.execution_overlay,
+                state_path=str(Path(tmp) / "overlay_state.json"),
+            ),
+        )
+        signal = SignalIntent(
+            date="2024-03-28",
+            symbol="SOXL",
+            profile=profile.name,
+            model_path="runtime/model/card/balanced_rule_residual_v22/soxl_balanced_rule_residual_v22_actor.pt",
+            seed=42,
+            action=6,
+            target_position=0.58,
+            current_position=0.40,
+            price=40.0,
+            regime_risk=0.50,
+            note="test",
+            execution_overlay=POST_RELEASE_CAP_VARIANT,
+            overlay_execution_ready=True,
+        )
+
+        state = next_runtime_execution_overlay_state(
+            profile,
+            previous_state=RuntimeExecutionOverlayState(),
+            signal=signal,
+            account_value=100_000.0,
+            order_submitted=True,
+        )
+        save_runtime_execution_overlay_state(profile, state, date=signal.date)
+        loaded = load_runtime_execution_overlay_state(profile, account_value=90_000.0)
+
+        assert state.state_days == 90
+        assert state.peak_account_value == 100_000.0
+        assert loaded == state
 
 
 def test_position_ledger_tracks_entry_and_age():

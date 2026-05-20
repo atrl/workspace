@@ -1,6 +1,6 @@
 # EXECUTION Knowledge
 
-> 最后更新: 2026-05-20
+> 最后更新: 2026-05-21
 > 该方向负责执行层策略：仓位管理、交易频率控制、mode routing 和 overlay。
 
 ## 执行策略索引
@@ -46,7 +46,8 @@
 14. **静态 drawdown/exposure-gap entry guard 仍不够**：`selective_release_recovery_trade_lock_guarded_short_v1` 把 target boost、rebalance bypass 和 `trade_lock_cap=1` 都限制在 `current_drawdown<=0.03` 且 exposure gap `>=0.10` 时，但 `wf_2023_2024` 只从 `-20.21%` 到 `-19.63%`，MaxDD 却从 `38.54%` 升到 `42.91%`。不要继续调这个静态阈值；下一步先做 drawdown-path attribution 或引入明确 post-release de-risk / target cap 机制。
 15. **drawdown attribution 指向 post-release 风控，而不是 entry guard**：`selective_release_walkforward_drawdown_attribution.csv` 显示 guarded-short 的唯一 execution-ready release order 是 `2024-03-28`，variant MaxDD trough 是 `2024-08-07`，release-to-trough 平均仓位差 `+0.0204`、最大仓位差 `+0.3140`、trough account delta `-0.48%`。后续还有 gate-eligible orders 在 `2024-05-13` 和 `2024-07-09`。下一步应测试 release-state target cap 或 post-release de-risk，而不是继续调入口阈值。
 16. **release-state target cap 是首个通过 walk-forward 双指标的 selective-release 变体**：`selective_release_recovery_post_release_cap_v1` 在 `wf_2023_2024` 把 return 从 `-20.21%` 提到 `-11.37%`，MaxDD 从 `38.54%` 降到 `27.66%`，同时 `wf_2022` 完全 unchanged；固定 full-window actor grid 上该变体为 no-op，不破坏原 counterfactual。下一步是 promotion review / runtime governance packaging，而不是继续调 entry guard。
-17. **post-release cap 已完成 promotion-review packaging，但不能自动进生产**：`runtime/execution/card/selective_release_post_release_cap_v1/promotion_review.json` 四项检查通过（`wf_2022` unchanged、`wf_2023_2024` return `+8.8381pp`、MaxDD `-10.8815pp`、fixed actor no-op），但 `runtime_auto_select_allowed=false`，因为该 overlay 还不是 profile-bound runtime 行为，且 base v22 actor sidecar 没有通过 model promotion gate。
+17. **post-release cap 已完成 promotion-review packaging，但不能自动进生产**：`runtime/execution/card/selective_release_post_release_cap_v1/promotion_review.json` 四项检查通过（`wf_2022` unchanged、`wf_2023_2024` return `+8.8381pp`、MaxDD `-10.8815pp`、fixed actor no-op）。后续 profile-bound runtime dry-run 已补齐运行时接线，但 `runtime_auto_select_allowed=false` 仍正确，因为 profile flag 与 base v22 model promotion gate 都未批准。
+18. **post-release cap 已完成 profile-bound runtime dry-run，但仍不能 auto-select**：`balanced_rule_residual_v22` 现在绑定 `execution_overlay.name=selective_release_recovery_post_release_cap_v1`，runtime 会自动补 `release_signals_v1`、输出 overlay diagnostics，并在非 dry-run 下单后推进 overlay state。固定 profile dry-run 成功跑到 `2026-05-14` 信号，overlay 字段写出，但 risk gate 仍因 `walk-forward promotion gate not evaluated` 阻断；`promotion_review.json` 已更新为 `runtime_profile_bound=true`、`runtime_auto_select_allowed=false`。
 
 ## 待验证方向
 
@@ -60,7 +61,8 @@
 - [x] 对 guarded shortening 的唯一 allowed release path 做 drawdown attribution，再决定是否测试 post-release de-risk / target cap — attribution points to post-release de-risk / target cap
 - [x] 测试 release-state target cap 或 post-release de-risk，要求 `wf_2022` unchanged 且 `wf_2023_2024` MaxDD 回到 baseline 附近 — post-release cap improves both return and MaxDD
 - [x] 对 post-release cap 做 promotion review / runtime governance packaging，不再重复 entry-threshold tuning — packaged as review candidate, runtime auto-select remains blocked
-- [ ] 如果继续推进该候选，做 profile-bound runtime overlay / dry-run replay 设计；否则选择下一条窄模型优化实验
+- [x] 如果继续推进该候选，做 profile-bound runtime overlay / dry-run replay 设计；否则选择下一条窄模型优化实验 — runtime path exists, auto-select still blocked by profile flag and model gate
+- [ ] 决定是否为 v22/post-release-cap runtime use 做 explicit model-promotion sidecar governance；否则转入下一条窄模型优化实验
 - [ ] 动态 decision frequency
 - [ ] 仓位上限与 VIX term structure 联动
 - [ ] budget-usage actor/runtime mismatch 诊断
@@ -301,6 +303,7 @@ Checks:
 | `wf_2023_2024_return_improved` | pass, delta `+8.8381pp` |
 | `wf_2023_2024_maxdd_improved` | pass, delta `-10.8815pp` |
 | `fixed_actor_noop` | pass |
+| `runtime_profile_bound` | pass after the runtime dry-run loop |
 | `runtime_auto_select_allowed` | `false` |
 
 Harness governance:
@@ -312,4 +315,32 @@ Harness governance:
 Decision:
 
 - Do not let the scheduler auto-select this overlay yet.
-- Next valid work is either a profile-bound runtime overlay / dry-run replay path for this candidate, or a separate narrow model-optimization experiment if production runtime integration is deferred.
+- The next runtime packaging step was the profile-bound dry-run loop below; auto-selection still requires explicit governance approval.
+
+## 2026-05-21: Profile-Bound Runtime Overlay Dry-Run
+
+Question: can the promotion-review candidate be wired into the actual runtime profile and paper runner while keeping auto-selection blocked?
+
+Answer: yes. `balanced_rule_residual_v22` now has `execution_overlay.enabled=true`, `name=selective_release_recovery_post_release_cap_v1`, `state_path=runtime/execution/state/selective_release_post_release_cap_v1.json`, and `auto_select_allowed=false`.
+
+Runtime behavior:
+
+- `runtime_feature_packs()` adds `release_signals_v1` for profile-bound selective-release overlays.
+- `SignalIntent` now records `target_before_overlay`, `execution_overlay`, `overlay_gate_ready`, `overlay_execution_ready`, `post_release_state_days`, and `post_release_drawdown`.
+- `apply_runtime_execution_overlay()` applies the retained release boost and post-release cap from the shared overlay registry.
+- Non-dry-run paper execution advances and saves overlay state only after order submission/audit.
+- `promotion_review.json` now records `runtime_profile_bound=true`, while `runtime_auto_select_allowed=false` remains correct because the profile flag is false and the base actor sidecar says `walk-forward promotion gate not evaluated`.
+
+Dry-run evidence:
+
+- Command: `PYTHONPATH=. qlib_venv/bin/python production/soxl_paper_trading.py --profile balanced_rule_residual_v22 --skip-data-update --dry-run --no-notify`
+- Output signal date: `2026-05-14`
+- Signal overlay: `selective_release_recovery_post_release_cap_v1`
+- Overlay readiness: `overlay_gate_ready=false`, `overlay_execution_ready=false`, `post_release_state_days=0`
+- Risk gate: `approved=false`, blocked by `walk-forward promotion gate not evaluated`
+
+Decision:
+
+- The profile-bound runtime overlay / dry-run replay step is complete.
+- Do not enable scheduler auto-selection from this evidence alone.
+- Next valid step is explicit model-promotion sidecar governance for v22/post-release-cap runtime use, or a separate narrow model-optimization experiment if approval is deferred.

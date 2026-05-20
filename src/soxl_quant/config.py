@@ -197,6 +197,14 @@ class ExecutionConfig:
     max_drawdown_for_buy: float = 1.0
 
 
+@dataclass(frozen=True)
+class ExecutionOverlayConfig:
+    enabled: bool = False
+    name: str = ""
+    state_path: str = ""
+    auto_select_allowed: bool = False
+
+
 DEFAULT_ACTION_LEVELS = tuple(round(i / 10, 6) for i in range(11))
 
 
@@ -322,6 +330,7 @@ class StrategyConfig:
     promotion_gate: PromotionGateConfig = field(default_factory=PromotionGateConfig)
     selection_score: SelectionScoreConfig = field(default_factory=SelectionScoreConfig)
     execution: ExecutionConfig = field(default_factory=ExecutionConfig)
+    execution_overlay: ExecutionOverlayConfig = field(default_factory=ExecutionOverlayConfig)
     model: ModelConfig = field(default_factory=ModelConfig)
     mode_router: ModeRouterConfig = field(default_factory=ModeRouterConfig)
     sampling: SamplingConfig = field(default_factory=SamplingConfig)
@@ -422,6 +431,7 @@ def load_profile(name: str) -> StrategyConfig:
         for item in execution_payload.pop("custom_regimes", [])
     )
     execution = ExecutionConfig(custom_regimes=custom_regimes, **execution_payload)
+    execution_overlay = ExecutionOverlayConfig(**payload.get("execution_overlay", {}))
     model_payload = dict(payload.get("model", {}))
     if "action_levels" in model_payload:
         model_payload["action_levels"] = tuple(float(v) for v in model_payload["action_levels"])
@@ -448,6 +458,7 @@ def load_profile(name: str) -> StrategyConfig:
         promotion_gate=promotion_gate,
         selection_score=selection_score,
         execution=execution,
+        execution_overlay=execution_overlay,
         model=model,
         mode_router=mode_router,
         sampling=sampling,

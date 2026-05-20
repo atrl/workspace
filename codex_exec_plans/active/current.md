@@ -45,8 +45,14 @@ Test whether retained selective-release eligible days are absorbed only by the v
   - overlay configs live in `src/soxl_quant/policy/execution_overlays.py`
   - review card: `runtime/execution/card/selective_release_post_release_cap_v1/promotion_review.md`
   - review checks pass for `wf_2022_unchanged`, `wf_2023_2024_return_improved`, `wf_2023_2024_maxdd_improved`, and `fixed_actor_noop`
-  - `runtime_auto_select_allowed=false` because the overlay is not profile-bound production runtime behavior and v22 does not have a passing model-promotion sidecar
+  - `runtime_auto_select_allowed=false` because scheduler auto-selection still requires explicit profile flag and model-promotion approval
+- Profile-bound runtime dry-run is now explicit:
+  - `balanced_rule_residual_v22` binds `execution_overlay.name=selective_release_recovery_post_release_cap_v1`
+  - runtime automatically loads `release_signals_v1` for that profile and emits overlay diagnostics in `SignalIntent`
+  - non-dry-run paper execution advances/saves overlay state after submitted orders
+  - fixed-profile dry-run produced a `2026-05-14` signal with the overlay fields and remained blocked by `walk-forward promotion gate not evaluated`
+  - promotion review now records `runtime_profile_bound=true`, but `runtime_auto_select_allowed=false` remains correct because `auto_select_allowed=false` and model promotion is not approved
 
 ## Next Action
 
-Do not promote full bypass, unguarded shortening, static guarded shortening, or the post-release cap directly into scheduler auto-selection. The next valid step is a profile-bound runtime overlay / dry-run replay path for the post-release cap, or a separate narrow model-optimization experiment if runtime integration is deferred.
+Do not promote full bypass, unguarded shortening, static guarded shortening, or the post-release cap directly into scheduler auto-selection. The runtime dry-run path exists; the next valid step is explicit model-promotion sidecar governance for v22/post-release-cap runtime use, or a separate narrow model-optimization experiment if auto-selection approval is deferred.

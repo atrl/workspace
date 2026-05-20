@@ -54,11 +54,21 @@ def test_post_release_cap_review_requires_walkforward_improvement_and_fixed_noop
         },
     ]
 
-    review = build_promotion_review(walk_rows, fixed_rows, variant=POST_RELEASE_CAP_VARIANT)
+    review = build_promotion_review(
+        walk_rows,
+        fixed_rows,
+        variant=POST_RELEASE_CAP_VARIANT,
+        runtime_profile_bound=True,
+        runtime_profile_auto_select_allowed=False,
+        model_promotion_gate_passed=False,
+        model_promotion_reason="walk-forward promotion gate not evaluated",
+    )
 
     assert review["decision"] == "promotion_review_candidate"
     assert review["runtime_auto_select_allowed"] is False
+    assert "profile binds overlay" in review["runtime_auto_select_reason"]
     assert review["checks"]["wf_2022_unchanged"]["passed"] is True
     assert review["checks"]["wf_2023_2024_return_improved"]["passed"] is True
     assert review["checks"]["wf_2023_2024_maxdd_improved"]["passed"] is True
     assert review["checks"]["fixed_actor_noop"]["passed"] is True
+    assert review["checks"]["runtime_profile_bound"]["passed"] is True

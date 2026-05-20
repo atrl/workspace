@@ -1,5 +1,5 @@
 ---
-date: '2026-05-20'
+date: '2026-05-21'
 title: 'Production Scheduler + Selective Release Execution Loop'
 kind: workpad
 status: active
@@ -13,7 +13,8 @@ direction: execution
 1. Production scheduler, paper-trading state, dashboard rebuild, and Vercel static packaging are fixed and pushed in `c7cf210`.
 2. Resume model optimization from the SOXX-aware / selective-release frontier rather than changing scheduler/runtime behavior further.
 3. Keep `selective_release_recovery_post_release_cap_v1` as the active promotion-review candidate after it improved `wf_2023_2024` return and MaxDD while leaving `wf_2022` unchanged.
-4. Do not start another release-pack PPO retrain or entry-threshold tweak; next work is promotion governance / runtime packaging for the post-release cap.
+4. Do not start another release-pack PPO retrain or entry-threshold tweak; current work is promotion governance / runtime packaging for the post-release cap.
+5. After the profile-bound dry-run path, the remaining blocker is still auto-selection governance: profile flag plus model-promotion sidecar.
 
 ## 2026-05-20 Loop Evidence
 
@@ -1205,5 +1206,66 @@ Promotion-review result:
 ### Decision
 
 - `selective_release_recovery_post_release_cap_v1` is now a packaged promotion-review candidate.
-- It is explicitly **not** eligible for scheduler auto-selection because the overlay is not profile-bound production runtime behavior and the base v22 actor sidecar still lacks a passing model promotion gate.
-- Next valid work is a profile-bound runtime overlay design / dry-run replay path if we want to move it toward live scheduled inference; otherwise choose the next narrow model-optimization experiment.
+- It is explicitly **not** eligible for scheduler auto-selection until the profile-bound runtime path and model-promotion sidecar are both approved.
+- The next runtime packaging step is the profile-bound runtime overlay design / dry-run replay path below.
+
+## 2026-05-21 Profile-Bound Runtime Overlay Dry-Run
+
+Question: can the post-release cap be wired into the runtime profile and paper runner without letting the scheduler auto-select it?
+
+Answer: yes. `balanced_rule_residual_v22` now binds the overlay, the runtime signal path loads release features and emits overlay fields, and production dry-run still blocks on the model-promotion gate.
+
+### Changes Made
+
+- `src/soxl_quant/config.py`
+  - added `ExecutionOverlayConfig` to profile loading.
+- `runtime/model/card/balanced_rule_residual_v22/profile.yaml`
+  - binds `execution_overlay.name=selective_release_recovery_post_release_cap_v1`
+  - keeps `execution_overlay.auto_select_allowed=false`
+  - uses `runtime/execution/state/selective_release_post_release_cap_v1.json` for live state.
+- `src/soxl_quant/runtime.py`
+  - adds release feature packs for profile-bound selective-release overlays
+  - applies the retained overlay and post-release cap during signal construction
+  - persists/loads runtime overlay state and records overlay diagnostics in `SignalIntent`.
+- `production/soxl_paper_trading.py`
+  - advances and saves overlay state after non-dry-run order execution.
+- `scripts/review_selective_release_promotion.py`
+  - promotion review now records `runtime_profile_bound=true` while preserving `runtime_auto_select_allowed=false`.
+
+### Commands
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_runtime.py::test_profile_bound_runtime_overlay_loads_release_signals_but_blocks_auto_select tests/test_runtime.py::test_runtime_overlay_caps_post_release_target_after_state_drawdown tests/test_runtime.py::test_runtime_overlay_state_activates_after_release_order_and_roundtrips -q
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_runtime.py::test_profile_bound_runtime_overlay_relative_state_path_loads_default_state -q
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_selective_release_promotion_review.py -q
+PYTHONPATH=. qlib_venv/bin/python scripts/review_selective_release_promotion.py
+PYTHONPATH=. qlib_venv/bin/python production/soxl_paper_trading.py --profile balanced_rule_residual_v22 --skip-data-update --dry-run --no-notify
+```
+
+### Evidence
+
+- Focused runtime + promotion review tests passed.
+- Dry-run signal date: `2026-05-14`
+- Dry-run profile/model: `balanced_rule_residual_v22` / `soxl_balanced_rule_residual_v22_actor.pt`
+- Signal readout:
+  - `action=2`
+  - `target_position=0.75`
+  - `target_before_overlay=0.75`
+  - `execution_overlay=selective_release_recovery_post_release_cap_v1`
+  - `overlay_gate_ready=false`
+  - `overlay_execution_ready=false`
+  - `post_release_state_days=0`
+- Risk gate readout:
+  - `approved=false`
+  - blocker: `walk-forward promotion gate not evaluated`
+  - step limit clipped target to `0.6852543622`
+- Promotion review now says:
+  - `runtime_profile_bound=true`
+  - `runtime_auto_select_allowed=false`
+  - reason: profile binds overlay but keeps `auto_select_allowed=false` and the base actor has not passed the model promotion gate.
+
+### Decision
+
+- The profile-bound runtime overlay / dry-run replay path is now in place.
+- Do not turn on scheduler auto-selection from this result.
+- Next valid work is either explicit model-promotion sidecar governance for v22/post-release-cap runtime use, or a separate narrow model-optimization experiment if auto-selection approval is deferred.

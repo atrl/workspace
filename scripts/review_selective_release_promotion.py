@@ -15,6 +15,8 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from src.soxl_quant.policy.execution_overlays import POST_RELEASE_CAP_VARIANT
+from src.soxl_quant.runtime import latest_model_path, promotion_gate_status
+from src.soxl_quant.settings import load_profile
 
 
 DEFAULT_WALKFORWARD = ROOT / "runtime/execution/card/selective_release_walkforward_v1/selective_release_walkforward_results.csv"
@@ -90,6 +92,10 @@ def build_promotion_review(
     *,
     variant: str = POST_RELEASE_CAP_VARIANT,
     tolerance: float = 1e-6,
+    runtime_profile_bound: bool = False,
+    runtime_profile_auto_select_allowed: bool = False,
+    model_promotion_gate_passed: bool = False,
+    model_promotion_reason: str = "",
 ) -> dict[str, Any]:
     wf_2022_base = _row(walk_rows, actor_window="wf_2022", variant="baseline")
     wf_2022_variant = _row(walk_rows, actor_window="wf_2022", variant=variant)
@@ -132,13 +138,40 @@ def build_promotion_review(
         ),
     }
     accepted_for_review = all(item["passed"] for item in checks.values())
+    checks["runtime_profile_bound"] = _check(
+        runtime_profile_bound,
+        (
+            "profile binds the overlay to runtime execution config"
+            if runtime_profile_bound
+            else "overlay is not profile-bound production runtime behavior"
+        ),
+    )
+    runtime_auto_select_allowed = (
+        accepted_for_review
+        and runtime_profile_bound
+        and runtime_profile_auto_select_allowed
+        and model_promotion_gate_passed
+    )
+    if not runtime_profile_bound:
+        runtime_auto_select_reason = "overlay is not profile-bound production runtime behavior"
+    elif not runtime_profile_auto_select_allowed and not model_promotion_gate_passed:
+        runtime_auto_select_reason = (
+            "profile binds overlay but keeps auto_select_allowed=false and the base actor has not passed the model promotion gate"
+        )
+    elif not runtime_profile_auto_select_allowed:
+        runtime_auto_select_reason = "profile binds overlay but keeps auto_select_allowed=false"
+    elif not model_promotion_gate_passed:
+        runtime_auto_select_reason = f"base actor has not passed the model promotion gate: {model_promotion_reason}"
+    else:
+        runtime_auto_select_reason = "promotion review, profile flag, and model gate all allow auto-selection"
     return {
         "variant": variant,
         "decision": "promotion_review_candidate" if accepted_for_review else "blocked",
-        "runtime_auto_select_allowed": False,
-        "runtime_auto_select_reason": (
-            "overlay is not profile-bound production runtime behavior and the base v22 actor sidecar has not passed the model promotion gate"
-        ),
+        "runtime_auto_select_allowed": runtime_auto_select_allowed,
+        "runtime_auto_select_reason": runtime_auto_select_reason,
+        "runtime_profile_auto_select_allowed": runtime_profile_auto_select_allowed,
+        "model_promotion_gate_passed": model_promotion_gate_passed,
+        "model_promotion_reason": model_promotion_reason,
         "checks": checks,
     }
 
@@ -166,10 +199,31 @@ def _markdown(review: dict[str, Any]) -> str:
             "## Readout",
             "",
             "- This card packages the walk-forward candidate for promotion review only.",
-            "- It must not be used by scheduler auto-selection until a profile-bound runtime overlay and model-promotion sidecar are explicitly approved.",
+            "- It must not be used by scheduler auto-selection until the profile flag and model-promotion sidecar are explicitly approved.",
         ]
     )
     return "\n".join(lines) + "\n"
+
+
+def runtime_review_context(profile_name: str, *, variant: str) -> dict[str, Any]:
+    profile = load_profile(profile_name)
+    runtime_profile_bound = (
+        profile.execution_overlay.enabled
+        and profile.execution_overlay.name == variant
+    )
+    try:
+        model_promotion_gate_passed, model_promotion_reason = promotion_gate_status(
+            latest_model_path(profile.name)
+        )
+    except FileNotFoundError as exc:
+        model_promotion_gate_passed = False
+        model_promotion_reason = str(exc)
+    return {
+        "runtime_profile_bound": bool(runtime_profile_bound),
+        "runtime_profile_auto_select_allowed": bool(profile.execution_overlay.auto_select_allowed),
+        "model_promotion_gate_passed": bool(model_promotion_gate_passed),
+        "model_promotion_reason": model_promotion_reason,
+    }
 
 
 def write_review(
@@ -190,6 +244,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--fixed", type=Path, default=DEFAULT_FIXED)
     parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT_DIR)
     parser.add_argument("--variant", default=POST_RELEASE_CAP_VARIANT)
+    parser.add_argument("--profile", default="balanced_rule_residual_v22")
     return parser.parse_args()
 
 
@@ -199,6 +254,7 @@ def main() -> int:
         _read_csv(args.walkforward),
         _read_csv(args.fixed),
         variant=args.variant,
+        **runtime_review_context(args.profile, variant=args.variant),
     )
     write_review(review, args.output_dir)
     print(f"[selective_release_promotion] wrote {args.output_dir.relative_to(ROOT)}")
