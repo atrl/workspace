@@ -809,3 +809,71 @@ Final gates:
 - healthcheck: data stale at `last_date=2026-05-19` vs
   `expected=2026-05-20`; latest signal artifact remains dry-run
   `2026-05-19`; post-close status remains cached dry-run fallback only
+
+## 2026-05-21 Post-Close Full Success
+
+Context:
+
+- The provider coverage diagnostic exposed a second bug: yfinance had SOXL,
+  SOXX, and VIX rows through `2026-05-20`, but merge still failed because
+  provider date keys were normalized only after merge.
+- The production runner also refreshed canonical panel and qlib without syncing
+  raw SOXL/SOXX/VIX mirror CSVs.
+
+Change:
+
+- `scripts/update_market_data.py` normalizes provider `date` columns before
+  source-range diagnostics and merge.
+- `production/soxl_paper_trading.py` syncs raw local surfaces after successful
+  production data update and before qlib refresh.
+- New regressions cover provider date normalization and production raw-surface
+  sync.
+
+Readout:
+
+- Manual wrapper run:
+  `SOXL_LAUNCH_ENV_FILE="$HOME/.openclaw/soxl.env" production/run_soxl_scheduler.sh --broker paper --no-notify`
+  advanced yfinance overlap to `2026-05-20`, added one canonical row, passed the
+  freshness gate, selected `balanced_rule_residual_v19`, generated a
+  `2026-05-20` signal, filled a non-dry paper order, and rebuilt dashboard data.
+- LaunchAgent kickstart then ran the same path from
+  `com.soxl.daily.scheduler`; same-day idempotency skipped the duplicate order
+  and wrote exact `[scheduler] all done`.
+- `production/check_scheduler_health.sh` reported data ok, latest signal
+  `dry_run=false executed=true`, dashboard static export ok, and
+  `postclose status: success marker found`.
+
+Artifacts:
+
+- canonical panel and raw mirrors: `4074` rows, ending `2026-05-20`
+- paper broker state: `date=2026-05-20`, `shares=2800`,
+  `position=0.4840856822`, `account_value=1001806.1044`
+- paper summary: `runtime/soxl/paper_trading/2026-05-20/summary.json`,
+  `dry_run=false`, `executed=true`
+- paper dashboard CSV: `4` rows, latest row `2026-05-20`, action `SELL`
+- Vercel/static dashboard bundle: paper version ending `2026-05-20` with
+  `4` rows
+- visual screenshot:
+  `runtime/production/card/postclose_full_success_v1/dashboard_visual_2026-05-21.png`,
+  `1440 x 1000`, `99.35%` non-white pixels
+
+Final gates:
+
+- focused data/production/dashboard tests: `48 passed`
+- `scripts/check_harness.py`: `passed=130 failures=0`
+- `scripts/check_dashboard_static_export.py`: `generated_at=2026-05-21 06:13:40`,
+  `versions=25`, `missing=0`, `paper_trading_rows=4`,
+  `paper_trading_end=2026-05-20`
+- `scripts/build_runtime_index.py --check`: `runtime index OK`
+- `git diff --check`: clean
+- healthcheck: data ok at `last_date=2026-05-20 expected=2026-05-20`, latest
+  signal `dry_run=false executed=true`, post-close status
+  `success marker found`
+
+Decision:
+
+- Production is no longer blocked on data freshness, scheduled inference,
+  dashboard static export, or simulated paper execution.
+- The next work can resume SOXX-aware model optimization from the existing
+  selective-release / execution-absorption frontier, using the normal experiment
+  governance gate.

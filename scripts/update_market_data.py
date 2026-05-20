@@ -310,6 +310,15 @@ def _date_range_summary(frame: pd.DataFrame) -> dict[str, object]:
     }
 
 
+def _normalize_provider_dates(frame: pd.DataFrame) -> pd.DataFrame:
+    result = frame.copy()
+    dates = pd.to_datetime(result["date"])
+    if dates.dt.tz is not None:
+        dates = dates.dt.tz_localize(None)
+    result["date"] = dates.dt.normalize()
+    return result
+
+
 def _format_source_ranges(source_ranges: dict[str, dict[str, object]], overlap_last_date: str | None) -> str:
     legs = " ".join(
         f"{name}={summary['start_date']}..{summary['last_date']}({summary['rows']})"
@@ -343,6 +352,9 @@ def update_master_csv(
     print(f"[update] last_date={last_date.date()} fetch_start={start or 'max'} provider={provider}")
 
     soxl, soxx, vix = _fetch_market_frames(provider, start)
+    soxl = _normalize_provider_dates(soxl)
+    soxx = _normalize_provider_dates(soxx)
+    vix = _normalize_provider_dates(vix)
     source_ranges = {
         "SOXL": _date_range_summary(soxl),
         "SOXX": _date_range_summary(soxx),

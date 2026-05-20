@@ -190,3 +190,72 @@ def test_update_master_csv_reports_provider_leg_coverage_when_vix_lags():
             "VIX": {"rows": 1, "start_date": "2026-05-19", "last_date": "2026-05-19"},
         }
         assert result["overlap_last_date"] == "2026-05-19"
+
+
+def test_update_master_csv_normalizes_provider_dates_before_merge():
+    with TemporaryDirectory() as tmp:
+        csv_path = Path(tmp) / "panel.csv"
+        pd.DataFrame(
+            {
+                "date": pd.to_datetime(["2026-05-19"]),
+                "soxl_open": [140.0],
+                "soxl_high": [145.0],
+                "soxl_low": [138.0],
+                "soxl_close": [142.0],
+                "soxl_volume": [10_000],
+                "soxx_open": [250.0],
+                "soxx_high": [252.0],
+                "soxx_low": [248.0],
+                "soxx_close": [251.0],
+                "soxx_volume": [20_000],
+                "vix": [20.0],
+            }
+        ).to_csv(csv_path, index=False)
+
+        def fake_fetch_market_frames(provider: str, start: str | None):
+            assert provider == "yfinance"
+            assert start == "2026-05-09"
+            soxl = pd.DataFrame(
+                {
+                    "date": pd.to_datetime(["2026-05-20 00:00:00-04:00"]),
+                    "open": [150.0],
+                    "high": [152.0],
+                    "low": [149.0],
+                    "close": [151.0],
+                    "volume": [11_000],
+                }
+            )
+            soxx = pd.DataFrame(
+                {
+                    "date": pd.to_datetime(["2026-05-20"]),
+                    "open": [500.0],
+                    "high": [502.0],
+                    "low": [498.0],
+                    "close": [501.0],
+                    "volume": [21_000],
+                }
+            )
+            vix = pd.DataFrame(
+                {
+                    "date": pd.to_datetime(["2026-05-20 16:00:00"]),
+                    "vix": [17.0],
+                }
+            )
+            return soxl, soxx, vix
+
+        original_fetch_market_frames = update_market_data._fetch_market_frames
+        update_market_data._fetch_market_frames = fake_fetch_market_frames
+        try:
+            result = update_master_csv(csv_path=csv_path, dry_run=False, provider="yfinance")
+        finally:
+            update_market_data._fetch_market_frames = original_fetch_market_frames
+
+        assert result["new_rows"] == 1
+        assert result["last_date"] == "2026-05-20"
+        assert result["overlap_last_date"] == "2026-05-20"
+
+        updated = pd.read_csv(csv_path, parse_dates=["date"])
+        assert updated["date"].dt.strftime("%Y-%m-%d").tolist() == ["2026-05-19", "2026-05-20"]
+        assert updated.iloc[-1]["soxl_close"] == 151.0
+        assert updated.iloc[-1]["soxx_close"] == 501.0
+        assert updated.iloc[-1]["vix"] == 17.0

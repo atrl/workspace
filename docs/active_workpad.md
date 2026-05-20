@@ -2885,3 +2885,111 @@ production/check_scheduler_health.sh
   visibility while preventing paper broker mutation on stale data.
 - Keep model optimization paused until the provider surface advances and a
   non-dry post-close paper run can be proven.
+
+## 2026-05-21 Post-Close Full Success
+
+Goal: finish the production proof that was blocking renewed SOXX-aware model
+optimization: fresh data -> scheduled inference -> non-dry paper execution ->
+dashboard/Vercel static bundle -> LaunchAgent health success.
+
+### Root Cause
+
+- A wrapper scheduler run at `2026-05-21T06:09:34+08:00` showed yfinance had
+  SOXL, SOXX, and VIX rows through `2026-05-20`, but merge still failed:
+  `SOXL=2026-05-11..2026-05-20(8)`,
+  `SOXX=2026-05-11..2026-05-20(8)`,
+  `VIX=2026-05-11..2026-05-20(8)`,
+  `overlap_last_date=none`.
+- The fetched provider frames could carry different `date` dtypes/timezones or
+  intraday times, while `scripts/update_market_data.py` normalized dates only
+  after merging. The merge had to normalize the provider date keys before the
+  join.
+- After the panel advanced, a separate data-surface check showed raw mirrors
+  still ending `2026-05-19`; the production runner updated canonical panel and
+  qlib, but did not call `sync_local_data_surfaces()`.
+
+### Changes
+
+- `scripts/update_market_data.py`
+  - normalizes provider `date` columns to day-level naive timestamps before
+    diagnostics and merge.
+- `production/soxl_paper_trading.py`
+  - calls `sync_local_data_surfaces()` after a successful production data update
+    and before `refresh_qlib()`.
+- Tests:
+  - `test_update_master_csv_normalizes_provider_dates_before_merge`
+  - `test_data_update_syncs_raw_surfaces_before_qlib_refresh`
+
+### Execution Evidence
+
+Manual wrapper run:
+
+```bash
+SOXL_LAUNCH_ENV_FILE="$HOME/.openclaw/soxl.env" production/run_soxl_scheduler.sh --broker paper --no-notify
+# yfinance source_ranges ... overlap_last_date=2026-05-20
+# before=4073 after=4074 new_rows=1 last_date=2026-05-20
+# data fresh: last_date=2026-05-20 expected=2026-05-20 stale_days=0
+# as_of=2026-05-20
+# order submitted=True status=filled
+# [scheduler] all done
+```
+
+Post-run state:
+
+- canonical panel: `4074` rows, ending `2026-05-20`
+- raw SOXL/SOXX/VIX mirrors: `4074` rows, ending `2026-05-20`
+- paper broker: `date=2026-05-20`, `shares=2800`,
+  `position=0.4840856822`, `account_value=1001806.1044`
+- summary: `runtime/soxl/paper_trading/2026-05-20/summary.json`,
+  `dry_run=false`, `executed=true`
+- paper dashboard CSV: `4` rows, latest row `2026-05-20`, action `SELL`
+- dashboard static export: paper version ending `2026-05-20` with `4` rows
+
+LaunchAgent proof:
+
+```bash
+launchctl kickstart -k "gui/$(id -u)/com.soxl.daily.scheduler"
+# data fresh: last_date=2026-05-20 expected=2026-05-20 stale_days=0
+# already executed for 2026-05-20 broker=paper; skipping duplicate order
+# [scheduler] all done
+
+production/check_scheduler_health.sh
+# data: ok last_date=2026-05-20 expected=2026-05-20
+# latest signal: date=2026-05-20 profile=balanced_rule_residual_v19 dry_run=false executed=true
+# dashboard_static_export ... paper_trading_rows=4 paper_trading_end=2026-05-20
+# postclose status: success marker found
+```
+
+Dashboard visual proof:
+
+- `runtime/production/card/postclose_full_success_v1/dashboard_visual_2026-05-21.png`
+  - captured at `1440 x 1000`
+  - non-white pixels: `99.35%`
+
+Final gates:
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_update_market_data.py tests/test_paper_trading.py tests/test_scheduler_health.py tests/test_production_schedule.py tests/test_daily_scheduler.py tests/test_vercel_dashboard.py tests/test_dashboard.py -q
+# 48 passed
+
+PYTHONPATH=. qlib_venv/bin/python scripts/check_harness.py
+# passed=130 failures=0
+
+PYTHONPATH=. qlib_venv/bin/python scripts/check_dashboard_static_export.py
+# ok dashboard_static_export generated_at=2026-05-21 06:13:40 versions=25 missing=0 model_versions=90 latest=balanced_rule_residual_v22_soxx paper_trading_rows=4 paper_trading_end=2026-05-20 paper_trading
+
+PYTHONPATH=. qlib_venv/bin/python scripts/build_runtime_index.py --check
+# runtime index OK
+
+git diff --check
+# clean
+```
+
+### Decision
+
+- The production path is now proven through both the repo wrapper and the macOS
+  LaunchAgent health surface.
+- Same-day idempotency prevented duplicate paper execution when the LaunchAgent
+  proof was kicked after the manual filled order.
+- Model optimization can resume from the SOXX-aware / selective-release frontier
+  after this commit; the production loop is no longer the blocker.
