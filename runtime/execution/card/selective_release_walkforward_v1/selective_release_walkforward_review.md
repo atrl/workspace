@@ -82,3 +82,16 @@
 - `wf_2023_2024`: changed_days `185`, trades `21` vs baseline `22`, return `-19.63%` vs `-20.21%`, max_dd `42.91%` vs `38.54%`.
 - Delta: return `+0.58pp`, max_dd `+4.37pp`.
 - Decision: guarded shortening is not promotable in this run because MaxDD still widens materially.
+
+## Drawdown Path Attribution
+
+| variant | delta_max_dd | peak -> trough | release_order_dates | eligible_order_dates | avg_pos_delta_release_to_trough | account_delta_at_trough | readout |
+|---|---:|---|---|---|---:|---:|---|
+| `selective_release_recovery_trade_lock_bypass_v1` | `+1.74pp` | `2024-06-18` -> `2024-12-10` | `2024-03-28;2024-04-01;2024-04-08;2024-04-09;2024-05-14;2024-05-15;2024-05-16;2024-05-22;2024-07-09;2024-10-08;2024-10-09` | `2024-03-28;2024-04-01;2024-04-08;2024-04-09;2024-05-14;2024-05-15;2024-05-16;2024-05-22;2024-07-09;2024-10-08;2024-10-09` | `+0.0636` | `-2.76%` | `release_order_precedes_wider_drawdown` |
+| `selective_release_recovery_trade_lock_short_v1` | `+2.11pp` | `2024-07-10` -> `2024-12-19` | `2024-03-28;2024-05-13;2024-05-15` | `2024-03-28;2024-05-13;2024-05-15` | `+0.0762` | `+3.71%` | `release_order_precedes_wider_drawdown` |
+| `selective_release_recovery_trade_lock_guarded_short_v1` | `+4.37pp` | `2024-06-18` -> `2024-08-07` | `2024-03-28` | `2024-03-28;2024-05-13;2024-07-09` | `+0.0204` | `-0.48%` | `release_order_precedes_wider_drawdown` |
+
+- Guarded path readout: the first execution-ready release order was `2024-03-28` and the variant max-DD trough was `2024-08-07`.
+- From that release order to trough, average position delta versus baseline was `+0.0204` and account value at trough was `-0.48%` versus baseline.
+- Decision: attribution supports a distinct post-release de-risk or release target-cap test; it does not support another static entry-threshold tweak.
+- Full attribution artifact: `selective_release_walkforward_drawdown_attribution.csv`.

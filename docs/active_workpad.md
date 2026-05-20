@@ -409,6 +409,48 @@ Trace readout: the guarded variant made only one eligible row execution-ready, b
 - Do not continue threshold-only guard tuning on this mechanism; the single low-drawdown allowed release already creates an unacceptable later drawdown path.
 - Next valid work should first attribute the drawdown path caused by the allowed release order, then test a distinct mechanism such as explicit post-release de-risking / target cap rather than another static entry guard.
 
+## 2026-05-20 Guarded Release Drawdown Attribution Loop
+
+### Scope
+
+This loop does not add a new trading rule. It turns the guarded-shortening failure into a reproducible path-level attribution artifact so the next execution mechanism can target the drawdown cause directly.
+
+### Changes Made
+
+- `scripts/evaluate_selective_release_walkforward.py`
+  - added `max_drawdown_event()` and `build_drawdown_attribution_rows()`
+  - compares each walk-forward variant's account and position path against the same-window baseline
+  - writes `selective_release_walkforward_drawdown_attribution.csv/json`
+  - adds a `Drawdown Path Attribution` section to the walk-forward review
+- `tests/test_selective_release_walkforward.py`
+  - covers max-drawdown event extraction
+  - covers release-order-to-trough attribution fields on a synthetic guarded path
+
+### Commands
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_selective_release_walkforward.py::test_max_drawdown_event_identifies_peak_before_trough tests/test_selective_release_walkforward.py::test_drawdown_attribution_links_guarded_release_order_to_trough_path -q
+MPLCONFIGDIR=/private/tmp/mplconfig PYTHONPATH=. qlib_venv/bin/python scripts/evaluate_selective_release_walkforward.py --profile balanced_rule_residual_v22 --all-variants
+```
+
+### Evidence
+
+- Attribution CSV: `runtime/execution/card/selective_release_walkforward_v1/selective_release_walkforward_drawdown_attribution.csv`
+- Attribution JSON: `runtime/execution/card/selective_release_walkforward_v1/selective_release_walkforward_drawdown_attribution.json`
+- Updated review: `runtime/execution/card/selective_release_walkforward_v1/selective_release_walkforward_review.md`
+
+| actor_window | variant | delta_max_dd | release_order_dates | eligible_order_dates | peak -> trough | avg_pos_delta_release_to_trough | max_pos_delta_release_to_trough | trough account delta | readout |
+|---|---|---:|---|---|---|---:|---:|---:|---|
+| `wf_2023_2024` | `selective_release_recovery_trade_lock_bypass_v1` | `+1.74pp` | `2024-03-28;2024-04-01;2024-04-08;2024-04-09;2024-05-14;2024-05-15;2024-05-16;2024-05-22;2024-07-09;2024-10-08;2024-10-09` | same | `2024-06-18 -> 2024-12-10` | `+0.0636` | `+0.2937` | `-2.76%` | release orders precede wider drawdown |
+| `wf_2023_2024` | `selective_release_recovery_trade_lock_short_v1` | `+2.11pp` | `2024-03-28;2024-05-13;2024-05-15` | same | `2024-07-10 -> 2024-12-19` | `+0.0762` | `+0.3196` | `+3.71%` | release orders precede wider drawdown |
+| `wf_2023_2024` | `selective_release_recovery_trade_lock_guarded_short_v1` | `+4.37pp` | `2024-03-28` | `2024-03-28;2024-05-13;2024-07-09` | `2024-06-18 -> 2024-08-07` | `+0.0204` | `+0.3140` | `-0.48%` | release order precedes wider drawdown |
+
+### Decision
+
+- The static guarded-shortening rule is still dropped.
+- The guarded path confirms that the first execution-ready release order on `2024-03-28` sits before the `2024-08-07` MaxDD trough; later gate-eligible orders also occur on `2024-05-13` and `2024-07-09`.
+- The next valid execution test should be a distinct mechanism: post-release de-risking or release-state target cap. It should cap/reduce exposure after release activation if the path starts to draw down, rather than only deciding whether the entry is allowed.
+
 ## Prior Data/Release Goal
 
 1. Refresh the repo-owned local data surfaces from the canonical SOXL/SOXX/VIX panel.

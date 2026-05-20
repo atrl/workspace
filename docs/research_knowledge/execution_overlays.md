@@ -36,6 +36,14 @@ execution relaxations were gated by `current_drawdown<=0.03` and
 `42.91%` while only improving return to `-19.63%`. Do not keep tuning static
 entry thresholds without first attributing the post-release drawdown path.
 
+The drawdown attribution artifact confirms the next mechanism should manage the
+post-release path rather than the entry predicate. For the guarded-short variant,
+the only execution-ready release order was `2024-03-28`, before the variant
+MaxDD trough on `2024-08-07`; release-to-trough average position delta was
+`+0.0204` and max position delta was `+0.3140`. Later gate-eligible orders on
+`2024-05-13` and `2024-07-09` also precede the trough, so the next test should
+cap or de-risk release-state exposure after activation.
+
 ## Failed Pattern
 
 Generic overlay retuning is not enough when `test_2022` max drawdown and average position remain too high; widening favorable-mode envelopes also degraded other windows.
@@ -59,10 +67,8 @@ Keep actor fixed, run daily replay or overlay sweeps, then compare mode/window s
 
 ## Next Valid Experiment Type
 
-Before another release-gated entry rule, attribute the drawdown path caused by
-the sparse guarded release order. The next execution mechanism should be
-distinct from static entry-threshold tuning, for example explicit post-release
-de-risking or a release target cap, and it must keep `wf_2022` unchanged while
-bringing `wf_2023_2024` MaxDD back near baseline. Avoid full trade-lock bypass,
-unguarded shortening, more favorable-mode exposure, or another direct
-release-pack retrain.
+Test a release-state target cap or explicit post-release de-risk rule. It must
+keep `wf_2022` unchanged and bring `wf_2023_2024` MaxDD back near baseline while
+preserving as much of the short variant's return improvement as possible. Avoid
+full trade-lock bypass, unguarded shortening, static entry-threshold tuning,
+more favorable-mode exposure, or another direct release-pack retrain.

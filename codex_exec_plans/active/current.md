@@ -2,7 +2,7 @@
 
 - Date: 2026-05-20
 - Direction: `execution`
-- Active line: `selective_release_trade_lock_guarded_short_v1`
+- Active line: `selective_release_drawdown_attribution_v1`
 - Baseline: `balanced_rule_residual_v22`
 - Direct comparison: `selective_release_walkforward_v1`
 - Role: `diagnose`
@@ -30,7 +30,13 @@ Test whether retained selective-release eligible days are absorbed only by the v
   - guard: `current_drawdown<=0.03`, `min_release_exposure_gap>=0.10`
   - `wf_2022`: unchanged, `0` eligible days
   - `wf_2023_2024`: execution-ready rows `1/16`, changed_days `185`, trades `21` vs `22`, return `-19.63%` vs `-20.21%`, MaxDD `42.91%` vs `38.54%`
+- Path-level drawdown attribution now explains the guarded-shortening failure:
+  - first execution-ready release order: `2024-03-28`
+  - guarded variant max-DD peak/trough: `2024-06-18 -> 2024-08-07`
+  - delta MaxDD: `+4.37pp`
+  - release-to-trough avg/max position delta vs baseline: `+0.0204` / `+0.3140`
+  - later gate-eligible ordered dates: `2024-05-13`, `2024-07-09`
 
 ## Next Action
 
-Do not promote full bypass, unguarded shortening, or static guarded shortening. The next valid loop should first attribute the drawdown path caused by the sparse allowed release order, then test a distinct mechanism such as post-release de-risking or release target cap only if attribution supports it.
+Do not promote full bypass, unguarded shortening, or static guarded shortening. Attribution supports the next distinct loop: release-state target cap or post-release de-risking, preserving `wf_2022` unchanged while bringing `wf_2023_2024` MaxDD back near baseline.

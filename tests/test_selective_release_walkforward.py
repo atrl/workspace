@@ -3,9 +3,11 @@ from __future__ import annotations
 import pandas as pd
 
 from scripts.evaluate_selective_release_walkforward import (
+    build_drawdown_attribution_rows,
     eligible_decision_trace_rows,
     execution_primary_blocker,
     gate_eligible_mask,
+    max_drawdown_event,
     variant_subset,
     walk_forward_actor_specs,
 )
@@ -137,3 +139,74 @@ def test_execution_primary_blocker_prioritizes_upstream_guards():
     assert execution_primary_blocker(row) == "trade_lock"
     assert execution_primary_blocker({**row, "blocked_by_trade_lock": False}) == "min_rebalance"
     assert execution_primary_blocker({**row, "blocked_by_trade_lock": False, "order_count": 1}) == "ordered"
+
+
+def test_max_drawdown_event_identifies_peak_before_trough():
+    account = pd.Series(
+        [100.0, 125.0, 100.0, 130.0],
+        index=pd.to_datetime(["2024-01-01", "2024-01-02", "2024-01-03", "2024-01-04"]),
+    )
+
+    event = max_drawdown_event(account)
+
+    assert event == {
+        "max_dd": 20.0,
+        "peak_date": "2024-01-02",
+        "trough_date": "2024-01-03",
+        "peak_account": 125.0,
+        "trough_account": 100.0,
+    }
+
+
+def test_drawdown_attribution_links_guarded_release_order_to_trough_path():
+    index = pd.to_datetime(["2024-01-01", "2024-01-02", "2024-01-03", "2024-01-04"])
+    baseline_result = {
+        "portfolio": pd.DataFrame({"account": [100.0, 110.0, 104.5, 108.0]}, index=index),
+        "position_history": [0.30, 0.35, 0.35, 0.35],
+    }
+    variant_result = {
+        "portfolio": pd.DataFrame({"account": [100.0, 112.0, 84.0, 90.0]}, index=index),
+        "position_history": [0.30, 0.70, 0.70, 0.40],
+    }
+    trace_rows = [
+        {
+            "actor_window": "wf_2023_2024",
+            "variant": "guarded",
+            "date": "2024-01-02",
+            "overlay_gate_ready": True,
+            "overlay_execution_ready": True,
+            "order_count": 1,
+            "current_pos": 0.35,
+            "final_position": 0.70,
+        }
+    ]
+
+    rows = build_drawdown_attribution_rows(
+        actor_window="wf_2023_2024",
+        baseline_result=baseline_result,
+        variant_results={"guarded": variant_result},
+        trace_rows=trace_rows,
+    )
+
+    assert rows == [
+        {
+            "actor_window": "wf_2023_2024",
+            "variant": "guarded",
+            "baseline_max_dd": 5.0,
+            "variant_max_dd": 25.0,
+            "delta_max_dd": 20.0,
+            "baseline_peak_date": "2024-01-02",
+            "baseline_trough_date": "2024-01-03",
+            "variant_peak_date": "2024-01-02",
+            "variant_trough_date": "2024-01-03",
+            "release_order_dates": "2024-01-02",
+            "eligible_order_dates": "2024-01-02",
+            "first_release_order_date": "2024-01-02",
+            "days_release_to_trough": 1,
+            "position_delta_at_release": 0.35,
+            "avg_position_delta_release_to_trough": 0.35,
+            "max_position_delta_release_to_trough": 0.35,
+            "account_delta_at_trough_pct": -19.6172,
+            "readout": "release_order_precedes_wider_drawdown",
+        }
+    ]

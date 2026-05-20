@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-20T15:31:19.884528+00:00",
+  "generated_at": "2026-05-20T15:44:37.712166+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -116,6 +116,18 @@
       "bytes": 3236
     },
     {
+      "path": "runtime/execution/card/selective_release_walkforward_v1/selective_release_walkforward_drawdown_attribution.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 4925
+    },
+    {
+      "path": "runtime/execution/card/selective_release_walkforward_v1/selective_release_walkforward_drawdown_attribution.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 19489
+    },
+    {
       "path": "runtime/execution/card/selective_release_walkforward_v1/selective_release_walkforward_execution_trace.csv",
       "category": "execution",
       "suffix": ".csv",
@@ -125,7 +137,7 @@
       "path": "runtime/execution/card/selective_release_walkforward_v1/selective_release_walkforward_execution_trace.json",
       "category": "execution",
       "suffix": ".json",
-      "bytes": 176556
+      "bytes": 176584
     },
     {
       "path": "runtime/execution/card/selective_release_walkforward_v1/selective_release_walkforward_results.csv",
@@ -137,13 +149,13 @@
       "path": "runtime/execution/card/selective_release_walkforward_v1/selective_release_walkforward_results.json",
       "category": "execution",
       "suffix": ".json",
-      "bytes": 25080
+      "bytes": 25108
     },
     {
       "path": "runtime/execution/card/selective_release_walkforward_v1/selective_release_walkforward_review.md",
       "category": "execution",
       "suffix": ".md",
-      "bytes": 8405
+      "bytes": 10016
     },
     {
       "path": "runtime/execution/execution_overlay_variants.json",
@@ -155,7 +167,7 @@
       "path": "runtime/execution/knowledge.md",
       "category": "execution",
       "suffix": ".md",
-      "bytes": 16679
+      "bytes": 19281
     },
     {
       "path": "runtime/execution/position_cap_overlay_variants.json",

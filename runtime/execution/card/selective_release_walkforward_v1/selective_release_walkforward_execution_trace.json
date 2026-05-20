@@ -1,6 +1,7 @@
 {
   "context": {
     "actor_feature_count": 64,
+    "attribution_rows": 24,
     "dataset_feature_packs": [
       "vix_term",
       "release_signals_v1"
