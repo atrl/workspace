@@ -44,17 +44,11 @@ from .policy.positioning import target_position_for_profile
 from .settings import ACCOUNT, LOOKBACK, ExecutionConfig, PositionBudgetConfig, PositionCapConfig, RESULT_PNG, RESULT_TXT, TEST_SEG
 
 
-def apply_selective_release_overlay(
-    target_pos: float,
-    row: pd.Series,
-    regime_risk: float,
-    overlay_config: dict,
-) -> float:
-    """Boost exposure only when retained release signals agree inside a regime band."""
+def selective_release_gate_ready(row: pd.Series, regime_risk: float, overlay_config: dict) -> bool:
     min_regime = float(overlay_config.get("min_regime_risk", float("-inf")))
     max_regime = float(overlay_config.get("max_regime_risk", float("inf")))
     if not (min_regime <= float(regime_risk) <= max_regime):
-        return float(target_pos)
+        return False
 
     cooldown = float(row.get("RB_COOLDOWN_PROXY", 0.0))
     vix_divergence = float(row.get("TRANS_VIX_DIVERGENCE", 0.0))
@@ -66,12 +60,43 @@ def apply_selective_release_overlay(
         or volume_sync >= float(overlay_config.get("volume_sync_threshold", 0.68))
     )
     if not (cooldown_ready and release_ready):
+        return False
+    return True
+
+
+def apply_selective_release_overlay(
+    target_pos: float,
+    row: pd.Series,
+    regime_risk: float,
+    overlay_config: dict,
+    current_pos: float | None = None,
+) -> float:
+    """Boost exposure only when retained release signals agree inside a regime band."""
+    if not selective_release_gate_ready(row, regime_risk, overlay_config):
         return float(target_pos)
 
     boost = float(overlay_config.get("boost", 0.05))
     max_target = float(overlay_config.get("max_target", 1.0))
     boosted = min(float(target_pos) + boost, max_target)
+    if current_pos is not None and "min_target_delta" in overlay_config:
+        min_target = float(current_pos) + float(overlay_config["min_target_delta"])
+        boosted = min(max(boosted, min_target), max_target)
     return round(max(float(target_pos), boosted), 10)
+
+
+def selective_release_rebalance_threshold(
+    min_rebalance: float,
+    row: pd.Series,
+    regime_risk: float,
+    overlay_config: dict,
+) -> float:
+    if not selective_release_gate_ready(row, regime_risk, overlay_config):
+        return float(min_rebalance)
+    if "rebalance_threshold_override" in overlay_config:
+        return float(overlay_config["rebalance_threshold_override"])
+    if "rebalance_threshold_multiplier" in overlay_config:
+        return float(min_rebalance) * float(overlay_config["rebalance_threshold_multiplier"])
+    return float(min_rebalance)
 
 
 def _normalize_backtest_seg(index: pd.Index | pd.MultiIndex, test_seg: Tuple[str, str]) -> Tuple[str, str]:
@@ -235,6 +260,7 @@ class RLStrategy(BaseStrategy):
                     self.df.iloc[idx],
                     regime_risk,
                     oc,
+                    current_pos=current_pos,
                 )
             else:
                 threshold = oc.get("threshold", 0.3)
@@ -360,6 +386,13 @@ class RLStrategy(BaseStrategy):
             config=self.execution_config,
             mode_router_config=mode_router_cfg,
         )
+        if self.overlay_config is not None and self.overlay_config.get("type") == "selective_release":
+            min_rebalance = selective_release_rebalance_threshold(
+                min_rebalance,
+                self.df.iloc[idx],
+                regime_risk,
+                self.overlay_config,
+            )
         if self.trade_lock > 0:
             if abs(target_pos - current_pos) >= min_rebalance:
                 target_pos = current_pos

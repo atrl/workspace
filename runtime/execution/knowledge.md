@@ -1,6 +1,6 @@
 # EXECUTION Knowledge
 
-> 最后更新: 2026-05-14
+> 最后更新: 2026-05-20
 > 该方向负责执行层策略：仓位管理、交易频率控制、mode routing 和 overlay。
 
 ## 执行策略索引
@@ -39,12 +39,14 @@
 7. **当前瓶颈是低换手的 selective release / re-entry classification**：`regime_route_v1` 证明更聪明的放行有价值，但 churn 明显升高。
 8. **固定 v22 actor 的 selective release gate 已证明方向正确**：`selective_release_recovery_v1` 把 `test_2023_2024` 从 `57.12% / 0.719` 提到 `82.10% / 0.877`，`test_2022` 完全不变，`test_proxy` 从 `1132.19% / 1.043 / 56.48%` 提到 `1415.10% / 1.105 / 54.30%`。
 9. **walk-forward actor 验证未通过 runtime promotion**：`selective_release_walkforward_v1` 显示三种既有 release gate 在 `wf_2023_2024` 有 `6-18` 个 eligible days，但 `changed_days=0`，说明当前执行映射吸收了 boost；不要直接治理化该 overlay。
+10. **简单 order-generation 修复仍然不够**：`selective_release_recovery_threshold_bypass_v1` 与 `selective_release_recovery_target_lift_v1` 在 `wf_2023_2024` 都有 `18` 个 eligible days，但仍然 `changed_days=0` / `absorbed_days=18`；下一步必须记录逐日执行状态，而不是继续调 gate 阈值或直接 retrain。
 
 ## 待验证方向
 
 - [x] 显式 selective release/re-entry overlay（优先 `dwell_hold_v2` / `regime_route_v1` 风格，不再泛化搜索 `fast_reentry`）— fixed v22 actor counterfactual retained as `selective_release_recovery_v1`
 - [x] 对 `selective_release_recovery_v1` 做 walk-forward actor validation，再决定是否进入 runtime overlay / governed execution profile — blocked for promotion because WF actor orders do not change
-- [ ] 诊断 `wf_2023_2024` eligible release days 为什么被 actor target / rebalance threshold / trade lock 吸收
+- [x] 对 `wf_2023_2024` eligible release days 做 target-lift / rebalance-threshold bypass 诊断 — 两者仍被吸收
+- [ ] 记录 eligible day 逐日 `current_pos`、overlay 前后 target、`min_rebalance`、trade lock、buy cooldown、cap state、lot rounding，再决定下一条执行规则
 - [ ] 动态 decision frequency
 - [ ] 仓位上限与 VIX term structure 联动
 - [ ] budget-usage actor/runtime mismatch 诊断
@@ -92,3 +94,25 @@ Decision:
 
 - Keep `selective_release_overlay_v1` as fixed full-window counterfactual evidence only.
 - Do not promote it to a governed runtime profile until an explicit target-lift / rebalance-bypass test changes orders while preserving `wf_2022`.
+
+## 2026-05-20: Selective Release Order-Generation Diagnostic
+
+Question: are the walk-forward release days absorbed only because of the visible rebalance threshold or too-small target lift?
+
+Answer: no. The gate still fires in `wf_2023_2024`, but both minimal execution fixes remain no-ops.
+
+| Variant | wf_2022 | wf_2023_2024 | Decision |
+|---|---:|---:|---|
+| `selective_release_recovery_threshold_bypass_v1` | unchanged, `0` eligible days | `18` eligible days, `0` changed days, `18` absorbed days | blocked |
+| `selective_release_recovery_target_lift_v1` | unchanged, `0` eligible days | `18` eligible days, `0` changed days, `18` absorbed days | blocked |
+
+Mechanism:
+
+- Threshold bypass sets gate-ready rebalance threshold to `0.0`.
+- Target lift forces the overlay target to at least `current_pos + 0.08`, capped by the retained `max_target`.
+- Both variants reuse the retained `selective_release_recovery_v1` gate; this is an execution mapping diagnostic, not another factor or PPO branch.
+
+Decision:
+
+- Do not promote the overlay and do not retrain from this result.
+- The blocker is deeper than the visible threshold or a simple target lift. Instrument per-day execution state on the eligible `wf_2023_2024` dates before testing another rule.

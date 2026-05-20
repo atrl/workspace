@@ -12,14 +12,20 @@
 | wf_2020 | selective_release_cicc_v1 | 113.17% | 2.015 | 19.47% | 0.5322 | 22 | 0 | 0 | 0 | +0.00pp | +0.00pp |
 | wf_2020 | selective_release_tight_v1 | 113.17% | 2.015 | 19.47% | 0.5322 | 22 | 0 | 0 | 0 | +0.00pp | +0.00pp |
 | wf_2020 | selective_release_recovery_v1 | 113.17% | 2.015 | 19.47% | 0.5322 | 22 | 0 | 0 | 0 | +0.00pp | +0.00pp |
+| wf_2020 | selective_release_recovery_threshold_bypass_v1 | 113.17% | 2.015 | 19.47% | 0.5322 | 22 | 0 | 0 | 0 | +0.00pp | +0.00pp |
+| wf_2020 | selective_release_recovery_target_lift_v1 | 113.17% | 2.015 | 19.47% | 0.5322 | 22 | 0 | 0 | 0 | +0.00pp | +0.00pp |
 | wf_2022 | baseline | -34.11% | -0.926 | 38.27% | 0.3216 | 22 | 0 | 0 | 0 | +0.00pp | +0.00pp |
 | wf_2022 | selective_release_cicc_v1 | -34.11% | -0.926 | 38.27% | 0.3216 | 22 | 0 | 0 | 0 | +0.00pp | +0.00pp |
 | wf_2022 | selective_release_tight_v1 | -34.11% | -0.926 | 38.27% | 0.3216 | 22 | 0 | 0 | 0 | +0.00pp | +0.00pp |
 | wf_2022 | selective_release_recovery_v1 | -34.11% | -0.926 | 38.27% | 0.3216 | 22 | 0 | 0 | 0 | +0.00pp | +0.00pp |
+| wf_2022 | selective_release_recovery_threshold_bypass_v1 | -34.11% | -0.926 | 38.27% | 0.3216 | 22 | 0 | 0 | 0 | +0.00pp | +0.00pp |
+| wf_2022 | selective_release_recovery_target_lift_v1 | -34.11% | -0.926 | 38.27% | 0.3216 | 22 | 0 | 0 | 0 | +0.00pp | +0.00pp |
 | wf_2023_2024 | baseline | -20.21% | -0.277 | 38.54% | 0.4764 | 22 | 0 | 0 | 0 | +0.00pp | +0.00pp |
 | wf_2023_2024 | selective_release_cicc_v1 | -20.21% | -0.277 | 38.54% | 0.4764 | 22 | 16 | 0 | 16 | +0.00pp | +0.00pp |
 | wf_2023_2024 | selective_release_tight_v1 | -20.21% | -0.277 | 38.54% | 0.4764 | 22 | 6 | 0 | 6 | +0.00pp | +0.00pp |
 | wf_2023_2024 | selective_release_recovery_v1 | -20.21% | -0.277 | 38.54% | 0.4764 | 22 | 18 | 0 | 18 | +0.00pp | +0.00pp |
+| wf_2023_2024 | selective_release_recovery_threshold_bypass_v1 | -20.21% | -0.277 | 38.54% | 0.4764 | 22 | 18 | 0 | 18 | +0.00pp | +0.00pp |
+| wf_2023_2024 | selective_release_recovery_target_lift_v1 | -20.21% | -0.277 | 38.54% | 0.4764 | 22 | 18 | 0 | 18 | +0.00pp | +0.00pp |
 
 ## Readout
 
@@ -30,3 +36,12 @@
 
 - `wf_2022`: return `-34.11%` vs baseline `-34.11%`; max_dd `38.27%` vs `38.27%`; eligible_days `0`; changed_days `0`.
 - `wf_2023_2024`: return `-20.21%` vs baseline `-20.21%`; max_dd `38.54%` vs `38.54%`; eligible_days `18`; changed_days `0`.
+
+## Order-Generation Diagnostic
+
+- `selective_release_recovery_threshold_bypass_v1`: eligible_days `18`, changed_days `0`, absorbed_days `18`, return `-20.21%`, max_dd `38.54%`.
+- `selective_release_recovery_target_lift_v1`: eligible_days `18`, changed_days `0`, absorbed_days `18`, return `-20.21%`, max_dd `38.54%`.
+
+- Lowering the rebalance threshold and forcing a target lift still produced no changed days on the eligible `wf_2023_2024` release dates.
+- `wf_2022` remains unchanged because there are no eligible release days, so the defensive gate is still intact.
+- Next diagnostic should instrument per-day `current_pos`, target before/after overlay, `min_rebalance`, trade lock, buy cooldown, cap state, and lot rounding before trying another rule or retrain.

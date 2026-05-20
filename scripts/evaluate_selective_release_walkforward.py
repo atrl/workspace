@@ -255,6 +255,37 @@ def write_outputs(rows: list[dict[str, Any]], context: dict[str, Any], output_di
                 ]
             )
 
+    diagnostic_variants = [
+        "selective_release_recovery_threshold_bypass_v1",
+        "selective_release_recovery_target_lift_v1",
+    ]
+    diagnostic_rows = df[
+        (df["actor_window"] == "wf_2023_2024") & (df["variant"].isin(diagnostic_variants))
+    ]
+    if not diagnostic_rows.empty:
+        lines.extend(["", "## Order-Generation Diagnostic", ""])
+        for variant in diagnostic_variants:
+            match = diagnostic_rows[diagnostic_rows["variant"] == variant]
+            if match.empty:
+                continue
+            row = match.iloc[0]
+            lines.append(
+                f"- `{variant}`: eligible_days `{int(row['eligible_days'])}`, "
+                f"changed_days `{int(row['changed_days'])}`, absorbed_days `{int(row['absorbed_days'])}`, "
+                f"return `{float(row['return']):.2f}%`, max_dd `{float(row['max_dd']):.2f}%`."
+            )
+        if (diagnostic_rows["eligible_days"].astype(int) > 0).any() and (
+            diagnostic_rows["changed_days"].astype(int) == 0
+        ).all():
+            lines.extend(
+                [
+                    "",
+                    "- Lowering the rebalance threshold and forcing a target lift still produced no changed days on the eligible `wf_2023_2024` release dates.",
+                    "- `wf_2022` remains unchanged because there are no eligible release days, so the defensive gate is still intact.",
+                    "- Next diagnostic should instrument per-day `current_pos`, target before/after overlay, `min_rebalance`, trade lock, buy cooldown, cap state, and lot rounding before trying another rule or retrain.",
+                ]
+            )
+
     (output_dir / "selective_release_walkforward_review.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 

@@ -70,6 +70,32 @@ def overlay_variants() -> list[tuple[str, dict[str, Any] | None]]:
                 "volume_sync_threshold": 0.70,
             },
         ),
+        (
+            "selective_release_recovery_threshold_bypass_v1",
+            {
+                "type": "selective_release",
+                "boost": 0.08,
+                "max_target": 0.65,
+                "max_regime_risk": 0.60,
+                "cooldown_threshold": 0.20,
+                "vix_threshold": 0.05,
+                "volume_sync_threshold": 0.70,
+                "rebalance_threshold_override": 0.0,
+            },
+        ),
+        (
+            "selective_release_recovery_target_lift_v1",
+            {
+                "type": "selective_release",
+                "boost": 0.08,
+                "max_target": 0.65,
+                "max_regime_risk": 0.60,
+                "cooldown_threshold": 0.20,
+                "vix_threshold": 0.05,
+                "volume_sync_threshold": 0.70,
+                "min_target_delta": 0.08,
+            },
+        ),
     ]
 
 

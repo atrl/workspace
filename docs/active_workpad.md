@@ -1,20 +1,19 @@
 ---
 date: '2026-05-20'
-title: 'Production Scheduler + Paper Dashboard Loop'
+title: 'Production Scheduler + Selective Release Execution Loop'
 kind: workpad
 status: active
-direction: production
+direction: execution
 ---
 
 # Production Scheduler + Paper Dashboard Loop
 
 ## Current Goal
 
-1. Keep the SOXL/SOXX/VIX data surfaces coherent for scheduled inference.
-2. Make the daily scheduler resilient to transient Yahoo/yfinance failures by retrying with cached data.
-3. Repair paper-trading dashboard evidence so simulated orders are visible and use post-execution broker state.
-4. Prepare the dashboard/static artifact path for Vercel after the local scheduled loop is reliable.
-5. Resume model optimization only after the production loop can refresh data, infer, gate, persist, and rebuild the dashboard repeatably.
+1. Production scheduler, paper-trading state, dashboard rebuild, and Vercel static packaging are fixed and pushed in `c7cf210`.
+2. Resume model optimization from the SOXX-aware / selective-release frontier rather than changing scheduler/runtime behavior further.
+3. Diagnose why retained release gates fire on `wf_2023_2024` recovery days but do not create changed orders.
+4. Do not start another release-pack PPO retrain until the execution mapping bottleneck is instrumented.
 
 ## 2026-05-20 Loop Evidence
 
@@ -95,8 +94,87 @@ Final verification:
 
 ## Next Action
 
-1. Commit and push the production-loop evidence.
-2. After production loop stability is on remote, resume model optimization from the SOXX-aware frontier rather than changing scheduler/runtime behavior further.
+1. Production-loop evidence is committed and pushed in `c7cf210`.
+2. Current active loop is the resumed selective-release execution diagnostic below, not additional scheduler/runtime work.
+
+## 2026-05-20 Selective Release Order-Generation Diagnostic
+
+### Governance
+
+- Canonical baseline: `balanced_rule_residual_v22`
+- Direct comparison baseline: `selective_release_walkforward_v1`
+- Role: `diagnose`
+- Target window: `wf_2023_2024` eligible release days, with `wf_2022` as the defensive no-regression check
+- Accepted trade-off: a small recovery-window drawdown increase is acceptable only if `changed_days > 0` while `wf_2022` remains unchanged
+- Changed layer: `execution`
+- External reference:
+  - retained release gate family: `RB_COOLDOWN_PROXY`, `TRANS_VIX_DIVERGENCE`, `CICC_RETURN_VOLUME_SYNC`
+  - prior fixed-actor counterfactual: `selective_release_recovery_v1`
+  - walk-forward absorption evidence: `selective_release_walkforward_v1`
+- Hypothesis:
+  The retained release gates are firing on recovery days, but the order-generation path absorbs the overlay. A gate-ready rebalance-threshold bypass or minimum target lift should translate the same signal into changed orders if thresholding is the primary bottleneck.
+- Acceptance criteria:
+  - `wf_2023_2024 changed_days > 0` for at least one diagnostic variant
+  - `wf_2022 eligible_days == 0` and unchanged return / MaxDD
+  - no new PPO retrain or feature injection in this loop
+- Expected trade-off:
+  Higher recovery-window exposure may modestly widen `wf_2023_2024` drawdown if it finally creates orders.
+- Failure mode:
+  Eligible days remain fully absorbed, proving the blocker is deeper than the visible rebalance threshold or simple target lift.
+- Comparison-table row key: `selective_release_order_generation_v1`
+
+### Historical Contrast
+
+1. Closest success case:
+   `selective_release_recovery_v1` improved fixed full-window `test_2023_2024` from `57.12% / 0.719` to `82.10% / 0.877` without changing `test_2022`.
+2. Closest failure case:
+   `selective_release_walkforward_v1` found `6-18` eligible `wf_2023_2024` release days, but all existing gates had `changed_days=0`.
+3. Why this loop is not a duplicate:
+   It changes the execution mapping after gate readiness by adding explicit target lift and rebalance-threshold bypass variants; it does not rename the gate or retrain the actor.
+
+### Changes Made
+
+- `src/soxl_quant/backtest.py`
+  - factored `selective_release_gate_ready()`
+  - added optional `min_target_delta` support to `apply_selective_release_overlay()`
+  - added `selective_release_rebalance_threshold()` so gate-ready overlays can bypass or scale the rebalance threshold
+  - passed `current_pos` into the selective-release overlay path
+- `scripts/evaluate_selective_release_overlay.py`
+  - added `selective_release_recovery_threshold_bypass_v1`
+  - added `selective_release_recovery_target_lift_v1`
+- `scripts/evaluate_selective_release_walkforward.py`
+  - added an order-generation diagnostic section to the durable review
+- `tests/test_selective_release_overlay.py`
+  - covered target-lift behavior and gate-scoped rebalance-threshold bypass
+
+### Commands
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_selective_release_overlay.py::test_selective_release_target_lift_can_force_change_from_current_position tests/test_selective_release_overlay.py::test_selective_release_rebalance_bypass_only_applies_when_gate_is_ready -q
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_selective_release_overlay.py tests/test_selective_release_walkforward.py -q
+MPLCONFIGDIR=/private/tmp/mplconfig PYTHONPATH=. qlib_venv/bin/python scripts/evaluate_selective_release_walkforward.py --profile balanced_rule_residual_v22 --all-variants
+```
+
+### Evidence
+
+- Review: `runtime/execution/card/selective_release_walkforward_v1/selective_release_walkforward_review.md`
+- CSV: `runtime/execution/card/selective_release_walkforward_v1/selective_release_walkforward_results.csv`
+- JSON: `runtime/execution/card/selective_release_walkforward_v1/selective_release_walkforward_results.json`
+
+| actor_window | diagnostic variant | eligible_days | changed_days | absorbed_days | return / max_dd | readout |
+|---|---|---:|---:|---:|---:|---|
+| `wf_2022` | `selective_release_recovery_threshold_bypass_v1` | 0 | 0 | 0 | `-34.11% / 38.27%` | defensive gate unchanged |
+| `wf_2022` | `selective_release_recovery_target_lift_v1` | 0 | 0 | 0 | `-34.11% / 38.27%` | defensive gate unchanged |
+| `wf_2023_2024` | `selective_release_recovery_threshold_bypass_v1` | 18 | 0 | 18 | `-20.21% / 38.54%` | threshold bypass still absorbed |
+| `wf_2023_2024` | `selective_release_recovery_target_lift_v1` | 18 | 0 | 18 | `-20.21% / 38.54%` | target lift still absorbed |
+
+### Decision
+
+- Do **not** promote the selective-release overlay to runtime governance.
+- Do **not** retrain another release-pack PPO branch yet.
+- This loop rules out simple rebalance-threshold bypass and simple target lift as sufficient fixes; the next valid step is per-day execution-state instrumentation on eligible `wf_2023_2024` dates.
+
+Next instrumentation should capture `current_pos`, target before/after overlay, `min_rebalance`, trade lock, buy cooldown, position cap state, and lot rounding before testing another execution rule.
 
 ## Prior Data/Release Goal
 
