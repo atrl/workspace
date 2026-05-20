@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-15T02:14:54.108238+00:00",
+  "generated_at": "2026-05-20T12:33:39.682061+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -422,6 +422,24 @@
       "bytes": 617
     },
     {
+      "path": "runtime/factor/card/rulebase_signals/backtest_rulebase_signals.csv",
+      "category": "factor",
+      "suffix": ".csv",
+      "bytes": 2224
+    },
+    {
+      "path": "runtime/factor/card/rulebase_signals/card_RB_TREND_REVERSAL.md",
+      "category": "factor",
+      "suffix": ".md",
+      "bytes": 492
+    },
+    {
+      "path": "runtime/factor/card/rulebase_signals/correlation_rulebase_signals.csv",
+      "category": "factor",
+      "suffix": ".csv",
+      "bytes": 123
+    },
+    {
       "path": "runtime/factor/card/signed_te_reversion/backtest_SIGNED_TE_REVERSION.csv",
       "category": "factor",
       "suffix": ".csv",
@@ -512,6 +530,12 @@
       "bytes": 16119
     },
     {
+      "path": "runtime/factor/rulebase_signals_ic.csv",
+      "category": "factor",
+      "suffix": ".csv",
+      "bytes": 459
+    },
+    {
       "path": "runtime/factor/signed_te_reversion_ic.csv",
       "category": "factor",
       "suffix": ".csv",
@@ -557,7 +581,7 @@
       "path": "runtime/harness/knowledge.md",
       "category": "harness",
       "suffix": ".md",
-      "bytes": 5443
+      "bytes": 6384
     },
     {
       "path": "runtime/harness/optimization_notes.md",
@@ -750,6 +774,12 @@
       "category": "model",
       "suffix": ".json",
       "bytes": 4669
+    },
+    {
+      "path": "runtime/model/card/balanced_curriculum/notes.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 2156
     },
     {
       "path": "runtime/model/card/balanced_floor40/card.md",
@@ -1352,6 +1382,18 @@
       "bytes": 6853
     },
     {
+      "path": "runtime/model/card/balanced_rule_residual_v19_moe/notes.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 4855
+    },
+    {
+      "path": "runtime/model/card/balanced_rule_residual_v19_moe_v2/notes.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 4650
+    },
+    {
       "path": "runtime/model/card/balanced_rule_residual_v19_reg/balanced_rule_residual_v19_reg-wf_2020-seed42.json",
       "category": "model",
       "suffix": ".json",
@@ -1632,6 +1674,18 @@
       "category": "model",
       "suffix": ".md",
       "bytes": 2480
+    },
+    {
+      "path": "runtime/model/card/balanced_rule_residual_v22_soxx/balanced_rule_residual_v22_soxx_soxl_daily.csv",
+      "category": "model",
+      "suffix": ".csv",
+      "bytes": 199911
+    },
+    {
+      "path": "runtime/model/card/balanced_rule_residual_v22_soxx/soxl_balanced_rule_residual_v22_soxx_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 6851
     },
     {
       "path": "runtime/model/card/balanced_rule_residual_v22_wf_2020/soxl_balanced_rule_residual_v22_wf_2020_summary.json",
@@ -2078,6 +2132,12 @@
       "bytes": 12868
     },
     {
+      "path": "runtime/model/exploration_roadmap_2026-04-29.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 8226
+    },
+    {
       "path": "runtime/model/hierarchical_online_budget_generalization.json",
       "category": "model",
       "suffix": ".json",
@@ -2093,7 +2153,7 @@
       "path": "runtime/model/knowledge.md",
       "category": "model",
       "suffix": ".md",
-      "bytes": 26729
+      "bytes": 31568
     },
     {
       "path": "runtime/model/model_adjustment_roadmap.md",
@@ -2183,7 +2243,7 @@
       "path": "runtime/network/knowledge.md",
       "category": "network",
       "suffix": ".md",
-      "bytes": 13505
+      "bytes": 16300
     },
     {
       "path": "runtime/reward/card/base_log/card.md",

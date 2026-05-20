@@ -1,3 +1,8 @@
+---
+name: risk-budget-architecture
+description: Use when reviewing, extending, or debugging the SOXL risk_budget_usage_v1 two-speed risk-budget architecture, including mode bands, budget usage mapping, drawdown caps, and execution thresholds.
+---
+
 # Risk Budget Usage 架构
 
 ## 用途

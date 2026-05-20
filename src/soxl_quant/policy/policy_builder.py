@@ -566,10 +566,20 @@ def actor_action(actor: Actor, obs: np.ndarray) -> int:
         return actor.action(obs)
     obs = adapt_observation_for_actor(obs, actor)
     with torch.no_grad():
-        device = next(actor.parameters()).device
+        device = _actor_device(actor)
         out = actor(torch.as_tensor(obs, dtype=torch.float32, device=device).unsqueeze(0))
         logits = out[0] if isinstance(out, tuple) else out
         return int(logits.argmax(-1).item())
+
+
+def _actor_device(actor: Actor) -> torch.device:
+    parameters = getattr(actor, "parameters", None)
+    if not callable(parameters):
+        return torch.device("cpu")
+    try:
+        return next(parameters()).device
+    except StopIteration:
+        return torch.device("cpu")
 
 
 class EnsembleActor:
@@ -616,7 +626,7 @@ class EnsembleActor:
             for actor, weight in zip(self.actors, self.weights):
                 adapted = adapt_observation_for_actor(obs, actor)
                 with torch.no_grad():
-                    device = next(actor.parameters()).device
+                    device = _actor_device(actor)
                     out = actor(torch.as_tensor(adapted, dtype=torch.float32, device=device).unsqueeze(0))
                     logits = out[0] if isinstance(out, tuple) else out
                     idxs.append(float(logits.argmax(-1).item()) * weight)
@@ -626,7 +636,7 @@ class EnsembleActor:
         for actor, weight in zip(self.actors, self.weights):
             adapted = adapt_observation_for_actor(obs, actor)
             with torch.no_grad():
-                device = next(actor.parameters()).device
+                device = _actor_device(actor)
                 out = actor(torch.as_tensor(adapted, dtype=torch.float32, device=device).unsqueeze(0))
                 logits = out[0] if isinstance(out, tuple) else out
                 probs = torch.softmax(logits, dim=-1) * weight

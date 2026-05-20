@@ -91,6 +91,14 @@
       "stale_after_days": 60,
       "status": "active"
     },
+    "risk-budget-architecture": {
+      "direction": "model",
+      "version": "1.0.0",
+      "last_used": "2026-05-20",
+      "use_count": 1,
+      "stale_after_days": 60,
+      "status": "active"
+    },
     "leveraged-etf-factor-mining": {
       "direction": "factor",
       "version": "2.0.0",
@@ -185,7 +193,7 @@
   },
   "directions": {
     "factor": ["leveraged-etf-factor-mining", "leveraged-etf-factor-research", "leveraged-etf-signal-backtest"],
-    "model": ["post-train-backtest-review", "qlib-rl-trading"],
+    "model": ["post-train-backtest-review", "qlib-rl-trading", "risk-budget-architecture"],
     "reward": ["rl-kelly-integration"],
     "execution": ["dashboard"],
     "production": ["futu-api"],

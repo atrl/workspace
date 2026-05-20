@@ -1,6 +1,6 @@
 # HARNESS Knowledge
 
-> 最后更新: 2026-05-10
+> 最后更新: 2026-05-20
 > 该方向负责仓库结构、工具链、验证脚本和 agent 工作流。
 
 ## 验证索引
@@ -137,3 +137,30 @@ at that terminal step is still unsafe.
 - New training runs no longer die at the final replay step when local data reaches
   the current calendar tail.
 - This keeps the data-refresh loop from masquerading as a model bug.
+
+<!-- 2026-05-20: Codex TUI goal warning and skill loader cleanup -->
+
+# 2026-05-20 Codex TUI Goal Warning
+
+## Problem
+
+The TUI surfaced:
+
+`Failed to read thread goal: thread/goal/get failed in TUI`
+
+Local evidence showed `~/.codex/config.toml` had the experimental `goals` feature
+enabled, `~/.codex/state_5.sqlite` was healthy, the current thread row existed,
+and `thread_goals` was simply empty. No SOXL harness state was corrupt.
+
+## Repo-Side Cleanup
+
+- Added required YAML frontmatter to `.codex/skills/risk-budget-architecture/SKILL.md`.
+- Registered `risk-budget-architecture` in `.codex/skills/_index.json`.
+- Fixed `actor_action()` to support parameterless callable fixed actors used by
+  budget-usage BC tests while keeping torch-module actors on their own device.
+- Rebuilt `runtime/index.json`.
+
+## Validation
+
+`PYTHONPATH=. qlib_venv/bin/python scripts/check_harness.py` passed with
+68 checks and 0 failures after the cleanup.
