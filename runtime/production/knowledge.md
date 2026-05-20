@@ -20,6 +20,7 @@
 13. **macOS 定时推理路径已补齐**：新增 `com.soxl.preopen.scheduler`，用于 `21:00 Mon-Fri Asia/Shanghai` cached-data dry-run 推理 + dashboard；`com.soxl.daily.scheduler` 继续负责 `05:35 Tue-Sat` post-close 完整流程。两个 LaunchAgent 已同步到 `~/Library/LaunchAgents/` 并 loaded。
 14. **数据源失败时不再用旧数据推进模拟盘**：post-close 数据刷新遇到 transient provider failure 时，scheduler fallback 会追加 `--skip-data-update --dry-run`，只保留 cached signal/dashboard 可见性，不落 paper order / broker state。
 15. **scheduler health 现在直接暴露 paper 数据新鲜度**：`production/check_scheduler_health.sh` 会运行 paper healthcheck 并显示 `last_date`、`expected_last_trading_day`、`stale_days`、model 和 broker 状态。当前读数仍是 `last_date=2026-05-15`、`expected=2026-05-20`、`stale_days=5`，所以 post-close 在线刷新尚未证明。
+16. **stale data 现在也是执行硬门槛**：paper 主流程在 qlib init / 模型选择 / broker 执行前检查 freshness。非 dry-run 遇到 stale data 直接退出；scheduler 将其转成 cached dry-run fallback，避免 stale 数据推进 paper broker state。
 
 ## 2026-05-20 验证记录
 
@@ -300,6 +301,50 @@ Readout:
 - The next proof must come from the real `05:35 Tue-Sat Asia/Shanghai`
   post-close run; if online refresh fails, the scheduler should remain cached
   dry-run only.
+
+## 2026-05-21 Stale Execution Guard
+
+Root cause:
+
+- Healthcheck could report stale data, but the main paper-trading path did not
+  enforce that status before qlib initialization and order planning.
+- A data update that returned successfully but left the CSV stale could
+  otherwise continue into non-dry-run paper execution.
+
+Change:
+
+- `production/soxl_paper_trading.py` checks `_csv_data_freshness_status()` after
+  the update step and before `init_qlib()`.
+- Non-dry-run stale data exits with a clear error. Dry-run stale data is allowed
+  only for signal/dashboard visibility and prints a warning.
+- `production/soxl_daily_scheduler.py` classifies stale post-update data as a
+  cached dry-run fallback condition.
+- Regression coverage:
+  - `tests/test_paper_trading.py::test_main_blocks_non_dry_run_when_data_remains_stale`
+  - `tests/test_daily_scheduler.py::test_scheduler_retries_stale_post_update_data_as_cached_dry_run`
+
+Verification:
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_paper_trading.py::test_main_blocks_non_dry_run_when_data_remains_stale -q
+# 1 passed after initially failing by reaching qlib init
+
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_daily_scheduler.py::test_scheduler_retries_stale_post_update_data_as_cached_dry_run -q
+# 1 passed after initially exiting instead of retrying
+
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_paper_trading.py tests/test_daily_scheduler.py tests/test_scheduler_health.py tests/test_production_schedule.py tests/test_vercel_dashboard.py tests/test_dashboard.py -q
+# 25 passed
+
+PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py --skip-data-update --no-notify --skip-dashboard
+# first pass blocked stale non-dry-run data
+# retry completed as cached dry-run with skipped order placement
+```
+
+Operational rule:
+
+- Fresh data -> full paper execution can proceed.
+- Stale data or transient provider failure -> cached dry-run visibility only,
+  no broker state mutation.
 
 ## Open Production Tasks
 

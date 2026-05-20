@@ -32,6 +32,8 @@ TRANSIENT_DATA_SOURCE_SNIPPETS = (
     "Rate limited",
     "No overlapping dates for SOXL/SOXX/VIX",
     "DNS/network unavailable",
+    "Data update completed but data is stale",
+    "Cached data is stale for non-dry-run execution",
 )
 
 
@@ -140,7 +142,7 @@ def main() -> None:
         # If data update failed due to transient source issues, retry with
         # existing data only as a dry-run so stale bars cannot move broker state.
         if _is_transient_data_source_failure(exc):
-            print("[scheduler] Data source unavailable. Retrying cached data as dry-run...", file=sys.stderr)
+            print("[scheduler] Fresh data unavailable or stale. Retrying cached data as dry-run...", file=sys.stderr)
             try:
                 retry_cmd = list(paper_cmd)
                 if "--skip-data-update" not in retry_cmd:
@@ -154,7 +156,7 @@ def main() -> None:
                 if use_notify:
                     notifier.send(
                         title="SOXL Daily Pipeline OK (cached dry-run)",
-                        body="Data update skipped due to transient data-source failure. Used cached data for dry-run only; no order was placed.",
+                        body="Fresh data unavailable or stale after update. Used cached data for dry-run only; no order was placed.",
                         level="warning",
                     )
                 print("[scheduler] all done (with cached dry-run)")

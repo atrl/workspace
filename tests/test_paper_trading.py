@@ -1,9 +1,12 @@
 from __future__ import annotations
 
+import sys
 from pathlib import Path
 
 import pandas as pd
+import pytest
 
+from production import soxl_paper_trading
 from production.soxl_paper_trading import (
     _append_execution_daily_csv,
     _block_risk_decision,
@@ -130,3 +133,51 @@ def test_data_freshness_status_reports_expected_date_and_lag():
         "expected_last_trading_day": "2026-05-20",
         "stale_days": 5,
     }
+
+
+def test_main_blocks_non_dry_run_when_data_remains_stale(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+):
+    csv_path = tmp_path / "soxl_features.csv"
+    csv_path.write_text(
+        "date,open,high,low,close,volume\n"
+        "2026-05-15,1,1,1,1,100\n",
+        encoding="utf-8",
+    )
+    initialized = False
+
+    def fail_if_initialized(_qlib_path):
+        nonlocal initialized
+        initialized = True
+        raise AssertionError("stale non-dry-run data should block before qlib init")
+
+    monkeypatch.setattr(
+        soxl_paper_trading,
+        "update_master_csv",
+        lambda dry_run: {
+            "before_rows": 1,
+            "after_rows": 1,
+            "new_rows": 0,
+            "last_date": "2026-05-15",
+            "dry_run": dry_run,
+        },
+    )
+    monkeypatch.setattr(soxl_paper_trading, "refresh_qlib", lambda dry_run: None)
+    monkeypatch.setattr(soxl_paper_trading, "init_qlib", fail_if_initialized)
+    monkeypatch.setattr(soxl_paper_trading, "_last_trading_day", lambda: "2026-05-20")
+
+    from src.soxl_quant import settings
+
+    monkeypatch.setattr(settings, "CSV_PATH", csv_path)
+    monkeypatch.setattr(sys, "argv", ["soxl_paper_trading.py", "--no-notify"])
+
+    with pytest.raises(SystemExit) as exc_info:
+        soxl_paper_trading.main()
+
+    captured = capsys.readouterr()
+    assert exc_info.value.code == 1
+    assert initialized is False
+    assert "Data update completed but data is stale" in captured.err
+    assert "last_date=2026-05-15 expected=2026-05-20 stale_days=5" in captured.err

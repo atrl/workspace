@@ -378,6 +378,71 @@ production/check_scheduler_health.sh
   `2026-05-15`; if the provider fails, the scheduler should fall back to cached
   dry-run only.
 
+## 2026-05-21 Stale Execution Guard
+
+### Root Cause
+
+- The previous health work made stale data visible, but the paper-trading main
+  path still did not enforce the freshness result before qlib/model/order flow.
+- If a post-close data update returned successfully while leaving the canonical
+  panel stale, a non-dry-run paper session could still continue toward broker
+  state mutation.
+- Current time during this pass was `2026-05-21 02:15 CST`, before the
+  `05:35 Tue-Sat Asia/Shanghai` post-close window, so the live online-refresh
+  proof is still pending.
+
+### Change
+
+- `production/soxl_paper_trading.py`
+  - checks CSV freshness immediately after the data-update step and before
+    `init_qlib()`.
+  - blocks non-dry-run execution when data is stale.
+  - permits stale data only for dry-run visibility and prints an explicit
+    warning.
+- `production/soxl_daily_scheduler.py`
+  - classifies stale post-update data as a fallback condition.
+  - retries with cached data as `--dry-run`, so paper broker state and
+    cumulative CSV cannot move on stale data.
+- `tests/test_paper_trading.py` and `tests/test_daily_scheduler.py`
+  - cover the stale guard and scheduler fallback.
+
+### Verification
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_paper_trading.py::test_main_blocks_non_dry_run_when_data_remains_stale -q
+# red: reached qlib init before the guard
+# green: 1 passed
+
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_daily_scheduler.py::test_scheduler_retries_stale_post_update_data_as_cached_dry_run -q
+# red: scheduler exited instead of retrying
+# green: 1 passed
+
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_paper_trading.py tests/test_daily_scheduler.py tests/test_scheduler_health.py tests/test_production_schedule.py tests/test_vercel_dashboard.py tests/test_dashboard.py -q
+# 25 passed
+
+PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py --dry-run --no-notify --skip-data-update --skip-dashboard
+# stale data warning, selected balanced_rule_residual_v19, skipped order placement
+
+PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py --skip-data-update --no-notify --skip-dashboard
+# first pass blocked: Cached data is stale for non-dry-run execution
+# retry pass completed as cached dry-run
+# [paper] dry-run: skipped order placement
+# [scheduler] all done (with cached dry-run)
+
+production/check_scheduler_health.sh
+# data: stale last_date=2026-05-15 expected=2026-05-20 stale_days=5
+# model: ok balanced_rule_residual_v19 (soxl_balanced_rule_residual_v19_actor.pt)
+# broker: ok paper broker ready
+```
+
+### Decision
+
+- Stale data is now an execution blocker, not only an observability warning.
+- The scheduler can still publish a cached signal/dashboard dry-run when fresh
+  data is unavailable, but it cannot mutate paper broker state until data is
+  fresh.
+- Next proof remains the real `05:35 Tue-Sat Asia/Shanghai` post-close run.
+
 ## 2026-05-20 Selective Release Order-Generation Diagnostic
 
 ### Governance

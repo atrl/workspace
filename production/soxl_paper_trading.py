@@ -111,6 +111,47 @@ def _data_freshness_status(last_date_str: str, expected_date_str: Optional[str] 
     }
 
 
+def _csv_data_freshness_status(csv_path: Path) -> Dict[str, object]:
+    df = pd.read_csv(csv_path, parse_dates=["date"])
+    last_date = str(df["date"].max().date())
+    return _data_freshness_status(last_date)
+
+
+def _format_data_freshness(status: Dict[str, object]) -> str:
+    return (
+        f"last_date={status['last_date']} "
+        f"expected={status['expected_last_trading_day']} "
+        f"stale_days={status['stale_days']}"
+    )
+
+
+def _guard_execution_data_freshness(
+    status: Dict[str, object],
+    *,
+    dry_run: bool,
+    data_update_attempted: bool,
+    notifier=None,
+) -> None:
+    if status["ok"]:
+        print(f"[paper] data fresh: {_format_data_freshness(status)}")
+        return
+
+    if dry_run:
+        print(f"[paper] WARNING: using stale data for dry-run only: {_format_data_freshness(status)}")
+        return
+
+    prefix = (
+        "Data update completed but data is stale"
+        if data_update_attempted
+        else "Cached data is stale for non-dry-run execution"
+    )
+    msg = f"{prefix}: {_format_data_freshness(status)}"
+    print(f"[paper] ERROR: {msg}", file=sys.stderr)
+    if notifier is not None:
+        notifier.send(title="SOXL Data Stale", body=msg, level="error")
+    sys.exit(1)
+
+
 def _format_signal_message(
     signal,
     decision,
@@ -294,9 +335,7 @@ def healthcheck(args: argparse.Namespace) -> Dict[str, object]:
     results: Dict[str, object] = {}
 
     from src.soxl_quant.settings import CSV_PATH
-    df = pd.read_csv(CSV_PATH, parse_dates=["date"])
-    last_date = str(df["date"].max().date())
-    data_status = _data_freshness_status(last_date)
+    data_status = _csv_data_freshness_status(CSV_PATH)
     data_ok = bool(data_status["ok"])
     results["data"] = data_status
 
@@ -369,6 +408,15 @@ def main() -> None:
     else:
         print("[paper] skipped data update")
 
+    from src.soxl_quant.settings import CSV_PATH
+    data_status = _csv_data_freshness_status(CSV_PATH)
+    _guard_execution_data_freshness(
+        data_status,
+        dry_run=args.dry_run,
+        data_update_attempted=not args.skip_data_update,
+        notifier=notifier,
+    )
+
     # Re-init qlib so runtime reads the latest binary
     init_qlib(QLIB_DATA_PATH)
 
@@ -383,7 +431,6 @@ def main() -> None:
         print(f"[paper] auto-selected profile={profile_name} model={model_path.name}")
 
     # 3. Determine as_of date (latest available bar)
-    from src.soxl_quant.settings import CSV_PATH
     df = pd.read_csv(CSV_PATH, parse_dates=["date"])
     as_of = str(df["date"].max().date())
     print(f"[paper] as_of={as_of}")
