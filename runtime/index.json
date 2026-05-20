@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-20T18:20:53.464658+00:00",
+  "generated_at": "2026-05-20T18:27:54.249428+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -2354,6 +2354,12 @@
       "bytes": 2564
     },
     {
+      "path": "runtime/production/card/freshness_market_close_v1/notes.md",
+      "category": "production",
+      "suffix": ".md",
+      "bytes": 2611
+    },
+    {
       "path": "runtime/production/card/scheduler_health_v1/notes.md",
       "category": "production",
       "suffix": ".md",
@@ -2381,7 +2387,7 @@
       "path": "runtime/production/knowledge.md",
       "category": "production",
       "suffix": ".md",
-      "bytes": 18654
+      "bytes": 20754
     },
     {
       "path": "runtime/reward/card/base_log/card.md",

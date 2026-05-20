@@ -443,6 +443,62 @@ production/check_scheduler_health.sh
   fresh.
 - Next proof remains the real `05:35 Tue-Sat Asia/Shanghai` post-close run.
 
+## 2026-05-21 Freshness Market-Close Boundary
+
+### Root Cause
+
+- `_last_trading_day()` used the local `Asia/Shanghai` calendar date and a
+  simple previous-day rule.
+- At `2026-05-21 02:23 CST`, New York was still
+  `2026-05-20 14:23 EDT`, so the `2026-05-20` US session was not closed.
+- Healthcheck was therefore too strict before the `05:35 Tue-Sat
+  Asia/Shanghai` post-close run, reporting `expected=2026-05-20` when the latest
+  completed US trading day was still `2026-05-19`.
+
+### Change
+
+- `production/soxl_paper_trading.py`
+  - freshness expectation now uses `America/New_York`.
+  - current New York trading date becomes expected only after `17:30 ET`.
+  - before that cutoff, freshness expects the previous weekday.
+- `tests/test_paper_trading.py`
+  - covers the `02:23 CST` pre-close boundary, the `05:35 CST` post-close
+    boundary, and Monday pre-open previous-Friday behavior.
+
+### Verification
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_paper_trading.py::test_last_trading_day_waits_for_new_york_post_close_cutoff tests/test_paper_trading.py::test_last_trading_day_uses_previous_friday_before_monday_us_close -q
+# red: _last_trading_day() had no time injection and used local calendar date
+# green: 2 passed
+
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_paper_trading.py tests/test_daily_scheduler.py tests/test_scheduler_health.py tests/test_production_schedule.py tests/test_vercel_dashboard.py tests/test_dashboard.py -q
+# 27 passed
+
+PYTHONPATH=. qlib_venv/bin/python production/soxl_paper_trading.py --healthcheck --skip-data-update --no-notify
+# data: last_date=2026-05-15 expected_last_trading_day=2026-05-19 stale_days=4
+
+PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py --dry-run --no-notify --skip-data-update --skip-dashboard
+# stale data warning with expected=2026-05-19; skipped order placement
+
+PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py --skip-data-update --no-notify --skip-dashboard
+# first pass blocked stale non-dry-run data at expected=2026-05-19
+# retry pass completed as cached dry-run
+# [paper] dry-run: skipped order placement
+
+production/check_scheduler_health.sh
+# data: stale last_date=2026-05-15 expected=2026-05-19 stale_days=4
+# model: ok balanced_rule_residual_v19 (soxl_balanced_rule_residual_v19_actor.pt)
+# broker: ok paper broker ready
+```
+
+### Decision
+
+- The health and execution guard now align with the local schedule: before the
+  post-close window, they do not expect the still-open US trading day.
+- The first real `05:35 Tue-Sat Asia/Shanghai` run remains the needed proof for
+  online data refresh and non-dry-run paper execution.
+
 ## 2026-05-20 Selective Release Order-Generation Diagnostic
 
 ### Governance

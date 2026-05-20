@@ -15,9 +15,10 @@ import argparse
 import json
 import sys
 from dataclasses import asdict, replace
-from datetime import datetime, timedelta
+from datetime import date, datetime, time, timedelta
 from pathlib import Path
 from typing import Dict, Optional, Tuple
+from zoneinfo import ZoneInfo
 
 import pandas as pd
 
@@ -40,6 +41,9 @@ from src.soxl_quant.runtime import (
     save_runtime_execution_overlay_state,
 )
 from src.soxl_quant.settings import ACCOUNT, QLIB_DATA_PATH, RUNTIME_DIR, load_profile
+
+US_MARKET_TZ = ZoneInfo("America/New_York")
+US_DATA_READY_TIME = time(17, 30)
 
 
 def parse_args() -> argparse.Namespace:
@@ -82,16 +86,22 @@ def _init_broker(args: argparse.Namespace) -> BrokerAdapter:
     return _load_paper_broker_state(initial_cash=args.initial_cash)
 
 
-def _last_trading_day() -> str:
-    today = datetime.now().date()
-    if today.weekday() == 0:
-        delta = 3
-    elif today.weekday() == 6:
-        delta = 2
-    else:
-        delta = 1
-    last = today - timedelta(days=delta)
-    return last.strftime("%Y-%m-%d")
+def _previous_weekday(day: date) -> date:
+    candidate = day - timedelta(days=1)
+    while candidate.weekday() >= 5:
+        candidate -= timedelta(days=1)
+    return candidate
+
+
+def _last_trading_day(now: Optional[datetime] = None) -> str:
+    current = now or datetime.now(tz=US_MARKET_TZ)
+    if current.tzinfo is None:
+        current = current.astimezone()
+    market_now = current.astimezone(US_MARKET_TZ)
+    candidate = market_now.date()
+    if market_now.weekday() >= 5 or market_now.time() < US_DATA_READY_TIME:
+        candidate = _previous_weekday(candidate)
+    return candidate.strftime("%Y-%m-%d")
 
 
 def _is_data_fresh(last_date_str: str) -> bool:

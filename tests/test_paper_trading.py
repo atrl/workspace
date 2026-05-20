@@ -1,7 +1,9 @@
 from __future__ import annotations
 
 import sys
+from datetime import datetime
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 import pandas as pd
 import pytest
@@ -11,6 +13,7 @@ from production.soxl_paper_trading import (
     _append_execution_daily_csv,
     _block_risk_decision,
     _data_freshness_status,
+    _last_trading_day,
     _load_paper_broker_state,
     _post_execution_audit,
     _save_paper_broker_state,
@@ -133,6 +136,23 @@ def test_data_freshness_status_reports_expected_date_and_lag():
         "expected_last_trading_day": "2026-05-20",
         "stale_days": 5,
     }
+
+
+def test_last_trading_day_waits_for_new_york_post_close_cutoff():
+    shanghai = ZoneInfo("Asia/Shanghai")
+
+    before_us_close = datetime(2026, 5, 21, 2, 23, tzinfo=shanghai)
+    after_post_close_window = datetime(2026, 5, 21, 5, 35, tzinfo=shanghai)
+
+    assert _last_trading_day(now=before_us_close) == "2026-05-19"
+    assert _last_trading_day(now=after_post_close_window) == "2026-05-20"
+
+
+def test_last_trading_day_uses_previous_friday_before_monday_us_close():
+    shanghai = ZoneInfo("Asia/Shanghai")
+    monday_preopen = datetime(2026, 5, 18, 21, 0, tzinfo=shanghai)
+
+    assert _last_trading_day(now=monday_preopen) == "2026-05-15"
 
 
 def test_main_blocks_non_dry_run_when_data_remains_stale(

@@ -19,8 +19,9 @@
 12. **scheduler health 现在匹配 macOS LaunchAgent**：`production/check_scheduler_health.sh` 会在 Darwin 上检查 `launchctl list` 中的 `com.soxl.daily.scheduler`，并用 portable `stat/date` 读取日志，不再把 macOS 运行态显示成空白 cron 服务。
 13. **macOS 定时推理路径已补齐**：新增 `com.soxl.preopen.scheduler`，用于 `21:00 Mon-Fri Asia/Shanghai` cached-data dry-run 推理 + dashboard；`com.soxl.daily.scheduler` 继续负责 `05:35 Tue-Sat` post-close 完整流程。两个 LaunchAgent 已同步到 `~/Library/LaunchAgents/` 并 loaded。
 14. **数据源失败时不再用旧数据推进模拟盘**：post-close 数据刷新遇到 transient provider failure 时，scheduler fallback 会追加 `--skip-data-update --dry-run`，只保留 cached signal/dashboard 可见性，不落 paper order / broker state。
-15. **scheduler health 现在直接暴露 paper 数据新鲜度**：`production/check_scheduler_health.sh` 会运行 paper healthcheck 并显示 `last_date`、`expected_last_trading_day`、`stale_days`、model 和 broker 状态。当前读数仍是 `last_date=2026-05-15`、`expected=2026-05-20`、`stale_days=5`，所以 post-close 在线刷新尚未证明。
+15. **scheduler health 现在直接暴露 paper 数据新鲜度**：`production/check_scheduler_health.sh` 会运行 paper healthcheck 并显示 `last_date`、`expected_last_trading_day`、`stale_days`、model 和 broker 状态。当前 pre-postclose 读数是 `last_date=2026-05-15`、`expected=2026-05-19`、`stale_days=4`；到 `05:35 Tue-Sat Asia/Shanghai` 后才应该期待刚收盘的美股交易日。
 16. **stale data 现在也是执行硬门槛**：paper 主流程在 qlib init / 模型选择 / broker 执行前检查 freshness。非 dry-run 遇到 stale data 直接退出；scheduler 将其转成 cached dry-run fallback，避免 stale 数据推进 paper broker state。
+17. **freshness 期望日已按纽约收盘边界修正**：`_last_trading_day()` 使用 `America/New_York` 和 `17:30 ET` data-ready cutoff。`2026-05-21 02:23 CST` 期望 `2026-05-19`，`05:35 CST` 后才期望 `2026-05-20`。
 
 ## 2026-05-20 验证记录
 
@@ -345,6 +346,46 @@ Operational rule:
 - Fresh data -> full paper execution can proceed.
 - Stale data or transient provider failure -> cached dry-run visibility only,
   no broker state mutation.
+
+## 2026-05-21 Freshness Market-Close Boundary
+
+Root cause:
+
+- `_last_trading_day()` used the local `Asia/Shanghai` calendar date.
+- At `2026-05-21 02:23 CST`, the `2026-05-20` US trading session was still open
+  in New York, but healthcheck already expected `2026-05-20`.
+- This created an over-strict stale read before the scheduled
+  `05:35 Tue-Sat Asia/Shanghai` post-close update.
+
+Change:
+
+- `production/soxl_paper_trading.py` now computes expected data freshness in
+  `America/New_York`.
+- The current New York weekday becomes expected only at or after `17:30 ET`.
+- Before that cutoff, the expected date is the previous weekday.
+
+Verification:
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_paper_trading.py::test_last_trading_day_waits_for_new_york_post_close_cutoff tests/test_paper_trading.py::test_last_trading_day_uses_previous_friday_before_monday_us_close -q
+# 2 passed after initially failing on the old function signature/local-date behavior
+
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_paper_trading.py tests/test_daily_scheduler.py tests/test_scheduler_health.py tests/test_production_schedule.py tests/test_vercel_dashboard.py tests/test_dashboard.py -q
+# 27 passed
+
+PYTHONPATH=. qlib_venv/bin/python production/soxl_paper_trading.py --healthcheck --skip-data-update --no-notify
+# data expected_last_trading_day=2026-05-19 stale_days=4 at 02:xx CST
+
+PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py --skip-data-update --no-notify --skip-dashboard
+# blocked stale non-dry-run data at expected=2026-05-19, then completed cached dry-run
+```
+
+Readout:
+
+- Before the post-close window, health no longer expects the still-open US
+  session.
+- The live data-refresh proof is still the first real `05:35 Tue-Sat
+  Asia/Shanghai` run.
 
 ## Open Production Tasks
 
