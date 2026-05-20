@@ -3243,3 +3243,63 @@ Decision:
   missing.
 - Next model optimization should be a distinct governed mechanism, not a
   revival of these summary-only branches or another SOXX threshold tweak.
+
+## 2026-05-21 v19_reg_v22 Artifact Gap Audit
+
+Goal:
+
+- Continue model-side cleanup by checking whether
+  `balanced_rule_residual_v19_reg_v22` is a viable next candidate or another
+  stale active-surface artifact.
+
+Baseline and governance:
+
+- Canonical baseline: `balanced_rule_residual_v22` with
+  `selective_release_recovery_post_release_cap_v1` approved for scheduled
+  runtime selection.
+- Direct comparison: `balanced_rule_residual_v19_reg`.
+- Role: `diagnose` / cleanup.
+- Changed layer: `feature` + `network`.
+- External reference: VIX term-structure feature family plus regularization
+  discipline from `docs/research_knowledge/networks.md` and
+  `docs/research_knowledge/model_selection.md`.
+- Target window: current model registry / active surface.
+- Accepted trade-off: preserve the old profile as searchable context while
+  removing it from candidate interpretation.
+- Comparison-table row key: `balanced_rule_residual_v19_reg_v22`.
+
+Closest history:
+
+1. Success case: `balanced_rule_residual_v19_reg` produced real walk-forward
+   evidence, improving `wf_2022` while sacrificing `wf_2023_2024`.
+2. Failure case: `balanced_rule_residual_v22_soxx` and direct release-feature
+   injection showed fixed-window gains that did not survive walk-forward or
+   execution absorption.
+3. Not a duplicate: this loop does not tune thresholds or start PPO training;
+   it fixes stale retention metadata before opening a fresh governed run.
+
+Evidence:
+
+```bash
+rg -n "v19_reg_v22|balanced_rule_residual_v19_reg_v22" \
+  runtime/harness/card/registry/profile.yaml runtime/model/knowledge.md \
+  docs/experiment-landscape-review.md docs/active_workpad.md
+# found only registry/profile references plus older knowledge claims
+
+find runtime model experiments -name '*v19_reg_v22*' -maxdepth 5 2>/dev/null | sort
+# runtime/model/card/balanced_rule_residual_v19_reg_v22
+
+ls -la runtime/model/card/balanced_rule_residual_v19_reg_v22
+# profile.yaml only before this audit
+```
+
+Decision:
+
+- `balanced_rule_residual_v19_reg_v22` is profile-only in the current repo.
+- The older fixed-split pass and "walk-forward started" note are not durable
+  promotion evidence because no actor, summary JSON, or walk-forward output is
+  present.
+- Registry now marks it as `dropped`, with notes at
+  `runtime/model/card/balanced_rule_residual_v19_reg_v22/notes.md`.
+- Do not revive it unless a new governed experiment is opened with fresh
+  retained artifacts and complete walk-forward validation.

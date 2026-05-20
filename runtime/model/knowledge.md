@@ -498,6 +498,10 @@ Validate whether network simplification (v19_small) or VIX term features (v22) i
 | `balanced_trade_lock` | **123** | **29.9%** ✅ | **0.269** ✅ | **1.007** ✅ | **TRUE** |
 | `balanced_rule_residual_v19_reg_v22` | **42** | **32.9%** ✅ | **0.320** ✅ | **1.022** ✅ | **TRUE** |
 
+2026-05-21 audit note: the `balanced_rule_residual_v19_reg_v22` fixed-split
+claim above has no retained summary JSON or actor in the current repo. Treat it
+as an unverified historical note, not as active candidate evidence.
+
 ### Seed 效应
 - `trade_lock` seed=42: test_2022 MaxDD=58.4% (FAILED)
 - `trade_lock` seed=123: test_2022 MaxDD=29.9% (PASSED)
@@ -517,7 +521,7 @@ Validate whether network simplification (v19_small) or VIX term features (v22) i
 
 ### Walk-forward 待验证
 - `balanced_trade_lock` seed=123 walk-forward: 已启动（PID 621445）
-- `balanced_rule_residual_v19_reg_v22` seed=42 walk-forward: 已启动（task bash-9sp8gik0）
+- `balanced_rule_residual_v19_reg_v22` seed=42 walk-forward: 历史记录称已启动（task bash-9sp8gik0），但 2026-05-21 审计未在仓库中找到 actor、summary JSON 或 walk-forward 输出；不要把该条当作已验证候选。
 - `balanced_core50` walk-forward: 运行中（task bash-4ljlyb37，wf_2020 worker进行中）
 - 历史模式: fixed split promising → walk-forward 失败概率极高
 - 如果walk-forward仍失败，需根本性重构validation design或model capacity
@@ -581,3 +585,30 @@ Decision:
   are missing.
 - This closes a stale active-surface gap before opening any new model
   optimization experiment.
+
+## 2026-05-21 v19_reg_v22 Artifact Gap Audit
+
+Question: should `balanced_rule_residual_v19_reg_v22` be treated as the next
+model optimization candidate because older notes claimed a fixed-split pass?
+
+Answer: no. The current repo state is profile-only.
+
+Evidence:
+
+- Existing artifact:
+  `runtime/model/card/balanced_rule_residual_v19_reg_v22/profile.yaml`
+- Missing artifacts:
+  - no retained actor checkpoint under `artifacts/models/`
+  - no `soxl_balanced_rule_residual_v19_reg_v22_summary.json`
+  - no walk-forward summaries for `wf_2020`, `wf_2022`, or `wf_2023_2024`
+- New continuity card:
+  `runtime/model/card/balanced_rule_residual_v19_reg_v22/notes.md`
+
+Decision:
+
+- Registry now marks `balanced_rule_residual_v19_reg_v22` as `dropped`.
+- Keep the profile and note as searchable historical evidence only.
+- Do not continue the stale task id or rely on the old fixed-split claim.
+- If the mechanism is revived, open a new governed experiment with retained
+  actor, fixed-split summary, complete walk-forward evidence, and a new
+  comparison-table row.

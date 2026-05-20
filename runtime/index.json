@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-20T23:13:20.494002+00:00",
+  "generated_at": "2026-05-20T23:21:43.188259+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -1610,6 +1610,12 @@
       "bytes": 5372
     },
     {
+      "path": "runtime/model/card/balanced_rule_residual_v19_reg_v22/notes.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 2530
+    },
+    {
       "path": "runtime/model/card/balanced_rule_residual_v19_reg_wf_2020/soxl_balanced_rule_residual_v19_reg_wf_2020_summary.json",
       "category": "model",
       "suffix": ".json",
@@ -2303,7 +2309,7 @@
       "path": "runtime/model/knowledge.md",
       "category": "model",
       "suffix": ".md",
-      "bytes": 34695
+      "bytes": 36129
     },
     {
       "path": "runtime/model/model_adjustment_roadmap.md",

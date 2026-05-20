@@ -91,3 +91,9 @@ Do not revive v23/v24 and do not tune SOXX cap thresholds. The next model
 optimization loop needs a distinct governed mechanism with retained actors and
 complete walk-forward evidence, while the next production proof remains the
 first fresh post-close non-dry paper run that naturally selects v22.
+
+2026-05-21 model-selection cleanup: `balanced_rule_residual_v19_reg_v22` was
+audited as profile-only and marked dropped in the registry. Its older fixed-split
+and started-walk-forward note has no durable actor, summary, or walk-forward
+artifact behind it. Do not use it as the next branch unless a new governed
+experiment card is created.
