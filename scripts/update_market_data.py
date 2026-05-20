@@ -299,6 +299,25 @@ def sync_local_data_surfaces(
     }
 
 
+def _date_range_summary(frame: pd.DataFrame) -> dict[str, object]:
+    if frame.empty:
+        return {"rows": 0, "start_date": None, "last_date": None}
+    dates = pd.to_datetime(frame["date"])
+    return {
+        "rows": int(len(frame)),
+        "start_date": dates.min().strftime("%Y-%m-%d"),
+        "last_date": dates.max().strftime("%Y-%m-%d"),
+    }
+
+
+def _format_source_ranges(source_ranges: dict[str, dict[str, object]], overlap_last_date: str | None) -> str:
+    legs = " ".join(
+        f"{name}={summary['start_date']}..{summary['last_date']}({summary['rows']})"
+        for name, summary in source_ranges.items()
+    )
+    return f"{legs} overlap_last_date={overlap_last_date or 'none'}"
+
+
 def update_master_csv(
     csv_path: Path = CSV_PATH,
     dry_run: bool = False,
@@ -324,6 +343,11 @@ def update_master_csv(
     print(f"[update] last_date={last_date.date()} fetch_start={start or 'max'} provider={provider}")
 
     soxl, soxx, vix = _fetch_market_frames(provider, start)
+    source_ranges = {
+        "SOXL": _date_range_summary(soxl),
+        "SOXX": _date_range_summary(soxx),
+        "VIX": _date_range_summary(vix),
+    }
 
     soxl = soxl.rename(
         columns={
@@ -350,9 +374,17 @@ def update_master_csv(
         .sort_values("date")
         .reset_index(drop=True)
     )
+    overlap_last_date = None
+    if not merged.empty:
+        overlap_last_date = pd.to_datetime(merged["date"]).max().strftime("%Y-%m-%d")
+
+    print(f"[update] source_ranges {_format_source_ranges(source_ranges, overlap_last_date)}")
 
     if merged.empty:
-        raise RuntimeError("No overlapping dates for SOXL/SOXX/VIX")
+        raise RuntimeError(
+            "No overlapping dates for SOXL/SOXX/VIX: "
+            f"{_format_source_ranges(source_ranges, overlap_last_date)}"
+        )
 
     # 合并策略：新数据与旧数据 concat 后按 date 去重，保留新数据
     master["date"] = pd.to_datetime(master["date"])
@@ -383,6 +415,8 @@ def update_master_csv(
         "new_rows": new_rows,
         "last_date": new_last_date.strftime("%Y-%m-%d"),
         "dry_run": dry_run,
+        "source_ranges": source_ranges,
+        "overlap_last_date": overlap_last_date,
     }
 
 

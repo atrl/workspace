@@ -132,3 +132,61 @@ def test_update_master_csv_polygon_provider_uses_cboe_vix():
             "2026-05-19",
         ]
         assert updated.iloc[-1]["vix"] == 18.0
+
+
+def test_update_master_csv_reports_provider_leg_coverage_when_vix_lags():
+    with TemporaryDirectory() as tmp:
+        csv_path = Path(tmp) / "panel.csv"
+        pd.DataFrame(
+            {
+                "date": pd.to_datetime(["2026-05-19"]),
+                "soxl_open": [140.0],
+                "soxl_high": [145.0],
+                "soxl_low": [138.0],
+                "soxl_close": [142.0],
+                "soxl_volume": [10_000],
+                "soxx_open": [250.0],
+                "soxx_high": [252.0],
+                "soxx_low": [248.0],
+                "soxx_close": [251.0],
+                "soxx_volume": [20_000],
+                "vix": [20.0],
+            }
+        ).to_csv(csv_path, index=False)
+
+        def fake_fetch_polygon(ticker: str, start: str | None = None):
+            return pd.DataFrame(
+                {
+                    "date": pd.to_datetime(["2026-05-19", "2026-05-20"]),
+                    "open": [150.0, 151.0],
+                    "high": [152.0, 153.0],
+                    "low": [149.0, 150.0],
+                    "close": [151.0, 152.0],
+                    "volume": [11_000, 12_000],
+                }
+            )
+
+        def fake_fetch_cboe_vix(start: str | None = None):
+            return pd.DataFrame(
+                {
+                    "date": pd.to_datetime(["2026-05-19"]),
+                    "vix": [18.0],
+                }
+            )
+
+        original_fetch_polygon = update_market_data._fetch_polygon
+        original_fetch_cboe_vix = update_market_data._fetch_cboe_vix
+        update_market_data._fetch_polygon = fake_fetch_polygon
+        update_market_data._fetch_cboe_vix = fake_fetch_cboe_vix
+        try:
+            result = update_master_csv(csv_path=csv_path, dry_run=True, provider="polygon")
+        finally:
+            update_market_data._fetch_polygon = original_fetch_polygon
+            update_market_data._fetch_cboe_vix = original_fetch_cboe_vix
+
+        assert result["source_ranges"] == {
+            "SOXL": {"rows": 2, "start_date": "2026-05-19", "last_date": "2026-05-20"},
+            "SOXX": {"rows": 2, "start_date": "2026-05-19", "last_date": "2026-05-20"},
+            "VIX": {"rows": 1, "start_date": "2026-05-19", "last_date": "2026-05-19"},
+        }
+        assert result["overlap_last_date"] == "2026-05-19"

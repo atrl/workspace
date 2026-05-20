@@ -755,3 +755,57 @@ Final gates:
 - healthcheck: LaunchAgents loaded, data stale at `last_date=2026-05-19`
   vs `expected=2026-05-20`, and post-close status is
   `due but only cached dry-run fallback completed`
+
+## 2026-05-21 Provider Coverage Diagnostics
+
+Context:
+
+- A manual full wrapper scheduler attempt at `2026-05-21T06:01:51+08:00` still
+  could not complete non-dry paper execution.
+- It used the same LaunchAgent wrapper/env path:
+  `SOXL_LAUNCH_ENV_FILE="$HOME/.openclaw/soxl.env" production/run_soxl_scheduler.sh --broker paper --no-notify`.
+
+Readout:
+
+- `yfinance`: `No overlapping dates for SOXL/SOXX/VIX`.
+- `yahoo_api`: Yahoo `429 Too Many Requests` on `^VIX`.
+- `polygon`: fetched successfully, wrote/refreshed data surfaces, but produced
+  `new_rows=0` and `last_date=2026-05-19`.
+- The scheduler fell back to cached dry-run and did not mutate paper broker
+  state.
+
+Change:
+
+- `scripts/update_market_data.py` now returns and prints per-leg
+  `source_ranges` plus `overlap_last_date`.
+- The regression in `tests/test_update_market_data.py` proves a lagging data leg
+  is visible in the returned result.
+
+Live diagnostic:
+
+- Polygon/CBOE dry-run at `2026-05-21T06:04:42+08:00` reported:
+  `SOXL=2026-05-11..2026-05-19(7)`,
+  `SOXX=2026-05-11..2026-05-19(7)`,
+  `VIX=2026-05-11..2026-05-19(7)`,
+  `overlap_last_date=2026-05-19`.
+
+Decision:
+
+- The current freshness blocker is provider coverage for the latest expected
+  trading day, not a single VIX-only gap.
+- The next successful production proof must show `overlap_last_date` and panel
+  `last_date` advancing to the expected closed US session before non-dry paper
+  execution.
+
+Final gates:
+
+- focused data/production/dashboard tests: `46 passed`
+- `scripts/check_harness.py`: `passed=129 failures=0`
+- `scripts/check_dashboard_static_export.py`: `generated_at=2026-05-21 06:02:28`,
+  `versions=25`, `missing=0`, `paper_trading_rows=3`,
+  `paper_trading_end=2026-05-18`
+- `scripts/build_runtime_index.py --check`: `runtime index OK`
+- `git diff --check`: clean
+- healthcheck: data stale at `last_date=2026-05-19` vs
+  `expected=2026-05-20`; latest signal artifact remains dry-run
+  `2026-05-19`; post-close status remains cached dry-run fallback only

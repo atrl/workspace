@@ -2800,3 +2800,88 @@ git diff --check
 - Do not resume model optimization yet. The next meaningful loop is another
   post-close data/provider readout; only a full non-dry paper execution with
   fresh data should count as production-stable.
+
+## 2026-05-21 Provider Coverage Diagnostics
+
+Goal: after another full wrapper scheduler attempt still fell back to cached
+dry-run, make the data-provider bottleneck leg-level instead of only reporting
+the merged panel `last_date`.
+
+### Readout
+
+Command:
+
+```bash
+SOXL_LAUNCH_ENV_FILE="$HOME/.openclaw/soxl.env" production/run_soxl_scheduler.sh \
+  --broker paper --no-notify
+```
+
+Result:
+
+- Ran at `2026-05-21T06:01:51+08:00`.
+- `yfinance`: `No overlapping dates for SOXL/SOXX/VIX`.
+- `yahoo_api`: Yahoo `429 Too Many Requests` on `^VIX`.
+- `polygon`: completed the fetch/write path but produced `new_rows=0` and
+  `last_date=2026-05-19`.
+- The scheduler again fell back to cached dry-run; paper broker state stayed at
+  `date=2026-05-18`, `shares=3000`, `position=0.4856047894`.
+
+### Change
+
+- `scripts/update_market_data.py`
+  - now returns `source_ranges` for `SOXL`, `SOXX`, and `VIX`.
+  - now returns `overlap_last_date`.
+  - prints a line like:
+    `source_ranges SOXL=... SOXX=... VIX=... overlap_last_date=...`
+    before stale/freshness decisions.
+- `tests/test_update_market_data.py`
+  - added a regression proving a lagging leg is visible in
+    `source_ranges` and `overlap_last_date`.
+
+### Verification
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest \
+  tests/test_update_market_data.py::test_update_master_csv_reports_provider_leg_coverage_when_vix_lags -q
+# red first: KeyError: 'source_ranges'
+# green: 1 passed
+
+SOXL_LAUNCH_ENV_FILE="$HOME/.openclaw/soxl.env" production/run_soxl_scheduler.sh \
+  --broker paper --dry-run --data-provider polygon --no-notify --skip-dashboard
+# [update] source_ranges SOXL=2026-05-11..2026-05-19(7) SOXX=2026-05-11..2026-05-19(7) VIX=2026-05-11..2026-05-19(7) overlap_last_date=2026-05-19
+# [paper] WARNING: using stale data for dry-run only: last_date=2026-05-19 expected=2026-05-20 stale_days=1
+# [scheduler] all done
+```
+
+Final gates:
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_update_market_data.py tests/test_scheduler_health.py tests/test_production_schedule.py tests/test_daily_scheduler.py tests/test_paper_trading.py tests/test_vercel_dashboard.py tests/test_dashboard.py -q
+# 46 passed
+
+PYTHONPATH=. qlib_venv/bin/python scripts/check_harness.py
+# passed=129 failures=0
+
+PYTHONPATH=. qlib_venv/bin/python scripts/check_dashboard_static_export.py
+# ok dashboard_static_export generated_at=2026-05-21 06:02:28 versions=25 missing=0 model_versions=90 latest=balanced_rule_residual_v22_soxx paper_trading_rows=3 paper_trading_end=2026-05-18 paper_trading
+
+PYTHONPATH=. qlib_venv/bin/python scripts/build_runtime_index.py --check
+# runtime index OK
+
+git diff --check
+# clean
+
+production/check_scheduler_health.sh
+# data: stale last_date=2026-05-19 expected=2026-05-20 stale_days=1
+# latest signal: date=2026-05-19 profile=balanced_rule_residual_v19 dry_run=true executed=false
+# postclose status: due but only cached dry-run fallback completed
+```
+
+### Decision
+
+- The `2026-05-20` blocker is provider coverage, not a single missing VIX leg:
+  under Polygon/CBOE all three legs currently end at `2026-05-19`.
+- The execution guard is behaving correctly: it preserves scheduled inference
+  visibility while preventing paper broker mutation on stale data.
+- Keep model optimization paused until the provider surface advances and a
+  non-dry post-close paper run can be proven.
