@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-20T23:02:45.897335+00:00",
+  "generated_at": "2026-05-20T23:13:20.494002+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -1832,16 +1832,40 @@
       "bytes": 5344
     },
     {
+      "path": "runtime/model/card/balanced_rule_residual_v23/notes.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 1071
+    },
+    {
       "path": "runtime/model/card/balanced_rule_residual_v23/soxl_balanced_rule_residual_v23_summary.json",
       "category": "model",
       "suffix": ".json",
       "bytes": 4644
     },
     {
+      "path": "runtime/model/card/balanced_rule_residual_v23/v23_vs_v22_review.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 2008
+    },
+    {
+      "path": "runtime/model/card/balanced_rule_residual_v24/notes.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 1118
+    },
+    {
       "path": "runtime/model/card/balanced_rule_residual_v24/soxl_balanced_rule_residual_v24_summary.json",
       "category": "model",
       "suffix": ".json",
       "bytes": 4386
+    },
+    {
+      "path": "runtime/model/card/balanced_rule_residual_v24/v24_vs_v22_review.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 1778
     },
     {
       "path": "runtime/model/card/balanced_wf_2020/soxl_balanced_wf_2020_summary.json",
@@ -2279,7 +2303,7 @@
       "path": "runtime/model/knowledge.md",
       "category": "model",
       "suffix": ".md",
-      "bytes": 33389
+      "bytes": 34695
     },
     {
       "path": "runtime/model/model_adjustment_roadmap.md",

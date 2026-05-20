@@ -86,7 +86,7 @@
 2. **Checkpoint 选择**: validation 最佳 checkpoint 常在 iter 40 而非 iter 80。
 3. **Promotion Gate 硬约束**: test_2022 MaxDD < 35% 且 avg_pos < 0.35，当前无模型能同时满足。
 4. **Walk-forward 有效**: 2020/2022/2023-2024 三个测试窗口的 walk-forward 验证能暴露过拟合。
-5. **v22 model-promotion blocker 已由 corrected main-backtest WF 证据清掉**：`runtime/model/card/balanced_rule_residual_v22/soxl_balanced_rule_residual_v22_summary.json` 现在由 `scripts/review_runtime_selection.py --persist-model-promotion` 写入 `eligible=true`、`walk_forward_evaluated=true`。`runtime/model/card/balanced_rule_residual_v22/runtime_selection_review.json` 仍然 `decision=blocked`，但唯一阻断项是 profile overlay `auto_select_allowed=false`；当前 scheduler auto-select 仍保持 `balanced_rule_residual_v19`。
+5. **v22/post-release-cap 已成为当前 canonical runtime 选择**：`runtime/model/card/balanced_rule_residual_v22/soxl_balanced_rule_residual_v22_summary.json` 已写入 `eligible=true`、`walk_forward_evaluated=true`；`runtime/model/card/balanced_rule_residual_v22/runtime_selection_review.json` 现在 `decision=approved`，profile overlay `auto_select_allowed=true`。当前 scheduler auto-select 选择 `balanced_rule_residual_v22`，v19 仅保留为 rollback actor。
 
 ## 有效方法 ✅
 
@@ -547,3 +547,37 @@ Current live runtime selection scores:
 Decision: `balanced_rule_residual_v22` is now the canonical scheduled runtime
 selection with `selective_release_recovery_post_release_cap_v1` explicitly
 approved. `balanced_rule_residual_v19` remains retained as rollback evidence.
+
+## 2026-05-21 v23/v24 Retention Audit
+
+Question: should the old `balanced_rule_residual_v23` / `v24` summaries be kept
+as active candidates now that v22/post-release-cap is canonical?
+
+Answer: no. They are summary-only historical artifacts and should be retained
+only as searchable evidence.
+
+Artifacts:
+
+- `runtime/model/card/balanced_rule_residual_v23/v23_vs_v22_review.md`
+- `runtime/model/card/balanced_rule_residual_v23/notes.md`
+- `runtime/model/card/balanced_rule_residual_v24/v24_vs_v22_review.md`
+- `runtime/model/card/balanced_rule_residual_v24/notes.md`
+
+Readout:
+
+- `v23`: proxy return `493.23%` vs v22 `695.45%`; MaxDD improves from
+  `54.52%` to `51.20%`, but the improvement is a defensive-style shift with
+  worse `test_2020` and `test_2023_2024`. Selection peaked at iter `0` and
+  fell by iter `80`.
+- `v24`: proxy return improves to `758.59%`, but proxy MaxDD is slightly worse,
+  `test_2020` deteriorates, and there is no walk-forward evidence.
+- Both summary files point to missing actor paths under `artifacts/models/`.
+- Neither profile has a retained `profile.yaml`; registry rows now mark both
+  as `dropped`, `keep_actor=false`, `keep_summary=true`.
+
+Decision:
+
+- Do not revive v23/v24 or spend a walk-forward loop on them because the actors
+  are missing.
+- This closes a stale active-surface gap before opening any new model
+  optimization experiment.

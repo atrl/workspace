@@ -3160,3 +3160,86 @@ Decision:
   but no longer override the production paper view on first load.
 - The model-side next proof remains the next fresh post-close non-dry paper run
   selecting v22.
+
+## 2026-05-21 v23/v24 Model Retention Audit
+
+Goal:
+
+- Resume model-side cleanup after the SOXX and dashboard loops by removing stale
+  ambiguity around old `balanced_rule_residual_v23` / `v24` summaries.
+
+Baseline and governance:
+
+- Canonical baseline: `balanced_rule_residual_v22` with
+  `selective_release_recovery_post_release_cap_v1` approved for scheduled
+  runtime selection.
+- Direct comparisons: summary-only `balanced_rule_residual_v23` and
+  `balanced_rule_residual_v24`.
+- Role: `diagnose` / cleanup.
+- Changed layer: `selection` evidence and retention metadata.
+- External reference: model-selection discipline from
+  `docs/research_knowledge/model_selection.md`; fixed-split-only gains are not
+  promotion evidence without actor retention and walk-forward validation.
+- Target window: current model registry / active surface.
+- Accepted trade-off: keep stale summaries searchable while removing them from
+  active-candidate interpretation.
+- Comparison-table row keys:
+  `balanced_rule_residual_v23`, `balanced_rule_residual_v24`.
+
+Closest history:
+
+1. Success case: `v22_post_release_cap_runtime_auto_select_v1` promoted a model
+   only after corrected walk-forward and runtime-selection evidence.
+2. Failure case: `balanced_rule_residual_v22_soxx` improved some fixed-split
+   recovery metrics but failed the gate and later SOXX cap walk-forward
+   absorption.
+3. Not a duplicate: this is not a threshold or reward tweak; it audits stale
+   summary-only profiles and fixes registry/knowledge drift before the next
+   real experiment.
+
+Evidence:
+
+```bash
+qlib_venv/bin/python .codex/skills/post-train-backtest-review/scripts/compare_backtests.py \
+  --latest runtime/model/card/balanced_rule_residual_v23/soxl_balanced_rule_residual_v23_summary.json \
+  --previous runtime/model/card/balanced_rule_residual_v22/soxl_balanced_rule_residual_v22_summary.json \
+  --latest-label balanced_rule_residual_v23 \
+  --previous-label balanced_rule_residual_v22 \
+  --output runtime/model/card/balanced_rule_residual_v23/v23_vs_v22_review.md
+# Wrote runtime/model/card/balanced_rule_residual_v23/v23_vs_v22_review.md
+
+qlib_venv/bin/python .codex/skills/post-train-backtest-review/scripts/compare_backtests.py \
+  --latest runtime/model/card/balanced_rule_residual_v24/soxl_balanced_rule_residual_v24_summary.json \
+  --previous runtime/model/card/balanced_rule_residual_v22/soxl_balanced_rule_residual_v22_summary.json \
+  --latest-label balanced_rule_residual_v24 \
+  --previous-label balanced_rule_residual_v22 \
+  --output runtime/model/card/balanced_rule_residual_v24/v24_vs_v22_review.md
+# Wrote runtime/model/card/balanced_rule_residual_v24/v24_vs_v22_review.md
+```
+
+Readout:
+
+- `v23`: proxy return `493.23%` vs v22 `695.45%`; MaxDD improves to
+  `51.20%`, but `test_2020` and `test_2023_2024` deteriorate and checkpoint
+  selection peaks at iter `0`.
+- `v24`: proxy return `758.59%` vs v22 `695.45%`, but proxy MaxDD is slightly
+  worse, `test_2020` deteriorates, and there is no walk-forward evidence.
+- Both summaries point to missing actor paths under `artifacts/models/`.
+- Neither card has a retained `profile.yaml`.
+
+Changes:
+
+- Added `notes.md` and generated review markdown for v23/v24.
+- Added registry rows with `status=dropped`, `keep_actor=false`,
+  `keep_summary=true`.
+- Added master table rows in `docs/experiment-landscape-review.md`.
+- Corrected stale `runtime/model/knowledge.md` text that still described v22
+  scheduler auto-selection as blocked.
+
+Decision:
+
+- v23/v24 are not active candidates.
+- Do not attempt walk-forward validation for them because their actors are
+  missing.
+- Next model optimization should be a distinct governed mechanism, not a
+  revival of these summary-only branches or another SOXX threshold tweak.

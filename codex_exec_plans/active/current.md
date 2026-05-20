@@ -1,13 +1,27 @@
 # Current Execution Plan
 
 - Date: 2026-05-21
-- Direction: `execution`
-- Active line: `selective_release_post_release_cap_v1`
+- Direction: `model_selection`
+- Active line: `balanced_rule_residual_v23_v24_retention_audit`
 - Baseline: `balanced_rule_residual_v22`
-- Direct comparison: `selective_release_walkforward_v1`
-- Role: `diagnose`, now promotion-review candidate
+- Direct comparison: stale summary-only `balanced_rule_residual_v23` and
+  `balanced_rule_residual_v24`
+- Role: `diagnose` / cleanup
 
 ## Completed Loops
+
+Production and runtime selection:
+
+- Data freshness, scheduler inference, static/Vercel dashboard export, and
+  simulated paper execution are no longer blockers.
+- `balanced_rule_residual_v22` plus
+  `selective_release_recovery_post_release_cap_v1` is the canonical scheduled
+  runtime profile.
+- The next live proof remains the next fresh post-close non-dry paper run
+  selecting v22; the latest non-dry artifact is still the earlier
+  `2026-05-20` v19 run because it executed before the v22 auto-select approval.
+
+Execution overlay line:
 
 Test whether retained selective-release eligible days are absorbed only by the visible rebalance threshold or too-small target lift, then instrument actionable eligible-day execution state.
 
@@ -60,7 +74,20 @@ Test whether retained selective-release eligible days are absorbed only by the v
   - `runtime/model/card/balanced_rule_residual_v22/runtime_selection_review.md`
   - decision `blocked`
   - blockers: v22 model walk-forward gate not evaluated, model promotion sidecar not eligible, profile overlay `auto_select_allowed=false`
+- Later runtime governance closed those blockers:
+  - `balanced_rule_residual_v22` is now canonical scheduled runtime selection
+  - `selective_release_recovery_post_release_cap_v1` is explicitly
+    `auto_select_allowed=true`
+  - v19 is retained only as rollback evidence
+- v23/v24 retention audit:
+  - generated `v23_vs_v22_review.md` and `v24_vs_v22_review.md`
+  - both profiles are summary-only historical artifacts with missing actors
+  - registry rows mark both as `dropped`, `keep_actor=false`,
+    `keep_summary=true`
 
 ## Next Action
 
-Do not promote full bypass, unguarded shortening, static guarded shortening, or the post-release cap directly into scheduler auto-selection. The runtime dry-run path, auto-select profile gate, and runtime selection sidecar now all block v22/post-release-cap from scheduled use; next progress should be a separate narrow model-optimization experiment unless new v22/post-release-cap walk-forward model evidence is produced first.
+Do not revive v23/v24 and do not tune SOXX cap thresholds. The next model
+optimization loop needs a distinct governed mechanism with retained actors and
+complete walk-forward evidence, while the next production proof remains the
+first fresh post-close non-dry paper run that naturally selects v22.

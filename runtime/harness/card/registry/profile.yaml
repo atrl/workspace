@@ -417,6 +417,24 @@ profiles:
   keep_actor: false
   keep_summary: true
   notes_ref: runtime/model/card/balanced_rule_residual_v22_release_v1/notes.md
+- name: balanced_rule_residual_v23
+  family: balanced
+  status: dropped
+  baseline: balanced_rule_residual_v22
+  keep_actor: false
+  keep_summary: true
+  notes_ref: runtime/model/card/balanced_rule_residual_v23/notes.md
+  wf_status: not_applicable
+  wf_notes: "Summary-only historical artifact. Actor path is missing, no profile.yaml exists, and v23_vs_v22_review.md shows proxy return falls from 695.45% to 493.23% while 2020/2023-2024 deteriorate. Keep summary evidence only."
+- name: balanced_rule_residual_v24
+  family: balanced
+  status: dropped
+  baseline: balanced_rule_residual_v22
+  keep_actor: false
+  keep_summary: true
+  notes_ref: runtime/model/card/balanced_rule_residual_v24/notes.md
+  wf_status: not_applicable
+  wf_notes: "Summary-only historical artifact. Actor path is missing, no profile.yaml exists, and v24_vs_v22_review.md shows only modest fixed-split gains with worse 2020 and no walk-forward evidence. Keep summary evidence only."
 - name: balanced_rule_residual_imitation_v1
   family: balanced
   status: candidate
