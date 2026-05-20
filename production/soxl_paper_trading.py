@@ -95,9 +95,20 @@ def _last_trading_day() -> str:
 
 
 def _is_data_fresh(last_date_str: str) -> bool:
+    return bool(_data_freshness_status(last_date_str)["ok"])
+
+
+def _data_freshness_status(last_date_str: str, expected_date_str: Optional[str] = None) -> Dict[str, object]:
     last = pd.Timestamp(last_date_str).date()
-    expected = pd.Timestamp(_last_trading_day()).date()
-    return last >= expected
+    expected_str = expected_date_str or _last_trading_day()
+    expected = pd.Timestamp(expected_str).date()
+    stale_days = max((expected - last).days, 0)
+    return {
+        "ok": last >= expected,
+        "last_date": last.isoformat(),
+        "expected_last_trading_day": expected.isoformat(),
+        "stale_days": int(stale_days),
+    }
 
 
 def _format_signal_message(
@@ -285,8 +296,9 @@ def healthcheck(args: argparse.Namespace) -> Dict[str, object]:
     from src.soxl_quant.settings import CSV_PATH
     df = pd.read_csv(CSV_PATH, parse_dates=["date"])
     last_date = str(df["date"].max().date())
-    data_ok = _is_data_fresh(last_date)
-    results["data"] = {"ok": data_ok, "last_date": last_date}
+    data_status = _data_freshness_status(last_date)
+    data_ok = bool(data_status["ok"])
+    results["data"] = data_status
 
     try:
         if args.profile:

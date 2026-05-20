@@ -5,6 +5,7 @@ set -u
 
 ROOT="${SOXL_SCHEDULER_HEALTH_ROOT:-$(pwd)}"
 OS_NAME="${SOXL_SCHEDULER_HEALTH_OS:-$(uname -s)}"
+HEALTH_PYTHON="${SOXL_SCHEDULER_HEALTH_PYTHON:-${ROOT}/qlib_venv/bin/python}"
 SCHEDULER_LABEL="com.soxl.daily.scheduler"
 PREOPEN_SCHEDULER_LABEL="com.soxl.preopen.scheduler"
 
@@ -65,6 +66,87 @@ print_scheduler_service() {
     fi
 }
 
+json_field() {
+    payload="$1"
+    dotted_path="$2"
+    SOXL_JSON_FIELD_PAYLOAD="$payload" python3 - "$dotted_path" <<'PY' 2>/dev/null
+import json
+import os
+import sys
+
+path = sys.argv[1].split(".")
+text = os.environ.get("SOXL_JSON_FIELD_PAYLOAD", "")
+start = text.find("{")
+end = text.rfind("}")
+if start < 0 or end < start:
+    sys.exit(0)
+try:
+    obj = json.loads(text[start : end + 1])
+except Exception:
+    sys.exit(0)
+value = obj
+for part in path:
+    if not isinstance(value, dict) or part not in value:
+        sys.exit(0)
+    value = value[part]
+if isinstance(value, bool):
+    print("true" if value else "false")
+elif value is None:
+    print("")
+else:
+    print(value)
+PY
+}
+
+print_paper_health() {
+    echo "--- Paper Trading Health ---"
+    if [ ! -x "$HEALTH_PYTHON" ]; then
+        echo "  unavailable: python not executable at ${HEALTH_PYTHON}"
+        return
+    fi
+
+    health_output=$(
+        cd "$ROOT" &&
+        "$HEALTH_PYTHON" production/soxl_paper_trading.py --healthcheck --skip-data-update --no-notify 2>&1
+    )
+    data_ok=$(json_field "$health_output" "data.ok")
+    last_date=$(json_field "$health_output" "data.last_date")
+    expected=$(json_field "$health_output" "data.expected_last_trading_day")
+    stale_days=$(json_field "$health_output" "data.stale_days")
+    model_ok=$(json_field "$health_output" "model.ok")
+    model_name=$(json_field "$health_output" "model.name")
+    broker_ok=$(json_field "$health_output" "broker.ok")
+    broker_msg=$(json_field "$health_output" "broker.msg")
+
+    if [ -z "$last_date" ]; then
+        echo "  data: unknown"
+    elif [ "$data_ok" = "true" ]; then
+        echo "  data: ok last_date=${last_date} expected=${expected}"
+    else
+        echo "  data: stale last_date=${last_date} expected=${expected} stale_days=${stale_days}"
+    fi
+
+    if [ -n "$model_name" ]; then
+        if [ "$model_ok" = "true" ]; then
+            echo "  model: ok ${model_name}"
+        else
+            echo "  model: failed ${model_name}"
+        fi
+    else
+        echo "  model: unknown"
+    fi
+
+    if [ -n "$broker_msg" ]; then
+        if [ "$broker_ok" = "true" ]; then
+            echo "  broker: ok ${broker_msg}"
+        else
+            echo "  broker: failed ${broker_msg}"
+        fi
+    else
+        echo "  broker: unknown"
+    fi
+}
+
 echo "=== SOXL Scheduler Health Check ==="
 echo "Time: $(date)"
 echo "Root: ${ROOT}"
@@ -101,6 +183,9 @@ for log in runtime/soxl/paper_trading/scheduler_preopen.log runtime/soxl/paper_t
         fi
     fi
 done
+echo ""
+
+print_paper_health
 echo ""
 
 # 检查下次执行时间

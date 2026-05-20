@@ -19,6 +19,7 @@
 12. **scheduler health 现在匹配 macOS LaunchAgent**：`production/check_scheduler_health.sh` 会在 Darwin 上检查 `launchctl list` 中的 `com.soxl.daily.scheduler`，并用 portable `stat/date` 读取日志，不再把 macOS 运行态显示成空白 cron 服务。
 13. **macOS 定时推理路径已补齐**：新增 `com.soxl.preopen.scheduler`，用于 `21:00 Mon-Fri Asia/Shanghai` cached-data dry-run 推理 + dashboard；`com.soxl.daily.scheduler` 继续负责 `05:35 Tue-Sat` post-close 完整流程。两个 LaunchAgent 已同步到 `~/Library/LaunchAgents/` 并 loaded。
 14. **数据源失败时不再用旧数据推进模拟盘**：post-close 数据刷新遇到 transient provider failure 时，scheduler fallback 会追加 `--skip-data-update --dry-run`，只保留 cached signal/dashboard 可见性，不落 paper order / broker state。
+15. **scheduler health 现在直接暴露 paper 数据新鲜度**：`production/check_scheduler_health.sh` 会运行 paper healthcheck 并显示 `last_date`、`expected_last_trading_day`、`stale_days`、model 和 broker 状态。当前读数仍是 `last_date=2026-05-15`、`expected=2026-05-20`、`stale_days=5`，所以 post-close 在线刷新尚未证明。
 
 ## 2026-05-20 验证记录
 
@@ -253,6 +254,52 @@ Operational rule:
 - Fresh post-close data update succeeds -> full paper trading is allowed.
 - Transient data update failure -> cached signal/dashboard only; paper broker
   state must not change.
+
+## 2026-05-21 Paper Trading Freshness Health
+
+Root cause:
+
+- Scheduler health reported LaunchAgent load state and log markers, but did not
+  show whether `production/soxl_paper_trading.py --healthcheck` considered the
+  data panel fresh.
+- That hid the distinction between "scheduler installed" and "post-close data
+  refresh has actually advanced the panel".
+
+Change:
+
+- `production/soxl_paper_trading.py` healthcheck now reports structured data
+  freshness with `last_date`, `expected_last_trading_day`, and `stale_days`.
+- `production/check_scheduler_health.sh` now includes a `Paper Trading Health`
+  section and parses the JSON payload even when the paper healthcheck exits
+  non-zero because data is stale.
+- Regression coverage lives in `tests/test_paper_trading.py` and
+  `tests/test_scheduler_health.py`.
+
+Verification:
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_paper_trading.py::test_data_freshness_status_reports_expected_date_and_lag -q
+# 1 passed
+
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_scheduler_health.py::test_scheduler_health_reports_macos_launchagent_and_logs -q
+# 1 passed
+
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_paper_trading.py tests/test_scheduler_health.py tests/test_daily_scheduler.py tests/test_production_schedule.py tests/test_vercel_dashboard.py tests/test_dashboard.py -q
+# 23 passed
+
+production/check_scheduler_health.sh
+# data: stale last_date=2026-05-15 expected=2026-05-20 stale_days=5
+# model: ok balanced_rule_residual_v19 (soxl_balanced_rule_residual_v19_actor.pt)
+# broker: ok paper broker ready
+```
+
+Readout:
+
+- Current production blocker is data freshness: scheduler and broker are
+  observable, but the data panel has not advanced beyond `2026-05-15`.
+- The next proof must come from the real `05:35 Tue-Sat Asia/Shanghai`
+  post-close run; if online refresh fails, the scheduler should remain cached
+  dry-run only.
 
 ## Open Production Tasks
 

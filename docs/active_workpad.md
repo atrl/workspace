@@ -318,6 +318,66 @@ PYTHONPATH=. qlib_venv/bin/python scripts/check_harness.py
 - Transient data-source failure: keep cached signal/dashboard visibility, but do
   not move paper broker state.
 
+## 2026-05-21 Paper Trading Freshness Health
+
+### Root Cause
+
+- `production/check_scheduler_health.sh` showed LaunchAgent load state and log
+  success markers, but did not show whether the paper-trading loop itself was
+  operating on fresh enough data.
+- After the pre-open LaunchAgent was manually verified, the script could report a
+  healthy scheduler surface while the canonical panel still ended at
+  `2026-05-15`.
+- The post-close online-refresh proof is still pending until the first real
+  `05:35 Tue-Sat Asia/Shanghai` run.
+
+### Change
+
+- `production/soxl_paper_trading.py`
+  - healthcheck now reports structured data freshness:
+    `last_date`, `expected_last_trading_day`, and `stale_days`.
+- `production/check_scheduler_health.sh`
+  - added a `Paper Trading Health` section that runs the paper healthcheck,
+    parses the JSON payload out of mixed stdout/stderr, and prints data, model,
+    and broker status.
+  - stale data is displayed as health evidence; the shell health script still
+    exits successfully so it can be used for observability.
+- `tests/test_paper_trading.py` and `tests/test_scheduler_health.py`
+  - cover stale-day reporting and non-zero healthcheck parsing.
+
+### Verification
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_paper_trading.py::test_data_freshness_status_reports_expected_date_and_lag -q
+# 1 passed
+
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_scheduler_health.py::test_scheduler_health_reports_macos_launchagent_and_logs -q
+# 1 passed
+
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_paper_trading.py tests/test_scheduler_health.py tests/test_daily_scheduler.py tests/test_production_schedule.py tests/test_vercel_dashboard.py tests/test_dashboard.py -q
+# 23 passed
+
+production/check_scheduler_health.sh
+# LaunchAgent com.soxl.preopen.scheduler: loaded
+# LaunchAgent com.soxl.daily.scheduler: loaded
+# scheduler_preopen: [scheduler] all done
+# scheduler_postclose.log: NOT FOUND
+# data: stale last_date=2026-05-15 expected=2026-05-20 stale_days=5
+# model: ok balanced_rule_residual_v19 (soxl_balanced_rule_residual_v19_actor.pt)
+# broker: ok paper broker ready
+```
+
+### Decision
+
+- The production health surface now distinguishes scheduler installation from
+  paper-trading readiness.
+- Current blocker remains online data freshness, not model selection or paper
+  broker availability.
+- Next action is to inspect the first real `05:35 Tue-Sat Asia/Shanghai`
+  post-close scheduler pass and confirm whether data advances beyond
+  `2026-05-15`; if the provider fails, the scheduler should fall back to cached
+  dry-run only.
+
 ## 2026-05-20 Selective Release Order-Generation Diagnostic
 
 ### Governance

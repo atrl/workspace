@@ -7,6 +7,7 @@ import pandas as pd
 from production.soxl_paper_trading import (
     _append_execution_daily_csv,
     _block_risk_decision,
+    _data_freshness_status,
     _load_paper_broker_state,
     _post_execution_audit,
     _save_paper_broker_state,
@@ -118,3 +119,14 @@ def test_block_risk_decision_preserves_frozen_decision_contract():
     assert decision.approved is True
     assert blocked.approved is False
     assert blocked.blocking_reasons[-1] == "daily_drawdown_circuit_breaker"
+
+
+def test_data_freshness_status_reports_expected_date_and_lag():
+    status = _data_freshness_status("2026-05-15", expected_date_str="2026-05-20")
+
+    assert status == {
+        "ok": False,
+        "last_date": "2026-05-15",
+        "expected_last_trading_day": "2026-05-20",
+        "stale_days": 5,
+    }
