@@ -22,6 +22,7 @@
 15. **scheduler health 现在直接暴露 paper 数据新鲜度**：`production/check_scheduler_health.sh` 会运行 paper healthcheck 并显示 `last_date`、`expected_last_trading_day`、`stale_days`、model 和 broker 状态。当前 pre-postclose 读数是 `last_date=2026-05-15`、`expected=2026-05-19`、`stale_days=4`；到 `05:35 Tue-Sat Asia/Shanghai` 后才应该期待刚收盘的美股交易日。
 16. **stale data 现在也是执行硬门槛**：paper 主流程在 qlib init / 模型选择 / broker 执行前检查 freshness。非 dry-run 遇到 stale data 直接退出；scheduler 将其转成 cached dry-run fallback，避免 stale 数据推进 paper broker state。
 17. **freshness 期望日已按纽约收盘边界修正**：`_last_trading_day()` 使用 `America/New_York` 和 `17:30 ET` data-ready cutoff。`2026-05-21 02:23 CST` 期望 `2026-05-19`，`05:35 CST` 后才期望 `2026-05-20`。
+18. **production data refresh 现在支持 provider failover**：paper runner 和 scheduler 都支持 `--data-provider {auto,yfinance,yahoo_api}`；默认 `auto` 先试 yfinance，再对 retryable provider failure 尝试 yahoo_api。当前实测 yfinance 是 `No overlapping dates`，yahoo_api 是 `429 Too Many Requests`，所以仍走 cached dry-run。
 
 ## 2026-05-20 验证记录
 
@@ -386,6 +387,51 @@ Readout:
   session.
 - The live data-refresh proof is still the first real `05:35 Tue-Sat
   Asia/Shanghai` run.
+
+## 2026-05-21 Provider Failover
+
+Root cause:
+
+- `scripts/update_market_data.py` had both `yfinance` and `yahoo_api`, but the
+  production paper runner used only the default yfinance path.
+- Current live probes still failed:
+  - yfinance: `No overlapping dates for SOXL/SOXX/VIX`
+  - yahoo_api: `429 Too Many Requests`
+
+Change:
+
+- `production/soxl_paper_trading.py` gained
+  `--data-provider {auto,yfinance,yahoo_api}`.
+- `auto` tries yfinance first and falls back to yahoo_api on retryable provider
+  failures.
+- `production/soxl_daily_scheduler.py` gained matching pass-through support.
+- `production/FUTU_SEMI_AUTO.md` documents the provider mode.
+
+Verification:
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_paper_trading.py::test_data_update_auto_provider_falls_back_to_yahoo_api -q
+# 1 passed after initially failing because helper did not exist
+
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_daily_scheduler.py::test_scheduler_passes_data_provider_to_paper_runner -q
+# 1 passed after initially failing because scheduler did not accept the flag
+
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_paper_trading.py tests/test_daily_scheduler.py tests/test_scheduler_health.py tests/test_production_schedule.py tests/test_vercel_dashboard.py tests/test_dashboard.py -q
+# 29 passed
+
+PYTHONPATH=. qlib_venv/bin/python scripts/check_harness.py
+# passed=111 failures=0
+
+PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py --dry-run --no-notify --skip-dashboard --data-provider auto
+# yfinance failed, yahoo_api failed, scheduler completed cached dry-run without placing orders
+```
+
+Readout:
+
+- The refresh path is more robust for the next live window, but provider
+  availability remains the active external blocker.
+- Cached dry-run fallback still preserves dashboard/signal visibility without
+  changing paper broker state.
 
 ## Open Production Tasks
 

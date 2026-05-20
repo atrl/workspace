@@ -59,6 +59,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--unlock-password", default="")
     parser.add_argument("--profile-family", default="balanced")
     parser.add_argument("--profile", default="")
+    parser.add_argument("--data-provider", default="auto", choices=["auto", "yfinance", "yahoo_api"])
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--no-notify", action="store_true")
     parser.add_argument("--discord", action="store_true", help="Also send notifications to Discord")
@@ -107,6 +108,7 @@ def main() -> None:
             venv_python, "production/soxl_paper_trading.py",
             "--broker", args.broker,
             "--profile-family", args.profile_family,
+            "--data-provider", args.data_provider,
         ]
         if args.profile:
             paper_cmd.extend(["--profile", args.profile])

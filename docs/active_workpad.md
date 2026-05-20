@@ -499,6 +499,70 @@ production/check_scheduler_health.sh
 - The first real `05:35 Tue-Sat Asia/Shanghai` run remains the needed proof for
   online data refresh and non-dry-run paper execution.
 
+## 2026-05-21 Provider Failover
+
+### Root Cause
+
+- `scripts/update_market_data.py` already supported `yfinance` and `yahoo_api`,
+  but `production/soxl_paper_trading.py` hard-coded the yfinance path.
+- At `2026-05-21 02:30 CST`, online dry-run probes still could not refresh data:
+  - `yfinance`: `No overlapping dates for SOXL/SOXX/VIX`
+  - `yahoo_api`: Yahoo HTTP `429 Too Many Requests`
+- The live blocker remains provider availability, but the production runner
+  should attempt both repo-owned providers before falling back to cached dry-run.
+
+### Change
+
+- `production/soxl_paper_trading.py`
+  - added `--data-provider {auto,yfinance,yahoo_api}`.
+  - default `auto` tries yfinance first, then yahoo_api for retryable
+    provider failures.
+- `production/soxl_daily_scheduler.py`
+  - added matching `--data-provider` and passes it through to the paper runner.
+- `production/FUTU_SEMI_AUTO.md`
+  - documents provider auto fallback and explicit provider selection.
+- Tests cover provider fallback and scheduler argument propagation.
+
+### Verification
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_paper_trading.py::test_data_update_auto_provider_falls_back_to_yahoo_api -q
+# red: _run_data_update did not exist
+# green: 1 passed
+
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_daily_scheduler.py::test_scheduler_passes_data_provider_to_paper_runner -q
+# red: scheduler did not accept --data-provider
+# green: 1 passed
+
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_paper_trading.py tests/test_daily_scheduler.py tests/test_scheduler_health.py tests/test_production_schedule.py tests/test_vercel_dashboard.py tests/test_dashboard.py -q
+# 29 passed
+
+PYTHONPATH=. qlib_venv/bin/python scripts/check_harness.py
+# passed=111 failures=0
+
+PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py --dry-run --no-notify --skip-dashboard --data-provider auto
+# yfinance failed: No overlapping dates for SOXL/SOXX/VIX
+# yahoo_api failed: 429 Too Many Requests
+# scheduler retried cached dry-run
+# [paper] dry-run: skipped order placement
+# [scheduler] all done (with cached dry-run)
+
+PYTHONPATH=. qlib_venv/bin/python scripts/build_backtest_dashboard.py
+# wrote dashboard.html, dashboard_data/index.json, dashboard_data/model_versions.json, and 25 versioned exports
+
+curl -I http://127.0.0.1:8768/dashboard.html
+curl -I http://127.0.0.1:8768/dashboard_data/index.json
+curl -I http://127.0.0.1:8768/dashboard_data/model_versions.json
+# all returned 200 OK
+```
+
+### Decision
+
+- Production online refresh now tries both supported providers by default.
+- Current environment still cannot extend data beyond `2026-05-15`; provider
+  failure is handled by cached dry-run, not paper-state mutation.
+- The first real `05:35 Tue-Sat Asia/Shanghai` run remains the live proof point.
+
 ## 2026-05-20 Selective Release Order-Generation Diagnostic
 
 ### Governance

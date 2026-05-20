@@ -101,3 +101,19 @@ def test_scheduler_smoke_mode_runs_cached_dry_run_with_dashboard(monkeypatch: py
     assert "--dry-run" in paper_cmd
     assert "--skip-data-update" in paper_cmd
     assert "--no-notify" in paper_cmd
+
+
+def test_scheduler_passes_data_provider_to_paper_runner(monkeypatch: pytest.MonkeyPatch):
+    calls: list[tuple[list[str], str]] = []
+
+    def fake_run(cmd: list[str], description: str):
+        calls.append((cmd, description))
+
+    monkeypatch.setattr(soxl_daily_scheduler, "_run", fake_run)
+    monkeypatch.setattr(sys, "argv", ["soxl_daily_scheduler.py", "--no-notify", "--data-provider", "yahoo_api"])
+
+    soxl_daily_scheduler.main()
+
+    paper_cmd = calls[0][0]
+    assert "--data-provider" in paper_cmd
+    assert paper_cmd[paper_cmd.index("--data-provider") + 1] == "yahoo_api"

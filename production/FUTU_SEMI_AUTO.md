@@ -102,10 +102,13 @@ PYTHONPATH=. qlib_venv/bin/python production/soxl_paper_trading.py --dry-run
 
 # Health check
 PYTHONPATH=. qlib_venv/bin/python production/soxl_paper_trading.py --healthcheck
+
+# Force a specific data provider for the online refresh
+PYTHONPATH=. qlib_venv/bin/python production/soxl_paper_trading.py --data-provider yahoo_api --dry-run
 ```
 
 The runner executes the closed loop every invocation:
-1. **Data update** — incrementally fetches latest SOXL/SOXX/VIX from yfinance, merges into `data/processed/panels/soxl_soxx_vix_full.csv`, refreshes `data/qlib/soxl/`.
+1. **Data update** — incrementally fetches latest SOXL/SOXX/VIX, merges into `data/processed/panels/soxl_soxx_vix_full.csv`, refreshes `data/qlib/soxl/`. The default `--data-provider auto` tries yfinance first, then Yahoo's chart API (`yahoo_api`) on retryable provider failures.
 2. **Auto model selection** — scans `runtime/model/card/` for the best promoted model of the given family (default `balanced`). Override with `--profile <name>`.
 3. **Signal generation** — runs `plan_manual_session()` for the latest available bar.
 4. **Risk gate** — applies the same runtime checks as live execution.
@@ -126,6 +129,9 @@ PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py --broker fu
 
 # Dry-run (signal + dashboard, no orders)
 PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py --dry-run
+
+# Explicit provider selection for the online data refresh
+PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py --data-provider yahoo_api --dry-run
 
 # Cached-data smoke check (dry-run + dashboard, no orders, no notifications)
 PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py --smoke
@@ -205,4 +211,4 @@ Then open `dashboard.html` in a browser. For Vercel static deployment, keep the 
 - Fill reconciliation assumes immediate submit semantics; async fills are not polled yet
 - `futu-api` and OpenD must be installed and running separately
 - Only single-symbol (US.SOXL) execution is implemented
-- yfinance free tier may rate-limit on rapid successive calls; the daily runner is designed for once-per-day invocation
+- yfinance / Yahoo free endpoints may rate-limit on rapid successive calls; the daily runner tries both providers in `--data-provider auto` mode, then falls back to cached dry-run if fresh data is unavailable.

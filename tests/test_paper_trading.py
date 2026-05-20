@@ -15,6 +15,7 @@ from production.soxl_paper_trading import (
     _data_freshness_status,
     _last_trading_day,
     _load_paper_broker_state,
+    _run_data_update,
     _post_execution_audit,
     _save_paper_broker_state,
 )
@@ -155,6 +156,30 @@ def test_last_trading_day_uses_previous_friday_before_monday_us_close():
     assert _last_trading_day(now=monday_preopen) == "2026-05-15"
 
 
+def test_data_update_auto_provider_falls_back_to_yahoo_api(monkeypatch: pytest.MonkeyPatch):
+    calls: list[str] = []
+
+    def fake_update_master_csv(*, dry_run: bool, provider: str):
+        calls.append(provider)
+        if provider == "yfinance":
+            raise RuntimeError("No overlapping dates for SOXL/SOXX/VIX")
+        return {
+            "before_rows": 1,
+            "after_rows": 2,
+            "new_rows": 1,
+            "last_date": "2026-05-19",
+            "dry_run": dry_run,
+        }
+
+    monkeypatch.setattr(soxl_paper_trading, "update_master_csv", fake_update_master_csv)
+    monkeypatch.setattr(soxl_paper_trading, "refresh_qlib", lambda dry_run: None)
+
+    result = _run_data_update(dry_run=False, provider="auto")
+
+    assert calls == ["yfinance", "yahoo_api"]
+    assert result["last_date"] == "2026-05-19"
+
+
 def test_main_blocks_non_dry_run_when_data_remains_stale(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,
@@ -176,7 +201,7 @@ def test_main_blocks_non_dry_run_when_data_remains_stale(
     monkeypatch.setattr(
         soxl_paper_trading,
         "update_master_csv",
-        lambda dry_run: {
+        lambda dry_run, provider: {
             "before_rows": 1,
             "after_rows": 1,
             "new_rows": 0,

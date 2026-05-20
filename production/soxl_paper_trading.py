@@ -44,6 +44,14 @@ from src.soxl_quant.settings import ACCOUNT, QLIB_DATA_PATH, RUNTIME_DIR, load_p
 
 US_MARKET_TZ = ZoneInfo("America/New_York")
 US_DATA_READY_TIME = time(17, 30)
+DATA_UPDATE_PROVIDERS = ("yfinance", "yahoo_api")
+RETRYABLE_DATA_UPDATE_SNIPPETS = (
+    "No overlapping dates for SOXL/SOXX/VIX",
+    "Too Many Requests",
+    "Rate limited",
+    "429",
+    "DNS/network unavailable",
+)
 
 
 def parse_args() -> argparse.Namespace:
@@ -61,6 +69,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--dry-run", action="store_true", help="Signal only, do not place orders")
     parser.add_argument("--healthcheck", action="store_true", help="Run health checks and exit")
     parser.add_argument("--skip-data-update", action="store_true", help="Skip market data update")
+    parser.add_argument(
+        "--data-provider",
+        default="auto",
+        choices=["auto", *DATA_UPDATE_PROVIDERS],
+        help="Market data provider for online refresh; auto tries yfinance then yahoo_api",
+    )
     parser.add_argument("--initial-cash", type=float, default=ACCOUNT, help="Initial cash for paper broker")
     parser.add_argument(
         "--paper-step-clip",
@@ -84,6 +98,30 @@ def _init_broker(args: argparse.Namespace) -> BrokerAdapter:
         broker.connect()
         return broker
     return _load_paper_broker_state(initial_cash=args.initial_cash)
+
+
+def _is_retryable_data_update_error(exc: Exception) -> bool:
+    text = str(exc)
+    return any(snippet.lower() in text.lower() for snippet in RETRYABLE_DATA_UPDATE_SNIPPETS)
+
+
+def _run_data_update(dry_run: bool, provider: str = "auto") -> Dict[str, object]:
+    providers = DATA_UPDATE_PROVIDERS if provider == "auto" else (provider,)
+    last_exc: Exception | None = None
+    for index, provider_name in enumerate(providers):
+        try:
+            print(f"[paper] data update provider={provider_name}")
+            update_result = update_master_csv(dry_run=dry_run, provider=provider_name)
+            refresh_qlib(dry_run=dry_run)
+            return update_result
+        except Exception as exc:
+            last_exc = exc
+            has_next = index + 1 < len(providers)
+            if not has_next or not _is_retryable_data_update_error(exc):
+                raise
+            print(f"[paper] data provider {provider_name} failed: {exc}", file=sys.stderr)
+            print("[paper] retrying next data provider...", file=sys.stderr)
+    raise RuntimeError(f"Data update failed for all providers: {last_exc}")
 
 
 def _previous_weekday(day: date) -> date:
@@ -401,8 +439,7 @@ def main() -> None:
     # 1. Data update
     if not args.skip_data_update:
         try:
-            update_result = update_master_csv(dry_run=args.dry_run)
-            refresh_qlib(dry_run=args.dry_run)
+            update_result = _run_data_update(dry_run=args.dry_run, provider=args.data_provider)
             if use_notify and update_result["new_rows"] > 0:
                 notifier.send(
                     title="SOXL Data Updated",
