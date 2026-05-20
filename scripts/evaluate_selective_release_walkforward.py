@@ -18,9 +18,9 @@ ROOT = Path(__file__).resolve().parent.parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from scripts.evaluate_selective_release_overlay import overlay_variants
 from src.soxl_quant.backtest import backtest_profile
 from src.soxl_quant.data import build_dataset, feature_columns_for_packs, init_qlib, segment_frame
+from src.soxl_quant.policy.execution_overlays import overlay_variants
 from src.soxl_quant.policy.policy_builder import build_policy
 from src.soxl_quant.settings import QLIB_DATA_PATH, load_profile
 

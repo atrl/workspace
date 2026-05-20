@@ -349,7 +349,9 @@ def experiment_profile_path(name: str) -> Path | None:
 
 
 def legacy_profile_path(name: str) -> Path | None:
-    for path in PROFILE_DIR.rglob(f"card/{name}/profile.yaml"):
+    for path in _legacy_profile_paths():
+        if path.parent.name != name:
+            continue
         return path
     return None
 
@@ -370,9 +372,22 @@ def experiment_dir_for_profile(name: str) -> Path | None:
 
 
 def list_profile_names() -> list[str]:
-    legacy = {path.parent.name for path in PROFILE_DIR.rglob("card/*/profile.yaml")}
+    legacy = {path.parent.name for path in _legacy_profile_paths()}
     experiments = {path.parent.name for path in EXPERIMENTS_DIR.glob("*/*/profile.yaml")}
     return sorted(legacy | experiments)
+
+
+def _legacy_profile_paths() -> list[Path]:
+    paths: list[Path] = []
+    for path in PROFILE_DIR.rglob("card/*/profile.yaml"):
+        if (
+            path.parent.name == "registry"
+            and path.parent.parent.name == "card"
+            and path.parent.parent.parent.name == "harness"
+        ):
+            continue
+        paths.append(path)
+    return sorted(paths)
 
 
 def load_profile(name: str) -> StrategyConfig:

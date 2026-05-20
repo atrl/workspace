@@ -11,7 +11,7 @@ import yaml
 
 ROOT = Path(__file__).resolve().parent.parent
 EXPERIMENTS = ROOT / "experiments"
-REGISTRY = ROOT / "runtime" / "harness" / "profile_registry.yaml"
+REGISTRY = ROOT / "runtime" / "harness" / "card" / "registry" / "profile.yaml"
 MODEL_DIR = ROOT / "runtime" / "model" / "card"
 CONFIGS_DIR = ROOT / "configs" / "soxl"
 ALLOWED_STATUSES = {"canonical", "candidate", "archive", "ablation", "dropped"}

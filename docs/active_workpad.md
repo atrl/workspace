@@ -1155,3 +1155,55 @@ Fixed actor overlay readout:
 - Keep `selective_release_recovery_post_release_cap_v1` as the active promotion-review candidate.
 - Do not promote it directly until runtime governance / packaging checks confirm the profile boundary and trace semantics.
 - Do not spend the next loop on another release entry threshold, static guard, or release-pack PPO retrain.
+
+## 2026-05-21 Promotion Governance Packaging Loop
+
+### Scope
+
+This loop does not promote the post-release cap to production runtime. It packages the candidate for review, centralizes the overlay config, and makes the harness reject governance drift that was previously invisible.
+
+### Changes Made
+
+- `src/soxl_quant/policy/execution_overlays.py`
+  - centralizes all named selective-release overlay configs
+  - exposes `POST_RELEASE_CAP_VARIANT`, `overlay_config()`, and `overlay_variants()`
+- `scripts/evaluate_selective_release_overlay.py` and `scripts/evaluate_selective_release_walkforward.py`
+  - now read overlay configs from the repo-owned registry instead of hard-coded local lists
+- `scripts/review_selective_release_promotion.py`
+  - writes `runtime/execution/card/selective_release_post_release_cap_v1/promotion_review.{json,md}`
+  - verifies `wf_2022` unchanged, `wf_2023_2024` return improved, `wf_2023_2024` MaxDD improved, and fixed full-window actor no-op
+  - records `runtime_auto_select_allowed=false`
+- Profile governance
+  - fixed the registry path from stale `runtime/harness/cards/...` to canonical `runtime/harness/card/registry/profile.yaml`
+  - kept historical registry rows allowed while requiring every current `profile.yaml` to have a registry row
+  - added missing registry rows for current legacy profile files
+  - added profile registry, overlay registry, and promotion-review tests to `scripts/check_harness.py`
+
+### Commands
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_profile_registry.py tests/test_execution_overlay_registry.py tests/test_selective_release_promotion_review.py -q
+PYTHONPATH=. qlib_venv/bin/python scripts/review_selective_release_promotion.py
+```
+
+### Evidence
+
+- Promotion review: `runtime/execution/card/selective_release_post_release_cap_v1/promotion_review.md`
+- Promotion review JSON: `runtime/execution/card/selective_release_post_release_cap_v1/promotion_review.json`
+- Overlay registry: `src/soxl_quant/policy/execution_overlays.py`
+
+Promotion-review result:
+
+| check | result |
+|---|---|
+| `wf_2022_unchanged` | pass |
+| `wf_2023_2024_return_improved` | pass, delta `+8.8381pp` |
+| `wf_2023_2024_maxdd_improved` | pass, delta `-10.8815pp` |
+| `fixed_actor_noop` | pass across `test_proxy`, `test_2020`, `test_2022`, `test_2023_2024` |
+| `runtime_auto_select_allowed` | `false` |
+
+### Decision
+
+- `selective_release_recovery_post_release_cap_v1` is now a packaged promotion-review candidate.
+- It is explicitly **not** eligible for scheduler auto-selection because the overlay is not profile-bound production runtime behavior and the base v22 actor sidecar still lacks a passing model promotion gate.
+- Next valid work is a profile-bound runtime overlay design / dry-run replay path if we want to move it toward live scheduled inference; otherwise choose the next narrow model-optimization experiment.

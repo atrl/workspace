@@ -53,6 +53,12 @@ grid, so it does not disturb the original proxy/2020/2022/2023-2024
 counterfactual evidence. Treat it as a promotion-review candidate, not yet a
 runtime profile.
 
+The promotion-review packaging loop confirms that distinction. The review card
+for `selective_release_recovery_post_release_cap_v1` passes the walk-forward and
+fixed-actor checks, but records `runtime_auto_select_allowed=false` because the
+overlay is not yet profile-bound production runtime behavior and the base v22
+actor sidecar has not passed the model promotion gate.
+
 ## Failed Pattern
 
 Generic overlay retuning is not enough when `test_2022` max drawdown and average position remain too high; widening favorable-mode envelopes also degraded other windows.
@@ -76,8 +82,9 @@ Keep actor fixed, run daily replay or overlay sweeps, then compare mode/window s
 
 ## Next Valid Experiment Type
 
-Promotion-review and runtime-governance packaging for the release-state cap.
-The next work should validate governance boundaries, trace semantics, and
-runtime profile/registry shape for `selective_release_recovery_post_release_cap_v1`.
-Avoid full trade-lock bypass, unguarded shortening, static entry-threshold
-tuning, more favorable-mode exposure, or another direct release-pack retrain.
+If continuing this candidate, build a profile-bound runtime overlay / dry-run
+replay path that can prove scheduler behavior before live selection. If runtime
+integration is deferred, choose the next narrow model-optimization experiment
+from current evidence. Avoid full trade-lock bypass, unguarded shortening,
+static entry-threshold tuning, more favorable-mode exposure, or another direct
+release-pack retrain.

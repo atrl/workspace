@@ -19,6 +19,7 @@ if str(ROOT) not in sys.path:
 
 from src.soxl_quant.backtest import backtest_profile
 from src.soxl_quant.data import build_dataset, feature_columns_for_packs, init_qlib, segment_frame
+from src.soxl_quant.policy.execution_overlays import overlay_variants
 from src.soxl_quant.policy.policy_builder import build_policy
 from src.soxl_quant.settings import QLIB_DATA_PATH, load_profile, model_artifact_path
 
@@ -29,139 +30,6 @@ WINDOWS = {
     "test_2022": ("2022-01-01", "2022-12-31"),
     "test_2023_2024": ("2023-01-01", "2024-12-31"),
 }
-
-
-def overlay_variants() -> list[tuple[str, dict[str, Any] | None]]:
-    return [
-        ("baseline", None),
-        (
-            "selective_release_cicc_v1",
-            {
-                "type": "selective_release",
-                "boost": 0.05,
-                "max_target": 0.62,
-                "max_regime_risk": 0.62,
-                "cooldown_threshold": 0.25,
-                "vix_threshold": 0.04,
-                "volume_sync_threshold": 0.68,
-            },
-        ),
-        (
-            "selective_release_tight_v1",
-            {
-                "type": "selective_release",
-                "boost": 0.05,
-                "max_target": 0.60,
-                "max_regime_risk": 0.58,
-                "cooldown_threshold": 0.30,
-                "vix_threshold": 0.05,
-                "volume_sync_threshold": 0.72,
-            },
-        ),
-        (
-            "selective_release_recovery_v1",
-            {
-                "type": "selective_release",
-                "boost": 0.08,
-                "max_target": 0.65,
-                "max_regime_risk": 0.60,
-                "cooldown_threshold": 0.20,
-                "vix_threshold": 0.05,
-                "volume_sync_threshold": 0.70,
-            },
-        ),
-        (
-            "selective_release_recovery_threshold_bypass_v1",
-            {
-                "type": "selective_release",
-                "boost": 0.08,
-                "max_target": 0.65,
-                "max_regime_risk": 0.60,
-                "cooldown_threshold": 0.20,
-                "vix_threshold": 0.05,
-                "volume_sync_threshold": 0.70,
-                "rebalance_threshold_override": 0.0,
-            },
-        ),
-        (
-            "selective_release_recovery_target_lift_v1",
-            {
-                "type": "selective_release",
-                "boost": 0.08,
-                "max_target": 0.65,
-                "max_regime_risk": 0.60,
-                "cooldown_threshold": 0.20,
-                "vix_threshold": 0.05,
-                "volume_sync_threshold": 0.70,
-                "min_target_delta": 0.08,
-            },
-        ),
-        (
-            "selective_release_recovery_trade_lock_bypass_v1",
-            {
-                "type": "selective_release",
-                "boost": 0.08,
-                "max_target": 0.65,
-                "max_regime_risk": 0.60,
-                "cooldown_threshold": 0.20,
-                "vix_threshold": 0.05,
-                "volume_sync_threshold": 0.70,
-                "rebalance_threshold_override": 0.0,
-                "trade_lock_override": 0,
-            },
-        ),
-        (
-            "selective_release_recovery_trade_lock_short_v1",
-            {
-                "type": "selective_release",
-                "boost": 0.08,
-                "max_target": 0.65,
-                "max_regime_risk": 0.60,
-                "cooldown_threshold": 0.20,
-                "vix_threshold": 0.05,
-                "volume_sync_threshold": 0.70,
-                "rebalance_threshold_override": 0.0,
-                "trade_lock_cap": 1,
-            },
-        ),
-        (
-            "selective_release_recovery_trade_lock_guarded_short_v1",
-            {
-                "type": "selective_release",
-                "boost": 0.08,
-                "max_target": 0.65,
-                "max_regime_risk": 0.60,
-                "cooldown_threshold": 0.20,
-                "vix_threshold": 0.05,
-                "volume_sync_threshold": 0.70,
-                "rebalance_threshold_override": 0.0,
-                "trade_lock_cap": 1,
-                "max_current_drawdown": 0.03,
-                "min_release_exposure_gap": 0.10,
-            },
-        ),
-        (
-            "selective_release_recovery_post_release_cap_v1",
-            {
-                "type": "selective_release",
-                "boost": 0.08,
-                "max_target": 0.65,
-                "max_regime_risk": 0.60,
-                "cooldown_threshold": 0.20,
-                "vix_threshold": 0.05,
-                "volume_sync_threshold": 0.70,
-                "rebalance_threshold_override": 0.0,
-                "trade_lock_cap": 1,
-                "max_current_drawdown": 0.03,
-                "min_release_exposure_gap": 0.10,
-                "post_release_state_days": 90,
-                "post_release_drawdown_threshold": 0.04,
-                "post_release_target_cap": 0.55,
-                "post_release_rebalance_threshold_override": 0.0,
-                "post_release_trade_lock_override": 0,
-            },
-        ),
-    ]
 
 
 def metrics_from_result(result: dict[str, Any]) -> dict[str, float]:

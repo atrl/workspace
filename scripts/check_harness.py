@@ -30,8 +30,11 @@ DEFAULT_TEST_FILES = [
     "tests/test_structural_model.py",
     "tests/test_two_speed_budget.py",
     "tests/test_update_market_data.py",
+    "tests/test_profile_registry.py",
+    "tests/test_execution_overlay_registry.py",
     "tests/test_selective_release_overlay.py",
     "tests/test_selective_release_walkforward.py",
+    "tests/test_selective_release_promotion_review.py",
 ]
 
 DEFAULT_COMPILE_TARGETS = [
@@ -40,6 +43,7 @@ DEFAULT_COMPILE_TARGETS = [
     "src/soxl_quant/data.py",
     "src/soxl_quant/rl.py",
     "src/soxl_quant/runtime.py",
+    "src/soxl_quant/policy/execution_overlays.py",
     "src/soxl_quant/policy/hierarchical_composer.py",
     "src/soxl_quant/policy/mode_conditioning.py",
     "src/soxl_quant/policy/two_speed_budget.py",
@@ -59,6 +63,7 @@ DEFAULT_COMPILE_TARGETS = [
     "scripts/evaluate_signed_te_stress_gate.py",
     "scripts/evaluate_selective_release_overlay.py",
     "scripts/evaluate_selective_release_walkforward.py",
+    "scripts/review_selective_release_promotion.py",
 
     "scripts/prune_artifacts.py",
     "scripts/rank_counterfactual_variants.py",
@@ -73,6 +78,7 @@ DEFAULT_COMMAND_CHECKS = [
     ["scripts/check_research_task_router.py"],
     ["scripts/check_source_boundaries.py"],
     ["scripts/check_skills.py"],
+    ["scripts/check_experiment_cards.py"],
 ]
 
 

@@ -1,6 +1,6 @@
 # Current Execution Plan
 
-- Date: 2026-05-20
+- Date: 2026-05-21
 - Direction: `execution`
 - Active line: `selective_release_post_release_cap_v1`
 - Baseline: `balanced_rule_residual_v22`
@@ -41,7 +41,12 @@ Test whether retained selective-release eligible days are absorbed only by the v
   - `wf_2022`: unchanged, `0` eligible days
   - `wf_2023_2024`: return `-11.37%` vs `-20.21%`, Sharpe `-0.133` vs `-0.277`, MaxDD `27.66%` vs `38.54%`, trades `27` vs `22`
   - fixed full-window actor overlay grid: no-op on proxy/2020/2022/2023-2024
+- Promotion governance packaging is now explicit:
+  - overlay configs live in `src/soxl_quant/policy/execution_overlays.py`
+  - review card: `runtime/execution/card/selective_release_post_release_cap_v1/promotion_review.md`
+  - review checks pass for `wf_2022_unchanged`, `wf_2023_2024_return_improved`, `wf_2023_2024_maxdd_improved`, and `fixed_actor_noop`
+  - `runtime_auto_select_allowed=false` because the overlay is not profile-bound production runtime behavior and v22 does not have a passing model-promotion sidecar
 
 ## Next Action
 
-Do not promote full bypass, unguarded shortening, or static guarded shortening. Keep `selective_release_recovery_post_release_cap_v1` as the active promotion-review candidate and run promotion governance / runtime packaging checks next; do not spend the next loop on another entry guard, release threshold, or release-pack PPO retrain.
+Do not promote full bypass, unguarded shortening, static guarded shortening, or the post-release cap directly into scheduler auto-selection. The next valid step is a profile-bound runtime overlay / dry-run replay path for the post-release cap, or a separate narrow model-optimization experiment if runtime integration is deferred.

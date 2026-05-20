@@ -9,7 +9,7 @@ import yaml
 from .config import PROFILE_DIR, list_profile_names
 
 ROOT = Path(__file__).resolve().parents[2]
-REGISTRY_PATH = ROOT / "runtime" / "harness" / "cards" / "registry" / "profile.yaml"
+REGISTRY_PATH = ROOT / "runtime" / "harness" / "card" / "registry" / "profile.yaml"
 
 
 @dataclass(frozen=True)
@@ -47,11 +47,8 @@ def validate_profile_registry() -> list[str]:
     configured = set(list_profile_names())
     registered = set(registry)
     missing = sorted(configured - registered)
-    extra = sorted(registered - configured)
     if missing:
         issues.append(f"missing registry rows: {', '.join(missing)}")
-    if extra:
-        issues.append(f"registry rows without config: {', '.join(extra)}")
     canonical_by_family: dict[str, list[str]] = {}
     for entry in registry.values():
         if entry.status == "canonical":

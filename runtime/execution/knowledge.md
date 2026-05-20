@@ -46,6 +46,7 @@
 14. **静态 drawdown/exposure-gap entry guard 仍不够**：`selective_release_recovery_trade_lock_guarded_short_v1` 把 target boost、rebalance bypass 和 `trade_lock_cap=1` 都限制在 `current_drawdown<=0.03` 且 exposure gap `>=0.10` 时，但 `wf_2023_2024` 只从 `-20.21%` 到 `-19.63%`，MaxDD 却从 `38.54%` 升到 `42.91%`。不要继续调这个静态阈值；下一步先做 drawdown-path attribution 或引入明确 post-release de-risk / target cap 机制。
 15. **drawdown attribution 指向 post-release 风控，而不是 entry guard**：`selective_release_walkforward_drawdown_attribution.csv` 显示 guarded-short 的唯一 execution-ready release order 是 `2024-03-28`，variant MaxDD trough 是 `2024-08-07`，release-to-trough 平均仓位差 `+0.0204`、最大仓位差 `+0.3140`、trough account delta `-0.48%`。后续还有 gate-eligible orders 在 `2024-05-13` 和 `2024-07-09`。下一步应测试 release-state target cap 或 post-release de-risk，而不是继续调入口阈值。
 16. **release-state target cap 是首个通过 walk-forward 双指标的 selective-release 变体**：`selective_release_recovery_post_release_cap_v1` 在 `wf_2023_2024` 把 return 从 `-20.21%` 提到 `-11.37%`，MaxDD 从 `38.54%` 降到 `27.66%`，同时 `wf_2022` 完全 unchanged；固定 full-window actor grid 上该变体为 no-op，不破坏原 counterfactual。下一步是 promotion review / runtime governance packaging，而不是继续调 entry guard。
+17. **post-release cap 已完成 promotion-review packaging，但不能自动进生产**：`runtime/execution/card/selective_release_post_release_cap_v1/promotion_review.json` 四项检查通过（`wf_2022` unchanged、`wf_2023_2024` return `+8.8381pp`、MaxDD `-10.8815pp`、fixed actor no-op），但 `runtime_auto_select_allowed=false`，因为该 overlay 还不是 profile-bound runtime 行为，且 base v22 actor sidecar 没有通过 model promotion gate。
 
 ## 待验证方向
 
@@ -58,7 +59,8 @@
 - [x] 测试 release-gated shortening 的 drawdown / exposure-gap guard — static entry guard still fails MaxDD
 - [x] 对 guarded shortening 的唯一 allowed release path 做 drawdown attribution，再决定是否测试 post-release de-risk / target cap — attribution points to post-release de-risk / target cap
 - [x] 测试 release-state target cap 或 post-release de-risk，要求 `wf_2022` unchanged 且 `wf_2023_2024` MaxDD 回到 baseline 附近 — post-release cap improves both return and MaxDD
-- [ ] 对 post-release cap 做 promotion review / runtime governance packaging，不再重复 entry-threshold tuning
+- [x] 对 post-release cap 做 promotion review / runtime governance packaging，不再重复 entry-threshold tuning — packaged as review candidate, runtime auto-select remains blocked
+- [ ] 如果继续推进该候选，做 profile-bound runtime overlay / dry-run replay 设计；否则选择下一条窄模型优化实验
 - [ ] 动态 decision frequency
 - [ ] 仓位上限与 VIX term structure 联动
 - [ ] budget-usage actor/runtime mismatch 诊断
@@ -278,3 +280,36 @@ Decision:
 - Keep as a promotion-review candidate, not a completed runtime promotion.
 - Next work should be promotion governance / runtime packaging checks for the post-release cap and trace semantics.
 - Do not spend the next loop on another static entry guard, release threshold, or PPO retrain.
+
+## 2026-05-21: Post-Release Cap Promotion Governance Packaging
+
+Question: can the post-release cap be safely packaged for promotion review without accidentally becoming scheduler-selected production behavior?
+
+Answer: yes. The review candidate is now packaged and explicitly blocked from runtime auto-selection.
+
+Artifacts:
+
+- `src/soxl_quant/policy/execution_overlays.py`
+- `runtime/execution/card/selective_release_post_release_cap_v1/promotion_review.md`
+- `runtime/execution/card/selective_release_post_release_cap_v1/promotion_review.json`
+
+Checks:
+
+| Check | Result |
+|---|---:|
+| `wf_2022_unchanged` | pass |
+| `wf_2023_2024_return_improved` | pass, delta `+8.8381pp` |
+| `wf_2023_2024_maxdd_improved` | pass, delta `-10.8815pp` |
+| `fixed_actor_noop` | pass |
+| `runtime_auto_select_allowed` | `false` |
+
+Harness governance:
+
+- The selective-release overlay configs now live in a shared registry instead of duplicated script-local lists.
+- `tests/test_profile_registry.py`, `tests/test_execution_overlay_registry.py`, and `tests/test_selective_release_promotion_review.py` are part of `scripts/check_harness.py`.
+- The profile registry path now matches the repo canonical `runtime/harness/card/registry/profile.yaml`.
+
+Decision:
+
+- Do not let the scheduler auto-select this overlay yet.
+- Next valid work is either a profile-bound runtime overlay / dry-run replay path for this candidate, or a separate narrow model-optimization experiment if production runtime integration is deferred.

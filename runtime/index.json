@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-20T16:07:55.865106+00:00",
+  "generated_at": "2026-05-20T16:21:36.982222+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -116,6 +116,18 @@
       "bytes": 5543
     },
     {
+      "path": "runtime/execution/card/selective_release_post_release_cap_v1/promotion_review.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 1579
+    },
+    {
+      "path": "runtime/execution/card/selective_release_post_release_cap_v1/promotion_review.md",
+      "category": "execution",
+      "suffix": ".md",
+      "bytes": 1002
+    },
+    {
       "path": "runtime/execution/card/selective_release_walkforward_v1/selective_release_walkforward_drawdown_attribution.csv",
       "category": "execution",
       "suffix": ".csv",
@@ -167,7 +179,7 @@
       "path": "runtime/execution/knowledge.md",
       "category": "execution",
       "suffix": ".md",
-      "bytes": 21696
+      "bytes": 23865
     },
     {
       "path": "runtime/execution/position_cap_overlay_variants.json",
