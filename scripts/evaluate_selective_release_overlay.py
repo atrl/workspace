@@ -110,6 +110,20 @@ def overlay_variants() -> list[tuple[str, dict[str, Any] | None]]:
                 "trade_lock_override": 0,
             },
         ),
+        (
+            "selective_release_recovery_trade_lock_short_v1",
+            {
+                "type": "selective_release",
+                "boost": 0.08,
+                "max_target": 0.65,
+                "max_regime_risk": 0.60,
+                "cooldown_threshold": 0.20,
+                "vix_threshold": 0.05,
+                "volume_sync_threshold": 0.70,
+                "rebalance_threshold_override": 0.0,
+                "trade_lock_cap": 1,
+            },
+        ),
     ]
 
 

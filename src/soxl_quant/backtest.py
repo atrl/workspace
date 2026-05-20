@@ -109,6 +109,8 @@ def selective_release_trade_lock_days(
         return int(trade_lock_days)
     if "trade_lock_override" in overlay_config:
         return max(int(overlay_config["trade_lock_override"]), 0)
+    if "trade_lock_cap" in overlay_config:
+        return min(int(trade_lock_days), max(int(overlay_config["trade_lock_cap"]), 0))
     return int(trade_lock_days)
 
 

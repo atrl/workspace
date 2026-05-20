@@ -22,6 +22,13 @@ created orders in `wf_2023_2024` (`changed_days=183`, trades `32` vs `22`) while
 leaving `wf_2022` unchanged, but it worsened recovery return and MaxDD. Treat
 full trade-lock bypass as a diagnostic failure, not a runtime mechanism.
 
+The follow-up `selective_release_recovery_trade_lock_short_v1` cap is cleaner
+than full bypass but still not promotable. With `trade_lock_cap=1`,
+`wf_2023_2024` return improved from `-20.21%` to `-17.87%` and trades only rose
+from `22` to `24`, while `wf_2022` stayed unchanged; however MaxDD widened from
+`38.54%` to `40.65%`. Treat this as evidence that the next mechanism needs a
+drawdown / exposure-gap guard around release-gated shortening.
+
 ## Failed Pattern
 
 Generic overlay retuning is not enough when `test_2022` max drawdown and average position remain too high; widening favorable-mode envelopes also degraded other windows.
@@ -45,8 +52,9 @@ Keep actor fixed, run daily replay or overlay sweeps, then compare mode/window s
 
 ## Next Valid Experiment Type
 
-Test a narrower release-gated trade-lock rule under the existing retained gate:
-trade-lock shortening, or bypass only when current exposure is below the release
-target and buy cooldown will not immediately collapse the order. Avoid full
-trade-lock bypass, more favorable-mode exposure, or another direct release-pack
-retrain.
+Test a guarded release-gated trade-lock rule under the existing retained gate:
+keep the `trade_lock_cap=1` shortening idea, but require drawdown / exposure-gap
+conditions so orders fire only when current exposure is demonstrably below the
+release target and buy cooldown will not immediately collapse the order. Avoid
+full trade-lock bypass, unguarded shortening, more favorable-mode exposure, or
+another direct release-pack retrain.

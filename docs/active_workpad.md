@@ -283,6 +283,66 @@ Baseline `wf_2023_2024` was `-20.21% / -0.277 / 38.54% / 22 trades`, so the bypa
 - The trace diagnosis was correct: trade lock was blocking orders. The unrestricted bypass is still too blunt and turns signal activation into extra churn without improving recovery quality.
 - Next valid variant must be narrower than full bypass, for example a release-gated trade-lock shortening or buy-cooldown-aware rule that only applies when current exposure is below the release target.
 
+## 2026-05-20 Release-Gated Trade-Lock Shortening Loop
+
+### Governance
+
+- Canonical baseline: `balanced_rule_residual_v22`
+- Direct comparison baseline: `selective_release_walkforward_v1`
+- Role: `diagnose`
+- Target window: `wf_2023_2024`, with `wf_2022` as the hard no-regression check
+- Accepted trade-off: lower churn than full bypass is useful only if recovery return / Sharpe improves without material MaxDD widening
+- Changed layer: `execution`
+- External reference:
+  - eligible-day trace showing trade lock as dominant absorber
+  - full trade-lock bypass failure showing unrestricted release creates churn
+- Hypothesis:
+  A release-gated trade-lock cap should allow some recovery-window orders while preserving the retained gate's `wf_2022` no-eligible defense.
+- Acceptance criteria:
+  - `wf_2023_2024 changed_days > 0`
+  - `wf_2022` unchanged because eligible_days remains `0`
+  - `wf_2023_2024` return or Sharpe improves without material MaxDD widening
+  - trades remain materially below the full bypass variant
+- Failure mode:
+  Trade-lock shortening improves return but reopens drawdown / exposure risk enough to block promotion.
+- Comparison-table row key: `selective_release_trade_lock_short_v1`
+
+### Changes Made
+
+- `src/soxl_quant/backtest.py`
+  - added `trade_lock_cap` support to `selective_release_trade_lock_days()`
+  - cap semantics only shorten an existing/new trade lock; they do not raise `0` lock days to `1`
+- `scripts/evaluate_selective_release_overlay.py`
+  - added `selective_release_recovery_trade_lock_short_v1` with retained gate, `rebalance_threshold_override=0.0`, and `trade_lock_cap=1`
+- `scripts/evaluate_selective_release_walkforward.py`
+  - includes the short variant in order-generation diagnostics and review output
+- `tests/test_selective_release_overlay.py`
+  - covers that `trade_lock_cap=1` lowers `8` days to `1` but preserves `0` days
+
+### Commands
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_selective_release_overlay.py::test_selective_release_trade_lock_override_only_applies_when_gate_is_ready -q
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_selective_release_overlay.py -q
+MPLCONFIGDIR=/private/tmp/mplconfig PYTHONPATH=. qlib_venv/bin/python scripts/evaluate_selective_release_walkforward.py --profile balanced_rule_residual_v22 --all-variants
+```
+
+### Evidence
+
+| actor_window | variant | eligible_days | changed_days | trades | return | sharpe | max_dd | avg_pos | decision |
+|---|---|---:|---:|---:|---:|---:|---:|---:|---|
+| `wf_2022` | `selective_release_recovery_trade_lock_short_v1` | 0 | 0 | 22 | `-34.11%` | `-0.926` | `38.27%` | `0.3216` | defensive gate unchanged |
+| `wf_2023_2024` baseline | `baseline` | 0 | 0 | 22 | `-20.21%` | `-0.277` | `38.54%` | `0.4764` | control |
+| `wf_2023_2024` | `selective_release_recovery_trade_lock_short_v1` | 18 | 175 | 24 | `-17.87%` | `-0.229` | `40.65%` | `0.4620` | improves return, fails MaxDD gate |
+
+Eligible-day trace for `wf_2023_2024`: short variant traced `16 / 18` eligible rows, with primary blockers `trade_lock=12`, `ordered=3`, `buy_cooldown=1`. Full bypass traced `ordered=11` and trades `32`, so the cap is cleaner but still not clean enough for promotion.
+
+### Decision
+
+- Do **not** promote `selective_release_recovery_trade_lock_short_v1`.
+- The cap is a useful diagnostic: it improves `wf_2023_2024` return by `+2.34pp` with only `+2` trades and keeps `wf_2022` unchanged.
+- It still widens `wf_2023_2024` MaxDD by `+2.11pp`, so the next valid rule must add a drawdown / exposure-gap guard before release-gated trade-lock shortening can become a governed runtime overlay.
+
 ## Prior Data/Release Goal
 
 1. Refresh the repo-owned local data surfaces from the canonical SOXL/SOXX/VIX panel.

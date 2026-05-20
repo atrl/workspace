@@ -166,3 +166,14 @@ def test_selective_release_trade_lock_override_only_applies_when_gate_is_ready()
 
     assert selective_release_trade_lock_days(8, ready, 0.50, config) == 0
     assert selective_release_trade_lock_days(8, missing_confirmation, 0.50, config) == 8
+
+    shortened_config = {**config, "trade_lock_override": 1}
+    assert selective_release_trade_lock_days(8, ready, 0.50, shortened_config) == 1
+
+    capped_config = {
+        **config,
+        "trade_lock_cap": 1,
+    }
+    del capped_config["trade_lock_override"]
+    assert selective_release_trade_lock_days(8, ready, 0.50, capped_config) == 1
+    assert selective_release_trade_lock_days(0, ready, 0.50, capped_config) == 0

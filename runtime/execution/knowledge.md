@@ -42,6 +42,7 @@
 10. **简单 order-generation 修复仍然不够**：`selective_release_recovery_threshold_bypass_v1` 与 `selective_release_recovery_target_lift_v1` 在 `wf_2023_2024` 都有 `18` 个 eligible days，但仍然 `changed_days=0` / `absorbed_days=18`。
 11. **逐日 trace 已定位主吸收层**：`selective_release_walkforward_execution_trace.csv` 显示 threshold-bypass actionable eligible days 的 primary blocker 是 `trade_lock=15/16`，target-lift 是 `trade_lock=12/16`、`min_rebalance=3/16`、`ordered=1/16`。主因不是 release signal、不只是 min_rebalance，也不是 PPO 需要直接 retrain；下一条有效规则应只测试 release-gated trade-lock bypass / shortening。
 12. **full trade-lock bypass 不是可推广解**：`selective_release_recovery_trade_lock_bypass_v1` 在 `wf_2023_2024` 把 `changed_days` 拉到 `183`、trades 从 `22` 到 `32`，但 return 从 `-20.21%` 降到 `-21.43%`、MaxDD 从 `38.54%` 升到 `40.28%`；`wf_2022` 保持 unchanged。结论是 trade lock 的确挡住订单，但完全 bypass 只制造 churn。
+13. **trade-lock shortening 有诊断价值但仍未过 promotion gate**：`selective_release_recovery_trade_lock_short_v1` 用 `trade_lock_cap=1` 后在 `wf_2023_2024` 把 return 从 `-20.21%` 提到 `-17.87%`、trades 只从 `22` 到 `24`，但 MaxDD 从 `38.54%` 升到 `40.65%`；`wf_2022` 仍 unchanged。下一步必须给 release-gated shortening 加 drawdown / exposure-gap guard，而不是直接推广。
 
 ## 待验证方向
 
@@ -50,7 +51,8 @@
 - [x] 对 `wf_2023_2024` eligible release days 做 target-lift / rebalance-threshold bypass 诊断 — 两者仍被吸收
 - [x] 记录 eligible day 逐日 `current_pos`、overlay 前后 target、`min_rebalance`、trade lock、buy cooldown、cap state、lot rounding — blocker narrowed to trade lock
 - [x] 测试 release-gated full trade-lock bypass — order generation works but recovery metrics worsen
-- [ ] 测试比 full bypass 更窄的 trade-lock shortening / buy-cooldown-aware release rule，并继续要求 `wf_2022` unchanged
+- [x] 测试比 full bypass 更窄的 trade-lock shortening / buy-cooldown-aware release rule，并继续要求 `wf_2022` unchanged — cap variant improves return but fails MaxDD gate
+- [ ] 测试 release-gated shortening 的 drawdown / exposure-gap guard
 - [ ] 动态 decision frequency
 - [ ] 仓位上限与 VIX term structure 联动
 - [ ] budget-usage actor/runtime mismatch 诊断
@@ -163,3 +165,29 @@ Decision:
 
 - Do not promote the bypass and do not retrain from it.
 - The next rule must be narrower: shorten trade lock or bypass only when current exposure is below the release target, and account for buy cooldown.
+
+## 2026-05-20: Release-Gated Trade-Lock Shortening
+
+Question: does capping trade lock at one day under the retained release gate produce a cleaner, promotable order-generation change than full bypass?
+
+Answer: it is cleaner and improves recovery return, but still fails the drawdown gate.
+
+| Variant | wf_2022 | wf_2023_2024 | Decision |
+|---|---:|---:|---|
+| `selective_release_recovery_trade_lock_short_v1` | unchanged, `0` eligible days | `18` eligible days, `175` changed days, trades `24` vs `22`, return `-17.87%` vs `-20.21%`, Sharpe `-0.229` vs `-0.277`, MaxDD `40.65%` vs `38.54%`, avg_pos `0.4620` vs `0.4764` | diagnostic keep, no promotion |
+
+Mechanism:
+
+- Uses the retained `selective_release_recovery_v1` gate.
+- Adds `rebalance_threshold_override=0.0` and `trade_lock_cap=1`.
+- `trade_lock_cap` only shortens lock days; it does not raise an unlocked day from `0` to `1`.
+
+Trace:
+
+- `wf_2023_2024` eligible-day trace for the short variant: `16 / 18` rows, primary blockers `trade_lock=12`, `ordered=3`, `buy_cooldown=1`.
+- Compared with full bypass (`ordered=11`, trades `32`), shortening reduces churn and improves return, but the remaining orders still widen drawdown.
+
+Decision:
+
+- Do not promote the short variant as a runtime overlay.
+- Next valid rule should keep `trade_lock_cap=1` but require a drawdown / exposure-gap guard so release orders are allowed only when they reduce a proven under-exposure problem without raising recovery-window MaxDD.
