@@ -45,6 +45,7 @@
 13. **trade-lock shortening 有诊断价值但仍未过 promotion gate**：`selective_release_recovery_trade_lock_short_v1` 用 `trade_lock_cap=1` 后在 `wf_2023_2024` 把 return 从 `-20.21%` 提到 `-17.87%`、trades 只从 `22` 到 `24`，但 MaxDD 从 `38.54%` 升到 `40.65%`；`wf_2022` 仍 unchanged。下一步必须给 release-gated shortening 加 drawdown / exposure-gap guard，而不是直接推广。
 14. **静态 drawdown/exposure-gap entry guard 仍不够**：`selective_release_recovery_trade_lock_guarded_short_v1` 把 target boost、rebalance bypass 和 `trade_lock_cap=1` 都限制在 `current_drawdown<=0.03` 且 exposure gap `>=0.10` 时，但 `wf_2023_2024` 只从 `-20.21%` 到 `-19.63%`，MaxDD 却从 `38.54%` 升到 `42.91%`。不要继续调这个静态阈值；下一步先做 drawdown-path attribution 或引入明确 post-release de-risk / target cap 机制。
 15. **drawdown attribution 指向 post-release 风控，而不是 entry guard**：`selective_release_walkforward_drawdown_attribution.csv` 显示 guarded-short 的唯一 execution-ready release order 是 `2024-03-28`，variant MaxDD trough 是 `2024-08-07`，release-to-trough 平均仓位差 `+0.0204`、最大仓位差 `+0.3140`、trough account delta `-0.48%`。后续还有 gate-eligible orders 在 `2024-05-13` 和 `2024-07-09`。下一步应测试 release-state target cap 或 post-release de-risk，而不是继续调入口阈值。
+16. **release-state target cap 是首个通过 walk-forward 双指标的 selective-release 变体**：`selective_release_recovery_post_release_cap_v1` 在 `wf_2023_2024` 把 return 从 `-20.21%` 提到 `-11.37%`，MaxDD 从 `38.54%` 降到 `27.66%`，同时 `wf_2022` 完全 unchanged；固定 full-window actor grid 上该变体为 no-op，不破坏原 counterfactual。下一步是 promotion review / runtime governance packaging，而不是继续调 entry guard。
 
 ## 待验证方向
 
@@ -56,7 +57,8 @@
 - [x] 测试比 full bypass 更窄的 trade-lock shortening / buy-cooldown-aware release rule，并继续要求 `wf_2022` unchanged — cap variant improves return but fails MaxDD gate
 - [x] 测试 release-gated shortening 的 drawdown / exposure-gap guard — static entry guard still fails MaxDD
 - [x] 对 guarded shortening 的唯一 allowed release path 做 drawdown attribution，再决定是否测试 post-release de-risk / target cap — attribution points to post-release de-risk / target cap
-- [ ] 测试 release-state target cap 或 post-release de-risk，要求 `wf_2022` unchanged 且 `wf_2023_2024` MaxDD 回到 baseline 附近
+- [x] 测试 release-state target cap 或 post-release de-risk，要求 `wf_2022` unchanged 且 `wf_2023_2024` MaxDD 回到 baseline 附近 — post-release cap improves both return and MaxDD
+- [ ] 对 post-release cap 做 promotion review / runtime governance packaging，不再重复 entry-threshold tuning
 - [ ] 动态 decision frequency
 - [ ] 仓位上限与 VIX term structure 联动
 - [ ] budget-usage actor/runtime mismatch 诊断
@@ -246,3 +248,33 @@ Decision:
 
 - Do not tune `max_current_drawdown` / `min_release_exposure_gap` again as the next step.
 - The next valid loop is a release-state target cap or explicit post-release de-risk rule: after release activation, reduce/cap exposure if the path starts drawing down, while preserving the retained gate's `wf_2022` unchanged defense.
+
+## 2026-05-20: Release-State Post-Release Cap
+
+Question: can post-release state management keep the retained release gate's recovery benefit while preventing the drawdown path identified by attribution?
+
+Answer: yes on the saved walk-forward actor grid; it is the first selective-release walk-forward variant that improves return and lowers MaxDD.
+
+| Variant | wf_2022 | wf_2023_2024 | Fixed full-window actor | Decision |
+|---|---:|---:|---:|---|
+| `selective_release_recovery_post_release_cap_v1` | unchanged, `0` eligible days | return `-11.37%` vs `-20.21%`, Sharpe `-0.133` vs `-0.277`, MaxDD `27.66%` vs `38.54%`, trades `27` vs `22` | no-op on proxy/2020/2022/2023-2024 | promotion-review candidate |
+
+Mechanism:
+
+- Reuses the retained release gate and guarded `trade_lock_cap=1` setup.
+- Starts a 90-day release state after an execution-ready release order.
+- If release-state drawdown exceeds `4%`, caps target exposure at `0.55`.
+- De-risk relaxations are sell-only: `post_release_rebalance_threshold_override=0.0` and `post_release_trade_lock_override=0` only help reduce exposure.
+
+Attribution:
+
+- `wf_2023_2024` first execution-ready release order remains `2024-03-28`.
+- Eligible ordered dates are `2024-03-28` and `2024-05-14`.
+- Variant peak/trough remains `2024-06-18 -> 2024-08-07`, but delta MaxDD is `-10.88pp` versus baseline.
+- Release-to-trough average position delta versus baseline is `-0.0373`, and account value at trough is `+11.58%` versus baseline.
+
+Decision:
+
+- Keep as a promotion-review candidate, not a completed runtime promotion.
+- Next work should be promotion governance / runtime packaging checks for the post-release cap and trace semantics.
+- Do not spend the next loop on another static entry guard, release threshold, or PPO retrain.

@@ -536,6 +536,7 @@ def write_outputs(
         "selective_release_recovery_trade_lock_bypass_v1",
         "selective_release_recovery_trade_lock_short_v1",
         "selective_release_recovery_trade_lock_guarded_short_v1",
+        "selective_release_recovery_post_release_cap_v1",
     ]
     diagnostic_rows = df[
         (df["actor_window"] == "wf_2023_2024") & (df["variant"].isin(diagnostic_variants))
@@ -671,11 +672,38 @@ def write_outputs(
             ]
         )
 
+    post_release_cap_variant = "selective_release_recovery_post_release_cap_v1"
+    post_release_cap_rows = df[df["variant"] == post_release_cap_variant].set_index("actor_window")
+    if "wf_2022" in post_release_cap_rows.index and "wf_2023_2024" in post_release_cap_rows.index:
+        row_2022 = post_release_cap_rows.loc["wf_2022"]
+        row_2024 = post_release_cap_rows.loc["wf_2023_2024"]
+        base_2022 = baseline.loc["wf_2022"]
+        base_2024 = baseline.loc["wf_2023_2024"]
+        cap_delta_return = float(row_2024["return"]) - float(base_2024["return"])
+        cap_delta_max_dd = float(row_2024["max_dd"]) - float(base_2024["max_dd"])
+        cap_decision = (
+            "post-release cap is the first walk-forward selective-release variant that improves return while reducing MaxDD; keep it as a promotion-review candidate."
+            if cap_delta_return > 0 and cap_delta_max_dd < 0
+            else "post-release cap needs another diagnostic before promotion."
+        )
+        lines.extend(
+            [
+                "",
+                "## Post-Release Cap Check",
+                "",
+                f"- `wf_2022`: unchanged with eligible_days `{int(row_2022['eligible_days'])}`, return `{float(row_2022['return']):.2f}%` vs baseline `{float(base_2022['return']):.2f}%`, max_dd `{float(row_2022['max_dd']):.2f}%` vs `{float(base_2022['max_dd']):.2f}%`.",
+                f"- `wf_2023_2024`: changed_days `{int(row_2024['changed_days'])}`, trades `{int(row_2024['trades'])}` vs baseline `{int(base_2024['trades'])}`, return `{float(row_2024['return']):.2f}%` vs `{float(base_2024['return']):.2f}%`, max_dd `{float(row_2024['max_dd']):.2f}%` vs `{float(base_2024['max_dd']):.2f}%`.",
+                f"- Delta: return `{cap_delta_return:+.2f}pp`, max_dd `{cap_delta_max_dd:+.2f}pp`.",
+                f"- Decision: {cap_decision}",
+            ]
+        )
+
     if not attribution_df.empty:
         attribution_variants = [
             "selective_release_recovery_trade_lock_bypass_v1",
             "selective_release_recovery_trade_lock_short_v1",
             "selective_release_recovery_trade_lock_guarded_short_v1",
+            "selective_release_recovery_post_release_cap_v1",
         ]
         wf_attr = attribution_df[
             (attribution_df["actor_window"] == "wf_2023_2024")
@@ -717,6 +745,19 @@ def write_outputs(
                         f"- Guarded path readout: the first execution-ready release order was `{guarded['first_release_order_date']}` and the variant max-DD trough was `{guarded['variant_trough_date']}`.",
                         f"- From that release order to trough, average position delta versus baseline was `{float(guarded['avg_position_delta_release_to_trough']):+.4f}` and account value at trough was `{float(guarded['account_delta_at_trough_pct']):+.2f}%` versus baseline.",
                         "- Decision: attribution supports a distinct post-release de-risk or release target-cap test; it does not support another static entry-threshold tweak.",
+                    ]
+                )
+            cap_match = wf_attr[
+                wf_attr["variant"] == "selective_release_recovery_post_release_cap_v1"
+            ]
+            if not cap_match.empty:
+                cap = cap_match.iloc[0]
+                lines.extend(
+                    [
+                        "",
+                        f"- Post-release cap readout: the first execution-ready release order was `{cap['first_release_order_date']}` and the variant max-DD trough was `{cap['variant_trough_date']}`.",
+                        f"- From that release order to trough, average position delta versus baseline was `{float(cap['avg_position_delta_release_to_trough']):+.4f}` and account value at trough was `{float(cap['account_delta_at_trough_pct']):+.2f}%` versus baseline.",
+                        "- Decision: the cap addresses the attributed drawdown path in this walk-forward run; next work should be promotion review / runtime governance checks, not another entry-threshold tweak.",
                     ]
                 )
             lines.append("- Full attribution artifact: `selective_release_walkforward_drawdown_attribution.csv`.")

@@ -1,14 +1,14 @@
 {
   "context": {
     "actor_feature_count": 64,
-    "attribution_rows": 24,
+    "attribution_rows": 27,
     "dataset_feature_packs": [
       "vix_term",
       "release_signals_v1"
     ],
     "profile": "balanced_rule_residual_v22",
     "retained_only": false,
-    "trace_rows": 118,
+    "trace_rows": 134,
     "windows": [
       {
         "actor_path": "runtime/model/card/balanced_rule_residual_v22_wf_2020/soxl_balanced_rule_residual_v22_wf_2020_actor.pt",
@@ -193,6 +193,26 @@
     },
     {
       "account_delta_at_trough_pct": 0.0,
+      "actor_window": "wf_2020",
+      "avg_position_delta_release_to_trough": 0.0,
+      "baseline_max_dd": 19.4717,
+      "baseline_peak_date": "2020-09-02",
+      "baseline_trough_date": "2020-09-08",
+      "days_release_to_trough": 0,
+      "delta_max_dd": 0.0,
+      "eligible_order_dates": "",
+      "first_release_order_date": "",
+      "max_position_delta_release_to_trough": 0.0,
+      "position_delta_at_release": 0.0,
+      "readout": "no_material_drawdown_widening",
+      "release_order_dates": "",
+      "variant": "selective_release_recovery_post_release_cap_v1",
+      "variant_max_dd": 19.4717,
+      "variant_peak_date": "2020-09-02",
+      "variant_trough_date": "2020-09-08"
+    },
+    {
+      "account_delta_at_trough_pct": 0.0,
       "actor_window": "wf_2022",
       "avg_position_delta_release_to_trough": 0.0,
       "baseline_max_dd": 38.2746,
@@ -347,6 +367,26 @@
       "readout": "no_material_drawdown_widening",
       "release_order_dates": "",
       "variant": "selective_release_recovery_trade_lock_guarded_short_v1",
+      "variant_max_dd": 38.2746,
+      "variant_peak_date": "2022-03-30",
+      "variant_trough_date": "2022-12-28"
+    },
+    {
+      "account_delta_at_trough_pct": 0.0,
+      "actor_window": "wf_2022",
+      "avg_position_delta_release_to_trough": 0.0,
+      "baseline_max_dd": 38.2746,
+      "baseline_peak_date": "2022-03-30",
+      "baseline_trough_date": "2022-12-28",
+      "days_release_to_trough": 0,
+      "delta_max_dd": 0.0,
+      "eligible_order_dates": "",
+      "first_release_order_date": "",
+      "max_position_delta_release_to_trough": 0.0,
+      "position_delta_at_release": 0.0,
+      "readout": "no_material_drawdown_widening",
+      "release_order_dates": "",
+      "variant": "selective_release_recovery_post_release_cap_v1",
       "variant_max_dd": 38.2746,
       "variant_peak_date": "2022-03-30",
       "variant_trough_date": "2022-12-28"
@@ -508,6 +548,26 @@
       "release_order_dates": "2024-03-28",
       "variant": "selective_release_recovery_trade_lock_guarded_short_v1",
       "variant_max_dd": 42.9115,
+      "variant_peak_date": "2024-06-18",
+      "variant_trough_date": "2024-08-07"
+    },
+    {
+      "account_delta_at_trough_pct": 11.5837,
+      "actor_window": "wf_2023_2024",
+      "avg_position_delta_release_to_trough": -0.037284,
+      "baseline_max_dd": 38.5425,
+      "baseline_peak_date": "2024-07-10",
+      "baseline_trough_date": "2024-09-06",
+      "days_release_to_trough": 132,
+      "delta_max_dd": -10.8815,
+      "eligible_order_dates": "2024-03-28;2024-05-14",
+      "first_release_order_date": "2024-03-28",
+      "max_position_delta_release_to_trough": 0.214051,
+      "position_delta_at_release": -0.091249,
+      "readout": "no_material_drawdown_widening",
+      "release_order_dates": "2024-03-28",
+      "variant": "selective_release_recovery_post_release_cap_v1",
+      "variant_max_dd": 27.661,
       "variant_peak_date": "2024-06-18",
       "variant_trough_date": "2024-08-07"
     }

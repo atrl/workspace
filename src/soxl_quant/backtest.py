@@ -171,6 +171,80 @@ def selective_release_trade_lock_days(
     return int(trade_lock_days)
 
 
+def selective_release_post_release_de_risk_ready(
+    overlay_config: dict,
+    *,
+    release_state_days: int,
+    release_drawdown: float,
+) -> bool:
+    if "post_release_state_days" not in overlay_config:
+        return False
+    if int(release_state_days) <= 0:
+        return False
+    threshold = float(overlay_config.get("post_release_drawdown_threshold", 0.0))
+    return float(release_drawdown) >= threshold
+
+
+def selective_release_post_release_target_cap(
+    target_pos: float,
+    overlay_config: dict,
+    *,
+    release_state_days: int,
+    release_drawdown: float,
+) -> float:
+    if not selective_release_post_release_de_risk_ready(
+        overlay_config,
+        release_state_days=release_state_days,
+        release_drawdown=release_drawdown,
+    ):
+        return float(target_pos)
+    if "post_release_target_cap" not in overlay_config:
+        return float(target_pos)
+    return min(float(target_pos), float(overlay_config["post_release_target_cap"]))
+
+
+def selective_release_post_release_rebalance_threshold(
+    min_rebalance: float,
+    overlay_config: dict,
+    *,
+    release_state_days: int,
+    release_drawdown: float,
+    direction: str,
+) -> float:
+    if direction != "sell":
+        return float(min_rebalance)
+    if not selective_release_post_release_de_risk_ready(
+        overlay_config,
+        release_state_days=release_state_days,
+        release_drawdown=release_drawdown,
+    ):
+        return float(min_rebalance)
+    if "post_release_rebalance_threshold_override" in overlay_config:
+        return float(overlay_config["post_release_rebalance_threshold_override"])
+    return float(min_rebalance)
+
+
+def selective_release_post_release_trade_lock_days(
+    trade_lock_days: int,
+    overlay_config: dict,
+    *,
+    release_state_days: int,
+    release_drawdown: float,
+    direction: str,
+) -> int:
+    if direction != "sell":
+        return int(trade_lock_days)
+    if not selective_release_post_release_de_risk_ready(
+        overlay_config,
+        release_state_days=release_state_days,
+        release_drawdown=release_drawdown,
+    ):
+        return int(trade_lock_days)
+    if "post_release_trade_lock_override" in overlay_config:
+        return max(int(overlay_config["post_release_trade_lock_override"]), 0)
+    return int(trade_lock_days)
+
+
 def _normalize_backtest_seg(index: pd.Index | pd.MultiIndex, test_seg: Tuple[str, str]) -> Tuple[str, str]:
     """Clamp qlib backtest end dates to a safe calendar interval.
 
@@ -240,6 +314,8 @@ class RLStrategy(BaseStrategy):
         self.decision_trace: List[Dict[str, object]] = []
         self.ledger = TrancheLedger()           # 持仓账本，与训练时一致
         self.peak_account_value = ACCOUNT
+        self.selective_release_state_days = 0
+        self.selective_release_peak_account_value = ACCOUNT
         self.price_path = self.price_series.reindex(self.df.index).ffill().bfill().to_numpy(dtype=np.float32)
         self.mode_state = ModeState()
 
@@ -275,6 +351,24 @@ class RLStrategy(BaseStrategy):
         self.peak_account_value = max(self.peak_account_value, account_value)
         current_pos = (shares * price) / account_value if account_value > 0 else 0.0
         current_drawdown = max(1.0 - account_value / max(self.peak_account_value, 1e-8), 0.0)
+        release_state_days_before = int(self.selective_release_state_days)
+        if release_state_days_before > 0:
+            self.selective_release_peak_account_value = max(
+                float(self.selective_release_peak_account_value),
+                float(account_value),
+            )
+        release_drawdown = (
+            max(1.0 - account_value / max(float(self.selective_release_peak_account_value), 1e-8), 0.0)
+            if release_state_days_before > 0
+            else 0.0
+        )
+
+        def advance_selective_release_state(*, activated: bool = False) -> None:
+            if activated:
+                return
+            if release_state_days_before > 0:
+                self.selective_release_state_days = max(int(self.selective_release_state_days) - 1, 0)
+
         obs = make_observation(
             self.df,
             idx,
@@ -452,6 +546,20 @@ class RLStrategy(BaseStrategy):
                         if score >= threshold:
                             target_pos = min(target_pos + boost, 1.0)
         target_after_overlay = float(target_pos)
+        post_release_de_risk_ready = False
+        if self.overlay_config is not None and self.overlay_config.get("type") == "selective_release":
+            post_release_de_risk_ready = selective_release_post_release_de_risk_ready(
+                self.overlay_config,
+                release_state_days=release_state_days_before,
+                release_drawdown=release_drawdown,
+            )
+            target_pos = selective_release_post_release_target_cap(
+                target_pos,
+                self.overlay_config,
+                release_state_days=release_state_days_before,
+                release_drawdown=release_drawdown,
+            )
+        target_after_post_release_cap = float(target_pos)
         overlay_execution_ready = False
         if self.overlay_config is not None and self.overlay_config.get("type") == "selective_release":
             overlay_execution_ready = selective_release_execution_guard_ready(
@@ -459,7 +567,7 @@ class RLStrategy(BaseStrategy):
                 regime_risk,
                 self.overlay_config,
                 current_pos=current_pos,
-                target_pos=target_pos,
+                target_pos=target_after_overlay,
                 current_drawdown=current_drawdown,
             )
         direction = "buy" if target_pos > current_pos else ("sell" if target_pos < current_pos else "neutral")
@@ -487,6 +595,13 @@ class RLStrategy(BaseStrategy):
                 target_pos=target_pos,
                 current_drawdown=current_drawdown,
             )
+            min_rebalance = selective_release_post_release_rebalance_threshold(
+                min_rebalance,
+                self.overlay_config,
+                release_state_days=release_state_days_before,
+                release_drawdown=release_drawdown,
+                direction=direction,
+            )
         trade_lock_before = int(self.trade_lock)
         buy_cooldown_before = int(self.buy_cooldown)
         blocked_by_trade_lock = False
@@ -501,6 +616,13 @@ class RLStrategy(BaseStrategy):
                 current_pos=current_pos,
                 target_pos=target_pos,
                 current_drawdown=current_drawdown,
+            )
+            effective_trade_lock = selective_release_post_release_trade_lock_days(
+                effective_trade_lock,
+                self.overlay_config,
+                release_state_days=release_state_days_before,
+                release_drawdown=release_drawdown,
+                direction=direction,
             )
         if effective_trade_lock > 0:
             if abs(target_pos - current_pos) >= min_rebalance:
@@ -539,6 +661,7 @@ class RLStrategy(BaseStrategy):
                     "current_pos": round(float(current_pos), 10),
                     "target_before_overlay": round(float(target_before_overlay), 10),
                     "target_after_overlay": round(float(target_after_overlay), 10),
+                    "target_after_post_release_cap": round(float(target_after_post_release_cap), 10),
                     "target_after_guards": round(float(target_after_guards), 10),
                     "final_position": round(float(final_position), 10),
                     "base_min_rebalance": round(float(base_min_rebalance), 10),
@@ -564,6 +687,15 @@ class RLStrategy(BaseStrategy):
                     "overlay_gate_ready": bool(overlay_gate_ready),
                     "overlay_execution_ready": bool(overlay_execution_ready),
                     "overlay_exposure_gap": round(float(target_after_overlay - current_pos), 10),
+                    "post_release_state_days_before": release_state_days_before,
+                    "post_release_state_days_after": int(self.selective_release_state_days),
+                    "post_release_drawdown": round(float(release_drawdown), 10),
+                    "post_release_de_risk_ready": bool(post_release_de_risk_ready),
+                    "post_release_target_cap": (
+                        float(overlay_config.get("post_release_target_cap", ""))
+                        if "post_release_target_cap" in overlay_config
+                        else ""
+                    ),
                     "overlay_max_target": float(overlay_config.get("max_target", "")) if "max_target" in overlay_config else "",
                     "overlay_min_target_delta": (
                         float(overlay_config.get("min_target_delta", ""))
@@ -578,6 +710,7 @@ class RLStrategy(BaseStrategy):
             )
 
         if blocked_by_min_rebalance or blocked_by_step_lock:
+            advance_selective_release_state()
             append_trace(final_position=current_pos)
             self.position_history.append(current_pos)
             return TradeDecisionWO([], self)
@@ -613,6 +746,19 @@ class RLStrategy(BaseStrategy):
                 self.trade_lock = new_trade_lock
             signal_type = "buy" if delta > 0 else "sell"
             self.trade_signals.append((trade_date, price, target_pos if orders else current_pos, signal_type))
+        release_state_activated = False
+        if (
+            orders
+            and self.overlay_config is not None
+            and self.overlay_config.get("type") == "selective_release"
+            and "post_release_state_days" in self.overlay_config
+            and overlay_execution_ready
+            and target_pos > current_pos + 1e-6
+        ):
+            self.selective_release_state_days = max(int(self.overlay_config["post_release_state_days"]), 0)
+            self.selective_release_peak_account_value = max(float(account_value), 1e-8)
+            release_state_activated = True
+        advance_selective_release_state(activated=release_state_activated)
         final_position = target_pos if orders else current_pos
         append_trace(
             target_shares=target_shares,

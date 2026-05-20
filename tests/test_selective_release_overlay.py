@@ -5,6 +5,10 @@ import pandas as pd
 from src.soxl_quant.backtest import (
     apply_selective_release_overlay,
     selective_release_execution_guard_ready,
+    selective_release_post_release_de_risk_ready,
+    selective_release_post_release_rebalance_threshold,
+    selective_release_post_release_target_cap,
+    selective_release_post_release_trade_lock_days,
     selective_release_rebalance_threshold,
     selective_release_trade_lock_days,
 )
@@ -362,6 +366,108 @@ def test_selective_release_execution_relaxations_respect_guard_context():
             current_pos=0.58,
             target_pos=0.65,
             current_drawdown=0.02,
+        )
+        == 8
+    )
+
+
+def test_selective_release_post_release_cap_only_applies_after_drawdown_trigger():
+    config = {
+        "post_release_state_days": 90,
+        "post_release_drawdown_threshold": 0.04,
+        "post_release_target_cap": 0.55,
+    }
+
+    assert not selective_release_post_release_de_risk_ready(
+        config,
+        release_state_days=0,
+        release_drawdown=0.10,
+    )
+    assert not selective_release_post_release_de_risk_ready(
+        config,
+        release_state_days=5,
+        release_drawdown=0.03,
+    )
+    assert selective_release_post_release_de_risk_ready(
+        config,
+        release_state_days=5,
+        release_drawdown=0.05,
+    )
+    assert (
+        selective_release_post_release_target_cap(
+            0.80,
+            config,
+            release_state_days=5,
+            release_drawdown=0.05,
+        )
+        == 0.55
+    )
+    assert (
+        selective_release_post_release_target_cap(
+            0.45,
+            config,
+            release_state_days=5,
+            release_drawdown=0.05,
+        )
+        == 0.45
+    )
+    assert (
+        selective_release_post_release_target_cap(
+            0.80,
+            config,
+            release_state_days=5,
+            release_drawdown=0.03,
+        )
+        == 0.80
+    )
+
+
+def test_selective_release_post_release_de_risk_only_relaxes_sells():
+    config = {
+        "post_release_state_days": 90,
+        "post_release_drawdown_threshold": 0.04,
+        "post_release_target_cap": 0.55,
+        "post_release_rebalance_threshold_override": 0.0,
+        "post_release_trade_lock_override": 0,
+    }
+
+    assert (
+        selective_release_post_release_rebalance_threshold(
+            0.04,
+            config,
+            release_state_days=5,
+            release_drawdown=0.05,
+            direction="sell",
+        )
+        == 0.0
+    )
+    assert (
+        selective_release_post_release_trade_lock_days(
+            8,
+            config,
+            release_state_days=5,
+            release_drawdown=0.05,
+            direction="sell",
+        )
+        == 0
+    )
+    assert (
+        selective_release_post_release_rebalance_threshold(
+            0.04,
+            config,
+            release_state_days=5,
+            release_drawdown=0.05,
+            direction="buy",
+        )
+        == 0.04
+    )
+    assert (
+        selective_release_post_release_trade_lock_days(
+            8,
+            config,
+            release_state_days=5,
+            release_drawdown=0.05,
+            direction="buy",
         )
         == 8
     )

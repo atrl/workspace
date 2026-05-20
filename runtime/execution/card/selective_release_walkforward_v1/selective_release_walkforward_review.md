@@ -17,6 +17,7 @@
 | wf_2020 | selective_release_recovery_trade_lock_bypass_v1 | 113.17% | 2.015 | 19.47% | 0.5322 | 22 | 0 | 0 | 0 | +0.00pp | +0.00pp |
 | wf_2020 | selective_release_recovery_trade_lock_short_v1 | 113.17% | 2.015 | 19.47% | 0.5322 | 22 | 0 | 0 | 0 | +0.00pp | +0.00pp |
 | wf_2020 | selective_release_recovery_trade_lock_guarded_short_v1 | 113.17% | 2.015 | 19.47% | 0.5322 | 22 | 0 | 0 | 0 | +0.00pp | +0.00pp |
+| wf_2020 | selective_release_recovery_post_release_cap_v1 | 113.17% | 2.015 | 19.47% | 0.5322 | 22 | 0 | 0 | 0 | +0.00pp | +0.00pp |
 | wf_2022 | baseline | -34.11% | -0.926 | 38.27% | 0.3216 | 22 | 0 | 0 | 0 | +0.00pp | +0.00pp |
 | wf_2022 | selective_release_cicc_v1 | -34.11% | -0.926 | 38.27% | 0.3216 | 22 | 0 | 0 | 0 | +0.00pp | +0.00pp |
 | wf_2022 | selective_release_tight_v1 | -34.11% | -0.926 | 38.27% | 0.3216 | 22 | 0 | 0 | 0 | +0.00pp | +0.00pp |
@@ -26,6 +27,7 @@
 | wf_2022 | selective_release_recovery_trade_lock_bypass_v1 | -34.11% | -0.926 | 38.27% | 0.3216 | 22 | 0 | 0 | 0 | +0.00pp | +0.00pp |
 | wf_2022 | selective_release_recovery_trade_lock_short_v1 | -34.11% | -0.926 | 38.27% | 0.3216 | 22 | 0 | 0 | 0 | +0.00pp | +0.00pp |
 | wf_2022 | selective_release_recovery_trade_lock_guarded_short_v1 | -34.11% | -0.926 | 38.27% | 0.3216 | 22 | 0 | 0 | 0 | +0.00pp | +0.00pp |
+| wf_2022 | selective_release_recovery_post_release_cap_v1 | -34.11% | -0.926 | 38.27% | 0.3216 | 22 | 0 | 0 | 0 | +0.00pp | +0.00pp |
 | wf_2023_2024 | baseline | -20.21% | -0.277 | 38.54% | 0.4764 | 22 | 0 | 0 | 0 | +0.00pp | +0.00pp |
 | wf_2023_2024 | selective_release_cicc_v1 | -20.21% | -0.277 | 38.54% | 0.4764 | 22 | 16 | 0 | 16 | +0.00pp | +0.00pp |
 | wf_2023_2024 | selective_release_tight_v1 | -20.21% | -0.277 | 38.54% | 0.4764 | 22 | 6 | 0 | 6 | +0.00pp | +0.00pp |
@@ -35,6 +37,7 @@
 | wf_2023_2024 | selective_release_recovery_trade_lock_bypass_v1 | -21.43% | -0.334 | 40.28% | 0.4817 | 32 | 18 | 183 | 0 | -1.22pp | +1.74pp |
 | wf_2023_2024 | selective_release_recovery_trade_lock_short_v1 | -17.87% | -0.229 | 40.65% | 0.4620 | 24 | 18 | 175 | 0 | +2.34pp | +2.11pp |
 | wf_2023_2024 | selective_release_recovery_trade_lock_guarded_short_v1 | -19.63% | -0.233 | 42.91% | 0.4833 | 21 | 18 | 185 | 0 | +0.58pp | +4.37pp |
+| wf_2023_2024 | selective_release_recovery_post_release_cap_v1 | -11.37% | -0.133 | 27.66% | 0.4227 | 27 | 18 | 185 | 0 | +8.84pp | -10.88pp |
 
 ## Readout
 
@@ -53,6 +56,7 @@
 - `selective_release_recovery_trade_lock_bypass_v1`: eligible_days `18`, changed_days `183`, absorbed_days `0`, return `-21.43%`, max_dd `40.28%`.
 - `selective_release_recovery_trade_lock_short_v1`: eligible_days `18`, changed_days `175`, absorbed_days `0`, return `-17.87%`, max_dd `40.65%`.
 - `selective_release_recovery_trade_lock_guarded_short_v1`: eligible_days `18`, changed_days `185`, absorbed_days `0`, return `-19.63%`, max_dd `42.91%`.
+- `selective_release_recovery_post_release_cap_v1`: eligible_days `18`, changed_days `185`, absorbed_days `0`, return `-11.37%`, max_dd `27.66%`.
 
 ## Eligible-Day Execution Trace Summary
 
@@ -61,6 +65,7 @@
 - `selective_release_recovery_trade_lock_bypass_v1`: traced `16` of `18` eligible days; blockers trade_lock `0`, buy_cooldown `5`, min_rebalance `0`, step_lock `0`, lot_rounding `5`; max target after overlay `0.8500`, after guards `0.8500`; execution_ready `16`; primary `buy_cooldown` 5, `ordered` 11.
 - `selective_release_recovery_trade_lock_short_v1`: traced `16` of `18` eligible days; blockers trade_lock `12`, buy_cooldown `1`, min_rebalance `0`, step_lock `0`, lot_rounding `13`; max target after overlay `0.8500`, after guards `0.8672`; execution_ready `16`; primary `buy_cooldown` 1, `ordered` 3, `trade_lock` 12.
 - `selective_release_recovery_trade_lock_guarded_short_v1`: traced `16` of `18` eligible days; blockers trade_lock `10`, buy_cooldown `1`, min_rebalance `13`, step_lock `0`, lot_rounding `0`; max target after overlay `0.8500`, after guards `0.8500`; execution_ready `1`; primary `buy_cooldown` 1, `min_rebalance` 2, `ordered` 3, `trade_lock` 10.
+- `selective_release_recovery_post_release_cap_v1`: traced `16` of `18` eligible days; blockers trade_lock `10`, buy_cooldown `1`, min_rebalance `13`, step_lock `0`, lot_rounding `1`; max target after overlay `0.8500`, after guards `0.7204`; execution_ready `2`; primary `buy_cooldown` 1, `min_rebalance` 3, `ordered` 2, `trade_lock` 10.
 - Readout: trade lock is the dominant upstream absorber; min-rebalance and lot-rounding counts mostly appear after the target has already been collapsed back toward current position.
 - Full eligible-day trace: `selective_release_walkforward_execution_trace.csv`.
 
@@ -83,6 +88,13 @@
 - Delta: return `+0.58pp`, max_dd `+4.37pp`.
 - Decision: guarded shortening is not promotable in this run because MaxDD still widens materially.
 
+## Post-Release Cap Check
+
+- `wf_2022`: unchanged with eligible_days `0`, return `-34.11%` vs baseline `-34.11%`, max_dd `38.27%` vs `38.27%`.
+- `wf_2023_2024`: changed_days `185`, trades `27` vs baseline `22`, return `-11.37%` vs `-20.21%`, max_dd `27.66%` vs `38.54%`.
+- Delta: return `+8.84pp`, max_dd `-10.88pp`.
+- Decision: post-release cap is the first walk-forward selective-release variant that improves return while reducing MaxDD; keep it as a promotion-review candidate.
+
 ## Drawdown Path Attribution
 
 | variant | delta_max_dd | peak -> trough | release_order_dates | eligible_order_dates | avg_pos_delta_release_to_trough | account_delta_at_trough | readout |
@@ -90,8 +102,13 @@
 | `selective_release_recovery_trade_lock_bypass_v1` | `+1.74pp` | `2024-06-18` -> `2024-12-10` | `2024-03-28;2024-04-01;2024-04-08;2024-04-09;2024-05-14;2024-05-15;2024-05-16;2024-05-22;2024-07-09;2024-10-08;2024-10-09` | `2024-03-28;2024-04-01;2024-04-08;2024-04-09;2024-05-14;2024-05-15;2024-05-16;2024-05-22;2024-07-09;2024-10-08;2024-10-09` | `+0.0636` | `-2.76%` | `release_order_precedes_wider_drawdown` |
 | `selective_release_recovery_trade_lock_short_v1` | `+2.11pp` | `2024-07-10` -> `2024-12-19` | `2024-03-28;2024-05-13;2024-05-15` | `2024-03-28;2024-05-13;2024-05-15` | `+0.0762` | `+3.71%` | `release_order_precedes_wider_drawdown` |
 | `selective_release_recovery_trade_lock_guarded_short_v1` | `+4.37pp` | `2024-06-18` -> `2024-08-07` | `2024-03-28` | `2024-03-28;2024-05-13;2024-07-09` | `+0.0204` | `-0.48%` | `release_order_precedes_wider_drawdown` |
+| `selective_release_recovery_post_release_cap_v1` | `-10.88pp` | `2024-06-18` -> `2024-08-07` | `2024-03-28` | `2024-03-28;2024-05-14` | `-0.0373` | `+11.58%` | `no_material_drawdown_widening` |
 
 - Guarded path readout: the first execution-ready release order was `2024-03-28` and the variant max-DD trough was `2024-08-07`.
 - From that release order to trough, average position delta versus baseline was `+0.0204` and account value at trough was `-0.48%` versus baseline.
 - Decision: attribution supports a distinct post-release de-risk or release target-cap test; it does not support another static entry-threshold tweak.
+
+- Post-release cap readout: the first execution-ready release order was `2024-03-28` and the variant max-DD trough was `2024-08-07`.
+- From that release order to trough, average position delta versus baseline was `-0.0373` and account value at trough was `+11.58%` versus baseline.
+- Decision: the cap addresses the attributed drawdown path in this walk-forward run; next work should be promotion review / runtime governance checks, not another entry-threshold tweak.
 - Full attribution artifact: `selective_release_walkforward_drawdown_attribution.csv`.

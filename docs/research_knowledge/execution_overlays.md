@@ -44,6 +44,15 @@ MaxDD trough on `2024-08-07`; release-to-trough average position delta was
 `2024-05-13` and `2024-07-09` also precede the trough, so the next test should
 cap or de-risk release-state exposure after activation.
 
+The release-state target cap is the first walk-forward selective-release variant
+that improves both recovery return and drawdown. In
+`selective_release_recovery_post_release_cap_v1`, `wf_2022` remains unchanged,
+while `wf_2023_2024` improves from `-20.21%` / MaxDD `38.54%` to `-11.37%` /
+MaxDD `27.66%`. The same variant is a no-op on the fixed full-window actor
+grid, so it does not disturb the original proxy/2020/2022/2023-2024
+counterfactual evidence. Treat it as a promotion-review candidate, not yet a
+runtime profile.
+
 ## Failed Pattern
 
 Generic overlay retuning is not enough when `test_2022` max drawdown and average position remain too high; widening favorable-mode envelopes also degraded other windows.
@@ -67,8 +76,8 @@ Keep actor fixed, run daily replay or overlay sweeps, then compare mode/window s
 
 ## Next Valid Experiment Type
 
-Test a release-state target cap or explicit post-release de-risk rule. It must
-keep `wf_2022` unchanged and bring `wf_2023_2024` MaxDD back near baseline while
-preserving as much of the short variant's return improvement as possible. Avoid
-full trade-lock bypass, unguarded shortening, static entry-threshold tuning,
-more favorable-mode exposure, or another direct release-pack retrain.
+Promotion-review and runtime-governance packaging for the release-state cap.
+The next work should validate governance boundaries, trace semantics, and
+runtime profile/registry shape for `selective_release_recovery_post_release_cap_v1`.
+Avoid full trade-lock bypass, unguarded shortening, static entry-threshold
+tuning, more favorable-mode exposure, or another direct release-pack retrain.

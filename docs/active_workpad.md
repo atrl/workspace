@@ -12,8 +12,8 @@ direction: execution
 
 1. Production scheduler, paper-trading state, dashboard rebuild, and Vercel static packaging are fixed and pushed in `c7cf210`.
 2. Resume model optimization from the SOXX-aware / selective-release frontier rather than changing scheduler/runtime behavior further.
-3. Diagnose why retained release gates fire on `wf_2023_2024` recovery days but do not create changed orders.
-4. Do not start another release-pack PPO retrain; the release-gated trade-lock bypass test now shows order generation is possible but too blunt.
+3. Keep `selective_release_recovery_post_release_cap_v1` as the active promotion-review candidate after it improved `wf_2023_2024` return and MaxDD while leaving `wf_2022` unchanged.
+4. Do not start another release-pack PPO retrain or entry-threshold tweak; next work is promotion governance / runtime packaging for the post-release cap.
 
 ## 2026-05-20 Loop Evidence
 
@@ -1067,3 +1067,91 @@ PYTHONPATH=. qlib_venv/bin/python production/soxl_paper_trading.py --discord --d
 
 - `soxl` / `daily` 频道需管理员手动授权 bot 的 `Send Messages` 权限
 - 消息长度受 Discord 2000 字符限制（自动截断）
+
+---
+
+## 2026-05-20 Release-State Post-Release Cap Loop
+
+### Governance
+
+- Canonical baseline: `balanced_rule_residual_v22`
+- Direct comparison baseline: `selective_release_walkforward_v1`
+- Role: `diagnose`, now upgraded to promotion-review candidate
+- Target window: `wf_2023_2024`, with `wf_2022` as the hard defensive no-regression check
+- Accepted trade-off: more trades are acceptable only if `wf_2023_2024` return improves and MaxDD falls below baseline
+- Changed layer: `execution`
+- External reference:
+  - retained release gate family: `RB_COOLDOWN_PROXY`, `TRANS_VIX_DIVERGENCE`, `CICC_RETURN_VOLUME_SYNC`
+  - drawdown-path attribution from `selective_release_drawdown_attribution_v1`
+- Hypothesis:
+  The release gate is useful, but the drawdown path needs stateful post-release exposure management. After a release order activates state, cap exposure and relax only sell-side de-risking if the release path starts drawing down.
+- Acceptance criteria:
+  - `wf_2022` remains unchanged
+  - `wf_2023_2024` return improves versus baseline
+  - `wf_2023_2024` MaxDD improves versus baseline
+  - fixed full-window actor counterfactual is not disturbed
+- Expected trade-off:
+  Trade count can rise modestly as long as drawdown improves and the rule remains stateful rather than a broad trade-lock bypass.
+- Failure mode:
+  Post-release cap either becomes a no-op on walk-forward actors or cuts recovery exposure enough to lose the return improvement.
+- Comparison-table row key: `selective_release_post_release_cap_v1`
+
+### Changes Made
+
+- `src/soxl_quant/backtest.py`
+  - added post-release state tracking after execution-ready release orders
+  - added `selective_release_post_release_target_cap()`
+  - added sell-only `selective_release_post_release_rebalance_threshold()` and `selective_release_post_release_trade_lock_days()`
+  - added trace fields for post-release state days, drawdown, de-risk readiness, and cap target
+- `scripts/evaluate_selective_release_overlay.py`
+  - added `selective_release_recovery_post_release_cap_v1`
+- `scripts/evaluate_selective_release_walkforward.py`
+  - added post-release cap to all-variant walk-forward runs, execution trace summaries, attribution, and durable review text
+- `tests/test_selective_release_overlay.py`
+  - covered cap activation after release-state drawdown and sell-only de-risk relaxations
+- `tests/test_selective_release_walkforward.py`
+  - covered inclusion of the post-release cap variant in all-variant walk-forward runs
+
+### Commands
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_selective_release_overlay.py tests/test_selective_release_walkforward.py -q
+MPLCONFIGDIR=/private/tmp/mplconfig PYTHONPATH=. qlib_venv/bin/python scripts/evaluate_selective_release_walkforward.py --profile balanced_rule_residual_v22 --all-variants
+MPLCONFIGDIR=/private/tmp/mplconfig PYTHONPATH=. qlib_venv/bin/python scripts/evaluate_selective_release_overlay.py --profile balanced_rule_residual_v22
+```
+
+### Evidence
+
+- Review: `runtime/execution/card/selective_release_walkforward_v1/selective_release_walkforward_review.md`
+- Walk-forward CSV: `runtime/execution/card/selective_release_walkforward_v1/selective_release_walkforward_results.csv`
+- Trace CSV: `runtime/execution/card/selective_release_walkforward_v1/selective_release_walkforward_execution_trace.csv`
+- Attribution CSV: `runtime/execution/card/selective_release_walkforward_v1/selective_release_walkforward_drawdown_attribution.csv`
+- Fixed actor overlay CSV: `runtime/execution/card/selective_release_overlay_v1/selective_release_overlay_results.csv`
+
+| actor_window | variant | return | Sharpe | MaxDD | trades | eligible_days | changed_days | readout |
+|---|---|---:|---:|---:|---:|---:|---:|---|
+| `wf_2022` | baseline | `-34.11%` | `-0.926` | `38.27%` | `22` | `0` | `0` | defensive baseline |
+| `wf_2022` | `selective_release_recovery_post_release_cap_v1` | `-34.11%` | `-0.926` | `38.27%` | `22` | `0` | `0` | unchanged |
+| `wf_2023_2024` | baseline | `-20.21%` | `-0.277` | `38.54%` | `22` | `0` | `0` | control |
+| `wf_2023_2024` | `selective_release_recovery_trade_lock_guarded_short_v1` | `-19.63%` | `-0.233` | `42.91%` | `21` | `18` | `185` | drop, drawdown widened |
+| `wf_2023_2024` | `selective_release_recovery_post_release_cap_v1` | `-11.37%` | `-0.133` | `27.66%` | `27` | `18` | `185` | candidate |
+
+Attribution readout:
+
+- First execution-ready release order: `2024-03-28`
+- Cap variant eligible ordered dates: `2024-03-28;2024-05-14`
+- Variant peak/trough: `2024-06-18 -> 2024-08-07`
+- Delta MaxDD versus baseline: `-10.88pp`
+- Release-to-trough avg position delta versus baseline: `-0.0373`
+- Account value at trough versus baseline: `+11.58%`
+
+Fixed actor overlay readout:
+
+- `selective_release_recovery_post_release_cap_v1` is a no-op across fixed full-window `test_proxy`, `test_2020`, `test_2022`, and `test_2023_2024`.
+- This keeps the prior fixed-actor counterfactual intact while improving only the saved walk-forward path where release-state de-risking activates.
+
+### Decision
+
+- Keep `selective_release_recovery_post_release_cap_v1` as the active promotion-review candidate.
+- Do not promote it directly until runtime governance / packaging checks confirm the profile boundary and trace semantics.
+- Do not spend the next loop on another release entry threshold, static guard, or release-pack PPO retrain.

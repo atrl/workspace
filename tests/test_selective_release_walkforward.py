@@ -31,6 +31,16 @@ def test_retained_variant_subset_keeps_baseline_and_recovery_gate():
     assert [name for name, _ in variants] == ["baseline", "selective_release_recovery_v1"]
 
 
+def test_all_variant_subset_includes_post_release_target_cap_variant():
+    variants = dict(variant_subset(retained_only=False))
+
+    config = variants["selective_release_recovery_post_release_cap_v1"]
+    assert config["post_release_state_days"] == 90
+    assert config["post_release_drawdown_threshold"] == 0.04
+    assert config["post_release_target_cap"] == 0.55
+    assert config["post_release_trade_lock_override"] == 0
+
+
 def test_gate_eligible_mask_counts_signal_confirmation_inside_regime_band():
     frame = pd.DataFrame(
         {

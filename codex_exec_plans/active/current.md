@@ -2,10 +2,10 @@
 
 - Date: 2026-05-20
 - Direction: `execution`
-- Active line: `selective_release_drawdown_attribution_v1`
+- Active line: `selective_release_post_release_cap_v1`
 - Baseline: `balanced_rule_residual_v22`
 - Direct comparison: `selective_release_walkforward_v1`
-- Role: `diagnose`
+- Role: `diagnose`, now promotion-review candidate
 
 ## Completed Loops
 
@@ -36,7 +36,12 @@ Test whether retained selective-release eligible days are absorbed only by the v
   - delta MaxDD: `+4.37pp`
   - release-to-trough avg/max position delta vs baseline: `+0.0204` / `+0.3140`
   - later gate-eligible ordered dates: `2024-05-13`, `2024-07-09`
+- Release-state post-release cap is the first selective-release walk-forward variant that improves both recovery return and MaxDD:
+  - mechanism: 90-day release state, `post_release_drawdown_threshold=0.04`, `post_release_target_cap=0.55`, sell-only post-release rebalance/trade-lock relaxation
+  - `wf_2022`: unchanged, `0` eligible days
+  - `wf_2023_2024`: return `-11.37%` vs `-20.21%`, Sharpe `-0.133` vs `-0.277`, MaxDD `27.66%` vs `38.54%`, trades `27` vs `22`
+  - fixed full-window actor overlay grid: no-op on proxy/2020/2022/2023-2024
 
 ## Next Action
 
-Do not promote full bypass, unguarded shortening, or static guarded shortening. Attribution supports the next distinct loop: release-state target cap or post-release de-risking, preserving `wf_2022` unchanged while bringing `wf_2023_2024` MaxDD back near baseline.
+Do not promote full bypass, unguarded shortening, or static guarded shortening. Keep `selective_release_recovery_post_release_cap_v1` as the active promotion-review candidate and run promotion governance / runtime packaging checks next; do not spend the next loop on another entry guard, release threshold, or release-pack PPO retrain.
