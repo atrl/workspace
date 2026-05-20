@@ -25,3 +25,10 @@ Review `selection_history`, fixed-split `test_2020`, `test_2022`, `test_2023_202
 ## Next Valid Experiment Type
 
 A valid model-selection experiment changes checkpoint scoring or selection evidence, not reward coefficients or thresholds under a new name.
+
+The v22/post-release-cap runtime-selection review is now blocked in
+`runtime/model/card/balanced_rule_residual_v22/runtime_selection_review.json`.
+It confirms that fixed-split model evidence plus a passing execution-overlay
+review is not enough for scheduled selection: the base model still needs real
+walk-forward promotion evidence, and the profile overlay flag remains false.
+Do not patch the v22 summary into promoted status manually.

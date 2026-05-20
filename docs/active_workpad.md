@@ -1309,3 +1309,51 @@ PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py --skip-data
 - Keep `balanced_rule_residual_v22.execution_overlay.auto_select_allowed=false`.
 - Do not create or edit a v22 promoted model sidecar in this loop.
 - Next valid work is now a model-side decision: either a governed promotion-sidecar review for v22+post-release-cap, or a separate narrow model optimization branch if that approval is deferred.
+
+## 2026-05-21 Runtime Selection Sidecar Review
+
+Question: can v22/post-release-cap be approved for scheduled runtime selection now that the overlay review, profile binding, and auto-select profile gate exist?
+
+Answer: no. The repo now has a model-side runtime selection sidecar, and it blocks automatic selection because the base v22 model sidecar has not completed walk-forward promotion and the profile overlay flag remains `auto_select_allowed=false`.
+
+### Changes Made
+
+- `scripts/review_runtime_selection.py`
+  - reads the v22 model summary, post-release-cap overlay review, runtime profile flag, and current auto-selected profile
+  - writes `runtime_selection_review.json` and `runtime_selection_review.md`
+  - exits successfully even when the review blocks selection, because the artifact is the outcome.
+- `tests/test_runtime_selection_review.py`
+  - covers blocked and approved review outcomes
+  - covers the script success semantics for a blocked review
+  - covers current `balanced` auto-selection context for v22.
+- `scripts/check_harness.py`
+  - includes the new review tests and script in harness verification.
+
+### Commands
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_runtime_selection_review.py -q
+PYTHONPATH=. qlib_venv/bin/python scripts/review_runtime_selection.py
+```
+
+### Evidence
+
+- Runtime selection review JSON: `runtime/model/card/balanced_rule_residual_v22/runtime_selection_review.json`
+- Runtime selection review MD: `runtime/model/card/balanced_rule_residual_v22/runtime_selection_review.md`
+- Decision: `blocked`
+- Passing checks:
+  - `model_fixed_split_eligible=true`
+  - `overlay_review_candidate=true`
+  - `overlay_runtime_profile_bound=true`
+- Blocking checks:
+  - `model_walk_forward_evaluated=false`
+  - `model_promotion_eligible=false`
+  - `profile_overlay_auto_select_allowed=false`
+- Current auto-selected profile remains `balanced_rule_residual_v19`.
+
+### Decision
+
+- Do not turn on `balanced_rule_residual_v22.execution_overlay.auto_select_allowed`.
+- Do not patch `soxl_balanced_rule_residual_v22_summary.json` into a promoted state.
+- The post-release cap line is now fully governed as a blocked runtime-selection candidate.
+- Next model work should be a separate narrow optimization experiment unless a future run first produces real walk-forward model-promotion evidence for v22/post-release-cap.

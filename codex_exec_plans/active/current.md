@@ -56,7 +56,11 @@ Test whether retained selective-release eligible days are absorbed only by the v
   - `best_model_for_family()` skips profiles that bind an execution overlay while `auto_select_allowed=false`
   - a regression test proves a promoted high-score v22 actor cannot beat v19 unless the profile overlay approval flag is explicit
   - current live `auto_select_profile("balanced")` remains `balanced_rule_residual_v19`
+- Runtime selection sidecar review now exists:
+  - `runtime/model/card/balanced_rule_residual_v22/runtime_selection_review.md`
+  - decision `blocked`
+  - blockers: v22 model walk-forward gate not evaluated, model promotion sidecar not eligible, profile overlay `auto_select_allowed=false`
 
 ## Next Action
 
-Do not promote full bypass, unguarded shortening, static guarded shortening, or the post-release cap directly into scheduler auto-selection. The runtime dry-run path and auto-select profile gate now exist; the next valid step is explicit model-promotion sidecar governance for v22/post-release-cap runtime use, or a separate narrow model-optimization experiment if auto-selection approval is deferred.
+Do not promote full bypass, unguarded shortening, static guarded shortening, or the post-release cap directly into scheduler auto-selection. The runtime dry-run path, auto-select profile gate, and runtime selection sidecar now all block v22/post-release-cap from scheduled use; next progress should be a separate narrow model-optimization experiment unless new v22/post-release-cap walk-forward model evidence is produced first.

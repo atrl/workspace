@@ -1,6 +1,6 @@
 # MODEL Knowledge
 
-> 最后更新: 2026-04-24
+> 最后更新: 2026-05-21
 > 该方向负责 checkpoint 选择、promotion gate、walk-forward 验证和模型保留策略。
 
 ## 模型索引
@@ -86,6 +86,7 @@
 2. **Checkpoint 选择**: validation 最佳 checkpoint 常在 iter 40 而非 iter 80。
 3. **Promotion Gate 硬约束**: test_2022 MaxDD < 35% 且 avg_pos < 0.35，当前无模型能同时满足。
 4. **Walk-forward 有效**: 2020/2022/2023-2024 三个测试窗口的 walk-forward 验证能暴露过拟合。
+5. **v22/post-release-cap 不能用 review 代替 model promotion**：`runtime/model/card/balanced_rule_residual_v22/runtime_selection_review.json` 已把 fixed-split model sidecar、post-release-cap overlay review、profile flag 和当前 auto-select 上下文合并审查；结论 `blocked`，因为 base v22 `walk_forward_evaluated=false`、`promotion.eligible=false` 且 profile overlay `auto_select_allowed=false`。不要手动 patch promoted summary；下一步要么产生真实 walk-forward model evidence，要么转入新的窄模型实验。
 
 ## 有效方法 ✅
 

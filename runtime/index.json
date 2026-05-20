@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-20T16:49:39.300055+00:00",
+  "generated_at": "2026-05-20T16:59:04.007308+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -179,7 +179,7 @@
       "path": "runtime/execution/knowledge.md",
       "category": "execution",
       "suffix": ".md",
-      "bytes": 28548
+      "bytes": 30296
     },
     {
       "path": "runtime/execution/position_cap_overlay_variants.json",
@@ -1688,6 +1688,18 @@
       "bytes": 88569
     },
     {
+      "path": "runtime/model/card/balanced_rule_residual_v22/runtime_selection_review.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 1243
+    },
+    {
+      "path": "runtime/model/card/balanced_rule_residual_v22/runtime_selection_review.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 975
+    },
+    {
       "path": "runtime/model/card/balanced_rule_residual_v22/soxl_balanced_rule_residual_v22_summary.json",
       "category": "model",
       "suffix": ".json",
@@ -2189,7 +2201,7 @@
       "path": "runtime/model/knowledge.md",
       "category": "model",
       "suffix": ".md",
-      "bytes": 31568
+      "bytes": 32122
     },
     {
       "path": "runtime/model/model_adjustment_roadmap.md",

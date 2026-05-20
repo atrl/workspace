@@ -49,6 +49,7 @@
 17. **post-release cap 已完成 promotion-review packaging，但不能自动进生产**：`runtime/execution/card/selective_release_post_release_cap_v1/promotion_review.json` 四项检查通过（`wf_2022` unchanged、`wf_2023_2024` return `+8.8381pp`、MaxDD `-10.8815pp`、fixed actor no-op）。后续 profile-bound runtime dry-run 已补齐运行时接线，但 `runtime_auto_select_allowed=false` 仍正确，因为 profile flag 与 base v22 model promotion gate 都未批准。
 18. **post-release cap 已完成 profile-bound runtime dry-run，但仍不能 auto-select**：`balanced_rule_residual_v22` 现在绑定 `execution_overlay.name=selective_release_recovery_post_release_cap_v1`，runtime 会自动补 `release_signals_v1`、输出 overlay diagnostics，并在非 dry-run 下单后推进 overlay state。固定 profile dry-run 成功跑到 `2026-05-14` 信号，overlay 字段写出，但 risk gate 仍因 `walk-forward promotion gate not evaluated` 阻断；`promotion_review.json` 已更新为 `runtime_profile_bound=true`、`runtime_auto_select_allowed=false`。
 19. **runtime auto-select 现在强制执行 profile overlay flag**：`best_model_for_family()` 不再只看 model summary promotion；如果 profile 绑定 execution overlay 且 `auto_select_allowed=false`，即使该 actor summary 被标 promoted 且分数更高，也会被跳过。当前 live `auto_select_profile("balanced")` 仍选 `balanced_rule_residual_v19`。这避免将来 v22 sidecar 被补成 promoted 后绕过 post-release-cap 的 runtime approval。
+20. **v22/post-release-cap runtime selection sidecar 明确 blocked**：`runtime/model/card/balanced_rule_residual_v22/runtime_selection_review.json` 现在把模型、overlay、profile 和当前 auto-select 上下文合并审查。通过项是 fixed-split eligible、overlay review candidate、overlay runtime profile bound；阻断项是 `model_walk_forward_evaluated=false`、`model_promotion_eligible=false`、`profile_overlay_auto_select_allowed=false`。结论是 `decision=blocked`，不要改 v22 summary 或打开 profile flag。
 
 ## 待验证方向
 
@@ -64,7 +65,8 @@
 - [x] 对 post-release cap 做 promotion review / runtime governance packaging，不再重复 entry-threshold tuning — packaged as review candidate, runtime auto-select remains blocked
 - [x] 如果继续推进该候选，做 profile-bound runtime overlay / dry-run replay 设计；否则选择下一条窄模型优化实验 — runtime path exists, auto-select still blocked by profile flag and model gate
 - [x] 让 scheduler auto-select 强制执行 profile overlay approval flag — prevents future promoted v22 summary from bypassing `auto_select_allowed=false`
-- [ ] 决定是否为 v22/post-release-cap runtime use 做 explicit model-promotion sidecar governance；否则转入下一条窄模型优化实验
+- [x] 决定是否为 v22/post-release-cap runtime use 做 explicit model-promotion sidecar governance；否则转入下一条窄模型实验 — runtime selection sidecar exists and blocks approval
+- [ ] 转入下一条窄模型优化实验，或先产生真实 v22/post-release-cap walk-forward model-promotion evidence
 - [ ] 动态 decision frequency
 - [ ] 仓位上限与 VIX term structure 联动
 - [ ] budget-usage actor/runtime mismatch 诊断
@@ -368,3 +370,26 @@ Decision:
 
 - Keep v22/post-release-cap as a manual/review candidate, not a scheduler-selected profile.
 - The next decision remains model-side: build a governed sidecar review for v22/post-release-cap runtime use, or defer it and open a new narrow model optimization experiment.
+
+## 2026-05-21: Runtime Selection Sidecar Review
+
+Question: after runtime wiring and auto-select gating, is v22/post-release-cap eligible for scheduled runtime selection?
+
+Answer: no. The model-side sidecar blocks it.
+
+Artifacts:
+
+- `runtime/model/card/balanced_rule_residual_v22/runtime_selection_review.json`
+- `runtime/model/card/balanced_rule_residual_v22/runtime_selection_review.md`
+
+Readout:
+
+- Passing: `model_fixed_split_eligible`, `overlay_review_candidate`, `overlay_runtime_profile_bound`.
+- Blocking: `model_walk_forward_evaluated=false`, `model_promotion_eligible=false`, `profile_overlay_auto_select_allowed=false`.
+- Current auto-selected profile remains `balanced_rule_residual_v19`.
+
+Decision:
+
+- Do not enable v22 scheduled auto-selection.
+- Do not patch a promoted summary sidecar without real walk-forward model evidence.
+- This selective-release execution line is now a blocked governed candidate; next progress should be a separate narrow model experiment unless new v22 walk-forward evidence is produced first.
