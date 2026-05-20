@@ -26,6 +26,7 @@
 19. **scheduler 成功日志现在保留 provider fallback stderr**：`production/soxl_daily_scheduler.py` 在 child step 成功时也会 replay stderr，因此 yfinance/yahoo_api 失败后由 polygon 接管的路径能出现在 LaunchAgent 日志里，不再只看到最终成功 stdout。
 20. **paper full-loop 已能推进模拟盘状态**：`2026-05-21 03:02 CST` 手动运行 default paper broker 的 full scheduler，auto provider 经 yfinance/yahoo_api fallback 到 polygon，数据 fresh，风险门通过，paper BUY filled；broker state 更新到 `2026-05-18`、`3000` shares、`48.56%` position，reconcile 为 `position aligned`，dashboard paper version 增至 `3` 行并结束于 `2026-05-18`。
 21. **scheduler health 现在能发现安装态 plist 漂移**：health 不只看 LaunchAgent label 是否 loaded，也会比较 `~/Library/LaunchAgents/com.soxl.*.plist` 与 repo `production/com.soxl.*.plist` 是否一致。当前读数为 preopen/daily 都 `matches repo`，所以自然 `05:35` proof 的前置配置已对齐。
+22. **post-close proof 状态现在显式可见**：health 新增 `Post-close Run Status`。`05:35 Tue-Sat Asia/Shanghai` 前显示 `pending`；到点后如果没有 `[scheduler] all done` 会显示 `due but no success marker found`；有成功标记则显示 `success marker found`。
 
 ## 2026-05-20 验证记录
 
@@ -542,6 +543,45 @@ Readout:
 
 - The natural post-close proof is still pending, but the external LaunchAgent
   installation now matches the repo schedule and log-path definitions.
+
+## 2026-05-21 Post-close Due Status Guard
+
+Root cause:
+
+- Before the scheduled post-close time, a missing `scheduler_postclose.log` is
+  expected.
+- After `05:35 Tue-Sat Asia/Shanghai`, a missing post-close success marker is a
+  production proof failure.
+- The previous health output exposed the raw log state but did not classify the
+  timing context.
+
+Change:
+
+- `production/check_scheduler_health.sh` now prints a `Post-close Run Status`
+  section.
+- It reports one of:
+  - `postclose status: pending until 05:35 Tue-Sat Asia/Shanghai`
+  - `postclose status: due but no success marker found`
+  - `postclose status: success marker found`
+- `SOXL_SCHEDULER_HEALTH_WEEKDAY` and `SOXL_SCHEDULER_HEALTH_HHMM` make the
+  due/pending branch deterministic in tests.
+
+Verification:
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_scheduler_health.py -q
+# 3 passed
+
+production/check_scheduler_health.sh
+# postclose status: pending until 05:35 Tue-Sat Asia/Shanghai
+```
+
+Readout:
+
+- At `2026-05-21 03:54 CST`, the natural post-close proof is correctly
+  classified as pending rather than missing.
+- After `05:35`, the same script should be enough to distinguish completed,
+  missing, or fallback post-close behavior.
 
 ## 2026-05-21 Paper Full-Loop Recovery
 

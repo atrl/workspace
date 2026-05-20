@@ -9,6 +9,8 @@ HEALTH_PYTHON="${SOXL_SCHEDULER_HEALTH_PYTHON:-${ROOT}/qlib_venv/bin/python}"
 SCHEDULER_LABEL="com.soxl.daily.scheduler"
 PREOPEN_SCHEDULER_LABEL="com.soxl.preopen.scheduler"
 LAUNCHAGENTS_DIR="${SOXL_SCHEDULER_HEALTH_LAUNCHAGENTS_DIR:-${HOME:-}/Library/LaunchAgents}"
+HEALTH_WEEKDAY="${SOXL_SCHEDULER_HEALTH_WEEKDAY:-$(date +%u)}"
+HEALTH_HHMM="${SOXL_SCHEDULER_HEALTH_HHMM:-$(date +%H%M)}"
 
 format_mtime() {
     path="$1"
@@ -33,6 +35,21 @@ format_mtime() {
 
 file_size() {
     du -h "$1" | awk '{print $1}'
+}
+
+number_value() {
+    value=$(printf "%s" "$1" | sed 's/^0*//')
+    if [ -z "$value" ]; then
+        echo 0
+    else
+        echo "$value"
+    fi
+}
+
+postclose_due_today() {
+    weekday_num=$(number_value "$HEALTH_WEEKDAY")
+    hhmm_num=$(number_value "$HEALTH_HHMM")
+    [ "$weekday_num" -ge 2 ] && [ "$weekday_num" -le 6 ] && [ "$hhmm_num" -ge 535 ]
 }
 
 print_scheduler_service() {
@@ -159,6 +176,18 @@ print_paper_health() {
     fi
 }
 
+print_postclose_status() {
+    echo "--- Post-close Run Status ---"
+    postclose_log="${ROOT}/runtime/soxl/paper_trading/scheduler_postclose.log"
+    if [ -f "$postclose_log" ] && grep -q "\[scheduler\] all done" "$postclose_log" 2>/dev/null; then
+        echo "  postclose status: success marker found"
+    elif postclose_due_today; then
+        echo "  postclose status: due but no success marker found"
+    else
+        echo "  postclose status: pending until 05:35 Tue-Sat Asia/Shanghai"
+    fi
+}
+
 echo "=== SOXL Scheduler Health Check ==="
 echo "Time: $(date)"
 echo "Root: ${ROOT}"
@@ -198,6 +227,9 @@ done
 echo ""
 
 print_paper_health
+echo ""
+
+print_postclose_status
 echo ""
 
 # 检查下次执行时间

@@ -2317,3 +2317,60 @@ production/check_scheduler_health.sh
   log-path definitions.
 - The natural post-close proof is still pending because current time during this
   pass was `2026-05-21 03:49 CST`, before the `05:35` window.
+
+## 2026-05-21 Post-close Due Status Guard
+
+Goal: make `production/check_scheduler_health.sh` directly state whether the
+post-close run is still pending, has a success marker, or is due but missing a
+success marker.
+
+### Root Cause
+
+- The health script listed `scheduler_postclose.log: NOT FOUND`, but before
+  `05:35 Tue-Sat Asia/Shanghai` that is expected.
+- After `05:35`, the same missing log becomes a production problem.
+- Operators needed to infer this timing manually from the wall clock.
+
+### Change
+
+- `production/check_scheduler_health.sh`
+  - added an explicit `Post-close Run Status` section.
+  - reports `pending until 05:35 Tue-Sat Asia/Shanghai` before the scheduled
+    post-close window.
+  - reports `due but no success marker found` after the scheduled time if
+    `scheduler_postclose.log` lacks `[scheduler] all done`.
+  - reports `success marker found` when the post-close log contains a scheduler
+    success marker.
+  - exposes `SOXL_SCHEDULER_HEALTH_WEEKDAY` and `SOXL_SCHEDULER_HEALTH_HHMM`
+    for deterministic tests.
+- `tests/test_scheduler_health.py`
+  - covers the due-without-success case.
+
+### Verification
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_scheduler_health.py::test_scheduler_health_reports_postclose_due_without_success_marker -q
+# red first: status line did not exist
+# green: 1 passed
+
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_scheduler_health.py -q
+# 3 passed
+
+production/check_scheduler_health.sh
+# LaunchAgent com.soxl.preopen.scheduler: loaded
+# LaunchAgent com.soxl.preopen.scheduler plist: matches repo
+# LaunchAgent com.soxl.daily.scheduler: loaded
+# LaunchAgent com.soxl.daily.scheduler plist: matches repo
+# scheduler_postclose.log: NOT FOUND
+# data: ok last_date=2026-05-19 expected=2026-05-19
+# model: ok balanced_rule_residual_v19 (soxl_balanced_rule_residual_v19_actor.pt)
+# broker: ok paper broker ready
+# postclose status: pending until 05:35 Tue-Sat Asia/Shanghai
+```
+
+### Decision
+
+- Before `05:35`, a missing `scheduler_postclose.log` is now classified as
+  pending rather than ambiguous.
+- After `05:35`, the same health script will classify a missing success marker
+  as due/missing, which is the next natural proof checkpoint.
