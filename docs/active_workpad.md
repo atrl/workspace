@@ -2086,3 +2086,80 @@ PYTHONPATH=. qlib_venv/bin/python scripts/evaluate_soxx_relative_walkforward.py
 - Block `soxx_relative_weakness_cap_v1` for runtime binding and model-promotion support.
 - The fixed full-window improvement does not survive saved walk-forward actors.
 - Do not tune this cap threshold as the next model optimization loop; the failure is execution absorption plus no recovery improvement, not insufficient SOXX feature availability.
+
+## 2026-05-21 Paper Same-Day Idempotency Guard
+
+Goal: prevent scheduled or manual reruns from submitting another paper order for
+the same signal date after a non-dry-run paper summary has already recorded an
+executed order.
+
+### Baseline
+
+- Current paper summary:
+  `runtime/soxl/paper_trading/2026-05-18/summary.json`
+  - `date=2026-05-18`
+  - `broker=paper`
+  - `dry_run=false`
+  - `executed=true`
+- Current broker state:
+  - `date=2026-05-18`
+  - `shares=3000`
+  - `position=0.4856047894`
+  - `account_value=937490.7536`
+- Current cumulative paper dashboard CSV:
+  - `3` rows
+  - latest row `2026-05-18`, action `BUY`, position `0.485605`
+
+### Change
+
+- `production/soxl_paper_trading.py`
+  - checks the existing per-date paper summary before drawdown checks, order
+    placement, post-execution audit, dashboard CSV append, or broker-state save.
+  - skips duplicate order placement when the existing summary matches the same
+    signal date, broker, `dry_run=false`, and `executed=true`.
+- `tests/test_paper_trading.py`
+  - proves a same-day rerun exits before `place_target_position`,
+    `_append_execution_daily_csv`, or `_save_paper_broker_state`.
+
+### Commands
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_paper_trading.py::test_main_skips_duplicate_non_dry_run_for_existing_executed_summary -q
+PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py --no-notify --skip-data-update
+```
+
+### Evidence
+
+- TDD red: the focused test failed before the guard because the duplicate rerun
+  reached `place_target_position`.
+- TDD green: the focused test passed after the guard.
+- Real current-state rerun:
+  - data remained fresh: `last_date=2026-05-19 expected=2026-05-19 stale_days=0`
+  - model auto-select remained `balanced_rule_residual_v19`
+  - signal date remained `2026-05-18`
+  - risk gate remained approved
+  - paper trading printed:
+    `already executed for 2026-05-18 broker=paper; skipping duplicate order`
+  - scheduler still rebuilt dashboard and exited successfully.
+- Post-rerun state:
+  - broker state still `date=2026-05-18`, `shares=3000`,
+    `position=0.4856047894`.
+  - cumulative paper CSV still has exactly `3` rows.
+  - dashboard paper summary still ends at `2026-05-18` with `3` rows.
+- Verification gates:
+  - `tests/test_paper_trading.py tests/test_daily_scheduler.py tests/test_vercel_dashboard.py tests/test_dashboard.py`: `29 passed`.
+  - `scripts/check_harness.py`: `passed=112 failures=0`.
+  - `scripts/build_runtime_index.py --check`: `runtime index OK`.
+  - `git diff --check`: clean.
+  - `production/check_scheduler_health.sh`: LaunchAgents loaded, data ok
+    `last_date=2026-05-19 expected=2026-05-19`, model ok
+    `balanced_rule_residual_v19`, broker ok.
+
+### Decision
+
+- Keep this guard in the simulated paper path before relying on the natural
+  post-close LaunchAgent. It prevents repeated manual or scheduled same-day
+  passes from inching the paper account toward the target multiple times.
+- The remaining production proof is still the first natural
+  `05:35 Tue-Sat Asia/Shanghai` LaunchAgent run after the next completed US
+  trading session.

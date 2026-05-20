@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import sys
 from datetime import datetime
 from pathlib import Path
@@ -19,7 +20,15 @@ from production.soxl_paper_trading import (
     _post_execution_audit,
     _save_paper_broker_state,
 )
-from src.soxl_quant.runtime import PaperBroker, SignalIntent, risk_gate
+from src.soxl_quant.runtime import (
+    AccountSnapshot,
+    PaperBroker,
+    ReconciliationRecord,
+    RiskGateDecision,
+    RuntimeExecutionOverlayState,
+    SignalIntent,
+    risk_gate,
+)
 
 
 def test_append_execution_daily_csv_uses_post_order_paper_snapshot(tmp_path: Path):
@@ -250,3 +259,84 @@ def test_main_blocks_non_dry_run_when_data_remains_stale(
     assert initialized is False
     assert "Data update completed but data is stale" in captured.err
     assert "last_date=2026-05-15 expected=2026-05-20 stale_days=5" in captured.err
+
+
+def test_main_skips_duplicate_non_dry_run_for_existing_executed_summary(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+):
+    csv_path = tmp_path / "soxl_features.csv"
+    csv_path.write_text(
+        "date,soxl_close\n"
+        "2026-05-19,151.75\n",
+        encoding="utf-8",
+    )
+    runtime_dir = tmp_path / "runtime" / "soxl"
+    run_dir = runtime_dir / "paper_trading" / "2026-05-18"
+    run_dir.mkdir(parents=True)
+    (run_dir / "summary.json").write_text(
+        json.dumps(
+            {
+                "date": "2026-05-18",
+                "broker": "paper",
+                "dry_run": False,
+                "executed": True,
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    signal = SignalIntent(
+        date="2026-05-18",
+        symbol="SOXL",
+        profile="balanced_rule_residual_v19",
+        model_path="runtime/model/card/balanced_rule_residual_v19/soxl_balanced_rule_residual_v19_actor.pt",
+        seed=42,
+        action=0,
+        target_position=0.5,
+        current_position=0.4856,
+        price=151.75,
+        regime_risk=0.5,
+        note="test duplicate",
+    )
+    decision = RiskGateDecision(True, 0.5, (), ())
+    account = AccountSnapshot("2026-05-18", 482_240.75, 3000, 455_250.0, 937_490.75, 0.4856)
+    reconcile = ReconciliationRecord("2026-05-18", 0.5, 0.4856, -0.0144, "none", "position aligned")
+
+    class DuplicateGuardBroker(PaperBroker):
+        def place_target_position(self, *args, **kwargs):  # noqa: ANN002, ANN003
+            raise AssertionError("duplicate same-day execution should not place another order")
+
+    broker = DuplicateGuardBroker(initial_cash=100_000.0)
+
+    monkeypatch.setattr(soxl_paper_trading, "RUNTIME_DIR", runtime_dir)
+    monkeypatch.setattr(soxl_paper_trading, "PAPER_TRADING_CSV", runtime_dir / "paper_trading" / "daily.csv")
+    monkeypatch.setattr(soxl_paper_trading, "PAPER_BROKER_STATE", runtime_dir / "paper_trading" / "state.json")
+    monkeypatch.setattr(soxl_paper_trading, "init_qlib", lambda _qlib_path: None)
+    monkeypatch.setattr(soxl_paper_trading, "_init_broker", lambda args: broker)
+    monkeypatch.setattr(soxl_paper_trading, "auto_select_profile", lambda _family: ("balanced_rule_residual_v19", Path("model.pt")))
+    monkeypatch.setattr(
+        soxl_paper_trading,
+        "plan_manual_session",
+        lambda **_kwargs: {
+            "signal": signal,
+            "risk_gate": decision,
+            "account": account,
+            "reconcile": reconcile,
+            "execution_overlay_state": RuntimeExecutionOverlayState(),
+        },
+    )
+    monkeypatch.setattr(soxl_paper_trading, "_last_trading_day", lambda: "2026-05-19")
+    monkeypatch.setattr(soxl_paper_trading, "_append_execution_daily_csv", lambda *args, **kwargs: (_ for _ in ()).throw(AssertionError("duplicate should not append")))
+    monkeypatch.setattr(soxl_paper_trading, "_save_paper_broker_state", lambda *args, **kwargs: (_ for _ in ()).throw(AssertionError("duplicate should not save broker state")))
+
+    from src.soxl_quant import settings
+
+    monkeypatch.setattr(settings, "CSV_PATH", csv_path)
+    monkeypatch.setattr(sys, "argv", ["soxl_paper_trading.py", "--no-notify", "--skip-data-update"])
+
+    soxl_paper_trading.main()
+
+    captured = capsys.readouterr()
+    assert "already executed for 2026-05-18" in captured.out

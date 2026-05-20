@@ -556,5 +556,54 @@ Decision:
 
 ## Open Production Tasks
 
-- Run the first real `05:35 Tue-Sat Asia/Shanghai` post-close scheduler pass when the data provider is available; current healthcheck data status remains stale at `last_date=2026-05-15` until an online refresh extends the panel. If the provider fails, the fallback is now cached dry-run only.
+- Run the first real `05:35 Tue-Sat Asia/Shanghai` post-close scheduler pass when the data provider is available; current healthcheck data status is fresh at `last_date=2026-05-19 expected=2026-05-19`, but the natural LaunchAgent log proof is still pending.
 - After the production loop is stable in live schedule, resume SOXX-aware model optimization only from the non-duplicate frontier; the direct SOXX relative cap path is blocked by walk-forward absorption.
+
+## 2026-05-21 Paper Same-Day Idempotency Guard
+
+Context:
+
+- The manual full paper loop submitted and filled a paper BUY for signal date
+  `2026-05-18`.
+- Before the next signal date, a rerun of the scheduler would plan the same
+  `2026-05-18` signal again.
+- Because the paper broker uses a step clip, repeated non-dry-run calls for the
+  same signal date could otherwise inch the simulated account toward the same
+  target multiple times.
+
+Change:
+
+- `production/soxl_paper_trading.py` now checks
+  `runtime/soxl/paper_trading/<signal_date>/summary.json` before order
+  placement.
+- If the summary has the same signal date, same broker, `dry_run=false`, and
+  `executed=true`, the paper path prints a duplicate-execution message and
+  returns before placing another order, appending the dashboard CSV, or saving
+  broker state.
+- `tests/test_paper_trading.py` covers the duplicate-rerun path.
+
+Verification:
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_paper_trading.py::test_main_skips_duplicate_non_dry_run_for_existing_executed_summary -q
+# 1 passed after red
+
+PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py --no-notify --skip-data-update
+# [paper] already executed for 2026-05-18 broker=paper; skipping duplicate order
+# [scheduler] dashboard build
+# [scheduler] all done
+```
+
+Post-rerun state:
+
+- `paper_broker_state.json`: still `date=2026-05-18`, `shares=3000`,
+  `position=0.4856047894`.
+- `paper_trading_soxl_daily.csv`: still `3` rows, ending `2026-05-18`.
+- `dashboard_data/index.json`: paper summary still
+  `start=2026-03-31`, `end=2026-05-18`, `rows=3`.
+- Final gates:
+  - focused production/dashboard tests: `29 passed`
+  - `scripts/check_harness.py`: `passed=112 failures=0`
+  - `scripts/build_runtime_index.py --check`: `runtime index OK`
+  - `git diff --check`: clean
+  - healthcheck: LaunchAgents loaded, data/model/broker ok

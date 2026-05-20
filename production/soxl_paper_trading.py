@@ -364,6 +364,30 @@ def _append_execution_daily_csv(
     return account
 
 
+def _existing_executed_summary(
+    signal_date: str,
+    broker_name: str,
+    runtime_dir: Path | None = None,
+) -> Dict[str, object] | None:
+    """Return prior executed non-dry-run summary for idempotent same-day reruns."""
+    base_dir = runtime_dir or RUNTIME_DIR
+    summary_path = base_dir / "paper_trading" / signal_date / "summary.json"
+    if not summary_path.exists():
+        return None
+    try:
+        payload = json.loads(summary_path.read_text(encoding="utf-8"))
+    except Exception:
+        return None
+    if (
+        payload.get("date") == signal_date
+        and payload.get("broker") == broker_name
+        and payload.get("dry_run") is False
+        and payload.get("executed") is True
+    ):
+        return payload
+    return None
+
+
 def _post_execution_audit(signal, decision, broker: BrokerAdapter):
     account = broker.get_account_snapshot(signal.date, signal.price)
     expected_position = decision.capped_target_position if decision.approved else signal.current_position
@@ -501,6 +525,15 @@ def main() -> None:
 
         print(f"[paper] signal action={signal.action} target={signal.target_position:.2%} price=${signal.price:.2f}")
         print(f"[paper] risk_gate approved={decision.approved}")
+
+        if not args.dry_run:
+            existing_summary = _existing_executed_summary(signal.date, args.broker)
+            if existing_summary is not None:
+                print(
+                    f"[paper] already executed for {signal.date} "
+                    f"broker={args.broker}; skipping duplicate order"
+                )
+                return
 
         # 6. Daily drawdown circuit breaker
         dd_ok, dd_pct = _check_daily_drawdown(account.account_value)
