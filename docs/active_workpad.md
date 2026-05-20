@@ -3351,3 +3351,49 @@ Decision:
 - If the next model run is approved, the harness should retain stage/top-N
   actors so future checkpoint reviews can compare actual actor paths, not just
   summary rows.
+
+## 2026-05-21 Scheduler Runtime-Proof Visibility
+
+Goal:
+
+- Make the remaining production proof explicit in the health check: current
+  model selection is v22, but latest non-dry paper execution is still v19.
+
+Baseline and evidence:
+
+- `production/check_scheduler_health.sh` before the patch printed both facts but
+  did not classify their mismatch.
+- Current live output before/after the patch:
+  - model: `balanced_rule_residual_v22`
+  - latest executed artifact:
+    `runtime/soxl/paper_trading/2026-05-20/summary.json`
+  - latest executed profile: `balanced_rule_residual_v19`
+
+TDD evidence:
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_scheduler_health.py::test_scheduler_health_reports_pending_runtime_profile_proof -q
+# red before implementation, green after implementation
+
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_scheduler_health.py -q
+# 8 passed
+
+production/check_scheduler_health.sh
+# runtime proof: pending latest_executed_profile=balanced_rule_residual_v19 selected_model=balanced_rule_residual_v22
+```
+
+Change:
+
+- `production/check_scheduler_health.sh` now compares the current
+  healthcheck-selected profile against the latest non-dry executed paper
+  summary profile.
+- It prints `runtime proof: pending ...` on mismatch and `runtime proof: ok ...`
+  once the latest executed paper artifact matches the selected model.
+- Evidence card:
+  `runtime/production/card/v22_runtime_proof_pending_v1/notes.md`
+
+Decision:
+
+- This does not manufacture the missing proof; it makes the proof gap visible.
+- The production goal remains active until the next fresh post-close non-dry
+  paper run naturally writes a v22 executed artifact.

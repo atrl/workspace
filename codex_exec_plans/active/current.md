@@ -103,3 +103,8 @@ and iter 80 selection rows, and only the final actor is retained. No iter
 20/40/60 actors are available for replay, so checkpoint re-selection cannot
 optimize the current model without a retrain or a future top-N/stage retention
 harness change.
+
+2026-05-21 production visibility update: `production/check_scheduler_health.sh`
+now prints `runtime proof: pending ...` when the latest non-dry executed paper
+artifact profile differs from the currently selected model profile. Current live
+state is still pending: latest executed v19, selected model v22.

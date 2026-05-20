@@ -13,6 +13,7 @@ HEALTH_WEEKDAY="${SOXL_SCHEDULER_HEALTH_WEEKDAY:-$(date +%u)}"
 HEALTH_HHMM="${SOXL_SCHEDULER_HEALTH_HHMM:-$(date +%H%M)}"
 HEALTH_DATE="${SOXL_SCHEDULER_HEALTH_DATE:-$(date +%Y-%m-%d)}"
 HEALTH_POSTCLOSE_CUTOFF_EPOCH="${SOXL_SCHEDULER_HEALTH_POSTCLOSE_CUTOFF_EPOCH:-}"
+SELECTED_MODEL_PROFILE=""
 
 file_epoch() {
     path="$1"
@@ -217,6 +218,7 @@ print_paper_health() {
     stale_days=$(json_field "$health_output" "data.stale_days")
     model_ok=$(json_field "$health_output" "model.ok")
     model_name=$(json_field "$health_output" "model.name")
+    SELECTED_MODEL_PROFILE=$(printf "%s" "$model_name" | awk '{print $1}')
     broker_ok=$(json_field "$health_output" "broker.ok")
     broker_msg=$(json_field "$health_output" "broker.msg")
 
@@ -285,6 +287,13 @@ print_latest_signal_artifact() {
     echo "  latest signal: date=${date_value} profile=${profile} dry_run=${dry_run} executed=${executed}"
     echo "  target=${target} risk_gate=${risk_status} reconcile=${reconcile}"
     echo "  artifact=${rel_path}"
+    if [ -n "${SELECTED_MODEL_PROFILE}" ] && [ -n "$profile" ] && [ "$dry_run" = "false" ] && [ "$executed" = "true" ]; then
+        if [ "$profile" = "$SELECTED_MODEL_PROFILE" ]; then
+            echo "  runtime proof: ok latest_executed_profile=${profile} selected_model=${SELECTED_MODEL_PROFILE}"
+        else
+            echo "  runtime proof: pending latest_executed_profile=${profile} selected_model=${SELECTED_MODEL_PROFILE}"
+        fi
+    fi
 }
 
 print_postclose_status() {

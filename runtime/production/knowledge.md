@@ -958,3 +958,36 @@ Decision:
 - The production dashboard default should track the simulated paper loop.
 - Offline experiment snapshots stay selectable but must not be the first-load
   default while `paper_trading` is present.
+
+## 2026-05-21 Scheduler Runtime-Proof Visibility
+
+The health check now explicitly reports whether the latest non-dry executed
+paper artifact proves the current selected runtime model.
+
+Reason:
+
+- current model health selects `balanced_rule_residual_v22`
+- latest executed paper artifact remains
+  `runtime/soxl/paper_trading/2026-05-20/summary.json`
+- that artifact was created before v22 auto-select approval and still has
+  `profile=balanced_rule_residual_v19`
+
+Change:
+
+- `production/check_scheduler_health.sh` compares the latest executed summary
+  profile with the healthcheck-selected model profile.
+- On the current state it prints:
+  `runtime proof: pending latest_executed_profile=balanced_rule_residual_v19 selected_model=balanced_rule_residual_v22`
+- Once the next fresh post-close non-dry paper run writes a v22 summary, the
+  same line should switch to `runtime proof: ok ...`.
+
+Evidence:
+
+- `tests/test_scheduler_health.py::test_scheduler_health_reports_pending_runtime_profile_proof`
+- `runtime/production/card/v22_runtime_proof_pending_v1/notes.md`
+
+Decision:
+
+- Scheduler, data, dashboard, and paper broker health are still ok.
+- The remaining production proof is specifically the next fresh post-close
+  non-dry paper execution under v22.
