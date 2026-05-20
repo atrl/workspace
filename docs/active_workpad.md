@@ -10,12 +10,10 @@ direction: execution
 
 ## Current Goal
 
-1. Production scheduler, paper-trading state, dashboard rebuild, and Vercel static packaging are fixed and pushed in `c7cf210`.
-2. Resume model optimization from the SOXX-aware / selective-release frontier rather than changing scheduler/runtime behavior further.
-3. Keep `selective_release_recovery_post_release_cap_v1` as the active promotion-review candidate after it improved `wf_2023_2024` return and MaxDD while leaving `wf_2022` unchanged.
-4. Do not start another release-pack PPO retrain or entry-threshold tweak; current work is promotion governance / runtime packaging for the post-release cap.
-5. After the profile-bound dry-run path, the remaining blocker is still auto-selection governance: profile flag plus model-promotion sidecar.
-6. Runtime auto-selection must enforce both gates in code, not only in review prose.
+1. Production scheduler, paper-trading state, dashboard rebuild, and Vercel static packaging were fixed and pushed in `c7cf210`.
+2. Current production continuation: fix the local-time schedule so data refresh and paper execution run after the US close from an `Asia/Shanghai` environment.
+3. Keep model optimization paused until the production loop can repeat data refresh -> inference -> paper state -> dashboard under the corrected schedule.
+4. Resume model optimization from the SOXX-aware / selective-release frontier only after production timing is stable.
 
 ## 2026-05-20 Loop Evidence
 
@@ -97,7 +95,72 @@ Final verification:
 ## Next Action
 
 1. Production-loop evidence is committed and pushed in `c7cf210`.
-2. Current active loop is the resumed selective-release execution diagnostic below, not additional scheduler/runtime work.
+2. Current active loop is the production schedule timezone guard below.
+
+## 2026-05-21 Production Schedule Timezone Guard
+
+### Root Cause
+
+- The active environment is `Asia/Shanghai`, but the SOXL cron and macOS
+  LaunchAgent schedule still used local `09:30` and `16:35` rows while describing
+  them as US pre-open / post-close.
+- Local `16:35` China time is before the US close, so the data refresh could run
+  in a structurally stale provider window.
+- The existing `21:00` local row was also a non-dry paper run, which could
+  duplicate simulated orders on the same `as_of` date.
+
+### Changes
+
+- `production/crontab.txt`
+  - `21:00 Mon-Fri Asia/Shanghai`: cached-data `--dry-run` pre-open inference
+    plus dashboard.
+  - `05:35 Tue-Sat Asia/Shanghai`: full post-close data refresh, paper trading,
+    and dashboard.
+  - weekly walk-forward moved to `07:00 Sat Asia/Shanghai`, after post-close
+    refresh.
+- `production/com.soxl.daily.scheduler.plist`
+  - full post-close LaunchAgent moved to `05:35 Tue-Sat`.
+- `production/check_scheduler_health.sh` and `production/FUTU_SEMI_AUTO.md`
+  - schedule text and log names now match the corrected local-time plan.
+- `tests/test_production_schedule.py`
+  - parses cron and LaunchAgent config and blocks stale local `09:30` / `16:35`
+    SOXL scheduler rows.
+
+### Verification
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_production_schedule.py -q
+# 2 passed
+
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_daily_scheduler.py tests/test_paper_trading.py tests/test_vercel_dashboard.py tests/test_production_schedule.py tests/test_dashboard.py -q
+# 20 passed
+
+PYTHONPATH=. qlib_venv/bin/python scripts/check_harness.py
+# passed=111 failures=0
+
+PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py --dry-run --no-notify --skip-data-update
+# completed; selected balanced_rule_residual_v19; rebuilt dashboard_data with 25 versions
+
+curl -I http://127.0.0.1:8767/dashboard.html
+curl -I http://127.0.0.1:8767/dashboard_data/index.json
+# both returned 200 OK
+```
+
+Visual evidence:
+
+- `runtime/production/card/scheduler_timezone_v1/dashboard_visual_2026-05-21.png`
+  was captured through Playwright using local Chrome at `1440 x 1000`.
+- Pixel check: `94.84%` non-white pixels, so the screenshot is not an empty
+  render.
+- Computer Use remained blocked by macOS Accessibility / Screen Recording
+  permission prompts, so the repo evidence uses Playwright/Chrome instead.
+
+### Next Action
+
+1. Commit and push the schedule guard.
+2. On the next live post-close window, run or inspect the `05:35 Tue-Sat`
+   scheduler output and confirm whether online data extends beyond
+   `2026-05-15`.
 
 ## 2026-05-20 Selective Release Order-Generation Diagnostic
 

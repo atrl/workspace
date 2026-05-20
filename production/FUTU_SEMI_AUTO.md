@@ -157,8 +157,12 @@ Pipeline order:
 ### Manual cron (alternative)
 
 ```bash
-# Every trading day at 16:35 ET (after US market close)
-35 16 * * 1-5 cd /path/to/workspace && PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py >> runtime/soxl/paper_trading/scheduler.log 2>&1
+# Asia/Shanghai local time:
+# Mon-Fri 21:00: US pre-open cached-data dry-run + dashboard
+0 21 * * 1-5 cd /path/to/workspace && PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py --dry-run --skip-data-update >> runtime/soxl/paper_trading/scheduler_preopen.log 2>&1
+
+# Tue-Sat 05:35: US post-close data refresh + paper trading + dashboard
+35 5 * * 2-6 cd /path/to/workspace && PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py >> runtime/soxl/paper_trading/scheduler_postclose.log 2>&1
 ```
 
 ### Notification Setup (Bark)

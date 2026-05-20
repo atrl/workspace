@@ -15,6 +15,7 @@
 8. **daily drawdown circuit-breaker 不再破坏 frozen decision contract**：触发时用 blocked copy 替换 risk-gate decision，不再原地修改 frozen dataclass。
 9. **Vercel 静态发布路径已确定**：`dashboard.html` 与 `dashboard_data/` 作为静态 export 入库，`vercel.json` 将 `/` rewrite 到 `/dashboard.html`，并对 dashboard HTML/data 设置 `Cache-Control: public, max-age=0, must-revalidate`。
 10. **auto-select 现在同时看 model gate 和 profile overlay gate**：`best_model_for_family()` 会跳过绑定 execution overlay 但 `auto_select_allowed=false` 的 profile。这样即使 `balanced_rule_residual_v22` 的 model sidecar 将来被标 promoted，scheduler 也不会绕过 post-release-cap 的 runtime approval。
+11. **定时表已按 Asia/Shanghai 本地时区修正**：pre-open 改成 `21:00 Mon-Fri` cached-data `--dry-run`，post-close 完整数据刷新 + 模拟盘 + dashboard 改成 `05:35 Tue-Sat`，避免本地 `09:30/16:35` 误跑在美股收盘前。
 
 ## 2026-05-20 验证记录
 
@@ -71,7 +72,53 @@ Readout:
 - Current live auto-select remains `balanced_rule_residual_v19`.
 - Cached-data scheduler dry-run still selected `balanced_rule_residual_v19`, approved risk gate, and skipped order placement under `--dry-run`.
 
+## 2026-05-21 Scheduler Timezone Guard
+
+Production schedule review found that `production/crontab.txt` and the macOS
+LaunchAgent were still using local `09:30` / `16:35` rows while this workspace is
+operated in `Asia/Shanghai`. That could run the "post-close" data refresh before
+the US close, making provider empty/stale-data failures much more likely.
+
+Changes:
+
+- `production/crontab.txt`: SOXL rows now use `21:00 Mon-Fri Asia/Shanghai` for
+  cached-data pre-open `--dry-run` inference/dashboard, and `05:35 Tue-Sat
+  Asia/Shanghai` for the full post-close data + paper trading + dashboard loop.
+- `production/com.soxl.daily.scheduler.plist`: macOS LaunchAgent moved to the
+  same `05:35 Tue-Sat` post-close full-pipeline window.
+- `production/check_scheduler_health.sh` and `production/FUTU_SEMI_AUTO.md` now
+  match the new schedule.
+- `tests/test_production_schedule.py` guards against reverting to stale local
+  `09:30` or `16:35` SOXL scheduler rows.
+
+Verification:
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_production_schedule.py -q
+# 2 passed
+
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_daily_scheduler.py tests/test_paper_trading.py tests/test_vercel_dashboard.py tests/test_production_schedule.py tests/test_dashboard.py -q
+# 20 passed
+
+PYTHONPATH=. qlib_venv/bin/python scripts/check_harness.py
+# passed=111 failures=0
+
+PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py --dry-run --no-notify --skip-data-update
+# completed cached-data dry-run, selected balanced_rule_residual_v19, rebuilt dashboard_data with 25 versions
+```
+
+Dashboard / Vercel visual evidence:
+
+- Local HTTP returned `200 OK` for `dashboard.html` and
+  `dashboard_data/index.json`.
+- Playwright with local Chrome captured
+  `runtime/production/card/scheduler_timezone_v1/dashboard_visual_2026-05-21.png`
+  at `1440 x 1000`; pixel check showed `94.84%` non-white pixels.
+- Computer Use screenshot remains blocked by pending macOS Accessibility /
+  Screen Recording permissions, but the browser-rendered Chrome screenshot is
+  now saved as repo evidence.
+
 ## Open Production Tasks
 
-- Visual browser screenshot verification is still pending because macOS Computer Use permissions were not granted during this pass; file/HTTP checks passed.
-- After committing the production loop, resume SOXX-aware model optimization from the existing frontier.
+- Run the first real `05:35 Tue-Sat Asia/Shanghai` post-close scheduler pass when the data provider is available; current healthcheck data status remains stale at `last_date=2026-05-15` until an online refresh extends the panel.
+- After the production loop is stable in live schedule, resume SOXX-aware model optimization only from the non-duplicate frontier; the direct SOXX relative cap path is blocked by walk-forward absorption.

@@ -12,19 +12,16 @@
 0 2 * * 6 /usr/bin/python3 /home/rziiiii/dev/data/main.py --validate
 
 # ============================================
-# SOXL Daily Scheduler (3次/工作日)
+# SOXL Daily Scheduler (Asia/Shanghai local time)
 # ============================================
-# 09:30 盘前 — 更新数据 + 生成交易信号
-30 9 * * 1-5 cd /home/rziiiii/dev/workspace && qlib_venv/bin/python production/soxl_daily_scheduler.py --broker paper --no-notify --skip-dashboard >> runtime/soxl/paper_trading/scheduler_am.log 2>&1 || true
+# 21:00 中国时间 周一-五 — 美股盘前 cached-data signal + dashboard, no paper order
+0 21 * * 1-5 cd /home/rziiiii/dev/workspace && qlib_venv/bin/python production/soxl_daily_scheduler.py --broker paper --dry-run --no-notify --skip-data-update >> runtime/soxl/paper_trading/scheduler_preopen.log 2>&1 || true
 
-# 16:35 收盘后 — 完整流程（数据 + 交易 + dashboard）
-35 16 * * 1-5 cd /home/rziiiii/dev/workspace && qlib_venv/bin/python production/soxl_daily_scheduler.py --broker paper --no-notify >> runtime/soxl/paper_trading/scheduler_pm.log 2>&1 || true
-
-# 21:00 晚间 — 仅交易 + dashboard（跳过数据更新）
-0 21 * * 1-5 cd /home/rziiiii/dev/workspace && qlib_venv/bin/python production/soxl_daily_scheduler.py --broker paper --no-notify --skip-data-update >> runtime/soxl/paper_trading/scheduler_eve.log 2>&1 || true
+# 05:35 中国时间 周二-六 — 美股收盘后完整流程（数据 + 模拟盘 + dashboard）
+35 5 * * 2-6 cd /home/rziiiii/dev/workspace && qlib_venv/bin/python production/soxl_daily_scheduler.py --broker paper --no-notify >> runtime/soxl/paper_trading/scheduler_postclose.log 2>&1 || true
 
 # ============================================
 # SOXL 每周 Walk-Forward 验证
 # ============================================
-# 每周六凌晨 3:00 运行 walk-forward
-0 3 * * 6 cd /home/rziiiii/dev/workspace && qlib_venv/bin/python soxl_qlib_strategy_v2.py --profiles balanced_trade_lock --walk-forward --seed 123 >> runtime/soxl/wf_weekly.log 2>&1 || true
+# 每周六 07:00 中国时间运行 walk-forward，排在收盘后数据刷新之后
+0 7 * * 6 cd /home/rziiiii/dev/workspace && qlib_venv/bin/python soxl_qlib_strategy_v2.py --profiles balanced_trade_lock --walk-forward --seed 123 >> runtime/soxl/wf_weekly.log 2>&1 || true
