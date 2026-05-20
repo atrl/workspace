@@ -43,6 +43,7 @@
 11. **逐日 trace 已定位主吸收层**：`selective_release_walkforward_execution_trace.csv` 显示 threshold-bypass actionable eligible days 的 primary blocker 是 `trade_lock=15/16`，target-lift 是 `trade_lock=12/16`、`min_rebalance=3/16`、`ordered=1/16`。主因不是 release signal、不只是 min_rebalance，也不是 PPO 需要直接 retrain；下一条有效规则应只测试 release-gated trade-lock bypass / shortening。
 12. **full trade-lock bypass 不是可推广解**：`selective_release_recovery_trade_lock_bypass_v1` 在 `wf_2023_2024` 把 `changed_days` 拉到 `183`、trades 从 `22` 到 `32`，但 return 从 `-20.21%` 降到 `-21.43%`、MaxDD 从 `38.54%` 升到 `40.28%`；`wf_2022` 保持 unchanged。结论是 trade lock 的确挡住订单，但完全 bypass 只制造 churn。
 13. **trade-lock shortening 有诊断价值但仍未过 promotion gate**：`selective_release_recovery_trade_lock_short_v1` 用 `trade_lock_cap=1` 后在 `wf_2023_2024` 把 return 从 `-20.21%` 提到 `-17.87%`、trades 只从 `22` 到 `24`，但 MaxDD 从 `38.54%` 升到 `40.65%`；`wf_2022` 仍 unchanged。下一步必须给 release-gated shortening 加 drawdown / exposure-gap guard，而不是直接推广。
+14. **静态 drawdown/exposure-gap entry guard 仍不够**：`selective_release_recovery_trade_lock_guarded_short_v1` 把 target boost、rebalance bypass 和 `trade_lock_cap=1` 都限制在 `current_drawdown<=0.03` 且 exposure gap `>=0.10` 时，但 `wf_2023_2024` 只从 `-20.21%` 到 `-19.63%`，MaxDD 却从 `38.54%` 升到 `42.91%`。不要继续调这个静态阈值；下一步先做 drawdown-path attribution 或引入明确 post-release de-risk / target cap 机制。
 
 ## 待验证方向
 
@@ -52,7 +53,8 @@
 - [x] 记录 eligible day 逐日 `current_pos`、overlay 前后 target、`min_rebalance`、trade lock、buy cooldown、cap state、lot rounding — blocker narrowed to trade lock
 - [x] 测试 release-gated full trade-lock bypass — order generation works but recovery metrics worsen
 - [x] 测试比 full bypass 更窄的 trade-lock shortening / buy-cooldown-aware release rule，并继续要求 `wf_2022` unchanged — cap variant improves return but fails MaxDD gate
-- [ ] 测试 release-gated shortening 的 drawdown / exposure-gap guard
+- [x] 测试 release-gated shortening 的 drawdown / exposure-gap guard — static entry guard still fails MaxDD
+- [ ] 对 guarded shortening 的唯一 allowed release path 做 drawdown attribution，再决定是否测试 post-release de-risk / target cap
 - [ ] 动态 decision frequency
 - [ ] 仓位上限与 VIX term structure 联动
 - [ ] budget-usage actor/runtime mismatch 诊断
@@ -191,3 +193,31 @@ Decision:
 
 - Do not promote the short variant as a runtime overlay.
 - Next valid rule should keep `trade_lock_cap=1` but require a drawdown / exposure-gap guard so release orders are allowed only when they reduce a proven under-exposure problem without raising recovery-window MaxDD.
+
+## 2026-05-20: Guarded Release Trade-Lock Shortening
+
+Question: can a static drawdown / exposure-gap guard make release-gated trade-lock shortening promotable?
+
+Answer: no. It reduces the number of explicit execution-ready eligible rows, but still widens recovery-window drawdown.
+
+| Variant | wf_2022 | wf_2023_2024 | Decision |
+|---|---:|---:|---|
+| `selective_release_recovery_trade_lock_guarded_short_v1` | unchanged, `0` eligible days | `18` eligible days, `1 / 16` traced rows execution-ready, changed_days `185`, trades `21` vs `22`, return `-19.63%` vs `-20.21%`, Sharpe `-0.233` vs `-0.277`, MaxDD `42.91%` vs `38.54%`, avg_pos `0.4833` vs `0.4764` | drop |
+
+Mechanism:
+
+- Uses the retained `selective_release_recovery_v1` gate.
+- Adds `max_current_drawdown=0.03` and `min_release_exposure_gap=0.10`.
+- The guard blocks all three release-side effects when it fails: target boost, `rebalance_threshold_override=0.0`, and `trade_lock_cap=1`.
+- Decision trace now records `overlay_execution_ready` and `overlay_exposure_gap`.
+
+Trace:
+
+- The guarded variant has only `1 / 16` execution-ready eligible rows in `wf_2023_2024`.
+- Despite the sparse guard, path dependency from the allowed early release still increases MaxDD by `+4.37pp`.
+
+Decision:
+
+- Do not promote the guarded short variant.
+- Do not spend the next loop on another static guard-threshold tweak.
+- Next valid work is path-level drawdown attribution for the allowed release order, then a distinct mechanism such as explicit post-release de-risking or a release target cap if the attribution supports it.

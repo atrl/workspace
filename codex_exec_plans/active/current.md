@@ -2,7 +2,7 @@
 
 - Date: 2026-05-20
 - Direction: `execution`
-- Active line: `selective_release_trade_lock_short_v1`
+- Active line: `selective_release_trade_lock_guarded_short_v1`
 - Baseline: `balanced_rule_residual_v22`
 - Direct comparison: `selective_release_walkforward_v1`
 - Role: `diagnose`
@@ -26,7 +26,11 @@ Test whether retained selective-release eligible days are absorbed only by the v
   - `wf_2022`: unchanged, `0` eligible days
   - `wf_2023_2024`: changed_days `175`, trades `24` vs `22`, return `-17.87%` vs `-20.21%`, Sharpe `-0.229` vs `-0.277`, MaxDD `40.65%` vs `38.54%`
   - eligible trace: `ordered=3/16`, `trade_lock=12/16`, `buy_cooldown=1/16`
+- Static drawdown / exposure-gap guarded shortening also failed promotion:
+  - guard: `current_drawdown<=0.03`, `min_release_exposure_gap>=0.10`
+  - `wf_2022`: unchanged, `0` eligible days
+  - `wf_2023_2024`: execution-ready rows `1/16`, changed_days `185`, trades `21` vs `22`, return `-19.63%` vs `-20.21%`, MaxDD `42.91%` vs `38.54%`
 
 ## Next Action
 
-Do not promote full bypass or unguarded shortening. The next valid loop, if continuing this line, should keep `trade_lock_cap=1` but add a drawdown / exposure-gap guard that respects buy cooldown and keeps `wf_2022` unchanged.
+Do not promote full bypass, unguarded shortening, or static guarded shortening. The next valid loop should first attribute the drawdown path caused by the sparse allowed release order, then test a distinct mechanism such as post-release de-risking or release target cap only if attribution supports it.

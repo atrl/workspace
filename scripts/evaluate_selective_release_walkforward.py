@@ -331,6 +331,7 @@ def write_outputs(
         "selective_release_recovery_target_lift_v1",
         "selective_release_recovery_trade_lock_bypass_v1",
         "selective_release_recovery_trade_lock_short_v1",
+        "selective_release_recovery_trade_lock_guarded_short_v1",
     ]
     diagnostic_rows = df[
         (df["actor_window"] == "wf_2023_2024") & (df["variant"].isin(diagnostic_variants))
@@ -378,6 +379,11 @@ def write_outputs(
                         "step_lock": int(subset["blocked_by_step_lock"].astype(bool).sum()),
                         "lot_rounding": int(subset["blocked_by_lot_rounding"].astype(bool).sum()),
                     }
+                    execution_ready = (
+                        int(subset["overlay_execution_ready"].astype(bool).sum())
+                        if "overlay_execution_ready" in subset
+                        else len(subset)
+                    )
                     primary = subset["primary_blocker"].value_counts().to_dict()
                     primary_text = ", ".join(
                         f"`{name}` {int(count)}" for name, count in sorted(primary.items())
@@ -390,7 +396,7 @@ def write_outputs(
                         f"min_rebalance `{blockers['min_rebalance']}`, step_lock `{blockers['step_lock']}`, "
                         f"lot_rounding `{blockers['lot_rounding']}`; max target after overlay "
                         f"`{max_target_after_overlay:.4f}`, after guards `{max_target_after_guards:.4f}`; "
-                        f"primary {primary_text}."
+                        f"execution_ready `{execution_ready}`; primary {primary_text}."
                     )
                 lines.append(
                     "- Readout: trade lock is the dominant upstream absorber; min-rebalance and lot-rounding counts mostly appear after the target has already been collapsed back toward current position."
@@ -432,6 +438,32 @@ def write_outputs(
                 f"- `wf_2022`: unchanged with eligible_days `{int(row_2022['eligible_days'])}`, return `{float(row_2022['return']):.2f}%` vs baseline `{float(base_2022['return']):.2f}%`, max_dd `{float(row_2022['max_dd']):.2f}%` vs `{float(base_2022['max_dd']):.2f}%`.",
                 f"- `wf_2023_2024`: changed_days `{int(row_2024['changed_days'])}`, trades `{int(row_2024['trades'])}` vs baseline `{int(base_2024['trades'])}`, return `{float(row_2024['return']):.2f}%` vs `{float(base_2024['return']):.2f}%`, max_dd `{float(row_2024['max_dd']):.2f}%` vs `{float(base_2024['max_dd']):.2f}%`.",
                 "- Decision: release-gated trade-lock shortening is cleaner than full bypass and improves recovery return, but it still widens drawdown and is not promotable without an additional drawdown / exposure-gap guard.",
+            ]
+        )
+
+    guarded_short_variant = "selective_release_recovery_trade_lock_guarded_short_v1"
+    guarded_short_rows = df[df["variant"] == guarded_short_variant].set_index("actor_window")
+    if "wf_2022" in guarded_short_rows.index and "wf_2023_2024" in guarded_short_rows.index:
+        row_2022 = guarded_short_rows.loc["wf_2022"]
+        row_2024 = guarded_short_rows.loc["wf_2023_2024"]
+        base_2022 = baseline.loc["wf_2022"]
+        base_2024 = baseline.loc["wf_2023_2024"]
+        guarded_delta_return = float(row_2024["return"]) - float(base_2024["return"])
+        guarded_delta_max_dd = float(row_2024["max_dd"]) - float(base_2024["max_dd"])
+        guarded_decision = (
+            "guarded shortening is not promotable in this run because MaxDD still widens materially."
+            if guarded_delta_max_dd > 0.5
+            else "guarded shortening needs broader validation before promotion."
+        )
+        lines.extend(
+            [
+                "",
+                "## Guarded Trade-Lock Shortening Check",
+                "",
+                f"- `wf_2022`: unchanged with eligible_days `{int(row_2022['eligible_days'])}`, return `{float(row_2022['return']):.2f}%` vs baseline `{float(base_2022['return']):.2f}%`, max_dd `{float(row_2022['max_dd']):.2f}%` vs `{float(base_2022['max_dd']):.2f}%`.",
+                f"- `wf_2023_2024`: changed_days `{int(row_2024['changed_days'])}`, trades `{int(row_2024['trades'])}` vs baseline `{int(base_2024['trades'])}`, return `{float(row_2024['return']):.2f}%` vs `{float(base_2024['return']):.2f}%`, max_dd `{float(row_2024['max_dd']):.2f}%` vs `{float(base_2024['max_dd']):.2f}%`.",
+                f"- Delta: return `{guarded_delta_return:+.2f}pp`, max_dd `{guarded_delta_max_dd:+.2f}pp`.",
+                f"- Decision: {guarded_decision}",
             ]
         )
 

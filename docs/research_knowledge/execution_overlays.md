@@ -29,6 +29,13 @@ from `22` to `24`, while `wf_2022` stayed unchanged; however MaxDD widened from
 `38.54%` to `40.65%`. Treat this as evidence that the next mechanism needs a
 drawdown / exposure-gap guard around release-gated shortening.
 
+The static guarded variant did not solve the drawdown problem. In
+`selective_release_recovery_trade_lock_guarded_short_v1`, both target boost and
+execution relaxations were gated by `current_drawdown<=0.03` and
+`min_release_exposure_gap>=0.10`; it still widened `wf_2023_2024` MaxDD to
+`42.91%` while only improving return to `-19.63%`. Do not keep tuning static
+entry thresholds without first attributing the post-release drawdown path.
+
 ## Failed Pattern
 
 Generic overlay retuning is not enough when `test_2022` max drawdown and average position remain too high; widening favorable-mode envelopes also degraded other windows.
@@ -52,9 +59,10 @@ Keep actor fixed, run daily replay or overlay sweeps, then compare mode/window s
 
 ## Next Valid Experiment Type
 
-Test a guarded release-gated trade-lock rule under the existing retained gate:
-keep the `trade_lock_cap=1` shortening idea, but require drawdown / exposure-gap
-conditions so orders fire only when current exposure is demonstrably below the
-release target and buy cooldown will not immediately collapse the order. Avoid
-full trade-lock bypass, unguarded shortening, more favorable-mode exposure, or
-another direct release-pack retrain.
+Before another release-gated entry rule, attribute the drawdown path caused by
+the sparse guarded release order. The next execution mechanism should be
+distinct from static entry-threshold tuning, for example explicit post-release
+de-risking or a release target cap, and it must keep `wf_2022` unchanged while
+bringing `wf_2023_2024` MaxDD back near baseline. Avoid full trade-lock bypass,
+unguarded shortening, more favorable-mode exposure, or another direct
+release-pack retrain.

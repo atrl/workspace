@@ -4,6 +4,7 @@ import pandas as pd
 
 from src.soxl_quant.backtest import (
     apply_selective_release_overlay,
+    selective_release_execution_guard_ready,
     selective_release_rebalance_threshold,
     selective_release_trade_lock_days,
 )
@@ -114,6 +115,59 @@ def test_selective_release_target_lift_can_force_change_from_current_position():
     )
 
 
+def test_selective_release_overlay_guard_blocks_boost_when_drawdown_or_gap_fails():
+    config = {
+        "boost": 0.08,
+        "max_regime_risk": 0.62,
+        "cooldown_threshold": 0.25,
+        "vix_threshold": 0.04,
+        "volume_sync_threshold": 0.68,
+        "max_current_drawdown": 0.03,
+        "min_release_exposure_gap": 0.10,
+    }
+    ready = pd.Series(
+        {
+            "RB_COOLDOWN_PROXY": 0.30,
+            "TRANS_VIX_DIVERGENCE": 0.01,
+            "CICC_RETURN_VOLUME_SYNC": 0.72,
+        }
+    )
+
+    assert (
+        apply_selective_release_overlay(
+            target_pos=0.50,
+            row=ready,
+            regime_risk=0.50,
+            overlay_config=config,
+            current_pos=0.40,
+            current_drawdown=0.02,
+        )
+        == 0.58
+    )
+    assert (
+        apply_selective_release_overlay(
+            target_pos=0.50,
+            row=ready,
+            regime_risk=0.50,
+            overlay_config=config,
+            current_pos=0.40,
+            current_drawdown=0.05,
+        )
+        == 0.50
+    )
+    assert (
+        apply_selective_release_overlay(
+            target_pos=0.50,
+            row=ready,
+            regime_risk=0.50,
+            overlay_config=config,
+            current_pos=0.49,
+            current_drawdown=0.02,
+        )
+        == 0.50
+    )
+
+
 def test_selective_release_rebalance_bypass_only_applies_when_gate_is_ready():
     config = {
         "max_regime_risk": 0.62,
@@ -177,3 +231,137 @@ def test_selective_release_trade_lock_override_only_applies_when_gate_is_ready()
     del capped_config["trade_lock_override"]
     assert selective_release_trade_lock_days(8, ready, 0.50, capped_config) == 1
     assert selective_release_trade_lock_days(0, ready, 0.50, capped_config) == 0
+
+
+def test_selective_release_execution_guard_requires_drawdown_room_and_exposure_gap():
+    config = {
+        "max_regime_risk": 0.62,
+        "cooldown_threshold": 0.25,
+        "vix_threshold": 0.04,
+        "volume_sync_threshold": 0.68,
+        "max_current_drawdown": 0.03,
+        "min_release_exposure_gap": 0.10,
+    }
+    ready = pd.Series(
+        {
+            "RB_COOLDOWN_PROXY": 0.30,
+            "TRANS_VIX_DIVERGENCE": 0.01,
+            "CICC_RETURN_VOLUME_SYNC": 0.72,
+        }
+    )
+    missing_confirmation = pd.Series(
+        {
+            "RB_COOLDOWN_PROXY": 0.30,
+            "TRANS_VIX_DIVERGENCE": 0.01,
+            "CICC_RETURN_VOLUME_SYNC": 0.50,
+        }
+    )
+
+    assert selective_release_execution_guard_ready(
+        ready,
+        0.50,
+        config,
+        current_pos=0.50,
+        target_pos=0.65,
+        current_drawdown=0.02,
+    )
+    assert not selective_release_execution_guard_ready(
+        ready,
+        0.50,
+        config,
+        current_pos=0.50,
+        target_pos=0.65,
+        current_drawdown=0.05,
+    )
+    assert not selective_release_execution_guard_ready(
+        ready,
+        0.50,
+        config,
+        current_pos=0.58,
+        target_pos=0.65,
+        current_drawdown=0.02,
+    )
+    assert not selective_release_execution_guard_ready(
+        ready,
+        0.50,
+        config,
+        current_pos=0.50,
+        target_pos=0.65,
+    )
+    assert not selective_release_execution_guard_ready(
+        missing_confirmation,
+        0.50,
+        config,
+        current_pos=0.50,
+        target_pos=0.65,
+        current_drawdown=0.02,
+    )
+
+
+def test_selective_release_execution_relaxations_respect_guard_context():
+    config = {
+        "max_regime_risk": 0.62,
+        "cooldown_threshold": 0.25,
+        "vix_threshold": 0.04,
+        "volume_sync_threshold": 0.68,
+        "rebalance_threshold_override": 0.0,
+        "trade_lock_cap": 1,
+        "max_current_drawdown": 0.03,
+        "min_release_exposure_gap": 0.10,
+    }
+    ready = pd.Series(
+        {
+            "RB_COOLDOWN_PROXY": 0.30,
+            "TRANS_VIX_DIVERGENCE": 0.01,
+            "CICC_RETURN_VOLUME_SYNC": 0.72,
+        }
+    )
+
+    assert (
+        selective_release_rebalance_threshold(
+            0.04,
+            ready,
+            0.50,
+            config,
+            current_pos=0.50,
+            target_pos=0.65,
+            current_drawdown=0.02,
+        )
+        == 0.0
+    )
+    assert (
+        selective_release_rebalance_threshold(
+            0.04,
+            ready,
+            0.50,
+            config,
+            current_pos=0.50,
+            target_pos=0.65,
+            current_drawdown=0.05,
+        )
+        == 0.04
+    )
+    assert (
+        selective_release_trade_lock_days(
+            8,
+            ready,
+            0.50,
+            config,
+            current_pos=0.50,
+            target_pos=0.65,
+            current_drawdown=0.02,
+        )
+        == 1
+    )
+    assert (
+        selective_release_trade_lock_days(
+            8,
+            ready,
+            0.50,
+            config,
+            current_pos=0.58,
+            target_pos=0.65,
+            current_drawdown=0.02,
+        )
+        == 8
+    )

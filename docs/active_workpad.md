@@ -343,6 +343,72 @@ Eligible-day trace for `wf_2023_2024`: short variant traced `16 / 18` eligible r
 - The cap is a useful diagnostic: it improves `wf_2023_2024` return by `+2.34pp` with only `+2` trades and keeps `wf_2022` unchanged.
 - It still widens `wf_2023_2024` MaxDD by `+2.11pp`, so the next valid rule must add a drawdown / exposure-gap guard before release-gated trade-lock shortening can become a governed runtime overlay.
 
+## 2026-05-20 Guarded Release Trade-Lock Shortening Loop
+
+### Governance
+
+- Canonical baseline: `balanced_rule_residual_v22`
+- Direct comparison baseline: `selective_release_trade_lock_short_v1`
+- Role: `diagnose`
+- Target window: `wf_2023_2024`, with `wf_2022` as the hard no-regression check
+- Accepted trade-off: keep the shortening variant's recovery improvement only if MaxDD returns near baseline
+- Changed layer: `execution`
+- External reference:
+  - unguarded shortening improved recovery return but widened MaxDD
+  - eligible-day trace showed release orders should only fire when current exposure is demonstrably below the release target and current account drawdown is still low
+- Hypothesis:
+  Guarding both target boost and execution relaxations with `max_current_drawdown=0.03` and `min_release_exposure_gap=0.10` should prevent late/high-drawdown release orders while retaining useful low-drawdown recovery entries.
+- Acceptance criteria:
+  - `wf_2022` unchanged because eligible_days remains `0`
+  - `wf_2023_2024` return or Sharpe improves vs baseline
+  - `wf_2023_2024` MaxDD is not materially wider than baseline
+  - `overlay_execution_ready` is sparse and traceable on eligible days
+- Closest success case:
+  `selective_release_recovery_v1` fixed-actor overlay improved recovery while leaving `test_2022` unchanged.
+- Closest failure case:
+  `selective_release_recovery_trade_lock_short_v1` improved recovery but widened MaxDD.
+- Why this is not a duplicate:
+  This loop gates both the target boost and the trade-lock / rebalance relaxations with path drawdown and exposure-gap context; it is not another release-threshold tweak.
+- Comparison-table row key: `selective_release_trade_lock_guarded_short_v1`
+
+### Changes Made
+
+- `src/soxl_quant/backtest.py`
+  - added `selective_release_execution_guard_ready()`
+  - extended guarded overlay semantics so `max_current_drawdown` / `min_release_exposure_gap` can block target boost, rebalance-threshold override, and trade-lock cap
+  - added `overlay_execution_ready` and `overlay_exposure_gap` to decision trace
+- `scripts/evaluate_selective_release_overlay.py`
+  - added `selective_release_recovery_trade_lock_guarded_short_v1`
+- `scripts/evaluate_selective_release_walkforward.py`
+  - includes the guarded variant in diagnostics and reports execution-ready counts
+- `tests/test_selective_release_overlay.py`
+  - covers guard-ready logic, guarded execution relaxations, and guarded target boost blocking
+
+### Commands
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_selective_release_overlay.py::test_selective_release_execution_guard_requires_drawdown_room_and_exposure_gap tests/test_selective_release_overlay.py::test_selective_release_execution_relaxations_respect_guard_context -q
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_selective_release_overlay.py::test_selective_release_overlay_guard_blocks_boost_when_drawdown_or_gap_fails -q
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_selective_release_overlay.py tests/test_selective_release_walkforward.py -q
+MPLCONFIGDIR=/private/tmp/mplconfig PYTHONPATH=. qlib_venv/bin/python scripts/evaluate_selective_release_walkforward.py --profile balanced_rule_residual_v22 --all-variants
+```
+
+### Evidence
+
+| actor_window | variant | eligible_days | execution_ready | changed_days | trades | return | sharpe | max_dd | avg_pos | decision |
+|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---|
+| `wf_2022` | `selective_release_recovery_trade_lock_guarded_short_v1` | 0 | 0 | 0 | 22 | `-34.11%` | `-0.926` | `38.27%` | `0.3216` | defensive gate unchanged |
+| `wf_2023_2024` baseline | `baseline` | 0 | 0 | 0 | 22 | `-20.21%` | `-0.277` | `38.54%` | `0.4764` | control |
+| `wf_2023_2024` | `selective_release_recovery_trade_lock_guarded_short_v1` | 18 | 1 / 16 traced | 185 | 21 | `-19.63%` | `-0.233` | `42.91%` | `0.4833` | improves return slightly, fails MaxDD gate |
+
+Trace readout: the guarded variant made only one eligible row execution-ready, but that early 2024 path change was still enough to raise `wf_2023_2024` MaxDD by `+4.37pp`. It is therefore not a viable promotion candidate.
+
+### Decision
+
+- Do **not** promote `selective_release_recovery_trade_lock_guarded_short_v1`.
+- Do not continue threshold-only guard tuning on this mechanism; the single low-drawdown allowed release already creates an unacceptable later drawdown path.
+- Next valid work should first attribute the drawdown path caused by the allowed release order, then test a distinct mechanism such as explicit post-release de-risking / target cap rather than another static entry guard.
+
 ## Prior Data/Release Goal
 
 1. Refresh the repo-owned local data surfaces from the canonical SOXL/SOXX/VIX panel.

@@ -16,6 +16,7 @@
 | wf_2020 | selective_release_recovery_target_lift_v1 | 113.17% | 2.015 | 19.47% | 0.5322 | 22 | 0 | 0 | 0 | +0.00pp | +0.00pp |
 | wf_2020 | selective_release_recovery_trade_lock_bypass_v1 | 113.17% | 2.015 | 19.47% | 0.5322 | 22 | 0 | 0 | 0 | +0.00pp | +0.00pp |
 | wf_2020 | selective_release_recovery_trade_lock_short_v1 | 113.17% | 2.015 | 19.47% | 0.5322 | 22 | 0 | 0 | 0 | +0.00pp | +0.00pp |
+| wf_2020 | selective_release_recovery_trade_lock_guarded_short_v1 | 113.17% | 2.015 | 19.47% | 0.5322 | 22 | 0 | 0 | 0 | +0.00pp | +0.00pp |
 | wf_2022 | baseline | -34.11% | -0.926 | 38.27% | 0.3216 | 22 | 0 | 0 | 0 | +0.00pp | +0.00pp |
 | wf_2022 | selective_release_cicc_v1 | -34.11% | -0.926 | 38.27% | 0.3216 | 22 | 0 | 0 | 0 | +0.00pp | +0.00pp |
 | wf_2022 | selective_release_tight_v1 | -34.11% | -0.926 | 38.27% | 0.3216 | 22 | 0 | 0 | 0 | +0.00pp | +0.00pp |
@@ -24,6 +25,7 @@
 | wf_2022 | selective_release_recovery_target_lift_v1 | -34.11% | -0.926 | 38.27% | 0.3216 | 22 | 0 | 0 | 0 | +0.00pp | +0.00pp |
 | wf_2022 | selective_release_recovery_trade_lock_bypass_v1 | -34.11% | -0.926 | 38.27% | 0.3216 | 22 | 0 | 0 | 0 | +0.00pp | +0.00pp |
 | wf_2022 | selective_release_recovery_trade_lock_short_v1 | -34.11% | -0.926 | 38.27% | 0.3216 | 22 | 0 | 0 | 0 | +0.00pp | +0.00pp |
+| wf_2022 | selective_release_recovery_trade_lock_guarded_short_v1 | -34.11% | -0.926 | 38.27% | 0.3216 | 22 | 0 | 0 | 0 | +0.00pp | +0.00pp |
 | wf_2023_2024 | baseline | -20.21% | -0.277 | 38.54% | 0.4764 | 22 | 0 | 0 | 0 | +0.00pp | +0.00pp |
 | wf_2023_2024 | selective_release_cicc_v1 | -20.21% | -0.277 | 38.54% | 0.4764 | 22 | 16 | 0 | 16 | +0.00pp | +0.00pp |
 | wf_2023_2024 | selective_release_tight_v1 | -20.21% | -0.277 | 38.54% | 0.4764 | 22 | 6 | 0 | 6 | +0.00pp | +0.00pp |
@@ -32,6 +34,7 @@
 | wf_2023_2024 | selective_release_recovery_target_lift_v1 | -20.21% | -0.277 | 38.54% | 0.4764 | 22 | 18 | 0 | 18 | +0.00pp | +0.00pp |
 | wf_2023_2024 | selective_release_recovery_trade_lock_bypass_v1 | -21.43% | -0.334 | 40.28% | 0.4817 | 32 | 18 | 183 | 0 | -1.22pp | +1.74pp |
 | wf_2023_2024 | selective_release_recovery_trade_lock_short_v1 | -17.87% | -0.229 | 40.65% | 0.4620 | 24 | 18 | 175 | 0 | +2.34pp | +2.11pp |
+| wf_2023_2024 | selective_release_recovery_trade_lock_guarded_short_v1 | -19.63% | -0.233 | 42.91% | 0.4833 | 21 | 18 | 185 | 0 | +0.58pp | +4.37pp |
 
 ## Readout
 
@@ -49,13 +52,15 @@
 - `selective_release_recovery_target_lift_v1`: eligible_days `18`, changed_days `0`, absorbed_days `18`, return `-20.21%`, max_dd `38.54%`.
 - `selective_release_recovery_trade_lock_bypass_v1`: eligible_days `18`, changed_days `183`, absorbed_days `0`, return `-21.43%`, max_dd `40.28%`.
 - `selective_release_recovery_trade_lock_short_v1`: eligible_days `18`, changed_days `175`, absorbed_days `0`, return `-17.87%`, max_dd `40.65%`.
+- `selective_release_recovery_trade_lock_guarded_short_v1`: eligible_days `18`, changed_days `185`, absorbed_days `0`, return `-19.63%`, max_dd `42.91%`.
 
 ## Eligible-Day Execution Trace Summary
 
-- `selective_release_recovery_threshold_bypass_v1`: traced `16` of `18` eligible days; blockers trade_lock `15`, buy_cooldown `0`, min_rebalance `0`, step_lock `0`, lot_rounding `15`; max target after overlay `0.8500`, after guards `0.8490`; primary `ordered` 1, `trade_lock` 15.
-- `selective_release_recovery_target_lift_v1`: traced `16` of `18` eligible days; blockers trade_lock `12`, buy_cooldown `0`, min_rebalance `15`, step_lock `0`, lot_rounding `0`; max target after overlay `0.8500`, after guards `0.8500`; primary `min_rebalance` 3, `ordered` 1, `trade_lock` 12.
-- `selective_release_recovery_trade_lock_bypass_v1`: traced `16` of `18` eligible days; blockers trade_lock `0`, buy_cooldown `5`, min_rebalance `0`, step_lock `0`, lot_rounding `5`; max target after overlay `0.8500`, after guards `0.8500`; primary `buy_cooldown` 5, `ordered` 11.
-- `selective_release_recovery_trade_lock_short_v1`: traced `16` of `18` eligible days; blockers trade_lock `12`, buy_cooldown `1`, min_rebalance `0`, step_lock `0`, lot_rounding `13`; max target after overlay `0.8500`, after guards `0.8672`; primary `buy_cooldown` 1, `ordered` 3, `trade_lock` 12.
+- `selective_release_recovery_threshold_bypass_v1`: traced `16` of `18` eligible days; blockers trade_lock `15`, buy_cooldown `0`, min_rebalance `0`, step_lock `0`, lot_rounding `15`; max target after overlay `0.8500`, after guards `0.8490`; execution_ready `16`; primary `ordered` 1, `trade_lock` 15.
+- `selective_release_recovery_target_lift_v1`: traced `16` of `18` eligible days; blockers trade_lock `12`, buy_cooldown `0`, min_rebalance `15`, step_lock `0`, lot_rounding `0`; max target after overlay `0.8500`, after guards `0.8500`; execution_ready `16`; primary `min_rebalance` 3, `ordered` 1, `trade_lock` 12.
+- `selective_release_recovery_trade_lock_bypass_v1`: traced `16` of `18` eligible days; blockers trade_lock `0`, buy_cooldown `5`, min_rebalance `0`, step_lock `0`, lot_rounding `5`; max target after overlay `0.8500`, after guards `0.8500`; execution_ready `16`; primary `buy_cooldown` 5, `ordered` 11.
+- `selective_release_recovery_trade_lock_short_v1`: traced `16` of `18` eligible days; blockers trade_lock `12`, buy_cooldown `1`, min_rebalance `0`, step_lock `0`, lot_rounding `13`; max target after overlay `0.8500`, after guards `0.8672`; execution_ready `16`; primary `buy_cooldown` 1, `ordered` 3, `trade_lock` 12.
+- `selective_release_recovery_trade_lock_guarded_short_v1`: traced `16` of `18` eligible days; blockers trade_lock `10`, buy_cooldown `1`, min_rebalance `13`, step_lock `0`, lot_rounding `0`; max target after overlay `0.8500`, after guards `0.8500`; execution_ready `1`; primary `buy_cooldown` 1, `min_rebalance` 2, `ordered` 3, `trade_lock` 10.
 - Readout: trade lock is the dominant upstream absorber; min-rebalance and lot-rounding counts mostly appear after the target has already been collapsed back toward current position.
 - Full eligible-day trace: `selective_release_walkforward_execution_trace.csv`.
 
@@ -70,3 +75,10 @@
 - `wf_2022`: unchanged with eligible_days `0`, return `-34.11%` vs baseline `-34.11%`, max_dd `38.27%` vs `38.27%`.
 - `wf_2023_2024`: changed_days `175`, trades `24` vs baseline `22`, return `-17.87%` vs `-20.21%`, max_dd `40.65%` vs `38.54%`.
 - Decision: release-gated trade-lock shortening is cleaner than full bypass and improves recovery return, but it still widens drawdown and is not promotable without an additional drawdown / exposure-gap guard.
+
+## Guarded Trade-Lock Shortening Check
+
+- `wf_2022`: unchanged with eligible_days `0`, return `-34.11%` vs baseline `-34.11%`, max_dd `38.27%` vs `38.27%`.
+- `wf_2023_2024`: changed_days `185`, trades `21` vs baseline `22`, return `-19.63%` vs `-20.21%`, max_dd `42.91%` vs `38.54%`.
+- Delta: return `+0.58pp`, max_dd `+4.37pp`.
+- Decision: guarded shortening is not promotable in this run because MaxDD still widens materially.

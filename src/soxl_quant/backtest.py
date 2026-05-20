@@ -64,12 +64,38 @@ def selective_release_gate_ready(row: pd.Series, regime_risk: float, overlay_con
     return True
 
 
+def selective_release_execution_guard_ready(
+    row: pd.Series,
+    regime_risk: float,
+    overlay_config: dict,
+    *,
+    current_pos: float | None = None,
+    target_pos: float | None = None,
+    current_drawdown: float | None = None,
+) -> bool:
+    if not selective_release_gate_ready(row, regime_risk, overlay_config):
+        return False
+    if "max_current_drawdown" in overlay_config:
+        if current_drawdown is None:
+            return False
+        if float(current_drawdown) > float(overlay_config["max_current_drawdown"]):
+            return False
+    if "min_release_exposure_gap" in overlay_config:
+        if current_pos is None or target_pos is None:
+            return False
+        exposure_gap = float(target_pos) - float(current_pos)
+        if exposure_gap < float(overlay_config["min_release_exposure_gap"]):
+            return False
+    return True
+
+
 def apply_selective_release_overlay(
     target_pos: float,
     row: pd.Series,
     regime_risk: float,
     overlay_config: dict,
     current_pos: float | None = None,
+    current_drawdown: float | None = None,
 ) -> float:
     """Boost exposure only when retained release signals agree inside a regime band."""
     if not selective_release_gate_ready(row, regime_risk, overlay_config):
@@ -81,6 +107,15 @@ def apply_selective_release_overlay(
     if current_pos is not None and "min_target_delta" in overlay_config:
         min_target = float(current_pos) + float(overlay_config["min_target_delta"])
         boosted = min(max(boosted, min_target), max_target)
+    if not selective_release_execution_guard_ready(
+        row,
+        regime_risk,
+        overlay_config,
+        current_pos=current_pos,
+        target_pos=boosted,
+        current_drawdown=current_drawdown,
+    ):
+        return float(target_pos)
     return round(max(float(target_pos), boosted), 10)
 
 
@@ -89,8 +124,19 @@ def selective_release_rebalance_threshold(
     row: pd.Series,
     regime_risk: float,
     overlay_config: dict,
+    *,
+    current_pos: float | None = None,
+    target_pos: float | None = None,
+    current_drawdown: float | None = None,
 ) -> float:
-    if not selective_release_gate_ready(row, regime_risk, overlay_config):
+    if not selective_release_execution_guard_ready(
+        row,
+        regime_risk,
+        overlay_config,
+        current_pos=current_pos,
+        target_pos=target_pos,
+        current_drawdown=current_drawdown,
+    ):
         return float(min_rebalance)
     if "rebalance_threshold_override" in overlay_config:
         return float(overlay_config["rebalance_threshold_override"])
@@ -104,8 +150,19 @@ def selective_release_trade_lock_days(
     row: pd.Series,
     regime_risk: float,
     overlay_config: dict,
+    *,
+    current_pos: float | None = None,
+    target_pos: float | None = None,
+    current_drawdown: float | None = None,
 ) -> int:
-    if not selective_release_gate_ready(row, regime_risk, overlay_config):
+    if not selective_release_execution_guard_ready(
+        row,
+        regime_risk,
+        overlay_config,
+        current_pos=current_pos,
+        target_pos=target_pos,
+        current_drawdown=current_drawdown,
+    ):
         return int(trade_lock_days)
     if "trade_lock_override" in overlay_config:
         return max(int(overlay_config["trade_lock_override"]), 0)
@@ -282,6 +339,7 @@ class RLStrategy(BaseStrategy):
                     regime_risk,
                     oc,
                     current_pos=current_pos,
+                    current_drawdown=current_drawdown,
                 )
             else:
                 threshold = oc.get("threshold", 0.3)
@@ -394,6 +452,16 @@ class RLStrategy(BaseStrategy):
                         if score >= threshold:
                             target_pos = min(target_pos + boost, 1.0)
         target_after_overlay = float(target_pos)
+        overlay_execution_ready = False
+        if self.overlay_config is not None and self.overlay_config.get("type") == "selective_release":
+            overlay_execution_ready = selective_release_execution_guard_ready(
+                row,
+                regime_risk,
+                self.overlay_config,
+                current_pos=current_pos,
+                target_pos=target_pos,
+                current_drawdown=current_drawdown,
+            )
         direction = "buy" if target_pos > current_pos else ("sell" if target_pos < current_pos else "neutral")
         base_min_rebalance = rebalance_threshold(
             regime_risk,
@@ -415,6 +483,9 @@ class RLStrategy(BaseStrategy):
                 row,
                 regime_risk,
                 self.overlay_config,
+                current_pos=current_pos,
+                target_pos=target_pos,
+                current_drawdown=current_drawdown,
             )
         trade_lock_before = int(self.trade_lock)
         buy_cooldown_before = int(self.buy_cooldown)
@@ -427,6 +498,9 @@ class RLStrategy(BaseStrategy):
                 row,
                 regime_risk,
                 self.overlay_config,
+                current_pos=current_pos,
+                target_pos=target_pos,
+                current_drawdown=current_drawdown,
             )
         if effective_trade_lock > 0:
             if abs(target_pos - current_pos) >= min_rebalance:
@@ -488,6 +562,8 @@ class RLStrategy(BaseStrategy):
                     "delta_shares": int(delta_shares),
                     "order_count": int(order_count),
                     "overlay_gate_ready": bool(overlay_gate_ready),
+                    "overlay_execution_ready": bool(overlay_execution_ready),
+                    "overlay_exposure_gap": round(float(target_after_overlay - current_pos), 10),
                     "overlay_max_target": float(overlay_config.get("max_target", "")) if "max_target" in overlay_config else "",
                     "overlay_min_target_delta": (
                         float(overlay_config.get("min_target_delta", ""))
@@ -530,6 +606,9 @@ class RLStrategy(BaseStrategy):
                         row,
                         regime_risk,
                         self.overlay_config,
+                        current_pos=current_pos,
+                        target_pos=target_pos,
+                        current_drawdown=current_drawdown,
                     )
                 self.trade_lock = new_trade_lock
             signal_type = "buy" if delta > 0 else "sell"

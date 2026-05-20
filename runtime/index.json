@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-20T15:13:18.272820+00:00",
+  "generated_at": "2026-05-20T15:31:19.884528+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -119,31 +119,31 @@
       "path": "runtime/execution/card/selective_release_walkforward_v1/selective_release_walkforward_execution_trace.csv",
       "category": "execution",
       "suffix": ".csv",
-      "bytes": 31933
+      "bytes": 39298
     },
     {
       "path": "runtime/execution/card/selective_release_walkforward_v1/selective_release_walkforward_execution_trace.json",
       "category": "execution",
       "suffix": ".json",
-      "bytes": 144020
+      "bytes": 176556
     },
     {
       "path": "runtime/execution/card/selective_release_walkforward_v1/selective_release_walkforward_results.csv",
       "category": "execution",
       "suffix": ".csv",
-      "bytes": 10971
+      "bytes": 12770
     },
     {
       "path": "runtime/execution/card/selective_release_walkforward_v1/selective_release_walkforward_results.json",
       "category": "execution",
       "suffix": ".json",
-      "bytes": 22000
+      "bytes": 25080
     },
     {
       "path": "runtime/execution/card/selective_release_walkforward_v1/selective_release_walkforward_review.md",
       "category": "execution",
       "suffix": ".md",
-      "bytes": 6951
+      "bytes": 8405
     },
     {
       "path": "runtime/execution/execution_overlay_variants.json",
@@ -155,7 +155,7 @@
       "path": "runtime/execution/knowledge.md",
       "category": "execution",
       "suffix": ".md",
-      "bytes": 14443
+      "bytes": 16679
     },
     {
       "path": "runtime/execution/position_cap_overlay_variants.json",
