@@ -521,3 +521,29 @@ Validate whether network simplification (v19_small) or VIX term features (v22) i
 - `balanced_core50` walk-forward: 运行中（task bash-4ljlyb37，wf_2020 worker进行中）
 - 历史模式: fixed split promising → walk-forward 失败概率极高
 - 如果walk-forward仍失败，需根本性重构validation design或model capacity
+
+## 2026-05-21 Runtime Selection Scoring Update
+
+The v22/post-release-cap approval exposed a model-selection mismatch: v22 had
+stronger corrected walk-forward evidence, but legacy runtime auto-selection
+would still prefer v19 because v19 had a higher training `best_score`.
+
+Runtime selection now uses complete walk-forward reports when all standard
+windows are present:
+
+- Score source: `walk_forward_mean`
+- Return term: `relative_outperformance` when available
+- Weights: the profile's existing `selection_score` weights
+- Fallback: legacy summary `best_score` when a complete walk-forward report is
+  missing
+
+Current live runtime selection scores:
+
+| profile | score | source |
+|---|---:|---|
+| `balanced_rule_residual_v22` | `64.88` | `walk_forward_mean` |
+| `balanced_rule_residual_v19` | `46.17` | `walk_forward_mean` |
+
+Decision: `balanced_rule_residual_v22` is now the canonical scheduled runtime
+selection with `selective_release_recovery_post_release_cap_v1` explicitly
+approved. `balanced_rule_residual_v19` remains retained as rollback evidence.

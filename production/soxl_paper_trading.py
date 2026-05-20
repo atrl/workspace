@@ -386,7 +386,38 @@ def _existing_executed_summary(
         and payload.get("executed") is True
     ):
         return payload
+    if broker_name == "paper":
+        broker_state_path = base_dir / "paper_trading" / "paper_broker_state.json"
+        daily_csv_path = base_dir / "paper_trading" / "paper_trading_soxl_daily.csv"
+        try:
+            broker_state = json.loads(broker_state_path.read_text(encoding="utf-8"))
+            daily = pd.read_csv(daily_csv_path)
+        except Exception:
+            return None
+        daily_dates = set(str(pd.Timestamp(value).date()) for value in daily.get("datetime", []))
+        if broker_state.get("date") == signal_date and signal_date in daily_dates:
+            return {
+                "date": signal_date,
+                "broker": "paper",
+                "dry_run": False,
+                "executed": True,
+                "source": "paper_broker_state_and_daily_csv",
+            }
     return None
+
+
+def _paper_output_dir(
+    signal_date: str,
+    broker_name: str,
+    *,
+    dry_run: bool,
+    runtime_dir: Path | None = None,
+) -> Path:
+    base_dir = runtime_dir or RUNTIME_DIR
+    run_dir = base_dir / "paper_trading" / signal_date
+    if dry_run and _existing_executed_summary(signal_date, broker_name, runtime_dir=base_dir):
+        return run_dir / "dry_run"
+    return run_dir
 
 
 def _post_execution_audit(signal, decision, broker: BrokerAdapter):
@@ -595,7 +626,7 @@ def main() -> None:
             notifier.send(title=title, body=body, level=level)
 
         # 8. Persist JSON
-        run_dir = RUNTIME_DIR / "paper_trading" / signal.date
+        run_dir = _paper_output_dir(signal.date, args.broker, dry_run=args.dry_run)
         run_dir.mkdir(parents=True, exist_ok=True)
         for name, value in result.items():
             (run_dir / f"{name}.json").write_text(

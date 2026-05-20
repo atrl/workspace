@@ -18,7 +18,7 @@ import json
 from abc import ABC, abstractmethod
 from dataclasses import asdict, dataclass
 from pathlib import Path
-from typing import Dict, List, Optional, Sequence, Tuple
+from typing import Any, Dict, List, Optional, Sequence, Tuple
 
 import numpy as np
 import pandas as pd
@@ -441,11 +441,68 @@ def runtime_auto_select_allowed(profile_name: str) -> Tuple[bool, str]:
     return True, "profile approved for runtime auto-selection"
 
 
+WALK_FORWARD_SELECTION_WINDOWS = ("wf_2020", "wf_2022", "wf_2023_2024")
+
+
+def _float_or_default(value: Any, default: float = 0.0) -> float:
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        return default
+
+
+def walk_forward_runtime_selection_score(
+    model_path: Path,
+    summary: dict[str, Any],
+    profile_name: str,
+) -> Tuple[float, str] | None:
+    promotion = summary.get("promotion") or {}
+    if not promotion.get("walk_forward_evaluated", False):
+        return None
+    report_path = model_path.parent / f"{profile_name}_report.json"
+    if not report_path.exists():
+        return None
+    try:
+        report = json.loads(report_path.read_text(encoding="utf-8"))
+        profile = load_profile(profile_name)
+    except (OSError, json.JSONDecodeError, FileNotFoundError):
+        return None
+
+    scores: list[float] = []
+    for window in WALK_FORWARD_SELECTION_WINDOWS:
+        row = report.get(window)
+        if not isinstance(row, dict):
+            return None
+        metrics = row.get("main_backtest")
+        if not isinstance(metrics, dict):
+            return None
+        return_value = row.get("relative_outperformance", metrics.get("relative_return", metrics.get("return")))
+        score = (
+            _float_or_default(return_value, float("-inf")) * profile.selection_score.return_weight
+            + _float_or_default(metrics.get("sharpe")) * profile.selection_score.sharpe_weight
+            - _float_or_default(metrics.get("max_dd")) * profile.selection_score.max_dd_penalty
+        )
+        scores.append(score)
+    return sum(scores) / len(scores), "walk_forward_mean"
+
+
+def runtime_selection_score(
+    model_path: Path,
+    summary: dict[str, Any],
+    profile_name: str,
+) -> Tuple[float, str]:
+    walk_forward_score = walk_forward_runtime_selection_score(model_path, summary, profile_name)
+    if walk_forward_score is not None:
+        return walk_forward_score
+    return float(summary.get("best_score", float("-inf"))), "best_score"
+
+
 def best_model_for_family(family: str = "balanced") -> Path:
-    """自动选择通过 promotion gate 且 best_score 最高的模型。
+    """自动选择通过 promotion gate 且 runtime selection score 最高的模型。
 
     扫描 ``runtime/model/card/*/soxl_{family}*_actor.pt``，过滤通过 promotion gate
-    的候选，读取对应 summary 的 ``best_score`` 取最高者。
+    的候选。若存在完整 walk-forward report，使用 walk-forward 均值分数；否则
+    回退到训练 summary 的 ``best_score``。
 
     若无任何候选通过 gate，拒绝自动选择，避免定时任务静默使用
     后续 risk gate 会拒绝的未晋升 actor。
@@ -466,14 +523,18 @@ def best_model_for_family(family: str = "balanced") -> Path:
         summary_path = summary_path_for_model(path)
         try:
             payload = json.loads(summary_path.read_text(encoding="utf-8"))
-            score = float(payload.get("best_score", float("-inf")))
+            score, source = runtime_selection_score(path, payload, profile_name)
         except Exception:
             score = float("-inf")
-        scored.append((path, score))
+            source = "unavailable"
+        scored.append((path, score, source))
 
     if scored:
-        best_path, best_score = max(scored, key=lambda x: x[1])
-        print(f"[auto_select] family={family} model={best_path.name} score={best_score:.2f}")
+        best_path, best_score, best_source = max(scored, key=lambda x: x[1])
+        print(
+            f"[auto_select] family={family} model={best_path.name} "
+            f"score={best_score:.2f} source={best_source}"
+        )
         return best_path
 
     raise RuntimeError(

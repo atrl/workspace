@@ -48,6 +48,21 @@ def _write_actor_with_summary(root: Path, profile: str, *, promoted: bool, score
     return actor_path
 
 
+def _write_walk_forward_report(root: Path, profile: str, rows: dict[str, tuple[float, float, float, float]]) -> None:
+    payload = {}
+    for window, (ret, sharpe, max_dd, relative) in rows.items():
+        payload[window] = {
+            "main_backtest": {
+                "return": ret,
+                "sharpe": sharpe,
+                "max_dd": max_dd,
+                "trades": 10,
+            },
+            "relative_outperformance": relative,
+        }
+    (root / profile / f"{profile}_report.json").write_text(json.dumps(payload), encoding="utf-8")
+
+
 def test_best_model_for_family_refuses_unpromoted_fallback():
     with TemporaryDirectory() as tmp:
         root = Path(tmp)
@@ -86,19 +101,62 @@ def test_best_model_for_family_skips_overlay_profile_without_auto_select_approva
         approved = _write_actor_with_summary(root, "balanced_rule_residual_v19", promoted=True, score=95.0)
         _write_actor_with_summary(root, "balanced_rule_residual_v22", promoted=True, score=120.0)
         previous_model_dir = runtime.MODEL_DIR
+        previous_runtime_auto_select_allowed = runtime.runtime_auto_select_allowed
         runtime.MODEL_DIR = root
+
+        def fake_runtime_auto_select_allowed(profile_name: str):
+            if profile_name == "balanced_rule_residual_v22":
+                return False, "profile overlay is not approved"
+            return True, "profile approved"
+
+        runtime.runtime_auto_select_allowed = fake_runtime_auto_select_allowed
         try:
             assert runtime.best_model_for_family("balanced") == approved
         finally:
             runtime.MODEL_DIR = previous_model_dir
+            runtime.runtime_auto_select_allowed = previous_runtime_auto_select_allowed
 
 
-def test_profile_bound_runtime_overlay_loads_release_signals_but_blocks_auto_select():
+def test_best_model_for_family_prefers_complete_walk_forward_runtime_score():
+    with TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        _write_actor_with_summary(root, "balanced_rule_residual_v19", promoted=True, score=95.0)
+        stronger_wf = _write_actor_with_summary(root, "balanced_rule_residual_v22", promoted=True, score=92.0)
+        _write_walk_forward_report(
+            root,
+            "balanced_rule_residual_v19",
+            {
+                "wf_2020": (100.0, 1.5, 22.0, 45.0),
+                "wf_2022": (-40.0, -1.2, 47.0, 44.0),
+                "wf_2023_2024": (30.0, 0.7, 32.0, 32.0),
+            },
+        )
+        _write_walk_forward_report(
+            root,
+            "balanced_rule_residual_v22",
+            {
+                "wf_2020": (135.0, 2.1, 20.0, 76.0),
+                "wf_2022": (-48.0, -1.2, 54.0, 38.0),
+                "wf_2023_2024": (51.0, 1.0, 30.0, 53.0),
+            },
+        )
+        previous_model_dir = runtime.MODEL_DIR
+        previous_runtime_auto_select_allowed = runtime.runtime_auto_select_allowed
+        runtime.MODEL_DIR = root
+        runtime.runtime_auto_select_allowed = lambda _profile_name: (True, "approved")
+        try:
+            assert runtime.best_model_for_family("balanced") == stronger_wf
+        finally:
+            runtime.MODEL_DIR = previous_model_dir
+            runtime.runtime_auto_select_allowed = previous_runtime_auto_select_allowed
+
+
+def test_profile_bound_runtime_overlay_loads_release_signals_and_allows_auto_select():
     profile = load_profile("balanced_rule_residual_v22")
 
     assert profile.execution_overlay.enabled is True
     assert profile.execution_overlay.name == POST_RELEASE_CAP_VARIANT
-    assert profile.execution_overlay.auto_select_allowed is False
+    assert profile.execution_overlay.auto_select_allowed is True
     assert runtime_feature_packs(profile) == ("vix_term", "release_signals_v1")
 
 

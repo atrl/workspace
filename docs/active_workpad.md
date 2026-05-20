@@ -2993,3 +2993,103 @@ git diff --check
   proof was kicked after the manual filled order.
 - Model optimization can resume from the SOXX-aware / selective-release frontier
   after this commit; the production loop is no longer the blocker.
+
+## 2026-05-21 v22/Post-Release-Cap Runtime Auto-Select Approval
+
+Goal: resume model optimization after SOXX diagnostics by finishing the governed
+v22/post-release-cap promotion path, while preserving the working paper loop.
+
+### Baselines And Role
+
+- Canonical baseline before this loop: `balanced_rule_residual_v19`
+- Direct comparison baseline: `balanced_rule_residual_v22` with
+  `execution_overlay.auto_select_allowed=false`
+- Role: `replace`
+- Changed layer: `selection` plus explicit `execution` overlay governance
+- External reference: walk-forward model-selection evidence; use complete
+  out-of-sample walk-forward windows rather than training `best_score`
+- Target window: scheduled runtime auto-selection and paper dry-run on latest
+  local data
+- Accepted trade-off: v22 has worse `wf_2022` drawdown than v19 but remains
+  inside gate and improves complete walk-forward mean score and recovery
+  behavior
+- Comparison-table row key: `v22_post_release_cap_runtime_auto_select_v1`
+
+Closest history:
+
+1. Success case: `selective_release_post_release_cap_v1` improved
+   `wf_2023_2024` return and MaxDD while leaving `wf_2022` unchanged.
+2. Failure case: `soxx_relative_weakness_walkforward_v1` had fixed-window gains
+   but was absorbed in saved walk-forward actors.
+3. Not a duplicate: this loop changes runtime model-selection evidence and
+   explicit overlay approval; it does not tune SOXX cap thresholds or retrain
+   the actor.
+
+### Changes
+
+- `src/soxl_quant/runtime.py`
+  - added complete walk-forward runtime selection scoring.
+  - uses `relative_outperformance`, Sharpe, and MaxDD with the profile's
+    existing `selection_score` weights.
+  - falls back to legacy `best_score` when complete walk-forward reports are
+    missing.
+- `runtime/model/card/balanced_rule_residual_v22/profile.yaml`
+  - set `execution_overlay.auto_select_allowed=true`.
+- `production/soxl_paper_trading.py`
+  - dry-run after a same-day executed paper run now writes under
+    `<date>/dry_run/` instead of overwriting root `summary.json`.
+  - duplicate guard can recover from paper broker state plus the cumulative
+    paper CSV if the root summary was already polluted.
+- Registry:
+  - `balanced_rule_residual_v22` is now `canonical`.
+  - `balanced_rule_residual_v19` is retained as archived rollback actor.
+
+### Evidence
+
+Runtime selection scores:
+
+| profile | score | source |
+|---|---:|---|
+| `balanced_rule_residual_v22` | `64.8811` | `walk_forward_mean` |
+| `balanced_rule_residual_v19` | `46.1670` | `walk_forward_mean` |
+
+Review cards:
+
+- `runtime/model/card/balanced_rule_residual_v22/runtime_selection_review.json`
+  - `decision=approved`
+  - `runtime_auto_select_allowed=true`
+  - `current_auto_select_profile=balanced_rule_residual_v22`
+- `runtime/execution/card/selective_release_post_release_cap_v1/promotion_review.json`
+  - `runtime_auto_select_allowed=true`
+  - `runtime_auto_select_reason=promotion review, profile flag, and model gate all allow auto-selection`
+
+Default paper dry-run:
+
+```bash
+PYTHONPATH=src:. qlib_venv/bin/python production/soxl_paper_trading.py --skip-data-update --dry-run --no-notify
+# [auto_select] family=balanced model=soxl_balanced_rule_residual_v22_actor.pt score=64.88 source=walk_forward_mean
+# [paper] auto-selected profile=balanced_rule_residual_v22 model=soxl_balanced_rule_residual_v22_actor.pt
+# [paper] as_of=2026-05-20
+# [paper] signal action=0 target=50.00% price=$173.20
+# [paper] risk_gate approved=True
+# [paper] dry-run: skipped order placement
+# [paper] output=/Users/rziiiii/.openclaw/workspace/runtime/soxl/paper_trading/2026-05-20/dry_run
+```
+
+Healthcheck:
+
+```bash
+production/check_scheduler_health.sh
+# data: ok last_date=2026-05-20 expected=2026-05-20
+# model: ok balanced_rule_residual_v22 (soxl_balanced_rule_residual_v22_actor.pt)
+# latest signal: date=2026-05-20 profile=balanced_rule_residual_v19 dry_run=false executed=true
+# postclose status: success marker found
+```
+
+### Decision
+
+- v22/post-release-cap is now the canonical scheduled selection path.
+- Do not resume SOXX cap threshold tuning; the SOXX fixed-actor cap failed
+  walk-forward absorption.
+- Next natural proof is the next post-close non-dry paper run selecting v22 with
+  fresh data.

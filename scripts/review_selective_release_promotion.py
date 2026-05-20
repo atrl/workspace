@@ -193,15 +193,21 @@ def _markdown(review: dict[str, Any]) -> str:
     ]
     for name, payload in checks.items():
         lines.append(f"| `{name}` | `{payload['passed']}` | {payload['detail']} |")
-    lines.extend(
-        [
-            "",
-            "## Readout",
-            "",
-            "- This card packages the walk-forward candidate for promotion review only.",
-            "- It must not be used by scheduler auto-selection until the profile flag is explicitly approved and the model-promotion gate remains passing.",
-        ]
-    )
+    lines.extend(["", "## Readout", ""])
+    if review["runtime_auto_select_allowed"]:
+        lines.extend(
+            [
+                "- This card is approved for scheduler auto-selection.",
+                "- Keep the profile flag and model-promotion gate passing; either one should block auto-selection again if revoked.",
+            ]
+        )
+    else:
+        lines.extend(
+            [
+                "- This card packages the walk-forward candidate for promotion review only.",
+                "- It must not be used by scheduler auto-selection until the profile flag is explicitly approved and the model-promotion gate remains passing.",
+            ]
+        )
     return "\n".join(lines) + "\n"
 
 

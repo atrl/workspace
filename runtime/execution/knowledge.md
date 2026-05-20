@@ -46,10 +46,10 @@
 14. **静态 drawdown/exposure-gap entry guard 仍不够**：`selective_release_recovery_trade_lock_guarded_short_v1` 把 target boost、rebalance bypass 和 `trade_lock_cap=1` 都限制在 `current_drawdown<=0.03` 且 exposure gap `>=0.10` 时，但 `wf_2023_2024` 只从 `-20.21%` 到 `-19.63%`，MaxDD 却从 `38.54%` 升到 `42.91%`。不要继续调这个静态阈值；下一步先做 drawdown-path attribution 或引入明确 post-release de-risk / target cap 机制。
 15. **drawdown attribution 指向 post-release 风控，而不是 entry guard**：`selective_release_walkforward_drawdown_attribution.csv` 显示 guarded-short 的唯一 execution-ready release order 是 `2024-03-28`，variant MaxDD trough 是 `2024-08-07`，release-to-trough 平均仓位差 `+0.0204`、最大仓位差 `+0.3140`、trough account delta `-0.48%`。后续还有 gate-eligible orders 在 `2024-05-13` 和 `2024-07-09`。下一步应测试 release-state target cap 或 post-release de-risk，而不是继续调入口阈值。
 16. **release-state target cap 是首个通过 walk-forward 双指标的 selective-release 变体**：`selective_release_recovery_post_release_cap_v1` 在 `wf_2023_2024` 把 return 从 `-20.21%` 提到 `-11.37%`，MaxDD 从 `38.54%` 降到 `27.66%`，同时 `wf_2022` 完全 unchanged；固定 full-window actor grid 上该变体为 no-op，不破坏原 counterfactual。下一步是 promotion review / runtime governance packaging，而不是继续调 entry guard。
-17. **post-release cap 已完成 promotion-review packaging，但不能自动进生产**：`runtime/execution/card/selective_release_post_release_cap_v1/promotion_review.json` 四项检查通过（`wf_2022` unchanged、`wf_2023_2024` return `+8.8381pp`、MaxDD `-10.8815pp`、fixed actor no-op）。后续 corrected v22 model promotion gate 已通过；`runtime_auto_select_allowed=false` 仍正确，因为 profile overlay flag 没有显式批准。
-18. **post-release cap 已完成 profile-bound runtime dry-run，但仍不能 auto-select**：`balanced_rule_residual_v22` 现在绑定 `execution_overlay.name=selective_release_recovery_post_release_cap_v1`，runtime 会自动补 `release_signals_v1`、输出 overlay diagnostics，并在非 dry-run 下单后推进 overlay state。固定 profile dry-run 成功跑到 `2026-05-14` 信号，overlay 字段写出；后续 corrected model sidecar 已清掉 model promotion blocker，但 profile flag 仍阻断 scheduler auto-select。
-19. **runtime auto-select 现在强制执行 profile overlay flag**：`best_model_for_family()` 不再只看 model summary promotion；如果 profile 绑定 execution overlay 且 `auto_select_allowed=false`，即使该 actor summary 被标 promoted 且分数更高，也会被跳过。当前 live `auto_select_profile("balanced")` 仍选 `balanced_rule_residual_v19`。这避免将来 v22 sidecar 被补成 promoted 后绕过 post-release-cap 的 runtime approval。
-20. **v22/post-release-cap runtime selection sidecar 现在只剩 profile flag blocker**：corrected main-backtest walk-forward evidence 已持久化到 v22 model summary，`model_walk_forward_evaluated=true` 且 `model_promotion_eligible=true`。`runtime/model/card/balanced_rule_residual_v22/runtime_selection_review.json` 仍然 `decision=blocked`，唯一阻断项是 `profile_overlay_auto_select_allowed=false`；当前 live `auto_select_profile("balanced")` 仍选 `balanced_rule_residual_v19`。
+17. **post-release cap 已完成 promotion-review packaging 并已批准 auto-select**：`runtime/execution/card/selective_release_post_release_cap_v1/promotion_review.json` 四项检查通过（`wf_2022` unchanged、`wf_2023_2024` return `+8.8381pp`、MaxDD `-10.8815pp`、fixed actor no-op）。`runtime_auto_select_allowed=true`，因为 profile overlay flag 与 corrected v22 model promotion gate 均已通过。
+18. **post-release cap 已完成 profile-bound runtime dry-run 且成为默认 auto-select profile**：`balanced_rule_residual_v22` 绑定 `execution_overlay.name=selective_release_recovery_post_release_cap_v1`，runtime 会自动补 `release_signals_v1`、输出 overlay diagnostics，并在非 dry-run 下单后推进 overlay state。默认 dry-run 已在 `2026-05-20` 选中 v22/post-release-cap。
+19. **runtime auto-select 同时强制 profile overlay flag 与 walk-forward selection score**：`best_model_for_family()` 不再只看训练 `best_score`；完整 walk-forward report 存在时使用 profile selection weights 和 relative outperformance 计算 walk-forward 均值分数。当前 live 分数为 v22 `64.88`、v19 `46.17`，因此 auto-select 选 `balanced_rule_residual_v22`。
+20. **dry-run 不再覆盖同日非 dry-run paper execution marker**：如果当日已有 paper executed summary，dry-run 输出会落到 `runtime/soxl/paper_trading/<date>/dry_run/`。duplicate guard 也会在 summary 被污染时回退检查 paper broker state 与 cumulative daily CSV，防止同日重复下单。
 
 ## 待验证方向
 
@@ -67,7 +67,7 @@
 - [x] 让 scheduler auto-select 强制执行 profile overlay approval flag — prevents future promoted v22 summary from bypassing `auto_select_allowed=false`
 - [x] 决定是否为 v22/post-release-cap runtime use 做 explicit model-promotion sidecar governance；否则转入下一条窄模型实验 — runtime selection sidecar exists and blocks approval
 - [x] 产生 corrected main-backtest v22 walk-forward model-promotion evidence — model gate passes; runtime still blocked only by profile overlay flag
-- [ ] 明确是否开启 v22/post-release-cap profile overlay auto-select；否则转入下一条窄模型优化实验
+- [x] 明确是否开启 v22/post-release-cap profile overlay auto-select；否则转入下一条窄模型优化实验 — approved; runtime selection now chooses v22 via complete walk-forward score
 - [ ] 动态 decision frequency
 - [ ] 仓位上限与 VIX term structure 联动
 - [ ] budget-usage actor/runtime mismatch 诊断
@@ -400,6 +400,51 @@ Decision:
 - Do not enable v22 scheduled auto-selection.
 - The model-promotion evidence gap is closed; do not repeat another v22 model-evidence loop for the same question.
 - This selective-release execution line is now a blocked governed candidate solely because runtime promotion approval is not explicit.
+
+## 2026-05-21: v22 Post-Release Cap Runtime Auto-Select Approval
+
+Question: after production scheduler proof and corrected v22 promotion evidence,
+can the post-release-cap profile become the default scheduled runtime profile?
+
+Answer: yes. The profile flag is now explicitly approved, and runtime
+auto-selection uses complete walk-forward selection evidence rather than only
+training `best_score`.
+
+Artifacts:
+
+- `runtime/model/card/balanced_rule_residual_v22/profile.yaml`
+- `runtime/model/card/balanced_rule_residual_v22/runtime_selection_review.json`
+- `runtime/execution/card/selective_release_post_release_cap_v1/promotion_review.json`
+
+Readout:
+
+- `balanced_rule_residual_v22` has
+  `execution_overlay.auto_select_allowed=true`.
+- Runtime selection review is `decision=approved`,
+  `runtime_auto_select_allowed=true`, and current auto-selected profile is
+  `balanced_rule_residual_v22`.
+- Selective-release promotion review reports
+  `runtime_auto_select_allowed=true`.
+- Complete walk-forward runtime selection scores are v22 `64.88` versus v19
+  `46.17`; this avoids silently keeping v19 only because its training
+  `best_score` is higher.
+- Default paper dry-run on `2026-05-20` selected
+  `balanced_rule_residual_v22` and emitted
+  `selective_release_recovery_post_release_cap_v1` diagnostics.
+
+Production guard:
+
+- Dry-run after an executed same-day paper run writes under
+  `runtime/soxl/paper_trading/<date>/dry_run/` and does not overwrite the root
+  executed summary.
+- If the root summary has already been polluted, duplicate execution guard can
+  recover from paper broker state plus the cumulative paper daily CSV.
+
+Decision:
+
+- v22/post-release-cap is now the canonical scheduled selection path.
+- Keep v19 as retained rollback actor/evidence, not the active canonical
+  default.
 
 ## 2026-05-21: SOXX Relative Weakness Cap Fixed-Actor Diagnostic
 

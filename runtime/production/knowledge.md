@@ -877,3 +877,46 @@ Decision:
 - The next work can resume SOXX-aware model optimization from the existing
   selective-release / execution-absorption frontier, using the normal experiment
   governance gate.
+
+## 2026-05-21 v22 Auto-Select And Dry-Run Preservation
+
+Context:
+
+- After production proof, model optimization resumed through the governed
+  v22/post-release-cap path.
+- Simply approving the overlay flag was not enough because legacy auto-select
+  still ranked promoted profiles by training `best_score`, where v19 `94.48`
+  exceeded v22 `91.94`.
+
+Change:
+
+- Runtime auto-selection now uses a complete walk-forward report when present,
+  scoring each window with the profile selection weights and relative
+  outperformance as the return term; otherwise it falls back to legacy
+  `best_score`.
+- `balanced_rule_residual_v22` now has
+  `execution_overlay.auto_select_allowed=true`.
+- Dry-run output after an already executed paper day is redirected to
+  `runtime/soxl/paper_trading/<date>/dry_run/` so the root executed
+  `summary.json` remains the post-close proof.
+- Duplicate non-dry-run protection now falls back to paper broker state plus the
+  cumulative paper CSV if `summary.json` is accidentally polluted by a dry-run.
+
+Readout:
+
+- Live auto-select: `balanced_rule_residual_v22`
+  (`soxl_balanced_rule_residual_v22_actor.pt`), score `64.88`,
+  source `walk_forward_mean`.
+- Retained v19 score: `46.17`, source `walk_forward_mean`.
+- Default paper dry-run on `2026-05-20` selected v22/post-release-cap and wrote
+  dry-run output under `runtime/soxl/paper_trading/2026-05-20/dry_run/`.
+- `production/check_scheduler_health.sh` reports model health on v22 and keeps
+  latest executed paper marker at `2026-05-20`, `dry_run=false`,
+  `executed=true`.
+
+Decision:
+
+- Scheduler model selection is now aligned with corrected walk-forward evidence
+  and explicit overlay governance.
+- The next post-close non-dry paper run should naturally execute with v22 unless
+  the promotion gate or overlay approval is revoked.

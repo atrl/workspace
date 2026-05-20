@@ -419,3 +419,103 @@ def test_main_skips_duplicate_non_dry_run_for_existing_executed_summary(
 
     captured = capsys.readouterr()
     assert "already executed for 2026-05-18" in captured.out
+
+
+def test_dry_run_after_executed_day_does_not_overwrite_executed_summary(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+):
+    csv_path = tmp_path / "soxl_features.csv"
+    csv_path.write_text(
+        "date,soxl_close\n"
+        "2026-05-19,151.75\n",
+        encoding="utf-8",
+    )
+    runtime_dir = tmp_path / "runtime" / "soxl"
+    run_dir = runtime_dir / "paper_trading" / "2026-05-19"
+    run_dir.mkdir(parents=True)
+    executed_summary = {
+        "date": "2026-05-19",
+        "profile": "balanced_rule_residual_v19",
+        "broker": "paper",
+        "dry_run": False,
+        "executed": True,
+    }
+    (run_dir / "summary.json").write_text(json.dumps(executed_summary), encoding="utf-8")
+
+    signal = SignalIntent(
+        date="2026-05-19",
+        symbol="SOXL",
+        profile="balanced_rule_residual_v22",
+        model_path="runtime/model/card/balanced_rule_residual_v22/soxl_balanced_rule_residual_v22_actor.pt",
+        seed=42,
+        action=0,
+        target_position=0.5,
+        current_position=0.4856,
+        price=151.75,
+        regime_risk=0.5,
+        note="test dry-run after executed",
+    )
+    decision = RiskGateDecision(True, 0.5, (), ())
+    account = AccountSnapshot("2026-05-19", 482_240.75, 3000, 455_250.0, 937_490.75, 0.4856)
+    reconcile = ReconciliationRecord("2026-05-19", 0.5, 0.4856, -0.0144, "none", "position aligned")
+
+    monkeypatch.setattr(soxl_paper_trading, "RUNTIME_DIR", runtime_dir)
+    monkeypatch.setattr(soxl_paper_trading, "PAPER_TRADING_CSV", runtime_dir / "paper_trading" / "daily.csv")
+    monkeypatch.setattr(soxl_paper_trading, "PAPER_BROKER_STATE", runtime_dir / "paper_trading" / "state.json")
+    monkeypatch.setattr(soxl_paper_trading, "init_qlib", lambda _qlib_path: None)
+    monkeypatch.setattr(soxl_paper_trading, "_init_broker", lambda args: PaperBroker(initial_cash=100_000.0))
+    monkeypatch.setattr(soxl_paper_trading, "auto_select_profile", lambda _family: ("balanced_rule_residual_v22", Path("model.pt")))
+    monkeypatch.setattr(
+        soxl_paper_trading,
+        "plan_manual_session",
+        lambda **_kwargs: {
+            "signal": signal,
+            "risk_gate": decision,
+            "account": account,
+            "reconcile": reconcile,
+            "execution_overlay_state": RuntimeExecutionOverlayState(),
+        },
+    )
+    monkeypatch.setattr(soxl_paper_trading, "_last_trading_day", lambda: "2026-05-19")
+
+    from src.soxl_quant import settings
+
+    monkeypatch.setattr(settings, "CSV_PATH", csv_path)
+    monkeypatch.setattr(sys, "argv", ["soxl_paper_trading.py", "--dry-run", "--no-notify", "--skip-data-update"])
+
+    soxl_paper_trading.main()
+
+    assert json.loads((run_dir / "summary.json").read_text(encoding="utf-8")) == executed_summary
+    dry_run_summary = json.loads((run_dir / "dry_run" / "summary.json").read_text(encoding="utf-8"))
+    assert dry_run_summary["profile"] == "balanced_rule_residual_v22"
+    assert dry_run_summary["dry_run"] is True
+    assert dry_run_summary["executed"] is False
+
+
+def test_existing_executed_summary_falls_back_to_paper_state_and_daily_csv(tmp_path: Path):
+    runtime_dir = tmp_path / "runtime" / "soxl"
+    paper_dir = runtime_dir / "paper_trading"
+    paper_dir.mkdir(parents=True)
+    (paper_dir / "2026-05-20").mkdir()
+    (paper_dir / "2026-05-20" / "summary.json").write_text(
+        json.dumps({"date": "2026-05-20", "broker": "paper", "dry_run": True, "executed": False}),
+        encoding="utf-8",
+    )
+    (paper_dir / "paper_broker_state.json").write_text(
+        json.dumps({"date": "2026-05-20", "shares": 2800}),
+        encoding="utf-8",
+    )
+    (paper_dir / "paper_trading_soxl_daily.csv").write_text(
+        "datetime,strategy_nav,price,buyhold_nav,position,excess,excess_pct,action\n"
+        "2026-05-20,1001806.10,173.20,3615111.61,0.4841,-2613305.51,-72.29,SELL\n",
+        encoding="utf-8",
+    )
+
+    restored = soxl_paper_trading._existing_executed_summary("2026-05-20", "paper", runtime_dir=runtime_dir)
+
+    assert restored is not None
+    assert restored["date"] == "2026-05-20"
+    assert restored["broker"] == "paper"
+    assert restored["dry_run"] is False
+    assert restored["executed"] is True

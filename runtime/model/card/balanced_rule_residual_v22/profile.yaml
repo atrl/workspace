@@ -78,7 +78,7 @@ execution_overlay:
   enabled: true
   name: selective_release_recovery_post_release_cap_v1
   state_path: runtime/execution/state/selective_release_post_release_cap_v1.json
-  auto_select_allowed: false
+  auto_select_allowed: true
 model:
   use_hybrid_overlay: true
   delta_levels: [-0.10, -0.05, 0.0, 0.05, 0.10]

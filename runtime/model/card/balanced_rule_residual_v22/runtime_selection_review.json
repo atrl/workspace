@@ -1,11 +1,9 @@
 {
   "profile": "balanced_rule_residual_v22",
-  "decision": "blocked",
-  "runtime_auto_select_allowed": false,
-  "current_auto_select_profile": "balanced_rule_residual_v19",
-  "blocking_reasons": [
-    "profile overlay auto_select_allowed=false"
-  ],
+  "decision": "approved",
+  "runtime_auto_select_allowed": true,
+  "current_auto_select_profile": "balanced_rule_residual_v22",
+  "blocking_reasons": [],
   "checks": {
     "model_fixed_split_eligible": {
       "passed": true,
@@ -29,8 +27,8 @@
       "detail": "overlay is bound in the runtime profile"
     },
     "profile_overlay_auto_select_allowed": {
-      "passed": false,
-      "detail": "profile overlay is not approved for runtime auto-selection"
+      "passed": true,
+      "detail": "profile overlay is explicitly approved for runtime auto-selection"
     }
   }
 }

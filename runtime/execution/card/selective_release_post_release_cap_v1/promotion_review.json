@@ -1,9 +1,9 @@
 {
   "variant": "selective_release_recovery_post_release_cap_v1",
   "decision": "promotion_review_candidate",
-  "runtime_auto_select_allowed": false,
-  "runtime_auto_select_reason": "profile binds overlay but keeps auto_select_allowed=false",
-  "runtime_profile_auto_select_allowed": false,
+  "runtime_auto_select_allowed": true,
+  "runtime_auto_select_reason": "promotion review, profile flag, and model gate all allow auto-selection",
+  "runtime_profile_auto_select_allowed": true,
   "model_promotion_gate_passed": true,
   "model_promotion_reason": "model passed promotion gate",
   "checks": {

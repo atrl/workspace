@@ -126,8 +126,8 @@ def test_runtime_selection_review_script_succeeds_when_review_blocks_selection()
 def test_runtime_selection_context_uses_explicit_family_for_auto_select():
     context = runtime_selection_context("balanced_rule_residual_v22", family="balanced")
 
-    assert context["profile_overlay_auto_select_allowed"] is False
-    assert context["current_auto_select_profile"] == "balanced_rule_residual_v19"
+    assert context["profile_overlay_auto_select_allowed"] is True
+    assert context["current_auto_select_profile"] == "balanced_rule_residual_v22"
 
 
 def test_load_walk_forward_results_maps_corrected_report_for_promotion():

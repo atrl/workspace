@@ -240,13 +240,13 @@ profiles:
   notes_ref: experiments/archive/balanced_rule_residual_v18/notes.md
 - name: balanced_rule_residual_v19
   family: balanced
-  status: canonical
+  status: archived
   baseline: balanced_rule_residual_v16
   keep_actor: true
   keep_summary: true
   notes_ref: runtime/model/cards/balanced_rule_residual_v19/v19_walk_forward_review.md
   wf_status: completed
-  wf_notes: "wf_2020 return +105.9% Sharpe 2.04 MaxDD 20.3% (bull OK); wf_2022 return -30.7% Sharpe -0.87 MaxDD 39.4% — vs SOXL B&H -86.6%, outperforms by +55.9pp. Bear-market defense successful. Promotion gate PASSED after recalibration (2022 MaxDD 39.4% < 55%, proxy Sharpe > 0.50). Corrected backtest metrics with test_seg isolation. Best production candidate in residual family."
+  wf_notes: "Former production canonical and rollback actor. Corrected walk-forward remains promoted, but runtime selection now prefers balanced_rule_residual_v22 after complete walk-forward selection scoring and post-release-cap overlay approval."
 - name: balanced_sac_quick
   family: balanced
   status: ablation
@@ -403,13 +403,13 @@ profiles:
   notes_ref: experiments/archive/balanced_rule_residual_v21/notes.md
 - name: balanced_rule_residual_v22
   family: balanced
-  status: candidate
+  status: canonical
   baseline: balanced_rule_residual_v19
   keep_actor: true
   keep_summary: true
   notes_ref: runtime/model/card/balanced_rule_residual_v22/v22_corrected_runtime_selection_review.md
   wf_status: completed
-  wf_notes: "Corrected main-backtest WF evidence persisted. wf_2020 +136.65% Sharpe 2.16 MaxDD 20.16% relative +76.87pp; wf_2022 -48.40% Sharpe -1.24 MaxDD 54.67% relative +38.18pp; wf_2023_2024 +50.98% Sharpe 1.01 MaxDD 30.55% relative +53.58pp. Model promotion gate passes; scheduler runtime auto-select remains blocked because profile overlay auto_select_allowed=false."
+  wf_notes: "Corrected main-backtest WF evidence persisted. wf_2020 +136.65% Sharpe 2.16 MaxDD 20.16% relative +76.87pp; wf_2022 -48.40% Sharpe -1.24 MaxDD 54.67% relative +38.18pp; wf_2023_2024 +50.98% Sharpe 1.01 MaxDD 30.55% relative +53.58pp. Model promotion gate passes; complete walk-forward runtime selection score 64.88 now beats v19 46.17, and profile overlay auto_select_allowed=true approves selective_release_recovery_post_release_cap_v1 for scheduled selection."
 - name: balanced_rule_residual_v22_release_v1
   family: balanced
   status: ablation

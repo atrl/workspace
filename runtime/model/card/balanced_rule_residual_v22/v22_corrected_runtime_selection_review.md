@@ -60,3 +60,18 @@ explicit production governance decision on the profile overlay
 `auto_select_allowed` flag. Do not run another v22 model-evidence loop for the
 same question; either approve the overlay flag after production scheduler proof
 or defer v22/post-release-cap and move to a distinct mechanism.
+
+## 2026-05-21 Addendum
+
+The production scheduler proof completed and the governance decision has now
+been applied:
+
+- `execution_overlay.auto_select_allowed=true`
+- `runtime_selection_review.json`: `decision=approved`
+- current auto-selected profile: `balanced_rule_residual_v22`
+- runtime selection score source: `walk_forward_mean`
+- runtime selection scores: v22 `64.88`, v19 `46.17`
+
+This card remains the model-promotion evidence record; the active runtime
+selection state is now captured in `runtime_selection_review.md` and
+`runtime_selection_review.json`.

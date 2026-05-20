@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from scripts.review_selective_release_promotion import build_promotion_review, relative_output_label
+from scripts.review_selective_release_promotion import _markdown, build_promotion_review, relative_output_label
 from src.soxl_quant.policy.execution_overlays import POST_RELEASE_CAP_VARIANT
 
 
@@ -80,3 +80,21 @@ def test_relative_output_label_accepts_relative_output_dir():
     assert relative_output_label(Path("runtime/execution/card/selective_release_post_release_cap_v1")) == Path(
         "runtime/execution/card/selective_release_post_release_cap_v1"
     )
+
+
+def test_promotion_review_markdown_reflects_runtime_auto_select_approval():
+    review = {
+        "variant": POST_RELEASE_CAP_VARIANT,
+        "decision": "promotion_review_candidate",
+        "runtime_auto_select_allowed": True,
+        "runtime_auto_select_reason": "promotion review, profile flag, and model gate all allow auto-selection",
+        "checks": {
+            "wf_2022_unchanged": {"passed": True, "detail": "defensive walk-forward window remains unchanged"},
+            "wf_2023_2024_return_improved": {"passed": True, "detail": "recovery return improves"},
+        },
+    }
+
+    markdown = _markdown(review)
+
+    assert "approved for scheduler auto-selection" in markdown
+    assert "must not be used by scheduler auto-selection" not in markdown
