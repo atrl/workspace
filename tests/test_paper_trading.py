@@ -27,6 +27,7 @@ from src.soxl_quant.runtime import (
     RiskGateDecision,
     RuntimeExecutionOverlayState,
     SignalIntent,
+    plan_manual_session,
     risk_gate,
 )
 
@@ -163,6 +164,53 @@ def test_last_trading_day_uses_previous_friday_before_monday_us_close():
     monday_preopen = datetime(2026, 5, 18, 21, 0, tzinfo=shanghai)
 
     assert _last_trading_day(now=monday_preopen) == "2026-05-15"
+
+
+def test_plan_manual_session_uses_latest_available_bar_as_signal_date(monkeypatch: pytest.MonkeyPatch):
+    import src.soxl_quant.runtime as runtime
+
+    dates = pd.bdate_range("2026-01-01", "2026-05-19")
+    full_df = pd.DataFrame({"feature": range(len(dates))}, index=dates)
+    price_series = pd.Series([50.0 + i for i in range(len(dates))], index=dates)
+    captured: dict[str, str] = {}
+
+    def fake_build_signal(
+        actor,
+        profile_name,
+        bundle_path,
+        bundle,
+        feature_df,
+        price_path,
+        idx,
+        broker,
+        ledger,
+        peak_value,
+    ):
+        signal_date = str(pd.Timestamp(feature_df.index[idx]).date())
+        captured["feature_end"] = signal_date
+        return SignalIntent(
+            date=signal_date,
+            symbol="SOXL",
+            profile=profile_name,
+            model_path=str(bundle_path),
+            seed=42,
+            action=0,
+            target_position=0.5,
+            current_position=0.0,
+            price=float(price_path[idx]),
+            regime_risk=0.5,
+            note="test latest bar",
+        )
+
+    monkeypatch.setattr(runtime, "_runtime_frame", lambda _profile_name: (full_df, price_series))
+    monkeypatch.setattr(runtime, "load_actor_bundle", lambda _profile_name, model_path=None: (object(), Path("actor.pt"), {}))
+    monkeypatch.setattr(runtime, "promotion_gate_status", lambda _bundle_path: (True, "model passed promotion gate"))
+    monkeypatch.setattr(runtime, "_build_signal_intent", fake_build_signal)
+
+    payload = plan_manual_session("balanced_rule_residual_v19", "2026-05-19", broker=PaperBroker())
+
+    assert payload["signal"].date == "2026-05-19"
+    assert captured["feature_end"] == "2026-05-19"
 
 
 def test_data_update_auto_provider_falls_back_to_yahoo_api(monkeypatch: pytest.MonkeyPatch):

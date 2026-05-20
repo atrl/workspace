@@ -960,12 +960,13 @@ def plan_manual_session(
     """
 
     full_df, price_series = _runtime_frame(profile_name)
-    # T+1 execution: use data up to the day BEFORE as_of for signal generation
-    # to avoid lookahead bias from using as_of's close price in production.
-    # The signal is generated after as_of's close and executed on the next trading day.
-    valid_dates = full_df.index[full_df.index < as_of]
+    # The production runner passes the latest closed bar as `as_of`.
+    # Include that bar so post-close refreshes produce the newest signal date;
+    # execution still happens after the close through the broker layer.
+    as_of_ts = pd.Timestamp(as_of)
+    valid_dates = full_df.index[full_df.index <= as_of_ts]
     if len(valid_dates) == 0:
-        raise ValueError(f"no data available before {as_of}")
+        raise ValueError(f"no data available up to {as_of}")
     signal_as_of = str(valid_dates[-1])[:10]
     feature_df = full_df.loc[:signal_as_of].copy()
     price_slice = price_series.loc[:signal_as_of].copy()

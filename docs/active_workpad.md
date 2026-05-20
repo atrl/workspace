@@ -2568,3 +2568,62 @@ PYTHONPATH=. qlib_venv/bin/python scripts/build_runtime_index.py --check
   segment, not merely anywhere in the append-only log.
 - Natural post-close LaunchAgent proof remains pending; current live health
   time during this pass was `2026-05-21 04:25 CST`.
+
+## 2026-05-21 Paper Signal Latest-Bar Fix
+
+Goal: fix the remaining simulated-paper lag where the runner had fresh data for
+one date but generated the prior date's signal.
+
+### Root Cause
+
+- `production/soxl_paper_trading.py` reads the latest available bar from
+  `data/processed/panels/soxl_soxx_vix_full.csv` and passes it as `as_of` to
+  `plan_manual_session()`.
+- `production/FUTU_SEMI_AUTO.md` documents this as "runs `plan_manual_session()`
+  for the latest available bar".
+- `plan_manual_session()` instead treated `as_of` as an excluded execution date
+  and selected `full_df.index < as_of`.
+- Current live evidence showed the mismatch:
+  - data freshness: `last_date=2026-05-19 expected=2026-05-19`
+  - paper dashboard and broker state: latest executed row still `2026-05-18`
+  - cached dry-run before this fix would therefore remain one signal day behind
+    the latest closed bar.
+
+### Change
+
+- `src/soxl_quant/runtime.py`
+  - `plan_manual_session()` now parses `as_of` as the latest closed bar and uses
+    `full_df.index <= as_of`.
+  - This keeps post-close execution non-leaking because the broker action still
+    happens after the close; it only stops discarding the freshly available bar.
+- `tests/test_paper_trading.py`
+  - adds a regression proving `plan_manual_session(..., as_of="2026-05-19")`
+    builds the signal from `2026-05-19`, not `2026-05-18`.
+
+### Verification
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_paper_trading.py::test_plan_manual_session_uses_latest_available_bar_as_signal_date -q
+# red first: signal.date was 2026-05-18
+# green: 1 passed
+
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_paper_trading.py tests/test_daily_scheduler.py tests/test_scheduler_health.py tests/test_vercel_dashboard.py tests/test_dashboard.py -q
+# 37 passed
+
+PYTHONPATH=. qlib_venv/bin/python production/soxl_paper_trading.py --dry-run --skip-data-update --no-notify
+# data fresh: last_date=2026-05-19 expected=2026-05-19 stale_days=0
+# as_of=2026-05-19
+# output=runtime/soxl/paper_trading/2026-05-19
+# summary signal.date=2026-05-19, dry_run=true, executed=false
+
+production/check_scheduler_health.sh
+# postclose status: pending until 05:35 Tue-Sat Asia/Shanghai
+```
+
+### Decision
+
+- Treat `as_of` in the automated paper runner as the latest closed bar, matching
+  the production scheduler's data-refresh semantics.
+- The natural post-close proof is still pending because current live health
+  time during this pass was `2026-05-21 04:33 CST`, before the `05:35`
+  LaunchAgent window.
