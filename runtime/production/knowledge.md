@@ -16,6 +16,7 @@
 9. **Vercel 静态发布路径已确定**：`dashboard.html` 与 `dashboard_data/` 作为静态 export 入库，`vercel.json` 将 `/` rewrite 到 `/dashboard.html`，并对 dashboard HTML/data 设置 `Cache-Control: public, max-age=0, must-revalidate`。
 10. **auto-select 现在同时看 model gate 和 profile overlay gate**：`best_model_for_family()` 会跳过绑定 execution overlay 但 `auto_select_allowed=false` 的 profile。这样即使 `balanced_rule_residual_v22` 的 model sidecar 将来被标 promoted，scheduler 也不会绕过 post-release-cap 的 runtime approval。
 11. **定时表已按 Asia/Shanghai 本地时区修正**：pre-open 改成 `21:00 Mon-Fri` cached-data `--dry-run`，post-close 完整数据刷新 + 模拟盘 + dashboard 改成 `05:35 Tue-Sat`，避免本地 `09:30/16:35` 误跑在美股收盘前。
+12. **scheduler health 现在匹配 macOS LaunchAgent**：`production/check_scheduler_health.sh` 会在 Darwin 上检查 `launchctl list` 中的 `com.soxl.daily.scheduler`，并用 portable `stat/date` 读取日志，不再把 macOS 运行态显示成空白 cron 服务。
 
 ## 2026-05-20 验证记录
 
@@ -117,6 +118,48 @@ Dashboard / Vercel visual evidence:
 - Computer Use screenshot remains blocked by pending macOS Accessibility /
   Screen Recording permissions, but the browser-rendered Chrome screenshot is
   now saved as repo evidence.
+
+## 2026-05-21 Scheduler Health Observability
+
+Root cause:
+
+- The schedule had moved to macOS LaunchAgent, but
+  `production/check_scheduler_health.sh` still inspected Linux cron.
+- On this host the service section printed blank, so the operator could not see
+  whether `com.soxl.daily.scheduler` was loaded.
+- The log timestamp path also used GNU-only `ls --time-style`, which is not
+  portable to macOS once logs exist.
+
+Change:
+
+- Added `tests/test_scheduler_health.py` with a fake `launchctl` and temp
+  scheduler logs.
+- `production/check_scheduler_health.sh` now detects Darwin, reports
+  `LaunchAgent com.soxl.daily.scheduler: loaded/not loaded`, supports
+  `SOXL_SCHEDULER_HEALTH_ROOT`, and formats log mtimes through portable
+  `stat/date` helpers.
+
+Verification:
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_scheduler_health.py -q
+# 1 passed
+
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_scheduler_health.py tests/test_production_schedule.py tests/test_daily_scheduler.py tests/test_paper_trading.py tests/test_vercel_dashboard.py tests/test_dashboard.py -q
+# 21 passed
+
+production/check_scheduler_health.sh
+# LaunchAgent com.soxl.daily.scheduler: loaded
+# scheduler_preopen.log: NOT FOUND
+# scheduler_postclose.log: NOT FOUND
+```
+
+Interpretation:
+
+- The LaunchAgent is loaded on the current macOS host.
+- The corrected schedule logs have not been produced yet, so the live
+  post-close proof remains pending until the first `05:35 Tue-Sat
+  Asia/Shanghai` run.
 
 ## Open Production Tasks
 

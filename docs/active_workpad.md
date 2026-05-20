@@ -158,9 +158,58 @@ Visual evidence:
 ### Next Action
 
 1. Commit and push the schedule guard.
-2. On the next live post-close window, run or inspect the `05:35 Tue-Sat`
+2. Improve the scheduler health check so the corrected macOS LaunchAgent setup
+   is observable before the first live run.
+3. On the next live post-close window, run or inspect the `05:35 Tue-Sat`
    scheduler output and confirm whether online data extends beyond
    `2026-05-15`.
+
+## 2026-05-21 Scheduler Health Observability
+
+### Root Cause
+
+- `production/check_scheduler_health.sh` still inspected Linux cron even though
+  the active local schedule is installed as macOS LaunchAgent
+  `com.soxl.daily.scheduler`.
+- On the current host the service section printed blank, which hid whether the
+  scheduler was actually loaded.
+- The script also used GNU `ls --time-style`, which is not reliable on macOS
+  once the corrected schedule logs exist.
+
+### Changes
+
+- `production/check_scheduler_health.sh`
+  - detects Darwin and reports LaunchAgent loaded / not loaded through
+    `launchctl list`
+  - keeps a Linux cron branch for cron deployments
+  - adds `SOXL_SCHEDULER_HEALTH_ROOT` and `SOXL_SCHEDULER_HEALTH_OS` seams for
+    deterministic tests
+  - uses portable `stat/date` helpers for log timestamps
+- `tests/test_scheduler_health.py`
+  - verifies macOS LaunchAgent reporting and success-marker extraction from
+    `scheduler_preopen.log` / `scheduler_postclose.log`.
+
+### Verification
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_scheduler_health.py -q
+# 1 passed
+
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_scheduler_health.py tests/test_production_schedule.py tests/test_daily_scheduler.py tests/test_paper_trading.py tests/test_vercel_dashboard.py tests/test_dashboard.py -q
+# 21 passed
+
+production/check_scheduler_health.sh
+# LaunchAgent com.soxl.daily.scheduler: loaded
+# scheduler_preopen.log: NOT FOUND
+# scheduler_postclose.log: NOT FOUND
+```
+
+### Next Action
+
+1. Commit and push the health-observability guard.
+2. Wait for or manually run the first real `05:35 Tue-Sat Asia/Shanghai`
+   post-close scheduler pass, then use the health script to confirm log success
+   markers and data freshness.
 
 ## 2026-05-20 Selective Release Order-Generation Diagnostic
 
