@@ -18,9 +18,9 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
 from src.soxl_quant.backtest import backtest_profile
-from src.soxl_quant.data import build_dataset, init_qlib, segment_frame
+from src.soxl_quant.data import build_dataset, feature_columns_for_packs, init_qlib, segment_frame
 from src.soxl_quant.policy.policy_builder import build_policy
-from src.soxl_quant.settings import MODEL_DIR, QLIB_DATA_PATH, load_profile
+from src.soxl_quant.settings import QLIB_DATA_PATH, load_profile, model_artifact_path
 from src.soxl_quant.app.workers import WALK_FORWARD_WINDOWS
 
 
@@ -29,6 +29,10 @@ def parse_args():
     parser.add_argument("--profile", required=True, help="Profile name to evaluate")
     parser.add_argument("--output-dir", default="runtime/soxl/wf_backtest", help="Output directory")
     return parser.parse_args()
+
+
+def model_path_for_profile(profile_name: str) -> Path:
+    return model_artifact_path(profile_name)
 
 
 def main():
@@ -41,7 +45,7 @@ def main():
     test_df_full["VIX_ZSCORE_DELTA_5"] = test_df_full["vix_zscore"].diff(5).fillna(0.0)
     test_df_full["REGIME_RISK_DELTA_5"] = test_df_full["regime_risk"].diff(5).fillna(0.0)
 
-    ckpt = torch.load(MODEL_DIR / f"soxl_{args.profile}_actor.pt", map_location="cpu", weights_only=False)
+    ckpt = torch.load(model_path_for_profile(args.profile), map_location="cpu", weights_only=False)
     _, actor = build_policy(
         int(ckpt["obs_dim"]),
         profile,
@@ -75,7 +79,7 @@ def main():
             position_budget_config=pos_budget,
             execution_config=exec_cfg,
             test_seg=test_seg,
-            feature_columns=profile.feature.packs,
+            feature_columns=feature_columns_for_packs(profile.feature.packs, profile.name),
             model_config=profile.model,
             mode_router_config=profile.mode_router,
         )

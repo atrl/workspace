@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from scripts.walkforward_backtest_validate import model_path_for_profile
 from src.soxl_quant.settings import artifact_stem, model_artifact_path, summary_artifact_path
 
 
@@ -23,8 +24,15 @@ def test_artifact_tag_is_sanitized_for_worker_names():
     assert artifact_stem("smoke", tag) == "soxl_smoke_wf_2023_2024_final"
 
 
+def test_walkforward_validator_uses_canonical_profile_model_path():
+    assert model_path_for_profile("balanced_rule_residual_v22") == model_artifact_path(
+        "balanced_rule_residual_v22"
+    )
+
+
 if __name__ == "__main__":
     test_default_artifact_paths_stay_canonical()
     test_namespaced_artifact_paths_do_not_clobber_main_profile_outputs()
     test_artifact_tag_is_sanitized_for_worker_names()
+    test_walkforward_validator_uses_canonical_profile_model_path()
     print("test_artifact_paths: OK")

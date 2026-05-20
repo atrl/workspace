@@ -13,6 +13,7 @@ ROOT = Path(__file__).resolve().parent.parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from src.soxl_quant.app.promote import build_promotion_report, persist_promotion_report
 from src.soxl_quant.runtime import auto_select_profile
 from src.soxl_quant.settings import load_profile
 
@@ -34,19 +35,61 @@ def _check(passed: bool, detail: str, **values: Any) -> dict[str, Any]:
     return payload
 
 
+def _approval_detail(allowed: bool) -> str:
+    if allowed:
+        return "profile overlay is explicitly approved for runtime auto-selection"
+    return "profile overlay is not approved for runtime auto-selection"
+
+
 def _read_json(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def load_walk_forward_results(path: Path | None) -> dict[str, dict[str, Any]]:
+    if path is None or not path.exists():
+        return {}
+    payload = _read_json(path)
+    results: dict[str, dict[str, Any]] = {}
+    for window, row in payload.items():
+        if not isinstance(row, dict):
+            continue
+        metrics = dict(row.get("main_backtest") or {})
+        if not metrics:
+            continue
+        if "relative_outperformance" in row:
+            metrics["relative_return"] = row["relative_outperformance"]
+        results[str(window)] = metrics
+    return results
+
+
+def effective_model_promotion(
+    *,
+    profile_name: str,
+    model_summary: dict[str, Any],
+    walk_forward_results: dict[str, dict[str, Any]] | None = None,
+) -> dict[str, Any]:
+    promotion = model_summary.get("promotion") or {}
+    if promotion.get("walk_forward_evaluated", False) or not walk_forward_results:
+        return promotion
+    profile = load_profile(profile_name)
+    return build_promotion_report(
+        profile,
+        model_summary.get("slices") or {},
+        model_summary.get("test_proxy") or {},
+        walk_forward_results,
+    )
 
 
 def build_runtime_selection_review(
     *,
     profile_name: str,
     model_summary: dict[str, Any],
+    model_promotion: dict[str, Any] | None = None,
     overlay_review: dict[str, Any],
     profile_overlay_auto_select_allowed: bool,
     current_auto_select_profile: str = "",
 ) -> dict[str, Any]:
-    promotion = model_summary.get("promotion") or {}
+    promotion = model_promotion or model_summary.get("promotion") or {}
     fixed_split = promotion.get("fixed_split") or {}
     overlay_checks = overlay_review.get("checks") or {}
     runtime_profile_bound = overlay_checks.get("runtime_profile_bound") or {}
@@ -75,7 +118,7 @@ def build_runtime_selection_review(
         ),
         "profile_overlay_auto_select_allowed": _check(
             bool(profile_overlay_auto_select_allowed),
-            "profile overlay is explicitly approved for runtime auto-selection",
+            _approval_detail(bool(profile_overlay_auto_select_allowed)),
         ),
     }
 
@@ -153,6 +196,14 @@ def write_review(review: dict[str, Any], output_dir: Path = DEFAULT_OUTPUT_DIR) 
     )
 
 
+def persist_effective_model_promotion(summary_path: Path, promotion: dict[str, Any]) -> None:
+    persist_promotion_report(summary_path, promotion)
+
+
+def relative_output_label(output_dir: Path) -> Path:
+    return output_dir.resolve().relative_to(ROOT)
+
+
 def exit_code_for_review(review: dict[str, Any]) -> int:
     del review
     return 0
@@ -163,6 +214,17 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--profile", default=DEFAULT_PROFILE)
     parser.add_argument("--model-summary", type=Path, default=DEFAULT_MODEL_SUMMARY)
     parser.add_argument("--overlay-review", type=Path, default=DEFAULT_OVERLAY_REVIEW)
+    parser.add_argument(
+        "--walk-forward-report",
+        type=Path,
+        default=None,
+        help="Optional corrected main-backtest walk-forward report for the base model",
+    )
+    parser.add_argument(
+        "--persist-model-promotion",
+        action="store_true",
+        help="Write the effective promotion report back to the model summary sidecar",
+    )
     parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT_DIR)
     parser.add_argument("--family", default="balanced")
     return parser.parse_args()
@@ -170,14 +232,27 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> int:
     args = parse_args()
+    default_walk_forward_report = args.output_dir / f"{args.profile}_report.json"
+    walk_forward_report = args.walk_forward_report or default_walk_forward_report
+    model_summary = _read_json(args.model_summary)
+    walk_forward_results = load_walk_forward_results(walk_forward_report)
+    model_promotion = effective_model_promotion(
+        profile_name=args.profile,
+        model_summary=model_summary,
+        walk_forward_results=walk_forward_results,
+    )
+    if args.persist_model_promotion:
+        persist_effective_model_promotion(args.model_summary, model_promotion)
+        model_summary = _read_json(args.model_summary)
     review = build_runtime_selection_review(
         profile_name=args.profile,
-        model_summary=_read_json(args.model_summary),
+        model_summary=model_summary,
+        model_promotion=model_promotion,
         overlay_review=_read_json(args.overlay_review),
         **runtime_selection_context(args.profile, family=args.family),
     )
     write_review(review, args.output_dir)
-    print(f"[runtime_selection_review] wrote {args.output_dir.relative_to(ROOT)}")
+    print(f"[runtime_selection_review] wrote {relative_output_label(args.output_dir)}")
     return exit_code_for_review(review)
 
 

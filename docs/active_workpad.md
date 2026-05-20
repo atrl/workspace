@@ -1922,7 +1922,7 @@ PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py --skip-data
 
 Question: can v22/post-release-cap be approved for scheduled runtime selection now that the overlay review, profile binding, and auto-select profile gate exist?
 
-Answer: no. The repo now has a model-side runtime selection sidecar, and it blocks automatic selection because the base v22 model sidecar has not completed walk-forward promotion and the profile overlay flag remains `auto_select_allowed=false`.
+Answer at this checkpoint: no. The repo added a model-side runtime selection sidecar and initially blocked automatic selection because the base v22 model sidecar had not persisted corrected walk-forward promotion evidence and the profile overlay flag remained `auto_select_allowed=false`. The later corrected v22 gate loop below supersedes the model-side blocker but keeps the profile flag blocker.
 
 ### Changes Made
 
@@ -1949,22 +1949,21 @@ PYTHONPATH=. qlib_venv/bin/python scripts/review_runtime_selection.py
 - Runtime selection review JSON: `runtime/model/card/balanced_rule_residual_v22/runtime_selection_review.json`
 - Runtime selection review MD: `runtime/model/card/balanced_rule_residual_v22/runtime_selection_review.md`
 - Decision: `blocked`
-- Passing checks:
+- Initial passing checks:
   - `model_fixed_split_eligible=true`
   - `overlay_review_candidate=true`
   - `overlay_runtime_profile_bound=true`
-- Blocking checks:
+- Initial blocking checks:
   - `model_walk_forward_evaluated=false`
   - `model_promotion_eligible=false`
   - `profile_overlay_auto_select_allowed=false`
-- Current auto-selected profile remains `balanced_rule_residual_v19`.
+- Current auto-selected profile remained `balanced_rule_residual_v19`.
 
 ### Decision
 
 - Do not turn on `balanced_rule_residual_v22.execution_overlay.auto_select_allowed`.
-- Do not patch `soxl_balanced_rule_residual_v22_summary.json` into a promoted state.
-- The post-release cap line is now fully governed as a blocked runtime-selection candidate.
-- Next model work should be a separate narrow optimization experiment unless a future run first produces real walk-forward model-promotion evidence for v22/post-release-cap.
+- Do not manually patch `soxl_balanced_rule_residual_v22_summary.json`.
+- The next valid model-side step was to produce and persist corrected walk-forward model-promotion evidence through the repo script, not to edit the summary by hand.
 
 ## 2026-05-21 SOXX Relative Weakness Cap Fixed-Actor Diagnostic
 
@@ -2163,3 +2162,99 @@ PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py --no-notify
 - The remaining production proof is still the first natural
   `05:35 Tue-Sat Asia/Shanghai` LaunchAgent run after the next completed US
   trading session.
+
+## 2026-05-21 v22 Corrected Runtime Selection Gate
+
+Goal: resolve whether v22/post-release-cap is blocked by missing model evidence
+or only by the explicit profile overlay approval flag.
+
+### Baseline
+
+- Current time was `2026-05-21 03:18 CST`, before the natural
+  `05:35 Tue-Sat Asia/Shanghai` post-close LaunchAgent window.
+- `production/check_scheduler_health.sh` showed both LaunchAgents loaded,
+  `scheduler_postclose.log` not yet present, data fresh for the expected
+  completed US session (`last_date=2026-05-19 expected=2026-05-19`), model ok
+  on `balanced_rule_residual_v19`, and broker ok.
+- `runtime/model/card/balanced_rule_residual_v22/runtime_selection_review.json`
+  still treated the v22 model side as unevaluated because corrected
+  main-backtest walk-forward evidence had not been loaded into the promotion
+  sidecar.
+
+### Changes
+
+- `scripts/walkforward_backtest_validate.py`
+  - loads the canonical actor path via `model_artifact_path(profile)` instead
+    of the legacy `runtime/model/card/soxl_<profile>_actor.pt` path.
+  - expands feature packs through `feature_columns_for_packs(...)`.
+- `scripts/review_runtime_selection.py`
+  - loads corrected main-backtest walk-forward reports and maps
+    `relative_outperformance` into the promotion-gate input.
+  - can persist the effective promotion report back to the model summary
+    sidecar through `--persist-model-promotion`.
+  - distinguishes missing walk-forward evidence from failed walk-forward
+    evidence.
+- `scripts/review_selective_release_promotion.py`
+  - handles relative `--output-dir` paths in the same way as the runtime
+    selection review script.
+
+### Commands
+
+```bash
+PYTHONPATH=. qlib_venv/bin/python scripts/walkforward_backtest_validate.py --profile balanced_rule_residual_v22 --output-dir runtime/model/card/balanced_rule_residual_v22
+PYTHONPATH=. qlib_venv/bin/python scripts/review_runtime_selection.py --profile balanced_rule_residual_v22 --model-summary runtime/model/card/balanced_rule_residual_v22/soxl_balanced_rule_residual_v22_summary.json --overlay-review runtime/execution/card/selective_release_post_release_cap_v1/promotion_review.json --output-dir runtime/model/card/balanced_rule_residual_v22 --family balanced --persist-model-promotion
+PYTHONPATH=. qlib_venv/bin/python scripts/review_selective_release_promotion.py --profile balanced_rule_residual_v22 --output-dir runtime/execution/card/selective_release_post_release_cap_v1 --variant selective_release_recovery_post_release_cap_v1
+```
+
+### Evidence
+
+Corrected main-backtest walk-forward metrics for base `balanced_rule_residual_v22`:
+
+| window | return | Sharpe | MaxDD | trades | B&H return | relative |
+|---|---:|---:|---:|---:|---:|---:|
+| `wf_2020` | `+136.65%` | `2.160` | `20.16%` | `22` | `+59.78%` | `+76.87pp` |
+| `wf_2022` | `-48.40%` | `-1.239` | `54.67%` | `26` | `-86.59%` | `+38.18pp` |
+| `wf_2023_2024` | `+50.98%` | `1.011` | `30.55%` | `29` | `-2.60%` | `+53.58pp` |
+
+Persisted model promotion sidecar:
+
+- `eligible=true`
+- `walk_forward_evaluated=true`
+- `wf_2023_2024_return=50.9777 > 0`
+- `wf_2023_2024_sharpe=1.0114 > 0`
+- `wf_2023_2024_relative=53.5811 > 15`
+
+Runtime selection review after persisting corrected evidence:
+
+- Decision remains `blocked`.
+- Passing checks now include `model_walk_forward_evaluated=true` and
+  `model_promotion_eligible=true`.
+- The only blocking reason is
+  `profile overlay auto_select_allowed=false`.
+- Current auto-selected profile remains `balanced_rule_residual_v19`.
+
+Runtime auto-select gate check:
+
+```bash
+PYTHONPATH=. qlib_venv/bin/python - <<'PY'
+from src.soxl_quant.runtime import auto_select_profile, latest_model_path, promotion_gate_status, runtime_auto_select_allowed
+profile, path = auto_select_profile('balanced')
+print('auto_select', profile, path.name)
+v22 = latest_model_path('balanced_rule_residual_v22')
+print('v22_promotion', promotion_gate_status(v22))
+print('v22_runtime_auto', runtime_auto_select_allowed('balanced_rule_residual_v22'))
+PY
+# auto_select balanced_rule_residual_v19 soxl_balanced_rule_residual_v19_actor.pt
+# v22_promotion (True, 'model passed promotion gate')
+# v22_runtime_auto (False, 'profile overlay selective_release_recovery_post_release_cap_v1 is not approved for runtime auto-selection')
+```
+
+### Decision
+
+- The v22 model-side promotion blocker is cleared through corrected
+  main-backtest walk-forward evidence.
+- The v22/post-release-cap runtime candidate is still intentionally blocked by
+  `execution_overlay.auto_select_allowed=false`.
+- Do not enable the profile flag in this loop; the remaining action is an
+  explicit production promotion decision after the natural scheduler proof, not
+  another model-evidence loop.

@@ -1,6 +1,8 @@
 from __future__ import annotations
 
-from scripts.review_selective_release_promotion import build_promotion_review
+from pathlib import Path
+
+from scripts.review_selective_release_promotion import build_promotion_review, relative_output_label
 from src.soxl_quant.policy.execution_overlays import POST_RELEASE_CAP_VARIANT
 
 
@@ -72,3 +74,9 @@ def test_post_release_cap_review_requires_walkforward_improvement_and_fixed_noop
     assert review["checks"]["wf_2023_2024_maxdd_improved"]["passed"] is True
     assert review["checks"]["fixed_actor_noop"]["passed"] is True
     assert review["checks"]["runtime_profile_bound"]["passed"] is True
+
+
+def test_relative_output_label_accepts_relative_output_dir():
+    assert relative_output_label(Path("runtime/execution/card/selective_release_post_release_cap_v1")) == Path(
+        "runtime/execution/card/selective_release_post_release_cap_v1"
+    )

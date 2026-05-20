@@ -1,0 +1,18 @@
+{
+  "profile": "balanced_rule_residual_v22",
+  "window": "wf_2022",
+  "main_backtest": {
+    "return": -48.40366751891136,
+    "sharpe": -1.238524134716767,
+    "max_dd": 54.665609843829074,
+    "trades": 26
+  },
+  "buy_and_hold": {
+    "return": -86.58807173239427
+  },
+  "relative_outperformance": 38.18440421348291,
+  "worker_eval": null,
+  "gap": {
+    "return": null
+  }
+}

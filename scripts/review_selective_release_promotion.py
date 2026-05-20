@@ -199,7 +199,7 @@ def _markdown(review: dict[str, Any]) -> str:
             "## Readout",
             "",
             "- This card packages the walk-forward candidate for promotion review only.",
-            "- It must not be used by scheduler auto-selection until the profile flag and model-promotion sidecar are explicitly approved.",
+            "- It must not be used by scheduler auto-selection until the profile flag is explicitly approved and the model-promotion gate remains passing.",
         ]
     )
     return "\n".join(lines) + "\n"
@@ -238,6 +238,10 @@ def write_review(
     (output_dir / "promotion_review.md").write_text(_markdown(review), encoding="utf-8")
 
 
+def relative_output_label(output_dir: Path) -> Path:
+    return output_dir.resolve().relative_to(ROOT)
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--walkforward", type=Path, default=DEFAULT_WALKFORWARD)
@@ -257,7 +261,7 @@ def main() -> int:
         **runtime_review_context(args.profile, variant=args.variant),
     )
     write_review(review, args.output_dir)
-    print(f"[selective_release_promotion] wrote {args.output_dir.relative_to(ROOT)}")
+    print(f"[selective_release_promotion] wrote {relative_output_label(args.output_dir)}")
     return 0 if review["decision"] == "promotion_review_candidate" else 1
 
 

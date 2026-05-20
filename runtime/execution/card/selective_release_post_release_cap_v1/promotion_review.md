@@ -3,7 +3,7 @@
 - Variant: `selective_release_recovery_post_release_cap_v1`
 - Decision: `promotion_review_candidate`
 - Runtime auto-select allowed: `False`
-- Runtime auto-select reason: profile binds overlay but keeps auto_select_allowed=false and the base actor has not passed the model promotion gate
+- Runtime auto-select reason: profile binds overlay but keeps auto_select_allowed=false
 
 ## Checks
 
@@ -18,4 +18,4 @@
 ## Readout
 
 - This card packages the walk-forward candidate for promotion review only.
-- It must not be used by scheduler auto-selection until the profile flag and model-promotion sidecar are explicitly approved.
+- It must not be used by scheduler auto-selection until the profile flag is explicitly approved and the model-promotion gate remains passing.
