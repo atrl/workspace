@@ -276,6 +276,10 @@ def test_scheduler_health_reports_pending_runtime_profile_proof():
         "runtime proof: pending latest_executed_profile=balanced_rule_residual_v19 "
         "selected_model=balanced_rule_residual_v22"
     ) in result.stdout
+    assert (
+        "runtime proof detail: latest executed date already matches expected data date; "
+        "next non-dry-run execution must use selected model"
+    ) in result.stdout
 
 
 def test_scheduler_health_reports_postclose_due_without_success_marker():

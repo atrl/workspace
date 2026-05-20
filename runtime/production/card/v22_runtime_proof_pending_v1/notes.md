@@ -53,8 +53,29 @@ latest signal: date=2026-05-20 profile=balanced_rule_residual_v19 dry_run=false 
 runtime proof: pending latest_executed_profile=balanced_rule_residual_v19 selected_model=balanced_rule_residual_v22
 ```
 
+Follow-up clarification:
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_scheduler_health.py::test_scheduler_health_reports_pending_runtime_profile_proof -q
+# red first on missing detail line; green after implementation
+# 1 passed
+
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_scheduler_health.py tests/test_daily_scheduler.py tests/test_paper_trading.py tests/test_vercel_dashboard.py tests/test_dashboard.py -q
+# 44 passed
+
+production/check_scheduler_health.sh
+# data: ok last_date=2026-05-20 expected=2026-05-20
+# model: ok balanced_rule_residual_v22 (soxl_balanced_rule_residual_v22_actor.pt)
+# latest signal: date=2026-05-20 profile=balanced_rule_residual_v19 dry_run=false executed=true
+# runtime proof: pending latest_executed_profile=balanced_rule_residual_v19 selected_model=balanced_rule_residual_v22
+# runtime proof detail: latest executed date already matches expected data date; next non-dry-run execution must use selected model
+```
+
 ## Decision
 
-Production remains healthy but the full objective is not complete until a fresh
-post-close non-dry paper run naturally writes a v22 executed artifact. The next
-eligible scheduled post-close run is the proof point.
+Production remains healthy, and the pending state is expected because the latest
+expected data date was already executed before v22 became the selected model.
+Do not rerun `2026-05-20` to manufacture a v22 artifact; the full objective is
+not complete until a fresh post-close non-dry paper run naturally writes a v22
+executed artifact. The next eligible scheduled post-close run is the proof
+point.

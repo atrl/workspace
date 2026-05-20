@@ -32,6 +32,7 @@
 25. **append-only scheduler log 现在按 run segment 判定成功**：`production/soxl_daily_scheduler.py` 会在每次启动时输出 `[scheduler] run started at ...`；health 若发现 run-start marker，只接受最新 run-start 之后的 `[scheduler] all done`。这样旧成功行 + 新失败追加不会被误判为当前 post-close 成功。
 26. **paper signal 不再丢弃最新 closed bar**：`plan_manual_session()` 现在把 `as_of` 当作最新已收盘 bar 并使用 `<= as_of` 生成信号。当前 dry-run 证据：`last_date=2026-05-19`、`as_of=2026-05-19`、summary `signal.date=2026-05-19`、`dry_run=true`、`executed=false`。这修复了 scheduler/paper runner 用 fresh data 只生成前一日 signal 的模拟盘滞后。
 27. **scheduler health 现在区分 inference artifact 和 paper dashboard row**：新增 `Latest Signal Artifact`，直接显示最新 `runtime/soxl/paper_trading/<date>/summary.json`。当前 live health 读数为 `date=2026-05-19`、`profile=balanced_rule_residual_v19`、`dry_run=true`、`executed=false`、`target=0.3999999985`、`risk_gate=approved`、`reconcile=manual_review`，而 dashboard paper row 仍结束于 `2026-05-18`。这使定时推理、模拟盘执行、dashboard 导出可以分层判断。
+28. **v22 runtime proof 缺口现在归因到同日幂等保护**：当前 health 选择 `balanced_rule_residual_v22`，但最新非 dry-run paper artifact 是 `2026-05-20` 的 `balanced_rule_residual_v19`。因为该日期已经执行，paper runner 不应重复落单；health 现在会在 pending 行后补充 `latest executed date already matches expected data date; next non-dry-run execution must use selected model`，把剩余证明归因到等待下一交易日，而不是误判为数据/调度失败。
 
 ## 2026-05-20 验证记录
 
@@ -991,6 +992,18 @@ Decision:
 - Scheduler, data, dashboard, and paper broker health are still ok.
 - The remaining production proof is specifically the next fresh post-close
   non-dry paper execution under v22.
+
+Update:
+
+- The `2026-05-21 06:12 CST` post-close run already executed expected data date
+  `2026-05-20` under v19 before v22 auto-select approval.
+- Current health now selects v22 and still sees the executed v19 artifact, so
+  the mismatch is expected until the next eligible non-dry paper date.
+- `production/check_scheduler_health.sh` now prints an explicit detail line when
+  `latest_executed_date == expected_last_trading_day`:
+  `runtime proof detail: latest executed date already matches expected data date; next non-dry-run execution must use selected model`.
+- Do not rerun the same signal date to manufacture v22 proof; preserve same-day
+  idempotency and wait for the next fresh post-close execution.
 
 ## 2026-05-21 Vercel Static Bundle Audit
 

@@ -14,6 +14,7 @@ HEALTH_HHMM="${SOXL_SCHEDULER_HEALTH_HHMM:-$(date +%H%M)}"
 HEALTH_DATE="${SOXL_SCHEDULER_HEALTH_DATE:-$(date +%Y-%m-%d)}"
 HEALTH_POSTCLOSE_CUTOFF_EPOCH="${SOXL_SCHEDULER_HEALTH_POSTCLOSE_CUTOFF_EPOCH:-}"
 SELECTED_MODEL_PROFILE=""
+PAPER_EXPECTED_LAST_TRADING_DAY=""
 
 file_epoch() {
     path="$1"
@@ -215,6 +216,7 @@ print_paper_health() {
     data_ok=$(json_field "$health_output" "data.ok")
     last_date=$(json_field "$health_output" "data.last_date")
     expected=$(json_field "$health_output" "data.expected_last_trading_day")
+    PAPER_EXPECTED_LAST_TRADING_DAY="$expected"
     stale_days=$(json_field "$health_output" "data.stale_days")
     model_ok=$(json_field "$health_output" "model.ok")
     model_name=$(json_field "$health_output" "model.name")
@@ -292,6 +294,9 @@ print_latest_signal_artifact() {
             echo "  runtime proof: ok latest_executed_profile=${profile} selected_model=${SELECTED_MODEL_PROFILE}"
         else
             echo "  runtime proof: pending latest_executed_profile=${profile} selected_model=${SELECTED_MODEL_PROFILE}"
+            if [ -n "$PAPER_EXPECTED_LAST_TRADING_DAY" ] && [ "$date_value" = "$PAPER_EXPECTED_LAST_TRADING_DAY" ]; then
+                echo "  runtime proof detail: latest executed date already matches expected data date; next non-dry-run execution must use selected model"
+            fi
         fi
     fi
 }

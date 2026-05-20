@@ -3481,3 +3481,58 @@ Decision:
   produce replayable checkpoint evidence.
 - Evidence card:
   `runtime/harness/card/checkpoint_retention_v1/notes.md`
+
+## 2026-05-21 Runtime-Proof Waiting-State Clarification
+
+Goal:
+
+- Clarify the current production state after v22 auto-select approval: the
+  latest available data and scheduler are healthy, but the latest already
+  executed paper date was filled by v19 before v22 became the selected runtime
+  model.
+
+Root cause:
+
+- The live post-close run at `2026-05-21 06:12 CST` refreshed data through
+  `2026-05-20` and executed/summarized the paper date with
+  `balanced_rule_residual_v19`.
+- v22 auto-select approval happened later in the repo history, so current
+  health now selects `balanced_rule_residual_v22`.
+- The paper runner correctly refuses a duplicate non-dry execution for the same
+  signal date, so the missing v22 proof cannot be manufactured without
+  corrupting same-day idempotency.
+
+TDD evidence:
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_scheduler_health.py::test_scheduler_health_reports_pending_runtime_profile_proof -q
+# red first on missing detail line; green after implementation
+# 1 passed
+
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_scheduler_health.py tests/test_daily_scheduler.py tests/test_paper_trading.py tests/test_vercel_dashboard.py tests/test_dashboard.py -q
+# 44 passed
+
+production/check_scheduler_health.sh
+# data: ok last_date=2026-05-20 expected=2026-05-20
+# model: ok balanced_rule_residual_v22 (soxl_balanced_rule_residual_v22_actor.pt)
+# latest signal: date=2026-05-20 profile=balanced_rule_residual_v19 dry_run=false executed=true
+# runtime proof: pending latest_executed_profile=balanced_rule_residual_v19 selected_model=balanced_rule_residual_v22
+# runtime proof detail: latest executed date already matches expected data date; next non-dry-run execution must use selected model
+```
+
+Change:
+
+- `production/check_scheduler_health.sh` now carries the paper health
+  `expected_last_trading_day` into the runtime-proof section.
+- When the latest executed date already equals expected data date but the
+  executed profile differs from the current selected model, health reports that
+  the proof waits for the next non-dry-run trading day instead of implying a
+  data/scheduler failure.
+
+Decision:
+
+- Do not re-execute `2026-05-20` just to force a v22 artifact.
+- Keep the production goal active until the next fresh post-close non-dry run
+  writes a v22 executed summary naturally.
+- Evidence card:
+  `runtime/production/card/v22_runtime_proof_pending_v1/notes.md`
