@@ -25,6 +25,7 @@
 18. **production data refresh 现在支持 provider failover**：paper runner 和 scheduler 都支持 `--data-provider {auto,yfinance,yahoo_api,polygon}`；默认 `auto` 先试 yfinance，再试 yahoo_api，最后试 Polygon + CBOE VIX。当前实测 yfinance 是 `No overlapping dates`，yahoo_api 是 `429 Too Many Requests`，Polygon + CBOE 能把数据更新到 `2026-05-19`。
 19. **scheduler 成功日志现在保留 provider fallback stderr**：`production/soxl_daily_scheduler.py` 在 child step 成功时也会 replay stderr，因此 yfinance/yahoo_api 失败后由 polygon 接管的路径能出现在 LaunchAgent 日志里，不再只看到最终成功 stdout。
 20. **paper full-loop 已能推进模拟盘状态**：`2026-05-21 03:02 CST` 手动运行 default paper broker 的 full scheduler，auto provider 经 yfinance/yahoo_api fallback 到 polygon，数据 fresh，风险门通过，paper BUY filled；broker state 更新到 `2026-05-18`、`3000` shares、`48.56%` position，reconcile 为 `position aligned`，dashboard paper version 增至 `3` 行并结束于 `2026-05-18`。
+21. **scheduler health 现在能发现安装态 plist 漂移**：health 不只看 LaunchAgent label 是否 loaded，也会比较 `~/Library/LaunchAgents/com.soxl.*.plist` 与 repo `production/com.soxl.*.plist` 是否一致。当前读数为 preopen/daily 都 `matches repo`，所以自然 `05:35` proof 的前置配置已对齐。
 
 ## 2026-05-20 验证记录
 
@@ -497,6 +498,50 @@ Readout:
   completed US trading day at `2026-05-21 02:48 CST`.
 - The next live proof remains the natural `05:35 Tue-Sat Asia/Shanghai`
   post-close LaunchAgent run after the next completed session.
+
+## 2026-05-21 LaunchAgent Installed Plist Drift Guard
+
+Root cause:
+
+- `production/check_scheduler_health.sh` reported whether the LaunchAgent labels
+  were loaded, but not whether the installed plist files matched the repo-owned
+  plists.
+- A stale installed plist could keep old schedule times, arguments, or log paths
+  while the health check still showed `loaded`.
+
+Change:
+
+- Added `SOXL_SCHEDULER_HEALTH_LAUNCHAGENTS_DIR` for testable installed-plist
+  lookup.
+- On Darwin, health now compares each installed plist with the repo plist and
+  prints `matches repo`, `differs from repo`, `not installed`, or
+  `repo file missing`.
+- `tests/test_scheduler_health.py` now covers the drift readout and is
+  compatible with `scripts/check_harness.py`.
+- `scripts/check_harness.py` now includes scheduler-health tests.
+
+Verification:
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_scheduler_health.py -q
+# 2 passed
+
+PYTHONPATH=. qlib_venv/bin/python scripts/check_harness.py --test-file tests/test_scheduler_health.py
+# passed=122 failures=0
+
+production/check_scheduler_health.sh
+# LaunchAgent com.soxl.preopen.scheduler: loaded
+# LaunchAgent com.soxl.preopen.scheduler plist: matches repo
+# LaunchAgent com.soxl.daily.scheduler: loaded
+# LaunchAgent com.soxl.daily.scheduler plist: matches repo
+# scheduler_postclose.log: NOT FOUND
+# data: ok last_date=2026-05-19 expected=2026-05-19
+```
+
+Readout:
+
+- The natural post-close proof is still pending, but the external LaunchAgent
+  installation now matches the repo schedule and log-path definitions.
 
 ## 2026-05-21 Paper Full-Loop Recovery
 

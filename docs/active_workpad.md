@@ -2258,3 +2258,62 @@ PY
 - Do not enable the profile flag in this loop; the remaining action is an
   explicit production promotion decision after the natural scheduler proof, not
   another model-evidence loop.
+
+## 2026-05-21 LaunchAgent Installed Plist Drift Guard
+
+Goal: make the natural `05:35 Tue-Sat Asia/Shanghai` post-close proof safer by
+confirming the loaded macOS LaunchAgents are backed by the current repo plists,
+not stale copies in `~/Library/LaunchAgents`.
+
+### Root Cause
+
+- `production/check_scheduler_health.sh` already reported whether
+  `com.soxl.preopen.scheduler` and `com.soxl.daily.scheduler` were loaded.
+- It did not compare the installed plist files with the repo-owned versions.
+- A stale installed plist could therefore still use old times, old arguments, or
+  old log paths while health reported `loaded`.
+
+### Change
+
+- `production/check_scheduler_health.sh`
+  - added `SOXL_SCHEDULER_HEALTH_LAUNCHAGENTS_DIR` for deterministic tests.
+  - compares `production/com.soxl.preopen.scheduler.plist` and
+    `production/com.soxl.daily.scheduler.plist` against the installed plist
+    copies on Darwin.
+  - reports `matches repo`, `differs from repo`, `not installed`, or
+    `repo file missing` for each LaunchAgent.
+- `tests/test_scheduler_health.py`
+  - now covers installed plist drift.
+  - no longer depends on pytest-only fixtures, so the file can run under the
+    repo-owned `scripts/check_harness.py` direct-call runner.
+- `scripts/check_harness.py`
+  - now includes `tests/test_scheduler_health.py`.
+
+### Verification
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_scheduler_health.py::test_scheduler_health_reports_installed_launchagent_plist_drift -q
+# red first: health output lacked plist match/drift lines
+# green: 1 passed
+
+PYTHONPATH=. qlib_venv/bin/python scripts/check_harness.py --test-file tests/test_scheduler_health.py
+# red first: old scheduler-health test used pytest tmp_path fixture and failed in direct-call harness
+# green: passed=122 failures=0
+
+production/check_scheduler_health.sh
+# LaunchAgent com.soxl.preopen.scheduler: loaded
+# LaunchAgent com.soxl.preopen.scheduler plist: matches repo
+# LaunchAgent com.soxl.daily.scheduler: loaded
+# LaunchAgent com.soxl.daily.scheduler plist: matches repo
+# scheduler_postclose.log: NOT FOUND
+# data: ok last_date=2026-05-19 expected=2026-05-19
+# model: ok balanced_rule_residual_v19 (soxl_balanced_rule_residual_v19_actor.pt)
+# broker: ok paper broker ready
+```
+
+### Decision
+
+- The installed macOS LaunchAgent configs now match the repo-owned schedule and
+  log-path definitions.
+- The natural post-close proof is still pending because current time during this
+  pass was `2026-05-21 03:49 CST`, before the `05:35` window.

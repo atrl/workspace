@@ -8,6 +8,7 @@ OS_NAME="${SOXL_SCHEDULER_HEALTH_OS:-$(uname -s)}"
 HEALTH_PYTHON="${SOXL_SCHEDULER_HEALTH_PYTHON:-${ROOT}/qlib_venv/bin/python}"
 SCHEDULER_LABEL="com.soxl.daily.scheduler"
 PREOPEN_SCHEDULER_LABEL="com.soxl.preopen.scheduler"
+LAUNCHAGENTS_DIR="${SOXL_SCHEDULER_HEALTH_LAUNCHAGENTS_DIR:-${HOME:-}/Library/LaunchAgents}"
 
 format_mtime() {
     path="$1"
@@ -48,6 +49,17 @@ print_scheduler_service() {
                 echo "  LaunchAgent ${label}: loaded"
             else
                 echo "  LaunchAgent ${label}: not loaded"
+            fi
+            repo_plist="${ROOT}/production/${label}.plist"
+            installed_plist="${LAUNCHAGENTS_DIR}/${label}.plist"
+            if [ ! -f "$repo_plist" ]; then
+                echo "  LaunchAgent ${label} plist: repo file missing"
+            elif [ ! -f "$installed_plist" ]; then
+                echo "  LaunchAgent ${label} plist: not installed"
+            elif cmp -s "$repo_plist" "$installed_plist"; then
+                echo "  LaunchAgent ${label} plist: matches repo"
+            else
+                echo "  LaunchAgent ${label} plist: differs from repo"
             fi
         done
         return
