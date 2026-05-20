@@ -70,6 +70,8 @@ def test_scheduler_health_reports_macos_launchagent_and_logs():
     assert "data: stale last_date=2026-05-15 expected=2026-05-20 stale_days=5" in result.stdout
     assert "model: ok balanced_rule_residual_v19" in result.stdout
     assert "broker: ok paper broker ready" in result.stdout
+    assert "--- Dashboard Static Export ---" in result.stdout
+    assert "unavailable: integrity script missing" in result.stdout
 
 
 def test_scheduler_health_reports_installed_launchagent_plist_drift():

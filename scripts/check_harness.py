@@ -38,6 +38,7 @@ DEFAULT_TEST_FILES = [
     "tests/test_selective_release_promotion_review.py",
     "tests/test_runtime_selection_review.py",
     "tests/test_scheduler_health.py",
+    "tests/test_vercel_dashboard.py",
 ]
 
 DEFAULT_COMPILE_TARGETS = [
@@ -54,6 +55,7 @@ DEFAULT_COMPILE_TARGETS = [
     "src/soxl_quant/cli.py",
     "scripts/build_backtest_dashboard.py",
     "scripts/build_runtime_index.py",
+    "scripts/check_dashboard_static_export.py",
     "scripts/check_skills.py",
     "scripts/check_experiment_cards.py",
     "scripts/check_harness.py",

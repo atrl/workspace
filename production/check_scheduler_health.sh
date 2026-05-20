@@ -188,6 +188,31 @@ print_postclose_status() {
     fi
 }
 
+print_dashboard_static_export() {
+    echo "--- Dashboard Static Export ---"
+    checker="${ROOT}/scripts/check_dashboard_static_export.py"
+    if [ ! -f "$checker" ]; then
+        echo "  unavailable: integrity script missing"
+        return
+    fi
+    if [ ! -x "$HEALTH_PYTHON" ]; then
+        echo "  unavailable: python not executable at ${HEALTH_PYTHON}"
+        return
+    fi
+
+    dashboard_output=$(
+        cd "$ROOT" &&
+        "$HEALTH_PYTHON" scripts/check_dashboard_static_export.py 2>&1
+    )
+    dashboard_status=$?
+    printf "%s\n" "$dashboard_output" | sed 's/^/  /'
+    if [ "$dashboard_status" -ne 0 ]; then
+        echo "  status: failed"
+    else
+        echo "  status: ok"
+    fi
+}
+
 echo "=== SOXL Scheduler Health Check ==="
 echo "Time: $(date)"
 echo "Root: ${ROOT}"
@@ -227,6 +252,9 @@ done
 echo ""
 
 print_paper_health
+echo ""
+
+print_dashboard_static_export
 echo ""
 
 print_postclose_status

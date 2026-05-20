@@ -1,0 +1,161 @@
+#!/usr/bin/env python3
+"""Validate the static dashboard bundle used by Vercel deployments."""
+
+from __future__ import annotations
+
+import argparse
+import json
+import sys
+from pathlib import Path
+from typing import Any
+
+
+NO_CACHE_HEADER = {
+    "key": "Cache-Control",
+    "value": "public, max-age=0, must-revalidate",
+}
+
+
+def _load_json(path: Path) -> Any:
+    with path.open("r", encoding="utf-8") as fh:
+        return json.load(fh)
+
+
+def _headers_by_source(config: dict[str, Any]) -> dict[str, list[dict[str, str]]]:
+    headers: dict[str, list[dict[str, str]]] = {}
+    for entry in config.get("headers", []):
+        source = entry.get("source")
+        if isinstance(source, str):
+            headers[source] = entry.get("headers", [])
+    return headers
+
+
+def check_static_export(root: Path) -> tuple[list[str], dict[str, Any]]:
+    errors: list[str] = []
+    info: dict[str, Any] = {
+        "generated_at": "unknown",
+        "versions": 0,
+        "missing": 0,
+        "model_versions": 0,
+        "latest": "unknown",
+        "paper_trading_rows": "n/a",
+        "paper_trading_end": "n/a",
+    }
+
+    vercel_path = root / "vercel.json"
+    dashboard_path = root / "dashboard.html"
+    data_dir = root / "dashboard_data"
+    index_path = data_dir / "index.json"
+    model_versions_path = data_dir / "model_versions.json"
+
+    for path in (vercel_path, dashboard_path, index_path, model_versions_path):
+        if not path.exists():
+            errors.append(f"missing required file: {path.relative_to(root)}")
+
+    if not vercel_path.exists() or not index_path.exists() or not model_versions_path.exists():
+        return errors, info
+
+    vercel_config = _load_json(vercel_path)
+    if {"source": "/", "destination": "/dashboard.html"} not in vercel_config.get("rewrites", []):
+        errors.append("vercel.json must rewrite / to /dashboard.html")
+
+    headers = _headers_by_source(vercel_config)
+    for source in ("/", "/dashboard.html", "/dashboard_data/:path*"):
+        if NO_CACHE_HEADER not in headers.get(source, []):
+            errors.append(f"missing no-cache header for {source}")
+
+    index = _load_json(index_path)
+    model_versions = _load_json(model_versions_path)
+    versions = index.get("versions", [])
+    version_summaries = index.get("version_summaries", {})
+    etfs = index.get("etfs", [])
+    info.update(
+        {
+            "generated_at": index.get("generated_at", "unknown"),
+            "versions": len(versions),
+            "model_versions": len(model_versions) if isinstance(model_versions, list) else 0,
+            "latest": index.get("latest_version", "unknown"),
+        }
+    )
+
+    if not versions:
+        errors.append("dashboard_data/index.json has no versions")
+    if "paper_trading" not in versions:
+        errors.append("dashboard_data/index.json does not include paper_trading")
+    if index.get("latest_version") not in versions:
+        errors.append("latest_version is not listed in versions")
+    if index.get("best_version") and index.get("best_version") not in versions:
+        errors.append("best_version is not listed in versions")
+    if not isinstance(model_versions, list):
+        errors.append("dashboard_data/model_versions.json must contain a list")
+
+    missing = 0
+    for version in versions:
+        summary = version_summaries.get(version, {})
+        version_etfs = summary.get("etfs") or etfs
+        for etf in version_etfs:
+            payload_path = data_dir / "versioned" / version / f"{etf}.json"
+            if not payload_path.exists():
+                errors.append(f"missing version payload: {payload_path.relative_to(root)}")
+                missing += 1
+                continue
+            payload = _load_json(payload_path)
+            rows = payload.get("rows")
+            if not isinstance(rows, list) or not rows:
+                errors.append(f"empty rows in {payload_path.relative_to(root)}")
+                continue
+            expected_rows = (
+                summary.get("windows", {})
+                .get(etf, {})
+                .get("rows")
+            )
+            if expected_rows is not None and len(rows) != expected_rows:
+                errors.append(
+                    f"row mismatch in {payload_path.relative_to(root)}: "
+                    f"index={expected_rows} payload={len(rows)}"
+                )
+
+    info["missing"] = missing
+    paper = version_summaries.get("paper_trading", {})
+    if paper:
+        paper_window = paper.get("windows", {}).get("SOXL", {})
+        paper_meta = paper.get("meta", {})
+        if paper_meta.get("source_kind") != "paper_trading":
+            errors.append("paper_trading source_kind is not paper_trading")
+        info["paper_trading_rows"] = paper_window.get("rows", "n/a")
+        info["paper_trading_end"] = paper_window.get("end", "n/a")
+
+    return errors, info
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--root", type=Path, default=Path(__file__).resolve().parents[1])
+    args = parser.parse_args()
+
+    root = args.root.resolve()
+    errors, info = check_static_export(root)
+    if errors:
+        for error in errors:
+            print(f"error: {error}", file=sys.stderr)
+        print(
+            "failed dashboard_static_export "
+            f"generated_at={info['generated_at']} versions={info['versions']} "
+            f"missing={info['missing']} model_versions={info['model_versions']} "
+            f"latest={info['latest']} paper_trading_rows={info['paper_trading_rows']} "
+            f"paper_trading_end={info['paper_trading_end']}"
+        )
+        return 1
+
+    print(
+        "ok dashboard_static_export "
+        f"generated_at={info['generated_at']} versions={info['versions']} "
+        f"missing={info['missing']} model_versions={info['model_versions']} "
+        f"latest={info['latest']} paper_trading_rows={info['paper_trading_rows']} "
+        f"paper_trading_end={info['paper_trading_end']} paper_trading"
+    )
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

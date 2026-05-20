@@ -3,6 +3,7 @@
 Primary harness entrypoints:
 
 - `build_backtest_dashboard.py`: rebuild the local static dashboard under `dashboard.html`.
+- `check_dashboard_static_export.py`: validate the Vercel-ready dashboard static bundle and versioned data payloads.
 - `check_harness.py`: repo-owned validation entrypoint that replaces the missing `pytest` dependency path.
 - `checkpoint_review.py`: render a durable Markdown review from a saved summary JSON's selection history and gates.
 - `execution_overlay_generalization.py`: evaluate execution overlay variants against the retained balanced actor.

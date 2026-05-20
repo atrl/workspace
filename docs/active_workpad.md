@@ -2374,3 +2374,71 @@ production/check_scheduler_health.sh
   pending rather than ambiguous.
 - After `05:35`, the same health script will classify a missing success marker
   as due/missing, which is the next natural proof checkpoint.
+
+## 2026-05-21 Vercel Dashboard Static Export Integrity Guard
+
+Goal: make the Vercel dashboard package checkable as a complete static bundle,
+not just a set of files that happen to exist.
+
+### Root Cause
+
+- `tests/test_vercel_dashboard.py` verified the root rewrite and tracked files,
+  but did not prove `dashboard_data/index.json` referenced existing versioned
+  payloads.
+- `vercel.json` set no-cache headers on `/dashboard.html` and
+  `/dashboard_data/:path*`, but not on the rewritten root `/`.
+- `production/check_scheduler_health.sh` showed paper data freshness but did
+  not state whether the dashboard export that Vercel serves was internally
+  consistent.
+
+### Change
+
+- Added `scripts/check_dashboard_static_export.py`.
+  - validates `vercel.json` root rewrite and no-cache headers for `/`,
+    `/dashboard.html`, and `/dashboard_data/:path*`.
+  - validates `dashboard.html`, `dashboard_data/index.json`, and
+    `dashboard_data/model_versions.json` exist.
+  - validates every version in `dashboard_data/index.json` has a matching
+    `dashboard_data/versioned/<version>/SOXL.json` payload.
+  - validates row counts against `version_summaries`, and keeps `paper_trading`
+    visible in the status line.
+- Added the root `/` cache header to `vercel.json`.
+- `production/check_scheduler_health.sh` now includes a `Dashboard Static Export`
+  section and runs the static export integrity checker.
+- `tests/test_vercel_dashboard.py` and `tests/test_scheduler_health.py` cover the
+  new guard.
+
+### Verification
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_vercel_dashboard.py -q
+# red first: missing root no-cache header and missing check script
+# green: 3 passed
+
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_scheduler_health.py::test_scheduler_health_reports_macos_launchagent_and_logs -q
+# red first: health output had no Dashboard Static Export section
+# green: 1 passed
+
+PYTHONPATH=. qlib_venv/bin/python scripts/check_dashboard_static_export.py
+# ok dashboard_static_export generated_at=2026-05-21 03:13:41 versions=25 missing=0 model_versions=90 latest=balanced_rule_residual_v22_soxx paper_trading_rows=3 paper_trading_end=2026-05-18 paper_trading
+
+production/check_scheduler_health.sh
+# Dashboard Static Export: missing=0, versions=25, model_versions=90
+# postclose status: pending until 05:35 Tue-Sat Asia/Shanghai
+
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_vercel_dashboard.py tests/test_scheduler_health.py tests/test_production_schedule.py tests/test_daily_scheduler.py tests/test_paper_trading.py tests/test_dashboard.py -q
+# 36 passed
+
+PYTHONPATH=. qlib_venv/bin/python scripts/check_harness.py
+# passed=124 failures=0
+
+PYTHONPATH=. qlib_venv/bin/python scripts/build_runtime_index.py --check
+# runtime index OK
+```
+
+### Decision
+
+- The static dashboard package is internally consistent and Vercel-ready for the
+  current export.
+- Natural post-close LaunchAgent proof remains pending until the `05:35 Tue-Sat
+  Asia/Shanghai` run.
