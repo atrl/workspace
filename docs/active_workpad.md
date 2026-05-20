@@ -207,9 +207,74 @@ production/check_scheduler_health.sh
 ### Next Action
 
 1. Commit and push the health-observability guard.
-2. Wait for or manually run the first real `05:35 Tue-Sat Asia/Shanghai`
+2. Split the macOS LaunchAgent path so pre-open dry-run inference is installed,
+   and align LaunchAgent log paths with scheduler health output.
+3. Wait for or manually run the first real `05:35 Tue-Sat Asia/Shanghai`
    post-close scheduler pass, then use the health script to confirm log success
    markers and data freshness.
+
+## 2026-05-21 macOS LaunchAgent Split
+
+### Root Cause
+
+- `production/com.soxl.daily.scheduler.plist` was correctly scheduled for
+  `05:35 Tue-Sat Asia/Shanghai`, but still wrote legacy `scheduler.log` /
+  `scheduler.err`.
+- `production/check_scheduler_health.sh` expected `scheduler_postclose.log`, so
+  the first live LaunchAgent run would not have appeared in the health output.
+- The `21:00 Mon-Fri Asia/Shanghai` cached-data dry-run inference/dashboard path
+  existed only in `production/crontab.txt`; the macOS recommended path had no
+  pre-open LaunchAgent.
+
+### Changes
+
+- `production/com.soxl.daily.scheduler.plist`
+  - post-close full pipeline
+  - stdout/stderr: `scheduler_postclose.log` / `scheduler_postclose.err`
+- `production/com.soxl.preopen.scheduler.plist`
+  - new pre-open dry-run inference/dashboard LaunchAgent
+  - args: `--broker paper --dry-run --no-notify --skip-data-update`
+  - stdout/stderr: `scheduler_preopen.log` / `scheduler_preopen.err`
+- `production/check_scheduler_health.sh`
+  - reports both `com.soxl.preopen.scheduler` and `com.soxl.daily.scheduler`
+  - lists pre-open and post-close stdout/stderr logs
+- `production/FUTU_SEMI_AUTO.md`
+  - documents installing/loading/unloading both LaunchAgents.
+
+### External State
+
+```bash
+cp production/com.soxl.daily.scheduler.plist production/com.soxl.preopen.scheduler.plist ~/Library/LaunchAgents/
+launchctl unload ~/Library/LaunchAgents/com.soxl.daily.scheduler.plist 2>/dev/null || true
+launchctl unload ~/Library/LaunchAgents/com.soxl.preopen.scheduler.plist 2>/dev/null || true
+launchctl load ~/Library/LaunchAgents/com.soxl.daily.scheduler.plist
+launchctl load ~/Library/LaunchAgents/com.soxl.preopen.scheduler.plist
+launchctl list | grep 'com.soxl.*scheduler'
+# - 0 com.soxl.preopen.scheduler
+# - 0 com.soxl.daily.scheduler
+```
+
+### Verification
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_production_schedule.py tests/test_scheduler_health.py -q
+# 4 passed
+
+launchctl start com.soxl.preopen.scheduler
+# completed cached-data dry-run inference and dashboard rebuild
+
+production/check_scheduler_health.sh
+# LaunchAgent com.soxl.preopen.scheduler: loaded
+# LaunchAgent com.soxl.daily.scheduler: loaded
+# scheduler_preopen.log: 4.0K
+# scheduler_preopen: [scheduler] all done
+```
+
+### Next Action
+
+1. Commit and push the LaunchAgent split.
+2. Use the first real `05:35 Tue-Sat Asia/Shanghai` post-close run to prove
+   online data refresh freshness and post-close paper/dashboard logging.
 
 ## 2026-05-20 Selective Release Order-Generation Diagnostic
 

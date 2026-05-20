@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.soxl.preopen.scheduler</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/Users/rziiiii/.openclaw/workspace/qlib_venv/bin/python</string>
+        <string>/Users/rziiiii/.openclaw/workspace/production/soxl_daily_scheduler.py</string>
+        <string>--broker</string>
+        <string>paper</string>
+        <string>--dry-run</string>
+        <string>--no-notify</string>
+        <string>--skip-data-update</string>
+    </array>
+    <key>WorkingDirectory</key>
+    <string>/Users/rziiiii/.openclaw/workspace</string>
+    <key>StartCalendarInterval</key>
+    <array>
+        <dict><key>Hour</key><integer>21</integer><key>Minute</key><integer>0</integer><key>Weekday</key><integer>1</integer></dict>
+        <dict><key>Hour</key><integer>21</integer><key>Minute</key><integer>0</integer><key>Weekday</key><integer>2</integer></dict>
+        <dict><key>Hour</key><integer>21</integer><key>Minute</key><integer>0</integer><key>Weekday</key><integer>3</integer></dict>
+        <dict><key>Hour</key><integer>21</integer><key>Minute</key><integer>0</integer><key>Weekday</key><integer>4</integer></dict>
+        <dict><key>Hour</key><integer>21</integer><key>Minute</key><integer>0</integer><key>Weekday</key><integer>5</integer></dict>
+    </array>
+    <key>StandardOutPath</key>
+    <string>/Users/rziiiii/.openclaw/workspace/runtime/soxl/paper_trading/scheduler_preopen.log</string>
+    <key>StandardErrorPath</key>
+    <string>/Users/rziiiii/.openclaw/workspace/runtime/soxl/paper_trading/scheduler_preopen.err</string>
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>PATH</key>
+        <string>/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+        <key>BARK_KEY</key>
+        <string></string>
+    </dict>
+</dict>
+</plist>

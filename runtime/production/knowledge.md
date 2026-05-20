@@ -17,6 +17,7 @@
 10. **auto-select 现在同时看 model gate 和 profile overlay gate**：`best_model_for_family()` 会跳过绑定 execution overlay 但 `auto_select_allowed=false` 的 profile。这样即使 `balanced_rule_residual_v22` 的 model sidecar 将来被标 promoted，scheduler 也不会绕过 post-release-cap 的 runtime approval。
 11. **定时表已按 Asia/Shanghai 本地时区修正**：pre-open 改成 `21:00 Mon-Fri` cached-data `--dry-run`，post-close 完整数据刷新 + 模拟盘 + dashboard 改成 `05:35 Tue-Sat`，避免本地 `09:30/16:35` 误跑在美股收盘前。
 12. **scheduler health 现在匹配 macOS LaunchAgent**：`production/check_scheduler_health.sh` 会在 Darwin 上检查 `launchctl list` 中的 `com.soxl.daily.scheduler`，并用 portable `stat/date` 读取日志，不再把 macOS 运行态显示成空白 cron 服务。
+13. **macOS 定时推理路径已补齐**：新增 `com.soxl.preopen.scheduler`，用于 `21:00 Mon-Fri Asia/Shanghai` cached-data dry-run 推理 + dashboard；`com.soxl.daily.scheduler` 继续负责 `05:35 Tue-Sat` post-close 完整流程。两个 LaunchAgent 已同步到 `~/Library/LaunchAgents/` 并 loaded。
 
 ## 2026-05-20 验证记录
 
@@ -160,6 +161,58 @@ Interpretation:
 - The corrected schedule logs have not been produced yet, so the live
   post-close proof remains pending until the first `05:35 Tue-Sat
   Asia/Shanghai` run.
+
+## 2026-05-21 macOS LaunchAgent Split
+
+Root cause:
+
+- `production/com.soxl.daily.scheduler.plist` was moved to the correct
+  `05:35 Tue-Sat` post-close time, but still wrote legacy `scheduler.log` /
+  `scheduler.err`.
+- `production/check_scheduler_health.sh` expected `scheduler_postclose.log`, so
+  the first live post-close run would not have shown up in the health output.
+- The 21:00 pre-open cached inference/dashboard run existed in cron only; the
+  macOS LaunchAgent path had no matching job.
+
+Change:
+
+- `production/com.soxl.daily.scheduler.plist` now writes
+  `scheduler_postclose.log` / `scheduler_postclose.err`.
+- Added `production/com.soxl.preopen.scheduler.plist` for
+  `21:00 Mon-Fri Asia/Shanghai` dry-run + skip-data-update inference/dashboard.
+- `production/check_scheduler_health.sh` now reports both
+  `com.soxl.preopen.scheduler` and `com.soxl.daily.scheduler`, and lists both
+  stdout/stderr log files.
+- `production/FUTU_SEMI_AUTO.md` documents loading/unloading both LaunchAgents.
+
+External state:
+
+- Synced both plists to `~/Library/LaunchAgents/` and reloaded them.
+- `launchctl list | grep 'com.soxl.*scheduler'` reported both labels with
+  status `0`.
+
+Verification:
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_production_schedule.py tests/test_scheduler_health.py -q
+# 4 passed
+
+launchctl start com.soxl.preopen.scheduler
+# completed cached-data dry-run inference and dashboard rebuild
+
+production/check_scheduler_health.sh
+# LaunchAgent com.soxl.preopen.scheduler: loaded
+# LaunchAgent com.soxl.daily.scheduler: loaded
+# scheduler_preopen.log: 4.0K
+# scheduler_preopen: [scheduler] all done
+```
+
+Boundary:
+
+- Pre-open scheduled inference is now installed and manually verified through
+  LaunchAgent.
+- Post-close online data refresh still needs the first real `05:35 Tue-Sat`
+  run to prove whether data advances beyond `2026-05-15`.
 
 ## Open Production Tasks
 

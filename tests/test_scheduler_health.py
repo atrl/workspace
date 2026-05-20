@@ -24,7 +24,7 @@ def test_scheduler_health_reports_macos_launchagent_and_logs(tmp_path: Path):
     fake_bin.mkdir()
     launchctl = fake_bin / "launchctl"
     launchctl.write_text(
-        "#!/bin/sh\nprintf '123\\t0\\tcom.soxl.daily.scheduler\\n'\n",
+        "#!/bin/sh\nprintf '123\\t0\\tcom.soxl.preopen.scheduler\\n456\\t0\\tcom.soxl.daily.scheduler\\n'\n",
         encoding="utf-8",
     )
     launchctl.chmod(0o755)
@@ -44,6 +44,7 @@ def test_scheduler_health_reports_macos_launchagent_and_logs(tmp_path: Path):
     )
 
     assert "--- Scheduler Service ---" in result.stdout
+    assert "LaunchAgent com.soxl.preopen.scheduler: loaded" in result.stdout
     assert "LaunchAgent com.soxl.daily.scheduler: loaded" in result.stdout
     assert "scheduler_preopen: [scheduler] all done" in result.stdout
     assert "scheduler_postclose: [scheduler] all done (with cached data)" in result.stdout

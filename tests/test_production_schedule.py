@@ -58,3 +58,30 @@ def test_launchagent_runs_post_close_in_shanghai_local_time():
         (6, 5, 35),
     }
     assert "--skip-data-update" not in plist["ProgramArguments"]
+    assert plist["StandardOutPath"].endswith("/runtime/soxl/paper_trading/scheduler_postclose.log")
+    assert plist["StandardErrorPath"].endswith("/runtime/soxl/paper_trading/scheduler_postclose.err")
+
+
+def test_launchagent_runs_preopen_cached_dry_run_in_shanghai_local_time():
+    with (ROOT / "production" / "com.soxl.preopen.scheduler.plist").open("rb") as f:
+        plist = plistlib.load(f)
+
+    intervals = plist["StartCalendarInterval"]
+    schedule = {
+        (entry["Weekday"], entry["Hour"], entry["Minute"])
+        for entry in intervals
+    }
+
+    assert plist["Label"] == "com.soxl.preopen.scheduler"
+    assert schedule == {
+        (1, 21, 0),
+        (2, 21, 0),
+        (3, 21, 0),
+        (4, 21, 0),
+        (5, 21, 0),
+    }
+    assert "--dry-run" in plist["ProgramArguments"]
+    assert "--skip-data-update" in plist["ProgramArguments"]
+    assert "--skip-dashboard" not in plist["ProgramArguments"]
+    assert plist["StandardOutPath"].endswith("/runtime/soxl/paper_trading/scheduler_preopen.log")
+    assert plist["StandardErrorPath"].endswith("/runtime/soxl/paper_trading/scheduler_preopen.err")

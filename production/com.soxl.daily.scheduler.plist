@@ -22,9 +22,9 @@
         <dict><key>Hour</key><integer>5</integer><key>Minute</key><integer>35</integer><key>Weekday</key><integer>6</integer></dict>
     </array>
     <key>StandardOutPath</key>
-    <string>/Users/rziiiii/.openclaw/workspace/runtime/soxl/paper_trading/scheduler.log</string>
+    <string>/Users/rziiiii/.openclaw/workspace/runtime/soxl/paper_trading/scheduler_postclose.log</string>
     <key>StandardErrorPath</key>
-    <string>/Users/rziiiii/.openclaw/workspace/runtime/soxl/paper_trading/scheduler.err</string>
+    <string>/Users/rziiiii/.openclaw/workspace/runtime/soxl/paper_trading/scheduler_postclose.err</string>
     <key>EnvironmentVariables</key>
     <dict>
         <key>PATH</key>

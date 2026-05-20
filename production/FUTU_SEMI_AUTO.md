@@ -139,19 +139,21 @@ Pipeline order:
 
 ### macOS LaunchAgent (recommended over cron)
 
-1. Edit `production/com.soxl.daily.scheduler.plist` and fill in your `BARK_KEY`.
+1. Edit `production/com.soxl.daily.scheduler.plist` and `production/com.soxl.preopen.scheduler.plist` if you want Bark notifications.
 2. Install:
    ```bash
-   cp production/com.soxl.daily.scheduler.plist ~/Library/LaunchAgents/
+   cp production/com.soxl.daily.scheduler.plist production/com.soxl.preopen.scheduler.plist ~/Library/LaunchAgents/
    launchctl load ~/Library/LaunchAgents/com.soxl.daily.scheduler.plist
+   launchctl load ~/Library/LaunchAgents/com.soxl.preopen.scheduler.plist
    ```
 3. Verify:
    ```bash
-   launchctl list | grep com.soxl.daily.scheduler
+   launchctl list | grep 'com.soxl.*scheduler'
    ```
 4. Unload when needed:
    ```bash
    launchctl unload ~/Library/LaunchAgents/com.soxl.daily.scheduler.plist
+   launchctl unload ~/Library/LaunchAgents/com.soxl.preopen.scheduler.plist
    ```
 
 ### Manual cron (alternative)

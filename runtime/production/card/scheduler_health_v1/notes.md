@@ -7,11 +7,16 @@ health-check script still inspected Linux cron. On the current macOS /
 LaunchAgent environment this made the service section blank, so the operator
 could not tell whether the installed scheduler was loaded.
 
+This card is the first health-check fix. The later
+`runtime/production/card/scheduler_launchagent_v1/notes.md` card extends it by
+adding the missing pre-open LaunchAgent and aligning LaunchAgent log paths with
+the health script.
+
 ## Change
 
 - `production/check_scheduler_health.sh`
   - detects macOS through `uname` or `SOXL_SCHEDULER_HEALTH_OS`
-  - checks `launchctl list` for `com.soxl.daily.scheduler` on macOS
+  - checks `launchctl list` for SOXL scheduler LaunchAgents on macOS
   - keeps the Linux cron branch for cron deployments
   - uses `SOXL_SCHEDULER_HEALTH_ROOT` for deterministic tests
   - replaces GNU-only `ls --time-style` with portable `stat` / `date` helpers

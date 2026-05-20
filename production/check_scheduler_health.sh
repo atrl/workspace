@@ -6,6 +6,7 @@ set -u
 ROOT="${SOXL_SCHEDULER_HEALTH_ROOT:-$(pwd)}"
 OS_NAME="${SOXL_SCHEDULER_HEALTH_OS:-$(uname -s)}"
 SCHEDULER_LABEL="com.soxl.daily.scheduler"
+PREOPEN_SCHEDULER_LABEL="com.soxl.preopen.scheduler"
 
 format_mtime() {
     path="$1"
@@ -36,14 +37,18 @@ print_scheduler_service() {
     echo "--- Scheduler Service ---"
     if [ "$OS_NAME" = "Darwin" ]; then
         if ! command -v launchctl >/dev/null 2>&1; then
+            echo "  LaunchAgent ${PREOPEN_SCHEDULER_LABEL}: launchctl unavailable"
             echo "  LaunchAgent ${SCHEDULER_LABEL}: launchctl unavailable"
             return
         fi
-        if launchctl list 2>/dev/null | grep -q "${SCHEDULER_LABEL}"; then
-            echo "  LaunchAgent ${SCHEDULER_LABEL}: loaded"
-        else
-            echo "  LaunchAgent ${SCHEDULER_LABEL}: not loaded"
-        fi
+        launchctl_output=$(launchctl list 2>/dev/null || true)
+        for label in "$PREOPEN_SCHEDULER_LABEL" "$SCHEDULER_LABEL"; do
+            if printf "%s\n" "$launchctl_output" | grep -q "$label"; then
+                echo "  LaunchAgent ${label}: loaded"
+            else
+                echo "  LaunchAgent ${label}: not loaded"
+            fi
+        done
         return
     fi
 
@@ -70,7 +75,7 @@ echo ""
 
 # 检查日志文件
 echo "--- Log Files ---"
-for log in runtime/soxl/paper_trading/scheduler_preopen.log runtime/soxl/paper_trading/scheduler_postclose.log runtime/soxl/wf_weekly.log; do
+for log in runtime/soxl/paper_trading/scheduler_preopen.log runtime/soxl/paper_trading/scheduler_preopen.err runtime/soxl/paper_trading/scheduler_postclose.log runtime/soxl/paper_trading/scheduler_postclose.err runtime/soxl/wf_weekly.log; do
     path="${ROOT}/${log}"
     if [ -f "$path" ]; then
         size=$(file_size "$path")
