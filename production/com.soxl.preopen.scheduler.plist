@@ -6,8 +6,7 @@
     <string>com.soxl.preopen.scheduler</string>
     <key>ProgramArguments</key>
     <array>
-        <string>/Users/rziiiii/.openclaw/workspace/qlib_venv/bin/python</string>
-        <string>/Users/rziiiii/.openclaw/workspace/production/soxl_daily_scheduler.py</string>
+        <string>/Users/rziiiii/.openclaw/workspace/production/run_soxl_scheduler.sh</string>
         <string>--broker</string>
         <string>paper</string>
         <string>--dry-run</string>

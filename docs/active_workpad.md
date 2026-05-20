@@ -2687,3 +2687,116 @@ production/check_scheduler_health.sh
   separate layers.
 - Natural post-close LaunchAgent proof remains pending; current live health time
   during this pass was `2026-05-21 04:39 CST`.
+
+## 2026-05-21 Natural Post-Close LaunchAgent Readout
+
+Goal: inspect the first real `05:35 Tue-Sat Asia/Shanghai` post-close
+LaunchAgent run and make health reporting precise enough that a cached dry-run
+fallback cannot masquerade as a full paper-trading success.
+
+### Readout
+
+- The natural LaunchAgent ran at `2026-05-21T05:35:04+08:00`.
+- It tried the full post-close path with `broker=paper`, `dry_run=False`,
+  `skip_data_update=False`, and `data_provider=auto`.
+- Provider results:
+  - `yfinance`: `No overlapping dates for SOXL/SOXX/VIX`
+  - `yahoo_api`: Yahoo `429 Too Many Requests` on `^VIX`
+  - `polygon`: initially failed because `POLYGON_API_KEY` was not present in
+    the LaunchAgent environment
+- The scheduler correctly fell back to cached dry-run:
+  `[scheduler] all done (with cached dry-run)`.
+- A manual `launchctl kickstart -k gui/$(id -u)/com.soxl.daily.scheduler` after
+  installing the wrapper/private env file no longer failed on missing
+  `POLYGON_API_KEY`.
+- The manual kickstart still did not complete full paper execution because the
+  data surface remained stale:
+  `last_date=2026-05-19 expected=2026-05-20 stale_days=1`.
+
+### Changes
+
+- `production/check_scheduler_health.sh`
+  - matches only exact `[scheduler] all done` lines as full post-close success.
+  - detects `[scheduler] all done (with cached dry-run)` separately.
+  - now reports `postclose status: due but only cached dry-run fallback completed`
+    for the latest run segment.
+- `production/run_soxl_scheduler.sh`
+  - new LaunchAgent wrapper that loads
+    `${SOXL_LAUNCH_ENV_FILE:-$HOME/.openclaw/soxl.env}` before invoking the
+    scheduler.
+- `production/com.soxl.daily.scheduler.plist` and
+  `production/com.soxl.preopen.scheduler.plist`
+  - now call the wrapper as their first `ProgramArguments` entry.
+- `production/FUTU_SEMI_AUTO.md`
+  - documents the private env file and reload sequence.
+
+### External State
+
+```bash
+cat > ~/.openclaw/soxl.env
+# contains: export POLYGON_API_KEY='...'
+chmod 600 ~/.openclaw/soxl.env
+
+cp production/com.soxl.daily.scheduler.plist production/com.soxl.preopen.scheduler.plist ~/Library/LaunchAgents/
+launchctl unload ~/Library/LaunchAgents/com.soxl.daily.scheduler.plist 2>/dev/null || true
+launchctl unload ~/Library/LaunchAgents/com.soxl.preopen.scheduler.plist 2>/dev/null || true
+launchctl load ~/Library/LaunchAgents/com.soxl.daily.scheduler.plist
+launchctl load ~/Library/LaunchAgents/com.soxl.preopen.scheduler.plist
+launchctl list | grep 'com.soxl.*scheduler'
+# - 0 com.soxl.preopen.scheduler
+# - 0 com.soxl.daily.scheduler
+```
+
+### Verification
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest \
+  tests/test_scheduler_health.py::test_scheduler_health_does_not_count_cached_dry_run_as_postclose_success \
+  tests/test_scheduler_health.py::test_scheduler_health_requires_success_after_current_postclose_run_start \
+  tests/test_scheduler_health.py::test_scheduler_health_ignores_old_postclose_success_marker -q
+# 3 passed
+
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_production_schedule.py -q
+# 3 passed
+
+SOXL_LAUNCH_ENV_FILE="$HOME/.openclaw/soxl.env" production/run_soxl_scheduler.sh \
+  --broker paper --dry-run --skip-data-update --no-notify --skip-dashboard
+# [scheduler] all done
+
+production/check_scheduler_health.sh
+# data: stale last_date=2026-05-19 expected=2026-05-20 stale_days=1
+# latest signal: date=2026-05-19 profile=balanced_rule_residual_v19 dry_run=true executed=false
+# dashboard_static_export ... status: ok
+# postclose status: due but only cached dry-run fallback completed
+```
+
+Final gates after documentation/index refresh:
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_scheduler_health.py tests/test_production_schedule.py tests/test_daily_scheduler.py tests/test_paper_trading.py tests/test_vercel_dashboard.py tests/test_dashboard.py -q
+# 43 passed
+
+PYTHONPATH=. qlib_venv/bin/python scripts/check_harness.py
+# passed=128 failures=0
+
+PYTHONPATH=. qlib_venv/bin/python scripts/check_dashboard_static_export.py
+# ok dashboard_static_export generated_at=2026-05-21 05:52:40 versions=25 missing=0 model_versions=90 latest=balanced_rule_residual_v22_soxx paper_trading_rows=3 paper_trading_end=2026-05-18 paper_trading
+
+PYTHONPATH=. qlib_venv/bin/python scripts/build_runtime_index.py --check
+# runtime index OK
+
+git diff --check
+# clean
+```
+
+### Decision
+
+- The scheduler timing, wrapper install, private LaunchAgent environment, cached
+  fallback guard, latest-signal health, and dashboard static export path are now
+  observable.
+- The production loop is still not fully proven for the `2026-05-20` US session:
+  providers did not produce a fresh `2026-05-20` row during the natural or manual
+  post-close attempts.
+- Do not resume model optimization yet. The next meaningful loop is another
+  post-close data/provider readout; only a full non-dry paper execution with
+  fresh data should count as production-stable.

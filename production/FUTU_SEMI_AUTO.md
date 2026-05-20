@@ -147,18 +147,29 @@ Pipeline order:
 
 ### macOS LaunchAgent (recommended over cron)
 
-1. Edit `production/com.soxl.daily.scheduler.plist` and `production/com.soxl.preopen.scheduler.plist` if you want Bark notifications.
-2. Install:
+1. Store private LaunchAgent environment variables outside the repo:
+   ```bash
+   mkdir -p ~/.openclaw
+   printf "export POLYGON_API_KEY='REPLACE_ME'\n" > ~/.openclaw/soxl.env
+   chmod 600 ~/.openclaw/soxl.env
+   ```
+   The LaunchAgents call `production/run_soxl_scheduler.sh`, which loads
+   `${SOXL_LAUNCH_ENV_FILE:-$HOME/.openclaw/soxl.env}` before running
+   `production/soxl_daily_scheduler.py`.
+2. Edit `production/com.soxl.daily.scheduler.plist` and `production/com.soxl.preopen.scheduler.plist` if you want Bark notifications.
+3. Install:
    ```bash
    cp production/com.soxl.daily.scheduler.plist production/com.soxl.preopen.scheduler.plist ~/Library/LaunchAgents/
+   launchctl unload ~/Library/LaunchAgents/com.soxl.daily.scheduler.plist 2>/dev/null || true
+   launchctl unload ~/Library/LaunchAgents/com.soxl.preopen.scheduler.plist 2>/dev/null || true
    launchctl load ~/Library/LaunchAgents/com.soxl.daily.scheduler.plist
    launchctl load ~/Library/LaunchAgents/com.soxl.preopen.scheduler.plist
    ```
-3. Verify:
+4. Verify:
    ```bash
    launchctl list | grep 'com.soxl.*scheduler'
    ```
-4. Unload when needed:
+5. Unload when needed:
    ```bash
    launchctl unload ~/Library/LaunchAgents/com.soxl.daily.scheduler.plist
    launchctl unload ~/Library/LaunchAgents/com.soxl.preopen.scheduler.plist

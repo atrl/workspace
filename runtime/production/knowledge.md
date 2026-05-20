@@ -697,3 +697,61 @@ Post-rerun state:
   - `scripts/build_runtime_index.py --check`: `runtime index OK`
   - `git diff --check`: clean
   - healthcheck: LaunchAgents loaded, data/model/broker ok
+
+## 2026-05-21 Natural Post-Close LaunchAgent Readout
+
+Context:
+
+- The first natural `05:35 Tue-Sat Asia/Shanghai` post-close LaunchAgent run
+  fired at `2026-05-21T05:35:04+08:00`.
+- It entered the full path (`broker=paper`, `dry_run=False`,
+  `skip_data_update=False`, `data_provider=auto`) but could not obtain a fresh
+  `2026-05-20` data row.
+
+Readout:
+
+- `yfinance` failed with `No overlapping dates for SOXL/SOXX/VIX`.
+- `yahoo_api` failed with Yahoo `429 Too Many Requests` on `^VIX`.
+- `polygon` initially failed under LaunchAgent because `POLYGON_API_KEY` was
+  missing from the LaunchAgent environment.
+- The scheduler fell back to cached dry-run and wrote
+  `[scheduler] all done (with cached dry-run)`.
+- After adding `production/run_soxl_scheduler.sh` and installing
+  `~/.openclaw/soxl.env`, a manual
+  `launchctl kickstart -k gui/$(id -u)/com.soxl.daily.scheduler` no longer hit
+  the missing Polygon key. It still fell back because data remained stale:
+  `last_date=2026-05-19 expected=2026-05-20 stale_days=1`.
+
+Change:
+
+- `production/check_scheduler_health.sh` now treats only exact
+  `[scheduler] all done` as full post-close success and reports
+  `[scheduler] all done (with cached dry-run)` separately.
+- Both LaunchAgent plists now call `production/run_soxl_scheduler.sh`, which
+  loads `${SOXL_LAUNCH_ENV_FILE:-$HOME/.openclaw/soxl.env}` before executing the
+  scheduler.
+- `production/FUTU_SEMI_AUTO.md` documents the private env file and reload
+  sequence.
+
+Decision:
+
+- Current blocker is provider freshness for the `2026-05-20` US session, not
+  LaunchAgent installation, promoted model selection, paper broker readiness, or
+  dashboard static export.
+- A cached dry-run keeps latest-signal/dashboard visibility but must not count
+  as full paper execution proof.
+- Keep model optimization paused until a post-close run completes fresh data
+  refresh, non-dry paper execution, and dashboard rebuild.
+
+Final gates:
+
+- focused production/dashboard tests: `43 passed`
+- `scripts/check_harness.py`: `passed=128 failures=0`
+- `scripts/check_dashboard_static_export.py`: `generated_at=2026-05-21 05:52:40`,
+  `versions=25`, `missing=0`, `paper_trading_rows=3`,
+  `paper_trading_end=2026-05-18`
+- `scripts/build_runtime_index.py --check`: `runtime index OK`
+- `git diff --check`: clean
+- healthcheck: LaunchAgents loaded, data stale at `last_date=2026-05-19`
+  vs `expected=2026-05-20`, and post-close status is
+  `due but only cached dry-run fallback completed`

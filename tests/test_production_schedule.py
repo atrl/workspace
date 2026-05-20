@@ -57,6 +57,7 @@ def test_launchagent_runs_post_close_in_shanghai_local_time():
         (5, 5, 35),
         (6, 5, 35),
     }
+    assert plist["ProgramArguments"][0].endswith("/production/run_soxl_scheduler.sh")
     assert "--skip-data-update" not in plist["ProgramArguments"]
     assert plist["StandardOutPath"].endswith("/runtime/soxl/paper_trading/scheduler_postclose.log")
     assert plist["StandardErrorPath"].endswith("/runtime/soxl/paper_trading/scheduler_postclose.err")
@@ -80,8 +81,21 @@ def test_launchagent_runs_preopen_cached_dry_run_in_shanghai_local_time():
         (4, 21, 0),
         (5, 21, 0),
     }
+    assert plist["ProgramArguments"][0].endswith("/production/run_soxl_scheduler.sh")
     assert "--dry-run" in plist["ProgramArguments"]
     assert "--skip-data-update" in plist["ProgramArguments"]
     assert "--skip-dashboard" not in plist["ProgramArguments"]
     assert plist["StandardOutPath"].endswith("/runtime/soxl/paper_trading/scheduler_preopen.log")
     assert plist["StandardErrorPath"].endswith("/runtime/soxl/paper_trading/scheduler_preopen.err")
+
+
+def test_launchagent_wrapper_exists_and_loads_private_env_file():
+    wrapper = ROOT / "production" / "run_soxl_scheduler.sh"
+
+    assert wrapper.exists()
+    assert wrapper.stat().st_mode & 0o111
+
+    text = wrapper.read_text(encoding="utf-8")
+    assert "SOXL_LAUNCH_ENV_FILE" in text
+    assert ". \"$ENV_FILE\"" in text
+    assert "soxl_daily_scheduler.py" in text

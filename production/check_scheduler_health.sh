@@ -79,7 +79,7 @@ postclose_cutoff_epoch() {
 
 postclose_success_after_cutoff() {
     path="$1"
-    if [ ! -f "$path" ] || ! grep -q "\[scheduler\] all done" "$path" 2>/dev/null; then
+    if [ ! -f "$path" ] || ! grep -q "^\[scheduler\] all done$" "$path" 2>/dev/null; then
         return 1
     fi
     cutoff_epoch=$(postclose_cutoff_epoch)
@@ -93,8 +93,32 @@ postclose_success_after_cutoff() {
     if grep -q "\[scheduler\] run started at " "$path" 2>/dev/null; then
         awk '
             /\[scheduler\] run started at / { seen = 1; ok = 0; next }
-            seen && /\[scheduler\] all done/ { ok = 1 }
+            seen && /^\[scheduler\] all done$/ { ok = 1 }
             END { exit ok ? 0 : 1 }
+        ' "$path"
+        return
+    fi
+    return 0
+}
+
+postclose_cached_dry_run_after_cutoff() {
+    path="$1"
+    if [ ! -f "$path" ] || ! grep -q "\[scheduler\] all done (with cached dry-run)" "$path" 2>/dev/null; then
+        return 1
+    fi
+    cutoff_epoch=$(postclose_cutoff_epoch)
+    log_epoch=$(file_epoch "$path")
+    if [ -z "$cutoff_epoch" ] || [ -z "$log_epoch" ]; then
+        return 0
+    fi
+    if [ "$log_epoch" -lt "$cutoff_epoch" ]; then
+        return 1
+    fi
+    if grep -q "\[scheduler\] run started at " "$path" 2>/dev/null; then
+        awk '
+            /\[scheduler\] run started at / { seen = 1; cached = 0; next }
+            seen && /\[scheduler\] all done \(with cached dry-run\)/ { cached = 1 }
+            END { exit cached ? 0 : 1 }
         ' "$path"
         return
     fi
@@ -268,6 +292,8 @@ print_postclose_status() {
     postclose_log="${ROOT}/runtime/soxl/paper_trading/scheduler_postclose.log"
     if postclose_success_after_cutoff "$postclose_log"; then
         echo "  postclose status: success marker found"
+    elif postclose_cached_dry_run_after_cutoff "$postclose_log"; then
+        echo "  postclose status: due but only cached dry-run fallback completed"
     elif postclose_due_today; then
         if [ -f "$postclose_log" ] && grep -q "\[scheduler\] all done" "$postclose_log" 2>/dev/null; then
             echo "  postclose status: due but no current success marker found"
@@ -326,8 +352,8 @@ for log in runtime/soxl/paper_trading/scheduler_preopen.log runtime/soxl/paper_t
 done
 echo ""
 
-# 检查最近一次成功执行
-echo "--- Last Successful Run ---"
+# Check the latest completion marker without classifying cached fallback as success.
+echo "--- Last Completion Marker ---"
 for log in runtime/soxl/paper_trading/scheduler_preopen.log runtime/soxl/paper_trading/scheduler_postclose.log; do
     path="${ROOT}/${log}"
     if [ -f "$path" ]; then
