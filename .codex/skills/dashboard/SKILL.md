@@ -23,10 +23,16 @@ After a training run, the harness should:
 2. rebuild `dashboard.html`
 3. default the dashboard to the latest generated version, not the historical best-Sharpe version
 
+For static/Vercel exports, `paper_trading` is the production first-load view
+when present. Keep source priority as:
+`paper_trading > post_train_review > generalization_version`.
+
 If the dashboard opens on an older run after fresh training, check:
 - whether the latest `*_soxl_daily.csv` was written
 - whether `scripts/build_backtest_dashboard.py` was rerun
 - whether browser localStorage is pinning a manual old version
+- whether `scripts/check_dashboard_static_export.py` reports
+  `latest=paper_trading` when `paper_trading` is exported
 
 ### Add a New Subplot
 1. In `scripts/build_backtest_dashboard.py`, edit `_build_layout_all()`:

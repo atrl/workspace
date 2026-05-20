@@ -58,6 +58,15 @@ def test_select_latest_version_prefers_post_train_review_over_older_snapshots():
     assert select_latest_version(versioned) == "post_train"
 
 
+def test_select_latest_version_prefers_paper_trading_for_static_dashboard():
+    versioned = {
+        "snapshot_newer": {"_meta": {"updated_at": 300, "source_kind": "generalization_version"}},
+        "post_train": {"_meta": {"updated_at": 200, "source_kind": "post_train_review"}},
+        "paper_trading": {"_meta": {"updated_at": 100, "source_kind": "paper_trading"}},
+    }
+    assert select_latest_version(versioned) == "paper_trading"
+
+
 def test_select_best_version_maps_soxl_prefix():
     model_versions = [
         {"name": "soxl_balanced_rule_residual_v1", "test_sharpe": 0.96},

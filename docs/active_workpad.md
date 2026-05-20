@@ -3093,3 +3093,70 @@ production/check_scheduler_health.sh
   walk-forward absorption.
 - Next natural proof is the next post-close non-dry paper run selecting v22 with
   fresh data.
+
+## 2026-05-21 Dashboard Static Default To Paper Trading
+
+Goal:
+
+- Keep the Vercel/static dashboard aligned with the current simulated paper
+  loop instead of opening on the newest offline post-train artifact.
+
+Root cause:
+
+- `scripts/build_backtest_dashboard.py::select_latest_version()` prioritized
+  `post_train_review` over generalization snapshots, but did not treat
+  `paper_trading` as the production/live default source.
+- The regenerated static export therefore had
+  `latest_version=balanced_rule_residual_v22_soxx`, even though
+  `paper_trading` was present and ended on `2026-05-20`.
+
+Changes:
+
+- Added a regression test requiring `paper_trading` to win static dashboard
+  default selection when exported.
+- Added source-kind priority:
+  `paper_trading > post_train_review > generalization_version`.
+- Strengthened `scripts/check_dashboard_static_export.py` so an exported
+  `paper_trading` version requires `latest_version=paper_trading`.
+- Regenerated `dashboard.html` and `dashboard_data/`.
+
+Evidence:
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_dashboard.py::test_select_latest_version_prefers_paper_trading_for_static_dashboard -q
+# initially failed: expected paper_trading, got post_train
+
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_vercel_dashboard.py::test_dashboard_static_export_integrity_check_passes -q
+# initially failed: stdout had latest=balanced_rule_residual_v22_soxx
+
+PYTHONPATH=src:. qlib_venv/bin/python scripts/build_backtest_dashboard.py
+# wrote dashboard.html, dashboard_data/index.json, dashboard_data/model_versions.json, 25 version payloads
+
+PYTHONPATH=src:. qlib_venv/bin/python scripts/check_dashboard_static_export.py
+# ok dashboard_static_export generated_at=2026-05-21 06:51:30 versions=25 missing=0 model_versions=90 latest=paper_trading paper_trading_rows=4 paper_trading_end=2026-05-20 paper_trading
+
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_dashboard.py tests/test_vercel_dashboard.py -q
+# 13 passed
+```
+
+Browser/render evidence:
+
+- Browser plugin Node REPL tooling was not exposed in this session, and
+  Computer Use was blocked on macOS permissions.
+- Fallback headless Chrome loaded
+  `http://127.0.0.1:8876/dashboard.html?codex_cdp=20260521`.
+- Runtime DOM readout:
+  `readyState=complete`, `latest=paper_trading`,
+  `selectValue=paper_trading`, `selectedText="paper_trading (SOXL)"`,
+  `optionCount=26`.
+- Screenshot proof:
+  `runtime/production/card/dashboard_static_default_v1/dashboard_static_default_2026-05-21.png`,
+  `1440 x 1100`, coarse sample `15481 / 15840` non-white pixels.
+
+Decision:
+
+- Static/Vercel dashboard default is now the simulated paper-trading view.
+- Historical SOXX/post-train snapshots remain available in the version selector
+  but no longer override the production paper view on first load.
+- The model-side next proof remains the next fresh post-close non-dry paper run
+  selecting v22.

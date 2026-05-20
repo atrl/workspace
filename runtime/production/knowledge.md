@@ -920,3 +920,41 @@ Decision:
   and explicit overlay governance.
 - The next post-close non-dry paper run should naturally execute with v22 unless
   the promotion gate or overlay approval is revoked.
+
+## 2026-05-21 Dashboard Static Default Guard
+
+Context:
+
+- The static/Vercel dashboard export included paper-trading data through
+  `2026-05-20`, but `latest_version` still pointed to
+  `balanced_rule_residual_v22_soxx`, a failed offline SOXX post-train snapshot.
+
+Change:
+
+- `scripts/build_backtest_dashboard.py` now ranks source kinds for static
+  default selection as
+  `paper_trading > post_train_review > generalization_version`.
+- `scripts/check_dashboard_static_export.py` now fails if `paper_trading` is
+  exported but `latest_version` is not `paper_trading`.
+- `dashboard.html` and `dashboard_data/` were regenerated with
+  `latest_version=paper_trading`.
+
+Evidence:
+
+- Static check:
+  `latest=paper_trading`, `paper_trading_rows=4`,
+  `paper_trading_end=2026-05-20`, `missing=0`.
+- Focused tests:
+  `uv run --python qlib_venv/bin/python --with pytest pytest tests/test_dashboard.py tests/test_vercel_dashboard.py -q`
+  returned `13 passed`.
+- Headless Chrome runtime read:
+  `selectValue=paper_trading`, `selectedText="paper_trading (SOXL)"`,
+  `readyState=complete`.
+- Render screenshot:
+  `runtime/production/card/dashboard_static_default_v1/dashboard_static_default_2026-05-21.png`.
+
+Decision:
+
+- The production dashboard default should track the simulated paper loop.
+- Offline experiment snapshots stay selectable but must not be the first-load
+  default while `paper_trading` is present.

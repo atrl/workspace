@@ -82,6 +82,8 @@ def check_static_export(root: Path) -> tuple[list[str], dict[str, Any]]:
         errors.append("dashboard_data/index.json has no versions")
     if "paper_trading" not in versions:
         errors.append("dashboard_data/index.json does not include paper_trading")
+    elif index.get("latest_version") != "paper_trading":
+        errors.append("latest_version must be paper_trading when paper_trading is exported")
     if index.get("latest_version") not in versions:
         errors.append("latest_version is not listed in versions")
     if index.get("best_version") and index.get("best_version") not in versions:

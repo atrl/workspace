@@ -254,6 +254,14 @@ def select_best_version(model_versions: list[dict], versioned: dict[str, dict]) 
     return best_version
 
 
+def _latest_source_priority(source_kind: str) -> int:
+    priorities = {
+        "paper_trading": 2,
+        "post_train_review": 1,
+    }
+    return priorities.get(source_kind, 0)
+
+
 def select_latest_version(versioned: dict[str, dict]) -> str:
     latest_version = ""
     latest_priority = -1
@@ -262,7 +270,7 @@ def select_latest_version(versioned: dict[str, dict]) -> str:
         meta = payload.get("_meta", {})
         updated_at = meta.get("updated_at", float("-inf"))
         source_kind = meta.get("source_kind", "generalization_version")
-        priority = 1 if source_kind == "post_train_review" else 0
+        priority = _latest_source_priority(source_kind)
         if priority > latest_priority or (priority == latest_priority and updated_at > latest_updated_at):
             latest_priority = priority
             latest_updated_at = updated_at

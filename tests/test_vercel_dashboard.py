@@ -53,4 +53,5 @@ def test_dashboard_static_export_integrity_check_passes():
 
     assert result.returncode == 0, result.stdout + result.stderr
     assert "missing=0" in result.stdout
+    assert "latest=paper_trading" in result.stdout
     assert "paper_trading" in result.stdout

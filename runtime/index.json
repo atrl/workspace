@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-20T22:43:13.417176+00:00",
+  "generated_at": "2026-05-20T23:02:45.897335+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -2378,6 +2378,12 @@
       "bytes": 2365
     },
     {
+      "path": "runtime/production/card/dashboard_static_default_v1/notes.md",
+      "category": "production",
+      "suffix": ".md",
+      "bytes": 906
+    },
+    {
       "path": "runtime/production/card/data_freshness_health_v1/notes.md",
       "category": "production",
       "suffix": ".md",
@@ -2447,7 +2453,7 @@
       "path": "runtime/production/knowledge.md",
       "category": "production",
       "suffix": ".md",
-      "bytes": 45527
+      "bytes": 46931
     },
     {
       "path": "runtime/reward/card/base_log/card.md",
