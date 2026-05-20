@@ -3,14 +3,17 @@
 
 用法:
     python scripts/update_market_data.py [--dry-run] [--force-full]
+    python scripts/update_market_data.py --provider polygon
     python scripts/update_market_data.py --local-only
 
 环境依赖:
     yfinance (已包含在 requirements/qlib.txt 中)
+    POLYGON_API_KEY (可选；provider=polygon 时用于 SOXL/SOXX，VIX 来自 CBOE)
 """
 from __future__ import annotations
 
 import argparse
+import os
 import sys
 from datetime import datetime, timedelta
 from pathlib import Path
@@ -28,6 +31,9 @@ from src.soxl_quant.settings import CSV_PATH, QLIB_DATA_PATH, RAW_DATA_DIR
 
 RAW_SYMBOL_DIR = RAW_DATA_DIR / "symbols"
 RAW_EXTERNAL_DIR = RAW_DATA_DIR / "external"
+REMOTE_DATA_PROVIDERS = ("yfinance", "yahoo_api", "polygon")
+POLYGON_API_KEY_ENV = "POLYGON_API_KEY"
+CBOE_VIX_HISTORY_URL = "https://cdn.cboe.com/api/global/us_indices/daily_prices/VIX_History.csv"
 DNS_ERROR_SNIPPETS = (
     "could not resolve host",
     "failed to resolve",
@@ -136,6 +142,97 @@ def _fetch_yahoo_api(ticker: str, start: str | None = None) -> pd.DataFrame:
     return frame
 
 
+def _fetch_polygon(ticker: str, start: str | None = None) -> pd.DataFrame:
+    """Fetch daily OHLCV from Polygon aggregates."""
+    api_key = os.environ.get(POLYGON_API_KEY_ENV)
+    if not api_key:
+        raise RuntimeError(f"{POLYGON_API_KEY_ENV} environment variable not set")
+
+    fetch_start = start or "2000-01-01"
+    fetch_end = (datetime.now() + timedelta(days=1)).strftime("%Y-%m-%d")
+    url = f"https://api.polygon.io/v2/aggs/ticker/{ticker}/range/1/day/{fetch_start}/{fetch_end}"
+    try:
+        response = requests.get(
+            url,
+            params={
+                "adjusted": "true",
+                "sort": "asc",
+                "limit": 50000,
+                "apiKey": api_key,
+            },
+            timeout=60,
+        )
+        response.raise_for_status()
+        data = response.json()
+    except Exception as exc:
+        _raise_fetch_error(ticker, exc)
+
+    rows = data.get("results") or []
+    if not rows:
+        status = data.get("status", "unknown")
+        message = data.get("message") or data.get("error") or "no results"
+        raise RuntimeError(f"No data returned for {ticker} from Polygon: {status} {message}")
+
+    frame = pd.DataFrame(rows)
+    dates = pd.to_datetime(frame["t"], unit="ms", utc=True).dt.tz_convert("America/New_York")
+    result = pd.DataFrame(
+        {
+            "date": dates.dt.tz_localize(None).dt.normalize(),
+            "open": pd.to_numeric(frame["o"], errors="coerce"),
+            "high": pd.to_numeric(frame["h"], errors="coerce"),
+            "low": pd.to_numeric(frame["l"], errors="coerce"),
+            "close": pd.to_numeric(frame["c"], errors="coerce"),
+            "volume": pd.to_numeric(frame["v"], errors="coerce").fillna(0).astype(int),
+        }
+    )
+    result = result.dropna(subset=["open", "high", "low", "close"]).reset_index(drop=True)
+    if result.empty:
+        raise RuntimeError(f"No usable OHLCV rows returned for {ticker} from Polygon")
+    return result
+
+
+def _fetch_cboe_vix(start: str | None = None) -> pd.DataFrame:
+    """Fetch VIX daily close from CBOE's public historical CSV."""
+    try:
+        frame = pd.read_csv(CBOE_VIX_HISTORY_URL)
+    except Exception as exc:
+        _raise_fetch_error("VIX", exc)
+
+    columns = {name.upper(): name for name in frame.columns}
+    if "DATE" not in columns or "CLOSE" not in columns:
+        raise RuntimeError("CBOE VIX history did not include DATE/CLOSE columns")
+
+    result = pd.DataFrame(
+        {
+            "date": pd.to_datetime(frame[columns["DATE"]]),
+            "vix": pd.to_numeric(frame[columns["CLOSE"]], errors="coerce"),
+        }
+    ).dropna(subset=["date", "vix"])
+    if start:
+        result = result[result["date"] >= pd.to_datetime(start)]
+    result = result.sort_values("date").reset_index(drop=True)
+    if result.empty:
+        raise RuntimeError("No VIX rows returned from CBOE")
+    return result
+
+
+def _fetch_market_frames(provider: str, start: str | None) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+    if provider == "polygon":
+        return _fetch_polygon("SOXL", start=start), _fetch_polygon("SOXX", start=start), _fetch_cboe_vix(start=start)
+
+    fetchers = {
+        "yfinance": _fetch_yfinance,
+        "yahoo_api": _fetch_yahoo_api,
+    }
+    if provider not in fetchers:
+        raise ValueError(f"Unknown provider: {provider}")
+    fetcher = fetchers[provider]
+    vix = fetcher("^VIX", start=start).drop(columns=["open", "high", "low", "volume"]).rename(
+        columns={"close": "vix"}
+    )
+    return fetcher("SOXL", start=start), fetcher("SOXX", start=start), vix
+
+
 def _load_master_csv(path: Path) -> pd.DataFrame:
     if not path.exists():
         raise FileNotFoundError(f"Master CSV not found: {path}")
@@ -226,16 +323,7 @@ def update_master_csv(
 
     print(f"[update] last_date={last_date.date()} fetch_start={start or 'max'} provider={provider}")
 
-    fetcher = {
-        "yfinance": _fetch_yfinance,
-        "yahoo_api": _fetch_yahoo_api,
-    }[provider]
-
-    soxl = fetcher("SOXL", start=start)
-    soxx = fetcher("SOXX", start=start)
-    vix = fetcher("^VIX", start=start).drop(columns=["open", "high", "low", "volume"]).rename(
-        columns={"close": "vix"}
-    )
+    soxl, soxx, vix = _fetch_market_frames(provider, start)
 
     soxl = soxl.rename(
         columns={
@@ -318,7 +406,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--provider",
         default="yfinance",
-        choices=["yfinance", "yahoo_api"],
+        choices=list(REMOTE_DATA_PROVIDERS),
         help="Remote market data provider when fetching new rows",
     )
     parser.add_argument(

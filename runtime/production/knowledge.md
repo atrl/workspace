@@ -19,10 +19,11 @@
 12. **scheduler health 现在匹配 macOS LaunchAgent**：`production/check_scheduler_health.sh` 会在 Darwin 上检查 `launchctl list` 中的 `com.soxl.daily.scheduler`，并用 portable `stat/date` 读取日志，不再把 macOS 运行态显示成空白 cron 服务。
 13. **macOS 定时推理路径已补齐**：新增 `com.soxl.preopen.scheduler`，用于 `21:00 Mon-Fri Asia/Shanghai` cached-data dry-run 推理 + dashboard；`com.soxl.daily.scheduler` 继续负责 `05:35 Tue-Sat` post-close 完整流程。两个 LaunchAgent 已同步到 `~/Library/LaunchAgents/` 并 loaded。
 14. **数据源失败时不再用旧数据推进模拟盘**：post-close 数据刷新遇到 transient provider failure 时，scheduler fallback 会追加 `--skip-data-update --dry-run`，只保留 cached signal/dashboard 可见性，不落 paper order / broker state。
-15. **scheduler health 现在直接暴露 paper 数据新鲜度**：`production/check_scheduler_health.sh` 会运行 paper healthcheck 并显示 `last_date`、`expected_last_trading_day`、`stale_days`、model 和 broker 状态。当前 pre-postclose 读数是 `last_date=2026-05-15`、`expected=2026-05-19`、`stale_days=4`；到 `05:35 Tue-Sat Asia/Shanghai` 后才应该期待刚收盘的美股交易日。
+15. **scheduler health 现在直接暴露 paper 数据新鲜度**：`production/check_scheduler_health.sh` 会运行 paper healthcheck 并显示 `last_date`、`expected_last_trading_day`、`stale_days`、model 和 broker 状态。当前 `2026-05-21 02:48 CST` 读数已恢复为 `last_date=2026-05-19`、`expected=2026-05-19`、`stale_days=0`；到 `05:35 Tue-Sat Asia/Shanghai` 后才应该期待刚收盘的下一交易日。
 16. **stale data 现在也是执行硬门槛**：paper 主流程在 qlib init / 模型选择 / broker 执行前检查 freshness。非 dry-run 遇到 stale data 直接退出；scheduler 将其转成 cached dry-run fallback，避免 stale 数据推进 paper broker state。
 17. **freshness 期望日已按纽约收盘边界修正**：`_last_trading_day()` 使用 `America/New_York` 和 `17:30 ET` data-ready cutoff。`2026-05-21 02:23 CST` 期望 `2026-05-19`，`05:35 CST` 后才期望 `2026-05-20`。
-18. **production data refresh 现在支持 provider failover**：paper runner 和 scheduler 都支持 `--data-provider {auto,yfinance,yahoo_api}`；默认 `auto` 先试 yfinance，再对 retryable provider failure 尝试 yahoo_api。当前实测 yfinance 是 `No overlapping dates`，yahoo_api 是 `429 Too Many Requests`，所以仍走 cached dry-run。
+18. **production data refresh 现在支持 provider failover**：paper runner 和 scheduler 都支持 `--data-provider {auto,yfinance,yahoo_api,polygon}`；默认 `auto` 先试 yfinance，再试 yahoo_api，最后试 Polygon + CBOE VIX。当前实测 yfinance 是 `No overlapping dates`，yahoo_api 是 `429 Too Many Requests`，Polygon + CBOE 能把数据更新到 `2026-05-19`。
+19. **scheduler 成功日志现在保留 provider fallback stderr**：`production/soxl_daily_scheduler.py` 在 child step 成功时也会 replay stderr，因此 yfinance/yahoo_api 失败后由 polygon 接管的路径能出现在 LaunchAgent 日志里，不再只看到最终成功 stdout。
 
 ## 2026-05-20 验证记录
 
@@ -432,6 +433,69 @@ Readout:
   availability remains the active external blocker.
 - Cached dry-run fallback still preserves dashboard/signal visibility without
   changing paper broker state.
+
+## 2026-05-21 Polygon + CBOE Data Recovery
+
+Root cause:
+
+- The Yahoo-family providers were still not sufficient for the production
+  freshness gate: yfinance returned `No overlapping dates for SOXL/SOXX/VIX`,
+  and Yahoo chart API returned HTTP `429 Too Many Requests`.
+- Futu OpenD was not reachable locally, so the immediate recovery path needed to
+  be a repo-owned market-data provider, not the broker gateway.
+- Live probes showed Polygon returned SOXL/SOXX through `2026-05-19`, but
+  Polygon VIX was not authorized. CBOE's public VIX history CSV returned VIX
+  through `2026-05-19`.
+
+Change:
+
+- Added `polygon` provider to `scripts/update_market_data.py`.
+- `polygon` uses Polygon aggregates for SOXL/SOXX and CBOE VIX history for VIX.
+- Production `auto` provider order is now `yfinance -> yahoo_api -> polygon`.
+- Scheduler success logs replay child stderr, preserving provider fallback
+  evidence in LaunchAgent logs.
+
+Verification:
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_update_market_data.py::test_update_master_csv_polygon_provider_uses_cboe_vix tests/test_paper_trading.py::test_data_update_auto_provider_falls_back_to_polygon tests/test_daily_scheduler.py::test_scheduler_accepts_polygon_data_provider -q
+# 3 passed after red
+
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_daily_scheduler.py::test_run_replays_child_stderr_on_success -q
+# 1 passed after red
+
+PYTHONPATH=. qlib_venv/bin/python scripts/update_market_data.py --provider polygon
+# before=4071 after=4073 new_rows=2 last_date=2026-05-19
+# raw SOXL/SOXX/VIX mirrors and qlib refreshed to 2026-05-19
+
+PYTHONPATH=. qlib_venv/bin/python scripts/update_data_registry.py
+# update_data_registry: OK symbols=6 panels=10 qlib=6
+
+production/check_scheduler_health.sh
+# data: ok last_date=2026-05-19 expected=2026-05-19
+
+PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py --dry-run --no-notify --data-provider auto
+# yfinance failed, yahoo_api failed, polygon succeeded
+# as_of=2026-05-19, signal date=2026-05-18, risk_gate approved=True
+# dry-run skipped order placement and rebuilt dashboard_data with 25 versions
+
+curl -I http://127.0.0.1:8769/dashboard.html
+curl -I http://127.0.0.1:8769/dashboard_data/index.json
+curl -I http://127.0.0.1:8769/dashboard_data/model_versions.json
+# all returned 200 OK
+
+npx -y playwright screenshot --channel chrome --viewport-size=1440,1000 --wait-for-timeout=2000 \
+  'http://127.0.0.1:8769/dashboard.html?ts=polygon-cboe-v1' \
+  runtime/production/card/polygon_cboe_provider_v1/dashboard_visual_2026-05-21.png
+# captured 1440 x 1000 screenshot; non-white pixels: 99.35%
+```
+
+Readout:
+
+- The current production data freshness blocker is cleared for the expected
+  completed US trading day at `2026-05-21 02:48 CST`.
+- The next live proof remains the natural `05:35 Tue-Sat Asia/Shanghai`
+  post-close LaunchAgent run after the next completed session.
 
 ## Open Production Tasks
 

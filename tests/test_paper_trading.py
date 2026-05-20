@@ -180,6 +180,30 @@ def test_data_update_auto_provider_falls_back_to_yahoo_api(monkeypatch: pytest.M
     assert result["last_date"] == "2026-05-19"
 
 
+def test_data_update_auto_provider_falls_back_to_polygon(monkeypatch: pytest.MonkeyPatch):
+    calls = []
+
+    def fake_update_master_csv(*, dry_run: bool, provider: str):
+        calls.append(provider)
+        if provider in {"yfinance", "yahoo_api"}:
+            raise RuntimeError("Too Many Requests")
+        return {"last_date": "2026-05-19", "dry_run": dry_run}
+
+    refresh_calls = []
+
+    def fake_refresh_qlib(*, dry_run: bool):
+        refresh_calls.append(dry_run)
+
+    monkeypatch.setattr(soxl_paper_trading, "update_master_csv", fake_update_master_csv)
+    monkeypatch.setattr(soxl_paper_trading, "refresh_qlib", fake_refresh_qlib)
+
+    result = _run_data_update(dry_run=False, provider="auto")
+
+    assert calls == ["yfinance", "yahoo_api", "polygon"]
+    assert refresh_calls == [False]
+    assert result["last_date"] == "2026-05-19"
+
+
 def test_main_blocks_non_dry_run_when_data_remains_stale(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,

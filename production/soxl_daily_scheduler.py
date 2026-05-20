@@ -59,7 +59,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--unlock-password", default="")
     parser.add_argument("--profile-family", default="balanced")
     parser.add_argument("--profile", default="")
-    parser.add_argument("--data-provider", default="auto", choices=["auto", "yfinance", "yahoo_api"])
+    parser.add_argument("--data-provider", default="auto", choices=["auto", "yfinance", "yahoo_api", "polygon"])
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--no-notify", action="store_true")
     parser.add_argument("--discord", action="store_true", help="Also send notifications to Discord")
@@ -83,10 +83,10 @@ def _run(cmd: list[str], description: str) -> None:
     result = subprocess.run(cmd, capture_output=True, text=True)
     if result.stdout:
         print(result.stdout)
+    if result.stderr:
+        print(result.stderr, file=sys.stderr)
     if result.returncode != 0:
         print(f"[scheduler] ERROR in {description}:", file=sys.stderr)
-        if result.stderr:
-            print(result.stderr, file=sys.stderr)
         raise SchedulerStepError(
             description=description,
             returncode=result.returncode,

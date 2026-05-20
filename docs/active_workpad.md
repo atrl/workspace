@@ -563,6 +563,84 @@ curl -I http://127.0.0.1:8768/dashboard_data/model_versions.json
   failure is handled by cached dry-run, not paper-state mutation.
 - The first real `05:35 Tue-Sat Asia/Shanghai` run remains the live proof point.
 
+## 2026-05-21 Polygon + CBOE Data Recovery
+
+### Root Cause
+
+- `--data-provider auto` was more robust after adding `yahoo_api`, but both
+  repo-owned Yahoo-family paths still failed in the current environment:
+  `yfinance` returned `No overlapping dates for SOXL/SOXX/VIX`, and Yahoo chart
+  API returned HTTP `429 Too Many Requests`.
+- Futu OpenD was not reachable at `127.0.0.1:11111`, so it could not be used as
+  the immediate market-data recovery path.
+- A live probe showed Polygon could return SOXL/SOXX daily aggregates through
+  `2026-05-19`, while Polygon VIX was not authorized. CBOE's public VIX history
+  CSV returned VIX through `2026-05-19`.
+
+### Change
+
+- `scripts/update_market_data.py`
+  - added provider `polygon`
+  - fetches SOXL/SOXX OHLCV from Polygon using `POLYGON_API_KEY`
+  - fetches VIX close from CBOE's public history CSV
+- `production/soxl_paper_trading.py`
+  - default `auto` provider order is now `yfinance`, `yahoo_api`, `polygon`
+- `production/soxl_daily_scheduler.py`
+  - accepts and forwards `--data-provider polygon`
+- `production/soxl_daily_scheduler.py`
+  - now replays child stderr even when a step exits successfully, so provider
+    fallback messages remain visible in scheduler logs.
+
+### Verification
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_update_market_data.py::test_update_master_csv_polygon_provider_uses_cboe_vix tests/test_paper_trading.py::test_data_update_auto_provider_falls_back_to_polygon tests/test_daily_scheduler.py::test_scheduler_accepts_polygon_data_provider -q
+# red first, then 3 passed
+
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_daily_scheduler.py::test_run_replays_child_stderr_on_success -q
+# red first, then 1 passed
+
+PYTHONPATH=. qlib_venv/bin/python scripts/update_market_data.py --provider polygon --dry-run --skip-qlib
+# before=4071 after=4073 new_rows=2 last_date=2026-05-19
+
+PYTHONPATH=. qlib_venv/bin/python scripts/update_market_data.py --provider polygon
+# canonical panel, raw SOXL/SOXX/VIX mirrors, and qlib calendar now end at 2026-05-19
+
+PYTHONPATH=. qlib_venv/bin/python scripts/update_data_registry.py
+# update_data_registry: OK symbols=6 panels=10 qlib=6
+
+production/check_scheduler_health.sh
+# data: ok last_date=2026-05-19 expected=2026-05-19
+# model: ok balanced_rule_residual_v19 (soxl_balanced_rule_residual_v19_actor.pt)
+# broker: ok paper broker ready
+
+PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py --dry-run --no-notify --data-provider auto
+# yfinance failed, yahoo_api failed, polygon succeeded
+# data fresh: last_date=2026-05-19 expected=2026-05-19 stale_days=0
+# as_of=2026-05-19, signal date=2026-05-18, target=50.00%, risk_gate approved=True
+# dry-run skipped order placement and rebuilt dashboard_data with 25 versions
+
+curl -I http://127.0.0.1:8769/dashboard.html
+curl -I http://127.0.0.1:8769/dashboard_data/index.json
+curl -I http://127.0.0.1:8769/dashboard_data/model_versions.json
+# all returned 200 OK
+
+npx -y playwright screenshot --channel chrome --viewport-size=1440,1000 --wait-for-timeout=2000 \
+  'http://127.0.0.1:8769/dashboard.html?ts=polygon-cboe-v1' \
+  runtime/production/card/polygon_cboe_provider_v1/dashboard_visual_2026-05-21.png
+# captured 1440 x 1000 screenshot; non-white pixels: 99.35%
+```
+
+### Decision
+
+- The production data freshness blocker is cleared for the currently expected
+  completed US trading day (`2026-05-19`).
+- The first natural `05:35 Tue-Sat Asia/Shanghai` post-close run still needs to
+  prove the live schedule can advance after the next completed session.
+- Model optimization remains paused until that live schedule proof is observed,
+  then should resume from the SOXX-aware / selective-release frontier rather
+  than reopening broad PPO tuning.
+
 ## 2026-05-20 Selective Release Order-Generation Diagnostic
 
 ### Governance

@@ -26,6 +26,24 @@ def test_run_error_preserves_child_stderr_for_retry_classification(monkeypatch: 
     assert soxl_daily_scheduler._is_transient_data_source_failure(exc_info.value)
 
 
+def test_run_replays_child_stderr_on_success(monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]):
+    def fake_run(cmd, capture_output, text):
+        return subprocess.CompletedProcess(
+            cmd,
+            0,
+            stdout="provider=polygon\n",
+            stderr="[paper] data provider yfinance failed: No overlapping dates\n",
+        )
+
+    monkeypatch.setattr(soxl_daily_scheduler.subprocess, "run", fake_run)
+
+    soxl_daily_scheduler._run(["python", "production/soxl_paper_trading.py"], "paper trading")
+
+    captured = capsys.readouterr()
+    assert "provider=polygon" in captured.out
+    assert "data provider yfinance failed" in captured.err
+
+
 def test_scheduler_retries_data_source_failure_as_cached_dry_run(monkeypatch: pytest.MonkeyPatch):
     calls: list[tuple[list[str], str]] = []
 
@@ -117,3 +135,19 @@ def test_scheduler_passes_data_provider_to_paper_runner(monkeypatch: pytest.Monk
     paper_cmd = calls[0][0]
     assert "--data-provider" in paper_cmd
     assert paper_cmd[paper_cmd.index("--data-provider") + 1] == "yahoo_api"
+
+
+def test_scheduler_accepts_polygon_data_provider(monkeypatch: pytest.MonkeyPatch):
+    calls: list[tuple[list[str], str]] = []
+
+    def fake_run(cmd: list[str], description: str):
+        calls.append((cmd, description))
+
+    monkeypatch.setattr(soxl_daily_scheduler, "_run", fake_run)
+    monkeypatch.setattr(sys, "argv", ["soxl_daily_scheduler.py", "--no-notify", "--data-provider", "polygon"])
+
+    soxl_daily_scheduler.main()
+
+    paper_cmd = calls[0][0]
+    assert "--data-provider" in paper_cmd
+    assert paper_cmd[paper_cmd.index("--data-provider") + 1] == "polygon"

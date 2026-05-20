@@ -44,7 +44,7 @@ from src.soxl_quant.settings import ACCOUNT, QLIB_DATA_PATH, RUNTIME_DIR, load_p
 
 US_MARKET_TZ = ZoneInfo("America/New_York")
 US_DATA_READY_TIME = time(17, 30)
-DATA_UPDATE_PROVIDERS = ("yfinance", "yahoo_api")
+DATA_UPDATE_PROVIDERS = ("yfinance", "yahoo_api", "polygon")
 RETRYABLE_DATA_UPDATE_SNIPPETS = (
     "No overlapping dates for SOXL/SOXX/VIX",
     "Too Many Requests",
@@ -73,7 +73,7 @@ def parse_args() -> argparse.Namespace:
         "--data-provider",
         default="auto",
         choices=["auto", *DATA_UPDATE_PROVIDERS],
-        help="Market data provider for online refresh; auto tries yfinance then yahoo_api",
+        help="Market data provider for online refresh; auto tries yfinance, yahoo_api, then polygon",
     )
     parser.add_argument("--initial-cash", type=float, default=ACCOUNT, help="Initial cash for paper broker")
     parser.add_argument(
