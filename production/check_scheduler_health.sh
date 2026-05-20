@@ -87,7 +87,18 @@ postclose_success_after_cutoff() {
     if [ -z "$cutoff_epoch" ] || [ -z "$log_epoch" ]; then
         return 0
     fi
-    [ "$log_epoch" -ge "$cutoff_epoch" ]
+    if [ "$log_epoch" -lt "$cutoff_epoch" ]; then
+        return 1
+    fi
+    if grep -q "\[scheduler\] run started at " "$path" 2>/dev/null; then
+        awk '
+            /\[scheduler\] run started at / { seen = 1; ok = 0; next }
+            seen && /\[scheduler\] all done/ { ok = 1 }
+            END { exit ok ? 0 : 1 }
+        ' "$path"
+        return
+    fi
+    return 0
 }
 
 print_scheduler_service() {

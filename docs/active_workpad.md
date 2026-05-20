@@ -2503,3 +2503,68 @@ PYTHONPATH=. qlib_venv/bin/python scripts/build_runtime_index.py --check
   would no longer satisfy the scheduled-run proof anyway.
 - The next proof checkpoint remains the natural `05:35 Tue-Sat Asia/Shanghai`
   run, now guarded against stale/manual success markers.
+
+## 2026-05-21 Post-close Log Segment Guard
+
+Goal: make the natural post-close proof robust to LaunchAgent's append-only log
+behavior.
+
+### Root Cause
+
+- LaunchAgent appends scheduler stdout to `scheduler_postclose.log`.
+- The previous freshness guard compared log mtime to the current-day `05:35`
+  cutoff and checked for any `[scheduler] all done` line.
+- If an old success line remained in the file and a new post-close attempt only
+  appended a failure after the cutoff, the file mtime would become fresh and the
+  old success line could still produce a false success.
+
+### Change
+
+- `production/soxl_daily_scheduler.py`
+  - prints `[scheduler] run started at ... broker=... dry_run=...` at the start
+    of every scheduler invocation.
+- `production/check_scheduler_health.sh`
+  - when run-start markers exist, only accepts `[scheduler] all done` if it
+    appears after the latest `[scheduler] run started at ...` marker.
+  - still keeps the cutoff mtime guard, so a pre-cutoff success cannot satisfy
+    a due post-close proof.
+- `tests/test_scheduler_health.py`
+  - covers the append-only false-positive case: old success, latest run start,
+    then failure.
+- `tests/test_daily_scheduler.py`
+  - verifies the scheduler emits the run-start marker.
+
+### Verification
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_daily_scheduler.py::test_scheduler_prints_run_start_marker -q
+# red first: scheduler output only had all done
+
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_scheduler_health.py::test_scheduler_health_requires_success_after_current_postclose_run_start -q
+# red first: old success line still satisfied health
+
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_scheduler_health.py tests/test_daily_scheduler.py -q
+# 13 passed
+
+production/check_scheduler_health.sh
+# postclose status: pending until 05:35 Tue-Sat Asia/Shanghai
+
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_scheduler_health.py tests/test_daily_scheduler.py tests/test_vercel_dashboard.py tests/test_production_schedule.py tests/test_paper_trading.py tests/test_dashboard.py -q
+# 39 passed
+
+PYTHONPATH=. qlib_venv/bin/python scripts/check_harness.py
+# passed=126 failures=0
+
+PYTHONPATH=. qlib_venv/bin/python scripts/check_dashboard_static_export.py
+# ok dashboard_static_export ... missing=0 ... paper_trading
+
+PYTHONPATH=. qlib_venv/bin/python scripts/build_runtime_index.py --check
+# runtime index OK
+```
+
+### Decision
+
+- The health proof now requires a success marker in the current scheduler run
+  segment, not merely anywhere in the append-only log.
+- Natural post-close LaunchAgent proof remains pending; current live health
+  time during this pass was `2026-05-21 04:25 CST`.

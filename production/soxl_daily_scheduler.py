@@ -18,6 +18,7 @@ from __future__ import annotations
 import argparse
 import subprocess
 import sys
+from datetime import datetime
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -101,6 +102,12 @@ def main() -> None:
     notifier = get_notifier(prefer_bark=True, include_discord=args.discord) if use_notify else None
 
     venv_python = str(ROOT / "qlib_venv" / "bin" / "python")
+    started_at = datetime.now().astimezone().isoformat(timespec="seconds")
+    print(
+        "[scheduler] run started at "
+        f"{started_at} broker={args.broker} dry_run={args.dry_run} "
+        f"skip_data_update={args.skip_data_update} data_provider={args.data_provider}"
+    )
 
     try:
         # 1. Paper trading runner (includes data update unless skipped)
