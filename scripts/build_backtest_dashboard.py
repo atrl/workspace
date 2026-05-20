@@ -468,6 +468,7 @@ def _load_post_train_review_versions(features: dict[str, dict[str, float]] | Non
         globber = ptr_dir.rglob if recursive else ptr_dir.glob
         for csv_path in sorted(globber("*_soxl_daily.csv")):
             tag = csv_path.stem.replace("_soxl_daily", "")
+            source_kind = "paper_trading" if "paper_trading" in str(csv_path) else "post_train_review"
             try:
                 with csv_path.open("r", encoding="utf-8") as f:
                     reader = csv.DictReader(f)
@@ -476,7 +477,7 @@ def _load_post_train_review_versions(features: dict[str, dict[str, float]] | Non
                 continue
             if not raw_rows:
                 continue
-            if len(raw_rows) < 10:
+            if len(raw_rows) < 10 and source_kind != "paper_trading":
                 continue
 
             rows = normalize_post_train_review_rows(raw_rows)
@@ -531,7 +532,6 @@ def _load_post_train_review_versions(features: dict[str, dict[str, float]] | Non
             trades = compute_trades(rows)
             kelly_stats = compute_kelly_stats(trades)
 
-            source_kind = "paper_trading" if "paper_trading" in str(csv_path) else "post_train_review"
             versioned[tag] = {
                 "_meta": {
                     "updated_at": csv_path.stat().st_mtime,

@@ -5,11 +5,13 @@ from pathlib import Path
 import pandas as pd
 
 from scripts.build_backtest_dashboard import (
+    _load_post_train_review_versions,
     compact_payload_rows,
     normalize_post_train_review_rows,
     select_best_version,
     select_latest_version,
 )
+import scripts.build_backtest_dashboard as dashboard_builder
 from src.soxl_quant.app.dashboard import review_daily_csv_path, write_review_daily_csv
 
 
@@ -122,6 +124,29 @@ def test_normalize_post_train_review_rows_falls_back_to_position_change_inferenc
         ]
     )
     assert [r["action"] for r in rows] == ["BUY", "SELL"]
+
+
+def test_load_versions_keeps_short_paper_trading_history(tmp_path: Path, monkeypatch):
+    paper_dir = tmp_path / "runtime" / "soxl" / "paper_trading"
+    paper_dir.mkdir(parents=True)
+    (paper_dir / "paper_trading_soxl_daily.csv").write_text(
+        "\n".join(
+            [
+                "datetime,strategy_nav,price,buyhold_nav,position,excess,excess_pct,action",
+                "2026-05-14,1000000,186.19,1000000,0,0,0,HOLD",
+            ]
+        ),
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(dashboard_builder, "ROOT", tmp_path)
+    monkeypatch.setattr(dashboard_builder, "load_ohlc_and_indicators", lambda _etf: {})
+
+    versions = _load_post_train_review_versions(features=None)
+
+    assert "paper_trading" in versions
+    paper = versions["paper_trading"]
+    assert paper["_meta"]["source_kind"] == "paper_trading"
+    assert paper["windows"]["SOXL"] == {"start": "2026-05-14", "end": "2026-05-14", "rows": 1}
 
 
 def test_compact_payload_rows_drops_redundant_market_metadata():

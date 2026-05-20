@@ -196,6 +196,29 @@ def _append_daily_csv(
     print(f"[paper] appended to {csv_path}")
 
 
+def _append_execution_daily_csv(
+    signal,
+    broker: BrokerAdapter,
+    commands,
+    csv_path: Path = PAPER_TRADING_CSV,
+):
+    """Append the dashboard row from the broker state after execution."""
+    account = broker.get_account_snapshot(signal.date, signal.price)
+    if commands and len(commands) > 0:
+        action = commands[0].side
+    else:
+        action = "HOLD"
+    _append_daily_csv(
+        date=signal.date,
+        price=signal.price,
+        strategy_nav=account.account_value,
+        position=account.position,
+        action=action,
+        csv_path=csv_path,
+    )
+    return account
+
+
 def healthcheck(args: argparse.Namespace) -> Dict[str, object]:
     results: Dict[str, object] = {}
 
@@ -376,17 +399,7 @@ def main() -> None:
 
         # 9. Append to cumulative CSV for dashboard
         if not args.dry_run:
-            if commands and len(commands) > 0:
-                action = commands[0].side
-            else:
-                action = "HOLD"
-            _append_daily_csv(
-                date=signal.date,
-                price=signal.price,
-                strategy_nav=account.account_value,
-                position=account.position,
-                action=action,
-            )
+            _append_execution_daily_csv(signal, broker, commands)
 
     finally:
         if hasattr(broker, "disconnect"):

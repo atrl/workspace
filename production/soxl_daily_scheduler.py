@@ -26,6 +26,28 @@ if str(ROOT) not in sys.path:
 from production.notify import get_notifier
 
 
+TRANSIENT_DATA_SOURCE_SNIPPETS = (
+    "Too Many Requests",
+    "Rate limited",
+    "No overlapping dates for SOXL/SOXX/VIX",
+    "DNS/network unavailable",
+)
+
+
+class SchedulerStepError(RuntimeError):
+    def __init__(self, description: str, returncode: int, stdout: str = "", stderr: str = "") -> None:
+        self.description = description
+        self.returncode = returncode
+        self.stdout = stdout
+        self.stderr = stderr
+        super().__init__(f"{description} failed with exit code {returncode}")
+
+
+def _is_transient_data_source_failure(exc: BaseException) -> bool:
+    text = f"{exc}\n{getattr(exc, 'stdout', '')}\n{getattr(exc, 'stderr', '')}".lower()
+    return any(snippet.lower() in text for snippet in TRANSIENT_DATA_SOURCE_SNIPPETS)
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="SOXL daily unified scheduler")
     parser.add_argument("--broker", default="paper", choices=["paper", "futu"])
@@ -51,7 +73,12 @@ def _run(cmd: list[str], description: str) -> None:
         print(f"[scheduler] ERROR in {description}:", file=sys.stderr)
         if result.stderr:
             print(result.stderr, file=sys.stderr)
-        raise RuntimeError(f"{description} failed with exit code {result.returncode}")
+        raise SchedulerStepError(
+            description=description,
+            returncode=result.returncode,
+            stdout=result.stdout or "",
+            stderr=result.stderr or "",
+        )
 
 
 def main() -> None:
@@ -99,9 +126,9 @@ def main() -> None:
     except Exception as exc:
         msg = str(exc)
         print(f"[scheduler] FAILED: {msg}", file=sys.stderr)
-        # If data update failed due to rate limiting, try dry-run with existing data
-        if "Too Many Requests" in msg or "Rate limited" in msg:
-            print("[scheduler] Data source rate-limited. Retrying with --skip-data-update...", file=sys.stderr)
+        # If data update failed due to transient source issues, retry with existing data.
+        if _is_transient_data_source_failure(exc):
+            print("[scheduler] Data source unavailable. Retrying with --skip-data-update...", file=sys.stderr)
             try:
                 retry_cmd = paper_cmd + ["--skip-data-update"]
                 _run(retry_cmd, "paper trading (skip data update)")
@@ -111,11 +138,11 @@ def main() -> None:
                 if use_notify:
                     notifier.send(
                         title="SOXL Daily Pipeline OK (cached data)",
-                        body="Data update skipped due to rate limit. Used cached data.",
+                        body="Data update skipped due to transient data-source failure. Used cached data.",
                         level="warning",
                     )
                 print("[scheduler] all done (with cached data)")
-                sys.exit(0)
+                return
             except Exception as exc2:
                 msg2 = str(exc2)
                 print(f"[scheduler] RETRY FAILED: {msg2}", file=sys.stderr)

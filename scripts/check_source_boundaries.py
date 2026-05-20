@@ -22,6 +22,20 @@ OLD_DATA_PREFIXES = (
     "data/symbols",
     "data/external",
 )
+RUNTIME_SURFACES = {
+    "README.md",
+    "index.json",
+    "soxl",
+    "model",
+    "data",
+    "factor",
+    "network",
+    "execution",
+    "multi_asset",
+    "harness",
+    "reward",
+    "production",
+}
 
 
 def iter_text_files(*roots: str) -> list[Path]:
@@ -66,7 +80,7 @@ def main() -> int:
     runtime = ROOT / "runtime"
     if runtime.exists():
         for child in runtime.iterdir():
-            if child.is_dir() and child.name not in {"README.md", "index.json", "soxl", "model", "data", "factor", "network", "execution", "multi_asset", "harness", "reward"}:
+            if child.is_dir() and child.name not in RUNTIME_SURFACES:
                 failures.append(f"runtime contains non-runtime surface: {child.relative_to(ROOT)}")
 
     for path in iter_text_files("production"):

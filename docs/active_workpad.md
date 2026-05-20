@@ -1,14 +1,72 @@
 ---
-date: '2026-05-10'
-title: 'Data Refresh + Release-Pack Optimization Loop'
+date: '2026-05-20'
+title: 'Production Scheduler + Paper Dashboard Loop'
 kind: workpad
 status: active
-direction: factor
+direction: production
 ---
 
-# Data Refresh + Release-Pack Optimization Loop
+# Production Scheduler + Paper Dashboard Loop
 
-## Goal
+## Current Goal
+
+1. Keep the SOXL/SOXX/VIX data surfaces coherent for scheduled inference.
+2. Make the daily scheduler resilient to transient Yahoo/yfinance failures by retrying with cached data.
+3. Repair paper-trading dashboard evidence so simulated orders are visible and use post-execution broker state.
+4. Prepare the dashboard/static artifact path for Vercel after the local scheduled loop is reliable.
+5. Resume model optimization only after the production loop can refresh data, infer, gate, persist, and rebuild the dashboard repeatably.
+
+## 2026-05-20 Loop Evidence
+
+### Root-Cause Evidence
+
+- `runtime/soxl/paper_trading/scheduler.err` showed repeated scheduler failures where the child paper runner stderr contained `Too Many Requests`, `Rate limited`, or `No overlapping dates for SOXL/SOXX/VIX`.
+- `production/soxl_daily_scheduler.py` only raised `RuntimeError("paper trading failed with exit code 1")`, so the cached-data retry branch could not see the child stderr and did not run.
+- Current data state before local sync:
+  - canonical panel: `4071` rows, ending `2026-05-15`
+  - qlib calendar: `4071` rows, ending `2026-05-15`
+  - raw SOXL/SOXX/VIX mirrors: `4057` rows, ending `2026-04-27`
+- `scripts/build_backtest_dashboard.py` scanned `runtime/soxl/paper_trading/`, but skipped all CSVs with fewer than `10` rows, so a new simulated account could not appear in the dashboard.
+- The paper dashboard append path used the pre-order account snapshot after order placement, allowing impossible rows such as `action=BUY` with `position=0.0`.
+
+### Changes Made
+
+- `production/soxl_daily_scheduler.py`
+  - Added `SchedulerStepError` carrying child stdout/stderr.
+  - Added transient data-source classification for rate limits, DNS/network failures, and no-overlap fetches.
+  - Cached-data retry now triggers from child stderr and returns normally on success.
+- `scripts/build_backtest_dashboard.py`
+  - Keeps short histories for `paper_trading` sources while preserving the `len(raw_rows) >= 10` filter for post-train review histories.
+- `production/soxl_paper_trading.py`
+  - Added `_append_execution_daily_csv()` so cumulative paper CSV rows use the broker snapshot after execution.
+- Data surfaces:
+  - Ran local-only sync from the canonical panel.
+  - Raw SOXL/SOXX/VIX mirrors, canonical panel, and qlib calendar now all end at `2026-05-15`.
+
+### Verification
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_daily_scheduler.py tests/test_paper_trading.py tests/test_update_market_data.py tests/test_dashboard.py -q
+PYTHONPATH=. qlib_venv/bin/python scripts/update_market_data.py --local-only
+PYTHONPATH=. qlib_venv/bin/python scripts/update_data_registry.py
+PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py --skip-data-update --dry-run --no-notify --skip-dashboard
+PYTHONPATH=. qlib_venv/bin/python scripts/build_backtest_dashboard.py
+```
+
+Observed:
+
+- Focused scheduler/paper/update/dashboard tests: `13 passed`.
+- Cached-data scheduler dry-run completed with `as_of=2026-05-15` and wrote a dry-run paper artifact for signal date `2026-05-14`.
+- The dry-run was blocked by risk gate because the auto-selected `balanced` actor has `walk-forward promotion gate not evaluated` and target step `0.850 > 0.350`.
+- Dashboard rebuild wrote `25` versions and now includes `paper_trading` in `dashboard_data/index.json`.
+
+## Next Action
+
+1. Diagnose why `auto_select_profile(profile_family="balanced")` chooses `balanced` even though runtime risk gating rejects its promotion sidecar.
+2. Add a scheduled-loop smoke command that exercises cached-data inference plus dashboard rebuild without placing orders.
+3. Prepare a Vercel-compatible dashboard packaging path; `dashboard_data/` is currently gitignored, so deployment needs either generated build output or an explicit tracked/static export policy.
+
+## Prior Data/Release Goal
 
 1. Refresh the repo-owned local data surfaces from the canonical SOXL/SOXX/VIX panel.
 2. Run one narrow release/re-entry feature training loop on the retained residual frontier.
