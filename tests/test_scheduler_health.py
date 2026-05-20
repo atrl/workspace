@@ -132,6 +132,77 @@ def test_scheduler_health_reports_installed_launchagent_plist_drift():
     assert "LaunchAgent com.soxl.daily.scheduler plist: differs from repo" in result.stdout
 
 
+def test_scheduler_health_reports_latest_signal_artifact():
+    with TemporaryDirectory() as tmpdir:
+        root = Path(tmpdir)
+        runtime_dir = root / "runtime" / "soxl" / "paper_trading" / "2026-05-19"
+        runtime_dir.mkdir(parents=True)
+        (runtime_dir / "summary.json").write_text(
+            """
+{
+  "date": "2026-05-19",
+  "profile": "balanced_rule_residual_v19",
+  "dry_run": true,
+  "executed": false,
+  "signal": {"target_position": 0.4},
+  "risk_gate": {"approved": true},
+  "reconcile": {"action_required": "manual_review"}
+}
+""",
+            encoding="utf-8",
+        )
+        production_dir = root / "production"
+        production_dir.mkdir()
+        launchagents_dir = root / "LaunchAgents"
+        launchagents_dir.mkdir()
+        for label in ("com.soxl.preopen.scheduler", "com.soxl.daily.scheduler"):
+            repo_plist = production_dir / f"{label}.plist"
+            repo_plist.write_text(f"<plist>{label}</plist>\n", encoding="utf-8")
+            (launchagents_dir / repo_plist.name).write_text(repo_plist.read_text(encoding="utf-8"), encoding="utf-8")
+
+        fake_bin = root / "bin"
+        fake_bin.mkdir()
+        launchctl = fake_bin / "launchctl"
+        launchctl.write_text(
+            "#!/bin/sh\nprintf '123\\t0\\tcom.soxl.preopen.scheduler\\n456\\t0\\tcom.soxl.daily.scheduler\\n'\n",
+            encoding="utf-8",
+        )
+        launchctl.chmod(0o755)
+        fake_python = fake_bin / "python"
+        fake_python.write_text(
+            "#!/bin/sh\n"
+            "cat <<'JSON'\n"
+            "{\"data\":{\"ok\":true,\"last_date\":\"2026-05-19\","
+            "\"expected_last_trading_day\":\"2026-05-19\",\"stale_days\":0},"
+            "\"model\":{\"ok\":true,\"name\":\"balanced_rule_residual_v19\"},"
+            "\"broker\":{\"ok\":true,\"msg\":\"paper broker ready\"},"
+            "\"all_ok\":true}\n"
+            "JSON\n",
+            encoding="utf-8",
+        )
+        fake_python.chmod(0o755)
+
+        env = {
+            **os.environ,
+            "PATH": f"{fake_bin}:{os.environ['PATH']}",
+            "SOXL_SCHEDULER_HEALTH_OS": "Darwin",
+            "SOXL_SCHEDULER_HEALTH_ROOT": str(root),
+            "SOXL_SCHEDULER_HEALTH_PYTHON": str(fake_python),
+            "SOXL_SCHEDULER_HEALTH_LAUNCHAGENTS_DIR": str(launchagents_dir),
+        }
+        result = subprocess.run(
+            ["bash", str(ROOT / "production" / "check_scheduler_health.sh")],
+            capture_output=True,
+            text=True,
+            env=env,
+            check=True,
+        )
+
+    assert "--- Latest Signal Artifact ---" in result.stdout
+    assert "latest signal: date=2026-05-19 profile=balanced_rule_residual_v19 dry_run=true executed=false" in result.stdout
+    assert "target=0.4 risk_gate=approved reconcile=manual_review" in result.stdout
+
+
 def test_scheduler_health_reports_postclose_due_without_success_marker():
     with TemporaryDirectory() as tmpdir:
         root = Path(tmpdir)

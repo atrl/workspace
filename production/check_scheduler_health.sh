@@ -225,6 +225,44 @@ print_paper_health() {
     fi
 }
 
+print_latest_signal_artifact() {
+    echo "--- Latest Signal Artifact ---"
+    paper_dir="${ROOT}/runtime/soxl/paper_trading"
+    if [ ! -d "$paper_dir" ]; then
+        echo "  latest signal: unavailable"
+        return
+    fi
+    latest_summary=$(find "$paper_dir" -mindepth 2 -maxdepth 2 -type f -name summary.json 2>/dev/null | sort | tail -1)
+    if [ -z "$latest_summary" ] || [ ! -f "$latest_summary" ]; then
+        echo "  latest signal: unavailable"
+        return
+    fi
+
+    payload=$(cat "$latest_summary")
+    date_value=$(json_field "$payload" "date")
+    profile=$(json_field "$payload" "profile")
+    dry_run=$(json_field "$payload" "dry_run")
+    executed=$(json_field "$payload" "executed")
+    target=$(json_field "$payload" "signal.target_position")
+    risk_gate=$(json_field "$payload" "risk_gate.approved")
+    reconcile=$(json_field "$payload" "reconcile.action_required")
+    rel_path=${latest_summary#"$ROOT"/}
+    if [ "$risk_gate" = "true" ]; then
+        risk_status="approved"
+    elif [ "$risk_gate" = "false" ]; then
+        risk_status="blocked"
+    else
+        risk_status="unknown"
+    fi
+    if [ -z "$reconcile" ]; then
+        reconcile="unknown"
+    fi
+
+    echo "  latest signal: date=${date_value} profile=${profile} dry_run=${dry_run} executed=${executed}"
+    echo "  target=${target} risk_gate=${risk_status} reconcile=${reconcile}"
+    echo "  artifact=${rel_path}"
+}
+
 print_postclose_status() {
     echo "--- Post-close Run Status ---"
     postclose_log="${ROOT}/runtime/soxl/paper_trading/scheduler_postclose.log"
@@ -305,6 +343,9 @@ done
 echo ""
 
 print_paper_health
+echo ""
+
+print_latest_signal_artifact
 echo ""
 
 print_dashboard_static_export

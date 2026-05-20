@@ -2627,3 +2627,63 @@ production/check_scheduler_health.sh
 - The natural post-close proof is still pending because current live health
   time during this pass was `2026-05-21 04:33 CST`, before the `05:35`
   LaunchAgent window.
+
+## 2026-05-21 Latest Signal Artifact Health
+
+Goal: make the scheduled inference layer visible even before a non-dry-run paper
+order appends a new dashboard row.
+
+### Root Cause
+
+- `production/check_scheduler_health.sh` showed:
+  - data freshness
+  - promoted model selection
+  - broker readiness
+  - dashboard static export state
+  - post-close success marker state
+- It did not show the latest persisted inference artifact under
+  `runtime/soxl/paper_trading/<date>/summary.json`.
+- After the latest-bar fix, a cached dry-run proved `2026-05-19` inference
+  existed, but health still surfaced the dashboard paper row ending at
+  `2026-05-18`; this made the "定时推理更新" layer look unproven unless the
+  operator manually inspected runtime files.
+
+### Change
+
+- `production/check_scheduler_health.sh`
+  - adds `Latest Signal Artifact`.
+  - reports the newest paper summary date, profile, `dry_run`, `executed`,
+    target position, risk-gate status, reconcile status, and artifact path.
+- `tests/test_scheduler_health.py`
+  - adds a regression proving health reports the latest summary artifact.
+
+### Verification
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_scheduler_health.py::test_scheduler_health_reports_latest_signal_artifact -q
+# red first: health output had no Latest Signal Artifact section
+# green: 1 passed
+
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_scheduler_health.py -q
+# 6 passed
+
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_scheduler_health.py tests/test_daily_scheduler.py tests/test_paper_trading.py tests/test_vercel_dashboard.py tests/test_dashboard.py -q
+# 38 passed
+
+PYTHONPATH=. qlib_venv/bin/python scripts/check_harness.py
+# passed=127 failures=0
+
+production/check_scheduler_health.sh
+# latest signal: date=2026-05-19 profile=balanced_rule_residual_v19 dry_run=true executed=false
+# target=0.3999999985 risk_gate=approved reconcile=manual_review
+# artifact=runtime/soxl/paper_trading/2026-05-19/summary.json
+# postclose status: pending until 05:35 Tue-Sat Asia/Shanghai
+```
+
+### Decision
+
+- Keep latest-signal visibility in scheduler health so inference freshness,
+  paper execution freshness, and dashboard export freshness can be diagnosed as
+  separate layers.
+- Natural post-close LaunchAgent proof remains pending; current live health time
+  during this pass was `2026-05-21 04:39 CST`.

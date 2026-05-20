@@ -31,6 +31,7 @@
 24. **post-close success 现在要求本次 cutoff 后的新日志**：`production/check_scheduler_health.sh` 不再只看 `scheduler_postclose.log` 是否含 `[scheduler] all done`。它会比较日志 mtime 和当前日 `05:35` cutoff；旧/手动 success marker 在 due 后会显示 `due but no current success marker found`，避免污染自然 LaunchAgent proof。
 25. **append-only scheduler log 现在按 run segment 判定成功**：`production/soxl_daily_scheduler.py` 会在每次启动时输出 `[scheduler] run started at ...`；health 若发现 run-start marker，只接受最新 run-start 之后的 `[scheduler] all done`。这样旧成功行 + 新失败追加不会被误判为当前 post-close 成功。
 26. **paper signal 不再丢弃最新 closed bar**：`plan_manual_session()` 现在把 `as_of` 当作最新已收盘 bar 并使用 `<= as_of` 生成信号。当前 dry-run 证据：`last_date=2026-05-19`、`as_of=2026-05-19`、summary `signal.date=2026-05-19`、`dry_run=true`、`executed=false`。这修复了 scheduler/paper runner 用 fresh data 只生成前一日 signal 的模拟盘滞后。
+27. **scheduler health 现在区分 inference artifact 和 paper dashboard row**：新增 `Latest Signal Artifact`，直接显示最新 `runtime/soxl/paper_trading/<date>/summary.json`。当前 live health 读数为 `date=2026-05-19`、`profile=balanced_rule_residual_v19`、`dry_run=true`、`executed=false`、`target=0.3999999985`、`risk_gate=approved`、`reconcile=manual_review`，而 dashboard paper row 仍结束于 `2026-05-18`。这使定时推理、模拟盘执行、dashboard 导出可以分层判断。
 
 ## 2026-05-20 验证记录
 
