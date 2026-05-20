@@ -24,6 +24,7 @@
 17. **freshness 期望日已按纽约收盘边界修正**：`_last_trading_day()` 使用 `America/New_York` 和 `17:30 ET` data-ready cutoff。`2026-05-21 02:23 CST` 期望 `2026-05-19`，`05:35 CST` 后才期望 `2026-05-20`。
 18. **production data refresh 现在支持 provider failover**：paper runner 和 scheduler 都支持 `--data-provider {auto,yfinance,yahoo_api,polygon}`；默认 `auto` 先试 yfinance，再试 yahoo_api，最后试 Polygon + CBOE VIX。当前实测 yfinance 是 `No overlapping dates`，yahoo_api 是 `429 Too Many Requests`，Polygon + CBOE 能把数据更新到 `2026-05-19`。
 19. **scheduler 成功日志现在保留 provider fallback stderr**：`production/soxl_daily_scheduler.py` 在 child step 成功时也会 replay stderr，因此 yfinance/yahoo_api 失败后由 polygon 接管的路径能出现在 LaunchAgent 日志里，不再只看到最终成功 stdout。
+20. **paper full-loop 已能推进模拟盘状态**：`2026-05-21 03:02 CST` 手动运行 default paper broker 的 full scheduler，auto provider 经 yfinance/yahoo_api fallback 到 polygon，数据 fresh，风险门通过，paper BUY filled；broker state 更新到 `2026-05-18`、`3000` shares、`48.56%` position，reconcile 为 `position aligned`，dashboard paper version 增至 `3` 行并结束于 `2026-05-18`。
 
 ## 2026-05-20 验证记录
 
@@ -496,6 +497,62 @@ Readout:
   completed US trading day at `2026-05-21 02:48 CST`.
 - The next live proof remains the natural `05:35 Tue-Sat Asia/Shanghai`
   post-close LaunchAgent run after the next completed session.
+
+## 2026-05-21 Paper Full-Loop Recovery
+
+Baseline:
+
+- Time: `2026-05-21 03:01 CST`, before the natural post-close LaunchAgent run.
+- Healthcheck showed data fresh for the completed US session:
+  `last_date=2026-05-19 expected=2026-05-19`.
+- Paper broker state was still dated `2026-05-14` with `1800` shares and
+  `33.53%` position.
+- The cumulative paper dashboard CSV had `2` rows and ended at `2026-05-14`.
+
+Command:
+
+```bash
+PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py --no-notify --data-provider auto
+```
+
+Readout:
+
+- yfinance failed with `No overlapping dates for SOXL/SOXX/VIX`.
+- yahoo_api failed with Yahoo HTTP `429` on `^VIX`.
+- polygon succeeded, keeping `last_date=2026-05-19`.
+- freshness gate passed with `stale_days=0`.
+- model auto-select chose `balanced_rule_residual_v19`.
+- signal date was `2026-05-18`, target `50.00%`, price `$151.75`.
+- risk gate approved.
+- default `paper` broker submitted and filled a BUY.
+- dashboard rebuilt.
+
+Post-loop state:
+
+- `runtime/soxl/paper_trading/paper_broker_state.json`:
+  `date=2026-05-18`, `shares=3000`, `position=0.4856047894`,
+  `account_value=937490.7536`.
+- `runtime/soxl/paper_trading/2026-05-18/reconcile.json`:
+  `action_required=none`, `note=position aligned`.
+- `runtime/soxl/paper_trading/paper_trading_soxl_daily.csv`:
+  now has `3` rows, latest row `2026-05-18`, action `BUY`,
+  position `0.485605`.
+- `dashboard_data/index.json`:
+  `paper_trading` summary now ends at `2026-05-18` with `3` rows.
+- Dashboard static verification after rebuild:
+  `dashboard.html`, `dashboard_data/index.json`, and
+  `dashboard_data/model_versions.json` all returned `200 OK`; Playwright/Chrome
+  captured
+  `runtime/production/card/paper_full_loop_v1/dashboard_visual_2026-05-21.png`
+  at `1440 x 1000` with `99.35%` non-white pixels.
+
+Decision:
+
+- The simulated paper loop can now mutate broker state, reconcile within
+  tolerance, append cumulative dashboard CSV, and rebuild dashboard under fresh
+  data.
+- Natural `05:35 Tue-Sat Asia/Shanghai` LaunchAgent proof is still pending
+  because this manual run occurred before the scheduled post-close window.
 
 ## Open Production Tasks
 

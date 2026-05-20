@@ -641,6 +641,72 @@ npx -y playwright screenshot --channel chrome --viewport-size=1440,1000 --wait-f
   then should resume from the SOXX-aware / selective-release frontier rather
   than reopening broad PPO tuning.
 
+## 2026-05-21 Paper Full-Loop Recovery
+
+### Baseline Before Loop
+
+- Current time: `2026-05-21 03:01 CST`, before the natural `05:35
+  Tue-Sat Asia/Shanghai` post-close LaunchAgent window.
+- `production/check_scheduler_health.sh` showed:
+  - `data: ok last_date=2026-05-19 expected=2026-05-19`
+  - model: `balanced_rule_residual_v19`
+  - broker: paper broker ready
+- `runtime/soxl/paper_trading/paper_broker_state.json` was still dated
+  `2026-05-14`, with `1800` shares and `33.53%` position.
+- `runtime/soxl/paper_trading/paper_trading_soxl_daily.csv` had only `2`
+  cumulative paper rows and the dashboard paper version ended at `2026-05-14`.
+
+### Command
+
+```bash
+PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py --no-notify --data-provider auto
+```
+
+Observed:
+
+- `yfinance` failed with `No overlapping dates for SOXL/SOXX/VIX`.
+- `yahoo_api` failed with Yahoo HTTP `429` on `^VIX`.
+- `polygon` succeeded with `last_date=2026-05-19`.
+- freshness gate passed: `last_date=2026-05-19 expected=2026-05-19 stale_days=0`.
+- auto-selected model: `balanced_rule_residual_v19`.
+- signal date: `2026-05-18`, target `50.00%`, price `$151.75`.
+- risk gate approved.
+- paper order submitted and filled.
+- dashboard rebuilt.
+
+### Evidence After Loop
+
+- `runtime/soxl/paper_trading/paper_broker_state.json`
+  - date: `2026-05-18`
+  - shares: `3000`
+  - position: `48.56%`
+  - account value: `937490.75`
+- `runtime/soxl/paper_trading/2026-05-18/reconcile.json`
+  - expected position: `50.00%`
+  - actual position: `48.56%`
+  - action required: `none`
+  - note: `position aligned`
+- `runtime/soxl/paper_trading/paper_trading_soxl_daily.csv`
+  - rows increased from `2` to `3`
+  - latest row: `2026-05-18`, action `BUY`, position `48.56%`
+- `dashboard_data/index.json`
+  - `paper_trading` window now ends at `2026-05-18` with `3` rows.
+- Dashboard static verification after rebuild:
+  - `dashboard.html`, `dashboard_data/index.json`, and
+    `dashboard_data/model_versions.json` returned `200 OK` from local HTTP.
+  - `runtime/production/card/paper_full_loop_v1/dashboard_visual_2026-05-21.png`
+    captured at `1440 x 1000`; non-white pixels: `99.35%`.
+
+### Decision
+
+- The local paper broker state, cumulative CSV append, reconciliation, and
+  dashboard paper version now advance under the full scheduler path with fresh
+  data.
+- The only remaining production proof is the natural `05:35 Tue-Sat
+  Asia/Shanghai` LaunchAgent run after the next completed US session.
+- Model optimization should still wait for that natural schedule proof, then
+  resume from the SOXX-aware / selective-release frontier.
+
 ## 2026-05-20 Selective Release Order-Generation Diagnostic
 
 ### Governance
