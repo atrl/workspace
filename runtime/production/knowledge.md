@@ -991,3 +991,30 @@ Decision:
 - Scheduler, data, dashboard, and paper broker health are still ok.
 - The remaining production proof is specifically the next fresh post-close
   non-dry paper execution under v22.
+
+## 2026-05-21 Vercel Static Bundle Audit
+
+The repo-owned static dashboard bundle is Vercel-ready:
+
+- `vercel.json` rewrites `/` to `/dashboard.html`
+- no-cache headers are configured for `/`, `/dashboard.html`, and
+  `/dashboard_data/:path*`
+- `dashboard.html` is present at repo root
+- `dashboard_data/index.json` and `dashboard_data/model_versions.json` are
+  present
+- `dashboard_data/versioned/` contains 25 SOXL payload files
+- `scripts/check_dashboard_static_export.py` reports
+  `latest=paper_trading`, `paper_trading_rows=4`, and
+  `paper_trading_end=2026-05-20`
+
+Evidence:
+
+- `tests/test_vercel_dashboard.py`
+- `scripts/check_dashboard_static_export.py`
+- `runtime/production/card/vercel_static_bundle_audit_v1/notes.md`
+
+Boundary:
+
+- This proves repository static packaging and routing readiness.
+- It does not prove a remote Vercel deployment is live, because Vercel project
+  state and deployment URL are not stored in the repo.

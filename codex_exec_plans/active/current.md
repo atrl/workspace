@@ -108,3 +108,8 @@ harness change.
 now prints `runtime proof: pending ...` when the latest non-dry executed paper
 artifact profile differs from the currently selected model profile. Current live
 state is still pending: latest executed v19, selected model v22.
+
+2026-05-21 Vercel audit: repo-owned static packaging is complete and validated
+for Vercel serving (`vercel.json`, `dashboard.html`, `dashboard_data/index.json`,
+`dashboard_data/model_versions.json`, 25 version payloads, latest
+`paper_trading`). This does not prove a remote deployment URL is live.

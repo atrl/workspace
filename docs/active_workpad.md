@@ -3397,3 +3397,39 @@ Decision:
 - This does not manufacture the missing proof; it makes the proof gap visible.
 - The production goal remains active until the next fresh post-close non-dry
   paper run naturally writes a v22 executed artifact.
+
+## 2026-05-21 Vercel Static Bundle Audit
+
+Goal:
+
+- Isolate the Vercel/dashboard evidence from the larger production workpad so
+  goal completion can be audited directly.
+
+Evidence:
+
+```bash
+cat vercel.json
+# "/" rewrites to "/dashboard.html"
+# no-cache headers are configured for "/", "/dashboard.html", and "/dashboard_data/:path*"
+
+find dashboard_data/versioned -maxdepth 2 -type f | wc -l
+# 25
+
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_vercel_dashboard.py -q
+# 3 passed
+
+PYTHONPATH=src:. qlib_venv/bin/python scripts/check_dashboard_static_export.py
+# ok dashboard_static_export generated_at=2026-05-21 06:51:30 versions=25 missing=0 model_versions=90 latest=paper_trading paper_trading_rows=4 paper_trading_end=2026-05-20 paper_trading
+```
+
+Decision:
+
+- Repo-owned Vercel static packaging is complete for the dashboard bundle:
+  `vercel.json`, `dashboard.html`, `dashboard_data/index.json`,
+  `dashboard_data/model_versions.json`, and 25 versioned SOXL payloads are
+  present and validated.
+- The deployed first-load view would be `paper_trading`.
+- This does not prove a remote Vercel URL is live; it proves the repository
+  bundle and routing config are ready for Vercel serving.
+- Evidence card:
+  `runtime/production/card/vercel_static_bundle_audit_v1/notes.md`
