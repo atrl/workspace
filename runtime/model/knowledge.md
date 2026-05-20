@@ -612,3 +612,29 @@ Decision:
 - If the mechanism is revived, open a new governed experiment with retained
   actor, fixed-split summary, complete walk-forward evidence, and a new
   comparison-table row.
+
+## 2026-05-21 v22 Checkpoint Asset Audit
+
+Question: can the canonical v22 model be improved without retraining by
+re-selecting an earlier checkpoint?
+
+Answer: no, not with the current retained assets.
+
+Evidence:
+
+- Review card:
+  `runtime/model/card/balanced_rule_residual_v22/v22_checkpoint_asset_review.md`
+- v22 summary selection history captures only iter `0` and iter `80`.
+- Iter `80` has the best recorded score: `91.94` vs iter `0` score `89.54`.
+- Only the final retained actor exists at
+  `runtime/model/card/balanced_rule_residual_v22/soxl_balanced_rule_residual_v22_actor.pt`.
+- No iter `20`, `40`, or `60` actor checkpoints are available for replay.
+
+Decision:
+
+- Checkpoint re-selection is not an available no-retrain optimization path for
+  current v22.
+- Future governed model runs should retain stage/top-N actors if checkpoint
+  selection is part of the hypothesis.
+- This does not change the current runtime canonical model; v22 remains selected
+  through corrected complete walk-forward scoring.

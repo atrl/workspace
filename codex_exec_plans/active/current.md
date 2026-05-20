@@ -97,3 +97,9 @@ audited as profile-only and marked dropped in the registry. Its older fixed-spli
 and started-walk-forward note has no durable actor, summary, or walk-forward
 artifact behind it. Do not use it as the next branch unless a new governed
 experiment card is created.
+
+2026-05-21 v22 checkpoint asset audit: current v22 summary records only iter 0
+and iter 80 selection rows, and only the final actor is retained. No iter
+20/40/60 actors are available for replay, so checkpoint re-selection cannot
+optimize the current model without a retrain or a future top-N/stage retention
+harness change.

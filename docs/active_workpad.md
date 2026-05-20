@@ -3303,3 +3303,51 @@ Decision:
   `runtime/model/card/balanced_rule_residual_v19_reg_v22/notes.md`.
 - Do not revive it unless a new governed experiment is opened with fresh
   retained artifacts and complete walk-forward validation.
+
+## 2026-05-21 v22 Checkpoint Asset Audit
+
+Goal:
+
+- Check whether the canonical v22 actor can be improved through checkpoint
+  re-selection before opening a new PPO retrain.
+
+Baseline and governance:
+
+- Canonical baseline: `balanced_rule_residual_v22` with
+  `selective_release_recovery_post_release_cap_v1`.
+- Direct comparison: existing v22 selection history and retained actor.
+- Role: `diagnose`.
+- Changed layer: `selection`.
+- External reference: checkpoint-selection discipline from
+  `docs/research_knowledge/model_selection.md`.
+- Target window: existing v22 training summary and retained assets.
+- Accepted trade-off: do not retrain or change runtime behavior in this loop.
+- Comparison-table row key: `v22_checkpoint_asset_audit_v1`.
+
+Evidence:
+
+```bash
+PYTHONPATH=src:. qlib_venv/bin/python scripts/checkpoint_review.py \
+  --summary runtime/model/card/balanced_rule_residual_v22/soxl_balanced_rule_residual_v22_summary.json \
+  --output runtime/model/card/balanced_rule_residual_v22/v22_checkpoint_asset_review.md
+# [done] wrote runtime/model/card/balanced_rule_residual_v22/v22_checkpoint_asset_review.md
+```
+
+Readout:
+
+- v22 selection history captures only iter `0` and iter `80`, despite staged
+  training with `stage_iters=20`.
+- Iter `80` is the best-scored retained checkpoint: score `91.94` vs iter `0`
+  score `89.54`.
+- The current repo retains only
+  `runtime/model/card/balanced_rule_residual_v22/soxl_balanced_rule_residual_v22_actor.pt`.
+- No iter `20`, `40`, or `60` actors are available for replay.
+
+Decision:
+
+- No no-retrain checkpoint switch is available for v22.
+- Do not claim the model is under-selected; the asset gap prevents direct
+  checkpoint rescue.
+- If the next model run is approved, the harness should retain stage/top-N
+  actors so future checkpoint reviews can compare actual actor paths, not just
+  summary rows.
