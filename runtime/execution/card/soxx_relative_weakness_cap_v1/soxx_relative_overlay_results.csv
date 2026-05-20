@@ -1,0 +1,9 @@
+variant,window,overlay_config,return,sharpe,max_dd,avg_pos,trades,eligible_days,cap_changed_days,eligible_order_days
+baseline,test_proxy,{},1511.9729,1.1118,56.4821,0.524202,174,0,0,0
+baseline,test_2020,{},131.13,2.1602,20.9184,0.5356,27,0,0,0
+baseline,test_2022,{},-30.9725,-0.7637,40.6407,0.330425,21,0,0,0
+baseline,test_2023_2024,{},57.1224,0.7193,34.8703,0.540196,50,0,0,0
+soxx_relative_weakness_cap_v1,test_proxy,"{""max_regime_risk"": 0.9, ""min_regime_risk"": 0.45, ""price_ratio_mom_max"": 0.0, ""signed_te_reversion_max"": 0.5, ""soxx_bias_max"": -0.02, ""target_cap"": 0.35, ""type"": ""soxx_relative_weakness_cap""}",1621.9832,1.1382,54.7337,0.516163,173,186,77,19
+soxx_relative_weakness_cap_v1,test_2020,"{""max_regime_risk"": 0.9, ""min_regime_risk"": 0.45, ""price_ratio_mom_max"": 0.0, ""signed_te_reversion_max"": 0.5, ""soxx_bias_max"": -0.02, ""target_cap"": 0.35, ""type"": ""soxx_relative_weakness_cap""}",131.13,2.1602,20.9184,0.5356,27,15,12,0
+soxx_relative_weakness_cap_v1,test_2022,"{""max_regime_risk"": 0.9, ""min_regime_risk"": 0.45, ""price_ratio_mom_max"": 0.0, ""signed_te_reversion_max"": 0.5, ""soxx_bias_max"": -0.02, ""target_cap"": 0.35, ""type"": ""soxx_relative_weakness_cap""}",-30.9725,-0.7637,40.6407,0.330425,21,44,0,5
+soxx_relative_weakness_cap_v1,test_2023_2024,"{""max_regime_risk"": 0.9, ""min_regime_risk"": 0.45, ""price_ratio_mom_max"": 0.0, ""signed_te_reversion_max"": 0.5, ""soxx_bias_max"": -0.02, ""target_cap"": 0.35, ""type"": ""soxx_relative_weakness_cap""}",72.6066,0.8172,36.8915,0.544704,50,40,19,5

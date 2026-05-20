@@ -39,6 +39,10 @@ from .policy.execution import (
 )
 from .policy.modes import ModeState, mode_band, route_mode
 from .policy.observation import make_observation
+from .policy.execution_overlays import (
+    apply_soxx_relative_weakness_cap,
+    soxx_relative_weakness_ready,
+)
 from .policy.policy_builder import actor_action
 from .policy.positioning import target_position_for_profile
 from .settings import ACCOUNT, LOOKBACK, ExecutionConfig, PositionBudgetConfig, PositionCapConfig, RESULT_PNG, RESULT_TXT, TEST_SEG
@@ -435,6 +439,9 @@ class RLStrategy(BaseStrategy):
                     current_pos=current_pos,
                     current_drawdown=current_drawdown,
                 )
+            elif overlay_type == "soxx_relative_weakness_cap":
+                overlay_gate_ready = soxx_relative_weakness_ready(row, regime_risk, oc)
+                target_pos = apply_soxx_relative_weakness_cap(target_pos, row, regime_risk, oc)
             else:
                 threshold = oc.get("threshold", 0.3)
                 boost = oc.get("boost", 0.1)

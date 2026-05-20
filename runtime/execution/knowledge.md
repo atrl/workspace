@@ -393,3 +393,27 @@ Decision:
 - Do not enable v22 scheduled auto-selection.
 - Do not patch a promoted summary sidecar without real walk-forward model evidence.
 - This selective-release execution line is now a blocked governed candidate; next progress should be a separate narrow model experiment unless new v22 walk-forward evidence is produced first.
+
+## 2026-05-21: SOXX Relative Weakness Cap Fixed-Actor Diagnostic
+
+Question: after direct SOXX actor feature injection failed `test_2022_avg_pos`, can SOXX still help if it is used only as a fixed-actor execution cap?
+
+Answer: yes as a diagnostic candidate, not as runtime promotion evidence. `soxx_relative_weakness_cap_v1` caps the fixed `balanced_rule_residual_v22` target to `0.35` only when SOXX is below its 10-day MA, SOXL/SOXX ratio momentum is weak, regime risk is inside `0.45-0.90`, and `SIGNED_TE_REVERSION_10 < 0.50` so a tracking-error reversion exception is not active.
+
+Artifacts:
+
+- `runtime/execution/card/soxx_relative_weakness_cap_v1/soxx_relative_overlay_review.md`
+- `runtime/execution/card/soxx_relative_weakness_cap_v1/soxx_relative_overlay_results.json`
+- `runtime/execution/card/soxx_relative_weakness_cap_v1/soxx_relative_overlay_results.csv`
+
+Fixed-actor readout:
+
+- `test_proxy`: return `1621.98%` vs baseline `1511.97%`, Sharpe `1.138` vs `1.112`, MaxDD `54.73%` vs `56.48%`.
+- `test_2023_2024`: return `72.61%` vs baseline `57.12%`, Sharpe `0.817` vs `0.719`, MaxDD `36.89%` vs `34.87%`.
+- `test_2022`: unchanged at `-30.97%`, Sharpe `-0.764`, MaxDD `40.64%`, avg_pos `0.3304`; there were `44` eligible days but `0` cap-changed days, so the actor target/execution mapping already sat at or below the cap on those dates.
+
+Decision:
+
+- Keep as a candidate separation test because it improves proxy and recovery while preserving bear-market exposure.
+- Do not bind to runtime or auto-select yet.
+- Next valid step is walk-forward execution absorption validation for this SOXX cap, specifically checking whether eligible days change target/order generation on saved actors.

@@ -79,6 +79,16 @@ promotion and the profile overlay flag remains false. The execution line should
 not continue through summary patching; it needs real walk-forward model evidence
 or should yield to the next narrow model experiment.
 
+The SOXX fixed-actor diagnostic shows SOXX can still be useful when kept out of
+the actor state. `soxx_relative_weakness_cap_v1` caps the fixed
+`balanced_rule_residual_v22` target only when SOXX is weak, SOXL/SOXX ratio
+momentum is weak, and `SIGNED_TE_REVERSION_10` is not strong enough to justify a
+reversion exception. It improves proxy return from `1511.97%` to `1621.98%`,
+improves `test_2023_2024` return from `57.12%` to `72.61%`, and leaves
+`test_2022` unchanged. Treat it as a candidate separation test, not promotion
+evidence: `test_2022` had `44` eligible days but `0` cap-changed days, so the
+next valid step is walk-forward execution absorption validation.
+
 ## Failed Pattern
 
 Generic overlay retuning is not enough when `test_2022` max drawdown and average position remain too high; widening favorable-mode envelopes also degraded other windows.
@@ -102,9 +112,9 @@ Keep actor fixed, run daily replay or overlay sweeps, then compare mode/window s
 
 ## Next Valid Experiment Type
 
-The profile-bound runtime overlay / dry-run replay path now exists and the
-runtime selection sidecar blocks scheduled selection. Choose the next narrow
-model-optimization experiment from current evidence unless a future run first
-produces real v22/post-release-cap walk-forward model-promotion evidence. Avoid
-full trade-lock bypass, unguarded shortening, static entry-threshold tuning,
-more favorable-mode exposure, or another direct release-pack retrain.
+The next valid execution experiment is walk-forward execution absorption
+validation for `soxx_relative_weakness_cap_v1`, because the fixed full-window
+diagnostic improved recovery/proxy while `test_2022` cap eligibility did not
+change target exposure. Avoid full trade-lock bypass, unguarded shortening,
+static entry-threshold tuning, more favorable-mode exposure, another direct
+release-pack retrain, or another direct SOXX actor-feature retrain.

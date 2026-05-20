@@ -64,6 +64,7 @@ DEFAULT_COMPILE_TARGETS = [
     "scripts/evaluate_signed_te_stress_gate.py",
     "scripts/evaluate_selective_release_overlay.py",
     "scripts/evaluate_selective_release_walkforward.py",
+    "scripts/evaluate_soxx_relative_overlay.py",
     "scripts/review_selective_release_promotion.py",
     "scripts/review_runtime_selection.py",
 

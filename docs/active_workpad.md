@@ -1357,3 +1357,65 @@ PYTHONPATH=. qlib_venv/bin/python scripts/review_runtime_selection.py
 - Do not patch `soxl_balanced_rule_residual_v22_summary.json` into a promoted state.
 - The post-release cap line is now fully governed as a blocked runtime-selection candidate.
 - Next model work should be a separate narrow optimization experiment unless a future run first produces real walk-forward model-promotion evidence for v22/post-release-cap.
+
+## 2026-05-21 SOXX Relative Weakness Cap Fixed-Actor Diagnostic
+
+Goal: resume SOXX-aware model optimization without another broad PPO retrain. Test whether SOXX should be used only as an execution-side de-risking gate for the existing `balanced_rule_residual_v22` actor, after the direct `balanced_rule_residual_v22_soxx` actor failed the fixed-split promotion gate on `test_2022_avg_pos`.
+
+### Experiment Governance
+
+- Canonical baseline: `balanced_rule_residual_v22` fixed actor.
+- Direct comparison baseline: `balanced_rule_residual_v22_soxx`, which injected `soxx_signals` into the actor observation and failed fixed-split promotion because `test_2022_avg_pos=0.380930 > 0.35`.
+- Role: `diagnose`.
+- Target window and accepted trade-off: fixed split `test_2022` bear-defense / avg-position first; `test_2023_2024` recovery can lose a small amount only if bear exposure improves materially. No runtime promotion without later walk-forward evidence.
+- Changed layer: `execution`.
+- External reference: repo-owned SOXX underlying ETF dataset and prior `SIGNED_TE_REVERSION_10` tracking-error reversion factor card.
+- Hypothesis: SOXX direct actor features caused excessive 2022 exposure; a fixed-actor cap should only reduce target exposure when SOXX is below its short MA, SOXL/SOXX ratio momentum is weak, and signed tracking-error reversion is not strong enough to justify a recovery exception.
+- Acceptance criteria: the overlay must reduce or preserve `test_2022` avg position and max drawdown versus the fixed actor without a large `test_2023_2024` return give-up; any candidate remains diagnostic until walk-forward execution absorption is proven.
+- Expected trade-off: fewer high-risk bear-market holdings, possible missed recovery entries.
+- Failure mode: the cap fires too late or too broadly, hurting recovery while not improving `test_2022`.
+- Comparison-table row key: `soxx_relative_weakness_cap_v1`.
+
+### History Check
+
+1. Closest historical success: selective-release fixed-actor overlay improved recovery/proxy slices before execution absorption blocked runtime promotion.
+2. Closest historical failure: direct `balanced_rule_residual_v22_soxx` actor feature injection improved some recovery metrics but failed `test_2022_avg_pos`.
+3. Why this is not a duplicate: this loop does not retrain or add SOXX to actor state; it tests a defensive execution cap with a signed tracking-error exception, separating model behavior from execution mapping.
+
+### Changes Made
+
+- `src/soxl_quant/policy/execution_overlays.py`
+  - added `soxx_relative_weakness_cap_v1` registry config.
+  - added pure SOXX weakness gate and cap helpers.
+- `src/soxl_quant/backtest.py`
+  - qlib strategy now applies `type=soxx_relative_weakness_cap` overlays.
+- `scripts/evaluate_soxx_relative_overlay.py`
+  - fixed-actor diagnostic grid for baseline vs SOXX relative weakness cap.
+  - writes CSV/JSON/Markdown review artifacts.
+- `tests/test_execution_overlay_registry.py`
+  - covers SOXX overlay registry copy semantics, gating, regime band, no-boost behavior, and signed tracking-error exception.
+- `scripts/check_harness.py`
+  - compiles the new SOXX overlay evaluation script.
+
+### Commands
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_execution_overlay_registry.py -q
+PYTHONPATH=. qlib_venv/bin/python scripts/evaluate_soxx_relative_overlay.py
+```
+
+### Evidence
+
+- Review: `runtime/execution/card/soxx_relative_weakness_cap_v1/soxx_relative_overlay_review.md`
+- JSON: `runtime/execution/card/soxx_relative_weakness_cap_v1/soxx_relative_overlay_results.json`
+- Decision: `candidate`
+- Fixed-actor results:
+  - `test_proxy`: `1621.98% / Sharpe 1.138 / MaxDD 54.73%` vs baseline `1511.97% / 1.112 / 56.48%`; `cap_changed_days=77`.
+  - `test_2023_2024`: `72.61% / Sharpe 0.817 / MaxDD 36.89%` vs baseline `57.12% / 0.719 / 34.87%`; return `+15.48pp`, MaxDD `+2.02pp`, `cap_changed_days=19`.
+  - `test_2022`: unchanged at `-30.97% / Sharpe -0.764 / MaxDD 40.64% / avg_pos 0.3304`; `eligible_days=44` but `cap_changed_days=0`.
+
+### Decision
+
+- Keep `soxx_relative_weakness_cap_v1` as a fixed-actor diagnostic candidate.
+- Do not promote to runtime selection from this artifact alone.
+- Next valid follow-up is walk-forward execution absorption validation for this SOXX cap, because `test_2022` eligible days did not change target exposure.

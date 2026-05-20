@@ -1,10 +1,12 @@
 from __future__ import annotations
 
 from copy import deepcopy
+import math
 from typing import Any
 
 
 POST_RELEASE_CAP_VARIANT = "selective_release_recovery_post_release_cap_v1"
+SOXX_RELATIVE_WEAKNESS_CAP_VARIANT = "soxx_relative_weakness_cap_v1"
 
 
 SELECTIVE_RELEASE_OVERLAY_CONFIGS: dict[str, dict[str, Any] | None] = {
@@ -111,6 +113,67 @@ SELECTIVE_RELEASE_OVERLAY_CONFIGS: dict[str, dict[str, Any] | None] = {
     },
 }
 
+SOXX_RELATIVE_OVERLAY_CONFIGS: dict[str, dict[str, Any] | None] = {
+    "baseline": None,
+    SOXX_RELATIVE_WEAKNESS_CAP_VARIANT: {
+        "type": "soxx_relative_weakness_cap",
+        "min_regime_risk": 0.45,
+        "max_regime_risk": 0.90,
+        "soxx_bias_max": -0.02,
+        "price_ratio_mom_max": 0.0,
+        "signed_te_reversion_max": 0.50,
+        "target_cap": 0.35,
+    },
+}
+
+
+def _row_float(row: Any, key: str) -> float | None:
+    if not hasattr(row, "get"):
+        return None
+    value = row.get(key, None)
+    if value is None:
+        return None
+    try:
+        value_float = float(value)
+    except (TypeError, ValueError):
+        return None
+    if not math.isfinite(value_float):
+        return None
+    return value_float
+
+
+def soxx_relative_weakness_ready(row: Any, regime_risk: float, overlay_config: dict[str, Any]) -> bool:
+    """Detect SOXX-led weakness where a fixed actor should be capped, not boosted."""
+    min_regime = float(overlay_config.get("min_regime_risk", float("-inf")))
+    max_regime = float(overlay_config.get("max_regime_risk", float("inf")))
+    if not (min_regime <= float(regime_risk) <= max_regime):
+        return False
+
+    soxx_bias = _row_float(row, "SOXX_BIAS_10")
+    price_ratio_mom = _row_float(row, "PRICE_RATIO_MOM")
+    signed_te_reversion = _row_float(row, "SIGNED_TE_REVERSION_10")
+    if soxx_bias is None or price_ratio_mom is None or signed_te_reversion is None:
+        return False
+
+    if soxx_bias > float(overlay_config.get("soxx_bias_max", -0.02)):
+        return False
+    if price_ratio_mom > float(overlay_config.get("price_ratio_mom_max", 0.0)):
+        return False
+    if signed_te_reversion >= float(overlay_config.get("signed_te_reversion_max", 0.50)):
+        return False
+    return True
+
+
+def apply_soxx_relative_weakness_cap(
+    target_pos: float,
+    row: Any,
+    regime_risk: float,
+    overlay_config: dict[str, Any],
+) -> float:
+    if not soxx_relative_weakness_ready(row, regime_risk, overlay_config):
+        return float(target_pos)
+    return min(float(target_pos), float(overlay_config.get("target_cap", 0.35)))
+
 
 def overlay_config(name: str) -> dict[str, Any]:
     if name == "baseline":
@@ -126,5 +189,23 @@ def overlay_config(name: str) -> dict[str, Any]:
 def overlay_variants() -> list[tuple[str, dict[str, Any] | None]]:
     variants: list[tuple[str, dict[str, Any] | None]] = []
     for name, config in SELECTIVE_RELEASE_OVERLAY_CONFIGS.items():
+        variants.append((name, deepcopy(config) if config is not None else None))
+    return variants
+
+
+def soxx_overlay_config(name: str) -> dict[str, Any]:
+    if name == "baseline":
+        raise ValueError("baseline has no overlay config")
+    if name not in SOXX_RELATIVE_OVERLAY_CONFIGS:
+        raise KeyError(f"unknown SOXX relative execution overlay '{name}'")
+    config = SOXX_RELATIVE_OVERLAY_CONFIGS[name]
+    if config is None:
+        raise ValueError(f"SOXX relative execution overlay '{name}' has no config")
+    return deepcopy(config)
+
+
+def soxx_overlay_variants() -> list[tuple[str, dict[str, Any] | None]]:
+    variants: list[tuple[str, dict[str, Any] | None]] = []
+    for name, config in SOXX_RELATIVE_OVERLAY_CONFIGS.items():
         variants.append((name, deepcopy(config) if config is not None else None))
     return variants
