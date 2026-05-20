@@ -80,6 +80,19 @@ def test_best_model_for_family_selects_highest_promoted_score():
             runtime.MODEL_DIR = previous_model_dir
 
 
+def test_best_model_for_family_skips_overlay_profile_without_auto_select_approval():
+    with TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        approved = _write_actor_with_summary(root, "balanced_rule_residual_v19", promoted=True, score=95.0)
+        _write_actor_with_summary(root, "balanced_rule_residual_v22", promoted=True, score=120.0)
+        previous_model_dir = runtime.MODEL_DIR
+        runtime.MODEL_DIR = root
+        try:
+            assert runtime.best_model_for_family("balanced") == approved
+        finally:
+            runtime.MODEL_DIR = previous_model_dir
+
+
 def test_profile_bound_runtime_overlay_loads_release_signals_but_blocks_auto_select():
     profile = load_profile("balanced_rule_residual_v22")
 

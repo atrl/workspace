@@ -52,7 +52,11 @@ Test whether retained selective-release eligible days are absorbed only by the v
   - non-dry-run paper execution advances/saves overlay state after submitted orders
   - fixed-profile dry-run produced a `2026-05-14` signal with the overlay fields and remained blocked by `walk-forward promotion gate not evaluated`
   - promotion review now records `runtime_profile_bound=true`, but `runtime_auto_select_allowed=false` remains correct because `auto_select_allowed=false` and model promotion is not approved
+- Runtime auto-select now enforces the profile gate:
+  - `best_model_for_family()` skips profiles that bind an execution overlay while `auto_select_allowed=false`
+  - a regression test proves a promoted high-score v22 actor cannot beat v19 unless the profile overlay approval flag is explicit
+  - current live `auto_select_profile("balanced")` remains `balanced_rule_residual_v19`
 
 ## Next Action
 
-Do not promote full bypass, unguarded shortening, static guarded shortening, or the post-release cap directly into scheduler auto-selection. The runtime dry-run path exists; the next valid step is explicit model-promotion sidecar governance for v22/post-release-cap runtime use, or a separate narrow model-optimization experiment if auto-selection approval is deferred.
+Do not promote full bypass, unguarded shortening, static guarded shortening, or the post-release cap directly into scheduler auto-selection. The runtime dry-run path and auto-select profile gate now exist; the next valid step is explicit model-promotion sidecar governance for v22/post-release-cap runtime use, or a separate narrow model-optimization experiment if auto-selection approval is deferred.

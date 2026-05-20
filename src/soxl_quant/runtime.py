@@ -424,6 +424,23 @@ def promotion_gate_status(model_path: Path) -> Tuple[bool, str]:
     return True, "model passed promotion gate"
 
 
+def profile_name_for_model_path(model_path: Path, family: str) -> str:
+    stem = model_path.name.replace("_actor.pt", "")
+    prefix = "soxl_"
+    return stem[len(prefix):] if stem.startswith(prefix) else family
+
+
+def runtime_auto_select_allowed(profile_name: str) -> Tuple[bool, str]:
+    try:
+        profile = load_profile(profile_name)
+    except FileNotFoundError:
+        return False, f"profile {profile_name} is not registered for runtime auto-selection"
+    overlay = profile.execution_overlay
+    if overlay.enabled and not overlay.auto_select_allowed:
+        return False, f"profile overlay {overlay.name} is not approved for runtime auto-selection"
+    return True, "profile approved for runtime auto-selection"
+
+
 def best_model_for_family(family: str = "balanced") -> Path:
     """自动选择通过 promotion gate 且 best_score 最高的模型。
 
@@ -440,6 +457,10 @@ def best_model_for_family(family: str = "balanced") -> Path:
     scored: List[Tuple[Path, float]] = []
     for path in candidates:
         ok, reason = promotion_gate_status(path)
+        if not ok:
+            continue
+        profile_name = profile_name_for_model_path(path, family)
+        ok, reason = runtime_auto_select_allowed(profile_name)
         if not ok:
             continue
         summary_path = summary_path_for_model(path)
@@ -467,14 +488,7 @@ def auto_select_profile(family: str = "balanced") -> Tuple[str, Path]:
     Profile 名从模型文件名解析：``soxl_{profile}_actor.pt``。
     """
     model_path = best_model_for_family(family)
-    stem = model_path.name.replace("_actor.pt", "")
-    # Remove "soxl_" prefix to get profile name
-    prefix = "soxl_"
-    if stem.startswith(prefix):
-        profile_name = stem[len(prefix):]
-    else:
-        profile_name = family
-    return profile_name, model_path
+    return profile_name_for_model_path(model_path, family), model_path
 
 
 class PaperBroker(BrokerAdapter):

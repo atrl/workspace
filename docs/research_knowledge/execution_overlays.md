@@ -67,6 +67,11 @@ orders can advance overlay state. The blocker is now governance only:
 `auto_select_allowed=false` and the base v22 actor sidecar still reports
 `walk-forward promotion gate not evaluated`.
 
+The scheduler auto-selection path now enforces that same governance in code.
+`best_model_for_family()` skips a profile-bound execution overlay when
+`execution_overlay.auto_select_allowed=false`, even if the model summary itself
+is marked promoted. Manual `--profile` dry-runs remain possible for review.
+
 ## Failed Pattern
 
 Generic overlay retuning is not enough when `test_2022` max drawdown and average position remain too high; widening favorable-mode envelopes also degraded other windows.
@@ -92,7 +97,8 @@ Keep actor fixed, run daily replay or overlay sweeps, then compare mode/window s
 
 The profile-bound runtime overlay / dry-run replay path now exists. If
 continuing this candidate, the next step is explicit model-promotion sidecar
-governance for v22/post-release-cap runtime use before scheduler auto-selection.
+governance for v22/post-release-cap runtime use before changing
+`auto_select_allowed`.
 If approval is deferred, choose the next narrow model-optimization experiment
 from current evidence. Avoid full trade-lock bypass, unguarded shortening,
 static entry-threshold tuning, more favorable-mode exposure, or another direct

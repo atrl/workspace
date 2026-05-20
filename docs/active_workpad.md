@@ -15,6 +15,7 @@ direction: execution
 3. Keep `selective_release_recovery_post_release_cap_v1` as the active promotion-review candidate after it improved `wf_2023_2024` return and MaxDD while leaving `wf_2022` unchanged.
 4. Do not start another release-pack PPO retrain or entry-threshold tweak; current work is promotion governance / runtime packaging for the post-release cap.
 5. After the profile-bound dry-run path, the remaining blocker is still auto-selection governance: profile flag plus model-promotion sidecar.
+6. Runtime auto-selection must enforce both gates in code, not only in review prose.
 
 ## 2026-05-20 Loop Evidence
 
@@ -1269,3 +1270,42 @@ PYTHONPATH=. qlib_venv/bin/python production/soxl_paper_trading.py --profile bal
 - The profile-bound runtime overlay / dry-run replay path is now in place.
 - Do not turn on scheduler auto-selection from this result.
 - Next valid work is either explicit model-promotion sidecar governance for v22/post-release-cap runtime use, or a separate narrow model-optimization experiment if auto-selection approval is deferred.
+
+## 2026-05-21 Runtime Auto-Select Overlay Gate
+
+Question: if the base `balanced_rule_residual_v22` sidecar later gets marked promoted, can scheduler auto-selection still bypass the profile overlay approval flag?
+
+Answer: no after this loop. A red test showed `best_model_for_family("balanced")` would choose a higher-scored promoted `balanced_rule_residual_v22` actor even though its profile has `execution_overlay.auto_select_allowed=false`. Runtime auto-selection now skips such profiles and keeps `balanced_rule_residual_v19` as the selected production profile unless v22 overlay approval is explicit.
+
+### Changes Made
+
+- `src/soxl_quant/runtime.py`
+  - added `profile_name_for_model_path()`
+  - added `runtime_auto_select_allowed()`
+  - `best_model_for_family()` now requires both a passing model promotion sidecar and profile-level runtime auto-selection approval.
+- `tests/test_runtime.py`
+  - added a regression test where promoted v22 has a higher score than v19 but is skipped because the profile-bound overlay is not approved for auto-selection.
+
+### Commands
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_runtime.py::test_best_model_for_family_skips_overlay_profile_without_auto_select_approval -q
+PYTHONPATH=. qlib_venv/bin/python - <<'PY'
+from src.soxl_quant.runtime import auto_select_profile
+print(auto_select_profile("balanced"))
+PY
+PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py --skip-data-update --dry-run --no-notify --skip-dashboard
+```
+
+### Evidence
+
+- Red test before fix: `best_model_for_family("balanced")` selected `soxl_balanced_rule_residual_v22_actor.pt` over v19 when both summaries were marked promoted.
+- Green test after fix: promoted-but-not-profile-approved v22 is skipped.
+- Current live auto-select still returns `balanced_rule_residual_v19` / `soxl_balanced_rule_residual_v19_actor.pt`.
+- Scheduler dry-run still auto-selected `balanced_rule_residual_v19`, generated the `2026-05-14` signal, approved the risk gate, and skipped order placement because `--dry-run` was set.
+
+### Decision
+
+- Keep `balanced_rule_residual_v22.execution_overlay.auto_select_allowed=false`.
+- Do not create or edit a v22 promoted model sidecar in this loop.
+- Next valid work is now a model-side decision: either a governed promotion-sidecar review for v22+post-release-cap, or a separate narrow model optimization branch if that approval is deferred.
