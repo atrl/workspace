@@ -44,4 +44,11 @@
 
 - Lowering the rebalance threshold and forcing a target lift still produced no changed days on the eligible `wf_2023_2024` release dates.
 - `wf_2022` remains unchanged because there are no eligible release days, so the defensive gate is still intact.
-- Next diagnostic should instrument per-day `current_pos`, target before/after overlay, `min_rebalance`, trade lock, buy cooldown, cap state, and lot rounding before trying another rule or retrain.
+- The eligible-day trace below separates upstream execution guards from downstream min-rebalance and lot-rounding symptoms before any new rule or retrain.
+
+## Eligible-Day Execution Trace Summary
+
+- `selective_release_recovery_threshold_bypass_v1`: traced `16` of `18` eligible days; blockers trade_lock `15`, buy_cooldown `0`, min_rebalance `0`, step_lock `0`, lot_rounding `15`; max target after overlay `0.8500`, after guards `0.8490`; primary `ordered` 1, `trade_lock` 15.
+- `selective_release_recovery_target_lift_v1`: traced `16` of `18` eligible days; blockers trade_lock `12`, buy_cooldown `0`, min_rebalance `15`, step_lock `0`, lot_rounding `0`; max target after overlay `0.8500`, after guards `0.8500`; primary `min_rebalance` 3, `ordered` 1, `trade_lock` 12.
+- Readout: trade lock is the dominant upstream absorber; min-rebalance and lot-rounding counts mostly appear after the target has already been collapsed back toward current position.
+- Full eligible-day trace: `selective_release_walkforward_execution_trace.csv`.

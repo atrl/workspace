@@ -13,7 +13,7 @@ direction: execution
 1. Production scheduler, paper-trading state, dashboard rebuild, and Vercel static packaging are fixed and pushed in `c7cf210`.
 2. Resume model optimization from the SOXX-aware / selective-release frontier rather than changing scheduler/runtime behavior further.
 3. Diagnose why retained release gates fire on `wf_2023_2024` recovery days but do not create changed orders.
-4. Do not start another release-pack PPO retrain until the execution mapping bottleneck is instrumented.
+4. Do not start another release-pack PPO retrain until a release-gated trade-lock rule is tested against the same walk-forward guard.
 
 ## 2026-05-20 Loop Evidence
 
@@ -175,6 +175,53 @@ MPLCONFIGDIR=/private/tmp/mplconfig PYTHONPATH=. qlib_venv/bin/python scripts/ev
 - This loop rules out simple rebalance-threshold bypass and simple target lift as sufficient fixes; the next valid step is per-day execution-state instrumentation on eligible `wf_2023_2024` dates.
 
 Next instrumentation should capture `current_pos`, target before/after overlay, `min_rebalance`, trade lock, buy cooldown, position cap state, and lot rounding before testing another execution rule.
+
+## 2026-05-20 Eligible-Day Execution Trace
+
+### Scope
+
+This pass completes the instrumentation requested by the previous diagnostic. It does not test a new execution rule yet.
+
+### Changes Made
+
+- `src/soxl_quant/backtest.py`
+  - added optional `trace_decisions=True` support to `backtest_profile()`
+  - records per-day execution state without changing default backtest behavior
+  - captures `current_pos`, target before/after overlay, guarded target, `min_rebalance`, trade lock, buy cooldown, cap config fields, lot rounding, order count, and primary blocker inputs
+- `scripts/evaluate_selective_release_walkforward.py`
+  - writes eligible-day trace artifacts for selective-release walk-forward variants
+  - adds `primary_blocker` classification so downstream blockers do not obscure upstream guards
+- `tests/test_selective_release_walkforward.py`
+  - covers eligible-day trace filtering and primary-blocker priority
+
+### Commands
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_selective_release_walkforward.py::test_eligible_decision_trace_rows_keep_gate_ready_execution_state -q
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_selective_release_walkforward.py::test_execution_primary_blocker_prioritizes_upstream_guards tests/test_selective_release_walkforward.py::test_eligible_decision_trace_rows_keep_gate_ready_execution_state -q
+MPLCONFIGDIR=/private/tmp/mplconfig PYTHONPATH=. qlib_venv/bin/python scripts/evaluate_selective_release_walkforward.py --profile balanced_rule_residual_v22 --all-variants
+```
+
+### Evidence
+
+- Review: `runtime/execution/card/selective_release_walkforward_v1/selective_release_walkforward_review.md`
+- Trace CSV: `runtime/execution/card/selective_release_walkforward_v1/selective_release_walkforward_execution_trace.csv`
+- Trace JSON: `runtime/execution/card/selective_release_walkforward_v1/selective_release_walkforward_execution_trace.json`
+
+Key trace readout on actionable eligible `wf_2023_2024` days:
+
+| variant | traced / eligible | primary blockers | readout |
+|---|---:|---|---|
+| `selective_release_recovery_threshold_bypass_v1` | `16 / 18` | `trade_lock=15`, `ordered=1` | threshold bypass reaches `min_rebalance=0`, but trade lock collapses the target back to current position on almost every actionable eligible day |
+| `selective_release_recovery_target_lift_v1` | `16 / 18` | `trade_lock=12`, `min_rebalance=3`, `ordered=1` | target lift can raise target on some dates, but trade lock is still the dominant absorber; the remaining min-rebalance cases are already near the actor target |
+
+The trace covers `16` of `18` eligible days because the first eligible dates are before the actor has enough lookback to make actionable decisions.
+
+### Decision
+
+- The blocker is now narrower than generic execution absorption: **release-gated trade lock is the dominant upstream absorber**.
+- Do not tune release thresholds, lower global rebalance thresholds, or retrain PPO next.
+- Next valid loop is a release-gated trade-lock bypass / shortening variant that only applies when the retained release gate is ready, while keeping `wf_2022` unchanged.
 
 ## Prior Data/Release Goal
 

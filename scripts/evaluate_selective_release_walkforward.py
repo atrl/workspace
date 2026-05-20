@@ -84,6 +84,53 @@ def gate_eligible_mask(feature_df: pd.DataFrame, overlay_config: dict[str, Any] 
     return (regime_risk >= min_regime) & (regime_risk <= max_regime) & cooldown_ready & release_ready
 
 
+def execution_primary_blocker(row: dict[str, Any]) -> str:
+    if int(row.get("order_count", 0)) > 0:
+        return "ordered"
+    if bool(row.get("blocked_by_trade_lock", False)):
+        return "trade_lock"
+    if bool(row.get("blocked_by_buy_cooldown", False)):
+        return "buy_cooldown"
+    if bool(row.get("blocked_by_step_lock", False)):
+        return "step_lock"
+    if bool(row.get("blocked_by_min_rebalance", False)):
+        return "min_rebalance"
+    if bool(row.get("blocked_by_lot_rounding", False)):
+        return "lot_rounding"
+    return "no_order_unknown"
+
+
+def eligible_decision_trace_rows(
+    decision_trace: list[dict[str, Any]],
+    feature_df: pd.DataFrame,
+    overlay_config: dict[str, Any] | None,
+    *,
+    actor_window: str,
+    variant: str,
+) -> list[dict[str, Any]]:
+    if not overlay_config:
+        return []
+    eligible_mask = gate_eligible_mask(feature_df, overlay_config)
+    eligible_dates = {
+        str(pd.Timestamp(date).date())
+        for date in feature_df.index[eligible_mask]
+    }
+    rows: list[dict[str, Any]] = []
+    for item in decision_trace:
+        date = str(pd.Timestamp(item["date"]).date())
+        if date not in eligible_dates:
+            continue
+        row = {
+            "actor_window": actor_window,
+            "variant": variant,
+            "date": date,
+        }
+        row.update({key: value for key, value in item.items() if key != "date"})
+        row["primary_blocker"] = execution_primary_blocker(row)
+        rows.append(row)
+    return rows
+
+
 def metrics_from_result(
     result: dict[str, Any],
     baseline_positions: np.ndarray | None = None,
@@ -126,7 +173,7 @@ def load_actor(actor_path: Path, profile) -> Any:
 def run_walk_forward_grid(
     profile_name: str,
     retained_only: bool,
-) -> tuple[list[dict[str, Any]], dict[str, Any]]:
+) -> tuple[list[dict[str, Any]], dict[str, Any], list[dict[str, Any]]]:
     init_qlib(QLIB_DATA_PATH)
     profile = load_profile(profile_name)
     actor_feature_columns = feature_columns_for_packs(profile.feature.packs, profile.name)
@@ -136,6 +183,7 @@ def run_walk_forward_grid(
     price_full = dataset.handler.price_frame.droplevel("instrument")["price"].sort_index()
 
     rows: list[dict[str, Any]] = []
+    trace_rows: list[dict[str, Any]] = []
     variants = variant_subset(retained_only)
     for spec in walk_forward_actor_specs(profile_name):
         actor = load_actor(spec.actor_path, profile)
@@ -156,6 +204,7 @@ def run_walk_forward_grid(
                 feature_columns=actor_feature_columns,
                 model_config=profile.model,
                 overlay_config=overlay_config,
+                trace_decisions=bool(overlay_config and overlay_config.get("type") == "selective_release"),
                 test_seg=(spec.start, spec.end),
             )
             if variant == "baseline":
@@ -181,6 +230,15 @@ def run_walk_forward_grid(
                 row["last_eligible_date"] = ""
             row["absorbed_days"] = max(int(row["eligible_days"]) - int(row["changed_days"]), 0)
             rows.append(row)
+            trace_rows.extend(
+                eligible_decision_trace_rows(
+                    list(result.get("decision_trace", [])),
+                    feature_df,
+                    overlay_config,
+                    actor_window=spec.window,
+                    variant=variant,
+                )
+            )
 
     context = {
         "profile": profile.name,
@@ -191,16 +249,29 @@ def run_walk_forward_grid(
             {"window": spec.window, "start": spec.start, "end": spec.end, "actor_path": str(spec.actor_path.relative_to(ROOT))}
             for spec in walk_forward_actor_specs(profile_name)
         ],
+        "trace_rows": len(trace_rows),
     }
-    return rows, context
+    return rows, context, trace_rows
 
 
-def write_outputs(rows: list[dict[str, Any]], context: dict[str, Any], output_dir: Path) -> None:
+def write_outputs(
+    rows: list[dict[str, Any]],
+    context: dict[str, Any],
+    output_dir: Path,
+    trace_rows: list[dict[str, Any]] | None = None,
+) -> None:
     output_dir.mkdir(parents=True, exist_ok=True)
     df = pd.DataFrame(rows)
+    trace_rows = trace_rows or []
+    trace_df = pd.DataFrame(trace_rows)
     df.to_csv(output_dir / "selective_release_walkforward_results.csv", index=False)
     (output_dir / "selective_release_walkforward_results.json").write_text(
         json.dumps({"context": context, "rows": rows}, indent=2, sort_keys=True),
+        encoding="utf-8",
+    )
+    trace_df.to_csv(output_dir / "selective_release_walkforward_execution_trace.csv", index=False)
+    (output_dir / "selective_release_walkforward_execution_trace.json").write_text(
+        json.dumps({"context": context, "rows": trace_rows}, indent=2, sort_keys=True),
         encoding="utf-8",
     )
 
@@ -282,9 +353,49 @@ def write_outputs(rows: list[dict[str, Any]], context: dict[str, Any], output_di
                     "",
                     "- Lowering the rebalance threshold and forcing a target lift still produced no changed days on the eligible `wf_2023_2024` release dates.",
                     "- `wf_2022` remains unchanged because there are no eligible release days, so the defensive gate is still intact.",
-                    "- Next diagnostic should instrument per-day `current_pos`, target before/after overlay, `min_rebalance`, trade lock, buy cooldown, cap state, and lot rounding before trying another rule or retrain.",
+                    "- The eligible-day trace below separates upstream execution guards from downstream min-rebalance and lot-rounding symptoms before any new rule or retrain.",
                 ]
             )
+        if not trace_df.empty:
+            trace_diag = trace_df[
+                (trace_df["actor_window"] == "wf_2023_2024")
+                & (trace_df["variant"].isin(diagnostic_variants))
+            ]
+            if not trace_diag.empty:
+                lines.extend(["", "## Eligible-Day Execution Trace Summary", ""])
+                for variant in diagnostic_variants:
+                    subset = trace_diag[trace_diag["variant"] == variant]
+                    if subset.empty:
+                        continue
+                    metric_row = diagnostic_rows[diagnostic_rows["variant"] == variant]
+                    eligible_days = int(metric_row.iloc[0]["eligible_days"]) if not metric_row.empty else len(subset)
+                    blockers = {
+                        "trade_lock": int(subset["blocked_by_trade_lock"].astype(bool).sum()),
+                        "buy_cooldown": int(subset["blocked_by_buy_cooldown"].astype(bool).sum()),
+                        "min_rebalance": int(subset["blocked_by_min_rebalance"].astype(bool).sum()),
+                        "step_lock": int(subset["blocked_by_step_lock"].astype(bool).sum()),
+                        "lot_rounding": int(subset["blocked_by_lot_rounding"].astype(bool).sum()),
+                    }
+                    primary = subset["primary_blocker"].value_counts().to_dict()
+                    primary_text = ", ".join(
+                        f"`{name}` {int(count)}" for name, count in sorted(primary.items())
+                    )
+                    max_target_after_overlay = float(subset["target_after_overlay"].astype(float).max())
+                    max_target_after_guards = float(subset["target_after_guards"].astype(float).max())
+                    lines.append(
+                        f"- `{variant}`: traced `{len(subset)}` of `{eligible_days}` eligible days; blockers "
+                        f"trade_lock `{blockers['trade_lock']}`, buy_cooldown `{blockers['buy_cooldown']}`, "
+                        f"min_rebalance `{blockers['min_rebalance']}`, step_lock `{blockers['step_lock']}`, "
+                        f"lot_rounding `{blockers['lot_rounding']}`; max target after overlay "
+                        f"`{max_target_after_overlay:.4f}`, after guards `{max_target_after_guards:.4f}`; "
+                        f"primary {primary_text}."
+                    )
+                lines.append(
+                    "- Readout: trade lock is the dominant upstream absorber; min-rebalance and lot-rounding counts mostly appear after the target has already been collapsed back toward current position."
+                )
+                lines.append(
+                    "- Full eligible-day trace: `selective_release_walkforward_execution_trace.csv`."
+                )
 
     (output_dir / "selective_release_walkforward_review.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
 
@@ -306,10 +417,13 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> int:
     args = parse_args()
-    rows, context = run_walk_forward_grid(args.profile, retained_only=not args.all_variants)
+    rows, context, trace_rows = run_walk_forward_grid(args.profile, retained_only=not args.all_variants)
     output_dir = ROOT / args.output_dir
-    write_outputs(rows, context, output_dir)
-    print(f"[selective_release_walkforward] wrote {output_dir.relative_to(ROOT)} rows={len(rows)}")
+    write_outputs(rows, context, output_dir, trace_rows)
+    print(
+        f"[selective_release_walkforward] wrote {output_dir.relative_to(ROOT)} "
+        f"rows={len(rows)} trace_rows={len(trace_rows)}"
+    )
     return 0
 
 

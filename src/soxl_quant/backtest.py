@@ -147,6 +147,7 @@ class RLStrategy(BaseStrategy):
     ):
         self.model_config = kwargs.pop("model_config", None)
         self.overlay_config = kwargs.pop("overlay_config", None)
+        self.trace_decisions = bool(kwargs.pop("trace_decisions", False))
         super().__init__(**kwargs)
         self.actor = actor          # 训练好的 PPO actor
         self.df = feature_df        # 测试集特征矩阵
@@ -164,6 +165,7 @@ class RLStrategy(BaseStrategy):
         self.trades = 0             # 总成交次数统计
         self.position_history: List[float] = []  # 每日仓位记录，用于画图
         self.trade_signals: List[Tuple[pd.Timestamp, float, float, str]] = []  # (date, price, position, type)
+        self.decision_trace: List[Dict[str, object]] = []
         self.ledger = TrancheLedger()           # 持仓账本，与训练时一致
         self.peak_account_value = ACCOUNT
         self.price_path = self.price_series.reindex(self.df.index).ffill().bfill().to_numpy(dtype=np.float32)
@@ -200,6 +202,7 @@ class RLStrategy(BaseStrategy):
         account_value = cash + shares * price
         self.peak_account_value = max(self.peak_account_value, account_value)
         current_pos = (shares * price) / account_value if account_value > 0 else 0.0
+        current_drawdown = max(1.0 - account_value / max(self.peak_account_value, 1e-8), 0.0)
         obs = make_observation(
             self.df,
             idx,
@@ -232,7 +235,6 @@ class RLStrategy(BaseStrategy):
             config=self.execution_config,
         )
         model_cfg = self.model_config
-        model_cfg = self.model_config
         if model_cfg and getattr(model_cfg, "use_mode_conditioned_input", False):
             from .policy.mode_conditioning import append_mode_one_hot
             obs = append_mode_one_hot(obs, str(self.mode_state.name if self.mode_state else "flat_wait"))
@@ -247,17 +249,21 @@ class RLStrategy(BaseStrategy):
             delta_levels=np.asarray(getattr(model_cfg, "delta_levels", ()), dtype=np.float32) if model_cfg and getattr(model_cfg, "use_hybrid_overlay", False) else None,
             mode_band=mode_band(self.mode_state.name, mode_router_cfg) if mode_router_cfg and getattr(mode_router_cfg, "enabled", False) else None,
             position_budget_config=self.position_budget_config,
-            current_drawdown=max(1.0 - account_value / max(self.peak_account_value, 1e-8), 0.0),
+            current_drawdown=current_drawdown,
             position_mapping=str(getattr(model_cfg, "position_mapping", "default")) if model_cfg else "default",
         )
+        target_before_overlay = float(target_pos)
+        overlay_gate_ready = False
+        row = self.df.iloc[idx]
         # Apply transition signal overlay if configured
         if self.overlay_config is not None:
             oc = self.overlay_config
             overlay_type = oc.get("type")
             if overlay_type == "selective_release":
+                overlay_gate_ready = selective_release_gate_ready(row, regime_risk, oc)
                 target_pos = apply_selective_release_overlay(
                     target_pos,
-                    self.df.iloc[idx],
+                    row,
                     regime_risk,
                     oc,
                     current_pos=current_pos,
@@ -372,8 +378,9 @@ class RLStrategy(BaseStrategy):
                             score += weight * feat_val
                         if score >= threshold:
                             target_pos = min(target_pos + boost, 1.0)
+        target_after_overlay = float(target_pos)
         direction = "buy" if target_pos > current_pos else ("sell" if target_pos < current_pos else "neutral")
-        min_rebalance = rebalance_threshold(
+        base_min_rebalance = rebalance_threshold(
             regime_risk,
             realized_vol,
             trend_strength,
@@ -386,22 +393,91 @@ class RLStrategy(BaseStrategy):
             config=self.execution_config,
             mode_router_config=mode_router_cfg,
         )
+        min_rebalance = base_min_rebalance
         if self.overlay_config is not None and self.overlay_config.get("type") == "selective_release":
             min_rebalance = selective_release_rebalance_threshold(
                 min_rebalance,
-                self.df.iloc[idx],
+                row,
                 regime_risk,
                 self.overlay_config,
             )
+        trade_lock_before = int(self.trade_lock)
+        buy_cooldown_before = int(self.buy_cooldown)
+        blocked_by_trade_lock = False
+        blocked_by_buy_cooldown = False
         if self.trade_lock > 0:
             if abs(target_pos - current_pos) >= min_rebalance:
+                blocked_by_trade_lock = True
                 target_pos = current_pos
             self.trade_lock -= 1
         if self.buy_cooldown > 0:
             if target_pos > current_pos:
+                blocked_by_buy_cooldown = True
                 target_pos = current_pos
             self.buy_cooldown -= 1
-        if abs(target_pos - current_pos) < min_rebalance or step - self.last_step < 1:
+        target_after_guards = float(target_pos)
+        blocked_by_min_rebalance = abs(target_pos - current_pos) < min_rebalance
+        blocked_by_step_lock = step - self.last_step < 1
+
+        def append_trace(
+            *,
+            target_shares: int | None = None,
+            delta_shares: int = 0,
+            order_count: int = 0,
+            blocked_by_lot_rounding: bool = False,
+            final_position: float,
+        ) -> None:
+            if not self.trace_decisions:
+                return
+            overlay_config = self.overlay_config or {}
+            self.decision_trace.append(
+                {
+                    "date": str(pd.Timestamp(trade_date).date()),
+                    "step": int(step),
+                    "raw_action": int(raw_action),
+                    "price": round(float(price), 6),
+                    "account_value": round(float(account_value), 6),
+                    "shares": int(shares),
+                    "current_pos": round(float(current_pos), 10),
+                    "target_before_overlay": round(float(target_before_overlay), 10),
+                    "target_after_overlay": round(float(target_after_overlay), 10),
+                    "target_after_guards": round(float(target_after_guards), 10),
+                    "final_position": round(float(final_position), 10),
+                    "base_min_rebalance": round(float(base_min_rebalance), 10),
+                    "min_rebalance": round(float(min_rebalance), 10),
+                    "direction": direction,
+                    "regime": regime,
+                    "regime_risk": round(float(regime_risk), 10),
+                    "current_drawdown": round(float(current_drawdown), 10),
+                    "cum_drop_30": round(float(cum_drop_30), 10),
+                    "trade_lock_before": trade_lock_before,
+                    "trade_lock_after": int(self.trade_lock),
+                    "buy_cooldown_before": buy_cooldown_before,
+                    "buy_cooldown_after": int(self.buy_cooldown),
+                    "blocked_by_trade_lock": bool(blocked_by_trade_lock),
+                    "blocked_by_buy_cooldown": bool(blocked_by_buy_cooldown),
+                    "blocked_by_min_rebalance": bool(blocked_by_min_rebalance),
+                    "blocked_by_step_lock": bool(blocked_by_step_lock),
+                    "blocked_by_lot_rounding": bool(blocked_by_lot_rounding),
+                    "target_shares": int(target_shares) if target_shares is not None else "",
+                    "delta_shares": int(delta_shares),
+                    "order_count": int(order_count),
+                    "overlay_gate_ready": bool(overlay_gate_ready),
+                    "overlay_max_target": float(overlay_config.get("max_target", "")) if "max_target" in overlay_config else "",
+                    "overlay_min_target_delta": (
+                        float(overlay_config.get("min_target_delta", ""))
+                        if "min_target_delta" in overlay_config
+                        else ""
+                    ),
+                    "position_cap_min_cap": float(getattr(self.position_cap_config, "min_cap", 0.0)),
+                    "position_cap_bull_min_cap": float(getattr(self.position_cap_config, "bull_min_cap", 0.0)),
+                    "position_cap_bear_min_cap": float(getattr(self.position_cap_config, "bear_min_cap", 0.0)),
+                    "mode": str(self.mode_state.name if self.mode_state else ""),
+                }
+            )
+
+        if blocked_by_min_rebalance or blocked_by_step_lock:
+            append_trace(final_position=current_pos)
             self.position_history.append(current_pos)
             return TradeDecisionWO([], self)
 
@@ -413,6 +489,7 @@ class RLStrategy(BaseStrategy):
             orders.append(Order(self.symbol, delta, Order.BUY, trade_date, next_date))
         elif delta <= -100:
             orders.append(Order(self.symbol, abs(delta), Order.SELL, trade_date, next_date))
+        blocked_by_lot_rounding = not orders
         if orders:
             self.last_step = step
             self.trades += 1
@@ -424,7 +501,15 @@ class RLStrategy(BaseStrategy):
                 self.trade_lock = execution_trade_lock_days(self.execution_config, regime)
             signal_type = "buy" if delta > 0 else "sell"
             self.trade_signals.append((trade_date, price, target_pos if orders else current_pos, signal_type))
-        self.position_history.append(target_pos if orders else current_pos)
+        final_position = target_pos if orders else current_pos
+        append_trace(
+            target_shares=target_shares,
+            delta_shares=delta,
+            order_count=len(orders),
+            blocked_by_lot_rounding=blocked_by_lot_rounding,
+            final_position=final_position,
+        )
+        self.position_history.append(final_position)
         return TradeDecisionWO(orders, self)
 
 
@@ -445,6 +530,7 @@ def backtest_profile(
     min_cost: float = 5.0,
     model_config=None,
     overlay_config=None,
+    trace_decisions: bool = False,
 ) -> Dict[str, object]:
     """运行重量级 qlib 官方回测，产出 headline 指标（return / sharpe / max_dd）。
 
@@ -467,6 +553,7 @@ def backtest_profile(
         feature_columns=feature_columns,
         model_config=model_config,
         overlay_config=overlay_config,
+        trace_decisions=trace_decisions,
     )
     effective_test_seg = _normalize_backtest_seg(feature_df.index, test_seg)
     portfolio_metric, indicator_metric = qlib_backtest(
@@ -499,6 +586,7 @@ def backtest_profile(
         "trades": strategy.trades,
         "position_history": strategy.position_history,
         "trade_signals": strategy.trade_signals,
+        "decision_trace": strategy.decision_trace,
         "effective_test_seg": effective_test_seg,
     }
 

@@ -7,6 +7,7 @@
     ],
     "profile": "balanced_rule_residual_v22",
     "retained_only": false,
+    "trace_rows": 70,
     "windows": [
       {
         "actor_path": "runtime/model/card/balanced_rule_residual_v22_wf_2020/soxl_balanced_rule_residual_v22_wf_2020_actor.pt",
