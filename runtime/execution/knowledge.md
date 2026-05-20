@@ -417,3 +417,28 @@ Decision:
 - Keep as a candidate separation test because it improves proxy and recovery while preserving bear-market exposure.
 - Do not bind to runtime or auto-select yet.
 - Next valid step is walk-forward execution absorption validation for this SOXX cap, specifically checking whether eligible days change target/order generation on saved actors.
+
+## 2026-05-21: SOXX Relative Weakness Cap Walk-Forward Absorption
+
+Question: does the fixed-window `soxx_relative_weakness_cap_v1` candidate survive saved walk-forward actor validation?
+
+Answer: no. The review is blocked. It changes target on some saved-actor dates but does not improve the recovery window, and the important windows either absorb the cap before target change or before position-path change.
+
+Artifacts:
+
+- `runtime/execution/card/soxx_relative_weakness_walkforward_v1/soxx_relative_walkforward_review.md`
+- `runtime/execution/card/soxx_relative_weakness_walkforward_v1/soxx_relative_walkforward_results.json`
+- `runtime/execution/card/soxx_relative_weakness_walkforward_v1/soxx_relative_walkforward_execution_trace.csv`
+
+Readout:
+
+- `wf_2020`: return falls to `106.66%` from baseline `113.17%`, MaxDD unchanged at `19.47%`; `15` executable eligible days, `12` cap-changed days, and `39` position-changed days. The cap cuts bull upside.
+- `wf_2022`: unchanged at `-34.11%`, Sharpe `-0.926`, MaxDD `38.27%`, avg_pos `0.3216`; `66` feature eligible days, `44` executable eligible days, `0` cap-changed days, `0` position-changed days.
+- `wf_2023_2024`: unchanged at `-20.21%`, Sharpe `-0.277`, MaxDD `38.54%`, avg_pos `0.4764`; `34` feature eligible days, `27` executable eligible days, `6` cap-changed days, but `0` position-changed days.
+- Primary absorber remains execution mapping: `trade_lock` accounts for `22/27` traced eligible rows in `wf_2023_2024` and `31/44` in `wf_2022`.
+
+Decision:
+
+- Do not bind SOXX relative weakness cap into runtime or auto-selection.
+- Do not continue by threshold-tuning this cap; the failure is walk-forward execution absorption and no recovery improvement, not lack of SOXX data.
+- Direct SOXX actor-feature injection and SOXX fixed-actor cap are both blocked, so the next model-optimization loop needs a distinct mechanism or the work should shift back to production/dashboard tasks.

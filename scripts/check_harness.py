@@ -34,6 +34,7 @@ DEFAULT_TEST_FILES = [
     "tests/test_execution_overlay_registry.py",
     "tests/test_selective_release_overlay.py",
     "tests/test_selective_release_walkforward.py",
+    "tests/test_soxx_relative_walkforward.py",
     "tests/test_selective_release_promotion_review.py",
     "tests/test_runtime_selection_review.py",
 ]
@@ -65,6 +66,7 @@ DEFAULT_COMPILE_TARGETS = [
     "scripts/evaluate_selective_release_overlay.py",
     "scripts/evaluate_selective_release_walkforward.py",
     "scripts/evaluate_soxx_relative_overlay.py",
+    "scripts/evaluate_soxx_relative_walkforward.py",
     "scripts/review_selective_release_promotion.py",
     "scripts/review_runtime_selection.py",
 

@@ -89,6 +89,14 @@ improves `test_2023_2024` return from `57.12%` to `72.61%`, and leaves
 evidence: `test_2022` had `44` eligible days but `0` cap-changed days, so the
 next valid step is walk-forward execution absorption validation.
 
+The SOXX cap walk-forward validation blocks that candidate. On saved
+`balanced_rule_residual_v22` actors, `wf_2022` has `44` executable eligible days
+but `0` cap-changed days, and `wf_2023_2024` has `27` executable eligible days /
+`6` cap-changed days but `0` position-changed days and no return improvement.
+`wf_2020` does change positions but loses `6.50pp` of return. Do not tune this
+cap threshold or bind it to runtime; direct SOXX actor features and SOXX
+fixed-actor cap have both failed the promotion path.
+
 ## Failed Pattern
 
 Generic overlay retuning is not enough when `test_2022` max drawdown and average position remain too high; widening favorable-mode envelopes also degraded other windows.
@@ -112,9 +120,9 @@ Keep actor fixed, run daily replay or overlay sweeps, then compare mode/window s
 
 ## Next Valid Experiment Type
 
-The next valid execution experiment is walk-forward execution absorption
-validation for `soxx_relative_weakness_cap_v1`, because the fixed full-window
-diagnostic improved recovery/proxy while `test_2022` cap eligibility did not
-change target exposure. Avoid full trade-lock bypass, unguarded shortening,
-static entry-threshold tuning, more favorable-mode exposure, another direct
-release-pack retrain, or another direct SOXX actor-feature retrain.
+The SOXX relative cap is now blocked after walk-forward absorption validation.
+Avoid full trade-lock bypass, unguarded shortening, static entry-threshold
+tuning, more favorable-mode exposure, another direct release-pack retrain,
+another direct SOXX actor-feature retrain, or SOXX cap threshold tuning. The
+next model-optimization loop should use a distinct mechanism; otherwise resume
+the production/dashboard side of the user objective.

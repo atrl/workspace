@@ -1419,3 +1419,62 @@ PYTHONPATH=. qlib_venv/bin/python scripts/evaluate_soxx_relative_overlay.py
 - Keep `soxx_relative_weakness_cap_v1` as a fixed-actor diagnostic candidate.
 - Do not promote to runtime selection from this artifact alone.
 - Next valid follow-up is walk-forward execution absorption validation for this SOXX cap, because `test_2022` eligible days did not change target exposure.
+
+## 2026-05-21 SOXX Relative Weakness Cap Walk-Forward Absorption Validation
+
+Goal: validate whether `soxx_relative_weakness_cap_v1` survives beyond fixed full-window evidence when applied to saved `balanced_rule_residual_v22` walk-forward actors.
+
+### Experiment Governance
+
+- Canonical baseline: each saved `balanced_rule_residual_v22` walk-forward actor run with no SOXX cap.
+- Direct comparison baseline: fixed full-window `soxx_relative_weakness_cap_v1` diagnostic, plus the failed direct `balanced_rule_residual_v22_soxx` actor-feature branch.
+- Role: `diagnose`.
+- Target window and accepted trade-off: `wf_2022` must not widen MaxDD or average exposure; `wf_2023_2024` must show real target/position/order change before any recovery improvement is trusted.
+- Changed layer: `execution`.
+- External reference: repo-owned SOXX underlying ETF data, `soxx_signals`, and prior `SIGNED_TE_REVERSION_10` factor evidence.
+- Hypothesis: the SOXX weakness cap may provide a more direct defensive execution mechanism than selective-release boost gates because it lowers target exposure instead of trying to force re-entry; if the cap is absorbed on saved actors, the fixed-window candidate is not promotable.
+- Acceptance criteria: report `eligible_days`, `cap_changed_days`, `changed_days`, and eligible-order counts per walk-forward actor; keep as candidate only if `wf_2023_2024` improves without materially worsening drawdown and at least one walk-forward window has real changed target/position behavior.
+- Expected trade-off: possible recovery return improvement with modest drawdown widening, or no-op if the actor already sits below cap on eligible dates.
+- Failure mode: eligible days appear but `cap_changed_days=0` or `changed_days=0`, proving execution absorption; or the cap changes positions but worsens recovery/drawdown.
+- Comparison-table row key: `soxx_relative_weakness_walkforward_v1`.
+
+### History Check
+
+1. Closest historical success: `selective_release_recovery_post_release_cap_v1` improved saved walk-forward recovery and drawdown after attribution found a post-release path problem.
+2. Closest historical failure: `selective_release_walkforward_v1` had eligible days but `changed_days=0`, proving fixed-window overlay gains can disappear through walk-forward execution absorption.
+3. Why this is not a duplicate: this tests a SOXX-driven target cap, not a release boost or trade-lock bypass, and it explicitly measures cap target changes separately from position-path changes.
+
+### Changes Made
+
+- `scripts/evaluate_soxx_relative_walkforward.py`
+  - validates `soxx_relative_weakness_cap_v1` on saved walk-forward actors.
+  - records `feature_eligible_days`, executable `eligible_days`, `cap_changed_days`, position `changed_days`, eligible orders, and absorption counts.
+- `tests/test_soxx_relative_walkforward.py`
+  - covers SOXX eligibility mask, eligible trace extraction, cap-change tracking, primary blocker tagging, and the rule that eligibility without position change cannot pass review.
+- `scripts/check_harness.py`
+  - includes the new test module and compiles the new walk-forward review script.
+
+### Commands
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_soxx_relative_walkforward.py -q
+PYTHONPATH=. qlib_venv/bin/python scripts/evaluate_soxx_relative_walkforward.py
+```
+
+### Evidence
+
+- Review: `runtime/execution/card/soxx_relative_weakness_walkforward_v1/soxx_relative_walkforward_review.md`
+- JSON: `runtime/execution/card/soxx_relative_weakness_walkforward_v1/soxx_relative_walkforward_results.json`
+- Trace: `runtime/execution/card/soxx_relative_weakness_walkforward_v1/soxx_relative_walkforward_execution_trace.csv`
+- Decision: `blocked`
+- Walk-forward readout:
+  - `wf_2020`: return `106.66%` vs baseline `113.17%`; MaxDD unchanged at `19.47%`; `15` executable eligible days, `12` cap-changed days, `39` position-changed days. The cap reduces bull-window upside.
+  - `wf_2022`: unchanged at `-34.11% / Sharpe -0.926 / MaxDD 38.27% / avg_pos 0.3216`; `66` feature eligible days, `44` executable eligible days, `0` cap-changed days, `0` position-changed days.
+  - `wf_2023_2024`: unchanged at `-20.21% / Sharpe -0.277 / MaxDD 38.54% / avg_pos 0.4764`; `34` feature eligible days, `27` executable eligible days, `6` cap-changed days, `0` position-changed days.
+  - Primary absorber on executable eligible trace: `trade_lock` dominates (`wf_2023_2024`: `22/27`; `wf_2022`: `31/44`).
+
+### Decision
+
+- Block `soxx_relative_weakness_cap_v1` for runtime binding and model-promotion support.
+- The fixed full-window improvement does not survive saved walk-forward actors.
+- Do not tune this cap threshold as the next model optimization loop; the failure is execution absorption plus no recovery improvement, not insufficient SOXX feature availability.

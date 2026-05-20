@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-20T17:12:59.255021+00:00",
+  "generated_at": "2026-05-20T17:23:05.166518+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -188,6 +188,36 @@
       "bytes": 2404
     },
     {
+      "path": "runtime/execution/card/soxx_relative_weakness_walkforward_v1/soxx_relative_walkforward_execution_trace.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 28717
+    },
+    {
+      "path": "runtime/execution/card/soxx_relative_weakness_walkforward_v1/soxx_relative_walkforward_execution_trace.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 150291
+    },
+    {
+      "path": "runtime/execution/card/soxx_relative_weakness_walkforward_v1/soxx_relative_walkforward_results.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 2491
+    },
+    {
+      "path": "runtime/execution/card/soxx_relative_weakness_walkforward_v1/soxx_relative_walkforward_results.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 7121
+    },
+    {
+      "path": "runtime/execution/card/soxx_relative_weakness_walkforward_v1/soxx_relative_walkforward_review.md",
+      "category": "execution",
+      "suffix": ".md",
+      "bytes": 2629
+    },
+    {
       "path": "runtime/execution/execution_overlay_variants.json",
       "category": "execution",
       "suffix": ".json",
@@ -197,7 +227,7 @@
       "path": "runtime/execution/knowledge.md",
       "category": "execution",
       "suffix": ".md",
-      "bytes": 31997
+      "bytes": 33937
     },
     {
       "path": "runtime/execution/position_cap_overlay_variants.json",
