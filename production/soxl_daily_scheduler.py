@@ -137,22 +137,27 @@ def main() -> None:
     except Exception as exc:
         msg = str(exc)
         print(f"[scheduler] FAILED: {msg}", file=sys.stderr)
-        # If data update failed due to transient source issues, retry with existing data.
+        # If data update failed due to transient source issues, retry with
+        # existing data only as a dry-run so stale bars cannot move broker state.
         if _is_transient_data_source_failure(exc):
-            print("[scheduler] Data source unavailable. Retrying with --skip-data-update...", file=sys.stderr)
+            print("[scheduler] Data source unavailable. Retrying cached data as dry-run...", file=sys.stderr)
             try:
-                retry_cmd = paper_cmd + ["--skip-data-update"]
-                _run(retry_cmd, "paper trading (skip data update)")
+                retry_cmd = list(paper_cmd)
+                if "--skip-data-update" not in retry_cmd:
+                    retry_cmd.append("--skip-data-update")
+                if "--dry-run" not in retry_cmd:
+                    retry_cmd.append("--dry-run")
+                _run(retry_cmd, "paper trading (cached dry-run)")
                 if not args.skip_dashboard:
                     dash_cmd = [venv_python, "scripts/build_backtest_dashboard.py"]
                     _run(dash_cmd, "dashboard build")
                 if use_notify:
                     notifier.send(
-                        title="SOXL Daily Pipeline OK (cached data)",
-                        body="Data update skipped due to transient data-source failure. Used cached data.",
+                        title="SOXL Daily Pipeline OK (cached dry-run)",
+                        body="Data update skipped due to transient data-source failure. Used cached data for dry-run only; no order was placed.",
                         level="warning",
                     )
-                print("[scheduler] all done (with cached data)")
+                print("[scheduler] all done (with cached dry-run)")
                 return
             except Exception as exc2:
                 msg2 = str(exc2)

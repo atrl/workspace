@@ -26,7 +26,7 @@ def test_run_error_preserves_child_stderr_for_retry_classification(monkeypatch: 
     assert soxl_daily_scheduler._is_transient_data_source_failure(exc_info.value)
 
 
-def test_scheduler_retries_paper_trading_with_cached_data(monkeypatch: pytest.MonkeyPatch):
+def test_scheduler_retries_data_source_failure_as_cached_dry_run(monkeypatch: pytest.MonkeyPatch):
     calls: list[tuple[list[str], str]] = []
 
     def fake_run(cmd: list[str], description: str):
@@ -45,11 +45,12 @@ def test_scheduler_retries_paper_trading_with_cached_data(monkeypatch: pytest.Mo
 
     assert [description for _cmd, description in calls] == [
         "paper trading",
-        "paper trading (skip data update)",
+        "paper trading (cached dry-run)",
         "dashboard build",
     ]
     assert "--skip-data-update" not in calls[0][0]
     assert "--skip-data-update" in calls[1][0]
+    assert "--dry-run" in calls[1][0]
 
 
 def test_scheduler_smoke_mode_runs_cached_dry_run_with_dashboard(monkeypatch: pytest.MonkeyPatch):

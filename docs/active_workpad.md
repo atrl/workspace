@@ -273,8 +273,50 @@ production/check_scheduler_health.sh
 ### Next Action
 
 1. Commit and push the LaunchAgent split.
-2. Use the first real `05:35 Tue-Sat Asia/Shanghai` post-close run to prove
+2. Guard the post-close cached fallback so transient data-source failure cannot
+   mutate paper broker state with stale cached data.
+3. Use the first real `05:35 Tue-Sat Asia/Shanghai` post-close run to prove
    online data refresh freshness and post-close paper/dashboard logging.
+
+## 2026-05-21 Cached Fallback Dry-Run Guard
+
+### Root Cause
+
+- `production/soxl_daily_scheduler.py` retried transient data-source failures
+  with `--skip-data-update`.
+- The retry preserved the original non-dry-run execution mode.
+- If the post-close data source failed, scheduler could therefore place a paper
+  order using stale cached data.
+
+### Change
+
+- Cached fallback now appends both `--skip-data-update` and `--dry-run`.
+- Retry label is `paper trading (cached dry-run)`.
+- Success marker is `[scheduler] all done (with cached dry-run)`.
+- Notification copy now states no order was placed.
+- `tests/test_daily_scheduler.py` proves the retry command is dry-run.
+
+### Verification
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_daily_scheduler.py::test_scheduler_retries_data_source_failure_as_cached_dry_run -q
+# initially failed on old behavior, then passed after the guard
+
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_daily_scheduler.py tests/test_scheduler_health.py tests/test_production_schedule.py tests/test_paper_trading.py tests/test_vercel_dashboard.py tests/test_dashboard.py -q
+# 22 passed
+
+PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py --dry-run --no-notify --skip-data-update
+# completed cached-data dry-run; skipped order placement; rebuilt dashboard_data with 25 versions
+
+PYTHONPATH=. qlib_venv/bin/python scripts/check_harness.py
+# passed=111 failures=0
+```
+
+### Decision
+
+- Fresh post-close data update succeeds: full paper trading can proceed.
+- Transient data-source failure: keep cached signal/dashboard visibility, but do
+  not move paper broker state.
 
 ## 2026-05-20 Selective Release Order-Generation Diagnostic
 

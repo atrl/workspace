@@ -16,7 +16,7 @@ def test_scheduler_health_reports_macos_launchagent_and_logs(tmp_path: Path):
         encoding="utf-8",
     )
     (runtime_dir / "scheduler_postclose.log").write_text(
-        "[scheduler] all done (with cached data)\n",
+        "[scheduler] all done (with cached dry-run)\n",
         encoding="utf-8",
     )
 
@@ -47,4 +47,4 @@ def test_scheduler_health_reports_macos_launchagent_and_logs(tmp_path: Path):
     assert "LaunchAgent com.soxl.preopen.scheduler: loaded" in result.stdout
     assert "LaunchAgent com.soxl.daily.scheduler: loaded" in result.stdout
     assert "scheduler_preopen: [scheduler] all done" in result.stdout
-    assert "scheduler_postclose: [scheduler] all done (with cached data)" in result.stdout
+    assert "scheduler_postclose: [scheduler] all done (with cached dry-run)" in result.stdout

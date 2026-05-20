@@ -18,6 +18,7 @@
 11. **定时表已按 Asia/Shanghai 本地时区修正**：pre-open 改成 `21:00 Mon-Fri` cached-data `--dry-run`，post-close 完整数据刷新 + 模拟盘 + dashboard 改成 `05:35 Tue-Sat`，避免本地 `09:30/16:35` 误跑在美股收盘前。
 12. **scheduler health 现在匹配 macOS LaunchAgent**：`production/check_scheduler_health.sh` 会在 Darwin 上检查 `launchctl list` 中的 `com.soxl.daily.scheduler`，并用 portable `stat/date` 读取日志，不再把 macOS 运行态显示成空白 cron 服务。
 13. **macOS 定时推理路径已补齐**：新增 `com.soxl.preopen.scheduler`，用于 `21:00 Mon-Fri Asia/Shanghai` cached-data dry-run 推理 + dashboard；`com.soxl.daily.scheduler` 继续负责 `05:35 Tue-Sat` post-close 完整流程。两个 LaunchAgent 已同步到 `~/Library/LaunchAgents/` 并 loaded。
+14. **数据源失败时不再用旧数据推进模拟盘**：post-close 数据刷新遇到 transient provider failure 时，scheduler fallback 会追加 `--skip-data-update --dry-run`，只保留 cached signal/dashboard 可见性，不落 paper order / broker state。
 
 ## 2026-05-20 验证记录
 
@@ -214,7 +215,46 @@ Boundary:
 - Post-close online data refresh still needs the first real `05:35 Tue-Sat`
   run to prove whether data advances beyond `2026-05-15`.
 
+## 2026-05-21 Cached Fallback Dry-Run Guard
+
+Root cause:
+
+- `production/soxl_daily_scheduler.py` caught transient data-source failures and
+  retried with `--skip-data-update`.
+- That retry did not force `--dry-run`, so a post-close data failure could still
+  execute a paper order using stale cached data.
+
+Change:
+
+- Cached fallback retry now appends `--skip-data-update` and `--dry-run`.
+- Retry description and success marker changed to `paper trading (cached
+  dry-run)` / `[scheduler] all done (with cached dry-run)`.
+- Warning notification now states cached data was used for dry-run only and no
+  order was placed.
+
+Verification:
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_daily_scheduler.py::test_scheduler_retries_data_source_failure_as_cached_dry_run -q
+# 1 passed after initially failing against the old retry path
+
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_daily_scheduler.py tests/test_scheduler_health.py tests/test_production_schedule.py tests/test_paper_trading.py tests/test_vercel_dashboard.py tests/test_dashboard.py -q
+# 22 passed
+
+PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py --dry-run --no-notify --skip-data-update
+# completed cached-data dry-run, skipped order placement, rebuilt dashboard_data with 25 versions
+
+PYTHONPATH=. qlib_venv/bin/python scripts/check_harness.py
+# passed=111 failures=0
+```
+
+Operational rule:
+
+- Fresh post-close data update succeeds -> full paper trading is allowed.
+- Transient data update failure -> cached signal/dashboard only; paper broker
+  state must not change.
+
 ## Open Production Tasks
 
-- Run the first real `05:35 Tue-Sat Asia/Shanghai` post-close scheduler pass when the data provider is available; current healthcheck data status remains stale at `last_date=2026-05-15` until an online refresh extends the panel.
+- Run the first real `05:35 Tue-Sat Asia/Shanghai` post-close scheduler pass when the data provider is available; current healthcheck data status remains stale at `last_date=2026-05-15` until an online refresh extends the panel. If the provider fails, the fallback is now cached dry-run only.
 - After the production loop is stable in live schedule, resume SOXX-aware model optimization only from the non-duplicate frontier; the direct SOXX relative cap path is blocked by walk-forward absorption.
