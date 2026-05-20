@@ -2442,3 +2442,64 @@ PYTHONPATH=. qlib_venv/bin/python scripts/build_runtime_index.py --check
   current export.
 - Natural post-close LaunchAgent proof remains pending until the `05:35 Tue-Sat
   Asia/Shanghai` run.
+
+## 2026-05-21 Post-close Success Freshness Guard
+
+Goal: prevent a manual or old post-close success marker from satisfying the
+natural `05:35 Tue-Sat Asia/Shanghai` proof.
+
+### Root Cause
+
+- Before `05:35`, the live health output correctly showed
+  `postclose status: pending until 05:35 Tue-Sat Asia/Shanghai`.
+- `print_postclose_status()` only checked whether `scheduler_postclose.log`
+  contained `[scheduler] all done`.
+- If a manual `launchctl start com.soxl.daily.scheduler` or stale log wrote that
+  marker before the scheduled cutoff, a later health check could incorrectly
+  treat it as the natural post-close run.
+
+### Change
+
+- `production/check_scheduler_health.sh`
+  - added portable log mtime extraction via `file_epoch()`.
+  - added a current-day `05:35` cutoff calculation with
+    `SOXL_SCHEDULER_HEALTH_POSTCLOSE_CUTOFF_EPOCH` for deterministic tests.
+  - now counts post-close success only when `scheduler_postclose.log` contains
+    `[scheduler] all done` and the log mtime is not older than the cutoff.
+  - after the due time, an old marker reports
+    `due but no current success marker found`.
+- `tests/test_scheduler_health.py`
+  - added a regression where a pre-cutoff success marker exists but must not
+    satisfy the post-close proof.
+
+### Verification
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_scheduler_health.py::test_scheduler_health_ignores_old_postclose_success_marker_after_due -q
+# red first: old marker was accepted as success
+
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_scheduler_health.py -q
+# 4 passed
+
+production/check_scheduler_health.sh
+# postclose status: pending until 05:35 Tue-Sat Asia/Shanghai
+
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_scheduler_health.py tests/test_vercel_dashboard.py tests/test_production_schedule.py tests/test_daily_scheduler.py tests/test_paper_trading.py tests/test_dashboard.py -q
+# 37 passed
+
+PYTHONPATH=. qlib_venv/bin/python scripts/check_harness.py
+# passed=125 failures=0
+
+PYTHONPATH=. qlib_venv/bin/python scripts/check_dashboard_static_export.py
+# ok dashboard_static_export ... missing=0 ... paper_trading
+
+PYTHONPATH=. qlib_venv/bin/python scripts/build_runtime_index.py --check
+# runtime index OK
+```
+
+### Decision
+
+- Do not manually start the post-close LaunchAgent before `05:35`; doing so
+  would no longer satisfy the scheduled-run proof anyway.
+- The next proof checkpoint remains the natural `05:35 Tue-Sat Asia/Shanghai`
+  run, now guarded against stale/manual success markers.

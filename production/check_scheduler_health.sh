@@ -11,15 +11,25 @@ PREOPEN_SCHEDULER_LABEL="com.soxl.preopen.scheduler"
 LAUNCHAGENTS_DIR="${SOXL_SCHEDULER_HEALTH_LAUNCHAGENTS_DIR:-${HOME:-}/Library/LaunchAgents}"
 HEALTH_WEEKDAY="${SOXL_SCHEDULER_HEALTH_WEEKDAY:-$(date +%u)}"
 HEALTH_HHMM="${SOXL_SCHEDULER_HEALTH_HHMM:-$(date +%H%M)}"
+HEALTH_DATE="${SOXL_SCHEDULER_HEALTH_DATE:-$(date +%Y-%m-%d)}"
+HEALTH_POSTCLOSE_CUTOFF_EPOCH="${SOXL_SCHEDULER_HEALTH_POSTCLOSE_CUTOFF_EPOCH:-}"
+
+file_epoch() {
+    path="$1"
+    if epoch=$(stat -f %m "$path" 2>/dev/null); then
+        echo "$epoch"
+        return
+    elif epoch=$(stat -c %Y "$path" 2>/dev/null); then
+        echo "$epoch"
+        return
+    fi
+    echo ""
+}
 
 format_mtime() {
     path="$1"
-    epoch=""
-    if epoch=$(stat -f %m "$path" 2>/dev/null); then
-        :
-    elif epoch=$(stat -c %Y "$path" 2>/dev/null); then
-        :
-    else
+    epoch=$(file_epoch "$path")
+    if [ -z "$epoch" ]; then
         echo "unknown"
         return
     fi
@@ -50,6 +60,34 @@ postclose_due_today() {
     weekday_num=$(number_value "$HEALTH_WEEKDAY")
     hhmm_num=$(number_value "$HEALTH_HHMM")
     [ "$weekday_num" -ge 2 ] && [ "$weekday_num" -le 6 ] && [ "$hhmm_num" -ge 535 ]
+}
+
+postclose_cutoff_epoch() {
+    if [ -n "$HEALTH_POSTCLOSE_CUTOFF_EPOCH" ]; then
+        echo "$HEALTH_POSTCLOSE_CUTOFF_EPOCH"
+        return
+    fi
+    cutoff_text="${HEALTH_DATE} 05:35"
+    if date -j -f "%Y-%m-%d %H:%M" "$cutoff_text" +%s 2>/dev/null; then
+        return
+    fi
+    if date -d "$cutoff_text" +%s 2>/dev/null; then
+        return
+    fi
+    echo ""
+}
+
+postclose_success_after_cutoff() {
+    path="$1"
+    if [ ! -f "$path" ] || ! grep -q "\[scheduler\] all done" "$path" 2>/dev/null; then
+        return 1
+    fi
+    cutoff_epoch=$(postclose_cutoff_epoch)
+    log_epoch=$(file_epoch "$path")
+    if [ -z "$cutoff_epoch" ] || [ -z "$log_epoch" ]; then
+        return 0
+    fi
+    [ "$log_epoch" -ge "$cutoff_epoch" ]
 }
 
 print_scheduler_service() {
@@ -179,10 +217,14 @@ print_paper_health() {
 print_postclose_status() {
     echo "--- Post-close Run Status ---"
     postclose_log="${ROOT}/runtime/soxl/paper_trading/scheduler_postclose.log"
-    if [ -f "$postclose_log" ] && grep -q "\[scheduler\] all done" "$postclose_log" 2>/dev/null; then
+    if postclose_success_after_cutoff "$postclose_log"; then
         echo "  postclose status: success marker found"
     elif postclose_due_today; then
-        echo "  postclose status: due but no success marker found"
+        if [ -f "$postclose_log" ] && grep -q "\[scheduler\] all done" "$postclose_log" 2>/dev/null; then
+            echo "  postclose status: due but no current success marker found"
+        else
+            echo "  postclose status: due but no success marker found"
+        fi
     else
         echo "  postclose status: pending until 05:35 Tue-Sat Asia/Shanghai"
     fi

@@ -28,6 +28,7 @@
 21. **scheduler health 现在能发现安装态 plist 漂移**：health 不只看 LaunchAgent label 是否 loaded，也会比较 `~/Library/LaunchAgents/com.soxl.*.plist` 与 repo `production/com.soxl.*.plist` 是否一致。当前读数为 preopen/daily 都 `matches repo`，所以自然 `05:35` proof 的前置配置已对齐。
 22. **post-close proof 状态现在显式可见**：health 新增 `Post-close Run Status`。`05:35 Tue-Sat Asia/Shanghai` 前显示 `pending`；到点后如果没有 `[scheduler] all done` 会显示 `due but no success marker found`；有成功标记则显示 `success marker found`。
 23. **Vercel dashboard 静态包现在可自检**：`scripts/check_dashboard_static_export.py` 会校验 `/`、`/dashboard.html`、`/dashboard_data/:path*` 的 no-cache header、`dashboard_data/index.json` 中所有 versioned payload 是否存在并匹配 row count，以及 `paper_trading` 是否仍在静态包中。`production/check_scheduler_health.sh` 现在直接显示该检查结果；当前读数为 `versions=25`、`missing=0`、`model_versions=90`、`paper_trading_rows=3`、`paper_trading_end=2026-05-18`。
+24. **post-close success 现在要求本次 cutoff 后的新日志**：`production/check_scheduler_health.sh` 不再只看 `scheduler_postclose.log` 是否含 `[scheduler] all done`。它会比较日志 mtime 和当前日 `05:35` cutoff；旧/手动 success marker 在 due 后会显示 `due but no current success marker found`，避免污染自然 LaunchAgent proof。
 
 ## 2026-05-20 验证记录
 
