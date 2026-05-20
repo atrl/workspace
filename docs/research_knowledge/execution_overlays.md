@@ -16,6 +16,12 @@ all tested variants. In `wf_2023_2024`, release signals do become eligible, but
 the boost is absorbed by actor target / execution mapping instead of changing
 orders.
 
+The 2026-05-20 trace and bypass loops narrowed the absorber to trade lock, then
+rejected a full bypass. `selective_release_recovery_trade_lock_bypass_v1`
+created orders in `wf_2023_2024` (`changed_days=183`, trades `32` vs `22`) while
+leaving `wf_2022` unchanged, but it worsened recovery return and MaxDD. Treat
+full trade-lock bypass as a diagnostic failure, not a runtime mechanism.
+
 ## Failed Pattern
 
 Generic overlay retuning is not enough when `test_2022` max drawdown and average position remain too high; widening favorable-mode envelopes also degraded other windows.
@@ -39,7 +45,8 @@ Keep actor fixed, run daily replay or overlay sweeps, then compare mode/window s
 
 ## Next Valid Experiment Type
 
-Diagnose target/position absorption on `wf_2023_2024` eligible release days.
-The next valid execution test should explicitly change order generation, e.g.
-target-lift vs rebalance-threshold bypass under the existing gate. Avoid adding
-more favorable-mode exposure or another direct release-pack retrain.
+Test a narrower release-gated trade-lock rule under the existing retained gate:
+trade-lock shortening, or bypass only when current exposure is below the release
+target and buy cooldown will not immediately collapse the order. Avoid full
+trade-lock bypass, more favorable-mode exposure, or another direct release-pack
+retrain.

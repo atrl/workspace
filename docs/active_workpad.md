@@ -13,7 +13,7 @@ direction: execution
 1. Production scheduler, paper-trading state, dashboard rebuild, and Vercel static packaging are fixed and pushed in `c7cf210`.
 2. Resume model optimization from the SOXX-aware / selective-release frontier rather than changing scheduler/runtime behavior further.
 3. Diagnose why retained release gates fire on `wf_2023_2024` recovery days but do not create changed orders.
-4. Do not start another release-pack PPO retrain until a release-gated trade-lock rule is tested against the same walk-forward guard.
+4. Do not start another release-pack PPO retrain; the release-gated trade-lock bypass test now shows order generation is possible but too blunt.
 
 ## 2026-05-20 Loop Evidence
 
@@ -222,6 +222,66 @@ The trace covers `16` of `18` eligible days because the first eligible dates are
 - The blocker is now narrower than generic execution absorption: **release-gated trade lock is the dominant upstream absorber**.
 - Do not tune release thresholds, lower global rebalance thresholds, or retrain PPO next.
 - Next valid loop is a release-gated trade-lock bypass / shortening variant that only applies when the retained release gate is ready, while keeping `wf_2022` unchanged.
+
+## 2026-05-20 Release-Gated Trade-Lock Bypass Loop
+
+### Governance
+
+- Canonical baseline: `balanced_rule_residual_v22`
+- Direct comparison baseline: `selective_release_walkforward_v1`
+- Role: `diagnose`
+- Target window: `wf_2023_2024`, with `wf_2022` as the hard no-regression check
+- Accepted trade-off: order generation is necessary but not sufficient; `wf_2023_2024` return / MaxDD must not degrade materially after bypassing trade lock
+- Changed layer: `execution`
+- External reference:
+  - retained release gate family: `RB_COOLDOWN_PROXY`, `TRANS_VIX_DIVERGENCE`, `CICC_RETURN_VOLUME_SYNC`
+  - eligible-day trace showing trade lock as dominant absorber
+- Hypothesis:
+  If trade lock is the dominant absorber, a release-gated trade-lock bypass should turn eligible days into changed orders without reopening `wf_2022`.
+- Acceptance criteria:
+  - `wf_2023_2024 changed_days > 0`
+  - `wf_2022` unchanged because eligible_days remains `0`
+  - `wf_2023_2024` return or Sharpe improves without material MaxDD widening
+- Expected trade-off:
+  More trades and slightly higher average exposure are acceptable only if recovery quality improves.
+- Failure mode:
+  Bypass creates churn and exposure but worsens recovery-window return / drawdown.
+- Comparison-table row key: `selective_release_trade_lock_bypass_v1`
+
+### Changes Made
+
+- `src/soxl_quant/backtest.py`
+  - added `selective_release_trade_lock_days()` to gate trade-lock overrides through the retained release predicate
+  - applies the override to both active trade-lock blocking and newly assigned trade-lock days
+  - records `effective_trade_lock` in decision trace
+- `scripts/evaluate_selective_release_overlay.py`
+  - added `selective_release_recovery_trade_lock_bypass_v1`
+- `scripts/evaluate_selective_release_walkforward.py`
+  - includes the trade-lock bypass variant in diagnostic and trace summaries
+- `tests/test_selective_release_overlay.py`
+  - covers that trade-lock override only applies when the retained gate is ready
+
+### Commands
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_selective_release_overlay.py::test_selective_release_trade_lock_override_only_applies_when_gate_is_ready -q
+MPLCONFIGDIR=/private/tmp/mplconfig PYTHONPATH=. qlib_venv/bin/python scripts/evaluate_selective_release_walkforward.py --profile balanced_rule_residual_v22 --all-variants
+```
+
+### Evidence
+
+| actor_window | variant | eligible_days | changed_days | trades | return | max_dd | decision |
+|---|---|---:|---:|---:|---:|---:|---|
+| `wf_2022` | `selective_release_recovery_trade_lock_bypass_v1` | 0 | 0 | 22 | `-34.11%` | `38.27%` | defensive gate unchanged |
+| `wf_2023_2024` | `selective_release_recovery_trade_lock_bypass_v1` | 18 | 183 | 32 | `-21.43%` | `40.28%` | creates orders, worsens recovery window |
+
+Baseline `wf_2023_2024` was `-20.21% / -0.277 / 38.54% / 22 trades`, so the bypass costs `-1.22pp` return and `+1.74pp` MaxDD while adding `10` trades.
+
+### Decision
+
+- Do **not** promote `selective_release_recovery_trade_lock_bypass_v1`.
+- The trace diagnosis was correct: trade lock was blocking orders. The unrestricted bypass is still too blunt and turns signal activation into extra churn without improving recovery quality.
+- Next valid variant must be narrower than full bypass, for example a release-gated trade-lock shortening or buy-cooldown-aware rule that only applies when current exposure is below the release target.
 
 ## Prior Data/Release Goal
 

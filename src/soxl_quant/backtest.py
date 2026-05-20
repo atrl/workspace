@@ -99,6 +99,19 @@ def selective_release_rebalance_threshold(
     return float(min_rebalance)
 
 
+def selective_release_trade_lock_days(
+    trade_lock_days: int,
+    row: pd.Series,
+    regime_risk: float,
+    overlay_config: dict,
+) -> int:
+    if not selective_release_gate_ready(row, regime_risk, overlay_config):
+        return int(trade_lock_days)
+    if "trade_lock_override" in overlay_config:
+        return max(int(overlay_config["trade_lock_override"]), 0)
+    return int(trade_lock_days)
+
+
 def _normalize_backtest_seg(index: pd.Index | pd.MultiIndex, test_seg: Tuple[str, str]) -> Tuple[str, str]:
     """Clamp qlib backtest end dates to a safe calendar interval.
 
@@ -405,10 +418,19 @@ class RLStrategy(BaseStrategy):
         buy_cooldown_before = int(self.buy_cooldown)
         blocked_by_trade_lock = False
         blocked_by_buy_cooldown = False
-        if self.trade_lock > 0:
+        effective_trade_lock = trade_lock_before
+        if self.overlay_config is not None and self.overlay_config.get("type") == "selective_release":
+            effective_trade_lock = selective_release_trade_lock_days(
+                trade_lock_before,
+                row,
+                regime_risk,
+                self.overlay_config,
+            )
+        if effective_trade_lock > 0:
             if abs(target_pos - current_pos) >= min_rebalance:
                 blocked_by_trade_lock = True
                 target_pos = current_pos
+        if self.trade_lock > 0:
             self.trade_lock -= 1
         if self.buy_cooldown > 0:
             if target_pos > current_pos:
@@ -451,6 +473,7 @@ class RLStrategy(BaseStrategy):
                     "current_drawdown": round(float(current_drawdown), 10),
                     "cum_drop_30": round(float(cum_drop_30), 10),
                     "trade_lock_before": trade_lock_before,
+                    "effective_trade_lock": int(effective_trade_lock),
                     "trade_lock_after": int(self.trade_lock),
                     "buy_cooldown_before": buy_cooldown_before,
                     "buy_cooldown_after": int(self.buy_cooldown),
@@ -498,7 +521,15 @@ class RLStrategy(BaseStrategy):
             if target_pos > current_pos + 1e-6:
                 self.buy_cooldown = execution_buy_cooldown_days(cum_drop_30, self.execution_config, regime)
             if turnover > self.execution_config.min_trade_turnover:
-                self.trade_lock = execution_trade_lock_days(self.execution_config, regime)
+                new_trade_lock = execution_trade_lock_days(self.execution_config, regime)
+                if self.overlay_config is not None and self.overlay_config.get("type") == "selective_release":
+                    new_trade_lock = selective_release_trade_lock_days(
+                        new_trade_lock,
+                        row,
+                        regime_risk,
+                        self.overlay_config,
+                    )
+                self.trade_lock = new_trade_lock
             signal_type = "buy" if delta > 0 else "sell"
             self.trade_signals.append((trade_date, price, target_pos if orders else current_pos, signal_type))
         final_position = target_pos if orders else current_pos

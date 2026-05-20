@@ -5,6 +5,7 @@ import pandas as pd
 from src.soxl_quant.backtest import (
     apply_selective_release_overlay,
     selective_release_rebalance_threshold,
+    selective_release_trade_lock_days,
 )
 
 
@@ -138,3 +139,30 @@ def test_selective_release_rebalance_bypass_only_applies_when_gate_is_ready():
 
     assert selective_release_rebalance_threshold(0.04, ready, 0.50, config) == 0.0
     assert selective_release_rebalance_threshold(0.04, missing_confirmation, 0.50, config) == 0.04
+
+
+def test_selective_release_trade_lock_override_only_applies_when_gate_is_ready():
+    config = {
+        "max_regime_risk": 0.62,
+        "cooldown_threshold": 0.25,
+        "vix_threshold": 0.04,
+        "volume_sync_threshold": 0.68,
+        "trade_lock_override": 0,
+    }
+    ready = pd.Series(
+        {
+            "RB_COOLDOWN_PROXY": 0.30,
+            "TRANS_VIX_DIVERGENCE": 0.01,
+            "CICC_RETURN_VOLUME_SYNC": 0.72,
+        }
+    )
+    missing_confirmation = pd.Series(
+        {
+            "RB_COOLDOWN_PROXY": 0.30,
+            "TRANS_VIX_DIVERGENCE": 0.01,
+            "CICC_RETURN_VOLUME_SYNC": 0.50,
+        }
+    )
+
+    assert selective_release_trade_lock_days(8, ready, 0.50, config) == 0
+    assert selective_release_trade_lock_days(8, missing_confirmation, 0.50, config) == 8

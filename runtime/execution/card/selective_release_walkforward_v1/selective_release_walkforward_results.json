@@ -7,7 +7,7 @@
     ],
     "profile": "balanced_rule_residual_v22",
     "retained_only": false,
-    "trace_rows": 70,
+    "trace_rows": 86,
     "windows": [
       {
         "actor_path": "runtime/model/card/balanced_rule_residual_v22_wf_2020/soxl_balanced_rule_residual_v22_wf_2020_actor.pt",
@@ -158,6 +158,27 @@
     },
     {
       "absorbed_days": 0,
+      "actor_path": "runtime/model/card/balanced_rule_residual_v22_wf_2020/soxl_balanced_rule_residual_v22_wf_2020_actor.pt",
+      "actor_window": "wf_2020",
+      "avg_pos": 0.532232,
+      "avg_pos_delta": 0.0,
+      "changed_days": 0,
+      "eligible_days": 0,
+      "end": "2020-12-31",
+      "first_eligible_date": "",
+      "last_eligible_date": "",
+      "max_dd": 19.4717,
+      "max_pos_delta": 0.0,
+      "overlay_config": "{\"boost\": 0.08, \"cooldown_threshold\": 0.2, \"max_regime_risk\": 0.6, \"max_target\": 0.65, \"rebalance_threshold_override\": 0.0, \"trade_lock_override\": 0, \"type\": \"selective_release\", \"vix_threshold\": 0.05, \"volume_sync_threshold\": 0.7}",
+      "profile": "balanced_rule_residual_v22",
+      "return": 113.1667,
+      "sharpe": 2.0149,
+      "start": "2020-01-01",
+      "trades": 22,
+      "variant": "selective_release_recovery_trade_lock_bypass_v1"
+    },
+    {
+      "absorbed_days": 0,
       "actor_path": "runtime/model/card/balanced_rule_residual_v22_wf_2022/soxl_balanced_rule_residual_v22_wf_2022_actor.pt",
       "actor_window": "wf_2022",
       "avg_pos": 0.321629,
@@ -281,6 +302,27 @@
       "start": "2022-01-01",
       "trades": 22,
       "variant": "selective_release_recovery_target_lift_v1"
+    },
+    {
+      "absorbed_days": 0,
+      "actor_path": "runtime/model/card/balanced_rule_residual_v22_wf_2022/soxl_balanced_rule_residual_v22_wf_2022_actor.pt",
+      "actor_window": "wf_2022",
+      "avg_pos": 0.321629,
+      "avg_pos_delta": 0.0,
+      "changed_days": 0,
+      "eligible_days": 0,
+      "end": "2022-12-31",
+      "first_eligible_date": "",
+      "last_eligible_date": "",
+      "max_dd": 38.2746,
+      "max_pos_delta": 0.0,
+      "overlay_config": "{\"boost\": 0.08, \"cooldown_threshold\": 0.2, \"max_regime_risk\": 0.6, \"max_target\": 0.65, \"rebalance_threshold_override\": 0.0, \"trade_lock_override\": 0, \"type\": \"selective_release\", \"vix_threshold\": 0.05, \"volume_sync_threshold\": 0.7}",
+      "profile": "balanced_rule_residual_v22",
+      "return": -34.1052,
+      "sharpe": -0.9263,
+      "start": "2022-01-01",
+      "trades": 22,
+      "variant": "selective_release_recovery_trade_lock_bypass_v1"
     },
     {
       "absorbed_days": 0,
@@ -407,6 +449,27 @@
       "start": "2024-01-01",
       "trades": 22,
       "variant": "selective_release_recovery_target_lift_v1"
+    },
+    {
+      "absorbed_days": 0,
+      "actor_path": "runtime/model/card/balanced_rule_residual_v22_wf_2023_2024/soxl_balanced_rule_residual_v22_wf_2023_2024_actor.pt",
+      "actor_window": "wf_2023_2024",
+      "avg_pos": 0.481747,
+      "avg_pos_delta": 0.005312,
+      "changed_days": 183,
+      "eligible_days": 18,
+      "end": "2024-12-31",
+      "first_eligible_date": "2024-03-26",
+      "last_eligible_date": "2024-10-09",
+      "max_dd": 40.279,
+      "max_pos_delta": 0.293676,
+      "overlay_config": "{\"boost\": 0.08, \"cooldown_threshold\": 0.2, \"max_regime_risk\": 0.6, \"max_target\": 0.65, \"rebalance_threshold_override\": 0.0, \"trade_lock_override\": 0, \"type\": \"selective_release\", \"vix_threshold\": 0.05, \"volume_sync_threshold\": 0.7}",
+      "profile": "balanced_rule_residual_v22",
+      "return": -21.4282,
+      "sharpe": -0.334,
+      "start": "2024-01-01",
+      "trades": 32,
+      "variant": "selective_release_recovery_trade_lock_bypass_v1"
     }
   ]
 }

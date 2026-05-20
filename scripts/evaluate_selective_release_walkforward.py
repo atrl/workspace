@@ -329,6 +329,7 @@ def write_outputs(
     diagnostic_variants = [
         "selective_release_recovery_threshold_bypass_v1",
         "selective_release_recovery_target_lift_v1",
+        "selective_release_recovery_trade_lock_bypass_v1",
     ]
     diagnostic_rows = df[
         (df["actor_window"] == "wf_2023_2024") & (df["variant"].isin(diagnostic_variants))
@@ -396,6 +397,24 @@ def write_outputs(
                 lines.append(
                     "- Full eligible-day trace: `selective_release_walkforward_execution_trace.csv`."
                 )
+
+    trade_lock_variant = "selective_release_recovery_trade_lock_bypass_v1"
+    trade_lock_rows = df[df["variant"] == trade_lock_variant].set_index("actor_window")
+    if "wf_2022" in trade_lock_rows.index and "wf_2023_2024" in trade_lock_rows.index:
+        row_2022 = trade_lock_rows.loc["wf_2022"]
+        row_2024 = trade_lock_rows.loc["wf_2023_2024"]
+        base_2022 = baseline.loc["wf_2022"]
+        base_2024 = baseline.loc["wf_2023_2024"]
+        lines.extend(
+            [
+                "",
+                "## Trade-Lock Bypass Check",
+                "",
+                f"- `wf_2022`: unchanged with eligible_days `{int(row_2022['eligible_days'])}`, return `{float(row_2022['return']):.2f}%` vs baseline `{float(base_2022['return']):.2f}%`, max_dd `{float(row_2022['max_dd']):.2f}%` vs `{float(base_2022['max_dd']):.2f}%`.",
+                f"- `wf_2023_2024`: changed_days `{int(row_2024['changed_days'])}`, trades `{int(row_2024['trades'])}` vs baseline `{int(base_2024['trades'])}`, return `{float(row_2024['return']):.2f}%` vs `{float(base_2024['return']):.2f}%`, max_dd `{float(row_2024['max_dd']):.2f}%` vs `{float(base_2024['max_dd']):.2f}%`.",
+                "- Decision: release-gated trade-lock bypass proves the lock was blocking order generation, but the unrestricted bypass worsens the recovery window and is not promotable.",
+            ]
+        )
 
     (output_dir / "selective_release_walkforward_review.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
 

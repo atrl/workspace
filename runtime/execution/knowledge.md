@@ -41,6 +41,7 @@
 9. **walk-forward actor 验证未通过 runtime promotion**：`selective_release_walkforward_v1` 显示三种既有 release gate 在 `wf_2023_2024` 有 `6-18` 个 eligible days，但 `changed_days=0`，说明当前执行映射吸收了 boost；不要直接治理化该 overlay。
 10. **简单 order-generation 修复仍然不够**：`selective_release_recovery_threshold_bypass_v1` 与 `selective_release_recovery_target_lift_v1` 在 `wf_2023_2024` 都有 `18` 个 eligible days，但仍然 `changed_days=0` / `absorbed_days=18`。
 11. **逐日 trace 已定位主吸收层**：`selective_release_walkforward_execution_trace.csv` 显示 threshold-bypass actionable eligible days 的 primary blocker 是 `trade_lock=15/16`，target-lift 是 `trade_lock=12/16`、`min_rebalance=3/16`、`ordered=1/16`。主因不是 release signal、不只是 min_rebalance，也不是 PPO 需要直接 retrain；下一条有效规则应只测试 release-gated trade-lock bypass / shortening。
+12. **full trade-lock bypass 不是可推广解**：`selective_release_recovery_trade_lock_bypass_v1` 在 `wf_2023_2024` 把 `changed_days` 拉到 `183`、trades 从 `22` 到 `32`，但 return 从 `-20.21%` 降到 `-21.43%`、MaxDD 从 `38.54%` 升到 `40.28%`；`wf_2022` 保持 unchanged。结论是 trade lock 的确挡住订单，但完全 bypass 只制造 churn。
 
 ## 待验证方向
 
@@ -48,7 +49,8 @@
 - [x] 对 `selective_release_recovery_v1` 做 walk-forward actor validation，再决定是否进入 runtime overlay / governed execution profile — blocked for promotion because WF actor orders do not change
 - [x] 对 `wf_2023_2024` eligible release days 做 target-lift / rebalance-threshold bypass 诊断 — 两者仍被吸收
 - [x] 记录 eligible day 逐日 `current_pos`、overlay 前后 target、`min_rebalance`、trade lock、buy cooldown、cap state、lot rounding — blocker narrowed to trade lock
-- [ ] 测试 release-gated trade-lock bypass / shortening，并继续要求 `wf_2022` unchanged
+- [x] 测试 release-gated full trade-lock bypass — order generation works but recovery metrics worsen
+- [ ] 测试比 full bypass 更窄的 trade-lock shortening / buy-cooldown-aware release rule，并继续要求 `wf_2022` unchanged
 - [ ] 动态 decision frequency
 - [ ] 仓位上限与 VIX term structure 联动
 - [ ] budget-usage actor/runtime mismatch 诊断
@@ -140,3 +142,24 @@ Decision:
 
 - Do not broaden the gate or retrain.
 - Next loop should test only a release-gated trade-lock bypass or shortening rule, preserving the same retained release gate and `wf_2022` no-eligible defense.
+
+## 2026-05-20: Release-Gated Trade-Lock Bypass
+
+Question: if trade lock is the upstream absorber, does bypassing it under the retained release gate produce a promotable walk-forward change?
+
+Answer: it produces orders, but it is not promotable.
+
+| Variant | wf_2022 | wf_2023_2024 | Decision |
+|---|---:|---:|---|
+| `selective_release_recovery_trade_lock_bypass_v1` | unchanged, `0` eligible days | `18` eligible days, `183` changed days, trades `32` vs `22`, return `-21.43%` vs `-20.21%`, MaxDD `40.28%` vs `38.54%` | drop |
+
+Mechanism:
+
+- Reuses the retained `selective_release_recovery_v1` gate.
+- Adds `rebalance_threshold_override=0.0` and `trade_lock_override=0` only when that gate is ready.
+- This confirms the previous trace: trade lock was the main order-generation absorber.
+
+Decision:
+
+- Do not promote the bypass and do not retrain from it.
+- The next rule must be narrower: shorten trade lock or bypass only when current exposure is below the release target, and account for buy cooldown.
