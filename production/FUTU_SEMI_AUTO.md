@@ -126,6 +126,9 @@ PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py --broker fu
 
 # Dry-run (signal + dashboard, no orders)
 PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py --dry-run
+
+# Cached-data smoke check (dry-run + dashboard, no orders, no notifications)
+PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py --smoke
 ```
 
 Pipeline order:
@@ -184,7 +187,10 @@ To rebuild the dashboard manually:
 PYTHONPATH=. qlib_venv/bin/python scripts/build_backtest_dashboard.py
 ```
 
-Then open `dashboard.html` in a browser.
+Then open `dashboard.html` in a browser. For Vercel static deployment, keep the generated
+`dashboard.html`, `dashboard_data/index.json`, `dashboard_data/model_versions.json`, and
+`dashboard_data/versioned/*/SOXL.json` export together; `vercel.json` serves `/` from
+`dashboard.html` and revalidates the dashboard data on each request.
 
 ## Current limitations
 

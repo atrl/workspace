@@ -50,3 +50,24 @@ def test_scheduler_retries_paper_trading_with_cached_data(monkeypatch: pytest.Mo
     ]
     assert "--skip-data-update" not in calls[0][0]
     assert "--skip-data-update" in calls[1][0]
+
+
+def test_scheduler_smoke_mode_runs_cached_dry_run_with_dashboard(monkeypatch: pytest.MonkeyPatch):
+    calls: list[tuple[list[str], str]] = []
+
+    def fake_run(cmd: list[str], description: str):
+        calls.append((cmd, description))
+
+    monkeypatch.setattr(soxl_daily_scheduler, "_run", fake_run)
+    monkeypatch.setattr(sys, "argv", ["soxl_daily_scheduler.py", "--smoke"])
+
+    soxl_daily_scheduler.main()
+
+    assert [description for _cmd, description in calls] == [
+        "paper trading",
+        "dashboard build",
+    ]
+    paper_cmd = calls[0][0]
+    assert "--dry-run" in paper_cmd
+    assert "--skip-data-update" in paper_cmd
+    assert "--no-notify" in paper_cmd

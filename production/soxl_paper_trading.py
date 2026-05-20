@@ -14,7 +14,7 @@ from __future__ import annotations
 import argparse
 import json
 import sys
-from dataclasses import asdict
+from dataclasses import asdict, replace
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Dict, Optional, Tuple
@@ -35,6 +35,7 @@ from src.soxl_quant.runtime import (
     auto_select_profile,
     plan_manual_session,
     promotion_gate_status,
+    reconcile_positions,
 )
 from src.soxl_quant.settings import ACCOUNT, QLIB_DATA_PATH, RUNTIME_DIR
 
@@ -55,6 +56,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--healthcheck", action="store_true", help="Run health checks and exit")
     parser.add_argument("--skip-data-update", action="store_true", help="Skip market data update")
     parser.add_argument("--initial-cash", type=float, default=ACCOUNT, help="Initial cash for paper broker")
+    parser.add_argument(
+        "--paper-step-clip",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="In paper mode, clip large target changes to the risk-gate step limit instead of blocking",
+    )
     return parser.parse_args()
 
 
@@ -70,7 +77,7 @@ def _init_broker(args: argparse.Namespace) -> BrokerAdapter:
         )
         broker.connect()
         return broker
-    return PaperBroker(initial_cash=args.initial_cash)
+    return _load_paper_broker_state(initial_cash=args.initial_cash)
 
 
 def _last_trading_day() -> str:
@@ -129,7 +136,43 @@ def _determine_level(decision, reconcile) -> str:
 
 
 PAPER_TRADING_CSV = RUNTIME_DIR / "paper_trading" / "paper_trading_soxl_daily.csv"
+PAPER_BROKER_STATE = RUNTIME_DIR / "paper_trading" / "paper_broker_state.json"
 DAILY_DRAWDOWN_LIMIT = -0.20  # 20% single-day drawdown circuit breaker
+
+
+def _load_paper_broker_state(
+    state_path: Path = PAPER_BROKER_STATE,
+    initial_cash: float = ACCOUNT,
+) -> PaperBroker:
+    broker = PaperBroker(initial_cash=initial_cash)
+    if not state_path.exists():
+        return broker
+    payload = json.loads(state_path.read_text(encoding="utf-8"))
+    broker.cash = float(payload.get("cash", initial_cash))
+    broker.shares = int(payload.get("shares", 0))
+    return broker
+
+
+def _save_paper_broker_state(
+    broker: BrokerAdapter,
+    date: str,
+    price: float,
+    state_path: Path = PAPER_BROKER_STATE,
+) -> None:
+    if not isinstance(broker, PaperBroker):
+        return
+    account = broker.get_account_snapshot(date, price)
+    payload = {
+        "date": account.date,
+        "cash": account.cash,
+        "shares": account.shares,
+        "market_value": account.market_value,
+        "account_value": account.account_value,
+        "position": account.position,
+        "price": float(price),
+    }
+    state_path.parent.mkdir(parents=True, exist_ok=True)
+    state_path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
 
 
 def _check_daily_drawdown(account_value: float, drawdown_limit: float = DAILY_DRAWDOWN_LIMIT) -> Tuple[bool, float]:
@@ -217,6 +260,21 @@ def _append_execution_daily_csv(
         csv_path=csv_path,
     )
     return account
+
+
+def _post_execution_audit(signal, decision, broker: BrokerAdapter):
+    account = broker.get_account_snapshot(signal.date, signal.price)
+    expected_position = decision.capped_target_position if decision.approved else signal.current_position
+    reconcile = reconcile_positions(signal.date, expected_position, account.position)
+    return account, reconcile
+
+
+def _block_risk_decision(decision, reason: str):
+    return replace(
+        decision,
+        approved=False,
+        blocking_reasons=(*decision.blocking_reasons, reason),
+    )
 
 
 def healthcheck(args: argparse.Namespace) -> Dict[str, object]:
@@ -326,6 +384,7 @@ def main() -> None:
             broker=broker,
             model_path=model_path,
             output_dir=None,
+            clip_position_change=args.broker == "paper" and args.paper_step_clip,
         )
         signal = result["signal"]
         decision = result["risk_gate"]
@@ -339,8 +398,11 @@ def main() -> None:
         dd_ok, dd_pct = _check_daily_drawdown(account.account_value)
         if not dd_ok:
             print(f"[paper] CIRCUIT BREAKER: daily drawdown {dd_pct:.2%} exceeds limit {DAILY_DRAWDOWN_LIMIT:.2%}")
-            decision.approved = False
-            decision.blocking_reasons.append(f"daily_drawdown_circuit_breaker: {dd_pct:.2%} < {DAILY_DRAWDOWN_LIMIT:.2%}")
+            decision = _block_risk_decision(
+                decision,
+                f"daily_drawdown_circuit_breaker: {dd_pct:.2%} < {DAILY_DRAWDOWN_LIMIT:.2%}",
+            )
+            result["risk_gate"] = decision
             if use_notify:
                 notifier.send(
                     title="SOXL CIRCUIT BREAKER TRIGGERED",
@@ -365,6 +427,11 @@ def main() -> None:
             print("[paper] dry-run: skipped order placement")
         else:
             print(f"[paper] blocked: {'; '.join(decision.blocking_reasons)}")
+
+        if not args.dry_run:
+            account, reconcile = _post_execution_audit(signal, decision, broker)
+            result["account"] = account
+            result["reconcile"] = reconcile
 
         # 7. Notification
         if use_notify:
@@ -400,6 +467,7 @@ def main() -> None:
         # 9. Append to cumulative CSV for dashboard
         if not args.dry_run:
             _append_execution_daily_csv(signal, broker, commands)
+            _save_paper_broker_state(broker, signal.date, signal.price)
 
     finally:
         if hasattr(broker, "disconnect"):

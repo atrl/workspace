@@ -11,6 +11,7 @@ Usage:
     PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py
     PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py --broker futu
     PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py --dry-run
+    PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py --smoke
 """
 from __future__ import annotations
 
@@ -61,7 +62,17 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--discord", action="store_true", help="Also send notifications to Discord")
     parser.add_argument("--skip-data-update", action="store_true")
     parser.add_argument("--skip-dashboard", action="store_true")
-    return parser.parse_args()
+    parser.add_argument(
+        "--smoke",
+        action="store_true",
+        help="Run cached-data inference plus dashboard rebuild without placing orders or notifying",
+    )
+    args = parser.parse_args()
+    if args.smoke:
+        args.dry_run = True
+        args.no_notify = True
+        args.skip_data_update = True
+    return args
 
 
 def _run(cmd: list[str], description: str) -> None:

@@ -1,5 +1,10 @@
 from __future__ import annotations
 
+import json
+from pathlib import Path
+from tempfile import TemporaryDirectory
+
+import src.soxl_quant.runtime as runtime
 from src.soxl_quant.config import ExecutionConfig, ExecutionRegimeConfig
 from src.soxl_quant.policy.execution import (
     execution_buy_cooldown_days,
@@ -9,6 +14,54 @@ from src.soxl_quant.policy.execution import (
 )
 from src.soxl_quant.policy.environment import TrancheLedger
 from src.soxl_quant.runtime import SignalIntent, PaperBroker, reconcile_positions, risk_gate
+
+
+def _write_actor_with_summary(root: Path, profile: str, *, promoted: bool, score: float) -> Path:
+    model_dir = root / profile
+    model_dir.mkdir(parents=True)
+    actor_path = model_dir / f"soxl_{profile}_actor.pt"
+    actor_path.write_bytes(b"")
+    summary = {
+        "best_score": score,
+        "promotion": {
+            "eligible": promoted,
+            "walk_forward_evaluated": True,
+        },
+    }
+    (model_dir / f"soxl_{profile}_summary.json").write_text(json.dumps(summary), encoding="utf-8")
+    return actor_path
+
+
+def test_best_model_for_family_refuses_unpromoted_fallback():
+    with TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        _write_actor_with_summary(root, "balanced", promoted=False, score=99.0)
+        previous_model_dir = runtime.MODEL_DIR
+        runtime.MODEL_DIR = root
+        try:
+            try:
+                runtime.best_model_for_family("balanced")
+            except RuntimeError as exc:
+                assert "no promoted model" in str(exc)
+            else:
+                raise AssertionError("expected unpromoted fallback to be rejected")
+        finally:
+            runtime.MODEL_DIR = previous_model_dir
+
+
+def test_best_model_for_family_selects_highest_promoted_score():
+    with TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        weaker = _write_actor_with_summary(root, "balanced_rule_residual_v18", promoted=True, score=80.0)
+        stronger = _write_actor_with_summary(root, "balanced_rule_residual_v19", promoted=True, score=95.0)
+        _write_actor_with_summary(root, "balanced_rule_residual_v24", promoted=False, score=110.0)
+        previous_model_dir = runtime.MODEL_DIR
+        runtime.MODEL_DIR = root
+        try:
+            assert runtime.best_model_for_family("balanced") == stronger
+            assert runtime.best_model_for_family("balanced") != weaker
+        finally:
+            runtime.MODEL_DIR = previous_model_dir
 
 
 def test_position_ledger_tracks_entry_and_age():
@@ -49,6 +102,30 @@ def test_risk_gate_blocks_large_one_shot_position_jump():
     decision = risk_gate(broker, signal, max_position_change=0.35)
     assert decision.approved is False
     assert any("exceeds limit" in reason for reason in decision.blocking_reasons)
+
+
+def test_risk_gate_clips_large_position_step_when_enabled():
+    broker = PaperBroker(initial_cash=100_000.0, fee_rate=0.0, lot_size=100)
+    signal = SignalIntent(
+        date="2024-01-02",
+        symbol="SOXL",
+        profile="balanced",
+        model_path="runtime/model/card/example/example.pt",
+        seed=20260411,
+        action=10,
+        target_position=0.8,
+        current_position=0.0,
+        price=50.0,
+        regime_risk=0.3,
+        note="regime=0.30",
+    )
+
+    decision = risk_gate(broker, signal, max_position_change=0.35, clip_position_change=True)
+
+    assert decision.approved is True
+    assert decision.capped_target_position == 0.35
+    assert not decision.blocking_reasons
+    assert any("clipped" in check.detail for check in decision.checks if check.name == "position_step_limit")
 
 
 def test_reconcile_positions_flags_meaningful_gap():

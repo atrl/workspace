@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-20T13:37:17.158351+00:00",
+  "generated_at": "2026-05-20T14:11:59.504048+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -1289,7 +1289,7 @@
       "path": "runtime/model/card/balanced_rule_residual_v19/soxl_balanced_rule_residual_v19_summary.json",
       "category": "model",
       "suffix": ".json",
-      "bytes": 5076
+      "bytes": 5643
     },
     {
       "path": "runtime/model/card/balanced_rule_residual_v19/v19_dwell_overlay_diagnostic.json",
@@ -2249,7 +2249,7 @@
       "path": "runtime/production/knowledge.md",
       "category": "production",
       "suffix": ".md",
-      "bytes": 2514
+      "bytes": 4252
     },
     {
       "path": "runtime/reward/card/base_log/card.md",

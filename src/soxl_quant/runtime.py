@@ -15,7 +15,6 @@ same control flow instead of drifting into separate ad-hoc scripts.
 """
 
 import json
-import sys
 from abc import ABC, abstractmethod
 from dataclasses import asdict, dataclass
 from pathlib import Path
@@ -226,7 +225,8 @@ def best_model_for_family(family: str = "balanced") -> Path:
     扫描 ``runtime/model/card/*/soxl_{family}*_actor.pt``，过滤通过 promotion gate
     的候选，读取对应 summary 的 ``best_score`` 取最高者。
 
-    若无任何候选通过 gate，降级到 ``latest_model_path(family)`` 并打印警告。
+    若无任何候选通过 gate，拒绝自动选择，避免定时任务静默使用
+    后续 risk gate 会拒绝的未晋升 actor。
     """
     candidates = sorted(MODEL_DIR.rglob(f"soxl_{family}*_actor.pt"))
     if not candidates:
@@ -250,14 +250,10 @@ def best_model_for_family(family: str = "balanced") -> Path:
         print(f"[auto_select] family={family} model={best_path.name} score={best_score:.2f}")
         return best_path
 
-    # Fallback
-    fallback = latest_model_path(family)
-    print(
-        f"[auto_select] WARNING: no promoted model for family={family}; "
-        f"falling back to {fallback.name}",
-        file=sys.stderr,
+    raise RuntimeError(
+        f"no promoted model for family={family}; pass --profile explicitly after reviewing "
+        "promotion evidence or update the model summary sidecar"
     )
-    return fallback
 
 
 def auto_select_profile(family: str = "balanced") -> Tuple[str, Path]:
@@ -403,6 +399,7 @@ def risk_gate(
     max_position_change: float = 0.35,
     max_target_position: float = 1.0,
     model_ready: Tuple[bool, str] = (True, "model passed promotion gate"),
+    clip_position_change: bool = False,
 ) -> RiskGateDecision:
     """Execution-side guard rails that must pass before any live order.
 
@@ -434,13 +431,26 @@ def risk_gate(
     if not open_orders_ok:
         blocking_reasons.append("open orders must be reconciled before another rebalance")
 
-    change = abs(target - signal.current_position)
+    raw_change = target - signal.current_position
+    change = abs(raw_change)
+    clipped_by_step = False
+    if change > max_position_change + 1e-9 and clip_position_change:
+        direction = 1.0 if raw_change > 0 else -1.0
+        target = signal.current_position + direction * max_position_change
+        target = max(min(target, max_target_position), 0.0)
+        clipped_by_step = True
+        change = abs(target - signal.current_position)
     within_step_limit = change <= max_position_change + 1e-9
     checks.append(
         RiskCheck(
             "position_step_limit",
             within_step_limit,
-            f"change={change:.3f} limit={max_position_change:.3f}",
+            (
+                f"change={abs(raw_change):.3f} clipped_target={target:.3f} "
+                f"limit={max_position_change:.3f}"
+                if clipped_by_step
+                else f"change={change:.3f} limit={max_position_change:.3f}"
+            ),
         )
     )
     if not within_step_limit:
@@ -698,6 +708,7 @@ def plan_manual_session(
     broker: BrokerAdapter,
     model_path: Optional[Path] = None,
     output_dir: Optional[Path] = None,
+    clip_position_change: bool = False,
 ) -> Dict[str, object]:
     """Generate a single-day semi-automatic execution plan.
 
@@ -737,7 +748,12 @@ def plan_manual_session(
         ledger,
         peak_value=max(account.account_value, ACCOUNT),
     )
-    decision = risk_gate(broker, signal, model_ready=promotion_gate_status(bundle_path))
+    decision = risk_gate(
+        broker,
+        signal,
+        model_ready=promotion_gate_status(bundle_path),
+        clip_position_change=clip_position_change,
+    )
     reconcile = reconcile_positions(signal.date, decision.capped_target_position if decision.approved else signal.current_position, account.position)
 
     payload = {

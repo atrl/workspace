@@ -80,9 +80,6 @@ data/generalization/*.csv
 .codex/skills/*/data/
 .codex/skills/*/models/
 !runtime/soxl/
-
-/dashboard.html
-/dashboard_data/
 # Qlib binary features (regenerated from CSV)
 data/qlib/**/features/
 .env.discord

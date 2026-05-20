@@ -60,11 +60,43 @@ Observed:
 - The dry-run was blocked by risk gate because the auto-selected `balanced` actor has `walk-forward promotion gate not evaluated` and target step `0.850 > 0.350`.
 - Dashboard rebuild wrote `25` versions and now includes `paper_trading` in `dashboard_data/index.json`.
 
+### Continuation Evidence
+
+- `auto_select_profile(profile_family="balanced")` previously selected `balanced` because `best_model_for_family()` fell back to `soxl_balanced_actor.pt` when no promoted candidate was found; runtime then rejected the selected model as `walk-forward promotion gate not evaluated`.
+- `best_model_for_family()` now refuses unpromoted fallback models and only returns actors whose promotion sidecar passes `promotion_gate_status()`.
+- Local promotion evidence for `balanced_rule_residual_v19` was aligned with the registry intent (`status=canonical`, `wf_status=completed`), so cached-data inference now auto-selects `balanced_rule_residual_v19`.
+- Paper mode now persists `PaperBroker` cash/shares in `runtime/soxl/paper_trading/paper_broker_state.json` and clips large first-step target changes to the runtime step limit instead of blocking a cold account forever.
+- The daily drawdown circuit-breaker path now replaces the frozen risk-gate decision with a blocked copy instead of mutating the dataclass in place.
+- One local non-dry-run paper execution filled a clipped BUY from `0%` toward `35%`, appended the cumulative dashboard CSV from post-execution broker state, and persisted broker state; a follow-up dry-run read the realized `33.5%` position and approved the next step toward `65%`.
+- `production/soxl_daily_scheduler.py --smoke` now runs cached-data dry-run inference plus dashboard rebuild without notifications or order placement.
+- Static dashboard packaging is Vercel-ready: `dashboard.html`, `dashboard_data/index.json`, `dashboard_data/model_versions.json`, and 25 `dashboard_data/versioned/*/SOXL.json` files are trackable; `vercel.json` rewrites `/` to `/dashboard.html` and sets revalidation headers for dashboard data.
+
+Additional verification:
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_runtime.py::test_best_model_for_family_refuses_unpromoted_fallback tests/test_runtime.py::test_best_model_for_family_selects_highest_promoted_score -q
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_runtime.py::test_risk_gate_clips_large_position_step_when_enabled tests/test_paper_trading.py::test_paper_broker_state_roundtrip tests/test_paper_trading.py::test_post_execution_audit_uses_realized_paper_position tests/test_paper_trading.py::test_block_risk_decision_preserves_frozen_decision_contract -q
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_daily_scheduler.py::test_scheduler_smoke_mode_runs_cached_dry_run_with_dashboard tests/test_vercel_dashboard.py -q
+PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py --skip-data-update --dry-run --no-notify --skip-dashboard
+PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py --skip-data-update --no-notify --skip-dashboard
+PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py --skip-data-update --dry-run --no-notify --skip-dashboard
+PYTHONPATH=. qlib_venv/bin/python scripts/build_backtest_dashboard.py
+curl -I http://127.0.0.1:8766/dashboard.html
+curl -I http://127.0.0.1:8766/dashboard_data/index.json
+```
+
+Final verification:
+
+- Focused regression set: `29 passed`.
+- `production/soxl_daily_scheduler.py --smoke`: completed cached-data inference, auto-selected `balanced_rule_residual_v19`, approved the dry-run risk gate, and rebuilt `dashboard_data/` with `25` versions.
+- `scripts/check_harness.py`: `passed=71 failures=0`.
+- Local HTTP checks returned `200 OK` for `dashboard.html` and `dashboard_data/index.json`.
+- Browser screenshot verification was attempted through Computer Use, but macOS Accessibility/Screen Recording permissions were still pending; no screenshot evidence was produced in this pass.
+
 ## Next Action
 
-1. Diagnose why `auto_select_profile(profile_family="balanced")` chooses `balanced` even though runtime risk gating rejects its promotion sidecar.
-2. Add a scheduled-loop smoke command that exercises cached-data inference plus dashboard rebuild without placing orders.
-3. Prepare a Vercel-compatible dashboard packaging path; `dashboard_data/` is currently gitignored, so deployment needs either generated build output or an explicit tracked/static export policy.
+1. Commit and push the production-loop evidence.
+2. After production loop stability is on remote, resume model optimization from the SOXX-aware frontier rather than changing scheduler/runtime behavior further.
 
 ## Prior Data/Release Goal
 
