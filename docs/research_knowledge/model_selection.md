@@ -74,3 +74,13 @@ Conclusion: keep as a diagnostic candidate and validate by walk-forward daily
 composition before any runtime binding. This is a distinct mechanism from
 continued PPO training, MoE routing, SOXX threshold tuning, or direct feature
 retraining.
+
+Walk-forward daily-path validation was mixed. `wf_2022` improved versus v22
+from `-44.11% / 45.95% MaxDD / 0.228 avg_pos` to `-20.68% / 26.65% MaxDD /
+0.184 avg_pos`, and `wf_2023_2024` improved from `32.56% / 33.21% MaxDD` to
+`62.64% / 30.18% MaxDD`. But `wf_2020` return fell to `49.86%`, below both
+v22 (`61.42%`) and v19_reg (`69.45%`) daily paths.
+
+Conclusion update: diagnostic keep, no runtime binding. If this line continues,
+the next mechanism must add a bull-participation guard or mode-band exception
+and rerun all three walk-forward daily-path checks.

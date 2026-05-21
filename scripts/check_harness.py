@@ -74,6 +74,7 @@ DEFAULT_COMPILE_TARGETS = [
     "scripts/evaluate_intraday_rejection.py",
     "scripts/evaluate_signed_te_reversion.py",
     "scripts/evaluate_signed_te_stress_gate.py",
+    "scripts/export_profile_daily_backtest.py",
     "scripts/evaluate_selective_release_overlay.py",
     "scripts/evaluate_selective_release_walkforward.py",
     "scripts/evaluate_soxx_relative_overlay.py",

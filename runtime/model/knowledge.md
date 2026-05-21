@@ -784,3 +784,45 @@ Decision:
 - Next valid loop is walk-forward daily-path composition for v19_reg + v22,
   using regenerated saved-window daily paths, not another PPO continuation,
   MoE sweep, SOXX threshold tune, or direct feature retrain.
+
+## 2026-05-21 v19_reg + v22 Budget-Usage Walk-Forward
+
+Question: does the fixed-path budget-usage gain survive saved walk-forward
+actors?
+
+Answer: partially. The mechanism improves daily-path replay in `wf_2022` and
+`wf_2023_2024`, but it loses too much `wf_2020` bull-market return for runtime
+promotion.
+
+Evidence:
+
+- Summary:
+  `runtime/model/card/v19reg_v22_budget_usage_v1/walkforward_summary.md`
+- Window cards:
+  `runtime/model/card/v19reg_v22_budget_usage_v1/walkforward/wf_2020/`
+  `runtime/model/card/v19reg_v22_budget_usage_v1/walkforward/wf_2022/`
+  `runtime/model/card/v19reg_v22_budget_usage_v1/walkforward/wf_2023_2024/`
+- Harness support:
+  `scripts/export_profile_daily_backtest.py` now resolves the saved
+  walk-forward actor layout and supports explicit `--model`.
+
+Readout:
+
+- `wf_2020`: composed `49.86%` return / `0.965` Sharpe / `29.85%` MaxDD /
+  `0.394` avg position / `23` trades. It improves drawdown versus v22 daily
+  path but loses `11.56pp` return versus v22 and `19.59pp` versus v19_reg.
+- `wf_2022`: composed `-20.68%` return / `-0.624` Sharpe / `26.65%` MaxDD /
+  `0.184` avg position / `15` trades. Versus v22 daily path, return improves
+  `+23.42pp`, MaxDD improves `-19.30pp`, and avg position drops `-0.044`.
+- `wf_2023_2024`: composed `62.64%` return / `1.424` Sharpe / `30.18%` MaxDD /
+  `0.316` avg position / `27` trades. Versus v22 daily path, return improves
+  `+30.08pp` and MaxDD improves `-3.03pp`.
+
+Decision:
+
+- Keep as diagnostic evidence, not runtime evidence.
+- The next valid continuation is a distinct bull-participation guard or
+  mode-band exception for strong trend windows, followed by the same three
+  walk-forward daily-path checks.
+- Do not use this as justification for generic PPO continuation, SOXX cap
+  threshold tuning, or MoE hyperparameter sweeps.

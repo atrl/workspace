@@ -163,3 +163,82 @@ Decision:
 - Next valid loop: export saved walk-forward daily paths for v19_reg and v22,
   compose each window with the same generalized script, and compare against the
   retained walk-forward actor baselines.
+
+## Walk-Forward Daily-Path Validation
+
+2026-05-21 continuation:
+
+Harness fix:
+
+- `scripts/export_profile_daily_backtest.py` now resolves the saved
+  walk-forward actor layout
+  `runtime/model/card/<profile>_<window>/soxl_<profile>_<window>_actor.pt`.
+- `tests/test_artifact_paths.py` covers the fallback layout and explicit
+  `--model` override.
+
+Commands:
+
+```bash
+PYTHONPATH=src:. qlib_venv/bin/python scripts/export_profile_daily_backtest.py \
+  --profile balanced_rule_residual_v19_reg --tag wf_2020 \
+  --test-start 2020-01-01 --test-end 2020-12-31 \
+  --output runtime/model/card/v19reg_v22_budget_usage_v1/walkforward/inputs/wf_2020/balanced_rule_residual_v19_reg_input.csv
+
+PYTHONPATH=src:. qlib_venv/bin/python scripts/export_profile_daily_backtest.py \
+  --profile balanced_rule_residual_v22 --tag wf_2020 \
+  --test-start 2020-01-01 --test-end 2020-12-31 \
+  --output runtime/model/card/v19reg_v22_budget_usage_v1/walkforward/inputs/wf_2020/balanced_rule_residual_v22_input.csv
+
+PYTHONPATH=src:. qlib_venv/bin/python scripts/export_profile_daily_backtest.py \
+  --profile balanced_rule_residual_v19_reg --tag wf_2022 \
+  --test-start 2022-01-01 --test-end 2022-12-31 \
+  --output runtime/model/card/v19reg_v22_budget_usage_v1/walkforward/inputs/wf_2022/balanced_rule_residual_v19_reg_input.csv
+
+PYTHONPATH=src:. qlib_venv/bin/python scripts/export_profile_daily_backtest.py \
+  --profile balanced_rule_residual_v22 --tag wf_2022 \
+  --test-start 2022-01-01 --test-end 2022-12-31 \
+  --output runtime/model/card/v19reg_v22_budget_usage_v1/walkforward/inputs/wf_2022/balanced_rule_residual_v22_input.csv
+
+PYTHONPATH=src:. qlib_venv/bin/python scripts/export_profile_daily_backtest.py \
+  --profile balanced_rule_residual_v19_reg --tag wf_2023_2024 \
+  --test-start 2024-01-01 --test-end 2024-12-31 \
+  --output runtime/model/card/v19reg_v22_budget_usage_v1/walkforward/inputs/wf_2023_2024/balanced_rule_residual_v19_reg_input.csv
+
+PYTHONPATH=src:. qlib_venv/bin/python scripts/export_profile_daily_backtest.py \
+  --profile balanced_rule_residual_v22 --tag wf_2023_2024 \
+  --test-start 2024-01-01 --test-end 2024-12-31 \
+  --output runtime/model/card/v19reg_v22_budget_usage_v1/walkforward/inputs/wf_2023_2024/balanced_rule_residual_v22_input.csv
+```
+
+Then each window was composed with
+`scripts/compose_budget_usage_counterfactual.py` into:
+
+- `runtime/model/card/v19reg_v22_budget_usage_v1/walkforward/wf_2020/`
+- `runtime/model/card/v19reg_v22_budget_usage_v1/walkforward/wf_2022/`
+- `runtime/model/card/v19reg_v22_budget_usage_v1/walkforward/wf_2023_2024/`
+
+Readout:
+
+- `wf_2020`: composed `49.86%` return / `0.965` Sharpe / `29.85%` MaxDD /
+  `0.394` avg position / `23` trades. Versus v22 daily path, return is
+  `-11.56pp` but MaxDD improves `-4.50pp`.
+- `wf_2022`: composed `-20.68%` return / `-0.624` Sharpe / `26.65%` MaxDD /
+  `0.184` avg position / `15` trades. Versus v22 daily path, return improves
+  `+23.42pp`, MaxDD improves `-19.30pp`, and avg position drops `-0.044`.
+- `wf_2023_2024`: composed `62.64%` return / `1.424` Sharpe / `30.18%` MaxDD /
+  `0.316` avg position / `27` trades. Versus v22 daily path, return improves
+  `+30.08pp`, MaxDD improves `-3.03pp`, and avg position drops `-0.045`.
+
+Decision:
+
+- Keep as a diagnostic candidate / no runtime binding.
+- The 2022 defense and 2024 recovery improvements are real in daily-path replay,
+  but `wf_2020` loses too much bull participation.
+- Next valid continuation would need a distinct bull-participation guard or
+  mode-band exception, then the same three WF daily-path checks. Do not continue
+  this line by generic PPO training, SOXX cap tuning, or MoE hyperparameter
+  sweeps.
+
+Summary:
+
+- `runtime/model/card/v19reg_v22_budget_usage_v1/walkforward_summary.md`

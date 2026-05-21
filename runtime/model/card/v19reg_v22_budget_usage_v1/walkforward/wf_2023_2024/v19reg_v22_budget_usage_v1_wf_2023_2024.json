@@ -1,0 +1,168 @@
+{
+  "profile": "v19reg_v22_budget_usage_v1_wf_2023_2024",
+  "composition": "budget_usage",
+  "description": "Walk-forward budget-usage composition: v19_reg wf_2023_2024 sets the slow risk-mode band and v22 wf_2023_2024 supplies usage inside that band.",
+  "slow_label": "v19_reg_wf_2023_2024",
+  "fast_label": "v22_wf_2023_2024",
+  "composed_label": "v19reg_v22_budget_usage_v1_wf_2023_2024",
+  "config": {
+    "mode_bands": {
+      "trend_hold": [
+        0.45,
+        0.95
+      ],
+      "crash_rebuild": [
+        0.25,
+        0.65
+      ],
+      "defensive_hold": [
+        0.1,
+        0.45
+      ],
+      "flat_wait": [
+        0.0,
+        0.25
+      ]
+    },
+    "mode_slack": {
+      "trend_hold": 0.35,
+      "crash_rebuild": 0.25,
+      "defensive_hold": 0.1,
+      "flat_wait": 0.05
+    },
+    "trade_threshold": 0.04,
+    "trade_lock_days": 5
+  },
+  "variants": {
+    "v19_reg_wf_2023_2024": {
+      "test_proxy": {
+        "rows": 251,
+        "start": "2024-01-02",
+        "end": "2024-12-30",
+        "return": 42.15068898747105,
+        "sharpe": 1.0843381086459323,
+        "max_dd": 30.7003934355812,
+        "avg_pos": 0.33549755819142957,
+        "stress_avg_pos": 0.38695095496608967,
+        "stress_days": 105,
+        "buy_and_hold_return": -0.3566347296883432,
+        "relative_return": 42.507323717159395,
+        "trades": 180
+      },
+      "slices": {
+        "test_2023_2024": {
+          "rows": 251,
+          "start": "2024-01-02",
+          "end": "2024-12-30",
+          "return": 42.15068898747105,
+          "sharpe": 1.0843381086459323,
+          "max_dd": 30.7003934355812,
+          "avg_pos": 0.33549755819142957,
+          "stress_avg_pos": 0.38695095496608967,
+          "stress_days": 105,
+          "buy_and_hold_return": -0.3566347296883432,
+          "relative_return": 42.507323717159395,
+          "trades": 180
+        }
+      }
+    },
+    "v22_wf_2023_2024": {
+      "test_proxy": {
+        "rows": 251,
+        "start": "2024-01-02",
+        "end": "2024-12-30",
+        "return": 32.559047664873674,
+        "sharpe": 0.8662768656491442,
+        "max_dd": 33.20982305122919,
+        "avg_pos": 0.36178992383525016,
+        "stress_avg_pos": 0.28164327782599385,
+        "stress_days": 191,
+        "buy_and_hold_return": -0.3566347296883432,
+        "relative_return": 32.91568239456202,
+        "trades": 178
+      },
+      "slices": {
+        "test_2023_2024": {
+          "rows": 251,
+          "start": "2024-01-02",
+          "end": "2024-12-30",
+          "return": 32.559047664873674,
+          "sharpe": 0.8662768656491442,
+          "max_dd": 33.20982305122919,
+          "avg_pos": 0.36178992383525016,
+          "stress_avg_pos": 0.28164327782599385,
+          "stress_days": 191,
+          "buy_and_hold_return": -0.3566347296883432,
+          "relative_return": 32.91568239456202,
+          "trades": 178
+        }
+      }
+    },
+    "v19reg_v22_budget_usage_v1_wf_2023_2024": {
+      "test_proxy": {
+        "rows": 251,
+        "start": "2024-01-02",
+        "end": "2024-12-30",
+        "return": 62.64156487745303,
+        "sharpe": 1.4236870326431557,
+        "max_dd": 30.183184108332295,
+        "avg_pos": 0.3164889983912351,
+        "stress_avg_pos": 0.33473519792975204,
+        "stress_days": 121,
+        "buy_and_hold_return": -0.3566347296883432,
+        "relative_return": 62.99819960714137,
+        "trades": 27
+      },
+      "slices": {
+        "test_2023_2024": {
+          "rows": 251,
+          "start": "2024-01-02",
+          "end": "2024-12-30",
+          "return": 62.64156487745303,
+          "sharpe": 1.4236870326431557,
+          "max_dd": 30.183184108332295,
+          "avg_pos": 0.3164889983912351,
+          "stress_avg_pos": 0.33473519792975204,
+          "stress_days": 121,
+          "buy_and_hold_return": -0.3566347296883432,
+          "relative_return": 62.99819960714137,
+          "trades": 27
+        }
+      }
+    }
+  },
+  "comparison": {
+    "composed_vs_slow": {
+      "test_proxy": {
+        "delta_return": 20.49087588998198,
+        "delta_sharpe": 0.3393489239972234,
+        "delta_max_dd": -0.5172093272489064,
+        "delta_avg_pos": -0.019008559800194447,
+        "delta_trades": -153
+      },
+      "test_2023_2024": {
+        "delta_return": 20.49087588998198,
+        "delta_sharpe": 0.3393489239972234,
+        "delta_max_dd": -0.5172093272489064,
+        "delta_avg_pos": -0.019008559800194447,
+        "delta_trades": -153
+      }
+    },
+    "composed_vs_fast": {
+      "test_proxy": {
+        "delta_return": 30.082517212579354,
+        "delta_sharpe": 0.5574101669940115,
+        "delta_max_dd": -3.0266389428968985,
+        "delta_avg_pos": -0.04530092544401504,
+        "delta_trades": -151
+      },
+      "test_2023_2024": {
+        "delta_return": 30.082517212579354,
+        "delta_sharpe": 0.5574101669940115,
+        "delta_max_dd": -3.0266389428968985,
+        "delta_avg_pos": -0.04530092544401504,
+        "delta_trades": -151
+      }
+    }
+  }
+}

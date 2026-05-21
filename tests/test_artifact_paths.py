@@ -1,5 +1,9 @@
 from __future__ import annotations
 
+from pathlib import Path
+from tempfile import TemporaryDirectory
+
+from scripts.export_profile_daily_backtest import resolve_model_path
 from scripts.walkforward_backtest_validate import model_path_for_profile
 from src.soxl_quant.settings import artifact_stem, model_artifact_path, summary_artifact_path
 
@@ -30,9 +34,36 @@ def test_walkforward_validator_uses_canonical_profile_model_path():
     )
 
 
+def test_export_profile_daily_backtest_resolves_saved_walkforward_actor_layout():
+    with TemporaryDirectory() as tmpdir:
+        root = Path(tmpdir) / "card"
+        actor = root / "balanced_rule_residual_v22_wf_2022" / "soxl_balanced_rule_residual_v22_wf_2022_actor.pt"
+        actor.parent.mkdir(parents=True)
+        actor.write_bytes(b"actor")
+
+        assert (
+            resolve_model_path(
+                "balanced_rule_residual_v22",
+                "wf_2022",
+                model_dir=root,
+            )
+            == actor
+        )
+
+
+def test_export_profile_daily_backtest_prefers_explicit_model_path():
+    with TemporaryDirectory() as tmpdir:
+        explicit = Path(tmpdir) / "custom_actor.pt"
+        explicit.write_bytes(b"actor")
+
+        assert resolve_model_path("balanced", "wf_2020", explicit_model=explicit) == explicit
+
+
 if __name__ == "__main__":
     test_default_artifact_paths_stay_canonical()
     test_namespaced_artifact_paths_do_not_clobber_main_profile_outputs()
     test_artifact_tag_is_sanitized_for_worker_names()
     test_walkforward_validator_uses_canonical_profile_model_path()
+    test_export_profile_daily_backtest_resolves_saved_walkforward_actor_layout()
+    test_export_profile_daily_backtest_prefers_explicit_model_path()
     print("test_artifact_paths: OK")

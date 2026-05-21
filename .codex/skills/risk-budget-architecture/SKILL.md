@@ -181,6 +181,13 @@ next gate is the same composition on saved walk-forward daily paths, with
 window-specific `--tag wf_2020`, `--tag wf_2022`, and `--tag wf_2023_2024`
 exports.
 
+Interpret walk-forward composition by all windows, not just stress defense. The
+2026-05-21 `v19reg_v22_budget_usage_v1` walk-forward check improved `wf_2022`
+and `wf_2023_2024`, but lost too much `wf_2020` return. That pattern is
+diagnostic keep / no runtime binding. A valid follow-up must introduce a
+distinct bull-participation guard or mode-band exception and rerun all three
+walk-forward daily-path checks.
+
 ### v2: Mode-Conditional Reward + Dynamic Band Scaling
 
 在 v1 基础上引入两个互补扩展：

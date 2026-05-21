@@ -23,10 +23,41 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Export daily SOXL backtest rows for a saved profile actor.")
     parser.add_argument("--profile", required=True, help="Profile name, e.g. balanced or balanced_transition_state")
     parser.add_argument("--tag", default="", help="Artifact tag, e.g. wf_2020")
+    parser.add_argument("--model", type=Path, default=None, help="Explicit actor bundle path")
     parser.add_argument("--output", required=True, help="CSV path to write")
     parser.add_argument("--test-start", default="", help="Override test start date (for walk-forward windows)")
     parser.add_argument("--test-end", default="", help="Override test end date (for walk-forward windows)")
     return parser.parse_args()
+
+
+def resolve_model_path(
+    profile_name: str,
+    tag: str = "",
+    *,
+    explicit_model: Path | None = None,
+    model_dir: Path = MODEL_DIR,
+) -> Path:
+    if explicit_model is not None:
+        path = explicit_model
+        if not path.exists():
+            raise FileNotFoundError(f"actor checkpoint not found: {path}")
+        return path
+
+    primary = model_artifact_path(profile_name, tag)
+    if primary.exists():
+        return primary
+
+    cleaned_tag = tag.strip()
+    if cleaned_tag:
+        walk_forward_path = (
+            model_dir
+            / f"{profile_name}_{cleaned_tag}"
+            / f"soxl_{profile_name}_{cleaned_tag}_actor.pt"
+        )
+        if walk_forward_path.exists():
+            return walk_forward_path
+
+    raise FileNotFoundError(f"actor checkpoint not found for profile={profile_name} tag={tag!r}: {primary}")
 
 
 def main() -> None:
@@ -47,7 +78,8 @@ def main() -> None:
     price = dataset.handler.price_frame.droplevel("instrument")["price"].loc[test_df.index]
 
     profile = load_profile(args.profile)
-    ckpt = torch.load(model_artifact_path(args.profile, args.tag), map_location="cpu", weights_only=False)
+    model_path = resolve_model_path(args.profile, args.tag, explicit_model=args.model)
+    ckpt = torch.load(model_path, map_location="cpu", weights_only=False)
     _, actor = build_policy(
         int(ckpt["obs_dim"]),
         profile,

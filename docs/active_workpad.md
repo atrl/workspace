@@ -4165,3 +4165,56 @@ Decision:
 - Next valid model loop is walk-forward daily-path composition using saved
   v19_reg and v22 walk-forward actors. Do not continue with another generic PPO
   run, SOXX cap threshold tune, or MoE hyperparameter sweep.
+
+## 2026-05-21 v19_reg + v22 Budget-Usage Walk-Forward
+
+Goal:
+
+- Validate the fixed-path `v19reg_v22_budget_usage_v1` mechanism on saved
+  walk-forward actors before considering any runtime path.
+
+Harness change:
+
+- `scripts/export_profile_daily_backtest.py` now resolves saved WF actor
+  directories like
+  `runtime/model/card/balanced_rule_residual_v22_wf_2022/soxl_balanced_rule_residual_v22_wf_2022_actor.pt`.
+- `tests/test_artifact_paths.py` covers the WF actor fallback and explicit
+  `--model` override.
+
+Evidence:
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_artifact_paths.py -q
+# 6 passed
+```
+
+Artifacts:
+
+- Summary:
+  `runtime/model/card/v19reg_v22_budget_usage_v1/walkforward_summary.md`
+- Window cards:
+  - `runtime/model/card/v19reg_v22_budget_usage_v1/walkforward/wf_2020/`
+  - `runtime/model/card/v19reg_v22_budget_usage_v1/walkforward/wf_2022/`
+  - `runtime/model/card/v19reg_v22_budget_usage_v1/walkforward/wf_2023_2024/`
+
+Readout:
+
+- `wf_2020`: composed `49.86%` return / `0.965` Sharpe / `29.85%` MaxDD.
+  It improves MaxDD versus v22 daily path by `4.50pp`, but loses `11.56pp`
+  return versus v22 and `19.59pp` versus v19_reg.
+- `wf_2022`: composed `-20.68%` return / `-0.624` Sharpe / `26.65%` MaxDD /
+  `0.184` avg position. It improves v22 daily path by `+23.42pp` return,
+  `-19.30pp` MaxDD, and `-0.044` avg position.
+- `wf_2023_2024`: composed `62.64%` return / `1.424` Sharpe / `30.18%`
+  MaxDD. It improves v22 daily path by `+30.08pp` return and `-3.03pp`
+  MaxDD.
+
+Decision:
+
+- Diagnostic keep, no runtime binding.
+- This is not another over-conservative risk-budget replay: 2022 and 2024 both
+  improve. The blocker is 2020 bull participation.
+- Next valid model-side loop, if continuing this mechanism, must add a distinct
+  bull-participation guard or mode-band exception and rerun the same three
+  walk-forward daily-path checks. Do not continue with generic PPO training,
+  SOXX cap threshold tuning, or MoE hyperparameter sweeps.
