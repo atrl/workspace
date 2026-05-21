@@ -1579,3 +1579,42 @@ Verification:
 Evidence card:
 
 - `runtime/production/card/vercel_scheduler_env_visibility_v1/notes.md`
+
+## 2026-05-21 Scheduler Env Runtime Composer
+
+The LaunchAgent wrapper can now intentionally enable an approved runtime
+composer from the private scheduler env file without editing plist arguments.
+
+`production/run_soxl_scheduler.sh` still defaults to the existing single-profile
+schedule. After loading `${SOXL_LAUNCH_ENV_FILE:-$HOME/.openclaw/soxl.env}`, it
+only appends composer flags when `SOXL_RUNTIME_COMPOSER` is set to a non-`none`
+value and no explicit `--runtime-composer` arg was already passed.
+
+Supported env fields:
+
+- `SOXL_RUNTIME_COMPOSER`
+- `SOXL_RUNTIME_COMPOSER_PROFILE`
+- `SOXL_RUNTIME_SLOW_PROFILE`
+- `SOXL_RUNTIME_FAST_PROFILE`
+- `SOXL_RUNTIME_BULL_PARTICIPATION_GUARD`
+- optional bull guard knobs prefixed with `SOXL_RUNTIME_BULL_`
+
+Live smoke with a temporary env file ran:
+
+```bash
+SOXL_LAUNCH_ENV_FILE="$tmp_env" production/run_soxl_scheduler.sh \
+  --broker paper --dry-run --no-notify --skip-data-update --skip-dashboard
+```
+
+Result: scheduler selected `runtime composer=budget_usage`,
+`profile=v19reg_v22_budget_usage_bull_guard_v1`, `as_of=2026-05-20`,
+`risk_gate approved=True`, and wrote the dry-run artifact to
+`runtime/soxl/paper_trading/2026-05-20/dry_run`.
+
+Decision: keep default LaunchAgents on `balanced_rule_residual_v22`. To test the
+composer on the next fresh non-dry paper date, add the `SOXL_RUNTIME_*` fields
+to `/Users/rziiiii/.openclaw/soxl.env`; do not silently switch defaults.
+
+Evidence card:
+
+- `runtime/production/card/scheduler_env_runtime_composer_v1/notes.md`

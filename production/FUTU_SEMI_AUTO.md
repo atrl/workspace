@@ -156,6 +156,18 @@ Pipeline order:
    The LaunchAgents call `production/run_soxl_scheduler.sh`, which loads
    `${SOXL_LAUNCH_ENV_FILE:-$HOME/.openclaw/soxl.env}` before running
    `production/soxl_daily_scheduler.py`.
+
+   To intentionally run the approved budget-usage runtime composer through the
+   same LaunchAgent wrapper, add the composer fields to that private env file:
+   ```bash
+   export SOXL_RUNTIME_COMPOSER='budget_usage'
+   export SOXL_RUNTIME_COMPOSER_PROFILE='v19reg_v22_budget_usage_bull_guard_v1'
+   export SOXL_RUNTIME_SLOW_PROFILE='balanced_rule_residual_v19_reg'
+   export SOXL_RUNTIME_FAST_PROFILE='balanced_rule_residual_v22'
+   export SOXL_RUNTIME_BULL_PARTICIPATION_GUARD='true'
+   ```
+   Leave `SOXL_RUNTIME_COMPOSER` unset or set it to `none` to keep the default
+   single-profile `balanced_rule_residual_v22` scheduler path.
 2. Edit `production/com.soxl.daily.scheduler.plist` and `production/com.soxl.preopen.scheduler.plist` if you want Bark notifications.
 3. Install:
    ```bash

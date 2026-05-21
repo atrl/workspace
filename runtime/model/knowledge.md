@@ -942,3 +942,22 @@ Evidence:
 Next valid step: keep default scheduling unchanged unless explicitly deciding to
 run the approved composer non-dry on a fresh paper date; Vercel still needs
 credentials before dashboard deployment can be retried.
+
+## 2026-05-21 Scheduler Env Path for Approved Composer
+
+The approved `v19reg_v22_budget_usage_bull_guard_v1` runtime composer can now
+be enabled through the LaunchAgent wrapper's private env file without editing
+plist arguments:
+
+- `SOXL_RUNTIME_COMPOSER=budget_usage`
+- `SOXL_RUNTIME_COMPOSER_PROFILE=v19reg_v22_budget_usage_bull_guard_v1`
+- `SOXL_RUNTIME_SLOW_PROFILE=balanced_rule_residual_v19_reg`
+- `SOXL_RUNTIME_FAST_PROFILE=balanced_rule_residual_v22`
+- `SOXL_RUNTIME_BULL_PARTICIPATION_GUARD=true`
+
+This does not change the default scheduled model path. A temporary-env wrapper
+dry-run on cached `2026-05-20` data selected the composer, passed the risk gate,
+and wrote `runtime/soxl/paper_trading/2026-05-20/dry_run/summary.json`.
+
+Next model/runtime proof remains a fresh-date non-dry paper run with this env
+configuration intentionally enabled.

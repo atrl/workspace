@@ -1,6 +1,9 @@
 from __future__ import annotations
 
+import os
 import plistlib
+import subprocess
+from tempfile import TemporaryDirectory
 from pathlib import Path
 
 
@@ -144,6 +147,67 @@ def test_launchagent_wrapper_exists_and_loads_private_env_file():
     assert "/opt/homebrew/bin" in text
     assert ". \"$ENV_FILE\"" in text
     assert "soxl_daily_scheduler.py" in text
+
+
+def test_launchagent_wrapper_can_enable_runtime_composer_from_private_env_file():
+    wrapper = ROOT / "production" / "run_soxl_scheduler.sh"
+
+    with TemporaryDirectory() as tmpdir:
+        root = Path(tmpdir)
+        root.mkdir(exist_ok=True)
+        env_file = root / "soxl.env"
+        capture_file = root / "captured_args.txt"
+        fake_python = root / "python"
+        fake_python.write_text(
+            "#!/bin/sh\n"
+            "printf '%s\\n' \"$@\" > \"$SOXL_CAPTURE_ARGS\"\n",
+            encoding="utf-8",
+        )
+        fake_python.chmod(0o755)
+        env_file.write_text(
+            "\n".join(
+                [
+                    "export SOXL_RUNTIME_COMPOSER='budget_usage'",
+                    "export SOXL_RUNTIME_COMPOSER_PROFILE='v19reg_v22_budget_usage_bull_guard_v1'",
+                    "export SOXL_RUNTIME_SLOW_PROFILE='balanced_rule_residual_v19_reg'",
+                    "export SOXL_RUNTIME_FAST_PROFILE='balanced_rule_residual_v22'",
+                    "export SOXL_RUNTIME_BULL_PARTICIPATION_GUARD='true'",
+                    "",
+                ]
+            ),
+            encoding="utf-8",
+        )
+
+        env = {
+            **os.environ,
+            "SOXL_SCHEDULER_ROOT": str(root),
+            "SOXL_SCHEDULER_PYTHON": str(fake_python),
+            "SOXL_LAUNCH_ENV_FILE": str(env_file),
+            "SOXL_CAPTURE_ARGS": str(capture_file),
+        }
+        result = subprocess.run(
+            ["bash", str(wrapper), "--broker", "paper", "--help"],
+            capture_output=True,
+            text=True,
+            env=env,
+            check=True,
+        )
+
+        captured_args = capture_file.read_text(encoding="utf-8").splitlines()
+
+    assert result.returncode == 0
+    assert captured_args[0] == f"{root}/production/soxl_daily_scheduler.py"
+    assert captured_args[-9:] == [
+        "--runtime-composer",
+        "budget_usage",
+        "--composer-profile",
+        "v19reg_v22_budget_usage_bull_guard_v1",
+        "--slow-profile",
+        "balanced_rule_residual_v19_reg",
+        "--fast-profile",
+        "balanced_rule_residual_v22",
+        "--bull-participation-guard",
+    ]
 
 
 def test_weekly_walkforward_wrapper_reviews_current_runtime_profile():

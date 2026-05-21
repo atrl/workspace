@@ -4924,3 +4924,65 @@ Decision:
 Artifact:
 
 - `runtime/production/card/vercel_scheduler_env_visibility_v1/notes.md`
+
+## 2026-05-21 Scheduler Env Runtime Composer
+
+Goal:
+
+- Move the approved `v19reg_v22_budget_usage_bull_guard_v1` composer closer to
+  scheduled paper validation without silently changing the default LaunchAgent
+  path.
+
+Baseline:
+
+- `production/soxl_daily_scheduler.py` and `production/soxl_paper_trading.py`
+  already accepted explicit `--runtime-composer budget_usage` flags.
+- The LaunchAgent wrapper loaded the private env file but did not convert env
+  settings into composer CLI flags.
+- Installed default scheduling still selected single-profile
+  `balanced_rule_residual_v22`.
+
+Change:
+
+- `production/run_soxl_scheduler.sh` can now append composer CLI flags from the
+  private env file when `SOXL_RUNTIME_COMPOSER` is set and no explicit
+  `--runtime-composer` arg was passed.
+- Supported private env fields include `SOXL_RUNTIME_COMPOSER`,
+  `SOXL_RUNTIME_COMPOSER_PROFILE`, `SOXL_RUNTIME_SLOW_PROFILE`,
+  `SOXL_RUNTIME_FAST_PROFILE`, `SOXL_RUNTIME_BULL_PARTICIPATION_GUARD`, and
+  optional bull-guard knob overrides.
+- Defaults remain unchanged when `SOXL_RUNTIME_COMPOSER` is unset or `none`.
+
+Evidence:
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest \
+  tests/test_production_schedule.py::test_launchagent_wrapper_can_enable_runtime_composer_from_private_env_file -q
+# red before implementation: wrapper ignored scheduler root/python overrides and no captured command was written
+# green after implementation: 1 passed
+
+bash -n production/run_soxl_scheduler.sh
+# ok
+
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_production_schedule.py -q
+# 8 passed
+
+SOXL_LAUNCH_ENV_FILE="$tmp_env" production/run_soxl_scheduler.sh \
+  --broker paper --dry-run --no-notify --skip-data-update --skip-dashboard
+# using runtime composer=budget_usage profile=v19reg_v22_budget_usage_bull_guard_v1
+# as_of=2026-05-20
+# risk_gate approved=True
+# dry-run: skipped order placement
+# output=runtime/soxl/paper_trading/2026-05-20/dry_run
+```
+
+Decision:
+
+- This is an operator-controlled path to an intentional composer paper run, not
+  a default schedule switch.
+- The next fresh-date non-dry composer proof can be obtained by adding the
+  `SOXL_RUNTIME_*` fields to `/Users/rziiiii/.openclaw/soxl.env`.
+
+Artifact:
+
+- `runtime/production/card/scheduler_env_runtime_composer_v1/notes.md`
