@@ -3860,3 +3860,56 @@ Decision:
 - The model-optimization readout is now narrower: v22 is not simply
   undertrained, and v19_reg + v22 feature fusion increases exposure rather than
   fixing bear-market risk.
+
+## 2026-05-21 Vercel Scheduled Deploy Integration
+
+Goal:
+
+- Connect the Vercel deploy attempt to the scheduled dashboard update path so
+  pre-open and post-close dashboard refreshes can publish remotely once
+  credentials exist.
+
+Root cause:
+
+- `scripts/deploy_vercel_dashboard.py` could validate/deploy the static bundle,
+  but `production/soxl_daily_scheduler.py` only rebuilt the local dashboard.
+- The repo-owned LaunchAgent plists did not pass any Vercel deploy flag.
+- `production/crontab.txt` still had stale daily SOXL paths under
+  `/home/rziiiii/dev/workspace`.
+
+Change:
+
+- Added scheduler flag `--vercel-deploy`.
+- After dashboard build, the scheduler runs
+  `scripts/deploy_vercel_dashboard.py --deploy`.
+- Missing credentials remain non-fatal by default and write evidence as
+  `blocked_no_credentials`; `--strict-vercel-deploy` exists for operator runs
+  that should fail on this condition.
+- Added `--vercel-deploy` to the pre-open and post-close LaunchAgent plists.
+- Updated `production/crontab.txt` daily SOXL entries to use
+  `/Users/rziiiii/.openclaw/workspace/production/run_soxl_scheduler.sh`.
+- Synced and reloaded local LaunchAgent copies.
+
+Evidence:
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_daily_scheduler.py tests/test_production_schedule.py -q
+# 17 passed
+
+PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py --broker paper --dry-run --no-notify --skip-data-update --vercel-deploy
+# auto-selected balanced_rule_residual_v22
+# vercel_dashboard status=blocked_no_credentials
+# [scheduler] all done
+
+production/check_scheduler_health.sh
+# LaunchAgent com.soxl.preopen.scheduler plist: matches repo
+# LaunchAgent com.soxl.daily.scheduler plist: matches repo
+# pre-open ... dashboard + Vercel deploy attempt
+# post-close ... dashboard + Vercel deploy attempt
+```
+
+Decision:
+
+- Scheduled dashboard refreshes now attempt Vercel deployment.
+- Remote deployment is still blocked by missing credentials, but this is now a
+  scheduled deploy blocker rather than an unconnected one-off script.

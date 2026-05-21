@@ -422,8 +422,8 @@ next_run_day_label() {
 
 print_next_runs() {
     echo "--- Next Scheduled Runs ---"
-    echo "  pre-open: $(next_run_day_label preopen 2100) 21:00 Mon-Fri Asia/Shanghai — US pre-open dry-run + dashboard"
-    echo "  post-close: $(next_run_day_label postclose 0535) 05:35 Tue-Sat Asia/Shanghai — US post-close data + paper trading + dashboard"
+    echo "  pre-open: $(next_run_day_label preopen 2100) 21:00 Mon-Fri Asia/Shanghai — US pre-open dry-run + dashboard + Vercel deploy attempt"
+    echo "  post-close: $(next_run_day_label postclose 0535) 05:35 Tue-Sat Asia/Shanghai — US post-close data + paper trading + dashboard + Vercel deploy attempt"
     echo "  weekly: $(next_run_day_label weekly 0700) 07:00 Sat Asia/Shanghai — weekly walk-forward after post-close refresh"
 }
 

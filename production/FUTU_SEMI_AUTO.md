@@ -179,11 +179,11 @@ Pipeline order:
 
 ```bash
 # Asia/Shanghai local time:
-# Mon-Fri 21:00: US pre-open cached-data dry-run + dashboard
-0 21 * * 1-5 cd /path/to/workspace && PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py --dry-run --skip-data-update >> runtime/soxl/paper_trading/scheduler_preopen.log 2>&1
+# Mon-Fri 21:00: US pre-open cached-data dry-run + dashboard + Vercel deploy attempt
+0 21 * * 1-5 /Users/rziiiii/.openclaw/workspace/production/run_soxl_scheduler.sh --broker paper --dry-run --no-notify --skip-data-update --vercel-deploy >> /Users/rziiiii/.openclaw/workspace/runtime/soxl/paper_trading/scheduler_preopen.log 2>&1
 
-# Tue-Sat 05:35: US post-close data refresh + paper trading + dashboard
-35 5 * * 2-6 cd /path/to/workspace && PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py >> runtime/soxl/paper_trading/scheduler_postclose.log 2>&1
+# Tue-Sat 05:35: US post-close data refresh + paper trading + dashboard + Vercel deploy attempt
+35 5 * * 2-6 /Users/rziiiii/.openclaw/workspace/production/run_soxl_scheduler.sh --broker paper --no-notify --vercel-deploy >> /Users/rziiiii/.openclaw/workspace/runtime/soxl/paper_trading/scheduler_postclose.log 2>&1
 ```
 
 ### Notification Setup (Bark)
@@ -216,6 +216,16 @@ Then open `dashboard.html` in a browser. For Vercel static deployment, keep the 
 `dashboard.html`, `dashboard_data/index.json`, `dashboard_data/model_versions.json`, and
 `dashboard_data/versioned/*/SOXL.json` export together; `vercel.json` serves `/` from
 `dashboard.html` and revalidates the dashboard data on each request.
+
+Scheduled Vercel deployment is opt-in through the scheduler flag:
+```bash
+PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py --broker paper --dry-run --skip-data-update --vercel-deploy
+```
+
+Without Vercel credentials, the scheduler records `blocked_no_credentials` under
+`runtime/production/card/vercel_remote_deploy_v1/` and continues. To publish remotely,
+make `VERCEL_TOKEN` visible to the scheduler environment or run `vercel login` for the
+same user, then rerun with `--vercel-deploy`.
 
 ## Current limitations
 

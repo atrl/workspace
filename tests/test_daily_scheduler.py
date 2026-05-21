@@ -44,6 +44,29 @@ def test_run_replays_child_stderr_on_success(monkeypatch: pytest.MonkeyPatch, ca
     assert "data provider yfinance failed" in captured.err
 
 
+def test_run_allowed_returncode_does_not_print_error(monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]):
+    def fake_run(cmd, capture_output, text):
+        return subprocess.CompletedProcess(
+            cmd,
+            2,
+            stdout="vercel_dashboard status=blocked_no_credentials\n",
+            stderr="",
+        )
+
+    monkeypatch.setattr(soxl_daily_scheduler.subprocess, "run", fake_run)
+
+    returncode = soxl_daily_scheduler._run(
+        ["python", "scripts/deploy_vercel_dashboard.py", "--deploy"],
+        "vercel dashboard deploy",
+        allowed_returncodes={2},
+    )
+
+    captured = capsys.readouterr()
+    assert returncode == 2
+    assert "blocked_no_credentials" in captured.out
+    assert "ERROR in vercel dashboard deploy" not in captured.err
+
+
 def test_scheduler_retries_data_source_failure_as_cached_dry_run(monkeypatch: pytest.MonkeyPatch):
     calls: list[tuple[list[str], str]] = []
 
@@ -149,6 +172,53 @@ def test_scheduler_passes_data_provider_to_paper_runner(monkeypatch: pytest.Monk
     paper_cmd = calls[0][0]
     assert "--data-provider" in paper_cmd
     assert paper_cmd[paper_cmd.index("--data-provider") + 1] == "yahoo_api"
+
+
+def test_scheduler_runs_vercel_deploy_after_dashboard_when_requested(monkeypatch: pytest.MonkeyPatch):
+    calls: list[tuple[list[str], str]] = []
+
+    def fake_run(cmd: list[str], description: str, allowed_returncodes=None):
+        calls.append((cmd, description))
+        return 0
+
+    monkeypatch.setattr(soxl_daily_scheduler, "_run", fake_run)
+    monkeypatch.setattr(sys, "argv", ["soxl_daily_scheduler.py", "--no-notify", "--vercel-deploy"])
+
+    soxl_daily_scheduler.main()
+
+    assert [description for _cmd, description in calls] == [
+        "paper trading",
+        "dashboard build",
+        "vercel dashboard deploy",
+    ]
+    vercel_cmd = calls[2][0]
+    assert "scripts/deploy_vercel_dashboard.py" in vercel_cmd
+    assert "--deploy" in vercel_cmd
+
+
+def test_scheduler_treats_missing_vercel_credentials_as_nonfatal(monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]):
+    calls: list[tuple[list[str], str]] = []
+
+    def fake_run(cmd: list[str], description: str, allowed_returncodes=None):
+        calls.append((cmd, description))
+        if description == "vercel dashboard deploy":
+            assert allowed_returncodes == {2}
+            return 2
+        return 0
+
+    monkeypatch.setattr(soxl_daily_scheduler, "_run", fake_run)
+    monkeypatch.setattr(sys, "argv", ["soxl_daily_scheduler.py", "--no-notify", "--vercel-deploy"])
+
+    soxl_daily_scheduler.main()
+
+    captured = capsys.readouterr()
+    assert "Vercel deploy blocked by missing credentials" in captured.err
+    assert "[scheduler] all done" in captured.out
+    assert [description for _cmd, description in calls] == [
+        "paper trading",
+        "dashboard build",
+        "vercel dashboard deploy",
+    ]
 
 
 def test_scheduler_accepts_polygon_data_provider(monkeypatch: pytest.MonkeyPatch):

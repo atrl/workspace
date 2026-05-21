@@ -678,5 +678,7 @@ def test_scheduler_health_next_runs_skip_elapsed_postclose_window():
 
     assert "--- Next Scheduled Runs ---" in result.stdout
     assert "pre-open: today 21:00 Mon-Fri Asia/Shanghai" in result.stdout
+    assert "US pre-open dry-run + dashboard + Vercel deploy attempt" in result.stdout
     assert "post-close: next eligible day 05:35 Tue-Sat Asia/Shanghai" in result.stdout
+    assert "US post-close data + paper trading + dashboard + Vercel deploy attempt" in result.stdout
     assert "post-close: today 05:35 Tue-Sat Asia/Shanghai" not in result.stdout

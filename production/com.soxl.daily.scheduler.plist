@@ -9,6 +9,7 @@
         <string>/Users/rziiiii/.openclaw/workspace/production/run_soxl_scheduler.sh</string>
         <string>--broker</string>
         <string>paper</string>
+        <string>--vercel-deploy</string>
     </array>
     <key>WorkingDirectory</key>
     <string>/Users/rziiiii/.openclaw/workspace</string>

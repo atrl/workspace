@@ -12,6 +12,7 @@
         <string>--dry-run</string>
         <string>--no-notify</string>
         <string>--skip-data-update</string>
+        <string>--vercel-deploy</string>
     </array>
     <key>WorkingDirectory</key>
     <string>/Users/rziiiii/.openclaw/workspace</string>

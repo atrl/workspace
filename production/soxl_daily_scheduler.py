@@ -67,6 +67,16 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--skip-data-update", action="store_true")
     parser.add_argument("--skip-dashboard", action="store_true")
     parser.add_argument(
+        "--vercel-deploy",
+        action="store_true",
+        help="After rebuilding the dashboard, try to deploy the static bundle to Vercel.",
+    )
+    parser.add_argument(
+        "--strict-vercel-deploy",
+        action="store_true",
+        help="Fail the scheduler when Vercel deployment is blocked by missing credentials.",
+    )
+    parser.add_argument(
         "--smoke",
         action="store_true",
         help="Run cached-data inference plus dashboard rebuild without placing orders or notifying",
@@ -79,7 +89,7 @@ def parse_args() -> argparse.Namespace:
     return args
 
 
-def _run(cmd: list[str], description: str) -> None:
+def _run(cmd: list[str], description: str, allowed_returncodes: set[int] | None = None) -> int:
     print(f"[scheduler] {description}")
     result = subprocess.run(cmd, capture_output=True, text=True)
     if result.stdout:
@@ -87,12 +97,26 @@ def _run(cmd: list[str], description: str) -> None:
     if result.stderr:
         print(result.stderr, file=sys.stderr)
     if result.returncode != 0:
+        if allowed_returncodes and result.returncode in allowed_returncodes:
+            return result.returncode
         print(f"[scheduler] ERROR in {description}:", file=sys.stderr)
         raise SchedulerStepError(
             description=description,
             returncode=result.returncode,
             stdout=result.stdout or "",
             stderr=result.stderr or "",
+        )
+    return result.returncode
+
+
+def _run_vercel_deploy(cmd: list[str], *, strict: bool) -> None:
+    allowed = set() if strict else {2}
+    returncode = _run(cmd, "vercel dashboard deploy", allowed_returncodes=allowed)
+    if not strict and returncode == 2:
+        print(
+            "[scheduler] Vercel deploy blocked by missing credentials; "
+            "continuing after writing deployment evidence",
+            file=sys.stderr,
         )
 
 
@@ -136,6 +160,9 @@ def main() -> None:
         if not args.skip_dashboard:
             dash_cmd = [venv_python, "scripts/build_backtest_dashboard.py"]
             _run(dash_cmd, "dashboard build")
+            if args.vercel_deploy:
+                vercel_cmd = [venv_python, "scripts/deploy_vercel_dashboard.py", "--deploy"]
+                _run_vercel_deploy(vercel_cmd, strict=args.strict_vercel_deploy)
 
         if use_notify:
             notifier.send(

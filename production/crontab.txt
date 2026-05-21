@@ -15,10 +15,10 @@
 # SOXL Daily Scheduler (Asia/Shanghai local time)
 # ============================================
 # 21:00 中国时间 周一-五 — 美股盘前 cached-data signal + dashboard, no paper order
-0 21 * * 1-5 cd /home/rziiiii/dev/workspace && qlib_venv/bin/python production/soxl_daily_scheduler.py --broker paper --dry-run --no-notify --skip-data-update >> runtime/soxl/paper_trading/scheduler_preopen.log 2>&1 || true
+0 21 * * 1-5 /Users/rziiiii/.openclaw/workspace/production/run_soxl_scheduler.sh --broker paper --dry-run --no-notify --skip-data-update --vercel-deploy >> /Users/rziiiii/.openclaw/workspace/runtime/soxl/paper_trading/scheduler_preopen.log 2>&1 || true
 
 # 05:35 中国时间 周二-六 — 美股收盘后完整流程（数据 + 模拟盘 + dashboard）
-35 5 * * 2-6 cd /home/rziiiii/dev/workspace && qlib_venv/bin/python production/soxl_daily_scheduler.py --broker paper --no-notify >> runtime/soxl/paper_trading/scheduler_postclose.log 2>&1 || true
+35 5 * * 2-6 /Users/rziiiii/.openclaw/workspace/production/run_soxl_scheduler.sh --broker paper --no-notify --vercel-deploy >> /Users/rziiiii/.openclaw/workspace/runtime/soxl/paper_trading/scheduler_postclose.log 2>&1 || true
 
 # ============================================
 # SOXL 每周 Walk-Forward 验证

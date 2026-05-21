@@ -1196,3 +1196,47 @@ Decision:
   no Vercel credentials.
 - Evidence card:
   `runtime/production/card/vercel_health_surface_v1/notes.md`.
+
+## 2026-05-21 Vercel Scheduled Deploy Integration
+
+The Vercel deployment script is now part of the scheduled dashboard update path.
+
+Change:
+
+- `production/soxl_daily_scheduler.py` accepts `--vercel-deploy`.
+- After dashboard rebuild, the scheduler runs
+  `scripts/deploy_vercel_dashboard.py --deploy`.
+- Return code `2` from the deploy script means `blocked_no_credentials` and is
+  non-fatal by default, so paper trading and dashboard generation remain healthy
+  while remote deployment is blocked.
+- `--strict-vercel-deploy` can make that blocker fatal for operator runs.
+- The pre-open and post-close LaunchAgent plists now pass `--vercel-deploy`.
+- `production/crontab.txt` daily SOXL entries now use the current repo wrapper
+  path instead of stale `/home/rziiiii/dev/workspace` commands.
+- Local LaunchAgent copies were synced and reloaded.
+
+Evidence:
+
+- Card:
+  `runtime/production/card/vercel_scheduled_deploy_v1/notes.md`
+- Tests:
+  `tests/test_daily_scheduler.py`
+  `tests/test_production_schedule.py`
+- Live smoke:
+  `PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py --broker paper --dry-run --no-notify --skip-data-update --vercel-deploy`
+
+Readout:
+
+- The live smoke selected `balanced_rule_residual_v22`, wrote the
+  `2026-05-20/dry_run` output, rebuilt dashboard static files, attempted Vercel
+  deploy, refreshed `vercel_remote_deploy_v1` evidence, and exited successfully.
+- Vercel remains `blocked_no_credentials` with `deploy_requested=true`.
+- Health now reports both scheduled dashboard windows as including
+  `Vercel deploy attempt`, and installed LaunchAgent plists match the repo
+  copies.
+
+Decision:
+
+- Scheduled dashboard updates are now Vercel-aware.
+- Completion still requires scheduler-visible Vercel credentials and a
+  successful remote deployment URL.
