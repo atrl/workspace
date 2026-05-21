@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-21T13:20:23.692303+00:00",
+  "generated_at": "2026-05-21T13:38:50.781328+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -2918,6 +2918,12 @@
       "bytes": 2616
     },
     {
+      "path": "runtime/production/card/paper_trading_dashboard_metadata_v1/notes.md",
+      "category": "production",
+      "suffix": ".md",
+      "bytes": 3138
+    },
+    {
       "path": "runtime/production/card/polygon_cboe_provider_v1/notes.md",
       "category": "production",
       "suffix": ".md",
@@ -3179,7 +3185,7 @@
       "path": "runtime/production/knowledge.md",
       "category": "production",
       "suffix": ".md",
-      "bytes": 112929
+      "bytes": 114993
     },
     {
       "path": "runtime/reward/card/base_log/card.md",

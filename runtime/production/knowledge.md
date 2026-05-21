@@ -2607,3 +2607,57 @@ Boundary:
 Evidence card:
 
 - `runtime/production/card/scheduled_marker_time_window_v1/notes.md`
+
+## 2026-05-21 Paper Trading Dashboard Metadata
+
+The static dashboard now enriches `paper_trading` rows from non-dry per-date
+paper summaries so the simulated-trading view can show which runtime profile
+produced the latest proof.
+
+Before this change, health could find:
+
+```text
+runtime/soxl/paper_trading/2026-05-20/duplicate_skip/v19reg_v22_budget_usage_bull_guard_v1/summary.json
+```
+
+but `dashboard_data/versioned/paper_trading/SOXL.json` only had curve fields and
+could not identify the composer profile or `duplicate_skipped` status.
+
+Current behavior:
+
+- non-dry paper summaries attach `profile`, `execution_status`,
+  `target_position`, `reconcile_action`, and `summary_path` to dashboard rows
+- `duplicate_skip/<profile>/summary.json` outranks the top-level executed
+  summary for the same date
+- dry-run summaries are ignored for ordinary paper rows, so pre-open dry-run
+  evidence is not confused with non-dry paper proof
+
+Current dashboard payload evidence:
+
+```text
+2026-05-18 balanced_rule_residual_v19 executed False
+2026-05-20 v19reg_v22_budget_usage_bull_guard_v1 duplicate_skipped False
+```
+
+Rendered/local browser evidence:
+
+```text
+latest=paper_trading
+paper_profile=v19reg_v22_budget_usage_bull_guard_v1
+paper_execution_status=duplicate_skipped
+paper_target_position=0.48408568215209924
+info_ids={'profile': True, 'execution': True, 'target': True, 'chart': True}
+production_strip=PRODUCTION | blocked_no_credentials | AUTH | blocked_no_credentials | PROJECT | missing_project_link | PAPER END | 2026-05-20 | DEPLOY | none | GATES | pending | BLOCKERS | external_vercel_setup, scheduled_postclose_target, scheduled_paper_proof
+```
+
+Boundary:
+
+- This fixes dashboard and paper observability only.
+- It does not clear ordinary paper proof because the selected runtime profile is
+  still represented by same-date `duplicate_skipped` evidence.
+- The next natural scheduled post-close run must still produce next-date
+  executed or skipped non-dry evidence.
+
+Evidence card:
+
+- `runtime/production/card/paper_trading_dashboard_metadata_v1/notes.md`

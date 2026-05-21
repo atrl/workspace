@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-05-21T13:02:06.926428+00:00",
+  "checked_at": "2026-05-21T13:33:20.577277+00:00",
   "overall": {
     "status": "pending",
     "issues": [
@@ -37,8 +37,8 @@
     "dashboard_static": {
       "label": "dashboard static",
       "status": "ok",
-      "detail": "dashboard_static_export generated_at=2026-05-21 21:01:35 versions=38 missing=0 model_versions=94 latest=paper_trading paper_trading_rows=4 paper_trading_end=2026-05-20 production_status=blocked_no_credentials goal_gates=pending paper_trading",
-      "raw": "dashboard static: ok dashboard_static_export generated_at=2026-05-21 21:01:35 versions=38 missing=0 model_versions=94 latest=paper_trading paper_trading_rows=4 paper_trading_end=2026-05-20 production_status=blocked_no_credentials goal_gates=pending paper_trading"
+      "detail": "dashboard_static_export generated_at=2026-05-21 21:32:58 versions=38 missing=0 model_versions=94 latest=paper_trading paper_trading_rows=4 paper_trading_end=2026-05-20 production_status=blocked_no_credentials goal_gates=pending paper_trading",
+      "raw": "dashboard static: ok dashboard_static_export generated_at=2026-05-21 21:32:58 versions=38 missing=0 model_versions=94 latest=paper_trading paper_trading_rows=4 paper_trading_end=2026-05-20 production_status=blocked_no_credentials goal_gates=pending paper_trading"
     },
     "vercel_remote": {
       "label": "Vercel remote",

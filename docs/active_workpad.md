@@ -6811,3 +6811,67 @@ Decision:
 Artifact:
 
 - `runtime/production/card/scheduled_marker_time_window_v1/notes.md`
+
+## 2026-05-21 Paper Trading Dashboard Metadata
+
+Goal:
+
+- Fix the dashboard/simulated-trading surface so `paper_trading` rows identify
+  the active runtime profile and execution status, not just the account curve.
+
+Root cause:
+
+- `paper_trading_soxl_daily.csv` only contains curve fields.
+- Health could locate the selected composer proof under
+  `duplicate_skip/v19reg_v22_budget_usage_bull_guard_v1/summary.json`, but
+  `dashboard_data/versioned/paper_trading/SOXL.json` did not expose profile or
+  duplicate-skip status for the latest row.
+
+Change:
+
+- `scripts/build_backtest_dashboard.py` enriches paper rows from non-dry
+  per-date paper summaries.
+- Same-date `duplicate_skip/<profile>/summary.json` outranks the top-level
+  executed summary, so the current runtime composer stays visible when
+  duplicate idempotency blocks another order.
+- Dry-run summaries are not attached to ordinary paper rows.
+- The dashboard info panel now includes `Profile`, `Execution`, and `Target`.
+
+Evidence:
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest \
+  tests/test_dashboard.py -q -k 'paper_trading_row'
+# RED before fix: KeyError: 'profile'
+# GREEN after fix: 1 passed, 12 deselected
+
+uv run --python qlib_venv/bin/python --with pytest pytest \
+  tests/test_vercel_dashboard.py tests/test_dashboard.py -q
+# 27 passed
+
+PYTHONPATH=. qlib_venv/bin/python scripts/build_backtest_dashboard.py
+PYTHONPATH=. qlib_venv/bin/python scripts/check_dashboard_static_export.py
+# ok dashboard_static_export generated_at=2026-05-21 21:32:58 versions=38 missing=0 model_versions=94 latest=paper_trading paper_trading_rows=4 paper_trading_end=2026-05-20 production_status=blocked_no_credentials goal_gates=pending paper_trading
+```
+
+Rendered/local browser check:
+
+```text
+latest=paper_trading
+paper_profile=v19reg_v22_budget_usage_bull_guard_v1
+paper_execution_status=duplicate_skipped
+paper_target_position=0.48408568215209924
+info_ids={'profile': True, 'execution': True, 'target': True, 'chart': True}
+production_strip=PRODUCTION | blocked_no_credentials | AUTH | blocked_no_credentials | PROJECT | missing_project_link | PAPER END | 2026-05-20 | DEPLOY | none | GATES | pending | BLOCKERS | external_vercel_setup, scheduled_postclose_target, scheduled_paper_proof
+```
+
+Decision:
+
+- This is an observability/simulated-trading dashboard fix only.
+- The ordinary paper proof gate remains pending because the selected-model
+  evidence is still same-date `duplicate_skipped`; next-date scheduled non-dry
+  proof is still required.
+
+Artifact:
+
+- `runtime/production/card/paper_trading_dashboard_metadata_v1/notes.md`

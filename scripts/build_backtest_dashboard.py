@@ -188,20 +188,129 @@ def load_csv_rows(path: Path) -> list[dict[str, object]]:
 def compact_payload_rows(rows: list[dict[str, object]]) -> list[dict[str, object]]:
     """Keep only the trading-series fields needed to rehydrate historical views."""
     compact: list[dict[str, object]] = []
+    optional_fields = (
+        "profile",
+        "execution_status",
+        "dry_run",
+        "target_position",
+        "reconcile_action",
+        "summary_path",
+    )
     for row in rows:
-        compact.append(
-            {
-                "datetime": row["datetime"],
-                "strategy_nav": row["strategy_nav"],
-                "price": row.get("price"),
-                "buyhold_nav": row.get("buyhold_nav"),
-                "position": row.get("position"),
-                "excess": row.get("excess"),
-                "excess_pct": row.get("excess_pct"),
-                "action": row.get("action", "HOLD"),
-            }
-        )
+        compact_row = {
+            "datetime": row["datetime"],
+            "strategy_nav": row["strategy_nav"],
+            "price": row.get("price"),
+            "buyhold_nav": row.get("buyhold_nav"),
+            "position": row.get("position"),
+            "excess": row.get("excess"),
+            "excess_pct": row.get("excess_pct"),
+            "action": row.get("action", "HOLD"),
+        }
+        for field in optional_fields:
+            if field in row and row[field] is not None:
+                compact_row[field] = row[field]
+        compact.append(compact_row)
     return compact
+
+
+def _relative_to_root(path: Path) -> str:
+    try:
+        return str(path.relative_to(ROOT))
+    except ValueError:
+        return str(path)
+
+
+def _summary_execution_status(payload: dict[str, object]) -> str:
+    execution_result = payload.get("execution_result")
+    if isinstance(execution_result, dict) and execution_result.get("status"):
+        return str(execution_result["status"])
+    if payload.get("dry_run") is True:
+        return "dry_run"
+    if payload.get("executed") is True:
+        return "executed"
+    return "unknown"
+
+
+def _summary_target_position(payload: dict[str, object]) -> float | None:
+    signal = payload.get("signal")
+    if isinstance(signal, dict) and signal.get("target_position") is not None:
+        return float(signal["target_position"])
+    execution_result = payload.get("execution_result")
+    if isinstance(execution_result, dict) and execution_result.get("target_position") is not None:
+        return float(execution_result["target_position"])
+    return None
+
+
+def _summary_priority(path: Path, payload: dict[str, object]) -> int:
+    if payload.get("dry_run") is True:
+        return 10
+    if "duplicate_skip" in path.parts:
+        return 40
+    status = _summary_execution_status(payload)
+    if status in {"skipped", "executed"}:
+        return 35
+    if payload.get("executed") is True:
+        return 30
+    return 20
+
+
+def _paper_summary_metadata(path: Path, payload: dict[str, object]) -> dict[str, object] | None:
+    date = payload.get("date")
+    if not date or payload.get("dry_run") is True:
+        return None
+    reconcile = payload.get("reconcile")
+    reconcile_action = None
+    if isinstance(reconcile, dict):
+        reconcile_action = reconcile.get("action_required")
+    return {
+        "date": str(date),
+        "profile": str(payload.get("profile") or ""),
+        "execution_status": _summary_execution_status(payload),
+        "dry_run": payload.get("dry_run") is True,
+        "target_position": _summary_target_position(payload),
+        "reconcile_action": str(reconcile_action) if reconcile_action is not None else None,
+        "summary_path": _relative_to_root(path),
+        "_priority": _summary_priority(path, payload),
+        "_mtime": path.stat().st_mtime,
+    }
+
+
+def _load_paper_trading_summary_metadata(paper_dir: Path) -> dict[str, dict[str, object]]:
+    metadata_by_date: dict[str, dict[str, object]] = {}
+    for summary_path in sorted(paper_dir.glob("20??-??-??/**/summary.json")):
+        try:
+            payload = json.loads(summary_path.read_text(encoding="utf-8"))
+        except Exception:
+            continue
+        metadata = _paper_summary_metadata(summary_path, payload)
+        if not metadata:
+            continue
+        date = str(metadata["date"])
+        current = metadata_by_date.get(date)
+        candidate_key = (int(metadata["_priority"]), float(metadata["_mtime"]))
+        current_key = (
+            int(current.get("_priority", -1)),
+            float(current.get("_mtime", -1.0)),
+        ) if current else (-1, -1.0)
+        if candidate_key >= current_key:
+            metadata_by_date[date] = metadata
+
+    for metadata in metadata_by_date.values():
+        metadata.pop("_priority", None)
+        metadata.pop("_mtime", None)
+    return metadata_by_date
+
+
+def _attach_paper_trading_summary_metadata(rows: list[dict[str, object]], paper_dir: Path) -> None:
+    metadata_by_date = _load_paper_trading_summary_metadata(paper_dir)
+    for row in rows:
+        metadata = metadata_by_date.get(str(row.get("datetime")))
+        if not metadata:
+            continue
+        for key, value in metadata.items():
+            if key != "date":
+                row[key] = value
 
 
 def load_model_versions() -> list[dict]:
@@ -489,6 +598,8 @@ def _load_post_train_review_versions(features: dict[str, dict[str, float]] | Non
                 continue
 
             rows = normalize_post_train_review_rows(raw_rows)
+            if source_kind == "paper_trading":
+                _attach_paper_trading_summary_metadata(rows, ptr_dir)
             ohlc = load_ohlc_and_indicators("SOXL")
 
             # Merge features
@@ -1645,6 +1756,18 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
             <div class="info-row">
               <span class="info-k">Action</span>
               <span class="info-v" id="infoAction">-</span>
+            </div>
+            <div class="info-row">
+              <span class="info-k">Profile</span>
+              <span class="info-v" id="infoProfile">-</span>
+            </div>
+            <div class="info-row">
+              <span class="info-k">Execution</span>
+              <span class="info-v" id="infoExecution">-</span>
+            </div>
+            <div class="info-row">
+              <span class="info-k">Target</span>
+              <span class="info-v" id="infoTarget">-</span>
             </div>
             <div class="info-row">
               <span class="info-k">Open</span>
@@ -2909,6 +3032,12 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
         actionEl.textContent = row.action || 'HOLD';
         actionEl.style.color = row.action === 'BUY' ? 'var(--good)' : row.action === 'SELL' ? 'var(--bad)' : 'var(--ink)';
       }}
+      const profileEl = document.getElementById('infoProfile');
+      if (profileEl) profileEl.textContent = row.profile || 'n/a';
+      const executionEl = document.getElementById('infoExecution');
+      if (executionEl) executionEl.textContent = row.execution_status || 'n/a';
+      const targetEl = document.getElementById('infoTarget');
+      if (targetEl) targetEl.textContent = row.target_position != null ? fmtNum(row.target_position, 4) : 'n/a';
       document.getElementById('infoOpen').textContent = row.open != null ? '$' + fmtNum(row.open, 2) : 'n/a';
       document.getElementById('infoHigh').textContent = row.high != null ? '$' + fmtNum(row.high, 2) : 'n/a';
       document.getElementById('infoLow').textContent = row.low != null ? '$' + fmtNum(row.low, 2) : 'n/a';

@@ -34,6 +34,13 @@ Production/Vercel status is split across:
 - `dashboard_data/production_goal_gates.json`: parsed `Production Goal Gates`
   from `production/check_scheduler_health.sh`.
 
+Paper-trading dashboard rows are enriched from non-dry per-date summary
+artifacts under `runtime/soxl/paper_trading/<date>/`. For same-date reruns,
+`duplicate_skip/<profile>/summary.json` should outrank the top-level executed
+summary so the dashboard shows the currently selected runtime profile even when
+idempotency blocks another order. Do not attach dry-run summaries to ordinary
+paper rows.
+
 Scheduled Vercel runs should export goal gates after dashboard build and before
 `scripts/deploy_vercel_dashboard.py --deploy`, so the deployed static bundle
 shows the same blockers as health. Verify with:

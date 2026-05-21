@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from pathlib import Path
 
 import pandas as pd
@@ -158,6 +159,90 @@ def test_load_versions_keeps_short_paper_trading_history(tmp_path: Path, monkeyp
     paper = versions["paper_trading"]
     assert paper["_meta"]["source_kind"] == "paper_trading"
     assert paper["windows"]["SOXL"] == {"start": "2026-05-14", "end": "2026-05-14", "rows": 1}
+
+
+def test_load_versions_enriches_paper_trading_row_with_latest_non_dry_summary_metadata(
+    tmp_path: Path,
+    monkeypatch,
+):
+    paper_dir = tmp_path / "runtime" / "soxl" / "paper_trading"
+    run_dir = paper_dir / "2026-05-20"
+    duplicate_dir = run_dir / "duplicate_skip" / "v19reg_v22_budget_usage_bull_guard_v1"
+    dry_run_dir = run_dir / "dry_run"
+    duplicate_dir.mkdir(parents=True)
+    dry_run_dir.mkdir(parents=True)
+    (paper_dir / "paper_trading_soxl_daily.csv").write_text(
+        "\n".join(
+            [
+                "datetime,strategy_nav,price,buyhold_nav,position,excess,excess_pct,action",
+                "2026-05-20,1001806.104446,173.199997,3615111.612583,0.484086,-2613305.508136,-72.288377,SELL",
+            ]
+        ),
+        encoding="utf-8",
+    )
+    (run_dir / "summary.json").write_text(
+        json.dumps(
+            {
+                "date": "2026-05-20",
+                "profile": "balanced_rule_residual_v19",
+                "broker": "paper",
+                "dry_run": False,
+                "executed": True,
+                "signal": {"target_position": 0.5},
+                "reconcile": {"action_required": "none"},
+            }
+        ),
+        encoding="utf-8",
+    )
+    (duplicate_dir / "summary.json").write_text(
+        json.dumps(
+            {
+                "date": "2026-05-20",
+                "profile": "v19reg_v22_budget_usage_bull_guard_v1",
+                "broker": "paper",
+                "dry_run": False,
+                "executed": False,
+                "execution_result": {
+                    "status": "duplicate_skipped",
+                    "target_position": 0.484086,
+                },
+                "signal": {
+                    "target_position": 0.484086,
+                    "current_position": 0.484086,
+                },
+                "reconcile": {"action_required": "none"},
+            }
+        ),
+        encoding="utf-8",
+    )
+    (dry_run_dir / "summary.json").write_text(
+        json.dumps(
+            {
+                "date": "2026-05-20",
+                "profile": "dry_run_profile",
+                "broker": "paper",
+                "dry_run": True,
+                "executed": False,
+                "signal": {"target_position": 0.1},
+            }
+        ),
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(dashboard_builder, "ROOT", tmp_path)
+    monkeypatch.setattr(dashboard_builder, "load_ohlc_and_indicators", lambda _etf: {})
+
+    versions = _load_post_train_review_versions(features=None)
+
+    row = versions["paper_trading"]["detailed"]["SOXL"]["rows"][0]
+    assert row["profile"] == "v19reg_v22_budget_usage_bull_guard_v1"
+    assert row["execution_status"] == "duplicate_skipped"
+    assert row["dry_run"] is False
+    assert row["target_position"] == 0.484086
+    assert row["reconcile_action"] == "none"
+    assert row["summary_path"] == (
+        "runtime/soxl/paper_trading/2026-05-20/duplicate_skip/"
+        "v19reg_v22_budget_usage_bull_guard_v1/summary.json"
+    )
 
 
 def test_load_versions_keeps_retained_dashboard_export_without_source_csv(tmp_path: Path, monkeypatch):
