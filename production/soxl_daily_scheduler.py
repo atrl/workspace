@@ -150,9 +150,9 @@ def _run_health_summary() -> None:
             print(result.stdout[start:].rstrip())
         else:
             print(result.stdout.rstrip())
-    if result.stderr:
-        print(result.stderr, file=sys.stderr)
     if result.returncode != 0:
+        if result.stderr:
+            print(result.stderr, file=sys.stderr)
         print(f"[scheduler] WARNING: health summary failed with exit code {result.returncode}", file=sys.stderr)
 
 

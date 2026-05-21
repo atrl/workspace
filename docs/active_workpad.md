@@ -5687,3 +5687,51 @@ Decision:
 Artifact:
 
 - `runtime/production/card/scheduled_goal_gate_logging_v1/notes.md`
+
+## 2026-05-21 Scheduler Health Summary Noise
+
+Goal:
+
+- Keep scheduler `--health-summary` output focused on the final production goal
+  gates when the health command succeeds.
+
+Root cause:
+
+- `_run_health_summary()` extracted `Production Goal Gates`, but still replayed
+  successful health-check stderr. qlib/gym warnings from the health checker
+  could clutter the concise scheduler summary despite exit code 0.
+
+Change:
+
+- Successful health-summary stderr is suppressed.
+- Failed health-summary stderr is still printed with the non-zero exit-code
+  warning.
+
+Evidence:
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest \
+  tests/test_daily_scheduler.py::test_health_summary_suppresses_successful_stderr_noise \
+  tests/test_daily_scheduler.py::test_health_summary_replays_stderr_on_failure -q
+# red before implementation: successful stderr noise was replayed
+# green after implementation: 2 passed
+
+production/run_soxl_scheduler.sh \
+  --broker paper --dry-run --no-notify --skip-data-update --skip-dashboard \
+  --health-summary 2>&1 | sed -n '/\[scheduler\] all done/,$p'
+# [scheduler] all done
+# [scheduler] production goal gates
+# overall: pending external_vercel_setup,scheduled_postclose_target,scheduled_paper_proof
+```
+
+Decision:
+
+- The scheduler health-summary tail is now suitable as the first log section to
+  inspect after a scheduled run.
+- Current production goal remains pending on:
+  `external_vercel_setup`, `scheduled_postclose_target`,
+  `scheduled_paper_proof`.
+
+Artifact:
+
+- `runtime/production/card/scheduler_health_summary_noise_v1/notes.md`

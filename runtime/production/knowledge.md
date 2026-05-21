@@ -2073,3 +2073,29 @@ overall: pending external_vercel_setup,scheduled_postclose_target,scheduled_pape
 Evidence card:
 
 - `runtime/production/card/scheduled_goal_gate_logging_v1/notes.md`
+
+## 2026-05-21 Scheduler Health Summary Noise
+
+`_run_health_summary()` now suppresses stderr from
+`production/check_scheduler_health.sh` when the health command exits 0. This
+keeps scheduled `--health-summary` output focused on the final gate summary:
+
+```text
+[scheduler] all done
+[scheduler] production goal gates
+--- Production Goal Gates ---
+...
+overall: pending external_vercel_setup,scheduled_postclose_target,scheduled_paper_proof
+```
+
+If the health command exits non-zero, stderr is still replayed and the scheduler
+prints the exit-code warning. The production completion state did not change;
+the live pending gates remain:
+
+```text
+external_vercel_setup,scheduled_postclose_target,scheduled_paper_proof
+```
+
+Evidence card:
+
+- `runtime/production/card/scheduler_health_summary_noise_v1/notes.md`

@@ -187,6 +187,52 @@ def test_scheduler_prints_goal_gates_when_requested(
     assert captured.out.index("[scheduler] all done") < captured.out.index("--- Production Goal Gates ---")
 
 
+def test_health_summary_suppresses_successful_stderr_noise(
+    monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+):
+    def fake_run(cmd, capture_output, text, check):
+        return subprocess.CompletedProcess(
+            cmd,
+            0,
+            stdout=(
+                "=== SOXL Scheduler Health Check ===\n"
+                "--- Production Goal Gates ---\n"
+                "  overall: pending external_vercel_setup\n"
+            ),
+            stderr="Gym has been unmaintained since 2022\n",
+        )
+
+    monkeypatch.setattr(soxl_daily_scheduler.subprocess, "run", fake_run)
+
+    soxl_daily_scheduler._run_health_summary()
+
+    captured = capsys.readouterr()
+    assert "[scheduler] production goal gates" in captured.out
+    assert "--- Production Goal Gates ---" in captured.out
+    assert "overall: pending external_vercel_setup" in captured.out
+    assert "Gym has been unmaintained" not in captured.err
+
+
+def test_health_summary_replays_stderr_on_failure(
+    monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+):
+    def fake_run(cmd, capture_output, text, check):
+        return subprocess.CompletedProcess(
+            cmd,
+            1,
+            stdout="",
+            stderr="health script failed\n",
+        )
+
+    monkeypatch.setattr(soxl_daily_scheduler.subprocess, "run", fake_run)
+
+    soxl_daily_scheduler._run_health_summary()
+
+    captured = capsys.readouterr()
+    assert "health script failed" in captured.err
+    assert "health summary failed with exit code 1" in captured.err
+
+
 def test_scheduler_prints_runtime_composer_in_run_start_marker(
     monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
 ):

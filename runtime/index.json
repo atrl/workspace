@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-21T07:56:05.718903+00:00",
+  "generated_at": "2026-05-21T08:04:21.814632+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -2852,6 +2852,12 @@
       "bytes": 3222
     },
     {
+      "path": "runtime/production/card/scheduler_health_summary_noise_v1/notes.md",
+      "category": "production",
+      "suffix": ".md",
+      "bytes": 1819
+    },
+    {
       "path": "runtime/production/card/scheduler_health_v1/notes.md",
       "category": "production",
       "suffix": ".md",
@@ -2999,7 +3005,7 @@
       "path": "runtime/production/knowledge.md",
       "category": "production",
       "suffix": ".md",
-      "bytes": 92412
+      "bytes": 93217
     },
     {
       "path": "runtime/reward/card/base_log/card.md",
