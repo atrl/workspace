@@ -3913,3 +3913,88 @@ Decision:
 - Scheduled dashboard refreshes now attempt Vercel deployment.
 - Remote deployment is still blocked by missing credentials, but this is now a
   scheduled deploy blocker rather than an unconnected one-off script.
+
+## 2026-05-21 MoE v2 Evidence Recovery
+
+Goal:
+
+- Continue the post-SOXX model optimization line with exactly one governed
+  network loop that does not depend on Vercel credentials or a new paper-trading
+  signal date.
+
+Current state:
+
+- Vercel remote deployment remains `blocked_no_credentials`.
+- Runtime paper proof is pending only because `2026-05-20` already has a
+  non-dry-run `balanced_rule_residual_v19` artifact; the next fresh post-close
+  non-dry run should prove `balanced_rule_residual_v22`.
+- `balanced_rule_residual_v19_moe_v2` already has a profile and registry row,
+  but its runtime card currently has no summary JSON or actor artifact.
+
+Governance:
+
+- Canonical baseline: `balanced_rule_residual_v19`.
+- Direct comparison baseline: `balanced_rule_residual_v19_moe`.
+- Profile: `balanced_rule_residual_v19_moe_v2`.
+- Role: `ablate`.
+- Target window: fixed-split first; only run walk-forward if fixed-split
+  evidence clears the profile gate and improves on the direct MoE baseline.
+- Changed layer: `network` / `training`.
+- External reference: sparse Mixture-of-Experts routing with auxiliary
+  load-balancing loss, applied as a regime-specialization diagnostic.
+- Hypothesis: lower LR, stronger MoE load-balance loss, and more frequent
+  selection should reduce the first MoE run's post-warm-start degradation.
+- Expected trade-off: improved training stability and maybe better recovery
+  behavior, at the risk that the warm-start checkpoint remains dominant.
+- Failure mode: best checkpoint remains iter 0 or fixed-split metrics trail
+  v19/v19_moe enough to block walk-forward.
+- Comparison-table row key: `balanced_rule_residual_v19_moe_v2`.
+
+Historical contrast:
+
+- Closest success case: `balanced_rule_residual_v19_reg` showed regularization
+  can improve one walk-forward bear-market window, proving network-side
+  stabilization can matter.
+- Closest failure case: `balanced_rule_residual_v19_moe` passed fixed-split
+  checks but degraded from iter 0 to iter 80 and trailed v19 on key slices.
+- Not a duplicate: this reuses the existing MoE architecture but changes the
+  training stability mechanism (`lr=1e-4`, `moe_lb_coef=0.05`, staged selection
+  every 10 iters) and is meant to recover missing evidence for an existing
+  registered card, not open a new threshold/profile-only variant.
+
+Command:
+
+```bash
+PYTHONPATH=src:. qlib_venv/bin/python soxl_qlib_strategy_v2.py --profiles balanced_rule_residual_v19_moe_v2 --skip-data-refresh --seed 42
+```
+
+Evidence:
+
+- Summary:
+  `runtime/model/card/balanced_rule_residual_v19_moe_v2/soxl_balanced_rule_residual_v19_moe_v2_summary.json`
+- Review:
+  `runtime/model/card/balanced_rule_residual_v19_moe_v2/v19_moe_v2_backtest_review.md`
+- Dashboard version:
+  `dashboard_data/versioned/balanced_rule_residual_v19_moe_v2/SOXL.json`
+
+Readout:
+
+- Best validation checkpoint moved to iter `30` with score `75.75`; iter `80`
+  ended at `68.47`, so the lower-LR MoE setup still needs checkpoint selection.
+- Proxy: `691.0%` return / `0.963` Sharpe / `49.0%` MaxDD.
+- `test_2020`: `97.1%` return / `2.191` Sharpe / `22.3%` MaxDD.
+- `test_2022`: `-42.7%` return / `-1.486` Sharpe / `45.1%` MaxDD /
+  `0.288` avg position.
+- `test_2023_2024`: `60.0%` return / `0.831` Sharpe / `32.8%` MaxDD.
+
+Decision:
+
+- Fixed-split gate passed, but the branch regressed materially versus v19 on
+  `test_2022` and has weaker proxy Sharpe than the first MoE run.
+- Do not run walk-forward; keep `balanced_rule_residual_v19_moe_v2` as an
+  ablation.
+- Deleted the generated actor and raw daily CSV because the registry has
+  `keep_actor=false`; retained summary/review/dashboard evidence only.
+- Do not continue MoE by only sweeping learning rate, load-balance coefficient,
+  or stage length. The remaining problem is slice-level regime allocation, not
+  just optimizer stability.

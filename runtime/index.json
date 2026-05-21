@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-21T02:00:59.185630+00:00",
+  "generated_at": "2026-05-21T02:49:11.497526+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -1481,7 +1481,19 @@
       "path": "runtime/model/card/balanced_rule_residual_v19_moe_v2/notes.md",
       "category": "model",
       "suffix": ".md",
-      "bytes": 4650
+      "bytes": 5812
+    },
+    {
+      "path": "runtime/model/card/balanced_rule_residual_v19_moe_v2/soxl_balanced_rule_residual_v19_moe_v2_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 8462
+    },
+    {
+      "path": "runtime/model/card/balanced_rule_residual_v19_moe_v2/v19_moe_v2_backtest_review.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 2412
     },
     {
       "path": "runtime/model/card/balanced_rule_residual_v19_reg/balanced_rule_residual_v19_reg-wf_2020-seed42.json",
@@ -2465,7 +2477,7 @@
       "path": "runtime/network/knowledge.md",
       "category": "network",
       "suffix": ".md",
-      "bytes": 16300
+      "bytes": 17970
     },
     {
       "path": "runtime/production/card/cached_fallback_dry_run_v1/notes.md",

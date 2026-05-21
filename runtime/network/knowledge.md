@@ -397,3 +397,42 @@ Priority is bear-market generalization:
 4. **Gate analysis**: Log expert usage distribution per regime
 5. **Hybrid**: GRU backbone + MoE head (instead of replacing GRU entirely)
 
+## 2026-05-21: MoE v2 Evidence Recovery
+
+Question: does the existing `balanced_rule_residual_v19_moe_v2` card become
+worth walk-forward if we rerun the intended lower-LR / stronger-load-balance
+training and persist real summary evidence?
+
+Answer: no. The run is useful as an ablation, but not a continuation path.
+
+Evidence:
+
+- Command:
+  `PYTHONPATH=src:. qlib_venv/bin/python soxl_qlib_strategy_v2.py --profiles balanced_rule_residual_v19_moe_v2 --skip-data-refresh --seed 42`
+- Summary:
+  `runtime/model/card/balanced_rule_residual_v19_moe_v2/soxl_balanced_rule_residual_v19_moe_v2_summary.json`
+- Review:
+  `runtime/model/card/balanced_rule_residual_v19_moe_v2/v19_moe_v2_backtest_review.md`
+
+Readout:
+
+| Metric | v19 | moe_v2 | Decision |
+|---|---:|---:|---|
+| proxy return | `830.0%` | `691.0%` | worse |
+| proxy Sharpe | `0.976` | `0.963` | roughly flat / slightly worse |
+| proxy MaxDD | `51.5%` | `49.0%` | modestly better |
+| test_2020 return | `123.9%` | `97.1%` | worse |
+| test_2022 return | `-26.2%` | `-42.7%` | worse |
+| test_2022 MaxDD | `36.4%` | `45.1%` | worse |
+| test_2023_2024 return | `53.2%` | `60.0%` | better |
+| test_2023_2024 MaxDD | `38.2%` | `32.8%` | better |
+
+Key conclusion:
+
+- v2 changes the failure mode. Unlike the first MoE run, iter `30` beats iter
+  `0`, so optimizer stability improved. But the branch worsens 2022 defense and
+  bull capture while only helping the mixed recovery window.
+- Do not run walk-forward for this branch.
+- Do not continue with MoE-only LR / load-balance / stage-length sweeps. Future
+  network work needs a distinct regime-allocation mechanism or should yield to
+  production/runtime completion gates.
