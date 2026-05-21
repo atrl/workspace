@@ -387,6 +387,151 @@ def test_scheduler_health_reports_launch_env_vercel_token_without_leaking_secret
     assert "secret-token-123" not in result.stdout
 
 
+def test_scheduler_health_reports_launch_env_runtime_composer_configuration():
+    with TemporaryDirectory() as tmpdir:
+        root = Path(tmpdir)
+        (root / "runtime" / "soxl" / "paper_trading").mkdir(parents=True)
+        env_file = root / "private" / "soxl.env"
+        env_file.parent.mkdir()
+        env_file.write_text(
+            "\n".join(
+                [
+                    "export SOXL_RUNTIME_COMPOSER='budget_usage'",
+                    "export SOXL_RUNTIME_COMPOSER_PROFILE='v19reg_v22_budget_usage_bull_guard_v1'",
+                    "export SOXL_RUNTIME_SLOW_PROFILE='balanced_rule_residual_v19_reg'",
+                    "export SOXL_RUNTIME_FAST_PROFILE='balanced_rule_residual_v22'",
+                    "export SOXL_RUNTIME_BULL_PARTICIPATION_GUARD='true'",
+                    "",
+                ]
+            ),
+            encoding="utf-8",
+        )
+
+        fake_bin = root / "bin"
+        fake_bin.mkdir()
+        launchctl = fake_bin / "launchctl"
+        launchctl.write_text(
+            "#!/bin/sh\nprintf '123\\t0\\tcom.soxl.preopen.scheduler\\n456\\t0\\tcom.soxl.daily.scheduler\\n'\n",
+            encoding="utf-8",
+        )
+        launchctl.chmod(0o755)
+        fake_python = fake_bin / "python"
+        fake_python.write_text(
+            "#!/bin/sh\n"
+            "cat <<'JSON'\n"
+            "{\"data\":{\"ok\":true,\"last_date\":\"2026-05-20\","
+            "\"expected_last_trading_day\":\"2026-05-20\",\"stale_days\":0},"
+            "\"model\":{\"ok\":true,\"name\":\"balanced_rule_residual_v22\"},"
+            "\"broker\":{\"ok\":true,\"msg\":\"paper broker ready\"},"
+            "\"all_ok\":true}\n"
+            "JSON\n",
+            encoding="utf-8",
+        )
+        fake_python.chmod(0o755)
+
+        env = {
+            **os.environ,
+            "PATH": f"{fake_bin}:{os.environ['PATH']}",
+            "SOXL_SCHEDULER_HEALTH_OS": "Darwin",
+            "SOXL_SCHEDULER_HEALTH_ROOT": str(root),
+            "SOXL_SCHEDULER_HEALTH_PYTHON": str(fake_python),
+            "SOXL_LAUNCH_ENV_FILE": str(env_file),
+        }
+        for key in (
+            "SOXL_RUNTIME_COMPOSER",
+            "SOXL_RUNTIME_COMPOSER_PROFILE",
+            "SOXL_RUNTIME_SLOW_PROFILE",
+            "SOXL_RUNTIME_FAST_PROFILE",
+            "SOXL_RUNTIME_BULL_PARTICIPATION_GUARD",
+        ):
+            env.pop(key, None)
+        result = subprocess.run(
+            ["bash", str(ROOT / "production" / "check_scheduler_health.sh")],
+            capture_output=True,
+            text=True,
+            env=env,
+            check=True,
+        )
+
+    assert (
+        "runtime composer: enabled composer=budget_usage "
+        "profile=v19reg_v22_budget_usage_bull_guard_v1 "
+        "slow=balanced_rule_residual_v19_reg fast=balanced_rule_residual_v22 "
+        "bull_guard=true"
+    ) in result.stdout
+
+
+def test_scheduler_health_reports_incomplete_launch_env_runtime_composer_configuration():
+    with TemporaryDirectory() as tmpdir:
+        root = Path(tmpdir)
+        (root / "runtime" / "soxl" / "paper_trading").mkdir(parents=True)
+        env_file = root / "private" / "soxl.env"
+        env_file.parent.mkdir()
+        env_file.write_text(
+            "\n".join(
+                [
+                    "export SOXL_RUNTIME_COMPOSER='budget_usage'",
+                    "export SOXL_RUNTIME_COMPOSER_PROFILE='v19reg_v22_budget_usage_bull_guard_v1'",
+                    "export SOXL_RUNTIME_SLOW_PROFILE='balanced_rule_residual_v19_reg'",
+                    "",
+                ]
+            ),
+            encoding="utf-8",
+        )
+
+        fake_bin = root / "bin"
+        fake_bin.mkdir()
+        launchctl = fake_bin / "launchctl"
+        launchctl.write_text(
+            "#!/bin/sh\nprintf '123\\t0\\tcom.soxl.preopen.scheduler\\n456\\t0\\tcom.soxl.daily.scheduler\\n'\n",
+            encoding="utf-8",
+        )
+        launchctl.chmod(0o755)
+        fake_python = fake_bin / "python"
+        fake_python.write_text(
+            "#!/bin/sh\n"
+            "cat <<'JSON'\n"
+            "{\"data\":{\"ok\":true,\"last_date\":\"2026-05-20\","
+            "\"expected_last_trading_day\":\"2026-05-20\",\"stale_days\":0},"
+            "\"model\":{\"ok\":true,\"name\":\"balanced_rule_residual_v22\"},"
+            "\"broker\":{\"ok\":true,\"msg\":\"paper broker ready\"},"
+            "\"all_ok\":true}\n"
+            "JSON\n",
+            encoding="utf-8",
+        )
+        fake_python.chmod(0o755)
+
+        env = {
+            **os.environ,
+            "PATH": f"{fake_bin}:{os.environ['PATH']}",
+            "SOXL_SCHEDULER_HEALTH_OS": "Darwin",
+            "SOXL_SCHEDULER_HEALTH_ROOT": str(root),
+            "SOXL_SCHEDULER_HEALTH_PYTHON": str(fake_python),
+            "SOXL_LAUNCH_ENV_FILE": str(env_file),
+        }
+        for key in (
+            "SOXL_RUNTIME_COMPOSER",
+            "SOXL_RUNTIME_COMPOSER_PROFILE",
+            "SOXL_RUNTIME_SLOW_PROFILE",
+            "SOXL_RUNTIME_FAST_PROFILE",
+            "SOXL_RUNTIME_BULL_PARTICIPATION_GUARD",
+        ):
+            env.pop(key, None)
+        result = subprocess.run(
+            ["bash", str(ROOT / "production" / "check_scheduler_health.sh")],
+            capture_output=True,
+            text=True,
+            env=env,
+            check=True,
+        )
+
+    assert (
+        "runtime composer: incomplete composer=budget_usage "
+        "missing=SOXL_RUNTIME_FAST_PROFILE"
+    ) in result.stdout
+    assert "runtime composer: enabled composer=budget_usage" not in result.stdout
+
+
 def test_scheduler_health_reports_installed_launchagent_plist_drift():
     with TemporaryDirectory() as tmpdir:
         root = Path(tmpdir)

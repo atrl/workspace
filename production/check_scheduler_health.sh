@@ -214,6 +214,39 @@ env_file_has_nonempty_assignment() {
     ' "$env_file"
 }
 
+env_file_assignment_value() {
+    var_name="$1"
+    env_file="$2"
+    if [ ! -f "$env_file" ]; then
+        return
+    fi
+    awk -v key="$var_name" '
+        /^[[:space:]]*#/ { next }
+        {
+            line = $0
+            sub(/^[[:space:]]*export[[:space:]]+/, "", line)
+            pattern = "^[[:space:]]*" key "[[:space:]]*="
+            if (line ~ pattern) {
+                sub(pattern "[[:space:]]*", "", line)
+                gsub(/[[:space:]]+$/, "", line)
+                gsub(/^[\047"]|[\047"]$/, "", line)
+                print line
+                exit
+            }
+        }
+    ' "$env_file"
+}
+
+env_or_launch_value() {
+    var_name="$1"
+    value="${!var_name:-}"
+    if [ -n "$value" ]; then
+        printf "%s" "$value"
+        return
+    fi
+    env_file_assignment_value "$var_name" "$LAUNCH_ENV_FILE"
+}
+
 print_scheduler_private_env() {
     echo "--- Scheduler Private Env ---"
     if [ -f "$LAUNCH_ENV_FILE" ]; then
@@ -229,6 +262,30 @@ print_scheduler_private_env() {
     else
         echo "  VERCEL_TOKEN: missing in current environment and launch env file"
     fi
+
+    runtime_composer=$(env_or_launch_value "SOXL_RUNTIME_COMPOSER")
+    if [ -z "$runtime_composer" ] || [ "$runtime_composer" = "none" ]; then
+        echo "  runtime composer: default single-profile path"
+        return
+    fi
+
+    composer_profile=$(env_or_launch_value "SOXL_RUNTIME_COMPOSER_PROFILE")
+    slow_profile=$(env_or_launch_value "SOXL_RUNTIME_SLOW_PROFILE")
+    fast_profile=$(env_or_launch_value "SOXL_RUNTIME_FAST_PROFILE")
+    bull_guard=$(env_or_launch_value "SOXL_RUNTIME_BULL_PARTICIPATION_GUARD")
+    [ -z "$bull_guard" ] && bull_guard="false"
+
+    missing=""
+    [ -z "$composer_profile" ] && missing="${missing} SOXL_RUNTIME_COMPOSER_PROFILE"
+    [ -z "$slow_profile" ] && missing="${missing} SOXL_RUNTIME_SLOW_PROFILE"
+    [ -z "$fast_profile" ] && missing="${missing} SOXL_RUNTIME_FAST_PROFILE"
+    if [ -n "$missing" ]; then
+        missing=$(printf "%s" "$missing" | sed 's/^ //; s/ /,/g')
+        echo "  runtime composer: incomplete composer=${runtime_composer} missing=${missing}"
+        return
+    fi
+
+    echo "  runtime composer: enabled composer=${runtime_composer} profile=${composer_profile} slow=${slow_profile} fast=${fast_profile} bull_guard=${bull_guard}"
 }
 
 json_field() {

@@ -961,3 +961,18 @@ and wrote `runtime/soxl/paper_trading/2026-05-20/dry_run/summary.json`.
 
 Next model/runtime proof remains a fresh-date non-dry paper run with this env
 configuration intentionally enabled.
+
+## 2026-05-21 Composer Env Health Gate
+
+Scheduler health now surfaces whether the private LaunchAgent env has actually
+enabled the approved `v19reg_v22_budget_usage_bull_guard_v1` composer.
+
+Current health on this host reports `runtime composer: default single-profile
+path`, so installed scheduling remains on canonical `balanced_rule_residual_v22`.
+
+Before expecting a fresh-date non-dry composer proof, first confirm
+`production/check_scheduler_health.sh` reports:
+
+```text
+runtime composer: enabled composer=budget_usage profile=v19reg_v22_budget_usage_bull_guard_v1 slow=balanced_rule_residual_v19_reg fast=balanced_rule_residual_v22 bull_guard=true
+```

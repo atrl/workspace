@@ -1618,3 +1618,35 @@ to `/Users/rziiiii/.openclaw/soxl.env`; do not silently switch defaults.
 Evidence card:
 
 - `runtime/production/card/scheduler_env_runtime_composer_v1/notes.md`
+
+## 2026-05-21 Scheduler Composer Env Health
+
+`production/check_scheduler_health.sh` now reports runtime composer env state
+inside `Scheduler Private Env`.
+
+It reads non-secret `SOXL_RUNTIME_*` fields from either the current environment
+or `${SOXL_LAUNCH_ENV_FILE:-$HOME/.openclaw/soxl.env}` without sourcing the env
+file:
+
+- unset / `none` -> `runtime composer: default single-profile path`
+- missing required fields -> `runtime composer: incomplete ... missing=...`
+- complete fields -> `runtime composer: enabled composer=... profile=... slow=... fast=... bull_guard=...`
+
+Live health on this host now shows:
+
+- launch env file present at `/Users/rziiiii/.openclaw/soxl.env`
+- `VERCEL_TOKEN` missing
+- `runtime composer: default single-profile path`
+- selected `balanced_rule_residual_v22` runtime proof ok via
+  `duplicate_skipped`
+
+Evidence:
+
+- `uv run --python qlib_venv/bin/python --with pytest pytest tests/test_scheduler_health.py::test_scheduler_health_reports_launch_env_runtime_composer_configuration tests/test_scheduler_health.py::test_scheduler_health_reports_incomplete_launch_env_runtime_composer_configuration -q`
+  -> red before implementation, then `2 passed`.
+- `production/check_scheduler_health.sh` -> default single-profile composer
+  state, local data/model/broker/dashboard ok, Vercel `blocked_no_credentials`.
+
+Evidence card:
+
+- `runtime/production/card/scheduler_composer_env_health_v1/notes.md`

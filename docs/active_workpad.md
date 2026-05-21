@@ -4986,3 +4986,52 @@ Decision:
 Artifact:
 
 - `runtime/production/card/scheduler_env_runtime_composer_v1/notes.md`
+
+## 2026-05-21 Scheduler Composer Env Health
+
+Goal:
+
+- Make health show whether the private LaunchAgent env has actually enabled the
+  approved runtime composer path.
+
+Baseline:
+
+- The wrapper could append composer flags from `SOXL_RUNTIME_*` env fields.
+- Health only reported launch env file presence and Vercel token status.
+- Operators could not tell whether the next scheduled run would use the default
+  single-profile path, the composer path, or fail from incomplete composer env.
+
+Change:
+
+- `production/check_scheduler_health.sh` now parses non-secret
+  `SOXL_RUNTIME_*` fields from the current environment or launch env file
+  without sourcing the file.
+- It reports default, incomplete, or enabled composer state.
+
+Evidence:
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest \
+  tests/test_scheduler_health.py::test_scheduler_health_reports_launch_env_runtime_composer_configuration \
+  tests/test_scheduler_health.py::test_scheduler_health_reports_incomplete_launch_env_runtime_composer_configuration -q
+# red before implementation: no runtime composer health line
+# green after implementation: 2 passed
+
+production/check_scheduler_health.sh
+# runtime composer: default single-profile path
+# data/model/broker/dashboard ok
+# selected v22 runtime proof ok via duplicate_skipped
+```
+
+Decision:
+
+- Current installed scheduling is still the default
+  `balanced_rule_residual_v22` path.
+- To intentionally run the approved composer on a fresh non-dry paper date,
+  add the required `SOXL_RUNTIME_*` fields to
+  `/Users/rziiiii/.openclaw/soxl.env` and confirm health reports
+  `runtime composer: enabled`.
+
+Artifact:
+
+- `runtime/production/card/scheduler_composer_env_health_v1/notes.md`
