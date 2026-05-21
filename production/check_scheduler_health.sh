@@ -52,6 +52,18 @@ file_size() {
     du -h "$1" | awk '{print $1}'
 }
 
+missing_log_status() {
+    log="$1"
+    case "$log" in
+        runtime/soxl/wf_weekly.log|runtime/soxl/wf_weekly.err)
+            echo "pending (not created yet)"
+            ;;
+        *)
+            echo "NOT FOUND"
+            ;;
+    esac
+}
+
 number_value() {
     value=$(printf "%s" "$1" | sed 's/^0*//')
     if [ -z "$value" ]; then
@@ -454,7 +466,7 @@ for log in runtime/soxl/paper_trading/scheduler_preopen.log runtime/soxl/paper_t
         mtime=$(format_mtime "$path")
         echo "  $log: $size (last: $mtime)"
     else
-        echo "  $log: NOT FOUND"
+        echo "  $log: $(missing_log_status "$log")"
     fi
 done
 echo ""
@@ -481,6 +493,8 @@ if [ -f "$weekly_log" ]; then
     else
         echo "  wf_weekly: no success marker found"
     fi
+else
+    echo "  wf_weekly: pending until first weekly run"
 fi
 echo ""
 

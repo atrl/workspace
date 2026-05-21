@@ -1415,3 +1415,34 @@ broker result is explicitly `skipped`.
 Harness note: `tests/test_runtime.py` now isolates the relative execution-overlay
 state path under a temporary root, so local production state no longer changes
 the expected default-state assertion.
+
+## 2026-05-21 Weekly Scheduler Health Pending State
+
+Issue: after installing the weekly walk-forward LaunchAgent,
+`production/check_scheduler_health.sh` reported missing `runtime/soxl/wf_weekly`
+log files as `NOT FOUND` before the first Saturday run had a chance to create
+them.
+
+Change:
+
+- Missing `runtime/soxl/wf_weekly.log` and `runtime/soxl/wf_weekly.err` now
+  print `pending (not created yet)`.
+- The weekly completion marker now prints
+  `wf_weekly: pending until first weekly run` when the weekly log is absent.
+- Preopen and postclose missing logs still retain the generic `NOT FOUND`
+  behavior.
+
+Evidence:
+
+- `uv run --python qlib_venv/bin/python --with pytest pytest tests/test_scheduler_health.py::test_scheduler_health_reports_weekly_logs_pending_before_first_run -q`
+  -> red before implementation, then `1 passed`.
+- `uv run --python qlib_venv/bin/python --with pytest pytest tests/test_scheduler_health.py -q`
+  -> `13 passed`.
+- `production/check_scheduler_health.sh` -> weekly LaunchAgent loaded, plist
+  matches repo, weekly logs pending/not-created, local data/model/broker/dashboard
+  ok, selected v22 runtime proof still pending for the next fresh non-dry date,
+  Vercel `blocked_no_credentials`.
+
+Evidence card:
+
+- `runtime/production/card/weekly_health_pending_v1/notes.md`

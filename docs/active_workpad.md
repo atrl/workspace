@@ -4633,3 +4633,60 @@ Decision:
 Artifact:
 
 - `runtime/production/card/paper_non_dry_inference_proof_v1/notes.md`
+
+## 2026-05-21 Weekly Scheduler Health Pending State
+
+Goal:
+
+- Reduce scheduler health noise before the first weekly walk-forward run after
+  installing `com.soxl.weekly.wf`.
+
+Issue:
+
+- The weekly LaunchAgent was loaded and its plist matched the repo, but the
+  first Saturday run had not happened yet.
+- `production/check_scheduler_health.sh` printed
+  `runtime/soxl/wf_weekly.log: NOT FOUND` and
+  `runtime/soxl/wf_weekly.err: NOT FOUND`, which looked like a missing-artifact
+  failure rather than a not-yet-created weekly log.
+
+Change:
+
+- Missing `runtime/soxl/wf_weekly.log` and `.err` now print
+  `pending (not created yet)`.
+- The weekly completion marker prints
+  `wf_weekly: pending until first weekly run` when the weekly log is absent.
+- Preopen and postclose missing logs still print `NOT FOUND`.
+
+Evidence:
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest \
+  tests/test_scheduler_health.py::test_scheduler_health_reports_weekly_logs_pending_before_first_run -q
+# red before implementation: weekly logs were reported as NOT FOUND
+# green after implementation: 1 passed
+
+uv run --python qlib_venv/bin/python --with pytest pytest \
+  tests/test_scheduler_health.py -q
+# 13 passed
+
+production/check_scheduler_health.sh
+# weekly LaunchAgent loaded and plist matches repo
+# runtime/soxl/wf_weekly.log: pending (not created yet)
+# runtime/soxl/wf_weekly.err: pending (not created yet)
+# wf_weekly: pending until first weekly run
+# data/model/broker/dashboard ok
+# selected v22 runtime proof still pending for next fresh non-dry date
+# Vercel remains blocked_no_credentials
+```
+
+Decision:
+
+- Treat absent weekly logs as an explicit pre-first-run state, not a generic
+  missing file.
+- This is health-reporting hygiene only. It does not complete the weekly
+  walk-forward proof, Vercel deployment, or selected v22 non-dry runtime proof.
+
+Artifact:
+
+- `runtime/production/card/weekly_health_pending_v1/notes.md`

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-21T05:06:22.626054+00:00",
+  "generated_at": "2026-05-21T05:12:42.287483+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -2876,6 +2876,12 @@
       "bytes": 1750
     },
     {
+      "path": "runtime/production/card/weekly_health_pending_v1/notes.md",
+      "category": "production",
+      "suffix": ".md",
+      "bytes": 1874
+    },
+    {
       "path": "runtime/production/card/weekly_walkforward_scheduler_v1/notes.md",
       "category": "production",
       "suffix": ".md",
@@ -2885,7 +2891,7 @@
       "path": "runtime/production/knowledge.md",
       "category": "production",
       "suffix": ".md",
-      "bytes": 66420
+      "bytes": 67721
     },
     {
       "path": "runtime/reward/card/base_log/card.md",
