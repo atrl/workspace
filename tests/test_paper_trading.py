@@ -543,6 +543,75 @@ def test_paper_output_dir_scopes_colliding_dry_run_profiles(tmp_path: Path):
     assert different_profile == dry_run_dir / "v19reg_v22_budget_usage_bull_guard_v1"
 
 
+def test_main_persists_skipped_execution_result_for_non_dry_hold(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+):
+    csv_path = tmp_path / "soxl_features.csv"
+    csv_path.write_text(
+        "date,soxl_close\n"
+        "2026-05-21,173.20\n",
+        encoding="utf-8",
+    )
+    runtime_dir = tmp_path / "runtime" / "soxl"
+    runtime_dir.mkdir(parents=True)
+
+    signal = SignalIntent(
+        date="2026-05-21",
+        symbol="SOXL",
+        profile="balanced_rule_residual_v22",
+        model_path="runtime/model/card/balanced_rule_residual_v22/soxl_balanced_rule_residual_v22_actor.pt",
+        seed=42,
+        action=0,
+        target_position=0.0,
+        current_position=0.0,
+        price=173.20,
+        regime_risk=0.35,
+        note="test hold",
+    )
+    decision = RiskGateDecision(True, 0.0, (), ())
+    account = AccountSnapshot("2026-05-21", 100_000.0, 0, 0.0, 100_000.0, 0.0)
+    reconcile = ReconciliationRecord("2026-05-21", 0.0, 0.0, 0.0, "none", "position aligned")
+
+    broker = PaperBroker(initial_cash=100_000.0)
+
+    monkeypatch.setattr(soxl_paper_trading, "RUNTIME_DIR", runtime_dir)
+    monkeypatch.setattr(soxl_paper_trading, "PAPER_TRADING_CSV", runtime_dir / "paper_trading" / "daily.csv")
+    monkeypatch.setattr(soxl_paper_trading, "PAPER_BROKER_STATE", runtime_dir / "paper_trading" / "state.json")
+    monkeypatch.setattr(soxl_paper_trading, "_append_execution_daily_csv", lambda *args, **kwargs: None)
+    monkeypatch.setattr(soxl_paper_trading, "_save_paper_broker_state", lambda *args, **kwargs: None)
+    monkeypatch.setattr(soxl_paper_trading, "init_qlib", lambda _qlib_path: None)
+    monkeypatch.setattr(soxl_paper_trading, "_init_broker", lambda args: broker)
+    monkeypatch.setattr(soxl_paper_trading, "auto_select_profile", lambda _family: ("balanced_rule_residual_v22", Path("model.pt")))
+    monkeypatch.setattr(
+        soxl_paper_trading,
+        "plan_manual_session",
+        lambda **_kwargs: {
+            "signal": signal,
+            "risk_gate": decision,
+            "account": account,
+            "reconcile": reconcile,
+            "execution_overlay_state": RuntimeExecutionOverlayState(),
+        },
+    )
+    monkeypatch.setattr(soxl_paper_trading, "_last_trading_day", lambda: "2026-05-21")
+
+    from src.soxl_quant import settings
+
+    monkeypatch.setattr(settings, "CSV_PATH", csv_path)
+    monkeypatch.setattr(sys, "argv", ["soxl_paper_trading.py", "--no-notify", "--skip-data-update"])
+
+    soxl_paper_trading.main()
+
+    run_dir = runtime_dir / "paper_trading" / "2026-05-21"
+    summary = json.loads((run_dir / "summary.json").read_text(encoding="utf-8"))
+    execution_result = json.loads((run_dir / "execution_result.json").read_text(encoding="utf-8"))
+    assert summary["executed"] is False
+    assert summary["execution_result"]["status"] == "skipped"
+    assert execution_result["status"] == "skipped"
+    assert execution_result["submitted"] is False
+
+
 def test_main_uses_budget_runtime_composer_when_requested(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,

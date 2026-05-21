@@ -4568,3 +4568,68 @@ Decision:
 Artifact:
 
 - `runtime/production/card/paper_dry_run_profile_scope_v1/notes.md`
+
+## 2026-05-21 Paper Non-Dry Inference Proof Fix
+
+Goal:
+
+- Prevent scheduler health from falsely treating a selected-profile non-dry
+  paper run as unproven just because no broker order was submitted.
+
+Root cause:
+
+- `executed` means broker order submitted.
+- If v22 runs non-dry and the correct action is HOLD or below lot threshold,
+  `executed=false` even though scheduled inference and risk gating completed.
+- Health previously required `executed=true`, so a valid selected-profile
+  non-dry no-order run would keep runtime proof pending.
+
+Change:
+
+- Persist `execution_result.json` and include `execution_result` in
+  `summary.json` for non-dry broker attempts.
+- Health accepts selected-profile, non-dry, risk-approved
+  `execution_result.status=skipped` as runtime proof.
+
+Evidence:
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest \
+  tests/test_paper_trading.py::test_main_persists_skipped_execution_result_for_non_dry_hold \
+  tests/test_scheduler_health.py::test_scheduler_health_accepts_selected_profile_non_dry_skipped_order_as_runtime_proof -q
+# red before implementation: execution_result missing and proof line absent
+# green after implementation: 2 passed
+
+uv run --python qlib_venv/bin/python --with pytest pytest \
+  tests/test_paper_trading.py tests/test_scheduler_health.py \
+  tests/test_daily_scheduler.py -q
+# 42 passed
+
+uv run --python qlib_venv/bin/python --with pytest pytest \
+  tests/test_runtime.py tests/test_paper_trading.py \
+  tests/test_scheduler_health.py tests/test_daily_scheduler.py -q
+# 62 passed
+
+PYTHONPATH=src:. qlib_venv/bin/python scripts/build_runtime_index.py
+# wrote runtime/index.json (485 entries)
+
+PYTHONPATH=src:. qlib_venv/bin/python scripts/check_harness.py
+# passed=168 failures=0
+
+production/check_scheduler_health.sh
+# local scheduler/data/model/broker/dashboard ok
+# selected v22 runtime proof still waits for next fresh non-dry date
+# Vercel remains blocked_no_credentials
+```
+
+Decision:
+
+- A selected-profile non-dry run proves inference when risk gate approves and
+  the broker result is either submitted or explicitly skipped.
+- Rejected/blocked selected-profile runs remain pending.
+- Runtime overlay state tests now isolate the profile state path under a temp
+  root, so full harness verification is not dependent on local production state.
+
+Artifact:
+
+- `runtime/production/card/paper_non_dry_inference_proof_v1/notes.md`

@@ -1375,3 +1375,43 @@ Verification:
 
 Decision: this is evidence hygiene for simulated paper trading, not a substitute
 for the pending selected-profile non-dry runtime proof.
+
+## 2026-05-21 Paper Non-Dry Inference Proof Semantics
+
+Issue: scheduler health required `executed=true` to prove the selected runtime
+profile had run non-dry. In `production/soxl_paper_trading.py`, `executed`
+means broker order submitted. A correct HOLD or below-lot-threshold selected
+profile run would therefore be a false negative.
+
+Change:
+
+- non-dry broker attempts now persist `execution_result.json`
+- `summary.json` includes `execution_result`
+- `production/check_scheduler_health.sh` treats selected-profile,
+  risk-approved, non-dry `execution_result.status=skipped` as runtime proof
+
+Evidence:
+
+- `uv run --python qlib_venv/bin/python --with pytest pytest tests/test_paper_trading.py::test_main_persists_skipped_execution_result_for_non_dry_hold tests/test_scheduler_health.py::test_scheduler_health_accepts_selected_profile_non_dry_skipped_order_as_runtime_proof -q`
+  -> `2 passed`.
+- `uv run --python qlib_venv/bin/python --with pytest pytest tests/test_paper_trading.py tests/test_scheduler_health.py tests/test_daily_scheduler.py -q`
+  -> `42 passed`.
+- `uv run --python qlib_venv/bin/python --with pytest pytest tests/test_runtime.py tests/test_paper_trading.py tests/test_scheduler_health.py tests/test_daily_scheduler.py -q`
+  -> `62 passed`.
+- `PYTHONPATH=src:. qlib_venv/bin/python scripts/check_harness.py` ->
+  `passed=168 failures=0`.
+- `production/check_scheduler_health.sh` -> local scheduler/data/model/broker/dashboard
+  ok; selected v22 runtime proof still waits for the next fresh non-dry date;
+  Vercel `blocked_no_credentials`.
+
+Evidence card:
+
+- `runtime/production/card/paper_non_dry_inference_proof_v1/notes.md`
+
+Decision: the next fresh selected-profile non-dry paper run can prove scheduled
+inference even if no order is submitted, as long as risk gate approves and the
+broker result is explicitly `skipped`.
+
+Harness note: `tests/test_runtime.py` now isolates the relative execution-overlay
+state path under a temporary root, so local production state no longer changes
+the expected default-state assertion.

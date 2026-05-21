@@ -275,6 +275,7 @@ print_latest_signal_artifact() {
     profile=$(json_field "$payload" "profile")
     dry_run=$(json_field "$payload" "dry_run")
     executed=$(json_field "$payload" "executed")
+    execution_status=$(json_field "$payload" "execution_result.status")
     target=$(json_field "$payload" "signal.target_position")
     risk_gate=$(json_field "$payload" "risk_gate.approved")
     reconcile=$(json_field "$payload" "reconcile.action_required")
@@ -293,10 +294,16 @@ print_latest_signal_artifact() {
     echo "  latest signal: date=${date_value} profile=${profile} dry_run=${dry_run} executed=${executed}"
     echo "  target=${target} risk_gate=${risk_status} reconcile=${reconcile}"
     echo "  artifact=${rel_path}"
-    if [ -n "${SELECTED_MODEL_PROFILE}" ] && [ -n "$profile" ] && [ "$dry_run" = "false" ] && [ "$executed" = "true" ]; then
+    if [ -n "${SELECTED_MODEL_PROFILE}" ] && [ -n "$profile" ] && [ "$dry_run" = "false" ]; then
         if [ "$profile" = "$SELECTED_MODEL_PROFILE" ]; then
-            echo "  runtime proof: ok latest_executed_profile=${profile} selected_model=${SELECTED_MODEL_PROFILE}"
-        else
+            if [ "$executed" = "true" ]; then
+                echo "  runtime proof: ok latest_executed_profile=${profile} selected_model=${SELECTED_MODEL_PROFILE}"
+            elif [ "$risk_gate" = "true" ] && [ "$execution_status" = "skipped" ]; then
+                echo "  runtime proof: ok latest_non_dry_profile=${profile} selected_model=${SELECTED_MODEL_PROFILE} execution=skipped"
+            else
+                echo "  runtime proof: pending latest_non_dry_profile=${profile} selected_model=${SELECTED_MODEL_PROFILE} execution=${execution_status:-unknown}"
+            fi
+        elif [ "$executed" = "true" ]; then
             echo "  runtime proof: pending latest_executed_profile=${profile} selected_model=${SELECTED_MODEL_PROFILE}"
             if [ -n "$PAPER_EXPECTED_LAST_TRADING_DAY" ] && [ "$date_value" = "$PAPER_EXPECTED_LAST_TRADING_DAY" ]; then
                 echo "  runtime proof detail: latest executed date already matches expected data date; next non-dry-run execution must use selected model"

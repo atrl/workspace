@@ -196,10 +196,23 @@ def test_profile_bound_runtime_overlay_loads_release_signals_and_allows_auto_sel
 
 def test_profile_bound_runtime_overlay_relative_state_path_loads_default_state():
     profile = load_profile("balanced_rule_residual_v22")
+    with TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        profile = replace(
+            profile,
+            execution_overlay=replace(
+                profile.execution_overlay,
+                state_path="runtime/execution/state/selective_release_post_release_cap_v1.json",
+            ),
+        )
+        previous_root = runtime.ROOT
+        runtime.ROOT = root
+        try:
+            state = load_runtime_execution_overlay_state(profile, account_value=95_000.0)
+        finally:
+            runtime.ROOT = previous_root
 
-    state = load_runtime_execution_overlay_state(profile, account_value=95_000.0)
-
-    assert state == RuntimeExecutionOverlayState(state_days=0, peak_account_value=95_000.0)
+        assert state == RuntimeExecutionOverlayState(state_days=0, peak_account_value=95_000.0)
 
 
 def test_runtime_overlay_caps_post_release_target_after_state_drawdown():

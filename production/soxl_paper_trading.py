@@ -685,6 +685,7 @@ def main() -> None:
         # 7. Execution
         executed = False
         commands = []
+        exec_result = None
         if decision.approved and not args.dry_run:
             commands, statuses, exec_result = broker.place_target_position(
                 date=signal.date,
@@ -704,6 +705,8 @@ def main() -> None:
             account, reconcile = _post_execution_audit(signal, decision, broker)
             result["account"] = account
             result["reconcile"] = reconcile
+            if exec_result is not None:
+                result["execution_result"] = exec_result
             if not _runtime_composer_enabled(args):
                 profile_cfg = load_profile(profile_name)
                 overlay_state = next_runtime_execution_overlay_state(
@@ -744,6 +747,8 @@ def main() -> None:
             "account": asdict(account),
             "reconcile": asdict(reconcile),
         }
+        if exec_result is not None:
+            summary["execution_result"] = asdict(exec_result)
         if "composition" in result:
             summary["composition"] = result["composition"]
         (run_dir / "summary.json").write_text(json.dumps(summary, indent=2, default=str), encoding="utf-8")
