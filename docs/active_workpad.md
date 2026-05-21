@@ -6176,3 +6176,50 @@ Decision:
 Artifact:
 
 - `runtime/data/card/data_registry_autorefresh_v1/notes.md`
+
+## 2026-05-21 Data Registry Health Gate
+
+Goal:
+
+- Make production health explicitly report whether `data/datasets.yaml` matches
+  the current raw/panel/qlib data surfaces.
+
+Change:
+
+- `production/check_scheduler_health.sh`
+  - adds a `Data Registry Health` section;
+  - runs `scripts/update_data_registry.py --check`;
+  - carries the result into `Production Goal Gates`;
+  - adds `data_registry_freshness` to `overall` when the registry check fails
+    or is unavailable.
+- `tests/test_scheduler_health.py`
+  - covers a stale registry case where paper data is fresh but registry
+    metadata still reports an older panel end date.
+
+Evidence:
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest \
+  tests/test_scheduler_health.py::test_scheduler_health_reports_stale_data_registry_check -q
+# red before implementation: missing Data Registry Health section
+# green after implementation: 1 passed
+
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_scheduler_health.py -q
+# 26 passed
+
+production/check_scheduler_health.sh
+# Data Registry Health: update_data_registry: OK symbols=6 panels=10 qlib=6
+# Production Goal Gates: data registry: ok update_data_registry: OK symbols=6 panels=10 qlib=6
+# overall: pending external_vercel_setup,scheduled_postclose_target,scheduled_paper_proof
+```
+
+Decision:
+
+- Registry freshness is now a production goal gate, separate from paper data
+  freshness.
+- The full production goal remains pending on external Vercel setup and natural
+  scheduled proof windows.
+
+Artifact:
+
+- `runtime/production/card/data_registry_health_gate_v1/notes.md`

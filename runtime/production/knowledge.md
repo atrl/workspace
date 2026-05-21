@@ -2337,3 +2337,28 @@ credential gate or natural scheduled paper-proof gates.
 Evidence card:
 
 - `runtime/data/card/data_registry_autorefresh_v1/notes.md`
+
+## 2026-05-21 Data Registry Health Gate
+
+`production/check_scheduler_health.sh` now surfaces registry freshness as its
+own production check:
+
+```text
+Data Registry Health: update_data_registry: OK symbols=6 panels=10 qlib=6
+Production Goal Gates: data registry: ok update_data_registry: OK symbols=6 panels=10 qlib=6
+```
+
+This closes the observability gap where paper data could be fresh while
+`data/datasets.yaml` was stale. A failed or unavailable
+`scripts/update_data_registry.py --check` now adds
+`data_registry_freshness` to the overall pending issue list.
+
+Live production state remains:
+
+```text
+overall: pending external_vercel_setup,scheduled_postclose_target,scheduled_paper_proof
+```
+
+Evidence card:
+
+- `runtime/production/card/data_registry_health_gate_v1/notes.md`

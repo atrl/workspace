@@ -83,6 +83,73 @@ def test_scheduler_health_reports_macos_launchagent_and_logs():
     assert "unavailable: integrity script missing" in result.stdout
 
 
+def test_scheduler_health_reports_stale_data_registry_check():
+    with TemporaryDirectory() as tmpdir:
+        root = Path(tmpdir)
+        (root / "runtime" / "soxl" / "paper_trading").mkdir(parents=True)
+        scripts_dir = root / "scripts"
+        scripts_dir.mkdir()
+        (scripts_dir / "update_data_registry.py").write_text("# test stub\n", encoding="utf-8")
+
+        fake_bin = root / "bin"
+        fake_bin.mkdir()
+        launchctl = fake_bin / "launchctl"
+        launchctl.write_text(
+            "#!/bin/sh\nprintf '123\\t0\\tcom.soxl.preopen.scheduler\\n456\\t0\\tcom.soxl.daily.scheduler\\n'\n",
+            encoding="utf-8",
+        )
+        launchctl.chmod(0o755)
+        fake_python = fake_bin / "python"
+        fake_python.write_text(
+            "#!/bin/sh\n"
+            "case \" $* \" in\n"
+            "  *\" scripts/update_data_registry.py --check \"*)\n"
+            "    cat <<'TEXT'\n"
+            "update_data_registry: FAIL\n"
+            "- stale registry processed_panels.soxl_soxx_vix_full.end: stored=2026-05-19 current=2026-05-20\n"
+            "TEXT\n"
+            "    exit 1\n"
+            "    ;;\n"
+            "  *)\n"
+            "    cat <<'JSON'\n"
+            "{\"data\":{\"ok\":true,\"last_date\":\"2026-05-20\","
+            "\"expected_last_trading_day\":\"2026-05-20\",\"stale_days\":0},"
+            "\"model\":{\"ok\":true,\"name\":\"balanced_rule_residual_v22\"},"
+            "\"broker\":{\"ok\":true,\"msg\":\"paper broker ready\"},"
+            "\"all_ok\":true}\n"
+            "JSON\n"
+            "    ;;\n"
+            "esac\n",
+            encoding="utf-8",
+        )
+        fake_python.chmod(0o755)
+
+        env = {
+            **os.environ,
+            "PATH": f"{fake_bin}:{os.environ['PATH']}",
+            "SOXL_SCHEDULER_HEALTH_OS": "Darwin",
+            "SOXL_SCHEDULER_HEALTH_ROOT": str(root),
+            "SOXL_SCHEDULER_HEALTH_PYTHON": str(fake_python),
+        }
+        result = subprocess.run(
+            ["bash", str(ROOT / "production" / "check_scheduler_health.sh")],
+            capture_output=True,
+            text=True,
+            env=env,
+            check=True,
+        )
+
+    assert "--- Data Registry Health ---" in result.stdout
+    assert "update_data_registry: FAIL" in result.stdout
+    assert (
+        "stale registry processed_panels.soxl_soxx_vix_full.end: "
+        "stored=2026-05-19 current=2026-05-20"
+    ) in result.stdout
+    assert "data registry: failed update_data_registry: FAIL" in result.stdout
+    assert "overall: pending" in result.stdout
+    assert "data_registry_freshness" in result.stdout
+
+
 def test_scheduler_health_reports_weekly_logs_pending_before_first_run():
     with TemporaryDirectory() as tmpdir:
         root = Path(tmpdir)
@@ -1144,7 +1211,8 @@ def test_scheduler_health_targets_enabled_composer_for_model_and_runtime_proof()
         "execution=unknown"
     ) in result.stdout
     assert (
-        "overall: pending dashboard_static_export,scheduled_postclose_target,scheduled_paper_proof"
+        "overall: pending data_registry_freshness,dashboard_static_export,"
+        "scheduled_postclose_target,scheduled_paper_proof"
     ) in result.stdout
     assert "selected_model=balanced_rule_residual_v22" not in result.stdout
 

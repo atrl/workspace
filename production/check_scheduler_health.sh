@@ -34,6 +34,8 @@ ORDINARY_PAPER_PROOF_SELECTED_MODEL=""
 ORDINARY_PAPER_PROOF_EXECUTION=""
 DATA_GATE_STATUS="unknown"
 DATA_GATE_DETAIL=""
+DATA_REGISTRY_GATE_STATUS="unknown"
+DATA_REGISTRY_GATE_DETAIL=""
 MODEL_GATE_STATUS="unknown"
 MODEL_GATE_DETAIL=""
 BROKER_GATE_STATUS="unknown"
@@ -600,6 +602,41 @@ print_paper_health() {
     fi
 }
 
+print_data_registry_health() {
+    echo "--- Data Registry Health ---"
+    checker="${ROOT}/scripts/update_data_registry.py"
+    if [ ! -f "$checker" ]; then
+        echo "  unavailable: registry checker missing"
+        DATA_REGISTRY_GATE_STATUS="unknown"
+        DATA_REGISTRY_GATE_DETAIL="registry checker missing"
+        return
+    fi
+    if [ ! -x "$HEALTH_PYTHON" ]; then
+        echo "  unavailable: python not executable at ${HEALTH_PYTHON}"
+        DATA_REGISTRY_GATE_STATUS="unknown"
+        DATA_REGISTRY_GATE_DETAIL="python not executable at ${HEALTH_PYTHON}"
+        return
+    fi
+
+    registry_output=$(
+        cd "$ROOT" &&
+        "$HEALTH_PYTHON" scripts/update_data_registry.py --check 2>&1
+    )
+    registry_status=$?
+    printf "%s\n" "$registry_output" | sed 's/^/  /'
+    detail=$(compact_text "$registry_output")
+    [ -z "$detail" ] && detail="no output"
+    if [ "$registry_status" -ne 0 ]; then
+        echo "  status: failed"
+        DATA_REGISTRY_GATE_STATUS="failed"
+        DATA_REGISTRY_GATE_DETAIL="$detail"
+    else
+        echo "  status: ok"
+        DATA_REGISTRY_GATE_STATUS="ok"
+        DATA_REGISTRY_GATE_DETAIL="$detail"
+    fi
+}
+
 print_ordinary_paper_proof_status() {
     profile="$1"
     selected_model="$2"
@@ -999,6 +1036,9 @@ print_goal_gate_summary() {
     echo "  data: ${DATA_GATE_STATUS} ${DATA_GATE_DETAIL}"
     [ "$DATA_GATE_STATUS" != "ok" ] && append_gate_issue "data_freshness"
 
+    echo "  data registry: ${DATA_REGISTRY_GATE_STATUS} ${DATA_REGISTRY_GATE_DETAIL}"
+    [ "$DATA_REGISTRY_GATE_STATUS" != "ok" ] && append_gate_issue "data_registry_freshness"
+
     echo "  model: ${MODEL_GATE_STATUS} ${MODEL_GATE_DETAIL}"
     [ "$MODEL_GATE_STATUS" != "ok" ] && append_gate_issue "model_health"
 
@@ -1116,6 +1156,9 @@ fi
 echo ""
 
 print_paper_health
+echo ""
+
+print_data_registry_health
 echo ""
 
 print_latest_signal_artifact
