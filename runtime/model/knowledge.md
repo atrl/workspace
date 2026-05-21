@@ -86,7 +86,7 @@
 2. **Checkpoint 选择**: validation 最佳 checkpoint 常在 iter 40 而非 iter 80。
 3. **Promotion Gate 硬约束**: test_2022 MaxDD < 35% 且 avg_pos < 0.35，当前无模型能同时满足。
 4. **Walk-forward 有效**: 2020/2022/2023-2024 三个测试窗口的 walk-forward 验证能暴露过拟合。
-5. **v22/post-release-cap 已成为当前 canonical runtime 选择**：`runtime/model/card/balanced_rule_residual_v22/soxl_balanced_rule_residual_v22_summary.json` 已写入 `eligible=true`、`walk_forward_evaluated=true`；`runtime/model/card/balanced_rule_residual_v22/runtime_selection_review.json` 现在 `decision=approved`，profile overlay `auto_select_allowed=true`。当前 scheduler auto-select 选择 `balanced_rule_residual_v22`，v19 仅保留为 rollback actor。
+5. **当前 runtime 模型路径是 `v19reg_v22_budget_usage_bull_guard_v1` composer**：v22/post-release-cap 仍是最近的单 profile 成功案例，但已被受治理的 budget-usage composer 取代为当前 scheduler 目标。该 composer 使用 `balanced_rule_residual_v19_reg` 慢速风险模式 + `balanced_rule_residual_v22` 快速 usage，并通过 `runtime/model/card/v19reg_v22_budget_usage_bull_guard_v1/runtime_promotion_review.json` 的 runtime model gate。下一步模型侧不是再开 PPO/SOXX 分支，而是等待 scheduled post-close / fresh non-dry paper proof。
 
 ## 有效方法 ✅
 
@@ -1067,4 +1067,37 @@ Evidence:
 
 ```text
 runtime/model/card/v19reglight_v22_budget_usage_bull_guard_ablation_v1/walkforward_summary.md
+```
+
+## 2026-05-21 Model Runtime Readiness Review
+
+`scripts/review_model_runtime_readiness.py` now packages the current model
+state into a repeatable readiness card instead of relying on scattered chat or
+stale top-level conclusions.
+
+Current result:
+
+- profile: `v19reg_v22_budget_usage_bull_guard_v1`
+- decision: `ready_waiting_scheduled_paper_proof`
+- runtime model ready: `true`
+- open new training branch: `false`
+
+The review confirms:
+
+- composer runtime promotion is approved and contains all three walk-forward
+  windows.
+- production goal gates now point the model gate at
+  `v19reg_v22_budget_usage_bull_guard_v1`.
+- ordinary paper proof is still not fresh because the current selected-model
+  evidence is same-date `duplicate_skipped`.
+- known duplicate/negative model paths remain blocked:
+  `balanced_rule_residual_v22_continued_retention_v1`,
+  `balanced_rule_residual_v22_soxx`, and
+  `soxx_relative_weakness_walkforward_v1`.
+
+Evidence:
+
+```text
+runtime/model/card/model_runtime_readiness_v1/model_runtime_readiness_review.md
+runtime/model/card/model_runtime_readiness_v1/model_runtime_readiness_review.json
 ```

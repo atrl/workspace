@@ -41,6 +41,7 @@ DEFAULT_TEST_FILES = [
     "tests/test_soxx_relative_walkforward.py",
     "tests/test_selective_release_promotion_review.py",
     "tests/test_runtime_selection_review.py",
+    "tests/test_model_runtime_readiness_review.py",
     "tests/test_scheduler_health.py",
     "tests/test_train_summary_persistence.py",
     "tests/test_vercel_dashboard.py",
@@ -83,6 +84,7 @@ DEFAULT_COMPILE_TARGETS = [
     "scripts/review_selective_release_promotion.py",
     "scripts/review_runtime_selection.py",
     "scripts/review_budget_usage_runtime_promotion.py",
+    "scripts/review_model_runtime_readiness.py",
 
     "scripts/prune_artifacts.py",
     "scripts/rank_counterfactual_variants.py",

@@ -6875,3 +6875,57 @@ Decision:
 Artifact:
 
 - `runtime/production/card/paper_trading_dashboard_metadata_v1/notes.md`
+
+## 2026-05-21 Model Runtime Readiness Review
+
+Goal:
+
+- Answer the model-optimization question after SOXX/SOXX-cap work without
+  opening another duplicate training branch.
+- Make the current runtime model path explicit and repeatable from repo
+  artifacts.
+
+Baseline and contrasts:
+
+- Canonical/direct runtime baseline:
+  `v19reg_v22_budget_usage_bull_guard_v1`.
+- Closest success: the budget-usage composer improves all required
+  walk-forward windows versus the fast v22 path and has an approved runtime
+  promotion review.
+- Closest failures: `balanced_rule_residual_v22_continued_retention_v1`
+  worsened 2022 MaxDD after continuation, and direct
+  `balanced_rule_residual_v22_soxx` failed fixed-split risk/exposure checks.
+- Role: `diagnose` / runtime-readiness review.
+- Changed layer: `selection`.
+- External reference: model-selection evidence and walk-forward validation
+  discipline; no new PPO architecture or reward change.
+- Target window: current production goal gates plus the retained three
+  walk-forward composer windows.
+- Accepted trade-off: do not optimize further locally until the fresh scheduled
+  paper proof arrives.
+- Comparison-table row key: `model_runtime_readiness_v1`.
+
+Evidence:
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest \
+  tests/test_model_runtime_readiness_review.py -q
+# red before implementation: ModuleNotFoundError: scripts.review_model_runtime_readiness
+# green after implementation: 3 passed
+
+PYTHONPATH=. qlib_venv/bin/python scripts/review_model_runtime_readiness.py
+# [model_runtime_readiness] wrote runtime/model/card/model_runtime_readiness_v1 decision=ready_waiting_scheduled_paper_proof
+```
+
+Decision:
+
+- Runtime model readiness is `true` for
+  `v19reg_v22_budget_usage_bull_guard_v1`.
+- `should_open_training_branch=false`.
+- The remaining blocker is not model training; it is scheduled production
+  evidence: external Vercel setup, scheduled post-close target, and fresh
+  non-duplicate paper proof.
+
+Artifact:
+
+- `runtime/model/card/model_runtime_readiness_v1/model_runtime_readiness_review.md`

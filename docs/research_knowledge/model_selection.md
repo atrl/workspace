@@ -34,10 +34,15 @@ windows are present, scoring each window with the profile's selection weights
 and relative outperformance as the return term. If no complete report exists it
 falls back to the legacy summary `best_score`.
 
-Current canonical runtime selection is `balanced_rule_residual_v22` with
-`selective_release_recovery_post_release_cap_v1` explicitly approved for
-auto-selection. The live walk-forward runtime selection scores are v22 `64.88`
-versus v19 `46.17`.
+The v22/post-release-cap approval remains the closest single-profile success
+case, but the current installed runtime model path is the governed
+`v19reg_v22_budget_usage_bull_guard_v1` budget-usage composer. It uses
+`balanced_rule_residual_v19_reg` as the slow risk-mode path and
+`balanced_rule_residual_v22` as the fast usage path, with the price-derived bull
+guard approved through
+`runtime/model/card/v19reg_v22_budget_usage_bull_guard_v1/runtime_promotion_review.json`.
+Current model work should treat this composer as the direct comparison baseline
+until the next scheduled non-dry paper proof lands.
 
 ## 2026-05-21 Continued-Training Diagnostic
 

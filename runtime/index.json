@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-21T13:38:50.781328+00:00",
+  "generated_at": "2026-05-21T13:49:29.907151+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -2144,6 +2144,24 @@
       "bytes": 20836
     },
     {
+      "path": "runtime/model/card/model_runtime_readiness_v1/model_runtime_readiness_review.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 4024
+    },
+    {
+      "path": "runtime/model/card/model_runtime_readiness_v1/model_runtime_readiness_review.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 2160
+    },
+    {
+      "path": "runtime/model/card/model_runtime_readiness_v1/notes.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 737
+    },
+    {
       "path": "runtime/model/card/risk_budget_bc_warmstart_v1/risk_budget_bc_warmstart_v1_bc.json",
       "category": "model",
       "suffix": ".json",
@@ -2723,7 +2741,7 @@
       "path": "runtime/model/knowledge.md",
       "category": "model",
       "suffix": ".md",
-      "bytes": 56841
+      "bytes": 58073
     },
     {
       "path": "runtime/model/model_adjustment_roadmap.md",
