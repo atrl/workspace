@@ -158,6 +158,35 @@ def test_scheduler_prints_run_start_marker(monkeypatch: pytest.MonkeyPatch, caps
     assert "broker=paper dry_run=True" in captured.out
 
 
+def test_scheduler_prints_goal_gates_when_requested(
+    monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+):
+    calls: list[str] = []
+
+    def fake_run(cmd: list[str], description: str):
+        calls.append(description)
+
+    def fake_health_summary():
+        print("--- Production Goal Gates ---")
+        print("  overall: pending scheduled_paper_proof")
+
+    monkeypatch.setattr(soxl_daily_scheduler, "_run", fake_run)
+    monkeypatch.setattr(soxl_daily_scheduler, "_run_health_summary", fake_health_summary, raising=False)
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        ["soxl_daily_scheduler.py", "--no-notify", "--dry-run", "--health-summary"],
+    )
+
+    soxl_daily_scheduler.main()
+
+    captured = capsys.readouterr()
+    assert calls == ["paper trading", "dashboard build"]
+    assert "[scheduler] all done" in captured.out
+    assert "--- Production Goal Gates ---" in captured.out
+    assert captured.out.index("[scheduler] all done") < captured.out.index("--- Production Goal Gates ---")
+
+
 def test_scheduler_prints_runtime_composer_in_run_start_marker(
     monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
 ):

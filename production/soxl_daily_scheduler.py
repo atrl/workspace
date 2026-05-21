@@ -88,6 +88,11 @@ def parse_args() -> argparse.Namespace:
         help="Fail the scheduler when Vercel deployment is blocked by missing credentials.",
     )
     parser.add_argument(
+        "--health-summary",
+        action="store_true",
+        help="Print production goal gate summary after a completed scheduler run.",
+    )
+    parser.add_argument(
         "--smoke",
         action="store_true",
         help="Run cached-data inference plus dashboard rebuild without placing orders or notifying",
@@ -128,6 +133,27 @@ def _run_vercel_deploy(cmd: list[str], *, strict: bool) -> None:
             "[scheduler] Vercel deploy blocked by missing credentials; "
             "continuing after writing deployment evidence"
         )
+
+
+def _run_health_summary() -> None:
+    result = subprocess.run(
+        ["bash", "production/check_scheduler_health.sh"],
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    print("[scheduler] production goal gates")
+    if result.stdout:
+        marker = "--- Production Goal Gates ---"
+        start = result.stdout.find(marker)
+        if start >= 0:
+            print(result.stdout[start:].rstrip())
+        else:
+            print(result.stdout.rstrip())
+    if result.stderr:
+        print(result.stderr, file=sys.stderr)
+    if result.returncode != 0:
+        print(f"[scheduler] WARNING: health summary failed with exit code {result.returncode}", file=sys.stderr)
 
 
 def main() -> None:
@@ -209,7 +235,9 @@ def main() -> None:
                 body=f"Paper trading + dashboard completed. Broker={args.broker} dry_run={args.dry_run}",
                 level="info",
             )
-        print("[scheduler] all done")
+        print("[scheduler] all done", flush=True)
+        if args.health_summary:
+            _run_health_summary()
 
     except Exception as exc:
         msg = str(exc)
@@ -234,7 +262,9 @@ def main() -> None:
                         body="Fresh data unavailable or stale after update. Used cached data for dry-run only; no order was placed.",
                         level="warning",
                     )
-                print("[scheduler] all done (with cached dry-run)")
+                print("[scheduler] all done (with cached dry-run)", flush=True)
+                if args.health_summary:
+                    _run_health_summary()
                 return
             except Exception as exc2:
                 msg2 = str(exc2)

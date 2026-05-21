@@ -5626,3 +5626,64 @@ Decision:
 Artifact:
 
 - `runtime/production/card/production_goal_gate_summary_v1/notes.md`
+
+## 2026-05-21 Scheduled Goal Gate Logging
+
+Goal:
+
+- Make scheduled pre-open/post-close logs directly answer whether the active
+  production goal is complete.
+
+Root cause:
+
+- The manual health check had a final `Production Goal Gates` section, but the
+  scheduled logs ended at `[scheduler] all done` and required a separate manual
+  health run to map the result back to thread-level gates.
+
+Change:
+
+- `production/soxl_daily_scheduler.py` now supports `--health-summary`.
+- Successful normal scheduler runs and cached dry-run fallback runs print the
+  final `Production Goal Gates` section after their completion marker.
+- `production/crontab.txt` and the daily/pre-open LaunchAgent plists pass
+  `--health-summary`.
+- Installed daily/pre-open LaunchAgent plists were copied from repo and
+  reloaded.
+
+Evidence:
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest \
+  tests/test_daily_scheduler.py::test_scheduler_prints_goal_gates_when_requested \
+  tests/test_production_schedule.py::test_crontab_uses_shanghai_safe_us_market_windows \
+  tests/test_production_schedule.py::test_launchagent_runs_post_close_in_shanghai_local_time \
+  tests/test_production_schedule.py::test_launchagent_runs_preopen_cached_dry_run_in_shanghai_local_time -q
+# 4 passed
+
+plutil -lint \
+  production/com.soxl.daily.scheduler.plist \
+  production/com.soxl.preopen.scheduler.plist
+# both OK
+
+production/run_soxl_scheduler.sh \
+  --broker paper --dry-run --no-notify --skip-data-update --skip-dashboard \
+  --health-summary
+# [scheduler] all done
+# [scheduler] production goal gates
+# overall: pending external_vercel_setup,scheduled_postclose_target,scheduled_paper_proof
+
+production/check_scheduler_health.sh
+# LaunchAgent daily/preopen plists: matches repo
+# overall: pending external_vercel_setup,scheduled_postclose_target,scheduled_paper_proof
+```
+
+Decision:
+
+- The next scheduled run now leaves direct goal-gate evidence in its own log.
+- Current production goal remains pending on:
+  `external_vercel_setup`, `scheduled_postclose_target`,
+  `scheduled_paper_proof`.
+
+Artifact:
+
+- `runtime/production/card/scheduled_goal_gate_logging_v1/notes.md`

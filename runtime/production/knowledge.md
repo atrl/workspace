@@ -2036,3 +2036,40 @@ Interpretation:
 Evidence card:
 
 - `runtime/production/card/production_goal_gate_summary_v1/notes.md`
+
+## 2026-05-21 Scheduled Goal Gate Logging
+
+The daily scheduler now accepts `--health-summary`. After a successful normal
+run, and after the cached dry-run fallback success path, it prints:
+
+```text
+[scheduler] production goal gates
+--- Production Goal Gates ---
+...
+overall: pending external_vercel_setup,scheduled_postclose_target,scheduled_paper_proof
+```
+
+`production/crontab.txt`, `production/com.soxl.daily.scheduler.plist`, and
+`production/com.soxl.preopen.scheduler.plist` now pass this flag. The installed
+daily and pre-open LaunchAgent plists were copied from repo and reloaded; health
+reported both installed plists as matching repo.
+
+The validation smoke used:
+
+```text
+production/run_soxl_scheduler.sh --broker paper --dry-run --no-notify --skip-data-update --skip-dashboard --health-summary
+```
+
+It completed paper inference in dry-run mode, skipped order placement, and then
+printed the goal-gate summary. This means the next real scheduled pre-open or
+post-close log should carry its own thread-level completion audit.
+
+Current live state is still:
+
+```text
+overall: pending external_vercel_setup,scheduled_postclose_target,scheduled_paper_proof
+```
+
+Evidence card:
+
+- `runtime/production/card/scheduled_goal_gate_logging_v1/notes.md`

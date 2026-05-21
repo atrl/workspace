@@ -38,6 +38,7 @@ def test_crontab_uses_shanghai_safe_us_market_windows():
     assert "--skip-data-update" not in post_close
     assert "--skip-dashboard" not in post_close
     assert "--vercel-deploy" in post_close
+    assert "--health-summary" in post_close
 
     # Mon-Fri 21:00 China time is a cached-data pre-open inference/dashboard pass.
     assert pre_open.split(maxsplit=5)[:5] == ["0", "21", "*", "*", "1-5"]
@@ -46,6 +47,7 @@ def test_crontab_uses_shanghai_safe_us_market_windows():
     assert "--dry-run" in pre_open
     assert "--skip-data-update" in pre_open
     assert "--vercel-deploy" in pre_open
+    assert "--health-summary" in pre_open
 
     stale_local_times = {tuple(line.split(maxsplit=5)[:2]) for line in lines}
     assert ("30", "9") not in stale_local_times
@@ -87,6 +89,7 @@ def test_launchagent_runs_post_close_in_shanghai_local_time():
     }
     assert plist["ProgramArguments"][0].endswith("/production/run_soxl_scheduler.sh")
     assert "--vercel-deploy" in plist["ProgramArguments"]
+    assert "--health-summary" in plist["ProgramArguments"]
     assert "--skip-data-update" not in plist["ProgramArguments"]
     assert plist["StandardOutPath"].endswith("/runtime/soxl/paper_trading/scheduler_postclose.log")
     assert plist["StandardErrorPath"].endswith("/runtime/soxl/paper_trading/scheduler_postclose.err")
@@ -115,6 +118,7 @@ def test_launchagent_runs_preopen_cached_dry_run_in_shanghai_local_time():
     assert "--skip-data-update" in plist["ProgramArguments"]
     assert "--skip-dashboard" not in plist["ProgramArguments"]
     assert "--vercel-deploy" in plist["ProgramArguments"]
+    assert "--health-summary" in plist["ProgramArguments"]
     assert plist["StandardOutPath"].endswith("/runtime/soxl/paper_trading/scheduler_preopen.log")
     assert plist["StandardErrorPath"].endswith("/runtime/soxl/paper_trading/scheduler_preopen.err")
 
