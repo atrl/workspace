@@ -3722,3 +3722,41 @@ Decision:
   this machine has no Vercel credentials.
 - Next actionable Vercel step is to provide `VERCEL_TOKEN` or run
   `vercel login`, then rerun the same script with `--deploy`.
+
+## 2026-05-21 v22 Next Execution Preflight
+
+Goal:
+
+- Confirm the next selected paper-trading path is v22 without violating
+  same-date idempotency on the already executed `2026-05-20` signal date.
+
+Command:
+
+```bash
+PYTHONPATH=. qlib_venv/bin/python production/soxl_paper_trading.py --broker paper --dry-run --no-notify --skip-data-update
+```
+
+Evidence:
+
+- Data freshness: `last_date=2026-05-20`, `expected=2026-05-20`,
+  `stale_days=0`.
+- Auto-selected profile: `balanced_rule_residual_v22`.
+- Signal date: `2026-05-20`.
+- Dry-run output path:
+  `runtime/soxl/paper_trading/2026-05-20/dry_run`.
+- Risk gate: approved.
+- Step check: `change=0.016 limit=0.350`.
+- Target/current position: `0.5000` / `0.4841`.
+- Reconcile: `position aligned`, `action_required=none`.
+- Root executed summary remains
+  `runtime/soxl/paper_trading/2026-05-20/summary.json` with
+  `profile=balanced_rule_residual_v19`, `dry_run=false`, `executed=true`.
+
+Decision:
+
+- The v22 paper path is preflighted and would pass the current risk gate.
+- Do not force a duplicate non-dry execution for `2026-05-20`; preserve the
+  v19 executed artifact and wait for the next fresh post-close signal date to
+  produce the first non-dry v22 paper proof.
+- Evidence card:
+  `runtime/production/card/v22_next_execution_preflight_v1/notes.md`.

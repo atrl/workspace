@@ -1131,3 +1131,36 @@ or run `vercel login`, then:
 ```bash
 PYTHONPATH=src:. qlib_venv/bin/python scripts/deploy_vercel_dashboard.py --deploy
 ```
+
+## 2026-05-21 v22 Next Execution Preflight
+
+Current runtime auto-selection is already pointed at
+`balanced_rule_residual_v22`, but the latest non-dry paper execution for
+`2026-05-20` remains the earlier `balanced_rule_residual_v19` artifact. The
+same signal date must not be executed twice just to produce a v22 proof.
+
+Safe preflight command:
+
+```bash
+PYTHONPATH=. qlib_venv/bin/python production/soxl_paper_trading.py --broker paper --dry-run --no-notify --skip-data-update
+```
+
+Readout:
+
+- data fresh: `last_date=2026-05-20`, `expected=2026-05-20`, `stale_days=0`
+- auto-selected: `balanced_rule_residual_v22`
+- signal date: `2026-05-20`
+- risk gate: approved
+- step check: `change=0.016 limit=0.350`
+- target/current position: `0.5000` / `0.4841`
+- dry-run path: `runtime/soxl/paper_trading/2026-05-20/dry_run`
+- root executed summary remains the v19 non-dry proof for `2026-05-20`
+
+Decision:
+
+- The next live paper execution path is ready for v22 under current data,
+  broker state, and risk gates.
+- Completion proof still requires the next fresh post-close non-dry execution
+  to write a root summary with `profile=balanced_rule_residual_v22`.
+- Evidence card:
+  `runtime/production/card/v22_next_execution_preflight_v1/notes.md`.
