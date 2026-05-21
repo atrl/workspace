@@ -37,6 +37,7 @@
 30. **pre-open scheduled dry-run 现在有独立 health 状态**：health 新增 `Pre-open Run Status`，按 `21:00 Mon-Fri Asia/Shanghai` 判断 pending/due/current，并在当前成功时要求 `schedule_slot=preopen dry_run=True skip_data_update=True` 以及 runtime composer 目标字段；这不新增最终 goal gate。
 31. **静态 dashboard 包现在携带生产状态 JSON**：`scripts/deploy_vercel_dashboard.py` 会写 `dashboard_data/production_status.json`，只包含非 secret 的 Vercel/auth/project/static 状态；`scripts/check_dashboard_static_export.py` 会要求并报告 `production_status=<status>`。当前状态仍是 `blocked_no_credentials`。
 32. **scheduled proof 现在要求触发来源**：scheduler run-start marker 会输出 `schedule_trigger`，cron/LaunchAgent 分别设置 `cron_*` / `launchagent_*`。post-close target proof 现在必须同时满足 `schedule_slot=postclose` 和 `schedule_trigger=launchagent_postclose|cron_postclose`，避免手动 replay 用同一个 slot 清掉自然定时 gate。
+33. **pre-open 定时 composer 路径已自然触发成功**：`2026-05-21 21:00 CST` 的 `com.soxl.preopen.scheduler` 写入 `schedule_slot=preopen schedule_trigger=launchagent_preopen`，用 `v19reg_v22_budget_usage_bull_guard_v1` runtime composer 在 `2026-05-20` fresh data 上完成 dry-run 推理、dashboard rebuild、goal-gate export 和 Vercel evidence refresh。health 显示 `preopen target: ok ... runtime_composer=budget_usage`。
 
 ## 2026-05-20 验证记录
 
@@ -2492,3 +2493,60 @@ proof land, and Vercel still needs credentials/project setup.
 Evidence card:
 
 - `runtime/production/card/schedule_trigger_provenance_v1/notes.md`
+
+## 2026-05-21 Pre-open Scheduled Composer Proof
+
+The natural pre-open LaunchAgent window fired at
+`2026-05-21T21:00:02+08:00` and produced a scheduled trigger-provenance marker:
+
+```text
+schedule_slot=preopen schedule_trigger=launchagent_preopen runtime_composer=budget_usage composer_profile=v19reg_v22_budget_usage_bull_guard_v1 slow_profile=balanced_rule_residual_v19_reg fast_profile=balanced_rule_residual_v22 bull_guard=True
+```
+
+The run used fresh `2026-05-20` data, skipped data update as designed for
+pre-open, approved the risk gate, and wrote the composer dry-run artifact:
+
+```text
+runtime/soxl/paper_trading/2026-05-20/dry_run/summary.json
+```
+
+Key dry-run readout:
+
+- profile: `v19reg_v22_budget_usage_bull_guard_v1`
+- target/current position: `0.48408568215209924` / `0.48408568215209924`
+- risk gate: approved
+- composer mode: `crash_rebuild`
+- bull guard: enabled but not ready
+
+Scheduler follow-through completed:
+
+- rebuilt `dashboard.html`
+- rebuilt `dashboard_data/index.json`
+- exported `dashboard_data/production_goal_gates.json`
+- refreshed `dashboard_data/production_status.json`
+- attempted Vercel deploy and wrote refreshed blocked evidence under
+  `runtime/production/card/vercel_remote_deploy_v1/`
+
+Health after the run:
+
+```text
+preopen status: success marker found
+preopen target: ok schedule_slot=preopen schedule_trigger=preopen dry_run=True skip_data_update=True runtime_composer=budget_usage composer_profile=v19reg_v22_budget_usage_bull_guard_v1
+dashboard static: ok dashboard_static_export generated_at=2026-05-21 21:01:35 versions=38 missing=0 model_versions=94 latest=paper_trading paper_trading_rows=4 paper_trading_end=2026-05-20 production_status=blocked_no_credentials goal_gates=pending paper_trading
+overall: pending external_vercel_setup,scheduled_postclose_target,scheduled_paper_proof
+```
+
+Boundary:
+
+- This proves the pre-open timed inference/dashboard/Vercel-evidence refresh.
+- It does not clear final production gates: Vercel still needs credentials and a
+  project link, post-close still needs a scheduled `postclose` slot success, and
+  ordinary paper proof still needs the next new-date scheduled non-dry run.
+- For model optimization, the current evidence still favors proving the
+  approved composer path on scheduled data before any new PPO branch; direct SOXX
+  actor features, SOXX cap threshold tuning, and v22 continuation already have
+  negative evidence.
+
+Evidence card:
+
+- `runtime/production/card/preopen_scheduled_composer_proof_v1/notes.md`

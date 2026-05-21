@@ -6688,3 +6688,67 @@ Decision:
 Artifact:
 
 - `runtime/production/card/schedule_trigger_provenance_v1/notes.md`
+
+## 2026-05-21 Pre-open Scheduled Composer Proof
+
+Goal:
+
+- Use the natural `21:00 Mon-Fri Asia/Shanghai` LaunchAgent window to prove
+  scheduled dry-run inference, dashboard rebuild, goal-gate export, and Vercel
+  evidence refresh under the installed runtime composer.
+
+Evidence:
+
+```text
+[scheduler] run started at 2026-05-21T21:00:02+08:00 broker=paper dry_run=True skip_data_update=True data_provider=auto schedule_slot=preopen schedule_trigger=launchagent_preopen runtime_composer=budget_usage composer_profile=v19reg_v22_budget_usage_bull_guard_v1 slow_profile=balanced_rule_residual_v19_reg fast_profile=balanced_rule_residual_v22 bull_guard=True
+[paper] data fresh: last_date=2026-05-20 expected=2026-05-20 stale_days=0
+[paper] using runtime composer=budget_usage profile=v19reg_v22_budget_usage_bull_guard_v1 slow=balanced_rule_residual_v19_reg fast=balanced_rule_residual_v22
+[paper] as_of=2026-05-20
+[paper] signal action=0 target=48.41% price=$173.20
+[paper] risk_gate approved=True
+[paper] dry-run: skipped order placement
+[paper] output=/Users/rziiiii/.openclaw/workspace/runtime/soxl/paper_trading/2026-05-20/dry_run
+```
+
+Scheduler follow-through:
+
+```text
+[scheduler] dashboard build
+[done] wrote dashboard.html
+[done] wrote dashboard_data/index.json
+[done] wrote dashboard_data/model_versions.json
+[done] wrote dashboard_data/versioned/ (38 versions)
+
+[scheduler] production goal gates export
+production_goal_gates status=pending issues=external_vercel_setup,scheduled_postclose_target,scheduled_paper_proof output=/Users/rziiiii/.openclaw/workspace/dashboard_data/production_goal_gates.json
+
+[scheduler] vercel dashboard deploy
+vercel_dashboard status=blocked_no_credentials output=/Users/rziiiii/.openclaw/workspace/runtime/production/card/vercel_remote_deploy_v1
+
+[scheduler] Vercel deploy blocked by missing credentials; continuing after writing deployment evidence
+[scheduler] all done
+```
+
+Health after the run:
+
+```text
+preopen status: success marker found
+preopen target: ok schedule_slot=preopen schedule_trigger=preopen dry_run=True skip_data_update=True runtime_composer=budget_usage composer_profile=v19reg_v22_budget_usage_bull_guard_v1
+dashboard static: ok dashboard_static_export generated_at=2026-05-21 21:01:35 versions=38 missing=0 model_versions=94 latest=paper_trading paper_trading_rows=4 paper_trading_end=2026-05-20 production_status=blocked_no_credentials goal_gates=pending paper_trading
+overall: pending external_vercel_setup,scheduled_postclose_target,scheduled_paper_proof
+```
+
+Decision:
+
+- The pre-open timer path is now proven with `launchagent_preopen`
+  provenance and the current runtime composer.
+- This does not clear final production gates. Vercel still lacks credentials /
+  project link, post-close still needs a scheduled `postclose` slot success, and
+  ordinary paper proof still waits for the next new-date scheduled non-dry run.
+- Model optimization should remain focused on proving the current composer path
+  on scheduled data before opening a new PPO training branch. Existing evidence
+  already blocks direct SOXX actor-feature retraining and v22 continuation.
+
+Artifact:
+
+- `runtime/production/card/preopen_scheduled_composer_proof_v1/notes.md`

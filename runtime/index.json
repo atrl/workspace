@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-21T12:07:08.507025+00:00",
+  "generated_at": "2026-05-21T13:05:38.162386+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -2954,6 +2954,12 @@
       "bytes": 2248
     },
     {
+      "path": "runtime/production/card/preopen_scheduled_composer_proof_v1/notes.md",
+      "category": "production",
+      "suffix": ".md",
+      "bytes": 4020
+    },
+    {
       "path": "runtime/production/card/production_goal_gate_summary_v1/notes.md",
       "category": "production",
       "suffix": ".md",
@@ -3167,7 +3173,7 @@
       "path": "runtime/production/knowledge.md",
       "category": "production",
       "suffix": ".md",
-      "bytes": 107791
+      "bytes": 110745
     },
     {
       "path": "runtime/reward/card/base_log/card.md",
