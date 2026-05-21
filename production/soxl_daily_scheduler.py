@@ -137,11 +137,20 @@ def main() -> None:
 
     venv_python = str(ROOT / "qlib_venv" / "bin" / "python")
     started_at = datetime.now().astimezone().isoformat(timespec="seconds")
-    print(
+    run_marker = (
         "[scheduler] run started at "
         f"{started_at} broker={args.broker} dry_run={args.dry_run} "
         f"skip_data_update={args.skip_data_update} data_provider={args.data_provider}"
     )
+    if args.runtime_composer != "none":
+        run_marker += (
+            f" runtime_composer={args.runtime_composer}"
+            f" composer_profile={args.composer_profile or 'auto'}"
+            f" slow_profile={args.slow_profile or 'auto'}"
+            f" fast_profile={args.fast_profile or 'auto'}"
+            f" bull_guard={args.bull_participation_guard}"
+        )
+    print(run_marker)
 
     try:
         # 1. Paper trading runner (includes data update unless skipped)

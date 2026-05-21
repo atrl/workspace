@@ -1925,3 +1925,38 @@ are accepted by the deploy script.
 Evidence card:
 
 - `runtime/production/card/vercel_project_env_visibility_v1/notes.md`
+
+## 2026-05-21 Post-close Runtime Target Marker
+
+The daily scheduler now prints runtime-composer target fields in its run-start
+marker when the wrapper passes `--runtime-composer`.
+
+The current real wrapper smoke:
+
+```text
+[scheduler] run started ... runtime_composer=budget_usage composer_profile=v19reg_v22_budget_usage_bull_guard_v1 slow_profile=balanced_rule_residual_v19_reg fast_profile=balanced_rule_residual_v22 bull_guard=True
+[paper] using runtime composer=budget_usage profile=v19reg_v22_budget_usage_bull_guard_v1 slow=balanced_rule_residual_v19_reg fast=balanced_rule_residual_v22
+[scheduler] all done
+```
+
+Scheduler health now also audits the latest post-close success marker against
+the enabled private-env composer target. Current live readout:
+
+```text
+postclose status: success marker found
+postclose target: pending latest_success_marker lacks runtime_composer=budget_usage composer_profile=v19reg_v22_budget_usage_bull_guard_v1
+postclose proof: ordinary paper proof pending selected_model=v19reg_v22_budget_usage_bull_guard_v1 execution=duplicate_skipped
+```
+
+Interpretation:
+
+- The latest scheduled post-close wrapper success predates the explicit runtime
+  composer target marker.
+- The next scheduled post-close run must show both `postclose target: ok ...`
+  and `postclose proof: ordinary paper proof ok ...`.
+- Until both lines clear, the simulated-paper part of the thread goal remains
+  incomplete.
+
+Evidence card:
+
+- `runtime/production/card/postclose_runtime_target_marker_v1/notes.md`

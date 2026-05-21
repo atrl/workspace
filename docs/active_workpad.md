@@ -5462,3 +5462,58 @@ Decision:
 Artifact:
 
 - `runtime/production/card/vercel_project_env_visibility_v1/notes.md`
+
+## 2026-05-21 Post-close Runtime Target Marker
+
+Goal:
+
+- Make post-close scheduler evidence distinguish a generic wrapper success from
+  a success that actually ran the enabled runtime composer target.
+
+Root cause:
+
+- The current `scheduler_postclose.log` success marker was produced before the
+  active runtime composer target was visible in the run-start marker.
+- Health could therefore say `postclose status: success marker found` while the
+  latest post-close log did not prove the scheduled wrapper had run
+  `v19reg_v22_budget_usage_bull_guard_v1`.
+
+Change:
+
+- `production/soxl_daily_scheduler.py` now prints runtime target fields in the
+  run-start marker when `--runtime-composer` is enabled.
+- `production/check_scheduler_health.sh` now prints `postclose target: ...`
+  when the private scheduler env enables a runtime composer.
+- The target line checks the latest run-start marker for runtime composer,
+  composer profile, slow profile, and fast profile.
+
+Evidence:
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest \
+  tests/test_scheduler_health.py::test_scheduler_health_targets_enabled_composer_for_model_and_runtime_proof \
+  tests/test_daily_scheduler.py::test_scheduler_prints_runtime_composer_in_run_start_marker -q
+# red before implementation: missing runtime_composer marker / postclose target line
+# green after implementation: 2 passed
+
+production/check_scheduler_health.sh | sed -n '/--- Post-close Run Status ---/,/--- Next Scheduled Runs ---/p'
+# postclose status: success marker found
+# postclose target: pending latest_success_marker lacks runtime_composer=budget_usage composer_profile=v19reg_v22_budget_usage_bull_guard_v1
+# postclose proof: ordinary paper proof pending selected_model=v19reg_v22_budget_usage_bull_guard_v1 execution=duplicate_skipped
+
+production/run_soxl_scheduler.sh --broker paper --dry-run --no-notify --skip-data-update --skip-dashboard
+# run-start marker includes runtime_composer=budget_usage composer_profile=v19reg_v22_budget_usage_bull_guard_v1 slow_profile=balanced_rule_residual_v19_reg fast_profile=balanced_rule_residual_v22
+# [paper] using runtime composer=budget_usage profile=v19reg_v22_budget_usage_bull_guard_v1 slow=balanced_rule_residual_v19_reg fast=balanced_rule_residual_v22
+# [scheduler] all done
+```
+
+Decision:
+
+- The next scheduled post-close run must clear two separate local lines:
+  `postclose target: ok ...` and `postclose proof: ordinary paper proof ok ...`.
+- Current state remains pending because the latest scheduled post-close success
+  marker predates the runtime composer target marker.
+
+Artifact:
+
+- `runtime/production/card/postclose_runtime_target_marker_v1/notes.md`

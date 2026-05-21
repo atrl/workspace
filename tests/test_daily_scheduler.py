@@ -158,6 +158,41 @@ def test_scheduler_prints_run_start_marker(monkeypatch: pytest.MonkeyPatch, caps
     assert "broker=paper dry_run=True" in captured.out
 
 
+def test_scheduler_prints_runtime_composer_in_run_start_marker(
+    monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+):
+    def fake_run(cmd: list[str], description: str):
+        return None
+
+    monkeypatch.setattr(soxl_daily_scheduler, "_run", fake_run)
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "soxl_daily_scheduler.py",
+            "--no-notify",
+            "--runtime-composer",
+            "budget_usage",
+            "--composer-profile",
+            "v19reg_v22_budget_usage_bull_guard_v1",
+            "--slow-profile",
+            "balanced_rule_residual_v19_reg",
+            "--fast-profile",
+            "balanced_rule_residual_v22",
+            "--bull-participation-guard",
+        ],
+    )
+
+    soxl_daily_scheduler.main()
+
+    captured = capsys.readouterr()
+    assert "runtime_composer=budget_usage" in captured.out
+    assert "composer_profile=v19reg_v22_budget_usage_bull_guard_v1" in captured.out
+    assert "slow_profile=balanced_rule_residual_v19_reg" in captured.out
+    assert "fast_profile=balanced_rule_residual_v22" in captured.out
+    assert "bull_guard=True" in captured.out
+
+
 def test_scheduler_passes_data_provider_to_paper_runner(monkeypatch: pytest.MonkeyPatch):
     calls: list[tuple[list[str], str]] = []
 

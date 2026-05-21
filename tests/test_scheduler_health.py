@@ -912,6 +912,16 @@ def test_scheduler_health_targets_enabled_composer_for_model_and_runtime_proof()
         runtime_dir = root / "runtime" / "soxl" / "paper_trading" / "2026-05-20"
         duplicate_dir = runtime_dir / "duplicate_skip" / "balanced_rule_residual_v22"
         duplicate_dir.mkdir(parents=True)
+        (root / "runtime" / "soxl" / "paper_trading" / "scheduler_postclose.log").write_text(
+            "\n".join(
+                [
+                    "[scheduler] run started at 2026-05-21T06:15:00+08:00 broker=paper dry_run=False",
+                    "[scheduler] all done",
+                    "",
+                ]
+            ),
+            encoding="utf-8",
+        )
         (runtime_dir / "summary.json").write_text(
             """
 {
@@ -1007,6 +1017,7 @@ def test_scheduler_health_targets_enabled_composer_for_model_and_runtime_proof()
             "SOXL_SCHEDULER_HEALTH_ROOT": str(root),
             "SOXL_SCHEDULER_HEALTH_PYTHON": str(fake_python),
             "SOXL_SCHEDULER_HEALTH_LAUNCHAGENTS_DIR": str(launchagents_dir),
+            "SOXL_SCHEDULER_HEALTH_POSTCLOSE_CUTOFF_EPOCH": "1",
             "SOXL_LAUNCH_ENV_FILE": str(launch_env),
         }
         result = subprocess.run(
@@ -1030,6 +1041,10 @@ def test_scheduler_health_targets_enabled_composer_for_model_and_runtime_proof()
     assert (
         "runtime proof: pending latest_executed_profile=balanced_rule_residual_v19 "
         "selected_model=v19reg_v22_budget_usage_bull_guard_v1"
+    ) in result.stdout
+    assert (
+        "postclose target: pending latest_success_marker lacks runtime_composer=budget_usage "
+        "composer_profile=v19reg_v22_budget_usage_bull_guard_v1"
     ) in result.stdout
     assert "selected_model=balanced_rule_residual_v22" not in result.stdout
 

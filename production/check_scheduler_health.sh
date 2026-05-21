@@ -154,6 +154,27 @@ postclose_cached_dry_run_after_cutoff() {
     return 0
 }
 
+postclose_last_run_marker() {
+    path="$1"
+    if [ ! -f "$path" ]; then
+        return
+    fi
+    awk '/^\[scheduler\] run started at / { marker = $0 } END { print marker }' "$path"
+}
+
+marker_has_text() {
+    marker="$1"
+    needle="$2"
+    case "$marker" in
+        *"$needle"*)
+            return 0
+            ;;
+        *)
+            return 1
+            ;;
+    esac
+}
+
 print_scheduler_service() {
     echo "--- Scheduler Service ---"
     if [ "$OS_NAME" = "Darwin" ]; then
@@ -483,6 +504,28 @@ print_postclose_proof_detail() {
     echo "  postclose proof: ordinary paper proof ${ORDINARY_PAPER_PROOF_STATUS} selected_model=${ORDINARY_PAPER_PROOF_SELECTED_MODEL} execution=${ORDINARY_PAPER_PROOF_EXECUTION}"
 }
 
+print_postclose_target_status() {
+    postclose_log="$1"
+    if [ "$RUNTIME_COMPOSER_STATE" != "enabled" ]; then
+        return
+    fi
+
+    marker=$(postclose_last_run_marker "$postclose_log")
+    if [ -z "$marker" ]; then
+        echo "  postclose target: unknown latest_success_marker has no run-start marker"
+        return
+    fi
+
+    if marker_has_text "$marker" "runtime_composer=${RUNTIME_COMPOSER}" &&
+        marker_has_text "$marker" "composer_profile=${RUNTIME_COMPOSER_PROFILE}" &&
+        marker_has_text "$marker" "slow_profile=${RUNTIME_SLOW_PROFILE}" &&
+        marker_has_text "$marker" "fast_profile=${RUNTIME_FAST_PROFILE}"; then
+        echo "  postclose target: ok runtime_composer=${RUNTIME_COMPOSER} composer_profile=${RUNTIME_COMPOSER_PROFILE}"
+    else
+        echo "  postclose target: pending latest_success_marker lacks runtime_composer=${RUNTIME_COMPOSER} composer_profile=${RUNTIME_COMPOSER_PROFILE}"
+    fi
+}
+
 print_latest_signal_artifact() {
     echo "--- Latest Signal Artifact ---"
     paper_dir="${ROOT}/runtime/soxl/paper_trading"
@@ -580,6 +623,7 @@ print_postclose_status() {
     postclose_log="${ROOT}/runtime/soxl/paper_trading/scheduler_postclose.log"
     if postclose_success_after_cutoff "$postclose_log"; then
         echo "  postclose status: success marker found"
+        print_postclose_target_status "$postclose_log"
         print_postclose_proof_detail
     elif postclose_cached_dry_run_after_cutoff "$postclose_log"; then
         echo "  postclose status: due but only cached dry-run fallback completed"
