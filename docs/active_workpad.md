@@ -3806,3 +3806,57 @@ Decision:
   blocker is now part of the canonical production health output.
 - Evidence card:
   `runtime/production/card/vercel_health_surface_v1/notes.md`.
+
+## 2026-05-21 v19_reg + v22 Feature Retest
+
+Goal:
+
+- Run exactly one governed model optimization loop after the SOXX/Vercel/paper
+  infrastructure work, without reviving stale profile-only evidence.
+
+Setup:
+
+- Canonical baseline: `balanced_rule_residual_v22`.
+- Direct comparison: `balanced_rule_residual_v19_reg`.
+- Profile: `balanced_rule_residual_v19_reg_v22_retest_v1`.
+- Changed layer: `feature` + `network`.
+- External reference: VIX term-structure feature family plus dropout/weight
+  decay regularization.
+
+Command:
+
+```bash
+PYTHONPATH=src:. qlib_venv/bin/python soxl_qlib_strategy_v2.py --profiles balanced_rule_residual_v19_reg_v22_retest_v1 --skip-data-refresh --seed 20260521
+```
+
+Evidence:
+
+- Summary:
+  `runtime/model/card/balanced_rule_residual_v19_reg_v22_retest_v1/soxl_balanced_rule_residual_v19_reg_v22_retest_v1_summary.json`
+- Review:
+  `runtime/model/card/balanced_rule_residual_v19_reg_v22_retest_v1/v19_reg_v22_retest_review.md`
+- Dashboard version:
+  `dashboard_data/versioned/balanced_rule_residual_v19_reg_v22_retest_v1/SOXL.json`
+- Health check after dashboard refresh:
+  `dashboard_static_export generated_at=2026-05-21 09:40:42 versions=27
+  missing=0 model_versions=93 latest=paper_trading`; Vercel remote deployment
+  remains `blocked_no_credentials`; runtime proof remains pending until the
+  next fresh non-dry paper execution selects v22.
+
+Readout:
+
+- Proxy: `1280.4%` return / `1.020` Sharpe / `59.6%` MaxDD.
+- `test_2022`: `-54.1%` return / `58.3%` MaxDD / `0.381` avg position.
+- Fixed-split promotion is blocked because `test_2022_max_dd=58.30% > 55%`
+  and `test_2022_avg_pos=0.381 > 0.35`.
+- Versus canonical v22, 2022 MaxDD worsens from `32.7%` to `58.3%`.
+- Versus direct v19_reg, 2023-2024 return falls from `58.7%` to `44.5%`.
+
+Decision:
+
+- Marked the profile as `ablation`.
+- Do not run walk-forward and do not bind runtime.
+- Keep retained checkpoints only as replay evidence for this governed retest.
+- The model-optimization readout is now narrower: v22 is not simply
+  undertrained, and v19_reg + v22 feature fusion increases exposure rather than
+  fixing bear-market risk.

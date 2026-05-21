@@ -618,6 +618,15 @@ profiles:
   notes_ref: runtime/model/card/balanced_rule_residual_v19_reg_v22/notes.md
   wf_status: not_applicable
   wf_notes: "Profile-only historical idea. Older knowledge claimed a fixed-split pass and a started walk-forward task, but the repo has no retained actor, summary JSON, or walk-forward outputs; do not treat as an active candidate."
+- name: balanced_rule_residual_v19_reg_v22_retest_v1
+  family: balanced
+  status: ablation
+  baseline: balanced_rule_residual_v22
+  keep_actor: true
+  keep_summary: true
+  notes_ref: runtime/model/card/balanced_rule_residual_v19_reg_v22_retest_v1/notes.md
+  wf_status: not_applicable
+  wf_notes: "Fresh governed retest of v19_reg regularization plus v22 VIX term features. Fixed split is blocked: proxy 1280.42% / Sharpe 1.020 passes, but test_2022 MaxDD 58.30% exceeds 55% and avg_pos 0.381 exceeds 0.35. Versus v22, 2022 MaxDD worsens from 32.71% to 58.30%; versus v19_reg, 2023-2024 return falls from 58.70% to 44.52%. Keep small retained checkpoint actors as replay evidence only; do not walk-forward or bind runtime."
 - name: balanced_rule_residual_v22_soxx
   family: balanced
   status: candidate

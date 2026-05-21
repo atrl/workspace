@@ -699,3 +699,43 @@ Decision:
 - This supports the current interpretation that the bottleneck is not generic
   extra PPO training; the next model work should change selection evidence or a
   distinct risk-control mechanism, not simply continue v22.
+
+## 2026-05-21 v19_reg + v22 Feature Retest
+
+Question: can the stale profile-only `balanced_rule_residual_v19_reg_v22` idea
+be revived by a governed fresh run that combines v19_reg regularization with
+v22 VIX term-structure features?
+
+Answer: no. The fresh run produces real artifacts, but it fails the fixed-split
+bear-risk gate and should not be walk-forwarded.
+
+Evidence:
+
+- Profile:
+  `runtime/model/card/balanced_rule_residual_v19_reg_v22_retest_v1/profile.yaml`
+- Review:
+  `runtime/model/card/balanced_rule_residual_v19_reg_v22_retest_v1/v19_reg_v22_retest_review.md`
+- Summary:
+  `runtime/model/card/balanced_rule_residual_v19_reg_v22_retest_v1/soxl_balanced_rule_residual_v19_reg_v22_retest_v1_summary.json`
+
+Readout:
+
+- Proxy improves to `1280.42%` return / `1.020` Sharpe, but MaxDD widens to
+  `59.64%`.
+- `test_2022` fails both fixed-split risk checks: MaxDD `58.30% > 55.00%` and
+  avg position `0.381 > 0.350`.
+- Versus canonical v22, `test_2022` deteriorates from `-24.52% / MaxDD 32.71%
+  / avg_pos 0.269` to `-54.10% / MaxDD 58.30% / avg_pos 0.381`.
+- Versus direct `v19_reg`, `test_2023_2024` return falls from `58.70%` to
+  `44.52%`, while drawdown widens from `35.06%` to `40.75%`.
+- Retained validation checkpoints exist for iter `0/20/40/60/80`; iter `0`
+  scores highest at `89.48`, closely followed by iter `40` at `89.32`.
+
+Decision:
+
+- Registry status is `ablation`.
+- Do not run walk-forward or bind runtime.
+- Keep the small retained actors/checkpoints as replay evidence only.
+- Interpretation: v22 VIX term-structure features plus v19_reg regularization
+  create a higher-exposure recovery/bull-market actor, not a better
+  risk-controlled successor to v22.
