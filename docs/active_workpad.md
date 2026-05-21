@@ -4292,3 +4292,59 @@ Artifacts:
 
 - `runtime/model/card/v19reg_v22_budget_usage_bull_guard_v1/notes.md`
 - `runtime/model/card/v19reg_v22_budget_usage_bull_guard_v1/walkforward_summary.md`
+
+## 2026-05-21 Budget-Usage Bull Guard Runtime Packaging
+
+Goal:
+
+- Continue the promoted diagnostic toward runtime governance without claiming
+  standard post-close auto-selection before the scheduler can express a
+  two-actor composer.
+
+Implemented:
+
+- Moved `BullParticipationGuardConfig` from
+  `src/soxl_quant/app/budget_counterfactual.py` into
+  `src/soxl_quant/policy/two_speed_budget.py`.
+- Extended `compose_budget_usage_policy_frame` with optional `price_series` and
+  `bull_guard` arguments. When enabled, it emits
+  `base_two_speed_position`, `bull_participation_guard`,
+  `bull_guard_ma`, `bull_guard_momentum`, and `bull_guard_drawdown` audit
+  columns from the shared policy layer.
+- Changed the counterfactual app to consume the shared policy implementation
+  instead of keeping a private bull-guard composer.
+- Added `production/composed_session.py` to `scripts/check_harness.py` compile
+  coverage.
+
+Evidence:
+
+```bash
+PYTHONPATH=src:. qlib_venv/bin/python tests/test_two_speed_budget.py
+# red before implementation: ImportError for BullParticipationGuardConfig
+
+uv run --python qlib_venv/bin/python --with pytest pytest \
+  tests/test_two_speed_budget.py tests/test_budget_counterfactual.py -q
+# 12 passed
+
+PYTHONPATH=src:. qlib_venv/bin/python scripts/check_harness.py
+# passed=160 failures=0
+
+production/check_scheduler_health.sh
+# data/model/broker/dashboard ok; runtime proof pending for next non-dry-run
+# selected-model execution; Vercel blocked_no_credentials
+```
+
+Decision:
+
+- Runtime packaging status is `policy_layer_ready_runtime_binding_pending`.
+- Do not mark the composer runtime-auto-selectable yet: standard paper trading
+  still plans one selected actor profile, and no governed runtime profile config
+  exists for `slow_profile + fast_profile + bull_guard`.
+- External blockers remain unchanged: next fresh non-dry paper proof must still
+  confirm selected v22 execution, and Vercel deploy remains blocked without
+  `VERCEL_TOKEN` or `vercel login`.
+
+Artifacts:
+
+- `runtime/model/card/v19reg_v22_budget_usage_bull_guard_v1/runtime_packaging_review.md`
+- `runtime/model/card/v19reg_v22_budget_usage_bull_guard_v1/runtime_packaging_review.json`

@@ -8,11 +8,9 @@ import numpy as np
 import pandas as pd
 
 from ..policy.two_speed_budget import (
+    BullParticipationGuardConfig,
     TwoSpeedBudgetConfig,
     compose_budget_usage_policy_frame,
-    compose_budget_usage_position,
-    infer_mode_from_slow_position,
-    maybe_rebalance_position,
 )
 
 
@@ -27,17 +25,6 @@ DEFAULT_WINDOWS: dict[str, tuple[str, str]] = {
 class BudgetUsageCounterfactual:
     payload: dict
     daily: pd.DataFrame
-
-
-@dataclass(frozen=True)
-class BullParticipationGuardConfig:
-    enabled: bool = False
-    ma_window: int = 50
-    momentum_window: int = 20
-    high_window: int = 50
-    min_periods: int = 20
-    min_momentum: float = 0.03
-    max_drawdown: float = 0.08
 
 
 def _position_frame(frame: pd.DataFrame, position_col: str = "position") -> pd.DataFrame:
@@ -164,87 +151,6 @@ def _bull_guard_config_payload(cfg: BullParticipationGuardConfig | None) -> dict
     }
 
 
-def _compose_budget_usage_policy_frame_with_bull_guard(
-    slow: pd.DataFrame,
-    fast: pd.DataFrame,
-    price_series: pd.Series,
-    config: TwoSpeedBudgetConfig,
-    guard: BullParticipationGuardConfig,
-) -> pd.DataFrame:
-    frame = slow[["datetime", "slow_position"]].merge(
-        fast[["datetime", "fast_position"]],
-        on="datetime",
-        how="inner",
-    )
-    if frame.empty:
-        raise ValueError("slow/fast policy frames have no overlapping datetimes")
-    frame["datetime"] = pd.to_datetime(frame["datetime"])
-
-    price = price_series.copy()
-    if not isinstance(price.index, pd.DatetimeIndex):
-        price.index = pd.to_datetime(price.index)
-    price_frame = price.rename("price").reset_index()
-    price_frame.columns = ["datetime", "price"]
-    price_frame["datetime"] = pd.to_datetime(price_frame["datetime"])
-    frame = frame.merge(price_frame, on="datetime", how="inner").sort_values("datetime").reset_index(drop=True)
-    if frame.empty:
-        raise ValueError("policy frames and price series have no overlapping datetimes")
-
-    prices = frame["price"].astype(float)
-    ma_window = max(int(guard.ma_window), 1)
-    momentum_window = max(int(guard.momentum_window), 1)
-    high_window = max(int(guard.high_window), 1)
-    min_periods = max(int(guard.min_periods), 1)
-    moving_average = prices.rolling(ma_window, min_periods=min(min_periods, ma_window)).mean()
-    momentum = prices / prices.shift(momentum_window) - 1.0
-    drawdown = prices / prices.rolling(high_window, min_periods=min(min_periods, high_window)).max() - 1.0
-
-    current = 0.0
-    days_since_trade = config.trade_lock_days
-    modes: list[str] = []
-    base_targets: list[float] = []
-    raw_targets: list[float] = []
-    targets: list[float] = []
-    fast_usage: list[float] = []
-    guard_flags: list[bool] = []
-
-    for idx, row in frame.iterrows():
-        slow_pos = float(row["slow_position"])
-        usage = max(0.0, min(float(row["fast_position"]), 1.0))
-        mode = infer_mode_from_slow_position(slow_pos)
-        base_raw = compose_budget_usage_position(usage, mode, config)
-        guard_ready = bool(
-            prices.iloc[idx] > moving_average.iloc[idx]
-            and momentum.iloc[idx] >= float(guard.min_momentum)
-            and drawdown.iloc[idx] >= -float(guard.max_drawdown)
-        )
-        raw = max(base_raw, usage) if guard_ready else base_raw
-        target = maybe_rebalance_position(current, raw, days_since_trade, config)
-        if abs(target - current) >= config.trade_threshold:
-            days_since_trade = 0
-        else:
-            days_since_trade += 1
-        current = target
-        modes.append(mode)
-        base_targets.append(base_raw)
-        raw_targets.append(raw)
-        targets.append(target)
-        fast_usage.append(usage)
-        guard_flags.append(guard_ready)
-
-    out = frame.drop(columns=["price"]).copy()
-    out["mode"] = modes
-    out["fast_usage"] = fast_usage
-    out["base_two_speed_position"] = base_targets
-    out["raw_two_speed_position"] = raw_targets
-    out["position"] = targets
-    out["bull_participation_guard"] = guard_flags
-    out["bull_guard_ma"] = moving_average
-    out["bull_guard_momentum"] = momentum
-    out["bull_guard_drawdown"] = drawdown
-    return out
-
-
 def build_budget_usage_counterfactual(
     slow: pd.DataFrame,
     fast: pd.DataFrame,
@@ -263,10 +169,12 @@ def build_budget_usage_counterfactual(
     slow_frame = _position_frame(slow).rename(columns={"position": "slow_position"})
     fast_frame = _position_frame(fast).rename(columns={"position": "fast_position"})
     guard_cfg = bull_guard or BullParticipationGuardConfig()
-    daily = (
-        _compose_budget_usage_policy_frame_with_bull_guard(slow_frame, fast_frame, price_series, cfg, guard_cfg)
-        if guard_cfg.enabled
-        else compose_budget_usage_policy_frame(slow_frame, fast_frame, cfg)
+    daily = compose_budget_usage_policy_frame(
+        slow_frame,
+        fast_frame,
+        cfg,
+        price_series=price_series if guard_cfg.enabled else None,
+        bull_guard=guard_cfg,
     )
 
     variants = {

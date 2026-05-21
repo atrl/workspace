@@ -1,0 +1,27 @@
+{
+  "profile": "v19reg_v22_budget_usage_bull_guard_v1",
+  "review": "runtime_packaging_policy_layer_v1",
+  "date": "2026-05-21",
+  "decision": "policy_layer_ready_runtime_binding_pending",
+  "runtime_auto_select_status": "blocked",
+  "changed_layer": "selection",
+  "scope_completed": [
+    "moved BullParticipationGuardConfig into src/soxl_quant/policy/two_speed_budget.py",
+    "moved bull-participation guard composition into compose_budget_usage_policy_frame",
+    "kept counterfactual scoring in src/soxl_quant/app/budget_counterfactual.py as a consumer of the shared policy implementation",
+    "added production/composed_session.py to check_harness compile coverage"
+  ],
+  "runtime_binding_blockers": [
+    "standard production/soxl_paper_trading.py still plans a single selected actor profile",
+    "no governed runtime profile config exists yet for slow_profile plus fast_profile plus price-derived bull guard",
+    "fresh non-dry post-close paper proof for the currently selected v22 model is still pending",
+    "Vercel remote deployment remains blocked until VERCEL_TOKEN is set or vercel login is completed"
+  ],
+  "verification": {
+    "red_test": "PYTHONPATH=src:. qlib_venv/bin/python tests/test_two_speed_budget.py failed with ImportError for BullParticipationGuardConfig before the policy-layer move",
+    "focused_tests": "uv run --python qlib_venv/bin/python --with pytest pytest tests/test_two_speed_budget.py tests/test_budget_counterfactual.py -q => 12 passed",
+    "harness": "PYTHONPATH=src:. qlib_venv/bin/python scripts/check_harness.py => passed=160 failures=0",
+    "scheduler_health": "production/check_scheduler_health.sh => data/model/broker/dashboard ok; runtime proof pending because latest executed profile is balanced_rule_residual_v19 and selected model is balanced_rule_residual_v22; Vercel blocked_no_credentials"
+  },
+  "next_action": "Add a governed runtime composer/profile interface for the two-actor budget-usage path, then verify it through the standard post-close paper and dashboard path before allowing runtime auto-selection."
+}

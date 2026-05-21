@@ -86,6 +86,7 @@ DEFAULT_COMPILE_TARGETS = [
     "scripts/rank_counterfactual_variants.py",
 
     "scripts/update_data_registry.py",
+    "production/composed_session.py",
     "production/soxl_paper_runner.py",
 ]
 

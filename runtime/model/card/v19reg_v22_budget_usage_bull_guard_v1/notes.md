@@ -95,3 +95,24 @@ guard inside an ad-hoc script.
 - `walkforward/wf_2020/v19reg_v22_budget_usage_bull_guard_v1_wf_2020.md`
 - `walkforward/wf_2022/v19reg_v22_budget_usage_bull_guard_v1_wf_2022.md`
 - `walkforward/wf_2023_2024/v19reg_v22_budget_usage_bull_guard_v1_wf_2023_2024.md`
+
+## 2026-05-21 Runtime Packaging Step
+
+Decision: `policy_layer_ready_runtime_binding_pending`.
+
+The price-derived bull guard has been moved out of the counterfactual app layer
+and into `src/soxl_quant/policy/two_speed_budget.py`. The counterfactual card
+now imports `BullParticipationGuardConfig` and guarded
+`compose_budget_usage_policy_frame` from the policy layer, which gives future
+runtime/profile code a shared implementation to call instead of duplicating the
+diagnostic logic.
+
+This is still not runtime auto-select evidence. The standard paper trading path
+still selects and plans one actor profile; no governed runtime profile config
+exists yet for `slow_profile + fast_profile + bull_guard`.
+
+Evidence:
+
+- `runtime_packaging_review.md`
+- `runtime_packaging_review.json`
+- `uv run --python qlib_venv/bin/python --with pytest pytest tests/test_two_speed_budget.py tests/test_budget_counterfactual.py -q` -> `12 passed`

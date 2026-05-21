@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-21T04:01:36.575126+00:00",
+  "generated_at": "2026-05-21T04:13:33.231162+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -2363,7 +2363,19 @@
       "path": "runtime/model/card/v19reg_v22_budget_usage_bull_guard_v1/notes.md",
       "category": "model",
       "suffix": ".md",
-      "bytes": 4879
+      "bytes": 5807
+    },
+    {
+      "path": "runtime/model/card/v19reg_v22_budget_usage_bull_guard_v1/runtime_packaging_review.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 2079
+    },
+    {
+      "path": "runtime/model/card/v19reg_v22_budget_usage_bull_guard_v1/runtime_packaging_review.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 2405
     },
     {
       "path": "runtime/model/card/v19reg_v22_budget_usage_bull_guard_v1/walkforward/wf_2020/v19reg_v22_budget_usage_bull_guard_v1_wf_2020.json",
@@ -2585,7 +2597,7 @@
       "path": "runtime/model/knowledge.md",
       "category": "model",
       "suffix": ".md",
-      "bytes": 46557
+      "bytes": 48094
     },
     {
       "path": "runtime/model/model_adjustment_roadmap.md",

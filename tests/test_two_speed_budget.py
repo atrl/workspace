@@ -3,6 +3,7 @@ from __future__ import annotations
 import pandas as pd
 
 from src.soxl_quant.policy.two_speed_budget import (
+    BullParticipationGuardConfig,
     TwoSpeedBudgetConfig,
     compose_budget_usage_policy_frame,
     compose_budget_usage_position,
@@ -69,6 +70,35 @@ def test_compose_budget_usage_policy_frame_keeps_audit_columns():
     assert out["fast_usage"].tolist() == [1.0, 0.0, 0.5]
 
 
+def test_compose_budget_usage_policy_frame_applies_bull_participation_guard():
+    dates = pd.date_range("2020-01-01", periods=5, freq="B")
+    slow = pd.DataFrame({"datetime": dates, "slow_position": [0.20] * 5})
+    fast = pd.DataFrame({"datetime": dates, "fast_position": [0.70] * 5})
+    price = pd.Series([100.0, 103.0, 106.0, 109.0, 112.0], index=dates, name="price")
+    cfg = TwoSpeedBudgetConfig(trade_threshold=0.0, trade_lock_days=0)
+
+    out = compose_budget_usage_policy_frame(
+        slow,
+        fast,
+        cfg,
+        price_series=price,
+        bull_guard=BullParticipationGuardConfig(
+            enabled=True,
+            ma_window=2,
+            momentum_window=1,
+            high_window=2,
+            min_periods=1,
+            min_momentum=0.01,
+            max_drawdown=0.02,
+        ),
+    )
+
+    assert out["bull_participation_guard"].tolist() == [False, True, True, True, True]
+    assert out["base_two_speed_position"].round(4).tolist() == [0.175] * 5
+    assert out["raw_two_speed_position"].round(4).tolist() == [0.175, 0.7, 0.7, 0.7, 0.7]
+    assert out["position"].round(4).tolist() == [0.175, 0.7, 0.7, 0.7, 0.7]
+
+
 if __name__ == "__main__":
     test_compose_two_speed_position_caps_fast_signal_by_mode_slack()
     test_compose_two_speed_position_keeps_fast_derisking()
@@ -77,4 +107,5 @@ if __name__ == "__main__":
     test_compose_budget_usage_position_maps_fast_signal_inside_mode_band()
     test_compose_budget_usage_position_preserves_full_derisking()
     test_compose_budget_usage_policy_frame_keeps_audit_columns()
+    test_compose_budget_usage_policy_frame_applies_bull_participation_guard()
     print("test_two_speed_budget: OK")

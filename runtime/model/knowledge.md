@@ -870,3 +870,30 @@ Decision:
 - Do not bind runtime directly from script-level composition.
 - Next valid continuation is runtime-governance packaging for this composer and
   price-derived guard.
+
+## 2026-05-21 Budget-Usage Bull Guard Runtime Packaging
+
+Status: `policy_layer_ready_runtime_binding_pending`.
+
+The bull-guard composer has been moved into the shared policy layer:
+`BullParticipationGuardConfig` and guarded `compose_budget_usage_policy_frame`
+now live in `src/soxl_quant/policy/two_speed_budget.py`. The counterfactual app
+imports that shared implementation, and `production/composed_session.py` is now
+included in `scripts/check_harness.py` compile coverage.
+
+Evidence:
+
+- `runtime/model/card/v19reg_v22_budget_usage_bull_guard_v1/runtime_packaging_review.md`
+- `runtime/model/card/v19reg_v22_budget_usage_bull_guard_v1/runtime_packaging_review.json`
+- Focused verification: `uv run --python qlib_venv/bin/python --with pytest pytest tests/test_two_speed_budget.py tests/test_budget_counterfactual.py -q` -> `12 passed`.
+- Full harness: `PYTHONPATH=src:. qlib_venv/bin/python scripts/check_harness.py` -> `passed=160 failures=0`.
+- Scheduler health: data/model/broker/dashboard are ok; runtime proof is still
+  pending because the latest executed paper profile is `balanced_rule_residual_v19`
+  while selected model is `balanced_rule_residual_v22`; Vercel remains
+  `blocked_no_credentials`.
+
+Do not treat this as runtime auto-selection evidence yet. The standard paper
+trading path still plans one selected actor profile, so the next model-side
+runtime step must add a governed profile/runtime composer interface for
+`slow_profile + fast_profile + bull_guard` before scheduled paper execution can
+use this candidate.

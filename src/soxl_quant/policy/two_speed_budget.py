@@ -35,6 +35,17 @@ class TwoSpeedBudgetConfig:
     trade_lock_days: int = 5
 
 
+@dataclass(frozen=True)
+class BullParticipationGuardConfig:
+    enabled: bool = False
+    ma_window: int = 50
+    momentum_window: int = 20
+    high_window: int = 50
+    min_periods: int = 20
+    min_momentum: float = 0.03
+    max_drawdown: float = 0.08
+
+
 def infer_mode_from_slow_position(position: float) -> str:
     """Infer a coarse mode from the slow layer when explicit mode rows are absent."""
 
@@ -104,10 +115,37 @@ def _position_column(frame: pd.DataFrame, preferred: str) -> str:
     raise ValueError(f"frame missing `{preferred}` or `position` column")
 
 
+def _price_frame(price_series: pd.Series) -> pd.DataFrame:
+    price = price_series.copy()
+    if not isinstance(price.index, pd.DatetimeIndex):
+        price.index = pd.to_datetime(price.index)
+    price_df = price.rename("price").reset_index()
+    price_df.columns = ["datetime", "price"]
+    price_df["datetime"] = pd.to_datetime(price_df["datetime"])
+    return price_df.dropna(subset=["price"])
+
+
+def _bull_guard_indicators(
+    prices: pd.Series,
+    guard: BullParticipationGuardConfig,
+) -> tuple[pd.Series, pd.Series, pd.Series]:
+    ma_window = max(int(guard.ma_window), 1)
+    momentum_window = max(int(guard.momentum_window), 1)
+    high_window = max(int(guard.high_window), 1)
+    min_periods = max(int(guard.min_periods), 1)
+    moving_average = prices.rolling(ma_window, min_periods=min(min_periods, ma_window)).mean()
+    momentum = prices / prices.shift(momentum_window) - 1.0
+    drawdown = prices / prices.rolling(high_window, min_periods=min(min_periods, high_window)).max() - 1.0
+    return moving_average, momentum, drawdown
+
+
 def compose_budget_usage_policy_frame(
     slow: pd.DataFrame,
     fast: pd.DataFrame,
     config: TwoSpeedBudgetConfig | None = None,
+    *,
+    price_series: pd.Series | None = None,
+    bull_guard: BullParticipationGuardConfig | None = None,
 ) -> pd.DataFrame:
     """Compose two daily policy paths into an auditable budget-usage path.
 
@@ -125,18 +163,45 @@ def compose_budget_usage_policy_frame(
     )
     if frame.empty:
         raise ValueError("slow/fast policy frames have no overlapping datetimes")
+    frame["datetime"] = pd.to_datetime(frame["datetime"])
+
+    guard_cfg = bull_guard or BullParticipationGuardConfig()
+    if guard_cfg.enabled:
+        if price_series is None:
+            raise ValueError("price_series is required when bull_participation_guard is enabled")
+        frame = frame.merge(_price_frame(price_series), on="datetime", how="inner")
+        frame = frame.sort_values("datetime").reset_index(drop=True)
+        if frame.empty:
+            raise ValueError("policy frames and price series have no overlapping datetimes")
+        prices = frame["price"].astype(float)
+        moving_average, momentum, drawdown = _bull_guard_indicators(prices, guard_cfg)
+    else:
+        moving_average = pd.Series([float("nan")] * len(frame), index=frame.index)
+        momentum = pd.Series([float("nan")] * len(frame), index=frame.index)
+        drawdown = pd.Series([float("nan")] * len(frame), index=frame.index)
 
     current = 0.0
     days_since_trade = cfg.trade_lock_days
     modes: list[str] = []
+    base_targets: list[float] = []
     raw_targets: list[float] = []
     targets: list[float] = []
     fast_usage: list[float] = []
+    guard_flags: list[bool] = []
     for _, row in frame.iterrows():
         slow_pos = float(row["slow_position"])
         usage = max(0.0, min(float(row["fast_position"]), 1.0))
         mode = infer_mode_from_slow_position(slow_pos)
-        raw = compose_budget_usage_position(usage, mode, cfg)
+        base_raw = compose_budget_usage_position(usage, mode, cfg)
+        guard_ready = False
+        if guard_cfg.enabled:
+            idx = row.name
+            guard_ready = bool(
+                float(row["price"]) > moving_average.iloc[idx]
+                and momentum.iloc[idx] >= float(guard_cfg.min_momentum)
+                and drawdown.iloc[idx] >= -float(guard_cfg.max_drawdown)
+            )
+        raw = max(base_raw, usage) if guard_ready else base_raw
         target = maybe_rebalance_position(current, raw, days_since_trade, cfg)
         if abs(target - current) >= cfg.trade_threshold:
             days_since_trade = 0
@@ -144,21 +209,31 @@ def compose_budget_usage_policy_frame(
             days_since_trade += 1
         current = target
         modes.append(mode)
+        base_targets.append(base_raw)
         raw_targets.append(raw)
         targets.append(target)
         fast_usage.append(usage)
+        guard_flags.append(guard_ready)
 
-    out = frame.copy()
+    out = frame.drop(columns=["price"], errors="ignore").copy()
     out["mode"] = modes
     out["fast_usage"] = fast_usage
+    if guard_cfg.enabled:
+        out["base_two_speed_position"] = base_targets
     out["raw_two_speed_position"] = raw_targets
     out["position"] = targets
+    if guard_cfg.enabled:
+        out["bull_participation_guard"] = guard_flags
+        out["bull_guard_ma"] = moving_average
+        out["bull_guard_momentum"] = momentum
+        out["bull_guard_drawdown"] = drawdown
     return out
 
 
 __all__ = [
     "DEFAULT_MODE_BANDS",
     "DEFAULT_MODE_SLACK",
+    "BullParticipationGuardConfig",
     "TwoSpeedBudgetConfig",
     "compose_budget_usage_policy_frame",
     "compose_budget_usage_position",
