@@ -4690,3 +4690,64 @@ Decision:
 Artifact:
 
 - `runtime/production/card/weekly_health_pending_v1/notes.md`
+
+## 2026-05-21 Vercel Health Freshness Check
+
+Goal:
+
+- Make scheduler health distinguish an up-to-date Vercel deployment attempt
+  from stale deployment evidence after a newer dashboard rebuild.
+
+Baseline:
+
+- `production/check_scheduler_health.sh` showed local dashboard static export
+  `generated_at=2026-05-21 12:01:45 versions=35`.
+- `runtime/production/card/vercel_remote_deploy_v1/vercel_deployment_check.json`
+  still referenced `generated_at=2026-05-21 11:07:30 versions=28`.
+- Health reported only `blocked_no_credentials`, so operators could not tell
+  whether Vercel had been attempted for the latest static dashboard bundle.
+
+Change:
+
+- The Vercel health section now compares
+  `dashboard_data/index.json.generated_at` with
+  `vercel_deployment_check.json.static_export.generated_at`.
+- If local dashboard output is newer, health prints
+  `freshness: stale local_generated_at=... evidence_generated_at=...`.
+- If evidence matches the current dashboard export, health prints
+  `freshness: current ...`.
+- Ran the repo-owned Vercel deploy check once to refresh the blocked-credentials
+  evidence against the current dashboard bundle.
+
+Evidence:
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest \
+  tests/test_scheduler_health.py::test_scheduler_health_reports_stale_vercel_evidence_when_dashboard_is_newer -q
+# red before implementation: no freshness line
+# green after implementation: 1 passed
+
+uv run --python qlib_venv/bin/python --with pytest pytest \
+  tests/test_scheduler_health.py -q
+# 14 passed
+
+PYTHONPATH=src:. qlib_venv/bin/python scripts/deploy_vercel_dashboard.py --deploy
+# expected rc=2; status=blocked_no_credentials; evidence refreshed
+
+production/check_scheduler_health.sh
+# Vercel status blocked_no_credentials
+# freshness: current local_generated_at=2026-05-21 12:01:45 evidence_generated_at=2026-05-21 12:01:45
+# data/model/broker/dashboard ok
+# selected v22 runtime proof still pending for next fresh non-dry date
+```
+
+Decision:
+
+- Missing Vercel credentials remains the remote-deployment blocker.
+- Health now also catches stale Vercel deployment evidence, so dashboard rebuilds
+  without a matching deploy attempt are visible.
+
+Artifacts:
+
+- `runtime/production/card/vercel_health_freshness_v1/notes.md`
+- `runtime/production/card/vercel_remote_deploy_v1/vercel_deployment_check.json`

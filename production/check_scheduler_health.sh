@@ -371,6 +371,26 @@ compact_text() {
     printf "%s" "$1" | tr '\n' ' ' | sed 's/[[:space:]][[:space:]]*/ /g; s/^ //; s/ $//'
 }
 
+print_vercel_freshness() {
+    payload="$1"
+    evidence_generated_at=$(json_field "$payload" "static_export.generated_at")
+    local_index="${ROOT}/dashboard_data/index.json"
+    if [ ! -f "$local_index" ]; then
+        echo "  freshness: unknown local dashboard index not found"
+        return
+    fi
+
+    local_payload=$(cat "$local_index")
+    local_generated_at=$(json_field "$local_payload" "generated_at")
+    if [ -z "$local_generated_at" ] || [ -z "$evidence_generated_at" ]; then
+        echo "  freshness: unknown local_generated_at=${local_generated_at:-unknown} evidence_generated_at=${evidence_generated_at:-unknown}"
+    elif [[ "$local_generated_at" > "$evidence_generated_at" ]]; then
+        echo "  freshness: stale local_generated_at=${local_generated_at} evidence_generated_at=${evidence_generated_at}"
+    else
+        echo "  freshness: current local_generated_at=${local_generated_at} evidence_generated_at=${evidence_generated_at}"
+    fi
+}
+
 print_vercel_remote_deployment() {
     echo "--- Vercel Remote Deployment ---"
     evidence="${ROOT}/runtime/production/card/vercel_remote_deploy_v1/vercel_deployment_check.json"
@@ -404,6 +424,7 @@ print_vercel_remote_deployment() {
     if [ -n "$dashboard_latest" ] || [ -n "$paper_trading_end" ]; then
         echo "  dashboard_latest=${dashboard_latest} paper_trading_end=${paper_trading_end}"
     fi
+    print_vercel_freshness "$payload"
     echo "  evidence=${rel_path}"
     if [ -n "$detail" ]; then
         echo "  detail: $(compact_text "$detail")"

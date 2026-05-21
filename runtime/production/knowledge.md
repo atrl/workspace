@@ -1446,3 +1446,46 @@ Evidence:
 Evidence card:
 
 - `runtime/production/card/weekly_health_pending_v1/notes.md`
+
+## 2026-05-21 Vercel Health Freshness
+
+Issue: Vercel deployment evidence can lag behind the latest local static
+dashboard rebuild. Health previously reported only the Vercel auth/deploy
+status, so an operator could not tell whether the recorded Vercel attempt
+covered the current `dashboard_data/index.json` bundle.
+
+Baseline evidence:
+
+- Local dashboard static export: `generated_at=2026-05-21 12:01:45`,
+  `versions=35`.
+- Existing `vercel_remote_deploy_v1` evidence before refresh:
+  `static_export.generated_at=2026-05-21 11:07:30`, `versions=28`.
+- Vercel auth was still `blocked_no_credentials`.
+
+Change:
+
+- `production/check_scheduler_health.sh` now compares the local
+  `dashboard_data/index.json.generated_at` against
+  `vercel_deployment_check.json.static_export.generated_at`.
+- Health prints `freshness: stale ...` when local dashboard output is newer
+  than Vercel evidence, and `freshness: current ...` when they match.
+- The repo-owned Vercel deploy check was rerun with `--deploy`; it returned the
+  expected missing-credentials code and refreshed `vercel_remote_deploy_v1`
+  against the current dashboard bundle.
+
+Evidence:
+
+- `uv run --python qlib_venv/bin/python --with pytest pytest tests/test_scheduler_health.py::test_scheduler_health_reports_stale_vercel_evidence_when_dashboard_is_newer -q`
+  -> red before implementation, then `1 passed`.
+- `uv run --python qlib_venv/bin/python --with pytest pytest tests/test_scheduler_health.py -q`
+  -> `14 passed`.
+- `PYTHONPATH=src:. qlib_venv/bin/python scripts/deploy_vercel_dashboard.py --deploy`
+  -> expected `rc=2`, `status=blocked_no_credentials`, evidence refreshed.
+- `production/check_scheduler_health.sh` -> Vercel
+  `blocked_no_credentials`, freshness current for `2026-05-21 12:01:45`,
+  local data/model/broker/dashboard ok, selected v22 runtime proof still
+  pending for the next fresh non-dry date.
+
+Evidence card:
+
+- `runtime/production/card/vercel_health_freshness_v1/notes.md`
