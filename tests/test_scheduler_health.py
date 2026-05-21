@@ -917,6 +917,28 @@ def test_scheduler_health_targets_enabled_composer_for_model_and_runtime_proof()
         runtime_dir = root / "runtime" / "soxl" / "paper_trading" / "2026-05-20"
         duplicate_dir = runtime_dir / "duplicate_skip" / "balanced_rule_residual_v22"
         duplicate_dir.mkdir(parents=True)
+        vercel_dir = root / "runtime" / "production" / "card" / "vercel_remote_deploy_v1"
+        vercel_dir.mkdir(parents=True)
+        (vercel_dir / "vercel_deployment_check.json").write_text(
+            """
+{
+  "checked_at": "2026-05-21T01:00:00+00:00",
+  "status": "deployed",
+  "deployment_url": "https://soxl-dashboard-example.vercel.app",
+  "static_export": {
+    "latest": "paper_trading",
+    "paper_trading_end": "2026-05-20"
+  },
+  "auth": {
+    "status": "token"
+  },
+  "project": {
+    "status": "env_configured"
+  }
+}
+""",
+            encoding="utf-8",
+        )
         (root / "runtime" / "soxl" / "paper_trading" / "scheduler_postclose.log").write_text(
             "\n".join(
                 [
@@ -1050,6 +1072,18 @@ def test_scheduler_health_targets_enabled_composer_for_model_and_runtime_proof()
     assert (
         "postclose target: pending latest_success_marker lacks runtime_composer=budget_usage "
         "composer_profile=v19reg_v22_budget_usage_bull_guard_v1"
+    ) in result.stdout
+    assert "--- Production Goal Gates ---" in result.stdout
+    assert (
+        "post-close composer target: pending latest_success_marker lacks "
+        "runtime_composer=budget_usage composer_profile=v19reg_v22_budget_usage_bull_guard_v1"
+    ) in result.stdout
+    assert (
+        "ordinary paper proof: unknown selected_model=v19reg_v22_budget_usage_bull_guard_v1 "
+        "execution=unknown"
+    ) in result.stdout
+    assert (
+        "overall: pending dashboard_static_export,scheduled_postclose_target,scheduled_paper_proof"
     ) in result.stdout
     assert "selected_model=balanced_rule_residual_v22" not in result.stdout
 

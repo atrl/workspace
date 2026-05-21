@@ -5577,3 +5577,52 @@ Decision:
 Artifact:
 
 - `runtime/production/card/vercel_launch_env_probe_v1/notes.md`
+
+## 2026-05-21 Production Goal Gate Summary
+
+Goal:
+
+- Add a final health-check summary that maps the active thread objective to
+  explicit pass/pending issue keys.
+
+Root cause:
+
+- Health already reported data/model/dashboard, Vercel, post-close target, and
+  ordinary paper proof separately.
+- There was no single place to answer whether the thread goal is complete or
+  which exact gates remain.
+
+Change:
+
+- `production/check_scheduler_health.sh` now prints `Production Goal Gates`.
+- The summary includes data, model, broker, dashboard static export, Vercel
+  remote deploy, post-close composer target, ordinary paper proof, and an
+  `overall` line with issue keys.
+
+Evidence:
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest \
+  tests/test_scheduler_health.py::test_scheduler_health_targets_enabled_composer_for_model_and_runtime_proof -q
+# red before implementation: Production Goal Gates section missing
+# green after implementation: 1 passed
+
+production/check_scheduler_health.sh | sed -n '/--- Production Goal Gates ---/,$p'
+# data/model/broker/dashboard static: ok
+# Vercel remote: blocked status=blocked_no_credentials auth=blocked_no_credentials project=missing_project_link deployment_url=none env_file_applied_keys=none
+# post-close composer target: pending latest_success_marker lacks runtime_composer=budget_usage composer_profile=v19reg_v22_budget_usage_bull_guard_v1
+# ordinary paper proof: pending selected_model=v19reg_v22_budget_usage_bull_guard_v1 execution=duplicate_skipped
+# overall: pending external_vercel_setup,scheduled_postclose_target,scheduled_paper_proof
+```
+
+Decision:
+
+- The active thread goal should remain active until `Production Goal Gates`
+  reports `overall: ok`.
+- Current remaining gate keys are:
+  `external_vercel_setup`, `scheduled_postclose_target`,
+  `scheduled_paper_proof`.
+
+Artifact:
+
+- `runtime/production/card/production_goal_gate_summary_v1/notes.md`

@@ -29,6 +29,21 @@ RUNTIME_COMPOSER_MISSING=""
 ORDINARY_PAPER_PROOF_STATUS=""
 ORDINARY_PAPER_PROOF_SELECTED_MODEL=""
 ORDINARY_PAPER_PROOF_EXECUTION=""
+DATA_GATE_STATUS="unknown"
+DATA_GATE_DETAIL=""
+MODEL_GATE_STATUS="unknown"
+MODEL_GATE_DETAIL=""
+BROKER_GATE_STATUS="unknown"
+BROKER_GATE_DETAIL=""
+DASHBOARD_GATE_STATUS="unknown"
+DASHBOARD_GATE_DETAIL=""
+VERCEL_REMOTE_STATUS="unknown"
+VERCEL_AUTH_STATUS="unknown"
+VERCEL_PROJECT_STATUS="unknown"
+VERCEL_DEPLOYMENT_URL="none"
+VERCEL_ENV_FILE_APPLIED_KEYS="unknown"
+POSTCLOSE_TARGET_STATUS="unknown"
+POSTCLOSE_TARGET_DETAIL=""
 
 file_epoch() {
     path="$1"
@@ -473,30 +488,48 @@ print_paper_health() {
 
     if [ -z "$last_date" ]; then
         echo "  data: unknown"
+        DATA_GATE_STATUS="unknown"
+        DATA_GATE_DETAIL="last_date=unknown expected=${expected:-unknown}"
     elif [ "$data_ok" = "true" ]; then
         echo "  data: ok last_date=${last_date} expected=${expected}"
+        DATA_GATE_STATUS="ok"
+        DATA_GATE_DETAIL="last_date=${last_date} expected=${expected}"
     else
         echo "  data: stale last_date=${last_date} expected=${expected} stale_days=${stale_days}"
+        DATA_GATE_STATUS="stale"
+        DATA_GATE_DETAIL="last_date=${last_date} expected=${expected} stale_days=${stale_days}"
     fi
 
     if [ -n "$model_name" ]; then
         if [ "$model_ok" = "true" ]; then
             echo "  model: ok ${model_name}"
+            MODEL_GATE_STATUS="ok"
+            MODEL_GATE_DETAIL="${model_name}"
         else
             echo "  model: failed ${model_name}"
+            MODEL_GATE_STATUS="failed"
+            MODEL_GATE_DETAIL="${model_name}"
         fi
     else
         echo "  model: unknown"
+        MODEL_GATE_STATUS="unknown"
+        MODEL_GATE_DETAIL="unknown"
     fi
 
     if [ -n "$broker_msg" ]; then
         if [ "$broker_ok" = "true" ]; then
             echo "  broker: ok ${broker_msg}"
+            BROKER_GATE_STATUS="ok"
+            BROKER_GATE_DETAIL="${broker_msg}"
         else
             echo "  broker: failed ${broker_msg}"
+            BROKER_GATE_STATUS="failed"
+            BROKER_GATE_DETAIL="${broker_msg}"
         fi
     else
         echo "  broker: unknown"
+        BROKER_GATE_STATUS="unknown"
+        BROKER_GATE_DETAIL="unknown"
     fi
 }
 
@@ -541,6 +574,8 @@ print_postclose_target_status() {
     marker=$(postclose_last_run_marker "$postclose_log")
     if [ -z "$marker" ]; then
         echo "  postclose target: unknown latest_success_marker has no run-start marker"
+        POSTCLOSE_TARGET_STATUS="unknown"
+        POSTCLOSE_TARGET_DETAIL="latest_success_marker has no run-start marker"
         return
     fi
 
@@ -549,8 +584,12 @@ print_postclose_target_status() {
         marker_has_text "$marker" "slow_profile=${RUNTIME_SLOW_PROFILE}" &&
         marker_has_text "$marker" "fast_profile=${RUNTIME_FAST_PROFILE}"; then
         echo "  postclose target: ok runtime_composer=${RUNTIME_COMPOSER} composer_profile=${RUNTIME_COMPOSER_PROFILE}"
+        POSTCLOSE_TARGET_STATUS="ok"
+        POSTCLOSE_TARGET_DETAIL="runtime_composer=${RUNTIME_COMPOSER} composer_profile=${RUNTIME_COMPOSER_PROFILE}"
     else
         echo "  postclose target: pending latest_success_marker lacks runtime_composer=${RUNTIME_COMPOSER} composer_profile=${RUNTIME_COMPOSER_PROFILE}"
+        POSTCLOSE_TARGET_STATUS="pending"
+        POSTCLOSE_TARGET_DETAIL="latest_success_marker lacks runtime_composer=${RUNTIME_COMPOSER} composer_profile=${RUNTIME_COMPOSER_PROFILE}"
     fi
 }
 
@@ -686,8 +725,12 @@ print_dashboard_static_export() {
     printf "%s\n" "$dashboard_output" | sed 's/^/  /'
     if [ "$dashboard_status" -ne 0 ]; then
         echo "  status: failed"
+        DASHBOARD_GATE_STATUS="failed"
+        DASHBOARD_GATE_DETAIL="$(compact_text "$dashboard_output")"
     else
         echo "  status: ok"
+        DASHBOARD_GATE_STATUS="ok"
+        DASHBOARD_GATE_DETAIL="$(compact_text "$dashboard_output" | sed 's/^ok //')"
     fi
 }
 
@@ -748,6 +791,10 @@ print_vercel_remote_deployment() {
     if [ -z "$deployment_url" ]; then
         deployment_url="none"
     fi
+    VERCEL_REMOTE_STATUS="$status"
+    VERCEL_AUTH_STATUS="$auth_status"
+    VERCEL_PROJECT_STATUS="$project_status"
+    VERCEL_DEPLOYMENT_URL="$deployment_url"
     echo "  status: ${status}"
     echo "  auth: ${auth_status}"
     echo "  project: ${project_status}"
@@ -758,6 +805,7 @@ print_vercel_remote_deployment() {
             env_file_status="missing"
         fi
         [ -z "$env_file_applied_keys" ] && env_file_applied_keys="none"
+        VERCEL_ENV_FILE_APPLIED_KEYS="$env_file_applied_keys"
         echo "  env_file: ${env_file_status} applied_keys=${env_file_applied_keys}"
     fi
     echo "  deployment_url: ${deployment_url}"
@@ -808,6 +856,86 @@ print_next_runs() {
     echo "  pre-open: $(next_run_day_label preopen 2100) 21:00 Mon-Fri Asia/Shanghai — US pre-open dry-run + dashboard + Vercel deploy attempt"
     echo "  post-close: $(next_run_day_label postclose "$POSTCLOSE_HHMM") ${POSTCLOSE_TIME_LABEL} Tue-Sat Asia/Shanghai — US post-close data + paper trading + dashboard + Vercel deploy attempt"
     echo "  weekly: $(next_run_day_label weekly 0700) 07:00 Sat Asia/Shanghai — weekly walk-forward after post-close refresh"
+}
+
+append_gate_issue() {
+    issue="$1"
+    if [ -z "$GOAL_GATE_ISSUES" ]; then
+        GOAL_GATE_ISSUES="$issue"
+    else
+        GOAL_GATE_ISSUES="${GOAL_GATE_ISSUES},${issue}"
+    fi
+}
+
+print_goal_gate_summary() {
+    echo "--- Production Goal Gates ---"
+    GOAL_GATE_ISSUES=""
+
+    echo "  data: ${DATA_GATE_STATUS} ${DATA_GATE_DETAIL}"
+    [ "$DATA_GATE_STATUS" != "ok" ] && append_gate_issue "data_freshness"
+
+    echo "  model: ${MODEL_GATE_STATUS} ${MODEL_GATE_DETAIL}"
+    [ "$MODEL_GATE_STATUS" != "ok" ] && append_gate_issue "model_health"
+
+    echo "  broker: ${BROKER_GATE_STATUS} ${BROKER_GATE_DETAIL}"
+    [ "$BROKER_GATE_STATUS" != "ok" ] && append_gate_issue "broker_health"
+
+    echo "  dashboard static: ${DASHBOARD_GATE_STATUS} ${DASHBOARD_GATE_DETAIL}"
+    [ "$DASHBOARD_GATE_STATUS" != "ok" ] && append_gate_issue "dashboard_static_export"
+
+    case "$VERCEL_REMOTE_STATUS" in
+        deployed)
+            vercel_gate_status="ok"
+            ;;
+        ready_for_deploy)
+            vercel_gate_status="pending"
+            append_gate_issue "scheduled_vercel_deploy"
+            ;;
+        blocked_no_credentials|blocked_no_project_link)
+            vercel_gate_status="blocked"
+            append_gate_issue "external_vercel_setup"
+            ;;
+        deploy_failed|static_export_failed)
+            vercel_gate_status="blocked"
+            append_gate_issue "vercel_deploy"
+            ;;
+        unavailable|unknown)
+            vercel_gate_status="unknown"
+            append_gate_issue "vercel_evidence"
+            ;;
+        *)
+            vercel_gate_status="pending"
+            append_gate_issue "vercel_deploy"
+            ;;
+    esac
+    echo "  Vercel remote: ${vercel_gate_status} status=${VERCEL_REMOTE_STATUS} auth=${VERCEL_AUTH_STATUS} project=${VERCEL_PROJECT_STATUS} deployment_url=${VERCEL_DEPLOYMENT_URL} env_file_applied_keys=${VERCEL_ENV_FILE_APPLIED_KEYS}"
+
+    if [ "$RUNTIME_COMPOSER_STATE" = "enabled" ]; then
+        if [ -z "$POSTCLOSE_TARGET_DETAIL" ]; then
+            POSTCLOSE_TARGET_STATUS="pending"
+            POSTCLOSE_TARGET_DETAIL="no post-close target evidence"
+        fi
+        echo "  post-close composer target: ${POSTCLOSE_TARGET_STATUS} ${POSTCLOSE_TARGET_DETAIL}"
+        [ "$POSTCLOSE_TARGET_STATUS" != "ok" ] && append_gate_issue "scheduled_postclose_target"
+    else
+        echo "  post-close composer target: not_applicable runtime_composer=${RUNTIME_COMPOSER_STATE}"
+    fi
+
+    if [ -z "$ORDINARY_PAPER_PROOF_STATUS" ]; then
+        ordinary_status="unknown"
+        ordinary_detail="selected_model=${SELECTED_MODEL_PROFILE:-unknown} execution=unknown"
+    else
+        ordinary_status="$ORDINARY_PAPER_PROOF_STATUS"
+        ordinary_detail="selected_model=${ORDINARY_PAPER_PROOF_SELECTED_MODEL} execution=${ORDINARY_PAPER_PROOF_EXECUTION}"
+    fi
+    echo "  ordinary paper proof: ${ordinary_status} ${ordinary_detail}"
+    [ "$ordinary_status" != "ok" ] && append_gate_issue "scheduled_paper_proof"
+
+    if [ -z "$GOAL_GATE_ISSUES" ]; then
+        echo "  overall: ok"
+    else
+        echo "  overall: pending ${GOAL_GATE_ISSUES}"
+    fi
 }
 
 echo "=== SOXL Scheduler Health Check ==="
@@ -878,3 +1006,6 @@ print_postclose_status
 echo ""
 
 print_next_runs
+echo ""
+
+print_goal_gate_summary

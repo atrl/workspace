@@ -2002,3 +2002,37 @@ Interpretation:
 Evidence card:
 
 - `runtime/production/card/vercel_launch_env_probe_v1/notes.md`
+
+## 2026-05-21 Production Goal Gate Summary
+
+`production/check_scheduler_health.sh` now prints a final
+`Production Goal Gates` section that maps the active thread goal to explicit
+gate states.
+
+Current live summary:
+
+```text
+data: ok last_date=2026-05-20 expected=2026-05-20
+model: ok v19reg_v22_budget_usage_bull_guard_v1 (slow=balanced_rule_residual_v19_reg, fast=balanced_rule_residual_v22)
+broker: ok paper broker ready
+dashboard static: ok dashboard_static_export ... latest=paper_trading ... paper_trading_end=2026-05-20
+Vercel remote: blocked status=blocked_no_credentials auth=blocked_no_credentials project=missing_project_link deployment_url=none env_file_applied_keys=none
+post-close composer target: pending latest_success_marker lacks runtime_composer=budget_usage composer_profile=v19reg_v22_budget_usage_bull_guard_v1
+ordinary paper proof: pending selected_model=v19reg_v22_budget_usage_bull_guard_v1 execution=duplicate_skipped
+overall: pending external_vercel_setup,scheduled_postclose_target,scheduled_paper_proof
+```
+
+Interpretation:
+
+- Data/model/broker/dashboard static are currently good.
+- Vercel remains externally blocked by missing scheduler-visible Vercel
+  credentials/project IDs.
+- The scheduled post-close run still has not produced current-composer target
+  proof or ordinary paper proof.
+- Future sessions can use the final `overall:` line as the first completion
+  audit entry point, then inspect the relevant detailed section only for any
+  issue keys listed there.
+
+Evidence card:
+
+- `runtime/production/card/production_goal_gate_summary_v1/notes.md`
