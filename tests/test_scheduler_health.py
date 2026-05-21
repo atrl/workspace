@@ -828,6 +828,10 @@ def test_scheduler_health_accepts_selected_profile_duplicate_skip_as_runtime_pro
         "runtime proof: ok latest_non_dry_profile=balanced_rule_residual_v22 "
         "selected_model=balanced_rule_residual_v22 execution=duplicate_skipped"
     ) in result.stdout
+    assert (
+        "ordinary paper proof: pending latest_non_dry_profile=balanced_rule_residual_v22 "
+        "selected_model=balanced_rule_residual_v22 execution=duplicate_skipped"
+    ) in result.stdout
     assert "runtime proof: pending latest_executed_profile=balanced_rule_residual_v19" not in result.stdout
     assert "artifact=runtime/soxl/paper_trading/2026-05-20/duplicate_skip/balanced_rule_residual_v22/summary.json" in result.stdout
 
@@ -1030,6 +1034,10 @@ def test_scheduler_health_accepts_selected_profile_non_dry_skipped_order_as_runt
     assert "latest signal: date=2026-05-21 profile=balanced_rule_residual_v22 dry_run=false executed=false" in result.stdout
     assert (
         "runtime proof: ok latest_non_dry_profile=balanced_rule_residual_v22 "
+        "selected_model=balanced_rule_residual_v22 execution=skipped"
+    ) in result.stdout
+    assert (
+        "ordinary paper proof: ok latest_non_dry_profile=balanced_rule_residual_v22 "
         "selected_model=balanced_rule_residual_v22 execution=skipped"
     ) in result.stdout
 

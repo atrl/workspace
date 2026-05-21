@@ -424,6 +424,24 @@ print_paper_health() {
     fi
 }
 
+print_ordinary_paper_proof_status() {
+    profile="$1"
+    selected_model="$2"
+    executed="$3"
+    execution_status="$4"
+
+    if [ "$executed" = "true" ]; then
+        echo "  ordinary paper proof: ok latest_executed_profile=${profile} selected_model=${selected_model}"
+    elif [ "$execution_status" = "skipped" ]; then
+        echo "  ordinary paper proof: ok latest_non_dry_profile=${profile} selected_model=${selected_model} execution=${execution_status}"
+    elif [ "$execution_status" = "duplicate_skipped" ]; then
+        echo "  ordinary paper proof: pending latest_non_dry_profile=${profile} selected_model=${selected_model} execution=${execution_status}"
+        echo "  ordinary paper proof detail: duplicate-skip proves same-date idempotent inference only; next new-date scheduled non-dry run must produce executed or skipped order proof"
+    else
+        echo "  ordinary paper proof: pending latest_non_dry_profile=${profile} selected_model=${selected_model} execution=${execution_status:-unknown}"
+    fi
+}
+
 print_latest_signal_artifact() {
     echo "--- Latest Signal Artifact ---"
     paper_dir="${ROOT}/runtime/soxl/paper_trading"
@@ -477,10 +495,13 @@ print_latest_signal_artifact() {
         if [ "$profile" = "$SELECTED_MODEL_PROFILE" ]; then
             if [ "$executed" = "true" ]; then
                 echo "  runtime proof: ok latest_executed_profile=${profile} selected_model=${SELECTED_MODEL_PROFILE}"
+                print_ordinary_paper_proof_status "$profile" "$SELECTED_MODEL_PROFILE" "$executed" "$execution_status"
             elif [ "$risk_gate" = "true" ] && { [ "$execution_status" = "skipped" ] || [ "$execution_status" = "duplicate_skipped" ]; }; then
                 echo "  runtime proof: ok latest_non_dry_profile=${profile} selected_model=${SELECTED_MODEL_PROFILE} execution=${execution_status}"
+                print_ordinary_paper_proof_status "$profile" "$SELECTED_MODEL_PROFILE" "$executed" "$execution_status"
             else
                 echo "  runtime proof: pending latest_non_dry_profile=${profile} selected_model=${SELECTED_MODEL_PROFILE} execution=${execution_status:-unknown}"
+                print_ordinary_paper_proof_status "$profile" "$SELECTED_MODEL_PROFILE" "$executed" "$execution_status"
             fi
         elif [ "$executed" = "true" ]; then
             if [ -n "$selected_summary" ] && [ "$selected_summary" != "$latest_summary" ]; then
@@ -492,12 +513,15 @@ print_latest_signal_artifact() {
                 selected_rel_path=${selected_summary#"$ROOT"/}
                 if [ "$selected_executed" = "true" ]; then
                     echo "  runtime proof: ok latest_executed_profile=${selected_profile} selected_model=${SELECTED_MODEL_PROFILE}"
+                    print_ordinary_paper_proof_status "$selected_profile" "$SELECTED_MODEL_PROFILE" "$selected_executed" "$selected_status"
                     echo "  runtime proof artifact=${selected_rel_path}"
                 elif [ "$selected_risk_gate" = "true" ] && { [ "$selected_status" = "skipped" ] || [ "$selected_status" = "duplicate_skipped" ]; }; then
                     echo "  runtime proof: ok latest_non_dry_profile=${selected_profile} selected_model=${SELECTED_MODEL_PROFILE} execution=${selected_status}"
+                    print_ordinary_paper_proof_status "$selected_profile" "$SELECTED_MODEL_PROFILE" "$selected_executed" "$selected_status"
                     echo "  runtime proof artifact=${selected_rel_path}"
                 else
                     echo "  runtime proof: pending latest_non_dry_profile=${selected_profile} selected_model=${SELECTED_MODEL_PROFILE} execution=${selected_status:-unknown}"
+                    print_ordinary_paper_proof_status "$selected_profile" "$SELECTED_MODEL_PROFILE" "$selected_executed" "$selected_status"
                     echo "  runtime proof artifact=${selected_rel_path}"
                 fi
             else

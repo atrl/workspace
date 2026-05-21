@@ -1812,3 +1812,36 @@ The remote Vercel deployment blocker is therefore two-part:
 Evidence card:
 
 - `runtime/production/card/vercel_project_readiness_v1/notes.md`
+
+## 2026-05-21 Ordinary Paper Proof Health
+
+Scheduler health now separates selected-profile runtime proof from ordinary
+new-date paper proof.
+
+The active composer currently has selected-profile non-dry proof through
+same-date duplicate-skip idempotency:
+
+```text
+runtime proof: ok latest_non_dry_profile=v19reg_v22_budget_usage_bull_guard_v1 selected_model=v19reg_v22_budget_usage_bull_guard_v1 execution=duplicate_skipped
+```
+
+That is not the same as the first ordinary scheduled post-close paper artifact
+for the composer, so health now also prints:
+
+```text
+ordinary paper proof: pending latest_non_dry_profile=v19reg_v22_budget_usage_bull_guard_v1 selected_model=v19reg_v22_budget_usage_bull_guard_v1 execution=duplicate_skipped
+ordinary paper proof detail: duplicate-skip proves same-date idempotent inference only; next new-date scheduled non-dry run must produce executed or skipped order proof
+```
+
+Interpretation:
+
+- `runtime proof` can be `ok` for `duplicate_skipped` because it proves
+  inference, risk gating, and idempotent duplicate protection.
+- `ordinary paper proof` is `ok` only for `executed=true` or fresh non-dry
+  `execution=skipped`.
+- The remaining simulated-paper gate is the next new-date scheduled post-close
+  non-dry run under the enabled composer.
+
+Evidence card:
+
+- `runtime/production/card/ordinary_paper_proof_health_v1/notes.md`

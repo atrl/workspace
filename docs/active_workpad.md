@@ -5275,3 +5275,51 @@ Decision:
 Artifact:
 
 - `runtime/production/card/vercel_project_readiness_v1/notes.md`
+
+## 2026-05-21 Ordinary Paper Proof Health
+
+Goal:
+
+- Keep simulated-paper health from collapsing same-date duplicate-skip proof and
+  the first new-date scheduled composer paper proof into the same status.
+
+Root cause:
+
+- `duplicate_skipped` is valid runtime proof for the selected composer because
+  it proves non-dry inference, risk gating, and same-date idempotency.
+- It is not the final ordinary scheduled paper proof because the active composer
+  has not yet produced a new-date post-close non-dry artifact with either an
+  executed order or a fresh no-order skip.
+
+Change:
+
+- `production/check_scheduler_health.sh` still prints the existing
+  `runtime proof` line.
+- It now also prints `ordinary paper proof`.
+- `executed=true` and fresh non-dry `execution=skipped` are ordinary proof
+  `ok`; `execution=duplicate_skipped` is ordinary proof `pending`.
+
+Evidence:
+
+```bash
+PYTHONPATH=src:. qlib_venv/bin/python scripts/check_harness.py
+# red before implementation: tests/test_scheduler_health.py::test_scheduler_health_accepts_selected_profile_duplicate_skip_as_runtime_proof failed
+
+PYTHONPATH=src:. qlib_venv/bin/python -c "import importlib.util; spec=importlib.util.spec_from_file_location('test_scheduler_health', 'tests/test_scheduler_health.py'); mod=importlib.util.module_from_spec(spec); spec.loader.exec_module(mod); mod.test_scheduler_health_accepts_selected_profile_duplicate_skip_as_runtime_proof(); mod.test_scheduler_health_accepts_selected_profile_non_dry_skipped_order_as_runtime_proof()"
+# exit 0
+
+production/check_scheduler_health.sh
+# runtime proof: ok latest_non_dry_profile=v19reg_v22_budget_usage_bull_guard_v1 selected_model=v19reg_v22_budget_usage_bull_guard_v1 execution=duplicate_skipped
+# ordinary paper proof: pending latest_non_dry_profile=v19reg_v22_budget_usage_bull_guard_v1 selected_model=v19reg_v22_budget_usage_bull_guard_v1 execution=duplicate_skipped
+# ordinary paper proof detail: duplicate-skip proves same-date idempotent inference only; next new-date scheduled non-dry run must produce executed or skipped order proof
+```
+
+Decision:
+
+- Composer runtime proof is satisfied for same-date inference/risk/idempotency.
+- Ordinary simulated-paper proof remains an explicit pending gate until the next
+  new-date scheduled post-close run.
+
+Artifact:
+
+- `runtime/production/card/ordinary_paper_proof_health_v1/notes.md`
