@@ -5217,3 +5217,61 @@ Decision:
 Artifact:
 
 - `runtime/production/card/weekly_composer_review_v1/notes.md`
+
+## 2026-05-21 Vercel Project Readiness
+
+Goal:
+
+- Make the remaining Vercel deployment blocker more specific than "missing
+  credentials" by surfacing whether the workspace is linked to a Vercel project.
+
+Root cause:
+
+- Health already showed `blocked_no_credentials`, but did not expose project
+  link readiness.
+- Local CLI help shows non-interactive linking uses
+  `vercel link --yes --team <team-id> --project <project-name-or-id>`.
+- This checkout has no `.vercel/project.json`, and current shell env has no
+  `VERCEL_*` project IDs.
+
+Change:
+
+- Added `project_link_status()` to `scripts/deploy_vercel_dashboard.py`.
+- `vercel_deployment_check.json` now records `project.status` without printing
+  project/org IDs.
+- Health prints `project: ...` in the Vercel Remote Deployment section.
+
+Evidence:
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest \
+  tests/test_vercel_dashboard.py::test_vercel_project_link_status_reports_missing_link_without_ids \
+  tests/test_vercel_dashboard.py::test_vercel_project_link_status_accepts_local_project_json \
+  tests/test_vercel_dashboard.py::test_vercel_project_link_status_accepts_project_env_ids \
+  tests/test_scheduler_health.py::test_scheduler_health_reports_vercel_remote_deployment_status -q
+# red before implementation: no project_link_status; health did not print project status
+# green after implementation: 4 passed
+
+PYTHONPATH=src:. qlib_venv/bin/python scripts/deploy_vercel_dashboard.py --deploy
+# status=blocked_no_credentials rc=2
+
+production/check_scheduler_health.sh
+# Vercel Remote Deployment
+# status: blocked_no_credentials
+# auth: blocked_no_credentials
+# project: missing_project_link
+# deployment_url: none
+# freshness: current
+```
+
+Decision:
+
+- Remaining remote Vercel setup is now explicit:
+  1. provide scheduler-visible credentials with `VERCEL_TOKEN` or `vercel login`
+  2. link/configure the project with `vercel link --yes --team <team-id>
+     --project <project-name-or-id>` or `VERCEL_ORG_ID` +
+     `VERCEL_PROJECT_ID`
+
+Artifact:
+
+- `runtime/production/card/vercel_project_readiness_v1/notes.md`

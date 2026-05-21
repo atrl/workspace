@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import subprocess
 import sys
+from tempfile import TemporaryDirectory
 from pathlib import Path
 
 
@@ -80,6 +81,49 @@ def test_vercel_auth_status_blocks_without_token_or_login():
     assert status["status"] == "blocked_no_credentials"
     assert "VERCEL_TOKEN" in status["detail"]
     assert "\u256d" not in status["detail"]
+
+
+def test_vercel_project_link_status_reports_missing_link_without_ids():
+    from scripts.deploy_vercel_dashboard import project_link_status
+
+    with TemporaryDirectory() as tmpdir:
+        status = project_link_status(Path(tmpdir), env={})
+
+    assert status["status"] == "missing_project_link"
+    assert "vercel link --yes --team" in status["detail"]
+
+
+def test_vercel_project_link_status_accepts_local_project_json():
+    from scripts.deploy_vercel_dashboard import project_link_status
+
+    with TemporaryDirectory() as tmpdir:
+        root = Path(tmpdir)
+        vercel_dir = root / ".vercel"
+        vercel_dir.mkdir()
+        (vercel_dir / "project.json").write_text(
+            json.dumps({"projectId": "project_secretish", "orgId": "team_secretish"}),
+            encoding="utf-8",
+        )
+
+        status = project_link_status(root, env={})
+
+    assert status["status"] == "linked"
+    assert "project_secretish" not in status["detail"]
+    assert "team_secretish" not in status["detail"]
+
+
+def test_vercel_project_link_status_accepts_project_env_ids():
+    from scripts.deploy_vercel_dashboard import project_link_status
+
+    with TemporaryDirectory() as tmpdir:
+        status = project_link_status(
+            Path(tmpdir),
+            env={"VERCEL_PROJECT_ID": "project_secretish", "VERCEL_ORG_ID": "team_secretish"},
+        )
+
+    assert status["status"] == "env_configured"
+    assert "project_secretish" not in status["detail"]
+    assert "team_secretish" not in status["detail"]
 
 
 def test_vercel_extracts_deployment_url_from_cli_output():

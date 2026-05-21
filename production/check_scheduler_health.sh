@@ -589,6 +589,7 @@ print_vercel_remote_deployment() {
     payload=$(cat "$evidence")
     status=$(json_field "$payload" "status")
     auth_status=$(json_field "$payload" "auth.status")
+    project_status=$(json_field "$payload" "project.status")
     deployment_url=$(json_field "$payload" "deployment_url")
     dashboard_latest=$(json_field "$payload" "static_export.latest")
     paper_trading_end=$(json_field "$payload" "static_export.paper_trading_end")
@@ -601,11 +602,15 @@ print_vercel_remote_deployment() {
     if [ -z "$auth_status" ]; then
         auth_status="unknown"
     fi
+    if [ -z "$project_status" ]; then
+        project_status="unknown"
+    fi
     if [ -z "$deployment_url" ]; then
         deployment_url="none"
     fi
     echo "  status: ${status}"
     echo "  auth: ${auth_status}"
+    echo "  project: ${project_status}"
     echo "  deployment_url: ${deployment_url}"
     if [ -n "$dashboard_latest" ] || [ -n "$paper_trading_end" ]; then
         echo "  dashboard_latest=${dashboard_latest} paper_trading_end=${paper_trading_end}"

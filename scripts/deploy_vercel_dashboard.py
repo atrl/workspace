@@ -76,6 +76,41 @@ def auth_status(
     }
 
 
+def project_link_status(root: Path, env: Mapping[str, str]) -> dict[str, str]:
+    project_json = root / ".vercel" / "project.json"
+    if project_json.exists():
+        try:
+            payload = json.loads(project_json.read_text(encoding="utf-8"))
+        except Exception:
+            return {
+                "status": "invalid_project_link",
+                "detail": ".vercel/project.json exists but is not valid JSON",
+            }
+        if payload.get("projectId") and payload.get("orgId"):
+            return {
+                "status": "linked",
+                "detail": ".vercel/project.json contains project and org IDs",
+            }
+        return {
+            "status": "invalid_project_link",
+            "detail": ".vercel/project.json is missing projectId or orgId",
+        }
+
+    if env.get("VERCEL_PROJECT_ID") and env.get("VERCEL_ORG_ID"):
+        return {
+            "status": "env_configured",
+            "detail": "VERCEL_PROJECT_ID and VERCEL_ORG_ID are set",
+        }
+
+    return {
+        "status": "missing_project_link",
+        "detail": (
+            "Run `vercel link --yes --team <team-id> --project <project-name-or-id>` "
+            "or configure VERCEL_ORG_ID and VERCEL_PROJECT_ID for non-interactive deploys."
+        ),
+    }
+
+
 def extract_deployment_url(output: str) -> str | None:
     match = DEPLOYMENT_URL_RE.search(output)
     return match.group(0) if match else None
@@ -95,6 +130,7 @@ def _write_evidence(output_dir: Path, payload: dict[str, object]) -> None:
         f"- dashboard_latest: `{payload['static_export']['latest']}`",
         f"- paper_trading_end: `{payload['static_export']['paper_trading_end']}`",
         f"- auth: `{payload['auth']['status']}`",
+        f"- project: `{payload['project']['status']}`",
     ]
     if payload.get("deployment_url"):
         lines.append(f"- deployment_url: `{payload['deployment_url']}`")
@@ -142,6 +178,7 @@ def main() -> int:
         whoami_stderr=whoami.stderr,
         token_env=args.token_env,
     )
+    project = project_link_status(root, os.environ)
     payload: dict[str, object] = {
         "checked_at": datetime.now(timezone.utc).isoformat(),
         "root": str(root),
@@ -150,6 +187,7 @@ def main() -> int:
         "static_errors": errors,
         "vercel_cli": shutil.which("vercel") or "",
         "auth": auth,
+        "project": project,
         "deploy_requested": args.deploy,
         "deployment_url": None,
         "detail": "",
@@ -166,6 +204,12 @@ def main() -> int:
         _write_evidence(output_dir, payload)
         print(f"vercel_dashboard status=blocked_no_credentials output={output_dir}")
         return 2 if args.deploy else 0
+    if project["status"] in {"missing_project_link", "invalid_project_link"}:
+        payload["status"] = "blocked_no_project_link"
+        payload["detail"] = project["detail"]
+        _write_evidence(output_dir, payload)
+        print(f"vercel_dashboard status=blocked_no_project_link output={output_dir}")
+        return 3 if args.deploy else 0
     if not args.deploy:
         payload["status"] = "ready_for_deploy"
         payload["detail"] = "Static bundle and Vercel authentication are available; rerun with --deploy to publish."

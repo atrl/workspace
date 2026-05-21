@@ -154,6 +154,9 @@ def test_scheduler_health_reports_vercel_remote_deployment_status():
   "auth": {
     "status": "blocked_no_credentials"
   },
+  "project": {
+    "status": "missing_project_link"
+  },
   "detail": "Set VERCEL_TOKEN or run vercel login."
 }
 """,
@@ -200,6 +203,7 @@ def test_scheduler_health_reports_vercel_remote_deployment_status():
     assert "--- Vercel Remote Deployment ---" in result.stdout
     assert "status: blocked_no_credentials" in result.stdout
     assert "auth: blocked_no_credentials" in result.stdout
+    assert "project: missing_project_link" in result.stdout
     assert "deployment_url: none" in result.stdout
     assert "dashboard_latest=paper_trading paper_trading_end=2026-05-20" in result.stdout
     assert "detail: Set VERCEL_TOKEN or run vercel login." in result.stdout

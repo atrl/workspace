@@ -1773,3 +1773,42 @@ reasons. Vercel credentials remain the remaining external deployment blocker.
 Evidence card:
 
 - `runtime/production/card/weekly_composer_review_v1/notes.md`
+
+## 2026-05-21 Vercel Project Readiness
+
+Vercel health now reports project-link readiness in addition to auth status.
+
+`scripts/deploy_vercel_dashboard.py` records a non-secret `project.status` in
+`runtime/production/card/vercel_remote_deploy_v1/vercel_deployment_check.json`:
+
+- `linked` when `.vercel/project.json` has project/org IDs
+- `env_configured` when `VERCEL_PROJECT_ID` and `VERCEL_ORG_ID` are set
+- `missing_project_link` when neither is present
+- `invalid_project_link` when `.vercel/project.json` is malformed or incomplete
+
+Current live evidence:
+
+```text
+status=blocked_no_credentials
+auth=blocked_no_credentials
+project=missing_project_link
+deployment_url=null
+dashboard_latest=paper_trading
+paper_trading_end=2026-05-20
+```
+
+Health now prints:
+
+```text
+project: missing_project_link
+```
+
+The remote Vercel deployment blocker is therefore two-part:
+
+1. scheduler-visible credentials: `VERCEL_TOKEN` or `vercel login`
+2. project link/config: `vercel link --yes --team <team-id>
+   --project <project-name-or-id>` or `VERCEL_ORG_ID` + `VERCEL_PROJECT_ID`
+
+Evidence card:
+
+- `runtime/production/card/vercel_project_readiness_v1/notes.md`
