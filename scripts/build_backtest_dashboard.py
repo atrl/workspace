@@ -1114,6 +1114,77 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       background: rgba(185, 28, 28, 0.08);
       border-color: rgba(185, 28, 28, 0.20);
     }}
+    .production-status {{
+      display: grid;
+      grid-template-columns: minmax(230px, 1.1fr) repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      align-items: stretch;
+      margin-bottom: 18px;
+      padding: 12px;
+      border: 1px solid rgba(216, 204, 187, 0.9);
+      border-radius: 16px;
+      background: rgba(255, 250, 242, 0.94);
+      box-shadow: var(--shadow);
+    }}
+    .production-status[hidden] {{
+      display: none;
+    }}
+    .production-main, .production-detail {{
+      min-width: 0;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fffdf8;
+      padding: 10px 12px;
+    }}
+    .production-main {{
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      justify-content: center;
+    }}
+    .production-label, .production-k {{
+      color: var(--muted);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }}
+    .production-value {{
+      overflow-wrap: normal;
+      word-break: keep-all;
+      font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--ink);
+    }}
+    .production-detail {{
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      justify-content: center;
+      color: var(--ink);
+      font-size: 13px;
+    }}
+    .production-v {{
+      overflow-wrap: anywhere;
+      font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+      font-weight: 700;
+    }}
+    .production-link {{
+      color: var(--accent-2);
+      text-decoration: none;
+    }}
+    .production-link:hover {{
+      text-decoration: underline;
+    }}
+    .production-tone-good {{
+      color: var(--good);
+    }}
+    .production-tone-bad {{
+      color: var(--bad);
+    }}
+    .production-tone-warn {{
+      color: var(--accent);
+    }}
     .chart-panel {{ min-height: 420px; }}
     .chart-meta {{
       display: flex;
@@ -1430,6 +1501,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     @media (max-width: 1100px) {{
       .hero {{ grid-template-columns: 1fr; }}
       .summary-grid {{ grid-template-columns: repeat(2, minmax(0, 1fr)); }}
+      .production-status {{ grid-template-columns: repeat(2, minmax(0, 1fr)); }}
       .chart-wrapper {{ grid-template-columns: 1fr; }}
       .info-panel {{ display: none; }}
       .panel-grid {{ grid-template-columns: 1fr; }}
@@ -1438,6 +1510,8 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     @media (max-width: 720px) {{
       .shell {{ padding: 14px; }}
       .summary-grid {{ grid-template-columns: 1fr; }}
+      .production-status {{ grid-template-columns: 1fr; }}
+      .production-value {{ overflow-wrap: anywhere; font-size: 13px; }}
       .hero h1 {{ font-size: 28px; }}
       .chart-toolbar {{ flex-direction: column; align-items: stretch; }}
     }}
@@ -1451,6 +1525,29 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       <a class="badge" href="#tradeTable">Trade Performance</a>
       <a class="badge" href="#versionCompare">Model Versions</a>
     </div>
+
+    <section class="production-status" id="productionStatusCard" hidden aria-live="polite">
+      <div class="production-main">
+        <span class="production-label">Production</span>
+        <span class="production-value" id="productionStatusValue">loading</span>
+      </div>
+      <div class="production-detail">
+        <span class="production-k">Auth</span>
+        <span class="production-v" id="productionAuthStatus">n/a</span>
+      </div>
+      <div class="production-detail">
+        <span class="production-k">Project</span>
+        <span class="production-v" id="productionProjectStatus">n/a</span>
+      </div>
+      <div class="production-detail">
+        <span class="production-k">Paper End</span>
+        <span class="production-v" id="productionPaperEnd">n/a</span>
+      </div>
+      <div class="production-detail">
+        <span class="production-k">Deploy</span>
+        <span class="production-v" id="productionDeploymentStatus">n/a</span>
+      </div>
+    </section>
 
     <div class="grid summary-grid" id="metricGrid"></div>
 
@@ -1685,6 +1782,12 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     const infoEmpty = document.getElementById('infoEmpty');
     const infoContent = document.getElementById('infoContent');
     const regimeStrip = document.getElementById('regimeStrip');
+    const productionStatusCard = document.getElementById('productionStatusCard');
+    const productionStatusValue = document.getElementById('productionStatusValue');
+    const productionAuthStatus = document.getElementById('productionAuthStatus');
+    const productionProjectStatus = document.getElementById('productionProjectStatus');
+    const productionPaperEnd = document.getElementById('productionPaperEnd');
+    const productionDeploymentStatus = document.getElementById('productionDeploymentStatus');
     const STORAGE_KEY = 'soxl-dashboard-state-v10';
     const hydratedVersionCache = {{}};
     const baseRowLookup = Object.fromEntries(
@@ -2305,6 +2408,51 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       }}
     }}
 
+    function productionStatusTone(status) {{
+      const text = String(status || '').toLowerCase();
+      if (['deployed', 'ready_for_deploy', 'linked', 'env_configured', 'token', 'ok'].includes(text)) return 'good';
+      if (text.includes('blocked') || text.includes('missing') || text.includes('failed') || text.includes('unavailable')) return 'bad';
+      if (text.includes('pending') || text.includes('waiting')) return 'warn';
+      return '';
+    }}
+
+    function setProductionText(el, value) {{
+      const text = value == null || value === '' ? 'n/a' : String(value);
+      el.textContent = text;
+      el.classList.remove('production-tone-good', 'production-tone-bad', 'production-tone-warn');
+      const tone = productionStatusTone(text);
+      if (tone) el.classList.add(`production-tone-${{tone}}`);
+    }}
+
+    function renderProductionStatus(payload) {{
+      if (!productionStatusCard) return;
+      const data = payload || {{}};
+      const staticExport = data.static_export || {{}};
+      productionStatusCard.hidden = false;
+      setProductionText(productionStatusValue, data.status || 'unavailable');
+      setProductionText(productionAuthStatus, data.auth_status || (data.auth && data.auth.status));
+      setProductionText(productionProjectStatus, data.project_status || (data.project && data.project.status));
+      setProductionText(productionPaperEnd, staticExport.paper_trading_end || data.paper_trading_end);
+      productionDeploymentStatus.classList.remove('production-tone-good', 'production-tone-bad', 'production-tone-warn');
+      productionDeploymentStatus.textContent = '';
+      if (data.deployment_url) {{
+        const link = document.createElement('a');
+        link.href = data.deployment_url;
+        link.target = '_blank';
+        link.rel = 'noreferrer';
+        link.className = 'production-link';
+        link.textContent = data.deployment_url.replace(/^https?:\\/\\//, '');
+        productionDeploymentStatus.appendChild(link);
+      }} else {{
+        setProductionText(productionDeploymentStatus, data.deployment_url || 'none');
+      }}
+    }}
+
+    async function loadProductionStatus() {{
+      const status = await loadJson('dashboard_data/production_status.json');
+      renderProductionStatus(status || {{ status: 'unavailable' }});
+    }}
+
     async function loadIndex() {{
       if (_indexLoaded) return;
       const idx = await loadJson(`${{DATA_BASE}}/index.json`);
@@ -2381,6 +2529,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     }}
 
     function initAsyncData() {{
+      loadProductionStatus();
       // Detect file:// protocol and show banner
       if (window.location.protocol === 'file:') {{
         const banner = document.createElement('div');

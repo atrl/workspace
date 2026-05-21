@@ -44,6 +44,14 @@ def test_dashboard_static_export_is_trackable():
     assert (ROOT / "dashboard_data" / "production_status.json").exists()
 
 
+def test_dashboard_page_loads_production_status_export():
+    html = (ROOT / "dashboard.html").read_text(encoding="utf-8")
+
+    assert 'id="productionStatusCard"' in html
+    assert "dashboard_data/production_status.json" in html
+    assert "renderProductionStatus" in html
+
+
 def test_dashboard_static_export_integrity_check_passes():
     result = subprocess.run(
         [sys.executable, "scripts/check_dashboard_static_export.py"],

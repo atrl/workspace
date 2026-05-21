@@ -6038,3 +6038,71 @@ Decision:
 Artifact:
 
 - `runtime/production/card/dashboard_production_status_v1/notes.md`
+
+## 2026-05-21 Dashboard Production Status UI
+
+Goal:
+
+- Make the exported static dashboard visibly show the redacted production/Vercel
+  status, not only publish it as `dashboard_data/production_status.json`.
+
+Change:
+
+- `scripts/build_backtest_dashboard.py`
+  - adds a first-viewport production status strip;
+  - asynchronously loads `dashboard_data/production_status.json`;
+  - renders production, auth, project, paper end, and deployment status without
+    exposing secret values;
+  - handles missing status JSON as `unavailable`.
+- `dashboard.html`
+  - regenerated from the canonical builder.
+- `tests/test_vercel_dashboard.py`
+  - now gates that the committed static page loads the production status export.
+- `tests/test_dashboard.py`
+  - unit coverage for the generated HTML template.
+
+Evidence:
+
+```bash
+PYTHONPATH=. qlib_venv/bin/python -c "import importlib.util, pathlib; p=pathlib.Path('tests/test_vercel_dashboard.py'); spec=importlib.util.spec_from_file_location('tv', p); m=importlib.util.module_from_spec(spec); spec.loader.exec_module(m); m.test_dashboard_page_loads_production_status_export()"
+# red before rebuilding dashboard.html: AssertionError for missing productionStatusCard
+# green after rebuilding dashboard.html: exit 0
+
+PYTHONPATH=. qlib_venv/bin/python -c "import importlib.util, pathlib; p=pathlib.Path('tests/test_dashboard.py'); spec=importlib.util.spec_from_file_location('td', p); m=importlib.util.module_from_spec(spec); spec.loader.exec_module(m); m.test_build_html_loads_production_status_json()"
+# green after implementation: exit 0
+
+PYTHONPATH=. qlib_venv/bin/python scripts/build_backtest_dashboard.py
+# wrote dashboard.html, dashboard_data/index.json, dashboard_data/model_versions.json, dashboard_data/versioned/ (35 versions)
+
+PYTHONPATH=. qlib_venv/bin/python scripts/check_dashboard_static_export.py
+# ok dashboard_static_export ... latest=paper_trading ... production_status=blocked_no_credentials
+
+PYTHONPATH=src:. qlib_venv/bin/python scripts/deploy_vercel_dashboard.py
+# vercel_dashboard status=blocked_no_credentials output=runtime/production/card/vercel_remote_deploy_v1
+
+production/check_scheduler_health.sh
+# dashboard static: ok ... generated_at=2026-05-21 17:13:12 ... production_status=blocked_no_credentials
+# Vercel remote: blocked ... freshness=current local_generated_at=2026-05-21 17:13:12 evidence_generated_at=2026-05-21 17:13:12
+# overall: pending external_vercel_setup,scheduled_postclose_target,scheduled_paper_proof
+
+PYTHONPATH=. qlib_venv/bin/python scripts/check_harness.py
+# passed=191 failures=0
+
+npx -y playwright screenshot --channel chrome --viewport-size=1440,1000 --wait-for-timeout=2500 \
+  'http://127.0.0.1:8775/dashboard.html?ts=20260521-production-status-ui-v2' \
+  runtime/production/card/dashboard_production_status_ui_v1/dashboard_status_top_20260521.png
+
+npx -y playwright screenshot --channel chrome --viewport-size=390,844 --wait-for-timeout=2500 \
+  'http://127.0.0.1:8775/dashboard.html?ts=20260521-production-status-ui-mobile' \
+  runtime/production/card/dashboard_production_status_ui_v1/dashboard_status_mobile_20260521.png
+```
+
+Decision:
+
+- This closes the local dashboard visibility gap for the Vercel/static surface.
+- The production goal remains pending on external Vercel credentials/project
+  setup and the next natural scheduled proof windows.
+
+Artifact:
+
+- `runtime/production/card/dashboard_production_status_ui_v1/notes.md`

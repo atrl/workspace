@@ -7,6 +7,7 @@ import pandas as pd
 from scripts.build_backtest_dashboard import (
     _load_post_train_review_versions,
     _load_retained_dashboard_versions,
+    build_html,
     compact_payload_rows,
     normalize_post_train_review_rows,
     select_best_version,
@@ -220,3 +221,11 @@ def test_compact_payload_rows_drops_redundant_market_metadata():
             "action": "BUY",
         }
     ]
+
+
+def test_build_html_loads_production_status_json():
+    html = build_html({"detailed": {}, "versioned": {}, "model_versions": []}, {"all": {}})
+
+    assert 'id="productionStatusCard"' in html
+    assert "dashboard_data/production_status.json" in html
+    assert "renderProductionStatus" in html
