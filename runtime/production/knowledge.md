@@ -33,6 +33,7 @@
 26. **paper signal 不再丢弃最新 closed bar**：`plan_manual_session()` 现在把 `as_of` 当作最新已收盘 bar 并使用 `<= as_of` 生成信号。当前 dry-run 证据：`last_date=2026-05-19`、`as_of=2026-05-19`、summary `signal.date=2026-05-19`、`dry_run=true`、`executed=false`。这修复了 scheduler/paper runner 用 fresh data 只生成前一日 signal 的模拟盘滞后。
 27. **scheduler health 现在区分 inference artifact 和 paper dashboard row**：新增 `Latest Signal Artifact`，直接显示最新 `runtime/soxl/paper_trading/<date>/summary.json`。当前 live health 读数为 `date=2026-05-19`、`profile=balanced_rule_residual_v19`、`dry_run=true`、`executed=false`、`target=0.3999999985`、`risk_gate=approved`、`reconcile=manual_review`，而 dashboard paper row 仍结束于 `2026-05-18`。这使定时推理、模拟盘执行、dashboard 导出可以分层判断。
 28. **v22 runtime proof 缺口现在归因到同日幂等保护**：当前 health 选择 `balanced_rule_residual_v22`，但最新非 dry-run paper artifact 是 `2026-05-20` 的 `balanced_rule_residual_v19`。因为该日期已经执行，paper runner 不应重复落单；health 现在会在 pending 行后补充 `latest executed date already matches expected data date; next non-dry-run execution must use selected model`，把剩余证明归因到等待下一交易日，而不是误判为数据/调度失败。
+29. **Next Scheduled Runs 不再把已过窗口标成 today**：`production/check_scheduler_health.sh` 现在按 `HEALTH_WEEKDAY/HEALTH_HHMM` 判断 pre-open、post-close、weekly 窗口。当前 `2026-05-21 08:00 CST` 输出为 pre-open `today 21:00`、post-close `next eligible day 05:35`、weekly `next Saturday 07:00`，避免把当天已过的 post-close 误读成下一次运行。
 
 ## 2026-05-20 验证记录
 
@@ -1031,3 +1032,30 @@ Boundary:
 - This proves repository static packaging and routing readiness.
 - It does not prove a remote Vercel deployment is live, because Vercel project
   state and deployment URL are not stored in the repo.
+
+## 2026-05-21 Scheduler Next-Run Health Display
+
+`production/check_scheduler_health.sh` used to print a static
+`Next Scheduled Runs (today)` block even after the `05:35 Tue-Sat
+Asia/Shanghai` post-close window had already passed.
+
+Change:
+
+- Added next-run labels derived from `SOXL_SCHEDULER_HEALTH_WEEKDAY` and
+  `SOXL_SCHEDULER_HEALTH_HHMM`.
+- Eligible windows that are still ahead show `today`.
+- Elapsed or ineligible pre-open/post-close windows show
+  `next eligible day`.
+- Weekly walk-forward shows `next Saturday` after Saturday `07:00`.
+
+Evidence:
+
+- `tests/test_scheduler_health.py::test_scheduler_health_next_runs_skip_elapsed_postclose_window`
+- focused production/dashboard suite returned `49 passed`
+- live health at `2026-05-21 08:00 CST` printed post-close as
+  `next eligible day 05:35 Tue-Sat Asia/Shanghai`
+
+Decision:
+
+- This only improves operator observability.
+- It does not change the LaunchAgent schedules or paper execution behavior.

@@ -3536,3 +3536,50 @@ Decision:
   writes a v22 executed summary naturally.
 - Evidence card:
   `runtime/production/card/v22_runtime_proof_pending_v1/notes.md`
+
+## 2026-05-21 Scheduler Next-Run Health Display
+
+Goal:
+
+- Remove ambiguity from `production/check_scheduler_health.sh` after the local
+  post-close window has already passed.
+
+Root cause:
+
+- The health script printed a static `Next Scheduled Runs (today)` block.
+- At `2026-05-21 08:00 CST`, the `05:35 Tue-Sat Asia/Shanghai` post-close run
+  was already in the past, but the script still listed it under "today".
+
+Change:
+
+- The next-run section now labels each schedule from
+  `SOXL_SCHEDULER_HEALTH_WEEKDAY` and `SOXL_SCHEDULER_HEALTH_HHMM`.
+- Pre-open/post-close windows show `today` only when that local window is still
+  ahead on an eligible day; otherwise they show `next eligible day`.
+- Weekly walk-forward shows `today` only before Saturday `07:00`, otherwise
+  `next Saturday`.
+
+TDD evidence:
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_scheduler_health.py::test_scheduler_health_next_runs_skip_elapsed_postclose_window -q
+# red first on static "today" output; green after implementation
+# 1 passed
+
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_scheduler_health.py tests/test_production_schedule.py tests/test_daily_scheduler.py tests/test_paper_trading.py tests/test_vercel_dashboard.py tests/test_dashboard.py -q
+# 49 passed
+
+production/check_scheduler_health.sh
+# --- Next Scheduled Runs ---
+#   pre-open: today 21:00 Mon-Fri Asia/Shanghai — US pre-open dry-run + dashboard
+#   post-close: next eligible day 05:35 Tue-Sat Asia/Shanghai — US post-close data + paper trading + dashboard
+#   weekly: next Saturday 07:00 Sat Asia/Shanghai — weekly walk-forward after post-close refresh
+```
+
+Decision:
+
+- This is an observability fix, not a schedule or execution change.
+- The remaining completion proof is still the next fresh post-close non-dry
+  paper artifact under v22.
+- Evidence card:
+  `runtime/production/card/scheduler_next_runs_v1/notes.md`

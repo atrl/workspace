@@ -344,6 +344,45 @@ print_dashboard_static_export() {
     fi
 }
 
+next_run_day_label() {
+    schedule="$1"
+    cutoff_hhmm="$2"
+    weekday_num=$(number_value "$HEALTH_WEEKDAY")
+    hhmm_num=$(number_value "$HEALTH_HHMM")
+    cutoff_num=$(number_value "$cutoff_hhmm")
+
+    case "$schedule" in
+        preopen)
+            if [ "$weekday_num" -ge 1 ] && [ "$weekday_num" -le 5 ] && [ "$hhmm_num" -lt "$cutoff_num" ]; then
+                echo "today"
+            else
+                echo "next eligible day"
+            fi
+            ;;
+        postclose)
+            if [ "$weekday_num" -ge 2 ] && [ "$weekday_num" -le 6 ] && [ "$hhmm_num" -lt "$cutoff_num" ]; then
+                echo "today"
+            else
+                echo "next eligible day"
+            fi
+            ;;
+        weekly)
+            if [ "$weekday_num" -eq 6 ] && [ "$hhmm_num" -lt "$cutoff_num" ]; then
+                echo "today"
+            else
+                echo "next Saturday"
+            fi
+            ;;
+    esac
+}
+
+print_next_runs() {
+    echo "--- Next Scheduled Runs ---"
+    echo "  pre-open: $(next_run_day_label preopen 2100) 21:00 Mon-Fri Asia/Shanghai — US pre-open dry-run + dashboard"
+    echo "  post-close: $(next_run_day_label postclose 0535) 05:35 Tue-Sat Asia/Shanghai — US post-close data + paper trading + dashboard"
+    echo "  weekly: $(next_run_day_label weekly 0700) 07:00 Sat Asia/Shanghai — weekly walk-forward after post-close refresh"
+}
+
 echo "=== SOXL Scheduler Health Check ==="
 echo "Time: $(date)"
 echo "Root: ${ROOT}"
@@ -394,9 +433,4 @@ echo ""
 print_postclose_status
 echo ""
 
-# 检查下次执行时间
-echo "--- Next Scheduled Runs (today) ---"
-echo "  21:00 Mon-Fri Asia/Shanghai — US pre-open dry-run + dashboard"
-echo "  05:35 Tue-Sat Asia/Shanghai — US post-close data + paper trading + dashboard"
-echo ""
-echo "  (Saturday 07:00 Asia/Shanghai — weekly walk-forward after post-close refresh)"
+print_next_runs
