@@ -6607,3 +6607,84 @@ production/check_scheduler_health.sh
 PYTHONPATH=. qlib_venv/bin/python scripts/export_production_goal_gates.py
 # production_goal_gates status=pending issues=external_vercel_setup,scheduled_postclose_target,scheduled_paper_proof
 ```
+
+## 2026-05-21 Scheduled Trigger Provenance Guard
+
+Goal:
+
+- Prevent manual/debug runs that pass `--schedule-slot postclose` from clearing
+  the scheduled post-close target gate.
+
+Root cause:
+
+- The post-close slot parser correctly required `schedule_slot=postclose`, but
+  a manual command could still provide that flag.
+- The health gate had no way to distinguish a natural cron/LaunchAgent run from
+  a manual replay with the same schedule slot.
+
+Change:
+
+- `production/soxl_daily_scheduler.py` now prints `schedule_trigger=<value>` in
+  the run-start marker, sourced from `SOXL_SCHEDULE_TRIGGER` and defaulting to
+  `manual`.
+- Cron rows and macOS LaunchAgents now set non-secret trigger provenance:
+  `cron_preopen`, `cron_postclose`, `launchagent_preopen`,
+  `launchagent_postclose`.
+- `production/check_scheduler_health.sh` requires a valid post-close trigger
+  (`launchagent_postclose` or `cron_postclose`) before accepting scheduled
+  post-close target proof.
+- Pre-open target health also requires pre-open trigger provenance and reports
+  `schedule_trigger=preopen` in the ok detail.
+
+Evidence:
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest \
+  tests/test_daily_scheduler.py::test_scheduler_prints_schedule_trigger_in_run_start_marker \
+  tests/test_production_schedule.py::test_crontab_uses_shanghai_safe_us_market_windows \
+  tests/test_production_schedule.py::test_operator_doc_scheduler_examples_include_current_production_flags \
+  tests/test_production_schedule.py::test_launchagent_runs_post_close_in_shanghai_local_time \
+  tests/test_production_schedule.py::test_launchagent_runs_preopen_cached_dry_run_in_shanghai_local_time \
+  tests/test_scheduler_health.py::test_scheduler_health_requires_postclose_schedule_trigger_for_composer_target \
+  tests/test_scheduler_health.py::test_scheduler_health_keeps_prior_postclose_slot_success_when_later_manual_run_appended \
+  tests/test_scheduler_health.py::test_scheduler_health_reports_preopen_target_for_current_success_marker -q
+# 8 passed
+
+plutil -lint production/com.soxl.daily.scheduler.plist production/com.soxl.preopen.scheduler.plist
+# both OK
+
+uv run --python qlib_venv/bin/python --with pytest pytest \
+  tests/test_scheduler_health.py tests/test_daily_scheduler.py \
+  tests/test_production_schedule.py tests/test_vercel_dashboard.py -q
+# 70 passed
+
+PYTHONPATH=. qlib_venv/bin/python scripts/export_production_goal_gates.py
+# production_goal_gates status=pending issues=external_vercel_setup,scheduled_postclose_target,scheduled_paper_proof
+
+PYTHONPATH=. qlib_venv/bin/python scripts/build_runtime_index.py
+# wrote runtime/index.json (531 entries)
+
+production/check_scheduler_health.sh
+# LaunchAgent com.soxl.preopen.scheduler plist: matches repo
+# LaunchAgent com.soxl.daily.scheduler plist: matches repo
+# postclose status: due but current success marker lacks schedule_slot=postclose
+# postclose target: pending latest_success_marker lacks schedule_slot=postclose
+# overall: pending external_vercel_setup,scheduled_postclose_target,scheduled_paper_proof
+```
+
+External state:
+
+- Synced `production/com.soxl.daily.scheduler.plist` and
+  `production/com.soxl.preopen.scheduler.plist` to `~/Library/LaunchAgents/`.
+- Reloaded both LaunchAgents; live health reports both are loaded and match the
+  repo.
+
+Decision:
+
+- The next post-close gate must come from a scheduled provenance marker, not a
+  manual replay. Current live status remains pending because the real log still
+  lacks a valid scheduled post-close success segment.
+
+Artifact:
+
+- `runtime/production/card/schedule_trigger_provenance_v1/notes.md`

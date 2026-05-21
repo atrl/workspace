@@ -16,6 +16,7 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import os
 import subprocess
 import sys
 from datetime import datetime
@@ -173,11 +174,13 @@ def main() -> None:
 
     venv_python = str(ROOT / "qlib_venv" / "bin" / "python")
     started_at = datetime.now().astimezone().isoformat(timespec="seconds")
+    schedule_trigger = os.environ.get("SOXL_SCHEDULE_TRIGGER", "manual").strip() or "manual"
+    schedule_trigger = "_".join(schedule_trigger.split())
     run_marker = (
         "[scheduler] run started at "
         f"{started_at} broker={args.broker} dry_run={args.dry_run} "
         f"skip_data_update={args.skip_data_update} data_provider={args.data_provider} "
-        f"schedule_slot={args.schedule_slot}"
+        f"schedule_slot={args.schedule_slot} schedule_trigger={schedule_trigger}"
     )
     if args.runtime_composer != "none":
         run_marker += (

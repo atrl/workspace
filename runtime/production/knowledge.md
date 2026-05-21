@@ -36,6 +36,7 @@
 29. **Next Scheduled Runs 不再把已过窗口标成 today**：`production/check_scheduler_health.sh` 现在按 `HEALTH_WEEKDAY/HEALTH_HHMM` 判断 pre-open、post-close、weekly 窗口。当前 post-close 输出为 `next eligible day 06:15 Tue-Sat Asia/Shanghai`，避免把当天已过的 post-close 误读成下一次运行。
 30. **pre-open scheduled dry-run 现在有独立 health 状态**：health 新增 `Pre-open Run Status`，按 `21:00 Mon-Fri Asia/Shanghai` 判断 pending/due/current，并在当前成功时要求 `schedule_slot=preopen dry_run=True skip_data_update=True` 以及 runtime composer 目标字段；这不新增最终 goal gate。
 31. **静态 dashboard 包现在携带生产状态 JSON**：`scripts/deploy_vercel_dashboard.py` 会写 `dashboard_data/production_status.json`，只包含非 secret 的 Vercel/auth/project/static 状态；`scripts/check_dashboard_static_export.py` 会要求并报告 `production_status=<status>`。当前状态仍是 `blocked_no_credentials`。
+32. **scheduled proof 现在要求触发来源**：scheduler run-start marker 会输出 `schedule_trigger`，cron/LaunchAgent 分别设置 `cron_*` / `launchagent_*`。post-close target proof 现在必须同时满足 `schedule_slot=postclose` 和 `schedule_trigger=launchagent_postclose|cron_postclose`，避免手动 replay 用同一个 slot 清掉自然定时 gate。
 
 ## 2026-05-20 验证记录
 
@@ -2433,3 +2434,61 @@ scheduled post-close proof.
 Evidence card:
 
 - `runtime/production/card/postclose_slot_success_parser_v1/notes.md`
+
+## 2026-05-21 Scheduled Trigger Provenance Guard
+
+`production/soxl_daily_scheduler.py` now writes non-secret trigger provenance in
+the run-start marker:
+
+```text
+schedule_trigger=<manual|launchagent_preopen|launchagent_postclose|cron_preopen|cron_postclose>
+```
+
+Cron rows and macOS LaunchAgents set the scheduled trigger explicitly:
+
+- pre-open cron: `SOXL_SCHEDULE_TRIGGER=cron_preopen`
+- post-close cron: `SOXL_SCHEDULE_TRIGGER=cron_postclose`
+- pre-open LaunchAgent: `SOXL_SCHEDULE_TRIGGER=launchagent_preopen`
+- post-close LaunchAgent: `SOXL_SCHEDULE_TRIGGER=launchagent_postclose`
+
+`production/check_scheduler_health.sh` now requires a scheduled post-close
+trigger before accepting a post-close target proof. A manual run with
+`--schedule-slot postclose` but no scheduled trigger remains pending:
+
+```text
+postclose target: pending latest_success_marker lacks schedule_trigger=postclose
+post-close composer target: pending latest_success_marker lacks schedule_trigger=postclose
+```
+
+Live host state after syncing and reloading both scheduler LaunchAgents:
+
+```text
+LaunchAgent com.soxl.preopen.scheduler plist: matches repo
+LaunchAgent com.soxl.daily.scheduler plist: matches repo
+postclose status: due but current success marker lacks schedule_slot=postclose
+postclose target: pending latest_success_marker lacks schedule_slot=postclose
+overall: pending external_vercel_setup,scheduled_postclose_target,scheduled_paper_proof
+```
+
+Verification:
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest \
+  tests/test_scheduler_health.py tests/test_daily_scheduler.py \
+  tests/test_production_schedule.py tests/test_vercel_dashboard.py -q
+# 70 passed
+
+plutil -lint production/com.soxl.daily.scheduler.plist production/com.soxl.preopen.scheduler.plist
+# both OK
+
+PYTHONPATH=. qlib_venv/bin/python scripts/export_production_goal_gates.py
+# production_goal_gates status=pending issues=external_vercel_setup,scheduled_postclose_target,scheduled_paper_proof
+```
+
+This closes the manual-replay loophole only. The production goal remains pending
+until the next natural scheduled post-close success and next-date scheduled paper
+proof land, and Vercel still needs credentials/project setup.
+
+Evidence card:
+
+- `runtime/production/card/schedule_trigger_provenance_v1/notes.md`

@@ -35,6 +35,8 @@
     <dict>
         <key>PATH</key>
         <string>/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+        <key>SOXL_SCHEDULE_TRIGGER</key>
+        <string>launchagent_preopen</string>
         <key>BARK_KEY</key>
         <string></string>
     </dict>

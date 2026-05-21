@@ -240,6 +240,46 @@ postclose_current_success_without_slot_after_cutoff() {
     ' "$path"
 }
 
+postclose_current_success_without_trigger_after_cutoff() {
+    path="$1"
+    if [ ! -f "$path" ] || ! grep -q "^\[scheduler\] all done$" "$path" 2>/dev/null; then
+        return 1
+    fi
+    cutoff_epoch=$(postclose_cutoff_epoch)
+    log_epoch=$(file_epoch "$path")
+    if [ -n "$cutoff_epoch" ] && [ -n "$log_epoch" ] && [ "$log_epoch" -lt "$cutoff_epoch" ]; then
+        return 1
+    fi
+    if [ -n "$(postclose_last_success_slot_marker "$path")" ]; then
+        return 1
+    fi
+    awk '
+        /^\[scheduler\] run started at / { marker = $0; ok = 0; next }
+        /^\[scheduler\] all done$/ { ok = 1 }
+        END {
+            if (ok && marker != "" &&
+                marker ~ "schedule_slot=postclose" &&
+                marker !~ "schedule_trigger=launchagent_postclose" &&
+                marker !~ "schedule_trigger=cron_postclose") {
+                exit 0
+            }
+            exit 1
+        }
+    ' "$path"
+}
+
+marker_has_postclose_trigger() {
+    marker="$1"
+    marker_has_text "$marker" "schedule_trigger=launchagent_postclose" ||
+        marker_has_text "$marker" "schedule_trigger=cron_postclose"
+}
+
+marker_has_preopen_trigger() {
+    marker="$1"
+    marker_has_text "$marker" "schedule_trigger=launchagent_preopen" ||
+        marker_has_text "$marker" "schedule_trigger=cron_preopen"
+}
+
 postclose_last_run_marker() {
     path="$1"
     if [ ! -f "$path" ]; then
@@ -261,6 +301,8 @@ postclose_last_success_slot_marker() {
         /^\[scheduler\] all done$/ {
             if (marker != "" &&
                 marker ~ "schedule_slot=postclose" &&
+                (marker ~ "schedule_trigger=launchagent_postclose" ||
+                 marker ~ "schedule_trigger=cron_postclose") &&
                 marker ~ health_date "T") {
                 success_marker = marker
             }
@@ -734,6 +776,13 @@ print_postclose_target_status() {
         fi
     fi
 
+    if ! marker_has_postclose_trigger "$marker"; then
+        echo "  postclose target: pending latest_success_marker lacks schedule_trigger=postclose"
+        POSTCLOSE_TARGET_STATUS="pending"
+        POSTCLOSE_TARGET_DETAIL="latest_success_marker lacks schedule_trigger=postclose"
+        return
+    fi
+
     if marker_has_text "$marker" "runtime_composer=${RUNTIME_COMPOSER}" &&
         marker_has_text "$marker" "composer_profile=${RUNTIME_COMPOSER_PROFILE}" &&
         marker_has_text "$marker" "slow_profile=${RUNTIME_SLOW_PROFILE}" &&
@@ -850,6 +899,7 @@ print_preopen_target_status() {
 
     missing=""
     marker_has_text "$marker" "schedule_slot=preopen" || missing="${missing} schedule_slot=preopen"
+    marker_has_preopen_trigger "$marker" || missing="${missing} schedule_trigger=preopen"
     marker_has_text "$marker" "dry_run=True" || missing="${missing} dry_run=True"
     marker_has_text "$marker" "skip_data_update=True" || missing="${missing} skip_data_update=True"
 
@@ -867,7 +917,7 @@ print_preopen_target_status() {
         return
     fi
 
-    detail="schedule_slot=preopen dry_run=True skip_data_update=True"
+    detail="schedule_slot=preopen schedule_trigger=preopen dry_run=True skip_data_update=True"
     if [ "$RUNTIME_COMPOSER_STATE" = "enabled" ]; then
         detail="${detail} runtime_composer=${RUNTIME_COMPOSER} composer_profile=${RUNTIME_COMPOSER_PROFILE}"
     fi
@@ -900,6 +950,10 @@ print_postclose_status() {
         print_postclose_proof_detail
     elif postclose_current_success_without_slot_after_cutoff "$postclose_log"; then
         echo "  postclose status: due but current success marker lacks schedule_slot=postclose"
+        print_postclose_target_status "$postclose_log"
+        print_postclose_proof_detail
+    elif postclose_current_success_without_trigger_after_cutoff "$postclose_log"; then
+        echo "  postclose status: due but current success marker lacks schedule_trigger=postclose"
         print_postclose_target_status "$postclose_log"
         print_postclose_proof_detail
     elif postclose_cached_dry_run_after_cutoff "$postclose_log"; then
