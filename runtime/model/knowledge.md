@@ -739,3 +739,48 @@ Decision:
 - Interpretation: v22 VIX term-structure features plus v19_reg regularization
   create a higher-exposure recovery/bull-market actor, not a better
   risk-controlled successor to v22.
+
+## 2026-05-21 v19_reg + v22 Budget-Usage Replay
+
+Question: can we continue model optimization without another retrain by letting
+`balanced_rule_residual_v19_reg` define the slow risk-mode band while
+`balanced_rule_residual_v22` supplies fast budget usage?
+
+Answer: fixed full-window replay says yes, but it is diagnostic only until the
+same composer passes walk-forward daily-path validation.
+
+Evidence:
+
+- Card:
+  `runtime/model/card/v19reg_v22_budget_usage_v1/notes.md`
+- Review:
+  `runtime/model/card/v19reg_v22_budget_usage_v1/v19reg_v22_budget_usage_v1.md`
+- Payload:
+  `runtime/model/card/v19reg_v22_budget_usage_v1/v19reg_v22_budget_usage_v1.json`
+- Generalized harness support:
+  `src/soxl_quant/app/budget_counterfactual.py`
+  `scripts/compose_budget_usage_counterfactual.py`
+
+Readout:
+
+- Initial use of the older baseline daily CSVs was invalid: both inputs went to
+  zero after 2020, so `test_2022` and `test_2023_2024` slices were all zero.
+  Future fixed-path composition should regenerate daily inputs from actors when
+  slice coverage looks stale.
+- Fresh actor daily exports through `2026-05-19` produced a composed replay with
+  proxy `2264.14%` return / `1.260` Sharpe / `40.89%` MaxDD / `0.437` avg
+  position / `185` trades.
+- Versus fresh v22, the composed path improved proxy return by `+1135.83pp`,
+  reduced MaxDD by `12.33pp`, and cut trades by `1251`.
+- `test_2022` improved versus fresh v22 from `-41.73% / 52.84% MaxDD /
+  0.399 avg_pos` to `-21.20% / 31.09% MaxDD / 0.238 avg_pos`.
+- `test_2023_2024` improved versus fresh v22 from `193.08% / 1.370 /
+  32.26% MaxDD` to `244.80% / 1.606 / 30.67% MaxDD`.
+
+Decision:
+
+- Keep as a diagnostic candidate.
+- Do not bind runtime from fixed full-window replay.
+- Next valid loop is walk-forward daily-path composition for v19_reg + v22,
+  using regenerated saved-window daily paths, not another PPO continuation,
+  MoE sweep, SOXX threshold tune, or direct feature retrain.

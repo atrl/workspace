@@ -143,6 +143,44 @@ position = mode_floor + usage_ratio × (mode_cap - mode_floor)
 
 ## 扩展迭代
 
+### Fixed-Path Budget-Usage Counterfactuals
+
+When testing a new slow/fast actor pairing without retraining, use the
+generalized counterfactual path instead of the older hardcoded
+`risk_budget_usage_v1` replay scripts:
+
+```bash
+PYTHONPATH=src:. qlib_venv/bin/python scripts/export_profile_daily_backtest.py \
+  --profile <slow_profile> \
+  --tag <optional_wf_tag> \
+  --output runtime/model/card/<card>/inputs/<slow_profile>_<tag>_fresh_input.csv
+
+PYTHONPATH=src:. qlib_venv/bin/python scripts/export_profile_daily_backtest.py \
+  --profile <fast_profile> \
+  --tag <optional_wf_tag> \
+  --output runtime/model/card/<card>/inputs/<fast_profile>_<tag>_fresh_input.csv
+
+PYTHONPATH=src:. qlib_venv/bin/python scripts/compose_budget_usage_counterfactual.py \
+  --slow runtime/model/card/<card>/inputs/<slow>_fresh_input.csv \
+  --fast runtime/model/card/<card>/inputs/<fast>_fresh_input.csv \
+  --output-dir runtime/model/card/<card> \
+  --profile <card> \
+  --slow-label <slow_label> \
+  --fast-label <fast_label> \
+  --composed-label <card>
+```
+
+Do not trust older card-level daily CSVs blindly. In the 2026-05-21
+`v19reg_v22_budget_usage_v1` loop, old `balanced_rule_residual_v19_reg` and
+`balanced_rule_residual_v22` daily CSVs went to zero after 2020, which made
+`test_2022` and `test_2023_2024` invalid. Regenerate daily paths from retained
+actors when slice positions are zero or coverage looks stale.
+
+Fixed full-window replay is not runtime proof. If the fixed replay works, the
+next gate is the same composition on saved walk-forward daily paths, with
+window-specific `--tag wf_2020`, `--tag wf_2022`, and `--tag wf_2023_2024`
+exports.
+
 ### v2: Mode-Conditional Reward + Dynamic Band Scaling
 
 在 v1 基础上引入两个互补扩展：

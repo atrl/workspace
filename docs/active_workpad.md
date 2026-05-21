@@ -4086,3 +4086,82 @@ Decision:
   execution that writes a root summary with `profile=balanced_rule_residual_v22`.
 - Evidence card:
   `runtime/production/card/scheduler_postclose_0615_v1/notes.md`.
+
+## 2026-05-21 v19_reg + v22 Budget-Usage Diagnostic
+
+Goal:
+
+- Resume model optimization after the SOXX and production/dashboard loops with
+  one narrow, fixed-path model-selection diagnostic.
+- Avoid retraining, SOXX threshold tuning, and MoE sweeps by testing whether
+  `balanced_rule_residual_v19_reg` can define the slow risk-mode band while
+  `balanced_rule_residual_v22` supplies usage inside that band.
+
+Governance:
+
+- Canonical baseline: `balanced_rule_residual_v22`.
+- Direct comparison baseline: `balanced_rule_residual_v19_reg`.
+- Role: `diagnose`.
+- Changed layer: `selection`.
+- External reference: existing `risk_budget_usage_v1` hierarchical risk-budget
+  architecture.
+- Comparison row key: `v19reg_v22_budget_usage_v1`.
+- Historical success: `risk_budget_usage_v1` fixed-path budget usage and the
+  canonical v22 runtime-selection line.
+- Historical failure: `risk_budget_usage_v2/v3`,
+  `balanced_rule_residual_v19_reg_v22_retest_v1`, and absorbed SOXX
+  walk-forward overlay validation.
+
+Harness change:
+
+- Added `src/soxl_quant/app/budget_counterfactual.py` and
+  `scripts/compose_budget_usage_counterfactual.py` so fixed-path budget-usage
+  diagnostics are no longer hardcoded to `risk_budget_usage_v1`.
+- Added focused coverage in `tests/test_budget_counterfactual.py`.
+
+Evidence:
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_budget_counterfactual.py -q
+# 3 passed
+
+PYTHONPATH=src:. qlib_venv/bin/python scripts/export_profile_daily_backtest.py \
+  --profile balanced_rule_residual_v19_reg \
+  --output runtime/model/card/v19reg_v22_budget_usage_v1/inputs/balanced_rule_residual_v19_reg_fresh_input.csv
+
+PYTHONPATH=src:. qlib_venv/bin/python scripts/export_profile_daily_backtest.py \
+  --profile balanced_rule_residual_v22 \
+  --output runtime/model/card/v19reg_v22_budget_usage_v1/inputs/balanced_rule_residual_v22_fresh_input.csv
+
+PYTHONPATH=src:. qlib_venv/bin/python scripts/compose_budget_usage_counterfactual.py \
+  --slow runtime/model/card/v19reg_v22_budget_usage_v1/inputs/balanced_rule_residual_v19_reg_fresh_input.csv \
+  --fast runtime/model/card/v19reg_v22_budget_usage_v1/inputs/balanced_rule_residual_v22_fresh_input.csv \
+  --output-dir runtime/model/card/v19reg_v22_budget_usage_v1 \
+  --profile v19reg_v22_budget_usage_v1 \
+  --slow-label balanced_rule_residual_v19_reg_fresh \
+  --fast-label balanced_rule_residual_v22_fresh \
+  --composed-label v19reg_v22_budget_usage_v1
+# return=2264.1% sharpe=1.260 max_dd=40.9% avg_pos=0.437
+```
+
+Readout:
+
+- The first replay against the old baseline card daily CSVs was invalid because
+  both inputs went to zero after 2020. Regenerating daily inputs from the
+  retained actors fixed the slice coverage.
+- Fresh fixed-path replay:
+  - Proxy: `2264.14%` return / `1.260` Sharpe / `40.89%` MaxDD /
+    `0.437` avg position / `185` trades.
+  - `test_2022`: `-21.20%` return / `31.09%` MaxDD / `0.238` avg position,
+    improving fresh v22 by `+20.54pp` return, `-21.75pp` MaxDD, and `-0.161`
+    avg position.
+  - `test_2023_2024`: `244.80%` return / `1.606` Sharpe / `30.67%` MaxDD,
+    improving fresh v22 by `+51.72pp` return and `-1.59pp` MaxDD.
+
+Decision:
+
+- Keep `v19reg_v22_budget_usage_v1` as a diagnostic candidate.
+- Do not bind runtime from fixed full-window replay.
+- Next valid model loop is walk-forward daily-path composition using saved
+  v19_reg and v22 walk-forward actors. Do not continue with another generic PPO
+  run, SOXX cap threshold tune, or MoE hyperparameter sweep.

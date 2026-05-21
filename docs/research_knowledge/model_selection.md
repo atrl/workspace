@@ -53,3 +53,24 @@ Conclusion: do not treat v22 as undertrained. Future model-selection work
 should change checkpoint scoring, retained-evidence review, or a distinct
 risk-control mechanism; a short continuation of v22 is not a valid promotion
 path.
+
+## 2026-05-21 Fixed-Path Budget-Usage Diagnostic
+
+`v19reg_v22_budget_usage_v1` tested a model-selection / composition mechanism
+instead of retraining: `balanced_rule_residual_v19_reg` defines the slow
+risk-mode band, and `balanced_rule_residual_v22` is interpreted as fast usage
+inside that band.
+
+The first replay exposed stale baseline daily CSVs whose `test_2022` and
+`test_2023_2024` positions were zero. Regenerate actor daily paths before
+trusting fixed-path composition when slice coverage looks suspicious.
+
+With fresh actor daily exports through `2026-05-19`, the composed path improved
+versus fresh v22 on every fixed replay slice: proxy `2264.14% / 1.260 /
+40.89% MaxDD`, `test_2022` `-21.20% / 31.09% MaxDD / 0.238 avg_pos`, and
+`test_2023_2024` `244.80% / 1.606 / 30.67% MaxDD`.
+
+Conclusion: keep as a diagnostic candidate and validate by walk-forward daily
+composition before any runtime binding. This is a distinct mechanism from
+continued PPO training, MoE routing, SOXX threshold tuning, or direct feature
+retraining.
