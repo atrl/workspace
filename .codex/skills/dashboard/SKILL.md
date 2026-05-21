@@ -174,3 +174,12 @@ The dashboard uses a **single 4-subplot layout** (All Panels). No view selector.
 ### Model versions not showing
 - Verify `runtime/model/card/*/*_summary.json` exists and contains `test_proxy` / `valid` fields
 - Check browser console for JS errors in `renderVersionTable()`
+
+### Version disappears after scheduled rebuild
+- Check whether the source `runtime/model/card/<profile>/<profile>_soxl_daily.csv` was intentionally removed after a profile was dropped.
+- Retained static evidence under `dashboard_data/versioned/<profile>/SOXL.json` should remain selectable even without the source CSV.
+- `scripts/build_backtest_dashboard.py` loads retained dashboard exports as `retained_dashboard_export`; verify with:
+  ```bash
+  qlib_venv/bin/python -c "import json; d=json.load(open('dashboard_data/index.json')); print(d['version_summaries']['<profile>']['meta']['source_kind'])"
+  ```
+- Regression coverage belongs in `tests/test_dashboard.py` so scheduled paper/Vercel rebuilds cannot silently remove retained evidence from the index.
