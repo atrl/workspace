@@ -5323,3 +5323,51 @@ Decision:
 Artifact:
 
 - `runtime/production/card/ordinary_paper_proof_health_v1/notes.md`
+
+## 2026-05-21 Thread Goal Completion Audit
+
+Goal:
+
+- Audit the full user objective against current repo and runtime evidence,
+  without redefining completion around the work already done.
+
+Current status:
+
+- SOXX data surfaces are current through `2026-05-20`; canonical
+  SOXL/SOXX/VIX panel, raw mirrors, and qlib calendar each have `4074` rows.
+- The SOXX direct-feature and SOXX cap lines are not the active model path;
+  `v19reg_v22_budget_usage_bull_guard_v1` is the governed continuation from
+  the post-SOXX model optimization loop.
+- Runtime composer promotion is approved and scheduler env is enabled.
+- Local/static dashboard is current: `latest=paper_trading`, `versions=35`,
+  `missing=0`, `paper_trading_rows=4`, `paper_trading_end=2026-05-20`.
+- Vercel remote deployment is still not complete:
+  `auth=blocked_no_credentials`, `project=missing_project_link`.
+- Composer runtime proof is ok via same-date `duplicate_skipped`, but ordinary
+  simulated-paper proof remains pending until the next new-date post-close
+  non-dry run.
+
+Evidence:
+
+```bash
+production/check_scheduler_health.sh
+# data/model/broker ok
+# runtime composer enabled for v19reg_v22_budget_usage_bull_guard_v1
+# runtime proof ok via duplicate_skipped
+# ordinary paper proof pending via duplicate_skipped
+# Vercel auth blocked_no_credentials; project missing_project_link
+
+PYTHONPATH=src:. qlib_venv/bin/python scripts/check_dashboard_static_export.py
+# ok dashboard_static_export generated_at=2026-05-21 12:01:45 versions=35 missing=0 model_versions=94 latest=paper_trading paper_trading_rows=4 paper_trading_end=2026-05-20 paper_trading
+```
+
+Decision:
+
+- Do not mark the full thread goal complete.
+- The next non-external gate is the next scheduled post-close run producing
+  `ordinary paper proof: ok ...` for the enabled composer.
+- The Vercel gate remains external setup: credentials plus project link/env IDs.
+
+Artifact:
+
+- `runtime/production/card/thread_goal_completion_audit_v1/notes.md`

@@ -1845,3 +1845,36 @@ Interpretation:
 Evidence card:
 
 - `runtime/production/card/ordinary_paper_proof_health_v1/notes.md`
+
+## 2026-05-21 Thread Goal Completion Audit
+
+The thread objective now has a requirement-by-requirement completion audit in
+`runtime/production/card/thread_goal_completion_audit_v1/notes.md`.
+
+Current readout:
+
+- SOXX data integration is not the blocker: canonical SOXL/SOXX/VIX panel, raw
+  mirrors, and qlib calendar all end at `2026-05-20`.
+- Model optimization did resume after SOXX: direct SOXX actor / SOXX cap lines
+  were rejected, and the governed continuation is
+  `v19reg_v22_budget_usage_bull_guard_v1`.
+- Dashboard local/static proof is current with `latest=paper_trading`,
+  `missing=0`, and paper rows through `2026-05-20`.
+- Scheduler env is enabled for the runtime composer and health validates that
+  composer target.
+- Simulated-paper runtime proof is ok through same-date duplicate-skip
+  idempotency, but ordinary paper proof remains pending until the next new-date
+  scheduled post-close non-dry run.
+- Vercel remote deployment is not complete because credentials and project link
+  are both missing.
+
+The goal should remain active until at least these gates clear:
+
+1. `ordinary paper proof: ok ...` for
+   `v19reg_v22_budget_usage_bull_guard_v1`
+2. Vercel remote evidence with credentials configured, project linked, and a
+   deployment URL
+
+Evidence card:
+
+- `runtime/production/card/thread_goal_completion_audit_v1/notes.md`
