@@ -6,6 +6,7 @@ import pandas as pd
 
 from scripts.compose_budget_usage_counterfactual import relative_output_label
 from src.soxl_quant.app.budget_counterfactual import (
+    BullParticipationGuardConfig,
     build_budget_usage_counterfactual,
     render_budget_usage_review,
 )
@@ -48,6 +49,37 @@ def test_build_budget_usage_counterfactual_scores_all_paths_and_keeps_audit_colu
         == result.payload["variants"]["composed_path"]["test_proxy"]["return"]
         - result.payload["variants"]["fast_path"]["test_proxy"]["return"]
     )
+
+
+def test_bull_participation_guard_floors_strong_trend_to_fast_path():
+    dates = pd.date_range("2020-01-01", periods=5, freq="B")
+    slow = pd.DataFrame({"datetime": dates, "position": [0.20, 0.20, 0.20, 0.20, 0.20]})
+    fast = pd.DataFrame({"datetime": dates, "position": [0.70, 0.70, 0.70, 0.70, 0.70]})
+    price = pd.Series([100.0, 103.0, 106.0, 109.0, 112.0], index=dates, name="price")
+
+    result = build_budget_usage_counterfactual(
+        slow,
+        fast,
+        price,
+        slow_label="slow_path",
+        fast_label="fast_path",
+        composed_label="composed_path",
+        description="unit diagnostic",
+        config=TwoSpeedBudgetConfig(trade_threshold=0.0, trade_lock_days=0),
+        bull_guard=BullParticipationGuardConfig(
+            enabled=True,
+            ma_window=2,
+            momentum_window=1,
+            high_window=2,
+            min_periods=1,
+            min_momentum=0.01,
+            max_drawdown=0.02,
+        ),
+    )
+
+    assert result.daily["bull_participation_guard"].tolist() == [False, True, True, True, True]
+    assert result.daily["base_two_speed_position"].round(4).tolist() == [0.175] * 5
+    assert result.daily["position"].round(4).tolist() == [0.175, 0.7, 0.7, 0.7, 0.7]
 
 
 def test_render_budget_usage_review_includes_governance_labels_and_deltas():

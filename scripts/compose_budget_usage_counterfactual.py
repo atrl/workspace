@@ -13,6 +13,7 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
 from src.soxl_quant.app.budget_counterfactual import (  # noqa: E402
+    BullParticipationGuardConfig,
     build_budget_usage_counterfactual,
     write_counterfactual_artifacts,
 )
@@ -42,6 +43,17 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--fast-label", default="", help="Label for the fast path")
     parser.add_argument("--composed-label", default="", help="Label for the composed path")
     parser.add_argument("--description", default="", help="Review description")
+    parser.add_argument(
+        "--bull-participation-guard",
+        action="store_true",
+        help="Floor raw target to the fast path during strong, shallow-drawdown trend windows",
+    )
+    parser.add_argument("--bull-ma-window", type=int, default=50, help="Moving-average window for bull guard")
+    parser.add_argument("--bull-momentum-window", type=int, default=20, help="Momentum window for bull guard")
+    parser.add_argument("--bull-high-window", type=int, default=50, help="Rolling-high window for bull guard drawdown")
+    parser.add_argument("--bull-min-periods", type=int, default=20, help="Minimum periods for bull guard rolling stats")
+    parser.add_argument("--bull-min-momentum", type=float, default=0.03, help="Minimum return for bull guard")
+    parser.add_argument("--bull-max-drawdown", type=float, default=0.08, help="Maximum rolling drawdown for bull guard")
     return parser.parse_args()
 
 
@@ -69,6 +81,15 @@ def main() -> None:
         composed_label=composed_label,
         profile=profile,
         description=description,
+        bull_guard=BullParticipationGuardConfig(
+            enabled=bool(args.bull_participation_guard),
+            ma_window=args.bull_ma_window,
+            momentum_window=args.bull_momentum_window,
+            high_window=args.bull_high_window,
+            min_periods=args.bull_min_periods,
+            min_momentum=args.bull_min_momentum,
+            max_drawdown=args.bull_max_drawdown,
+        ),
     )
     artifacts = write_counterfactual_artifacts(result, args.output_dir, price)
     composed = result.payload["variants"][composed_label]["test_proxy"]

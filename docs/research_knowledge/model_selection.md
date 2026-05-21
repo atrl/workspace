@@ -84,3 +84,26 @@ v22 (`61.42%`) and v19_reg (`69.45%`) daily paths.
 Conclusion update: diagnostic keep, no runtime binding. If this line continues,
 the next mechanism must add a bull-participation guard or mode-band exception
 and rerun all three walk-forward daily-path checks.
+
+## 2026-05-21 Budget-Usage Bull-Participation Guard
+
+`v19reg_v22_budget_usage_bull_guard_v1` completed that follow-up without a new
+PPO run. The composer keeps v19_reg as the slow mode band and v22 as fast usage,
+then applies a price-confirmed trend guard: `price > MA50`, `20d momentum >=
+3%`, and 50d rolling drawdown no worse than `8%`. When the guard is true, the
+raw composed target is floored to the fast v22 position before the existing
+threshold and trade-lock logic.
+
+Walk-forward daily-path readout:
+
+- `wf_2020`: `98.27% / 1.456 / 26.14% MaxDD`, improving v1 by `+48.41pp`
+  return and beating v22 by `+36.85pp`.
+- `wf_2022`: unchanged from v1 at `-20.68% / -0.624 / 26.65% MaxDD /
+  0.184 avg_pos`, preserving the defensive result.
+- `wf_2023_2024`: `58.19% / 1.326 / 30.18% MaxDD`, giving back `4.45pp`
+  versus v1 but still improving v22 by `+25.64pp` return and `-3.03pp` MaxDD.
+
+Conclusion: this is now the best budget-usage continuation candidate, but still
+not runtime evidence. The next valid step is a governance package that expresses
+the slow/fast composition and price-derived guard as a real runtime/profile
+interface, then verifies it through the production paper/dashboard path.

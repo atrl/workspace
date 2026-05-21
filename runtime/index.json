@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-21T03:44:48.727899+00:00",
+  "generated_at": "2026-05-21T04:01:36.575126+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -2360,6 +2360,72 @@
       "bytes": 279651
     },
     {
+      "path": "runtime/model/card/v19reg_v22_budget_usage_bull_guard_v1/notes.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 4879
+    },
+    {
+      "path": "runtime/model/card/v19reg_v22_budget_usage_bull_guard_v1/walkforward/wf_2020/v19reg_v22_budget_usage_bull_guard_v1_wf_2020.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 5342
+    },
+    {
+      "path": "runtime/model/card/v19reg_v22_budget_usage_bull_guard_v1/walkforward/wf_2020/v19reg_v22_budget_usage_bull_guard_v1_wf_2020.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 1573
+    },
+    {
+      "path": "runtime/model/card/v19reg_v22_budget_usage_bull_guard_v1/walkforward/wf_2020/v19reg_v22_budget_usage_bull_guard_v1_wf_2020_soxl_daily.csv",
+      "category": "model",
+      "suffix": ".csv",
+      "bytes": 63787
+    },
+    {
+      "path": "runtime/model/card/v19reg_v22_budget_usage_bull_guard_v1/walkforward/wf_2022/v19reg_v22_budget_usage_bull_guard_v1_wf_2022.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 5360
+    },
+    {
+      "path": "runtime/model/card/v19reg_v22_budget_usage_bull_guard_v1/walkforward/wf_2022/v19reg_v22_budget_usage_bull_guard_v1_wf_2022.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 1591
+    },
+    {
+      "path": "runtime/model/card/v19reg_v22_budget_usage_bull_guard_v1/walkforward/wf_2022/v19reg_v22_budget_usage_bull_guard_v1_wf_2022_soxl_daily.csv",
+      "category": "model",
+      "suffix": ".csv",
+      "bytes": 63387
+    },
+    {
+      "path": "runtime/model/card/v19reg_v22_budget_usage_bull_guard_v1/walkforward/wf_2023_2024/v19reg_v22_budget_usage_bull_guard_v1_wf_2023_2024.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 5414
+    },
+    {
+      "path": "runtime/model/card/v19reg_v22_budget_usage_bull_guard_v1/walkforward/wf_2023_2024/v19reg_v22_budget_usage_bull_guard_v1_wf_2023_2024.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 1638
+    },
+    {
+      "path": "runtime/model/card/v19reg_v22_budget_usage_bull_guard_v1/walkforward/wf_2023_2024/v19reg_v22_budget_usage_bull_guard_v1_wf_2023_2024_soxl_daily.csv",
+      "category": "model",
+      "suffix": ".csv",
+      "bytes": 64482
+    },
+    {
+      "path": "runtime/model/card/v19reg_v22_budget_usage_bull_guard_v1/walkforward_summary.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 2394
+    },
+    {
       "path": "runtime/model/card/v19reg_v22_budget_usage_v1/inputs/balanced_rule_residual_v19_reg_fresh_input.csv",
       "category": "model",
       "suffix": ".csv",
@@ -2519,7 +2585,7 @@
       "path": "runtime/model/knowledge.md",
       "category": "model",
       "suffix": ".md",
-      "bytes": 44923
+      "bytes": 46557
     },
     {
       "path": "runtime/model/model_adjustment_roadmap.md",

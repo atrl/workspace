@@ -4218,3 +4218,77 @@ Decision:
   bull-participation guard or mode-band exception and rerun the same three
   walk-forward daily-path checks. Do not continue with generic PPO training,
   SOXX cap threshold tuning, or MoE hyperparameter sweeps.
+
+## 2026-05-21 v19_reg + v22 Budget-Usage Bull Guard
+
+Goal:
+
+- Continue model optimization with the exact follow-up required by the previous
+  WF result: fix the `wf_2020` bull-participation gap without reopening 2022
+  risk.
+- Keep the loop as a fixed-path composition diagnostic, not a new PPO retrain.
+
+Governance:
+
+- Canonical baseline: `balanced_rule_residual_v22`.
+- Direct comparison baseline: `v19reg_v22_budget_usage_v1`.
+- Role: `diagnose`.
+- Target window: saved walk-forward daily paths for `wf_2020`, `wf_2022`, and
+  `wf_2023_2024`.
+- Changed layer: `selection` / composer.
+- External reference: `risk_budget_usage_v1` two-speed risk-budget
+  architecture and trend-following mode-band expansion family.
+- Comparison row key: `v19reg_v22_budget_usage_bull_guard_v1`.
+
+Mechanism:
+
+- Added `BullParticipationGuardConfig` to
+  `src/soxl_quant/app/budget_counterfactual.py`.
+- `scripts/compose_budget_usage_counterfactual.py` now accepts
+  `--bull-participation-guard`.
+- Guard condition: `price > MA50`, `20d momentum >= 3%`, and 50d rolling-high
+  drawdown no worse than `8%`.
+- Guard action: floor the raw composed target to the fast v22 position; the
+  existing trade threshold and trade lock still apply after that.
+
+Evidence:
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_budget_counterfactual.py tests/test_two_speed_budget.py -q
+# 11 passed
+
+PYTHONPATH=src:. qlib_venv/bin/python scripts/compose_budget_usage_counterfactual.py \
+  --slow runtime/model/card/v19reg_v22_budget_usage_v1/walkforward/inputs/wf_2020/balanced_rule_residual_v19_reg_input.csv \
+  --fast runtime/model/card/v19reg_v22_budget_usage_v1/walkforward/inputs/wf_2020/balanced_rule_residual_v22_input.csv \
+  --output-dir runtime/model/card/v19reg_v22_budget_usage_bull_guard_v1/walkforward/wf_2020 \
+  --profile v19reg_v22_budget_usage_bull_guard_v1_wf_2020 \
+  --bull-participation-guard --bull-ma-window 50 --bull-momentum-window 20 \
+  --bull-high-window 50 --bull-min-periods 20 --bull-min-momentum 0.03 \
+  --bull-max-drawdown 0.08
+# return=98.3% sharpe=1.456 max_dd=26.1% avg_pos=0.399
+```
+
+The same command shape was run for `wf_2022` and `wf_2023_2024`.
+
+Readout:
+
+| window | v1 composed | bull guard | delta vs v1 | delta vs v22 | decision |
+| --- | ---: | ---: | ---: | ---: | --- |
+| `wf_2020` | `49.86% / 0.965 / 29.85% / pos 0.394 / trades 23` | `98.27% / 1.456 / 26.14% / pos 0.399 / trades 25` | return `+48.41pp`, MaxDD `-3.71pp` | return `+36.85pp`, MaxDD `-8.21pp` | fixes bull participation |
+| `wf_2022` | `-20.68% / -0.624 / 26.65% / pos 0.184 / trades 15` | unchanged | unchanged | return `+23.42pp`, MaxDD `-19.30pp` | defense preserved |
+| `wf_2023_2024` | `62.64% / 1.424 / 30.18% / pos 0.316 / trades 27` | `58.19% / 1.326 / 30.18% / pos 0.337 / trades 29` | return `-4.45pp`, MaxDD unchanged | return `+25.64pp`, MaxDD `-3.03pp` | acceptable recovery giveback |
+
+Decision:
+
+- Keep `v19reg_v22_budget_usage_bull_guard_v1` as a promoted diagnostic
+  candidate.
+- Do not bind runtime directly from the script-level composition.
+- Next valid continuation is runtime-governance packaging for the
+  composition/guard path, including how the price-derived guard is expressed in
+  a profile/runtime interface and then verified through post-close paper +
+  dashboard.
+
+Artifacts:
+
+- `runtime/model/card/v19reg_v22_budget_usage_bull_guard_v1/notes.md`
+- `runtime/model/card/v19reg_v22_budget_usage_bull_guard_v1/walkforward_summary.md`

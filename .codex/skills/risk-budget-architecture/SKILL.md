@@ -188,6 +188,17 @@ diagnostic keep / no runtime binding. A valid follow-up must introduce a
 distinct bull-participation guard or mode-band exception and rerun all three
 walk-forward daily-path checks.
 
+The first valid follow-up is `v19reg_v22_budget_usage_bull_guard_v1`. It keeps
+the same v19_reg slow mode + v22 usage composition, but adds a price-confirmed
+bull guard: `price > MA50`, `20d momentum >= 3%`, and 50d rolling-high drawdown
+no worse than `8%`. When the guard is true, the raw composed target is floored
+to the fast v22 position before threshold/trade-lock processing. WF daily-path
+results: `wf_2020` improves to `98.27% / 26.14% MaxDD`, `wf_2022` is unchanged
+at `-20.68% / 26.65% MaxDD / pos 0.184`, and `wf_2023_2024` remains better
+than v22 at `58.19% / 30.18% MaxDD`. This is a promoted diagnostic candidate,
+not direct runtime evidence; next continuation needs runtime/profile governance
+packaging.
+
 ### v2: Mode-Conditional Reward + Dynamic Band Scaling
 
 在 v1 基础上引入两个互补扩展：

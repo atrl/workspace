@@ -826,3 +826,47 @@ Decision:
   walk-forward daily-path checks.
 - Do not use this as justification for generic PPO continuation, SOXX cap
   threshold tuning, or MoE hyperparameter sweeps.
+
+## 2026-05-21 v19_reg + v22 Budget-Usage Bull Guard
+
+Question: can a distinct bull-participation guard fix the v1 composer's
+`wf_2020` return gap without reopening the 2022 risk-defense problem?
+
+Answer: yes as a diagnostic candidate, not yet as runtime evidence.
+
+Evidence:
+
+- Notes:
+  `runtime/model/card/v19reg_v22_budget_usage_bull_guard_v1/notes.md`
+- Summary:
+  `runtime/model/card/v19reg_v22_budget_usage_bull_guard_v1/walkforward_summary.md`
+- Harness support:
+  `src/soxl_quant/app/budget_counterfactual.py`
+  `scripts/compose_budget_usage_counterfactual.py`
+
+Mechanism:
+
+- Keep v19_reg as the slow risk-mode band and v22 as fast usage.
+- Add `BullParticipationGuardConfig` with `price > MA50`, `20d momentum >=
+  3%`, and 50d rolling-high drawdown no worse than `8%`.
+- When the guard is true, floor raw composed target to the fast v22 position;
+  existing threshold and trade-lock logic still apply.
+
+Readout:
+
+- `wf_2020`: guard path `98.27% / 1.456 / 26.14% MaxDD / pos 0.399`,
+  improving v1 by `+48.41pp` return and reducing MaxDD by `3.71pp`.
+- `wf_2022`: unchanged from v1 at `-20.68% / -0.624 / 26.65% MaxDD /
+  pos 0.184`, still improving v22 by `+23.42pp` return and `-19.30pp`
+  MaxDD.
+- `wf_2023_2024`: `58.19% / 1.326 / 30.18% MaxDD / pos 0.337`, down
+  `4.45pp` versus v1 but still `+25.64pp` return and `-3.03pp` MaxDD versus
+  v22.
+
+Decision:
+
+- Keep `v19reg_v22_budget_usage_bull_guard_v1` as the best budget-usage
+  continuation candidate.
+- Do not bind runtime directly from script-level composition.
+- Next valid continuation is runtime-governance packaging for this composer and
+  price-derived guard.
