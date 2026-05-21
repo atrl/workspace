@@ -27,6 +27,23 @@ For static/Vercel exports, `paper_trading` is the production first-load view
 when present. Keep source priority as:
 `paper_trading > post_train_review > generalization_version`.
 
+Production/Vercel status is split across:
+
+- `dashboard_data/production_status.json`: Vercel auth/project/deploy status
+  and static export freshness.
+- `dashboard_data/production_goal_gates.json`: parsed `Production Goal Gates`
+  from `production/check_scheduler_health.sh`.
+
+Scheduled Vercel runs should export goal gates after dashboard build and before
+`scripts/deploy_vercel_dashboard.py --deploy`, so the deployed static bundle
+shows the same blockers as health. Verify with:
+
+```bash
+qlib_venv/bin/python scripts/export_production_goal_gates.py
+qlib_venv/bin/python scripts/check_dashboard_static_export.py
+# expect production_status=<status> goal_gates=<status>
+```
+
 If the dashboard opens on an older run after fresh training, check:
 - whether the latest `*_soxl_daily.csv` was written
 - whether `scripts/build_backtest_dashboard.py` was rerun

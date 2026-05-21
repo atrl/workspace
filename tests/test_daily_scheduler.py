@@ -318,9 +318,12 @@ def test_scheduler_runs_vercel_deploy_after_dashboard_when_requested(monkeypatch
     assert [description for _cmd, description in calls] == [
         "paper trading",
         "dashboard build",
+        "production goal gates export",
         "vercel dashboard deploy",
     ]
-    vercel_cmd = calls[2][0]
+    gate_cmd = calls[2][0]
+    vercel_cmd = calls[3][0]
+    assert "scripts/export_production_goal_gates.py" in gate_cmd
     assert "scripts/deploy_vercel_dashboard.py" in vercel_cmd
     assert "--deploy" in vercel_cmd
 
@@ -347,6 +350,7 @@ def test_scheduler_treats_missing_vercel_credentials_as_nonfatal(monkeypatch: py
     assert [description for _cmd, description in calls] == [
         "paper trading",
         "dashboard build",
+        "production goal gates export",
         "vercel dashboard deploy",
     ]
 

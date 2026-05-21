@@ -162,6 +162,10 @@ def _run_health_summary() -> None:
         print(f"[scheduler] WARNING: health summary failed with exit code {result.returncode}", file=sys.stderr)
 
 
+def _run_goal_gates_export(venv_python: str) -> None:
+    _run([venv_python, "scripts/export_production_goal_gates.py"], "production goal gates export")
+
+
 def main() -> None:
     args = parse_args()
     use_notify = not args.no_notify
@@ -233,6 +237,7 @@ def main() -> None:
             dash_cmd = [venv_python, "scripts/build_backtest_dashboard.py"]
             _run(dash_cmd, "dashboard build")
             if args.vercel_deploy:
+                _run_goal_gates_export(venv_python)
                 vercel_cmd = [venv_python, "scripts/deploy_vercel_dashboard.py", "--deploy"]
                 _run_vercel_deploy(vercel_cmd, strict=args.strict_vercel_deploy)
 

@@ -2362,3 +2362,46 @@ overall: pending external_vercel_setup,scheduled_postclose_target,scheduled_pape
 Evidence card:
 
 - `runtime/production/card/data_registry_health_gate_v1/notes.md`
+
+## 2026-05-21 Dashboard Goal Gates UI
+
+The Vercel/static dashboard bundle now carries the scheduler production goal
+gates as a separate redacted artifact:
+
+```text
+dashboard_data/production_goal_gates.json
+```
+
+`production/soxl_daily_scheduler.py --vercel-deploy` exports this artifact
+after the dashboard build and before `scripts/deploy_vercel_dashboard.py
+--deploy`, so the deployed static bundle can show the same blocker list as
+`production/check_scheduler_health.sh`.
+
+The dashboard production strip now renders:
+
+```text
+Production: blocked_no_credentials
+Auth: blocked_no_credentials
+Project: missing_project_link
+Paper End: 2026-05-20
+Deploy: none
+Gates: pending
+Blockers: external_vercel_setup, scheduled_postclose_target, scheduled_paper_proof
+```
+
+The static export checker reports `goal_gates=pending` when the artifact is
+present. A live scheduler smoke run verified the order:
+
+```text
+dashboard build
+production goal gates export
+vercel dashboard deploy
+```
+
+This improves local/Vercel dashboard observability only. The remaining goal
+blockers are unchanged: Vercel credentials/project link plus natural scheduled
+post-close and ordinary paper proof.
+
+Evidence card:
+
+- `runtime/production/card/dashboard_goal_gates_ui_v1/notes.md`

@@ -41,6 +41,7 @@ def check_static_export(root: Path) -> tuple[list[str], dict[str, Any]]:
         "paper_trading_rows": "n/a",
         "paper_trading_end": "n/a",
         "production_status": "n/a",
+        "goal_gates": "n/a",
     }
 
     vercel_path = root / "vercel.json"
@@ -49,6 +50,7 @@ def check_static_export(root: Path) -> tuple[list[str], dict[str, Any]]:
     index_path = data_dir / "index.json"
     model_versions_path = data_dir / "model_versions.json"
     production_status_path = data_dir / "production_status.json"
+    production_goal_gates_path = data_dir / "production_goal_gates.json"
 
     for path in (vercel_path, dashboard_path, index_path, model_versions_path, production_status_path):
         if not path.exists():
@@ -112,6 +114,24 @@ def check_static_export(root: Path) -> tuple[list[str], dict[str, Any]]:
             elif status_static.get("latest") != index.get("latest_version"):
                 errors.append("dashboard_data/production_status.json latest does not match dashboard_data/index.json")
 
+    if production_goal_gates_path.exists():
+        goal_gates = _load_json(production_goal_gates_path)
+        if not isinstance(goal_gates, dict):
+            errors.append("dashboard_data/production_goal_gates.json must contain an object")
+        else:
+            overall = goal_gates.get("overall")
+            gates = goal_gates.get("gates")
+            if not isinstance(overall, dict):
+                errors.append("dashboard_data/production_goal_gates.json overall must be an object")
+            else:
+                status = overall.get("status")
+                if not isinstance(status, str) or not status:
+                    errors.append("dashboard_data/production_goal_gates.json missing overall status")
+                else:
+                    info["goal_gates"] = status
+            if not isinstance(gates, dict):
+                errors.append("dashboard_data/production_goal_gates.json gates must be an object")
+
     missing = 0
     for version in versions:
         summary = version_summaries.get(version, {})
@@ -167,7 +187,8 @@ def main() -> int:
             f"missing={info['missing']} model_versions={info['model_versions']} "
             f"latest={info['latest']} paper_trading_rows={info['paper_trading_rows']} "
             f"paper_trading_end={info['paper_trading_end']} "
-            f"production_status={info['production_status']}"
+            f"production_status={info['production_status']} "
+            f"goal_gates={info['goal_gates']}"
         )
         return 1
 
@@ -177,7 +198,8 @@ def main() -> int:
         f"missing={info['missing']} model_versions={info['model_versions']} "
         f"latest={info['latest']} paper_trading_rows={info['paper_trading_rows']} "
         f"paper_trading_end={info['paper_trading_end']} "
-        f"production_status={info['production_status']} paper_trading"
+        f"production_status={info['production_status']} "
+        f"goal_gates={info['goal_gates']} paper_trading"
     )
     return 0
 

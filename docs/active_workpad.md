@@ -6414,3 +6414,86 @@ PYTHONPATH=. qlib_venv/bin/python scripts/check_harness.py
 production/check_scheduler_health.sh
 # overall: pending external_vercel_setup,scheduled_postclose_target,scheduled_paper_proof
 ```
+
+## 2026-05-21 Dashboard Goal Gates UI
+
+Goal:
+
+- Move the Vercel/dashboard side forward while external credentials and natural
+  scheduled proof windows remain pending.
+
+Root cause:
+
+- The scheduled pipeline rebuilt the dashboard and attempted Vercel deploy
+  before printing the health summary. The dashboard showed Vercel auth/project
+  state from `dashboard_data/production_status.json`, but it did not show the
+  production goal blockers that explain why paper/post-close proof is pending.
+
+Change:
+
+- Added `scripts/export_production_goal_gates.py` to parse the
+  `Production Goal Gates` section from `production/check_scheduler_health.sh`
+  into `dashboard_data/production_goal_gates.json`.
+- `production/soxl_daily_scheduler.py --vercel-deploy` now runs
+  `production goal gates export` after dashboard build and before Vercel deploy.
+- `dashboard.html` now loads `dashboard_data/production_goal_gates.json` and
+  renders `Gates` plus `Blockers` in the production status strip.
+- `scripts/check_dashboard_static_export.py` now prints `goal_gates=<status>`
+  when the artifact is present.
+
+Evidence:
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest \
+  tests/test_vercel_dashboard.py::test_production_goal_gates_parser_extracts_overall_blockers \
+  tests/test_dashboard.py::test_build_html_loads_production_status_json \
+  tests/test_daily_scheduler.py::test_scheduler_runs_vercel_deploy_after_dashboard_when_requested -q
+# red before implementation: missing parser / dashboard JSON load / scheduler export step
+
+uv run --python qlib_venv/bin/python --with pytest pytest \
+  tests/test_vercel_dashboard.py tests/test_dashboard.py::test_build_html_loads_production_status_json tests/test_daily_scheduler.py -q
+# 32 passed
+
+PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py \
+  --smoke --vercel-deploy --health-summary --schedule-slot preopen
+# dashboard build
+# production goal gates export
+# vercel dashboard deploy
+# production_goal_gates status=pending issues=external_vercel_setup,scheduled_postclose_target,scheduled_paper_proof
+# vercel_dashboard status=blocked_no_credentials
+
+PYTHONPATH=. qlib_venv/bin/python scripts/check_dashboard_static_export.py
+# ok ... production_status=blocked_no_credentials goal_gates=pending paper_trading
+
+PYTHONPATH=. qlib_venv/bin/python scripts/check_harness.py
+# passed=195 failures=0
+
+production/check_scheduler_health.sh
+# dashboard static: ok ... production_status=blocked_no_credentials goal_gates=pending paper_trading
+# overall: pending external_vercel_setup,scheduled_postclose_target,scheduled_paper_proof
+```
+
+Rendered desktop/mobile status card:
+
+```text
+PRODUCTION blocked_no_credentials
+AUTH blocked_no_credentials
+PROJECT missing_project_link
+PAPER END 2026-05-20
+DEPLOY none
+GATES pending
+BLOCKERS external_vercel_setup, scheduled_postclose_target, scheduled_paper_proof
+```
+
+Artifacts:
+
+- `dashboard_data/production_goal_gates.json`
+- `runtime/production/card/dashboard_goal_gates_ui_v1/notes.md`
+- `runtime/production/card/dashboard_goal_gates_ui_v1/dashboard_goal_gates_desktop.png`
+- `runtime/production/card/dashboard_goal_gates_ui_v1/dashboard_goal_gates_mobile.png`
+
+Decision:
+
+- The local and deploy-bundle dashboard now exposes the same blockers as health.
+- This does not clear Vercel remote credentials/project setup or natural
+  scheduled post-close/paper proof gates.

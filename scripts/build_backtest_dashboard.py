@@ -1116,7 +1116,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     }}
     .production-status {{
       display: grid;
-      grid-template-columns: minmax(230px, 1.1fr) repeat(4, minmax(0, 1fr));
+      grid-template-columns: minmax(230px, 1.1fr) repeat(6, minmax(110px, 1fr));
       gap: 10px;
       align-items: stretch;
       margin-bottom: 18px;
@@ -1168,6 +1168,9 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       overflow-wrap: anywhere;
       font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
       font-weight: 700;
+    }}
+    .production-blockers {{
+      grid-column: span 2;
     }}
     .production-link {{
       color: var(--accent-2);
@@ -1502,6 +1505,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       .hero {{ grid-template-columns: 1fr; }}
       .summary-grid {{ grid-template-columns: repeat(2, minmax(0, 1fr)); }}
       .production-status {{ grid-template-columns: repeat(2, minmax(0, 1fr)); }}
+      .production-blockers {{ grid-column: auto; }}
       .chart-wrapper {{ grid-template-columns: 1fr; }}
       .info-panel {{ display: none; }}
       .panel-grid {{ grid-template-columns: 1fr; }}
@@ -1546,6 +1550,14 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       <div class="production-detail">
         <span class="production-k">Deploy</span>
         <span class="production-v" id="productionDeploymentStatus">n/a</span>
+      </div>
+      <div class="production-detail">
+        <span class="production-k">Gates</span>
+        <span class="production-v" id="productionGateOverall">n/a</span>
+      </div>
+      <div class="production-detail production-blockers">
+        <span class="production-k">Blockers</span>
+        <span class="production-v" id="productionGateIssues">n/a</span>
       </div>
     </section>
 
@@ -1788,6 +1800,8 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     const productionProjectStatus = document.getElementById('productionProjectStatus');
     const productionPaperEnd = document.getElementById('productionPaperEnd');
     const productionDeploymentStatus = document.getElementById('productionDeploymentStatus');
+    const productionGateOverall = document.getElementById('productionGateOverall');
+    const productionGateIssues = document.getElementById('productionGateIssues');
     const STORAGE_KEY = 'soxl-dashboard-state-v10';
     const hydratedVersionCache = {{}};
     const baseRowLookup = Object.fromEntries(
@@ -2424,15 +2438,20 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       if (tone) el.classList.add(`production-tone-${{tone}}`);
     }}
 
-    function renderProductionStatus(payload) {{
+    function renderProductionStatus(payload, goalGates) {{
       if (!productionStatusCard) return;
       const data = payload || {{}};
       const staticExport = data.static_export || {{}};
+      const gates = goalGates || data.goal_gates || {{}};
+      const overall = gates.overall || {{}};
+      const issues = Array.isArray(overall.issues) ? overall.issues : [];
       productionStatusCard.hidden = false;
       setProductionText(productionStatusValue, data.status || 'unavailable');
       setProductionText(productionAuthStatus, data.auth_status || (data.auth && data.auth.status));
       setProductionText(productionProjectStatus, data.project_status || (data.project && data.project.status));
       setProductionText(productionPaperEnd, staticExport.paper_trading_end || data.paper_trading_end);
+      setProductionText(productionGateOverall, overall.status || 'unknown');
+      setProductionText(productionGateIssues, issues.length ? issues.join(', ') : (overall.detail || 'none'));
       productionDeploymentStatus.classList.remove('production-tone-good', 'production-tone-bad', 'production-tone-warn');
       productionDeploymentStatus.textContent = '';
       if (data.deployment_url) {{
@@ -2449,8 +2468,11 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     }}
 
     async function loadProductionStatus() {{
-      const status = await loadJson('dashboard_data/production_status.json');
-      renderProductionStatus(status || {{ status: 'unavailable' }});
+      const [status, goalGates] = await Promise.all([
+        loadJson('dashboard_data/production_status.json'),
+        loadJson('dashboard_data/production_goal_gates.json'),
+      ]);
+      renderProductionStatus(status || {{ status: 'unavailable' }}, goalGates);
     }}
 
     async function loadIndex() {{

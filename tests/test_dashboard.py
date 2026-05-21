@@ -228,4 +228,6 @@ def test_build_html_loads_production_status_json():
 
     assert 'id="productionStatusCard"' in html
     assert "dashboard_data/production_status.json" in html
+    assert "dashboard_data/production_goal_gates.json" in html
     assert "renderProductionStatus" in html
+    assert 'id="productionGateOverall"' in html

@@ -42,6 +42,7 @@ def test_dashboard_static_export_is_trackable():
     assert (ROOT / "dashboard_data" / "index.json").exists()
     assert (ROOT / "dashboard_data" / "model_versions.json").exists()
     assert (ROOT / "dashboard_data" / "production_status.json").exists()
+    assert (ROOT / "dashboard_data" / "production_goal_gates.json").exists()
 
 
 def test_dashboard_page_loads_production_status_export():
@@ -49,7 +50,37 @@ def test_dashboard_page_loads_production_status_export():
 
     assert 'id="productionStatusCard"' in html
     assert "dashboard_data/production_status.json" in html
+    assert "dashboard_data/production_goal_gates.json" in html
     assert "renderProductionStatus" in html
+    assert 'id="productionGateOverall"' in html
+
+
+def test_production_goal_gates_parser_extracts_overall_blockers():
+    from scripts.export_production_goal_gates import parse_goal_gates
+
+    payload = parse_goal_gates(
+        "\n".join(
+            [
+                "=== SOXL Scheduler Health Check ===",
+                "--- Production Goal Gates ---",
+                "  data: ok last_date=2026-05-20 expected=2026-05-20",
+                "  Vercel remote: blocked status=blocked_no_credentials auth=blocked_no_credentials",
+                "  post-close composer target: pending latest_success_marker lacks schedule_slot=postclose",
+                "  ordinary paper proof: pending selected_model=v19reg_v22_budget_usage_bull_guard_v1 execution=duplicate_skipped",
+                "  overall: pending external_vercel_setup,scheduled_postclose_target,scheduled_paper_proof",
+            ]
+        ),
+        checked_at="2026-05-21T10:20:00+00:00",
+    )
+
+    assert payload["checked_at"] == "2026-05-21T10:20:00+00:00"
+    assert payload["overall"] == {
+        "status": "pending",
+        "issues": ["external_vercel_setup", "scheduled_postclose_target", "scheduled_paper_proof"],
+        "detail": "external_vercel_setup,scheduled_postclose_target,scheduled_paper_proof",
+    }
+    assert payload["gates"]["vercel_remote"]["status"] == "blocked"
+    assert payload["gates"]["post_close_composer_target"]["status"] == "pending"
 
 
 def test_dashboard_static_export_integrity_check_passes():
@@ -66,6 +97,7 @@ def test_dashboard_static_export_integrity_check_passes():
     assert "latest=paper_trading" in result.stdout
     assert "paper_trading" in result.stdout
     assert "production_status=" in result.stdout
+    assert "goal_gates=pending" in result.stdout
 
 
 def test_vercel_deploy_command_is_non_interactive_and_token_safe():
