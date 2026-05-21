@@ -171,19 +171,6 @@ def run_profile(
         mode_router_config=profile.mode_router,
         position_mapping=profile.model.position_mapping,
     )
-    promotion_report = build_promotion_report(profile, slice_result, test_proxy)
-    summary_path = persist_summary_bundle(
-        profile=profile,
-        seed=seed,
-        effective_tag=effective_tag,
-        model_path=model_path,
-        valid_metrics=valid_metrics,
-        selection=selection,
-        slice_result=slice_result,
-        test_proxy=test_proxy,
-        promotion_report=promotion_report,
-        retained_checkpoints=retained_checkpoint_records,
-    )
     test_seg = (
         str(test_df.index.min().date()) if hasattr(test_df.index.min(), "date") else str(test_df.index.min()),
         str(test_df.index.max().date()) if hasattr(test_df.index.max(), "date") else str(test_df.index.max()),
@@ -231,6 +218,20 @@ def run_profile(
                 slice_result["test_2022"]["max_dd"] = bt_2022["max_dd"]
         # Rebuild promotion report with corrected metrics
         promotion_report = build_promotion_report(profile, slice_result, test_proxy)
+    else:
+        promotion_report = build_promotion_report(profile, slice_result, test_proxy)
+    summary_path = persist_summary_bundle(
+        profile=profile,
+        seed=seed,
+        effective_tag=effective_tag,
+        model_path=model_path,
+        valid_metrics=valid_metrics,
+        selection=selection,
+        slice_result=slice_result,
+        test_proxy=test_proxy,
+        promotion_report=promotion_report,
+        retained_checkpoints=retained_checkpoint_records,
+    )
     bt_result["valid"] = valid_metrics
     bt_result["selection_history"] = selection["history"]
     bt_result["retained_checkpoints"] = retained_checkpoint_records

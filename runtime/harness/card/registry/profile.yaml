@@ -417,6 +417,15 @@ profiles:
   keep_actor: false
   keep_summary: true
   notes_ref: runtime/model/card/balanced_rule_residual_v22_release_v1/notes.md
+- name: balanced_rule_residual_v22_continued_retention_v1
+  family: balanced
+  status: ablation
+  baseline: balanced_rule_residual_v22
+  keep_actor: true
+  keep_summary: true
+  notes_ref: runtime/model/card/balanced_rule_residual_v22_continued_retention_v1/notes.md
+  wf_status: not_applicable
+  wf_notes: "Short continuation diagnostic from the canonical v22 actor with checkpoint_retention enabled for iter 0/10/20 replay. Retained iter0 remains best: score 86.24 vs iter10 77.14 and iter20 69.26. Test proxy return rises to 1128.94% but MaxDD worsens to 59.13%, and test_2022 MaxDD worsens to 55.26% above the 55% fixed-split limit. Keep actors as retention proof only; do not walk-forward or bind runtime."
 - name: balanced_rule_residual_v23
   family: balanced
   status: dropped

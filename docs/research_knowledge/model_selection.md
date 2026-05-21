@@ -38,3 +38,18 @@ Current canonical runtime selection is `balanced_rule_residual_v22` with
 `selective_release_recovery_post_release_cap_v1` explicitly approved for
 auto-selection. The live walk-forward runtime selection scores are v22 `64.88`
 versus v19 `46.17`.
+
+## 2026-05-21 Continued-Training Diagnostic
+
+`balanced_rule_residual_v22_continued_retention_v1` tested whether v22 needed
+more PPO steps after checkpoint retention became available. It did not.
+Continuing from the v22 actor retained iter `0`, `10`, and `20`, but iter `0`
+remained best (`86.24` score) while iter `10` and iter `20` fell to `77.14` and
+`69.26`. Proxy return increased, but risk widened: proxy MaxDD rose from v22
+`54.52%` to `59.13%`, and `test_2022` worsened to `-51.24%` with MaxDD
+`55.26%`, failing the fixed-split limit.
+
+Conclusion: do not treat v22 as undertrained. Future model-selection work
+should change checkpoint scoring, retained-evidence review, or a distinct
+risk-control mechanism; a short continuation of v22 is not a valid promotion
+path.

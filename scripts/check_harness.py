@@ -39,6 +39,7 @@ DEFAULT_TEST_FILES = [
     "tests/test_selective_release_promotion_review.py",
     "tests/test_runtime_selection_review.py",
     "tests/test_scheduler_health.py",
+    "tests/test_train_summary_persistence.py",
     "tests/test_vercel_dashboard.py",
 ]
 
@@ -48,6 +49,7 @@ DEFAULT_COMPILE_TARGETS = [
     "src/soxl_quant/data.py",
     "src/soxl_quant/rl.py",
     "src/soxl_quant/runtime.py",
+    "src/soxl_quant/app/train.py",
     "src/soxl_quant/policy/execution_overlays.py",
     "src/soxl_quant/policy/hierarchical_composer.py",
     "src/soxl_quant/policy/mode_conditioning.py",

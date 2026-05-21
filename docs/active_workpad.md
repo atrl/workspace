@@ -3583,3 +3583,54 @@ Decision:
   paper artifact under v22.
 - Evidence card:
   `runtime/production/card/scheduler_next_runs_v1/notes.md`
+
+## 2026-05-21 v22 Continued-Retention Diagnostic
+
+Goal:
+
+- Test whether the canonical v22 actor was merely undertrained or under-selected
+  now that checkpoint retention can save replayable stage actors.
+
+Governance:
+
+- Profile: `balanced_rule_residual_v22_continued_retention_v1`
+- Direction: `model_selection`
+- Role: `diagnose`
+- Changed layer: `selection`
+- Baseline: `balanced_rule_residual_v22`
+- External reference: `docs/research_knowledge/model_selection.md`
+
+Command:
+
+```bash
+PYTHONPATH=src:. qlib_venv/bin/python soxl_qlib_strategy_v2.py --profiles balanced_rule_residual_v22_continued_retention_v1 --skip-data-refresh --seed 20260521
+```
+
+Evidence:
+
+- Retained checkpoints: iter `0`, `10`, and `20`.
+- Selection stayed at iter `0`: score `86.24`; iter `10` score `77.14`;
+  iter `20` score `69.26`.
+- `test_proxy` return improved from v22 `695.45%` to `1128.94%`, but MaxDD
+  worsened from `54.52%` to `59.13%`.
+- `test_2022` deteriorated from `-24.52% / MaxDD 32.71% / avg_pos 0.269` to
+  `-51.24% / MaxDD 55.26% / avg_pos 0.321`, failing the fixed-split MaxDD
+  limit by `0.26pp`.
+- Promotion: blocked.
+
+Harness fix:
+
+- The run exposed summary JSON being persisted before main-backtest metric
+  corrections.
+- Fixed `src/soxl_quant/app/train.py` so `persist_summary_bundle()` runs after
+  `backtest_profile` corrections and promotion rebuild.
+- Added `tests/test_train_summary_persistence.py` and wired it into
+  `scripts/check_harness.py`.
+
+Decision:
+
+- Marked registry status as `ablation`, not candidate.
+- Do not walk-forward or runtime-bind this profile.
+- Keep actor artifacts only as checkpoint-retention proof.
+- Current production goal remains active: the missing proof is still the next
+  fresh post-close non-dry paper execution under selected v22.

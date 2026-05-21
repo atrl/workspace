@@ -196,3 +196,41 @@ summary-only.
 
 Leave retention disabled for existing profiles. Enable it only in a governed
 model experiment where checkpoint selection is part of the hypothesis.
+
+<!-- 2026-05-21: summary persistence after backtest corrections -->
+
+# 2026-05-21 Summary Persistence After Backtest Corrections
+
+## Problem
+
+The first `balanced_rule_residual_v22_continued_retention_v1` training run
+exposed a persistence-order bug: `src/soxl_quant/app/train.py` wrote the summary
+bundle before `backtest_profile` corrected `test_proxy` and `test_2022` metrics.
+The terminal result used corrected main-backtest metrics, but the JSON summary
+could retain stale `evaluate_split` values.
+
+## Fix
+
+- Moved `persist_summary_bundle()` after main `backtest_profile` correction,
+  `test_2022` correction, and promotion-report rebuild.
+- Added `tests/test_train_summary_persistence.py` to pin the ordering.
+- Added the test and `src/soxl_quant/app/train.py` compile target to
+  `scripts/check_harness.py`.
+
+## Validation
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_train_summary_persistence.py tests/test_summary_bundle.py tests/test_checkpoint_retention.py -q
+# 8 passed
+```
+
+The rerun summary now matches the terminal main backtest:
+`test_proxy.return=1128.94`, `test_proxy.sharpe=1.03`,
+`test_proxy.max_dd=59.13`, and `test_2022.max_dd=55.26`.
+
+## Operational Guidance
+
+When a training run prints final `test:<profile>` metrics, trust the persisted
+summary only if it was generated after this fix or after rerunning with the
+fixed harness. Older summaries from before this fix may need regeneration if
+they were created by the affected code path.

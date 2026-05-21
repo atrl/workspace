@@ -1,0 +1,306 @@
+{
+  "profile": "balanced_rule_residual_v22_continued_retention_v1",
+  "seed": 20260521,
+  "feature_schema": {
+    "signature": "9ec7f9c42e73",
+    "feature_count": 64,
+    "extra_obs_dim": 15,
+    "n_assets": 5
+  },
+  "position_cap": {
+    "start_drawdown": 0.1,
+    "full_drawdown": 0.3,
+    "min_cap": 0.4,
+    "curve_power": 1.0,
+    "bull_min_cap": 0.65,
+    "bull_vol_threshold": 0.4,
+    "bull_anchor_threshold": 0.02,
+    "bear_min_cap": 0.3,
+    "bear_regime_threshold": 0.65
+  },
+  "position_budget": {
+    "enabled": false,
+    "budget": 0.3,
+    "regime_threshold": 0.6,
+    "thresholds": [
+      [
+        0.0,
+        0.3,
+        1.0
+      ],
+      [
+        0.3,
+        0.6,
+        0.7
+      ],
+      [
+        0.6,
+        0.9,
+        0.45
+      ],
+      [
+        0.9,
+        Infinity,
+        0.15
+      ]
+    ]
+  },
+  "selection_score": {
+    "return_weight": 1.0,
+    "sharpe_weight": 20.0,
+    "max_dd_penalty": 0.12,
+    "avg_pos_penalty": 0.0,
+    "stress_avg_pos_penalty": 0.0,
+    "stress_threshold": 0.65,
+    "staged_training": true,
+    "stage_iters": 10
+  },
+  "checkpoint_retention": {
+    "enabled": true,
+    "keep_stage": true,
+    "keep_top_n": 2
+  },
+  "model_config": {
+    "observation_window": 5,
+    "action_levels": [
+      0.0,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7,
+      0.8,
+      0.9,
+      1.0
+    ],
+    "use_hybrid_overlay": true,
+    "delta_levels": [
+      -0.1,
+      -0.05,
+      0.0,
+      0.05,
+      0.1
+    ],
+    "hard_floor": 0.2,
+    "use_regime_router": false,
+    "hard_regime_routing": false,
+    "router_experts": 3,
+    "router_top_k": 1,
+    "router_noise_std": 0.1,
+    "use_gru": true,
+    "gru_hidden_size": 64,
+    "use_attention": false,
+    "attention_dim": 64,
+    "attention_heads": 4
+  },
+  "sampling_config": {
+    "regime_stratified": false,
+    "phase_balanced": false,
+    "mild_risk_threshold": 0.42,
+    "severe_risk_threshold": 0.58,
+    "mild_drawdown_threshold": 0.1,
+    "severe_drawdown_threshold": 0.18,
+    "mild_repeat": 2,
+    "severe_repeat": 3,
+    "persistent_stress_days": 0.3,
+    "trend_repeat": 2,
+    "rebound_repeat": 2,
+    "episode_stride": 0,
+    "bull_anchor_threshold": 0.04,
+    "bull_trend_threshold": 0.02,
+    "bull_vol_threshold": 0.45,
+    "bull_risk_threshold": 0.45,
+    "rebound_anchor_ceiling": -0.02,
+    "rebound_trend_floor": 0.01,
+    "rebound_risk_ceiling": 0.6,
+    "rebound_risk_release": 0.06
+  },
+  "warm_start": {
+    "enabled": false,
+    "steps": 500,
+    "lr": 0.0005,
+    "batch_size": 128,
+    "sample_size": 2000
+  },
+  "model_path": "/Users/rziiiii/.openclaw/workspace/runtime/model/card/balanced_rule_residual_v22_continued_retention_v1/soxl_balanced_rule_residual_v22_continued_retention_v1_actor.pt",
+  "retained_checkpoints": [
+    {
+      "iter": 0,
+      "score": 86.24171512124363,
+      "path": "/Users/rziiiii/.openclaw/workspace/runtime/model/card/balanced_rule_residual_v22_continued_retention_v1/soxl_balanced_rule_residual_v22_continued_retention_v1_checkpoint_iter0_actor.pt",
+      "reasons": [
+        "stage",
+        "top_n"
+      ],
+      "metrics": {
+        "return": 55.608087304287565,
+        "sharpe": 1.6870747178863161,
+        "max_dd": 25.89888783975222,
+        "avg_pos": 0.5508161745380357,
+        "stress_avg_pos": 0.3625945109587449,
+        "stress_days": 13.0,
+        "buy_and_hold_return": 98.48033593410877,
+        "relative_return": -42.8722486298212
+      }
+    },
+    {
+      "iter": 10,
+      "score": 77.14165338935975,
+      "path": "/Users/rziiiii/.openclaw/workspace/runtime/model/card/balanced_rule_residual_v22_continued_retention_v1/soxl_balanced_rule_residual_v22_continued_retention_v1_checkpoint_iter10_actor.pt",
+      "reasons": [
+        "stage",
+        "top_n"
+      ],
+      "metrics": {
+        "return": 51.18803249515784,
+        "sharpe": 1.466083979351589,
+        "max_dd": 28.067155773582265,
+        "avg_pos": 0.5946335076661634,
+        "stress_avg_pos": 0.32307692307692304,
+        "stress_days": 13.0,
+        "buy_and_hold_return": 98.48033593410877,
+        "relative_return": -47.292303438950924
+      }
+    },
+    {
+      "iter": 20,
+      "score": 69.25702595017728,
+      "path": "/Users/rziiiii/.openclaw/workspace/runtime/model/card/balanced_rule_residual_v22_continued_retention_v1/soxl_balanced_rule_residual_v22_continued_retention_v1_checkpoint_iter20_actor.pt",
+      "reasons": [
+        "stage"
+      ],
+      "metrics": {
+        "return": 46.69039117420808,
+        "sharpe": 1.3258484171525635,
+        "max_dd": 32.9194463923506,
+        "avg_pos": 0.6185863876725055,
+        "stress_avg_pos": 0.32307692307692304,
+        "stress_days": 13.0,
+        "buy_and_hold_return": 98.48033593410877,
+        "relative_return": -51.789944759900685
+      }
+    }
+  ],
+  "valid": {
+    "return": 55.608087304287565,
+    "sharpe": 1.6870747178863161,
+    "max_dd": 25.89888783975222,
+    "avg_pos": 0.5508161745380357,
+    "stress_avg_pos": 0.3625945109587449,
+    "stress_days": 13.0,
+    "buy_and_hold_return": 98.48033593410877,
+    "relative_return": -42.8722486298212
+  },
+  "best_score": 86.24171512124363,
+  "selection_history": [
+    {
+      "iter": 0,
+      "score": 86.24171512124363,
+      "return": 55.608087304287565,
+      "sharpe": 1.6870747178863161,
+      "max_dd": 25.89888783975222,
+      "avg_pos": 0.5508161745380357,
+      "stress_avg_pos": 0.3625945109587449,
+      "stress_days": 13.0,
+      "buy_and_hold_return": 98.48033593410877,
+      "relative_return": -42.8722486298212
+    },
+    {
+      "iter": 10,
+      "score": 77.14165338935975,
+      "return": 51.18803249515784,
+      "sharpe": 1.466083979351589,
+      "max_dd": 28.067155773582265,
+      "avg_pos": 0.5946335076661634,
+      "stress_avg_pos": 0.32307692307692304,
+      "stress_days": 13.0,
+      "buy_and_hold_return": 98.48033593410877,
+      "relative_return": -47.292303438950924
+    },
+    {
+      "iter": 20,
+      "score": 69.25702595017728,
+      "return": 46.69039117420808,
+      "sharpe": 1.3258484171525635,
+      "max_dd": 32.9194463923506,
+      "avg_pos": 0.6185863876725055,
+      "stress_avg_pos": 0.32307692307692304,
+      "stress_days": 13.0,
+      "buy_and_hold_return": 98.48033593410877,
+      "relative_return": -51.789944759900685
+    }
+  ],
+  "slices": {
+    "test_2020": {
+      "return": 108.36858480978763,
+      "sharpe": 2.347295645945739,
+      "max_dd": 18.579999476868448,
+      "avg_pos": 0.5048177076426024,
+      "stress_avg_pos": 0.2783783783783784,
+      "stress_days": 37.0,
+      "buy_and_hold_return": 355.73615972515864,
+      "relative_return": -247.367574915371
+    },
+    "test_2022": {
+      "return": -51.23648513258935,
+      "sharpe": -1.3262586494237298,
+      "max_dd": 55.255626233786124,
+      "avg_pos": 0.321447368272041,
+      "stress_avg_pos": 0.27209302325581397,
+      "stress_days": 86.0,
+      "buy_and_hold_return": -76.61425652678248,
+      "relative_return": 53.7368759524236
+    },
+    "test_2023_2024": {
+      "return": 60.79153936716519,
+      "sharpe": 0.8004182795725722,
+      "max_dd": 35.935142937991266,
+      "avg_pos": 0.5130996257286358,
+      "stress_avg_pos": 0.406662986290298,
+      "stress_days": 76.0,
+      "buy_and_hold_return": 55.65447370869805,
+      "relative_return": 5.137065658467144
+    }
+  },
+  "test_proxy": {
+    "return": 1128.9356168568706,
+    "sharpe": 1.030638498638171,
+    "max_dd": 59.130394718428505,
+    "avg_pos": 0.5005039863327032,
+    "stress_avg_pos": 0.3258649640806553,
+    "stress_days": 321.0,
+    "buy_and_hold_return": 2149.5516282478393,
+    "relative_return": -1084.2944741503154
+  },
+  "promotion": {
+    "eligible": false,
+    "fixed_split": {
+      "eligible": false,
+      "checks": {
+        "test_2022_max_dd": {
+          "passed": false,
+          "actual": 55.255626233786124,
+          "limit": 55.0
+        },
+        "test_2022_avg_pos": {
+          "passed": true,
+          "actual": 0.321447368272041,
+          "limit": 0.35
+        },
+        "test_proxy_sharpe": {
+          "passed": true,
+          "actual": 1.030638498638171,
+          "limit": 0.5
+        }
+      }
+    },
+    "walk_forward": {
+      "eligible": false,
+      "checks": {},
+      "status": "missing"
+    },
+    "walk_forward_evaluated": false
+  }
+}
