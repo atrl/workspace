@@ -985,3 +985,20 @@ passed `risk_gate approved=True`, and wrote
 
 Next model/runtime proof remains a fresh-date non-dry paper artifact with this
 same composer configuration.
+
+Follow-up health fix:
+
+- Scheduler health now forwards the enabled composer env into
+  `production/soxl_paper_trading.py --healthcheck`, so the model health and
+  runtime proof target are `v19reg_v22_budget_usage_bull_guard_v1` rather than
+  stale `balanced_rule_residual_v22`.
+- A real-env non-dry wrapper run on expected data date `2026-05-20` selected
+  the composer, passed `risk_gate approved=True`, and wrote
+  `runtime/soxl/paper_trading/2026-05-20/duplicate_skip/v19reg_v22_budget_usage_bull_guard_v1/summary.json`.
+- The artifact records `dry_run=false`, `executed=false`,
+  `execution_result.status=duplicate_skipped`, and composition
+  `budget_usage`.
+
+This is current-date non-dry composer inference/risk-gate proof with same-day
+duplicate-order protection. The next ordinary proof is a new-date scheduled
+composer paper artifact.

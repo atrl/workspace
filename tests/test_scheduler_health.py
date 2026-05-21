@@ -828,6 +828,134 @@ def test_scheduler_health_accepts_selected_profile_duplicate_skip_as_runtime_pro
     assert "artifact=runtime/soxl/paper_trading/2026-05-20/duplicate_skip/balanced_rule_residual_v22/summary.json" in result.stdout
 
 
+def test_scheduler_health_targets_enabled_composer_for_model_and_runtime_proof():
+    with TemporaryDirectory() as tmpdir:
+        root = Path(tmpdir)
+        runtime_dir = root / "runtime" / "soxl" / "paper_trading" / "2026-05-20"
+        duplicate_dir = runtime_dir / "duplicate_skip" / "balanced_rule_residual_v22"
+        duplicate_dir.mkdir(parents=True)
+        (runtime_dir / "summary.json").write_text(
+            """
+{
+  "date": "2026-05-20",
+  "profile": "balanced_rule_residual_v19",
+  "dry_run": false,
+  "executed": true,
+  "signal": {"target_position": 0.48},
+  "risk_gate": {"approved": true},
+  "reconcile": {"action_required": "none"}
+}
+""",
+            encoding="utf-8",
+        )
+        (duplicate_dir / "summary.json").write_text(
+            """
+{
+  "date": "2026-05-20",
+  "profile": "balanced_rule_residual_v22",
+  "dry_run": false,
+  "executed": false,
+  "execution_result": {"submitted": false, "status": "duplicate_skipped"},
+  "signal": {"target_position": 0.50},
+  "risk_gate": {"approved": true},
+  "reconcile": {"action_required": "none"}
+}
+""",
+            encoding="utf-8",
+        )
+        launch_env = root / "soxl.env"
+        launch_env.write_text(
+            "\n".join(
+                [
+                    "export SOXL_RUNTIME_COMPOSER='budget_usage'",
+                    "export SOXL_RUNTIME_COMPOSER_PROFILE='v19reg_v22_budget_usage_bull_guard_v1'",
+                    "export SOXL_RUNTIME_SLOW_PROFILE='balanced_rule_residual_v19_reg'",
+                    "export SOXL_RUNTIME_FAST_PROFILE='balanced_rule_residual_v22'",
+                    "export SOXL_RUNTIME_BULL_PARTICIPATION_GUARD='true'",
+                ]
+            ),
+            encoding="utf-8",
+        )
+        production_dir = root / "production"
+        production_dir.mkdir()
+        launchagents_dir = root / "LaunchAgents"
+        launchagents_dir.mkdir()
+        for label in ("com.soxl.preopen.scheduler", "com.soxl.daily.scheduler"):
+            repo_plist = production_dir / f"{label}.plist"
+            repo_plist.write_text(f"<plist>{label}</plist>\n", encoding="utf-8")
+            (launchagents_dir / repo_plist.name).write_text(repo_plist.read_text(encoding="utf-8"), encoding="utf-8")
+
+        fake_bin = root / "bin"
+        fake_bin.mkdir()
+        launchctl = fake_bin / "launchctl"
+        launchctl.write_text(
+            "#!/bin/sh\nprintf '123\\t0\\tcom.soxl.preopen.scheduler\\n456\\t0\\tcom.soxl.daily.scheduler\\n'\n",
+            encoding="utf-8",
+        )
+        launchctl.chmod(0o755)
+        fake_python = fake_bin / "python"
+        fake_python.write_text(
+            "#!/bin/sh\n"
+            "case \" $* \" in\n"
+            "  *\" --runtime-composer budget_usage \"*)\n"
+            "    cat <<'JSON'\n"
+            "{\"data\":{\"ok\":true,\"last_date\":\"2026-05-20\","
+            "\"expected_last_trading_day\":\"2026-05-20\",\"stale_days\":0},"
+            "\"model\":{\"ok\":true,\"name\":\"v19reg_v22_budget_usage_bull_guard_v1 "
+            "(slow=balanced_rule_residual_v19_reg, fast=balanced_rule_residual_v22)\"},"
+            "\"broker\":{\"ok\":true,\"msg\":\"paper broker ready\"},"
+            "\"all_ok\":true}\n"
+            "JSON\n"
+            "    ;;\n"
+            "  *)\n"
+            "    cat <<'JSON'\n"
+            "{\"data\":{\"ok\":true,\"last_date\":\"2026-05-20\","
+            "\"expected_last_trading_day\":\"2026-05-20\",\"stale_days\":0},"
+            "\"model\":{\"ok\":true,\"name\":\"balanced_rule_residual_v22 "
+            "(soxl_balanced_rule_residual_v22_actor.pt)\"},"
+            "\"broker\":{\"ok\":true,\"msg\":\"paper broker ready\"},"
+            "\"all_ok\":true}\n"
+            "JSON\n"
+            "    ;;\n"
+            "esac\n",
+            encoding="utf-8",
+        )
+        fake_python.chmod(0o755)
+
+        env = {
+            **os.environ,
+            "PATH": f"{fake_bin}:{os.environ['PATH']}",
+            "SOXL_SCHEDULER_HEALTH_OS": "Darwin",
+            "SOXL_SCHEDULER_HEALTH_ROOT": str(root),
+            "SOXL_SCHEDULER_HEALTH_PYTHON": str(fake_python),
+            "SOXL_SCHEDULER_HEALTH_LAUNCHAGENTS_DIR": str(launchagents_dir),
+            "SOXL_LAUNCH_ENV_FILE": str(launch_env),
+        }
+        result = subprocess.run(
+            ["bash", str(ROOT / "production" / "check_scheduler_health.sh")],
+            capture_output=True,
+            text=True,
+            env=env,
+            check=True,
+        )
+
+    assert (
+        "runtime composer: enabled composer=budget_usage "
+        "profile=v19reg_v22_budget_usage_bull_guard_v1 "
+        "slow=balanced_rule_residual_v19_reg fast=balanced_rule_residual_v22 "
+        "bull_guard=true"
+    ) in result.stdout
+    assert (
+        "model: ok v19reg_v22_budget_usage_bull_guard_v1 "
+        "(slow=balanced_rule_residual_v19_reg, fast=balanced_rule_residual_v22)"
+    ) in result.stdout
+    assert (
+        "runtime proof: pending latest_executed_profile=balanced_rule_residual_v19 "
+        "selected_model=v19reg_v22_budget_usage_bull_guard_v1"
+    ) in result.stdout
+    assert "selected_model=balanced_rule_residual_v22" not in result.stdout
+
+
 def test_scheduler_health_accepts_selected_profile_non_dry_skipped_order_as_runtime_proof():
     with TemporaryDirectory() as tmpdir:
         root = Path(tmpdir)

@@ -19,6 +19,13 @@ POSTCLOSE_HHMM="0615"
 POSTCLOSE_TIME_LABEL="06:15"
 SELECTED_MODEL_PROFILE=""
 PAPER_EXPECTED_LAST_TRADING_DAY=""
+RUNTIME_COMPOSER_STATE="default"
+RUNTIME_COMPOSER=""
+RUNTIME_COMPOSER_PROFILE=""
+RUNTIME_SLOW_PROFILE=""
+RUNTIME_FAST_PROFILE=""
+RUNTIME_BULL_PARTICIPATION_GUARD="false"
+RUNTIME_COMPOSER_MISSING=""
 
 file_epoch() {
     path="$1"
@@ -247,6 +254,49 @@ env_or_launch_value() {
     env_file_assignment_value "$var_name" "$LAUNCH_ENV_FILE"
 }
 
+truthy_config_value() {
+    value=$(printf "%s" "$1" | tr '[:upper:]' '[:lower:]')
+    case "$value" in
+        1|true|yes|y|on)
+            return 0
+            ;;
+        *)
+            return 1
+            ;;
+    esac
+}
+
+load_runtime_composer_env() {
+    RUNTIME_COMPOSER=$(env_or_launch_value "SOXL_RUNTIME_COMPOSER")
+    RUNTIME_COMPOSER_PROFILE=""
+    RUNTIME_SLOW_PROFILE=""
+    RUNTIME_FAST_PROFILE=""
+    RUNTIME_BULL_PARTICIPATION_GUARD="false"
+    RUNTIME_COMPOSER_MISSING=""
+
+    if [ -z "$RUNTIME_COMPOSER" ] || [ "$RUNTIME_COMPOSER" = "none" ]; then
+        RUNTIME_COMPOSER_STATE="default"
+        return
+    fi
+
+    RUNTIME_COMPOSER_PROFILE=$(env_or_launch_value "SOXL_RUNTIME_COMPOSER_PROFILE")
+    RUNTIME_SLOW_PROFILE=$(env_or_launch_value "SOXL_RUNTIME_SLOW_PROFILE")
+    RUNTIME_FAST_PROFILE=$(env_or_launch_value "SOXL_RUNTIME_FAST_PROFILE")
+    RUNTIME_BULL_PARTICIPATION_GUARD=$(env_or_launch_value "SOXL_RUNTIME_BULL_PARTICIPATION_GUARD")
+    [ -z "$RUNTIME_BULL_PARTICIPATION_GUARD" ] && RUNTIME_BULL_PARTICIPATION_GUARD="false"
+
+    [ -z "$RUNTIME_COMPOSER_PROFILE" ] && RUNTIME_COMPOSER_MISSING="${RUNTIME_COMPOSER_MISSING} SOXL_RUNTIME_COMPOSER_PROFILE"
+    [ -z "$RUNTIME_SLOW_PROFILE" ] && RUNTIME_COMPOSER_MISSING="${RUNTIME_COMPOSER_MISSING} SOXL_RUNTIME_SLOW_PROFILE"
+    [ -z "$RUNTIME_FAST_PROFILE" ] && RUNTIME_COMPOSER_MISSING="${RUNTIME_COMPOSER_MISSING} SOXL_RUNTIME_FAST_PROFILE"
+    if [ -n "$RUNTIME_COMPOSER_MISSING" ]; then
+        RUNTIME_COMPOSER_MISSING=$(printf "%s" "$RUNTIME_COMPOSER_MISSING" | sed 's/^ //; s/ /,/g')
+        RUNTIME_COMPOSER_STATE="incomplete"
+        return
+    fi
+
+    RUNTIME_COMPOSER_STATE="enabled"
+}
+
 print_scheduler_private_env() {
     echo "--- Scheduler Private Env ---"
     if [ -f "$LAUNCH_ENV_FILE" ]; then
@@ -263,29 +313,18 @@ print_scheduler_private_env() {
         echo "  VERCEL_TOKEN: missing in current environment and launch env file"
     fi
 
-    runtime_composer=$(env_or_launch_value "SOXL_RUNTIME_COMPOSER")
-    if [ -z "$runtime_composer" ] || [ "$runtime_composer" = "none" ]; then
+    load_runtime_composer_env
+    if [ "$RUNTIME_COMPOSER_STATE" = "default" ]; then
         echo "  runtime composer: default single-profile path"
         return
     fi
 
-    composer_profile=$(env_or_launch_value "SOXL_RUNTIME_COMPOSER_PROFILE")
-    slow_profile=$(env_or_launch_value "SOXL_RUNTIME_SLOW_PROFILE")
-    fast_profile=$(env_or_launch_value "SOXL_RUNTIME_FAST_PROFILE")
-    bull_guard=$(env_or_launch_value "SOXL_RUNTIME_BULL_PARTICIPATION_GUARD")
-    [ -z "$bull_guard" ] && bull_guard="false"
-
-    missing=""
-    [ -z "$composer_profile" ] && missing="${missing} SOXL_RUNTIME_COMPOSER_PROFILE"
-    [ -z "$slow_profile" ] && missing="${missing} SOXL_RUNTIME_SLOW_PROFILE"
-    [ -z "$fast_profile" ] && missing="${missing} SOXL_RUNTIME_FAST_PROFILE"
-    if [ -n "$missing" ]; then
-        missing=$(printf "%s" "$missing" | sed 's/^ //; s/ /,/g')
-        echo "  runtime composer: incomplete composer=${runtime_composer} missing=${missing}"
+    if [ "$RUNTIME_COMPOSER_STATE" = "incomplete" ]; then
+        echo "  runtime composer: incomplete composer=${RUNTIME_COMPOSER} missing=${RUNTIME_COMPOSER_MISSING}"
         return
     fi
 
-    echo "  runtime composer: enabled composer=${runtime_composer} profile=${composer_profile} slow=${slow_profile} fast=${fast_profile} bull_guard=${bull_guard}"
+    echo "  runtime composer: enabled composer=${RUNTIME_COMPOSER} profile=${RUNTIME_COMPOSER_PROFILE} slow=${RUNTIME_SLOW_PROFILE} fast=${RUNTIME_FAST_PROFILE} bull_guard=${RUNTIME_BULL_PARTICIPATION_GUARD}"
 }
 
 json_field() {
@@ -327,9 +366,23 @@ print_paper_health() {
         return
     fi
 
+    load_runtime_composer_env
+    paper_health_args=(production/soxl_paper_trading.py --healthcheck --skip-data-update --no-notify)
+    if [ "$RUNTIME_COMPOSER_STATE" = "enabled" ]; then
+        paper_health_args+=(
+            --runtime-composer "$RUNTIME_COMPOSER"
+            --composer-profile "$RUNTIME_COMPOSER_PROFILE"
+            --slow-profile "$RUNTIME_SLOW_PROFILE"
+            --fast-profile "$RUNTIME_FAST_PROFILE"
+        )
+        if truthy_config_value "$RUNTIME_BULL_PARTICIPATION_GUARD"; then
+            paper_health_args+=(--bull-participation-guard)
+        fi
+    fi
+
     health_output=$(
         cd "$ROOT" &&
-        "$HEALTH_PYTHON" production/soxl_paper_trading.py --healthcheck --skip-data-update --no-notify 2>&1
+        "$HEALTH_PYTHON" "${paper_health_args[@]}" 2>&1
     )
     data_ok=$(json_field "$health_output" "data.ok")
     last_date=$(json_field "$health_output" "data.last_date")

@@ -1689,3 +1689,45 @@ Remaining production gates:
 Evidence card:
 
 - `runtime/production/card/scheduler_composer_env_enabled_v1/notes.md`
+
+## 2026-05-21 Scheduler Composer Runtime Proof
+
+`production/check_scheduler_health.sh` now uses the enabled
+`SOXL_RUNTIME_*` composer env for both private-env reporting and paper-trading
+healthcheck. Before this fix, health could show
+`runtime composer: enabled` while still validating
+`balanced_rule_residual_v22` and accepting the old v22 duplicate proof.
+
+Live health now validates:
+
+```text
+model: ok v19reg_v22_budget_usage_bull_guard_v1 (slow=balanced_rule_residual_v19_reg, fast=balanced_rule_residual_v22)
+```
+
+The real-env non-dry wrapper run:
+
+```bash
+production/run_soxl_scheduler.sh --broker paper --no-notify --skip-data-update --skip-dashboard
+```
+
+selected `runtime composer=budget_usage`,
+`profile=v19reg_v22_budget_usage_bull_guard_v1`, passed
+`risk_gate approved=True`, and wrote a same-date duplicate-skip non-dry proof:
+
+```text
+runtime/soxl/paper_trading/2026-05-20/duplicate_skip/v19reg_v22_budget_usage_bull_guard_v1/summary.json
+```
+
+Current health reports:
+
+```text
+runtime proof: ok latest_non_dry_profile=v19reg_v22_budget_usage_bull_guard_v1 selected_model=v19reg_v22_budget_usage_bull_guard_v1 execution=duplicate_skipped
+```
+
+This proves composer inference and risk gating on the current expected data
+date without submitting a duplicate same-day paper order. The next new trading
+date should create the first ordinary scheduled composer paper artifact.
+
+Evidence card:
+
+- `runtime/production/card/scheduler_composer_runtime_proof_v1/notes.md`

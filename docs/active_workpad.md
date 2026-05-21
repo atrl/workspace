@@ -5097,3 +5097,65 @@ Decision:
 Artifact:
 
 - `runtime/production/card/scheduler_composer_env_enabled_v1/notes.md`
+
+## 2026-05-21 Scheduler Composer Runtime Proof
+
+Goal:
+
+- Make health prove the same runtime target that the LaunchAgent wrapper now
+  uses after the approved composer env was enabled.
+
+Root cause:
+
+- `production/check_scheduler_health.sh` could display
+  `runtime composer: enabled`, but `print_paper_health` still called
+  `production/soxl_paper_trading.py --healthcheck` without composer args.
+- That left health validating `balanced_rule_residual_v22` and accepting the
+  old v22 duplicate proof even though the next scheduled run target was
+  `v19reg_v22_budget_usage_bull_guard_v1`.
+
+Change:
+
+- Shared the parsed `SOXL_RUNTIME_*` state inside
+  `production/check_scheduler_health.sh`.
+- Forward complete composer settings to `soxl_paper_trading.py --healthcheck`.
+- Added a regression test that fails if composer-enabled health checks the
+  single-actor model/proof target.
+
+Evidence:
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest \
+  tests/test_scheduler_health.py::test_scheduler_health_targets_enabled_composer_for_model_and_runtime_proof -q
+# red before implementation: health model stayed on balanced_rule_residual_v22
+# green after implementation: 1 passed
+
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_scheduler_health.py -q
+# 20 passed
+
+production/check_scheduler_health.sh
+# before non-dry proof: model ok for v19reg_v22_budget_usage_bull_guard_v1
+# runtime proof pending against v19reg_v22_budget_usage_bull_guard_v1
+
+production/run_soxl_scheduler.sh --broker paper --no-notify --skip-data-update --skip-dashboard
+# using runtime composer=budget_usage profile=v19reg_v22_budget_usage_bull_guard_v1
+# risk_gate approved=True
+# already executed for 2026-05-20 broker=paper; skipping duplicate order
+# duplicate inference output=runtime/soxl/paper_trading/2026-05-20/duplicate_skip/v19reg_v22_budget_usage_bull_guard_v1
+
+production/check_scheduler_health.sh
+# runtime proof: ok latest_non_dry_profile=v19reg_v22_budget_usage_bull_guard_v1 selected_model=v19reg_v22_budget_usage_bull_guard_v1 execution=duplicate_skipped
+# runtime proof artifact=runtime/soxl/paper_trading/2026-05-20/duplicate_skip/v19reg_v22_budget_usage_bull_guard_v1/summary.json
+```
+
+Decision:
+
+- Composer health is no longer masked by stale selected-v22 proof.
+- The current simulated-paper proof is non-dry inference/risk-gate proof with
+  duplicate order protection, not a new order.
+- Remaining gates: Vercel credentials, first weekly scheduled artifact, and the
+  next new-date ordinary composer paper artifact.
+
+Artifact:
+
+- `runtime/production/card/scheduler_composer_runtime_proof_v1/notes.md`
