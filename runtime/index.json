@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-21T09:53:48.492344+00:00",
+  "generated_at": "2026-05-21T10:12:43.799567+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -2612,6 +2612,90 @@
       "bytes": 2491
     },
     {
+      "path": "runtime/model/card/v19reglight_v22_budget_usage_bull_guard_ablation_v1/notes.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 3679
+    },
+    {
+      "path": "runtime/model/card/v19reglight_v22_budget_usage_bull_guard_ablation_v1/walkforward/inputs/wf_2020/balanced_rule_residual_v19_reg_light_input.csv",
+      "category": "model",
+      "suffix": ".csv",
+      "bytes": 30318
+    },
+    {
+      "path": "runtime/model/card/v19reglight_v22_budget_usage_bull_guard_ablation_v1/walkforward/inputs/wf_2022/balanced_rule_residual_v19_reg_light_input.csv",
+      "category": "model",
+      "suffix": ".csv",
+      "bytes": 29910
+    },
+    {
+      "path": "runtime/model/card/v19reglight_v22_budget_usage_bull_guard_ablation_v1/walkforward/inputs/wf_2023_2024/balanced_rule_residual_v19_reg_light_input.csv",
+      "category": "model",
+      "suffix": ".csv",
+      "bytes": 62746
+    },
+    {
+      "path": "runtime/model/card/v19reglight_v22_budget_usage_bull_guard_ablation_v1/walkforward/wf_2020/v19reglight_v22_budget_usage_bull_guard_ablation_v1_wf_2020.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 5413
+    },
+    {
+      "path": "runtime/model/card/v19reglight_v22_budget_usage_bull_guard_ablation_v1/walkforward/wf_2020/v19reglight_v22_budget_usage_bull_guard_ablation_v1_wf_2020.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 1664
+    },
+    {
+      "path": "runtime/model/card/v19reglight_v22_budget_usage_bull_guard_ablation_v1/walkforward/wf_2020/v19reglight_v22_budget_usage_bull_guard_ablation_v1_wf_2020_soxl_daily.csv",
+      "category": "model",
+      "suffix": ".csv",
+      "bytes": 63787
+    },
+    {
+      "path": "runtime/model/card/v19reglight_v22_budget_usage_bull_guard_ablation_v1/walkforward/wf_2022/v19reglight_v22_budget_usage_bull_guard_ablation_v1_wf_2022.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 5429
+    },
+    {
+      "path": "runtime/model/card/v19reglight_v22_budget_usage_bull_guard_ablation_v1/walkforward/wf_2022/v19reglight_v22_budget_usage_bull_guard_ablation_v1_wf_2022.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 1682
+    },
+    {
+      "path": "runtime/model/card/v19reglight_v22_budget_usage_bull_guard_ablation_v1/walkforward/wf_2022/v19reglight_v22_budget_usage_bull_guard_ablation_v1_wf_2022_soxl_daily.csv",
+      "category": "model",
+      "suffix": ".csv",
+      "bytes": 63343
+    },
+    {
+      "path": "runtime/model/card/v19reglight_v22_budget_usage_bull_guard_ablation_v1/walkforward/wf_2023_2024/v19reglight_v22_budget_usage_bull_guard_ablation_v1_wf_2023_2024.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 5497
+    },
+    {
+      "path": "runtime/model/card/v19reglight_v22_budget_usage_bull_guard_ablation_v1/walkforward/wf_2023_2024/v19reglight_v22_budget_usage_bull_guard_ablation_v1_wf_2023_2024.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 1735
+    },
+    {
+      "path": "runtime/model/card/v19reglight_v22_budget_usage_bull_guard_ablation_v1/walkforward/wf_2023_2024/v19reglight_v22_budget_usage_bull_guard_ablation_v1_wf_2023_2024_soxl_daily.csv",
+      "category": "model",
+      "suffix": ".csv",
+      "bytes": 64674
+    },
+    {
+      "path": "runtime/model/card/v19reglight_v22_budget_usage_bull_guard_ablation_v1/walkforward_summary.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 2645
+    },
+    {
       "path": "runtime/model/deep_dive_rl_vs_rulebased.md",
       "category": "model",
       "suffix": ".md",
@@ -2639,7 +2723,7 @@
       "path": "runtime/model/knowledge.md",
       "category": "model",
       "suffix": ".md",
-      "bytes": 55629
+      "bytes": 56841
     },
     {
       "path": "runtime/model/model_adjustment_roadmap.md",

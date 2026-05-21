@@ -1040,3 +1040,31 @@ runtime/model/card/balanced_rule_residual_v22_soxx/notes.md
 Do not repeat direct SOXX actor-feature retraining or SOXX cap threshold tuning
 as the next model optimization loop. Future SOXX work needs a distinct
 mechanism that can explain and test walk-forward execution absorption.
+
+## 2026-05-21 v19reg-light Slow-Path Composer Ablation
+
+`v19reglight_v22_budget_usage_bull_guard_ablation_v1` tested a no-retrain
+slow-path swap inside the approved budget-usage composer. Final inputs were
+exported from the saved `balanced_rule_residual_v19_reg_light_wf_*` actors
+with `scripts/export_profile_daily_backtest.py --tag wf_*`; a base-actor export
+was discarded because it was not comparable to the approved walk-forward
+composer evidence.
+
+Compared with `v19reg_v22_budget_usage_bull_guard_v1`:
+
+- `wf_2020`: tied exactly at `98.27% / 1.456 / 26.14% MaxDD`.
+- `wf_2022`: ablation `-23.22% / -1.231 / 24.77% MaxDD / 0.114 avg_pos`
+  versus approved `-20.68% / -0.624 / 26.65% MaxDD / 0.184 avg_pos`.
+- `wf_2023_2024`: ablation `33.34% / 0.873 / 36.91% MaxDD / 0.359 avg_pos`
+  versus approved `58.19% / 1.326 / 30.18% MaxDD / 0.337 avg_pos`.
+
+Decision: drop the light slow-path ablation. Keep
+`balanced_rule_residual_v19_reg` as the slow path for the approved runtime
+composer. Future budget-usage model loops need a distinct mechanism, not
+another regularization slow-path swap.
+
+Evidence:
+
+```text
+runtime/model/card/v19reglight_v22_budget_usage_bull_guard_ablation_v1/walkforward_summary.md
+```

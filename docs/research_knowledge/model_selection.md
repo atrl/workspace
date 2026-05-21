@@ -107,3 +107,18 @@ Conclusion: this is now the best budget-usage continuation candidate, but still
 not runtime evidence. The next valid step is a governance package that expresses
 the slow/fast composition and price-derived guard as a real runtime/profile
 interface, then verifies it through the production paper/dashboard path.
+
+Follow-up slow-path ablation:
+
+`v19reglight_v22_budget_usage_bull_guard_ablation_v1` replaced the slow
+`balanced_rule_residual_v19_reg` walk-forward actors with
+`balanced_rule_residual_v19_reg_light` while keeping v22 as fast usage and
+keeping the same bull guard. It did not improve the approved composer:
+`wf_2020` tied exactly at `98.27% / 1.456 / 26.14% MaxDD`, `wf_2022` gave up
+return/sharpe (`-23.22% / -1.231` versus `-20.68% / -0.624`) despite lower
+MaxDD, and `wf_2023_2024` regressed to `33.34% / 0.873 / 36.91% MaxDD` versus
+approved `58.19% / 1.326 / 30.18% MaxDD`.
+
+Conclusion update: keep `balanced_rule_residual_v19_reg` as the slow path.
+Do not repeat regularization slow-path swaps unless a new mechanism explains
+why the recovery drawdown/return trade-off should change.

@@ -6302,3 +6302,115 @@ Decision:
   tuning as the next model optimization loop.
 - Future SOXX work needs a distinct mechanism that explicitly addresses
   walk-forward execution absorption.
+
+## 2026-05-21 v19reg-light Slow-Path Composer Ablation Gate
+
+Goal:
+
+- Run one no-retrain model-selection ablation while production waits on
+  external Vercel setup and natural scheduled proof windows.
+
+Baseline and governance:
+
+- Canonical baseline: `v19reg_v22_budget_usage_bull_guard_v1`.
+- Direct comparison baseline: same budget-usage composer with slow path
+  `balanced_rule_residual_v19_reg` and fast path `balanced_rule_residual_v22`.
+- Role: `ablate`.
+- Changed layer: `model_selection`.
+- External reference: regularization-frontier model-selection evidence in the
+  residual actor family; no new PPO training, SOXX actor feature, or SOXX cap
+  threshold tuning.
+- Target window: saved actor walk-forward windows `wf_2020`, `wf_2022`, and
+  `wf_2023_2024`.
+- Accepted trade-off: keep only if the lighter slow path improves bull
+  participation without worsening 2022 defense or the 2023-2024
+  recovery/drawdown trade-off versus the approved runtime composer.
+- Comparison-table row key:
+  `v19reglight_v22_budget_usage_bull_guard_ablation_v1`.
+
+Closest history:
+
+1. Success case: `v19reg_v22_budget_usage_bull_guard_v1` improved the
+   no-retrain composer by adding a price-confirmed bull guard while preserving
+   the 2022 defensive result.
+2. Failure case: `balanced_rule_residual_v19_reg_light` is strong in `wf_2020`
+   but failed to improve bear/recovery generalization by itself, especially
+   `wf_2023_2024`.
+3. Not a duplicate: this does not retrain or tune regularization; it tests
+   whether the existing two-speed composer can use the light actor only as the
+   slow-mode selector while v22 remains the fast usage path.
+
+Planned evidence:
+
+- Export the missing `balanced_rule_residual_v19_reg_light` walk-forward daily
+  paths from the saved actor.
+- Compose those paths with saved `balanced_rule_residual_v22` walk-forward
+  inputs using the same bull guard as the approved composer.
+- Compare every walk-forward window against
+  `v19reg_v22_budget_usage_bull_guard_v1`.
+
+Artifact:
+
+- `runtime/model/card/v19reglight_v22_budget_usage_bull_guard_ablation_v1/notes.md`
+
+Evidence:
+
+```bash
+PYTHONPATH=. qlib_venv/bin/python scripts/export_profile_daily_backtest.py \
+  --profile balanced_rule_residual_v19_reg_light --tag wf_2020 \
+  --test-start 2020-01-01 --test-end 2020-12-31 \
+  --output runtime/model/card/v19reglight_v22_budget_usage_bull_guard_ablation_v1/walkforward/inputs/wf_2020/balanced_rule_residual_v19_reg_light_input.csv
+
+PYTHONPATH=src:. qlib_venv/bin/python scripts/compose_budget_usage_counterfactual.py \
+  --slow runtime/model/card/v19reglight_v22_budget_usage_bull_guard_ablation_v1/walkforward/inputs/wf_2020/balanced_rule_residual_v19_reg_light_input.csv \
+  --fast runtime/model/card/v19reg_v22_budget_usage_v1/walkforward/inputs/wf_2020/balanced_rule_residual_v22_input.csv \
+  --output-dir runtime/model/card/v19reglight_v22_budget_usage_bull_guard_ablation_v1/walkforward/wf_2020 \
+  --profile v19reglight_v22_budget_usage_bull_guard_ablation_v1_wf_2020 \
+  --bull-participation-guard --bull-ma-window 50 --bull-momentum-window 20 \
+  --bull-high-window 50 --bull-min-periods 20 --bull-min-momentum 0.03 \
+  --bull-max-drawdown 0.08
+# return=98.3% sharpe=1.456 max_dd=26.1% avg_pos=0.399
+```
+
+The same export/compose shape was run for `wf_2022` and `wf_2023_2024`.
+Final exports used the saved `balanced_rule_residual_v19_reg_light_wf_*`
+actors through `--tag`; a base-actor export was discarded before documenting
+results because it was not comparable to the approved composer WF evidence.
+
+Readout:
+
+| window | approved composer | light slow-path ablation | delta vs approved | decision |
+| --- | ---: | ---: | ---: | --- |
+| `wf_2020` | `98.27% / 1.456 / 26.14% / pos 0.399 / trades 25` | `98.27% / 1.456 / 26.14% / pos 0.399 / trades 25` | return `+0.00pp`, MaxDD `+0.00pp` | no improvement |
+| `wf_2022` | `-20.68% / -0.624 / 26.65% / pos 0.184 / trades 15` | `-23.22% / -1.231 / 24.77% / pos 0.114 / trades 22` | return `-2.53pp`, MaxDD `-1.88pp` | weaker return/sharpe |
+| `wf_2023_2024` | `58.19% / 1.326 / 30.18% / pos 0.337 / trades 29` | `33.34% / 0.873 / 36.91% / pos 0.359 / trades 24` | return `-24.86pp`, MaxDD `+6.73pp` | fails recovery trade-off |
+
+Decision:
+
+- Drop `v19reglight_v22_budget_usage_bull_guard_ablation_v1`.
+- Keep `balanced_rule_residual_v19_reg` as the slow path in the approved
+  runtime composer.
+- Do not bind the light slow-path ablation to runtime selection.
+
+Artifacts:
+
+- `runtime/model/card/v19reglight_v22_budget_usage_bull_guard_ablation_v1/walkforward_summary.md`
+- `runtime/model/card/v19reglight_v22_budget_usage_bull_guard_ablation_v1/walkforward/wf_2020/`
+- `runtime/model/card/v19reglight_v22_budget_usage_bull_guard_ablation_v1/walkforward/wf_2022/`
+- `runtime/model/card/v19reglight_v22_budget_usage_bull_guard_ablation_v1/walkforward/wf_2023_2024/`
+
+Verification:
+
+```bash
+PYTHONPATH=. qlib_venv/bin/python scripts/build_runtime_index.py --check
+# runtime index OK
+
+git diff --check
+# clean
+
+PYTHONPATH=. qlib_venv/bin/python scripts/check_harness.py
+# passed=194 failures=0
+
+production/check_scheduler_health.sh
+# overall: pending external_vercel_setup,scheduled_postclose_target,scheduled_paper_proof
+```
