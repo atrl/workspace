@@ -50,6 +50,7 @@ qlib_venv/
 # Runtime generated artifacts (ignore temp/large outputs, keep knowledge and configs)
 runtime/**/*.png
 runtime/**/*.log
+runtime/**/*.err
 runtime/**/*.csv
 runtime/**/*.csv.gz
 runtime/**/*.pkl

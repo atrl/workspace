@@ -1002,3 +1002,14 @@ Follow-up health fix:
 This is current-date non-dry composer inference/risk-gate proof with same-day
 duplicate-order protection. The next ordinary proof is a new-date scheduled
 composer paper artifact.
+
+Weekly review alignment:
+
+- `production/run_soxl_weekly_wf.sh` now detects the enabled
+  `SOXL_RUNTIME_COMPOSER=budget_usage` env and refreshes
+  `runtime/model/card/v19reg_v22_budget_usage_bull_guard_v1/runtime_promotion_review.json`
+  through `scripts/review_budget_usage_runtime_promotion.py`.
+- The fallback no-composer path still runs the single-profile
+  `balanced_rule_residual_v22` walk-forward and runtime-selection review.
+- A manual real-env weekly wrapper run wrote `[weekly-wf] all done` to
+  `runtime/soxl/wf_weekly.log`, and health now reports the weekly marker.

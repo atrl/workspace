@@ -1731,3 +1731,45 @@ date should create the first ordinary scheduled composer paper artifact.
 Evidence card:
 
 - `runtime/production/card/scheduler_composer_runtime_proof_v1/notes.md`
+
+## 2026-05-21 Weekly Composer Review Wrapper
+
+The weekly wrapper now follows the active runtime target when the private
+scheduler env enables `SOXL_RUNTIME_COMPOSER=budget_usage`.
+
+Before this change, `production/run_soxl_weekly_wf.sh` loaded the env file but
+still defaulted to `balanced_rule_residual_v22` and the single-profile
+`scripts/review_runtime_selection.py` path. That would make the weekly evidence
+review a stale target after scheduler runtime switched to
+`v19reg_v22_budget_usage_bull_guard_v1`.
+
+Current behavior:
+
+- complete `SOXL_RUNTIME_COMPOSER=budget_usage` env ->
+  `scripts/review_budget_usage_runtime_promotion.py`
+- no runtime composer env -> existing `balanced_rule_residual_v22`
+  walk-forward + runtime-selection fallback
+- `SOXL_WEEKLY_WF_ROOT` / `SOXL_WEEKLY_WF_PYTHON` are available for safe command
+  capture tests
+
+Manual real-env wrapper proof was appended to LaunchAgent-style logs:
+
+```text
+runtime/soxl/wf_weekly.log
+[weekly-wf] run started ... mode=runtime_composer composer=budget_usage profile=v19reg_v22_budget_usage_bull_guard_v1 ...
+[budget_usage_runtime_promotion] wrote runtime/model/card/v19reg_v22_budget_usage_bull_guard_v1
+[weekly-wf] all done
+```
+
+Health now reports:
+
+```text
+wf_weekly: [weekly-wf] all done
+```
+
+The composer runtime promotion review remains approved with no blocking
+reasons. Vercel credentials remain the remaining external deployment blocker.
+
+Evidence card:
+
+- `runtime/production/card/weekly_composer_review_v1/notes.md`

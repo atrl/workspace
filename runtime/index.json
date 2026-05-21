@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-21T06:19:44.120992+00:00",
+  "generated_at": "2026-05-21T06:28:33.804855+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -2627,7 +2627,7 @@
       "path": "runtime/model/knowledge.md",
       "category": "model",
       "suffix": ".md",
-      "bytes": 53804
+      "bytes": 54383
     },
     {
       "path": "runtime/model/model_adjustment_roadmap.md",
@@ -2924,6 +2924,12 @@
       "bytes": 1750
     },
     {
+      "path": "runtime/production/card/weekly_composer_review_v1/notes.md",
+      "category": "production",
+      "suffix": ".md",
+      "bytes": 3173
+    },
+    {
       "path": "runtime/production/card/weekly_health_pending_v1/notes.md",
       "category": "production",
       "suffix": ".md",
@@ -2939,7 +2945,7 @@
       "path": "runtime/production/knowledge.md",
       "category": "production",
       "suffix": ".md",
-      "bytes": 79758
+      "bytes": 81252
     },
     {
       "path": "runtime/reward/card/base_log/card.md",

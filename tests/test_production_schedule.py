@@ -224,3 +224,61 @@ def test_weekly_walkforward_wrapper_reviews_current_runtime_profile():
     assert "--persist-model-promotion" in text
     assert "balanced_trade_lock" not in text
     assert "/home/rziiiii/dev/workspace" not in text
+
+
+def test_weekly_walkforward_wrapper_reviews_enabled_runtime_composer():
+    wrapper = ROOT / "production" / "run_soxl_weekly_wf.sh"
+
+    with TemporaryDirectory() as tmpdir:
+        root = Path(tmpdir)
+        env_file = root / "soxl.env"
+        capture_file = root / "captured_args.txt"
+        fake_python = root / "python"
+        fake_python.write_text(
+            "#!/bin/sh\n"
+            "printf '%s\\n' '---cmd---' \"$@\" >> \"$SOXL_CAPTURE_ARGS\"\n",
+            encoding="utf-8",
+        )
+        fake_python.chmod(0o755)
+        env_file.write_text(
+            "\n".join(
+                [
+                    "export SOXL_RUNTIME_COMPOSER='budget_usage'",
+                    "export SOXL_RUNTIME_COMPOSER_PROFILE='v19reg_v22_budget_usage_bull_guard_v1'",
+                    "export SOXL_RUNTIME_SLOW_PROFILE='balanced_rule_residual_v19_reg'",
+                    "export SOXL_RUNTIME_FAST_PROFILE='balanced_rule_residual_v22'",
+                    "export SOXL_RUNTIME_BULL_PARTICIPATION_GUARD='true'",
+                    "",
+                ]
+            ),
+            encoding="utf-8",
+        )
+
+        env = {
+            **os.environ,
+            "SOXL_WEEKLY_WF_ROOT": str(root),
+            "SOXL_WEEKLY_WF_PYTHON": str(fake_python),
+            "SOXL_LAUNCH_ENV_FILE": str(env_file),
+            "SOXL_CAPTURE_ARGS": str(capture_file),
+        }
+        result = subprocess.run(
+            ["bash", str(wrapper)],
+            capture_output=True,
+            text=True,
+            env=env,
+            check=True,
+        )
+
+        captured = capture_file.read_text(encoding="utf-8").splitlines()
+
+    assert result.returncode == 0
+    assert "mode=runtime_composer" in result.stdout
+    assert f"{root}/scripts/review_budget_usage_runtime_promotion.py" in captured
+    assert "--profile" in captured
+    assert "v19reg_v22_budget_usage_bull_guard_v1" in captured
+    assert "--slow-profile" in captured
+    assert "balanced_rule_residual_v19_reg" in captured
+    assert "--fast-profile" in captured
+    assert "balanced_rule_residual_v22" in captured
+    assert f"{root}/scripts/walkforward_backtest_validate.py" not in captured
+    assert f"{root}/scripts/review_runtime_selection.py" not in captured

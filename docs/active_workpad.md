@@ -5159,3 +5159,61 @@ Decision:
 Artifact:
 
 - `runtime/production/card/scheduler_composer_runtime_proof_v1/notes.md`
+
+## 2026-05-21 Weekly Composer Review Wrapper
+
+Goal:
+
+- Align the weekly walk-forward/review wrapper with the active runtime target
+  after enabling `SOXL_RUNTIME_COMPOSER=budget_usage`.
+
+Root cause:
+
+- `production/run_soxl_weekly_wf.sh` loaded the private env file but still
+  defaulted to `balanced_rule_residual_v22` and
+  `scripts/review_runtime_selection.py`.
+- After composer scheduling was enabled, a weekly run would review the old
+  single-profile target rather than
+  `v19reg_v22_budget_usage_bull_guard_v1`.
+- The wrapper also hardcoded root/python, so tests could not safely capture its
+  command path.
+
+Change:
+
+- Added `SOXL_WEEKLY_WF_ROOT` / `SOXL_WEEKLY_WF_PYTHON` overrides.
+- When complete `SOXL_RUNTIME_COMPOSER=budget_usage` env is present, weekly now
+  runs `scripts/review_budget_usage_runtime_promotion.py` for the composer.
+- Kept the single-profile v22 walk-forward/review path as fallback.
+- Ignored generated runtime `.err` logs.
+
+Evidence:
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest \
+  tests/test_production_schedule.py::test_weekly_walkforward_wrapper_reviews_enabled_runtime_composer -q
+# red before implementation: wrapper ignored test root/python and no command capture was written
+# green after implementation: 1 passed
+
+production/run_soxl_weekly_wf.sh >> runtime/soxl/wf_weekly.log 2>> runtime/soxl/wf_weekly.err
+
+tail -n 40 runtime/soxl/wf_weekly.log
+# [weekly-wf] run started ... mode=runtime_composer composer=budget_usage profile=v19reg_v22_budget_usage_bull_guard_v1 ...
+# [budget_usage_runtime_promotion] wrote runtime/model/card/v19reg_v22_budget_usage_bull_guard_v1
+# [weekly-wf] all done
+
+production/check_scheduler_health.sh
+# wf_weekly: [weekly-wf] all done
+# model: ok v19reg_v22_budget_usage_bull_guard_v1 (slow=balanced_rule_residual_v19_reg, fast=balanced_rule_residual_v22)
+# runtime proof ok for v19reg_v22_budget_usage_bull_guard_v1 duplicate_skipped
+```
+
+Decision:
+
+- Weekly runtime review evidence now follows the active composer target.
+- Vercel credentials remain the external blocker.
+- The next ordinary paper proof remains the next new-date scheduled composer
+  artifact; current proof is same-day duplicate-skip.
+
+Artifact:
+
+- `runtime/production/card/weekly_composer_review_v1/notes.md`
