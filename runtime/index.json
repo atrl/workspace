@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-21T09:40:40.603961+00:00",
+  "generated_at": "2026-05-21T09:53:48.492344+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -1898,6 +1898,12 @@
       "bytes": 199911
     },
     {
+      "path": "runtime/model/card/balanced_rule_residual_v22_soxx/notes.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 2586
+    },
+    {
       "path": "runtime/model/card/balanced_rule_residual_v22_soxx/soxl_balanced_rule_residual_v22_soxx_summary.json",
       "category": "model",
       "suffix": ".json",
@@ -2633,7 +2639,7 @@
       "path": "runtime/model/knowledge.md",
       "category": "model",
       "suffix": ".md",
-      "bytes": 54383
+      "bytes": 55629
     },
     {
       "path": "runtime/model/model_adjustment_roadmap.md",

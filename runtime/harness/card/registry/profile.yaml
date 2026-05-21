@@ -629,11 +629,13 @@ profiles:
   wf_notes: "Fresh governed retest of v19_reg regularization plus v22 VIX term features. Fixed split is blocked: proxy 1280.42% / Sharpe 1.020 passes, but test_2022 MaxDD 58.30% exceeds 55% and avg_pos 0.381 exceeds 0.35. Versus v22, 2022 MaxDD worsens from 32.71% to 58.30%; versus v19_reg, 2023-2024 return falls from 58.70% to 44.52%. Keep small retained checkpoint actors as replay evidence only; do not walk-forward or bind runtime."
 - name: balanced_rule_residual_v22_soxx
   family: balanced
-  status: candidate
+  status: dropped
   baseline: balanced_rule_residual_v22
-  keep_actor: true
+  keep_actor: false
   keep_summary: true
-  notes_ref: runtime/model/card/balanced_rule_residual_v22_soxx/profile.yaml
+  notes_ref: runtime/model/card/balanced_rule_residual_v22_soxx/notes.md
+  wf_status: blocked
+  wf_notes: "Direct SOXX actor-feature injection has only fixed-window artifacts and was blocked in training output. Follow-up SOXX fixed-actor cap walk-forward validation also blocked the SOXX mechanism: wf_2022 had eligible days but no cap-changed or position-changed days, wf_2023_2024 had no position change, and wf_2020 lost return. Keep summary/daily evidence only; do not retain actor or repeat direct SOXX actor-feature retraining."
 - name: balanced_trade_lock
   family: balanced
   status: dropped

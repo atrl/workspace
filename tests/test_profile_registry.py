@@ -27,6 +27,15 @@ def test_dropped_profiles_do_not_keep_actors():
     assert offenders == []
 
 
+def test_blocked_soxx_actor_feature_profile_is_not_active_candidate():
+    registry = load_profile_registry()
+    entry = registry["balanced_rule_residual_v22_soxx"]
+
+    assert entry.status != "candidate"
+    assert entry.keep_actor is False
+    assert entry.notes_ref.endswith("runtime/model/card/balanced_rule_residual_v22_soxx/notes.md")
+
+
 def test_legacy_profiles_resolve_to_runtime_card_dirs():
     assert resolve_profile_path("balanced").as_posix().endswith("runtime/model/card/balanced/profile.yaml")
     assert resolve_profile_path("smoke").as_posix().endswith("runtime/harness/card/smoke/profile.yaml")

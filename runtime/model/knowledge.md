@@ -1013,3 +1013,30 @@ Weekly review alignment:
   `balanced_rule_residual_v22` walk-forward and runtime-selection review.
 - A manual real-env weekly wrapper run wrote `[weekly-wf] all done` to
   `runtime/soxl/wf_weekly.log`, and health now reports the weekly marker.
+
+## 2026-05-21 Direct SOXX Actor Retention Audit
+
+`balanced_rule_residual_v22_soxx` is no longer an active candidate. It remains
+useful as a failed diagnostic for direct SOXX actor-feature injection, but the
+current repo evidence does not justify retaining its actor checkpoint:
+
+- Train log reports `balanced_rule_residual_v22_soxx: 1099.3% | Sharpe 1.00 |
+  MaxDD 59.6% | trades 304` with `promotion: blocked`.
+- Summary proxy has `return=1235.02%`, `sharpe=1.038`, `max_dd=61.09%`, and
+  `avg_pos=0.5742`; it has no durable fixed-split/walk-forward promotion
+  payload.
+- The follow-up `soxx_relative_weakness_walkforward_v1` cap validation blocked
+  the SOXX mechanism on saved v22 actors: `wf_2022` had `44` eligible days but
+  `0` cap-changed / position-changed days, `wf_2023_2024` had no position
+  change, and `wf_2020` lost return.
+
+Registry state now marks the profile as `dropped`, `keep_actor=false`,
+`keep_summary=true`, with notes at:
+
+```text
+runtime/model/card/balanced_rule_residual_v22_soxx/notes.md
+```
+
+Do not repeat direct SOXX actor-feature retraining or SOXX cap threshold tuning
+as the next model optimization loop. Future SOXX work needs a distinct
+mechanism that can explain and test walk-forward execution absorption.

@@ -6223,3 +6223,82 @@ Decision:
 Artifact:
 
 - `runtime/production/card/data_registry_health_gate_v1/notes.md`
+
+## 2026-05-21 Direct SOXX Actor Retention Audit
+
+Goal:
+
+- Resume the SOXX/model side by removing stale active-candidate ambiguity around
+  the direct SOXX actor-feature branch.
+
+Baseline and governance:
+
+- Canonical baseline: `balanced_rule_residual_v22`.
+- Direct comparison: `balanced_rule_residual_v22_soxx`.
+- Role: `diagnose` / cleanup.
+- Changed layer: `feature`.
+- External reference: repo-owned SOXX underlying dataset plus the SOXX
+  fixed-actor cap and walk-forward absorption diagnostics.
+- Target window: current registry / retained actor surface.
+- Accepted trade-off: keep failed SOXX evidence searchable while removing the
+  actor from retention.
+- Comparison-table row key: `balanced_rule_residual_v22_soxx`.
+
+Closest history:
+
+1. Success case: `v19reg_v22_budget_usage_bull_guard_v1` improved model
+   selection through a distinct two-actor composition mechanism with
+   walk-forward evidence.
+2. Failure case: `soxx_relative_weakness_walkforward_v1` showed SOXX cap
+   eligibility was absorbed on saved actors and hurt `wf_2020`.
+3. Not a duplicate: this loop does not tune SOXX thresholds or retrain; it fixes
+   retention metadata so the failed direct actor branch is no longer active.
+
+Evidence:
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest \
+  tests/test_profile_registry.py::test_blocked_soxx_actor_feature_profile_is_not_active_candidate -q
+# red before registry update: status='candidate', keep_actor=True, notes_ref=profile.yaml
+# green after registry update: 1 passed
+
+rg -n "balanced_rule_residual_v22_soxx" runtime/harness/card/registry/profile.yaml -A8 -B2
+# status=dropped, keep_actor=false, notes_ref=runtime/model/card/balanced_rule_residual_v22_soxx/notes.md
+
+test ! -f runtime/model/card/balanced_rule_residual_v22_soxx/soxl_balanced_rule_residual_v22_soxx_actor.pt && echo actor_removed
+# actor_removed
+
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_profile_registry.py -q
+# 10 passed
+
+PYTHONPATH=. qlib_venv/bin/python scripts/build_runtime_index.py --check
+# runtime index OK
+
+PYTHONPATH=. qlib_venv/bin/python scripts/check_harness.py
+# passed=194 failures=0
+```
+
+Readout:
+
+- `train.log` reports `balanced_rule_residual_v22_soxx: 1099.3% | Sharpe 1.00
+  | MaxDD 59.6% | trades 304`, then `promotion: blocked`.
+- Summary proxy has `return=1235.02%`, `sharpe=1.038`, `max_dd=61.09%`, and
+  `avg_pos=0.5742`.
+- `soxx_relative_weakness_walkforward_v1` blocked the SOXX mechanism on saved
+  v22 actors: `wf_2022` had `44` eligible days but no cap/position change,
+  `wf_2023_2024` had no position change, and `wf_2020` lost return.
+
+Change:
+
+- Registry row now has `status=dropped`, `keep_actor=false`,
+  `keep_summary=true`, and notes reference `notes.md`.
+- Added `runtime/model/card/balanced_rule_residual_v22_soxx/notes.md`.
+- Added a master comparison row for the direct SOXX actor branch.
+
+Decision:
+
+- Do not retain the direct SOXX actor checkpoint.
+- Do not repeat direct SOXX actor-feature retraining or SOXX cap threshold
+  tuning as the next model optimization loop.
+- Future SOXX work needs a distinct mechanism that explicitly addresses
+  walk-forward execution absorption.
