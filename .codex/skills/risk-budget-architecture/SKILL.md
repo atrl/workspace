@@ -199,6 +199,44 @@ than v22 at `58.19% / 30.18% MaxDD`. This is a promoted diagnostic candidate,
 not direct runtime evidence; next continuation needs runtime/profile governance
 packaging.
 
+### Runtime Composer Promotion Gate
+
+For multi-actor budget-usage candidates, do not bypass a failed component actor
+promotion gate with an ad hoc runtime exception. Add a composer-level review
+artifact and make runtime fail closed unless the reviewed pair matches exactly.
+
+Current reference path:
+
+```bash
+PYTHONPATH=src:. qlib_venv/bin/python scripts/review_budget_usage_runtime_promotion.py
+
+PYTHONPATH=. qlib_venv/bin/python production/soxl_paper_trading.py \
+  --dry-run --no-notify --skip-data-update \
+  --runtime-composer budget_usage \
+  --composer-profile v19reg_v22_budget_usage_bull_guard_v1 \
+  --slow-profile balanced_rule_residual_v19_reg \
+  --fast-profile balanced_rule_residual_v22 \
+  --bull-participation-guard
+```
+
+The approval artifact is
+`runtime/model/card/<composer_profile>/runtime_promotion_review.json`; keep the
+paired Markdown card beside it. The gate should require:
+
+- all required walk-forward payloads present
+- bull guard enabled in every payload
+- candidate return better than fast path in every required window
+- candidate MaxDD not worse than fast path in every required window
+- 2022 defense preserved
+- reviewed `slow_model` and `fast_model` filenames equal the runtime model path
+  names
+
+Only after the review is approved should
+`composer_promotion_gate_status()` replace the component-level combined gate for
+that explicit composer profile. Installed LaunchAgents/default scheduler paths
+should remain single-actor unless a separate non-dry scheduling decision is
+made.
+
 ### v2: Mode-Conditional Reward + Dynamic Band Scaling
 
 在 v1 基础上引入两个互补扩展：

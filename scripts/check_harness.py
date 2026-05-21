@@ -22,6 +22,7 @@ DEFAULT_TEST_FILES = [
     "tests/test_checkpoint_review_assets.py",
     "tests/test_checkpoint_retention.py",
     "tests/test_budget_counterfactual.py",
+    "tests/test_budget_usage_runtime_promotion_review.py",
     "tests/test_budget_usage_bc.py",
     "tests/test_factor_evaluation.py",
     "tests/test_hierarchical_composer.py",
@@ -81,6 +82,7 @@ DEFAULT_COMPILE_TARGETS = [
     "scripts/evaluate_soxx_relative_walkforward.py",
     "scripts/review_selective_release_promotion.py",
     "scripts/review_runtime_selection.py",
+    "scripts/review_budget_usage_runtime_promotion.py",
 
     "scripts/prune_artifacts.py",
     "scripts/rank_counterfactual_variants.py",

@@ -19,6 +19,7 @@ from src.soxl_quant.policy.execution import (
 )
 from src.soxl_quant.policy.environment import TrancheLedger
 from src.soxl_quant.runtime import (
+    composer_promotion_gate_status,
     compose_budget_usage_runtime_signal,
     RuntimeExecutionOverlayState,
     SignalIntent,
@@ -63,6 +64,37 @@ def _write_walk_forward_report(root: Path, profile: str, rows: dict[str, tuple[f
             "relative_outperformance": relative,
         }
     (root / profile / f"{profile}_report.json").write_text(json.dumps(payload), encoding="utf-8")
+
+
+def _write_runtime_promotion_review(
+    root: Path,
+    *,
+    profile: str = "v19reg_v22_budget_usage_bull_guard_v1",
+    decision: str = "approved",
+    allowed: bool = True,
+    slow_model: str = "soxl_balanced_rule_residual_v19_reg_actor.pt",
+    fast_model: str = "soxl_balanced_rule_residual_v22_actor.pt",
+    blocking_reasons: list[str] | None = None,
+) -> None:
+    card_dir = root / profile
+    card_dir.mkdir(parents=True)
+    (card_dir / "runtime_promotion_review.json").write_text(
+        json.dumps(
+            {
+                "profile": profile,
+                "decision": decision,
+                "runtime_model_gate_allowed": allowed,
+                "components": {
+                    "slow_profile": "balanced_rule_residual_v19_reg",
+                    "fast_profile": "balanced_rule_residual_v22",
+                    "slow_model": slow_model,
+                    "fast_model": fast_model,
+                },
+                "blocking_reasons": blocking_reasons or [],
+            }
+        ),
+        encoding="utf-8",
+    )
 
 
 def test_best_model_for_family_refuses_unpromoted_fallback():
@@ -460,3 +492,74 @@ def test_compose_budget_usage_runtime_signal_records_bull_guard_audit():
     assert composition["base_two_speed_position"] == 0.175
     assert composition["raw_two_speed_position"] == 0.70
     assert composition["bull_participation_guard"] is True
+
+
+def test_composer_promotion_gate_status_allows_approved_review_over_component_gate():
+    with TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        _write_runtime_promotion_review(root)
+        previous_model_dir = runtime.MODEL_DIR
+        runtime.MODEL_DIR = root
+        try:
+            allowed, reason = composer_promotion_gate_status(
+                "v19reg_v22_budget_usage_bull_guard_v1",
+                (
+                    Path("runtime/model/card/balanced_rule_residual_v19_reg/soxl_balanced_rule_residual_v19_reg_actor.pt"),
+                    Path("runtime/model/card/balanced_rule_residual_v22/soxl_balanced_rule_residual_v22_actor.pt"),
+                ),
+            )
+        finally:
+            runtime.MODEL_DIR = previous_model_dir
+
+    assert allowed is True
+    assert "composer promotion review approved" in reason
+
+
+def test_composer_promotion_gate_status_blocks_component_model_mismatch():
+    with TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        _write_runtime_promotion_review(
+            root,
+            slow_model="soxl_balanced_rule_residual_v18_actor.pt",
+        )
+        previous_model_dir = runtime.MODEL_DIR
+        runtime.MODEL_DIR = root
+        try:
+            allowed, reason = composer_promotion_gate_status(
+                "v19reg_v22_budget_usage_bull_guard_v1",
+                (
+                    Path("runtime/model/card/balanced_rule_residual_v19_reg/soxl_balanced_rule_residual_v19_reg_actor.pt"),
+                    Path("runtime/model/card/balanced_rule_residual_v22/soxl_balanced_rule_residual_v22_actor.pt"),
+                ),
+            )
+        finally:
+            runtime.MODEL_DIR = previous_model_dir
+
+    assert allowed is False
+    assert "component model mismatch" in reason
+
+
+def test_composer_promotion_gate_status_blocks_unapproved_review():
+    with TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        _write_runtime_promotion_review(
+            root,
+            decision="blocked",
+            allowed=False,
+            blocking_reasons=["candidate MaxDD is worse than fast path"],
+        )
+        previous_model_dir = runtime.MODEL_DIR
+        runtime.MODEL_DIR = root
+        try:
+            allowed, reason = composer_promotion_gate_status(
+                "v19reg_v22_budget_usage_bull_guard_v1",
+                (
+                    Path("runtime/model/card/balanced_rule_residual_v19_reg/soxl_balanced_rule_residual_v19_reg_actor.pt"),
+                    Path("runtime/model/card/balanced_rule_residual_v22/soxl_balanced_rule_residual_v22_actor.pt"),
+                ),
+            )
+        finally:
+            runtime.MODEL_DIR = previous_model_dir
+
+    assert allowed is False
+    assert reason == "candidate MaxDD is worse than fast path"

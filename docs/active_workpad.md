@@ -4427,3 +4427,79 @@ Artifacts:
 - `runtime/model/card/v19reg_v22_budget_usage_bull_guard_v1/runtime_interface_review.md`
 - `runtime/model/card/v19reg_v22_budget_usage_bull_guard_v1/runtime_interface_review.json`
 - `runtime/production/card/budget_usage_runtime_composer_v1/notes.md`
+
+## 2026-05-21 Composer-Level Promotion Gate for Budget-Usage Runtime
+
+Goal:
+
+- Convert the validated two-actor composer from a component-gate blocked
+  diagnostic into an explicitly governed runtime path without changing the
+  installed scheduler default.
+
+Acceptance criteria:
+
+- Add a repo-owned runtime promotion review for
+  `v19reg_v22_budget_usage_bull_guard_v1`.
+- Let the explicit budget-usage composer use that review only when the
+  component model filenames match the reviewed pair.
+- Prove dry-run paper trading and scheduler smoke pass the risk gate.
+
+Evidence:
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest \
+  tests/test_budget_usage_runtime_promotion_review.py \
+  tests/test_runtime.py::test_composer_promotion_gate_status_allows_approved_review_over_component_gate \
+  tests/test_runtime.py::test_composer_promotion_gate_status_blocks_component_model_mismatch \
+  tests/test_runtime.py::test_composer_promotion_gate_status_blocks_unapproved_review -q
+# 6 passed
+
+PYTHONPATH=src:. qlib_venv/bin/python scripts/review_budget_usage_runtime_promotion.py
+# wrote runtime/model/card/v19reg_v22_budget_usage_bull_guard_v1
+# decision=approved; runtime_model_gate_allowed=True
+
+PYTHONPATH=. qlib_venv/bin/python production/soxl_paper_trading.py \
+  --dry-run --no-notify --skip-data-update \
+  --runtime-composer budget_usage \
+  --composer-profile v19reg_v22_budget_usage_bull_guard_v1 \
+  --slow-profile balanced_rule_residual_v19_reg \
+  --fast-profile balanced_rule_residual_v22 \
+  --bull-participation-guard
+# output=runtime/soxl/paper_trading/2026-05-20/dry_run
+# risk_gate approved=True
+# model_promotion=composer promotion review approved
+
+PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py \
+  --dry-run --no-notify --skip-data-update --skip-dashboard \
+  --runtime-composer budget_usage \
+  --composer-profile v19reg_v22_budget_usage_bull_guard_v1 \
+  --slow-profile balanced_rule_residual_v19_reg \
+  --fast-profile balanced_rule_residual_v22 \
+  --bull-participation-guard
+# scheduler completed and forwarded the approved composer path
+
+uv run --python qlib_venv/bin/python --with pytest pytest \
+  tests/test_budget_usage_runtime_promotion_review.py tests/test_runtime.py \
+  tests/test_two_speed_budget.py tests/test_paper_trading.py \
+  tests/test_daily_scheduler.py -q
+# 59 passed
+
+PYTHONPATH=src:. qlib_venv/bin/python scripts/build_runtime_index.py
+# wrote runtime/index.json (482 entries)
+
+PYTHONPATH=src:. qlib_venv/bin/python scripts/check_harness.py
+# passed=167 failures=0
+```
+
+Decision:
+
+- `runtime_promotion_review.json` is now the governance artifact for the
+  component slow-actor promotion exception on this exact composer.
+- The installed scheduler/default paper path is unchanged. Explicit composer
+  flags are required until a separate non-dry scheduling decision is made.
+
+Artifacts:
+
+- `runtime/model/card/v19reg_v22_budget_usage_bull_guard_v1/runtime_promotion_review.md`
+- `runtime/model/card/v19reg_v22_budget_usage_bull_guard_v1/runtime_promotion_review.json`
+- `scripts/review_budget_usage_runtime_promotion.py`

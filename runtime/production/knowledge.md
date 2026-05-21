@@ -1320,21 +1320,25 @@ PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py \
 Result: scheduler completed and wrote the composer dry-run through paper
 trading.
 
-Current blocker:
+Current gate:
 
 - The candidate is not enabled in installed LaunchAgents.
-- Its dry-run risk gate is blocked because the component slow actor
-  `balanced_rule_residual_v19_reg` fails standalone model promotion.
+- The explicit composer path now passes the runtime model gate through
+  `runtime/model/card/v19reg_v22_budget_usage_bull_guard_v1/runtime_promotion_review.json`.
 - Keep the production default on single selected `balanced_rule_residual_v22`
-  until a composer-level promotion review explicitly approves this exception.
+  unless an operator intentionally chooses the composer for non-dry paper
+  execution on a fresh date.
 
 Evidence card:
 
 - `runtime/production/card/budget_usage_runtime_composer_v1/notes.md`
+- `runtime/model/card/v19reg_v22_budget_usage_bull_guard_v1/runtime_promotion_review.md`
 
 Verification:
 
+- `uv run --python qlib_venv/bin/python --with pytest pytest tests/test_budget_usage_runtime_promotion_review.py tests/test_runtime.py::test_composer_promotion_gate_status_allows_approved_review_over_component_gate tests/test_runtime.py::test_composer_promotion_gate_status_blocks_component_model_mismatch tests/test_runtime.py::test_composer_promotion_gate_status_blocks_unapproved_review -q` ->
+  `6 passed`.
 - `PYTHONPATH=src:. qlib_venv/bin/python scripts/check_harness.py` ->
-  `passed=161 failures=0`.
+  `passed=167 failures=0`.
 - `production/check_scheduler_health.sh` -> default data/model/broker/dashboard
   ok; runtime proof pending for selected v22; Vercel `blocked_no_credentials`.

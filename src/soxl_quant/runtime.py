@@ -790,6 +790,42 @@ def _combined_promotion_gate_status(model_paths: Sequence[Path]) -> Tuple[bool, 
     return True, f"all composed model gates passed: {labels}"
 
 
+def composer_promotion_gate_status(
+    composer_profile: str,
+    model_paths: Sequence[Path],
+) -> Tuple[bool, str]:
+    """Return model-gate status for a governed multi-actor composer."""
+
+    review_path = MODEL_DIR / composer_profile / "runtime_promotion_review.json"
+    if not review_path.exists():
+        return _combined_promotion_gate_status(model_paths)
+
+    try:
+        review = json.loads(review_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        return False, f"composer promotion review unreadable: {exc}"
+
+    if review.get("profile") != composer_profile:
+        return False, f"composer promotion review profile mismatch: {review.get('profile')}"
+    if review.get("decision") != "approved" or not review.get("runtime_model_gate_allowed", False):
+        reasons = review.get("blocking_reasons") or ["composer promotion review is not approved"]
+        return False, "; ".join(str(reason) for reason in reasons)
+
+    components = review.get("components") or {}
+    expected = [
+        str(components.get("slow_model", "")),
+        str(components.get("fast_model", "")),
+    ]
+    actual = [path.name for path in model_paths]
+    if expected and expected != actual:
+        return False, f"composer component model mismatch: expected={expected} actual={actual}"
+    try:
+        label = review_path.relative_to(ROOT)
+    except ValueError:
+        label = review_path
+    return True, f"composer promotion review approved: {label}"
+
+
 def compose_budget_usage_runtime_signal(
     slow_signal: SignalIntent,
     fast_signal: SignalIntent,
@@ -1216,7 +1252,7 @@ def plan_budget_usage_composed_session(
     decision = risk_gate(
         broker,
         signal,
-        model_ready=_combined_promotion_gate_status((slow_path, fast_path)),
+        model_ready=composer_promotion_gate_status(composer_profile, (slow_path, fast_path)),
         clip_position_change=clip_position_change,
     )
     reconcile = reconcile_positions(

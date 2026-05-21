@@ -143,3 +143,34 @@ Evidence:
 
 - `runtime_interface_review.md`
 - `runtime_interface_review.json`
+
+## 2026-05-21 Runtime Promotion Gate Step
+
+Decision: `explicit_runtime_composer_gate_approved_dry_run_only`.
+
+The component slow actor still fails standalone promotion, but this exact
+two-actor composer now has a repo-owned runtime promotion review:
+
+- `runtime_promotion_review.json`
+- `runtime_promotion_review.md`
+
+Approval checks:
+
+- required walk-forward payloads present: `wf_2020`, `wf_2022`,
+  `wf_2023_2024`
+- bull guard enabled in every payload
+- candidate return beats fast `balanced_rule_residual_v22` in every window
+- candidate MaxDD is not worse than fast `balanced_rule_residual_v22` in every
+  window
+- `wf_2022` defense remains within runtime limits
+
+Runtime proof:
+
+- paper dry-run path:
+  `runtime/soxl/paper_trading/2026-05-20/dry_run/summary.json`
+- risk gate: approved
+- model-promotion detail:
+  `composer promotion review approved: runtime/model/card/v19reg_v22_budget_usage_bull_guard_v1/runtime_promotion_review.json`
+
+The installed default scheduler path is unchanged; this approval covers the
+explicit `--runtime-composer budget_usage` path only.
