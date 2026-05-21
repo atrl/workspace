@@ -967,12 +967,21 @@ configuration intentionally enabled.
 Scheduler health now surfaces whether the private LaunchAgent env has actually
 enabled the approved `v19reg_v22_budget_usage_bull_guard_v1` composer.
 
-Current health on this host reports `runtime composer: default single-profile
-path`, so installed scheduling remains on canonical `balanced_rule_residual_v22`.
+Before enabling the private scheduler env, health reported
+`runtime composer: default single-profile path`, so installed scheduling still
+used canonical `balanced_rule_residual_v22`.
 
-Before expecting a fresh-date non-dry composer proof, first confirm
-`production/check_scheduler_health.sh` reports:
+This has now been enabled in the private scheduler env. Current health reports:
 
 ```text
 runtime composer: enabled composer=budget_usage profile=v19reg_v22_budget_usage_bull_guard_v1 slow=balanced_rule_residual_v19_reg fast=balanced_rule_residual_v22 bull_guard=true
 ```
+
+A real-env wrapper dry-run on cached `2026-05-20` data selected the composer,
+passed `risk_gate approved=True`, and wrote
+`runtime/soxl/paper_trading/2026-05-20/dry_run/summary.json` with
+`profile=v19reg_v22_budget_usage_bull_guard_v1`, `dry_run=true`, and
+`executed=false`.
+
+Next model/runtime proof remains a fresh-date non-dry paper artifact with this
+same composer configuration.

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-21T05:59:52.877469+00:00",
+  "generated_at": "2026-05-21T06:11:14.204906+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -2627,7 +2627,7 @@
       "path": "runtime/model/knowledge.md",
       "category": "model",
       "suffix": ".md",
-      "bytes": 52588
+      "bytes": 52960
     },
     {
       "path": "runtime/model/model_adjustment_roadmap.md",
@@ -2798,6 +2798,12 @@
       "bytes": 3211
     },
     {
+      "path": "runtime/production/card/scheduler_composer_env_enabled_v1/notes.md",
+      "category": "production",
+      "suffix": ".md",
+      "bytes": 2607
+    },
+    {
       "path": "runtime/production/card/scheduler_composer_env_health_v1/notes.md",
       "category": "production",
       "suffix": ".md",
@@ -2927,7 +2933,7 @@
       "path": "runtime/production/knowledge.md",
       "category": "production",
       "suffix": ".md",
-      "bytes": 76893
+      "bytes": 78283
     },
     {
       "path": "runtime/reward/card/base_log/card.md",

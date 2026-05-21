@@ -5035,3 +5035,65 @@ Decision:
 Artifact:
 
 - `runtime/production/card/scheduler_composer_env_health_v1/notes.md`
+
+## 2026-05-21 Scheduler Composer Env Enabled
+
+Goal:
+
+- Move the approved `v19reg_v22_budget_usage_bull_guard_v1` composer from
+  "LaunchAgent wrapper can read env" to "the real private scheduler env enables
+  it".
+
+Baseline:
+
+- Health showed the launch env file was present, but `runtime composer: default
+  single-profile path`.
+- Selected `balanced_rule_residual_v22` non-dry proof was already ok via
+  `duplicate_skipped`.
+- Vercel remained `blocked_no_credentials`; weekly walk-forward was pending
+  before first Saturday run.
+
+Change:
+
+- Updated `/Users/rziiiii/.openclaw/soxl.env` with the approved non-secret
+  `SOXL_RUNTIME_*` composer fields, without printing env contents.
+- Repo plist defaults were not changed; the wrapper still appends composer args
+  only from env or explicit CLI flags.
+
+Evidence:
+
+```bash
+production/check_scheduler_health.sh
+# runtime composer: enabled composer=budget_usage profile=v19reg_v22_budget_usage_bull_guard_v1 slow=balanced_rule_residual_v19_reg fast=balanced_rule_residual_v22 bull_guard=true
+# VERCEL_TOKEN: missing in current environment and launch env file
+# wf_weekly: pending until first weekly run
+
+production/run_soxl_scheduler.sh --broker paper --dry-run --no-notify --skip-data-update --skip-dashboard
+# using runtime composer=budget_usage profile=v19reg_v22_budget_usage_bull_guard_v1
+# as_of=2026-05-20
+# risk_gate approved=True
+# dry-run: skipped order placement
+# output=runtime/soxl/paper_trading/2026-05-20/dry_run
+
+jq '{profile:.profile, dry_run:.dry_run, executed:.executed, composition:.composition.name, composer_profile:.composition.composer_profile, slow:.composition.slow_profile, fast:.composition.fast_profile, risk_approved:.risk_gate.approved}' runtime/soxl/paper_trading/2026-05-20/dry_run/summary.json
+# profile=v19reg_v22_budget_usage_bull_guard_v1
+# dry_run=true
+# executed=false
+# composition=budget_usage
+# composer_profile=v19reg_v22_budget_usage_bull_guard_v1
+# slow=balanced_rule_residual_v19_reg
+# fast=balanced_rule_residual_v22
+# risk_approved=true
+```
+
+Decision:
+
+- The scheduler env is now intentionally set to use the approved composer.
+- This does not prove a fresh non-dry composer execution yet; it proves the next
+  scheduled wrapper invocation will select the composer path.
+- Remaining gates: fresh-date non-dry composer artifact, Vercel credentials, and
+  first weekly walk-forward scheduled artifact.
+
+Artifact:
+
+- `runtime/production/card/scheduler_composer_env_enabled_v1/notes.md`

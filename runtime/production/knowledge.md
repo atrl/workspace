@@ -1650,3 +1650,42 @@ Evidence:
 Evidence card:
 
 - `runtime/production/card/scheduler_composer_env_health_v1/notes.md`
+
+## 2026-05-21 Scheduler Composer Env Enabled
+
+The private scheduler env at `/Users/rziiiii/.openclaw/soxl.env` now enables
+the approved `v19reg_v22_budget_usage_bull_guard_v1` composer for LaunchAgent
+wrapper invocations:
+
+- `SOXL_RUNTIME_COMPOSER=budget_usage`
+- `SOXL_RUNTIME_COMPOSER_PROFILE=v19reg_v22_budget_usage_bull_guard_v1`
+- `SOXL_RUNTIME_SLOW_PROFILE=balanced_rule_residual_v19_reg`
+- `SOXL_RUNTIME_FAST_PROFILE=balanced_rule_residual_v22`
+- `SOXL_RUNTIME_BULL_PARTICIPATION_GUARD=true`
+
+`production/check_scheduler_health.sh` now reports:
+
+```text
+runtime composer: enabled composer=budget_usage profile=v19reg_v22_budget_usage_bull_guard_v1 slow=balanced_rule_residual_v19_reg fast=balanced_rule_residual_v22 bull_guard=true
+```
+
+The real-env wrapper smoke:
+
+```bash
+production/run_soxl_scheduler.sh --broker paper --dry-run --no-notify --skip-data-update --skip-dashboard
+```
+
+selected `runtime composer=budget_usage`,
+`profile=v19reg_v22_budget_usage_bull_guard_v1`, used cached `2026-05-20`
+data, passed `risk_gate approved=True`, and wrote the dry-run artifact to
+`runtime/soxl/paper_trading/2026-05-20/dry_run`.
+
+Remaining production gates:
+
+- next fresh-date non-dry paper proof for the composer
+- scheduler-visible Vercel credentials
+- first Saturday weekly walk-forward artifact
+
+Evidence card:
+
+- `runtime/production/card/scheduler_composer_env_enabled_v1/notes.md`
