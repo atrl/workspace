@@ -199,3 +199,24 @@ def test_vercel_check_reads_launch_env_file_for_readiness_without_leaking():
     assert "token_secretish" not in notes_text
     assert "project_secretish" not in notes_text
     assert "team_secretish" not in notes_text
+
+
+def test_vercel_env_file_ignores_placeholder_values():
+    from scripts.deploy_vercel_dashboard import read_env_file
+
+    with TemporaryDirectory() as tmpdir:
+        env_file = Path(tmpdir) / "soxl.env"
+        env_file.write_text(
+            "\n".join(
+                [
+                    "export VERCEL_TOKEN='REPLACE_ME'",
+                    "export VERCEL_PROJECT_ID='replace-me'",
+                    "export VERCEL_ORG_ID=''",
+                ]
+            ),
+            encoding="utf-8",
+        )
+
+        values = read_env_file(env_file)
+
+    assert values == {}

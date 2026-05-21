@@ -5843,3 +5843,54 @@ Decision:
 Artifact:
 
 - `runtime/production/card/scheduled_postclose_slot_marker_v1/notes.md`
+
+## 2026-05-21 Vercel Placeholder Guard
+
+Goal:
+
+- Prevent Vercel setup placeholders from being mistaken for real scheduler
+  credentials/project IDs.
+
+Root cause:
+
+- The deploy readiness probe and scheduler health check treated any non-empty
+  `VERCEL_TOKEN`, `VERCEL_PROJECT_ID`, or `VERCEL_ORG_ID` as configured.
+- If an operator uncommented `REPLACE_ME` placeholders without replacing them,
+  health could report a false configured state before deploy failed.
+
+Change:
+
+- `scripts/deploy_vercel_dashboard.py` ignores `REPLACE_ME` / `replace-me`
+  values when loading Vercel env vars from the LaunchAgent env file and when
+  checking current process env.
+- `production/check_scheduler_health.sh` reports token/project env as missing
+  when the only values are placeholders.
+
+Evidence:
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest \
+  tests/test_vercel_dashboard.py::test_vercel_env_file_ignores_placeholder_values \
+  tests/test_scheduler_health.py::test_scheduler_health_treats_vercel_placeholders_as_missing -q
+# red before implementation: REPLACE_ME / replace-me were treated as configured
+# green after implementation: 2 passed
+
+PYTHONPATH=src:. qlib_venv/bin/python scripts/deploy_vercel_dashboard.py
+# vercel_dashboard status=blocked_no_credentials output=runtime/production/card/vercel_remote_deploy_v1
+
+production/check_scheduler_health.sh
+# VERCEL_TOKEN / VERCEL_PROJECT still missing
+# overall: pending external_vercel_setup,scheduled_postclose_target,scheduled_paper_proof
+```
+
+Decision:
+
+- The Vercel gate now requires non-placeholder values before readiness can
+  advance.
+- Current production goal remains pending on:
+  `external_vercel_setup`, `scheduled_postclose_target`,
+  `scheduled_paper_proof`.
+
+Artifact:
+
+- `runtime/production/card/vercel_placeholder_guard_v1/notes.md`

@@ -2156,3 +2156,32 @@ overall: pending external_vercel_setup,scheduled_postclose_target,scheduled_pape
 Evidence card:
 
 - `runtime/production/card/scheduled_postclose_slot_marker_v1/notes.md`
+
+## 2026-05-21 Vercel Placeholder Guard
+
+The Vercel readiness path now treats `REPLACE_ME` / `replace-me` placeholder
+values as missing for:
+
+- `VERCEL_TOKEN`
+- `VERCEL_PROJECT_ID`
+- `VERCEL_ORG_ID`
+
+This is enforced in both:
+
+- `scripts/deploy_vercel_dashboard.py`
+- `production/check_scheduler_health.sh`
+
+Current live checks after the change still report:
+
+```text
+VERCEL_TOKEN: missing in current environment and launch env file
+VERCEL_PROJECT: missing VERCEL_PROJECT_ID or VERCEL_ORG_ID in current environment and launch env file
+overall: pending external_vercel_setup,scheduled_postclose_target,scheduled_paper_proof
+```
+
+This prevents operator-doc placeholders from creating a false
+`ready_for_deploy` or `configured` signal.
+
+Evidence card:
+
+- `runtime/production/card/vercel_placeholder_guard_v1/notes.md`

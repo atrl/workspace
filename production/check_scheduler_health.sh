@@ -250,7 +250,8 @@ env_file_has_nonempty_assignment() {
                 sub(pattern "[[:space:]]*", "", line)
                 gsub(/^[\047"]|[\047"]$/, "", line)
                 gsub(/[[:space:]]+$/, "", line)
-                if (line != "") {
+                lower = tolower(line)
+                if (line != "" && lower != "replace_me" && lower != "replace-me") {
                     found = 1
                     exit
                 }
@@ -283,6 +284,15 @@ env_file_assignment_value() {
     ' "$env_file"
 }
 
+configured_env_value() {
+    value="$1"
+    if [ -z "$value" ]; then
+        return 1
+    fi
+    normalized=$(printf "%s" "$value" | tr '[:upper:]' '[:lower:]')
+    [ "$normalized" != "replace_me" ] && [ "$normalized" != "replace-me" ]
+}
+
 print_vercel_project_env_status() {
     current_project="${VERCEL_PROJECT_ID:-}"
     current_org="${VERCEL_ORG_ID:-}"
@@ -295,11 +305,11 @@ print_vercel_project_env_status() {
         launch_org="true"
     fi
 
-    if [ -n "$current_project" ] && [ -n "$current_org" ]; then
+    if configured_env_value "$current_project" && configured_env_value "$current_org"; then
         echo "  VERCEL_PROJECT: configured in current environment"
     elif [ "$launch_project" = "true" ] && [ "$launch_org" = "true" ]; then
         echo "  VERCEL_PROJECT: configured in launch env file"
-    elif { [ -n "$current_project" ] || [ "$launch_project" = "true" ]; } && { [ -n "$current_org" ] || [ "$launch_org" = "true" ]; }; then
+    elif { configured_env_value "$current_project" || [ "$launch_project" = "true" ]; } && { configured_env_value "$current_org" || [ "$launch_org" = "true" ]; }; then
         echo "  VERCEL_PROJECT: configured across current environment and launch env file"
     else
         echo "  VERCEL_PROJECT: missing VERCEL_PROJECT_ID or VERCEL_ORG_ID in current environment and launch env file"
@@ -367,7 +377,7 @@ print_scheduler_private_env() {
         echo "  launch env file: missing path=${LAUNCH_ENV_FILE}"
     fi
 
-    if [ -n "${VERCEL_TOKEN:-}" ]; then
+    if configured_env_value "${VERCEL_TOKEN:-}"; then
         echo "  VERCEL_TOKEN: configured in current environment"
     elif env_file_has_nonempty_assignment "VERCEL_TOKEN" "$LAUNCH_ENV_FILE"; then
         echo "  VERCEL_TOKEN: configured in launch env file"

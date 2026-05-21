@@ -23,10 +23,18 @@ from scripts.check_dashboard_static_export import check_static_export
 
 DEPLOYMENT_URL_RE = re.compile(r"https://[A-Za-z0-9][A-Za-z0-9.-]*\.vercel\.app\b")
 VERCEL_ENV_KEYS = ("VERCEL_TOKEN", "VERCEL_PROJECT_ID", "VERCEL_ORG_ID")
+PLACEHOLDER_ENV_VALUES = {"replace_me", "replace-me"}
 
 
 def ascii_safe(text: str) -> str:
     return text.encode("ascii", errors="ignore").decode("ascii")
+
+
+def is_configured_env_value(value: str | None) -> bool:
+    if not value:
+        return False
+    normalized = value.strip().lower()
+    return bool(normalized) and normalized not in PLACEHOLDER_ENV_VALUES
 
 
 def build_deploy_command(root: Path, *, token: str | None = None, prod: bool = True) -> list[str]:
@@ -73,7 +81,7 @@ def read_env_file(path: Path) -> dict[str, str]:
             if "=" not in part:
                 continue
             key, value = part.split("=", 1)
-            if key in VERCEL_ENV_KEYS and value:
+            if key in VERCEL_ENV_KEYS and is_configured_env_value(value):
                 values[key] = value
     return values
 
@@ -83,7 +91,7 @@ def effective_env_with_file(env: Mapping[str, str], env_file: Path | None) -> tu
     loaded_values = read_env_file(env_file) if env_file else {}
     applied_keys: list[str] = []
     for key, value in loaded_values.items():
-        if not effective_env.get(key):
+        if not is_configured_env_value(effective_env.get(key)):
             effective_env[key] = value
             applied_keys.append(key)
     return effective_env, {
@@ -102,7 +110,7 @@ def auth_status(
     whoami_stderr: str,
     token_env: str = "VERCEL_TOKEN",
 ) -> dict[str, str]:
-    if env.get(token_env):
+    if is_configured_env_value(env.get(token_env)):
         return {
             "status": "token",
             "detail": f"{token_env} is set",
@@ -140,7 +148,7 @@ def project_link_status(root: Path, env: Mapping[str, str]) -> dict[str, str]:
             "detail": ".vercel/project.json is missing projectId or orgId",
         }
 
-    if env.get("VERCEL_PROJECT_ID") and env.get("VERCEL_ORG_ID"):
+    if is_configured_env_value(env.get("VERCEL_PROJECT_ID")) and is_configured_env_value(env.get("VERCEL_ORG_ID")):
         return {
             "status": "env_configured",
             "detail": "VERCEL_PROJECT_ID and VERCEL_ORG_ID are set",
