@@ -4804,3 +4804,67 @@ Decision:
 Artifact:
 
 - `runtime/production/card/scheduler_stderr_signal_v1/notes.md`
+
+## 2026-05-21 Selected v22 Duplicate-Skip Inference Proof
+
+Goal:
+
+- Preserve proof that the selected runtime profile performed scheduled
+  non-dry inference even when same-day idempotency correctly blocks duplicate
+  broker execution.
+
+Root cause:
+
+- The root `2026-05-20` non-dry paper artifact was an earlier
+  `balanced_rule_residual_v19` execution.
+- A later scheduled run selected `balanced_rule_residual_v22` on fresh
+  `2026-05-20` data, but `production/soxl_paper_trading.py` returned
+  immediately after detecting that the broker/date had already executed.
+- That prevented duplicate orders, but it also dropped the v22 inference/risk
+  evidence, so health could only report selected v22 runtime proof as pending.
+
+Change:
+
+- Duplicate non-dry runs now persist an inference artifact under
+  `runtime/soxl/paper_trading/<date>/duplicate_skip/<profile>/`.
+- The artifact records `dry_run=false`, `executed=false`, and
+  `execution_result.status=duplicate_skipped`.
+- Broker order placement, paper broker state save, and cumulative daily CSV
+  append remain skipped.
+- Scheduler health now scans selected-profile nested non-dry proof artifacts
+  before declaring runtime proof pending on a same-date root profile mismatch.
+
+Evidence:
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest \
+  tests/test_paper_trading.py::test_main_persists_duplicate_non_dry_inference_without_order \
+  tests/test_scheduler_health.py::test_scheduler_health_accepts_selected_profile_duplicate_skip_as_runtime_proof -q
+# red before implementation: duplicate artifact missing; health reported pending
+# green after implementation: 2 passed
+
+PYTHONPATH=src:. qlib_venv/bin/python production/soxl_paper_trading.py \
+  --no-notify --skip-data-update
+# selected balanced_rule_residual_v22 on fresh 2026-05-20 data
+# duplicate inference output=runtime/soxl/paper_trading/2026-05-20/duplicate_skip/balanced_rule_residual_v22
+
+production/check_scheduler_health.sh
+# runtime proof: ok latest_non_dry_profile=balanced_rule_residual_v22 selected_model=balanced_rule_residual_v22 execution=duplicate_skipped
+# runtime proof artifact=runtime/soxl/paper_trading/2026-05-20/duplicate_skip/balanced_rule_residual_v22/summary.json
+
+uv run --python qlib_venv/bin/python --with pytest pytest \
+  tests/test_paper_trading.py tests/test_scheduler_health.py tests/test_daily_scheduler.py -q
+# 46 passed
+```
+
+Decision:
+
+- `duplicate_skipped` proves selected-profile non-dry scheduled inference and
+  risk-gate evaluation, not a new broker order.
+- The duplicate guard remains the authority preventing same-day double
+  execution.
+- Vercel credentials and weekly first-run evidence remain separate gates.
+
+Artifact:
+
+- `runtime/production/card/paper_duplicate_inference_proof_v1/notes.md`

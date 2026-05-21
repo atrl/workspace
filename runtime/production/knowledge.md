@@ -1516,3 +1516,39 @@ Evidence:
 Evidence card:
 
 - `runtime/production/card/scheduler_stderr_signal_v1/notes.md`
+
+## 2026-05-21 Selected v22 Duplicate-Skip Inference Proof
+
+Issue: selected `balanced_rule_residual_v22` could run non-dry scheduled
+inference on fresh data after a same-date root `balanced_rule_residual_v19`
+execution, but the duplicate-order guard returned before persisting v22 evidence.
+Health therefore kept reporting selected v22 runtime proof as pending even
+though the scheduler had reached selected-profile inference and risk gating.
+
+Change:
+
+- Duplicate same-day non-dry attempts persist under
+  `runtime/soxl/paper_trading/<date>/duplicate_skip/<profile>/`.
+- The duplicate artifact records `dry_run=false`, `executed=false`,
+  `execution_result.status=duplicate_skipped`, and the prior root execution
+  under `duplicate_of`.
+- Broker order placement, broker state save, and daily CSV append remain
+  skipped.
+- `production/check_scheduler_health.sh` scans selected-profile nested non-dry
+  proof artifacts before declaring selected runtime proof pending.
+
+Evidence:
+
+- `uv run --python qlib_venv/bin/python --with pytest pytest tests/test_paper_trading.py::test_main_persists_duplicate_non_dry_inference_without_order tests/test_scheduler_health.py::test_scheduler_health_accepts_selected_profile_duplicate_skip_as_runtime_proof -q`
+  -> red before implementation, then `2 passed`.
+- `PYTHONPATH=src:. qlib_venv/bin/python production/soxl_paper_trading.py --no-notify --skip-data-update`
+  -> selected `balanced_rule_residual_v22`, skipped duplicate order, wrote
+  `runtime/soxl/paper_trading/2026-05-20/duplicate_skip/balanced_rule_residual_v22`.
+- `production/check_scheduler_health.sh` -> selected v22 runtime proof ok with
+  `execution=duplicate_skipped`.
+- `uv run --python qlib_venv/bin/python --with pytest pytest tests/test_paper_trading.py tests/test_scheduler_health.py tests/test_daily_scheduler.py -q`
+  -> `46 passed`.
+
+Evidence card:
+
+- `runtime/production/card/paper_duplicate_inference_proof_v1/notes.md`

@@ -32,6 +32,7 @@ from scripts.update_market_data import update_master_csv, refresh_qlib, sync_loc
 from src.soxl_quant.data import init_qlib
 from src.soxl_quant.runtime import (
     BrokerAdapter,
+    BrokerExecutionResult,
     PaperBroker,
     auto_select_profile,
     next_runtime_execution_overlay_state,
@@ -457,6 +458,24 @@ def _existing_executed_summary(
     return None
 
 
+def _safe_artifact_name(value: str) -> str:
+    return "".join(
+        char if char.isalnum() or char in {"-", "_", "."} else "_"
+        for char in value
+    )
+
+
+def _duplicate_skip_output_dir(
+    signal_date: str,
+    *,
+    profile_name: str,
+    runtime_dir: Path | None = None,
+) -> Path:
+    base_dir = runtime_dir or RUNTIME_DIR
+    safe_profile = _safe_artifact_name(profile_name or "unknown_profile")
+    return base_dir / "paper_trading" / signal_date / "duplicate_skip" / safe_profile
+
+
 def _paper_output_dir(
     signal_date: str,
     broker_name: str,
@@ -476,10 +495,7 @@ def _paper_output_dir(
             except Exception:
                 existing = {}
             if existing.get("profile") and existing.get("profile") != profile_name:
-                safe_profile = "".join(
-                    char if char.isalnum() or char in {"-", "_", "."} else "_"
-                    for char in profile_name
-                )
+                safe_profile = _safe_artifact_name(profile_name)
                 return dry_run_dir / safe_profile
         return dry_run_dir
     return run_dir
@@ -660,10 +676,48 @@ def main() -> None:
         if not args.dry_run:
             existing_summary = _existing_executed_summary(signal.date, args.broker)
             if existing_summary is not None:
+                duplicate_result = BrokerExecutionResult(
+                    submitted=False,
+                    broker_name=args.broker,
+                    status="duplicate_skipped",
+                    target_position=float(decision.capped_target_position),
+                    resulting_position=float(account.position),
+                    error=f"existing non-dry execution for {signal.date} broker={args.broker}",
+                )
+                result["execution_result"] = duplicate_result
+                result["duplicate_of"] = existing_summary
+                run_dir = _duplicate_skip_output_dir(signal.date, profile_name=profile_name)
+                run_dir.mkdir(parents=True, exist_ok=True)
+                for name, value in result.items():
+                    (run_dir / f"{name}.json").write_text(
+                        json.dumps(_jsonable(value), ensure_ascii=False, indent=2),
+                        encoding="utf-8",
+                    )
+                summary = {
+                    "date": signal.date,
+                    "profile": profile_name,
+                    "model": signal.model_path if _runtime_composer_enabled(args) else str(model_path),
+                    "broker": args.broker,
+                    "dry_run": False,
+                    "executed": False,
+                    "execution_result": asdict(duplicate_result),
+                    "duplicate_of": existing_summary,
+                    "signal": asdict(signal),
+                    "risk_gate": asdict(decision),
+                    "account": asdict(account),
+                    "reconcile": asdict(reconcile),
+                }
+                if "composition" in result:
+                    summary["composition"] = result["composition"]
+                (run_dir / "summary.json").write_text(
+                    json.dumps(summary, indent=2, default=str),
+                    encoding="utf-8",
+                )
                 print(
                     f"[paper] already executed for {signal.date} "
                     f"broker={args.broker}; skipping duplicate order"
                 )
+                print(f"[paper] duplicate inference output={run_dir}")
                 return
 
         # 6. Daily drawdown circuit breaker

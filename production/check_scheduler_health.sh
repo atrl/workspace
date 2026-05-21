@@ -302,6 +302,18 @@ print_latest_signal_artifact() {
     if [ -z "$reconcile" ]; then
         reconcile="unknown"
     fi
+    selected_summary=$(
+        if [ -n "${SELECTED_MODEL_PROFILE}" ]; then
+            find "$paper_dir" -mindepth 2 -maxdepth 5 -type f -name summary.json 2>/dev/null | sort | while IFS= read -r candidate; do
+                candidate_payload=$(cat "$candidate")
+                candidate_profile=$(json_field "$candidate_payload" "profile")
+                candidate_dry_run=$(json_field "$candidate_payload" "dry_run")
+                if [ "$candidate_profile" = "$SELECTED_MODEL_PROFILE" ] && [ "$candidate_dry_run" = "false" ]; then
+                    echo "$candidate"
+                fi
+            done | tail -1
+        fi
+    )
 
     echo "  latest signal: date=${date_value} profile=${profile} dry_run=${dry_run} executed=${executed}"
     echo "  target=${target} risk_gate=${risk_status} reconcile=${reconcile}"
@@ -310,15 +322,34 @@ print_latest_signal_artifact() {
         if [ "$profile" = "$SELECTED_MODEL_PROFILE" ]; then
             if [ "$executed" = "true" ]; then
                 echo "  runtime proof: ok latest_executed_profile=${profile} selected_model=${SELECTED_MODEL_PROFILE}"
-            elif [ "$risk_gate" = "true" ] && [ "$execution_status" = "skipped" ]; then
-                echo "  runtime proof: ok latest_non_dry_profile=${profile} selected_model=${SELECTED_MODEL_PROFILE} execution=skipped"
+            elif [ "$risk_gate" = "true" ] && { [ "$execution_status" = "skipped" ] || [ "$execution_status" = "duplicate_skipped" ]; }; then
+                echo "  runtime proof: ok latest_non_dry_profile=${profile} selected_model=${SELECTED_MODEL_PROFILE} execution=${execution_status}"
             else
                 echo "  runtime proof: pending latest_non_dry_profile=${profile} selected_model=${SELECTED_MODEL_PROFILE} execution=${execution_status:-unknown}"
             fi
         elif [ "$executed" = "true" ]; then
-            echo "  runtime proof: pending latest_executed_profile=${profile} selected_model=${SELECTED_MODEL_PROFILE}"
-            if [ -n "$PAPER_EXPECTED_LAST_TRADING_DAY" ] && [ "$date_value" = "$PAPER_EXPECTED_LAST_TRADING_DAY" ]; then
-                echo "  runtime proof detail: latest executed date already matches expected data date; next non-dry-run execution must use selected model"
+            if [ -n "$selected_summary" ] && [ "$selected_summary" != "$latest_summary" ]; then
+                selected_payload=$(cat "$selected_summary")
+                selected_profile=$(json_field "$selected_payload" "profile")
+                selected_executed=$(json_field "$selected_payload" "executed")
+                selected_status=$(json_field "$selected_payload" "execution_result.status")
+                selected_risk_gate=$(json_field "$selected_payload" "risk_gate.approved")
+                selected_rel_path=${selected_summary#"$ROOT"/}
+                if [ "$selected_executed" = "true" ]; then
+                    echo "  runtime proof: ok latest_executed_profile=${selected_profile} selected_model=${SELECTED_MODEL_PROFILE}"
+                    echo "  runtime proof artifact=${selected_rel_path}"
+                elif [ "$selected_risk_gate" = "true" ] && { [ "$selected_status" = "skipped" ] || [ "$selected_status" = "duplicate_skipped" ]; }; then
+                    echo "  runtime proof: ok latest_non_dry_profile=${selected_profile} selected_model=${SELECTED_MODEL_PROFILE} execution=${selected_status}"
+                    echo "  runtime proof artifact=${selected_rel_path}"
+                else
+                    echo "  runtime proof: pending latest_non_dry_profile=${selected_profile} selected_model=${SELECTED_MODEL_PROFILE} execution=${selected_status:-unknown}"
+                    echo "  runtime proof artifact=${selected_rel_path}"
+                fi
+            else
+                echo "  runtime proof: pending latest_executed_profile=${profile} selected_model=${SELECTED_MODEL_PROFILE}"
+                if [ -n "$PAPER_EXPECTED_LAST_TRADING_DAY" ] && [ "$date_value" = "$PAPER_EXPECTED_LAST_TRADING_DAY" ]; then
+                    echo "  runtime proof detail: latest executed date already matches expected data date; next non-dry-run execution must use selected model"
+                fi
             fi
         fi
     fi

@@ -491,6 +491,96 @@ def test_scheduler_health_reports_pending_runtime_profile_proof():
     ) in result.stdout
 
 
+def test_scheduler_health_accepts_selected_profile_duplicate_skip_as_runtime_proof():
+    with TemporaryDirectory() as tmpdir:
+        root = Path(tmpdir)
+        runtime_dir = root / "runtime" / "soxl" / "paper_trading" / "2026-05-20"
+        duplicate_dir = runtime_dir / "duplicate_skip" / "balanced_rule_residual_v22"
+        duplicate_dir.mkdir(parents=True)
+        (runtime_dir / "summary.json").write_text(
+            """
+{
+  "date": "2026-05-20",
+  "profile": "balanced_rule_residual_v19",
+  "dry_run": false,
+  "executed": true,
+  "signal": {"target_position": 0.48},
+  "risk_gate": {"approved": true},
+  "reconcile": {"action_required": "none"}
+}
+""",
+            encoding="utf-8",
+        )
+        (duplicate_dir / "summary.json").write_text(
+            """
+{
+  "date": "2026-05-20",
+  "profile": "balanced_rule_residual_v22",
+  "dry_run": false,
+  "executed": false,
+  "execution_result": {"submitted": false, "status": "duplicate_skipped"},
+  "signal": {"target_position": 0.50},
+  "risk_gate": {"approved": true},
+  "reconcile": {"action_required": "none"}
+}
+""",
+            encoding="utf-8",
+        )
+        production_dir = root / "production"
+        production_dir.mkdir()
+        launchagents_dir = root / "LaunchAgents"
+        launchagents_dir.mkdir()
+        for label in ("com.soxl.preopen.scheduler", "com.soxl.daily.scheduler"):
+            repo_plist = production_dir / f"{label}.plist"
+            repo_plist.write_text(f"<plist>{label}</plist>\n", encoding="utf-8")
+            (launchagents_dir / repo_plist.name).write_text(repo_plist.read_text(encoding="utf-8"), encoding="utf-8")
+
+        fake_bin = root / "bin"
+        fake_bin.mkdir()
+        launchctl = fake_bin / "launchctl"
+        launchctl.write_text(
+            "#!/bin/sh\nprintf '123\\t0\\tcom.soxl.preopen.scheduler\\n456\\t0\\tcom.soxl.daily.scheduler\\n'\n",
+            encoding="utf-8",
+        )
+        launchctl.chmod(0o755)
+        fake_python = fake_bin / "python"
+        fake_python.write_text(
+            "#!/bin/sh\n"
+            "cat <<'JSON'\n"
+            "{\"data\":{\"ok\":true,\"last_date\":\"2026-05-20\","
+            "\"expected_last_trading_day\":\"2026-05-20\",\"stale_days\":0},"
+            "\"model\":{\"ok\":true,\"name\":\"balanced_rule_residual_v22 (soxl_balanced_rule_residual_v22_actor.pt)\"},"
+            "\"broker\":{\"ok\":true,\"msg\":\"paper broker ready\"},"
+            "\"all_ok\":true}\n"
+            "JSON\n",
+            encoding="utf-8",
+        )
+        fake_python.chmod(0o755)
+
+        env = {
+            **os.environ,
+            "PATH": f"{fake_bin}:{os.environ['PATH']}",
+            "SOXL_SCHEDULER_HEALTH_OS": "Darwin",
+            "SOXL_SCHEDULER_HEALTH_ROOT": str(root),
+            "SOXL_SCHEDULER_HEALTH_PYTHON": str(fake_python),
+            "SOXL_SCHEDULER_HEALTH_LAUNCHAGENTS_DIR": str(launchagents_dir),
+        }
+        result = subprocess.run(
+            ["bash", str(ROOT / "production" / "check_scheduler_health.sh")],
+            capture_output=True,
+            text=True,
+            env=env,
+            check=True,
+        )
+
+    assert (
+        "runtime proof: ok latest_non_dry_profile=balanced_rule_residual_v22 "
+        "selected_model=balanced_rule_residual_v22 execution=duplicate_skipped"
+    ) in result.stdout
+    assert "runtime proof: pending latest_executed_profile=balanced_rule_residual_v19" not in result.stdout
+    assert "artifact=runtime/soxl/paper_trading/2026-05-20/duplicate_skip/balanced_rule_residual_v22/summary.json" in result.stdout
+
+
 def test_scheduler_health_accepts_selected_profile_non_dry_skipped_order_as_runtime_proof():
     with TemporaryDirectory() as tmpdir:
         root = Path(tmpdir)

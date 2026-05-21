@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-21T05:24:38.708929+00:00",
+  "generated_at": "2026-05-21T05:34:03.659310+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -2756,6 +2756,12 @@
       "bytes": 2370
     },
     {
+      "path": "runtime/production/card/paper_duplicate_inference_proof_v1/notes.md",
+      "category": "production",
+      "suffix": ".md",
+      "bytes": 2778
+    },
+    {
       "path": "runtime/production/card/paper_full_loop_v1/notes.md",
       "category": "production",
       "suffix": ".md",
@@ -2903,7 +2909,7 @@
       "path": "runtime/production/knowledge.md",
       "category": "production",
       "suffix": ".md",
-      "bytes": 70876
+      "bytes": 72810
     },
     {
       "path": "runtime/reward/card/base_log/card.md",
