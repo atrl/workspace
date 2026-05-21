@@ -1878,3 +1878,28 @@ The goal should remain active until at least these gates clear:
 Evidence card:
 
 - `runtime/production/card/thread_goal_completion_audit_v1/notes.md`
+
+## 2026-05-21 Post-close Proof Status
+
+`production/check_scheduler_health.sh` now carries ordinary paper proof state
+into the post-close section. This avoids a misleading split where
+`Latest Signal Artifact` says ordinary paper proof is pending but
+`Post-close Run Status` only says `success marker found`.
+
+Current live readout:
+
+```text
+postclose status: success marker found
+postclose proof: ordinary paper proof pending selected_model=v19reg_v22_budget_usage_bull_guard_v1 execution=duplicate_skipped
+```
+
+Interpretation:
+
+- The wrapper completed.
+- Composer non-dry inference/risk/idempotency is proven.
+- Ordinary simulated-paper proof still waits for the next new-date scheduled
+  non-dry run to produce `executed=true` or fresh `execution=skipped`.
+
+Evidence card:
+
+- `runtime/production/card/postclose_proof_status_v1/notes.md`

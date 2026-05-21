@@ -26,6 +26,9 @@ RUNTIME_SLOW_PROFILE=""
 RUNTIME_FAST_PROFILE=""
 RUNTIME_BULL_PARTICIPATION_GUARD="false"
 RUNTIME_COMPOSER_MISSING=""
+ORDINARY_PAPER_PROOF_STATUS=""
+ORDINARY_PAPER_PROOF_SELECTED_MODEL=""
+ORDINARY_PAPER_PROOF_EXECUTION=""
 
 file_epoch() {
     path="$1"
@@ -430,16 +433,30 @@ print_ordinary_paper_proof_status() {
     executed="$3"
     execution_status="$4"
 
+    ORDINARY_PAPER_PROOF_SELECTED_MODEL="$selected_model"
+    ORDINARY_PAPER_PROOF_EXECUTION="${execution_status:-unknown}"
+
     if [ "$executed" = "true" ]; then
+        ORDINARY_PAPER_PROOF_STATUS="ok"
         echo "  ordinary paper proof: ok latest_executed_profile=${profile} selected_model=${selected_model}"
     elif [ "$execution_status" = "skipped" ]; then
+        ORDINARY_PAPER_PROOF_STATUS="ok"
         echo "  ordinary paper proof: ok latest_non_dry_profile=${profile} selected_model=${selected_model} execution=${execution_status}"
     elif [ "$execution_status" = "duplicate_skipped" ]; then
+        ORDINARY_PAPER_PROOF_STATUS="pending"
         echo "  ordinary paper proof: pending latest_non_dry_profile=${profile} selected_model=${selected_model} execution=${execution_status}"
         echo "  ordinary paper proof detail: duplicate-skip proves same-date idempotent inference only; next new-date scheduled non-dry run must produce executed or skipped order proof"
     else
+        ORDINARY_PAPER_PROOF_STATUS="pending"
         echo "  ordinary paper proof: pending latest_non_dry_profile=${profile} selected_model=${selected_model} execution=${execution_status:-unknown}"
     fi
+}
+
+print_postclose_proof_detail() {
+    if [ -z "$ORDINARY_PAPER_PROOF_STATUS" ]; then
+        return
+    fi
+    echo "  postclose proof: ordinary paper proof ${ORDINARY_PAPER_PROOF_STATUS} selected_model=${ORDINARY_PAPER_PROOF_SELECTED_MODEL} execution=${ORDINARY_PAPER_PROOF_EXECUTION}"
 }
 
 print_latest_signal_artifact() {
@@ -539,6 +556,7 @@ print_postclose_status() {
     postclose_log="${ROOT}/runtime/soxl/paper_trading/scheduler_postclose.log"
     if postclose_success_after_cutoff "$postclose_log"; then
         echo "  postclose status: success marker found"
+        print_postclose_proof_detail
     elif postclose_cached_dry_run_after_cutoff "$postclose_log"; then
         echo "  postclose status: due but only cached dry-run fallback completed"
     elif postclose_due_today; then

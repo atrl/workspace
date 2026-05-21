@@ -748,6 +748,10 @@ def test_scheduler_health_accepts_selected_profile_duplicate_skip_as_runtime_pro
         runtime_dir = root / "runtime" / "soxl" / "paper_trading" / "2026-05-20"
         duplicate_dir = runtime_dir / "duplicate_skip" / "balanced_rule_residual_v22"
         duplicate_dir.mkdir(parents=True)
+        (root / "runtime" / "soxl" / "paper_trading" / "scheduler_postclose.log").write_text(
+            "[scheduler] all done\n",
+            encoding="utf-8",
+        )
         (runtime_dir / "summary.json").write_text(
             """
 {
@@ -831,6 +835,10 @@ def test_scheduler_health_accepts_selected_profile_duplicate_skip_as_runtime_pro
     assert (
         "ordinary paper proof: pending latest_non_dry_profile=balanced_rule_residual_v22 "
         "selected_model=balanced_rule_residual_v22 execution=duplicate_skipped"
+    ) in result.stdout
+    assert (
+        "postclose proof: ordinary paper proof pending selected_model=balanced_rule_residual_v22 "
+        "execution=duplicate_skipped"
     ) in result.stdout
     assert "runtime proof: pending latest_executed_profile=balanced_rule_residual_v19" not in result.stdout
     assert "artifact=runtime/soxl/paper_trading/2026-05-20/duplicate_skip/balanced_rule_residual_v22/summary.json" in result.stdout

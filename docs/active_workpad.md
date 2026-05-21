@@ -5371,3 +5371,48 @@ Decision:
 Artifact:
 
 - `runtime/production/card/thread_goal_completion_audit_v1/notes.md`
+
+## 2026-05-21 Post-close Proof Status
+
+Goal:
+
+- Make the `Post-close Run Status` section reflect ordinary paper proof state,
+  not just the wrapper success marker.
+
+Root cause:
+
+- Health already reported `ordinary paper proof: pending ... duplicate_skipped`
+  in `Latest Signal Artifact`.
+- The later post-close section still printed only
+  `postclose status: success marker found`, which was true for the wrapper but
+  too easy to misread as final simulated-paper completion.
+
+Change:
+
+- `production/check_scheduler_health.sh` now stores ordinary proof status while
+  printing latest signal proof.
+- When a post-close success marker is present, health also prints
+  `postclose proof: ordinary paper proof ...`.
+
+Evidence:
+
+```bash
+PYTHONPATH=src:. qlib_venv/bin/python -c "import importlib.util; spec=importlib.util.spec_from_file_location('test_scheduler_health', 'tests/test_scheduler_health.py'); mod=importlib.util.module_from_spec(spec); spec.loader.exec_module(mod); mod.test_scheduler_health_accepts_selected_profile_duplicate_skip_as_runtime_proof()"
+# red before implementation: missing postclose proof line
+# green after implementation: exit 0
+
+production/check_scheduler_health.sh
+# postclose status: success marker found
+# postclose proof: ordinary paper proof pending selected_model=v19reg_v22_budget_usage_bull_guard_v1 execution=duplicate_skipped
+```
+
+Decision:
+
+- Post-close wrapper completion and simulated-paper proof are now both visible
+  in the post-close section.
+- The remaining non-external gate remains the next new-date scheduled non-dry
+  run producing `postclose proof: ordinary paper proof ok ...`.
+
+Artifact:
+
+- `runtime/production/card/postclose_proof_status_v1/notes.md`
