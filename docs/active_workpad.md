@@ -5984,3 +5984,57 @@ Decision:
 Artifact:
 
 - `runtime/production/card/goal_gate_recheck_20260521_v1/notes.md`
+
+## 2026-05-21 Dashboard Production Status
+
+Goal:
+
+- Make the Vercel/static dashboard bundle include a non-secret production status
+  artifact instead of keeping Vercel readiness only under runtime cards.
+
+Root cause:
+
+- `scripts/deploy_vercel_dashboard.py` wrote deployment evidence to
+  `runtime/production/card/vercel_remote_deploy_v1/`, but the static
+  `dashboard_data/` namespace served by Vercel did not include a production
+  status JSON.
+
+Change:
+
+- `scripts/deploy_vercel_dashboard.py`
+  - writes `dashboard_data/production_status.json` on every readiness/deploy
+    check;
+  - redacts secrets by exporting only status values and env key names.
+- `scripts/check_dashboard_static_export.py`
+  - now requires and validates `dashboard_data/production_status.json`;
+  - prints `production_status=<status>` in its summary.
+- `tests/test_vercel_dashboard.py`
+  - covers secret-safe status export and static checker coverage.
+
+Evidence:
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest \
+  tests/test_vercel_dashboard.py::test_vercel_check_exports_dashboard_production_status_without_leaking \
+  tests/test_vercel_dashboard.py::test_dashboard_static_export_integrity_check_passes -q
+# red before implementation: production_status.json missing / checker did not report production_status
+# green after implementation: 2 passed
+
+PYTHONPATH=src:. qlib_venv/bin/python scripts/deploy_vercel_dashboard.py
+# vercel_dashboard status=blocked_no_credentials output=runtime/production/card/vercel_remote_deploy_v1
+
+PYTHONPATH=src:. qlib_venv/bin/python scripts/check_dashboard_static_export.py
+# ok dashboard_static_export ... production_status=blocked_no_credentials ...
+```
+
+Decision:
+
+- Vercel is still externally blocked by missing scheduler-visible token and
+  project link/env IDs.
+- The future Vercel/static dashboard bundle will now include
+  `dashboard_data/production_status.json` with current redacted deployment and
+  production status.
+
+Artifact:
+
+- `runtime/production/card/dashboard_production_status_v1/notes.md`

@@ -35,6 +35,7 @@
 28. **v22 runtime proof 缺口现在归因到同日幂等保护**：当前 health 选择 `balanced_rule_residual_v22`，但最新非 dry-run paper artifact 是 `2026-05-20` 的 `balanced_rule_residual_v19`。因为该日期已经执行，paper runner 不应重复落单；health 现在会在 pending 行后补充 `latest executed date already matches expected data date; next non-dry-run execution must use selected model`，把剩余证明归因到等待下一交易日，而不是误判为数据/调度失败。
 29. **Next Scheduled Runs 不再把已过窗口标成 today**：`production/check_scheduler_health.sh` 现在按 `HEALTH_WEEKDAY/HEALTH_HHMM` 判断 pre-open、post-close、weekly 窗口。当前 post-close 输出为 `next eligible day 06:15 Tue-Sat Asia/Shanghai`，避免把当天已过的 post-close 误读成下一次运行。
 30. **pre-open scheduled dry-run 现在有独立 health 状态**：health 新增 `Pre-open Run Status`，按 `21:00 Mon-Fri Asia/Shanghai` 判断 pending/due/current，并在当前成功时要求 `schedule_slot=preopen dry_run=True skip_data_update=True` 以及 runtime composer 目标字段；这不新增最终 goal gate。
+31. **静态 dashboard 包现在携带生产状态 JSON**：`scripts/deploy_vercel_dashboard.py` 会写 `dashboard_data/production_status.json`，只包含非 secret 的 Vercel/auth/project/static 状态；`scripts/check_dashboard_static_export.py` 会要求并报告 `production_status=<status>`。当前状态仍是 `blocked_no_credentials`。
 
 ## 2026-05-20 验证记录
 
@@ -2239,3 +2240,36 @@ No local code change can truthfully clear these remaining gates before either:
 Evidence card:
 
 - `runtime/production/card/goal_gate_recheck_20260521_v1/notes.md`
+
+## 2026-05-21 Dashboard Production Status
+
+The static dashboard bundle now includes a redacted production status artifact:
+
+```text
+dashboard_data/production_status.json
+```
+
+It is written by `scripts/deploy_vercel_dashboard.py` on every readiness/deploy
+check and currently reports:
+
+```text
+status=blocked_no_credentials
+auth_status=blocked_no_credentials
+project_status=missing_project_link
+deployment_url=null
+static_export.latest=paper_trading
+static_export.paper_trading_end=2026-05-20
+env_file.present=true
+env_file.applied_keys=[]
+```
+
+`scripts/check_dashboard_static_export.py` now treats this as a required static
+artifact and prints `production_status=blocked_no_credentials` in the dashboard
+static-export summary.
+
+This moves the Vercel/dashboard surface forward, but does not clear the Vercel
+remote gate; credentials and project link/env IDs are still missing.
+
+Evidence card:
+
+- `runtime/production/card/dashboard_production_status_v1/notes.md`

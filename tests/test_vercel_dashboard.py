@@ -41,6 +41,7 @@ def test_dashboard_static_export_is_trackable():
     assert (ROOT / "dashboard.html").exists()
     assert (ROOT / "dashboard_data" / "index.json").exists()
     assert (ROOT / "dashboard_data" / "model_versions.json").exists()
+    assert (ROOT / "dashboard_data" / "production_status.json").exists()
 
 
 def test_dashboard_static_export_integrity_check_passes():
@@ -56,6 +57,7 @@ def test_dashboard_static_export_integrity_check_passes():
     assert "missing=0" in result.stdout
     assert "latest=paper_trading" in result.stdout
     assert "paper_trading" in result.stdout
+    assert "production_status=" in result.stdout
 
 
 def test_vercel_deploy_command_is_non_interactive_and_token_safe():
@@ -199,6 +201,77 @@ def test_vercel_check_reads_launch_env_file_for_readiness_without_leaking():
     assert "token_secretish" not in notes_text
     assert "project_secretish" not in notes_text
     assert "team_secretish" not in notes_text
+
+
+def test_vercel_check_exports_dashboard_production_status_without_leaking():
+    from scripts import deploy_vercel_dashboard
+
+    with TemporaryDirectory() as tmpdir:
+        root = Path(tmpdir) / "repo"
+        root.mkdir()
+        output_dir = Path(tmpdir) / "evidence"
+        env_file = Path(tmpdir) / "soxl.env"
+        env_file.write_text(
+            "\n".join(
+                [
+                    "export VERCEL_TOKEN='token_secretish'",
+                    "export VERCEL_PROJECT_ID='project_secretish'",
+                    "export VERCEL_ORG_ID='team_secretish'",
+                ]
+            ),
+            encoding="utf-8",
+        )
+
+        original_check_static_export = deploy_vercel_dashboard.check_static_export
+        original_run_whoami = deploy_vercel_dashboard._run_whoami
+        original_argv = list(deploy_vercel_dashboard.sys.argv)
+        try:
+            deploy_vercel_dashboard.check_static_export = lambda _root: (
+                [],
+                {
+                    "generated_at": "2026-05-21 12:01:45",
+                    "versions": 35,
+                    "missing": 0,
+                    "model_versions": 94,
+                    "latest": "paper_trading",
+                    "paper_trading_rows": 4,
+                    "paper_trading_end": "2026-05-20",
+                },
+            )
+            deploy_vercel_dashboard._run_whoami = lambda: subprocess.CompletedProcess(
+                ["vercel", "whoami"], 1, "", "No credentials"
+            )
+            deploy_vercel_dashboard.sys.argv = [
+                "deploy_vercel_dashboard.py",
+                "--root",
+                str(root),
+                "--output-dir",
+                str(output_dir),
+                "--env-file",
+                str(env_file),
+            ]
+
+            returncode = deploy_vercel_dashboard.main()
+        finally:
+            deploy_vercel_dashboard.check_static_export = original_check_static_export
+            deploy_vercel_dashboard._run_whoami = original_run_whoami
+            deploy_vercel_dashboard.sys.argv = original_argv
+
+        status_text = (root / "dashboard_data" / "production_status.json").read_text(encoding="utf-8")
+        status = json.loads(status_text)
+
+    assert returncode == 0
+    assert status["status"] == "ready_for_deploy"
+    assert status["auth_status"] == "token"
+    assert status["project_status"] == "env_configured"
+    assert status["deployment_url"] is None
+    assert status["static_export"]["latest"] == "paper_trading"
+    assert status["static_export"]["paper_trading_end"] == "2026-05-20"
+    assert status["env_file"]["present"] is True
+    assert status["env_file"]["applied_keys"] == ["VERCEL_ORG_ID", "VERCEL_PROJECT_ID", "VERCEL_TOKEN"]
+    assert "token_secretish" not in status_text
+    assert "project_secretish" not in status_text
+    assert "team_secretish" not in status_text
 
 
 def test_vercel_env_file_ignores_placeholder_values():

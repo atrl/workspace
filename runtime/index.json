@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-21T08:53:13.517030+00:00",
+  "generated_at": "2026-05-21T09:00:36.711582+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -2732,6 +2732,12 @@
       "bytes": 2365
     },
     {
+      "path": "runtime/production/card/dashboard_production_status_v1/notes.md",
+      "category": "production",
+      "suffix": ".md",
+      "bytes": 2360
+    },
+    {
       "path": "runtime/production/card/dashboard_static_default_v1/notes.md",
       "category": "production",
       "suffix": ".md",
@@ -2993,7 +2999,7 @@
       "path": "runtime/production/card/vercel_remote_deploy_v1/vercel_deployment_check.json",
       "category": "production",
       "suffix": ".json",
-      "bytes": 1323
+      "bytes": 1374
     },
     {
       "path": "runtime/production/card/vercel_scheduled_deploy_v1/notes.md",
@@ -3035,7 +3041,7 @@
       "path": "runtime/production/knowledge.md",
       "category": "production",
       "suffix": ".md",
-      "bytes": 98561
+      "bytes": 99869
     },
     {
       "path": "runtime/reward/card/base_log/card.md",

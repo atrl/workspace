@@ -40,6 +40,7 @@ def check_static_export(root: Path) -> tuple[list[str], dict[str, Any]]:
         "latest": "unknown",
         "paper_trading_rows": "n/a",
         "paper_trading_end": "n/a",
+        "production_status": "n/a",
     }
 
     vercel_path = root / "vercel.json"
@@ -47,8 +48,9 @@ def check_static_export(root: Path) -> tuple[list[str], dict[str, Any]]:
     data_dir = root / "dashboard_data"
     index_path = data_dir / "index.json"
     model_versions_path = data_dir / "model_versions.json"
+    production_status_path = data_dir / "production_status.json"
 
-    for path in (vercel_path, dashboard_path, index_path, model_versions_path):
+    for path in (vercel_path, dashboard_path, index_path, model_versions_path, production_status_path):
         if not path.exists():
             errors.append(f"missing required file: {path.relative_to(root)}")
 
@@ -90,6 +92,25 @@ def check_static_export(root: Path) -> tuple[list[str], dict[str, Any]]:
         errors.append("best_version is not listed in versions")
     if not isinstance(model_versions, list):
         errors.append("dashboard_data/model_versions.json must contain a list")
+
+    if production_status_path.exists():
+        production_status = _load_json(production_status_path)
+        if not isinstance(production_status, dict):
+            errors.append("dashboard_data/production_status.json must contain an object")
+        else:
+            status = production_status.get("status")
+            if not isinstance(status, str) or not status:
+                errors.append("dashboard_data/production_status.json missing status")
+            else:
+                info["production_status"] = status
+            for key in ("auth_status", "project_status"):
+                if not isinstance(production_status.get(key), str) or not production_status.get(key):
+                    errors.append(f"dashboard_data/production_status.json missing {key}")
+            status_static = production_status.get("static_export", {})
+            if not isinstance(status_static, dict):
+                errors.append("dashboard_data/production_status.json static_export must be an object")
+            elif status_static.get("latest") != index.get("latest_version"):
+                errors.append("dashboard_data/production_status.json latest does not match dashboard_data/index.json")
 
     missing = 0
     for version in versions:
@@ -145,7 +166,8 @@ def main() -> int:
             f"generated_at={info['generated_at']} versions={info['versions']} "
             f"missing={info['missing']} model_versions={info['model_versions']} "
             f"latest={info['latest']} paper_trading_rows={info['paper_trading_rows']} "
-            f"paper_trading_end={info['paper_trading_end']}"
+            f"paper_trading_end={info['paper_trading_end']} "
+            f"production_status={info['production_status']}"
         )
         return 1
 
@@ -154,7 +176,8 @@ def main() -> int:
         f"generated_at={info['generated_at']} versions={info['versions']} "
         f"missing={info['missing']} model_versions={info['model_versions']} "
         f"latest={info['latest']} paper_trading_rows={info['paper_trading_rows']} "
-        f"paper_trading_end={info['paper_trading_end']} paper_trading"
+        f"paper_trading_end={info['paper_trading_end']} "
+        f"production_status={info['production_status']} paper_trading"
     )
     return 0
 

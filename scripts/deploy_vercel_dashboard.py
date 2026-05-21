@@ -168,7 +168,59 @@ def extract_deployment_url(output: str) -> str | None:
     return match.group(0) if match else None
 
 
+def _dashboard_production_status_payload(payload: Mapping[str, object]) -> dict[str, object]:
+    static_export = payload.get("static_export")
+    if not isinstance(static_export, dict):
+        static_export = {}
+    auth = payload.get("auth")
+    if not isinstance(auth, dict):
+        auth = {}
+    project = payload.get("project")
+    if not isinstance(project, dict):
+        project = {}
+    env_file = payload.get("env_file")
+    if not isinstance(env_file, dict):
+        env_file = {}
+    static_errors = payload.get("static_errors")
+    if not isinstance(static_errors, list):
+        static_errors = []
+
+    applied_keys = env_file.get("applied_keys")
+    if not isinstance(applied_keys, list):
+        applied_keys = []
+
+    return {
+        "checked_at": payload.get("checked_at", ""),
+        "status": payload.get("status", "unknown"),
+        "deploy_requested": bool(payload.get("deploy_requested", False)),
+        "deployment_url": payload.get("deployment_url") or None,
+        "auth_status": auth.get("status", "unknown"),
+        "project_status": project.get("status", "unknown"),
+        "static_errors_count": len(static_errors),
+        "static_export": {
+            "generated_at": static_export.get("generated_at", "unknown"),
+            "latest": static_export.get("latest", "unknown"),
+            "paper_trading_rows": static_export.get("paper_trading_rows", "n/a"),
+            "paper_trading_end": static_export.get("paper_trading_end", "n/a"),
+        },
+        "env_file": {
+            "present": bool(env_file.get("present", False)),
+            "applied_keys": sorted(str(key) for key in applied_keys),
+        },
+    }
+
+
+def _write_dashboard_production_status(root: Path, payload: Mapping[str, object]) -> None:
+    data_dir = root / "dashboard_data"
+    data_dir.mkdir(parents=True, exist_ok=True)
+    (data_dir / "production_status.json").write_text(
+        json.dumps(_dashboard_production_status_payload(payload), indent=2, ensure_ascii=False) + "\n",
+        encoding="utf-8",
+    )
+
+
 def _write_evidence(output_dir: Path, payload: dict[str, object]) -> None:
+    _write_dashboard_production_status(Path(str(payload["root"])), payload)
     output_dir.mkdir(parents=True, exist_ok=True)
     (output_dir / "vercel_deployment_check.json").write_text(
         json.dumps(payload, indent=2, ensure_ascii=False) + "\n",

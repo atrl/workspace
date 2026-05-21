@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-05-21T08:52:06.384353+00:00",
+  "checked_at": "2026-05-21T08:59:20.581882+00:00",
   "root": "/Users/rziiiii/.openclaw/workspace",
   "status": "blocked_no_credentials",
   "static_export": {
@@ -9,7 +9,8 @@
     "model_versions": 94,
     "latest": "paper_trading",
     "paper_trading_rows": 4,
-    "paper_trading_end": "2026-05-20"
+    "paper_trading_end": "2026-05-20",
+    "production_status": "blocked_no_credentials"
   },
   "static_errors": [],
   "vercel_cli": "/opt/homebrew/bin/vercel",
