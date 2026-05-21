@@ -247,6 +247,29 @@ env_file_assignment_value() {
     ' "$env_file"
 }
 
+print_vercel_project_env_status() {
+    current_project="${VERCEL_PROJECT_ID:-}"
+    current_org="${VERCEL_ORG_ID:-}"
+    launch_project="false"
+    launch_org="false"
+    if env_file_has_nonempty_assignment "VERCEL_PROJECT_ID" "$LAUNCH_ENV_FILE"; then
+        launch_project="true"
+    fi
+    if env_file_has_nonempty_assignment "VERCEL_ORG_ID" "$LAUNCH_ENV_FILE"; then
+        launch_org="true"
+    fi
+
+    if [ -n "$current_project" ] && [ -n "$current_org" ]; then
+        echo "  VERCEL_PROJECT: configured in current environment"
+    elif [ "$launch_project" = "true" ] && [ "$launch_org" = "true" ]; then
+        echo "  VERCEL_PROJECT: configured in launch env file"
+    elif { [ -n "$current_project" ] || [ "$launch_project" = "true" ]; } && { [ -n "$current_org" ] || [ "$launch_org" = "true" ]; }; then
+        echo "  VERCEL_PROJECT: configured across current environment and launch env file"
+    else
+        echo "  VERCEL_PROJECT: missing VERCEL_PROJECT_ID or VERCEL_ORG_ID in current environment and launch env file"
+    fi
+}
+
 env_or_launch_value() {
     var_name="$1"
     value="${!var_name:-}"
@@ -315,6 +338,7 @@ print_scheduler_private_env() {
     else
         echo "  VERCEL_TOKEN: missing in current environment and launch env file"
     fi
+    print_vercel_project_env_status
 
     load_runtime_composer_env
     if [ "$RUNTIME_COMPOSER_STATE" = "default" ]; then

@@ -5416,3 +5416,49 @@ Decision:
 Artifact:
 
 - `runtime/production/card/postclose_proof_status_v1/notes.md`
+
+## 2026-05-21 Vercel Project Env Visibility
+
+Goal:
+
+- Make scheduler health show whether `VERCEL_PROJECT_ID` and `VERCEL_ORG_ID`
+  are visible to the LaunchAgent environment, without printing the ID values.
+
+Root cause:
+
+- Remote deploy can use `.vercel/project.json` or non-interactive project env
+  IDs.
+- `Vercel Remote Deployment` already reports deployment-script project status,
+  but `Scheduler Private Env` only showed token visibility.
+- If project IDs are added to `$SOXL_LAUNCH_ENV_FILE` but not the current shell,
+  health should still show that the scheduled deploy user can see them.
+
+Change:
+
+- `production/check_scheduler_health.sh` now prints `VERCEL_PROJECT: ...`.
+- It distinguishes current env, launch env file, mixed current/launch env, and
+  missing `VERCEL_PROJECT_ID` / `VERCEL_ORG_ID`.
+- It does not print project/org IDs.
+
+Evidence:
+
+```bash
+PYTHONPATH=src:. qlib_venv/bin/python -c "import importlib.util; spec=importlib.util.spec_from_file_location('test_scheduler_health', 'tests/test_scheduler_health.py'); mod=importlib.util.module_from_spec(spec); spec.loader.exec_module(mod); mod.test_scheduler_health_reports_launch_env_vercel_project_without_leaking_ids()"
+# red before implementation: missing VERCEL_PROJECT line
+# green after implementation: exit 0
+
+production/check_scheduler_health.sh
+# VERCEL_TOKEN: missing in current environment and launch env file
+# VERCEL_PROJECT: missing VERCEL_PROJECT_ID or VERCEL_ORG_ID in current environment and launch env file
+```
+
+Decision:
+
+- The Vercel blocker is now visible in both the scheduler-private-env layer and
+  the remote deployment evidence layer.
+- Remaining external setup: add scheduler-visible credentials and either link
+  the Vercel project or configure `VERCEL_PROJECT_ID` + `VERCEL_ORG_ID`.
+
+Artifact:
+
+- `runtime/production/card/vercel_project_env_visibility_v1/notes.md`

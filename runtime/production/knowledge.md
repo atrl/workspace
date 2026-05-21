@@ -1903,3 +1903,25 @@ Interpretation:
 Evidence card:
 
 - `runtime/production/card/postclose_proof_status_v1/notes.md`
+
+## 2026-05-21 Vercel Project Env Visibility
+
+Scheduler health now reports non-secret Vercel project env visibility in
+`Scheduler Private Env`.
+
+Current live readout:
+
+```text
+VERCEL_TOKEN: missing in current environment and launch env file
+VERCEL_PROJECT: missing VERCEL_PROJECT_ID or VERCEL_ORG_ID in current environment and launch env file
+```
+
+If an operator adds `VERCEL_PROJECT_ID` and `VERCEL_ORG_ID` to the LaunchAgent
+env file, health will report `VERCEL_PROJECT: configured in launch env file`
+without printing either ID value. This complements the remote deployment
+evidence card, which still reports whether `.vercel/project.json` or env IDs
+are accepted by the deploy script.
+
+Evidence card:
+
+- `runtime/production/card/vercel_project_env_visibility_v1/notes.md`
