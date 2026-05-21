@@ -1094,3 +1094,40 @@ Decision:
 - Weekly walk-forward is now a real scheduled production surface.
 - The first `runtime/soxl/wf_weekly.log` will appear after the next Saturday
   run; until then the absence of that log is expected.
+
+## 2026-05-21 Vercel Remote Deployment Attempt
+
+The repo-owned static dashboard bundle is valid, but remote Vercel deployment is
+not yet proven.
+
+Evidence:
+
+- Static export check:
+  `latest=paper_trading`, `paper_trading_rows=4`,
+  `paper_trading_end=2026-05-20`, `missing=0`.
+- `vercel` CLI is installed locally as version `50.32.5`.
+- `vercel whoami` reports no existing credentials.
+- There is no `.vercel/project.json` link in the repo.
+- Deployment check card:
+  `runtime/production/card/vercel_remote_deploy_v1/notes.md`
+
+Change:
+
+- Added `scripts/deploy_vercel_dashboard.py`.
+- The script validates static dashboard integrity first.
+- It can deploy non-interactively with local Vercel login or `VERCEL_TOKEN`.
+- It redacts token values from saved command evidence.
+- In the current environment it writes `status=blocked_no_credentials` instead
+  of claiming a remote deployment URL.
+
+Operational next step:
+
+```bash
+VERCEL_TOKEN=... PYTHONPATH=src:. qlib_venv/bin/python scripts/deploy_vercel_dashboard.py --deploy
+```
+
+or run `vercel login`, then:
+
+```bash
+PYTHONPATH=src:. qlib_venv/bin/python scripts/deploy_vercel_dashboard.py --deploy
+```

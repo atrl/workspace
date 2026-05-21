@@ -1,0 +1,23 @@
+{
+  "checked_at": "2026-05-21T00:53:15.942202+00:00",
+  "root": "/Users/rziiiii/.openclaw/workspace",
+  "status": "blocked_no_credentials",
+  "static_export": {
+    "generated_at": "2026-05-21 08:26:16",
+    "versions": 26,
+    "missing": 0,
+    "model_versions": 92,
+    "latest": "paper_trading",
+    "paper_trading_rows": 4,
+    "paper_trading_end": "2026-05-20"
+  },
+  "static_errors": [],
+  "vercel_cli": "/opt/homebrew/bin/vercel",
+  "auth": {
+    "status": "blocked_no_credentials",
+    "detail": "Set VERCEL_TOKEN or run vercel login. CLI detail: Error: No existing credentials found. Please run `vercel login` or pass \"--token\"\nLearn More: https://err.sh/vercel/no-credentials-found"
+  },
+  "deploy_requested": false,
+  "deployment_url": null,
+  "detail": "Set VERCEL_TOKEN or run vercel login. CLI detail: Error: No existing credentials found. Please run `vercel login` or pass \"--token\"\nLearn More: https://err.sh/vercel/no-credentials-found"
+}

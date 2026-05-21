@@ -55,3 +55,36 @@ def test_dashboard_static_export_integrity_check_passes():
     assert "missing=0" in result.stdout
     assert "latest=paper_trading" in result.stdout
     assert "paper_trading" in result.stdout
+
+
+def test_vercel_deploy_command_is_non_interactive_and_token_safe():
+    from scripts.deploy_vercel_dashboard import build_deploy_command, sanitize_command
+
+    command = build_deploy_command(Path("/repo"), token="secret-token", prod=True)
+
+    assert command[:3] == ["vercel", "deploy", "/repo"]
+    assert "--yes" in command
+    assert "--prod" in command
+    assert "--no-color" in command
+    assert "--token" in command
+    assert "secret-token" in command
+    assert "secret-token" not in " ".join(sanitize_command(command))
+    assert "<redacted>" in sanitize_command(command)
+
+
+def test_vercel_auth_status_blocks_without_token_or_login():
+    from scripts.deploy_vercel_dashboard import auth_status
+
+    status = auth_status(env={}, whoami_returncode=1, whoami_stdout="", whoami_stderr="No credentials \u256d")
+
+    assert status["status"] == "blocked_no_credentials"
+    assert "VERCEL_TOKEN" in status["detail"]
+    assert "\u256d" not in status["detail"]
+
+
+def test_vercel_extracts_deployment_url_from_cli_output():
+    from scripts.deploy_vercel_dashboard import extract_deployment_url
+
+    output = "Queued\nhttps://soxl-dashboard-example.vercel.app\nInspect: https://vercel.com/example"
+
+    assert extract_deployment_url(output) == "https://soxl-dashboard-example.vercel.app"

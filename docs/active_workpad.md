@@ -3679,3 +3679,46 @@ Decision:
 - The remaining full-goal proof is still the next fresh post-close non-dry
   paper execution under selected v22, plus the first Saturday weekly log once
   that schedule naturally fires.
+
+## 2026-05-21 Vercel Remote Deployment Attempt
+
+Goal:
+
+- Move beyond local static-bundle readiness and make the Vercel deployment state
+  auditable from the repo.
+
+Current state:
+
+- `vercel` CLI exists locally: `Vercel CLI 50.32.5`.
+- The repository is not linked to a Vercel project: no `.vercel/project.json`.
+- `vercel whoami` reports no existing credentials.
+- Static dashboard export remains valid:
+  `latest=paper_trading`, `paper_trading_rows=4`,
+  `paper_trading_end=2026-05-20`, `missing=0`.
+
+Change:
+
+- Added `scripts/deploy_vercel_dashboard.py`.
+- The script validates `dashboard.html`, `dashboard_data/`, and `vercel.json`
+  before any deploy attempt.
+- It supports non-interactive production deploy with either local Vercel login
+  or `VERCEL_TOKEN`; token values are redacted from saved evidence.
+- Without credentials it writes explicit blocked evidence instead of implying a
+  remote deployment exists.
+
+Evidence:
+
+```bash
+PYTHONPATH=src:. qlib_venv/bin/python scripts/deploy_vercel_dashboard.py --output-dir runtime/production/card/vercel_remote_deploy_v1
+# vercel_dashboard status=blocked_no_credentials
+
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_vercel_dashboard.py -q
+# 6 passed
+```
+
+Decision:
+
+- Vercel static packaging is ready, but remote deployment is not proven because
+  this machine has no Vercel credentials.
+- Next actionable Vercel step is to provide `VERCEL_TOKEN` or run
+  `vercel login`, then rerun the same script with `--deploy`.
