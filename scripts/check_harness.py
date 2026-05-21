@@ -101,6 +101,7 @@ DEFAULT_COMMAND_CHECKS = [
     ["scripts/check_source_boundaries.py"],
     ["scripts/check_skills.py"],
     ["scripts/check_experiment_cards.py"],
+    ["scripts/update_data_registry.py", "--check"],
 ]
 
 

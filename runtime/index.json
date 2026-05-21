@@ -1,11 +1,17 @@
 {
-  "generated_at": "2026-05-21T09:19:25.986471+00:00",
+  "generated_at": "2026-05-21T09:30:40.648890+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
       "category": "root",
       "suffix": ".md",
       "bytes": 2232
+    },
+    {
+      "path": "runtime/data/card/data_registry_autorefresh_v1/notes.md",
+      "category": "data",
+      "suffix": ".md",
+      "bytes": 3294
     },
     {
       "path": "runtime/data/card/soxl_data_pipeline/card.md",
@@ -17,7 +23,7 @@
       "path": "runtime/data/knowledge.md",
       "category": "data",
       "suffix": ".md",
-      "bytes": 5110
+      "bytes": 6199
     },
     {
       "path": "runtime/data/leakage_validation_report.json",
@@ -3047,7 +3053,7 @@
       "path": "runtime/production/knowledge.md",
       "category": "production",
       "suffix": ".md",
-      "bytes": 100879
+      "bytes": 101850
     },
     {
       "path": "runtime/reward/card/base_log/card.md",

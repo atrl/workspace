@@ -28,7 +28,7 @@ if str(ROOT) not in sys.path:
 
 from production.futu_broker import FutuBroker
 from production.notify import get_notifier
-from scripts.update_market_data import update_master_csv, refresh_qlib, sync_local_data_surfaces
+from scripts.update_market_data import update_master_csv, refresh_qlib, refresh_data_registry, sync_local_data_surfaces
 from src.soxl_quant.data import init_qlib
 from src.soxl_quant.runtime import (
     BrokerAdapter,
@@ -165,6 +165,7 @@ def _run_data_update(dry_run: bool, provider: str = "auto") -> Dict[str, object]
             update_result = update_master_csv(dry_run=dry_run, provider=provider_name)
             sync_local_data_surfaces(dry_run=dry_run)
             refresh_qlib(dry_run=dry_run)
+            refresh_data_registry(dry_run=dry_run)
             return update_result
         except Exception as exc:
             last_exc = exc

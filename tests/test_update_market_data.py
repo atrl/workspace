@@ -6,6 +6,7 @@ from tempfile import TemporaryDirectory
 import pandas as pd
 
 from scripts import update_market_data
+from scripts import update_data_registry
 from scripts.update_market_data import build_local_surface_frames, update_master_csv
 
 
@@ -259,3 +260,20 @@ def test_update_master_csv_normalizes_provider_dates_before_merge():
         assert updated.iloc[-1]["soxl_close"] == 151.0
         assert updated.iloc[-1]["soxx_close"] == 501.0
         assert updated.iloc[-1]["vix"] == 17.0
+
+
+def test_data_registry_check_reports_stale_canonical_panel_end():
+    stale_registry = {
+        "symbols": {"SOXL": {"end": "2026-05-19"}},
+        "processed_panels": {"soxl_soxx_vix_full": {"end": "2026-05-19"}},
+        "qlib": {"SOXL": {"exists": True}},
+    }
+    current_registry = {
+        "symbols": {"SOXL": {"end": "2026-05-20"}},
+        "processed_panels": {"soxl_soxx_vix_full": {"end": "2026-05-20"}},
+        "qlib": {"SOXL": {"exists": True}},
+    }
+
+    failures = update_data_registry.check_registry(stale_registry, current_registry=current_registry)
+
+    assert "stale registry processed_panels.soxl_soxx_vix_full.end: stored=2026-05-19 current=2026-05-20" in failures

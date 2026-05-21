@@ -2310,3 +2310,30 @@ depends on the next natural scheduled post-close and non-dry paper windows.
 Evidence card:
 
 - `runtime/production/card/dashboard_production_status_ui_v1/notes.md`
+
+## 2026-05-21 Scheduled Data Registry Refresh
+
+While resuming the SOXX/model continuation loop, the actual data surfaces were
+current at `2026-05-20`, but `data/datasets.yaml` still reported
+`2026-05-19`. This was a scheduled-pipeline freshness gap: the paper runner
+updated master/raw/qlib data but did not refresh the registry.
+
+The scheduled data path now refreshes `data/datasets.yaml` after raw/qlib sync,
+and `scripts/update_data_registry.py --check` now compares stored registry
+metadata against actual files. `scripts/check_harness.py` includes that check by
+default.
+
+Current registry state after `scripts/update_market_data.py --local-only`:
+
+```text
+SOXL=2026-05-20 rows=4074
+SOXX=2026-05-20 rows=4074
+soxl_soxx_vix_full=2026-05-20 rows=4074
+```
+
+This improves scheduled data freshness evidence, but does not clear the Vercel
+credential gate or natural scheduled paper-proof gates.
+
+Evidence card:
+
+- `runtime/data/card/data_registry_autorefresh_v1/notes.md`

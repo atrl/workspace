@@ -258,14 +258,18 @@ def test_data_update_syncs_raw_surfaces_before_qlib_refresh(monkeypatch: pytest.
     def fake_refresh_qlib(*, dry_run: bool):
         calls.append(("refresh", dry_run))
 
+    def fake_refresh_data_registry(*, dry_run: bool):
+        calls.append(("registry", dry_run))
+
     monkeypatch.setattr(soxl_paper_trading, "update_master_csv", fake_update_master_csv)
     monkeypatch.setattr(soxl_paper_trading, "sync_local_data_surfaces", fake_sync_local_data_surfaces)
     monkeypatch.setattr(soxl_paper_trading, "refresh_qlib", fake_refresh_qlib)
+    monkeypatch.setattr(soxl_paper_trading, "refresh_data_registry", fake_refresh_data_registry)
 
     result = _run_data_update(dry_run=False, provider="yfinance")
 
     assert result["last_date"] == "2026-05-20"
-    assert calls == [("update:yfinance", False), ("sync", False), ("refresh", False)]
+    assert calls == [("update:yfinance", False), ("sync", False), ("refresh", False), ("registry", False)]
 
 
 def test_data_update_auto_provider_falls_back_to_polygon(monkeypatch: pytest.MonkeyPatch):

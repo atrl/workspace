@@ -6106,3 +6106,73 @@ Decision:
 Artifact:
 
 - `runtime/production/card/dashboard_production_status_ui_v1/notes.md`
+
+## 2026-05-21 Data Registry Auto-Refresh
+
+Goal:
+
+- Close a data freshness gap discovered while resuming the SOXX/model
+  optimization loop: actual SOXL/SOXX/VIX/panel/qlib surfaces were on
+  `2026-05-20`, but `data/datasets.yaml` still reported `2026-05-19`.
+
+Root cause:
+
+- `production/soxl_paper_trading._run_data_update()` updated the master panel,
+  raw mirrors, and qlib store, but did not refresh `data/datasets.yaml`.
+- `scripts/update_market_data.py --local-only` also did not refresh the
+  registry.
+- `scripts/update_data_registry.py --check` validated required sections but did
+  not compare stored metadata against current files, so stale registry metadata
+  passed.
+
+Change:
+
+- `scripts/update_market_data.py`
+  - adds shared `refresh_data_registry(dry_run=...)`;
+  - calls it after raw/qlib refresh in the canonical updater path.
+- `production/soxl_paper_trading.py`
+  - calls `refresh_data_registry()` after scheduled data update sync and qlib
+    refresh.
+- `scripts/update_data_registry.py`
+  - `--check` now rebuilds current metadata and fails when stored rows/end/path
+    metadata drifts from actual files.
+- `scripts/check_harness.py`
+  - includes `scripts/update_data_registry.py --check` in default command
+    checks.
+- `data/datasets.yaml`
+  - refreshed to `SOXL=2026-05-20`, `SOXX=2026-05-20`,
+    `soxl_soxx_vix_full=2026-05-20`.
+
+Evidence:
+
+```bash
+PYTHONPATH=. qlib_venv/bin/python -c "import importlib.util, pathlib; p=pathlib.Path('tests/test_update_market_data.py'); spec=importlib.util.spec_from_file_location('tu', p); m=importlib.util.module_from_spec(spec); spec.loader.exec_module(m); m.test_data_registry_check_reports_stale_canonical_panel_end()"
+# red before implementation: TypeError: check_registry() got an unexpected keyword argument 'current_registry'
+# green after implementation: exit 0
+
+uv run --python qlib_venv/bin/python --with pytest pytest \
+  tests/test_paper_trading.py::test_data_update_syncs_raw_surfaces_before_qlib_refresh -q
+# red before implementation: AttributeError refresh_data_registry missing
+# green after implementation: 1 passed
+
+PYTHONPATH=. qlib_venv/bin/python scripts/update_data_registry.py --check
+# red before registry refresh: stale symbols/panel rows and end dates
+
+PYTHONPATH=. qlib_venv/bin/python scripts/update_market_data.py --local-only
+# refreshed data/raw/symbols/SOXL.csv, data/raw/symbols/SOXX.csv,
+# data/raw/external/VIX.csv, data/qlib/soxl, data/datasets.yaml
+
+PYTHONPATH=. qlib_venv/bin/python scripts/update_data_registry.py --check
+# update_data_registry: OK symbols=6 panels=10 qlib=6
+```
+
+Decision:
+
+- Do not run a new SOXX model experiment until the current-data registry is
+  durable and gate-checked.
+- The next SOXX/model loop can now trust `data/datasets.yaml` as a freshness
+  surface rather than manually comparing raw files.
+
+Artifact:
+
+- `runtime/data/card/data_registry_autorefresh_v1/notes.md`

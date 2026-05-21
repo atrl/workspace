@@ -65,6 +65,35 @@
 - Canonical panel、raw SOXL/SOXX/VIX、qlib calendar 继续全部对齐到 `2026-04-27`。
 - 直接请求 Yahoo chart endpoint 仍然报 `NameResolutionError`，当前 automation 运行仍无法 live refresh。
 
+### 2026-05-21 Registry Auto-Refresh
+
+恢复 SOXX/model 优化前发现一个 freshness surface 漂移：
+
+- canonical panel、raw SOXL、raw SOXX、raw VIX、qlib calendar 均为
+  `2026-05-20` / `4074` rows。
+- `data/datasets.yaml` 仍显示 `2026-05-19` / `4073` rows。
+
+根因是 scheduled paper runner 和 `scripts/update_market_data.py --local-only`
+只刷新 master/raw/qlib，不刷新 registry；`update_data_registry.py --check`
+也没有对照当前文件元数据。
+
+现在：
+
+- `scripts/update_market_data.py` 在 raw/qlib 后自动刷新
+  `data/datasets.yaml`。
+- `production/soxl_paper_trading.py` 的 scheduled data update 路径也刷新
+  registry。
+- `scripts/update_data_registry.py --check` 会重建当前元数据并比较
+  stored rows/end/path，stale registry 会失败。
+- `scripts/check_harness.py` 默认运行 `scripts/update_data_registry.py
+  --check`。
+- 当前 `data/datasets.yaml` 已刷新到 `SOXL=2026-05-20`,
+  `SOXX=2026-05-20`, `soxl_soxx_vix_full=2026-05-20`。
+
+证据卡：
+
+- `runtime/data/card/data_registry_autorefresh_v1/notes.md`
+
 ## 50 Core Features 主题分类
 
 | 主题 | 特征数 | 关键驱动 |

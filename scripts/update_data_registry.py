@@ -69,7 +69,35 @@ def build_registry() -> dict:
     }
 
 
-def check_registry(registry: dict) -> list[str]:
+def _compare_current_metadata(registry: dict, current_registry: dict) -> list[str]:
+    failures: list[str] = []
+    comparable_keys = {
+        "symbols": ("path", "exists", "rows", "start", "end"),
+        "external": ("path", "exists", "rows", "start", "end"),
+        "processed_panels": ("path", "exists", "rows", "start", "end"),
+        "qlib": ("path", "exists", "has_calendar", "has_instruments"),
+        "training_cache": ("path", "exists", "bytes"),
+    }
+    for section, keys in comparable_keys.items():
+        current_section = current_registry.get(section, {}) or {}
+        stored_section = registry.get(section, {}) or {}
+        for name, current_meta in current_section.items():
+            if name not in stored_section:
+                failures.append(f"stale registry {section}.{name}: missing current entry")
+                continue
+            stored_meta = stored_section.get(name, {}) or {}
+            for key in keys:
+                stored_value = stored_meta.get(key)
+                current_value = current_meta.get(key)
+                if stored_value != current_value:
+                    failures.append(
+                        f"stale registry {section}.{name}.{key}: "
+                        f"stored={stored_value} current={current_value}"
+                    )
+    return failures
+
+
+def check_registry(registry: dict, current_registry: dict | None = None) -> list[str]:
     failures: list[str] = []
     for section in ["symbols", "processed_panels", "qlib"]:
         if not registry.get(section):
@@ -81,6 +109,8 @@ def check_registry(registry: dict) -> list[str]:
         failures.append("missing canonical SOXL/SOXX/VIX processed panel")
     if "SOXL" not in registry.get("qlib", {}):
         failures.append("missing qlib store for SOXL")
+    if current_registry is not None:
+        failures.extend(_compare_current_metadata(registry, current_registry))
     return failures
 
 
@@ -93,10 +123,12 @@ def main() -> int:
             print("update_data_registry: FAIL missing data/datasets.yaml")
             return 1
         registry = yaml.safe_load(REGISTRY_PATH.read_text(encoding="utf-8")) or {}
+        current_registry = build_registry()
     else:
         registry = build_registry()
         REGISTRY_PATH.write_text(yaml.safe_dump(registry, sort_keys=True, allow_unicode=True), encoding="utf-8")
-    failures = check_registry(registry)
+        current_registry = None
+    failures = check_registry(registry, current_registry=current_registry)
     if failures:
         print("update_data_registry: FAIL")
         for failure in failures:

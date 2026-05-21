@@ -26,6 +26,7 @@ ROOT = Path(__file__).resolve().parent.parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from scripts import update_data_registry
 from src.soxl_quant.data import refresh_qlib_binary
 from src.soxl_quant.settings import CSV_PATH, QLIB_DATA_PATH, RAW_DATA_DIR
 
@@ -444,6 +445,19 @@ def refresh_qlib(
     print(f"[update] refreshed {qlib_dir}")
 
 
+def refresh_data_registry(dry_run: bool = False) -> dict:
+    registry = update_data_registry.build_registry()
+    if dry_run:
+        print(f"[update] dry-run: skip data registry refresh ({update_data_registry.REGISTRY_PATH})")
+        return registry
+    update_data_registry.REGISTRY_PATH.write_text(
+        update_data_registry.yaml.safe_dump(registry, sort_keys=True, allow_unicode=True),
+        encoding="utf-8",
+    )
+    print(f"[update] refreshed {update_data_registry.REGISTRY_PATH}")
+    return registry
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Incremental market data updater for SOXL/SOXX/VIX")
     parser.add_argument("--dry-run", action="store_true", help="Do not write files")
@@ -494,6 +508,7 @@ def main(argv: list[str] | None = None) -> dict:
         sync_local_data_surfaces(dry_run=args.dry_run)
         if not args.skip_qlib:
             refresh_qlib(dry_run=args.dry_run)
+        refresh_data_registry(dry_run=args.dry_run)
         return result
     finally:
         if original_argv is not None:
