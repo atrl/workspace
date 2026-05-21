@@ -150,7 +150,13 @@ Pipeline order:
 1. Store private LaunchAgent environment variables outside the repo:
    ```bash
    mkdir -p ~/.openclaw
-   printf "export POLYGON_API_KEY='REPLACE_ME'\n" > ~/.openclaw/soxl.env
+   cat > ~/.openclaw/soxl.env <<'EOF'
+   export POLYGON_API_KEY='REPLACE_ME'
+   # Optional Vercel deployment; uncomment only after replacing with real values.
+   # export VERCEL_TOKEN='REPLACE_ME'
+   # export VERCEL_PROJECT_ID='REPLACE_ME'
+   # export VERCEL_ORG_ID='REPLACE_ME'
+   EOF
    chmod 600 ~/.openclaw/soxl.env
    ```
    The LaunchAgents call `production/run_soxl_scheduler.sh`, which loads
@@ -172,10 +178,10 @@ Pipeline order:
 3. Install:
    ```bash
    cp production/com.soxl.daily.scheduler.plist production/com.soxl.preopen.scheduler.plist ~/Library/LaunchAgents/
-   launchctl unload ~/Library/LaunchAgents/com.soxl.daily.scheduler.plist 2>/dev/null || true
-   launchctl unload ~/Library/LaunchAgents/com.soxl.preopen.scheduler.plist 2>/dev/null || true
-   launchctl load ~/Library/LaunchAgents/com.soxl.daily.scheduler.plist
-   launchctl load ~/Library/LaunchAgents/com.soxl.preopen.scheduler.plist
+   launchctl bootout "gui/$(id -u)" ~/Library/LaunchAgents/com.soxl.daily.scheduler.plist 2>/dev/null || true
+   launchctl bootout "gui/$(id -u)" ~/Library/LaunchAgents/com.soxl.preopen.scheduler.plist 2>/dev/null || true
+   launchctl bootstrap "gui/$(id -u)" ~/Library/LaunchAgents/com.soxl.daily.scheduler.plist
+   launchctl bootstrap "gui/$(id -u)" ~/Library/LaunchAgents/com.soxl.preopen.scheduler.plist
    ```
 4. Verify:
    ```bash
@@ -183,8 +189,8 @@ Pipeline order:
    ```
 5. Unload when needed:
    ```bash
-   launchctl unload ~/Library/LaunchAgents/com.soxl.daily.scheduler.plist
-   launchctl unload ~/Library/LaunchAgents/com.soxl.preopen.scheduler.plist
+   launchctl bootout "gui/$(id -u)" ~/Library/LaunchAgents/com.soxl.daily.scheduler.plist
+   launchctl bootout "gui/$(id -u)" ~/Library/LaunchAgents/com.soxl.preopen.scheduler.plist
    ```
 
 ### Manual cron (alternative)
@@ -192,10 +198,10 @@ Pipeline order:
 ```bash
 # Asia/Shanghai local time:
 # Mon-Fri 21:00: US pre-open cached-data dry-run + dashboard + Vercel deploy attempt
-0 21 * * 1-5 /Users/rziiiii/.openclaw/workspace/production/run_soxl_scheduler.sh --broker paper --dry-run --no-notify --skip-data-update --vercel-deploy >> /Users/rziiiii/.openclaw/workspace/runtime/soxl/paper_trading/scheduler_preopen.log 2>&1
+0 21 * * 1-5 /Users/rziiiii/.openclaw/workspace/production/run_soxl_scheduler.sh --broker paper --dry-run --no-notify --skip-data-update --vercel-deploy --health-summary >> /Users/rziiiii/.openclaw/workspace/runtime/soxl/paper_trading/scheduler_preopen.log 2>&1
 
 # Tue-Sat 06:15: US post-close data refresh + paper trading + dashboard + Vercel deploy attempt
-15 6 * * 2-6 /Users/rziiiii/.openclaw/workspace/production/run_soxl_scheduler.sh --broker paper --no-notify --vercel-deploy >> /Users/rziiiii/.openclaw/workspace/runtime/soxl/paper_trading/scheduler_postclose.log 2>&1
+15 6 * * 2-6 /Users/rziiiii/.openclaw/workspace/production/run_soxl_scheduler.sh --broker paper --no-notify --vercel-deploy --health-summary >> /Users/rziiiii/.openclaw/workspace/runtime/soxl/paper_trading/scheduler_postclose.log 2>&1
 ```
 
 ### Notification Setup (Bark)
@@ -231,7 +237,7 @@ Then open `dashboard.html` in a browser. For Vercel static deployment, keep the 
 
 Scheduled Vercel deployment is opt-in through the scheduler flag:
 ```bash
-PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py --broker paper --dry-run --skip-data-update --vercel-deploy
+PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py --broker paper --dry-run --skip-data-update --vercel-deploy --health-summary
 ```
 
 Without Vercel credentials, the scheduler records `blocked_no_credentials` under

@@ -5735,3 +5735,49 @@ Decision:
 Artifact:
 
 - `runtime/production/card/scheduler_health_summary_noise_v1/notes.md`
+
+## 2026-05-21 Operator Scheduler Docs Sync
+
+Goal:
+
+- Keep the operator-facing scheduler setup guide aligned with the current
+  production scheduler flags.
+
+Root cause:
+
+- `production/crontab.txt` and LaunchAgent plists now pass
+  `--vercel-deploy --health-summary`, but the manual cron examples in
+  `production/FUTU_SEMI_AUTO.md` still lacked `--health-summary`.
+- Copying the stale examples would produce scheduled logs without the final
+  `Production Goal Gates` summary.
+
+Change:
+
+- Added a regression test for the operator doc scheduler examples.
+- Updated manual cron examples and Vercel scheduler smoke command to include
+  `--health-summary`.
+- Updated LaunchAgent install/uninstall commands to
+  `launchctl bootstrap` / `launchctl bootout`.
+- Added commented Vercel env-key placeholders next to the private LaunchAgent
+  env-file setup, avoiding active fake `REPLACE_ME` exports.
+
+Evidence:
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest \
+  tests/test_production_schedule.py::test_operator_doc_scheduler_examples_include_current_production_flags -q
+# red before docs update: pre-open cron example lacked --health-summary
+# green after docs update: 1 passed
+```
+
+Decision:
+
+- Operator docs now preserve the scheduler health-summary behavior if copied
+  into manual cron or a setup runbook.
+- Current production goal remains pending on:
+  `external_vercel_setup`, `scheduled_postclose_target`,
+  `scheduled_paper_proof`.
+
+Artifact:
+
+- `runtime/production/card/operator_scheduler_docs_sync_v1/notes.md`

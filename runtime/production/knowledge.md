@@ -2099,3 +2099,32 @@ external_vercel_setup,scheduled_postclose_target,scheduled_paper_proof
 Evidence card:
 
 - `runtime/production/card/scheduler_health_summary_noise_v1/notes.md`
+
+## 2026-05-21 Operator Scheduler Docs Sync
+
+`production/FUTU_SEMI_AUTO.md` now matches the current scheduler behavior:
+
+- manual pre-open and post-close cron examples include `--vercel-deploy
+  --health-summary`;
+- the Vercel scheduler smoke command includes `--health-summary`;
+- LaunchAgent install/uninstall examples use `launchctl bootstrap` /
+  `launchctl bootout`;
+- the private env-file setup shows commented placeholders for
+  `VERCEL_TOKEN`, `VERCEL_PROJECT_ID`, and `VERCEL_ORG_ID`, so an operator sees
+  the required keys without accidentally exporting fake `REPLACE_ME` values.
+
+A regression test now guards the documented scheduler examples:
+
+```text
+tests/test_production_schedule.py::test_operator_doc_scheduler_examples_include_current_production_flags
+```
+
+Live production state remains unchanged:
+
+```text
+overall: pending external_vercel_setup,scheduled_postclose_target,scheduled_paper_proof
+```
+
+Evidence card:
+
+- `runtime/production/card/operator_scheduler_docs_sync_v1/notes.md`

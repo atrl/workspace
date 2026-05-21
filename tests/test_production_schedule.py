@@ -70,6 +70,27 @@ def test_crontab_weekly_walkforward_uses_repo_wrapper():
     assert "/home/rziiiii/dev/workspace" not in weekly
 
 
+def test_operator_doc_scheduler_examples_include_current_production_flags():
+    text = (ROOT / "production" / "FUTU_SEMI_AUTO.md").read_text(encoding="utf-8")
+    scheduler_lines = [
+        line
+        for line in text.splitlines()
+        if "production/run_soxl_scheduler.sh" in line
+        and ("scheduler_preopen.log" in line or "scheduler_postclose.log" in line)
+    ]
+
+    pre_open = next(line for line in scheduler_lines if "scheduler_preopen.log" in line)
+    post_close = next(line for line in scheduler_lines if "scheduler_postclose.log" in line)
+    assert "--vercel-deploy" in pre_open
+    assert "--health-summary" in pre_open
+    assert "--vercel-deploy" in post_close
+    assert "--health-summary" in post_close
+
+    assert "export VERCEL_TOKEN='REPLACE_ME'" in text
+    assert "export VERCEL_PROJECT_ID='REPLACE_ME'" in text
+    assert "export VERCEL_ORG_ID='REPLACE_ME'" in text
+
+
 def test_launchagent_runs_post_close_in_shanghai_local_time():
     with (ROOT / "production" / "com.soxl.daily.scheduler.plist").open("rb") as f:
         plist = plistlib.load(f)
