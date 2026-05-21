@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-21T08:31:19.328926+00:00",
+  "generated_at": "2026-05-21T08:48:37.990013+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -2816,6 +2816,12 @@
       "bytes": 3169
     },
     {
+      "path": "runtime/production/card/preopen_run_status_v1/notes.md",
+      "category": "production",
+      "suffix": ".md",
+      "bytes": 2248
+    },
+    {
       "path": "runtime/production/card/production_goal_gate_summary_v1/notes.md",
       "category": "production",
       "suffix": ".md",
@@ -3023,7 +3029,7 @@
       "path": "runtime/production/knowledge.md",
       "category": "production",
       "suffix": ".md",
-      "bytes": 96122
+      "bytes": 97471
     },
     {
       "path": "runtime/reward/card/base_log/card.md",

@@ -14,7 +14,10 @@ LAUNCH_ENV_FILE="${SOXL_LAUNCH_ENV_FILE:-${HOME:-}/.openclaw/soxl.env}"
 HEALTH_WEEKDAY="${SOXL_SCHEDULER_HEALTH_WEEKDAY:-$(date +%u)}"
 HEALTH_HHMM="${SOXL_SCHEDULER_HEALTH_HHMM:-$(date +%H%M)}"
 HEALTH_DATE="${SOXL_SCHEDULER_HEALTH_DATE:-$(date +%Y-%m-%d)}"
+HEALTH_PREOPEN_CUTOFF_EPOCH="${SOXL_SCHEDULER_HEALTH_PREOPEN_CUTOFF_EPOCH:-}"
 HEALTH_POSTCLOSE_CUTOFF_EPOCH="${SOXL_SCHEDULER_HEALTH_POSTCLOSE_CUTOFF_EPOCH:-}"
+PREOPEN_HHMM="2100"
+PREOPEN_TIME_LABEL="21:00"
 POSTCLOSE_HHMM="0615"
 POSTCLOSE_TIME_LABEL="06:15"
 SELECTED_MODEL_PROFILE=""
@@ -106,6 +109,28 @@ postclose_due_today() {
     [ "$weekday_num" -ge 2 ] && [ "$weekday_num" -le 6 ] && [ "$hhmm_num" -ge "$postclose_num" ]
 }
 
+preopen_due_today() {
+    weekday_num=$(number_value "$HEALTH_WEEKDAY")
+    hhmm_num=$(number_value "$HEALTH_HHMM")
+    preopen_num=$(number_value "$PREOPEN_HHMM")
+    [ "$weekday_num" -ge 1 ] && [ "$weekday_num" -le 5 ] && [ "$hhmm_num" -ge "$preopen_num" ]
+}
+
+preopen_cutoff_epoch() {
+    if [ -n "$HEALTH_PREOPEN_CUTOFF_EPOCH" ]; then
+        echo "$HEALTH_PREOPEN_CUTOFF_EPOCH"
+        return
+    fi
+    cutoff_text="${HEALTH_DATE} ${PREOPEN_TIME_LABEL}"
+    if date -j -f "%Y-%m-%d %H:%M" "$cutoff_text" +%s 2>/dev/null; then
+        return
+    fi
+    if date -d "$cutoff_text" +%s 2>/dev/null; then
+        return
+    fi
+    echo ""
+}
+
 postclose_cutoff_epoch() {
     if [ -n "$HEALTH_POSTCLOSE_CUTOFF_EPOCH" ]; then
         echo "$HEALTH_POSTCLOSE_CUTOFF_EPOCH"
@@ -119,6 +144,30 @@ postclose_cutoff_epoch() {
         return
     fi
     echo ""
+}
+
+preopen_success_after_cutoff() {
+    path="$1"
+    if [ ! -f "$path" ] || ! grep -q "^\[scheduler\] all done$" "$path" 2>/dev/null; then
+        return 1
+    fi
+    cutoff_epoch=$(preopen_cutoff_epoch)
+    log_epoch=$(file_epoch "$path")
+    if [ -z "$cutoff_epoch" ] || [ -z "$log_epoch" ]; then
+        return 0
+    fi
+    if [ "$log_epoch" -lt "$cutoff_epoch" ]; then
+        return 1
+    fi
+    if grep -q "\[scheduler\] run started at " "$path" 2>/dev/null; then
+        awk '
+            /\[scheduler\] run started at / { seen = 1; ok = 0; next }
+            seen && /^\[scheduler\] all done$/ { ok = 1 }
+            END { exit ok ? 0 : 1 }
+        ' "$path"
+        return
+    fi
+    return 0
 }
 
 postclose_success_after_cutoff() {
@@ -170,6 +219,14 @@ postclose_cached_dry_run_after_cutoff() {
 }
 
 postclose_last_run_marker() {
+    path="$1"
+    if [ ! -f "$path" ]; then
+        return
+    fi
+    awk '/^\[scheduler\] run started at / { marker = $0 } END { print marker }' "$path"
+}
+
+scheduler_last_run_marker() {
     path="$1"
     if [ ! -f "$path" ]; then
         return
@@ -702,6 +759,57 @@ print_latest_signal_artifact() {
     fi
 }
 
+print_preopen_target_status() {
+    preopen_log="$1"
+    marker=$(scheduler_last_run_marker "$preopen_log")
+    if [ -z "$marker" ]; then
+        echo "  preopen target: unknown latest_success_marker has no run-start marker"
+        return
+    fi
+
+    missing=""
+    marker_has_text "$marker" "schedule_slot=preopen" || missing="${missing} schedule_slot=preopen"
+    marker_has_text "$marker" "dry_run=True" || missing="${missing} dry_run=True"
+    marker_has_text "$marker" "skip_data_update=True" || missing="${missing} skip_data_update=True"
+
+    load_runtime_composer_env
+    if [ "$RUNTIME_COMPOSER_STATE" = "enabled" ]; then
+        marker_has_text "$marker" "runtime_composer=${RUNTIME_COMPOSER}" || missing="${missing} runtime_composer=${RUNTIME_COMPOSER}"
+        marker_has_text "$marker" "composer_profile=${RUNTIME_COMPOSER_PROFILE}" || missing="${missing} composer_profile=${RUNTIME_COMPOSER_PROFILE}"
+        marker_has_text "$marker" "slow_profile=${RUNTIME_SLOW_PROFILE}" || missing="${missing} slow_profile=${RUNTIME_SLOW_PROFILE}"
+        marker_has_text "$marker" "fast_profile=${RUNTIME_FAST_PROFILE}" || missing="${missing} fast_profile=${RUNTIME_FAST_PROFILE}"
+    fi
+
+    if [ -n "$missing" ]; then
+        missing=$(printf "%s" "$missing" | sed 's/^ //; s/ /,/g')
+        echo "  preopen target: pending latest_success_marker lacks ${missing}"
+        return
+    fi
+
+    detail="schedule_slot=preopen dry_run=True skip_data_update=True"
+    if [ "$RUNTIME_COMPOSER_STATE" = "enabled" ]; then
+        detail="${detail} runtime_composer=${RUNTIME_COMPOSER} composer_profile=${RUNTIME_COMPOSER_PROFILE}"
+    fi
+    echo "  preopen target: ok ${detail}"
+}
+
+print_preopen_status() {
+    echo "--- Pre-open Run Status ---"
+    preopen_log="${ROOT}/runtime/soxl/paper_trading/scheduler_preopen.log"
+    if preopen_success_after_cutoff "$preopen_log"; then
+        echo "  preopen status: success marker found"
+        print_preopen_target_status "$preopen_log"
+    elif preopen_due_today; then
+        if [ -f "$preopen_log" ] && grep -q "\[scheduler\] all done" "$preopen_log" 2>/dev/null; then
+            echo "  preopen status: due but no current success marker found"
+        else
+            echo "  preopen status: due but no success marker found"
+        fi
+    else
+        echo "  preopen status: pending until ${PREOPEN_TIME_LABEL} Mon-Fri Asia/Shanghai"
+    fi
+}
+
 print_postclose_status() {
     echo "--- Post-close Run Status ---"
     postclose_log="${ROOT}/runtime/soxl/paper_trading/scheduler_postclose.log"
@@ -1017,6 +1125,9 @@ print_dashboard_static_export
 echo ""
 
 print_vercel_remote_deployment
+echo ""
+
+print_preopen_status
 echo ""
 
 print_postclose_status

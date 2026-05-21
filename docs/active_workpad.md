@@ -5894,3 +5894,58 @@ Decision:
 Artifact:
 
 - `runtime/production/card/vercel_placeholder_guard_v1/notes.md`
+
+## 2026-05-21 Pre-open Run Status
+
+Goal:
+
+- Make the `21:00 Mon-Fri Asia/Shanghai` scheduled dry-run inference path
+  directly auditable in health output, without adding a new final goal gate.
+
+Root cause:
+
+- Health showed `scheduler_preopen.log` and the last generic success marker,
+  but did not classify whether the pre-open slot was pending, due, stale, or
+  current.
+- After adding explicit `--schedule-slot`, a natural pre-open success should
+  also prove it was really `schedule_slot=preopen`, `dry_run=True`, and
+  `skip_data_update=True` under the enabled runtime composer.
+
+Change:
+
+- `production/check_scheduler_health.sh`
+  - added `Pre-open Run Status`;
+  - added a 21:00 Mon-Fri due/current-success check;
+  - added `preopen target` validation for schedule slot, dry-run,
+    skip-data-update, and runtime-composer fields.
+- `tests/test_scheduler_health.py`
+  - added due-without-success and current-target success coverage.
+
+Evidence:
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest \
+  tests/test_scheduler_health.py::test_scheduler_health_reports_preopen_due_without_success_marker \
+  tests/test_scheduler_health.py::test_scheduler_health_reports_preopen_target_for_current_success_marker -q
+# red before implementation: Pre-open Run Status section missing
+# green after implementation: 2 passed
+
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_scheduler_health.py -q
+# 25 passed
+
+production/check_scheduler_health.sh
+# preopen status: pending until 21:00 Mon-Fri Asia/Shanghai
+# overall: pending external_vercel_setup,scheduled_postclose_target,scheduled_paper_proof
+```
+
+Decision:
+
+- The next natural 21:00 pre-open LaunchAgent run can now prove current
+  scheduled dry-run inference and composer targeting in health output.
+- Current production goal remains pending on:
+  `external_vercel_setup`, `scheduled_postclose_target`,
+  `scheduled_paper_proof`.
+
+Artifact:
+
+- `runtime/production/card/preopen_run_status_v1/notes.md`

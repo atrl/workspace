@@ -34,6 +34,7 @@
 27. **scheduler health 现在区分 inference artifact 和 paper dashboard row**：新增 `Latest Signal Artifact`，直接显示最新 `runtime/soxl/paper_trading/<date>/summary.json`。当前 live health 读数为 `date=2026-05-19`、`profile=balanced_rule_residual_v19`、`dry_run=true`、`executed=false`、`target=0.3999999985`、`risk_gate=approved`、`reconcile=manual_review`，而 dashboard paper row 仍结束于 `2026-05-18`。这使定时推理、模拟盘执行、dashboard 导出可以分层判断。
 28. **v22 runtime proof 缺口现在归因到同日幂等保护**：当前 health 选择 `balanced_rule_residual_v22`，但最新非 dry-run paper artifact 是 `2026-05-20` 的 `balanced_rule_residual_v19`。因为该日期已经执行，paper runner 不应重复落单；health 现在会在 pending 行后补充 `latest executed date already matches expected data date; next non-dry-run execution must use selected model`，把剩余证明归因到等待下一交易日，而不是误判为数据/调度失败。
 29. **Next Scheduled Runs 不再把已过窗口标成 today**：`production/check_scheduler_health.sh` 现在按 `HEALTH_WEEKDAY/HEALTH_HHMM` 判断 pre-open、post-close、weekly 窗口。当前 post-close 输出为 `next eligible day 06:15 Tue-Sat Asia/Shanghai`，避免把当天已过的 post-close 误读成下一次运行。
+30. **pre-open scheduled dry-run 现在有独立 health 状态**：health 新增 `Pre-open Run Status`，按 `21:00 Mon-Fri Asia/Shanghai` 判断 pending/due/current，并在当前成功时要求 `schedule_slot=preopen dry_run=True skip_data_update=True` 以及 runtime composer 目标字段；这不新增最终 goal gate。
 
 ## 2026-05-20 验证记录
 
@@ -2185,3 +2186,29 @@ This prevents operator-doc placeholders from creating a false
 Evidence card:
 
 - `runtime/production/card/vercel_placeholder_guard_v1/notes.md`
+
+## 2026-05-21 Pre-open Run Status
+
+`production/check_scheduler_health.sh` now has a `Pre-open Run Status` section
+for the `21:00 Mon-Fri Asia/Shanghai` cached-data dry-run inference path.
+
+The section reports whether the pre-open slot is pending, due with no success,
+due with only stale success, or has a current success marker. A current success
+also prints `preopen target` and requires `schedule_slot=preopen`,
+`dry_run=True`, `skip_data_update=True`, plus the enabled runtime-composer
+fields when `SOXL_RUNTIME_COMPOSER=budget_usage` is configured.
+
+Current live readout before the 21:00 slot:
+
+```text
+preopen status: pending until 21:00 Mon-Fri Asia/Shanghai
+overall: pending external_vercel_setup,scheduled_postclose_target,scheduled_paper_proof
+```
+
+This is an observability improvement only. The final production goal gates did
+not change; Vercel setup, scheduled post-close target, and ordinary paper proof
+remain the active blockers.
+
+Evidence card:
+
+- `runtime/production/card/preopen_run_status_v1/notes.md`
