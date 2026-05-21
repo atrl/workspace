@@ -1,0 +1,37 @@
+{
+  "profile": "v19reg_v22_budget_usage_bull_guard_v1",
+  "review": "runtime_interface_v1",
+  "date": "2026-05-21",
+  "decision": "standard_path_interface_ready_component_gate_blocked",
+  "runtime_auto_select_status": "blocked",
+  "completed": [
+    "src/soxl_quant/runtime.py exposes compose_budget_usage_runtime_signal and plan_budget_usage_composed_session",
+    "production/soxl_paper_trading.py accepts explicit --runtime-composer budget_usage arguments",
+    "production/soxl_daily_scheduler.py forwards explicit composer arguments to the paper runner",
+    "summary output persists a composition payload for composer dry-runs"
+  ],
+  "dry_run": {
+    "command": "PYTHONPATH=. qlib_venv/bin/python production/soxl_paper_trading.py --dry-run --no-notify --skip-data-update --runtime-composer budget_usage --composer-profile v19reg_v22_budget_usage_bull_guard_v1 --slow-profile balanced_rule_residual_v19_reg --fast-profile balanced_rule_residual_v22 --bull-participation-guard",
+    "signal_date": "2026-05-20",
+    "target_position": 0.48408568215209924,
+    "current_position": 0.48408568215209924,
+    "risk_gate_approved": false,
+    "blocking_reasons": [
+      "soxl_balanced_rule_residual_v19_reg_actor.pt: model failed promotion gate"
+    ],
+    "output": "runtime/soxl/paper_trading/2026-05-20/dry_run/summary.json"
+  },
+  "scheduler_smoke": {
+    "command": "PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py --dry-run --no-notify --skip-data-update --skip-dashboard --runtime-composer budget_usage --composer-profile v19reg_v22_budget_usage_bull_guard_v1 --slow-profile balanced_rule_residual_v19_reg --fast-profile balanced_rule_residual_v22 --bull-participation-guard",
+    "exit_code": 0,
+    "result": "scheduler forwarded composer args and completed cached dry-run"
+  },
+  "verification": {
+    "red_test": "focused pytest failed before implementation because compose_budget_usage_runtime_signal was missing",
+    "focused_tests": "uv run --python qlib_venv/bin/python --with pytest pytest tests/test_runtime.py::test_compose_budget_usage_runtime_signal_records_bull_guard_audit tests/test_daily_scheduler.py::test_scheduler_passes_runtime_composer_to_paper_runner tests/test_paper_trading.py::test_main_uses_budget_runtime_composer_when_requested -q => 3 passed",
+    "related_tests": "uv run --python qlib_venv/bin/python --with pytest pytest tests/test_runtime.py tests/test_two_speed_budget.py tests/test_paper_trading.py tests/test_daily_scheduler.py -q => 53 passed",
+    "harness": "PYTHONPATH=src:. qlib_venv/bin/python scripts/check_harness.py => passed=161 failures=0",
+    "scheduler_health": "production/check_scheduler_health.sh => default data/model/broker/dashboard ok; runtime proof pending for selected v22; Vercel blocked_no_credentials"
+  },
+  "next_action": "Add a composer-level promotion review or explicit runtime profile governance decision before allowing non-dry scheduled execution."
+}

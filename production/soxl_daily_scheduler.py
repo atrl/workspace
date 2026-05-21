@@ -60,6 +60,17 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--unlock-password", default="")
     parser.add_argument("--profile-family", default="balanced")
     parser.add_argument("--profile", default="")
+    parser.add_argument("--runtime-composer", default="none", choices=["none", "budget_usage"])
+    parser.add_argument("--composer-profile", default="")
+    parser.add_argument("--slow-profile", default="")
+    parser.add_argument("--fast-profile", default="")
+    parser.add_argument("--bull-participation-guard", action="store_true")
+    parser.add_argument("--bull-ma-window", type=int, default=50)
+    parser.add_argument("--bull-momentum-window", type=int, default=20)
+    parser.add_argument("--bull-high-window", type=int, default=50)
+    parser.add_argument("--bull-min-periods", type=int, default=20)
+    parser.add_argument("--bull-min-momentum", type=float, default=0.03)
+    parser.add_argument("--bull-max-drawdown", type=float, default=0.08)
     parser.add_argument("--data-provider", default="auto", choices=["auto", "yfinance", "yahoo_api", "polygon"])
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--no-notify", action="store_true")
@@ -143,6 +154,26 @@ def main() -> None:
         ]
         if args.profile:
             paper_cmd.extend(["--profile", args.profile])
+        if args.runtime_composer != "none":
+            paper_cmd.extend(["--runtime-composer", args.runtime_composer])
+            if args.composer_profile:
+                paper_cmd.extend(["--composer-profile", args.composer_profile])
+            if args.slow_profile:
+                paper_cmd.extend(["--slow-profile", args.slow_profile])
+            if args.fast_profile:
+                paper_cmd.extend(["--fast-profile", args.fast_profile])
+            if args.bull_participation_guard:
+                paper_cmd.append("--bull-participation-guard")
+            paper_cmd.extend(
+                [
+                    "--bull-ma-window", str(args.bull_ma_window),
+                    "--bull-momentum-window", str(args.bull_momentum_window),
+                    "--bull-high-window", str(args.bull_high_window),
+                    "--bull-min-periods", str(args.bull_min_periods),
+                    "--bull-min-momentum", str(args.bull_min_momentum),
+                    "--bull-max-drawdown", str(args.bull_max_drawdown),
+                ]
+            )
         if args.dry_run:
             paper_cmd.append("--dry-run")
         if args.skip_data_update:

@@ -19,6 +19,7 @@ from src.soxl_quant.policy.execution import (
 )
 from src.soxl_quant.policy.environment import TrancheLedger
 from src.soxl_quant.runtime import (
+    compose_budget_usage_runtime_signal,
     RuntimeExecutionOverlayState,
     SignalIntent,
     PaperBroker,
@@ -30,6 +31,7 @@ from src.soxl_quant.runtime import (
     runtime_feature_packs,
     save_runtime_execution_overlay_state,
 )
+from src.soxl_quant.policy.two_speed_budget import BullParticipationGuardConfig, TwoSpeedBudgetConfig
 
 
 def _write_actor_with_summary(root: Path, profile: str, *, promoted: bool, score: float) -> Path:
@@ -399,3 +401,62 @@ def test_release_overrides_make_buying_easier_and_faster():
     assert sell_threshold > cfg.base_threshold
     assert execution_buy_cooldown_days(-0.05, cfg, "release") == 0
     assert execution_trade_lock_days(cfg, "release") == 1
+
+
+def test_compose_budget_usage_runtime_signal_records_bull_guard_audit():
+    dates = pd.date_range("2020-01-01", periods=5, freq="B")
+    price = pd.Series([100.0, 103.0, 106.0, 109.0, 112.0], index=dates, name="price")
+    slow_signal = SignalIntent(
+        date=str(dates[-1].date()),
+        symbol="SOXL",
+        profile="balanced_rule_residual_v19_reg",
+        model_path="runtime/model/card/balanced_rule_residual_v19_reg/soxl_balanced_rule_residual_v19_reg_actor.pt",
+        seed=19,
+        action=2,
+        target_position=0.20,
+        current_position=0.10,
+        price=112.0,
+        regime_risk=0.35,
+        note="slow",
+    )
+    fast_signal = SignalIntent(
+        date=str(dates[-1].date()),
+        symbol="SOXL",
+        profile="balanced_rule_residual_v22",
+        model_path="runtime/model/card/balanced_rule_residual_v22/soxl_balanced_rule_residual_v22_actor.pt",
+        seed=22,
+        action=7,
+        target_position=0.70,
+        current_position=0.10,
+        price=112.0,
+        regime_risk=0.35,
+        note="fast",
+    )
+
+    signal, composition = compose_budget_usage_runtime_signal(
+        slow_signal,
+        fast_signal,
+        price,
+        composer_profile="v19reg_v22_budget_usage_bull_guard_v1",
+        config=TwoSpeedBudgetConfig(trade_threshold=0.0, trade_lock_days=0),
+        bull_guard=BullParticipationGuardConfig(
+            enabled=True,
+            ma_window=2,
+            momentum_window=1,
+            high_window=2,
+            min_periods=1,
+            min_momentum=0.01,
+            max_drawdown=0.02,
+        ),
+    )
+
+    assert signal.profile == "v19reg_v22_budget_usage_bull_guard_v1"
+    assert signal.target_position == 0.70
+    assert signal.current_position == slow_signal.current_position
+    assert signal.model_path == f"slow={slow_signal.model_path};fast={fast_signal.model_path}"
+    assert "composer=budget_usage" in signal.note
+    assert "bull_guard=True" in signal.note
+    assert composition["mode"] == "flat_wait"
+    assert composition["base_two_speed_position"] == 0.175
+    assert composition["raw_two_speed_position"] == 0.70
+    assert composition["bull_participation_guard"] is True

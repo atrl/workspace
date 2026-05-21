@@ -1292,3 +1292,49 @@ Decision:
 Evidence card:
 
 - `runtime/production/card/scheduler_postclose_0615_v1/notes.md`
+
+## 2026-05-21 Budget-Usage Runtime Composer Interface
+
+The standard production entrypoints can now run a governed budget-usage
+composer when explicitly requested:
+
+- `production/soxl_paper_trading.py --runtime-composer budget_usage`
+- `production/soxl_daily_scheduler.py --runtime-composer budget_usage`
+
+The required operator-supplied fields are `--composer-profile`,
+`--slow-profile`, and `--fast-profile`. The bull-participation guard is opt-in
+through `--bull-participation-guard` and its window/threshold knobs.
+
+Live smoke:
+
+```bash
+PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py \
+  --dry-run --no-notify --skip-data-update --skip-dashboard \
+  --runtime-composer budget_usage \
+  --composer-profile v19reg_v22_budget_usage_bull_guard_v1 \
+  --slow-profile balanced_rule_residual_v19_reg \
+  --fast-profile balanced_rule_residual_v22 \
+  --bull-participation-guard
+```
+
+Result: scheduler completed and wrote the composer dry-run through paper
+trading.
+
+Current blocker:
+
+- The candidate is not enabled in installed LaunchAgents.
+- Its dry-run risk gate is blocked because the component slow actor
+  `balanced_rule_residual_v19_reg` fails standalone model promotion.
+- Keep the production default on single selected `balanced_rule_residual_v22`
+  until a composer-level promotion review explicitly approves this exception.
+
+Evidence card:
+
+- `runtime/production/card/budget_usage_runtime_composer_v1/notes.md`
+
+Verification:
+
+- `PYTHONPATH=src:. qlib_venv/bin/python scripts/check_harness.py` ->
+  `passed=161 failures=0`.
+- `production/check_scheduler_health.sh` -> default data/model/broker/dashboard
+  ok; runtime proof pending for selected v22; Vercel `blocked_no_credentials`.

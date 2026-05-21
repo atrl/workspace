@@ -897,3 +897,39 @@ trading path still plans one selected actor profile, so the next model-side
 runtime step must add a governed profile/runtime composer interface for
 `slow_profile + fast_profile + bull_guard` before scheduled paper execution can
 use this candidate.
+
+## 2026-05-21 Budget-Usage Runtime Composer Interface
+
+Status: `standard_path_interface_ready_component_gate_blocked`.
+
+The standard runtime path now has an explicit two-actor budget-usage interface:
+
+- `src/soxl_quant/runtime.py` exposes `compose_budget_usage_runtime_signal` and
+  `plan_budget_usage_composed_session`.
+- `production/soxl_paper_trading.py` accepts `--runtime-composer budget_usage`
+  plus `--composer-profile`, `--slow-profile`, `--fast-profile`, and bull-guard
+  knobs.
+- `production/soxl_daily_scheduler.py` can forward the same flags when an
+  operator explicitly provides them.
+
+Live dry-run on cached `2026-05-20` data wrote
+`runtime/soxl/paper_trading/2026-05-20/dry_run/summary.json` with
+`profile=v19reg_v22_budget_usage_bull_guard_v1`, but risk gate blocked the
+signal because the component slow actor `soxl_balanced_rule_residual_v19_reg_actor.pt`
+fails its standalone promotion gate. This is a governance blocker, not a code
+path failure.
+
+Evidence:
+
+- `runtime/model/card/v19reg_v22_budget_usage_bull_guard_v1/runtime_interface_review.md`
+- `runtime/model/card/v19reg_v22_budget_usage_bull_guard_v1/runtime_interface_review.json`
+- `runtime/production/card/budget_usage_runtime_composer_v1/notes.md`
+- Related tests: `uv run --python qlib_venv/bin/python --with pytest pytest tests/test_runtime.py tests/test_two_speed_budget.py tests/test_paper_trading.py tests/test_daily_scheduler.py -q` -> `53 passed`.
+- Full harness: `PYTHONPATH=src:. qlib_venv/bin/python scripts/check_harness.py`
+  -> `passed=161 failures=0`.
+- Scheduler health: default data/model/broker/dashboard ok; runtime proof still
+  pending for selected v22; Vercel remains `blocked_no_credentials`.
+
+Next valid step: decide and implement a composer-level promotion gate/review if
+the walk-forward diagnostic evidence is intended to supersede component-level
+standalone actor promotion for this specific two-actor runtime candidate.

@@ -14,7 +14,7 @@ from __future__ import annotations
 import argparse
 import json
 import sys
-from dataclasses import asdict, replace
+from dataclasses import asdict, is_dataclass, replace
 from datetime import date, datetime, time, timedelta
 from pathlib import Path
 from typing import Dict, Optional, Tuple
@@ -35,11 +35,13 @@ from src.soxl_quant.runtime import (
     PaperBroker,
     auto_select_profile,
     next_runtime_execution_overlay_state,
+    plan_budget_usage_composed_session,
     plan_manual_session,
     promotion_gate_status,
     reconcile_positions,
     save_runtime_execution_overlay_state,
 )
+from src.soxl_quant.policy.two_speed_budget import BullParticipationGuardConfig, TwoSpeedBudgetConfig
 from src.soxl_quant.settings import ACCOUNT, QLIB_DATA_PATH, RUNTIME_DIR, load_profile
 
 US_MARKET_TZ = ZoneInfo("America/New_York")
@@ -58,6 +60,26 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="SOXL daily paper-trading runner")
     parser.add_argument("--profile-family", default="balanced", help="Model family for auto-selection")
     parser.add_argument("--profile", default="", help="Override: hard-coded profile name (skip auto-select)")
+    parser.add_argument(
+        "--runtime-composer",
+        default="none",
+        choices=["none", "budget_usage"],
+        help="Optional governed runtime composer instead of a single actor profile",
+    )
+    parser.add_argument("--composer-profile", default="", help="Output profile label for a runtime composer")
+    parser.add_argument("--slow-profile", default="", help="Slow risk-mode actor profile for runtime composer")
+    parser.add_argument("--fast-profile", default="", help="Fast budget-usage actor profile for runtime composer")
+    parser.add_argument(
+        "--bull-participation-guard",
+        action="store_true",
+        help="Floor budget-usage composer target to the fast path during confirmed bull windows",
+    )
+    parser.add_argument("--bull-ma-window", type=int, default=50, help="Moving-average window for bull guard")
+    parser.add_argument("--bull-momentum-window", type=int, default=20, help="Momentum window for bull guard")
+    parser.add_argument("--bull-high-window", type=int, default=50, help="Rolling-high window for bull guard drawdown")
+    parser.add_argument("--bull-min-periods", type=int, default=20, help="Minimum periods for bull guard rolling stats")
+    parser.add_argument("--bull-min-momentum", type=float, default=0.03, help="Minimum return for bull guard")
+    parser.add_argument("--bull-max-drawdown", type=float, default=0.08, help="Maximum rolling drawdown for bull guard")
     parser.add_argument("--broker", default="paper", choices=["paper", "futu"], help="Broker adapter")
     parser.add_argument("--futu-host", default="127.0.0.1", help="OpenD host")
     parser.add_argument("--futu-port", type=int, default=11111, help="OpenD port")
@@ -82,7 +104,35 @@ def parse_args() -> argparse.Namespace:
         default=True,
         help="In paper mode, clip large target changes to the risk-gate step limit instead of blocking",
     )
-    return parser.parse_args()
+    args = parser.parse_args()
+    if args.runtime_composer != "none":
+        if not args.slow_profile or not args.fast_profile:
+            parser.error("--runtime-composer requires --slow-profile and --fast-profile")
+        if args.profile:
+            parser.error("--profile cannot be combined with --runtime-composer")
+        if not args.composer_profile:
+            args.composer_profile = f"{args.slow_profile}_{args.fast_profile}_{args.runtime_composer}"
+    return args
+
+
+def _runtime_composer_enabled(args: argparse.Namespace) -> bool:
+    return args.runtime_composer == "budget_usage"
+
+
+def _bull_guard_config(args: argparse.Namespace) -> BullParticipationGuardConfig:
+    return BullParticipationGuardConfig(
+        enabled=bool(args.bull_participation_guard),
+        ma_window=args.bull_ma_window,
+        momentum_window=args.bull_momentum_window,
+        high_window=args.bull_high_window,
+        min_periods=args.bull_min_periods,
+        min_momentum=args.bull_min_momentum,
+        max_drawdown=args.bull_max_drawdown,
+    )
+
+
+def _jsonable(value):
+    return asdict(value) if is_dataclass(value) else value
 
 
 def _init_broker(args: argparse.Namespace) -> BrokerAdapter:
@@ -207,13 +257,14 @@ def _format_signal_message(
     account,
     reconcile,
     profile: str,
-    model_path: Path,
+    model_path: Path | str,
     executed: bool,
 ) -> Tuple[str, str]:
     title = f"SOXL {'EXEC' if executed else 'BLOCKED'} | {signal.date}"
+    model_label = model_path.name if isinstance(model_path, Path) else str(model_path)
     body_lines = [
         f"Profile: {profile}",
-        f"Model: {model_path.name}",
+        f"Model: {model_label}",
         f"Price: ${signal.price:.2f}",
         f"Current Pos: {signal.current_position:.1%}",
         f"Target Pos: {signal.target_position:.1%}",
@@ -444,7 +495,16 @@ def healthcheck(args: argparse.Namespace) -> Dict[str, object]:
     results["data"] = data_status
 
     try:
-        if args.profile:
+        if _runtime_composer_enabled(args):
+            from src.soxl_quant.runtime import load_actor_bundle
+            load_actor_bundle(args.slow_profile)
+            load_actor_bundle(args.fast_profile)
+            model_ok = True
+            model_name = (
+                f"{args.composer_profile} "
+                f"(slow={args.slow_profile}, fast={args.fast_profile})"
+            )
+        elif args.profile:
             from src.soxl_quant.runtime import load_actor_bundle
             load_actor_bundle(args.profile)
             model_ok = True
@@ -524,7 +584,17 @@ def main() -> None:
     init_qlib(QLIB_DATA_PATH)
 
     # 2. Model selection
-    if args.profile:
+    if _runtime_composer_enabled(args):
+        from src.soxl_quant.runtime import latest_model_path
+        profile_name = args.composer_profile
+        slow_model_path = latest_model_path(args.slow_profile)
+        fast_model_path = latest_model_path(args.fast_profile)
+        model_path = f"slow={slow_model_path};fast={fast_model_path}"
+        print(
+            f"[paper] using runtime composer={args.runtime_composer} "
+            f"profile={profile_name} slow={args.slow_profile} fast={args.fast_profile}"
+        )
+    elif args.profile:
         profile_name = args.profile
         from src.soxl_quant.runtime import latest_model_path
         model_path = latest_model_path(profile_name)
@@ -542,14 +612,29 @@ def main() -> None:
     broker = _init_broker(args)
     try:
         # 5. Signal generation
-        result = plan_manual_session(
-            profile_name=profile_name,
-            as_of=as_of,
-            broker=broker,
-            model_path=model_path,
-            output_dir=None,
-            clip_position_change=args.broker == "paper" and args.paper_step_clip,
-        )
+        if _runtime_composer_enabled(args):
+            result = plan_budget_usage_composed_session(
+                slow_profile=args.slow_profile,
+                fast_profile=args.fast_profile,
+                as_of=as_of,
+                broker=broker,
+                composer_profile=profile_name,
+                slow_model_path=slow_model_path,
+                fast_model_path=fast_model_path,
+                output_dir=None,
+                config=TwoSpeedBudgetConfig(),
+                bull_guard=_bull_guard_config(args),
+                clip_position_change=args.broker == "paper" and args.paper_step_clip,
+            )
+        else:
+            result = plan_manual_session(
+                profile_name=profile_name,
+                as_of=as_of,
+                broker=broker,
+                model_path=model_path,
+                output_dir=None,
+                clip_position_change=args.broker == "paper" and args.paper_step_clip,
+            )
         signal = result["signal"]
         decision = result["risk_gate"]
         account = result["account"]
@@ -605,16 +690,17 @@ def main() -> None:
             account, reconcile = _post_execution_audit(signal, decision, broker)
             result["account"] = account
             result["reconcile"] = reconcile
-            profile_cfg = load_profile(profile_name)
-            overlay_state = next_runtime_execution_overlay_state(
-                profile_cfg,
-                previous_state=result["execution_overlay_state"],
-                signal=signal,
-                account_value=account.account_value,
-                order_submitted=executed,
-            )
-            save_runtime_execution_overlay_state(profile_cfg, overlay_state, date=signal.date)
-            result["execution_overlay_state"] = overlay_state
+            if not _runtime_composer_enabled(args):
+                profile_cfg = load_profile(profile_name)
+                overlay_state = next_runtime_execution_overlay_state(
+                    profile_cfg,
+                    previous_state=result["execution_overlay_state"],
+                    signal=signal,
+                    account_value=account.account_value,
+                    order_submitted=executed,
+                )
+                save_runtime_execution_overlay_state(profile_cfg, overlay_state, date=signal.date)
+                result["execution_overlay_state"] = overlay_state
 
         # 7. Notification
         if use_notify:
@@ -630,12 +716,12 @@ def main() -> None:
         run_dir.mkdir(parents=True, exist_ok=True)
         for name, value in result.items():
             (run_dir / f"{name}.json").write_text(
-                json.dumps(asdict(value), ensure_ascii=False, indent=2), encoding="utf-8"
+                json.dumps(_jsonable(value), ensure_ascii=False, indent=2), encoding="utf-8"
             )
         summary = {
             "date": signal.date,
             "profile": profile_name,
-            "model": str(model_path),
+            "model": signal.model_path if _runtime_composer_enabled(args) else str(model_path),
             "broker": args.broker,
             "dry_run": args.dry_run,
             "executed": executed,
@@ -644,6 +730,8 @@ def main() -> None:
             "account": asdict(account),
             "reconcile": asdict(reconcile),
         }
+        if "composition" in result:
+            summary["composition"] = result["composition"]
         (run_dir / "summary.json").write_text(json.dumps(summary, indent=2, default=str), encoding="utf-8")
         print(f"[paper] output={run_dir}")
 

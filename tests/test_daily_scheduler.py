@@ -235,3 +235,45 @@ def test_scheduler_accepts_polygon_data_provider(monkeypatch: pytest.MonkeyPatch
     paper_cmd = calls[0][0]
     assert "--data-provider" in paper_cmd
     assert paper_cmd[paper_cmd.index("--data-provider") + 1] == "polygon"
+
+
+def test_scheduler_passes_runtime_composer_to_paper_runner(monkeypatch: pytest.MonkeyPatch):
+    calls: list[tuple[list[str], str]] = []
+
+    def fake_run(cmd: list[str], description: str):
+        calls.append((cmd, description))
+
+    monkeypatch.setattr(soxl_daily_scheduler, "_run", fake_run)
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "soxl_daily_scheduler.py",
+            "--no-notify",
+            "--runtime-composer",
+            "budget_usage",
+            "--composer-profile",
+            "v19reg_v22_budget_usage_bull_guard_v1",
+            "--slow-profile",
+            "balanced_rule_residual_v19_reg",
+            "--fast-profile",
+            "balanced_rule_residual_v22",
+            "--bull-participation-guard",
+        ],
+    )
+
+    soxl_daily_scheduler.main()
+
+    paper_cmd = calls[0][0]
+    for arg in (
+        "--runtime-composer",
+        "budget_usage",
+        "--composer-profile",
+        "v19reg_v22_budget_usage_bull_guard_v1",
+        "--slow-profile",
+        "balanced_rule_residual_v19_reg",
+        "--fast-profile",
+        "balanced_rule_residual_v22",
+        "--bull-participation-guard",
+    ):
+        assert arg in paper_cmd

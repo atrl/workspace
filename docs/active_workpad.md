@@ -4348,3 +4348,82 @@ Artifacts:
 
 - `runtime/model/card/v19reg_v22_budget_usage_bull_guard_v1/runtime_packaging_review.md`
 - `runtime/model/card/v19reg_v22_budget_usage_bull_guard_v1/runtime_packaging_review.json`
+
+## 2026-05-21 Budget-Usage Runtime Composer Interface
+
+Goal:
+
+- Move the promoted diagnostic from a sidecar production script toward the
+  standard paper-trading/scheduler path while keeping non-dry execution gated.
+
+Implemented:
+
+- Added `compose_budget_usage_runtime_signal` and
+  `plan_budget_usage_composed_session` in `src/soxl_quant/runtime.py`.
+- Added explicit composer flags to `production/soxl_paper_trading.py`:
+  `--runtime-composer budget_usage`, `--composer-profile`, `--slow-profile`,
+  `--fast-profile`, and the bull-guard knobs.
+- Added pass-through composer flags to `production/soxl_daily_scheduler.py`.
+- Composer summaries now persist `composition` next to normal signal/risk/account
+  evidence.
+- Added compile coverage for `production/soxl_daily_scheduler.py` and
+  `production/soxl_paper_trading.py` in `scripts/check_harness.py`.
+
+Evidence:
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest \
+  tests/test_runtime.py::test_compose_budget_usage_runtime_signal_records_bull_guard_audit \
+  tests/test_daily_scheduler.py::test_scheduler_passes_runtime_composer_to_paper_runner \
+  tests/test_paper_trading.py::test_main_uses_budget_runtime_composer_when_requested -q
+# red before implementation: compose_budget_usage_runtime_signal missing
+# green after implementation: 3 passed
+
+uv run --python qlib_venv/bin/python --with pytest pytest \
+  tests/test_runtime.py tests/test_two_speed_budget.py \
+  tests/test_paper_trading.py tests/test_daily_scheduler.py -q
+# 53 passed
+
+PYTHONPATH=. qlib_venv/bin/python production/soxl_paper_trading.py \
+  --dry-run --no-notify --skip-data-update \
+  --runtime-composer budget_usage \
+  --composer-profile v19reg_v22_budget_usage_bull_guard_v1 \
+  --slow-profile balanced_rule_residual_v19_reg \
+  --fast-profile balanced_rule_residual_v22 \
+  --bull-participation-guard
+# output=runtime/soxl/paper_trading/2026-05-20/dry_run
+# risk_gate approved=False
+# blocker=soxl_balanced_rule_residual_v19_reg_actor.pt: model failed promotion gate
+
+PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py \
+  --dry-run --no-notify --skip-data-update --skip-dashboard \
+  --runtime-composer budget_usage \
+  --composer-profile v19reg_v22_budget_usage_bull_guard_v1 \
+  --slow-profile balanced_rule_residual_v19_reg \
+  --fast-profile balanced_rule_residual_v22 \
+  --bull-participation-guard
+# scheduler forwarded composer args and completed cached dry-run
+
+PYTHONPATH=src:. qlib_venv/bin/python scripts/check_harness.py
+# passed=161 failures=0
+
+production/check_scheduler_health.sh
+# default data/model/broker/dashboard ok
+# runtime proof pending for selected v22; Vercel blocked_no_credentials
+```
+
+Decision:
+
+- Standard runtime interface exists, but runtime auto-selection remains blocked.
+- Do not add composer flags to installed scheduled LaunchAgents until there is a
+  composer-level promotion review or explicit runtime profile governance
+  decision.
+- The next model/runtime step is to decide whether component actor promotion
+  should be replaced by a composer-level gate for this validated two-actor
+  candidate.
+
+Artifacts:
+
+- `runtime/model/card/v19reg_v22_budget_usage_bull_guard_v1/runtime_interface_review.md`
+- `runtime/model/card/v19reg_v22_budget_usage_bull_guard_v1/runtime_interface_review.json`
+- `runtime/production/card/budget_usage_runtime_composer_v1/notes.md`

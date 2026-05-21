@@ -139,6 +139,47 @@ def _bull_guard_indicators(
     return moving_average, momentum, drawdown
 
 
+def bull_participation_guard_snapshot(
+    price_series: pd.Series,
+    guard: BullParticipationGuardConfig,
+    *,
+    as_of: str | pd.Timestamp | None = None,
+) -> dict[str, float | bool]:
+    """Evaluate the price-confirmed bull guard at one runtime date."""
+
+    price_frame = _price_frame(price_series).sort_values("datetime").reset_index(drop=True)
+    if as_of is not None:
+        as_of_ts = pd.Timestamp(as_of)
+        price_frame = price_frame[price_frame["datetime"] <= as_of_ts].reset_index(drop=True)
+    if price_frame.empty:
+        raise ValueError("price_series has no rows available for bull participation guard")
+
+    prices = price_frame["price"].astype(float)
+    moving_average, momentum, drawdown = _bull_guard_indicators(prices, guard)
+    idx = len(price_frame) - 1
+    price = float(prices.iloc[idx])
+    ma = float(moving_average.iloc[idx])
+    mom = float(momentum.iloc[idx])
+    dd = float(drawdown.iloc[idx])
+    ready = bool(
+        guard.enabled
+        and pd.notna(ma)
+        and pd.notna(mom)
+        and pd.notna(dd)
+        and price > ma
+        and mom >= float(guard.min_momentum)
+        and dd >= -float(guard.max_drawdown)
+    )
+    return {
+        "enabled": bool(guard.enabled),
+        "ready": ready,
+        "price": price,
+        "moving_average": ma,
+        "momentum": mom,
+        "drawdown": dd,
+    }
+
+
 def compose_budget_usage_policy_frame(
     slow: pd.DataFrame,
     fast: pd.DataFrame,
@@ -234,6 +275,7 @@ __all__ = [
     "DEFAULT_MODE_BANDS",
     "DEFAULT_MODE_SLACK",
     "BullParticipationGuardConfig",
+    "bull_participation_guard_snapshot",
     "TwoSpeedBudgetConfig",
     "compose_budget_usage_policy_frame",
     "compose_budget_usage_position",

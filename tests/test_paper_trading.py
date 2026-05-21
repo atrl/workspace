@@ -493,6 +493,97 @@ def test_dry_run_after_executed_day_does_not_overwrite_executed_summary(
     assert dry_run_summary["executed"] is False
 
 
+def test_main_uses_budget_runtime_composer_when_requested(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+):
+    csv_path = tmp_path / "soxl_features.csv"
+    csv_path.write_text(
+        "date,soxl_close\n"
+        "2026-05-20,173.20\n",
+        encoding="utf-8",
+    )
+    runtime_dir = tmp_path / "runtime" / "soxl"
+    runtime_dir.mkdir(parents=True)
+
+    signal = SignalIntent(
+        date="2026-05-20",
+        symbol="SOXL",
+        profile="v19reg_v22_budget_usage_bull_guard_v1",
+        model_path="slow=slow.pt;fast=fast.pt",
+        seed=None,
+        action=1,
+        target_position=0.70,
+        current_position=0.10,
+        price=173.20,
+        regime_risk=0.35,
+        note="composer=budget_usage",
+    )
+    decision = RiskGateDecision(True, 0.45, (), ())
+    account = AccountSnapshot("2026-05-20", 90_000.0, 100, 17_320.0, 107_320.0, 0.1614)
+    reconcile = ReconciliationRecord("2026-05-20", 0.45, 0.1614, -0.2886, "manual_review", "test")
+    composition = {
+        "name": "budget_usage",
+        "composer_profile": "v19reg_v22_budget_usage_bull_guard_v1",
+        "slow_profile": "balanced_rule_residual_v19_reg",
+        "fast_profile": "balanced_rule_residual_v22",
+        "bull_participation_guard": True,
+    }
+    captured: dict[str, object] = {}
+
+    def fake_plan_budget_usage_composed_session(**kwargs):
+        captured.update(kwargs)
+        return {
+            "signal": signal,
+            "risk_gate": decision,
+            "account": account,
+            "reconcile": reconcile,
+            "execution_overlay_state": RuntimeExecutionOverlayState(),
+            "composition": composition,
+        }
+
+    monkeypatch.setattr(soxl_paper_trading, "RUNTIME_DIR", runtime_dir)
+    monkeypatch.setattr(soxl_paper_trading, "PAPER_TRADING_CSV", runtime_dir / "paper_trading" / "daily.csv")
+    monkeypatch.setattr(soxl_paper_trading, "PAPER_BROKER_STATE", runtime_dir / "paper_trading" / "state.json")
+    monkeypatch.setattr(soxl_paper_trading, "init_qlib", lambda _qlib_path: None)
+    monkeypatch.setattr(soxl_paper_trading, "_init_broker", lambda args: PaperBroker(initial_cash=100_000.0))
+    monkeypatch.setattr(soxl_paper_trading, "plan_manual_session", lambda **_kwargs: (_ for _ in ()).throw(AssertionError("single actor planner should not run")))
+    monkeypatch.setattr(soxl_paper_trading, "plan_budget_usage_composed_session", fake_plan_budget_usage_composed_session)
+    monkeypatch.setattr(soxl_paper_trading, "_last_trading_day", lambda: "2026-05-20")
+
+    from src.soxl_quant import settings
+
+    monkeypatch.setattr(settings, "CSV_PATH", csv_path)
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "soxl_paper_trading.py",
+            "--dry-run",
+            "--no-notify",
+            "--skip-data-update",
+            "--runtime-composer",
+            "budget_usage",
+            "--composer-profile",
+            "v19reg_v22_budget_usage_bull_guard_v1",
+            "--slow-profile",
+            "balanced_rule_residual_v19_reg",
+            "--fast-profile",
+            "balanced_rule_residual_v22",
+            "--bull-participation-guard",
+        ],
+    )
+
+    soxl_paper_trading.main()
+
+    summary = json.loads((runtime_dir / "paper_trading" / "2026-05-20" / "summary.json").read_text(encoding="utf-8"))
+    assert captured["slow_profile"] == "balanced_rule_residual_v19_reg"
+    assert captured["fast_profile"] == "balanced_rule_residual_v22"
+    assert summary["profile"] == "v19reg_v22_budget_usage_bull_guard_v1"
+    assert summary["model"] == "slow=slow.pt;fast=fast.pt"
+    assert summary["composition"] == composition
+
+
 def test_existing_executed_summary_falls_back_to_paper_state_and_daily_csv(tmp_path: Path):
     runtime_dir = tmp_path / "runtime" / "soxl"
     paper_dir = runtime_dir / "paper_trading"

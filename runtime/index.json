@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-21T04:13:33.231162+00:00",
+  "generated_at": "2026-05-21T04:28:00.888326+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -2363,7 +2363,19 @@
       "path": "runtime/model/card/v19reg_v22_budget_usage_bull_guard_v1/notes.md",
       "category": "model",
       "suffix": ".md",
-      "bytes": 5807
+      "bytes": 6758
+    },
+    {
+      "path": "runtime/model/card/v19reg_v22_budget_usage_bull_guard_v1/runtime_interface_review.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 2952
+    },
+    {
+      "path": "runtime/model/card/v19reg_v22_budget_usage_bull_guard_v1/runtime_interface_review.md",
+      "category": "model",
+      "suffix": ".md",
+      "bytes": 3263
     },
     {
       "path": "runtime/model/card/v19reg_v22_budget_usage_bull_guard_v1/runtime_packaging_review.json",
@@ -2597,7 +2609,7 @@
       "path": "runtime/model/knowledge.md",
       "category": "model",
       "suffix": ".md",
-      "bytes": 48094
+      "bytes": 50025
     },
     {
       "path": "runtime/model/model_adjustment_roadmap.md",
@@ -2688,6 +2700,12 @@
       "category": "network",
       "suffix": ".md",
       "bytes": 17970
+    },
+    {
+      "path": "runtime/production/card/budget_usage_runtime_composer_v1/notes.md",
+      "category": "production",
+      "suffix": ".md",
+      "bytes": 2922
     },
     {
       "path": "runtime/production/card/cached_fallback_dry_run_v1/notes.md",
@@ -2837,7 +2855,7 @@
       "path": "runtime/production/knowledge.md",
       "category": "production",
       "suffix": ".md",
-      "bytes": 60691
+      "bytes": 62402
     },
     {
       "path": "runtime/reward/card/base_log/card.md",

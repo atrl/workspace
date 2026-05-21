@@ -116,3 +116,30 @@ Evidence:
 - `runtime_packaging_review.md`
 - `runtime_packaging_review.json`
 - `uv run --python qlib_venv/bin/python --with pytest pytest tests/test_two_speed_budget.py tests/test_budget_counterfactual.py -q` -> `12 passed`
+
+## 2026-05-21 Runtime Interface Step
+
+Decision: `standard_path_interface_ready_component_gate_blocked`.
+
+The standard paper-trading path can now explicitly run this line through
+`--runtime-composer budget_usage` with slow profile
+`balanced_rule_residual_v19_reg`, fast profile `balanced_rule_residual_v22`, and
+the bull-participation guard enabled. The scheduler can forward the same flags.
+
+Live dry-run evidence:
+
+- command output path:
+  `runtime/soxl/paper_trading/2026-05-20/dry_run/summary.json`
+- signal target/current: `0.48408568215209924` / `0.48408568215209924`
+- risk gate: blocked
+- blocker:
+  `soxl_balanced_rule_residual_v19_reg_actor.pt: model failed promotion gate`
+
+The block is intentional under current governance. The composer has diagnostic
+walk-forward evidence, but no composer-level runtime promotion review has
+replaced the component actor gate.
+
+Evidence:
+
+- `runtime_interface_review.md`
+- `runtime_interface_review.json`

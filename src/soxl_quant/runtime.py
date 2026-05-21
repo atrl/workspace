@@ -40,6 +40,14 @@ from .policy.observation import make_observation
 from .policy.policy_builder import actor_action, build_policy
 from .policy.positioning import target_position_for_profile
 from .settings import ACCOUNT, MODEL_DIR, PositionCapConfig, QLIB_DATA_PATH, ROOT, load_profile
+from .policy.two_speed_budget import (
+    BullParticipationGuardConfig,
+    TwoSpeedBudgetConfig,
+    bull_participation_guard_snapshot,
+    compose_budget_usage_position,
+    infer_mode_from_slow_position,
+    maybe_rebalance_position,
+)
 
 
 @dataclass(frozen=True)
@@ -773,6 +781,90 @@ def reconcile_positions(date: str, expected_position: float, actual_position: fl
     )
 
 
+def _combined_promotion_gate_status(model_paths: Sequence[Path]) -> Tuple[bool, str]:
+    results = [(path, promotion_gate_status(path)) for path in model_paths]
+    failed = [f"{path.name}: {reason}" for path, (ok, reason) in results if not ok]
+    if failed:
+        return False, "; ".join(failed)
+    labels = ", ".join(path.name for path, _status in results)
+    return True, f"all composed model gates passed: {labels}"
+
+
+def compose_budget_usage_runtime_signal(
+    slow_signal: SignalIntent,
+    fast_signal: SignalIntent,
+    price_series: pd.Series,
+    *,
+    composer_profile: str,
+    config: TwoSpeedBudgetConfig | None = None,
+    bull_guard: BullParticipationGuardConfig | None = None,
+) -> tuple[SignalIntent, dict[str, object]]:
+    """Build a single runtime signal from slow risk mode and fast budget usage."""
+
+    if slow_signal.date != fast_signal.date:
+        raise ValueError(f"slow/fast signal dates differ: {slow_signal.date} != {fast_signal.date}")
+    if slow_signal.symbol != fast_signal.symbol:
+        raise ValueError(f"slow/fast symbols differ: {slow_signal.symbol} != {fast_signal.symbol}")
+
+    cfg = config or TwoSpeedBudgetConfig()
+    guard = bull_guard or BullParticipationGuardConfig()
+    slow_position = max(0.0, min(float(slow_signal.target_position), 1.0))
+    fast_usage = max(0.0, min(float(fast_signal.target_position), 1.0))
+    mode = infer_mode_from_slow_position(slow_position)
+    base_target = compose_budget_usage_position(fast_usage, mode, cfg)
+    guard_snapshot = (
+        bull_participation_guard_snapshot(price_series, guard, as_of=slow_signal.date)
+        if guard.enabled
+        else {
+            "enabled": False,
+            "ready": False,
+            "price": float(slow_signal.price),
+            "moving_average": float("nan"),
+            "momentum": float("nan"),
+            "drawdown": float("nan"),
+        }
+    )
+    raw_target = max(base_target, fast_usage) if bool(guard_snapshot["ready"]) else base_target
+    target = maybe_rebalance_position(slow_signal.current_position, raw_target, cfg.trade_lock_days, cfg)
+    action = 0 if abs(target - slow_signal.current_position) < 0.01 else (1 if target > slow_signal.current_position else 2)
+    model_path = f"slow={slow_signal.model_path};fast={fast_signal.model_path}"
+    note = (
+        f"composer=budget_usage slow={slow_signal.profile}:{slow_position:.2%} "
+        f"fast={fast_signal.profile}:{fast_usage:.2%} mode={mode} "
+        f"base={base_target:.2%} raw={raw_target:.2%} "
+        f"bull_guard={bool(guard_snapshot['ready'])}"
+    )
+    signal = SignalIntent(
+        date=slow_signal.date,
+        symbol=slow_signal.symbol,
+        profile=composer_profile,
+        model_path=model_path,
+        seed=None,
+        action=action,
+        target_position=float(target),
+        current_position=float(slow_signal.current_position),
+        price=float(slow_signal.price),
+        regime_risk=float(slow_signal.regime_risk),
+        note=note,
+        target_before_overlay=float(base_target),
+    )
+    composition = {
+        "name": "budget_usage",
+        "composer_profile": composer_profile,
+        "slow_profile": slow_signal.profile,
+        "fast_profile": fast_signal.profile,
+        "slow_position": slow_position,
+        "fast_usage": fast_usage,
+        "mode": mode,
+        "base_two_speed_position": float(base_target),
+        "raw_two_speed_position": float(raw_target),
+        "target_position": float(target),
+        "bull_participation_guard": bool(guard_snapshot["ready"]),
+        "bull_guard": guard_snapshot,
+    }
+    return signal, composition
+
+
 def _runtime_frame(profile_name: str = "balanced") -> Tuple[pd.DataFrame, pd.Series]:
     init_qlib(QLIB_DATA_PATH)
     profile = load_profile(profile_name)
@@ -1074,6 +1166,80 @@ def plan_manual_session(
         output_dir.mkdir(parents=True, exist_ok=True)
         for name, value in payload.items():
             (output_dir / f"{name}.json").write_text(json.dumps(asdict(value), ensure_ascii=False, indent=2), encoding="utf-8")
+    return payload
+
+
+def plan_budget_usage_composed_session(
+    *,
+    slow_profile: str,
+    fast_profile: str,
+    as_of: str,
+    broker: BrokerAdapter,
+    composer_profile: str,
+    slow_model_path: Optional[Path] = None,
+    fast_model_path: Optional[Path] = None,
+    output_dir: Optional[Path] = None,
+    config: TwoSpeedBudgetConfig | None = None,
+    bull_guard: BullParticipationGuardConfig | None = None,
+    clip_position_change: bool = False,
+) -> Dict[str, object]:
+    """Generate a single-day execution plan from two governed actor profiles."""
+
+    slow_payload = plan_manual_session(
+        profile_name=slow_profile,
+        as_of=as_of,
+        broker=broker,
+        model_path=slow_model_path,
+        clip_position_change=clip_position_change,
+    )
+    fast_payload = plan_manual_session(
+        profile_name=fast_profile,
+        as_of=as_of,
+        broker=broker,
+        model_path=fast_model_path,
+        clip_position_change=clip_position_change,
+    )
+    _feature_df, price_series = _runtime_frame(slow_profile)
+    slow_signal = slow_payload["signal"]
+    fast_signal = fast_payload["signal"]
+    signal, composition = compose_budget_usage_runtime_signal(
+        slow_signal,
+        fast_signal,
+        price_series,
+        composer_profile=composer_profile,
+        config=config,
+        bull_guard=bull_guard,
+    )
+    account = broker.get_account_snapshot(signal.date, signal.price)
+    slow_path = Path(slow_signal.model_path)
+    fast_path = Path(fast_signal.model_path)
+    decision = risk_gate(
+        broker,
+        signal,
+        model_ready=_combined_promotion_gate_status((slow_path, fast_path)),
+        clip_position_change=clip_position_change,
+    )
+    reconcile = reconcile_positions(
+        signal.date,
+        decision.capped_target_position if decision.approved else signal.current_position,
+        account.position,
+    )
+    payload = {
+        "signal": signal,
+        "risk_gate": decision,
+        "account": account,
+        "reconcile": reconcile,
+        "execution_overlay_state": RuntimeExecutionOverlayState(peak_account_value=account.account_value),
+        "composition": composition,
+    }
+    if output_dir is not None:
+        output_dir.mkdir(parents=True, exist_ok=True)
+        for name, value in payload.items():
+            serializable = asdict(value) if hasattr(value, "__dataclass_fields__") else value
+            (output_dir / f"{name}.json").write_text(
+                json.dumps(serializable, ensure_ascii=False, indent=2),
+                encoding="utf-8",
+            )
     return payload
 
 
