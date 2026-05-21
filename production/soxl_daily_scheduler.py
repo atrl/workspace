@@ -126,8 +126,7 @@ def _run_vercel_deploy(cmd: list[str], *, strict: bool) -> None:
     if not strict and returncode == 2:
         print(
             "[scheduler] Vercel deploy blocked by missing credentials; "
-            "continuing after writing deployment evidence",
-            file=sys.stderr,
+            "continuing after writing deployment evidence"
         )
 
 

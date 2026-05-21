@@ -212,7 +212,8 @@ def test_scheduler_treats_missing_vercel_credentials_as_nonfatal(monkeypatch: py
     soxl_daily_scheduler.main()
 
     captured = capsys.readouterr()
-    assert "Vercel deploy blocked by missing credentials" in captured.err
+    assert "Vercel deploy blocked by missing credentials" in captured.out
+    assert "Vercel deploy blocked by missing credentials" not in captured.err
     assert "[scheduler] all done" in captured.out
     assert [description for _cmd, description in calls] == [
         "paper trading",

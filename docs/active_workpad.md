@@ -4751,3 +4751,56 @@ Artifacts:
 
 - `runtime/production/card/vercel_health_freshness_v1/notes.md`
 - `runtime/production/card/vercel_remote_deploy_v1/vercel_deployment_check.json`
+
+## 2026-05-21 Scheduler Stderr Signal Cleanup
+
+Goal:
+
+- Keep scheduled paper-trading stderr focused on actionable failures instead of
+  repeating an already-recorded, nonfatal Vercel credential blocker.
+
+Baseline:
+
+- `runtime/soxl/paper_trading/scheduler_postclose.err` had grown to 110 lines.
+- Some entries were real historical data-provider failures before the 06:15
+  provider-buffer fix.
+- The latest nonfatal Vercel blocker also wrote to stderr:
+  `Vercel deploy blocked by missing credentials; continuing after writing deployment evidence`.
+- That blocker is already persisted in
+  `runtime/production/card/vercel_remote_deploy_v1/vercel_deployment_check.json`
+  and surfaced by scheduler health.
+
+Change:
+
+- `_run_vercel_deploy()` still treats return code `2` as nonfatal unless
+  `--strict-vercel-deploy` is set.
+- The nonfatal missing-credentials continuation notice now prints to stdout
+  instead of stderr.
+- Strict/failing Vercel paths still use normal error handling.
+
+Evidence:
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest \
+  tests/test_daily_scheduler.py::test_scheduler_treats_missing_vercel_credentials_as_nonfatal -q
+# red before implementation: nonfatal Vercel blocker was only in stderr
+# green after implementation: 1 passed
+
+qlib_venv/bin/python -m py_compile production/soxl_daily_scheduler.py
+# ok
+
+uv run --python qlib_venv/bin/python --with pytest pytest \
+  tests/test_daily_scheduler.py tests/test_scheduler_health.py -q
+# 26 passed
+```
+
+Decision:
+
+- Vercel missing credentials remains a visible health/evidence blocker, but no
+  longer adds new nonfatal noise to scheduler `.err` logs.
+- Historical stderr remains as audit evidence; do not truncate scheduler logs
+  automatically.
+
+Artifact:
+
+- `runtime/production/card/scheduler_stderr_signal_v1/notes.md`
