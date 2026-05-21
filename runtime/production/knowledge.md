@@ -2419,10 +2419,16 @@ Current live state is still pending because the real post-close log has no
 valid `schedule_slot=postclose` success segment yet:
 
 ```text
+postclose status: due but current success marker lacks schedule_slot=postclose
 postclose target: pending latest_success_marker lacks schedule_slot=postclose
 ordinary paper proof: pending selected_model=v19reg_v22_budget_usage_bull_guard_v1 execution=duplicate_skipped
 overall: pending external_vercel_setup,scheduled_postclose_target,scheduled_paper_proof
 ```
+
+The top-line post-close status now avoids saying `success marker found` unless
+the successful segment is a scheduled `postclose` slot. A strict completion
+without the slot marker remains useful diagnostic evidence, but it cannot clear
+scheduled post-close proof.
 
 Evidence card:
 

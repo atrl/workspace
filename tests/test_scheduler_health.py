@@ -1202,6 +1202,8 @@ def test_scheduler_health_targets_enabled_composer_for_model_and_runtime_proof()
     assert (
         "postclose target: pending latest_success_marker lacks schedule_slot=postclose"
     ) in result.stdout
+    assert "postclose status: due but current success marker lacks schedule_slot=postclose" in result.stdout
+    assert "postclose status: success marker found" not in result.stdout
     assert "--- Production Goal Gates ---" in result.stdout
     assert (
         "post-close composer target: pending latest_success_marker lacks schedule_slot=postclose"

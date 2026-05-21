@@ -6560,3 +6560,50 @@ Decision:
 Artifact:
 
 - `runtime/production/card/postclose_slot_success_parser_v1/notes.md`
+
+### Follow-up: Status Wording Guard
+
+Root cause:
+
+- After the slot parser fix, live health still printed
+  `postclose status: success marker found` for the current strict completion
+  marker even though that marker lacked `schedule_slot=postclose`.
+- The target gate was pending, but the top-line post-close status overstated
+  scheduled proof readiness.
+
+Change:
+
+- `postclose_success_after_cutoff()` now means a scheduled post-close slot
+  success, not any strict completion marker.
+- A strict current completion without `schedule_slot=postclose` now prints
+  `postclose status: due but current success marker lacks schedule_slot=postclose`.
+- Legacy strict completions with no run-start marker still print ordinary paper
+  proof detail, but cannot count as scheduled post-close success.
+- Cached dry-run fallback and prior scheduled-slot success behavior remain
+  separately guarded.
+
+Evidence:
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest \
+  tests/test_scheduler_health.py::test_scheduler_health_targets_enabled_composer_for_model_and_runtime_proof \
+  tests/test_scheduler_health.py::test_scheduler_health_keeps_prior_postclose_slot_success_when_later_manual_run_appended \
+  tests/test_scheduler_health.py::test_scheduler_health_does_not_count_cached_dry_run_as_postclose_success -q
+# red before implementation on the no-slot status wording; green after implementation: 3 passed
+
+uv run --python qlib_venv/bin/python --with pytest pytest \
+  tests/test_scheduler_health.py::test_scheduler_health_accepts_selected_profile_duplicate_skip_as_runtime_proof \
+  tests/test_scheduler_health.py::test_scheduler_health_targets_enabled_composer_for_model_and_runtime_proof \
+  tests/test_scheduler_health.py::test_scheduler_health_keeps_prior_postclose_slot_success_when_later_manual_run_appended \
+  tests/test_scheduler_health.py::test_scheduler_health_does_not_count_cached_dry_run_as_postclose_success -q
+# 4 passed after restoring ordinary paper proof visibility for legacy no-marker completions
+
+production/check_scheduler_health.sh
+# postclose status: due but current success marker lacks schedule_slot=postclose
+# postclose target: pending latest_success_marker lacks schedule_slot=postclose
+# ordinary paper proof: pending selected_model=v19reg_v22_budget_usage_bull_guard_v1 execution=duplicate_skipped
+# overall: pending external_vercel_setup,scheduled_postclose_target,scheduled_paper_proof
+
+PYTHONPATH=. qlib_venv/bin/python scripts/export_production_goal_gates.py
+# production_goal_gates status=pending issues=external_vercel_setup,scheduled_postclose_target,scheduled_paper_proof
+```

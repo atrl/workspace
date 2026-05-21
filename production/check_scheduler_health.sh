@@ -188,15 +188,7 @@ postclose_success_after_cutoff() {
     if [ -n "$(postclose_last_success_slot_marker "$path")" ]; then
         return 0
     fi
-    if grep -q "\[scheduler\] run started at " "$path" 2>/dev/null; then
-        awk '
-            /\[scheduler\] run started at / { seen = 1; ok = 0; next }
-            seen && /^\[scheduler\] all done$/ { ok = 1 }
-            END { exit ok ? 0 : 1 }
-        ' "$path"
-        return
-    fi
-    return 0
+    return 1
 }
 
 postclose_cached_dry_run_after_cutoff() {
@@ -221,6 +213,31 @@ postclose_cached_dry_run_after_cutoff() {
         return
     fi
     return 0
+}
+
+postclose_current_success_without_slot_after_cutoff() {
+    path="$1"
+    if [ ! -f "$path" ] || ! grep -q "^\[scheduler\] all done$" "$path" 2>/dev/null; then
+        return 1
+    fi
+    cutoff_epoch=$(postclose_cutoff_epoch)
+    log_epoch=$(file_epoch "$path")
+    if [ -n "$cutoff_epoch" ] && [ -n "$log_epoch" ] && [ "$log_epoch" -lt "$cutoff_epoch" ]; then
+        return 1
+    fi
+    if [ -n "$(postclose_last_success_slot_marker "$path")" ]; then
+        return 1
+    fi
+    awk '
+        /^\[scheduler\] run started at / { marker = $0; ok = 0; next }
+        /^\[scheduler\] all done$/ { ok = 1 }
+        END {
+            if (ok && marker != "" && marker !~ "schedule_slot=postclose") {
+                exit 0
+            }
+            exit 1
+        }
+    ' "$path"
 }
 
 postclose_last_run_marker() {
@@ -881,11 +898,16 @@ print_postclose_status() {
         echo "  postclose status: success marker found"
         print_postclose_target_status "$postclose_log"
         print_postclose_proof_detail
+    elif postclose_current_success_without_slot_after_cutoff "$postclose_log"; then
+        echo "  postclose status: due but current success marker lacks schedule_slot=postclose"
+        print_postclose_target_status "$postclose_log"
+        print_postclose_proof_detail
     elif postclose_cached_dry_run_after_cutoff "$postclose_log"; then
         echo "  postclose status: due but only cached dry-run fallback completed"
     elif postclose_due_today; then
         if [ -f "$postclose_log" ] && grep -q "\[scheduler\] all done" "$postclose_log" 2>/dev/null; then
             echo "  postclose status: due but no current success marker found"
+            print_postclose_proof_detail
         else
             echo "  postclose status: due but no success marker found"
         fi
