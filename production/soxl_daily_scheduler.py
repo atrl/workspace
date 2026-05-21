@@ -72,6 +72,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--bull-min-momentum", type=float, default=0.03)
     parser.add_argument("--bull-max-drawdown", type=float, default=0.08)
     parser.add_argument("--data-provider", default="auto", choices=["auto", "yfinance", "yahoo_api", "polygon"])
+    parser.add_argument(
+        "--schedule-slot",
+        default="manual",
+        choices=["manual", "preopen", "postclose"],
+        help="Identify whether this run came from a scheduled pre-open/post-close slot or a manual run.",
+    )
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--no-notify", action="store_true")
     parser.add_argument("--discord", action="store_true", help="Also send notifications to Discord")
@@ -166,7 +172,8 @@ def main() -> None:
     run_marker = (
         "[scheduler] run started at "
         f"{started_at} broker={args.broker} dry_run={args.dry_run} "
-        f"skip_data_update={args.skip_data_update} data_provider={args.data_provider}"
+        f"skip_data_update={args.skip_data_update} data_provider={args.data_provider} "
+        f"schedule_slot={args.schedule_slot}"
     )
     if args.runtime_composer != "none":
         run_marker += (

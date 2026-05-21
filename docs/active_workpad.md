@@ -5781,3 +5781,65 @@ Decision:
 Artifact:
 
 - `runtime/production/card/operator_scheduler_docs_sync_v1/notes.md`
+
+## 2026-05-21 Scheduled Post-close Slot Marker
+
+Goal:
+
+- Keep the `scheduled_postclose_target` gate tied to a real post-close
+  scheduled slot, not any manual run that happens to write the same log.
+
+Root cause:
+
+- The scheduler run-start marker included runtime-composer fields but did not
+  identify the schedule slot.
+- Health could only infer target intent from `scheduler_postclose.log`, so a
+  manual run written to that log could look like scheduled post-close evidence.
+
+Change:
+
+- `production/soxl_daily_scheduler.py` accepts
+  `--schedule-slot {manual,preopen,postclose}` and prints
+  `schedule_slot=<value>` in the run-start marker.
+- Repo crontab, daily/pre-open LaunchAgent plists, and operator cron examples
+  now pass `--schedule-slot preopen` or `--schedule-slot postclose`.
+- `production/check_scheduler_health.sh` requires
+  `schedule_slot=postclose` before marking the post-close composer target OK.
+- Installed daily/pre-open LaunchAgent plists were copied from repo and
+  reloaded.
+
+Evidence:
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest \
+  tests/test_daily_scheduler.py::test_scheduler_prints_schedule_slot_in_run_start_marker \
+  tests/test_production_schedule.py::test_crontab_uses_shanghai_safe_us_market_windows \
+  tests/test_production_schedule.py::test_launchagent_runs_post_close_in_shanghai_local_time \
+  tests/test_production_schedule.py::test_launchagent_runs_preopen_cached_dry_run_in_shanghai_local_time \
+  tests/test_production_schedule.py::test_operator_doc_scheduler_examples_include_current_production_flags \
+  tests/test_scheduler_health.py::test_scheduler_health_requires_postclose_schedule_slot_for_composer_target -q
+# red before implementation: --schedule-slot missing and health accepted a no-slot marker
+# green after implementation: 6 passed
+
+production/run_soxl_scheduler.sh \
+  --broker paper --dry-run --no-notify --skip-data-update --skip-dashboard \
+  --health-summary --schedule-slot preopen
+# run-start marker contains schedule_slot=preopen
+# post-close composer target: pending latest_success_marker lacks schedule_slot=postclose
+
+production/check_scheduler_health.sh
+# LaunchAgent daily/preopen plists: matches repo
+# overall: pending external_vercel_setup,scheduled_postclose_target,scheduled_paper_proof
+```
+
+Decision:
+
+- The next real post-close scheduled run must include
+  `schedule_slot=postclose` before `scheduled_postclose_target` can clear.
+- Current production goal remains pending on:
+  `external_vercel_setup`, `scheduled_postclose_target`,
+  `scheduled_paper_proof`.
+
+Artifact:
+
+- `runtime/production/card/scheduled_postclose_slot_marker_v1/notes.md`

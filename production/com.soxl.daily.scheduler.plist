@@ -11,6 +11,8 @@
         <string>paper</string>
         <string>--vercel-deploy</string>
         <string>--health-summary</string>
+        <string>--schedule-slot</string>
+        <string>postclose</string>
     </array>
     <key>WorkingDirectory</key>
     <string>/Users/rziiiii/.openclaw/workspace</string>

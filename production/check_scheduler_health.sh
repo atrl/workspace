@@ -579,6 +579,13 @@ print_postclose_target_status() {
         return
     fi
 
+    if ! marker_has_text "$marker" "schedule_slot=postclose"; then
+        echo "  postclose target: pending latest_success_marker lacks schedule_slot=postclose"
+        POSTCLOSE_TARGET_STATUS="pending"
+        POSTCLOSE_TARGET_DETAIL="latest_success_marker lacks schedule_slot=postclose"
+        return
+    fi
+
     if marker_has_text "$marker" "runtime_composer=${RUNTIME_COMPOSER}" &&
         marker_has_text "$marker" "composer_profile=${RUNTIME_COMPOSER_PROFILE}" &&
         marker_has_text "$marker" "slow_profile=${RUNTIME_SLOW_PROFILE}" &&

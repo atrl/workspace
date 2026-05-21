@@ -2128,3 +2128,31 @@ overall: pending external_vercel_setup,scheduled_postclose_target,scheduled_pape
 Evidence card:
 
 - `runtime/production/card/operator_scheduler_docs_sync_v1/notes.md`
+
+## 2026-05-21 Scheduled Post-close Slot Marker
+
+The daily scheduler now accepts `--schedule-slot {manual,preopen,postclose}`
+and prints `schedule_slot=<value>` in the run-start marker.
+
+Current repo-owned scheduled entrypoints pass explicit slots:
+
+- pre-open crontab/LaunchAgent: `--schedule-slot preopen`
+- post-close crontab/LaunchAgent: `--schedule-slot postclose`
+
+`production/check_scheduler_health.sh` now requires
+`schedule_slot=postclose` before the post-close composer target can be marked
+OK. This prevents a manual run written to `scheduler_postclose.log` from
+clearing the scheduled post-close target gate.
+
+Live validation after reloading installed daily/pre-open LaunchAgents:
+
+```text
+LaunchAgent com.soxl.preopen.scheduler plist: matches repo
+LaunchAgent com.soxl.daily.scheduler plist: matches repo
+post-close composer target: pending latest_success_marker lacks schedule_slot=postclose
+overall: pending external_vercel_setup,scheduled_postclose_target,scheduled_paper_proof
+```
+
+Evidence card:
+
+- `runtime/production/card/scheduled_postclose_slot_marker_v1/notes.md`

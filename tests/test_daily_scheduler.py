@@ -158,6 +158,25 @@ def test_scheduler_prints_run_start_marker(monkeypatch: pytest.MonkeyPatch, caps
     assert "broker=paper dry_run=True" in captured.out
 
 
+def test_scheduler_prints_schedule_slot_in_run_start_marker(
+    monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+):
+    def fake_run(cmd: list[str], description: str):
+        return None
+
+    monkeypatch.setattr(soxl_daily_scheduler, "_run", fake_run)
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        ["soxl_daily_scheduler.py", "--no-notify", "--dry-run", "--schedule-slot", "preopen"],
+    )
+
+    soxl_daily_scheduler.main()
+
+    captured = capsys.readouterr()
+    assert "schedule_slot=preopen" in captured.out
+
+
 def test_scheduler_prints_goal_gates_when_requested(
     monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
 ):

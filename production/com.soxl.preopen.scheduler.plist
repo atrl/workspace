@@ -14,6 +14,8 @@
         <string>--skip-data-update</string>
         <string>--vercel-deploy</string>
         <string>--health-summary</string>
+        <string>--schedule-slot</string>
+        <string>preopen</string>
     </array>
     <key>WorkingDirectory</key>
     <string>/Users/rziiiii/.openclaw/workspace</string>
