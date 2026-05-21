@@ -8,6 +8,7 @@ OS_NAME="${SOXL_SCHEDULER_HEALTH_OS:-$(uname -s)}"
 HEALTH_PYTHON="${SOXL_SCHEDULER_HEALTH_PYTHON:-${ROOT}/qlib_venv/bin/python}"
 SCHEDULER_LABEL="com.soxl.daily.scheduler"
 PREOPEN_SCHEDULER_LABEL="com.soxl.preopen.scheduler"
+WEEKLY_WF_SCHEDULER_LABEL="com.soxl.weekly.wf"
 LAUNCHAGENTS_DIR="${SOXL_SCHEDULER_HEALTH_LAUNCHAGENTS_DIR:-${HOME:-}/Library/LaunchAgents}"
 HEALTH_WEEKDAY="${SOXL_SCHEDULER_HEALTH_WEEKDAY:-$(date +%u)}"
 HEALTH_HHMM="${SOXL_SCHEDULER_HEALTH_HHMM:-$(date +%H%M)}"
@@ -136,7 +137,7 @@ print_scheduler_service() {
             return
         fi
         launchctl_output=$(launchctl list 2>/dev/null || true)
-        for label in "$PREOPEN_SCHEDULER_LABEL" "$SCHEDULER_LABEL"; do
+        for label in "$PREOPEN_SCHEDULER_LABEL" "$SCHEDULER_LABEL" "$WEEKLY_WF_SCHEDULER_LABEL"; do
             if printf "%s\n" "$launchctl_output" | grep -q "$label"; then
                 echo "  LaunchAgent ${label}: loaded"
             else
@@ -393,7 +394,7 @@ echo ""
 
 # 检查日志文件
 echo "--- Log Files ---"
-for log in runtime/soxl/paper_trading/scheduler_preopen.log runtime/soxl/paper_trading/scheduler_preopen.err runtime/soxl/paper_trading/scheduler_postclose.log runtime/soxl/paper_trading/scheduler_postclose.err runtime/soxl/wf_weekly.log; do
+for log in runtime/soxl/paper_trading/scheduler_preopen.log runtime/soxl/paper_trading/scheduler_preopen.err runtime/soxl/paper_trading/scheduler_postclose.log runtime/soxl/paper_trading/scheduler_postclose.err runtime/soxl/wf_weekly.log runtime/soxl/wf_weekly.err; do
     path="${ROOT}/${log}"
     if [ -f "$path" ]; then
         size=$(file_size "$path")
@@ -419,6 +420,15 @@ for log in runtime/soxl/paper_trading/scheduler_preopen.log runtime/soxl/paper_t
         fi
     fi
 done
+weekly_log="${ROOT}/runtime/soxl/wf_weekly.log"
+if [ -f "$weekly_log" ]; then
+    last=$(grep -E "\[weekly-wf\] all done" "$weekly_log" 2>/dev/null | tail -1)
+    if [ -n "$last" ]; then
+        echo "  wf_weekly: $last"
+    else
+        echo "  wf_weekly: no success marker found"
+    fi
+fi
 echo ""
 
 print_paper_health

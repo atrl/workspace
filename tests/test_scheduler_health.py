@@ -14,6 +14,7 @@ def test_scheduler_health_reports_macos_launchagent_and_logs():
         root = Path(tmpdir)
         runtime_dir = root / "runtime" / "soxl" / "paper_trading"
         runtime_dir.mkdir(parents=True)
+        (root / "runtime" / "soxl").mkdir(parents=True, exist_ok=True)
         (runtime_dir / "scheduler_preopen.log").write_text(
             "[scheduler] all done\n",
             encoding="utf-8",
@@ -22,12 +23,16 @@ def test_scheduler_health_reports_macos_launchagent_and_logs():
             "[scheduler] all done (with cached dry-run)\n",
             encoding="utf-8",
         )
+        (root / "runtime" / "soxl" / "wf_weekly.log").write_text(
+            "[weekly-wf] all done\n",
+            encoding="utf-8",
+        )
 
         fake_bin = root / "bin"
         fake_bin.mkdir()
         launchctl = fake_bin / "launchctl"
         launchctl.write_text(
-            "#!/bin/sh\nprintf '123\\t0\\tcom.soxl.preopen.scheduler\\n456\\t0\\tcom.soxl.daily.scheduler\\n'\n",
+            "#!/bin/sh\nprintf '123\\t0\\tcom.soxl.preopen.scheduler\\n456\\t0\\tcom.soxl.daily.scheduler\\n789\\t0\\tcom.soxl.weekly.wf\\n'\n",
             encoding="utf-8",
         )
         launchctl.chmod(0o755)
@@ -64,7 +69,9 @@ def test_scheduler_health_reports_macos_launchagent_and_logs():
     assert "--- Scheduler Service ---" in result.stdout
     assert "LaunchAgent com.soxl.preopen.scheduler: loaded" in result.stdout
     assert "LaunchAgent com.soxl.daily.scheduler: loaded" in result.stdout
+    assert "LaunchAgent com.soxl.weekly.wf: loaded" in result.stdout
     assert "scheduler_preopen: [scheduler] all done" in result.stdout
+    assert "wf_weekly: [weekly-wf] all done" in result.stdout
     assert "--- Last Completion Marker ---" in result.stdout
     assert "--- Last Successful Run ---" not in result.stdout
     assert "scheduler_postclose: [scheduler] all done (with cached dry-run)" in result.stdout

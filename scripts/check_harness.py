@@ -32,6 +32,7 @@ DEFAULT_TEST_FILES = [
     "tests/test_two_speed_budget.py",
     "tests/test_update_market_data.py",
     "tests/test_profile_registry.py",
+    "tests/test_production_schedule.py",
     "tests/test_execution_overlay_registry.py",
     "tests/test_selective_release_overlay.py",
     "tests/test_selective_release_walkforward.py",

@@ -1059,3 +1059,38 @@ Decision:
 
 - This only improves operator observability.
 - It does not change the LaunchAgent schedules or paper execution behavior.
+
+## 2026-05-21 Weekly Walk-Forward Scheduler Surface
+
+The previous health display mentioned a weekly walk-forward next run and checked
+`runtime/soxl/wf_weekly.log`, but there was no repo-owned weekly LaunchAgent.
+The only weekly command lived in `production/crontab.txt`, pointed at stale
+`/home/rziiiii/dev/workspace`, and still ran dropped `balanced_trade_lock`.
+
+Change:
+
+- Added `production/run_soxl_weekly_wf.sh`.
+- Added `production/com.soxl.weekly.wf.plist` for Saturday `07:00`
+  Asia/Shanghai.
+- Updated `production/check_scheduler_health.sh` to report
+  `com.soxl.weekly.wf` load/plist status and `runtime/soxl/wf_weekly.err`.
+- Updated `production/crontab.txt` to delegate weekly work to the wrapper.
+
+The wrapper refreshes corrected walk-forward evidence for
+`balanced_rule_residual_v22`, then reruns `scripts/review_runtime_selection.py`
+with `--persist-model-promotion` using the existing post-release-cap overlay
+review.
+
+Evidence:
+
+- `tests/test_production_schedule.py`
+- `tests/test_scheduler_health.py`
+- `runtime/production/card/weekly_walkforward_scheduler_v1/notes.md`
+- live health now reports `LaunchAgent com.soxl.weekly.wf: loaded` and
+  `plist: matches repo`
+
+Decision:
+
+- Weekly walk-forward is now a real scheduled production surface.
+- The first `runtime/soxl/wf_weekly.log` will appear after the next Saturday
+  run; until then the absence of that log is expected.

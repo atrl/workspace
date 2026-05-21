@@ -40,6 +40,22 @@ def test_crontab_uses_shanghai_safe_us_market_windows():
     assert ("35", "16") not in stale_local_times
 
 
+def test_crontab_weekly_walkforward_uses_repo_wrapper():
+    lines = (ROOT / "production" / "crontab.txt").read_text(encoding="utf-8").splitlines()
+    weekly = next(
+        line
+        for line in lines
+        if line.strip()
+        and not line.lstrip().startswith("#")
+        and "wf_weekly.log" in line
+    )
+
+    assert weekly.split(maxsplit=5)[:5] == ["0", "7", "*", "*", "6"]
+    assert "production/run_soxl_weekly_wf.sh" in weekly
+    assert "balanced_trade_lock" not in weekly
+    assert "/home/rziiiii/dev/workspace" not in weekly
+
+
 def test_launchagent_runs_post_close_in_shanghai_local_time():
     with (ROOT / "production" / "com.soxl.daily.scheduler.plist").open("rb") as f:
         plist = plistlib.load(f)
@@ -89,6 +105,23 @@ def test_launchagent_runs_preopen_cached_dry_run_in_shanghai_local_time():
     assert plist["StandardErrorPath"].endswith("/runtime/soxl/paper_trading/scheduler_preopen.err")
 
 
+def test_launchagent_runs_weekly_walkforward_after_postclose_refresh():
+    with (ROOT / "production" / "com.soxl.weekly.wf.plist").open("rb") as f:
+        plist = plistlib.load(f)
+
+    intervals = plist["StartCalendarInterval"]
+    schedule = {
+        (entry["Weekday"], entry["Hour"], entry["Minute"])
+        for entry in intervals
+    }
+
+    assert plist["Label"] == "com.soxl.weekly.wf"
+    assert schedule == {(6, 7, 0)}
+    assert plist["ProgramArguments"][0].endswith("/production/run_soxl_weekly_wf.sh")
+    assert plist["StandardOutPath"].endswith("/runtime/soxl/wf_weekly.log")
+    assert plist["StandardErrorPath"].endswith("/runtime/soxl/wf_weekly.err")
+
+
 def test_launchagent_wrapper_exists_and_loads_private_env_file():
     wrapper = ROOT / "production" / "run_soxl_scheduler.sh"
 
@@ -99,3 +132,19 @@ def test_launchagent_wrapper_exists_and_loads_private_env_file():
     assert "SOXL_LAUNCH_ENV_FILE" in text
     assert ". \"$ENV_FILE\"" in text
     assert "soxl_daily_scheduler.py" in text
+
+
+def test_weekly_walkforward_wrapper_reviews_current_runtime_profile():
+    wrapper = ROOT / "production" / "run_soxl_weekly_wf.sh"
+
+    assert wrapper.exists()
+    assert wrapper.stat().st_mode & 0o111
+
+    text = wrapper.read_text(encoding="utf-8")
+    assert "SOXL_LAUNCH_ENV_FILE" in text
+    assert "balanced_rule_residual_v22" in text
+    assert "scripts/walkforward_backtest_validate.py" in text
+    assert "scripts/review_runtime_selection.py" in text
+    assert "--persist-model-promotion" in text
+    assert "balanced_trade_lock" not in text
+    assert "/home/rziiiii/dev/workspace" not in text

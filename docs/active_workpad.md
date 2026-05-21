@@ -3634,3 +3634,48 @@ Decision:
 - Keep actor artifacts only as checkpoint-retention proof.
 - Current production goal remains active: the missing proof is still the next
   fresh post-close non-dry paper execution under selected v22.
+
+## 2026-05-21 Weekly Walk-Forward Scheduler Surface
+
+Goal:
+
+- Remove the mismatch where scheduler health showed a weekly walk-forward next
+  run and `wf_weekly.log`, but only pre-open/post-close LaunchAgents existed.
+
+Root cause:
+
+- `production/check_scheduler_health.sh` printed a weekly next-run line.
+- `production/crontab.txt` still had a legacy weekly command using
+  `/home/rziiiii/dev/workspace` and dropped `balanced_trade_lock`.
+- There was no repo-owned weekly LaunchAgent or wrapper for the current
+  canonical runtime profile.
+
+Change:
+
+- Added `production/run_soxl_weekly_wf.sh`.
+- Added `production/com.soxl.weekly.wf.plist` for Saturday `07:00`
+  Asia/Shanghai, after post-close refresh.
+- The wrapper refreshes corrected walk-forward evidence for
+  `balanced_rule_residual_v22`, then reruns runtime-selection review with
+  `--persist-model-promotion`.
+- Updated health to check `com.soxl.weekly.wf` and `runtime/soxl/wf_weekly.err`.
+- Installed and loaded the local LaunchAgent; health now reports weekly loaded
+  and matching repo.
+
+Evidence:
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_production_schedule.py tests/test_scheduler_health.py -q
+# 16 passed
+
+production/check_scheduler_health.sh
+# LaunchAgent com.soxl.weekly.wf: loaded
+# LaunchAgent com.soxl.weekly.wf plist: matches repo
+```
+
+Decision:
+
+- Weekly walk-forward is now part of the scheduled production surface.
+- The remaining full-goal proof is still the next fresh post-close non-dry
+  paper execution under selected v22, plus the first Saturday weekly log once
+  that schedule naturally fires.
