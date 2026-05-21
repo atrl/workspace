@@ -227,6 +227,10 @@ Without Vercel credentials, the scheduler records `blocked_no_credentials` under
 make `VERCEL_TOKEN` visible to the scheduler environment or run `vercel login` for the
 same user, then rerun with `--vercel-deploy`.
 
+`production/check_scheduler_health.sh` prints a `Scheduler Private Env` section
+that confirms whether `${SOXL_LAUNCH_ENV_FILE:-$HOME/.openclaw/soxl.env}` is
+present and whether `VERCEL_TOKEN` is configured, without printing the token.
+
 ## Current limitations
 
 - This is a scaffold, not a fully proven live system

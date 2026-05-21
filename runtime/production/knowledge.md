@@ -1552,3 +1552,30 @@ Evidence:
 Evidence card:
 
 - `runtime/production/card/paper_duplicate_inference_proof_v1/notes.md`
+
+## 2026-05-21 Vercel Scheduler Env Visibility
+
+`production/check_scheduler_health.sh` now prints a `Scheduler Private Env`
+section before log/status checks. It uses the same
+`${SOXL_LAUNCH_ENV_FILE:-$HOME/.openclaw/soxl.env}` convention as the
+LaunchAgent wrappers, checks whether `VERCEL_TOKEN` is configured in either the
+current environment or the launch env file, and never prints token values.
+
+Live health on this host shows:
+
+- launch env file present at `/Users/rziiiii/.openclaw/soxl.env`
+- `VERCEL_TOKEN` missing in both current environment and launch env file
+- Vercel deployment evidence still `blocked_no_credentials`
+- selected `balanced_rule_residual_v22` runtime proof still ok via
+  `duplicate_skipped`
+
+Verification:
+
+- `uv run --python qlib_venv/bin/python --with pytest pytest tests/test_scheduler_health.py -q`
+  -> `17 passed`.
+- `uv run --python qlib_venv/bin/python --with pytest pytest tests/test_paper_trading.py tests/test_scheduler_health.py tests/test_daily_scheduler.py tests/test_vercel_dashboard.py -q`
+  -> `54 passed`.
+
+Evidence card:
+
+- `runtime/production/card/vercel_scheduler_env_visibility_v1/notes.md`

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-21T05:34:03.659310+00:00",
+  "generated_at": "2026-05-21T05:42:42.084355+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -2888,6 +2888,12 @@
       "bytes": 2194
     },
     {
+      "path": "runtime/production/card/vercel_scheduler_env_visibility_v1/notes.md",
+      "category": "production",
+      "suffix": ".md",
+      "bytes": 2523
+    },
+    {
       "path": "runtime/production/card/vercel_static_bundle_audit_v1/notes.md",
       "category": "production",
       "suffix": ".md",
@@ -2909,7 +2915,7 @@
       "path": "runtime/production/knowledge.md",
       "category": "production",
       "suffix": ".md",
-      "bytes": 72810
+      "bytes": 73953
     },
     {
       "path": "runtime/reward/card/base_log/card.md",

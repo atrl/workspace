@@ -4868,3 +4868,59 @@ Decision:
 Artifact:
 
 - `runtime/production/card/paper_duplicate_inference_proof_v1/notes.md`
+
+## 2026-05-21 Vercel Scheduler Env Visibility
+
+Goal:
+
+- Make the remaining Vercel blocker actionable from health output without
+  printing private credentials.
+
+Baseline:
+
+- `production/check_scheduler_health.sh` already showed Vercel
+  `blocked_no_credentials` and dashboard freshness `current`.
+- It did not say whether the LaunchAgent wrapper could see
+  `${SOXL_LAUNCH_ENV_FILE:-$HOME/.openclaw/soxl.env}` or whether that file
+  contained `VERCEL_TOKEN`.
+
+Change:
+
+- Added a `Scheduler Private Env` section to health.
+- It reports launch env file presence and whether `VERCEL_TOKEN` is configured
+  in the current environment or launch env file.
+- It does not source the file and does not print token values.
+
+Evidence:
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest \
+  tests/test_scheduler_health.py::test_scheduler_health_reports_missing_launch_env_file_for_vercel_token \
+  tests/test_scheduler_health.py::test_scheduler_health_reports_launch_env_vercel_token_without_leaking_secret -q
+# red before implementation: Scheduler Private Env section missing
+# green after implementation: 2 passed
+
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_scheduler_health.py -q
+# 17 passed
+
+uv run --python qlib_venv/bin/python --with pytest pytest \
+  tests/test_paper_trading.py tests/test_scheduler_health.py \
+  tests/test_daily_scheduler.py tests/test_vercel_dashboard.py -q
+# 54 passed
+
+production/check_scheduler_health.sh
+# launch env file: present path=/Users/rziiiii/.openclaw/soxl.env
+# VERCEL_TOKEN: missing in current environment and launch env file
+# Vercel remains blocked_no_credentials; selected v22 runtime proof remains ok.
+```
+
+Decision:
+
+- The current Vercel blocker is now narrowed to missing scheduler-visible
+  `VERCEL_TOKEN`.
+- `~/.openclaw/soxl.env` exists on this host, so the next operator action is to
+  add `VERCEL_TOKEN` there or run `vercel login` for the same scheduler user.
+
+Artifact:
+
+- `runtime/production/card/vercel_scheduler_env_visibility_v1/notes.md`

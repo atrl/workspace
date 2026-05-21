@@ -10,6 +10,7 @@ SCHEDULER_LABEL="com.soxl.daily.scheduler"
 PREOPEN_SCHEDULER_LABEL="com.soxl.preopen.scheduler"
 WEEKLY_WF_SCHEDULER_LABEL="com.soxl.weekly.wf"
 LAUNCHAGENTS_DIR="${SOXL_SCHEDULER_HEALTH_LAUNCHAGENTS_DIR:-${HOME:-}/Library/LaunchAgents}"
+LAUNCH_ENV_FILE="${SOXL_LAUNCH_ENV_FILE:-${HOME:-}/.openclaw/soxl.env}"
 HEALTH_WEEKDAY="${SOXL_SCHEDULER_HEALTH_WEEKDAY:-$(date +%u)}"
 HEALTH_HHMM="${SOXL_SCHEDULER_HEALTH_HHMM:-$(date +%H%M)}"
 HEALTH_DATE="${SOXL_SCHEDULER_HEALTH_DATE:-$(date +%Y-%m-%d)}"
@@ -183,6 +184,50 @@ print_scheduler_service() {
         service cron status 2>/dev/null | head -1 | sed 's/^/  /'
     else
         echo "  cron: service checker unavailable"
+    fi
+}
+
+env_file_has_nonempty_assignment() {
+    var_name="$1"
+    env_file="$2"
+    if [ ! -f "$env_file" ]; then
+        return 1
+    fi
+    awk -v key="$var_name" '
+        BEGIN { found = 0 }
+        /^[[:space:]]*#/ { next }
+        {
+            line = $0
+            sub(/^[[:space:]]*export[[:space:]]+/, "", line)
+            pattern = "^[[:space:]]*" key "[[:space:]]*="
+            if (line ~ pattern) {
+                sub(pattern "[[:space:]]*", "", line)
+                gsub(/^[\047"]|[\047"]$/, "", line)
+                gsub(/[[:space:]]+$/, "", line)
+                if (line != "") {
+                    found = 1
+                    exit
+                }
+            }
+        }
+        END { exit found ? 0 : 1 }
+    ' "$env_file"
+}
+
+print_scheduler_private_env() {
+    echo "--- Scheduler Private Env ---"
+    if [ -f "$LAUNCH_ENV_FILE" ]; then
+        echo "  launch env file: present path=${LAUNCH_ENV_FILE}"
+    else
+        echo "  launch env file: missing path=${LAUNCH_ENV_FILE}"
+    fi
+
+    if [ -n "${VERCEL_TOKEN:-}" ]; then
+        echo "  VERCEL_TOKEN: configured in current environment"
+    elif env_file_has_nonempty_assignment "VERCEL_TOKEN" "$LAUNCH_ENV_FILE"; then
+        echo "  VERCEL_TOKEN: configured in launch env file"
+    else
+        echo "  VERCEL_TOKEN: missing in current environment and launch env file"
     fi
 }
 
@@ -507,6 +552,9 @@ echo "Root: ${ROOT}"
 echo ""
 
 print_scheduler_service
+echo ""
+
+print_scheduler_private_env
 echo ""
 
 # 检查日志文件
