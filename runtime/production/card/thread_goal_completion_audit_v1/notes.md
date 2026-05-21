@@ -47,6 +47,16 @@ dashboard static export: ok latest=paper_trading paper_trading_rows=4 paper_trad
 Vercel Remote Deployment: status=blocked_no_credentials auth=blocked_no_credentials project=missing_project_link
 ```
 
+Latest continuation recheck:
+
+```text
+preopen status: pending until 21:00 Mon-Fri Asia/Shanghai
+postclose target: pending latest_success_marker lacks schedule_slot=postclose
+ordinary paper proof: pending selected_model=v19reg_v22_budget_usage_bull_guard_v1 execution=duplicate_skipped
+Vercel probe checked_at=2026-05-21T08:52:06.384353+00:00 status=blocked_no_credentials project=missing_project_link
+overall: pending external_vercel_setup,scheduled_postclose_target,scheduled_paper_proof
+```
+
 Model/composer promotion evidence:
 
 ```text
@@ -69,6 +79,7 @@ wf_2022_defense_preserved=passed
 | Dashboard usable locally/static | Achieved | `check_dashboard_static_export.py` reports `latest=paper_trading`, `versions=35`, `missing=0`, `paper_trading_rows=4`, `paper_trading_end=2026-05-20` | Local/static dashboard is current |
 | Dashboard deployed to Vercel | Not achieved; external setup blocked | Vercel evidence reports `status=blocked_no_credentials`, `auth=blocked_no_credentials`, `project=missing_project_link`, `deployment_url=null` | Requires scheduler-visible credentials and Vercel project link/env IDs |
 | Scheduled data refresh and inference path | Mostly achieved | LaunchAgents loaded and match repo; scheduler env enables composer; health data/model/broker ok | Next scheduled post-close still must produce the ordinary new-date paper proof |
+| Scheduled pre-open dry-run inference path | Installed and waiting for natural slot | `Pre-open Run Status` reports pending until `21:00 Mon-Fri Asia/Shanghai`; target validation requires `schedule_slot=preopen`, `dry_run=True`, `skip_data_update=True`, and composer fields | Next natural pre-open run should produce a current success/target readout |
 | Paper/simulated trading fixed | Partially achieved | broker health ok; paper CSV has four rows through `2026-05-20`; composer duplicate-skip proof passed risk gate | Ordinary composer paper proof remains pending until a new-date non-dry run produces `executed=true` or fresh `execution=skipped` |
 | Evidence persisted in repo | Achieved for current loops | workpad, runtime production cards, runtime model cards, and `runtime/index.json` | This audit is the current landing card for the thread-level goal state |
 
@@ -105,3 +116,7 @@ If ordinary paper proof is still pending after that run, inspect
 `runtime/soxl/paper_trading/scheduler_postclose.log`,
 `runtime/soxl/paper_trading/scheduler_postclose.err`, and the newest
 `runtime/soxl/paper_trading/<date>/summary.json` before changing code.
+
+Latest continuation evidence card:
+
+- `runtime/production/card/goal_gate_recheck_20260521_v1/notes.md`

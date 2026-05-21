@@ -5949,3 +5949,38 @@ Decision:
 Artifact:
 
 - `runtime/production/card/preopen_run_status_v1/notes.md`
+
+## 2026-05-21 Goal Gate Recheck
+
+Goal:
+
+- Recheck the active thread goal after the pre-open health improvement and
+  persist the actual remaining blockers without redefining completion.
+
+Evidence:
+
+```bash
+production/check_scheduler_health.sh
+# preopen status: pending until 21:00 Mon-Fri Asia/Shanghai
+# postclose target: pending latest_success_marker lacks schedule_slot=postclose
+# ordinary paper proof: pending selected_model=v19reg_v22_budget_usage_bull_guard_v1 execution=duplicate_skipped
+# overall: pending external_vercel_setup,scheduled_postclose_target,scheduled_paper_proof
+
+PYTHONPATH=src:. qlib_venv/bin/python scripts/deploy_vercel_dashboard.py
+# vercel_dashboard status=blocked_no_credentials output=runtime/production/card/vercel_remote_deploy_v1
+```
+
+Decision:
+
+- Do not mark the active goal complete.
+- No new natural scheduled evidence has arrived yet:
+  - pre-open waits for `21:00 Mon-Fri Asia/Shanghai`;
+  - post-close waits for the next `06:15 Tue-Sat Asia/Shanghai` run with
+    `schedule_slot=postclose`;
+  - ordinary paper proof waits for the next new-date non-dry composer artifact.
+- Vercel remains externally blocked by missing scheduler-visible token and
+  project link/env IDs.
+
+Artifact:
+
+- `runtime/production/card/goal_gate_recheck_20260521_v1/notes.md`

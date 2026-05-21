@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-21T08:48:37.990013+00:00",
+  "generated_at": "2026-05-21T08:53:13.517030+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -2750,6 +2750,12 @@
       "bytes": 2611
     },
     {
+      "path": "runtime/production/card/goal_gate_recheck_20260521_v1/notes.md",
+      "category": "production",
+      "suffix": ".md",
+      "bytes": 1852
+    },
+    {
       "path": "runtime/production/card/operator_scheduler_docs_sync_v1/notes.md",
       "category": "production",
       "suffix": ".md",
@@ -2921,7 +2927,7 @@
       "path": "runtime/production/card/thread_goal_completion_audit_v1/notes.md",
       "category": "production",
       "suffix": ".md",
-      "bytes": 6341
+      "bytes": 7292
     },
     {
       "path": "runtime/production/card/v22_next_execution_preflight_v1/notes.md",
@@ -3029,7 +3035,7 @@
       "path": "runtime/production/knowledge.md",
       "category": "production",
       "suffix": ".md",
-      "bytes": 97471
+      "bytes": 98561
     },
     {
       "path": "runtime/reward/card/base_log/card.md",

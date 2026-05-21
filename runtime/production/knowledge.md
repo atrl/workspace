@@ -2212,3 +2212,30 @@ remain the active blockers.
 Evidence card:
 
 - `runtime/production/card/preopen_run_status_v1/notes.md`
+
+## 2026-05-21 Goal Gate Recheck
+
+Continuation recheck after adding pre-open health:
+
+```text
+preopen status: pending until 21:00 Mon-Fri Asia/Shanghai
+postclose target: pending latest_success_marker lacks schedule_slot=postclose
+ordinary paper proof: pending selected_model=v19reg_v22_budget_usage_bull_guard_v1 execution=duplicate_skipped
+Vercel remote: blocked status=blocked_no_credentials auth=blocked_no_credentials project=missing_project_link deployment_url=none
+overall: pending external_vercel_setup,scheduled_postclose_target,scheduled_paper_proof
+```
+
+The Vercel probe refreshed
+`runtime/production/card/vercel_remote_deploy_v1/vercel_deployment_check.json`
+at `2026-05-21T08:52:06.384353+00:00`; it still has
+`env_file_applied_keys=none` and no deployment URL.
+
+No local code change can truthfully clear these remaining gates before either:
+
+- Vercel token/project config is added for the scheduler user; or
+- the next natural scheduled windows produce current pre-open/post-close
+  evidence.
+
+Evidence card:
+
+- `runtime/production/card/goal_gate_recheck_20260521_v1/notes.md`
