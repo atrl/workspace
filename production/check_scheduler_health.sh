@@ -407,6 +407,34 @@ else:
 PY
 }
 
+json_array_csv() {
+    payload="$1"
+    dotted_path="$2"
+    SOXL_JSON_FIELD_PAYLOAD="$payload" python3 - "$dotted_path" <<'PY' 2>/dev/null
+import json
+import os
+import sys
+
+path = sys.argv[1].split(".")
+text = os.environ.get("SOXL_JSON_FIELD_PAYLOAD", "")
+start = text.find("{")
+end = text.rfind("}")
+if start < 0 or end < start:
+    sys.exit(0)
+try:
+    obj = json.loads(text[start : end + 1])
+except Exception:
+    sys.exit(0)
+value = obj
+for part in path:
+    if not isinstance(value, dict) or part not in value:
+        sys.exit(0)
+    value = value[part]
+if isinstance(value, list):
+    print(",".join(str(item) for item in value))
+PY
+}
+
 print_paper_health() {
     echo "--- Paper Trading Health ---"
     if [ ! -x "$HEALTH_PYTHON" ]; then
@@ -700,6 +728,8 @@ print_vercel_remote_deployment() {
     status=$(json_field "$payload" "status")
     auth_status=$(json_field "$payload" "auth.status")
     project_status=$(json_field "$payload" "project.status")
+    env_file_present=$(json_field "$payload" "env_file.present")
+    env_file_applied_keys=$(json_array_csv "$payload" "env_file.applied_keys")
     deployment_url=$(json_field "$payload" "deployment_url")
     dashboard_latest=$(json_field "$payload" "static_export.latest")
     paper_trading_end=$(json_field "$payload" "static_export.paper_trading_end")
@@ -721,6 +751,15 @@ print_vercel_remote_deployment() {
     echo "  status: ${status}"
     echo "  auth: ${auth_status}"
     echo "  project: ${project_status}"
+    if [ -n "$env_file_present" ]; then
+        if [ "$env_file_present" = "true" ]; then
+            env_file_status="present"
+        else
+            env_file_status="missing"
+        fi
+        [ -z "$env_file_applied_keys" ] && env_file_applied_keys="none"
+        echo "  env_file: ${env_file_status} applied_keys=${env_file_applied_keys}"
+    fi
     echo "  deployment_url: ${deployment_url}"
     if [ -n "$dashboard_latest" ] || [ -n "$paper_trading_end" ]; then
         echo "  dashboard_latest=${dashboard_latest} paper_trading_end=${paper_trading_end}"

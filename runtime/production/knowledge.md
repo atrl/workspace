@@ -1960,3 +1960,45 @@ Interpretation:
 Evidence card:
 
 - `runtime/production/card/postclose_runtime_target_marker_v1/notes.md`
+
+## 2026-05-21 Vercel Launch Env Probe
+
+`scripts/deploy_vercel_dashboard.py` now reads the scheduler private env file
+for Vercel readiness checks. It defaults to
+`${SOXL_LAUNCH_ENV_FILE:-$HOME/.openclaw/soxl.env}` and only parses these keys:
+
+- `VERCEL_TOKEN`
+- `VERCEL_PROJECT_ID`
+- `VERCEL_ORG_ID`
+
+Current process env remains higher priority; the env file fills missing values.
+Evidence records only env-file presence and variable names, never values.
+
+Current live readiness:
+
+```text
+vercel_dashboard status=blocked_no_credentials output=/Users/rziiiii/.openclaw/workspace/runtime/production/card/vercel_remote_deploy_v1
+```
+
+Current health readout:
+
+```text
+status: blocked_no_credentials
+auth: blocked_no_credentials
+project: missing_project_link
+env_file: present applied_keys=none
+deployment_url: none
+```
+
+Interpretation:
+
+- The readiness check now uses the same env layer as the scheduled wrapper.
+- The remaining Vercel blocker is not script visibility anymore; the private
+  env file simply does not contain Vercel token/project keys yet.
+- Add `VERCEL_TOKEN`, `VERCEL_PROJECT_ID`, and `VERCEL_ORG_ID` to that env file,
+  then rerun `scripts/deploy_vercel_dashboard.py` without `--deploy` before the
+  next scheduled deploy attempt.
+
+Evidence card:
+
+- `runtime/production/card/vercel_launch_env_probe_v1/notes.md`

@@ -7,6 +7,7 @@ import argparse
 import json
 import os
 import re
+import shlex
 import shutil
 import subprocess
 import sys
@@ -21,6 +22,7 @@ if str(ROOT) not in sys.path:
 from scripts.check_dashboard_static_export import check_static_export
 
 DEPLOYMENT_URL_RE = re.compile(r"https://[A-Za-z0-9][A-Za-z0-9.-]*\.vercel\.app\b")
+VERCEL_ENV_KEYS = ("VERCEL_TOKEN", "VERCEL_PROJECT_ID", "VERCEL_ORG_ID")
 
 
 def ascii_safe(text: str) -> str:
@@ -48,6 +50,48 @@ def sanitize_command(command: Sequence[str]) -> list[str]:
         if part == "--token":
             skip_next = True
     return sanitized
+
+
+def read_env_file(path: Path) -> dict[str, str]:
+    if not path.exists():
+        return {}
+
+    values: dict[str, str] = {}
+    for raw_line in path.read_text(encoding="utf-8").splitlines():
+        stripped = raw_line.strip()
+        if not stripped or stripped.startswith("#"):
+            continue
+        try:
+            parts = shlex.split(stripped, comments=True, posix=True)
+        except ValueError:
+            continue
+        if not parts:
+            continue
+        if parts[0] == "export":
+            parts = parts[1:]
+        for part in parts:
+            if "=" not in part:
+                continue
+            key, value = part.split("=", 1)
+            if key in VERCEL_ENV_KEYS and value:
+                values[key] = value
+    return values
+
+
+def effective_env_with_file(env: Mapping[str, str], env_file: Path | None) -> tuple[dict[str, str], dict[str, object]]:
+    effective_env = dict(env)
+    loaded_values = read_env_file(env_file) if env_file else {}
+    applied_keys: list[str] = []
+    for key, value in loaded_values.items():
+        if not effective_env.get(key):
+            effective_env[key] = value
+            applied_keys.append(key)
+    return effective_env, {
+        "path": str(env_file) if env_file else "",
+        "present": bool(env_file and env_file.exists()),
+        "loaded_keys": sorted(loaded_values),
+        "applied_keys": sorted(applied_keys),
+    }
 
 
 def auth_status(
@@ -132,6 +176,16 @@ def _write_evidence(output_dir: Path, payload: dict[str, object]) -> None:
         f"- auth: `{payload['auth']['status']}`",
         f"- project: `{payload['project']['status']}`",
     ]
+    env_file = payload.get("env_file")
+    if isinstance(env_file, dict):
+        env_file_status = "present" if env_file.get("present") else "missing"
+        applied_keys = env_file.get("applied_keys") or []
+        if isinstance(applied_keys, list):
+            applied_text = ",".join(str(key) for key in applied_keys) or "none"
+        else:
+            applied_text = "unknown"
+        lines.append(f"- env_file: `{env_file_status}`")
+        lines.append(f"- env_file_applied_keys: `{applied_text}`")
     if payload.get("deployment_url"):
         lines.append(f"- deployment_url: `{payload['deployment_url']}`")
     if payload.get("detail"):
@@ -152,6 +206,7 @@ def _run_whoami() -> subprocess.CompletedProcess[str]:
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
+    default_env_file = Path(os.environ.get("SOXL_LAUNCH_ENV_FILE", Path.home() / ".openclaw" / "soxl.env"))
     parser.add_argument("--root", type=Path, default=ROOT)
     parser.add_argument(
         "--output-dir",
@@ -161,6 +216,13 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--deploy", action="store_true", help="Run vercel deploy after checks pass")
     parser.add_argument("--prod", action=argparse.BooleanOptionalAction, default=True)
     parser.add_argument("--token-env", default="VERCEL_TOKEN")
+    parser.add_argument(
+        "--env-file",
+        type=Path,
+        default=default_env_file,
+        help="Load missing Vercel env vars from this LaunchAgent env file.",
+    )
+    parser.add_argument("--no-env-file", action="store_true", help="Do not read a LaunchAgent env file.")
     return parser.parse_args()
 
 
@@ -169,16 +231,18 @@ def main() -> int:
     root = args.root.resolve()
     output_dir = args.output_dir.resolve()
     errors, static_info = check_static_export(root)
+    env_file = None if args.no_env_file else args.env_file.expanduser().resolve()
+    effective_env, env_file_info = effective_env_with_file(os.environ, env_file)
     whoami = _run_whoami()
-    token = os.environ.get(args.token_env)
+    token = effective_env.get(args.token_env)
     auth = auth_status(
-        env=os.environ,
+        env=effective_env,
         whoami_returncode=whoami.returncode,
         whoami_stdout=whoami.stdout,
         whoami_stderr=whoami.stderr,
         token_env=args.token_env,
     )
-    project = project_link_status(root, os.environ)
+    project = project_link_status(root, effective_env)
     payload: dict[str, object] = {
         "checked_at": datetime.now(timezone.utc).isoformat(),
         "root": str(root),
@@ -186,6 +250,7 @@ def main() -> int:
         "static_export": static_info,
         "static_errors": errors,
         "vercel_cli": shutil.which("vercel") or "",
+        "env_file": env_file_info,
         "auth": auth,
         "project": project,
         "deploy_requested": args.deploy,
@@ -219,7 +284,7 @@ def main() -> int:
 
     command = build_deploy_command(root, token=token, prod=args.prod)
     payload["command"] = sanitize_command(command)
-    result = subprocess.run(command, capture_output=True, text=True, check=False)
+    result = subprocess.run(command, capture_output=True, text=True, check=False, env=effective_env)
     combined_output = "\n".join(part for part in (result.stdout, result.stderr) if part)
     payload["deployment_url"] = extract_deployment_url(combined_output)
     payload["vercel_returncode"] = result.returncode

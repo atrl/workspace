@@ -5517,3 +5517,63 @@ Decision:
 Artifact:
 
 - `runtime/production/card/postclose_runtime_target_marker_v1/notes.md`
+
+## 2026-05-21 Vercel Launch Env Probe
+
+Goal:
+
+- Make Vercel readiness checks use the same private LaunchAgent env file as the
+  scheduled pipeline, without leaking token/project/org values.
+
+Root cause:
+
+- The scheduler wrapper sources
+  `${SOXL_LAUNCH_ENV_FILE:-$HOME/.openclaw/soxl.env}` before running.
+- `scripts/deploy_vercel_dashboard.py` only checked the current process env.
+- If Vercel variables are added to the LaunchAgent env file but not exported in
+  the current shell, a direct readiness check could still look blocked.
+
+Change:
+
+- `scripts/deploy_vercel_dashboard.py` now supports `--env-file` and defaults
+  to the scheduler LaunchAgent env path.
+- It reads only `VERCEL_TOKEN`, `VERCEL_PROJECT_ID`, and `VERCEL_ORG_ID`; current
+  process env remains higher priority.
+- Evidence records env-file presence and applied variable names only.
+- `production/check_scheduler_health.sh` prints Vercel evidence env-file status.
+
+Evidence:
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest \
+  tests/test_vercel_dashboard.py::test_vercel_check_reads_launch_env_file_for_readiness_without_leaking \
+  tests/test_scheduler_health.py::test_scheduler_health_reports_vercel_remote_deployment_status -q
+# red before implementation: --env-file unrecognized / health did not print env_file status
+# green after implementation: 2 passed
+
+uv run --python qlib_venv/bin/python --with pytest pytest \
+  tests/test_vercel_dashboard.py tests/test_scheduler_health.py -q
+# 31 passed
+
+PYTHONPATH=src:. qlib_venv/bin/python scripts/deploy_vercel_dashboard.py
+# vercel_dashboard status=blocked_no_credentials output=/Users/rziiiii/.openclaw/workspace/runtime/production/card/vercel_remote_deploy_v1
+
+production/check_scheduler_health.sh | sed -n '/--- Vercel Remote Deployment ---/,/--- Post-close Run Status ---/p'
+# status: blocked_no_credentials
+# auth: blocked_no_credentials
+# project: missing_project_link
+# env_file: present applied_keys=none
+# deployment_url: none
+```
+
+Decision:
+
+- The Vercel readiness gate now checks the scheduler-private env file directly.
+- Current state remains externally blocked because `/Users/rziiiii/.openclaw/soxl.env`
+  has no Vercel keys.
+- Required external additions remain `VERCEL_TOKEN`, `VERCEL_PROJECT_ID`, and
+  `VERCEL_ORG_ID`.
+
+Artifact:
+
+- `runtime/production/card/vercel_launch_env_probe_v1/notes.md`

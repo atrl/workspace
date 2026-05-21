@@ -240,13 +240,18 @@ make `VERCEL_TOKEN` visible to the scheduler environment or run `vercel login` f
 same user. The checkout also needs a Vercel project link: run
 `vercel link --yes --team <team-id> --project <project-name-or-id>` for this
 checkout, or expose `VERCEL_ORG_ID` and `VERCEL_PROJECT_ID` to the scheduler
-environment. Then rerun with `--vercel-deploy`.
+environment. `scripts/deploy_vercel_dashboard.py` reads
+`${SOXL_LAUNCH_ENV_FILE:-$HOME/.openclaw/soxl.env}` for those Vercel variables
+when they are not already in the current shell, so you can run it without
+`--deploy` as a non-publishing readiness probe before the next scheduled deploy
+attempt. Then rerun with `--vercel-deploy`.
 
 `production/check_scheduler_health.sh` prints a `Scheduler Private Env` section
 that confirms whether `${SOXL_LAUNCH_ENV_FILE:-$HOME/.openclaw/soxl.env}` is
-present and whether `VERCEL_TOKEN` is configured, without printing the token. The
-`Vercel Remote Deployment` section also reports whether the Vercel project is
-linked/configured, without printing project or org ID values.
+present and whether `VERCEL_TOKEN` / Vercel project env IDs are configured,
+without printing their values. The `Vercel Remote Deployment` section also
+reports whether the Vercel project is linked/configured and whether the evidence
+probe applied Vercel variables from the env file.
 
 ## Current limitations
 

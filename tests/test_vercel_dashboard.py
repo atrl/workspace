@@ -132,3 +132,70 @@ def test_vercel_extracts_deployment_url_from_cli_output():
     output = "Queued\nhttps://soxl-dashboard-example.vercel.app\nInspect: https://vercel.com/example"
 
     assert extract_deployment_url(output) == "https://soxl-dashboard-example.vercel.app"
+
+
+def test_vercel_check_reads_launch_env_file_for_readiness_without_leaking():
+    from scripts import deploy_vercel_dashboard
+
+    with TemporaryDirectory() as tmpdir:
+        root = Path(tmpdir) / "repo"
+        root.mkdir()
+        output_dir = Path(tmpdir) / "evidence"
+        env_file = Path(tmpdir) / "soxl.env"
+        env_file.write_text(
+            "\n".join(
+                [
+                    "export VERCEL_TOKEN='token_secretish'",
+                    "export VERCEL_PROJECT_ID='project_secretish'",
+                    "export VERCEL_ORG_ID='team_secretish'",
+                ]
+            ),
+            encoding="utf-8",
+        )
+
+        original_check_static_export = deploy_vercel_dashboard.check_static_export
+        original_run_whoami = deploy_vercel_dashboard._run_whoami
+        original_argv = list(deploy_vercel_dashboard.sys.argv)
+        try:
+            deploy_vercel_dashboard.check_static_export = lambda _root: (
+                [],
+                {
+                    "latest": "paper_trading",
+                    "paper_trading_end": "2026-05-20",
+                },
+            )
+            deploy_vercel_dashboard._run_whoami = lambda: subprocess.CompletedProcess(
+                ["vercel", "whoami"], 1, "", "No credentials"
+            )
+            deploy_vercel_dashboard.sys.argv = [
+                "deploy_vercel_dashboard.py",
+                "--root",
+                str(root),
+                "--output-dir",
+                str(output_dir),
+                "--env-file",
+                str(env_file),
+            ]
+
+            returncode = deploy_vercel_dashboard.main()
+        finally:
+            deploy_vercel_dashboard.check_static_export = original_check_static_export
+            deploy_vercel_dashboard._run_whoami = original_run_whoami
+            deploy_vercel_dashboard.sys.argv = original_argv
+
+        evidence_text = (output_dir / "vercel_deployment_check.json").read_text(encoding="utf-8")
+        notes_text = (output_dir / "notes.md").read_text(encoding="utf-8")
+        payload = json.loads(evidence_text)
+
+    assert returncode == 0
+    assert payload["status"] == "ready_for_deploy"
+    assert payload["auth"]["status"] == "token"
+    assert payload["project"]["status"] == "env_configured"
+    assert "- env_file: `present`" in notes_text
+    assert "- env_file_applied_keys: `VERCEL_ORG_ID,VERCEL_PROJECT_ID,VERCEL_TOKEN`" in notes_text
+    assert "token_secretish" not in evidence_text
+    assert "project_secretish" not in evidence_text
+    assert "team_secretish" not in evidence_text
+    assert "token_secretish" not in notes_text
+    assert "project_secretish" not in notes_text
+    assert "team_secretish" not in notes_text

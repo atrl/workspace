@@ -157,6 +157,10 @@ def test_scheduler_health_reports_vercel_remote_deployment_status():
   "project": {
     "status": "missing_project_link"
   },
+  "env_file": {
+    "present": true,
+    "applied_keys": ["VERCEL_ORG_ID", "VERCEL_PROJECT_ID", "VERCEL_TOKEN"]
+  },
   "detail": "Set VERCEL_TOKEN or run vercel login."
 }
 """,
@@ -204,6 +208,7 @@ def test_scheduler_health_reports_vercel_remote_deployment_status():
     assert "status: blocked_no_credentials" in result.stdout
     assert "auth: blocked_no_credentials" in result.stdout
     assert "project: missing_project_link" in result.stdout
+    assert "env_file: present applied_keys=VERCEL_ORG_ID,VERCEL_PROJECT_ID,VERCEL_TOKEN" in result.stdout
     assert "deployment_url: none" in result.stdout
     assert "dashboard_latest=paper_trading paper_trading_end=2026-05-20" in result.stdout
     assert "detail: Set VERCEL_TOKEN or run vercel login." in result.stdout
