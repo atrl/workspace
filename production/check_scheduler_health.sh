@@ -18,8 +18,10 @@ HEALTH_PREOPEN_CUTOFF_EPOCH="${SOXL_SCHEDULER_HEALTH_PREOPEN_CUTOFF_EPOCH:-}"
 HEALTH_POSTCLOSE_CUTOFF_EPOCH="${SOXL_SCHEDULER_HEALTH_POSTCLOSE_CUTOFF_EPOCH:-}"
 PREOPEN_HHMM="2100"
 PREOPEN_TIME_LABEL="21:00"
+PREOPEN_WINDOW_MINUTES="${SOXL_SCHEDULER_HEALTH_PREOPEN_WINDOW_MINUTES:-90}"
 POSTCLOSE_HHMM="0615"
 POSTCLOSE_TIME_LABEL="06:15"
+POSTCLOSE_WINDOW_MINUTES="${SOXL_SCHEDULER_HEALTH_POSTCLOSE_WINDOW_MINUTES:-90}"
 SELECTED_MODEL_PROFILE=""
 PAPER_EXPECTED_LAST_TRADING_DAY=""
 RUNTIME_COMPOSER_STATE="default"
@@ -104,6 +106,48 @@ number_value() {
     fi
 }
 
+hhmm_to_minutes() {
+    hhmm="$1"
+    case "$hhmm" in
+        [0-9][0-9][0-9][0-9])
+            ;;
+        *)
+            echo ""
+            return
+            ;;
+    esac
+    hour=${hhmm%??}
+    minute=${hhmm#??}
+    hour_num=$(number_value "$hour")
+    minute_num=$(number_value "$minute")
+    echo $((hour_num * 60 + minute_num))
+}
+
+marker_hhmm() {
+    marker="$1"
+    printf "%s" "$marker" | sed -n 's/.*run started at [0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]T\([0-9][0-9]\):\([0-9][0-9]\):.*/\1\2/p' | tail -1
+}
+
+marker_in_schedule_window() {
+    marker="$1"
+    schedule_hhmm="$2"
+    window_minutes="$3"
+    marker_time=$(marker_hhmm "$marker")
+    marker_minutes=$(hhmm_to_minutes "$marker_time")
+    schedule_minutes=$(hhmm_to_minutes "$schedule_hhmm")
+    window_num=$(number_value "$window_minutes")
+    if [ -z "$marker_minutes" ] || [ -z "$schedule_minutes" ]; then
+        return 1
+    fi
+    window_end=$((schedule_minutes + window_num))
+    if [ "$window_end" -lt 1440 ]; then
+        [ "$marker_minutes" -ge "$schedule_minutes" ] && [ "$marker_minutes" -le "$window_end" ]
+    else
+        wrapped_end=$((window_end - 1440))
+        [ "$marker_minutes" -ge "$schedule_minutes" ] || [ "$marker_minutes" -le "$wrapped_end" ]
+    fi
+}
+
 postclose_due_today() {
     weekday_num=$(number_value "$HEALTH_WEEKDAY")
     hhmm_num=$(number_value "$HEALTH_HHMM")
@@ -162,6 +206,13 @@ preopen_success_after_cutoff() {
         return 1
     fi
     if grep -q "\[scheduler\] run started at " "$path" 2>/dev/null; then
+        candidate_markers=$(preopen_success_candidate_markers "$path")
+        if [ -n "$candidate_markers" ]; then
+            [ -n "$(preopen_last_success_target_marker "$path")" ]
+            return
+        fi
+    fi
+    if grep -q "\[scheduler\] run started at " "$path" 2>/dev/null; then
         awk '
             /\[scheduler\] run started at / { seen = 1; ok = 0; next }
             seen && /^\[scheduler\] all done$/ { ok = 1 }
@@ -170,6 +221,23 @@ preopen_success_after_cutoff() {
         return
     fi
     return 0
+}
+
+preopen_current_success_outside_window_after_cutoff() {
+    path="$1"
+    if [ ! -f "$path" ] || ! grep -q "^\[scheduler\] all done$" "$path" 2>/dev/null; then
+        return 1
+    fi
+    cutoff_epoch=$(preopen_cutoff_epoch)
+    log_epoch=$(file_epoch "$path")
+    if [ -n "$cutoff_epoch" ] && [ -n "$log_epoch" ] && [ "$log_epoch" -lt "$cutoff_epoch" ]; then
+        return 1
+    fi
+    marker=$(preopen_last_success_candidate_marker "$path")
+    if [ -n "$marker" ] && ! marker_in_schedule_window "$marker" "$PREOPEN_HHMM" "$PREOPEN_WINDOW_MINUTES"; then
+        return 0
+    fi
+    return 1
 }
 
 postclose_success_after_cutoff() {
@@ -186,6 +254,23 @@ postclose_success_after_cutoff() {
         return 1
     fi
     if [ -n "$(postclose_last_success_slot_marker "$path")" ]; then
+        return 0
+    fi
+    return 1
+}
+
+postclose_current_success_outside_window_after_cutoff() {
+    path="$1"
+    if [ ! -f "$path" ] || ! grep -q "^\[scheduler\] all done$" "$path" 2>/dev/null; then
+        return 1
+    fi
+    cutoff_epoch=$(postclose_cutoff_epoch)
+    log_epoch=$(file_epoch "$path")
+    if [ -n "$cutoff_epoch" ] && [ -n "$log_epoch" ] && [ "$log_epoch" -lt "$cutoff_epoch" ]; then
+        return 1
+    fi
+    marker=$(postclose_last_success_candidate_marker "$path")
+    if [ -n "$marker" ] && ! marker_in_schedule_window "$marker" "$POSTCLOSE_HHMM" "$POSTCLOSE_WINDOW_MINUTES"; then
         return 0
     fi
     return 1
@@ -288,7 +373,7 @@ postclose_last_run_marker() {
     awk '/^\[scheduler\] run started at / { marker = $0 } END { print marker }' "$path"
 }
 
-postclose_last_success_slot_marker() {
+postclose_success_candidate_markers() {
     path="$1"
     if [ ! -f "$path" ]; then
         return
@@ -304,11 +389,32 @@ postclose_last_success_slot_marker() {
                 (marker ~ "schedule_trigger=launchagent_postclose" ||
                  marker ~ "schedule_trigger=cron_postclose") &&
                 marker ~ health_date "T") {
-                success_marker = marker
+                print marker
             }
         }
-        END { print success_marker }
     ' "$path"
+}
+
+postclose_last_success_candidate_marker() {
+    path="$1"
+    postclose_success_candidate_markers "$path" | tail -1
+}
+
+postclose_last_success_slot_marker() {
+    path="$1"
+    candidate_markers=$(postclose_success_candidate_markers "$path")
+    if [ -z "$candidate_markers" ]; then
+        return
+    fi
+    success_marker=""
+    while IFS= read -r candidate_marker; do
+        if marker_in_schedule_window "$candidate_marker" "$POSTCLOSE_HHMM" "$POSTCLOSE_WINDOW_MINUTES"; then
+            success_marker="$candidate_marker"
+        fi
+    done <<EOF
+$candidate_markers
+EOF
+    printf "%s\n" "$success_marker"
 }
 
 scheduler_last_run_marker() {
@@ -317,6 +423,50 @@ scheduler_last_run_marker() {
         return
     fi
     awk '/^\[scheduler\] run started at / { marker = $0 } END { print marker }' "$path"
+}
+
+preopen_success_candidate_markers() {
+    path="$1"
+    if [ ! -f "$path" ]; then
+        return
+    fi
+    awk -v health_date="$HEALTH_DATE" '
+        /^\[scheduler\] run started at / {
+            marker = $0
+            next
+        }
+        /^\[scheduler\] all done$/ {
+            if (marker != "" &&
+                marker ~ "schedule_slot=preopen" &&
+                (marker ~ "schedule_trigger=launchagent_preopen" ||
+                 marker ~ "schedule_trigger=cron_preopen") &&
+                marker ~ health_date "T") {
+                print marker
+            }
+        }
+    ' "$path"
+}
+
+preopen_last_success_candidate_marker() {
+    path="$1"
+    preopen_success_candidate_markers "$path" | tail -1
+}
+
+preopen_last_success_target_marker() {
+    path="$1"
+    candidate_markers=$(preopen_success_candidate_markers "$path")
+    if [ -z "$candidate_markers" ]; then
+        return
+    fi
+    success_marker=""
+    while IFS= read -r candidate_marker; do
+        if marker_in_schedule_window "$candidate_marker" "$PREOPEN_HHMM" "$PREOPEN_WINDOW_MINUTES"; then
+            success_marker="$candidate_marker"
+        fi
+    done <<EOF
+$candidate_markers
+EOF
+    printf "%s\n" "$success_marker"
 }
 
 marker_has_text() {
@@ -783,6 +933,13 @@ print_postclose_target_status() {
         return
     fi
 
+    if ! marker_in_schedule_window "$marker" "$POSTCLOSE_HHMM" "$POSTCLOSE_WINDOW_MINUTES"; then
+        echo "  postclose target: pending latest_success_marker outside postclose window"
+        POSTCLOSE_TARGET_STATUS="pending"
+        POSTCLOSE_TARGET_DETAIL="latest_success_marker outside postclose window"
+        return
+    fi
+
     if marker_has_text "$marker" "runtime_composer=${RUNTIME_COMPOSER}" &&
         marker_has_text "$marker" "composer_profile=${RUNTIME_COMPOSER_PROFILE}" &&
         marker_has_text "$marker" "slow_profile=${RUNTIME_SLOW_PROFILE}" &&
@@ -891,7 +1048,10 @@ print_latest_signal_artifact() {
 
 print_preopen_target_status() {
     preopen_log="$1"
-    marker=$(scheduler_last_run_marker "$preopen_log")
+    marker=$(preopen_last_success_target_marker "$preopen_log")
+    if [ -z "$marker" ]; then
+        marker=$(scheduler_last_run_marker "$preopen_log")
+    fi
     if [ -z "$marker" ]; then
         echo "  preopen target: unknown latest_success_marker has no run-start marker"
         return
@@ -917,6 +1077,11 @@ print_preopen_target_status() {
         return
     fi
 
+    if ! marker_in_schedule_window "$marker" "$PREOPEN_HHMM" "$PREOPEN_WINDOW_MINUTES"; then
+        echo "  preopen target: pending latest_success_marker outside preopen window"
+        return
+    fi
+
     detail="schedule_slot=preopen schedule_trigger=preopen dry_run=True skip_data_update=True"
     if [ "$RUNTIME_COMPOSER_STATE" = "enabled" ]; then
         detail="${detail} runtime_composer=${RUNTIME_COMPOSER} composer_profile=${RUNTIME_COMPOSER_PROFILE}"
@@ -929,6 +1094,9 @@ print_preopen_status() {
     preopen_log="${ROOT}/runtime/soxl/paper_trading/scheduler_preopen.log"
     if preopen_success_after_cutoff "$preopen_log"; then
         echo "  preopen status: success marker found"
+        print_preopen_target_status "$preopen_log"
+    elif preopen_current_success_outside_window_after_cutoff "$preopen_log"; then
+        echo "  preopen status: due but current success marker is outside preopen window"
         print_preopen_target_status "$preopen_log"
     elif preopen_due_today; then
         if [ -f "$preopen_log" ] && grep -q "\[scheduler\] all done" "$preopen_log" 2>/dev/null; then
@@ -946,6 +1114,10 @@ print_postclose_status() {
     postclose_log="${ROOT}/runtime/soxl/paper_trading/scheduler_postclose.log"
     if postclose_success_after_cutoff "$postclose_log"; then
         echo "  postclose status: success marker found"
+        print_postclose_target_status "$postclose_log"
+        print_postclose_proof_detail
+    elif postclose_current_success_outside_window_after_cutoff "$postclose_log"; then
+        echo "  postclose status: due but current success marker is outside postclose window"
         print_postclose_target_status "$postclose_log"
         print_postclose_proof_detail
     elif postclose_current_success_without_slot_after_cutoff "$postclose_log"; then

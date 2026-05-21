@@ -6752,3 +6752,62 @@ Decision:
 Artifact:
 
 - `runtime/production/card/preopen_scheduled_composer_proof_v1/notes.md`
+
+## 2026-05-21 Scheduled Marker Time Window Guard
+
+Goal:
+
+- Close the remaining scheduled-proof loophole where a manual
+  `launchctl start` can inherit `SOXL_SCHEDULE_TRIGGER=launchagent_*` and look
+  like a natural timed run.
+
+Root cause:
+
+- The previous guard required `schedule_slot` and `schedule_trigger`, but did
+  not compare the run-start timestamp with the expected schedule time.
+- A post-close manual replay at `21:15` could still emit
+  `schedule_slot=postclose schedule_trigger=launchagent_postclose`.
+
+Change:
+
+- `production/check_scheduler_health.sh` now parses scheduler run-start HH:MM
+  and requires scheduled target markers to start inside the expected time
+  window.
+- Defaults are configurable:
+  `SOXL_SCHEDULER_HEALTH_PREOPEN_WINDOW_MINUTES=90` and
+  `SOXL_SCHEDULER_HEALTH_POSTCLOSE_WINDOW_MINUTES=90`.
+- The append-only log parser keeps an earlier valid scheduled success if a
+  later manual/debug segment is appended.
+
+Evidence:
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest \
+  tests/test_scheduler_health.py -q -k 'outside_schedule_window'
+# RED before fix: 2 failed
+# GREEN after fix: 2 passed, 28 deselected
+
+uv run --python qlib_venv/bin/python --with pytest pytest \
+  tests/test_scheduler_health.py -q
+# 30 passed
+
+production/check_scheduler_health.sh
+# preopen status: success marker found
+# preopen target: ok schedule_slot=preopen schedule_trigger=preopen dry_run=True skip_data_update=True runtime_composer=budget_usage composer_profile=v19reg_v22_budget_usage_bull_guard_v1
+# postclose status: due but current success marker lacks schedule_slot=postclose
+# postclose target: pending latest_success_marker lacks schedule_slot=postclose
+# overall: pending external_vercel_setup,scheduled_postclose_target,scheduled_paper_proof
+```
+
+Decision:
+
+- No new model-training branch was opened. Current evidence still blocks direct
+  SOXX actor-feature retraining, SOXX cap threshold tuning, and v22
+  continuation as duplicate/negative model-side paths.
+- The meaningful loop was production proof integrity. The remaining production
+  goal gates are unchanged: Vercel credentials/project link, scheduled
+  post-close proof, and next-date non-dry paper proof.
+
+Artifact:
+
+- `runtime/production/card/scheduled_marker_time_window_v1/notes.md`

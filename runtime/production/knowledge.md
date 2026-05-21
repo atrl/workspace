@@ -2550,3 +2550,60 @@ Boundary:
 Evidence card:
 
 - `runtime/production/card/preopen_scheduled_composer_proof_v1/notes.md`
+
+## 2026-05-21 Scheduled Marker Time Window Guard
+
+The scheduler health gate now rejects scheduled proof markers whose run-start
+timestamp is outside the expected schedule window, even when the marker includes
+valid `schedule_slot` and `schedule_trigger` provenance.
+
+This closes a remaining LaunchAgent replay loophole:
+
+```text
+schedule_slot=postclose schedule_trigger=launchagent_postclose
+```
+
+is not sufficient if the marker starts outside the `06:15` post-close window.
+The same rule applies to the `21:00` pre-open window.
+
+Default windows are configurable through:
+
+- `SOXL_SCHEDULER_HEALTH_PREOPEN_WINDOW_MINUTES` (default 90)
+- `SOXL_SCHEDULER_HEALTH_POSTCLOSE_WINDOW_MINUTES` (default 90)
+
+Regression coverage:
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest \
+  tests/test_scheduler_health.py -q -k 'outside_schedule_window'
+# red before fix: 2 failed
+# green after fix: 2 passed, 28 deselected
+
+uv run --python qlib_venv/bin/python --with pytest pytest \
+  tests/test_scheduler_health.py -q
+# 30 passed
+```
+
+Current live health remains correctly pending:
+
+```text
+preopen status: success marker found
+preopen target: ok schedule_slot=preopen schedule_trigger=preopen dry_run=True skip_data_update=True runtime_composer=budget_usage composer_profile=v19reg_v22_budget_usage_bull_guard_v1
+postclose status: due but current success marker lacks schedule_slot=postclose
+postclose target: pending latest_success_marker lacks schedule_slot=postclose
+overall: pending external_vercel_setup,scheduled_postclose_target,scheduled_paper_proof
+```
+
+Boundary:
+
+- This hardens proof integrity only; it does not clear production gates.
+- Remaining blockers are unchanged: external Vercel setup, the next natural
+  scheduled post-close success, and next-date scheduled non-dry paper proof.
+- Model-side optimization should still wait for scheduled composer proof unless
+  a new experiment changes checkpoint selection/scoring or another distinct
+  mechanism. Direct SOXX actor features, SOXX cap threshold tuning, and v22
+  continuation already have negative or duplicate evidence.
+
+Evidence card:
+
+- `runtime/production/card/scheduled_marker_time_window_v1/notes.md`
