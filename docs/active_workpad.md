@@ -6497,3 +6497,66 @@ Decision:
 - The local and deploy-bundle dashboard now exposes the same blockers as health.
 - This does not clear Vercel remote credentials/project setup or natural
   scheduled post-close/paper proof gates.
+
+## 2026-05-21 Post-close Slot Success Parser
+
+Goal:
+
+- Keep scheduled post-close target proof from being erased by later manual/debug
+  appends to the same post-close scheduler log.
+
+Root cause:
+
+- `production/check_scheduler_health.sh` required `schedule_slot=postclose`, but
+  `print_postclose_target_status()` inspected only the final run-start marker in
+  `runtime/soxl/paper_trading/scheduler_postclose.log`.
+- A later no-slot manual run could hide an earlier successful current-date
+  post-close slot segment, keeping `scheduled_postclose_target` pending even
+  after the scheduled segment had completed.
+
+Change:
+
+- Added `postclose_last_success_slot_marker()` to scan the append-only
+  post-close log for the latest current-date `schedule_slot=postclose` segment
+  followed by a strict `[scheduler] all done`.
+- `postclose_success_after_cutoff()` now accepts that scheduled segment even if
+  a later manual/debug run was appended without its own completion marker.
+- Cached dry-run completions remain excluded from this target proof.
+- If no successful post-close slot segment exists, health falls back to the
+  latest raw run marker and keeps the existing pending messages.
+
+Evidence:
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest \
+  tests/test_scheduler_health.py::test_scheduler_health_keeps_prior_postclose_slot_success_when_later_manual_run_appended -q
+# red before implementation: later manual/no-slot markers hid the postclose slot success
+
+uv run --python qlib_venv/bin/python --with pytest pytest \
+  tests/test_scheduler_health.py::test_scheduler_health_keeps_prior_postclose_slot_success_when_later_manual_run_appended \
+  tests/test_scheduler_health.py::test_scheduler_health_requires_postclose_schedule_slot_for_composer_target -q
+# 2 passed
+
+production/check_scheduler_health.sh
+# data: ok last_date=2026-05-20 expected=2026-05-20
+# postclose target: pending latest_success_marker lacks schedule_slot=postclose
+# ordinary paper proof: pending selected_model=v19reg_v22_budget_usage_bull_guard_v1 execution=duplicate_skipped
+# overall: pending external_vercel_setup,scheduled_postclose_target,scheduled_paper_proof
+
+PYTHONPATH=. qlib_venv/bin/python scripts/export_production_goal_gates.py
+# production_goal_gates status=pending issues=external_vercel_setup,scheduled_postclose_target,scheduled_paper_proof
+
+PYTHONPATH=. qlib_venv/bin/python scripts/check_dashboard_static_export.py
+# ok ... production_status=blocked_no_credentials goal_gates=pending paper_trading
+```
+
+Decision:
+
+- Current live health still correctly remains pending because no valid
+  `schedule_slot=postclose` success segment exists in the real post-close log.
+- The next scheduled post-close run can now leave durable target proof even if
+  later manual runs append to the same log.
+
+Artifact:
+
+- `runtime/production/card/postclose_slot_success_parser_v1/notes.md`

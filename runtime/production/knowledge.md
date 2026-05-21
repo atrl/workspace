@@ -2405,3 +2405,25 @@ post-close and ordinary paper proof.
 Evidence card:
 
 - `runtime/production/card/dashboard_goal_gates_ui_v1/notes.md`
+
+## 2026-05-21 Post-close Slot Success Parser
+
+`production/check_scheduler_health.sh` now scans
+`scheduler_postclose.log` for the latest current-date successful
+`schedule_slot=postclose` segment instead of relying only on the final
+run-start marker. This prevents later manual/no-slot debug runs, including
+incomplete appends, from masking an earlier scheduled post-close target proof
+in the append-only log.
+
+Current live state is still pending because the real post-close log has no
+valid `schedule_slot=postclose` success segment yet:
+
+```text
+postclose target: pending latest_success_marker lacks schedule_slot=postclose
+ordinary paper proof: pending selected_model=v19reg_v22_budget_usage_bull_guard_v1 execution=duplicate_skipped
+overall: pending external_vercel_setup,scheduled_postclose_target,scheduled_paper_proof
+```
+
+Evidence card:
+
+- `runtime/production/card/postclose_slot_success_parser_v1/notes.md`

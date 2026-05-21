@@ -185,6 +185,9 @@ postclose_success_after_cutoff() {
     if [ "$log_epoch" -lt "$cutoff_epoch" ]; then
         return 1
     fi
+    if [ -n "$(postclose_last_success_slot_marker "$path")" ]; then
+        return 0
+    fi
     if grep -q "\[scheduler\] run started at " "$path" 2>/dev/null; then
         awk '
             /\[scheduler\] run started at / { seen = 1; ok = 0; next }
@@ -226,6 +229,27 @@ postclose_last_run_marker() {
         return
     fi
     awk '/^\[scheduler\] run started at / { marker = $0 } END { print marker }' "$path"
+}
+
+postclose_last_success_slot_marker() {
+    path="$1"
+    if [ ! -f "$path" ]; then
+        return
+    fi
+    awk -v health_date="$HEALTH_DATE" '
+        /^\[scheduler\] run started at / {
+            marker = $0
+            next
+        }
+        /^\[scheduler\] all done$/ {
+            if (marker != "" &&
+                marker ~ "schedule_slot=postclose" &&
+                marker ~ health_date "T") {
+                success_marker = marker
+            }
+        }
+        END { print success_marker }
+    ' "$path"
 }
 
 scheduler_last_run_marker() {
@@ -675,19 +699,22 @@ print_postclose_target_status() {
         return
     fi
 
-    marker=$(postclose_last_run_marker "$postclose_log")
+    marker=$(postclose_last_success_slot_marker "$postclose_log")
     if [ -z "$marker" ]; then
-        echo "  postclose target: unknown latest_success_marker has no run-start marker"
-        POSTCLOSE_TARGET_STATUS="unknown"
-        POSTCLOSE_TARGET_DETAIL="latest_success_marker has no run-start marker"
-        return
-    fi
+        marker=$(postclose_last_run_marker "$postclose_log")
+        if [ -z "$marker" ]; then
+            echo "  postclose target: unknown latest_success_marker has no run-start marker"
+            POSTCLOSE_TARGET_STATUS="unknown"
+            POSTCLOSE_TARGET_DETAIL="latest_success_marker has no run-start marker"
+            return
+        fi
 
-    if ! marker_has_text "$marker" "schedule_slot=postclose"; then
-        echo "  postclose target: pending latest_success_marker lacks schedule_slot=postclose"
-        POSTCLOSE_TARGET_STATUS="pending"
-        POSTCLOSE_TARGET_DETAIL="latest_success_marker lacks schedule_slot=postclose"
-        return
+        if ! marker_has_text "$marker" "schedule_slot=postclose"; then
+            echo "  postclose target: pending latest_success_marker lacks schedule_slot=postclose"
+            POSTCLOSE_TARGET_STATUS="pending"
+            POSTCLOSE_TARGET_DETAIL="latest_success_marker lacks schedule_slot=postclose"
+            return
+        fi
     fi
 
     if marker_has_text "$marker" "runtime_composer=${RUNTIME_COMPOSER}" &&
