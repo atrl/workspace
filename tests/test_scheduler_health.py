@@ -83,6 +83,76 @@ def test_scheduler_health_reports_macos_launchagent_and_logs():
     assert "unavailable: integrity script missing" in result.stdout
 
 
+def test_scheduler_health_reports_vercel_remote_deployment_status():
+    with TemporaryDirectory() as tmpdir:
+        root = Path(tmpdir)
+        (root / "runtime" / "soxl" / "paper_trading").mkdir(parents=True)
+        vercel_dir = root / "runtime" / "production" / "card" / "vercel_remote_deploy_v1"
+        vercel_dir.mkdir(parents=True)
+        (vercel_dir / "vercel_deployment_check.json").write_text(
+            """
+{
+  "checked_at": "2026-05-21T01:00:00+00:00",
+  "status": "blocked_no_credentials",
+  "deployment_url": null,
+  "static_export": {
+    "latest": "paper_trading",
+    "paper_trading_end": "2026-05-20"
+  },
+  "auth": {
+    "status": "blocked_no_credentials"
+  },
+  "detail": "Set VERCEL_TOKEN or run vercel login."
+}
+""",
+            encoding="utf-8",
+        )
+
+        fake_bin = root / "bin"
+        fake_bin.mkdir()
+        launchctl = fake_bin / "launchctl"
+        launchctl.write_text(
+            "#!/bin/sh\nprintf '123\\t0\\tcom.soxl.preopen.scheduler\\n456\\t0\\tcom.soxl.daily.scheduler\\n'\n",
+            encoding="utf-8",
+        )
+        launchctl.chmod(0o755)
+        fake_python = fake_bin / "python"
+        fake_python.write_text(
+            "#!/bin/sh\n"
+            "cat <<'JSON'\n"
+            "{\"data\":{\"ok\":true,\"last_date\":\"2026-05-20\","
+            "\"expected_last_trading_day\":\"2026-05-20\",\"stale_days\":0},"
+            "\"model\":{\"ok\":true,\"name\":\"balanced_rule_residual_v22\"},"
+            "\"broker\":{\"ok\":true,\"msg\":\"paper broker ready\"},"
+            "\"all_ok\":true}\n"
+            "JSON\n",
+            encoding="utf-8",
+        )
+        fake_python.chmod(0o755)
+
+        env = {
+            **os.environ,
+            "PATH": f"{fake_bin}:{os.environ['PATH']}",
+            "SOXL_SCHEDULER_HEALTH_OS": "Darwin",
+            "SOXL_SCHEDULER_HEALTH_ROOT": str(root),
+            "SOXL_SCHEDULER_HEALTH_PYTHON": str(fake_python),
+        }
+        result = subprocess.run(
+            ["bash", str(ROOT / "production" / "check_scheduler_health.sh")],
+            capture_output=True,
+            text=True,
+            env=env,
+            check=True,
+        )
+
+    assert "--- Vercel Remote Deployment ---" in result.stdout
+    assert "status: blocked_no_credentials" in result.stdout
+    assert "auth: blocked_no_credentials" in result.stdout
+    assert "deployment_url: none" in result.stdout
+    assert "dashboard_latest=paper_trading paper_trading_end=2026-05-20" in result.stdout
+    assert "detail: Set VERCEL_TOKEN or run vercel login." in result.stdout
+
+
 def test_scheduler_health_reports_installed_launchagent_plist_drift():
     with TemporaryDirectory() as tmpdir:
         root = Path(tmpdir)

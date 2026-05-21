@@ -1164,3 +1164,35 @@ Decision:
   to write a root summary with `profile=balanced_rule_residual_v22`.
 - Evidence card:
   `runtime/production/card/v22_next_execution_preflight_v1/notes.md`.
+
+## 2026-05-21 Vercel Health Surface
+
+`production/check_scheduler_health.sh` now includes remote Vercel deployment
+status, sourced from
+`runtime/production/card/vercel_remote_deploy_v1/vercel_deployment_check.json`.
+
+Live readout at `2026-05-21 09:02 CST`:
+
+```text
+--- Vercel Remote Deployment ---
+  status: blocked_no_credentials
+  auth: blocked_no_credentials
+  deployment_url: none
+  dashboard_latest=paper_trading paper_trading_end=2026-05-20
+  evidence=runtime/production/card/vercel_remote_deploy_v1/vercel_deployment_check.json
+```
+
+Regression:
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_scheduler_health.py::test_scheduler_health_reports_vercel_remote_deployment_status -q
+```
+
+Decision:
+
+- Static dashboard readiness and remote deployment status are now visible in one
+  production health command.
+- Remote Vercel deployment is still not proven because the current machine has
+  no Vercel credentials.
+- Evidence card:
+  `runtime/production/card/vercel_health_surface_v1/notes.md`.

@@ -345,6 +345,49 @@ print_dashboard_static_export() {
     fi
 }
 
+compact_text() {
+    printf "%s" "$1" | tr '\n' ' ' | sed 's/[[:space:]][[:space:]]*/ /g; s/^ //; s/ $//'
+}
+
+print_vercel_remote_deployment() {
+    echo "--- Vercel Remote Deployment ---"
+    evidence="${ROOT}/runtime/production/card/vercel_remote_deploy_v1/vercel_deployment_check.json"
+    if [ ! -f "$evidence" ]; then
+        echo "  status: unavailable"
+        echo "  evidence: ${evidence#"$ROOT"/} not found"
+        return
+    fi
+
+    payload=$(cat "$evidence")
+    status=$(json_field "$payload" "status")
+    auth_status=$(json_field "$payload" "auth.status")
+    deployment_url=$(json_field "$payload" "deployment_url")
+    dashboard_latest=$(json_field "$payload" "static_export.latest")
+    paper_trading_end=$(json_field "$payload" "static_export.paper_trading_end")
+    detail=$(json_field "$payload" "detail")
+    rel_path=${evidence#"$ROOT"/}
+
+    if [ -z "$status" ]; then
+        status="unknown"
+    fi
+    if [ -z "$auth_status" ]; then
+        auth_status="unknown"
+    fi
+    if [ -z "$deployment_url" ]; then
+        deployment_url="none"
+    fi
+    echo "  status: ${status}"
+    echo "  auth: ${auth_status}"
+    echo "  deployment_url: ${deployment_url}"
+    if [ -n "$dashboard_latest" ] || [ -n "$paper_trading_end" ]; then
+        echo "  dashboard_latest=${dashboard_latest} paper_trading_end=${paper_trading_end}"
+    fi
+    echo "  evidence=${rel_path}"
+    if [ -n "$detail" ]; then
+        echo "  detail: $(compact_text "$detail")"
+    fi
+}
+
 next_run_day_label() {
     schedule="$1"
     cutoff_hhmm="$2"
@@ -438,6 +481,9 @@ print_latest_signal_artifact
 echo ""
 
 print_dashboard_static_export
+echo ""
+
+print_vercel_remote_deployment
 echo ""
 
 print_postclose_status

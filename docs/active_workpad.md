@@ -3760,3 +3760,49 @@ Decision:
   produce the first non-dry v22 paper proof.
 - Evidence card:
   `runtime/production/card/v22_next_execution_preflight_v1/notes.md`.
+
+## 2026-05-21 Vercel Health Surface
+
+Goal:
+
+- Make remote Vercel deployment status visible in the same production health
+  check that already reports scheduler, paper, and static-dashboard health.
+
+Root cause:
+
+- Static export readiness was visible through `check_scheduler_health.sh`.
+- Remote deployment evidence existed in
+  `runtime/production/card/vercel_remote_deploy_v1/vercel_deployment_check.json`,
+  but the operator had to inspect that card separately.
+
+Change:
+
+- `production/check_scheduler_health.sh` now prints a
+  `Vercel Remote Deployment` section.
+- The section reports status, auth state, deployment URL, static dashboard
+  latest version, paper-trading end date, and the evidence path.
+
+Evidence:
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_scheduler_health.py::test_scheduler_health_reports_vercel_remote_deployment_status -q
+# red first on missing health section, then green
+# 1 passed
+
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_scheduler_health.py -q
+# 10 passed
+
+production/check_scheduler_health.sh
+# --- Vercel Remote Deployment ---
+# status: blocked_no_credentials
+# auth: blocked_no_credentials
+# deployment_url: none
+# dashboard_latest=paper_trading paper_trading_end=2026-05-20
+```
+
+Decision:
+
+- Remote Vercel deployment is still blocked by missing credentials, but the
+  blocker is now part of the canonical production health output.
+- Evidence card:
+  `runtime/production/card/vercel_health_surface_v1/notes.md`.
