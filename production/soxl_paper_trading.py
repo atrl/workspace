@@ -462,12 +462,26 @@ def _paper_output_dir(
     broker_name: str,
     *,
     dry_run: bool,
+    profile_name: str = "",
     runtime_dir: Path | None = None,
 ) -> Path:
     base_dir = runtime_dir or RUNTIME_DIR
     run_dir = base_dir / "paper_trading" / signal_date
     if dry_run and _existing_executed_summary(signal_date, broker_name, runtime_dir=base_dir):
-        return run_dir / "dry_run"
+        dry_run_dir = run_dir / "dry_run"
+        summary_path = dry_run_dir / "summary.json"
+        if profile_name and summary_path.exists():
+            try:
+                existing = json.loads(summary_path.read_text(encoding="utf-8"))
+            except Exception:
+                existing = {}
+            if existing.get("profile") and existing.get("profile") != profile_name:
+                safe_profile = "".join(
+                    char if char.isalnum() or char in {"-", "_", "."} else "_"
+                    for char in profile_name
+                )
+                return dry_run_dir / safe_profile
+        return dry_run_dir
     return run_dir
 
 
@@ -712,7 +726,7 @@ def main() -> None:
             notifier.send(title=title, body=body, level=level)
 
         # 8. Persist JSON
-        run_dir = _paper_output_dir(signal.date, args.broker, dry_run=args.dry_run)
+        run_dir = _paper_output_dir(signal.date, args.broker, dry_run=args.dry_run, profile_name=profile_name)
         run_dir.mkdir(parents=True, exist_ok=True)
         for name, value in result.items():
             (run_dir / f"{name}.json").write_text(

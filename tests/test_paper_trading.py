@@ -14,6 +14,7 @@ from production.soxl_paper_trading import (
     _append_execution_daily_csv,
     _block_risk_decision,
     _data_freshness_status,
+    _paper_output_dir,
     _last_trading_day,
     _load_paper_broker_state,
     _run_data_update,
@@ -491,6 +492,55 @@ def test_dry_run_after_executed_day_does_not_overwrite_executed_summary(
     assert dry_run_summary["profile"] == "balanced_rule_residual_v22"
     assert dry_run_summary["dry_run"] is True
     assert dry_run_summary["executed"] is False
+
+
+def test_paper_output_dir_scopes_colliding_dry_run_profiles(tmp_path: Path):
+    runtime_dir = tmp_path / "runtime" / "soxl"
+    run_dir = runtime_dir / "paper_trading" / "2026-05-20"
+    dry_run_dir = run_dir / "dry_run"
+    dry_run_dir.mkdir(parents=True)
+    (run_dir / "summary.json").write_text(
+        json.dumps(
+            {
+                "date": "2026-05-20",
+                "profile": "balanced_rule_residual_v19",
+                "broker": "paper",
+                "dry_run": False,
+                "executed": True,
+            }
+        ),
+        encoding="utf-8",
+    )
+    (dry_run_dir / "summary.json").write_text(
+        json.dumps(
+            {
+                "date": "2026-05-20",
+                "profile": "balanced_rule_residual_v22",
+                "broker": "paper",
+                "dry_run": True,
+                "executed": False,
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    same_profile = _paper_output_dir(
+        "2026-05-20",
+        "paper",
+        dry_run=True,
+        profile_name="balanced_rule_residual_v22",
+        runtime_dir=runtime_dir,
+    )
+    different_profile = _paper_output_dir(
+        "2026-05-20",
+        "paper",
+        dry_run=True,
+        profile_name="v19reg_v22_budget_usage_bull_guard_v1",
+        runtime_dir=runtime_dir,
+    )
+
+    assert same_profile == dry_run_dir
+    assert different_profile == dry_run_dir / "v19reg_v22_budget_usage_bull_guard_v1"
 
 
 def test_main_uses_budget_runtime_composer_when_requested(

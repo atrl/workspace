@@ -1342,3 +1342,36 @@ Verification:
   `passed=167 failures=0`.
 - `production/check_scheduler_health.sh` -> default data/model/broker/dashboard
   ok; runtime proof pending for selected v22; Vercel `blocked_no_credentials`.
+
+## 2026-05-21 Paper Dry-Run Profile Scoping
+
+The paper runner still must not duplicate same-day non-dry execution, but
+same-date dry-run preflights for different profiles should not overwrite one
+another. After the budget-usage composer dry-run, the older v22 preflight path
+had been overwritten because both used
+`runtime/soxl/paper_trading/2026-05-20/dry_run/`.
+
+Change:
+
+- `production/soxl_paper_trading.py` keeps `dry_run/` for the same profile, but
+  writes colliding profile dry-runs under `dry_run/<profile>/`.
+- Default v22 dry-run and scheduler dry-run now write
+  `runtime/soxl/paper_trading/2026-05-20/dry_run/balanced_rule_residual_v22`.
+- The composer dry-run remains at the shared `dry_run/summary.json`.
+
+Evidence card:
+
+- `runtime/production/card/paper_dry_run_profile_scope_v1/notes.md`
+
+Verification:
+
+- `uv run --python qlib_venv/bin/python --with pytest pytest tests/test_paper_trading.py tests/test_daily_scheduler.py tests/test_scheduler_health.py -q`
+  -> `40 passed`.
+- `PYTHONPATH=src:. qlib_venv/bin/python scripts/check_harness.py` ->
+  `passed=167 failures=0`.
+- `production/check_scheduler_health.sh` -> local scheduler/data/model/broker/dashboard
+  ok; selected v22 non-dry proof still pending for the next fresh date; Vercel
+  `blocked_no_credentials`.
+
+Decision: this is evidence hygiene for simulated paper trading, not a substitute
+for the pending selected-profile non-dry runtime proof.

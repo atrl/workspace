@@ -4503,3 +4503,68 @@ Artifacts:
 - `runtime/model/card/v19reg_v22_budget_usage_bull_guard_v1/runtime_promotion_review.md`
 - `runtime/model/card/v19reg_v22_budget_usage_bull_guard_v1/runtime_promotion_review.json`
 - `scripts/review_budget_usage_runtime_promotion.py`
+
+## 2026-05-21 Paper Dry-Run Profile Collision Fix
+
+Goal:
+
+- Preserve simulated-paper preflight evidence for multiple profiles on the same
+  executed date without forcing duplicate non-dry execution.
+
+Baseline:
+
+- Health still correctly reports selected-profile runtime proof as pending:
+  latest non-dry root artifact is `balanced_rule_residual_v19`, selected model
+  is `balanced_rule_residual_v22`.
+- The v22 preflight and composer preflight both wrote to the shared
+  `dry_run/` folder, so later dry-runs could overwrite earlier evidence.
+
+Evidence:
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest \
+  tests/test_paper_trading.py::test_paper_output_dir_scopes_colliding_dry_run_profiles -q
+# red before implementation: _paper_output_dir() got unexpected profile_name
+
+uv run --python qlib_venv/bin/python --with pytest pytest \
+  tests/test_paper_trading.py::test_paper_output_dir_scopes_colliding_dry_run_profiles \
+  tests/test_paper_trading.py::test_dry_run_after_executed_day_does_not_overwrite_executed_summary \
+  tests/test_paper_trading.py::test_main_uses_budget_runtime_composer_when_requested -q
+# 3 passed
+
+PYTHONPATH=. qlib_venv/bin/python production/soxl_paper_trading.py \
+  --dry-run --no-notify --skip-data-update
+# output=runtime/soxl/paper_trading/2026-05-20/dry_run/balanced_rule_residual_v22
+# profile=balanced_rule_residual_v22; risk_gate approved=True
+
+PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py \
+  --dry-run --no-notify --skip-data-update --skip-dashboard
+# scheduler completed and wrote the same scoped v22 dry-run path
+
+uv run --python qlib_venv/bin/python --with pytest pytest \
+  tests/test_paper_trading.py tests/test_daily_scheduler.py \
+  tests/test_scheduler_health.py -q
+# 40 passed
+
+PYTHONPATH=src:. qlib_venv/bin/python scripts/build_runtime_index.py
+# wrote runtime/index.json (483 entries)
+
+PYTHONPATH=src:. qlib_venv/bin/python scripts/check_harness.py
+# passed=167 failures=0
+
+production/check_scheduler_health.sh
+# data/model/broker/dashboard ok
+# runtime proof still pending for next fresh selected v22 non-dry execution
+# Vercel remains blocked_no_credentials
+```
+
+Decision:
+
+- Same-profile dry-runs still use the stable `dry_run/` path.
+- Colliding profile/composer dry-runs now use `dry_run/<profile>/`.
+- Do not force another non-dry run for `2026-05-20`; the next fresh non-dry date
+  remains the runtime-proof gate.
+
+Artifact:
+
+- `runtime/production/card/paper_dry_run_profile_scope_v1/notes.md`
