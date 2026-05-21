@@ -3998,3 +3998,91 @@ Decision:
 - Do not continue MoE by only sweeping learning rate, load-balance coefficient,
   or stage length. The remaining problem is slice-level regime allocation, not
   just optimizer stability.
+
+## 2026-05-21 Post-close 06:15 Provider Buffer
+
+Goal:
+
+- Reduce stale/fallback post-close scheduler runs by moving the full data +
+  paper + dashboard path out of the observed early provider lag window.
+- Keep the scheduled Vercel deploy path usable from LaunchAgent's minimal
+  environment.
+
+Root cause:
+
+- The first natural `05:35 Tue-Sat Asia/Shanghai` run reached the scheduler but
+  only saw `last_date=2026-05-19` while expected was `2026-05-20`.
+- Manual retries at `05:44` and `05:50` were still stale or fallback-only.
+- A later `06:12` run reached SOXL/SOXX/VIX overlap through `2026-05-20`, so
+  the remaining issue was a too-early scheduled provider window, not the model
+  or paper broker path.
+- LaunchAgent PATH also omitted `/opt/homebrew/bin`, so scheduled Vercel deploy
+  attempts could report `vercel CLI not found` even though the CLI exists in the
+  user shell.
+- The scheduled dashboard rebuild then exposed a retention bug: static evidence
+  for `balanced_rule_residual_v19_moe_v2` still existed under
+  `dashboard_data/versioned/`, but because its source daily CSV had been
+  intentionally removed, the rebuilt `dashboard_data/index.json` dropped the
+  version from the selectable list.
+
+Changes:
+
+- Moved post-close schedule to `06:15 Tue-Sat Asia/Shanghai` in:
+  - `production/com.soxl.daily.scheduler.plist`
+  - `production/crontab.txt`
+  - `production/FUTU_SEMI_AUTO.md`
+- Updated `production/check_scheduler_health.sh` cutoff/labels to use
+  `POSTCLOSE_HHMM=0615`.
+- Added regression coverage that treats `06:00` as still pending during the
+  provider buffer and expects `06:15` in cron/plist/health output.
+- Updated `production/run_soxl_scheduler.sh` to prepend common Homebrew/npm bin
+  directories so scheduled Vercel deploy can find `/opt/homebrew/bin/vercel`.
+- Updated `scripts/build_backtest_dashboard.py` so retained static dashboard
+  exports remain indexed even when the original post-train daily CSV is gone.
+- Synced and reloaded the installed daily LaunchAgent.
+
+Evidence:
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_dashboard.py tests/test_daily_scheduler.py tests/test_production_schedule.py tests/test_scheduler_health.py tests/test_vercel_dashboard.py -q
+# 46 passed
+
+PYTHONPATH=src:. qlib_venv/bin/python scripts/check_dashboard_static_export.py
+# ok ... versions=28 missing=0 model_versions=94 latest=paper_trading
+
+launchctl print "gui/$(id -u)/com.soxl.daily.scheduler"
+# state = not running
+# last exit code = 0
+# triggers show Hour=6 Minute=15 Weekday=2..6
+
+production/check_scheduler_health.sh
+# LaunchAgent com.soxl.daily.scheduler plist: matches repo
+# data: ok last_date=2026-05-20 expected=2026-05-20
+# model: ok balanced_rule_residual_v22
+# postclose status: success marker found
+# post-close: next eligible day 06:15 Tue-Sat Asia/Shanghai
+```
+
+LaunchAgent kickstart readout:
+
+- `2026-05-21T10:58:48+08:00` full daily scheduler started through the
+  LaunchAgent path.
+- Data remained fresh at `last_date=2026-05-20 expected=2026-05-20`.
+- Runtime auto-selected `balanced_rule_residual_v22`.
+- Same-day idempotency skipped the duplicate `2026-05-20` paper order.
+- Dashboard rebuilt and Vercel deploy attempt ran.
+- Vercel evidence now records `vercel_cli=/opt/homebrew/bin/vercel`; remote
+  deployment still reports `blocked_no_credentials`.
+
+Decision:
+
+- `06:15 Tue-Sat Asia/Shanghai` is now the canonical post-close production
+  schedule.
+- This fixes the scheduled data-refresh timing and the LaunchAgent CLI PATH
+  issue, and it prevents scheduled dashboard rebuilds from dropping retained
+  versioned evidence. It does not complete remote Vercel deployment because
+  credentials are still missing.
+- The remaining production proof is the next fresh post-close non-dry paper
+  execution that writes a root summary with `profile=balanced_rule_residual_v22`.
+- Evidence card:
+  `runtime/production/card/scheduler_postclose_0615_v1/notes.md`.

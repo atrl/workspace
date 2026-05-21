@@ -568,6 +568,49 @@ def _load_post_train_review_versions(features: dict[str, dict[str, float]] | Non
     return versioned
 
 
+def _load_retained_dashboard_versions() -> dict[str, dict]:
+    """Load existing static dashboard payloads when source CSVs were intentionally retired."""
+    versioned: dict[str, dict] = {}
+    versioned_dir = DASHBOARD_DATA_DIR / "versioned"
+    if not versioned_dir.exists():
+        return versioned
+
+    for tag_dir in sorted(versioned_dir.iterdir()):
+        if not tag_dir.is_dir():
+            continue
+        details: dict[str, dict] = {}
+        windows: dict[str, dict] = {}
+        updated_at = 0.0
+        for json_path in sorted(tag_dir.glob("*.json")):
+            try:
+                detail = load_json(json_path)
+            except Exception:
+                continue
+            rows = detail.get("rows") or []
+            if not isinstance(rows, list) or not rows:
+                continue
+            etf = json_path.stem.upper()
+            details[etf] = detail
+            windows[etf] = {
+                "start": rows[0].get("datetime", ""),
+                "end": rows[-1].get("datetime", ""),
+                "rows": len(rows),
+            }
+            updated_at = max(updated_at, json_path.stat().st_mtime)
+        if details:
+            versioned[tag_dir.name] = {
+                "_meta": {
+                    "updated_at": updated_at,
+                    "source": str(tag_dir.relative_to(ROOT)),
+                    "source_kind": "retained_dashboard_export",
+                    "shared_market_data": True,
+                },
+                "detailed": details,
+                "windows": windows,
+            }
+    return versioned
+
+
 def _load_versioned_data(features: dict[str, dict[str, float]] | None) -> dict[str, dict]:
     """Load all versioned backtest results from runtime/execution/generalization/versions/."""
     versioned: dict[str, dict] = {}
@@ -676,6 +719,9 @@ def build_payload() -> dict[str, object]:
     versioned = _load_versioned_data(features)
     ptr_versioned = _load_post_train_review_versions(features)
     versioned.update(ptr_versioned)
+    retained_versioned = _load_retained_dashboard_versions()
+    for tag, payload in retained_versioned.items():
+        versioned.setdefault(tag, payload)
 
     # If no detailed data exists but versioned data does, populate from latest version
     # so that the dashboard has a default ETF to display.

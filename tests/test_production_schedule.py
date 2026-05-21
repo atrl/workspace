@@ -27,9 +27,9 @@ def test_crontab_uses_shanghai_safe_us_market_windows():
     post_close = next(line for line in lines if "scheduler_postclose.log" in line)
     pre_open = next(line for line in lines if "scheduler_preopen.log" in line)
 
-    # Asia/Shanghai local time: Tue-Sat 05:35 covers Mon-Fri US post-close
-    # in both EDT and EST, so the data refresh does not run before the close.
-    assert post_close.split(maxsplit=5)[:5] == ["35", "5", "*", "*", "2-6"]
+    # Asia/Shanghai local time: Tue-Sat 06:15 covers Mon-Fri US post-close
+    # and leaves a provider-availability buffer before the daily data refresh.
+    assert post_close.split(maxsplit=5)[:5] == ["15", "6", "*", "*", "2-6"]
     assert "/Users/rziiiii/.openclaw/workspace/production/run_soxl_scheduler.sh" in post_close
     assert "/home/rziiiii/dev/workspace" not in post_close
     assert "--skip-data-update" not in post_close
@@ -76,11 +76,11 @@ def test_launchagent_runs_post_close_in_shanghai_local_time():
     }
 
     assert schedule == {
-        (2, 5, 35),
-        (3, 5, 35),
-        (4, 5, 35),
-        (5, 5, 35),
-        (6, 5, 35),
+        (2, 6, 15),
+        (3, 6, 15),
+        (4, 6, 15),
+        (5, 6, 15),
+        (6, 6, 15),
     }
     assert plist["ProgramArguments"][0].endswith("/production/run_soxl_scheduler.sh")
     assert "--vercel-deploy" in plist["ProgramArguments"]
@@ -141,6 +141,7 @@ def test_launchagent_wrapper_exists_and_loads_private_env_file():
 
     text = wrapper.read_text(encoding="utf-8")
     assert "SOXL_LAUNCH_ENV_FILE" in text
+    assert "/opt/homebrew/bin" in text
     assert ". \"$ENV_FILE\"" in text
     assert "soxl_daily_scheduler.py" in text
 

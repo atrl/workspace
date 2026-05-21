@@ -12,5 +12,7 @@ if [ -f "$ENV_FILE" ]; then
     set +a
 fi
 
+export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:${HOME}/.npm-global/bin:${HOME}/.npm/bin:${PATH:-/usr/bin:/bin:/usr/sbin:/sbin}"
+
 cd "$ROOT"
 exec "$ROOT/qlib_venv/bin/python" "$ROOT/production/soxl_daily_scheduler.py" "$@"

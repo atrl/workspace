@@ -6,6 +6,7 @@ import pandas as pd
 
 from scripts.build_backtest_dashboard import (
     _load_post_train_review_versions,
+    _load_retained_dashboard_versions,
     compact_payload_rows,
     normalize_post_train_review_rows,
     select_best_version,
@@ -156,6 +157,35 @@ def test_load_versions_keeps_short_paper_trading_history(tmp_path: Path, monkeyp
     paper = versions["paper_trading"]
     assert paper["_meta"]["source_kind"] == "paper_trading"
     assert paper["windows"]["SOXL"] == {"start": "2026-05-14", "end": "2026-05-14", "rows": 1}
+
+
+def test_load_versions_keeps_retained_dashboard_export_without_source_csv(tmp_path: Path, monkeypatch):
+    retained_dir = tmp_path / "dashboard_data" / "versioned" / "retained_ablation"
+    retained_dir.mkdir(parents=True)
+    (retained_dir / "SOXL.json").write_text(
+        """
+{
+  "summary": {"etf": "SOXL", "strategy_return": 0.1},
+  "csv_path": "runtime/model/card/retained_ablation/retained_ablation_soxl_daily.csv",
+  "rows": [
+    {"datetime": "2026-05-19", "strategy_nav": 1000000, "price": 100, "buyhold_nav": 1000000, "position": 0.2, "excess": 0, "excess_pct": 0, "action": "BUY"}
+  ],
+  "regime_shapes": [],
+  "trades": [],
+  "kelly": {}
+}
+""",
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(dashboard_builder, "ROOT", tmp_path)
+    monkeypatch.setattr(dashboard_builder, "DASHBOARD_DATA_DIR", tmp_path / "dashboard_data")
+
+    versions = _load_retained_dashboard_versions()
+
+    assert "retained_ablation" in versions
+    retained = versions["retained_ablation"]
+    assert retained["_meta"]["source_kind"] == "retained_dashboard_export"
+    assert retained["windows"]["SOXL"] == {"start": "2026-05-19", "end": "2026-05-19", "rows": 1}
 
 
 def test_compact_payload_rows_drops_redundant_market_metadata():

@@ -15,25 +15,25 @@
 8. **daily drawdown circuit-breaker 不再破坏 frozen decision contract**：触发时用 blocked copy 替换 risk-gate decision，不再原地修改 frozen dataclass。
 9. **Vercel 静态发布路径已确定**：`dashboard.html` 与 `dashboard_data/` 作为静态 export 入库，`vercel.json` 将 `/` rewrite 到 `/dashboard.html`，并对 dashboard HTML/data 设置 `Cache-Control: public, max-age=0, must-revalidate`。
 10. **auto-select 现在同时看 model gate 和 profile overlay gate**：`best_model_for_family()` 会跳过绑定 execution overlay 但 `auto_select_allowed=false` 的 profile。这样即使 `balanced_rule_residual_v22` 的 model sidecar 将来被标 promoted，scheduler 也不会绕过 post-release-cap 的 runtime approval。
-11. **定时表已按 Asia/Shanghai 本地时区修正**：pre-open 改成 `21:00 Mon-Fri` cached-data `--dry-run`，post-close 完整数据刷新 + 模拟盘 + dashboard 改成 `05:35 Tue-Sat`，避免本地 `09:30/16:35` 误跑在美股收盘前。
+11. **定时表已按 Asia/Shanghai 本地时区修正**：pre-open 为 `21:00 Mon-Fri` cached-data `--dry-run`，post-close 完整数据刷新 + 模拟盘 + dashboard 为 `06:15 Tue-Sat`，避免本地 `09:30/16:35` 误跑在美股收盘前，也避开 05:35 附近的供应商数据滞后窗口。
 12. **scheduler health 现在匹配 macOS LaunchAgent**：`production/check_scheduler_health.sh` 会在 Darwin 上检查 `launchctl list` 中的 `com.soxl.daily.scheduler`，并用 portable `stat/date` 读取日志，不再把 macOS 运行态显示成空白 cron 服务。
-13. **macOS 定时推理路径已补齐**：新增 `com.soxl.preopen.scheduler`，用于 `21:00 Mon-Fri Asia/Shanghai` cached-data dry-run 推理 + dashboard；`com.soxl.daily.scheduler` 继续负责 `05:35 Tue-Sat` post-close 完整流程。两个 LaunchAgent 已同步到 `~/Library/LaunchAgents/` 并 loaded。
+13. **macOS 定时推理路径已补齐**：新增 `com.soxl.preopen.scheduler`，用于 `21:00 Mon-Fri Asia/Shanghai` cached-data dry-run 推理 + dashboard；`com.soxl.daily.scheduler` 负责 `06:15 Tue-Sat` post-close 完整流程。pre-open / daily / weekly LaunchAgent 已同步到 `~/Library/LaunchAgents/` 并 loaded。
 14. **数据源失败时不再用旧数据推进模拟盘**：post-close 数据刷新遇到 transient provider failure 时，scheduler fallback 会追加 `--skip-data-update --dry-run`，只保留 cached signal/dashboard 可见性，不落 paper order / broker state。
-15. **scheduler health 现在直接暴露 paper 数据新鲜度**：`production/check_scheduler_health.sh` 会运行 paper healthcheck 并显示 `last_date`、`expected_last_trading_day`、`stale_days`、model 和 broker 状态。当前 `2026-05-21 02:48 CST` 读数已恢复为 `last_date=2026-05-19`、`expected=2026-05-19`、`stale_days=0`；到 `05:35 Tue-Sat Asia/Shanghai` 后才应该期待刚收盘的下一交易日。
+15. **scheduler health 现在直接暴露 paper 数据新鲜度**：`production/check_scheduler_health.sh` 会运行 paper healthcheck 并显示 `last_date`、`expected_last_trading_day`、`stale_days`、model 和 broker 状态。post-close proof 现在按 `06:15 Tue-Sat Asia/Shanghai` 判定，避免 05:35 附近数据源尚未齐全时误报或反复 fallback。
 16. **stale data 现在也是执行硬门槛**：paper 主流程在 qlib init / 模型选择 / broker 执行前检查 freshness。非 dry-run 遇到 stale data 直接退出；scheduler 将其转成 cached dry-run fallback，避免 stale 数据推进 paper broker state。
 17. **freshness 期望日已按纽约收盘边界修正**：`_last_trading_day()` 使用 `America/New_York` 和 `17:30 ET` data-ready cutoff。`2026-05-21 02:23 CST` 期望 `2026-05-19`，`05:35 CST` 后才期望 `2026-05-20`。
 18. **production data refresh 现在支持 provider failover**：paper runner 和 scheduler 都支持 `--data-provider {auto,yfinance,yahoo_api,polygon}`；默认 `auto` 先试 yfinance，再试 yahoo_api，最后试 Polygon + CBOE VIX。当前实测 yfinance 是 `No overlapping dates`，yahoo_api 是 `429 Too Many Requests`，Polygon + CBOE 能把数据更新到 `2026-05-19`。
 19. **scheduler 成功日志现在保留 provider fallback stderr**：`production/soxl_daily_scheduler.py` 在 child step 成功时也会 replay stderr，因此 yfinance/yahoo_api 失败后由 polygon 接管的路径能出现在 LaunchAgent 日志里，不再只看到最终成功 stdout。
 20. **paper full-loop 已能推进模拟盘状态**：`2026-05-21 03:02 CST` 手动运行 default paper broker 的 full scheduler，auto provider 经 yfinance/yahoo_api fallback 到 polygon，数据 fresh，风险门通过，paper BUY filled；broker state 更新到 `2026-05-18`、`3000` shares、`48.56%` position，reconcile 为 `position aligned`，dashboard paper version 增至 `3` 行并结束于 `2026-05-18`。
-21. **scheduler health 现在能发现安装态 plist 漂移**：health 不只看 LaunchAgent label 是否 loaded，也会比较 `~/Library/LaunchAgents/com.soxl.*.plist` 与 repo `production/com.soxl.*.plist` 是否一致。当前读数为 preopen/daily 都 `matches repo`，所以自然 `05:35` proof 的前置配置已对齐。
-22. **post-close proof 状态现在显式可见**：health 新增 `Post-close Run Status`。`05:35 Tue-Sat Asia/Shanghai` 前显示 `pending`；到点后如果没有 `[scheduler] all done` 会显示 `due but no success marker found`；有成功标记则显示 `success marker found`。
+21. **scheduler health 现在能发现安装态 plist 漂移**：health 不只看 LaunchAgent label 是否 loaded，也会比较 `~/Library/LaunchAgents/com.soxl.*.plist` 与 repo `production/com.soxl.*.plist` 是否一致。当前读数为 preopen/daily/weekly 都 `matches repo`，所以自然 `06:15` proof 的前置配置已对齐。
+22. **post-close proof 状态现在显式可见**：health 新增 `Post-close Run Status`。`06:15 Tue-Sat Asia/Shanghai` 前显示 `pending`；到点后如果没有 `[scheduler] all done` 会显示 `due but no success marker found`；有成功标记则显示 `success marker found`。
 23. **Vercel dashboard 静态包现在可自检**：`scripts/check_dashboard_static_export.py` 会校验 `/`、`/dashboard.html`、`/dashboard_data/:path*` 的 no-cache header、`dashboard_data/index.json` 中所有 versioned payload 是否存在并匹配 row count，以及 `paper_trading` 是否仍在静态包中。`production/check_scheduler_health.sh` 现在直接显示该检查结果；当前读数为 `versions=25`、`missing=0`、`model_versions=90`、`paper_trading_rows=3`、`paper_trading_end=2026-05-18`。
-24. **post-close success 现在要求本次 cutoff 后的新日志**：`production/check_scheduler_health.sh` 不再只看 `scheduler_postclose.log` 是否含 `[scheduler] all done`。它会比较日志 mtime 和当前日 `05:35` cutoff；旧/手动 success marker 在 due 后会显示 `due but no current success marker found`，避免污染自然 LaunchAgent proof。
+24. **post-close success 现在要求本次 cutoff 后的新日志**：`production/check_scheduler_health.sh` 不再只看 `scheduler_postclose.log` 是否含 `[scheduler] all done`。它会比较日志 mtime 和当前日 `06:15` cutoff；旧/手动 success marker 在 due 后会显示 `due but no current success marker found`，避免污染自然 LaunchAgent proof。
 25. **append-only scheduler log 现在按 run segment 判定成功**：`production/soxl_daily_scheduler.py` 会在每次启动时输出 `[scheduler] run started at ...`；health 若发现 run-start marker，只接受最新 run-start 之后的 `[scheduler] all done`。这样旧成功行 + 新失败追加不会被误判为当前 post-close 成功。
 26. **paper signal 不再丢弃最新 closed bar**：`plan_manual_session()` 现在把 `as_of` 当作最新已收盘 bar 并使用 `<= as_of` 生成信号。当前 dry-run 证据：`last_date=2026-05-19`、`as_of=2026-05-19`、summary `signal.date=2026-05-19`、`dry_run=true`、`executed=false`。这修复了 scheduler/paper runner 用 fresh data 只生成前一日 signal 的模拟盘滞后。
 27. **scheduler health 现在区分 inference artifact 和 paper dashboard row**：新增 `Latest Signal Artifact`，直接显示最新 `runtime/soxl/paper_trading/<date>/summary.json`。当前 live health 读数为 `date=2026-05-19`、`profile=balanced_rule_residual_v19`、`dry_run=true`、`executed=false`、`target=0.3999999985`、`risk_gate=approved`、`reconcile=manual_review`，而 dashboard paper row 仍结束于 `2026-05-18`。这使定时推理、模拟盘执行、dashboard 导出可以分层判断。
 28. **v22 runtime proof 缺口现在归因到同日幂等保护**：当前 health 选择 `balanced_rule_residual_v22`，但最新非 dry-run paper artifact 是 `2026-05-20` 的 `balanced_rule_residual_v19`。因为该日期已经执行，paper runner 不应重复落单；health 现在会在 pending 行后补充 `latest executed date already matches expected data date; next non-dry-run execution must use selected model`，把剩余证明归因到等待下一交易日，而不是误判为数据/调度失败。
-29. **Next Scheduled Runs 不再把已过窗口标成 today**：`production/check_scheduler_health.sh` 现在按 `HEALTH_WEEKDAY/HEALTH_HHMM` 判断 pre-open、post-close、weekly 窗口。当前 `2026-05-21 08:00 CST` 输出为 pre-open `today 21:00`、post-close `next eligible day 05:35`、weekly `next Saturday 07:00`，避免把当天已过的 post-close 误读成下一次运行。
+29. **Next Scheduled Runs 不再把已过窗口标成 today**：`production/check_scheduler_health.sh` 现在按 `HEALTH_WEEKDAY/HEALTH_HHMM` 判断 pre-open、post-close、weekly 窗口。当前 post-close 输出为 `next eligible day 06:15 Tue-Sat Asia/Shanghai`，避免把当天已过的 post-close 误读成下一次运行。
 
 ## 2026-05-20 验证记录
 
@@ -1240,3 +1240,55 @@ Decision:
 - Scheduled dashboard updates are now Vercel-aware.
 - Completion still requires scheduler-visible Vercel credentials and a
   successful remote deployment URL.
+
+## 2026-05-21 Post-close 06:15 Provider Buffer
+
+The original `05:35 Tue-Sat Asia/Shanghai` post-close window was structurally
+after the NYSE close boundary, but live evidence showed provider lag:
+
+- `05:35`, `05:44`, and `05:50` attempts could not produce a fresh
+  `2026-05-20` SOXL/SOXX/VIX overlap and correctly fell back to cached dry-run.
+- `06:12` produced fresh overlap through `2026-05-20`, refreshed qlib, and
+  completed the post-close paper/dashboard path.
+
+Change:
+
+- Post-close full scheduler is now `06:15 Tue-Sat Asia/Shanghai` in cron,
+  LaunchAgent plist, health output, and operator docs.
+- Health uses `POSTCLOSE_HHMM=0615` / `POSTCLOSE_TIME_LABEL=06:15`, and a new
+  test ensures `06:00` remains pending during the provider buffer.
+- `production/run_soxl_scheduler.sh` prepends `/opt/homebrew/bin` and related
+  binary directories to PATH so scheduled Vercel deploy attempts can find the
+  local CLI from LaunchAgent.
+- `scripts/build_backtest_dashboard.py` now preserves retained
+  `dashboard_data/versioned/` exports in the rebuilt index when a dropped
+  profile's source daily CSV has intentionally been removed.
+- Installed `com.soxl.daily.scheduler` was synced and reloaded.
+
+Evidence:
+
+- Focused dashboard/scheduler/Vercel suite: `46 passed`.
+- Static dashboard export: `versions=28 missing=0 model_versions=94
+  latest=paper_trading`.
+- LaunchAgent `print` shows `Hour=6 Minute=15 Weekday=2..6`, `state=not running`,
+  and `last exit code = 0` after kickstart.
+- Health at `2026-05-21 11:00 CST` reports daily plist `matches repo`,
+  `postclose status: success marker found`, and next post-close as
+  `next eligible day 06:15 Tue-Sat Asia/Shanghai`.
+- Vercel evidence now records `vercel_cli=/opt/homebrew/bin/vercel`; remote
+  deployment remains `blocked_no_credentials`.
+
+Decision:
+
+- Treat `06:15 Tue-Sat Asia/Shanghai` as the canonical post-close production
+  schedule.
+- Preserve retained dashboard evidence across scheduled rebuilds; do not require
+  dropped profile source CSVs to stay active just to remain selectable.
+- Do not force a same-day non-dry order for v22; the kickstart selected v22 but
+  correctly skipped duplicate execution for `2026-05-20`.
+- Completion still requires Vercel credentials and the next fresh non-dry paper
+  date writing a root `balanced_rule_residual_v22` summary.
+
+Evidence card:
+
+- `runtime/production/card/scheduler_postclose_0615_v1/notes.md`

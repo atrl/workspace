@@ -14,6 +14,8 @@ HEALTH_WEEKDAY="${SOXL_SCHEDULER_HEALTH_WEEKDAY:-$(date +%u)}"
 HEALTH_HHMM="${SOXL_SCHEDULER_HEALTH_HHMM:-$(date +%H%M)}"
 HEALTH_DATE="${SOXL_SCHEDULER_HEALTH_DATE:-$(date +%Y-%m-%d)}"
 HEALTH_POSTCLOSE_CUTOFF_EPOCH="${SOXL_SCHEDULER_HEALTH_POSTCLOSE_CUTOFF_EPOCH:-}"
+POSTCLOSE_HHMM="0615"
+POSTCLOSE_TIME_LABEL="06:15"
 SELECTED_MODEL_PROFILE=""
 PAPER_EXPECTED_LAST_TRADING_DAY=""
 
@@ -62,7 +64,8 @@ number_value() {
 postclose_due_today() {
     weekday_num=$(number_value "$HEALTH_WEEKDAY")
     hhmm_num=$(number_value "$HEALTH_HHMM")
-    [ "$weekday_num" -ge 2 ] && [ "$weekday_num" -le 6 ] && [ "$hhmm_num" -ge 535 ]
+    postclose_num=$(number_value "$POSTCLOSE_HHMM")
+    [ "$weekday_num" -ge 2 ] && [ "$weekday_num" -le 6 ] && [ "$hhmm_num" -ge "$postclose_num" ]
 }
 
 postclose_cutoff_epoch() {
@@ -70,7 +73,7 @@ postclose_cutoff_epoch() {
         echo "$HEALTH_POSTCLOSE_CUTOFF_EPOCH"
         return
     fi
-    cutoff_text="${HEALTH_DATE} 05:35"
+    cutoff_text="${HEALTH_DATE} ${POSTCLOSE_TIME_LABEL}"
     if date -j -f "%Y-%m-%d %H:%M" "$cutoff_text" +%s 2>/dev/null; then
         return
     fi
@@ -316,7 +319,7 @@ print_postclose_status() {
             echo "  postclose status: due but no success marker found"
         fi
     else
-        echo "  postclose status: pending until 05:35 Tue-Sat Asia/Shanghai"
+        echo "  postclose status: pending until ${POSTCLOSE_TIME_LABEL} Tue-Sat Asia/Shanghai"
     fi
 }
 
@@ -423,7 +426,7 @@ next_run_day_label() {
 print_next_runs() {
     echo "--- Next Scheduled Runs ---"
     echo "  pre-open: $(next_run_day_label preopen 2100) 21:00 Mon-Fri Asia/Shanghai — US pre-open dry-run + dashboard + Vercel deploy attempt"
-    echo "  post-close: $(next_run_day_label postclose 0535) 05:35 Tue-Sat Asia/Shanghai — US post-close data + paper trading + dashboard + Vercel deploy attempt"
+    echo "  post-close: $(next_run_day_label postclose "$POSTCLOSE_HHMM") ${POSTCLOSE_TIME_LABEL} Tue-Sat Asia/Shanghai — US post-close data + paper trading + dashboard + Vercel deploy attempt"
     echo "  weekly: $(next_run_day_label weekly 0700) 07:00 Sat Asia/Shanghai — weekly walk-forward after post-close refresh"
 }
 

@@ -182,8 +182,8 @@ Pipeline order:
 # Mon-Fri 21:00: US pre-open cached-data dry-run + dashboard + Vercel deploy attempt
 0 21 * * 1-5 /Users/rziiiii/.openclaw/workspace/production/run_soxl_scheduler.sh --broker paper --dry-run --no-notify --skip-data-update --vercel-deploy >> /Users/rziiiii/.openclaw/workspace/runtime/soxl/paper_trading/scheduler_preopen.log 2>&1
 
-# Tue-Sat 05:35: US post-close data refresh + paper trading + dashboard + Vercel deploy attempt
-35 5 * * 2-6 /Users/rziiiii/.openclaw/workspace/production/run_soxl_scheduler.sh --broker paper --no-notify --vercel-deploy >> /Users/rziiiii/.openclaw/workspace/runtime/soxl/paper_trading/scheduler_postclose.log 2>&1
+# Tue-Sat 06:15: US post-close data refresh + paper trading + dashboard + Vercel deploy attempt
+15 6 * * 2-6 /Users/rziiiii/.openclaw/workspace/production/run_soxl_scheduler.sh --broker paper --no-notify --vercel-deploy >> /Users/rziiiii/.openclaw/workspace/runtime/soxl/paper_trading/scheduler_postclose.log 2>&1
 ```
 
 ### Notification Setup (Bark)
