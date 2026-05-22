@@ -2725,3 +2725,33 @@ Rendered evidence:
 - `runtime/production/card/dashboard_paper_transparency_v1/dashboard_verified.png`
 - `runtime/production/card/dashboard_paper_transparency_v1/file_fallback_verified.png`
 - `runtime/production/card/dashboard_paper_transparency_v1/notes.md`
+
+## 2026-05-22 Futu Simulated Trading Src Adapter And Startup
+
+Futu simulated-trading ownership is now centered under `src/`:
+
+- `src/soxl_quant/app/futu.py` owns `FutuBroker`, `check_opend_port`, SDK
+  connection timeout handling, and US `OpenSecTradeContext` construction.
+- `production/futu_broker.py` remains only as a compatibility shim.
+- Production Futu entrypoints import from `src.soxl_quant.app.futu`.
+
+Current startup state:
+
+```text
+OpenD reachable: 127.0.0.1:11111
+data.ok=true last_date=2026-05-21 expected=2026-05-21 stale_days=0
+model.ok=true v19reg_v22_budget_usage_bull_guard_v1
+broker.ok=false Futu OpenD SDK connection timed out
+OpenD SDK log=需要图形验证码
+```
+
+The blocker is OpenD graphical verification/login, not local data freshness or
+runtime model selection. No Futu order submission was attempted.
+
+Next action: complete the Futu OpenD graphical verification/login/API
+questionnaire in the UI, rerun the Futu healthcheck, and only then run a
+non-dry Futu simulated-trading submission.
+
+Evidence card:
+
+- `runtime/production/card/futu_sim_src_startup_v1/notes.md`

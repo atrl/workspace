@@ -7004,3 +7004,46 @@ Decision:
 Artifact:
 
 - `runtime/production/card/dashboard_paper_transparency_v1/notes.md`
+
+## 2026-05-22 Futu Simulated Trading Src Adapter And Startup
+
+Goal:
+
+- Move the Futu simulated-trading broker implementation into `src/` and start
+  the local Futu path far enough to identify the current blocker.
+
+Change:
+
+- `src/soxl_quant/app/futu.py` now owns `FutuBroker`, OpenD port probing, SDK
+  connection timeout handling, and US simulated-trading context selection.
+- `production/futu_broker.py` is a compatibility shim only.
+- Production Futu entrypoints import the adapter from `src.soxl_quant.app.futu`.
+- Package `main` imports are lazy so importing the Futu adapter does not start
+  the heavy runtime stack.
+
+Evidence:
+
+```text
+OpenD: OK at 127.0.0.1:11111
+data.ok=true last_date=2026-05-21 expected=2026-05-21 stale_days=0
+model.ok=true name=v19reg_v22_budget_usage_bull_guard_v1
+broker.ok=false msg=Futu OpenD SDK connection timed out
+OpenD SDK log=需要图形验证码
+```
+
+Verification:
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_futu_adapter.py tests/test_paper_trading.py -q
+# 25 passed
+```
+
+Decision:
+
+- Local OpenD is running and reachable, but the Futu broker is not order-ready
+  until graphical verification/login is completed in OpenD.
+- No order submission was attempted.
+
+Artifact:
+
+- `runtime/production/card/futu_sim_src_startup_v1/notes.md`

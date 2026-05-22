@@ -21,7 +21,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from production.futu_broker import FutuBroker
+from src.soxl_quant.app.futu import FutuBroker
 from src.soxl_quant.runtime import replay_profile
 from src.soxl_quant.settings import RUNTIME_DIR
 

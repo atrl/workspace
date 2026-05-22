@@ -34,8 +34,8 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from production.futu_broker import FutuBroker
 from production.notify import get_notifier
+from src.soxl_quant.app.futu import FutuBroker
 from src.soxl_quant.policy.two_speed_budget import (
     TwoSpeedBudgetConfig,
     compose_budget_usage_position,

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-22T06:43:53.842430+00:00",
+  "generated_at": "2026-05-22T08:18:02.054588+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -2894,6 +2894,12 @@
       "bytes": 2611
     },
     {
+      "path": "runtime/production/card/futu_sim_src_startup_v1/notes.md",
+      "category": "production",
+      "suffix": ".md",
+      "bytes": 2687
+    },
+    {
       "path": "runtime/production/card/goal_gate_recheck_20260521_v1/notes.md",
       "category": "production",
       "suffix": ".md",
@@ -3209,7 +3215,7 @@
       "path": "runtime/production/knowledge.md",
       "category": "production",
       "suffix": ".md",
-      "bytes": 117511
+      "bytes": 118610
     },
     {
       "path": "runtime/reward/card/base_log/card.md",

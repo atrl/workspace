@@ -26,9 +26,9 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from production.futu_broker import FutuBroker
 from production.notify import get_notifier
 from scripts.update_market_data import update_master_csv, refresh_qlib, refresh_data_registry, sync_local_data_surfaces
+from src.soxl_quant.app.futu import FutuBroker
 from src.soxl_quant.data import init_qlib
 from src.soxl_quant.runtime import (
     BrokerAdapter,

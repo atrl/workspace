@@ -2,16 +2,12 @@
 """Quick diagnostic: verify Futu OpenD is reachable before trading."""
 
 import argparse
-import socket
 import sys
 
+from src.soxl_quant.app.futu import check_opend_port
 
-def check_port(host: str, port: int, timeout: float = 5.0) -> bool:
-    try:
-        with socket.create_connection((host, port), timeout=timeout):
-            return True
-    except Exception:
-        return False
+
+check_port = check_opend_port
 
 
 def main():
