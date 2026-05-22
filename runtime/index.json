@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-21T13:49:29.907151+00:00",
+  "generated_at": "2026-05-22T03:48:47.235700+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -2852,6 +2852,12 @@
       "bytes": 2435
     },
     {
+      "path": "runtime/production/card/dashboard_paper_transparency_v1/notes.md",
+      "category": "production",
+      "suffix": ".md",
+      "bytes": 2448
+    },
+    {
       "path": "runtime/production/card/dashboard_production_status_ui_v1/notes.md",
       "category": "production",
       "suffix": ".md",
@@ -3203,7 +3209,7 @@
       "path": "runtime/production/knowledge.md",
       "category": "production",
       "suffix": ".md",
-      "bytes": 114993
+      "bytes": 117103
     },
     {
       "path": "runtime/reward/card/base_log/card.md",

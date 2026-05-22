@@ -1,15 +1,15 @@
 {
-  "checked_at": "2026-05-21T13:33:11.119996+00:00",
+  "checked_at": "2026-05-22T03:48:15.163094+00:00",
   "root": "/Users/rziiiii/.openclaw/workspace",
   "status": "blocked_no_credentials",
   "static_export": {
-    "generated_at": "2026-05-21 21:32:58",
+    "generated_at": "2026-05-22 11:43:34",
     "versions": 38,
     "missing": 0,
     "model_versions": 94,
     "latest": "paper_trading",
-    "paper_trading_rows": 4,
-    "paper_trading_end": "2026-05-20",
+    "paper_trading_rows": 5,
+    "paper_trading_end": "2026-05-21",
     "production_status": "blocked_no_credentials",
     "goal_gates": "pending"
   },

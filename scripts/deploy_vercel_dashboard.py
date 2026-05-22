@@ -30,6 +30,10 @@ def ascii_safe(text: str) -> str:
     return text.encode("ascii", errors="ignore").decode("ascii")
 
 
+def notes_safe(text: str) -> str:
+    return "\n".join(line.rstrip() for line in ascii_safe(text).splitlines()).strip()
+
+
 def is_configured_env_value(value: str | None) -> bool:
     if not value:
         return False
@@ -121,7 +125,7 @@ def auth_status(
             "status": "logged_in",
             "detail": f"vercel whoami succeeded as {user}",
         }
-    detail = ascii_safe(whoami_stderr.strip() or whoami_stdout.strip() or "vercel whoami did not find credentials")
+    detail = notes_safe(whoami_stderr.strip() or whoami_stdout.strip() or "vercel whoami did not find credentials")
     return {
         "status": "blocked_no_credentials",
         "detail": f"Set VERCEL_TOKEN or run vercel login. CLI detail: {detail}",
@@ -249,7 +253,7 @@ def _write_evidence(output_dir: Path, payload: dict[str, object]) -> None:
     if payload.get("deployment_url"):
         lines.append(f"- deployment_url: `{payload['deployment_url']}`")
     if payload.get("detail"):
-        lines.extend(["", "## Detail", "", ascii_safe(str(payload["detail"]))])
+        lines.extend(["", "## Detail", "", notes_safe(str(payload["detail"]))])
     (output_dir / "notes.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 

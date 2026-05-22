@@ -1,20 +1,18 @@
 {
-  "checked_at": "2026-05-21T13:33:20.577277+00:00",
+  "checked_at": "2026-05-22T03:48:31.780708+00:00",
   "overall": {
     "status": "pending",
     "issues": [
-      "external_vercel_setup",
-      "scheduled_postclose_target",
-      "scheduled_paper_proof"
+      "external_vercel_setup"
     ],
-    "detail": "external_vercel_setup,scheduled_postclose_target,scheduled_paper_proof"
+    "detail": "external_vercel_setup"
   },
   "gates": {
     "data": {
       "label": "data",
       "status": "ok",
-      "detail": "last_date=2026-05-20 expected=2026-05-20",
-      "raw": "data: ok last_date=2026-05-20 expected=2026-05-20"
+      "detail": "last_date=2026-05-21 expected=2026-05-21",
+      "raw": "data: ok last_date=2026-05-21 expected=2026-05-21"
     },
     "data_registry": {
       "label": "data registry",
@@ -37,8 +35,8 @@
     "dashboard_static": {
       "label": "dashboard static",
       "status": "ok",
-      "detail": "dashboard_static_export generated_at=2026-05-21 21:32:58 versions=38 missing=0 model_versions=94 latest=paper_trading paper_trading_rows=4 paper_trading_end=2026-05-20 production_status=blocked_no_credentials goal_gates=pending paper_trading",
-      "raw": "dashboard static: ok dashboard_static_export generated_at=2026-05-21 21:32:58 versions=38 missing=0 model_versions=94 latest=paper_trading paper_trading_rows=4 paper_trading_end=2026-05-20 production_status=blocked_no_credentials goal_gates=pending paper_trading"
+      "detail": "dashboard_static_export generated_at=2026-05-22 11:43:34 versions=38 missing=0 model_versions=94 latest=paper_trading paper_trading_rows=5 paper_trading_end=2026-05-21 production_status=blocked_no_credentials goal_gates=pending paper_trading",
+      "raw": "dashboard static: ok dashboard_static_export generated_at=2026-05-22 11:43:34 versions=38 missing=0 model_versions=94 latest=paper_trading paper_trading_rows=5 paper_trading_end=2026-05-21 production_status=blocked_no_credentials goal_gates=pending paper_trading"
     },
     "vercel_remote": {
       "label": "Vercel remote",
@@ -48,15 +46,15 @@
     },
     "post_close_composer_target": {
       "label": "post-close composer target",
-      "status": "pending",
-      "detail": "latest_success_marker lacks schedule_slot=postclose",
-      "raw": "post-close composer target: pending latest_success_marker lacks schedule_slot=postclose"
+      "status": "ok",
+      "detail": "runtime_composer=budget_usage composer_profile=v19reg_v22_budget_usage_bull_guard_v1",
+      "raw": "post-close composer target: ok runtime_composer=budget_usage composer_profile=v19reg_v22_budget_usage_bull_guard_v1"
     },
     "ordinary_paper_proof": {
       "label": "ordinary paper proof",
-      "status": "pending",
-      "detail": "selected_model=v19reg_v22_budget_usage_bull_guard_v1 execution=duplicate_skipped",
-      "raw": "ordinary paper proof: pending selected_model=v19reg_v22_budget_usage_bull_guard_v1 execution=duplicate_skipped"
+      "status": "ok",
+      "detail": "selected_model=v19reg_v22_budget_usage_bull_guard_v1 execution=filled",
+      "raw": "ordinary paper proof: ok selected_model=v19reg_v22_budget_usage_bull_guard_v1 execution=filled"
     }
   }
 }

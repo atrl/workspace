@@ -233,7 +233,9 @@ def test_load_versions_enriches_paper_trading_row_with_latest_non_dry_summary_me
 
     versions = _load_post_train_review_versions(features=None)
 
-    row = versions["paper_trading"]["detailed"]["SOXL"]["rows"][0]
+    detail = versions["paper_trading"]["detailed"]["SOXL"]
+    row = detail["rows"][0]
+    meta = detail["meta"]
     assert row["profile"] == "v19reg_v22_budget_usage_bull_guard_v1"
     assert row["execution_status"] == "duplicate_skipped"
     assert row["dry_run"] is False
@@ -243,6 +245,11 @@ def test_load_versions_enriches_paper_trading_row_with_latest_non_dry_summary_me
         "runtime/soxl/paper_trading/2026-05-20/duplicate_skip/"
         "v19reg_v22_budget_usage_bull_guard_v1/summary.json"
     )
+    assert meta["source_kind"] == "paper_trading"
+    assert meta["latest_data_date"] == "2026-05-20"
+    assert meta["latest_profile"] == "v19reg_v22_budget_usage_bull_guard_v1"
+    assert meta["latest_execution_status"] == "duplicate_skipped"
+    assert meta["latest_target_position"] == 0.484086
 
 
 def test_load_versions_keeps_retained_dashboard_export_without_source_csv(tmp_path: Path, monkeypatch):
@@ -316,3 +323,8 @@ def test_build_html_loads_production_status_json():
     assert "dashboard_data/production_goal_gates.json" in html
     assert "renderProductionStatus" in html
     assert 'id="productionGateOverall"' in html
+    assert 'id="productionPaperModel"' in html
+    assert 'id="productionPaperExecution"' in html
+    assert 'id="productionPaperSource"' in html
+    assert "renderPaperStatus" in html
+    assert ".metric .k {\\n    .metric .k" not in html

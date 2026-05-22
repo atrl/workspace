@@ -324,17 +324,21 @@ def test_scheduler_passes_data_provider_to_paper_runner(monkeypatch: pytest.Monk
     assert paper_cmd[paper_cmd.index("--data-provider") + 1] == "yahoo_api"
 
 
-def test_scheduler_runs_vercel_deploy_after_dashboard_when_requested(monkeypatch: pytest.MonkeyPatch):
+def test_scheduler_runs_vercel_deploy_after_dashboard_when_requested(
+    monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+):
     calls: list[tuple[list[str], str]] = []
 
     def fake_run(cmd: list[str], description: str, allowed_returncodes=None):
         calls.append((cmd, description))
+        print(f"[test-step] {description}")
         return 0
 
     monkeypatch.setattr(soxl_daily_scheduler, "_run", fake_run)
     monkeypatch.setattr(sys, "argv", ["soxl_daily_scheduler.py", "--no-notify", "--vercel-deploy"])
 
     soxl_daily_scheduler.main()
+    captured = capsys.readouterr()
 
     assert [description for _cmd, description in calls] == [
         "paper trading",
@@ -342,6 +346,9 @@ def test_scheduler_runs_vercel_deploy_after_dashboard_when_requested(monkeypatch
         "production goal gates export",
         "vercel dashboard deploy",
     ]
+    assert "[scheduler] core done" in captured.out
+    assert captured.out.index("[scheduler] core done") < captured.out.index("[test-step] production goal gates export")
+    assert captured.out.index("[test-step] vercel dashboard deploy") < captured.out.index("[scheduler] all done")
     gate_cmd = calls[2][0]
     vercel_cmd = calls[3][0]
     assert "scripts/export_production_goal_gates.py" in gate_cmd

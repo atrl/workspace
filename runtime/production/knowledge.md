@@ -2661,3 +2661,60 @@ Boundary:
 Evidence card:
 
 - `runtime/production/card/paper_trading_dashboard_metadata_v1/notes.md`
+
+## 2026-05-22 Dashboard Paper Transparency And Vercel Gate Refresh
+
+The local static dashboard now makes the current paper-trading provenance
+visible in the production strip:
+
+```text
+paper_model=v19reg_v22_budget_usage_bull_guard_v1
+paper_execution=filled
+paper_source=2026-05-21 · target 77.5% · runtime/soxl/paper_trading/2026-05-21/summary.json
+paper_end=2026-05-21
+```
+
+The dashboard JSON detail payload also includes paper `meta` fields, so future
+sessions can inspect `dashboard_data/versioned/paper_trading/SOXL.json` without
+chasing the summary path manually.
+
+The Vercel remote gate is still blocked externally:
+
+```text
+status=blocked_no_credentials
+auth=blocked_no_credentials
+project=missing_project_link
+deployment_url=none
+overall=pending external_vercel_setup
+```
+
+This is not a static-export/data-generation failure. Local dashboard export and
+paper data are current through 2026-05-21; the remote site cannot update until a
+Vercel token/login and project link are available.
+
+Scheduler nuance:
+
+- `production/soxl_daily_scheduler.py` now emits `[scheduler] core done` before
+  goal-gate export and Vercel deploy attempts.
+- `production/check_scheduler_health.sh` accepts `core done` as an in-run proof
+  marker for those exports, while preserving schedule-slot/window validation.
+
+Verification snapshot:
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest \
+  tests/test_daily_scheduler.py tests/test_scheduler_health.py \
+  tests/test_dashboard.py tests/test_vercel_dashboard.py -q
+# 76 passed
+
+PYTHONPATH=. qlib_venv/bin/python scripts/check_dashboard_static_export.py
+# ok dashboard_static_export generated_at=2026-05-22 11:43:34 versions=38 missing=0 model_versions=94 latest=paper_trading paper_trading_rows=5 paper_trading_end=2026-05-21 production_status=blocked_no_credentials goal_gates=pending paper_trading
+
+production/check_scheduler_health.sh
+# overall: pending external_vercel_setup
+```
+
+Rendered evidence:
+
+- `runtime/production/card/dashboard_paper_transparency_v1/dashboard_verified.png`
+- `runtime/production/card/dashboard_paper_transparency_v1/notes.md`

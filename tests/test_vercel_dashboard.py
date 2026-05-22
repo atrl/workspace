@@ -118,11 +118,17 @@ def test_vercel_deploy_command_is_non_interactive_and_token_safe():
 def test_vercel_auth_status_blocks_without_token_or_login():
     from scripts.deploy_vercel_dashboard import auth_status
 
-    status = auth_status(env={}, whoami_returncode=1, whoami_stdout="", whoami_stderr="No credentials \u256d")
+    status = auth_status(
+        env={},
+        whoami_returncode=1,
+        whoami_stdout="",
+        whoami_stderr="No credentials \u256d\n  Update available   \n   ",
+    )
 
     assert status["status"] == "blocked_no_credentials"
     assert "VERCEL_TOKEN" in status["detail"]
     assert "\u256d" not in status["detail"]
+    assert all(not line.endswith(" ") for line in status["detail"].splitlines())
 
 
 def test_vercel_project_link_status_reports_missing_link_without_ids():

@@ -194,7 +194,7 @@ postclose_cutoff_epoch() {
 
 preopen_success_after_cutoff() {
     path="$1"
-    if [ ! -f "$path" ] || ! grep -q "^\[scheduler\] all done$" "$path" 2>/dev/null; then
+    if [ ! -f "$path" ] || ! grep -Eq "^\[scheduler\] (core done|all done)$" "$path" 2>/dev/null; then
         return 1
     fi
     cutoff_epoch=$(preopen_cutoff_epoch)
@@ -215,7 +215,7 @@ preopen_success_after_cutoff() {
     if grep -q "\[scheduler\] run started at " "$path" 2>/dev/null; then
         awk '
             /\[scheduler\] run started at / { seen = 1; ok = 0; next }
-            seen && /^\[scheduler\] all done$/ { ok = 1 }
+            seen && /^\[scheduler\] (core done|all done)$/ { ok = 1 }
             END { exit ok ? 0 : 1 }
         ' "$path"
         return
@@ -225,7 +225,7 @@ preopen_success_after_cutoff() {
 
 preopen_current_success_outside_window_after_cutoff() {
     path="$1"
-    if [ ! -f "$path" ] || ! grep -q "^\[scheduler\] all done$" "$path" 2>/dev/null; then
+    if [ ! -f "$path" ] || ! grep -Eq "^\[scheduler\] (core done|all done)$" "$path" 2>/dev/null; then
         return 1
     fi
     cutoff_epoch=$(preopen_cutoff_epoch)
@@ -242,7 +242,7 @@ preopen_current_success_outside_window_after_cutoff() {
 
 postclose_success_after_cutoff() {
     path="$1"
-    if [ ! -f "$path" ] || ! grep -q "^\[scheduler\] all done$" "$path" 2>/dev/null; then
+    if [ ! -f "$path" ] || ! grep -Eq "^\[scheduler\] (core done|all done)$" "$path" 2>/dev/null; then
         return 1
     fi
     cutoff_epoch=$(postclose_cutoff_epoch)
@@ -261,7 +261,7 @@ postclose_success_after_cutoff() {
 
 postclose_current_success_outside_window_after_cutoff() {
     path="$1"
-    if [ ! -f "$path" ] || ! grep -q "^\[scheduler\] all done$" "$path" 2>/dev/null; then
+    if [ ! -f "$path" ] || ! grep -Eq "^\[scheduler\] (core done|all done)$" "$path" 2>/dev/null; then
         return 1
     fi
     cutoff_epoch=$(postclose_cutoff_epoch)
@@ -302,7 +302,7 @@ postclose_cached_dry_run_after_cutoff() {
 
 postclose_current_success_without_slot_after_cutoff() {
     path="$1"
-    if [ ! -f "$path" ] || ! grep -q "^\[scheduler\] all done$" "$path" 2>/dev/null; then
+    if [ ! -f "$path" ] || ! grep -Eq "^\[scheduler\] (core done|all done)$" "$path" 2>/dev/null; then
         return 1
     fi
     cutoff_epoch=$(postclose_cutoff_epoch)
@@ -315,7 +315,7 @@ postclose_current_success_without_slot_after_cutoff() {
     fi
     awk '
         /^\[scheduler\] run started at / { marker = $0; ok = 0; next }
-        /^\[scheduler\] all done$/ { ok = 1 }
+        /^\[scheduler\] (core done|all done)$/ { ok = 1 }
         END {
             if (ok && marker != "" && marker !~ "schedule_slot=postclose") {
                 exit 0
@@ -327,7 +327,7 @@ postclose_current_success_without_slot_after_cutoff() {
 
 postclose_current_success_without_trigger_after_cutoff() {
     path="$1"
-    if [ ! -f "$path" ] || ! grep -q "^\[scheduler\] all done$" "$path" 2>/dev/null; then
+    if [ ! -f "$path" ] || ! grep -Eq "^\[scheduler\] (core done|all done)$" "$path" 2>/dev/null; then
         return 1
     fi
     cutoff_epoch=$(postclose_cutoff_epoch)
@@ -340,7 +340,7 @@ postclose_current_success_without_trigger_after_cutoff() {
     fi
     awk '
         /^\[scheduler\] run started at / { marker = $0; ok = 0; next }
-        /^\[scheduler\] all done$/ { ok = 1 }
+        /^\[scheduler\] (core done|all done)$/ { ok = 1 }
         END {
             if (ok && marker != "" &&
                 marker ~ "schedule_slot=postclose" &&
@@ -383,7 +383,7 @@ postclose_success_candidate_markers() {
             marker = $0
             next
         }
-        /^\[scheduler\] all done$/ {
+        /^\[scheduler\] (core done|all done)$/ {
             if (marker != "" &&
                 marker ~ "schedule_slot=postclose" &&
                 (marker ~ "schedule_trigger=launchagent_postclose" ||
@@ -435,7 +435,7 @@ preopen_success_candidate_markers() {
             marker = $0
             next
         }
-        /^\[scheduler\] all done$/ {
+        /^\[scheduler\] (core done|all done)$/ {
             if (marker != "" &&
                 marker ~ "schedule_slot=preopen" &&
                 (marker ~ "schedule_trigger=launchagent_preopen" ||

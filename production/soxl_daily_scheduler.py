@@ -239,10 +239,13 @@ def main() -> None:
         if not args.skip_dashboard:
             dash_cmd = [venv_python, "scripts/build_backtest_dashboard.py"]
             _run(dash_cmd, "dashboard build")
+            print("[scheduler] core done", flush=True)
             if args.vercel_deploy:
                 _run_goal_gates_export(venv_python)
                 vercel_cmd = [venv_python, "scripts/deploy_vercel_dashboard.py", "--deploy"]
                 _run_vercel_deploy(vercel_cmd, strict=args.strict_vercel_deploy)
+        else:
+            print("[scheduler] core done", flush=True)
 
         if use_notify:
             notifier.send(

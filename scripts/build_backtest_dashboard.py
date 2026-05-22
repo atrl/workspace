@@ -23,14 +23,14 @@ MODELS_DIR = ROOT / "runtime" / "model" / "card"
 OUTPUT_PATH = ROOT / "dashboard.html"
 DASHBOARD_DATA_DIR = ROOT / "dashboard_data"
 
-C_STRATEGY = "#9a3412"
+C_STRATEGY = "#2563eb"
 C_BUYHOLD = "#0f766e"
 C_BUY = "#0f766e"
 C_SELL = "#b91c1c"
-C_INK = "#1b1a17"
-C_MUTED = "#6d6458"
-C_LINE = "#d8ccbb"
-C_PANEL = "#fffaf2"
+C_INK = "#111827"
+C_MUTED = "#607080"
+C_LINE = "#d7dee6"
+C_PANEL = "#ffffff"
 C_GOOD = "#0f766e"
 C_BAD = "#b91c1c"
 
@@ -311,6 +311,33 @@ def _attach_paper_trading_summary_metadata(rows: list[dict[str, object]], paper_
         for key, value in metadata.items():
             if key != "date":
                 row[key] = value
+
+
+def _paper_trading_detail_meta(
+    rows: list[dict[str, object]],
+    *,
+    csv_path: Path,
+    source_kind: str,
+) -> dict[str, object]:
+    meta: dict[str, object] = {
+        "source_kind": source_kind,
+        "source": str(csv_path.relative_to(ROOT)),
+    }
+    if source_kind != "paper_trading" or not rows:
+        return meta
+
+    latest = rows[-1]
+    meta.update(
+        {
+            "latest_data_date": latest.get("datetime"),
+            "latest_profile": latest.get("profile"),
+            "latest_execution_status": latest.get("execution_status"),
+            "latest_target_position": latest.get("target_position"),
+            "latest_reconcile_action": latest.get("reconcile_action"),
+            "latest_summary_path": latest.get("summary_path"),
+        }
+    )
+    return {key: value for key, value in meta.items() if value is not None}
 
 
 def load_model_versions() -> list[dict]:
@@ -662,6 +689,11 @@ def _load_post_train_review_versions(features: dict[str, dict[str, float]] | Non
                     "SOXL": {
                         "summary": summary,
                         "csv_path": str(csv_path.relative_to(ROOT)),
+                        "meta": _paper_trading_detail_meta(
+                            rows,
+                            csv_path=csv_path,
+                            source_kind=source_kind,
+                        ),
                         "rows": compact_payload_rows(rows),
                         "regime_shapes": regime_shapes,
                         "trades": trades,
@@ -897,7 +929,7 @@ def _build_layout_all() -> dict:
         font=dict(family='ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif', color=C_INK, size=12),
         hovermode="x unified",
         showlegend=True,
-        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1, bgcolor="rgba(255,250,242,0.8)"),
+        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1, bgcolor="rgba(255,255,255,0.92)"),
         dragmode="zoom",
     )
     for i in range(1, 6):
@@ -1009,27 +1041,24 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
   <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
   <style>
     :root {{
-      --bg: #f4efe6;
-      --panel: #fffaf2;
-      --panel-2: #f7f0e4;
-      --ink: #1b1a17;
-      --muted: #6d6458;
-      --line: #d8ccbb;
-      --accent: #9a3412;
+      --bg: #eef2f5;
+      --panel: #ffffff;
+      --panel-2: #f7f9fb;
+      --ink: #111827;
+      --muted: #607080;
+      --line: #d7dee6;
+      --accent: #2563eb;
       --accent-2: #0f766e;
       --good: #0f766e;
       --bad: #b91c1c;
-      --shadow: 0 18px 40px rgba(63, 44, 26, 0.12);
+      --shadow: 0 10px 28px rgba(17, 24, 39, 0.08);
     }}
     * {{ box-sizing: border-box; }}
     body {{
       margin: 0;
       font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       color: var(--ink);
-      background:
-        radial-gradient(circle at top left, rgba(154, 52, 18, 0.08), transparent 30%),
-        radial-gradient(circle at top right, rgba(15, 118, 110, 0.08), transparent 28%),
-        linear-gradient(180deg, #f9f4ec 0%, var(--bg) 100%);
+      background: var(--bg);
     }}
     .shell {{
       max-width: 1440px;
@@ -1043,9 +1072,9 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       margin-bottom: 18px;
     }}
     .card {{
-      background: rgba(255, 250, 242, 0.94);
-      border: 1px solid rgba(216, 204, 187, 0.9);
-      border-radius: 22px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
       box-shadow: var(--shadow);
       padding: 20px;
     }}
@@ -1053,7 +1082,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       margin: 0 0 12px;
       font-size: 34px;
       line-height: 1;
-      letter-spacing: -0.04em;
+      letter-spacing: 0;
     }}
     .sub {{
       color: var(--muted);
@@ -1115,9 +1144,9 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     select, .date-input {{
       min-width: 140px;
       padding: 10px 12px;
-      border-radius: 12px;
+      border-radius: 8px;
       border: 1px solid var(--line);
-      background: #fffdf8;
+      background: #ffffff;
       font-size: 14px;
       color: var(--ink);
       font-family: inherit;
@@ -1130,9 +1159,9 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     }}
     .pill {{
       padding: 8px 14px;
-      border-radius: 999px;
+      border-radius: 8px;
       border: 1px solid var(--line);
-      background: #fffdf8;
+      background: #ffffff;
       cursor: pointer;
       color: var(--muted);
       font-size: 13px;
@@ -1150,7 +1179,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     }}
     .btn {{
       padding: 9px 14px;
-      border-radius: 12px;
+      border-radius: 8px;
       border: 1px solid var(--line);
       background: var(--panel-2);
       cursor: pointer;
@@ -1173,7 +1202,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     }}
     .metric {{
       background: var(--panel-2);
-      border-radius: 18px;
+      border-radius: 8px;
       padding: 18px;
       border: 1px solid var(--line);
     }}
@@ -1187,7 +1216,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     .metric .v {{
       font-size: 30px;
       font-weight: 700;
-      letter-spacing: -0.04em;
+      letter-spacing: 0;
     }}
     .metric .s {{
       margin-top: 8px;
@@ -1197,7 +1226,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     .section-title {{
       margin: 0 0 12px;
       font-size: 18px;
-      letter-spacing: -0.02em;
+      letter-spacing: 0;
     }}
     .jump-links {{
       display: flex;
@@ -1210,8 +1239,8 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       align-items: center;
       gap: 8px;
       padding: 8px 12px;
-      border-radius: 999px;
-      background: #fffdf8;
+      border-radius: 8px;
+      background: #ffffff;
       border: 1px solid var(--line);
       color: var(--ink);
       font-size: 13px;
@@ -1227,14 +1256,14 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     }}
     .production-status {{
       display: grid;
-      grid-template-columns: minmax(230px, 1.1fr) repeat(6, minmax(110px, 1fr));
+      grid-template-columns: minmax(220px, 0.9fr) minmax(150px, 0.65fr) minmax(170px, 0.75fr) minmax(320px, 1.4fr) minmax(130px, 0.6fr);
       gap: 10px;
       align-items: stretch;
       margin-bottom: 18px;
       padding: 12px;
-      border: 1px solid rgba(216, 204, 187, 0.9);
-      border-radius: 16px;
-      background: rgba(255, 250, 242, 0.94);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
       box-shadow: var(--shadow);
     }}
     .production-status[hidden] {{
@@ -1243,8 +1272,8 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     .production-main, .production-detail {{
       min-width: 0;
       border: 1px solid var(--line);
-      border-radius: 12px;
-      background: #fffdf8;
+      border-radius: 8px;
+      background: #ffffff;
       padding: 10px 12px;
     }}
     .production-main {{
@@ -1279,6 +1308,16 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       overflow-wrap: anywhere;
       font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
       font-weight: 700;
+    }}
+    .production-paper-model {{
+      grid-column: span 2;
+    }}
+    .production-paper-model .production-v {{
+      font-size: 12px;
+      line-height: 1.25;
+    }}
+    .production-paper-source {{
+      grid-column: span 3;
     }}
     .production-blockers {{
       grid-column: span 2;
@@ -1330,7 +1369,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     .info-panel {{
       background: var(--panel-2);
       border: 1px solid var(--line);
-      border-radius: 16px;
+      border-radius: 8px;
       padding: 14px;
       font-size: 12px;
       line-height: 1.6;
@@ -1353,7 +1392,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       justify-content: space-between;
       gap: 8px;
       padding: 4px 0;
-      border-bottom: 1px solid rgba(216,204,187,0.4);
+      border-bottom: 1px solid rgba(215,222,230,0.7);
     }}
     .info-row .info-k {{
       color: var(--muted);
@@ -1363,7 +1402,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
     }}
     .info-row.highlight {{
-      background: rgba(154, 52, 18, 0.06);
+      background: rgba(37, 99, 235, 0.08);
       margin: 0 -14px;
       padding: 4px 14px;
       border-bottom: 1px solid var(--line);
@@ -1405,7 +1444,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     .pos-bar-track {{
       flex: 1;
       height: 10px;
-      background: rgba(216,204,187,0.3);
+      background: rgba(215,222,230,0.55);
       border-radius: 5px;
       overflow: hidden;
     }}
@@ -1428,7 +1467,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     }}
     .trade-item {{
       padding: 4px 0;
-      border-bottom: 1px solid rgba(216,204,187,0.3);
+      border-bottom: 1px solid rgba(215,222,230,0.55);
       font-size: 11px;
       line-height: 1.4;
     }}
@@ -1440,8 +1479,8 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       max-height: 520px;
       overflow: auto;
       border: 1px solid var(--line);
-      border-radius: 16px;
-      background: #fffdf8;
+      border-radius: 8px;
+      background: #ffffff;
     }}
     .trade-table {{
       width: 100%;
@@ -1458,7 +1497,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       text-align: left;
       position: sticky;
       left: 0;
-      background: #fffdf8;
+      background: #ffffff;
       z-index: 1;
     }}
     .trade-table th {{
@@ -1479,7 +1518,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     .trade-table th.sort-asc::after {{ content: ' ▲'; font-size: 9px; }}
     .trade-table th.sort-desc::after {{ content: ' ▼'; font-size: 9px; }}
     .trade-table tr.clickable {{ cursor: pointer; }}
-    .trade-table tr.clickable:hover {{ background: rgba(154, 52, 18, 0.04); }}
+    .trade-table tr.clickable:hover {{ background: rgba(37, 99, 235, 0.06); }}
     .trade-table td.good {{ color: var(--good); font-weight: 700; }}
     .trade-table td.bad {{ color: var(--bad); font-weight: 700; }}
 
@@ -1490,16 +1529,16 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       margin-bottom: 18px;
     }}
     .panel-card {{
-      background: rgba(255, 250, 242, 0.94);
-      border: 1px solid rgba(216, 204, 187, 0.9);
-      border-radius: 22px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
       box-shadow: var(--shadow);
       padding: 20px;
     }}
     .panel-card h2 {{
       margin: 0 0 14px;
       font-size: 16px;
-      letter-spacing: -0.02em;
+      letter-spacing: 0;
     }}
     .stat-row {{
       display: grid;
@@ -1509,7 +1548,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     }}
     .stat-cell {{
       background: var(--panel-2);
-      border-radius: 12px;
+      border-radius: 8px;
       padding: 12px;
       border: 1px solid var(--line);
       text-align: center;
@@ -1532,7 +1571,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       margin-top: 4px;
     }}
     .kelly-highlight {{
-      background: linear-gradient(135deg, rgba(15, 118, 110, 0.08), rgba(154, 52, 18, 0.06));
+      background: linear-gradient(135deg, rgba(15, 118, 110, 0.08), rgba(37, 99, 235, 0.06));
     }}
 
     /* Model version comparison */
@@ -1551,7 +1590,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       text-align: left;
       position: sticky;
       left: 0;
-      background: #fffdf8;
+      background: #ffffff;
       z-index: 1;
     }}
     .version-table th {{
@@ -1569,17 +1608,17 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       font-weight: 600;
     }}
     .version-table td.best {{
-      background: rgba(154, 52, 18, 0.08);
+      background: rgba(37, 99, 235, 0.08);
       font-weight: 700;
     }}
     .version-table tr.clickable-version {{
       cursor: pointer;
     }}
     .version-table tr.clickable-version:hover {{
-      background: rgba(154, 52, 18, 0.04);
+      background: rgba(37, 99, 235, 0.06);
     }}
     .version-table tr.clickable-version.selected {{
-      background: rgba(154, 52, 18, 0.10);
+      background: rgba(37, 99, 235, 0.10);
       outline: 2px solid var(--accent);
       outline-offset: -2px;
     }}
@@ -1587,8 +1626,8 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       max-height: 400px;
       overflow: auto;
       border: 1px solid var(--line);
-      border-radius: 16px;
-      background: #fffdf8;
+      border-radius: 8px;
+      background: #ffffff;
     }}
 
     .good {{ color: var(--good); }}
@@ -1606,7 +1645,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       align-items: center;
       gap: 8px;
       padding: 10px 14px;
-      border-radius: 999px;
+      border-radius: 8px;
       background: var(--accent);
       color: white;
       text-decoration: none;
@@ -1616,6 +1655,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       .hero {{ grid-template-columns: 1fr; }}
       .summary-grid {{ grid-template-columns: repeat(2, minmax(0, 1fr)); }}
       .production-status {{ grid-template-columns: repeat(2, minmax(0, 1fr)); }}
+      .production-paper-model, .production-paper-source {{ grid-column: auto; }}
       .production-blockers {{ grid-column: auto; }}
       .chart-wrapper {{ grid-template-columns: 1fr; }}
       .info-panel {{ display: none; }}
@@ -1653,6 +1693,18 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       <div class="production-detail">
         <span class="production-k">Project</span>
         <span class="production-v" id="productionProjectStatus">n/a</span>
+      </div>
+      <div class="production-detail production-paper-model">
+        <span class="production-k">Paper Model</span>
+        <span class="production-v" id="productionPaperModel">n/a</span>
+      </div>
+      <div class="production-detail">
+        <span class="production-k">Paper Exec</span>
+        <span class="production-v" id="productionPaperExecution">n/a</span>
+      </div>
+      <div class="production-detail production-paper-source">
+        <span class="production-k">Paper Source</span>
+        <span class="production-v" id="productionPaperSource">n/a</span>
       </div>
       <div class="production-detail">
         <span class="production-k">Paper End</span>
@@ -1722,21 +1774,21 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
         <div class="toolbar-group">
           <label>Slice & Recompute <span class="help-icon" data-tip="以当前选中的日期区间为起点，重新计算收益率、回撤、交易统计（纯前端，无需服务器）">?</span></label>
           <div class="zoom-row">
-            <button class="btn primary" id="sliceRecomputeBtn" type="button">🔄 Recompute</button>
+            <button class="btn primary" id="sliceRecomputeBtn" type="button">Recompute</button>
           </div>
         </div>
         <div class="toolbar-group">
           <label>Run Model Backtest <span class="help-icon" data-tip="选择模型并在当前日期区间运行回测（需要本地启动 dashboard_server.py）">?</span></label>
           <div class="zoom-row">
-            <select id="runProfileSelect" style="min-width:120px;padding:9px 10px;border-radius:12px;border:1px solid var(--line);background:#fffdf8;font-size:13px;">
+            <select id="runProfileSelect" style="min-width:120px;padding:9px 10px;border-radius:8px;border:1px solid var(--line);background:var(--panel);font-size:13px;">
               <option value="">Select profile...</option>
             </select>
-            <button class="btn primary" id="runBacktestBtn" type="button">▶ Run</button>
+            <button class="btn primary" id="runBacktestBtn" type="button">Run</button>
           </div>
         </div>
       </div>
-      <div id="segmentBanner" style="display:none;background:rgba(15,118,110,0.08);border:1px solid rgba(15,118,110,0.3);border-radius:12px;padding:10px 14px;margin-bottom:10px;font-size:13px;color:var(--accent-2);align-items:center;gap:8px;">
-        <span>📍 Segment View</span>
+      <div id="segmentBanner" style="display:none;background:rgba(15,118,110,0.08);border:1px solid rgba(15,118,110,0.3);border-radius:8px;padding:10px 14px;margin-bottom:10px;font-size:13px;color:var(--accent-2);align-items:center;gap:8px;">
+        <span>Segment View</span>
         <span id="segmentRange" style="font-family:ui-monospace,monospace;font-weight:600;"></span>
         <span style="color:var(--muted);">— 所有指标已按该区间重新计算</span>
         <button class="btn" id="clearSegmentBtn" type="button" style="margin-left:auto;padding:6px 12px;font-size:12px;">Restore Full Range</button>
@@ -1744,9 +1796,9 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       <div class="chart-meta" id="chartMeta"></div>
       <div id="regimeStrip" class="regime-strip"></div>
       <div class="chart-wrapper">
-        <div id="plotlyChart" style="width:100%;height:760px;border-radius:16px;background:var(--panel);border:1px solid var(--line);"></div>
+        <div id="plotlyChart" style="width:100%;height:920px;border-radius:8px;background:var(--panel);border:1px solid var(--line);"></div>
         <div class="info-panel" id="infoPanel">
-          <div class="info-title">📊 数据面板</div>
+          <div class="info-title">数据面板</div>
           <div class="info-empty" id="infoEmpty">鼠标移到图表上查看当日数据</div>
           <div id="infoContent" style="display:none;">
             <div class="info-row highlight">
@@ -1839,13 +1891,13 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
 
     <!-- Trade Quality Stats -->
     <div class="card" id="tradeStats">
-      <h2 class="section-title">🎯 Trade Quality <span style="font-size:12px;color:var(--muted);font-weight:normal;">— Kelly / Expectancy / Profit Factor</span></h2>
+      <h2 class="section-title">Trade Quality <span style="font-size:12px;color:var(--muted);font-weight:normal;">— Kelly / Expectancy / Profit Factor</span></h2>
       <div class="stat-row" id="tradeStatRow"></div>
     </div>
 
     <!-- Trade Performance Table -->
     <div class="card" id="tradeTable">
-      <h2 class="section-title">📝 Trade Performance — 每笔 T 收益明细</h2>
+      <h2 class="section-title">Trade Performance — 每笔 T 收益明细</h2>
       <div class="raw-tools">
         <a id="csvLink" class="button-link" href="#" target="_blank" rel="noreferrer">Open Raw CSV</a>
         <div class="sub">点击表头可排序，点击交易行聚焦到图表对应区间。BUY → SELL 配对。</div>
@@ -1857,7 +1909,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
 
     <!-- Model Version Comparison -->
     <div class="card" id="versionCompare">
-      <h2 class="section-title">📚 Model Version Comparison — 历史策略对比</h2>
+      <h2 class="section-title">Model Version Comparison — 历史策略对比</h2>
       <div class="raw-tools">
         <div class="sub">点击表格中的版本名查看训练曲线。绿色高亮 = 该列最优值。</div>
       </div>
@@ -1868,8 +1920,8 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
 
     <!-- Training Curve -->
     <div class="card" id="trainingCurve">
-      <h2 class="section-title">📈 Training Curve <span style="font-size:12px;color:var(--muted);font-weight:normal;">— 点击上方表格查看训练过程</span></h2>
-      <div id="trainingCurveChart" style="width:100%;height:360px;border-radius:16px;background:var(--panel);border:1px solid var(--line);"></div>
+      <h2 class="section-title">Training Curve <span style="font-size:12px;color:var(--muted);font-weight:normal;">— 点击上方表格查看训练过程</span></h2>
+      <div id="trainingCurveChart" style="width:100%;height:360px;border-radius:8px;background:var(--panel);border:1px solid var(--line);"></div>
     </div>
   </div>
 
@@ -1921,6 +1973,9 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     const productionStatusValue = document.getElementById('productionStatusValue');
     const productionAuthStatus = document.getElementById('productionAuthStatus');
     const productionProjectStatus = document.getElementById('productionProjectStatus');
+    const productionPaperModel = document.getElementById('productionPaperModel');
+    const productionPaperExecution = document.getElementById('productionPaperExecution');
+    const productionPaperSource = document.getElementById('productionPaperSource');
     const productionPaperEnd = document.getElementById('productionPaperEnd');
     const productionDeploymentStatus = document.getElementById('productionDeploymentStatus');
     const productionGateOverall = document.getElementById('productionGateOverall');
@@ -2561,7 +2616,27 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       if (tone) el.classList.add(`production-tone-${{tone}}`);
     }}
 
-    function renderProductionStatus(payload, goalGates) {{
+    function fmtPctValue(value) {{
+      const n = Number(value);
+      if (!Number.isFinite(n)) return 'n/a';
+      return `${{(n * 100).toFixed(1)}}%`;
+    }}
+
+    function renderPaperStatus(paperPayload) {{
+      const rows = paperPayload && Array.isArray(paperPayload.rows) ? paperPayload.rows : [];
+      const latest = rows.length ? rows[rows.length - 1] : {{}};
+      const meta = (paperPayload && paperPayload.meta) || {{}};
+      const profile = meta.latest_profile || latest.profile || 'unknown';
+      const execution = meta.latest_execution_status || latest.execution_status || 'unknown';
+      const dataDate = meta.latest_data_date || latest.datetime || 'unknown';
+      const target = meta.latest_target_position != null ? meta.latest_target_position : latest.target_position;
+      const source = meta.latest_summary_path || latest.summary_path || paperPayload?.csv_path || 'paper_trading_soxl_daily.csv';
+      setProductionText(productionPaperModel, profile);
+      setProductionText(productionPaperExecution, execution);
+      setProductionText(productionPaperSource, `${{dataDate}} · target ${{fmtPctValue(target)}} · ${{source}}`);
+    }}
+
+    function renderProductionStatus(payload, goalGates, paperPayload) {{
       if (!productionStatusCard) return;
       const data = payload || {{}};
       const staticExport = data.static_export || {{}};
@@ -2573,6 +2648,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       setProductionText(productionAuthStatus, data.auth_status || (data.auth && data.auth.status));
       setProductionText(productionProjectStatus, data.project_status || (data.project && data.project.status));
       setProductionText(productionPaperEnd, staticExport.paper_trading_end || data.paper_trading_end);
+      renderPaperStatus(paperPayload);
       setProductionText(productionGateOverall, overall.status || 'unknown');
       setProductionText(productionGateIssues, issues.length ? issues.join(', ') : (overall.detail || 'none'));
       productionDeploymentStatus.classList.remove('production-tone-good', 'production-tone-bad', 'production-tone-warn');
@@ -2591,11 +2667,12 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     }}
 
     async function loadProductionStatus() {{
-      const [status, goalGates] = await Promise.all([
+      const [status, goalGates, paperPayload] = await Promise.all([
         loadJson('dashboard_data/production_status.json'),
         loadJson('dashboard_data/production_goal_gates.json'),
+        loadJson('dashboard_data/versioned/paper_trading/SOXL.json'),
       ]);
-      renderProductionStatus(status || {{ status: 'unavailable' }}, goalGates);
+      renderProductionStatus(status || {{ status: 'unavailable' }}, goalGates, paperPayload);
     }}
 
     async function loadIndex() {{
@@ -2678,8 +2755,8 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       // Detect file:// protocol and show banner
       if (window.location.protocol === 'file:') {{
         const banner = document.createElement('div');
-        banner.style.cssText = 'background:rgba(154,52,18,0.08);border:1px solid var(--accent);border-radius:12px;padding:12px 16px;margin-bottom:18px;font-size:13px;color:var(--accent);';
-        banner.innerHTML = '⚠️ 当前通过 file:// 协议打开，版本切换和模型对比功能不可用。请运行 <code>python -m http.server</code> 后通过 http://localhost:8000 访问以获得完整功能。';
+        banner.style.cssText = 'background:rgba(37,99,235,0.08);border:1px solid var(--accent);border-radius:8px;padding:12px 16px;margin-bottom:18px;font-size:13px;color:var(--accent);';
+        banner.innerHTML = 'Warning: 当前通过 file:// 协议打开，版本切换和模型对比功能不可用。请运行 <code>python -m http.server</code> 后通过 http://localhost:8000 访问以获得完整功能。';
         document.querySelector('.shell').insertBefore(banner, document.querySelector('.shell').firstChild);
         return; // Skip async loads on file protocol
       }}
@@ -2740,7 +2817,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       if (k.total <= 1) {{
         tradeStatRow.innerHTML = `
           <div class="stat-cell" style="grid-column:1/-1;text-align:left;">
-            <div class="sk" style="color:var(--accent);">⚠ 连续持仓策略</div>
+            <div class="sk" style="color:var(--accent);">连续持仓策略</div>
             <div style="font-size:13px;color:var(--muted);margin-top:6px;">
               该模型版本的数据源只记录了每日仓位，没有离散买卖信号。<br>
               整个回测期间仅 ${'{k.total}'} 笔完整持仓交易，无法计算有意义的 Kelly / Expectancy。<br>
@@ -2971,7 +3048,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       regimeStrip.innerHTML = rows.map(r => {{
         const f = r._features || {{}};
         const vz = f.vix_zscore;
-        let color = 'rgba(216,204,187,0.5)';
+        let color = 'rgba(215,222,230,0.6)';
         let title = `${{r.datetime}} 正常`;
         if (vz != null) {{
           if (vz > 2) {{ color = 'rgba(185,28,28,0.55)'; title = `${{r.datetime}} 高压力 (VIXz ${{fmtNum(vz,2)}})`; }}
@@ -3210,7 +3287,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
         traces.push({{
           x: ma180Dates, y: ma180Vals,
           name: 'MA180', type: 'scatter', mode: 'lines',
-          line: {{ color: '#9a3412', width: 1.5, dash: 'dash' }},
+          line: {{ color: '#2563eb', width: 1.5, dash: 'dash' }},
           hovertemplate: '%{{x}}<br>MA180: $%{{y:,.2f}}<extra></extra>',
           xaxis: xaPrice, yaxis: yaPrice,
         }});
@@ -3264,7 +3341,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
         name: 'Strategy DD', type: 'scatter', mode: 'lines',
         line: {{ color: '{C_STRATEGY}', width: 1.5 }},
         fill: 'tozeroy',
-        fillcolor: 'rgba(154,52,18,0.12)',
+        fillcolor: 'rgba(37,99,235,0.12)',
         hovertemplate: '%{{x}}<br>Strat DD: %{{y:.2%}}<extra></extra>',
         xaxis: xa4, yaxis: ya4,
         showlegend: false,
@@ -3378,7 +3455,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
         console.error('Dashboard render error:', err);
         document.getElementById('plotlyChart').innerHTML = `
           <div style="display:flex;align-items:center;justify-content:center;height:100%;flex-direction:column;gap:12px;color:var(--muted);">
-            <div style="font-size:18px;font-weight:600;color:var(--bad);">⚠ 数据加载异常</div>
+            <div style="font-size:18px;font-weight:600;color:var(--bad);">数据加载异常</div>
             <div style="font-size:13px;max-width:500px;text-align:center;line-height:1.6;">
               ${{err.message}}<br>
               请检查浏览器控制台获取详细信息，或尝试清除 localStorage 后刷新页面。
