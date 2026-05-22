@@ -327,4 +327,7 @@ def test_build_html_loads_production_status_json():
     assert 'id="productionPaperExecution"' in html
     assert 'id="productionPaperSource"' in html
     assert "renderPaperStatus" in html
+    assert "embeddedPaperPayload" in html
+    assert "paperPayload || embeddedPaperPayload()" in html
+    assert "paperMeta.latest_data_date" in html
     assert ".metric .k {\\n    .metric .k" not in html

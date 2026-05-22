@@ -30,6 +30,9 @@ explicit.
   the chart no longer overlaps the following panels.
 - Added scheduler `core done` marker support so goal-gate export and Vercel
   deployment evidence can be produced after the core scheduled work completes.
+- Added an embedded paper payload fallback for `file://` or missing JSON fetch
+  environments, so the production strip still shows paper model/execution/source
+  when `dashboard_data/*.json` cannot be loaded by the browser.
 
 ## Current Snapshot
 
@@ -51,7 +54,7 @@ uv run --python qlib_venv/bin/python --with pytest pytest \
 # 76 passed
 
 PYTHONPATH=. qlib_venv/bin/python scripts/check_dashboard_static_export.py
-# ok dashboard_static_export generated_at=2026-05-22 11:43:34 versions=38 missing=0 model_versions=94 latest=paper_trading paper_trading_rows=5 paper_trading_end=2026-05-21 production_status=blocked_no_credentials goal_gates=pending paper_trading
+# ok dashboard_static_export generated_at=2026-05-22 14:41:54 versions=38 missing=0 model_versions=94 latest=paper_trading paper_trading_rows=5 paper_trading_end=2026-05-21 production_status=blocked_no_credentials goal_gates=pending paper_trading
 
 production/check_scheduler_health.sh
 # overall: pending external_vercel_setup
@@ -60,6 +63,7 @@ production/check_scheduler_health.sh
 Rendered check:
 
 - `runtime/production/card/dashboard_paper_transparency_v1/dashboard_verified.png`
+- `runtime/production/card/dashboard_paper_transparency_v1/file_fallback_verified.png`
 
 ## Boundary
 

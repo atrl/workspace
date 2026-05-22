@@ -6961,6 +6961,9 @@ Change:
   goal-gate export and Vercel deploy attempts.
 - `production/check_scheduler_health.sh` accepts `core done` as valid in-run
   proof for goal-gate export while retaining schedule-slot/window checks.
+- Follow-up fix: direct `file://` opens cannot fetch `dashboard_data/*.json`,
+  so the production strip now falls back to the embedded `paper_trading` payload
+  in `dashboard.html` and still shows paper model/execution/source.
 
 Current evidence:
 
@@ -6981,7 +6984,7 @@ uv run --python qlib_venv/bin/python --with pytest pytest \
 # 76 passed
 
 PYTHONPATH=. qlib_venv/bin/python scripts/check_dashboard_static_export.py
-# ok dashboard_static_export generated_at=2026-05-22 11:43:34 versions=38 missing=0 model_versions=94 latest=paper_trading paper_trading_rows=5 paper_trading_end=2026-05-21 production_status=blocked_no_credentials goal_gates=pending paper_trading
+# ok dashboard_static_export generated_at=2026-05-22 14:41:54 versions=38 missing=0 model_versions=94 latest=paper_trading paper_trading_rows=5 paper_trading_end=2026-05-21 production_status=blocked_no_credentials goal_gates=pending paper_trading
 
 production/check_scheduler_health.sh
 # overall: pending external_vercel_setup
@@ -6990,6 +6993,7 @@ production/check_scheduler_health.sh
 Rendered evidence:
 
 - `runtime/production/card/dashboard_paper_transparency_v1/dashboard_verified.png`
+- `runtime/production/card/dashboard_paper_transparency_v1/file_fallback_verified.png`
 
 Decision:
 

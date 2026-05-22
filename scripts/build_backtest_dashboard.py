@@ -2636,10 +2636,29 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       setProductionText(productionPaperSource, `${{dataDate}} · target ${{fmtPctValue(target)}} · ${{source}}`);
     }}
 
+    function embeddedPaperPayload() {{
+      if (DATA.latest_version === 'paper_trading' && DATA.detailed && DATA.detailed[state.etf]) {{
+        return DATA.detailed[state.etf];
+      }}
+      const fallback = DATA.detailed && DATA.detailed.SOXL;
+      if (DATA.latest_version === 'paper_trading' && fallback) {{
+        return fallback;
+      }}
+      const versioned = DATA.versioned && DATA.versioned.paper_trading;
+      if (versioned && versioned.detailed && versioned.detailed.SOXL) {{
+        return versioned.detailed.SOXL;
+      }}
+      return null;
+    }}
+
     function renderProductionStatus(payload, goalGates, paperPayload) {{
       if (!productionStatusCard) return;
       const data = payload || {{}};
       const staticExport = data.static_export || {{}};
+      const paperRows = paperPayload && Array.isArray(paperPayload.rows) ? paperPayload.rows : [];
+      const paperMeta = (paperPayload && paperPayload.meta) || {{}};
+      const latestPaperRow = paperRows.length ? paperRows[paperRows.length - 1] : {{}};
+      const paperEnd = staticExport.paper_trading_end || data.paper_trading_end || paperMeta.latest_data_date || latestPaperRow.datetime;
       const gates = goalGates || data.goal_gates || {{}};
       const overall = gates.overall || {{}};
       const issues = Array.isArray(overall.issues) ? overall.issues : [];
@@ -2647,7 +2666,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       setProductionText(productionStatusValue, data.status || 'unavailable');
       setProductionText(productionAuthStatus, data.auth_status || (data.auth && data.auth.status));
       setProductionText(productionProjectStatus, data.project_status || (data.project && data.project.status));
-      setProductionText(productionPaperEnd, staticExport.paper_trading_end || data.paper_trading_end);
+      setProductionText(productionPaperEnd, paperEnd);
       renderPaperStatus(paperPayload);
       setProductionText(productionGateOverall, overall.status || 'unknown');
       setProductionText(productionGateIssues, issues.length ? issues.join(', ') : (overall.detail || 'none'));
@@ -2672,7 +2691,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
         loadJson('dashboard_data/production_goal_gates.json'),
         loadJson('dashboard_data/versioned/paper_trading/SOXL.json'),
       ]);
-      renderProductionStatus(status || {{ status: 'unavailable' }}, goalGates, paperPayload);
+      renderProductionStatus(status || {{ status: 'unavailable' }}, goalGates, paperPayload || embeddedPaperPayload());
     }}
 
     async function loadIndex() {{
