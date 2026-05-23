@@ -189,6 +189,17 @@ def compact_payload_rows(rows: list[dict[str, object]]) -> list[dict[str, object
     """Keep only the trading-series fields needed to rehydrate historical views."""
     compact: list[dict[str, object]] = []
     optional_fields = (
+        "open",
+        "high",
+        "low",
+        "close",
+        "volume",
+        "rsi6",
+        "ma180",
+        "hv_20",
+        "vol_coef",
+        "panic_score",
+        "market_state",
         "profile",
         "execution_status",
         "dry_run",
@@ -311,6 +322,31 @@ def _attach_paper_trading_summary_metadata(rows: list[dict[str, object]], paper_
         for key, value in metadata.items():
             if key != "date":
                 row[key] = value
+
+
+def _paper_row_has_summary_metadata(row: dict[str, object]) -> bool:
+    return any(row.get(key) is not None for key in ("summary_path", "profile", "execution_status"))
+
+
+def _prepare_paper_trading_rows(rows: list[dict[str, object]]) -> list[dict[str, object]]:
+    annotated_rows = [row for row in rows if _paper_row_has_summary_metadata(row)]
+    prepared = annotated_rows if annotated_rows else rows
+    if not prepared:
+        return prepared
+
+    first_strategy = float(prepared[0].get("strategy_nav") or 0.0)
+    first_buyhold = float(prepared[0].get("buyhold_nav") or 0.0)
+    if first_strategy <= 0 or first_buyhold <= 0:
+        return prepared
+
+    scale = first_strategy / first_buyhold
+    for row in prepared:
+        strategy_nav = float(row.get("strategy_nav") or 0.0)
+        buyhold_nav = float(row.get("buyhold_nav") or 0.0) * scale
+        row["buyhold_nav"] = buyhold_nav
+        row["excess"] = strategy_nav - buyhold_nav
+        row["excess_pct"] = (strategy_nav / buyhold_nav - 1) * 100 if buyhold_nav else 0.0
+    return prepared
 
 
 def _paper_trading_detail_meta(
@@ -569,6 +605,23 @@ def infer_action_from_position(prev_pos: float | None, pos: float, index: int) -
     return "HOLD"
 
 
+def sanitize_explicit_action(action: str, prev_pos: float | None, pos: float) -> str:
+    eps = 1e-6
+    if action == "BUY":
+        if pos <= eps:
+            return "HOLD"
+        if prev_pos is not None and pos <= prev_pos + eps:
+            return "HOLD"
+    elif action == "SELL":
+        if prev_pos is None:
+            return "HOLD"
+        if prev_pos <= eps and pos <= eps:
+            return "HOLD"
+        if pos >= prev_pos - eps and pos > eps:
+            return "HOLD"
+    return action
+
+
 def normalize_post_train_review_rows(raw_rows: list[dict[str, str]]) -> list[dict[str, object]]:
     rows: list[dict[str, object]] = []
     prev_pos: float | None = None
@@ -578,6 +631,8 @@ def normalize_post_train_review_rows(raw_rows: list[dict[str, str]]) -> list[dic
         bh_nav = float(r["buyhold_nav"])
         raw_action = str(r.get("action", "") or "").upper()
         action = raw_action if raw_action in {"BUY", "SELL", "HOLD"} else infer_action_from_position(prev_pos, pos, i)
+        if raw_action in {"BUY", "SELL"}:
+            action = sanitize_explicit_action(action, prev_pos, pos)
 
         row: dict[str, object] = {
             "datetime": r["datetime"],
@@ -592,8 +647,6 @@ def normalize_post_train_review_rows(raw_rows: list[dict[str, str]]) -> list[dic
         rows.append(row)
         prev_pos = pos
 
-    if rows and rows[-1]["position"] > 0 and rows[-1]["action"] == "HOLD":
-        rows[-1]["action"] = "SELL"
     return rows
 
 
@@ -638,6 +691,7 @@ def _load_post_train_review_versions(features: dict[str, dict[str, float]] | Non
             rows = normalize_post_train_review_rows(raw_rows)
             if source_kind == "paper_trading":
                 _attach_paper_trading_summary_metadata(rows, ptr_dir)
+                rows = _prepare_paper_trading_rows(rows)
             ohlc = load_ohlc_and_indicators("SOXL")
 
             # Merge features
@@ -819,6 +873,11 @@ def _load_versioned_data(features: dict[str, dict[str, float]] | None) -> dict[s
             else:
                 for r in rows:
                     r["_features"] = {}
+            ohlc = load_ohlc_and_indicators(etf)
+            for r in rows:
+                dt = str(r["datetime"])
+                if dt in ohlc:
+                    r.update(ohlc[dt])
             regime_shapes = compute_regime_shapes(rows)
             trades = compute_trades(rows)
             kelly_stats = compute_kelly_stats(trades)
@@ -1709,7 +1768,6 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       <a class="badge" href="#mainChart">Main Chart</a>
       <a class="badge" href="#tradeStats">Trade Quality</a>
       <a class="badge" href="#tradeTable">Trade Performance</a>
-      <a class="badge" href="#versionCompare">Model Versions</a>
     </div>
 
     <section class="production-status" id="productionStatusCard" hidden aria-live="polite">
@@ -1942,22 +2000,6 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       </div>
     </div>
 
-    <!-- Model Version Comparison -->
-    <div class="card" id="versionCompare">
-      <h2 class="section-title">Model Version Comparison — 历史策略对比</h2>
-      <div class="raw-tools">
-        <div class="sub">点击表格中的版本名查看训练曲线。绿色高亮 = 该列最优值。</div>
-      </div>
-      <div class="version-wrap">
-        <table class="version-table" id="versionTable"></table>
-      </div>
-    </div>
-
-    <!-- Training Curve -->
-    <div class="card" id="trainingCurve">
-      <h2 class="section-title">Training Curve <span style="font-size:12px;color:var(--muted);font-weight:normal;">— 点击上方表格查看训练过程</span></h2>
-      <div id="trainingCurveChart" style="width:100%;height:360px;border-radius:8px;background:var(--panel);border:1px solid var(--line);"></div>
-    </div>
   </div>
 
   <script>
@@ -1994,7 +2036,6 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     const metricGrid = document.getElementById('metricGrid');
     const tradeStatRow = document.getElementById('tradeStatRow');
     const tradePerfTable = document.getElementById('tradePerfTable');
-    const versionTable = document.getElementById('versionTable');
     const csvLink = document.getElementById('csvLink');
     const chartMeta = document.getElementById('chartMeta');
     const startDateInput = document.getElementById('startDateInput');
@@ -2615,7 +2656,6 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
 
     const DATA_BASE = 'dashboard_data';
     let _indexLoaded = false;
-    let _modelVersionsLoaded = false;
 
     function showLoading(msg) {{
       chartMeta.innerHTML = `<span style="color:var(--accent);">⏳ ${{msg}}</span>`;
@@ -2799,20 +2839,6 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       }});
     }}
 
-    async function loadModelVersions() {{
-      if (_modelVersionsLoaded) return;
-      const mvs = await loadJson(`${{DATA_BASE}}/model_versions.json`);
-      if (!mvs) return;
-      _modelVersionsLoaded = true;
-      DATA.model_versions = mvs;
-      renderVersionTable();
-      // If a version was selected before model_versions loaded, try to render its training curve
-      if (state.version) {{
-        const idx = DATA.model_versions.findIndex(v => v.name === state.version);
-        if (idx >= 0) renderTrainingCurve(idx);
-      }}
-    }}
-
     async function loadVersionData(version, etf) {{
       if (!version || DATA.versioned[version]) return;
       showLoading(`正在加载 ${{version}} / ${{etf}} ...`);
@@ -2842,11 +2868,11 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       if (window.location.protocol === 'file:') {{
         const banner = document.createElement('div');
         banner.style.cssText = 'background:rgba(37,99,235,0.08);border:1px solid var(--accent);border-radius:8px;padding:12px 16px;margin-bottom:18px;font-size:13px;color:var(--accent);';
-        banner.innerHTML = 'Warning: 当前通过 file:// 协议打开，版本切换和模型对比功能不可用。请运行 <code>python -m http.server</code> 后通过 http://localhost:8000 访问以获得完整功能。';
+        banner.innerHTML = 'Warning: 当前通过 file:// 协议打开，版本切换功能不可用。请运行 <code>python -m http.server</code> 后通过 http://localhost:8000 访问以获得完整功能。';
         document.querySelector('.shell').insertBefore(banner, document.querySelector('.shell').firstChild);
         return; // Skip async loads on file protocol
       }}
-      loadIndex().then(() => loadModelVersions());
+      loadIndex();
     }}
 
     function renderMetrics() {{
@@ -3009,122 +3035,6 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
           syncZoomInputs();
           renderChart();
           document.getElementById('mainChart').scrollIntoView({{ behavior: 'smooth' }});
-        }});
-      }});
-    }}
-
-    function renderTrainingCurve(idx) {{
-      const versions = DATA.model_versions || [];
-      if (idx == null || !versions[idx] || !versions[idx].selection_history || !versions[idx].selection_history.length) {{
-        Plotly.purge('trainingCurveChart');
-        document.getElementById('trainingCurveChart').innerHTML = `
-          <div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--muted);font-size:14px;">
-            点击上方表格中的版本名查看训练曲线
-          </div>
-        `;
-        return;
-      }}
-      const v = versions[idx];
-      const sh = v.selection_history;
-      const iters = sh.map(h => h.iter);
-      const returns = sh.map(h => h.return);
-      const sharpes = sh.map(h => h.sharpe);
-      const maxDds = sh.map(h => h.max_dd);
-
-      const traces = [
-        {{
-          x: iters, y: returns, name: 'Return',
-          type: 'scatter', mode: 'lines+markers',
-          line: {{ color: '{C_STRATEGY}', width: 2 }},
-          marker: {{ size: 6 }},
-          yaxis: 'y1',
-        }},
-        {{
-          x: iters, y: sharpes, name: 'Sharpe',
-          type: 'scatter', mode: 'lines+markers',
-          line: {{ color: '{C_BUYHOLD}', width: 2 }},
-          marker: {{ size: 6 }},
-          yaxis: 'y2',
-        }},
-        {{
-          x: iters, y: maxDds, name: 'MaxDD',
-          type: 'scatter', mode: 'lines+markers',
-          line: {{ color: '{C_BAD}', width: 2, dash: 'dot' }},
-          marker: {{ size: 6 }},
-          yaxis: 'y3',
-        }},
-      ];
-
-      const layout = {{
-        title: {{
-          text: `${{v.name}}${{v.promoted ? ' ★' : ''}} — 训练过程 (valid)`,
-          font: {{ size: 14, color: '{C_INK}' }},
-        }},
-        height: 340,
-        margin: {{ l: 60, r: 60, t: 50, b: 40 }},
-        paper_bgcolor: 'rgba(0,0,0,0)',
-        plot_bgcolor: '{C_PANEL}',
-        font: {{ family: 'ui-sans-serif, -apple-system, sans-serif', color: '{C_INK}', size: 11 }},
-        hovermode: 'x unified',
-        legend: {{ orientation: 'h', yanchor: 'bottom', y: 1.02, xanchor: 'right', x: 1 }},
-        xaxis: {{ title: 'Iteration', gridcolor: '{C_LINE}', showgrid: true }},
-        yaxis: {{ title: 'Return', side: 'left', gridcolor: '{C_LINE}', showgrid: true, titlefont: {{ color: '{C_STRATEGY}' }}, tickfont: {{ color: '{C_STRATEGY}' }} }},
-        yaxis2: {{ title: 'Sharpe', overlaying: 'y', side: 'right', showgrid: false, titlefont: {{ color: '{C_BUYHOLD}' }}, tickfont: {{ color: '{C_BUYHOLD}' }} }},
-        yaxis3: {{ title: 'MaxDD', overlaying: 'y', side: 'right', position: 0.98, showgrid: false, titlefont: {{ color: '{C_BAD}' }}, tickfont: {{ color: '{C_BAD}' }} }},
-      }};
-
-      Plotly.newPlot('trainingCurveChart', traces, layout, {{
-        responsive: true,
-        displayModeBar: false,
-      }});
-    }}
-
-    function renderVersionTable() {{
-      const versions = DATA.model_versions || [];
-      if (!versions.length) {{
-        versionTable.innerHTML = '<tr><th>无历史模型版本数据</th></tr>';
-        return;
-      }}
-
-      const bestTestSharpe = Math.max(...versions.map(v => v.test_sharpe != null ? v.test_sharpe : -Infinity));
-      const bestTestReturn = Math.max(...versions.map(v => v.test_return != null ? v.test_return : -Infinity));
-      const bestTestMDD = Math.min(...versions.map(v => v.test_max_dd != null ? v.test_max_dd : Infinity));
-      const bestValidSharpe = Math.max(...versions.map(v => v.valid_sharpe != null ? v.valid_sharpe : -Infinity));
-
-      const header = ['Model', 'Test Return', 'Test Sharpe', 'Test MaxDD', 'Test AvgPos', 'Valid Return', 'Valid Sharpe', 'Valid MaxDD'];
-      const body = versions.map(v => [
-        v.name + (v.promoted ? ' ★' : ''),
-        v.test_return != null ? fmtNum(v.test_return, 1) + '%' : 'n/a',
-        v.test_sharpe != null ? fmtNum(v.test_sharpe, 3) : 'n/a',
-        v.test_max_dd != null ? fmtNum(v.test_max_dd, 1) + '%' : 'n/a',
-        v.test_avg_pos != null ? fmtNum(v.test_avg_pos, 3) : 'n/a',
-        v.valid_return != null ? fmtNum(v.valid_return, 1) + '%' : 'n/a',
-        v.valid_sharpe != null ? fmtNum(v.valid_sharpe, 3) : 'n/a',
-        v.valid_max_dd != null ? fmtNum(v.valid_max_dd, 1) + '%' : 'n/a',
-      ]);
-
-      versionTable.innerHTML = [header, ...body].map((row, ridx) => `
-        <tr data-idx="${{ridx > 0 ? ridx - 1 : ''}}" class="${{ridx > 0 ? 'clickable-version' : ''}}">
-          ${{row.map((cell, col) => {{
-            if (ridx === 0) return `<th>${{cell}}</th>`;
-            const v = versions[ridx - 1];
-            let cls = v.promoted ? 'promoted' : '';
-            if (col === 1 && v.test_return === bestTestReturn) cls += ' best';
-            if (col === 2 && v.test_sharpe === bestTestSharpe) cls += ' best';
-            if (col === 3 && v.test_max_dd === bestTestMDD) cls += ' best';
-            if (col === 6 && v.valid_sharpe === bestValidSharpe) cls += ' best';
-            return `<td class="${{cls.trim()}}">${{cell}}</td>`;
-          }}).join('')}}
-        </tr>
-      `).join('');
-
-      versionTable.querySelectorAll('tr.clickable-version').forEach(tr => {{
-        tr.addEventListener('click', () => {{
-          versionTable.querySelectorAll('tr.clickable-version').forEach(r => r.classList.remove('selected'));
-          tr.classList.add('selected');
-          const idx = parseInt(tr.dataset.idx, 10);
-          renderTrainingCurve(idx);
-          document.getElementById('trainingCurve').scrollIntoView({{ behavior: 'smooth', block: 'nearest' }});
         }});
       }});
     }}
@@ -3351,27 +3261,38 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
           showlegend: false,
         }});
       }}
-      // K-Line on dedicated price row
-      const opens = [], highs = [], lows = [], closes = [], ma180Dates = [], ma180Vals = [];
-      for (const r of rows) {{
-        if (r.open != null) opens.push(r.open);
-        if (r.high != null) highs.push(r.high);
-        if (r.low != null) lows.push(r.low);
-        if (r.close != null) closes.push(r.close);
-        if (r.ma180 != null) {{ ma180Dates.push(r.datetime); ma180Vals.push(r.ma180); }}
-      }}
-      if (opens.length) {{
+      // Price row: prefer true OHLC candles, fall back to the daily close/price series.
+      const ohlcRows = rows.filter(r => r.open != null && r.high != null && r.low != null && r.close != null);
+      const ma180Rows = rows.filter(r => r.ma180 != null);
+      if (ohlcRows.length) {{
         traces.push({{
-          x: dates, open: opens, high: highs, low: lows, close: closes,
+          x: ohlcRows.map(r => r.datetime),
+          open: ohlcRows.map(r => r.open),
+          high: ohlcRows.map(r => r.high),
+          low: ohlcRows.map(r => r.low),
+          close: ohlcRows.map(r => r.close),
           name: 'SOXL', type: 'candlestick',
           increasing: {{line: {{color: '#0f766e'}}, fillcolor: 'rgba(15,118,110,0.12)'}},
           decreasing: {{line: {{color: '#b91c1c'}}, fillcolor: 'rgba(185,28,28,0.12)'}},
           xaxis: xaPrice, yaxis: yaPrice,
         }});
+      }} else {{
+        const priceRows = rows.filter(r => r.close != null || r.price != null);
+        if (priceRows.length) {{
+          traces.push({{
+            x: priceRows.map(r => r.datetime),
+            y: priceRows.map(r => r.close != null ? r.close : r.price),
+            name: 'SOXL Close', type: 'scatter', mode: 'lines',
+            line: {{ color: '{C_BUYHOLD}', width: 1.8 }},
+            hovertemplate: '%{{x}}<br>SOXL: $%{{y:,.2f}}<extra></extra>',
+            xaxis: xaPrice, yaxis: yaPrice,
+          }});
+        }}
       }}
-      if (ma180Vals.length) {{
+      if (ma180Rows.length) {{
         traces.push({{
-          x: ma180Dates, y: ma180Vals,
+          x: ma180Rows.map(r => r.datetime),
+          y: ma180Rows.map(r => r.ma180),
           name: 'MA180', type: 'scatter', mode: 'lines',
           line: {{ color: '#2563eb', width: 1.5, dash: 'dash' }},
           hovertemplate: '%{{x}}<br>MA180: $%{{y:,.2f}}<extra></extra>',
@@ -3381,7 +3302,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       if (buyRows.length) {{
         traces.push({{
           x: buyRows.map(r => r.datetime),
-          y: buyRows.map(r => r.price || r.close || r.strategy_nav),
+          y: buyRows.map(r => r.close != null ? r.close : (r.price != null ? r.price : r.strategy_nav)),
           name: 'BUY', type: 'scatter', mode: 'markers',
           marker: {{ symbol: 'triangle-up', size: 12, color: '{C_BUY}', line: {{ color: 'white', width: 1.5 }} }},
           hovertemplate: '<b>BUY</b> %{{x}}<br>Price: $%{{y:.2f}}<br>NAV: %{{text}}<extra></extra>',
@@ -3393,7 +3314,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       if (sellRows.length) {{
         traces.push({{
           x: sellRows.map(r => r.datetime),
-          y: sellRows.map(r => r.price || r.close || r.strategy_nav),
+          y: sellRows.map(r => r.close != null ? r.close : (r.price != null ? r.price : r.strategy_nav)),
           name: 'SELL', type: 'scatter', mode: 'markers',
           marker: {{ symbol: 'triangle-down', size: 12, color: '{C_SELL}', line: {{ color: 'white', width: 1.5 }} }},
           hovertemplate: '<b>SELL</b> %{{x}}<br>Price: $%{{y:.2f}}<br>NAV: %{{text}}<extra></extra>',
@@ -3489,7 +3410,9 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
 
       if (rows.length) {{
         const versionPayload = state.version && DATA.versioned ? DATA.versioned[state.version] : null;
-        const isFallbackView = Boolean(versionPayload && !((versionPayload.detailed || {{}})[state.etf]));
+        const versionDetail = versionPayload ? ((versionPayload.detailed || {{}})[state.etf]) : null;
+        const isInlineLatest = Boolean(state.version && state.version === DATA.latest_version && (DATA.detailed || {{}})[state.etf]);
+        const isFallbackView = Boolean(versionPayload && !versionDetail && !isInlineLatest);
         chartMeta.innerHTML = `
           <span>Built: <span class="mono">${{DATA.generated_at}}</span></span>
           <span>Version: <span class="mono">${{state.version || 'current'}}</span></span>
@@ -3535,8 +3458,6 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
         renderChart();
         renderTradeStats(k);
         renderTradeTable();
-        renderVersionTable();
-        renderTrainingCurve(null);
       }} catch (err) {{
         console.error('Dashboard render error:', err);
         document.getElementById('plotlyChart').innerHTML = `

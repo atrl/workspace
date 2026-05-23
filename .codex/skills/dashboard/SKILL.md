@@ -84,6 +84,28 @@ If the dashboard opens on an older run after fresh training, check:
 - whether `dashboard_data/model_replay_freshness.json` reports stale, failed,
   or skipped model replay profiles
 
+### Static Price And Paper Trade Correctness
+
+Static `dashboard_data/versioned/<profile>/SOXL.json` payloads must retain
+market fields needed for the price row: `open/high/low/close`, `volume`,
+`ma180`, and dashboard indicators. Do not compact those fields away after
+merging OHLC data.
+
+For `paper_trading`, only use rows with non-dry per-date `summary.json`
+metadata when such metadata exists. Old seed rows without a summary can make the
+paper chart start from a stale price baseline. Rebase `buyhold_nav` to the first
+displayed paper account value after filtering.
+
+Do not synthesize a terminal `SELL` just because the final row has positive
+position. Preserve explicit `HOLD` when no order was executed. Suppress
+impossible actions such as `BUY` with zero position or `SELL` from a zero
+position state.
+
+The visible historical model-comparison table and Training Curve were removed
+because their stale summary metadata was misleading for current static
+inspection. Keep `dashboard_data/model_versions.json` only as a static export
+integrity artifact unless a new reliable comparison design is added.
+
 ### Add a New Subplot
 1. In `scripts/build_backtest_dashboard.py`, edit `_build_layout_all()`:
    - Increase `rows` in `make_subplots()`
@@ -140,8 +162,6 @@ The dashboard uses a **single 4-subplot layout** (All Panels). No view selector.
 │  Trade Quality (Kelly / Expectancy / PF) │
 ├──────────────────────────────────────────┤
 │  Trade Performance Table (sortable)      │
-├──────────────────────────────────────────┤
-│  Model Version Comparison (all versions) │
 └──────────────────────────────────────────┘
 ```
 
@@ -202,12 +222,6 @@ The dashboard uses a **single 4-subplot layout** (All Panels). No view selector.
 - **期望收益** (Expectancy): `win_rate*avg_win + (1-win_rate)*avg_loss`
 - **收益因子** (Profit Factor): `gross_profit / abs(gross_loss)`
 
-### Model Version Comparison
-- 自动扫描 `runtime/model/card/*/*_summary.json`
-- 展示所有历史版本的 `test_proxy` 和 `valid` 指标
-- 绿色高亮每列最优值
-- ★ 标记已晋升 (promoted) 的版本
-
 ## Troubleshooting
 
 ### Dashboard shows blank chart area
@@ -220,10 +234,6 @@ The dashboard uses a **single 4-subplot layout** (All Panels). No view selector.
 
 ### File too large
 - The generated HTML embeds all data inline. For >5 ETFs or very long histories, consider splitting into per-ETF pages or lazy-loading data.
-
-### Model versions not showing
-- Verify `runtime/model/card/*/*_summary.json` exists and contains `test_proxy` / `valid` fields
-- Check browser console for JS errors in `renderVersionTable()`
 
 ### Version disappears after scheduled rebuild
 - Check whether the source `runtime/model/card/<profile>/<profile>_soxl_daily.csv` was intentionally removed after a profile was dropped.

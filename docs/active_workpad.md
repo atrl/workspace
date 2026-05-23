@@ -7108,3 +7108,43 @@ Decision:
 Artifact:
 
 - `runtime/production/card/dashboard_model_replay_refresh_v1/notes.md`
+
+## 2026-05-23 Dashboard Data Correctness
+
+Root cause:
+
+- The paper dashboard view was polluted by an old unannotated seed row from
+  `2026-03-31`, so the visible paper history started from a stale price and
+  Buy&Hold NAV used the wrong baseline.
+- `normalize_post_train_review_rows()` forced a terminal positive-position
+  `HOLD` row into `SELL`, so the current `2026-05-22` paper row displayed a
+  false sell.
+- Static version payloads dropped `open/high/low/close` after merge, so loaded
+  Vercel/dashboard versions could not render a real SOXL price chart.
+- The historical model comparison and Training Curve UI were not reliable for
+  current static inspection.
+
+Changes:
+
+- Paper views now keep non-dry summary-backed rows when available and rebase
+  Buy&Hold NAV to the first displayed paper account value.
+- Impossible actions such as zero-position `BUY` and zero-state `SELL` are
+  suppressed; terminal `HOLD` stays `HOLD`.
+- Versioned static payload rows retain OHLC, volume, MA180, and indicators, and
+  the price row falls back to a close/price line when OHLC is absent.
+- Removed visible Model Version Comparison and Training Curve sections.
+
+Evidence:
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_dashboard.py tests/test_vercel_dashboard.py -q
+# 32 passed
+
+PYTHONPATH=. qlib_venv/bin/python scripts/check_dashboard_static_export.py
+# ok dashboard_static_export generated_at=2026-05-23 12:18:13 versions=38 missing=0 model_versions=94 latest=paper_trading paper_trading_rows=4 paper_trading_end=2026-05-22 production_status=blocked_no_credentials goal_gates=pending model_replays=10/10@2026-05-21 paper_trading
+```
+
+Rendered evidence:
+
+- `runtime/production/card/dashboard_data_correctness_v1/dashboard_data_correctness_v1.png`
+- `runtime/production/card/dashboard_data_correctness_v1/notes.md`

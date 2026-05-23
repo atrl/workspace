@@ -647,7 +647,6 @@
       <a class="badge" href="#mainChart">Main Chart</a>
       <a class="badge" href="#tradeStats">Trade Quality</a>
       <a class="badge" href="#tradeTable">Trade Performance</a>
-      <a class="badge" href="#versionCompare">Model Versions</a>
     </div>
 
     <section class="production-status" id="productionStatusCard" hidden aria-live="polite">
@@ -880,26 +879,10 @@
       </div>
     </div>
 
-    <!-- Model Version Comparison -->
-    <div class="card" id="versionCompare">
-      <h2 class="section-title">Model Version Comparison — 历史策略对比</h2>
-      <div class="raw-tools">
-        <div class="sub">点击表格中的版本名查看训练曲线。绿色高亮 = 该列最优值。</div>
-      </div>
-      <div class="version-wrap">
-        <table class="version-table" id="versionTable"></table>
-      </div>
-    </div>
-
-    <!-- Training Curve -->
-    <div class="card" id="trainingCurve">
-      <h2 class="section-title">Training Curve <span style="font-size:12px;color:var(--muted);font-weight:normal;">— 点击上方表格查看训练过程</span></h2>
-      <div id="trainingCurveChart" style="width:100%;height:360px;border-radius:8px;background:var(--panel);border:1px solid var(--line);"></div>
-    </div>
   </div>
 
   <script>
-    const DATA = {"generated_from": {"summary": "runtime/execution/generalization/detailed/summary.json", "detailed_dir": "runtime/execution/generalization/detailed", "results": "runtime/execution/generalization/results.json", "rule_based": "runtime/execution/generalization/rule_based_results.json", "execution_overlay": "runtime/execution/generalization/execution_overlay_results.json", "execution_review": "runtime/execution/generalization/execution_overlay_review.md"}, "generated_at": "2026-05-23 11:22:24", "summary": [{"etf": "SOXL", "strategy_return": 0.06960067922700008, "buyhold_return": 2.97745769922, "excess_return": -2.907857019993, "max_dd_strategy": 0.06250924639900006, "max_dd_buyhold": 0.0, "trades": 6, "buy_count": 4, "sell_count": 2, "max_position": 0.783904, "min_position": 0.0}], "windows": {"SOXL": {"start": "2026-03-31", "end": "2026-05-22", "rows": 6}}, "detailed": {"SOXL": {"summary": {"etf": "SOXL", "strategy_return": 0.06960067922700008, "buyhold_return": 2.97745769922, "excess_return": -2.907857019993, "max_dd_strategy": 0.06250924639900006, "max_dd_buyhold": 0.0, "trades": 6, "buy_count": 4, "sell_count": 2, "max_position": 0.783904, "min_position": 0.0}, "csv_path": "runtime/soxl/paper_trading/paper_trading_soxl_daily.csv", "meta": {"source_kind": "paper_trading", "source": "runtime/soxl/paper_trading/paper_trading_soxl_daily.csv", "latest_data_date": "2026-05-22", "latest_profile": "v19reg_v22_budget_usage_bull_guard_v1", "latest_execution_status": "skipped", "latest_target_position": 0.7839037554314358, "latest_reconcile_action": "none", "latest_summary_path": "runtime/soxl/paper_trading/2026-05-22/summary.json"}, "rows": [{"datetime": "2026-03-31", "strategy_nav": 1000000.0, "price": 47.91, "buyhold_nav": 1000000.0, "position": 0.0, "excess": 0.0, "excess_pct": 0.0, "action": "BUY"}, {"datetime": "2026-05-14", "strategy_nav": 999664.857996, "price": 186.190002, "buyhold_nav": 3886245.093747, "position": 0.335254, "excess": -2886580.2357510002, "excess_pct": -74.2768447722335, "action": "BUY"}, {"datetime": "2026-05-18", "strategy_nav": 937490.753601, "price": 151.75, "buyhold_nav": 3167397.210598, "position": 0.485605, "excess": -2229906.4569969997, "excess_pct": -70.40185706850443, "action": "BUY", "profile": "balanced_rule_residual_v19", "execution_status": "executed", "dry_run": false, "target_position": 0.5, "reconcile_action": "none", "summary_path": "runtime/soxl/paper_trading/2026-05-18/summary.json"}, {"datetime": "2026-05-20", "strategy_nav": 1001806.104446, "price": 173.199997, "buyhold_nav": 3615111.612583, "position": 0.484086, "excess": -2613305.5081370003, "excess_pct": -72.28837690767149, "action": "SELL", "profile": "v19reg_v22_budget_usage_bull_guard_v1", "execution_status": "duplicate_skipped", "dry_run": false, "target_position": 0.48408568215209924, "reconcile_action": "none", "summary_path": "runtime/soxl/paper_trading/2026-05-20/duplicate_skip/v19reg_v22_budget_usage_bull_guard_v1/summary.json"}, {"datetime": "2026-05-21", "strategy_nav": 1016052.687283, "price": 178.389999, "buyhold_nav": 3723439.777901, "position": 0.772515, "excess": -2707387.090618, "excess_pct": -72.7119881644554, "action": "BUY", "profile": "v19reg_v22_budget_usage_bull_guard_v1", "execution_status": "filled", "dry_run": false, "target_position": 0.7749999992, "reconcile_action": "none", "summary_path": "runtime/soxl/paper_trading/2026-05-21/summary.json"}, {"datetime": "2026-05-22", "strategy_nav": 1069600.679227, "price": 190.559998, "buyhold_nav": 3977457.69922, "position": 0.783904, "excess": -2907857.0199929997, "excess_pct": -73.10843357462345, "action": "SELL", "profile": "v19reg_v22_budget_usage_bull_guard_v1", "execution_status": "skipped", "dry_run": false, "target_position": 0.7839037554314358, "reconcile_action": "none", "summary_path": "runtime/soxl/paper_trading/2026-05-22/summary.json"}], "regime_shapes": [], "trades": [{"entry_date": "2026-03-31", "exit_date": "2026-05-20", "days": 3, "entry_price": 47.91, "exit_price": 173.199997, "return_pct": 261.5111605092883, "pnl": 1806.104445999954, "cumulative": 1806.104445999954, "entry_nav": 1000000.0, "exit_nav": 1001806.104446, "avg_vix": null, "avg_rsi": null}, {"entry_date": "2026-05-21", "exit_date": "2026-05-22", "days": 1, "entry_price": 178.389999, "exit_price": 190.559998, "return_pct": 6.82213076305922, "pnl": 53547.991944000125, "cumulative": 55354.09639000008, "entry_nav": 1016052.687283, "exit_nav": 1069600.679227, "avg_vix": null, "avg_rsi": null}], "kelly": {"total": 2, "win_rate": 1.0, "avg_win": 134.16664563617374, "avg_loss": 0, "kelly": 1.0, "expectancy": 134.16664563617374, "profit_factor": null, "gross_profit": 268.3332912723475, "gross_loss": 0, "max_win_streak": 2, "max_loss_streak": 0}}}, "versioned": {"balanced_fixed_leakage": {}, "balanced": {}, "balanced_macro_v1": {}, "balanced_rule_residual_imitation_v4": {}, "balanced_rule_residual_imitation_v4_wf_2020": {}, "balanced_rule_residual_imitation_v4_wf_2022": {}, "balanced_rule_residual_imitation_v4_wf_2023_2024": {}, "balanced_rule_residual_mode_v1": {}, "balanced_rule_residual_mode_v1_wf_2020": {}, "balanced_rule_residual_mode_v1_wf_2022": {}, "balanced_rule_residual_mode_v1_wf_2023_2024": {}, "balanced_rule_residual_v19": {}, "balanced_rule_residual_v19_lowcap": {}, "balanced_rule_residual_v19_reg": {}, "balanced_rule_residual_v19_reg_light": {}, "balanced_rule_residual_v19_reg_v22_retest_v1": {}, "balanced_rule_residual_v19_small": {}, "balanced_rule_residual_v22": {}, "balanced_rule_residual_v22_continued_retention_v1": {}, "balanced_rule_residual_v22_soxx": {}, "risk_budget_usage_v1_actor_parity": {}, "risk_budget_usage_v1_composed_balanced_imitation_v4": {}, "risk_budget_usage_v1": {}, "risk_budget_usage_v2": {}, "smoke": {}, "two_speed_mode_budget_v1": {}, "v19reg_v22_budget_usage_bull_guard_v1_wf_2020": {}, "v19reg_v22_budget_usage_bull_guard_v1_wf_2022": {}, "v19reg_v22_budget_usage_bull_guard_v1_wf_2023_2024": {}, "v19reg_v22_budget_usage_v1": {}, "v19reg_v22_budget_usage_v1_wf_2020": {}, "v19reg_v22_budget_usage_v1_wf_2022": {}, "v19reg_v22_budget_usage_v1_wf_2023_2024": {}, "v19reglight_v22_budget_usage_bull_guard_ablation_v1_wf_2020": {}, "v19reglight_v22_budget_usage_bull_guard_ablation_v1_wf_2022": {}, "v19reglight_v22_budget_usage_bull_guard_ablation_v1_wf_2023_2024": {}, "paper_trading": {}, "balanced_rule_residual_v19_moe_v2": {}}, "best_version": "balanced_rule_residual_imitation_v4_wf_2020", "latest_version": "paper_trading", "results": {}, "rule_based": {}, "execution_overlay": {}, "execution_review": "", "model_versions": []};
+    const DATA = {"generated_from": {"summary": "runtime/execution/generalization/detailed/summary.json", "detailed_dir": "runtime/execution/generalization/detailed", "results": "runtime/execution/generalization/results.json", "rule_based": "runtime/execution/generalization/rule_based_results.json", "execution_overlay": "runtime/execution/generalization/execution_overlay_results.json", "execution_review": "runtime/execution/generalization/execution_overlay_review.md"}, "generated_at": "2026-05-23 12:18:12", "summary": [{"etf": "SOXL", "strategy_return": 0.1409186438570751, "buyhold_return": 0.2557495744176215, "excess_return": -0.11483093056054638, "max_dd_strategy": 0.0, "max_dd_buyhold": 0.0, "trades": 3, "buy_count": 2, "sell_count": 1, "max_position": 0.783904, "min_position": 0.484086}], "windows": {"SOXL": {"start": "2026-05-18", "end": "2026-05-22", "rows": 4}}, "detailed": {"SOXL": {"summary": {"etf": "SOXL", "strategy_return": 0.1409186438570751, "buyhold_return": 0.2557495744176215, "excess_return": -0.11483093056054638, "max_dd_strategy": 0.0, "max_dd_buyhold": 0.0, "trades": 3, "buy_count": 2, "sell_count": 1, "max_position": 0.783904, "min_position": 0.484086}, "csv_path": "runtime/soxl/paper_trading/paper_trading_soxl_daily.csv", "meta": {"source_kind": "paper_trading", "source": "runtime/soxl/paper_trading/paper_trading_soxl_daily.csv", "latest_data_date": "2026-05-22", "latest_profile": "v19reg_v22_budget_usage_bull_guard_v1", "latest_execution_status": "skipped", "latest_target_position": 0.7839037554314358, "latest_reconcile_action": "none", "latest_summary_path": "runtime/soxl/paper_trading/2026-05-22/summary.json"}, "rows": [{"datetime": "2026-05-18", "strategy_nav": 937490.753601, "price": 151.75, "buyhold_nav": 937490.753601, "position": 0.485605, "excess": 0.0, "excess_pct": 0.0, "action": "BUY", "open": 172.9499969482422, "high": 174.61000061035156, "low": 142.69000244140625, "close": 151.75, "volume": 75610500, "rsi6": 28.68404344924413, "ma180": 59.49744438849555, "hv_20": 1.414122709826518, "vol_coef": 1.9374442818484068, "panic_score": 26.386458691181893, "market_state": true, "profile": "balanced_rule_residual_v19", "execution_status": "executed", "dry_run": false, "target_position": 0.5, "reconcile_action": "none", "summary_path": "runtime/soxl/paper_trading/2026-05-18/summary.json"}, {"datetime": "2026-05-20", "strategy_nav": 1001806.104446, "price": 173.199997, "buyhold_nav": 1070005.902225411, "position": 0.484086, "excess": -68199.79777941108, "excess_pct": -6.373777718194673, "action": "SELL", "open": 161.0, "high": 173.6999969482422, "low": 161.0, "close": 173.1999969482422, "volume": 58913200, "rsi6": 61.87774209403632, "ma180": 61.01855547417534, "hv_20": 1.4581654396312498, "vol_coef": 1.9977858168681222, "panic_score": 56.489946193779616, "market_state": true, "profile": "v19reg_v22_budget_usage_bull_guard_v1", "execution_status": "duplicate_skipped", "dry_run": false, "target_position": 0.48408568215209924, "reconcile_action": "none", "summary_path": "runtime/soxl/paper_trading/2026-05-20/duplicate_skip/v19reg_v22_budget_usage_bull_guard_v1/summary.json"}, {"datetime": "2026-05-21", "strategy_nav": 1016052.687283, "price": 178.389999, "buyhold_nav": 1102069.0274312992, "position": 0.772515, "excess": -86016.34014829923, "excess_pct": -7.804986621281429, "action": "BUY", "open": 171.25999450683594, "high": 179.97000122070312, "low": 168.22999572753906, "close": 178.38999938964844, "volume": 52278700, "rsi6": 67.07807948485667, "ma180": 61.87122213829888, "hv_20": 1.4504649690324172, "vol_coef": 1.9872356484664844, "panic_score": 66.95902280531672, "market_state": true, "profile": "v19reg_v22_budget_usage_bull_guard_v1", "execution_status": "filled", "dry_run": false, "target_position": 0.7749999992, "reconcile_action": "none", "summary_path": "runtime/soxl/paper_trading/2026-05-21/summary.json"}, {"datetime": "2026-05-22", "strategy_nav": 1069600.679227, "price": 190.559998, "buyhold_nav": 1177253.6148549109, "position": 0.783904, "excess": -107652.93562791077, "excess_pct": -9.144413257221418, "action": "HOLD", "open": 184.8000030517578, "high": 195.2550048828125, "low": 183.33999633789065, "close": 190.55999755859375, "volume": 44173988, "rsi6": 77.26104932701148, "ma180": 62.78738879352146, "hv_20": 1.4057314882493892, "vol_coef": 1.92594773763102, "panic_score": 95.03924910034848, "market_state": true, "profile": "v19reg_v22_budget_usage_bull_guard_v1", "execution_status": "skipped", "dry_run": false, "target_position": 0.7839037554314358, "reconcile_action": "none", "summary_path": "runtime/soxl/paper_trading/2026-05-22/summary.json"}], "regime_shapes": [], "trades": [{"entry_date": "2026-05-18", "exit_date": "2026-05-20", "days": 1, "entry_price": 151.75, "exit_price": 173.199997, "return_pct": 14.13508863261943, "pnl": 64315.35084500001, "cumulative": 64315.35084500001, "entry_nav": 937490.753601, "exit_nav": 1001806.104446, "avg_vix": null, "avg_rsi": null}], "kelly": {"total": 1, "win_rate": 1.0, "avg_win": 14.13508863261943, "avg_loss": 0, "kelly": 1.0, "expectancy": 14.13508863261943, "profit_factor": null, "gross_profit": 14.13508863261943, "gross_loss": 0, "max_win_streak": 1, "max_loss_streak": 0}}}, "versioned": {"balanced_fixed_leakage": {}, "balanced": {}, "balanced_macro_v1": {}, "balanced_rule_residual_imitation_v4": {}, "balanced_rule_residual_imitation_v4_wf_2020": {}, "balanced_rule_residual_imitation_v4_wf_2022": {}, "balanced_rule_residual_imitation_v4_wf_2023_2024": {}, "balanced_rule_residual_mode_v1": {}, "balanced_rule_residual_mode_v1_wf_2020": {}, "balanced_rule_residual_mode_v1_wf_2022": {}, "balanced_rule_residual_mode_v1_wf_2023_2024": {}, "balanced_rule_residual_v19": {}, "balanced_rule_residual_v19_lowcap": {}, "balanced_rule_residual_v19_reg": {}, "balanced_rule_residual_v19_reg_light": {}, "balanced_rule_residual_v19_reg_v22_retest_v1": {}, "balanced_rule_residual_v19_small": {}, "balanced_rule_residual_v22": {}, "balanced_rule_residual_v22_continued_retention_v1": {}, "balanced_rule_residual_v22_soxx": {}, "risk_budget_usage_v1_actor_parity": {}, "risk_budget_usage_v1_composed_balanced_imitation_v4": {}, "risk_budget_usage_v1": {}, "risk_budget_usage_v2": {}, "smoke": {}, "two_speed_mode_budget_v1": {}, "v19reg_v22_budget_usage_bull_guard_v1_wf_2020": {}, "v19reg_v22_budget_usage_bull_guard_v1_wf_2022": {}, "v19reg_v22_budget_usage_bull_guard_v1_wf_2023_2024": {}, "v19reg_v22_budget_usage_v1": {}, "v19reg_v22_budget_usage_v1_wf_2020": {}, "v19reg_v22_budget_usage_v1_wf_2022": {}, "v19reg_v22_budget_usage_v1_wf_2023_2024": {}, "v19reglight_v22_budget_usage_bull_guard_ablation_v1_wf_2020": {}, "v19reglight_v22_budget_usage_bull_guard_ablation_v1_wf_2022": {}, "v19reglight_v22_budget_usage_bull_guard_ablation_v1_wf_2023_2024": {}, "paper_trading": {}, "balanced_rule_residual_v19_moe_v2": {}}, "best_version": "balanced_rule_residual_imitation_v4_wf_2020", "latest_version": "paper_trading", "results": {}, "rule_based": {}, "execution_overlay": {}, "execution_review": "", "model_versions": []};
     const PLOTLY_LAYOUTS = {"all": {"template": {"data": {"histogram2dcontour": [{"type": "histogram2dcontour", "colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]]}], "choropleth": [{"type": "choropleth", "colorbar": {"outlinewidth": 0, "ticks": ""}}], "histogram2d": [{"type": "histogram2d", "colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]]}], "heatmap": [{"type": "heatmap", "colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]]}], "contourcarpet": [{"type": "contourcarpet", "colorbar": {"outlinewidth": 0, "ticks": ""}}], "contour": [{"type": "contour", "colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]]}], "surface": [{"type": "surface", "colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]]}], "mesh3d": [{"type": "mesh3d", "colorbar": {"outlinewidth": 0, "ticks": ""}}], "scatter": [{"fillpattern": {"fillmode": "overlay", "size": 10, "solidity": 0.2}, "type": "scatter"}], "parcoords": [{"type": "parcoords", "line": {"colorbar": {"outlinewidth": 0, "ticks": ""}}}], "scatterpolargl": [{"type": "scatterpolargl", "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}}], "bar": [{"error_x": {"color": "#2a3f5f"}, "error_y": {"color": "#2a3f5f"}, "marker": {"line": {"color": "#E5ECF6", "width": 0.5}, "pattern": {"fillmode": "overlay", "size": 10, "solidity": 0.2}}, "type": "bar"}], "scattergeo": [{"type": "scattergeo", "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}}], "scatterpolar": [{"type": "scatterpolar", "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}}], "histogram": [{"marker": {"pattern": {"fillmode": "overlay", "size": 10, "solidity": 0.2}}, "type": "histogram"}], "scattergl": [{"type": "scattergl", "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}}], "scatter3d": [{"type": "scatter3d", "line": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}}], "scattermap": [{"type": "scattermap", "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}}], "scattermapbox": [{"type": "scattermapbox", "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}}], "scatterternary": [{"type": "scatterternary", "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}}], "scattercarpet": [{"type": "scattercarpet", "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}}], "carpet": [{"aaxis": {"endlinecolor": "#2a3f5f", "gridcolor": "white", "linecolor": "white", "minorgridcolor": "white", "startlinecolor": "#2a3f5f"}, "baxis": {"endlinecolor": "#2a3f5f", "gridcolor": "white", "linecolor": "white", "minorgridcolor": "white", "startlinecolor": "#2a3f5f"}, "type": "carpet"}], "table": [{"cells": {"fill": {"color": "#EBF0F8"}, "line": {"color": "white"}}, "header": {"fill": {"color": "#C8D4E3"}, "line": {"color": "white"}}, "type": "table"}], "barpolar": [{"marker": {"line": {"color": "#E5ECF6", "width": 0.5}, "pattern": {"fillmode": "overlay", "size": 10, "solidity": 0.2}}, "type": "barpolar"}], "pie": [{"automargin": true, "type": "pie"}]}, "layout": {"autotypenumbers": "strict", "colorway": ["#636efa", "#EF553B", "#00cc96", "#ab63fa", "#FFA15A", "#19d3f3", "#FF6692", "#B6E880", "#FF97FF", "#FECB52"], "font": {"color": "#2a3f5f"}, "hovermode": "closest", "hoverlabel": {"align": "left"}, "paper_bgcolor": "white", "plot_bgcolor": "#E5ECF6", "polar": {"bgcolor": "#E5ECF6", "angularaxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}, "radialaxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}}, "ternary": {"bgcolor": "#E5ECF6", "aaxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}, "baxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}, "caxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}}, "coloraxis": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "colorscale": {"sequential": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "sequentialminus": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "diverging": [[0, "#8e0152"], [0.1, "#c51b7d"], [0.2, "#de77ae"], [0.3, "#f1b6da"], [0.4, "#fde0ef"], [0.5, "#f7f7f7"], [0.6, "#e6f5d0"], [0.7, "#b8e186"], [0.8, "#7fbc41"], [0.9, "#4d9221"], [1, "#276419"]]}, "xaxis": {"gridcolor": "white", "linecolor": "white", "ticks": "", "title": {"standoff": 15}, "zerolinecolor": "white", "automargin": true, "zerolinewidth": 2}, "yaxis": {"gridcolor": "white", "linecolor": "white", "ticks": "", "title": {"standoff": 15}, "zerolinecolor": "white", "automargin": true, "zerolinewidth": 2}, "scene": {"xaxis": {"backgroundcolor": "#E5ECF6", "gridcolor": "white", "linecolor": "white", "showbackground": true, "ticks": "", "zerolinecolor": "white", "gridwidth": 2}, "yaxis": {"backgroundcolor": "#E5ECF6", "gridcolor": "white", "linecolor": "white", "showbackground": true, "ticks": "", "zerolinecolor": "white", "gridwidth": 2}, "zaxis": {"backgroundcolor": "#E5ECF6", "gridcolor": "white", "linecolor": "white", "showbackground": true, "ticks": "", "zerolinecolor": "white", "gridwidth": 2}}, "shapedefaults": {"line": {"color": "#2a3f5f"}}, "annotationdefaults": {"arrowcolor": "#2a3f5f", "arrowhead": 0, "arrowwidth": 1}, "geo": {"bgcolor": "white", "landcolor": "#E5ECF6", "subunitcolor": "white", "showland": true, "showlakes": true, "lakecolor": "white"}, "title": {"x": 0.05}, "mapbox": {"style": "light"}}}, "xaxis": {"anchor": "y", "domain": [0.0, 1.0], "matches": "x5", "showticklabels": false, "tickfont": {"size": 11}, "rangeslider": {"visible": false}, "showgrid": true, "gridwidth": 1, "gridcolor": "#d7dee6", "showspikes": true, "spikemode": "across", "spikecolor": "#607080", "spikethickness": 1, "spikedash": "dot"}, "yaxis": {"anchor": "x", "domain": [0.808, 1.0], "tickfont": {"size": 11}, "showgrid": true, "gridwidth": 1, "gridcolor": "#d7dee6", "showspikes": true, "spikemode": "across", "spikecolor": "#607080", "spikethickness": 1, "spikedash": "dot", "fixedrange": true, "title": {"text": "NAV"}}, "xaxis2": {"anchor": "y2", "domain": [0.0, 1.0], "matches": "x5", "showticklabels": false, "tickfont": {"size": 11}, "rangeslider": {"visible": false}, "showgrid": true, "gridwidth": 1, "gridcolor": "#d7dee6", "showspikes": true, "spikemode": "across", "spikecolor": "#607080", "spikethickness": 1, "spikedash": "dot"}, "yaxis2": {"anchor": "x2", "domain": [0.5660000000000001, 0.758], "tickfont": {"size": 11}, "showgrid": true, "gridwidth": 1, "gridcolor": "#d7dee6", "showspikes": true, "spikemode": "across", "spikecolor": "#607080", "spikethickness": 1, "spikedash": "dot", "fixedrange": true, "title": {"text": "Price"}}, "xaxis3": {"anchor": "y3", "domain": [0.0, 1.0], "matches": "x5", "showticklabels": false, "tickfont": {"size": 11}, "rangeslider": {"visible": false}, "showgrid": true, "gridwidth": 1, "gridcolor": "#d7dee6", "showspikes": true, "spikemode": "across", "spikecolor": "#607080", "spikethickness": 1, "spikedash": "dot"}, "yaxis3": {"anchor": "x3", "domain": [0.388, 0.516], "tickfont": {"size": 11}, "showgrid": true, "gridwidth": 1, "gridcolor": "#d7dee6", "showspikes": true, "spikemode": "across", "spikecolor": "#607080", "spikethickness": 1, "spikedash": "dot", "fixedrange": true, "title": {"text": "Position %"}, "range": [0, 1], "tickformat": ".0%"}, "xaxis4": {"anchor": "y4", "domain": [0.0, 1.0], "matches": "x5", "showticklabels": false, "tickfont": {"size": 11}, "rangeslider": {"visible": false}, "showgrid": true, "gridwidth": 1, "gridcolor": "#d7dee6", "showspikes": true, "spikemode": "across", "spikecolor": "#607080", "spikethickness": 1, "spikedash": "dot"}, "yaxis4": {"anchor": "x4", "domain": [0.194, 0.33799999999999997], "tickfont": {"size": 11}, "showgrid": true, "gridwidth": 1, "gridcolor": "#d7dee6", "showspikes": true, "spikemode": "across", "spikecolor": "#607080", "spikethickness": 1, "spikedash": "dot", "fixedrange": true, "title": {"text": "Excess %"}}, "xaxis5": {"anchor": "y5", "domain": [0.0, 1.0], "tickfont": {"size": 11}, "rangeslider": {"visible": false}, "showgrid": true, "gridwidth": 1, "gridcolor": "#d7dee6", "showticklabels": true, "showspikes": true, "spikemode": "across", "spikecolor": "#607080", "spikethickness": 1, "spikedash": "dot", "title": {"text": "Date"}}, "yaxis5": {"anchor": "x5", "domain": [0.0, 0.144], "tickfont": {"size": 11}, "showgrid": true, "gridwidth": 1, "gridcolor": "#d7dee6", "showspikes": true, "spikemode": "across", "spikecolor": "#607080", "spikethickness": 1, "spikedash": "dot", "fixedrange": true, "title": {"text": "DD %"}}, "annotations": [{"font": {"size": 16}, "showarrow": false, "text": "NAV", "x": 0.5, "xanchor": "center", "xref": "paper", "y": 1.0, "yanchor": "bottom", "yref": "paper"}, {"font": {"size": 16}, "showarrow": false, "text": "Price + Signals", "x": 0.5, "xanchor": "center", "xref": "paper", "y": 0.758, "yanchor": "bottom", "yref": "paper"}, {"font": {"size": 16}, "showarrow": false, "text": "Position", "x": 0.5, "xanchor": "center", "xref": "paper", "y": 0.516, "yanchor": "bottom", "yref": "paper"}, {"font": {"size": 16}, "showarrow": false, "text": "Excess Return %", "x": 0.5, "xanchor": "center", "xref": "paper", "y": 0.33799999999999997, "yanchor": "bottom", "yref": "paper"}, {"font": {"size": 16}, "showarrow": false, "text": "Drawdown", "x": 0.5, "xanchor": "center", "xref": "paper", "y": 0.144, "yanchor": "bottom", "yref": "paper"}], "margin": {"l": 60, "r": 60, "t": 90, "b": 40}, "font": {"family": "ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif", "color": "#111827", "size": 12}, "legend": {"orientation": "h", "yanchor": "bottom", "y": 1.02, "xanchor": "right", "x": 1, "bgcolor": "rgba(255,255,255,0.92)"}, "height": 920, "paper_bgcolor": "rgba(0,0,0,0)", "plot_bgcolor": "#ffffff", "hovermode": "x unified", "showlegend": true, "dragmode": "zoom"}};
     const ETFS = (() => {
       const fromDetailed = Object.keys(DATA.detailed || {});
@@ -932,7 +915,6 @@
     const metricGrid = document.getElementById('metricGrid');
     const tradeStatRow = document.getElementById('tradeStatRow');
     const tradePerfTable = document.getElementById('tradePerfTable');
-    const versionTable = document.getElementById('versionTable');
     const csvLink = document.getElementById('csvLink');
     const chartMeta = document.getElementById('chartMeta');
     const startDateInput = document.getElementById('startDateInput');
@@ -1553,7 +1535,6 @@
 
     const DATA_BASE = 'dashboard_data';
     let _indexLoaded = false;
-    let _modelVersionsLoaded = false;
 
     function showLoading(msg) {
       chartMeta.innerHTML = `<span style="color:var(--accent);">⏳ ${msg}</span>`;
@@ -1737,20 +1718,6 @@
       });
     }
 
-    async function loadModelVersions() {
-      if (_modelVersionsLoaded) return;
-      const mvs = await loadJson(`${DATA_BASE}/model_versions.json`);
-      if (!mvs) return;
-      _modelVersionsLoaded = true;
-      DATA.model_versions = mvs;
-      renderVersionTable();
-      // If a version was selected before model_versions loaded, try to render its training curve
-      if (state.version) {
-        const idx = DATA.model_versions.findIndex(v => v.name === state.version);
-        if (idx >= 0) renderTrainingCurve(idx);
-      }
-    }
-
     async function loadVersionData(version, etf) {
       if (!version || DATA.versioned[version]) return;
       showLoading(`正在加载 ${version} / ${etf} ...`);
@@ -1780,11 +1747,11 @@
       if (window.location.protocol === 'file:') {
         const banner = document.createElement('div');
         banner.style.cssText = 'background:rgba(37,99,235,0.08);border:1px solid var(--accent);border-radius:8px;padding:12px 16px;margin-bottom:18px;font-size:13px;color:var(--accent);';
-        banner.innerHTML = 'Warning: 当前通过 file:// 协议打开，版本切换和模型对比功能不可用。请运行 <code>python -m http.server</code> 后通过 http://localhost:8000 访问以获得完整功能。';
+        banner.innerHTML = 'Warning: 当前通过 file:// 协议打开，版本切换功能不可用。请运行 <code>python -m http.server</code> 后通过 http://localhost:8000 访问以获得完整功能。';
         document.querySelector('.shell').insertBefore(banner, document.querySelector('.shell').firstChild);
         return; // Skip async loads on file protocol
       }
-      loadIndex().then(() => loadModelVersions());
+      loadIndex();
     }
 
     function renderMetrics() {
@@ -1947,122 +1914,6 @@
           syncZoomInputs();
           renderChart();
           document.getElementById('mainChart').scrollIntoView({ behavior: 'smooth' });
-        });
-      });
-    }
-
-    function renderTrainingCurve(idx) {
-      const versions = DATA.model_versions || [];
-      if (idx == null || !versions[idx] || !versions[idx].selection_history || !versions[idx].selection_history.length) {
-        Plotly.purge('trainingCurveChart');
-        document.getElementById('trainingCurveChart').innerHTML = `
-          <div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--muted);font-size:14px;">
-            点击上方表格中的版本名查看训练曲线
-          </div>
-        `;
-        return;
-      }
-      const v = versions[idx];
-      const sh = v.selection_history;
-      const iters = sh.map(h => h.iter);
-      const returns = sh.map(h => h.return);
-      const sharpes = sh.map(h => h.sharpe);
-      const maxDds = sh.map(h => h.max_dd);
-
-      const traces = [
-        {
-          x: iters, y: returns, name: 'Return',
-          type: 'scatter', mode: 'lines+markers',
-          line: { color: '#2563eb', width: 2 },
-          marker: { size: 6 },
-          yaxis: 'y1',
-        },
-        {
-          x: iters, y: sharpes, name: 'Sharpe',
-          type: 'scatter', mode: 'lines+markers',
-          line: { color: '#0f766e', width: 2 },
-          marker: { size: 6 },
-          yaxis: 'y2',
-        },
-        {
-          x: iters, y: maxDds, name: 'MaxDD',
-          type: 'scatter', mode: 'lines+markers',
-          line: { color: '#b91c1c', width: 2, dash: 'dot' },
-          marker: { size: 6 },
-          yaxis: 'y3',
-        },
-      ];
-
-      const layout = {
-        title: {
-          text: `${v.name}${v.promoted ? ' ★' : ''} — 训练过程 (valid)`,
-          font: { size: 14, color: '#111827' },
-        },
-        height: 340,
-        margin: { l: 60, r: 60, t: 50, b: 40 },
-        paper_bgcolor: 'rgba(0,0,0,0)',
-        plot_bgcolor: '#ffffff',
-        font: { family: 'ui-sans-serif, -apple-system, sans-serif', color: '#111827', size: 11 },
-        hovermode: 'x unified',
-        legend: { orientation: 'h', yanchor: 'bottom', y: 1.02, xanchor: 'right', x: 1 },
-        xaxis: { title: 'Iteration', gridcolor: '#d7dee6', showgrid: true },
-        yaxis: { title: 'Return', side: 'left', gridcolor: '#d7dee6', showgrid: true, titlefont: { color: '#2563eb' }, tickfont: { color: '#2563eb' } },
-        yaxis2: { title: 'Sharpe', overlaying: 'y', side: 'right', showgrid: false, titlefont: { color: '#0f766e' }, tickfont: { color: '#0f766e' } },
-        yaxis3: { title: 'MaxDD', overlaying: 'y', side: 'right', position: 0.98, showgrid: false, titlefont: { color: '#b91c1c' }, tickfont: { color: '#b91c1c' } },
-      };
-
-      Plotly.newPlot('trainingCurveChart', traces, layout, {
-        responsive: true,
-        displayModeBar: false,
-      });
-    }
-
-    function renderVersionTable() {
-      const versions = DATA.model_versions || [];
-      if (!versions.length) {
-        versionTable.innerHTML = '<tr><th>无历史模型版本数据</th></tr>';
-        return;
-      }
-
-      const bestTestSharpe = Math.max(...versions.map(v => v.test_sharpe != null ? v.test_sharpe : -Infinity));
-      const bestTestReturn = Math.max(...versions.map(v => v.test_return != null ? v.test_return : -Infinity));
-      const bestTestMDD = Math.min(...versions.map(v => v.test_max_dd != null ? v.test_max_dd : Infinity));
-      const bestValidSharpe = Math.max(...versions.map(v => v.valid_sharpe != null ? v.valid_sharpe : -Infinity));
-
-      const header = ['Model', 'Test Return', 'Test Sharpe', 'Test MaxDD', 'Test AvgPos', 'Valid Return', 'Valid Sharpe', 'Valid MaxDD'];
-      const body = versions.map(v => [
-        v.name + (v.promoted ? ' ★' : ''),
-        v.test_return != null ? fmtNum(v.test_return, 1) + '%' : 'n/a',
-        v.test_sharpe != null ? fmtNum(v.test_sharpe, 3) : 'n/a',
-        v.test_max_dd != null ? fmtNum(v.test_max_dd, 1) + '%' : 'n/a',
-        v.test_avg_pos != null ? fmtNum(v.test_avg_pos, 3) : 'n/a',
-        v.valid_return != null ? fmtNum(v.valid_return, 1) + '%' : 'n/a',
-        v.valid_sharpe != null ? fmtNum(v.valid_sharpe, 3) : 'n/a',
-        v.valid_max_dd != null ? fmtNum(v.valid_max_dd, 1) + '%' : 'n/a',
-      ]);
-
-      versionTable.innerHTML = [header, ...body].map((row, ridx) => `
-        <tr data-idx="${ridx > 0 ? ridx - 1 : ''}" class="${ridx > 0 ? 'clickable-version' : ''}">
-          ${row.map((cell, col) => {
-            if (ridx === 0) return `<th>${cell}</th>`;
-            const v = versions[ridx - 1];
-            let cls = v.promoted ? 'promoted' : '';
-            if (col === 1 && v.test_return === bestTestReturn) cls += ' best';
-            if (col === 2 && v.test_sharpe === bestTestSharpe) cls += ' best';
-            if (col === 3 && v.test_max_dd === bestTestMDD) cls += ' best';
-            if (col === 6 && v.valid_sharpe === bestValidSharpe) cls += ' best';
-            return `<td class="${cls.trim()}">${cell}</td>`;
-          }).join('')}
-        </tr>
-      `).join('');
-
-      versionTable.querySelectorAll('tr.clickable-version').forEach(tr => {
-        tr.addEventListener('click', () => {
-          versionTable.querySelectorAll('tr.clickable-version').forEach(r => r.classList.remove('selected'));
-          tr.classList.add('selected');
-          const idx = parseInt(tr.dataset.idx, 10);
-          renderTrainingCurve(idx);
-          document.getElementById('trainingCurve').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         });
       });
     }
@@ -2289,27 +2140,38 @@
           showlegend: false,
         });
       }
-      // K-Line on dedicated price row
-      const opens = [], highs = [], lows = [], closes = [], ma180Dates = [], ma180Vals = [];
-      for (const r of rows) {
-        if (r.open != null) opens.push(r.open);
-        if (r.high != null) highs.push(r.high);
-        if (r.low != null) lows.push(r.low);
-        if (r.close != null) closes.push(r.close);
-        if (r.ma180 != null) { ma180Dates.push(r.datetime); ma180Vals.push(r.ma180); }
-      }
-      if (opens.length) {
+      // Price row: prefer true OHLC candles, fall back to the daily close/price series.
+      const ohlcRows = rows.filter(r => r.open != null && r.high != null && r.low != null && r.close != null);
+      const ma180Rows = rows.filter(r => r.ma180 != null);
+      if (ohlcRows.length) {
         traces.push({
-          x: dates, open: opens, high: highs, low: lows, close: closes,
+          x: ohlcRows.map(r => r.datetime),
+          open: ohlcRows.map(r => r.open),
+          high: ohlcRows.map(r => r.high),
+          low: ohlcRows.map(r => r.low),
+          close: ohlcRows.map(r => r.close),
           name: 'SOXL', type: 'candlestick',
           increasing: {line: {color: '#0f766e'}, fillcolor: 'rgba(15,118,110,0.12)'},
           decreasing: {line: {color: '#b91c1c'}, fillcolor: 'rgba(185,28,28,0.12)'},
           xaxis: xaPrice, yaxis: yaPrice,
         });
+      } else {
+        const priceRows = rows.filter(r => r.close != null || r.price != null);
+        if (priceRows.length) {
+          traces.push({
+            x: priceRows.map(r => r.datetime),
+            y: priceRows.map(r => r.close != null ? r.close : r.price),
+            name: 'SOXL Close', type: 'scatter', mode: 'lines',
+            line: { color: '#0f766e', width: 1.8 },
+            hovertemplate: '%{x}<br>SOXL: $%{y:,.2f}<extra></extra>',
+            xaxis: xaPrice, yaxis: yaPrice,
+          });
+        }
       }
-      if (ma180Vals.length) {
+      if (ma180Rows.length) {
         traces.push({
-          x: ma180Dates, y: ma180Vals,
+          x: ma180Rows.map(r => r.datetime),
+          y: ma180Rows.map(r => r.ma180),
           name: 'MA180', type: 'scatter', mode: 'lines',
           line: { color: '#2563eb', width: 1.5, dash: 'dash' },
           hovertemplate: '%{x}<br>MA180: $%{y:,.2f}<extra></extra>',
@@ -2319,7 +2181,7 @@
       if (buyRows.length) {
         traces.push({
           x: buyRows.map(r => r.datetime),
-          y: buyRows.map(r => r.price || r.close || r.strategy_nav),
+          y: buyRows.map(r => r.close != null ? r.close : (r.price != null ? r.price : r.strategy_nav)),
           name: 'BUY', type: 'scatter', mode: 'markers',
           marker: { symbol: 'triangle-up', size: 12, color: '#0f766e', line: { color: 'white', width: 1.5 } },
           hovertemplate: '<b>BUY</b> %{x}<br>Price: $%{y:.2f}<br>NAV: %{text}<extra></extra>',
@@ -2331,7 +2193,7 @@
       if (sellRows.length) {
         traces.push({
           x: sellRows.map(r => r.datetime),
-          y: sellRows.map(r => r.price || r.close || r.strategy_nav),
+          y: sellRows.map(r => r.close != null ? r.close : (r.price != null ? r.price : r.strategy_nav)),
           name: 'SELL', type: 'scatter', mode: 'markers',
           marker: { symbol: 'triangle-down', size: 12, color: '#b91c1c', line: { color: 'white', width: 1.5 } },
           hovertemplate: '<b>SELL</b> %{x}<br>Price: $%{y:.2f}<br>NAV: %{text}<extra></extra>',
@@ -2427,7 +2289,9 @@
 
       if (rows.length) {
         const versionPayload = state.version && DATA.versioned ? DATA.versioned[state.version] : null;
-        const isFallbackView = Boolean(versionPayload && !((versionPayload.detailed || {})[state.etf]));
+        const versionDetail = versionPayload ? ((versionPayload.detailed || {})[state.etf]) : null;
+        const isInlineLatest = Boolean(state.version && state.version === DATA.latest_version && (DATA.detailed || {})[state.etf]);
+        const isFallbackView = Boolean(versionPayload && !versionDetail && !isInlineLatest);
         chartMeta.innerHTML = `
           <span>Built: <span class="mono">${DATA.generated_at}</span></span>
           <span>Version: <span class="mono">${state.version || 'current'}</span></span>
@@ -2473,8 +2337,6 @@
         renderChart();
         renderTradeStats(k);
         renderTradeTable();
-        renderVersionTable();
-        renderTrainingCurve(null);
       } catch (err) {
         console.error('Dashboard render error:', err);
         document.getElementById('plotlyChart').innerHTML = `

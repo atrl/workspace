@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 
 import pandas as pd
+import pytest
 
 from scripts.build_backtest_dashboard import (
     _load_post_train_review_versions,
@@ -138,6 +139,48 @@ def test_normalize_post_train_review_rows_falls_back_to_position_change_inferenc
     assert [r["action"] for r in rows] == ["BUY", "SELL"]
 
 
+def test_normalize_post_train_review_rows_does_not_synthesize_terminal_sell():
+    rows = normalize_post_train_review_rows(
+        [
+            {
+                "datetime": "2026-05-21",
+                "strategy_nav": "1016052.687283",
+                "price": "178.389999",
+                "buyhold_nav": "3723439.777901",
+                "position": "0.772515",
+                "action": "BUY",
+            },
+            {
+                "datetime": "2026-05-22",
+                "strategy_nav": "1069600.679227",
+                "price": "190.559998",
+                "buyhold_nav": "3977457.699220",
+                "position": "0.783904",
+                "action": "HOLD",
+            },
+        ]
+    )
+
+    assert [r["action"] for r in rows] == ["BUY", "HOLD"]
+
+
+def test_normalize_post_train_review_rows_suppresses_impossible_zero_position_action():
+    rows = normalize_post_train_review_rows(
+        [
+            {
+                "datetime": "2026-03-31",
+                "strategy_nav": "1000000",
+                "price": "47.91",
+                "buyhold_nav": "1000000",
+                "position": "0.0",
+                "action": "BUY",
+            }
+        ]
+    )
+
+    assert rows[0]["action"] == "HOLD"
+
+
 def test_load_versions_keeps_short_paper_trading_history(tmp_path: Path, monkeypatch):
     paper_dir = tmp_path / "runtime" / "soxl" / "paper_trading"
     paper_dir.mkdir(parents=True)
@@ -252,6 +295,66 @@ def test_load_versions_enriches_paper_trading_row_with_latest_non_dry_summary_me
     assert meta["latest_target_position"] == 0.484086
 
 
+def test_load_versions_drops_unannotated_paper_seed_row_and_rebases_buyhold(
+    tmp_path: Path,
+    monkeypatch,
+):
+    paper_dir = tmp_path / "runtime" / "soxl" / "paper_trading"
+    run_dir = paper_dir / "2026-05-14"
+    next_run_dir = paper_dir / "2026-05-15"
+    run_dir.mkdir(parents=True)
+    next_run_dir.mkdir(parents=True)
+    (paper_dir / "paper_trading_soxl_daily.csv").write_text(
+        "\n".join(
+            [
+                "datetime,strategy_nav,price,buyhold_nav,position,excess,excess_pct,action",
+                "2026-03-31,1000000,47.91,1000000,0,0,0,BUY",
+                "2026-05-14,999664.857996,186.190002,3886245.093747,0.335254,-2886580.235751,-74.276845,BUY",
+                "2026-05-15,937490.753601,151.75,3167397.210598,0.485605,-2229906.456997,-70.401857,HOLD",
+            ]
+        ),
+        encoding="utf-8",
+    )
+    (run_dir / "summary.json").write_text(
+        json.dumps(
+            {
+                "date": "2026-05-14",
+                "profile": "paper_profile",
+                "broker": "paper",
+                "dry_run": False,
+                "executed": True,
+                "signal": {"target_position": 0.335254},
+            }
+        ),
+        encoding="utf-8",
+    )
+    (next_run_dir / "summary.json").write_text(
+        json.dumps(
+            {
+                "date": "2026-05-15",
+                "profile": "paper_profile",
+                "broker": "paper",
+                "dry_run": False,
+                "executed": False,
+                "execution_result": {"status": "skipped", "target_position": 0.485605},
+            }
+        ),
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(dashboard_builder, "ROOT", tmp_path)
+    monkeypatch.setattr(dashboard_builder, "load_ohlc_and_indicators", lambda _etf: {})
+
+    versions = _load_post_train_review_versions(features=None)
+
+    rows = versions["paper_trading"]["detailed"]["SOXL"]["rows"]
+    assert [r["datetime"] for r in rows] == ["2026-05-14", "2026-05-15"]
+    assert rows[0]["buyhold_nav"] == pytest.approx(rows[0]["strategy_nav"])
+    assert rows[1]["buyhold_nav"] == pytest.approx(
+        3167397.210598 * (999664.857996 / 3886245.093747)
+    )
+    assert rows[0]["excess"] == pytest.approx(0.0, abs=1e-6)
+
+
 def test_load_versions_keeps_retained_dashboard_export_without_source_csv(tmp_path: Path, monkeypatch):
     retained_dir = tmp_path / "dashboard_data" / "versioned" / "retained_ablation"
     retained_dir.mkdir(parents=True)
@@ -333,7 +436,7 @@ def test_load_versions_prefers_matching_profile_directory_for_duplicate_tag(tmp_
     assert versions["smoke"]["_meta"]["source"] == "runtime/model/card/smoke/smoke_soxl_daily.csv"
 
 
-def test_compact_payload_rows_drops_redundant_market_metadata():
+def test_compact_payload_rows_preserves_market_ohlc_for_static_price_chart():
     rows = compact_payload_rows(
         [
             {
@@ -349,6 +452,9 @@ def test_compact_payload_rows_drops_redundant_market_metadata():
                 "high": 10.1,
                 "low": 9.7,
                 "close": 10.0,
+                "volume": 12345,
+                "ma180": 9.5,
+                "market_state": True,
                 "_features": {"vix": 20.0},
             }
         ]
@@ -363,8 +469,26 @@ def test_compact_payload_rows_drops_redundant_market_metadata():
             "excess": 0.0,
             "excess_pct": 0.0,
             "action": "BUY",
+            "open": 9.8,
+            "high": 10.1,
+            "low": 9.7,
+            "close": 10.0,
+            "volume": 12345,
+            "ma180": 9.5,
+            "market_state": True,
         }
     ]
+
+
+def test_build_html_removes_unreliable_training_curve_and_history_compare():
+    html = build_html({"detailed": {}, "versioned": {}, "model_versions": []}, {"all": {}})
+
+    assert "Training Curve" not in html
+    assert "trainingCurve" not in html
+    assert "renderTrainingCurve" not in html
+    assert "Model Version Comparison" not in html
+    assert "versionCompare" not in html
+    assert "renderVersionTable" not in html
 
 
 def test_build_html_loads_production_status_json():

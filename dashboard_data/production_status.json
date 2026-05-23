@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-05-23T03:24:14.794081+00:00",
+  "checked_at": "2026-05-23T04:18:23.687592+00:00",
   "status": "blocked_no_credentials",
   "deploy_requested": false,
   "deployment_url": null,
@@ -7,9 +7,9 @@
   "project_status": "missing_project_link",
   "static_errors_count": 0,
   "static_export": {
-    "generated_at": "2026-05-23 11:22:25",
+    "generated_at": "2026-05-23 12:18:13",
     "latest": "paper_trading",
-    "paper_trading_rows": 6,
+    "paper_trading_rows": 4,
     "paper_trading_end": "2026-05-22"
   },
   "env_file": {
