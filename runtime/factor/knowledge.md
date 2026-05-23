@@ -33,7 +33,7 @@
 | SIGNED_TE_REVERSION_10_STRESS_GATE | crypto analogue | transition | 🟡 Candidate / blocked | PF=1.351, Acc=0.590 | [card](card/signed_te_stress_gate/card.md) |
 | INTRADAY_REJECTION_EVENT | crypto analogue | transition | ❌ Blocked | Sharpe=+0.261, PF=1.078 | [card](card/intraday_rejection_event/card.md) |
 | REL_VOLUME_RATIO | SOXX | liquidity | 🟡 IC candidate | IC=+0.058, IC+=0.591, rho=0.136 | [card](card/soxx_signals/card_REL_VOLUME_RATIO.md) |
-| TUSHARE_US_DAILY_ADJ | Tushare | data intake | ⚪ Pending cache | optional lagged SOXX/SOXL turnover/amount fields | [card](card/tushare_soxx_factor_intake_v1/notes.md) |
+| TUSHARE_US_DAILY_ADJ | Tushare | data intake | ❌ Blocked / weak | best IC=+0.012, IC+=0.485, rho=0.280 | [card](card/tushare_soxx_factor_intake_v1/notes.md) |
 | regime_risk | core | composite | ✅ Core | 训练主特征 | [card](cards/regime_risk/card.md) |
 | regime_risk_no_vix | core | composite | 🟡 Ablated | VIX-free | [card](cards/regime_risk_no_vix/card.md) |
 | vol_stress_score | core | composite | 🟡 VIX-free proxy | 纯价格 stress | [card](cards/vol_stress_score/card.md) |
@@ -57,7 +57,7 @@
 7. **SIGNED_TE_REVERSION_10_STRESS_GATE** 证明 stress-release gate 能提高执行质量（PF=1.351、accuracy=0.590、max core rho=0.388），但 IC positive ratio 因信号稀疏仅 0.036，仍不进入 RL feature promotion。
 8. **INTRADAY_REJECTION_EVENT** 是 crypto liquidation-wick 类比因子：正交性尚可（max core rho=0.444），但 direction stability 和 standalone backtest 都失败；不要再裸测 wick rejection，除非增加明确 regime gate。
 9. **SOXX direct actor feature retrain 不应重复**：`balanced_rule_residual_v22_soxx` 已经失败并被 dropped；2026-05-23 复核显示 `REL_VOLUME_RATIO` 有 IC 候选价值（h20 IC=+0.058、positive_ratio=0.591、max core rho=0.136），但 PF/accuracy 不过门槛；`PRICE_RATIO_MOM` 与 `SOXX_BIAS_10` 分别与 `mom_5` 高相关（0.993/0.916），不要作为 core feature 直接重训。
-10. **Tushare 因子入口已准备但等待私有缓存**：`tushare_us_daily_adj` pack 使用 T+1 滞后的 SOXX/SOXL turnover、amount、adj_factor 字段；无 `TUSHARE_TOKEN` 或缓存时输出零特征，不能据此启动有效 retrain。
+10. **Tushare 原始 us_daily_adj pack 不足以直接重训**：2026-05-23 新 token 已拉取 SOXX/SOXL cache 到 `2026-05-22`；`TUSHARE_SOXX_TURNOVER_ZSCORE_21` 是最佳原始候选，但 h20 IC 只有 `+0.012020`、positive ratio `0.485`，低于 promotion gate。虽然部分 long threshold 的 PF/accuracy 接近或略过 `1.2/0.55`，但 IC 稳定性失败，不能据此开 Tushare feature retrain。
 
 ## 特征冗余（|rho| > 0.85）
 

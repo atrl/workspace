@@ -6164,6 +6164,9 @@ PYTHONPATH=. qlib_venv/bin/python scripts/update_market_data.py --local-only
 
 PYTHONPATH=. qlib_venv/bin/python scripts/update_data_registry.py --check
 # update_data_registry: OK symbols=6 panels=10 qlib=6
+
+MPLCONFIGDIR=/private/tmp/mplconfig PYTHONPATH=. qlib_venv/bin/python scripts/check_harness.py
+# [summary] passed=203 failures=0
 ```
 
 Decision:
@@ -7249,3 +7252,59 @@ Artifacts:
 - `runtime/harness/card/artifact_retention_v1/notes.md`
 - `runtime/factor/card/tushare_soxx_factor_intake_v1/notes.md`
 - `runtime/factor/card/soxx_signals/card_REL_VOLUME_RATIO.md`
+
+### 2026-05-23 Tushare Token Refresh + Live Pack Gate
+
+Goal: use the replacement Tushare token to materialize the optional cache and
+decide whether the raw Tushare feature pack is strong enough to justify retrain.
+
+Handling:
+
+- The token was used only through a local `TUSHARE_TOKEN` environment variable.
+- The token was not written to repo files or evidence artifacts.
+
+Evidence:
+
+```bash
+PYTHONPATH=. qlib_venv/bin/python scripts/fetch_tushare_data.py \
+  --api us_daily_adj --symbols SOXX SOXL --start-date 20100311 \
+  --end-date 20260522
+# fetch_tushare_data: wrote data/raw/external/tushare_us_daily_adj_SOXX.csv
+# fetch_tushare_data: wrote data/raw/external/tushare_us_daily_adj_SOXL.csv
+# fetch_tushare_data: OK files=2
+
+wc -l data/raw/external/tushare_us_daily_adj_SOXX.csv \
+  data/raw/external/tushare_us_daily_adj_SOXL.csv
+# 3834 data/raw/external/tushare_us_daily_adj_SOXX.csv
+# 3861 data/raw/external/tushare_us_daily_adj_SOXL.csv
+
+tail -n 3 data/raw/external/tushare_us_daily_adj_SOXX.csv
+# ends at 2026-05-22
+
+PYTHONPATH=. qlib_venv/bin/python scripts/evaluate_factor_pack.py --pack tushare_us_daily_adj
+# TUSHARE_SOXX_TURNOVER_ZSCORE_21 h20 IC=+0.012020 positive_ratio=0.485 t=2.775 max_core_corr=0.280
+# best backtest row: long threshold=-1.0 Sharpe=0.969 PF=1.198 Acc=0.550 MaxDD=-0.869
+
+PYTHONPATH=. qlib_venv/bin/python scripts/update_data_registry.py
+# update_data_registry: OK symbols=6 panels=10 qlib=6
+
+PYTHONPATH=. qlib_venv/bin/python scripts/update_data_registry.py --check
+# update_data_registry: OK symbols=6 panels=10 qlib=6
+```
+
+Decision:
+
+- Raw `tushare_us_daily_adj` does **not** clear feature promotion gates.
+- Do not start a PPO retrain with this raw pack. It would add weak raw
+  liquidity fields to an already-failed direct-SOXX retrain line.
+- Next valid factor branch should derive a narrower Tushare pack before any
+  actor training: candidates are stress/recovery-gated SOXX turnover
+  exhaustion, SOXL-vs-SOXX turnover divergence, and amount/vwap confirmation
+  around release windows.
+
+Artifacts:
+
+- `data/raw/external/tushare_us_daily_adj_SOXX.csv`
+- `data/raw/external/tushare_us_daily_adj_SOXL.csv`
+- `runtime/factor/card/tushare_us_daily_adj/`
+- `runtime/factor/tushare_us_daily_adj_ic.csv`

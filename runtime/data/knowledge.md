@@ -98,8 +98,9 @@
 
 - 新增 `src/soxl_quant/core/tushare.py` 和 `scripts/fetch_tushare_data.py`，用于把 Tushare Pro `us_daily_adj` 缓存到 `data/raw/external/tushare_us_daily_adj_<SYMBOL>.csv`。
 - 新增 feature pack `tushare_us_daily_adj`，当前字段为 SOXX/SOXL turnover、amount、turnover spread、SOXX adj factor delta，全部 T+1 滞后后进入特征。
-- 官方 Tushare 数据需要 token，且美股日线/复权行情是独立权限面；当前环境没有 `TUSHARE_TOKEN`，命令以 `--allow-missing-token` 验证为 optional skip。
-- 训练前必须先刷新本地 Tushare cache 并跑因子 gate；无缓存时 pack 全零，只验证接口兼容，不提供 alpha。
+- 官方 Tushare 数据需要 token，且美股日线/复权行情是独立权限面；token 不写入 repo，只在运行时通过 `TUSHARE_TOKEN` 环境变量传入。
+- 2026-05-23 使用新的运行时 token 成功拉取 `SOXX`/`SOXL` cache，覆盖到 `2026-05-22`：`SOXX=3833` rows，`SOXL=3860` rows。
+- 训练前必须先刷新本地 Tushare cache 并跑因子 gate；本轮原始 pack 未过 IC/positive-ratio gate，所以仍不启动 Tushare feature retrain。
 
 ## 50 Core Features 主题分类
 

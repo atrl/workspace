@@ -71,6 +71,18 @@ external:
     path: data/raw/external/treasury_10y.csv
     rows: 16063
     start: null
+  tushare_us_daily_adj_SOXL:
+    end: '2026-05-22'
+    exists: true
+    path: data/raw/external/tushare_us_daily_adj_SOXL.csv
+    rows: 3860
+    start: '2010-03-11'
+  tushare_us_daily_adj_SOXX:
+    end: '2026-05-22'
+    exists: true
+    path: data/raw/external/tushare_us_daily_adj_SOXX.csv
+    rows: 3833
+    start: '2010-03-11'
   yield_curve_10y2y:
     end: null
     exists: true
@@ -83,7 +95,7 @@ external:
     path: data/raw/external/yield_curve_10y3m.csv
     rows: 11081
     start: null
-generated_at: '2026-05-22T22:15:20.287485+00:00'
+generated_at: '2026-05-23T09:04:20.128335+00:00'
 layout:
   processed_panels: data/processed/panels/<asset>_with_underlying_vix.csv
   qlib: data/qlib/<asset>/

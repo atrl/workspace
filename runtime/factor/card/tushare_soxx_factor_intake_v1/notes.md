@@ -108,3 +108,54 @@ PY
 MPLCONFIGDIR=/private/tmp/mplconfig PYTHONPATH=. qlib_venv/bin/python scripts/check_harness.py
 # [summary] passed=203 failures=0
 ```
+
+## Live Token Cache Result
+
+Date: 2026-05-23
+
+The replacement Tushare token was used only as a local runtime environment
+variable. It was not written to repo files.
+
+Fetch result:
+
+```bash
+PYTHONPATH=. qlib_venv/bin/python scripts/fetch_tushare_data.py \
+  --api us_daily_adj --symbols SOXX SOXL --start-date 20100311 \
+  --end-date 20260522
+# fetch_tushare_data: wrote data/raw/external/tushare_us_daily_adj_SOXX.csv
+# fetch_tushare_data: wrote data/raw/external/tushare_us_daily_adj_SOXL.csv
+# fetch_tushare_data: OK files=2
+
+wc -l data/raw/external/tushare_us_daily_adj_SOXX.csv \
+  data/raw/external/tushare_us_daily_adj_SOXL.csv
+# 3834 data/raw/external/tushare_us_daily_adj_SOXX.csv
+# 3861 data/raw/external/tushare_us_daily_adj_SOXL.csv
+```
+
+Both files end at `2026-05-22`. Data rows excluding headers are `SOXX=3833`
+and `SOXL=3860`.
+
+Gate result:
+
+```bash
+PYTHONPATH=. qlib_venv/bin/python scripts/evaluate_factor_pack.py --pack tushare_us_daily_adj
+# best IC: TUSHARE_SOXX_TURNOVER_ZSCORE_21 h20 IC=+0.012020 IC+=0.485 t=2.775 rho=0.280
+# best backtest row: TUSHARE_SOXX_TURNOVER_ZSCORE_21 long -1.0 Sharpe=0.969 PF=1.198 Acc=0.550
+
+PYTHONPATH=. qlib_venv/bin/python scripts/update_data_registry.py --check
+# update_data_registry: OK symbols=6 panels=10 qlib=6
+
+MPLCONFIGDIR=/private/tmp/mplconfig PYTHONPATH=. qlib_venv/bin/python scripts/check_harness.py
+# [summary] passed=203 failures=0
+```
+
+Conclusion:
+
+- Raw Tushare `turnover_ratio` and `amount` features have low core correlation
+  and mild t-stat support, but they fail the IC mean and positive-ratio gates.
+- The permissive long thresholds are mostly market-exposure variants and have
+  very deep drawdowns, so they are not promotion evidence.
+- Do not retrain on the raw `tushare_us_daily_adj` pack. The next valid branch
+  should test a narrow derived/gated Tushare pack first, for example liquidity
+  exhaustion under stress/recovery regimes or SOXL-vs-SOXX turnover divergence
+  only around release windows.

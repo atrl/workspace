@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-23T05:16:51.773873+00:00",
+  "generated_at": "2026-05-23T09:06:00.029253+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -23,7 +23,7 @@
       "path": "runtime/data/knowledge.md",
       "category": "data",
       "suffix": ".md",
-      "bytes": 6931
+      "bytes": 7082
     },
     {
       "path": "runtime/data/leakage_validation_report.json",
@@ -623,7 +623,43 @@
       "path": "runtime/factor/card/tushare_soxx_factor_intake_v1/notes.md",
       "category": "factor",
       "suffix": ".md",
-      "bytes": 4167
+      "bytes": 6150
+    },
+    {
+      "path": "runtime/factor/card/tushare_us_daily_adj/backtest_tushare_us_daily_adj.csv",
+      "category": "factor",
+      "suffix": ".csv",
+      "bytes": 6981
+    },
+    {
+      "path": "runtime/factor/card/tushare_us_daily_adj/card_TUSHARE_SOXL_SOXX_TURNOVER_SPREAD_21.md",
+      "category": "factor",
+      "suffix": ".md",
+      "bytes": 515
+    },
+    {
+      "path": "runtime/factor/card/tushare_us_daily_adj/card_TUSHARE_SOXX_ADJ_FACTOR_DELTA_5.md",
+      "category": "factor",
+      "suffix": ".md",
+      "bytes": 509
+    },
+    {
+      "path": "runtime/factor/card/tushare_us_daily_adj/card_TUSHARE_SOXX_AMOUNT_ZSCORE_21.md",
+      "category": "factor",
+      "suffix": ".md",
+      "bytes": 507
+    },
+    {
+      "path": "runtime/factor/card/tushare_us_daily_adj/card_TUSHARE_SOXX_TURNOVER_ZSCORE_21.md",
+      "category": "factor",
+      "suffix": ".md",
+      "bytes": 509
+    },
+    {
+      "path": "runtime/factor/card/tushare_us_daily_adj/correlation_tushare_us_daily_adj.csv",
+      "category": "factor",
+      "suffix": ".csv",
+      "bytes": 346
     },
     {
       "path": "runtime/factor/card/vol_stress_score/card.md",
@@ -659,7 +695,7 @@
       "path": "runtime/factor/knowledge.md",
       "category": "factor",
       "suffix": ".md",
-      "bytes": 17090
+      "bytes": 17242
     },
     {
       "path": "runtime/factor/rulebase_signals_ic.csv",
@@ -684,6 +720,12 @@
       "category": "factor",
       "suffix": ".csv",
       "bytes": 1588
+    },
+    {
+      "path": "runtime/factor/tushare_us_daily_adj_ic.csv",
+      "category": "factor",
+      "suffix": ".csv",
+      "bytes": 2347
     },
     {
       "path": "runtime/harness/2026-04-17-balanced-regime-gate-failure.md",
