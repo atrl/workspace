@@ -59,6 +59,54 @@ external:
     path: data/raw/external/dxy_broad.csv
     rows: 5092
     start: null
+  futu_capital_distribution_US_SOXL:
+    end: '2026-05-22'
+    exists: true
+    path: data/raw/external/futu_capital_distribution_US_SOXL.csv
+    rows: 1
+    start: '2026-05-22'
+  futu_capital_distribution_US_SOXX:
+    end: '2026-05-22'
+    exists: true
+    path: data/raw/external/futu_capital_distribution_US_SOXX.csv
+    rows: 1
+    start: '2026-05-22'
+  futu_capital_flow_day_US_SOXL:
+    end: '2026-05-22'
+    exists: true
+    path: data/raw/external/futu_capital_flow_day_US_SOXL.csv
+    rows: 251
+    start: '2025-05-23'
+  futu_capital_flow_day_US_SOXX:
+    end: '2026-05-22'
+    exists: true
+    path: data/raw/external/futu_capital_flow_day_US_SOXX.csv
+    rows: 251
+    start: '2025-05-23'
+  futu_capital_flow_intraday_US_SOXL:
+    end: '2026-05-22'
+    exists: true
+    path: data/raw/external/futu_capital_flow_intraday_US_SOXL.csv
+    rows: 391
+    start: '2026-05-22'
+  futu_capital_flow_intraday_US_SOXX:
+    end: '2026-05-22'
+    exists: true
+    path: data/raw/external/futu_capital_flow_intraday_US_SOXX.csv
+    rows: 391
+    start: '2026-05-22'
+  futu_snapshot_US_SOXL:
+    end: '2026-05-22'
+    exists: true
+    path: data/raw/external/futu_snapshot_US_SOXL.csv
+    rows: 1
+    start: '2026-05-22'
+  futu_snapshot_US_SOXX:
+    end: '2026-05-22'
+    exists: true
+    path: data/raw/external/futu_snapshot_US_SOXX.csv
+    rows: 1
+    start: '2026-05-22'
   oil_wti:
     end: null
     exists: true
@@ -95,7 +143,7 @@ external:
     path: data/raw/external/yield_curve_10y3m.csv
     rows: 11081
     start: null
-generated_at: '2026-05-23T09:04:20.128335+00:00'
+generated_at: '2026-05-23T13:52:45.557546+00:00'
 layout:
   processed_panels: data/processed/panels/<asset>_with_underlying_vix.csv
   qlib: data/qlib/<asset>/

@@ -7391,3 +7391,57 @@ Decision:
 Artifact:
 
 - `runtime/factor/card/futu_small_order_probe_v1/notes.md`
+
+### 2026-05-23 Futu Retry After Phone Verification
+
+Goal: retry Futu quote data after completing the local OpenD phone/UI
+verification and persist non-secret SOXL/SOXX order-flow cache.
+
+Evidence:
+
+```bash
+PYTHONPATH=. qlib_venv/bin/python production/check_futu_opend.py
+# OK: OpenD is reachable at 127.0.0.1:11111
+
+PYTHONPATH=. qlib_venv/bin/python - <<'PY'
+# OpenQuoteContext -> market snapshot, capital distribution, intraday capital
+# flow, and daily capital flow for US.SOXL / US.SOXX.
+PY
+# futu_snapshot_US_SOXL.csv: rows=1 start=2026-05-22 end=2026-05-22
+# futu_capital_distribution_US_SOXL.csv: rows=1 start=2026-05-22 end=2026-05-22
+# futu_capital_flow_intraday_US_SOXL.csv: rows=391 start=2026-05-22 end=2026-05-22
+# futu_capital_flow_day_US_SOXL.csv: rows=251 start=2025-05-23 end=2026-05-22
+# futu_snapshot_US_SOXX.csv: rows=1 start=2026-05-22 end=2026-05-22
+# futu_capital_distribution_US_SOXX.csv: rows=1 start=2026-05-22 end=2026-05-22
+# futu_capital_flow_intraday_US_SOXX.csv: rows=391 start=2026-05-22 end=2026-05-22
+# futu_capital_flow_day_US_SOXX.csv: rows=251 start=2025-05-23 end=2026-05-22
+
+PYTHONPATH=. qlib_venv/bin/python scripts/update_data_registry.py
+# update_data_registry: OK symbols=6 panels=10 qlib=6
+```
+
+Latest daily readout (`2026-05-22`):
+
+- SOXL: `sml_in_flow=+189.8M`, `main_in_flow=+106.1M`.
+- SOXX: `sml_in_flow=-93.5M`, `main_in_flow=+14.7M`.
+
+Decision:
+
+- Futu small-order data is now usable as a candidate external data source.
+- Daily history from this probe starts at `2025-05-23`, so initial validation
+  should treat it as a shorter-history factor source.
+- Do not retrain yet. Next valid loop is a lagged factor pack plus IC/backtest
+  gate around small net flow, small-flow share, and SOXL-vs-SOXX small-flow
+  divergence.
+
+Artifacts:
+
+- `data/raw/external/futu_snapshot_US_SOXL.csv`
+- `data/raw/external/futu_snapshot_US_SOXX.csv`
+- `data/raw/external/futu_capital_distribution_US_SOXL.csv`
+- `data/raw/external/futu_capital_distribution_US_SOXX.csv`
+- `data/raw/external/futu_capital_flow_intraday_US_SOXL.csv`
+- `data/raw/external/futu_capital_flow_intraday_US_SOXX.csv`
+- `data/raw/external/futu_capital_flow_day_US_SOXL.csv`
+- `data/raw/external/futu_capital_flow_day_US_SOXX.csv`
+- `runtime/factor/card/futu_small_order_probe_v1/notes.md`

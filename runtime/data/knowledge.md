@@ -106,8 +106,13 @@
 
 - Futu OpenAPI 是当前最接近 SOXL/SOXX 小单资金流的数据源，目标接口为 `get_capital_flow` / `get_capital_distribution`。
 - 本机 `futu-api=10.02.6218` 可用，OpenD 安装路径存在，启动后 `127.0.0.1:11111` 端口可达。
-- SDK quote context 初始化仍被 OpenD 返回 `需要图形验证码` 阻断；18 次轮询均未通过，因此本轮没有生成 Futu capital-flow cache。
-- 完成 OpenD 图形验证后，先拉 `US.SOXL` / `US.SOXX` 历史日频 capital flow，再进入因子 gate；未落 rows 前不要创建训练 profile。
+- 初次 probe 被 OpenD 图形验证阻断；完成本地 phone/UI 验证后，`OpenQuoteContext` 可用并成功落地非 secret cache。
+- 新增 Futu cache：
+  - `futu_capital_flow_day_US_SOXL.csv` / `futu_capital_flow_day_US_SOXX.csv`：各 `251` rows，`2025-05-23` 至 `2026-05-22`。
+  - `futu_capital_flow_intraday_US_SOXL.csv` / `futu_capital_flow_intraday_US_SOXX.csv`：各 `391` rows，覆盖 `2026-05-22`。
+  - `futu_capital_distribution_US_SOXL.csv` / `futu_capital_distribution_US_SOXX.csv`：各 `1` row，更新到 `2026-05-22`。
+  - `futu_snapshot_US_SOXL.csv` / `futu_snapshot_US_SOXX.csv`：各 `1` row，更新到 `2026-05-22`。
+- 2026-05-22 latest daily small-flow readout：SOXL `sml_in_flow=+189.8M`，SOXX `sml_in_flow=-93.5M`。这是候选因子信号，不是训练许可；下一步必须跑 lagged factor gate。
 
 ## 50 Core Features 主题分类
 
