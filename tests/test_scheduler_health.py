@@ -1016,6 +1016,8 @@ def test_scheduler_health_accepts_selected_profile_duplicate_skip_as_runtime_pro
             "SOXL_SCHEDULER_HEALTH_ROOT": str(root),
             "SOXL_SCHEDULER_HEALTH_PYTHON": str(fake_python),
             "SOXL_SCHEDULER_HEALTH_LAUNCHAGENTS_DIR": str(launchagents_dir),
+            "SOXL_SCHEDULER_HEALTH_WEEKDAY": "4",
+            "SOXL_SCHEDULER_HEALTH_HHMM": "0630",
         }
         result = subprocess.run(
             ["bash", str(ROOT / "production" / "check_scheduler_health.sh")],

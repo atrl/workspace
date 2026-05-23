@@ -36,6 +36,7 @@ if str(ROOT) not in sys.path:
 
 from production.notify import get_notifier
 from src.soxl_quant.app.futu import FutuBroker
+from src.soxl_quant.app.ibkr import IBConnectionConfig, IBBroker
 from src.soxl_quant.policy.two_speed_budget import (
     TwoSpeedBudgetConfig,
     compose_budget_usage_position,
@@ -57,9 +58,14 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--slow-profile", required=True, help="Slow actor profile name")
     parser.add_argument("--fast-profile", required=True, help="Fast actor profile name")
     parser.add_argument("--as-of", required=True, help="Signal date YYYY-MM-DD")
-    parser.add_argument("--broker", default="paper", choices=["paper", "futu"])
+    parser.add_argument("--broker", default="paper", choices=["paper", "futu", "ibkr"])
     parser.add_argument("--futu-host", default="127.0.0.1")
     parser.add_argument("--futu-port", type=int, default=11111)
+    parser.add_argument("--ibkr-host", default="127.0.0.1")
+    parser.add_argument("--ibkr-port", type=int, default=7497)
+    parser.add_argument("--ibkr-client-id", type=int, default=37)
+    parser.add_argument("--ibkr-account", default="")
+    parser.add_argument("--ibkr-connect-timeout", type=float, default=10.0)
     parser.add_argument("--unlock-password", default="")
     parser.add_argument("--market-order", action="store_true")
     parser.add_argument("--submit", action="store_true", help="Actually submit orders")
@@ -83,6 +89,22 @@ def _init_broker(args: argparse.Namespace) -> BrokerAdapter:
             lot_size=1,
             use_market_order=args.market_order,
             unlock_password=args.unlock_password,
+        )
+        broker.connect()
+        return broker
+    if args.broker == "ibkr":
+        broker = IBBroker(
+            config=IBConnectionConfig(
+                host=args.ibkr_host,
+                port=args.ibkr_port,
+                client_id=args.ibkr_client_id,
+                account=args.ibkr_account,
+                paper=args.ibkr_port in {7497, 4002},
+                connect_timeout_sec=args.ibkr_connect_timeout,
+            ),
+            symbol="SOXL",
+            lot_size=1,
+            use_market_order=args.market_order,
         )
         broker.connect()
         return broker

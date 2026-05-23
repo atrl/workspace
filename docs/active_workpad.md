@@ -7616,3 +7616,82 @@ Artifacts:
 - `dashboard_data/production_goal_gates.json`
 - `dashboard_data/production_status.json`
 - `runtime/model/card/model_runtime_readiness_v1/model_runtime_readiness_review.md`
+
+## 2026-05-23 IBKR Adapter Install
+
+Goal: install and wire IBKR into the repo-owned production broker boundary
+without changing the default scheduled broker.
+
+Scope:
+
+- Install `ib-insync` into `qlib_venv`.
+- Move the IBKR implementation boundary under `src/soxl_quant/app/ibkr.py`.
+- Keep `production/ib_broker.py` and `production/ib_client.py` as compatibility
+  shims.
+- Add `production/check_ibkr_gateway.py` for local TWS / IB Gateway readiness.
+- Add explicit `--broker ibkr` arguments to the paper runner, scheduler, and
+  composed session.
+- Stabilize the duplicate-skip scheduler-health proof test by pinning its
+  health time to a postclose-due window.
+- Keep IBKR execution proof conservative: a submitted/pending IBKR order does
+  not update resulting position until a filled status is observed.
+
+Evidence:
+
+```bash
+qlib_venv/bin/python -m pip install ib-insync
+# Successfully installed eventkit-1.0.3 ib-insync-0.9.86
+
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_ibkr_adapter.py -q
+# red before implementation: 8 failed
+# green after implementation: 8 passed
+
+uv run --python qlib_venv/bin/python --with pytest pytest \
+  tests/test_ibkr_adapter.py::test_ibkr_submitted_order_does_not_assume_resulting_position_changed -q
+# red before fix: resulting_position was 0.5 for an IBKR Submitted status
+# green after fix: 1 passed
+
+qlib_venv/bin/python - <<'PY'
+import inspect
+import ib_insync
+from ib_insync import IB
+print('ib_insync', getattr(ib_insync, '__version__', 'unknown'))
+print(inspect.signature(IB.connect))
+PY
+# ib_insync 0.9.86
+# IB.connect supports host, port, clientId, timeout, readonly, account
+
+PYTHONPATH=. qlib_venv/bin/python production/check_ibkr_gateway.py --port 7497 --timeout 1
+# FAIL: IBKR TWS/Gateway is NOT reachable at 127.0.0.1:7497
+
+HOMEBREW_NO_AUTO_UPDATE=1 brew install --cask trader-workstation
+# dmg downloaded and install4j quiet installer started, but the installer did
+# not exit after writing a partial /Applications/Trader Workstation directory.
+# Terminating the installer caused Homebrew to purge the cask. Treat the TWS
+# desktop install as external GUI setup, not repo proof. The unusable partial
+# application directory was removed.
+
+uv run --python qlib_venv/bin/python --with pytest pytest \
+  tests/test_ibkr_adapter.py tests/test_futu_adapter.py tests/test_daily_scheduler.py \
+  tests/test_paper_trading.py tests/test_production_schedule.py \
+  tests/test_scheduler_health.py::test_scheduler_health_accepts_selected_profile_duplicate_skip_as_runtime_proof -q
+# 64 passed
+
+MPLCONFIGDIR=/private/tmp/mplconfig PYTHONPATH=. qlib_venv/bin/python scripts/check_harness.py
+# [summary] passed=203 failures=0
+```
+
+Decision:
+
+- Python-side install and repo integration are done.
+- IBKR broker readiness remains an external local-app state: a reliable TWS / IB
+  Gateway install must be running, logged in, and configured to allow socket
+  clients. The Homebrew TWS cask path hung in the install4j step in this run.
+- Keep production schedule on `--broker paper`; use `--broker ibkr` manually
+  only after `production/check_ibkr_gateway.py` returns OK.
+
+Artifacts:
+
+- `src/soxl_quant/app/ibkr.py`
+- `production/check_ibkr_gateway.py`
+- `runtime/production/card/ibkr_adapter_v1/notes.md`

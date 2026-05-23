@@ -10,6 +10,7 @@ Runs the full daily pipeline in order:
 Usage:
     PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py
     PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py --broker futu
+    PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py --broker ibkr --ibkr-port 7497
     PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py --dry-run
     PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py --smoke
 """
@@ -55,9 +56,14 @@ def _is_transient_data_source_failure(exc: BaseException) -> bool:
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="SOXL daily unified scheduler")
-    parser.add_argument("--broker", default="paper", choices=["paper", "futu"])
+    parser.add_argument("--broker", default="paper", choices=["paper", "futu", "ibkr"])
     parser.add_argument("--futu-host", default="127.0.0.1")
     parser.add_argument("--futu-port", type=int, default=11111)
+    parser.add_argument("--ibkr-host", default="127.0.0.1")
+    parser.add_argument("--ibkr-port", type=int, default=7497)
+    parser.add_argument("--ibkr-client-id", type=int, default=37)
+    parser.add_argument("--ibkr-account", default="")
+    parser.add_argument("--ibkr-connect-timeout", type=float, default=10.0)
     parser.add_argument("--unlock-password", default="")
     parser.add_argument("--profile-family", default="balanced")
     parser.add_argument("--profile", default="")
@@ -250,6 +256,17 @@ def main() -> None:
             paper_cmd.extend(["--futu-host", args.futu_host, "--futu-port", str(args.futu_port)])
             if args.unlock_password:
                 paper_cmd.extend(["--unlock-password", args.unlock_password])
+        if args.broker == "ibkr":
+            paper_cmd.extend(
+                [
+                    "--ibkr-host", args.ibkr_host,
+                    "--ibkr-port", str(args.ibkr_port),
+                    "--ibkr-client-id", str(args.ibkr_client_id),
+                    "--ibkr-connect-timeout", str(args.ibkr_connect_timeout),
+                ]
+            )
+            if args.ibkr_account:
+                paper_cmd.extend(["--ibkr-account", args.ibkr_account])
 
         _run(paper_cmd, "paper trading")
 

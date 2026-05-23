@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-23T14:23:03.460630+00:00",
+  "generated_at": "2026-05-23T16:22:54.300961+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -2327,19 +2327,19 @@
       "path": "runtime/model/card/model_runtime_readiness_v1/model_runtime_readiness_review.json",
       "category": "model",
       "suffix": ".json",
-      "bytes": 4024
+      "bytes": 3843
     },
     {
       "path": "runtime/model/card/model_runtime_readiness_v1/model_runtime_readiness_review.md",
       "category": "model",
       "suffix": ".md",
-      "bytes": 2160
+      "bytes": 2000
     },
     {
       "path": "runtime/model/card/model_runtime_readiness_v1/notes.md",
       "category": "model",
       "suffix": ".md",
-      "bytes": 737
+      "bytes": 783
     },
     {
       "path": "runtime/model/card/risk_budget_bc_warmstart_v1/risk_budget_bc_warmstart_v1_bc.json",
@@ -2927,7 +2927,7 @@
       "path": "runtime/model/knowledge.md",
       "category": "model",
       "suffix": ".md",
-      "bytes": 58542
+      "bytes": 58672
     },
     {
       "path": "runtime/model/model_adjustment_roadmap.md",
@@ -3102,6 +3102,18 @@
       "category": "production",
       "suffix": ".md",
       "bytes": 1852
+    },
+    {
+      "path": "runtime/production/card/ibkr_adapter_v1/notes.md",
+      "category": "production",
+      "suffix": ".md",
+      "bytes": 4497
+    },
+    {
+      "path": "runtime/production/card/launch_proof_20260523_v1/notes.md",
+      "category": "production",
+      "suffix": ".md",
+      "bytes": 3403
     },
     {
       "path": "runtime/production/card/operator_scheduler_docs_sync_v1/notes.md",
@@ -3365,13 +3377,13 @@
       "path": "runtime/production/card/vercel_remote_deploy_v1/notes.md",
       "category": "production",
       "suffix": ".md",
-      "bytes": 771
+      "bytes": 511
     },
     {
       "path": "runtime/production/card/vercel_remote_deploy_v1/vercel_deployment_check.json",
       "category": "production",
       "suffix": ".json",
-      "bytes": 1978
+      "bytes": 1443
     },
     {
       "path": "runtime/production/card/vercel_scheduled_deploy_v1/notes.md",
@@ -3413,7 +3425,7 @@
       "path": "runtime/production/knowledge.md",
       "category": "production",
       "suffix": ".md",
-      "bytes": 120042
+      "bytes": 121443
     },
     {
       "path": "runtime/reward/card/base_log/card.md",

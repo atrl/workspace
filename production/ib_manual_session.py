@@ -21,8 +21,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from production.ib_broker import IBBroker
-from production.ib_client import IBConnectionConfig
+from src.soxl_quant.app.ibkr import IBConnectionConfig, IBBroker
 from src.soxl_quant.runtime import plan_manual_session
 from src.soxl_quant.settings import RUNTIME_DIR
 
@@ -35,6 +34,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--port", type=int, default=7497, help="IB Gateway/TWS port; 7497 is common paper default")
     parser.add_argument("--client-id", type=int, default=37)
     parser.add_argument("--account", default="", help="optional IB account id")
+    parser.add_argument("--connect-timeout", type=float, default=10.0, help="IBKR SDK connect timeout in seconds")
     parser.add_argument("--submit", action="store_true", help="actually submit the approved order")
     parser.add_argument("--market-order", action="store_true", help="use market order instead of limit-at-last-price")
     return parser.parse_args()
@@ -49,7 +49,8 @@ def main() -> None:
             port=args.port,
             client_id=args.client_id,
             account=args.account,
-            paper=True,
+            paper=args.port in {7497, 4002},
+            connect_timeout_sec=args.connect_timeout,
         ),
         use_market_order=args.market_order,
     )

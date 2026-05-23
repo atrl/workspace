@@ -6,6 +6,7 @@ Closed loop: data update -> model selection -> signal -> risk gate -> order -> n
 Examples:
     PYTHONPATH=. qlib_venv/bin/python production/soxl_paper_trading.py
     PYTHONPATH=. qlib_venv/bin/python production/soxl_paper_trading.py --broker futu --unlock-password XXX
+    PYTHONPATH=. qlib_venv/bin/python production/soxl_paper_trading.py --broker ibkr --ibkr-port 7497
     PYTHONPATH=. qlib_venv/bin/python production/soxl_paper_trading.py --dry-run
     PYTHONPATH=. qlib_venv/bin/python production/soxl_paper_trading.py --healthcheck
 """
@@ -29,6 +30,7 @@ if str(ROOT) not in sys.path:
 from production.notify import get_notifier
 from scripts.update_market_data import update_master_csv, refresh_qlib, refresh_data_registry, sync_local_data_surfaces
 from src.soxl_quant.app.futu import FutuBroker
+from src.soxl_quant.app.ibkr import IBConnectionConfig, IBBroker
 from src.soxl_quant.data import init_qlib
 from src.soxl_quant.runtime import (
     BrokerAdapter,
@@ -81,11 +83,16 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--bull-min-periods", type=int, default=20, help="Minimum periods for bull guard rolling stats")
     parser.add_argument("--bull-min-momentum", type=float, default=0.03, help="Minimum return for bull guard")
     parser.add_argument("--bull-max-drawdown", type=float, default=0.08, help="Maximum rolling drawdown for bull guard")
-    parser.add_argument("--broker", default="paper", choices=["paper", "futu"], help="Broker adapter")
+    parser.add_argument("--broker", default="paper", choices=["paper", "futu", "ibkr"], help="Broker adapter")
     parser.add_argument("--futu-host", default="127.0.0.1", help="OpenD host")
     parser.add_argument("--futu-port", type=int, default=11111, help="OpenD port")
+    parser.add_argument("--ibkr-host", default="127.0.0.1", help="IBKR TWS/Gateway host")
+    parser.add_argument("--ibkr-port", type=int, default=7497, help="IBKR TWS/Gateway port; 7497 is TWS paper default")
+    parser.add_argument("--ibkr-client-id", type=int, default=37, help="IBKR API client id")
+    parser.add_argument("--ibkr-account", default="", help="Optional IBKR account id")
+    parser.add_argument("--ibkr-connect-timeout", type=float, default=10.0, help="IBKR SDK connect timeout in seconds")
     parser.add_argument("--unlock-password", default="", help="Futu trade unlock password")
-    parser.add_argument("--market-order", action="store_true", help="Use market order (Futu only)")
+    parser.add_argument("--market-order", action="store_true", help="Use market order for live broker adapters")
     parser.add_argument("--notify", action="store_true", default=True, help="Send notifications")
     parser.add_argument("--no-notify", action="store_true", help="Disable notifications")
     parser.add_argument("--discord", action="store_true", help="Also send notifications to Discord")
@@ -145,6 +152,22 @@ def _init_broker(args: argparse.Namespace) -> BrokerAdapter:
             lot_size=1,
             use_market_order=args.market_order,
             unlock_password=args.unlock_password,
+        )
+        broker.connect()
+        return broker
+    if args.broker == "ibkr":
+        broker = IBBroker(
+            config=IBConnectionConfig(
+                host=args.ibkr_host,
+                port=args.ibkr_port,
+                client_id=args.ibkr_client_id,
+                account=args.ibkr_account,
+                paper=args.ibkr_port in {7497, 4002},
+                connect_timeout_sec=args.ibkr_connect_timeout,
+            ),
+            symbol="SOXL",
+            lot_size=1,
+            use_market_order=args.market_order,
         )
         broker.connect()
         return broker

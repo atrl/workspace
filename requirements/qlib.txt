@@ -38,6 +38,7 @@ dill==0.4.1
 distlib==0.4.0
 dnspython==2.8.0
 docker==7.1.0
+eventkit==1.0.3
 executing==2.2.1
 Farama-Notifications==0.0.4
 fastapi==0.135.3
@@ -68,6 +69,7 @@ highspy==1.14.0
 httpcore==1.0.9
 httpx==0.28.1
 huey==2.6.0
+ib-insync==0.9.86
 idna==3.11
 importlib_metadata==8.7.1
 ipykernel==7.2.0
