@@ -93,3 +93,55 @@ def test_tushare_pack_uses_lagged_cached_turnover(tmp_path, monkeypatch):
     aligned = expected.reindex(flat.index)
     actual = flat["TUSHARE_SOXX_TURNOVER_ZSCORE_21"].reindex(flat.index)
     assert np.allclose(actual.tail(50).to_numpy(), aligned.tail(50).to_numpy(), atol=1e-8)
+
+
+def test_futu_small_order_pack_is_optional_when_cache_is_missing(tmp_path, monkeypatch):
+    panel = pd.read_csv(data_mod.ROOT / "data/processed/panels/soxl_soxx_vix_full.csv", parse_dates=["date"])
+    panel = panel.set_index("date").tail(360)
+    monkeypatch.setattr(data_mod, "EXTERNAL_DATA_DIR", tmp_path)
+
+    soxl = _frame_from_panel(panel, "soxl", include_vix=True)
+    soxx = _frame_from_panel(panel, "soxx")
+
+    feature_df, _ = engineer_feature_frame(soxl, soxx, feature_packs=("futu_small_order_flow",))
+    flat = feature_df.droplevel("instrument")
+
+    expected = set(feature_columns_for_packs(("futu_small_order_flow",))) - set(feature_columns_for_packs(()))
+    assert expected.issubset(flat.columns)
+    assert (flat[list(expected)].abs().sum(axis=1) == 0.0).all()
+
+
+def test_futu_small_order_pack_uses_lagged_small_flow(tmp_path, monkeypatch):
+    panel = pd.read_csv(data_mod.ROOT / "data/processed/panels/soxl_soxx_vix_full.csv", parse_dates=["date"])
+    panel = panel.set_index("date").tail(360)
+    monkeypatch.setattr(data_mod, "EXTERNAL_DATA_DIR", tmp_path)
+
+    for symbol, start, stop in (("SOXL", -2.0e8, 3.0e8), ("SOXX", 1.0e8, -1.5e8)):
+        small_flow = pd.Series(np.linspace(start, stop, len(panel)), index=panel.index)
+        cached = pd.DataFrame(
+            {
+                "symbol": f"US.{symbol}",
+                "date": panel.index.strftime("%Y-%m-%d"),
+                "in_flow": small_flow.to_numpy() * 1.4,
+                "super_in_flow": small_flow.to_numpy() * 0.10,
+                "big_in_flow": small_flow.to_numpy() * 0.20,
+                "mid_in_flow": small_flow.to_numpy() * 0.30,
+                "sml_in_flow": small_flow.to_numpy(),
+                "main_in_flow": small_flow.to_numpy() * 0.30,
+                "capital_flow_item_time": panel.index.strftime("%Y-%m-%d 00:00:00"),
+            }
+        )
+        path = tmp_path / f"futu_capital_flow_day_US_{symbol}.csv"
+        cached.to_csv(path, index=False)
+
+    soxl = _frame_from_panel(panel, "soxl", include_vix=True)
+    soxx = _frame_from_panel(panel, "soxx")
+
+    feature_df, _ = engineer_feature_frame(soxl, soxx, feature_packs=("futu_small_order_flow",))
+    flat = feature_df.droplevel("instrument")
+    shifted = pd.Series(np.linspace(-2.0e8, 3.0e8, len(panel)), index=panel.index).shift(1)
+    expected = ((shifted - shifted.rolling(21).mean()) / (shifted.rolling(21).std() + 1e-8)).fillna(0.0)
+
+    aligned = expected.reindex(flat.index)
+    actual = flat["FUTU_SOXL_SMALL_FLOW_ZSCORE_21"].reindex(flat.index)
+    assert np.allclose(actual.tail(50).to_numpy(), aligned.tail(50).to_numpy(), atol=1e-8)

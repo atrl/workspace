@@ -7490,3 +7490,67 @@ Artifacts:
 - `data/raw/external/futu_history_kline_US_SOXL.csv`
 - `data/raw/external/futu_history_kline_US_SOXX.csv`
 - `runtime/data/card/futu_full_history_probe_v1/notes.md`
+
+### 2026-05-23 Futu Small-Order Feature Pack
+
+Goal: build lagged Futu small-order-flow features and run the factor gate before
+any training decision.
+
+Feature pack:
+
+- `futu_small_order_flow`
+- Added to `src/soxl_quant/data.py`
+- All Futu capital-flow fields are shifted by one trading day.
+- Missing pre-coverage rows are zero-filled after feature construction, so the
+  pack does not silently cut the full feature matrix down to 2025-only rows.
+
+Features:
+
+- `FUTU_SOXL_SMALL_FLOW_ZSCORE_21`
+- `FUTU_SOXX_SMALL_FLOW_ZSCORE_21`
+- `FUTU_SOXL_SOXX_SMALL_FLOW_SPREAD_21`
+- `FUTU_SOXL_SMALL_FLOW_SHARE`
+- `FUTU_SOXX_SMALL_FLOW_SHARE`
+- `FUTU_SOXL_SMALL_VS_BLOCK_ZSCORE_21`
+- `FUTU_STRESS_SMALL_FLOW_CAPITULATION`
+
+Evidence:
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest \
+  tests/test_tushare_integration.py::test_futu_small_order_pack_is_optional_when_cache_is_missing \
+  tests/test_tushare_integration.py::test_futu_small_order_pack_uses_lagged_small_flow -q
+# red before implementation: unknown feature pack 'futu_small_order_flow'
+# green after implementation: 2 passed
+
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_tushare_integration.py -q
+# 5 passed
+
+PYTHONPATH=. qlib_venv/bin/python scripts/evaluate_factor_pack.py --pack futu_small_order_flow
+# full-horizon best IC: FUTU_SOXL_SMALL_FLOW_SHARE h20 IC=+0.002084, IC+=0.029
+# max full-horizon core correlation <=0.095
+```
+
+Short-history active-window review (`2025-05-23` onward):
+
+- Best active feature: `FUTU_SOXL_SMALL_FLOW_SHARE`
+- h20 IC `+0.034131`
+- IC positive ratio `0.468`
+- PF `1.657`, accuracy `0.602`
+- max core correlation `0.258`
+
+Decision:
+
+- Do not promote to a training profile.
+- The active-window IC mean clears `0.03`, but positive ratio fails the `0.55`
+  gate.
+- Strong-looking PF/accuracy rows are short-history and broad-long-exposure
+  sensitive, not enough for robust timing evidence.
+- Keep only as a short-history/live overlay candidate unless longer
+  order-flow history becomes available.
+
+Artifacts:
+
+- `runtime/factor/futu_small_order_flow_ic.csv`
+- `runtime/factor/card/futu_small_order_flow/`
+- `runtime/factor/card/futu_small_order_flow/notes.md`

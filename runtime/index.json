@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-23T14:03:50.953670+00:00",
+  "generated_at": "2026-05-23T14:23:03.460630+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -380,6 +380,72 @@
       "bytes": 305
     },
     {
+      "path": "runtime/factor/card/futu_small_order_flow/backtest_futu_small_order_flow.csv",
+      "category": "factor",
+      "suffix": ".csv",
+      "bytes": 11500
+    },
+    {
+      "path": "runtime/factor/card/futu_small_order_flow/card_FUTU_SOXL_SMALL_FLOW_SHARE.md",
+      "category": "factor",
+      "suffix": ".md",
+      "bytes": 505
+    },
+    {
+      "path": "runtime/factor/card/futu_small_order_flow/card_FUTU_SOXL_SMALL_FLOW_ZSCORE_21.md",
+      "category": "factor",
+      "suffix": ".md",
+      "bytes": 509
+    },
+    {
+      "path": "runtime/factor/card/futu_small_order_flow/card_FUTU_SOXL_SMALL_VS_BLOCK_ZSCORE_21.md",
+      "category": "factor",
+      "suffix": ".md",
+      "bytes": 513
+    },
+    {
+      "path": "runtime/factor/card/futu_small_order_flow/card_FUTU_SOXL_SOXX_SMALL_FLOW_SPREAD_21.md",
+      "category": "factor",
+      "suffix": ".md",
+      "bytes": 514
+    },
+    {
+      "path": "runtime/factor/card/futu_small_order_flow/card_FUTU_SOXX_SMALL_FLOW_SHARE.md",
+      "category": "factor",
+      "suffix": ".md",
+      "bytes": 506
+    },
+    {
+      "path": "runtime/factor/card/futu_small_order_flow/card_FUTU_SOXX_SMALL_FLOW_ZSCORE_21.md",
+      "category": "factor",
+      "suffix": ".md",
+      "bytes": 509
+    },
+    {
+      "path": "runtime/factor/card/futu_small_order_flow/card_FUTU_STRESS_SMALL_FLOW_CAPITULATION.md",
+      "category": "factor",
+      "suffix": ".md",
+      "bytes": 514
+    },
+    {
+      "path": "runtime/factor/card/futu_small_order_flow/correlation_futu_small_order_flow.csv",
+      "category": "factor",
+      "suffix": ".csv",
+      "bytes": 567
+    },
+    {
+      "path": "runtime/factor/card/futu_small_order_flow/notes.md",
+      "category": "factor",
+      "suffix": ".md",
+      "bytes": 3441
+    },
+    {
+      "path": "runtime/factor/card/futu_small_order_flow/short_history_review.csv",
+      "category": "factor",
+      "suffix": ".csv",
+      "bytes": 1632
+    },
+    {
       "path": "runtime/factor/card/futu_small_order_probe_v1/notes.md",
       "category": "factor",
       "suffix": ".md",
@@ -698,6 +764,12 @@
       "bytes": 73473
     },
     {
+      "path": "runtime/factor/futu_small_order_flow_ic.csv",
+      "category": "factor",
+      "suffix": ".csv",
+      "bytes": 4116
+    },
+    {
       "path": "runtime/factor/intraday_rejection_event_ic.csv",
       "category": "factor",
       "suffix": ".csv",
@@ -707,7 +779,7 @@
       "path": "runtime/factor/knowledge.md",
       "category": "factor",
       "suffix": ".md",
-      "bytes": 18199
+      "bytes": 18225
     },
     {
       "path": "runtime/factor/rulebase_signals_ic.csv",

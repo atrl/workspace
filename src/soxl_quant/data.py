@@ -579,6 +579,81 @@ def _builtin_tushare_us_daily_adj_pack(context: dict[str, Any]) -> dict[str, pd.
     }
 
 
+def _load_futu_capital_flow_day(symbol: str, index: pd.Index) -> pd.DataFrame:
+    path = EXTERNAL_DATA_DIR / f"futu_capital_flow_day_US_{symbol}.csv"
+    if not path.exists():
+        return pd.DataFrame(index=index)
+    df = pd.read_csv(path)
+    date_col = "date" if "date" in df.columns else ("capital_flow_item_time" if "capital_flow_item_time" in df.columns else df.columns[0])
+    dates = pd.to_datetime(df[date_col], errors="coerce")
+    df = df.assign(date=dates).dropna(subset=["date"]).set_index("date").sort_index()
+    return df.reindex(index)
+
+
+def _futu_numeric(df: pd.DataFrame, column: str, index: pd.Index) -> pd.Series:
+    if column not in df.columns:
+        return pd.Series(np.nan, index=index)
+    return pd.to_numeric(df[column], errors="coerce").reindex(index)
+
+
+def _signed_flow_share(flow: pd.Series, components: list[pd.Series]) -> pd.Series:
+    denominator = sum(component.abs() for component in components)
+    return (flow / (denominator + 1e-8)).replace([np.inf, -np.inf], np.nan).fillna(0.0)
+
+
+def _builtin_futu_small_order_flow_pack(context: dict[str, Any]) -> dict[str, pd.Series]:
+    """Lagged Futu small-order-flow features for short-history factor mining.
+
+    Futu capital-flow data is available only for roughly the latest year in the
+    current account/source, so missing pre-coverage rows are filled with zero to
+    keep full-horizon training matrices intact. All raw flows are shifted by one
+    trading day before feature construction because the data is known only after
+    the relevant session.
+    """
+    index = context["index"]
+    soxl = _load_futu_capital_flow_day("SOXL", index)
+    soxx = _load_futu_capital_flow_day("SOXX", index)
+
+    def flows(df: pd.DataFrame) -> dict[str, pd.Series]:
+        return {
+            "small": _futu_numeric(df, "sml_in_flow", index).shift(1),
+            "mid": _futu_numeric(df, "mid_in_flow", index).shift(1),
+            "big": _futu_numeric(df, "big_in_flow", index).shift(1),
+            "super": _futu_numeric(df, "super_in_flow", index).shift(1),
+            "main": _futu_numeric(df, "main_in_flow", index).shift(1),
+        }
+
+    soxl_flow = flows(soxl)
+    soxx_flow = flows(soxx)
+    soxl_small_z = _rolling_zscore(soxl_flow["small"], 21)
+    soxx_small_z = _rolling_zscore(soxx_flow["small"], 21)
+    soxl_small_share = _signed_flow_share(
+        soxl_flow["small"],
+        [soxl_flow["small"], soxl_flow["mid"], soxl_flow["big"], soxl_flow["super"]],
+    )
+    soxx_small_share = _signed_flow_share(
+        soxx_flow["small"],
+        [soxx_flow["small"], soxx_flow["mid"], soxx_flow["big"], soxx_flow["super"]],
+    )
+    soxl_block_flow = soxl_flow["big"] + soxl_flow["super"]
+    soxl_small_vs_block_z = _rolling_zscore(soxl_flow["small"] - soxl_block_flow, 21)
+    stress_gate = (
+        (context["regime_risk"].shift(1) > 0.55)
+        | (context["vix_zscore"].shift(1) > 0.75)
+    ).astype(float)
+    stress_small_flow_capitulation = ((-soxl_small_z).clip(lower=0.0) * stress_gate).fillna(0.0)
+
+    return {
+        "FUTU_SOXL_SMALL_FLOW_ZSCORE_21": soxl_small_z,
+        "FUTU_SOXX_SMALL_FLOW_ZSCORE_21": soxx_small_z,
+        "FUTU_SOXL_SOXX_SMALL_FLOW_SPREAD_21": (soxl_small_z - soxx_small_z).fillna(0.0),
+        "FUTU_SOXL_SMALL_FLOW_SHARE": soxl_small_share,
+        "FUTU_SOXX_SMALL_FLOW_SHARE": soxx_small_share,
+        "FUTU_SOXL_SMALL_VS_BLOCK_ZSCORE_21": soxl_small_vs_block_z,
+        "FUTU_STRESS_SMALL_FLOW_CAPITULATION": stress_small_flow_capitulation,
+    }
+
+
 def _builtin_soxx_signals_pack(context: dict[str, Any]) -> dict[str, pd.Series]:
     """SOXX-based standalone signals for SOXL timing.
 
@@ -727,6 +802,18 @@ BUILTIN_FEATURE_PACKS: dict[str, dict[str, Any]] = {
             "TUSHARE_SOXX_ADJ_FACTOR_DELTA_5",
         ),
         "builder": _builtin_tushare_us_daily_adj_pack,
+    },
+    "futu_small_order_flow": {
+        "columns": (
+            "FUTU_SOXL_SMALL_FLOW_ZSCORE_21",
+            "FUTU_SOXX_SMALL_FLOW_ZSCORE_21",
+            "FUTU_SOXL_SOXX_SMALL_FLOW_SPREAD_21",
+            "FUTU_SOXL_SMALL_FLOW_SHARE",
+            "FUTU_SOXX_SMALL_FLOW_SHARE",
+            "FUTU_SOXL_SMALL_VS_BLOCK_ZSCORE_21",
+            "FUTU_STRESS_SMALL_FLOW_CAPITULATION",
+        ),
+        "builder": _builtin_futu_small_order_flow_pack,
     },
     "soxx_signals": {
         "columns": (
