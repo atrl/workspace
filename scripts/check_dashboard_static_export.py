@@ -42,6 +42,7 @@ def check_static_export(root: Path) -> tuple[list[str], dict[str, Any]]:
         "paper_trading_end": "n/a",
         "production_status": "n/a",
         "goal_gates": "n/a",
+        "model_replays": "n/a",
     }
 
     vercel_path = root / "vercel.json"
@@ -51,8 +52,16 @@ def check_static_export(root: Path) -> tuple[list[str], dict[str, Any]]:
     model_versions_path = data_dir / "model_versions.json"
     production_status_path = data_dir / "production_status.json"
     production_goal_gates_path = data_dir / "production_goal_gates.json"
+    model_replay_freshness_path = data_dir / "model_replay_freshness.json"
 
-    for path in (vercel_path, dashboard_path, index_path, model_versions_path, production_status_path):
+    for path in (
+        vercel_path,
+        dashboard_path,
+        index_path,
+        model_versions_path,
+        model_replay_freshness_path,
+        production_status_path,
+    ):
         if not path.exists():
             errors.append(f"missing required file: {path.relative_to(root)}")
 
@@ -132,6 +141,34 @@ def check_static_export(root: Path) -> tuple[list[str], dict[str, Any]]:
             if not isinstance(gates, dict):
                 errors.append("dashboard_data/production_goal_gates.json gates must be an object")
 
+    if model_replay_freshness_path.exists():
+        model_replays = _load_json(model_replay_freshness_path)
+        if not isinstance(model_replays, dict):
+            errors.append("dashboard_data/model_replay_freshness.json must contain an object")
+        else:
+            counts = model_replays.get("counts")
+            profiles = model_replays.get("profiles")
+            safe_end = model_replays.get("safe_backtest_end")
+            latest_date = model_replays.get("latest_data_date")
+            if not isinstance(counts, dict):
+                errors.append("dashboard_data/model_replay_freshness.json missing counts")
+            if not isinstance(profiles, list):
+                errors.append("dashboard_data/model_replay_freshness.json profiles must be a list")
+            if not isinstance(safe_end, str) or not safe_end:
+                errors.append("dashboard_data/model_replay_freshness.json missing safe_backtest_end")
+            if not isinstance(latest_date, str) or not latest_date:
+                errors.append("dashboard_data/model_replay_freshness.json missing latest_data_date")
+            if isinstance(counts, dict) and isinstance(profiles, list):
+                ready = int(counts.get("current", 0) or 0) + int(counts.get("refreshed", 0) or 0)
+                failed = int(counts.get("failed", 0) or 0)
+                skipped = int(counts.get("skipped", 0) or 0)
+                info["model_replays"] = f"{ready}/{len(profiles)}@{safe_end or 'unknown'}"
+                if failed or skipped:
+                    errors.append(
+                        "dashboard_data/model_replay_freshness.json has "
+                        f"failed={failed} skipped={skipped}"
+                    )
+
     missing = 0
     for version in versions:
         summary = version_summaries.get(version, {})
@@ -188,7 +225,8 @@ def main() -> int:
             f"latest={info['latest']} paper_trading_rows={info['paper_trading_rows']} "
             f"paper_trading_end={info['paper_trading_end']} "
             f"production_status={info['production_status']} "
-            f"goal_gates={info['goal_gates']}"
+            f"goal_gates={info['goal_gates']} "
+            f"model_replays={info['model_replays']}"
         )
         return 1
 
@@ -199,7 +237,8 @@ def main() -> int:
         f"latest={info['latest']} paper_trading_rows={info['paper_trading_rows']} "
         f"paper_trading_end={info['paper_trading_end']} "
         f"production_status={info['production_status']} "
-        f"goal_gates={info['goal_gates']} paper_trading"
+        f"goal_gates={info['goal_gates']} "
+        f"model_replays={info['model_replays']} paper_trading"
     )
     return 0
 

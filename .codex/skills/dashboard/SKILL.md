@@ -51,12 +51,38 @@ qlib_venv/bin/python scripts/check_dashboard_static_export.py
 # expect production_status=<status> goal_gates=<status>
 ```
 
+### Refresh Model Replays For Static/Vercel
+
+Before scheduled/static dashboard rebuilds, refresh retained model replay CSVs:
+
+```bash
+PYTHONPATH=. qlib_venv/bin/python scripts/refresh_dashboard_model_replays.py --python qlib_venv/bin/python
+PYTHONPATH=. qlib_venv/bin/python scripts/build_backtest_dashboard.py
+PYTHONPATH=. qlib_venv/bin/python scripts/check_dashboard_static_export.py
+```
+
+The refresh script discovers registry rows with `keep_actor=true`, non-dropped
+status, a retained actor, and a resolvable `profile.yaml`. It writes
+`dashboard_data/model_replay_freshness.json`, which the static checker reports
+as `model_replays=<ready>/<total>@<safe_backtest_end>`.
+
+Qlib daily backtests need a following calendar boundary, so replay curves target
+`safe_backtest_end` (usually the penultimate qlib calendar date). Paper trading
+and latest signal artifacts may legitimately use `latest_data_date`, one bar
+newer than the replay curve.
+
+`production/soxl_daily_scheduler.py` runs the model replay refresh before
+dashboard build by default. Use `--skip-model-replay-refresh` only for fast
+diagnostic runs where stale model curves are acceptable.
+
 If the dashboard opens on an older run after fresh training, check:
 - whether the latest `*_soxl_daily.csv` was written
 - whether `scripts/build_backtest_dashboard.py` was rerun
 - whether browser localStorage is pinning a manual old version
 - whether `scripts/check_dashboard_static_export.py` reports
   `latest=paper_trading` when `paper_trading` is exported
+- whether `dashboard_data/model_replay_freshness.json` reports stale, failed,
+  or skipped model replay profiles
 
 ### Add a New Subplot
 1. In `scripts/build_backtest_dashboard.py`, edit `_build_layout_all()`:
@@ -207,3 +233,13 @@ The dashboard uses a **single 4-subplot layout** (All Panels). No view selector.
   qlib_venv/bin/python -c "import json; d=json.load(open('dashboard_data/index.json')); print(d['version_summaries']['<profile>']['meta']['source_kind'])"
   ```
 - Regression coverage belongs in `tests/test_dashboard.py` so scheduled paper/Vercel rebuilds cannot silently remove retained evidence from the index.
+
+### Model version stays stale after refresh
+- Check `dashboard_data/model_replay_freshness.json` for the profile's
+  `result`, `before_end`, `after_end`, and `reason`.
+- Confirm the registry row has `keep_actor=true`, is not `status=dropped`, and
+  has both `runtime/model/card/<profile>/soxl_<profile>_actor.pt` and a
+  resolvable `profile.yaml`.
+- If two CSVs produce the same dashboard tag, the builder should prefer the
+  matching profile directory. Regression coverage:
+  `tests/test_dashboard.py::test_load_versions_prefers_matching_profile_directory_for_duplicate_tag`.

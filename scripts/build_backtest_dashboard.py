@@ -601,6 +601,17 @@ def _load_post_train_review_versions(features: dict[str, dict[str, float]] | Non
     """Load SOXL daily CSVs from runtime/model/card/ and runtime/soxl/paper_trading/ as versioned data."""
     versioned: dict[str, dict] = {}
 
+    def version_source_score(tag: str, source_path: Path, end_date: str, rows_count: int, updated_at: float) -> tuple:
+        # If two files produce the same dashboard tag, prefer the canonical
+        # profile directory (`runtime/model/card/<tag>/<tag>_soxl_daily.csv`)
+        # over alias/helper directories that happen to use the same stem.
+        return (
+            1 if source_path.parent.name == tag else 0,
+            end_date,
+            rows_count,
+            updated_at,
+        )
+
     dirs_to_scan = [
         (ROOT / "runtime" / "model" / "card", True),   # (path, recursive)
         (ROOT / "runtime" / "soxl" / "paper_trading", False),
@@ -678,9 +689,10 @@ def _load_post_train_review_versions(features: dict[str, dict[str, float]] | Non
             trades = compute_trades(rows)
             kelly_stats = compute_kelly_stats(trades)
 
-            versioned[tag] = {
+            updated_at = csv_path.stat().st_mtime
+            payload = {
                 "_meta": {
-                    "updated_at": csv_path.stat().st_mtime,
+                    "updated_at": updated_at,
                     "source": str(csv_path.relative_to(ROOT)),
                     "source_kind": source_kind,
                     "shared_market_data": True,
@@ -708,6 +720,22 @@ def _load_post_train_review_versions(features: dict[str, dict[str, float]] | Non
                     }
                 },
             }
+            existing = versioned.get(tag)
+            if existing is not None:
+                existing_meta = existing.get("_meta", {})
+                existing_source = ROOT / str(existing_meta.get("source") or "")
+                existing_window = existing.get("windows", {}).get("SOXL", {})
+                existing_score = version_source_score(
+                    tag,
+                    existing_source,
+                    str(existing_window.get("end") or ""),
+                    int(existing_window.get("rows") or 0),
+                    float(existing_meta.get("updated_at") or 0.0),
+                )
+                new_score = version_source_score(tag, csv_path, str(rows[-1]["datetime"]), len(rows), updated_at)
+                if new_score < existing_score:
+                    continue
+            versioned[tag] = payload
     return versioned
 
 
@@ -1322,6 +1350,9 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     .production-blockers {{
       grid-column: span 2;
     }}
+    .production-model-replay {{
+      grid-column: span 2;
+    }}
     .production-link {{
       color: var(--accent-2);
       text-decoration: none;
@@ -1721,6 +1752,10 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       <div class="production-detail production-blockers">
         <span class="production-k">Blockers</span>
         <span class="production-v" id="productionGateIssues">n/a</span>
+      </div>
+      <div class="production-detail production-model-replay">
+        <span class="production-k">Model Replays</span>
+        <span class="production-v" id="productionModelReplayStatus">n/a</span>
       </div>
     </section>
 
@@ -2636,6 +2671,22 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       setProductionText(productionPaperSource, `${{dataDate}} · target ${{fmtPctValue(target)}} · ${{source}}`);
     }}
 
+    function renderModelReplayStatus(modelReplay) {{
+      if (typeof productionModelReplayStatus === 'undefined' || !productionModelReplayStatus) return;
+      const data = modelReplay || {{}};
+      const counts = data.counts || {{}};
+      const profiles = Array.isArray(data.profiles) ? data.profiles : [];
+      const ready = Number(counts.current || 0) + Number(counts.refreshed || 0);
+      const failed = Number(counts.failed || 0);
+      const skipped = Number(counts.skipped || 0);
+      const total = profiles.length;
+      const safeEnd = data.safe_backtest_end || 'unknown';
+      const latestDate = data.latest_data_date || 'unknown';
+      const issueText = failed || skipped ? ` · failed ${{failed}} skipped ${{skipped}}` : '';
+      const text = total ? `${{ready}}/${{total}} @ ${{safeEnd}} · data ${{latestDate}}${{issueText}}` : 'n/a';
+      setProductionText(productionModelReplayStatus, text);
+    }}
+
     function embeddedPaperPayload() {{
       if (DATA.latest_version === 'paper_trading' && DATA.detailed && DATA.detailed[state.etf]) {{
         return DATA.detailed[state.etf];
@@ -2651,7 +2702,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       return null;
     }}
 
-    function renderProductionStatus(payload, goalGates, paperPayload) {{
+    function renderProductionStatus(payload, goalGates, paperPayload, modelReplay) {{
       if (!productionStatusCard) return;
       const data = payload || {{}};
       const staticExport = data.static_export || {{}};
@@ -2670,6 +2721,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       renderPaperStatus(paperPayload);
       setProductionText(productionGateOverall, overall.status || 'unknown');
       setProductionText(productionGateIssues, issues.length ? issues.join(', ') : (overall.detail || 'none'));
+      renderModelReplayStatus(modelReplay);
       productionDeploymentStatus.classList.remove('production-tone-good', 'production-tone-bad', 'production-tone-warn');
       productionDeploymentStatus.textContent = '';
       if (data.deployment_url) {{
@@ -2686,12 +2738,27 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     }}
 
     async function loadProductionStatus() {{
-      const [status, goalGates, paperPayload] = await Promise.all([
+      const [status, goalGates, paperPayload, modelReplay] = await Promise.all([
         loadJson('dashboard_data/production_status.json'),
         loadJson('dashboard_data/production_goal_gates.json'),
         loadJson('dashboard_data/versioned/paper_trading/SOXL.json'),
+        loadJson('dashboard_data/model_replay_freshness.json'),
       ]);
-      renderProductionStatus(status || {{ status: 'unavailable' }}, goalGates, paperPayload || embeddedPaperPayload());
+      renderProductionStatus(
+        status || {{ status: 'unavailable' }},
+        goalGates,
+        paperPayload || embeddedPaperPayload(),
+        modelReplay
+      );
+    }}
+
+    function versionOptionLabel(version, summary) {{
+      const windows = (summary && summary.windows) || {{}};
+      const firstWindow = windows[state.etf] || windows.SOXL || Object.values(windows)[0] || {{}};
+      const end = firstWindow.end || 'no-date';
+      const rows = firstWindow.rows != null ? firstWindow.rows : 'n/a';
+      const source = (summary && summary.meta && summary.meta.source_kind) || 'unknown';
+      return `${{version}} · end ${{end}} · rows ${{rows}} · ${{source}}`;
     }}
 
     async function loadIndex() {{
@@ -2707,10 +2774,9 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       versionSelect.appendChild(defaultOpt);
       (idx.versions || []).forEach(v => {{
         const vs = idx.version_summaries[v] || {{}};
-        const etfCount = Object.keys(vs.etfs || {{}}).length;
         const opt = document.createElement('option');
         opt.value = v;
-        opt.textContent = etfCount <= 1 ? `${{v}} (SOXL)` : v;
+        opt.textContent = versionOptionLabel(v, vs);
         versionSelect.appendChild(opt);
       }});
       // Restore selection if valid
@@ -2725,9 +2791,10 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       const runProfileSelect = document.getElementById('runProfileSelect');
       runProfileSelect.innerHTML = '<option value=\"\">Select profile...</option>';
       (idx.versions || []).forEach(v => {{
+        const vs = idx.version_summaries[v] || {{}};
         const ropt = document.createElement('option');
         ropt.value = v;
-        ropt.textContent = v;
+        ropt.textContent = versionOptionLabel(v, vs);
         runProfileSelect.appendChild(ropt);
       }});
     }}

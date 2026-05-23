@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-22T08:18:02.054588+00:00",
+  "generated_at": "2026-05-23T03:29:05.659945+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -779,7 +779,7 @@
       "path": "runtime/model/card/balanced/balanced_soxl_daily.csv",
       "category": "model",
       "suffix": ".csv",
-      "bytes": 198391
+      "bytes": 202831
     },
     {
       "path": "runtime/model/card/balanced/balanced_stress_select_v2.md",
@@ -1097,7 +1097,7 @@
       "path": "runtime/model/card/balanced_macro_v1/balanced_macro_v1_soxl_daily.csv",
       "category": "model",
       "suffix": ".csv",
-      "bytes": 198239
+      "bytes": 202893
     },
     {
       "path": "runtime/model/card/balanced_macro_v1/notes.md",
@@ -1145,7 +1145,7 @@
       "path": "runtime/model/card/balanced_rule_residual_imitation_v4/balanced_rule_residual_imitation_v4_soxl_daily.csv",
       "category": "model",
       "suffix": ".csv",
-      "bytes": 197979
+      "bytes": 203048
     },
     {
       "path": "runtime/model/card/balanced_rule_residual_imitation_v4/balanced_rule_residual_imitation_v4_wf_2020_soxl_daily.csv",
@@ -1385,7 +1385,7 @@
       "path": "runtime/model/card/balanced_rule_residual_v19/balanced_rule_residual_v19_soxl_daily.csv",
       "category": "model",
       "suffix": ".csv",
-      "bytes": 88561
+      "bytes": 203240
     },
     {
       "path": "runtime/model/card/balanced_rule_residual_v19/soxl_balanced_rule_residual_v19_summary.json",
@@ -1553,7 +1553,7 @@
       "path": "runtime/model/card/balanced_rule_residual_v19_reg/balanced_rule_residual_v19_reg_soxl_daily.csv",
       "category": "model",
       "suffix": ".csv",
-      "bytes": 88602
+      "bytes": 202729
     },
     {
       "path": "runtime/model/card/balanced_rule_residual_v19_reg/soxl_balanced_rule_residual_v19_reg_summary.json",
@@ -1613,7 +1613,7 @@
       "path": "runtime/model/card/balanced_rule_residual_v19_reg_light/balanced_rule_residual_v19_reg_light_soxl_daily.csv",
       "category": "model",
       "suffix": ".csv",
-      "bytes": 30859
+      "bytes": 201284
     },
     {
       "path": "runtime/model/card/balanced_rule_residual_v19_reg_light/soxl_balanced_rule_residual_v19_reg_light_summary.json",
@@ -1649,7 +1649,7 @@
       "path": "runtime/model/card/balanced_rule_residual_v19_reg_v22_retest_v1/balanced_rule_residual_v19_reg_v22_retest_v1_soxl_daily.csv",
       "category": "model",
       "suffix": ".csv",
-      "bytes": 202063
+      "bytes": 202896
     },
     {
       "path": "runtime/model/card/balanced_rule_residual_v19_reg_v22_retest_v1/notes.md",
@@ -1817,7 +1817,7 @@
       "path": "runtime/model/card/balanced_rule_residual_v22/balanced_rule_residual_v22_soxl_daily.csv",
       "category": "model",
       "suffix": ".csv",
-      "bytes": 88569
+      "bytes": 202560
     },
     {
       "path": "runtime/model/card/balanced_rule_residual_v22/runtime_selection_review.json",
@@ -1853,7 +1853,7 @@
       "path": "runtime/model/card/balanced_rule_residual_v22_continued_retention_v1/balanced_rule_residual_v22_continued_retention_v1_soxl_daily.csv",
       "category": "model",
       "suffix": ".csv",
-      "bytes": 200955
+      "bytes": 202560
     },
     {
       "path": "runtime/model/card/balanced_rule_residual_v22_continued_retention_v1/notes.md",
@@ -2360,6 +2360,12 @@
       "bytes": 5034
     },
     {
+      "path": "runtime/model/card/smoke/smoke_soxl_daily.csv",
+      "category": "model",
+      "suffix": ".csv",
+      "bytes": 198652
+    },
+    {
       "path": "runtime/model/card/smoke/soxl_smoke_summary.json",
       "category": "model",
       "suffix": ".json",
@@ -2852,6 +2858,12 @@
       "bytes": 2435
     },
     {
+      "path": "runtime/production/card/dashboard_model_replay_refresh_v1/notes.md",
+      "category": "production",
+      "suffix": ".md",
+      "bytes": 3233
+    },
+    {
       "path": "runtime/production/card/dashboard_paper_transparency_v1/notes.md",
       "category": "production",
       "suffix": ".md",
@@ -3173,7 +3185,7 @@
       "path": "runtime/production/card/vercel_remote_deploy_v1/vercel_deployment_check.json",
       "category": "production",
       "suffix": ".json",
-      "bytes": 1402
+      "bytes": 1444
     },
     {
       "path": "runtime/production/card/vercel_scheduled_deploy_v1/notes.md",
@@ -3215,7 +3227,7 @@
       "path": "runtime/production/knowledge.md",
       "category": "production",
       "suffix": ".md",
-      "bytes": 118610
+      "bytes": 119122
     },
     {
       "path": "runtime/reward/card/base_log/card.md",

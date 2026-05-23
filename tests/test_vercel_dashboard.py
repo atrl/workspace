@@ -41,6 +41,7 @@ def test_dashboard_static_export_is_trackable():
     assert (ROOT / "dashboard.html").exists()
     assert (ROOT / "dashboard_data" / "index.json").exists()
     assert (ROOT / "dashboard_data" / "model_versions.json").exists()
+    assert (ROOT / "dashboard_data" / "model_replay_freshness.json").exists()
     assert (ROOT / "dashboard_data" / "production_status.json").exists()
     assert (ROOT / "dashboard_data" / "production_goal_gates.json").exists()
 
@@ -98,6 +99,7 @@ def test_dashboard_static_export_integrity_check_passes():
     assert "paper_trading" in result.stdout
     assert "production_status=" in result.stdout
     assert "goal_gates=pending" in result.stdout
+    assert "model_replays=" in result.stdout
 
 
 def test_vercel_deploy_command_is_non_interactive_and_token_safe():

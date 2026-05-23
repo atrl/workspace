@@ -85,6 +85,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--skip-data-update", action="store_true")
     parser.add_argument("--skip-dashboard", action="store_true")
     parser.add_argument(
+        "--skip-model-replay-refresh",
+        action="store_true",
+        help="Skip refreshing dashboard model replay CSVs before dashboard rebuild.",
+    )
+    parser.add_argument(
         "--vercel-deploy",
         action="store_true",
         help="After rebuilding the dashboard, try to deploy the static bundle to Vercel.",
@@ -109,6 +114,7 @@ def parse_args() -> argparse.Namespace:
         args.dry_run = True
         args.no_notify = True
         args.skip_data_update = True
+        args.skip_model_replay_refresh = True
     return args
 
 
@@ -165,6 +171,18 @@ def _run_health_summary() -> None:
 
 def _run_goal_gates_export(venv_python: str) -> None:
     _run([venv_python, "scripts/export_production_goal_gates.py"], "production goal gates export")
+
+
+def _run_dashboard_model_replay_refresh(venv_python: str) -> None:
+    _run(
+        [
+            venv_python,
+            "scripts/refresh_dashboard_model_replays.py",
+            "--python",
+            venv_python,
+        ],
+        "dashboard model replay refresh",
+    )
 
 
 def main() -> None:
@@ -237,6 +255,8 @@ def main() -> None:
 
         # 2. Dashboard rebuild
         if not args.skip_dashboard:
+            if not args.skip_model_replay_refresh:
+                _run_dashboard_model_replay_refresh(venv_python)
             dash_cmd = [venv_python, "scripts/build_backtest_dashboard.py"]
             _run(dash_cmd, "dashboard build")
             print("[scheduler] core done", flush=True)
@@ -272,6 +292,8 @@ def main() -> None:
                     retry_cmd.append("--dry-run")
                 _run(retry_cmd, "paper trading (cached dry-run)")
                 if not args.skip_dashboard:
+                    if not args.skip_model_replay_refresh:
+                        _run_dashboard_model_replay_refresh(venv_python)
                     dash_cmd = [venv_python, "scripts/build_backtest_dashboard.py"]
                     _run(dash_cmd, "dashboard build")
                 if use_notify:

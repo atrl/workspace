@@ -281,6 +281,58 @@ def test_load_versions_keeps_retained_dashboard_export_without_source_csv(tmp_pa
     assert retained["windows"]["SOXL"] == {"start": "2026-05-19", "end": "2026-05-19", "rows": 1}
 
 
+def test_load_versions_prefers_matching_profile_directory_for_duplicate_tag(tmp_path: Path, monkeypatch):
+    canonical = tmp_path / "runtime" / "model" / "card" / "smoke"
+    stale_alias = tmp_path / "runtime" / "model" / "card" / "smoke_tide"
+    canonical.mkdir(parents=True)
+    stale_alias.mkdir(parents=True)
+    (canonical / "smoke_soxl_daily.csv").write_text(
+        "\n".join(
+            [
+                "datetime,strategy_nav,price,buyhold_nav,position,excess,excess_pct,action",
+                "2026-05-20,1000000,100,1000000,0,0,0,HOLD",
+                "2026-05-21,1000000,100,1000000,0,0,0,HOLD",
+                "2026-05-22,1000000,100,1000000,0,0,0,HOLD",
+                "2026-05-23,1000000,100,1000000,0,0,0,HOLD",
+                "2026-05-24,1000000,100,1000000,0,0,0,HOLD",
+                "2026-05-25,1000000,100,1000000,0,0,0,HOLD",
+                "2026-05-26,1000000,100,1000000,0,0,0,HOLD",
+                "2026-05-27,1000000,100,1000000,0,0,0,HOLD",
+                "2026-05-28,1000000,100,1000000,0,0,0,HOLD",
+                "2026-05-29,1000000,100,1000000,0,0,0,HOLD",
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    (stale_alias / "smoke_soxl_daily.csv").write_text(
+        "\n".join(
+            [
+                "datetime,strategy_nav,price,buyhold_nav,position,excess,excess_pct,action",
+                "2026-03-20,1000000,100,1000000,0,0,0,HOLD",
+                "2026-03-21,1000000,100,1000000,0,0,0,HOLD",
+                "2026-03-22,1000000,100,1000000,0,0,0,HOLD",
+                "2026-03-23,1000000,100,1000000,0,0,0,HOLD",
+                "2026-03-24,1000000,100,1000000,0,0,0,HOLD",
+                "2026-03-25,1000000,100,1000000,0,0,0,HOLD",
+                "2026-03-26,1000000,100,1000000,0,0,0,HOLD",
+                "2026-03-27,1000000,100,1000000,0,0,0,HOLD",
+                "2026-03-30,1000000,100,1000000,0,0,0,HOLD",
+                "2026-03-31,1000000,100,1000000,0,0,0,HOLD",
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(dashboard_builder, "ROOT", tmp_path)
+    monkeypatch.setattr(dashboard_builder, "load_ohlc_and_indicators", lambda _etf: {})
+
+    versions = _load_post_train_review_versions(features=None)
+
+    assert versions["smoke"]["windows"]["SOXL"]["end"] == "2026-05-29"
+    assert versions["smoke"]["_meta"]["source"] == "runtime/model/card/smoke/smoke_soxl_daily.csv"
+
+
 def test_compact_payload_rows_drops_redundant_market_metadata():
     rows = compact_payload_rows(
         [
@@ -326,7 +378,10 @@ def test_build_html_loads_production_status_json():
     assert 'id="productionPaperModel"' in html
     assert 'id="productionPaperExecution"' in html
     assert 'id="productionPaperSource"' in html
+    assert 'id="productionModelReplayStatus"' in html
     assert "renderPaperStatus" in html
+    assert "renderModelReplayStatus" in html
+    assert "dashboard_data/model_replay_freshness.json" in html
     assert "embeddedPaperPayload" in html
     assert "paperPayload || embeddedPaperPayload()" in html
     assert "paperMeta.latest_data_date" in html

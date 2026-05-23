@@ -87,6 +87,7 @@ def test_scheduler_retries_data_source_failure_as_cached_dry_run(monkeypatch: py
     assert [description for _cmd, description in calls] == [
         "paper trading",
         "paper trading (cached dry-run)",
+        "dashboard model replay refresh",
         "dashboard build",
     ]
     assert "--skip-data-update" not in calls[0][0]
@@ -117,6 +118,7 @@ def test_scheduler_retries_stale_post_update_data_as_cached_dry_run(monkeypatch:
     assert [description for _cmd, description in calls] == [
         "paper trading",
         "paper trading (cached dry-run)",
+        "dashboard model replay refresh",
         "dashboard build",
     ]
     assert "--skip-data-update" in calls[1][0]
@@ -221,7 +223,7 @@ def test_scheduler_prints_goal_gates_when_requested(
     soxl_daily_scheduler.main()
 
     captured = capsys.readouterr()
-    assert calls == ["paper trading", "dashboard build"]
+    assert calls == ["paper trading", "dashboard model replay refresh", "dashboard build"]
     assert "[scheduler] all done" in captured.out
     assert "--- Production Goal Gates ---" in captured.out
     assert captured.out.index("[scheduler] all done") < captured.out.index("--- Production Goal Gates ---")
@@ -342,6 +344,7 @@ def test_scheduler_runs_vercel_deploy_after_dashboard_when_requested(
 
     assert [description for _cmd, description in calls] == [
         "paper trading",
+        "dashboard model replay refresh",
         "dashboard build",
         "production goal gates export",
         "vercel dashboard deploy",
@@ -349,8 +352,8 @@ def test_scheduler_runs_vercel_deploy_after_dashboard_when_requested(
     assert "[scheduler] core done" in captured.out
     assert captured.out.index("[scheduler] core done") < captured.out.index("[test-step] production goal gates export")
     assert captured.out.index("[test-step] vercel dashboard deploy") < captured.out.index("[scheduler] all done")
-    gate_cmd = calls[2][0]
-    vercel_cmd = calls[3][0]
+    gate_cmd = calls[3][0]
+    vercel_cmd = calls[4][0]
     assert "scripts/export_production_goal_gates.py" in gate_cmd
     assert "scripts/deploy_vercel_dashboard.py" in vercel_cmd
     assert "--deploy" in vercel_cmd
@@ -377,6 +380,7 @@ def test_scheduler_treats_missing_vercel_credentials_as_nonfatal(monkeypatch: py
     assert "[scheduler] all done" in captured.out
     assert [description for _cmd, description in calls] == [
         "paper trading",
+        "dashboard model replay refresh",
         "dashboard build",
         "production goal gates export",
         "vercel dashboard deploy",

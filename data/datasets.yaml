@@ -9,7 +9,7 @@ external:
     end: null
     exists: true
     path: data/raw/external/VIX.csv
-    rows: 4075
+    rows: 4076
     start: null
   VIX3M:
     end: null
@@ -83,7 +83,7 @@ external:
     path: data/raw/external/yield_curve_10y3m.csv
     rows: 11081
     start: null
-generated_at: '2026-05-21T22:15:19.138375+00:00'
+generated_at: '2026-05-22T22:15:20.287485+00:00'
 layout:
   processed_panels: data/processed/panels/<asset>_with_underlying_vix.csv
   qlib: data/qlib/<asset>/
@@ -92,10 +92,10 @@ layout:
   training_cache: data/cache/training/<profile>.pkl
 processed_panels:
   soxl_soxx_vix_full:
-    end: '2026-05-21'
+    end: '2026-05-22'
     exists: true
     path: data/processed/panels/soxl_soxx_vix_full.csv
-    rows: 4075
+    rows: 4076
     start: '2010-03-11'
   soxl_with_underlying_vix:
     end: '2026-04-13'
@@ -184,16 +184,16 @@ qlib:
     path: data/qlib/upro
 symbols:
   SOXL:
-    end: '2026-05-21'
+    end: '2026-05-22'
     exists: true
     path: data/raw/symbols/SOXL.csv
-    rows: 4075
+    rows: 4076
     start: '2010-03-11'
   SOXX:
-    end: '2026-05-21'
+    end: '2026-05-22'
     exists: true
     path: data/raw/symbols/SOXX.csv
-    rows: 4075
+    rows: 4076
     start: '2010-03-11'
   SPXL:
     end: '2026-04-15'

@@ -38,6 +38,7 @@
 31. **静态 dashboard 包现在携带生产状态 JSON**：`scripts/deploy_vercel_dashboard.py` 会写 `dashboard_data/production_status.json`，只包含非 secret 的 Vercel/auth/project/static 状态；`scripts/check_dashboard_static_export.py` 会要求并报告 `production_status=<status>`。当前状态仍是 `blocked_no_credentials`。
 32. **scheduled proof 现在要求触发来源**：scheduler run-start marker 会输出 `schedule_trigger`，cron/LaunchAgent 分别设置 `cron_*` / `launchagent_*`。post-close target proof 现在必须同时满足 `schedule_slot=postclose` 和 `schedule_trigger=launchagent_postclose|cron_postclose`，避免手动 replay 用同一个 slot 清掉自然定时 gate。
 33. **pre-open 定时 composer 路径已自然触发成功**：`2026-05-21 21:00 CST` 的 `com.soxl.preopen.scheduler` 写入 `schedule_slot=preopen schedule_trigger=launchagent_preopen`，用 `v19reg_v22_budget_usage_bull_guard_v1` runtime composer 在 `2026-05-20` fresh data 上完成 dry-run 推理、dashboard rebuild、goal-gate export 和 Vercel evidence refresh。health 显示 `preopen target: ok ... runtime_composer=budget_usage`。
+34. **dashboard 模型回放现在会随静态包刷新**：`scripts/refresh_dashboard_model_replays.py` 会在 dashboard build 前刷新 registry 中 `keep_actor=true`、未 dropped、actor/profile 可解析的模型日线 CSV，并写 `dashboard_data/model_replay_freshness.json`。当前本地数据最新日是 `2026-05-22`，qlib 曲线安全回测末端是 `2026-05-21`，10/10 个可回放模型已刷新到该末端；`paper_trading` 仍作为 Vercel 首屏最新信号视图，结束于 `2026-05-22`。
 
 ## 2026-05-20 验证记录
 

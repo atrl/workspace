@@ -7047,3 +7047,64 @@ Decision:
 Artifact:
 
 - `runtime/production/card/futu_sim_src_startup_v1/notes.md`
+
+## 2026-05-23 Dashboard Model Replay Refresh
+
+Root cause:
+
+- Vercel/static dashboard data generation was not the same thing as model
+  replay freshness. `paper_trading` was current through `2026-05-22`, but many
+  selectable model versions still came from old
+  `runtime/model/card/*/*_soxl_daily.csv` files ending at `2026-03-31` or fixed
+  walk-forward windows.
+- A current replay probe for `balanced_rule_residual_v22` showed the actor can
+  be replayed on current data, but qlib day backtests require a following
+  calendar boundary. Therefore model replay curves safely end at `2026-05-21`
+  while paper/latest signal can use the terminal `2026-05-22` bar.
+- The `smoke` dashboard tag had a collision:
+  `runtime/model/card/smoke/smoke_soxl_daily.csv` was refreshed, but
+  `runtime/model/card/smoke_tide/smoke_soxl_daily.csv` could overwrite the
+  `smoke` tag in the builder.
+
+Changes:
+
+- Added `scripts/refresh_dashboard_model_replays.py`.
+- `production/soxl_daily_scheduler.py` now runs model replay refresh before
+  dashboard build unless `--skip-model-replay-refresh` is set.
+- `scripts/check_dashboard_static_export.py` now requires
+  `dashboard_data/model_replay_freshness.json` and reports
+  `model_replays=<ready>/<total>@<safe_end>`.
+- Dashboard production strip now displays model replay freshness, and version
+  selectors show each version's end date, row count, and source kind.
+- `scripts/build_backtest_dashboard.py` now resolves duplicate dashboard tags by
+  preferring the matching profile directory.
+
+Evidence:
+
+```bash
+PYTHONPATH=. qlib_venv/bin/python scripts/refresh_dashboard_model_replays.py --python qlib_venv/bin/python
+# model_replay_refresh profiles=10 current=0 refreshed=10 failed=0 skipped=0 latest_data_date=2026-05-22 safe_backtest_end=2026-05-21
+
+PYTHONPATH=. qlib_venv/bin/python scripts/build_backtest_dashboard.py
+# wrote dashboard.html, dashboard_data/index.json, dashboard_data/model_versions.json, and 38 versioned exports
+
+PYTHONPATH=. qlib_venv/bin/python scripts/check_dashboard_static_export.py
+# ok dashboard_static_export generated_at=2026-05-23 11:22:25 versions=38 missing=0 model_versions=94 latest=paper_trading paper_trading_rows=6 paper_trading_end=2026-05-22 production_status=blocked_no_credentials goal_gates=pending model_replays=10/10@2026-05-21 paper_trading
+
+uv run --python qlib_venv/bin/python --with pytest pytest \
+  tests/test_dashboard_model_replays.py \
+  tests/test_dashboard.py::test_load_versions_prefers_matching_profile_directory_for_duplicate_tag \
+  tests/test_vercel_dashboard.py::test_dashboard_static_export_integrity_check_passes -q
+# 4 passed
+```
+
+Decision:
+
+- Scheduled dashboard generation can now keep every replayable retained model
+  current to the latest qlib-safe backtest day.
+- Vercel remote remains externally blocked by missing credentials/project link,
+  not by local static data generation.
+
+Artifact:
+
+- `runtime/production/card/dashboard_model_replay_refresh_v1/notes.md`
