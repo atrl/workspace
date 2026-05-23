@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-23T09:06:00.029253+00:00",
+  "generated_at": "2026-05-23T09:42:03.169305+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -23,7 +23,7 @@
       "path": "runtime/data/knowledge.md",
       "category": "data",
       "suffix": ".md",
-      "bytes": 7082
+      "bytes": 7697
     },
     {
       "path": "runtime/data/leakage_validation_report.json",
@@ -374,6 +374,12 @@
       "bytes": 305
     },
     {
+      "path": "runtime/factor/card/futu_small_order_probe_v1/notes.md",
+      "category": "factor",
+      "suffix": ".md",
+      "bytes": 3246
+    },
+    {
       "path": "runtime/factor/card/intraday_rejection_event/backtest_INTRADAY_REJECTION_EVENT.csv",
       "category": "factor",
       "suffix": ".csv",
@@ -695,7 +701,7 @@
       "path": "runtime/factor/knowledge.md",
       "category": "factor",
       "suffix": ".md",
-      "bytes": 17242
+      "bytes": 17742
     },
     {
       "path": "runtime/factor/rulebase_signals_ic.csv",
@@ -3329,7 +3335,7 @@
       "path": "runtime/production/knowledge.md",
       "category": "production",
       "suffix": ".md",
-      "bytes": 119543
+      "bytes": 119923
     },
     {
       "path": "runtime/reward/card/base_log/card.md",

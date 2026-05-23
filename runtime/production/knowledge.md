@@ -1,6 +1,6 @@
 # PRODUCTION Knowledge
 
-> 最后更新: 2026-05-21
+> 最后更新: 2026-05-23
 > 该方向负责定时任务、数据刷新到推理闭环、paper/Futu 模拟盘、通知、dashboard 发布与运行证据。
 
 ## 当前结论
@@ -40,6 +40,7 @@
 33. **pre-open 定时 composer 路径已自然触发成功**：`2026-05-21 21:00 CST` 的 `com.soxl.preopen.scheduler` 写入 `schedule_slot=preopen schedule_trigger=launchagent_preopen`，用 `v19reg_v22_budget_usage_bull_guard_v1` runtime composer 在 `2026-05-20` fresh data 上完成 dry-run 推理、dashboard rebuild、goal-gate export 和 Vercel evidence refresh。health 显示 `preopen target: ok ... runtime_composer=budget_usage`。
 34. **dashboard 模型回放现在会随静态包刷新**：`scripts/refresh_dashboard_model_replays.py` 会在 dashboard build 前刷新 registry 中 `keep_actor=true`、未 dropped、actor/profile 可解析的模型日线 CSV，并写 `dashboard_data/model_replay_freshness.json`。当前本地数据最新日是 `2026-05-22`，qlib 曲线安全回测末端是 `2026-05-21`，10/10 个可回放模型已刷新到该末端；`paper_trading` 仍作为 Vercel 首屏最新信号视图，结束于 `2026-05-22`。
 35. **dashboard 纸盘价格/交易展示已改为证据驱动**：`paper_trading` 静态视图现在丢弃没有非 dry-run summary 的旧 seed 行，并把 Buy&Hold NAV 重基准到首个展示账户值；终端 `HOLD` 不再被合成 `SELL`，零仓位 `BUY`/零状态 `SELL` 会被屏蔽。静态版本 JSON 现在保留 OHLC/MA180 等价格字段，页面已移除不可靠的历史模型对比和 Training Curve。
+36. **Futu OpenD 小单数据探针仍被图形验证码阻断**：2026-05-23 启动本机 OpenD 后，`127.0.0.1:11111` 端口可达，`futu-api=10.02.6218` 可导入，但 `OpenQuoteContext` 初始化连续返回 `需要图形验证码` 并超时。完成 OpenD UI 验证前，不能获取 `US.SOXL`/`US.SOXX` 的 `get_capital_flow` / `get_capital_distribution` 小单数据。
 
 ## 2026-05-20 验证记录
 

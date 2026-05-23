@@ -7308,3 +7308,86 @@ Artifacts:
 - `data/raw/external/tushare_us_daily_adj_SOXL.csv`
 - `runtime/factor/card/tushare_us_daily_adj/`
 - `runtime/factor/tushare_us_daily_adj_ic.csv`
+
+## 2026-05-23 Futu Small Order Flow Probe
+
+Goal: test whether Futu OpenAPI can provide small-order flow fields for
+`US.SOXL` / `US.SOXX` as a better SOXL-native alternative to Tushare A-share
+small-order data.
+
+Direction: `factor` with `data` / `production` sidecars.
+
+Why this is not a duplicate:
+
+- Existing `tushare_us_daily_adj` tested daily US turnover/amount fields and
+  failed the promotion gate.
+- Tushare A-share `moneyflow` has small-order fields, but it is not a direct
+  SOXL/SOXX US ETF data source.
+- Futu `get_capital_flow` / `get_capital_distribution` has small-order fields
+  for quote symbols, so it is a distinct external data surface.
+
+Evidence:
+
+```bash
+qlib_venv/bin/python - <<'PY'
+import futu
+print(getattr(futu, "__version__", "unknown"))
+print(hasattr(futu, "OpenQuoteContext"), hasattr(futu, "PeriodType"))
+PY
+# 10.02.6218
+# True True
+
+open /Users/rziiiii/futu_opend/Futu_OpenD_10.2.6208_Mac/Futu_OpenD_10.2.6208_Mac/FutuOpenD.app
+
+PYTHONPATH=. qlib_venv/bin/python production/check_futu_opend.py
+# OK: OpenD is reachable at 127.0.0.1:11111
+
+PYTHONPATH=. qlib_venv/bin/python - <<'PY'
+from futu import *
+quote_ctx = OpenQuoteContext(host="127.0.0.1", port=11111)
+ret, data = quote_ctx.get_capital_flow("US.SOXL", period_type=PeriodType.INTRADAY)
+print(ret, data)
+quote_ctx.close()
+PY
+# init connect fail ... msg=需要图形验证码
+# TimeoutError: timeout
+```
+
+Retry:
+
+- 18 quote-context attempts over roughly 3 minutes.
+- Every attempt failed before data request with OpenD SDK message
+  `需要图形验证码`.
+
+Harness fix:
+
+```bash
+uv run --python qlib_venv/bin/python --with pytest pytest \
+  tests/test_futu_adapter.py::test_check_futu_opend_entrypoint_runs_without_pythonpath -q
+# red before fix: ModuleNotFoundError: No module named 'src'
+# green after fix: 1 passed
+
+uv run --python qlib_venv/bin/python --with pytest pytest tests/test_futu_adapter.py -q
+# 7 passed
+
+PYTHONPATH=. qlib_venv/bin/python scripts/update_data_registry.py --check
+# update_data_registry: OK symbols=6 panels=10 qlib=6
+
+PYTHONPATH=. qlib_venv/bin/python scripts/check_research_knowledge.py
+# check_research_knowledge: OK files=7 active_budget=300
+
+MPLCONFIGDIR=/private/tmp/mplconfig PYTHONPATH=. qlib_venv/bin/python scripts/check_harness.py
+# [summary] passed=203 failures=0
+```
+
+Decision:
+
+- No Futu small-order rows were fetched in this loop.
+- Blocker is external OpenD graphical verification/login, not missing
+  `futu-api` or a closed OpenD port.
+- Do not create a factor pack or retrain until Futu quote-context probe returns
+  actual rows for `US.SOXL` / `US.SOXX`.
+
+Artifact:
+
+- `runtime/factor/card/futu_small_order_probe_v1/notes.md`

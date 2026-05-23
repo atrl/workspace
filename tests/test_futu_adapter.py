@@ -33,6 +33,25 @@ def test_production_futu_entrypoints_import_src_adapter():
         assert "from production.futu_broker import FutuBroker" not in text
 
 
+def test_check_futu_opend_entrypoint_runs_without_pythonpath():
+    result = subprocess.run(
+        [
+            sys.executable,
+            str(ROOT / "production" / "check_futu_opend.py"),
+            "--port",
+            "1",
+        ],
+        capture_output=True,
+        text=True,
+        cwd=ROOT,
+        env={},
+    )
+
+    assert result.returncode == 1
+    assert "FAIL: OpenD is NOT reachable" in result.stdout
+    assert "ModuleNotFoundError" not in result.stderr
+
+
 def test_futu_opend_port_check_lives_under_src():
     from src.soxl_quant.app.futu import check_opend_port
 

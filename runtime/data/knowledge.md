@@ -102,6 +102,13 @@
 - 2026-05-23 使用新的运行时 token 成功拉取 `SOXX`/`SOXL` cache，覆盖到 `2026-05-22`：`SOXX=3833` rows，`SOXL=3860` rows。
 - 训练前必须先刷新本地 Tushare cache 并跑因子 gate；本轮原始 pack 未过 IC/positive-ratio gate，所以仍不启动 Tushare feature retrain。
 
+## Futu Small Order Probe（2026-05-23）
+
+- Futu OpenAPI 是当前最接近 SOXL/SOXX 小单资金流的数据源，目标接口为 `get_capital_flow` / `get_capital_distribution`。
+- 本机 `futu-api=10.02.6218` 可用，OpenD 安装路径存在，启动后 `127.0.0.1:11111` 端口可达。
+- SDK quote context 初始化仍被 OpenD 返回 `需要图形验证码` 阻断；18 次轮询均未通过，因此本轮没有生成 Futu capital-flow cache。
+- 完成 OpenD 图形验证后，先拉 `US.SOXL` / `US.SOXX` 历史日频 capital flow，再进入因子 gate；未落 rows 前不要创建训练 profile。
+
 ## 50 Core Features 主题分类
 
 | 主题 | 特征数 | 关键驱动 |
