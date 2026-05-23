@@ -41,6 +41,7 @@
 34. **dashboard 模型回放现在会随静态包刷新**：`scripts/refresh_dashboard_model_replays.py` 会在 dashboard build 前刷新 registry 中 `keep_actor=true`、未 dropped、actor/profile 可解析的模型日线 CSV，并写 `dashboard_data/model_replay_freshness.json`。当前本地数据最新日是 `2026-05-22`，qlib 曲线安全回测末端是 `2026-05-21`，10/10 个可回放模型已刷新到该末端；`paper_trading` 仍作为 Vercel 首屏最新信号视图，结束于 `2026-05-22`。
 35. **dashboard 纸盘价格/交易展示已改为证据驱动**：`paper_trading` 静态视图现在丢弃没有非 dry-run summary 的旧 seed 行，并把 Buy&Hold NAV 重基准到首个展示账户值；终端 `HOLD` 不再被合成 `SELL`，零仓位 `BUY`/零状态 `SELL` 会被屏蔽。静态版本 JSON 现在保留 OHLC/MA180 等价格字段，页面已移除不可靠的历史模型对比和 Training Curve。
 36. **Futu OpenD quote 数据探针已通过本地验证**：2026-05-23 启动本机 OpenD 后，`127.0.0.1:11111` 端口可达，初次 `OpenQuoteContext` 被图形验证阻断；完成本地 phone/UI 验证后，`get_capital_flow` / `get_capital_distribution` 已能获取 `US.SOXL` / `US.SOXX` 小单资金流并落地到 `data/raw/external/futu_*`。这只证明 quote/data path 可用，交易 broker readiness 仍需用 `production/check_futu_opend.py` 和模拟盘连接路径单独验证。
+37. **2026-05-23 上线证明已缩小到外部 Vercel 配置**：自然 `06:15 Tue-Sat Asia/Shanghai` post-close LaunchAgent 已成功运行，`schedule_trigger=launchagent_postclose`，数据新鲜度 `last_date=2026-05-22 expected=2026-05-22`，当前 runtime composer 是 `v19reg_v22_budget_usage_bull_guard_v1`，ordinary paper proof 为 `ok selected_model=v19reg_v22_budget_usage_bull_guard_v1 execution=skipped`，dashboard 静态包 `versions=38 missing=0 latest=paper_trading paper_trading_end=2026-05-22`。唯一剩余 goal gate 是 `external_vercel_setup`：`VERCEL_TOKEN` 不在当前环境/launch env file，且项目未通过 `.vercel/project.json` 或 `VERCEL_ORG_ID`/`VERCEL_PROJECT_ID` 链接。
 
 ## 2026-05-20 验证记录
 

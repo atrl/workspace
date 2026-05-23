@@ -1,10 +1,10 @@
 # Model Runtime Readiness Review
 
 - Profile: `v19reg_v22_budget_usage_bull_guard_v1`
-- Decision: `ready_waiting_scheduled_paper_proof`
+- Decision: `ready_for_production_monitoring`
 - Runtime model ready: `True`
 - Open new training branch: `False`
-- Next action: wait for the next natural scheduled post-close/non-dry paper artifact for the current composer; do not open another PPO or SOXX branch before that proof lands
+- Next action: monitor scheduled paper trading and Vercel deployment health
 
 ## Checks
 
@@ -14,7 +14,7 @@
 | `composer_required_walkforward_windows_present` | `True` | composer review includes all standard walk-forward windows |
 | `composer_components_named` | `True` | composer review names slow and fast component profiles |
 | `production_model_gate_matches_current_profile` | `True` | production goal gates point model readiness at the current runtime profile |
-| `ordinary_paper_proof_is_fresh_non_duplicate` | `False` | ordinary paper proof must be a fresh non-duplicate selected-model artifact |
+| `ordinary_paper_proof_is_fresh_non_duplicate` | `True` | ordinary paper proof must be a fresh non-duplicate selected-model artifact |
 | `duplicate_model_training_paths_blocked` | `True` | known duplicate or negative model-training paths remain blocked |
 
 ## Composer Components
@@ -41,5 +41,3 @@
 ## Production Blockers
 
 - `external_vercel_setup`
-- `scheduled_postclose_target`
-- `scheduled_paper_proof`

@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-05-23T04:18:23.687592+00:00",
+  "checked_at": "2026-05-23T15:13:44.352573+00:00",
   "root": "/Users/rziiiii/.openclaw/workspace",
   "status": "blocked_no_credentials",
   "static_export": {
@@ -24,13 +24,13 @@
   },
   "auth": {
     "status": "blocked_no_credentials",
-    "detail": "Set VERCEL_TOKEN or run vercel login. CLI detail: Error: No existing credentials found. Please run `vercel login` or pass \"--token\"\nLearn More: https://err.sh/vercel/no-credentials-found\n\n\n                     Update available! v50.32.5  v54.4.1\n   Changelog: https://github.com/vercel/vercel/releases/tag/vercel%4054.4.1\n                   Run `npm i -g vercel@latest` to update.\n\n             The latest update may fix any errors that occurred."
+    "detail": "Set VERCEL_TOKEN or run vercel login. CLI detail: Error: No existing credentials found. Please run `vercel login` or pass \"--token\"\nLearn More: https://err.sh/vercel/no-credentials-found"
   },
   "project": {
     "status": "missing_project_link",
     "detail": "Run `vercel link --yes --team <team-id> --project <project-name-or-id>` or configure VERCEL_ORG_ID and VERCEL_PROJECT_ID for non-interactive deploys."
   },
-  "deploy_requested": false,
+  "deploy_requested": true,
   "deployment_url": null,
-  "detail": "Set VERCEL_TOKEN or run vercel login. CLI detail: Error: No existing credentials found. Please run `vercel login` or pass \"--token\"\nLearn More: https://err.sh/vercel/no-credentials-found\n\n\n                     Update available! v50.32.5  v54.4.1\n   Changelog: https://github.com/vercel/vercel/releases/tag/vercel%4054.4.1\n                   Run `npm i -g vercel@latest` to update.\n\n             The latest update may fix any errors that occurred."
+  "detail": "Set VERCEL_TOKEN or run vercel login. CLI detail: Error: No existing credentials found. Please run `vercel login` or pass \"--token\"\nLearn More: https://err.sh/vercel/no-credentials-found"
 }

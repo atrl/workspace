@@ -1,12 +1,10 @@
 {
   "profile": "v19reg_v22_budget_usage_bull_guard_v1",
-  "decision": "ready_waiting_scheduled_paper_proof",
+  "decision": "ready_for_production_monitoring",
   "runtime_model_ready": true,
   "should_open_training_branch": false,
   "production_blockers": [
-    "external_vercel_setup",
-    "scheduled_postclose_target",
-    "scheduled_paper_proof"
+    "external_vercel_setup"
   ],
   "checks": {
     "composer_runtime_promotion_approved": {
@@ -42,10 +40,10 @@
       "gate_detail": "v19reg_v22_budget_usage_bull_guard_v1 (slow=balanced_rule_residual_v19_reg, fast=balanced_rule_residual_v22)"
     },
     "ordinary_paper_proof_is_fresh_non_duplicate": {
-      "passed": false,
+      "passed": true,
       "detail": "ordinary paper proof must be a fresh non-duplicate selected-model artifact",
-      "gate_status": "pending",
-      "gate_detail": "selected_model=v19reg_v22_budget_usage_bull_guard_v1 execution=duplicate_skipped"
+      "gate_status": "ok",
+      "gate_detail": "selected_model=v19reg_v22_budget_usage_bull_guard_v1 execution=skipped"
     },
     "duplicate_model_training_paths_blocked": {
       "passed": true,
@@ -108,5 +106,5 @@
       ]
     }
   ],
-  "next_action": "wait for the next natural scheduled post-close/non-dry paper artifact for the current composer; do not open another PPO or SOXX branch before that proof lands"
+  "next_action": "monitor scheduled paper trading and Vercel deployment health"
 }

@@ -7554,3 +7554,65 @@ Artifacts:
 - `runtime/factor/futu_small_order_flow_ic.csv`
 - `runtime/factor/card/futu_small_order_flow/`
 - `runtime/factor/card/futu_small_order_flow/notes.md`
+
+## 2026-05-23 Production Launch Proof Recheck
+
+Goal: produce the current上线证明 by separating local runtime readiness from
+external Vercel deployment setup.
+
+Evidence:
+
+```bash
+date '+%Y-%m-%d %H:%M:%S %Z %z'
+# 2026-05-23 23:13:06 CST +0800
+
+PYTHONPATH=. qlib_venv/bin/python scripts/check_dashboard_static_export.py
+# ok dashboard_static_export generated_at=2026-05-23 12:18:13 versions=38
+# missing=0 model_versions=94 latest=paper_trading paper_trading_rows=4
+# paper_trading_end=2026-05-22 production_status=blocked_no_credentials
+# goal_gates=pending model_replays=10/10@2026-05-21 paper_trading
+
+production/check_scheduler_health.sh
+# LaunchAgent com.soxl.preopen.scheduler: loaded / plist matches repo
+# LaunchAgent com.soxl.daily.scheduler: loaded / plist matches repo
+# LaunchAgent com.soxl.weekly.wf: loaded / plist matches repo
+# data: ok last_date=2026-05-22 expected=2026-05-22
+# data registry: ok update_data_registry: OK symbols=6 panels=10 qlib=6
+# model: ok v19reg_v22_budget_usage_bull_guard_v1
+# broker: ok paper broker ready
+# postclose status: success marker found
+# ordinary paper proof: ok selected_model=v19reg_v22_budget_usage_bull_guard_v1 execution=skipped
+# overall: pending external_vercel_setup
+
+PYTHONPATH=. qlib_venv/bin/python production/check_futu_opend.py
+# OK: OpenD is reachable at 127.0.0.1:11111
+
+PYTHONPATH=. qlib_venv/bin/python scripts/deploy_vercel_dashboard.py --deploy
+# vercel_dashboard status=blocked_no_credentials
+
+PYTHONPATH=. qlib_venv/bin/python scripts/export_production_goal_gates.py
+# production_goal_gates status=pending issues=external_vercel_setup
+
+PYTHONPATH=. qlib_venv/bin/python scripts/review_model_runtime_readiness.py
+# [model_runtime_readiness] wrote runtime/model/card/model_runtime_readiness_v1 decision=ready_for_production_monitoring
+```
+
+Decision:
+
+- Local production proof is sufficient for monitoring: natural post-close
+  LaunchAgent ran at `2026-05-23 06:15 CST`, refreshed data to
+  `2026-05-22`, selected the runtime composer, approved risk, wrote the
+  non-dry paper artifact, rebuilt dashboard static data, and exposed goal gates.
+- Public Vercel deploy is still not proven because credentials/project setup are
+  external: `VERCEL_TOKEN` is not visible to the scheduler env, and the Vercel
+  project is not linked or configured.
+- Model side should remain paused; the updated readiness decision is
+  `ready_for_production_monitoring`, not a new training branch.
+
+Artifacts:
+
+- `runtime/production/card/launch_proof_20260523_v1/notes.md`
+- `runtime/production/card/vercel_remote_deploy_v1/vercel_deployment_check.json`
+- `dashboard_data/production_goal_gates.json`
+- `dashboard_data/production_status.json`
+- `runtime/model/card/model_runtime_readiness_v1/model_runtime_readiness_review.md`
