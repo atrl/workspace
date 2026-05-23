@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-23T04:20:29.679905+00:00",
+  "generated_at": "2026-05-23T05:16:51.773873+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -23,7 +23,7 @@
       "path": "runtime/data/knowledge.md",
       "category": "data",
       "suffix": ".md",
-      "bytes": 6199
+      "bytes": 6931
     },
     {
       "path": "runtime/data/leakage_validation_report.json",
@@ -572,6 +572,36 @@
       "bytes": 183
     },
     {
+      "path": "runtime/factor/card/soxx_signals/backtest_soxx_signals.csv",
+      "category": "factor",
+      "suffix": ".csv",
+      "bytes": 3710
+    },
+    {
+      "path": "runtime/factor/card/soxx_signals/card_PRICE_RATIO_MOM.md",
+      "category": "factor",
+      "suffix": ".md",
+      "bytes": 485
+    },
+    {
+      "path": "runtime/factor/card/soxx_signals/card_REL_VOLUME_RATIO.md",
+      "category": "factor",
+      "suffix": ".md",
+      "bytes": 487
+    },
+    {
+      "path": "runtime/factor/card/soxx_signals/card_SOXX_BIAS_10.md",
+      "category": "factor",
+      "suffix": ".md",
+      "bytes": 482
+    },
+    {
+      "path": "runtime/factor/card/soxx_signals/correlation_soxx_signals.csv",
+      "category": "factor",
+      "suffix": ".csv",
+      "bytes": 199
+    },
+    {
       "path": "runtime/factor/card/trans_te_zscore/card.md",
       "category": "factor",
       "suffix": ".md",
@@ -588,6 +618,12 @@
       "category": "factor",
       "suffix": ".md",
       "bytes": 690
+    },
+    {
+      "path": "runtime/factor/card/tushare_soxx_factor_intake_v1/notes.md",
+      "category": "factor",
+      "suffix": ".md",
+      "bytes": 4167
     },
     {
       "path": "runtime/factor/card/vol_stress_score/card.md",
@@ -623,7 +659,7 @@
       "path": "runtime/factor/knowledge.md",
       "category": "factor",
       "suffix": ".md",
-      "bytes": 16119
+      "bytes": 17090
     },
     {
       "path": "runtime/factor/rulebase_signals_ic.csv",
@@ -644,6 +680,12 @@
       "bytes": 650
     },
     {
+      "path": "runtime/factor/soxx_signals_ic.csv",
+      "category": "factor",
+      "suffix": ".csv",
+      "bytes": 1588
+    },
+    {
       "path": "runtime/harness/2026-04-17-balanced-regime-gate-failure.md",
       "category": "harness",
       "suffix": ".md",
@@ -660,6 +702,18 @@
       "category": "harness",
       "suffix": ".md",
       "bytes": 4562
+    },
+    {
+      "path": "runtime/harness/card/artifact_retention_v1/notes.md",
+      "category": "harness",
+      "suffix": ".md",
+      "bytes": 2460
+    },
+    {
+      "path": "runtime/harness/card/artifact_retention_v1/retention_manifest.json",
+      "category": "harness",
+      "suffix": ".json",
+      "bytes": 34867
     },
     {
       "path": "runtime/harness/card/checkpoint_retention_v1/notes.md",
@@ -2747,7 +2801,7 @@
       "path": "runtime/model/knowledge.md",
       "category": "model",
       "suffix": ".md",
-      "bytes": 58073
+      "bytes": 58542
     },
     {
       "path": "runtime/model/model_adjustment_roadmap.md",

@@ -92,6 +92,14 @@ optimization loop needs a distinct governed mechanism with retained actors and
 complete walk-forward evidence, while the next production proof remains the
 first fresh post-close non-dry paper run that naturally selects v22.
 
+2026-05-23 direction update: current request is routed as `model_selection`
+with `factor` and `data` sidecars under row key
+`soxx_tushare_factor_intake_v1`. The cleanup/factor loop added an optional
+Tushare `us_daily_adj` cache path and refreshed SOXX factor evidence. Full
+retraining is intentionally blocked until Tushare cache exists and at least one
+new Tushare-derived factor clears IC/backtest/correlation gates; repeating
+`balanced_rule_residual_v22_soxx` is a known duplicate failure.
+
 2026-05-21 model-selection cleanup: `balanced_rule_residual_v19_reg_v22` was
 audited as profile-only and marked dropped in the registry. Its older fixed-split
 and started-walk-forward note has no durable actor, summary, or walk-forward

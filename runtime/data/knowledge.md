@@ -1,6 +1,6 @@
 # DATA Knowledge
 
-> 最后更新: 2026-05-14
+> 最后更新: 2026-05-23
 > 该方向负责数据管道、qlib store、外部数据接入和数据质量监控。
 
 ## 数据配置索引
@@ -11,7 +11,7 @@
 
 ## 核心结论
 
-1. **SOXL canonical 数据覆盖**: `2010-03-11` 至 `2026-04-27`，包含 OHLCV + VIX。
+1. **SOXL canonical 数据覆盖**: `2010-03-11` 至 `2026-05-22`，包含 SOXL/SOXX OHLCV + VIX。
 2. **外部数据**: VIX3M, VIX9D, SKEW, VVIX 已接入（qlib store）。
 3. **Feature 稳定性**: 50 core features + 14 rulebase + 7 academic + 7 transition。
 4. **VIX-free 替代**: regime_risk_no_vix 在 VIX 缺失时可用。
@@ -93,6 +93,13 @@
 证据卡：
 
 - `runtime/data/card/data_registry_autorefresh_v1/notes.md`
+
+## Tushare Optional Intake（2026-05-23）
+
+- 新增 `src/soxl_quant/core/tushare.py` 和 `scripts/fetch_tushare_data.py`，用于把 Tushare Pro `us_daily_adj` 缓存到 `data/raw/external/tushare_us_daily_adj_<SYMBOL>.csv`。
+- 新增 feature pack `tushare_us_daily_adj`，当前字段为 SOXX/SOXL turnover、amount、turnover spread、SOXX adj factor delta，全部 T+1 滞后后进入特征。
+- 官方 Tushare 数据需要 token，且美股日线/复权行情是独立权限面；当前环境没有 `TUSHARE_TOKEN`，命令以 `--allow-missing-token` 验证为 optional skip。
+- 训练前必须先刷新本地 Tushare cache 并跑因子 gate；无缓存时 pack 全零，只验证接口兼容，不提供 alpha。
 
 ## 50 Core Features 主题分类
 

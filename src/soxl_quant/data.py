@@ -29,6 +29,7 @@ from qlib.data.dataset.loader import StaticDataLoader
 from .settings import TEST_SEG, TRAIN_SEG, VALID_SEG
 
 from .config import experiment_dir_for_profile
+from .core.tushare import tushare_csv_path
 
 ROOT = Path(__file__).resolve().parents[2]
 EXTERNAL_DATA_DIR = ROOT / "data" / "raw" / "external"
@@ -524,6 +525,60 @@ def _builtin_macro_signals_pack(context: dict[str, Any]) -> dict[str, pd.Series]
     }
 
 
+def _rolling_zscore(series: pd.Series, window: int) -> pd.Series:
+    return ((series - series.rolling(window).mean()) / (series.rolling(window).std() + 1e-8)).fillna(0.0)
+
+
+def _load_tushare_us_daily_adj(symbol: str, index: pd.Index) -> pd.DataFrame:
+    path = tushare_csv_path("us_daily_adj", symbol, root=EXTERNAL_DATA_DIR)
+    if not path.exists():
+        return pd.DataFrame(index=index)
+    df = pd.read_csv(path)
+    date_col = "date" if "date" in df.columns else ("trade_date" if "trade_date" in df.columns else df.columns[0])
+    if date_col == "trade_date":
+        dates = pd.to_datetime(df[date_col].astype(str), format="%Y%m%d", errors="coerce")
+    else:
+        dates = pd.to_datetime(df[date_col], errors="coerce")
+    df = df.assign(date=dates).dropna(subset=["date"]).set_index("date").sort_index()
+    return df.reindex(index, method="ffill")
+
+
+def _tushare_numeric(df: pd.DataFrame, column: str, index: pd.Index) -> pd.Series:
+    if column not in df.columns:
+        return pd.Series(0.0, index=index)
+    return pd.to_numeric(df[column], errors="coerce").reindex(index).fillna(0.0)
+
+
+def _builtin_tushare_us_daily_adj_pack(context: dict[str, Any]) -> dict[str, pd.Series]:
+    """Lagged Tushare US daily-adjusted fields for SOXX/SOXL factor intake.
+
+    Tushare publishes daily market fields after the session, so the pack shifts
+    cached inputs by one trading day before computing z-scores. Missing cache
+    files produce silent zero-valued features, allowing training and tests to
+    run without requiring a private token.
+    """
+    index = context["index"]
+    soxx = _load_tushare_us_daily_adj("SOXX", index)
+    soxl = _load_tushare_us_daily_adj("SOXL", index)
+
+    soxx_turnover = _tushare_numeric(soxx, "turnover_ratio", index).shift(1)
+    soxl_turnover = _tushare_numeric(soxl, "turnover_ratio", index).shift(1)
+    soxx_amount = _tushare_numeric(soxx, "amount", index).shift(1)
+    soxx_adj_factor = _tushare_numeric(soxx, "adj_factor", index).shift(1).replace(0.0, np.nan)
+
+    soxx_turnover_z = _rolling_zscore(soxx_turnover, 21)
+    soxl_turnover_z = _rolling_zscore(soxl_turnover, 21)
+    soxx_amount_z = _rolling_zscore(soxx_amount, 21)
+    soxx_adj_factor_delta = soxx_adj_factor.pct_change(5, fill_method=None).replace([np.inf, -np.inf], np.nan).fillna(0.0)
+
+    return {
+        "TUSHARE_SOXX_TURNOVER_ZSCORE_21": soxx_turnover_z,
+        "TUSHARE_SOXX_AMOUNT_ZSCORE_21": soxx_amount_z,
+        "TUSHARE_SOXL_SOXX_TURNOVER_SPREAD_21": (soxl_turnover_z - soxx_turnover_z).fillna(0.0),
+        "TUSHARE_SOXX_ADJ_FACTOR_DELTA_5": soxx_adj_factor_delta,
+    }
+
+
 def _builtin_soxx_signals_pack(context: dict[str, Any]) -> dict[str, pd.Series]:
     """SOXX-based standalone signals for SOXL timing.
 
@@ -663,6 +718,15 @@ BUILTIN_FEATURE_PACKS: dict[str, dict[str, Any]] = {
             "MACRO_OIL_ZSCORE_252",
         ),
         "builder": _builtin_macro_signals_pack,
+    },
+    "tushare_us_daily_adj": {
+        "columns": (
+            "TUSHARE_SOXX_TURNOVER_ZSCORE_21",
+            "TUSHARE_SOXX_AMOUNT_ZSCORE_21",
+            "TUSHARE_SOXL_SOXX_TURNOVER_SPREAD_21",
+            "TUSHARE_SOXX_ADJ_FACTOR_DELTA_5",
+        ),
+        "builder": _builtin_tushare_us_daily_adj_pack,
     },
     "soxx_signals": {
         "columns": (

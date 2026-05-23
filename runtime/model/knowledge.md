@@ -1,6 +1,6 @@
 # MODEL Knowledge
 
-> 最后更新: 2026-05-21
+> 最后更新: 2026-05-23
 > 该方向负责 checkpoint 选择、promotion gate、walk-forward 验证和模型保留策略。
 
 ## 模型索引
@@ -87,6 +87,7 @@
 3. **Promotion Gate 硬约束**: test_2022 MaxDD < 35% 且 avg_pos < 0.35，当前无模型能同时满足。
 4. **Walk-forward 有效**: 2020/2022/2023-2024 三个测试窗口的 walk-forward 验证能暴露过拟合。
 5. **当前 runtime 模型路径是 `v19reg_v22_budget_usage_bull_guard_v1` composer**：v22/post-release-cap 仍是最近的单 profile 成功案例，但已被受治理的 budget-usage composer 取代为当前 scheduler 目标。该 composer 使用 `balanced_rule_residual_v19_reg` 慢速风险模式 + `balanced_rule_residual_v22` 快速 usage，并通过 `runtime/model/card/v19reg_v22_budget_usage_bull_guard_v1/runtime_promotion_review.json` 的 runtime model gate。下一步模型侧不是再开 PPO/SOXX 分支，而是等待 scheduled post-close / fresh non-dry paper proof。
+6. **2026-05-23 历史模型清理与 SOXX/Tushare 结论**：`scripts/prune_artifacts.py` 现在能生成 registry-driven retention manifest（keep=131/delete=12）但本轮不自动删除 checkpoint；`balanced_rule_residual_v22_soxx` 仍是 dropped direct-SOXX retrain，不应重复。新增 `tushare_us_daily_adj` optional pack 只是数据/因子入口；没有 `TUSHARE_TOKEN` 缓存、且 Tushare 因子未过 gate 前，不启动新的 SOXX/Tushare retrain。
 
 ## 有效方法 ✅
 

@@ -11,7 +11,7 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 MODEL_DIR = ROOT / "runtime" / "model" / "card"
-MANIFEST_PATH = ROOT / "artifacts" / "retention_manifest.json"
+MANIFEST_PATH = ROOT / "runtime" / "harness" / "card" / "artifact_retention_v1" / "retention_manifest.json"
 
 import sys
 
@@ -38,7 +38,27 @@ def _registry_entry_for_name(profile_name: str, registry: dict[str, Any]) -> Any
     return registry.get(profile_name)
 
 
+def _registered_profile_name(candidate: str, registered: set[str]) -> str | None:
+    if candidate in registered:
+        return candidate
+    if "_checkpoint_iter" in candidate:
+        base = candidate.split("_checkpoint_iter", 1)[0]
+        if base in registered:
+            return base
+    for suffix in ("_wf_2020", "_wf_2022", "_wf_2023_2024"):
+        if candidate.endswith(suffix):
+            base = candidate[: -len(suffix)]
+            if base in registered:
+                return base
+    return None
+
+
 def _profile_name_from_path(path: Path, *, allow_summary_namespace: bool) -> str | None:
+    registered = set(load_profile_registry())
+    parent_match = _registered_profile_name(path.parent.name, registered)
+    if parent_match is not None:
+        return parent_match
+
     name = path.name
     if not name.startswith("soxl_"):
         return None
@@ -47,12 +67,15 @@ def _profile_name_from_path(path: Path, *, allow_summary_namespace: bool) -> str
         if stem.endswith(suffix):
             stem = stem[: -len(suffix)]
             break
+    direct_match = _registered_profile_name(stem, registered)
+    if direct_match is not None:
+        return direct_match
     # Check experiments/ first (preferred location)
     experiment_matches = sorted(ROOT.glob(f"experiments/*/{stem}/profile.yaml"))
     if experiment_matches:
         return stem
     # Fallback to legacy runtime/
-    exact = ROOT / "configs" / "soxl" / f"{stem}.yaml"
+    exact = ROOT / "runtime" / "model" / "card" / stem / "profile.yaml"
     if exact.exists():
         return stem
     if stem.startswith("balanced_wf_"):
@@ -65,7 +88,10 @@ def _profile_name_from_path(path: Path, *, allow_summary_namespace: bool) -> str
         experiment_matches = sorted(ROOT.glob(f"experiments/*/{candidate}/profile.yaml"))
         if experiment_matches:
             return candidate
-        if (ROOT / "configs" / "soxl" / f"{candidate}.yaml").exists():
+        registry_match = _registered_profile_name(candidate, registered)
+        if registry_match is not None:
+            return registry_match
+        if (ROOT / "runtime" / "model" / "card" / candidate / "profile.yaml").exists():
             return candidate
     return None
 
@@ -73,7 +99,8 @@ def _profile_name_from_path(path: Path, *, allow_summary_namespace: bool) -> str
 def build_manifest() -> dict[str, Any]:
     registry = load_profile_registry()
     entries: list[dict[str, Any]] = []
-    for path in sorted(MODEL_DIR.rglob("*_actor.pt")):
+    artifact_paths = sorted([*MODEL_DIR.rglob("*_actor.pt"), *MODEL_DIR.rglob("*_summary.json")])
+    for path in artifact_paths:
         action = "keep"
         reason = "summary retained as evidence"
         profile_name = _profile_name_from_path(path, allow_summary_namespace=path.name.endswith("_summary.json"))
@@ -119,6 +146,7 @@ def build_manifest() -> dict[str, Any]:
             }
         )
     manifest = {"generated_at": datetime.now(timezone.utc).isoformat(), "entries": entries}
+    MANIFEST_PATH.parent.mkdir(parents=True, exist_ok=True)
     MANIFEST_PATH.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
     return manifest
 

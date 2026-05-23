@@ -7148,3 +7148,104 @@ Rendered evidence:
 
 - `runtime/production/card/dashboard_data_correctness_v1/dashboard_data_correctness_v1.png`
 - `runtime/production/card/dashboard_data_correctness_v1/notes.md`
+
+## 2026-05-23 Historical Model Cleanup + SOXX/Tushare Factor Intake
+
+Goal: clean historical model ambiguity, re-check SOXX signal value, and add a
+Tushare-compatible factor intake path before considering another retrain.
+
+Direction: `model_selection` with `factor` / `data` sidecars.
+
+Baselines:
+
+- Current best runtime model: `v19reg_v22_budget_usage_bull_guard_v1`.
+- Trainable canonical fast actor: `balanced_rule_residual_v22`.
+- Direct comparison failure: `balanced_rule_residual_v22_soxx`.
+
+Governance:
+
+- Role: `diagnose` / cleanup.
+- Target window: current fixed factor IC/backtest plus registry retention audit.
+- Accepted trade-off: do not delete checkpoints or start a duplicate direct SOXX
+  retrain without a passing factor/data gate.
+- Changed layer: `data` / `feature` / `selection hygiene`.
+- External reference: official Tushare Pro HTTP/Python docs and US
+  `us_daily_adj` data surface.
+- Hypothesis: SOXX remains useful as a low-correlation factor candidate only if
+  isolated signals pass factor gates; Tushare can add turnover/amount/adjusted
+  daily fields, but must be optional and lagged because it is after-close
+  external data.
+- Acceptance criteria: cleanup manifest generated; Tushare feature pack tested
+  with no-token and cached-data paths; SOXX factor evidence refreshed; no
+  duplicate retrain is launched if the gate fails.
+- Failure mode: repeating `balanced_rule_residual_v22_soxx` with a new name or
+  training zero-valued Tushare features because no token/cache exists.
+- Comparison-table row key: `soxx_tushare_factor_intake_v1`.
+
+Historical contrast:
+
+1. Closest success: `v19reg_v22_budget_usage_bull_guard_v1` combines retained
+   v19_reg/v22 actors and passes runtime composer gate.
+2. Closest failure: `balanced_rule_residual_v22_soxx` direct actor-feature
+   retrain and `soxx_relative_weakness_walkforward_v1` both failed promotion.
+3. Not a duplicate: this loop adds a token-gated, lagged Tushare cache path and
+   rechecks SOXX factors before any retrain.
+
+Changes:
+
+- Fixed `scripts/prune_artifacts.py` so current runtime actor paths, WF suffixes,
+  and retained checkpoint suffixes resolve against the profile registry.
+- Added `src/soxl_quant/core/tushare.py`.
+- Added `scripts/fetch_tushare_data.py`.
+- Added built-in feature pack `tushare_us_daily_adj`, which emits four lagged
+  Tushare/SOXX fields and falls back to zeros when cache files are absent.
+
+Evidence:
+
+```bash
+PYTHONPATH=. qlib_venv/bin/python scripts/prune_artifacts.py
+# [manifest] keep=131 delete=12
+
+PYTHONPATH=. qlib_venv/bin/python scripts/fetch_tushare_data.py \
+  --api us_daily_adj --symbols SOXX SOXL --start-date 20240101 \
+  --end-date 20260522 --allow-missing-token
+# SKIP missing TUSHARE_TOKEN
+
+PYTHONPATH=. qlib_venv/bin/python scripts/evaluate_factor_pack.py --pack soxx_signals
+# REL_VOLUME_RATIO h20 IC=+0.058251 positive_ratio=0.591 t=12.459 max_core_corr=0.136
+# PRICE_RATIO_MOM max_core_corr=0.993; SOXX_BIAS_10 max_core_corr=0.916
+
+uv run --python qlib_venv/bin/python --with pytest pytest \
+  tests/test_prune_artifacts.py tests/test_tushare_integration.py \
+  tests/test_regime_features.py tests/test_profile_registry.py -q
+# 21 passed
+
+PYTHONPATH=. qlib_venv/bin/python scripts/update_data_registry.py --check
+# update_data_registry: OK symbols=6 panels=10 qlib=6
+
+PYTHONPATH=. qlib_venv/bin/python scripts/check_research_knowledge.py
+# check_research_knowledge: OK files=7 active_budget=300
+
+PYTHONPATH=. qlib_venv/bin/python scripts/check_source_boundaries.py
+# check_source_boundaries: OK
+
+MPLCONFIGDIR=/private/tmp/mplconfig PYTHONPATH=. qlib_venv/bin/python scripts/check_harness.py
+# [summary] passed=203 failures=0
+```
+
+Decision:
+
+- Do not run a new direct SOXX actor-feature retrain in this loop. It would
+  duplicate a dropped line and, without `TUSHARE_TOKEN`/cache, the new Tushare
+  columns would be zero-valued.
+- Keep `REL_VOLUME_RATIO` as an IC candidate; drop `PRICE_RATIO_MOM` and
+  `SOXX_BIAS_10` as redundant with core momentum.
+- Next valid retrain: fetch Tushare `us_daily_adj` cache for `SOXX`/`SOXL`,
+  evaluate `tushare_us_daily_adj`, then create a governed profile only if a
+  Tushare-derived feature clears factor gates.
+
+Artifacts:
+
+- `runtime/harness/card/artifact_retention_v1/notes.md`
+- `runtime/factor/card/tushare_soxx_factor_intake_v1/notes.md`
+- `runtime/factor/card/soxx_signals/card_REL_VOLUME_RATIO.md`
