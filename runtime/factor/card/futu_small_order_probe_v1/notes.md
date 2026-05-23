@@ -106,6 +106,24 @@ The SOXL/SOXX small-flow divergence on the latest day is large enough to justify
 running a factor-gate evaluation, but it is not evidence of predictive value by
 itself.
 
+## Full-History Check
+
+The follow-up full-history check confirmed a critical distinction:
+
+- `request_history_kline(..., start="2010-03-11", end="2026-05-22")` can page
+  through long SOXL/SOXX daily K-line history:
+  - SOXL: `4060` rows, `2010-03-31` to `2026-05-22`
+  - SOXX: `4076` rows, `2010-03-11` to `2026-05-22`
+- `get_capital_flow(..., PeriodType.DAY)` does **not** provide full-history
+  small-order flow here:
+  - explicit older windows such as `2010-2011`, `2016`, `2020`, and `2024`
+    returned `0` rows for both SOXL and SOXX
+  - full-range `2010-03-11` to `2026-05-22` still returned only `251` rows,
+    `2025-05-23` to `2026-05-22`
+
+Futu K-line is therefore usable as a full-history market-data comparison source,
+but Futu small-order flow is a short-history candidate only.
+
 ## Decision
 
 Futu is now a viable SOXL/SOXX small-order-flow data source for research use:
@@ -118,7 +136,9 @@ Futu is now a viable SOXL/SOXX small-order-flow data source for research use:
   the latest closed US session.
 
 Do not train yet. The next step is to build a lagged Futu factor pack and run
-the normal IC/backtest/correlation gate against this cached source.
+the normal IC/backtest/correlation gate against this cached source. Do not use
+Futu small-order flow for full-horizon RL training unless a separate provider or
+subscription can supply the missing pre-2025 history.
 
 ## Verification
 

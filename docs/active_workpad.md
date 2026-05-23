@@ -7445,3 +7445,48 @@ Artifacts:
 - `data/raw/external/futu_capital_flow_day_US_SOXL.csv`
 - `data/raw/external/futu_capital_flow_day_US_SOXX.csv`
 - `runtime/factor/card/futu_small_order_probe_v1/notes.md`
+
+### 2026-05-23 Futu Full-History Check
+
+Goal: answer whether Futu can provide full-history data before using it for any
+training branch.
+
+Evidence:
+
+```bash
+PYTHONPATH=. qlib_venv/bin/python production/check_futu_opend.py
+# OK: OpenD is reachable at 127.0.0.1:11111
+
+# get_capital_flow explicit historical windows:
+# US.SOXL 2010-03-11..2011-12-31 rows=0
+# US.SOXL 2016-01-01..2016-12-31 rows=0
+# US.SOXL 2020-01-01..2020-12-31 rows=0
+# US.SOXL 2024-01-01..2024-12-31 rows=0
+# US.SOXL 2010-03-11..2026-05-22 rows=251 range=2025-05-23..2026-05-22
+# US.SOXX shows the same capital-flow coverage behavior.
+
+# request_history_kline paginated daily K-line:
+# data/raw/external/futu_history_kline_US_SOXL.csv:
+#   rows=4060 pages=5 start=2010-03-31 end=2026-05-22
+# data/raw/external/futu_history_kline_US_SOXX.csv:
+#   rows=4076 pages=5 start=2010-03-11 end=2026-05-22
+
+PYTHONPATH=. qlib_venv/bin/python scripts/update_data_registry.py
+# update_data_registry: OK symbols=6 panels=10 qlib=6
+```
+
+Decision:
+
+- Futu K-line is full-history enough for SOXL/SOXX OHLCV comparison and has
+  been cached.
+- Futu small-order/capital-flow data is not full-history here; the provider
+  returns only `2025-05-23` onward for both symbols.
+- Do not start a Futu-small-order training profile unless a full-history
+  provider/subscription is available. Keep it as a short-history factor probe or
+  live overlay candidate only.
+
+Artifacts:
+
+- `data/raw/external/futu_history_kline_US_SOXL.csv`
+- `data/raw/external/futu_history_kline_US_SOXX.csv`
+- `runtime/data/card/futu_full_history_probe_v1/notes.md`

@@ -34,7 +34,7 @@
 | INTRADAY_REJECTION_EVENT | crypto analogue | transition | ❌ Blocked | Sharpe=+0.261, PF=1.078 | [card](card/intraday_rejection_event/card.md) |
 | REL_VOLUME_RATIO | SOXX | liquidity | 🟡 IC candidate | IC=+0.058, IC+=0.591, rho=0.136 | [card](card/soxx_signals/card_REL_VOLUME_RATIO.md) |
 | TUSHARE_US_DAILY_ADJ | Tushare | data intake | ❌ Blocked / weak | best IC=+0.012, IC+=0.485, rho=0.280 | [card](card/tushare_soxx_factor_intake_v1/notes.md) |
-| FUTU_SMALL_ORDER_FLOW | Futu | order flow | 🟡 Data ready / pending gate | daily rows=251 each, latest SOXL small=+189.8M / SOXX small=-93.5M | [card](card/futu_small_order_probe_v1/notes.md) |
+| FUTU_SMALL_ORDER_FLOW | Futu | order flow | 🟡 Short-history only / pending gate | daily rows=251 each, not full-history; latest SOXL small=+189.8M / SOXX small=-93.5M | [card](card/futu_small_order_probe_v1/notes.md) |
 | regime_risk | core | composite | ✅ Core | 训练主特征 | [card](cards/regime_risk/card.md) |
 | regime_risk_no_vix | core | composite | 🟡 Ablated | VIX-free | [card](cards/regime_risk_no_vix/card.md) |
 | vol_stress_score | core | composite | 🟡 VIX-free proxy | 纯价格 stress | [card](cards/vol_stress_score/card.md) |
@@ -59,7 +59,7 @@
 8. **INTRADAY_REJECTION_EVENT** 是 crypto liquidation-wick 类比因子：正交性尚可（max core rho=0.444），但 direction stability 和 standalone backtest 都失败；不要再裸测 wick rejection，除非增加明确 regime gate。
 9. **SOXX direct actor feature retrain 不应重复**：`balanced_rule_residual_v22_soxx` 已经失败并被 dropped；2026-05-23 复核显示 `REL_VOLUME_RATIO` 有 IC 候选价值（h20 IC=+0.058、positive_ratio=0.591、max core rho=0.136），但 PF/accuracy 不过门槛；`PRICE_RATIO_MOM` 与 `SOXX_BIAS_10` 分别与 `mom_5` 高相关（0.993/0.916），不要作为 core feature 直接重训。
 10. **Tushare 原始 us_daily_adj pack 不足以直接重训**：2026-05-23 新 token 已拉取 SOXX/SOXL cache 到 `2026-05-22`；`TUSHARE_SOXX_TURNOVER_ZSCORE_21` 是最佳原始候选，但 h20 IC 只有 `+0.012020`、positive ratio `0.485`，低于 promotion gate。虽然部分 long threshold 的 PF/accuracy 接近或略过 `1.2/0.55`，但 IC 稳定性失败，不能据此开 Tushare feature retrain。
-11. **Futu 小单资金流已从阻塞转为待验证候选源**：2026-05-23 初次 probe 被 OpenD 图形验证阻断；完成本地 phone/UI 验证后，已缓存 `US.SOXL` / `US.SOXX` daily capital flow 各 `251` rows（`2025-05-23` 至 `2026-05-22`）、intraday 各 `391` rows，以及 snapshot/distribution。最新日 SOXL `sml_in_flow=+189.8M`、SOXX `sml_in_flow=-93.5M`，存在小单分歧候选信号；下一步是 lagged IC/backtest/correlation gate，未过 gate 前不启动训练。
+11. **Futu 小单资金流已从阻塞转为待验证候选源，但不能直接用于全历史训练**：2026-05-23 初次 probe 被 OpenD 图形验证阻断；完成本地 phone/UI 验证后，已缓存 `US.SOXL` / `US.SOXX` daily capital flow 各 `251` rows（`2025-05-23` 至 `2026-05-22`）、intraday 各 `391` rows，以及 snapshot/distribution。后续全历史测试显示 Futu K 线可覆盖长历史（SOXL `2010-03-31` 起，SOXX `2010-03-11` 起），但 `get_capital_flow` 对 `2010-2011`、`2016`、`2020`、`2024` 均返回 `0` rows，全范围也只返回最近 `251` rows。Futu 小单流只能做短历史/live overlay 候选；未找到全历史小单来源前，不开 Futu small-order full-horizon training。
 
 ## 特征冗余（|rho| > 0.85）
 

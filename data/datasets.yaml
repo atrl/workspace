@@ -95,6 +95,18 @@ external:
     path: data/raw/external/futu_capital_flow_intraday_US_SOXX.csv
     rows: 391
     start: '2026-05-22'
+  futu_history_kline_US_SOXL:
+    end: '2026-05-22'
+    exists: true
+    path: data/raw/external/futu_history_kline_US_SOXL.csv
+    rows: 4060
+    start: '2010-03-31'
+  futu_history_kline_US_SOXX:
+    end: '2026-05-22'
+    exists: true
+    path: data/raw/external/futu_history_kline_US_SOXX.csv
+    rows: 4076
+    start: '2010-03-11'
   futu_snapshot_US_SOXL:
     end: '2026-05-22'
     exists: true
@@ -143,7 +155,7 @@ external:
     path: data/raw/external/yield_curve_10y3m.csv
     rows: 11081
     start: null
-generated_at: '2026-05-23T13:52:45.557546+00:00'
+generated_at: '2026-05-23T14:01:53.302364+00:00'
 layout:
   processed_panels: data/processed/panels/<asset>_with_underlying_vix.csv
   qlib: data/qlib/<asset>/

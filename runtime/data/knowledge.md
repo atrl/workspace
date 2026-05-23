@@ -114,6 +114,18 @@
   - `futu_snapshot_US_SOXL.csv` / `futu_snapshot_US_SOXX.csv`：各 `1` row，更新到 `2026-05-22`。
 - 2026-05-22 latest daily small-flow readout：SOXL `sml_in_flow=+189.8M`，SOXX `sml_in_flow=-93.5M`。这是候选因子信号，不是训练许可；下一步必须跑 lagged factor gate。
 
+## Futu Full History Check（2026-05-23）
+
+- Futu `request_history_kline` 可分页拉取长历史 K 线，已新增：
+  - `futu_history_kline_US_SOXL.csv`：`4060` rows，`2010-03-31` 至 `2026-05-22`。
+  - `futu_history_kline_US_SOXX.csv`：`4076` rows，`2010-03-11` 至 `2026-05-22`。
+- Futu `get_capital_flow(..., PeriodType.DAY)` 不是全历史小单资金流源。本轮显式测试 `2010-2011`、`2016`、`2020`、`2024` 窗口均返回 `0` rows；全范围 `2010-03-11` 至 `2026-05-22` 也只返回最近 `251` rows（`2025-05-23` 至 `2026-05-22`）。
+- 结论：Futu K 线可作为全量 OHLCV 对照源；Futu 小单流只能作为短历史/live overlay 候选。除非找到能覆盖训练全历史的小单流来源，否则不要用 Futu 小单流开全历史训练。
+
+证据卡：
+
+- `runtime/data/card/futu_full_history_probe_v1/notes.md`
+
 ## 50 Core Features 主题分类
 
 | 主题 | 特征数 | 关键驱动 |
