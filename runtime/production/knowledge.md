@@ -2929,3 +2929,52 @@ Decision:
 Evidence card:
 
 - `runtime/production/card/ib_gateway_install_start_v1/notes.md`
+
+## 2026-05-24 Paper Model OOS Risk Check
+
+Current Futu paper trading uses the budget-usage composer:
+
+```text
+composer profile: v19reg_v22_budget_usage_bull_guard_v1
+slow actor: balanced_rule_residual_v19_reg
+fast actor: balanced_rule_residual_v22
+latest signal: runtime/soxl/paper_trading/2026-05-22/dry_run/futu/summary.json
+latest raw target: 0.8500000003
+latest capped target: 0.35
+```
+
+The underlying repo split is:
+
+```text
+train: 2010-03-11 .. 2018-12-31
+valid: 2019-01-01 .. 2019-12-31
+test: 2020-01-01 .. 2026-12-31
+```
+
+A strict post-train/post-validation recomposition over
+`2020-01-02..2026-05-21` returned:
+
+```text
+strategy=1542.89%
+buyhold=816.51%
+excess=+726.38pp
+sharpe=1.109
+max_dd=41.59%
+avg_pos=0.462
+trades=199
+```
+
+Risk read:
+
+- Broad strict-OOS excess is positive.
+- 2022 defense is intact: `-21.57%` strategy vs `-86.59%` buy-and-hold, with
+  average position `0.248`.
+- The current risk is recent upside-capture/opportunity-cost risk:
+  `2025..2026-05-21` strategy `98.45%` vs buy-and-hold `544.71%`, and 2026 YTD
+  strategy `16.70%` vs buy-and-hold `277.62%`.
+- Do not promote this path to live IBKR only from broad OOS return. Add a
+  targeted 2025-2026 recovery/re-entry review first.
+
+Evidence card:
+
+- `runtime/production/card/paper_model_oos_risk_check_v1/notes.md`

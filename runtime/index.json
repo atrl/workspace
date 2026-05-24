@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-24T05:09:03.615229+00:00",
+  "generated_at": "2026-05-24T06:33:50.137482+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -3230,6 +3230,36 @@
       "bytes": 2927
     },
     {
+      "path": "runtime/production/card/paper_model_oos_risk_check_v1/notes.md",
+      "category": "production",
+      "suffix": ".md",
+      "bytes": 4362
+    },
+    {
+      "path": "runtime/production/card/paper_model_oos_risk_check_v1/paper_model_oos_risk_check_v1.json",
+      "category": "production",
+      "suffix": ".json",
+      "bytes": 9140
+    },
+    {
+      "path": "runtime/production/card/paper_model_oos_risk_check_v1/paper_model_oos_risk_check_v1.md",
+      "category": "production",
+      "suffix": ".md",
+      "bytes": 2042
+    },
+    {
+      "path": "runtime/production/card/paper_model_oos_risk_check_v1/paper_model_oos_risk_check_v1_soxl_daily.csv",
+      "category": "production",
+      "suffix": ".csv",
+      "bytes": 438242
+    },
+    {
+      "path": "runtime/production/card/paper_model_oos_risk_check_v1/segment_metrics.json",
+      "category": "production",
+      "suffix": ".json",
+      "bytes": 4508
+    },
+    {
       "path": "runtime/production/card/paper_non_dry_inference_proof_v1/notes.md",
       "category": "production",
       "suffix": ".md",
@@ -3503,7 +3533,7 @@
       "path": "runtime/production/knowledge.md",
       "category": "production",
       "suffix": ".md",
-      "bytes": 129733
+      "bytes": 131031
     },
     {
       "path": "runtime/reward/card/base_log/card.md",

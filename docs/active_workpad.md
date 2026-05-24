@@ -7967,3 +7967,69 @@ Decision:
 Artifact:
 
 - `runtime/production/card/ib_gateway_install_start_v1/notes.md`
+
+## 2026-05-24 Paper Model OOS Risk Check
+
+Goal:
+
+- Answer which model Futu paper trading is using.
+- Confirm the training split boundary.
+- Backtest the current paper composer after the training/validation period and
+  compare return, buy-and-hold, excess, and recent risk.
+
+Current paper model:
+
+```text
+broker: futu
+composer profile: v19reg_v22_budget_usage_bull_guard_v1
+slow actor: balanced_rule_residual_v19_reg
+fast actor: balanced_rule_residual_v22
+latest dry-run: runtime/soxl/paper_trading/2026-05-22/dry_run/futu/summary.json
+latest raw target: 0.8500000003
+latest risk-gate capped target: 0.35
+```
+
+Training/data split:
+
+```text
+train: 2010-03-11 .. 2018-12-31
+valid: 2019-01-01 .. 2019-12-31
+strict OOS used here: 2020-01-02 .. 2026-05-21
+latest local data date: 2026-05-22
+safe backtest end: 2026-05-21
+```
+
+Evidence:
+
+```text
+scripts/compose_budget_usage_counterfactual.py
+# return=1542.9% sharpe=1.109 max_dd=41.6% avg_pos=0.462
+
+strict OOS 2020-01-02..2026-05-21:
+# strategy=1542.89%, buyhold=816.51%, excess=+726.38pp,
+# sharpe=1.109, max_dd=41.59%, avg_pos=0.462, trades=199
+
+2022:
+# strategy=-21.57%, buyhold=-86.59%, excess=+65.02pp,
+# max_dd=31.10%, avg_pos=0.248
+
+2025..2026-05-21:
+# strategy=98.45%, buyhold=544.71%, excess=-446.25pp,
+# max_dd=35.01%, avg_pos=0.434
+
+2026 YTD..2026-05-21:
+# strategy=16.70%, buyhold=277.62%, excess=-260.93pp,
+# max_dd=20.57%, avg_pos=0.256
+```
+
+Decision:
+
+- Current paper model passes the broad strict-OOS excess check, but it has a
+  clear recent upside-capture/opportunity-cost risk.
+- 2022 stress defense remains strong; the risk is not bear-market overexposure.
+- Before any live IBKR promotion, run a targeted 2025-2026 recovery/re-entry
+  review.
+
+Artifact:
+
+- `runtime/production/card/paper_model_oos_risk_check_v1/notes.md`
