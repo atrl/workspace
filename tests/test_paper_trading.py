@@ -821,6 +821,79 @@ def test_main_uses_budget_runtime_composer_when_requested(
     assert summary["composition"] == composition
 
 
+def test_main_enables_step_clip_for_futu_notional_simulation(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+):
+    csv_path = tmp_path / "soxl_features.csv"
+    csv_path.write_text(
+        "date,soxl_close\n"
+        "2026-05-22,190.56\n",
+        encoding="utf-8",
+    )
+    runtime_dir = tmp_path / "runtime" / "soxl"
+    runtime_dir.mkdir(parents=True)
+    captured: dict[str, object] = {}
+
+    signal = SignalIntent(
+        date="2026-05-22",
+        symbol="SOXL",
+        profile="balanced_rule_residual_v22",
+        model_path="runtime/model/card/balanced_rule_residual_v22/soxl_balanced_rule_residual_v22_actor.pt",
+        seed=42,
+        action=0,
+        target_position=0.85,
+        current_position=0.0,
+        price=190.56,
+        regime_risk=0.35,
+        note="test futu notional clip",
+    )
+    decision = RiskGateDecision(True, 0.35, (), ())
+    account = AccountSnapshot("2026-05-22", 10_000.0, 0, 0.0, 10_000.0, 0.0)
+    reconcile = ReconciliationRecord("2026-05-22", 0.35, 0.0, -0.35, "manual_review", "test")
+
+    def fake_plan_manual_session(**kwargs):
+        captured.update(kwargs)
+        return {
+            "signal": signal,
+            "risk_gate": decision,
+            "account": account,
+            "reconcile": reconcile,
+            "execution_overlay_state": RuntimeExecutionOverlayState(),
+        }
+
+    monkeypatch.setattr(soxl_paper_trading, "RUNTIME_DIR", runtime_dir)
+    monkeypatch.setattr(soxl_paper_trading, "PAPER_TRADING_CSV", runtime_dir / "paper_trading" / "daily.csv")
+    monkeypatch.setattr(soxl_paper_trading, "PAPER_BROKER_STATE", runtime_dir / "paper_trading" / "state.json")
+    monkeypatch.setattr(soxl_paper_trading, "init_qlib", lambda _qlib_path: None)
+    monkeypatch.setattr(soxl_paper_trading, "_init_broker", lambda args: PaperBroker(initial_cash=10_000.0))
+    monkeypatch.setattr(soxl_paper_trading, "auto_select_profile", lambda _family: ("balanced_rule_residual_v22", Path("model.pt")))
+    monkeypatch.setattr(soxl_paper_trading, "plan_manual_session", fake_plan_manual_session)
+    monkeypatch.setattr(soxl_paper_trading, "_last_trading_day", lambda: "2026-05-22")
+
+    from src.soxl_quant import settings
+
+    monkeypatch.setattr(settings, "CSV_PATH", csv_path)
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "soxl_paper_trading.py",
+            "--broker",
+            "futu",
+            "--account-notional",
+            "10000",
+            "--dry-run",
+            "--no-notify",
+            "--skip-data-update",
+        ],
+    )
+
+    soxl_paper_trading.main()
+
+    assert captured["clip_position_change"] is True
+
+
 def test_existing_executed_summary_falls_back_to_paper_state_and_daily_csv(tmp_path: Path):
     runtime_dir = tmp_path / "runtime" / "soxl"
     paper_dir = runtime_dir / "paper_trading"

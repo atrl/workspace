@@ -7781,3 +7781,52 @@ Decision:
 Artifact:
 
 - `runtime/production/card/futu_sim_order_probe_v1/notes.md`
+
+## 2026-05-24 Futu 10000 Simulation Reset
+
+Goal:
+
+- Reset the active Futu simulated-trading path to start from a `10000` account
+  value, instead of using the Futu backend simulated-account balance of
+  `1000000`.
+
+Change:
+
+- Added `--account-notional` to the Futu paper runner and scheduler path.
+- Scheduled Futu LaunchAgents and cron rows now include
+  `--account-notional 10000`.
+- `FutuBroker` now sizes target shares from the configured notional snapshot
+  and no longer sends the unsupported `trd_market` keyword to `place_order()`.
+- Explicit Futu notional simulation now uses the existing cold-start step clip,
+  so an 85% model target from zero is capped to 35% instead of blocked.
+- Old generated paper-trading state was archived under
+  `runtime/soxl/paper_trading/archive_reset_20260524_10000`.
+- Active local paper state and dashboard CSV now start at `10000` on
+  `2026-05-22`.
+
+Evidence:
+
+```text
+Futu dry-run account_value: 10000.0
+Futu dry-run cash: 10000.0
+Futu dry-run shares: 0
+signal target: 0.8500000003
+risk_gate approved: true
+risk_gate capped_target_position: 0.35
+dry_run executed: false
+LaunchAgent daily account_notional: 10000 broker=futu
+LaunchAgent preopen account_notional: 10000 broker=futu
+dashboard paper_trading_rows: 1
+dashboard paper_trading_end: 2026-05-22
+```
+
+Decision:
+
+- Futu remains the scheduled simulated broker.
+- IBKR is not part of this path.
+- The Futu backend account may still show its own cash, but SOXL strategy
+  sizing and dashboard state now use repo-side notional `10000`.
+
+Artifact:
+
+- `runtime/production/card/futu_10000_reset_v1/notes.md`

@@ -10,7 +10,7 @@ import socket
 import signal
 import time
 from contextlib import contextmanager
-from typing import Callable, List, Sequence, Tuple
+from typing import Callable, List, Mapping, Sequence, Tuple
 
 
 def check_opend_port(host: str = "127.0.0.1", port: int = 11111, timeout: float = 5.0) -> bool:
@@ -70,6 +70,7 @@ class FutuBroker:
         use_market_order: bool = False,
         unlock_password: str = "",
         connect_timeout_sec: float = 20.0,
+        account_notional: float = 0.0,
     ):
         self.host = host
         self.port = port
@@ -78,6 +79,7 @@ class FutuBroker:
         self.use_market_order = bool(use_market_order)
         self.unlock_password = unlock_password
         self.connect_timeout_sec = float(connect_timeout_sec)
+        self.account_notional = float(account_notional or 0.0)
 
         self._quote_ctx = None
         self._trade_ctx = None
@@ -156,24 +158,65 @@ class FutuBroker:
             total_asset = cash
         return cash, total_asset
 
-    def _get_position_shares(self, symbol: str) -> int:
+    def _get_position_record(self, symbol: str) -> Mapping[str, object] | None:
         futu = self._import_futu()
         if self._trade_ctx is None:
-            return 0
+            return None
         ret, data = self._trade_ctx.position_list_query(trd_env=futu.TrdEnv.SIMULATE)
         if ret != futu.RET_OK or data is None or len(data) == 0:
-            return 0
-        mask = data.get("code", "") == symbol
+            return None
+        if not hasattr(data, "columns") or "code" not in data.columns:
+            return None
+        mask = data["code"] == symbol
         if mask.sum() == 0:
-            return 0
-        return int(data.loc[mask, "qty"].iloc[0])
+            return None
+        return data.loc[mask].iloc[0].to_dict()
+
+    @staticmethod
+    def _record_float(record: Mapping[str, object] | None, columns: Sequence[str]) -> float:
+        if not record:
+            return 0.0
+        for column in columns:
+            if column not in record:
+                continue
+            try:
+                return float(record[column])
+            except (TypeError, ValueError):
+                continue
+        return 0.0
+
+    @staticmethod
+    def _first_order_id(data: object) -> str:
+        for column in ("order_id", "orderId"):
+            if isinstance(data, dict) and column in data:
+                return str(data[column])
+            if hasattr(data, "columns") and column in data.columns and len(data) > 0:
+                return str(data[column].iloc[0])
+        return ""
+
+    def _get_position_shares(self, symbol: str) -> int:
+        return int(self._record_float(self._get_position_record(symbol), ["qty", "Qty"]))
 
     def get_account_snapshot(self, date: str, price: float) -> AccountSnapshot:
         from src.soxl_quant.runtime import AccountSnapshot
 
         cash, account_value = self._get_account_info()
-        shares = self._get_position_shares(self.symbol)
+        position_record = self._get_position_record(self.symbol)
+        shares = int(self._record_float(position_record, ["qty", "Qty"]))
         market_value = shares * price
+        if self.account_notional > 0:
+            cost_price = self._record_float(
+                position_record,
+                ["cost_price", "cost_price_valid", "average_cost", "avg_price", "cost"],
+            )
+            if shares and cost_price > 0:
+                cash = self.account_notional - shares * cost_price
+                account_value = cash + market_value
+            else:
+                account_value = self.account_notional
+                cash = self.account_notional - market_value
+            if account_value <= 0:
+                account_value = self.account_notional
         position = market_value / account_value if account_value > 0 else 0.0
         return AccountSnapshot(date, cash, shares, market_value, account_value, position)
 
@@ -249,7 +292,6 @@ class FutuBroker:
             trd_side=side,
             order_type=order_type,
             trd_env=futu.TrdEnv.SIMULATE,
-            trd_market=futu.TrdMarket.US,
         )
 
         if ret != futu.RET_OK:
@@ -266,7 +308,7 @@ class FutuBroker:
                 ),
             )
 
-        order_id = str(data.get("order_id", data.get("orderId", "")))
+        order_id = self._first_order_id(data)
         broker_side = "BUY" if delta > 0 else "SELL"
         command = ExecutionCommand(date, symbol, broker_side, abs(delta), price, target_position, reason)
 

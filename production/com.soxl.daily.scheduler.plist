@@ -9,6 +9,8 @@
         <string>/Users/rziiiii/.openclaw/workspace/production/run_soxl_scheduler.sh</string>
         <string>--broker</string>
         <string>futu</string>
+        <string>--account-notional</string>
+        <string>10000</string>
         <string>--vercel-deploy</string>
         <string>--health-summary</string>
         <string>--schedule-slot</string>

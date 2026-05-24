@@ -65,6 +65,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--ibkr-account", default="")
     parser.add_argument("--ibkr-connect-timeout", type=float, default=10.0)
     parser.add_argument("--unlock-password", default="")
+    parser.add_argument(
+        "--account-notional",
+        type=float,
+        default=0.0,
+        help="Optional notional account value forwarded to external simulated brokers.",
+    )
     parser.add_argument("--profile-family", default="balanced")
     parser.add_argument("--profile", default="")
     parser.add_argument("--runtime-composer", default="none", choices=["none", "budget_usage"])
@@ -206,6 +212,8 @@ def main() -> None:
         f"skip_data_update={args.skip_data_update} data_provider={args.data_provider} "
         f"schedule_slot={args.schedule_slot} schedule_trigger={schedule_trigger}"
     )
+    if args.account_notional > 0:
+        run_marker += f" account_notional={args.account_notional}"
     if args.runtime_composer != "none":
         run_marker += (
             f" runtime_composer={args.runtime_composer}"
@@ -224,6 +232,8 @@ def main() -> None:
             "--profile-family", args.profile_family,
             "--data-provider", args.data_provider,
         ]
+        if args.account_notional > 0:
+            paper_cmd.extend(["--account-notional", str(args.account_notional)])
         if args.profile:
             paper_cmd.extend(["--profile", args.profile])
         if args.runtime_composer != "none":

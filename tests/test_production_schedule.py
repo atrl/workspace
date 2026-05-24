@@ -41,6 +41,7 @@ def test_crontab_uses_shanghai_safe_us_market_windows():
     assert "--health-summary" in post_close
     assert "--schedule-slot postclose" in post_close
     assert "--broker futu" in post_close
+    assert "--account-notional 10000" in post_close
     assert "--broker ibkr" not in post_close
     assert "SOXL_SCHEDULE_TRIGGER=cron_postclose" in post_close
 
@@ -54,6 +55,7 @@ def test_crontab_uses_shanghai_safe_us_market_windows():
     assert "--health-summary" in pre_open
     assert "--schedule-slot preopen" in pre_open
     assert "--broker futu" in pre_open
+    assert "--account-notional 10000" in pre_open
     assert "--broker ibkr" not in pre_open
     assert "SOXL_SCHEDULE_TRIGGER=cron_preopen" in pre_open
 
@@ -124,6 +126,7 @@ def test_launchagent_runs_post_close_in_shanghai_local_time():
     assert "--vercel-deploy" in plist["ProgramArguments"]
     assert "--health-summary" in plist["ProgramArguments"]
     assert plist["ProgramArguments"][plist["ProgramArguments"].index("--broker") + 1] == "futu"
+    assert plist["ProgramArguments"][plist["ProgramArguments"].index("--account-notional") + 1] == "10000"
     assert "--schedule-slot" in plist["ProgramArguments"]
     assert plist["ProgramArguments"][plist["ProgramArguments"].index("--schedule-slot") + 1] == "postclose"
     assert plist["EnvironmentVariables"]["SOXL_SCHEDULE_TRIGGER"] == "launchagent_postclose"
@@ -157,6 +160,7 @@ def test_launchagent_runs_preopen_cached_dry_run_in_shanghai_local_time():
     assert "--vercel-deploy" in plist["ProgramArguments"]
     assert "--health-summary" in plist["ProgramArguments"]
     assert plist["ProgramArguments"][plist["ProgramArguments"].index("--broker") + 1] == "futu"
+    assert plist["ProgramArguments"][plist["ProgramArguments"].index("--account-notional") + 1] == "10000"
     assert "--schedule-slot" in plist["ProgramArguments"]
     assert plist["ProgramArguments"][plist["ProgramArguments"].index("--schedule-slot") + 1] == "preopen"
     assert plist["EnvironmentVariables"]["SOXL_SCHEDULE_TRIGGER"] == "launchagent_preopen"

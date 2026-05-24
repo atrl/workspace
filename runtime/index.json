@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-24T02:45:42.477970+00:00",
+  "generated_at": "2026-05-24T03:12:11.984151+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -3092,6 +3092,12 @@
       "bytes": 2611
     },
     {
+      "path": "runtime/production/card/futu_10000_reset_v1/notes.md",
+      "category": "production",
+      "suffix": ".md",
+      "bytes": 4886
+    },
+    {
       "path": "runtime/production/card/futu_scheduled_broker_v1/notes.md",
       "category": "production",
       "suffix": ".md",
@@ -3437,7 +3443,7 @@
       "path": "runtime/production/knowledge.md",
       "category": "production",
       "suffix": ".md",
-      "bytes": 124418
+      "bytes": 126660
     },
     {
       "path": "runtime/reward/card/base_log/card.md",

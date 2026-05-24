@@ -105,12 +105,25 @@ def parse_args() -> argparse.Namespace:
         choices=["auto", *DATA_UPDATE_PROVIDERS],
         help="Market data provider for online refresh; auto tries yfinance, yahoo_api, then polygon",
     )
-    parser.add_argument("--initial-cash", type=float, default=ACCOUNT, help="Initial cash for paper broker")
+    parser.add_argument("--initial-cash", type=float, default=ACCOUNT, help="Initial cash for repo-local paper broker")
+    parser.add_argument(
+        "--account-notional",
+        type=float,
+        default=0.0,
+        help=(
+            "Optional notional account value for external simulated brokers. "
+            "When set for Futu, sizing and dashboard snapshots use this value "
+            "instead of the broker-side simulated account total."
+        ),
+    )
     parser.add_argument(
         "--paper-step-clip",
         action=argparse.BooleanOptionalAction,
         default=True,
-        help="In paper mode, clip large target changes to the risk-gate step limit instead of blocking",
+        help=(
+            "In repo-local paper mode, and in explicit Futu notional simulation, "
+            "clip large target changes to the risk-gate step limit instead of blocking."
+        ),
     )
     args = parser.parse_args()
     if args.runtime_composer != "none":
@@ -125,6 +138,14 @@ def parse_args() -> argparse.Namespace:
 
 def _runtime_composer_enabled(args: argparse.Namespace) -> bool:
     return args.runtime_composer == "budget_usage"
+
+
+def _clip_position_change_enabled(args: argparse.Namespace) -> bool:
+    if not args.paper_step_clip:
+        return False
+    if args.broker == "paper":
+        return True
+    return args.broker == "futu" and args.account_notional > 0
 
 
 def _bull_guard_config(args: argparse.Namespace) -> BullParticipationGuardConfig:
@@ -152,6 +173,7 @@ def _init_broker(args: argparse.Namespace) -> BrokerAdapter:
             lot_size=1,
             use_market_order=args.market_order,
             unlock_password=args.unlock_password,
+            account_notional=args.account_notional,
         )
         broker.connect()
         return broker
@@ -690,7 +712,7 @@ def main() -> None:
                 output_dir=None,
                 config=TwoSpeedBudgetConfig(),
                 bull_guard=_bull_guard_config(args),
-                clip_position_change=args.broker == "paper" and args.paper_step_clip,
+                clip_position_change=_clip_position_change_enabled(args),
             )
         else:
             result = plan_manual_session(
@@ -699,7 +721,7 @@ def main() -> None:
                 broker=broker,
                 model_path=model_path,
                 output_dir=None,
-                clip_position_change=args.broker == "paper" and args.paper_step_clip,
+                clip_position_change=_clip_position_change_enabled(args),
             )
         signal = result["signal"]
         decision = result["risk_gate"]

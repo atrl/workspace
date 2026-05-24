@@ -145,6 +145,27 @@ quote_ctx.close()
 3. 部分数据需要订阅权限
 4. 注意 API 调用频率限制
 5. macOS 可通过 `scripts/install_futu_opend_macos.sh` 自动安装
+6. SOXL 生产模拟盘使用 repo 侧 notional 账户控制 sizing：scheduled Futu
+   路径应带 `--account-notional 10000`，不要直接用 Futu 后台模拟账户现金
+   作为策略账户规模。
+7. Futu 美股模拟交易使用
+   `OpenSecTradeContext(filter_trdmarket=TrdMarket.US)`；`place_order()`
+   不接受额外的 `trd_market` keyword，市场由 context / code / trd_env
+   决定。
+
+## SOXL 生产脚本
+
+```bash
+# Futu broker health / readiness
+PYTHONPATH=. qlib_venv/bin/python production/check_futu_opend.py
+PYTHONPATH=. qlib_venv/bin/python production/soxl_paper_trading.py \
+  --broker futu --account-notional 10000 --healthcheck --no-notify
+
+# Scheduled dry-run using the same notional sizing as the LaunchAgent path
+PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py \
+  --broker futu --account-notional 10000 --dry-run --skip-data-update \
+  --no-notify --skip-dashboard
+```
 
 ## 官方文档
 

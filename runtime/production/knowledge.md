@@ -44,6 +44,7 @@
 37. **2026-05-23 上线证明已缩小到外部 Vercel 配置**：自然 `06:15 Tue-Sat Asia/Shanghai` post-close LaunchAgent 已成功运行，`schedule_trigger=launchagent_postclose`，数据新鲜度 `last_date=2026-05-22 expected=2026-05-22`，当前 runtime composer 是 `v19reg_v22_budget_usage_bull_guard_v1`，ordinary paper proof 为 `ok selected_model=v19reg_v22_budget_usage_bull_guard_v1 execution=skipped`，dashboard 静态包 `versions=38 missing=0 latest=paper_trading paper_trading_end=2026-05-22`。唯一剩余 goal gate 是 `external_vercel_setup`：`VERCEL_TOKEN` 不在当前环境/launch env file，且项目未通过 `.vercel/project.json` 或 `VERCEL_ORG_ID`/`VERCEL_PROJECT_ID` 链接。
 38. **IBKR Python 侧已安装并接入统一 broker 边界**：`ib-insync==0.9.86` 和 `eventkit==1.0.3` 已加入 `qlib_venv` / `requirements/qlib.txt`，repo-owned adapter 为 `src/soxl_quant/app/ibkr.py`，`production/check_ibkr_gateway.py` 可快速检测本机 TWS / IB Gateway。`soxl_paper_trading.py`、`soxl_daily_scheduler.py` 和 `composed_session.py` 都支持显式 `--broker ibkr`，并已通过 `scripts/check_harness.py`（203 checks）。当前 `127.0.0.1:7497` 不可达；Homebrew `trader-workstation` cask 在 install4j quiet installer 阶段挂起并被回滚，所以 IBKR readiness 仍取决于本机可靠安装/登录 TWS 或 IB Gateway 并启用 socket API。
 39. **Futu 模拟盘账户与下单/撤单链路已实测通过**：`2026-05-24` 通过本机 OpenD 的 `OpenSecTradeContext(TrdMarket.US)` 读取 `TrdEnv.SIMULATE` 账户，模拟账户 cash/total_assets 为 `1000000.0`，`US.SOXL` 初始仓位为空；提交 `BUY 1` 限价单后 Futu 返回 `ret=OK`，随后 `modify_order(CANCEL)` 返回 `OK`，最终订单状态 `CANCELLED_ALL`、成交数量 `0`、仓位仍为空，复查活跃挂单数为 `0`。这证明 Futu 模拟交易通道已可用；下一步仍需等待自然 post-close LaunchAgent 产出 scheduled non-dry Futu proof。
+40. **Futu scheduled simulation 已重置为 10000 notional 起步**：`2026-05-24` 新增 `--account-notional`，daily/preopen LaunchAgent 与 cron 均配置 `--broker futu --account-notional 10000`；本地旧 paper state 已归档到 `runtime/soxl/paper_trading/archive_reset_20260524_10000`，新的 active `paper_broker_state.json` 与 dashboard CSV 从 `2026-05-22` 的 `10000.0`、`0` 仓位开始。Futu dry-run 证据显示 `account_value=10000.0`、目标 `0.85` 被 cold-start step clip 到 `0.35`，`risk_gate.approved=true` 且未下单。Futu 后台模拟账户仍可能显示券商侧现金，但 SOXL 策略 sizing/dashboard 现在以 repo-side `10000` notional 为准。
 
 ## 2026-05-20 验证记录
 
@@ -2825,3 +2826,38 @@ Decision:
 Evidence card:
 
 - `runtime/production/card/futu_sim_order_probe_v1/notes.md`
+
+## 2026-05-24 Futu 10000 Simulation Reset
+
+The scheduled Futu simulated-trading path now starts from a repo-side notional
+account value of `10000`:
+
+- `production/soxl_paper_trading.py` accepts `--account-notional`.
+- `production/soxl_daily_scheduler.py` forwards `--account-notional`.
+- `production/com.soxl.daily.scheduler.plist`,
+  `production/com.soxl.preopen.scheduler.plist`, and `production/crontab.txt`
+  include `--broker futu --account-notional 10000`.
+- Installed `~/Library/LaunchAgents/com.soxl.daily.scheduler.plist` and
+  `~/Library/LaunchAgents/com.soxl.preopen.scheduler.plist` were synced and
+  reloaded; both report `account_notional=10000 broker=futu`.
+- `src/soxl_quant/app/futu.py` uses the notional snapshot for share sizing and
+  dashboard/account reporting when configured.
+- Explicit Futu notional simulation uses the existing cold-start step clip:
+  model target `0.8500000003` from zero was capped to `0.35`, with
+  `risk_gate.approved=true` in dry-run.
+- Old generated state was archived under
+  `runtime/soxl/paper_trading/archive_reset_20260524_10000`.
+- Active dashboard export now has `paper_trading_rows=1`,
+  `paper_trading_end=2026-05-22`, and the row starts with
+  `strategy_nav=10000.0`, `buyhold_nav=10000.0`, `position=0.0`.
+
+Decision:
+
+- Futu remains the scheduled simulated broker.
+- IBKR remains unrelated to this path.
+- The Futu backend cash balance is no longer the strategy sizing base when
+  `--account-notional 10000` is present.
+
+Evidence card:
+
+- `runtime/production/card/futu_10000_reset_v1/notes.md`

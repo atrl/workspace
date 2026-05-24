@@ -326,6 +326,26 @@ def test_scheduler_passes_data_provider_to_paper_runner(monkeypatch: pytest.Monk
     assert paper_cmd[paper_cmd.index("--data-provider") + 1] == "yahoo_api"
 
 
+def test_scheduler_passes_account_notional_to_paper_runner(monkeypatch: pytest.MonkeyPatch):
+    calls: list[tuple[list[str], str]] = []
+
+    def fake_run(cmd: list[str], description: str):
+        calls.append((cmd, description))
+
+    monkeypatch.setattr(soxl_daily_scheduler, "_run", fake_run)
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        ["soxl_daily_scheduler.py", "--no-notify", "--broker", "futu", "--account-notional", "10000"],
+    )
+
+    soxl_daily_scheduler.main()
+
+    paper_cmd = calls[0][0]
+    assert "--account-notional" in paper_cmd
+    assert paper_cmd[paper_cmd.index("--account-notional") + 1] == "10000.0"
+
+
 def test_scheduler_runs_vercel_deploy_after_dashboard_when_requested(
     monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
 ):

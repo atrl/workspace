@@ -619,16 +619,18 @@ env_or_launch_value() {
     env_file_assignment_value "$var_name" "$LAUNCH_ENV_FILE"
 }
 
-configured_scheduler_broker() {
+configured_scheduler_arg_value() {
+    flag="$1"
+    default="$2"
     plist="${LAUNCHAGENTS_DIR}/${SCHEDULER_LABEL}.plist"
     if [ ! -f "$plist" ]; then
         plist="${ROOT}/production/${SCHEDULER_LABEL}.plist"
     fi
     if [ ! -f "$plist" ]; then
-        echo "paper"
+        echo "$default"
         return
     fi
-    python3 - "$plist" <<'PY' 2>/dev/null
+    python3 - "$plist" "$flag" "$default" <<'PY' 2>/dev/null
 import plistlib
 import sys
 
@@ -636,16 +638,24 @@ try:
     with open(sys.argv[1], "rb") as f:
         payload = plistlib.load(f)
 except Exception:
-    print("paper")
+    print(sys.argv[3])
     raise SystemExit
 
 args = list(payload.get("ProgramArguments", []))
 try:
-    idx = args.index("--broker")
+    idx = args.index(sys.argv[2])
     print(args[idx + 1])
 except Exception:
-    print("paper")
+    print(sys.argv[3])
 PY
+}
+
+configured_scheduler_broker() {
+    configured_scheduler_arg_value "--broker" "paper"
+}
+
+configured_scheduler_account_notional() {
+    configured_scheduler_arg_value "--account-notional" ""
 }
 
 truthy_config_value() {
@@ -709,6 +719,10 @@ print_scheduler_private_env() {
     print_vercel_project_env_status
     SCHEDULER_BROKER=$(configured_scheduler_broker)
     echo "  scheduled broker: ${SCHEDULER_BROKER}"
+    SCHEDULER_ACCOUNT_NOTIONAL=$(configured_scheduler_account_notional)
+    if [ -n "$SCHEDULER_ACCOUNT_NOTIONAL" ]; then
+        echo "  account notional: ${SCHEDULER_ACCOUNT_NOTIONAL}"
+    fi
 
     load_runtime_composer_env
     if [ "$RUNTIME_COMPOSER_STATE" = "default" ]; then
@@ -795,6 +809,10 @@ print_paper_health() {
     SCHEDULER_BROKER=$(configured_scheduler_broker)
     echo "  broker target: ${SCHEDULER_BROKER}"
     paper_health_args=(production/soxl_paper_trading.py --healthcheck --skip-data-update --no-notify --broker "$SCHEDULER_BROKER")
+    SCHEDULER_ACCOUNT_NOTIONAL=$(configured_scheduler_account_notional)
+    if [ -n "$SCHEDULER_ACCOUNT_NOTIONAL" ]; then
+        paper_health_args+=(--account-notional "$SCHEDULER_ACCOUNT_NOTIONAL")
+    fi
     if [ "$RUNTIME_COMPOSER_STATE" = "enabled" ]; then
         paper_health_args+=(
             --runtime-composer "$RUNTIME_COMPOSER"

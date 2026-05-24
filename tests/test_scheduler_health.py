@@ -10,16 +10,19 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def _write_scheduler_plist(path: Path, *, broker: str = "paper") -> None:
+def _write_scheduler_plist(path: Path, *, broker: str = "paper", account_notional: str = "") -> None:
+    args = [
+        "/Users/rziiiii/.openclaw/workspace/production/run_soxl_scheduler.sh",
+        "--broker",
+        broker,
+        "--schedule-slot",
+        "postclose",
+    ]
+    if account_notional:
+        args.extend(["--account-notional", account_notional])
     payload = {
         "Label": "com.soxl.daily.scheduler",
-        "ProgramArguments": [
-            "/Users/rziiiii/.openclaw/workspace/production/run_soxl_scheduler.sh",
-            "--broker",
-            broker,
-            "--schedule-slot",
-            "postclose",
-        ],
+        "ProgramArguments": args,
         "WorkingDirectory": "/Users/rziiiii/.openclaw/workspace",
     }
     with path.open("wb") as f:
@@ -34,8 +37,16 @@ def test_scheduler_health_uses_configured_launchagent_broker_for_healthcheck():
         launchagents_dir = root / "LaunchAgents"
         production_dir.mkdir()
         launchagents_dir.mkdir()
-        _write_scheduler_plist(production_dir / "com.soxl.daily.scheduler.plist", broker="futu")
-        _write_scheduler_plist(launchagents_dir / "com.soxl.daily.scheduler.plist", broker="futu")
+        _write_scheduler_plist(
+            production_dir / "com.soxl.daily.scheduler.plist",
+            broker="futu",
+            account_notional="10000",
+        )
+        _write_scheduler_plist(
+            launchagents_dir / "com.soxl.daily.scheduler.plist",
+            broker="futu",
+            account_notional="10000",
+        )
 
         fake_bin = root / "bin"
         fake_bin.mkdir()
@@ -78,7 +89,10 @@ def test_scheduler_health_uses_configured_launchagent_broker_for_healthcheck():
 
     assert "--broker" in args
     assert args[args.index("--broker") + 1] == "futu"
+    assert "--account-notional" in args
+    assert args[args.index("--account-notional") + 1] == "10000"
     assert "broker target: futu" in result.stdout
+    assert "account notional: 10000" in result.stdout
     assert "broker: ok futu quote ok" in result.stdout
 
 
