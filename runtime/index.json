@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-24T13:06:59.588492+00:00",
+  "generated_at": "2026-05-24T13:22:15.346309+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -108,6 +108,72 @@
       "category": "execution",
       "suffix": ".md",
       "bytes": 717
+    },
+    {
+      "path": "runtime/execution/card/current_coverage_residual_guard_refresh_v1/current_base_metrics.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 7862
+    },
+    {
+      "path": "runtime/execution/card/current_coverage_residual_guard_refresh_v1/residual_guard_refresh_family_summary.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 623
+    },
+    {
+      "path": "runtime/execution/card/current_coverage_residual_guard_refresh_v1/residual_guard_refresh_screen.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 1477461
+    },
+    {
+      "path": "runtime/execution/card/current_coverage_residual_guard_refresh_v1/residual_guard_refresh_top.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 65984
+    },
+    {
+      "path": "runtime/execution/card/current_coverage_residual_guard_refresh_v1/selected_drawdown_spans.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 346
+    },
+    {
+      "path": "runtime/execution/card/current_coverage_residual_guard_refresh_v1/selected_metrics.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 1122
+    },
+    {
+      "path": "runtime/execution/card/current_coverage_residual_guard_refresh_v1/selected_strict_oos_daily.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 1135117
+    },
+    {
+      "path": "runtime/execution/card/current_coverage_residual_guard_refresh_v1/selected_wf_2020_daily.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 166451
+    },
+    {
+      "path": "runtime/execution/card/current_coverage_residual_guard_refresh_v1/selected_wf_2022_daily.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 177889
+    },
+    {
+      "path": "runtime/execution/card/current_coverage_residual_guard_refresh_v1/selected_wf_2023_2024_daily.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 178548
+    },
+    {
+      "path": "runtime/execution/card/current_coverage_residual_guard_refresh_v1/selection.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 6520
     },
     {
       "path": "runtime/execution/card/recovery_reentry_2021_trendbreak_cap_v1/oos_poor_window_diagnostics/feature_differences.csv",

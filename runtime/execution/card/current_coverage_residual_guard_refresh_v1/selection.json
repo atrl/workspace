@@ -1,0 +1,170 @@
+{
+  "experiment": "current_coverage_residual_guard_refresh_v1",
+  "created_at": "2026-05-24T13:21:42.889791+00:00",
+  "decision": "diagnostic_no_current_coverage_low_dd_base",
+  "role": "diagnose",
+  "changed_layer": [
+    "execution",
+    "selection"
+  ],
+  "candidate_count": 2250,
+  "strict_pass_count": 0,
+  "full_pass_count": 0,
+  "selected_candidate_id": 894,
+  "selected_family": "recovery_reentry_conditional_vol_target_v1",
+  "selected_config": {
+    "start_drawdown": 0.15,
+    "full_drawdown": 0.24,
+    "min_cap": 0.2,
+    "trade_band": 0.0,
+    "release_drawdown": 0.0
+  },
+  "selected_metrics": [
+    {
+      "window": "strict_oos",
+      "label": "resid_start0.150_full0.240_cap0.200_band0.00_rel0.00",
+      "rows": 1605,
+      "start": "2020-01-02",
+      "end": "2026-05-21",
+      "return": 691.3822609285942,
+      "buy_and_hold_return": 816.5124997770645,
+      "relative_return": -125.1302388484703,
+      "sharpe": 1.052208293207629,
+      "max_dd": 34.26634506723776,
+      "avg_pos": 0.3168634649949696,
+      "trades": 411,
+      "start_drawdown": 0.15,
+      "full_drawdown": 0.24,
+      "min_cap": 0.2,
+      "trade_band": 0.0,
+      "release_drawdown": 0.0,
+      "active_days": 795,
+      "changed_days": 656
+    },
+    {
+      "window": "wf_2020",
+      "label": "resid_start0.150_full0.240_cap0.200_band0.00_rel0.00",
+      "rows": 252,
+      "start": "2020-01-02",
+      "end": "2020-12-30",
+      "return": 71.52520001037558,
+      "buy_and_hold_return": 58.093570616483994,
+      "relative_return": 13.431629393891598,
+      "sharpe": 1.2556808976501892,
+      "max_dd": 24.81527322857735,
+      "avg_pos": 0.36837047575802817,
+      "trades": 45,
+      "start_drawdown": 0.15,
+      "full_drawdown": 0.24,
+      "min_cap": 0.2,
+      "trade_band": 0.0,
+      "release_drawdown": 0.0,
+      "active_days": 92,
+      "changed_days": 48
+    },
+    {
+      "window": "wf_2022",
+      "label": "resid_start0.150_full0.240_cap0.200_band0.00_rel0.00",
+      "rows": 250,
+      "start": "2022-01-03",
+      "end": "2022-12-29",
+      "return": -20.52001363720628,
+      "buy_and_hold_return": -86.58807173239428,
+      "relative_return": 66.068058095188,
+      "sharpe": -0.7419382119285325,
+      "max_dd": 22.204417842511713,
+      "avg_pos": 0.16187161380997925,
+      "trades": 24,
+      "start_drawdown": 0.15,
+      "full_drawdown": 0.24,
+      "min_cap": 0.2,
+      "trade_band": 0.0,
+      "release_drawdown": 0.0,
+      "active_days": 76,
+      "changed_days": 14
+    },
+    {
+      "window": "wf_2023_2024",
+      "label": "resid_start0.150_full0.240_cap0.200_band0.00_rel0.00",
+      "rows": 251,
+      "start": "2024-01-02",
+      "end": "2024-12-30",
+      "return": 67.25462341280976,
+      "buy_and_hold_return": -0.3566347296884431,
+      "relative_return": 67.61125814249822,
+      "sharpe": 1.6783486351362011,
+      "max_dd": 16.826952551933527,
+      "avg_pos": 0.25836877455361884,
+      "trades": 43,
+      "start_drawdown": 0.15,
+      "full_drawdown": 0.24,
+      "min_cap": 0.2,
+      "trade_band": 0.0,
+      "release_drawdown": 0.0,
+      "active_days": 9,
+      "changed_days": 5
+    }
+  ],
+  "selected_drawdown_spans": [
+    {
+      "window": "strict_oos",
+      "peak_date": "2021-01-21",
+      "trough_date": "2022-10-14",
+      "max_dd": 34.26634506723776,
+      "peak_position": 0.7979341774,
+      "trough_position": 0.2
+    },
+    {
+      "window": "wf_2020",
+      "peak_date": "2020-09-02",
+      "trough_date": "2020-09-08",
+      "max_dd": 24.81527322857735,
+      "peak_position": 0.8330662442,
+      "trough_position": 0.2
+    },
+    {
+      "window": "wf_2022",
+      "peak_date": "2022-03-29",
+      "trough_date": "2022-09-30",
+      "max_dd": 22.204417842511713,
+      "peak_position": 0.1875,
+      "trough_position": 0.2
+    },
+    {
+      "window": "wf_2023_2024",
+      "peak_date": "2024-03-07",
+      "trough_date": "2024-04-19",
+      "max_dd": 16.826952551933527,
+      "peak_position": 0.35000000028,
+      "trough_position": 0.5964777094634739
+    }
+  ],
+  "external_sources": [
+    "https://github.com/microsoft/qlib",
+    "https://papers.ssrn.com/sol3/Delivery.cfm/SSRN_ID544742_code375170.pdf?abstractid=544742&mirid=1",
+    "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2308659",
+    "https://arxiv.org/abs/1904.04912"
+  ],
+  "conclusion": [
+    "No refreshed residual guard across the current full-coverage path pool clears the strict +30pp / <=15% target.",
+    "This means the old 2026-03-31 low-drawdown base cannot be treated as current 2026-05 evidence without regenerating upstream low-risk actors or accepting stale coverage.",
+    "Primary blockers: strict relative -125.13pp < 30.00pp; strict MaxDD 34.27% > 15.00%; wf_2020 MaxDD 24.82% > 15.00%; wf_2022 MaxDD 22.20% > 15.00%; wf_2023_2024 MaxDD 16.83% > 15.00%",
+    "Next valid step: if no full pass, refresh upstream actor-derived low-risk paths or move to training-time state-conditioned selection; do not keep tightening a path-level cap on the same high-drawdown families."
+  ],
+  "artifacts": {
+    "notebook": "runtime/execution/card/current_coverage_residual_guard_refresh_v1/current_coverage_residual_guard_refresh_v1.ipynb",
+    "current_base_metrics": "runtime/execution/card/current_coverage_residual_guard_refresh_v1/current_base_metrics.csv",
+    "screen": "runtime/execution/card/current_coverage_residual_guard_refresh_v1/residual_guard_refresh_screen.csv",
+    "top": "runtime/execution/card/current_coverage_residual_guard_refresh_v1/residual_guard_refresh_top.csv",
+    "family_summary": "runtime/execution/card/current_coverage_residual_guard_refresh_v1/residual_guard_refresh_family_summary.csv",
+    "selected_metrics": "runtime/execution/card/current_coverage_residual_guard_refresh_v1/selected_metrics.csv",
+    "selected_drawdown_spans": "runtime/execution/card/current_coverage_residual_guard_refresh_v1/selected_drawdown_spans.csv",
+    "selected_daily": {
+      "strict_oos": "runtime/execution/card/current_coverage_residual_guard_refresh_v1/selected_strict_oos_daily.csv",
+      "wf_2020": "runtime/execution/card/current_coverage_residual_guard_refresh_v1/selected_wf_2020_daily.csv",
+      "wf_2022": "runtime/execution/card/current_coverage_residual_guard_refresh_v1/selected_wf_2022_daily.csv",
+      "wf_2023_2024": "runtime/execution/card/current_coverage_residual_guard_refresh_v1/selected_wf_2023_2024_daily.csv"
+    },
+    "selection": "runtime/execution/card/current_coverage_residual_guard_refresh_v1/selection.json"
+  }
+}
