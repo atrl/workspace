@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-24T12:38:02.482215+00:00",
+  "generated_at": "2026-05-24T13:06:59.588492+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -4794,6 +4794,72 @@
       "category": "reward",
       "suffix": ".md",
       "bytes": 2083
+    },
+    {
+      "path": "runtime/reward/card/state_conditioned_rebound_risk_router_v1/base_metrics.csv",
+      "category": "reward",
+      "suffix": ".csv",
+      "bytes": 875
+    },
+    {
+      "path": "runtime/reward/card/state_conditioned_rebound_risk_router_v1/router_family_summary.csv",
+      "category": "reward",
+      "suffix": ".csv",
+      "bytes": 623
+    },
+    {
+      "path": "runtime/reward/card/state_conditioned_rebound_risk_router_v1/router_screen.csv",
+      "category": "reward",
+      "suffix": ".csv",
+      "bytes": 21658605
+    },
+    {
+      "path": "runtime/reward/card/state_conditioned_rebound_risk_router_v1/router_top_configs.csv",
+      "category": "reward",
+      "suffix": ".csv",
+      "bytes": 71487
+    },
+    {
+      "path": "runtime/reward/card/state_conditioned_rebound_risk_router_v1/selected_metrics.csv",
+      "category": "reward",
+      "suffix": ".csv",
+      "bytes": 729
+    },
+    {
+      "path": "runtime/reward/card/state_conditioned_rebound_risk_router_v1/selected_strict_oos_daily.csv",
+      "category": "reward",
+      "suffix": ".csv",
+      "bytes": 429293
+    },
+    {
+      "path": "runtime/reward/card/state_conditioned_rebound_risk_router_v1/selected_wf_2020_daily.csv",
+      "category": "reward",
+      "suffix": ".csv",
+      "bytes": 56278
+    },
+    {
+      "path": "runtime/reward/card/state_conditioned_rebound_risk_router_v1/selected_wf_2022_daily.csv",
+      "category": "reward",
+      "suffix": ".csv",
+      "bytes": 55758
+    },
+    {
+      "path": "runtime/reward/card/state_conditioned_rebound_risk_router_v1/selected_wf_2023_2024_daily.csv",
+      "category": "reward",
+      "suffix": ".csv",
+      "bytes": 56825
+    },
+    {
+      "path": "runtime/reward/card/state_conditioned_rebound_risk_router_v1/selection.json",
+      "category": "reward",
+      "suffix": ".json",
+      "bytes": 7876
+    },
+    {
+      "path": "runtime/reward/card/state_conditioned_rebound_risk_router_v1/upside_metrics.csv",
+      "category": "reward",
+      "suffix": ".csv",
+      "bytes": 4132
     },
     {
       "path": "runtime/reward/knowledge.md",
