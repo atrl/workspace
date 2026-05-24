@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-24T09:49:25.869794+00:00",
+  "generated_at": "2026-05-24T10:15:02.919781+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -780,6 +780,42 @@
       "category": "execution",
       "suffix": ".csv",
       "bytes": 1984
+    },
+    {
+      "path": "runtime/execution/card/risk_budget_downside_vol_target_v1/downside_vol_target_screen.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 726057
+    },
+    {
+      "path": "runtime/execution/card/risk_budget_downside_vol_target_v1/risk_budget_downside_vol_target_v1_best_combo_soxl_daily.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 379605
+    },
+    {
+      "path": "runtime/execution/card/risk_budget_downside_vol_target_v1/risk_budget_downside_vol_target_v1_best_downside_vol_soxl_daily.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 283132
+    },
+    {
+      "path": "runtime/execution/card/risk_budget_downside_vol_target_v1/selection.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 4196
+    },
+    {
+      "path": "runtime/execution/card/risk_budget_downside_vol_target_v1/selection_summary.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 1937
+    },
+    {
+      "path": "runtime/execution/card/risk_budget_downside_vol_target_v1/vol_plus_equity_dd_cap_screen.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 506350
     },
     {
       "path": "runtime/execution/card/selective_release_overlay_v1/selective_release_overlay_results.csv",
