@@ -277,9 +277,43 @@ excess, but it regressed `wf_2020` and `wf_2022`. Treat that as diagnostic
 keep / no runtime promotion. The next valid risk loop should make de-risking
 regime-aware, requiring broken long-anchor or high-volatility downtrend
 evidence, rather than tightening a global cap.
-Treat it as the better diagnostic branch. The next valid extension should pair
-anchor-confirmed reentry with post-reentry de-risk / profit-lock behavior, not a
-broader reentry floor.
+
+### Cash-Only Overlay Frontier / Walk-Forward Discipline
+
+Do not treat a full-window strict pass as runtime-ready without saved
+walk-forward validation. The 2026-05-24 refreshed
+`selection_overfit_audit_v1` found one strict daily target pass:
+`risk_budget_residual_drawdown_guard_v1` at `+30.46pp` relative return and
+`14.64%` MaxDD. Its linked walk-forward notebook,
+`risk_budget_residual_drawdown_guard_walkforward_v1`, blocked promotion:
+`wf_2020` was `18.10%` MaxDD / `-54.19pp` relative, `wf_2022` passed at
+`10.97%` MaxDD / `+76.66pp`, and `wf_2023_2024` failed at `17.23%` MaxDD /
+`+38.31pp`.
+
+Use this as the current promotion rule:
+
+- Full-window strict pass means candidate discovery only.
+- Runtime promotion requires the linked walk-forward notebook to pass every
+  required window and preserve the intended mechanism.
+- If the strict pass is achieved by cutting participation in one window but
+  fails `wf_2020` or `wf_2023_2024`, mark it diagnostic keep / no promotion.
+
+The recent high-return cash-only overlays still cluster around `30%` strict
+MaxDD: `recovery_reentry_2021_trendbreak_cap_v1` (`30.44%`),
+`recovery_reentry_conditional_vol_target_v1` (`30.92%`),
+`soxl_soxx_efficiency_chop_guard_v1` (`31.96%`), and
+`recovery_reentry_cppi_floor_v1` / `recovery_reentry_regime_drawdown_guard_v1`
+(`32.12%`). Conditional volatility targeting improved the drawdown locus but
+mostly shifted the max-drawdown event rather than crossing the hard target.
+
+Before adding another execution overlay, write the notebook conclusion first:
+which existing failure it is not duplicating, how it changes the drawdown event,
+and which walk-forward guard will make it fail closed. If the mechanism is
+another cash-only threshold, cap, or realized-vol scale with no new pre-crash
+information, default to not running. Prefer changing the risk-budget
+objective/architecture so the actor learns lower peak exposure before realized
+volatility appears, or explicitly document a separate low-drawdown
+capital-allocation layer outside the SOXL-only production path.
 
 ### Runtime Composer Promotion Gate
 

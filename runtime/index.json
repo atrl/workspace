@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-24T11:47:49.176469+00:00",
+  "generated_at": "2026-05-24T11:57:14.309712+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -4115,7 +4115,7 @@
       "path": "runtime/model_selection/card/selection_overfit_audit_v1/strict_daily_target_screen.csv",
       "category": "model_selection",
       "suffix": ".csv",
-      "bytes": 11664
+      "bytes": 14353
     },
     {
       "path": "runtime/model_selection/card/selection_overfit_audit_v1/summary_selection_overfit_table.csv",
@@ -4127,7 +4127,7 @@
       "path": "runtime/model_selection/card/selection_overfit_audit_v1/walkforward_daily_screen.csv",
       "category": "model_selection",
       "suffix": ".csv",
-      "bytes": 15157
+      "bytes": 22086
     },
     {
       "path": "runtime/multi_asset/card/soxl_baseline/card.md",
