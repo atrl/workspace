@@ -1102,3 +1102,43 @@ Evidence:
 runtime/model/card/model_runtime_readiness_v1/model_runtime_readiness_review.md
 runtime/model/card/model_runtime_readiness_v1/model_runtime_readiness_review.json
 ```
+
+## 2026-05-24 Current Paper Model Poor-Window Diagnosis
+
+`scripts/diagnose_oos_poor_windows.py` now provides a reusable post-training
+diagnostic for retained models: scan rolling OOS windows from a daily replay CSV,
+rank negative-excess plus local drawdown, then compare qlib feature
+distributions in bad windows against the rest of OOS.
+
+Applied to current Futu paper profile
+`v19reg_v22_budget_usage_bull_guard_v1_current` on strict OOS
+`2020-01-02 .. 2026-05-21`:
+
+- Worst 63-day window: `2026-02-10 .. 2026-05-11`,
+  strategy `1.74%`, buy-hold `200.63%`, excess `-198.89pp`,
+  max_dd `6.42%`, avg_pos `0.140`.
+- Another 2026 recovery window: `2026-02-05 .. 2026-05-06`,
+  strategy `17.69%`, buy-hold `211.46%`, excess `-193.77pp`,
+  max_dd `6.42%`, avg_pos `0.179`.
+- 2025 recovery sample: `2025-04-08 .. 2025-07-09`,
+  strategy `82.77%`, buy-hold `223.03%`, excess `-140.26pp`,
+  max_dd `16.32%`, avg_pos `0.552`.
+- Largest bad-window feature deltas were `vol_of_vol_21`,
+  `jump_variation_5`, `realized_vol_63`, `mom_21`,
+  `relative_strength_21`, and `expectancy_proxy_21`.
+
+Decision: the current model's recent risk is recovery/upside-capture
+underexposure, not 2022-style bear overexposure. Do not use this evidence to
+start another broad PPO retrain. The next valid loop should be a fixed-actor
+recovery/re-entry execution counterfactual that explicitly verifies changed
+orders/positions in high-volatility positive-momentum rebound states while
+preserving 2022 defense.
+
+Evidence:
+
+```text
+runtime/production/card/oos_poor_window_feature_diagnostics_v1/notes.md
+runtime/production/card/oos_poor_window_feature_diagnostics_v1/oos_diagnostic_review.md
+runtime/production/card/oos_poor_window_feature_diagnostics_v1/poor_windows.csv
+runtime/production/card/oos_poor_window_feature_diagnostics_v1/feature_differences.csv
+```

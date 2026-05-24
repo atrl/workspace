@@ -325,3 +325,29 @@ Corrected replay under the current harness showed:
 - The next valid line is **gated use**:
   fixed-actor overlay, low-churn route, or explicit release classifier.
 - Do not widen this into a larger release pack or assume more training epochs will fix it.
+
+<!-- 2026-05-24: current paper model poor-window feature diagnostics -->
+
+# 2026-05-24: Poor-Window Feature Deltas Are Diagnostics Only
+
+`scripts/diagnose_oos_poor_windows.py` compared qlib feature distributions in
+the current Futu paper model's worst strict-OOS windows against the rest of OOS.
+
+Top bad-window deltas were `vol_of_vol_21`, `jump_variation_5`,
+`realized_vol_63`, `mom_21`, `relative_strength_21`, and
+`expectancy_proxy_21`. These features identify high-volatility rebound states
+where the current model remained underexposed.
+
+Lesson:
+
+- This evidence supports a recovery/re-entry execution counterfactual before a
+  new factor promotion or broad PPO retrain.
+- Do not promote any of these deltas as standalone factors until they pass the
+  normal factor IC, single-signal backtest, and walk-forward gates.
+
+Evidence:
+
+```text
+runtime/production/card/oos_poor_window_feature_diagnostics_v1/notes.md
+runtime/production/card/oos_poor_window_feature_diagnostics_v1/feature_differences.csv
+```

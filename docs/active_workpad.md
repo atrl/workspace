@@ -8033,3 +8033,67 @@ Decision:
 Artifact:
 
 - `runtime/production/card/paper_model_oos_risk_check_v1/notes.md`
+
+## 2026-05-24 OOS Poor-Window Feature Diagnostics
+
+Goal:
+
+- Convert the current paper-model OOS risk finding into a reusable diagnostic
+  loop that quickly finds bad post-training windows and compares qlib feature
+  distributions in those windows.
+
+Implementation:
+
+```text
+src/soxl_quant/app/oos_diagnostics.py
+scripts/diagnose_oos_poor_windows.py
+tests/test_oos_diagnostics.py
+```
+
+Command:
+
+```bash
+PYTHONPATH=src:. qlib_venv/bin/python scripts/diagnose_oos_poor_windows.py \
+  --daily-csv runtime/production/card/paper_model_oos_risk_check_v1/paper_model_oos_risk_check_v1_soxl_daily.csv \
+  --profile v19reg_v22_budget_usage_bull_guard_v1_current \
+  --output-dir runtime/production/card/oos_poor_window_feature_diagnostics_v1 \
+  --oos-start 2020-01-02 \
+  --oos-end 2026-05-21 \
+  --window-size 63 \
+  --top-windows 12 \
+  --top-features 30 \
+  --target-excess 30 \
+  --target-max-dd 15
+```
+
+Evidence:
+
+```text
+worst 63-day window: 2026-02-10 .. 2026-05-11
+strategy=1.74%, buyhold=200.63%, excess=-198.89pp, max_dd=6.42%, avg_pos=0.140
+
+2025 recovery sample: 2025-04-08 .. 2025-07-09
+strategy=82.77%, buyhold=223.03%, excess=-140.26pp, max_dd=16.32%, avg_pos=0.552
+
+top feature deltas: vol_of_vol_21, jump_variation_5, realized_vol_63,
+mom_21, relative_strength_21, expectancy_proxy_21
+```
+
+Decision:
+
+- The paper model's risk is now more specifically identified as
+  recovery/upside-capture underexposure in high-volatility rebound windows.
+- Do not start a broad PPO retrain from this evidence alone.
+- Next loop should be a fixed-actor recovery/re-entry execution counterfactual
+  that checks whether order generation actually changes without losing 2022
+  defense.
+
+Artifacts:
+
+```text
+runtime/production/card/oos_poor_window_feature_diagnostics_v1/notes.md
+runtime/production/card/oos_poor_window_feature_diagnostics_v1/oos_diagnostic_review.md
+runtime/production/card/oos_poor_window_feature_diagnostics_v1/poor_windows.csv
+runtime/production/card/oos_poor_window_feature_diagnostics_v1/feature_differences.csv
+runtime/production/card/oos_poor_window_feature_diagnostics_v1/manifest.json
+```

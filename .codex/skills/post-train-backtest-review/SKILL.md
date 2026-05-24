@@ -96,6 +96,22 @@ python .codex/skills/post-train-backtest-review/scripts/compare_backtests.py \
 - 代价型变好：回报改善，但回撤或暴露显著上升
 - 明确变差：回报与 Sharpe 下滑，或回撤恶化且没有补偿
 
+当 current/paper model 总体 OOS 仍然为正、但近期超额或回撤明显失败时，先运行 poor-window 诊断，而不是直接重训：
+
+```bash
+PYTHONPATH=src:. qlib_venv/bin/python scripts/diagnose_oos_poor_windows.py \
+  --daily-csv runtime/production/card/<source>/<daily>.csv \
+  --profile <profile> \
+  --output-dir runtime/<direction>/card/<label> \
+  --oos-start 2020-01-02 \
+  --window-size 63 \
+  --target-excess 30 \
+  --target-max-dd 15
+```
+
+输出的 `poor_windows.csv` 用来定位坏窗口，`feature_differences.csv` 只作为机制假设来源。
+不要把高 `delta_z` 特征直接当成可上线因子；先走 factor IC、单信号回测和 walk-forward gate。
+
 ### 4. Explain with mechanism, not adjectives
 
 优先从下面这些“可被代码改变”的机制解释，不要只写“市场不同”：

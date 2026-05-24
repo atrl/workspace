@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-24T06:33:50.137482+00:00",
+  "generated_at": "2026-05-24T07:26:27.920471+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -821,7 +821,7 @@
       "path": "runtime/factor/knowledge.md",
       "category": "factor",
       "suffix": ".md",
-      "bytes": 18901
+      "bytes": 19909
     },
     {
       "path": "runtime/factor/rulebase_signals_ic.csv",
@@ -2975,7 +2975,7 @@
       "path": "runtime/model/knowledge.md",
       "category": "model",
       "suffix": ".md",
-      "bytes": 58672
+      "bytes": 60505
     },
     {
       "path": "runtime/model/model_adjustment_roadmap.md",
@@ -3192,6 +3192,36 @@
       "category": "production",
       "suffix": ".md",
       "bytes": 3403
+    },
+    {
+      "path": "runtime/production/card/oos_poor_window_feature_diagnostics_v1/feature_differences.csv",
+      "category": "production",
+      "suffix": ".csv",
+      "bytes": 4327
+    },
+    {
+      "path": "runtime/production/card/oos_poor_window_feature_diagnostics_v1/manifest.json",
+      "category": "production",
+      "suffix": ".json",
+      "bytes": 1429
+    },
+    {
+      "path": "runtime/production/card/oos_poor_window_feature_diagnostics_v1/notes.md",
+      "category": "production",
+      "suffix": ".md",
+      "bytes": 3582
+    },
+    {
+      "path": "runtime/production/card/oos_poor_window_feature_diagnostics_v1/oos_diagnostic_review.md",
+      "category": "production",
+      "suffix": ".md",
+      "bytes": 3969
+    },
+    {
+      "path": "runtime/production/card/oos_poor_window_feature_diagnostics_v1/poor_windows.csv",
+      "category": "production",
+      "suffix": ".csv",
+      "bytes": 1760
     },
     {
       "path": "runtime/production/card/operator_scheduler_docs_sync_v1/notes.md",
