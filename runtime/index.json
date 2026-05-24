@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-24T11:57:14.309712+00:00",
+  "generated_at": "2026-05-24T12:11:11.388426+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -4104,6 +4104,42 @@
       "category": "model",
       "suffix": ".md",
       "bytes": 3390
+    },
+    {
+      "path": "runtime/model_selection/card/predictive_drawdown_risk_gate_v1/baseline_table.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2692
+    },
+    {
+      "path": "runtime/model_selection/card/predictive_drawdown_risk_gate_v1/predictive_drawdown_risk_gate_v1_selected_soxl_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 391816
+    },
+    {
+      "path": "runtime/model_selection/card/predictive_drawdown_risk_gate_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 4587
+    },
+    {
+      "path": "runtime/model_selection/card/predictive_drawdown_risk_gate_v1/selection_table.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 50580
+    },
+    {
+      "path": "runtime/model_selection/card/predictive_drawdown_risk_gate_v1/strict_screen.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 27268
+    },
+    {
+      "path": "runtime/model_selection/card/predictive_drawdown_risk_gate_v1/walkforward_screen.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 80909
     },
     {
       "path": "runtime/model_selection/card/selection_overfit_audit_v1/risk_budget_conservative_frontier.csv",

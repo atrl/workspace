@@ -1,0 +1,146 @@
+{
+  "artifacts": {
+    "baseline_table": "runtime/model_selection/card/predictive_drawdown_risk_gate_v1/baseline_table.csv",
+    "notebook": "runtime/model_selection/card/predictive_drawdown_risk_gate_v1/predictive_drawdown_risk_gate_v1.ipynb",
+    "selected_daily": "runtime/model_selection/card/predictive_drawdown_risk_gate_v1/predictive_drawdown_risk_gate_v1_selected_soxl_daily.csv",
+    "selection": "runtime/model_selection/card/predictive_drawdown_risk_gate_v1/selection.json",
+    "selection_table": "runtime/model_selection/card/predictive_drawdown_risk_gate_v1/selection_table.csv",
+    "strict_screen": "runtime/model_selection/card/predictive_drawdown_risk_gate_v1/strict_screen.csv",
+    "walkforward_screen": "runtime/model_selection/card/predictive_drawdown_risk_gate_v1/walkforward_screen.csv"
+  },
+  "baselines": [
+    {
+      "avg_pos": 0.16362160048885377,
+      "label": "crash_risk",
+      "max_dd": 15.484926880916328,
+      "relative_return": 44.59910864886392,
+      "return": 190.7458314175531,
+      "trades": 243,
+      "window": "strict_oos"
+    },
+    {
+      "avg_pos": 0.16094536077154822,
+      "label": "residual_guard",
+      "max_dd": 14.642460627024933,
+      "relative_return": 30.4579598157519,
+      "return": 176.6046825844411,
+      "trades": 267,
+      "window": "strict_oos"
+    },
+    {
+      "avg_pos": 0.22148612032571618,
+      "label": "crash_risk",
+      "max_dd": 22.123347292248308,
+      "relative_return": -38.35738073913642,
+      "return": 21.417927642006273,
+      "trades": 48,
+      "window": "wf_2020"
+    },
+    {
+      "avg_pos": 0.17220046760875415,
+      "label": "residual_guard",
+      "max_dd": 18.102212255795624,
+      "relative_return": -54.19458832150043,
+      "return": 5.580720059642252,
+      "trades": 69,
+      "window": "wf_2020"
+    },
+    {
+      "avg_pos": 0.04581673686815741,
+      "label": "crash_risk",
+      "max_dd": 10.970664908831495,
+      "relative_return": 76.65730220302738,
+      "return": -9.930769529366867,
+      "trades": 8,
+      "window": "wf_2022"
+    },
+    {
+      "avg_pos": 0.04581673686815741,
+      "label": "residual_guard",
+      "max_dd": 10.970664908831495,
+      "relative_return": 76.65730220302738,
+      "return": -9.930769529366867,
+      "trades": 8,
+      "window": "wf_2022"
+    },
+    {
+      "avg_pos": 0.1836790839972631,
+      "label": "crash_risk",
+      "max_dd": 19.079874433490073,
+      "relative_return": 43.037195126668934,
+      "return": 40.43376636151261,
+      "trades": 40,
+      "window": "wf_2023_2024"
+    },
+    {
+      "avg_pos": 0.15993980125928353,
+      "label": "residual_guard",
+      "max_dd": 17.229977031184095,
+      "relative_return": 38.310638382998455,
+      "return": 35.707209617842125,
+      "trades": 60,
+      "window": "wf_2023_2024"
+    }
+  ],
+  "decision": "candidate_blocked_by_walkforward",
+  "experiment": "predictive_drawdown_risk_gate_v1",
+  "selected_key": "h21_loss0.22_q0.20",
+  "selected_params": {
+    "horizon": 21,
+    "loss_threshold": 0.22,
+    "probability_quantile": 0.2
+  },
+  "strict": {
+    "avg_pos": 0.16136486879080733,
+    "buyhold_return": 146.1467227686892,
+    "max_dd": 14.621835439928665,
+    "relative_return": 35.44323907104907,
+    "return": 181.58996183973827,
+    "risk_days": 1076,
+    "risk_rate": 0.6857871255576801,
+    "sharpe": 0.9851421753002765,
+    "strict_target_pass": 1,
+    "trades": 263
+  },
+  "walkforward": [
+    {
+      "avg_pos": 0.19571401228728177,
+      "buyhold_return": 59.775308381142686,
+      "max_dd": 18.533822711730462,
+      "relative_return": -42.48696705808648,
+      "return": 17.288341323056212,
+      "risk_days": 155,
+      "risk_rate": 0.6126482213438735,
+      "sharpe": 0.6625266242749159,
+      "trades": 64,
+      "wf_target_pass": false,
+      "window": "wf_2020"
+    },
+    {
+      "avg_pos": 0.04581673686815741,
+      "buyhold_return": -86.58807173239425,
+      "max_dd": 10.970664908831495,
+      "relative_return": 76.65730220302738,
+      "return": -9.930769529366867,
+      "risk_days": 147,
+      "risk_rate": 0.5856573705179283,
+      "sharpe": -1.4636254388776813,
+      "trades": 8,
+      "wf_target_pass": true,
+      "window": "wf_2022"
+    },
+    {
+      "avg_pos": 0.16187487712151405,
+      "buyhold_return": -2.6034287651563237,
+      "max_dd": 16.51824186431039,
+      "relative_return": 39.48565533949625,
+      "return": 36.882226574339924,
+      "risk_days": 221,
+      "risk_rate": 0.876984126984127,
+      "sharpe": 1.1962305478498847,
+      "trades": 59,
+      "wf_target_pass": false,
+      "window": "wf_2023_2024"
+    }
+  ]
+}
