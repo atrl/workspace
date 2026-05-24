@@ -45,6 +45,7 @@
 38. **IBKR Python 侧已安装并接入统一 broker 边界**：`ib-insync==0.9.86` 和 `eventkit==1.0.3` 已加入 `qlib_venv` / `requirements/qlib.txt`，repo-owned adapter 为 `src/soxl_quant/app/ibkr.py`，`production/check_ibkr_gateway.py` 可快速检测本机 TWS / IB Gateway。`soxl_paper_trading.py`、`soxl_daily_scheduler.py` 和 `composed_session.py` 都支持显式 `--broker ibkr`，并已通过 `scripts/check_harness.py`（203 checks）。当前 `127.0.0.1:7497` 不可达；Homebrew `trader-workstation` cask 在 install4j quiet installer 阶段挂起并被回滚，所以 IBKR readiness 仍取决于本机可靠安装/登录 TWS 或 IB Gateway 并启用 socket API。
 39. **Futu 模拟盘账户与下单/撤单链路已实测通过**：`2026-05-24` 通过本机 OpenD 的 `OpenSecTradeContext(TrdMarket.US)` 读取 `TrdEnv.SIMULATE` 账户，模拟账户 cash/total_assets 为 `1000000.0`，`US.SOXL` 初始仓位为空；提交 `BUY 1` 限价单后 Futu 返回 `ret=OK`，随后 `modify_order(CANCEL)` 返回 `OK`，最终订单状态 `CANCELLED_ALL`、成交数量 `0`、仓位仍为空，复查活跃挂单数为 `0`。这证明 Futu 模拟交易通道已可用；下一步仍需等待自然 post-close LaunchAgent 产出 scheduled non-dry Futu proof。
 40. **Futu scheduled simulation 已重置为 10000 notional 起步**：`2026-05-24` 新增 `--account-notional`，daily/preopen LaunchAgent 与 cron 均配置 `--broker futu --account-notional 10000`；本地旧 paper state 已归档到 `runtime/soxl/paper_trading/archive_reset_20260524_10000`，新的 active `paper_broker_state.json` 与 dashboard CSV 从 `2026-05-22` 的 `10000.0`、`0` 仓位开始。Futu dry-run 证据显示 `account_value=10000.0`、目标 `0.85` 被 cold-start step clip 到 `0.35`，`risk_gate.approved=true` 且未下单。Futu 后台模拟账户仍可能显示券商侧现金，但 SOXL 策略 sizing/dashboard 现在以 repo-side `10000` notional 为准。
+41. **Vercel paper_trading 推理显示已从 row metadata 解耦**：`paper_trading` 当前推理模型是 `v19reg_v22_budget_usage_bull_guard_v1` runtime composer，slow actor 为 `balanced_rule_residual_v19_reg`，fast actor 为 `balanced_rule_residual_v22`。`10000` reset 后 ordinary paper CSV 只有 seed row，且 dashboard builder 不应把 dry-run summary 贴到普通 row 上；现在静态导出改为在 meta 中携带 `latest_signal_*`，直接指向 `runtime/soxl/paper_trading/2026-05-22/dry_run/futu/summary.json`，Vercel 首屏可显示 profile、dry_run、Futu broker、target `0.85` 与 capped target `0.35`。
 
 ## 2026-05-20 验证记录
 
@@ -2861,3 +2862,30 @@ Decision:
 Evidence card:
 
 - `runtime/production/card/futu_10000_reset_v1/notes.md`
+
+## 2026-05-24 Dashboard Paper Signal Metadata
+
+The `paper_trading` static export now exposes latest signal metadata separately
+from ordinary paper CSV row metadata:
+
+- current profile: `v19reg_v22_budget_usage_bull_guard_v1`
+- slow actor: `balanced_rule_residual_v19_reg`
+- fast actor: `balanced_rule_residual_v22`
+- broker: `futu`
+- dry-run summary:
+  `runtime/soxl/paper_trading/2026-05-22/dry_run/futu/summary.json`
+- account value: `10000.0`
+- target position: `0.8500000003`
+- risk-gate capped target: `0.35`
+
+Decision:
+
+- Dry-run summaries remain excluded from ordinary paper row enrichment.
+- `dashboard_data/versioned/paper_trading/SOXL.json` carries
+  `meta.latest_signal_*` for the production strip and Vercel static view.
+- External Vercel deployment can still be blocked by missing credentials/project
+  linkage, but the repo static export now contains the inference metadata.
+
+Evidence card:
+
+- `runtime/production/card/dashboard_paper_signal_meta_v1/notes.md`

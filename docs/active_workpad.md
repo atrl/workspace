@@ -7830,3 +7830,64 @@ Decision:
 Artifact:
 
 - `runtime/production/card/futu_10000_reset_v1/notes.md`
+
+## 2026-05-24 Paper Trading Signal Metadata For Vercel
+
+Goal:
+
+- Answer which model `paper_trading` is using and make that inference visible
+  in the Vercel/static dashboard after the `10000` reset.
+
+Root cause:
+
+- The Futu dry-run summary existed under
+  `runtime/soxl/paper_trading/2026-05-22/dry_run/futu/summary.json`.
+- The reset paper CSV only contained the `10000` seed row, which intentionally
+  has no non-dry summary metadata.
+- `scripts/build_backtest_dashboard.py` correctly avoids attaching dry-run
+  summaries to ordinary paper rows, but the production strip had no separate
+  latest-signal fallback, so Vercel could not show the model/inference.
+
+Current model:
+
+```text
+profile: v19reg_v22_budget_usage_bull_guard_v1
+slow actor: balanced_rule_residual_v19_reg
+fast actor: balanced_rule_residual_v22
+mode: trend_hold
+broker: futu
+dry_run: true
+account_value: 10000.0
+target_position: 0.8500000003
+risk_gate capped target: 0.35
+```
+
+Change:
+
+- Exported `latest_signal_*` metadata from the latest paper summary artifact,
+  including dry-run summaries.
+- Kept ordinary paper rows clean: dry-run metadata is not attached to the seed
+  row itself.
+- The dashboard production strip now falls back to `latest_signal_*` when there
+  is no non-dry row summary yet.
+
+Evidence:
+
+```text
+tests/test_dashboard.py tests/test_vercel_dashboard.py
+# 33 passed
+
+scripts/check_dashboard_static_export.py
+# ok ... versions=38 missing=0 latest=paper_trading paper_trading_rows=1 paper_trading_end=2026-05-22 production_status=blocked_no_credentials goal_gates=pending
+
+dashboard_data/versioned/paper_trading/SOXL.json
+# meta.latest_signal_profile=v19reg_v22_budget_usage_bull_guard_v1
+# meta.latest_signal_execution_status=dry_run
+# meta.latest_signal_broker=futu
+# meta.latest_signal_capped_target_position=0.35
+```
+
+Artifact:
+
+- `runtime/production/card/dashboard_paper_signal_meta_v1/notes.md`
+- `runtime/production/card/dashboard_paper_signal_meta_v1/dashboard_verified.png`

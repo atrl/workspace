@@ -293,6 +293,76 @@ def test_load_versions_enriches_paper_trading_row_with_latest_non_dry_summary_me
     assert meta["latest_profile"] == "v19reg_v22_budget_usage_bull_guard_v1"
     assert meta["latest_execution_status"] == "duplicate_skipped"
     assert meta["latest_target_position"] == 0.484086
+    assert meta["latest_signal_profile"] == "v19reg_v22_budget_usage_bull_guard_v1"
+    assert meta["latest_signal_execution_status"] == "duplicate_skipped"
+    assert meta["latest_signal_summary_path"] == (
+        "runtime/soxl/paper_trading/2026-05-20/duplicate_skip/"
+        "v19reg_v22_budget_usage_bull_guard_v1/summary.json"
+    )
+
+
+def test_load_versions_exports_latest_dry_run_signal_metadata_without_annotating_seed_row(
+    tmp_path: Path,
+    monkeypatch,
+):
+    paper_dir = tmp_path / "runtime" / "soxl" / "paper_trading"
+    dry_run_dir = paper_dir / "2026-05-22" / "dry_run" / "futu"
+    dry_run_dir.mkdir(parents=True)
+    (paper_dir / "paper_trading_soxl_daily.csv").write_text(
+        "\n".join(
+            [
+                "datetime,strategy_nav,price,buyhold_nav,position,excess,excess_pct,action",
+                "2026-05-22,10000,190.56,10000,0,0,0,HOLD",
+            ]
+        ),
+        encoding="utf-8",
+    )
+    (dry_run_dir / "summary.json").write_text(
+        json.dumps(
+            {
+                "date": "2026-05-22",
+                "profile": "v19reg_v22_budget_usage_bull_guard_v1",
+                "broker": "futu",
+                "dry_run": True,
+                "executed": False,
+                "signal": {
+                    "target_position": 0.8500000003,
+                    "current_position": 0.0,
+                },
+                "risk_gate": {
+                    "approved": True,
+                    "capped_target_position": 0.35,
+                },
+                "composition": {
+                    "slow_profile": "balanced_rule_residual_v19_reg",
+                    "fast_profile": "balanced_rule_residual_v22",
+                    "mode": "trend_hold",
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(dashboard_builder, "ROOT", tmp_path)
+    monkeypatch.setattr(dashboard_builder, "load_ohlc_and_indicators", lambda _etf: {})
+
+    versions = _load_post_train_review_versions(features=None)
+
+    detail = versions["paper_trading"]["detailed"]["SOXL"]
+    row = detail["rows"][0]
+    meta = detail["meta"]
+    assert "profile" not in row
+    assert "execution_status" not in row
+    assert meta["latest_data_date"] == "2026-05-22"
+    assert meta["latest_signal_profile"] == "v19reg_v22_budget_usage_bull_guard_v1"
+    assert meta["latest_signal_execution_status"] == "dry_run"
+    assert meta["latest_signal_target_position"] == 0.8500000003
+    assert meta["latest_signal_capped_target_position"] == 0.35
+    assert meta["latest_signal_risk_gate_approved"] is True
+    assert meta["latest_signal_slow_profile"] == "balanced_rule_residual_v19_reg"
+    assert meta["latest_signal_fast_profile"] == "balanced_rule_residual_v22"
+    assert meta["latest_signal_summary_path"] == (
+        "runtime/soxl/paper_trading/2026-05-22/dry_run/futu/summary.json"
+    )
 
 
 def test_load_versions_drops_unannotated_paper_seed_row_and_rebases_buyhold(

@@ -253,6 +253,13 @@ def _summary_target_position(payload: dict[str, object]) -> float | None:
     return None
 
 
+def _summary_capped_target_position(payload: dict[str, object]) -> float | None:
+    risk_gate = payload.get("risk_gate")
+    if isinstance(risk_gate, dict) and risk_gate.get("capped_target_position") is not None:
+        return float(risk_gate["capped_target_position"])
+    return None
+
+
 def _summary_priority(path: Path, payload: dict[str, object]) -> int:
     if payload.get("dry_run") is True:
         return 10
@@ -266,21 +273,64 @@ def _summary_priority(path: Path, payload: dict[str, object]) -> int:
     return 20
 
 
+def _summary_reconcile_action(payload: dict[str, object]) -> str | None:
+    reconcile = payload.get("reconcile")
+    if isinstance(reconcile, dict) and reconcile.get("action_required") is not None:
+        return str(reconcile["action_required"])
+    return None
+
+
+def _latest_paper_signal_metadata(paper_dir: Path) -> dict[str, object]:
+    candidates: list[tuple[tuple[str, int, float], dict[str, object]]] = []
+    for summary_path in sorted(paper_dir.glob("20??-??-??/**/summary.json")):
+        try:
+            payload = json.loads(summary_path.read_text(encoding="utf-8"))
+        except Exception:
+            continue
+        date = payload.get("date")
+        if not date:
+            continue
+        risk_gate = payload.get("risk_gate")
+        composition = payload.get("composition")
+        metadata: dict[str, object] = {
+            "latest_signal_date": str(date),
+            "latest_signal_profile": str(payload.get("profile") or ""),
+            "latest_signal_execution_status": _summary_execution_status(payload),
+            "latest_signal_target_position": _summary_target_position(payload),
+            "latest_signal_capped_target_position": _summary_capped_target_position(payload),
+            "latest_signal_reconcile_action": _summary_reconcile_action(payload),
+            "latest_signal_summary_path": _relative_to_root(summary_path),
+            "latest_signal_broker": str(payload.get("broker") or ""),
+            "latest_signal_dry_run": payload.get("dry_run") is True,
+        }
+        if isinstance(risk_gate, dict) and risk_gate.get("approved") is not None:
+            metadata["latest_signal_risk_gate_approved"] = risk_gate.get("approved") is True
+        if isinstance(composition, dict):
+            for source, target in (
+                ("slow_profile", "latest_signal_slow_profile"),
+                ("fast_profile", "latest_signal_fast_profile"),
+                ("mode", "latest_signal_mode"),
+            ):
+                if composition.get(source) is not None:
+                    metadata[target] = str(composition[source])
+        key = (str(date), _summary_priority(summary_path, payload), float(summary_path.stat().st_mtime))
+        candidates.append((key, {key: value for key, value in metadata.items() if value is not None}))
+    if not candidates:
+        return {}
+    return max(candidates, key=lambda item: item[0])[1]
+
+
 def _paper_summary_metadata(path: Path, payload: dict[str, object]) -> dict[str, object] | None:
     date = payload.get("date")
     if not date or payload.get("dry_run") is True:
         return None
-    reconcile = payload.get("reconcile")
-    reconcile_action = None
-    if isinstance(reconcile, dict):
-        reconcile_action = reconcile.get("action_required")
     return {
         "date": str(date),
         "profile": str(payload.get("profile") or ""),
         "execution_status": _summary_execution_status(payload),
         "dry_run": payload.get("dry_run") is True,
         "target_position": _summary_target_position(payload),
-        "reconcile_action": str(reconcile_action) if reconcile_action is not None else None,
+        "reconcile_action": _summary_reconcile_action(payload),
         "summary_path": _relative_to_root(path),
         "_priority": _summary_priority(path, payload),
         "_mtime": path.stat().st_mtime,
@@ -361,6 +411,7 @@ def _paper_trading_detail_meta(
     }
     if source_kind != "paper_trading" or not rows:
         return meta
+    paper_dir = csv_path.parent
 
     latest = rows[-1]
     meta.update(
@@ -373,6 +424,7 @@ def _paper_trading_detail_meta(
             "latest_summary_path": latest.get("summary_path"),
         }
     )
+    meta.update(_latest_paper_signal_metadata(paper_dir))
     return {key: value for key, value in meta.items() if value is not None}
 
 
@@ -2701,11 +2753,23 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       const rows = paperPayload && Array.isArray(paperPayload.rows) ? paperPayload.rows : [];
       const latest = rows.length ? rows[rows.length - 1] : {{}};
       const meta = (paperPayload && paperPayload.meta) || {{}};
-      const profile = meta.latest_profile || latest.profile || 'unknown';
-      const execution = meta.latest_execution_status || latest.execution_status || 'unknown';
-      const dataDate = meta.latest_data_date || latest.datetime || 'unknown';
-      const target = meta.latest_target_position != null ? meta.latest_target_position : latest.target_position;
-      const source = meta.latest_summary_path || latest.summary_path || paperPayload?.csv_path || 'paper_trading_soxl_daily.csv';
+      const signalBits = [];
+      if (meta.latest_signal_slow_profile) signalBits.push(`slow=${{meta.latest_signal_slow_profile}}`);
+      if (meta.latest_signal_fast_profile) signalBits.push(`fast=${{meta.latest_signal_fast_profile}}`);
+      const signalProfile = meta.latest_signal_profile
+        ? (signalBits.length ? `${{meta.latest_signal_profile}} (${{signalBits.join(', ')}})` : meta.latest_signal_profile)
+        : null;
+      const profile = meta.latest_profile || latest.profile || signalProfile || 'unknown';
+      const execution = meta.latest_execution_status || latest.execution_status || meta.latest_signal_execution_status || 'unknown';
+      const dataDate = meta.latest_data_date || meta.latest_signal_date || latest.datetime || 'unknown';
+      const target = meta.latest_target_position != null
+        ? meta.latest_target_position
+        : (latest.target_position != null
+          ? latest.target_position
+          : (meta.latest_signal_capped_target_position != null
+            ? meta.latest_signal_capped_target_position
+            : meta.latest_signal_target_position));
+      const source = meta.latest_summary_path || latest.summary_path || meta.latest_signal_summary_path || paperPayload?.csv_path || 'paper_trading_soxl_daily.csv';
       setProductionText(productionPaperModel, profile);
       setProductionText(productionPaperExecution, execution);
       setProductionText(productionPaperSource, `${{dataDate}} · target ${{fmtPctValue(target)}} · ${{source}}`);
