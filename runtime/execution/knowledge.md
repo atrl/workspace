@@ -537,3 +537,51 @@ runtime/execution/card/recovery_reentry_floor_v1/recovery_reentry_floor_v1.md
 runtime/execution/card/recovery_reentry_floor_v1/oos_poor_window_diagnostics/
 runtime/execution/card/recovery_reentry_floor_v1/walkforward/
 ```
+
+## 2026-05-24: Recovery Reentry Anchor Confirmation
+
+Question: can the `recovery_reentry_floor_v1` 2022 false positives be removed
+without losing the 2026 recovery target change?
+
+Answer: yes, mostly. Comparing floor-v1 gate days showed `wf_2022` false
+positives remained below the long anchor while 2026 true positives had already
+recovered above it:
+
+- `below_anchor_ratio_63`: gate_2022 `0.9095` vs gate_2026 `0.0152`
+- `anchor_gap_180`: gate_2022 `-0.3654` vs gate_2026 `1.4738`
+- `days_since_high_63`: gate_2022 `0.7333` vs gate_2026 `0.0425`
+
+`recovery_reentry_anchor_confirm_v1` adds:
+
+```text
+max_below_anchor_ratio_63 = 0.20
+min_anchor_gap_180 = 0.75
+```
+
+Readout:
+
+- Strict OOS return remains better than baseline: `1894.61%` vs `1542.89%`.
+- Strict OOS MaxDD remains unchanged at `41.59%`, so the risk target is still
+  not met.
+- `wf_2020` improves from `98.27%` to `113.89%`, MaxDD unchanged.
+- `wf_2022` is unchanged from baseline at `-20.68%`, MaxDD `26.65%`, avg_pos
+  `0.184`; floor-v1's 2022 false positives are removed.
+- `wf_2023_2024` is unchanged.
+- Worst 2026 poor window `2026-02-10..2026-05-11` improves from `1.74%` to
+  `25.60%` strategy return, but remains far below buy-hold `200.63%`.
+
+Decision:
+
+- Keep `recovery_reentry_anchor_confirm_v1` as the better diagnostic branch.
+- Do not bind to runtime because drawdown remains far above the `15%` target.
+- Next valid loop should pair anchor-confirmed reentry with post-reentry
+  de-risk / profit-lock behavior while requiring `wf_2022` to stay unchanged.
+
+Artifacts:
+
+```text
+runtime/execution/card/recovery_reentry_anchor_confirm_v1/notes.md
+runtime/execution/card/recovery_reentry_anchor_confirm_v1/recovery_reentry_anchor_confirm_v1.md
+runtime/execution/card/recovery_reentry_anchor_confirm_v1/oos_poor_window_diagnostics/
+runtime/execution/card/recovery_reentry_anchor_confirm_v1/walkforward/
+```

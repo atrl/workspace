@@ -57,6 +57,8 @@ class RecoveryReentryGuardConfig:
     min_relative_strength_21: float = 1.0
     min_vol_of_vol_21: float = 0.10
     max_vix_percentile_252: float = 0.85
+    max_below_anchor_ratio_63: float = 1.0
+    min_anchor_gap_180: float = -10.0
 
 
 def infer_mode_from_slow_position(position: float) -> str:
@@ -153,7 +155,7 @@ def _normalise_feature_frame(feature_frame: pd.DataFrame) -> pd.DataFrame:
         frame = frame.reset_index()
         frame = frame.rename(columns={frame.columns[0]: "datetime"})
         frame["datetime"] = pd.to_datetime(frame["datetime"])
-    required = [
+    required_base = [
         "datetime",
         "mom_10",
         "mom_21",
@@ -161,9 +163,14 @@ def _normalise_feature_frame(feature_frame: pd.DataFrame) -> pd.DataFrame:
         "vol_of_vol_21",
         "vix_percentile_252",
     ]
-    missing = [col for col in required if col not in frame.columns]
+    missing = [col for col in required_base if col not in frame.columns]
     if missing:
         raise ValueError(f"feature_frame missing recovery reentry columns: {missing}")
+    if "below_anchor_ratio_63" not in frame.columns:
+        frame["below_anchor_ratio_63"] = 0.0
+    if "anchor_gap_180" not in frame.columns:
+        frame["anchor_gap_180"] = 0.0
+    required = [*required_base, "below_anchor_ratio_63", "anchor_gap_180"]
     return frame[required].dropna(subset=["datetime"]).sort_values("datetime")
 
 
@@ -312,6 +319,8 @@ def compose_budget_usage_policy_frame(
                 and float(row["relative_strength_21"]) >= float(recovery_cfg.min_relative_strength_21)
                 and float(row["vol_of_vol_21"]) >= float(recovery_cfg.min_vol_of_vol_21)
                 and float(row["vix_percentile_252"]) <= float(recovery_cfg.max_vix_percentile_252)
+                and float(row["below_anchor_ratio_63"]) <= float(recovery_cfg.max_below_anchor_ratio_63)
+                and float(row["anchor_gap_180"]) >= float(recovery_cfg.min_anchor_gap_180)
             )
             if recovery_ready:
                 raw = min(max(raw, float(recovery_cfg.min_target)), float(recovery_cfg.max_target))

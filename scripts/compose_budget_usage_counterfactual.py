@@ -73,6 +73,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--reentry-min-relative-strength-21", type=float, default=1.0)
     parser.add_argument("--reentry-min-vol-of-vol-21", type=float, default=0.10)
     parser.add_argument("--reentry-max-vix-percentile-252", type=float, default=0.85)
+    parser.add_argument("--reentry-max-below-anchor-ratio-63", type=float, default=1.0)
+    parser.add_argument("--reentry-min-anchor-gap-180", type=float, default=-10.0)
     return parser.parse_args()
 
 
@@ -121,6 +123,8 @@ def main() -> None:
             min_relative_strength_21=args.reentry_min_relative_strength_21,
             min_vol_of_vol_21=args.reentry_min_vol_of_vol_21,
             max_vix_percentile_252=args.reentry_max_vix_percentile_252,
+            max_below_anchor_ratio_63=args.reentry_max_below_anchor_ratio_63,
+            min_anchor_gap_180=args.reentry_min_anchor_gap_180,
         ),
     )
     artifacts = write_counterfactual_artifacts(result, args.output_dir, price)

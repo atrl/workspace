@@ -96,6 +96,8 @@ def test_recovery_reentry_guard_is_audited_in_counterfactual_payload():
             "relative_strength_21": [0.0, 1.1, 1.2, 1.3, 1.4],
             "vol_of_vol_21": [0.0, 0.12, 0.13, 0.14, 0.15],
             "vix_percentile_252": [0.0, 0.70, 0.72, 0.74, 0.76],
+            "below_anchor_ratio_63": [0.0, 0.10, 0.10, 0.10, 0.10],
+            "anchor_gap_180": [0.0, 0.80, 0.80, 0.80, 0.80],
         }
     )
 
@@ -119,11 +121,15 @@ def test_recovery_reentry_guard_is_audited_in_counterfactual_payload():
             min_relative_strength_21=1.0,
             min_vol_of_vol_21=0.10,
             max_vix_percentile_252=0.85,
+            max_below_anchor_ratio_63=0.20,
+            min_anchor_gap_180=0.50,
         ),
     )
 
     assert result.payload["config"]["recovery_reentry_guard"]["enabled"] is True
     assert result.payload["config"]["recovery_reentry_guard"]["action"] == "floor_low_target_in_high_vol_rebound"
+    assert result.payload["config"]["recovery_reentry_guard"]["max_below_anchor_ratio_63"] == 0.20
+    assert result.payload["config"]["recovery_reentry_guard"]["min_anchor_gap_180"] == 0.50
     assert result.daily["recovery_reentry_guard"].tolist() == [False, True, True, True, True]
     assert result.daily["position"].round(4).tolist() == [0.0, 0.35, 0.35, 0.35, 0.35]
 

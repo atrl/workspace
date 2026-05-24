@@ -164,6 +164,8 @@ def _recovery_guard_config_payload(cfg: RecoveryReentryGuardConfig | None) -> di
         "min_relative_strength_21": float(guard.min_relative_strength_21),
         "min_vol_of_vol_21": float(guard.min_vol_of_vol_21),
         "max_vix_percentile_252": float(guard.max_vix_percentile_252),
+        "max_below_anchor_ratio_63": float(guard.max_below_anchor_ratio_63),
+        "min_anchor_gap_180": float(guard.min_anchor_gap_180),
         "action": "floor_low_target_in_high_vol_rebound",
     }
 

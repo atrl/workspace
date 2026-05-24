@@ -140,6 +140,46 @@ def test_recovery_reentry_guard_lifts_flat_actor_only_in_high_vol_rebound():
     assert out["position"].round(4).tolist() == [0.0, 0.35, 0.35, 0.0, 0.0]
 
 
+def test_recovery_reentry_guard_requires_long_anchor_confirmation_when_configured():
+    dates = pd.date_range("2020-01-01", periods=3, freq="B")
+    slow = pd.DataFrame({"datetime": dates, "slow_position": [0.0] * 3})
+    fast = pd.DataFrame({"datetime": dates, "fast_position": [0.0] * 3})
+    features = pd.DataFrame(
+        {
+            "datetime": dates,
+            "mom_10": [0.12, 0.12, 0.12],
+            "mom_21": [0.18, 0.18, 0.18],
+            "relative_strength_21": [1.4, 1.4, 1.4],
+            "vol_of_vol_21": [0.13, 0.13, 0.13],
+            "vix_percentile_252": [0.70, 0.70, 0.70],
+            "below_anchor_ratio_63": [1.0, 0.10, 0.10],
+            "anchor_gap_180": [-0.30, 0.20, 0.80],
+        }
+    )
+
+    out = compose_budget_usage_policy_frame(
+        slow,
+        fast,
+        TwoSpeedBudgetConfig(trade_threshold=0.0, trade_lock_days=0),
+        feature_frame=features,
+        recovery_guard=RecoveryReentryGuardConfig(
+            enabled=True,
+            min_target=0.35,
+            max_base_target=0.25,
+            min_mom_10=0.08,
+            min_mom_21=0.12,
+            min_relative_strength_21=1.0,
+            min_vol_of_vol_21=0.10,
+            max_vix_percentile_252=0.85,
+            max_below_anchor_ratio_63=0.20,
+            min_anchor_gap_180=0.50,
+        ),
+    )
+
+    assert out["recovery_reentry_guard"].tolist() == [False, False, True]
+    assert out["position"].round(4).tolist() == [0.0, 0.0, 0.35]
+
+
 if __name__ == "__main__":
     test_compose_two_speed_position_caps_fast_signal_by_mode_slack()
     test_compose_two_speed_position_keeps_fast_derisking()
@@ -150,4 +190,5 @@ if __name__ == "__main__":
     test_compose_budget_usage_policy_frame_keeps_audit_columns()
     test_compose_budget_usage_policy_frame_applies_bull_participation_guard()
     test_recovery_reentry_guard_lifts_flat_actor_only_in_high_vol_rebound()
+    test_recovery_reentry_guard_requires_long_anchor_confirmation_when_configured()
     print("test_two_speed_budget: OK")

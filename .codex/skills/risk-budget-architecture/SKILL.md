@@ -227,6 +227,21 @@ The first run, `recovery_reentry_floor_v1`, improved strict OOS return and the
 2026 poor-window readout, but raised `wf_2022` exposure and still failed the
 `max_dd < 15%` target. It is diagnostic keep / no runtime promotion.
 
+If floor-v1 creates 2022 false positives, compare gate days against the targeted
+recovery window before changing thresholds. The first useful separation was
+long-anchor confirmation:
+
+```bash
+  --reentry-max-below-anchor-ratio-63 0.20 \
+  --reentry-min-anchor-gap-180 0.75
+```
+
+`recovery_reentry_anchor_confirm_v1` removed the floor-v1 `wf_2022` false
+positives and improved `wf_2020`, but still failed the `max_dd < 15%` target.
+Treat it as the better diagnostic branch. The next valid extension should pair
+anchor-confirmed reentry with post-reentry de-risk / profit-lock behavior, not a
+broader reentry floor.
+
 ### Runtime Composer Promotion Gate
 
 For multi-actor budget-usage candidates, do not bypass a failed component actor

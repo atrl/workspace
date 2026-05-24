@@ -8169,3 +8169,73 @@ runtime/execution/card/recovery_reentry_floor_v1/recovery_reentry_floor_v1.md
 runtime/execution/card/recovery_reentry_floor_v1/oos_poor_window_diagnostics/
 runtime/execution/card/recovery_reentry_floor_v1/walkforward/
 ```
+
+## 2026-05-24 Recovery Reentry Anchor Confirmation
+
+Goal:
+
+- Narrow `recovery_reentry_floor_v1` so it keeps the 2026 recovery target
+  change but blocks the `wf_2022` false positives.
+
+Root-cause comparison:
+
+```text
+gate_2022 vs gate_2026:
+below_anchor_ratio_63: 0.9095 vs 0.0152
+anchor_gap_180:       -0.3654 vs 1.4738
+days_since_high_63:    0.7333 vs 0.0425
+mom_21:                0.4341 vs 0.6895
+```
+
+Design:
+
+- Keep the same default-off reentry floor.
+- Add optional long-anchor confirmation:
+  `below_anchor_ratio_63 <= 0.20` and `anchor_gap_180 >= 0.75`.
+- Existing reentry behavior remains unchanged unless these args are explicitly
+  passed.
+
+Results:
+
+```text
+strict OOS baseline / floor_v1 / anchor_confirm:
+1542.89% / 1.109 / 41.59% MaxDD / pos 0.462
+2091.90% / 1.194 / 41.59% MaxDD / pos 0.468
+1894.61% / 1.165 / 41.59% MaxDD / pos 0.467
+
+wf_2020 baseline -> anchor_confirm:
+98.27% / 1.456 / 26.14% MaxDD / pos 0.399
+113.89% / 1.583 / 26.14% MaxDD / pos 0.424
+
+wf_2022 baseline -> anchor_confirm:
+-20.68% / -0.624 / 26.65% MaxDD / pos 0.184
+-20.68% / -0.624 / 26.65% MaxDD / pos 0.184
+
+wf_2023_2024: unchanged
+```
+
+Poor-window readout:
+
+```text
+2026-02-10..2026-05-11:
+baseline strategy=1.74%, floor_v1=33.78%, anchor_confirm=25.60%, buyhold=200.63%
+```
+
+Decision:
+
+- `recovery_reentry_anchor_confirm_v1` is a better diagnostic branch than
+  floor v1 because it removes `wf_2022` false positives and keeps meaningful
+  2026 recovery improvement.
+- Still no runtime promotion: strict OOS MaxDD remains `41.59%`, far above the
+  target `15%`.
+- Next valid loop is anchor-confirmed reentry plus post-reentry de-risk /
+  profit-lock logic.
+
+Artifacts:
+
+```text
+runtime/execution/card/recovery_reentry_anchor_confirm_v1/notes.md
+runtime/execution/card/recovery_reentry_anchor_confirm_v1/recovery_reentry_anchor_confirm_v1.md
+runtime/execution/card/recovery_reentry_anchor_confirm_v1/oos_poor_window_diagnostics/
+runtime/execution/card/recovery_reentry_anchor_confirm_v1/walkforward/
+```
