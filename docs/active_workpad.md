@@ -8097,3 +8097,75 @@ runtime/production/card/oos_poor_window_feature_diagnostics_v1/poor_windows.csv
 runtime/production/card/oos_poor_window_feature_diagnostics_v1/feature_differences.csv
 runtime/production/card/oos_poor_window_feature_diagnostics_v1/manifest.json
 ```
+
+## 2026-05-24 Recovery Reentry Floor Counterfactual
+
+Goal:
+
+- Test the first fixed-actor response to the paper model's 2025-2026
+  recovery/upside-capture gap without opening a new PPO branch.
+
+Design:
+
+- Add default-off `RecoveryReentryGuardConfig` to the two-speed budget
+  composer.
+- Fire only when the raw composed target is low (`<=0.25`) and qlib features
+  show high-volatility positive-momentum rebound:
+  `mom_10`, `mom_21`, `relative_strength_21`, `vol_of_vol_21`, and
+  `vix_percentile_252`.
+- Floor target to `0.35`, capped at `0.55`, then let existing threshold/trade
+  lock processing decide the actual path.
+
+External references:
+
+```text
+Momentum Crashes: panic/high-volatility rebound states
+Isolating momentum crashes: separate crash/rebound indicator
+Deep Momentum Networks: trend estimation vs position sizing separation
+Trend-following downside-risk adaptation: sluggish trend following can lag BHR in positive phases
+Qlib GitHub: keep the loop in the qlib harness
+```
+
+Results:
+
+```text
+strict OOS baseline -> candidate:
+1542.89% / 1.109 / 41.59% MaxDD / pos 0.462
+2091.90% / 1.194 / 41.59% MaxDD / pos 0.468
+gate_days=35 changed_days=73
+
+wf_2020 baseline -> candidate:
+98.27% / 1.456 / 26.14% MaxDD / pos 0.399
+108.00% / 1.535 / 26.14% MaxDD / pos 0.434
+
+wf_2022 baseline -> candidate:
+-20.68% / -0.624 / 26.65% MaxDD / pos 0.184
+-22.79% / -0.650 / 26.10% MaxDD / pos 0.212
+
+wf_2023_2024: unchanged, no gate days
+```
+
+Poor-window readout:
+
+```text
+2026-02-10..2026-05-11:
+baseline strategy=1.74%, buyhold=200.63%, excess=-198.89pp
+candidate strategy=33.78%, buyhold=200.63%, excess=-166.85pp
+```
+
+Decision:
+
+- Diagnostic keep, no runtime promotion.
+- The reentry floor proves the 2026 gap is execution-addressable, but it still
+  misses the `max_dd < 15%` target and creates `wf_2022` false positives.
+- Next valid loop is a narrower reentry state or paired post-reentry de-risk
+  that blocks 2022 false positives while preserving 2026 target change.
+
+Artifacts:
+
+```text
+runtime/execution/card/recovery_reentry_floor_v1/notes.md
+runtime/execution/card/recovery_reentry_floor_v1/recovery_reentry_floor_v1.md
+runtime/execution/card/recovery_reentry_floor_v1/oos_poor_window_diagnostics/
+runtime/execution/card/recovery_reentry_floor_v1/walkforward/
+```

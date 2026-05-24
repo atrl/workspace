@@ -14,6 +14,7 @@ sys.path.insert(0, str(ROOT))
 
 from src.soxl_quant.app.budget_counterfactual import (  # noqa: E402
     BullParticipationGuardConfig,
+    RecoveryReentryGuardConfig,
     build_budget_usage_counterfactual,
     write_counterfactual_artifacts,
 )
@@ -54,6 +55,24 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--bull-min-periods", type=int, default=20, help="Minimum periods for bull guard rolling stats")
     parser.add_argument("--bull-min-momentum", type=float, default=0.03, help="Minimum return for bull guard")
     parser.add_argument("--bull-max-drawdown", type=float, default=0.08, help="Maximum rolling drawdown for bull guard")
+    parser.add_argument(
+        "--recovery-reentry-guard",
+        action="store_true",
+        help="Floor low composed targets in high-volatility positive-momentum rebound states",
+    )
+    parser.add_argument("--reentry-min-target", type=float, default=0.35, help="Minimum target when reentry guard fires")
+    parser.add_argument("--reentry-max-target", type=float, default=0.55, help="Maximum target applied by reentry guard")
+    parser.add_argument(
+        "--reentry-max-base-target",
+        type=float,
+        default=0.25,
+        help="Only apply reentry guard when the raw composed target is at or below this value",
+    )
+    parser.add_argument("--reentry-min-mom-10", type=float, default=0.08)
+    parser.add_argument("--reentry-min-mom-21", type=float, default=0.12)
+    parser.add_argument("--reentry-min-relative-strength-21", type=float, default=1.0)
+    parser.add_argument("--reentry-min-vol-of-vol-21", type=float, default=0.10)
+    parser.add_argument("--reentry-max-vix-percentile-252", type=float, default=0.85)
     return parser.parse_args()
 
 
@@ -71,6 +90,7 @@ def main() -> None:
     init_qlib(QLIB_DATA_PATH)
     dataset = build_dataset()
     price = dataset.handler.price_frame.droplevel("instrument")["price"]
+    feature_frame = dataset.handler.feature_frame.droplevel("instrument").sort_index()
 
     result = build_budget_usage_counterfactual(
         pd.read_csv(args.slow),
@@ -89,6 +109,18 @@ def main() -> None:
             min_periods=args.bull_min_periods,
             min_momentum=args.bull_min_momentum,
             max_drawdown=args.bull_max_drawdown,
+        ),
+        feature_frame=feature_frame,
+        recovery_guard=RecoveryReentryGuardConfig(
+            enabled=bool(args.recovery_reentry_guard),
+            min_target=args.reentry_min_target,
+            max_target=args.reentry_max_target,
+            max_base_target=args.reentry_max_base_target,
+            min_mom_10=args.reentry_min_mom_10,
+            min_mom_21=args.reentry_min_mom_21,
+            min_relative_strength_21=args.reentry_min_relative_strength_21,
+            min_vol_of_vol_21=args.reentry_min_vol_of_vol_21,
+            max_vix_percentile_252=args.reentry_max_vix_percentile_252,
         ),
     )
     artifacts = write_counterfactual_artifacts(result, args.output_dir, price)

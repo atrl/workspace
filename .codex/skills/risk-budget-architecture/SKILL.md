@@ -199,6 +199,34 @@ than v22 at `58.19% / 30.18% MaxDD`. This is a promoted diagnostic candidate,
 not direct runtime evidence; next continuation needs runtime/profile governance
 packaging.
 
+### Recovery Reentry Floor Diagnostics
+
+When the approved composer passes broad OOS but misses high-volatility rebound
+capture, use the default-off recovery reentry guard as a **counterfactual only**:
+
+```bash
+PYTHONPATH=src:. qlib_venv/bin/python scripts/compose_budget_usage_counterfactual.py \
+  --slow runtime/model/card/balanced_rule_residual_v19_reg/balanced_rule_residual_v19_reg_soxl_daily.csv \
+  --fast runtime/model/card/balanced_rule_residual_v22/balanced_rule_residual_v22_soxl_daily.csv \
+  --output-dir runtime/execution/card/<label> \
+  --profile <label> \
+  --bull-participation-guard \
+  --recovery-reentry-guard \
+  --reentry-min-target 0.35 \
+  --reentry-max-target 0.55 \
+  --reentry-max-base-target 0.25
+```
+
+The guard uses qlib features (`mom_10`, `mom_21`, `relative_strength_21`,
+`vol_of_vol_21`, `vix_percentile_252`) and only acts when the raw composed
+target is low. Treat it as a diagnostic that asks whether the gap is execution
+addressable; do not bind it to runtime unless the same parameters pass saved
+walk-forward checks and do not create 2022 false positives.
+
+The first run, `recovery_reentry_floor_v1`, improved strict OOS return and the
+2026 poor-window readout, but raised `wf_2022` exposure and still failed the
+`max_dd < 15%` target. It is diagnostic keep / no runtime promotion.
+
 ### Runtime Composer Promotion Gate
 
 For multi-actor budget-usage candidates, do not bypass a failed component actor

@@ -9,6 +9,7 @@ import pandas as pd
 
 from ..policy.two_speed_budget import (
     BullParticipationGuardConfig,
+    RecoveryReentryGuardConfig,
     TwoSpeedBudgetConfig,
     compose_budget_usage_policy_frame,
 )
@@ -151,6 +152,22 @@ def _bull_guard_config_payload(cfg: BullParticipationGuardConfig | None) -> dict
     }
 
 
+def _recovery_guard_config_payload(cfg: RecoveryReentryGuardConfig | None) -> dict:
+    guard = cfg or RecoveryReentryGuardConfig()
+    return {
+        "enabled": bool(guard.enabled),
+        "min_target": float(guard.min_target),
+        "max_target": float(guard.max_target),
+        "max_base_target": float(guard.max_base_target),
+        "min_mom_10": float(guard.min_mom_10),
+        "min_mom_21": float(guard.min_mom_21),
+        "min_relative_strength_21": float(guard.min_relative_strength_21),
+        "min_vol_of_vol_21": float(guard.min_vol_of_vol_21),
+        "max_vix_percentile_252": float(guard.max_vix_percentile_252),
+        "action": "floor_low_target_in_high_vol_rebound",
+    }
+
+
 def build_budget_usage_counterfactual(
     slow: pd.DataFrame,
     fast: pd.DataFrame,
@@ -163,18 +180,23 @@ def build_budget_usage_counterfactual(
     profile: str | None = None,
     config: TwoSpeedBudgetConfig | None = None,
     bull_guard: BullParticipationGuardConfig | None = None,
+    feature_frame: pd.DataFrame | None = None,
+    recovery_guard: RecoveryReentryGuardConfig | None = None,
     windows: Mapping[str, tuple[str, str]] | None = None,
 ) -> BudgetUsageCounterfactual:
     cfg = config or TwoSpeedBudgetConfig()
     slow_frame = _position_frame(slow).rename(columns={"position": "slow_position"})
     fast_frame = _position_frame(fast).rename(columns={"position": "fast_position"})
     guard_cfg = bull_guard or BullParticipationGuardConfig()
+    recovery_cfg = recovery_guard or RecoveryReentryGuardConfig()
     daily = compose_budget_usage_policy_frame(
         slow_frame,
         fast_frame,
         cfg,
         price_series=price_series if guard_cfg.enabled else None,
         bull_guard=guard_cfg,
+        feature_frame=feature_frame if recovery_cfg.enabled else None,
+        recovery_guard=recovery_cfg,
     )
 
     variants = {
@@ -195,6 +217,7 @@ def build_budget_usage_counterfactual(
             "trade_threshold": cfg.trade_threshold,
             "trade_lock_days": cfg.trade_lock_days,
             "bull_participation_guard": _bull_guard_config_payload(guard_cfg),
+            "recovery_reentry_guard": _recovery_guard_config_payload(recovery_cfg),
         },
         "variants": variants,
         "comparison": {
@@ -306,6 +329,7 @@ def write_counterfactual_artifacts(
 __all__ = [
     "BudgetUsageCounterfactual",
     "BullParticipationGuardConfig",
+    "RecoveryReentryGuardConfig",
     "DEFAULT_WINDOWS",
     "align_price",
     "build_budget_usage_counterfactual",

@@ -4,6 +4,7 @@ import pandas as pd
 
 from src.soxl_quant.policy.two_speed_budget import (
     BullParticipationGuardConfig,
+    RecoveryReentryGuardConfig,
     TwoSpeedBudgetConfig,
     compose_budget_usage_policy_frame,
     compose_budget_usage_position,
@@ -99,6 +100,46 @@ def test_compose_budget_usage_policy_frame_applies_bull_participation_guard():
     assert out["position"].round(4).tolist() == [0.175, 0.7, 0.7, 0.7, 0.7]
 
 
+def test_recovery_reentry_guard_lifts_flat_actor_only_in_high_vol_rebound():
+    dates = pd.date_range("2020-01-01", periods=5, freq="B")
+    slow = pd.DataFrame({"datetime": dates, "slow_position": [0.0] * 5})
+    fast = pd.DataFrame({"datetime": dates, "fast_position": [0.0] * 5})
+    features = pd.DataFrame(
+        {
+            "datetime": dates,
+            "mom_10": [0.01, 0.09, 0.12, 0.04, 0.11],
+            "mom_21": [0.02, 0.15, 0.18, 0.16, 0.17],
+            "relative_strength_21": [0.3, 1.1, 1.2, 1.3, 0.4],
+            "vol_of_vol_21": [0.05, 0.13, 0.15, 0.16, 0.17],
+            "vix_percentile_252": [0.40, 0.70, 0.75, 0.95, 0.72],
+        }
+    )
+    cfg = TwoSpeedBudgetConfig(trade_threshold=0.0, trade_lock_days=0)
+
+    out = compose_budget_usage_policy_frame(
+        slow,
+        fast,
+        cfg,
+        feature_frame=features,
+        recovery_guard=RecoveryReentryGuardConfig(
+            enabled=True,
+            min_target=0.35,
+            max_target=0.45,
+            max_base_target=0.20,
+            min_mom_10=0.08,
+            min_mom_21=0.12,
+            min_relative_strength_21=1.0,
+            min_vol_of_vol_21=0.10,
+            max_vix_percentile_252=0.85,
+        ),
+    )
+
+    assert out["recovery_reentry_guard"].tolist() == [False, True, True, False, False]
+    assert out["base_two_speed_position"].round(4).tolist() == [0.0] * 5
+    assert out["raw_two_speed_position"].round(4).tolist() == [0.0, 0.35, 0.35, 0.0, 0.0]
+    assert out["position"].round(4).tolist() == [0.0, 0.35, 0.35, 0.0, 0.0]
+
+
 if __name__ == "__main__":
     test_compose_two_speed_position_caps_fast_signal_by_mode_slack()
     test_compose_two_speed_position_keeps_fast_derisking()
@@ -108,4 +149,5 @@ if __name__ == "__main__":
     test_compose_budget_usage_position_preserves_full_derisking()
     test_compose_budget_usage_policy_frame_keeps_audit_columns()
     test_compose_budget_usage_policy_frame_applies_bull_participation_guard()
+    test_recovery_reentry_guard_lifts_flat_actor_only_in_high_vol_rebound()
     print("test_two_speed_budget: OK")

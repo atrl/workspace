@@ -7,6 +7,7 @@ import pandas as pd
 from scripts.compose_budget_usage_counterfactual import relative_output_label
 from src.soxl_quant.app.budget_counterfactual import (
     BullParticipationGuardConfig,
+    RecoveryReentryGuardConfig,
     build_budget_usage_counterfactual,
     render_budget_usage_review,
 )
@@ -80,6 +81,51 @@ def test_bull_participation_guard_floors_strong_trend_to_fast_path():
     assert result.daily["bull_participation_guard"].tolist() == [False, True, True, True, True]
     assert result.daily["base_two_speed_position"].round(4).tolist() == [0.175] * 5
     assert result.daily["position"].round(4).tolist() == [0.175, 0.7, 0.7, 0.7, 0.7]
+
+
+def test_recovery_reentry_guard_is_audited_in_counterfactual_payload():
+    dates = pd.date_range("2020-01-01", periods=5, freq="B")
+    slow = pd.DataFrame({"datetime": dates, "position": [0.0] * 5})
+    fast = pd.DataFrame({"datetime": dates, "position": [0.0] * 5})
+    price = pd.Series([100.0, 101.0, 104.0, 108.0, 112.0], index=dates, name="price")
+    features = pd.DataFrame(
+        {
+            "datetime": dates,
+            "mom_10": [0.0, 0.10, 0.12, 0.13, 0.14],
+            "mom_21": [0.0, 0.13, 0.15, 0.16, 0.17],
+            "relative_strength_21": [0.0, 1.1, 1.2, 1.3, 1.4],
+            "vol_of_vol_21": [0.0, 0.12, 0.13, 0.14, 0.15],
+            "vix_percentile_252": [0.0, 0.70, 0.72, 0.74, 0.76],
+        }
+    )
+
+    result = build_budget_usage_counterfactual(
+        slow,
+        fast,
+        price,
+        slow_label="slow_path",
+        fast_label="fast_path",
+        composed_label="composed_path",
+        description="unit diagnostic",
+        config=TwoSpeedBudgetConfig(trade_threshold=0.0, trade_lock_days=0),
+        feature_frame=features,
+        recovery_guard=RecoveryReentryGuardConfig(
+            enabled=True,
+            min_target=0.35,
+            max_target=0.45,
+            max_base_target=0.20,
+            min_mom_10=0.08,
+            min_mom_21=0.12,
+            min_relative_strength_21=1.0,
+            min_vol_of_vol_21=0.10,
+            max_vix_percentile_252=0.85,
+        ),
+    )
+
+    assert result.payload["config"]["recovery_reentry_guard"]["enabled"] is True
+    assert result.payload["config"]["recovery_reentry_guard"]["action"] == "floor_low_target_in_high_vol_rebound"
+    assert result.daily["recovery_reentry_guard"].tolist() == [False, True, True, True, True]
+    assert result.daily["position"].round(4).tolist() == [0.0, 0.35, 0.35, 0.35, 0.35]
 
 
 def test_render_budget_usage_review_includes_governance_labels_and_deltas():

@@ -46,6 +46,19 @@ class BullParticipationGuardConfig:
     max_drawdown: float = 0.08
 
 
+@dataclass(frozen=True)
+class RecoveryReentryGuardConfig:
+    enabled: bool = False
+    min_target: float = 0.35
+    max_target: float = 0.55
+    max_base_target: float = 0.25
+    min_mom_10: float = 0.08
+    min_mom_21: float = 0.12
+    min_relative_strength_21: float = 1.0
+    min_vol_of_vol_21: float = 0.10
+    max_vix_percentile_252: float = 0.85
+
+
 def infer_mode_from_slow_position(position: float) -> str:
     """Infer a coarse mode from the slow layer when explicit mode rows are absent."""
 
@@ -125,6 +138,35 @@ def _price_frame(price_series: pd.Series) -> pd.DataFrame:
     return price_df.dropna(subset=["price"])
 
 
+def _normalise_feature_frame(feature_frame: pd.DataFrame) -> pd.DataFrame:
+    frame = feature_frame.copy()
+    if "datetime" in frame.columns:
+        frame["datetime"] = pd.to_datetime(frame["datetime"])
+    elif isinstance(frame.index, pd.MultiIndex):
+        frame = frame.reset_index()
+        if "instrument" in frame.columns:
+            frame = frame.drop(columns=["instrument"])
+        if "datetime" not in frame.columns:
+            raise ValueError("feature_frame multi-index must include `datetime`")
+        frame["datetime"] = pd.to_datetime(frame["datetime"])
+    else:
+        frame = frame.reset_index()
+        frame = frame.rename(columns={frame.columns[0]: "datetime"})
+        frame["datetime"] = pd.to_datetime(frame["datetime"])
+    required = [
+        "datetime",
+        "mom_10",
+        "mom_21",
+        "relative_strength_21",
+        "vol_of_vol_21",
+        "vix_percentile_252",
+    ]
+    missing = [col for col in required if col not in frame.columns]
+    if missing:
+        raise ValueError(f"feature_frame missing recovery reentry columns: {missing}")
+    return frame[required].dropna(subset=["datetime"]).sort_values("datetime")
+
+
 def _bull_guard_indicators(
     prices: pd.Series,
     guard: BullParticipationGuardConfig,
@@ -187,6 +229,8 @@ def compose_budget_usage_policy_frame(
     *,
     price_series: pd.Series | None = None,
     bull_guard: BullParticipationGuardConfig | None = None,
+    feature_frame: pd.DataFrame | None = None,
+    recovery_guard: RecoveryReentryGuardConfig | None = None,
 ) -> pd.DataFrame:
     """Compose two daily policy paths into an auditable budget-usage path.
 
@@ -207,6 +251,7 @@ def compose_budget_usage_policy_frame(
     frame["datetime"] = pd.to_datetime(frame["datetime"])
 
     guard_cfg = bull_guard or BullParticipationGuardConfig()
+    recovery_cfg = recovery_guard or RecoveryReentryGuardConfig()
     if guard_cfg.enabled:
         if price_series is None:
             raise ValueError("price_series is required when bull_participation_guard is enabled")
@@ -221,6 +266,21 @@ def compose_budget_usage_policy_frame(
         momentum = pd.Series([float("nan")] * len(frame), index=frame.index)
         drawdown = pd.Series([float("nan")] * len(frame), index=frame.index)
 
+    if recovery_cfg.enabled:
+        if feature_frame is None:
+            raise ValueError("feature_frame is required when recovery_reentry_guard is enabled")
+        frame = frame.merge(_normalise_feature_frame(feature_frame), on="datetime", how="inner")
+        frame = frame.sort_values("datetime").reset_index(drop=True)
+        if frame.empty:
+            raise ValueError("policy frames and feature frame have no overlapping datetimes")
+        if guard_cfg.enabled:
+            prices = frame["price"].astype(float)
+            moving_average, momentum, drawdown = _bull_guard_indicators(prices, guard_cfg)
+        else:
+            moving_average = pd.Series([float("nan")] * len(frame), index=frame.index)
+            momentum = pd.Series([float("nan")] * len(frame), index=frame.index)
+            drawdown = pd.Series([float("nan")] * len(frame), index=frame.index)
+
     current = 0.0
     days_since_trade = cfg.trade_lock_days
     modes: list[str] = []
@@ -229,6 +289,7 @@ def compose_budget_usage_policy_frame(
     targets: list[float] = []
     fast_usage: list[float] = []
     guard_flags: list[bool] = []
+    recovery_flags: list[bool] = []
     for _, row in frame.iterrows():
         slow_pos = float(row["slow_position"])
         usage = max(0.0, min(float(row["fast_position"]), 1.0))
@@ -243,6 +304,17 @@ def compose_budget_usage_policy_frame(
                 and drawdown.iloc[idx] >= -float(guard_cfg.max_drawdown)
             )
         raw = max(base_raw, usage) if guard_ready else base_raw
+        recovery_ready = False
+        if recovery_cfg.enabled and raw <= float(recovery_cfg.max_base_target):
+            recovery_ready = bool(
+                float(row["mom_10"]) >= float(recovery_cfg.min_mom_10)
+                and float(row["mom_21"]) >= float(recovery_cfg.min_mom_21)
+                and float(row["relative_strength_21"]) >= float(recovery_cfg.min_relative_strength_21)
+                and float(row["vol_of_vol_21"]) >= float(recovery_cfg.min_vol_of_vol_21)
+                and float(row["vix_percentile_252"]) <= float(recovery_cfg.max_vix_percentile_252)
+            )
+            if recovery_ready:
+                raw = min(max(raw, float(recovery_cfg.min_target)), float(recovery_cfg.max_target))
         target = maybe_rebalance_position(current, raw, days_since_trade, cfg)
         if abs(target - current) >= cfg.trade_threshold:
             days_since_trade = 0
@@ -255,11 +327,12 @@ def compose_budget_usage_policy_frame(
         targets.append(target)
         fast_usage.append(usage)
         guard_flags.append(guard_ready)
+        recovery_flags.append(recovery_ready)
 
     out = frame.drop(columns=["price"], errors="ignore").copy()
     out["mode"] = modes
     out["fast_usage"] = fast_usage
-    if guard_cfg.enabled:
+    if guard_cfg.enabled or recovery_cfg.enabled:
         out["base_two_speed_position"] = base_targets
     out["raw_two_speed_position"] = raw_targets
     out["position"] = targets
@@ -268,6 +341,8 @@ def compose_budget_usage_policy_frame(
         out["bull_guard_ma"] = moving_average
         out["bull_guard_momentum"] = momentum
         out["bull_guard_drawdown"] = drawdown
+    if recovery_cfg.enabled:
+        out["recovery_reentry_guard"] = recovery_flags
     return out
 
 
@@ -276,6 +351,7 @@ __all__ = [
     "DEFAULT_MODE_SLACK",
     "BullParticipationGuardConfig",
     "bull_participation_guard_snapshot",
+    "RecoveryReentryGuardConfig",
     "TwoSpeedBudgetConfig",
     "compose_budget_usage_policy_frame",
     "compose_budget_usage_position",

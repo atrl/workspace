@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-24T07:26:27.920471+00:00",
+  "generated_at": "2026-05-24T07:43:08.642667+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -108,6 +108,108 @@
       "category": "execution",
       "suffix": ".md",
       "bytes": 717
+    },
+    {
+      "path": "runtime/execution/card/recovery_reentry_floor_v1/notes.md",
+      "category": "execution",
+      "suffix": ".md",
+      "bytes": 5925
+    },
+    {
+      "path": "runtime/execution/card/recovery_reentry_floor_v1/oos_poor_window_diagnostics/feature_differences.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 4324
+    },
+    {
+      "path": "runtime/execution/card/recovery_reentry_floor_v1/oos_poor_window_diagnostics/manifest.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 1442
+    },
+    {
+      "path": "runtime/execution/card/recovery_reentry_floor_v1/oos_poor_window_diagnostics/oos_diagnostic_review.md",
+      "category": "execution",
+      "suffix": ".md",
+      "bytes": 3955
+    },
+    {
+      "path": "runtime/execution/card/recovery_reentry_floor_v1/oos_poor_window_diagnostics/poor_windows.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 1739
+    },
+    {
+      "path": "runtime/execution/card/recovery_reentry_floor_v1/recovery_reentry_floor_v1.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 9457
+    },
+    {
+      "path": "runtime/execution/card/recovery_reentry_floor_v1/recovery_reentry_floor_v1.md",
+      "category": "execution",
+      "suffix": ".md",
+      "bytes": 1977
+    },
+    {
+      "path": "runtime/execution/card/recovery_reentry_floor_v1/recovery_reentry_floor_v1_soxl_daily.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 606066
+    },
+    {
+      "path": "runtime/execution/card/recovery_reentry_floor_v1/walkforward/wf_2020/recovery_reentry_floor_v1_wf_2020.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 5555
+    },
+    {
+      "path": "runtime/execution/card/recovery_reentry_floor_v1/walkforward/wf_2020/recovery_reentry_floor_v1_wf_2020.md",
+      "category": "execution",
+      "suffix": ".md",
+      "bytes": 1423
+    },
+    {
+      "path": "runtime/execution/card/recovery_reentry_floor_v1/walkforward/wf_2020/recovery_reentry_floor_v1_wf_2020_soxl_daily.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 89912
+    },
+    {
+      "path": "runtime/execution/card/recovery_reentry_floor_v1/walkforward/wf_2022/recovery_reentry_floor_v1_wf_2022.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 5585
+    },
+    {
+      "path": "runtime/execution/card/recovery_reentry_floor_v1/walkforward/wf_2022/recovery_reentry_floor_v1_wf_2022.md",
+      "category": "execution",
+      "suffix": ".md",
+      "bytes": 1441
+    },
+    {
+      "path": "runtime/execution/card/recovery_reentry_floor_v1/walkforward/wf_2022/recovery_reentry_floor_v1_wf_2022_soxl_daily.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 89614
+    },
+    {
+      "path": "runtime/execution/card/recovery_reentry_floor_v1/walkforward/wf_2023_2024/recovery_reentry_floor_v1_wf_2023_2024.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 5642
+    },
+    {
+      "path": "runtime/execution/card/recovery_reentry_floor_v1/walkforward/wf_2023_2024/recovery_reentry_floor_v1_wf_2023_2024.md",
+      "category": "execution",
+      "suffix": ".md",
+      "bytes": 1493
+    },
+    {
+      "path": "runtime/execution/card/recovery_reentry_floor_v1/walkforward/wf_2023_2024/recovery_reentry_floor_v1_wf_2023_2024_soxl_daily.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 90885
     },
     {
       "path": "runtime/execution/card/selective_release_overlay_v1/selective_release_overlay_results.csv",
@@ -239,7 +341,7 @@
       "path": "runtime/execution/knowledge.md",
       "category": "execution",
       "suffix": ".md",
-      "bytes": 35986
+      "bytes": 37997
     },
     {
       "path": "runtime/execution/position_cap_overlay_variants.json",

@@ -494,3 +494,46 @@ Decision:
 - Do not bind SOXX relative weakness cap into runtime or auto-selection.
 - Do not continue by threshold-tuning this cap; the failure is walk-forward execution absorption and no recovery improvement, not lack of SOXX data.
 - Direct SOXX actor-feature injection and SOXX fixed-actor cap are both blocked, so the next model-optimization loop needs a distinct mechanism or the work should shift back to production/dashboard tasks.
+
+## 2026-05-24: Recovery Reentry Floor Fixed-Actor Counterfactual
+
+Question: can the current paper model's 2026 recovery/upside-capture gap be
+improved through fixed-actor execution mapping rather than another PPO retrain?
+
+Answer: partially yes, but not enough for promotion. `recovery_reentry_floor_v1`
+adds a default-off `RecoveryReentryGuardConfig` to the two-speed budget composer.
+When the raw composed target is low (`<=0.25`) and qlib features show a
+high-volatility positive-momentum rebound (`mom_10`, `mom_21`,
+`relative_strength_21`, `vol_of_vol_21`, `vix_percentile_252`), the guard floors
+the target to `0.35` before normal threshold/trade-lock execution.
+
+Readout:
+
+- Strict OOS `2020-01-02..2026-05-21`: return improves from `1542.89%` to
+  `2091.90%`, Sharpe from `1.109` to `1.194`, MaxDD unchanged at `41.59%`,
+  avg_pos from `0.462` to `0.468`; `35` gate days and `73` changed days.
+- Worst 2026 poor window `2026-02-10..2026-05-11`: strategy improves from
+  `1.74%` to `33.78%` while buy-hold is `200.63%`; excess remains deeply
+  negative.
+- `wf_2020`: improves from `98.27%` to `108.00%` with MaxDD unchanged at
+  `26.14%`.
+- `wf_2022`: return worsens from `-20.68%` to `-22.79%`; MaxDD improves
+  slightly from `26.65%` to `26.10%`, but avg_pos rises from `0.184` to `0.212`.
+- `wf_2023_2024`: unchanged with no gate days.
+
+Decision:
+
+- Keep as diagnostic evidence; do not bind to runtime.
+- The 2026 recovery gap is execution-addressable, but this first floor still
+  fails the `max_dd < 15%` target and creates 2022 false positives.
+- Next valid loop is a narrower reentry state or paired post-reentry de-risk
+  that blocks the 2022 gate days while preserving the 2026 target change.
+
+Artifacts:
+
+```text
+runtime/execution/card/recovery_reentry_floor_v1/notes.md
+runtime/execution/card/recovery_reentry_floor_v1/recovery_reentry_floor_v1.md
+runtime/execution/card/recovery_reentry_floor_v1/oos_poor_window_diagnostics/
+runtime/execution/card/recovery_reentry_floor_v1/walkforward/
+```
