@@ -2900,3 +2900,32 @@ Current routing intent:
   `production/check_ibkr_gateway.py`.
 - Do not silently switch live execution to Futu. Treat Futu paper proof and IBKR
   live readiness as separate production gates.
+
+## 2026-05-24 IB Gateway Install And Startup
+
+IB Gateway 10.45 was installed from the official IBKR Apple Silicon stable
+standalone DMG and started locally:
+
+```text
+source: https://www.interactivebrokers.com/en/trading/ib-gateway-download.php
+sha256: 50cd44800e812343c20d43e6e9cced977186c7972ff091fece8f2e3fe2e8c79f
+install dir: /Applications/IB Gateway 10.45
+app: /Applications/IB Gateway 10.45/IB Gateway 10.45.app
+pid: 13873
+```
+
+The visible Gateway login window was switched to `IB API`. The agent did not
+enter credentials or 2FA. Before login, ports `7496`, `7497`, `4001`, and
+`4002` were closed, and `production/check_ibkr_gateway.py --port 4002
+--port-only` failed as expected.
+
+Decision:
+
+- Gateway installation/startup is no longer the IBKR blocker.
+- The remaining live-readiness blocker is user-side IBKR login/2FA plus Gateway
+  API socket readiness.
+- Keep IBKR explicit/manual until `production/check_ibkr_gateway.py` passes.
+
+Evidence card:
+
+- `runtime/production/card/ib_gateway_install_start_v1/notes.md`

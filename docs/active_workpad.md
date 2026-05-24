@@ -7934,3 +7934,36 @@ Decision:
 Artifact:
 
 - `runtime/factor/card/soxx_spread_oscillation/notes.md`
+
+## 2026-05-24 IB Gateway Install And Startup
+
+Goal:
+
+- Install and start IB Gateway for the IBKR live broker readiness path.
+- Keep scheduled simulated trading on Futu.
+
+Evidence:
+
+```text
+official source: https://www.interactivebrokers.com/en/trading/ib-gateway-download.php
+download: ibgateway-stable-standalone-macos-arm.dmg
+sha256: 50cd44800e812343c20d43e6e9cced977186c7972ff091fece8f2e3fe2e8c79f
+install dir: /Applications/IB Gateway 10.45
+installed app: /Applications/IB Gateway 10.45/IB Gateway 10.45.app
+process: PID 13873 JavaApplicationStub
+UI: IBKR网关 login page, API type set to IB API
+ports before login: 7496 closed, 7497 closed, 4001 closed, 4002 closed
+check_ibkr_gateway.py --port 4002 --port-only: FAIL before login
+check_ibkr_gateway.py --port 7497 --port-only: FAIL before login
+```
+
+Decision:
+
+- IB Gateway install/start is complete.
+- Live readiness is still blocked on user-side IBKR login/2FA and Gateway API
+  socket readiness.
+- No credentials were entered and no order path was exercised.
+
+Artifact:
+
+- `runtime/production/card/ib_gateway_install_start_v1/notes.md`
