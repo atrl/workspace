@@ -1,0 +1,206 @@
+{
+  "profile": "panic_break_s0.06_f0.18_m0.10",
+  "composition": "budget_usage",
+  "description": "panic_break regime-aware equity drawdown governor: start=0.06, full=0.18, min_target=0.1",
+  "slow_label": "balanced_rule_residual_v19_reg",
+  "fast_label": "balanced_rule_residual_v22",
+  "composed_label": "panic_break_s0.06_f0.18_m0.10",
+  "config": {
+    "mode_bands": {
+      "trend_hold": [
+        0.45,
+        0.95
+      ],
+      "crash_rebuild": [
+        0.25,
+        0.65
+      ],
+      "defensive_hold": [
+        0.1,
+        0.45
+      ],
+      "flat_wait": [
+        0.0,
+        0.25
+      ]
+    },
+    "mode_slack": {
+      "trend_hold": 0.35,
+      "crash_rebuild": 0.25,
+      "defensive_hold": 0.1,
+      "flat_wait": 0.05
+    },
+    "trade_threshold": 0.04,
+    "trade_lock_days": 5,
+    "bull_participation_guard": {
+      "enabled": true,
+      "ma_window": 50,
+      "momentum_window": 20,
+      "high_window": 50,
+      "min_periods": 20,
+      "min_momentum": 0.03,
+      "max_drawdown": 0.08,
+      "action": "floor_raw_target_to_fast_position"
+    },
+    "recovery_reentry_guard": {
+      "enabled": true,
+      "min_target": 0.35,
+      "max_target": 0.55,
+      "max_base_target": 0.25,
+      "min_mom_10": 0.08,
+      "min_mom_21": 0.12,
+      "min_relative_strength_21": 1.0,
+      "min_vol_of_vol_21": 0.1,
+      "max_vix_percentile_252": 0.85,
+      "max_below_anchor_ratio_63": 0.2,
+      "min_anchor_gap_180": 0.75,
+      "action": "floor_low_target_in_high_vol_rebound"
+    },
+    "equity_drawdown_control": {
+      "enabled": true,
+      "start_drawdown": 0.06,
+      "full_drawdown": 0.18,
+      "min_target": 0.1,
+      "sell_trade_threshold": 0.0,
+      "sell_trade_lock_days": 0,
+      "max_anchor_gap_180": 0.0,
+      "min_below_anchor_ratio_63": 0.5,
+      "min_vix_percentile_252": 0.65,
+      "min_vol_of_vol_21": 0.08,
+      "max_mom_21": null,
+      "action": "cap_target_after_strategy_equity_drawdown"
+    }
+  },
+  "variants": {
+    "balanced_rule_residual_v19_reg": {
+      "test_proxy": {
+        "rows": 250,
+        "start": "2022-01-03",
+        "end": "2022-12-29",
+        "return": -47.26300274419925,
+        "sharpe": -1.3568658852621795,
+        "max_dd": 49.52251965670656,
+        "avg_pos": 0.27331574090175415,
+        "stress_avg_pos": 0.27191315415341716,
+        "stress_days": 236,
+        "buy_and_hold_return": -86.58807173239424,
+        "relative_return": 39.32506898819499,
+        "trades": 182
+      },
+      "slices": {
+        "test_2022": {
+          "rows": 250,
+          "start": "2022-01-03",
+          "end": "2022-12-29",
+          "return": -47.26300274419925,
+          "sharpe": -1.3568658852621795,
+          "max_dd": 49.52251965670656,
+          "avg_pos": 0.27331574090175415,
+          "stress_avg_pos": 0.27191315415341716,
+          "stress_days": 236,
+          "buy_and_hold_return": -86.58807173239424,
+          "relative_return": 39.32506898819499,
+          "trades": 182
+        }
+      }
+    },
+    "balanced_rule_residual_v22": {
+      "test_proxy": {
+        "rows": 250,
+        "start": "2022-01-03",
+        "end": "2022-12-29",
+        "return": -44.10768466890934,
+        "sharpe": -1.4996240925198203,
+        "max_dd": 45.949928607057124,
+        "avg_pos": 0.22756439674377157,
+        "stress_avg_pos": 0.22740988493792832,
+        "stress_days": 226,
+        "buy_and_hold_return": -86.58807173239424,
+        "relative_return": 42.4803870634849,
+        "trades": 181
+      },
+      "slices": {
+        "test_2022": {
+          "rows": 250,
+          "start": "2022-01-03",
+          "end": "2022-12-29",
+          "return": -44.10768466890934,
+          "sharpe": -1.4996240925198203,
+          "max_dd": 45.949928607057124,
+          "avg_pos": 0.22756439674377157,
+          "stress_avg_pos": 0.22740988493792832,
+          "stress_days": 226,
+          "buy_and_hold_return": -86.58807173239424,
+          "relative_return": 42.4803870634849,
+          "trades": 181
+        }
+      }
+    },
+    "panic_break_s0.06_f0.18_m0.10": {
+      "test_proxy": {
+        "rows": 250,
+        "start": "2022-01-03",
+        "end": "2022-12-29",
+        "return": -30.317310733477377,
+        "sharpe": -1.450461808968134,
+        "max_dd": 31.257399806362805,
+        "avg_pos": 0.14678432446791978,
+        "stress_avg_pos": 0.13625678523011595,
+        "stress_days": 172,
+        "buy_and_hold_return": -86.58807173239424,
+        "relative_return": 56.27076099891686,
+        "trades": 32
+      },
+      "slices": {
+        "test_2022": {
+          "rows": 250,
+          "start": "2022-01-03",
+          "end": "2022-12-29",
+          "return": -30.317310733477377,
+          "sharpe": -1.450461808968134,
+          "max_dd": 31.257399806362805,
+          "avg_pos": 0.14678432446791978,
+          "stress_avg_pos": 0.13625678523011595,
+          "stress_days": 172,
+          "buy_and_hold_return": -86.58807173239424,
+          "relative_return": 56.27076099891686,
+          "trades": 32
+        }
+      }
+    }
+  },
+  "comparison": {
+    "composed_vs_slow": {
+      "test_proxy": {
+        "delta_return": 16.94569201072187,
+        "delta_sharpe": -0.09359592370595449,
+        "delta_max_dd": -18.26511985034375,
+        "delta_avg_pos": -0.12653141643383436,
+        "delta_trades": -150
+      },
+      "test_2022": {
+        "delta_return": 16.94569201072187,
+        "delta_sharpe": -0.09359592370595449,
+        "delta_max_dd": -18.26511985034375,
+        "delta_avg_pos": -0.12653141643383436,
+        "delta_trades": -150
+      }
+    },
+    "composed_vs_fast": {
+      "test_proxy": {
+        "delta_return": 13.790373935431965,
+        "delta_sharpe": 0.04916228355168628,
+        "delta_max_dd": -14.692528800694319,
+        "delta_avg_pos": -0.0807800722758518,
+        "delta_trades": -149
+      },
+      "test_2022": {
+        "delta_return": 13.790373935431965,
+        "delta_sharpe": 0.04916228355168628,
+        "delta_max_dd": -14.692528800694319,
+        "delta_avg_pos": -0.0807800722758518,
+        "delta_trades": -149
+      }
+    }
+  }
+}

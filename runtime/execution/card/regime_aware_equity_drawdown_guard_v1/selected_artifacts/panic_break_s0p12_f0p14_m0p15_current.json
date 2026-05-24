@@ -1,0 +1,318 @@
+{
+  "profile": "panic_break_s0.12_f0.14_m0.15",
+  "composition": "budget_usage",
+  "description": "panic_break regime-aware equity drawdown governor: start=0.12, full=0.14, min_target=0.15",
+  "slow_label": "balanced_rule_residual_v19_reg",
+  "fast_label": "balanced_rule_residual_v22",
+  "composed_label": "panic_break_s0.12_f0.14_m0.15",
+  "config": {
+    "mode_bands": {
+      "trend_hold": [
+        0.45,
+        0.95
+      ],
+      "crash_rebuild": [
+        0.25,
+        0.65
+      ],
+      "defensive_hold": [
+        0.1,
+        0.45
+      ],
+      "flat_wait": [
+        0.0,
+        0.25
+      ]
+    },
+    "mode_slack": {
+      "trend_hold": 0.35,
+      "crash_rebuild": 0.25,
+      "defensive_hold": 0.1,
+      "flat_wait": 0.05
+    },
+    "trade_threshold": 0.04,
+    "trade_lock_days": 5,
+    "bull_participation_guard": {
+      "enabled": true,
+      "ma_window": 50,
+      "momentum_window": 20,
+      "high_window": 50,
+      "min_periods": 20,
+      "min_momentum": 0.03,
+      "max_drawdown": 0.08,
+      "action": "floor_raw_target_to_fast_position"
+    },
+    "recovery_reentry_guard": {
+      "enabled": true,
+      "min_target": 0.35,
+      "max_target": 0.55,
+      "max_base_target": 0.25,
+      "min_mom_10": 0.08,
+      "min_mom_21": 0.12,
+      "min_relative_strength_21": 1.0,
+      "min_vol_of_vol_21": 0.1,
+      "max_vix_percentile_252": 0.85,
+      "max_below_anchor_ratio_63": 0.2,
+      "min_anchor_gap_180": 0.75,
+      "action": "floor_low_target_in_high_vol_rebound"
+    },
+    "equity_drawdown_control": {
+      "enabled": true,
+      "start_drawdown": 0.12,
+      "full_drawdown": 0.14,
+      "min_target": 0.15,
+      "sell_trade_threshold": 0.0,
+      "sell_trade_lock_days": 0,
+      "max_anchor_gap_180": 0.0,
+      "min_below_anchor_ratio_63": 0.5,
+      "min_vix_percentile_252": 0.65,
+      "min_vol_of_vol_21": 0.08,
+      "max_mom_21": null,
+      "action": "cap_target_after_strategy_equity_drawdown"
+    }
+  },
+  "variants": {
+    "balanced_rule_residual_v19_reg": {
+      "test_proxy": {
+        "rows": 1603,
+        "start": "2020-01-02",
+        "end": "2026-05-19",
+        "return": 1649.0498254887896,
+        "sharpe": 1.148527568864193,
+        "max_dd": 43.53496983765094,
+        "avg_pos": 0.4498243899155489,
+        "stress_avg_pos": 0.44008430451909436,
+        "stress_days": 624,
+        "buy_and_hold_return": 680.3637171816788,
+        "relative_return": 968.6861083071108,
+        "trades": 1428
+      },
+      "slices": {
+        "test_2020": {
+          "rows": 253,
+          "start": "2020-01-02",
+          "end": "2020-12-31",
+          "return": 128.6082124110931,
+          "sharpe": 1.696725836519985,
+          "max_dd": 28.63890210445116,
+          "avg_pos": 0.500053108486825,
+          "stress_avg_pos": 0.49952731892733293,
+          "stress_days": 61,
+          "buy_and_hold_return": 59.775308381142665,
+          "relative_return": 68.83290402995043,
+          "trades": 231
+        },
+        "test_2022": {
+          "rows": 251,
+          "start": "2022-01-03",
+          "end": "2022-12-30",
+          "return": -31.31932458515171,
+          "sharpe": -0.6064597925266039,
+          "max_dd": 43.00580983325575,
+          "avg_pos": 0.32764733673911894,
+          "stress_avg_pos": 0.3446855932208475,
+          "stress_days": 215,
+          "buy_and_hold_return": -86.58807173239424,
+          "relative_return": 55.268747147242536,
+          "trades": 235
+        },
+        "test_2023_2024": {
+          "rows": 502,
+          "start": "2023-01-03",
+          "end": "2024-12-31",
+          "return": 189.57227759917052,
+          "sharpe": 1.4539535826580334,
+          "max_dd": 29.013983414148047,
+          "avg_pos": 0.47698857789250465,
+          "stress_avg_pos": 0.4558617771669496,
+          "stress_days": 184,
+          "buy_and_hold_return": 191.773509269949,
+          "relative_return": -2.201231670778469,
+          "trades": 466
+        }
+      }
+    },
+    "balanced_rule_residual_v22": {
+      "test_proxy": {
+        "rows": 1603,
+        "start": "2020-01-02",
+        "end": "2026-05-19",
+        "return": 1128.310938750952,
+        "sharpe": 0.9728345729331326,
+        "max_dd": 53.21299890802184,
+        "avg_pos": 0.5008896382373782,
+        "stress_avg_pos": 0.49322415352879084,
+        "stress_days": 858,
+        "buy_and_hold_return": 680.3637171816788,
+        "relative_return": 447.9472215692731,
+        "trades": 1436
+      },
+      "slices": {
+        "test_2020": {
+          "rows": 253,
+          "start": "2020-01-02",
+          "end": "2020-12-31",
+          "return": 108.04268590189623,
+          "sharpe": 1.3626032667272376,
+          "max_dd": 44.56857887177948,
+          "avg_pos": 0.5612628978993377,
+          "stress_avg_pos": 0.569298717057325,
+          "stress_days": 83,
+          "buy_and_hold_return": 59.775308381142665,
+          "relative_return": 48.26737752075357,
+          "trades": 231
+        },
+        "test_2022": {
+          "rows": 251,
+          "start": "2022-01-03",
+          "end": "2022-12-30",
+          "return": -41.73466515359343,
+          "sharpe": -0.7384850505948414,
+          "max_dd": 52.835267002065166,
+          "avg_pos": 0.3992217708367532,
+          "stress_avg_pos": 0.4105219854748187,
+          "stress_days": 231,
+          "buy_and_hold_return": -86.58807173239424,
+          "relative_return": 44.85340657880081,
+          "trades": 240
+        },
+        "test_2023_2024": {
+          "rows": 502,
+          "start": "2023-01-03",
+          "end": "2024-12-31",
+          "return": 193.08352005934597,
+          "sharpe": 1.3704215791120347,
+          "max_dd": 32.25523227269218,
+          "avg_pos": 0.5301500786414983,
+          "stress_avg_pos": 0.49127371947359827,
+          "stress_days": 289,
+          "buy_and_hold_return": 191.773509269949,
+          "relative_return": 1.3100107893969835,
+          "trades": 458
+        }
+      }
+    },
+    "panic_break_s0.12_f0.14_m0.15": {
+      "test_proxy": {
+        "rows": 1603,
+        "start": "2020-01-02",
+        "end": "2026-05-19",
+        "return": 1322.0548624051366,
+        "sharpe": 1.1293156080384708,
+        "max_dd": 32.1201798087384,
+        "avg_pos": 0.4336575080551726,
+        "stress_avg_pos": 0.3924882370136463,
+        "stress_days": 731,
+        "buy_and_hold_return": 680.3637171816788,
+        "relative_return": 641.6911452234579,
+        "trades": 218
+      },
+      "slices": {
+        "test_2020": {
+          "rows": 253,
+          "start": "2020-01-02",
+          "end": "2020-12-31",
+          "return": 69.59686841290151,
+          "sharpe": 1.2901466283281193,
+          "max_dd": 25.186125844874578,
+          "avg_pos": 0.4363719715153288,
+          "stress_avg_pos": 0.39586660958747016,
+          "stress_days": 113,
+          "buy_and_hold_return": 59.775308381142665,
+          "relative_return": 9.82156003175885,
+          "trades": 33
+        },
+        "test_2022": {
+          "rows": 251,
+          "start": "2022-01-03",
+          "end": "2022-12-30",
+          "return": -20.614819399351568,
+          "sharpe": -0.5359723364504605,
+          "max_dd": 26.070473923317046,
+          "avg_pos": 0.20862750055024942,
+          "stress_avg_pos": 0.24356924218699041,
+          "stress_days": 130,
+          "buy_and_hold_return": -86.58807173239424,
+          "relative_return": 65.97325233304267,
+          "trades": 37
+        },
+        "test_2023_2024": {
+          "rows": 502,
+          "start": "2023-01-03",
+          "end": "2024-12-31",
+          "return": 211.92998205962428,
+          "sharpe": 1.462779932295113,
+          "max_dd": 30.66818414624622,
+          "avg_pos": 0.496240799804499,
+          "stress_avg_pos": 0.4512960145417233,
+          "stress_days": 243,
+          "buy_and_hold_return": 191.773509269949,
+          "relative_return": 20.15647278967529,
+          "trades": 71
+        }
+      }
+    }
+  },
+  "comparison": {
+    "composed_vs_slow": {
+      "test_proxy": {
+        "delta_return": -326.9949630836529,
+        "delta_sharpe": -0.019211960825722185,
+        "delta_max_dd": -11.414790028912542,
+        "delta_avg_pos": -0.016166881860376292,
+        "delta_trades": -1210
+      },
+      "test_2020": {
+        "delta_return": -59.01134399819158,
+        "delta_sharpe": -0.40657920819186577,
+        "delta_max_dd": -3.4527762595765807,
+        "delta_avg_pos": -0.06368113697149624,
+        "delta_trades": -198
+      },
+      "test_2022": {
+        "delta_return": 10.70450518580014,
+        "delta_sharpe": 0.07048745607614337,
+        "delta_max_dd": -16.935335909938708,
+        "delta_avg_pos": -0.11901983618886952,
+        "delta_trades": -198
+      },
+      "test_2023_2024": {
+        "delta_return": 22.35770446045376,
+        "delta_sharpe": 0.008826349637079511,
+        "delta_max_dd": 1.6542007320981718,
+        "delta_avg_pos": 0.019252221911994327,
+        "delta_trades": -395
+      }
+    },
+    "composed_vs_fast": {
+      "test_proxy": {
+        "delta_return": 193.74392365418475,
+        "delta_sharpe": 0.15648103510533817,
+        "delta_max_dd": -21.09281909928344,
+        "delta_avg_pos": -0.06723213018220559,
+        "delta_trades": -1218
+      },
+      "test_2020": {
+        "delta_return": -38.44581748899472,
+        "delta_sharpe": -0.07245663839911831,
+        "delta_max_dd": -19.3824530269049,
+        "delta_avg_pos": -0.1248909263840089,
+        "delta_trades": -198
+      },
+      "test_2022": {
+        "delta_return": 21.119845754241865,
+        "delta_sharpe": 0.20251271414438088,
+        "delta_max_dd": -26.76479307874812,
+        "delta_avg_pos": -0.19059427028650378,
+        "delta_trades": -203
+      },
+      "test_2023_2024": {
+        "delta_return": 18.846462000278308,
+        "delta_sharpe": 0.09235835318307828,
+        "delta_max_dd": -1.5870481264459642,
+        "delta_avg_pos": -0.033909278836999346,
+        "delta_trades": -387
+      }
+    }
+  }
+}

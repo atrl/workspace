@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-24T13:47:30.361304+00:00",
+  "generated_at": "2026-05-24T14:11:01.904991+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -930,6 +930,366 @@
       "category": "execution",
       "suffix": ".csv",
       "bytes": 1984
+    },
+    {
+      "path": "runtime/execution/card/regime_aware_equity_drawdown_guard_v1/grid_results.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 111594
+    },
+    {
+      "path": "runtime/execution/card/regime_aware_equity_drawdown_guard_v1/selected_artifacts/anchor_break_s0p06_f0p18_m0p10_current.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 610572
+    },
+    {
+      "path": "runtime/execution/card/regime_aware_equity_drawdown_guard_v1/selected_artifacts/anchor_break_s0p06_f0p18_m0p10_current.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 9963
+    },
+    {
+      "path": "runtime/execution/card/regime_aware_equity_drawdown_guard_v1/selected_artifacts/anchor_break_s0p06_f0p18_m0p10_wf_2020.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 90124
+    },
+    {
+      "path": "runtime/execution/card/regime_aware_equity_drawdown_guard_v1/selected_artifacts/anchor_break_s0p06_f0p18_m0p10_wf_2020.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 6061
+    },
+    {
+      "path": "runtime/execution/card/regime_aware_equity_drawdown_guard_v1/selected_artifacts/anchor_break_s0p06_f0p18_m0p10_wf_2022.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 90016
+    },
+    {
+      "path": "runtime/execution/card/regime_aware_equity_drawdown_guard_v1/selected_artifacts/anchor_break_s0p06_f0p18_m0p10_wf_2022.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 6077
+    },
+    {
+      "path": "runtime/execution/card/regime_aware_equity_drawdown_guard_v1/selected_artifacts/anchor_break_s0p06_f0p18_m0p10_wf_2023_2024.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 92090
+    },
+    {
+      "path": "runtime/execution/card/regime_aware_equity_drawdown_guard_v1/selected_artifacts/anchor_break_s0p06_f0p18_m0p10_wf_2023_2024.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 6100
+    },
+    {
+      "path": "runtime/execution/card/regime_aware_equity_drawdown_guard_v1/selected_artifacts/anchor_break_s0p10_f0p14_m0p05_current.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 597399
+    },
+    {
+      "path": "runtime/execution/card/regime_aware_equity_drawdown_guard_v1/selected_artifacts/anchor_break_s0p10_f0p14_m0p05_current.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 9961
+    },
+    {
+      "path": "runtime/execution/card/regime_aware_equity_drawdown_guard_v1/selected_artifacts/anchor_break_s0p10_f0p14_m0p05_wf_2020.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 89003
+    },
+    {
+      "path": "runtime/execution/card/regime_aware_equity_drawdown_guard_v1/selected_artifacts/anchor_break_s0p10_f0p14_m0p05_wf_2020.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 6067
+    },
+    {
+      "path": "runtime/execution/card/regime_aware_equity_drawdown_guard_v1/selected_artifacts/anchor_break_s0p10_f0p14_m0p05_wf_2022.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 87338
+    },
+    {
+      "path": "runtime/execution/card/regime_aware_equity_drawdown_guard_v1/selected_artifacts/anchor_break_s0p10_f0p14_m0p05_wf_2022.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 6079
+    },
+    {
+      "path": "runtime/execution/card/regime_aware_equity_drawdown_guard_v1/selected_artifacts/anchor_break_s0p10_f0p14_m0p05_wf_2023_2024.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 90389
+    },
+    {
+      "path": "runtime/execution/card/regime_aware_equity_drawdown_guard_v1/selected_artifacts/anchor_break_s0p10_f0p14_m0p05_wf_2023_2024.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 6104
+    },
+    {
+      "path": "runtime/execution/card/regime_aware_equity_drawdown_guard_v1/selected_artifacts/anchor_confirm_no_dd_control_current.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 501171
+    },
+    {
+      "path": "runtime/execution/card/regime_aware_equity_drawdown_guard_v1/selected_artifacts/anchor_confirm_no_dd_control_current.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 9945
+    },
+    {
+      "path": "runtime/execution/card/regime_aware_equity_drawdown_guard_v1/selected_artifacts/anchor_confirm_no_dd_control_wf_2020.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 73464
+    },
+    {
+      "path": "runtime/execution/card/regime_aware_equity_drawdown_guard_v1/selected_artifacts/anchor_confirm_no_dd_control_wf_2020.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 6035
+    },
+    {
+      "path": "runtime/execution/card/regime_aware_equity_drawdown_guard_v1/selected_artifacts/anchor_confirm_no_dd_control_wf_2022.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 73092
+    },
+    {
+      "path": "runtime/execution/card/regime_aware_equity_drawdown_guard_v1/selected_artifacts/anchor_confirm_no_dd_control_wf_2022.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 6057
+    },
+    {
+      "path": "runtime/execution/card/regime_aware_equity_drawdown_guard_v1/selected_artifacts/anchor_confirm_no_dd_control_wf_2023_2024.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 74043
+    },
+    {
+      "path": "runtime/execution/card/regime_aware_equity_drawdown_guard_v1/selected_artifacts/anchor_confirm_no_dd_control_wf_2023_2024.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 6076
+    },
+    {
+      "path": "runtime/execution/card/regime_aware_equity_drawdown_guard_v1/selected_artifacts/global_guard_default_current.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 607148
+    },
+    {
+      "path": "runtime/execution/card/regime_aware_equity_drawdown_guard_v1/selected_artifacts/global_guard_default_current.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 9910
+    },
+    {
+      "path": "runtime/execution/card/regime_aware_equity_drawdown_guard_v1/selected_artifacts/global_guard_default_wf_2020.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 90120
+    },
+    {
+      "path": "runtime/execution/card/regime_aware_equity_drawdown_guard_v1/selected_artifacts/global_guard_default_wf_2020.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 6015
+    },
+    {
+      "path": "runtime/execution/card/regime_aware_equity_drawdown_guard_v1/selected_artifacts/global_guard_default_wf_2022.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 89367
+    },
+    {
+      "path": "runtime/execution/card/regime_aware_equity_drawdown_guard_v1/selected_artifacts/global_guard_default_wf_2022.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 6027
+    },
+    {
+      "path": "runtime/execution/card/regime_aware_equity_drawdown_guard_v1/selected_artifacts/global_guard_default_wf_2023_2024.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 92051
+    },
+    {
+      "path": "runtime/execution/card/regime_aware_equity_drawdown_guard_v1/selected_artifacts/global_guard_default_wf_2023_2024.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 6044
+    },
+    {
+      "path": "runtime/execution/card/regime_aware_equity_drawdown_guard_v1/selected_artifacts/panic_break_s0p06_f0p10_m0p10_current.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 598858
+    },
+    {
+      "path": "runtime/execution/card/regime_aware_equity_drawdown_guard_v1/selected_artifacts/panic_break_s0p06_f0p10_m0p10_current.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 9956
+    },
+    {
+      "path": "runtime/execution/card/regime_aware_equity_drawdown_guard_v1/selected_artifacts/panic_break_s0p06_f0p10_m0p10_wf_2020.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 87976
+    },
+    {
+      "path": "runtime/execution/card/regime_aware_equity_drawdown_guard_v1/selected_artifacts/panic_break_s0p06_f0p10_m0p10_wf_2020.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 6059
+    },
+    {
+      "path": "runtime/execution/card/regime_aware_equity_drawdown_guard_v1/selected_artifacts/panic_break_s0p06_f0p10_m0p10_wf_2022.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 88693
+    },
+    {
+      "path": "runtime/execution/card/regime_aware_equity_drawdown_guard_v1/selected_artifacts/panic_break_s0p06_f0p10_m0p10_wf_2022.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 6073
+    },
+    {
+      "path": "runtime/execution/card/regime_aware_equity_drawdown_guard_v1/selected_artifacts/panic_break_s0p06_f0p10_m0p10_wf_2023_2024.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 89573
+    },
+    {
+      "path": "runtime/execution/card/regime_aware_equity_drawdown_guard_v1/selected_artifacts/panic_break_s0p06_f0p10_m0p10_wf_2023_2024.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 6096
+    },
+    {
+      "path": "runtime/execution/card/regime_aware_equity_drawdown_guard_v1/selected_artifacts/panic_break_s0p06_f0p18_m0p10_current.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 609229
+    },
+    {
+      "path": "runtime/execution/card/regime_aware_equity_drawdown_guard_v1/selected_artifacts/panic_break_s0p06_f0p18_m0p10_current.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 9956
+    },
+    {
+      "path": "runtime/execution/card/regime_aware_equity_drawdown_guard_v1/selected_artifacts/panic_break_s0p06_f0p18_m0p10_wf_2020.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 89975
+    },
+    {
+      "path": "runtime/execution/card/regime_aware_equity_drawdown_guard_v1/selected_artifacts/panic_break_s0p06_f0p18_m0p10_wf_2020.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 6067
+    },
+    {
+      "path": "runtime/execution/card/regime_aware_equity_drawdown_guard_v1/selected_artifacts/panic_break_s0p06_f0p18_m0p10_wf_2022.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 90180
+    },
+    {
+      "path": "runtime/execution/card/regime_aware_equity_drawdown_guard_v1/selected_artifacts/panic_break_s0p06_f0p18_m0p10_wf_2022.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 6079
+    },
+    {
+      "path": "runtime/execution/card/regime_aware_equity_drawdown_guard_v1/selected_artifacts/panic_break_s0p06_f0p18_m0p10_wf_2023_2024.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 92172
+    },
+    {
+      "path": "runtime/execution/card/regime_aware_equity_drawdown_guard_v1/selected_artifacts/panic_break_s0p06_f0p18_m0p10_wf_2023_2024.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 6096
+    },
+    {
+      "path": "runtime/execution/card/regime_aware_equity_drawdown_guard_v1/selected_artifacts/panic_break_s0p12_f0p14_m0p15_current.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 598033
+    },
+    {
+      "path": "runtime/execution/card/regime_aware_equity_drawdown_guard_v1/selected_artifacts/panic_break_s0p12_f0p14_m0p15_current.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 9957
+    },
+    {
+      "path": "runtime/execution/card/regime_aware_equity_drawdown_guard_v1/selected_artifacts/panic_break_s0p12_f0p14_m0p15_wf_2020.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 88546
+    },
+    {
+      "path": "runtime/execution/card/regime_aware_equity_drawdown_guard_v1/selected_artifacts/panic_break_s0p12_f0p14_m0p15_wf_2020.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 6059
+    },
+    {
+      "path": "runtime/execution/card/regime_aware_equity_drawdown_guard_v1/selected_artifacts/panic_break_s0p12_f0p14_m0p15_wf_2022.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 88372
+    },
+    {
+      "path": "runtime/execution/card/regime_aware_equity_drawdown_guard_v1/selected_artifacts/panic_break_s0p12_f0p14_m0p15_wf_2022.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 6079
+    },
+    {
+      "path": "runtime/execution/card/regime_aware_equity_drawdown_guard_v1/selected_artifacts/panic_break_s0p12_f0p14_m0p15_wf_2023_2024.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 90125
+    },
+    {
+      "path": "runtime/execution/card/regime_aware_equity_drawdown_guard_v1/selected_artifacts/panic_break_s0p12_f0p14_m0p15_wf_2023_2024.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 6102
+    },
+    {
+      "path": "runtime/execution/card/regime_aware_equity_drawdown_guard_v1/selection.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 3888
+    },
+    {
+      "path": "runtime/execution/card/regime_aware_equity_drawdown_guard_v1/walkforward_results.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 6829
+    },
+    {
+      "path": "runtime/execution/card/regime_aware_equity_drawdown_guard_v1/walkforward_summary.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 866
     },
     {
       "path": "runtime/execution/card/risk_budget_crash_risk_factor_v1/crash_risk_score_screen.csv",

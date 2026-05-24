@@ -1,0 +1,318 @@
+{
+  "profile": "global_guard_default",
+  "composition": "budget_usage",
+  "description": "Previous always-on account-equity drawdown governor reference.",
+  "slow_label": "balanced_rule_residual_v19_reg",
+  "fast_label": "balanced_rule_residual_v22",
+  "composed_label": "global_guard_default",
+  "config": {
+    "mode_bands": {
+      "trend_hold": [
+        0.45,
+        0.95
+      ],
+      "crash_rebuild": [
+        0.25,
+        0.65
+      ],
+      "defensive_hold": [
+        0.1,
+        0.45
+      ],
+      "flat_wait": [
+        0.0,
+        0.25
+      ]
+    },
+    "mode_slack": {
+      "trend_hold": 0.35,
+      "crash_rebuild": 0.25,
+      "defensive_hold": 0.1,
+      "flat_wait": 0.05
+    },
+    "trade_threshold": 0.04,
+    "trade_lock_days": 5,
+    "bull_participation_guard": {
+      "enabled": true,
+      "ma_window": 50,
+      "momentum_window": 20,
+      "high_window": 50,
+      "min_periods": 20,
+      "min_momentum": 0.03,
+      "max_drawdown": 0.08,
+      "action": "floor_raw_target_to_fast_position"
+    },
+    "recovery_reentry_guard": {
+      "enabled": true,
+      "min_target": 0.35,
+      "max_target": 0.55,
+      "max_base_target": 0.25,
+      "min_mom_10": 0.08,
+      "min_mom_21": 0.12,
+      "min_relative_strength_21": 1.0,
+      "min_vol_of_vol_21": 0.1,
+      "max_vix_percentile_252": 0.85,
+      "max_below_anchor_ratio_63": 0.2,
+      "min_anchor_gap_180": 0.75,
+      "action": "floor_low_target_in_high_vol_rebound"
+    },
+    "equity_drawdown_control": {
+      "enabled": true,
+      "start_drawdown": 0.12,
+      "full_drawdown": 0.22,
+      "min_target": 0.25,
+      "sell_trade_threshold": 0.0,
+      "sell_trade_lock_days": 0,
+      "max_anchor_gap_180": null,
+      "min_below_anchor_ratio_63": null,
+      "min_vix_percentile_252": null,
+      "min_vol_of_vol_21": null,
+      "max_mom_21": null,
+      "action": "cap_target_after_strategy_equity_drawdown"
+    }
+  },
+  "variants": {
+    "balanced_rule_residual_v19_reg": {
+      "test_proxy": {
+        "rows": 1603,
+        "start": "2020-01-02",
+        "end": "2026-05-19",
+        "return": 1649.0498254887896,
+        "sharpe": 1.148527568864193,
+        "max_dd": 43.53496983765094,
+        "avg_pos": 0.4498243899155489,
+        "stress_avg_pos": 0.44008430451909436,
+        "stress_days": 624,
+        "buy_and_hold_return": 680.3637171816788,
+        "relative_return": 968.6861083071108,
+        "trades": 1428
+      },
+      "slices": {
+        "test_2020": {
+          "rows": 253,
+          "start": "2020-01-02",
+          "end": "2020-12-31",
+          "return": 128.6082124110931,
+          "sharpe": 1.696725836519985,
+          "max_dd": 28.63890210445116,
+          "avg_pos": 0.500053108486825,
+          "stress_avg_pos": 0.49952731892733293,
+          "stress_days": 61,
+          "buy_and_hold_return": 59.775308381142665,
+          "relative_return": 68.83290402995043,
+          "trades": 231
+        },
+        "test_2022": {
+          "rows": 251,
+          "start": "2022-01-03",
+          "end": "2022-12-30",
+          "return": -31.31932458515171,
+          "sharpe": -0.6064597925266039,
+          "max_dd": 43.00580983325575,
+          "avg_pos": 0.32764733673911894,
+          "stress_avg_pos": 0.3446855932208475,
+          "stress_days": 215,
+          "buy_and_hold_return": -86.58807173239424,
+          "relative_return": 55.268747147242536,
+          "trades": 235
+        },
+        "test_2023_2024": {
+          "rows": 502,
+          "start": "2023-01-03",
+          "end": "2024-12-31",
+          "return": 189.57227759917052,
+          "sharpe": 1.4539535826580334,
+          "max_dd": 29.013983414148047,
+          "avg_pos": 0.47698857789250465,
+          "stress_avg_pos": 0.4558617771669496,
+          "stress_days": 184,
+          "buy_and_hold_return": 191.773509269949,
+          "relative_return": -2.201231670778469,
+          "trades": 466
+        }
+      }
+    },
+    "balanced_rule_residual_v22": {
+      "test_proxy": {
+        "rows": 1603,
+        "start": "2020-01-02",
+        "end": "2026-05-19",
+        "return": 1128.310938750952,
+        "sharpe": 0.9728345729331326,
+        "max_dd": 53.21299890802184,
+        "avg_pos": 0.5008896382373782,
+        "stress_avg_pos": 0.49322415352879084,
+        "stress_days": 858,
+        "buy_and_hold_return": 680.3637171816788,
+        "relative_return": 447.9472215692731,
+        "trades": 1436
+      },
+      "slices": {
+        "test_2020": {
+          "rows": 253,
+          "start": "2020-01-02",
+          "end": "2020-12-31",
+          "return": 108.04268590189623,
+          "sharpe": 1.3626032667272376,
+          "max_dd": 44.56857887177948,
+          "avg_pos": 0.5612628978993377,
+          "stress_avg_pos": 0.569298717057325,
+          "stress_days": 83,
+          "buy_and_hold_return": 59.775308381142665,
+          "relative_return": 48.26737752075357,
+          "trades": 231
+        },
+        "test_2022": {
+          "rows": 251,
+          "start": "2022-01-03",
+          "end": "2022-12-30",
+          "return": -41.73466515359343,
+          "sharpe": -0.7384850505948414,
+          "max_dd": 52.835267002065166,
+          "avg_pos": 0.3992217708367532,
+          "stress_avg_pos": 0.4105219854748187,
+          "stress_days": 231,
+          "buy_and_hold_return": -86.58807173239424,
+          "relative_return": 44.85340657880081,
+          "trades": 240
+        },
+        "test_2023_2024": {
+          "rows": 502,
+          "start": "2023-01-03",
+          "end": "2024-12-31",
+          "return": 193.08352005934597,
+          "sharpe": 1.3704215791120347,
+          "max_dd": 32.25523227269218,
+          "avg_pos": 0.5301500786414983,
+          "stress_avg_pos": 0.49127371947359827,
+          "stress_days": 289,
+          "buy_and_hold_return": 191.773509269949,
+          "relative_return": 1.3100107893969835,
+          "trades": 458
+        }
+      }
+    },
+    "global_guard_default": {
+      "test_proxy": {
+        "rows": 1603,
+        "start": "2020-01-02",
+        "end": "2026-05-19",
+        "return": 854.833619510824,
+        "sharpe": 1.0562695684347891,
+        "max_dd": 34.36525136455344,
+        "avg_pos": 0.38952441831231427,
+        "stress_avg_pos": 0.3225618199781374,
+        "stress_days": 948,
+        "buy_and_hold_return": 680.3637171816788,
+        "relative_return": 174.46990232914516,
+        "trades": 333
+      },
+      "slices": {
+        "test_2020": {
+          "rows": 253,
+          "start": "2020-01-02",
+          "end": "2020-12-31",
+          "return": 107.57857228919869,
+          "sharpe": 1.6633341079259945,
+          "max_dd": 24.37313167481802,
+          "avg_pos": 0.45920343463675917,
+          "stress_avg_pos": 0.4052583292174276,
+          "stress_days": 76,
+          "buy_and_hold_return": 59.775308381142665,
+          "relative_return": 47.803263908056024,
+          "trades": 48
+        },
+        "test_2022": {
+          "rows": 251,
+          "start": "2022-01-03",
+          "end": "2022-12-30",
+          "return": -22.38511017835948,
+          "sharpe": -0.8286041843316921,
+          "max_dd": 28.061174239601545,
+          "avg_pos": 0.18548935784605977,
+          "stress_avg_pos": 0.2247385159539456,
+          "stress_days": 160,
+          "buy_and_hold_return": -86.58807173239424,
+          "relative_return": 64.20296155403476,
+          "trades": 47
+        },
+        "test_2023_2024": {
+          "rows": 502,
+          "start": "2023-01-03",
+          "end": "2024-12-31",
+          "return": 130.53421886367448,
+          "sharpe": 1.264623080557808,
+          "max_dd": 25.72982544816456,
+          "avg_pos": 0.4087760529144117,
+          "stress_avg_pos": 0.30498340607462116,
+          "stress_days": 293,
+          "buy_and_hold_return": 191.773509269949,
+          "relative_return": -61.239290406274506,
+          "trades": 128
+        }
+      }
+    }
+  },
+  "comparison": {
+    "composed_vs_slow": {
+      "test_proxy": {
+        "delta_return": -794.2162059779656,
+        "delta_sharpe": -0.0922580004294038,
+        "delta_max_dd": -9.169718473097504,
+        "delta_avg_pos": -0.06029997160323464,
+        "delta_trades": -1095
+      },
+      "test_2020": {
+        "delta_return": -21.029640121894403,
+        "delta_sharpe": -0.033391728593990644,
+        "delta_max_dd": -4.26577042963314,
+        "delta_avg_pos": -0.04084967385006588,
+        "delta_trades": -183
+      },
+      "test_2022": {
+        "delta_return": 8.93421440679223,
+        "delta_sharpe": -0.22214439180508827,
+        "delta_max_dd": -14.944635593654208,
+        "delta_avg_pos": -0.14215797889305917,
+        "delta_trades": -188
+      },
+      "test_2023_2024": {
+        "delta_return": -59.03805873549604,
+        "delta_sharpe": -0.1893305021002254,
+        "delta_max_dd": -3.2841579659834856,
+        "delta_avg_pos": -0.06821252497809294,
+        "delta_trades": -338
+      }
+    },
+    "composed_vs_fast": {
+      "test_proxy": {
+        "delta_return": -273.47731924012794,
+        "delta_sharpe": 0.08343499550165656,
+        "delta_max_dd": -18.8477475434684,
+        "delta_avg_pos": -0.11136521992506393,
+        "delta_trades": -1103
+      },
+      "test_2020": {
+        "delta_return": -0.46411361269754536,
+        "delta_sharpe": 0.3007308411987568,
+        "delta_max_dd": -20.19544719696146,
+        "delta_avg_pos": -0.10205946326257853,
+        "delta_trades": -183
+      },
+      "test_2022": {
+        "delta_return": 19.349554975233954,
+        "delta_sharpe": -0.09011913373685077,
+        "delta_max_dd": -24.77409276246362,
+        "delta_avg_pos": -0.21373241299069343,
+        "delta_trades": -193
+      },
+      "test_2023_2024": {
+        "delta_return": -62.54930119567149,
+        "delta_sharpe": -0.10579849855422663,
+        "delta_max_dd": -6.5254068245276216,
+        "delta_avg_pos": -0.12137402572708661,
+        "delta_trades": -330
+      }
+    }
+  }
+}
