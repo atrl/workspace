@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-24T10:15:02.919781+00:00",
+  "generated_at": "2026-05-24T10:36:00.442650+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -816,6 +816,36 @@
       "category": "execution",
       "suffix": ".csv",
       "bytes": 506350
+    },
+    {
+      "path": "runtime/execution/card/risk_budget_downside_vol_trendbreak_reentry_v1/account_dd_trendbreak_reentry_screen.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 2770627
+    },
+    {
+      "path": "runtime/execution/card/risk_budget_downside_vol_trendbreak_reentry_v1/price_trendbreak_reentry_screen.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 917404
+    },
+    {
+      "path": "runtime/execution/card/risk_budget_downside_vol_trendbreak_reentry_v1/risk_budget_downside_vol_trendbreak_reentry_v1_selected_soxl_daily.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 347018
+    },
+    {
+      "path": "runtime/execution/card/risk_budget_downside_vol_trendbreak_reentry_v1/selection.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 2320
+    },
+    {
+      "path": "runtime/execution/card/risk_budget_downside_vol_trendbreak_reentry_v1/selection_summary.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 2130
     },
     {
       "path": "runtime/execution/card/selective_release_overlay_v1/selective_release_overlay_results.csv",
