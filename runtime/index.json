@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-24T10:36:00.442650+00:00",
+  "generated_at": "2026-05-24T10:59:41.877715+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -780,6 +780,30 @@
       "category": "execution",
       "suffix": ".csv",
       "bytes": 1984
+    },
+    {
+      "path": "runtime/execution/card/risk_budget_crash_risk_factor_v1/crash_risk_score_screen.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 6915469
+    },
+    {
+      "path": "runtime/execution/card/risk_budget_crash_risk_factor_v1/feature_difference_screen.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 4367
+    },
+    {
+      "path": "runtime/execution/card/risk_budget_crash_risk_factor_v1/risk_budget_crash_risk_factor_v1_selected_soxl_daily.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 4221921
+    },
+    {
+      "path": "runtime/execution/card/risk_budget_crash_risk_factor_v1/selection.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 9381
     },
     {
       "path": "runtime/execution/card/risk_budget_downside_vol_target_v1/downside_vol_target_screen.csv",
