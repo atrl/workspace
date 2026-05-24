@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-24T12:27:27.466159+00:00",
+  "generated_at": "2026-05-24T12:38:02.482215+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -4746,6 +4746,42 @@
       "category": "reward",
       "suffix": ".json",
       "bytes": 2999
+    },
+    {
+      "path": "runtime/reward/card/drawdown_aware_reward_proxy_v1/path_reward_terms.csv",
+      "category": "reward",
+      "suffix": ".csv",
+      "bytes": 38899
+    },
+    {
+      "path": "runtime/reward/card/drawdown_aware_reward_proxy_v1/reward_proxy_family_summary.csv",
+      "category": "reward",
+      "suffix": ".csv",
+      "bytes": 1684
+    },
+    {
+      "path": "runtime/reward/card/drawdown_aware_reward_proxy_v1/reward_proxy_screen.csv",
+      "category": "reward",
+      "suffix": ".csv",
+      "bytes": 27821
+    },
+    {
+      "path": "runtime/reward/card/drawdown_aware_reward_proxy_v1/reward_proxy_term_effects.csv",
+      "category": "reward",
+      "suffix": ".csv",
+      "bytes": 2596
+    },
+    {
+      "path": "runtime/reward/card/drawdown_aware_reward_proxy_v1/reward_proxy_variant_screen.csv",
+      "category": "reward",
+      "suffix": ".csv",
+      "bytes": 509682
+    },
+    {
+      "path": "runtime/reward/card/drawdown_aware_reward_proxy_v1/selection.json",
+      "category": "reward",
+      "suffix": ".json",
+      "bytes": 4051
     },
     {
       "path": "runtime/reward/card/imitation/card.md",

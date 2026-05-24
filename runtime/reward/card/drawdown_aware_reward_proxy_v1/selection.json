@@ -1,0 +1,85 @@
+{
+  "experiment": "drawdown_aware_reward_proxy_v1",
+  "decision": "diagnostic_no_promotion",
+  "path_pool_size": 88,
+  "strict_path_count": 37,
+  "walkforward_path_count": 51,
+  "reward_proxy_variants": 864,
+  "variant_full_pass_count": 0,
+  "variant_strict_pass_count": 338,
+  "return_only_selection": {
+    "family": "recovery_reentry_conditional_vol_target_v1",
+    "relative_return": 2171.722089100399,
+    "max_dd": 30.923275332666435,
+    "robust_loss": 1417.8845304558718
+  },
+  "best_proxy_selection": {
+    "variant_id": "proxy_0052",
+    "family": "predictive_drawdown_risk_gate_v1",
+    "path": "runtime/model_selection/card/predictive_drawdown_risk_gate_v1/predictive_drawdown_risk_gate_v1_selected_soxl_daily.csv",
+    "relative_return": 35.443239071048936,
+    "max_dd": 14.621835439928654,
+    "strict_pass": true,
+    "wf_guard_pass": false,
+    "full_pass": false,
+    "robust_loss": 293.43667979127247,
+    "weights": {
+      "max_dd": 0.0,
+      "current_dd": 0.0,
+      "future_dd": 1.5,
+      "rebound_cost": 0.0,
+      "bear_exposure": 1.5,
+      "turnover": 0.0
+    },
+    "wf_2020_relative": -42.48696705808648,
+    "wf_2020_max_dd": 18.533822711730462,
+    "wf_2023_2024_relative": 39.48565533949625,
+    "wf_2023_2024_max_dd": 16.51824186431039
+  },
+  "best_available_path_by_robust_loss": {
+    "family": "predictive_drawdown_risk_gate_v1",
+    "path": "runtime/model_selection/card/predictive_drawdown_risk_gate_v1/predictive_drawdown_risk_gate_v1_selected_soxl_daily.csv",
+    "relative_return": 35.443239071048936,
+    "max_dd": 14.621835439928654,
+    "robust_loss": 293.43667979127247,
+    "strict_pass": true,
+    "full_pass": false
+  },
+  "strict_best_path": {
+    "family": "predictive_drawdown_risk_gate_v1",
+    "path": "runtime/model_selection/card/predictive_drawdown_risk_gate_v1/predictive_drawdown_risk_gate_v1_selected_soxl_daily.csv",
+    "relative_return": 35.443239071048936,
+    "max_dd": 14.621835439928654,
+    "robust_loss": 293.43667979127247
+  },
+  "conclusion": [
+    "No scalar reward proxy in the screened grid selects a full-pass candidate from the current path pool.",
+    "Drawdown-heavy terms push selection toward lower-risk paths but preserve wf_2020 rebound underparticipation.",
+    "Rebound/opportunity terms push selection toward high-return paths but strict MaxDD remains far above 15%.",
+    "The next training branch should be regime-conditioned: drawdown penalty in broken-anchor/downtrend states plus explicit rebound opportunity in high-volatility positive-momentum states."
+  ],
+  "next_training_branch": {
+    "role": "diagnose_or_ablate",
+    "recommended_design": "state-conditioned reward or auxiliary critic rather than another scalar reward-weight sweep",
+    "terms": [
+      "negative account drawdown / expected future drawdown term active in downtrend or broken-anchor states",
+      "opportunity-cost term active only in high-volatility positive-momentum rebound states",
+      "walk-forward weighted checkpoint selection loss",
+      "turnover penalty retained as a small regularizer"
+    ],
+    "avoid": [
+      "global scalar drawdown penalty alone",
+      "global rebound bonus without 2022 defense gate",
+      "broad PPO retrain without walk-forward checkpoint selection"
+    ]
+  },
+  "artifacts": {
+    "notebook": "runtime/reward/card/drawdown_aware_reward_proxy_v1/drawdown_aware_reward_proxy_v1.ipynb",
+    "path_reward_terms": "runtime/reward/card/drawdown_aware_reward_proxy_v1/path_reward_terms.csv",
+    "reward_proxy_screen": "runtime/reward/card/drawdown_aware_reward_proxy_v1/reward_proxy_screen.csv",
+    "reward_proxy_variant_screen": "runtime/reward/card/drawdown_aware_reward_proxy_v1/reward_proxy_variant_screen.csv",
+    "reward_proxy_family_summary": "runtime/reward/card/drawdown_aware_reward_proxy_v1/reward_proxy_family_summary.csv",
+    "reward_proxy_term_effects": "runtime/reward/card/drawdown_aware_reward_proxy_v1/reward_proxy_term_effects.csv",
+    "selection": "runtime/reward/card/drawdown_aware_reward_proxy_v1/selection.json"
+  }
+}
