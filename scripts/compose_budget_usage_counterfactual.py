@@ -14,6 +14,7 @@ sys.path.insert(0, str(ROOT))
 
 from src.soxl_quant.app.budget_counterfactual import (  # noqa: E402
     BullParticipationGuardConfig,
+    EquityDrawdownControlConfig,
     RecoveryReentryGuardConfig,
     build_budget_usage_counterfactual,
     write_counterfactual_artifacts,
@@ -75,6 +76,16 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--reentry-max-vix-percentile-252", type=float, default=0.85)
     parser.add_argument("--reentry-max-below-anchor-ratio-63", type=float, default=1.0)
     parser.add_argument("--reentry-min-anchor-gap-180", type=float, default=-10.0)
+    parser.add_argument(
+        "--equity-drawdown-control",
+        action="store_true",
+        help="Cap composed targets after realized strategy equity drawdown",
+    )
+    parser.add_argument("--drawdown-start", type=float, default=0.10)
+    parser.add_argument("--drawdown-full", type=float, default=0.18)
+    parser.add_argument("--drawdown-min-target", type=float, default=0.25)
+    parser.add_argument("--drawdown-sell-trade-threshold", type=float, default=0.0)
+    parser.add_argument("--drawdown-sell-trade-lock-days", type=int, default=0)
     return parser.parse_args()
 
 
@@ -125,6 +136,14 @@ def main() -> None:
             max_vix_percentile_252=args.reentry_max_vix_percentile_252,
             max_below_anchor_ratio_63=args.reentry_max_below_anchor_ratio_63,
             min_anchor_gap_180=args.reentry_min_anchor_gap_180,
+        ),
+        drawdown_control=EquityDrawdownControlConfig(
+            enabled=bool(args.equity_drawdown_control),
+            start_drawdown=args.drawdown_start,
+            full_drawdown=args.drawdown_full,
+            min_target=args.drawdown_min_target,
+            sell_trade_threshold=args.drawdown_sell_trade_threshold,
+            sell_trade_lock_days=args.drawdown_sell_trade_lock_days,
         ),
     )
     artifacts = write_counterfactual_artifacts(result, args.output_dir, price)

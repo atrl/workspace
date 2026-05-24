@@ -238,6 +238,45 @@ long-anchor confirmation:
 
 `recovery_reentry_anchor_confirm_v1` removed the floor-v1 `wf_2022` false
 positives and improved `wf_2020`, but still failed the `max_dd < 15%` target.
+
+### Equity Drawdown Governor Diagnostics
+
+If a recovery/reentry branch improves rebound capture but the strict-OOS max
+drawdown predates the reentry state, do not keep tuning post-reentry profit
+locks. First trace the peak/trough dates and compare them to the reentry gate
+dates. In the 2026-05-24 anchor-confirmed branch, strict-OOS max drawdown was
+`2024-03-07 -> 2025-04-08`, while reentry did not start until `2026-02-25`.
+
+Use the default-off account-equity drawdown governor only as a separation test:
+
+```bash
+PYTHONPATH=src:. qlib_venv/bin/python scripts/compose_budget_usage_counterfactual.py \
+  --slow runtime/model/card/balanced_rule_residual_v19_reg/balanced_rule_residual_v19_reg_soxl_daily.csv \
+  --fast runtime/model/card/balanced_rule_residual_v22/balanced_rule_residual_v22_soxl_daily.csv \
+  --output-dir runtime/execution/card/<label> \
+  --profile <label> \
+  --bull-participation-guard \
+  --recovery-reentry-guard \
+  --reentry-min-target 0.35 \
+  --reentry-max-target 0.55 \
+  --reentry-max-base-target 0.25 \
+  --reentry-max-below-anchor-ratio-63 0.20 \
+  --reentry-min-anchor-gap-180 0.75 \
+  --equity-drawdown-control \
+  --drawdown-start 0.12 \
+  --drawdown-full 0.22 \
+  --drawdown-min-target 0.25 \
+  --drawdown-sell-trade-threshold 0.0 \
+  --drawdown-sell-trade-lock-days 0
+```
+
+Interpretation rule: a global equity cap can lower MaxDD but may simply replace
+overfit risk with underparticipation. `recovery_reentry_equity_drawdown_guard_v1`
+reduced strict-OOS MaxDD from `41.59%` to `34.37%` while preserving `+93.33pp`
+excess, but it regressed `wf_2020` and `wf_2022`. Treat that as diagnostic
+keep / no runtime promotion. The next valid risk loop should make de-risking
+regime-aware, requiring broken long-anchor or high-volatility downtrend
+evidence, rather than tightening a global cap.
 Treat it as the better diagnostic branch. The next valid extension should pair
 anchor-confirmed reentry with post-reentry de-risk / profit-lock behavior, not a
 broader reentry floor.

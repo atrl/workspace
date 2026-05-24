@@ -7,6 +7,7 @@ import pandas as pd
 from scripts.compose_budget_usage_counterfactual import relative_output_label
 from src.soxl_quant.app.budget_counterfactual import (
     BullParticipationGuardConfig,
+    EquityDrawdownControlConfig,
     RecoveryReentryGuardConfig,
     build_budget_usage_counterfactual,
     render_budget_usage_review,
@@ -132,6 +133,41 @@ def test_recovery_reentry_guard_is_audited_in_counterfactual_payload():
     assert result.payload["config"]["recovery_reentry_guard"]["min_anchor_gap_180"] == 0.50
     assert result.daily["recovery_reentry_guard"].tolist() == [False, True, True, True, True]
     assert result.daily["position"].round(4).tolist() == [0.0, 0.35, 0.35, 0.35, 0.35]
+
+
+def test_equity_drawdown_control_is_audited_in_counterfactual_payload():
+    dates = pd.date_range("2020-01-01", periods=4, freq="B")
+    slow = pd.DataFrame({"datetime": dates, "position": [0.70] * 4})
+    fast = pd.DataFrame({"datetime": dates, "position": [1.00] * 4})
+    price = pd.Series([100.0, 80.0, 84.0, 88.2], index=dates, name="price")
+
+    result = build_budget_usage_counterfactual(
+        slow,
+        fast,
+        price,
+        slow_label="slow_path",
+        fast_label="fast_path",
+        composed_label="composed_path",
+        description="unit diagnostic",
+        config=TwoSpeedBudgetConfig(trade_threshold=0.0, trade_lock_days=5),
+        drawdown_control=EquityDrawdownControlConfig(
+            enabled=True,
+            start_drawdown=0.10,
+            full_drawdown=0.15,
+            min_target=0.20,
+            sell_trade_threshold=0.0,
+            sell_trade_lock_days=0,
+        ),
+    )
+
+    control = result.payload["config"]["equity_drawdown_control"]
+    assert control["enabled"] is True
+    assert control["start_drawdown"] == 0.10
+    assert control["full_drawdown"] == 0.15
+    assert control["min_target"] == 0.20
+    assert control["action"] == "cap_target_after_strategy_equity_drawdown"
+    assert result.daily["equity_drawdown_control"].tolist() == [False, True, True, True]
+    assert result.daily["position"].round(4).tolist() == [0.95, 0.20, 0.20, 0.20]
 
 
 def test_render_budget_usage_review_includes_governance_labels_and_deltas():

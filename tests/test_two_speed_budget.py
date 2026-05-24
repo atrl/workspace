@@ -4,6 +4,7 @@ import pandas as pd
 
 from src.soxl_quant.policy.two_speed_budget import (
     BullParticipationGuardConfig,
+    EquityDrawdownControlConfig,
     RecoveryReentryGuardConfig,
     TwoSpeedBudgetConfig,
     compose_budget_usage_policy_frame,
@@ -180,6 +181,34 @@ def test_recovery_reentry_guard_requires_long_anchor_confirmation_when_configure
     assert out["position"].round(4).tolist() == [0.0, 0.0, 0.35]
 
 
+def test_equity_drawdown_control_caps_target_and_relaxes_sells_only():
+    dates = pd.date_range("2020-01-01", periods=4, freq="B")
+    slow = pd.DataFrame({"datetime": dates, "slow_position": [0.70] * 4})
+    fast = pd.DataFrame({"datetime": dates, "fast_position": [1.00] * 4})
+    price = pd.Series([100.0, 80.0, 84.0, 88.2], index=dates, name="price")
+
+    out = compose_budget_usage_policy_frame(
+        slow,
+        fast,
+        TwoSpeedBudgetConfig(trade_threshold=0.0, trade_lock_days=5),
+        price_series=price,
+        drawdown_control=EquityDrawdownControlConfig(
+            enabled=True,
+            start_drawdown=0.10,
+            full_drawdown=0.15,
+            min_target=0.20,
+            sell_trade_threshold=0.0,
+            sell_trade_lock_days=0,
+        ),
+    )
+
+    assert out["raw_two_speed_position"].round(4).tolist() == [0.95, 0.20, 0.20, 0.20]
+    assert out["position"].round(4).tolist() == [0.95, 0.20, 0.20, 0.20]
+    assert out["equity_drawdown_control"].tolist() == [False, True, True, True]
+    assert out["equity_drawdown"].round(4).tolist() == [0.0, 0.19, 0.1819, 0.1737]
+    assert out["effective_trade_lock_days"].tolist() == [5, 0, 5, 5]
+
+
 if __name__ == "__main__":
     test_compose_two_speed_position_caps_fast_signal_by_mode_slack()
     test_compose_two_speed_position_keeps_fast_derisking()
@@ -191,4 +220,5 @@ if __name__ == "__main__":
     test_compose_budget_usage_policy_frame_applies_bull_participation_guard()
     test_recovery_reentry_guard_lifts_flat_actor_only_in_high_vol_rebound()
     test_recovery_reentry_guard_requires_long_anchor_confirmation_when_configured()
+    test_equity_drawdown_control_caps_target_and_relaxes_sells_only()
     print("test_two_speed_budget: OK")

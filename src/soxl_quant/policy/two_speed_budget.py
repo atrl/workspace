@@ -61,6 +61,16 @@ class RecoveryReentryGuardConfig:
     min_anchor_gap_180: float = -10.0
 
 
+@dataclass(frozen=True)
+class EquityDrawdownControlConfig:
+    enabled: bool = False
+    start_drawdown: float = 0.10
+    full_drawdown: float = 0.18
+    min_target: float = 0.25
+    sell_trade_threshold: float | None = 0.0
+    sell_trade_lock_days: int | None = 0
+
+
 def infer_mode_from_slow_position(position: float) -> str:
     """Infer a coarse mode from the slow layer when explicit mode rows are absent."""
 
@@ -120,6 +130,24 @@ def maybe_rebalance_position(
     if int(days_since_trade) < int(cfg.trade_lock_days):
         return current
     return target
+
+
+def equity_drawdown_target_cap(drawdown: float, config: EquityDrawdownControlConfig | None = None) -> float:
+    """Linearly cap exposure as realized strategy drawdown deepens."""
+
+    cfg = config or EquityDrawdownControlConfig()
+    if not cfg.enabled:
+        return 1.0
+    dd = max(float(drawdown), 0.0)
+    start = max(float(cfg.start_drawdown), 0.0)
+    full = max(float(cfg.full_drawdown), start)
+    min_target = max(0.0, min(float(cfg.min_target), 1.0))
+    if dd < start:
+        return 1.0
+    if full <= start or dd >= full:
+        return min_target
+    usage = (dd - start) / max(full - start, 1e-12)
+    return max(min_target, 1.0 - usage * (1.0 - min_target))
 
 
 def _position_column(frame: pd.DataFrame, preferred: str) -> str:
@@ -238,6 +266,7 @@ def compose_budget_usage_policy_frame(
     bull_guard: BullParticipationGuardConfig | None = None,
     feature_frame: pd.DataFrame | None = None,
     recovery_guard: RecoveryReentryGuardConfig | None = None,
+    drawdown_control: EquityDrawdownControlConfig | None = None,
 ) -> pd.DataFrame:
     """Compose two daily policy paths into an auditable budget-usage path.
 
@@ -259,13 +288,16 @@ def compose_budget_usage_policy_frame(
 
     guard_cfg = bull_guard or BullParticipationGuardConfig()
     recovery_cfg = recovery_guard or RecoveryReentryGuardConfig()
-    if guard_cfg.enabled:
+    drawdown_cfg = drawdown_control or EquityDrawdownControlConfig()
+    price_required = bool(guard_cfg.enabled or drawdown_cfg.enabled)
+    if price_required:
         if price_series is None:
-            raise ValueError("price_series is required when bull_participation_guard is enabled")
+            raise ValueError("price_series is required when bull_participation_guard or drawdown_control is enabled")
         frame = frame.merge(_price_frame(price_series), on="datetime", how="inner")
         frame = frame.sort_values("datetime").reset_index(drop=True)
         if frame.empty:
             raise ValueError("policy frames and price series have no overlapping datetimes")
+    if guard_cfg.enabled:
         prices = frame["price"].astype(float)
         moving_average, momentum, drawdown = _bull_guard_indicators(prices, guard_cfg)
     else:
@@ -290,6 +322,9 @@ def compose_budget_usage_policy_frame(
 
     current = 0.0
     days_since_trade = cfg.trade_lock_days
+    nav = 1.0
+    peak_nav = 1.0
+    previous_price: float | None = None
     modes: list[str] = []
     base_targets: list[float] = []
     raw_targets: list[float] = []
@@ -297,7 +332,23 @@ def compose_budget_usage_policy_frame(
     fast_usage: list[float] = []
     guard_flags: list[bool] = []
     recovery_flags: list[bool] = []
+    equity_navs: list[float] = []
+    equity_drawdowns: list[float] = []
+    equity_caps: list[float] = []
+    drawdown_flags: list[bool] = []
+    effective_thresholds: list[float] = []
+    effective_locks: list[int] = []
     for _, row in frame.iterrows():
+        if drawdown_cfg.enabled:
+            price = float(row["price"])
+            if previous_price is not None and previous_price > 0:
+                nav *= 1.0 + current * (price / previous_price - 1.0)
+            peak_nav = max(peak_nav, nav)
+            equity_drawdown = max(1.0 - nav / max(peak_nav, 1e-12), 0.0)
+            equity_cap = equity_drawdown_target_cap(equity_drawdown, drawdown_cfg)
+        else:
+            equity_drawdown = 0.0
+            equity_cap = 1.0
         slow_pos = float(row["slow_position"])
         usage = max(0.0, min(float(row["fast_position"]), 1.0))
         mode = infer_mode_from_slow_position(slow_pos)
@@ -324,12 +375,30 @@ def compose_budget_usage_policy_frame(
             )
             if recovery_ready:
                 raw = min(max(raw, float(recovery_cfg.min_target)), float(recovery_cfg.max_target))
-        target = maybe_rebalance_position(current, raw, days_since_trade, cfg)
-        if abs(target - current) >= cfg.trade_threshold:
+        drawdown_ready = bool(drawdown_cfg.enabled and equity_cap < 1.0)
+        if drawdown_ready:
+            raw = min(raw, equity_cap)
+        effective_trade_threshold = float(cfg.trade_threshold)
+        effective_trade_lock_days = int(cfg.trade_lock_days)
+        if drawdown_ready and raw < current:
+            if drawdown_cfg.sell_trade_threshold is not None:
+                effective_trade_threshold = float(drawdown_cfg.sell_trade_threshold)
+            if drawdown_cfg.sell_trade_lock_days is not None:
+                effective_trade_lock_days = max(int(drawdown_cfg.sell_trade_lock_days), 0)
+        effective_cfg = TwoSpeedBudgetConfig(
+            mode_slack=cfg.mode_slack,
+            mode_bands=cfg.mode_bands,
+            trade_threshold=effective_trade_threshold,
+            trade_lock_days=effective_trade_lock_days,
+        )
+        target = maybe_rebalance_position(current, raw, days_since_trade, effective_cfg)
+        if abs(target - current) >= effective_trade_threshold:
             days_since_trade = 0
         else:
             days_since_trade += 1
         current = target
+        if drawdown_cfg.enabled:
+            previous_price = float(row["price"])
         modes.append(mode)
         base_targets.append(base_raw)
         raw_targets.append(raw)
@@ -337,6 +406,12 @@ def compose_budget_usage_policy_frame(
         fast_usage.append(usage)
         guard_flags.append(guard_ready)
         recovery_flags.append(recovery_ready)
+        equity_navs.append(nav)
+        equity_drawdowns.append(equity_drawdown)
+        equity_caps.append(equity_cap)
+        drawdown_flags.append(drawdown_ready)
+        effective_thresholds.append(effective_trade_threshold)
+        effective_locks.append(effective_trade_lock_days)
 
     out = frame.drop(columns=["price"], errors="ignore").copy()
     out["mode"] = modes
@@ -352,6 +427,13 @@ def compose_budget_usage_policy_frame(
         out["bull_guard_drawdown"] = drawdown
     if recovery_cfg.enabled:
         out["recovery_reentry_guard"] = recovery_flags
+    if drawdown_cfg.enabled:
+        out["equity_nav"] = equity_navs
+        out["equity_drawdown"] = equity_drawdowns
+        out["equity_drawdown_cap"] = equity_caps
+        out["equity_drawdown_control"] = drawdown_flags
+        out["effective_trade_threshold"] = effective_thresholds
+        out["effective_trade_lock_days"] = effective_locks
     return out
 
 
@@ -360,6 +442,8 @@ __all__ = [
     "DEFAULT_MODE_SLACK",
     "BullParticipationGuardConfig",
     "bull_participation_guard_snapshot",
+    "EquityDrawdownControlConfig",
+    "equity_drawdown_target_cap",
     "RecoveryReentryGuardConfig",
     "TwoSpeedBudgetConfig",
     "compose_budget_usage_policy_frame",

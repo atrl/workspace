@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-24T07:56:59.112804+00:00",
+  "generated_at": "2026-05-24T08:15:12.100684+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -210,6 +210,108 @@
       "category": "execution",
       "suffix": ".csv",
       "bytes": 98592
+    },
+    {
+      "path": "runtime/execution/card/recovery_reentry_equity_drawdown_guard_v1/notes.md",
+      "category": "execution",
+      "suffix": ".md",
+      "bytes": 5163
+    },
+    {
+      "path": "runtime/execution/card/recovery_reentry_equity_drawdown_guard_v1/oos_poor_window_diagnostics/feature_differences.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 4340
+    },
+    {
+      "path": "runtime/execution/card/recovery_reentry_equity_drawdown_guard_v1/oos_poor_window_diagnostics/manifest.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 1538
+    },
+    {
+      "path": "runtime/execution/card/recovery_reentry_equity_drawdown_guard_v1/oos_poor_window_diagnostics/oos_diagnostic_review.md",
+      "category": "execution",
+      "suffix": ".md",
+      "bytes": 3973
+    },
+    {
+      "path": "runtime/execution/card/recovery_reentry_equity_drawdown_guard_v1/oos_poor_window_diagnostics/poor_windows.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 1738
+    },
+    {
+      "path": "runtime/execution/card/recovery_reentry_equity_drawdown_guard_v1/recovery_reentry_equity_drawdown_guard_v1.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 9855
+    },
+    {
+      "path": "runtime/execution/card/recovery_reentry_equity_drawdown_guard_v1/recovery_reentry_equity_drawdown_guard_v1.md",
+      "category": "execution",
+      "suffix": ".md",
+      "bytes": 2054
+    },
+    {
+      "path": "runtime/execution/card/recovery_reentry_equity_drawdown_guard_v1/recovery_reentry_equity_drawdown_guard_v1_soxl_daily.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 754765
+    },
+    {
+      "path": "runtime/execution/card/recovery_reentry_equity_drawdown_guard_v1/walkforward/wf_2020/recovery_reentry_equity_drawdown_guard_v1_wf_2020.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 5997
+    },
+    {
+      "path": "runtime/execution/card/recovery_reentry_equity_drawdown_guard_v1/walkforward/wf_2020/recovery_reentry_equity_drawdown_guard_v1_wf_2020.md",
+      "category": "execution",
+      "suffix": ".md",
+      "bytes": 1519
+    },
+    {
+      "path": "runtime/execution/card/recovery_reentry_equity_drawdown_guard_v1/walkforward/wf_2020/recovery_reentry_equity_drawdown_guard_v1_wf_2020_soxl_daily.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 113245
+    },
+    {
+      "path": "runtime/execution/card/recovery_reentry_equity_drawdown_guard_v1/walkforward/wf_2022/recovery_reentry_equity_drawdown_guard_v1_wf_2022.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 6009
+    },
+    {
+      "path": "runtime/execution/card/recovery_reentry_equity_drawdown_guard_v1/walkforward/wf_2022/recovery_reentry_equity_drawdown_guard_v1_wf_2022.md",
+      "category": "execution",
+      "suffix": ".md",
+      "bytes": 1527
+    },
+    {
+      "path": "runtime/execution/card/recovery_reentry_equity_drawdown_guard_v1/walkforward/wf_2022/recovery_reentry_equity_drawdown_guard_v1_wf_2022_soxl_daily.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 112052
+    },
+    {
+      "path": "runtime/execution/card/recovery_reentry_equity_drawdown_guard_v1/walkforward/wf_2023_2024/recovery_reentry_equity_drawdown_guard_v1_wf_2023_2024.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 6066
+    },
+    {
+      "path": "runtime/execution/card/recovery_reentry_equity_drawdown_guard_v1/walkforward/wf_2023_2024/recovery_reentry_equity_drawdown_guard_v1_wf_2023_2024.md",
+      "category": "execution",
+      "suffix": ".md",
+      "bytes": 1579
+    },
+    {
+      "path": "runtime/execution/card/recovery_reentry_equity_drawdown_guard_v1/walkforward/wf_2023_2024/recovery_reentry_equity_drawdown_guard_v1_wf_2023_2024_soxl_daily.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 115433
     },
     {
       "path": "runtime/execution/card/recovery_reentry_floor_v1/notes.md",
@@ -443,7 +545,7 @@
       "path": "runtime/execution/knowledge.md",
       "category": "execution",
       "suffix": ".md",
-      "bytes": 39877
+      "bytes": 42379
     },
     {
       "path": "runtime/execution/position_cap_overlay_variants.json",

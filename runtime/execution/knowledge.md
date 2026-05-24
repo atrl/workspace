@@ -585,3 +585,58 @@ runtime/execution/card/recovery_reentry_anchor_confirm_v1/recovery_reentry_ancho
 runtime/execution/card/recovery_reentry_anchor_confirm_v1/oos_poor_window_diagnostics/
 runtime/execution/card/recovery_reentry_anchor_confirm_v1/walkforward/
 ```
+
+## 2026-05-24: Recovery Reentry + Equity Drawdown Governor
+
+Question: can the anchor-confirmed reentry branch be paired with a global
+account-equity drawdown governor to move toward the `max_dd < 15%` target while
+preserving at least `+30pp` strict-OOS excess?
+
+Answer: partially, but not enough for promotion. The key root-cause trace is
+that `recovery_reentry_anchor_confirm_v1` did not cause the strict-OOS max
+drawdown: the drawdown peak/trough is `2024-03-07 -> 2025-04-08`, while the
+first anchor-confirmed reentry day is `2026-02-25`. A post-reentry-only profit
+lock therefore cannot lower global OOS drawdown.
+
+Implementation:
+
+- Added default-off `EquityDrawdownControlConfig` to the shared two-speed budget
+  composer.
+- The composer now tracks realized strategy equity and caps target exposure
+  after account drawdown.
+- The tested branch uses `start_drawdown=0.12`, `full_drawdown=0.22`,
+  `min_target=0.25`, and sell-only threshold/trade-lock relaxation.
+
+Readout:
+
+- Strict OOS `2020-01-02..2026-05-21`: return falls from anchor-confirmed
+  `1894.61%` to `909.85%`, but still beats buy-hold by `+93.33pp`; MaxDD
+  improves from `41.59%` to `34.37%`, still far above `15%`.
+- `wf_2020`: return regresses from `113.89%` to `42.68%`; MaxDD improves from
+  `26.14%` to `24.37%`.
+- `wf_2022`: return regresses from `-20.68%` to `-26.36%`; MaxDD worsens from
+  `26.65%` to `28.25%`.
+- `wf_2023_2024`: return regresses from `58.19%` to `47.91%`; MaxDD improves
+  from `30.18%` to `26.56%`.
+- Poor windows still show violent-rebound underparticipation: `2026-02-05` to
+  `2026-05-06` strategy `28.81%` vs buy-hold `211.46%`.
+
+Decision:
+
+- Keep `recovery_reentry_equity_drawdown_guard_v1` as diagnostic harness
+  capability; do not bind it to runtime.
+- Do not keep tightening a global equity cap: sweep points near `20%` MaxDD or
+  lower destroyed buy-hold-relative performance.
+- Next valid loop is regime-aware drawdown de-risking: only cap when equity
+  drawdown coincides with broken long-anchor / high-volatility downtrend
+  evidence, while keeping anchor-confirmed reentry available for violent
+  rebounds.
+
+Artifacts:
+
+```text
+runtime/execution/card/recovery_reentry_equity_drawdown_guard_v1/notes.md
+runtime/execution/card/recovery_reentry_equity_drawdown_guard_v1/recovery_reentry_equity_drawdown_guard_v1.md
+runtime/execution/card/recovery_reentry_equity_drawdown_guard_v1/oos_poor_window_diagnostics/
+runtime/execution/card/recovery_reentry_equity_drawdown_guard_v1/walkforward/
+```

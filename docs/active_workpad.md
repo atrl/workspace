@@ -8239,3 +8239,94 @@ runtime/execution/card/recovery_reentry_anchor_confirm_v1/recovery_reentry_ancho
 runtime/execution/card/recovery_reentry_anchor_confirm_v1/oos_poor_window_diagnostics/
 runtime/execution/card/recovery_reentry_anchor_confirm_v1/walkforward/
 ```
+
+## 2026-05-24 Equity Drawdown Governor Diagnostic
+
+Goal:
+
+- Test whether the anchor-confirmed reentry branch can be paired with a
+  path-level account drawdown governor to move toward the `max_dd < 15%` target
+  while preserving at least `+30pp` strict-OOS excess.
+
+Root-cause trace:
+
+```text
+anchor_confirm strict-OOS max drawdown:
+peak=2024-03-07 trough=2025-04-08 max_dd=41.59%
+
+anchor_confirm reentry gate:
+first=2026-02-25 last=2026-05-21 gate_days=22
+```
+
+This proves a post-reentry-only profit lock cannot reduce the global OOS
+drawdown. The next test therefore used a default-off equity drawdown governor
+inside the shared two-speed composer.
+
+Design:
+
+- Add `EquityDrawdownControlConfig` to `src/soxl_quant/policy/two_speed_budget.py`.
+- Track realized strategy equity from the composed position path.
+- If equity drawdown exceeds `12%`, linearly cap target toward `25%` by the
+  time drawdown reaches `22%`.
+- Relax threshold/trade lock only for sell-side de-risking:
+  `sell_trade_threshold=0.0`, `sell_trade_lock_days=0`.
+
+External references:
+
+```text
+Drawdown Measure in Portfolio Optimization: path-dependent drawdown risk
+Deep Momentum Networks: separate trend estimation and position sizing
+Probability of Backtest Overfitting: strict OOS / walk-forward discipline
+Qlib: keep the loop in the qlib research-to-production harness
+```
+
+Results:
+
+```text
+strict OOS anchor_confirm -> equity_drawdown_guard:
+1894.61% / 1.165 / 41.59% MaxDD / pos 0.467 / excess +1078.10pp
+909.85% / 1.075 / 34.37% MaxDD / pos 0.390 / excess +93.33pp
+
+wf_2020 anchor_confirm -> equity_drawdown_guard:
+113.89% / 1.583 / 26.14% MaxDD / pos 0.424
+42.68% / 0.953 / 24.37% MaxDD / pos 0.343
+
+wf_2022 anchor_confirm -> equity_drawdown_guard:
+-20.68% / -0.624 / 26.65% MaxDD / pos 0.184
+-26.36% / -1.247 / 28.25% MaxDD / pos 0.155
+
+wf_2023_2024 anchor_confirm -> equity_drawdown_guard:
+58.19% / 1.326 / 30.18% MaxDD / pos 0.337
+47.91% / 1.245 / 26.56% MaxDD / pos 0.284
+```
+
+Poor-window readout:
+
+```text
+2026-02-05..2026-05-06:
+strategy=28.81%, buyhold=211.46%, excess=-182.65pp, max_dd=4.54%
+
+2025-04-08..2025-07-09:
+strategy=51.79%, buyhold=223.03%, excess=-171.24pp, max_dd=7.95%
+```
+
+Decision:
+
+- Diagnostic keep, no runtime promotion.
+- The governor reduces strict-OOS MaxDD by `7.22pp` and still preserves more
+  than `+30pp` excess, but it remains far above `15%` and regresses `wf_2020`
+  and `wf_2022` versus `recovery_reentry_anchor_confirm_v1`.
+- Do not keep tightening the global cap: lower-DD sweep points destroyed
+  buy-hold-relative performance.
+- Next valid loop should make the drawdown governor regime-aware, requiring
+  broken long-anchor / high-volatility downtrend conditions before de-risking,
+  while preserving the anchor-confirmed reentry path for violent rebounds.
+
+Artifacts:
+
+```text
+runtime/execution/card/recovery_reentry_equity_drawdown_guard_v1/notes.md
+runtime/execution/card/recovery_reentry_equity_drawdown_guard_v1/recovery_reentry_equity_drawdown_guard_v1.md
+runtime/execution/card/recovery_reentry_equity_drawdown_guard_v1/oos_poor_window_diagnostics/
+runtime/execution/card/recovery_reentry_equity_drawdown_guard_v1/walkforward/
+```
