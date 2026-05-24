@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-24T12:11:11.388426+00:00",
+  "generated_at": "2026-05-24T12:27:27.466159+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -4716,6 +4716,36 @@
       "category": "reward",
       "suffix": ".md",
       "bytes": 1244
+    },
+    {
+      "path": "runtime/reward/card/drawdown_aware_objective_screen_v1/objective_candidate_table.csv",
+      "category": "reward",
+      "suffix": ".csv",
+      "bytes": 144470
+    },
+    {
+      "path": "runtime/reward/card/drawdown_aware_objective_screen_v1/objective_family_summary.csv",
+      "category": "reward",
+      "suffix": ".csv",
+      "bytes": 3733
+    },
+    {
+      "path": "runtime/reward/card/drawdown_aware_objective_screen_v1/objective_top_robust.csv",
+      "category": "reward",
+      "suffix": ".csv",
+      "bytes": 16901
+    },
+    {
+      "path": "runtime/reward/card/drawdown_aware_objective_screen_v1/objective_top_strict.csv",
+      "category": "reward",
+      "suffix": ".csv",
+      "bytes": 16703
+    },
+    {
+      "path": "runtime/reward/card/drawdown_aware_objective_screen_v1/training_objective_recommendations.json",
+      "category": "reward",
+      "suffix": ".json",
+      "bytes": 2999
     },
     {
       "path": "runtime/reward/card/imitation/card.md",
