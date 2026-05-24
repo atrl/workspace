@@ -139,7 +139,19 @@ def test_equity_drawdown_control_is_audited_in_counterfactual_payload():
     dates = pd.date_range("2020-01-01", periods=4, freq="B")
     slow = pd.DataFrame({"datetime": dates, "position": [0.70] * 4})
     fast = pd.DataFrame({"datetime": dates, "position": [1.00] * 4})
-    price = pd.Series([100.0, 80.0, 84.0, 88.2], index=dates, name="price")
+    price = pd.Series([100.0, 80.0, 80.0, 80.0], index=dates, name="price")
+    features = pd.DataFrame(
+        {
+            "datetime": dates,
+            "mom_10": [0.0, -0.05, -0.05, -0.05],
+            "mom_21": [0.0, 0.18, -0.05, -0.05],
+            "relative_strength_21": [0.0, 1.1, 0.4, 0.4],
+            "vol_of_vol_21": [0.0, 0.12, 0.12, 0.12],
+            "vix_percentile_252": [0.0, 0.70, 0.70, 0.70],
+            "below_anchor_ratio_63": [0.0, 0.05, 0.75, 0.75],
+            "anchor_gap_180": [0.0, 1.20, -0.20, -0.20],
+        }
+    )
 
     result = build_budget_usage_counterfactual(
         slow,
@@ -150,6 +162,7 @@ def test_equity_drawdown_control_is_audited_in_counterfactual_payload():
         composed_label="composed_path",
         description="unit diagnostic",
         config=TwoSpeedBudgetConfig(trade_threshold=0.0, trade_lock_days=5),
+        feature_frame=features,
         drawdown_control=EquityDrawdownControlConfig(
             enabled=True,
             start_drawdown=0.10,
@@ -157,6 +170,10 @@ def test_equity_drawdown_control_is_audited_in_counterfactual_payload():
             min_target=0.20,
             sell_trade_threshold=0.0,
             sell_trade_lock_days=0,
+            max_anchor_gap_180=0.0,
+            min_below_anchor_ratio_63=0.50,
+            min_vix_percentile_252=0.60,
+            max_mom_21=0.05,
         ),
     )
 
@@ -165,9 +182,13 @@ def test_equity_drawdown_control_is_audited_in_counterfactual_payload():
     assert control["start_drawdown"] == 0.10
     assert control["full_drawdown"] == 0.15
     assert control["min_target"] == 0.20
+    assert control["max_anchor_gap_180"] == 0.0
+    assert control["min_below_anchor_ratio_63"] == 0.50
+    assert control["min_vix_percentile_252"] == 0.60
+    assert control["max_mom_21"] == 0.05
     assert control["action"] == "cap_target_after_strategy_equity_drawdown"
-    assert result.daily["equity_drawdown_control"].tolist() == [False, True, True, True]
-    assert result.daily["position"].round(4).tolist() == [0.95, 0.20, 0.20, 0.20]
+    assert result.daily["equity_drawdown_control"].tolist() == [False, False, True, True]
+    assert result.daily["position"].round(4).tolist() == [0.95, 0.95, 0.20, 0.20]
 
 
 def test_render_budget_usage_review_includes_governance_labels_and_deltas():

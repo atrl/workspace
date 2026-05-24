@@ -54,11 +54,29 @@ Knowledge retrieval must be scoped by task direction.
 
 - Reuse the existing active workpad instead of scattering status across random
   notes.
-- Keep the workpad current with goal, acceptance criteria, commands, evidence,
-  decisions, and next action.
+- Keep the workpad current for active cross-session tasks, but do not add
+  single-run experiment conclusions there by default. For one-off experiments,
+  put the conclusion in the corresponding runtime notebook instead.
 - Capture baseline or reproduction evidence before changing code when the task
   depends on a behavior change.
 - A task is not complete until the repository contains the proof of work.
+
+## Notebook Experiment Discipline
+
+- Prefer an executable notebook under
+  `runtime/<direction>/card/<experiment>/<experiment>.ipynb` for experiments.
+- Put single-run parameter screens, special-case logic, metrics, comparisons,
+  conclusions, and artifact links in that notebook.
+- Keep reusable abstractions in `src/soxl_quant/`; keep scripts thin and
+  reusable. Do not push experiment-specific logic into shared modules unless it
+  becomes a reusable interface with tests.
+- Do not update `docs/active_workpad.md`, `runtime/<direction>/knowledge.md`,
+  `docs/research_knowledge/`, `docs/experiment-landscape-review.md`, or
+  `.codex/skills/` with single-run conclusions unless the user explicitly asks,
+  the result is promoted, or the finding changes durable cross-experiment
+  routing/governance.
+- If a notebook writes sidecar Markdown/JSON/CSV artifacts, the notebook remains
+  the primary human-readable conclusion for that run.
 
 
 
@@ -77,7 +95,8 @@ Knowledge retrieval must be scoped by task direction.
 
 ## Experiment Governance
 
-A new experiment is not ready to run until the workpad or notes file contains:
+A new experiment is not ready to run until the runtime experiment notebook
+(preferred) or notes file contains:
 
 - **Baselines**: canonical and direct comparison
 - **Role**: `replace`, `diagnose`, or `ablate`
@@ -92,7 +111,7 @@ Before starting, query repo history and answer:
 2. closest historical failure case
 3. why this run is not a duplicate of either
 
-Default to **not running** if the difference is only a renamed profile, a tweaked threshold, or a stronger penalty on an already-failed lever. After completion, add a row to `docs/experiment-landscape-review.md`.
+Default to **not running** if the difference is only a renamed profile, a tweaked threshold, or a stronger penalty on an already-failed lever. After completion, keep the single-run conclusion in the runtime notebook. Add a row to `docs/experiment-landscape-review.md` only for promoted results, durable cross-experiment decisions, or explicit user requests.
 
 ## Code Boundaries
 
@@ -194,14 +213,15 @@ Use git worktrees only for **short-lived experimental branches**.
 For every substantial iteration:
 
 1. ground in the current repo state
-2. update or confirm the active workpad
+2. update or confirm the active workpad only when the task is not a
+   notebook-contained experiment
 3. run exactly one meaningful loop
 4. validate the result
 5. write proof of work back to the repo
-6. update continuity in `runtime/<direction>/knowledge.md` or the experiment's `notes.md`
+6. put single-run conclusions in the experiment notebook; update
+   `runtime/<direction>/knowledge.md` only for durable cross-session decisions
 7. **commit and push the changes**
 8. if a skill was created or modified, verify `.codex/skills/` is synced
-
 
 
 

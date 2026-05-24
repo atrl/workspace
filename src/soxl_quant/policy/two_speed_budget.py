@@ -69,6 +69,11 @@ class EquityDrawdownControlConfig:
     min_target: float = 0.25
     sell_trade_threshold: float | None = 0.0
     sell_trade_lock_days: int | None = 0
+    max_anchor_gap_180: float | None = None
+    min_below_anchor_ratio_63: float | None = None
+    min_vix_percentile_252: float | None = None
+    min_vol_of_vol_21: float | None = None
+    max_mom_21: float | None = None
 
 
 def infer_mode_from_slow_position(position: float) -> str:
@@ -148,6 +153,41 @@ def equity_drawdown_target_cap(drawdown: float, config: EquityDrawdownControlCon
         return min_target
     usage = (dd - start) / max(full - start, 1e-12)
     return max(min_target, 1.0 - usage * (1.0 - min_target))
+
+
+def equity_drawdown_uses_feature_filters(config: EquityDrawdownControlConfig | None = None) -> bool:
+    cfg = config or EquityDrawdownControlConfig()
+    return any(
+        value is not None
+        for value in (
+            cfg.max_anchor_gap_180,
+            cfg.min_below_anchor_ratio_63,
+            cfg.min_vix_percentile_252,
+            cfg.min_vol_of_vol_21,
+            cfg.max_mom_21,
+        )
+    )
+
+
+def equity_drawdown_regime_ready(row: pd.Series, config: EquityDrawdownControlConfig | None = None) -> bool:
+    """Check optional feature filters for account-equity drawdown control."""
+
+    cfg = config or EquityDrawdownControlConfig()
+    if not equity_drawdown_uses_feature_filters(cfg):
+        return True
+    if cfg.max_anchor_gap_180 is not None and float(row["anchor_gap_180"]) > float(cfg.max_anchor_gap_180):
+        return False
+    if cfg.min_below_anchor_ratio_63 is not None and (
+        float(row["below_anchor_ratio_63"]) < float(cfg.min_below_anchor_ratio_63)
+    ):
+        return False
+    if cfg.min_vix_percentile_252 is not None and float(row["vix_percentile_252"]) < float(cfg.min_vix_percentile_252):
+        return False
+    if cfg.min_vol_of_vol_21 is not None and float(row["vol_of_vol_21"]) < float(cfg.min_vol_of_vol_21):
+        return False
+    if cfg.max_mom_21 is not None and float(row["mom_21"]) > float(cfg.max_mom_21):
+        return False
+    return True
 
 
 def _position_column(frame: pd.DataFrame, preferred: str) -> str:
@@ -305,9 +345,10 @@ def compose_budget_usage_policy_frame(
         momentum = pd.Series([float("nan")] * len(frame), index=frame.index)
         drawdown = pd.Series([float("nan")] * len(frame), index=frame.index)
 
-    if recovery_cfg.enabled:
+    feature_filters_required = bool(recovery_cfg.enabled or equity_drawdown_uses_feature_filters(drawdown_cfg))
+    if feature_filters_required:
         if feature_frame is None:
-            raise ValueError("feature_frame is required when recovery_reentry_guard is enabled")
+            raise ValueError("feature_frame is required when recovery_reentry_guard or drawdown feature filters are enabled")
         frame = frame.merge(_normalise_feature_frame(feature_frame), on="datetime", how="inner")
         frame = frame.sort_values("datetime").reset_index(drop=True)
         if frame.empty:
@@ -336,6 +377,7 @@ def compose_budget_usage_policy_frame(
     equity_drawdowns: list[float] = []
     equity_caps: list[float] = []
     drawdown_flags: list[bool] = []
+    drawdown_regime_flags: list[bool] = []
     effective_thresholds: list[float] = []
     effective_locks: list[int] = []
     for _, row in frame.iterrows():
@@ -375,7 +417,10 @@ def compose_budget_usage_policy_frame(
             )
             if recovery_ready:
                 raw = min(max(raw, float(recovery_cfg.min_target)), float(recovery_cfg.max_target))
-        drawdown_ready = bool(drawdown_cfg.enabled and equity_cap < 1.0)
+        drawdown_regime_ready = bool(
+            drawdown_cfg.enabled and equity_drawdown_regime_ready(row, drawdown_cfg)
+        )
+        drawdown_ready = bool(drawdown_cfg.enabled and equity_cap < 1.0 and drawdown_regime_ready)
         if drawdown_ready:
             raw = min(raw, equity_cap)
         effective_trade_threshold = float(cfg.trade_threshold)
@@ -410,6 +455,7 @@ def compose_budget_usage_policy_frame(
         equity_drawdowns.append(equity_drawdown)
         equity_caps.append(equity_cap)
         drawdown_flags.append(drawdown_ready)
+        drawdown_regime_flags.append(drawdown_regime_ready)
         effective_thresholds.append(effective_trade_threshold)
         effective_locks.append(effective_trade_lock_days)
 
@@ -431,6 +477,7 @@ def compose_budget_usage_policy_frame(
         out["equity_nav"] = equity_navs
         out["equity_drawdown"] = equity_drawdowns
         out["equity_drawdown_cap"] = equity_caps
+        out["equity_drawdown_regime_ready"] = drawdown_regime_flags
         out["equity_drawdown_control"] = drawdown_flags
         out["effective_trade_threshold"] = effective_thresholds
         out["effective_trade_lock_days"] = effective_locks
@@ -443,7 +490,9 @@ __all__ = [
     "BullParticipationGuardConfig",
     "bull_participation_guard_snapshot",
     "EquityDrawdownControlConfig",
+    "equity_drawdown_regime_ready",
     "equity_drawdown_target_cap",
+    "equity_drawdown_uses_feature_filters",
     "RecoveryReentryGuardConfig",
     "TwoSpeedBudgetConfig",
     "compose_budget_usage_policy_frame",

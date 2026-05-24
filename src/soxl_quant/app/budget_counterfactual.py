@@ -13,6 +13,7 @@ from ..policy.two_speed_budget import (
     RecoveryReentryGuardConfig,
     TwoSpeedBudgetConfig,
     compose_budget_usage_policy_frame,
+    equity_drawdown_uses_feature_filters,
 )
 
 
@@ -184,6 +185,19 @@ def _equity_drawdown_control_config_payload(cfg: EquityDrawdownControlConfig | N
         "sell_trade_lock_days": (
             None if control.sell_trade_lock_days is None else int(control.sell_trade_lock_days)
         ),
+        "max_anchor_gap_180": (
+            None if control.max_anchor_gap_180 is None else float(control.max_anchor_gap_180)
+        ),
+        "min_below_anchor_ratio_63": (
+            None if control.min_below_anchor_ratio_63 is None else float(control.min_below_anchor_ratio_63)
+        ),
+        "min_vix_percentile_252": (
+            None if control.min_vix_percentile_252 is None else float(control.min_vix_percentile_252)
+        ),
+        "min_vol_of_vol_21": (
+            None if control.min_vol_of_vol_21 is None else float(control.min_vol_of_vol_21)
+        ),
+        "max_mom_21": None if control.max_mom_21 is None else float(control.max_mom_21),
         "action": "cap_target_after_strategy_equity_drawdown",
     }
 
@@ -217,7 +231,7 @@ def build_budget_usage_counterfactual(
         cfg,
         price_series=price_series if guard_cfg.enabled or drawdown_cfg.enabled else None,
         bull_guard=guard_cfg,
-        feature_frame=feature_frame if recovery_cfg.enabled else None,
+        feature_frame=feature_frame if recovery_cfg.enabled or equity_drawdown_uses_feature_filters(drawdown_cfg) else None,
         recovery_guard=recovery_cfg,
         drawdown_control=drawdown_cfg,
     )

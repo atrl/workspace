@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-24T08:15:12.100684+00:00",
+  "generated_at": "2026-05-24T08:50:06.377236+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -414,6 +414,138 @@
       "category": "execution",
       "suffix": ".csv",
       "bytes": 90885
+    },
+    {
+      "path": "runtime/execution/card/recovery_reentry_regime_drawdown_guard_v1/oos_poor_window_diagnostics/feature_differences.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 4327
+    },
+    {
+      "path": "runtime/execution/card/recovery_reentry_regime_drawdown_guard_v1/oos_poor_window_diagnostics/manifest.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 1678
+    },
+    {
+      "path": "runtime/execution/card/recovery_reentry_regime_drawdown_guard_v1/oos_poor_window_diagnostics/oos_diagnostic_review.md",
+      "category": "execution",
+      "suffix": ".md",
+      "bytes": 3972
+    },
+    {
+      "path": "runtime/execution/card/recovery_reentry_regime_drawdown_guard_v1/oos_poor_window_diagnostics/poor_windows.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 1742
+    },
+    {
+      "path": "runtime/execution/card/recovery_reentry_regime_drawdown_guard_v1/parameter_screen.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 56312
+    },
+    {
+      "path": "runtime/execution/card/recovery_reentry_regime_drawdown_guard_v1/parameter_screen_top.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 1875
+    },
+    {
+      "path": "runtime/execution/card/recovery_reentry_regime_drawdown_guard_v1/recovery_reentry_regime_drawdown_guard_v1.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 10183
+    },
+    {
+      "path": "runtime/execution/card/recovery_reentry_regime_drawdown_guard_v1/recovery_reentry_regime_drawdown_guard_v1.md",
+      "category": "execution",
+      "suffix": ".md",
+      "bytes": 2204
+    },
+    {
+      "path": "runtime/execution/card/recovery_reentry_regime_drawdown_guard_v1/recovery_reentry_regime_drawdown_guard_v1_soxl_daily.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 755524
+    },
+    {
+      "path": "runtime/execution/card/recovery_reentry_regime_drawdown_guard_v1/selection.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 5911
+    },
+    {
+      "path": "runtime/execution/card/recovery_reentry_regime_drawdown_guard_v1/selection_table.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 2725
+    },
+    {
+      "path": "runtime/execution/card/recovery_reentry_regime_drawdown_guard_v1/walkforward/wf_2020/recovery_reentry_regime_drawdown_guard_v1_wf_2020.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 6147
+    },
+    {
+      "path": "runtime/execution/card/recovery_reentry_regime_drawdown_guard_v1/walkforward/wf_2020/recovery_reentry_regime_drawdown_guard_v1_wf_2020.md",
+      "category": "execution",
+      "suffix": ".md",
+      "bytes": 1507
+    },
+    {
+      "path": "runtime/execution/card/recovery_reentry_regime_drawdown_guard_v1/walkforward/wf_2020/recovery_reentry_regime_drawdown_guard_v1_wf_2020_soxl_daily.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 114049
+    },
+    {
+      "path": "runtime/execution/card/recovery_reentry_regime_drawdown_guard_v1/walkforward/wf_2022/recovery_reentry_regime_drawdown_guard_v1_wf_2022.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 6161
+    },
+    {
+      "path": "runtime/execution/card/recovery_reentry_regime_drawdown_guard_v1/walkforward/wf_2022/recovery_reentry_regime_drawdown_guard_v1_wf_2022.md",
+      "category": "execution",
+      "suffix": ".md",
+      "bytes": 1525
+    },
+    {
+      "path": "runtime/execution/card/recovery_reentry_regime_drawdown_guard_v1/walkforward/wf_2022/recovery_reentry_regime_drawdown_guard_v1_wf_2022_soxl_daily.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 112773
+    },
+    {
+      "path": "runtime/execution/card/recovery_reentry_regime_drawdown_guard_v1/walkforward/wf_2023_2024/recovery_reentry_regime_drawdown_guard_v1_wf_2023_2024.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 6228
+    },
+    {
+      "path": "runtime/execution/card/recovery_reentry_regime_drawdown_guard_v1/walkforward/wf_2023_2024/recovery_reentry_regime_drawdown_guard_v1_wf_2023_2024.md",
+      "category": "execution",
+      "suffix": ".md",
+      "bytes": 1577
+    },
+    {
+      "path": "runtime/execution/card/recovery_reentry_regime_drawdown_guard_v1/walkforward/wf_2023_2024/recovery_reentry_regime_drawdown_guard_v1_wf_2023_2024_soxl_daily.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 114655
+    },
+    {
+      "path": "runtime/execution/card/recovery_reentry_regime_drawdown_guard_v1/walkforward_screen.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 4330
+    },
+    {
+      "path": "runtime/execution/card/recovery_reentry_regime_drawdown_guard_v1/walkforward_summary.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 1984
     },
     {
       "path": "runtime/execution/card/selective_release_overlay_v1/selective_release_overlay_results.csv",

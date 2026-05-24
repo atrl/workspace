@@ -185,7 +185,7 @@ def test_equity_drawdown_control_caps_target_and_relaxes_sells_only():
     dates = pd.date_range("2020-01-01", periods=4, freq="B")
     slow = pd.DataFrame({"datetime": dates, "slow_position": [0.70] * 4})
     fast = pd.DataFrame({"datetime": dates, "fast_position": [1.00] * 4})
-    price = pd.Series([100.0, 80.0, 84.0, 88.2], index=dates, name="price")
+    price = pd.Series([100.0, 80.0, 80.0, 80.0], index=dates, name="price")
 
     out = compose_budget_usage_policy_frame(
         slow,
@@ -205,8 +205,51 @@ def test_equity_drawdown_control_caps_target_and_relaxes_sells_only():
     assert out["raw_two_speed_position"].round(4).tolist() == [0.95, 0.20, 0.20, 0.20]
     assert out["position"].round(4).tolist() == [0.95, 0.20, 0.20, 0.20]
     assert out["equity_drawdown_control"].tolist() == [False, True, True, True]
-    assert out["equity_drawdown"].round(4).tolist() == [0.0, 0.19, 0.1819, 0.1737]
+    assert out["equity_drawdown"].round(4).tolist() == [0.0, 0.19, 0.19, 0.19]
     assert out["effective_trade_lock_days"].tolist() == [5, 0, 5, 5]
+
+
+def test_equity_drawdown_control_can_require_broken_anchor_and_high_volatility():
+    dates = pd.date_range("2020-01-01", periods=4, freq="B")
+    slow = pd.DataFrame({"datetime": dates, "slow_position": [0.70] * 4})
+    fast = pd.DataFrame({"datetime": dates, "fast_position": [1.00] * 4})
+    price = pd.Series([100.0, 80.0, 80.0, 80.0], index=dates, name="price")
+    features = pd.DataFrame(
+        {
+            "datetime": dates,
+            "mom_10": [0.0, -0.05, -0.05, -0.05],
+            "mom_21": [0.0, 0.18, -0.05, -0.05],
+            "relative_strength_21": [0.0, 1.1, 0.4, 0.4],
+            "vol_of_vol_21": [0.0, 0.12, 0.12, 0.12],
+            "vix_percentile_252": [0.0, 0.70, 0.70, 0.70],
+            "below_anchor_ratio_63": [0.0, 0.05, 0.75, 0.75],
+            "anchor_gap_180": [0.0, 1.20, -0.20, -0.20],
+        }
+    )
+
+    out = compose_budget_usage_policy_frame(
+        slow,
+        fast,
+        TwoSpeedBudgetConfig(trade_threshold=0.0, trade_lock_days=5),
+        price_series=price,
+        feature_frame=features,
+        drawdown_control=EquityDrawdownControlConfig(
+            enabled=True,
+            start_drawdown=0.10,
+            full_drawdown=0.15,
+            min_target=0.20,
+            sell_trade_threshold=0.0,
+            sell_trade_lock_days=0,
+            max_anchor_gap_180=0.0,
+            min_below_anchor_ratio_63=0.50,
+            min_vix_percentile_252=0.60,
+            max_mom_21=0.05,
+        ),
+    )
+
+    assert out["equity_drawdown_control"].tolist() == [False, False, True, True]
+    assert out["raw_two_speed_position"].round(4).tolist() == [0.95, 0.95, 0.20, 0.20]
+    assert out["position"].round(4).tolist() == [0.95, 0.95, 0.20, 0.20]
 
 
 if __name__ == "__main__":
@@ -221,4 +264,5 @@ if __name__ == "__main__":
     test_recovery_reentry_guard_lifts_flat_actor_only_in_high_vol_rebound()
     test_recovery_reentry_guard_requires_long_anchor_confirmation_when_configured()
     test_equity_drawdown_control_caps_target_and_relaxes_sells_only()
+    test_equity_drawdown_control_can_require_broken_anchor_and_high_volatility()
     print("test_two_speed_budget: OK")

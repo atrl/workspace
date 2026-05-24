@@ -86,6 +86,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--drawdown-min-target", type=float, default=0.25)
     parser.add_argument("--drawdown-sell-trade-threshold", type=float, default=0.0)
     parser.add_argument("--drawdown-sell-trade-lock-days", type=int, default=0)
+    parser.add_argument("--drawdown-max-anchor-gap-180", type=float, default=None)
+    parser.add_argument("--drawdown-min-below-anchor-ratio-63", type=float, default=None)
+    parser.add_argument("--drawdown-min-vix-percentile-252", type=float, default=None)
+    parser.add_argument("--drawdown-min-vol-of-vol-21", type=float, default=None)
+    parser.add_argument("--drawdown-max-mom-21", type=float, default=None)
     return parser.parse_args()
 
 
@@ -144,6 +149,11 @@ def main() -> None:
             min_target=args.drawdown_min_target,
             sell_trade_threshold=args.drawdown_sell_trade_threshold,
             sell_trade_lock_days=args.drawdown_sell_trade_lock_days,
+            max_anchor_gap_180=args.drawdown_max_anchor_gap_180,
+            min_below_anchor_ratio_63=args.drawdown_min_below_anchor_ratio_63,
+            min_vix_percentile_252=args.drawdown_min_vix_percentile_252,
+            min_vol_of_vol_21=args.drawdown_min_vol_of_vol_21,
+            max_mom_21=args.drawdown_max_mom_21,
         ),
     )
     artifacts = write_counterfactual_artifacts(result, args.output_dir, price)
