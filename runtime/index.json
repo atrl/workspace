@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-24T09:37:50.304287+00:00",
+  "generated_at": "2026-05-24T09:49:25.869794+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -3798,6 +3798,30 @@
       "category": "model",
       "suffix": ".md",
       "bytes": 3390
+    },
+    {
+      "path": "runtime/model_selection/card/selection_overfit_audit_v1/risk_budget_conservative_frontier.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 109892
+    },
+    {
+      "path": "runtime/model_selection/card/selection_overfit_audit_v1/strict_daily_target_screen.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 11664
+    },
+    {
+      "path": "runtime/model_selection/card/selection_overfit_audit_v1/summary_selection_overfit_table.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 51708
+    },
+    {
+      "path": "runtime/model_selection/card/selection_overfit_audit_v1/walkforward_daily_screen.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 15157
     },
     {
       "path": "runtime/multi_asset/card/soxl_baseline/card.md",

@@ -27,6 +27,7 @@ RUNTIME_SURFACES = {
     "index.json",
     "soxl",
     "model",
+    "model_selection",
     "data",
     "factor",
     "network",
