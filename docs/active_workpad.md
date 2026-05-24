@@ -7891,3 +7891,46 @@ Artifact:
 
 - `runtime/production/card/dashboard_paper_signal_meta_v1/notes.md`
 - `runtime/production/card/dashboard_paper_signal_meta_v1/dashboard_verified.png`
+
+## 2026-05-24 SOXX/SOXL Spread Oscillation Factor Check
+
+Goal:
+
+- Test whether SOXX/SOXL oscillation and SOXL/SOXX spread widening can become
+  training factors.
+- Keep production broker boundaries explicit: paper trading remains Futu;
+  intended live broker is IBKR once TWS/IB Gateway readiness is proven.
+
+Candidate pack:
+
+```text
+soxx_spread_oscillation
+SOXL_SOXX_RATIO_Z_252
+SOXL_SOXX_RATIO_WIDEN_5
+SOXL_SOXX_SPREAD_VOL_Z_21
+SOXL_SOXX_CHOP_DIVERGENCE_21
+```
+
+Evidence:
+
+```text
+tests/test_regime_features.py::test_soxx_spread_oscillation_pack_builds_ratio_and_chop_features
+# 1 passed
+
+scripts/evaluate_factor_pack.py --pack soxx_spread_oscillation --horizons 1 5 10 20 --thresholds -1.0 -0.5 0.0 0.5 1.0 1.5
+# best IC: SOXL_SOXX_SPREAD_VOL_Z_21 h20 IC=+0.015606 IC+=0.488 rho=0.917
+# best orthogonal: SOXL_SOXX_CHOP_DIVERGENCE_21 rho=0.081 but h20 IC=-0.001599 IC+=0.425
+# best PF: 1.178, below 1.2 gate; best accuracy=0.544, below 0.55 gate
+```
+
+Decision:
+
+- Do not add this pack to the training schema now.
+- Spread level/widening/volatility mostly duplicate existing core trend,
+  momentum, and volatility features.
+- Relative choppiness is orthogonal but weak, so it is not a promotion-worthy
+  factor.
+
+Artifact:
+
+- `runtime/factor/card/soxx_spread_oscillation/notes.md`

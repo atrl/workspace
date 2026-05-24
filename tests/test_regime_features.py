@@ -170,6 +170,58 @@ def test_transition_signal_pack_includes_intraday_rejection_event():
     assert np.allclose(actual.tail(100).to_numpy(), expected.tail(100).to_numpy(), atol=1e-8)
 
 
+def test_soxx_spread_oscillation_pack_builds_ratio_and_chop_features():
+    df = pd.read_csv(CSV_PATH, parse_dates=["date"]).set_index("date")
+    soxl = pd.DataFrame(
+        {
+            "$close": df["soxl_close"],
+            "$open": df["soxl_open"],
+            "$high": df["soxl_high"],
+            "$low": df["soxl_low"],
+            "$volume": df["soxl_volume"],
+            "$vix": df["vix"],
+            "Mean($close, 5)": df["soxl_close"].rolling(5).mean(),
+            "Mean($close, 21)": df["soxl_close"].rolling(21).mean(),
+            "Mean($close, 63)": df["soxl_close"].rolling(63).mean(),
+            "Mean($close, 180)": df["soxl_close"].rolling(180).mean(),
+            "Std($close / Ref($close, 1) - 1, 10)": df["soxl_close"].pct_change().rolling(10).std(),
+            "Std($close / Ref($close, 1) - 1, 21)": df["soxl_close"].pct_change().rolling(21).std(),
+            "Std($close / Ref($close, 1) - 1, 63)": df["soxl_close"].pct_change().rolling(63).std(),
+            "Mean($volume, 21)": df["soxl_volume"].rolling(21).mean(),
+        }
+    )
+    soxx = pd.DataFrame(
+        {
+            "$close": df["soxx_close"],
+            "$open": df["soxx_open"],
+            "$high": df["soxx_high"],
+            "$low": df["soxx_low"],
+            "$volume": df["soxx_volume"],
+        }
+    )
+
+    feature_df, _ = engineer_feature_frame(soxl, soxx, feature_packs=("soxx_spread_oscillation",))
+    flat = feature_df.droplevel("instrument")
+
+    expected_columns = {
+        "SOXL_SOXX_RATIO_Z_252",
+        "SOXL_SOXX_RATIO_WIDEN_5",
+        "SOXL_SOXX_SPREAD_VOL_Z_21",
+        "SOXL_SOXX_CHOP_DIVERGENCE_21",
+    }
+    assert expected_columns.issubset(set(feature_columns_for_packs(("soxx_spread_oscillation",))))
+    assert expected_columns.issubset(set(flat.columns))
+    assert flat[list(expected_columns)].replace([np.inf, -np.inf], np.nan).notna().all().all()
+
+    close = soxl["$close"].astype(float).reindex(flat.index)
+    und_close = soxx["$close"].astype(float).reindex(flat.index)
+    log_ratio = np.log(close / (und_close + 1e-8))
+    ratio_z = ((log_ratio - log_ratio.rolling(252).mean()) / (log_ratio.rolling(252).std() + 1e-8)).fillna(0.0)
+    expected_widen = ratio_z.diff(5).fillna(0.0)
+    actual_widen = flat["SOXL_SOXX_RATIO_WIDEN_5"].reindex(expected_widen.index)
+    assert np.allclose(actual_widen.tail(100).to_numpy(), expected_widen.tail(100).to_numpy(), atol=1e-8)
+
+
 def test_release_signal_pack_curates_reentry_signals():
     df = pd.read_csv(CSV_PATH, parse_dates=["date"]).set_index("date")
     soxl = pd.DataFrame(

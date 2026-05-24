@@ -695,6 +695,57 @@ def _builtin_soxx_signals_pack(context: dict[str, Any]) -> dict[str, pd.Series]:
     }
 
 
+def _rolling_choppiness(close: pd.Series, high: pd.Series, low: pd.Series, window: int) -> pd.Series:
+    daily_amplitude = ((high - low) / (close + 1e-8)).abs()
+    net_move = close.pct_change(window).abs()
+    return (daily_amplitude.rolling(window).sum() / (net_move + 1e-8)).replace([np.inf, -np.inf], np.nan).fillna(0.0)
+
+
+def _builtin_soxx_spread_oscillation_pack(context: dict[str, Any]) -> dict[str, pd.Series]:
+    """SOXL/SOXX spread widening and relative oscillation features."""
+    index = context["index"]
+    close = context["close"]
+    high = context.get("high")
+    low = context.get("low")
+    und_close = context.get("und_close")
+    und_df = context.get("und")
+
+    soxx_close = und_close if und_close is not None else close
+    log_ratio = np.log(close / (soxx_close + 1e-8))
+    ratio_z = ((log_ratio - log_ratio.rolling(252).mean()) / (log_ratio.rolling(252).std() + 1e-8)).fillna(0.0)
+    ratio_widen_5 = ratio_z.diff(5).fillna(0.0)
+
+    spread_ret = log_ratio.diff()
+    spread_vol_21 = spread_ret.rolling(21).std()
+    spread_vol_z = (
+        (spread_vol_21 - spread_vol_21.rolling(252).mean())
+        / (spread_vol_21.rolling(252).std() + 1e-8)
+    ).fillna(0.0)
+
+    if high is not None and low is not None and isinstance(und_df, pd.DataFrame) and {"$high", "$low"}.issubset(und_df.columns):
+        soxl_chop = _rolling_choppiness(close, high.astype(float), low.astype(float), 21)
+        soxx_chop = _rolling_choppiness(
+            soxx_close,
+            und_df["$high"].astype(float),
+            und_df["$low"].astype(float),
+            21,
+        )
+        chop_ratio = soxl_chop / (soxx_chop + 1e-8) - 1.0
+        chop_divergence = (
+            (chop_ratio - chop_ratio.rolling(252).mean())
+            / (chop_ratio.rolling(252).std() + 1e-8)
+        ).fillna(0.0)
+    else:
+        chop_divergence = pd.Series(0.0, index=index)
+
+    return {
+        "SOXL_SOXX_RATIO_Z_252": ratio_z,
+        "SOXL_SOXX_RATIO_WIDEN_5": ratio_widen_5,
+        "SOXL_SOXX_SPREAD_VOL_Z_21": spread_vol_z,
+        "SOXL_SOXX_CHOP_DIVERGENCE_21": chop_divergence,
+    }
+
+
 BUILTIN_FEATURE_PACKS: dict[str, dict[str, Any]] = {
     "kelly": {
         "columns": (
@@ -822,6 +873,15 @@ BUILTIN_FEATURE_PACKS: dict[str, dict[str, Any]] = {
             "SOXX_BIAS_10",
         ),
         "builder": _builtin_soxx_signals_pack,
+    },
+    "soxx_spread_oscillation": {
+        "columns": (
+            "SOXL_SOXX_RATIO_Z_252",
+            "SOXL_SOXX_RATIO_WIDEN_5",
+            "SOXL_SOXX_SPREAD_VOL_Z_21",
+            "SOXL_SOXX_CHOP_DIVERGENCE_21",
+        ),
+        "builder": _builtin_soxx_spread_oscillation_pack,
     },
 }
 
@@ -1391,6 +1451,7 @@ def engineer_feature_frame(
         "und_close": und_close,
         "und_ret": und_ret,
         "und_volume": und_volume,
+        "und": und,
         "volume": volume,
         "lev": lev,
         "leverage_ratio": leverage_ratio,

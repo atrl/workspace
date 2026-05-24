@@ -22,6 +22,13 @@ Crypto liquidation-wick analogues are weaker: `INTRADAY_REJECTION_EVENT` passed
 the correlation budget but failed both IC direction stability and standalone
 backtest. Do not retry naked wick rejection without a regime gate.
 
+SOXX/SOXL spread and oscillation factors were tested as
+`soxx_spread_oscillation`. The result blocks direct training use: spread level,
+spread widening, and spread-volatility are redundant with existing trend,
+momentum, and volatility features, while relative choppiness is orthogonal but
+too weak directionally. Do not start a direct SOXX/SOXL spread feature retrain
+unless a future regime-gated sparse-event rule is specified first.
+
 ## Use With Skills
 
 - `leveraged-etf-factor-research` for hypothesis generation.

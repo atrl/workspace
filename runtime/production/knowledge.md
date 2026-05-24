@@ -2889,3 +2889,14 @@ Decision:
 Evidence card:
 
 - `runtime/production/card/dashboard_paper_signal_meta_v1/notes.md`
+
+## 2026-05-24 Broker Intent Clarification
+
+Current routing intent:
+
+- Futu remains the scheduled simulated-trading broker.
+- IBKR is the intended live broker, but must remain an explicit production path
+  until local TWS / IB Gateway readiness and socket connectivity pass
+  `production/check_ibkr_gateway.py`.
+- Do not silently switch live execution to Futu. Treat Futu paper proof and IBKR
+  live readiness as separate production gates.

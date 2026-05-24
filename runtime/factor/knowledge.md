@@ -35,6 +35,7 @@
 | REL_VOLUME_RATIO | SOXX | liquidity | 🟡 IC candidate | IC=+0.058, IC+=0.591, rho=0.136 | [card](card/soxx_signals/card_REL_VOLUME_RATIO.md) |
 | TUSHARE_US_DAILY_ADJ | Tushare | data intake | ❌ Blocked / weak | best IC=+0.012, IC+=0.485, rho=0.280 | [card](card/tushare_soxx_factor_intake_v1/notes.md) |
 | FUTU_SMALL_ORDER_FLOW | Futu | order flow | ❌ Short-history / gate fail | active best IC=+0.034, IC+=0.468, PF=1.657, rho=0.258 | [card](card/futu_small_order_flow/notes.md) |
+| SOXX_SPREAD_OSCILLATION | SOXX/SOXL | relative-value | ❌ Blocked | best IC=+0.0156, PF=1.178, rho=0.917; chop rho=0.081 but IC=-0.0016 | [card](card/soxx_spread_oscillation/notes.md) |
 | regime_risk | core | composite | ✅ Core | 训练主特征 | [card](cards/regime_risk/card.md) |
 | regime_risk_no_vix | core | composite | 🟡 Ablated | VIX-free | [card](cards/regime_risk_no_vix/card.md) |
 | vol_stress_score | core | composite | 🟡 VIX-free proxy | 纯价格 stress | [card](cards/vol_stress_score/card.md) |
@@ -60,6 +61,7 @@
 9. **SOXX direct actor feature retrain 不应重复**：`balanced_rule_residual_v22_soxx` 已经失败并被 dropped；2026-05-23 复核显示 `REL_VOLUME_RATIO` 有 IC 候选价值（h20 IC=+0.058、positive_ratio=0.591、max core rho=0.136），但 PF/accuracy 不过门槛；`PRICE_RATIO_MOM` 与 `SOXX_BIAS_10` 分别与 `mom_5` 高相关（0.993/0.916），不要作为 core feature 直接重训。
 10. **Tushare 原始 us_daily_adj pack 不足以直接重训**：2026-05-23 新 token 已拉取 SOXX/SOXL cache 到 `2026-05-22`；`TUSHARE_SOXX_TURNOVER_ZSCORE_21` 是最佳原始候选，但 h20 IC 只有 `+0.012020`、positive ratio `0.485`，低于 promotion gate。虽然部分 long threshold 的 PF/accuracy 接近或略过 `1.2/0.55`，但 IC 稳定性失败，不能据此开 Tushare feature retrain。
 11. **Futu 小单资金流已做成 lagged feature pack，但不过 promotion gate**：2026-05-23 初次 probe 被 OpenD 图形验证阻断；完成本地 phone/UI 验证后，已缓存 `US.SOXL` / `US.SOXX` daily capital flow 各 `251` rows（`2025-05-23` 至 `2026-05-22`）、intraday 各 `391` rows，以及 snapshot/distribution。后续全历史测试显示 Futu K 线可覆盖长历史（SOXL `2010-03-31` 起，SOXX `2010-03-11` 起），但 `get_capital_flow` 对 `2010-2011`、`2016`、`2020`、`2024` 均返回 `0` rows，全范围也只返回最近 `251` rows。新增 `futu_small_order_flow` pack 全部 T+1 lag；active-window 最佳 `FUTU_SOXL_SMALL_FLOW_SHARE` h20 IC `+0.034`，但 positive ratio `0.468` 低于 `0.55`，不进训练 profile，只保留短历史/live overlay 候选。
+12. **SOXX/SOXL 价差扩张与震荡差不适合直接训练**：`soxx_spread_oscillation` 测了 ratio zscore、ratio widen、spread vol zscore、relative choppiness。前三个与 core trend/momentum/volatility 高相关（max rho `0.885`/`0.922`/`0.917`），且 IC/PF/accuracy 均未过 gate；`SOXL_SOXX_CHOP_DIVERGENCE_21` 很正交（rho `0.081`），但 h20 IC `-0.0016`、IC+ `0.425`，不具备方向稳定性。不要基于这组直接开 SOXX/SOXL spread feature retrain。
 
 ## 特征冗余（|rho| > 0.85）
 

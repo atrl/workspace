@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-24T03:26:53.242231+00:00",
+  "generated_at": "2026-05-24T03:35:48.178979+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -680,6 +680,48 @@
       "bytes": 199
     },
     {
+      "path": "runtime/factor/card/soxx_spread_oscillation/backtest_soxx_spread_oscillation.csv",
+      "category": "factor",
+      "suffix": ".csv",
+      "bytes": 6830
+    },
+    {
+      "path": "runtime/factor/card/soxx_spread_oscillation/card_SOXL_SOXX_CHOP_DIVERGENCE_21.md",
+      "category": "factor",
+      "suffix": ".md",
+      "bytes": 510
+    },
+    {
+      "path": "runtime/factor/card/soxx_spread_oscillation/card_SOXL_SOXX_RATIO_WIDEN_5.md",
+      "category": "factor",
+      "suffix": ".md",
+      "bytes": 504
+    },
+    {
+      "path": "runtime/factor/card/soxx_spread_oscillation/card_SOXL_SOXX_RATIO_Z_252.md",
+      "category": "factor",
+      "suffix": ".md",
+      "bytes": 503
+    },
+    {
+      "path": "runtime/factor/card/soxx_spread_oscillation/card_SOXL_SOXX_SPREAD_VOL_Z_21.md",
+      "category": "factor",
+      "suffix": ".md",
+      "bytes": 506
+    },
+    {
+      "path": "runtime/factor/card/soxx_spread_oscillation/correlation_soxx_spread_oscillation.csv",
+      "category": "factor",
+      "suffix": ".csv",
+      "bytes": 300
+    },
+    {
+      "path": "runtime/factor/card/soxx_spread_oscillation/notes.md",
+      "category": "factor",
+      "suffix": ".md",
+      "bytes": 4379
+    },
+    {
       "path": "runtime/factor/card/trans_te_zscore/card.md",
       "category": "factor",
       "suffix": ".md",
@@ -779,7 +821,7 @@
       "path": "runtime/factor/knowledge.md",
       "category": "factor",
       "suffix": ".md",
-      "bytes": 18225
+      "bytes": 18901
     },
     {
       "path": "runtime/factor/rulebase_signals_ic.csv",
@@ -804,6 +846,12 @@
       "category": "factor",
       "suffix": ".csv",
       "bytes": 1588
+    },
+    {
+      "path": "runtime/factor/soxx_spread_oscillation_ic.csv",
+      "category": "factor",
+      "suffix": ".csv",
+      "bytes": 2234
     },
     {
       "path": "runtime/factor/tushare_us_daily_adj_ic.csv",
@@ -3449,7 +3497,7 @@
       "path": "runtime/production/knowledge.md",
       "category": "production",
       "suffix": ".md",
-      "bytes": 128267
+      "bytes": 128707
     },
     {
       "path": "runtime/reward/card/base_log/card.md",
