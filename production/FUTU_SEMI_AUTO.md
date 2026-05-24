@@ -91,8 +91,8 @@ This will replay each day's signal and send orders to the Futu simulated account
 `production/soxl_paper_trading.py` provides a fully automated daily loop:
 
 ```bash
-# Paper broker (local simulation, default)
-PYTHONPATH=. qlib_venv/bin/python production/soxl_paper_trading.py
+# Repo-local paper broker
+PYTHONPATH=. qlib_venv/bin/python production/soxl_paper_trading.py --broker paper
 
 # Futu simulated account
 PYTHONPATH=. qlib_venv/bin/python production/soxl_paper_trading.py --broker futu --unlock-password XXX
@@ -122,8 +122,8 @@ The runner executes the closed loop every invocation:
 `production/soxl_daily_scheduler.py` runs the full pipeline in one shot:
 
 ```bash
-# Paper broker (default)
-PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py
+# Repo-local paper broker
+PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py --broker paper
 
 # Futu simulated account
 PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py --broker futu --unlock-password XXX
@@ -174,7 +174,10 @@ Pipeline order:
    ```
    Leave `SOXL_RUNTIME_COMPOSER` unset or set it to `none` to keep the default
    single-profile `balanced_rule_residual_v22` scheduler path.
-2. Edit `production/com.soxl.daily.scheduler.plist` and `production/com.soxl.preopen.scheduler.plist` if you want Bark notifications.
+2. The repo LaunchAgent plists are configured for Futu simulated trading
+   (`--broker futu`). Edit `production/com.soxl.daily.scheduler.plist` and
+   `production/com.soxl.preopen.scheduler.plist` only if you want Bark
+   notifications or a temporary broker override.
 3. Install:
    ```bash
    cp production/com.soxl.daily.scheduler.plist production/com.soxl.preopen.scheduler.plist ~/Library/LaunchAgents/
@@ -198,10 +201,10 @@ Pipeline order:
 ```bash
 # Asia/Shanghai local time:
 # Mon-Fri 21:00: US pre-open cached-data dry-run + dashboard + Vercel deploy attempt
-0 21 * * 1-5 SOXL_SCHEDULE_TRIGGER=cron_preopen /Users/rziiiii/.openclaw/workspace/production/run_soxl_scheduler.sh --broker paper --dry-run --no-notify --skip-data-update --vercel-deploy --health-summary --schedule-slot preopen >> /Users/rziiiii/.openclaw/workspace/runtime/soxl/paper_trading/scheduler_preopen.log 2>&1
+0 21 * * 1-5 SOXL_SCHEDULE_TRIGGER=cron_preopen /Users/rziiiii/.openclaw/workspace/production/run_soxl_scheduler.sh --broker futu --dry-run --no-notify --skip-data-update --vercel-deploy --health-summary --schedule-slot preopen >> /Users/rziiiii/.openclaw/workspace/runtime/soxl/paper_trading/scheduler_preopen.log 2>&1
 
-# Tue-Sat 06:15: US post-close data refresh + paper trading + dashboard + Vercel deploy attempt
-15 6 * * 2-6 SOXL_SCHEDULE_TRIGGER=cron_postclose /Users/rziiiii/.openclaw/workspace/production/run_soxl_scheduler.sh --broker paper --no-notify --vercel-deploy --health-summary --schedule-slot postclose >> /Users/rziiiii/.openclaw/workspace/runtime/soxl/paper_trading/scheduler_postclose.log 2>&1
+# Tue-Sat 06:15: US post-close data refresh + Futu simulated trading + dashboard + Vercel deploy attempt
+15 6 * * 2-6 SOXL_SCHEDULE_TRIGGER=cron_postclose /Users/rziiiii/.openclaw/workspace/production/run_soxl_scheduler.sh --broker futu --no-notify --vercel-deploy --health-summary --schedule-slot postclose >> /Users/rziiiii/.openclaw/workspace/runtime/soxl/paper_trading/scheduler_postclose.log 2>&1
 ```
 
 ### Notification Setup (Bark)
@@ -237,7 +240,7 @@ Then open `dashboard.html` in a browser. For Vercel static deployment, keep the 
 
 Scheduled Vercel deployment is opt-in through the scheduler flag:
 ```bash
-PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py --broker paper --dry-run --skip-data-update --vercel-deploy --health-summary
+PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py --broker futu --dry-run --skip-data-update --vercel-deploy --health-summary
 ```
 
 Without Vercel credentials, the scheduler records `blocked_no_credentials` under

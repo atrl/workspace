@@ -633,6 +633,34 @@ def test_paper_output_dir_scopes_colliding_dry_run_profiles(tmp_path: Path):
     assert different_profile == dry_run_dir / "v19reg_v22_budget_usage_bull_guard_v1"
 
 
+def test_external_broker_dry_run_is_scoped_by_broker(tmp_path: Path):
+    runtime_dir = tmp_path / "runtime" / "soxl"
+    run_dir = runtime_dir / "paper_trading" / "2026-05-22"
+    run_dir.mkdir(parents=True)
+    (run_dir / "summary.json").write_text(
+        json.dumps(
+            {
+                "date": "2026-05-22",
+                "profile": "v19reg_v22_budget_usage_bull_guard_v1",
+                "broker": "paper",
+                "dry_run": False,
+                "executed": True,
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    futu_dry_run_dir = _paper_output_dir(
+        "2026-05-22",
+        "futu",
+        dry_run=True,
+        profile_name="v19reg_v22_budget_usage_bull_guard_v1",
+        runtime_dir=runtime_dir,
+    )
+
+    assert futu_dry_run_dir == run_dir / "dry_run" / "futu"
+
+
 def test_main_persists_skipped_execution_result_for_non_dry_hold(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,

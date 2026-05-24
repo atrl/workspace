@@ -1,12 +1,85 @@
 from __future__ import annotations
 
 import os
+import plistlib
 import subprocess
 from tempfile import TemporaryDirectory
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+def _write_scheduler_plist(path: Path, *, broker: str = "paper") -> None:
+    payload = {
+        "Label": "com.soxl.daily.scheduler",
+        "ProgramArguments": [
+            "/Users/rziiiii/.openclaw/workspace/production/run_soxl_scheduler.sh",
+            "--broker",
+            broker,
+            "--schedule-slot",
+            "postclose",
+        ],
+        "WorkingDirectory": "/Users/rziiiii/.openclaw/workspace",
+    }
+    with path.open("wb") as f:
+        plistlib.dump(payload, f)
+
+
+def test_scheduler_health_uses_configured_launchagent_broker_for_healthcheck():
+    with TemporaryDirectory() as tmpdir:
+        root = Path(tmpdir)
+        (root / "runtime" / "soxl" / "paper_trading").mkdir(parents=True)
+        production_dir = root / "production"
+        launchagents_dir = root / "LaunchAgents"
+        production_dir.mkdir()
+        launchagents_dir.mkdir()
+        _write_scheduler_plist(production_dir / "com.soxl.daily.scheduler.plist", broker="futu")
+        _write_scheduler_plist(launchagents_dir / "com.soxl.daily.scheduler.plist", broker="futu")
+
+        fake_bin = root / "bin"
+        fake_bin.mkdir()
+        launchctl = fake_bin / "launchctl"
+        launchctl.write_text("#!/bin/sh\nprintf '456\\t0\\tcom.soxl.daily.scheduler\\n'\n", encoding="utf-8")
+        launchctl.chmod(0o755)
+        captured_args = root / "health_args.txt"
+        fake_python = fake_bin / "python"
+        fake_python.write_text(
+            "#!/bin/sh\n"
+            "printf '%s\\n' \"$@\" > \"$SOXL_CAPTURE_HEALTH_ARGS\"\n"
+            "cat <<'JSON'\n"
+            "{\"data\":{\"ok\":true,\"last_date\":\"2026-05-22\","
+            "\"expected_last_trading_day\":\"2026-05-22\",\"stale_days\":0},"
+            "\"model\":{\"ok\":true,\"name\":\"v19reg_v22_budget_usage_bull_guard_v1\"},"
+            "\"broker\":{\"ok\":true,\"msg\":\"futu quote ok\"},"
+            "\"all_ok\":true}\n"
+            "JSON\n",
+            encoding="utf-8",
+        )
+        fake_python.chmod(0o755)
+
+        env = {
+            **os.environ,
+            "PATH": f"{fake_bin}:{os.environ['PATH']}",
+            "SOXL_SCHEDULER_HEALTH_OS": "Darwin",
+            "SOXL_SCHEDULER_HEALTH_ROOT": str(root),
+            "SOXL_SCHEDULER_HEALTH_PYTHON": str(fake_python),
+            "SOXL_SCHEDULER_HEALTH_LAUNCHAGENTS_DIR": str(launchagents_dir),
+            "SOXL_CAPTURE_HEALTH_ARGS": str(captured_args),
+        }
+        result = subprocess.run(
+            ["bash", str(ROOT / "production" / "check_scheduler_health.sh")],
+            capture_output=True,
+            text=True,
+            env=env,
+            check=True,
+        )
+        args = captured_args.read_text(encoding="utf-8").splitlines()
+
+    assert "--broker" in args
+    assert args[args.index("--broker") + 1] == "futu"
+    assert "broker target: futu" in result.stdout
+    assert "broker: ok futu quote ok" in result.stdout
 
 
 def test_scheduler_health_reports_macos_launchagent_and_logs():
@@ -2225,7 +2298,9 @@ def test_scheduler_health_next_runs_skip_elapsed_postclose_window():
     assert "pre-open: today 21:00 Mon-Fri Asia/Shanghai" in result.stdout
     assert "US pre-open dry-run + dashboard + Vercel deploy attempt" in result.stdout
     assert "post-close: next eligible day 06:15 Tue-Sat Asia/Shanghai" in result.stdout
-    assert "US post-close data + paper trading + dashboard + Vercel deploy attempt" in result.stdout
+    assert "US post-close data +" in result.stdout
+    assert "simulated trading + dashboard + Vercel deploy attempt" in result.stdout
+    assert "US post-close data + paper trading + dashboard + Vercel deploy attempt" not in result.stdout
     assert "post-close: today 06:15 Tue-Sat Asia/Shanghai" not in result.stdout
 
 

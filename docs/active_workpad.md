@@ -7695,3 +7695,48 @@ Artifacts:
 - `src/soxl_quant/app/ibkr.py`
 - `production/check_ibkr_gateway.py`
 - `runtime/production/card/ibkr_adapter_v1/notes.md`
+
+## 2026-05-24 Futu Scheduled Broker Configuration
+
+Goal:
+
+- Configure the scheduled simulated-trading path to use Futu, not IBKR and not
+  the repo-local paper broker.
+
+Change:
+
+- `production/com.soxl.daily.scheduler.plist` and
+  `production/com.soxl.preopen.scheduler.plist` now pass `--broker futu`.
+- `production/crontab.txt` and `production/FUTU_SEMI_AUTO.md` now document Futu
+  as the scheduled simulated-trading broker.
+- Installed LaunchAgents under `~/Library/LaunchAgents/` were synced from the
+  repo plists and reloaded.
+- `production/check_scheduler_health.sh` now reads the installed daily
+  LaunchAgent broker and runs broker health against that same target.
+- External-broker dry-runs are scoped to
+  `runtime/soxl/paper_trading/<date>/dry_run/<broker>/` to avoid overwriting
+  same-day top-level proof.
+
+Evidence:
+
+```text
+OpenD: OK at 127.0.0.1:11111
+scheduled broker: futu
+broker target: futu
+broker health: ok futu quote ok
+Futu dry-run output: runtime/soxl/paper_trading/2026-05-22/dry_run/futu
+manual dry-run order submitted: false
+current remaining production gates: external_vercel_setup, scheduled_postclose_target, scheduled_paper_proof
+```
+
+Decision:
+
+- Futu is now the configured scheduled simulated-trading broker.
+- IBKR remains explicit/manual only and is not part of the scheduled Futu
+  simulated-trading path.
+- Need the next natural post-close LaunchAgent run for fresh scheduled non-dry
+  Futu proof.
+
+Artifact:
+
+- `runtime/production/card/futu_scheduled_broker_v1/notes.md`

@@ -40,6 +40,8 @@ def test_crontab_uses_shanghai_safe_us_market_windows():
     assert "--vercel-deploy" in post_close
     assert "--health-summary" in post_close
     assert "--schedule-slot postclose" in post_close
+    assert "--broker futu" in post_close
+    assert "--broker ibkr" not in post_close
     assert "SOXL_SCHEDULE_TRIGGER=cron_postclose" in post_close
 
     # Mon-Fri 21:00 China time is a cached-data pre-open inference/dashboard pass.
@@ -51,6 +53,8 @@ def test_crontab_uses_shanghai_safe_us_market_windows():
     assert "--vercel-deploy" in pre_open
     assert "--health-summary" in pre_open
     assert "--schedule-slot preopen" in pre_open
+    assert "--broker futu" in pre_open
+    assert "--broker ibkr" not in pre_open
     assert "SOXL_SCHEDULE_TRIGGER=cron_preopen" in pre_open
 
     stale_local_times = {tuple(line.split(maxsplit=5)[:2]) for line in lines}
@@ -119,6 +123,7 @@ def test_launchagent_runs_post_close_in_shanghai_local_time():
     assert plist["ProgramArguments"][0].endswith("/production/run_soxl_scheduler.sh")
     assert "--vercel-deploy" in plist["ProgramArguments"]
     assert "--health-summary" in plist["ProgramArguments"]
+    assert plist["ProgramArguments"][plist["ProgramArguments"].index("--broker") + 1] == "futu"
     assert "--schedule-slot" in plist["ProgramArguments"]
     assert plist["ProgramArguments"][plist["ProgramArguments"].index("--schedule-slot") + 1] == "postclose"
     assert plist["EnvironmentVariables"]["SOXL_SCHEDULE_TRIGGER"] == "launchagent_postclose"
@@ -151,6 +156,7 @@ def test_launchagent_runs_preopen_cached_dry_run_in_shanghai_local_time():
     assert "--skip-dashboard" not in plist["ProgramArguments"]
     assert "--vercel-deploy" in plist["ProgramArguments"]
     assert "--health-summary" in plist["ProgramArguments"]
+    assert plist["ProgramArguments"][plist["ProgramArguments"].index("--broker") + 1] == "futu"
     assert "--schedule-slot" in plist["ProgramArguments"]
     assert plist["ProgramArguments"][plist["ProgramArguments"].index("--schedule-slot") + 1] == "preopen"
     assert plist["EnvironmentVariables"]["SOXL_SCHEDULE_TRIGGER"] == "launchagent_preopen"

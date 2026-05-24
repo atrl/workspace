@@ -2760,3 +2760,39 @@ non-dry Futu simulated-trading submission.
 Evidence card:
 
 - `runtime/production/card/futu_sim_src_startup_v1/notes.md`
+
+## 2026-05-24 Futu Scheduled Broker Configuration
+
+Scheduled simulated trading is now configured for Futu:
+
+- `production/com.soxl.daily.scheduler.plist`: `--broker futu`
+- `production/com.soxl.preopen.scheduler.plist`: `--broker futu`
+- installed `~/Library/LaunchAgents/com.soxl.daily.scheduler.plist`: `--broker futu`
+- installed `~/Library/LaunchAgents/com.soxl.preopen.scheduler.plist`: `--broker futu`
+
+`production/check_scheduler_health.sh` now reads the installed daily
+LaunchAgent broker and runs `production/soxl_paper_trading.py --healthcheck`
+with the same broker. The current live check reports:
+
+```text
+scheduled broker: futu
+broker target: futu
+data: ok last_date=2026-05-22 expected=2026-05-22
+model: ok v19reg_v22_budget_usage_bull_guard_v1
+broker: ok futu quote ok
+```
+
+A manual Futu dry-run through the scheduler completed without order placement
+and wrote to:
+
+```text
+runtime/soxl/paper_trading/2026-05-22/dry_run/futu
+```
+
+IBKR remains an explicit/manual broker option only; it is not the scheduled
+simulated-trading broker. The remaining proof gap is the next natural
+post-close LaunchAgent run producing fresh scheduled non-dry Futu evidence.
+
+Evidence card:
+
+- `runtime/production/card/futu_scheduled_broker_v1/notes.md`

@@ -510,6 +510,18 @@ def _paper_output_dir(
 ) -> Path:
     base_dir = runtime_dir or RUNTIME_DIR
     run_dir = base_dir / "paper_trading" / signal_date
+    if dry_run and broker_name != "paper":
+        broker_dir = run_dir / "dry_run" / _safe_artifact_name(broker_name)
+        summary_path = broker_dir / "summary.json"
+        if profile_name and summary_path.exists():
+            try:
+                existing = json.loads(summary_path.read_text(encoding="utf-8"))
+            except Exception:
+                existing = {}
+            if existing.get("profile") and existing.get("profile") != profile_name:
+                safe_profile = _safe_artifact_name(profile_name)
+                return broker_dir / safe_profile
+        return broker_dir
     if dry_run and _existing_executed_summary(signal_date, broker_name, runtime_dir=base_dir):
         dry_run_dir = run_dir / "dry_run"
         summary_path = dry_run_dir / "summary.json"

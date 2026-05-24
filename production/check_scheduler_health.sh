@@ -42,6 +42,7 @@ MODEL_GATE_STATUS="unknown"
 MODEL_GATE_DETAIL=""
 BROKER_GATE_STATUS="unknown"
 BROKER_GATE_DETAIL=""
+SCHEDULER_BROKER="paper"
 DASHBOARD_GATE_STATUS="unknown"
 DASHBOARD_GATE_DETAIL=""
 VERCEL_REMOTE_STATUS="unknown"
@@ -618,6 +619,35 @@ env_or_launch_value() {
     env_file_assignment_value "$var_name" "$LAUNCH_ENV_FILE"
 }
 
+configured_scheduler_broker() {
+    plist="${LAUNCHAGENTS_DIR}/${SCHEDULER_LABEL}.plist"
+    if [ ! -f "$plist" ]; then
+        plist="${ROOT}/production/${SCHEDULER_LABEL}.plist"
+    fi
+    if [ ! -f "$plist" ]; then
+        echo "paper"
+        return
+    fi
+    python3 - "$plist" <<'PY' 2>/dev/null
+import plistlib
+import sys
+
+try:
+    with open(sys.argv[1], "rb") as f:
+        payload = plistlib.load(f)
+except Exception:
+    print("paper")
+    raise SystemExit
+
+args = list(payload.get("ProgramArguments", []))
+try:
+    idx = args.index("--broker")
+    print(args[idx + 1])
+except Exception:
+    print("paper")
+PY
+}
+
 truthy_config_value() {
     value=$(printf "%s" "$1" | tr '[:upper:]' '[:lower:]')
     case "$value" in
@@ -677,6 +707,8 @@ print_scheduler_private_env() {
         echo "  VERCEL_TOKEN: missing in current environment and launch env file"
     fi
     print_vercel_project_env_status
+    SCHEDULER_BROKER=$(configured_scheduler_broker)
+    echo "  scheduled broker: ${SCHEDULER_BROKER}"
 
     load_runtime_composer_env
     if [ "$RUNTIME_COMPOSER_STATE" = "default" ]; then
@@ -760,7 +792,9 @@ print_paper_health() {
     fi
 
     load_runtime_composer_env
-    paper_health_args=(production/soxl_paper_trading.py --healthcheck --skip-data-update --no-notify)
+    SCHEDULER_BROKER=$(configured_scheduler_broker)
+    echo "  broker target: ${SCHEDULER_BROKER}"
+    paper_health_args=(production/soxl_paper_trading.py --healthcheck --skip-data-update --no-notify --broker "$SCHEDULER_BROKER")
     if [ "$RUNTIME_COMPOSER_STATE" = "enabled" ]; then
         paper_health_args+=(
             --runtime-composer "$RUNTIME_COMPOSER"
@@ -1291,7 +1325,7 @@ next_run_day_label() {
 print_next_runs() {
     echo "--- Next Scheduled Runs ---"
     echo "  pre-open: $(next_run_day_label preopen 2100) 21:00 Mon-Fri Asia/Shanghai — US pre-open dry-run + dashboard + Vercel deploy attempt"
-    echo "  post-close: $(next_run_day_label postclose "$POSTCLOSE_HHMM") ${POSTCLOSE_TIME_LABEL} Tue-Sat Asia/Shanghai — US post-close data + paper trading + dashboard + Vercel deploy attempt"
+    echo "  post-close: $(next_run_day_label postclose "$POSTCLOSE_HHMM") ${POSTCLOSE_TIME_LABEL} Tue-Sat Asia/Shanghai — US post-close data + ${SCHEDULER_BROKER} simulated trading + dashboard + Vercel deploy attempt"
     echo "  weekly: $(next_run_day_label weekly 0700) 07:00 Sat Asia/Shanghai — weekly walk-forward after post-close refresh"
 }
 
