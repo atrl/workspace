@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-24T10:59:41.877715+00:00",
+  "generated_at": "2026-05-24T11:15:29.472256+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -870,6 +870,36 @@
       "category": "execution",
       "suffix": ".csv",
       "bytes": 2130
+    },
+    {
+      "path": "runtime/execution/card/risk_budget_residual_drawdown_guard_v1/residual_drawdown_attribution.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 1865
+    },
+    {
+      "path": "runtime/execution/card/risk_budget_residual_drawdown_guard_v1/residual_drawdown_guard_screen.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 8464135
+    },
+    {
+      "path": "runtime/execution/card/risk_budget_residual_drawdown_guard_v1/risk_budget_residual_drawdown_guard_v1_selected_soxl_daily.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 4183493
+    },
+    {
+      "path": "runtime/execution/card/risk_budget_residual_drawdown_guard_v1/selected_drawdown_spans.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 654
+    },
+    {
+      "path": "runtime/execution/card/risk_budget_residual_drawdown_guard_v1/selection.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 6307
     },
     {
       "path": "runtime/execution/card/selective_release_overlay_v1/selective_release_overlay_results.csv",
