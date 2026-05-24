@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-24T11:15:29.472256+00:00",
+  "generated_at": "2026-05-24T11:31:09.313271+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -900,6 +900,108 @@
       "category": "execution",
       "suffix": ".json",
       "bytes": 6307
+    },
+    {
+      "path": "runtime/execution/card/risk_budget_residual_drawdown_guard_walkforward_v1/base_reconstruction_check.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 464
+    },
+    {
+      "path": "runtime/execution/card/risk_budget_residual_drawdown_guard_walkforward_v1/overlay_meta.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 1016
+    },
+    {
+      "path": "runtime/execution/card/risk_budget_residual_drawdown_guard_walkforward_v1/selection.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 15473
+    },
+    {
+      "path": "runtime/execution/card/risk_budget_residual_drawdown_guard_walkforward_v1/walkforward/risk_budget_residual_drawdown_guard_walkforward_v1_wf_2020_base_soxl_daily.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 54105
+    },
+    {
+      "path": "runtime/execution/card/risk_budget_residual_drawdown_guard_walkforward_v1/walkforward/risk_budget_residual_drawdown_guard_walkforward_v1_wf_2020_crash_risk_soxl_daily.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 128855
+    },
+    {
+      "path": "runtime/execution/card/risk_budget_residual_drawdown_guard_walkforward_v1/walkforward/risk_budget_residual_drawdown_guard_walkforward_v1_wf_2020_downside_vol_soxl_daily.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 70369
+    },
+    {
+      "path": "runtime/execution/card/risk_budget_residual_drawdown_guard_walkforward_v1/walkforward/risk_budget_residual_drawdown_guard_walkforward_v1_wf_2020_residual_guard_soxl_daily.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 139872
+    },
+    {
+      "path": "runtime/execution/card/risk_budget_residual_drawdown_guard_walkforward_v1/walkforward/risk_budget_residual_drawdown_guard_walkforward_v1_wf_2022_base_soxl_daily.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 52021
+    },
+    {
+      "path": "runtime/execution/card/risk_budget_residual_drawdown_guard_walkforward_v1/walkforward/risk_budget_residual_drawdown_guard_walkforward_v1_wf_2022_crash_risk_soxl_daily.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 126829
+    },
+    {
+      "path": "runtime/execution/card/risk_budget_residual_drawdown_guard_walkforward_v1/walkforward/risk_budget_residual_drawdown_guard_walkforward_v1_wf_2022_downside_vol_soxl_daily.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 68255
+    },
+    {
+      "path": "runtime/execution/card/risk_budget_residual_drawdown_guard_walkforward_v1/walkforward/risk_budget_residual_drawdown_guard_walkforward_v1_wf_2022_residual_guard_soxl_daily.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 137224
+    },
+    {
+      "path": "runtime/execution/card/risk_budget_residual_drawdown_guard_walkforward_v1/walkforward/risk_budget_residual_drawdown_guard_walkforward_v1_wf_2023_2024_base_soxl_daily.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 54742
+    },
+    {
+      "path": "runtime/execution/card/risk_budget_residual_drawdown_guard_walkforward_v1/walkforward/risk_budget_residual_drawdown_guard_walkforward_v1_wf_2023_2024_crash_risk_soxl_daily.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 128206
+    },
+    {
+      "path": "runtime/execution/card/risk_budget_residual_drawdown_guard_walkforward_v1/walkforward/risk_budget_residual_drawdown_guard_walkforward_v1_wf_2023_2024_downside_vol_soxl_daily.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 69430
+    },
+    {
+      "path": "runtime/execution/card/risk_budget_residual_drawdown_guard_walkforward_v1/walkforward/risk_budget_residual_drawdown_guard_walkforward_v1_wf_2023_2024_residual_guard_soxl_daily.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 139185
+    },
+    {
+      "path": "runtime/execution/card/risk_budget_residual_drawdown_guard_walkforward_v1/walkforward_comparison.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 822
+    },
+    {
+      "path": "runtime/execution/card/risk_budget_residual_drawdown_guard_walkforward_v1/walkforward_stage_metrics.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 3560
     },
     {
       "path": "runtime/execution/card/selective_release_overlay_v1/selective_release_overlay_results.csv",
