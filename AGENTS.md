@@ -63,6 +63,11 @@ Knowledge retrieval must be scoped by task direction.
 
 ## Notebook Experiment Discipline
 
+- Notebook-first is the default for research work. When a task is an experiment,
+  diagnostic, factor screen, model/reward/network trial, broker-data audit,
+  backtest, parameter screen, or one-off analysis, put the executable workflow
+  and conclusion in a runtime notebook unless the user explicitly asks
+  otherwise.
 - Default to an executable notebook under
   `runtime/<direction>/card/<experiment>/<experiment>.ipynb` for experiments,
   diagnostics, parameter screens, backtests, and one-off research loops.
@@ -80,6 +85,9 @@ Knowledge retrieval must be scoped by task direction.
   `.codex/skills/` with single-run conclusions unless the user explicitly asks,
   the result is promoted, or the finding changes durable cross-experiment
   routing/governance.
+- If a task needs both reusable code and experiment-specific logic, keep the
+  reusable code in `src/` with tests and keep the special-case orchestration,
+  parameter choices, outputs, and conclusion in the runtime notebook.
 - If a notebook writes sidecar Markdown/JSON/CSV artifacts, the notebook remains
   the primary human-readable conclusion for that run.
 
@@ -227,7 +235,6 @@ For every substantial iteration:
    `runtime/<direction>/knowledge.md` only for durable cross-session decisions
 7. **commit and push the changes**
 8. if a skill was created or modified, verify `.codex/skills/` is synced
-
 
 
 
