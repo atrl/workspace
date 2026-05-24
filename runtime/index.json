@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-24T11:31:09.313271+00:00",
+  "generated_at": "2026-05-24T11:47:49.176469+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -312,6 +312,90 @@
       "category": "execution",
       "suffix": ".csv",
       "bytes": 98592
+    },
+    {
+      "path": "runtime/execution/card/recovery_reentry_conditional_vol_target_v1/parameter_screen.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 3439811
+    },
+    {
+      "path": "runtime/execution/card/recovery_reentry_conditional_vol_target_v1/parameter_screen_top.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 7144
+    },
+    {
+      "path": "runtime/execution/card/recovery_reentry_conditional_vol_target_v1/recovery_reentry_conditional_vol_target_v1.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 6850
+    },
+    {
+      "path": "runtime/execution/card/recovery_reentry_conditional_vol_target_v1/recovery_reentry_conditional_vol_target_v1_soxl_daily.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 1080448
+    },
+    {
+      "path": "runtime/execution/card/recovery_reentry_conditional_vol_target_v1/selection.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 6850
+    },
+    {
+      "path": "runtime/execution/card/recovery_reentry_conditional_vol_target_v1/selection_table.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 10333
+    },
+    {
+      "path": "runtime/execution/card/recovery_reentry_conditional_vol_target_v1/walkforward/wf_2020/recovery_reentry_conditional_vol_target_v1_wf_2020.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 1276
+    },
+    {
+      "path": "runtime/execution/card/recovery_reentry_conditional_vol_target_v1/walkforward/wf_2020/recovery_reentry_conditional_vol_target_v1_wf_2020_soxl_daily.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 158273
+    },
+    {
+      "path": "runtime/execution/card/recovery_reentry_conditional_vol_target_v1/walkforward/wf_2022/recovery_reentry_conditional_vol_target_v1_wf_2022.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 1282
+    },
+    {
+      "path": "runtime/execution/card/recovery_reentry_conditional_vol_target_v1/walkforward/wf_2022/recovery_reentry_conditional_vol_target_v1_wf_2022_soxl_daily.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 169031
+    },
+    {
+      "path": "runtime/execution/card/recovery_reentry_conditional_vol_target_v1/walkforward/wf_2023_2024/recovery_reentry_conditional_vol_target_v1_wf_2023_2024.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 1310
+    },
+    {
+      "path": "runtime/execution/card/recovery_reentry_conditional_vol_target_v1/walkforward/wf_2023_2024/recovery_reentry_conditional_vol_target_v1_wf_2023_2024_soxl_daily.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 169937
+    },
+    {
+      "path": "runtime/execution/card/recovery_reentry_conditional_vol_target_v1/walkforward_screen.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 22299
+    },
+    {
+      "path": "runtime/execution/card/recovery_reentry_conditional_vol_target_v1/walkforward_summary.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 2039
     },
     {
       "path": "runtime/execution/card/recovery_reentry_cppi_floor_v1/oos_poor_window_diagnostics/feature_differences.csv",

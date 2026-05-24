@@ -1,0 +1,48 @@
+{
+  "wf": "wf_2022",
+  "metric": {
+    "label": "recovery_reentry_conditional_vol_target_v1_wf_2022",
+    "rows": 250,
+    "start": "2022-01-03",
+    "end": "2022-12-29",
+    "return": -21.61001770643042,
+    "buy_and_hold_return": -86.58807173239428,
+    "relative_return": 64.97805402596387,
+    "sharpe": -0.7849753278747011,
+    "max_dd": 23.626625432112647,
+    "avg_pos": 0.16509509474936002,
+    "trades": 16
+  },
+  "baseline": {
+    "label": "recovery_reentry_regime_drawdown_guard_v1_wf_2022",
+    "rows": 250,
+    "start": "2022-01-03",
+    "end": "2022-12-29",
+    "return": -17.126112554925143,
+    "buy_and_hold_return": -86.58807173239424,
+    "relative_return": 69.4619591774691,
+    "sharpe": -0.4665740937612434,
+    "max_dd": 24.218215336902126,
+    "avg_pos": 0.1822665585292,
+    "trades": 20
+  },
+  "audit": {
+    "label": "condvol_realized21_tv0.35_pct0.75_dd0.00_scale0.40_hold10",
+    "trigger_days": 8,
+    "active_days": 17,
+    "changed_days": 28,
+    "avg_scale_when_active": 0.4
+  },
+  "params": {
+    "vol_kind": "realized",
+    "lookback": 21,
+    "target_vol": 0.35,
+    "high_vol_pct": 0.75,
+    "min_vix_pct": null,
+    "min_position": 0.55,
+    "min_price_drawdown_21": 0.0,
+    "min_scale": 0.4,
+    "trade_band": 0.02,
+    "hold_days": 10
+  }
+}
