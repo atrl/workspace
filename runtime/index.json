@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-24T13:22:15.346309+00:00",
+  "generated_at": "2026-05-24T13:47:30.361304+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -4230,6 +4230,192 @@
       "category": "model_selection",
       "suffix": ".csv",
       "bytes": 22086
+    },
+    {
+      "path": "runtime/model_selection/card/upstream_actor_low_risk_refresh_v1/actor_family_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 5973
+    },
+    {
+      "path": "runtime/model_selection/card/upstream_actor_low_risk_refresh_v1/actor_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 17068
+    },
+    {
+      "path": "runtime/model_selection/card/upstream_actor_low_risk_refresh_v1/export_status.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 12775
+    },
+    {
+      "path": "runtime/model_selection/card/upstream_actor_low_risk_refresh_v1/exports/balanced__strict_oos.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 201225
+    },
+    {
+      "path": "runtime/model_selection/card/upstream_actor_low_risk_refresh_v1/exports/balanced__wf_2020.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30489
+    },
+    {
+      "path": "runtime/model_selection/card/upstream_actor_low_risk_refresh_v1/exports/balanced__wf_2022.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30151
+    },
+    {
+      "path": "runtime/model_selection/card/upstream_actor_low_risk_refresh_v1/exports/balanced__wf_2023_2024.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 62969
+    },
+    {
+      "path": "runtime/model_selection/card/upstream_actor_low_risk_refresh_v1/exports/balanced_macro_v1__strict_oos.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 201287
+    },
+    {
+      "path": "runtime/model_selection/card/upstream_actor_low_risk_refresh_v1/exports/balanced_rule_residual_imitation_v4__strict_oos.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 201442
+    },
+    {
+      "path": "runtime/model_selection/card/upstream_actor_low_risk_refresh_v1/exports/balanced_rule_residual_imitation_v4__wf_2020.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30318
+    },
+    {
+      "path": "runtime/model_selection/card/upstream_actor_low_risk_refresh_v1/exports/balanced_rule_residual_imitation_v4__wf_2022.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 29865
+    },
+    {
+      "path": "runtime/model_selection/card/upstream_actor_low_risk_refresh_v1/exports/balanced_rule_residual_imitation_v4__wf_2023_2024.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 62668
+    },
+    {
+      "path": "runtime/model_selection/card/upstream_actor_low_risk_refresh_v1/exports/balanced_rule_residual_mode_v1__strict_oos.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 201444
+    },
+    {
+      "path": "runtime/model_selection/card/upstream_actor_low_risk_refresh_v1/exports/balanced_rule_residual_mode_v1__wf_2020.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30318
+    },
+    {
+      "path": "runtime/model_selection/card/upstream_actor_low_risk_refresh_v1/exports/balanced_rule_residual_mode_v1__wf_2022.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 29930
+    },
+    {
+      "path": "runtime/model_selection/card/upstream_actor_low_risk_refresh_v1/exports/balanced_rule_residual_mode_v1__wf_2023_2024.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 62892
+    },
+    {
+      "path": "runtime/model_selection/card/upstream_actor_low_risk_refresh_v1/exports/balanced_rule_residual_v19_reg__strict_oos.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 201123
+    },
+    {
+      "path": "runtime/model_selection/card/upstream_actor_low_risk_refresh_v1/exports/balanced_rule_residual_v19_reg__wf_2020.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30318
+    },
+    {
+      "path": "runtime/model_selection/card/upstream_actor_low_risk_refresh_v1/exports/balanced_rule_residual_v19_reg__wf_2022.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 29895
+    },
+    {
+      "path": "runtime/model_selection/card/upstream_actor_low_risk_refresh_v1/exports/balanced_rule_residual_v19_reg__wf_2023_2024.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 62973
+    },
+    {
+      "path": "runtime/model_selection/card/upstream_actor_low_risk_refresh_v1/exports/balanced_rule_residual_v19_reg_light__strict_oos.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 199678
+    },
+    {
+      "path": "runtime/model_selection/card/upstream_actor_low_risk_refresh_v1/exports/balanced_rule_residual_v19_reg_light__wf_2020.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30318
+    },
+    {
+      "path": "runtime/model_selection/card/upstream_actor_low_risk_refresh_v1/exports/balanced_rule_residual_v19_reg_light__wf_2022.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 29910
+    },
+    {
+      "path": "runtime/model_selection/card/upstream_actor_low_risk_refresh_v1/exports/balanced_rule_residual_v19_reg_light__wf_2023_2024.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 62746
+    },
+    {
+      "path": "runtime/model_selection/card/upstream_actor_low_risk_refresh_v1/exports/balanced_rule_residual_v22__strict_oos.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 200954
+    },
+    {
+      "path": "runtime/model_selection/card/upstream_actor_low_risk_refresh_v1/exports/balanced_rule_residual_v22__wf_2020.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30268
+    },
+    {
+      "path": "runtime/model_selection/card/upstream_actor_low_risk_refresh_v1/exports/balanced_rule_residual_v22__wf_2022.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 29917
+    },
+    {
+      "path": "runtime/model_selection/card/upstream_actor_low_risk_refresh_v1/exports/balanced_rule_residual_v22__wf_2023_2024.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 62812
+    },
+    {
+      "path": "runtime/model_selection/card/upstream_actor_low_risk_refresh_v1/exports/risk_budget_usage_v1__strict_oos.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 199995
+    },
+    {
+      "path": "runtime/model_selection/card/upstream_actor_low_risk_refresh_v1/profile_actor_audit.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4267
+    },
+    {
+      "path": "runtime/model_selection/card/upstream_actor_low_risk_refresh_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1363
     },
     {
       "path": "runtime/multi_asset/card/soxl_baseline/card.md",
