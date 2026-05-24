@@ -63,10 +63,15 @@ Knowledge retrieval must be scoped by task direction.
 
 ## Notebook Experiment Discipline
 
-- Prefer an executable notebook under
-  `runtime/<direction>/card/<experiment>/<experiment>.ipynb` for experiments.
-- Put single-run parameter screens, special-case logic, metrics, comparisons,
-  conclusions, and artifact links in that notebook.
+- Default to an executable notebook under
+  `runtime/<direction>/card/<experiment>/<experiment>.ipynb` for experiments,
+  diagnostics, parameter screens, backtests, and one-off research loops.
+- Put single-run special-case logic, metrics, comparisons, conclusions, and
+  artifact links in that notebook. The notebook should be runnable evidence, not
+  just a narrative summary.
+- Use a non-notebook artifact for experiment work only when the task is not an
+  experiment/research loop, notebook tooling is unavailable, or the user
+  explicitly asks for another format.
 - Keep reusable abstractions in `src/soxl_quant/`; keep scripts thin and
   reusable. Do not push experiment-specific logic into shared modules unless it
   becomes a reusable interface with tests.
@@ -222,7 +227,6 @@ For every substantial iteration:
    `runtime/<direction>/knowledge.md` only for durable cross-session decisions
 7. **commit and push the changes**
 8. if a skill was created or modified, verify `.codex/skills/` is synced
-
 
 
 
