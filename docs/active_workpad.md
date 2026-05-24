@@ -7740,3 +7740,44 @@ Decision:
 Artifact:
 
 - `runtime/production/card/futu_scheduled_broker_v1/notes.md`
+
+## 2026-05-24 Futu Simulated Account Order Probe
+
+Goal:
+
+- Directly verify the Futu simulated account and order channel through OpenD.
+- Keep the test scoped to Futu `TrdEnv.SIMULATE`; IBKR is not part of this path.
+
+Safety:
+
+- Submitted one `US.SOXL` simulated `BUY 1` normal limit order at `181.03`
+  when the snapshot last price was `190.56`.
+- Cancelled the order immediately after Futu accepted it.
+- Do not record full account ids or full order ids in repo evidence.
+
+Evidence:
+
+```text
+OpenD: OK at 127.0.0.1:11111
+account cash: 1000000.0
+account total_assets: 1000000.0
+position_before: []
+place_order: ret=OK status=SUBMITTING qty=1 price=181.03 dealt_qty=0
+cancel_order: ret=OK
+final_order_status: CANCELLED_ALL
+final_dealt_qty: 0
+position_after: []
+follow_up_active_order_count: 0
+```
+
+Decision:
+
+- Futu simulated account read is working.
+- Futu simulated order submit/cancel is working.
+- The probe left no `US.SOXL` position and no active simulated order.
+- Remaining scheduled proof is the natural post-close LaunchAgent non-dry Futu
+  run.
+
+Artifact:
+
+- `runtime/production/card/futu_sim_order_probe_v1/notes.md`
