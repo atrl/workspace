@@ -525,6 +525,15 @@ profiles:
   notes_ref: runtime/reward/card/mode_conditioned_rebound_reward_train_v2/mode_conditioned_rebound_reward_train_v2.ipynb
   wf_status: blocked
   wf_notes: "Completed in runtime/reward/card/mode_conditioned_rebound_reward_train_v2/mode_conditioned_rebound_reward_train_v2.ipynb. Decision=blocked_underparticipation_not_promoted; test_proxy rel=-2107.5pp MaxDD=44.2%; WF relative pass=2/3 but MaxDD<=15 pass=0/3. Keep as reward diagnostic only; no runtime binding."
+- name: state_conditioned_drawdown_rebound_reward_train_v1
+  family: balanced
+  status: ablation
+  baseline: mode_conditioned_rebound_reward_train_v2
+  keep_actor: true
+  keep_summary: true
+  notes_ref: runtime/reward/card/state_conditioned_drawdown_rebound_reward_train_v1/state_conditioned_drawdown_rebound_reward_train_v1.ipynb
+  wf_status: blocked
+  wf_notes: "Completed in runtime/reward/card/state_conditioned_drawdown_rebound_reward_train_v1/state_conditioned_drawdown_rebound_reward_train_v1.ipynb. Decision=diagnostic_no_promotion; test_proxy rel=-1470.0pp MaxDD=43.6%; wf_2023_2024 nearly reaches DD target at 15.23% with +36.99pp relative, but wf_2020/test_proxy underparticipation remains severe. Keep as reward diagnostic only; no runtime binding."
 - name: balanced_kelly_warmstart_v9
   family: balanced
   status: candidate

@@ -33,30 +33,71 @@ class ContinuousReward(Reward):
         # MINIMAL REWARD BRANCH — major adjustment
         # ============================================================
         if getattr(cfg, "use_minimal_reward", False):
-            return self._minimal_reward(state, cfg, pos, turnover, drawdown, regime_risk)
+            base = self._minimal_reward(state, cfg, pos, turnover, drawdown, regime_risk)
+            return base + self._state_conditioned_adjustment(state, cfg, pos)
 
         # ============================================================
         # SIMPLIFIED REWARD BRANCH (deprecated)
         # ============================================================
         if getattr(cfg, "use_simplified_reward", False):
-            return self._simplified_reward(state, cfg, pos, pnl_ret, turnover, drawdown, regime_risk, realized_vol, anchor_gap, cum_drop_30, flat_steps)
+            base = self._simplified_reward(state, cfg, pos, pnl_ret, turnover, drawdown, regime_risk, realized_vol, anchor_gap, cum_drop_30, flat_steps)
+            return base + self._state_conditioned_adjustment(state, cfg, pos)
 
         # ============================================================
         # MODERATE REWARD BRANCH (curated 12-term + imitation bonus)
         # ============================================================
         if getattr(cfg, "use_moderate_reward", False):
-            return self._moderate_reward(state, cfg, pos, prev_val, pnl_ret, turnover, drawdown, regime_risk, flat_steps, realized_vol, anchor_gap, cum_drop_30)
+            base = self._moderate_reward(state, cfg, pos, prev_val, pnl_ret, turnover, drawdown, regime_risk, flat_steps, realized_vol, anchor_gap, cum_drop_30)
+            return base + self._state_conditioned_adjustment(state, cfg, pos)
 
         # ============================================================
         # KELLY REWARD BRANCH (v10: 3-term minimal + Kelly alignment)
         # ============================================================
         if getattr(cfg, "use_kelly_reward", False):
-            return self._kelly_reward(state, cfg, pos, turnover, realized_vol)
+            base = self._kelly_reward(state, cfg, pos, turnover, realized_vol)
+            return base + self._state_conditioned_adjustment(state, cfg, pos)
 
         # ============================================================
         # FULL LEGACY REWARD (backward compatibility)
         # ============================================================
-        return self._legacy_reward(state, cfg, pos, prev_val, pnl_ret, turnover, drawdown, regime_risk, flat_steps, realized_vol, anchor_gap, cum_drop_30)
+        base = self._legacy_reward(state, cfg, pos, prev_val, pnl_ret, turnover, drawdown, regime_risk, flat_steps, realized_vol, anchor_gap, cum_drop_30)
+        return base + self._state_conditioned_adjustment(state, cfg, pos)
+
+    def _obs_value(self, state, name: str) -> float:
+        return float(state["obs"][STATIC_INDEX[name]])
+
+    def _state_conditioned_adjustment(self, state, cfg, pos: float) -> float:
+        if not getattr(cfg, "state_conditioned_reward_enabled", False):
+            return 0.0
+
+        adjustment = 0.0
+        anchor_gap = self._obs_value(state, "anchor_gap_180")
+        below_anchor_ratio = self._obs_value(state, "below_anchor_ratio_63")
+        vix_percentile = self._obs_value(state, "vix_percentile_252")
+
+        if cfg.state_downtrend_position_penalty > 0.0:
+            downtrend = (
+                anchor_gap <= cfg.state_downtrend_anchor_gap_max
+                and below_anchor_ratio >= cfg.state_downtrend_below_anchor_ratio_min
+                and vix_percentile >= cfg.state_downtrend_vix_percentile_min
+            )
+            if downtrend:
+                excess_position = max(pos - cfg.state_downtrend_position_threshold, 0.0)
+                adjustment -= excess_position * cfg.state_downtrend_position_penalty
+
+        if cfg.state_rebound_opportunity_penalty > 0.0:
+            rebound = (
+                self._obs_value(state, "mom_10") >= cfg.state_rebound_mom10_min
+                and self._obs_value(state, "mom_21") >= cfg.state_rebound_mom21_min
+                and self._obs_value(state, "relative_strength_21") >= cfg.state_rebound_relative_strength_min
+                and self._obs_value(state, "vol_of_vol_21") >= cfg.state_rebound_vol_of_vol_min
+                and vix_percentile <= cfg.state_rebound_vix_percentile_max
+            )
+            if rebound:
+                under_position = max(cfg.state_rebound_target_position - pos, 0.0)
+                adjustment -= under_position * cfg.state_rebound_opportunity_penalty
+
+        return float(adjustment)
 
     def _terminal_cvar_penalty(self, state, cfg) -> float:
         if not (state.get("done", False) and cfg.use_cvar_terminal and cfg.cvar_terminal_coef > 0):

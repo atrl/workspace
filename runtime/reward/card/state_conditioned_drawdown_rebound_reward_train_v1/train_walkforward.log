@@ -1,0 +1,900 @@
+========================================================================
+SOXL Strategy v2 - qlib native package
+========================================================================
+[data] skip binary refresh
+[qlib] instruments ok: ['SOXL', 'SOXX']
+[dataset] train=1965 valid=252 test=1606 features=59
+
+[train:state_conditioned_drawdown_rebound_reward_train_v1] seed=20260411 episodes=154 iters=8 epi/iter=8
+[valid:state_conditioned_drawdown_rebound_reward_train_v1@4] return=15.1% sharpe=0.74 maxdd=24.5% score=20.42
+[valid:state_conditioned_drawdown_rebound_reward_train_v1@8] return=21.3% sharpe=0.86 maxdd=27.6% score=27.46
+[valid:state_conditioned_drawdown_rebound_reward_train_v1] return=21.3% sharpe=0.86 maxdd=27.6% best_score=27.46
+
+[train:state_conditioned_drawdown_rebound_reward_train_v1] seed=20260411 episodes=154 iters=8 epi/iter=8
+[valid:state_conditioned_drawdown_rebound_reward_train_v1@4] return=15.1% sharpe=0.74 maxdd=24.5% score=20.42
+[valid:state_conditioned_drawdown_rebound_reward_train_v1@8] return=21.3% sharpe=0.86 maxdd=27.6% score=27.46
+[valid:state_conditioned_drawdown_rebound_reward_train_v1] return=21.3% sharpe=0.86 maxdd=27.6% best_score=27.46
+
+[train:state_conditioned_drawdown_rebound_reward_train_v1] seed=20260411 episodes=202 iters=8 epi/iter=8
+[valid:state_conditioned_drawdown_rebound_reward_train_v1@4] return=19.9% sharpe=0.89 maxdd=15.8% score=30.40
+[valid:state_conditioned_drawdown_rebound_reward_train_v1@8] return=19.9% sharpe=0.89 maxdd=15.8% score=30.40
+[valid:state_conditioned_drawdown_rebound_reward_train_v1] return=19.9% sharpe=0.89 maxdd=15.8% best_score=30.40
+
+[train:state_conditioned_drawdown_rebound_reward_train_v1] seed=20260411 episodes=250 iters=8 epi/iter=8
+[valid:state_conditioned_drawdown_rebound_reward_train_v1@4] return=33.7% sharpe=1.67 maxdd=14.7% score=60.76
+[valid:state_conditioned_drawdown_rebound_reward_train_v1@8] return=24.5% sharpe=1.78 maxdd=11.1% score=54.86
+[valid:state_conditioned_drawdown_rebound_reward_train_v1] return=33.7% sharpe=1.67 maxdd=14.7% best_score=60.76
+[done] wrote /Users/rziiiii/.openclaw/workspace/dashboard.html
+[done] wrote /Users/rziiiii/.openclaw/workspace/dashboard_data/index.json
+[done] wrote /Users/rziiiii/.openclaw/workspace/dashboard_data/model_versions.json
+[done] wrote /Users/rziiiii/.openclaw/workspace/dashboard_data/versioned/ (50 versions)
+[test:state_conditioned_drawdown_rebound_reward_train_v1] return=619.7% sharpe=1.02 maxdd=43.6% trades=316 model=soxl_state_conditioned_drawdown_rebound_reward_train_v1_actor.pt
+
+[walk-forward:state_conditioned_drawdown_rebound_reward_train_v1:wf_2020:isolated] train=2010-03-11->2018-12-31 valid=2019-01-01->2019-12-31 test=2020-01-01->2020-12-31
+[walk-forward:state_conditioned_drawdown_rebound_reward_train_v1:wf_2020] return=56.8% sharpe=1.41 maxdd=24.4%
+
+[walk-forward:state_conditioned_drawdown_rebound_reward_train_v1:wf_2022:isolated] train=2010-03-11->2020-12-31 valid=2021-01-01->2021-12-31 test=2022-01-01->2022-12-31
+[walk-forward:state_conditioned_drawdown_rebound_reward_train_v1:wf_2022] return=-23.3% sharpe=-0.73 maxdd=29.1%
+
+[walk-forward:state_conditioned_drawdown_rebound_reward_train_v1:wf_2023_2024:isolated] train=2010-03-11->2022-12-31 valid=2023-01-01->2023-12-31 test=2024-01-01->2024-12-31
+[walk-forward:state_conditioned_drawdown_rebound_reward_train_v1:wf_2023_2024] return=-3.2% sharpe=-0.17 maxdd=15.2%
+
+[done] chart=soxl_qlib_strategy_v2.png summary=soxl_qlib_strategy_v2_results.txt
+  - dashboard: refreshed
+  - state_conditioned_drawdown_rebound_reward_train_v1: 619.7% | Sharpe 1.02 | MaxDD 43.6% | trades 316
+    wf_2020: 56.8% | Sharpe 1.41 | MaxDD 24.4% | trades 40
+    wf_2022: -23.3% | Sharpe -0.73 | MaxDD 29.1% | trades 32
+    wf_2023_2024: -3.2% | Sharpe -0.17 | MaxDD 15.2% | trades 30
+    promotion: blocked
+
+
+[stderr]
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+[54031:MainThread](2026-05-25 14:29:05,712) INFO - qlib.Initialization - [config.py:452] - default_conf: client.
+[54031:MainThread](2026-05-25 14:29:06,567) INFO - qlib.Initialization - [__init__.py:75] - qlib successfully initialized based on client settings.
+[54031:MainThread](2026-05-25 14:29:06,567) INFO - qlib.Initialization - [__init__.py:77] - data_path={'__DEFAULT_FREQ': PosixPath('/Users/rziiiii/.openclaw/workspace/data/qlib/soxl')}
+[54031:MainThread](2026-05-25 14:29:13,181) INFO - qlib.timer - [log.py:127] - Time cost: 0.002s | Loading data Done
+[54031:MainThread](2026-05-25 14:29:13,181) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | fit & process data Done
+[54031:MainThread](2026-05-25 14:29:13,182) INFO - qlib.timer - [log.py:127] - Time cost: 0.004s | Init data Done
+[54031:MainThread](2026-05-25 14:29:14,899) INFO - qlib.rl.trainer.trainer - [trainer.py:211] - 
+2026-05-25 14:29:14	Train iteration 1/4
+[54031:MainThread](2026-05-25 14:29:14,900) INFO - qlib.rl.trainer.vessel - [vessel.py:144] - Training initial states collection size: 154
+[54031:MainThread](2026-05-25 14:29:14,902) INFO - qlib.rl.utils.data_queue - [data_queue.py:70] - Automatically set data queue maxsize to 10 to avoid overwhelming.
+[54031:MainThread](2026-05-25 14:29:34,442) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] n/ep = 8
+[54031:MainThread](2026-05-25 14:29:34,442) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] n/st = 2392
+[54031:MainThread](2026-05-25 14:29:34,442) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] rews = -276.832664740304
+[54031:MainThread](2026-05-25 14:29:34,442) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] lens = 299.0
+[54031:MainThread](2026-05-25 14:29:34,442) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] idxs = 1046.5
+[54031:MainThread](2026-05-25 14:29:34,443) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] rew = -276.832664740304
+[54031:MainThread](2026-05-25 14:29:34,443) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] len = 299.0
+[54031:MainThread](2026-05-25 14:29:34,443) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] rew_std = 29.56683496060773
+[54031:MainThread](2026-05-25 14:29:34,443) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] len_std = 0.0
+[54031:MainThread](2026-05-25 14:29:34,443) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] loss = 14.05390960305325
+[54031:MainThread](2026-05-25 14:29:34,443) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] loss/clip = -0.0018053122461555307
+[54031:MainThread](2026-05-25 14:29:34,444) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] loss/vf = 56.28717586183333
+[54031:MainThread](2026-05-25 14:29:34,444) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] loss/ent = 1.6079337661330764
+[54031:MainThread](2026-05-25 14:29:36,457) INFO - qlib.rl.trainer.trainer - [trainer.py:211] - 
+2026-05-25 14:29:36	Train iteration 2/4
+[54031:MainThread](2026-05-25 14:29:36,458) INFO - qlib.rl.trainer.vessel - [vessel.py:144] - Training initial states collection size: 154
+[54031:MainThread](2026-05-25 14:29:36,458) INFO - qlib.rl.utils.data_queue - [data_queue.py:70] - Automatically set data queue maxsize to 10 to avoid overwhelming.
+[54031:MainThread](2026-05-25 14:29:53,189) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] n/ep = 8
+[54031:MainThread](2026-05-25 14:29:53,189) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] n/st = 2392
+[54031:MainThread](2026-05-25 14:29:53,189) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] rews = -209.81920707942837
+[54031:MainThread](2026-05-25 14:29:53,189) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] lens = 299.0
+[54031:MainThread](2026-05-25 14:29:53,189) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] idxs = 1046.5
+[54031:MainThread](2026-05-25 14:29:53,190) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] rew = -209.81920707942837
+[54031:MainThread](2026-05-25 14:29:53,190) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] len = 299.0
+[54031:MainThread](2026-05-25 14:29:53,190) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] rew_std = 74.95268175393807
+[54031:MainThread](2026-05-25 14:29:53,190) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] len_std = 0.0
+[54031:MainThread](2026-05-25 14:29:53,190) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] loss = 0.06859802646008697
+[54031:MainThread](2026-05-25 14:29:53,190) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] loss/clip = -0.002675608097290335
+[54031:MainThread](2026-05-25 14:29:53,191) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] loss/vf = 0.34930002212792904
+[54031:MainThread](2026-05-25 14:29:53,191) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] loss/ent = 1.605137094184085
+[54031:MainThread](2026-05-25 14:29:55,213) INFO - qlib.rl.trainer.trainer - [trainer.py:211] - 
+2026-05-25 14:29:55	Train iteration 3/4
+[54031:MainThread](2026-05-25 14:29:55,214) INFO - qlib.rl.trainer.vessel - [vessel.py:144] - Training initial states collection size: 154
+[54031:MainThread](2026-05-25 14:29:55,214) INFO - qlib.rl.utils.data_queue - [data_queue.py:70] - Automatically set data queue maxsize to 10 to avoid overwhelming.
+[54031:MainThread](2026-05-25 14:30:13,579) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] n/ep = 8
+[54031:MainThread](2026-05-25 14:30:13,579) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] n/st = 2392
+[54031:MainThread](2026-05-25 14:30:13,580) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] rews = -207.92865582788852
+[54031:MainThread](2026-05-25 14:30:13,580) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] lens = 299.0
+[54031:MainThread](2026-05-25 14:30:13,580) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] idxs = 1046.5
+[54031:MainThread](2026-05-25 14:30:13,581) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] rew = -207.92865582788852
+[54031:MainThread](2026-05-25 14:30:13,581) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] len = 299.0
+[54031:MainThread](2026-05-25 14:30:13,582) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] rew_std = 55.57098862545557
+[54031:MainThread](2026-05-25 14:30:13,582) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] len_std = 0.0
+[54031:MainThread](2026-05-25 14:30:13,582) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] loss = 0.05389767873461719
+[54031:MainThread](2026-05-25 14:30:13,583) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] loss/clip = -0.0004220405990218005
+[54031:MainThread](2026-05-25 14:30:13,583) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] loss/vf = 0.2814115448980718
+[54031:MainThread](2026-05-25 14:30:13,584) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] loss/ent = 1.6033167511493236
+[54031:MainThread](2026-05-25 14:30:15,597) INFO - qlib.rl.trainer.trainer - [trainer.py:211] - 
+2026-05-25 14:30:15	Train iteration 4/4
+[54031:MainThread](2026-05-25 14:30:15,597) INFO - qlib.rl.trainer.vessel - [vessel.py:144] - Training initial states collection size: 154
+[54031:MainThread](2026-05-25 14:30:15,598) INFO - qlib.rl.utils.data_queue - [data_queue.py:70] - Automatically set data queue maxsize to 10 to avoid overwhelming.
+[54031:MainThread](2026-05-25 14:30:33,566) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] n/ep = 8
+[54031:MainThread](2026-05-25 14:30:33,567) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] n/st = 2392
+[54031:MainThread](2026-05-25 14:30:33,567) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] rews = -215.38003658831897
+[54031:MainThread](2026-05-25 14:30:33,567) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] lens = 299.0
+[54031:MainThread](2026-05-25 14:30:33,567) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] idxs = 1046.5
+[54031:MainThread](2026-05-25 14:30:33,567) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] rew = -215.38003658831897
+[54031:MainThread](2026-05-25 14:30:33,568) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] len = 299.0
+[54031:MainThread](2026-05-25 14:30:33,568) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] rew_std = 89.1962746290525
+[54031:MainThread](2026-05-25 14:30:33,568) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] len_std = 0.0
+[54031:MainThread](2026-05-25 14:30:33,568) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] loss = 0.05870057842148854
+[54031:MainThread](2026-05-25 14:30:33,568) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] loss/clip = -0.0024426452705934476
+[54031:MainThread](2026-05-25 14:30:33,568) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] loss/vf = 0.30865851152050605
+[54031:MainThread](2026-05-25 14:30:33,569) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] loss/ent = 1.602140458854469
+[54031:MainThread](2026-05-25 14:30:35,845) INFO - qlib.rl.trainer.trainer - [trainer.py:211] - 
+2026-05-25 14:30:35	Train iteration 1/4
+[54031:MainThread](2026-05-25 14:30:35,845) INFO - qlib.rl.trainer.vessel - [vessel.py:144] - Training initial states collection size: 154
+[54031:MainThread](2026-05-25 14:30:35,845) INFO - qlib.rl.utils.data_queue - [data_queue.py:70] - Automatically set data queue maxsize to 10 to avoid overwhelming.
+[54031:MainThread](2026-05-25 14:30:52,890) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] n/ep = 8
+[54031:MainThread](2026-05-25 14:30:52,890) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] n/st = 2392
+[54031:MainThread](2026-05-25 14:30:52,891) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] rews = -235.5657536891673
+[54031:MainThread](2026-05-25 14:30:52,891) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] lens = 299.0
+[54031:MainThread](2026-05-25 14:30:52,892) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] idxs = 1046.5
+[54031:MainThread](2026-05-25 14:30:52,892) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] rew = -235.5657536891673
+[54031:MainThread](2026-05-25 14:30:52,892) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] len = 299.0
+[54031:MainThread](2026-05-25 14:30:52,893) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] rew_std = 99.5858859754296
+[54031:MainThread](2026-05-25 14:30:52,893) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] len_std = 0.0
+[54031:MainThread](2026-05-25 14:30:52,894) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] loss = 0.06612104862122922
+[54031:MainThread](2026-05-25 14:30:52,894) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] loss/clip = -0.002146286678055788
+[54031:MainThread](2026-05-25 14:30:52,894) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] loss/vf = 0.3367237868206995
+[54031:MainThread](2026-05-25 14:30:52,895) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] loss/ent = 1.5913611628987767
+[54031:MainThread](2026-05-25 14:30:54,910) INFO - qlib.rl.trainer.trainer - [trainer.py:211] - 
+2026-05-25 14:30:54	Train iteration 2/4
+[54031:MainThread](2026-05-25 14:30:54,910) INFO - qlib.rl.trainer.vessel - [vessel.py:144] - Training initial states collection size: 154
+[54031:MainThread](2026-05-25 14:30:54,910) INFO - qlib.rl.utils.data_queue - [data_queue.py:70] - Automatically set data queue maxsize to 10 to avoid overwhelming.
+[54031:MainThread](2026-05-25 14:31:12,831) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] n/ep = 8
+[54031:MainThread](2026-05-25 14:31:12,831) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] n/st = 2392
+[54031:MainThread](2026-05-25 14:31:12,831) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] rews = -257.7301553366799
+[54031:MainThread](2026-05-25 14:31:12,831) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] lens = 299.0
+[54031:MainThread](2026-05-25 14:31:12,832) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] idxs = 1046.5
+[54031:MainThread](2026-05-25 14:31:12,832) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] rew = -257.7301553366799
+[54031:MainThread](2026-05-25 14:31:12,832) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] len = 299.0
+[54031:MainThread](2026-05-25 14:31:12,832) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] rew_std = 71.5625440389471
+[54031:MainThread](2026-05-25 14:31:12,832) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] len_std = 0.0
+[54031:MainThread](2026-05-25 14:31:12,832) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] loss = 0.053831305933763854
+[54031:MainThread](2026-05-25 14:31:12,833) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] loss/clip = -0.0012988508794339257
+[54031:MainThread](2026-05-25 14:31:12,833) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] loss/vf = 0.2842832995024887
+[54031:MainThread](2026-05-25 14:31:12,833) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] loss/ent = 1.5940668282208141
+[54031:MainThread](2026-05-25 14:31:14,848) INFO - qlib.rl.trainer.trainer - [trainer.py:211] - 
+2026-05-25 14:31:14	Train iteration 3/4
+[54031:MainThread](2026-05-25 14:31:14,848) INFO - qlib.rl.trainer.vessel - [vessel.py:144] - Training initial states collection size: 154
+[54031:MainThread](2026-05-25 14:31:14,849) INFO - qlib.rl.utils.data_queue - [data_queue.py:70] - Automatically set data queue maxsize to 10 to avoid overwhelming.
+[54031:MainThread](2026-05-25 14:31:32,488) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] n/ep = 8
+[54031:MainThread](2026-05-25 14:31:32,488) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] n/st = 2392
+[54031:MainThread](2026-05-25 14:31:32,489) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] rews = -210.93571025137612
+[54031:MainThread](2026-05-25 14:31:32,489) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] lens = 299.0
+[54031:MainThread](2026-05-25 14:31:32,490) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] idxs = 1046.5
+[54031:MainThread](2026-05-25 14:31:32,490) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] rew = -210.93571025137612
+[54031:MainThread](2026-05-25 14:31:32,490) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] len = 299.0
+[54031:MainThread](2026-05-25 14:31:32,491) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] rew_std = 94.8477425154104
+[54031:MainThread](2026-05-25 14:31:32,491) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] len_std = 0.0
+[54031:MainThread](2026-05-25 14:31:32,492) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] loss = 0.07428090982474722
+[54031:MainThread](2026-05-25 14:31:32,492) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] loss/clip = -0.00037549971262001443
+[54031:MainThread](2026-05-25 14:31:32,493) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] loss/vf = 0.3624140321537181
+[54031:MainThread](2026-05-25 14:31:32,493) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] loss/ent = 1.5947098597749934
+[54031:MainThread](2026-05-25 14:31:34,506) INFO - qlib.rl.trainer.trainer - [trainer.py:211] - 
+2026-05-25 14:31:34	Train iteration 4/4
+[54031:MainThread](2026-05-25 14:31:34,506) INFO - qlib.rl.trainer.vessel - [vessel.py:144] - Training initial states collection size: 154
+[54031:MainThread](2026-05-25 14:31:34,506) INFO - qlib.rl.utils.data_queue - [data_queue.py:70] - Automatically set data queue maxsize to 10 to avoid overwhelming.
+[54031:MainThread](2026-05-25 14:31:52,353) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] n/ep = 8
+[54031:MainThread](2026-05-25 14:31:52,353) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] n/st = 2392
+[54031:MainThread](2026-05-25 14:31:52,353) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] rews = -228.17347225795783
+[54031:MainThread](2026-05-25 14:31:52,353) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] lens = 299.0
+[54031:MainThread](2026-05-25 14:31:52,353) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] idxs = 1046.5
+[54031:MainThread](2026-05-25 14:31:52,354) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] rew = -228.17347225795783
+[54031:MainThread](2026-05-25 14:31:52,354) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] len = 299.0
+[54031:MainThread](2026-05-25 14:31:52,355) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] rew_std = 69.2864514629829
+[54031:MainThread](2026-05-25 14:31:52,355) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] len_std = 0.0
+[54031:MainThread](2026-05-25 14:31:52,355) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] loss = 0.03651187475770712
+[54031:MainThread](2026-05-25 14:31:52,358) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] loss/clip = -0.002216551438192124
+[54031:MainThread](2026-05-25 14:31:52,358) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] loss/vf = 0.2185906921890942
+[54031:MainThread](2026-05-25 14:31:52,358) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] loss/ent = 1.5919247183713827
+[54031:MainThread](2026-05-25 14:31:59,514) WARNING - qlib.data - [data.py:665] - load calendar error: freq=day, future=True; return current calendar!
+[54031:MainThread](2026-05-25 14:31:59,514) WARNING - qlib.data - [data.py:668] - You can get future calendar by referring to the following document: https://github.com/microsoft/qlib/blob/main/scripts/data_collector/contrib/README.md
+[54031:MainThread](2026-05-25 14:31:59,521) WARNING - qlib.BaseExecutor - [executor.py:121] - `common_infra` is not set for <qlib.backtest.executor.SimulatorExecutor object at 0x1229fd110>
+[54031:MainThread](2026-05-25 14:31:59,528) INFO - qlib.backtest caller - [__init__.py:93] - Create new exchange
+Exception ignored in: <function DataQueue.__del__ at 0x11bc91940>
+Traceback (most recent call last):
+  File "/Users/rziiiii/.openclaw/workspace/qlib_venv/lib/python3.11/site-packages/qlib/rl/utils/data_queue.py", line 148, in __del__
+    self.cleanup()
+  File "/Users/rziiiii/.openclaw/workspace/qlib_venv/lib/python3.11/site-packages/qlib/rl/utils/data_queue.py", line 109, in cleanup
+    if self._queue.empty():
+       ^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.11/3.11.14_3/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/queues.py", line 129, in empty
+    return not self._poll()
+               ^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.11/3.11.14_3/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/connection.py", line 255, in poll
+    self._check_closed()
+  File "/opt/homebrew/Cellar/python@3.11/3.11.14_3/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/connection.py", line 137, in _check_closed
+    raise OSError("handle is closed")
+OSError: handle is closed
+Exception ignored in: <function DataQueue.__del__ at 0x11bc91940>
+Traceback (most recent call last):
+  File "/Users/rziiiii/.openclaw/workspace/qlib_venv/lib/python3.11/site-packages/qlib/rl/utils/data_queue.py", line 148, in __del__
+    self.cleanup()
+  File "/Users/rziiiii/.openclaw/workspace/qlib_venv/lib/python3.11/site-packages/qlib/rl/utils/data_queue.py", line 99, in cleanup
+    while not self._queue.empty():
+              ^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.11/3.11.14_3/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/queues.py", line 129, in empty
+    return not self._poll()
+               ^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.11/3.11.14_3/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/connection.py", line 255, in poll
+    self._check_closed()
+  File "/opt/homebrew/Cellar/python@3.11/3.11.14_3/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/connection.py", line 137, in _check_closed
+    raise OSError("handle is closed")
+OSError: handle is closed
+[54031:MainThread](2026-05-25 14:32:04,469) WARNING - qlib.online operator - [exchange.py:226] - factor.day.bin file not exists or factor contains `nan`. Order using adjusted_price.
+[54031:MainThread](2026-05-25 14:32:04,469) WARNING - qlib.online operator - [exchange.py:228] - trade unit 1 is not supported in adjusted_price mode.
+
+backtest loop:   0%|          | 0/1605 [00:00<?, ?it/s]
+backtest loop:   5%|▌         | 88/1605 [00:00<00:01, 878.07it/s]
+backtest loop:  11%|█         | 176/1605 [00:00<00:02, 551.85it/s]
+backtest loop:  15%|█▍        | 238/1605 [00:00<00:02, 492.22it/s]
+backtest loop:  18%|█▊        | 291/1605 [00:00<00:02, 477.94it/s]
+backtest loop:  21%|██        | 341/1605 [00:00<00:02, 470.26it/s]
+backtest loop:  24%|██▍       | 391/1605 [00:00<00:02, 476.44it/s]
+backtest loop:  27%|██▋       | 440/1605 [00:00<00:02, 470.20it/s]
+backtest loop:  31%|███       | 491/1605 [00:00<00:02, 478.73it/s]
+backtest loop:  34%|███▎      | 540/1605 [00:01<00:02, 439.23it/s]
+backtest loop:  36%|███▋      | 585/1605 [00:01<00:02, 426.74it/s]
+backtest loop:  39%|███▉      | 629/1605 [00:01<00:02, 409.85it/s]
+backtest loop:  42%|████▏     | 673/1605 [00:01<00:02, 416.49it/s]
+backtest loop:  45%|████▌     | 729/1605 [00:01<00:01, 456.36it/s]
+backtest loop:  48%|████▊     | 778/1605 [00:01<00:01, 465.62it/s]
+backtest loop:  52%|█████▏    | 831/1605 [00:01<00:01, 483.10it/s]
+backtest loop:  55%|█████▌    | 890/1605 [00:01<00:01, 512.68it/s]
+backtest loop:  59%|█████▉    | 947/1605 [00:01<00:01, 528.67it/s]
+backtest loop:  62%|██████▏   | 1001/1605 [00:02<00:01, 521.39it/s]
+backtest loop:  66%|██████▌   | 1054/1605 [00:02<00:01, 522.76it/s]
+backtest loop:  69%|██████▉   | 1107/1605 [00:02<00:00, 515.25it/s]
+backtest loop:  72%|███████▏  | 1159/1605 [00:02<00:00, 477.41it/s]
+backtest loop:  76%|███████▌  | 1212/1605 [00:02<00:00, 487.71it/s]
+backtest loop:  79%|███████▊  | 1262/1605 [00:02<00:00, 490.53it/s]
+backtest loop:  82%|████████▏ | 1312/1605 [00:02<00:00, 482.43it/s]
+backtest loop:  85%|████████▍ | 1361/1605 [00:02<00:00, 448.97it/s]
+backtest loop:  88%|████████▊ | 1410/1605 [00:02<00:00, 455.73it/s]
+backtest loop:  91%|█████████ | 1457/1605 [00:03<00:00, 424.95it/s]
+backtest loop:  94%|█████████▎| 1501/1605 [00:03<00:00, 413.42it/s]
+backtest loop:  97%|█████████▋| 1551/1605 [00:03<00:00, 435.28it/s]
+backtest loop:  99%|█████████▉| 1596/1605 [00:03<00:00, 421.65it/s]
+backtest loop: 100%|██████████| 1605/1605 [00:03<00:00, 469.71it/s]
+[54031:MainThread](2026-05-25 14:32:07,950) WARNING - qlib.BaseExecutor - [executor.py:121] - `common_infra` is not set for <qlib.backtest.executor.SimulatorExecutor object at 0x122e3b090>
+[54031:MainThread](2026-05-25 14:32:07,953) INFO - qlib.backtest caller - [__init__.py:93] - Create new exchange
+[54031:MainThread](2026-05-25 14:32:12,003) WARNING - qlib.online operator - [exchange.py:226] - factor.day.bin file not exists or factor contains `nan`. Order using adjusted_price.
+[54031:MainThread](2026-05-25 14:32:12,003) WARNING - qlib.online operator - [exchange.py:228] - trade unit 1 is not supported in adjusted_price mode.
+
+backtest loop:   0%|          | 0/251 [00:00<?, ?it/s]
+backtest loop:  14%|█▍        | 36/251 [00:00<00:00, 340.66it/s]
+backtest loop:  30%|██▉       | 75/251 [00:00<00:00, 366.67it/s]
+backtest loop:  50%|████▉     | 125/251 [00:00<00:00, 423.08it/s]
+backtest loop:  67%|██████▋   | 168/251 [00:00<00:00, 421.52it/s]
+backtest loop:  90%|█████████ | 227/251 [00:00<00:00, 480.00it/s]
+backtest loop: 100%|██████████| 251/251 [00:00<00:00, 431.70it/s]
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+[81973:MainThread](2026-05-25 14:32:16,665) INFO - qlib.Initialization - [config.py:452] - default_conf: client.
+[81973:MainThread](2026-05-25 14:32:17,607) INFO - qlib.Initialization - [__init__.py:75] - qlib successfully initialized based on client settings.
+[81973:MainThread](2026-05-25 14:32:17,607) INFO - qlib.Initialization - [__init__.py:77] - data_path={'__DEFAULT_FREQ': PosixPath('/Users/rziiiii/.openclaw/workspace/data/qlib/soxl')}
+[81973:MainThread](2026-05-25 14:32:20,293) INFO - qlib.timer - [log.py:127] - Time cost: 0.001s | Loading data Done
+[81973:MainThread](2026-05-25 14:32:20,294) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | fit & process data Done
+[81973:MainThread](2026-05-25 14:32:20,295) INFO - qlib.timer - [log.py:127] - Time cost: 0.003s | Init data Done
+[81973:MainThread](2026-05-25 14:32:22,020) INFO - qlib.rl.trainer.trainer - [trainer.py:211] - 
+2026-05-25 14:32:22	Train iteration 1/4
+[81973:MainThread](2026-05-25 14:32:22,021) INFO - qlib.rl.trainer.vessel - [vessel.py:144] - Training initial states collection size: 154
+[81973:MainThread](2026-05-25 14:32:22,021) INFO - qlib.rl.utils.data_queue - [data_queue.py:70] - Automatically set data queue maxsize to 10 to avoid overwhelming.
+[81973:MainThread](2026-05-25 14:32:42,082) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] n/ep = 8
+[81973:MainThread](2026-05-25 14:32:42,082) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] n/st = 2392
+[81973:MainThread](2026-05-25 14:32:42,082) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] rews = -276.832664740304
+[81973:MainThread](2026-05-25 14:32:42,082) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] lens = 299.0
+[81973:MainThread](2026-05-25 14:32:42,083) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] idxs = 1046.5
+[81973:MainThread](2026-05-25 14:32:42,083) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] rew = -276.832664740304
+[81973:MainThread](2026-05-25 14:32:42,083) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] len = 299.0
+[81973:MainThread](2026-05-25 14:32:42,083) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] rew_std = 29.56683496060773
+[81973:MainThread](2026-05-25 14:32:42,084) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] len_std = 0.0
+[81973:MainThread](2026-05-25 14:32:42,084) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] loss = 14.05390960305325
+[81973:MainThread](2026-05-25 14:32:42,085) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] loss/clip = -0.0018053122461555307
+[81973:MainThread](2026-05-25 14:32:42,085) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] loss/vf = 56.28717586183333
+[81973:MainThread](2026-05-25 14:32:42,086) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] loss/ent = 1.6079337661330764
+[81973:MainThread](2026-05-25 14:32:44,102) INFO - qlib.rl.trainer.trainer - [trainer.py:211] - 
+2026-05-25 14:32:44	Train iteration 2/4
+[81973:MainThread](2026-05-25 14:32:44,102) INFO - qlib.rl.trainer.vessel - [vessel.py:144] - Training initial states collection size: 154
+[81973:MainThread](2026-05-25 14:32:44,103) INFO - qlib.rl.utils.data_queue - [data_queue.py:70] - Automatically set data queue maxsize to 10 to avoid overwhelming.
+[81973:MainThread](2026-05-25 14:33:00,980) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] n/ep = 8
+[81973:MainThread](2026-05-25 14:33:00,980) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] n/st = 2392
+[81973:MainThread](2026-05-25 14:33:00,980) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] rews = -209.81920707942837
+[81973:MainThread](2026-05-25 14:33:00,980) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] lens = 299.0
+[81973:MainThread](2026-05-25 14:33:00,980) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] idxs = 1046.5
+[81973:MainThread](2026-05-25 14:33:00,981) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] rew = -209.81920707942837
+[81973:MainThread](2026-05-25 14:33:00,981) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] len = 299.0
+[81973:MainThread](2026-05-25 14:33:00,981) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] rew_std = 74.95268175393807
+[81973:MainThread](2026-05-25 14:33:00,981) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] len_std = 0.0
+[81973:MainThread](2026-05-25 14:33:00,981) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] loss = 0.06859802646008697
+[81973:MainThread](2026-05-25 14:33:00,981) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] loss/clip = -0.002675608097290335
+[81973:MainThread](2026-05-25 14:33:00,982) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] loss/vf = 0.34930002212792904
+[81973:MainThread](2026-05-25 14:33:00,982) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] loss/ent = 1.605137094184085
+[81973:MainThread](2026-05-25 14:33:01,991) INFO - qlib.rl.trainer.trainer - [trainer.py:211] - 
+2026-05-25 14:33:01	Train iteration 3/4
+[81973:MainThread](2026-05-25 14:33:01,992) INFO - qlib.rl.trainer.vessel - [vessel.py:144] - Training initial states collection size: 154
+[81973:MainThread](2026-05-25 14:33:01,992) INFO - qlib.rl.utils.data_queue - [data_queue.py:70] - Automatically set data queue maxsize to 10 to avoid overwhelming.
+[81973:MainThread](2026-05-25 14:33:20,171) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] n/ep = 8
+[81973:MainThread](2026-05-25 14:33:20,171) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] n/st = 2392
+[81973:MainThread](2026-05-25 14:33:20,172) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] rews = -207.92865582788852
+[81973:MainThread](2026-05-25 14:33:20,172) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] lens = 299.0
+[81973:MainThread](2026-05-25 14:33:20,172) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] idxs = 1046.5
+[81973:MainThread](2026-05-25 14:33:20,172) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] rew = -207.92865582788852
+[81973:MainThread](2026-05-25 14:33:20,172) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] len = 299.0
+[81973:MainThread](2026-05-25 14:33:20,173) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] rew_std = 55.57098862545557
+[81973:MainThread](2026-05-25 14:33:20,173) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] len_std = 0.0
+[81973:MainThread](2026-05-25 14:33:20,173) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] loss = 0.05389767873461719
+[81973:MainThread](2026-05-25 14:33:20,173) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] loss/clip = -0.0004220405990218005
+[81973:MainThread](2026-05-25 14:33:20,173) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] loss/vf = 0.2814115448980718
+[81973:MainThread](2026-05-25 14:33:20,174) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] loss/ent = 1.6033167511493236
+[81973:MainThread](2026-05-25 14:33:22,189) INFO - qlib.rl.trainer.trainer - [trainer.py:211] - 
+2026-05-25 14:33:22	Train iteration 4/4
+[81973:MainThread](2026-05-25 14:33:22,189) INFO - qlib.rl.trainer.vessel - [vessel.py:144] - Training initial states collection size: 154
+[81973:MainThread](2026-05-25 14:33:22,190) INFO - qlib.rl.utils.data_queue - [data_queue.py:70] - Automatically set data queue maxsize to 10 to avoid overwhelming.
+[81973:MainThread](2026-05-25 14:33:39,935) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] n/ep = 8
+[81973:MainThread](2026-05-25 14:33:39,935) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] n/st = 2392
+[81973:MainThread](2026-05-25 14:33:39,936) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] rews = -215.38003658831897
+[81973:MainThread](2026-05-25 14:33:39,936) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] lens = 299.0
+[81973:MainThread](2026-05-25 14:33:39,936) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] idxs = 1046.5
+[81973:MainThread](2026-05-25 14:33:39,936) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] rew = -215.38003658831897
+[81973:MainThread](2026-05-25 14:33:39,936) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] len = 299.0
+[81973:MainThread](2026-05-25 14:33:39,937) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] rew_std = 89.1962746290525
+[81973:MainThread](2026-05-25 14:33:39,937) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] len_std = 0.0
+[81973:MainThread](2026-05-25 14:33:39,937) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] loss = 0.05870057842148854
+[81973:MainThread](2026-05-25 14:33:39,937) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] loss/clip = -0.0024426452705934476
+[81973:MainThread](2026-05-25 14:33:39,937) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] loss/vf = 0.30865851152050605
+[81973:MainThread](2026-05-25 14:33:39,938) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] loss/ent = 1.602140458854469
+[81973:MainThread](2026-05-25 14:33:42,210) INFO - qlib.rl.trainer.trainer - [trainer.py:211] - 
+2026-05-25 14:33:42	Train iteration 1/4
+[81973:MainThread](2026-05-25 14:33:42,211) INFO - qlib.rl.trainer.vessel - [vessel.py:144] - Training initial states collection size: 154
+[81973:MainThread](2026-05-25 14:33:42,211) INFO - qlib.rl.utils.data_queue - [data_queue.py:70] - Automatically set data queue maxsize to 10 to avoid overwhelming.
+[81973:MainThread](2026-05-25 14:33:59,671) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] n/ep = 8
+[81973:MainThread](2026-05-25 14:33:59,671) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] n/st = 2392
+[81973:MainThread](2026-05-25 14:33:59,672) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] rews = -235.5657536891673
+[81973:MainThread](2026-05-25 14:33:59,672) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] lens = 299.0
+[81973:MainThread](2026-05-25 14:33:59,672) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] idxs = 1046.5
+[81973:MainThread](2026-05-25 14:33:59,672) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] rew = -235.5657536891673
+[81973:MainThread](2026-05-25 14:33:59,672) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] len = 299.0
+[81973:MainThread](2026-05-25 14:33:59,673) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] rew_std = 99.5858859754296
+[81973:MainThread](2026-05-25 14:33:59,673) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] len_std = 0.0
+[81973:MainThread](2026-05-25 14:33:59,673) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] loss = 0.06612104862122922
+[81973:MainThread](2026-05-25 14:33:59,674) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] loss/clip = -0.002146286678055788
+[81973:MainThread](2026-05-25 14:33:59,674) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] loss/vf = 0.3367237868206995
+[81973:MainThread](2026-05-25 14:33:59,675) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] loss/ent = 1.5913611628987767
+[81973:MainThread](2026-05-25 14:34:01,682) INFO - qlib.rl.trainer.trainer - [trainer.py:211] - 
+2026-05-25 14:34:01	Train iteration 2/4
+[81973:MainThread](2026-05-25 14:34:01,682) INFO - qlib.rl.trainer.vessel - [vessel.py:144] - Training initial states collection size: 154
+[81973:MainThread](2026-05-25 14:34:01,682) INFO - qlib.rl.utils.data_queue - [data_queue.py:70] - Automatically set data queue maxsize to 10 to avoid overwhelming.
+[81973:MainThread](2026-05-25 14:34:19,918) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] n/ep = 8
+[81973:MainThread](2026-05-25 14:34:19,919) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] n/st = 2392
+[81973:MainThread](2026-05-25 14:34:19,919) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] rews = -257.7301553366799
+[81973:MainThread](2026-05-25 14:34:19,920) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] lens = 299.0
+[81973:MainThread](2026-05-25 14:34:19,921) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] idxs = 1046.5
+[81973:MainThread](2026-05-25 14:34:19,921) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] rew = -257.7301553366799
+[81973:MainThread](2026-05-25 14:34:19,922) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] len = 299.0
+[81973:MainThread](2026-05-25 14:34:19,922) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] rew_std = 71.5625440389471
+[81973:MainThread](2026-05-25 14:34:19,924) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] len_std = 0.0
+[81973:MainThread](2026-05-25 14:34:19,924) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] loss = 0.053831305933763854
+[81973:MainThread](2026-05-25 14:34:19,925) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] loss/clip = -0.0012988508794339257
+[81973:MainThread](2026-05-25 14:34:19,925) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] loss/vf = 0.2842832995024887
+[81973:MainThread](2026-05-25 14:34:19,925) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] loss/ent = 1.5940668282208141
+[81973:MainThread](2026-05-25 14:34:21,937) INFO - qlib.rl.trainer.trainer - [trainer.py:211] - 
+2026-05-25 14:34:21	Train iteration 3/4
+[81973:MainThread](2026-05-25 14:34:21,937) INFO - qlib.rl.trainer.vessel - [vessel.py:144] - Training initial states collection size: 154
+[81973:MainThread](2026-05-25 14:34:21,938) INFO - qlib.rl.utils.data_queue - [data_queue.py:70] - Automatically set data queue maxsize to 10 to avoid overwhelming.
+[81973:MainThread](2026-05-25 14:34:40,157) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] n/ep = 8
+[81973:MainThread](2026-05-25 14:34:40,157) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] n/st = 2392
+[81973:MainThread](2026-05-25 14:34:40,157) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] rews = -210.93571025137612
+[81973:MainThread](2026-05-25 14:34:40,157) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] lens = 299.0
+[81973:MainThread](2026-05-25 14:34:40,157) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] idxs = 1046.5
+[81973:MainThread](2026-05-25 14:34:40,158) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] rew = -210.93571025137612
+[81973:MainThread](2026-05-25 14:34:40,158) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] len = 299.0
+[81973:MainThread](2026-05-25 14:34:40,158) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] rew_std = 94.8477425154104
+[81973:MainThread](2026-05-25 14:34:40,158) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] len_std = 0.0
+[81973:MainThread](2026-05-25 14:34:40,158) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] loss = 0.07428090982474722
+[81973:MainThread](2026-05-25 14:34:40,158) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] loss/clip = -0.00037549971262001443
+[81973:MainThread](2026-05-25 14:34:40,159) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] loss/vf = 0.3624140321537181
+[81973:MainThread](2026-05-25 14:34:40,159) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] loss/ent = 1.5947098597749934
+[81973:MainThread](2026-05-25 14:34:42,174) INFO - qlib.rl.trainer.trainer - [trainer.py:211] - 
+2026-05-25 14:34:42	Train iteration 4/4
+[81973:MainThread](2026-05-25 14:34:42,175) INFO - qlib.rl.trainer.vessel - [vessel.py:144] - Training initial states collection size: 154
+[81973:MainThread](2026-05-25 14:34:42,175) INFO - qlib.rl.utils.data_queue - [data_queue.py:70] - Automatically set data queue maxsize to 10 to avoid overwhelming.
+[81973:MainThread](2026-05-25 14:35:00,759) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] n/ep = 8
+[81973:MainThread](2026-05-25 14:35:00,759) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] n/st = 2392
+[81973:MainThread](2026-05-25 14:35:00,760) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] rews = -228.17347225795783
+[81973:MainThread](2026-05-25 14:35:00,760) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] lens = 299.0
+[81973:MainThread](2026-05-25 14:35:00,761) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] idxs = 1046.5
+[81973:MainThread](2026-05-25 14:35:00,761) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] rew = -228.17347225795783
+[81973:MainThread](2026-05-25 14:35:00,761) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] len = 299.0
+[81973:MainThread](2026-05-25 14:35:00,762) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] rew_std = 69.2864514629829
+[81973:MainThread](2026-05-25 14:35:00,762) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] len_std = 0.0
+[81973:MainThread](2026-05-25 14:35:00,763) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] loss = 0.03651187475770712
+[81973:MainThread](2026-05-25 14:35:00,763) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] loss/clip = -0.002216551438192124
+[81973:MainThread](2026-05-25 14:35:00,764) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] loss/vf = 0.2185906921890942
+[81973:MainThread](2026-05-25 14:35:00,764) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] loss/ent = 1.5919247183713827
+[81973:MainThread](2026-05-25 14:35:04,631) WARNING - qlib.data - [data.py:665] - load calendar error: freq=day, future=True; return current calendar!
+[81973:MainThread](2026-05-25 14:35:04,632) WARNING - qlib.data - [data.py:668] - You can get future calendar by referring to the following document: https://github.com/microsoft/qlib/blob/main/scripts/data_collector/contrib/README.md
+[81973:MainThread](2026-05-25 14:35:04,636) WARNING - qlib.BaseExecutor - [executor.py:121] - `common_infra` is not set for <qlib.backtest.executor.SimulatorExecutor object at 0x135703e50>
+[81973:MainThread](2026-05-25 14:35:04,643) INFO - qlib.backtest caller - [__init__.py:93] - Create new exchange
+Exception ignored in: <function DataQueue.__del__ at 0x119c61940>
+Traceback (most recent call last):
+  File "/Users/rziiiii/.openclaw/workspace/qlib_venv/lib/python3.11/site-packages/qlib/rl/utils/data_queue.py", line 148, in __del__
+    self.cleanup()
+  File "/Users/rziiiii/.openclaw/workspace/qlib_venv/lib/python3.11/site-packages/qlib/rl/utils/data_queue.py", line 109, in cleanup
+    if self._queue.empty():
+       ^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.11/3.11.14_3/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/queues.py", line 129, in empty
+    return not self._poll()
+               ^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.11/3.11.14_3/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/connection.py", line 255, in poll
+    self._check_closed()
+  File "/opt/homebrew/Cellar/python@3.11/3.11.14_3/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/connection.py", line 137, in _check_closed
+    raise OSError("handle is closed")
+OSError: handle is closed
+Exception ignored in: <function DataQueue.__del__ at 0x119c61940>
+Traceback (most recent call last):
+  File "/Users/rziiiii/.openclaw/workspace/qlib_venv/lib/python3.11/site-packages/qlib/rl/utils/data_queue.py", line 148, in __del__
+    self.cleanup()
+  File "/Users/rziiiii/.openclaw/workspace/qlib_venv/lib/python3.11/site-packages/qlib/rl/utils/data_queue.py", line 99, in cleanup
+    while not self._queue.empty():
+              ^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.11/3.11.14_3/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/queues.py", line 129, in empty
+    return not self._poll()
+               ^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.11/3.11.14_3/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/connection.py", line 255, in poll
+    self._check_closed()
+  File "/opt/homebrew/Cellar/python@3.11/3.11.14_3/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/connection.py", line 137, in _check_closed
+    raise OSError("handle is closed")
+OSError: handle is closed
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+[81973:MainThread](2026-05-25 14:35:11,074) WARNING - qlib.online operator - [exchange.py:226] - factor.day.bin file not exists or factor contains `nan`. Order using adjusted_price.
+[81973:MainThread](2026-05-25 14:35:11,075) WARNING - qlib.online operator - [exchange.py:228] - trade unit 1 is not supported in adjusted_price mode.
+
+backtest loop:   0%|          | 0/252 [00:00<?, ?it/s]
+backtest loop:  43%|████▎     | 109/252 [00:00<00:00, 1072.33it/s]
+backtest loop:  86%|████████▌ | 217/252 [00:00<00:00, 668.55it/s] 
+backtest loop: 100%|██████████| 252/252 [00:00<00:00, 694.96it/s]
+/Users/rziiiii/.openclaw/workspace/qlib_venv/lib/python3.11/site-packages/joblib/externals/loky/backend/resource_tracker.py:359: UserWarning: resource_tracker: There appear to be 1 leaked folder objects to clean up at shutdown
+  warnings.warn(
+/Users/rziiiii/.openclaw/workspace/qlib_venv/lib/python3.11/site-packages/joblib/externals/loky/backend/resource_tracker.py:375: UserWarning: resource_tracker: /var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/joblib_memmapping_folder_81973_d43cdfe7ecc14aa9b66040130152a560_5171ce72da36463eab1be8a8a0932653: FileNotFoundError(2, 'No such file or directory')
+  warnings.warn(f"resource_tracker: {name}: {e!r}")
+/opt/homebrew/Cellar/python@3.11/3.11.14_3/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/resource_tracker.py:254: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+[8320:MainThread](2026-05-25 14:35:15,456) INFO - qlib.Initialization - [config.py:452] - default_conf: client.
+[8320:MainThread](2026-05-25 14:35:16,333) INFO - qlib.Initialization - [__init__.py:75] - qlib successfully initialized based on client settings.
+[8320:MainThread](2026-05-25 14:35:16,334) INFO - qlib.Initialization - [__init__.py:77] - data_path={'__DEFAULT_FREQ': PosixPath('/Users/rziiiii/.openclaw/workspace/data/qlib/soxl')}
+[8320:MainThread](2026-05-25 14:35:18,974) INFO - qlib.timer - [log.py:127] - Time cost: 0.002s | Loading data Done
+[8320:MainThread](2026-05-25 14:35:18,975) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | fit & process data Done
+[8320:MainThread](2026-05-25 14:35:18,975) INFO - qlib.timer - [log.py:127] - Time cost: 0.003s | Init data Done
+[8320:MainThread](2026-05-25 14:35:20,657) INFO - qlib.rl.trainer.trainer - [trainer.py:211] - 
+2026-05-25 14:35:20	Train iteration 1/4
+[8320:MainThread](2026-05-25 14:35:20,657) INFO - qlib.rl.trainer.vessel - [vessel.py:144] - Training initial states collection size: 202
+[8320:MainThread](2026-05-25 14:35:20,657) INFO - qlib.rl.utils.data_queue - [data_queue.py:70] - Automatically set data queue maxsize to 10 to avoid overwhelming.
+[8320:MainThread](2026-05-25 14:35:40,042) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] n/ep = 8
+[8320:MainThread](2026-05-25 14:35:40,043) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] n/st = 2392
+[8320:MainThread](2026-05-25 14:35:40,044) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] rews = -299.6342640103495
+[8320:MainThread](2026-05-25 14:35:40,044) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] lens = 299.0
+[8320:MainThread](2026-05-25 14:35:40,044) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] idxs = 1046.5
+[8320:MainThread](2026-05-25 14:35:40,045) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] rew = -299.6342640103495
+[8320:MainThread](2026-05-25 14:35:40,045) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] len = 299.0
+[8320:MainThread](2026-05-25 14:35:40,046) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] rew_std = 137.94359844235947
+[8320:MainThread](2026-05-25 14:35:40,046) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] len_std = 0.0
+[8320:MainThread](2026-05-25 14:35:40,046) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] loss = 20.491884883124012
+[8320:MainThread](2026-05-25 14:35:40,047) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] loss/clip = -0.0008278965958795796
+[8320:MainThread](2026-05-25 14:35:40,047) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] loss/vf = 82.03520515681925
+[8320:MainThread](2026-05-25 14:35:40,047) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] loss/ent = 1.6088286815462887
+[8320:MainThread](2026-05-25 14:35:42,066) INFO - qlib.rl.trainer.trainer - [trainer.py:211] - 
+2026-05-25 14:35:42	Train iteration 2/4
+[8320:MainThread](2026-05-25 14:35:42,066) INFO - qlib.rl.trainer.vessel - [vessel.py:144] - Training initial states collection size: 202
+[8320:MainThread](2026-05-25 14:35:42,067) INFO - qlib.rl.utils.data_queue - [data_queue.py:70] - Automatically set data queue maxsize to 10 to avoid overwhelming.
+[8320:MainThread](2026-05-25 14:35:59,476) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] n/ep = 8
+[8320:MainThread](2026-05-25 14:35:59,476) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] n/st = 2392
+[8320:MainThread](2026-05-25 14:35:59,477) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] rews = -299.682830731438
+[8320:MainThread](2026-05-25 14:35:59,477) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] lens = 299.0
+[8320:MainThread](2026-05-25 14:35:59,478) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] idxs = 1046.5
+[8320:MainThread](2026-05-25 14:35:59,478) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] rew = -299.682830731438
+[8320:MainThread](2026-05-25 14:35:59,479) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] len = 299.0
+[8320:MainThread](2026-05-25 14:35:59,479) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] rew_std = 78.85582040755598
+[8320:MainThread](2026-05-25 14:35:59,480) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] len_std = 0.0
+[8320:MainThread](2026-05-25 14:35:59,480) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] loss = 0.08005922974867595
+[8320:MainThread](2026-05-25 14:35:59,481) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] loss/clip = -0.002477329541737138
+[8320:MainThread](2026-05-25 14:35:59,481) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] loss/vf = 0.3941426105327434
+[8320:MainThread](2026-05-25 14:35:59,482) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] loss/ent = 1.5999093662511121
+[8320:MainThread](2026-05-25 14:36:01,489) INFO - qlib.rl.trainer.trainer - [trainer.py:211] - 
+2026-05-25 14:36:01	Train iteration 3/4
+[8320:MainThread](2026-05-25 14:36:01,489) INFO - qlib.rl.trainer.vessel - [vessel.py:144] - Training initial states collection size: 202
+[8320:MainThread](2026-05-25 14:36:01,490) INFO - qlib.rl.utils.data_queue - [data_queue.py:70] - Automatically set data queue maxsize to 10 to avoid overwhelming.
+[8320:MainThread](2026-05-25 14:36:19,180) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] n/ep = 8
+[8320:MainThread](2026-05-25 14:36:19,180) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] n/st = 2392
+[8320:MainThread](2026-05-25 14:36:19,181) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] rews = -250.80121135347227
+[8320:MainThread](2026-05-25 14:36:19,181) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] lens = 299.0
+[8320:MainThread](2026-05-25 14:36:19,183) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] idxs = 1046.5
+[8320:MainThread](2026-05-25 14:36:19,185) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] rew = -250.80121135347227
+[8320:MainThread](2026-05-25 14:36:19,186) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] len = 299.0
+[8320:MainThread](2026-05-25 14:36:19,186) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] rew_std = 111.26127016763225
+[8320:MainThread](2026-05-25 14:36:19,187) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] len_std = 0.0
+[8320:MainThread](2026-05-25 14:36:19,187) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] loss = 0.06449618843291793
+[8320:MainThread](2026-05-25 14:36:19,188) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] loss/clip = -0.0029990226261082803
+[8320:MainThread](2026-05-25 14:36:19,188) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] loss/vf = 0.3340957711811538
+[8320:MainThread](2026-05-25 14:36:19,188) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] loss/ent = 1.6028731782157142
+[8320:MainThread](2026-05-25 14:36:20,195) INFO - qlib.rl.trainer.trainer - [trainer.py:211] - 
+2026-05-25 14:36:20	Train iteration 4/4
+[8320:MainThread](2026-05-25 14:36:20,196) INFO - qlib.rl.trainer.vessel - [vessel.py:144] - Training initial states collection size: 202
+[8320:MainThread](2026-05-25 14:36:20,196) INFO - qlib.rl.utils.data_queue - [data_queue.py:70] - Automatically set data queue maxsize to 10 to avoid overwhelming.
+[8320:MainThread](2026-05-25 14:36:38,381) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] n/ep = 8
+[8320:MainThread](2026-05-25 14:36:38,381) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] n/st = 2392
+[8320:MainThread](2026-05-25 14:36:38,381) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] rews = -277.61255690444966
+[8320:MainThread](2026-05-25 14:36:38,382) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] lens = 299.0
+[8320:MainThread](2026-05-25 14:36:38,382) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] idxs = 1046.5
+[8320:MainThread](2026-05-25 14:36:38,383) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] rew = -277.61255690444966
+[8320:MainThread](2026-05-25 14:36:38,383) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] len = 299.0
+[8320:MainThread](2026-05-25 14:36:38,384) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] rew_std = 68.19512958123654
+[8320:MainThread](2026-05-25 14:36:38,384) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] len_std = 0.0
+[8320:MainThread](2026-05-25 14:36:38,384) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] loss = 0.06578443644920716
+[8320:MainThread](2026-05-25 14:36:38,385) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] loss/clip = -0.0010231133072683169
+[8320:MainThread](2026-05-25 14:36:38,385) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] loss/vf = 0.33116162575043
+[8320:MainThread](2026-05-25 14:36:38,386) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] loss/ent = 1.5982856986758944
+[8320:MainThread](2026-05-25 14:36:40,657) INFO - qlib.rl.trainer.trainer - [trainer.py:211] - 
+2026-05-25 14:36:40	Train iteration 1/4
+[8320:MainThread](2026-05-25 14:36:40,658) INFO - qlib.rl.trainer.vessel - [vessel.py:144] - Training initial states collection size: 202
+[8320:MainThread](2026-05-25 14:36:40,658) INFO - qlib.rl.utils.data_queue - [data_queue.py:70] - Automatically set data queue maxsize to 10 to avoid overwhelming.
+[8320:MainThread](2026-05-25 14:36:57,921) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] n/ep = 8
+[8320:MainThread](2026-05-25 14:36:57,921) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] n/st = 2392
+[8320:MainThread](2026-05-25 14:36:57,921) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] rews = -278.8862913065144
+[8320:MainThread](2026-05-25 14:36:57,921) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] lens = 299.0
+[8320:MainThread](2026-05-25 14:36:57,922) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] idxs = 1046.5
+[8320:MainThread](2026-05-25 14:36:57,922) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] rew = -278.8862913065144
+[8320:MainThread](2026-05-25 14:36:57,922) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] len = 299.0
+[8320:MainThread](2026-05-25 14:36:57,922) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] rew_std = 60.467031239063786
+[8320:MainThread](2026-05-25 14:36:57,922) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] len_std = 0.0
+[8320:MainThread](2026-05-25 14:36:57,922) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] loss = 0.04792597343692103
+[8320:MainThread](2026-05-25 14:36:57,923) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] loss/clip = -0.0017951461140418778
+[8320:MainThread](2026-05-25 14:36:57,923) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] loss/vf = 0.26207745326934634
+[8320:MainThread](2026-05-25 14:36:57,923) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] loss/ent = 1.579824425078727
+[8320:MainThread](2026-05-25 14:36:59,942) INFO - qlib.rl.trainer.trainer - [trainer.py:211] - 
+2026-05-25 14:36:59	Train iteration 2/4
+[8320:MainThread](2026-05-25 14:36:59,943) INFO - qlib.rl.trainer.vessel - [vessel.py:144] - Training initial states collection size: 202
+[8320:MainThread](2026-05-25 14:36:59,943) INFO - qlib.rl.utils.data_queue - [data_queue.py:70] - Automatically set data queue maxsize to 10 to avoid overwhelming.
+[8320:MainThread](2026-05-25 14:37:17,716) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] n/ep = 8
+[8320:MainThread](2026-05-25 14:37:17,717) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] n/st = 2392
+[8320:MainThread](2026-05-25 14:37:17,717) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] rews = -222.03502124700623
+[8320:MainThread](2026-05-25 14:37:17,718) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] lens = 299.0
+[8320:MainThread](2026-05-25 14:37:17,719) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] idxs = 1046.5
+[8320:MainThread](2026-05-25 14:37:17,719) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] rew = -222.03502124700623
+[8320:MainThread](2026-05-25 14:37:17,719) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] len = 299.0
+[8320:MainThread](2026-05-25 14:37:17,720) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] rew_std = 61.84820785113298
+[8320:MainThread](2026-05-25 14:37:17,720) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] len_std = 0.0
+[8320:MainThread](2026-05-25 14:37:17,722) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] loss = 0.05235758378497652
+[8320:MainThread](2026-05-25 14:37:17,722) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] loss/clip = -0.0007065309300496419
+[8320:MainThread](2026-05-25 14:37:17,722) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] loss/vf = 0.2750813315312068
+[8320:MainThread](2026-05-25 14:37:17,722) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] loss/ent = 1.5706218566980448
+[8320:MainThread](2026-05-25 14:37:19,734) INFO - qlib.rl.trainer.trainer - [trainer.py:211] - 
+2026-05-25 14:37:19	Train iteration 3/4
+[8320:MainThread](2026-05-25 14:37:19,734) INFO - qlib.rl.trainer.vessel - [vessel.py:144] - Training initial states collection size: 202
+[8320:MainThread](2026-05-25 14:37:19,735) INFO - qlib.rl.utils.data_queue - [data_queue.py:70] - Automatically set data queue maxsize to 10 to avoid overwhelming.
+[8320:MainThread](2026-05-25 14:37:37,388) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] n/ep = 8
+[8320:MainThread](2026-05-25 14:37:37,388) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] n/st = 2392
+[8320:MainThread](2026-05-25 14:37:37,389) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] rews = -286.5434499447425
+[8320:MainThread](2026-05-25 14:37:37,389) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] lens = 299.0
+[8320:MainThread](2026-05-25 14:37:37,390) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] idxs = 1046.5
+[8320:MainThread](2026-05-25 14:37:37,390) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] rew = -286.5434499447425
+[8320:MainThread](2026-05-25 14:37:37,391) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] len = 299.0
+[8320:MainThread](2026-05-25 14:37:37,391) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] rew_std = 101.33295491159888
+[8320:MainThread](2026-05-25 14:37:37,391) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] len_std = 0.0
+[8320:MainThread](2026-05-25 14:37:37,392) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] loss = 0.05940004812368938
+[8320:MainThread](2026-05-25 14:37:37,392) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] loss/clip = -0.002914844427691974
+[8320:MainThread](2026-05-25 14:37:37,393) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] loss/vf = 0.31082577580535736
+[8320:MainThread](2026-05-25 14:37:37,393) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] loss/ent = 1.5391551836116895
+[8320:MainThread](2026-05-25 14:37:38,400) INFO - qlib.rl.trainer.trainer - [trainer.py:211] - 
+2026-05-25 14:37:38	Train iteration 4/4
+[8320:MainThread](2026-05-25 14:37:38,401) INFO - qlib.rl.trainer.vessel - [vessel.py:144] - Training initial states collection size: 202
+[8320:MainThread](2026-05-25 14:37:38,401) INFO - qlib.rl.utils.data_queue - [data_queue.py:70] - Automatically set data queue maxsize to 10 to avoid overwhelming.
+[8320:MainThread](2026-05-25 14:37:56,451) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] n/ep = 8
+[8320:MainThread](2026-05-25 14:37:56,452) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] n/st = 2392
+[8320:MainThread](2026-05-25 14:37:56,453) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] rews = -261.33276794624027
+[8320:MainThread](2026-05-25 14:37:56,454) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] lens = 299.0
+[8320:MainThread](2026-05-25 14:37:56,454) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] idxs = 1046.5
+[8320:MainThread](2026-05-25 14:37:56,455) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] rew = -261.33276794624027
+[8320:MainThread](2026-05-25 14:37:56,456) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] len = 299.0
+[8320:MainThread](2026-05-25 14:37:56,457) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] rew_std = 96.2291255825898
+[8320:MainThread](2026-05-25 14:37:56,457) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] len_std = 0.0
+[8320:MainThread](2026-05-25 14:37:56,458) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] loss = 0.04491235973598721
+[8320:MainThread](2026-05-25 14:37:56,458) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] loss/clip = -0.003726716594862844
+[8320:MainThread](2026-05-25 14:37:56,459) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] loss/vf = 0.2569988417598578
+[8320:MainThread](2026-05-25 14:37:56,459) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] loss/ent = 1.5610634534208625
+[8320:MainThread](2026-05-25 14:38:00,322) WARNING - qlib.data - [data.py:665] - load calendar error: freq=day, future=True; return current calendar!
+[8320:MainThread](2026-05-25 14:38:00,322) WARNING - qlib.data - [data.py:668] - You can get future calendar by referring to the following document: https://github.com/microsoft/qlib/blob/main/scripts/data_collector/contrib/README.md
+[8320:MainThread](2026-05-25 14:38:00,325) WARNING - qlib.BaseExecutor - [executor.py:121] - `common_infra` is not set for <qlib.backtest.executor.SimulatorExecutor object at 0x124f3f350>
+[8320:MainThread](2026-05-25 14:38:00,329) INFO - qlib.backtest caller - [__init__.py:93] - Create new exchange
+Exception ignored in: <function DataQueue.__del__ at 0x11dc4d940>
+Traceback (most recent call last):
+  File "/Users/rziiiii/.openclaw/workspace/qlib_venv/lib/python3.11/site-packages/qlib/rl/utils/data_queue.py", line 148, in __del__
+    self.cleanup()
+  File "/Users/rziiiii/.openclaw/workspace/qlib_venv/lib/python3.11/site-packages/qlib/rl/utils/data_queue.py", line 109, in cleanup
+    if self._queue.empty():
+       ^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.11/3.11.14_3/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/queues.py", line 129, in empty
+    return not self._poll()
+               ^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.11/3.11.14_3/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/connection.py", line 255, in poll
+    self._check_closed()
+  File "/opt/homebrew/Cellar/python@3.11/3.11.14_3/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/connection.py", line 137, in _check_closed
+    raise OSError("handle is closed")
+OSError: handle is closed
+Exception ignored in: <function DataQueue.__del__ at 0x11dc4d940>
+Traceback (most recent call last):
+  File "/Users/rziiiii/.openclaw/workspace/qlib_venv/lib/python3.11/site-packages/qlib/rl/utils/data_queue.py", line 148, in __del__
+    self.cleanup()
+  File "/Users/rziiiii/.openclaw/workspace/qlib_venv/lib/python3.11/site-packages/qlib/rl/utils/data_queue.py", line 99, in cleanup
+    while not self._queue.empty():
+              ^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.11/3.11.14_3/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/queues.py", line 129, in empty
+    return not self._poll()
+               ^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.11/3.11.14_3/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/connection.py", line 255, in poll
+    self._check_closed()
+  File "/opt/homebrew/Cellar/python@3.11/3.11.14_3/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/connection.py", line 137, in _check_closed
+    raise OSError("handle is closed")
+OSError: handle is closed
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+[8320:MainThread](2026-05-25 14:38:06,558) WARNING - qlib.online operator - [exchange.py:226] - factor.day.bin file not exists or factor contains `nan`. Order using adjusted_price.
+[8320:MainThread](2026-05-25 14:38:06,558) WARNING - qlib.online operator - [exchange.py:228] - trade unit 1 is not supported in adjusted_price mode.
+
+backtest loop:   0%|          | 0/250 [00:00<?, ?it/s]
+backtest loop:  42%|████▏     | 104/250 [00:00<00:00, 1017.68it/s]
+backtest loop:  82%|████████▏ | 206/250 [00:00<00:00, 610.92it/s] 
+backtest loop: 100%|██████████| 250/250 [00:00<00:00, 651.31it/s]
+[8320:MainThread](2026-05-25 14:38:06,958) WARNING - qlib.BaseExecutor - [executor.py:121] - `common_infra` is not set for <qlib.backtest.executor.SimulatorExecutor object at 0x1249ca790>
+[8320:MainThread](2026-05-25 14:38:06,962) INFO - qlib.backtest caller - [__init__.py:93] - Create new exchange
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+[8320:MainThread](2026-05-25 14:38:11,568) WARNING - qlib.online operator - [exchange.py:226] - factor.day.bin file not exists or factor contains `nan`. Order using adjusted_price.
+[8320:MainThread](2026-05-25 14:38:11,569) WARNING - qlib.online operator - [exchange.py:228] - trade unit 1 is not supported in adjusted_price mode.
+
+backtest loop:   0%|          | 0/250 [00:00<?, ?it/s]
+backtest loop:  38%|███▊      | 94/250 [00:00<00:00, 922.55it/s]
+backtest loop:  75%|███████▍  | 187/250 [00:00<00:00, 630.38it/s]
+backtest loop: 100%|██████████| 250/250 [00:00<00:00, 612.50it/s]
+/Users/rziiiii/.openclaw/workspace/qlib_venv/lib/python3.11/site-packages/joblib/externals/loky/backend/resource_tracker.py:359: UserWarning: resource_tracker: There appear to be 2 leaked folder objects to clean up at shutdown
+  warnings.warn(
+/Users/rziiiii/.openclaw/workspace/qlib_venv/lib/python3.11/site-packages/joblib/externals/loky/backend/resource_tracker.py:375: UserWarning: resource_tracker: /var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/joblib_memmapping_folder_8320_7da1f1f44644491ea8a0423c8336bb6e_d876d3ca17d04d8c9b9c4caf35b5f3c2: FileNotFoundError(2, 'No such file or directory')
+  warnings.warn(f"resource_tracker: {name}: {e!r}")
+/Users/rziiiii/.openclaw/workspace/qlib_venv/lib/python3.11/site-packages/joblib/externals/loky/backend/resource_tracker.py:375: UserWarning: resource_tracker: /var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/joblib_memmapping_folder_8320_3ca1502fd2b14c10a2694bd2a62eb2bc_450705e543df4d37a245d42a48a71b16: FileNotFoundError(2, 'No such file or directory')
+  warnings.warn(f"resource_tracker: {name}: {e!r}")
+/opt/homebrew/Cellar/python@3.11/3.11.14_3/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/resource_tracker.py:254: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+[34681:MainThread](2026-05-25 14:38:15,915) INFO - qlib.Initialization - [config.py:452] - default_conf: client.
+[34681:MainThread](2026-05-25 14:38:16,782) INFO - qlib.Initialization - [__init__.py:75] - qlib successfully initialized based on client settings.
+[34681:MainThread](2026-05-25 14:38:16,783) INFO - qlib.Initialization - [__init__.py:77] - data_path={'__DEFAULT_FREQ': PosixPath('/Users/rziiiii/.openclaw/workspace/data/qlib/soxl')}
+[34681:MainThread](2026-05-25 14:38:19,402) INFO - qlib.timer - [log.py:127] - Time cost: 0.001s | Loading data Done
+[34681:MainThread](2026-05-25 14:38:19,402) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | fit & process data Done
+[34681:MainThread](2026-05-25 14:38:19,402) INFO - qlib.timer - [log.py:127] - Time cost: 0.001s | Init data Done
+[34681:MainThread](2026-05-25 14:38:21,052) INFO - qlib.rl.trainer.trainer - [trainer.py:211] - 
+2026-05-25 14:38:21	Train iteration 1/4
+[34681:MainThread](2026-05-25 14:38:21,053) INFO - qlib.rl.trainer.vessel - [vessel.py:144] - Training initial states collection size: 250
+[34681:MainThread](2026-05-25 14:38:21,053) INFO - qlib.rl.utils.data_queue - [data_queue.py:70] - Automatically set data queue maxsize to 10 to avoid overwhelming.
+[34681:MainThread](2026-05-25 14:38:40,007) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] n/ep = 8
+[34681:MainThread](2026-05-25 14:38:40,008) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] n/st = 2392
+[34681:MainThread](2026-05-25 14:38:40,008) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] rews = -253.4640729547275
+[34681:MainThread](2026-05-25 14:38:40,009) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] lens = 299.0
+[34681:MainThread](2026-05-25 14:38:40,009) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] idxs = 1046.5
+[34681:MainThread](2026-05-25 14:38:40,009) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] rew = -253.4640729547275
+[34681:MainThread](2026-05-25 14:38:40,010) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] len = 299.0
+[34681:MainThread](2026-05-25 14:38:40,010) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] rew_std = 127.41080756888135
+[34681:MainThread](2026-05-25 14:38:40,011) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] len_std = 0.0
+[34681:MainThread](2026-05-25 14:38:40,011) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] loss = 20.221793069932108
+[34681:MainThread](2026-05-25 14:38:40,011) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] loss/clip = -0.0029767819780957055
+[34681:MainThread](2026-05-25 14:38:40,012) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] loss/vf = 80.96334057630182
+[34681:MainThread](2026-05-25 14:38:40,012) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] loss/ent = 1.606519966512113
+[34681:MainThread](2026-05-25 14:38:41,014) INFO - qlib.rl.trainer.trainer - [trainer.py:211] - 
+2026-05-25 14:38:41	Train iteration 2/4
+[34681:MainThread](2026-05-25 14:38:41,014) INFO - qlib.rl.trainer.vessel - [vessel.py:144] - Training initial states collection size: 250
+[34681:MainThread](2026-05-25 14:38:41,015) INFO - qlib.rl.utils.data_queue - [data_queue.py:70] - Automatically set data queue maxsize to 10 to avoid overwhelming.
+[34681:MainThread](2026-05-25 14:38:57,763) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] n/ep = 8
+[34681:MainThread](2026-05-25 14:38:57,764) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] n/st = 2392
+[34681:MainThread](2026-05-25 14:38:57,764) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] rews = -203.14597583404333
+[34681:MainThread](2026-05-25 14:38:57,764) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] lens = 299.0
+[34681:MainThread](2026-05-25 14:38:57,764) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] idxs = 1046.5
+[34681:MainThread](2026-05-25 14:38:57,764) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] rew = -203.14597583404333
+[34681:MainThread](2026-05-25 14:38:57,765) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] len = 299.0
+[34681:MainThread](2026-05-25 14:38:57,765) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] rew_std = 130.26701820224145
+[34681:MainThread](2026-05-25 14:38:57,765) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] len_std = 0.0
+[34681:MainThread](2026-05-25 14:38:57,765) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] loss = 0.09001712668854911
+[34681:MainThread](2026-05-25 14:38:57,765) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] loss/clip = -0.003110568914856124
+[34681:MainThread](2026-05-25 14:38:57,765) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] loss/vf = 0.43676259113593147
+[34681:MainThread](2026-05-25 14:38:57,766) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] loss/ent = 1.6062952457247555
+[34681:MainThread](2026-05-25 14:38:59,778) INFO - qlib.rl.trainer.trainer - [trainer.py:211] - 
+2026-05-25 14:38:59	Train iteration 3/4
+[34681:MainThread](2026-05-25 14:38:59,779) INFO - qlib.rl.trainer.vessel - [vessel.py:144] - Training initial states collection size: 250
+[34681:MainThread](2026-05-25 14:38:59,779) INFO - qlib.rl.utils.data_queue - [data_queue.py:70] - Automatically set data queue maxsize to 10 to avoid overwhelming.
+[34681:MainThread](2026-05-25 14:39:18,212) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] n/ep = 8
+[34681:MainThread](2026-05-25 14:39:18,212) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] n/st = 2392
+[34681:MainThread](2026-05-25 14:39:18,213) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] rews = -268.58721555319227
+[34681:MainThread](2026-05-25 14:39:18,214) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] lens = 299.0
+[34681:MainThread](2026-05-25 14:39:18,214) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] idxs = 1046.5
+[34681:MainThread](2026-05-25 14:39:18,214) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] rew = -268.58721555319227
+[34681:MainThread](2026-05-25 14:39:18,215) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] len = 299.0
+[34681:MainThread](2026-05-25 14:39:18,215) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] rew_std = 96.62741779425491
+[34681:MainThread](2026-05-25 14:39:18,216) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] len_std = 0.0
+[34681:MainThread](2026-05-25 14:39:18,217) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] loss = 0.07174113049666893
+[34681:MainThread](2026-05-25 14:39:18,217) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] loss/clip = -7.670657273470047e-05
+[34681:MainThread](2026-05-25 14:39:18,217) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] loss/vf = 0.35152319979828756
+[34681:MainThread](2026-05-25 14:39:18,217) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] loss/ent = 1.6062963282739795
+[34681:MainThread](2026-05-25 14:39:20,230) INFO - qlib.rl.trainer.trainer - [trainer.py:211] - 
+2026-05-25 14:39:20	Train iteration 4/4
+[34681:MainThread](2026-05-25 14:39:20,230) INFO - qlib.rl.trainer.vessel - [vessel.py:144] - Training initial states collection size: 250
+[34681:MainThread](2026-05-25 14:39:20,231) INFO - qlib.rl.utils.data_queue - [data_queue.py:70] - Automatically set data queue maxsize to 10 to avoid overwhelming.
+[34681:MainThread](2026-05-25 14:39:38,454) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] n/ep = 8
+[34681:MainThread](2026-05-25 14:39:38,455) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] n/st = 2392
+[34681:MainThread](2026-05-25 14:39:38,455) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] rews = -268.2398129663773
+[34681:MainThread](2026-05-25 14:39:38,455) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] lens = 299.0
+[34681:MainThread](2026-05-25 14:39:38,455) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] idxs = 1046.5
+[34681:MainThread](2026-05-25 14:39:38,455) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] rew = -268.2398129663773
+[34681:MainThread](2026-05-25 14:39:38,455) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] len = 299.0
+[34681:MainThread](2026-05-25 14:39:38,456) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] rew_std = 110.0903050686514
+[34681:MainThread](2026-05-25 14:39:38,456) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] len_std = 0.0
+[34681:MainThread](2026-05-25 14:39:38,456) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] loss = 0.07584632824065986
+[34681:MainThread](2026-05-25 14:39:38,456) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] loss/clip = -0.0030906245732252057
+[34681:MainThread](2026-05-25 14:39:38,456) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] loss/vf = 0.37998001962094696
+[34681:MainThread](2026-05-25 14:39:38,456) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] loss/ent = 1.6058052547343142
+[34681:MainThread](2026-05-25 14:39:40,725) INFO - qlib.rl.trainer.trainer - [trainer.py:211] - 
+2026-05-25 14:39:40	Train iteration 1/4
+[34681:MainThread](2026-05-25 14:39:40,726) INFO - qlib.rl.trainer.vessel - [vessel.py:144] - Training initial states collection size: 250
+[34681:MainThread](2026-05-25 14:39:40,726) INFO - qlib.rl.utils.data_queue - [data_queue.py:70] - Automatically set data queue maxsize to 10 to avoid overwhelming.
+[34681:MainThread](2026-05-25 14:39:57,943) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] n/ep = 8
+[34681:MainThread](2026-05-25 14:39:57,944) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] n/st = 2392
+[34681:MainThread](2026-05-25 14:39:57,944) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] rews = -325.36264782178125
+[34681:MainThread](2026-05-25 14:39:57,944) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] lens = 299.0
+[34681:MainThread](2026-05-25 14:39:57,945) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] idxs = 1046.5
+[34681:MainThread](2026-05-25 14:39:57,945) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] rew = -325.36264782178125
+[34681:MainThread](2026-05-25 14:39:57,945) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] len = 299.0
+[34681:MainThread](2026-05-25 14:39:57,946) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] rew_std = 59.59770793702219
+[34681:MainThread](2026-05-25 14:39:57,946) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] len_std = 0.0
+[34681:MainThread](2026-05-25 14:39:57,946) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] loss = 0.04649536493695802
+[34681:MainThread](2026-05-25 14:39:57,946) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] loss/clip = -0.001697860403838022
+[34681:MainThread](2026-05-25 14:39:57,946) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] loss/vf = 0.25701555123066044
+[34681:MainThread](2026-05-25 14:39:57,946) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 1] loss/ent = 1.6060662564930615
+[34681:MainThread](2026-05-25 14:39:59,951) INFO - qlib.rl.trainer.trainer - [trainer.py:211] - 
+2026-05-25 14:39:59	Train iteration 2/4
+[34681:MainThread](2026-05-25 14:39:59,951) INFO - qlib.rl.trainer.vessel - [vessel.py:144] - Training initial states collection size: 250
+[34681:MainThread](2026-05-25 14:39:59,951) INFO - qlib.rl.utils.data_queue - [data_queue.py:70] - Automatically set data queue maxsize to 10 to avoid overwhelming.
+[34681:MainThread](2026-05-25 14:40:17,804) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] n/ep = 8
+[34681:MainThread](2026-05-25 14:40:17,805) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] n/st = 2392
+[34681:MainThread](2026-05-25 14:40:17,805) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] rews = -289.7277037054203
+[34681:MainThread](2026-05-25 14:40:17,806) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] lens = 299.0
+[34681:MainThread](2026-05-25 14:40:17,806) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] idxs = 1046.5
+[34681:MainThread](2026-05-25 14:40:17,807) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] rew = -289.7277037054203
+[34681:MainThread](2026-05-25 14:40:17,807) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] len = 299.0
+[34681:MainThread](2026-05-25 14:40:17,808) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] rew_std = 139.33161380098693
+[34681:MainThread](2026-05-25 14:40:17,808) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] len_std = 0.0
+[34681:MainThread](2026-05-25 14:40:17,808) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] loss = 0.039040401552778645
+[34681:MainThread](2026-05-25 14:40:17,808) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] loss/clip = -0.00101777208877687
+[34681:MainThread](2026-05-25 14:40:17,808) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] loss/vf = 0.2244793456215579
+[34681:MainThread](2026-05-25 14:40:17,808) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 2] loss/ent = 1.6061663128234245
+[34681:MainThread](2026-05-25 14:40:19,825) INFO - qlib.rl.trainer.trainer - [trainer.py:211] - 
+2026-05-25 14:40:19	Train iteration 3/4
+[34681:MainThread](2026-05-25 14:40:19,825) INFO - qlib.rl.trainer.vessel - [vessel.py:144] - Training initial states collection size: 250
+[34681:MainThread](2026-05-25 14:40:19,826) INFO - qlib.rl.utils.data_queue - [data_queue.py:70] - Automatically set data queue maxsize to 10 to avoid overwhelming.
+[34681:MainThread](2026-05-25 14:40:37,464) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] n/ep = 8
+[34681:MainThread](2026-05-25 14:40:37,464) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] n/st = 2392
+[34681:MainThread](2026-05-25 14:40:37,465) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] rews = -329.66019705483353
+[34681:MainThread](2026-05-25 14:40:37,465) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] lens = 299.0
+[34681:MainThread](2026-05-25 14:40:37,465) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] idxs = 1046.5
+[34681:MainThread](2026-05-25 14:40:37,465) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] rew = -329.66019705483353
+[34681:MainThread](2026-05-25 14:40:37,465) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] len = 299.0
+[34681:MainThread](2026-05-25 14:40:37,465) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] rew_std = 99.10505200191903
+[34681:MainThread](2026-05-25 14:40:37,466) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] len_std = 0.0
+[34681:MainThread](2026-05-25 14:40:37,466) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] loss = 0.06088643468211632
+[34681:MainThread](2026-05-25 14:40:37,466) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] loss/clip = -0.002408705928639786
+[34681:MainThread](2026-05-25 14:40:37,466) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] loss/vf = 0.3173479911711839
+[34681:MainThread](2026-05-25 14:40:37,466) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 3] loss/ent = 1.6041857895550427
+[34681:MainThread](2026-05-25 14:40:39,470) INFO - qlib.rl.trainer.trainer - [trainer.py:211] - 
+2026-05-25 14:40:39	Train iteration 4/4
+[34681:MainThread](2026-05-25 14:40:39,470) INFO - qlib.rl.trainer.vessel - [vessel.py:144] - Training initial states collection size: 250
+[34681:MainThread](2026-05-25 14:40:39,471) INFO - qlib.rl.utils.data_queue - [data_queue.py:70] - Automatically set data queue maxsize to 10 to avoid overwhelming.
+[34681:MainThread](2026-05-25 14:40:57,169) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] n/ep = 8
+[34681:MainThread](2026-05-25 14:40:57,169) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] n/st = 2392
+[34681:MainThread](2026-05-25 14:40:57,169) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] rews = -272.88207846415673
+[34681:MainThread](2026-05-25 14:40:57,169) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] lens = 299.0
+[34681:MainThread](2026-05-25 14:40:57,169) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] idxs = 1046.5
+[34681:MainThread](2026-05-25 14:40:57,169) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] rew = -272.88207846415673
+[34681:MainThread](2026-05-25 14:40:57,170) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] len = 299.0
+[34681:MainThread](2026-05-25 14:40:57,170) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] rew_std = 118.99033540074454
+[34681:MainThread](2026-05-25 14:40:57,170) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] len_std = 0.0
+[34681:MainThread](2026-05-25 14:40:57,170) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] loss = 0.03400493429990502
+[34681:MainThread](2026-05-25 14:40:57,170) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] loss/clip = -0.0031862703376441255
+[34681:MainThread](2026-05-25 14:40:57,171) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] loss/vf = 0.2130421178566443
+[34681:MainThread](2026-05-25 14:40:57,171) INFO - qlib.rl.trainer.vessel - [vessel.py:83] - [Iter 4] loss/ent = 1.606932520866394
+[34681:MainThread](2026-05-25 14:41:01,016) WARNING - qlib.data - [data.py:665] - load calendar error: freq=day, future=True; return current calendar!
+[34681:MainThread](2026-05-25 14:41:01,016) WARNING - qlib.data - [data.py:668] - You can get future calendar by referring to the following document: https://github.com/microsoft/qlib/blob/main/scripts/data_collector/contrib/README.md
+[34681:MainThread](2026-05-25 14:41:01,019) WARNING - qlib.BaseExecutor - [executor.py:121] - `common_infra` is not set for <qlib.backtest.executor.SimulatorExecutor object at 0x124dafe50>
+[34681:MainThread](2026-05-25 14:41:01,024) INFO - qlib.backtest caller - [__init__.py:93] - Create new exchange
+Exception ignored in: <function DataQueue.__del__ at 0x11dfd9940>
+Traceback (most recent call last):
+  File "/Users/rziiiii/.openclaw/workspace/qlib_venv/lib/python3.11/site-packages/qlib/rl/utils/data_queue.py", line 148, in __del__
+    self.cleanup()
+  File "/Users/rziiiii/.openclaw/workspace/qlib_venv/lib/python3.11/site-packages/qlib/rl/utils/data_queue.py", line 109, in cleanup
+    if self._queue.empty():
+       ^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.11/3.11.14_3/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/queues.py", line 129, in empty
+    return not self._poll()
+               ^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.11/3.11.14_3/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/connection.py", line 255, in poll
+    self._check_closed()
+  File "/opt/homebrew/Cellar/python@3.11/3.11.14_3/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/connection.py", line 137, in _check_closed
+    raise OSError("handle is closed")
+OSError: handle is closed
+Exception ignored in: <function DataQueue.__del__ at 0x11dfd9940>
+Traceback (most recent call last):
+  File "/Users/rziiiii/.openclaw/workspace/qlib_venv/lib/python3.11/site-packages/qlib/rl/utils/data_queue.py", line 148, in __del__
+    self.cleanup()
+  File "/Users/rziiiii/.openclaw/workspace/qlib_venv/lib/python3.11/site-packages/qlib/rl/utils/data_queue.py", line 99, in cleanup
+    while not self._queue.empty():
+              ^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.11/3.11.14_3/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/queues.py", line 129, in empty
+    return not self._poll()
+               ^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.11/3.11.14_3/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/connection.py", line 255, in poll
+    self._check_closed()
+  File "/opt/homebrew/Cellar/python@3.11/3.11.14_3/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/connection.py", line 137, in _check_closed
+    raise OSError("handle is closed")
+OSError: handle is closed
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+[34681:MainThread](2026-05-25 14:41:07,274) WARNING - qlib.online operator - [exchange.py:226] - factor.day.bin file not exists or factor contains `nan`. Order using adjusted_price.
+[34681:MainThread](2026-05-25 14:41:07,274) WARNING - qlib.online operator - [exchange.py:228] - trade unit 1 is not supported in adjusted_price mode.
+
+backtest loop:   0%|          | 0/251 [00:00<?, ?it/s]
+backtest loop:  41%|████      | 102/251 [00:00<00:00, 1012.95it/s]
+backtest loop:  81%|████████▏ | 204/251 [00:00<00:00, 683.02it/s] 
+backtest loop: 100%|██████████| 251/251 [00:00<00:00, 668.42it/s]
+/Users/rziiiii/.openclaw/workspace/qlib_venv/lib/python3.11/site-packages/joblib/externals/loky/backend/resource_tracker.py:359: UserWarning: resource_tracker: There appear to be 1 leaked folder objects to clean up at shutdown
+  warnings.warn(
+/Users/rziiiii/.openclaw/workspace/qlib_venv/lib/python3.11/site-packages/joblib/externals/loky/backend/resource_tracker.py:375: UserWarning: resource_tracker: /var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/joblib_memmapping_folder_34681_02f0cfcd83e5488e91c860b1c6a51b6c_40cce587f7404765a7a99437cdb28c37: FileNotFoundError(2, 'No such file or directory')
+  warnings.warn(f"resource_tracker: {name}: {e!r}")
+/opt/homebrew/Cellar/python@3.11/3.11.14_3/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/resource_tracker.py:254: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '

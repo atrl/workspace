@@ -98,6 +98,21 @@ class RewardConfig:
     crash_rebuild_bonus: float = 0.0
     trend_hold_alignment_multiplier: float = 1.0
     defensive_hold_neutral_bonus: float = 0.0
+    # State-conditioned drawdown/rebound shaping. Default-off; intended for
+    # training branches that separate broken-anchor defense from rebound capture.
+    state_conditioned_reward_enabled: bool = False
+    state_downtrend_position_penalty: float = 0.0
+    state_downtrend_position_threshold: float = 0.30
+    state_downtrend_anchor_gap_max: float = -0.05
+    state_downtrend_below_anchor_ratio_min: float = 0.55
+    state_downtrend_vix_percentile_min: float = 0.60
+    state_rebound_opportunity_penalty: float = 0.0
+    state_rebound_target_position: float = 0.45
+    state_rebound_mom10_min: float = 0.02
+    state_rebound_mom21_min: float = 0.20
+    state_rebound_relative_strength_min: float = 0.50
+    state_rebound_vol_of_vol_min: float = 0.08
+    state_rebound_vix_percentile_max: float = 0.85
 
 
 @dataclass(frozen=True)

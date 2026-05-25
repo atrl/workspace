@@ -40,6 +40,12 @@ def make_state(**kwargs):
     obs[STATIC_INDEX["trend_gap_21"]] = kwargs.get("trend_gap_21", 0.03)
     obs[STATIC_INDEX["anchor_gap_180"]] = kwargs.get("anchor_gap_180", 0.01)
     obs[STATIC_INDEX["cum_drop_30"]] = kwargs.get("cum_drop_30", -0.08)
+    obs[STATIC_INDEX["mom_10"]] = kwargs.get("mom_10", 0.0)
+    obs[STATIC_INDEX["mom_21"]] = kwargs.get("mom_21", 0.0)
+    obs[STATIC_INDEX["relative_strength_21"]] = kwargs.get("relative_strength_21", 0.0)
+    obs[STATIC_INDEX["vol_of_vol_21"]] = kwargs.get("vol_of_vol_21", 0.0)
+    obs[STATIC_INDEX["below_anchor_ratio_63"]] = kwargs.get("below_anchor_ratio_63", 0.0)
+    obs[STATIC_INDEX["vix_percentile_252"]] = kwargs.get("vix_percentile_252", 0.0)
     obs[EXTRA_INDEX["holding_age"]] = kwargs.get("holding_age", 0.10)
     obs[EXTRA_INDEX["avg_entry_pnl"]] = kwargs.get("avg_entry_pnl", 0.01)
     obs[EXTRA_INDEX["high_gap"]] = kwargs.get("high_gap", -0.01)
@@ -256,6 +262,130 @@ def test_micro_rebalance_penalty_hits_small_turnover_more_than_large_turnover():
     tiny = reward.reward(make_state(turnover=0.01))
     bigger = reward.reward(make_state(turnover=0.08))
     assert bigger > tiny
+
+
+def test_state_conditioned_reward_penalizes_high_exposure_in_broken_anchor_downtrend():
+    profile = make_profile()
+    profile = StrategyConfig(
+        name=profile.name,
+        max_iters=profile.max_iters,
+        episode_per_iter=profile.episode_per_iter,
+        episode_len=profile.episode_len,
+        hidden_sizes=profile.hidden_sizes,
+        lr=profile.lr,
+        update_batch_size=profile.update_batch_size,
+        update_repeat=profile.update_repeat,
+        reward=RewardConfig(
+            return_scale=1.0,
+            transaction_cost=0.0,
+            turnover_penalty=0.0,
+            drawdown_penalty=0.0,
+            downside_penalty=0.0,
+            risk_budget_penalty=0.0,
+            high_exposure_penalty=0.0,
+            smoothness_penalty=0.0,
+            activity_bonus=0.0,
+            inactivity_penalty=0.0,
+            state_conditioned_reward_enabled=True,
+            state_downtrend_position_penalty=2.0,
+            state_downtrend_position_threshold=0.30,
+            state_downtrend_anchor_gap_max=-0.05,
+            state_downtrend_below_anchor_ratio_min=0.55,
+            state_downtrend_vix_percentile_min=0.60,
+        ),
+    )
+    reward = ContinuousReward(profile)
+    low_exposure = reward.reward(
+        make_state(
+            pos=0.25,
+            drawdown=0.12,
+            anchor_gap_180=-0.10,
+            below_anchor_ratio_63=0.80,
+            vix_percentile_252=0.80,
+            turnover=0.0,
+        )
+    )
+    high_exposure = reward.reward(
+        make_state(
+            pos=0.65,
+            drawdown=0.12,
+            anchor_gap_180=-0.10,
+            below_anchor_ratio_63=0.80,
+            vix_percentile_252=0.80,
+            turnover=0.0,
+        )
+    )
+    assert low_exposure > high_exposure
+
+
+def test_state_conditioned_reward_penalizes_underparticipation_only_in_rebound_state():
+    profile = make_profile()
+    profile = StrategyConfig(
+        name=profile.name,
+        max_iters=profile.max_iters,
+        episode_per_iter=profile.episode_per_iter,
+        episode_len=profile.episode_len,
+        hidden_sizes=profile.hidden_sizes,
+        lr=profile.lr,
+        update_batch_size=profile.update_batch_size,
+        update_repeat=profile.update_repeat,
+        reward=RewardConfig(
+            return_scale=1.0,
+            transaction_cost=0.0,
+            turnover_penalty=0.0,
+            drawdown_penalty=0.0,
+            downside_penalty=0.0,
+            risk_budget_penalty=0.0,
+            high_exposure_penalty=0.0,
+            smoothness_penalty=0.0,
+            activity_bonus=0.0,
+            inactivity_penalty=0.0,
+            state_conditioned_reward_enabled=True,
+            state_rebound_opportunity_penalty=1.5,
+            state_rebound_target_position=0.45,
+            state_rebound_mom10_min=0.02,
+            state_rebound_mom21_min=0.20,
+            state_rebound_relative_strength_min=0.50,
+            state_rebound_vol_of_vol_min=0.08,
+            state_rebound_vix_percentile_max=0.85,
+        ),
+    )
+    reward = ContinuousReward(profile)
+    underheld_rebound = reward.reward(
+        make_state(
+            pos=0.10,
+            turnover=0.0,
+            mom_10=0.03,
+            mom_21=0.28,
+            relative_strength_21=0.80,
+            vol_of_vol_21=0.12,
+            vix_percentile_252=0.70,
+        )
+    )
+    participated_rebound = reward.reward(
+        make_state(
+            pos=0.45,
+            turnover=0.0,
+            mom_10=0.03,
+            mom_21=0.28,
+            relative_strength_21=0.80,
+            vol_of_vol_21=0.12,
+            vix_percentile_252=0.70,
+        )
+    )
+    underheld_non_rebound = reward.reward(
+        make_state(
+            pos=0.10,
+            turnover=0.0,
+            mom_10=-0.01,
+            mom_21=0.05,
+            relative_strength_21=0.10,
+            vol_of_vol_21=0.12,
+            vix_percentile_252=0.70,
+        )
+    )
+    assert participated_rebound > underheld_rebound
+    assert underheld_non_rebound > underheld_rebound
 
 
 def test_moderate_reward_applies_terminal_cvar_penalty():
