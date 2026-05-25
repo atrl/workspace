@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-25T16:40:19.605928+00:00",
+  "generated_at": "2026-05-25T16:53:51.305640+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -5520,6 +5520,42 @@
       "category": "model_selection",
       "suffix": ".csv",
       "bytes": 623
+    },
+    {
+      "path": "runtime/model_selection/card/joint_reward_target_scope_guard_v1/fold_native_scope_audit.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 415
+    },
+    {
+      "path": "runtime/model_selection/card/joint_reward_target_scope_guard_v1/fold_native_scope_summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 331
+    },
+    {
+      "path": "runtime/model_selection/card/joint_reward_target_scope_guard_v1/joint_recipe_scope_audit.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1184
+    },
+    {
+      "path": "runtime/model_selection/card/joint_reward_target_scope_guard_v1/joint_recipe_scope_summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 428
+    },
+    {
+      "path": "runtime/model_selection/card/joint_reward_target_scope_guard_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2212
+    },
+    {
+      "path": "runtime/model_selection/card/joint_reward_target_scope_guard_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 714
     },
     {
       "path": "runtime/model_selection/card/oos_poor_window_factor_diff_aggregate_v1/aggregate/aggregate_oos_review.md",

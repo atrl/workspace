@@ -1,0 +1,14 @@
+{
+  "conclusion": [
+    "Joint recipe targets are not train-ready: blocked_groups=8, eval_overlap_rows=1254.",
+    "Fold-native reference targets remain train-ready: training_allowed=True.",
+    "Next branch should regenerate fold-local joint reward targets before weighted BC/PPO; do not train directly from strict_oos/global recipe rows."
+  ],
+  "decision": "joint_reward_targets_scope_blocked_no_training",
+  "experiment": "joint_reward_target_scope_guard_v1",
+  "fold_native_reference_training_allowed": true,
+  "joint_recipe_blocked_groups": 8,
+  "joint_recipe_eval_overlap_rows": 1254,
+  "next_mechanism": "regenerate_fold_local_joint_reward_targets",
+  "training_allowed_from_joint_recipe_targets": false
+}

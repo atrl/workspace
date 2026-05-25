@@ -703,6 +703,134 @@ def build_fold_local_state_objective_training_targets(
     return pd.concat(rows, ignore_index=True).sort_values(["fold", "datetime"]).reset_index(drop=True)
 
 
+def audit_state_objective_target_scope(
+    targets: pd.DataFrame,
+    *,
+    folds: Iterable[Mapping[str, object]],
+    date_col: str = "datetime",
+) -> pd.DataFrame:
+    """Audit whether a target table can be used for fold-local training.
+
+    Global OOS target tables are useful diagnostics, but they must not become
+    direct training labels when they touch evaluation dates. This audit keeps
+    that leakage check explicit before a notebook hands targets to BC or PPO.
+    """
+
+    if date_col not in targets.columns:
+        raise ValueError(f"targets missing required column: {date_col}")
+    if not folds:
+        raise ValueError("folds must contain at least one fold definition")
+
+    frame = targets.copy()
+    frame[date_col] = pd.to_datetime(frame[date_col]).dt.normalize()
+    if "window" not in frame.columns:
+        frame["window"] = ""
+    if "target_scope" not in frame.columns:
+        frame["target_scope"] = ""
+    frame["window"] = frame["window"].fillna("").astype(str)
+    frame["target_scope"] = frame["target_scope"].fillna("").astype(str)
+
+    fold_names = {str(_fold_value(fold, "name")) for fold in folds}
+    rows: list[dict[str, object]] = []
+    for (window, target_scope), group in frame.groupby(["window", "target_scope"], dropna=False, sort=True):
+        dates = pd.to_datetime(group[date_col]).dt.normalize()
+        target_fold_values = (
+            [str(value) for value in group["fold"].dropna().unique().tolist()]
+            if "fold" in group.columns
+            else []
+        )
+        intended_fold = ""
+        if len(target_fold_values) == 1:
+            intended_fold = target_fold_values[0]
+        elif str(window) in fold_names:
+            intended_fold = str(window)
+        for fold in folds:
+            fold_name = str(_fold_value(fold, "name"))
+            if str(target_scope) == "fold_local" and intended_fold and intended_fold != fold_name:
+                continue
+            train_start = pd.Timestamp(_fold_value(fold, "train_start")).normalize()
+            train_end = pd.Timestamp(_fold_value(fold, "train_end")).normalize()
+            eval_start = pd.Timestamp(_fold_value(fold, "eval_start")).normalize()
+            eval_end = pd.Timestamp(_fold_value(fold, "eval_end")).normalize()
+            if train_end < train_start:
+                raise ValueError(f"{fold_name} train_end is before train_start")
+            if eval_end < eval_start:
+                raise ValueError(f"{fold_name} eval_end is before eval_start")
+
+            train_overlap = (dates >= train_start) & (dates <= train_end)
+            eval_overlap = (dates >= eval_start) & (dates <= eval_end)
+            outside_overlap = ~(train_overlap | eval_overlap)
+            train_rows = int(train_overlap.sum())
+            eval_rows = int(eval_overlap.sum())
+            outside_rows = int(outside_overlap.sum())
+            scope_issue = ""
+            if str(target_scope) != "fold_local":
+                scope_issue = "global_or_unspecified_target_scope"
+            elif eval_rows > 0:
+                scope_issue = "eval_overlap"
+            elif train_rows <= 0:
+                scope_issue = "no_train_overlap"
+            rows.append(
+                {
+                    "window": str(window),
+                    "target_scope": str(target_scope),
+                    "target_fold": intended_fold,
+                    "fold": fold_name,
+                    "rows": int(len(group)),
+                    "train_overlap_rows": train_rows,
+                    "eval_overlap_rows": eval_rows,
+                    "outside_train_eval_rows": outside_rows,
+                    "leakage_gate": scope_issue == "",
+                    "scope_issue": scope_issue,
+                    "train_start": str(train_start.date()),
+                    "train_end": str(train_end.date()),
+                    "eval_start": str(eval_start.date()),
+                    "eval_end": str(eval_end.date()),
+                }
+            )
+    return pd.DataFrame(rows).sort_values(["leakage_gate", "scope_issue", "fold", "window"], ascending=[
+        True,
+        True,
+        True,
+        True,
+    ]).reset_index(drop=True)
+
+
+def summarize_state_objective_target_scope_audit(audit: pd.DataFrame) -> dict[str, object]:
+    if audit.empty:
+        return {
+            "decision": "state_objective_targets_no_scope_rows",
+            "training_allowed": False,
+            "next_mechanism": "collect_state_objective_targets",
+        }
+
+    failed = audit[~audit["leakage_gate"].astype(bool)]
+    training_allowed = failed.empty
+    if training_allowed:
+        decision = "state_objective_targets_training_ready"
+        next_mechanism = "run_fold_local_state_objective_training_or_bc"
+        top_issue = ""
+    else:
+        decision = "state_objective_targets_leakage_guard_no_training"
+        next_mechanism = "regenerate_fold_local_state_objective_targets"
+        top_issue = str(failed.iloc[0].get("scope_issue", ""))
+
+    return {
+        "decision": decision,
+        "training_allowed": bool(training_allowed),
+        "leakage_gate": bool(training_allowed),
+        "audited_groups": int(len(audit)),
+        "blocked_groups": int(len(failed)),
+        "eval_overlap_rows": int(pd.to_numeric(audit["eval_overlap_rows"], errors="coerce").fillna(0).sum()),
+        "outside_train_eval_rows": int(
+            pd.to_numeric(audit["outside_train_eval_rows"], errors="coerce").fillna(0).sum()
+        ),
+        "scope_issues": sorted(str(value) for value in failed["scope_issue"].dropna().unique()),
+        "top_scope_issue": top_issue,
+        "next_mechanism": next_mechanism,
+    }
+
+
 def score_state_objective_bc_readiness(
     profile_label_comparison: pd.DataFrame,
     *,
@@ -1152,6 +1280,7 @@ __all__ = [
     "StateObjectiveReboundClusterConfig",
     "StateObjectiveReboundTargetEnrichmentConfig",
     "StateObjectiveTrainingTargetConfig",
+    "audit_state_objective_target_scope",
     "build_fold_local_state_objective_training_targets",
     "build_state_objective_training_targets",
     "discover_rebound_clusters_from_daily_path",
@@ -1163,5 +1292,6 @@ __all__ = [
     "summarize_state_objective_bc_readiness",
     "summarize_state_objective_checkpoint_selection",
     "summarize_state_objective_target_alignment",
+    "summarize_state_objective_target_scope_audit",
     "summarize_state_objective_training_targets",
 ]

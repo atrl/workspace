@@ -223,6 +223,22 @@ violation 和 target coverage 缺失。若 `window_gate` 或 `coverage_gate` 未
 同时通过，结论只能是下一轮 checkpoint scoring / BC warm-start / PPO reward
 shaping 的训练配方，不允许 runtime promotion。
 
+在把 state-objective target table 交给 BC/PPO 之前，必须先做 target-scope
+leakage guard，尤其是 target table 来自 `strict_oos`、全局 OOS daily path、
+或 checkpoint/objective recipe 时：
+
+```python
+from src.soxl_quant.app.state_objective_training_targets import (
+    audit_state_objective_target_scope,
+    summarize_state_objective_target_scope_audit,
+)
+```
+
+如果 summary 返回 `state_objective_targets_leakage_guard_no_training`，不要训练，
+也不要把它当 warm-start ready。全局或未声明 `target_scope=fold_local` 的
+target rows 只能作为 reward/checkpoint-loss recipe；下一步必须重新生成
+fold-local joint targets，确认 `eval_overlap_rows == 0` 后才允许 BC/PPO。
+
 当 state-objective BC warm-start 的全局 label accuracy / fold accuracy
 通过，但 rebound 或 downtrend 等稀疏状态切片 accuracy 明显失败时，不要把它
 标成 ready-for-PPO。结论应是“global fit 可用、稀疏状态未学会”，下一步先做

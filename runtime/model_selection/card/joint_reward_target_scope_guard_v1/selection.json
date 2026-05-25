@@ -1,0 +1,59 @@
+{
+  "acceptance_gate_for_next_run": {
+    "checkpoint_retention_metric_required": "checkpoint_objective_loss",
+    "eval_overlap_rows_required": 0,
+    "fixed_split_required": true,
+    "fold_local_target_scope_required": true,
+    "max_dd_max_pct": 15.0,
+    "no_runtime_promotion_from_scope_guard": true,
+    "relative_return_min_pp": 30.0,
+    "walkforward_required": true
+  },
+  "canonical_baseline": "v19reg_v22_budget_usage_bull_guard_v1",
+  "changed_layer": [
+    "model_selection",
+    "selection",
+    "sampling"
+  ],
+  "created_at": "2026-05-25T16:52:54.940630+00:00",
+  "decision": "joint_reward_targets_scope_blocked_no_training",
+  "direct_comparison_baseline": "joint_reward_checkpoint_recipe_v1",
+  "experiment": "joint_reward_target_scope_guard_v1",
+  "external_sources": [
+    "https://github.com/microsoft/qlib",
+    "https://arxiv.org/abs/2009.11189",
+    "https://github.com/AI4Finance-Foundation/FinRL",
+    "https://arxiv.org/abs/2011.09607",
+    "https://doi.org/10.21314/JCF.2016.322",
+    "https://arxiv.org/abs/1511.05952",
+    "https://arxiv.org/abs/1708.02002"
+  ],
+  "fold_native_blocked_groups": 0,
+  "fold_native_reference_training_allowed": true,
+  "joint_recipe_blocked_groups": 8,
+  "joint_recipe_eval_overlap_rows": 1254,
+  "joint_recipe_scope_issues": [
+    "global_or_unspecified_target_scope"
+  ],
+  "next_mechanism": "regenerate_fold_local_joint_reward_targets",
+  "promotion_allowed": false,
+  "promotion_blocker": "Latest joint recipe target table is globally scoped and touches evaluation dates; regenerate fold-local joint targets before BC/PPO to avoid training on OOS labels.",
+  "required_next_terms": [
+    "target_position_alignment_loss",
+    "walkforward_relative_return_gap_penalty",
+    "walkforward_drawdown_gap_penalty",
+    "high_vol_rebound_participation_floor",
+    "downtrend_drawdown_state_cap",
+    "checkpoint_objective_rebound_mae",
+    "checkpoint_objective_risk_cap_violation"
+  ],
+  "role": "diagnose",
+  "sidecars": [
+    "joint_recipe_scope_audit.csv",
+    "joint_recipe_scope_summary.json",
+    "fold_native_scope_audit.csv",
+    "fold_native_scope_summary.json",
+    "summary.json"
+  ],
+  "training_allowed_from_joint_recipe_targets": false
+}

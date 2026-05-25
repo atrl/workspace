@@ -7,6 +7,7 @@ from src.soxl_quant.app.state_objective_training_targets import (
     StateObjectiveReboundTargetEnrichmentConfig,
     StateObjectiveReboundClusterConfig,
     StateObjectiveTrainingTargetConfig,
+    audit_state_objective_target_scope,
     build_fold_local_state_objective_training_targets,
     build_state_objective_training_targets,
     discover_rebound_clusters_from_daily_path,
@@ -18,6 +19,7 @@ from src.soxl_quant.app.state_objective_training_targets import (
     summarize_state_objective_bc_readiness,
     summarize_state_objective_checkpoint_selection,
     summarize_state_objective_target_alignment,
+    summarize_state_objective_target_scope_audit,
     summarize_state_objective_training_targets,
 )
 
@@ -684,3 +686,90 @@ def test_discover_rebound_clusters_filters_short_runs_and_eval_dates():
     assert clusters["start"].dt.strftime("%Y-%m-%d").tolist() == ["2020-01-02"]
     assert clusters["end"].dt.strftime("%Y-%m-%d").tolist() == ["2020-01-06"]
     assert clusters["rows"].tolist() == [3]
+
+
+def test_target_scope_audit_allows_fold_local_train_rows_without_eval_overlap():
+    targets = pd.DataFrame(
+        {
+            "datetime": ["2020-01-02", "2020-01-03"],
+            "window": ["wf_2022_train", "wf_2022_train"],
+            "target_scope": ["fold_local", "fold_local"],
+        }
+    )
+    folds = [
+        {
+            "name": "wf_2022_train",
+            "train_start": "2020-01-01",
+            "train_end": "2020-12-31",
+            "eval_start": "2022-01-01",
+            "eval_end": "2022-12-31",
+        }
+    ]
+
+    audit = audit_state_objective_target_scope(targets, folds=folds)
+    summary = summarize_state_objective_target_scope_audit(audit)
+
+    row = audit.iloc[0]
+    assert bool(row["leakage_gate"]) is True
+    assert row["eval_overlap_rows"] == 0
+    assert summary["decision"] == "state_objective_targets_training_ready"
+
+
+def test_target_scope_audit_blocks_global_targets_that_touch_eval_dates():
+    targets = pd.DataFrame(
+        {
+            "datetime": ["2020-01-02", "2022-03-01"],
+            "window": ["strict_oos", "strict_oos"],
+        }
+    )
+    folds = [
+        {
+            "name": "wf_2022_train",
+            "train_start": "2020-01-01",
+            "train_end": "2020-12-31",
+            "eval_start": "2022-01-01",
+            "eval_end": "2022-12-31",
+        }
+    ]
+
+    audit = audit_state_objective_target_scope(targets, folds=folds)
+    summary = summarize_state_objective_target_scope_audit(audit)
+
+    row = audit.iloc[0]
+    assert bool(row["leakage_gate"]) is False
+    assert row["eval_overlap_rows"] == 1
+    assert row["scope_issue"] == "global_or_unspecified_target_scope"
+    assert summary["decision"] == "state_objective_targets_leakage_guard_no_training"
+    assert summary["next_mechanism"] == "regenerate_fold_local_state_objective_targets"
+
+
+def test_target_scope_audit_matches_fold_local_targets_to_their_own_fold_only():
+    targets = pd.DataFrame(
+        {
+            "datetime": ["2020-01-02", "2020-01-03"],
+            "window": ["wf_2022_train", "wf_2022_train"],
+            "fold": ["wf_2022_train", "wf_2022_train"],
+            "target_scope": ["fold_local", "fold_local"],
+        }
+    )
+    folds = [
+        {
+            "name": "wf_2022_train",
+            "train_start": "2020-01-01",
+            "train_end": "2020-12-31",
+            "eval_start": "2022-01-01",
+            "eval_end": "2022-12-31",
+        },
+        {
+            "name": "wf_2023_2024_train",
+            "train_start": "2020-01-01",
+            "train_end": "2022-12-31",
+            "eval_start": "2023-01-01",
+            "eval_end": "2024-12-31",
+        },
+    ]
+
+    audit = audit_state_objective_target_scope(targets, folds=folds)
+
+    assert audit["fold"].tolist() == ["wf_2022_train"]
+    assert bool(audit.iloc[0]["leakage_gate"]) is True
