@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-25T01:02:16.763012+00:00",
+  "generated_at": "2026-05-25T01:17:59.033877+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -215,13 +215,19 @@
       "path": "runtime/execution/card/recovery_reentry_2021_trendbreak_cap_v1/recovery_reentry_2021_trendbreak_cap_v1.json",
       "category": "execution",
       "suffix": ".json",
-      "bytes": 4354
+      "bytes": 6788
     },
     {
       "path": "runtime/execution/card/recovery_reentry_2021_trendbreak_cap_v1/recovery_reentry_2021_trendbreak_cap_v1_soxl_daily.csv",
       "category": "execution",
       "suffix": ".csv",
       "bytes": 292376
+    },
+    {
+      "path": "runtime/execution/card/recovery_reentry_2021_trendbreak_cap_v1/selection.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 9199
     },
     {
       "path": "runtime/execution/card/recovery_reentry_2021_trendbreak_cap_v1/selection_table.csv",
@@ -233,7 +239,7 @@
       "path": "runtime/execution/card/recovery_reentry_2021_trendbreak_cap_v1/walkforward/wf_2020/recovery_reentry_2021_trendbreak_cap_v1_wf_2020.json",
       "category": "execution",
       "suffix": ".json",
-      "bytes": 1232
+      "bytes": 1233
     },
     {
       "path": "runtime/execution/card/recovery_reentry_2021_trendbreak_cap_v1/walkforward/wf_2020/recovery_reentry_2021_trendbreak_cap_v1_wf_2020_soxl_daily.csv",
@@ -245,7 +251,7 @@
       "path": "runtime/execution/card/recovery_reentry_2021_trendbreak_cap_v1/walkforward/wf_2022/recovery_reentry_2021_trendbreak_cap_v1_wf_2022.json",
       "category": "execution",
       "suffix": ".json",
-      "bytes": 1233
+      "bytes": 1234
     },
     {
       "path": "runtime/execution/card/recovery_reentry_2021_trendbreak_cap_v1/walkforward/wf_2022/recovery_reentry_2021_trendbreak_cap_v1_wf_2022_soxl_daily.csv",
@@ -257,7 +263,7 @@
       "path": "runtime/execution/card/recovery_reentry_2021_trendbreak_cap_v1/walkforward/wf_2023_2024/recovery_reentry_2021_trendbreak_cap_v1_wf_2023_2024.json",
       "category": "execution",
       "suffix": ".json",
-      "bytes": 1247
+      "bytes": 1248
     },
     {
       "path": "runtime/execution/card/recovery_reentry_2021_trendbreak_cap_v1/walkforward/wf_2023_2024/recovery_reentry_2021_trendbreak_cap_v1_wf_2023_2024_soxl_daily.csv",

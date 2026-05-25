@@ -1,0 +1,46 @@
+{
+  "card": "recovery_reentry_2021_trendbreak_cap_v1_wf_2023_2024",
+  "baseline_card": "recovery_reentry_regime_drawdown_guard_v1_wf_2023_2024",
+  "selected_params": {
+    "drawdown_window": 21,
+    "drawdown_threshold": 0.08,
+    "max_mom_10": -0.05,
+    "min_position": 0.55,
+    "cap_target": 0.35,
+    "hold_days": 10,
+    "min_realized_vol_21": 0.75
+  },
+  "baseline": {
+    "rows": 251,
+    "start": "2024-01-02",
+    "end": "2024-12-30",
+    "return": 58.1947460816749,
+    "sharpe": 1.326381605241496,
+    "max_dd": 30.183184108332323,
+    "avg_pos": 0.3368301559487137,
+    "stress_avg_pos": 0.3540465605633629,
+    "stress_days": 111,
+    "buy_and_hold_return": -0.3566347296883432,
+    "relative_return": 58.551380811363245,
+    "trades": 29
+  },
+  "selected": {
+    "rows": 251,
+    "start": "2024-01-02",
+    "end": "2024-12-30",
+    "return": 45.740105643653294,
+    "sharpe": 1.170783093846213,
+    "max_dd": 28.204932839102614,
+    "avg_pos": 0.29984692627939086,
+    "stress_avg_pos": 0.20019681143459195,
+    "stress_days": 204,
+    "buy_and_hold_return": -0.3566347296883432,
+    "relative_return": 46.09674037334164,
+    "trades": 24
+  },
+  "audit": {
+    "trigger_days": 14,
+    "active_days": 38,
+    "changed_days": 36
+  }
+}

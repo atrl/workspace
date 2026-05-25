@@ -1,0 +1,46 @@
+{
+  "card": "recovery_reentry_2021_trendbreak_cap_v1_wf_2020",
+  "baseline_card": "recovery_reentry_regime_drawdown_guard_v1_wf_2020",
+  "selected_params": {
+    "drawdown_window": 21,
+    "drawdown_threshold": 0.08,
+    "max_mom_10": -0.05,
+    "min_position": 0.55,
+    "cap_target": 0.35,
+    "hold_days": 10,
+    "min_realized_vol_21": 0.75
+  },
+  "baseline": {
+    "rows": 252,
+    "start": "2020-01-02",
+    "end": "2020-12-30",
+    "return": 113.88996220807917,
+    "sharpe": 1.5828309990219631,
+    "max_dd": 26.13931993503821,
+    "avg_pos": 0.4238804380154904,
+    "stress_avg_pos": 0.30817340402843657,
+    "stress_days": 103,
+    "buy_and_hold_return": 58.09357061648384,
+    "relative_return": 55.79639159159533,
+    "trades": 29
+  },
+  "selected": {
+    "rows": 252,
+    "start": "2020-01-02",
+    "end": "2020-12-30",
+    "return": 83.65106315100168,
+    "sharpe": 1.3929441660625042,
+    "max_dd": 26.13931993503821,
+    "avg_pos": 0.368126781017006,
+    "stress_avg_pos": 0.22553532031024148,
+    "stress_days": 112,
+    "buy_and_hold_return": 58.09357061648384,
+    "relative_return": 25.55749253451784,
+    "trades": 27
+  },
+  "audit": {
+    "trigger_days": 13,
+    "active_days": 39,
+    "changed_days": 36
+  }
+}
