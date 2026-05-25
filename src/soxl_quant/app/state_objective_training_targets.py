@@ -50,6 +50,13 @@ class StateObjectiveCheckpointSelectionConfig:
     legacy_score_reward: float = 0.0
 
 
+@dataclass(frozen=True)
+class StateObjectiveBCReadinessConfig:
+    max_dominant_action_share: float = 0.90
+    min_unique_actions: int = 3
+    min_samples: int = 100
+
+
 def _window_weight(window: str, config: StateConditionedObjectiveConfig) -> float:
     if window in config.window_weights:
         return float(config.window_weights[window])
@@ -360,6 +367,114 @@ def build_state_objective_training_targets(
         if column in targets.columns
     ]
     return targets[columns + passthrough]
+
+
+def filter_state_objective_targets_for_train_window(
+    targets: pd.DataFrame,
+    *,
+    train_start: str | pd.Timestamp,
+    train_end: str | pd.Timestamp,
+    eval_start: str | pd.Timestamp | None = None,
+    eval_end: str | pd.Timestamp | None = None,
+) -> pd.DataFrame:
+    """Filter state-objective targets to a train window and reject eval overlap."""
+
+    if "datetime" not in targets.columns:
+        raise ValueError("targets missing required column: datetime")
+    train_start_ts = pd.Timestamp(train_start).normalize()
+    train_end_ts = pd.Timestamp(train_end).normalize()
+    if train_end_ts < train_start_ts:
+        raise ValueError("train_end is before train_start")
+    if eval_start is not None and eval_end is not None:
+        eval_start_ts = pd.Timestamp(eval_start).normalize()
+        eval_end_ts = pd.Timestamp(eval_end).normalize()
+        if eval_end_ts < eval_start_ts:
+            raise ValueError("eval_end is before eval_start")
+        if train_start_ts <= eval_end_ts and train_end_ts >= eval_start_ts:
+            raise ValueError("train window overlaps eval window")
+
+    frame = targets.copy()
+    frame["datetime"] = pd.to_datetime(frame["datetime"])
+    dates = frame["datetime"].dt.normalize()
+    return frame.loc[(dates >= train_start_ts) & (dates <= train_end_ts)].reset_index(drop=True)
+
+
+def score_state_objective_bc_readiness(
+    profile_label_comparison: pd.DataFrame,
+    *,
+    target_scope: str,
+    config: StateObjectiveBCReadinessConfig = StateObjectiveBCReadinessConfig(),
+) -> pd.DataFrame:
+    """Rank state-objective BC profiles by label health and target leakage scope."""
+
+    required = {"profile", "samples", "unique_actions", "dominant_action_share", "action_entropy"}
+    missing = sorted(required - set(profile_label_comparison.columns))
+    if missing:
+        raise ValueError(f"profile_label_comparison missing columns: {missing}")
+    scored = profile_label_comparison.copy()
+    scored["samples"] = pd.to_numeric(scored["samples"], errors="coerce").fillna(0).astype(int)
+    scored["unique_actions"] = pd.to_numeric(scored["unique_actions"], errors="coerce").fillna(0).astype(int)
+    scored["dominant_action_share"] = pd.to_numeric(
+        scored["dominant_action_share"],
+        errors="coerce",
+    ).fillna(1.0)
+    scored["action_entropy"] = pd.to_numeric(scored["action_entropy"], errors="coerce").fillna(0.0)
+    scored["sample_gate"] = scored["samples"] >= int(config.min_samples)
+    scored["label_distribution_gate"] = (
+        (scored["unique_actions"] >= int(config.min_unique_actions))
+        & (scored["dominant_action_share"] <= float(config.max_dominant_action_share))
+    )
+    scored["fold_local_scope_gate"] = str(target_scope) == "fold_local"
+    scored["bc_readiness_gate"] = (
+        scored["sample_gate"] & scored["label_distribution_gate"] & scored["fold_local_scope_gate"]
+    )
+    sample_loss = ((float(config.min_samples) - scored["samples"]) / max(float(config.min_samples), 1.0)).clip(
+        lower=0.0
+    )
+    action_loss = (int(config.min_unique_actions) - scored["unique_actions"]).clip(lower=0)
+    dominance_loss = (scored["dominant_action_share"] - float(config.max_dominant_action_share)).clip(lower=0.0)
+    scope_loss = 0.0 if str(target_scope) == "fold_local" else 100.0
+    scored["bc_readiness_loss"] = sample_loss + action_loss + dominance_loss * 10.0 + scope_loss
+    scored["target_scope"] = str(target_scope)
+    return scored.sort_values(
+        ["bc_readiness_gate", "label_distribution_gate", "bc_readiness_loss", "dominant_action_share", "profile"],
+        ascending=[False, False, True, True, True],
+    ).reset_index(drop=True)
+
+
+def summarize_state_objective_bc_readiness(scored: pd.DataFrame) -> dict[str, object]:
+    if scored.empty:
+        return {
+            "decision": "state_objective_bc_no_profiles",
+            "selected_profile": "",
+            "next_mechanism": "build_profile_label_comparison",
+        }
+    top = scored.iloc[0]
+    if bool(top.get("bc_readiness_gate", False)):
+        decision = "state_objective_bc_ready_for_training"
+        next_mechanism = "run_fold_local_bc_warm_start_then_walkforward_ppo"
+    elif not bool(top.get("fold_local_scope_gate", False)):
+        decision = "state_objective_bc_scope_blocked_no_promotion"
+        next_mechanism = "generate_fold_local_state_objective_targets"
+    elif not bool(top.get("label_distribution_gate", False)):
+        decision = "state_objective_bc_label_degenerate_no_training"
+        next_mechanism = "change_action_surface_or_target_mapping"
+    else:
+        decision = "state_objective_bc_sample_blocked_no_training"
+        next_mechanism = "collect_more_fold_local_target_rows"
+    return {
+        "decision": decision,
+        "selected_profile": str(top["profile"]),
+        "selected_target_scope": str(top.get("target_scope", "")),
+        "selected_bc_readiness_gate": bool(top.get("bc_readiness_gate", False)),
+        "selected_label_distribution_gate": bool(top.get("label_distribution_gate", False)),
+        "selected_fold_local_scope_gate": bool(top.get("fold_local_scope_gate", False)),
+        "selected_dominant_action_share": float(top.get("dominant_action_share", 1.0)),
+        "selected_unique_actions": int(top.get("unique_actions", 0)),
+        "selected_samples": int(top.get("samples", 0)),
+        "selected_bc_readiness_loss": float(top.get("bc_readiness_loss", 0.0)),
+        "next_mechanism": next_mechanism,
+    }
 
 
 def summarize_state_objective_training_targets(targets: pd.DataFrame) -> dict[str, object]:
@@ -728,11 +843,15 @@ def summarize_state_objective_checkpoint_selection(scored: pd.DataFrame) -> dict
 
 
 __all__ = [
+    "StateObjectiveBCReadinessConfig",
     "StateObjectiveCheckpointSelectionConfig",
     "StateObjectiveTrainingTargetConfig",
     "build_state_objective_training_targets",
+    "filter_state_objective_targets_for_train_window",
+    "score_state_objective_bc_readiness",
     "score_state_objective_checkpoint_candidates",
     "score_state_objective_target_alignment",
+    "summarize_state_objective_bc_readiness",
     "summarize_state_objective_checkpoint_selection",
     "summarize_state_objective_target_alignment",
     "summarize_state_objective_training_targets",

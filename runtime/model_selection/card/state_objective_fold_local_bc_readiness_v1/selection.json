@@ -1,0 +1,23 @@
+{
+  "acceptance_gate_for_next_run": {
+    "fold_local_scope_gate": true,
+    "label_distribution_gate": true,
+    "max_dd_max_pct": 15.0,
+    "relative_return_min_pp": 30.0,
+    "walkforward_required": true
+  },
+  "current_scope_decision": "state_objective_bc_scope_blocked_no_promotion",
+  "decision": "fold_local_bc_plan_ready_current_targets_scope_blocked",
+  "experiment": "state_objective_fold_local_bc_readiness_v1",
+  "fold_local_counterfactual_decision": "state_objective_bc_ready_for_training",
+  "next_mechanism": "regenerate_fold_local_targets_then_budget_usage_bc_warm_start_ppo",
+  "promotion_allowed": false,
+  "selected_profile_for_next_training": "risk_budget_usage_v1",
+  "sidecars": [
+    "current_scope_readiness_scores.csv",
+    "fold_local_readiness_scores.csv",
+    "fold_local_bc_fold_plan.csv",
+    "summary.json"
+  ],
+  "training_scope_requirement": "no target row may be generated from eval/OOS dates for that fold"
+}

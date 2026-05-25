@@ -3,10 +3,14 @@ from __future__ import annotations
 import pandas as pd
 
 from src.soxl_quant.app.state_objective_training_targets import (
+    StateObjectiveBCReadinessConfig,
     StateObjectiveTrainingTargetConfig,
     build_state_objective_training_targets,
+    filter_state_objective_targets_for_train_window,
+    score_state_objective_bc_readiness,
     score_state_objective_checkpoint_candidates,
     score_state_objective_target_alignment,
+    summarize_state_objective_bc_readiness,
     summarize_state_objective_checkpoint_selection,
     summarize_state_objective_target_alignment,
     summarize_state_objective_training_targets,
@@ -317,3 +321,86 @@ def test_checkpoint_selection_summary_allows_review_when_all_gates_pass():
 
     assert summary["decision"] == "checkpoint_objective_promotion_review"
     assert summary["next_mechanism"] == "rerun_walkforward_promotion_review"
+
+
+def test_bc_readiness_blocks_global_oos_targets_even_when_distribution_is_healthy():
+    label_distribution = pd.DataFrame(
+        {
+            "profile": ["risk_budget_usage_v1", "balanced_rule_residual_v22"],
+            "samples": [755, 755],
+            "unique_actions": [5, 5],
+            "dominant_action_share": [0.42, 0.97],
+            "action_entropy": [1.30, 0.16],
+        }
+    )
+
+    scored = score_state_objective_bc_readiness(
+        label_distribution,
+        target_scope="global_oos_walkforward",
+    )
+    summary = summarize_state_objective_bc_readiness(scored)
+
+    top = scored.iloc[0]
+    assert top["profile"] == "risk_budget_usage_v1"
+    assert bool(top["label_distribution_gate"]) is True
+    assert bool(top["fold_local_scope_gate"]) is False
+    assert bool(top["bc_readiness_gate"]) is False
+    assert summary["decision"] == "state_objective_bc_scope_blocked_no_promotion"
+    assert summary["next_mechanism"] == "generate_fold_local_state_objective_targets"
+
+
+def test_bc_readiness_approves_fold_local_budget_usage_distribution():
+    label_distribution = pd.DataFrame(
+        {
+            "profile": ["balanced_rule_residual_v22", "risk_budget_usage_v1"],
+            "samples": [755, 755],
+            "unique_actions": [5, 5],
+            "dominant_action_share": [0.97, 0.42],
+            "action_entropy": [0.16, 1.30],
+        }
+    )
+
+    scored = score_state_objective_bc_readiness(
+        label_distribution,
+        target_scope="fold_local",
+        config=StateObjectiveBCReadinessConfig(max_dominant_action_share=0.90),
+    )
+    summary = summarize_state_objective_bc_readiness(scored)
+
+    assert scored.iloc[0]["profile"] == "risk_budget_usage_v1"
+    assert bool(scored.iloc[0]["bc_readiness_gate"]) is True
+    assert bool(scored.set_index("profile").loc["balanced_rule_residual_v22", "label_distribution_gate"]) is False
+    assert summary["decision"] == "state_objective_bc_ready_for_training"
+    assert summary["next_mechanism"] == "run_fold_local_bc_warm_start_then_walkforward_ppo"
+
+
+def test_filter_state_objective_targets_for_train_window_rejects_eval_overlap():
+    targets = pd.DataFrame(
+        {
+            "datetime": pd.to_datetime(["2020-01-02", "2020-01-03", "2020-01-06"]),
+            "teacher_position": [0.1, 0.2, 0.3],
+        }
+    )
+
+    filtered = filter_state_objective_targets_for_train_window(
+        targets,
+        train_start="2020-01-02",
+        train_end="2020-01-03",
+        eval_start="2020-01-06",
+        eval_end="2020-01-10",
+    )
+
+    assert filtered["datetime"].dt.strftime("%Y-%m-%d").tolist() == ["2020-01-02", "2020-01-03"]
+
+    try:
+        filter_state_objective_targets_for_train_window(
+            targets,
+            train_start="2020-01-02",
+            train_end="2020-01-06",
+            eval_start="2020-01-03",
+            eval_end="2020-01-10",
+        )
+    except ValueError as exc:
+        assert "overlaps eval window" in str(exc)
+    else:
+        raise AssertionError("overlapping train/eval windows did not raise")

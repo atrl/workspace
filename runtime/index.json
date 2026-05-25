@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-25T10:32:18.025146+00:00",
+  "generated_at": "2026-05-25T10:42:51.778278+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -5658,6 +5658,36 @@
       "category": "model_selection",
       "suffix": ".json",
       "bytes": 1161
+    },
+    {
+      "path": "runtime/model_selection/card/state_objective_fold_local_bc_readiness_v1/current_scope_readiness_scores.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 586
+    },
+    {
+      "path": "runtime/model_selection/card/state_objective_fold_local_bc_readiness_v1/fold_local_bc_fold_plan.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 494
+    },
+    {
+      "path": "runtime/model_selection/card/state_objective_fold_local_bc_readiness_v1/fold_local_readiness_scores.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 545
+    },
+    {
+      "path": "runtime/model_selection/card/state_objective_fold_local_bc_readiness_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 943
+    },
+    {
+      "path": "runtime/model_selection/card/state_objective_fold_local_bc_readiness_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2091
     },
     {
       "path": "runtime/model_selection/card/state_objective_training_target_v1/selection.json",
