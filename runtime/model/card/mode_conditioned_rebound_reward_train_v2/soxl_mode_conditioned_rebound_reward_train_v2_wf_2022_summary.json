@@ -1,0 +1,286 @@
+{
+  "profile": "mode_conditioned_rebound_reward_train_v2",
+  "seed": 42,
+  "feature_schema": {
+    "signature": "99a98f3b024c",
+    "feature_count": 59,
+    "extra_obs_dim": 15,
+    "n_assets": 5
+  },
+  "position_cap": {
+    "start_drawdown": 0.1,
+    "full_drawdown": 0.3,
+    "min_cap": 0.38,
+    "curve_power": 1.0,
+    "bull_min_cap": 0.68,
+    "bull_vol_threshold": 0.42,
+    "bull_anchor_threshold": 0.02,
+    "bear_min_cap": 0.25,
+    "bear_regime_threshold": 0.68
+  },
+  "position_budget": {
+    "enabled": false,
+    "budget": 0.3,
+    "regime_threshold": 0.6,
+    "thresholds": [
+      [
+        0.0,
+        0.3,
+        1.0
+      ],
+      [
+        0.3,
+        0.6,
+        0.7
+      ],
+      [
+        0.6,
+        0.9,
+        0.45
+      ],
+      [
+        0.9,
+        Infinity,
+        0.15
+      ]
+    ]
+  },
+  "selection_score": {
+    "return_weight": 1.0,
+    "sharpe_weight": 20.0,
+    "max_dd_penalty": 0.36,
+    "avg_pos_penalty": 0.0,
+    "stress_avg_pos_penalty": 5.0,
+    "stress_threshold": 0.55,
+    "staged_training": true,
+    "stage_iters": 4
+  },
+  "checkpoint_retention": {
+    "enabled": true,
+    "keep_stage": true,
+    "keep_top_n": 2
+  },
+  "model_config": {
+    "observation_window": 5,
+    "action_levels": [
+      0.0,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7,
+      0.8,
+      0.9,
+      1.0
+    ],
+    "use_hybrid_overlay": true,
+    "delta_levels": [
+      -0.1,
+      -0.05,
+      0.0,
+      0.05,
+      0.1
+    ],
+    "hard_floor": 0.2,
+    "use_regime_router": false,
+    "hard_regime_routing": false,
+    "router_experts": 3,
+    "router_top_k": 1,
+    "router_noise_std": 0.1,
+    "use_gru": true,
+    "gru_hidden_size": 64,
+    "use_attention": false,
+    "attention_dim": 64,
+    "attention_heads": 4
+  },
+  "sampling_config": {
+    "regime_stratified": true,
+    "phase_balanced": true,
+    "mild_risk_threshold": 0.42,
+    "severe_risk_threshold": 0.58,
+    "mild_drawdown_threshold": 0.1,
+    "severe_drawdown_threshold": 0.18,
+    "mild_repeat": 2,
+    "severe_repeat": 2,
+    "persistent_stress_days": 0.3,
+    "trend_repeat": 3,
+    "rebound_repeat": 3,
+    "episode_stride": 21,
+    "bull_anchor_threshold": 0.04,
+    "bull_trend_threshold": 0.02,
+    "bull_vol_threshold": 0.45,
+    "bull_risk_threshold": 0.45,
+    "rebound_anchor_ceiling": -0.02,
+    "rebound_trend_floor": 0.01,
+    "rebound_risk_ceiling": 0.6,
+    "rebound_risk_release": 0.06
+  },
+  "warm_start": {
+    "enabled": false,
+    "steps": 500,
+    "lr": 0.0005,
+    "batch_size": 128,
+    "sample_size": 2000
+  },
+  "model_path": "/Users/rziiiii/.openclaw/workspace/runtime/model/card/mode_conditioned_rebound_reward_train_v2/soxl_mode_conditioned_rebound_reward_train_v2_wf_2022_actor.pt",
+  "retained_checkpoints": [
+    {
+      "iter": 0,
+      "score": 23.880459368002608,
+      "path": "/Users/rziiiii/.openclaw/workspace/runtime/model/card/mode_conditioned_rebound_reward_train_v2/soxl_mode_conditioned_rebound_reward_train_v2_wf_2022_checkpoint_iter0_actor.pt",
+      "reasons": [
+        "stage"
+      ],
+      "metrics": {
+        "return": 15.134985650529664,
+        "sharpe": 0.7910763957374713,
+        "max_dd": 15.614003730640254,
+        "avg_pos": 0.3859194605949662,
+        "stress_avg_pos": 0.29100257084919867,
+        "stress_days": 13.0,
+        "buy_and_hold_return": 78.90591202034074,
+        "relative_return": -63.77092636981107
+      }
+    },
+    {
+      "iter": 4,
+      "score": 38.31731631282158,
+      "path": "/Users/rziiiii/.openclaw/workspace/runtime/model/card/mode_conditioned_rebound_reward_train_v2/soxl_mode_conditioned_rebound_reward_train_v2_wf_2022_checkpoint_iter4_actor.pt",
+      "reasons": [
+        "stage",
+        "top_n"
+      ],
+      "metrics": {
+        "return": 19.61896456035628,
+        "sharpe": 1.1715986768045403,
+        "max_dd": 9.24423665560304,
+        "avg_pos": 0.2739751021524999,
+        "stress_avg_pos": 0.2811393175216821,
+        "stress_days": 13.0,
+        "buy_and_hold_return": 78.90591202034074,
+        "relative_return": -59.28694745998446
+      }
+    },
+    {
+      "iter": 8,
+      "score": 26.760479065878556,
+      "path": "/Users/rziiiii/.openclaw/workspace/runtime/model/card/mode_conditioned_rebound_reward_train_v2/soxl_mode_conditioned_rebound_reward_train_v2_wf_2022_checkpoint_iter8_actor.pt",
+      "reasons": [
+        "stage",
+        "top_n"
+      ],
+      "metrics": {
+        "return": 15.27170570471046,
+        "sharpe": 0.8841579991119662,
+        "max_dd": 13.301916759618953,
+        "avg_pos": 0.32237824351375627,
+        "stress_avg_pos": 0.2811393175216821,
+        "stress_days": 13.0,
+        "buy_and_hold_return": 78.90591202034074,
+        "relative_return": -63.63420631563028
+      }
+    }
+  ],
+  "valid": {
+    "return": 19.61896456035628,
+    "sharpe": 1.1715986768045403,
+    "max_dd": 9.24423665560304,
+    "avg_pos": 0.2739751021524999,
+    "stress_avg_pos": 0.2811393175216821,
+    "stress_days": 13.0,
+    "buy_and_hold_return": 78.90591202034074,
+    "relative_return": -59.28694745998446
+  },
+  "best_score": 38.31731631282158,
+  "selection_history": [
+    {
+      "iter": 0,
+      "score": 23.880459368002608,
+      "return": 15.134985650529664,
+      "sharpe": 0.7910763957374713,
+      "max_dd": 15.614003730640254,
+      "avg_pos": 0.3859194605949662,
+      "stress_avg_pos": 0.29100257084919867,
+      "stress_days": 13.0,
+      "buy_and_hold_return": 78.90591202034074,
+      "relative_return": -63.77092636981107
+    },
+    {
+      "iter": 4,
+      "score": 38.31731631282158,
+      "return": 19.61896456035628,
+      "sharpe": 1.1715986768045403,
+      "max_dd": 9.24423665560304,
+      "avg_pos": 0.2739751021524999,
+      "stress_avg_pos": 0.2811393175216821,
+      "stress_days": 13.0,
+      "buy_and_hold_return": 78.90591202034074,
+      "relative_return": -59.28694745998446
+    },
+    {
+      "iter": 8,
+      "score": 26.760479065878556,
+      "return": 15.27170570471046,
+      "sharpe": 0.8841579991119662,
+      "max_dd": 13.301916759618953,
+      "avg_pos": 0.32237824351375627,
+      "stress_avg_pos": 0.2811393175216821,
+      "stress_days": 13.0,
+      "buy_and_hold_return": 78.90591202034074,
+      "relative_return": -63.63420631563028
+    }
+  ],
+  "slices": {
+    "test_2022": {
+      "return": -12.705282323789625,
+      "sharpe": -0.7512995042265377,
+      "max_dd": 15.9006974847681,
+      "avg_pos": 0.14148684210526316,
+      "stress_avg_pos": 0.0727906976744186,
+      "stress_days": 86.0,
+      "buy_and_hold_return": -76.61425652678248,
+      "relative_return": 61.694557067012866
+    }
+  },
+  "test_proxy": {
+    "return": -12.705282323789625,
+    "sharpe": -0.7512995042265377,
+    "max_dd": 15.9006974847681,
+    "avg_pos": 0.14148684210526316,
+    "stress_avg_pos": 0.0727906976744186,
+    "stress_days": 86.0,
+    "buy_and_hold_return": -76.61425652678248,
+    "relative_return": 61.694557067012866
+  },
+  "promotion": {
+    "eligible": false,
+    "fixed_split": {
+      "eligible": false,
+      "checks": {
+        "test_2022_max_dd": {
+          "passed": true,
+          "actual": 15.9006974847681,
+          "limit": 30.0
+        },
+        "test_2022_avg_pos": {
+          "passed": true,
+          "actual": 0.14148684210526316,
+          "limit": 0.35
+        },
+        "test_proxy_sharpe": {
+          "passed": false,
+          "actual": -0.7512995042265377,
+          "limit": 0.9
+        }
+      }
+    },
+    "walk_forward": {
+      "eligible": false,
+      "checks": {},
+      "status": "missing"
+    },
+    "walk_forward_evaluated": false
+  }
+}

@@ -1,0 +1,327 @@
+{
+  "profile": "mode_conditioned_rebound_reward_train_v2",
+  "summary_path": "runtime/model/card/mode_conditioned_rebound_reward_train_v2/soxl_mode_conditioned_rebound_reward_train_v2_summary.json",
+  "profile_path": "runtime/reward/card/mode_conditioned_rebound_reward_train_v2/profile.yaml",
+  "train_walkforward_log": "runtime/reward/card/mode_conditioned_rebound_reward_train_v2/train_walkforward.log",
+  "decision_thresholds": {
+    "target_relative_return_pp": 30.0,
+    "target_max_dd_pct": 15.0,
+    "governance_2022_max_dd_pct": 30.0,
+    "governance_min_wf_relative_pp": 30.0
+  },
+  "valid": {
+    "return": 20.567166893166046,
+    "sharpe": 1.0478524800949642,
+    "max_dd": 21.21893162872151,
+    "avg_pos": 0.3070510931078989,
+    "stress_avg_pos": 0.20968150142342482,
+    "stress_days": 47.0,
+    "buy_and_hold_return": 98.48033593410877,
+    "relative_return": -77.91316904094272
+  },
+  "test_proxy": {
+    "return": 496.78071170873113,
+    "sharpe": 0.9914484831978018,
+    "max_dd": 44.23421315942921,
+    "avg_pos": 0.26782866714639186,
+    "stress_avg_pos": 0.10922757733369542,
+    "stress_days": 321.0,
+    "buy_and_hold_return": 2542.0274416989405,
+    "relative_return": -2107.471934365947
+  },
+  "slices": {
+    "test_2020": {
+      "return": 51.02576612997043,
+      "sharpe": 1.7190216459043803,
+      "max_dd": 21.4340201523602,
+      "avg_pos": 0.29723503979233407,
+      "stress_avg_pos": 0.08114864864864865,
+      "stress_days": 37.0,
+      "buy_and_hold_return": 355.73615972515864,
+      "relative_return": -304.71039359518824
+    },
+    "test_2022": {
+      "return": -40.75395782774923,
+      "sharpe": -1.5076732092125185,
+      "max_dd": 43.90938621898536,
+      "avg_pos": 0.1313807155129157,
+      "stress_avg_pos": 0.07133720930232558,
+      "stress_days": 86.0,
+      "buy_and_hold_return": -76.61425652678248,
+      "relative_return": 65.01515406110568
+    },
+    "test_2023_2024": {
+      "return": 45.59181138388981,
+      "sharpe": 0.9930818826206981,
+      "max_dd": 22.178461293960474,
+      "avg_pos": 0.2613274510235203,
+      "stress_avg_pos": 0.13345054205703108,
+      "stress_days": 76.0,
+      "buy_and_hold_return": 55.65447370869805,
+      "relative_return": -10.062662324808237
+    }
+  },
+  "walk_forward": {
+    "wf_2020": {
+      "return": 50.08332664590836,
+      "sharpe": 1.4029689366479416,
+      "max_dd": 23.086304019655504,
+      "trades": 39,
+      "valid": {
+        "return": 20.567166893166046,
+        "sharpe": 1.0478524800949642,
+        "max_dd": 21.21893162872151,
+        "avg_pos": 0.3070510931078989,
+        "stress_avg_pos": 0.20968150142342482,
+        "stress_days": 47.0,
+        "buy_and_hold_return": 98.48033593410877,
+        "relative_return": -77.91316904094272
+      },
+      "slices": {
+        "test_2020": {
+          "return": 51.02576612997043,
+          "sharpe": 1.7190216459043803,
+          "max_dd": 21.4340201523602,
+          "avg_pos": 0.29723503979233407,
+          "stress_avg_pos": 0.08114864864864865,
+          "stress_days": 37.0,
+          "buy_and_hold_return": 355.73615972515864,
+          "relative_return": -304.71039359518824
+        }
+      },
+      "test_proxy": {
+        "return": 50.08332664590836,
+        "sharpe": 1.4029689366479416,
+        "max_dd": 23.086304019655504,
+        "avg_pos": 0.29723503979233407,
+        "stress_avg_pos": 0.08114864864864865,
+        "stress_days": 37.0,
+        "buy_and_hold_return": 355.73615972515864,
+        "relative_return": -304.71039359518824
+      },
+      "promotion": {
+        "eligible": false,
+        "fixed_split": {
+          "eligible": false,
+          "checks": {
+            "test_2022_max_dd": {
+              "passed": false,
+              "actual": Infinity,
+              "limit": 30.0
+            },
+            "test_2022_avg_pos": {
+              "passed": false,
+              "actual": Infinity,
+              "limit": 0.35
+            },
+            "test_proxy_sharpe": {
+              "passed": true,
+              "actual": 1.4029689366479416,
+              "limit": 0.9
+            }
+          }
+        },
+        "walk_forward": {
+          "eligible": false,
+          "checks": {},
+          "status": "missing"
+        },
+        "walk_forward_evaluated": false
+      },
+      "model_path": "/Users/rziiiii/.openclaw/workspace/runtime/model/card/mode_conditioned_rebound_reward_train_v2/soxl_mode_conditioned_rebound_reward_train_v2_wf_2020_actor.pt",
+      "summary_path": "/Users/rziiiii/.openclaw/workspace/runtime/model/card/mode_conditioned_rebound_reward_train_v2/soxl_mode_conditioned_rebound_reward_train_v2_wf_2020_summary.json",
+      "buy_and_hold_return": 355.73615972515864,
+      "relative_return": -304.71039359518824
+    },
+    "wf_2022": {
+      "return": -12.705282323789625,
+      "sharpe": -0.7512995042265377,
+      "max_dd": 15.9006974847681,
+      "trades": 23,
+      "valid": {
+        "return": 19.61896456035628,
+        "sharpe": 1.1715986768045403,
+        "max_dd": 9.24423665560304,
+        "avg_pos": 0.2739751021524999,
+        "stress_avg_pos": 0.2811393175216821,
+        "stress_days": 13.0,
+        "buy_and_hold_return": 78.90591202034074,
+        "relative_return": -59.28694745998446
+      },
+      "slices": {
+        "test_2022": {
+          "return": -12.705282323789625,
+          "sharpe": -0.7512995042265377,
+          "max_dd": 15.9006974847681,
+          "avg_pos": 0.14148684210526316,
+          "stress_avg_pos": 0.0727906976744186,
+          "stress_days": 86.0,
+          "buy_and_hold_return": -76.61425652678248,
+          "relative_return": 61.694557067012866
+        }
+      },
+      "test_proxy": {
+        "return": -12.705282323789625,
+        "sharpe": -0.7512995042265377,
+        "max_dd": 15.9006974847681,
+        "avg_pos": 0.14148684210526316,
+        "stress_avg_pos": 0.0727906976744186,
+        "stress_days": 86.0,
+        "buy_and_hold_return": -76.61425652678248,
+        "relative_return": 61.694557067012866
+      },
+      "promotion": {
+        "eligible": false,
+        "fixed_split": {
+          "eligible": false,
+          "checks": {
+            "test_2022_max_dd": {
+              "passed": true,
+              "actual": 15.9006974847681,
+              "limit": 30.0
+            },
+            "test_2022_avg_pos": {
+              "passed": true,
+              "actual": 0.14148684210526316,
+              "limit": 0.35
+            },
+            "test_proxy_sharpe": {
+              "passed": false,
+              "actual": -0.7512995042265377,
+              "limit": 0.9
+            }
+          }
+        },
+        "walk_forward": {
+          "eligible": false,
+          "checks": {},
+          "status": "missing"
+        },
+        "walk_forward_evaluated": false
+      },
+      "model_path": "/Users/rziiiii/.openclaw/workspace/runtime/model/card/mode_conditioned_rebound_reward_train_v2/soxl_mode_conditioned_rebound_reward_train_v2_wf_2022_actor.pt",
+      "summary_path": "/Users/rziiiii/.openclaw/workspace/runtime/model/card/mode_conditioned_rebound_reward_train_v2/soxl_mode_conditioned_rebound_reward_train_v2_wf_2022_summary.json",
+      "buy_and_hold_return": -76.61425652678248,
+      "relative_return": 61.694557067012866
+    },
+    "wf_2023_2024": {
+      "return": -16.08590266483305,
+      "sharpe": -0.38875327928179243,
+      "max_dd": 30.489187696120624,
+      "trades": 39,
+      "valid": {
+        "return": 47.6010564652579,
+        "sharpe": 1.7759490205931319,
+        "max_dd": 21.83172047854533,
+        "avg_pos": 0.36902692593358183,
+        "stress_avg_pos": 0.44899488563338913,
+        "stress_days": 6.0,
+        "buy_and_hold_return": 79.49855834249337,
+        "relative_return": -31.89750187723547
+      },
+      "slices": {
+        "test_2023_2024": {
+          "return": 2.4891572408144214,
+          "sharpe": 0.2554657010442497,
+          "max_dd": 17.654521623506998,
+          "avg_pos": 0.2549236150312174,
+          "stress_avg_pos": 0.18273362243469332,
+          "stress_days": 71.0,
+          "buy_and_hold_return": -39.95271038729086,
+          "relative_return": 42.44186762810528
+        }
+      },
+      "test_proxy": {
+        "return": -16.08590266483305,
+        "sharpe": -0.38875327928179243,
+        "max_dd": 30.489187696120624,
+        "avg_pos": 0.2549236150312174,
+        "stress_avg_pos": 0.18273362243469332,
+        "stress_days": 71.0,
+        "buy_and_hold_return": -39.95271038729086,
+        "relative_return": 42.44186762810528
+      },
+      "promotion": {
+        "eligible": false,
+        "fixed_split": {
+          "eligible": false,
+          "checks": {
+            "test_2022_max_dd": {
+              "passed": false,
+              "actual": Infinity,
+              "limit": 30.0
+            },
+            "test_2022_avg_pos": {
+              "passed": false,
+              "actual": Infinity,
+              "limit": 0.35
+            },
+            "test_proxy_sharpe": {
+              "passed": false,
+              "actual": -0.38875327928179243,
+              "limit": 0.9
+            }
+          }
+        },
+        "walk_forward": {
+          "eligible": false,
+          "checks": {},
+          "status": "missing"
+        },
+        "walk_forward_evaluated": false
+      },
+      "model_path": "/Users/rziiiii/.openclaw/workspace/runtime/model/card/mode_conditioned_rebound_reward_train_v2/soxl_mode_conditioned_rebound_reward_train_v2_wf_2023_2024_actor.pt",
+      "summary_path": "/Users/rziiiii/.openclaw/workspace/runtime/model/card/mode_conditioned_rebound_reward_train_v2/soxl_mode_conditioned_rebound_reward_train_v2_wf_2023_2024_summary.json",
+      "buy_and_hold_return": -39.95271038729086,
+      "relative_return": 42.44186762810528
+    }
+  },
+  "promotion": {
+    "eligible": false,
+    "fixed_split": {
+      "eligible": false,
+      "checks": {
+        "test_2022_max_dd": {
+          "passed": false,
+          "actual": 43.90938621898536,
+          "limit": 30.0
+        },
+        "test_2022_avg_pos": {
+          "passed": true,
+          "actual": 0.1313807155129157,
+          "limit": 0.35
+        },
+        "test_proxy_sharpe": {
+          "passed": true,
+          "actual": 0.9914484831978018,
+          "limit": 0.9
+        }
+      }
+    },
+    "walk_forward": {
+      "eligible": false,
+      "checks": {
+        "wf_2023_2024_return": {
+          "passed": false,
+          "actual": -16.08590266483305,
+          "limit": 0.0
+        },
+        "wf_2023_2024_sharpe": {
+          "passed": false,
+          "actual": -0.38875327928179243,
+          "limit": 0.0
+        },
+        "wf_2023_2024_relative": {
+          "passed": true,
+          "actual": 42.44186762810528,
+          "limit": 30.0
+        }
+      }
+    },
+    "walk_forward_evaluated": true
+  },
+  "strict_user_target_pass": false,
+  "wf_relative_passes": 2,
+  "wf_dd15_passes": 0,
+  "decision": "blocked_underparticipation_not_promoted"
+}

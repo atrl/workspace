@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-25T02:38:16.914553+00:00",
+  "generated_at": "2026-05-25T03:25:37.458498+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -4070,6 +4070,54 @@
       "bytes": 20836
     },
     {
+      "path": "runtime/model/card/mode_conditioned_rebound_reward_train_v2/mode_conditioned_rebound_reward_train_v2_soxl_daily.csv",
+      "category": "model",
+      "suffix": ".csv",
+      "bytes": 201392
+    },
+    {
+      "path": "runtime/model/card/mode_conditioned_rebound_reward_train_v2/mode_conditioned_rebound_reward_train_v2_wf_2020_soxl_daily.csv",
+      "category": "model",
+      "suffix": ".csv",
+      "bytes": 30501
+    },
+    {
+      "path": "runtime/model/card/mode_conditioned_rebound_reward_train_v2/mode_conditioned_rebound_reward_train_v2_wf_2022_soxl_daily.csv",
+      "category": "model",
+      "suffix": ".csv",
+      "bytes": 29905
+    },
+    {
+      "path": "runtime/model/card/mode_conditioned_rebound_reward_train_v2/mode_conditioned_rebound_reward_train_v2_wf_2023_2024_soxl_daily.csv",
+      "category": "model",
+      "suffix": ".csv",
+      "bytes": 30295
+    },
+    {
+      "path": "runtime/model/card/mode_conditioned_rebound_reward_train_v2/soxl_mode_conditioned_rebound_reward_train_v2_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 8615
+    },
+    {
+      "path": "runtime/model/card/mode_conditioned_rebound_reward_train_v2/soxl_mode_conditioned_rebound_reward_train_v2_wf_2020_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 7571
+    },
+    {
+      "path": "runtime/model/card/mode_conditioned_rebound_reward_train_v2/soxl_mode_conditioned_rebound_reward_train_v2_wf_2022_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 7583
+    },
+    {
+      "path": "runtime/model/card/mode_conditioned_rebound_reward_train_v2/soxl_mode_conditioned_rebound_reward_train_v2_wf_2023_2024_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 7585
+    },
+    {
       "path": "runtime/model/card/model_runtime_readiness_v1/model_runtime_readiness_review.json",
       "category": "model",
       "suffix": ".json",
@@ -5850,6 +5898,36 @@
       "category": "reward",
       "suffix": ".md",
       "bytes": 2083
+    },
+    {
+      "path": "runtime/reward/card/mode_conditioned_rebound_reward_train_v2/baseline_comparison.csv",
+      "category": "reward",
+      "suffix": ".csv",
+      "bytes": 867
+    },
+    {
+      "path": "runtime/reward/card/mode_conditioned_rebound_reward_train_v2/metrics_summary.csv",
+      "category": "reward",
+      "suffix": ".csv",
+      "bytes": 1125
+    },
+    {
+      "path": "runtime/reward/card/mode_conditioned_rebound_reward_train_v2/selection.json",
+      "category": "reward",
+      "suffix": ".json",
+      "bytes": 10907
+    },
+    {
+      "path": "runtime/reward/card/mode_conditioned_rebound_reward_train_v2/selection_history.csv",
+      "category": "reward",
+      "suffix": ".csv",
+      "bytes": 576
+    },
+    {
+      "path": "runtime/reward/card/mode_conditioned_rebound_reward_train_v2/slice_metrics.csv",
+      "category": "reward",
+      "suffix": ".csv",
+      "bytes": 548
     },
     {
       "path": "runtime/reward/card/state_conditioned_rebound_risk_router_v1/base_metrics.csv",
