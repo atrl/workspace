@@ -3,6 +3,7 @@ from __future__ import annotations
 import pandas as pd
 
 from src.soxl_quant.app.state_objective_training_targets import (
+    StateObjectiveDrawdownControlTargetConfig,
     StateObjectiveBCReadinessConfig,
     StateObjectiveReboundTargetEnrichmentConfig,
     StateObjectiveReboundClusterConfig,
@@ -10,6 +11,7 @@ from src.soxl_quant.app.state_objective_training_targets import (
     apply_state_objective_sparse_release_gate,
     audit_state_objective_target_lift,
     audit_state_objective_target_scope,
+    build_drawdown_control_training_targets,
     build_fold_local_state_objective_training_targets,
     build_state_objective_training_targets,
     discover_rebound_clusters_from_daily_path,
@@ -25,6 +27,102 @@ from src.soxl_quant.app.state_objective_training_targets import (
     summarize_state_objective_target_scope_audit,
     summarize_state_objective_training_targets,
 )
+
+
+def test_drawdown_control_targets_cap_high_exposure_inside_failed_interval():
+    daily = pd.DataFrame(
+        {
+            "datetime": pd.to_datetime(["2022-03-30", "2022-04-01", "2022-04-04", "2022-04-05"]),
+            "nav": [1.00, 0.94, 0.82, 0.84],
+            "position": [0.55, 0.50, 0.46, 0.20],
+            "drawdown_63": [-0.05, -0.12, -0.30, -0.28],
+        }
+    )
+    intervals = pd.DataFrame(
+        {
+            "rank": [1],
+            "start": ["2022-04-01"],
+            "end": ["2022-04-04"],
+            "max_dd": [18.0],
+        }
+    )
+
+    targets = build_drawdown_control_training_targets(
+        daily,
+        intervals=intervals,
+        candidate="ppo_selected",
+        window="wf_2022",
+        config=StateObjectiveDrawdownControlTargetConfig(
+            drawdown_state_threshold=0.10,
+            downtrend_position_cap=0.25,
+            min_position_delta=0.05,
+        ),
+    )
+
+    by_date = targets.set_index("datetime")
+    calm = by_date.loc[pd.Timestamp("2022-03-30")]
+    risk = by_date.loc[pd.Timestamp("2022-04-04")]
+    low_exposure = by_date.loc[pd.Timestamp("2022-04-05")]
+    assert bool(calm["drawdown_control_state"]) is False
+    assert calm["risk_target_position"] == 0.55
+    assert bool(risk["drawdown_control_state"]) is True
+    assert bool(risk["is_downtrend_state"]) is True
+    assert risk["risk_target_position"] == 0.25
+    assert risk["risk_cap_delta"] == 0.21
+    assert risk["source_interval_rank"] == 1
+    assert risk["downtrend_drawdown_weight"] > 0
+    assert risk["objective_weight"] > calm["objective_weight"]
+    assert bool(low_exposure["drawdown_control_state"]) is True
+    assert bool(low_exposure["is_downtrend_state"]) is False
+    assert low_exposure["risk_target_position"] == 0.20
+
+
+def test_drawdown_control_targets_accept_existing_percent_drawdown_column():
+    daily = pd.DataFrame(
+        {
+            "datetime": pd.to_datetime(["2022-01-03", "2022-01-04"]),
+            "drawdown": [0.0, 16.0],
+            "target_position": [0.40, 0.60],
+        }
+    )
+
+    targets = build_drawdown_control_training_targets(
+        daily,
+        candidate="candidate_a",
+        window="wf_2022",
+        config=StateObjectiveDrawdownControlTargetConfig(
+            drawdown_state_threshold=0.10,
+            downtrend_position_cap=0.30,
+        ),
+    )
+
+    risky = targets.set_index("datetime").loc[pd.Timestamp("2022-01-04")]
+    assert risky["path_drawdown"] == 0.16
+    assert risky["teacher_position"] == 0.60
+    assert risky["risk_target_position"] == 0.30
+    assert risky["window_drawdown_gap"] == 1.0
+
+
+def test_drawdown_control_targets_cap_objective_weight_to_limit_overfit():
+    daily = pd.DataFrame(
+        {
+            "datetime": pd.to_datetime(["2022-01-03", "2022-01-04"]),
+            "drawdown": [0.0, 0.45],
+            "position": [0.50, 0.70],
+        }
+    )
+
+    targets = build_drawdown_control_training_targets(
+        daily,
+        candidate="candidate_a",
+        window="wf_2022",
+        config=StateObjectiveDrawdownControlTargetConfig(
+            drawdown_gap_weight=100.0,
+            max_objective_weight=12.0,
+        ),
+    )
+
+    assert targets["objective_weight"].max() == 12.0
 
 
 def test_training_targets_mark_rebound_cluster_and_floor_teacher_position():

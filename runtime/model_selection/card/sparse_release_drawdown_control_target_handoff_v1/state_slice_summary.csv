@@ -1,0 +1,5 @@
+drawdown_control_state,is_downtrend_state,inside_failed_drawdown_interval,rows,start,end,mean_teacher_position,mean_risk_target_position,mean_risk_cap_delta,max_path_drawdown,mean_objective_weight,max_objective_weight
+False,False,False,60,2022-01-03,2022-03-29,0.2503580322841305,0.2503580322841305,0.0,0.0,1.0,1.0
+True,False,True,45,2022-03-30,2022-08-04,0.24954066971007444,0.24954066971007444,0.0,0.2650233412925883,1.0,1.0
+True,True,False,52,2022-10-17,2022-12-29,0.3983169628600112,0.25,0.1483169629,0.3781191807861463,25.0,25.0
+True,True,True,93,2022-04-21,2022-10-14,0.4073985926221374,0.25,0.15739859263010753,0.3868269354530397,22.587990654750513,25.0

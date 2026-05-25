@@ -1,0 +1,183 @@
+{
+  "experiment": "sparse_release_drawdown_control_target_handoff_v1",
+  "decision": "drawdown_control_target_handoff_no_promotion",
+  "promotion_allowed": false,
+  "input_evidence": {
+    "failed_decision": "ppo_failed_wf_2022_drawdown_interval_no_longer_training",
+    "ppo_selected_relative_return": 41.77033285370087,
+    "ppo_selected_max_dd": 38.68269354530396,
+    "worst_interval_start": "2022-03-30",
+    "worst_interval_end": "2022-10-14",
+    "worst_interval_max_dd": 38.6827,
+    "guard_decision": "drawdown_budget_guard_screen_no_promotion",
+    "guard_next_mechanism": "move_drawdown_control_into_checkpoint_objective_or_state_conditioned_training",
+    "best_guard_config": "cvar_budget_10_15_cash",
+    "best_guard_max_drawdown_gap": 0.7869898207450561,
+    "best_guard_max_relative_gap": 4.007458010291202,
+    "best_guard_mean_avg_pos": 0.05116526449456248
+  },
+  "config": {
+    "target_relative_return": 30.0,
+    "target_max_dd": 15.0,
+    "drawdown_state_threshold": 0.1,
+    "downtrend_position_cap": 0.25,
+    "min_position_delta": 0.05,
+    "drawdown_gap_weight": 10.0,
+    "interval_weight": 5.0,
+    "max_objective_weight": 25.0
+  },
+  "target_summary": {
+    "rows": 250,
+    "windows": [
+      "wf_2022"
+    ],
+    "top_weighted_window": "wf_2022",
+    "max_objective_weight": 25.0,
+    "rebound_rows": 0,
+    "downtrend_rows": 145,
+    "mean_teacher_position": 0.3394054530263221,
+    "mean_rebound_target_position": 0.3394054530263221,
+    "mean_risk_target_position": 0.2500032482960047,
+    "window_summary": [
+      {
+        "window": "wf_2022",
+        "rows": 250,
+        "mean_objective_weight": 14.022732523567191,
+        "max_objective_weight": 25.0,
+        "rebound_rows": 0,
+        "downtrend_rows": 145,
+        "mean_teacher_position": 0.3394054530263222,
+        "mean_rebound_target_position": 0.3394054530263222,
+        "mean_risk_target_position": 0.25000324829600473
+      }
+    ],
+    "required_terms": [
+      "walkforward_drawdown_gap_penalty",
+      "downtrend_drawdown_state_cap"
+    ]
+  },
+  "summary_metrics": {
+    "target_rows": 250,
+    "drawdown_control_rows": 190,
+    "risk_cap_rows": 145,
+    "failed_interval_rows": 138,
+    "mean_teacher_position": 0.3394054530263221,
+    "mean_risk_target_position": 0.2500032482960047,
+    "risk_rows_mean_teacher_position": 0.4041417322936507,
+    "risk_rows_mean_risk_target_position": 0.25,
+    "risk_rows_mean_cap_delta": 0.15414173231310346,
+    "max_objective_weight": 25.0,
+    "max_path_drawdown_pct": 38.68269354530397,
+    "window_drawdown_gap_pp": 23.68269354530397,
+    "top_feature_focus": [
+      "below_ma63_days",
+      "anchor_gap_180",
+      "negative_gap_frequency_21",
+      "below_anchor_ratio_63",
+      "rolling_new_low_ratio_63"
+    ]
+  },
+  "state_slice_summary": [
+    {
+      "drawdown_control_state": false,
+      "is_downtrend_state": false,
+      "inside_failed_drawdown_interval": false,
+      "rows": 60,
+      "start": "2022-01-03",
+      "end": "2022-03-29",
+      "mean_teacher_position": 0.2503580322841305,
+      "mean_risk_target_position": 0.2503580322841305,
+      "mean_risk_cap_delta": 0.0,
+      "max_path_drawdown": 0.0,
+      "mean_objective_weight": 1.0,
+      "max_objective_weight": 1.0
+    },
+    {
+      "drawdown_control_state": true,
+      "is_downtrend_state": false,
+      "inside_failed_drawdown_interval": true,
+      "rows": 45,
+      "start": "2022-03-30",
+      "end": "2022-08-04",
+      "mean_teacher_position": 0.24954066971007444,
+      "mean_risk_target_position": 0.24954066971007444,
+      "mean_risk_cap_delta": 0.0,
+      "max_path_drawdown": 0.2650233412925883,
+      "mean_objective_weight": 1.0,
+      "max_objective_weight": 1.0
+    },
+    {
+      "drawdown_control_state": true,
+      "is_downtrend_state": true,
+      "inside_failed_drawdown_interval": false,
+      "rows": 52,
+      "start": "2022-10-17",
+      "end": "2022-12-29",
+      "mean_teacher_position": 0.3983169628600112,
+      "mean_risk_target_position": 0.25,
+      "mean_risk_cap_delta": 0.1483169629,
+      "max_path_drawdown": 0.3781191807861463,
+      "mean_objective_weight": 25.0,
+      "max_objective_weight": 25.0
+    },
+    {
+      "drawdown_control_state": true,
+      "is_downtrend_state": true,
+      "inside_failed_drawdown_interval": true,
+      "rows": 93,
+      "start": "2022-04-21",
+      "end": "2022-10-14",
+      "mean_teacher_position": 0.4073985926221374,
+      "mean_risk_target_position": 0.25,
+      "mean_risk_cap_delta": 0.15739859263010753,
+      "max_path_drawdown": 0.3868269354530397,
+      "mean_objective_weight": 22.587990654750513,
+      "max_objective_weight": 25.0
+    }
+  ],
+  "selection": {
+    "experiment": "sparse_release_drawdown_control_target_handoff_v1",
+    "created_at": "2026-05-25T20:05:12.599845+00:00",
+    "role": "diagnose",
+    "changed_layer": [
+      "model_selection",
+      "training_objective"
+    ],
+    "profile": "sparse_release_bc_ppo_screen_v1",
+    "source_experiment": "sparse_release_failed_fold_interval_diagnostic_v1",
+    "source_guard_experiment": "sparse_release_drawdown_budget_guard_screen_v1",
+    "decision": "drawdown_control_target_handoff_no_promotion",
+    "promotion_allowed": false,
+    "target_relative_return_pp": 30.0,
+    "target_max_dd_pct": 15.0,
+    "next_mechanism": "train_or_checkpoint_score_state_objective_drawdown_targets",
+    "required_terms": [
+      "walkforward_drawdown_gap_penalty",
+      "downtrend_drawdown_state_cap"
+    ],
+    "external_sources": [
+      "https://arxiv.org/abs/1506.02188",
+      "https://arxiv.org/abs/1706.10059",
+      "https://github.com/microsoft/qlib",
+      "https://arxiv.org/abs/2009.11189",
+      "https://github.com/AI4Finance-Foundation/FinRL",
+      "https://arxiv.org/abs/2011.09607",
+      "https://doi.org/10.21314/JCF.2016.322"
+    ],
+    "sidecars": [
+      "drawdown_control_training_targets.csv",
+      "state_slice_summary.csv",
+      "drawdown_interval_feature_focus.csv",
+      "selection.json",
+      "summary.json"
+    ]
+  },
+  "conclusion": [
+    "Generated 250 drawdown-control target rows from the failed wf_2022 PPO path.",
+    "Drawdown-control state covers 190 rows; 145 high-exposure rows require an explicit risk cap.",
+    "On capped risk rows, teacher position averages 0.404 and risk_target_position averages 0.250; mean cap delta is 0.154.",
+    "Max path drawdown in the source path is 38.68%, leaving a 23.68pp gap to the <=15% target.",
+    "Execution-only guard remains diagnostic: best guard `cvar_budget_10_15_cash` still has full_gate=False and mean_avg_pos=0.051.",
+    "Decision: no runtime promotion. Use this target table for state-conditioned training, BC warm start, or checkpoint-objective scoring before another PPO handoff."
+  ]
+}

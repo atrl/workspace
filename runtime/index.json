@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-25T19:41:40.439416+00:00",
+  "generated_at": "2026-05-25T20:05:30.486341+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -6336,6 +6336,36 @@
       "category": "model_selection",
       "suffix": ".csv",
       "bytes": 2896
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_drawdown_control_target_handoff_v1/drawdown_control_training_targets.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 107357
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_drawdown_control_target_handoff_v1/drawdown_interval_feature_focus.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1507
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_drawdown_control_target_handoff_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1274
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_drawdown_control_target_handoff_v1/state_slice_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 661
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_drawdown_control_target_handoff_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 6755
     },
     {
       "path": "runtime/model_selection/card/sparse_release_failed_fold_interval_diagnostic_v1/bc_daily_2022.csv",

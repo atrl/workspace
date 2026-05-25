@@ -41,6 +41,18 @@ class StateObjectiveTrainingTargetConfig:
 
 
 @dataclass(frozen=True)
+class StateObjectiveDrawdownControlTargetConfig:
+    target_relative_return: float = 30.0
+    target_max_dd: float = 15.0
+    drawdown_state_threshold: float = 0.10
+    downtrend_position_cap: float = 0.25
+    min_position_delta: float = 0.02
+    drawdown_gap_weight: float = 10.0
+    interval_weight: float = 5.0
+    max_objective_weight: float = 25.0
+
+
+@dataclass(frozen=True)
 class StateObjectiveCheckpointSelectionConfig:
     alignment_loss_weight: float = 1.0
     window_gate_loss_weight: float = 0.01
@@ -130,6 +142,201 @@ def _normalise_candidate_path(daily: pd.DataFrame, *, window: str, candidate: st
     frame["window"] = str(window)
     frame["candidate_position"] = pd.to_numeric(frame["position"], errors="coerce").fillna(0.0)
     return frame
+
+
+def _position_from_aliases(frame: pd.DataFrame) -> pd.Series:
+    for column in ("position", "router_position", "target_position", "base_position"):
+        if column in frame.columns:
+            return pd.to_numeric(frame[column], errors="coerce").fillna(0.0).clip(lower=0.0, upper=1.0)
+    raise ValueError("daily path missing position column or alias")
+
+
+def _path_drawdown_from_daily(frame: pd.DataFrame) -> pd.Series:
+    if "drawdown" in frame.columns:
+        drawdown = pd.to_numeric(frame["drawdown"], errors="coerce").fillna(0.0).abs()
+        if float(drawdown.max()) > 1.5:
+            drawdown = drawdown / 100.0
+        return drawdown.clip(lower=0.0)
+    for nav_col in ("strategy_nav", "nav", "account"):
+        if nav_col in frame.columns:
+            nav = pd.to_numeric(frame[nav_col], errors="coerce").ffill().fillna(0.0)
+            peak = nav.cummax().replace(0.0, np.nan)
+            return ((peak - nav) / peak).fillna(0.0).clip(lower=0.0)
+    return pd.Series(0.0, index=frame.index)
+
+
+def _normalise_drawdown_intervals(intervals: pd.DataFrame | None) -> pd.DataFrame:
+    if intervals is None or intervals.empty:
+        return pd.DataFrame(columns=["rank", "start", "end", "max_dd"])
+    result = intervals.copy()
+    missing = sorted({"start", "end"} - set(result.columns))
+    if missing:
+        raise ValueError(f"drawdown intervals missing columns: {missing}")
+    if "rank" not in result.columns:
+        result["rank"] = np.arange(1, len(result) + 1)
+    if "max_dd" not in result.columns:
+        result["max_dd"] = 0.0
+    result["start"] = pd.to_datetime(result["start"])
+    result["end"] = pd.to_datetime(result["end"])
+    result["rank"] = pd.to_numeric(result["rank"], errors="coerce").fillna(0).astype(int)
+    result["max_dd"] = pd.to_numeric(result["max_dd"], errors="coerce").fillna(0.0)
+    return result.sort_values(["rank", "start"]).reset_index(drop=True)
+
+
+def build_drawdown_control_training_targets(
+    daily_path: pd.DataFrame,
+    *,
+    intervals: pd.DataFrame | None = None,
+    candidate: str,
+    window: str,
+    config: StateObjectiveDrawdownControlTargetConfig = StateObjectiveDrawdownControlTargetConfig(),
+) -> pd.DataFrame:
+    """Build state-objective target rows from a failed path drawdown interval.
+
+    The output is compatible with state-objective alignment and checkpoint
+    scoring. It only lowers the risk target on high-exposure drawdown-control
+    states, while retaining the teacher position elsewhere.
+    """
+
+    if daily_path.empty:
+        return pd.DataFrame(
+            columns=[
+                "datetime",
+                "candidate",
+                "window",
+                "teacher_position",
+                "rebound_target_position",
+                "risk_target_position",
+                "objective_weight",
+            ]
+        )
+    result = daily_path.copy()
+    if "datetime" not in result.columns:
+        raise ValueError("daily path missing datetime column")
+    result["datetime"] = pd.to_datetime(result["datetime"])
+    result = result.sort_values("datetime").reset_index(drop=True)
+    result["candidate"] = str(candidate)
+    result["window"] = str(window)
+    result["teacher_position"] = _position_from_aliases(result)
+    result["path_drawdown"] = _path_drawdown_from_daily(result)
+    max_path_drawdown_pct = float(result["path_drawdown"].max() * 100.0)
+    window_drawdown_gap = max(0.0, max_path_drawdown_pct - float(config.target_max_dd))
+
+    interval_rows = _normalise_drawdown_intervals(intervals)
+    result["source_interval_rank"] = 0
+    result["source_interval_start"] = ""
+    result["source_interval_end"] = ""
+    result["source_interval_max_dd"] = 0.0
+    result["inside_failed_drawdown_interval"] = False
+    for row in interval_rows.itertuples(index=False):
+        mask = (result["datetime"] >= row.start) & (result["datetime"] <= row.end)
+        mask = mask & (result["source_interval_rank"] == 0)
+        if not mask.any():
+            continue
+        result.loc[mask, "source_interval_rank"] = int(row.rank)
+        result.loc[mask, "source_interval_start"] = row.start.strftime("%Y-%m-%d")
+        result.loc[mask, "source_interval_end"] = row.end.strftime("%Y-%m-%d")
+        result.loc[mask, "source_interval_max_dd"] = float(row.max_dd)
+        result.loc[mask, "inside_failed_drawdown_interval"] = True
+
+    result["drawdown_control_state"] = (
+        result["path_drawdown"] >= float(config.drawdown_state_threshold)
+    ) | result["inside_failed_drawdown_interval"].astype(bool)
+    result["is_downtrend_state"] = result["drawdown_control_state"] & (
+        result["teacher_position"] > float(config.downtrend_position_cap) + float(config.min_position_delta)
+    )
+    result["risk_target_position"] = np.where(
+        result["is_downtrend_state"],
+        np.minimum(result["teacher_position"], float(config.downtrend_position_cap)),
+        result["teacher_position"],
+    )
+    result["risk_cap_delta"] = (
+        result["teacher_position"] - pd.to_numeric(result["risk_target_position"], errors="coerce")
+    ).clip(lower=0.0).round(10)
+    result["path_drawdown_gap"] = (
+        (result["path_drawdown"] - float(config.drawdown_state_threshold)).clip(lower=0.0) * 100.0
+    )
+    result["window_relative_return"] = 0.0
+    result["window_max_dd"] = max_path_drawdown_pct
+    result["window_relative_gap"] = 0.0
+    result["window_drawdown_gap"] = window_drawdown_gap
+    result["walkforward_relative_weight"] = 0.0
+    result["downtrend_drawdown_weight"] = np.where(
+        result["is_downtrend_state"],
+        result["path_drawdown_gap"] * float(config.drawdown_gap_weight)
+        + np.where(result["inside_failed_drawdown_interval"], float(config.interval_weight), 0.0),
+        0.0,
+    )
+    result["rebound_target_position"] = result["teacher_position"]
+    result["rebound_participation_weight"] = 0.0
+    result["cluster_drawdown_weight"] = 0.0
+    result["cluster"] = ""
+    result["cluster_relative_gap"] = 0.0
+    result["cluster_participation_gap"] = 0.0
+    result["cluster_drawdown_gap"] = 0.0
+    result["is_rebound_cluster"] = False
+    result["rebound_state"] = False
+    result["risk_state"] = result["drawdown_control_state"]
+    result["objective_weight"] = (1.0 + result["downtrend_drawdown_weight"]).clip(
+        upper=float(config.max_objective_weight)
+    )
+
+    columns = [
+        "datetime",
+        "candidate",
+        "window",
+        "cluster",
+        "teacher_position",
+        "rebound_target_position",
+        "risk_target_position",
+        "risk_cap_delta",
+        "objective_weight",
+        "walkforward_relative_weight",
+        "downtrend_drawdown_weight",
+        "rebound_participation_weight",
+        "cluster_drawdown_weight",
+        "window_relative_return",
+        "window_max_dd",
+        "window_relative_gap",
+        "window_drawdown_gap",
+        "path_drawdown",
+        "path_drawdown_gap",
+        "source_interval_rank",
+        "source_interval_start",
+        "source_interval_end",
+        "source_interval_max_dd",
+        "inside_failed_drawdown_interval",
+        "drawdown_control_state",
+        "cluster_relative_gap",
+        "cluster_participation_gap",
+        "cluster_drawdown_gap",
+        "is_rebound_cluster",
+        "is_downtrend_state",
+        "rebound_state",
+        "risk_state",
+    ]
+    passthrough = [
+        column
+        for column in [
+            "price",
+            "strategy_nav",
+            "nav",
+            "account",
+            "base_position",
+            "upside_position",
+            "router_position",
+            "mom_5",
+            "mom_21",
+            "drawdown_63",
+            "rv_21",
+            "vol_of_vol_21",
+            "soxl_soxx_ratio_widen_21",
+            "soxl_soxx_ratio_z_252",
+            "soxx_mom_21",
+        ]
+        if column in result.columns
+    ]
+    return result[columns + passthrough]
 
 
 def _metrics_for_window(
@@ -1555,12 +1762,14 @@ def summarize_state_objective_checkpoint_selection(scored: pd.DataFrame) -> dict
 __all__ = [
     "StateObjectiveBCReadinessConfig",
     "StateObjectiveCheckpointSelectionConfig",
+    "StateObjectiveDrawdownControlTargetConfig",
     "StateObjectiveReboundClusterConfig",
     "StateObjectiveReboundTargetEnrichmentConfig",
     "StateObjectiveTrainingTargetConfig",
     "apply_state_objective_sparse_release_gate",
     "audit_state_objective_target_lift",
     "audit_state_objective_target_scope",
+    "build_drawdown_control_training_targets",
     "build_fold_local_state_objective_training_targets",
     "build_state_objective_training_targets",
     "discover_rebound_clusters_from_daily_path",
