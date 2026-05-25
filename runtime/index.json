@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-25T05:18:52.410693+00:00",
+  "generated_at": "2026-05-25T05:32:04.610395+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -3894,6 +3894,36 @@
       "category": "model",
       "suffix": ".json",
       "bytes": 1916
+    },
+    {
+      "path": "runtime/model/card/barrier_action_label_purged_bc_v1/barrier_grid_results.csv",
+      "category": "model",
+      "suffix": ".csv",
+      "bytes": 7363
+    },
+    {
+      "path": "runtime/model/card/barrier_action_label_purged_bc_v1/selected_comparison.csv",
+      "category": "model",
+      "suffix": ".csv",
+      "bytes": 1778
+    },
+    {
+      "path": "runtime/model/card/barrier_action_label_purged_bc_v1/selected_paths.csv",
+      "category": "model",
+      "suffix": ".csv",
+      "bytes": 157671
+    },
+    {
+      "path": "runtime/model/card/barrier_action_label_purged_bc_v1/selected_signal_audit.csv",
+      "category": "model",
+      "suffix": ".csv",
+      "bytes": 355
+    },
+    {
+      "path": "runtime/model/card/barrier_action_label_purged_bc_v1/selection.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 5496
     },
     {
       "path": "runtime/model/card/drawdown_rebound_reward_train_v1/drawdown_rebound_reward_train_v1_soxl_daily.csv",

@@ -212,6 +212,12 @@ qlib_venv/bin/python scripts/feature_analysis.py
   `datetime` 和单一目标 `position` 列。不要在包含原始 `position` 的宽表上
   直接把 `oracle_position` / `base_position` rename 成 `position`；重复列会让
   position 变成二维数组，导致指标报错或更隐蔽的误算。
+- 如果连续的 BC / label diagnostics（例如 logistic、tree、triple-barrier
+  action labels）能提高平均超额，但仍不能把 key-window MaxDD 压到目标以内，
+  不要继续换分类器或做阈值扫参。先看 `selected_signal_audit.csv` 的
+  false positive / sparse-action 结构；若收益改善伴随 2022 或关键窗口回撤扩大，
+  下一步应转向 explicit drawdown-state / sequence features 或 execution-layer
+  drawdown budget，而不是再开一个同类 BC sweep。
 - 任何“改进”都应该回写到 workpad 或 memory，而不是只留在聊天里。
 
 ## Generic Quant Optimization Framework
