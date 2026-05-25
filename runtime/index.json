@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-25T21:02:33.420985+00:00",
+  "generated_at": "2026-05-25T21:12:48.223614+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -6528,6 +6528,60 @@
       "category": "model_selection",
       "suffix": ".json",
       "bytes": 6755
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_drawdown_target_tightening_v1/action_distribution.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 603
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_drawdown_target_tightening_v1/bc_slice_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1438
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_drawdown_target_tightening_v1/coverage.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 481
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_drawdown_target_tightening_v1/coverage.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1894
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_drawdown_target_tightening_v1/selected_targets_by_cap.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 467561
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_drawdown_target_tightening_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1506
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_drawdown_target_tightening_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 14762
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_drawdown_target_tightening_v1/target_cap_fold_results.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2687
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_drawdown_target_tightening_v1/target_cap_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 804
     },
     {
       "path": "runtime/model_selection/card/sparse_release_failed_fold_interval_diagnostic_v1/bc_daily_2022.csv",
