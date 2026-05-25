@@ -159,6 +159,23 @@ weighted gap ranking。若没有任何候选 `full_gate=True`，不要把分数�
 promotion；只能把它作为 closest diagnostic reference，并进入
 walk-forward-weighted multi-objective training/selection 设计。
 
+当 walk-forward weighted selector、poor-window aggregate、以及路径级
+rebound/downtrend router 都没有过 full gate 时，不要继续扩大路径阈值网格。
+在 runtime notebook 中把三类证据交给 handoff 逻辑：
+
+```python
+from src.soxl_quant.app.training_objective_handoff import (
+    derive_training_objective_handoff,
+    render_training_objective_handoff,
+)
+```
+
+`derive_training_objective_handoff()` 会把最近候选的 MaxDD/relative gap、
+共享 poor-window cluster、feature group consensus、以及 router 是否已经
+`diagnostic_no_promotion` 合并成下一轮训练目标。如果结果要求
+`train_state_conditioned_multi_objective`，下一步应进入训练时/模型选择时的
+状态条件多目标，而不是再做 path-level threshold router search。
+
 ### 4. Explain with mechanism, not adjectives
 
 优先从下面这些“可被代码改变”的机制解释，不要只写“市场不同”：

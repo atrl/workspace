@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-25T08:27:21.978101+00:00",
+  "generated_at": "2026-05-25T08:59:16.938549+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -5550,6 +5550,54 @@
       "category": "model_selection",
       "suffix": ".json",
       "bytes": 16630
+    },
+    {
+      "path": "runtime/model_selection/card/training_objective_handoff_v1/diagnostics/recovery_reentry_conditional_vol_target_v1/feature_differences.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4330
+    },
+    {
+      "path": "runtime/model_selection/card/training_objective_handoff_v1/diagnostics/recovery_reentry_conditional_vol_target_v1/manifest.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1604
+    },
+    {
+      "path": "runtime/model_selection/card/training_objective_handoff_v1/diagnostics/recovery_reentry_conditional_vol_target_v1/oos_diagnostic_review.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 3975
+    },
+    {
+      "path": "runtime/model_selection/card/training_objective_handoff_v1/diagnostics/recovery_reentry_conditional_vol_target_v1/poor_windows.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1739
+    },
+    {
+      "path": "runtime/model_selection/card/training_objective_handoff_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 8050
+    },
+    {
+      "path": "runtime/model_selection/card/training_objective_handoff_v1/source_manifest.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 807
+    },
+    {
+      "path": "runtime/model_selection/card/training_objective_handoff_v1/training_objective_handoff.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1697
+    },
+    {
+      "path": "runtime/model_selection/card/training_objective_handoff_v1/training_objective_handoff.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 627
     },
     {
       "path": "runtime/model_selection/card/upstream_actor_low_risk_refresh_v1/actor_family_summary.csv",
