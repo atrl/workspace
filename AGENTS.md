@@ -26,6 +26,9 @@ Use these files for distinct roles. Do not collapse them together.
 
 - `docs/research_knowledge/`: mechanism-specific research conclusions and task routing.
 - `runtime/<direction>/knowledge.md`: continuity across sessions, organized by task direction.
+- `runtime/<direction>/card/<experiment>/*.ipynb`: default executable
+  evidence and primary single-run conclusion for experiments, diagnostics,
+  backtests, factor screens, and model-selection loops.
 - `.codex/skills/`: reusable methods and operational knowledge.
 - `runtime/harness/card/registry/profile.yaml`: profile registry and retention intent.
 
@@ -64,12 +67,14 @@ Knowledge retrieval must be scoped by task direction.
 ## Notebook Experiment Discipline
 
 - Future SOXL research, diagnostics, backtests, broker-data checks, and model
-  iteration should go to `ipynb` by default. Treat the user's standing
+  iteration must default to `ipynb`. Treat the user's standing
   preference as: "尽量都到 ipynb" unless the task is purely code maintenance,
   operational startup, or explicitly asks for another artifact.
 - This is a standing default for future turns. Do not wait for the user to
   repeat it before choosing a notebook for experiment, diagnostic, backtest,
   model-selection, factor, reward, network, or broker-data analysis work.
+- If a non-notebook primary artifact is chosen for experiment or diagnostic
+  work, state the reason in the final answer or the relevant durable note.
 - Notebook-first is the default for research work. When a task is an experiment,
   diagnostic, factor screen, model/reward/network trial, broker-data audit,
   backtest, parameter screen, or one-off analysis, put the executable workflow
