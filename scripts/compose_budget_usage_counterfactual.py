@@ -14,6 +14,7 @@ sys.path.insert(0, str(ROOT))
 
 from src.soxl_quant.app.budget_counterfactual import (  # noqa: E402
     BullParticipationGuardConfig,
+    DeepCapitulationReentryGuardConfig,
     EquityDrawdownControlConfig,
     RecoveryReentryGuardConfig,
     build_budget_usage_counterfactual,
@@ -76,6 +77,16 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--reentry-max-vix-percentile-252", type=float, default=0.85)
     parser.add_argument("--reentry-max-below-anchor-ratio-63", type=float, default=1.0)
     parser.add_argument("--reentry-min-anchor-gap-180", type=float, default=-10.0)
+    parser.add_argument(
+        "--deep-capitulation-reentry-guard",
+        action="store_true",
+        help="Floor low composed targets in stable deep-capitulation states",
+    )
+    parser.add_argument("--deep-cap-min-target", type=float, default=0.30)
+    parser.add_argument("--deep-cap-max-target", type=float, default=0.45)
+    parser.add_argument("--deep-cap-max-base-target", type=float, default=0.20)
+    parser.add_argument("--deep-cap-max-mom-5", type=float, default=0.05)
+    parser.add_argument("--deep-cap-max-drawdown-63", type=float, default=-0.58)
     parser.add_argument(
         "--equity-drawdown-control",
         action="store_true",
@@ -141,6 +152,14 @@ def main() -> None:
             max_vix_percentile_252=args.reentry_max_vix_percentile_252,
             max_below_anchor_ratio_63=args.reentry_max_below_anchor_ratio_63,
             min_anchor_gap_180=args.reentry_min_anchor_gap_180,
+        ),
+        deep_capitulation_guard=DeepCapitulationReentryGuardConfig(
+            enabled=bool(args.deep_capitulation_reentry_guard),
+            min_target=args.deep_cap_min_target,
+            max_target=args.deep_cap_max_target,
+            max_base_target=args.deep_cap_max_base_target,
+            max_mom_5=args.deep_cap_max_mom_5,
+            max_drawdown_63=args.deep_cap_max_drawdown_63,
         ),
         drawdown_control=EquityDrawdownControlConfig(
             enabled=bool(args.equity_drawdown_control),

@@ -9,6 +9,7 @@ import pandas as pd
 
 from ..policy.two_speed_budget import (
     BullParticipationGuardConfig,
+    DeepCapitulationReentryGuardConfig,
     EquityDrawdownControlConfig,
     RecoveryReentryGuardConfig,
     TwoSpeedBudgetConfig,
@@ -172,6 +173,19 @@ def _recovery_guard_config_payload(cfg: RecoveryReentryGuardConfig | None) -> di
     }
 
 
+def _deep_capitulation_guard_config_payload(cfg: DeepCapitulationReentryGuardConfig | None) -> dict:
+    guard = cfg or DeepCapitulationReentryGuardConfig()
+    return {
+        "enabled": bool(guard.enabled),
+        "min_target": float(guard.min_target),
+        "max_target": float(guard.max_target),
+        "max_base_target": float(guard.max_base_target),
+        "max_mom_5": float(guard.max_mom_5),
+        "max_drawdown_63": float(guard.max_drawdown_63),
+        "action": "floor_low_target_in_deep_capitulation",
+    }
+
+
 def _equity_drawdown_control_config_payload(cfg: EquityDrawdownControlConfig | None) -> dict:
     control = cfg or EquityDrawdownControlConfig()
     return {
@@ -216,6 +230,7 @@ def build_budget_usage_counterfactual(
     bull_guard: BullParticipationGuardConfig | None = None,
     feature_frame: pd.DataFrame | None = None,
     recovery_guard: RecoveryReentryGuardConfig | None = None,
+    deep_capitulation_guard: DeepCapitulationReentryGuardConfig | None = None,
     drawdown_control: EquityDrawdownControlConfig | None = None,
     windows: Mapping[str, tuple[str, str]] | None = None,
 ) -> BudgetUsageCounterfactual:
@@ -224,6 +239,7 @@ def build_budget_usage_counterfactual(
     fast_frame = _position_frame(fast).rename(columns={"position": "fast_position"})
     guard_cfg = bull_guard or BullParticipationGuardConfig()
     recovery_cfg = recovery_guard or RecoveryReentryGuardConfig()
+    deep_cap_cfg = deep_capitulation_guard or DeepCapitulationReentryGuardConfig()
     drawdown_cfg = drawdown_control or EquityDrawdownControlConfig()
     daily = compose_budget_usage_policy_frame(
         slow_frame,
@@ -231,8 +247,13 @@ def build_budget_usage_counterfactual(
         cfg,
         price_series=price_series if guard_cfg.enabled or drawdown_cfg.enabled else None,
         bull_guard=guard_cfg,
-        feature_frame=feature_frame if recovery_cfg.enabled or equity_drawdown_uses_feature_filters(drawdown_cfg) else None,
+        feature_frame=(
+            feature_frame
+            if recovery_cfg.enabled or deep_cap_cfg.enabled or equity_drawdown_uses_feature_filters(drawdown_cfg)
+            else None
+        ),
         recovery_guard=recovery_cfg,
+        deep_capitulation_guard=deep_cap_cfg,
         drawdown_control=drawdown_cfg,
     )
 
@@ -255,6 +276,7 @@ def build_budget_usage_counterfactual(
             "trade_lock_days": cfg.trade_lock_days,
             "bull_participation_guard": _bull_guard_config_payload(guard_cfg),
             "recovery_reentry_guard": _recovery_guard_config_payload(recovery_cfg),
+            "deep_capitulation_reentry_guard": _deep_capitulation_guard_config_payload(deep_cap_cfg),
             "equity_drawdown_control": _equity_drawdown_control_config_payload(drawdown_cfg),
         },
         "variants": variants,
@@ -367,6 +389,7 @@ def write_counterfactual_artifacts(
 __all__ = [
     "BudgetUsageCounterfactual",
     "BullParticipationGuardConfig",
+    "DeepCapitulationReentryGuardConfig",
     "EquityDrawdownControlConfig",
     "RecoveryReentryGuardConfig",
     "DEFAULT_WINDOWS",

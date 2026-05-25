@@ -7,6 +7,7 @@ import pandas as pd
 from scripts.compose_budget_usage_counterfactual import relative_output_label
 from src.soxl_quant.app.budget_counterfactual import (
     BullParticipationGuardConfig,
+    DeepCapitulationReentryGuardConfig,
     EquityDrawdownControlConfig,
     RecoveryReentryGuardConfig,
     build_budget_usage_counterfactual,
@@ -133,6 +134,53 @@ def test_recovery_reentry_guard_is_audited_in_counterfactual_payload():
     assert result.payload["config"]["recovery_reentry_guard"]["min_anchor_gap_180"] == 0.50
     assert result.daily["recovery_reentry_guard"].tolist() == [False, True, True, True, True]
     assert result.daily["position"].round(4).tolist() == [0.0, 0.35, 0.35, 0.35, 0.35]
+
+
+def test_deep_capitulation_guard_is_audited_in_counterfactual_payload():
+    dates = pd.date_range("2020-01-01", periods=4, freq="B")
+    slow = pd.DataFrame({"datetime": dates, "position": [0.0] * 4})
+    fast = pd.DataFrame({"datetime": dates, "position": [0.0] * 4})
+    price = pd.Series([100.0, 90.0, 95.0, 105.0], index=dates, name="price")
+    features = pd.DataFrame(
+        {
+            "datetime": dates,
+            "mom_5": [0.02, 0.04, 0.10, 0.03],
+            "drawdown_63": [-0.70, -0.40, -0.70, -0.70],
+            "mom_10": [0.0] * 4,
+            "mom_21": [0.0] * 4,
+            "relative_strength_21": [0.0] * 4,
+            "vol_of_vol_21": [0.0] * 4,
+            "vix_percentile_252": [0.0] * 4,
+        }
+    )
+
+    result = build_budget_usage_counterfactual(
+        slow,
+        fast,
+        price,
+        slow_label="slow_path",
+        fast_label="fast_path",
+        composed_label="composed_path",
+        description="unit diagnostic",
+        config=TwoSpeedBudgetConfig(trade_threshold=0.0, trade_lock_days=0),
+        feature_frame=features,
+        deep_capitulation_guard=DeepCapitulationReentryGuardConfig(
+            enabled=True,
+            min_target=0.30,
+            max_target=0.45,
+            max_base_target=0.20,
+            max_mom_5=0.05,
+            max_drawdown_63=-0.58,
+        ),
+    )
+
+    guard = result.payload["config"]["deep_capitulation_reentry_guard"]
+    assert guard["enabled"] is True
+    assert guard["max_mom_5"] == 0.05
+    assert guard["max_drawdown_63"] == -0.58
+    assert guard["action"] == "floor_low_target_in_deep_capitulation"
+    assert result.daily["deep_capitulation_reentry_guard"].tolist() == [True, False, False, True]
+    assert result.daily["position"].round(4).tolist() == [0.30, 0.0, 0.0, 0.30]
 
 
 def test_equity_drawdown_control_is_audited_in_counterfactual_payload():

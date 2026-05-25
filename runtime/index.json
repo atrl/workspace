@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-25T15:09:56.545389+00:00",
+  "generated_at": "2026-05-25T15:45:47.421493+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -282,6 +282,84 @@
       "category": "execution",
       "suffix": ".json",
       "bytes": 6520
+    },
+    {
+      "path": "runtime/execution/card/deep_capitulation_reentry_guard_v1/current_candidate_scores.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 111291
+    },
+    {
+      "path": "runtime/execution/card/deep_capitulation_reentry_guard_v1/input_manifest.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 1510
+    },
+    {
+      "path": "runtime/execution/card/deep_capitulation_reentry_guard_v1/inputs/balanced_rule_residual_v19_reg_wf_2020_soxl_daily.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 30571
+    },
+    {
+      "path": "runtime/execution/card/deep_capitulation_reentry_guard_v1/inputs/balanced_rule_residual_v19_reg_wf_2022_soxl_daily.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 30146
+    },
+    {
+      "path": "runtime/execution/card/deep_capitulation_reentry_guard_v1/inputs/balanced_rule_residual_v19_reg_wf_2023_2024_soxl_daily.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 63475
+    },
+    {
+      "path": "runtime/execution/card/deep_capitulation_reentry_guard_v1/inputs/balanced_rule_residual_v22_wf_2020_soxl_daily.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 30521
+    },
+    {
+      "path": "runtime/execution/card/deep_capitulation_reentry_guard_v1/inputs/balanced_rule_residual_v22_wf_2022_soxl_daily.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 30168
+    },
+    {
+      "path": "runtime/execution/card/deep_capitulation_reentry_guard_v1/inputs/balanced_rule_residual_v22_wf_2023_2024_soxl_daily.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 63314
+    },
+    {
+      "path": "runtime/execution/card/deep_capitulation_reentry_guard_v1/poor_windows.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 2408
+    },
+    {
+      "path": "runtime/execution/card/deep_capitulation_reentry_guard_v1/selected_variant_daily.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 821041
+    },
+    {
+      "path": "runtime/execution/card/deep_capitulation_reentry_guard_v1/selection.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 3854
+    },
+    {
+      "path": "runtime/execution/card/deep_capitulation_reentry_guard_v1/summary.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 2217
+    },
+    {
+      "path": "runtime/execution/card/deep_capitulation_reentry_guard_v1/walkforward_candidate_scores.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 8179
     },
     {
       "path": "runtime/execution/card/poor_window_mechanism_router_v1/cluster_summary.csv",

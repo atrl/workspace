@@ -62,6 +62,16 @@ class RecoveryReentryGuardConfig:
 
 
 @dataclass(frozen=True)
+class DeepCapitulationReentryGuardConfig:
+    enabled: bool = False
+    min_target: float = 0.30
+    max_target: float = 0.45
+    max_base_target: float = 0.20
+    max_mom_5: float = 0.05
+    max_drawdown_63: float = -0.58
+
+
+@dataclass(frozen=True)
 class EquityDrawdownControlConfig:
     enabled: bool = False
     start_drawdown: float = 0.10
@@ -74,6 +84,32 @@ class EquityDrawdownControlConfig:
     min_vix_percentile_252: float | None = None
     min_vol_of_vol_21: float | None = None
     max_mom_21: float | None = None
+
+
+RECOVERY_REENTRY_FEATURE_COLUMNS = (
+    "mom_10",
+    "mom_21",
+    "relative_strength_21",
+    "vol_of_vol_21",
+    "vix_percentile_252",
+    "below_anchor_ratio_63",
+    "anchor_gap_180",
+)
+
+RECOVERY_REENTRY_REQUIRED_BASE_COLUMNS = (
+    "mom_10",
+    "mom_21",
+    "relative_strength_21",
+    "vol_of_vol_21",
+    "vix_percentile_252",
+)
+
+DEEP_CAPITULATION_FEATURE_COLUMNS = ("mom_5", "drawdown_63")
+
+ALL_OPTIONAL_FEATURE_COLUMNS = (
+    *RECOVERY_REENTRY_FEATURE_COLUMNS,
+    *DEEP_CAPITULATION_FEATURE_COLUMNS,
+)
 
 
 def infer_mode_from_slow_position(position: float) -> str:
@@ -169,6 +205,30 @@ def equity_drawdown_uses_feature_filters(config: EquityDrawdownControlConfig | N
     )
 
 
+def _equity_drawdown_required_feature_columns(config: EquityDrawdownControlConfig) -> set[str]:
+    required: set[str] = set()
+    if config.max_anchor_gap_180 is not None:
+        required.add("anchor_gap_180")
+    if config.min_below_anchor_ratio_63 is not None:
+        required.add("below_anchor_ratio_63")
+    if config.min_vix_percentile_252 is not None:
+        required.add("vix_percentile_252")
+    if config.min_vol_of_vol_21 is not None:
+        required.add("vol_of_vol_21")
+    if config.max_mom_21 is not None:
+        required.add("mom_21")
+    return required
+
+
+def _recovery_reentry_required_feature_columns(config: RecoveryReentryGuardConfig) -> set[str]:
+    required = set(RECOVERY_REENTRY_REQUIRED_BASE_COLUMNS)
+    if float(config.max_below_anchor_ratio_63) < 1.0:
+        required.add("below_anchor_ratio_63")
+    if float(config.min_anchor_gap_180) > -10.0:
+        required.add("anchor_gap_180")
+    return required
+
+
 def equity_drawdown_regime_ready(row: pd.Series, config: EquityDrawdownControlConfig | None = None) -> bool:
     """Check optional feature filters for account-equity drawdown control."""
 
@@ -208,7 +268,11 @@ def _price_frame(price_series: pd.Series) -> pd.DataFrame:
     return price_df.dropna(subset=["price"])
 
 
-def _normalise_feature_frame(feature_frame: pd.DataFrame) -> pd.DataFrame:
+def _normalise_feature_frame(
+    feature_frame: pd.DataFrame,
+    *,
+    required_columns: set[str] | None = None,
+) -> pd.DataFrame:
     frame = feature_frame.copy()
     if "datetime" in frame.columns:
         frame["datetime"] = pd.to_datetime(frame["datetime"])
@@ -223,23 +287,15 @@ def _normalise_feature_frame(feature_frame: pd.DataFrame) -> pd.DataFrame:
         frame = frame.reset_index()
         frame = frame.rename(columns={frame.columns[0]: "datetime"})
         frame["datetime"] = pd.to_datetime(frame["datetime"])
-    required_base = [
-        "datetime",
-        "mom_10",
-        "mom_21",
-        "relative_strength_21",
-        "vol_of_vol_21",
-        "vix_percentile_252",
-    ]
-    missing = [col for col in required_base if col not in frame.columns]
+    required = set(required_columns or ())
+    missing = [col for col in sorted(required) if col not in frame.columns]
     if missing:
-        raise ValueError(f"feature_frame missing recovery reentry columns: {missing}")
-    if "below_anchor_ratio_63" not in frame.columns:
-        frame["below_anchor_ratio_63"] = 0.0
-    if "anchor_gap_180" not in frame.columns:
-        frame["anchor_gap_180"] = 0.0
-    required = [*required_base, "below_anchor_ratio_63", "anchor_gap_180"]
-    return frame[required].dropna(subset=["datetime"]).sort_values("datetime")
+        raise ValueError(f"feature_frame missing required columns: {missing}")
+    for column in ALL_OPTIONAL_FEATURE_COLUMNS:
+        if column not in frame.columns:
+            frame[column] = 0.0
+    columns = ["datetime", *dict.fromkeys(ALL_OPTIONAL_FEATURE_COLUMNS)]
+    return frame[columns].dropna(subset=["datetime"]).sort_values("datetime")
 
 
 def _bull_guard_indicators(
@@ -306,6 +362,7 @@ def compose_budget_usage_policy_frame(
     bull_guard: BullParticipationGuardConfig | None = None,
     feature_frame: pd.DataFrame | None = None,
     recovery_guard: RecoveryReentryGuardConfig | None = None,
+    deep_capitulation_guard: DeepCapitulationReentryGuardConfig | None = None,
     drawdown_control: EquityDrawdownControlConfig | None = None,
 ) -> pd.DataFrame:
     """Compose two daily policy paths into an auditable budget-usage path.
@@ -328,6 +385,7 @@ def compose_budget_usage_policy_frame(
 
     guard_cfg = bull_guard or BullParticipationGuardConfig()
     recovery_cfg = recovery_guard or RecoveryReentryGuardConfig()
+    deep_cap_cfg = deep_capitulation_guard or DeepCapitulationReentryGuardConfig()
     drawdown_cfg = drawdown_control or EquityDrawdownControlConfig()
     price_required = bool(guard_cfg.enabled or drawdown_cfg.enabled)
     if price_required:
@@ -345,11 +403,26 @@ def compose_budget_usage_policy_frame(
         momentum = pd.Series([float("nan")] * len(frame), index=frame.index)
         drawdown = pd.Series([float("nan")] * len(frame), index=frame.index)
 
-    feature_filters_required = bool(recovery_cfg.enabled or equity_drawdown_uses_feature_filters(drawdown_cfg))
+    feature_filters_required = bool(
+        recovery_cfg.enabled
+        or deep_cap_cfg.enabled
+        or equity_drawdown_uses_feature_filters(drawdown_cfg)
+    )
     if feature_filters_required:
         if feature_frame is None:
             raise ValueError("feature_frame is required when recovery_reentry_guard or drawdown feature filters are enabled")
-        frame = frame.merge(_normalise_feature_frame(feature_frame), on="datetime", how="inner")
+        required_feature_columns: set[str] = set()
+        if recovery_cfg.enabled:
+            required_feature_columns.update(_recovery_reentry_required_feature_columns(recovery_cfg))
+        if deep_cap_cfg.enabled:
+            required_feature_columns.update(DEEP_CAPITULATION_FEATURE_COLUMNS)
+        if equity_drawdown_uses_feature_filters(drawdown_cfg):
+            required_feature_columns.update(_equity_drawdown_required_feature_columns(drawdown_cfg))
+        frame = frame.merge(
+            _normalise_feature_frame(feature_frame, required_columns=required_feature_columns),
+            on="datetime",
+            how="inner",
+        )
         frame = frame.sort_values("datetime").reset_index(drop=True)
         if frame.empty:
             raise ValueError("policy frames and feature frame have no overlapping datetimes")
@@ -373,6 +446,7 @@ def compose_budget_usage_policy_frame(
     fast_usage: list[float] = []
     guard_flags: list[bool] = []
     recovery_flags: list[bool] = []
+    deep_cap_flags: list[bool] = []
     equity_navs: list[float] = []
     equity_drawdowns: list[float] = []
     equity_caps: list[float] = []
@@ -417,6 +491,14 @@ def compose_budget_usage_policy_frame(
             )
             if recovery_ready:
                 raw = min(max(raw, float(recovery_cfg.min_target)), float(recovery_cfg.max_target))
+        deep_cap_ready = False
+        if deep_cap_cfg.enabled and raw <= float(deep_cap_cfg.max_base_target):
+            deep_cap_ready = bool(
+                float(row["mom_5"]) <= float(deep_cap_cfg.max_mom_5)
+                and float(row["drawdown_63"]) <= float(deep_cap_cfg.max_drawdown_63)
+            )
+            if deep_cap_ready:
+                raw = min(max(raw, float(deep_cap_cfg.min_target)), float(deep_cap_cfg.max_target))
         drawdown_regime_ready = bool(
             drawdown_cfg.enabled and equity_drawdown_regime_ready(row, drawdown_cfg)
         )
@@ -451,6 +533,7 @@ def compose_budget_usage_policy_frame(
         fast_usage.append(usage)
         guard_flags.append(guard_ready)
         recovery_flags.append(recovery_ready)
+        deep_cap_flags.append(deep_cap_ready)
         equity_navs.append(nav)
         equity_drawdowns.append(equity_drawdown)
         equity_caps.append(equity_cap)
@@ -462,7 +545,7 @@ def compose_budget_usage_policy_frame(
     out = frame.drop(columns=["price"], errors="ignore").copy()
     out["mode"] = modes
     out["fast_usage"] = fast_usage
-    if guard_cfg.enabled or recovery_cfg.enabled:
+    if guard_cfg.enabled or recovery_cfg.enabled or deep_cap_cfg.enabled:
         out["base_two_speed_position"] = base_targets
     out["raw_two_speed_position"] = raw_targets
     out["position"] = targets
@@ -473,6 +556,8 @@ def compose_budget_usage_policy_frame(
         out["bull_guard_drawdown"] = drawdown
     if recovery_cfg.enabled:
         out["recovery_reentry_guard"] = recovery_flags
+    if deep_cap_cfg.enabled:
+        out["deep_capitulation_reentry_guard"] = deep_cap_flags
     if drawdown_cfg.enabled:
         out["equity_nav"] = equity_navs
         out["equity_drawdown"] = equity_drawdowns
@@ -489,6 +574,7 @@ __all__ = [
     "DEFAULT_MODE_SLACK",
     "BullParticipationGuardConfig",
     "bull_participation_guard_snapshot",
+    "DeepCapitulationReentryGuardConfig",
     "EquityDrawdownControlConfig",
     "equity_drawdown_regime_ready",
     "equity_drawdown_target_cap",

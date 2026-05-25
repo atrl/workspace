@@ -4,6 +4,7 @@ import pandas as pd
 
 from src.soxl_quant.policy.two_speed_budget import (
     BullParticipationGuardConfig,
+    DeepCapitulationReentryGuardConfig,
     EquityDrawdownControlConfig,
     RecoveryReentryGuardConfig,
     TwoSpeedBudgetConfig,
@@ -181,6 +182,105 @@ def test_recovery_reentry_guard_requires_long_anchor_confirmation_when_configure
     assert out["position"].round(4).tolist() == [0.0, 0.0, 0.35]
 
 
+def test_deep_capitulation_reentry_guard_lifts_low_target_only_in_deep_drawdown():
+    dates = pd.date_range("2020-01-01", periods=4, freq="B")
+    slow = pd.DataFrame({"datetime": dates, "slow_position": [0.0] * 4})
+    fast = pd.DataFrame({"datetime": dates, "fast_position": [0.0] * 4})
+    features = pd.DataFrame(
+        {
+            "datetime": dates,
+            "mom_5": [0.02, 0.04, 0.10, 0.03],
+            "drawdown_63": [-0.70, -0.40, -0.70, -0.70],
+            "mom_10": [0.0] * 4,
+            "mom_21": [0.0] * 4,
+            "relative_strength_21": [0.0] * 4,
+            "vol_of_vol_21": [0.0] * 4,
+            "vix_percentile_252": [0.0] * 4,
+        }
+    )
+
+    out = compose_budget_usage_policy_frame(
+        slow,
+        fast,
+        TwoSpeedBudgetConfig(trade_threshold=0.0, trade_lock_days=0),
+        feature_frame=features,
+        deep_capitulation_guard=DeepCapitulationReentryGuardConfig(
+            enabled=True,
+            min_target=0.30,
+            max_target=0.45,
+            max_base_target=0.20,
+            max_mom_5=0.05,
+            max_drawdown_63=-0.58,
+        ),
+    )
+
+    assert out["deep_capitulation_reentry_guard"].tolist() == [True, False, False, True]
+    assert out["base_two_speed_position"].round(4).tolist() == [0.0] * 4
+    assert out["raw_two_speed_position"].round(4).tolist() == [0.30, 0.0, 0.0, 0.30]
+    assert out["position"].round(4).tolist() == [0.30, 0.0, 0.0, 0.30]
+
+
+def test_deep_capitulation_reentry_guard_accepts_minimal_feature_frame():
+    dates = pd.date_range("2020-01-01", periods=2, freq="B")
+    slow = pd.DataFrame({"datetime": dates, "slow_position": [0.0, 0.0]})
+    fast = pd.DataFrame({"datetime": dates, "fast_position": [0.0, 0.0]})
+    features = pd.DataFrame(
+        {
+            "datetime": dates,
+            "mom_5": [0.02, 0.03],
+            "drawdown_63": [-0.70, -0.70],
+        }
+    )
+
+    out = compose_budget_usage_policy_frame(
+        slow,
+        fast,
+        TwoSpeedBudgetConfig(trade_threshold=0.0, trade_lock_days=0),
+        feature_frame=features,
+        deep_capitulation_guard=DeepCapitulationReentryGuardConfig(enabled=True),
+    )
+
+    assert out["deep_capitulation_reentry_guard"].tolist() == [True, True]
+    assert out["position"].round(4).tolist() == [0.30, 0.30]
+
+
+def test_deep_capitulation_reentry_guard_respects_existing_higher_target_and_cap():
+    dates = pd.date_range("2020-01-01", periods=3, freq="B")
+    slow = pd.DataFrame({"datetime": dates, "slow_position": [0.50, 0.0, 0.0]})
+    fast = pd.DataFrame({"datetime": dates, "fast_position": [1.00, 1.00, 0.0]})
+    features = pd.DataFrame(
+        {
+            "datetime": dates,
+            "mom_5": [0.02, 0.02, 0.02],
+            "drawdown_63": [-0.70, -0.70, -0.70],
+            "mom_10": [0.0] * 3,
+            "mom_21": [0.0] * 3,
+            "relative_strength_21": [0.0] * 3,
+            "vol_of_vol_21": [0.0] * 3,
+            "vix_percentile_252": [0.0] * 3,
+        }
+    )
+
+    out = compose_budget_usage_policy_frame(
+        slow,
+        fast,
+        TwoSpeedBudgetConfig(trade_threshold=0.0, trade_lock_days=0),
+        feature_frame=features,
+        deep_capitulation_guard=DeepCapitulationReentryGuardConfig(
+            enabled=True,
+            min_target=0.30,
+            max_target=0.45,
+            max_base_target=0.20,
+            max_mom_5=0.05,
+            max_drawdown_63=-0.58,
+        ),
+    )
+
+    assert out["deep_capitulation_reentry_guard"].tolist() == [False, False, True]
+    assert out["raw_two_speed_position"].round(4).tolist() == [0.65, 0.25, 0.30]
+    assert out["position"].round(4).tolist() == [0.65, 0.25, 0.30]
+
+
 def test_equity_drawdown_control_caps_target_and_relaxes_sells_only():
     dates = pd.date_range("2020-01-01", periods=4, freq="B")
     slow = pd.DataFrame({"datetime": dates, "slow_position": [0.70] * 4})
@@ -263,6 +363,9 @@ if __name__ == "__main__":
     test_compose_budget_usage_policy_frame_applies_bull_participation_guard()
     test_recovery_reentry_guard_lifts_flat_actor_only_in_high_vol_rebound()
     test_recovery_reentry_guard_requires_long_anchor_confirmation_when_configured()
+    test_deep_capitulation_reentry_guard_lifts_low_target_only_in_deep_drawdown()
+    test_deep_capitulation_reentry_guard_accepts_minimal_feature_frame()
+    test_deep_capitulation_reentry_guard_respects_existing_higher_target_and_cap()
     test_equity_drawdown_control_caps_target_and_relaxes_sells_only()
     test_equity_drawdown_control_can_require_broken_anchor_and_high_volatility()
     print("test_two_speed_budget: OK")

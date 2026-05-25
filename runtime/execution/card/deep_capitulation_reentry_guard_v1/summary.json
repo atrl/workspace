@@ -1,0 +1,59 @@
+{
+  "experiment": "deep_capitulation_reentry_guard_v1",
+  "baseline": "v19_reg slow actor + v22 fast usage actor with bull/equity controls",
+  "decision": "diagnostic_keep_no_promotion",
+  "promote_gate": false,
+  "selected_label": "deep_cap_m0d30_x0d35_thr0d02_lock3",
+  "selected_current_return": 3718.597738737823,
+  "selected_current_relative_return": 2902.0852389607585,
+  "selected_current_max_dd": 32.809415244799744,
+  "selected_current_sharpe": 1.3946457197006945,
+  "selected_deep_days": 28,
+  "selected_changed_days_vs_equity_control": 134,
+  "equity_control_current_return": 2899.7999423955134,
+  "equity_control_current_relative_return": 2083.287442618449,
+  "equity_control_current_max_dd": 33.807919237585764,
+  "selected_walkforward": [
+    {
+      "wf_window": "wf_2020",
+      "return": 96.58826303151919,
+      "relative_return": 38.49469241503535,
+      "max_dd": 26.256454884245283,
+      "deep_days": 6,
+      "changed_days_vs_equity_control": 13
+    },
+    {
+      "wf_window": "wf_2022",
+      "return": -32.99414059633965,
+      "relative_return": 53.59393113605459,
+      "max_dd": 36.746828893700304,
+      "deep_days": 33,
+      "changed_days_vs_equity_control": 80
+    },
+    {
+      "wf_window": "wf_2023_2024",
+      "return": 235.1116540573666,
+      "relative_return": 36.60736389827724,
+      "max_dd": 33.78076847590465,
+      "deep_days": 3,
+      "changed_days_vs_equity_control": 0
+    }
+  ],
+  "walkforward_risk_flags": [
+    "wf_2020: return -13.25pp versus equity-control",
+    "wf_2022: return -1.98pp versus equity-control",
+    "wf_2022: MaxDD 4.31pp versus equity-control",
+    "wf_2023_2024: no order-generation change versus equity-control"
+  ],
+  "worst_poor_window": {
+    "window_start": "2026-02-09",
+    "window_end": "2026-05-11",
+    "strategy_return": 2.781625465989901,
+    "buyhold_return": 197.3918503814099,
+    "excess_pp": -194.61022491542002,
+    "strategy_max_dd": 5.901437000520582,
+    "avg_position": 0.13266223093750001
+  },
+  "walkforward_rows": 33,
+  "next_action": "Do not promote or retrain PPO from this alone; use the notebook evidence to design explicit downside-hedge or regime-aware risk control if the 15% MaxDD target remains mandatory."
+}
