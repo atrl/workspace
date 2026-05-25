@@ -1,0 +1,76 @@
+{
+  "card": "drawdown_rebound_reward_train_v1",
+  "decision": "diagnostic_no_promotion_drawdown_still_too_high",
+  "target": {
+    "relative_return_min_pp": 30.0,
+    "max_dd_max_pct": 15.0
+  },
+  "main": {
+    "label": "main",
+    "kind": "fixed_split",
+    "return": 392.5806977164699,
+    "sharpe": 1.0265484996122496,
+    "max_dd": 37.67648561691653,
+    "relative_return": -2026.4442847310038,
+    "buy_and_hold_return": 2542.0274416989405,
+    "avg_pos": 0.2811843211944049,
+    "trades": 0,
+    "target_pass": false
+  },
+  "walk_forward_complete": true,
+  "walk_forward_target_pass_count": 1,
+  "selection_history": [
+    {
+      "iter": 0,
+      "score": -9.063365844086684,
+      "return": 1.0553159868293527,
+      "sharpe": 0.20766381713584048,
+      "max_dd": 27.030917182978097,
+      "avg_pos": 0.36258796284180034,
+      "stress_avg_pos": 0.26350568016158776,
+      "stress_days": 47.0,
+      "buy_and_hold_return": 98.48033593410877,
+      "relative_return": -97.42501994727941
+    },
+    {
+      "iter": 4,
+      "score": 14.289034114690882,
+      "return": 13.001992712872967,
+      "sharpe": 0.6900976940992913,
+      "max_dd": 23.546830389632174,
+      "avg_pos": 0.34931693159784943,
+      "stress_avg_pos": 0.23985485060417897,
+      "stress_days": 47.0,
+      "buy_and_hold_return": 98.48033593410877,
+      "relative_return": -85.4783432212358
+    },
+    {
+      "iter": 8,
+      "score": 11.237873571459792,
+      "return": 7.205513585791512,
+      "sharpe": 0.577706316654153,
+      "max_dd": 13.168937036808256,
+      "avg_pos": 0.21308900523560215,
+      "stress_avg_pos": 0.1994680851063829,
+      "stress_days": 47.0,
+      "buy_and_hold_return": 98.48033593410877,
+      "relative_return": -91.27482234831726
+    }
+  ],
+  "artifacts": {
+    "notebook": "runtime/reward/card/drawdown_rebound_reward_train_v1/drawdown_rebound_reward_train_v1.ipynb",
+    "profile": "runtime/reward/card/drawdown_rebound_reward_train_v1/profile.yaml",
+    "train_log": "runtime/reward/card/drawdown_rebound_reward_train_v1/train_walkforward.log",
+    "summary": "runtime/model/card/drawdown_rebound_reward_train_v1/soxl_drawdown_rebound_reward_train_v1_summary.json",
+    "metrics_summary": "runtime/reward/card/drawdown_rebound_reward_train_v1/metrics_summary.csv",
+    "selection_history": "runtime/reward/card/drawdown_rebound_reward_train_v1/selection_history.csv",
+    "slice_metrics": "runtime/reward/card/drawdown_rebound_reward_train_v1/slice_metrics.csv"
+  },
+  "interpretation": [
+    "Main fixed-split drawdown remains above 15%, so the reward objective is not promotable.",
+    "Main fixed-split relative return is below +30pp, indicating underparticipation or weak alpha capture.",
+    "Saved walk-forward workers do not pass all target windows; no runtime binding.",
+    "Best validation checkpoint selected at iter 4; inspect later-stage drift before extending training.",
+    "Next step should compare retained checkpoints and poor windows before any longer training branch."
+  ]
+}

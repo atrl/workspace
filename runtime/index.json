@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-24T14:11:01.904991+00:00",
+  "generated_at": "2026-05-25T00:39:39.025146+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -3728,6 +3728,54 @@
       "bytes": 1916
     },
     {
+      "path": "runtime/model/card/drawdown_rebound_reward_train_v1/drawdown_rebound_reward_train_v1_soxl_daily.csv",
+      "category": "model",
+      "suffix": ".csv",
+      "bytes": 199728
+    },
+    {
+      "path": "runtime/model/card/drawdown_rebound_reward_train_v1/drawdown_rebound_reward_train_v1_wf_2020_soxl_daily.csv",
+      "category": "model",
+      "suffix": ".csv",
+      "bytes": 30287
+    },
+    {
+      "path": "runtime/model/card/drawdown_rebound_reward_train_v1/drawdown_rebound_reward_train_v1_wf_2022_soxl_daily.csv",
+      "category": "model",
+      "suffix": ".csv",
+      "bytes": 28079
+    },
+    {
+      "path": "runtime/model/card/drawdown_rebound_reward_train_v1/drawdown_rebound_reward_train_v1_wf_2023_2024_soxl_daily.csv",
+      "category": "model",
+      "suffix": ".csv",
+      "bytes": 29705
+    },
+    {
+      "path": "runtime/model/card/drawdown_rebound_reward_train_v1/soxl_drawdown_rebound_reward_train_v1_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 8559
+    },
+    {
+      "path": "runtime/model/card/drawdown_rebound_reward_train_v1/soxl_drawdown_rebound_reward_train_v1_wf_2020_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 7510
+    },
+    {
+      "path": "runtime/model/card/drawdown_rebound_reward_train_v1/soxl_drawdown_rebound_reward_train_v1_wf_2022_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 7526
+    },
+    {
+      "path": "runtime/model/card/drawdown_rebound_reward_train_v1/soxl_drawdown_rebound_reward_train_v1_wf_2023_2024_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 7514
+    },
+    {
       "path": "runtime/model/card/hierarchical_online_budget/soxl_actor_runtime.csv",
       "category": "model",
       "suffix": ".csv",
@@ -5394,6 +5442,30 @@
       "category": "reward",
       "suffix": ".json",
       "bytes": 4051
+    },
+    {
+      "path": "runtime/reward/card/drawdown_rebound_reward_train_v1/metrics_summary.csv",
+      "category": "reward",
+      "suffix": ".csv",
+      "bytes": 942
+    },
+    {
+      "path": "runtime/reward/card/drawdown_rebound_reward_train_v1/selection.json",
+      "category": "reward",
+      "suffix": ".json",
+      "bytes": 3008
+    },
+    {
+      "path": "runtime/reward/card/drawdown_rebound_reward_train_v1/selection_history.csv",
+      "category": "reward",
+      "suffix": ".csv",
+      "bytes": 580
+    },
+    {
+      "path": "runtime/reward/card/drawdown_rebound_reward_train_v1/slice_metrics.csv",
+      "category": "reward",
+      "suffix": ".csv",
+      "bytes": 549
     },
     {
       "path": "runtime/reward/card/imitation/card.md",

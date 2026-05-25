@@ -5,6 +5,7 @@ from dataclasses import replace
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
+import numpy as np
 import pandas as pd
 
 import src.soxl_quant.runtime as runtime
@@ -18,6 +19,7 @@ from src.soxl_quant.policy.execution import (
     rebalance_threshold,
 )
 from src.soxl_quant.policy.environment import TrancheLedger
+from src.soxl_quant.policy.environment import SoxlSimulator
 from src.soxl_quant.runtime import (
     composer_promotion_gate_status,
     compose_budget_usage_runtime_signal,
@@ -112,6 +114,21 @@ def test_best_model_for_family_refuses_unpromoted_fallback():
                 raise AssertionError("expected unpromoted fallback to be rejected")
         finally:
             runtime.MODEL_DIR = previous_model_dir
+
+
+def test_kelly_fallback_handles_window_with_no_wins():
+    simulator = SoxlSimulator.__new__(SoxlSimulator)
+    simulator.lookback = 0
+    simulator.idx = 30
+    simulator.df = pd.DataFrame({"return": [-0.01] * 30})
+
+    kelly_pos, win_rate, odds, sharpe = simulator._compute_kelly_from_returns()
+
+    assert np.isfinite(kelly_pos)
+    assert np.isfinite(win_rate)
+    assert np.isfinite(odds)
+    assert np.isfinite(sharpe)
+    assert kelly_pos <= 0.0
 
 
 def test_best_model_for_family_selects_highest_promoted_score():

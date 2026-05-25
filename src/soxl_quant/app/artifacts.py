@@ -128,6 +128,7 @@ def artifact_tag_suffix(artifact_tag: str, use_moe: bool, ablate_vix: bool) -> s
 def persist_actor_bundle(profile, actor, obs_dim: int, seed: int, effective_tag: str, state_dict_override=None):
     MODEL_DIR.mkdir(parents=True, exist_ok=True)
     model_path = model_artifact_path(profile.name, effective_tag)
+    model_path.parent.mkdir(parents=True, exist_ok=True)
     state_dict = state_dict_override if state_dict_override is not None else actor.state_dict()
     torch.save(
         {
@@ -201,6 +202,7 @@ def persist_summary_bundle(
 ):
     retained_checkpoints = retained_checkpoints or []
     summary_path = summary_artifact_path(profile.name, effective_tag)
+    summary_path.parent.mkdir(parents=True, exist_ok=True)
     summary_path.write_text(
         json.dumps(
             {

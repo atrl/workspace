@@ -507,6 +507,15 @@ profiles:
   keep_actor: false
   keep_summary: true
   notes_ref: runtime/model/risk_budget_family_review.md
+- name: drawdown_rebound_reward_train_v1
+  family: balanced
+  status: ablation
+  baseline: risk_budget_usage_v1
+  keep_actor: true
+  keep_summary: true
+  notes_ref: runtime/reward/card/drawdown_rebound_reward_train_v1/drawdown_rebound_reward_train_v1.ipynb
+  wf_status: blocked
+  wf_notes: "Completed in runtime/reward/card/drawdown_rebound_reward_train_v1/drawdown_rebound_reward_train_v1.ipynb. Fixed split: rel=-2026.4pp, MaxDD=37.7%; WF pass count=1/3. Keep as upstream reward diagnostic only; no runtime binding."
 - name: balanced_kelly_warmstart_v9
   family: balanced
   status: candidate

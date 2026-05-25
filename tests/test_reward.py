@@ -55,6 +55,8 @@ def make_state(**kwargs):
         "regime_delta": kwargs.get("regime_delta", 0.05),
         "flat_steps": kwargs.get("flat_steps", 0.0),
         "rule_pos": kwargs.get("rule_pos", 0.5),
+        "done": kwargs.get("done", False),
+        "episode_returns": kwargs.get("episode_returns", []),
     }
 
 
@@ -254,3 +256,61 @@ def test_micro_rebalance_penalty_hits_small_turnover_more_than_large_turnover():
     tiny = reward.reward(make_state(turnover=0.01))
     bigger = reward.reward(make_state(turnover=0.08))
     assert bigger > tiny
+
+
+def test_moderate_reward_applies_terminal_cvar_penalty():
+    profile = make_profile()
+    profile = StrategyConfig(
+        name=profile.name,
+        max_iters=profile.max_iters,
+        episode_per_iter=profile.episode_per_iter,
+        episode_len=profile.episode_len,
+        hidden_sizes=profile.hidden_sizes,
+        lr=profile.lr,
+        update_batch_size=profile.update_batch_size,
+        update_repeat=profile.update_repeat,
+        reward=RewardConfig(
+            return_scale=0.0,
+            transaction_cost=0.0,
+            turnover_penalty=0.0,
+            drawdown_penalty=0.0,
+            downside_penalty=0.0,
+            risk_budget_penalty=0.0,
+            high_exposure_penalty=0.0,
+            smoothness_penalty=0.0,
+            activity_bonus=0.0,
+            inactivity_penalty=0.0,
+            use_moderate_reward=True,
+            use_alpha_reward=True,
+            alpha_scale=0.0,
+            use_cvar_terminal=True,
+            cvar_terminal_coef=2.0,
+            cvar_terminal_alpha=0.25,
+        ),
+    )
+    reward = ContinuousReward(profile)
+    clean_tail = reward.reward(
+        make_state(
+            val=100_000.0,
+            pval=100_000.0,
+            pos=0.2,
+            turnover=0.0,
+            drawdown=0.0,
+            regime_risk=0.2,
+            done=True,
+            episode_returns=[0.01, 0.02, 0.0, -0.005],
+        )
+    )
+    bad_tail = reward.reward(
+        make_state(
+            val=100_000.0,
+            pval=100_000.0,
+            pos=0.2,
+            turnover=0.0,
+            drawdown=0.0,
+            regime_risk=0.2,
+            done=True,
+            episode_returns=[-0.20, -0.10, 0.01, 0.02],
+        )
+    )
+    assert clean_tail > bad_tail

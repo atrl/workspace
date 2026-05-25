@@ -302,7 +302,10 @@ class SoxlSimulator(Simulator):
         avg_loss = float((-returns).where(~win_mask, 0.0).mean())
         avg_loss = max(avg_loss, 1e-8)
         odds = avg_win / avg_loss
-        kelly_raw = win_rate - (1.0 - win_rate) / odds
+        if odds <= 1e-8:
+            kelly_raw = -1.0
+        else:
+            kelly_raw = win_rate - (1.0 - win_rate) / odds
         kelly_pos = float(np.clip(kelly_raw, -1.0, 1.5))
         sharpe = float(returns.mean() / (returns.std() + 1e-8) * np.sqrt(252))
         return kelly_pos, win_rate, odds, sharpe

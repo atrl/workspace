@@ -58,6 +58,18 @@ class ContinuousReward(Reward):
         # ============================================================
         return self._legacy_reward(state, cfg, pos, prev_val, pnl_ret, turnover, drawdown, regime_risk, flat_steps, realized_vol, anchor_gap, cum_drop_30)
 
+    def _terminal_cvar_penalty(self, state, cfg) -> float:
+        if not (state.get("done", False) and cfg.use_cvar_terminal and cfg.cvar_terminal_coef > 0):
+            return 0.0
+        returns = state.get("episode_returns") or []
+        if not returns:
+            return 0.0
+        sorted_returns = sorted(float(r) for r in returns)
+        alpha = max(min(float(cfg.cvar_terminal_alpha), 0.5), 1e-3)
+        tail_count = max(1, int(len(sorted_returns) * alpha))
+        cvar_tail = sum(sorted_returns[:tail_count]) / tail_count
+        return max(-cvar_tail, 0.0) * cfg.cvar_terminal_coef * 100.0
+
     def _simplified_reward(self, state, cfg, pos, pnl_ret, turnover, drawdown, regime_risk, realized_vol, anchor_gap, cum_drop_30, flat_steps):
         """Minimal reward: alpha + drawdown control + transaction cost.
 
@@ -348,6 +360,7 @@ class ContinuousReward(Reward):
             episode_max_dd = float(state.get("episode_max_dd", 0.0))
             excess = max(episode_max_dd - cfg.episode_drawdown_threshold, 0.0)
             reward -= excess * cfg.episode_drawdown_penalty * 100.0
+        reward -= self._terminal_cvar_penalty(state, cfg)
 
         # --- 9. Downside asymmetry ---
         if cfg.downside_asymmetry_coef > 1.0 and pnl_ret < 0:
@@ -522,18 +535,7 @@ class ContinuousReward(Reward):
             excess_episode_dd = max(episode_max_dd - cfg.episode_drawdown_threshold, 0.0)
             reward -= excess_episode_dd * cfg.episode_drawdown_penalty * 100.0
 
-        if (
-            state.get("done", False)
-            and cfg.use_cvar_terminal
-            and cfg.cvar_terminal_coef > 0
-        ):
-            returns = state.get("episode_returns") or []
-            if returns:
-                sorted_returns = sorted(float(r) for r in returns)
-                alpha = max(min(float(cfg.cvar_terminal_alpha), 0.5), 1e-3)
-                tail_count = max(1, int(len(sorted_returns) * alpha))
-                cvar_tail = sum(sorted_returns[:tail_count]) / tail_count
-                reward -= max(-cvar_tail, 0.0) * cfg.cvar_terminal_coef * 100.0
+        reward -= self._terminal_cvar_penalty(state, cfg)
 
         if cfg.downside_asymmetry_coef > 1.0 and pnl_ret < 0:
             reward *= cfg.downside_asymmetry_coef
