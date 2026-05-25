@@ -1,0 +1,6 @@
+rule,condition,reason
+fold_gate_absolute,selected_test_relative_return >= 30 and selected_test_max_dd <= 15 for every evaluated fold,Do not convert single-fold relative uplift into promotion or retained actor evidence.
+ppo_vs_bc_drawdown_drift,stop or reject checkpoint when selected_vs_bc_drawdown_delta > 2pp unless the absolute fold gate passes,Existing sparse-release PPO improved relative return on wf_2022 but pushed MaxDD far above the target.
+target_scope_before_training,eval_overlap_rows == 0 and fold boundary metadata has one variant per target fold,Purged/fold-local labels are mandatory before BC or PPO target reuse.
+joint_target_coverage,target table must contain current positive rebound lift rows and downtrend/risk-control rows in the same fold-local contract,Release-only and drawdown-only targets each failed as-is; cap10 handoff needs a joint objective.
+wf_2020_coverage_before_promotion,next full train/replay must add non-leaking wf_2020 target coverage before promotion review,Current sparse-release PPO screen only evaluated wf_2022 and wf_2023_2024.

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-25T22:29:19.243408+00:00",
+  "generated_at": "2026-05-25T22:44:54.553826+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -5166,6 +5166,54 @@
       "category": "model",
       "suffix": ".md",
       "bytes": 3390
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_foldlocal_multi_objective_readiness_v1/anti_overfit_stop_rules.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1077
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_foldlocal_multi_objective_readiness_v1/fold_boundary_audit.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 626
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_foldlocal_multi_objective_readiness_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 3346
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_foldlocal_multi_objective_readiness_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 3438
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_foldlocal_multi_objective_readiness_v1/target_asset_readiness.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2167
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_foldlocal_multi_objective_readiness_v1/target_lift_audit.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1138
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_foldlocal_multi_objective_readiness_v1/target_scope_audit.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 993
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_foldlocal_multi_objective_readiness_v1/training_screen_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 973
     },
     {
       "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/aggregate/feature_delta_clusters.csv",

@@ -1,0 +1,5 @@
+screen,fold,bc_test_relative_return,bc_test_max_dd,bc_test_full_gate,selected_test_relative_return,selected_test_max_dd,selected_test_full_gate,selected_vs_bc_relative_delta,selected_vs_bc_drawdown_delta,overfit_stop_flag,bc_gate,selected_gate,fold_gate
+sparse_release_bc_ppo_screen_v1,wf_2022,36.41912423582883,18.45508836162262,False,41.77033285370087,37.275220578590115,False,5.3512086178720395,18.820132216967494,True,False,False,False
+sparse_release_bc_ppo_screen_v1,wf_2023_2024,30.5011159708892,13.5974748138093,True,30.5011159708892,13.5974748138093,True,0.0,0.0,False,True,True,True
+sparse_release_drawdown_control_bc_ppo_screen_v1,wf_2022,54.40353908580161,29.36563279011069,False,46.43832539574809,34.604542131279246,False,-7.965213690053524,5.238909341168554,True,False,False,False
+sparse_release_drawdown_control_bc_ppo_screen_v1,wf_2023_2024,41.09340503429307,21.460220777014086,False,41.09340503429307,21.460220777014086,False,0.0,0.0,True,False,False,False

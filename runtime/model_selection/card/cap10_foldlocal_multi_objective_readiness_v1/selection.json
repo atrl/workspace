@@ -1,0 +1,86 @@
+{
+  "acceptance_gate_for_next_run": {
+    "checkpoint_overfit_stop_rules_required": true,
+    "current_positive_rebound_lift_rows_required": true,
+    "downtrend_rows_required": true,
+    "eval_overlap_rows_required": 0,
+    "fixed_split_required": true,
+    "fold_local_target_scope_required": true,
+    "max_dd_max_pct": 15.0,
+    "no_runtime_promotion_from_target_readiness_only": true,
+    "relative_return_min_pp": 30.0,
+    "walkforward_required": true,
+    "wf_2020_target_coverage_required_before_promotion": true
+  },
+  "best_diagnostic_asset": "sparse_rebound_release_target_revision_v1",
+  "canonical_baseline": "v19reg_v22_budget_usage_bull_guard_v1",
+  "changed_layer": [
+    "model_selection",
+    "training_objective",
+    "checkpoint_selection"
+  ],
+  "created_at": "2026-05-25T22:44:12.250299+00:00",
+  "decision": "cap10_foldlocal_multiobjective_not_training_ready_as_is",
+  "direct_comparison_baseline": "cap10_training_objective_handoff_v1",
+  "experiment": "cap10_foldlocal_multi_objective_readiness_v1",
+  "external_sources": [
+    "https://arxiv.org/abs/1506.02188",
+    "https://arxiv.org/abs/2006.04779",
+    "https://arxiv.org/abs/2009.11189",
+    "https://doi.org/10.21314/JCF.2016.322",
+    "https://github.com/microsoft/qlib",
+    "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2460551",
+    "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2708678"
+  ],
+  "next_mechanism": "build_fold_local_joint_sparse_release_drawdown_targets_with_checkpoint_stop_rules",
+  "promotion_allowed": false,
+  "promotion_blocker": "No existing target asset is safe to reuse as-is for cap10 multi-objective training: current release/drawdown targets either lack joint coverage or already produced mixed/failed fold screens.",
+  "ready_target_asset_count": 0,
+  "role": "diagnose",
+  "selected_training_failures": [
+    {
+      "fold": "wf_2022",
+      "screen": "sparse_release_bc_ppo_screen_v1",
+      "selected_test_max_dd": 37.275220578590115,
+      "selected_test_relative_return": 41.77033285370087,
+      "selected_vs_bc_drawdown_delta": 18.820132216967494
+    },
+    {
+      "fold": "wf_2022",
+      "screen": "sparse_release_drawdown_control_bc_ppo_screen_v1",
+      "selected_test_max_dd": 34.604542131279246,
+      "selected_test_relative_return": 46.43832539574809,
+      "selected_vs_bc_drawdown_delta": 5.238909341168554
+    },
+    {
+      "fold": "wf_2023_2024",
+      "screen": "sparse_release_drawdown_control_bc_ppo_screen_v1",
+      "selected_test_max_dd": 21.460220777014086,
+      "selected_test_relative_return": 41.09340503429307,
+      "selected_vs_bc_drawdown_delta": 0.0
+    }
+  ],
+  "sidecars": [
+    "target_asset_readiness.csv",
+    "target_scope_audit.csv",
+    "target_lift_audit.csv",
+    "fold_boundary_audit.csv",
+    "training_screen_summary.csv",
+    "anti_overfit_stop_rules.csv",
+    "summary.json",
+    "selection.json"
+  ],
+  "source_handoff_decision": "train_state_conditioned_multi_objective",
+  "source_handoff_risk_gap": {
+    "max_dd_gap": 7.02,
+    "observed_max_dd": 22.02,
+    "observed_min_relative_return": -143.58,
+    "relative_gap": 173.58,
+    "target_max_dd": 15.0,
+    "target_relative_return": 30.0,
+    "worst_window": "cap10_release_0.25__wf_2023_2024"
+  },
+  "target_max_dd_pct": 15.0,
+  "target_relative_return_pp": 30.0,
+  "training_allowed_from_this_card": false
+}
