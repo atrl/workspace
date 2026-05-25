@@ -1,0 +1,45 @@
+{
+  "experiment": "sparse_release_bc_ppo_screen_v1",
+  "feature_frame_path": "data/soxl_profile_balanced_rule_residual_v22.pkl",
+  "profile": "sparse_release_bc_ppo_screen_v1",
+  "skipped_windows": [
+    {
+      "fold": "wf_2020",
+      "reason": "sparse-release targets begin in 2020, so a wf_2020 warm-start would train on the test year"
+    }
+  ],
+  "source_decision": "sparse_release_bc_warmstart_ready_for_ppo_screen",
+  "source_experiment": "sparse_release_bc_warmstart_screen_v1",
+  "source_training_allowed_next": true,
+  "targets_path": "runtime/model_selection/card/sparse_rebound_release_target_revision_v1/sparse_release_revised_targets.csv",
+  "windows": [
+    {
+      "fold": "wf_2022",
+      "release_gate_rows": 40,
+      "target_end": "2020-12-31",
+      "target_fold": "wf_2022_train",
+      "target_rows": 253,
+      "target_start": "2020-01-02",
+      "test_end": "2022-12-31",
+      "test_start": "2022-01-01",
+      "train_end": "2020-12-31",
+      "train_start": "2010-03-11",
+      "valid_end": "2021-12-31",
+      "valid_start": "2021-01-01"
+    },
+    {
+      "fold": "wf_2023_2024",
+      "release_gate_rows": 40,
+      "target_end": "2022-12-30",
+      "target_fold": "wf_2023_2024_train",
+      "target_rows": 756,
+      "target_start": "2020-01-02",
+      "test_end": "2024-12-31",
+      "test_start": "2024-01-01",
+      "train_end": "2022-12-31",
+      "train_start": "2010-03-11",
+      "valid_end": "2023-12-31",
+      "valid_start": "2023-01-01"
+    }
+  ]
+}

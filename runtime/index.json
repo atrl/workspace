@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-25T18:19:05.591981+00:00",
+  "generated_at": "2026-05-25T18:45:37.685818+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -6138,6 +6138,48 @@
       "category": "model_selection",
       "suffix": ".json",
       "bytes": 1364
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_bc_ppo_screen_v1/bc_slice_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 967
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_bc_ppo_screen_v1/coverage.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 379
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_bc_ppo_screen_v1/coverage.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1493
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_bc_ppo_screen_v1/ppo_fold_results.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2020
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_bc_ppo_screen_v1/ppo_selection_history.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 742
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_bc_ppo_screen_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1623
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_bc_ppo_screen_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 7678
     },
     {
       "path": "runtime/model_selection/card/sparse_release_bc_warmstart_screen_v1/bc_slice_summary.json",

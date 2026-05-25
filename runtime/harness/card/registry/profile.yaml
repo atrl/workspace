@@ -500,6 +500,13 @@ profiles:
   keep_actor: false
   keep_summary: true
   notes_ref: runtime/model/risk_budget_family_review.md
+- name: sparse_release_bc_ppo_screen_v1
+  family: balanced
+  status: ablation
+  baseline: risk_budget_usage_v1
+  keep_actor: false
+  keep_summary: true
+  notes_ref: runtime/model_selection/card/sparse_release_bc_ppo_screen_v1/sparse_release_bc_ppo_screen_v1.ipynb
 - name: risk_budget_usage_v2
   family: balanced
   status: ablation
