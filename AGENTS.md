@@ -124,6 +124,11 @@ Knowledge retrieval must be scoped by task direction.
   run. Sidecar Markdown/JSON/CSV files may support indexing, machine-readable
   selection, or summaries, but they must not replace the notebook as the source
   of the run's conclusion.
+- Every executed experiment or diagnostic notebook should end with a concise
+  conclusion cell that records what was run, key metrics, promotion/drop
+  decision, risk notes, artifact links, and the next action. Do not leave the
+  single-run conclusion only in chat, a workpad, a Markdown report, or sidecar
+  JSON.
 - Use a non-notebook artifact for experiment work only when the task is not an
   experiment/research loop, notebook tooling is unavailable, or the user
   explicitly asks for another format.
