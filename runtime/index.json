@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-25T18:45:37.685818+00:00",
+  "generated_at": "2026-05-25T19:07:22.343682+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -6222,6 +6222,84 @@
       "category": "model_selection",
       "suffix": ".json",
       "bytes": 5116
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_failed_fold_interval_diagnostic_v1/bc_daily_2022.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 303765
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_failed_fold_interval_diagnostic_v1/bc_slice_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 514
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_failed_fold_interval_diagnostic_v1/bc_worst_drawdown_intervals.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 209
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_failed_fold_interval_diagnostic_v1/coverage.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 634
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_failed_fold_interval_diagnostic_v1/coverage.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 777
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_failed_fold_interval_diagnostic_v1/feature_delta_by_interval.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2598
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_failed_fold_interval_diagnostic_v1/path_comparison_2022.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 57017
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_failed_fold_interval_diagnostic_v1/path_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 526
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_failed_fold_interval_diagnostic_v1/ppo_selected_daily_2022.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 302372
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_failed_fold_interval_diagnostic_v1/ppo_selection_history.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 413
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_failed_fold_interval_diagnostic_v1/ppo_worst_drawdown_intervals.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 209
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_failed_fold_interval_diagnostic_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1448
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_failed_fold_interval_diagnostic_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 10978
     },
     {
       "path": "runtime/model_selection/card/state_conditioned_actor_selector_v1/actor_pool_metrics.csv",

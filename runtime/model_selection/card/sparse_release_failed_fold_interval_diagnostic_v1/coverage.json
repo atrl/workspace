@@ -1,0 +1,26 @@
+{
+  "experiment": "sparse_release_failed_fold_interval_diagnostic_v1",
+  "feature_frame_path": "data/soxl_profile_balanced_rule_residual_v22.pkl",
+  "fold": "wf_2022",
+  "profile": "sparse_release_bc_ppo_screen_v1",
+  "release_gate_rows": 40,
+  "source_decision": "sparse_release_bc_ppo_screen_mixed_no_promotion",
+  "source_experiment": "sparse_release_bc_ppo_screen_v1",
+  "target_end": "2020-12-31",
+  "target_fold": "wf_2022_train",
+  "target_rows": 253,
+  "target_start": "2020-01-02",
+  "targets_path": "runtime/model_selection/card/sparse_rebound_release_target_revision_v1/sparse_release_revised_targets.csv",
+  "test": [
+    "2022-01-01",
+    "2022-12-31"
+  ],
+  "train": [
+    "2010-03-11",
+    "2020-12-31"
+  ],
+  "valid": [
+    "2021-01-01",
+    "2021-12-31"
+  ]
+}
