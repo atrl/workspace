@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-25T03:25:37.458498+00:00",
+  "generated_at": "2026-05-25T03:44:13.352053+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -4926,6 +4926,162 @@
       "category": "model_selection",
       "suffix": ".csv",
       "bytes": 1151
+    },
+    {
+      "path": "runtime/model_selection/card/oos_poor_window_factor_diff_aggregate_v1/aggregate/aggregate_oos_review.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 2688
+    },
+    {
+      "path": "runtime/model_selection/card/oos_poor_window_factor_diff_aggregate_v1/aggregate/feature_delta_clusters.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 7271
+    },
+    {
+      "path": "runtime/model_selection/card/oos_poor_window_factor_diff_aggregate_v1/aggregate/manifest.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1597
+    },
+    {
+      "path": "runtime/model_selection/card/oos_poor_window_factor_diff_aggregate_v1/aggregate/poor_window_clusters.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1312
+    },
+    {
+      "path": "runtime/model_selection/card/oos_poor_window_factor_diff_aggregate_v1/diagnostics/balanced_rule_residual_v19_reg/feature_differences.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4357
+    },
+    {
+      "path": "runtime/model_selection/card/oos_poor_window_factor_diff_aggregate_v1/diagnostics/balanced_rule_residual_v19_reg/manifest.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2008
+    },
+    {
+      "path": "runtime/model_selection/card/oos_poor_window_factor_diff_aggregate_v1/diagnostics/balanced_rule_residual_v19_reg/oos_diagnostic_review.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 4193
+    },
+    {
+      "path": "runtime/model_selection/card/oos_poor_window_factor_diff_aggregate_v1/diagnostics/balanced_rule_residual_v19_reg/poor_windows.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1742
+    },
+    {
+      "path": "runtime/model_selection/card/oos_poor_window_factor_diff_aggregate_v1/diagnostics/balanced_rule_residual_v22/feature_differences.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4362
+    },
+    {
+      "path": "runtime/model_selection/card/oos_poor_window_factor_diff_aggregate_v1/diagnostics/balanced_rule_residual_v22/manifest.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1984
+    },
+    {
+      "path": "runtime/model_selection/card/oos_poor_window_factor_diff_aggregate_v1/diagnostics/balanced_rule_residual_v22/oos_diagnostic_review.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 4180
+    },
+    {
+      "path": "runtime/model_selection/card/oos_poor_window_factor_diff_aggregate_v1/diagnostics/balanced_rule_residual_v22/poor_windows.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1738
+    },
+    {
+      "path": "runtime/model_selection/card/oos_poor_window_factor_diff_aggregate_v1/diagnostics/current_runtime_paper/feature_differences.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4327
+    },
+    {
+      "path": "runtime/model_selection/card/oos_poor_window_factor_diff_aggregate_v1/diagnostics/current_runtime_paper/manifest.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1975
+    },
+    {
+      "path": "runtime/model_selection/card/oos_poor_window_factor_diff_aggregate_v1/diagnostics/current_runtime_paper/oos_diagnostic_review.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 4138
+    },
+    {
+      "path": "runtime/model_selection/card/oos_poor_window_factor_diff_aggregate_v1/diagnostics/current_runtime_paper/poor_windows.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1760
+    },
+    {
+      "path": "runtime/model_selection/card/oos_poor_window_factor_diff_aggregate_v1/diagnostics/drawdown_rebound_reward_train_v1/feature_differences.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4351
+    },
+    {
+      "path": "runtime/model_selection/card/oos_poor_window_factor_diff_aggregate_v1/diagnostics/drawdown_rebound_reward_train_v1/manifest.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2020
+    },
+    {
+      "path": "runtime/model_selection/card/oos_poor_window_factor_diff_aggregate_v1/diagnostics/drawdown_rebound_reward_train_v1/oos_diagnostic_review.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 4194
+    },
+    {
+      "path": "runtime/model_selection/card/oos_poor_window_factor_diff_aggregate_v1/diagnostics/drawdown_rebound_reward_train_v1/poor_windows.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1735
+    },
+    {
+      "path": "runtime/model_selection/card/oos_poor_window_factor_diff_aggregate_v1/diagnostics/mode_conditioned_rebound_reward_train_v2/feature_differences.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4360
+    },
+    {
+      "path": "runtime/model_selection/card/oos_poor_window_factor_diff_aggregate_v1/diagnostics/mode_conditioned_rebound_reward_train_v2/manifest.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2068
+    },
+    {
+      "path": "runtime/model_selection/card/oos_poor_window_factor_diff_aggregate_v1/diagnostics/mode_conditioned_rebound_reward_train_v2/oos_diagnostic_review.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 4204
+    },
+    {
+      "path": "runtime/model_selection/card/oos_poor_window_factor_diff_aggregate_v1/diagnostics/mode_conditioned_rebound_reward_train_v2/poor_windows.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1743
+    },
+    {
+      "path": "runtime/model_selection/card/oos_poor_window_factor_diff_aggregate_v1/runtime_conclusion.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 984
+    },
+    {
+      "path": "runtime/model_selection/card/oos_poor_window_factor_diff_aggregate_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 5661
     },
     {
       "path": "runtime/model_selection/card/predictive_drawdown_risk_gate_v1/baseline_table.csv",

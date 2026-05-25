@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+from collections import Counter
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Mapping, Sequence
@@ -107,6 +108,235 @@ def find_poor_windows(
             ]
         )
     return out.sort_values(["bad_score", "start"], ascending=[False, True]).head(top_n).reset_index(drop=True)
+
+
+def _row_value(row: Mapping[str, object] | pd.Series, key: str, default: float = 0.0) -> float:
+    if isinstance(row, pd.Series):
+        value = row.get(key, default)
+    else:
+        value = row.get(key, default)
+    return float(value) if pd.notna(value) else float(default)
+
+
+def classify_poor_window(
+    row: Mapping[str, object] | pd.Series,
+    *,
+    target_excess: float = 30.0,
+    target_max_dd: float = 15.0,
+    low_position: float = 0.25,
+    high_position: float = 0.55,
+    participation_position: float = 0.65,
+    strong_buyhold_return: float = 30.0,
+) -> str:
+    """Classify a poor OOS window into an optimization failure mode."""
+
+    buyhold_return = _row_value(row, "buyhold_return")
+    excess_return = _row_value(row, "excess_return")
+    max_dd = _row_value(row, "max_dd")
+    avg_pos = _row_value(row, "avg_pos")
+    missed_target = excess_return < float(target_excess)
+    low_exposure = avg_pos <= float(low_position)
+    high_exposure = avg_pos >= float(high_position)
+    drawdown_failed = max_dd > float(target_max_dd)
+    strong_benchmark = buyhold_return >= float(strong_buyhold_return)
+
+    if missed_target and strong_benchmark and low_exposure and not drawdown_failed:
+        return "underparticipation"
+    if drawdown_failed and high_exposure:
+        return "drawdown_control"
+    if (
+        missed_target
+        and strong_benchmark
+        and avg_pos <= float(participation_position)
+        and max_dd <= float(target_max_dd) * 1.25
+    ):
+        return "underparticipation"
+    if missed_target and low_exposure:
+        return "underparticipation"
+    if drawdown_failed:
+        return "drawdown_control"
+    if missed_target:
+        return "selection_bias"
+    return "mixed"
+
+
+def _optimization_path(failure_type: str) -> str:
+    return {
+        "underparticipation": "reentry_participation_or_behavior_clone",
+        "drawdown_control": "drawdown_cap_or_deleverage",
+        "selection_bias": "checkpoint_or_model_selection",
+        "mixed": "regime_router_or_joint_objective",
+    }.get(failure_type, "regime_router_or_joint_objective")
+
+
+def _empty_cluster_frame() -> pd.DataFrame:
+    return pd.DataFrame(
+        columns=[
+            "cluster_id",
+            "cluster_start",
+            "cluster_end",
+            "profile_count",
+            "window_count",
+            "profiles",
+            "mean_excess_return",
+            "worst_excess_return",
+            "mean_max_dd",
+            "max_max_dd",
+            "mean_avg_pos",
+            "mean_bad_score",
+            "max_bad_score",
+            "dominant_failure_type",
+            "primary_optimization_path",
+        ]
+    )
+
+
+def aggregate_poor_windows(
+    windows_by_profile: Mapping[str, pd.DataFrame],
+    *,
+    target_excess: float = 30.0,
+    target_max_dd: float = 15.0,
+    overlap_gap_days: int = 0,
+) -> pd.DataFrame:
+    """Cluster poor windows from multiple profiles into shared failure regimes."""
+
+    rows: list[pd.DataFrame] = []
+    for profile, windows in windows_by_profile.items():
+        if windows is None or windows.empty:
+            continue
+        frame = windows.copy()
+        required = {"start", "end", "excess_return", "max_dd", "avg_pos", "bad_score"}
+        missing = sorted(required - set(frame.columns))
+        if missing:
+            raise ValueError(f"{profile} poor_windows missing columns: {missing}")
+        frame["profile"] = str(profile)
+        frame["start_ts"] = pd.to_datetime(frame["start"])
+        frame["end_ts"] = pd.to_datetime(frame["end"])
+        frame["failure_type"] = frame.apply(
+            lambda row: classify_poor_window(
+                row,
+                target_excess=target_excess,
+                target_max_dd=target_max_dd,
+            ),
+            axis=1,
+        )
+        rows.append(frame)
+    if not rows:
+        return _empty_cluster_frame()
+
+    all_windows = pd.concat(rows, ignore_index=True).sort_values(["start_ts", "end_ts"]).reset_index(drop=True)
+    clusters: list[list[int]] = []
+    current: list[int] = []
+    current_end: pd.Timestamp | None = None
+    gap = pd.Timedelta(days=max(int(overlap_gap_days), 0))
+    for idx, row in all_windows.iterrows():
+        start = pd.Timestamp(row["start_ts"])
+        end = pd.Timestamp(row["end_ts"])
+        if not current or (current_end is not None and start <= current_end + gap):
+            current.append(idx)
+            current_end = end if current_end is None else max(current_end, end)
+        else:
+            clusters.append(current)
+            current = [idx]
+            current_end = end
+    if current:
+        clusters.append(current)
+
+    summary_rows: list[dict[str, object]] = []
+    for cluster_idx, indexes in enumerate(clusters, start=1):
+        sub = all_windows.loc[indexes].copy()
+        failures = Counter(str(value) for value in sub["failure_type"])
+        dominant_failure, _ = failures.most_common(1)[0]
+        profiles = sorted(set(str(value) for value in sub["profile"]))
+        summary_rows.append(
+            {
+                "cluster_id": f"C{cluster_idx:03d}",
+                "cluster_start": _date_str(sub["start_ts"].min()),
+                "cluster_end": _date_str(sub["end_ts"].max()),
+                "profile_count": int(len(profiles)),
+                "window_count": int(len(sub)),
+                "profiles": ",".join(profiles),
+                "mean_excess_return": float(sub["excess_return"].mean()),
+                "worst_excess_return": float(sub["excess_return"].min()),
+                "mean_max_dd": float(sub["max_dd"].mean()),
+                "max_max_dd": float(sub["max_dd"].max()),
+                "mean_avg_pos": float(sub["avg_pos"].mean()),
+                "mean_bad_score": float(sub["bad_score"].mean()),
+                "max_bad_score": float(sub["bad_score"].max()),
+                "dominant_failure_type": dominant_failure,
+                "primary_optimization_path": _optimization_path(dominant_failure),
+            }
+        )
+    out = pd.DataFrame(summary_rows)
+    return out.sort_values(
+        ["profile_count", "max_bad_score", "cluster_start"],
+        ascending=[False, False, True],
+    ).reset_index(drop=True)
+
+
+def aggregate_feature_differences(
+    feature_differences_by_profile: Mapping[str, pd.DataFrame],
+    *,
+    top_n: int = 30,
+) -> pd.DataFrame:
+    """Aggregate feature-difference rows and rank stable cross-profile deltas."""
+
+    frames: list[pd.DataFrame] = []
+    for profile, diffs in feature_differences_by_profile.items():
+        if diffs is None or diffs.empty:
+            continue
+        frame = diffs.copy()
+        required = {"feature", "delta_z"}
+        missing = sorted(required - set(frame.columns))
+        if missing:
+            raise ValueError(f"{profile} feature_differences missing columns: {missing}")
+        frame["profile"] = str(profile)
+        frame["delta_z"] = pd.to_numeric(frame["delta_z"], errors="coerce")
+        if "spearman_to_excess" not in frame.columns:
+            frame["spearman_to_excess"] = np.nan
+        frame["spearman_to_excess"] = pd.to_numeric(frame["spearman_to_excess"], errors="coerce")
+        frames.append(frame[["profile", "feature", "delta_z", "spearman_to_excess"]].dropna(subset=["delta_z"]))
+    if not frames:
+        return pd.DataFrame(
+            columns=[
+                "feature",
+                "profile_count",
+                "mean_delta_z",
+                "mean_abs_delta_z",
+                "direction_consistency",
+                "mean_spearman_to_excess",
+                "profiles",
+                "stability_score",
+            ]
+        )
+
+    joined = pd.concat(frames, ignore_index=True)
+    rows: list[dict[str, object]] = []
+    for feature, sub in joined.groupby("feature"):
+        signs = np.sign(sub["delta_z"].to_numpy(dtype=float))
+        nonzero = signs[signs != 0]
+        direction_consistency = float(abs(nonzero.sum()) / len(nonzero)) if len(nonzero) else 0.0
+        profiles = sorted(set(str(value) for value in sub["profile"]))
+        mean_abs_delta_z = float(sub["delta_z"].abs().mean())
+        profile_count = int(len(profiles))
+        stability_score = mean_abs_delta_z * direction_consistency * np.log1p(profile_count)
+        rows.append(
+            {
+                "feature": str(feature),
+                "profile_count": profile_count,
+                "mean_delta_z": float(sub["delta_z"].mean()),
+                "mean_abs_delta_z": mean_abs_delta_z,
+                "direction_consistency": direction_consistency,
+                "mean_spearman_to_excess": float(sub["spearman_to_excess"].mean()),
+                "profiles": ",".join(profiles),
+                "stability_score": float(stability_score),
+            }
+        )
+    out = pd.DataFrame(rows)
+    return out.sort_values(
+        ["stability_score", "profile_count", "mean_abs_delta_z", "feature"],
+        ascending=[False, False, False, True],
+    ).head(top_n).reset_index(drop=True)
 
 
 def _normalise_feature_frame(features: pd.DataFrame) -> pd.DataFrame:
@@ -414,6 +644,9 @@ def run_oos_diagnostic(
 
 __all__ = [
     "ExternalReference",
+    "aggregate_feature_differences",
+    "aggregate_poor_windows",
+    "classify_poor_window",
     "compute_feature_differences",
     "find_poor_windows",
     "load_qlib_feature_frame",

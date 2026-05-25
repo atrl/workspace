@@ -118,6 +118,20 @@ PYTHONPATH=src:. qlib_venv/bin/python scripts/diagnose_oos_poor_windows.py \
 top feature group 判断是 underparticipation、drawdown control、还是 selection bias。
 只有聚合结论指向明确机制后，才开下一条参数实验或训练分支。
 
+可复用聚合入口：
+
+```bash
+PYTHONPATH=src:. qlib_venv/bin/python scripts/aggregate_oos_poor_windows.py \
+  --input-dir runtime/<direction>/card/<label_a> --label <label_a> \
+  --input-dir runtime/<direction>/card/<label_b> --label <label_b> \
+  --output-dir runtime/model_selection/card/<aggregate_label>/aggregate \
+  --target-excess 30 \
+  --target-max-dd 15
+```
+
+输出的 `poor_window_clusters.csv` 负责决定下一步机制；`feature_delta_clusters.csv`
+只负责生成待 IC / 单信号 / walk-forward 验证的特征假设。
+
 ### 4. Explain with mechanism, not adjectives
 
 优先从下面这些“可被代码改变”的机制解释，不要只写“市场不同”：

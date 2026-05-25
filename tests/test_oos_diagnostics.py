@@ -1,8 +1,16 @@
 from __future__ import annotations
 
+import subprocess
+import sys
+import tempfile
+from pathlib import Path
+
 import pandas as pd
 
 from src.soxl_quant.app.oos_diagnostics import (
+    aggregate_feature_differences,
+    aggregate_poor_windows,
+    classify_poor_window,
     compute_feature_differences,
     find_poor_windows,
     render_oos_diagnostic_review,
@@ -102,3 +110,148 @@ def test_render_oos_diagnostic_review_includes_thresholds_sources_and_next_actio
     assert "Deflated Sharpe Ratio" in review
     assert "trend_pressure" in review
     assert "Next Actions" in review
+
+
+def test_classify_poor_window_separates_underparticipation_and_drawdown():
+    under = pd.Series(
+        {
+            "buyhold_return": 120.0,
+            "excess_return": -90.0,
+            "max_dd": 8.0,
+            "avg_pos": 0.12,
+        }
+    )
+    drawdown = pd.Series(
+        {
+            "buyhold_return": -15.0,
+            "excess_return": -10.0,
+            "max_dd": 24.0,
+            "avg_pos": 0.72,
+        }
+    )
+
+    assert classify_poor_window(under) == "underparticipation"
+    assert classify_poor_window(drawdown) == "drawdown_control"
+
+
+def test_classify_poor_window_treats_partial_exposure_in_strong_rebound_as_underparticipation():
+    rebound = pd.Series(
+        {
+            "buyhold_return": 220.0,
+            "excess_return": -150.0,
+            "max_dd": 16.0,
+            "avg_pos": 0.52,
+        }
+    )
+
+    assert classify_poor_window(rebound) == "underparticipation"
+
+
+def test_aggregate_poor_windows_clusters_overlapping_profiles():
+    left = pd.DataFrame(
+        {
+            "start": ["2026-02-10", "2025-04-08"],
+            "end": ["2026-05-11", "2025-07-09"],
+            "strategy_return": [1.7, 82.8],
+            "buyhold_return": [200.6, 223.0],
+            "excess_return": [-198.9, -140.2],
+            "max_dd": [6.4, 16.3],
+            "avg_pos": [0.14, 0.55],
+            "bad_score": [205.3, 156.5],
+        }
+    )
+    right = pd.DataFrame(
+        {
+            "start": ["2026-02-20", "2024-08-01"],
+            "end": ["2026-05-20", "2024-10-30"],
+            "strategy_return": [-3.1, -18.0],
+            "buyhold_return": [158.1, -2.0],
+            "excess_return": [-161.2, -16.0],
+            "max_dd": [6.4, 27.0],
+            "avg_pos": [0.05, 0.70],
+            "bad_score": [167.6, 43.0],
+        }
+    )
+
+    clusters = aggregate_poor_windows({"left": left, "right": right})
+
+    assert clusters.iloc[0]["cluster_start"] == "2026-02-10"
+    assert clusters.iloc[0]["cluster_end"] == "2026-05-20"
+    assert clusters.iloc[0]["profile_count"] == 2
+    assert clusters.iloc[0]["window_count"] == 2
+    assert clusters.iloc[0]["dominant_failure_type"] == "underparticipation"
+    assert clusters["cluster_id"].is_unique
+
+
+def test_aggregate_feature_differences_keeps_consistent_direction():
+    left = pd.DataFrame(
+        {
+            "feature": ["mom_21", "vol_21", "noise"],
+            "delta_z": [0.8, 1.2, 0.1],
+            "spearman_to_excess": [-0.2, 0.1, 0.0],
+        }
+    )
+    right = pd.DataFrame(
+        {
+            "feature": ["mom_21", "vol_21", "noise"],
+            "delta_z": [0.6, -1.0, -0.1],
+            "spearman_to_excess": [-0.3, 0.2, 0.0],
+        }
+    )
+
+    summary = aggregate_feature_differences({"left": left, "right": right}, top_n=3)
+    by_feature = summary.set_index("feature")
+
+    assert by_feature.loc["mom_21", "profile_count"] == 2
+    assert by_feature.loc["mom_21", "direction_consistency"] == 1.0
+    assert by_feature.loc["vol_21", "direction_consistency"] == 0.0
+    assert by_feature.index[0] == "mom_21"
+
+
+def test_aggregate_oos_script_writes_cluster_and_feature_outputs():
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp_path = Path(tmp)
+        source = tmp_path / "demo"
+        source.mkdir()
+        pd.DataFrame(
+            {
+                "start": ["2026-02-10"],
+                "end": ["2026-05-11"],
+                "strategy_return": [1.7],
+                "buyhold_return": [200.6],
+                "excess_return": [-198.9],
+                "max_dd": [6.4],
+                "avg_pos": [0.14],
+                "bad_score": [205.3],
+            }
+        ).to_csv(source / "poor_windows.csv", index=False)
+        pd.DataFrame(
+            {
+                "feature": ["mom_21"],
+                "delta_z": [0.8],
+                "spearman_to_excess": [-0.2],
+            }
+        ).to_csv(source / "feature_differences.csv", index=False)
+        output = tmp_path / "out"
+
+        result = subprocess.run(
+            [
+                sys.executable,
+                "scripts/aggregate_oos_poor_windows.py",
+                "--input-dir",
+                str(source),
+                "--label",
+                "demo",
+                "--output-dir",
+                str(output),
+            ],
+            cwd=Path(__file__).resolve().parents[1],
+            text=True,
+            capture_output=True,
+        )
+
+        assert result.returncode == 0, result.stderr
+        assert "oos_aggregate" in result.stdout
+        assert (output / "poor_window_clusters.csv").exists()
+        assert (output / "feature_delta_clusters.csv").exists()
+        assert pd.read_csv(output / "poor_window_clusters.csv").iloc[0]["dominant_failure_type"] == "underparticipation"
