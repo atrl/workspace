@@ -1,0 +1,81 @@
+{
+  "experiment": "drawdown_rebound_checkpoint_pbo_v1",
+  "source_profile": "drawdown_rebound_reward_train_v1",
+  "decision": "diagnostic_replay_parity_mismatch_no_promotion",
+  "target": {
+    "relative_return_min_pp": 30.0,
+    "max_dd_max_pct": 15.0
+  },
+  "summary_selected_pass_count": 0,
+  "best_oos_pass_count": 0,
+  "pbo_proxy_below_median_rate": 0.0,
+  "pbo_proxy_not_best_rate": 0.5,
+  "parity_mismatch": true,
+  "window_best_rows": [
+    {
+      "window": "strict_oos",
+      "best_oos_iter": 8,
+      "best_oos_target_pass": false,
+      "best_oos_relative_return": 610.3026138902617,
+      "best_oos_max_dd": 54.55001890532336
+    },
+    {
+      "window": "wf_2020",
+      "best_oos_iter": 4,
+      "best_oos_target_pass": false,
+      "best_oos_relative_return": 53.54738882957431,
+      "best_oos_max_dd": 22.456889685859714
+    },
+    {
+      "window": "wf_2022",
+      "best_oos_iter": 8,
+      "best_oos_target_pass": false,
+      "best_oos_relative_return": 65.58122431611736,
+      "best_oos_max_dd": 30.715739364422035
+    },
+    {
+      "window": "wf_2023_2024",
+      "best_oos_iter": 0,
+      "best_oos_target_pass": false,
+      "best_oos_relative_return": -15.814458150045619,
+      "best_oos_max_dd": 31.455750619645716
+    }
+  ],
+  "poor_window_summary": [
+    {
+      "profile": "drawdown_rebound_reward_train_v1:summary_selected_strict",
+      "top_window_start": "2025-04-08",
+      "top_window_end": "2025-07-09",
+      "top_window_excess_return": -166.35759505853446,
+      "top_window_max_dd": 12.397085002269916,
+      "top_feature_1": "vol_of_vol_21",
+      "top_feature_2": "tracking_error_vol_21",
+      "top_feature_3": "decay_63"
+    },
+    {
+      "profile": "drawdown_rebound_reward_train_v1:low_dd_iter0",
+      "top_window_start": "2025-04-08",
+      "top_window_end": "2025-07-09",
+      "top_window_excess_return": -183.22838700321785,
+      "top_window_max_dd": 11.311921293318717,
+      "top_feature_1": "decay_63",
+      "top_feature_2": "vol_of_vol_21",
+      "top_feature_3": "tracking_error_vol_21"
+    }
+  ],
+  "interpretation": [
+    "Committed summary daily and current actor replay are not numerically identical; this blocks using local checkpoint replay as promotion proof.",
+    "Even oracle OOS checkpoint choice passes only 0/4 windows, so checkpoint selection alone cannot satisfy the target.",
+    "The summary-selected checkpoints pass only 0/4 windows under +30pp / <=15% criteria.",
+    "Worst strict poor window starts 2025-04-08 and is associated with vol_of_vol_21, tracking_error_vol_21, decay_63.",
+    "Next useful lever should not be longer training of this reward branch; use poor-window features to design a regime-specific actor/composer change, then validate with saved walk-forward."
+  ],
+  "artifacts": {
+    "notebook": "runtime/model_selection/card/drawdown_rebound_checkpoint_pbo_v1/drawdown_rebound_checkpoint_pbo_v1.ipynb",
+    "checkpoint_inventory": "runtime/model_selection/card/drawdown_rebound_checkpoint_pbo_v1/checkpoint_inventory.csv",
+    "checkpoint_metrics": "runtime/model_selection/card/drawdown_rebound_checkpoint_pbo_v1/checkpoint_metrics.csv",
+    "checkpoint_selection_table": "runtime/model_selection/card/drawdown_rebound_checkpoint_pbo_v1/checkpoint_selection_table.csv",
+    "poor_window_summary": "runtime/model_selection/card/drawdown_rebound_checkpoint_pbo_v1/poor_window_summary.csv",
+    "summary_daily_parity": "runtime/model_selection/card/drawdown_rebound_checkpoint_pbo_v1/summary_daily_parity.csv"
+  }
+}

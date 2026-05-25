@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-25T00:39:39.025146+00:00",
+  "generated_at": "2026-05-25T01:02:16.763012+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -4578,6 +4578,168 @@
       "category": "model",
       "suffix": ".md",
       "bytes": 3390
+    },
+    {
+      "path": "runtime/model_selection/card/drawdown_rebound_checkpoint_pbo_v1/checkpoint_inventory.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 6874
+    },
+    {
+      "path": "runtime/model_selection/card/drawdown_rebound_checkpoint_pbo_v1/checkpoint_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 9016
+    },
+    {
+      "path": "runtime/model_selection/card/drawdown_rebound_checkpoint_pbo_v1/checkpoint_selection_table.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1059
+    },
+    {
+      "path": "runtime/model_selection/card/drawdown_rebound_checkpoint_pbo_v1/exports/strict_oos_iter0_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 199364
+    },
+    {
+      "path": "runtime/model_selection/card/drawdown_rebound_checkpoint_pbo_v1/exports/strict_oos_iter4_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 199485
+    },
+    {
+      "path": "runtime/model_selection/card/drawdown_rebound_checkpoint_pbo_v1/exports/strict_oos_iter8_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 199356
+    },
+    {
+      "path": "runtime/model_selection/card/drawdown_rebound_checkpoint_pbo_v1/exports/strict_oos_summary_actor_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 199485
+    },
+    {
+      "path": "runtime/model_selection/card/drawdown_rebound_checkpoint_pbo_v1/exports/wf_2020_iter0_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30163
+    },
+    {
+      "path": "runtime/model_selection/card/drawdown_rebound_checkpoint_pbo_v1/exports/wf_2020_iter4_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30103
+    },
+    {
+      "path": "runtime/model_selection/card/drawdown_rebound_checkpoint_pbo_v1/exports/wf_2020_iter8_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30127
+    },
+    {
+      "path": "runtime/model_selection/card/drawdown_rebound_checkpoint_pbo_v1/exports/wf_2022_iter0_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 29741
+    },
+    {
+      "path": "runtime/model_selection/card/drawdown_rebound_checkpoint_pbo_v1/exports/wf_2022_iter4_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 29755
+    },
+    {
+      "path": "runtime/model_selection/card/drawdown_rebound_checkpoint_pbo_v1/exports/wf_2022_iter8_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 29747
+    },
+    {
+      "path": "runtime/model_selection/card/drawdown_rebound_checkpoint_pbo_v1/exports/wf_2023_2024_iter0_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30413
+    },
+    {
+      "path": "runtime/model_selection/card/drawdown_rebound_checkpoint_pbo_v1/exports/wf_2023_2024_iter4_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30540
+    },
+    {
+      "path": "runtime/model_selection/card/drawdown_rebound_checkpoint_pbo_v1/exports/wf_2023_2024_iter8_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30540
+    },
+    {
+      "path": "runtime/model_selection/card/drawdown_rebound_checkpoint_pbo_v1/poor_window_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 440
+    },
+    {
+      "path": "runtime/model_selection/card/drawdown_rebound_checkpoint_pbo_v1/poor_windows/low_dd_iter0/feature_differences.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2945
+    },
+    {
+      "path": "runtime/model_selection/card/drawdown_rebound_checkpoint_pbo_v1/poor_windows/low_dd_iter0/manifest.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1386
+    },
+    {
+      "path": "runtime/model_selection/card/drawdown_rebound_checkpoint_pbo_v1/poor_windows/low_dd_iter0/oos_diagnostic_review.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 3090
+    },
+    {
+      "path": "runtime/model_selection/card/drawdown_rebound_checkpoint_pbo_v1/poor_windows/low_dd_iter0/poor_windows.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1470
+    },
+    {
+      "path": "runtime/model_selection/card/drawdown_rebound_checkpoint_pbo_v1/poor_windows/summary_selected_strict/feature_differences.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2949
+    },
+    {
+      "path": "runtime/model_selection/card/drawdown_rebound_checkpoint_pbo_v1/poor_windows/summary_selected_strict/manifest.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1430
+    },
+    {
+      "path": "runtime/model_selection/card/drawdown_rebound_checkpoint_pbo_v1/poor_windows/summary_selected_strict/oos_diagnostic_review.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 3114
+    },
+    {
+      "path": "runtime/model_selection/card/drawdown_rebound_checkpoint_pbo_v1/poor_windows/summary_selected_strict/poor_windows.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1468
+    },
+    {
+      "path": "runtime/model_selection/card/drawdown_rebound_checkpoint_pbo_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 3517
+    },
+    {
+      "path": "runtime/model_selection/card/drawdown_rebound_checkpoint_pbo_v1/summary_daily_parity.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1151
     },
     {
       "path": "runtime/model_selection/card/predictive_drawdown_risk_gate_v1/baseline_table.csv",

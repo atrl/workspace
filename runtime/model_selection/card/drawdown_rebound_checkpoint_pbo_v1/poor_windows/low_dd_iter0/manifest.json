@@ -1,0 +1,31 @@
+{
+  "profile": "drawdown_rebound_reward_train_v1:low_dd_iter0",
+  "daily_csv": "/Users/rziiiii/.openclaw/workspace/runtime/model_selection/card/drawdown_rebound_checkpoint_pbo_v1/exports/strict_oos_iter0_daily.csv",
+  "oos_start": "2020-01-02",
+  "oos_end": "2026-05-21",
+  "window_size": 63,
+  "target_excess": 30.0,
+  "target_max_dd": 15.0,
+  "artifacts": {
+    "windows": "/Users/rziiiii/.openclaw/workspace/runtime/model_selection/card/drawdown_rebound_checkpoint_pbo_v1/poor_windows/low_dd_iter0/poor_windows.csv",
+    "features": "/Users/rziiiii/.openclaw/workspace/runtime/model_selection/card/drawdown_rebound_checkpoint_pbo_v1/poor_windows/low_dd_iter0/feature_differences.csv",
+    "review": "/Users/rziiiii/.openclaw/workspace/runtime/model_selection/card/drawdown_rebound_checkpoint_pbo_v1/poor_windows/low_dd_iter0/oos_diagnostic_review.md"
+  },
+  "external_references": [
+    {
+      "label": "Deflated Sharpe Ratio",
+      "url": "https://www.davidhbailey.com/dhbpapers/deflated-sharpe.pdf",
+      "note": "selection-bias warning for repeated trials"
+    },
+    {
+      "label": "Probability of Backtest Overfitting",
+      "url": "https://doi.org/10.21314/JCF.2016.322",
+      "note": "strategy-selection overfit diagnostic"
+    },
+    {
+      "label": "Qlib GitHub",
+      "url": "https://github.com/microsoft/qlib",
+      "note": "repo-owned qlib workflow"
+    }
+  ]
+}

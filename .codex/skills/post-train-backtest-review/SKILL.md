@@ -187,6 +187,7 @@ qlib_venv/bin/python scripts/feature_analysis.py
 - 不要因为 `test_proxy` 上升就忽略 `test_2022` 风险恶化。
 - 不要把 `avg_pos` 当成单向好坏指标；它是风格暴露指标，必须结合窗口解释。
 - 不要把 `selection_history` 中的最佳 iter 当成稳定结论；要看是否早熟、是否 plateau、是否后续退化。
+- 在使用 retained checkpoint actor 或重新导出的 daily replay 做推广判断前，先做 replay parity check：比较 summary JSON、已保存 daily CSV、当前 actor replay 的 return、MaxDD、avg_pos 和日期范围。若不一致，只能作为诊断，不能作为 promotion 证据。
 - 任何“改进”都应该回写到 workpad 或 memory，而不是只留在聊天里。
 
 ## Generic Quant Optimization Framework
