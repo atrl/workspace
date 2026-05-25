@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-25T01:30:23.786064+00:00",
+  "generated_at": "2026-05-25T02:07:27.139145+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -108,6 +108,84 @@
       "category": "execution",
       "suffix": ".md",
       "bytes": 717
+    },
+    {
+      "path": "runtime/execution/card/current_coverage_rebound_downtrend_router_v1/base_cluster_metrics.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 411
+    },
+    {
+      "path": "runtime/execution/card/current_coverage_rebound_downtrend_router_v1/base_metrics.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 1053
+    },
+    {
+      "path": "runtime/execution/card/current_coverage_rebound_downtrend_router_v1/router_family_summary.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 305
+    },
+    {
+      "path": "runtime/execution/card/current_coverage_rebound_downtrend_router_v1/router_screen.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 4036241
+    },
+    {
+      "path": "runtime/execution/card/current_coverage_rebound_downtrend_router_v1/router_top_configs.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 117906
+    },
+    {
+      "path": "runtime/execution/card/current_coverage_rebound_downtrend_router_v1/selected_cluster_comparison.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 1034
+    },
+    {
+      "path": "runtime/execution/card/current_coverage_rebound_downtrend_router_v1/selected_metrics.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 837
+    },
+    {
+      "path": "runtime/execution/card/current_coverage_rebound_downtrend_router_v1/selected_strict_oos_daily.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 622268
+    },
+    {
+      "path": "runtime/execution/card/current_coverage_rebound_downtrend_router_v1/selected_wf_2020_daily.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 94976
+    },
+    {
+      "path": "runtime/execution/card/current_coverage_rebound_downtrend_router_v1/selected_wf_2022_daily.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 93551
+    },
+    {
+      "path": "runtime/execution/card/current_coverage_rebound_downtrend_router_v1/selected_wf_2023_2024_daily.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 96284
+    },
+    {
+      "path": "runtime/execution/card/current_coverage_rebound_downtrend_router_v1/selection.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 12403
+    },
+    {
+      "path": "runtime/execution/card/current_coverage_rebound_downtrend_router_v1/upside_metrics.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 5404
     },
     {
       "path": "runtime/execution/card/current_coverage_residual_guard_refresh_v1/current_base_metrics.csv",
