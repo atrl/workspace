@@ -1,0 +1,17 @@
+{
+  "conclusion": [
+    "The latest path-level drawdown controller failure is now converted into per-date training targets and checkpoint objective scores.",
+    "No candidate clears the window gate, so this is a training/checkpoint handoff only and not a runtime promotion.",
+    "The next PPO branch should retain checkpoints by checkpoint_objective_loss and validate with fixed-split plus walk-forward windows before promotion."
+  ],
+  "decision": "checkpoint_objective_no_promotion",
+  "experiment": "joint_reward_checkpoint_recipe_v1",
+  "selected_candidate": "selected_router_no_equity_dd",
+  "selected_checkpoint_objective_loss": 11.760219169756816,
+  "selected_coverage_gate": true,
+  "selected_window_gate": false,
+  "target_downtrend_rows": 1561,
+  "target_rebound_rows": 281,
+  "target_rows": 2358,
+  "target_top_weighted_window": "strict_oos"
+}

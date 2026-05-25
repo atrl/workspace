@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-25T16:26:04.723831+00:00",
+  "generated_at": "2026-05-25T16:40:19.605928+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -5454,6 +5454,72 @@
       "category": "model_selection",
       "suffix": ".csv",
       "bytes": 341
+    },
+    {
+      "path": "runtime/model_selection/card/joint_reward_checkpoint_recipe_v1/alignment_summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 516
+    },
+    {
+      "path": "runtime/model_selection/card/joint_reward_checkpoint_recipe_v1/checkpoint_objective_scores.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1177
+    },
+    {
+      "path": "runtime/model_selection/card/joint_reward_checkpoint_recipe_v1/checkpoint_summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 705
+    },
+    {
+      "path": "runtime/model_selection/card/joint_reward_checkpoint_recipe_v1/combined_candidate_scores.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2094
+    },
+    {
+      "path": "runtime/model_selection/card/joint_reward_checkpoint_recipe_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2372
+    },
+    {
+      "path": "runtime/model_selection/card/joint_reward_checkpoint_recipe_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 857
+    },
+    {
+      "path": "runtime/model_selection/card/joint_reward_checkpoint_recipe_v1/target_alignment_scores.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 948
+    },
+    {
+      "path": "runtime/model_selection/card/joint_reward_checkpoint_recipe_v1/target_summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2131
+    },
+    {
+      "path": "runtime/model_selection/card/joint_reward_checkpoint_recipe_v1/training_objective_recipe.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2093
+    },
+    {
+      "path": "runtime/model_selection/card/joint_reward_checkpoint_recipe_v1/training_targets.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1043825
+    },
+    {
+      "path": "runtime/model_selection/card/joint_reward_checkpoint_recipe_v1/window_target_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 623
     },
     {
       "path": "runtime/model_selection/card/oos_poor_window_factor_diff_aggregate_v1/aggregate/aggregate_oos_review.md",
