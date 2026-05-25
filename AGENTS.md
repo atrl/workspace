@@ -94,6 +94,9 @@ Knowledge retrieval must be scoped by task direction.
   parameter choices, outputs, and conclusion in the runtime notebook.
 - If a notebook writes sidecar Markdown/JSON/CSV artifacts, the notebook remains
   the primary human-readable conclusion for that run.
+- When in doubt, choose a runtime notebook first. Use Markdown, JSON, or CSV as
+  sidecar evidence only when it makes the notebook more reproducible or
+  machine-readable.
 - Avoid creating Markdown-only single-run reports when an executable notebook
   can hold the same evidence. Markdown is acceptable as a promoted summary,
   registry note, or sidecar, but not as the default primary artifact.
@@ -243,5 +246,4 @@ For every substantial iteration:
    `runtime/<direction>/knowledge.md` only for durable cross-session decisions
 7. **commit and push the changes**
 8. if a skill was created or modified, verify `.codex/skills/` is synced
-
 
