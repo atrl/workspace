@@ -5,6 +5,7 @@ import pandas as pd
 from src.soxl_quant.app.state_objective_training_targets import (
     StateObjectiveBCReadinessConfig,
     StateObjectiveTrainingTargetConfig,
+    build_fold_local_state_objective_training_targets,
     build_state_objective_training_targets,
     filter_state_objective_targets_for_train_window,
     score_state_objective_bc_readiness,
@@ -404,3 +405,85 @@ def test_filter_state_objective_targets_for_train_window_rejects_eval_overlap():
         assert "overlaps eval window" in str(exc)
     else:
         raise AssertionError("overlapping train/eval windows did not raise")
+
+
+def test_fold_local_target_builder_filters_eval_rows_and_future_clusters():
+    daily_paths = {
+        "teacher_path": pd.DataFrame(
+            {
+                "datetime": pd.to_datetime(["2020-01-02", "2020-01-03", "2020-01-06"]),
+                "strategy_nav": [100.0, 90.0, 95.0],
+                "buyhold_nav": [100.0, 120.0, 130.0],
+                "router_position": [0.20, 0.15, 0.80],
+                "rebound_state": [False, True, True],
+                "risk_state": [False, False, True],
+            }
+        )
+    }
+    cluster_metrics = pd.DataFrame(
+        {
+            "candidate": ["teacher", "teacher"],
+            "cluster": ["train_rebound", "future_eval_rebound"],
+            "start": ["2020-01-03", "2020-01-06"],
+            "end": ["2020-01-03", "2020-01-06"],
+            "relative_return": [-80.0, -120.0],
+            "max_dd": [8.0, 9.0],
+            "avg_pos": [0.10, 0.05],
+        }
+    )
+
+    targets = build_fold_local_state_objective_training_targets(
+        daily_paths,
+        folds=[
+            {
+                "name": "wf_2022_train",
+                "source_window": "teacher_path",
+                "train_start": "2020-01-02",
+                "train_end": "2020-01-03",
+                "eval_start": "2020-01-06",
+                "eval_end": "2020-01-10",
+            }
+        ],
+        cluster_metrics=cluster_metrics,
+        candidate="teacher",
+    )
+
+    assert targets["datetime"].dt.strftime("%Y-%m-%d").tolist() == ["2020-01-02", "2020-01-03"]
+    assert targets["target_scope"].unique().tolist() == ["fold_local"]
+    assert targets["fold"].unique().tolist() == ["wf_2022_train"]
+    assert targets["cluster"].tolist() == ["", "train_rebound"]
+    assert "future_eval_rebound" not in targets["cluster"].tolist()
+
+
+def test_fold_local_target_builder_rejects_overlapping_train_eval_window():
+    daily_paths = {
+        "teacher_path": pd.DataFrame(
+            {
+                "datetime": pd.to_datetime(["2020-01-02", "2020-01-03"]),
+                "strategy_nav": [100.0, 101.0],
+                "buyhold_nav": [100.0, 99.0],
+                "position": [0.20, 0.30],
+            }
+        )
+    }
+
+    try:
+        build_fold_local_state_objective_training_targets(
+            daily_paths,
+            folds=[
+                {
+                    "name": "bad",
+                    "source_window": "teacher_path",
+                    "train_start": "2020-01-02",
+                    "train_end": "2020-01-03",
+                    "eval_start": "2020-01-03",
+                    "eval_end": "2020-01-10",
+                }
+            ],
+            cluster_metrics=pd.DataFrame(),
+            candidate="teacher",
+        )
+    except ValueError as exc:
+        assert "overlaps eval window" in str(exc)
+    else:
+        raise AssertionError("overlapping fold did not raise")

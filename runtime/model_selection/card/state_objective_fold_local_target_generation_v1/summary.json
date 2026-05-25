@@ -1,0 +1,92 @@
+{
+  "fold_target_summary": [
+    {
+      "downtrend_rows": 234,
+      "fold": "wf_2022_train",
+      "max_objective_weight": 226.65851512292693,
+      "mean_risk_target_position": 0.1936487503116306,
+      "mean_teacher_position": 0.20710261167622349,
+      "rebound_rows": 0,
+      "rows": 505,
+      "unique_dates": 505
+    },
+    {
+      "downtrend_rows": 478,
+      "fold": "wf_2023_2024_train",
+      "max_objective_weight": 1.0,
+      "mean_risk_target_position": 0.15268380333544757,
+      "mean_teacher_position": 0.16197143420235977,
+      "rebound_rows": 0,
+      "rows": 756,
+      "unique_dates": 756
+    }
+  ],
+  "label_comparison": [
+    {
+      "action_entropy": 1.202463951257149,
+      "dominant_action": 1,
+      "dominant_action_share": 0.39602649006622515,
+      "obs_dim": 315,
+      "profile": "risk_budget_usage_v1",
+      "samples": 755,
+      "unique_actions": 5
+    },
+    {
+      "action_entropy": 0.4574793779703822,
+      "dominant_action": 0,
+      "dominant_action_share": 0.9033112582781457,
+      "obs_dim": 79,
+      "profile": "balanced",
+      "samples": 755,
+      "unique_actions": 9
+    },
+    {
+      "action_entropy": 0.19739541851440232,
+      "dominant_action": 0,
+      "dominant_action_share": 0.9642384105960264,
+      "obs_dim": 340,
+      "profile": "balanced_rule_residual_v22",
+      "samples": 755,
+      "unique_actions": 5
+    }
+  ],
+  "readiness_summary": {
+    "decision": "state_objective_bc_ready_for_training",
+    "next_mechanism": "run_fold_local_bc_warm_start_then_walkforward_ppo",
+    "selected_bc_readiness_gate": true,
+    "selected_bc_readiness_loss": 0.0,
+    "selected_dominant_action_share": 0.39602649006622515,
+    "selected_fold_local_scope_gate": true,
+    "selected_label_distribution_gate": true,
+    "selected_profile": "risk_budget_usage_v1",
+    "selected_samples": 755,
+    "selected_target_scope": "fold_local",
+    "selected_unique_actions": 5
+  },
+  "selection": {
+    "acceptance_gate_for_next_run": {
+      "fold_native_teacher_source_required": true,
+      "label_distribution_gate_required": true,
+      "max_dd_max_pct": 15.0,
+      "relative_return_min_pp": 30.0,
+      "walkforward_required": true
+    },
+    "cluster_blocker": "available rebound clusters are outside the train folds, so high-vol rebound participation targets are absent in this audit table",
+    "decision": "fold_local_audit_targets_generated_no_training",
+    "experiment": "state_objective_fold_local_target_generation_v1",
+    "next_mechanism": "regenerate_fold_native_teacher_paths_and_clusters_then_budget_usage_bc_warm_start_ppo",
+    "promotion_allowed": false,
+    "readiness_decision_if_source_is_fold_native": "state_objective_bc_ready_for_training",
+    "selected_profile_for_next_training": "risk_budget_usage_v1",
+    "sidecars": [
+      "fold_local_audit_targets.csv",
+      "fold_target_summary.csv",
+      "profile_label_comparison.csv",
+      "fold_profile_label_comparison.csv",
+      "bc_readiness_scores.csv",
+      "summary.json"
+    ],
+    "source_provenance_blocker": "teacher daily path and cluster metrics were selected outside these train folds; regenerate them inside each fold before training",
+    "training_allowed": false
+  }
+}

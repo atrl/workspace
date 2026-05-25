@@ -1,0 +1,26 @@
+{
+  "acceptance_gate_for_next_run": {
+    "fold_native_teacher_source_required": true,
+    "label_distribution_gate_required": true,
+    "max_dd_max_pct": 15.0,
+    "relative_return_min_pp": 30.0,
+    "walkforward_required": true
+  },
+  "cluster_blocker": "available rebound clusters are outside the train folds, so high-vol rebound participation targets are absent in this audit table",
+  "decision": "fold_local_audit_targets_generated_no_training",
+  "experiment": "state_objective_fold_local_target_generation_v1",
+  "next_mechanism": "regenerate_fold_native_teacher_paths_and_clusters_then_budget_usage_bc_warm_start_ppo",
+  "promotion_allowed": false,
+  "readiness_decision_if_source_is_fold_native": "state_objective_bc_ready_for_training",
+  "selected_profile_for_next_training": "risk_budget_usage_v1",
+  "sidecars": [
+    "fold_local_audit_targets.csv",
+    "fold_target_summary.csv",
+    "profile_label_comparison.csv",
+    "fold_profile_label_comparison.csv",
+    "bc_readiness_scores.csv",
+    "summary.json"
+  ],
+  "source_provenance_blocker": "teacher daily path and cluster metrics were selected outside these train folds; regenerate them inside each fold before training",
+  "training_allowed": false
+}

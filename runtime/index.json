@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-25T10:42:51.778278+00:00",
+  "generated_at": "2026-05-25T10:54:18.094432+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -5688,6 +5688,48 @@
       "category": "model_selection",
       "suffix": ".json",
       "bytes": 2091
+    },
+    {
+      "path": "runtime/model_selection/card/state_objective_fold_local_target_generation_v1/bc_readiness_scores.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 546
+    },
+    {
+      "path": "runtime/model_selection/card/state_objective_fold_local_target_generation_v1/fold_local_audit_targets.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 728405
+    },
+    {
+      "path": "runtime/model_selection/card/state_objective_fold_local_target_generation_v1/fold_profile_label_comparison.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 609
+    },
+    {
+      "path": "runtime/model_selection/card/state_objective_fold_local_target_generation_v1/fold_target_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 283
+    },
+    {
+      "path": "runtime/model_selection/card/state_objective_fold_local_target_generation_v1/profile_label_comparison.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 299
+    },
+    {
+      "path": "runtime/model_selection/card/state_objective_fold_local_target_generation_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1219
+    },
+    {
+      "path": "runtime/model_selection/card/state_objective_fold_local_target_generation_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 3216
     },
     {
       "path": "runtime/model_selection/card/state_objective_training_target_v1/selection.json",

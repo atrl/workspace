@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Mapping
+from typing import Iterable, Mapping
 
 import numpy as np
 import pandas as pd
@@ -397,6 +397,105 @@ def filter_state_objective_targets_for_train_window(
     frame["datetime"] = pd.to_datetime(frame["datetime"])
     dates = frame["datetime"].dt.normalize()
     return frame.loc[(dates >= train_start_ts) & (dates <= train_end_ts)].reset_index(drop=True)
+
+
+def _fold_value(fold: Mapping[str, object], key: str, default: object = None) -> object:
+    value = fold.get(key, default)
+    if value is None:
+        raise ValueError(f"fold missing required key: {key}")
+    return value
+
+
+def _filter_cluster_metrics_for_train_window(
+    cluster_metrics: pd.DataFrame,
+    *,
+    candidate: str,
+    train_start: str | pd.Timestamp,
+    train_end: str | pd.Timestamp,
+) -> pd.DataFrame:
+    if cluster_metrics.empty:
+        return cluster_metrics.copy()
+    required = {"cluster", "start", "end", "relative_return", "max_dd", "avg_pos"}
+    missing = sorted(required - set(cluster_metrics.columns))
+    if missing:
+        raise ValueError(f"cluster_metrics missing columns: {missing}")
+    clusters = cluster_metrics.copy()
+    if "candidate" in clusters.columns:
+        clusters = clusters[clusters["candidate"].astype(str) == str(candidate)]
+    clusters["start"] = pd.to_datetime(clusters["start"])
+    clusters["end"] = pd.to_datetime(clusters["end"])
+    train_start_ts = pd.Timestamp(train_start).normalize()
+    train_end_ts = pd.Timestamp(train_end).normalize()
+    mask = (clusters["start"].dt.normalize() >= train_start_ts) & (
+        clusters["end"].dt.normalize() <= train_end_ts
+    )
+    return clusters.loc[mask].reset_index(drop=True)
+
+
+def build_fold_local_state_objective_training_targets(
+    daily_paths: Mapping[str, pd.DataFrame],
+    *,
+    folds: Iterable[Mapping[str, object]],
+    cluster_metrics: pd.DataFrame,
+    candidate: str,
+    config: StateObjectiveTrainingTargetConfig = StateObjectiveTrainingTargetConfig(),
+) -> pd.DataFrame:
+    """Build state-objective targets using only each fold's train window."""
+
+    rows: list[pd.DataFrame] = []
+    for fold in folds:
+        name = str(_fold_value(fold, "name"))
+        train_start = _fold_value(fold, "train_start")
+        train_end = _fold_value(fold, "train_end")
+        eval_start = _fold_value(fold, "eval_start")
+        eval_end = _fold_value(fold, "eval_end")
+        source_window = str(fold.get("source_window", name))
+        if source_window not in daily_paths:
+            raise ValueError(f"daily_paths missing source window: {source_window}")
+        train_daily = filter_state_objective_targets_for_train_window(
+            daily_paths[source_window],
+            train_start=train_start,
+            train_end=train_end,
+            eval_start=eval_start,
+            eval_end=eval_end,
+        )
+        if train_daily.empty:
+            continue
+        metrics = daily_path_metrics(train_daily)
+        window_metrics = pd.DataFrame(
+            {
+                "candidate": [str(candidate)],
+                "window": [name],
+                "relative_return": [_json_safe_float(metrics.get("relative_return"), 0.0)],
+                "max_dd": [_json_safe_float(metrics.get("max_dd"), 0.0)],
+            }
+        )
+        train_clusters = _filter_cluster_metrics_for_train_window(
+            cluster_metrics,
+            candidate=str(candidate),
+            train_start=train_start,
+            train_end=train_end,
+        )
+        fold_targets = build_state_objective_training_targets(
+            {name: train_daily},
+            window_metrics=window_metrics,
+            cluster_metrics=train_clusters,
+            candidate=str(candidate),
+            config=config,
+        )
+        if fold_targets.empty:
+            continue
+        fold_targets["fold"] = name
+        fold_targets["source_window"] = source_window
+        fold_targets["target_scope"] = "fold_local"
+        fold_targets["train_start"] = str(pd.Timestamp(train_start).date())
+        fold_targets["train_end"] = str(pd.Timestamp(train_end).date())
+        fold_targets["eval_start"] = str(pd.Timestamp(eval_start).date())
+        fold_targets["eval_end"] = str(pd.Timestamp(eval_end).date())
+        rows.append(fold_targets)
+    if not rows:
+        return pd.DataFrame()
+    return pd.concat(rows, ignore_index=True).sort_values(["fold", "datetime"]).reset_index(drop=True)
 
 
 def score_state_objective_bc_readiness(
@@ -846,6 +945,7 @@ __all__ = [
     "StateObjectiveBCReadinessConfig",
     "StateObjectiveCheckpointSelectionConfig",
     "StateObjectiveTrainingTargetConfig",
+    "build_fold_local_state_objective_training_targets",
     "build_state_objective_training_targets",
     "filter_state_objective_targets_for_train_window",
     "score_state_objective_bc_readiness",
