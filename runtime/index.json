@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-25T01:17:59.033877+00:00",
+  "generated_at": "2026-05-25T01:30:23.786064+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -174,6 +174,60 @@
       "category": "execution",
       "suffix": ".json",
       "bytes": 6520
+    },
+    {
+      "path": "runtime/execution/card/poor_window_mechanism_router_v1/cluster_summary.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 1275
+    },
+    {
+      "path": "runtime/execution/card/poor_window_mechanism_router_v1/feature_consensus.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 1975
+    },
+    {
+      "path": "runtime/execution/card/poor_window_mechanism_router_v1/feature_difference_inventory.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 43444
+    },
+    {
+      "path": "runtime/execution/card/poor_window_mechanism_router_v1/feature_group_consensus.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 532
+    },
+    {
+      "path": "runtime/execution/card/poor_window_mechanism_router_v1/poor_window_inventory.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 26270
+    },
+    {
+      "path": "runtime/execution/card/poor_window_mechanism_router_v1/readout.md",
+      "category": "execution",
+      "suffix": ".md",
+      "bytes": 1821
+    },
+    {
+      "path": "runtime/execution/card/poor_window_mechanism_router_v1/rebound_cluster_comparison.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 4511
+    },
+    {
+      "path": "runtime/execution/card/poor_window_mechanism_router_v1/selection.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 19860
+    },
+    {
+      "path": "runtime/execution/card/poor_window_mechanism_router_v1/source_selection_summary.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 663
     },
     {
       "path": "runtime/execution/card/recovery_reentry_2021_trendbreak_cap_v1/oos_poor_window_diagnostics/feature_differences.csv",

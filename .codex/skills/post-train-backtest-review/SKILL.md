@@ -112,6 +112,12 @@ PYTHONPATH=src:. qlib_venv/bin/python scripts/diagnose_oos_poor_windows.py \
 输出的 `poor_windows.csv` 用来定位坏窗口，`feature_differences.csv` 只作为机制假设来源。
 不要把高 `delta_z` 特征直接当成可上线因子；先走 factor IC、单信号回测和 walk-forward gate。
 
+当连续两个以上 execution/model-selection 诊断都没过 promotion gate 时，不要继续做单卡阈值微调。
+先做一个 runtime notebook 聚合多个卡片的 `poor_windows.csv` 与
+`feature_differences.csv`：按时间簇、目标失败类型、平均仓位、MaxDD、excess gap 和
+top feature group 判断是 underparticipation、drawdown control、还是 selection bias。
+只有聚合结论指向明确机制后，才开下一条参数实验或训练分支。
+
 ### 4. Explain with mechanism, not adjectives
 
 优先从下面这些“可被代码改变”的机制解释，不要只写“市场不同”：
