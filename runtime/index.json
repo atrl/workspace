@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-25T21:12:48.223614+00:00",
+  "generated_at": "2026-05-25T21:31:54.574279+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -6222,6 +6222,96 @@
       "category": "model_selection",
       "suffix": ".json",
       "bytes": 5116
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_cap10_rebound_balance_v1/action_distribution.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 3616
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_cap10_rebound_balance_v1/bc_slice_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 6243
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_cap10_rebound_balance_v1/bc_train_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 3553
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_cap10_rebound_balance_v1/coverage.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 434
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_cap10_rebound_balance_v1/coverage.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1809
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_cap10_rebound_balance_v1/selected_targets_by_variant.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 5152753
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_cap10_rebound_balance_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1840
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_cap10_rebound_balance_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 26056
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_cap10_rebound_balance_v1/target_lift_audit.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2055
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_cap10_rebound_balance_v1/target_lift_summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 452
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_cap10_rebound_balance_v1/target_scope_audit.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1883
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_cap10_rebound_balance_v1/target_scope_summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 332
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_cap10_rebound_balance_v1/target_variant_coverage.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 648
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_cap10_rebound_balance_v1/target_variant_fold_results.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4180
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_cap10_rebound_balance_v1/target_variant_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1292
     },
     {
       "path": "runtime/model_selection/card/sparse_release_drawdown_budget_guard_screen_v1/aggregate_guard_metrics.csv",

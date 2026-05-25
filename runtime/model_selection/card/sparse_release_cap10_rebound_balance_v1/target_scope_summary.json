@@ -1,0 +1,12 @@
+{
+  "audited_groups": 12,
+  "blocked_groups": 0,
+  "decision": "state_objective_targets_training_ready",
+  "eval_overlap_rows": 0,
+  "leakage_gate": true,
+  "next_mechanism": "run_fold_local_state_objective_training_or_bc",
+  "outside_train_eval_rows": 0,
+  "scope_issues": [],
+  "top_scope_issue": "",
+  "training_allowed": true
+}
