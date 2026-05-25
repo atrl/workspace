@@ -8,6 +8,10 @@ from scripts.evaluate_signed_te_reversion import (
     run_long_flat_backtest,
 )
 from scripts.evaluate_signed_te_stress_gate import build_gated_signal
+from src.soxl_quant.app.factor_diagnostics import (
+    build_factor_gate_summary,
+    render_factor_gate_summary,
+)
 
 
 def test_time_series_ic_scores_positive_forward_alignment():
@@ -54,3 +58,52 @@ def test_build_gated_signal_keeps_only_release_days_above_thresholds():
 
     expected = pd.Series([0.0, 0.0, 1.2, 0.0, 0.0, 1.8], index=index)
     assert np.allclose(signal.to_numpy(), expected.to_numpy())
+
+
+def test_factor_gate_summary_separates_pass_redundant_and_weak_features():
+    ic_df = pd.DataFrame(
+        {
+            "feature_name": ["strong", "redundant", "weak"],
+            "horizon": [20, 20, 20],
+            "n_days": [100, 100, 100],
+            "ic_mean": [0.041, 0.052, 0.010],
+            "ic_std": [0.10, 0.12, 0.11],
+            "ic_t": [4.1, 4.3, 0.9],
+            "ic_positive_ratio": [0.62, 0.64, 0.49],
+            "pearson_corr": [0.10, 0.12, 0.01],
+        }
+    )
+    backtest_df = pd.DataFrame(
+        {
+            "feature_name": ["strong", "redundant", "weak"],
+            "direction": ["long", "long", "long"],
+            "threshold": [0.5, 0.5, 0.5],
+            "total_return": [0.20, 0.30, 0.02],
+            "sharpe": [0.80, 0.90, 0.10],
+            "max_drawdown": [-0.20, -0.25, -0.15],
+            "profit_factor": [1.35, 1.40, 1.05],
+            "signal_accuracy": [0.58, 0.59, 0.51],
+            "num_signals": [40, 45, 20],
+            "trades": [8, 9, 4],
+        }
+    )
+    corr_df = pd.DataFrame(
+        {
+            "feature_name": ["strong", "redundant", "weak"],
+            "max_abs_core_correlation": [0.30, 0.91, 0.20],
+            "max_abs_core_correlation_feature": ["mom_5", "mom_5", "vol_21"],
+        }
+    )
+
+    summary = build_factor_gate_summary(ic_df, backtest_df, corr_df).set_index("feature_name")
+
+    assert bool(summary.loc["strong", "full_gate"]) is True
+    assert summary.loc["strong", "primary_failure"] == "pass"
+    assert bool(summary.loc["redundant", "full_gate"]) is False
+    assert summary.loc["redundant", "primary_failure"] == "correlation_redundant"
+    assert bool(summary.loc["weak", "full_gate"]) is False
+    assert summary.loc["weak", "primary_failure"] == "weak_direction_and_execution"
+
+    review = render_factor_gate_summary(summary.reset_index())
+    assert "Factor Gate Summary" in review
+    assert "correlation_redundant" in review

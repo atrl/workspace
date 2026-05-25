@@ -25,6 +25,14 @@ changelog:
 
 ## 核心工作流 (R-G-E-V-D)
 
+Notebook-first rule:
+- 单次因子假设、IC/回测/相关性结论默认写入
+  `runtime/factor/card/<factor_or_pack>/<factor_or_pack>.ipynb`。
+- CSV/Markdown/JSON 只作为 notebook 的 sidecar evidence。不要把一次性结论只写
+  到 notes.md、knowledge.md 或 chat。
+- 只有 promotion、长期路由变化、或用户明确要求时，才更新
+  `runtime/factor/knowledge.md`。
+
 ### 1) Research
 1. 读取`AGENTS.md`和`runtime/factor/knowledge.md`中的历史经验。
 2. 运行`scripts/extract_rulebase_signals.py`从`soxl_backtest/`提取rulebase信号假设。
@@ -50,6 +58,19 @@ python scripts/evaluate_factor_pack.py --pack <pack_name> \
 2. **信号回测** — 自动尝试 long-flat 和 short-flat，选择 Sharpe 更高的方向
 3. **正交预算** — 与`CORE_FEATURE_COLUMNS`的相关系数矩阵
 4. **全量判定** — 输出 CSV + 因子卡片 Markdown + 写入 `soxl_factor_library.db`
+
+Notebook 里需要复用 gate 判定时，使用：
+
+```python
+from src.soxl_quant.app.factor_diagnostics import (
+    build_factor_gate_summary,
+    render_factor_gate_summary,
+)
+```
+
+`build_factor_gate_summary(ic_df, backtest_df, corr_df)` 会把 IC、standalone
+回测和 core 相关性合并成 `full_gate` / `primary_failure`，避免只凭单项
+Sharpe 或单项 IC 下结论。
 
 ### 4) Validate
 1. **SHAP 基线分析**：`python scripts/feature_analysis.py --profile <profile>`

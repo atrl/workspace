@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-25T07:41:43.127011+00:00",
+  "generated_at": "2026-05-25T08:04:50.365532+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -2396,6 +2396,12 @@
       "bytes": 6830
     },
     {
+      "path": "runtime/factor/card/soxx_spread_oscillation/backtest_soxx_spread_oscillation_notebook.csv",
+      "category": "factor",
+      "suffix": ".csv",
+      "bytes": 6830
+    },
+    {
       "path": "runtime/factor/card/soxx_spread_oscillation/card_SOXL_SOXX_CHOP_DIVERGENCE_21.md",
       "category": "factor",
       "suffix": ".md",
@@ -2426,10 +2432,52 @@
       "bytes": 300
     },
     {
+      "path": "runtime/factor/card/soxx_spread_oscillation/correlation_soxx_spread_oscillation_notebook.csv",
+      "category": "factor",
+      "suffix": ".csv",
+      "bytes": 300
+    },
+    {
+      "path": "runtime/factor/card/soxx_spread_oscillation/gate_summary_soxx_spread_oscillation.csv",
+      "category": "factor",
+      "suffix": ".csv",
+      "bytes": 1428
+    },
+    {
+      "path": "runtime/factor/card/soxx_spread_oscillation/gate_summary_soxx_spread_oscillation.md",
+      "category": "factor",
+      "suffix": ".md",
+      "bytes": 1481
+    },
+    {
+      "path": "runtime/factor/card/soxx_spread_oscillation/ic_soxx_spread_oscillation_notebook.csv",
+      "category": "factor",
+      "suffix": ".csv",
+      "bytes": 2234
+    },
+    {
       "path": "runtime/factor/card/soxx_spread_oscillation/notes.md",
       "category": "factor",
       "suffix": ".md",
       "bytes": 4379
+    },
+    {
+      "path": "runtime/factor/card/soxx_spread_oscillation/regime_slice_soxx_spread_oscillation.csv",
+      "category": "factor",
+      "suffix": ".csv",
+      "bytes": 1251
+    },
+    {
+      "path": "runtime/factor/card/soxx_spread_oscillation/runtime_conclusion_ipynb.md",
+      "category": "factor",
+      "suffix": ".md",
+      "bytes": 1210
+    },
+    {
+      "path": "runtime/factor/card/soxx_spread_oscillation/selection_ipynb.json",
+      "category": "factor",
+      "suffix": ".json",
+      "bytes": 2628
     },
     {
       "path": "runtime/factor/card/trans_te_zscore/card.md",
