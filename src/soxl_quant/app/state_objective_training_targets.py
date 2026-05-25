@@ -64,6 +64,15 @@ class StateObjectiveReboundClusterConfig:
     rebound_col: str = "rebound_state"
 
 
+@dataclass(frozen=True)
+class StateObjectiveReboundTargetEnrichmentConfig:
+    radius: int = 1
+    min_target_position: float = 0.35
+    objective_weight_decay: float = 0.50
+    exclude_downtrend: bool = True
+    group_cols: tuple[str, ...] = ("fold", "window")
+
+
 def _window_weight(window: str, config: StateConditionedObjectiveConfig) -> float:
     if window in config.window_weights:
         return float(config.window_weights[window])
@@ -374,6 +383,112 @@ def build_state_objective_training_targets(
         if column in targets.columns
     ]
     return targets[columns + passthrough]
+
+
+def enrich_state_objective_rebound_targets(
+    targets: pd.DataFrame,
+    config: StateObjectiveReboundTargetEnrichmentConfig = StateObjectiveReboundTargetEnrichmentConfig(),
+) -> pd.DataFrame:
+    """Expand sparse rebound labels to nearby rows inside the same fold/window."""
+
+    if targets.empty:
+        result = targets.copy()
+        result["rebound_enrichment_source"] = ""
+        result["rebound_enrichment_distance"] = 0
+        return result
+    required = {
+        "datetime",
+        "teacher_position",
+        "rebound_target_position",
+        "objective_weight",
+        "is_rebound_cluster",
+        "is_downtrend_state",
+    }
+    missing = required.difference(targets.columns)
+    if missing:
+        raise ValueError(f"state-objective rebound enrichment missing columns: {sorted(missing)}")
+    if int(config.radius) < 0:
+        raise ValueError("rebound enrichment radius must be non-negative")
+
+    result = targets.copy()
+    result["datetime"] = pd.to_datetime(result["datetime"])
+    result["is_rebound_cluster"] = result["is_rebound_cluster"].fillna(False).astype(bool)
+    result["is_downtrend_state"] = result["is_downtrend_state"].fillna(False).astype(bool)
+    result["objective_weight"] = pd.to_numeric(result["objective_weight"], errors="coerce").fillna(1.0)
+    result["teacher_position"] = pd.to_numeric(result["teacher_position"], errors="coerce").fillna(0.0)
+    result["rebound_target_position"] = pd.to_numeric(
+        result["rebound_target_position"],
+        errors="coerce",
+    ).fillna(result["teacher_position"])
+    if "rebound_participation_weight" not in result.columns:
+        result["rebound_participation_weight"] = 0.0
+    else:
+        result["rebound_participation_weight"] = pd.to_numeric(
+            result["rebound_participation_weight"],
+            errors="coerce",
+        ).fillna(0.0)
+    if "cluster" not in result.columns:
+        result["cluster"] = ""
+    result["rebound_enrichment_source"] = ""
+    result["rebound_enrichment_distance"] = 0
+
+    group_cols = [col for col in config.group_cols if col in result.columns]
+    grouped: Iterable[tuple[object, pd.DataFrame]]
+    if group_cols:
+        grouped = result.groupby(group_cols, dropna=False, sort=False)
+    else:
+        grouped = [(None, result)]
+
+    radius = int(config.radius)
+    for _group_key, group in grouped:
+        ordered = group.sort_values("datetime")
+        ordered_indices = list(ordered.index)
+        rebound_positions = [
+            pos
+            for pos, idx in enumerate(ordered_indices)
+            if bool(result.at[idx, "is_rebound_cluster"])
+        ]
+        if not rebound_positions:
+            continue
+        for rebound_pos in rebound_positions:
+            rebound_idx = ordered_indices[rebound_pos]
+            source_weight = float(result.at[rebound_idx, "objective_weight"])
+            source_target = float(result.at[rebound_idx, "rebound_target_position"])
+            source_cluster = str(result.at[rebound_idx, "cluster"])
+            start = max(0, rebound_pos - radius)
+            stop = min(len(ordered_indices), rebound_pos + radius + 1)
+            for pos in range(start, stop):
+                idx = ordered_indices[pos]
+                distance = abs(pos - rebound_pos)
+                if distance == 0:
+                    continue
+                if bool(config.exclude_downtrend) and bool(result.at[idx, "is_downtrend_state"]):
+                    continue
+                current_source = str(result.at[idx, "rebound_enrichment_source"])
+                current_distance = int(result.at[idx, "rebound_enrichment_distance"])
+                if current_source and current_distance <= distance:
+                    continue
+                decay = float(config.objective_weight_decay) ** max(distance, 1)
+                enriched_weight = max(float(result.at[idx, "objective_weight"]), source_weight * decay)
+                result.at[idx, "is_rebound_cluster"] = True
+                result.at[idx, "rebound_enrichment_source"] = "neighbor_rebound"
+                result.at[idx, "rebound_enrichment_distance"] = int(distance)
+                if not str(result.at[idx, "cluster"]) and source_cluster:
+                    result.at[idx, "cluster"] = source_cluster
+                result.at[idx, "rebound_target_position"] = max(
+                    float(result.at[idx, "rebound_target_position"]),
+                    float(result.at[idx, "teacher_position"]),
+                    float(config.min_target_position),
+                    source_target * decay,
+                )
+                result.at[idx, "objective_weight"] = enriched_weight
+                result.at[idx, "rebound_participation_weight"] = max(
+                    float(result.at[idx, "rebound_participation_weight"]),
+                    max(0.0, enriched_weight - 1.0),
+                )
+
+    sort_cols = [col for col in ["fold", "window", "datetime"] if col in result.columns]
+    return result.sort_values(sort_cols).reset_index(drop=True) if sort_cols else result.reset_index(drop=True)
 
 
 def filter_state_objective_targets_for_train_window(
@@ -1035,10 +1150,12 @@ __all__ = [
     "StateObjectiveBCReadinessConfig",
     "StateObjectiveCheckpointSelectionConfig",
     "StateObjectiveReboundClusterConfig",
+    "StateObjectiveReboundTargetEnrichmentConfig",
     "StateObjectiveTrainingTargetConfig",
     "build_fold_local_state_objective_training_targets",
     "build_state_objective_training_targets",
     "discover_rebound_clusters_from_daily_path",
+    "enrich_state_objective_rebound_targets",
     "filter_state_objective_targets_for_train_window",
     "score_state_objective_bc_readiness",
     "score_state_objective_checkpoint_candidates",

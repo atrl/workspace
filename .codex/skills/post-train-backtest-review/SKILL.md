@@ -225,6 +225,12 @@ walk-forward PPO。`selection.json` 至少要记录 `state_slice_fit_gate`、
 loss/sampling objective；继续提高同一个 slice weight 只会把 downtrend/global
 fit 当作“进步”而掩盖 rebound 仍未学会。
 
+如果 target enrichment 已经把 rebound rows 扩到接近 20，且原始 rebound
+slice accuracy 仍没有提升，不要继续调邻近半径或 target floor。此时问题不是
+稀疏标签数量或目标强度，而更可能是当前 observation/action 表面对 rebound
+状态不可分；下一步应进入 state-conditioned loss、显式 rebound state head、
+或模型结构/特征表达，而不是更多邻近日期扩展。
+
 ### 4. Explain with mechanism, not adjectives
 
 优先从下面这些“可被代码改变”的机制解释，不要只写“市场不同”：

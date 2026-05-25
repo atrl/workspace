@@ -1,0 +1,10 @@
+{
+  "base_samples": 755,
+  "base_selected_downtrend_rows": 477,
+  "base_selected_rebound_rows": 4,
+  "base_target_rebound_rows": 7,
+  "feature_frame": "data/soxl_profile_balanced_rule_residual_v22.pkl",
+  "profile": "risk_budget_usage_v1",
+  "source_decision": "rebound_weighting_no_improvement_no_promotion",
+  "source_experiment": "state_objective_rebound_weighted_bc_v1"
+}

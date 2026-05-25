@@ -4,11 +4,13 @@ import pandas as pd
 
 from src.soxl_quant.app.state_objective_training_targets import (
     StateObjectiveBCReadinessConfig,
+    StateObjectiveReboundTargetEnrichmentConfig,
     StateObjectiveReboundClusterConfig,
     StateObjectiveTrainingTargetConfig,
     build_fold_local_state_objective_training_targets,
     build_state_objective_training_targets,
     discover_rebound_clusters_from_daily_path,
+    enrich_state_objective_rebound_targets,
     filter_state_objective_targets_for_train_window,
     score_state_objective_bc_readiness,
     score_state_objective_checkpoint_candidates,
@@ -68,6 +70,76 @@ def test_training_targets_mark_rebound_cluster_and_floor_teacher_position():
     assert cluster_rows["rebound_target_position"].iloc[1] == 0.42
     assert outside_rows["rebound_participation_weight"].max() == 0.0
     assert outside_rows["rebound_target_position"].iloc[0] == 0.12
+
+
+def test_rebound_target_enrichment_expands_neighbors_inside_same_fold_only():
+    targets = pd.DataFrame(
+        {
+            "datetime": pd.to_datetime(
+                [
+                    "2026-01-02",
+                    "2026-01-05",
+                    "2026-01-06",
+                    "2026-01-07",
+                    "2026-01-08",
+                    "2026-01-05",
+                ]
+            ),
+            "fold": ["wf_a", "wf_a", "wf_a", "wf_a", "wf_a", "wf_b"],
+            "window": ["wf_a", "wf_a", "wf_a", "wf_a", "wf_a", "wf_b"],
+            "cluster": ["", "", "wf_a_rebound_1", "", "", ""],
+            "teacher_position": [0.10, 0.18, 0.42, 0.22, 0.15, 0.70],
+            "rebound_target_position": [0.10, 0.18, 0.42, 0.22, 0.15, 0.70],
+            "risk_target_position": [0.10, 0.18, 0.42, 0.22, 0.15, 0.70],
+            "objective_weight": [1.0, 1.0, 10.0, 1.0, 1.0, 1.0],
+            "rebound_participation_weight": [0.0, 0.0, 9.0, 0.0, 0.0, 0.0],
+            "cluster_participation_gap": [0.0, 0.0, 0.17, 0.0, 0.0, 0.0],
+            "is_rebound_cluster": [False, False, True, False, False, False],
+            "is_downtrend_state": [False, False, False, False, False, False],
+        }
+    )
+
+    enriched = enrich_state_objective_rebound_targets(
+        targets,
+        StateObjectiveReboundTargetEnrichmentConfig(radius=1, min_target_position=0.35),
+    )
+
+    wf_a = enriched[enriched["fold"] == "wf_a"].set_index("datetime").sort_index()
+    assert wf_a.loc[pd.Timestamp("2026-01-05"), "is_rebound_cluster"]
+    assert wf_a.loc[pd.Timestamp("2026-01-07"), "is_rebound_cluster"]
+    assert not wf_a.loc[pd.Timestamp("2026-01-02"), "is_rebound_cluster"]
+    assert enriched.loc[enriched["fold"] == "wf_b", "is_rebound_cluster"].tolist() == [False]
+    assert wf_a.loc[pd.Timestamp("2026-01-05"), "rebound_target_position"] == 0.35
+    assert wf_a.loc[pd.Timestamp("2026-01-07"), "rebound_enrichment_distance"] == 1
+    assert wf_a.loc[pd.Timestamp("2026-01-07"), "rebound_enrichment_source"] == "neighbor_rebound"
+    assert wf_a.loc[pd.Timestamp("2026-01-05"), "objective_weight"] > 1.0
+
+
+def test_rebound_target_enrichment_does_not_mark_downtrend_neighbors_by_default():
+    targets = pd.DataFrame(
+        {
+            "datetime": pd.to_datetime(["2026-01-05", "2026-01-06", "2026-01-07"]),
+            "fold": ["wf_a", "wf_a", "wf_a"],
+            "window": ["wf_a", "wf_a", "wf_a"],
+            "cluster": ["", "wf_a_rebound_1", ""],
+            "teacher_position": [0.15, 0.45, 0.30],
+            "rebound_target_position": [0.15, 0.45, 0.30],
+            "risk_target_position": [0.15, 0.45, 0.25],
+            "objective_weight": [1.0, 10.0, 1.0],
+            "rebound_participation_weight": [0.0, 9.0, 0.0],
+            "is_rebound_cluster": [False, True, False],
+            "is_downtrend_state": [False, False, True],
+        }
+    )
+
+    enriched = enrich_state_objective_rebound_targets(
+        targets,
+        StateObjectiveReboundTargetEnrichmentConfig(radius=1),
+    )
+
+    downtrend_neighbor = enriched.loc[enriched["datetime"] == pd.Timestamp("2026-01-07")].iloc[0]
+    assert not downtrend_neighbor["is_rebound_cluster"]
+    assert downtrend_neighbor["rebound_enrichment_source"] == ""
 
 
 def test_training_targets_mark_downtrend_drawdown_cap_from_window_gap():

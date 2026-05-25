@@ -1,0 +1,46 @@
+{
+  "acceptance_gate_for_next_run": {
+    "avoid_more_neighbor_enrichment_grids": true,
+    "fixed_split_required": true,
+    "max_dd_max_pct": 15.0,
+    "original_rebound_accuracy_min": 0.6,
+    "relative_return_min_pp": 30.0,
+    "walkforward_required": true
+  },
+  "best_all_accuracy": 0.8370860927152318,
+  "best_downtrend_accuracy": 0.8155136268343816,
+  "best_enriched_rebound_accuracy": 0.2631578947368421,
+  "best_min_target_position": 0.55,
+  "best_ordinary_accuracy": 0.737410071942446,
+  "best_original_rebound_accuracy": 0.42857142857142855,
+  "best_radius": 8,
+  "best_selected_rebound_rows": 9,
+  "best_target_rebound_rows": 19,
+  "created_at": "2026-05-25T12:43:18.978048+00:00",
+  "decision": "rebound_target_enrichment_no_improvement_no_promotion",
+  "experiment": "state_objective_rebound_target_enrichment_v1",
+  "external_sources": [
+    "https://github.com/microsoft/qlib",
+    "https://arxiv.org/abs/2009.11189",
+    "https://github.com/AI4Finance-Foundation/FinRL",
+    "https://arxiv.org/abs/2011.09607",
+    "https://arxiv.org/abs/1704.03732",
+    "https://arxiv.org/abs/1708.02002",
+    "https://arxiv.org/abs/1901.05555"
+  ],
+  "full_gate": false,
+  "next_mechanism": "state_conditioned_loss_or_model_structure_before_walkforward_ppo",
+  "partial_improvement": false,
+  "profile": "risk_budget_usage_v1",
+  "promotion_allowed": false,
+  "promotion_blocker": "Target enrichment is not a backtest and did not improve original rebound fit; no PPO handoff promotion from this screen.",
+  "rebound_improvement": 0.0,
+  "sidecars": [
+    "base_summary.json",
+    "enrichment_screen.csv",
+    "state_slice_metrics.csv",
+    "summary.json"
+  ],
+  "source_experiment": "state_objective_rebound_weighted_bc_v1",
+  "source_rebound_accuracy": 0.42857142857142855
+}
