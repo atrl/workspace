@@ -1,0 +1,8 @@
+candidate,source,full_gate,relative_return,max_dd,avg_pos,max_relative_gap,max_drawdown_gap,worst_window
+bc_initialization,failed_fold_path_metrics,False,36.41912423582883,18.39642924161966,0.2806672858564477,0.0,3.3964292416196606,
+ppo_selected,failed_fold_path_metrics,False,41.77033285370087,38.68269354530396,0.3180357069090792,0.0,23.682693545303962,
+guard_cvar_budget_10_15_cash,drawdown_budget_guard_aggregate,False,,,0.0511652644945624,4.007458010291202,0.7869898207450561,wf_2023_2024
+guard_cvar_budget_08_15_floor05,drawdown_budget_guard_aggregate,False,,,0.0859268542654697,5.024430879705893,4.577491709209305,wf_2022
+guard_cvar_budget_10_20_floor10,drawdown_budget_guard_aggregate,False,,,0.139865560823774,1.752828714916614,12.949976836416202,wf_2022
+guard_cvar_budget_12_25_floor15,drawdown_budget_guard_aggregate,False,,,0.1842999570609154,1.752828714916614,19.665811652660395,wf_2022
+guard_no_guard,drawdown_budget_guard_aggregate,False,,,0.2590530112722474,1.752828714916614,31.523521351129723,wf_2022

@@ -1,0 +1,13 @@
+{
+  "experiment": "sparse_release_drawdown_control_checkpoint_score_v1",
+  "source_target_experiment": "sparse_release_drawdown_control_target_handoff_v1",
+  "source_failed_fold_experiment": "sparse_release_failed_fold_interval_diagnostic_v1",
+  "source_guard_experiment": "sparse_release_drawdown_budget_guard_screen_v1",
+  "full_year_target_rows": 250,
+  "failed_interval_target_rows": 138,
+  "candidate_sources": [
+    "bc_daily_2022",
+    "ppo_selected_daily_2022",
+    "drawdown_budget_guard_daily_paths"
+  ]
+}
