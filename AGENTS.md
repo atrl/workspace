@@ -6,6 +6,13 @@ The job of the agent is to execute inside a repeatable research and validation
 harness, leave evidence in the repository, and improve the harness when gaps are
 exposed.
 
+Default artifact posture: future SOXL experiments, diagnostics, factor screens,
+backtests, parameter screens, model-selection loops, and one-off analytical
+follow-ups should go to executable runtime notebooks first. Prefer
+`runtime/<direction>/card/<experiment>/<experiment>.ipynb` as the primary
+workflow and conclusion unless the task is pure code maintenance, production
+operations, or explicitly asks for another format.
+
 ## Startup
 
 Before doing substantial work:
@@ -84,6 +91,9 @@ Knowledge retrieval must be scoped by task direction.
 - This default applies even when the user gives a terse continuation prompt.
   Start from the relevant runtime notebook surface unless the task clearly
   requires a shared code or production change first.
+- For continuation work, first look for an existing runtime notebook for the
+  active direction and update it when appropriate; create a new notebook only
+  when the follow-up is a distinct experiment, diagnostic, or backtest.
 - For follow-up prompts such as `继续`, `开始`, `试试`, `其他看看`, or
   `continue`, find or create the relevant runtime notebook before adding
   Markdown notes, workpad entries, or knowledge-file updates.
