@@ -5,6 +5,8 @@ import pandas as pd
 from src.soxl_quant.app.state_objective_training_targets import (
     StateObjectiveTrainingTargetConfig,
     build_state_objective_training_targets,
+    score_state_objective_target_alignment,
+    summarize_state_objective_target_alignment,
     summarize_state_objective_training_targets,
 )
 
@@ -147,3 +149,109 @@ def test_training_target_summary_reports_top_weighted_windows_and_terms():
     assert summary["downtrend_rows"] == 0
     assert "high_vol_rebound_participation_floor" in summary["required_terms"]
     assert "walkforward_drawdown_gap_penalty" in summary["required_terms"]
+
+
+def test_target_alignment_prefers_rebound_fit_and_risk_cap_compliance():
+    targets = pd.DataFrame(
+        {
+            "datetime": pd.to_datetime(["2026-02-03", "2026-02-04"]),
+            "window": ["strict_oos", "strict_oos"],
+            "rebound_target_position": [0.35, 0.30],
+            "risk_target_position": [0.35, 0.20],
+            "teacher_position": [0.12, 0.30],
+            "objective_weight": [8.0, 12.0],
+            "is_rebound_cluster": [True, False],
+            "is_downtrend_state": [False, True],
+        }
+    )
+    candidate_paths = {
+        "good": {
+            "strict_oos": pd.DataFrame(
+                {
+                    "datetime": pd.to_datetime(["2026-02-03", "2026-02-04"]),
+                    "strategy_nav": [100.0, 106.0],
+                    "buyhold_nav": [100.0, 104.0],
+                    "position": [0.35, 0.15],
+                }
+            )
+        },
+        "bad": {
+            "strict_oos": pd.DataFrame(
+                {
+                    "datetime": pd.to_datetime(["2026-02-03", "2026-02-04"]),
+                    "strategy_nav": [100.0, 106.0],
+                    "buyhold_nav": [100.0, 104.0],
+                    "position": [0.10, 0.60],
+                }
+            )
+        },
+    }
+
+    scored = score_state_objective_target_alignment(candidate_paths, targets)
+
+    assert scored.iloc[0]["candidate"] == "good"
+    by_candidate = scored.set_index("candidate")
+    assert by_candidate.loc["bad", "rebound_position_mae"] > by_candidate.loc["good", "rebound_position_mae"]
+    assert by_candidate.loc["bad", "risk_cap_violation"] > by_candidate.loc["good", "risk_cap_violation"]
+
+
+def test_target_alignment_penalizes_missing_target_coverage():
+    targets = pd.DataFrame(
+        {
+            "datetime": pd.to_datetime(["2026-01-02", "2026-01-03"]),
+            "window": ["wf_2020", "wf_2020"],
+            "rebound_target_position": [0.20, 0.20],
+            "risk_target_position": [0.20, 0.20],
+            "teacher_position": [0.20, 0.20],
+            "objective_weight": [1.0, 1.0],
+            "is_rebound_cluster": [False, False],
+            "is_downtrend_state": [False, False],
+        }
+    )
+    candidate_paths = {
+        "covered": {
+            "wf_2020": pd.DataFrame(
+                {
+                    "datetime": pd.to_datetime(["2026-01-02", "2026-01-03"]),
+                    "strategy_nav": [100.0, 103.0],
+                    "buyhold_nav": [100.0, 100.0],
+                    "position": [0.20, 0.20],
+                }
+            )
+        },
+        "missing": {
+            "wf_2020": pd.DataFrame(
+                {
+                    "datetime": pd.to_datetime(["2026-01-02"]),
+                    "strategy_nav": [100.0],
+                    "buyhold_nav": [100.0],
+                    "position": [0.20],
+                }
+            )
+        },
+    }
+
+    scored = score_state_objective_target_alignment(candidate_paths, targets)
+
+    assert scored.set_index("candidate").loc["missing", "missing_target_ratio"] == 0.5
+    assert scored.iloc[0]["candidate"] == "covered"
+
+
+def test_target_alignment_summary_blocks_promotion_without_full_gate():
+    scored = pd.DataFrame(
+        {
+            "candidate": ["near"],
+            "alignment_loss": [12.0],
+            "window_gate": [False],
+            "coverage_gate": [True],
+            "missing_target_ratio": [0.0],
+            "rebound_position_mae": [0.1],
+            "risk_cap_violation": [0.0],
+        }
+    )
+
+    summary = summarize_state_objective_target_alignment(scored)
+
+    assert summary["decision"] == "target_alignment_no_promotion"
+    assert summary["selected_candidate"] == "near"
+    assert summary["next_mechanism"] == "train_or_checkpoint_score_state_objective_targets"

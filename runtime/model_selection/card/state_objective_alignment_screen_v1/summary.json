@@ -1,0 +1,15 @@
+{
+  "decision": "target_alignment_no_promotion",
+  "selected_candidate": "state_conditioned_rebound_risk_router_v1",
+  "selected_alignment_loss": 1.7085418563344201,
+  "selected_window_gate": false,
+  "selected_coverage_gate": true,
+  "selected_missing_target_ratio": 0.0,
+  "next_mechanism": "train_or_checkpoint_score_state_objective_targets",
+  "required_terms": [
+    "target_position_alignment_loss",
+    "rebound_participation_alignment_loss",
+    "downtrend_risk_cap_violation_loss",
+    "walkforward_gate_gap_loss"
+  ]
+}

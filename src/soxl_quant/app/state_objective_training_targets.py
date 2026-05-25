@@ -81,6 +81,24 @@ def _normalise_daily_path(daily: pd.DataFrame, *, window: str, candidate: str) -
     return frame
 
 
+def _normalise_candidate_path(daily: pd.DataFrame, *, window: str, candidate: str) -> pd.DataFrame:
+    frame = daily.copy()
+    if "position" not in frame.columns:
+        for alias in ("router_position", "target_position", "base_position"):
+            if alias in frame.columns:
+                frame["position"] = frame[alias]
+                break
+    missing = sorted({"datetime", "position"} - set(frame.columns))
+    if missing:
+        raise ValueError(f"{candidate}/{window} daily path missing columns: {missing}")
+    frame["datetime"] = pd.to_datetime(frame["datetime"])
+    frame = frame.sort_values("datetime").reset_index(drop=True)
+    frame["candidate"] = str(candidate)
+    frame["window"] = str(window)
+    frame["candidate_position"] = pd.to_numeric(frame["position"], errors="coerce").fillna(0.0)
+    return frame
+
+
 def _metrics_for_window(
     *,
     window: str,
@@ -386,8 +404,226 @@ def summarize_state_objective_training_targets(targets: pd.DataFrame) -> dict[st
     }
 
 
+def _weighted_mean(values: pd.Series, weights: pd.Series) -> float:
+    clean_values = pd.to_numeric(values, errors="coerce").fillna(0.0)
+    clean_weights = pd.to_numeric(weights, errors="coerce").fillna(0.0).clip(lower=0.0)
+    denominator = float(clean_weights.sum())
+    if denominator <= 0.0:
+        return float(clean_values.mean()) if len(clean_values) else 0.0
+    return float((clean_values * clean_weights).sum() / denominator)
+
+
+def _target_subset(targets: pd.DataFrame, *, window: str) -> pd.DataFrame:
+    subset = targets[targets["window"].astype(str) == str(window)].copy()
+    required = {
+        "datetime",
+        "window",
+        "rebound_target_position",
+        "risk_target_position",
+        "teacher_position",
+        "objective_weight",
+        "is_rebound_cluster",
+        "is_downtrend_state",
+    }
+    missing = sorted(required - set(subset.columns))
+    if missing:
+        raise ValueError(f"targets missing columns: {missing}")
+    subset["datetime"] = pd.to_datetime(subset["datetime"])
+    return subset
+
+
+def _score_single_candidate_alignment(
+    *,
+    candidate: str,
+    daily_paths: Mapping[str, pd.DataFrame],
+    targets: pd.DataFrame,
+    config: StateObjectiveTrainingTargetConfig,
+) -> dict[str, object]:
+    aligned_frames: list[pd.DataFrame] = []
+    total_target_rows = int(len(targets))
+    window_metrics: list[dict[str, float]] = []
+    for window, daily in daily_paths.items():
+        target_rows = _target_subset(targets, window=str(window))
+        if target_rows.empty:
+            continue
+        frame = _normalise_candidate_path(daily, window=str(window), candidate=str(candidate))
+        if {"strategy_nav", "buyhold_nav"}.issubset(frame.columns):
+            metrics = daily_path_metrics(
+                frame.rename(columns={"candidate_position": "position"})
+                if "position" not in frame.columns
+                else frame
+            )
+            relative_return = _json_safe_float(metrics.get("relative_return"), 0.0)
+            max_dd = _json_safe_float(metrics.get("max_dd"), 0.0)
+        else:
+            relative_return = 0.0
+            max_dd = 0.0
+        window_metrics.append(
+            {
+                "relative_gap": max(0.0, float(config.target_relative_return) - relative_return),
+                "drawdown_gap": max(0.0, max_dd - float(config.target_max_dd)),
+                "window_weight": _window_weight(str(window), config.objective_config()),
+            }
+        )
+        merged = target_rows.merge(
+            frame[["datetime", "window", "candidate_position"]],
+            on=["datetime", "window"],
+            how="left",
+        )
+        aligned_frames.append(merged)
+    if aligned_frames:
+        aligned = pd.concat(aligned_frames, ignore_index=True)
+    else:
+        aligned = targets.copy()
+        aligned["candidate_position"] = np.nan
+    observed = aligned["candidate_position"].notna()
+    missing_target_ratio = 1.0 - (float(observed.sum()) / float(total_target_rows or 1))
+    scored_rows = aligned[observed].copy()
+    if scored_rows.empty:
+        position_mae = rebound_mae = risk_cap_violation = 1.0
+    else:
+        scored_rows["position_abs_error"] = (
+            pd.to_numeric(scored_rows["candidate_position"], errors="coerce")
+            - pd.to_numeric(scored_rows["teacher_position"], errors="coerce")
+        ).abs()
+        scored_rows["rebound_abs_error"] = np.where(
+            scored_rows["is_rebound_cluster"].astype(bool),
+            (
+                pd.to_numeric(scored_rows["candidate_position"], errors="coerce")
+                - pd.to_numeric(scored_rows["rebound_target_position"], errors="coerce")
+            ).abs(),
+            0.0,
+        )
+        scored_rows["risk_cap_excess"] = np.where(
+            scored_rows["is_downtrend_state"].astype(bool),
+            (
+                pd.to_numeric(scored_rows["candidate_position"], errors="coerce")
+                - pd.to_numeric(scored_rows["risk_target_position"], errors="coerce")
+            ).clip(lower=0.0),
+            0.0,
+        )
+        position_mae = _weighted_mean(scored_rows["position_abs_error"], scored_rows["objective_weight"])
+        rebound_rows = scored_rows[scored_rows["is_rebound_cluster"].astype(bool)]
+        risk_rows = scored_rows[scored_rows["is_downtrend_state"].astype(bool)]
+        rebound_mae = (
+            _weighted_mean(rebound_rows["rebound_abs_error"], rebound_rows["objective_weight"])
+            if not rebound_rows.empty
+            else 0.0
+        )
+        risk_cap_violation = (
+            _weighted_mean(risk_rows["risk_cap_excess"], risk_rows["objective_weight"])
+            if not risk_rows.empty
+            else 0.0
+        )
+    if window_metrics:
+        gate_loss = sum(
+            row["window_weight"] * (row["relative_gap"] + row["drawdown_gap"] * float(config.max_dd_gap_weight))
+            for row in window_metrics
+        )
+        relative_gap = max(row["relative_gap"] for row in window_metrics)
+        drawdown_gap = max(row["drawdown_gap"] for row in window_metrics)
+    else:
+        gate_loss = relative_gap = drawdown_gap = 0.0
+    alignment_loss = (
+        position_mae
+        + rebound_mae * 2.0
+        + risk_cap_violation * 4.0
+        + gate_loss / 100.0
+        + missing_target_ratio * 10.0
+    )
+    return {
+        "candidate": str(candidate),
+        "target_rows": total_target_rows,
+        "matched_rows": int(observed.sum()),
+        "missing_target_ratio": float(missing_target_ratio),
+        "coverage_gate": bool(missing_target_ratio <= 0.05),
+        "position_tracking_mae": float(position_mae),
+        "rebound_position_mae": float(rebound_mae),
+        "risk_cap_violation": float(risk_cap_violation),
+        "window_gate_loss": float(gate_loss),
+        "max_relative_gap": float(relative_gap),
+        "max_drawdown_gap": float(drawdown_gap),
+        "window_gate": bool(relative_gap == 0.0 and drawdown_gap == 0.0),
+        "alignment_loss": float(alignment_loss),
+    }
+
+
+def score_state_objective_target_alignment(
+    candidate_daily_paths: Mapping[str, Mapping[str, pd.DataFrame]],
+    targets: pd.DataFrame,
+    *,
+    config: StateObjectiveTrainingTargetConfig = StateObjectiveTrainingTargetConfig(),
+) -> pd.DataFrame:
+    """Rank candidates by fit to state-objective training targets and window gates."""
+
+    if not candidate_daily_paths:
+        return pd.DataFrame(
+            columns=[
+                "candidate",
+                "target_rows",
+                "matched_rows",
+                "missing_target_ratio",
+                "coverage_gate",
+                "position_tracking_mae",
+                "rebound_position_mae",
+                "risk_cap_violation",
+                "window_gate_loss",
+                "max_relative_gap",
+                "max_drawdown_gap",
+                "window_gate",
+                "alignment_loss",
+            ]
+        )
+    rows = [
+        _score_single_candidate_alignment(
+            candidate=str(candidate),
+            daily_paths=daily_paths,
+            targets=targets,
+            config=config,
+        )
+        for candidate, daily_paths in candidate_daily_paths.items()
+    ]
+    return pd.DataFrame(rows).sort_values(
+        ["window_gate", "coverage_gate", "alignment_loss", "candidate"],
+        ascending=[False, False, True, True],
+    ).reset_index(drop=True)
+
+
+def summarize_state_objective_target_alignment(scored: pd.DataFrame) -> dict[str, object]:
+    if scored.empty:
+        return {
+            "decision": "no_candidates",
+            "selected_candidate": "",
+            "next_mechanism": "collect_candidate_daily_paths",
+        }
+    top = scored.iloc[0]
+    if bool(top.get("window_gate", False)) and bool(top.get("coverage_gate", False)):
+        decision = "target_alignment_promotion_review"
+        next_mechanism = "rerun_full_walkforward_promotion_review"
+    else:
+        decision = "target_alignment_no_promotion"
+        next_mechanism = "train_or_checkpoint_score_state_objective_targets"
+    return {
+        "decision": decision,
+        "selected_candidate": str(top["candidate"]),
+        "selected_alignment_loss": float(top["alignment_loss"]),
+        "selected_window_gate": bool(top.get("window_gate", False)),
+        "selected_coverage_gate": bool(top.get("coverage_gate", False)),
+        "selected_missing_target_ratio": float(top.get("missing_target_ratio", 0.0)),
+        "next_mechanism": next_mechanism,
+        "required_terms": [
+            "target_position_alignment_loss",
+            "rebound_participation_alignment_loss",
+            "downtrend_risk_cap_violation_loss",
+            "walkforward_gate_gap_loss",
+        ],
+    }
+
+
 __all__ = [
     "StateObjectiveTrainingTargetConfig",
     "build_state_objective_training_targets",
+    "score_state_objective_target_alignment",
+    "summarize_state_objective_target_alignment",
     "summarize_state_objective_training_targets",
 ]
