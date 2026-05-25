@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-25T02:07:27.139145+00:00",
+  "generated_at": "2026-05-25T02:38:16.914553+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -4938,6 +4938,78 @@
       "category": "model_selection",
       "suffix": ".csv",
       "bytes": 22086
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_actor_selector_v1/actor_pool_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4808
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_actor_selector_v1/actor_selector_family_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 38358
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_actor_selector_v1/actor_selector_screen.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31424398
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_actor_selector_v1/actor_selector_top_changed_configs.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 115674
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_actor_selector_v1/actor_selector_top_configs.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 112379
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_actor_selector_v1/selected_cluster_comparison.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1050
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_actor_selector_v1/selected_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 869
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_actor_selector_v1/selected_strict_oos_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 674162
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_actor_selector_v1/selected_wf_2020_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 102486
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_actor_selector_v1/selected_wf_2022_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 102106
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_actor_selector_v1/selected_wf_2023_2024_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 210304
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_actor_selector_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 16630
     },
     {
       "path": "runtime/model_selection/card/upstream_actor_low_risk_refresh_v1/actor_family_summary.csv",
