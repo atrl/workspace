@@ -1,0 +1,44 @@
+{
+  "downtrend_rows": 712,
+  "max_objective_weight": 366.115581431948,
+  "mean_rebound_target_position": 0.32700492000406395,
+  "mean_risk_target_position": 0.28241473074485945,
+  "mean_teacher_position": 0.3222467915345953,
+  "rebound_rows": 132,
+  "required_terms": [
+    "walkforward_relative_return_gap_penalty",
+    "walkforward_drawdown_gap_penalty",
+    "high_vol_rebound_participation_floor",
+    "downtrend_drawdown_state_cap"
+  ],
+  "rows": 1261,
+  "top_weighted_window": "wf_2022_train",
+  "window_summary": [
+    {
+      "downtrend_rows": 234,
+      "max_objective_weight": 366.115581431948,
+      "mean_objective_weight": 228.70496909644143,
+      "mean_rebound_target_position": 0.37494370019540924,
+      "mean_risk_target_position": 0.319272186674759,
+      "mean_teacher_position": 0.3690031061360033,
+      "rebound_rows": 66,
+      "rows": 505,
+      "window": "wf_2022_train"
+    },
+    {
+      "downtrend_rows": 478,
+      "max_objective_weight": 252.24591861978905,
+      "mean_objective_weight": 106.25502137508387,
+      "mean_rebound_target_position": 0.2949823221249245,
+      "mean_risk_target_position": 0.25779434020967523,
+      "mean_teacher_position": 0.29101406815667047,
+      "rebound_rows": 66,
+      "rows": 756,
+      "window": "wf_2023_2024_train"
+    }
+  ],
+  "windows": [
+    "wf_2022_train",
+    "wf_2023_2024_train"
+  ]
+}

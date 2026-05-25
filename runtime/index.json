@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-25T16:53:51.305640+00:00",
+  "generated_at": "2026-05-25T17:02:21.418079+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -5394,6 +5394,66 @@
       "category": "model_selection",
       "suffix": ".csv",
       "bytes": 1151
+    },
+    {
+      "path": "runtime/model_selection/card/fold_local_joint_reward_targets_v1/bc_readiness_scores.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 585
+    },
+    {
+      "path": "runtime/model_selection/card/fold_local_joint_reward_targets_v1/bc_readiness_summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 495
+    },
+    {
+      "path": "runtime/model_selection/card/fold_local_joint_reward_targets_v1/fold_local_joint_targets.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 679202
+    },
+    {
+      "path": "runtime/model_selection/card/fold_local_joint_reward_targets_v1/fold_target_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 424
+    },
+    {
+      "path": "runtime/model_selection/card/fold_local_joint_reward_targets_v1/profile_label_comparison.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 355
+    },
+    {
+      "path": "runtime/model_selection/card/fold_local_joint_reward_targets_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2729
+    },
+    {
+      "path": "runtime/model_selection/card/fold_local_joint_reward_targets_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 817
+    },
+    {
+      "path": "runtime/model_selection/card/fold_local_joint_reward_targets_v1/target_scope_audit.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 415
+    },
+    {
+      "path": "runtime/model_selection/card/fold_local_joint_reward_targets_v1/target_scope_summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 331
+    },
+    {
+      "path": "runtime/model_selection/card/fold_local_joint_reward_targets_v1/target_summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1365
     },
     {
       "path": "runtime/model_selection/card/gate_gap_failure_attribution_v1/feature_delta_context.csv",

@@ -1,0 +1,17 @@
+{
+  "conclusion": [
+    "Fold-local joint targets were generated with 1261 rows and 0 eval-overlap rows.",
+    "BC readiness selected risk_budget_usage_v1 with 5 actions and dominant share 0.314.",
+    "The next valid step is weighted BC/PPO with checkpoint_objective_loss retention, followed by fixed-split and walk-forward validation; no runtime promotion from target readiness alone."
+  ],
+  "decision": "fold_local_joint_reward_targets_ready_for_weighted_bc",
+  "experiment": "fold_local_joint_reward_targets_v1",
+  "scope_eval_overlap_rows": 0,
+  "selected_dominant_action_share": 0.31390728476821195,
+  "selected_profile_for_next_training": "risk_budget_usage_v1",
+  "selected_unique_actions": 5,
+  "target_downtrend_rows": 712,
+  "target_rebound_rows": 132,
+  "target_rows": 1261,
+  "training_allowed": true
+}
