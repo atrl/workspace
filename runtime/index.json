@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-25T05:32:04.610395+00:00",
+  "generated_at": "2026-05-25T05:52:02.350528+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -108,6 +108,36 @@
       "category": "execution",
       "suffix": ".md",
       "bytes": 717
+    },
+    {
+      "path": "runtime/execution/card/barrier_drawdown_budget_overlay_v1/drawdown_budget_grid_results.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 30276
+    },
+    {
+      "path": "runtime/execution/card/barrier_drawdown_budget_overlay_v1/selected_active_summary.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 447
+    },
+    {
+      "path": "runtime/execution/card/barrier_drawdown_budget_overlay_v1/selected_comparison.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 2474
+    },
+    {
+      "path": "runtime/execution/card/barrier_drawdown_budget_overlay_v1/selected_paths.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 102657
+    },
+    {
+      "path": "runtime/execution/card/barrier_drawdown_budget_overlay_v1/selection.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 2745
     },
     {
       "path": "runtime/execution/card/current_coverage_rebound_downtrend_router_v1/base_cluster_metrics.csv",

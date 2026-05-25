@@ -218,6 +218,11 @@ qlib_venv/bin/python scripts/feature_analysis.py
   false positive / sparse-action 结构；若收益改善伴随 2022 或关键窗口回撤扩大，
   下一步应转向 explicit drawdown-state / sequence features 或 execution-layer
   drawdown budget，而不是再开一个同类 BC sweep。
+- 如果 fixed-signal + global realized-equity drawdown budget 只能小幅降低
+  MaxDD，却把平均超额打回门槛以下，说明全局 cap 过钝。下一步应测试
+  regime/state-conditioned budget activation（例如仅在 broken-anchor/high-vol
+  状态触发）或更细的 execution budget，而不是继续降低全局 start/full
+  drawdown 阈值。
 - 任何“改进”都应该回写到 workpad 或 memory，而不是只留在聊天里。
 
 ## Generic Quant Optimization Framework
