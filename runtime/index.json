@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-25T03:44:13.352053+00:00",
+  "generated_at": "2026-05-25T04:11:05.125300+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -1068,6 +1068,36 @@
       "category": "execution",
       "suffix": ".csv",
       "bytes": 1984
+    },
+    {
+      "path": "runtime/execution/card/reentry_participation_counterfactual_v1/grid_results.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 483252
+    },
+    {
+      "path": "runtime/execution/card/reentry_participation_counterfactual_v1/reentry_participation_counterfactual_v1_selected_soxl_daily.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 435883
+    },
+    {
+      "path": "runtime/execution/card/reentry_participation_counterfactual_v1/selected_comparison.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 2781
+    },
+    {
+      "path": "runtime/execution/card/reentry_participation_counterfactual_v1/selected_lift_by_window.csv",
+      "category": "execution",
+      "suffix": ".csv",
+      "bytes": 425
+    },
+    {
+      "path": "runtime/execution/card/reentry_participation_counterfactual_v1/selection.json",
+      "category": "execution",
+      "suffix": ".json",
+      "bytes": 4011
     },
     {
       "path": "runtime/execution/card/regime_aware_equity_drawdown_guard_v1/grid_results.csv",
