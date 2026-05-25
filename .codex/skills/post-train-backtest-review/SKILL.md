@@ -183,6 +183,11 @@ gate-gap attribution 在 strict OOS / walk-forward 窗口全部因为
 加显式 drawdown controller / sequence risk feature；只有参与和回撤联合改善，
 才进入 PPO 或 runtime promotion。
 
+如果显式 equity/path drawdown controller 的 objective ranking 输给 no-controller
+基线，且主要原因是 relative loss / cluster underparticipation 变差，不要继续加严
+post-hoc drawdown cap。结论应转为训练时 joint reward、checkpoint selection 或
+sequence-risk state feature，让策略在建仓前学习风险状态，而不是在路径后段机械降仓。
+
 进入状态条件多目标前，先用已有 daily path 做一个 notebook-first objective
 screen，确认最接近的老师路径和仍然失败的项：
 

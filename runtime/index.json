@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-25T16:06:31.825684+00:00",
+  "generated_at": "2026-05-25T16:26:04.723831+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -5874,6 +5874,150 @@
       "category": "model_selection",
       "suffix": ".csv",
       "bytes": 5514
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_participation_drawdown_objective_v1/candidate_configs.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 676
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_participation_drawdown_objective_v1/candidate_path_manifest.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2983
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_participation_drawdown_objective_v1/cluster_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1947
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_participation_drawdown_objective_v1/exports/selected_router_dd08_18_cap15_strict_oos_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1503787
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_participation_drawdown_objective_v1/exports/selected_router_dd08_18_cap15_wf_2020_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 221365
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_participation_drawdown_objective_v1/exports/selected_router_dd08_18_cap15_wf_2022_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 232306
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_participation_drawdown_objective_v1/exports/selected_router_dd08_18_cap15_wf_2023_2024_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 236816
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_participation_drawdown_objective_v1/exports/selected_router_dd10_20_cap20_strict_oos_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1503499
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_participation_drawdown_objective_v1/exports/selected_router_dd10_20_cap20_wf_2020_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 221789
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_participation_drawdown_objective_v1/exports/selected_router_dd10_20_cap20_wf_2022_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 231729
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_participation_drawdown_objective_v1/exports/selected_router_dd10_20_cap20_wf_2023_2024_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 236462
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_participation_drawdown_objective_v1/exports/selected_router_dd12_22_cap25_strict_oos_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1504413
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_participation_drawdown_objective_v1/exports/selected_router_dd12_22_cap25_wf_2020_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 221197
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_participation_drawdown_objective_v1/exports/selected_router_dd12_22_cap25_wf_2022_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 231356
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_participation_drawdown_objective_v1/exports/selected_router_dd12_22_cap25_wf_2023_2024_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 235047
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_participation_drawdown_objective_v1/exports/selected_router_no_equity_dd_strict_oos_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1491814
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_participation_drawdown_objective_v1/exports/selected_router_no_equity_dd_wf_2020_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 220095
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_participation_drawdown_objective_v1/exports/selected_router_no_equity_dd_wf_2022_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 229728
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_participation_drawdown_objective_v1/exports/selected_router_no_equity_dd_wf_2023_2024_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 234216
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_participation_drawdown_objective_v1/objective_review.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 1160
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_participation_drawdown_objective_v1/objective_scores.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1033
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_participation_drawdown_objective_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 5342
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_participation_drawdown_objective_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 798
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_participation_drawdown_objective_v1/window_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2662
     },
     {
       "path": "runtime/model_selection/card/state_head_fold_consensus_target_v1/base_context.json",

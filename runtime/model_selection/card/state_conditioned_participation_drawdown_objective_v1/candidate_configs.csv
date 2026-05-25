@@ -1,0 +1,5 @@
+candidate,upside_cap,rebound_mom21,rebound_volq,risk_cap,risk_dd63,risk_mom21,use_semis_stress,require_semis_widen,rebound_mom5,rebound_min_dd63,semis_ratio_z,semis_ratio_widen,semis_soxx_mom21,equity_dd_start,equity_dd_full,equity_dd_min_cap
+selected_router_no_equity_dd,0.45,0.4,0.4,0.15,-0.2,0.0,True,False,0.02,-0.35,-0.75,-0.05,0.0,0.0,0.0,1.0
+selected_router_dd12_22_cap25,0.45,0.4,0.4,0.15,-0.2,0.0,True,False,0.02,-0.35,-0.75,-0.05,0.0,0.12,0.22,0.25
+selected_router_dd10_20_cap20,0.45,0.4,0.4,0.15,-0.2,0.0,True,False,0.02,-0.35,-0.75,-0.05,0.0,0.1,0.2,0.2
+selected_router_dd08_18_cap15,0.45,0.4,0.4,0.15,-0.2,0.0,True,False,0.02,-0.35,-0.75,-0.05,0.0,0.08,0.18,0.15

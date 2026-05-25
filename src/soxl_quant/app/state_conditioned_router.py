@@ -25,6 +25,9 @@ class StateConditionedRouterConfig:
     semis_ratio_z: float = -0.75
     semis_ratio_widen: float = -0.05
     semis_soxx_mom21: float = 0.0
+    equity_dd_start: float = 0.0
+    equity_dd_full: float = 0.0
+    equity_dd_min_cap: float = 1.0
 
 
 def _coalesce_feature(df: pd.DataFrame, names: Iterable[str], default: float = 0.0) -> pd.Series:
@@ -46,6 +49,51 @@ def _recompute_nav(price: np.ndarray, position: np.ndarray, *, starting_nav: flo
     returns[1:] = price[1:] / price[:-1] - 1.0
     applied_position = np.r_[position[0], position[:-1]]
     return float(starting_nav) * np.cumprod(1.0 + applied_position * returns)
+
+
+def _equity_dd_cap(drawdown: float, config: StateConditionedRouterConfig) -> float:
+    start = float(config.equity_dd_start)
+    full = float(config.equity_dd_full)
+    min_cap = float(config.equity_dd_min_cap)
+    if start <= 0.0 or full <= start or min_cap >= 1.0:
+        return 1.0
+    if drawdown <= start:
+        return 1.0
+    if drawdown >= full:
+        return max(0.0, min(1.0, min_cap))
+    span = max(full - start, 1e-12)
+    progress = (drawdown - start) / span
+    return 1.0 - progress * (1.0 - min_cap)
+
+
+def _apply_equity_drawdown_controller(
+    price: np.ndarray,
+    raw_position: np.ndarray,
+    config: StateConditionedRouterConfig,
+    *,
+    starting_nav: float = STARTING_NAV,
+) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
+    """Apply a path-dependent equity drawdown cap to target positions."""
+
+    position = np.asarray(raw_position, dtype=float).copy()
+    price = np.asarray(price, dtype=float)
+    nav = np.full(len(price), float(starting_nav), dtype=float)
+    drawdown = np.zeros(len(price), dtype=float)
+    caps = np.ones(len(price), dtype=float)
+    if len(price) == 0:
+        return position, nav, drawdown, caps
+
+    peak = float(starting_nav)
+    caps[0] = _equity_dd_cap(0.0, config)
+    position[0] = min(position[0], caps[0])
+    for idx in range(1, len(price)):
+        daily_return = price[idx] / price[idx - 1] - 1.0 if price[idx - 1] else 0.0
+        nav[idx] = nav[idx - 1] * (1.0 + position[idx - 1] * daily_return)
+        peak = max(peak, float(nav[idx]))
+        drawdown[idx] = max(0.0, 1.0 - float(nav[idx]) / max(peak, 1e-12))
+        caps[idx] = _equity_dd_cap(drawdown[idx], config)
+        position[idx] = min(position[idx], caps[idx])
+    return position, nav, drawdown, caps
 
 
 def _max_drawdown(nav: pd.Series) -> float:
@@ -231,13 +279,22 @@ def _router_frame_from_inputs(
     price = inputs["price"]
     assert isinstance(merged, pd.DataFrame)
     assert isinstance(price, np.ndarray)
-    position, rebound, risk, vol_threshold = _route_position_arrays(inputs, config)
+    raw_position, rebound, risk, vol_threshold = _route_position_arrays(inputs, config)
+    position, nav, equity_drawdown, equity_drawdown_cap = _apply_equity_drawdown_controller(
+        price,
+        raw_position,
+        config,
+        starting_nav=starting_nav,
+    )
     result = merged.copy()
     result["buyhold_nav"] = float(starting_nav) * price / price[0]
-    result["strategy_nav"] = _recompute_nav(price, position, starting_nav=starting_nav)
+    result["strategy_nav"] = nav
     result["router_position"] = position
     result["rebound_state"] = rebound
     result["risk_state"] = risk
+    result["equity_drawdown"] = equity_drawdown
+    result["equity_drawdown_cap"] = equity_drawdown_cap
+    result["equity_drawdown_control"] = position < raw_position - 1e-12
     result["mom_5"] = inputs["mom5"]
     result["mom_21"] = inputs["mom21"]
     result["drawdown_63"] = inputs["dd63"]

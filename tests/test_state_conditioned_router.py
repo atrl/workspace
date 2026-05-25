@@ -54,6 +54,44 @@ def test_router_frame_caps_risk_and_lifts_rebound_only_outside_risk():
     assert {"strategy_nav", "buyhold_nav", "vol_threshold"}.issubset(routed.columns)
 
 
+def test_router_frame_can_apply_path_equity_drawdown_controller():
+    base = pd.DataFrame(
+        {
+            "datetime": pd.to_datetime(["2020-01-02", "2020-01-03", "2020-01-06", "2020-01-07"]),
+            "price": [100.0, 80.0, 80.0, 120.0],
+            "position": [1.0, 1.0, 1.0, 1.0],
+            "mom_5": [0.0, 0.0, 0.0, 0.0],
+            "mom_21": [0.0, 0.0, 0.0, 0.0],
+            "drawdown_63": [0.0, 0.0, 0.0, 0.0],
+            "rv_21": [0.0, 0.0, 0.0, 0.0],
+        }
+    )
+    upside = pd.DataFrame(
+        {
+            "datetime": pd.to_datetime(["2020-01-02", "2020-01-03", "2020-01-06", "2020-01-07"]),
+            "position": [1.0, 1.0, 1.0, 1.0],
+        }
+    )
+
+    routed = build_state_conditioned_router_frame(
+        base,
+        upside,
+        StateConditionedRouterConfig(
+            rebound_mom21=99.0,
+            risk_dd63=-1.0,
+            use_semis_stress=False,
+            equity_dd_start=0.10,
+            equity_dd_full=0.20,
+            equity_dd_min_cap=0.25,
+        ),
+    )
+
+    assert routed["router_position"].round(2).tolist() == [1.0, 0.25, 0.25, 1.0]
+    assert routed["equity_drawdown_cap"].round(2).tolist() == [1.0, 0.25, 0.25, 1.0]
+    assert routed["equity_drawdown_control"].tolist() == [False, True, True, False]
+    assert round(routed["strategy_nav"].iloc[-1], 2) == 900000.0
+
+
 def test_screen_router_configs_scores_only_train_window():
     base = pd.DataFrame(
         {
