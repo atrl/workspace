@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-25T21:31:54.574279+00:00",
+  "generated_at": "2026-05-25T21:50:18.924233+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -5166,6 +5166,438 @@
       "category": "model",
       "suffix": ".md",
       "bytes": 3390
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/aggregate/feature_delta_clusters.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 11853
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/aggregate/feature_group_consensus.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 953
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/aggregate/gate_gap_attribution.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2981
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/aggregate/gate_gap_profile_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1249
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/aggregate/poor_window_clusters.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1403
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/bc_train_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1802
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/coverage.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 278
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/coverage.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1308
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/daily_path_manifest.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 3750
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/daily_path_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2309
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/daily_paths/cap10_release_0.10__wf_2022.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 29140
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/daily_paths/cap10_release_0.10__wf_2023_2024.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 62280
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/daily_paths/cap10_release_0.15__wf_2022.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 29295
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/daily_paths/cap10_release_0.15__wf_2023_2024.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 62198
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/daily_paths/cap10_release_0.20__wf_2022.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 29289
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/daily_paths/cap10_release_0.20__wf_2023_2024.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 62188
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/daily_paths/cap10_release_0.25__wf_2022.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 29492
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/daily_paths/cap10_release_0.25__wf_2023_2024.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 62167
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/daily_paths/cap10_release_0.30__wf_2022.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 28485
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/daily_paths/cap10_release_0.30__wf_2023_2024.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 62280
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/daily_paths/cap10_release_0.35__wf_2022.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 28535
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/daily_paths/cap10_release_0.35__wf_2023_2024.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 62280
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/diagnostics/cap10_release_0.10__wf_2022/feature_differences.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 3557
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/diagnostics/cap10_release_0.10__wf_2022/manifest.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1711
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/diagnostics/cap10_release_0.10__wf_2022/oos_diagnostic_review.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 3331
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/diagnostics/cap10_release_0.10__wf_2022/poor_windows.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1403
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/diagnostics/cap10_release_0.10__wf_2023_2024/feature_differences.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 3517
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/diagnostics/cap10_release_0.10__wf_2023_2024/manifest.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1736
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/diagnostics/cap10_release_0.10__wf_2023_2024/oos_diagnostic_review.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 3316
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/diagnostics/cap10_release_0.10__wf_2023_2024/poor_windows.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1399
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/diagnostics/cap10_release_0.15__wf_2022/feature_differences.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 3554
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/diagnostics/cap10_release_0.15__wf_2022/manifest.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1711
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/diagnostics/cap10_release_0.15__wf_2022/oos_diagnostic_review.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 3315
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/diagnostics/cap10_release_0.15__wf_2022/poor_windows.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1389
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/diagnostics/cap10_release_0.15__wf_2023_2024/feature_differences.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 3517
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/diagnostics/cap10_release_0.15__wf_2023_2024/manifest.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1736
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/diagnostics/cap10_release_0.15__wf_2023_2024/oos_diagnostic_review.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 3316
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/diagnostics/cap10_release_0.15__wf_2023_2024/poor_windows.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1399
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/diagnostics/cap10_release_0.20__wf_2022/feature_differences.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 3524
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/diagnostics/cap10_release_0.20__wf_2022/manifest.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1711
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/diagnostics/cap10_release_0.20__wf_2022/oos_diagnostic_review.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 3310
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/diagnostics/cap10_release_0.20__wf_2022/poor_windows.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1392
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/diagnostics/cap10_release_0.20__wf_2023_2024/feature_differences.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 3515
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/diagnostics/cap10_release_0.20__wf_2023_2024/manifest.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1736
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/diagnostics/cap10_release_0.20__wf_2023_2024/oos_diagnostic_review.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 3316
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/diagnostics/cap10_release_0.20__wf_2023_2024/poor_windows.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1399
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/diagnostics/cap10_release_0.25__wf_2022/feature_differences.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 3520
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/diagnostics/cap10_release_0.25__wf_2022/manifest.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1711
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/diagnostics/cap10_release_0.25__wf_2022/oos_diagnostic_review.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 3321
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/diagnostics/cap10_release_0.25__wf_2022/poor_windows.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1395
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/diagnostics/cap10_release_0.25__wf_2023_2024/feature_differences.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 3515
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/diagnostics/cap10_release_0.25__wf_2023_2024/manifest.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1736
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/diagnostics/cap10_release_0.25__wf_2023_2024/oos_diagnostic_review.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 3316
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/diagnostics/cap10_release_0.25__wf_2023_2024/poor_windows.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1400
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/diagnostics/cap10_release_0.30__wf_2022/feature_differences.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 3490
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/diagnostics/cap10_release_0.30__wf_2022/manifest.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1711
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/diagnostics/cap10_release_0.30__wf_2022/oos_diagnostic_review.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 3310
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/diagnostics/cap10_release_0.30__wf_2022/poor_windows.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1390
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/diagnostics/cap10_release_0.30__wf_2023_2024/feature_differences.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 3517
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/diagnostics/cap10_release_0.30__wf_2023_2024/manifest.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1736
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/diagnostics/cap10_release_0.30__wf_2023_2024/oos_diagnostic_review.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 3316
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/diagnostics/cap10_release_0.30__wf_2023_2024/poor_windows.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1399
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/diagnostics/cap10_release_0.35__wf_2022/feature_differences.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 3555
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/diagnostics/cap10_release_0.35__wf_2022/manifest.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1711
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/diagnostics/cap10_release_0.35__wf_2022/oos_diagnostic_review.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 3330
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/diagnostics/cap10_release_0.35__wf_2022/poor_windows.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1395
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/diagnostics/cap10_release_0.35__wf_2023_2024/feature_differences.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 3517
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/diagnostics/cap10_release_0.35__wf_2023_2024/manifest.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1736
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/diagnostics/cap10_release_0.35__wf_2023_2024/oos_diagnostic_review.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 3316
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/diagnostics/cap10_release_0.35__wf_2023_2024/poor_windows.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1399
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 3475
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 15302
     },
     {
       "path": "runtime/model_selection/card/conservative_rebound_release_gate_v1/conservative_recipe_row_scores.csv",

@@ -1,0 +1,44 @@
+{
+  "direct_comparison_decision": "cap10_release_balance_failed_no_promotion",
+  "direct_comparison_experiment": "sparse_release_cap10_rebound_balance_v1",
+  "experiment": "cap10_release_oos_poor_window_diagnostic_v1",
+  "feature_frame_path": "data/soxl_profile_balanced_rule_residual_v22.pkl",
+  "profile": "sparse_release_bc_ppo_screen_v1",
+  "release_cap_grid": [
+    0.1,
+    0.15,
+    0.2,
+    0.25,
+    0.3,
+    0.35
+  ],
+  "risk_anchor_cap": 0.1,
+  "target_max_dd_pct": 15.0,
+  "target_relative_return_pp": 30.0,
+  "targets_path": "runtime/model_selection/card/sparse_rebound_release_target_revision_v1/sparse_release_revised_targets.csv",
+  "window_size": 63,
+  "windows": [
+    {
+      "eval_overlap_rows": 0,
+      "fold": "wf_2022",
+      "fold_local_gate": true,
+      "source_target_fold": "wf_2022_train",
+      "target_end": "2021-12-31",
+      "target_rows": 505,
+      "target_start": "2020-01-02",
+      "test_end": "2022-12-31",
+      "test_start": "2022-01-01"
+    },
+    {
+      "eval_overlap_rows": 0,
+      "fold": "wf_2023_2024",
+      "fold_local_gate": true,
+      "source_target_fold": "wf_2023_2024_train",
+      "target_end": "2022-12-30",
+      "target_rows": 756,
+      "target_start": "2020-01-02",
+      "test_end": "2024-12-31",
+      "test_start": "2023-01-01"
+    }
+  ]
+}

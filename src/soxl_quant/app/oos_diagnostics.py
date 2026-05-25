@@ -58,12 +58,15 @@ def find_poor_windows(
     window_size: int = 63,
     top_n: int = 12,
     min_excess_gap: float = 0.0,
+    target_excess: float = 0.0,
+    target_max_dd: float = 0.0,
 ) -> pd.DataFrame:
     """Find rolling windows where strategy excess is poor versus buy-and-hold.
 
-    `window_size` is expressed in rows/trading days. The score intentionally
-    combines negative excess with local drawdown so the output is useful for
-    overfit triage rather than only for return ranking.
+    `window_size` is expressed in rows/trading days. The default score preserves
+    the legacy behavior: negative excess plus local drawdown. When
+    `target_excess` or `target_max_dd` are provided, the score uses gaps to
+    those gates so positive-but-insufficient excess windows are still surfaced.
     """
 
     frame = _coerce_daily_frame(daily)
@@ -76,7 +79,15 @@ def find_poor_windows(
         excess_return = strategy_return - buyhold_return
         max_dd = _max_drawdown(sub["strategy_nav"])
         avg_pos = float(sub["position"].mean())
-        bad_score = max(0.0, -excess_return - float(min_excess_gap)) + max_dd
+        if float(target_excess) > 0.0:
+            excess_gap = max(0.0, float(target_excess) - excess_return - float(min_excess_gap))
+        else:
+            excess_gap = max(0.0, -excess_return - float(min_excess_gap))
+        if float(target_max_dd) > 0.0:
+            max_dd_gap = max(0.0, max_dd - float(target_max_dd))
+        else:
+            max_dd_gap = max_dd
+        bad_score = excess_gap + max_dd_gap
         if bad_score <= 0.0:
             continue
         rows.append(
@@ -89,6 +100,8 @@ def find_poor_windows(
                 "excess_return": float(excess_return),
                 "max_dd": float(max_dd),
                 "avg_pos": avg_pos,
+                "excess_gap": float(excess_gap),
+                "max_dd_gap": float(max_dd_gap),
                 "bad_score": float(bad_score),
             }
         )
@@ -104,6 +117,8 @@ def find_poor_windows(
                 "excess_return",
                 "max_dd",
                 "avg_pos",
+                "excess_gap",
+                "max_dd_gap",
                 "bad_score",
             ]
         )
@@ -971,7 +986,13 @@ def run_oos_diagnostic(
     if len(daily) < window_size:
         raise ValueError(f"not enough rows for window_size={window_size}: {len(daily)}")
 
-    windows = find_poor_windows(daily, window_size=window_size, top_n=top_windows)
+    windows = find_poor_windows(
+        daily,
+        window_size=window_size,
+        top_n=top_windows,
+        target_excess=target_excess,
+        target_max_dd=target_max_dd,
+    )
     features = load_qlib_feature_frame(oos_start, resolved_oos_end)
     feature_diffs = compute_feature_differences(features, windows, daily=daily, top_n=top_features)
     artifacts = write_diagnostic_artifacts(

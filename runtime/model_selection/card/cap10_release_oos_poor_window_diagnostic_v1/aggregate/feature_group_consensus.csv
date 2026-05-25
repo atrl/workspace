@@ -1,0 +1,6 @@
+feature_group,feature_count,mean_abs_delta_z,max_stability_score,mean_spearman_to_excess,top_features
+regime_or_drawdown,6,0.9473166250725985,4.69408189856668,-0.01755764036995176,"rolling_new_low_ratio_63,regime_risk,drawdown_63,drawdown_21,new_low_ratio_21,regime_risk_velocity_5"
+volatility_or_downside,12,0.8708694841834644,4.478630003294217,0.07965714033521488,"realized_kurtosis_21,vol_coef_21,regime_risk_no_vix,vix_level,vix_percentile_252,downside_semivol_21"
+trend_or_return,12,0.8511406189643386,3.490700395205704,-0.05765503876672253,"anchor_slope_180,below_anchor_ratio_63,anchor_gap_180,expectancy_proxy_21,sharpe_proxy_21,mom_21"
+soxx_relative_or_tracking_error,3,0.8025263262683083,2.467017993412276,-0.008355360170835066,"tracking_error_vol_21,relative_strength_21,tracking_error_21"
+other,7,0.6954069834128076,1.608010578932273,-0.10740116504668169,"cum_drop_30,rsi_14,cum_drop_20,days_since_high_63,realized_skew_21,jump_variation_5"

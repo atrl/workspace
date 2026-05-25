@@ -1,0 +1,94 @@
+{
+  "canonical_baseline": "v19reg_v22_budget_usage_bull_guard_v1",
+  "changed_layer": [
+    "diagnostic",
+    "model_selection"
+  ],
+  "created_at": "2026-05-25T21:49:38.918815+00:00",
+  "daily_path_count": 12,
+  "decision": "diagnose_2023_2024_trend_participation_before_training",
+  "direct_comparison_baseline": "sparse_release_cap10_rebound_balance_v1",
+  "dominant_cluster_failure": "underparticipation",
+  "dominant_gate_failure": "underparticipation",
+  "experiment": "cap10_release_oos_poor_window_diagnostic_v1",
+  "external_sources": [
+    "https://github.com/microsoft/qlib",
+    "https://arxiv.org/abs/2009.11189",
+    "https://doi.org/10.21314/JCF.2016.322",
+    "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2460551"
+  ],
+  "feature_delta_cluster_count": 40,
+  "next_mechanism": "state_conditioned_trend_participation_with_drawdown_controller_screen",
+  "poor_window_cluster_count": 3,
+  "promotion_allowed": false,
+  "promotion_blocker": "Daily-path poor-window diagnostics are explanatory only; no actor or threshold is promoted.",
+  "release_cap_grid": [
+    0.1,
+    0.15,
+    0.2,
+    0.25,
+    0.3,
+    0.35
+  ],
+  "role": "diagnose",
+  "sidecars": [
+    "coverage.csv",
+    "coverage.json",
+    "daily_path_manifest.csv",
+    "daily_path_metrics.csv",
+    "bc_train_metrics.csv",
+    "aggregate/poor_window_clusters.csv",
+    "aggregate/feature_delta_clusters.csv",
+    "aggregate/feature_group_consensus.csv",
+    "aggregate/gate_gap_attribution.csv",
+    "aggregate/gate_gap_profile_summary.csv",
+    "selection.json",
+    "summary.json"
+  ],
+  "target_max_dd_pct": 15.0,
+  "target_relative_return_pp": 30.0,
+  "top_feature_groups": [
+    {
+      "feature_count": 6,
+      "feature_group": "regime_or_drawdown",
+      "max_stability_score": 4.69408189856668,
+      "mean_abs_delta_z": 0.9473166250725985,
+      "mean_spearman_to_excess": -0.01755764036995176,
+      "top_features": "rolling_new_low_ratio_63,regime_risk,drawdown_63,drawdown_21,new_low_ratio_21,regime_risk_velocity_5"
+    },
+    {
+      "feature_count": 12,
+      "feature_group": "volatility_or_downside",
+      "max_stability_score": 4.478630003294217,
+      "mean_abs_delta_z": 0.8708694841834644,
+      "mean_spearman_to_excess": 0.07965714033521488,
+      "top_features": "realized_kurtosis_21,vol_coef_21,regime_risk_no_vix,vix_level,vix_percentile_252,downside_semivol_21"
+    },
+    {
+      "feature_count": 12,
+      "feature_group": "trend_or_return",
+      "max_stability_score": 3.490700395205704,
+      "mean_abs_delta_z": 0.8511406189643386,
+      "mean_spearman_to_excess": -0.05765503876672253,
+      "top_features": "anchor_slope_180,below_anchor_ratio_63,anchor_gap_180,expectancy_proxy_21,sharpe_proxy_21,mom_21"
+    },
+    {
+      "feature_count": 3,
+      "feature_group": "soxx_relative_or_tracking_error",
+      "max_stability_score": 2.467017993412276,
+      "mean_abs_delta_z": 0.8025263262683083,
+      "mean_spearman_to_excess": -0.008355360170835066,
+      "top_features": "tracking_error_vol_21,relative_strength_21,tracking_error_21"
+    },
+    {
+      "feature_count": 7,
+      "feature_group": "other",
+      "max_stability_score": 1.608010578932273,
+      "mean_abs_delta_z": 0.6954069834128076,
+      "mean_spearman_to_excess": -0.10740116504668169,
+      "top_features": "cum_drop_30,rsi_14,cum_drop_20,days_since_high_63,realized_skew_21,jump_variation_5"
+    }
+  ],
+  "window_size": 63,
+  "worst_label": "cap10_release_0.30__wf_2023_2024"
+}

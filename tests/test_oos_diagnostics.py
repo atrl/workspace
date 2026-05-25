@@ -44,6 +44,25 @@ def test_find_poor_windows_ranks_negative_excess_and_drawdown():
     assert windows.iloc[0]["bad_score"] > windows.iloc[1]["bad_score"]
 
 
+def test_find_poor_windows_can_rank_positive_excess_below_target():
+    daily = pd.DataFrame(
+        {
+            "datetime": pd.date_range("2024-01-01", periods=5, freq="B"),
+            "strategy_nav": [100.0, 109.0, 120.0, 132.0, 145.0],
+            "buyhold_nav": [100.0, 105.0, 113.0, 121.0, 132.0],
+            "position": [0.22, 0.23, 0.24, 0.24, 0.24],
+        }
+    )
+
+    windows = find_poor_windows(daily, window_size=3, top_n=3, target_excess=30.0, target_max_dd=15.0)
+
+    assert len(windows) == 3
+    assert (windows["excess_return"] > 0.0).all()
+    assert (windows["excess_gap"] > 0.0).all()
+    assert (windows["max_dd_gap"] == 0.0).all()
+    assert windows.iloc[0]["bad_score"] == windows.iloc[0]["excess_gap"]
+
+
 def test_compute_feature_differences_compares_bad_windows_to_reference():
     dates = pd.date_range("2024-01-01", periods=6, freq="B")
     features = pd.DataFrame(

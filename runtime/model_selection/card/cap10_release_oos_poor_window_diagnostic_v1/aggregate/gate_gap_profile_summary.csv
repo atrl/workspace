@@ -1,0 +1,13 @@
+profile,window_count,gate_pass_count,failure_count,dominant_failure_type,worst_window,max_severity_score,recommended_next_mechanism
+cap10_release_0.30__wf_2023_2024,1,0,1,underparticipation,heldout,50.82193807961241,participation_or_reentry_objective
+cap10_release_0.15__wf_2023_2024,1,0,1,underparticipation,heldout,50.384999391908096,participation_or_reentry_objective
+cap10_release_0.20__wf_2023_2024,1,0,1,underparticipation,heldout,49.94429800302087,participation_or_reentry_objective
+cap10_release_0.35__wf_2023_2024,1,0,1,underparticipation,heldout,49.64558358035195,participation_or_reentry_objective
+cap10_release_0.10__wf_2023_2024,1,0,1,underparticipation,heldout,49.3855025959236,participation_or_reentry_objective
+cap10_release_0.25__wf_2023_2024,1,0,1,underparticipation,heldout,49.26980966609313,participation_or_reentry_objective
+cap10_release_0.25__wf_2022,1,0,1,drawdown_control,heldout,40.926743576545874,drawdown_controller_or_sequence_risk_feature
+cap10_release_0.10__wf_2022,1,1,0,pass,heldout,0.0,none
+cap10_release_0.15__wf_2022,1,1,0,pass,heldout,0.0,none
+cap10_release_0.20__wf_2022,1,1,0,pass,heldout,0.0,none
+cap10_release_0.30__wf_2022,1,1,0,pass,heldout,0.0,none
+cap10_release_0.35__wf_2022,1,1,0,pass,heldout,0.0,none
