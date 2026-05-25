@@ -94,6 +94,141 @@ def evaluate_bc_actor(
     }
 
 
+def _bc_actor_predictions_and_losses(
+    actor: Any,
+    obs_array: np.ndarray,
+    action_array: np.ndarray,
+    *,
+    batch_size: int = 4096,
+) -> tuple[np.ndarray, np.ndarray]:
+    if len(obs_array) == 0:
+        return np.asarray([], dtype=np.int64), np.asarray([], dtype=np.float32)
+    device = next(actor.parameters()).device
+    obs_tensor = torch.as_tensor(obs_array, dtype=torch.float32, device=device)
+    action_tensor = torch.as_tensor(action_array, dtype=torch.long, device=device)
+    loss_fn = torch.nn.CrossEntropyLoss(reduction="none")
+    predictions: list[np.ndarray] = []
+    losses: list[np.ndarray] = []
+    with torch.no_grad():
+        for start in range(0, int(obs_tensor.shape[0]), int(batch_size)):
+            stop = min(start + int(batch_size), int(obs_tensor.shape[0]))
+            logits = _actor_logits(actor, obs_tensor[start:stop])
+            labels = action_tensor[start:stop]
+            predictions.append(logits.argmax(-1).detach().cpu().numpy().astype(np.int64))
+            losses.append(loss_fn(logits, labels).detach().cpu().numpy().astype(np.float32))
+    return np.concatenate(predictions), np.concatenate(losses)
+
+
+def evaluate_bc_actor_slice_fit(
+    actor: Any,
+    obs_array: np.ndarray,
+    action_array: np.ndarray,
+    metadata: pd.DataFrame,
+    *,
+    slice_cols: tuple[str, ...] = ("is_rebound_cluster", "is_downtrend_state", "release_gate_state"),
+    batch_size: int = 4096,
+) -> pd.DataFrame:
+    """Evaluate BC label fit on sparse state slices, including release gates."""
+
+    actions = np.asarray(action_array, dtype=np.int64)
+    if len(metadata) != len(actions):
+        raise ValueError(f"metadata length {len(metadata)} does not match samples {len(actions)}")
+    predictions, losses = _bc_actor_predictions_and_losses(
+        actor,
+        obs_array,
+        actions,
+        batch_size=int(batch_size),
+    )
+    work = metadata.copy().reset_index(drop=True)
+    work["_label_action"] = actions
+    work["_predicted_action"] = predictions
+    work["_loss"] = losses
+
+    def _row(label: str, mask: pd.Series) -> dict[str, float | int | str | bool]:
+        subset = work[mask.to_numpy(dtype=bool)]
+        samples = int(len(subset))
+        if samples == 0:
+            return {
+                "slice": label,
+                "samples": 0,
+                "accuracy": float("nan"),
+                "loss": float("nan"),
+                "label_unique_actions": 0,
+                "predicted_unique_actions": 0,
+                "label_dominant_action": -1,
+                "label_dominant_share": 1.0,
+                "predicted_dominant_action": -1,
+                "predicted_dominant_share": 1.0,
+            }
+        correct = subset["_label_action"].to_numpy(dtype=np.int64) == subset["_predicted_action"].to_numpy(
+            dtype=np.int64
+        )
+        label_counts = subset["_label_action"].value_counts()
+        pred_counts = subset["_predicted_action"].value_counts()
+        return {
+            "slice": label,
+            "samples": samples,
+            "accuracy": float(correct.mean()),
+            "loss": float(pd.to_numeric(subset["_loss"], errors="coerce").mean()),
+            "label_unique_actions": int(label_counts.shape[0]),
+            "predicted_unique_actions": int(pred_counts.shape[0]),
+            "label_dominant_action": int(label_counts.index[0]),
+            "label_dominant_share": float(label_counts.iloc[0] / samples),
+            "predicted_dominant_action": int(pred_counts.index[0]),
+            "predicted_dominant_share": float(pred_counts.iloc[0] / samples),
+        }
+
+    rows = [_row("all", pd.Series(True, index=work.index))]
+    for col in slice_cols:
+        if col not in work.columns:
+            continue
+        rows.append(_row(str(col), work[col].fillna(False).astype(bool)))
+    return pd.DataFrame(rows).sort_values(["slice"]).reset_index(drop=True)
+
+
+def summarize_bc_slice_fit(
+    slice_metrics: pd.DataFrame,
+    *,
+    required_slices: tuple[str, ...] = ("release_gate_state",),
+    min_accuracy: float = 0.60,
+    min_samples: int = 1,
+) -> dict[str, object]:
+    """Summarize whether sparse BC state slices are fit well enough for PPO handoff."""
+
+    if slice_metrics.empty:
+        return {
+            "decision": "bc_slice_fit_no_rows",
+            "slice_fit_gate": False,
+            "failed_slices": list(required_slices),
+            "next_mechanism": "train_bc_before_ppo_handoff",
+        }
+    metrics = slice_metrics.set_index("slice")
+    failed: list[str] = []
+    slice_details: dict[str, dict[str, float | int]] = {}
+    for name in required_slices:
+        if name not in metrics.index:
+            failed.append(str(name))
+            slice_details[str(name)] = {"samples": 0, "accuracy": float("nan")}
+            continue
+        row = metrics.loc[name]
+        samples = int(row.get("samples", 0))
+        accuracy = float(row.get("accuracy", float("nan")))
+        slice_details[str(name)] = {"samples": samples, "accuracy": accuracy}
+        if samples < int(min_samples) or not np.isfinite(accuracy) or accuracy < float(min_accuracy):
+            failed.append(str(name))
+    gate = len(failed) == 0
+    return {
+        "decision": "bc_slice_fit_ready_for_ppo_screen" if gate else "bc_slice_fit_failed_no_ppo",
+        "slice_fit_gate": gate,
+        "failed_slices": failed,
+        "required_slices": list(required_slices),
+        "min_accuracy": float(min_accuracy),
+        "min_samples": int(min_samples),
+        "slice_details": slice_details,
+        "next_mechanism": "run_walkforward_ppo_candidate" if gate else "retune_bc_slice_weighting_or_state_head",
+    }
+
+
 def action_distribution_frame(action_array: np.ndarray, *, action_count: int | None = None) -> pd.DataFrame:
     """Return an action-count table with zero-count actions retained."""
 
@@ -427,7 +562,9 @@ __all__ = [
     "action_distribution_frame",
     "build_state_objective_bc_dataset_from_frame",
     "evaluate_bc_actor",
+    "evaluate_bc_actor_slice_fit",
     "fit_bc_actor",
     "fit_state_objective_bc_actor_from_frame",
     "state_objective_bc_sample_weights",
+    "summarize_bc_slice_fit",
 ]

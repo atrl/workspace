@@ -1,0 +1,142 @@
+{
+  "best": {
+    "after_accuracy": 0.7655629139072848,
+    "after_loss": 1.1553584016711507,
+    "batch_size": 128,
+    "before_accuracy": 0.2052980132450331,
+    "before_loss": 1.6078538907284767,
+    "candidate_gate": true,
+    "complexity_rank": 0,
+    "config": "plain",
+    "dominant_action_share": 0.295364238410596,
+    "global_fit_gate": true,
+    "lr": 0.001,
+    "release_accuracy": 0.975,
+    "release_predicted_dominant_action": 4,
+    "release_predicted_dominant_share": 0.975,
+    "release_samples": 40,
+    "samples": 755,
+    "slice_fit_gate": true,
+    "steps": 300,
+    "train_last_batch_accuracy": 0.6796875,
+    "train_last_loss": 1.23966646194458,
+    "unique_actions": 5,
+    "weight_max": null,
+    "weight_mean": null,
+    "weight_min": null
+  },
+  "conclusion": [
+    "Best BC config is plain; it uses the lowest-complexity recipe that passes the release-slice gate.",
+    "Global BC accuracy improved from 0.205 to 0.766; release-slice accuracy is 0.975 on 40 samples.",
+    "Dominant label share is 0.295 with 5 actions, so the action surface is not degenerate.",
+    "Conclusion: plain sparse-release BC is ready for a PPO screen, but there is still no promotion without fixed-split and walk-forward +30pp / <=15% MaxDD validation."
+  ],
+  "coverage": {
+    "date_end": "2022-12-30",
+    "date_start": "2020-01-02",
+    "experiment": "sparse_release_bc_warmstart_screen_v1",
+    "feature_frame_profile": "balanced_rule_residual_v22",
+    "folds": [
+      "wf_2022_train",
+      "wf_2023_2024_train"
+    ],
+    "profile": "risk_budget_usage_v1",
+    "release_gate_rows": 80,
+    "source_bc_training_allowed_next": true,
+    "source_decision": "sparse_release_targets_bc_screen_ready_no_training",
+    "source_targets": "runtime/model_selection/card/sparse_rebound_release_target_revision_v1/sparse_release_revised_targets.csv",
+    "target_rows": 1261
+  },
+  "dataset_summary": {
+    "downtrend_samples": 477,
+    "obs_shape": [
+      755,
+      315
+    ],
+    "rebound_samples": 66,
+    "release_gate_samples": 40,
+    "samples": 755,
+    "unique_actions": 5
+  },
+  "decision": "sparse_release_bc_warmstart_ready_for_ppo_screen",
+  "experiment": "sparse_release_bc_warmstart_screen_v1",
+  "selection": {
+    "acceptance_gate_for_next_run": {
+      "fixed_split_required_after_bc": true,
+      "global_accuracy_min": 0.7,
+      "max_dd_max_pct": 15.0,
+      "no_runtime_promotion_from_bc_only": true,
+      "relative_return_min_pp": 30.0,
+      "release_slice_accuracy_min": 0.6,
+      "release_slice_samples_min": 20,
+      "walkforward_required_after_bc": true
+    },
+    "best_after_accuracy": 0.7655629139072848,
+    "best_after_loss": 1.1553584016711507,
+    "best_before_accuracy": 0.2052980132450331,
+    "best_config": "plain",
+    "best_dominant_action_share": 0.295364238410596,
+    "best_global_fit_gate": true,
+    "best_release_accuracy": 0.975,
+    "best_release_samples": 40,
+    "best_slice_fit_gate": true,
+    "best_unique_actions": 5,
+    "canonical_baseline": "v19reg_v22_budget_usage_bull_guard_v1",
+    "changed_layer": [
+      "model_selection",
+      "reward",
+      "feature",
+      "sampling"
+    ],
+    "created_at": "2026-05-25T18:18:09.361599+00:00",
+    "decision": "sparse_release_bc_warmstart_ready_for_ppo_screen",
+    "direct_comparison_baseline": "sparse_rebound_release_target_revision_v1",
+    "experiment": "sparse_release_bc_warmstart_screen_v1",
+    "external_sources": [
+      "https://github.com/microsoft/qlib",
+      "https://arxiv.org/abs/2009.11189",
+      "https://github.com/AI4Finance-Foundation/FinRL",
+      "https://arxiv.org/abs/2011.09607",
+      "https://arxiv.org/abs/1708.02002",
+      "https://arxiv.org/abs/1511.05952",
+      "https://doi.org/10.21314/JCF.2016.322"
+    ],
+    "feature_frame_profile": "balanced_rule_residual_v22",
+    "next_mechanism": "run_fold_local_ppo_from_plain_sparse_release_bc_then_fixed_split_walkforward",
+    "overfit_control": "prefer_lowest_complexity_candidate_that_passes_release_slice_gate",
+    "profile": "risk_budget_usage_v1",
+    "promotion_allowed": false,
+    "promotion_blocker": "BC slice fit is not a fixed-split or walk-forward backtest; PPO and +30pp / <=15% MaxDD gates remain required.",
+    "role": "diagnose",
+    "selected_policy": "plain_bc",
+    "sidecars": [
+      "coverage.json",
+      "dataset_summary.json",
+      "bc_weight_screen.csv",
+      "state_slice_bc_metrics.csv",
+      "bc_slice_summary.json",
+      "selection.json",
+      "summary.json"
+    ],
+    "source_targets": "runtime/model_selection/card/sparse_rebound_release_target_revision_v1/sparse_release_revised_targets.csv",
+    "training_allowed_next": true
+  },
+  "slice_summary": {
+    "decision": "bc_slice_fit_ready_for_ppo_screen",
+    "failed_slices": [],
+    "min_accuracy": 0.6,
+    "min_samples": 20,
+    "next_mechanism": "run_walkforward_ppo_candidate",
+    "required_slices": [
+      "release_gate_state"
+    ],
+    "slice_details": {
+      "release_gate_state": {
+        "accuracy": 0.975,
+        "samples": 40
+      }
+    },
+    "slice_fit_gate": true
+  },
+  "training_allowed_next": true
+}

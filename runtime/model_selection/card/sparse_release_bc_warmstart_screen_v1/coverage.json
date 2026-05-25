@@ -1,0 +1,16 @@
+{
+  "date_end": "2022-12-30",
+  "date_start": "2020-01-02",
+  "experiment": "sparse_release_bc_warmstart_screen_v1",
+  "feature_frame_profile": "balanced_rule_residual_v22",
+  "folds": [
+    "wf_2022_train",
+    "wf_2023_2024_train"
+  ],
+  "profile": "risk_budget_usage_v1",
+  "release_gate_rows": 80,
+  "source_bc_training_allowed_next": true,
+  "source_decision": "sparse_release_targets_bc_screen_ready_no_training",
+  "source_targets": "runtime/model_selection/card/sparse_rebound_release_target_revision_v1/sparse_release_revised_targets.csv",
+  "target_rows": 1261
+}

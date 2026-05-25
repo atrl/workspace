@@ -11,9 +11,11 @@ from src.soxl_quant.app.state_objective_bc import (
     action_distribution_frame,
     build_state_objective_bc_dataset_from_frame,
     evaluate_bc_actor,
+    evaluate_bc_actor_slice_fit,
     fit_bc_actor,
     fit_state_objective_bc_actor_from_frame,
     state_objective_bc_sample_weights,
+    summarize_bc_slice_fit,
 )
 from src.soxl_quant.config import load_profile
 from src.soxl_quant.data import FEATURE_COLUMNS
@@ -56,6 +58,44 @@ def test_action_distribution_frame_keeps_missing_actions_visible():
     assert dist["action"].tolist() == [0, 1, 2, 3]
     assert dist["count"].tolist() == [1, 0, 2, 0]
     assert dist["share"].round(6).tolist() == [0.333333, 0.0, 0.666667, 0.0]
+
+
+def test_bc_slice_fit_flags_failed_release_gate_slice():
+    actor = torch.nn.Linear(2, 2)
+    with torch.no_grad():
+        actor.weight[:] = torch.tensor([[1.0, 0.0], [-1.0, 0.0]])
+        actor.bias.zero_()
+    obs = np.asarray([[2.0, 0.0], [-2.0, 0.0], [1.5, 0.0], [-1.5, 0.0]], dtype=np.float32)
+    actions = np.asarray([0, 0, 1, 1], dtype=np.int64)
+    metadata = pd.DataFrame(
+        {
+            "release_gate_state": [True, True, False, False],
+            "is_rebound_cluster": [True, True, False, False],
+            "is_downtrend_state": [True, True, True, False],
+        }
+    )
+
+    slices = evaluate_bc_actor_slice_fit(
+        actor,
+        obs,
+        actions,
+        metadata,
+        slice_cols=("release_gate_state", "is_downtrend_state"),
+    )
+    summary = summarize_bc_slice_fit(
+        slices,
+        required_slices=("release_gate_state",),
+        min_accuracy=0.75,
+        min_samples=2,
+    )
+
+    release = slices.set_index("slice").loc["release_gate_state"]
+    assert release["samples"] == 2
+    assert release["accuracy"] == 0.5
+    assert release["predicted_dominant_action"] == 0
+    assert summary["decision"] == "bc_slice_fit_failed_no_ppo"
+    assert summary["slice_fit_gate"] is False
+    assert summary["failed_slices"] == ["release_gate_state"]
 
 
 def test_weighted_bc_actor_can_prioritize_high_weight_minority_label():

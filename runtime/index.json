@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-25T17:59:09.321037+00:00",
+  "generated_at": "2026-05-25T18:19:05.591981+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -6138,6 +6138,48 @@
       "category": "model_selection",
       "suffix": ".json",
       "bytes": 1364
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_bc_warmstart_screen_v1/bc_slice_summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 358
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_bc_warmstart_screen_v1/bc_weight_screen.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1014
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_bc_warmstart_screen_v1/coverage.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 573
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_bc_warmstart_screen_v1/dataset_summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 166
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_bc_warmstart_screen_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2320
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_bc_warmstart_screen_v1/state_slice_bc_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1387
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_bc_warmstart_screen_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 5116
     },
     {
       "path": "runtime/model_selection/card/state_conditioned_actor_selector_v1/actor_pool_metrics.csv",
