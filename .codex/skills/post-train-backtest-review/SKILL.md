@@ -239,6 +239,15 @@ from src.soxl_quant.app.state_objective_training_targets import (
 target rows 只能作为 reward/checkpoint-loss recipe；下一步必须重新生成
 fold-local joint targets，确认 `eval_overlap_rows == 0` 后才允许 BC/PPO。
 
+即使 fold-local scope 和 label distribution 都通过，仍必须先审计
+target-position 语义是否真的编码了稀疏状态目标。尤其是 rebound 与 downtrend
+同时出现时，当前 `state_objective_target_position_from_row()` 会让 downtrend
+risk cap 优先于 rebound floor；如果 `current_positive_rebound_lift_rows == 0`
+或大部分 rebound rows 的 effective lift 被 cap 抹掉，不要启动 weighted BC/PPO。
+结论应转为 target-semantics 修复或 release-state-head gate。若 release-priority
+候选会产生 lift，还必须用非重叠事件 fold 做 state-head/false-positive audit；
+若 post-event false-positive rate 过高，仍然禁止训练。
+
 当 state-objective BC warm-start 的全局 label accuracy / fold accuracy
 通过，但 rebound 或 downtrend 等稀疏状态切片 accuracy 明显失败时，不要把它
 标成 ready-for-PPO。结论应是“global fit 可用、稀疏状态未学会”，下一步先做
