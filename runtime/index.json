@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-25T21:50:18.924233+00:00",
+  "generated_at": "2026-05-25T22:17:19.370724+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -5231,73 +5231,73 @@
       "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/daily_paths/cap10_release_0.10__wf_2022.csv",
       "category": "model_selection",
       "suffix": ".csv",
-      "bytes": 29140
+      "bytes": 28889
     },
     {
       "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/daily_paths/cap10_release_0.10__wf_2023_2024.csv",
       "category": "model_selection",
       "suffix": ".csv",
-      "bytes": 62280
+      "bytes": 61778
     },
     {
       "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/daily_paths/cap10_release_0.15__wf_2022.csv",
       "category": "model_selection",
       "suffix": ".csv",
-      "bytes": 29295
+      "bytes": 29044
     },
     {
       "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/daily_paths/cap10_release_0.15__wf_2023_2024.csv",
       "category": "model_selection",
       "suffix": ".csv",
-      "bytes": 62198
+      "bytes": 61696
     },
     {
       "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/daily_paths/cap10_release_0.20__wf_2022.csv",
       "category": "model_selection",
       "suffix": ".csv",
-      "bytes": 29289
+      "bytes": 29038
     },
     {
       "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/daily_paths/cap10_release_0.20__wf_2023_2024.csv",
       "category": "model_selection",
       "suffix": ".csv",
-      "bytes": 62188
+      "bytes": 61686
     },
     {
       "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/daily_paths/cap10_release_0.25__wf_2022.csv",
       "category": "model_selection",
       "suffix": ".csv",
-      "bytes": 29492
+      "bytes": 29241
     },
     {
       "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/daily_paths/cap10_release_0.25__wf_2023_2024.csv",
       "category": "model_selection",
       "suffix": ".csv",
-      "bytes": 62167
+      "bytes": 61665
     },
     {
       "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/daily_paths/cap10_release_0.30__wf_2022.csv",
       "category": "model_selection",
       "suffix": ".csv",
-      "bytes": 28485
+      "bytes": 28234
     },
     {
       "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/daily_paths/cap10_release_0.30__wf_2023_2024.csv",
       "category": "model_selection",
       "suffix": ".csv",
-      "bytes": 62280
+      "bytes": 61778
     },
     {
       "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/daily_paths/cap10_release_0.35__wf_2022.csv",
       "category": "model_selection",
       "suffix": ".csv",
-      "bytes": 28535
+      "bytes": 28284
     },
     {
       "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/daily_paths/cap10_release_0.35__wf_2023_2024.csv",
       "category": "model_selection",
       "suffix": ".csv",
-      "bytes": 62280
+      "bytes": 61778
     },
     {
       "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/diagnostics/cap10_release_0.10__wf_2022/feature_differences.csv",
@@ -5598,6 +5598,144 @@
       "category": "model_selection",
       "suffix": ".json",
       "bytes": 15302
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_state_conditioned_trend_participation_controller_v1/candidate_configs.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1343
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_state_conditioned_trend_participation_controller_v1/cluster_detail_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30012
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_state_conditioned_trend_participation_controller_v1/cluster_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4693
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_state_conditioned_trend_participation_controller_v1/objective_review.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 1857
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_state_conditioned_trend_participation_controller_v1/objective_scores.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2184
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_state_conditioned_trend_participation_controller_v1/selected_daily_paths/low_floor_rebound_dd10__cap10_release_0.10__wf_2022.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 82608
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_state_conditioned_trend_participation_controller_v1/selected_daily_paths/low_floor_rebound_dd10__cap10_release_0.10__wf_2023_2024.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 172918
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_state_conditioned_trend_participation_controller_v1/selected_daily_paths/low_floor_rebound_dd10__cap10_release_0.15__wf_2022.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 83011
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_state_conditioned_trend_participation_controller_v1/selected_daily_paths/low_floor_rebound_dd10__cap10_release_0.15__wf_2023_2024.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 173114
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_state_conditioned_trend_participation_controller_v1/selected_daily_paths/low_floor_rebound_dd10__cap10_release_0.20__wf_2022.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 83114
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_state_conditioned_trend_participation_controller_v1/selected_daily_paths/low_floor_rebound_dd10__cap10_release_0.20__wf_2023_2024.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 172723
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_state_conditioned_trend_participation_controller_v1/selected_daily_paths/low_floor_rebound_dd10__cap10_release_0.25__wf_2022.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 83332
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_state_conditioned_trend_participation_controller_v1/selected_daily_paths/low_floor_rebound_dd10__cap10_release_0.25__wf_2023_2024.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 173065
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_state_conditioned_trend_participation_controller_v1/selected_daily_paths/low_floor_rebound_dd10__cap10_release_0.30__wf_2022.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 82030
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_state_conditioned_trend_participation_controller_v1/selected_daily_paths/low_floor_rebound_dd10__cap10_release_0.30__wf_2023_2024.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 172918
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_state_conditioned_trend_participation_controller_v1/selected_daily_paths/low_floor_rebound_dd10__cap10_release_0.35__wf_2022.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 82616
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_state_conditioned_trend_participation_controller_v1/selected_daily_paths/low_floor_rebound_dd10__cap10_release_0.35__wf_2023_2024.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 173419
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_state_conditioned_trend_participation_controller_v1/selected_fold_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 524
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_state_conditioned_trend_participation_controller_v1/selected_path_manifest.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2714
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_state_conditioned_trend_participation_controller_v1/selected_vs_no_overlay.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 5947
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_state_conditioned_trend_participation_controller_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 28436
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_state_conditioned_trend_participation_controller_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1110
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_state_conditioned_trend_participation_controller_v1/window_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 23563
     },
     {
       "path": "runtime/model_selection/card/conservative_rebound_release_gate_v1/conservative_recipe_row_scores.csv",
