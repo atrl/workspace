@@ -1,0 +1,46 @@
+{
+  "actor_retention": "no actor bundle is promoted or retained by this notebook; rerun the notebook to regenerate diagnostic checkpoints",
+  "canonical_baseline": "v19reg_v22_budget_usage_bull_guard_v1",
+  "changed_layer": [
+    "model_selection",
+    "checkpoint_selection"
+  ],
+  "created_at": "2026-05-25T23:45:46.961344+00:00",
+  "decision": "checkpoint_drift_selector_partial_pass_wf2022_blocked_no_promotion",
+  "direct_comparison_baseline": "cap10_joint_contract_bc_ppo_drift_screen_v1",
+  "drift_max_dd_ceiling_pp": 2.0,
+  "drift_relative_floor_pp": -5.0,
+  "experiment": "cap10_joint_contract_checkpoint_drift_selector_v1",
+  "external_sources": [
+    "https://github.com/microsoft/qlib",
+    "https://arxiv.org/abs/2009.11189",
+    "https://arxiv.org/abs/1707.06347",
+    "https://arxiv.org/abs/2006.04779",
+    "https://arxiv.org/abs/1712.06924",
+    "https://doi.org/10.21314/JCF.2016.322"
+  ],
+  "next_mechanism": "add_drawdown_drift_penalty_or_new_risk_state_before_longer_ppo",
+  "profile": "sparse_release_bc_ppo_screen_v1",
+  "promotion_allowed": false,
+  "promotion_blocker": "Checkpoint selector is a diagnostic partial walk-forward screen; promotion still requires full fixed-split plus wf_2020/wf_2022/wf_2023_2024 validation.",
+  "role": "diagnose",
+  "selected_candidate_gate_count": 1,
+  "selected_drift_gate_count": 2,
+  "selected_target_gate_count": 1,
+  "sidecars": [
+    "coverage.csv",
+    "coverage.json",
+    "bc_slice_metrics.csv",
+    "ppo_selection_history.csv",
+    "checkpoint_candidate_metrics.csv",
+    "checkpoint_selection_by_fold.csv",
+    "drift_score_summary.json",
+    "selection.json",
+    "summary.json"
+  ],
+  "target_max_dd_pct": 15.0,
+  "target_relative_return_pp": 30.0,
+  "training_allowed_from_this_card": false,
+  "wf_2020_coverage": false,
+  "wf_2022_failed": true
+}

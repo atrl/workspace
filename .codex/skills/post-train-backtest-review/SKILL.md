@@ -315,6 +315,12 @@ PPO。runtime notebook 的 `selection.json` 应记录 `bc_gate_pass_count`、
 `selected_gate_pass_count`、`drift_gate_pass_count`、`wf_2022_failed` 和
 `promotion_allowed=false`。
 
+如果 drift-aware checkpoint selector 最终仍选择 BC initialization，但该 BC
+路径本身只差 MaxDD（例如 relative return 已超过 +30pp、MaxDD 仍在 15% 上方），
+不要再做同一批 PPO checkpoint 的二次排序。结论应转向 target/reward 层的风险
+状态补充：增加 drawdown-drift penalty、sequence-risk state feature，或重做
+drawdown target，使 BC baseline 本身先进入 `<=15% MaxDD` 区间后再试 PPO。
+
 如果 rebound-weighted BC 已经做过确定性权重筛选，且 rebound rows 少于
 20、`rebound_accuracy` 没有提升或仍低于 0.60，不要继续扩大同类权重网格。
 下一步应改成 target enrichment、rebound 状态标签扩展、或 state-conditioned
