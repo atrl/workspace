@@ -57,9 +57,14 @@ Knowledge retrieval must be scoped by task direction.
 
 - Reuse the existing active workpad instead of scattering status across random
   notes.
-- Keep the workpad current for active cross-session tasks, but do not add
-  single-run experiment conclusions there by default. For one-off experiments,
-  put the conclusion in the corresponding runtime notebook instead.
+- Keep the workpad current only for active cross-session coordination,
+  production operations, or durable task-state changes. If an experiment,
+  diagnostic, backtest, parameter screen, or model-selection loop is fully
+  contained in a runtime notebook, leave `docs/active_workpad.md` unchanged by
+  default.
+- Do not add single-run experiment conclusions to the workpad by default. Put
+  the executable workflow, special-case logic, metrics, and conclusion in the
+  corresponding runtime notebook instead.
 - Capture baseline or reproduction evidence before changing code when the task
   depends on a behavior change.
 - A task is not complete until the repository contains the proof of work.
@@ -70,6 +75,9 @@ Knowledge retrieval must be scoped by task direction.
   follow-up turns. Treat the user's preference as: "尽量都到 ipynb" unless the
   task is purely code maintenance, operational startup, or explicitly asks for
   another artifact.
+- This default applies even when the user gives a terse continuation prompt.
+  Start from the relevant runtime notebook surface unless the task clearly
+  requires a shared code or production change first.
 - Do not wait for the user to repeat this preference. Experiments, diagnostics,
   factor screens, model/reward/network trials, broker-data audits, backtests,
   parameter screens, and one-off analyses should put the executable workflow and
