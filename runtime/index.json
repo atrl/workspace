@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-25T10:11:27.566176+00:00",
+  "generated_at": "2026-05-25T10:32:18.025146+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -5604,6 +5604,36 @@
       "category": "model_selection",
       "suffix": ".json",
       "bytes": 528
+    },
+    {
+      "path": "runtime/model_selection/card/state_objective_bc_warm_start_v1/action_distribution.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 146
+    },
+    {
+      "path": "runtime/model_selection/card/state_objective_bc_warm_start_v1/profile_label_comparison.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 300
+    },
+    {
+      "path": "runtime/model_selection/card/state_objective_bc_warm_start_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 907
+    },
+    {
+      "path": "runtime/model_selection/card/state_objective_bc_warm_start_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1824
+    },
+    {
+      "path": "runtime/model_selection/card/state_objective_bc_warm_start_v1/target_position_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 572
     },
     {
       "path": "runtime/model_selection/card/state_objective_checkpoint_selection_v1/checkpoint_objective_scores.csv",

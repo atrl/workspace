@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import random
 from dataclasses import replace
-from typing import Iterable
+from typing import Iterable, Mapping
 
 import numpy as np
 import pandas as pd
@@ -309,6 +309,205 @@ def budget_usage_action_label_from_position(
     else:
         usage = (float(position) - floor) / (cap - floor)
     return budget_usage_action_label(usage, n_actions)
+
+
+def _truthy_target_flag(value: object) -> bool:
+    try:
+        if value is None or pd.isna(value):
+            return False
+    except (TypeError, ValueError):
+        pass
+    if isinstance(value, str):
+        return value.strip().lower() in {"1", "true", "yes", "y"}
+    return bool(value)
+
+
+def state_objective_target_position_from_row(row: Mapping[str, object]) -> float:
+    """Choose the state-objective target position for one target row.
+
+    Downtrend risk caps take precedence over rebound participation floors. That
+    keeps the warm-start objective aligned with the drawdown gate before it tries
+    to improve rebound capture.
+    """
+
+    if _truthy_target_flag(row.get("is_downtrend_state", False)):
+        return float(row["risk_target_position"])
+    if _truthy_target_flag(row.get("is_rebound_cluster", False)):
+        return float(row["rebound_target_position"])
+    return float(row["teacher_position"])
+
+
+def state_objective_action_label_from_position(
+    target_position: float,
+    obs: np.ndarray,
+    profile: StrategyConfig,
+    *,
+    current_drawdown: float = 0.0,
+    mode_name: str | None = None,
+) -> int:
+    """Map a target position to the nearest action under the profile interpreter."""
+
+    action_levels = action_levels_for_profile(profile)
+    action_count = len(profile.model.delta_levels) if profile.model.use_hybrid_overlay else len(action_levels)
+    delta_levels = (
+        np.asarray(profile.model.delta_levels, dtype=np.float32)
+        if profile.model.use_hybrid_overlay
+        else None
+    )
+    active_mode_band = (
+        mode_band(mode_name, profile.mode_router)
+        if mode_name and profile.mode_router and getattr(profile.mode_router, "enabled", False)
+        else None
+    )
+    interpreted = [
+        target_position_for_profile(
+            action,
+            obs,
+            config=profile.position_cap,
+            action_levels=action_levels,
+            hard_floor=profile.model.hard_floor,
+            use_hybrid_overlay=profile.model.use_hybrid_overlay,
+            delta_levels=delta_levels,
+            mode_band=active_mode_band,
+            position_budget_config=profile.position_budget,
+            current_drawdown=float(current_drawdown),
+            position_mapping=profile.model.position_mapping,
+        )
+        for action in range(action_count)
+    ]
+    target = float(np.clip(target_position, 0.0, 1.0))
+    return int(np.argmin(np.abs(np.asarray(interpreted, dtype=np.float32) - target)))
+
+
+def build_state_objective_warm_start_dataset_from_frame(
+    df: pd.DataFrame,
+    targets: pd.DataFrame,
+    profile: StrategyConfig,
+    sample_size: int = 2000,
+    rng_seed: int = 0,
+    asset_idx: int = 0,
+) -> tuple[np.ndarray, np.ndarray]:
+    """Build BC labels from state-objective training targets.
+
+    The target table may contain multiple objective windows for the same date;
+    the highest-weight target wins. Callers remain responsible for passing only
+    non-leaking target rows when the resulting dataset is used for promotion.
+    """
+
+    if len(df) <= LOOKBACK + 2:
+        raise ValueError("state-objective warm-start requires a frame longer than LOOKBACK")
+    required = {
+        "datetime",
+        "teacher_position",
+        "rebound_target_position",
+        "risk_target_position",
+        "objective_weight",
+        "is_rebound_cluster",
+        "is_downtrend_state",
+    }
+    missing = required.difference(targets.columns)
+    if missing:
+        raise ValueError(f"state-objective targets missing required columns: {sorted(missing)}")
+
+    target_frame = targets[list(required)].copy()
+    target_frame["datetime"] = pd.to_datetime(target_frame["datetime"])
+    target_frame["objective_weight"] = pd.to_numeric(
+        target_frame["objective_weight"],
+        errors="coerce",
+    ).fillna(0.0)
+    target_frame["state_objective_target_position"] = [
+        state_objective_target_position_from_row(row)
+        for row in target_frame.to_dict("records")
+    ]
+    target_frame = (
+        target_frame.sort_values(["datetime", "objective_weight"], ascending=[True, False])
+        .drop_duplicates("datetime", keep="first")
+        .reset_index(drop=True)
+    )
+    label_by_date = {
+        pd.Timestamp(row["datetime"]).normalize(): float(row["state_objective_target_position"])
+        for _, row in target_frame.iterrows()
+    }
+
+    def row_date(idx: int) -> pd.Timestamp:
+        if "datetime" in df.columns:
+            return pd.Timestamp(df.iloc[idx]["datetime"]).normalize()
+        return pd.Timestamp(df.index[idx]).normalize()
+
+    feature_columns = feature_columns_for_packs(profile.feature.packs, profile.name)
+    price_path = build_price_path(df)
+    cash = 100_000.0
+    peak = cash
+    pos = 0.0
+    ledger = TrancheLedger()
+    mode_state = ModeState()
+    obs_list: list[np.ndarray] = []
+    action_list: list[int] = []
+
+    for idx in range(LOOKBACK, len(df) - 1):
+        date = row_date(idx)
+        if date not in label_by_date:
+            continue
+        obs = make_observation(
+            df,
+            idx,
+            pos,
+            cash,
+            peak,
+            ledger,
+            price_path,
+            asset_idx=asset_idx,
+            observation_window=profile.model.observation_window,
+            feature_columns=feature_columns,
+        )
+        mode_name = None
+        if profile.mode_router and getattr(profile.mode_router, "enabled", False):
+            mode_state = route_mode(obs, mode_state, profile.mode_router)
+            mode_name = mode_state.name
+        current_drawdown = max(1.0 - cash / max(peak, 1e-8), 0.0)
+        label = state_objective_action_label_from_position(
+            label_by_date[date],
+            obs,
+            profile,
+            current_drawdown=current_drawdown,
+            mode_name=mode_name,
+        )
+        obs_list.append(obs)
+        action_list.append(label)
+
+        realized_pos = target_position_for_profile(
+            label,
+            obs,
+            config=profile.position_cap,
+            action_levels=action_levels_for_profile(profile),
+            hard_floor=profile.model.hard_floor,
+            use_hybrid_overlay=profile.model.use_hybrid_overlay,
+            delta_levels=np.asarray(profile.model.delta_levels, dtype=np.float32)
+            if profile.model.use_hybrid_overlay
+            else None,
+            mode_band=mode_band(mode_name, profile.mode_router)
+            if mode_name and profile.mode_router and getattr(profile.mode_router, "enabled", False)
+            else None,
+            position_budget_config=profile.position_budget,
+            current_drawdown=current_drawdown,
+            position_mapping=profile.model.position_mapping,
+        )
+        next_ret = float(df.iloc[idx + 1]["return"])
+        cash *= 1.0 + realized_pos * next_ret
+        peak = max(peak, cash)
+        ledger.update(pos, realized_pos, float(price_path[idx]))
+        pos = realized_pos
+
+    if not obs_list:
+        raise RuntimeError("state-objective warm-start produced 0 samples")
+
+    if sample_size > 0 and len(obs_list) > sample_size:
+        rng = random.Random(rng_seed)
+        indices = sorted(rng.sample(range(len(obs_list)), int(sample_size)))
+        obs_list = [obs_list[i] for i in indices]
+        action_list = [action_list[i] for i in indices]
+
+    return np.stack(obs_list, axis=0), np.asarray(action_list, dtype=np.int64)
 
 
 def build_budget_usage_oracle_dataset_from_frame(
@@ -665,8 +864,11 @@ __all__ = [
     "build_budget_usage_oracle_dataset_from_frame",
     "build_mode_conditioned_budget_usage_oracle_dataset_from_frame",
     "build_budget_usage_warm_start_dataset_from_frame",
+    "build_state_objective_warm_start_dataset_from_frame",
     "build_initial_states",
     "build_policy",
     "build_warm_start_dataset",
+    "state_objective_action_label_from_position",
+    "state_objective_target_position_from_row",
     "supervised_pretrain",
 ]

@@ -1,0 +1,4 @@
+profile,obs_dim,samples,unique_actions,dominant_action,dominant_action_share,action_entropy
+risk_budget_usage_v1,315,755,5,0,0.42251655629139073,1.3000361640895746
+balanced,79,755,10,0,0.9112582781456954,0.4426359982738004
+balanced_rule_residual_v22,340,755,5,0,0.9708609271523179,0.1557053035708703

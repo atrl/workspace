@@ -11,8 +11,11 @@ from src.soxl_quant.policy.policy_builder import (
     budget_usage_action_label,
     budget_usage_action_label_from_position,
     build_budget_usage_oracle_dataset_from_frame,
+    build_state_objective_warm_start_dataset_from_frame,
     build_mode_conditioned_budget_usage_oracle_dataset_from_frame,
     build_budget_usage_warm_start_dataset_from_frame,
+    state_objective_action_label_from_position,
+    state_objective_target_position_from_row,
 )
 from src.soxl_quant.policy.mode_conditioning import MODE_ONE_HOT_ORDER, append_mode_one_hot
 from src.soxl_quant.policy.observation import observation_dim_for_profile
@@ -163,6 +166,80 @@ def test_budget_usage_bc_dataset_uses_expert_fast_position_as_usage_label():
     assert high_actions.min() > low_actions.max()
 
 
+def test_state_objective_target_position_prioritizes_risk_cap_then_rebound_floor():
+    assert (
+        state_objective_target_position_from_row(
+            {
+                "teacher_position": 0.60,
+                "rebound_target_position": 0.55,
+                "risk_target_position": 0.25,
+                "is_rebound_cluster": True,
+                "is_downtrend_state": True,
+            }
+        )
+        == 0.25
+    )
+    assert (
+        state_objective_target_position_from_row(
+            {
+                "teacher_position": 0.10,
+                "rebound_target_position": 0.35,
+                "risk_target_position": 0.10,
+                "is_rebound_cluster": True,
+                "is_downtrend_state": False,
+            }
+        )
+        == 0.35
+    )
+    assert (
+        state_objective_target_position_from_row(
+            {
+                "teacher_position": 0.40,
+                "rebound_target_position": 0.60,
+                "risk_target_position": 0.20,
+                "is_rebound_cluster": False,
+                "is_downtrend_state": False,
+            }
+        )
+        == 0.40
+    )
+
+
+def test_state_objective_action_label_maps_target_position_through_profile_interpreter():
+    profile = load_profile("balanced")
+    obs = np.zeros(observation_dim_for_profile(profile), dtype=np.float32)
+
+    assert state_objective_action_label_from_position(0.33, obs, profile) == 0
+    assert state_objective_action_label_from_position(0.88, obs, profile) == 9
+
+
+def test_state_objective_warm_start_dataset_uses_highest_weight_target_per_date():
+    profile = load_profile("balanced")
+    frame = _sample_frame()
+    dates = frame["datetime"].iloc[LOOKBACK : LOOKBACK + 4].to_numpy()
+    targets = pd.DataFrame(
+        {
+            "datetime": [dates[0], dates[0], dates[1], dates[2]],
+            "teacher_position": [0.20, 0.20, 0.10, 0.40],
+            "rebound_target_position": [0.20, 0.70, 0.35, 0.40],
+            "risk_target_position": [0.20, 0.70, 0.10, 0.25],
+            "objective_weight": [1.0, 5.0, 2.0, 3.0],
+            "is_rebound_cluster": [False, True, True, False],
+            "is_downtrend_state": [False, False, False, True],
+        }
+    )
+
+    obs, actions = build_state_objective_warm_start_dataset_from_frame(
+        frame,
+        targets=targets,
+        profile=profile,
+        sample_size=0,
+    )
+
+    assert obs.shape[0] == 3
+    assert actions.tolist() == [4, 0, 0]
+
+
 if __name__ == "__main__":
     test_budget_usage_action_label_maps_usage_to_nearest_discrete_action()
     test_budget_usage_action_label_from_position_uses_mode_band()
@@ -171,4 +248,7 @@ if __name__ == "__main__":
     test_append_mode_one_hot_marks_requested_mode()
     test_usage_target_from_position_uses_mode_band()
     test_budget_usage_bc_dataset_uses_expert_fast_position_as_usage_label()
+    test_state_objective_target_position_prioritizes_risk_cap_then_rebound_floor()
+    test_state_objective_action_label_maps_target_position_through_profile_interpreter()
+    test_state_objective_warm_start_dataset_uses_highest_weight_target_per_date()
     print("test_budget_usage_bc: OK")
