@@ -1,0 +1,55 @@
+{
+  "experiment": "gate_gap_failure_attribution_v1",
+  "decision": "diagnostic_no_promotion",
+  "target": {
+    "relative_return_min_pp": 30.0,
+    "max_dd_max_pct": 15.0
+  },
+  "latest_profile": "state_conditioned_drawdown_rebound_reward_train_v1",
+  "latest_dominant_failure_type": "joint_tradeoff",
+  "recommended_next_mechanism": "walk_forward_weighted_multi_objective_selection",
+  "avoid": [
+    "another stronger global reward penalty",
+    "promotion based on wf_2023_2024 near miss only",
+    "directly promoting feature deltas without IC and walk-forward checks"
+  ],
+  "next_valid_loop": [
+    "walk-forward weighted multi-objective selector/training objective",
+    "state-conditioned rebound participation with drawdown-state guard",
+    "SOXX/SOXL spread factor notebook before feature promotion"
+  ],
+  "artifacts": {
+    "notebook": "runtime/model_selection/card/gate_gap_failure_attribution_v1/gate_gap_failure_attribution_v1.ipynb",
+    "coverage": "runtime/model_selection/card/gate_gap_failure_attribution_v1/selection_metric_coverage.csv",
+    "skipped": "runtime/model_selection/card/gate_gap_failure_attribution_v1/selection_metric_skipped.csv",
+    "gate_gaps": "runtime/model_selection/card/gate_gap_failure_attribution_v1/gate_gap_attribution.csv",
+    "profile_summary": "runtime/model_selection/card/gate_gap_failure_attribution_v1/gate_gap_profile_summary.csv",
+    "mechanism_summary": "runtime/model_selection/card/gate_gap_failure_attribution_v1/mechanism_summary.csv",
+    "poor_window_cluster_context": "runtime/model_selection/card/gate_gap_failure_attribution_v1/poor_window_cluster_context.csv",
+    "feature_delta_context": "runtime/model_selection/card/gate_gap_failure_attribution_v1/feature_delta_context.csv",
+    "review": "runtime/model_selection/card/gate_gap_failure_attribution_v1/gate_gap_review.md",
+    "runtime_conclusion": "runtime/model_selection/card/gate_gap_failure_attribution_v1/runtime_conclusion.md"
+  },
+  "external_references": [
+    {
+      "label": "Microsoft Qlib",
+      "url": "https://github.com/microsoft/qlib",
+      "note": "repo workflow and reproducible quant platform boundary"
+    },
+    {
+      "label": "Qlib arXiv",
+      "url": "https://arxiv.org/abs/2009.11189",
+      "note": "AI-oriented quantitative investment workflow"
+    },
+    {
+      "label": "Deflated Sharpe Ratio",
+      "url": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2460551",
+      "note": "multiple-testing / selection-bias control"
+    },
+    {
+      "label": "Probability of Backtest Overfitting",
+      "url": "https://www.davidhbailey.com/dhbpapers/backtest-overfitting.pdf",
+      "note": "walk-forward and PBO-style anti-overfit guard"
+    }
+  ]
+}

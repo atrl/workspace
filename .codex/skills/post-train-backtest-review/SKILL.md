@@ -124,6 +124,8 @@ top feature group 判断是 underparticipation、drawdown control、还是 selec
 PYTHONPATH=src:. qlib_venv/bin/python scripts/aggregate_oos_poor_windows.py \
   --input-dir runtime/<direction>/card/<label_a> --label <label_a> \
   --input-dir runtime/<direction>/card/<label_b> --label <label_b> \
+  --selection-json runtime/<direction>/card/<label_a>/selection.json --selection-label <label_a> \
+  --selection-json runtime/<direction>/card/<label_b>/selection.json --selection-label <label_b> \
   --output-dir runtime/model_selection/card/<aggregate_label>/aggregate \
   --target-excess 30 \
   --target-max-dd 15
@@ -131,6 +133,16 @@ PYTHONPATH=src:. qlib_venv/bin/python scripts/aggregate_oos_poor_windows.py \
 
 输出的 `poor_window_clusters.csv` 负责决定下一步机制；`feature_delta_clusters.csv`
 只负责生成待 IC / 单信号 / walk-forward 验证的特征假设。
+如果传入 `--selection-json`，脚本还会写出 `gate_gap_attribution.csv` 与
+`gate_gap_profile_summary.csv`。这些表用于判断每个 profile/window 是
+`joint_tradeoff`、`drawdown_control`、`underparticipation`、`trend_capture`、
+`near_miss_drawdown` 还是 `selection_bias`，并给出下一步机制建议。
+
+当最新分支只有某个 walk-forward 窗口 near miss，但 `test_proxy`、`wf_2020`
+或 `wf_2022` 仍是 `joint_tradeoff` / `drawdown_control` 时，不要把 near miss
+当 promotion 证据；下一步应优先做 walk-forward-weighted multi-objective
+selection/training objective，或 state-conditioned participation + drawdown guard。
+不要继续加重同类全局 reward penalty。
 
 ### 4. Explain with mechanism, not adjectives
 

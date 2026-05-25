@@ -16,6 +16,10 @@ sys.path.insert(0, str(ROOT))
 from src.soxl_quant.app.oos_diagnostics import (  # noqa: E402
     aggregate_feature_differences,
     aggregate_poor_windows,
+    attribute_gate_gaps,
+    normalise_gate_metrics_from_selection,
+    render_gate_gap_review,
+    summarize_gate_gap_attribution,
 )
 
 
@@ -38,6 +42,19 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--target-excess", type=float, default=30.0)
     parser.add_argument("--target-max-dd", type=float, default=15.0)
     parser.add_argument("--top-features", type=int, default=30)
+    parser.add_argument(
+        "--selection-json",
+        action="append",
+        default=[],
+        type=Path,
+        help="Optional runtime selection.json to classify profile/window gate misses. Repeat for multiple profiles.",
+    )
+    parser.add_argument(
+        "--selection-label",
+        action="append",
+        default=[],
+        help="Optional label for each --selection-json. Defaults to the selection parent directory name.",
+    )
     return parser.parse_args()
 
 
@@ -55,7 +72,12 @@ def _read_csv(path: Path) -> pd.DataFrame:
     return pd.read_csv(path)
 
 
-def _render_review(clusters: pd.DataFrame, features: pd.DataFrame) -> str:
+def _render_review(
+    clusters: pd.DataFrame,
+    features: pd.DataFrame,
+    gate_gaps: pd.DataFrame | None = None,
+    gate_summary: pd.DataFrame | None = None,
+) -> str:
     lines = [
         "# Aggregated OOS Poor-Window Diagnostic",
         "",
@@ -105,12 +127,15 @@ def _render_review(clusters: pd.DataFrame, features: pd.DataFrame) -> str:
             "- Treat feature deltas as mechanism hypotheses until they pass IC, single-signal, and walk-forward gates.",
         ]
     )
+    if gate_gaps is not None and gate_summary is not None:
+        lines.extend(["", render_gate_gap_review(gate_gaps, gate_summary).strip()])
     return "\n".join(lines).rstrip() + "\n"
 
 
 def main() -> int:
     args = parse_args()
     labels = _labels(args.input_dir, args.label)
+    selection_labels = _labels(args.selection_json, args.selection_label) if args.selection_json else []
     windows_by_profile: dict[str, pd.DataFrame] = {}
     features_by_profile: dict[str, pd.DataFrame] = {}
     for label, directory in zip(labels, args.input_dir, strict=True):
@@ -123,6 +148,16 @@ def main() -> int:
         target_max_dd=args.target_max_dd,
     )
     features = aggregate_feature_differences(features_by_profile, top_n=args.top_features)
+    metrics_by_profile: dict[str, dict[str, dict[str, float]]] = {}
+    for label, selection_path in zip(selection_labels, args.selection_json, strict=True):
+        selection = json.loads(selection_path.read_text(encoding="utf-8"))
+        metrics_by_profile[label] = normalise_gate_metrics_from_selection(selection)
+    gate_gaps = attribute_gate_gaps(
+        metrics_by_profile,
+        target_relative_return=args.target_excess,
+        target_max_dd=args.target_max_dd,
+    )
+    gate_summary = summarize_gate_gap_attribution(gate_gaps)
 
     args.output_dir.mkdir(parents=True, exist_ok=True)
     cluster_path = args.output_dir / "poor_window_clusters.csv"
@@ -131,10 +166,28 @@ def main() -> int:
     manifest_path = args.output_dir / "manifest.json"
     clusters.to_csv(cluster_path, index=False)
     features.to_csv(feature_path, index=False)
-    review_path.write_text(_render_review(clusters, features), encoding="utf-8")
+    if args.selection_json:
+        gate_gap_path = args.output_dir / "gate_gap_attribution.csv"
+        gate_summary_path = args.output_dir / "gate_gap_profile_summary.csv"
+        gate_gaps.to_csv(gate_gap_path, index=False)
+        gate_summary.to_csv(gate_summary_path, index=False)
+    else:
+        gate_gap_path = None
+        gate_summary_path = None
+    review_path.write_text(
+        _render_review(
+            clusters,
+            features,
+            gate_gaps if args.selection_json else None,
+            gate_summary if args.selection_json else None,
+        ),
+        encoding="utf-8",
+    )
     manifest = {
         "input_dirs": [str(path) for path in args.input_dir],
         "labels": labels,
+        "selection_json": [str(path) for path in args.selection_json],
+        "selection_labels": selection_labels,
         "target_excess": args.target_excess,
         "target_max_dd": args.target_max_dd,
         "artifacts": {
@@ -144,11 +197,16 @@ def main() -> int:
         },
         "cluster_count": int(len(clusters)),
         "feature_count": int(len(features)),
+        "gate_gap_count": int(len(gate_gaps)),
     }
+    if gate_gap_path is not None and gate_summary_path is not None:
+        manifest["artifacts"]["gate_gaps"] = str(gate_gap_path)
+        manifest["artifacts"]["gate_summary"] = str(gate_summary_path)
     manifest_path.write_text(json.dumps(manifest, ensure_ascii=True, indent=2), encoding="utf-8")
     print(
         "oos_aggregate "
-        f"profiles={len(labels)} clusters={len(clusters)} features={len(features)} output={args.output_dir}"
+        f"profiles={len(labels)} clusters={len(clusters)} features={len(features)} "
+        f"gate_gaps={len(gate_gaps)} output={args.output_dir}"
     )
     return 0
 

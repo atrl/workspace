@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-25T06:44:04.343013+00:00",
+  "generated_at": "2026-05-25T07:41:43.127011+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -5154,6 +5154,66 @@
       "category": "model_selection",
       "suffix": ".csv",
       "bytes": 1151
+    },
+    {
+      "path": "runtime/model_selection/card/gate_gap_failure_attribution_v1/feature_delta_context.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 3824
+    },
+    {
+      "path": "runtime/model_selection/card/gate_gap_failure_attribution_v1/gate_gap_attribution.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 6052
+    },
+    {
+      "path": "runtime/model_selection/card/gate_gap_failure_attribution_v1/gate_gap_profile_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 808
+    },
+    {
+      "path": "runtime/model_selection/card/gate_gap_failure_attribution_v1/gate_gap_review.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 4995
+    },
+    {
+      "path": "runtime/model_selection/card/gate_gap_failure_attribution_v1/mechanism_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 462
+    },
+    {
+      "path": "runtime/model_selection/card/gate_gap_failure_attribution_v1/poor_window_cluster_context.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1310
+    },
+    {
+      "path": "runtime/model_selection/card/gate_gap_failure_attribution_v1/runtime_conclusion.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 1727
+    },
+    {
+      "path": "runtime/model_selection/card/gate_gap_failure_attribution_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2711
+    },
+    {
+      "path": "runtime/model_selection/card/gate_gap_failure_attribution_v1/selection_metric_coverage.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1054
+    },
+    {
+      "path": "runtime/model_selection/card/gate_gap_failure_attribution_v1/selection_metric_skipped.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 341
     },
     {
       "path": "runtime/model_selection/card/oos_poor_window_factor_diff_aggregate_v1/aggregate/aggregate_oos_review.md",

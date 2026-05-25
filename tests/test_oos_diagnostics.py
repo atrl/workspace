@@ -10,10 +10,14 @@ import pandas as pd
 from src.soxl_quant.app.oos_diagnostics import (
     aggregate_feature_differences,
     aggregate_poor_windows,
+    attribute_gate_gaps,
     classify_poor_window,
     compute_feature_differences,
     find_poor_windows,
+    normalise_gate_metrics_from_selection,
+    render_gate_gap_review,
     render_oos_diagnostic_review,
+    summarize_gate_gap_attribution,
 )
 
 
@@ -208,6 +212,141 @@ def test_aggregate_feature_differences_keeps_consistent_direction():
     assert by_feature.index[0] == "mom_21"
 
 
+def test_normalise_gate_metrics_from_selection_handles_reward_and_selector_shapes():
+    reward_selection = {
+        "metrics": {
+            "test_proxy": {
+                "return": 619.7,
+                "buy_and_hold_return": 2542.0,
+                "relative_return": -1470.0,
+                "max_dd": 43.6,
+                "avg_pos": 0.38,
+            },
+            "walkforward": [
+                {
+                    "label": "wf_2023_2024",
+                    "return": -3.2,
+                    "buy_and_hold_return": -40.0,
+                    "relative_return": 37.0,
+                    "max_dd": 15.2,
+                    "avg_pos": 0.16,
+                }
+            ],
+        }
+    }
+    selector_selection = {
+        "selected_metrics": {
+            "strict_oos": {
+                "return": 1667.8,
+                "buy_and_hold_return": 816.5,
+                "relative_return": 851.3,
+                "max_dd": 43.5,
+                "avg_pos": 0.45,
+            }
+        }
+    }
+
+    reward_metrics = normalise_gate_metrics_from_selection(reward_selection)
+    selector_metrics = normalise_gate_metrics_from_selection(selector_selection)
+
+    assert sorted(reward_metrics) == ["test_proxy", "wf_2023_2024"]
+    assert reward_metrics["wf_2023_2024"]["relative_return"] == 37.0
+    assert selector_metrics["strict_oos"]["max_dd"] == 43.5
+
+
+def test_normalise_gate_metrics_from_selection_handles_top_level_slices_and_pbo_rows():
+    selection = {
+        "test_proxy": {
+            "return": 496.8,
+            "buy_and_hold_return": 2542.0,
+            "relative_return": -2107.5,
+            "max_dd": 44.2,
+            "avg_pos": 0.27,
+        },
+        "slices": {
+            "test_2020": {
+                "return": 51.0,
+                "buy_and_hold_return": 355.7,
+                "relative_return": -304.7,
+                "max_dd": 21.4,
+                "avg_pos": 0.30,
+            }
+        },
+        "walk_forward": {
+            "wf_2020": {
+                "test_proxy": {
+                    "return": 50.1,
+                    "buy_and_hold_return": 355.7,
+                    "relative_return": -304.7,
+                    "max_dd": 23.1,
+                    "avg_pos": 0.30,
+                }
+            }
+        },
+        "window_best_rows": [
+            {
+                "window": "wf_2022",
+                "best_oos_relative_return": 65.6,
+                "best_oos_max_dd": 30.7,
+            }
+        ],
+    }
+
+    metrics = normalise_gate_metrics_from_selection(selection)
+
+    assert sorted(metrics) == ["test_2020", "test_proxy", "wf_2020", "wf_2022"]
+    assert metrics["wf_2020"]["relative_return"] == -304.7
+    assert metrics["wf_2022"]["relative_return"] == 65.6
+    assert metrics["wf_2022"]["max_dd"] == 30.7
+
+
+def test_attribute_gate_gaps_classifies_near_miss_joint_tradeoff_and_summary():
+    rows = attribute_gate_gaps(
+        {
+            "state_reward": {
+                "test_proxy": {
+                    "return": 619.7,
+                    "buy_and_hold_return": 2542.0,
+                    "relative_return": -1470.0,
+                    "max_dd": 43.6,
+                    "avg_pos": 0.38,
+                },
+                "wf_2023_2024": {
+                    "return": -3.2,
+                    "buy_and_hold_return": -40.0,
+                    "relative_return": 37.0,
+                    "max_dd": 15.2,
+                    "avg_pos": 0.16,
+                },
+                "wf_2022": {
+                    "return": -23.3,
+                    "buy_and_hold_return": -76.6,
+                    "relative_return": 45.1,
+                    "max_dd": 29.1,
+                    "avg_pos": 0.24,
+                },
+            }
+        },
+        target_relative_return=30.0,
+        target_max_dd=15.0,
+    )
+    by_window = rows.set_index("window")
+
+    assert by_window.loc["test_proxy", "failure_type"] == "joint_tradeoff"
+    assert by_window.loc["wf_2023_2024", "failure_type"] == "near_miss_drawdown"
+    assert by_window.loc["wf_2022", "failure_type"] == "drawdown_control"
+
+    summary = summarize_gate_gap_attribution(rows)
+    assert summary.iloc[0]["profile"] == "state_reward"
+    assert summary.iloc[0]["dominant_failure_type"] == "joint_tradeoff"
+    assert summary.iloc[0]["recommended_next_mechanism"] == "walk_forward_weighted_multi_objective_selection"
+
+    review = render_gate_gap_review(rows, summary)
+    assert "Gate-Gap Failure Attribution" in review
+    assert "state_reward" in review
+    assert "walk_forward_weighted_multi_objective_selection" in review
+
+
 def test_aggregate_oos_script_writes_cluster_and_feature_outputs():
     with tempfile.TemporaryDirectory() as tmp:
         tmp_path = Path(tmp)
@@ -232,6 +371,23 @@ def test_aggregate_oos_script_writes_cluster_and_feature_outputs():
                 "spearman_to_excess": [-0.2],
             }
         ).to_csv(source / "feature_differences.csv", index=False)
+        selection_path = tmp_path / "selection.json"
+        selection_path.write_text(
+            """
+            {
+              "metrics": {
+                "test_proxy": {
+                  "return": 619.7,
+                  "buy_and_hold_return": 2542.0,
+                  "relative_return": -1470.0,
+                  "max_dd": 43.6,
+                  "avg_pos": 0.38
+                }
+              }
+            }
+            """,
+            encoding="utf-8",
+        )
         output = tmp_path / "out"
 
         result = subprocess.run(
@@ -242,6 +398,10 @@ def test_aggregate_oos_script_writes_cluster_and_feature_outputs():
                 str(source),
                 "--label",
                 "demo",
+                "--selection-json",
+                str(selection_path),
+                "--selection-label",
+                "demo_selection",
                 "--output-dir",
                 str(output),
             ],
@@ -254,4 +414,7 @@ def test_aggregate_oos_script_writes_cluster_and_feature_outputs():
         assert "oos_aggregate" in result.stdout
         assert (output / "poor_window_clusters.csv").exists()
         assert (output / "feature_delta_clusters.csv").exists()
+        assert (output / "gate_gap_attribution.csv").exists()
+        assert (output / "gate_gap_profile_summary.csv").exists()
         assert pd.read_csv(output / "poor_window_clusters.csv").iloc[0]["dominant_failure_type"] == "underparticipation"
+        assert pd.read_csv(output / "gate_gap_attribution.csv").iloc[0]["failure_type"] == "joint_tradeoff"

@@ -169,6 +169,369 @@ def _optimization_path(failure_type: str) -> str:
     }.get(failure_type, "regime_router_or_joint_objective")
 
 
+def _gate_optimization_path(failure_type: str) -> str:
+    return {
+        "pass": "none",
+        "near_miss_drawdown": "cap_calibration_or_execution_friction",
+        "near_miss_relative": "checkpoint_or_model_selection",
+        "underparticipation": "participation_or_reentry_objective",
+        "trend_capture": "trend_participation_floor_or_bull_guard",
+        "drawdown_control": "drawdown_controller_or_sequence_risk_feature",
+        "joint_tradeoff": "walk_forward_weighted_multi_objective_selection",
+        "selection_bias": "checkpoint_or_model_selection",
+        "generalization_gap": "walk_forward_weighted_checkpoint_selection",
+    }.get(failure_type, "walk_forward_weighted_multi_objective_selection")
+
+
+def _empty_gate_gap_frame() -> pd.DataFrame:
+    return pd.DataFrame(
+        columns=[
+            "profile",
+            "window",
+            "return",
+            "buy_and_hold_return",
+            "relative_return",
+            "sharpe",
+            "max_dd",
+            "avg_pos",
+            "relative_gap",
+            "max_dd_gap",
+            "relative_pass",
+            "maxdd_pass",
+            "gate_pass",
+            "failure_type",
+            "severity_score",
+            "primary_optimization_path",
+        ]
+    )
+
+
+def _empty_gate_summary_frame() -> pd.DataFrame:
+    return pd.DataFrame(
+        columns=[
+            "profile",
+            "window_count",
+            "gate_pass_count",
+            "failure_count",
+            "dominant_failure_type",
+            "worst_window",
+            "max_severity_score",
+            "recommended_next_mechanism",
+        ]
+    )
+
+
+def _optional_float(value: object) -> float | None:
+    if isinstance(value, bool) or value is None:
+        return None
+    try:
+        out = float(value)
+    except (TypeError, ValueError):
+        return None
+    if pd.isna(out):
+        return None
+    return out
+
+
+def _normalise_gate_metric(metric: Mapping[str, object]) -> dict[str, float]:
+    aliases = {
+        "best_oos_relative_return": "relative_return",
+        "best_oos_max_dd": "max_dd",
+        "selected_relative_return": "relative_return",
+        "selected_max_dd": "max_dd",
+    }
+    fields = [
+        "return",
+        "buy_and_hold_return",
+        "relative_return",
+        "sharpe",
+        "max_dd",
+        "avg_pos",
+        "stress_avg_pos",
+        "turnover",
+        "trades",
+        "changed_vs_base_days",
+    ]
+    out: dict[str, float] = {}
+    for field in fields:
+        value = _optional_float(metric.get(field))
+        if value is not None:
+            out[field] = value
+    for source, target in aliases.items():
+        if target not in out:
+            value = _optional_float(metric.get(source))
+            if value is not None:
+                out[target] = value
+    if "relative_return" not in out and "return" in out and "buy_and_hold_return" in out:
+        out["relative_return"] = out["return"] - out["buy_and_hold_return"]
+    if "relative_return" not in out or "max_dd" not in out:
+        return {}
+    return out
+
+
+def _add_selection_metric(
+    out: dict[str, dict[str, float]],
+    label: str,
+    metric: object,
+) -> None:
+    if not isinstance(metric, Mapping):
+        return
+    metric_label = str(metric.get("label") or label)
+    normalised = _normalise_gate_metric(metric)
+    if normalised:
+        out[metric_label] = normalised
+
+
+def normalise_gate_metrics_from_selection(selection: Mapping[str, object]) -> dict[str, dict[str, float]]:
+    """Extract gate-relevant window metrics from common runtime selection schemas."""
+
+    out: dict[str, dict[str, float]] = {}
+    metrics = selection.get("metrics")
+    if isinstance(metrics, Mapping):
+        for label, metric in metrics.items():
+            if label == "walkforward" and isinstance(metric, Sequence) and not isinstance(metric, (str, bytes)):
+                for idx, item in enumerate(metric):
+                    if isinstance(item, Mapping):
+                        _add_selection_metric(out, str(item.get("label") or f"walkforward_{idx}"), item)
+                continue
+            _add_selection_metric(out, str(label), metric)
+
+    selected_metrics = selection.get("selected_metrics")
+    if isinstance(selected_metrics, Mapping):
+        for label, metric in selected_metrics.items():
+            _add_selection_metric(out, str(label), metric)
+    elif isinstance(selected_metrics, Sequence) and not isinstance(selected_metrics, (str, bytes)):
+        for idx, metric in enumerate(selected_metrics):
+            if isinstance(metric, Mapping):
+                _add_selection_metric(out, str(metric.get("label") or f"selected_{idx}"), metric)
+
+    for label in ("valid", "test_proxy", "strict_oos"):
+        _add_selection_metric(out, label, selection.get(label))
+
+    slices = selection.get("slices")
+    if isinstance(slices, Mapping):
+        for label, metric in slices.items():
+            _add_selection_metric(out, str(label), metric)
+
+    walk_forward = selection.get("walk_forward")
+    if isinstance(walk_forward, Mapping):
+        for label, metric in walk_forward.items():
+            if isinstance(metric, Mapping) and isinstance(metric.get("test_proxy"), Mapping):
+                _add_selection_metric(out, str(label), metric.get("test_proxy"))
+            else:
+                _add_selection_metric(out, str(label), metric)
+
+    window_best_rows = selection.get("window_best_rows")
+    if isinstance(window_best_rows, Sequence) and not isinstance(window_best_rows, (str, bytes)):
+        for idx, metric in enumerate(window_best_rows):
+            if isinstance(metric, Mapping):
+                _add_selection_metric(out, str(metric.get("window") or f"window_best_{idx}"), metric)
+
+    _add_selection_metric(out, "main", selection.get("main"))
+    return out
+
+
+def _classify_gate_gap(
+    *,
+    relative_pass: bool,
+    maxdd_pass: bool,
+    relative_gap: float,
+    max_dd_gap: float,
+    buy_and_hold_return: float,
+    avg_pos: float,
+    near_dd_tolerance: float,
+    near_relative_tolerance: float,
+    low_position: float,
+    participation_position: float,
+    strong_buyhold_return: float,
+) -> str:
+    if relative_pass and maxdd_pass:
+        return "pass"
+    if relative_pass and 0.0 < max_dd_gap <= near_dd_tolerance:
+        return "near_miss_drawdown"
+    if maxdd_pass and 0.0 < relative_gap <= near_relative_tolerance:
+        return "near_miss_relative"
+    if not relative_pass and not maxdd_pass:
+        return "joint_tradeoff"
+    if not maxdd_pass:
+        return "drawdown_control"
+    if buy_and_hold_return >= strong_buyhold_return and avg_pos <= low_position:
+        return "underparticipation"
+    if buy_and_hold_return >= strong_buyhold_return and avg_pos <= participation_position:
+        return "trend_capture"
+    return "selection_bias"
+
+
+def attribute_gate_gaps(
+    metrics_by_profile: Mapping[str, Mapping[str, Mapping[str, object]]],
+    *,
+    target_relative_return: float = 30.0,
+    target_max_dd: float = 15.0,
+    near_dd_tolerance: float = 1.0,
+    near_relative_tolerance: float = 5.0,
+    low_position: float = 0.25,
+    participation_position: float = 0.55,
+    strong_buyhold_return: float = 30.0,
+) -> pd.DataFrame:
+    """Classify per-window promotion-gate misses across profiles.
+
+    This is a gate-level complement to rolling poor-window diagnostics: it uses
+    saved selection/backtest metrics to decide whether the next loop should
+    target participation, drawdown control, or selection discipline.
+    """
+
+    rows: list[dict[str, object]] = []
+    for profile, windows in metrics_by_profile.items():
+        for window, metric in windows.items():
+            normalised = _normalise_gate_metric(metric)
+            if not normalised:
+                continue
+            relative_return = float(normalised["relative_return"])
+            max_dd = float(normalised["max_dd"])
+            buyhold = float(normalised.get("buy_and_hold_return", 0.0))
+            avg_pos = float(normalised.get("avg_pos", 0.0))
+            relative_gap = max(0.0, float(target_relative_return) - relative_return)
+            max_dd_gap = max(0.0, max_dd - float(target_max_dd))
+            relative_pass = relative_gap == 0.0
+            maxdd_pass = max_dd_gap == 0.0
+            failure_type = _classify_gate_gap(
+                relative_pass=relative_pass,
+                maxdd_pass=maxdd_pass,
+                relative_gap=relative_gap,
+                max_dd_gap=max_dd_gap,
+                buy_and_hold_return=buyhold,
+                avg_pos=avg_pos,
+                near_dd_tolerance=near_dd_tolerance,
+                near_relative_tolerance=near_relative_tolerance,
+                low_position=low_position,
+                participation_position=participation_position,
+                strong_buyhold_return=strong_buyhold_return,
+            )
+            rows.append(
+                {
+                    "profile": str(profile),
+                    "window": str(window),
+                    "return": float(normalised.get("return", np.nan)),
+                    "buy_and_hold_return": buyhold,
+                    "relative_return": relative_return,
+                    "sharpe": float(normalised.get("sharpe", np.nan)),
+                    "max_dd": max_dd,
+                    "avg_pos": avg_pos,
+                    "relative_gap": float(relative_gap),
+                    "max_dd_gap": float(max_dd_gap),
+                    "relative_pass": bool(relative_pass),
+                    "maxdd_pass": bool(maxdd_pass),
+                    "gate_pass": bool(relative_pass and maxdd_pass),
+                    "failure_type": failure_type,
+                    "severity_score": float(relative_gap + max_dd_gap * 10.0),
+                    "primary_optimization_path": _gate_optimization_path(failure_type),
+                }
+            )
+    if not rows:
+        return _empty_gate_gap_frame()
+    return pd.DataFrame(rows).sort_values(
+        ["severity_score", "profile", "window"],
+        ascending=[False, True, True],
+    ).reset_index(drop=True)
+
+
+def summarize_gate_gap_attribution(gate_gaps: pd.DataFrame) -> pd.DataFrame:
+    """Summarize gate-gap attribution rows into one recommendation per profile."""
+
+    if gate_gaps.empty:
+        return _empty_gate_summary_frame()
+    rows: list[dict[str, object]] = []
+    for profile, sub in gate_gaps.groupby("profile", sort=True):
+        failures = sub[sub["gate_pass"] == False]  # noqa: E712
+        if failures.empty:
+            dominant = "pass"
+            worst = sub.sort_values("severity_score", ascending=False).iloc[0]
+        else:
+            severity_by_type = failures.groupby("failure_type")["severity_score"].sum().sort_values(ascending=False)
+            dominant = str(severity_by_type.index[0])
+            worst = failures.sort_values("severity_score", ascending=False).iloc[0]
+        rows.append(
+            {
+                "profile": str(profile),
+                "window_count": int(len(sub)),
+                "gate_pass_count": int(sub["gate_pass"].sum()),
+                "failure_count": int(len(failures)),
+                "dominant_failure_type": dominant,
+                "worst_window": str(worst["window"]),
+                "max_severity_score": float(worst["severity_score"]),
+                "recommended_next_mechanism": _gate_optimization_path(dominant),
+            }
+        )
+    return pd.DataFrame(rows).sort_values(
+        ["max_severity_score", "profile"],
+        ascending=[False, True],
+    ).reset_index(drop=True)
+
+
+def render_gate_gap_review(
+    gate_gaps: pd.DataFrame,
+    profile_summary: pd.DataFrame | None = None,
+    *,
+    external_references: Sequence[Mapping[str, str]] | Sequence[ExternalReference] = (),
+) -> str:
+    """Render a human-readable gate-gap attribution review."""
+
+    summary = profile_summary if profile_summary is not None else summarize_gate_gap_attribution(gate_gaps)
+    lines = ["# Gate-Gap Failure Attribution", ""]
+    if external_references:
+        lines.extend(["## External References", "", *_reference_rows(external_references), ""])
+    lines.extend(
+        [
+            "## Profile Summary",
+            "",
+            "| profile | windows | failures | dominant type | worst window | severity | next mechanism |",
+            "| --- | ---: | ---: | --- | --- | ---: | --- |",
+        ]
+    )
+    if summary.empty:
+        lines.append("| none | 0 | 0 | none | none | 0.00 | none |")
+    else:
+        for row in summary.itertuples(index=False):
+            lines.append(
+                "| "
+                f"{row.profile} | {int(row.window_count)} | {int(row.failure_count)} | "
+                f"{row.dominant_failure_type} | {row.worst_window} | "
+                f"{float(row.max_severity_score):.2f} | {row.recommended_next_mechanism} |"
+            )
+
+    lines.extend(
+        [
+            "",
+            "## Window Attribution",
+            "",
+            "| profile | window | rel return | max dd | avg pos | type | path |",
+            "| --- | --- | ---: | ---: | ---: | --- | --- |",
+        ]
+    )
+    if gate_gaps.empty:
+        lines.append("| none | none | 0.00pp | 0.00% | 0.000 | none | none |")
+    else:
+        for row in gate_gaps.itertuples(index=False):
+            lines.append(
+                "| "
+                f"{row.profile} | {row.window} | {float(row.relative_return):.2f}pp | "
+                f"{float(row.max_dd):.2f}% | {float(row.avg_pos):.3f} | "
+                f"{row.failure_type} | {row.primary_optimization_path} |"
+            )
+
+    lines.extend(
+        [
+            "",
+            "## Readout",
+            "",
+            "- Treat joint trade-off rows as evidence against another single-coefficient reward sweep.",
+            "- Use near-miss drawdown rows for cap calibration or execution friction checks before retraining.",
+            "- Use underparticipation or trend-capture rows to justify participation-aware objectives or bull guards.",
+        ]
+    )
+    return "\n".join(lines).rstrip() + "\n"
+
+
 def _empty_cluster_frame() -> pd.DataFrame:
     return pd.DataFrame(
         columns=[
@@ -646,11 +1009,15 @@ __all__ = [
     "ExternalReference",
     "aggregate_feature_differences",
     "aggregate_poor_windows",
+    "attribute_gate_gaps",
     "classify_poor_window",
     "compute_feature_differences",
     "find_poor_windows",
     "load_qlib_feature_frame",
+    "normalise_gate_metrics_from_selection",
+    "render_gate_gap_review",
     "render_oos_diagnostic_review",
     "run_oos_diagnostic",
+    "summarize_gate_gap_attribution",
     "write_diagnostic_artifacts",
 ]
