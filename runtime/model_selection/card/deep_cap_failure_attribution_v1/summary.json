@@ -1,0 +1,166 @@
+{
+  "experiment": "deep_cap_failure_attribution_v1",
+  "decision": "diagnostic_handoff_joint_participation_drawdown_no_promotion",
+  "source_deep_cap_decision": "diagnostic_keep_no_promotion",
+  "source_deep_cap_selected": "deep_cap_m0d30_x0d35_thr0d02_lock3",
+  "deep_cap_current_relative_return": 2902.0852389607585,
+  "deep_cap_current_max_dd": 32.809415244799744,
+  "cluster_count_after_deep_cap": 3,
+  "top_cluster": {
+    "cluster_id": "C002",
+    "cluster_start": "2025-04-04",
+    "cluster_end": "2025-07-22",
+    "profile_count": 6,
+    "window_count": 37,
+    "profiles": "balanced_rule_residual_v19_reg,balanced_rule_residual_v22,current_runtime_paper,deep_capitulation_reentry_guard_v1,drawdown_rebound_reward_train_v1,mode_conditioned_rebound_reward_train_v2",
+    "mean_excess_return": -155.46570836382352,
+    "worst_excess_return": -199.39343705994264,
+    "mean_max_dd": 7.10695157127249,
+    "max_max_dd": 16.3249243359336,
+    "mean_avg_pos": 0.5228524104391594,
+    "mean_bad_score": 162.572659935096,
+    "max_bad_score": 203.42049041719488,
+    "dominant_failure_type": "underparticipation",
+    "primary_optimization_path": "reentry_participation_or_behavior_clone"
+  },
+  "top_features": [
+    {
+      "feature": "vol_of_vol_21",
+      "profile_count": 6,
+      "mean_delta_z": 2.6188357578,
+      "mean_abs_delta_z": 2.6188357578,
+      "direction_consistency": 1.0,
+      "mean_spearman_to_excess": -0.0282620717,
+      "profiles": "balanced_rule_residual_v19_reg,balanced_rule_residual_v22,current_runtime_paper,deep_capitulation_reentry_guard_v1,drawdown_rebound_reward_train_v1,mode_conditioned_rebound_reward_train_v2",
+      "stability_score": 5.0960190799
+    },
+    {
+      "feature": "tracking_error_vol_21",
+      "profile_count": 4,
+      "mean_delta_z": 3.1532689525,
+      "mean_abs_delta_z": 3.1532689525,
+      "direction_consistency": 1.0,
+      "mean_spearman_to_excess": 0.0082940368,
+      "profiles": "balanced_rule_residual_v19_reg,balanced_rule_residual_v22,drawdown_rebound_reward_train_v1,mode_conditioned_rebound_reward_train_v2",
+      "stability_score": 5.0749906002
+    },
+    {
+      "feature": "decay_63",
+      "profile_count": 6,
+      "mean_delta_z": -2.4234237294,
+      "mean_abs_delta_z": 2.4234237294,
+      "direction_consistency": 1.0,
+      "mean_spearman_to_excess": 0.0651612723,
+      "profiles": "balanced_rule_residual_v19_reg,balanced_rule_residual_v22,current_runtime_paper,deep_capitulation_reentry_guard_v1,drawdown_rebound_reward_train_v1,mode_conditioned_rebound_reward_train_v2",
+      "stability_score": 4.7157648306
+    },
+    {
+      "feature": "realized_vol_63",
+      "profile_count": 6,
+      "mean_delta_z": 2.2866892567,
+      "mean_abs_delta_z": 2.2866892567,
+      "direction_consistency": 1.0,
+      "mean_spearman_to_excess": -0.014036401,
+      "profiles": "balanced_rule_residual_v19_reg,balanced_rule_residual_v22,current_runtime_paper,deep_capitulation_reentry_guard_v1,drawdown_rebound_reward_train_v1,mode_conditioned_rebound_reward_train_v2",
+      "stability_score": 4.4496918323
+    },
+    {
+      "feature": "tracking_error_21",
+      "profile_count": 5,
+      "mean_delta_z": -1.7650678501,
+      "mean_abs_delta_z": 1.7650678501,
+      "direction_consistency": 1.0,
+      "mean_spearman_to_excess": 0.0905247393,
+      "profiles": "balanced_rule_residual_v19_reg,balanced_rule_residual_v22,deep_capitulation_reentry_guard_v1,drawdown_rebound_reward_train_v1,mode_conditioned_rebound_reward_train_v2",
+      "stability_score": 3.1625770342
+    },
+    {
+      "feature": "realized_vol_21",
+      "profile_count": 6,
+      "mean_delta_z": 1.4698228031,
+      "mean_abs_delta_z": 1.4698228031,
+      "direction_consistency": 1.0,
+      "mean_spearman_to_excess": -0.0023986532,
+      "profiles": "balanced_rule_residual_v19_reg,balanced_rule_residual_v22,current_runtime_paper,deep_capitulation_reentry_guard_v1,drawdown_rebound_reward_train_v1,mode_conditioned_rebound_reward_train_v2",
+      "stability_score": 2.8601431098
+    },
+    {
+      "feature": "vol_coef_21",
+      "profile_count": 6,
+      "mean_delta_z": 1.2736773272,
+      "mean_abs_delta_z": 1.2736773272,
+      "direction_consistency": 1.0,
+      "mean_spearman_to_excess": -0.0030442805,
+      "profiles": "balanced_rule_residual_v19_reg,balanced_rule_residual_v22,current_runtime_paper,deep_capitulation_reentry_guard_v1,drawdown_rebound_reward_train_v1,mode_conditioned_rebound_reward_train_v2",
+      "stability_score": 2.4784616377
+    },
+    {
+      "feature": "jump_variation_5",
+      "profile_count": 6,
+      "mean_delta_z": 1.1753295036,
+      "mean_abs_delta_z": 1.1753295036,
+      "direction_consistency": 1.0,
+      "mean_spearman_to_excess": 0.0052923997,
+      "profiles": "balanced_rule_residual_v19_reg,balanced_rule_residual_v22,current_runtime_paper,deep_capitulation_reentry_guard_v1,drawdown_rebound_reward_train_v1,mode_conditioned_rebound_reward_train_v2",
+      "stability_score": 2.2870856095
+    },
+    {
+      "feature": "vix_level",
+      "profile_count": 4,
+      "mean_delta_z": 1.2707187864,
+      "mean_abs_delta_z": 1.2707187864,
+      "direction_consistency": 1.0,
+      "mean_spearman_to_excess": 0.0972306427,
+      "profiles": "balanced_rule_residual_v19_reg,balanced_rule_residual_v22,drawdown_rebound_reward_train_v1,mode_conditioned_rebound_reward_train_v2",
+      "stability_score": 2.0451429909
+    },
+    {
+      "feature": "realized_vol_10",
+      "profile_count": 6,
+      "mean_delta_z": 1.0151585542,
+      "mean_abs_delta_z": 1.0151585542,
+      "direction_consistency": 1.0,
+      "mean_spearman_to_excess": -0.0005126413,
+      "profiles": "balanced_rule_residual_v19_reg,balanced_rule_residual_v22,current_runtime_paper,deep_capitulation_reentry_guard_v1,drawdown_rebound_reward_train_v1,mode_conditioned_rebound_reward_train_v2",
+      "stability_score": 1.9754073335
+    },
+    {
+      "feature": "vix_percentile_252",
+      "profile_count": 6,
+      "mean_delta_z": 0.8889513704,
+      "mean_abs_delta_z": 0.8889513704,
+      "direction_consistency": 1.0,
+      "mean_spearman_to_excess": 0.1152793368,
+      "profiles": "balanced_rule_residual_v19_reg,balanced_rule_residual_v22,current_runtime_paper,deep_capitulation_reentry_guard_v1,drawdown_rebound_reward_train_v1,mode_conditioned_rebound_reward_train_v2",
+      "stability_score": 1.7298194937
+    },
+    {
+      "feature": "downside_semivol_21",
+      "profile_count": 5,
+      "mean_delta_z": 0.903799343,
+      "mean_abs_delta_z": 0.903799343,
+      "direction_consistency": 1.0,
+      "mean_spearman_to_excess": 0.0621365351,
+      "profiles": "balanced_rule_residual_v19_reg,balanced_rule_residual_v22,deep_capitulation_reentry_guard_v1,drawdown_rebound_reward_train_v1,mode_conditioned_rebound_reward_train_v2",
+      "stability_score": 1.6193910311
+    }
+  ],
+  "gate_summary": [
+    {
+      "profile": "deep_capitulation_reentry_guard_v1",
+      "window_count": 4,
+      "gate_pass_count": 0,
+      "failure_count": 4,
+      "dominant_failure_type": "drawdown_control",
+      "worst_window": "wf_2022",
+      "max_severity_score": 217.468288937,
+      "recommended_next_mechanism": "drawdown_controller_or_sequence_risk_feature"
+    }
+  ],
+  "conclusion": [
+    "Deep-cap improves strict OOS return but does not solve the hard <=15% MaxDD objective.",
+    "Adding deep-cap to the previous aggregate keeps the shared bad-window route in underparticipation clusters, especially 2025-04..2025-07 and 2026-02..2026-05.",
+    "The gate-gap view shows MaxDD/joint trade-off remains the blocker; another participation-only threshold grid is not justified.",
+    "Next notebook should screen a state-conditioned participation objective with an explicit drawdown controller or sequence risk feature before PPO/walk-forward training."
+  ]
+}
