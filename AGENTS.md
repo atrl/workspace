@@ -13,6 +13,13 @@ follow-ups should go to executable runtime notebooks first. Prefer
 workflow and conclusion unless the task is pure code maintenance, production
 operations, or explicitly asks for another format.
 
+When a future task asks to record, summarize, compare, conclude, screen,
+diagnose, or continue research work, treat "put it in ipynb" as the default
+instruction even if the prompt is terse. Keep chat as a pointer to the notebook
+and sidecar artifacts; do not create Markdown-only conclusions or update
+`docs/active_workpad.md` unless the result is durable cross-session state,
+production coordination, or explicitly requested.
+
 ## Startup
 
 Before doing substantial work:
