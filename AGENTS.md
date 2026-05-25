@@ -41,8 +41,9 @@ Use these files for distinct roles. Do not collapse them together.
 - `docs/research_knowledge/`: mechanism-specific research conclusions and task routing.
 - `runtime/<direction>/knowledge.md`: continuity across sessions, organized by task direction.
 - `runtime/<direction>/card/<experiment>/*.ipynb`: default executable
-  evidence and primary single-run conclusion for experiments, diagnostics,
-  backtests, factor screens, and model-selection loops.
+  workflow, run-local scratchpad, evidence, and primary single-run conclusion
+  for experiments, diagnostics, backtests, factor screens, and model-selection
+  loops.
 - `.codex/skills/`: reusable methods and operational knowledge.
 - `runtime/harness/card/registry/profile.yaml`: profile registry and retention intent.
 
@@ -71,8 +72,9 @@ Knowledge retrieval must be scoped by task direction.
 
 ## Workpad Discipline
 
-- Reuse the existing active workpad instead of scattering status across random
-  notes.
+- Reuse the existing active workpad for cross-session coordination instead of
+  scattering durable task state across random notes; do not use it as the
+  default scratchpad or conclusion surface for notebook-contained work.
 - Keep the workpad current only for active cross-session coordination,
   production operations, or durable task-state changes. If an experiment,
   diagnostic, backtest, parameter screen, or model-selection loop is fully
@@ -273,7 +275,9 @@ See `SPEC.md` for scope, system boundaries, and layer separation.
 Quick reference:
 - research and training: `src/soxl_quant/`
 - execution adapters: `production/`
-- workpads and decision trail: `docs/active_workpad.md`
+- single-run experiment workflows and conclusions:
+  `runtime/<direction>/card/<experiment>/<experiment>.ipynb`
+- workpads and cross-session decision trail: `docs/active_workpad.md`
 - data and analysis scripts: `scripts/`
 - unified runtime state + config: `runtime/`
 
