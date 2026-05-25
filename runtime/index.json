@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-25T14:36:17.082610+00:00",
+  "generated_at": "2026-05-25T15:09:56.545389+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -2478,6 +2478,54 @@
       "category": "factor",
       "suffix": ".json",
       "bytes": 2628
+    },
+    {
+      "path": "runtime/factor/card/stable_rebound_label_discovery_v1/candidate_scores.csv",
+      "category": "factor",
+      "suffix": ".csv",
+      "bytes": 31631
+    },
+    {
+      "path": "runtime/factor/card/stable_rebound_label_discovery_v1/feature_quantiles.csv",
+      "category": "factor",
+      "suffix": ".csv",
+      "bytes": 1222
+    },
+    {
+      "path": "runtime/factor/card/stable_rebound_label_discovery_v1/fold_metrics.csv",
+      "category": "factor",
+      "suffix": ".csv",
+      "bytes": 48556
+    },
+    {
+      "path": "runtime/factor/card/stable_rebound_label_discovery_v1/full_history_scores.csv",
+      "category": "factor",
+      "suffix": ".csv",
+      "bytes": 10980
+    },
+    {
+      "path": "runtime/factor/card/stable_rebound_label_discovery_v1/full_history_selected_rows.csv",
+      "category": "factor",
+      "suffix": ".csv",
+      "bytes": 18512
+    },
+    {
+      "path": "runtime/factor/card/stable_rebound_label_discovery_v1/selected_label_rows.csv",
+      "category": "factor",
+      "suffix": ".csv",
+      "bytes": 54416
+    },
+    {
+      "path": "runtime/factor/card/stable_rebound_label_discovery_v1/selection.json",
+      "category": "factor",
+      "suffix": ".json",
+      "bytes": 3289
+    },
+    {
+      "path": "runtime/factor/card/stable_rebound_label_discovery_v1/summary.json",
+      "category": "factor",
+      "suffix": ".json",
+      "bytes": 973
     },
     {
       "path": "runtime/factor/card/trans_te_zscore/card.md",

@@ -72,6 +72,17 @@ from src.soxl_quant.app.factor_diagnostics import (
 回测和 core 相关性合并成 `full_gate` / `primary_failure`，避免只凭单项
 Sharpe 或单项 IC 下结论。
 
+Label-discovery addendum:
+- 从 fold-native target / teacher 表挖二元标签时，重复日期会跨 fold/window
+  出现；不要把重复行数当作独立样本数。
+- notebook 必须同时记录 `positive_rows`、`unique_positive_dates`、
+  `positive_years`、`positive_span_days` 和 duplicate-date conflict rate。
+- 进入训练 handoff 前，至少做一次 full-history panel sanity check；只在
+  target 表里过 gate、但 full-history 只集中在单一 crisis 的候选，保留为诊断，
+  不直接开 PPO。
+- standalone 回测 MaxDD 过大时，结论应是 risk-capped target lift /
+  execution overlay candidate，而不是 core feature 或无约束目标。
+
 ### 4) Validate
 1. **SHAP 基线分析**：`python scripts/feature_analysis.py --profile <profile>`
    - 在现有模型上运行 KernelSHAP，获取各特征的 `mean_abs_shap`
