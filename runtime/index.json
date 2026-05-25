@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-25T04:51:41.758095+00:00",
+  "generated_at": "2026-05-25T05:18:52.410693+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -4421,6 +4421,42 @@
       "path": "runtime/model/card/smoke_tide/soxl_smoke_tide_summary.json",
       "category": "model",
       "suffix": ".json",
+      "bytes": 3895
+    },
+    {
+      "path": "runtime/model/card/tree_reentry_derisk_purged_bc_v1/selected_comparison.csv",
+      "category": "model",
+      "suffix": ".csv",
+      "bytes": 1738
+    },
+    {
+      "path": "runtime/model/card/tree_reentry_derisk_purged_bc_v1/selected_paths.csv",
+      "category": "model",
+      "suffix": ".csv",
+      "bytes": 137735
+    },
+    {
+      "path": "runtime/model/card/tree_reentry_derisk_purged_bc_v1/selected_permutation_importance.csv",
+      "category": "model",
+      "suffix": ".csv",
+      "bytes": 3783
+    },
+    {
+      "path": "runtime/model/card/tree_reentry_derisk_purged_bc_v1/selected_signal_audit.csv",
+      "category": "model",
+      "suffix": ".csv",
+      "bytes": 292
+    },
+    {
+      "path": "runtime/model/card/tree_reentry_derisk_purged_bc_v1/selection.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 4479
+    },
+    {
+      "path": "runtime/model/card/tree_reentry_derisk_purged_bc_v1/tree_grid_results.csv",
+      "category": "model",
+      "suffix": ".csv",
       "bytes": 3895
     },
     {

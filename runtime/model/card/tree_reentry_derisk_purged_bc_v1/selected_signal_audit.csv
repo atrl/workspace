@@ -1,0 +1,5 @@
+window,train_rows,test_rows,derisk_pred,derisk_true,derisk_tp,derisk_fp,reentry_pred,reentry_true,reentry_tp,reentry_fp
+wf_2022,484,251,0,188,0,0,0,26,0,0
+wf_2023_2024,735,502,0,231,0,0,0,26,0,0
+bad_C002_2025_rebound,1300,74,0,11,0,0,10,25,8,2
+bad_C003_2026_reentry,1509,75,0,16,0,0,0,19,0,0
