@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-25T09:20:14.418998+00:00",
+  "generated_at": "2026-05-25T09:49:11.677961+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -5586,6 +5586,30 @@
       "category": "model_selection",
       "suffix": ".csv",
       "bytes": 5514
+    },
+    {
+      "path": "runtime/model_selection/card/state_objective_training_target_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 3236
+    },
+    {
+      "path": "runtime/model_selection/card/state_objective_training_target_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2108
+    },
+    {
+      "path": "runtime/model_selection/card/state_objective_training_target_v1/training_targets.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1161624
+    },
+    {
+      "path": "runtime/model_selection/card/state_objective_training_target_v1/window_target_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 600
     },
     {
       "path": "runtime/model_selection/card/training_objective_handoff_v1/diagnostics/recovery_reentry_conditional_vol_target_v1/feature_differences.csv",

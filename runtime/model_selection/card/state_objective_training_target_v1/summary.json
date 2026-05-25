@@ -1,0 +1,68 @@
+{
+  "rows": 2322,
+  "windows": [
+    "strict_oos",
+    "wf_2020",
+    "wf_2023_2024",
+    "wf_2022"
+  ],
+  "top_weighted_window": "strict_oos",
+  "max_objective_weight": 142.99498767638627,
+  "rebound_rows": 94,
+  "downtrend_rows": 1545,
+  "mean_teacher_position": 0.15044766282786987,
+  "mean_rebound_target_position": 0.15839454968397468,
+  "mean_risk_target_position": 0.14438384406315388,
+  "window_summary": [
+    {
+      "window": "strict_oos",
+      "rows": 1569,
+      "mean_objective_weight": 12.837449743780887,
+      "max_objective_weight": 142.99498767638627,
+      "rebound_rows": 94,
+      "downtrend_rows": 1001,
+      "mean_teacher_position": 0.16141948655113716,
+      "mean_rebound_target_position": 0.17318027130567845,
+      "mean_risk_target_position": 0.15491864153266272
+    },
+    {
+      "window": "wf_2020",
+      "rows": 252,
+      "mean_objective_weight": 87.79081398524004,
+      "max_objective_weight": 98.26236417611454,
+      "rebound_rows": 0,
+      "downtrend_rows": 118,
+      "mean_teacher_position": 0.17697255042414278,
+      "mean_rebound_target_position": 0.17697255042414278,
+      "mean_risk_target_position": 0.17026263051080767
+    },
+    {
+      "window": "wf_2023_2024",
+      "rows": 251,
+      "mean_objective_weight": 22.545804078967826,
+      "max_objective_weight": 30.391287085983286,
+      "rebound_rows": 0,
+      "downtrend_rows": 184,
+      "mean_teacher_position": 0.1594880612592459,
+      "mean_rebound_target_position": 0.1594880612592459,
+      "mean_risk_target_position": 0.1507651069981953
+    },
+    {
+      "window": "wf_2022",
+      "rows": 250,
+      "mean_objective_weight": 1.0,
+      "max_objective_weight": 1.0,
+      "rebound_rows": 0,
+      "downtrend_rows": 242,
+      "mean_teacher_position": 0.04577485041849978,
+      "mean_rebound_target_position": 0.04577485041849978,
+      "mean_risk_target_position": 0.04577485041849978
+    }
+  ],
+  "required_terms": [
+    "walkforward_relative_return_gap_penalty",
+    "walkforward_drawdown_gap_penalty",
+    "high_vol_rebound_participation_floor",
+    "downtrend_drawdown_state_cap"
+  ]
+}
