@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-25T13:20:54.189889+00:00",
+  "generated_at": "2026-05-25T13:35:34.338950+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -5490,6 +5490,36 @@
       "category": "model_selection",
       "suffix": ".json",
       "bytes": 3511
+    },
+    {
+      "path": "runtime/model_selection/card/rebound_state_head_target_recipe_v1/base_context.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 568
+    },
+    {
+      "path": "runtime/model_selection/card/rebound_state_head_target_recipe_v1/recipe_scores.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4495
+    },
+    {
+      "path": "runtime/model_selection/card/rebound_state_head_target_recipe_v1/row_scores.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4670351
+    },
+    {
+      "path": "runtime/model_selection/card/rebound_state_head_target_recipe_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1883
+    },
+    {
+      "path": "runtime/model_selection/card/rebound_state_head_target_recipe_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 3780
     },
     {
       "path": "runtime/model_selection/card/selection_overfit_audit_v1/risk_budget_conservative_frontier.csv",

@@ -1,0 +1,96 @@
+{
+  "base_context": {
+    "bc_loss_holdout_rebound_min": 0.0,
+    "created_at": "2026-05-25T13:34:18.440808+00:00",
+    "experiment": "rebound_state_head_target_recipe_v1",
+    "fold_counts": {
+      "wf_2022_train": 505,
+      "wf_2023_2024_train": 756
+    },
+    "rebound_by_fold": {
+      "wf_2022_train": 4,
+      "wf_2023_2024_train": 3
+    },
+    "representation_best_feature_set": "momentum_drawdown",
+    "representation_holdout_auc_min": 0.9800796812749004,
+    "rows": 1261,
+    "source_targets": "runtime/model_selection/card/state_objective_fold_native_teacher_router_v1/fold_native_teacher_targets.csv"
+  },
+  "best_row": {
+    "covered_folds": 2,
+    "false_negative": 0,
+    "false_positive": 123,
+    "false_positive_rate": 0.09808612440191387,
+    "feature_set": "momentum_drawdown",
+    "negatives": 1254,
+    "non_rebound_target_mae": 0.0001434247420897882,
+    "positives": 7,
+    "rebound_target_mae": 0.028571428571428574,
+    "recipe_gate": true,
+    "recipe_loss": 0.0,
+    "samples": 1261,
+    "state_precision": 0.05384615384615385,
+    "state_recall": 1.0,
+    "target_mae": 0.00030123285216541985,
+    "threshold": 0.5,
+    "true_negative": 1131,
+    "true_positive": 7,
+    "true_positive_rate": 1.0
+  },
+  "conclusion": [
+    "Best recipe momentum_drawdown threshold=0.5 recovered 7 rebound rows with 123 false positives.",
+    "Recall/precision/FPR were 1.000/0.054/0.098.",
+    "Target MAE/rebound MAE were 0.0003/0.0286.",
+    "Decision: state_head_target_recipe_passes_pre_ppo_gate_no_runtime_promotion; next mechanism: fold_local_ppo_with_aux_rebound_state_head_momentum_drawdown.",
+    "This is a pre-PPO recipe only; precision is low because rebound rows are extremely sparse, so drawdown/risk gates must be part of the next PPO validation."
+  ],
+  "selection": {
+    "acceptance_gate_for_next_run": {
+      "fixed_split_required": true,
+      "holdout_rebound_accuracy_min": 0.6,
+      "max_dd_max_pct": 15.0,
+      "no_runtime_promotion_from_recipe_only": true,
+      "precision_caution_requires_ppo_drawdown_guard": true,
+      "relative_return_min_pp": 30.0,
+      "state_head_recipe_gate_required": true,
+      "walkforward_required": true
+    },
+    "best_false_negative": 0,
+    "best_false_positive": 123,
+    "best_false_positive_rate": 0.09808612440191387,
+    "best_feature_set": "momentum_drawdown",
+    "best_rebound_target_mae": 0.028571428571428574,
+    "best_state_precision": 0.05384615384615385,
+    "best_state_recall": 1.0,
+    "best_target_mae": 0.00030123285216541985,
+    "best_threshold": 0.5,
+    "best_true_negative": 1131,
+    "best_true_positive": 7,
+    "created_at": "2026-05-25T13:34:18.440808+00:00",
+    "decision": "state_head_target_recipe_passes_pre_ppo_gate_no_runtime_promotion",
+    "direct_comparison_baseline": "state_objective_state_conditioned_loss_v1",
+    "experiment": "rebound_state_head_target_recipe_v1",
+    "external_sources": [
+      "https://github.com/microsoft/qlib",
+      "https://arxiv.org/abs/2009.11189",
+      "https://github.com/AI4Finance-Foundation/FinRL",
+      "https://arxiv.org/abs/2011.09607",
+      "https://arxiv.org/abs/2004.11362",
+      "https://arxiv.org/abs/1807.03748",
+      "https://arxiv.org/abs/1901.05555"
+    ],
+    "full_gate": false,
+    "next_mechanism": "fold_local_ppo_with_aux_rebound_state_head_momentum_drawdown",
+    "precision_caution": true,
+    "promotion_allowed": false,
+    "promotion_blocker": "State-head target recipe passed only as a pre-PPO recipe; fixed-split and walk-forward return/drawdown gates remain untested.",
+    "recipe_gate": true,
+    "sidecars": [
+      "base_context.json",
+      "recipe_scores.csv",
+      "row_scores.csv",
+      "summary.json"
+    ],
+    "source_experiment": "rebound_representation_separability_v1"
+  }
+}

@@ -243,6 +243,12 @@ holdout rebound gate 写进 selection.json。
 做显式 rebound state head、auxiliary state classification、或基于该特征组的
 fold-local PPO recipe；不要继续扩大全局 loss 权重或特征全集。
 
+如果 state-head target recipe 能用 `momentum_drawdown` 等特征恢复所有或多数
+rebound target，但 precision 很低（例如低于 0.10）且 false positives 较多，
+只能作为 pre-PPO recipe，不允许 promotion。下一轮 PPO 必须把该 state head 与
+drawdown/risk guard、walk-forward gate 和 `+30pp / <=15% MaxDD` 目标绑定，避免
+把稀疏 rebound 检出变成广泛加仓。
+
 ### 4. Explain with mechanism, not adjectives
 
 优先从下面这些“可被代码改变”的机制解释，不要只写“市场不同”：

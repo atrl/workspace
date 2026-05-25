@@ -15,6 +15,23 @@ class RepresentationDiagnosticsResult:
     summary: dict[str, object]
 
 
+@dataclass(frozen=True)
+class StateHeadTargetRecipeConfig:
+    min_recall: float = 0.60
+    min_precision: float = 0.40
+    max_false_positive_rate: float = 0.10
+    max_target_mae: float = 0.08
+    max_rebound_mae: float = 0.08
+    min_covered_folds: int = 1
+
+
+@dataclass(frozen=True)
+class StateHeadTargetRecipeResult:
+    recipe_scores: pd.DataFrame
+    row_scores: pd.DataFrame
+    summary: dict[str, object]
+
+
 def rank_auc_score(labels: np.ndarray | Sequence[bool], scores: np.ndarray | Sequence[float]) -> float:
     """Compute binary rank AUC without sklearn dependency."""
 
@@ -211,8 +228,213 @@ def score_binary_representation_feature_sets(
     )
 
 
+def _fold_heldout_state_scores(
+    frame: pd.DataFrame,
+    *,
+    label_col: str,
+    fold_col: str,
+    feature_set: str,
+    features: Sequence[str],
+    min_positive_train: int,
+    min_positive_eval: int,
+) -> list[dict[str, object]]:
+    rows: list[dict[str, object]] = []
+    folds = sorted(frame[fold_col].dropna().astype(str).unique().tolist())
+    for fold in folds:
+        train = frame[frame[fold_col].astype(str) != fold]
+        eval_frame = frame[frame[fold_col].astype(str) == fold]
+        train_labels = train[label_col].fillna(False).astype(bool).to_numpy()
+        eval_labels = eval_frame[label_col].fillna(False).astype(bool).to_numpy()
+        train_pos = int(train_labels.sum())
+        eval_pos = int(eval_labels.sum())
+        eval_neg = int((~eval_labels).sum())
+        coverage_gate = bool(
+            train_pos >= int(min_positive_train)
+            and eval_pos >= int(min_positive_eval)
+            and eval_neg > 0
+        )
+        if coverage_gate:
+            train_z, eval_z = _standardized_matrix(train, eval_frame, features)
+            scores = _centroid_scores(train_z, train_labels, eval_z)
+        else:
+            scores = np.full(len(eval_frame), np.nan, dtype=float)
+        for row_idx, score in zip(eval_frame.index, scores):
+            rows.append(
+                {
+                    "row_index": int(row_idx),
+                    "feature_set": str(feature_set),
+                    "eval_fold": str(fold),
+                    "state_score": float(score) if np.isfinite(score) else np.nan,
+                    "coverage_gate": coverage_gate,
+                    "train_positive": train_pos,
+                    "eval_positive": eval_pos,
+                    "eval_negative": eval_neg,
+                }
+            )
+    return rows
+
+
+def _safe_div(numerator: float, denominator: float) -> float:
+    return float(numerator / denominator) if denominator else float("nan")
+
+
+def score_state_head_target_recipes(
+    frame: pd.DataFrame,
+    *,
+    label_col: str,
+    fold_col: str,
+    true_target_col: str,
+    default_target_col: str,
+    state_target_col: str,
+    feature_sets: Mapping[str, Sequence[str]],
+    thresholds: Sequence[float] = (0.0,),
+    min_positive_train: int = 1,
+    min_positive_eval: int = 1,
+    config: StateHeadTargetRecipeConfig = StateHeadTargetRecipeConfig(),
+) -> StateHeadTargetRecipeResult:
+    """Score fold-heldout binary state heads as target-position routing recipes."""
+
+    all_features = {feature for features in feature_sets.values() for feature in features}
+    _require_columns(
+        frame,
+        {label_col, fold_col, true_target_col, default_target_col, state_target_col, *all_features},
+        "state-head recipe frame",
+    )
+    if not thresholds:
+        raise ValueError("state-head target recipe requires at least one threshold")
+
+    work = frame.copy()
+    work[label_col] = work[label_col].fillna(False).astype(bool)
+    work[fold_col] = work[fold_col].astype(str)
+    for col in (true_target_col, default_target_col, state_target_col):
+        work[col] = pd.to_numeric(work[col], errors="coerce")
+
+    score_rows: list[dict[str, object]] = []
+    for feature_set, features in feature_sets.items():
+        if not features:
+            raise ValueError(f"feature set {feature_set!r} has no features")
+        score_rows.extend(
+            _fold_heldout_state_scores(
+                work,
+                label_col=label_col,
+                fold_col=fold_col,
+                feature_set=str(feature_set),
+                features=features,
+                min_positive_train=int(min_positive_train),
+                min_positive_eval=int(min_positive_eval),
+            )
+        )
+    score_frame = pd.DataFrame(score_rows)
+    if score_frame.empty:
+        empty_scores = pd.DataFrame()
+        return StateHeadTargetRecipeResult(recipe_scores=empty_scores, row_scores=score_frame, summary={})
+
+    score_frame = score_frame.join(
+        work[[label_col, fold_col, true_target_col, default_target_col, state_target_col]],
+        on="row_index",
+    )
+    recipe_rows: list[dict[str, object]] = []
+    routed_rows: list[pd.DataFrame] = []
+    for feature_set, group in score_frame.groupby("feature_set", sort=False):
+        for threshold in thresholds:
+            routed = group.copy()
+            routed["threshold"] = float(threshold)
+            routed["predicted_state"] = (
+                routed["coverage_gate"].fillna(False).astype(bool)
+                & (pd.to_numeric(routed["state_score"], errors="coerce") >= float(threshold))
+            )
+            routed["proposed_target"] = np.where(
+                routed["predicted_state"],
+                routed[state_target_col],
+                routed[default_target_col],
+            )
+            routed["target_error"] = (routed["proposed_target"] - routed[true_target_col]).abs()
+            labels = routed[label_col].fillna(False).astype(bool)
+            predicted = routed["predicted_state"].fillna(False).astype(bool)
+            tp = int((labels & predicted).sum())
+            fp = int((~labels & predicted).sum())
+            fn = int((labels & ~predicted).sum())
+            tn = int((~labels & ~predicted).sum())
+            positives = int(labels.sum())
+            negatives = int((~labels).sum())
+            covered_folds = int(routed.groupby(fold_col)["coverage_gate"].max().sum())
+            precision = _safe_div(tp, tp + fp)
+            recall = _safe_div(tp, tp + fn)
+            false_positive_rate = _safe_div(fp, fp + tn)
+            true_positive_rate = recall
+            all_mae = float(routed["target_error"].mean())
+            rebound_mae = float(routed.loc[labels, "target_error"].mean()) if positives else float("nan")
+            non_rebound_mae = float(routed.loc[~labels, "target_error"].mean()) if negatives else float("nan")
+            recipe_gate = bool(
+                covered_folds >= int(config.min_covered_folds)
+                and np.isfinite(precision)
+                and np.isfinite(recall)
+                and np.isfinite(false_positive_rate)
+                and precision >= float(config.min_precision)
+                and recall >= float(config.min_recall)
+                and false_positive_rate <= float(config.max_false_positive_rate)
+                and all_mae <= float(config.max_target_mae)
+                and rebound_mae <= float(config.max_rebound_mae)
+            )
+            recipe_rows.append(
+                {
+                    "feature_set": str(feature_set),
+                    "threshold": float(threshold),
+                    "samples": int(len(routed)),
+                    "positives": positives,
+                    "negatives": negatives,
+                    "covered_folds": covered_folds,
+                    "true_positive": tp,
+                    "false_positive": fp,
+                    "false_negative": fn,
+                    "true_negative": tn,
+                    "state_precision": precision,
+                    "state_recall": recall,
+                    "true_positive_rate": true_positive_rate,
+                    "false_positive_rate": false_positive_rate,
+                    "target_mae": all_mae,
+                    "rebound_target_mae": rebound_mae,
+                    "non_rebound_target_mae": non_rebound_mae,
+                    "recipe_gate": recipe_gate,
+                    "recipe_loss": (
+                        max(float(config.min_recall) - (recall if np.isfinite(recall) else 0.0), 0.0) * 4.0
+                        + max(float(config.min_precision) - (precision if np.isfinite(precision) else 0.0), 0.0) * 2.0
+                        + max((false_positive_rate if np.isfinite(false_positive_rate) else 1.0) - float(config.max_false_positive_rate), 0.0) * 2.0
+                        + max(all_mae - float(config.max_target_mae), 0.0)
+                        + max((rebound_mae if np.isfinite(rebound_mae) else 1.0) - float(config.max_rebound_mae), 0.0)
+                    ),
+                }
+            )
+            routed_rows.append(routed)
+
+    recipe_scores = pd.DataFrame(recipe_rows).sort_values(
+        ["recipe_gate", "recipe_loss", "state_recall", "false_positive_rate", "feature_set"],
+        ascending=[False, True, False, True, True],
+    ).reset_index(drop=True)
+    row_scores = pd.concat(routed_rows, ignore_index=True) if routed_rows else pd.DataFrame()
+    best = recipe_scores.iloc[0].to_dict() if not recipe_scores.empty else {}
+    summary = {
+        "best_feature_set": best.get("feature_set", ""),
+        "best_threshold": float(best.get("threshold", np.nan)),
+        "best_state_recall": float(best.get("state_recall", np.nan)),
+        "best_state_precision": float(best.get("state_precision", np.nan)),
+        "best_false_positive_rate": float(best.get("false_positive_rate", np.nan)),
+        "best_target_mae": float(best.get("target_mae", np.nan)),
+        "best_rebound_target_mae": float(best.get("rebound_target_mae", np.nan)),
+        "recipe_gate": bool(best.get("recipe_gate", False)),
+    }
+    return StateHeadTargetRecipeResult(
+        recipe_scores=recipe_scores,
+        row_scores=row_scores.sort_values(["feature_set", "threshold", fold_col, "row_index"]).reset_index(drop=True),
+        summary=summary,
+    )
+
+
 __all__ = [
     "RepresentationDiagnosticsResult",
+    "StateHeadTargetRecipeConfig",
+    "StateHeadTargetRecipeResult",
     "rank_auc_score",
     "score_binary_representation_feature_sets",
+    "score_state_head_target_recipes",
 ]
