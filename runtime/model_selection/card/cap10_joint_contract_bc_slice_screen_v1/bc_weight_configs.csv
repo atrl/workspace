@@ -1,0 +1,4 @@
+config_name,complexity,description,sample_weight_config
+plain,0,No static sample weighting; tests whether the raw joint contract is already learnable.,
+release4_downtrend2,1,Moderate sparse-state weighting for rebound/release plus downtrend control.,"{'rebound_multiplier': 4.0, 'downtrend_multiplier': 2.0, 'ordinary_multiplier': 1.0, 'objective_weight_power': 0.0, 'class_balanced_beta': 0.0, 'weight_floor': 0.05, 'weight_cap': 20.0, 'normalize_mean': True}"
+joint8_downtrend2_cb99,2,Stronger sparse-state and class-balanced weighting for tail action fit.,"{'rebound_multiplier': 8.0, 'downtrend_multiplier': 2.0, 'ordinary_multiplier': 1.0, 'objective_weight_power': 0.25, 'class_balanced_beta': 0.99, 'weight_floor': 0.05, 'weight_cap': 20.0, 'normalize_mean': True}"

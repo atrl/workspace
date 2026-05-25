@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-25T22:59:41.064392+00:00",
+  "generated_at": "2026-05-25T23:16:27.862135+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -5268,6 +5268,66 @@
       "category": "model_selection",
       "suffix": ".csv",
       "bytes": 973
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_joint_contract_bc_slice_screen_v1/bc_action_distribution.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1851
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_joint_contract_bc_slice_screen_v1/bc_slice_summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 7698
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_joint_contract_bc_slice_screen_v1/bc_weight_configs.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 773
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_joint_contract_bc_slice_screen_v1/bc_weight_screen.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1358
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_joint_contract_bc_slice_screen_v1/dataset_summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1171
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_joint_contract_bc_slice_screen_v1/fold_bc_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 964
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_joint_contract_bc_slice_screen_v1/fold_dataset_audit.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 222
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_joint_contract_bc_slice_screen_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2090
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_joint_contract_bc_slice_screen_v1/state_slice_bc_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4458
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_joint_contract_bc_slice_screen_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 5409
     },
     {
       "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/aggregate/feature_delta_clusters.csv",
