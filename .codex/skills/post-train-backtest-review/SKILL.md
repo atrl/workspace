@@ -277,6 +277,26 @@ target-lift、fold-local scope、label distribution 同时通过，才允许进�
 BC warm-start screen；仍不允许 runtime promotion，下一步必须附带
 release-slice fit audit、fixed-split 和 walk-forward `+30pp / <=15% MaxDD` gate。
 
+当 release-target 和 drawdown-control target 分别过了局部 readiness，但后续
+PPO screen 显示 `wf_2022` 或其他 fold 出现 drawdown drift，不要直接加长 PPO。
+先在 runtime notebook 中把两类标签合并成一个 fold-local joint target
+contract，并重新审计 scope/lift/BC readiness：
+
+```python
+from src.soxl_quant.app.state_objective_training_targets import (
+    build_fold_local_joint_target_contract,
+    audit_state_objective_target_scope,
+    audit_state_objective_target_lift,
+)
+```
+
+`build_fold_local_joint_target_contract()` 会把 sparse-release lift 和
+drawdown-control rows 放入同一 fold calendar，只保留 train window 内行，
+并在 release gate 与 downtrend cap 冲突时保留 release lift。即使 contract
+通过 target gates，也只能允许下一步 BC slice screen；promotion 仍必须等待
+fixed-split、`wf_2020`、`wf_2022`、`wf_2023_2024` replay，并用 drawdown-drift
+stop rule 拒绝 MaxDD 超过 15% 或 PPO 相对 BC 回撤恶化的 checkpoint。
+
 当 state-objective BC warm-start 的全局 label accuracy / fold accuracy
 通过，但 rebound 或 downtrend 等稀疏状态切片 accuracy 明显失败时，不要把它
 标成 ready-for-PPO。结论应是“global fit 可用、稀疏状态未学会”，下一步先做

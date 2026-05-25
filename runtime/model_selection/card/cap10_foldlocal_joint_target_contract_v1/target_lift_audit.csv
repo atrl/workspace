@@ -1,0 +1,3 @@
+fold,rows,rebound_rows,downtrend_rows,rebound_downtrend_rows,current_positive_rebound_lift_rows,candidate_release_positive_lift_rows,mean_current_effective_lift,mean_candidate_release_lift,max_current_effective_lift,max_candidate_release_lift,lift_semantics_gate,release_candidate_gate,target_position_priority,min_lift
+wf_2022_train,505,66,234,57,40,57,0.22605909356751144,0.3418599521484069,0.5569758652,0.5569758652,True,True,risk,1e-09
+wf_2023_2024_train,756,66,478,57,40,57,0.22605909356751144,0.3418599521484069,0.5569758652,0.5569758652,True,True,risk,1e-09

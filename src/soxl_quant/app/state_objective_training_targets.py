@@ -1270,6 +1270,200 @@ def apply_state_objective_sparse_release_gate(
     return result.drop(columns=["_date_key"]).reset_index(drop=True)
 
 
+def _normalise_joint_target_component(
+    targets: pd.DataFrame,
+    *,
+    component: str,
+    date_col: str,
+) -> pd.DataFrame:
+    if targets.empty:
+        return pd.DataFrame()
+    required = {
+        date_col,
+        "teacher_position",
+        "rebound_target_position",
+        "risk_target_position",
+        "is_rebound_cluster",
+        "is_downtrend_state",
+    }
+    missing = sorted(required - set(targets.columns))
+    if missing:
+        raise ValueError(f"{component} targets missing columns: {missing}")
+
+    result = targets.copy()
+    result[date_col] = pd.to_datetime(result[date_col]).dt.normalize()
+    if "fold" not in result.columns:
+        result["fold"] = ""
+    if "target_scope" not in result.columns:
+        result["target_scope"] = ""
+    result["fold"] = result["fold"].fillna("").astype(str)
+    result["target_scope"] = result["target_scope"].fillna("").astype(str)
+    for column in ("teacher_position", "rebound_target_position", "risk_target_position"):
+        result[column] = pd.to_numeric(result[column], errors="coerce").fillna(0.0).clip(0.0, 1.0)
+    if "risk_target_position_original" not in result.columns:
+        result["risk_target_position_original"] = result["risk_target_position"]
+    else:
+        result["risk_target_position_original"] = pd.to_numeric(
+            result["risk_target_position_original"],
+            errors="coerce",
+        ).fillna(result["risk_target_position"]).clip(0.0, 1.0)
+    for column in (
+        "is_rebound_cluster",
+        "is_downtrend_state",
+        "release_gate_state",
+        "drawdown_control_state",
+    ):
+        if column not in result.columns:
+            result[column] = False
+        result[column] = result[column].fillna(False).astype(bool)
+    if "objective_weight" not in result.columns:
+        result["objective_weight"] = 1.0
+    result["objective_weight"] = pd.to_numeric(result["objective_weight"], errors="coerce").fillna(1.0)
+    result["source_component"] = str(component)
+    return result
+
+
+def _candidate_rows_for_fold(
+    targets: pd.DataFrame,
+    *,
+    fold: Mapping[str, object],
+    component: str,
+    date_col: str,
+    project_train_rows: bool,
+) -> pd.DataFrame:
+    fold_name = str(_fold_value(fold, "name"))
+    train_start = pd.Timestamp(_fold_value(fold, "train_start")).normalize()
+    train_end = pd.Timestamp(_fold_value(fold, "train_end")).normalize()
+    eval_start = pd.Timestamp(_fold_value(fold, "eval_start")).normalize()
+    eval_end = pd.Timestamp(_fold_value(fold, "eval_end")).normalize()
+    dates = pd.to_datetime(targets[date_col]).dt.normalize()
+    native = targets["fold"].astype(str) == fold_name
+    train_overlap = (dates >= train_start) & (dates <= train_end)
+    eval_overlap = (dates >= eval_start) & (dates <= eval_end)
+    mask = (native | (bool(project_train_rows) & train_overlap)) & train_overlap & ~eval_overlap
+    result = targets.loc[mask].copy()
+    if result.empty:
+        return result
+    result["fold"] = fold_name
+    result["window"] = fold_name
+    result["target_scope"] = "fold_local"
+    result["train_start"] = str(train_start.date())
+    result["train_end"] = str(train_end.date())
+    result["eval_start"] = str(eval_start.date())
+    result["eval_end"] = str(eval_end.date())
+    result["source_component"] = str(component)
+    return result
+
+
+def _collapse_joint_target_rows(group: pd.DataFrame, *, date_col: str) -> dict[str, object]:
+    release_mask = group["release_gate_state"].astype(bool) & group["is_rebound_cluster"].astype(bool)
+    downtrend_mask = group["is_downtrend_state"].astype(bool)
+    teacher = float(group["teacher_position"].max())
+    rebound = float(group["rebound_target_position"].max())
+    baseline_risk = float(group["risk_target_position_original"].min())
+    if release_mask.any():
+        risk_target = float(
+            np.maximum(
+                group.loc[release_mask, "risk_target_position"],
+                group.loc[release_mask, "rebound_target_position"],
+            ).max()
+        )
+    elif downtrend_mask.any():
+        risk_target = float(group.loc[downtrend_mask, "risk_target_position"].min())
+    else:
+        risk_target = float(group["risk_target_position"].max())
+
+    first = group.iloc[0]
+    source_components = sorted(str(value) for value in group["source_component"].dropna().unique())
+    return {
+        date_col: pd.Timestamp(first[date_col]),
+        "candidate": str(first.get("candidate", "joint_target_contract")),
+        "window": str(first.get("window", "")),
+        "fold": str(first["fold"]),
+        "target_scope": "fold_local",
+        "train_start": str(first.get("train_start", "")),
+        "train_end": str(first.get("train_end", "")),
+        "eval_start": str(first.get("eval_start", "")),
+        "eval_end": str(first.get("eval_end", "")),
+        "teacher_position": teacher,
+        "rebound_target_position": rebound,
+        "risk_target_position_original": baseline_risk,
+        "risk_target_position": float(np.clip(risk_target, 0.0, 1.0)),
+        "objective_weight": float(group["objective_weight"].max()),
+        "is_rebound_cluster": bool(group["is_rebound_cluster"].any()),
+        "is_downtrend_state": bool(group["is_downtrend_state"].any()),
+        "release_gate_state": bool(group["release_gate_state"].any()),
+        "drawdown_control_state": bool(group["drawdown_control_state"].any()),
+        "source_components": ",".join(source_components),
+        "source_component_count": int(len(source_components)),
+        "source_row_count": int(len(group)),
+    }
+
+
+def build_fold_local_joint_target_contract(
+    primary_targets: pd.DataFrame,
+    auxiliary_targets: pd.DataFrame,
+    *,
+    folds: Iterable[Mapping[str, object]],
+    date_col: str = "datetime",
+    project_auxiliary_train_rows: bool = True,
+) -> pd.DataFrame:
+    """Combine fold-local sparse-release and drawdown-control target rows.
+
+    The contract is intentionally limited to non-evaluation rows in each fold.
+    Sparse release states keep their lifted risk target when they collide with a
+    downtrend cap, while drawdown-control-only rows keep the lower risk target.
+    """
+
+    fold_list = list(folds)
+    if not fold_list:
+        raise ValueError("folds must contain at least one fold definition")
+    primary = _normalise_joint_target_component(
+        primary_targets,
+        component="primary",
+        date_col=date_col,
+    )
+    auxiliary = _normalise_joint_target_component(
+        auxiliary_targets,
+        component="auxiliary",
+        date_col=date_col,
+    )
+    if primary.empty and auxiliary.empty:
+        return pd.DataFrame()
+
+    rows: list[pd.DataFrame] = []
+    for fold in fold_list:
+        if not primary.empty:
+            rows.append(
+                _candidate_rows_for_fold(
+                    primary,
+                    fold=fold,
+                    component="primary",
+                    date_col=date_col,
+                    project_train_rows=False,
+                )
+            )
+        if not auxiliary.empty:
+            rows.append(
+                _candidate_rows_for_fold(
+                    auxiliary,
+                    fold=fold,
+                    component="auxiliary",
+                    date_col=date_col,
+                    project_train_rows=bool(project_auxiliary_train_rows),
+                )
+            )
+    combined = pd.concat([frame for frame in rows if not frame.empty], ignore_index=True) if rows else pd.DataFrame()
+    if combined.empty:
+        return combined
+
+    collapsed = [
+        _collapse_joint_target_rows(group, date_col=date_col)
+        for _, group in combined.groupby(["fold", date_col], dropna=False, sort=True)
+    ]
+    return pd.DataFrame(collapsed).sort_values(["fold", date_col]).reset_index(drop=True)
+
+
 def summarize_state_objective_target_lift_audit(audit: pd.DataFrame) -> dict[str, object]:
     if audit.empty:
         return {
@@ -1770,6 +1964,7 @@ __all__ = [
     "audit_state_objective_target_lift",
     "audit_state_objective_target_scope",
     "build_drawdown_control_training_targets",
+    "build_fold_local_joint_target_contract",
     "build_fold_local_state_objective_training_targets",
     "build_state_objective_training_targets",
     "discover_rebound_clusters_from_daily_path",

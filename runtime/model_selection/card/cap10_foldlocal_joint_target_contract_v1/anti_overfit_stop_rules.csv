@@ -1,0 +1,6 @@
+rule,condition,required_before
+absolute_fold_gate,every selected fold must have relative_return >= 30 and max_dd <= 15,retaining any PPO checkpoint
+drawdown_drift_reject,reject selected PPO if selected_vs_bc_drawdown_delta > 2pp and absolute fold gate is false,checkpoint selection
+bc_screen_before_ppo_extension,run a BC-only screen on release/downtrend slices before longer PPO,PPO extension
+wf_2020_coverage_before_promotion,promotion review must include non-leaking wf_2020 target/replay coverage or explicitly block promotion,promotion review
+target_contract_reaudit,"rerun scope, lift, and BC readiness audits after any target filtering or sampling change",training rerun

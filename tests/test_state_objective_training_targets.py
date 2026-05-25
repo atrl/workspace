@@ -11,6 +11,7 @@ from src.soxl_quant.app.state_objective_training_targets import (
     apply_state_objective_sparse_release_gate,
     audit_state_objective_target_lift,
     audit_state_objective_target_scope,
+    build_fold_local_joint_target_contract,
     build_drawdown_control_training_targets,
     build_fold_local_state_objective_training_targets,
     build_state_objective_training_targets,
@@ -975,3 +976,132 @@ def test_sparse_release_gate_revises_risk_target_while_preserving_baseline_lift(
     assert audit.iloc[0]["current_positive_rebound_lift_rows"] == 1
     assert audit.iloc[0]["candidate_release_positive_lift_rows"] == 2
     assert summary["decision"] == "state_objective_target_lift_training_ready"
+
+
+def test_joint_target_contract_preserves_sparse_release_lift_under_downtrend_cap():
+    release_targets = pd.DataFrame(
+        {
+            "datetime": pd.to_datetime(["2020-06-01"]),
+            "fold": ["wf_2022_train"],
+            "target_scope": ["fold_local"],
+            "teacher_position": [0.20],
+            "rebound_target_position": [0.45],
+            "risk_target_position_original": [0.25],
+            "risk_target_position": [0.45],
+            "is_rebound_cluster": [True],
+            "is_downtrend_state": [True],
+            "release_gate_state": [True],
+            "objective_weight": [3.0],
+        }
+    )
+    drawdown_targets = pd.DataFrame(
+        {
+            "datetime": pd.to_datetime(["2020-06-01"]),
+            "fold": ["wf_2022_train"],
+            "target_scope": ["fold_local"],
+            "teacher_position": [0.50],
+            "rebound_target_position": [0.50],
+            "risk_target_position": [0.25],
+            "is_rebound_cluster": [False],
+            "is_downtrend_state": [True],
+            "drawdown_control_state": [True],
+            "objective_weight": [5.0],
+        }
+    )
+    folds = [
+        {
+            "name": "wf_2022_train",
+            "train_start": "2020-01-01",
+            "train_end": "2020-12-31",
+            "eval_start": "2022-01-01",
+            "eval_end": "2022-12-31",
+        }
+    ]
+
+    joint = build_fold_local_joint_target_contract(
+        release_targets,
+        drawdown_targets,
+        folds=folds,
+    )
+
+    assert len(joint) == 1
+    row = joint.iloc[0]
+    assert row["fold"] == "wf_2022_train"
+    assert row["target_scope"] == "fold_local"
+    assert bool(row["is_rebound_cluster"])
+    assert bool(row["is_downtrend_state"])
+    assert bool(row["release_gate_state"])
+    assert bool(row["drawdown_control_state"])
+    assert row["risk_target_position_original"] == 0.25
+    assert row["risk_target_position"] == 0.45
+    assert row["rebound_target_position"] == 0.50
+    assert row["source_component_count"] == 2
+
+    lift_summary = summarize_state_objective_target_lift_audit(
+        audit_state_objective_target_lift(
+            joint,
+            group_cols=("fold",),
+            baseline_risk_position_col="risk_target_position_original",
+        )
+    )
+    assert lift_summary["decision"] == "state_objective_target_lift_training_ready"
+    assert lift_summary["current_positive_rebound_lift_rows"] == 1
+
+
+def test_joint_target_contract_projects_auxiliary_train_rows_without_eval_overlap():
+    primary = pd.DataFrame(
+        {
+            "datetime": pd.to_datetime(["2020-01-02"]),
+            "fold": ["wf_2022_train"],
+            "target_scope": ["fold_local"],
+            "teacher_position": [0.20],
+            "rebound_target_position": [0.35],
+            "risk_target_position": [0.35],
+            "risk_target_position_original": [0.20],
+            "is_rebound_cluster": [True],
+            "is_downtrend_state": [True],
+            "release_gate_state": [True],
+        }
+    )
+    auxiliary = pd.DataFrame(
+        {
+            "datetime": pd.to_datetime(["2019-12-31", "2020-06-01", "2024-02-01"]),
+            "fold": ["wf_2022_train", "wf_2022_train", "wf_2022_train"],
+            "target_scope": ["fold_local", "fold_local", "fold_local"],
+            "teacher_position": [0.45, 0.55, 0.70],
+            "rebound_target_position": [0.45, 0.55, 0.70],
+            "risk_target_position": [0.25, 0.25, 0.25],
+            "is_rebound_cluster": [False, False, False],
+            "is_downtrend_state": [True, True, True],
+            "drawdown_control_state": [True, True, True],
+        }
+    )
+    folds = [
+        {
+            "name": "wf_2022_train",
+            "train_start": "2020-01-01",
+            "train_end": "2020-12-31",
+            "eval_start": "2022-01-01",
+            "eval_end": "2022-12-31",
+        },
+        {
+            "name": "wf_2023_2024_train",
+            "train_start": "2020-01-01",
+            "train_end": "2022-12-31",
+            "eval_start": "2024-01-01",
+            "eval_end": "2024-12-31",
+        },
+    ]
+
+    joint = build_fold_local_joint_target_contract(primary, auxiliary, folds=folds)
+
+    by_fold = joint.groupby("fold")["datetime"].apply(lambda s: set(pd.to_datetime(s).dt.strftime("%Y-%m-%d")))
+    assert "2019-12-31" not in by_fold["wf_2022_train"]
+    assert "2020-06-01" in by_fold["wf_2023_2024_train"]
+    assert "2024-02-01" not in by_fold["wf_2023_2024_train"]
+
+    scope_summary = summarize_state_objective_target_scope_audit(
+        audit_state_objective_target_scope(joint, folds=folds)
+    )
+    assert scope_summary["decision"] == "state_objective_targets_training_ready"
+    assert scope_summary["eval_overlap_rows"] == 0
