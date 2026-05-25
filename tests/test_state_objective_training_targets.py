@@ -4,9 +4,11 @@ import pandas as pd
 
 from src.soxl_quant.app.state_objective_training_targets import (
     StateObjectiveBCReadinessConfig,
+    StateObjectiveReboundClusterConfig,
     StateObjectiveTrainingTargetConfig,
     build_fold_local_state_objective_training_targets,
     build_state_objective_training_targets,
+    discover_rebound_clusters_from_daily_path,
     filter_state_objective_targets_for_train_window,
     score_state_objective_bc_readiness,
     score_state_objective_checkpoint_candidates,
@@ -455,6 +457,51 @@ def test_fold_local_target_builder_filters_eval_rows_and_future_clusters():
     assert "future_eval_rebound" not in targets["cluster"].tolist()
 
 
+def test_fold_local_target_builder_filters_clusters_by_fold_when_available():
+    daily_paths = {
+        "teacher_path": pd.DataFrame(
+            {
+                "datetime": pd.to_datetime(["2020-01-02", "2020-01-03"]),
+                "strategy_nav": [100.0, 90.0],
+                "buyhold_nav": [100.0, 120.0],
+                "router_position": [0.20, 0.15],
+                "rebound_state": [False, True],
+                "risk_state": [False, False],
+            }
+        )
+    }
+    cluster_metrics = pd.DataFrame(
+        {
+            "candidate": ["teacher", "teacher"],
+            "fold": ["other_fold", "wf_2022_train"],
+            "cluster": ["other_fold_rebound", "train_rebound"],
+            "start": ["2020-01-03", "2020-01-03"],
+            "end": ["2020-01-03", "2020-01-03"],
+            "relative_return": [-200.0, -80.0],
+            "max_dd": [8.0, 8.0],
+            "avg_pos": [0.01, 0.10],
+        }
+    )
+
+    targets = build_fold_local_state_objective_training_targets(
+        daily_paths,
+        folds=[
+            {
+                "name": "wf_2022_train",
+                "source_window": "teacher_path",
+                "train_start": "2020-01-02",
+                "train_end": "2020-01-03",
+                "eval_start": "2020-01-06",
+                "eval_end": "2020-01-10",
+            }
+        ],
+        cluster_metrics=cluster_metrics,
+        candidate="teacher",
+    )
+
+    assert targets["cluster"].tolist() == ["", "train_rebound"]
+
+
 def test_fold_local_target_builder_rejects_overlapping_train_eval_window():
     daily_paths = {
         "teacher_path": pd.DataFrame(
@@ -487,3 +534,81 @@ def test_fold_local_target_builder_rejects_overlapping_train_eval_window():
         assert "overlaps eval window" in str(exc)
     else:
         raise AssertionError("overlapping fold did not raise")
+
+
+def test_discover_rebound_clusters_groups_contiguous_train_rebound_rows():
+    daily = pd.DataFrame(
+        {
+            "datetime": pd.to_datetime(
+                [
+                    "2020-01-02",
+                    "2020-01-03",
+                    "2020-01-06",
+                    "2020-01-07",
+                    "2020-01-08",
+                    "2020-01-09",
+                ]
+            ),
+            "strategy_nav": [100.0, 98.0, 104.0, 102.0, 103.0, 106.0],
+            "buyhold_nav": [100.0, 110.0, 120.0, 118.0, 122.0, 124.0],
+            "router_position": [0.20, 0.18, 0.22, 0.24, 0.26, 0.30],
+            "rebound_state": [False, True, True, False, True, True],
+        }
+    )
+
+    clusters = discover_rebound_clusters_from_daily_path(
+        daily,
+        candidate="teacher",
+        fold="wf_2022_train",
+        train_start="2020-01-02",
+        train_end="2020-01-09",
+        config=StateObjectiveReboundClusterConfig(min_rows=2),
+    )
+
+    assert clusters["cluster"].tolist() == [
+        "wf_2022_train_rebound_1",
+        "wf_2022_train_rebound_2",
+    ]
+    assert clusters["candidate"].tolist() == ["teacher", "teacher"]
+    assert clusters["fold"].tolist() == ["wf_2022_train", "wf_2022_train"]
+    assert clusters["rows"].tolist() == [2, 2]
+    assert clusters["start"].dt.strftime("%Y-%m-%d").tolist() == ["2020-01-03", "2020-01-08"]
+    assert clusters["end"].dt.strftime("%Y-%m-%d").tolist() == ["2020-01-06", "2020-01-09"]
+    assert set(["return", "buy_and_hold_return", "relative_return", "max_dd", "avg_pos"]).issubset(
+        clusters.columns
+    )
+
+
+def test_discover_rebound_clusters_filters_short_runs_and_eval_dates():
+    daily = pd.DataFrame(
+        {
+            "datetime": pd.to_datetime(
+                [
+                    "2020-01-02",
+                    "2020-01-03",
+                    "2020-01-06",
+                    "2020-01-07",
+                    "2020-01-08",
+                    "2020-01-09",
+                ]
+            ),
+            "strategy_nav": [100.0, 101.0, 102.0, 97.0, 99.0, 101.0],
+            "buyhold_nav": [100.0, 103.0, 104.0, 106.0, 108.0, 109.0],
+            "position": [0.20, 0.22, 0.24, 0.10, 0.15, 0.18],
+            "rebound_state": [True, True, True, False, True, True],
+        }
+    )
+
+    clusters = discover_rebound_clusters_from_daily_path(
+        daily,
+        candidate="teacher",
+        fold="wf_2022_train",
+        train_start="2020-01-02",
+        train_end="2020-01-06",
+        config=StateObjectiveReboundClusterConfig(min_rows=3),
+    )
+
+    assert clusters["cluster"].tolist() == ["wf_2022_train_rebound_1"]
+    assert clusters["start"].dt.strftime("%Y-%m-%d").tolist() == ["2020-01-02"]
+    assert clusters["end"].dt.strftime("%Y-%m-%d").tolist() == ["2020-01-06"]
+    assert clusters["rows"].tolist() == [3]

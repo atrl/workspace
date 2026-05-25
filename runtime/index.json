@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-25T10:54:18.094432+00:00",
+  "generated_at": "2026-05-25T11:11:13.392241+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -5730,6 +5730,54 @@
       "category": "model_selection",
       "suffix": ".json",
       "bytes": 3216
+    },
+    {
+      "path": "runtime/model_selection/card/state_objective_fold_native_cluster_targets_v1/bc_readiness_scores.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 546
+    },
+    {
+      "path": "runtime/model_selection/card/state_objective_fold_native_cluster_targets_v1/fold_native_cluster_targets.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 729154
+    },
+    {
+      "path": "runtime/model_selection/card/state_objective_fold_native_cluster_targets_v1/fold_native_rebound_clusters.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1117
+    },
+    {
+      "path": "runtime/model_selection/card/state_objective_fold_native_cluster_targets_v1/fold_profile_label_comparison.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 609
+    },
+    {
+      "path": "runtime/model_selection/card/state_objective_fold_native_cluster_targets_v1/fold_target_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 361
+    },
+    {
+      "path": "runtime/model_selection/card/state_objective_fold_native_cluster_targets_v1/profile_label_comparison.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 299
+    },
+    {
+      "path": "runtime/model_selection/card/state_objective_fold_native_cluster_targets_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1516
+    },
+    {
+      "path": "runtime/model_selection/card/state_objective_fold_native_cluster_targets_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 7964
     },
     {
       "path": "runtime/model_selection/card/state_objective_training_target_v1/selection.json",

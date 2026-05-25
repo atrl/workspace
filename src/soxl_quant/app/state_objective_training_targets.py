@@ -57,6 +57,13 @@ class StateObjectiveBCReadinessConfig:
     min_samples: int = 100
 
 
+@dataclass(frozen=True)
+class StateObjectiveReboundClusterConfig:
+    min_rows: int = 3
+    date_col: str = "datetime"
+    rebound_col: str = "rebound_state"
+
+
 def _window_weight(window: str, config: StateConditionedObjectiveConfig) -> float:
     if window in config.window_weights:
         return float(config.window_weights[window])
@@ -410,6 +417,7 @@ def _filter_cluster_metrics_for_train_window(
     cluster_metrics: pd.DataFrame,
     *,
     candidate: str,
+    fold: str | None = None,
     train_start: str | pd.Timestamp,
     train_end: str | pd.Timestamp,
 ) -> pd.DataFrame:
@@ -422,6 +430,8 @@ def _filter_cluster_metrics_for_train_window(
     clusters = cluster_metrics.copy()
     if "candidate" in clusters.columns:
         clusters = clusters[clusters["candidate"].astype(str) == str(candidate)]
+    if fold is not None and "fold" in clusters.columns:
+        clusters = clusters[clusters["fold"].astype(str) == str(fold)]
     clusters["start"] = pd.to_datetime(clusters["start"])
     clusters["end"] = pd.to_datetime(clusters["end"])
     train_start_ts = pd.Timestamp(train_start).normalize()
@@ -430,6 +440,85 @@ def _filter_cluster_metrics_for_train_window(
         clusters["end"].dt.normalize() <= train_end_ts
     )
     return clusters.loc[mask].reset_index(drop=True)
+
+
+def _empty_rebound_cluster_frame() -> pd.DataFrame:
+    return pd.DataFrame(
+        columns=[
+            "candidate",
+            "fold",
+            "cluster",
+            "start",
+            "end",
+            "rows",
+            "return",
+            "buy_and_hold_return",
+            "relative_return",
+            "max_dd",
+            "avg_pos",
+        ]
+    )
+
+
+def discover_rebound_clusters_from_daily_path(
+    daily: pd.DataFrame,
+    *,
+    candidate: str,
+    fold: str,
+    train_start: str | pd.Timestamp,
+    train_end: str | pd.Timestamp,
+    config: StateObjectiveReboundClusterConfig = StateObjectiveReboundClusterConfig(),
+) -> pd.DataFrame:
+    """Discover train-window rebound clusters from a daily teacher path."""
+
+    if int(config.min_rows) < 1:
+        raise ValueError("min_rows must be >= 1")
+    if config.date_col not in daily.columns:
+        raise ValueError(f"daily path missing columns: [{config.date_col!r}]")
+    if config.rebound_col not in daily.columns:
+        return _empty_rebound_cluster_frame()
+
+    frame = daily.copy()
+    if config.date_col != "datetime":
+        frame["datetime"] = pd.to_datetime(frame[config.date_col])
+    train_daily = filter_state_objective_targets_for_train_window(
+        frame,
+        train_start=train_start,
+        train_end=train_end,
+    )
+    if train_daily.empty:
+        return _empty_rebound_cluster_frame()
+    train_daily = train_daily.sort_values("datetime").reset_index(drop=True)
+    rebound_mask = train_daily[config.rebound_col].fillna(False).astype(bool)
+    if not rebound_mask.any():
+        return _empty_rebound_cluster_frame()
+
+    run_id = rebound_mask.ne(rebound_mask.shift(fill_value=False)).cumsum()
+    rows: list[dict[str, object]] = []
+    cluster_index = 1
+    for _, run in train_daily.loc[rebound_mask].groupby(run_id[rebound_mask], sort=False):
+        if len(run) < int(config.min_rows):
+            continue
+        metrics = daily_path_metrics(run)
+        rows.append(
+            {
+                "candidate": str(candidate),
+                "fold": str(fold),
+                "cluster": f"{fold}_rebound_{cluster_index}",
+                "start": pd.Timestamp(metrics["start"]),
+                "end": pd.Timestamp(metrics["end"]),
+                "rows": int(metrics["rows"]),
+                "return": _json_safe_float(metrics.get("return"), 0.0),
+                "buy_and_hold_return": _json_safe_float(metrics.get("buy_and_hold_return"), 0.0),
+                "relative_return": _json_safe_float(metrics.get("relative_return"), 0.0),
+                "max_dd": _json_safe_float(metrics.get("max_dd"), 0.0),
+                "avg_pos": _json_safe_float(metrics.get("avg_pos"), 0.0),
+            }
+        )
+        cluster_index += 1
+    if not rows:
+        return _empty_rebound_cluster_frame()
+    return pd.DataFrame(rows)
 
 
 def build_fold_local_state_objective_training_targets(
@@ -473,6 +562,7 @@ def build_fold_local_state_objective_training_targets(
         train_clusters = _filter_cluster_metrics_for_train_window(
             cluster_metrics,
             candidate=str(candidate),
+            fold=name,
             train_start=train_start,
             train_end=train_end,
         )
@@ -944,9 +1034,11 @@ def summarize_state_objective_checkpoint_selection(scored: pd.DataFrame) -> dict
 __all__ = [
     "StateObjectiveBCReadinessConfig",
     "StateObjectiveCheckpointSelectionConfig",
+    "StateObjectiveReboundClusterConfig",
     "StateObjectiveTrainingTargetConfig",
     "build_fold_local_state_objective_training_targets",
     "build_state_objective_training_targets",
+    "discover_rebound_clusters_from_daily_path",
     "filter_state_objective_targets_for_train_window",
     "score_state_objective_bc_readiness",
     "score_state_objective_checkpoint_candidates",
