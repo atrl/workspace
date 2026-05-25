@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-25T08:59:16.938549+00:00",
+  "generated_at": "2026-05-25T09:20:14.418998+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -5550,6 +5550,42 @@
       "category": "model_selection",
       "suffix": ".json",
       "bytes": 16630
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_objective_screen_v1/candidate_path_manifest.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 5469
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_objective_screen_v1/cluster_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 3075
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_objective_screen_v1/objective_review.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 1882
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_objective_screen_v1/objective_scores.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2097
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_objective_screen_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 3910
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_objective_screen_v1/window_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 5514
     },
     {
       "path": "runtime/model_selection/card/training_objective_handoff_v1/diagnostics/recovery_reentry_conditional_vol_target_v1/feature_differences.csv",

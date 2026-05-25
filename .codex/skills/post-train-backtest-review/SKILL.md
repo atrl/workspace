@@ -176,6 +176,22 @@ from src.soxl_quant.app.training_objective_handoff import (
 `train_state_conditioned_multi_objective`，下一步应进入训练时/模型选择时的
 状态条件多目标，而不是再做 path-level threshold router search。
 
+进入状态条件多目标前，先用已有 daily path 做一个 notebook-first objective
+screen，确认最接近的老师路径和仍然失败的项：
+
+```python
+from src.soxl_quant.app.state_conditioned_objective import (
+    daily_path_metrics,
+    slice_daily_path_metrics,
+    score_state_conditioned_objective,
+    summarize_state_conditioned_objective,
+)
+```
+
+这个 screen 必须同时输出 window metrics、cluster metrics、objective scores
+和 `selection.json`。如果没有 `objective_pass=True`，结论仍然是训练目标 /
+checkpoint-selection target，不允许 runtime promotion。
+
 ### 4. Explain with mechanism, not adjectives
 
 优先从下面这些“可被代码改变”的机制解释，不要只写“市场不同”：
