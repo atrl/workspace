@@ -176,6 +176,13 @@ from src.soxl_quant.app.training_objective_handoff import (
 `train_state_conditioned_multi_objective`，下一步应进入训练时/模型选择时的
 状态条件多目标，而不是再做 path-level threshold router search。
 
+当 rolling poor-window 聚合显示主簇是 `underparticipation`，但同一候选的
+gate-gap attribution 在 strict OOS / walk-forward 窗口全部因为
+`drawdown_control` 或 `joint_tradeoff` 失败时，不要把结论简化成“继续提高参与率”。
+下一步应在 runtime notebook 中筛选 state-conditioned participation objective
+加显式 drawdown controller / sequence risk feature；只有参与和回撤联合改善，
+才进入 PPO 或 runtime promotion。
+
 进入状态条件多目标前，先用已有 daily path 做一个 notebook-first objective
 screen，确认最接近的老师路径和仍然失败的项：
 

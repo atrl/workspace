@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-25T15:45:47.421493+00:00",
+  "generated_at": "2026-05-25T16:06:31.825684+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -299,37 +299,37 @@
       "path": "runtime/execution/card/deep_capitulation_reentry_guard_v1/inputs/balanced_rule_residual_v19_reg_wf_2020_soxl_daily.csv",
       "category": "execution",
       "suffix": ".csv",
-      "bytes": 30571
+      "bytes": 30318
     },
     {
       "path": "runtime/execution/card/deep_capitulation_reentry_guard_v1/inputs/balanced_rule_residual_v19_reg_wf_2022_soxl_daily.csv",
       "category": "execution",
       "suffix": ".csv",
-      "bytes": 30146
+      "bytes": 29895
     },
     {
       "path": "runtime/execution/card/deep_capitulation_reentry_guard_v1/inputs/balanced_rule_residual_v19_reg_wf_2023_2024_soxl_daily.csv",
       "category": "execution",
       "suffix": ".csv",
-      "bytes": 63475
+      "bytes": 62973
     },
     {
       "path": "runtime/execution/card/deep_capitulation_reentry_guard_v1/inputs/balanced_rule_residual_v22_wf_2020_soxl_daily.csv",
       "category": "execution",
       "suffix": ".csv",
-      "bytes": 30521
+      "bytes": 30268
     },
     {
       "path": "runtime/execution/card/deep_capitulation_reentry_guard_v1/inputs/balanced_rule_residual_v22_wf_2022_soxl_daily.csv",
       "category": "execution",
       "suffix": ".csv",
-      "bytes": 30168
+      "bytes": 29917
     },
     {
       "path": "runtime/execution/card/deep_capitulation_reentry_guard_v1/inputs/balanced_rule_residual_v22_wf_2023_2024_soxl_daily.csv",
       "category": "execution",
       "suffix": ".csv",
-      "bytes": 63314
+      "bytes": 62812
     },
     {
       "path": "runtime/execution/card/deep_capitulation_reentry_guard_v1/poor_windows.csv",
@@ -5166,6 +5166,72 @@
       "category": "model",
       "suffix": ".md",
       "bytes": 3390
+    },
+    {
+      "path": "runtime/model_selection/card/deep_cap_failure_attribution_v1/aggregate/aggregate_oos_review.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 3271
+    },
+    {
+      "path": "runtime/model_selection/card/deep_cap_failure_attribution_v1/aggregate/feature_delta_clusters.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 9634
+    },
+    {
+      "path": "runtime/model_selection/card/deep_cap_failure_attribution_v1/aggregate/gate_gap_attribution.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1304
+    },
+    {
+      "path": "runtime/model_selection/card/deep_cap_failure_attribution_v1/aggregate/gate_gap_profile_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 262
+    },
+    {
+      "path": "runtime/model_selection/card/deep_cap_failure_attribution_v1/aggregate/poor_window_clusters.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1378
+    },
+    {
+      "path": "runtime/model_selection/card/deep_cap_failure_attribution_v1/diagnostics/deep_capitulation_reentry_guard_v1/feature_differences.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 5784
+    },
+    {
+      "path": "runtime/model_selection/card/deep_cap_failure_attribution_v1/diagnostics/deep_capitulation_reentry_guard_v1/manifest.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1718
+    },
+    {
+      "path": "runtime/model_selection/card/deep_cap_failure_attribution_v1/diagnostics/deep_capitulation_reentry_guard_v1/oos_diagnostic_review.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 5223
+    },
+    {
+      "path": "runtime/model_selection/card/deep_cap_failure_attribution_v1/diagnostics/deep_capitulation_reentry_guard_v1/poor_windows.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2852
+    },
+    {
+      "path": "runtime/model_selection/card/deep_cap_failure_attribution_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 9131
+    },
+    {
+      "path": "runtime/model_selection/card/deep_cap_failure_attribution_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 7816
     },
     {
       "path": "runtime/model_selection/card/drawdown_rebound_checkpoint_pbo_v1/checkpoint_inventory.csv",
