@@ -248,6 +248,26 @@ risk cap 优先于 rebound floor；如果 `current_positive_rebound_lift_rows ==
 候选会产生 lift，还必须用非重叠事件 fold 做 state-head/false-positive audit；
 若 post-event false-positive rate 过高，仍然禁止训练。
 
+如果保守 release-state-head gate 通过，下一步仍应先做 runtime notebook 的
+target-semantics revision screen，而不是直接训练。优先调用：
+
+```python
+from src.soxl_quant.app.state_objective_training_targets import (
+    apply_state_objective_sparse_release_gate,
+    audit_state_objective_target_lift,
+)
+```
+
+`apply_state_objective_sparse_release_gate()` 会保留
+`risk_target_position_original`，只在 release gate、rebound label、downtrend
+state 和 material lift 同时满足时抬高 `risk_target_position`，让现有 BC label
+builder 真正看到目标仓位变化。随后必须用
+`baseline_risk_position_col="risk_target_position_original"` 重新跑 target-lift
+audit，再跑 target-scope audit 和 BC label-distribution readiness。只有
+target-lift、fold-local scope、label distribution 同时通过，才允许进入
+BC warm-start screen；仍不允许 runtime promotion，下一步必须附带
+release-slice fit audit、fixed-split 和 walk-forward `+30pp / <=15% MaxDD` gate。
+
 当 state-objective BC warm-start 的全局 label accuracy / fold accuracy
 通过，但 rebound 或 downtrend 等稀疏状态切片 accuracy 明显失败时，不要把它
 标成 ready-for-PPO。结论应是“global fit 可用、稀疏状态未学会”，下一步先做

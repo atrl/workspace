@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-25T17:45:59.370482+00:00",
+  "generated_at": "2026-05-25T17:59:09.321037+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -6060,6 +6060,84 @@
       "category": "model_selection",
       "suffix": ".csv",
       "bytes": 22086
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_rebound_release_target_revision_v1/bc_readiness_scores.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 592
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_rebound_release_target_revision_v1/bc_readiness_summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 493
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_rebound_release_target_revision_v1/fold_profile_label_comparison.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1385
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_rebound_release_target_revision_v1/profile_label_comparison.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 754
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_rebound_release_target_revision_v1/release_gate_target_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 260
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_rebound_release_target_revision_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 3064
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_rebound_release_target_revision_v1/sparse_release_revised_targets.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 774868
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_rebound_release_target_revision_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 4052
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_rebound_release_target_revision_v1/target_lift_audit.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 567
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_rebound_release_target_revision_v1/target_lift_summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 418
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_rebound_release_target_revision_v1/target_scope_audit.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 415
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_rebound_release_target_revision_v1/target_scope_summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 331
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_rebound_release_target_revision_v1/target_summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1364
     },
     {
       "path": "runtime/model_selection/card/state_conditioned_actor_selector_v1/actor_pool_metrics.csv",

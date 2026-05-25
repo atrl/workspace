@@ -858,6 +858,7 @@ def audit_state_objective_target_lift(
     target_position_priority: str = "risk",
     min_lift: float = 1e-9,
     group_cols: tuple[str, ...] = ("fold", "window"),
+    baseline_risk_position_col: str = "risk_target_position",
 ) -> pd.DataFrame:
     """Audit whether sparse-state target labels change the effective position target.
 
@@ -881,7 +882,10 @@ def audit_state_objective_target_lift(
         raise ValueError("min_lift must be non-negative")
 
     frame = targets.copy()
-    for col in ["teacher_position", "rebound_target_position", "risk_target_position"]:
+    if baseline_risk_position_col not in frame.columns:
+        raise ValueError(f"targets missing baseline risk column: {baseline_risk_position_col!r}")
+
+    for col in ["teacher_position", "rebound_target_position", "risk_target_position", baseline_risk_position_col]:
         frame[col] = pd.to_numeric(frame[col], errors="coerce").fillna(0.0)
     for col in ["is_rebound_cluster", "is_downtrend_state"]:
         frame[col] = frame[col].fillna(False).astype(bool)
@@ -892,12 +896,12 @@ def audit_state_objective_target_lift(
     ]
     frame["no_rebound_position"] = np.where(
         frame["is_downtrend_state"],
-        frame["risk_target_position"],
+        frame[baseline_risk_position_col],
         frame["teacher_position"],
     )
     frame["candidate_release_position"] = np.where(
         frame["is_downtrend_state"],
-        np.maximum(frame["risk_target_position"], frame["rebound_target_position"]),
+        np.maximum(frame[baseline_risk_position_col], frame["rebound_target_position"]),
         np.maximum(frame["teacher_position"], frame["rebound_target_position"]),
     )
     frame["current_effective_lift"] = frame["current_target_position"] - frame["no_rebound_position"]
@@ -956,6 +960,107 @@ def audit_state_objective_target_lift(
         ["lift_semantics_gate", "release_candidate_gate", *available_group_cols],
         ascending=[True, False, *([True] * len(available_group_cols))],
     ).reset_index(drop=True)
+
+
+def apply_state_objective_sparse_release_gate(
+    targets: pd.DataFrame,
+    release_scores: pd.DataFrame,
+    *,
+    feature_set: str | None = None,
+    threshold: float | None = None,
+    date_col: str = "datetime",
+    predicted_col: str = "predicted_release",
+    min_lift: float = 0.01,
+    require_rebound_label: bool = True,
+) -> pd.DataFrame:
+    """Lift risk targets only where a sparse release gate is active.
+
+    The existing BC target selector gives downtrend risk caps precedence. This
+    helper keeps that selector usable by preserving the original risk target as a
+    baseline column, then raising ``risk_target_position`` only on gated rebound
+    rows where the release target is materially above the original cap.
+    """
+
+    required_targets = {
+        date_col,
+        "teacher_position",
+        "rebound_target_position",
+        "risk_target_position",
+        "is_rebound_cluster",
+        "is_downtrend_state",
+    }
+    missing_targets = sorted(required_targets - set(targets.columns))
+    if missing_targets:
+        raise ValueError(f"targets missing columns: {missing_targets}")
+    required_scores = {date_col, predicted_col}
+    missing_scores = sorted(required_scores - set(release_scores.columns))
+    if missing_scores:
+        raise ValueError(f"release_scores missing columns: {missing_scores}")
+    if min_lift < 0.0:
+        raise ValueError("min_lift must be non-negative")
+
+    result = targets.copy()
+    result[date_col] = pd.to_datetime(result[date_col])
+    for col in ("teacher_position", "rebound_target_position", "risk_target_position"):
+        result[col] = pd.to_numeric(result[col], errors="coerce").fillna(0.0)
+    for col in ("is_rebound_cluster", "is_downtrend_state"):
+        result[col] = result[col].fillna(False).astype(bool)
+    if "risk_target_position_original" not in result.columns:
+        result["risk_target_position_original"] = result["risk_target_position"]
+    else:
+        result["risk_target_position_original"] = pd.to_numeric(
+            result["risk_target_position_original"],
+            errors="coerce",
+        ).fillna(result["risk_target_position"])
+
+    scores = release_scores.copy()
+    scores[date_col] = pd.to_datetime(scores[date_col])
+    if feature_set is not None and "feature_set" in scores.columns:
+        scores = scores[scores["feature_set"].astype(str) == str(feature_set)]
+    if threshold is not None and "threshold" in scores.columns:
+        scores = scores[np.isclose(pd.to_numeric(scores["threshold"], errors="coerce"), float(threshold))]
+    scores[predicted_col] = scores[predicted_col].fillna(False).astype(bool)
+    scores["_date_key"] = scores[date_col].dt.normalize()
+    sort_cols = [predicted_col]
+    ascending = [False]
+    if "state_score" in scores.columns:
+        scores["state_score"] = pd.to_numeric(scores["state_score"], errors="coerce")
+        sort_cols.append("state_score")
+        ascending.append(False)
+    scores = scores.sort_values(sort_cols, ascending=ascending).drop_duplicates("_date_key", keep="first")
+
+    result["_date_key"] = result[date_col].dt.normalize()
+    predicted_by_date = scores.set_index("_date_key")[predicted_col].to_dict() if not scores.empty else {}
+    result["release_gate_predicted"] = result["_date_key"].map(predicted_by_date).fillna(False).astype(bool)
+    if "state_score" in scores.columns:
+        score_by_date = scores.set_index("_date_key")["state_score"].to_dict()
+        result["release_gate_state_score"] = result["_date_key"].map(score_by_date)
+    else:
+        result["release_gate_state_score"] = np.nan
+
+    baseline_risk = pd.to_numeric(result["risk_target_position_original"], errors="coerce").fillna(
+        result["risk_target_position"]
+    )
+    candidate_release = np.maximum(baseline_risk, result["rebound_target_position"])
+    result["release_gate_lift"] = candidate_release - baseline_risk
+    release_mask = (
+        result["release_gate_predicted"]
+        & result["is_downtrend_state"]
+        & (result["release_gate_lift"] > float(min_lift))
+    )
+    if require_rebound_label:
+        release_mask = release_mask & result["is_rebound_cluster"]
+
+    result["release_gate_state"] = release_mask.astype(bool)
+    result["release_gate_feature_set"] = "" if feature_set is None else str(feature_set)
+    result["release_gate_threshold"] = np.nan if threshold is None else float(threshold)
+    result["target_semantics_revision"] = np.where(
+        result["release_gate_state"],
+        "sparse_release_risk_target_lift",
+        "",
+    )
+    result.loc[result["release_gate_state"], "risk_target_position"] = candidate_release[result["release_gate_state"]]
+    return result.drop(columns=["_date_key"]).reset_index(drop=True)
 
 
 def summarize_state_objective_target_lift_audit(audit: pd.DataFrame) -> dict[str, object]:
@@ -1453,6 +1558,7 @@ __all__ = [
     "StateObjectiveReboundClusterConfig",
     "StateObjectiveReboundTargetEnrichmentConfig",
     "StateObjectiveTrainingTargetConfig",
+    "apply_state_objective_sparse_release_gate",
     "audit_state_objective_target_lift",
     "audit_state_objective_target_scope",
     "build_fold_local_state_objective_training_targets",

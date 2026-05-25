@@ -1,0 +1,13 @@
+{
+  "audited_groups": 2,
+  "blocked_groups": 0,
+  "candidate_release_positive_lift_rows": 114,
+  "current_positive_rebound_lift_rows": 80,
+  "decision": "state_objective_target_lift_training_ready",
+  "lift_semantics_gate": true,
+  "max_candidate_release_lift": 0.5569758652,
+  "next_mechanism": "run_fold_local_weighted_bc_or_ppo",
+  "rebound_downtrend_rows": 114,
+  "rebound_rows": 132,
+  "training_allowed": true
+}

@@ -7,6 +7,7 @@ from src.soxl_quant.app.state_objective_training_targets import (
     StateObjectiveReboundTargetEnrichmentConfig,
     StateObjectiveReboundClusterConfig,
     StateObjectiveTrainingTargetConfig,
+    apply_state_objective_sparse_release_gate,
     audit_state_objective_target_lift,
     audit_state_objective_target_scope,
     build_fold_local_state_objective_training_targets,
@@ -829,3 +830,50 @@ def test_target_lift_audit_allows_current_targets_with_effective_rebound_lift():
     assert bool(audit.iloc[0]["lift_semantics_gate"]) is True
     assert summary["decision"] == "state_objective_target_lift_training_ready"
     assert summary["training_allowed"] is True
+
+
+def test_sparse_release_gate_revises_risk_target_while_preserving_baseline_lift():
+    targets = pd.DataFrame(
+        {
+            "datetime": ["2020-03-18", "2020-03-19", "2020-07-01"],
+            "fold": ["wf_2022_train", "wf_2022_train", "wf_2022_train"],
+            "teacher_position": [0.15, 0.60, 0.40],
+            "rebound_target_position": [0.35, 0.65, 0.40],
+            "risk_target_position": [0.15, 0.25, 0.40],
+            "objective_weight": [10.0, 12.0, 1.0],
+            "is_rebound_cluster": [True, True, False],
+            "is_downtrend_state": [True, True, False],
+        }
+    )
+    release_scores = pd.DataFrame(
+        {
+            "datetime": ["2020-03-18", "2020-03-19", "2020-07-01"],
+            "feature_set": ["soxx_spread_oscillation"] * 3,
+            "threshold": [0.75, 0.75, 0.75],
+            "predicted_release": [True, False, True],
+        }
+    )
+
+    revised = apply_state_objective_sparse_release_gate(
+        targets,
+        release_scores,
+        feature_set="soxx_spread_oscillation",
+        threshold=0.75,
+    )
+    audit = audit_state_objective_target_lift(
+        revised,
+        group_cols=("fold",),
+        baseline_risk_position_col="risk_target_position_original",
+    )
+    summary = summarize_state_objective_target_lift_audit(audit)
+
+    by_date = revised.set_index("datetime")
+    assert bool(by_date.loc["2020-03-18", "release_gate_state"]) is True
+    assert by_date.loc["2020-03-18", "risk_target_position_original"] == 0.15
+    assert by_date.loc["2020-03-18", "risk_target_position"] == 0.35
+    assert bool(by_date.loc["2020-03-19", "release_gate_state"]) is False
+    assert by_date.loc["2020-03-19", "risk_target_position"] == 0.25
+    assert bool(by_date.loc["2020-07-01", "release_gate_state"]) is False
+    assert audit.iloc[0]["current_positive_rebound_lift_rows"] == 1
+    assert audit.iloc[0]["candidate_release_positive_lift_rows"] == 2
+    assert summary["decision"] == "state_objective_target_lift_training_ready"
