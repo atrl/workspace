@@ -1,0 +1,41 @@
+{
+  "acceptance_gate_for_next_run": {
+    "fixed_split_required": true,
+    "fold_consensus_or_stable_lift_labels_required": true,
+    "max_dd_max_pct": 15.0,
+    "no_runtime_promotion_from_recipe_only": true,
+    "relative_return_min_pp": 30.0,
+    "walkforward_required": true
+  },
+  "blocker": "All non-trivial target lifts occur on fold-label-unstable dates; using them directly would train on unstable sparse labels.",
+  "created_at": "2026-05-25T14:20:56.682552+00:00",
+  "decision": "state_head_lift_fold_unstable_no_ppo_handoff",
+  "direct_comparison_baseline": "rebound_state_head_target_recipe_v1",
+  "effective_lift_rows": 5,
+  "experiment": "state_head_fold_stability_guard_v1",
+  "external_sources": [
+    "https://github.com/microsoft/qlib",
+    "https://arxiv.org/abs/2009.11189",
+    "https://github.com/AI4Finance-Foundation/FinRL",
+    "https://arxiv.org/abs/2011.09607",
+    "https://doi.org/10.21314/JCF.2016.322",
+    "https://arxiv.org/abs/2004.11362"
+  ],
+  "false_positive_effective_lift_rows": 1,
+  "full_gate": false,
+  "next_mechanism": "fold_consensus_rebound_target_generation_before_aux_ppo",
+  "promotion_allowed": false,
+  "sidecars": [
+    "base_context.json",
+    "lift_stability_group_metrics.csv",
+    "unstable_effective_lift_rows.csv",
+    "unstable_label_groups.csv",
+    "summary.json"
+  ],
+  "source_experiment": "rebound_state_head_lift_guard_v1",
+  "stability_gate": false,
+  "training_allowed_from_current_lift_labels": false,
+  "unstable_effective_lift_rate": 1.0,
+  "unstable_effective_lift_rows": 5,
+  "unstable_false_positive_effective_lift_rows": 1
+}

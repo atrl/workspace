@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-25T13:54:02.276279+00:00",
+  "generated_at": "2026-05-25T14:21:25.211721+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -5682,6 +5682,42 @@
       "category": "model_selection",
       "suffix": ".csv",
       "bytes": 5514
+    },
+    {
+      "path": "runtime/model_selection/card/state_head_fold_stability_guard_v1/base_context.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 628
+    },
+    {
+      "path": "runtime/model_selection/card/state_head_fold_stability_guard_v1/lift_stability_group_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 28251
+    },
+    {
+      "path": "runtime/model_selection/card/state_head_fold_stability_guard_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1600
+    },
+    {
+      "path": "runtime/model_selection/card/state_head_fold_stability_guard_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2391
+    },
+    {
+      "path": "runtime/model_selection/card/state_head_fold_stability_guard_v1/unstable_effective_lift_rows.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2048
+    },
+    {
+      "path": "runtime/model_selection/card/state_head_fold_stability_guard_v1/unstable_label_groups.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 538
     },
     {
       "path": "runtime/model_selection/card/state_objective_alignment_screen_v1/alignment_scores.csv",

@@ -4,9 +4,11 @@ import numpy as np
 import pandas as pd
 
 from src.soxl_quant.app.representation_diagnostics import (
+    StateHeadLiftStabilityConfig,
     StateHeadTargetRecipeConfig,
     rank_auc_score,
     score_binary_representation_feature_sets,
+    score_state_head_lift_stability,
     score_state_head_target_recipes,
 )
 
@@ -185,3 +187,75 @@ def test_state_head_recipe_ignores_false_positive_when_target_is_unchanged():
     assert row["effective_false_positive_rate"] == 0.0
     assert row["false_positive_lift_max"] == 0.0
     assert bool(row["recipe_gate"]) is True
+
+
+def test_state_head_lift_stability_flags_fold_conflicting_effective_lifts():
+    row_scores = pd.DataFrame(
+        {
+            "datetime": ["2020-06-03", "2020-06-03", "2021-04-05"],
+            "is_rebound": [True, False, True],
+            "predicted_state": [True, True, True],
+            "target_lift": [0.20, 0.18, 0.15],
+        }
+    )
+
+    result = score_state_head_lift_stability(
+        row_scores,
+        group_col="datetime",
+        label_col="is_rebound",
+        config=StateHeadLiftStabilityConfig(min_lift=0.01, max_unstable_effective_lift_rate=0.0),
+    )
+
+    summary = result.summary
+    assert summary["effective_lift_rows"] == 3
+    assert summary["unstable_effective_lift_rows"] == 2
+    assert summary["false_positive_effective_lift_rows"] == 1
+    assert summary["unstable_false_positive_effective_lift_rows"] == 1
+    assert bool(summary["stability_gate"]) is False
+
+    unstable = result.group_metrics.set_index("datetime").loc["2020-06-03"]
+    assert bool(unstable["label_unstable"]) is True
+    assert unstable["unstable_effective_lift_rows"] == 2
+
+
+def test_state_head_lift_stability_passes_when_effective_lifts_are_label_stable():
+    row_scores = pd.DataFrame(
+        {
+            "datetime": ["2020-06-03", "2020-06-03", "2021-04-05"],
+            "is_rebound": [True, True, False],
+            "predicted_state": [True, True, False],
+            "target_lift": [0.20, 0.18, 0.0],
+        }
+    )
+
+    result = score_state_head_lift_stability(
+        row_scores,
+        group_col="datetime",
+        label_col="is_rebound",
+        config=StateHeadLiftStabilityConfig(min_lift=0.01, max_unstable_effective_lift_rate=0.0),
+    )
+
+    assert result.summary["unstable_effective_lift_rows"] == 0
+    assert result.summary["stability_gate"] is True
+
+
+def test_state_head_lift_stability_passes_when_no_effective_lifts_exist():
+    row_scores = pd.DataFrame(
+        {
+            "datetime": ["2020-06-03", "2020-06-03"],
+            "is_rebound": [True, False],
+            "predicted_state": [False, False],
+            "target_lift": [0.0, 0.0],
+        }
+    )
+
+    result = score_state_head_lift_stability(
+        row_scores,
+        group_col="datetime",
+        label_col="is_rebound",
+        config=StateHeadLiftStabilityConfig(min_lift=0.01, max_unstable_effective_lift_rate=0.0),
+    )
+
+    assert result.summary["effective_lift_rows"] == 0
+    assert result.summary["unstable_effective_lift_rate"] == 0.0
+    assert result.summary["stability_gate"] is True

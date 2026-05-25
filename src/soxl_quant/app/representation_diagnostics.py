@@ -36,6 +36,19 @@ class StateHeadTargetRecipeResult:
     summary: dict[str, object]
 
 
+@dataclass(frozen=True)
+class StateHeadLiftStabilityConfig:
+    min_lift: float = 0.01
+    max_unstable_effective_lift_rate: float = 0.0
+
+
+@dataclass(frozen=True)
+class StateHeadLiftStabilityResult:
+    group_metrics: pd.DataFrame
+    row_scores: pd.DataFrame
+    summary: dict[str, object]
+
+
 def rank_auc_score(labels: np.ndarray | Sequence[bool], scores: np.ndarray | Sequence[float]) -> float:
     """Compute binary rank AUC without sklearn dependency."""
 
@@ -282,6 +295,104 @@ def _safe_div(numerator: float, denominator: float) -> float:
     return float(numerator / denominator) if denominator else float("nan")
 
 
+def score_state_head_lift_stability(
+    row_scores: pd.DataFrame,
+    *,
+    group_col: str,
+    label_col: str,
+    predicted_col: str = "predicted_state",
+    target_lift_col: str = "target_lift",
+    config: StateHeadLiftStabilityConfig = StateHeadLiftStabilityConfig(),
+) -> StateHeadLiftStabilityResult:
+    """Audit whether non-trivial state-head target lifts occur in label-stable groups."""
+
+    _require_columns(row_scores, {group_col, label_col, predicted_col, target_lift_col}, "state-head lift rows")
+    work = row_scores.copy()
+    work[label_col] = work[label_col].fillna(False).astype(bool)
+    work[predicted_col] = work[predicted_col].fillna(False).astype(bool)
+    work[target_lift_col] = pd.to_numeric(work[target_lift_col], errors="coerce").fillna(0.0)
+    work["effective_lift"] = work[predicted_col] & (work[target_lift_col].abs() > float(config.min_lift))
+    work["false_positive_effective_lift"] = (~work[label_col]) & work["effective_lift"]
+
+    group_rows: list[dict[str, object]] = []
+    for group_value, group in work.groupby(group_col, sort=True):
+        labels = group[label_col].astype(bool)
+        effective = group["effective_lift"].astype(bool)
+        false_positive_effective = group["false_positive_effective_lift"].astype(bool)
+        positive_labels = int(labels.sum())
+        negative_labels = int((~labels).sum())
+        label_unstable = bool(positive_labels > 0 and negative_labels > 0)
+        unstable_effective = effective & label_unstable
+        group_rows.append(
+            {
+                group_col: group_value,
+                "rows": int(len(group)),
+                "positive_labels": positive_labels,
+                "negative_labels": negative_labels,
+                "label_unstable": label_unstable,
+                "effective_lift_rows": int(effective.sum()),
+                "positive_effective_lift_rows": int((labels & effective).sum()),
+                "false_positive_effective_lift_rows": int(false_positive_effective.sum()),
+                "unstable_effective_lift_rows": int(unstable_effective.sum()),
+                "unstable_false_positive_effective_lift_rows": int(
+                    (false_positive_effective & label_unstable).sum()
+                ),
+                "max_abs_target_lift": float(group.loc[effective, target_lift_col].abs().max()) if effective.any() else 0.0,
+            }
+        )
+
+    group_metrics = pd.DataFrame(group_rows)
+    if group_metrics.empty:
+        summary = {
+            "rows": 0,
+            "groups": 0,
+            "unstable_groups": 0,
+            "effective_lift_rows": 0,
+            "positive_effective_lift_rows": 0,
+            "false_positive_effective_lift_rows": 0,
+            "unstable_effective_lift_rows": 0,
+            "unstable_false_positive_effective_lift_rows": 0,
+            "unstable_effective_lift_rate": 0.0,
+            "stability_gate": True,
+        }
+        return StateHeadLiftStabilityResult(group_metrics=group_metrics, row_scores=work, summary=summary)
+
+    unstable_by_group = group_metrics.set_index(group_col)["label_unstable"].to_dict()
+    work["label_unstable"] = work[group_col].map(unstable_by_group).fillna(False).astype(bool)
+    work["unstable_effective_lift"] = work["effective_lift"] & work["label_unstable"]
+    work["unstable_false_positive_effective_lift"] = (
+        work["false_positive_effective_lift"] & work["label_unstable"]
+    )
+
+    effective_lift_rows = int(work["effective_lift"].sum())
+    unstable_effective_lift_rows = int(work["unstable_effective_lift"].sum())
+    unstable_rate = _safe_div(unstable_effective_lift_rows, effective_lift_rows) if effective_lift_rows else 0.0
+    stability_gate = bool(
+        np.isfinite(unstable_rate)
+        and unstable_rate <= float(config.max_unstable_effective_lift_rate)
+    )
+    summary = {
+        "rows": int(len(work)),
+        "groups": int(group_metrics[group_col].nunique()),
+        "unstable_groups": int(group_metrics["label_unstable"].sum()),
+        "effective_lift_rows": effective_lift_rows,
+        "positive_effective_lift_rows": int((work[label_col] & work["effective_lift"]).sum()),
+        "false_positive_effective_lift_rows": int(work["false_positive_effective_lift"].sum()),
+        "unstable_effective_lift_rows": unstable_effective_lift_rows,
+        "unstable_false_positive_effective_lift_rows": int(work["unstable_false_positive_effective_lift"].sum()),
+        "unstable_effective_lift_rate": float(unstable_rate),
+        "stability_gate": stability_gate,
+    }
+    return StateHeadLiftStabilityResult(
+        group_metrics=group_metrics.sort_values(
+            ["label_unstable", "effective_lift_rows", group_col],
+            ascending=[False, False, True],
+        ).reset_index(drop=True),
+        row_scores=work.sort_values([group_col]).reset_index(drop=True),
+        summary=summary,
+    )
+
+
 def score_state_head_target_recipes(
     frame: pd.DataFrame,
     *,
@@ -456,9 +567,12 @@ def score_state_head_target_recipes(
 
 __all__ = [
     "RepresentationDiagnosticsResult",
+    "StateHeadLiftStabilityConfig",
+    "StateHeadLiftStabilityResult",
     "StateHeadTargetRecipeConfig",
     "StateHeadTargetRecipeResult",
     "rank_auc_score",
     "score_binary_representation_feature_sets",
+    "score_state_head_lift_stability",
     "score_state_head_target_recipes",
 ]

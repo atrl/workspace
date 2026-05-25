@@ -1,0 +1,56 @@
+{
+  "base_context": {
+    "baseline_effective_false_positive": 1,
+    "baseline_effective_false_positive_rate": 0.0007974481658692185,
+    "baseline_feature_set": "momentum_drawdown",
+    "baseline_threshold": 0.5,
+    "created_at": "2026-05-25T14:20:56.682552+00:00",
+    "experiment": "state_head_fold_stability_guard_v1",
+    "folds": [
+      "wf_2022_train",
+      "wf_2023_2024_train"
+    ],
+    "rebound_rows": 7,
+    "rows": 1261,
+    "source_lift_guard": "runtime/model_selection/card/rebound_state_head_lift_guard_v1/selection.json",
+    "source_targets": "runtime/model_selection/card/state_objective_fold_native_teacher_router_v1/fold_native_teacher_targets.csv"
+  },
+  "blocker": "All non-trivial target lifts occur on fold-label-unstable dates; using them directly would train on unstable sparse labels.",
+  "conclusion": [
+    "Effective target-lift rows: 5.",
+    "Unstable effective target-lift rows: 5 (1.000).",
+    "Unstable false-positive effective lifts: 1.",
+    "Decision: state_head_lift_fold_unstable_no_ppo_handoff; next mechanism: fold_consensus_rebound_target_generation_before_aux_ppo.",
+    "No runtime promotion; this is an overfit guard on target labels before any auxiliary state-head PPO training."
+  ],
+  "decision": "state_head_lift_fold_unstable_no_ppo_handoff",
+  "full_gate": false,
+  "next_mechanism": "fold_consensus_rebound_target_generation_before_aux_ppo",
+  "promotion_allowed": false,
+  "recipe_summary": {
+    "best_effective_false_positive_rate": 0.0007974481658692185,
+    "best_false_positive_lift_max": 0.17985462658059442,
+    "best_false_positive_lift_mean": 0.001462232736427597,
+    "best_false_positive_rate": 0.09808612440191387,
+    "best_feature_set": "momentum_drawdown",
+    "best_rebound_target_mae": 0.028571428571428574,
+    "best_state_precision": 0.05384615384615385,
+    "best_state_recall": 1.0,
+    "best_target_mae": 0.00030123285216541985,
+    "best_threshold": 0.5,
+    "recipe_gate": true
+  },
+  "stability_summary": {
+    "effective_lift_rows": 5,
+    "false_positive_effective_lift_rows": 1,
+    "groups": 756,
+    "positive_effective_lift_rows": 4,
+    "rows": 1261,
+    "stability_gate": false,
+    "unstable_effective_lift_rate": 1.0,
+    "unstable_effective_lift_rows": 5,
+    "unstable_false_positive_effective_lift_rows": 1,
+    "unstable_groups": 7
+  },
+  "training_allowed_from_current_lift_labels": false
+}

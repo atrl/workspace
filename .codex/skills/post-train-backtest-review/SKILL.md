@@ -255,6 +255,13 @@ handoff 继续。即便 lift guard 通过，也不允许 promotion；下一轮 P
 state head 与 drawdown/risk guard、walk-forward gate 和 `+30pp / <=15% MaxDD`
 目标绑定，避免把稀疏 rebound 检出变成广泛加仓。
 
+如果一个 state-head recipe 通过了有效 false-positive lift guard，但非零
+target lift 只出现在 fold-label 冲突的日期/状态上，不能进入 PPO handoff。
+先用 `score_state_head_lift_stability()` 或等价 runtime notebook 检查
+`unstable_effective_lift_rate`；只要非零 lift 全部来自不稳定标签，就说明目标
+生成仍可能在记忆 fold-native 差异。下一步应先做 fold-consensus / stable-label
+target generation，再考虑 auxiliary state-head PPO。
+
 ### 4. Explain with mechanism, not adjectives
 
 优先从下面这些“可被代码改变”的机制解释，不要只写“市场不同”：
