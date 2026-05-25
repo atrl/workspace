@@ -1,0 +1,168 @@
+{
+  "actor_record": {
+    "actor_path": "runtime/model/card/risk_budget_usage_v1/soxl_risk_budget_usage_v1_state_objective_budget_usage_bc_warm_start_v1_actor.pt",
+    "obs_dim": 315,
+    "profile": "risk_budget_usage_v1",
+    "seed": 42,
+    "tag": "state_objective_budget_usage_bc_warm_start_v1"
+  },
+  "bc_fit_metrics": {
+    "action_count": 5,
+    "action_shape": [
+      755
+    ],
+    "after_accuracy": 0.8317880794701987,
+    "after_loss": 1.073259891737376,
+    "batch_size": 128,
+    "before_accuracy": 0.12980132450331125,
+    "before_loss": 1.6141308917115067,
+    "dominant_action": 0,
+    "dominant_action_share": 0.40264900662251657,
+    "lr": 0.001,
+    "obs_shape": [
+      755,
+      315
+    ],
+    "samples": 755,
+    "steps": 600,
+    "train_last_batch_accuracy": 0.84375,
+    "train_last_loss": 1.0647376775741577,
+    "unique_actions": 5
+  },
+  "conclusion": [
+    "BC fit improved from 0.130 to 0.832 accuracy on 755 samples.",
+    "Fold consistency gate passed with min fold accuracy 0.826.",
+    "Label distribution gate passed with 5 actions and dominant share 0.403.",
+    "Rebound slice fit gate failed: rebound accuracy 0.429 on 7 samples, so the next run must use rebound-weighted BC or sampling before PPO.",
+    "This is a warm-start artifact only; no runtime promotion without fold-local PPO, fixed-split backtest, and walk-forward validation."
+  ],
+  "coverage": {
+    "feature_frame_end": "2022-12-30",
+    "feature_frame_overlap_dates": 756,
+    "feature_frame_profile": "balanced_rule_residual_v22",
+    "feature_frame_rows": 2973,
+    "feature_frame_start": "2011-03-11",
+    "frame_path": "data/soxl_profile_balanced_rule_residual_v22.pkl",
+    "native_frame_end": "2018-12-31",
+    "native_frame_overlap_dates": 0,
+    "native_frame_path": "data/soxl_profile_risk_budget_usage_v1.pkl",
+    "native_frame_rows": 1965,
+    "native_frame_start": "2011-03-11",
+    "profile": "risk_budget_usage_v1",
+    "source_promotion_allowed": false,
+    "source_teacher_scope": "fold_native_router_config_on_existing_base_upside_paths",
+    "source_training_allowed": true,
+    "target_end": "2022-12-30",
+    "target_rows": 1261,
+    "target_start": "2020-01-02",
+    "target_unique_dates": 756,
+    "targets_path": "runtime/model_selection/card/state_objective_fold_native_teacher_router_v1/fold_native_teacher_targets.csv"
+  },
+  "fold_metrics": [
+    {
+      "accuracy": 0.8257425742574257,
+      "dominant_action_share": 0.4633663366336634,
+      "loss": 1.079593348739171,
+      "samples": 505,
+      "slice": "wf_2022_train",
+      "unique_actions": 5
+    },
+    {
+      "accuracy": 0.8278145695364238,
+      "dominant_action_share": 0.39867549668874175,
+      "loss": 1.07753413118274,
+      "samples": 755,
+      "slice": "wf_2023_2024_train",
+      "unique_actions": 5
+    }
+  ],
+  "selection": {
+    "acceptance_gate_for_next_run": {
+      "fixed_split_required": true,
+      "max_dd_max_pct": 15.0,
+      "no_runtime_promotion_from_bc_only": true,
+      "rebound_slice_accuracy_min": 0.6,
+      "relative_return_min_pp": 30.0,
+      "walkforward_required": true
+    },
+    "actor_path": "runtime/model/card/risk_budget_usage_v1/soxl_risk_budget_usage_v1_state_objective_budget_usage_bc_warm_start_v1_actor.pt",
+    "after_accuracy": 0.8317880794701987,
+    "after_loss": 1.073259891737376,
+    "bc_fit_gate": true,
+    "created_at": "2026-05-25T11:53:08.278499+00:00",
+    "decision": "diagnostic_bc_global_fit_rebound_slice_weak_no_promotion",
+    "dominant_action_share": 0.40264900662251657,
+    "experiment": "state_objective_budget_usage_bc_warm_start_v1",
+    "external_sources": [
+      "https://github.com/microsoft/qlib",
+      "https://arxiv.org/abs/2009.11189",
+      "https://github.com/AI4Finance-Foundation/FinRL",
+      "https://arxiv.org/abs/2011.09607",
+      "https://arxiv.org/abs/1704.03732",
+      "https://doi.org/10.1090/conm/729/14680"
+    ],
+    "feature_frame_profile": "balanced_rule_residual_v22",
+    "fold_consistency_gate": true,
+    "global_bc_fit_ready": true,
+    "label_distribution_gate": true,
+    "min_fold_accuracy": 0.8257425742574257,
+    "min_state_accuracy": 0.42857142857142855,
+    "next_mechanism": "rebound_weighted_state_objective_bc_then_walkforward_ppo",
+    "next_training_requires_rebound_weighting": true,
+    "profile": "risk_budget_usage_v1",
+    "promotion_allowed": false,
+    "promotion_blocker": "BC label fit is not a backtest; actor uses targets derived from previous review evidence and must enter fold-local walk-forward PPO plus fixed-split gates before promotion.",
+    "rebound_accuracy": 0.42857142857142855,
+    "rebound_coverage_gate": true,
+    "rebound_samples": 7,
+    "samples": 755,
+    "sidecars": [
+      "coverage.json",
+      "bc_fit_metrics.json",
+      "bc_action_distribution.csv",
+      "fold_bc_metrics.csv",
+      "state_slice_bc_metrics.csv",
+      "actor_record.json",
+      "summary.json"
+    ],
+    "source_decision": "fold_native_teacher_router_targets_ready",
+    "source_experiment": "state_objective_fold_native_teacher_router_v1",
+    "state_slice_fit_gate": false,
+    "unique_actions": 5,
+    "warm_start_ready_for_next_training": false
+  },
+  "state_metrics": [
+    {
+      "accuracy": 0.8317880794701987,
+      "dominant_action_share": 0.40264900662251657,
+      "loss": 1.073259891737376,
+      "samples": 755,
+      "slice": "all",
+      "unique_actions": 5
+    },
+    {
+      "accuracy": 0.42857142857142855,
+      "dominant_action_share": 0.5714285714285714,
+      "loss": 1.474499293736049,
+      "samples": 7,
+      "slice": "rebound_cluster",
+      "unique_actions": 2
+    },
+    {
+      "accuracy": 0.8134171907756813,
+      "dominant_action_share": 0.5052410901467506,
+      "loss": 1.0906914605034723,
+      "samples": 477,
+      "slice": "downtrend_state",
+      "unique_actions": 3
+    },
+    {
+      "accuracy": 0.7230215827338129,
+      "dominant_action_share": 0.5,
+      "loss": 1.1742697516791254,
+      "samples": 278,
+      "slice": "ordinary_state",
+      "unique_actions": 5
+    }
+  ]
+}

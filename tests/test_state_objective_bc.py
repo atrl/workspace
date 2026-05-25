@@ -1,0 +1,98 @@
+from __future__ import annotations
+
+import numpy as np
+import pandas as pd
+import torch
+
+from src.soxl_quant.app.state_objective_bc import (
+    StateObjectiveBCTrainingConfig,
+    action_distribution_frame,
+    evaluate_bc_actor,
+    fit_bc_actor,
+    fit_state_objective_bc_actor_from_frame,
+)
+from src.soxl_quant.config import load_profile
+from src.soxl_quant.data import FEATURE_COLUMNS
+from src.soxl_quant.settings import LOOKBACK
+
+
+def _separable_actor() -> torch.nn.Linear:
+    actor = torch.nn.Linear(2, 2)
+    torch.nn.init.zeros_(actor.weight)
+    torch.nn.init.zeros_(actor.bias)
+    return actor
+
+
+def test_fit_bc_actor_reports_before_and_after_metrics_on_separable_actions():
+    obs = np.asarray(
+        [[-2.0, 0.0], [-1.0, 0.0], [-0.5, 0.0], [0.5, 0.0], [1.0, 0.0], [2.0, 0.0]],
+        dtype=np.float32,
+    )
+    actions = np.asarray([0, 0, 0, 1, 1, 1], dtype=np.int64)
+    actor = _separable_actor()
+
+    before = evaluate_bc_actor(actor, obs, actions)
+    result = fit_bc_actor(
+        actor,
+        obs,
+        actions,
+        StateObjectiveBCTrainingConfig(steps=120, lr=0.05, batch_size=6, seed=7),
+    )
+
+    assert before["accuracy"] == 0.5
+    assert result["samples"] == 6
+    assert result["before_accuracy"] == 0.5
+    assert result["after_accuracy"] >= 0.95
+    assert result["after_loss"] < result["before_loss"]
+
+
+def test_action_distribution_frame_keeps_missing_actions_visible():
+    dist = action_distribution_frame(np.asarray([0, 2, 2], dtype=np.int64), action_count=4)
+
+    assert dist["action"].tolist() == [0, 1, 2, 3]
+    assert dist["count"].tolist() == [1, 0, 2, 0]
+    assert dist["share"].round(6).tolist() == [0.333333, 0.0, 0.666667, 0.0]
+
+
+def _sample_frame(rows: int = LOOKBACK + 8) -> pd.DataFrame:
+    data = {col: np.zeros(rows, dtype=np.float32) for col in FEATURE_COLUMNS}
+    data["datetime"] = pd.date_range("2020-01-01", periods=rows, freq="B")
+    data["close"] = np.linspace(10.0, 12.0, rows, dtype=np.float32)
+    data["return"] = pd.Series(data["close"]).pct_change().fillna(0.0).to_numpy(dtype=np.float32)
+    data["regime_risk"] = np.linspace(0.10, 0.30, rows, dtype=np.float32)
+    data["anchor_gap_180"] = 0.06
+    data["anchor_slope_180"] = 0.01
+    data["trend_gap_21"] = 0.04
+    data["realized_vol_10"] = 0.30
+    return pd.DataFrame(data)
+
+
+def test_fit_state_objective_bc_actor_from_frame_returns_auditable_training_result():
+    profile = load_profile("risk_budget_usage_v1")
+    frame = _sample_frame()
+    dates = frame["datetime"].iloc[LOOKBACK : LOOKBACK + 4].to_numpy()
+    targets = pd.DataFrame(
+        {
+            "datetime": dates,
+            "teacher_position": [0.05, 0.25, 0.45, 0.65],
+            "rebound_target_position": [0.05, 0.35, 0.45, 0.65],
+            "risk_target_position": [0.05, 0.25, 0.25, 0.25],
+            "objective_weight": [1.0, 2.0, 3.0, 4.0],
+            "is_rebound_cluster": [False, True, False, False],
+            "is_downtrend_state": [False, False, True, False],
+        }
+    )
+
+    result = fit_state_objective_bc_actor_from_frame(
+        frame,
+        targets=targets,
+        profile=profile,
+        train_config=StateObjectiveBCTrainingConfig(steps=5, lr=0.01, batch_size=4, seed=11),
+        sample_size=0,
+    )
+
+    assert result.obs.shape[0] == 4
+    assert result.actions.shape == (4,)
+    assert result.actor is not None
+    assert result.metrics["samples"] == 4
+    assert result.action_distribution["count"].sum() == 4

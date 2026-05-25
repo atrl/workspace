@@ -211,6 +211,14 @@ violation 和 target coverage 缺失。若 `window_gate` 或 `coverage_gate` 未
 同时通过，结论只能是下一轮 checkpoint scoring / BC warm-start / PPO reward
 shaping 的训练配方，不允许 runtime promotion。
 
+当 state-objective BC warm-start 的全局 label accuracy / fold accuracy
+通过，但 rebound 或 downtrend 等稀疏状态切片 accuracy 明显失败时，不要把它
+标成 ready-for-PPO。结论应是“global fit 可用、稀疏状态未学会”，下一步先做
+rebound-weighted BC、状态加权采样或 fold-local loss weighting，再进入
+walk-forward PPO。`selection.json` 至少要记录 `state_slice_fit_gate`、
+`rebound_accuracy`、`next_training_requires_rebound_weighting`，并继续保持
+`promotion_allowed=false`。
+
 ### 4. Explain with mechanism, not adjectives
 
 优先从下面这些“可被代码改变”的机制解释，不要只写“市场不同”：
