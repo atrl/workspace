@@ -1,0 +1,45 @@
+{
+  "rows": [
+    {
+      "all_end": "2021-12-31",
+      "all_start": "2020-01-02",
+      "all_target_rows": 505,
+      "downtrend_rows": 118,
+      "drawdown_control_rows": 49,
+      "fold": "wf_2022",
+      "rebound_rows": 66,
+      "release_gate_rows": 40,
+      "target_fold": "wf_2022_train",
+      "test_end": "2022-12-31",
+      "test_overlap_rows": 0,
+      "test_start": "2022-01-01",
+      "train_end": "2020-12-31",
+      "train_start": "2010-03-11",
+      "train_target_rows": 253,
+      "valid_end": "2021-12-31",
+      "valid_overlap_rows": 252,
+      "valid_start": "2021-01-01"
+    },
+    {
+      "all_end": "2022-12-30",
+      "all_start": "2020-01-02",
+      "all_target_rows": 756,
+      "downtrend_rows": 478,
+      "drawdown_control_rows": 49,
+      "fold": "wf_2023_2024",
+      "rebound_rows": 66,
+      "release_gate_rows": 40,
+      "target_fold": "wf_2023_2024_train",
+      "test_end": "2024-12-31",
+      "test_overlap_rows": 0,
+      "test_start": "2024-01-01",
+      "train_end": "2022-12-31",
+      "train_start": "2010-03-11",
+      "train_target_rows": 756,
+      "valid_end": "2023-12-31",
+      "valid_overlap_rows": 0,
+      "valid_start": "2023-01-01"
+    }
+  ],
+  "source_bc_decision": "joint_contract_bc_slice_ready_for_ppo_screen_no_promotion"
+}

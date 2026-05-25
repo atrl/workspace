@@ -305,6 +305,16 @@ walk-forward PPO。`selection.json` 至少要记录 `state_slice_fit_gate`、
 `rebound_accuracy`、`next_training_requires_rebound_weighting`，并继续保持
 `promotion_allowed=false`。
 
+如果 fold-local joint contract 的 BC slice screen 已通过，而短 PPO handoff
+只在部分 fold 过 `+30pp / <=15% MaxDD`，或 `wf_2022` 出现 PPO 相对 BC 的
+MaxDD drift（例如 `ppo_vs_bc_max_dd_delta` 明显大于 2pp），不要把结果解释为
+“PPO 训练不够”。结论应是 BC initialization 有参考价值、PPO policy-improvement
+会破坏风险约束；下一步优先把 BC actor 当 checkpoint/selection reference，
+或在 reward/checkpoint selection 中加入 drawdown-drift penalty，再考虑更长
+PPO。runtime notebook 的 `selection.json` 应记录 `bc_gate_pass_count`、
+`selected_gate_pass_count`、`drift_gate_pass_count`、`wf_2022_failed` 和
+`promotion_allowed=false`。
+
 如果 rebound-weighted BC 已经做过确定性权重筛选，且 rebound rows 少于
 20、`rebound_accuracy` 没有提升或仍低于 0.60，不要继续扩大同类权重网格。
 下一步应改成 target enrichment、rebound 状态标签扩展、或 state-conditioned
