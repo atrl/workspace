@@ -237,6 +237,12 @@ slice accuracy 仍没有提升，不要继续调邻近半径或 target floor。�
 start 直接推进；应先改 rebound 表征、状态头或 fold-local 目标发现，并把
 holdout rebound gate 写进 selection.json。
 
+如果 rebound representation separability screen 显示某个基础特征组
+（例如 `momentum_drawdown`）跨 fold AUC/accuracy 通过，但 BC action holdout
+仍失败，则瓶颈不是“没有可分特征”，而是状态到动作的训练头/目标映射。下一步应
+做显式 rebound state head、auxiliary state classification、或基于该特征组的
+fold-local PPO recipe；不要继续扩大全局 loss 权重或特征全集。
+
 ### 4. Explain with mechanism, not adjectives
 
 优先从下面这些“可被代码改变”的机制解释，不要只写“市场不同”：

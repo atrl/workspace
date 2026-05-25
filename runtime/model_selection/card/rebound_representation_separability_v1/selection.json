@@ -1,0 +1,47 @@
+{
+  "acceptance_gate_for_next_run": {
+    "fixed_split_required": true,
+    "holdout_rebound_accuracy_min": 0.6,
+    "max_dd_max_pct": 15.0,
+    "no_runtime_promotion_from_representation_screen": true,
+    "rebound_feature_holdout_accuracy_min": 0.6,
+    "rebound_feature_holdout_auc_min": 0.7,
+    "relative_return_min_pp": 30.0,
+    "walkforward_required": true
+  },
+  "baseline_enrichment_rebound_accuracy": 0.42857142857142855,
+  "baseline_loss_holdout_rebound_min": 0.0,
+  "best_feature_set": "momentum_drawdown",
+  "best_features": "mom_5,mom_21,drawdown_63",
+  "best_holdout_accuracy_mean": 0.8378424747236628,
+  "best_holdout_accuracy_min": 0.7881188118811882,
+  "best_holdout_auc_mean": 0.9820558087013225,
+  "best_holdout_auc_min": 0.9800796812749004,
+  "coverage_gate": true,
+  "created_at": "2026-05-25T13:19:02.922117+00:00",
+  "decision": "rebound_representation_crossfold_separable_no_runtime_promotion",
+  "direct_comparison_baseline": "state_objective_rebound_target_enrichment_v1",
+  "experiment": "rebound_representation_separability_v1",
+  "external_sources": [
+    "https://github.com/microsoft/qlib",
+    "https://arxiv.org/abs/2009.11189",
+    "https://github.com/AI4Finance-Foundation/FinRL",
+    "https://arxiv.org/abs/2011.09607",
+    "https://arxiv.org/abs/2004.11362",
+    "https://arxiv.org/abs/1807.03748",
+    "https://arxiv.org/abs/1901.05555"
+  ],
+  "full_gate": false,
+  "next_mechanism": "state_head_or_ppo_recipe_with_best_rebound_feature_set",
+  "promotion_allowed": false,
+  "promotion_blocker": "Representation gate passed, but this is a diagnostic screen and still requires walk-forward PPO/fixed-split validation.",
+  "representation_gate": true,
+  "sidecars": [
+    "base_context.json",
+    "feature_set_scores.csv",
+    "fold_metrics.csv",
+    "feature_effects.csv",
+    "summary.json"
+  ],
+  "source_experiment": "state_objective_state_conditioned_loss_v1"
+}

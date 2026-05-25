@@ -1,0 +1,13 @@
+feature_set,eval_fold,features,train_samples,eval_samples,train_positive,eval_positive,eval_negative,coverage_gate,holdout_auc,holdout_accuracy
+all_candidate_features,wf_2022_train,"mom_5,mom_21,drawdown_63,rv_21,vol_of_vol_21,soxl_soxx_ratio_widen_21,soxl_soxx_ratio_z_252,soxx_mom_21,base_position,upside_position,router_position",756,505,3,4,501,True,0.9336327345309381,0.8297029702970297
+all_candidate_features,wf_2023_2024_train,"mom_5,mom_21,drawdown_63,rv_21,vol_of_vol_21,soxl_soxx_ratio_widen_21,soxl_soxx_ratio_z_252,soxx_mom_21,base_position,upside_position,router_position",505,756,4,3,753,True,0.880920761398849,0.9166666666666666
+momentum_drawdown,wf_2022_train,"mom_5,mom_21,drawdown_63",756,505,3,4,501,True,0.9840319361277445,0.7881188118811882
+momentum_drawdown,wf_2023_2024_train,"mom_5,mom_21,drawdown_63",505,756,4,3,753,True,0.9800796812749004,0.8875661375661376
+momentum_soxx_relative,wf_2022_train,"mom_5,mom_21,drawdown_63,soxl_soxx_ratio_widen_21,soxx_mom_21",756,505,3,4,501,True,0.9895209580838323,0.7900990099009901
+momentum_soxx_relative,wf_2023_2024_train,"mom_5,mom_21,drawdown_63,soxl_soxx_ratio_widen_21,soxx_mom_21",505,756,4,3,753,True,0.9667994687915007,0.8664021164021164
+router_positions,wf_2022_train,"base_position,upside_position,router_position",756,505,3,4,501,True,0.6392215568862275,0.699009900990099
+router_positions,wf_2023_2024_train,"base_position,upside_position,router_position",505,756,4,3,753,True,0.6715360779105799,0.9021164021164021
+soxx_relative,wf_2022_train,"soxl_soxx_ratio_widen_21,soxl_soxx_ratio_z_252,soxx_mom_21",756,505,3,4,501,True,0.872255489021956,0.7524752475247525
+soxx_relative,wf_2023_2024_train,"soxl_soxx_ratio_widen_21,soxl_soxx_ratio_z_252,soxx_mom_21",505,756,4,3,753,True,0.8574590526781762,0.8650793650793651
+volatility,wf_2022_train,"rv_21,vol_of_vol_21",756,505,3,4,501,True,0.03792415169660679,0.803960396039604
+volatility,wf_2023_2024_train,"rv_21,vol_of_vol_21",505,756,4,3,753,True,0.16644532979194335,0.43253968253968256

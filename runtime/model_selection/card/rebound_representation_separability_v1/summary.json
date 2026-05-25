@@ -1,0 +1,85 @@
+{
+  "base_context": {
+    "baseline_enrichment_rebound_accuracy": 0.42857142857142855,
+    "baseline_loss_decision": "state_conditioned_loss_partial_rebound_fit_no_promotion",
+    "baseline_loss_holdout_rebound_min": 0.0,
+    "created_at": "2026-05-25T13:19:02.922117+00:00",
+    "experiment": "rebound_representation_separability_v1",
+    "fold_counts": {
+      "wf_2022_train": 505,
+      "wf_2023_2024_train": 756
+    },
+    "rebound_by_fold": {
+      "wf_2022_train": 4,
+      "wf_2023_2024_train": 3
+    },
+    "rows": 1261,
+    "source_targets": "runtime/model_selection/card/state_objective_fold_native_teacher_router_v1/fold_native_teacher_targets.csv"
+  },
+  "best_row": {
+    "coverage_gate": true,
+    "covered_folds": 2,
+    "feature_count": 3,
+    "feature_set": "momentum_drawdown",
+    "features": "mom_5,mom_21,drawdown_63",
+    "folds": 2,
+    "holdout_accuracy_mean": 0.8378424747236628,
+    "holdout_accuracy_min": 0.7881188118811882,
+    "holdout_auc_mean": 0.9820558087013225,
+    "holdout_auc_min": 0.9800796812749004,
+    "representation_gate": true
+  },
+  "conclusion": [
+    "Best feature set momentum_drawdown had holdout AUC min/mean 0.980/0.982.",
+    "Best holdout accuracy min/mean was 0.788/0.838; representation gate=True.",
+    "Decision: rebound_representation_crossfold_separable_no_runtime_promotion; next mechanism: state_head_or_ppo_recipe_with_best_rebound_feature_set.",
+    "No runtime or PPO promotion is allowed from this representation-only screen."
+  ],
+  "selection": {
+    "acceptance_gate_for_next_run": {
+      "fixed_split_required": true,
+      "holdout_rebound_accuracy_min": 0.6,
+      "max_dd_max_pct": 15.0,
+      "no_runtime_promotion_from_representation_screen": true,
+      "rebound_feature_holdout_accuracy_min": 0.6,
+      "rebound_feature_holdout_auc_min": 0.7,
+      "relative_return_min_pp": 30.0,
+      "walkforward_required": true
+    },
+    "baseline_enrichment_rebound_accuracy": 0.42857142857142855,
+    "baseline_loss_holdout_rebound_min": 0.0,
+    "best_feature_set": "momentum_drawdown",
+    "best_features": "mom_5,mom_21,drawdown_63",
+    "best_holdout_accuracy_mean": 0.8378424747236628,
+    "best_holdout_accuracy_min": 0.7881188118811882,
+    "best_holdout_auc_mean": 0.9820558087013225,
+    "best_holdout_auc_min": 0.9800796812749004,
+    "coverage_gate": true,
+    "created_at": "2026-05-25T13:19:02.922117+00:00",
+    "decision": "rebound_representation_crossfold_separable_no_runtime_promotion",
+    "direct_comparison_baseline": "state_objective_rebound_target_enrichment_v1",
+    "experiment": "rebound_representation_separability_v1",
+    "external_sources": [
+      "https://github.com/microsoft/qlib",
+      "https://arxiv.org/abs/2009.11189",
+      "https://github.com/AI4Finance-Foundation/FinRL",
+      "https://arxiv.org/abs/2011.09607",
+      "https://arxiv.org/abs/2004.11362",
+      "https://arxiv.org/abs/1807.03748",
+      "https://arxiv.org/abs/1901.05555"
+    ],
+    "full_gate": false,
+    "next_mechanism": "state_head_or_ppo_recipe_with_best_rebound_feature_set",
+    "promotion_allowed": false,
+    "promotion_blocker": "Representation gate passed, but this is a diagnostic screen and still requires walk-forward PPO/fixed-split validation.",
+    "representation_gate": true,
+    "sidecars": [
+      "base_context.json",
+      "feature_set_scores.csv",
+      "fold_metrics.csv",
+      "feature_effects.csv",
+      "summary.json"
+    ],
+    "source_experiment": "state_objective_state_conditioned_loss_v1"
+  }
+}

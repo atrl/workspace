@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-25T13:09:47.326356+00:00",
+  "generated_at": "2026-05-25T13:20:54.189889+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -5454,6 +5454,42 @@
       "category": "model_selection",
       "suffix": ".csv",
       "bytes": 80909
+    },
+    {
+      "path": "runtime/model_selection/card/rebound_representation_separability_v1/base_context.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 613
+    },
+    {
+      "path": "runtime/model_selection/card/rebound_representation_separability_v1/feature_effects.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2752
+    },
+    {
+      "path": "runtime/model_selection/card/rebound_representation_separability_v1/feature_set_scores.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1201
+    },
+    {
+      "path": "runtime/model_selection/card/rebound_representation_separability_v1/fold_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2009
+    },
+    {
+      "path": "runtime/model_selection/card/rebound_representation_separability_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1903
+    },
+    {
+      "path": "runtime/model_selection/card/rebound_representation_separability_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 3511
     },
     {
       "path": "runtime/model_selection/card/selection_overfit_audit_v1/risk_budget_conservative_frontier.csv",

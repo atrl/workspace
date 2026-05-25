@@ -1,0 +1,7 @@
+feature_set,features,feature_count,folds,covered_folds,coverage_gate,holdout_auc_min,holdout_auc_mean,holdout_accuracy_min,holdout_accuracy_mean,representation_gate
+momentum_drawdown,"mom_5,mom_21,drawdown_63",3,2,2,True,0.9800796812749004,0.9820558087013225,0.7881188118811882,0.8378424747236628,True
+momentum_soxx_relative,"mom_5,mom_21,drawdown_63,soxl_soxx_ratio_widen_21,soxx_mom_21",5,2,2,True,0.9667994687915007,0.9781602134376666,0.7900990099009901,0.8282505631515533,True
+all_candidate_features,"mom_5,mom_21,drawdown_63,rv_21,vol_of_vol_21,soxl_soxx_ratio_widen_21,soxl_soxx_ratio_z_252,soxx_mom_21,base_position,upside_position,router_position",11,2,2,True,0.880920761398849,0.9072767479648935,0.8297029702970297,0.8731848184818481,True
+soxx_relative,"soxl_soxx_ratio_widen_21,soxl_soxx_ratio_z_252,soxx_mom_21",3,2,2,True,0.8574590526781762,0.8648572708500661,0.7524752475247525,0.8087773063020588,True
+router_positions,"base_position,upside_position,router_position",3,2,2,True,0.6392215568862275,0.6553788173984036,0.699009900990099,0.8005631515532505,False
+volatility,"rv_21,vol_of_vol_21",2,2,2,True,0.03792415169660679,0.10218474074427507,0.43253968253968256,0.6182500392896433,False
