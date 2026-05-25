@@ -1,0 +1,3 @@
+candidate,fold,cluster,start,end,rows,return,buy_and_hold_return,relative_return,max_dd,avg_pos
+state_objective_fold_native_teacher_router_v1:teacher,wf_2022_train,wf_2022_train_rebound_1,2020-06-03,2020-06-08,4,4.115732952289131,9.438136184851963,-5.3224032325628325,0.368728322006906,0.5281227259992134
+state_objective_fold_native_teacher_router_v1:teacher,wf_2023_2024_train,wf_2023_2024_train_rebound_1,2021-04-05,2021-04-07,3,-0.7199995252821223,-3.599997626410578,2.879998101128456,0.7199995252821223,0.20280950809140283

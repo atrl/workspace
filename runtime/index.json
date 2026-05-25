@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-25T11:11:13.392241+00:00",
+  "generated_at": "2026-05-25T11:31:35.481197+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -5778,6 +5778,102 @@
       "category": "model_selection",
       "suffix": ".json",
       "bytes": 7964
+    },
+    {
+      "path": "runtime/model_selection/card/state_objective_fold_native_teacher_router_v1/bc_readiness_scores.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 547
+    },
+    {
+      "path": "runtime/model_selection/card/state_objective_fold_native_teacher_router_v1/fold_eval_review_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 492
+    },
+    {
+      "path": "runtime/model_selection/card/state_objective_fold_native_teacher_router_v1/fold_native_teacher_rebound_clusters.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 527
+    },
+    {
+      "path": "runtime/model_selection/card/state_objective_fold_native_teacher_router_v1/fold_native_teacher_targets.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 743363
+    },
+    {
+      "path": "runtime/model_selection/card/state_objective_fold_native_teacher_router_v1/fold_profile_label_comparison.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 611
+    },
+    {
+      "path": "runtime/model_selection/card/state_objective_fold_native_teacher_router_v1/fold_router_selection.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1070
+    },
+    {
+      "path": "runtime/model_selection/card/state_objective_fold_native_teacher_router_v1/fold_router_top_configs.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 120930
+    },
+    {
+      "path": "runtime/model_selection/card/state_objective_fold_native_teacher_router_v1/fold_target_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 366
+    },
+    {
+      "path": "runtime/model_selection/card/state_objective_fold_native_teacher_router_v1/fold_train_teacher_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 491
+    },
+    {
+      "path": "runtime/model_selection/card/state_objective_fold_native_teacher_router_v1/profile_label_comparison.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 300
+    },
+    {
+      "path": "runtime/model_selection/card/state_objective_fold_native_teacher_router_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1550
+    },
+    {
+      "path": "runtime/model_selection/card/state_objective_fold_native_teacher_router_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 8155
+    },
+    {
+      "path": "runtime/model_selection/card/state_objective_fold_native_teacher_router_v1/wf_2022_train_teacher_eval_review_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 693161
+    },
+    {
+      "path": "runtime/model_selection/card/state_objective_fold_native_teacher_router_v1/wf_2022_train_teacher_train_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1328756
+    },
+    {
+      "path": "runtime/model_selection/card/state_objective_fold_native_teacher_router_v1/wf_2023_2024_train_teacher_eval_review_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1388671
+    },
+    {
+      "path": "runtime/model_selection/card/state_objective_fold_native_teacher_router_v1/wf_2023_2024_train_teacher_train_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2017595
     },
     {
       "path": "runtime/model_selection/card/state_objective_training_target_v1/selection.json",
