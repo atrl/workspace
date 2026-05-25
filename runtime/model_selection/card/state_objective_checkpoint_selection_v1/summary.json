@@ -1,0 +1,18 @@
+{
+  "decision": "checkpoint_objective_no_promotion",
+  "selected_candidate": "state_conditioned_rebound_risk_router_v1",
+  "selected_checkpoint_objective_loss": 3.2345572516904033,
+  "selected_checkpoint_selection_score": -3.2345572516904033,
+  "selected_window_gate": false,
+  "selected_coverage_gate": true,
+  "selected_alignment_loss": 1.70854185633442,
+  "selected_window_gate_loss": 134.34889343775464,
+  "selected_missing_target_ratio": 0.0,
+  "next_mechanism": "train_state_objective_checkpoint_or_bc",
+  "required_terms": [
+    "checkpoint_objective_alignment_loss",
+    "checkpoint_objective_walkforward_gate_loss",
+    "checkpoint_objective_rebound_mae",
+    "checkpoint_objective_risk_cap_violation"
+  ]
+}

@@ -40,6 +40,16 @@ class StateObjectiveTrainingTargetConfig:
         )
 
 
+@dataclass(frozen=True)
+class StateObjectiveCheckpointSelectionConfig:
+    alignment_loss_weight: float = 1.0
+    window_gate_loss_weight: float = 0.01
+    missing_target_penalty: float = 10.0
+    rebound_mae_weight: float = 1.0
+    risk_cap_violation_weight: float = 2.0
+    legacy_score_reward: float = 0.0
+
+
 def _window_weight(window: str, config: StateConditionedObjectiveConfig) -> float:
     if window in config.window_weights:
         return float(config.window_weights[window])
@@ -620,10 +630,110 @@ def summarize_state_objective_target_alignment(scored: pd.DataFrame) -> dict[str
     }
 
 
+def score_state_objective_checkpoint_candidates(
+    alignment_scores: pd.DataFrame,
+    *,
+    config: StateObjectiveCheckpointSelectionConfig = StateObjectiveCheckpointSelectionConfig(),
+) -> pd.DataFrame:
+    """Rank checkpoints/candidates by state-objective loss instead of validation score alone."""
+
+    if alignment_scores.empty:
+        return pd.DataFrame(
+            columns=[
+                "candidate",
+                "checkpoint_objective_loss",
+                "checkpoint_selection_score",
+                "window_gate",
+                "coverage_gate",
+                "alignment_loss",
+                "window_gate_loss",
+                "missing_target_ratio",
+            ]
+        )
+    required = {
+        "candidate",
+        "alignment_loss",
+        "window_gate_loss",
+        "missing_target_ratio",
+        "window_gate",
+        "coverage_gate",
+    }
+    missing = sorted(required - set(alignment_scores.columns))
+    if missing:
+        raise ValueError(f"alignment_scores missing columns: {missing}")
+    scored = alignment_scores.copy()
+    for column in [
+        "alignment_loss",
+        "window_gate_loss",
+        "missing_target_ratio",
+        "rebound_position_mae",
+        "risk_cap_violation",
+        "score",
+    ]:
+        if column not in scored.columns:
+            scored[column] = 0.0
+        scored[column] = pd.to_numeric(scored[column], errors="coerce").fillna(0.0)
+    scored["checkpoint_objective_loss"] = (
+        scored["alignment_loss"] * float(config.alignment_loss_weight)
+        + scored["window_gate_loss"] * float(config.window_gate_loss_weight)
+        + scored["missing_target_ratio"] * float(config.missing_target_penalty)
+        + scored["rebound_position_mae"] * float(config.rebound_mae_weight)
+        + scored["risk_cap_violation"] * float(config.risk_cap_violation_weight)
+        - scored["score"] * float(config.legacy_score_reward)
+    )
+    scored["checkpoint_selection_score"] = -scored["checkpoint_objective_loss"]
+    return scored.sort_values(
+        ["window_gate", "coverage_gate", "checkpoint_objective_loss", "candidate"],
+        ascending=[False, False, True, True],
+    ).reset_index(drop=True)
+
+
+def summarize_state_objective_checkpoint_selection(scored: pd.DataFrame) -> dict[str, object]:
+    if scored.empty:
+        return {
+            "decision": "no_candidates",
+            "selected_candidate": "",
+            "next_mechanism": "collect_state_objective_alignment_scores",
+            "required_terms": [],
+        }
+    top = scored.iloc[0]
+    window_gate = bool(top.get("window_gate", False))
+    coverage_gate = bool(top.get("coverage_gate", False))
+    if window_gate and coverage_gate:
+        decision = "checkpoint_objective_promotion_review"
+        next_mechanism = "rerun_walkforward_promotion_review"
+    else:
+        decision = "checkpoint_objective_no_promotion"
+        next_mechanism = "train_state_objective_checkpoint_or_bc"
+    return {
+        "decision": decision,
+        "selected_candidate": str(top["candidate"]),
+        "selected_checkpoint_objective_loss": float(top["checkpoint_objective_loss"]),
+        "selected_checkpoint_selection_score": float(top["checkpoint_selection_score"])
+        if "checkpoint_selection_score" in top
+        else -float(top["checkpoint_objective_loss"]),
+        "selected_window_gate": window_gate,
+        "selected_coverage_gate": coverage_gate,
+        "selected_alignment_loss": float(top.get("alignment_loss", 0.0)),
+        "selected_window_gate_loss": float(top.get("window_gate_loss", 0.0)),
+        "selected_missing_target_ratio": float(top.get("missing_target_ratio", 0.0)),
+        "next_mechanism": next_mechanism,
+        "required_terms": [
+            "checkpoint_objective_alignment_loss",
+            "checkpoint_objective_walkforward_gate_loss",
+            "checkpoint_objective_rebound_mae",
+            "checkpoint_objective_risk_cap_violation",
+        ],
+    }
+
+
 __all__ = [
+    "StateObjectiveCheckpointSelectionConfig",
     "StateObjectiveTrainingTargetConfig",
     "build_state_objective_training_targets",
+    "score_state_objective_checkpoint_candidates",
     "score_state_objective_target_alignment",
+    "summarize_state_objective_checkpoint_selection",
     "summarize_state_objective_target_alignment",
     "summarize_state_objective_training_targets",
 ]

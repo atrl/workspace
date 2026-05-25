@@ -5,7 +5,9 @@ import pandas as pd
 from src.soxl_quant.app.state_objective_training_targets import (
     StateObjectiveTrainingTargetConfig,
     build_state_objective_training_targets,
+    score_state_objective_checkpoint_candidates,
     score_state_objective_target_alignment,
+    summarize_state_objective_checkpoint_selection,
     summarize_state_objective_target_alignment,
     summarize_state_objective_training_targets,
 )
@@ -255,3 +257,63 @@ def test_target_alignment_summary_blocks_promotion_without_full_gate():
     assert summary["decision"] == "target_alignment_no_promotion"
     assert summary["selected_candidate"] == "near"
     assert summary["next_mechanism"] == "train_or_checkpoint_score_state_objective_targets"
+
+
+def test_checkpoint_selection_prefers_state_objective_loss_over_legacy_score():
+    alignment = pd.DataFrame(
+        {
+            "candidate": ["legacy_high", "state_fit"],
+            "alignment_loss": [2.0, 0.5],
+            "window_gate_loss": [300.0, 30.0],
+            "missing_target_ratio": [0.0, 0.0],
+            "window_gate": [False, False],
+            "coverage_gate": [True, True],
+            "rebound_position_mae": [0.2, 0.05],
+            "risk_cap_violation": [0.3, 0.01],
+            "score": [120.0, 20.0],
+        }
+    )
+
+    selected = score_state_objective_checkpoint_candidates(alignment)
+
+    assert selected.iloc[0]["candidate"] == "state_fit"
+    assert selected.iloc[0]["checkpoint_objective_loss"] < selected.iloc[1]["checkpoint_objective_loss"]
+
+
+def test_checkpoint_selection_summary_requires_window_and_coverage_gates_for_promotion():
+    scored = pd.DataFrame(
+        {
+            "candidate": ["near"],
+            "checkpoint_objective_loss": [0.7],
+            "window_gate": [False],
+            "coverage_gate": [True],
+            "alignment_loss": [0.2],
+            "window_gate_loss": [50.0],
+            "missing_target_ratio": [0.0],
+        }
+    )
+
+    summary = summarize_state_objective_checkpoint_selection(scored)
+
+    assert summary["decision"] == "checkpoint_objective_no_promotion"
+    assert summary["selected_candidate"] == "near"
+    assert summary["next_mechanism"] == "train_state_objective_checkpoint_or_bc"
+
+
+def test_checkpoint_selection_summary_allows_review_when_all_gates_pass():
+    scored = pd.DataFrame(
+        {
+            "candidate": ["pass"],
+            "checkpoint_objective_loss": [0.1],
+            "window_gate": [True],
+            "coverage_gate": [True],
+            "alignment_loss": [0.1],
+            "window_gate_loss": [0.0],
+            "missing_target_ratio": [0.0],
+        }
+    )
+
+    summary = summarize_state_objective_checkpoint_selection(scored)
+
+    assert summary["decision"] == "checkpoint_objective_promotion_review"
+    assert summary["next_mechanism"] == "rerun_walkforward_promotion_review"

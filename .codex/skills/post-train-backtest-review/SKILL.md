@@ -192,6 +192,25 @@ from src.soxl_quant.app.state_conditioned_objective import (
 和 `selection.json`。如果没有 `objective_pass=True`，结论仍然是训练目标 /
 checkpoint-selection target，不允许 runtime promotion。
 
+当 objective screen 已经落成 per-date target table，并且 target-alignment
+screen 仍没有候选通过 window gate 时，不要停在“最接近老师路径”的结论。
+继续在 runtime notebook 中把 alignment scores 转成 retained-checkpoint /
+candidate selection objective：
+
+```python
+from src.soxl_quant.app.state_objective_training_targets import (
+    score_state_objective_checkpoint_candidates,
+    summarize_state_objective_checkpoint_selection,
+)
+```
+
+`score_state_objective_checkpoint_candidates()` 默认按
+`checkpoint_objective_loss` 排序，弱化 legacy validation score，显式惩罚
+target alignment loss、walk-forward gate loss、rebound MAE、risk-cap
+violation 和 target coverage 缺失。若 `window_gate` 或 `coverage_gate` 未
+同时通过，结论只能是下一轮 checkpoint scoring / BC warm-start / PPO reward
+shaping 的训练配方，不允许 runtime promotion。
+
 ### 4. Explain with mechanism, not adjectives
 
 优先从下面这些“可被代码改变”的机制解释，不要只写“市场不同”：
