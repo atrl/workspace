@@ -67,6 +67,9 @@ Knowledge retrieval must be scoped by task direction.
   iteration should go to `ipynb` by default. Treat the user's standing
   preference as: "尽量都到 ipynb" unless the task is purely code maintenance,
   operational startup, or explicitly asks for another artifact.
+- This is a standing default for future turns. Do not wait for the user to
+  repeat it before choosing a notebook for experiment, diagnostic, backtest,
+  model-selection, factor, reward, network, or broker-data analysis work.
 - Notebook-first is the default for research work. When a task is an experiment,
   diagnostic, factor screen, model/reward/network trial, broker-data audit,
   backtest, parameter screen, or one-off analysis, put the executable workflow
@@ -78,6 +81,10 @@ Knowledge retrieval must be scoped by task direction.
 - Put single-run special-case logic, metrics, comparisons, conclusions, and
   artifact links in that notebook. The notebook should be runnable evidence, not
   just a narrative summary.
+- The runtime notebook is the primary human-readable conclusion for a single
+  run. Sidecar Markdown/JSON/CSV files may support indexing, machine-readable
+  selection, or summaries, but they must not replace the notebook as the source
+  of the run's conclusion.
 - Use a non-notebook artifact for experiment work only when the task is not an
   experiment/research loop, notebook tooling is unavailable, or the user
   explicitly asks for another format.
@@ -246,4 +253,3 @@ For every substantial iteration:
    `runtime/<direction>/knowledge.md` only for durable cross-session decisions
 7. **commit and push the changes**
 8. if a skill was created or modified, verify `.codex/skills/` is synced
-

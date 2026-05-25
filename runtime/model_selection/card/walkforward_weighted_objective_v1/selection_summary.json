@@ -1,0 +1,7 @@
+{
+  "decision": "no_full_gate_candidate",
+  "selected_candidate": "recovery_reentry_conditional_vol_target_v1",
+  "selected_weighted_objective_loss": 237.49554277112543,
+  "selected_dominant_failure_type": "drawdown_control",
+  "next_mechanism": "walk_forward_weighted_multi_objective_training"
+}

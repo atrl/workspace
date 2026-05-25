@@ -19,6 +19,10 @@ from src.soxl_quant.app.oos_diagnostics import (
     render_oos_diagnostic_review,
     summarize_gate_gap_attribution,
 )
+from src.soxl_quant.app.walkforward_selection import (
+    score_walkforward_candidates,
+    summarize_walkforward_selection,
+)
 
 
 def test_find_poor_windows_ranks_negative_excess_and_drawdown():
@@ -345,6 +349,61 @@ def test_attribute_gate_gaps_classifies_near_miss_joint_tradeoff_and_summary():
     assert "Gate-Gap Failure Attribution" in review
     assert "state_reward" in review
     assert "walk_forward_weighted_multi_objective_selection" in review
+
+
+def test_score_walkforward_candidates_prefers_full_gate_over_return_only_risk():
+    metrics_by_candidate = {
+        "full_gate_candidate": {
+            "test_proxy": {"relative_return": 35.0, "max_dd": 14.0, "avg_pos": 0.30},
+            "wf_2020": {"relative_return": 45.0, "max_dd": 14.5, "avg_pos": 0.40},
+            "wf_2022": {"relative_return": 32.0, "max_dd": 13.0, "avg_pos": 0.20},
+            "wf_2023_2024": {"relative_return": 38.0, "max_dd": 12.0, "avg_pos": 0.35},
+        },
+        "return_only_candidate": {
+            "test_proxy": {"relative_return": 400.0, "max_dd": 45.0, "avg_pos": 0.80},
+            "wf_2020": {"relative_return": 90.0, "max_dd": 32.0, "avg_pos": 0.75},
+            "wf_2022": {"relative_return": 80.0, "max_dd": 40.0, "avg_pos": 0.70},
+            "wf_2023_2024": {"relative_return": 85.0, "max_dd": 34.0, "avg_pos": 0.78},
+        },
+        "near_miss_candidate": {
+            "test_proxy": {"relative_return": 34.0, "max_dd": 16.0, "avg_pos": 0.30},
+            "wf_2020": {"relative_return": 36.0, "max_dd": 16.5, "avg_pos": 0.34},
+            "wf_2022": {"relative_return": 31.0, "max_dd": 16.2, "avg_pos": 0.24},
+            "wf_2023_2024": {"relative_return": 39.0, "max_dd": 15.5, "avg_pos": 0.32},
+        },
+    }
+
+    scored = score_walkforward_candidates(metrics_by_candidate)
+
+    assert scored.iloc[0]["candidate"] == "full_gate_candidate"
+    assert bool(scored.iloc[0]["full_gate"]) is True
+    assert scored.iloc[-1]["candidate"] == "return_only_candidate"
+    assert scored.iloc[-1]["dominant_failure_type"] == "drawdown_control"
+
+    summary = summarize_walkforward_selection(scored)
+    assert summary["selected_candidate"] == "full_gate_candidate"
+    assert summary["decision"] == "select_full_gate_candidate"
+
+
+def test_score_walkforward_candidates_recommends_new_objective_when_nothing_passes():
+    scored = score_walkforward_candidates(
+        {
+            "joint": {
+                "test_proxy": {"relative_return": -100.0, "max_dd": 40.0, "avg_pos": 0.30},
+                "wf_2020": {"relative_return": -40.0, "max_dd": 24.0, "avg_pos": 0.40},
+            },
+            "drawdown": {
+                "test_proxy": {"relative_return": 100.0, "max_dd": 42.0, "avg_pos": 0.70},
+                "wf_2020": {"relative_return": 55.0, "max_dd": 28.0, "avg_pos": 0.60},
+            },
+        }
+    )
+
+    summary = summarize_walkforward_selection(scored)
+
+    assert summary["decision"] == "no_full_gate_candidate"
+    assert summary["selected_candidate"] == scored.iloc[0]["candidate"]
+    assert "multi_objective" in summary["next_mechanism"]
 
 
 def test_aggregate_oos_script_writes_cluster_and_feature_outputs():

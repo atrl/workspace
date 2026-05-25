@@ -144,6 +144,21 @@ PYTHONPATH=src:. qlib_venv/bin/python scripts/aggregate_oos_poor_windows.py \
 selection/training objective，或 state-conditioned participation + drawdown guard。
 不要继续加重同类全局 reward penalty。
 
+如果已有 `walkforward_daily_screen.csv` / `strict_daily_target_screen.csv`
+等候选表，优先在 runtime notebook 中调用：
+
+```python
+from src.soxl_quant.app.walkforward_selection import (
+    score_walkforward_candidates,
+    summarize_walkforward_selection,
+)
+```
+
+`score_walkforward_candidates()` 用 `+30pp` 和 `<=15% MaxDD` 对每个窗口做
+weighted gap ranking。若没有任何候选 `full_gate=True`，不要把分数最低者当
+promotion；只能把它作为 closest diagnostic reference，并进入
+walk-forward-weighted multi-objective training/selection 设计。
+
 ### 4. Explain with mechanism, not adjectives
 
 优先从下面这些“可被代码改变”的机制解释，不要只写“市场不同”：

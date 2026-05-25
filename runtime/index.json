@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-25T08:04:50.365532+00:00",
+  "generated_at": "2026-05-25T08:27:21.978101+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -5736,6 +5736,54 @@
       "category": "model_selection",
       "suffix": ".json",
       "bytes": 1363
+    },
+    {
+      "path": "runtime/model_selection/card/walkforward_weighted_objective_v1/runtime_conclusion.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 1139
+    },
+    {
+      "path": "runtime/model_selection/card/walkforward_weighted_objective_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2562
+    },
+    {
+      "path": "runtime/model_selection/card/walkforward_weighted_objective_v1/selection_summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 296
+    },
+    {
+      "path": "runtime/model_selection/card/walkforward_weighted_objective_v1/source_coverage.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 10035
+    },
+    {
+      "path": "runtime/model_selection/card/walkforward_weighted_objective_v1/strict_pass_walkforward_readout.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 414
+    },
+    {
+      "path": "runtime/model_selection/card/walkforward_weighted_objective_v1/strict_vs_walkforward_overfit_readout.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 334
+    },
+    {
+      "path": "runtime/model_selection/card/walkforward_weighted_objective_v1/walkforward_weighted_objective_review.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 2775
+    },
+    {
+      "path": "runtime/model_selection/card/walkforward_weighted_objective_v1/walkforward_weighted_scores.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 3198
     },
     {
       "path": "runtime/multi_asset/card/soxl_baseline/card.md",
