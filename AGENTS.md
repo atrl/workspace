@@ -84,6 +84,10 @@ Knowledge retrieval must be scoped by task direction.
   follow-up turns. Treat the user's preference as: "尽量都到 ipynb" unless the
   task is purely code maintenance, operational startup, or explicitly asks for
   another artifact.
+- Treat this as durable repo policy for future sessions, not a one-turn
+  preference. When there is uncertainty, choose the runtime notebook path first
+  and keep `docs/active_workpad.md` unchanged unless coordination state truly
+  needs to move there.
 - For future work, start experiment and diagnostic execution in an executable
   runtime notebook by default. Do not treat Markdown notes, chat conclusions,
   sidecar JSON, or one-off scripts as the primary result when an `.ipynb` can
