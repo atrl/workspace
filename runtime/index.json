@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-25T19:07:22.343682+00:00",
+  "generated_at": "2026-05-25T19:41:40.439416+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -6222,6 +6222,120 @@
       "category": "model_selection",
       "suffix": ".json",
       "bytes": 5116
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_drawdown_budget_guard_screen_v1/aggregate_guard_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 773
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_drawdown_budget_guard_screen_v1/config_grid.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 393
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_drawdown_budget_guard_screen_v1/coverage.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2298
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_drawdown_budget_guard_screen_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2129
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_drawdown_budget_guard_screen_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 17617
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_drawdown_budget_guard_screen_v1/wf_2022_cvar_budget_08_15_floor05_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 25248
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_drawdown_budget_guard_screen_v1/wf_2022_cvar_budget_10_15_cash_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 24068
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_drawdown_budget_guard_screen_v1/wf_2022_cvar_budget_10_20_floor10_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 25300
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_drawdown_budget_guard_screen_v1/wf_2022_cvar_budget_12_25_floor15_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 27449
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_drawdown_budget_guard_screen_v1/wf_2022_no_guard_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 26192
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_drawdown_budget_guard_screen_v1/wf_2022_reusable_screen_api.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1919
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_drawdown_budget_guard_screen_v1/wf_2023_2024_bc_selected_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 304039
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_drawdown_budget_guard_screen_v1/wf_2023_2024_cvar_budget_08_15_floor05_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 28980
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_drawdown_budget_guard_screen_v1/wf_2023_2024_cvar_budget_10_15_cash_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 27222
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_drawdown_budget_guard_screen_v1/wf_2023_2024_cvar_budget_10_20_floor10_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 29684
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_drawdown_budget_guard_screen_v1/wf_2023_2024_cvar_budget_12_25_floor15_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 29076
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_drawdown_budget_guard_screen_v1/wf_2023_2024_no_guard_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 25038
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_drawdown_budget_guard_screen_v1/window_coverage.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 95
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_drawdown_budget_guard_screen_v1/window_guard_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2896
     },
     {
       "path": "runtime/model_selection/card/sparse_release_failed_fold_interval_diagnostic_v1/bc_daily_2022.csv",

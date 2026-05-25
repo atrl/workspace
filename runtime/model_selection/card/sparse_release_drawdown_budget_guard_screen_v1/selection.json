@@ -1,0 +1,60 @@
+{
+  "best_config": {
+    "avg_pos_sanity_count": 0,
+    "config_name": "cvar_budget_10_15_cash",
+    "full_gate": false,
+    "max_drawdown_gap": 0.7869898207450561,
+    "max_relative_gap": 4.007458010291202,
+    "mean_avg_pos": 0.05116526449456248,
+    "mean_robust_score": 9.710593931060211,
+    "target_gate_count": 0,
+    "total_changed_days": 253,
+    "windows": 2,
+    "worst_window": "wf_2023_2024"
+  },
+  "changed_layer": [
+    "execution",
+    "model_selection"
+  ],
+  "created_at": "2026-05-25T19:41:12.184712+00:00",
+  "decision": "drawdown_budget_guard_screen_no_promotion",
+  "experiment": "sparse_release_drawdown_budget_guard_screen_v1",
+  "external_sources": [
+    "https://arxiv.org/abs/1506.02188",
+    "https://arxiv.org/abs/1706.10059",
+    "https://github.com/microsoft/qlib",
+    "https://arxiv.org/abs/2009.11189",
+    "https://github.com/AI4Finance-Foundation/FinRL",
+    "https://arxiv.org/abs/2011.09607",
+    "https://doi.org/10.21314/JCF.2016.322"
+  ],
+  "min_avg_pos_sanity": 0.1,
+  "next_mechanism": "move_drawdown_control_into_checkpoint_objective_or_state_conditioned_training",
+  "profile": "sparse_release_bc_ppo_screen_v1",
+  "promotion_allowed": false,
+  "role": "diagnose",
+  "sidecars": [
+    "coverage.json",
+    "config_grid.csv",
+    "window_coverage.csv",
+    "wf_2023_2024_bc_selected_daily.csv",
+    "window_guard_metrics.csv",
+    "aggregate_guard_metrics.csv",
+    "wf_2022_reusable_screen_api.csv",
+    "selection.json",
+    "summary.json",
+    "wf_2022_no_guard_daily.csv",
+    "wf_2022_cvar_budget_10_15_cash_daily.csv",
+    "wf_2022_cvar_budget_08_15_floor05_daily.csv",
+    "wf_2022_cvar_budget_10_20_floor10_daily.csv",
+    "wf_2022_cvar_budget_12_25_floor15_daily.csv",
+    "wf_2023_2024_no_guard_daily.csv",
+    "wf_2023_2024_cvar_budget_10_15_cash_daily.csv",
+    "wf_2023_2024_cvar_budget_08_15_floor05_daily.csv",
+    "wf_2023_2024_cvar_budget_10_20_floor10_daily.csv",
+    "wf_2023_2024_cvar_budget_12_25_floor15_daily.csv"
+  ],
+  "source_experiment": "sparse_release_failed_fold_interval_diagnostic_v1",
+  "target_max_dd_pct": 15.0,
+  "target_relative_return_pp": 30.0
+}

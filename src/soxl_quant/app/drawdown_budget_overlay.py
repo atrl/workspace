@@ -1,6 +1,7 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import asdict, dataclass
+from typing import Iterable
 
 import numpy as np
 import pandas as pd
@@ -177,7 +178,148 @@ def apply_drawdown_budget_overlay(
     return out
 
 
+def _max_drawdown(values: pd.Series) -> float:
+    nav = pd.to_numeric(values, errors="coerce").dropna().astype(float)
+    if len(nav) < 2:
+        return 0.0
+    peak = nav.cummax()
+    return abs(float((nav / peak - 1.0).min()) * 100.0)
+
+
+def _active_position_nav(frame: pd.DataFrame, price_series: pd.Series, *, position_col: str) -> pd.DataFrame:
+    if "datetime" not in frame.columns:
+        raise ValueError("frame missing `datetime` column")
+    if position_col not in frame.columns:
+        raise ValueError(f"frame missing `{position_col}` column")
+    positions = frame[["datetime", position_col]].copy()
+    positions["datetime"] = pd.to_datetime(positions["datetime"])
+    positions[position_col] = pd.to_numeric(positions[position_col], errors="coerce").fillna(0.0).clip(0.0, 1.0)
+    scored = positions.merge(_price_frame(price_series), on="datetime", how="inner")
+    if len(scored) < 2:
+        raise ValueError("not enough overlapping position and price rows")
+    scored = scored.sort_values("datetime").reset_index(drop=True)
+    price = scored["price"].to_numpy(dtype=float)
+    position = scored[position_col].to_numpy(dtype=float)
+    returns = np.zeros(len(scored), dtype=float)
+    returns[1:] = np.divide(price[1:], price[:-1], out=np.ones(len(price) - 1), where=price[:-1] != 0.0) - 1.0
+    active_position = np.r_[position[0], position[:-1]]
+    scored["strategy_nav"] = np.cumprod(1.0 + active_position * returns)
+    scored["buyhold_nav"] = price / price[0] if price[0] else 1.0
+    scored["active_position"] = active_position
+    return scored
+
+
+def drawdown_budget_overlay_metrics(
+    frame: pd.DataFrame,
+    price_series: pd.Series,
+    *,
+    position_col: str = "position",
+    base_position_col: str = "base_position",
+    target_relative_return: float = 30.0,
+    target_max_dd: float = 15.0,
+) -> dict[str, float | int | bool]:
+    """Compute target-gate metrics for a drawdown-budget overlay path."""
+
+    scored = _active_position_nav(frame, price_series, position_col=position_col)
+    strategy = scored["strategy_nav"]
+    buyhold = scored["buyhold_nav"]
+    strategy_return = float((strategy.iloc[-1] / strategy.iloc[0] - 1.0) * 100.0)
+    buyhold_return = float((buyhold.iloc[-1] / buyhold.iloc[0] - 1.0) * 100.0)
+    position = pd.to_numeric(scored[position_col], errors="coerce").fillna(0.0)
+    if base_position_col in frame.columns:
+        base = frame[["datetime", base_position_col]].copy()
+        base["datetime"] = pd.to_datetime(base["datetime"])
+        scored = scored.merge(base, on="datetime", how="left")
+        base_position = pd.to_numeric(scored[base_position_col], errors="coerce").fillna(position)
+    else:
+        base_position = position
+    changed_days = int((position.sub(base_position).abs() > 1e-9).sum())
+    active_days = int(pd.Series(frame.get("drawdown_budget_active", False)).fillna(False).astype(bool).sum())
+    relative_return = strategy_return - buyhold_return
+    max_dd = _max_drawdown(strategy)
+    relative_gap = max(0.0, float(target_relative_return) - relative_return)
+    drawdown_gap = max(0.0, max_dd - float(target_max_dd))
+    turnover = float(position.diff().abs().fillna(0.0).sum())
+    robust_score = relative_gap**2 + 4.0 * drawdown_gap**2 + 0.02 * turnover
+    return {
+        "rows": int(len(scored)),
+        "return": strategy_return,
+        "buy_and_hold_return": buyhold_return,
+        "relative_return": float(relative_return),
+        "max_dd": float(max_dd),
+        "avg_pos": float(position.mean()) if len(position) else 0.0,
+        "turnover": turnover,
+        "active_days": active_days,
+        "changed_days": changed_days,
+        "relative_gap": float(relative_gap),
+        "drawdown_gap": float(drawdown_gap),
+        "target_gate": bool(relative_gap == 0.0 and drawdown_gap == 0.0),
+        "robust_score": float(robust_score),
+    }
+
+
+def screen_drawdown_budget_overlay_configs(
+    frame: pd.DataFrame,
+    price_series: pd.Series,
+    configs: Iterable[DrawdownBudgetOverlayConfig],
+    *,
+    fold: str,
+    train_start: str | pd.Timestamp,
+    train_end: str | pd.Timestamp,
+    target_relative_return: float = 30.0,
+    target_max_dd: float = 15.0,
+    position_col: str = "position",
+) -> pd.DataFrame:
+    """Score drawdown-budget overlay configs using only a fold train window."""
+
+    start = pd.Timestamp(train_start).normalize()
+    end = pd.Timestamp(train_end).normalize()
+    if end < start:
+        raise ValueError("train_end is before train_start")
+    full_frame = frame.copy()
+    full_frame["datetime"] = pd.to_datetime(full_frame["datetime"])
+    full_rows = int(len(full_frame))
+    rows: list[dict[str, object]] = []
+    for candidate_id, config in enumerate(configs):
+        overlay = apply_drawdown_budget_overlay(
+            full_frame,
+            price_series,
+            config,
+            position_col=position_col,
+        )
+        dates = pd.to_datetime(overlay["datetime"]).dt.normalize()
+        train_overlay = overlay.loc[(dates >= start) & (dates <= end)].copy()
+        if train_overlay.empty:
+            continue
+        metrics = drawdown_budget_overlay_metrics(
+            train_overlay,
+            price_series,
+            position_col="position",
+            target_relative_return=target_relative_return,
+            target_max_dd=target_max_dd,
+        )
+        rows.append(
+            {
+                "fold": str(fold),
+                "candidate_id": int(candidate_id),
+                **asdict(config),
+                "full_rows": full_rows,
+                **{f"train_{key}": value for key, value in metrics.items()},
+                "target_gate": bool(metrics["target_gate"]),
+                "robust_score": float(metrics["robust_score"]),
+            }
+        )
+    if not rows:
+        return pd.DataFrame()
+    return pd.DataFrame(rows).sort_values(
+        ["target_gate", "robust_score", "candidate_id"],
+        ascending=[False, True, True],
+    ).reset_index(drop=True)
+
+
 __all__ = [
     "DrawdownBudgetOverlayConfig",
     "apply_drawdown_budget_overlay",
+    "drawdown_budget_overlay_metrics",
+    "screen_drawdown_budget_overlay_configs",
 ]

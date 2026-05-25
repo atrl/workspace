@@ -1,0 +1,6 @@
+name,enabled,start_drawdown,full_drawdown,min_position,trade_threshold,trade_lock_days,sell_trade_threshold,sell_trade_lock_days
+no_guard,False,0.1,0.2,0.25,0.0,0,0.0,0
+cvar_budget_10_15_cash,True,0.1,0.15,0.0,0.0,0,0.0,0
+cvar_budget_08_15_floor05,True,0.08,0.15,0.05,0.0,0,0.0,0
+cvar_budget_10_20_floor10,True,0.1,0.2,0.1,0.0,0,0.0,0
+cvar_budget_12_25_floor15,True,0.12,0.25,0.15,0.0,0,0.0,0
