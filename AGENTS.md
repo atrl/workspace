@@ -48,8 +48,10 @@ decisions, blockers, and context worth carrying forward per direction.
 Do not use it as the main execution checklist when the active workpad should
 carry that state.
 
-If you want future sessions to remember something important, write it into the
-relevant `runtime/<direction>/knowledge.md` or the experiment's `notes.md`.
+If you want future sessions to remember something important from a single run,
+put it in the experiment's runtime notebook first. Promote it into
+`runtime/<direction>/knowledge.md` only when it becomes durable cross-session
+context; use `notes.md` only when a profile/package explicitly requires it.
 
 Knowledge retrieval must be scoped by task direction.
 
@@ -78,6 +80,9 @@ Knowledge retrieval must be scoped by task direction.
 - This default applies even when the user gives a terse continuation prompt.
   Start from the relevant runtime notebook surface unless the task clearly
   requires a shared code or production change first.
+- For follow-up prompts such as `继续`, `开始`, `试试`, `其他看看`, or
+  `continue`, find or create the relevant runtime notebook before adding
+  Markdown notes, workpad entries, or knowledge-file updates.
 - Do not wait for the user to repeat this preference. Experiments, diagnostics,
   factor screens, model/reward/network trials, broker-data audits, backtests,
   parameter screens, and one-off analyses should put the executable workflow and
