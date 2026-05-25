@@ -49,6 +49,21 @@ class StateHeadLiftStabilityResult:
     summary: dict[str, object]
 
 
+@dataclass(frozen=True)
+class StateHeadConsensusTargetConfig:
+    min_sources: int = 2
+    min_lift: float = 0.01
+    min_positive_votes: int = 1
+    max_negative_votes: int = 0
+
+
+@dataclass(frozen=True)
+class StateHeadConsensusTargetResult:
+    group_metrics: pd.DataFrame
+    consensus_targets: pd.DataFrame
+    summary: dict[str, object]
+
+
 def rank_auc_score(labels: np.ndarray | Sequence[bool], scores: np.ndarray | Sequence[float]) -> float:
     """Compute binary rank AUC without sklearn dependency."""
 
@@ -393,6 +408,123 @@ def score_state_head_lift_stability(
     )
 
 
+def derive_state_head_consensus_targets(
+    row_scores: pd.DataFrame,
+    *,
+    group_col: str,
+    label_col: str,
+    default_target_col: str = "default_target_position",
+    proposed_target_col: str = "proposed_target",
+    target_lift_col: str = "target_lift",
+    predicted_col: str = "predicted_state",
+    config: StateHeadConsensusTargetConfig = StateHeadConsensusTargetConfig(),
+) -> StateHeadConsensusTargetResult:
+    """Generate stable state-head target rows only when grouped labels agree."""
+
+    _require_columns(
+        row_scores,
+        {group_col, label_col, default_target_col, proposed_target_col, target_lift_col, predicted_col},
+        "state-head consensus rows",
+    )
+    work = row_scores.copy()
+    work[label_col] = work[label_col].fillna(False).astype(bool)
+    work[predicted_col] = work[predicted_col].fillna(False).astype(bool)
+    for column in (default_target_col, proposed_target_col, target_lift_col):
+        work[column] = pd.to_numeric(work[column], errors="coerce")
+    work["effective_lift"] = work[predicted_col] & (work[target_lift_col].abs() > float(config.min_lift))
+    work["positive_effective_lift"] = work[label_col] & work["effective_lift"]
+    work["false_positive_effective_lift"] = (~work[label_col]) & work["effective_lift"]
+
+    group_rows: list[dict[str, object]] = []
+    target_rows: list[dict[str, object]] = []
+    for group_value, group in work.groupby(group_col, sort=True):
+        labels = group[label_col].astype(bool)
+        positive_labels = int(labels.sum())
+        negative_labels = int((~labels).sum())
+        source_count = int(len(group))
+        label_unstable = bool(positive_labels > 0 and negative_labels > 0)
+        consensus_label = bool(
+            source_count >= int(config.min_sources)
+            and positive_labels >= int(config.min_positive_votes)
+            and negative_labels <= int(config.max_negative_votes)
+        )
+        positive_lift_rows = group[group["positive_effective_lift"]].copy()
+        consensus_effective_lift = bool(consensus_label and not positive_lift_rows.empty)
+        default_target = float(group[default_target_col].median()) if source_count else float("nan")
+        consensus_target = (
+            float(positive_lift_rows[proposed_target_col].median())
+            if consensus_effective_lift
+            else default_target
+        )
+        consensus_lift = (
+            float(positive_lift_rows[target_lift_col].median())
+            if consensus_effective_lift
+            else 0.0
+        )
+        row = {
+            group_col: group_value,
+            "source_count": source_count,
+            "positive_labels": positive_labels,
+            "negative_labels": negative_labels,
+            "label_unstable": label_unstable,
+            "consensus_label": consensus_label,
+            "effective_lift_rows": int(group["effective_lift"].sum()),
+            "positive_effective_lift_rows": int(group["positive_effective_lift"].sum()),
+            "false_positive_effective_lift_rows": int(group["false_positive_effective_lift"].sum()),
+            "consensus_effective_lift": consensus_effective_lift,
+            "consensus_default_position": default_target,
+            "consensus_target_position": consensus_target,
+            "consensus_lift": consensus_lift,
+        }
+        group_rows.append(row)
+        if consensus_effective_lift:
+            target_rows.append(row)
+
+    group_metrics = pd.DataFrame(group_rows)
+    target_columns = [
+        group_col,
+        "source_count",
+        "positive_labels",
+        "negative_labels",
+        "consensus_default_position",
+        "consensus_target_position",
+        "consensus_lift",
+    ]
+    consensus_targets = pd.DataFrame(target_rows)
+    if consensus_targets.empty:
+        consensus_targets = pd.DataFrame(columns=target_columns)
+    else:
+        consensus_targets = consensus_targets.loc[:, target_columns].reset_index(drop=True)
+
+    if group_metrics.empty:
+        summary = {
+            "groups": 0,
+            "source_rows": 0,
+            "conflict_groups": 0,
+            "effective_lift_groups": 0,
+            "consensus_target_groups": 0,
+            "consensus_gate": False,
+        }
+        return StateHeadConsensusTargetResult(group_metrics=group_metrics, consensus_targets=consensus_targets, summary=summary)
+
+    summary = {
+        "groups": int(len(group_metrics)),
+        "source_rows": int(len(work)),
+        "conflict_groups": int(group_metrics["label_unstable"].sum()),
+        "effective_lift_groups": int((group_metrics["effective_lift_rows"] > 0).sum()),
+        "consensus_target_groups": int(group_metrics["consensus_effective_lift"].sum()),
+        "consensus_gate": bool(group_metrics["consensus_effective_lift"].sum() > 0),
+    }
+    return StateHeadConsensusTargetResult(
+        group_metrics=group_metrics.sort_values(
+            ["consensus_effective_lift", "label_unstable", group_col],
+            ascending=[False, False, True],
+        ).reset_index(drop=True),
+        consensus_targets=consensus_targets,
+        summary=summary,
+    )
+
+
 def score_state_head_target_recipes(
     frame: pd.DataFrame,
     *,
@@ -567,11 +699,14 @@ def score_state_head_target_recipes(
 
 __all__ = [
     "RepresentationDiagnosticsResult",
+    "StateHeadConsensusTargetConfig",
+    "StateHeadConsensusTargetResult",
     "StateHeadLiftStabilityConfig",
     "StateHeadLiftStabilityResult",
     "StateHeadTargetRecipeConfig",
     "StateHeadTargetRecipeResult",
     "rank_auc_score",
+    "derive_state_head_consensus_targets",
     "score_binary_representation_feature_sets",
     "score_state_head_lift_stability",
     "score_state_head_target_recipes",

@@ -262,6 +262,11 @@ target lift 只出现在 fold-label 冲突的日期/状态上，不能进入 PPO
 生成仍可能在记忆 fold-native 差异。下一步应先做 fold-consensus / stable-label
 target generation，再考虑 auxiliary state-head PPO。
 
+如果 fold-consensus target generation 把所有非零 target lift 都过滤掉
+（`consensus_target_groups == 0`），不要为了“继续训练”降低 consensus 门槛。
+这说明当前 state-head 分支没有可训练的稳定 lift 标签；下一步应转向稳定 rebound
+标签发现、额外状态因子或不同 target source，而不是用冲突标签启动 PPO。
+
 ### 4. Explain with mechanism, not adjectives
 
 优先从下面这些“可被代码改变”的机制解释，不要只写“市场不同”：

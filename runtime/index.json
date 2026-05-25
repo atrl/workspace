@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-25T14:21:25.211721+00:00",
+  "generated_at": "2026-05-25T14:36:17.082610+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -5682,6 +5682,42 @@
       "category": "model_selection",
       "suffix": ".csv",
       "bytes": 5514
+    },
+    {
+      "path": "runtime/model_selection/card/state_head_fold_consensus_target_v1/base_context.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 628
+    },
+    {
+      "path": "runtime/model_selection/card/state_head_fold_consensus_target_v1/consensus_group_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 59031
+    },
+    {
+      "path": "runtime/model_selection/card/state_head_fold_consensus_target_v1/consensus_targets.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 122
+    },
+    {
+      "path": "runtime/model_selection/card/state_head_fold_consensus_target_v1/nonzero_lift_source_rows.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1792
+    },
+    {
+      "path": "runtime/model_selection/card/state_head_fold_consensus_target_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1559
+    },
+    {
+      "path": "runtime/model_selection/card/state_head_fold_consensus_target_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 3845
     },
     {
       "path": "runtime/model_selection/card/state_head_fold_stability_guard_v1/base_context.json",

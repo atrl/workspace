@@ -1,0 +1,100 @@
+{
+  "base_context": {
+    "baseline_feature_set": "momentum_drawdown",
+    "baseline_threshold": 0.5,
+    "created_at": "2026-05-25T14:34:24.364552+00:00",
+    "experiment": "state_head_fold_consensus_target_v1",
+    "folds": [
+      "wf_2022_train",
+      "wf_2023_2024_train"
+    ],
+    "rebound_rows": 7,
+    "rows": 1261,
+    "source_stability_guard": "runtime/model_selection/card/state_head_fold_stability_guard_v1/selection.json",
+    "source_targets": "runtime/model_selection/card/state_objective_fold_native_teacher_router_v1/fold_native_teacher_targets.csv",
+    "stability_guard_decision": "state_head_lift_fold_unstable_no_ppo_handoff",
+    "unique_dates": 756
+  },
+  "conclusion": [
+    "Source effective target-lift rows: 5.",
+    "Fold-consensus target groups: 0.",
+    "Conflict groups: 7.",
+    "Decision: fold_consensus_removes_all_state_head_lifts_no_training; next mechanism: discover_stable_rebound_labels_or_new_state_factor.",
+    "No runtime promotion; no PPO handoff until stable consensus labels or new factors create non-conflicting rebound target rows."
+  ],
+  "consensus_summary": {
+    "conflict_groups": 7,
+    "consensus_gate": false,
+    "consensus_target_groups": 0,
+    "effective_lift_groups": 4,
+    "groups": 756,
+    "source_rows": 1261
+  },
+  "recipe_summary": {
+    "best_effective_false_positive_rate": 0.0007974481658692185,
+    "best_false_positive_lift_max": 0.17985462658059442,
+    "best_false_positive_lift_mean": 0.001462232736427597,
+    "best_false_positive_rate": 0.09808612440191387,
+    "best_feature_set": "momentum_drawdown",
+    "best_rebound_target_mae": 0.028571428571428574,
+    "best_state_precision": 0.05384615384615385,
+    "best_state_recall": 1.0,
+    "best_target_mae": 0.00030123285216541985,
+    "best_threshold": 0.5,
+    "recipe_gate": true
+  },
+  "selection": {
+    "acceptance_gate_for_next_run": {
+      "fixed_split_required": true,
+      "max_dd_max_pct": 15.0,
+      "no_runtime_promotion_from_recipe_only": true,
+      "relative_return_min_pp": 30.0,
+      "stable_consensus_target_rows_required": true,
+      "walkforward_required": true
+    },
+    "blocker": "Fold-consensus generated zero non-trivial rebound target lifts; current state-head lift labels are too unstable for PPO.",
+    "conflict_groups": 7,
+    "consensus_gate": false,
+    "consensus_target_groups": 0,
+    "created_at": "2026-05-25T14:34:24.364552+00:00",
+    "decision": "fold_consensus_removes_all_state_head_lifts_no_training",
+    "direct_comparison_baseline": "rebound_state_head_lift_guard_v1",
+    "experiment": "state_head_fold_consensus_target_v1",
+    "external_sources": [
+      "https://github.com/microsoft/qlib",
+      "https://arxiv.org/abs/2009.11189",
+      "https://github.com/AI4Finance-Foundation/FinRL",
+      "https://arxiv.org/abs/2011.09607",
+      "https://doi.org/10.21314/JCF.2016.322",
+      "https://arxiv.org/abs/2004.11362"
+    ],
+    "full_gate": false,
+    "next_mechanism": "discover_stable_rebound_labels_or_new_state_factor",
+    "promotion_allowed": false,
+    "recipe_gate": true,
+    "sidecars": [
+      "base_context.json",
+      "consensus_group_metrics.csv",
+      "consensus_targets.csv",
+      "nonzero_lift_source_rows.csv",
+      "summary.json"
+    ],
+    "source_effective_lift_rows": 5,
+    "source_experiment": "state_head_fold_stability_guard_v1",
+    "stability_gate": false,
+    "training_allowed_from_consensus_targets": false,
+    "unstable_effective_lift_rows": 5
+  },
+  "stability_summary": {
+    "effective_lift_rows": 5,
+    "false_positive_effective_lift_rows": 1,
+    "groups": 756,
+    "positive_effective_lift_rows": 4,
+    "rows": 1261,
+    "stability_gate": false,
+    "unstable_effective_lift_rate": 1.0,
+    "unstable_effective_lift_rows": 5,
+    "unstable_false_positive_effective_lift_rows": 1,
+    "unstable_groups": 7
+  }
+}

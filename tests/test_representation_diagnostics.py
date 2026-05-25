@@ -4,8 +4,10 @@ import numpy as np
 import pandas as pd
 
 from src.soxl_quant.app.representation_diagnostics import (
+    StateHeadConsensusTargetConfig,
     StateHeadLiftStabilityConfig,
     StateHeadTargetRecipeConfig,
+    derive_state_head_consensus_targets,
     rank_auc_score,
     score_binary_representation_feature_sets,
     score_state_head_lift_stability,
@@ -259,3 +261,60 @@ def test_state_head_lift_stability_passes_when_no_effective_lifts_exist():
     assert result.summary["effective_lift_rows"] == 0
     assert result.summary["unstable_effective_lift_rate"] == 0.0
     assert result.summary["stability_gate"] is True
+
+
+def test_derive_state_head_consensus_targets_requires_fold_agreement():
+    row_scores = pd.DataFrame(
+        {
+            "datetime": ["2020-06-03", "2020-06-03", "2021-04-05", "2021-04-05"],
+            "is_rebound": [True, False, True, True],
+            "predicted_state": [True, True, True, True],
+            "default_target": [0.25, 0.25, 0.20, 0.21],
+            "proposed_target": [0.45, 0.43, 0.35, 0.36],
+            "target_lift": [0.20, 0.18, 0.15, 0.15],
+        }
+    )
+
+    result = derive_state_head_consensus_targets(
+        row_scores,
+        group_col="datetime",
+        label_col="is_rebound",
+        default_target_col="default_target",
+        proposed_target_col="proposed_target",
+        config=StateHeadConsensusTargetConfig(min_sources=2, min_lift=0.01),
+    )
+
+    targets = result.consensus_targets.set_index("datetime")
+    assert "2020-06-03" not in targets.index
+    assert "2021-04-05" in targets.index
+    assert targets.loc["2021-04-05", "consensus_lift"] == 0.15
+    assert targets.loc["2021-04-05", "consensus_target_position"] == 0.355
+    assert result.summary["consensus_target_groups"] == 1
+    assert result.summary["conflict_groups"] == 1
+    assert result.summary["consensus_gate"] is True
+
+
+def test_derive_state_head_consensus_targets_blocks_when_no_stable_lift_survives():
+    row_scores = pd.DataFrame(
+        {
+            "datetime": ["2020-06-03", "2020-06-03"],
+            "is_rebound": [True, False],
+            "predicted_state": [True, True],
+            "default_target": [0.25, 0.25],
+            "proposed_target": [0.45, 0.43],
+            "target_lift": [0.20, 0.18],
+        }
+    )
+
+    result = derive_state_head_consensus_targets(
+        row_scores,
+        group_col="datetime",
+        label_col="is_rebound",
+        default_target_col="default_target",
+        proposed_target_col="proposed_target",
+        config=StateHeadConsensusTargetConfig(min_sources=2, min_lift=0.01),
+    )
+
+    assert result.consensus_targets.empty
+    assert result.summary["consensus_target_groups"] == 0
+    assert result.summary["consensus_gate"] is False
