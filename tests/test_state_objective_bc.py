@@ -5,8 +5,10 @@ import pandas as pd
 import torch
 
 from src.soxl_quant.app.state_objective_bc import (
+    StateObjectiveBCDataset,
     StateObjectiveBCTrainingConfig,
     action_distribution_frame,
+    build_state_objective_bc_dataset_from_frame,
     evaluate_bc_actor,
     fit_bc_actor,
     fit_state_objective_bc_actor_from_frame,
@@ -54,6 +56,25 @@ def test_action_distribution_frame_keeps_missing_actions_visible():
     assert dist["share"].round(6).tolist() == [0.333333, 0.0, 0.666667, 0.0]
 
 
+def test_weighted_bc_actor_can_prioritize_high_weight_minority_label():
+    obs = np.zeros((10, 2), dtype=np.float32)
+    actions = np.asarray([0] * 9 + [1], dtype=np.int64)
+    weights = np.asarray([1.0] * 9 + [25.0], dtype=np.float32)
+    actor = _separable_actor()
+
+    result = fit_bc_actor(
+        actor,
+        obs,
+        actions,
+        StateObjectiveBCTrainingConfig(steps=80, lr=0.05, batch_size=10, seed=17),
+        sample_weight_array=weights,
+    )
+    logits = actor(torch.as_tensor([[0.0, 0.0]], dtype=torch.float32))
+
+    assert result["weight_mean"] == weights.mean()
+    assert int(logits.argmax(-1).item()) == 1
+
+
 def _sample_frame(rows: int = LOOKBACK + 8) -> pd.DataFrame:
     data = {col: np.zeros(rows, dtype=np.float32) for col in FEATURE_COLUMNS}
     data["datetime"] = pd.date_range("2020-01-01", periods=rows, freq="B")
@@ -96,3 +117,40 @@ def test_fit_state_objective_bc_actor_from_frame_returns_auditable_training_resu
     assert result.actor is not None
     assert result.metrics["samples"] == 4
     assert result.action_distribution["count"].sum() == 4
+
+
+def test_build_state_objective_bc_dataset_from_frame_keeps_target_metadata():
+    profile = load_profile("risk_budget_usage_v1")
+    frame = _sample_frame()
+    dates = frame["datetime"].iloc[LOOKBACK : LOOKBACK + 4].to_numpy()
+    targets = pd.DataFrame(
+        {
+            "datetime": [dates[0], dates[0], dates[1], dates[2]],
+            "teacher_position": [0.05, 0.05, 0.45, 0.65],
+            "rebound_target_position": [0.05, 0.35, 0.45, 0.65],
+            "risk_target_position": [0.05, 0.35, 0.25, 0.25],
+            "objective_weight": [1.0, 10.0, 3.0, 4.0],
+            "is_rebound_cluster": [False, True, False, False],
+            "is_downtrend_state": [False, False, True, False],
+            "fold": ["wf_a", "wf_a", "wf_a", "wf_b"],
+        }
+    )
+
+    dataset = build_state_objective_bc_dataset_from_frame(
+        frame,
+        targets=targets,
+        profile=profile,
+        sample_size=0,
+    )
+
+    assert isinstance(dataset, StateObjectiveBCDataset)
+    assert dataset.obs.shape[0] == 3
+    assert dataset.actions.shape == (3,)
+    assert dataset.metadata["datetime"].dt.normalize().tolist() == [
+        pd.Timestamp(dates[0]).normalize(),
+        pd.Timestamp(dates[1]).normalize(),
+        pd.Timestamp(dates[2]).normalize(),
+    ]
+    assert dataset.metadata["is_rebound_cluster"].tolist() == [True, False, False]
+    assert dataset.metadata["is_downtrend_state"].tolist() == [False, True, False]
+    assert dataset.metadata["fold"].tolist() == ["wf_a", "wf_a", "wf_b"]

@@ -219,6 +219,12 @@ walk-forward PPO。`selection.json` 至少要记录 `state_slice_fit_gate`、
 `rebound_accuracy`、`next_training_requires_rebound_weighting`，并继续保持
 `promotion_allowed=false`。
 
+如果 rebound-weighted BC 已经做过确定性权重筛选，且 rebound rows 少于
+20、`rebound_accuracy` 没有提升或仍低于 0.60，不要继续扩大同类权重网格。
+下一步应改成 target enrichment、rebound 状态标签扩展、或 state-conditioned
+loss/sampling objective；继续提高同一个 slice weight 只会把 downtrend/global
+fit 当作“进步”而掩盖 rebound 仍未学会。
+
 ### 4. Explain with mechanism, not adjectives
 
 优先从下面这些“可被代码改变”的机制解释，不要只写“市场不同”：

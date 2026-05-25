@@ -1,0 +1,43 @@
+{
+  "acceptance_gate_for_next_run": {
+    "fixed_split_required": true,
+    "max_dd_max_pct": 15.0,
+    "rebound_slice_accuracy_min": 0.6,
+    "relative_return_min_pp": 30.0,
+    "target_enrichment_required_if_rebound_rows_below": 20,
+    "walkforward_required": true
+  },
+  "best_all_accuracy": 0.8423841059602649,
+  "best_downtrend_accuracy": 0.8721174004192872,
+  "best_ordinary_accuracy": 0.7086330935251799,
+  "best_rebound_accuracy": 0.42857142857142855,
+  "best_rebound_weight": 40.0,
+  "created_at": "2026-05-25T12:22:26.043889+00:00",
+  "decision": "rebound_weighting_no_improvement_no_promotion",
+  "experiment": "state_objective_rebound_weighted_bc_v1",
+  "external_sources": [
+    "https://github.com/microsoft/qlib",
+    "https://arxiv.org/abs/2009.11189",
+    "https://github.com/AI4Finance-Foundation/FinRL",
+    "https://arxiv.org/abs/2011.09607",
+    "https://arxiv.org/abs/1704.03732",
+    "https://arxiv.org/abs/1708.02002",
+    "https://arxiv.org/abs/1901.05555"
+  ],
+  "full_gate": false,
+  "near_miss": false,
+  "next_mechanism": "target_enrichment_or_state_conditioned_loss_before_walkforward_ppo",
+  "profile": "risk_budget_usage_v1",
+  "promotion_allowed": false,
+  "promotion_blocker": "Rebound-weighted BC is not a backtest and did not clear the rebound-slice gate; no runtime or PPO handoff promotion from this screen.",
+  "rebound_improvement": 0.0,
+  "sidecars": [
+    "metadata_summary.json",
+    "rebound_weight_screen.csv",
+    "state_slice_metrics.csv",
+    "summary.json"
+  ],
+  "source_experiment": "state_objective_budget_usage_bc_warm_start_v1",
+  "source_rebound_accuracy": 0.42857142857142855,
+  "target_rebound_accuracy_min": 0.6
+}
