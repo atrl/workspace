@@ -1,0 +1,49 @@
+{
+  "acceptance_gate_for_next_run": {
+    "avoid_more_neighbor_enrichment_grids": true,
+    "fixed_split_required": true,
+    "holdout_rebound_accuracy_min": 0.6,
+    "max_dd_max_pct": 15.0,
+    "no_runtime_promotion_from_bc_only": true,
+    "original_rebound_accuracy_min": 0.6,
+    "relative_return_min_pp": 30.0,
+    "walkforward_required": true
+  },
+  "baseline_rebound_accuracy": 0.42857142857142855,
+  "best_config": "rebound_x4_cb099",
+  "best_full_all_accuracy": 0.8291390728476821,
+  "best_full_downtrend_accuracy": 0.870020964360587,
+  "best_full_ordinary_accuracy": 0.7563636363636363,
+  "best_full_rebound_accuracy": 1.0,
+  "best_holdout_rebound_accuracy_mean": 0.0,
+  "best_holdout_rebound_accuracy_min": 0.0,
+  "created_at": "2026-05-25T13:00:45.186488+00:00",
+  "decision": "state_conditioned_loss_partial_rebound_fit_no_promotion",
+  "direct_comparison_baseline": "state_objective_rebound_weighted_bc_v1",
+  "experiment": "state_objective_state_conditioned_loss_v1",
+  "external_sources": [
+    "https://github.com/microsoft/qlib",
+    "https://arxiv.org/abs/2009.11189",
+    "https://github.com/AI4Finance-Foundation/FinRL",
+    "https://arxiv.org/abs/2011.09607",
+    "https://arxiv.org/abs/1708.02002",
+    "https://arxiv.org/abs/1901.05555",
+    "https://arxiv.org/abs/1704.03732"
+  ],
+  "full_gate": false,
+  "next_mechanism": "convert_best_loss_to_fold_local_ppo_recipe_then_validate_walkforward",
+  "overfit_flag": true,
+  "partial_improvement": true,
+  "profile": "risk_budget_usage_v1",
+  "promotion_allowed": false,
+  "promotion_blocker": "In-sample rebound fit improved, but full anti-overfit gate did not pass.",
+  "rebound_improvement": 0.5714285714285714,
+  "sidecars": [
+    "base_context.json",
+    "loss_weight_screen.csv",
+    "state_slice_metrics.csv",
+    "weight_summary.csv",
+    "summary.json"
+  ],
+  "source_experiment": "state_objective_rebound_target_enrichment_v1"
+}

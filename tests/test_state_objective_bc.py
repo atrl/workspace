@@ -6,12 +6,14 @@ import torch
 
 from src.soxl_quant.app.state_objective_bc import (
     StateObjectiveBCDataset,
+    StateObjectiveBCSampleWeightConfig,
     StateObjectiveBCTrainingConfig,
     action_distribution_frame,
     build_state_objective_bc_dataset_from_frame,
     evaluate_bc_actor,
     fit_bc_actor,
     fit_state_objective_bc_actor_from_frame,
+    state_objective_bc_sample_weights,
 )
 from src.soxl_quant.config import load_profile
 from src.soxl_quant.data import FEATURE_COLUMNS
@@ -73,6 +75,58 @@ def test_weighted_bc_actor_can_prioritize_high_weight_minority_label():
 
     assert result["weight_mean"] == weights.mean()
     assert int(logits.argmax(-1).item()) == 1
+
+
+def test_state_objective_bc_sample_weights_prioritize_rebound_and_action_tail():
+    metadata = pd.DataFrame(
+        {
+            "objective_weight": [1.0] * 6,
+            "is_rebound_cluster": [False, False, False, False, False, True],
+            "is_downtrend_state": [False, False, False, True, True, False],
+        }
+    )
+    actions = np.asarray([0, 0, 0, 0, 1, 2], dtype=np.int64)
+
+    weights = state_objective_bc_sample_weights(
+        metadata,
+        actions=actions,
+        config=StateObjectiveBCSampleWeightConfig(
+            rebound_multiplier=6.0,
+            downtrend_multiplier=2.0,
+            class_balanced_beta=0.99,
+        ),
+    )
+
+    assert weights.shape == (6,)
+    assert np.isclose(weights.mean(), 1.0)
+    assert weights[-1] > weights[4] > weights[0]
+
+
+def test_fit_state_objective_bc_actor_from_frame_accepts_sample_weight_config():
+    profile = load_profile("risk_budget_usage_v1")
+    frame = _sample_frame()
+    dates = frame["datetime"].iloc[LOOKBACK : LOOKBACK + 4].to_numpy()
+    targets = pd.DataFrame(
+        {
+            "datetime": dates,
+            "teacher_position": [0.05, 0.25, 0.45, 0.65],
+            "rebound_target_position": [0.05, 0.35, 0.45, 0.65],
+            "risk_target_position": [0.05, 0.25, 0.25, 0.25],
+            "objective_weight": [1.0, 2.0, 3.0, 4.0],
+            "is_rebound_cluster": [False, True, False, False],
+            "is_downtrend_state": [False, False, True, False],
+        }
+    )
+
+    result = fit_state_objective_bc_actor_from_frame(
+        frame,
+        targets=targets,
+        profile=profile,
+        train_config=StateObjectiveBCTrainingConfig(steps=5, lr=0.01, batch_size=4, seed=11),
+        sample_weight_config=StateObjectiveBCSampleWeightConfig(rebound_multiplier=5.0),
+    )
+
+    assert result.metrics["weight_max"] > result.metrics["weight_min"]
 
 
 def _sample_frame(rows: int = LOOKBACK + 8) -> pd.DataFrame:

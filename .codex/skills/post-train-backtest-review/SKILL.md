@@ -231,6 +231,12 @@ slice accuracy 仍没有提升，不要继续调邻近半径或 target floor。�
 状态不可分；下一步应进入 state-conditioned loss、显式 rebound state head、
 或模型结构/特征表达，而不是更多邻近日期扩展。
 
+如果 state-conditioned / class-balanced BC loss 把 full-fit rebound accuracy
+拉到高位，但跨 fold holdout rebound accuracy 仍为 0 或显著低于门槛，这不是
+可进入 PPO 的进步，而是稀疏状态记忆化。下一步不要把 full-fit actor 当作 warm
+start 直接推进；应先改 rebound 表征、状态头或 fold-local 目标发现，并把
+holdout rebound gate 写进 selection.json。
+
 ### 4. Explain with mechanism, not adjectives
 
 优先从下面这些“可被代码改变”的机制解释，不要只写“市场不同”：

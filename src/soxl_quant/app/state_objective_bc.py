@@ -27,6 +27,18 @@ class StateObjectiveBCTrainingConfig:
     seed: int = 0
 
 
+@dataclass(frozen=True)
+class StateObjectiveBCSampleWeightConfig:
+    rebound_multiplier: float = 1.0
+    downtrend_multiplier: float = 1.0
+    ordinary_multiplier: float = 1.0
+    objective_weight_power: float = 0.0
+    class_balanced_beta: float = 0.0
+    weight_floor: float = 0.05
+    weight_cap: float = 50.0
+    normalize_mean: bool = True
+
+
 @dataclass
 class StateObjectiveBCFitResult:
     actor: Any
@@ -193,6 +205,80 @@ def _validate_sample_weights(sample_weight_array: np.ndarray, n_samples: int) ->
     return weights
 
 
+def _class_balanced_action_weights(actions: np.ndarray, beta: float) -> np.ndarray:
+    beta = float(beta)
+    if beta <= 0.0:
+        return np.ones(len(actions), dtype=np.float32)
+    if beta >= 1.0:
+        raise ValueError("class_balanced_beta must be < 1.0")
+
+    action_series = pd.Series(np.asarray(actions, dtype=np.int64), name="action")
+    counts = action_series.value_counts().to_dict()
+    weights_by_action: dict[int, float] = {}
+    for action, count in counts.items():
+        n = max(int(count), 1)
+        effective_num = (1.0 - beta**n) / (1.0 - beta)
+        weights_by_action[int(action)] = 1.0 / max(effective_num, 1e-12)
+    raw = np.asarray([weights_by_action[int(action)] for action in actions], dtype=np.float32)
+    mean = float(raw.mean()) if len(raw) else 0.0
+    return raw / mean if mean > 0.0 else np.ones(len(actions), dtype=np.float32)
+
+
+def state_objective_bc_sample_weights(
+    metadata: pd.DataFrame,
+    *,
+    actions: np.ndarray | None = None,
+    config: StateObjectiveBCSampleWeightConfig = StateObjectiveBCSampleWeightConfig(),
+) -> np.ndarray:
+    """Build static BC sample weights from state labels and optional action imbalance."""
+
+    n_samples = len(metadata)
+    weights = np.full(n_samples, float(config.ordinary_multiplier), dtype=np.float32)
+    if n_samples == 0:
+        return weights
+    if float(config.weight_floor) < 0.0 or float(config.weight_cap) <= 0.0:
+        raise ValueError("sample weight floor/cap must be non-negative and positive")
+    if float(config.weight_floor) > float(config.weight_cap):
+        raise ValueError("sample weight floor must not exceed cap")
+
+    rebound = (
+        metadata.get("is_rebound_cluster", pd.Series(False, index=metadata.index))
+        .fillna(False)
+        .astype(bool)
+        .to_numpy()
+    )
+    downtrend = (
+        metadata.get("is_downtrend_state", pd.Series(False, index=metadata.index))
+        .fillna(False)
+        .astype(bool)
+        .to_numpy()
+    )
+    weights[downtrend] = float(config.downtrend_multiplier)
+    weights[rebound] = float(config.rebound_multiplier)
+
+    objective_power = float(config.objective_weight_power)
+    if objective_power:
+        objective_weight = pd.to_numeric(
+            metadata.get("objective_weight", pd.Series(1.0, index=metadata.index)),
+            errors="coerce",
+        ).fillna(1.0)
+        objective_weight = objective_weight.clip(lower=0.0).to_numpy(dtype=np.float32)
+        weights *= np.power(objective_weight, objective_power, dtype=np.float32)
+
+    if actions is not None:
+        action_array = np.asarray(actions, dtype=np.int64)
+        if action_array.shape != (n_samples,):
+            raise ValueError(f"actions shape {action_array.shape} does not match samples {(n_samples,)}")
+        weights *= _class_balanced_action_weights(action_array, float(config.class_balanced_beta))
+
+    weights = np.clip(weights, float(config.weight_floor), float(config.weight_cap))
+    if bool(config.normalize_mean):
+        mean = float(weights.mean())
+        if mean > 0.0:
+            weights = weights / mean
+    return _validate_sample_weights(weights, n_samples)
+
+
 def _supervised_pretrain_weighted(
     actor: Any,
     obs_array: np.ndarray,
@@ -295,6 +381,7 @@ def fit_state_objective_bc_actor_from_frame(
     targets: pd.DataFrame,
     profile: StrategyConfig,
     train_config: StateObjectiveBCTrainingConfig = StateObjectiveBCTrainingConfig(),
+    sample_weight_config: StateObjectiveBCSampleWeightConfig | None = None,
     sample_size: int = 0,
     rng_seed: int = 0,
 ) -> StateObjectiveBCFitResult:
@@ -309,7 +396,16 @@ def fit_state_objective_bc_actor_from_frame(
         rng_seed=int(rng_seed),
     )
     _policy, actor = build_policy(observation_dim_for_profile(profile), profile)
-    metrics = fit_bc_actor(actor, dataset.obs, dataset.actions, train_config)
+    sample_weights = (
+        state_objective_bc_sample_weights(
+            dataset.metadata,
+            actions=dataset.actions,
+            config=sample_weight_config,
+        )
+        if sample_weight_config is not None
+        else None
+    )
+    metrics = fit_bc_actor(actor, dataset.obs, dataset.actions, train_config, sample_weight_array=sample_weights)
     action_count = int(
         getattr(actor, "output_dim", 0)
         or (int(dataset.actions.max()) + 1 if len(dataset.actions) else 0)
@@ -326,10 +422,12 @@ def fit_state_objective_bc_actor_from_frame(
 __all__ = [
     "StateObjectiveBCFitResult",
     "StateObjectiveBCDataset",
+    "StateObjectiveBCSampleWeightConfig",
     "StateObjectiveBCTrainingConfig",
     "action_distribution_frame",
     "build_state_objective_bc_dataset_from_frame",
     "evaluate_bc_actor",
     "fit_bc_actor",
     "fit_state_objective_bc_actor_from_frame",
+    "state_objective_bc_sample_weights",
 ]
