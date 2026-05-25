@@ -245,9 +245,15 @@ fold-local PPO recipe；不要继续扩大全局 loss 权重或特征全集。
 
 如果 state-head target recipe 能用 `momentum_drawdown` 等特征恢复所有或多数
 rebound target，但 precision 很低（例如低于 0.10）且 false positives 较多，
-只能作为 pre-PPO recipe，不允许 promotion。下一轮 PPO 必须把该 state head 与
-drawdown/risk guard、walk-forward gate 和 `+30pp / <=15% MaxDD` 目标绑定，避免
-把稀疏 rebound 检出变成广泛加仓。
+不要只按普通 false positive 数量判断风险；必须在 runtime notebook 中区分
+普通 false positive 和有效 false-positive lift。普通 false positive 是状态头
+误触发但 proposed target 与 default target 一样或几乎一样；有效 lift 是误触发
+且目标仓位变化超过阈值（默认先看 `abs(target_lift) > 0.01`）。只有
+`effective_false_positive_rate`、`false_positive_lift_mean` 和
+`false_positive_lift_max` 同时受控时，低 precision recipe 才能作为 pre-PPO
+handoff 继续。即便 lift guard 通过，也不允许 promotion；下一轮 PPO 必须把该
+state head 与 drawdown/risk guard、walk-forward gate 和 `+30pp / <=15% MaxDD`
+目标绑定，避免把稀疏 rebound 检出变成广泛加仓。
 
 ### 4. Explain with mechanism, not adjectives
 

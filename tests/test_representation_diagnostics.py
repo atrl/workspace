@@ -142,4 +142,46 @@ def test_score_state_head_target_recipes_rejects_false_positive_lift():
 
     row = result.recipe_scores.iloc[0]
     assert row["false_positive_rate"] == 1.0
+    assert row["effective_false_positive_rate"] == 1.0
+    assert row["false_positive_lift_mean"] == 0.6
     assert bool(row["recipe_gate"]) is False
+
+
+def test_state_head_recipe_ignores_false_positive_when_target_is_unchanged():
+    frame = pd.DataFrame(
+        {
+            "fold": ["a", "a", "b", "b"],
+            "is_rebound": [False, True, False, True],
+            "feature": [1.0, 2.0, 1.2, 2.2],
+            "true_target": [0.4, 0.7, 0.4, 0.7],
+            "default_target": [0.4, 0.1, 0.4, 0.1],
+            "rebound_target": [0.4, 0.7, 0.4, 0.7],
+        }
+    )
+
+    result = score_state_head_target_recipes(
+        frame,
+        label_col="is_rebound",
+        fold_col="fold",
+        true_target_col="true_target",
+        default_target_col="default_target",
+        state_target_col="rebound_target",
+        feature_sets={"loose": ["feature"]},
+        thresholds=(-10.0,),
+        config=StateHeadTargetRecipeConfig(
+            min_recall=1.0,
+            min_precision=0.0,
+            max_false_positive_rate=1.0,
+            max_effective_false_positive_rate=0.0,
+            max_false_positive_lift_mean=0.0,
+            max_false_positive_lift_max=0.0,
+            max_target_mae=0.0,
+            max_rebound_mae=0.0,
+        ),
+    )
+
+    row = result.recipe_scores.iloc[0]
+    assert row["false_positive_rate"] == 1.0
+    assert row["effective_false_positive_rate"] == 0.0
+    assert row["false_positive_lift_max"] == 0.0
+    assert bool(row["recipe_gate"]) is True

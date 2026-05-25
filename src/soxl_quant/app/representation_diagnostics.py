@@ -20,6 +20,10 @@ class StateHeadTargetRecipeConfig:
     min_recall: float = 0.60
     min_precision: float = 0.40
     max_false_positive_rate: float = 0.10
+    min_effective_lift: float = 0.01
+    max_effective_false_positive_rate: float = 0.05
+    max_false_positive_lift_mean: float = 0.01
+    max_false_positive_lift_max: float = 0.20
     max_target_mae: float = 0.08
     max_rebound_mae: float = 0.08
     min_covered_folds: int = 1
@@ -348,6 +352,7 @@ def score_state_head_target_recipes(
                 routed[state_target_col],
                 routed[default_target_col],
             )
+            routed["target_lift"] = routed["proposed_target"] - routed[default_target_col]
             routed["target_error"] = (routed["proposed_target"] - routed[true_target_col]).abs()
             labels = routed[label_col].fillna(False).astype(bool)
             predicted = routed["predicted_state"].fillna(False).astype(bool)
@@ -365,6 +370,11 @@ def score_state_head_target_recipes(
             all_mae = float(routed["target_error"].mean())
             rebound_mae = float(routed.loc[labels, "target_error"].mean()) if positives else float("nan")
             non_rebound_mae = float(routed.loc[~labels, "target_error"].mean()) if negatives else float("nan")
+            fp_lift = routed.loc[(~labels) & predicted, "target_lift"].abs()
+            false_positive_lift_mean = float(fp_lift.mean()) if len(fp_lift) else 0.0
+            false_positive_lift_max = float(fp_lift.max()) if len(fp_lift) else 0.0
+            effective_fp = int((fp_lift > float(config.min_effective_lift)).sum()) if len(fp_lift) else 0
+            effective_false_positive_rate = _safe_div(effective_fp, negatives)
             recipe_gate = bool(
                 covered_folds >= int(config.min_covered_folds)
                 and np.isfinite(precision)
@@ -373,6 +383,10 @@ def score_state_head_target_recipes(
                 and precision >= float(config.min_precision)
                 and recall >= float(config.min_recall)
                 and false_positive_rate <= float(config.max_false_positive_rate)
+                and np.isfinite(effective_false_positive_rate)
+                and effective_false_positive_rate <= float(config.max_effective_false_positive_rate)
+                and false_positive_lift_mean <= float(config.max_false_positive_lift_mean)
+                and false_positive_lift_max <= float(config.max_false_positive_lift_max)
                 and all_mae <= float(config.max_target_mae)
                 and rebound_mae <= float(config.max_rebound_mae)
             )
@@ -392,6 +406,10 @@ def score_state_head_target_recipes(
                     "state_recall": recall,
                     "true_positive_rate": true_positive_rate,
                     "false_positive_rate": false_positive_rate,
+                    "effective_false_positive": effective_fp,
+                    "effective_false_positive_rate": effective_false_positive_rate,
+                    "false_positive_lift_mean": false_positive_lift_mean,
+                    "false_positive_lift_max": false_positive_lift_max,
                     "target_mae": all_mae,
                     "rebound_target_mae": rebound_mae,
                     "non_rebound_target_mae": non_rebound_mae,
@@ -400,6 +418,9 @@ def score_state_head_target_recipes(
                         max(float(config.min_recall) - (recall if np.isfinite(recall) else 0.0), 0.0) * 4.0
                         + max(float(config.min_precision) - (precision if np.isfinite(precision) else 0.0), 0.0) * 2.0
                         + max((false_positive_rate if np.isfinite(false_positive_rate) else 1.0) - float(config.max_false_positive_rate), 0.0) * 2.0
+                        + max((effective_false_positive_rate if np.isfinite(effective_false_positive_rate) else 1.0) - float(config.max_effective_false_positive_rate), 0.0) * 2.0
+                        + max(false_positive_lift_mean - float(config.max_false_positive_lift_mean), 0.0)
+                        + max(false_positive_lift_max - float(config.max_false_positive_lift_max), 0.0)
                         + max(all_mae - float(config.max_target_mae), 0.0)
                         + max((rebound_mae if np.isfinite(rebound_mae) else 1.0) - float(config.max_rebound_mae), 0.0)
                     ),
@@ -419,6 +440,9 @@ def score_state_head_target_recipes(
         "best_state_recall": float(best.get("state_recall", np.nan)),
         "best_state_precision": float(best.get("state_precision", np.nan)),
         "best_false_positive_rate": float(best.get("false_positive_rate", np.nan)),
+        "best_effective_false_positive_rate": float(best.get("effective_false_positive_rate", np.nan)),
+        "best_false_positive_lift_mean": float(best.get("false_positive_lift_mean", np.nan)),
+        "best_false_positive_lift_max": float(best.get("false_positive_lift_max", np.nan)),
         "best_target_mae": float(best.get("target_mae", np.nan)),
         "best_rebound_target_mae": float(best.get("rebound_target_mae", np.nan)),
         "recipe_gate": bool(best.get("recipe_gate", False)),
