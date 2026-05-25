@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-25T22:17:19.370724+00:00",
+  "generated_at": "2026-05-25T22:29:19.243408+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -5736,6 +5736,48 @@
       "category": "model_selection",
       "suffix": ".csv",
       "bytes": 23563
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_training_objective_handoff_v1/fold_local_requirements.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 782
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_training_objective_handoff_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2751
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_training_objective_handoff_v1/stop_rules.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 428
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_training_objective_handoff_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1158
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_training_objective_handoff_v1/training_objective_handoff.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1787
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_training_objective_handoff_v1/training_objective_handoff.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 634
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_training_objective_handoff_v1/training_objective_recipe.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 863
     },
     {
       "path": "runtime/model_selection/card/conservative_rebound_release_gate_v1/conservative_recipe_row_scores.csv",

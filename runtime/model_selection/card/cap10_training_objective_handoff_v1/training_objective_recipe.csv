@@ -1,0 +1,5 @@
+component,required_term,evidence,training_use,fold_local_requirement,active_in_handoff
+relative_return_gap,walkforward_relative_return_gap_penalty,worst relative gap 173.58pp vs target +30.0pp,checkpoint loss and PPO reward shaping; do not tune directly on held-out labels,True,True
+drawdown_budget,walkforward_drawdown_gap_penalty,max drawdown gap 7.02pp vs target 15.0%,sequence-risk penalty and checkpoint loss,True,True
+rebound_participation,high_vol_rebound_participation_floor,"primary cluster C003 underparticipation, mean excess -112.96725518906273pp",sparse fold-local labels or supervised head; require post-event false-positive audit,True,True
+downtrend_risk_cap,downtrend_drawdown_state_cap,post-hoc low-floor improved recovery but pushed 2022 MaxDD above budget,"state-conditioned cap learned before entry, not path-end mechanical de-risk",True,True

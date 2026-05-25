@@ -42,6 +42,12 @@ def _top_walkforward_row(walkforward_scores: pd.DataFrame) -> dict[str, Any]:
             ascending=[False, True],
         )
         return dict(sorted_scores.iloc[0])
+    if "objective_pass" in walkforward_scores.columns and "objective_loss" in walkforward_scores.columns:
+        sorted_scores = walkforward_scores.sort_values(
+            ["objective_pass", "objective_loss"],
+            ascending=[False, True],
+        )
+        return dict(sorted_scores.iloc[0])
     return dict(walkforward_scores.iloc[0])
 
 
@@ -115,6 +121,34 @@ def _risk_gap(top: Mapping[str, Any]) -> dict[str, Any]:
     }
 
 
+def _gate_passed(top: Mapping[str, Any]) -> bool:
+    for key in ("full_gate", "objective_pass"):
+        if key in top:
+            return bool(top.get(key, False))
+    return False
+
+
+def _infer_failure_type(top: Mapping[str, Any], *, has_underparticipation_cluster: bool) -> str:
+    explicit = str(top.get("dominant_failure_type", "") or "")
+    if explicit:
+        return explicit
+
+    drawdown_loss = float(top.get("drawdown_loss", 0.0) or 0.0)
+    participation_loss = float(top.get("participation_loss", 0.0) or 0.0)
+    relative_loss = float(top.get("relative_loss", 0.0) or 0.0)
+    drawdown_failed = drawdown_loss > 0.0 or _risk_gap(top)["max_dd_gap"] > 0.0
+    participation_failed = participation_loss > 0.0 or has_underparticipation_cluster
+    if drawdown_failed and participation_failed:
+        return "joint_tradeoff"
+    if drawdown_failed:
+        return "drawdown_control"
+    if participation_failed:
+        return "underparticipation"
+    if relative_loss > 0.0 or _risk_gap(top)["relative_gap"] > 0.0:
+        return "selection_bias"
+    return ""
+
+
 def derive_training_objective_handoff(
     *,
     walkforward_scores: pd.DataFrame,
@@ -137,7 +171,7 @@ def derive_training_objective_handoff(
         )
 
     selected = str(top.get("candidate", top.get("profile", "")))
-    if bool(top.get("full_gate", False)):
+    if _gate_passed(top):
         return _json_safe(
             {
             "decision": "candidate_promotion_review",
@@ -151,7 +185,7 @@ def derive_training_objective_handoff(
 
     under_cluster = _top_underparticipation_cluster(poor_window_clusters)
     router_failed = _router_failed_after_cluster_improvement(router_selection)
-    dominant_failure = str(top.get("dominant_failure_type", ""))
+    dominant_failure = _infer_failure_type(top, has_underparticipation_cluster=bool(under_cluster))
     state_groups = _feature_groups(feature_groups)
 
     stop_mechanisms: list[str] = []

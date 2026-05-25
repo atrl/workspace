@@ -1,0 +1,27 @@
+{
+  "experiment": "cap10_training_objective_handoff_v1",
+  "decision": "train_state_conditioned_multi_objective",
+  "promotion_allowed": false,
+  "training_allowed_from_this_card": false,
+  "selected_diagnostic_candidate": "low_floor_rebound_dd10",
+  "risk_gap": {
+    "target_max_dd": 15.0,
+    "observed_max_dd": 22.02,
+    "max_dd_gap": 7.02,
+    "target_relative_return": 30.0,
+    "observed_min_relative_return": -143.58,
+    "relative_gap": 173.58,
+    "worst_window": "cap10_release_0.25__wf_2023_2024"
+  },
+  "objective_terms": [
+    "walkforward_relative_return_gap_penalty",
+    "walkforward_drawdown_gap_penalty",
+    "high_vol_rebound_participation_floor",
+    "downtrend_drawdown_state_cap"
+  ],
+  "conclusion": [
+    "The latest cap10 screen is a joint underparticipation plus drawdown-budget tradeoff, not a threshold-search near miss.",
+    "Next valid work is fold-local state-conditioned multi-objective target generation / checkpoint selection, with direct OOS-label training blocked.",
+    "Path-level SOXX/SOXL threshold overlays should stop; SOXX/SOXL remains only a feature hypothesis for IC/single-signal/fold-local validation."
+  ]
+}

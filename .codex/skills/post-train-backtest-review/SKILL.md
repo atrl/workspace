@@ -176,6 +176,15 @@ from src.soxl_quant.app.training_objective_handoff import (
 `train_state_conditioned_multi_objective`，下一步应进入训练时/模型选择时的
 状态条件多目标，而不是再做 path-level threshold router search。
 
+同一个 handoff 逻辑也适用于 `state_conditioned_objective` 或类似 notebook
+产出的 `objective_scores.csv`。当分数表使用 `objective_pass` / `objective_loss`
+而不是 `full_gate` / `weighted_objective_loss` 时，仍然把
+`objective_scores.csv`、`aggregate/poor_window_clusters.csv`、`feature_group_consensus.csv`
+和最近的 `selection.json` 传入 `derive_training_objective_handoff()`。如果最佳行
+同时有 `drawdown_loss > 0` 和 `participation_loss > 0`（或存在
+underparticipation cluster），结论应是 `train_state_conditioned_multi_objective`；
+不要把它简化成单纯“继续提高参与率”。
+
 当 rolling poor-window 聚合显示主簇是 `underparticipation`，但同一候选的
 gate-gap attribution 在 strict OOS / walk-forward 窗口全部因为
 `drawdown_control` 或 `joint_tradeoff` 失败时，不要把结论简化成“继续提高参与率”。

@@ -143,3 +143,57 @@ def test_handoff_returns_promotion_review_when_full_gate_exists():
     assert handoff["decision"] == "candidate_promotion_review"
     assert handoff["promotion"] == "review_required"
     assert handoff["selected_diagnostic_candidate"] == "passing_candidate"
+
+
+def test_handoff_understands_objective_screen_joint_tradeoff_rows():
+    objective_scores = pd.DataFrame(
+        [
+            {
+                "candidate": "worse_participation_only",
+                "objective_pass": False,
+                "objective_loss": 1250.0,
+                "min_relative_return": -130.0,
+                "max_max_dd": 14.8,
+                "relative_loss": 900.0,
+                "drawdown_loss": 0.0,
+                "participation_loss": 40.0,
+                "worst_window": "wf_2023_2024",
+            },
+            {
+                "candidate": "best_joint_tradeoff",
+                "objective_pass": False,
+                "objective_loss": 1137.8,
+                "min_relative_return": -143.5,
+                "max_max_dd": 22.0,
+                "relative_loss": 937.0,
+                "drawdown_loss": 168.0,
+                "participation_loss": 31.0,
+                "worst_window": "wf_2022",
+            },
+        ]
+    )
+    clusters = pd.DataFrame(
+        [
+            {
+                "cluster_id": "C003",
+                "cluster_start": "2023-10-23",
+                "cluster_end": "2024-03-07",
+                "dominant_failure_type": "underparticipation",
+                "mean_excess_return": -112.9,
+                "mean_avg_pos": 0.10,
+            }
+        ]
+    )
+
+    handoff = derive_training_objective_handoff(
+        walkforward_scores=objective_scores,
+        poor_window_clusters=clusters,
+    )
+
+    assert handoff["selected_diagnostic_candidate"] == "best_joint_tradeoff"
+    assert handoff["selected_dominant_failure_type"] == "joint_tradeoff"
+    assert handoff["decision"] == "train_state_conditioned_multi_objective"
+    assert handoff["risk_gap"]["max_dd_gap"] == 7.0
+    assert handoff["risk_gap"]["relative_gap"] == 173.5
+    assert "high_vol_rebound_participation_floor" in handoff["objective_terms"]
+    assert "downtrend_drawdown_state_cap" in handoff["objective_terms"]
