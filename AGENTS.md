@@ -66,9 +66,10 @@ Knowledge retrieval must be scoped by task direction.
 
 ## Notebook Experiment Discipline
 
-- Notebook-first is the standing default for future SOXL research work. Treat
-  the user's preference as: "尽量都到 ipynb" unless the task is purely code
-  maintenance, operational startup, or explicitly asks for another artifact.
+- Notebook-first is the standing default for future SOXL research work and
+  follow-up turns. Treat the user's preference as: "尽量都到 ipynb" unless the
+  task is purely code maintenance, operational startup, or explicitly asks for
+  another artifact.
 - Do not wait for the user to repeat this preference. Experiments, diagnostics,
   factor screens, model/reward/network trials, broker-data audits, backtests,
   parameter screens, and one-off analyses should put the executable workflow and
@@ -96,6 +97,10 @@ Knowledge retrieval must be scoped by task direction.
   `.codex/skills/` with single-run conclusions unless the user explicitly asks,
   the result is promoted, or the finding changes durable cross-experiment
   routing/governance.
+- For future experiment or diagnostic follow-ups, create or update the relevant
+  runtime notebook first. Promote conclusions into workpads, knowledge files,
+  Markdown reports, or research knowledge only after they become durable project
+  state or the user explicitly requests that form.
 - If a task needs both reusable code and experiment-specific logic, keep the
   reusable code in `src/` with tests and keep the special-case orchestration,
   parameter choices, outputs, and conclusion in the runtime notebook.
