@@ -7,6 +7,7 @@ from src.soxl_quant.app.state_objective_training_targets import (
     StateObjectiveReboundTargetEnrichmentConfig,
     StateObjectiveReboundClusterConfig,
     StateObjectiveTrainingTargetConfig,
+    audit_state_objective_target_lift,
     audit_state_objective_target_scope,
     build_fold_local_state_objective_training_targets,
     build_state_objective_training_targets,
@@ -19,6 +20,7 @@ from src.soxl_quant.app.state_objective_training_targets import (
     summarize_state_objective_bc_readiness,
     summarize_state_objective_checkpoint_selection,
     summarize_state_objective_target_alignment,
+    summarize_state_objective_target_lift_audit,
     summarize_state_objective_target_scope_audit,
     summarize_state_objective_training_targets,
 )
@@ -773,3 +775,57 @@ def test_target_scope_audit_matches_fold_local_targets_to_their_own_fold_only():
 
     assert audit["fold"].tolist() == ["wf_2022_train"]
     assert bool(audit.iloc[0]["leakage_gate"]) is True
+
+
+def test_target_lift_audit_blocks_rebound_rows_erased_by_downtrend_cap():
+    targets = pd.DataFrame(
+        {
+            "datetime": ["2020-03-18", "2020-03-19", "2020-07-01"],
+            "fold": ["wf_2022_train", "wf_2022_train", "wf_2022_train"],
+            "teacher_position": [0.15, 0.60, 0.40],
+            "rebound_target_position": [0.35, 0.65, 0.40],
+            "risk_target_position": [0.15, 0.25, 0.40],
+            "objective_weight": [10.0, 12.0, 1.0],
+            "is_rebound_cluster": [True, True, False],
+            "is_downtrend_state": [True, True, False],
+        }
+    )
+
+    audit = audit_state_objective_target_lift(targets, group_cols=("fold",))
+    summary = summarize_state_objective_target_lift_audit(audit)
+
+    row = audit.iloc[0]
+    assert row["rebound_rows"] == 2
+    assert row["current_positive_rebound_lift_rows"] == 0
+    assert row["candidate_release_positive_lift_rows"] == 2
+    assert bool(row["lift_semantics_gate"]) is False
+    assert summary["decision"] == "state_objective_target_lift_blocked_no_training"
+    assert summary["training_allowed"] is False
+    assert summary["next_mechanism"] == "revise_state_objective_target_semantics_before_weighted_bc"
+
+
+def test_target_lift_audit_allows_current_targets_with_effective_rebound_lift():
+    targets = pd.DataFrame(
+        {
+            "datetime": ["2020-03-18", "2020-03-19"],
+            "fold": ["wf_2022_train", "wf_2022_train"],
+            "teacher_position": [0.15, 0.60],
+            "rebound_target_position": [0.35, 0.60],
+            "risk_target_position": [0.15, 0.60],
+            "objective_weight": [10.0, 12.0],
+            "is_rebound_cluster": [True, True],
+            "is_downtrend_state": [False, False],
+        }
+    )
+
+    audit = audit_state_objective_target_lift(
+        targets,
+        target_position_priority="rebound",
+        group_cols=("fold",),
+    )
+    summary = summarize_state_objective_target_lift_audit(audit)
+
+    assert audit.iloc[0]["current_positive_rebound_lift_rows"] == 1
+    assert bool(audit.iloc[0]["lift_semantics_gate"]) is True
+    assert summary["decision"] == "state_objective_target_lift_training_ready"
+    assert summary["training_allowed"] is True

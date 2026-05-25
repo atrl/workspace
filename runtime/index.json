@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-25T17:22:35.351747+00:00",
+  "generated_at": "2026-05-25T17:45:59.370482+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -5166,6 +5166,72 @@
       "category": "model",
       "suffix": ".md",
       "bytes": 3390
+    },
+    {
+      "path": "runtime/model_selection/card/conservative_rebound_release_gate_v1/conservative_recipe_row_scores.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 755478
+    },
+    {
+      "path": "runtime/model_selection/card/conservative_rebound_release_gate_v1/conservative_recipe_scores.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 8869
+    },
+    {
+      "path": "runtime/model_selection/card/conservative_rebound_release_gate_v1/coverage.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 343
+    },
+    {
+      "path": "runtime/model_selection/card/conservative_rebound_release_gate_v1/event_fold_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 176
+    },
+    {
+      "path": "runtime/model_selection/card/conservative_rebound_release_gate_v1/post_event_false_positive_audit.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1248
+    },
+    {
+      "path": "runtime/model_selection/card/conservative_rebound_release_gate_v1/post_event_release_row_scores.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 435562
+    },
+    {
+      "path": "runtime/model_selection/card/conservative_rebound_release_gate_v1/selected_release_gate_ranking.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1878
+    },
+    {
+      "path": "runtime/model_selection/card/conservative_rebound_release_gate_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2681
+    },
+    {
+      "path": "runtime/model_selection/card/conservative_rebound_release_gate_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 3650
+    },
+    {
+      "path": "runtime/model_selection/card/conservative_rebound_release_gate_v1/target_lift_audit.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 517
+    },
+    {
+      "path": "runtime/model_selection/card/conservative_rebound_release_gate_v1/target_lift_summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 449
     },
     {
       "path": "runtime/model_selection/card/deep_cap_failure_attribution_v1/aggregate/aggregate_oos_review.md",

@@ -831,6 +831,179 @@ def summarize_state_objective_target_scope_audit(audit: pd.DataFrame) -> dict[st
     }
 
 
+def _target_position_with_priority(row: Mapping[str, object], *, priority: str) -> float:
+    teacher = _json_safe_float(row.get("teacher_position"), 0.0)
+    rebound = _json_safe_float(row.get("rebound_target_position"), teacher)
+    risk = _json_safe_float(row.get("risk_target_position"), teacher)
+    is_rebound = bool(row.get("is_rebound_cluster", False))
+    is_downtrend = bool(row.get("is_downtrend_state", False))
+    if priority == "risk":
+        if is_downtrend:
+            return risk
+        if is_rebound:
+            return rebound
+        return teacher
+    if priority == "rebound":
+        if is_rebound:
+            return rebound
+        if is_downtrend:
+            return risk
+        return teacher
+    raise ValueError(f"unknown target_position_priority: {priority!r}")
+
+
+def audit_state_objective_target_lift(
+    targets: pd.DataFrame,
+    *,
+    target_position_priority: str = "risk",
+    min_lift: float = 1e-9,
+    group_cols: tuple[str, ...] = ("fold", "window"),
+) -> pd.DataFrame:
+    """Audit whether sparse-state target labels change the effective position target.
+
+    A target table can be fold-local and still fail as BC/PPO training data if a
+    higher-priority state cap erases the action the sparse label is meant to
+    teach. This audit checks whether rebound-labeled rows actually create a
+    positive target lift relative to the no-rebound baseline.
+    """
+
+    required = {
+        "teacher_position",
+        "rebound_target_position",
+        "risk_target_position",
+        "is_rebound_cluster",
+        "is_downtrend_state",
+    }
+    missing = sorted(required - set(targets.columns))
+    if missing:
+        raise ValueError(f"targets missing columns: {missing}")
+    if min_lift < 0.0:
+        raise ValueError("min_lift must be non-negative")
+
+    frame = targets.copy()
+    for col in ["teacher_position", "rebound_target_position", "risk_target_position"]:
+        frame[col] = pd.to_numeric(frame[col], errors="coerce").fillna(0.0)
+    for col in ["is_rebound_cluster", "is_downtrend_state"]:
+        frame[col] = frame[col].fillna(False).astype(bool)
+
+    frame["current_target_position"] = [
+        _target_position_with_priority(row, priority=str(target_position_priority))
+        for row in frame.to_dict("records")
+    ]
+    frame["no_rebound_position"] = np.where(
+        frame["is_downtrend_state"],
+        frame["risk_target_position"],
+        frame["teacher_position"],
+    )
+    frame["candidate_release_position"] = np.where(
+        frame["is_downtrend_state"],
+        np.maximum(frame["risk_target_position"], frame["rebound_target_position"]),
+        np.maximum(frame["teacher_position"], frame["rebound_target_position"]),
+    )
+    frame["current_effective_lift"] = frame["current_target_position"] - frame["no_rebound_position"]
+    frame["candidate_release_lift"] = frame["candidate_release_position"] - frame["no_rebound_position"]
+
+    available_group_cols = tuple(col for col in group_cols if col in frame.columns)
+    if available_group_cols:
+        grouped = frame.groupby(list(available_group_cols), dropna=False, sort=True)
+    else:
+        frame["_target_lift_group"] = "all"
+        available_group_cols = ("_target_lift_group",)
+        grouped = frame.groupby(list(available_group_cols), dropna=False, sort=True)
+
+    rows: list[dict[str, object]] = []
+    threshold = float(min_lift)
+    for group_key, group in grouped:
+        group_values = group_key if isinstance(group_key, tuple) else (group_key,)
+        row = {col: str(value) for col, value in zip(available_group_cols, group_values)}
+        rebound_mask = group["is_rebound_cluster"].astype(bool)
+        downtrend_mask = group["is_downtrend_state"].astype(bool)
+        rebound_rows = group[rebound_mask]
+        current_lift_mask = rebound_mask & (group["current_effective_lift"] > threshold)
+        release_lift_mask = rebound_mask & (group["candidate_release_lift"] > threshold)
+        row.update(
+            {
+                "rows": int(len(group)),
+                "rebound_rows": int(rebound_mask.sum()),
+                "downtrend_rows": int(downtrend_mask.sum()),
+                "rebound_downtrend_rows": int((rebound_mask & downtrend_mask).sum()),
+                "current_positive_rebound_lift_rows": int(current_lift_mask.sum()),
+                "candidate_release_positive_lift_rows": int(release_lift_mask.sum()),
+                "mean_current_effective_lift": float(
+                    group.loc[rebound_mask, "current_effective_lift"].mean()
+                )
+                if rebound_mask.any()
+                else 0.0,
+                "mean_candidate_release_lift": float(
+                    group.loc[rebound_mask, "candidate_release_lift"].mean()
+                )
+                if rebound_mask.any()
+                else 0.0,
+                "max_current_effective_lift": float(rebound_rows["current_effective_lift"].max())
+                if not rebound_rows.empty
+                else 0.0,
+                "max_candidate_release_lift": float(rebound_rows["candidate_release_lift"].max())
+                if not rebound_rows.empty
+                else 0.0,
+                "lift_semantics_gate": bool(int(current_lift_mask.sum()) > 0),
+                "release_candidate_gate": bool(int(release_lift_mask.sum()) > 0),
+                "target_position_priority": str(target_position_priority),
+                "min_lift": float(min_lift),
+            }
+        )
+        rows.append(row)
+    return pd.DataFrame(rows).sort_values(
+        ["lift_semantics_gate", "release_candidate_gate", *available_group_cols],
+        ascending=[True, False, *([True] * len(available_group_cols))],
+    ).reset_index(drop=True)
+
+
+def summarize_state_objective_target_lift_audit(audit: pd.DataFrame) -> dict[str, object]:
+    if audit.empty:
+        return {
+            "decision": "state_objective_target_lift_no_rows",
+            "training_allowed": False,
+            "next_mechanism": "collect_state_objective_targets",
+        }
+
+    rebound_rows = int(pd.to_numeric(audit["rebound_rows"], errors="coerce").fillna(0).sum())
+    current_lift_rows = int(
+        pd.to_numeric(audit["current_positive_rebound_lift_rows"], errors="coerce").fillna(0).sum()
+    )
+    release_lift_rows = int(
+        pd.to_numeric(audit["candidate_release_positive_lift_rows"], errors="coerce").fillna(0).sum()
+    )
+    failed = audit[~audit["lift_semantics_gate"].astype(bool)]
+    training_allowed = bool(rebound_rows > 0 and current_lift_rows > 0 and failed.empty)
+    if training_allowed:
+        decision = "state_objective_target_lift_training_ready"
+        next_mechanism = "run_fold_local_weighted_bc_or_ppo"
+    elif release_lift_rows > 0:
+        decision = "state_objective_target_lift_blocked_no_training"
+        next_mechanism = "revise_state_objective_target_semantics_before_weighted_bc"
+    else:
+        decision = "state_objective_target_lift_no_release_candidate"
+        next_mechanism = "discover_rebound_release_targets"
+
+    return {
+        "decision": decision,
+        "training_allowed": training_allowed,
+        "lift_semantics_gate": training_allowed,
+        "audited_groups": int(len(audit)),
+        "blocked_groups": int(len(failed)),
+        "rebound_rows": rebound_rows,
+        "current_positive_rebound_lift_rows": current_lift_rows,
+        "candidate_release_positive_lift_rows": release_lift_rows,
+        "rebound_downtrend_rows": int(
+            pd.to_numeric(audit["rebound_downtrend_rows"], errors="coerce").fillna(0).sum()
+        ),
+        "max_candidate_release_lift": float(
+            pd.to_numeric(audit["max_candidate_release_lift"], errors="coerce").fillna(0.0).max()
+        ),
+        "next_mechanism": next_mechanism,
+    }
+
+
 def score_state_objective_bc_readiness(
     profile_label_comparison: pd.DataFrame,
     *,
@@ -1280,6 +1453,7 @@ __all__ = [
     "StateObjectiveReboundClusterConfig",
     "StateObjectiveReboundTargetEnrichmentConfig",
     "StateObjectiveTrainingTargetConfig",
+    "audit_state_objective_target_lift",
     "audit_state_objective_target_scope",
     "build_fold_local_state_objective_training_targets",
     "build_state_objective_training_targets",
@@ -1292,6 +1466,7 @@ __all__ = [
     "summarize_state_objective_bc_readiness",
     "summarize_state_objective_checkpoint_selection",
     "summarize_state_objective_target_alignment",
+    "summarize_state_objective_target_lift_audit",
     "summarize_state_objective_target_scope_audit",
     "summarize_state_objective_training_targets",
 ]
