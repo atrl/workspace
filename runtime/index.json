@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-25T20:24:15.832403+00:00",
+  "generated_at": "2026-05-25T21:02:33.420985+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -6336,6 +6336,48 @@
       "category": "model_selection",
       "suffix": ".csv",
       "bytes": 2896
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_drawdown_control_bc_ppo_screen_v1/bc_slice_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 712
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_drawdown_control_bc_ppo_screen_v1/coverage.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 504
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_drawdown_control_bc_ppo_screen_v1/coverage.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2015
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_drawdown_control_bc_ppo_screen_v1/ppo_fold_results.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2216
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_drawdown_control_bc_ppo_screen_v1/ppo_selection_history.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 718
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_drawdown_control_bc_ppo_screen_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1687
+    },
+    {
+      "path": "runtime/model_selection/card/sparse_release_drawdown_control_bc_ppo_screen_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 9115
     },
     {
       "path": "runtime/model_selection/card/sparse_release_drawdown_control_checkpoint_score_v1/alignment_scores_failed_interval.csv",
