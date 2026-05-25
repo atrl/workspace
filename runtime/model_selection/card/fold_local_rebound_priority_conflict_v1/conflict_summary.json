@@ -1,0 +1,15 @@
+{
+  "candidate_release_positive_lift_rows": 114,
+  "created_at": "2026-05-25T17:22:06.085151+00:00",
+  "current_positive_rebound_lift_rows": 0,
+  "downtrend_rows": 712,
+  "experiment": "fold_local_rebound_priority_conflict_v1",
+  "fold_overlap_blocks_direct_fold_heldout_claims": true,
+  "fold_overlap_dates": 505,
+  "mean_candidate_release_lift_on_rebound_downtrend": 0.38159001504193146,
+  "rebound_downtrend_rows": 114,
+  "rebound_not_downtrend_rows": 18,
+  "rebound_rows": 132,
+  "rows": 1261,
+  "source_targets": "runtime/model_selection/card/fold_local_joint_reward_targets_v1/fold_local_joint_targets.csv"
+}

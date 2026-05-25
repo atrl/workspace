@@ -1,0 +1,79 @@
+{
+  "conclusion": [
+    "Current target logic leaves 0 rebound rows with positive effective lift, despite 132 rebound-labeled rows.",
+    "A release-priority target would create lift on 114 rebound rows, but the best event state-head recipe gate is False.",
+    "The best event feature set is momentum_drawdown with recall 0.667, precision 0.603, and event FPR 0.492.",
+    "Post-event audit false-positive rate is 0.797; therefore do not start weighted BC/PPO until target semantics and release gating are fixed."
+  ],
+  "decision": "rebound_priority_conflict_blocks_bc_ppo",
+  "experiment": "fold_local_rebound_priority_conflict_v1",
+  "selection": {
+    "acceptance_gate_for_next_run": {
+      "current_target_must_encode_positive_rebound_lift": true,
+      "fixed_split_required": true,
+      "fold_overlap_dates_must_not_be_used_as_holdout": true,
+      "max_dd_max_pct": 15.0,
+      "post_event_false_positive_rate_max": 0.25,
+      "relative_return_min_pp": 30.0,
+      "state_head_recipe_gate_required": true,
+      "walkforward_required": true
+    },
+    "best_recipe_false_positive_rate": 0.4915254237288136,
+    "best_recipe_feature_set": "momentum_drawdown",
+    "best_recipe_gate": false,
+    "best_recipe_precision": 0.6027397260273972,
+    "best_recipe_recall": 0.6666666666666666,
+    "best_recipe_threshold": -1.0,
+    "best_representation_accuracy_min": 0.15873015873015872,
+    "best_representation_auc_min": 0.975,
+    "best_representation_feature_set": "signed_te_combo",
+    "candidate_release_positive_lift_rows": 114,
+    "canonical_baseline": "v19reg_v22_budget_usage_bull_guard_v1",
+    "changed_layer": [
+      "model_selection",
+      "reward",
+      "sampling"
+    ],
+    "created_at": "2026-05-25T17:22:06.085151+00:00",
+    "current_positive_rebound_lift_rows": 0,
+    "decision": "rebound_priority_conflict_blocks_bc_ppo",
+    "direct_comparison_baseline": "fold_local_joint_reward_targets_v1",
+    "experiment": "fold_local_rebound_priority_conflict_v1",
+    "external_sources": [
+      "https://github.com/microsoft/qlib",
+      "https://arxiv.org/abs/2009.11189",
+      "https://github.com/AI4Finance-Foundation/FinRL",
+      "https://arxiv.org/abs/2011.09607",
+      "https://arxiv.org/abs/1708.02002",
+      "https://arxiv.org/abs/1511.05952",
+      "https://doi.org/10.21314/JCF.2016.322"
+    ],
+    "fold_overlap_dates": 505,
+    "next_mechanism": "revise_state_objective_target_semantics_before_weighted_bc",
+    "post_event_effective_false_positive_rows": 25,
+    "post_event_false_positive_rate": 0.7973684210526316,
+    "promotion_allowed": false,
+    "promotion_blocker": "This is a target-semantics and state-head diagnostic; no fixed-split or walk-forward PPO/backtest gate was run.",
+    "rebound_downtrend_rows": 114,
+    "rebound_rows": 132,
+    "release_candidate_gate": false,
+    "role": "diagnose",
+    "sidecars": [
+      "target_priority_conflict.csv",
+      "conflict_summary.json",
+      "event_fold_summary.csv",
+      "representation_feature_set_scores.csv",
+      "representation_fold_metrics.csv",
+      "representation_feature_effects.csv",
+      "state_head_recipe_scores.csv",
+      "state_head_row_scores.csv",
+      "full_period_false_positive_audit.csv",
+      "selection.json",
+      "summary.json"
+    ],
+    "source_targets": "runtime/model_selection/card/fold_local_joint_reward_targets_v1/fold_local_joint_targets.csv",
+    "target_rows": 1261,
+    "target_semantics_gate": false,
+    "training_allowed": false
+  }
+}

@@ -1,0 +1,3 @@
+period,rows,true_positive,false_positive,false_negative,true_negative,false_positive_rate,effective_false_positive_rows,prediction_rate,mean_candidate_lift_on_effective_fp
+event_2020h1,125,66,48,0,11,0.8135593220338984,2,0.912,0.1814273021
+post_event,380,0,303,0,77,0.7973684210526316,25,0.7973684210526316,0.1853200211280479
