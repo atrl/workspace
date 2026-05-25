@@ -77,6 +77,10 @@ Knowledge retrieval must be scoped by task direction.
   follow-up turns. Treat the user's preference as: "尽量都到 ipynb" unless the
   task is purely code maintenance, operational startup, or explicitly asks for
   another artifact.
+- For future work, start experiment and diagnostic execution in an executable
+  runtime notebook by default. Do not treat Markdown notes, chat conclusions,
+  sidecar JSON, or one-off scripts as the primary result when an `.ipynb` can
+  hold the runnable workflow and conclusion.
 - This default applies even when the user gives a terse continuation prompt.
   Start from the relevant runtime notebook surface unless the task clearly
   requires a shared code or production change first.
@@ -265,8 +269,8 @@ For every substantial iteration:
    notebook-contained experiment
 3. run exactly one meaningful loop
 4. validate the result
-5. write proof of work back to the repo, preferably as or from a runtime
-   notebook when the task is experimental or diagnostic
+5. write proof of work back to the repo as a runtime notebook first when the
+   task is experimental, diagnostic, analytical, or model-selection related
 6. put single-run conclusions in the experiment notebook; update
    `runtime/<direction>/knowledge.md` only for durable cross-session decisions
 7. **commit and push the changes**
