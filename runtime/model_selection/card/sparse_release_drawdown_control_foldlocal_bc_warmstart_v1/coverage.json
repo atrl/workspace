@@ -1,0 +1,19 @@
+{
+  "experiment": "sparse_release_drawdown_control_foldlocal_bc_warmstart_v1",
+  "feature_frame_path": "data/soxl_profile_balanced_rule_residual_v22.pkl",
+  "source_failed_experiment": "sparse_release_failed_fold_interval_diagnostic_v1",
+  "source_target_experiment": "sparse_release_drawdown_control_target_handoff_v1",
+  "source_checkpoint_score_experiment": "sparse_release_drawdown_control_checkpoint_score_v1",
+  "prototype_interval_start": "2022-03-30",
+  "prototype_interval_end": "2022-10-14",
+  "prototype_features": [
+    "below_ma63_days",
+    "anchor_gap_180",
+    "negative_gap_frequency_21",
+    "below_anchor_ratio_63",
+    "rolling_new_low_ratio_63"
+  ],
+  "risk_teacher_position": 0.4041417322936507,
+  "risk_target_position": 0.25,
+  "checkpoint_score_decision": "checkpoint_objective_no_promotion"
+}

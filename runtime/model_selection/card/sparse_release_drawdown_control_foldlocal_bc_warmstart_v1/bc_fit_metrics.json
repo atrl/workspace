@@ -1,0 +1,15 @@
+{
+  "samples": 370,
+  "steps": 200,
+  "lr": 0.001,
+  "batch_size": 128,
+  "before_loss": 1.6095991804793075,
+  "before_accuracy": 0.13513513513513514,
+  "train_last_loss": 0.9534941911697388,
+  "train_last_batch_accuracy": 0.9375,
+  "after_loss": 1.0070911304370778,
+  "after_accuracy": 0.9,
+  "weight_mean": 1.0,
+  "weight_min": 0.4027975797653198,
+  "weight_max": 6.115694522857666
+}

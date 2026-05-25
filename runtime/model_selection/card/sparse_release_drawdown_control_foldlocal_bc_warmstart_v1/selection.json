@@ -1,0 +1,50 @@
+{
+  "experiment": "sparse_release_drawdown_control_foldlocal_bc_warmstart_v1",
+  "created_at": "2026-05-25T20:23:51.176692+00:00",
+  "role": "diagnose",
+  "changed_layer": [
+    "model_selection",
+    "training_objective",
+    "model"
+  ],
+  "profile": "risk_budget_usage_v1",
+  "selected_quantile": 0.15,
+  "decision": "foldlocal_bc_warmstart_ready_no_promotion",
+  "training_allowed": true,
+  "promotion_allowed": false,
+  "target_relative_return_pp": 30.0,
+  "target_max_dd_pct": 15.0,
+  "selected_samples": 370,
+  "selected_unique_actions": 4,
+  "selected_dominant_action_share": 0.5945945945945946,
+  "selected_action_entropy": 0.9032762993997274,
+  "bc_after_accuracy": 0.9,
+  "bc_after_loss": 1.0070911304370778,
+  "scope_decision": "state_objective_targets_training_ready",
+  "slice_fit_decision": "bc_slice_fit_ready_for_ppo_screen",
+  "next_mechanism": "run_foldlocal_bc_warmstart_walkforward_ppo_screen",
+  "external_sources": [
+    "https://arxiv.org/abs/1506.02188",
+    "https://arxiv.org/abs/1706.10059",
+    "https://arxiv.org/abs/1704.03732",
+    "https://github.com/microsoft/qlib",
+    "https://arxiv.org/abs/2009.11189",
+    "https://github.com/AI4Finance-Foundation/FinRL",
+    "https://arxiv.org/abs/2011.09607",
+    "https://doi.org/10.21314/JCF.2016.322"
+  ],
+  "sidecars": [
+    "coverage.json",
+    "feature_prototype.json",
+    "bc_label_comparison.csv",
+    "bc_readiness_scores.csv",
+    "selected_foldlocal_targets.csv",
+    "target_scope_audit.csv",
+    "selected_action_distribution.csv",
+    "bc_slice_metrics.csv",
+    "bc_fit_metrics.json",
+    "risk_budget_usage_v1_drawdown_control_bc_actor.pt",
+    "selection.json",
+    "summary.json"
+  ]
+}

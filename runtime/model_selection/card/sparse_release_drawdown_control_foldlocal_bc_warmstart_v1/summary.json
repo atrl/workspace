@@ -1,0 +1,158 @@
+{
+  "experiment": "sparse_release_drawdown_control_foldlocal_bc_warmstart_v1",
+  "decision": "foldlocal_bc_warmstart_ready_no_promotion",
+  "training_allowed": true,
+  "promotion_allowed": false,
+  "coverage": {
+    "experiment": "sparse_release_drawdown_control_foldlocal_bc_warmstart_v1",
+    "feature_frame_path": "data/soxl_profile_balanced_rule_residual_v22.pkl",
+    "source_failed_experiment": "sparse_release_failed_fold_interval_diagnostic_v1",
+    "source_target_experiment": "sparse_release_drawdown_control_target_handoff_v1",
+    "source_checkpoint_score_experiment": "sparse_release_drawdown_control_checkpoint_score_v1",
+    "prototype_interval_start": "2022-03-30",
+    "prototype_interval_end": "2022-10-14",
+    "prototype_features": [
+      "below_ma63_days",
+      "anchor_gap_180",
+      "negative_gap_frequency_21",
+      "below_anchor_ratio_63",
+      "rolling_new_low_ratio_63"
+    ],
+    "risk_teacher_position": 0.4041417322936507,
+    "risk_target_position": 0.25,
+    "checkpoint_score_decision": "checkpoint_objective_no_promotion"
+  },
+  "readiness_summary": {
+    "decision": "state_objective_bc_ready_for_training",
+    "selected_profile": "risk_budget_usage_v1__q0.20",
+    "selected_target_scope": "fold_local",
+    "selected_bc_readiness_gate": true,
+    "selected_label_distribution_gate": true,
+    "selected_fold_local_scope_gate": true,
+    "selected_dominant_action_share": 0.48380566801619435,
+    "selected_unique_actions": 4,
+    "selected_samples": 494,
+    "selected_bc_readiness_loss": 0.0,
+    "next_mechanism": "run_fold_local_bc_warm_start_then_walkforward_ppo"
+  },
+  "selected_readiness_row": {
+    "profile": "risk_budget_usage_v1__q0.15",
+    "samples": 370,
+    "unique_actions": 4,
+    "dominant_action_share": 0.5945945945945946,
+    "action_entropy": 0.9032762993997274,
+    "sample_gate": true,
+    "label_distribution_gate": true,
+    "fold_local_scope_gate": true,
+    "bc_readiness_gate": true,
+    "bc_readiness_loss": 0.0,
+    "target_scope": "fold_local",
+    "base_profile": "risk_budget_usage_v1",
+    "quantile": 0.15,
+    "rows": 370,
+    "min_prototype_distance": 0.3694276950112728,
+    "max_prototype_distance": 1.4561139267472987,
+    "mean_prototype_distance": 1.0555372213478806
+  },
+  "scope_summary": {
+    "decision": "state_objective_targets_training_ready",
+    "training_allowed": true,
+    "leakage_gate": true,
+    "audited_groups": 1,
+    "blocked_groups": 0,
+    "eval_overlap_rows": 0,
+    "outside_train_eval_rows": 0,
+    "scope_issues": [],
+    "top_scope_issue": "",
+    "next_mechanism": "run_fold_local_state_objective_training_or_bc"
+  },
+  "slice_summary": {
+    "decision": "bc_slice_fit_ready_for_ppo_screen",
+    "slice_fit_gate": true,
+    "failed_slices": [],
+    "required_slices": [
+      "is_downtrend_state"
+    ],
+    "min_accuracy": 0.6,
+    "min_samples": 100,
+    "slice_details": {
+      "is_downtrend_state": {
+        "samples": 370,
+        "accuracy": 0.9
+      }
+    },
+    "next_mechanism": "run_walkforward_ppo_candidate"
+  },
+  "bc_fit_metrics": {
+    "samples": 370,
+    "steps": 200,
+    "lr": 0.001,
+    "batch_size": 128,
+    "before_loss": 1.6095991804793075,
+    "before_accuracy": 0.13513513513513514,
+    "train_last_loss": 0.9534941911697388,
+    "train_last_batch_accuracy": 0.9375,
+    "after_loss": 1.0070911304370778,
+    "after_accuracy": 0.9,
+    "weight_mean": 1.0,
+    "weight_min": 0.4027975797653198,
+    "weight_max": 6.115694522857666
+  },
+  "selection": {
+    "experiment": "sparse_release_drawdown_control_foldlocal_bc_warmstart_v1",
+    "created_at": "2026-05-25T20:23:51.176692+00:00",
+    "role": "diagnose",
+    "changed_layer": [
+      "model_selection",
+      "training_objective",
+      "model"
+    ],
+    "profile": "risk_budget_usage_v1",
+    "selected_quantile": 0.15,
+    "decision": "foldlocal_bc_warmstart_ready_no_promotion",
+    "training_allowed": true,
+    "promotion_allowed": false,
+    "target_relative_return_pp": 30.0,
+    "target_max_dd_pct": 15.0,
+    "selected_samples": 370,
+    "selected_unique_actions": 4,
+    "selected_dominant_action_share": 0.5945945945945946,
+    "selected_action_entropy": 0.9032762993997274,
+    "bc_after_accuracy": 0.9,
+    "bc_after_loss": 1.0070911304370778,
+    "scope_decision": "state_objective_targets_training_ready",
+    "slice_fit_decision": "bc_slice_fit_ready_for_ppo_screen",
+    "next_mechanism": "run_foldlocal_bc_warmstart_walkforward_ppo_screen",
+    "external_sources": [
+      "https://arxiv.org/abs/1506.02188",
+      "https://arxiv.org/abs/1706.10059",
+      "https://arxiv.org/abs/1704.03732",
+      "https://github.com/microsoft/qlib",
+      "https://arxiv.org/abs/2009.11189",
+      "https://github.com/AI4Finance-Foundation/FinRL",
+      "https://arxiv.org/abs/2011.09607",
+      "https://doi.org/10.21314/JCF.2016.322"
+    ],
+    "sidecars": [
+      "coverage.json",
+      "feature_prototype.json",
+      "bc_label_comparison.csv",
+      "bc_readiness_scores.csv",
+      "selected_foldlocal_targets.csv",
+      "target_scope_audit.csv",
+      "selected_action_distribution.csv",
+      "bc_slice_metrics.csv",
+      "bc_fit_metrics.json",
+      "risk_budget_usage_v1_drawdown_control_bc_actor.pt",
+      "selection.json",
+      "summary.json"
+    ]
+  },
+  "conclusion": [
+    "Selected `risk_budget_usage_v1` at prototype quantile 0.15: 370 fold-local samples, 4 actions, dominant share 0.595.",
+    "Direct `v22/v19` residual action surfaces collapsed in the readiness screen; `risk_budget_usage_v1` is the non-degenerate surface for this drawdown-control warm start.",
+    "BC fit improved accuracy from 0.135 to 0.900; downtrend slice gate is True.",
+    "Scope audit decision is `state_objective_targets_training_ready`; selected rows are <= 2020-12-31 and do not overlap the 2022 eval window.",
+    "No runtime promotion is allowed from BC label fit. Next step is a fold-local PPO/replay screen from this BC warm start, followed by wf_2022 and wf_2023_2024 validation against +30pp / <=15% MaxDD."
+  ]
+}
