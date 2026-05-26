@@ -44,6 +44,7 @@ def make_state(**kwargs):
     obs[STATIC_INDEX["cum_drop_30"]] = kwargs.get("cum_drop_30", -0.08)
     obs[STATIC_INDEX["mom_10"]] = kwargs.get("mom_10", 0.0)
     obs[STATIC_INDEX["mom_21"]] = kwargs.get("mom_21", 0.0)
+    obs[STATIC_INDEX["mom_63"]] = kwargs.get("mom_63", 0.0)
     obs[STATIC_INDEX["relative_strength_21"]] = kwargs.get("relative_strength_21", 0.0)
     obs[STATIC_INDEX["vol_of_vol_21"]] = kwargs.get("vol_of_vol_21", 0.0)
     obs[STATIC_INDEX["below_anchor_ratio_63"]] = kwargs.get("below_anchor_ratio_63", 0.0)
@@ -73,6 +74,114 @@ def test_reward_penalizes_riskier_state():
     safer = reward.reward(make_state(pos=0.3, turnover=0.05, drawdown=0.02, regime_risk=0.2))
     riskier = reward.reward(make_state(pos=0.95, turnover=0.4, drawdown=0.18, regime_risk=0.9))
     assert safer > riskier
+
+
+def test_drawdown_drift_reward_penalizes_position_after_drawdown_threshold():
+    profile = make_profile()
+    profile = StrategyConfig(
+        name=profile.name,
+        max_iters=profile.max_iters,
+        episode_per_iter=profile.episode_per_iter,
+        episode_len=profile.episode_len,
+        hidden_sizes=profile.hidden_sizes,
+        lr=profile.lr,
+        update_batch_size=profile.update_batch_size,
+        update_repeat=profile.update_repeat,
+        reward=RewardConfig(
+            return_scale=0.0,
+            transaction_cost=0.0,
+            turnover_penalty=0.0,
+            drawdown_penalty=0.0,
+            downside_penalty=0.0,
+            risk_budget_penalty=0.0,
+            high_exposure_penalty=0.0,
+            smoothness_penalty=0.0,
+            activity_bonus=0.0,
+            inactivity_penalty=0.0,
+            use_minimal_reward=True,
+            drawdown_drift_reward_enabled=True,
+            drawdown_drift_penalty=1.5,
+            drawdown_drift_threshold_pct=15.0,
+            drawdown_drift_position_threshold=0.05,
+        ),
+    )
+    reward = ContinuousReward(profile)
+
+    threshold_pos = reward.reward(
+        make_state(val=100_000.0, pval=100_000.0, pos=0.05, turnover=0.0, drawdown=0.18)
+    )
+    excess_pos = reward.reward(
+        make_state(val=100_000.0, pval=100_000.0, pos=0.20, turnover=0.0, drawdown=0.18)
+    )
+
+    assert round(threshold_pos - excess_pos, 6) == 0.675
+
+
+def test_trend_preservation_floor_penalizes_underposition_only_outside_drawdown_breach():
+    profile = make_profile()
+    profile = StrategyConfig(
+        name=profile.name,
+        max_iters=profile.max_iters,
+        episode_per_iter=profile.episode_per_iter,
+        episode_len=profile.episode_len,
+        hidden_sizes=profile.hidden_sizes,
+        lr=profile.lr,
+        update_batch_size=profile.update_batch_size,
+        update_repeat=profile.update_repeat,
+        reward=RewardConfig(
+            return_scale=0.0,
+            transaction_cost=0.0,
+            turnover_penalty=0.0,
+            drawdown_penalty=0.0,
+            downside_penalty=0.0,
+            risk_budget_penalty=0.0,
+            high_exposure_penalty=0.0,
+            smoothness_penalty=0.0,
+            activity_bonus=0.0,
+            inactivity_penalty=0.0,
+            use_minimal_reward=True,
+            trend_preservation_floor_enabled=True,
+            trend_preservation_floor_penalty=1.0,
+            trend_preservation_floor_position=0.25,
+            trend_preservation_lookback=63,
+            trend_preservation_min_buyhold_return_pct=5.0,
+        ),
+    )
+    reward = ContinuousReward(profile)
+
+    underpositioned_trend = reward.reward(
+        make_state(
+            val=100_000.0,
+            pval=100_000.0,
+            pos=0.10,
+            turnover=0.0,
+            drawdown=0.05,
+            mom_63=0.08,
+        )
+    )
+    floor_position_trend = reward.reward(
+        make_state(
+            val=100_000.0,
+            pval=100_000.0,
+            pos=0.25,
+            turnover=0.0,
+            drawdown=0.05,
+            mom_63=0.08,
+        )
+    )
+    underpositioned_drawdown_breach = reward.reward(
+        make_state(
+            val=100_000.0,
+            pval=100_000.0,
+            pos=0.10,
+            turnover=0.0,
+            drawdown=0.18,
+            mom_63=0.08,
+        )
+    )
+
+    assert floor_position_trend > underpositioned_trend
+    assert underpositioned_drawdown_breach == floor_position_trend
 
 
 def test_reward_improves_with_better_pnl_when_other_terms_equal():

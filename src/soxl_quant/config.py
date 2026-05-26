@@ -122,6 +122,17 @@ class RewardConfig:
     sequence_risk_anchor_slope_max: float = -0.01
     sequence_risk_anchor_gap_max: float = -0.12
     sequence_risk_trend_gap_min: float = 0.18
+    # Drawdown-drift + trend-preservation shaping. Default-off; intended for
+    # short reward-constrained training screens after path-level recipe checks.
+    drawdown_drift_reward_enabled: bool = False
+    drawdown_drift_penalty: float = 0.0
+    drawdown_drift_threshold_pct: float = 15.0
+    drawdown_drift_position_threshold: float = 0.05
+    trend_preservation_floor_enabled: bool = False
+    trend_preservation_floor_penalty: float = 0.0
+    trend_preservation_floor_position: float = 0.25
+    trend_preservation_lookback: int = 63
+    trend_preservation_min_buyhold_return_pct: float = 5.0
 
 
 @dataclass(frozen=True)

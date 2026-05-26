@@ -218,6 +218,13 @@ drawdown breach、在其他已评估 fold 不明显过度触发，并且 `select
 relative return 但同时扩大 sequence-state 仓位和 MaxDD，则把它归类为
 `reward_ppo_drift_failed_no_promotion`。不要启动更长 PPO，也不要把 reward
 配方转成 runtime overlay；下一步只能是保留 BC 基线，重做 reward penalty
+
+在任何 reward recipe 进入短 BC/PPO training screen 前，先验证 recipe patch
+不是“纸面配置”：每个 patch key 必须被 `RewardConfig` 接受，并且
+`ContinuousReward` 有对应默认关闭的消费逻辑与 focused tests。如果 recipe
+notebook 只产出 `reward_objective_patch.json`，但 `src/soxl_quant/config.py`
+或 `src/soxl_quant/policy/reward.py` 不消费这些字段，先补共享 reward 能力和
+RED/GREEN 测试，再运行训练 notebook。
 timing，或把同一 sequence-risk 信息转为 checkpoint scoring / action-constraint
 候选。
 

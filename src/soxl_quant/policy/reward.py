@@ -66,15 +66,52 @@ class ContinuousReward(Reward):
     def _obs_value(self, state, name: str) -> float:
         return float(state["obs"][STATIC_INDEX[name]])
 
+    def _drawdown_threshold_pct(self, cfg) -> float:
+        threshold = float(getattr(cfg, "drawdown_drift_threshold_pct", 15.0))
+        return threshold * 100.0 if threshold <= 1.0 else threshold
+
+    def _trend_return_pct(self, state, cfg) -> float:
+        lookback = int(getattr(cfg, "trend_preservation_lookback", 63))
+        if f"buyhold_return_{lookback}" in state:
+            value = float(state[f"buyhold_return_{lookback}"])
+            return value * 100.0 if abs(value) <= 2.0 else value
+        if lookback >= 63:
+            feature = "mom_63"
+        elif lookback >= 21:
+            feature = "mom_21"
+        elif lookback >= 10:
+            feature = "mom_10"
+        else:
+            feature = "mom_5"
+        return self._obs_value(state, feature) * 100.0
+
     def _state_conditioned_adjustment(self, state, cfg, pos: float) -> float:
         state_enabled = getattr(cfg, "state_conditioned_reward_enabled", False)
         sequence_enabled = getattr(cfg, "sequence_risk_reward_enabled", False)
-        if not state_enabled and not sequence_enabled:
+        drawdown_drift_enabled = getattr(cfg, "drawdown_drift_reward_enabled", False)
+        trend_floor_enabled = getattr(cfg, "trend_preservation_floor_enabled", False)
+        if not state_enabled and not sequence_enabled and not drawdown_drift_enabled and not trend_floor_enabled:
             return 0.0
 
         adjustment = 0.0
         anchor_gap = self._obs_value(state, "anchor_gap_180")
         vix_percentile = self._obs_value(state, "vix_percentile_252")
+        drawdown = float(state.get("drawdown", 0.0))
+        drawdown_pct = drawdown * 100.0
+
+        if drawdown_drift_enabled and cfg.drawdown_drift_penalty > 0.0:
+            drawdown_excess = max(drawdown_pct - self._drawdown_threshold_pct(cfg), 0.0)
+            position_excess = max(pos - cfg.drawdown_drift_position_threshold, 0.0)
+            adjustment -= drawdown_excess * position_excess * cfg.drawdown_drift_penalty
+
+        if trend_floor_enabled and cfg.trend_preservation_floor_penalty > 0.0:
+            trend_return_pct = self._trend_return_pct(state, cfg)
+            min_return_pct = float(cfg.trend_preservation_min_buyhold_return_pct)
+            outside_drawdown_breach = drawdown_pct <= self._drawdown_threshold_pct(cfg)
+            if outside_drawdown_breach and trend_return_pct >= min_return_pct:
+                under_position = max(cfg.trend_preservation_floor_position - pos, 0.0)
+                trend_strength = min(trend_return_pct / max(min_return_pct, 1e-9), 3.0)
+                adjustment -= under_position * cfg.trend_preservation_floor_penalty * trend_strength
 
         if state_enabled and cfg.state_downtrend_position_penalty > 0.0:
             below_anchor_ratio = self._obs_value(state, "below_anchor_ratio_63")
@@ -107,7 +144,6 @@ class ContinuousReward(Reward):
             if hit_count >= int(cfg.sequence_risk_min_feature_hits):
                 excess_position = max(pos - cfg.sequence_risk_position_threshold, 0.0)
                 adjustment -= excess_position * cfg.sequence_risk_position_penalty
-                drawdown = float(state.get("drawdown", 0.0))
                 excess_drawdown = max(drawdown - cfg.sequence_risk_drawdown_threshold, 0.0)
                 adjustment -= excess_drawdown * cfg.sequence_risk_drawdown_penalty
 
