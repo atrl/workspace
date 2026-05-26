@@ -221,6 +221,13 @@ relative return 但同时扩大 sequence-state 仓位和 MaxDD，则把它归类
 timing，或把同一 sequence-risk 信息转为 checkpoint scoring / action-constraint
 候选。
 
+如果 action-constraint screen 能把失败 fold 的 MaxDD 压到目标线以内，且在
+另一个已评估 fold 不触发或不恶化 MaxDD，但 official qlib relative return 与
+既有 `evaluate_split` gate 口径冲突，则只能标记为
+`drawdown_candidate_metric_mismatch_no_promotion`。下一步先做 metric-source
+reconciliation，再跑 fixed-split / wf_2020；不要把两折 drawdown 改善直接解释成
+runtime overlay promotion。
+
 进入状态条件多目标前，先用已有 daily path 做一个 notebook-first objective
 screen，确认最接近的老师路径和仍然失败的项：
 

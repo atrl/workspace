@@ -175,6 +175,49 @@ def apply_soxx_relative_weakness_cap(
     return min(float(target_pos), float(overlay_config.get("target_cap", 0.35)))
 
 
+def _config_float(config: dict[str, Any], *keys: str) -> float | None:
+    for key in keys:
+        if key not in config:
+            continue
+        try:
+            value = float(config[key])
+        except (TypeError, ValueError):
+            return None
+        return value if math.isfinite(value) else None
+    return None
+
+
+def sequence_risk_action_cap_ready(row: Any, overlay_config: dict[str, Any]) -> bool:
+    """Detect a fold-local sequence-risk state for a default-off action cap."""
+
+    slope_threshold = _config_float(overlay_config, "sequence_risk_anchor_slope_max", "anchor_slope_max")
+    gap_threshold = _config_float(overlay_config, "sequence_risk_anchor_gap_max", "anchor_gap_max")
+    trend_threshold = _config_float(overlay_config, "sequence_risk_trend_gap_min", "trend_gap_min")
+    if slope_threshold is None or gap_threshold is None or trend_threshold is None:
+        return False
+
+    slope = _row_float(row, "anchor_slope_180")
+    anchor_gap = _row_float(row, "anchor_gap_180")
+    trend_gap = _row_float(row, "trend_gap_63")
+    if slope is None or anchor_gap is None or trend_gap is None:
+        return False
+
+    hit_count = int(slope <= slope_threshold)
+    hit_count += int(anchor_gap <= gap_threshold)
+    hit_count += int(trend_gap >= trend_threshold)
+    return hit_count >= int(overlay_config.get("sequence_risk_min_feature_hits", 2))
+
+
+def apply_sequence_risk_action_cap(
+    target_pos: float,
+    row: Any,
+    overlay_config: dict[str, Any],
+) -> float:
+    if not sequence_risk_action_cap_ready(row, overlay_config):
+        return float(target_pos)
+    return min(float(target_pos), float(overlay_config.get("target_cap", 0.10)))
+
+
 def overlay_config(name: str) -> dict[str, Any]:
     if name == "baseline":
         raise ValueError("baseline has no overlay config")

@@ -3,9 +3,11 @@ from __future__ import annotations
 from src.soxl_quant.policy.execution_overlays import (
     POST_RELEASE_CAP_VARIANT,
     SOXX_RELATIVE_WEAKNESS_CAP_VARIANT,
+    apply_sequence_risk_action_cap,
     apply_soxx_relative_weakness_cap,
     overlay_config,
     overlay_variants,
+    sequence_risk_action_cap_ready,
     soxx_overlay_config,
     soxx_overlay_variants,
     soxx_relative_weakness_ready,
@@ -90,3 +92,29 @@ def test_soxx_relative_weakness_cap_respects_regime_band_and_never_boosts():
 
     assert apply_soxx_relative_weakness_cap(0.58, row, 0.30, config) == 0.58
     assert apply_soxx_relative_weakness_cap(0.20, row, 0.62, config) == 0.20
+
+
+def test_sequence_risk_action_cap_requires_feature_consensus_and_never_boosts():
+    config = {
+        "sequence_risk_anchor_slope_max": -0.01,
+        "sequence_risk_anchor_gap_max": -0.12,
+        "sequence_risk_trend_gap_min": 0.18,
+        "sequence_risk_min_feature_hits": 2,
+        "target_cap": 0.10,
+    }
+    two_hit_row = {
+        "anchor_slope_180": -0.02,
+        "anchor_gap_180": -0.08,
+        "trend_gap_63": 0.20,
+    }
+    one_hit_row = {
+        "anchor_slope_180": -0.02,
+        "anchor_gap_180": -0.08,
+        "trend_gap_63": 0.10,
+    }
+
+    assert sequence_risk_action_cap_ready(two_hit_row, config) is True
+    assert apply_sequence_risk_action_cap(0.58, two_hit_row, config) == 0.10
+    assert apply_sequence_risk_action_cap(0.05, two_hit_row, config) == 0.05
+    assert sequence_risk_action_cap_ready(one_hit_row, config) is False
+    assert apply_sequence_risk_action_cap(0.58, one_hit_row, config) == 0.58

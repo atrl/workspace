@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-26T02:03:00.528702+00:00",
+  "generated_at": "2026-05-26T02:49:44.717433+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -7146,6 +7146,84 @@
       "category": "model_selection",
       "suffix": ".csv",
       "bytes": 22086
+    },
+    {
+      "path": "runtime/model_selection/card/sequence_risk_action_cap_screen_v1/action_cap_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 5215
+    },
+    {
+      "path": "runtime/model_selection/card/sequence_risk_action_cap_screen_v1/baseline_no_action_cap_wf_2022_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 50526
+    },
+    {
+      "path": "runtime/model_selection/card/sequence_risk_action_cap_screen_v1/baseline_no_action_cap_wf_2023_2024_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 35753
+    },
+    {
+      "path": "runtime/model_selection/card/sequence_risk_action_cap_screen_v1/bc_slice_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1207
+    },
+    {
+      "path": "runtime/model_selection/card/sequence_risk_action_cap_screen_v1/candidate_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1383
+    },
+    {
+      "path": "runtime/model_selection/card/sequence_risk_action_cap_screen_v1/coverage.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 415
+    },
+    {
+      "path": "runtime/model_selection/card/sequence_risk_action_cap_screen_v1/coverage.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1582
+    },
+    {
+      "path": "runtime/model_selection/card/sequence_risk_action_cap_screen_v1/decision_trace.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 573216
+    },
+    {
+      "path": "runtime/model_selection/card/sequence_risk_action_cap_screen_v1/fold_sequence_thresholds.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 947
+    },
+    {
+      "path": "runtime/model_selection/card/sequence_risk_action_cap_screen_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 3279
+    },
+    {
+      "path": "runtime/model_selection/card/sequence_risk_action_cap_screen_v1/seq_cap10_two_of_three_wf_2022_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 49568
+    },
+    {
+      "path": "runtime/model_selection/card/sequence_risk_action_cap_screen_v1/seq_cap10_two_of_three_wf_2023_2024_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 35753
+    },
+    {
+      "path": "runtime/model_selection/card/sequence_risk_action_cap_screen_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 28647
     },
     {
       "path": "runtime/model_selection/card/sparse_rebound_release_target_revision_v1/bc_readiness_scores.csv",
