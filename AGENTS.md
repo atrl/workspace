@@ -13,6 +13,14 @@ follow-ups should go to executable runtime notebooks first. Prefer
 workflow and conclusion unless the task is pure code maintenance, production
 operations, or explicitly asks for another format.
 
+Standing notebook-first rule: for later model, factor, reward, network,
+multi-asset, backtest, and broker-data analysis work, put the runnable workflow,
+special-case logic, metrics, and single-run conclusion in the corresponding
+runtime `.ipynb` by default. This preference overrides older habits of writing
+single-run conclusions into `docs/active_workpad.md`, Markdown reports, or
+knowledge files unless the result is promoted, cross-session coordination state,
+or the user explicitly asks for those surfaces.
+
 When a future task asks to record, summarize, compare, conclude, screen,
 diagnose, or continue research work, treat "put it in ipynb" as the default
 instruction even if the prompt is terse. Keep chat as a pointer to the notebook
