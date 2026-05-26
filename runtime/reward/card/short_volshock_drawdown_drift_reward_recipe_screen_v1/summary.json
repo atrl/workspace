@@ -1,0 +1,46 @@
+{
+  "bottleneck": "reward_objective_not_yet_trained_for_drawdown_drift_plus_trend_preservation",
+  "conclusion": [
+    "Selected reward recipe `dd1.5_thr15_pos0.05_tf1_floor0.25_lb63` with decision `drawdown_drift_reward_recipe_ready_for_short_training_screen`.",
+    "The recipe captures 87.4% of drawdown-breach rows and 100.0% of trend-underparticipation rows, with overreach_share=0.0%.",
+    "The key threshold is drawdown-drift position_threshold=0.05, matching the short-volshock de-risk target semantics; a 0.10 threshold missed too many stress-fold breach rows.",
+    "This allows only a short fold-local BC/PPO training screen; no actor, checkpoint, runtime overlay, or factor is promoted here."
+  ],
+  "created_at": "2026-05-26T14:15:06.882317+00:00",
+  "decision": "drawdown_drift_reward_recipe_ready_for_short_training_screen",
+  "drawdown_failure_capture": 0.8740157480314961,
+  "experiment": "short_volshock_drawdown_drift_reward_recipe_screen_v1",
+  "next_mechanism": "short_foldlocal_bc_or_ppo_training_screen",
+  "overreach_share": 0.0,
+  "promotion_allowed": false,
+  "reward_objective_patch": {
+    "drawdown_drift_penalty": 1.5,
+    "drawdown_drift_position_threshold": 0.05,
+    "drawdown_drift_reward_enabled": true,
+    "drawdown_drift_threshold_pct": 15.0,
+    "trend_preservation_floor_enabled": true,
+    "trend_preservation_floor_penalty": 1.0,
+    "trend_preservation_floor_position": 0.25,
+    "trend_preservation_lookback": 63,
+    "trend_preservation_min_buyhold_return_pct": 5.0
+  },
+  "selected_candidate": "short_volshock_plain",
+  "selected_recipe": "dd1.5_thr15_pos0.05_tf1_floor0.25_lb63",
+  "selected_reward_recipe_loss": 0.7168554823383845,
+  "sidecars": [
+    "reward_recipe_scores.csv",
+    "reward_objective_patch.json",
+    "selection.json",
+    "summary.json",
+    "reward_recipe_review.md"
+  ],
+  "source_context": {
+    "bc_checkpoint_decision": "short_volshock_bc_replay_gate_failed_no_promotion",
+    "drawdown_drift_audit_decision": "short_volshock_drawdown_drift_joint_objective_needed_no_promotion",
+    "reward_checkpoint_screen_decision": "reward_checkpoint_screen_no_promotion"
+  },
+  "target_max_dd_pct": 15.0,
+  "target_relative_return_pp": 30.0,
+  "training_allowed_next": true,
+  "trend_underparticipation_capture": 1.0
+}

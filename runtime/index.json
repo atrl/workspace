@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-26T13:24:32.850118+00:00",
+  "generated_at": "2026-05-26T14:21:24.647625+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -6590,6 +6590,36 @@
       "bytes": 1151
     },
     {
+      "path": "runtime/model_selection/card/external_method_pk_overfit_bottleneck_v1/method_candidates.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 5525
+    },
+    {
+      "path": "runtime/model_selection/card/external_method_pk_overfit_bottleneck_v1/method_pk_review.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 2738
+    },
+    {
+      "path": "runtime/model_selection/card/external_method_pk_overfit_bottleneck_v1/method_pk_scores.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 5627
+    },
+    {
+      "path": "runtime/model_selection/card/external_method_pk_overfit_bottleneck_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1537
+    },
+    {
+      "path": "runtime/model_selection/card/external_method_pk_overfit_bottleneck_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2156
+    },
+    {
       "path": "runtime/model_selection/card/fold_local_joint_reward_targets_v1/bc_readiness_scores.csv",
       "category": "model_selection",
       "suffix": ".csv",
@@ -11682,6 +11712,36 @@
       "category": "reward",
       "suffix": ".csv",
       "bytes": 35000
+    },
+    {
+      "path": "runtime/reward/card/short_volshock_drawdown_drift_reward_recipe_screen_v1/reward_objective_patch.json",
+      "category": "reward",
+      "suffix": ".json",
+      "bytes": 383
+    },
+    {
+      "path": "runtime/reward/card/short_volshock_drawdown_drift_reward_recipe_screen_v1/reward_recipe_review.md",
+      "category": "reward",
+      "suffix": ".md",
+      "bytes": 1443
+    },
+    {
+      "path": "runtime/reward/card/short_volshock_drawdown_drift_reward_recipe_screen_v1/reward_recipe_scores.csv",
+      "category": "reward",
+      "suffix": ".csv",
+      "bytes": 261315
+    },
+    {
+      "path": "runtime/reward/card/short_volshock_drawdown_drift_reward_recipe_screen_v1/selection.json",
+      "category": "reward",
+      "suffix": ".json",
+      "bytes": 2561
+    },
+    {
+      "path": "runtime/reward/card/short_volshock_drawdown_drift_reward_recipe_screen_v1/summary.json",
+      "category": "reward",
+      "suffix": ".json",
+      "bytes": 2281
     },
     {
       "path": "runtime/reward/card/short_volshock_reward_checkpoint_screen_v1/reward_checkpoint_review.md",

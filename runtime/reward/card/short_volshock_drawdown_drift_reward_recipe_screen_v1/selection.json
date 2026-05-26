@@ -1,0 +1,64 @@
+{
+  "actor_retention": "no actor bundle is promoted or retained by this notebook",
+  "canonical_baseline": "v19reg_v22_budget_usage_bull_guard_v1",
+  "changed_layer": [
+    "reward",
+    "model_selection",
+    "src_capability"
+  ],
+  "created_at": "2026-05-26T14:15:06.882317+00:00",
+  "decision": "drawdown_drift_reward_recipe_ready_for_short_training_screen",
+  "direct_comparison_baseline": [
+    "short_volshock_bc_checkpoint_alignment_v1",
+    "short_volshock_drawdown_drift_feature_audit_v1",
+    "short_volshock_reward_checkpoint_screen_v1"
+  ],
+  "drawdown_failure_capture": 0.8740157480314961,
+  "experiment": "short_volshock_drawdown_drift_reward_recipe_screen_v1",
+  "external_sources": [
+    "https://arxiv.org/abs/1312.4077",
+    "https://arxiv.org/abs/1704.03732",
+    "https://arxiv.org/abs/1705.10528",
+    "https://arxiv.org/abs/2009.11189",
+    "https://arxiv.org/abs/2011.09607",
+    "https://doi.org/10.21314/JCF.2016.322",
+    "https://github.com/AI4Finance-Foundation/FinRL",
+    "https://github.com/microsoft/qlib",
+    "https://proceedings.mlr.press/v15/ross11a.html"
+  ],
+  "next_mechanism": "short_foldlocal_bc_or_ppo_training_screen",
+  "overreach_share": 0.0,
+  "promotion_allowed": false,
+  "promotion_blocker": "This is an objective-readiness screen on existing daily paths, not a trained candidate backtest.",
+  "reward_objective_patch": {
+    "drawdown_drift_penalty": 1.5,
+    "drawdown_drift_position_threshold": 0.05,
+    "drawdown_drift_reward_enabled": true,
+    "drawdown_drift_threshold_pct": 15.0,
+    "trend_preservation_floor_enabled": true,
+    "trend_preservation_floor_penalty": 1.0,
+    "trend_preservation_floor_position": 0.25,
+    "trend_preservation_lookback": 63,
+    "trend_preservation_min_buyhold_return_pct": 5.0
+  },
+  "role": "diagnose",
+  "selected_candidate": "short_volshock_plain",
+  "selected_recipe": "dd1.5_thr15_pos0.05_tf1_floor0.25_lb63",
+  "selected_reward_recipe_loss": 0.7168554823383845,
+  "sidecars": [
+    "reward_recipe_scores.csv",
+    "reward_objective_patch.json",
+    "selection.json",
+    "summary.json",
+    "reward_recipe_review.md"
+  ],
+  "source_decisions": {
+    "bc_checkpoint_decision": "short_volshock_bc_replay_gate_failed_no_promotion",
+    "drawdown_drift_audit_decision": "short_volshock_drawdown_drift_joint_objective_needed_no_promotion",
+    "reward_checkpoint_screen_decision": "reward_checkpoint_screen_no_promotion"
+  },
+  "target_max_dd_pct": 15.0,
+  "target_relative_return_pp": 30.0,
+  "training_allowed_next": true,
+  "trend_underparticipation_capture": 1.0
+}
