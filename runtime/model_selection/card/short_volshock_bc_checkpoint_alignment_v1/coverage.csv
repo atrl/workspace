@@ -1,0 +1,7 @@
+candidate,fold,target_source,target_fold,target_rows,unique_target_dates,short_volshock_state_rows,short_volshock_target_rows,train_start,train_end,test_start,test_end
+base_multi_obj_plain,wf_2022,base_multi_obj,wf_2022_train,253,253,0,0,2010-03-11,2020-12-31,2022-01-01,2022-12-31
+base_multi_obj_plain,wf_2023_2024,base_multi_obj,wf_2023_2024_train,756,756,0,0,2010-03-11,2022-12-31,2024-01-01,2024-12-31
+short_volshock_plain,wf_2022,short_volshock,wf_2022_train,253,253,135,133,2010-03-11,2020-12-31,2022-01-01,2022-12-31
+short_volshock_plain,wf_2023_2024,short_volshock,wf_2023_2024_train,756,756,342,336,2010-03-11,2022-12-31,2024-01-01,2024-12-31
+short_volshock_weighted_obj025_cb099,wf_2022,short_volshock,wf_2022_train,253,253,135,133,2010-03-11,2020-12-31,2022-01-01,2022-12-31
+short_volshock_weighted_obj025_cb099,wf_2023_2024,short_volshock,wf_2023_2024_train,756,756,342,336,2010-03-11,2022-12-31,2024-01-01,2024-12-31

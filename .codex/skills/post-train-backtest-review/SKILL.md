@@ -281,6 +281,15 @@ contract 与 fold-local train threshold 生成训练/评分标签，并跑 targe
 BC/checkpoint-alignment screen + `wf_2022` / `wf_2023_2024` replay；不要直接进入
 PPO，也不要把 target-readiness 当成 runtime overlay promotion。
 
+如果 short-volshock BC/checkpoint-alignment screen 显示标签可学（全局 BC fit 与
+`short_volshock_target_state` slice fit 通过），但 warm-start official replay 仍
+没有同时通过 `+30pp / <=15% MaxDD`，不要把它解释为“PPO 训练不够”。若 `wf_2022`
+仍是 MaxDD miss、`wf_2023_2024` 因去风险出现 relative miss，结论应是
+`short_volshock_bc_replay_gate_failed_no_promotion`：short-volshock 状态有用，
+但需要 checkpoint objective loss、drawdown-drift reward/target，或趋势参与与
+风险约束的 joint objective；不要从该 BC actor 直接进入更长 PPO 或 runtime
+promotion。
+
 metric-source reconciliation 时，先检查 isolated qlib fold 是否从评估窗口边界
 直接切片，导致策略在前 `LOOKBACK` 行无法下单，而 calendar buy-and-hold benchmark
 仍包含这段 warmup。若 calendar relative 与 tradable-window relative 出现 gate

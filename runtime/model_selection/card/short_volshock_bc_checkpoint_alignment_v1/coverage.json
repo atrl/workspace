@@ -1,0 +1,101 @@
+{
+  "base_targets": "runtime/model_selection/card/state_conditioned_multi_objective_bc_screen_v1/multi_obj_floor45_cap20_riskfirst_target_contract.csv",
+  "experiment": "short_volshock_bc_checkpoint_alignment_v1",
+  "frame_path": "data/soxl_profile_balanced_rule_residual_v22.pkl",
+  "profile": "sparse_release_bc_ppo_screen_v1",
+  "short_targets": "runtime/model_selection/card/short_volshock_target_generation_handoff_v1/short_volshock_de_risk_targets.csv",
+  "skipped_windows": [
+    {
+      "fold": "wf_2020",
+      "reason": "short-volshock fold-local target rows start in 2020; using them would leak the wf_2020 test window"
+    }
+  ],
+  "source_decision": "short_volshock_target_generation_ready_no_promotion",
+  "source_experiment": "short_volshock_target_generation_handoff_v1",
+  "windows": [
+    {
+      "candidate": "base_multi_obj_plain",
+      "fold": "wf_2022",
+      "short_volshock_state_rows": 0,
+      "short_volshock_target_rows": 0,
+      "target_fold": "wf_2022_train",
+      "target_rows": 253,
+      "target_source": "base_multi_obj",
+      "test_end": "2022-12-31",
+      "test_start": "2022-01-01",
+      "train_end": "2020-12-31",
+      "train_start": "2010-03-11",
+      "unique_target_dates": 253
+    },
+    {
+      "candidate": "base_multi_obj_plain",
+      "fold": "wf_2023_2024",
+      "short_volshock_state_rows": 0,
+      "short_volshock_target_rows": 0,
+      "target_fold": "wf_2023_2024_train",
+      "target_rows": 756,
+      "target_source": "base_multi_obj",
+      "test_end": "2024-12-31",
+      "test_start": "2024-01-01",
+      "train_end": "2022-12-31",
+      "train_start": "2010-03-11",
+      "unique_target_dates": 756
+    },
+    {
+      "candidate": "short_volshock_plain",
+      "fold": "wf_2022",
+      "short_volshock_state_rows": 135,
+      "short_volshock_target_rows": 133,
+      "target_fold": "wf_2022_train",
+      "target_rows": 253,
+      "target_source": "short_volshock",
+      "test_end": "2022-12-31",
+      "test_start": "2022-01-01",
+      "train_end": "2020-12-31",
+      "train_start": "2010-03-11",
+      "unique_target_dates": 253
+    },
+    {
+      "candidate": "short_volshock_plain",
+      "fold": "wf_2023_2024",
+      "short_volshock_state_rows": 342,
+      "short_volshock_target_rows": 336,
+      "target_fold": "wf_2023_2024_train",
+      "target_rows": 756,
+      "target_source": "short_volshock",
+      "test_end": "2024-12-31",
+      "test_start": "2024-01-01",
+      "train_end": "2022-12-31",
+      "train_start": "2010-03-11",
+      "unique_target_dates": 756
+    },
+    {
+      "candidate": "short_volshock_weighted_obj025_cb099",
+      "fold": "wf_2022",
+      "short_volshock_state_rows": 135,
+      "short_volshock_target_rows": 133,
+      "target_fold": "wf_2022_train",
+      "target_rows": 253,
+      "target_source": "short_volshock",
+      "test_end": "2022-12-31",
+      "test_start": "2022-01-01",
+      "train_end": "2020-12-31",
+      "train_start": "2010-03-11",
+      "unique_target_dates": 253
+    },
+    {
+      "candidate": "short_volshock_weighted_obj025_cb099",
+      "fold": "wf_2023_2024",
+      "short_volshock_state_rows": 342,
+      "short_volshock_target_rows": 336,
+      "target_fold": "wf_2023_2024_train",
+      "target_rows": 756,
+      "target_source": "short_volshock",
+      "test_end": "2024-12-31",
+      "test_start": "2024-01-01",
+      "train_end": "2022-12-31",
+      "train_start": "2010-03-11",
+      "unique_target_dates": 756
+    }
+  ]
+}
