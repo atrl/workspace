@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-26T04:01:30.434510+00:00",
+  "generated_at": "2026-05-26T04:18:31.971769+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -9078,6 +9078,78 @@
       "category": "model_selection",
       "suffix": ".csv",
       "bytes": 304900
+    },
+    {
+      "path": "runtime/model_selection/card/wf2024_state_coverage_diagnostic_v1/drawdown_intervals.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 416
+    },
+    {
+      "path": "runtime/model_selection/card/wf2024_state_coverage_diagnostic_v1/feature_differences_21.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4350
+    },
+    {
+      "path": "runtime/model_selection/card/wf2024_state_coverage_diagnostic_v1/feature_differences_63.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4361
+    },
+    {
+      "path": "runtime/model_selection/card/wf2024_state_coverage_diagnostic_v1/gate_gap_attribution.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 710
+    },
+    {
+      "path": "runtime/model_selection/card/wf2024_state_coverage_diagnostic_v1/gate_gap_profile_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 361
+    },
+    {
+      "path": "runtime/model_selection/card/wf2024_state_coverage_diagnostic_v1/poor_windows_21.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2263
+    },
+    {
+      "path": "runtime/model_selection/card/wf2024_state_coverage_diagnostic_v1/poor_windows_63.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2260
+    },
+    {
+      "path": "runtime/model_selection/card/wf2024_state_coverage_diagnostic_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2371
+    },
+    {
+      "path": "runtime/model_selection/card/wf2024_state_coverage_diagnostic_v1/state_coverage.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 611
+    },
+    {
+      "path": "runtime/model_selection/card/wf2024_state_coverage_diagnostic_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 27730
+    },
+    {
+      "path": "runtime/model_selection/card/wf2024_state_coverage_diagnostic_v1/trace_coverage.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 168
+    },
+    {
+      "path": "runtime/model_selection/card/wf2024_state_coverage_diagnostic_v1/wf2024_selected_daily_oos.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 16461
     },
     {
       "path": "runtime/multi_asset/card/soxl_baseline/card.md",

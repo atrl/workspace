@@ -240,6 +240,12 @@ warm-start official qlib backtest 或显式采用 tradable-window gate，不说�
 同一 action-cap 阈值网格。结论应是 state coverage / training objective 缺口：
 下一步转 checkpoint selection、状态条件训练目标或新状态特征覆盖失败窗口。
 
+如果失败 fold 的 gate attribution 是 `joint_tradeoff`，但 rolling 21/63 日 poor-window
+诊断主簇是 `underparticipation`，且 top poor windows 呈现高 `anchor_gap_180` /
+高 `mom_63` / 低 VIX 的趋势参与状态，同时 sequence-risk coverage 约为 0，
+不要把它解释为 sequence cap 未调好。下一步应筛选 trend-participation state
+加 drawdown/volatility guard，或把该状态写入 checkpoint/training objective。
+
 进入状态条件多目标前，先用已有 daily path 做一个 notebook-first objective
 screen，确认最接近的老师路径和仍然失败的项：
 
