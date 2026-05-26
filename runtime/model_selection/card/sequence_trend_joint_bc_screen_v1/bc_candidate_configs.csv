@@ -1,0 +1,6 @@
+candidate,target_source,complexity,sample_weight_config,description
+base_plain_contract,base,0,,Unchanged fold-local contract; drift baseline.
+trend_plain_contract,trend,1,,Previous trend participation target; direct comparison.
+trend_plus_slope_low_cap15,joint_slope,2,,Risk-priority slope-low cap15 contract plus non-risk trend participation overlay.
+trend_plus_slope_low_cap15_weighted,joint_slope,3,"{'rebound_multiplier': 3.0, 'downtrend_multiplier': 2.0, 'ordinary_multiplier': 1.0, 'objective_weight_power': 0.2, 'class_balanced_beta': 0.99, 'weight_floor': 0.05, 'weight_cap': 25.0, 'normalize_mean': True}",Same joint contract with moderate risk/trend slice and class-balance weighting.
+trend_plus_trend_break_any_cap10,joint_break,4,,"Trend-break cap10 risk contract plus non-risk trend overlay, preserving cap10 on conflicts."

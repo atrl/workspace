@@ -1,0 +1,318 @@
+{
+  "actor_retention": "no actor bundle retained; rerun notebook to regenerate diagnostic BC actors",
+  "canonical_baseline": "v19reg_v22_budget_usage_bull_guard_v1",
+  "changed_layer": [
+    "model_selection",
+    "training_target_composition",
+    "bc_warm_start"
+  ],
+  "closest_historical_failure_case": "cap10_sequence_risk_target_cap_bc_screen_v1 reduced/selected risk states but failed either wf_2022 MaxDD or wf_2023_2024 MaxDD",
+  "closest_historical_success_case": "trend_participation_bc_warmstart_screen_v1 fixed wf_2023_2024 but failed wf_2022 drawdown",
+  "created_at": "2026-05-26T06:54:27.849306+00:00",
+  "decision": "sequence_trend_joint_bc_mixed_no_promotion",
+  "direct_comparison_baseline": [
+    "trend_participation_bc_warmstart_screen_v1",
+    "cap10_sequence_risk_target_cap_bc_screen_v1",
+    "base_plain_contract"
+  ],
+  "drift_max_dd_ceiling_pp": 2.0,
+  "drift_relative_floor_pp": -5.0,
+  "experiment": "sequence_trend_joint_bc_screen_v1",
+  "external_sources": [
+    "https://github.com/microsoft/qlib",
+    "https://github.com/AI4Finance-Foundation/FinRL",
+    "https://proceedings.mlr.press/v15/ross11a.html",
+    "https://arxiv.org/abs/1904.04912",
+    "https://doi.org/10.21314/JCF.2016.322"
+  ],
+  "folds_evaluated": [
+    "wf_2022",
+    "wf_2023_2024"
+  ],
+  "next_mechanism": "inspect_failed_fold_action_distribution_then_try_drawdown_drift_reward_or_checkpoint_selector",
+  "ppo_screen_allowed_next": false,
+  "profile": "sparse_release_bc_ppo_screen_v1",
+  "promotion_allowed": false,
+  "promotion_blocker": "Diagnostic BC warm-start screen only. Promotion requires fixed-split plus wf_2020/wf_2022/wf_2023_2024 replay and retained actor review.",
+  "role": "diagnose",
+  "selected_candidate": "trend_plus_slope_low_cap15_weighted",
+  "selected_summary": {
+    "baseline_gate_pass_count": 0,
+    "candidate": "trend_plus_slope_low_cap15_weighted",
+    "candidate_gate_pass_count": 1,
+    "decision": "bc_walkforward_drift_mixed_no_promotion",
+    "drift_gate_pass_count": 2,
+    "failed_folds_json": "[\"wf_2022\"]",
+    "fold_gate_pass_count": 1,
+    "gate_loss": 0.21469195670748295,
+    "max_dd_delta_vs_baseline": -6.160883942381377,
+    "max_max_dd": 18.220379350612244,
+    "mean_relative_delta_vs_baseline": 17.33904344016525,
+    "min_relative_return": 40.44582151415278,
+    "next_mechanism": "inspect_failed_fold_slices_or_checkpoint_selection_before_ppo",
+    "promotion_allowed": false,
+    "slice_gate_pass_count": 2
+  },
+  "selected_walkforward_summary": {
+    "baseline_gate_pass_count": 0,
+    "candidate_gate_pass_count": 1,
+    "decision": "bc_walkforward_drift_mixed_no_promotion",
+    "drift_gate_pass_count": 2,
+    "failed_folds": [
+      "wf_2022"
+    ],
+    "fold_gate_pass_count": 1,
+    "next_mechanism": "inspect_failed_fold_slices_or_checkpoint_selection_before_ppo",
+    "promotion_allowed": false,
+    "required_folds": [
+      "wf_2022",
+      "wf_2023_2024"
+    ],
+    "scored_folds": [
+      "wf_2022",
+      "wf_2023_2024"
+    ],
+    "slice_gate_pass_count": 2
+  },
+  "sidecars": [
+    "trend_plus_slope_low_cap15_target_contract.csv",
+    "trend_plus_trend_break_any_cap10_target_contract.csv",
+    "bc_candidate_configs.csv",
+    "coverage.csv",
+    "coverage.json",
+    "bc_fold_results.csv",
+    "bc_slice_metrics.csv",
+    "bc_action_distribution.csv",
+    "bc_daily_manifest.csv",
+    "bc_drift_scores.csv",
+    "bc_candidate_screen.csv",
+    "*_daily_path.csv",
+    "selection.json",
+    "summary.json"
+  ],
+  "source_selection": {
+    "sequence_target": {
+      "actor_retention": "no actor bundle is promoted or retained by this notebook; rerun the notebook to regenerate diagnostic BC actors",
+      "anti_leakage_note": "Feature family came from prior diagnostic; thresholds and caps are computed only inside each replay fold train segment, and this card permits no promotion.",
+      "baseline_max_max_dd": 18.39642924161966,
+      "baseline_wf_2022_max_dd": 18.39642924161966,
+      "canonical_baseline": "v19reg_v22_budget_usage_bull_guard_v1",
+      "changed_layer": [
+        "model_selection",
+        "training_objective",
+        "risk_state_target"
+      ],
+      "created_at": "2026-05-26T00:22:52.507782+00:00",
+      "decision": "sequence_risk_target_cap_bc_no_robust_improvement_no_promotion",
+      "direct_comparison_baseline": "cap10_bc_sequence_risk_state_diagnostic_v1",
+      "experiment": "cap10_sequence_risk_target_cap_bc_screen_v1",
+      "external_sources": [
+        "https://github.com/microsoft/qlib",
+        "https://arxiv.org/abs/2009.11189",
+        "https://arxiv.org/abs/1707.06347",
+        "https://arxiv.org/abs/2006.04779",
+        "https://arxiv.org/abs/1712.06924",
+        "https://doi.org/10.21314/JCF.2016.322"
+      ],
+      "next_mechanism": "do_not_use_trend_break_target_cap_directly; test reward_drawdown_drift_penalty_or_sequence_risk_state_feature",
+      "profile": "sparse_release_bc_ppo_screen_v1",
+      "promotion_allowed": false,
+      "promotion_blocker": "This is a target-cap BC screen only. Promotion still requires fixed-split plus wf_2020/wf_2022/wf_2023_2024 validation and checkpoint/PPO drift review.",
+      "robust_improvement_candidate_count": 0,
+      "role": "diagnose",
+      "selected_candidate": "baseline_no_sequence_cap",
+      "selected_candidate_loss": 0.45285723221595475,
+      "selected_full_gate": false,
+      "selected_max_max_dd": 18.39642924161966,
+      "selected_min_relative_return": 30.501115970889202,
+      "selected_wf_2022_max_dd": 18.39642924161966,
+      "selected_wf_2022_relative_return": 36.41912423582883,
+      "selected_wf_2023_2024_max_dd": 13.472617267038176,
+      "selected_wf_2023_2024_relative_return": 30.501115970889202,
+      "sidecars": [
+        "coverage.csv",
+        "coverage.json",
+        "sequence_risk_cap_audit.csv",
+        "target_action_distribution.csv",
+        "bc_candidate_metrics.csv",
+        "bc_slice_metrics.csv",
+        "candidate_summary.csv",
+        "selection.json",
+        "summary.json",
+        "baseline_no_sequence_cap_wf_2022_daily_path.csv",
+        "baseline_no_sequence_cap_wf_2023_2024_daily_path.csv"
+      ],
+      "source_checkpoint_decision": "checkpoint_drift_selector_partial_pass_wf2022_blocked_no_promotion",
+      "source_sequence_decision": "sequence_risk_state_candidate_ready_for_target_screen_no_promotion",
+      "target_max_dd_pct": 15.0,
+      "target_relative_return_pp": 30.0,
+      "training_allowed_from_this_card": false
+    },
+    "trend_bc": {
+      "actor_retention": "no actor bundle retained; rerun notebook to regenerate diagnostic BC actors",
+      "canonical_baseline": "v19reg_v22_budget_usage_bull_guard_v1",
+      "changed_layer": [
+        "model_selection",
+        "training_target",
+        "bc_warm_start"
+      ],
+      "created_at": "2026-05-26T06:09:24.365310+00:00",
+      "decision": "trend_participation_bc_warmstart_mixed_no_promotion",
+      "direct_comparison_baseline": [
+        "trend_participation_foldlocal_target_v1",
+        "base_plain_contract"
+      ],
+      "drift_max_dd_ceiling_pp": 2.0,
+      "drift_relative_floor_pp": -5.0,
+      "experiment": "trend_participation_bc_warmstart_screen_v1",
+      "external_sources": [
+        "https://github.com/microsoft/qlib",
+        "https://arxiv.org/abs/2009.11189",
+        "https://github.com/AI4Finance-Foundation/FinRL",
+        "https://arxiv.org/abs/2011.09607",
+        "https://proceedings.mlr.press/v15/ross11a.html",
+        "https://arxiv.org/abs/1904.04912",
+        "https://doi.org/10.21314/JCF.2016.322"
+      ],
+      "folds_evaluated": [
+        "wf_2022",
+        "wf_2023_2024"
+      ],
+      "next_mechanism": "inspect_failed_fold_trend_slice_and_checkpoint_selection_before_ppo",
+      "ppo_screen_allowed_next": false,
+      "profile": "sparse_release_bc_ppo_screen_v1",
+      "promotion_allowed": false,
+      "promotion_blocker": "This is a diagnostic BC warm-start screen. Promotion requires fixed-split plus wf_2020/wf_2022/wf_2023_2024 replay and an actor retention decision.",
+      "role": "diagnose",
+      "selected_candidate": "trend_plain_contract",
+      "selected_summary": {
+        "baseline_gate_pass_count": 0,
+        "candidate": "trend_plain_contract",
+        "candidate_gate_pass_count": 1,
+        "decision": "bc_walkforward_drift_mixed_no_promotion",
+        "drift_gate_pass_count": 2,
+        "failed_folds_json": "[\"wf_2022\"]",
+        "fold_gate_pass_count": 1,
+        "gate_loss": 1.9047504488370985,
+        "max_dd_delta_vs_baseline": 0.0,
+        "max_max_dd": 43.57125673255648,
+        "mean_relative_delta_vs_baseline": 5.528093458113453,
+        "min_relative_return": 36.41912423582883,
+        "next_mechanism": "inspect_failed_fold_slices_or_checkpoint_selection_before_ppo",
+        "promotion_allowed": false,
+        "slice_gate_pass_count": 2
+      },
+      "selected_walkforward_summary": {
+        "baseline_gate_pass_count": 0,
+        "candidate_gate_pass_count": 1,
+        "decision": "bc_walkforward_drift_mixed_no_promotion",
+        "drift_gate_pass_count": 2,
+        "failed_folds": [
+          "wf_2022"
+        ],
+        "fold_gate_pass_count": 1,
+        "next_mechanism": "inspect_failed_fold_slices_or_checkpoint_selection_before_ppo",
+        "promotion_allowed": false,
+        "required_folds": [
+          "wf_2022",
+          "wf_2023_2024"
+        ],
+        "scored_folds": [
+          "wf_2022",
+          "wf_2023_2024"
+        ],
+        "slice_gate_pass_count": 2
+      },
+      "sidecars": [
+        "bc_candidate_configs.csv",
+        "coverage.csv",
+        "coverage.json",
+        "bc_fold_results.csv",
+        "bc_slice_metrics.csv",
+        "bc_action_distribution.csv",
+        "bc_daily_manifest.csv",
+        "bc_drift_scores.csv",
+        "bc_candidate_screen.csv",
+        "*_daily_path.csv",
+        "selection.json",
+        "summary.json"
+      ],
+      "source_selection": {
+        "canonical_baseline": "v19reg_v22_budget_usage_bull_guard_v1",
+        "changed_layer": [
+          "model_selection",
+          "training_target"
+        ],
+        "created_at": "2026-05-26T05:44:48.982317+00:00",
+        "decision": "trend_participation_foldlocal_targets_ready_for_bc_screen",
+        "direct_comparison_baseline": [
+          "trend_participation_guard_screen_v1",
+          "cap10_sequence_risk_target_cap_bc_screen_v1:baseline_no_sequence_cap_target_contract"
+        ],
+        "experiment": "trend_participation_foldlocal_target_v1",
+        "external_sources": [
+          "https://github.com/microsoft/qlib",
+          "https://arxiv.org/abs/2009.11189",
+          "https://doi.org/10.21314/JCF.2016.322",
+          "https://doi.org/10.1016/j.jfineco.2011.11.003",
+          "https://doi.org/10.1016/j.jfineco.2015.12.002",
+          "https://doi.org/10.1111/jofi.12513",
+          "https://arxiv.org/abs/2011.09607",
+          "https://github.com/AI4Finance-Foundation/FinRL"
+        ],
+        "next_mechanism": "run_fold_local_bc_warm_start_then_walkforward_replay_with_drawdown_drift_stop",
+        "profile": "sparse_release_bc_ppo_screen_v1",
+        "promotion_allowed": false,
+        "promotion_blocker": "Training target readiness only; no actor has been trained or promoted, and fixed-split/wf replay is still required.",
+        "role": "diagnose",
+        "selected_candidate": "trend_q70_target45_guard",
+        "selected_readiness": {
+          "bc_decision": "state_objective_bc_ready_for_training",
+          "bc_readiness_gate": true,
+          "candidate": "trend_q70_target45_guard",
+          "candidate_release_positive_lift_rows": 129,
+          "current_positive_rebound_lift_rows": 95,
+          "lift_decision": "state_objective_target_lift_training_ready",
+          "lift_gate": true,
+          "readiness_loss": 0.38104678826328314,
+          "scope_decision": "state_objective_targets_training_ready",
+          "scope_gate": true,
+          "selected_dominant_action_share": 0.2204599524187153,
+          "selected_unique_actions": 18,
+          "training_ready": true,
+          "trend_fold_counts_json": "{\"wf_2022_train\": 0, \"wf_2023_2024_train\": 15}",
+          "trend_gate": true,
+          "trend_target_ratio": 0.011895321173671689,
+          "trend_target_rows": 15
+        },
+        "sidecars": [
+          "candidate_configs.csv",
+          "target_variant_summary.csv",
+          "target_scope_audit.csv",
+          "target_lift_audit.csv",
+          "target_lift_summary.csv",
+          "profile_label_comparison.csv",
+          "bc_readiness_scores.csv",
+          "readiness_scores.csv",
+          "selected_trend_foldlocal_targets.csv",
+          "selection.json",
+          "summary.json"
+        ],
+        "source_trend_screen_decision": "trend_participation_guard_no_objective_pass_no_promotion",
+        "source_trend_screen_selected": "base_seq_cap10_two_of_three",
+        "training_allowed_from_this_card": true
+      },
+      "target_max_dd_pct": 15.0,
+      "target_relative_return_pp": 30.0,
+      "training_allowed_from_this_card": false,
+      "wf_2020_coverage": false,
+      "wf_2020_skip_reason": "target rows start in 2020; using them would leak wf_2020 labels"
+    }
+  },
+  "target_max_dd_pct": 15.0,
+  "target_relative_return_pp": 30.0,
+  "training_allowed_from_this_card": false,
+  "wf_2020_coverage": false,
+  "wf_2020_skip_reason": "target rows start in 2020/2021; using them would leak wf_2020 labels",
+  "why_not_duplicate": "This notebook composes the two mechanisms with risk-date priority and trend overlay only on non-risk dates, then screens BC drift across both folds."
+}

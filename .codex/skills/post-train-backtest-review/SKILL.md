@@ -266,6 +266,14 @@ MaxDD 失败，不要把 mixed result 推进 PPO。结论应是 trend target 有
 但缺少 2022 风险状态覆盖；下一步优先组合 sequence-risk / drawdown-control
 target 或做 checkpoint selection，而不是延长同一个 trend BC/PPO 分支。
 
+如果 sequence-risk / drawdown-control target 与 trend-participation target 的
+risk-priority joint BC screen 只把 `wf_2022` MaxDD 从极端失败压到 near miss
+（仍然 `>15%`），同时 `wf_2023_2024` 已通过 `+30pp / <=15% MaxDD` 和
+slice/drift gate，不要把它解释为“再训练一下 PPO 就会过”。结论应是 joint target
+composition 有效但风险状态/回撤约束仍不足；下一步转 drawdown-drift reward
+penalty、checkpoint scoring 或 sequence-risk state feature，而不是启动同一
+joint target 的更长 PPO。
+
 进入状态条件多目标前，先用已有 daily path 做一个 notebook-first objective
 screen，确认最接近的老师路径和仍然失败的项：
 

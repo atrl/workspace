@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-26T06:10:40.629283+00:00",
+  "generated_at": "2026-05-26T07:04:46.822076+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -7250,6 +7250,204 @@
       "bytes": 28647
     },
     {
+      "path": "runtime/model_selection/card/sequence_trend_joint_bc_screen_v1/base_plain_contract_wf_2022_test_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 29804
+    },
+    {
+      "path": "runtime/model_selection/card/sequence_trend_joint_bc_screen_v1/base_plain_contract_wf_2022_valid_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30591
+    },
+    {
+      "path": "runtime/model_selection/card/sequence_trend_joint_bc_screen_v1/base_plain_contract_wf_2023_2024_test_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30513
+    },
+    {
+      "path": "runtime/model_selection/card/sequence_trend_joint_bc_screen_v1/base_plain_contract_wf_2023_2024_valid_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30430
+    },
+    {
+      "path": "runtime/model_selection/card/sequence_trend_joint_bc_screen_v1/bc_action_distribution.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 3134
+    },
+    {
+      "path": "runtime/model_selection/card/sequence_trend_joint_bc_screen_v1/bc_candidate_configs.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 838
+    },
+    {
+      "path": "runtime/model_selection/card/sequence_trend_joint_bc_screen_v1/bc_candidate_screen.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1524
+    },
+    {
+      "path": "runtime/model_selection/card/sequence_trend_joint_bc_screen_v1/bc_daily_manifest.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 3324
+    },
+    {
+      "path": "runtime/model_selection/card/sequence_trend_joint_bc_screen_v1/bc_drift_scores.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4371
+    },
+    {
+      "path": "runtime/model_selection/card/sequence_trend_joint_bc_screen_v1/bc_fold_results.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 3488
+    },
+    {
+      "path": "runtime/model_selection/card/sequence_trend_joint_bc_screen_v1/bc_slice_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 9887
+    },
+    {
+      "path": "runtime/model_selection/card/sequence_trend_joint_bc_screen_v1/coverage.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1926
+    },
+    {
+      "path": "runtime/model_selection/card/sequence_trend_joint_bc_screen_v1/coverage.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 7623
+    },
+    {
+      "path": "runtime/model_selection/card/sequence_trend_joint_bc_screen_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 13613
+    },
+    {
+      "path": "runtime/model_selection/card/sequence_trend_joint_bc_screen_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 6931
+    },
+    {
+      "path": "runtime/model_selection/card/sequence_trend_joint_bc_screen_v1/trend_plain_contract_wf_2022_test_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 29804
+    },
+    {
+      "path": "runtime/model_selection/card/sequence_trend_joint_bc_screen_v1/trend_plain_contract_wf_2022_valid_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30591
+    },
+    {
+      "path": "runtime/model_selection/card/sequence_trend_joint_bc_screen_v1/trend_plain_contract_wf_2023_2024_test_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30596
+    },
+    {
+      "path": "runtime/model_selection/card/sequence_trend_joint_bc_screen_v1/trend_plain_contract_wf_2023_2024_valid_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30437
+    },
+    {
+      "path": "runtime/model_selection/card/sequence_trend_joint_bc_screen_v1/trend_plus_slope_low_cap15_target_contract.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 607665
+    },
+    {
+      "path": "runtime/model_selection/card/sequence_trend_joint_bc_screen_v1/trend_plus_slope_low_cap15_weighted_wf_2022_test_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 29946
+    },
+    {
+      "path": "runtime/model_selection/card/sequence_trend_joint_bc_screen_v1/trend_plus_slope_low_cap15_weighted_wf_2022_valid_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30553
+    },
+    {
+      "path": "runtime/model_selection/card/sequence_trend_joint_bc_screen_v1/trend_plus_slope_low_cap15_weighted_wf_2023_2024_test_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30629
+    },
+    {
+      "path": "runtime/model_selection/card/sequence_trend_joint_bc_screen_v1/trend_plus_slope_low_cap15_weighted_wf_2023_2024_valid_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30404
+    },
+    {
+      "path": "runtime/model_selection/card/sequence_trend_joint_bc_screen_v1/trend_plus_slope_low_cap15_wf_2022_test_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 29876
+    },
+    {
+      "path": "runtime/model_selection/card/sequence_trend_joint_bc_screen_v1/trend_plus_slope_low_cap15_wf_2022_valid_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30540
+    },
+    {
+      "path": "runtime/model_selection/card/sequence_trend_joint_bc_screen_v1/trend_plus_slope_low_cap15_wf_2023_2024_test_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30604
+    },
+    {
+      "path": "runtime/model_selection/card/sequence_trend_joint_bc_screen_v1/trend_plus_slope_low_cap15_wf_2023_2024_valid_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30504
+    },
+    {
+      "path": "runtime/model_selection/card/sequence_trend_joint_bc_screen_v1/trend_plus_trend_break_any_cap10_target_contract.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 838276
+    },
+    {
+      "path": "runtime/model_selection/card/sequence_trend_joint_bc_screen_v1/trend_plus_trend_break_any_cap10_wf_2022_test_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 29589
+    },
+    {
+      "path": "runtime/model_selection/card/sequence_trend_joint_bc_screen_v1/trend_plus_trend_break_any_cap10_wf_2022_valid_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30718
+    },
+    {
+      "path": "runtime/model_selection/card/sequence_trend_joint_bc_screen_v1/trend_plus_trend_break_any_cap10_wf_2023_2024_test_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30360
+    },
+    {
+      "path": "runtime/model_selection/card/sequence_trend_joint_bc_screen_v1/trend_plus_trend_break_any_cap10_wf_2023_2024_valid_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30422
+    },
+    {
       "path": "runtime/model_selection/card/sparse_rebound_release_target_revision_v1/bc_readiness_scores.csv",
       "category": "model_selection",
       "suffix": ".csv",
@@ -8771,25 +8969,25 @@
       "path": "runtime/model_selection/card/trend_participation_bc_warmstart_screen_v1/base_plain_contract_wf_2022_test_daily_path.csv",
       "category": "model_selection",
       "suffix": ".csv",
-      "bytes": 30055
+      "bytes": 29804
     },
     {
       "path": "runtime/model_selection/card/trend_participation_bc_warmstart_screen_v1/base_plain_contract_wf_2022_valid_daily_path.csv",
       "category": "model_selection",
       "suffix": ".csv",
-      "bytes": 30843
+      "bytes": 30591
     },
     {
       "path": "runtime/model_selection/card/trend_participation_bc_warmstart_screen_v1/base_plain_contract_wf_2023_2024_test_daily_path.csv",
       "category": "model_selection",
       "suffix": ".csv",
-      "bytes": 30765
+      "bytes": 30513
     },
     {
       "path": "runtime/model_selection/card/trend_participation_bc_warmstart_screen_v1/base_plain_contract_wf_2023_2024_valid_daily_path.csv",
       "category": "model_selection",
       "suffix": ".csv",
-      "bytes": 30680
+      "bytes": 30430
     },
     {
       "path": "runtime/model_selection/card/trend_participation_bc_warmstart_screen_v1/bc_action_distribution.csv",
@@ -8861,49 +9059,49 @@
       "path": "runtime/model_selection/card/trend_participation_bc_warmstart_screen_v1/trend_plain_contract_wf_2022_test_daily_path.csv",
       "category": "model_selection",
       "suffix": ".csv",
-      "bytes": 30055
+      "bytes": 29804
     },
     {
       "path": "runtime/model_selection/card/trend_participation_bc_warmstart_screen_v1/trend_plain_contract_wf_2022_valid_daily_path.csv",
       "category": "model_selection",
       "suffix": ".csv",
-      "bytes": 30843
+      "bytes": 30591
     },
     {
       "path": "runtime/model_selection/card/trend_participation_bc_warmstart_screen_v1/trend_plain_contract_wf_2023_2024_test_daily_path.csv",
       "category": "model_selection",
       "suffix": ".csv",
-      "bytes": 30848
+      "bytes": 30596
     },
     {
       "path": "runtime/model_selection/card/trend_participation_bc_warmstart_screen_v1/trend_plain_contract_wf_2023_2024_valid_daily_path.csv",
       "category": "model_selection",
       "suffix": ".csv",
-      "bytes": 30687
+      "bytes": 30437
     },
     {
       "path": "runtime/model_selection/card/trend_participation_bc_warmstart_screen_v1/trend_weighted_obj025_cb099_wf_2022_test_daily_path.csv",
       "category": "model_selection",
       "suffix": ".csv",
-      "bytes": 29793
+      "bytes": 29542
     },
     {
       "path": "runtime/model_selection/card/trend_participation_bc_warmstart_screen_v1/trend_weighted_obj025_cb099_wf_2022_valid_daily_path.csv",
       "category": "model_selection",
       "suffix": ".csv",
-      "bytes": 30772
+      "bytes": 30520
     },
     {
       "path": "runtime/model_selection/card/trend_participation_bc_warmstart_screen_v1/trend_weighted_obj025_cb099_wf_2023_2024_test_daily_path.csv",
       "category": "model_selection",
       "suffix": ".csv",
-      "bytes": 30855
+      "bytes": 30603
     },
     {
       "path": "runtime/model_selection/card/trend_participation_bc_warmstart_screen_v1/trend_weighted_obj025_cb099_wf_2023_2024_valid_daily_path.csv",
       "category": "model_selection",
       "suffix": ".csv",
-      "bytes": 30725
+      "bytes": 30475
     },
     {
       "path": "runtime/model_selection/card/trend_participation_foldlocal_target_v1/bc_readiness_scores.csv",
