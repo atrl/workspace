@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-26T09:00:09.685009+00:00",
+  "generated_at": "2026-05-26T10:05:07.145957+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -8316,6 +8316,144 @@
       "category": "model_selection",
       "suffix": ".json",
       "bytes": 16630
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_multi_objective_bc_screen_v1/bc_action_distribution.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2098
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_multi_objective_bc_screen_v1/bc_fit_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 936
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_multi_objective_bc_screen_v1/bc_slice_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 5324
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_multi_objective_bc_screen_v1/candidate_configs.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 985
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_multi_objective_bc_screen_v1/candidate_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1221
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_multi_objective_bc_screen_v1/daily_manifest.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1212
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_multi_objective_bc_screen_v1/drawdown_interval_diagnostic.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1468
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_multi_objective_bc_screen_v1/fold_feature_thresholds.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2321
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_multi_objective_bc_screen_v1/multi_obj_floor45_cap20_riskfirst_target_contract.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 655753
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_multi_objective_bc_screen_v1/multi_obj_floor45_cap20_riskfirst_wf_2022_warm_start_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31293
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_multi_objective_bc_screen_v1/multi_obj_floor45_cap20_riskfirst_wf_2023_2024_warm_start_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31784
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_multi_objective_bc_screen_v1/multi_obj_floor55_cap25_balanced_target_contract.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 654067
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_multi_objective_bc_screen_v1/multi_obj_floor55_cap25_balanced_wf_2022_warm_start_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31190
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_multi_objective_bc_screen_v1/multi_obj_floor55_cap25_balanced_wf_2023_2024_warm_start_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31976
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_multi_objective_bc_screen_v1/multi_obj_floor65_cap20_weighted_target_contract.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 653823
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_multi_objective_bc_screen_v1/multi_obj_floor65_cap20_weighted_wf_2022_warm_start_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31301
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_multi_objective_bc_screen_v1/multi_obj_floor65_cap20_weighted_wf_2023_2024_warm_start_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31988
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_multi_objective_bc_screen_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 3971
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_multi_objective_bc_screen_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 18092
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_multi_objective_bc_screen_v1/target_state_audit.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 991
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_multi_objective_bc_screen_v1/trend_plain_official_reference_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 935
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_multi_objective_bc_screen_v1/warm_start_official_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2790
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_multi_objective_bc_screen_v1/warm_start_segments.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 224
     },
     {
       "path": "runtime/model_selection/card/state_conditioned_objective_screen_v1/candidate_path_manifest.csv",
