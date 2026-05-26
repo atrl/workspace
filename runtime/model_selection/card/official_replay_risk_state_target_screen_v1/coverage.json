@@ -1,0 +1,74 @@
+{
+  "experiment": "official_replay_risk_state_target_screen_v1",
+  "external_sources": [
+    "https://github.com/microsoft/qlib",
+    "https://arxiv.org/abs/2009.11189",
+    "https://github.com/AI4Finance-Foundation/FinRL",
+    "https://arxiv.org/abs/2011.09607",
+    "https://doi.org/10.21314/JCF.2016.322",
+    "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2659431"
+  ],
+  "feature_frame_path": "data/soxl_profile_balanced_rule_residual_v22.pkl",
+  "profile": "sparse_release_bc_ppo_screen_v1",
+  "skipped_windows": [
+    {
+      "fold": "wf_2020",
+      "reason": "short-volshock targets begin in 2020, so a wf_2020 training target would leak that test year"
+    }
+  ],
+  "targets_path": "runtime/model_selection/card/short_volshock_target_generation_handoff_v1/short_volshock_de_risk_targets.csv",
+  "windows": [
+    {
+      "fold": "wf_2022",
+      "is_downtrend_state_coverage": 0.6007905138339921,
+      "is_downtrend_state_rows": 152,
+      "risk_and_downtrend_rows": 134,
+      "risk_not_downtrend_rows": 1,
+      "risk_state_coverage": 0.5335968379446641,
+      "risk_state_rows": 135,
+      "short_volshock_state_coverage": 0.5335968379446641,
+      "short_volshock_state_rows": 135,
+      "short_volshock_target_state_coverage": 0.525691699604743,
+      "short_volshock_target_state_rows": 133,
+      "target_end": "2020-12-31",
+      "target_fold": "wf_2022_train",
+      "target_rows": 253,
+      "target_start": "2020-01-02",
+      "test_end": "2022-12-31",
+      "test_start": "2022-01-01",
+      "train_end": "2020-12-31",
+      "train_start": "2010-03-11",
+      "unique_target_dates": 253,
+      "valid_end": "2021-12-31",
+      "valid_start": "2021-01-01",
+      "volstress_fold_local_coverage": 0.6007905138339921,
+      "volstress_fold_local_rows": 152
+    },
+    {
+      "fold": "wf_2023_2024",
+      "is_downtrend_state_coverage": 0.671957671957672,
+      "is_downtrend_state_rows": 508,
+      "risk_and_downtrend_rows": 342,
+      "risk_not_downtrend_rows": 0,
+      "risk_state_coverage": 0.4523809523809524,
+      "risk_state_rows": 342,
+      "short_volshock_state_coverage": 0.4523809523809524,
+      "short_volshock_state_rows": 342,
+      "short_volshock_target_state_coverage": 0.4444444444444444,
+      "short_volshock_target_state_rows": 336,
+      "target_end": "2022-12-30",
+      "target_fold": "wf_2023_2024_train",
+      "target_rows": 756,
+      "target_start": "2020-01-02",
+      "test_end": "2024-12-31",
+      "test_start": "2024-01-01",
+      "train_end": "2022-12-31",
+      "train_start": "2010-03-11",
+      "unique_target_dates": 756,
+      "valid_end": "2023-12-31",
+      "valid_start": "2023-01-01",
+      "volstress_fold_local_coverage": 0.6164021164021164,
+      "volstress_fold_local_rows": 466
+    }
+  ]
+}

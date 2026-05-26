@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-26T17:54:25.630261+00:00",
+  "generated_at": "2026-05-26T18:16:16.873443+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -7044,6 +7044,162 @@
       "category": "model_selection",
       "suffix": ".csv",
       "bytes": 5452
+    },
+    {
+      "path": "runtime/model_selection/card/official_replay_risk_state_target_screen_v1/bc_action_distribution.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 3165
+    },
+    {
+      "path": "runtime/model_selection/card/official_replay_risk_state_target_screen_v1/bc_fit_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1429
+    },
+    {
+      "path": "runtime/model_selection/card/official_replay_risk_state_target_screen_v1/bc_initialization_wf_2022_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30580
+    },
+    {
+      "path": "runtime/model_selection/card/official_replay_risk_state_target_screen_v1/bc_initialization_wf_2023_2024_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 32053
+    },
+    {
+      "path": "runtime/model_selection/card/official_replay_risk_state_target_screen_v1/bc_slice_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 8264
+    },
+    {
+      "path": "runtime/model_selection/card/official_replay_risk_state_target_screen_v1/candidate_configs.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 806
+    },
+    {
+      "path": "runtime/model_selection/card/official_replay_risk_state_target_screen_v1/candidate_pk.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 3913
+    },
+    {
+      "path": "runtime/model_selection/card/official_replay_risk_state_target_screen_v1/candidate_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 665
+    },
+    {
+      "path": "runtime/model_selection/card/official_replay_risk_state_target_screen_v1/constrained_checkpoint_scores.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1846
+    },
+    {
+      "path": "runtime/model_selection/card/official_replay_risk_state_target_screen_v1/coverage.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 941
+    },
+    {
+      "path": "runtime/model_selection/card/official_replay_risk_state_target_screen_v1/coverage.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2769
+    },
+    {
+      "path": "runtime/model_selection/card/official_replay_risk_state_target_screen_v1/daily_manifest.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1744
+    },
+    {
+      "path": "runtime/model_selection/card/official_replay_risk_state_target_screen_v1/drawdown_interval_diagnostic.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2833
+    },
+    {
+      "path": "runtime/model_selection/card/official_replay_risk_state_target_screen_v1/official_replay_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 3758
+    },
+    {
+      "path": "runtime/model_selection/card/official_replay_risk_state_target_screen_v1/risk_state_all_targets_cap010_wf_2022_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30580
+    },
+    {
+      "path": "runtime/model_selection/card/official_replay_risk_state_target_screen_v1/risk_state_all_targets_cap010_wf_2023_2024_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 32053
+    },
+    {
+      "path": "runtime/model_selection/card/official_replay_risk_state_target_screen_v1/risk_state_risk_target_cap010_wf_2022_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30580
+    },
+    {
+      "path": "runtime/model_selection/card/official_replay_risk_state_target_screen_v1/risk_state_risk_target_cap010_wf_2023_2024_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 32053
+    },
+    {
+      "path": "runtime/model_selection/card/official_replay_risk_state_target_screen_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 3914
+    },
+    {
+      "path": "runtime/model_selection/card/official_replay_risk_state_target_screen_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 33596
+    },
+    {
+      "path": "runtime/model_selection/card/official_replay_risk_state_target_screen_v1/target_patch_audit.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 3466
+    },
+    {
+      "path": "runtime/model_selection/card/official_replay_risk_state_target_screen_v1/volstress_all_targets_cap005_wf_2022_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30300
+    },
+    {
+      "path": "runtime/model_selection/card/official_replay_risk_state_target_screen_v1/volstress_all_targets_cap005_wf_2023_2024_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 32071
+    },
+    {
+      "path": "runtime/model_selection/card/official_replay_risk_state_target_screen_v1/volstress_all_targets_cap010_wf_2022_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30300
+    },
+    {
+      "path": "runtime/model_selection/card/official_replay_risk_state_target_screen_v1/volstress_all_targets_cap010_wf_2023_2024_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 32077
+    },
+    {
+      "path": "runtime/model_selection/card/official_replay_risk_state_target_screen_v1/warm_start_segments.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 239
     },
     {
       "path": "runtime/model_selection/card/oos_poor_window_factor_diff_aggregate_v1/aggregate/aggregate_oos_review.md",

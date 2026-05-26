@@ -1,0 +1,6 @@
+candidate,mask,cap,columns,description
+bc_initialization,none,,[],Original short-volshock BC target. Direct baseline.
+risk_state_risk_target_cap010,risk_state,0.1,['risk_target_position'],Control: cap risk_target_position only on existing risk_state rows.
+risk_state_all_targets_cap010,risk_state,0.1,"['teacher_position', 'risk_target_position', 'rebound_target_position']",Cap all BC target positions on existing risk_state rows.
+volstress_all_targets_cap010,volstress_fold_local,0.1,"['teacher_position', 'risk_target_position', 'rebound_target_position']",Cap all BC target positions on fold-local volatility/stress rows.
+volstress_all_targets_cap005,volstress_fold_local,0.05,"['teacher_position', 'risk_target_position', 'rebound_target_position']",Stronger cap on fold-local volatility/stress rows.

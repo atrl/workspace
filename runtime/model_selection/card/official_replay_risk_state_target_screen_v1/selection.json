@@ -1,0 +1,80 @@
+{
+  "acceptance_criteria": {
+    "all_windows_max_dd_pct_max": 15.0,
+    "all_windows_relative_return_pp_min": 30.0
+  },
+  "accepted_tradeoff": "Lower average position is acceptable only if every official replay window keeps >=30pp excess and <=15% MaxDD.",
+  "actor_retention": "no actor bundle retained; rerun notebook to regenerate diagnostic BC actors",
+  "best_all_window_gate": false,
+  "best_max_dd": 15.111238650889158,
+  "best_min_relative_return": 2.002060126528693,
+  "candidate_count": 5,
+  "canonical_baseline": "v19reg_v22_budget_usage_bull_guard_v1",
+  "changed_layer": [
+    "model_selection",
+    "target",
+    "bc_warm_start"
+  ],
+  "closest_historical_failure_case": "short_volshock_bc_initialization_official_replay_v1 showed the source gate flipped under official warm-start replay due MaxDD/relative-return gaps.",
+  "closest_historical_success_case": "short_volshock_bc_initialization cleared ordinary source fold gates before official replay invalidated it.",
+  "created_at": "2026-05-26T18:15:08.387875+00:00",
+  "decision": "risk_state_target_cap_reduces_drawdown_but_misses_gate_no_promotion",
+  "direct_comparison_baseline": "short_volshock_bc_initialization_official_replay_v1/bc_initialization",
+  "duplicate_check": "This run changes the BC target rows before fitting and PKs risk-state/all-target/volstress caps; it is not another PPO or renamed threshold-only profile.",
+  "experiment": "official_replay_risk_state_target_screen_v1",
+  "external_reference": [
+    "https://github.com/microsoft/qlib",
+    "https://arxiv.org/abs/2009.11189",
+    "https://github.com/AI4Finance-Foundation/FinRL",
+    "https://arxiv.org/abs/2011.09607",
+    "https://doi.org/10.21314/JCF.2016.322",
+    "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2659431"
+  ],
+  "failure_mode": "Hard target caps may reduce exposure during both bad and good convexity days, lowering relative return while not changing execution timing enough to control drawdown.",
+  "hypothesis": "High volatility/stress rows explain the official replay drawdown gap; capping the BC target on those rows should reduce official MaxDD without losing the 30pp relative-return gate.",
+  "next_mechanism": "try softer risk-state checkpoint scoring or reward timing instead of hard target cap",
+  "profile": "sparse_release_bc_ppo_screen_v1",
+  "promotion_allowed": false,
+  "promotion_blocker": "partial walk-forward official replay target screen only; no full fixed split, no wf_2020-safe construction, no retained actor",
+  "role": "diagnose",
+  "selected_candidate": "volstress_all_targets_cap010",
+  "selector_summary": {
+    "acceptance_criteria": {
+      "all_windows_must_pass": true,
+      "target_max_dd_pct": 15.0,
+      "target_relative_return_pp": 30.0
+    },
+    "decision": "constrained_checkpoint_selector_no_promotion",
+    "next_mechanism": "generate_reward_constrained_short_training_candidate",
+    "promotion_allowed": false,
+    "replay_review_required": false,
+    "selected_candidate": "volstress_all_targets_cap010",
+    "selected_constrained_selector_loss": 129.11032638236287,
+    "selected_constraint_gap_loss": 29.110326382362885,
+    "selected_failed_window_count": 1,
+    "selected_max_max_dd": 15.111238650889158,
+    "selected_maxdd_failure_count": 1,
+    "selected_min_relative_return": 2.002060126528693,
+    "selected_relative_failure_count": 1,
+    "selector_gate_pass": false
+  },
+  "sidecars": [
+    "candidate_configs.csv",
+    "coverage.csv",
+    "coverage.json",
+    "warm_start_segments.csv",
+    "target_patch_audit.csv",
+    "bc_fit_metrics.csv",
+    "bc_slice_metrics.csv",
+    "bc_action_distribution.csv",
+    "official_replay_metrics.csv",
+    "candidate_pk.csv",
+    "candidate_summary.csv",
+    "daily_manifest.csv",
+    "drawdown_interval_diagnostic.csv",
+    "constrained_checkpoint_scores.csv",
+    "selection.json",
+    "summary.json",
+    "*_official_daily_path.csv"
+  ]
+}
