@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-26T10:36:27.959762+00:00",
+  "generated_at": "2026-05-26T11:06:51.985310+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -7596,6 +7596,126 @@
       "category": "model_selection",
       "suffix": ".csv",
       "bytes": 3328
+    },
+    {
+      "path": "runtime/model_selection/card/short_horizon_risk_cap_counterfactual_v1/baseline_price_replay_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2163
+    },
+    {
+      "path": "runtime/model_selection/card/short_horizon_risk_cap_counterfactual_v1/counterfactual_candidate_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 48965
+    },
+    {
+      "path": "runtime/model_selection/card/short_horizon_risk_cap_counterfactual_v1/counterfactual_daily_manifest.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2516
+    },
+    {
+      "path": "runtime/model_selection/card/short_horizon_risk_cap_counterfactual_v1/counterfactual_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 340853
+    },
+    {
+      "path": "runtime/model_selection/card/short_horizon_risk_cap_counterfactual_v1/daily_paths/rank1_multi_obj_floor45_cap20_riskfirst_wf_2022_two_of_four_short_risk_lag1_cap0.00.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 45888
+    },
+    {
+      "path": "runtime/model_selection/card/short_horizon_risk_cap_counterfactual_v1/daily_paths/rank1_multi_obj_floor45_cap20_riskfirst_wf_2023_2024_two_of_four_short_risk_lag1_cap0.00.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 48020
+    },
+    {
+      "path": "runtime/model_selection/card/short_horizon_risk_cap_counterfactual_v1/daily_paths/rank2_multi_obj_floor45_cap20_riskfirst_wf_2022_short_volshock_lag1_cap0.05.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 43834
+    },
+    {
+      "path": "runtime/model_selection/card/short_horizon_risk_cap_counterfactual_v1/daily_paths/rank2_multi_obj_floor45_cap20_riskfirst_wf_2023_2024_short_volshock_lag1_cap0.05.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 46357
+    },
+    {
+      "path": "runtime/model_selection/card/short_horizon_risk_cap_counterfactual_v1/daily_paths/rank3_multi_obj_floor45_cap20_riskfirst_wf_2022_short_volshock_lag1_cap0.00.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 43587
+    },
+    {
+      "path": "runtime/model_selection/card/short_horizon_risk_cap_counterfactual_v1/daily_paths/rank3_multi_obj_floor45_cap20_riskfirst_wf_2023_2024_short_volshock_lag1_cap0.00.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 46110
+    },
+    {
+      "path": "runtime/model_selection/card/short_horizon_risk_cap_counterfactual_v1/daily_paths/rank4_multi_obj_floor45_cap20_riskfirst_wf_2022_short_volshock_lag1_cap0.08.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 44717
+    },
+    {
+      "path": "runtime/model_selection/card/short_horizon_risk_cap_counterfactual_v1/daily_paths/rank4_multi_obj_floor45_cap20_riskfirst_wf_2023_2024_short_volshock_lag1_cap0.08.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 46654
+    },
+    {
+      "path": "runtime/model_selection/card/short_horizon_risk_cap_counterfactual_v1/daily_paths/rank5_multi_obj_floor45_cap20_riskfirst_wf_2022_existing_or_two_of_four_short_risk_lag1_cap0.00.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 48788
+    },
+    {
+      "path": "runtime/model_selection/card/short_horizon_risk_cap_counterfactual_v1/daily_paths/rank5_multi_obj_floor45_cap20_riskfirst_wf_2023_2024_existing_or_two_of_four_short_risk_lag1_cap0.00.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 50936
+    },
+    {
+      "path": "runtime/model_selection/card/short_horizon_risk_cap_counterfactual_v1/reconstruction_error.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2305
+    },
+    {
+      "path": "runtime/model_selection/card/short_horizon_risk_cap_counterfactual_v1/same_day_diagnostic_candidate_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 32082
+    },
+    {
+      "path": "runtime/model_selection/card/short_horizon_risk_cap_counterfactual_v1/selected_counterfactual_fold_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1263
+    },
+    {
+      "path": "runtime/model_selection/card/short_horizon_risk_cap_counterfactual_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 3916
+    },
+    {
+      "path": "runtime/model_selection/card/short_horizon_risk_cap_counterfactual_v1/signal_test_coverage.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1215
+    },
+    {
+      "path": "runtime/model_selection/card/short_horizon_risk_cap_counterfactual_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 5955
     },
     {
       "path": "runtime/model_selection/card/sparse_rebound_release_target_revision_v1/bc_readiness_scores.csv",

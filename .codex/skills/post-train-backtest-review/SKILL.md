@@ -233,6 +233,21 @@ risk-budget/cash-mode checkpoint scoring；如果同一候选在 2023-2024 的�
 几乎没有长周期 risk state 覆盖，但短周期 drawdown/volshock state 覆盖明显更高，
 下一步是新增短周期风险状态表示。不要把这两类都简化成“继续加 drawdown cap”。
 
+如果随后做 fixed-actor short-horizon risk-cap counterfactual，默认只把它当成
+机制分离测试，不当成 promotion。评分时必须同时保留：
+
+- 最低 `relative_return >= +30pp`
+- 最高 `MaxDD <= 15%`
+- price replay 对 official daily path 的 reconstruction error
+- changed/capped days 和 signal share
+- cap 是否为非零、信号是否简单、是否有至少约 `+1pp` 超额余量和 `2pp` 回撤余量
+
+如果 `cap=0` 或过宽组合信号排第一，不要直接采纳为下一步；优先选择通过 gate 的
+非零 cap、简单短周期信号，并把它标成 official warm-start replay /
+checkpoint-scoring 的候选。即使 lagged counterfactual 过 full gate，也只能写
+`diagnostic_full_gate_counterfactual_needs_official_replay_no_promotion`，直到正式
+replay/runtime action semantics 和交易成本被验证。
+
 如果 action-constraint screen 能把失败 fold 的 MaxDD 压到目标线以内，且在
 另一个已评估 fold 不触发或不恶化 MaxDD，但 official qlib relative return 与
 既有 `evaluate_split` gate 口径冲突，则只能标记为
