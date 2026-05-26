@@ -235,6 +235,14 @@ flip，把结论标为 `warmup_benchmark_alignment_no_promotion`：这说明需�
 warm-start official qlib backtest 或显式采用 tradable-window gate，不说明应该继续
 调 action cap / reward penalty 阈值。
 
+如果 BC warm-start / target-composition notebook 同时写了 official
+`backtest_profile` daily path 和 `evaluate_split` metrics，promotion、PPO handoff
+和 reward handoff 必须优先用 official daily path 或先做 metric-source
+reconciliation。不要用 `evaluate_split` relative_return 单独证明某个 fold 通过；
+若 official calendar gate 与 tradable/evaluate_split gate 冲突，结论只能是
+`metric_mismatch_no_promotion`，下一步先 warm-start official evaluation 或明确采用
+tradable-window gate，再谈 reward/PPO。
+
 如果 warm-start official qlib backtest 恢复了首日观测历史，但 selected action-cap
 仍在后续 fold 失败，尤其是失败 fold 的 `trace_target_cap_changed_days=0`，不要再扩大
 同一 action-cap 阈值网格。结论应是 state coverage / training objective 缺口：

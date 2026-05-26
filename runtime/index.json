@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-26T07:04:46.822076+00:00",
+  "generated_at": "2026-05-26T07:59:52.014167+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -7446,6 +7446,30 @@
       "category": "model_selection",
       "suffix": ".csv",
       "bytes": 30422
+    },
+    {
+      "path": "runtime/model_selection/card/sequence_trend_joint_metric_reconciliation_v1/candidate_reconciliation_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2571
+    },
+    {
+      "path": "runtime/model_selection/card/sequence_trend_joint_metric_reconciliation_v1/metric_reconciliation.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 12552
+    },
+    {
+      "path": "runtime/model_selection/card/sequence_trend_joint_metric_reconciliation_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2330
+    },
+    {
+      "path": "runtime/model_selection/card/sequence_trend_joint_metric_reconciliation_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 19796
     },
     {
       "path": "runtime/model_selection/card/sparse_rebound_release_target_revision_v1/bc_readiness_scores.csv",
