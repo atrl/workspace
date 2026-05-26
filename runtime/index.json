@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-26T14:53:25.688547+00:00",
+  "generated_at": "2026-05-26T15:20:19.409043+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -6318,6 +6318,30 @@
       "category": "model_selection",
       "suffix": ".json",
       "bytes": 449
+    },
+    {
+      "path": "runtime/model_selection/card/constrained_checkpoint_selector_v1/constrained_checkpoint_review.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 873
+    },
+    {
+      "path": "runtime/model_selection/card/constrained_checkpoint_selector_v1/constrained_checkpoint_scores.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1450
+    },
+    {
+      "path": "runtime/model_selection/card/constrained_checkpoint_selector_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1662
+    },
+    {
+      "path": "runtime/model_selection/card/constrained_checkpoint_selector_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1086
     },
     {
       "path": "runtime/model_selection/card/deep_cap_failure_attribution_v1/aggregate/aggregate_oos_review.md",
