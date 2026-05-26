@@ -85,6 +85,35 @@ class StateObjectiveReboundTargetEnrichmentConfig:
     group_cols: tuple[str, ...] = ("fold", "window")
 
 
+@dataclass(frozen=True)
+class TrendParticipationTargetConfig:
+    enabled: bool = False
+    min_target_position: float = 0.45
+    max_target_position: float = 0.65
+    max_teacher_position: float = 0.35
+    min_anchor_gap_180: float | None = 0.50
+    min_mom_63: float | None = 0.40
+    min_trend_slope_63: float | None = 0.10
+    min_trend_gap_63: float | None = 0.10
+    max_vix_percentile_252: float | None = 0.45
+    max_realized_vol_63: float | None = 1.00
+    min_drawdown_63: float | None = -0.25
+    objective_weight_bonus: float = 4.0
+    exclude_downtrend: bool = True
+
+    def __post_init__(self) -> None:
+        if not 0.0 <= float(self.min_target_position) <= 1.0:
+            raise ValueError("min_target_position must be within [0, 1]")
+        if not 0.0 <= float(self.max_target_position) <= 1.0:
+            raise ValueError("max_target_position must be within [0, 1]")
+        if float(self.min_target_position) > float(self.max_target_position):
+            raise ValueError("min_target_position must be <= max_target_position")
+        if not 0.0 <= float(self.max_teacher_position) <= 1.0:
+            raise ValueError("max_teacher_position must be within [0, 1]")
+        if float(self.objective_weight_bonus) < 0.0:
+            raise ValueError("objective_weight_bonus must be non-negative")
+
+
 def _window_weight(window: str, config: StateConditionedObjectiveConfig) -> float:
     if window in config.window_weights:
         return float(config.window_weights[window])
@@ -696,6 +725,160 @@ def enrich_state_objective_rebound_targets(
 
     sort_cols = [col for col in ["fold", "window", "datetime"] if col in result.columns]
     return result.sort_values(sort_cols).reset_index(drop=True) if sort_cols else result.reset_index(drop=True)
+
+
+def _required_trend_target_features(config: TrendParticipationTargetConfig) -> list[str]:
+    required: list[str] = []
+    if config.min_anchor_gap_180 is not None:
+        required.append("anchor_gap_180")
+    if config.min_mom_63 is not None:
+        required.append("mom_63")
+    if config.min_trend_slope_63 is not None:
+        required.append("trend_slope_63")
+    if config.min_trend_gap_63 is not None:
+        required.append("trend_gap_63")
+    if config.max_vix_percentile_252 is not None:
+        required.append("vix_percentile_252")
+    if config.max_realized_vol_63 is not None:
+        required.append("realized_vol_63")
+    if config.min_drawdown_63 is not None:
+        required.append("drawdown_63")
+    return required
+
+
+def _normalise_trend_feature_frame(features: pd.DataFrame, required: list[str]) -> pd.DataFrame:
+    frame = features.copy()
+    if "datetime" in frame.columns:
+        frame["datetime"] = pd.to_datetime(frame["datetime"])
+    elif isinstance(frame.index, pd.MultiIndex):
+        frame = frame.reset_index()
+        if "instrument" in frame.columns:
+            frame = frame.drop(columns=["instrument"])
+        if "datetime" not in frame.columns:
+            raise ValueError("feature frame multi-index must include `datetime`")
+        frame["datetime"] = pd.to_datetime(frame["datetime"])
+    else:
+        frame = frame.reset_index()
+        frame = frame.rename(columns={frame.columns[0]: "datetime"})
+        frame["datetime"] = pd.to_datetime(frame["datetime"])
+    missing = sorted(set(required) - set(frame.columns))
+    if missing:
+        raise ValueError(f"feature frame missing trend participation columns: {missing}")
+    return frame[["datetime", *required]].sort_values("datetime").reset_index(drop=True)
+
+
+def _min_feature_ready(frame: pd.DataFrame, column: str, threshold: float | None) -> pd.Series:
+    if threshold is None:
+        return pd.Series(True, index=frame.index)
+    return pd.to_numeric(frame[column], errors="coerce") >= float(threshold)
+
+
+def _max_feature_ready(frame: pd.DataFrame, column: str, threshold: float | None) -> pd.Series:
+    if threshold is None:
+        return pd.Series(True, index=frame.index)
+    return pd.to_numeric(frame[column], errors="coerce") <= float(threshold)
+
+
+def apply_trend_participation_target_gate(
+    targets: pd.DataFrame,
+    feature_frame: pd.DataFrame,
+    config: TrendParticipationTargetConfig = TrendParticipationTargetConfig(),
+) -> pd.DataFrame:
+    """Lift fold-local target positions for guarded high-trend participation states."""
+
+    if "datetime" not in targets.columns:
+        raise ValueError("targets missing required column: datetime")
+    required_targets = {
+        "teacher_position",
+        "rebound_target_position",
+        "risk_target_position",
+        "is_rebound_cluster",
+        "is_downtrend_state",
+    }
+    missing_targets = sorted(required_targets - set(targets.columns))
+    if missing_targets:
+        raise ValueError(f"targets missing columns: {missing_targets}")
+
+    result = targets.copy()
+    result["datetime"] = pd.to_datetime(result["datetime"])
+    for column in ("teacher_position", "rebound_target_position", "risk_target_position"):
+        result[column] = pd.to_numeric(result[column], errors="coerce").fillna(0.0).clip(0.0, 1.0)
+    for column in ("is_rebound_cluster", "is_downtrend_state"):
+        result[column] = result[column].fillna(False).astype(bool)
+    if "risk_target_position_original" not in result.columns:
+        result["risk_target_position_original"] = result["risk_target_position"]
+    else:
+        result["risk_target_position_original"] = pd.to_numeric(
+            result["risk_target_position_original"],
+            errors="coerce",
+        ).fillna(result["risk_target_position"]).clip(0.0, 1.0)
+    if "objective_weight" not in result.columns:
+        result["objective_weight"] = 1.0
+    result["objective_weight"] = pd.to_numeric(result["objective_weight"], errors="coerce").fillna(1.0)
+    if "rebound_participation_weight" not in result.columns:
+        result["rebound_participation_weight"] = 0.0
+    result["rebound_participation_weight"] = pd.to_numeric(
+        result["rebound_participation_weight"],
+        errors="coerce",
+    ).fillna(0.0)
+
+    required_features = _required_trend_target_features(config)
+    features = _normalise_trend_feature_frame(feature_frame, required_features)
+    result = result.drop(columns=[column for column in required_features if column in result.columns])
+    result = result.merge(features, on="datetime", how="left")
+
+    if not bool(config.enabled):
+        result["trend_participation_signal_ready"] = False
+        result["trend_participation_guard_ready"] = False
+        result["trend_participation_target_state"] = False
+        return result
+    if required_features and result[required_features].notna().any(axis=1).sum() == 0:
+        raise ValueError("targets and feature_frame have no overlapping non-null feature rows")
+
+    signal_ready = (
+        _min_feature_ready(result, "anchor_gap_180", config.min_anchor_gap_180)
+        & _min_feature_ready(result, "mom_63", config.min_mom_63)
+        & _min_feature_ready(result, "trend_slope_63", config.min_trend_slope_63)
+        & _min_feature_ready(result, "trend_gap_63", config.min_trend_gap_63)
+    )
+    guard_ready = (
+        _max_feature_ready(result, "vix_percentile_252", config.max_vix_percentile_252)
+        & _max_feature_ready(result, "realized_vol_63", config.max_realized_vol_63)
+        & _min_feature_ready(result, "drawdown_63", config.min_drawdown_63)
+    )
+    base_ready = result["teacher_position"] <= float(config.max_teacher_position)
+    downtrend_ready = ~result["is_downtrend_state"] if bool(config.exclude_downtrend) else True
+    target_state = signal_ready & guard_ready & base_ready & downtrend_ready
+
+    floor_position = np.minimum(
+        float(config.max_target_position),
+        np.maximum(result["teacher_position"], float(config.min_target_position)),
+    )
+    result["trend_participation_signal_ready"] = signal_ready.astype(bool)
+    result["trend_participation_guard_ready"] = guard_ready.astype(bool)
+    result["trend_participation_target_state"] = target_state.astype(bool)
+    result["is_rebound_cluster"] = result["is_rebound_cluster"] | target_state
+    result["rebound_target_position"] = np.where(
+        target_state,
+        np.maximum(result["rebound_target_position"], floor_position),
+        result["rebound_target_position"],
+    )
+    result["rebound_participation_weight"] = np.where(
+        target_state,
+        np.maximum(result["rebound_participation_weight"], float(config.objective_weight_bonus)),
+        result["rebound_participation_weight"],
+    )
+    result["objective_weight"] = np.where(
+        target_state,
+        np.maximum(result["objective_weight"], 1.0 + float(config.objective_weight_bonus)),
+        result["objective_weight"],
+    )
+    result["trend_participation_target_reason"] = np.where(
+        target_state,
+        "fold_local_high_trend_low_vol_participation",
+        "",
+    )
+    return result.reset_index(drop=True)
 
 
 def filter_state_objective_targets_for_train_window(
@@ -1960,7 +2143,9 @@ __all__ = [
     "StateObjectiveReboundClusterConfig",
     "StateObjectiveReboundTargetEnrichmentConfig",
     "StateObjectiveTrainingTargetConfig",
+    "TrendParticipationTargetConfig",
     "apply_state_objective_sparse_release_gate",
+    "apply_trend_participation_target_gate",
     "audit_state_objective_target_lift",
     "audit_state_objective_target_scope",
     "build_drawdown_control_training_targets",

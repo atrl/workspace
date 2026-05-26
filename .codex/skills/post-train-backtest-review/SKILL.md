@@ -253,6 +253,13 @@ trend-floor 阈值网格。结论应转为训练时 / checkpoint-selection 目�
 建仓前学习高趋势低波动状态，同时显式惩罚路径回撤，而不是用 post-hoc
 runtime floor 追涨。
 
+把失败的 runtime trend-floor 机制转成 fold-local training target 时，必须先在
+runtime notebook 中审计 scope、target lift、BC label distribution 和 trend-row
+sanity。若候选通过这些 target-readiness gates，也只允许进入 BC warm-start /
+checkpoint screen，并且下一步必须带 walk-forward replay 和 drawdown-drift stop；
+不能把 target contract readiness 当成 runtime promotion 或 PPO 已改善证据。若
+没有候选通过，不要直接训练，先修改 trend-state 表征或 target 语义。
+
 进入状态条件多目标前，先用已有 daily path 做一个 notebook-first objective
 screen，确认最接近的老师路径和仍然失败的项：
 

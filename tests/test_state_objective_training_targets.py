@@ -8,7 +8,9 @@ from src.soxl_quant.app.state_objective_training_targets import (
     StateObjectiveReboundTargetEnrichmentConfig,
     StateObjectiveReboundClusterConfig,
     StateObjectiveTrainingTargetConfig,
+    TrendParticipationTargetConfig,
     apply_state_objective_sparse_release_gate,
+    apply_trend_participation_target_gate,
     audit_state_objective_target_lift,
     audit_state_objective_target_scope,
     build_fold_local_joint_target_contract,
@@ -1105,3 +1107,102 @@ def test_joint_target_contract_projects_auxiliary_train_rows_without_eval_overla
     )
     assert scope_summary["decision"] == "state_objective_targets_training_ready"
     assert scope_summary["eval_overlap_rows"] == 0
+
+
+def test_trend_participation_target_gate_lifts_guarded_train_rows_without_downtrend_conflict():
+    dates = pd.date_range("2020-01-02", periods=4, freq="B")
+    targets = pd.DataFrame(
+        {
+            "datetime": dates,
+            "fold": ["wf_2023_2024_train"] * 4,
+            "window": ["wf_2023_2024_train"] * 4,
+            "target_scope": ["fold_local"] * 4,
+            "teacher_position": [0.18, 0.22, 0.18, 0.18],
+            "rebound_target_position": [0.18, 0.22, 0.18, 0.18],
+            "risk_target_position": [0.18, 0.22, 0.18, 0.18],
+            "objective_weight": [1.0, 1.0, 1.0, 1.0],
+            "is_rebound_cluster": [False, False, False, False],
+            "is_downtrend_state": [False, False, True, False],
+        }
+    )
+    features = pd.DataFrame(
+        {
+            "datetime": dates,
+            "anchor_gap_180": [0.40, 0.72, 0.80, 0.78],
+            "mom_63": [0.20, 0.55, 0.60, 0.58],
+            "trend_slope_63": [0.04, 0.15, 0.16, 0.14],
+            "trend_gap_63": [0.03, 0.20, 0.22, 0.21],
+            "vix_percentile_252": [0.30, 0.28, 0.25, 0.72],
+            "realized_vol_63": [0.50, 0.55, 0.52, 0.50],
+            "drawdown_63": [-0.05, -0.08, -0.06, -0.05],
+        }
+    )
+
+    result = apply_trend_participation_target_gate(
+        targets,
+        features,
+        TrendParticipationTargetConfig(
+            enabled=True,
+            min_target_position=0.55,
+            max_target_position=0.65,
+            max_teacher_position=0.35,
+            min_anchor_gap_180=0.60,
+            min_mom_63=0.50,
+            min_trend_slope_63=0.10,
+            min_trend_gap_63=0.10,
+            max_vix_percentile_252=0.40,
+            max_realized_vol_63=0.70,
+            min_drawdown_63=-0.20,
+            objective_weight_bonus=4.0,
+            exclude_downtrend=True,
+        ),
+    )
+
+    assert result["trend_participation_target_state"].tolist() == [False, True, False, False]
+    assert result["is_rebound_cluster"].tolist() == [False, True, False, False]
+    assert result["rebound_target_position"].round(4).tolist() == [0.18, 0.55, 0.18, 0.18]
+    assert result["risk_target_position_original"].round(4).tolist() == [0.18, 0.22, 0.18, 0.18]
+    assert result["risk_target_position"].round(4).tolist() == [0.18, 0.22, 0.18, 0.18]
+    assert result["rebound_participation_weight"].round(4).tolist() == [0.0, 4.0, 0.0, 0.0]
+
+    lift = audit_state_objective_target_lift(
+        result,
+        group_cols=("fold",),
+        baseline_risk_position_col="risk_target_position_original",
+    )
+    assert lift.iloc[0]["current_positive_rebound_lift_rows"] == 1
+
+
+def test_trend_participation_target_gate_requires_configured_features():
+    targets = pd.DataFrame(
+        {
+            "datetime": pd.to_datetime(["2020-01-02"]),
+            "teacher_position": [0.18],
+            "rebound_target_position": [0.18],
+            "risk_target_position": [0.18],
+            "is_rebound_cluster": [False],
+            "is_downtrend_state": [False],
+        }
+    )
+    features = pd.DataFrame(
+        {
+            "datetime": pd.to_datetime(["2020-01-02"]),
+            "mom_63": [0.55],
+            "trend_slope_63": [0.15],
+            "trend_gap_63": [0.20],
+            "vix_percentile_252": [0.28],
+            "realized_vol_63": [0.55],
+            "drawdown_63": [-0.08],
+        }
+    )
+
+    try:
+        apply_trend_participation_target_gate(
+            targets,
+            features,
+            TrendParticipationTargetConfig(enabled=True, min_anchor_gap_180=0.60),
+        )
+    except ValueError as exc:
+        assert "anchor_gap_180" in str(exc)
+    else:
+        raise AssertionError("missing anchor_gap_180 did not raise ValueError")

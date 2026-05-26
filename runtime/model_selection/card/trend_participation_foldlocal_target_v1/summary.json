@@ -1,0 +1,32 @@
+{
+  "conclusion": [
+    "Trend participation is now represented as fold-local target labels rather than a runtime overlay.",
+    "The card only authorizes a next BC/checkpoint screen if scope, lift, BC-readiness, and trend-row sanity gates pass.",
+    "Runtime promotion remains blocked because no actor has been trained or replayed from these targets."
+  ],
+  "decision": "trend_participation_foldlocal_targets_ready_for_bc_screen",
+  "experiment": "trend_participation_foldlocal_target_v1",
+  "next_mechanism": "run_fold_local_bc_warm_start_then_walkforward_replay_with_drawdown_drift_stop",
+  "promotion_allowed": false,
+  "selected_candidate": "trend_q70_target45_guard",
+  "selected_readiness": {
+    "bc_decision": "state_objective_bc_ready_for_training",
+    "bc_readiness_gate": true,
+    "candidate": "trend_q70_target45_guard",
+    "candidate_release_positive_lift_rows": 129,
+    "current_positive_rebound_lift_rows": 95,
+    "lift_decision": "state_objective_target_lift_training_ready",
+    "lift_gate": true,
+    "readiness_loss": 0.38104678826328314,
+    "scope_decision": "state_objective_targets_training_ready",
+    "scope_gate": true,
+    "selected_dominant_action_share": 0.2204599524187153,
+    "selected_unique_actions": 18,
+    "training_ready": true,
+    "trend_fold_counts_json": "{\"wf_2022_train\": 0, \"wf_2023_2024_train\": 15}",
+    "trend_gate": true,
+    "trend_target_ratio": 0.011895321173671689,
+    "trend_target_rows": 15
+  },
+  "training_allowed_from_this_card": true
+}

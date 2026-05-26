@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-26T04:59:33.317029+00:00",
+  "generated_at": "2026-05-26T05:45:29.819348+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -8766,6 +8766,72 @@
       "category": "model_selection",
       "suffix": ".md",
       "bytes": 627
+    },
+    {
+      "path": "runtime/model_selection/card/trend_participation_foldlocal_target_v1/bc_readiness_scores.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1878
+    },
+    {
+      "path": "runtime/model_selection/card/trend_participation_foldlocal_target_v1/candidate_configs.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2104
+    },
+    {
+      "path": "runtime/model_selection/card/trend_participation_foldlocal_target_v1/profile_label_comparison.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1351
+    },
+    {
+      "path": "runtime/model_selection/card/trend_participation_foldlocal_target_v1/readiness_scores.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1465
+    },
+    {
+      "path": "runtime/model_selection/card/trend_participation_foldlocal_target_v1/selected_trend_foldlocal_targets.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 523628
+    },
+    {
+      "path": "runtime/model_selection/card/trend_participation_foldlocal_target_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2633
+    },
+    {
+      "path": "runtime/model_selection/card/trend_participation_foldlocal_target_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1508
+    },
+    {
+      "path": "runtime/model_selection/card/trend_participation_foldlocal_target_v1/target_lift_audit.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1508
+    },
+    {
+      "path": "runtime/model_selection/card/trend_participation_foldlocal_target_v1/target_lift_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 811
+    },
+    {
+      "path": "runtime/model_selection/card/trend_participation_foldlocal_target_v1/target_scope_audit.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1358
+    },
+    {
+      "path": "runtime/model_selection/card/trend_participation_foldlocal_target_v1/target_variant_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1196
     },
     {
       "path": "runtime/model_selection/card/trend_participation_guard_screen_v1/base_seq_cap10_two_of_three_wf_2022_daily_path.csv",
