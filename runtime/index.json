@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-26T01:00:38.365811+00:00",
+  "generated_at": "2026-05-26T02:03:00.528702+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -9612,6 +9612,90 @@
       "category": "reward",
       "suffix": ".json",
       "bytes": 15598
+    },
+    {
+      "path": "runtime/reward/card/sequence_risk_reward_short_ppo_screen_v1/bc_slice_metrics.csv",
+      "category": "reward",
+      "suffix": ".csv",
+      "bytes": 1557
+    },
+    {
+      "path": "runtime/reward/card/sequence_risk_reward_short_ppo_screen_v1/coverage.csv",
+      "category": "reward",
+      "suffix": ".csv",
+      "bytes": 415
+    },
+    {
+      "path": "runtime/reward/card/sequence_risk_reward_short_ppo_screen_v1/coverage.json",
+      "category": "reward",
+      "suffix": ".json",
+      "bytes": 1681
+    },
+    {
+      "path": "runtime/reward/card/sequence_risk_reward_short_ppo_screen_v1/drift_stop_rules.csv",
+      "category": "reward",
+      "suffix": ".csv",
+      "bytes": 202
+    },
+    {
+      "path": "runtime/reward/card/sequence_risk_reward_short_ppo_screen_v1/fold_reward_patches.csv",
+      "category": "reward",
+      "suffix": ".csv",
+      "bytes": 1184
+    },
+    {
+      "path": "runtime/reward/card/sequence_risk_reward_short_ppo_screen_v1/reward_ppo_fold_results.csv",
+      "category": "reward",
+      "suffix": ".csv",
+      "bytes": 2187
+    },
+    {
+      "path": "runtime/reward/card/sequence_risk_reward_short_ppo_screen_v1/reward_ppo_selection_history.csv",
+      "category": "reward",
+      "suffix": ".csv",
+      "bytes": 728
+    },
+    {
+      "path": "runtime/reward/card/sequence_risk_reward_short_ppo_screen_v1/selection.json",
+      "category": "reward",
+      "suffix": ".json",
+      "bytes": 2882
+    },
+    {
+      "path": "runtime/reward/card/sequence_risk_reward_short_ppo_screen_v1/sequence_path_scores.csv",
+      "category": "reward",
+      "suffix": ".csv",
+      "bytes": 975
+    },
+    {
+      "path": "runtime/reward/card/sequence_risk_reward_short_ppo_screen_v1/summary.json",
+      "category": "reward",
+      "suffix": ".json",
+      "bytes": 13642
+    },
+    {
+      "path": "runtime/reward/card/sequence_risk_reward_short_ppo_screen_v1/wf_2022_bc_initialization_daily_path.csv",
+      "category": "reward",
+      "suffix": ".csv",
+      "bytes": 49276
+    },
+    {
+      "path": "runtime/reward/card/sequence_risk_reward_short_ppo_screen_v1/wf_2022_sequence_reward_ppo_daily_path.csv",
+      "category": "reward",
+      "suffix": ".csv",
+      "bytes": 49633
+    },
+    {
+      "path": "runtime/reward/card/sequence_risk_reward_short_ppo_screen_v1/wf_2023_2024_bc_initialization_daily_path.csv",
+      "category": "reward",
+      "suffix": ".csv",
+      "bytes": 34498
+    },
+    {
+      "path": "runtime/reward/card/sequence_risk_reward_short_ppo_screen_v1/wf_2023_2024_sequence_reward_ppo_daily_path.csv",
+      "category": "reward",
+      "suffix": ".csv",
+      "bytes": 35000
     },
     {
       "path": "runtime/reward/card/state_conditioned_drawdown_rebound_reward_train_v1/metrics_summary.csv",
