@@ -333,8 +333,88 @@ def compare_interval_feature_deltas(
     return out.sort_values(["interval_rank", "abs_delta_z", "feature"], ascending=[True, False, True]).reset_index(drop=True)
 
 
+def feature_group_for_name(feature: str) -> str:
+    """Map a feature name into a coarse mechanism group for interval diagnostics."""
+
+    name = str(feature).lower()
+    if any(token in name for token in ("soxx", "relative", "ratio", "spread", "tracking", "te_")):
+        return "relative_strength_spread"
+    if any(token in name for token in ("vix", "vol", "drawdown", "stress", "risk", "atr", "range")):
+        return "volatility_or_stress"
+    if any(token in name for token in ("mom", "momentum", "trend", "ma_", "ret", "return", "rsi")):
+        return "trend_or_momentum"
+    if any(token in name for token in ("volume", "turnover", "amount", "money", "flow")):
+        return "liquidity_or_volume"
+    if any(token in name for token in ("price", "close", "open", "high", "low")):
+        return "price_level"
+    return "other"
+
+
+def summarize_interval_feature_groups(
+    feature_deltas: pd.DataFrame,
+    *,
+    top_n: int = 10,
+    top_features_per_group: int = 4,
+) -> pd.DataFrame:
+    """Summarize interval feature deltas into coarse mechanism groups."""
+
+    columns = [
+        "feature_group",
+        "feature_count",
+        "mean_abs_delta_z",
+        "max_abs_delta_z",
+        "mean_delta_z",
+        "mean_position_delta",
+        "mean_return_delta",
+        "top_features",
+    ]
+    if feature_deltas.empty:
+        return pd.DataFrame(columns=columns)
+    required = {"feature", "delta_z"}
+    missing = sorted(required - set(feature_deltas.columns))
+    if missing:
+        raise ValueError(f"feature_deltas missing columns: {missing}")
+
+    frame = feature_deltas.copy()
+    frame["delta_z"] = pd.to_numeric(frame["delta_z"], errors="coerce")
+    frame = frame.dropna(subset=["delta_z"])
+    if frame.empty:
+        return pd.DataFrame(columns=columns)
+    frame["abs_delta_z"] = frame["delta_z"].abs()
+    frame["feature_group"] = frame["feature"].map(feature_group_for_name)
+    if "position_delta" not in frame.columns:
+        frame["position_delta"] = 0.0
+    if "return_delta" not in frame.columns:
+        frame["return_delta"] = 0.0
+    frame["position_delta"] = pd.to_numeric(frame["position_delta"], errors="coerce").fillna(0.0)
+    frame["return_delta"] = pd.to_numeric(frame["return_delta"], errors="coerce").fillna(0.0)
+
+    rows: list[dict[str, object]] = []
+    for group, sub in frame.groupby("feature_group", sort=True):
+        ranked = sub.sort_values(["abs_delta_z", "feature"], ascending=[False, True])
+        rows.append(
+            {
+                "feature_group": str(group),
+                "feature_count": int(sub["feature"].nunique()),
+                "mean_abs_delta_z": round(float(sub["abs_delta_z"].mean()), 6),
+                "max_abs_delta_z": round(float(sub["abs_delta_z"].max()), 6),
+                "mean_delta_z": round(float(sub["delta_z"].mean()), 6),
+                "mean_position_delta": round(float(sub["position_delta"].mean()), 6),
+                "mean_return_delta": round(float(sub["return_delta"].mean()), 6),
+                "top_features": ",".join(str(value) for value in ranked["feature"].head(int(top_features_per_group))),
+            }
+        )
+    out = pd.DataFrame(rows)
+    return out.sort_values(
+        ["mean_abs_delta_z", "feature_count", "feature_group"],
+        ascending=[False, False, True],
+    ).head(int(top_n)).reset_index(drop=True)[columns]
+
+
 __all__ = [
     "compare_interval_feature_deltas",
+    "feature_group_for_name",
     "find_worst_drawdown_intervals",
     "make_backtest_daily_frame",
+    "summarize_interval_feature_groups",
 ]

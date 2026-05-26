@@ -174,6 +174,20 @@ from src.soxl_quant.core.metric_reconciliation import (
 `source_backtest_optimistic_gate_flip_no_training`，下一步是 metric alignment：
 把训练/选择 gate 改为 official replay metric，并筛选 official daily path 的最大回撤区间。
 不要把 relative return 被高估或 MaxDD 被低估的 ordinary fold 结果当成训练放行条件。
+做 official replay 失败区间特征筛选时，优先复用 path diagnostic helpers：
+
+```python
+from src.soxl_quant.app.path_diagnostics import (
+    compare_interval_feature_deltas,
+    summarize_interval_feature_groups,
+)
+```
+
+`compare_interval_feature_deltas()` 负责把最大回撤区间和 qlib feature frame 对齐；
+`summarize_interval_feature_groups()` 负责把单特征 delta_z 聚合到
+`volatility_or_stress`、`relative_strength_spread`、`trend_or_momentum` 等机制组。
+这些输出只能作为下一轮 official-replay-gated checkpoint/target/reward screen 的假设，
+不能直接作为 promoted factor。
 
 当 walk-forward weighted selector、poor-window aggregate、以及路径级
 rebound/downtrend router 都没有过 full gate 时，不要继续扩大路径阈值网格。

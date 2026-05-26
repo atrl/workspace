@@ -1,0 +1,11 @@
+candidate,fold,feature_group,feature_count,mean_abs_delta_z,max_abs_delta_z,mean_delta_z,mean_position_delta,mean_return_delta,top_features
+bc_initialization,wf_2022,volatility_or_stress,20,1.579191,4.433638,0.909752,0.086226,-22.262,"vix_zscore,regime_risk,vix_percentile_252,downside_semivol_21"
+bc_initialization,wf_2022,other,14,1.550559,7.915318,-0.105912,0.086226,-22.262,"anchor_slope_180,realized_skew_21,realized_kurtosis_21,cum_drop_30"
+bc_initialization,wf_2022,price_level,2,0.973109,1.909413,0.973109,0.086226,-22.262,"below_ma63_days,days_since_high_63"
+bc_initialization,wf_2022,relative_strength_spread,10,0.717675,1.272277,0.017689,0.086226,-22.262,"tracking_error_21,relative_strength_21,rolling_new_low_ratio_63,new_low_ratio_21"
+bc_initialization,wf_2022,trend_or_momentum,13,0.699877,1.592115,-0.548583,0.086226,-22.262,"trend_slope_21,mom_21,trend_gap_63,trend_gap_21"
+bc_initialization,wf_2023_2024,volatility_or_stress,20,0.877632,5.217874,0.184357,0.347887,-9.156367,"vol_of_vol_21,vol_coef_21,realized_vol_21,realized_vol_63"
+bc_initialization,wf_2023_2024,price_level,2,0.798944,1.230984,-0.477904,0.347887,-9.156367,"days_since_high_63,days_since_high_63,days_since_high_63,below_ma63_days"
+bc_initialization,wf_2023_2024,trend_or_momentum,13,0.646555,1.99524,0.35987,0.347887,-9.156367,"mom_63,trend_slope_63,rsi_14,trend_gap_21"
+bc_initialization,wf_2023_2024,other,14,0.608838,2.35767,0.177789,0.347887,-9.156367,"decay_63,expectancy_proxy_21,sharpe_proxy_21,negative_gap_frequency_21"
+bc_initialization,wf_2023_2024,relative_strength_spread,10,0.578729,2.32725,-0.185938,0.347887,-9.156367,"tracking_error_vol_21,tracking_error_vol_21,tracking_error_vol_21,downside_ratio_21"

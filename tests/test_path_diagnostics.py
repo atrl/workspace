@@ -4,8 +4,10 @@ import pandas as pd
 
 from src.soxl_quant.app.path_diagnostics import (
     compare_interval_feature_deltas,
+    feature_group_for_name,
     find_worst_drawdown_intervals,
     make_backtest_daily_frame,
+    summarize_interval_feature_groups,
 )
 
 
@@ -92,3 +94,23 @@ def test_compare_interval_feature_deltas_ranks_stress_features_and_position_gap(
     assert by_feature.loc["vol_stress", "candidate_avg_pos"] == 0.7
     assert by_feature.loc["vol_stress", "baseline_avg_pos"] == 0.35
     assert by_feature.loc["vol_stress", "position_delta"] == 0.35
+
+
+def test_summarize_interval_feature_groups_aggregates_top_risk_families():
+    deltas = pd.DataFrame(
+        {
+            "feature": ["vix_percentile_252", "vol_of_vol_21", "mom_21", "soxx_ratio_mom_10"],
+            "delta_z": [2.0, 1.0, -0.5, -1.5],
+            "position_delta": [0.20, 0.10, 0.05, 0.15],
+            "return_delta": [-12.0, -8.0, -3.0, -10.0],
+        }
+    )
+
+    summary = summarize_interval_feature_groups(deltas, top_n=3)
+
+    assert feature_group_for_name("vix_percentile_252") == "volatility_or_stress"
+    assert feature_group_for_name("soxx_ratio_mom_10") == "relative_strength_spread"
+    assert summary.iloc[0]["feature_group"] == "volatility_or_stress"
+    assert summary.iloc[0]["feature_count"] == 2
+    assert summary.iloc[0]["mean_abs_delta_z"] == 1.5
+    assert "vix_percentile_252" in summary.iloc[0]["top_features"]

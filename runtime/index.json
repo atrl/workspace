@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-26T17:16:59.372130+00:00",
+  "generated_at": "2026-05-26T17:54:25.630261+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -6984,6 +6984,66 @@
       "category": "model_selection",
       "suffix": ".json",
       "bytes": 7905
+    },
+    {
+      "path": "runtime/model_selection/card/official_replay_bad_interval_feature_audit_v1/bc_initialization_wf_2022_official_daily_with_features.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 302251
+    },
+    {
+      "path": "runtime/model_selection/card/official_replay_bad_interval_feature_audit_v1/bc_initialization_wf_2023_2024_official_daily_with_features.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 303592
+    },
+    {
+      "path": "runtime/model_selection/card/official_replay_bad_interval_feature_audit_v1/daily_feature_manifest.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 350
+    },
+    {
+      "path": "runtime/model_selection/card/official_replay_bad_interval_feature_audit_v1/feature_coverage.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 138
+    },
+    {
+      "path": "runtime/model_selection/card/official_replay_bad_interval_feature_audit_v1/feature_group_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 833
+    },
+    {
+      "path": "runtime/model_selection/card/official_replay_bad_interval_feature_audit_v1/official_interval_feature_deltas.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 41694
+    },
+    {
+      "path": "runtime/model_selection/card/official_replay_bad_interval_feature_audit_v1/official_interval_feature_groups.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1708
+    },
+    {
+      "path": "runtime/model_selection/card/official_replay_bad_interval_feature_audit_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1530
+    },
+    {
+      "path": "runtime/model_selection/card/official_replay_bad_interval_feature_audit_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 25720
+    },
+    {
+      "path": "runtime/model_selection/card/official_replay_bad_interval_feature_audit_v1/top_interval_features.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 5452
     },
     {
       "path": "runtime/model_selection/card/oos_poor_window_factor_diff_aggregate_v1/aggregate/aggregate_oos_review.md",
