@@ -22,8 +22,8 @@
 
 ## Conclusion
 
-- Primary next: run the constrained reward short-training screen because it directly targets the confirmed bottleneck and is data-ready.
-- Second: build a constrained checkpoint selector so promotion is constraint-first, not validation-score-first.
+- Co-primary next: pair the constrained checkpoint selector with the constrained reward short-training screen; the selector is the gate and the short training screen generates the candidate.
+- Operational order: run the short training screen, then accept or reject it through the constrained checkpoint selector.
 - Parallel low-risk research: screen SOXX/SOXL spread and related volatility/trend features as single factors before feeding them into RL.
 - Network/model upgrades such as TFT-style gating or Decision Transformer are deferred until the reward/constraint signal is proven, because they carry higher overfit and engineering risk.
 

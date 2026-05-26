@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-26T14:21:24.647625+00:00",
+  "generated_at": "2026-05-26T14:53:25.688547+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -6599,7 +6599,7 @@
       "path": "runtime/model_selection/card/external_method_pk_overfit_bottleneck_v1/method_pk_review.md",
       "category": "model_selection",
       "suffix": ".md",
-      "bytes": 2738
+      "bytes": 2802
     },
     {
       "path": "runtime/model_selection/card/external_method_pk_overfit_bottleneck_v1/method_pk_scores.csv",
@@ -6617,7 +6617,7 @@
       "path": "runtime/model_selection/card/external_method_pk_overfit_bottleneck_v1/summary.json",
       "category": "model_selection",
       "suffix": ".json",
-      "bytes": 2156
+      "bytes": 2220
     },
     {
       "path": "runtime/model_selection/card/fold_local_joint_reward_targets_v1/bc_readiness_scores.csv",
