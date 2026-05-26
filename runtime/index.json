@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-26T00:24:15.821680+00:00",
+  "generated_at": "2026-05-26T00:42:55.475423+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -5922,6 +5922,42 @@
       "category": "model_selection",
       "suffix": ".json",
       "bytes": 15302
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_sequence_risk_checkpoint_penalty_screen_v1/candidate_penalty_scores.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 3242
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_sequence_risk_checkpoint_penalty_screen_v1/daily_sequence_risk_penalty.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4085
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_sequence_risk_checkpoint_penalty_screen_v1/fold_penalty_scores.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 7444
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_sequence_risk_checkpoint_penalty_screen_v1/metric_source_reconciliation.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 10860
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_sequence_risk_checkpoint_penalty_screen_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 3047
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_sequence_risk_checkpoint_penalty_screen_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 42972
     },
     {
       "path": "runtime/model_selection/card/cap10_sequence_risk_target_cap_bc_screen_v1/anchor_any_cap15_target_contract.csv",

@@ -1,0 +1,59 @@
+{
+  "aggregate_candidate_count": 10,
+  "anti_leakage_note": "Sequence-risk path flags use fold-local train thresholds inherited from the target-cap audit and are applied to evaluation daily paths for scoring only; no OOS thresholds become training labels here.",
+  "canonical_baseline": "v19reg_v22_budget_usage_bull_guard_v1",
+  "changed_layer": [
+    "model_selection",
+    "checkpoint_selection"
+  ],
+  "created_at": "2026-05-26T00:42:10.257598+00:00",
+  "daily_path_candidate_fold_count": 4,
+  "decision": "sequence_risk_checkpoint_penalty_confirms_no_safe_policy_improvement_no_promotion",
+  "direct_comparison_baseline": [
+    "cap10_joint_contract_checkpoint_drift_selector_v1",
+    "cap10_sequence_risk_target_cap_bc_screen_v1"
+  ],
+  "experiment": "cap10_sequence_risk_checkpoint_penalty_screen_v1",
+  "external_sources": [
+    "https://github.com/microsoft/qlib",
+    "https://arxiv.org/abs/2009.11189",
+    "https://arxiv.org/abs/1707.06347",
+    "https://arxiv.org/abs/2006.04779",
+    "https://arxiv.org/abs/1712.06924",
+    "https://doi.org/10.21314/JCF.2016.322"
+  ],
+  "full_gate_candidate_count": 0,
+  "metric_reconciliation_note": "Target gate and checkpoint score use source-reported aggregate metrics for continuity; available daily paths are recomputed only for sequence-risk/path diagnostics because prior cards used mixed buy-and-hold baselines. Aggregate-only candidates receive a conservative missing-path penalty.",
+  "next_mechanism": "implement_or_screen_reusable_reward_drawdown_drift_penalty_or_sequence_risk_state_feature_before_longer_ppo",
+  "profile": "sparse_release_bc_ppo_screen_v1",
+  "promotion_allowed": false,
+  "promotion_blocker": "No candidate passes both replay folds with +30pp relative return and <=15% MaxDD; this is a diagnostic checkpoint screen only.",
+  "robust_daily_full_gate_candidate_count": 0,
+  "role": "diagnose",
+  "selected_candidate": "baseline_no_sequence_cap",
+  "selected_candidate_id": "sequence_target_cap_bc::baseline_no_sequence_cap",
+  "selected_checkpoint_penalty_loss": 0.4543021673005255,
+  "selected_full_gate": false,
+  "selected_max_max_dd_pct": 18.39642924161966,
+  "selected_min_relative_return_pp": 30.5011159708892,
+  "selected_sequence_path_ready": true,
+  "selected_source": "sequence_target_cap_bc",
+  "sidecars": [
+    "daily_sequence_risk_penalty.csv",
+    "metric_source_reconciliation.csv",
+    "fold_penalty_scores.csv",
+    "candidate_penalty_scores.csv",
+    "selection.json",
+    "summary.json"
+  ],
+  "source_decisions": {
+    "checkpoint_decision": "checkpoint_drift_selector_partial_pass_wf2022_blocked_no_promotion",
+    "sequence_diagnostic_decision": "sequence_risk_state_candidate_ready_for_target_screen_no_promotion",
+    "target_cap_decision": "sequence_risk_target_cap_bc_no_robust_improvement_no_promotion",
+    "target_cap_robust_improvement_candidate_count": 0,
+    "target_cap_selected_candidate": "baseline_no_sequence_cap"
+  },
+  "target_max_dd_pct": 15.0,
+  "target_relative_return_pp": 30.0,
+  "training_allowed_from_this_card": false
+}
