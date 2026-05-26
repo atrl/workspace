@@ -1,0 +1,11 @@
+{
+  "candidate": "short_volshock_plain",
+  "daily_path": "runtime/model_selection/card/short_volshock_bc_checkpoint_alignment_v1/short_volshock_plain_wf_2022_warm_start_official_daily_path.csv",
+  "features": 30,
+  "fold": "wf_2022",
+  "label": "short_volshock_plain__wf_2022",
+  "oos_end": "2022-12-29",
+  "oos_start": "2022-01-03",
+  "window_size": 42,
+  "windows": 8
+}

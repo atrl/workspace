@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-26T12:21:07.162453+00:00",
+  "generated_at": "2026-05-26T12:45:25.326244+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -7860,6 +7860,216 @@
       "category": "model_selection",
       "suffix": ".csv",
       "bytes": 224
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_drawdown_drift_feature_audit_v1/diagnostic_manifest.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1425
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_drawdown_drift_feature_audit_v1/diagnostics/base_multi_obj_plain__wf_2022/feature_differences.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4351
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_drawdown_drift_feature_audit_v1/diagnostics/base_multi_obj_plain__wf_2022/manifest.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 372
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_drawdown_drift_feature_audit_v1/diagnostics/base_multi_obj_plain__wf_2022/oos_diagnostic_review.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 3766
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_drawdown_drift_feature_audit_v1/diagnostics/base_multi_obj_plain__wf_2022/poor_windows.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1363
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_drawdown_drift_feature_audit_v1/diagnostics/base_multi_obj_plain__wf_2023_2024/feature_differences.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4362
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_drawdown_drift_feature_audit_v1/diagnostics/base_multi_obj_plain__wf_2023_2024/manifest.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 387
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_drawdown_drift_feature_audit_v1/diagnostics/base_multi_obj_plain__wf_2023_2024/oos_diagnostic_review.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 3732
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_drawdown_drift_feature_audit_v1/diagnostics/base_multi_obj_plain__wf_2023_2024/poor_windows.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1371
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_drawdown_drift_feature_audit_v1/diagnostics/short_volshock_plain__wf_2022/feature_differences.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4350
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_drawdown_drift_feature_audit_v1/diagnostics/short_volshock_plain__wf_2022/manifest.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 372
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_drawdown_drift_feature_audit_v1/diagnostics/short_volshock_plain__wf_2022/oos_diagnostic_review.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 3759
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_drawdown_drift_feature_audit_v1/diagnostics/short_volshock_plain__wf_2022/poor_windows.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1375
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_drawdown_drift_feature_audit_v1/diagnostics/short_volshock_plain__wf_2023_2024/feature_differences.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4360
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_drawdown_drift_feature_audit_v1/diagnostics/short_volshock_plain__wf_2023_2024/manifest.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 387
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_drawdown_drift_feature_audit_v1/diagnostics/short_volshock_plain__wf_2023_2024/oos_diagnostic_review.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 3731
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_drawdown_drift_feature_audit_v1/diagnostics/short_volshock_plain__wf_2023_2024/poor_windows.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1373
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_drawdown_drift_feature_audit_v1/diagnostics/short_volshock_weighted_obj025_cb099__wf_2022/feature_differences.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4350
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_drawdown_drift_feature_audit_v1/diagnostics/short_volshock_weighted_obj025_cb099__wf_2022/manifest.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 420
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_drawdown_drift_feature_audit_v1/diagnostics/short_volshock_weighted_obj025_cb099__wf_2022/oos_diagnostic_review.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 3775
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_drawdown_drift_feature_audit_v1/diagnostics/short_volshock_weighted_obj025_cb099__wf_2022/poor_windows.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1379
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_drawdown_drift_feature_audit_v1/diagnostics/short_volshock_weighted_obj025_cb099__wf_2023_2024/feature_differences.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4349
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_drawdown_drift_feature_audit_v1/diagnostics/short_volshock_weighted_obj025_cb099__wf_2023_2024/manifest.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 435
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_drawdown_drift_feature_audit_v1/diagnostics/short_volshock_weighted_obj025_cb099__wf_2023_2024/oos_diagnostic_review.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 3753
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_drawdown_drift_feature_audit_v1/diagnostics/short_volshock_weighted_obj025_cb099__wf_2023_2024/poor_windows.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1390
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_drawdown_drift_feature_audit_v1/feature_delta_clusters.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 8833
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_drawdown_drift_feature_audit_v1/feature_group_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 949
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_drawdown_drift_feature_audit_v1/gate_gap_attribution.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1701
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_drawdown_drift_feature_audit_v1/gate_gap_profile_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 494
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_drawdown_drift_feature_audit_v1/gate_gap_review.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 2453
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_drawdown_drift_feature_audit_v1/poor_window_clusters.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1569
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_drawdown_drift_feature_audit_v1/reward_checkpoint_recipe.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 3858
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_drawdown_drift_feature_audit_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2187
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_drawdown_drift_feature_audit_v1/source_daily_manifest.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1748
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_drawdown_drift_feature_audit_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 6510
     },
     {
       "path": "runtime/model_selection/card/short_volshock_official_replay_screen_v1/bc_fit_metrics.csv",

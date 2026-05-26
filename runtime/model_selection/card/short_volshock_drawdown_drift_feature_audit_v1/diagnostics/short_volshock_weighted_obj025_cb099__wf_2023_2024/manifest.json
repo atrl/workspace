@@ -1,0 +1,11 @@
+{
+  "candidate": "short_volshock_weighted_obj025_cb099",
+  "daily_path": "runtime/model_selection/card/short_volshock_bc_checkpoint_alignment_v1/short_volshock_weighted_obj025_cb099_wf_2023_2024_warm_start_official_daily_path.csv",
+  "features": 30,
+  "fold": "wf_2023_2024",
+  "label": "short_volshock_weighted_obj025_cb099__wf_2023_2024",
+  "oos_end": "2024-12-30",
+  "oos_start": "2024-01-02",
+  "window_size": 42,
+  "windows": 8
+}

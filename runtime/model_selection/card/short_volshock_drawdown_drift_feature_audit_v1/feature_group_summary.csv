@@ -1,0 +1,8 @@
+feature_group,feature_count,mean_stability_score,max_stability_score,mean_abs_delta_z,top_features
+trend_quality,4,2.0134525062575324,2.437761152136224,1.0488172477802449,"expectancy_proxy_21,sharpe_proxy_21,rsi_14,rsi_6"
+volatility_regime,9,1.492951620533562,2.3259814631246702,0.9331878712317856,"vix_percentile_252,regime_risk,vix_zscore,realized_vol_63,vol_coef_21"
+trend_momentum,7,1.611203979289651,2.0788530393128966,0.9297482250752953,"mom_21,trend_slope_21,trend_gap_21,mom_63,anchor_gap_velocity_10"
+relative_strength_spread,1,2.0722966512099226,2.0722966512099226,1.0649498139551647,relative_strength_21
+gap_risk,1,1.931079172709664,1.931079172709664,1.3929791730160972,negative_gap_frequency_21
+drawdown_path,7,1.6606578708438602,1.8451422185221862,0.9965585102585198,"drawdown_63,cum_drop_30,downside_semivol_21,drawdown_21,rolling_new_low_ratio_63"
+other,1,1.1927588087725398,1.1927588087725398,0.8603936091963854,realized_kurtosis_21

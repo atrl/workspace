@@ -290,6 +290,16 @@ PPO，也不要把 target-readiness 当成 runtime overlay promotion。
 风险约束的 joint objective；不要从该 BC actor 直接进入更长 PPO 或 runtime
 promotion。
 
+如果随后做 short-volshock drawdown-drift / feature audit，且 gate-gap attribution
+显示 selected short-volshock 为 `wf_2022=drawdown_control`、
+`wf_2023_2024=joint_tradeoff`，rolling poor-window 聚合同时出现跨候选
+underparticipation clusters，而稳定 feature groups 指向 `trend_quality`、
+`volatility_regime`、`drawdown_path`、`trend_momentum`、`relative_strength_spread`，
+结论应是 `short_volshock_drawdown_drift_joint_objective_needed_no_promotion`。
+下一步只允许 reward/checkpoint screen：drawdown-drift penalty +
+short-volshock state deleverage consistency + trend-preservation floor。不要把
+feature deltas 当上线因子；先走 IC / 单信号 / walk-forward gate。
+
 metric-source reconciliation 时，先检查 isolated qlib fold 是否从评估窗口边界
 直接切片，导致策略在前 `LOOKBACK` 行无法下单，而 calendar buy-and-hold benchmark
 仍包含这段 warmup。若 calendar relative 与 tradable-window relative 出现 gate
