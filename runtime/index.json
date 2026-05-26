@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-25T23:47:02.134376+00:00",
+  "generated_at": "2026-05-26T00:00:32.658263+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -5166,6 +5166,66 @@
       "category": "model",
       "suffix": ".md",
       "bytes": 3390
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_bc_sequence_risk_state_diagnostic_v1/bc_slice_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 624
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_bc_sequence_risk_state_diagnostic_v1/bc_wf2022_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 294104
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_bc_sequence_risk_state_diagnostic_v1/bc_wf2022_metrics.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 625
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_bc_sequence_risk_state_diagnostic_v1/coverage.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 629
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_bc_sequence_risk_state_diagnostic_v1/coverage.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 892
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_bc_sequence_risk_state_diagnostic_v1/drawdown_breach_windows.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 6703
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_bc_sequence_risk_state_diagnostic_v1/risk_state_candidate_screen.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 5158
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_bc_sequence_risk_state_diagnostic_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2237
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_bc_sequence_risk_state_diagnostic_v1/sequence_risk_feature_differences.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 69367
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_bc_sequence_risk_state_diagnostic_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 58064
     },
     {
       "path": "runtime/model_selection/card/cap10_foldlocal_joint_target_contract_v1/action_distribution.csv",
