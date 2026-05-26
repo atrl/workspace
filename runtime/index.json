@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-26T04:18:31.971769+00:00",
+  "generated_at": "2026-05-26T04:59:33.317029+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -8766,6 +8766,66 @@
       "category": "model_selection",
       "suffix": ".md",
       "bytes": 627
+    },
+    {
+      "path": "runtime/model_selection/card/trend_participation_guard_screen_v1/base_seq_cap10_two_of_three_wf_2022_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 96639
+    },
+    {
+      "path": "runtime/model_selection/card/trend_participation_guard_screen_v1/base_seq_cap10_two_of_three_wf_2023_2024_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 86459
+    },
+    {
+      "path": "runtime/model_selection/card/trend_participation_guard_screen_v1/candidate_configs.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2976
+    },
+    {
+      "path": "runtime/model_selection/card/trend_participation_guard_screen_v1/candidate_path_manifest.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 951
+    },
+    {
+      "path": "runtime/model_selection/card/trend_participation_guard_screen_v1/cluster_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 3056
+    },
+    {
+      "path": "runtime/model_selection/card/trend_participation_guard_screen_v1/objective_review.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 1456
+    },
+    {
+      "path": "runtime/model_selection/card/trend_participation_guard_screen_v1/objective_scores.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1516
+    },
+    {
+      "path": "runtime/model_selection/card/trend_participation_guard_screen_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 4337
+    },
+    {
+      "path": "runtime/model_selection/card/trend_participation_guard_screen_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1046
+    },
+    {
+      "path": "runtime/model_selection/card/trend_participation_guard_screen_v1/window_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1987
     },
     {
       "path": "runtime/model_selection/card/upstream_actor_low_risk_refresh_v1/actor_family_summary.csv",

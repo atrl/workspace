@@ -1,0 +1,132 @@
+{
+  "canonical_baseline": "v19reg_v22_budget_usage_bull_guard_v1",
+  "changed_layer": [
+    "model_selection",
+    "counterfactual_overlay"
+  ],
+  "created_at": "2026-05-26T04:58:52.075773+00:00",
+  "decision": "trend_participation_guard_no_objective_pass_no_promotion",
+  "direct_comparison_baseline": "warm_start_action_cap_validation_v1:seq_cap10_two_of_three",
+  "experiment": "trend_participation_guard_screen_v1",
+  "external_sources": [
+    "https://github.com/microsoft/qlib",
+    "https://arxiv.org/abs/2009.11189",
+    "https://doi.org/10.21314/JCF.2016.322",
+    "https://doi.org/10.1016/j.jfineco.2011.11.003",
+    "https://doi.org/10.1016/j.jfineco.2016.05.002",
+    "https://doi.org/10.1111/jofi.12513",
+    "https://github.com/AI4Finance-Foundation/FinRL"
+  ],
+  "next_mechanism": "encode_fold_local_trend_participation_with_drawdown_guard_as_training_or_checkpoint_objective",
+  "profile": "sparse_release_bc_ppo_screen_v1",
+  "promotion_allowed": false,
+  "promotion_blocker": "No candidate jointly cleared +30pp relative return, <=15% MaxDD, and poor-window cluster participation gates.",
+  "role": "diagnose",
+  "selected_candidate": "base_seq_cap10_two_of_three",
+  "selected_cluster_gate": false,
+  "selected_cluster_metrics": [
+    {
+      "avg_pos": 0.21892222397059022,
+      "buy_and_hold_return": 65.04521611741131,
+      "candidate": "base_seq_cap10_two_of_three",
+      "cluster": "wf2024_poor63_rank1",
+      "end": "2024-07-22",
+      "max_dd": 12.86784661582001,
+      "relative_return": -64.04604956719311,
+      "return": 0.9991665502182112,
+      "rows": 63,
+      "start": "2024-04-22"
+    },
+    {
+      "avg_pos": 0.21707672966038807,
+      "buy_and_hold_return": 61.07548489656563,
+      "candidate": "base_seq_cap10_two_of_three",
+      "cluster": "wf2024_poor63_rank2",
+      "end": "2024-07-16",
+      "max_dd": 8.008687891333977,
+      "relative_return": -59.862731614946846,
+      "return": 1.2127532816187836,
+      "rows": 63,
+      "start": "2024-04-16"
+    },
+    {
+      "avg_pos": 0.17298796310055867,
+      "buy_and_hold_return": 75.96189953031991,
+      "candidate": "base_seq_cap10_two_of_three",
+      "cluster": "wf2024_poor63_rank3",
+      "end": "2024-04-03",
+      "max_dd": 3.8746729447160067,
+      "relative_return": -59.312532100739105,
+      "return": 16.649367429580806,
+      "rows": 63,
+      "start": "2024-01-03"
+    }
+  ],
+  "selected_objective_loss": 216.91818920030946,
+  "selected_path_manifest": [
+    {
+      "avg_position_lift": 0.0,
+      "candidate": "base_seq_cap10_two_of_three",
+      "equity_blocked_days": 0,
+      "fold": "wf_2022",
+      "lifted_days": 0,
+      "max_position_lift": 0.0,
+      "ready_days": 0,
+      "rows": 250
+    },
+    {
+      "avg_position_lift": 0.0,
+      "candidate": "base_seq_cap10_two_of_three",
+      "equity_blocked_days": 0,
+      "fold": "wf_2023_2024",
+      "lifted_days": 0,
+      "max_position_lift": 0.0,
+      "ready_days": 0,
+      "rows": 251
+    }
+  ],
+  "selected_window_gate": false,
+  "selected_window_metrics": [
+    {
+      "avg_pos": 0.07603180749271873,
+      "buy_and_hold_return": -86.58807173239427,
+      "candidate": "base_seq_cap10_two_of_three",
+      "end": "2022-12-29",
+      "fold": "wf_2022",
+      "max_dd": 13.280733715366077,
+      "relative_return": 77.30075313625055,
+      "return": -9.287318596143724,
+      "rows": 250,
+      "start": "2022-01-03"
+    },
+    {
+      "avg_pos": 0.16057250826842465,
+      "buy_and_hold_return": -0.356634729688432,
+      "candidate": "base_seq_cap10_two_of_three",
+      "end": "2024-12-30",
+      "fold": "wf_2023_2024",
+      "max_dd": 20.23244637943855,
+      "relative_return": 2.728896203801412,
+      "return": 2.37226147411298,
+      "rows": 251,
+      "start": "2024-01-02"
+    }
+  ],
+  "selected_worst_cluster": "wf2024_poor63_rank1",
+  "selected_worst_window": "wf_2023_2024",
+  "sidecars": [
+    "candidate_configs.csv",
+    "window_metrics.csv",
+    "cluster_metrics.csv",
+    "candidate_path_manifest.csv",
+    "objective_scores.csv",
+    "objective_review.md",
+    "selection.json",
+    "summary.json",
+    "base_seq_cap10_two_of_three_wf_2022_daily_path.csv",
+    "base_seq_cap10_two_of_three_wf_2023_2024_daily_path.csv"
+  ],
+  "target_max_dd_pct": 15.0,
+  "target_relative_return_pp": 30.0,
+  "training_allowed_from_this_card": false
+}

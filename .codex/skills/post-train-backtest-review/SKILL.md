@@ -246,6 +246,13 @@ warm-start official qlib backtest 或显式采用 tradable-window gate，不说�
 不要把它解释为 sequence cap 未调好。下一步应筛选 trend-participation state
 加 drawdown/volatility guard，或把该状态写入 checkpoint/training objective。
 
+如果 fold-local train-quantile 的 trend-participation + drawdown/volatility guard
+screen 发现最优行仍是未加 overlay 的 base path，且所有 runtime trend floor
+候选都把失败 fold 的 relative return 打低或扩大 MaxDD，不要继续扩大
+trend-floor 阈值网格。结论应转为训练时 / checkpoint-selection 目标：让模型在
+建仓前学习高趋势低波动状态，同时显式惩罚路径回撤，而不是用 post-hoc
+runtime floor 追涨。
+
 进入状态条件多目标前，先用已有 daily path 做一个 notebook-first objective
 screen，确认最接近的老师路径和仍然失败的项：
 
