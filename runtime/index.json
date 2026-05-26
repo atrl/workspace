@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-26T11:21:07.435596+00:00",
+  "generated_at": "2026-05-26T11:38:42.156785+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -7869,6 +7869,162 @@
     },
     {
       "path": "runtime/model_selection/card/short_volshock_official_replay_screen_v1/warm_start_segments.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 224
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_sell_guard_official_replay_v1/bc_fit_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 383
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_sell_guard_official_replay_v1/daily_paths/multi_obj_floor45_cap20_riskfirst_wf_2022_baseline_no_overlay_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31293
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_sell_guard_official_replay_v1/daily_paths/multi_obj_floor45_cap20_riskfirst_wf_2022_short_volshock_cap05_hit2_no_guard_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31412
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_sell_guard_official_replay_v1/daily_paths/multi_obj_floor45_cap20_riskfirst_wf_2022_short_volshock_cap05_hit2_sell_guard_1pct_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31495
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_sell_guard_official_replay_v1/daily_paths/multi_obj_floor45_cap20_riskfirst_wf_2022_short_volshock_cap05_hit2_sell_guard_zero_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31179
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_sell_guard_official_replay_v1/daily_paths/multi_obj_floor45_cap20_riskfirst_wf_2023_2024_baseline_no_overlay_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31784
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_sell_guard_official_replay_v1/daily_paths/multi_obj_floor45_cap20_riskfirst_wf_2023_2024_short_volshock_cap05_hit2_no_guard_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31700
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_sell_guard_official_replay_v1/daily_paths/multi_obj_floor45_cap20_riskfirst_wf_2023_2024_short_volshock_cap05_hit2_sell_guard_1pct_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31590
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_sell_guard_official_replay_v1/daily_paths/multi_obj_floor45_cap20_riskfirst_wf_2023_2024_short_volshock_cap05_hit2_sell_guard_zero_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31562
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_sell_guard_official_replay_v1/decision_trace_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2702
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_sell_guard_official_replay_v1/decision_traces/multi_obj_floor45_cap20_riskfirst_wf_2022_baseline_no_overlay_decision_trace.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 91112
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_sell_guard_official_replay_v1/decision_traces/multi_obj_floor45_cap20_riskfirst_wf_2022_short_volshock_cap05_hit2_no_guard_decision_trace.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 89768
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_sell_guard_official_replay_v1/decision_traces/multi_obj_floor45_cap20_riskfirst_wf_2022_short_volshock_cap05_hit2_sell_guard_1pct_decision_trace.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 89221
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_sell_guard_official_replay_v1/decision_traces/multi_obj_floor45_cap20_riskfirst_wf_2022_short_volshock_cap05_hit2_sell_guard_zero_decision_trace.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 89443
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_sell_guard_official_replay_v1/decision_traces/multi_obj_floor45_cap20_riskfirst_wf_2023_2024_baseline_no_overlay_decision_trace.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 90856
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_sell_guard_official_replay_v1/decision_traces/multi_obj_floor45_cap20_riskfirst_wf_2023_2024_short_volshock_cap05_hit2_no_guard_decision_trace.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 90380
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_sell_guard_official_replay_v1/decision_traces/multi_obj_floor45_cap20_riskfirst_wf_2023_2024_short_volshock_cap05_hit2_sell_guard_1pct_decision_trace.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 90281
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_sell_guard_official_replay_v1/decision_traces/multi_obj_floor45_cap20_riskfirst_wf_2023_2024_short_volshock_cap05_hit2_sell_guard_zero_decision_trace.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 90291
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_sell_guard_official_replay_v1/official_daily_manifest.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2176
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_sell_guard_official_replay_v1/official_replay_candidate_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1971
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_sell_guard_official_replay_v1/official_replay_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 6972
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_sell_guard_official_replay_v1/selected_decision_trace_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 903
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_sell_guard_official_replay_v1/selected_official_replay_fold_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2092
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_sell_guard_official_replay_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 7766
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_sell_guard_official_replay_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 9759
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_sell_guard_official_replay_v1/warm_start_segments.csv",
       "category": "model_selection",
       "suffix": ".csv",
       "bytes": 224

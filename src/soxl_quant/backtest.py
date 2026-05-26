@@ -43,6 +43,9 @@ from .policy.execution_overlays import (
     apply_short_volshock_action_cap,
     apply_sequence_risk_action_cap,
     apply_soxx_relative_weakness_cap,
+    overlay_de_risk_rebalance_threshold,
+    overlay_de_risk_ready,
+    overlay_de_risk_trade_lock_days,
     short_volshock_action_cap_ready,
     sequence_risk_action_cap_ready,
     soxx_relative_weakness_ready,
@@ -577,6 +580,14 @@ class RLStrategy(BaseStrategy):
                 release_drawdown=release_drawdown,
             )
         target_after_post_release_cap = float(target_pos)
+        overlay_sell_side_de_risk_ready = False
+        if self.overlay_config is not None:
+            overlay_sell_side_de_risk_ready = overlay_de_risk_ready(
+                current_pos=current_pos,
+                target_before_overlay=target_before_overlay,
+                target_after_overlay=target_after_post_release_cap,
+                overlay_config=self.overlay_config,
+            )
         overlay_execution_ready = False
         if self.overlay_config is not None and self.overlay_config.get("type") == "selective_release":
             overlay_execution_ready = selective_release_execution_guard_ready(
@@ -619,6 +630,14 @@ class RLStrategy(BaseStrategy):
                 release_drawdown=release_drawdown,
                 direction=direction,
             )
+        min_rebalance_before_de_risk = min_rebalance
+        if self.overlay_config is not None:
+            min_rebalance = overlay_de_risk_rebalance_threshold(
+                min_rebalance,
+                self.overlay_config,
+                de_risk_ready=overlay_sell_side_de_risk_ready,
+            )
+        de_risk_rebalance_applied = abs(float(min_rebalance) - float(min_rebalance_before_de_risk)) > 1e-12
         trade_lock_before = int(self.trade_lock)
         buy_cooldown_before = int(self.buy_cooldown)
         blocked_by_trade_lock = False
@@ -641,6 +660,14 @@ class RLStrategy(BaseStrategy):
                 release_drawdown=release_drawdown,
                 direction=direction,
             )
+        effective_trade_lock_before_de_risk = int(effective_trade_lock)
+        if self.overlay_config is not None:
+            effective_trade_lock = overlay_de_risk_trade_lock_days(
+                effective_trade_lock,
+                self.overlay_config,
+                de_risk_ready=overlay_sell_side_de_risk_ready,
+            )
+        de_risk_trade_lock_applied = int(effective_trade_lock) != int(effective_trade_lock_before_de_risk)
         if effective_trade_lock > 0:
             if abs(target_pos - current_pos) >= min_rebalance:
                 blocked_by_trade_lock = True
@@ -703,6 +730,10 @@ class RLStrategy(BaseStrategy):
                     "order_count": int(order_count),
                     "overlay_gate_ready": bool(overlay_gate_ready),
                     "overlay_execution_ready": bool(overlay_execution_ready),
+                    "overlay_sell_side_de_risk_ready": bool(overlay_sell_side_de_risk_ready),
+                    "de_risk_rebalance_applied": bool(de_risk_rebalance_applied),
+                    "de_risk_trade_lock_applied": bool(de_risk_trade_lock_applied),
+                    "effective_trade_lock_before_de_risk": int(effective_trade_lock_before_de_risk),
                     "overlay_exposure_gap": round(float(target_after_overlay - current_pos), 10),
                     "post_release_state_days_before": release_state_days_before,
                     "post_release_state_days_after": int(self.selective_release_state_days),
@@ -759,6 +790,12 @@ class RLStrategy(BaseStrategy):
                         current_pos=current_pos,
                         target_pos=target_pos,
                         current_drawdown=current_drawdown,
+                    )
+                if self.overlay_config is not None:
+                    new_trade_lock = overlay_de_risk_trade_lock_days(
+                        new_trade_lock,
+                        self.overlay_config,
+                        de_risk_ready=overlay_sell_side_de_risk_ready,
                     )
                 self.trade_lock = new_trade_lock
             signal_type = "buy" if delta > 0 else "sell"

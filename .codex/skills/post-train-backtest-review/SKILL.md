@@ -264,6 +264,15 @@ relative 或 `1pp` MaxDD），不要继续做单个 cap 阈值微调或宣布 pr
 把 short-volshock 状态放进 checkpoint scoring / target generation，或单独验证
 sell-side execution guard；不要直接开更长 PPO。
 
+如果 sell-side execution guard 已经验证过，且它确实提高了
+`overlay_sell_side_de_risk_ready_days` / `cap_order_days`、降低了部分
+`blocked_by_min_rebalance_days` 或 `blocked_by_trade_lock_days`，但 best row
+仍输给 no-guard official replay，或只是把失败从 relative miss 转成 MaxDD miss，
+结论应写成 `official_short_volshock_sell_guard_no_improvement_no_promotion`
+或 `official_short_volshock_sell_guard_failed_no_promotion`。不要继续做
+threshold-only sell guard 微调；下一步转 checkpoint scoring / target generation，
+让 short-volshock 状态进入模型选择或训练目标，而不是在 runtime 执行层继续补丁。
+
 metric-source reconciliation 时，先检查 isolated qlib fold 是否从评估窗口边界
 直接切片，导致策略在前 `LOOKBACK` 行无法下单，而 calendar buy-and-hold benchmark
 仍包含这段 warmup。若 calendar relative 与 tradable-window relative 出现 gate

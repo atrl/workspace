@@ -249,6 +249,63 @@ def apply_short_volshock_action_cap(
     return min(float(target_pos), float(overlay_config.get("target_cap", 0.05)))
 
 
+def overlay_de_risk_ready(
+    *,
+    current_pos: float,
+    target_before_overlay: float,
+    target_after_overlay: float,
+    overlay_config: dict[str, Any],
+    eps: float = 1e-9,
+) -> bool:
+    """Return True when a default-off overlay cap creates a real sell-side de-risk step."""
+
+    if not bool(overlay_config.get("de_risk_guard_enabled", False)):
+        return False
+    try:
+        current = float(current_pos)
+        before = float(target_before_overlay)
+        after = float(target_after_overlay)
+    except (TypeError, ValueError):
+        return False
+    if not (math.isfinite(current) and math.isfinite(before) and math.isfinite(after)):
+        return False
+    return after < current - float(eps) and after < before - float(eps)
+
+
+def overlay_de_risk_rebalance_threshold(
+    min_rebalance: float,
+    overlay_config: dict[str, Any],
+    *,
+    de_risk_ready: bool,
+) -> float:
+    """Optionally relax the min-rebalance gate for explicit sell-side de-risk orders."""
+
+    if not de_risk_ready:
+        return float(min_rebalance)
+    if "de_risk_rebalance_threshold_override" in overlay_config:
+        return float(overlay_config["de_risk_rebalance_threshold_override"])
+    if "de_risk_rebalance_threshold_multiplier" in overlay_config:
+        return float(min_rebalance) * float(overlay_config["de_risk_rebalance_threshold_multiplier"])
+    return float(min_rebalance)
+
+
+def overlay_de_risk_trade_lock_days(
+    trade_lock_days: int,
+    overlay_config: dict[str, Any],
+    *,
+    de_risk_ready: bool,
+) -> int:
+    """Optionally relax trade-lock days for explicit sell-side de-risk orders."""
+
+    if not de_risk_ready:
+        return int(trade_lock_days)
+    if "de_risk_trade_lock_override" in overlay_config:
+        return max(int(overlay_config["de_risk_trade_lock_override"]), 0)
+    if "de_risk_trade_lock_cap" in overlay_config:
+        return min(int(trade_lock_days), max(int(overlay_config["de_risk_trade_lock_cap"]), 0))
+    return int(trade_lock_days)
+
+
 def overlay_config(name: str) -> dict[str, Any]:
     if name == "baseline":
         raise ValueError("baseline has no overlay config")

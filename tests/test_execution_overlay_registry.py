@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from src.soxl_quant.policy import execution_overlays
 from src.soxl_quant.policy.execution_overlays import (
     POST_RELEASE_CAP_VARIANT,
     SOXX_RELATIVE_WEAKNESS_CAP_VARIANT,
@@ -146,3 +147,57 @@ def test_short_volshock_action_cap_uses_fold_thresholds_and_never_boosts():
     assert apply_short_volshock_action_cap(0.03, one_hit_row, config) == 0.03
     assert short_volshock_action_cap_ready(no_hit_row, config) is False
     assert apply_short_volshock_action_cap(0.58, no_hit_row, config) == 0.58
+
+
+def test_overlay_de_risk_ready_only_when_enabled_cap_forces_sell_side_reduction():
+    config = {"de_risk_guard_enabled": True}
+
+    assert (
+        execution_overlays.overlay_de_risk_ready(
+            current_pos=0.40,
+            target_before_overlay=0.58,
+            target_after_overlay=0.05,
+            overlay_config=config,
+        )
+        is True
+    )
+    assert (
+        execution_overlays.overlay_de_risk_ready(
+            current_pos=0.03,
+            target_before_overlay=0.58,
+            target_after_overlay=0.05,
+            overlay_config=config,
+        )
+        is False
+    )
+    assert (
+        execution_overlays.overlay_de_risk_ready(
+            current_pos=0.40,
+            target_before_overlay=0.58,
+            target_after_overlay=0.58,
+            overlay_config=config,
+        )
+        is False
+    )
+    assert (
+        execution_overlays.overlay_de_risk_ready(
+            current_pos=0.40,
+            target_before_overlay=0.58,
+            target_after_overlay=0.05,
+            overlay_config={},
+        )
+        is False
+    )
+
+
+def test_overlay_de_risk_overrides_execution_guards_only_when_ready():
+    config = {
+        "de_risk_guard_enabled": True,
+        "de_risk_rebalance_threshold_override": 0.0,
+        "de_risk_trade_lock_override": 0,
+    }
+
+    assert execution_overlays.overlay_de_risk_rebalance_threshold(0.12, config, de_risk_ready=True) == 0.0
+    assert execution_overlays.overlay_de_risk_trade_lock_days(3, config, de_risk_ready=True) == 0
+    assert execution_overlays.overlay_de_risk_rebalance_threshold(0.12, config, de_risk_ready=False) == 0.12
+    assert execution_overlays.overlay_de_risk_trade_lock_days(3, config, de_risk_ready=False) == 3
