@@ -1,0 +1,42 @@
+{
+  "acceptance_criteria": {
+    "hard_gate": ">=30pp relative and <=15% MaxDD in every supplied official replay window",
+    "robust_gate": ">=32pp relative and <=14% MaxDD in every supplied official replay window"
+  },
+  "accepted_tradeoff": "Near-miss candidates are diagnostic only and cannot be promoted without robustness replay.",
+  "canonical_baseline": "v19reg_v22_budget_usage_bull_guard_v1",
+  "changed_layer": [
+    "model_selection",
+    "official_replay_candidate_aggregation"
+  ],
+  "closest_historical_failure_case": "official_replay_risk_state_target_screen_v1 showed hard target caps reduced drawdown in 2022 but destroyed 2024 excess.",
+  "closest_historical_success_case": "short_volshock_sell_guard_official_replay_v1 found an action-cap overlay near the official gate on both windows.",
+  "created_at": "2026-05-26T18:47:55.753167+00:00",
+  "decision": "near_miss_action_cap_overlay_is_best_diagnostic_no_promotion",
+  "direct_comparison_baseline": "short_volshock_bc_initialization_official_replay_v1/bc_initialization",
+  "duplicate_check": "This run does not introduce a new threshold or PPO branch; it aggregates existing official replay candidates and applies robustness margins.",
+  "experiment": "official_replay_candidate_mechanism_pk_v1",
+  "external_reference": [
+    "https://github.com/microsoft/qlib",
+    "https://arxiv.org/abs/2009.11189",
+    "https://github.com/AI4Finance-Foundation/FinRL",
+    "https://arxiv.org/abs/2011.09607",
+    "https://doi.org/10.21314/JCF.2016.322",
+    "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2659431"
+  ],
+  "failure_mode": "Repeatedly tuning around a <1pp/<0.5% near miss can overfit the replay window.",
+  "hypothesis": "Recent official replay failures may contain a stable near-miss mechanism; aggregate candidates with safety margins before starting another reward/PPO branch.",
+  "next_mechanism": "stress-test short-volshock action-cap overlay and convert only robust behavior into reward-timing objective",
+  "promotion_allowed": false,
+  "role": "diagnose",
+  "selected_candidate": "short_volshock_sell_guard::short_volshock_cap05_hit2_no_guard",
+  "sidecars": [
+    "source_manifest.csv",
+    "official_candidate_pool.csv",
+    "mechanism_scores.csv",
+    "mechanism_summary.csv",
+    "official_candidate_mechanism_pk.md",
+    "selection.json",
+    "summary.json"
+  ]
+}

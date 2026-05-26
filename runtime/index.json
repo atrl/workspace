@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-26T18:16:16.873443+00:00",
+  "generated_at": "2026-05-26T18:48:46.431510+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -7044,6 +7044,48 @@
       "category": "model_selection",
       "suffix": ".csv",
       "bytes": 5452
+    },
+    {
+      "path": "runtime/model_selection/card/official_replay_candidate_mechanism_pk_v1/mechanism_scores.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 3424
+    },
+    {
+      "path": "runtime/model_selection/card/official_replay_candidate_mechanism_pk_v1/mechanism_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 627
+    },
+    {
+      "path": "runtime/model_selection/card/official_replay_candidate_mechanism_pk_v1/official_candidate_mechanism_pk.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 1770
+    },
+    {
+      "path": "runtime/model_selection/card/official_replay_candidate_mechanism_pk_v1/official_candidate_pool.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 6696
+    },
+    {
+      "path": "runtime/model_selection/card/official_replay_candidate_mechanism_pk_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2360
+    },
+    {
+      "path": "runtime/model_selection/card/official_replay_candidate_mechanism_pk_v1/source_manifest.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 592
+    },
+    {
+      "path": "runtime/model_selection/card/official_replay_candidate_mechanism_pk_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 12238
     },
     {
       "path": "runtime/model_selection/card/official_replay_risk_state_target_screen_v1/bc_action_distribution.csv",

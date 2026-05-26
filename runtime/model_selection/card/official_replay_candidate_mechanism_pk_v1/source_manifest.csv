@@ -1,0 +1,4 @@
+source_label,mechanism,path,rows,candidates,windows
+bc_initialization_official,bc_warm_start_baseline,runtime/model_selection/card/short_volshock_bc_initialization_official_replay_v1/official_replay_metrics.csv,2,1,"['wf_2022', 'wf_2023_2024']"
+risk_state_target_screen,hard_target_cap,runtime/model_selection/card/official_replay_risk_state_target_screen_v1/candidate_pk.csv,10,5,"['wf_2022', 'wf_2023_2024']"
+short_volshock_sell_guard,action_cap_overlay,runtime/model_selection/card/short_volshock_sell_guard_official_replay_v1/official_replay_metrics.csv,8,4,"['wf_2022', 'wf_2023_2024']"
