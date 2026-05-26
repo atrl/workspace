@@ -300,6 +300,16 @@ underparticipation clusters，而稳定 feature groups 指向 `trend_quality`、
 short-volshock state deleverage consistency + trend-preservation floor。不要把
 feature deltas 当上线因子；先走 IC / 单信号 / walk-forward gate。
 
+这个 reward/checkpoint screen 应优先放进
+`runtime/reward/card/<label>/<label>.ipynb`，并复用
+`src.soxl_quant.app.reward_checkpoint_screen` 的
+`score_reward_checkpoint_candidates` / `summarize_reward_checkpoint_screen`。
+若 best row 没有 `full_gate=True`，结论写成
+`reward_checkpoint_screen_no_promotion`，`ppo_allowed_next=False`；只把
+`drawdown_drift_penalty`、`short_volshock_state_deleverage_consistency`、
+`trend_preservation_floor`、`checkpoint_objective_loss` 作为下一步训练目标配方，
+不要把分数最低候选当成 actor promotion 或更长 PPO 的许可。
+
 metric-source reconciliation 时，先检查 isolated qlib fold 是否从评估窗口边界
 直接切片，导致策略在前 `LOOKBACK` 行无法下单，而 calendar buy-and-hold benchmark
 仍包含这段 warmup。若 calendar relative 与 tradable-window relative 出现 gate
