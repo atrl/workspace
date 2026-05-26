@@ -218,6 +218,37 @@ def apply_sequence_risk_action_cap(
     return min(float(target_pos), float(overlay_config.get("target_cap", 0.10)))
 
 
+def short_volshock_action_cap_ready(row: Any, overlay_config: dict[str, Any]) -> bool:
+    """Detect a fold-local short-volatility shock state for an action cap."""
+
+    realized_threshold = _config_float(overlay_config, "realized_vol_21_min", "realized_vol_21_q80")
+    vol_of_vol_threshold = _config_float(overlay_config, "vol_of_vol_21_min", "vol_of_vol_21_q80")
+    downside_threshold = _config_float(overlay_config, "downside_semivol_21_min", "downside_semivol_21_q80")
+    if realized_threshold is None or vol_of_vol_threshold is None or downside_threshold is None:
+        return False
+
+    realized_vol = _row_float(row, "realized_vol_21")
+    vol_of_vol = _row_float(row, "vol_of_vol_21")
+    downside_semivol = _row_float(row, "downside_semivol_21")
+    if realized_vol is None or vol_of_vol is None or downside_semivol is None:
+        return False
+
+    hit_count = int(realized_vol >= realized_threshold)
+    hit_count += int(vol_of_vol >= vol_of_vol_threshold)
+    hit_count += int(downside_semivol >= downside_threshold)
+    return hit_count >= int(overlay_config.get("short_volshock_min_feature_hits", 1))
+
+
+def apply_short_volshock_action_cap(
+    target_pos: float,
+    row: Any,
+    overlay_config: dict[str, Any],
+) -> float:
+    if not short_volshock_action_cap_ready(row, overlay_config):
+        return float(target_pos)
+    return min(float(target_pos), float(overlay_config.get("target_cap", 0.05)))
+
+
 def overlay_config(name: str) -> dict[str, Any]:
     if name == "baseline":
         raise ValueError("baseline has no overlay config")

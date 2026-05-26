@@ -3,10 +3,12 @@ from __future__ import annotations
 from src.soxl_quant.policy.execution_overlays import (
     POST_RELEASE_CAP_VARIANT,
     SOXX_RELATIVE_WEAKNESS_CAP_VARIANT,
+    apply_short_volshock_action_cap,
     apply_sequence_risk_action_cap,
     apply_soxx_relative_weakness_cap,
     overlay_config,
     overlay_variants,
+    short_volshock_action_cap_ready,
     sequence_risk_action_cap_ready,
     soxx_overlay_config,
     soxx_overlay_variants,
@@ -118,3 +120,29 @@ def test_sequence_risk_action_cap_requires_feature_consensus_and_never_boosts():
     assert apply_sequence_risk_action_cap(0.05, two_hit_row, config) == 0.05
     assert sequence_risk_action_cap_ready(one_hit_row, config) is False
     assert apply_sequence_risk_action_cap(0.58, one_hit_row, config) == 0.58
+
+
+def test_short_volshock_action_cap_uses_fold_thresholds_and_never_boosts():
+    config = {
+        "realized_vol_21_min": 0.80,
+        "vol_of_vol_21_min": 0.25,
+        "downside_semivol_21_min": 0.60,
+        "short_volshock_min_feature_hits": 1,
+        "target_cap": 0.05,
+    }
+    one_hit_row = {
+        "realized_vol_21": 0.90,
+        "vol_of_vol_21": 0.10,
+        "downside_semivol_21": 0.20,
+    }
+    no_hit_row = {
+        "realized_vol_21": 0.70,
+        "vol_of_vol_21": 0.10,
+        "downside_semivol_21": 0.20,
+    }
+
+    assert short_volshock_action_cap_ready(one_hit_row, config) is True
+    assert apply_short_volshock_action_cap(0.58, one_hit_row, config) == 0.05
+    assert apply_short_volshock_action_cap(0.03, one_hit_row, config) == 0.03
+    assert short_volshock_action_cap_ready(no_hit_row, config) is False
+    assert apply_short_volshock_action_cap(0.58, no_hit_row, config) == 0.58

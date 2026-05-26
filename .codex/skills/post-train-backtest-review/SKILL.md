@@ -255,6 +255,15 @@ replay/runtime action semantics 和交易成本被验证。
 reconciliation，再跑 fixed-split / wf_2020；不要把两折 drawdown 改善直接解释成
 runtime overlay promotion。
 
+如果 fixed-actor short-volshock cap 在 price-path counterfactual 里过 gate，但
+official warm-start qlib replay 只得到 near miss（例如某 fold 同时差不到约 `1pp`
+relative 或 `1pp` MaxDD），不要继续做单个 cap 阈值微调或宣布 promotion。先看
+`decision_trace_summary.csv`：如果 `cap_changed_days` 远大于 `cap_order_days`，且
+`blocked_by_min_rebalance_days` / `blocked_by_trade_lock_days` 很高，结论应是
+`official_short_volshock_cap_replay_failed_no_promotion`。下一步只允许两类机制：
+把 short-volshock 状态放进 checkpoint scoring / target generation，或单独验证
+sell-side execution guard；不要直接开更长 PPO。
+
 metric-source reconciliation 时，先检查 isolated qlib fold 是否从评估窗口边界
 直接切片，导致策略在前 `LOOKBACK` 行无法下单，而 calendar buy-and-hold benchmark
 仍包含这段 warmup。若 calendar relative 与 tradable-window relative 出现 gate

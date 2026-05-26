@@ -40,8 +40,10 @@ from .policy.execution import (
 from .policy.modes import ModeState, mode_band, route_mode
 from .policy.observation import make_observation
 from .policy.execution_overlays import (
+    apply_short_volshock_action_cap,
     apply_sequence_risk_action_cap,
     apply_soxx_relative_weakness_cap,
+    short_volshock_action_cap_ready,
     sequence_risk_action_cap_ready,
     soxx_relative_weakness_ready,
 )
@@ -447,6 +449,9 @@ class RLStrategy(BaseStrategy):
             elif overlay_type == "sequence_risk_action_cap":
                 overlay_gate_ready = sequence_risk_action_cap_ready(row, oc)
                 target_pos = apply_sequence_risk_action_cap(target_pos, row, oc)
+            elif overlay_type == "short_volshock_action_cap":
+                overlay_gate_ready = short_volshock_action_cap_ready(row, oc)
+                target_pos = apply_short_volshock_action_cap(target_pos, row, oc)
             else:
                 threshold = oc.get("threshold", 0.3)
                 boost = oc.get("boost", 0.1)
