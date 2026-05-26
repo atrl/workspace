@@ -197,6 +197,14 @@ gate-gap attribution 在 strict OOS / walk-forward 窗口全部因为
 post-hoc drawdown cap。结论应转为训练时 joint reward、checkpoint selection 或
 sequence-risk state feature，让策略在建仓前学习风险状态，而不是在路径后段机械降仓。
 
+如果从失败 OOS daily path 里发现 sequence-risk state，不要把 OOS 阈值直接复用
+成训练标签。先在 runtime notebook 中用每个 replay fold 的 train segment 重新
+计算阈值并和 no-cap BC baseline 对比。只有当 target-cap 候选改善失败 fold 的
+drawdown，且不打坏其他已评估 fold 时，才允许进入 checkpoint drift selector。
+如果 cap 只提高 relative return 但恶化失败 fold drawdown，或改善一个 fold 同时
+打坏另一个 fold，保留为诊断结论，下一步转 reward drawdown-drift penalty 或
+checkpoint scoring，不要从该 cap 直接启动更长 PPO。
+
 进入状态条件多目标前，先用已有 daily path 做一个 notebook-first objective
 screen，确认最接近的老师路径和仍然失败的项：
 

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-26T00:00:32.658263+00:00",
+  "generated_at": "2026-05-26T00:24:15.821680+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -5922,6 +5922,120 @@
       "category": "model_selection",
       "suffix": ".json",
       "bytes": 15302
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_sequence_risk_target_cap_bc_screen_v1/anchor_any_cap15_target_contract.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 568454
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_sequence_risk_target_cap_bc_screen_v1/baseline_no_sequence_cap_target_contract.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 359761
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_sequence_risk_target_cap_bc_screen_v1/baseline_no_sequence_cap_wf_2022_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 64163
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_sequence_risk_target_cap_bc_screen_v1/baseline_no_sequence_cap_wf_2023_2024_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 49468
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_sequence_risk_target_cap_bc_screen_v1/bc_candidate_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4983
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_sequence_risk_target_cap_bc_screen_v1/bc_slice_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 9151
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_sequence_risk_target_cap_bc_screen_v1/candidate_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1456
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_sequence_risk_target_cap_bc_screen_v1/coverage.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 528
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_sequence_risk_target_cap_bc_screen_v1/coverage.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2694
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_sequence_risk_target_cap_bc_screen_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2723
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_sequence_risk_target_cap_bc_screen_v1/sequence_risk_cap_audit.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4194
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_sequence_risk_target_cap_bc_screen_v1/slope_low_cap15_target_contract.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 463875
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_sequence_risk_target_cap_bc_screen_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 33111
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_sequence_risk_target_cap_bc_screen_v1/target_action_distribution.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1443
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_sequence_risk_target_cap_bc_screen_v1/trend_break_any_cap10_target_contract.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 676213
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_sequence_risk_target_cap_bc_screen_v1/trend_break_any_cap10_wf_2022_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 63032
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_sequence_risk_target_cap_bc_screen_v1/trend_break_any_cap10_wf_2023_2024_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 49012
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_sequence_risk_target_cap_bc_screen_v1/trend_break_any_cap15_target_contract.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 677957
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_sequence_risk_target_cap_bc_screen_v1/trend_break_two_of_three_cap15_target_contract.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 686494
     },
     {
       "path": "runtime/model_selection/card/cap10_state_conditioned_trend_participation_controller_v1/candidate_configs.csv",
