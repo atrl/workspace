@@ -159,6 +159,22 @@ weighted gap ranking。若没有任何候选 `full_gate=True`，不要把分数�
 promotion；只能把它作为 closest diagnostic reference，并进入
 walk-forward-weighted multi-objective training/selection 设计。
 
+如果候选在 ordinary fold backtest 中过 gate，但 official qlib warm-start replay
+把 gate 翻成失败，不要继续从 source-only 证据启动更长 PPO 或保留 actor。先在
+runtime notebook 中分类 source-vs-official mismatch：
+
+```python
+from src.soxl_quant.core.metric_reconciliation import (
+    audit_source_vs_official_metrics,
+    summarize_source_vs_official_audit,
+)
+```
+
+若 `summarize_source_vs_official_audit()` 返回
+`source_backtest_optimistic_gate_flip_no_training`，下一步是 metric alignment：
+把训练/选择 gate 改为 official replay metric，并筛选 official daily path 的最大回撤区间。
+不要把 relative return 被高估或 MaxDD 被低估的 ordinary fold 结果当成训练放行条件。
+
 当 walk-forward weighted selector、poor-window aggregate、以及路径级
 rebound/downtrend router 都没有过 full gate 时，不要继续扩大路径阈值网格。
 在 runtime notebook 中把三类证据交给 handoff 逻辑：

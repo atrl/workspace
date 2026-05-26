@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-26T16:53:24.851111+00:00",
+  "generated_at": "2026-05-26T17:16:59.372130+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -6930,6 +6930,36 @@
       "category": "model_selection",
       "suffix": ".json",
       "bytes": 714
+    },
+    {
+      "path": "runtime/model_selection/card/metric_alignment_gate_flip_audit_v1/metric_alignment_audit.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 806
+    },
+    {
+      "path": "runtime/model_selection/card/metric_alignment_gate_flip_audit_v1/metric_alignment_summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 467
+    },
+    {
+      "path": "runtime/model_selection/card/metric_alignment_gate_flip_audit_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2086
+    },
+    {
+      "path": "runtime/model_selection/card/metric_alignment_gate_flip_audit_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 6143
+    },
+    {
+      "path": "runtime/model_selection/card/metric_alignment_gate_flip_audit_v1/worst_official_drawdown_intervals.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1228
     },
     {
       "path": "runtime/model_selection/card/metric_source_reconciliation_v1/candidate_reconciliation_summary.csv",

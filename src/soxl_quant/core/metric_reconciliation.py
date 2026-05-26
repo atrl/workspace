@@ -230,8 +230,242 @@ def compute_relative_metric_variants(
     }
 
 
+def _first_present(row: pd.Series, names: Sequence[str], default: object = None) -> object:
+    for name in names:
+        if name in row and not pd.isna(row[name]):
+            return row[name]
+    return default
+
+
+def _as_float(value: object, default: float = 0.0) -> float:
+    try:
+        if value is None or pd.isna(value):
+            return default
+    except (TypeError, ValueError):
+        pass
+    return float(value)
+
+
+def _as_bool(value: object, default: bool = False) -> bool:
+    if value is None:
+        return default
+    try:
+        if pd.isna(value):
+            return default
+    except (TypeError, ValueError):
+        pass
+    if isinstance(value, bool):
+        return value
+    text = str(value).strip().lower()
+    if text in {"1", "true", "t", "yes", "y"}:
+        return True
+    if text in {"0", "false", "f", "no", "n"}:
+        return False
+    return default
+
+
+def _source_gate(row: pd.Series, relative_return: float, max_dd: float, target_relative: float, target_max_dd: float) -> bool:
+    value = _first_present(row, ("source_bc_gate", "source_gate", "source_gate_pass"), default=None)
+    if value is not None:
+        return _as_bool(value)
+    return bool(relative_return >= target_relative and max_dd <= target_max_dd)
+
+
+def _official_gate(row: pd.Series, relative_return: float, max_dd: float, target_relative: float, target_max_dd: float) -> bool:
+    value = _first_present(row, ("official_gate", "window_gate_pass", "official_gate_pass"), default=None)
+    if value is not None:
+        return _as_bool(value)
+    return bool(relative_return >= target_relative and max_dd <= target_max_dd)
+
+
+def _primary_alignment_mismatch(
+    *,
+    source_optimistic_gate_flip: bool,
+    source_gate_pass: bool,
+    official_gate_pass: bool,
+    material_relative: bool,
+    material_maxdd: bool,
+) -> str:
+    if source_optimistic_gate_flip:
+        if material_relative and material_maxdd:
+            return "relative_and_drawdown_gate_flip"
+        if material_relative:
+            return "relative_return_overstated_gate_flip"
+        if material_maxdd:
+            return "max_drawdown_understated_gate_flip"
+        return "threshold_edge_gate_flip"
+    if source_gate_pass == official_gate_pass:
+        if material_relative and material_maxdd:
+            return "material_relative_and_drawdown_gap"
+        if material_relative:
+            return "material_relative_gap"
+        if material_maxdd:
+            return "material_drawdown_gap"
+        return "aligned"
+    if official_gate_pass and not source_gate_pass:
+        return "source_backtest_pessimistic_gate_flip"
+    return "official_gate_failed_without_source_pass"
+
+
+def audit_source_vs_official_metrics(
+    frame: pd.DataFrame,
+    *,
+    target_relative_return: float = 30.0,
+    target_max_dd: float = 15.0,
+    material_relative_delta_pp: float = 5.0,
+    material_maxdd_delta_pp: float = 2.0,
+) -> pd.DataFrame:
+    """Classify ordinary fold-backtest metrics against official replay metrics.
+
+    This is intentionally a metric classifier, not an experiment runner. Runtime
+    notebooks can use it to keep promotion decisions tied to official replay
+    evidence and to label source-backtest false positives before launching more
+    PPO or retaining actors.
+    """
+
+    columns = [
+        "candidate",
+        "fold",
+        "source_relative_return",
+        "official_relative_return",
+        "source_max_dd",
+        "official_max_dd",
+        "source_gate_pass",
+        "official_gate_pass",
+        "source_optimistic_gate_flip",
+        "relative_delta_official_minus_source",
+        "relative_overstatement_pp",
+        "maxdd_delta_official_minus_source",
+        "maxdd_understatement_pp",
+        "material_relative_overstatement",
+        "material_maxdd_understatement",
+        "primary_mismatch",
+        "required_action",
+    ]
+    if frame.empty:
+        return pd.DataFrame(columns=columns)
+
+    rows: list[dict[str, object]] = []
+    for row in frame.to_dict("records"):
+        series = pd.Series(row)
+        candidate = str(_first_present(series, ("candidate", "profile"), default=""))
+        fold = str(_first_present(series, ("fold", "window"), default=""))
+        source_relative = _as_float(
+            _first_present(series, ("source_bc_relative_return", "source_relative_return", "source_rel"), default=0.0)
+        )
+        official_relative = _as_float(
+            _first_present(
+                series,
+                ("official_warm_relative_return", "official_relative_return", "relative_return"),
+                default=0.0,
+            )
+        )
+        source_max_dd = _as_float(_first_present(series, ("source_bc_max_dd", "source_max_dd"), default=0.0))
+        official_max_dd = _as_float(
+            _first_present(series, ("official_warm_max_dd", "official_max_dd", "max_dd"), default=0.0)
+        )
+        source_gate_pass = _source_gate(
+            series,
+            source_relative,
+            source_max_dd,
+            float(target_relative_return),
+            float(target_max_dd),
+        )
+        official_gate_pass = _official_gate(
+            series,
+            official_relative,
+            official_max_dd,
+            float(target_relative_return),
+            float(target_max_dd),
+        )
+        relative_delta = official_relative - source_relative
+        relative_overstatement = max(0.0, source_relative - official_relative)
+        maxdd_delta = official_max_dd - source_max_dd
+        maxdd_understatement = max(0.0, official_max_dd - source_max_dd)
+        material_relative = relative_overstatement >= float(material_relative_delta_pp)
+        material_maxdd = maxdd_understatement >= float(material_maxdd_delta_pp)
+        source_optimistic_gate_flip = bool(source_gate_pass and not official_gate_pass)
+        primary_mismatch = _primary_alignment_mismatch(
+            source_optimistic_gate_flip=source_optimistic_gate_flip,
+            source_gate_pass=source_gate_pass,
+            official_gate_pass=official_gate_pass,
+            material_relative=material_relative,
+            material_maxdd=material_maxdd,
+        )
+        rows.append(
+            {
+                "candidate": candidate,
+                "fold": fold,
+                "source_relative_return": round(float(source_relative), 6),
+                "official_relative_return": round(float(official_relative), 6),
+                "source_max_dd": round(float(source_max_dd), 6),
+                "official_max_dd": round(float(official_max_dd), 6),
+                "source_gate_pass": bool(source_gate_pass),
+                "official_gate_pass": bool(official_gate_pass),
+                "source_optimistic_gate_flip": source_optimistic_gate_flip,
+                "relative_delta_official_minus_source": round(float(relative_delta), 6),
+                "relative_overstatement_pp": round(float(relative_overstatement), 6),
+                "maxdd_delta_official_minus_source": round(float(maxdd_delta), 6),
+                "maxdd_understatement_pp": round(float(maxdd_understatement), 6),
+                "material_relative_overstatement": bool(material_relative),
+                "material_maxdd_understatement": bool(material_maxdd),
+                "primary_mismatch": primary_mismatch,
+                "required_action": (
+                    "block_training_until_official_replay_metric_alignment"
+                    if source_optimistic_gate_flip
+                    else "use_official_replay_metrics_for_selection"
+                ),
+            }
+        )
+    out = pd.DataFrame(rows)
+    return out.sort_values(
+        ["source_optimistic_gate_flip", "relative_overstatement_pp", "maxdd_understatement_pp", "candidate", "fold"],
+        ascending=[False, False, False, True, True],
+    ).reset_index(drop=True)[columns]
+
+
+def summarize_source_vs_official_audit(audit: pd.DataFrame) -> dict[str, object]:
+    """Summarize source-vs-official metric alignment for promotion governance."""
+
+    if audit.empty:
+        return {
+            "decision": "metric_alignment_no_rows",
+            "source_optimistic_gate_flip_count": 0,
+            "official_gate_pass_count": 0,
+            "next_mechanism": "collect_source_and_official_replay_metrics",
+        }
+
+    source_optimistic = audit["source_optimistic_gate_flip"].astype(bool)
+    official_gate = audit["official_gate_pass"].astype(bool)
+    if bool(source_optimistic.any()):
+        decision = "source_backtest_optimistic_gate_flip_no_training"
+        next_mechanism = "replace_training_selection_gate_with_official_replay_metrics"
+    elif bool(official_gate.all()):
+        decision = "metric_alignment_official_gate_passed"
+        next_mechanism = "continue_full_walkforward_or_retention_review"
+    else:
+        decision = "metric_alignment_official_gate_failed"
+        next_mechanism = "drop_candidate_or_redesign_before_training"
+
+    worst = audit.iloc[0]
+    return {
+        "decision": decision,
+        "rows": int(len(audit)),
+        "source_optimistic_gate_flip_count": int(source_optimistic.sum()),
+        "official_gate_pass_count": int(official_gate.sum()),
+        "max_relative_overstatement_pp": float(audit["relative_overstatement_pp"].max()),
+        "max_maxdd_understatement_pp": float(audit["maxdd_understatement_pp"].max()),
+        "worst_candidate": str(worst["candidate"]),
+        "worst_fold": str(worst["fold"]),
+        "worst_primary_mismatch": str(worst["primary_mismatch"]),
+        "next_mechanism": next_mechanism,
+    }
+
+
 __all__ = [
+    "audit_source_vs_official_metrics",
     "build_warm_start_replay_segment",
     "compute_relative_metric_variants",
     "slice_warm_start_daily_path",
+    "summarize_source_vs_official_audit",
 ]

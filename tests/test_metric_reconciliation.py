@@ -3,8 +3,10 @@ from __future__ import annotations
 import pandas as pd
 
 from src.soxl_quant.core.metric_reconciliation import (
+    audit_source_vs_official_metrics,
     build_warm_start_replay_segment,
     compute_relative_metric_variants,
+    summarize_source_vs_official_audit,
     slice_warm_start_daily_path,
 )
 
@@ -75,3 +77,39 @@ def test_slice_warm_start_daily_path_rebases_only_eval_window() -> None:
     assert daily["action"].tolist() == ["HOLD", "SELL", "HOLD"]
     assert daily["excess"].iloc[-1] == -450_000.0
     assert daily["excess_pct"].iloc[-1] == -30.0
+
+
+def test_source_vs_official_audit_classifies_gate_flip_failure_modes() -> None:
+    pk = pd.DataFrame(
+        [
+            {
+                "candidate": "bc_initialization",
+                "fold": "wf_2022",
+                "source_bc_relative_return": 66.72,
+                "official_warm_relative_return": 67.62,
+                "source_bc_max_dd": 14.99,
+                "official_warm_max_dd": 22.26,
+            },
+            {
+                "candidate": "bc_initialization",
+                "fold": "wf_2023_2024",
+                "source_bc_relative_return": 31.12,
+                "official_warm_relative_return": 5.02,
+                "source_bc_max_dd": 13.36,
+                "official_warm_max_dd": 16.69,
+            },
+        ]
+    )
+
+    audit = audit_source_vs_official_metrics(pk)
+    summary = summarize_source_vs_official_audit(audit)
+
+    by_fold = audit.set_index("fold")
+    assert bool(by_fold.loc["wf_2022", "source_optimistic_gate_flip"]) is True
+    assert by_fold.loc["wf_2022", "primary_mismatch"] == "max_drawdown_understated_gate_flip"
+    assert by_fold.loc["wf_2023_2024", "primary_mismatch"] == "relative_and_drawdown_gate_flip"
+    assert by_fold.loc["wf_2023_2024", "relative_overstatement_pp"] == 26.10
+    assert by_fold.loc["wf_2022", "maxdd_understatement_pp"] == 7.27
+    assert summary["decision"] == "source_backtest_optimistic_gate_flip_no_training"
+    assert summary["source_optimistic_gate_flip_count"] == 2
+    assert summary["next_mechanism"] == "replace_training_selection_gate_with_official_replay_metrics"

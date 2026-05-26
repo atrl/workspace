@@ -1,0 +1,12 @@
+{
+  "decision": "source_backtest_optimistic_gate_flip_no_training",
+  "max_maxdd_understatement_pp": 7.264082,
+  "max_relative_overstatement_pp": 26.105174,
+  "next_mechanism": "replace_training_selection_gate_with_official_replay_metrics",
+  "official_gate_pass_count": 0,
+  "rows": 2,
+  "source_optimistic_gate_flip_count": 2,
+  "worst_candidate": "bc_initialization",
+  "worst_fold": "wf_2023_2024",
+  "worst_primary_mismatch": "relative_and_drawdown_gate_flip"
+}
