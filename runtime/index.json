@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-26T02:49:44.717433+00:00",
+  "generated_at": "2026-05-26T03:41:17.554026+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -6834,6 +6834,30 @@
       "category": "model_selection",
       "suffix": ".json",
       "bytes": 714
+    },
+    {
+      "path": "runtime/model_selection/card/metric_source_reconciliation_v1/candidate_reconciliation_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1137
+    },
+    {
+      "path": "runtime/model_selection/card/metric_source_reconciliation_v1/metric_reconciliation.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4510
+    },
+    {
+      "path": "runtime/model_selection/card/metric_source_reconciliation_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1971
+    },
+    {
+      "path": "runtime/model_selection/card/metric_source_reconciliation_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 7905
     },
     {
       "path": "runtime/model_selection/card/oos_poor_window_factor_diff_aggregate_v1/aggregate/aggregate_oos_review.md",

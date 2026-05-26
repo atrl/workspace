@@ -228,6 +228,13 @@ timing，或把同一 sequence-risk 信息转为 checkpoint scoring / action-con
 reconciliation，再跑 fixed-split / wf_2020；不要把两折 drawdown 改善直接解释成
 runtime overlay promotion。
 
+metric-source reconciliation 时，先检查 isolated qlib fold 是否从评估窗口边界
+直接切片，导致策略在前 `LOOKBACK` 行无法下单，而 calendar buy-and-hold benchmark
+仍包含这段 warmup。若 calendar relative 与 tradable-window relative 出现 gate
+flip，把结论标为 `warmup_benchmark_alignment_no_promotion`：这说明需要
+warm-start official qlib backtest 或显式采用 tradable-window gate，不说明应该继续
+调 action cap / reward penalty 阈值。
+
 进入状态条件多目标前，先用已有 daily path 做一个 notebook-first objective
 screen，确认最接近的老师路径和仍然失败的项：
 
