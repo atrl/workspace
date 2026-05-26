@@ -235,6 +235,14 @@ flip，把结论标为 `warmup_benchmark_alignment_no_promotion`：这说明需�
 warm-start official qlib backtest 或显式采用 tradable-window gate，不说明应该继续
 调 action cap / reward penalty 阈值。
 
+做 warm-start official qlib backtest 时，优先复用
+`src.soxl_quant.core.metric_reconciliation.build_warm_start_replay_segment`
+和 `slice_warm_start_daily_path`：前者把 replay segment 向前扩展 `LOOKBACK`
+交易行，后者把 official portfolio 切回评估窗口并从评估首日重新归一化策略与
+buy-and-hold NAV。promotion / PPO / reward handoff 必须使用这个切回后的
+daily path metrics；不要把 warmup 段的 portfolio return 或 cold-start daily path
+混入 gate。
+
 如果 BC warm-start / target-composition notebook 同时写了 official
 `backtest_profile` daily path 和 `evaluate_split` metrics，promotion、PPO handoff
 和 reward handoff 必须优先用 official daily path 或先做 metric-source

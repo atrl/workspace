@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-26T07:59:52.014167+00:00",
+  "generated_at": "2026-05-26T08:36:39.659642+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -7470,6 +7470,90 @@
       "category": "model_selection",
       "suffix": ".json",
       "bytes": 19796
+    },
+    {
+      "path": "runtime/model_selection/card/sequence_trend_joint_warm_start_official_eval_v1/base_plain_contract_wf_2022_warm_start_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31177
+    },
+    {
+      "path": "runtime/model_selection/card/sequence_trend_joint_warm_start_official_eval_v1/base_plain_contract_wf_2023_2024_warm_start_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 32013
+    },
+    {
+      "path": "runtime/model_selection/card/sequence_trend_joint_warm_start_official_eval_v1/bc_fit_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 644
+    },
+    {
+      "path": "runtime/model_selection/card/sequence_trend_joint_warm_start_official_eval_v1/candidate_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1001
+    },
+    {
+      "path": "runtime/model_selection/card/sequence_trend_joint_warm_start_official_eval_v1/daily_manifest.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1132
+    },
+    {
+      "path": "runtime/model_selection/card/sequence_trend_joint_warm_start_official_eval_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 3191
+    },
+    {
+      "path": "runtime/model_selection/card/sequence_trend_joint_warm_start_official_eval_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 17792
+    },
+    {
+      "path": "runtime/model_selection/card/sequence_trend_joint_warm_start_official_eval_v1/trend_plain_contract_wf_2022_warm_start_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31177
+    },
+    {
+      "path": "runtime/model_selection/card/sequence_trend_joint_warm_start_official_eval_v1/trend_plain_contract_wf_2023_2024_warm_start_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31988
+    },
+    {
+      "path": "runtime/model_selection/card/sequence_trend_joint_warm_start_official_eval_v1/trend_plus_slope_low_cap15_weighted_wf_2022_warm_start_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31290
+    },
+    {
+      "path": "runtime/model_selection/card/sequence_trend_joint_warm_start_official_eval_v1/trend_plus_slope_low_cap15_weighted_wf_2023_2024_warm_start_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 32029
+    },
+    {
+      "path": "runtime/model_selection/card/sequence_trend_joint_warm_start_official_eval_v1/warm_start_official_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2405
+    },
+    {
+      "path": "runtime/model_selection/card/sequence_trend_joint_warm_start_official_eval_v1/warm_start_segments.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 224
+    },
+    {
+      "path": "runtime/model_selection/card/sequence_trend_joint_warm_start_official_eval_v1/warm_vs_prior_cold_comparison.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 3328
     },
     {
       "path": "runtime/model_selection/card/sparse_rebound_release_target_revision_v1/bc_readiness_scores.csv",
