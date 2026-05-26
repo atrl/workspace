@@ -235,6 +235,11 @@ flip，把结论标为 `warmup_benchmark_alignment_no_promotion`：这说明需�
 warm-start official qlib backtest 或显式采用 tradable-window gate，不说明应该继续
 调 action cap / reward penalty 阈值。
 
+如果 warm-start official qlib backtest 恢复了首日观测历史，但 selected action-cap
+仍在后续 fold 失败，尤其是失败 fold 的 `trace_target_cap_changed_days=0`，不要再扩大
+同一 action-cap 阈值网格。结论应是 state coverage / training objective 缺口：
+下一步转 checkpoint selection、状态条件训练目标或新状态特征覆盖失败窗口。
+
 进入状态条件多目标前，先用已有 daily path 做一个 notebook-first objective
 screen，确认最接近的老师路径和仍然失败的项：
 

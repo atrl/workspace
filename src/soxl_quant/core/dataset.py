@@ -27,6 +27,22 @@ from ..settings import DATA_DIR, ETF_UNIVERSE
 DATASET_REGISTRY_PATH = DATA_DIR / "datasets.yaml"
 
 
+def slice_with_lookback(frame, start: str, end: str, *, lookback: int):
+    """Return ``frame[start:end]`` plus up to ``lookback`` rows of prior context."""
+    if int(lookback) <= 0:
+        return frame.loc[start:end].copy()
+    sorted_frame = frame.sort_index()
+    window = sorted_frame.loc[:end]
+    start_ts = next(iter(sorted_frame.loc[start:end].index), None)
+    if start_ts is None:
+        return sorted_frame.loc[start:end].copy()
+    start_pos = window.index.get_loc(start_ts)
+    if isinstance(start_pos, slice):
+        start_pos = start_pos.start
+    context_start = max(int(start_pos) - int(lookback), 0)
+    return window.iloc[context_start:].copy()
+
+
 def load_dataset_registry(path: Path | None = None) -> dict:
     registry_path = path or DATASET_REGISTRY_PATH
     if not registry_path.exists():
@@ -79,5 +95,6 @@ __all__ = [
     "get_universe_assets",
     "refresh_qlib_binary",
     "segment_frame",
+    "slice_with_lookback",
     "static_index_for_packs",
 ]

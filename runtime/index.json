@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-26T03:41:17.554026+00:00",
+  "generated_at": "2026-05-26T04:01:30.434510+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -9000,6 +9000,84 @@
       "category": "model_selection",
       "suffix": ".csv",
       "bytes": 3198
+    },
+    {
+      "path": "runtime/model_selection/card/warm_start_action_cap_validation_v1/baseline_no_action_cap_wf_2022_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 54312
+    },
+    {
+      "path": "runtime/model_selection/card/warm_start_action_cap_validation_v1/baseline_no_action_cap_wf_2023_2024_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 41252
+    },
+    {
+      "path": "runtime/model_selection/card/warm_start_action_cap_validation_v1/bc_slice_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1207
+    },
+    {
+      "path": "runtime/model_selection/card/warm_start_action_cap_validation_v1/coverage.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 293
+    },
+    {
+      "path": "runtime/model_selection/card/warm_start_action_cap_validation_v1/coverage.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1177
+    },
+    {
+      "path": "runtime/model_selection/card/warm_start_action_cap_validation_v1/fold_sequence_thresholds.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 947
+    },
+    {
+      "path": "runtime/model_selection/card/warm_start_action_cap_validation_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2026
+    },
+    {
+      "path": "runtime/model_selection/card/warm_start_action_cap_validation_v1/seq_cap10_two_of_three_wf_2022_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 54329
+    },
+    {
+      "path": "runtime/model_selection/card/warm_start_action_cap_validation_v1/seq_cap10_two_of_three_wf_2023_2024_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 41252
+    },
+    {
+      "path": "runtime/model_selection/card/warm_start_action_cap_validation_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 12137
+    },
+    {
+      "path": "runtime/model_selection/card/warm_start_action_cap_validation_v1/warm_start_action_cap_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2925
+    },
+    {
+      "path": "runtime/model_selection/card/warm_start_action_cap_validation_v1/warm_start_candidate_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 611
+    },
+    {
+      "path": "runtime/model_selection/card/warm_start_action_cap_validation_v1/warm_start_decision_trace.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 304900
     },
     {
       "path": "runtime/multi_asset/card/soxl_baseline/card.md",
