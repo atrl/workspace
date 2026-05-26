@@ -5,6 +5,7 @@ import pandas as pd
 from src.soxl_quant.app.state_conditioned_objective import (
     StateConditionedObjectiveConfig,
     daily_path_metrics,
+    max_drawdown_interval_metrics,
     render_state_conditioned_objective_review,
     score_state_conditioned_objective,
     summarize_state_conditioned_objective,
@@ -106,3 +107,24 @@ def test_daily_path_metrics_accepts_router_position_alias():
     metrics = daily_path_metrics(daily)
 
     assert round(metrics["avg_pos"], 2) == 0.2
+
+
+def test_max_drawdown_interval_metrics_reports_peak_trough_position_and_trades():
+    daily = pd.DataFrame(
+        {
+            "datetime": pd.date_range("2026-01-01", periods=6, freq="B"),
+            "strategy_nav": [100.0, 120.0, 114.0, 90.0, 96.0, 130.0],
+            "buyhold_nav": [100.0, 110.0, 105.0, 104.0, 106.0, 112.0],
+            "position": [0.0, 0.7, 0.5, 0.3, 0.4, 0.2],
+            "action": ["HOLD", "BUY", "HOLD", "SELL", "HOLD", "BUY"],
+        }
+    )
+
+    metrics = max_drawdown_interval_metrics(daily)
+
+    assert metrics["peak_date"] == "2026-01-02"
+    assert metrics["trough_date"] == "2026-01-06"
+    assert round(metrics["max_dd"], 2) == 25.0
+    assert metrics["interval_days"] == 3
+    assert round(metrics["interval_avg_pos"], 2) == 0.5
+    assert metrics["interval_trades"] == 2

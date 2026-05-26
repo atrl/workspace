@@ -91,6 +91,72 @@ def daily_path_metrics(daily: pd.DataFrame) -> dict[str, object]:
     }
 
 
+def max_drawdown_interval_metrics(
+    daily: pd.DataFrame,
+    *,
+    nav_col: str = "strategy_nav",
+) -> dict[str, object]:
+    """Return the peak-to-trough interval behind a daily path's max drawdown."""
+
+    frame = daily.copy()
+    if "position" not in frame.columns:
+        for alias in ("router_position", "target_position", "base_position"):
+            if alias in frame.columns:
+                frame["position"] = frame[alias]
+                break
+    required = {"datetime", nav_col, "position"}
+    missing = sorted(required - set(frame.columns))
+    if missing:
+        raise ValueError(f"daily path missing columns: {missing}")
+    frame["datetime"] = pd.to_datetime(frame["datetime"])
+    frame = frame.sort_values("datetime").reset_index(drop=True)
+    nav = pd.to_numeric(frame[nav_col], errors="coerce").ffill()
+    if len(nav.dropna()) < 2:
+        return {
+            "peak_date": "",
+            "trough_date": "",
+            "max_dd": 0.0,
+            "interval_return": 0.0,
+            "interval_days": int(len(frame)),
+            "interval_avg_pos": float(pd.to_numeric(frame["position"], errors="coerce").fillna(0.0).mean())
+            if len(frame)
+            else 0.0,
+            "interval_min_pos": float(pd.to_numeric(frame["position"], errors="coerce").fillna(0.0).min())
+            if len(frame)
+            else 0.0,
+            "interval_max_pos": float(pd.to_numeric(frame["position"], errors="coerce").fillna(0.0).max())
+            if len(frame)
+            else 0.0,
+            "interval_trades": 0,
+        }
+
+    peak = nav.cummax()
+    drawdown = nav / peak - 1.0
+    trough_idx = int(drawdown.idxmin())
+    peak_idx = int(nav.loc[:trough_idx].idxmax())
+    interval = frame.loc[peak_idx:trough_idx].copy()
+    positions = pd.to_numeric(interval["position"], errors="coerce").fillna(0.0)
+    start_nav = float(nav.iloc[peak_idx])
+    trough_nav = float(nav.iloc[trough_idx])
+    interval_return = (trough_nav / start_nav - 1.0) * 100.0 if start_nav else 0.0
+    if "action" in interval.columns:
+        actions = interval["action"].astype(str).str.upper()
+        interval_trades = int(actions.isin(["BUY", "SELL"]).sum())
+    else:
+        interval_trades = 0
+    return {
+        "peak_date": str(pd.Timestamp(frame.loc[peak_idx, "datetime"]).date()),
+        "trough_date": str(pd.Timestamp(frame.loc[trough_idx, "datetime"]).date()),
+        "max_dd": abs(float(drawdown.iloc[trough_idx]) * 100.0),
+        "interval_return": float(interval_return),
+        "interval_days": int(len(interval)),
+        "interval_avg_pos": float(positions.mean()) if len(positions) else 0.0,
+        "interval_min_pos": float(positions.min()) if len(positions) else 0.0,
+        "interval_max_pos": float(positions.max()) if len(positions) else 0.0,
+        "interval_trades": interval_trades,
+    }
+
+
 def slice_daily_path_metrics(daily: pd.DataFrame, *, start: str, end: str) -> dict[str, object]:
     frame = daily.copy()
     frame["datetime"] = pd.to_datetime(frame["datetime"])
@@ -315,6 +381,7 @@ def render_state_conditioned_objective_review(
 __all__ = [
     "StateConditionedObjectiveConfig",
     "daily_path_metrics",
+    "max_drawdown_interval_metrics",
     "render_state_conditioned_objective_review",
     "score_state_conditioned_objective",
     "slice_daily_path_metrics",

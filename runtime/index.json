@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-26T10:05:07.145957+00:00",
+  "generated_at": "2026-05-26T10:36:27.959762+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -6384,6 +6384,48 @@
       "category": "model_selection",
       "suffix": ".json",
       "bytes": 7816
+    },
+    {
+      "path": "runtime/model_selection/card/drawdown_interval_risk_state_coverage_v1/drawdown_interval_feature_snapshots.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 3430
+    },
+    {
+      "path": "runtime/model_selection/card/drawdown_interval_risk_state_coverage_v1/drawdown_interval_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2942
+    },
+    {
+      "path": "runtime/model_selection/card/drawdown_interval_risk_state_coverage_v1/fold_local_signal_thresholds.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1019
+    },
+    {
+      "path": "runtime/model_selection/card/drawdown_interval_risk_state_coverage_v1/risk_signal_family_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1757
+    },
+    {
+      "path": "runtime/model_selection/card/drawdown_interval_risk_state_coverage_v1/risk_signal_interval_coverage.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 11150
+    },
+    {
+      "path": "runtime/model_selection/card/drawdown_interval_risk_state_coverage_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2296
+    },
+    {
+      "path": "runtime/model_selection/card/drawdown_interval_risk_state_coverage_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 9785
     },
     {
       "path": "runtime/model_selection/card/drawdown_rebound_checkpoint_pbo_v1/checkpoint_inventory.csv",

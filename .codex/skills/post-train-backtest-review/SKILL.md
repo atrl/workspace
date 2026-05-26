@@ -217,15 +217,21 @@ drawdown breach、在其他已评估 fold 不明显过度触发，并且 `select
 如果短 BC/PPO screen 显示 `sequence_risk_reward_enabled` 提高失败 fold 的
 relative return 但同时扩大 sequence-state 仓位和 MaxDD，则把它归类为
 `reward_ppo_drift_failed_no_promotion`。不要启动更长 PPO，也不要把 reward
-配方转成 runtime overlay；下一步只能是保留 BC 基线、重做 reward penalty
+配方转成 runtime overlay；下一步只能是保留 BC 基线，重做 reward penalty
+timing，或把同一 sequence-risk 信息转为 checkpoint scoring / action-constraint
+候选。
 
 如果 state-conditioned multi-objective BC screen 通过 reentry floor 把
 `wf_2023_2024` 或其他 underparticipation 窗口的 relative return 拉到目标线附近，
 但 official warm-start MaxDD 同时超过目标、且最大回撤区间平均仓位高于参考模型，
 不要继续上调 floor 或扩大同类 BC 网格。结论应转为风险状态表示、checkpoint scoring
 或 drawdown-interval-aware selection，让策略在建仓前识别风险，而不是继续提高反弹参与度。
-timing，或把同一 sequence-risk 信息转为 checkpoint scoring / action-constraint
-候选。
+
+做 drawdown-interval risk-state coverage 诊断时，要区分两类失败：如果长周期风险
+state 覆盖了 2022/stress 最大回撤区间但 signal-day 平均仓位仍偏高，下一步是
+risk-budget/cash-mode checkpoint scoring；如果同一候选在 2023-2024 的最大回撤区间
+几乎没有长周期 risk state 覆盖，但短周期 drawdown/volshock state 覆盖明显更高，
+下一步是新增短周期风险状态表示。不要把这两类都简化成“继续加 drawdown cap”。
 
 如果 action-constraint screen 能把失败 fold 的 MaxDD 压到目标线以内，且在
 另一个已评估 fold 不触发或不恶化 MaxDD，但 official qlib relative return 与
