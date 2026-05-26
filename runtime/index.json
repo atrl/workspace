@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-26T11:38:42.156785+00:00",
+  "generated_at": "2026-05-26T12:00:58.925972+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -8028,6 +8028,78 @@
       "category": "model_selection",
       "suffix": ".csv",
       "bytes": 224
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_target_generation_handoff_v1/bc_action_distribution.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 194
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_target_generation_handoff_v1/bc_label_comparison.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 211
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_target_generation_handoff_v1/bc_readiness.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 353
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_target_generation_handoff_v1/bc_readiness_summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 505
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_target_generation_handoff_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1922
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_target_generation_handoff_v1/short_volshock_de_risk_targets.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 867634
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_target_generation_handoff_v1/short_volshock_label_slice_distribution.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 126
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_target_generation_handoff_v1/short_volshock_target_fold_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 235
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_target_generation_handoff_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 3926
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_target_generation_handoff_v1/target_scope_audit.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 415
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_target_generation_handoff_v1/target_scope_summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 331
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_target_generation_handoff_v1/target_summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 503
     },
     {
       "path": "runtime/model_selection/card/sparse_rebound_release_target_revision_v1/bc_readiness_scores.csv",

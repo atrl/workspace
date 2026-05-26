@@ -273,6 +273,14 @@ sell-side execution guard；不要直接开更长 PPO。
 threshold-only sell guard 微调；下一步转 checkpoint scoring / target generation，
 让 short-volshock 状态进入模型选择或训练目标，而不是在 runtime 执行层继续补丁。
 
+如果随后做 short-volshock target-generation handoff，必须用 fold-local target
+contract 与 fold-local train threshold 生成训练/评分标签，并跑 target-scope audit。
+若 `short_volshock_de_risk_targets_ready`、`state_objective_targets_training_ready`
+和 `state_objective_bc_ready_for_training` 同时成立，只能标记为
+`short_volshock_target_generation_ready_no_promotion`。下一步是
+BC/checkpoint-alignment screen + `wf_2022` / `wf_2023_2024` replay；不要直接进入
+PPO，也不要把 target-readiness 当成 runtime overlay promotion。
+
 metric-source reconciliation 时，先检查 isolated qlib fold 是否从评估窗口边界
 直接切片，导致策略在前 `LOOKBACK` 行无法下单，而 calendar buy-and-hold benchmark
 仍包含这段 warmup。若 calendar relative 与 tradable-window relative 出现 gate

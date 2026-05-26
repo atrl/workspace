@@ -114,6 +114,256 @@ class TrendParticipationTargetConfig:
             raise ValueError("objective_weight_bonus must be non-negative")
 
 
+@dataclass(frozen=True)
+class ShortVolshockDeRiskTargetConfig:
+    target_cap: float = 0.05
+    min_feature_hits: int = 2
+    min_position_delta: float = 0.02
+    objective_weight_bonus: float = 6.0
+    max_objective_weight: float = 25.0
+    threshold_suffix: str = "q80"
+
+    def __post_init__(self) -> None:
+        if not 0.0 <= float(self.target_cap) <= 1.0:
+            raise ValueError("target_cap must be within [0, 1]")
+        if int(self.min_feature_hits) < 1:
+            raise ValueError("min_feature_hits must be >= 1")
+        if float(self.min_position_delta) < 0.0:
+            raise ValueError("min_position_delta must be non-negative")
+        if float(self.objective_weight_bonus) < 0.0:
+            raise ValueError("objective_weight_bonus must be non-negative")
+
+
+def _fold_threshold_key(value: object) -> str:
+    fold = str(value or "")
+    if fold.endswith("_train"):
+        return fold[: -len("_train")]
+    return fold
+
+
+def _normalise_feature_frame(features: pd.DataFrame, required: list[str]) -> pd.DataFrame:
+    frame = features.copy()
+    if "datetime" in frame.columns:
+        frame["datetime"] = pd.to_datetime(frame["datetime"])
+    elif isinstance(frame.index, pd.MultiIndex):
+        frame = frame.reset_index()
+        if "instrument" in frame.columns:
+            frame = frame.drop(columns=["instrument"])
+        if "datetime" not in frame.columns:
+            raise ValueError("feature frame multi-index must include `datetime`")
+        frame["datetime"] = pd.to_datetime(frame["datetime"])
+    else:
+        frame = frame.reset_index()
+        frame = frame.rename(columns={frame.columns[0]: "datetime"})
+        frame["datetime"] = pd.to_datetime(frame["datetime"])
+    missing = sorted(set(required) - set(frame.columns))
+    if missing:
+        raise ValueError(f"feature frame missing columns: {missing}")
+    return frame[["datetime", *required]].sort_values("datetime").reset_index(drop=True)
+
+
+def _short_volshock_threshold_map(
+    thresholds: pd.DataFrame,
+    config: ShortVolshockDeRiskTargetConfig,
+) -> dict[str, dict[str, float]]:
+    required = {
+        "fold",
+        f"realized_vol_21_{config.threshold_suffix}",
+        f"vol_of_vol_21_{config.threshold_suffix}",
+        f"downside_semivol_21_{config.threshold_suffix}",
+    }
+    missing = sorted(required - set(thresholds.columns))
+    if missing:
+        raise ValueError(f"short-volshock thresholds missing columns: {missing}")
+    result: dict[str, dict[str, float]] = {}
+    for row in thresholds.to_dict("records"):
+        fold = _fold_threshold_key(row.get("fold"))
+        result[fold] = {
+            "realized_vol_21": _json_safe_float(row[f"realized_vol_21_{config.threshold_suffix}"], np.nan),
+            "vol_of_vol_21": _json_safe_float(row[f"vol_of_vol_21_{config.threshold_suffix}"], np.nan),
+            "downside_semivol_21": _json_safe_float(row[f"downside_semivol_21_{config.threshold_suffix}"], np.nan),
+        }
+    return result
+
+
+def apply_short_volshock_de_risk_target_gate(
+    targets: pd.DataFrame,
+    feature_frame: pd.DataFrame,
+    thresholds: pd.DataFrame,
+    *,
+    config: ShortVolshockDeRiskTargetConfig = ShortVolshockDeRiskTargetConfig(),
+) -> pd.DataFrame:
+    """Add fold-local short-volshock de-risk targets to an existing target table.
+
+    This helper is intentionally target-generation only: it merges features by
+    date, reads thresholds by the target fold, and records a cap candidate for
+    later checkpoint scoring or BC. It does not use OOS replay outcomes as
+    direct labels.
+    """
+
+    if targets.empty:
+        result = targets.copy()
+        result["short_volshock_state"] = False
+        result["short_volshock_target_state"] = False
+        result["short_volshock_feature_hits"] = 0
+        result["short_volshock_risk_cap_delta"] = 0.0
+        return result
+    required_targets = {"datetime", "teacher_position", "risk_target_position"}
+    missing_targets = sorted(required_targets - set(targets.columns))
+    if missing_targets:
+        raise ValueError(f"short-volshock targets missing columns: {missing_targets}")
+    feature_cols = ["realized_vol_21", "vol_of_vol_21", "downside_semivol_21"]
+    features = _normalise_feature_frame(feature_frame, feature_cols)
+    threshold_map = _short_volshock_threshold_map(thresholds, config)
+
+    result = targets.copy()
+    result["datetime"] = pd.to_datetime(result["datetime"])
+    result = result.drop(columns=[column for column in feature_cols if column in result.columns])
+    result = result.merge(features, on="datetime", how="left")
+    result["teacher_position"] = pd.to_numeric(result["teacher_position"], errors="coerce").fillna(0.0).clip(0.0, 1.0)
+    result["risk_target_position"] = (
+        pd.to_numeric(result["risk_target_position"], errors="coerce")
+        .fillna(result["teacher_position"])
+        .clip(0.0, 1.0)
+    )
+    if "objective_weight" not in result.columns:
+        result["objective_weight"] = 1.0
+    result["objective_weight"] = pd.to_numeric(result["objective_weight"], errors="coerce").fillna(1.0)
+    if "is_downtrend_state" not in result.columns:
+        result["is_downtrend_state"] = False
+    result["is_downtrend_state"] = result["is_downtrend_state"].fillna(False).astype(bool)
+    if "risk_state" not in result.columns:
+        result["risk_state"] = False
+    result["risk_state"] = result["risk_state"].fillna(False).astype(bool)
+
+    if "fold" in result.columns:
+        fold_keys = result["fold"].map(_fold_threshold_key)
+    elif "window" in result.columns:
+        fold_keys = result["window"].map(_fold_threshold_key)
+    else:
+        fold_keys = pd.Series("", index=result.index)
+    result["short_volshock_threshold_fold"] = fold_keys.fillna("").astype(str)
+
+    hit_counts: list[int] = []
+    state_rows: list[bool] = []
+    threshold_json: list[str] = []
+    for idx, fold in result["short_volshock_threshold_fold"].items():
+        row_thresholds = threshold_map.get(str(fold))
+        if row_thresholds is None:
+            hit_counts.append(0)
+            state_rows.append(False)
+            threshold_json.append("{}")
+            continue
+        hits = 0
+        valid = True
+        for column, threshold in row_thresholds.items():
+            value = result.at[idx, column]
+            if pd.isna(value) or pd.isna(threshold):
+                valid = False
+                break
+            hits += int(float(value) >= float(threshold))
+        hit_counts.append(int(hits if valid else 0))
+        state_rows.append(bool(valid and hits >= int(config.min_feature_hits)))
+        threshold_json.append(
+            "{" + ",".join(f'"{key}":{float(value):.10g}' for key, value in sorted(row_thresholds.items())) + "}"
+        )
+    result["short_volshock_feature_hits"] = hit_counts
+    result["short_volshock_state"] = state_rows
+    result["short_volshock_thresholds_json"] = threshold_json
+    result["risk_target_position_before_short_volshock"] = result["risk_target_position"]
+    cap = float(config.target_cap)
+    cap_delta = (result["risk_target_position_before_short_volshock"] - cap).clip(lower=0.0)
+    result["short_volshock_target_state"] = result["short_volshock_state"] & (
+        cap_delta > float(config.min_position_delta)
+    )
+    result["short_volshock_risk_cap_delta"] = np.where(
+        result["short_volshock_target_state"],
+        cap_delta,
+        0.0,
+    ).round(10)
+    result["risk_target_position"] = np.where(
+        result["short_volshock_target_state"],
+        np.minimum(result["risk_target_position"], cap),
+        result["risk_target_position"],
+    )
+    result["short_volshock_de_risk_weight"] = np.where(
+        result["short_volshock_target_state"],
+        1.0 + result["short_volshock_risk_cap_delta"] * float(config.objective_weight_bonus) * 10.0,
+        0.0,
+    )
+    result["objective_weight"] = np.where(
+        result["short_volshock_target_state"],
+        np.maximum(result["objective_weight"], result["short_volshock_de_risk_weight"]),
+        result["objective_weight"],
+    ).clip(max=float(config.max_objective_weight))
+    result["is_downtrend_state"] = result["is_downtrend_state"] | result["short_volshock_target_state"]
+    result["risk_state"] = result["risk_state"] | result["short_volshock_state"]
+    if "target_recipe" in result.columns:
+        result["target_recipe"] = np.where(
+            result["short_volshock_target_state"],
+            result["target_recipe"].fillna("").astype(str) + "+short_volshock_de_risk_cap",
+            result["target_recipe"].fillna("").astype(str),
+        )
+    else:
+        result["target_recipe"] = np.where(
+            result["short_volshock_target_state"],
+            "short_volshock_de_risk_cap",
+            "",
+        )
+    return result.reset_index(drop=True)
+
+
+def summarize_short_volshock_de_risk_targets(targets: pd.DataFrame) -> dict[str, object]:
+    if targets.empty:
+        return {
+            "decision": "short_volshock_de_risk_targets_empty",
+            "rows": 0,
+            "short_volshock_state_rows": 0,
+            "target_state_rows": 0,
+            "next_mechanism": "collect_fold_local_short_volshock_targets",
+        }
+    state_rows = int(targets.get("short_volshock_state", pd.Series(dtype=bool)).fillna(False).astype(bool).sum())
+    target_rows = int(targets.get("short_volshock_target_state", pd.Series(dtype=bool)).fillna(False).astype(bool).sum())
+    folds = (
+        sorted(str(value) for value in targets["fold"].dropna().unique().tolist())
+        if "fold" in targets.columns
+        else []
+    )
+    decision = (
+        "short_volshock_de_risk_targets_ready"
+        if target_rows > 0
+        else "short_volshock_de_risk_targets_no_training_signal"
+    )
+    next_mechanism = (
+        "score_checkpoints_or_run_bc_with_short_volshock_targets"
+        if target_rows > 0
+        else "revise_short_volshock_thresholds_or_state_representation"
+    )
+    return {
+        "decision": decision,
+        "rows": int(len(targets)),
+        "folds": folds,
+        "short_volshock_state_rows": state_rows,
+        "target_state_rows": target_rows,
+        "max_risk_cap_delta": float(
+            pd.to_numeric(targets.get("short_volshock_risk_cap_delta", pd.Series(dtype=float)), errors="coerce")
+            .fillna(0.0)
+            .max()
+        ),
+        "mean_objective_weight": float(
+            pd.to_numeric(targets.get("objective_weight", pd.Series(dtype=float)), errors="coerce")
+            .fillna(0.0)
+            .mean()
+        ),
+        "next_mechanism": next_mechanism,
+        "required_terms": [
+            "fold_local_short_volshock_state",
+            "short_volshock_de_risk_target_cap",
+            "checkpoint_alignment_or_bc_loss",
+        ],
+    }
+
+
 def _window_weight(window: str, config: StateConditionedObjectiveConfig) -> float:
     if window in config.window_weights:
         return float(config.window_weights[window])
@@ -2143,8 +2393,10 @@ __all__ = [
     "StateObjectiveReboundClusterConfig",
     "StateObjectiveReboundTargetEnrichmentConfig",
     "StateObjectiveTrainingTargetConfig",
+    "ShortVolshockDeRiskTargetConfig",
     "TrendParticipationTargetConfig",
     "apply_state_objective_sparse_release_gate",
+    "apply_short_volshock_de_risk_target_gate",
     "apply_trend_participation_target_gate",
     "audit_state_objective_target_lift",
     "audit_state_objective_target_scope",
@@ -2164,4 +2416,5 @@ __all__ = [
     "summarize_state_objective_target_lift_audit",
     "summarize_state_objective_target_scope_audit",
     "summarize_state_objective_training_targets",
+    "summarize_short_volshock_de_risk_targets",
 ]

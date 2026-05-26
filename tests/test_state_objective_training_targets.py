@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import pandas as pd
 
+from src.soxl_quant.app import state_objective_training_targets
 from src.soxl_quant.app.state_objective_training_targets import (
     StateObjectiveDrawdownControlTargetConfig,
     StateObjectiveBCReadinessConfig,
@@ -126,6 +127,85 @@ def test_drawdown_control_targets_cap_objective_weight_to_limit_overfit():
     )
 
     assert targets["objective_weight"].max() == 12.0
+
+
+def test_short_volshock_de_risk_target_gate_uses_fold_local_thresholds_and_caps_high_exposure():
+    targets = pd.DataFrame(
+        {
+            "datetime": pd.to_datetime(["2020-01-02", "2020-01-03", "2022-01-03"]),
+            "fold": ["wf_2022_train", "wf_2022_train", "wf_2023_2024_train"],
+            "window": ["wf_2022_train", "wf_2022_train", "wf_2023_2024_train"],
+            "teacher_position": [0.42, 0.04, 0.50],
+            "risk_target_position": [0.42, 0.04, 0.50],
+            "objective_weight": [1.0, 2.0, 1.0],
+            "is_downtrend_state": [False, False, False],
+        }
+    )
+    feature_frame = pd.DataFrame(
+        {
+            "datetime": pd.to_datetime(["2020-01-02", "2020-01-03", "2022-01-03"]),
+            "realized_vol_21": [0.90, 0.90, 1.10],
+            "vol_of_vol_21": [0.30, 0.30, 0.30],
+            "downside_semivol_21": [0.20, 0.20, 0.80],
+        }
+    )
+    thresholds = pd.DataFrame(
+        {
+            "fold": ["wf_2022", "wf_2023_2024"],
+            "realized_vol_21_q80": [0.80, 1.00],
+            "vol_of_vol_21_q80": [0.25, 0.25],
+            "downside_semivol_21_q80": [0.60, 0.70],
+        }
+    )
+
+    revised = state_objective_training_targets.apply_short_volshock_de_risk_target_gate(
+        targets,
+        feature_frame,
+        thresholds,
+        config=state_objective_training_targets.ShortVolshockDeRiskTargetConfig(
+            target_cap=0.05,
+            min_feature_hits=2,
+            min_position_delta=0.02,
+        ),
+    )
+
+    by_date = revised.set_index("datetime")
+    capped = by_date.loc[pd.Timestamp("2020-01-02")]
+    already_low = by_date.loc[pd.Timestamp("2020-01-03")]
+    other_fold = by_date.loc[pd.Timestamp("2022-01-03")]
+    assert bool(capped["short_volshock_state"]) is True
+    assert capped["short_volshock_feature_hits"] == 2
+    assert bool(capped["short_volshock_target_state"]) is True
+    assert capped["risk_target_position_before_short_volshock"] == 0.42
+    assert capped["risk_target_position"] == 0.05
+    assert capped["short_volshock_risk_cap_delta"] == 0.37
+    assert bool(capped["is_downtrend_state"]) is True
+    assert capped["objective_weight"] > 1.0
+    assert bool(already_low["short_volshock_state"]) is True
+    assert bool(already_low["short_volshock_target_state"]) is False
+    assert already_low["risk_target_position"] == 0.04
+    assert bool(other_fold["short_volshock_state"]) is True
+    assert other_fold["short_volshock_feature_hits"] == 3
+    assert other_fold["risk_target_position"] == 0.05
+
+
+def test_short_volshock_target_summary_routes_ready_targets_to_bc_or_checkpoint():
+    targets = pd.DataFrame(
+        {
+            "short_volshock_state": [True, True, False],
+            "short_volshock_target_state": [True, False, False],
+            "short_volshock_risk_cap_delta": [0.30, 0.0, 0.0],
+            "fold": ["wf_2022_train", "wf_2022_train", "wf_2023_2024_train"],
+        }
+    )
+
+    summary = state_objective_training_targets.summarize_short_volshock_de_risk_targets(targets)
+
+    assert summary["decision"] == "short_volshock_de_risk_targets_ready"
+    assert summary["rows"] == 3
+    assert summary["short_volshock_state_rows"] == 2
+    assert summary["target_state_rows"] == 1
+    assert summary["next_mechanism"] == "score_checkpoints_or_run_bc_with_short_volshock_targets"
 
 
 def test_training_targets_mark_rebound_cluster_and_floor_teacher_position():
