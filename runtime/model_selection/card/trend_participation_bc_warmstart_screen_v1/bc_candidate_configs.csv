@@ -1,0 +1,4 @@
+candidate,target_source,complexity,sample_weight_config,description
+base_plain_contract,base,0,,Unchanged fold-local contract with plain BC; drift baseline.
+trend_plain_contract,trend,1,,Trend target contract with plain BC.
+trend_weighted_obj025_cb099,trend,2,"{'rebound_multiplier': 4.0, 'downtrend_multiplier': 1.5, 'ordinary_multiplier': 1.0, 'objective_weight_power': 0.25, 'class_balanced_beta': 0.99, 'weight_floor': 0.05, 'weight_cap': 20.0, 'normalize_mean': True}",Trend target contract with moderate sparse-state and action-tail weighting.

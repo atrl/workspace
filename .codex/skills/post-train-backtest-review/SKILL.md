@@ -260,6 +260,12 @@ checkpoint screen，并且下一步必须带 walk-forward replay 和 drawdown-dr
 不能把 target contract readiness 当成 runtime promotion 或 PPO 已改善证据。若
 没有候选通过，不要直接训练，先修改 trend-state 表征或 target 语义。
 
+如果 trend-participation BC warm-start 只修复了 `wf_2023_2024`（例如通过
+`+30pp / <=15% MaxDD`），但 `wf_2022` 因为没有 trend target coverage 而继续
+MaxDD 失败，不要把 mixed result 推进 PPO。结论应是 trend target 有局部价值、
+但缺少 2022 风险状态覆盖；下一步优先组合 sequence-risk / drawdown-control
+target 或做 checkpoint selection，而不是延长同一个 trend BC/PPO 分支。
+
 进入状态条件多目标前，先用已有 daily path 做一个 notebook-first objective
 screen，确认最接近的老师路径和仍然失败的项：
 

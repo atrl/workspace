@@ -229,6 +229,158 @@ def summarize_bc_slice_fit(
     }
 
 
+def _metric_value(metrics: dict[str, Any], key: str) -> float:
+    value = metrics.get(key, float("nan"))
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        return float("nan")
+
+
+def score_bc_walkforward_drift(
+    fold: str,
+    *,
+    candidate_metrics: dict[str, Any],
+    baseline_metrics: dict[str, Any],
+    slice_gate: bool,
+    target_relative_return_pp: float = 30.0,
+    target_max_dd_pct: float = 15.0,
+    relative_drift_floor_pp: float = -5.0,
+    max_dd_drift_ceiling_pp: float = 2.0,
+) -> dict[str, Any]:
+    """Score a BC walk-forward candidate against target gates and baseline drift."""
+
+    candidate_relative = _metric_value(candidate_metrics, "relative_return")
+    candidate_max_dd = _metric_value(candidate_metrics, "max_dd")
+    candidate_avg_pos = _metric_value(candidate_metrics, "avg_pos")
+    baseline_relative = _metric_value(baseline_metrics, "relative_return")
+    baseline_max_dd = _metric_value(baseline_metrics, "max_dd")
+    baseline_avg_pos = _metric_value(baseline_metrics, "avg_pos")
+
+    candidate_gate = bool(
+        np.isfinite(candidate_relative)
+        and np.isfinite(candidate_max_dd)
+        and candidate_relative >= float(target_relative_return_pp)
+        and candidate_max_dd <= float(target_max_dd_pct)
+    )
+    baseline_gate = bool(
+        np.isfinite(baseline_relative)
+        and np.isfinite(baseline_max_dd)
+        and baseline_relative >= float(target_relative_return_pp)
+        and baseline_max_dd <= float(target_max_dd_pct)
+    )
+    relative_delta = float(candidate_relative - baseline_relative) if (
+        np.isfinite(candidate_relative) and np.isfinite(baseline_relative)
+    ) else float("nan")
+    max_dd_delta = float(candidate_max_dd - baseline_max_dd) if (
+        np.isfinite(candidate_max_dd) and np.isfinite(baseline_max_dd)
+    ) else float("nan")
+    drift_gate = bool(
+        np.isfinite(relative_delta)
+        and np.isfinite(max_dd_delta)
+        and relative_delta >= float(relative_drift_floor_pp)
+        and max_dd_delta <= float(max_dd_drift_ceiling_pp)
+    )
+    failed_checks: list[str] = []
+    if not np.isfinite(candidate_relative) or candidate_relative < float(target_relative_return_pp):
+        failed_checks.append("candidate_relative_return")
+    if not np.isfinite(candidate_max_dd) or candidate_max_dd > float(target_max_dd_pct):
+        failed_checks.append("candidate_max_dd")
+    if not bool(slice_gate):
+        failed_checks.append("slice_gate")
+    if not np.isfinite(relative_delta) or relative_delta < float(relative_drift_floor_pp):
+        failed_checks.append("relative_return_drift")
+    if not np.isfinite(max_dd_delta) or max_dd_delta > float(max_dd_drift_ceiling_pp):
+        failed_checks.append("max_dd_drift")
+
+    return {
+        "fold": str(fold),
+        "candidate_relative_return": candidate_relative,
+        "candidate_max_dd": candidate_max_dd,
+        "candidate_avg_pos": candidate_avg_pos,
+        "baseline_relative_return": baseline_relative,
+        "baseline_max_dd": baseline_max_dd,
+        "baseline_avg_pos": baseline_avg_pos,
+        "relative_delta_vs_baseline": relative_delta,
+        "max_dd_delta_vs_baseline": max_dd_delta,
+        "candidate_gate": candidate_gate,
+        "baseline_gate": baseline_gate,
+        "slice_gate": bool(slice_gate),
+        "drift_gate": drift_gate,
+        "fold_gate": bool(candidate_gate and bool(slice_gate) and drift_gate),
+        "target_relative_return_pp": float(target_relative_return_pp),
+        "target_max_dd_pct": float(target_max_dd_pct),
+        "relative_drift_floor_pp": float(relative_drift_floor_pp),
+        "max_dd_drift_ceiling_pp": float(max_dd_drift_ceiling_pp),
+        "failed_checks": failed_checks,
+    }
+
+
+def _bool_sum(frame: pd.DataFrame, column: str) -> int:
+    if column not in frame.columns:
+        return 0
+    return int(frame[column].fillna(False).astype(bool).sum())
+
+
+def summarize_bc_walkforward_drift_screen(
+    fold_scores: pd.DataFrame,
+    *,
+    required_folds: tuple[str, ...] = (),
+) -> dict[str, Any]:
+    """Summarize BC walk-forward target and drift gates without permitting promotion."""
+
+    if fold_scores.empty:
+        return {
+            "decision": "bc_walkforward_drift_no_rows",
+            "promotion_allowed": False,
+            "fold_gate_pass_count": 0,
+            "candidate_gate_pass_count": 0,
+            "drift_gate_pass_count": 0,
+            "failed_folds": list(required_folds),
+            "next_mechanism": "train_bc_before_walkforward_drift_screen",
+        }
+
+    frame = fold_scores.copy()
+    frame["fold"] = frame["fold"].astype(str)
+    required = list(required_folds) if required_folds else sorted(frame["fold"].unique().tolist())
+    required_set = set(required)
+    scored = frame[frame["fold"].isin(required_set)].copy()
+    missing = [fold for fold in required if fold not in set(scored["fold"])]
+    failed = scored.loc[~scored.get("fold_gate", False).fillna(False).astype(bool), "fold"].tolist()
+    failed_folds = [*failed, *missing]
+    fold_gate_pass_count = _bool_sum(scored, "fold_gate")
+    candidate_gate_pass_count = _bool_sum(scored, "candidate_gate")
+    drift_gate_pass_count = _bool_sum(scored, "drift_gate")
+    all_required_pass = bool(required and not missing and fold_gate_pass_count == len(required))
+
+    if all_required_pass:
+        decision = "bc_walkforward_drift_gate_passed_no_promotion"
+        next_mechanism = "run_full_fixed_split_and_walkforward_replay_before_promotion"
+    elif fold_gate_pass_count > 0:
+        decision = "bc_walkforward_drift_mixed_no_promotion"
+        next_mechanism = "inspect_failed_fold_slices_or_checkpoint_selection_before_ppo"
+    elif candidate_gate_pass_count > 0:
+        decision = "bc_walkforward_drift_failed_no_promotion"
+        next_mechanism = "block_ppo_until_drawdown_drift_or_slice_fit_is_fixed"
+    else:
+        decision = "bc_walkforward_candidate_gate_failed_no_promotion"
+        next_mechanism = "revise_training_targets_before_ppo"
+
+    return {
+        "decision": decision,
+        "promotion_allowed": False,
+        "required_folds": required,
+        "scored_folds": scored["fold"].tolist(),
+        "failed_folds": failed_folds,
+        "fold_gate_pass_count": int(fold_gate_pass_count),
+        "candidate_gate_pass_count": int(candidate_gate_pass_count),
+        "baseline_gate_pass_count": _bool_sum(scored, "baseline_gate"),
+        "drift_gate_pass_count": int(drift_gate_pass_count),
+        "slice_gate_pass_count": _bool_sum(scored, "slice_gate"),
+        "next_mechanism": next_mechanism,
+    }
+
+
 def action_distribution_frame(action_array: np.ndarray, *, action_count: int | None = None) -> pd.DataFrame:
     """Return an action-count table with zero-count actions retained."""
 
@@ -565,6 +717,8 @@ __all__ = [
     "evaluate_bc_actor_slice_fit",
     "fit_bc_actor",
     "fit_state_objective_bc_actor_from_frame",
+    "score_bc_walkforward_drift",
     "state_objective_bc_sample_weights",
+    "summarize_bc_walkforward_drift_screen",
     "summarize_bc_slice_fit",
 ]

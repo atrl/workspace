@@ -14,7 +14,9 @@ from src.soxl_quant.app.state_objective_bc import (
     evaluate_bc_actor_slice_fit,
     fit_bc_actor,
     fit_state_objective_bc_actor_from_frame,
+    score_bc_walkforward_drift,
     state_objective_bc_sample_weights,
+    summarize_bc_walkforward_drift_screen,
     summarize_bc_slice_fit,
 )
 from src.soxl_quant.config import load_profile
@@ -248,3 +250,63 @@ def test_build_state_objective_bc_dataset_from_frame_keeps_target_metadata():
     assert dataset.metadata["is_rebound_cluster"].tolist() == [True, False, False]
     assert dataset.metadata["is_downtrend_state"].tolist() == [False, True, False]
     assert dataset.metadata["fold"].tolist() == ["wf_a", "wf_a", "wf_b"]
+
+
+def test_score_bc_walkforward_drift_requires_candidate_gate_and_bounded_drift():
+    row = score_bc_walkforward_drift(
+        "wf_2023_2024",
+        candidate_metrics={"relative_return": 34.0, "max_dd": 14.0, "avg_pos": 0.22},
+        baseline_metrics={"relative_return": 32.0, "max_dd": 13.0, "avg_pos": 0.20},
+        slice_gate=True,
+    )
+
+    assert row["candidate_gate"] is True
+    assert row["baseline_gate"] is True
+    assert row["relative_delta_vs_baseline"] == 2.0
+    assert row["max_dd_delta_vs_baseline"] == 1.0
+    assert row["drift_gate"] is True
+    assert row["fold_gate"] is True
+    assert row["failed_checks"] == []
+
+
+def test_score_bc_walkforward_drift_blocks_drawdown_drift_even_with_target_return():
+    row = score_bc_walkforward_drift(
+        "wf_2022",
+        candidate_metrics={"relative_return": 42.0, "max_dd": 18.5},
+        baseline_metrics={"relative_return": 36.0, "max_dd": 14.0},
+        slice_gate=True,
+    )
+
+    assert row["candidate_gate"] is False
+    assert row["drift_gate"] is False
+    assert row["fold_gate"] is False
+    assert "candidate_max_dd" in row["failed_checks"]
+    assert "max_dd_drift" in row["failed_checks"]
+
+
+def test_summarize_bc_walkforward_drift_screen_counts_gates_and_keeps_no_promotion():
+    rows = pd.DataFrame(
+        [
+            score_bc_walkforward_drift(
+                "wf_2022",
+                candidate_metrics={"relative_return": 31.0, "max_dd": 14.5},
+                baseline_metrics={"relative_return": 29.0, "max_dd": 13.5},
+                slice_gate=True,
+            ),
+            score_bc_walkforward_drift(
+                "wf_2023_2024",
+                candidate_metrics={"relative_return": 28.0, "max_dd": 12.0},
+                baseline_metrics={"relative_return": 33.0, "max_dd": 11.0},
+                slice_gate=True,
+            ),
+        ]
+    )
+
+    summary = summarize_bc_walkforward_drift_screen(rows, required_folds=("wf_2022", "wf_2023_2024"))
+
+    assert summary["promotion_allowed"] is False
+    assert summary["fold_gate_pass_count"] == 1
+    assert summary["candidate_gate_pass_count"] == 1
+    assert summary["drift_gate_pass_count"] == 2
+    assert summary["decision"] == "bc_walkforward_drift_mixed_no_promotion"
+    assert summary["failed_folds"] == ["wf_2023_2024"]
