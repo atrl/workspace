@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-26T08:36:39.659642+00:00",
+  "generated_at": "2026-05-26T09:00:09.685009+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -9648,6 +9648,132 @@
       "category": "model_selection",
       "suffix": ".csv",
       "bytes": 304900
+    },
+    {
+      "path": "runtime/model_selection/card/warm_start_official_failure_handoff_v1/diagnostic_manifest.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2154
+    },
+    {
+      "path": "runtime/model_selection/card/warm_start_official_failure_handoff_v1/diagnostics/base_plain_contract__wf_2022/feature_differences.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4399
+    },
+    {
+      "path": "runtime/model_selection/card/warm_start_official_failure_handoff_v1/diagnostics/base_plain_contract__wf_2022/poor_windows.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1713
+    },
+    {
+      "path": "runtime/model_selection/card/warm_start_official_failure_handoff_v1/diagnostics/base_plain_contract__wf_2023_2024/feature_differences.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4355
+    },
+    {
+      "path": "runtime/model_selection/card/warm_start_official_failure_handoff_v1/diagnostics/base_plain_contract__wf_2023_2024/poor_windows.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1699
+    },
+    {
+      "path": "runtime/model_selection/card/warm_start_official_failure_handoff_v1/diagnostics/trend_plain_contract__wf_2022/feature_differences.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4399
+    },
+    {
+      "path": "runtime/model_selection/card/warm_start_official_failure_handoff_v1/diagnostics/trend_plain_contract__wf_2022/poor_windows.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1713
+    },
+    {
+      "path": "runtime/model_selection/card/warm_start_official_failure_handoff_v1/diagnostics/trend_plain_contract__wf_2023_2024/feature_differences.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4355
+    },
+    {
+      "path": "runtime/model_selection/card/warm_start_official_failure_handoff_v1/diagnostics/trend_plain_contract__wf_2023_2024/poor_windows.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1696
+    },
+    {
+      "path": "runtime/model_selection/card/warm_start_official_failure_handoff_v1/diagnostics/trend_plus_slope_low_cap15_weighted__wf_2022/feature_differences.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4397
+    },
+    {
+      "path": "runtime/model_selection/card/warm_start_official_failure_handoff_v1/diagnostics/trend_plus_slope_low_cap15_weighted__wf_2022/poor_windows.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1707
+    },
+    {
+      "path": "runtime/model_selection/card/warm_start_official_failure_handoff_v1/diagnostics/trend_plus_slope_low_cap15_weighted__wf_2023_2024/feature_differences.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4350
+    },
+    {
+      "path": "runtime/model_selection/card/warm_start_official_failure_handoff_v1/diagnostics/trend_plus_slope_low_cap15_weighted__wf_2023_2024/poor_windows.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1684
+    },
+    {
+      "path": "runtime/model_selection/card/warm_start_official_failure_handoff_v1/feature_cache_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 111
+    },
+    {
+      "path": "runtime/model_selection/card/warm_start_official_failure_handoff_v1/feature_delta_clusters.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 11728
+    },
+    {
+      "path": "runtime/model_selection/card/warm_start_official_failure_handoff_v1/feature_group_consensus.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 414
+    },
+    {
+      "path": "runtime/model_selection/card/warm_start_official_failure_handoff_v1/poor_window_clusters.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1217
+    },
+    {
+      "path": "runtime/model_selection/card/warm_start_official_failure_handoff_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 5614
+    },
+    {
+      "path": "runtime/model_selection/card/warm_start_official_failure_handoff_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 25271
+    },
+    {
+      "path": "runtime/model_selection/card/warm_start_official_failure_handoff_v1/training_objective_handoff.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 537
+    },
+    {
+      "path": "runtime/model_selection/card/warm_start_official_failure_handoff_v1/walkforward_objective_scores.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1283
     },
     {
       "path": "runtime/model_selection/card/wf2024_state_coverage_diagnostic_v1/drawdown_intervals.csv",
