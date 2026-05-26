@@ -38,7 +38,9 @@ def make_state(**kwargs):
     obs[STATIC_INDEX["downside_semivol_21"]] = kwargs.get("downside_semivol", 0.2)
     obs[STATIC_INDEX["realized_vol_10"]] = kwargs.get("realized_vol", 0.55)
     obs[STATIC_INDEX["trend_gap_21"]] = kwargs.get("trend_gap_21", 0.03)
+    obs[STATIC_INDEX["trend_gap_63"]] = kwargs.get("trend_gap_63", 0.03)
     obs[STATIC_INDEX["anchor_gap_180"]] = kwargs.get("anchor_gap_180", 0.01)
+    obs[STATIC_INDEX["anchor_slope_180"]] = kwargs.get("anchor_slope_180", 0.01)
     obs[STATIC_INDEX["cum_drop_30"]] = kwargs.get("cum_drop_30", -0.08)
     obs[STATIC_INDEX["mom_10"]] = kwargs.get("mom_10", 0.0)
     obs[STATIC_INDEX["mom_21"]] = kwargs.get("mom_21", 0.0)
@@ -386,6 +388,75 @@ def test_state_conditioned_reward_penalizes_underparticipation_only_in_rebound_s
     )
     assert participated_rebound > underheld_rebound
     assert underheld_non_rebound > underheld_rebound
+
+
+def test_sequence_risk_reward_penalizes_high_exposure_and_drawdown_only_in_trend_break_state():
+    profile = make_profile()
+    profile = StrategyConfig(
+        name=profile.name,
+        max_iters=profile.max_iters,
+        episode_per_iter=profile.episode_per_iter,
+        episode_len=profile.episode_len,
+        hidden_sizes=profile.hidden_sizes,
+        lr=profile.lr,
+        update_batch_size=profile.update_batch_size,
+        update_repeat=profile.update_repeat,
+        reward=RewardConfig(
+            return_scale=1.0,
+            transaction_cost=0.0,
+            turnover_penalty=0.0,
+            drawdown_penalty=0.0,
+            downside_penalty=0.0,
+            risk_budget_penalty=0.0,
+            high_exposure_penalty=0.0,
+            smoothness_penalty=0.0,
+            activity_bonus=0.0,
+            inactivity_penalty=0.0,
+            sequence_risk_reward_enabled=True,
+            sequence_risk_position_penalty=3.0,
+            sequence_risk_drawdown_penalty=2.0,
+            sequence_risk_position_threshold=0.10,
+            sequence_risk_drawdown_threshold=0.15,
+            sequence_risk_min_feature_hits=2,
+            sequence_risk_anchor_slope_max=-0.01,
+            sequence_risk_anchor_gap_max=-0.12,
+            sequence_risk_trend_gap_min=0.18,
+        ),
+    )
+    reward = ContinuousReward(profile)
+    low_exposure_sequence = reward.reward(
+        make_state(
+            pos=0.08,
+            drawdown=0.18,
+            anchor_slope_180=-0.04,
+            anchor_gap_180=-0.20,
+            trend_gap_63=0.22,
+            turnover=0.0,
+        )
+    )
+    high_exposure_sequence = reward.reward(
+        make_state(
+            pos=0.45,
+            drawdown=0.18,
+            anchor_slope_180=-0.04,
+            anchor_gap_180=-0.20,
+            trend_gap_63=0.22,
+            turnover=0.0,
+        )
+    )
+    high_exposure_non_sequence = reward.reward(
+        make_state(
+            pos=0.45,
+            drawdown=0.18,
+            anchor_slope_180=0.03,
+            anchor_gap_180=0.08,
+            trend_gap_63=0.05,
+            turnover=0.0,
+        )
+    )
+
+    assert low_exposure_sequence > high_exposure_sequence
+    assert high_exposure_non_sequence > high_exposure_sequence
 
 
 def test_moderate_reward_applies_terminal_cvar_penalty():

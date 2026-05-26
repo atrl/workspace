@@ -67,15 +67,17 @@ class ContinuousReward(Reward):
         return float(state["obs"][STATIC_INDEX[name]])
 
     def _state_conditioned_adjustment(self, state, cfg, pos: float) -> float:
-        if not getattr(cfg, "state_conditioned_reward_enabled", False):
+        state_enabled = getattr(cfg, "state_conditioned_reward_enabled", False)
+        sequence_enabled = getattr(cfg, "sequence_risk_reward_enabled", False)
+        if not state_enabled and not sequence_enabled:
             return 0.0
 
         adjustment = 0.0
         anchor_gap = self._obs_value(state, "anchor_gap_180")
-        below_anchor_ratio = self._obs_value(state, "below_anchor_ratio_63")
         vix_percentile = self._obs_value(state, "vix_percentile_252")
 
-        if cfg.state_downtrend_position_penalty > 0.0:
+        if state_enabled and cfg.state_downtrend_position_penalty > 0.0:
+            below_anchor_ratio = self._obs_value(state, "below_anchor_ratio_63")
             downtrend = (
                 anchor_gap <= cfg.state_downtrend_anchor_gap_max
                 and below_anchor_ratio >= cfg.state_downtrend_below_anchor_ratio_min
@@ -85,7 +87,7 @@ class ContinuousReward(Reward):
                 excess_position = max(pos - cfg.state_downtrend_position_threshold, 0.0)
                 adjustment -= excess_position * cfg.state_downtrend_position_penalty
 
-        if cfg.state_rebound_opportunity_penalty > 0.0:
+        if state_enabled and cfg.state_rebound_opportunity_penalty > 0.0:
             rebound = (
                 self._obs_value(state, "mom_10") >= cfg.state_rebound_mom10_min
                 and self._obs_value(state, "mom_21") >= cfg.state_rebound_mom21_min
@@ -96,6 +98,18 @@ class ContinuousReward(Reward):
             if rebound:
                 under_position = max(cfg.state_rebound_target_position - pos, 0.0)
                 adjustment -= under_position * cfg.state_rebound_opportunity_penalty
+
+        if sequence_enabled:
+            hit_count = 0
+            hit_count += int(self._obs_value(state, "anchor_slope_180") <= cfg.sequence_risk_anchor_slope_max)
+            hit_count += int(anchor_gap <= cfg.sequence_risk_anchor_gap_max)
+            hit_count += int(self._obs_value(state, "trend_gap_63") >= cfg.sequence_risk_trend_gap_min)
+            if hit_count >= int(cfg.sequence_risk_min_feature_hits):
+                excess_position = max(pos - cfg.sequence_risk_position_threshold, 0.0)
+                adjustment -= excess_position * cfg.sequence_risk_position_penalty
+                drawdown = float(state.get("drawdown", 0.0))
+                excess_drawdown = max(drawdown - cfg.sequence_risk_drawdown_threshold, 0.0)
+                adjustment -= excess_drawdown * cfg.sequence_risk_drawdown_penalty
 
         return float(adjustment)
 

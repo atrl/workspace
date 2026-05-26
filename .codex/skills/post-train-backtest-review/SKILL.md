@@ -205,6 +205,15 @@ drawdown，且不打坏其他已评估 fold 时，才允许进入 checkpoint dri
 打坏另一个 fold，保留为诊断结论，下一步转 reward drawdown-drift penalty 或
 checkpoint scoring，不要从该 cap 直接启动更长 PPO。
 
+当 checkpoint penalty 也确认没有 full-gate 候选时，下一步不要继续复制
+notebook 内的 sequence-risk 代码。优先使用
+`src.soxl_quant.app.sequence_risk_objective` 里的 fold-local threshold、mask
+和 path penalty helper，在 runtime/reward notebook 中筛选默认关闭的
+`sequence_risk_reward_enabled` 配方。只有当触发模式在失败 fold 捕获主要
+drawdown breach、在其他已评估 fold 不明显过度触发，并且 `selection.json`
+仍标注 no promotion/no actor retention 后，才进入短 BC/PPO training screen。
+这个阶段仍是训练目标配方，不是 runtime promotion。
+
 进入状态条件多目标前，先用已有 daily path 做一个 notebook-first objective
 screen，确认最接近的老师路径和仍然失败的项：
 

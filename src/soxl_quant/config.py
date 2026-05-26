@@ -113,6 +113,15 @@ class RewardConfig:
     state_rebound_relative_strength_min: float = 0.50
     state_rebound_vol_of_vol_min: float = 0.08
     state_rebound_vix_percentile_max: float = 0.85
+    sequence_risk_reward_enabled: bool = False
+    sequence_risk_position_penalty: float = 0.0
+    sequence_risk_position_threshold: float = 0.10
+    sequence_risk_drawdown_penalty: float = 0.0
+    sequence_risk_drawdown_threshold: float = 0.15
+    sequence_risk_min_feature_hits: int = 2
+    sequence_risk_anchor_slope_max: float = -0.01
+    sequence_risk_anchor_gap_max: float = -0.12
+    sequence_risk_trend_gap_min: float = 0.18
 
 
 @dataclass(frozen=True)

@@ -1,0 +1,69 @@
+{
+  "actor_retention": "no actor bundle is promoted or retained by this notebook",
+  "anti_leakage_note": "Feature family comes from prior diagnostics; fold-local thresholds are read from the target-cap audit and only used here to screen a default-off reward feature. This card does not reuse OOS thresholds as labels and does not train.",
+  "canonical_baseline": "v19reg_v22_budget_usage_bull_guard_v1",
+  "changed_layer": [
+    "reward",
+    "src_capability"
+  ],
+  "created_at": "2026-05-26T00:59:07.598458+00:00",
+  "decision": "sequence_risk_reward_feature_ready_for_training_screen_no_promotion",
+  "direct_comparison_baseline": [
+    "cap10_sequence_risk_checkpoint_penalty_screen_v1",
+    "cap10_sequence_risk_target_cap_bc_screen_v1",
+    "cap10_bc_sequence_risk_state_diagnostic_v1"
+  ],
+  "experiment": "sequence_risk_reward_feature_screen_v1",
+  "external_sources": [
+    "https://github.com/microsoft/qlib",
+    "https://arxiv.org/abs/2009.11189",
+    "https://arxiv.org/abs/1707.06347",
+    "https://arxiv.org/abs/2006.04779",
+    "https://arxiv.org/abs/1712.06924",
+    "https://doi.org/10.21314/JCF.2016.322"
+  ],
+  "next_mechanism": "run_short_foldlocal_bc_or_ppo_screen_with_sequence_risk_reward_enabled_before_longer_ppo",
+  "promotion_allowed": false,
+  "promotion_blocker": "Reward feature is only a training objective recipe; promotion still requires fixed-split and walk-forward validation after a trained candidate exists.",
+  "reward_config_patch": {
+    "sequence_risk_anchor_gap_max": -0.12578648457075514,
+    "sequence_risk_anchor_slope_max": -0.010676839689780171,
+    "sequence_risk_drawdown_penalty": 3.0,
+    "sequence_risk_drawdown_threshold": 0.15,
+    "sequence_risk_min_feature_hits": 2,
+    "sequence_risk_position_penalty": 3.0,
+    "sequence_risk_position_threshold": 0.1,
+    "sequence_risk_reward_enabled": true,
+    "sequence_risk_trend_gap_min": 0.1856199329014594
+  },
+  "role": "diagnose",
+  "selected_min_feature_hits": 2,
+  "selected_mode": "two_of_three",
+  "selected_mode_loss": 0.2256,
+  "selected_reward_recipe_loss": 0.09890563849915449,
+  "selected_source_candidate": "sequence_target_cap_bc::baseline_no_sequence_cap",
+  "selected_source_max_dd_gap_pp": 3.3964292416196606,
+  "selected_source_max_dd_pct": 18.39642924161966,
+  "selected_source_min_relative_return_pp": 30.5011159708892,
+  "selected_wf_2022_breach_capture": 1.0,
+  "selected_wf_2022_sequence_share": 0.752,
+  "selected_wf_2023_2024_sequence_share": 0.0,
+  "sidecars": [
+    "sequence_risk_mode_scores.csv",
+    "sequence_risk_mode_summary.csv",
+    "reward_penalty_grid.csv",
+    "selection.json",
+    "summary.json"
+  ],
+  "source_decisions": {
+    "selector_decision": "sequence_risk_checkpoint_penalty_confirms_no_safe_policy_improvement_no_promotion",
+    "selector_full_gate_candidate_count": 0,
+    "selector_selected_candidate": "sequence_target_cap_bc::baseline_no_sequence_cap",
+    "selector_selected_max_dd": 18.39642924161966,
+    "sequence_diagnostic_decision": "sequence_risk_state_candidate_ready_for_target_screen_no_promotion",
+    "target_cap_decision": "sequence_risk_target_cap_bc_no_robust_improvement_no_promotion"
+  },
+  "target_max_dd_pct": 15.0,
+  "target_relative_return_pp": 30.0,
+  "training_allowed_from_this_card": false
+}

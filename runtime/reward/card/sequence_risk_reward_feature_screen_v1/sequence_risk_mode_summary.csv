@@ -1,0 +1,4 @@
+mode,min_feature_hits,wf_2022_sequence_share,wf_2022_breach_capture,wf_2022_sequence_avg_pos,wf_2023_2024_sequence_share,capture_loss,breadth_loss,over_breadth_loss,oos_overreach_loss,mode_loss
+two_of_three,2,0.752,1.0,0.1777586401934346,0.0,0.0,0.2256,0.0,0.0,0.2256
+any,1,0.9,1.0,0.16086260932365093,0.0,0.0,0.27,0.09999999999999998,0.0,0.37
+all,3,0.024,0.0,0.16554871231777854,0.0,5.0,0.0072,0.0,0.0,5.0072
