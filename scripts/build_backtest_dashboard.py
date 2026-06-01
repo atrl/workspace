@@ -20,8 +20,10 @@ RUNTIME_DIR = GENERALIZATION_DIR
 DETAIL_DIR = GENERALIZATION_DIR / "detailed"
 FEATURES_PATH = ROOT / "data" / "features_v2.pkl"
 MODELS_DIR = ROOT / "runtime" / "model" / "card"
+MODEL_SELECTION_DIR = ROOT / "runtime" / "model_selection" / "card"
 OUTPUT_PATH = ROOT / "dashboard.html"
 DASHBOARD_DATA_DIR = ROOT / "dashboard_data"
+MAX_RESEARCH_BACKTESTS = 30
 
 C_STRATEGY = "#2563eb"
 C_BUYHOLD = "#0f766e"
@@ -458,6 +460,145 @@ def load_model_versions() -> list[dict]:
         except Exception:
             continue
     return versions
+
+
+def _load_dashboard_json(path: Path) -> dict[str, object]:
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+    return payload if isinstance(payload, dict) else {}
+
+
+def _relpath(path: Path) -> str:
+    try:
+        return str(path.relative_to(ROOT))
+    except ValueError:
+        return str(path)
+
+
+def _first_number(*values: object) -> float | int | None:
+    for value in values:
+        if isinstance(value, bool):
+            continue
+        if isinstance(value, (int, float)) and np.isfinite(value):
+            return value
+    return None
+
+
+def _first_text(*values: object) -> str | None:
+    for value in values:
+        if value is None:
+            continue
+        if isinstance(value, str) and value:
+            return value
+        if isinstance(value, (int, float, bool)):
+            return str(value)
+    return None
+
+
+def _summary_conclusion(summary: dict[str, object], selection: dict[str, object]) -> str:
+    raw = summary.get("conclusion") or selection.get("conclusion")
+    if isinstance(raw, list):
+        parts = [str(item) for item in raw if item is not None]
+        return " ".join(parts[:2])
+    if isinstance(raw, str):
+        return raw
+    return ""
+
+
+def _scenario_base(summary: dict[str, object]) -> dict[str, object]:
+    scenarios = summary.get("scenario_summary")
+    if not isinstance(scenarios, list):
+        return {}
+    for item in scenarios:
+        if isinstance(item, dict) and item.get("scenario") == "base_replay":
+            return item
+    for item in scenarios:
+        if isinstance(item, dict):
+            return item
+    return {}
+
+
+def _research_backtest_record(card_dir: Path) -> dict[str, object] | None:
+    selection_path = card_dir / "selection.json"
+    summary_path = card_dir / "summary.json"
+    if not selection_path.exists() and not summary_path.exists():
+        return None
+
+    selection = _load_dashboard_json(selection_path) if selection_path.exists() else {}
+    summary = _load_dashboard_json(summary_path) if summary_path.exists() else {}
+    selected_score = selection.get("selected_base_score")
+    if not isinstance(selected_score, dict):
+        selected_score = {}
+    scenario_base = _scenario_base(summary)
+
+    file_mtimes = [
+        path.stat().st_mtime
+        for path in (selection_path, summary_path, *card_dir.glob("*.ipynb"))
+        if path.exists()
+    ]
+    updated_at = max(file_mtimes) if file_mtimes else card_dir.stat().st_mtime
+    notebook_path = next(iter(sorted(card_dir.glob("*.ipynb"))), None)
+    created_at = _first_text(selection.get("created_at"), summary.get("created_at"))
+
+    stress_pass = _first_number(selection.get("stress_pass_count"), summary.get("stress_pass_count"))
+    stress_total = _first_number(selection.get("stress_scenario_count"), summary.get("stress_scenario_count"))
+    selected_stress_profile = summary.get("selected_stress_profile")
+    if stress_total is None and isinstance(selected_stress_profile, list):
+        stress_total = len(selected_stress_profile)
+
+    record = {
+        "experiment": _first_text(selection.get("experiment"), summary.get("experiment"), card_dir.name),
+        "decision": _first_text(selection.get("decision"), summary.get("decision"), "unknown"),
+        "promotion_allowed": bool(selection.get("promotion_allowed", summary.get("promotion_allowed", False))),
+        "role": _first_text(selection.get("role")),
+        "changed_layer": selection.get("changed_layer") if isinstance(selection.get("changed_layer"), list) else [],
+        "candidate": _first_text(
+            selection.get("selected_candidate"),
+            selected_score.get("candidate_id"),
+            scenario_base.get("best_candidate_id"),
+        ),
+        "min_relative_return": _first_number(
+            selected_score.get("min_relative_return"),
+            scenario_base.get("best_min_relative_return"),
+            summary.get("best_min_relative_return"),
+        ),
+        "max_drawdown": _first_number(
+            selected_score.get("max_max_dd"),
+            scenario_base.get("best_max_dd"),
+            summary.get("best_max_dd"),
+        ),
+        "full_gate": selected_score.get("full_gate"),
+        "near_miss": selected_score.get("near_miss"),
+        "stress_pass_count": stress_pass,
+        "stress_scenario_count": stress_total,
+        "next_mechanism": _first_text(selection.get("next_mechanism"), summary.get("next_mechanism")),
+        "conclusion": _summary_conclusion(summary, selection),
+        "created_at": created_at,
+        "updated_at": datetime.fromtimestamp(updated_at).strftime("%Y-%m-%d %H:%M:%S"),
+        "updated_at_ts": updated_at,
+        "notebook_path": _relpath(notebook_path) if notebook_path else None,
+        "selection_path": _relpath(selection_path) if selection_path.exists() else None,
+        "summary_path": _relpath(summary_path) if summary_path.exists() else None,
+        "external_reference": selection.get("external_reference") or summary.get("external_sources") or [],
+    }
+    return {key: value for key, value in record.items() if value not in (None, "")}
+
+
+def load_research_backtests(limit: int = MAX_RESEARCH_BACKTESTS) -> list[dict[str, object]]:
+    """Load recent runtime/model_selection notebook backtest diagnostics for the static dashboard."""
+    if not MODEL_SELECTION_DIR.exists():
+        return []
+    records = []
+    for card_dir in sorted(MODEL_SELECTION_DIR.iterdir()):
+        if not card_dir.is_dir():
+            continue
+        record = _research_backtest_record(card_dir)
+        if record:
+            records.append(record)
+    records.sort(key=lambda item: (float(item.get("updated_at_ts") or 0.0), str(item.get("experiment") or "")), reverse=True)
+    return records[:limit]
 
 
 def select_best_version(model_versions: list[dict], versioned: dict[str, dict]) -> str:
@@ -1022,6 +1163,7 @@ def build_payload() -> dict[str, object]:
                     detailed_summary.append(detail.get("summary", {}))
 
     model_versions = load_model_versions()
+    research_backtests = load_research_backtests()
     best_version = select_best_version(model_versions, versioned)
     latest_version = select_latest_version(versioned)
 
@@ -1048,6 +1190,7 @@ def build_payload() -> dict[str, object]:
         if (RUNTIME_DIR / "execution_overlay_review.md").exists()
         else "",
         "model_versions": model_versions,
+        "research_backtests": research_backtests,
     }
 
 
@@ -1134,12 +1277,26 @@ def write_model_versions_json(model_versions: list[dict]) -> None:
     )
 
 
+def write_research_backtests_json(research_backtests: list[dict]) -> None:
+    out_path = DASHBOARD_DATA_DIR / "research_backtests.json"
+    export_rows = []
+    for row in research_backtests:
+        export_row = dict(row)
+        export_row.pop("updated_at_ts", None)
+        export_rows.append(export_row)
+    out_path.write_text(
+        sanitize_json_floats(json.dumps(export_rows, ensure_ascii=False)),
+        encoding="utf-8",
+    )
+
+
 def write_index_json(
     detailed: dict,
     versioned: dict[str, dict],
     model_versions: list[dict],
     best_version: str,
     latest_version: str,
+    research_backtests: list[dict] | None = None,
 ) -> None:
     """Write a lightweight index with ETF lists, version metadata, and summaries."""
     index = {
@@ -1161,6 +1318,7 @@ def write_index_json(
         etf: detail.get("summary", {}) for etf, detail in detailed.items()
     }
     index["model_version_count"] = len(model_versions)
+    index["research_backtest_count"] = len(research_backtests or [])
     out_path = DASHBOARD_DATA_DIR / "index.json"
     out_path.write_text(
         sanitize_json_floats(json.dumps(index, ensure_ascii=False)),
@@ -1479,6 +1637,64 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     }}
     .production-tone-warn {{
       color: var(--accent);
+    }}
+    .research-panel {{
+      margin-bottom: 18px;
+    }}
+    .research-head {{
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: baseline;
+      margin-bottom: 12px;
+    }}
+    .research-summary {{
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 12px;
+    }}
+    .research-metric {{
+      min-width: 0;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel-2);
+      padding: 10px 12px;
+    }}
+    .research-metric .rk {{
+      color: var(--muted);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 6px;
+    }}
+    .research-metric .rv {{
+      overflow-wrap: anywhere;
+      font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+      font-size: 13px;
+      font-weight: 700;
+    }}
+    .research-table td, .research-table th {{
+      vertical-align: top;
+      white-space: normal;
+    }}
+    .research-table td:nth-child(1), .research-table th:nth-child(1) {{
+      min-width: 240px;
+    }}
+    .research-table td:nth-child(2), .research-table th:nth-child(2) {{
+      min-width: 180px;
+    }}
+    .research-table td:nth-child(7), .research-table th:nth-child(7) {{
+      min-width: 260px;
+      text-align: left;
+    }}
+    .research-path {{
+      color: var(--accent-2);
+      text-decoration: none;
+      overflow-wrap: anywhere;
+    }}
+    .research-path:hover {{
+      text-decoration: underline;
     }}
     .chart-panel {{ min-height: 420px; }}
     .chart-meta {{
@@ -1799,6 +2015,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       .production-status {{ grid-template-columns: repeat(2, minmax(0, 1fr)); }}
       .production-paper-model, .production-paper-source {{ grid-column: auto; }}
       .production-blockers {{ grid-column: auto; }}
+      .research-summary {{ grid-template-columns: repeat(2, minmax(0, 1fr)); }}
       .chart-wrapper {{ grid-template-columns: 1fr; }}
       .info-panel {{ display: none; }}
       .panel-grid {{ grid-template-columns: 1fr; }}
@@ -1809,6 +2026,8 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       .summary-grid {{ grid-template-columns: 1fr; }}
       .production-status {{ grid-template-columns: 1fr; }}
       .production-value {{ overflow-wrap: anywhere; font-size: 13px; }}
+      .research-head {{ flex-direction: column; align-items: flex-start; }}
+      .research-summary {{ grid-template-columns: 1fr; }}
       .hero h1 {{ font-size: 28px; }}
       .chart-toolbar {{ flex-direction: column; align-items: stretch; }}
     }}
@@ -1817,6 +2036,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
 <body>
   <div class="shell">
     <div class="jump-links" style="margin-bottom:18px;">
+      <a class="badge" href="#researchBacktests">Research Backtests</a>
       <a class="badge" href="#mainChart">Main Chart</a>
       <a class="badge" href="#tradeStats">Trade Quality</a>
       <a class="badge" href="#tradeTable">Trade Performance</a>
@@ -1866,6 +2086,22 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       <div class="production-detail production-model-replay">
         <span class="production-k">Model Replays</span>
         <span class="production-v" id="productionModelReplayStatus">n/a</span>
+      </div>
+    </section>
+
+    <section class="card research-panel" id="researchBacktests">
+      <div class="research-head">
+        <h2 class="section-title" style="margin:0;">Research Backtests</h2>
+        <div class="sub">Latest runtime/model_selection notebook diagnostics exported for Vercel.</div>
+      </div>
+      <div class="research-summary" id="researchBacktestSummary">
+        <div class="research-metric">
+          <div class="rk">Status</div>
+          <div class="rv">loading</div>
+        </div>
+      </div>
+      <div class="version-wrap">
+        <table class="version-table research-table" id="researchBacktestTable"></table>
       </div>
     </section>
 
@@ -2108,6 +2344,8 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     const productionDeploymentStatus = document.getElementById('productionDeploymentStatus');
     const productionGateOverall = document.getElementById('productionGateOverall');
     const productionGateIssues = document.getElementById('productionGateIssues');
+    const researchBacktestSummary = document.getElementById('researchBacktestSummary');
+    const researchBacktestTable = document.getElementById('researchBacktestTable');
     const STORAGE_KEY = 'soxl-dashboard-state-v10';
     const hydratedVersionCache = {{}};
     const baseRowLookup = Object.fromEntries(
@@ -2791,6 +3029,104 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       setProductionText(productionModelReplayStatus, text);
     }}
 
+    function escapeHtml(value) {{
+      const map = {{ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }};
+      return String(value == null ? '' : value).replace(/[&<>"']/g, ch => map[ch]);
+    }}
+
+    function fmtBacktestMetric(value, suffix, digits = 2) {{
+      const n = Number(value);
+      if (!Number.isFinite(n)) return 'n/a';
+      return `${{n.toFixed(digits)}}${{suffix}}`;
+    }}
+
+    function gateLabel(record) {{
+      if (record.promotion_allowed) return 'promoted';
+      if (record.full_gate === true) return 'gate pass';
+      if (record.near_miss === true) return 'near miss';
+      if (record.full_gate === false) return 'failed';
+      return 'diagnostic';
+    }}
+
+    function gateClass(record) {{
+      const label = gateLabel(record);
+      if (label === 'promoted' || label === 'gate pass') return 'good';
+      if (label === 'failed') return 'bad';
+      return '';
+    }}
+
+    function renderResearchBacktests(records) {{
+      if (!researchBacktestSummary || !researchBacktestTable) return;
+      const rows = Array.isArray(records) ? records : [];
+      if (!rows.length) {{
+        researchBacktestSummary.innerHTML = `
+          <div class="research-metric" style="grid-column:1/-1;">
+            <div class="rk">Status</div>
+            <div class="rv">No model-selection backtests exported</div>
+          </div>
+        `;
+        researchBacktestTable.innerHTML = '<tr><th>No research backtests</th></tr>';
+        return;
+      }}
+      const latest = rows[0] || {{}};
+      const stressText = latest.stress_scenario_count != null
+        ? `${{latest.stress_pass_count || 0}}/${{latest.stress_scenario_count}}`
+        : 'n/a';
+      researchBacktestSummary.innerHTML = [
+        ['Latest', latest.experiment || 'n/a'],
+        ['Decision', latest.decision || 'n/a'],
+        ['Min Excess', fmtBacktestMetric(latest.min_relative_return, 'pp')],
+        ['Max DD', fmtBacktestMetric(latest.max_drawdown, '%')],
+      ].map(item => `
+        <div class="research-metric">
+          <div class="rk">${{escapeHtml(item[0])}}</div>
+          <div class="rv">${{escapeHtml(item[1])}}</div>
+        </div>
+      `).join('');
+
+      const header = `
+        <tr>
+          <th>Experiment</th>
+          <th>Decision</th>
+          <th>Gate</th>
+          <th>Min Excess</th>
+          <th>Max DD</th>
+          <th>Stress</th>
+          <th>Conclusion / Notebook</th>
+        </tr>
+      `;
+      const body = rows.slice(0, 12).map(record => {{
+        const gate = gateLabel(record);
+        const gateTone = gateClass(record);
+        const notebook = record.notebook_path
+          ? `<a class="research-path" href="${{escapeHtml(record.notebook_path)}}" target="_blank" rel="noreferrer">${{escapeHtml(record.notebook_path)}}</a>`
+          : '';
+        const conclusion = record.conclusion || record.next_mechanism || '';
+        const stress = record.stress_scenario_count != null
+          ? `${{record.stress_pass_count || 0}}/${{record.stress_scenario_count}}`
+          : 'n/a';
+        return `
+          <tr>
+            <td><span class="mono">${{escapeHtml(record.experiment || '')}}</span><br><span class="sub">${{escapeHtml(record.updated_at || '')}}</span></td>
+            <td>${{escapeHtml(record.decision || '')}}</td>
+            <td class="${{gateTone}}">${{escapeHtml(gate)}}</td>
+            <td>${{escapeHtml(fmtBacktestMetric(record.min_relative_return, 'pp'))}}</td>
+            <td>${{escapeHtml(fmtBacktestMetric(record.max_drawdown, '%'))}}</td>
+            <td>${{escapeHtml(stress)}}</td>
+            <td>${{escapeHtml(conclusion)}}${{notebook ? `<br>${{notebook}}` : ''}}</td>
+          </tr>
+        `;
+      }}).join('');
+      researchBacktestTable.innerHTML = header + body;
+    }}
+
+    async function loadResearchBacktests() {{
+      renderResearchBacktests(DATA.research_backtests || []);
+      if (window.location.protocol === 'file:') return;
+      const rows = await loadJson('dashboard_data/research_backtests.json');
+      if (rows) renderResearchBacktests(rows);
+    }}
+
     function embeddedPaperPayload() {{
       if (DATA.latest_version === 'paper_trading' && DATA.detailed && DATA.detailed[state.etf]) {{
         return DATA.detailed[state.etf];
@@ -2928,6 +3264,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
 
     function initAsyncData() {{
       loadProductionStatus();
+      loadResearchBacktests();
       // Detect file:// protocol and show banner
       if (window.location.protocol === 'file:') {{
         const banner = document.createElement('div');
@@ -3555,12 +3892,14 @@ def main() -> None:
     # Write split data files
     write_versioned_json(payload.get("versioned", {}))
     write_model_versions_json(payload.get("model_versions", []))
+    write_research_backtests_json(payload.get("research_backtests", []))
     write_index_json(
         payload.get("detailed", {}),
         payload.get("versioned", {}),
         payload.get("model_versions", []),
         payload.get("best_version", ""),
         payload.get("latest_version", ""),
+        payload.get("research_backtests", []),
     )
 
     # Build HTML with reduced inline payload (default view only)
@@ -3569,10 +3908,15 @@ def main() -> None:
     for v in list(inline_payload.get("versioned", {}).keys()):
         inline_payload["versioned"][v] = {}
     inline_payload["model_versions"] = []
+    inline_payload["research_backtests"] = [
+        {key: value for key, value in row.items() if key != "updated_at_ts"}
+        for row in inline_payload.get("research_backtests", [])
+    ]
     OUTPUT_PATH.write_text(build_html(inline_payload, layouts), encoding="utf-8")
     print(f"[done] wrote {OUTPUT_PATH}")
     print(f"[done] wrote {DASHBOARD_DATA_DIR}/index.json")
     print(f"[done] wrote {DASHBOARD_DATA_DIR}/model_versions.json")
+    print(f"[done] wrote {DASHBOARD_DATA_DIR}/research_backtests.json")
     vc = len(payload.get('versioned', {}))
     print(f"[done] wrote {DASHBOARD_DATA_DIR}/versioned/ ({vc} versions)")
 

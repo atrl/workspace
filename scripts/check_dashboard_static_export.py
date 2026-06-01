@@ -43,6 +43,7 @@ def check_static_export(root: Path) -> tuple[list[str], dict[str, Any]]:
         "production_status": "n/a",
         "goal_gates": "n/a",
         "model_replays": "n/a",
+        "research_backtests": "n/a",
     }
 
     vercel_path = root / "vercel.json"
@@ -53,6 +54,7 @@ def check_static_export(root: Path) -> tuple[list[str], dict[str, Any]]:
     production_status_path = data_dir / "production_status.json"
     production_goal_gates_path = data_dir / "production_goal_gates.json"
     model_replay_freshness_path = data_dir / "model_replay_freshness.json"
+    research_backtests_path = data_dir / "research_backtests.json"
 
     for path in (
         vercel_path,
@@ -61,6 +63,7 @@ def check_static_export(root: Path) -> tuple[list[str], dict[str, Any]]:
         model_versions_path,
         model_replay_freshness_path,
         production_status_path,
+        research_backtests_path,
     ):
         if not path.exists():
             errors.append(f"missing required file: {path.relative_to(root)}")
@@ -169,6 +172,22 @@ def check_static_export(root: Path) -> tuple[list[str], dict[str, Any]]:
                         f"failed={failed} skipped={skipped}"
                     )
 
+    if research_backtests_path.exists():
+        research_backtests = _load_json(research_backtests_path)
+        if not isinstance(research_backtests, list):
+            errors.append("dashboard_data/research_backtests.json must contain a list")
+        else:
+            info["research_backtests"] = len(research_backtests)
+            if not research_backtests:
+                errors.append("dashboard_data/research_backtests.json has no rows")
+            for idx, row in enumerate(research_backtests[:10]):
+                if not isinstance(row, dict):
+                    errors.append(f"dashboard_data/research_backtests.json row {idx} must be an object")
+                    continue
+                for key in ("experiment", "decision", "summary_path"):
+                    if not row.get(key):
+                        errors.append(f"dashboard_data/research_backtests.json row {idx} missing {key}")
+
     missing = 0
     for version in versions:
         summary = version_summaries.get(version, {})
@@ -226,7 +245,8 @@ def main() -> int:
             f"paper_trading_end={info['paper_trading_end']} "
             f"production_status={info['production_status']} "
             f"goal_gates={info['goal_gates']} "
-            f"model_replays={info['model_replays']}"
+            f"model_replays={info['model_replays']} "
+            f"research_backtests={info['research_backtests']}"
         )
         return 1
 
@@ -239,6 +259,7 @@ def main() -> int:
         f"production_status={info['production_status']} "
         f"goal_gates={info['goal_gates']} "
         f"model_replays={info['model_replays']} paper_trading"
+        f" research_backtests={info['research_backtests']}"
     )
     return 0
 

@@ -11,6 +11,7 @@ from scripts.build_backtest_dashboard import (
     _load_retained_dashboard_versions,
     build_html,
     compact_payload_rows,
+    load_research_backtests,
     normalize_post_train_review_rows,
     select_best_version,
     select_latest_version,
@@ -452,6 +453,56 @@ def test_load_versions_keeps_retained_dashboard_export_without_source_csv(tmp_pa
     retained = versions["retained_ablation"]
     assert retained["_meta"]["source_kind"] == "retained_dashboard_export"
     assert retained["windows"]["SOXL"] == {"start": "2026-05-19", "end": "2026-05-19", "rows": 1}
+
+
+def test_load_research_backtests_exports_recent_model_selection_cards(tmp_path: Path, monkeypatch):
+    card_dir = tmp_path / "runtime" / "model_selection" / "card" / "stress_case"
+    card_dir.mkdir(parents=True)
+    (card_dir / "stress_case.ipynb").write_text("{}", encoding="utf-8")
+    (card_dir / "selection.json").write_text(
+        json.dumps(
+            {
+                "experiment": "stress_case",
+                "decision": "near_miss_no_promotion",
+                "promotion_allowed": False,
+                "role": "diagnose",
+                "changed_layer": ["model_selection", "stress_test"],
+                "selected_candidate": "candidate_a",
+                "created_at": "2026-06-01T03:02:41+00:00",
+                "selected_base_score": {
+                    "min_relative_return": 29.817,
+                    "max_max_dd": 15.107,
+                    "full_gate": False,
+                    "near_miss": True,
+                },
+                "stress_pass_count": 0,
+                "stress_scenario_count": 4,
+            }
+        ),
+        encoding="utf-8",
+    )
+    (card_dir / "summary.json").write_text(
+        json.dumps(
+            {
+                "conclusion": ["base full_gate=False", "stress pass 0/4"],
+                "next_mechanism": "reward timing",
+            }
+        ),
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(dashboard_builder, "ROOT", tmp_path)
+    monkeypatch.setattr(dashboard_builder, "MODEL_SELECTION_DIR", tmp_path / "runtime" / "model_selection" / "card")
+
+    rows = load_research_backtests()
+
+    assert rows[0]["experiment"] == "stress_case"
+    assert rows[0]["decision"] == "near_miss_no_promotion"
+    assert rows[0]["min_relative_return"] == pytest.approx(29.817)
+    assert rows[0]["max_drawdown"] == pytest.approx(15.107)
+    assert rows[0]["stress_pass_count"] == 0
+    assert rows[0]["stress_scenario_count"] == 4
+    assert rows[0]["notebook_path"] == "runtime/model_selection/card/stress_case/stress_case.ipynb"
+    assert "base full_gate=False stress pass 0/4" in rows[0]["conclusion"]
 
 
 def test_load_versions_prefers_matching_profile_directory_for_duplicate_tag(tmp_path: Path, monkeypatch):

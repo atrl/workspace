@@ -42,6 +42,7 @@ def test_dashboard_static_export_is_trackable():
     assert (ROOT / "dashboard_data" / "index.json").exists()
     assert (ROOT / "dashboard_data" / "model_versions.json").exists()
     assert (ROOT / "dashboard_data" / "model_replay_freshness.json").exists()
+    assert (ROOT / "dashboard_data" / "research_backtests.json").exists()
     assert (ROOT / "dashboard_data" / "production_status.json").exists()
     assert (ROOT / "dashboard_data" / "production_goal_gates.json").exists()
 
@@ -54,6 +55,14 @@ def test_dashboard_page_loads_production_status_export():
     assert "dashboard_data/production_goal_gates.json" in html
     assert "renderProductionStatus" in html
     assert 'id="productionGateOverall"' in html
+
+
+def test_dashboard_page_loads_research_backtest_export():
+    html = (ROOT / "dashboard.html").read_text(encoding="utf-8")
+
+    assert 'id="researchBacktests"' in html
+    assert "dashboard_data/research_backtests.json" in html
+    assert "renderResearchBacktests" in html
 
 
 def test_production_goal_gates_parser_extracts_overall_blockers():
@@ -100,6 +109,7 @@ def test_dashboard_static_export_integrity_check_passes():
     assert "production_status=" in result.stdout
     assert "goal_gates=pending" in result.stdout
     assert "model_replays=" in result.stdout
+    assert "research_backtests=" in result.stdout
 
 
 def test_vercel_deploy_command_is_non_interactive_and_token_safe():
