@@ -239,6 +239,115 @@ def score_official_replay_candidate_pool(
     ).reset_index(drop=True)
 
 
+def score_official_replay_stress_scenarios(
+    candidates: pd.DataFrame,
+    *,
+    stress_scenarios: list[dict[str, object]] | tuple[dict[str, object], ...],
+    config: OfficialReplayCandidateConfig = OfficialReplayCandidateConfig(),
+) -> pd.DataFrame:
+    """Score candidates after simple return haircuts and drawdown add-ons.
+
+    The scenarios intentionally operate on already-generated official replay
+    metrics. They are a promotion-blocking robustness check, not a replacement
+    for a replay under a changed execution model.
+    """
+
+    if candidates.empty or not stress_scenarios:
+        return pd.DataFrame(
+            columns=[
+                "candidate_id",
+                "scenario",
+                "stress_full_gate",
+                "stress_gate_pass_count",
+                "stress_total_gate_loss",
+                "stress_failure_profile",
+            ]
+        )
+
+    rows: list[dict[str, object]] = []
+    relative = pd.to_numeric(candidates["relative_return"], errors="coerce")
+    max_dd = pd.to_numeric(candidates["max_dd"], errors="coerce")
+    base = candidates.copy()
+    base["_relative_return_numeric"] = relative
+    base["_max_dd_numeric"] = max_dd
+    base["_base_window_gate"] = (
+        (base["_relative_return_numeric"] >= float(config.target_relative_return_pp))
+        & (base["_max_dd_numeric"] <= float(config.target_max_dd_pct))
+    )
+
+    for scenario in stress_scenarios:
+        scenario_name = str(scenario.get("scenario", scenario.get("name", "")) or "stress")
+        relative_haircut = float(scenario.get("relative_haircut_pp", 0.0) or 0.0)
+        max_dd_add = float(scenario.get("max_dd_add_pct", 0.0) or 0.0)
+        stressed = base.copy()
+        stressed["stress_relative_return"] = stressed["_relative_return_numeric"] - relative_haircut
+        stressed["stress_max_dd"] = stressed["_max_dd_numeric"] + max_dd_add
+        stressed["stress_relative_gap"] = (
+            float(config.target_relative_return_pp) - stressed["stress_relative_return"]
+        ).clip(lower=0.0)
+        stressed["stress_max_dd_gap"] = (
+            stressed["stress_max_dd"] - float(config.target_max_dd_pct)
+        ).clip(lower=0.0)
+        stressed["stress_window_gate"] = (
+            (stressed["stress_relative_return"] >= float(config.target_relative_return_pp))
+            & (stressed["stress_max_dd"] <= float(config.target_max_dd_pct))
+        )
+
+        for candidate_id, sub in stressed.groupby("candidate_id", sort=True):
+            gate = _bool_series(sub, "stress_window_gate")
+            stress_full_gate = bool(gate.all()) if len(gate) else False
+            gate_pass_count = int(gate.sum())
+            relative_gap = pd.to_numeric(sub["stress_relative_gap"], errors="coerce").fillna(
+                float(config.target_relative_return_pp)
+            )
+            max_dd_gap = pd.to_numeric(sub["stress_max_dd_gap"], errors="coerce").fillna(
+                float(config.target_max_dd_pct)
+            )
+            total_loss = float(relative_gap.sum() + max_dd_gap.sum() * float(config.max_dd_gap_weight))
+            base_gate = _bool_series(sub, "window_gate_pass") if "window_gate_pass" in sub.columns else _bool_series(sub, "_base_window_gate")
+            base_full_gate = bool(base_gate.all()) if len(base_gate) else False
+            if stress_full_gate:
+                failure_profile = "stress_pass"
+            elif base_full_gate:
+                failure_profile = "stress_fragile"
+            elif gate_pass_count >= max(0, len(gate) - 1):
+                failure_profile = "stress_near_miss"
+            else:
+                rel_bad = float(relative_gap.max()) > float(config.near_miss_relative_gap_pp)
+                dd_bad = float(max_dd_gap.max()) > float(config.near_miss_max_dd_gap_pct)
+                if rel_bad and dd_bad:
+                    failure_profile = "stress_joint_tradeoff"
+                elif rel_bad:
+                    failure_profile = "stress_trend_capture"
+                elif dd_bad:
+                    failure_profile = "stress_drawdown_control"
+                else:
+                    failure_profile = "stress_unknown"
+            rows.append(
+                {
+                    "candidate_id": str(candidate_id),
+                    "source_label": str(sub["source_label"].iloc[0]) if "source_label" in sub else "",
+                    "mechanism": str(sub["mechanism"].iloc[0]) if "mechanism" in sub else "",
+                    "candidate": str(sub["candidate"].iloc[0]) if "candidate" in sub else str(candidate_id),
+                    "scenario": scenario_name,
+                    "relative_haircut_pp": relative_haircut,
+                    "max_dd_add_pct": max_dd_add,
+                    "window_count": int(len(sub)),
+                    "stress_gate_pass_count": gate_pass_count,
+                    "stress_full_gate": stress_full_gate,
+                    "stress_min_relative_return": float(pd.to_numeric(sub["stress_relative_return"], errors="coerce").min()),
+                    "stress_max_dd": float(pd.to_numeric(sub["stress_max_dd"], errors="coerce").max()),
+                    "stress_total_gate_loss": total_loss,
+                    "stress_failure_profile": failure_profile,
+                }
+            )
+
+    return pd.DataFrame(rows).sort_values(
+        ["scenario", "stress_full_gate", "stress_total_gate_loss", "candidate_id"],
+        ascending=[True, False, True, True],
+    ).reset_index(drop=True)
+
+
 def render_official_replay_candidate_review(scored: pd.DataFrame) -> str:
     lines = [
         "# Official Replay Candidate Mechanism PK",
@@ -271,4 +380,5 @@ __all__ = [
     "normalise_official_replay_candidate_frame",
     "render_official_replay_candidate_review",
     "score_official_replay_candidate_pool",
+    "score_official_replay_stress_scenarios",
 ]

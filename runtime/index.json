@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-26T18:48:46.431510+00:00",
+  "generated_at": "2026-06-01T03:03:52.002255+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -8058,6 +8058,72 @@
       "category": "model_selection",
       "suffix": ".json",
       "bytes": 5955
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_action_cap_stress_test_v1/action_cap_base_scores.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1565
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_action_cap_stress_test_v1/action_cap_candidate_pool.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2048
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_action_cap_stress_test_v1/action_cap_stress_scores.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4273
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_action_cap_stress_test_v1/selected_candidate_stress_profile.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1230
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_action_cap_stress_test_v1/selected_candidate_trace_absorption.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 903
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_action_cap_stress_test_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 3529
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_action_cap_stress_test_v1/source_decision_trace_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2702
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_action_cap_stress_test_v1/source_selected_decision_trace_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 903
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_action_cap_stress_test_v1/stress_scenario_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 660
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_action_cap_stress_test_v1/stress_scenarios.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 153
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_action_cap_stress_test_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 20832
     },
     {
       "path": "runtime/model_selection/card/short_volshock_bc_checkpoint_alignment_v1/base_multi_obj_plain_wf_2022_warm_start_official_daily_path.csv",

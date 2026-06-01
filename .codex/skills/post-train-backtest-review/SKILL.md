@@ -159,6 +159,26 @@ weighted gap ranking。若没有任何候选 `full_gate=True`，不要把分数�
 promotion；只能把它作为 closest diagnostic reference，并进入
 walk-forward-weighted multi-objective training/selection 设计。
 
+当多个 official replay 卡片各自只有 near-miss，或同一机制在不同卡片中
+出现相互冲突的结论时，不要继续手工比较 CSV 或扩大阈值网格。先在 runtime
+notebook 中聚合候选：
+
+```python
+from src.soxl_quant.app.official_candidate_aggregation import (
+    normalise_official_replay_candidate_frame,
+    score_official_replay_candidate_pool,
+    score_official_replay_stress_scenarios,
+)
+```
+
+`score_official_replay_candidate_pool()` 用 hard gate、robust margin 和
+near-miss 分类比较多个 replay 候选；同名候选必须带 `source_label`，避免不同
+card 的 candidate id 相互覆盖。若最佳候选只是 `near_miss`，继续用
+`score_official_replay_stress_scenarios()` 加小幅 relative haircut / MaxDD add-on
+做压力测试。任何 stress-fragile 或 base near-miss 都不能 promotion；下一步只能是
+把机制转成 reward-timing / training objective 的 margin target，或进入更宽的
+official replay 验证。
+
 如果候选在 ordinary fold backtest 中过 gate，但 official qlib warm-start replay
 把 gate 翻成失败，不要继续从 source-only 证据启动更长 PPO 或保留 actor。先在
 runtime notebook 中分类 source-vs-official mismatch：

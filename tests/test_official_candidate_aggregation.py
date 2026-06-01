@@ -6,6 +6,7 @@ from src.soxl_quant.app.official_candidate_aggregation import (
     OfficialReplayCandidateConfig,
     normalise_official_replay_candidate_frame,
     score_official_replay_candidate_pool,
+    score_official_replay_stress_scenarios,
 )
 
 
@@ -123,3 +124,64 @@ def test_score_official_replay_candidate_pool_flags_near_miss_not_robust() -> No
     assert bool(top["robust_full_gate"]) is False
     assert top["failure_profile"] == "near_miss"
     assert scored.iloc[1]["failure_profile"] == "trend_capture"
+
+
+def test_score_official_replay_stress_scenarios_separates_low_margin_full_gate() -> None:
+    pool = pd.DataFrame(
+        [
+            {
+                "source_label": "screen",
+                "mechanism": "overlay",
+                "candidate": "thin_full",
+                "candidate_id": "screen::thin_full",
+                "window": "wf_2022",
+                "relative_return": 30.4,
+                "max_dd": 14.8,
+                "avg_pos": 0.12,
+            },
+            {
+                "source_label": "screen",
+                "mechanism": "overlay",
+                "candidate": "thin_full",
+                "candidate_id": "screen::thin_full",
+                "window": "wf_2023_2024",
+                "relative_return": 30.6,
+                "max_dd": 14.7,
+                "avg_pos": 0.18,
+            },
+            {
+                "source_label": "screen",
+                "mechanism": "overlay",
+                "candidate": "robust",
+                "candidate_id": "screen::robust",
+                "window": "wf_2022",
+                "relative_return": 33.0,
+                "max_dd": 13.5,
+                "avg_pos": 0.12,
+            },
+            {
+                "source_label": "screen",
+                "mechanism": "overlay",
+                "candidate": "robust",
+                "candidate_id": "screen::robust",
+                "window": "wf_2023_2024",
+                "relative_return": 32.5,
+                "max_dd": 13.8,
+                "avg_pos": 0.18,
+            },
+        ]
+    )
+
+    stressed = score_official_replay_stress_scenarios(
+        pool,
+        stress_scenarios=[
+            {"scenario": "base", "relative_haircut_pp": 0.0, "max_dd_add_pct": 0.0},
+            {"scenario": "mild_cost_and_dd", "relative_haircut_pp": 0.5, "max_dd_add_pct": 0.25},
+        ],
+    )
+
+    by_key = stressed.set_index(["candidate_id", "scenario"])
+    assert bool(by_key.loc[("screen::thin_full", "base"), "stress_full_gate"]) is True
+    assert bool(by_key.loc[("screen::thin_full", "mild_cost_and_dd"), "stress_full_gate"]) is False
+    assert by_key.loc[("screen::thin_full", "mild_cost_and_dd"), "stress_failure_profile"] == "stress_fragile"
+    assert bool(by_key.loc[("screen::robust", "mild_cost_and_dd"), "stress_full_gate"]) is True
