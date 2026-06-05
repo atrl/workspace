@@ -119,6 +119,12 @@ external:
     path: data/raw/external/futu_snapshot_US_SOXX.csv
     rows: 1
     start: '2026-05-22'
+  intraday_features_soxl_1m:
+    end: null
+    exists: true
+    path: data/raw/external/intraday_features_soxl_1m.csv
+    rows: 0
+    start: null
   oil_wti:
     end: null
     exists: true
@@ -155,11 +161,31 @@ external:
     path: data/raw/external/yield_curve_10y3m.csv
     rows: 11081
     start: null
-generated_at: '2026-05-29T22:15:11.317036+00:00'
+generated_at: '2026-06-05T07:30:22.348394+00:00'
+intraday:
+  layout:
+    daily_feature_csv: data/raw/external/intraday_features_soxl_1m.csv
+    processed_canonical: data/processed/intraday/soxl_soxx_1m.parquet
+    raw_provider_parquet: data/raw/intraday/<provider>/<symbol>_<interval>_<start>_<end>_<session>.parquet
+  processed:
+    soxl_soxx_1m:
+      exists: true
+      intervals: []
+      max_timestamp: null
+      min_timestamp: null
+      path: data/processed/intraday/soxl_soxx_1m.parquet
+      providers: []
+      rows: 0
+      session_coverage: {}
+      sessions: []
+      symbols: []
+  raw: {}
 layout:
+  processed_intraday: data/processed/intraday/soxl_soxx_1m.parquet
   processed_panels: data/processed/panels/<asset>_with_underlying_vix.csv
   qlib: data/qlib/<asset>/
   raw_external: data/raw/external/<NAME>.csv
+  raw_intraday: data/raw/intraday/<provider>/<symbol>_<interval>_<start>_<end>_<session>.parquet
   raw_symbols: data/raw/symbols/<TICKER>.csv
   training_cache: data/cache/training/<profile>.pkl
 processed_panels:

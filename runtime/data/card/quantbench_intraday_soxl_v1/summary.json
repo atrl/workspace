@@ -1,0 +1,112 @@
+{
+  "experiment": "quantbench_intraday_soxl_v1",
+  "status": "fixture_smoke_only",
+  "live_fetch_executed": false,
+  "reason_live_fetch_not_executed": "Requires POLYGON_API_KEY and reachable Futu OpenD; this notebook records architecture smoke evidence only.",
+  "canonical_schema_columns": [
+    "provider",
+    "symbol",
+    "interval",
+    "timestamp",
+    "date",
+    "session",
+    "open",
+    "high",
+    "low",
+    "close",
+    "volume",
+    "turnover",
+    "source_tz",
+    "adjusted",
+    "fetched_at"
+  ],
+  "fixture_rows": 600,
+  "fixture_providers": [
+    "futu",
+    "polygon"
+  ],
+  "fixture_symbols": [
+    "SOXL",
+    "SOXX"
+  ],
+  "coverage_rows": [
+    {
+      "provider": "futu",
+      "symbol": "SOXL",
+      "rows": 150,
+      "min_timestamp": "2024-01-02 09:30:00-05:00",
+      "max_timestamp": "2024-02-12 09:34:00-05:00"
+    },
+    {
+      "provider": "futu",
+      "symbol": "SOXX",
+      "rows": 150,
+      "min_timestamp": "2024-01-02 09:30:00-05:00",
+      "max_timestamp": "2024-02-12 09:34:00-05:00"
+    },
+    {
+      "provider": "polygon",
+      "symbol": "SOXL",
+      "rows": 150,
+      "min_timestamp": "2024-01-02 09:30:00-05:00",
+      "max_timestamp": "2024-02-12 09:34:00-05:00"
+    },
+    {
+      "provider": "polygon",
+      "symbol": "SOXX",
+      "rows": 150,
+      "min_timestamp": "2024-01-02 09:30:00-05:00",
+      "max_timestamp": "2024-02-12 09:34:00-05:00"
+    }
+  ],
+  "source_disagreement": {
+    "mean_abs_close_diff_bps": 1.9995106069314756,
+    "max_abs_close_diff_bps": 4.004835642684108
+  },
+  "missing_bar_summary": [
+    {
+      "provider": "futu",
+      "symbol": "SOXL",
+      "min_bars": 5,
+      "max_missing": 385
+    },
+    {
+      "provider": "futu",
+      "symbol": "SOXX",
+      "min_bars": 5,
+      "max_missing": 385
+    },
+    {
+      "provider": "polygon",
+      "symbol": "SOXL",
+      "min_bars": 5,
+      "max_missing": 385
+    },
+    {
+      "provider": "polygon",
+      "symbol": "SOXX",
+      "min_bars": 5,
+      "max_missing": 385
+    }
+  ],
+  "feature_rows": 30,
+  "ic_screen": {
+    "n_days": 29,
+    "ic_mean": -1.0046723827169262e-05,
+    "ic_positive_ratio": 0.0,
+    "pearson_corr": -0.8621584854668624
+  },
+  "standalone_screen": {
+    "threshold": 0.7902512947905264,
+    "total_return": 0.07616947832460808,
+    "max_drawdown": 0.0,
+    "num_signals": 15
+  },
+  "repo_artifacts": {
+    "schema_canonical_parquet": "data/processed/intraday/soxl_soxx_1m.parquet",
+    "schema_feature_csv": "data/raw/external/intraday_features_soxl_1m.csv",
+    "fixture_canonical_parquet": "runtime/data/card/quantbench_intraday_soxl_v1/fixture_canonical_intraday.parquet",
+    "fixture_feature_csv": "runtime/data/card/quantbench_intraday_soxl_v1/fixture_intraday_features_soxl_1m.csv"
+  },
+  "decision": "Do not promote; proceed to live Futu+Polygon coverage fetch when secrets/OpenD are available."
+}

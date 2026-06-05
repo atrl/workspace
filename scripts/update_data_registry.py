@@ -8,6 +8,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 import sys
 
+import pandas as pd
 import yaml
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -43,6 +44,73 @@ def qlib_metadata(path: Path) -> dict:
     }
 
 
+def _format_timestamp(value) -> str | None:
+    if pd.isna(value):
+        return None
+    return pd.Timestamp(value).isoformat()
+
+
+def parquet_metadata(path: Path) -> dict:
+    meta = {"path": str(path.relative_to(ROOT)), "exists": path.exists()}
+    if not path.exists():
+        return meta
+    try:
+        frame = pd.read_parquet(path)
+    except Exception as exc:
+        meta.update({"error": str(exc)})
+        return meta
+    meta["rows"] = int(len(frame))
+    if "timestamp" in frame.columns and len(frame):
+        timestamps = pd.to_datetime(frame["timestamp"], errors="coerce")
+        valid = timestamps.dropna()
+        meta["min_timestamp"] = _format_timestamp(valid.min()) if len(valid) else None
+        meta["max_timestamp"] = _format_timestamp(valid.max()) if len(valid) else None
+    else:
+        meta["min_timestamp"] = None
+        meta["max_timestamp"] = None
+    for source, target in (
+        ("provider", "providers"),
+        ("symbol", "symbols"),
+        ("interval", "intervals"),
+        ("session", "sessions"),
+    ):
+        if source in frame.columns:
+            meta[target] = sorted(str(value) for value in frame[source].dropna().unique())
+        else:
+            meta[target] = []
+    if "session" in frame.columns:
+        meta["session_coverage"] = {
+            str(key): int(value)
+            for key, value in frame["session"].fillna("<missing>").value_counts().sort_index().items()
+        }
+    else:
+        meta["session_coverage"] = {}
+    return meta
+
+
+def build_intraday_registry() -> dict:
+    raw_root = DATA / "raw" / "intraday"
+    processed_root = DATA / "processed" / "intraday"
+    raw: dict[str, dict[str, dict]] = {}
+    for path in sorted(raw_root.glob("*/*.parquet")):
+        provider = path.parent.name
+        raw.setdefault(provider, {})[path.stem] = parquet_metadata(path)
+    processed_paths = sorted(processed_root.glob("*.parquet"))
+    canonical_path = processed_root / "soxl_soxx_1m.parquet"
+    if canonical_path not in processed_paths:
+        processed_paths.append(canonical_path)
+    processed = {path.stem: parquet_metadata(path) for path in sorted(processed_paths)}
+    return {
+        "layout": {
+            "raw_provider_parquet": "data/raw/intraday/<provider>/<symbol>_<interval>_<start>_<end>_<session>.parquet",
+            "processed_canonical": "data/processed/intraday/soxl_soxx_1m.parquet",
+            "daily_feature_csv": "data/raw/external/intraday_features_soxl_1m.csv",
+        },
+        "raw": raw,
+        "processed": processed,
+    }
+
+
 def build_registry() -> dict:
     symbols = {path.stem.upper(): csv_metadata(path) for path in sorted((DATA / "raw" / "symbols").glob("*.csv"))}
     external = {path.stem: csv_metadata(path) for path in sorted((DATA / "raw" / "external").glob("*.csv"))}
@@ -58,15 +126,36 @@ def build_registry() -> dict:
             "raw_symbols": "data/raw/symbols/<TICKER>.csv",
             "raw_external": "data/raw/external/<NAME>.csv",
             "processed_panels": "data/processed/panels/<asset>_with_underlying_vix.csv",
+            "raw_intraday": "data/raw/intraday/<provider>/<symbol>_<interval>_<start>_<end>_<session>.parquet",
+            "processed_intraday": "data/processed/intraday/soxl_soxx_1m.parquet",
             "qlib": "data/qlib/<asset>/",
             "training_cache": "data/cache/training/<profile>.pkl",
         },
         "symbols": symbols,
         "external": external,
         "processed_panels": panels,
+        "intraday": build_intraday_registry(),
         "qlib": qlib,
         "training_cache": training,
     }
+
+
+def _compare_nested(stored, current, prefix: str) -> list[str]:
+    failures: list[str] = []
+    if isinstance(current, dict) and isinstance(stored, dict):
+        for key in sorted(set(stored) | set(current)):
+            child_prefix = f"{prefix}.{key}"
+            if key not in stored:
+                failures.append(f"stale registry {child_prefix}: missing stored entry")
+                continue
+            if key not in current:
+                failures.append(f"stale registry {child_prefix}: missing current entry")
+                continue
+            failures.extend(_compare_nested(stored[key], current[key], child_prefix))
+        return failures
+    if stored != current:
+        failures.append(f"stale registry {prefix}: stored={stored} current={current}")
+    return failures
 
 
 def _compare_current_metadata(registry: dict, current_registry: dict) -> list[str]:
@@ -94,6 +183,9 @@ def _compare_current_metadata(registry: dict, current_registry: dict) -> list[st
                         f"stale registry {section}.{name}.{key}: "
                         f"stored={stored_value} current={current_value}"
                     )
+    failures.extend(
+        _compare_nested(registry.get("intraday", {}) or {}, current_registry.get("intraday", {}) or {}, "intraday")
+    )
     return failures
 
 
@@ -102,6 +194,8 @@ def check_registry(registry: dict, current_registry: dict | None = None) -> list
     for section in ["symbols", "processed_panels", "qlib"]:
         if not registry.get(section):
             failures.append(f"missing or empty section: {section}")
+    if "intraday" not in registry:
+        failures.append("missing intraday section")
     for name in ["SOXL", "TQQQ", "UPRO", "SPXL", "TECL"]:
         if name not in registry.get("symbols", {}):
             failures.append(f"missing raw symbol CSV for {name}")

@@ -654,6 +654,51 @@ def _builtin_futu_small_order_flow_pack(context: dict[str, Any]) -> dict[str, pd
     }
 
 
+def _load_intraday_microstructure_features(index: pd.Index) -> pd.DataFrame:
+    path = EXTERNAL_DATA_DIR / "intraday_features_soxl_1m.csv"
+    if not path.exists():
+        return pd.DataFrame(index=index)
+    df = pd.read_csv(path)
+    if df.empty or "date" not in df.columns:
+        return pd.DataFrame(index=index)
+    dates = pd.to_datetime(df["date"], errors="coerce")
+    df = df.assign(date=dates).dropna(subset=["date"]).set_index("date").sort_index()
+    return df.reindex(index)
+
+
+def _intraday_numeric(df: pd.DataFrame, column: str, index: pd.Index) -> pd.Series:
+    if column not in df.columns:
+        return pd.Series(0.0, index=index)
+    return pd.to_numeric(df[column], errors="coerce").reindex(index)
+
+
+def _builtin_intraday_microstructure_pack(context: dict[str, Any]) -> dict[str, pd.Series]:
+    """Daily-safe 1-minute aggregate features.
+
+    The raw cache is produced after the session from SOXL/SOXX minute bars, so
+    every model-facing value is shifted by one trading day before use. Missing
+    pre-coverage rows are filled with zero to keep full-horizon matrices stable.
+    """
+    index = context["index"]
+    cached = _load_intraday_microstructure_features(index)
+
+    opening_range = _intraday_numeric(cached, "opening_range_30", index).shift(1)
+    close_location = _intraday_numeric(cached, "close_location_value", index).shift(1)
+    realized_vol = _intraday_numeric(cached, "realized_intraday_vol", index).shift(1)
+    volume_concentration = _intraday_numeric(cached, "volume_concentration_open_30", index).shift(1)
+    relative_volume = _intraday_numeric(cached, "soxl_soxx_intraday_relative_volume", index).shift(1)
+    tracking_error = _intraday_numeric(cached, "intraday_tracking_error", index).shift(1)
+
+    return {
+        "INTRADAY_OPENING_RANGE_30_ZSCORE_21": _rolling_zscore(opening_range, 21),
+        "INTRADAY_CLOSE_LOCATION_VALUE_LAG1": close_location.fillna(0.0),
+        "INTRADAY_REALIZED_VOL_ZSCORE_21": _rolling_zscore(realized_vol, 21),
+        "INTRADAY_VOLUME_CONCENTRATION_OPEN_30_LAG1": volume_concentration.fillna(0.0),
+        "INTRADAY_SOXL_SOXX_RELATIVE_VOLUME_ZSCORE_21": _rolling_zscore(relative_volume, 21),
+        "INTRADAY_TRACKING_ERROR_ZSCORE_21": _rolling_zscore(tracking_error, 21),
+    }
+
+
 def _builtin_soxx_signals_pack(context: dict[str, Any]) -> dict[str, pd.Series]:
     """SOXX-based standalone signals for SOXL timing.
 
@@ -865,6 +910,17 @@ BUILTIN_FEATURE_PACKS: dict[str, dict[str, Any]] = {
             "FUTU_STRESS_SMALL_FLOW_CAPITULATION",
         ),
         "builder": _builtin_futu_small_order_flow_pack,
+    },
+    "intraday_microstructure_v1": {
+        "columns": (
+            "INTRADAY_OPENING_RANGE_30_ZSCORE_21",
+            "INTRADAY_CLOSE_LOCATION_VALUE_LAG1",
+            "INTRADAY_REALIZED_VOL_ZSCORE_21",
+            "INTRADAY_VOLUME_CONCENTRATION_OPEN_30_LAG1",
+            "INTRADAY_SOXL_SOXX_RELATIVE_VOLUME_ZSCORE_21",
+            "INTRADAY_TRACKING_ERROR_ZSCORE_21",
+        ),
+        "builder": _builtin_intraday_microstructure_pack,
     },
     "soxx_signals": {
         "columns": (
