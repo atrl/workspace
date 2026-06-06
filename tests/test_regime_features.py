@@ -7,8 +7,10 @@ from src.soxl_quant.settings import CSV_PATH
 from src.soxl_quant.data import (
     FEATURE_COLUMNS,
     _build_transition_state_features,
+    _align_external,
     engineer_feature_frame,
     feature_columns_for_packs,
+    _load_external_series,
 )
 
 
@@ -274,6 +276,78 @@ def test_release_signal_pack_curates_reentry_signals():
             reference_flat[column].tail(100).to_numpy(),
             atol=1e-8,
         )
+
+
+def test_macro_extreme_risk_pack_builds_lagged_narrow_macro_features():
+    df = pd.read_csv(CSV_PATH, parse_dates=["date"]).set_index("date")
+    soxl = pd.DataFrame(
+        {
+            "$close": df["soxl_close"],
+            "$open": df["soxl_open"],
+            "$high": df["soxl_high"],
+            "$low": df["soxl_low"],
+            "$volume": df["soxl_volume"],
+            "$vix": df["vix"],
+            "Mean($close, 5)": df["soxl_close"].rolling(5).mean(),
+            "Mean($close, 21)": df["soxl_close"].rolling(21).mean(),
+            "Mean($close, 63)": df["soxl_close"].rolling(63).mean(),
+            "Mean($close, 180)": df["soxl_close"].rolling(180).mean(),
+            "Std($close / Ref($close, 1) - 1, 10)": df["soxl_close"].pct_change().rolling(10).std(),
+            "Std($close / Ref($close, 1) - 1, 21)": df["soxl_close"].pct_change().rolling(21).std(),
+            "Std($close / Ref($close, 1) - 1, 63)": df["soxl_close"].pct_change().rolling(63).std(),
+            "Mean($volume, 21)": df["soxl_volume"].rolling(21).mean(),
+        }
+    )
+    soxx = pd.DataFrame(
+        {
+            "$close": df["soxx_close"],
+            "$open": df["soxx_open"],
+            "$high": df["soxx_high"],
+            "$low": df["soxx_low"],
+            "$volume": df["soxx_volume"],
+        }
+    )
+
+    expected_columns = {
+        "MACRO_EXTREME_VIX_TERM_SLOPE_LAG1",
+        "MACRO_EXTREME_VIX_SHORT_RATIO_LAG1",
+        "MACRO_EXTREME_VVIX_ZSCORE_252_LAG1",
+        "MACRO_EXTREME_SKEW_ZSCORE_252_LAG1",
+        "MACRO_EXTREME_YC_10Y2Y_ZSCORE_252_LAG1",
+        "MACRO_EXTREME_YC_10Y2Y_DELTA_21_LAG1",
+        "MACRO_EXTREME_DXY_ZSCORE_252_LAG1",
+        "MACRO_EXTREME_DXY_ROC_63_LAG1",
+        "MACRO_EXTREME_OIL_ROC_63_LAG1",
+        "MACRO_EXTREME_RISK_PRESSURE_LAG1",
+        "MACRO_EXTREME_RISK_PRESSURE_RELIEF_5_LAG1",
+    }
+    pack_columns = set(feature_columns_for_packs(("macro_extreme_risk_v1",)))
+    assert expected_columns.issubset(pack_columns)
+    assert "MACRO_CREDIT_SPREAD" not in pack_columns
+
+    feature_df, _ = engineer_feature_frame(soxl, soxx, feature_packs=("macro_extreme_risk_v1",))
+    flat = feature_df.droplevel("instrument")
+    assert expected_columns.issubset(set(flat.columns))
+    assert flat[list(expected_columns)].replace([np.inf, -np.inf], np.nan).notna().all().all()
+
+    aligned_index = flat.index
+    vix = soxl["$vix"].astype(float)
+    vix3m = _align_external(_load_external_series("VIX3M.csv", "CLOSE"), soxl.index)
+    raw_vix_term_slope = (vix / vix3m.replace(0.0, np.nan) - 1.0).fillna(0.0)
+    expected_lagged_slope = raw_vix_term_slope.shift(1).reindex(aligned_index)
+    actual_lagged_slope = flat["MACRO_EXTREME_VIX_TERM_SLOPE_LAG1"].reindex(aligned_index)
+    assert np.allclose(
+        actual_lagged_slope.tail(250).to_numpy(),
+        expected_lagged_slope.tail(250).to_numpy(),
+        atol=1e-8,
+    )
+    assert not np.allclose(
+        actual_lagged_slope.tail(250).to_numpy(),
+        raw_vix_term_slope.reindex(aligned_index).tail(250).to_numpy(),
+        atol=1e-8,
+    )
+    assert (flat["MACRO_EXTREME_RISK_PRESSURE_LAG1"] >= 0.0).all()
+    assert flat["MACRO_EXTREME_RISK_PRESSURE_LAG1"].std() > 0.0
 
 
 def test_transition_v23_flags_fire_only_in_expected_states():

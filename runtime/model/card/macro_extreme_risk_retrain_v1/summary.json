@@ -1,0 +1,232 @@
+{
+  "artifacts": {
+    "notebook": "runtime/model/card/macro_extreme_risk_retrain_v1/macro_extreme_risk_retrain_v1.ipynb",
+    "profile": "runtime/model/card/macro_extreme_risk_retrain_v1/profile.yaml",
+    "summary_json": "runtime/model/card/macro_extreme_risk_retrain_v1/summary.json"
+  },
+  "balanced_macro_v1_promotion": {},
+  "best_gate_rows": [
+    {
+      "best_accuracy": 0.580602883355177,
+      "best_horizon": 20,
+      "best_ic_t": 62.34238299365591,
+      "best_pf": 1.511663208717163,
+      "best_rolling_ic_mean": 0.18053546139414745,
+      "best_rolling_ic_positive_ratio": 0.829709121717029,
+      "feature": "MACRO_EXTREME_VIX_TERM_SLOPE_LAG1",
+      "full_gate": true,
+      "max_abs_core_corr": 0.7691698156004537,
+      "signals": 763
+    },
+    {
+      "best_accuracy": 0.5765171503957783,
+      "best_horizon": 20,
+      "best_ic_t": 35.594560208464344,
+      "best_pf": 1.70998141074634,
+      "best_rolling_ic_mean": 0.10159230378709323,
+      "best_rolling_ic_positive_ratio": 0.7365151087263485,
+      "feature": "MACRO_EXTREME_RISK_PRESSURE_LAG1",
+      "full_gate": true,
+      "max_abs_core_corr": 0.7603496152416108,
+      "signals": 758
+    },
+    {
+      "best_accuracy": 0.5897771952817824,
+      "best_horizon": 20,
+      "best_ic_t": 39.22637520262144,
+      "best_pf": 1.6855069131301375,
+      "best_rolling_ic_mean": 0.09569237899046878,
+      "best_rolling_ic_positive_ratio": 0.7932787348206721,
+      "feature": "MACRO_EXTREME_VIX_SHORT_RATIO_LAG1",
+      "full_gate": true,
+      "max_abs_core_corr": 0.5282500397233608,
+      "signals": 763
+    },
+    {
+      "best_accuracy": 0.5845347313237221,
+      "best_horizon": 10,
+      "best_ic_t": 35.65905023154251,
+      "best_pf": 1.4726450791168486,
+      "best_rolling_ic_mean": 0.09417874927962129,
+      "best_rolling_ic_positive_ratio": 0.6744578991833287,
+      "feature": "MACRO_EXTREME_VVIX_ZSCORE_252_LAG1",
+      "full_gate": true,
+      "max_abs_core_corr": 0.6463038326155148,
+      "signals": 763
+    },
+    {
+      "best_accuracy": 0.5701179554390564,
+      "best_horizon": 10,
+      "best_ic_t": 17.675136947172557,
+      "best_pf": 1.4608236524672544,
+      "best_rolling_ic_mean": 0.045856758382662434,
+      "best_rolling_ic_positive_ratio": 0.6116586876936074,
+      "feature": "MACRO_EXTREME_DXY_ROC_63_LAG1",
+      "full_gate": true,
+      "max_abs_core_corr": 0.39025106221082534,
+      "signals": 763
+    },
+    {
+      "best_accuracy": 0.5611111111111111,
+      "best_horizon": 5,
+      "best_ic_t": 25.17347781962503,
+      "best_pf": 1.3235092063719196,
+      "best_rolling_ic_mean": 0.03274274611030054,
+      "best_rolling_ic_positive_ratio": 0.6482002249718786,
+      "feature": "MACRO_EXTREME_RISK_PRESSURE_RELIEF_5_LAG1",
+      "full_gate": true,
+      "max_abs_core_corr": 0.29629689982529905,
+      "signals": 1800
+    },
+    {
+      "best_accuracy": 0.5725593667546174,
+      "best_horizon": 10,
+      "best_ic_t": 10.266696458965397,
+      "best_pf": 1.5172887487166693,
+      "best_rolling_ic_mean": 0.028285533002061446,
+      "best_rolling_ic_positive_ratio": 0.5713883413123064,
+      "feature": "MACRO_EXTREME_DXY_ZSCORE_252_LAG1",
+      "full_gate": false,
+      "max_abs_core_corr": 0.41664980336489393,
+      "signals": 758
+    },
+    {
+      "best_accuracy": 0.5950196592398427,
+      "best_horizon": 20,
+      "best_ic_t": 5.292042481789698,
+      "best_pf": 1.755240052089249,
+      "best_rolling_ic_mean": 0.023769035480506163,
+      "best_rolling_ic_positive_ratio": 0.5176503812482349,
+      "feature": "MACRO_EXTREME_YC_10Y2Y_ZSCORE_252_LAG1",
+      "full_gate": false,
+      "max_abs_core_corr": 0.3538293631635884,
+      "signals": 763
+    }
+  ],
+  "extreme_summary": {
+    "abs_ge_15_days": 78,
+    "best_day": "2025-04-09",
+    "best_return_pct": 54.79,
+    "end": "2026-06-04",
+    "gain_days_ge_15": 39,
+    "loss_days_le_minus_15": 39,
+    "rows": 4083,
+    "start": "2010-03-11",
+    "worst_day": "2020-03-16",
+    "worst_return_pct": -38.59
+  },
+  "feature_count": 75,
+  "feature_pack": "macro_extreme_risk_v1",
+  "gate_decision": "feature_gate_passed_smoke_chain_passed_not_promoted",
+  "generated_at": "2026-06-06T13:57:31.623161+00:00",
+  "next_action": "Use macro_extreme_risk_v1 as a candidate feature pack only behind a risk-budget/execution guard; do not promote from smoke evidence.",
+  "pack_columns": [
+    "MACRO_EXTREME_VIX_TERM_SLOPE_LAG1",
+    "MACRO_EXTREME_VIX_SHORT_RATIO_LAG1",
+    "MACRO_EXTREME_VVIX_ZSCORE_252_LAG1",
+    "MACRO_EXTREME_SKEW_ZSCORE_252_LAG1",
+    "MACRO_EXTREME_YC_10Y2Y_ZSCORE_252_LAG1",
+    "MACRO_EXTREME_YC_10Y2Y_DELTA_21_LAG1",
+    "MACRO_EXTREME_DXY_ZSCORE_252_LAG1",
+    "MACRO_EXTREME_DXY_ROC_63_LAG1",
+    "MACRO_EXTREME_OIL_ROC_63_LAG1",
+    "MACRO_EXTREME_RISK_PRESSURE_LAG1",
+    "MACRO_EXTREME_RISK_PRESSURE_RELIEF_5_LAG1"
+  ],
+  "passing_features": [
+    "MACRO_EXTREME_VIX_TERM_SLOPE_LAG1",
+    "MACRO_EXTREME_RISK_PRESSURE_LAG1",
+    "MACRO_EXTREME_VIX_SHORT_RATIO_LAG1",
+    "MACRO_EXTREME_VVIX_ZSCORE_252_LAG1",
+    "MACRO_EXTREME_DXY_ROC_63_LAG1",
+    "MACRO_EXTREME_RISK_PRESSURE_RELIEF_5_LAG1"
+  ],
+  "profile": "macro_extreme_risk_retrain_v1",
+  "promotion_decision": {
+    "eligible": false,
+    "failed_checks": {
+      "test_2022_avg_pos": {
+        "actual": 0.39303570726984416,
+        "limit": 0.35,
+        "passed": false
+      },
+      "test_2022_max_dd": {
+        "actual": 59.22224546531104,
+        "limit": 55.0,
+        "passed": false
+      }
+    },
+    "reason": "smoke chain passed, but fixed-split promotion checks fail on 2022 max drawdown and average position; full retrain should add execution or risk-budget control before promotion consideration."
+  },
+  "runtime_composer_decision": "approved",
+  "smoke_result": {
+    "actor_retention": "not_committed_registry_keep_actor_false",
+    "artifact_tag": "smoke2",
+    "episode_len": 128,
+    "episode_per_iter": 2,
+    "max_iters": 2,
+    "promotion": {
+      "eligible": false,
+      "fixed_split": {
+        "checks": {
+          "test_2022_avg_pos": {
+            "actual": 0.39303570726984416,
+            "limit": 0.35,
+            "passed": false
+          },
+          "test_2022_max_dd": {
+            "actual": 59.22224546531104,
+            "limit": 55.0,
+            "passed": false
+          },
+          "test_proxy_sharpe": {
+            "actual": 1.143163882156473,
+            "limit": 0.5,
+            "passed": true
+          }
+        },
+        "eligible": false
+      },
+      "walk_forward": {
+        "checks": {},
+        "eligible": false,
+        "status": "missing"
+      },
+      "walk_forward_evaluated": false
+    },
+    "seed": 20260606,
+    "status": "passed",
+    "summary_json": "runtime/model/card/macro_extreme_risk_retrain_v1/soxl_macro_extreme_risk_retrain_v1_smoke2_summary.json",
+    "test_2022": {
+      "avg_pos": 0.39303570726984416,
+      "buy_and_hold_return": -76.61425652678248,
+      "max_dd": 59.22224546531104,
+      "relative_return": 35.59715069197215,
+      "return": -55.66766557635307,
+      "sharpe": -1.4488903947533225,
+      "stress_avg_pos": 0.3197674418604652,
+      "stress_days": 86.0
+    },
+    "test_proxy": {
+      "avg_pos": 0.6005788854899632,
+      "buy_and_hold_return": 4054.9100932682395,
+      "max_dd": 60.67501764918578,
+      "relative_return": -2234.3862227834416,
+      "return": 2337.919041921463,
+      "sharpe": 1.143163882156473,
+      "stress_avg_pos": 0.3530999504169014,
+      "stress_days": 321.0
+    },
+    "valid": {
+      "avg_pos": 0.6920105418219616,
+      "buy_and_hold_return": 98.48033593410877,
+      "max_dd": 31.83119856744835,
+      "relative_return": -30.845587766629663,
+      "return": 67.6347481674791,
+      "sharpe": 1.6157333859235528,
+      "stress_avg_pos": 0.377364795253827,
+      "stress_days": 13.0
+    }
+  },
+  "updated_at": "2026-06-06T13:57:31.624327+00:00"
+}

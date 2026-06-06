@@ -525,6 +525,64 @@ def _builtin_macro_signals_pack(context: dict[str, Any]) -> dict[str, pd.Series]
     }
 
 
+def _builtin_macro_extreme_risk_v1_pack(context: dict[str, Any]) -> dict[str, pd.Series]:
+    """Lagged macro-volatility state for extreme-day risk diagnostics.
+
+    This intentionally stays narrower than ``macro_signals`` and shifts every
+    output by one trading day so the pack can be used in post-close training
+    without relying on same-session external/macro observations.
+    """
+    index = context["index"]
+    vix = context["vix"]
+    regime_risk = context["regime_risk"].fillna(0.0)
+    vol_stress_score = context["vol_stress_score"].fillna(0.0)
+
+    vvix = _align_external(_load_external_series("VVIX.csv", "VVIX"), index)
+    vix3m = _align_external(_load_external_series("VIX3M.csv", "CLOSE"), index)
+    vix9d = _align_external(_load_external_series("VIX9D.csv", "CLOSE"), index)
+    skew = _align_external(_load_external_series("SKEW.csv", "SKEW"), index)
+    yc_10y2y = _align_external(_load_external_series("yield_curve_10y2y.csv", "value"), index)
+    dxy = _align_external(_load_external_series("dxy_broad.csv", "value"), index)
+    oil = _align_external(_load_external_series("oil_wti.csv", "value"), index)
+
+    vvix_zscore_252 = _rolling_zscore(vvix, 252)
+    vix_term_slope = (vix / vix3m.replace(0.0, np.nan) - 1.0).fillna(0.0)
+    vix_short_ratio = (vix9d / vix.replace(0.0, np.nan) - 1.0).fillna(0.0)
+    skew_zscore_252 = _rolling_zscore(skew, 252)
+    yc_10y2y_zscore_252 = _rolling_zscore(yc_10y2y, 252)
+    yc_10y2y_delta_21 = (yc_10y2y - yc_10y2y.shift(21)).fillna(0.0)
+    dxy_zscore_252 = _rolling_zscore(dxy, 252)
+    dxy_roc_63 = (dxy / dxy.shift(63).replace(0.0, np.nan) - 1.0).fillna(0.0)
+    oil_roc_63 = (oil / oil.shift(63).replace(0.0, np.nan) - 1.0).fillna(0.0)
+
+    risk_pressure_raw = (
+        0.24 * _rolling_percentile(vix_term_slope, 252).fillna(0.0)
+        + 0.20 * _rolling_percentile(vix_short_ratio, 252).fillna(0.0)
+        + 0.18 * vvix_zscore_252.clip(lower=0.0)
+        + 0.14 * skew_zscore_252.clip(lower=0.0)
+        + 0.14 * (-yc_10y2y_zscore_252).clip(lower=0.0)
+        + 0.10 * dxy_zscore_252.clip(lower=0.0)
+    )
+    risk_pressure = (
+        risk_pressure_raw.clip(lower=0.0) * (0.50 + 0.30 * regime_risk + 0.20 * vol_stress_score)
+    ).fillna(0.0)
+    risk_pressure_relief_5 = (-risk_pressure.diff(5)).clip(lower=0.0).fillna(0.0)
+
+    return {
+        "MACRO_EXTREME_VIX_TERM_SLOPE_LAG1": vix_term_slope.shift(1).fillna(0.0),
+        "MACRO_EXTREME_VIX_SHORT_RATIO_LAG1": vix_short_ratio.shift(1).fillna(0.0),
+        "MACRO_EXTREME_VVIX_ZSCORE_252_LAG1": vvix_zscore_252.shift(1).fillna(0.0),
+        "MACRO_EXTREME_SKEW_ZSCORE_252_LAG1": skew_zscore_252.shift(1).fillna(0.0),
+        "MACRO_EXTREME_YC_10Y2Y_ZSCORE_252_LAG1": yc_10y2y_zscore_252.shift(1).fillna(0.0),
+        "MACRO_EXTREME_YC_10Y2Y_DELTA_21_LAG1": yc_10y2y_delta_21.shift(1).fillna(0.0),
+        "MACRO_EXTREME_DXY_ZSCORE_252_LAG1": dxy_zscore_252.shift(1).fillna(0.0),
+        "MACRO_EXTREME_DXY_ROC_63_LAG1": dxy_roc_63.shift(1).fillna(0.0),
+        "MACRO_EXTREME_OIL_ROC_63_LAG1": oil_roc_63.shift(1).fillna(0.0),
+        "MACRO_EXTREME_RISK_PRESSURE_LAG1": risk_pressure.shift(1).fillna(0.0),
+        "MACRO_EXTREME_RISK_PRESSURE_RELIEF_5_LAG1": risk_pressure_relief_5.shift(1).fillna(0.0),
+    }
+
+
 def _rolling_zscore(series: pd.Series, window: int) -> pd.Series:
     return ((series - series.rolling(window).mean()) / (series.rolling(window).std() + 1e-8)).fillna(0.0)
 
@@ -878,6 +936,22 @@ BUILTIN_FEATURE_PACKS: dict[str, dict[str, Any]] = {
             "MACRO_OIL_ZSCORE_252",
         ),
         "builder": _builtin_macro_signals_pack,
+    },
+    "macro_extreme_risk_v1": {
+        "columns": (
+            "MACRO_EXTREME_VIX_TERM_SLOPE_LAG1",
+            "MACRO_EXTREME_VIX_SHORT_RATIO_LAG1",
+            "MACRO_EXTREME_VVIX_ZSCORE_252_LAG1",
+            "MACRO_EXTREME_SKEW_ZSCORE_252_LAG1",
+            "MACRO_EXTREME_YC_10Y2Y_ZSCORE_252_LAG1",
+            "MACRO_EXTREME_YC_10Y2Y_DELTA_21_LAG1",
+            "MACRO_EXTREME_DXY_ZSCORE_252_LAG1",
+            "MACRO_EXTREME_DXY_ROC_63_LAG1",
+            "MACRO_EXTREME_OIL_ROC_63_LAG1",
+            "MACRO_EXTREME_RISK_PRESSURE_LAG1",
+            "MACRO_EXTREME_RISK_PRESSURE_RELIEF_5_LAG1",
+        ),
+        "builder": _builtin_macro_extreme_risk_v1_pack,
     },
     "tushare_us_daily_adj": {
         "columns": (

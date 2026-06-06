@@ -1,0 +1,240 @@
+{
+  "profile": "macro_extreme_risk_retrain_v1",
+  "seed": 20260606,
+  "feature_schema": {
+    "signature": "9b3b6dec89c6",
+    "feature_count": 75,
+    "extra_obs_dim": 15,
+    "n_assets": 5
+  },
+  "position_cap": {
+    "start_drawdown": 0.1,
+    "full_drawdown": 0.3,
+    "min_cap": 0.4,
+    "curve_power": 1.0,
+    "bull_min_cap": 0.65,
+    "bull_vol_threshold": 0.4,
+    "bull_anchor_threshold": 0.02,
+    "bear_min_cap": 0.3,
+    "bear_regime_threshold": 0.65
+  },
+  "position_budget": {
+    "enabled": false,
+    "budget": 0.3,
+    "regime_threshold": 0.6,
+    "thresholds": [
+      [
+        0.0,
+        0.3,
+        1.0
+      ],
+      [
+        0.3,
+        0.6,
+        0.7
+      ],
+      [
+        0.6,
+        0.9,
+        0.45
+      ],
+      [
+        0.9,
+        Infinity,
+        0.15
+      ]
+    ]
+  },
+  "selection_score": {
+    "return_weight": 1.0,
+    "sharpe_weight": 20.0,
+    "max_dd_penalty": 0.12,
+    "avg_pos_penalty": 0.0,
+    "stress_avg_pos_penalty": 0.0,
+    "stress_threshold": 0.65,
+    "staged_training": true,
+    "stage_iters": 20
+  },
+  "checkpoint_retention": {
+    "enabled": false,
+    "keep_stage": false,
+    "keep_top_n": 0
+  },
+  "model_config": {
+    "observation_window": 5,
+    "action_levels": [
+      0.0,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7,
+      0.8,
+      0.9,
+      1.0
+    ],
+    "use_hybrid_overlay": true,
+    "delta_levels": [
+      -0.1,
+      -0.05,
+      0.0,
+      0.05,
+      0.1
+    ],
+    "hard_floor": 0.2,
+    "use_regime_router": false,
+    "hard_regime_routing": false,
+    "router_experts": 3,
+    "router_top_k": 1,
+    "router_noise_std": 0.1,
+    "use_gru": true,
+    "gru_hidden_size": 64,
+    "use_attention": false,
+    "attention_dim": 64,
+    "attention_heads": 4
+  },
+  "sampling_config": {
+    "regime_stratified": false,
+    "phase_balanced": false,
+    "mild_risk_threshold": 0.42,
+    "severe_risk_threshold": 0.58,
+    "mild_drawdown_threshold": 0.1,
+    "severe_drawdown_threshold": 0.18,
+    "mild_repeat": 2,
+    "severe_repeat": 3,
+    "persistent_stress_days": 0.3,
+    "trend_repeat": 2,
+    "rebound_repeat": 2,
+    "episode_stride": 0,
+    "bull_anchor_threshold": 0.04,
+    "bull_trend_threshold": 0.02,
+    "bull_vol_threshold": 0.45,
+    "bull_risk_threshold": 0.45,
+    "rebound_anchor_ceiling": -0.02,
+    "rebound_trend_floor": 0.01,
+    "rebound_risk_ceiling": 0.6,
+    "rebound_risk_release": 0.06
+  },
+  "warm_start": {
+    "enabled": false,
+    "steps": 500,
+    "lr": 0.0005,
+    "batch_size": 128,
+    "sample_size": 2000
+  },
+  "model_path": "runtime/model/card/macro_extreme_risk_retrain_v1/soxl_macro_extreme_risk_retrain_v1_smoke2_actor.pt",
+  "retained_checkpoints": [],
+  "valid": {
+    "return": 67.6347481674791,
+    "sharpe": 1.6157333859235528,
+    "max_dd": 31.83119856744835,
+    "avg_pos": 0.6920105418219616,
+    "stress_avg_pos": 0.377364795253827,
+    "stress_days": 13.0,
+    "buy_and_hold_return": 98.48033593410877,
+    "relative_return": -30.845587766629663
+  },
+  "best_score": 96.12967205785635,
+  "selection_history": [
+    {
+      "iter": 0,
+      "score": 96.12967205785635,
+      "return": 67.6347481674791,
+      "sharpe": 1.6157333859235528,
+      "max_dd": 31.83119856744835,
+      "avg_pos": 0.6920105418219616,
+      "stress_avg_pos": 0.377364795253827,
+      "stress_days": 13.0,
+      "buy_and_hold_return": 98.48033593410877,
+      "relative_return": -30.845587766629663
+    },
+    {
+      "iter": 2,
+      "score": 92.03871874710288,
+      "return": 64.27684373724499,
+      "sharpe": 1.5790809418975844,
+      "max_dd": 31.83119856744835,
+      "avg_pos": 0.6770890756661356,
+      "stress_avg_pos": 0.377364795253827,
+      "stress_days": 13.0,
+      "buy_and_hold_return": 98.48033593410877,
+      "relative_return": -34.20349219686378
+    }
+  ],
+  "slices": {
+    "test_2020": {
+      "return": 147.9255368249545,
+      "sharpe": 2.374131781970893,
+      "max_dd": 24.533235363264495,
+      "avg_pos": 0.6353537579610323,
+      "stress_avg_pos": 0.32162162162162156,
+      "stress_days": 37.0,
+      "buy_and_hold_return": 355.73615972515864,
+      "relative_return": -207.81062290020415
+    },
+    "test_2022": {
+      "return": -55.66766557635307,
+      "sharpe": -1.4488903947533225,
+      "max_dd": 59.22224546531104,
+      "avg_pos": 0.39303570726984416,
+      "stress_avg_pos": 0.3197674418604652,
+      "stress_days": 86.0,
+      "buy_and_hold_return": -76.61425652678248,
+      "relative_return": 35.59715069197215
+    },
+    "test_2023_2024": {
+      "return": 51.4009478625854,
+      "sharpe": 0.7001633983398433,
+      "max_dd": 42.36708772142986,
+      "avg_pos": 0.6147373497283377,
+      "stress_avg_pos": 0.4137202507571171,
+      "stress_days": 76.0,
+      "buy_and_hold_return": 55.65447370869805,
+      "relative_return": -4.253525846112652
+    }
+  },
+  "test_proxy": {
+    "return": 2337.919041921463,
+    "sharpe": 1.143163882156473,
+    "max_dd": 60.67501764918578,
+    "avg_pos": 0.6005788854899632,
+    "stress_avg_pos": 0.3530999504169014,
+    "stress_days": 321.0,
+    "buy_and_hold_return": 4054.9100932682395,
+    "relative_return": -2234.3862227834416
+  },
+  "promotion": {
+    "eligible": false,
+    "fixed_split": {
+      "eligible": false,
+      "checks": {
+        "test_2022_max_dd": {
+          "passed": false,
+          "actual": 59.22224546531104,
+          "limit": 55.0
+        },
+        "test_2022_avg_pos": {
+          "passed": false,
+          "actual": 0.39303570726984416,
+          "limit": 0.35
+        },
+        "test_proxy_sharpe": {
+          "passed": true,
+          "actual": 1.143163882156473,
+          "limit": 0.5
+        }
+      }
+    },
+    "walk_forward": {
+      "eligible": false,
+      "checks": {},
+      "status": "missing"
+    },
+    "walk_forward_evaluated": false
+  },
+  "artifact_retention": {
+    "actor": "not_committed_registry_keep_actor_false"
+  }
+}
