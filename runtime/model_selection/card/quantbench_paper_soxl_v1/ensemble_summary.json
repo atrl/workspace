@@ -25,7 +25,8 @@
       "runtime/model_selection/card/quantbench_paper_soxl_v1/quantbench_ensemble_external_crash_condvol_v1_soxl_daily.csv",
       "runtime/model_selection/card/quantbench_paper_soxl_v1/quantbench_ensemble_external_crash_v19v22_v1_soxl_daily.csv",
       "runtime/model_selection/card/quantbench_paper_soxl_v1/quantbench_ensemble_market_graph_panic_chip_floor_v1_soxl_daily.csv",
-      "runtime/model_selection/card/quantbench_paper_soxl_v1/quantbench_ensemble_sequence_fragile_preshock_v1_soxl_daily.csv"
+      "runtime/model_selection/card/quantbench_paper_soxl_v1/quantbench_ensemble_sequence_fragile_preshock_v1_soxl_daily.csv",
+      "runtime/model_selection/card/quantbench_paper_soxl_v1/quantbench_ensemble_sequence_rebound_floor_panic_cap_v1_soxl_daily.csv"
     ],
     "ensemble_candidate_screen_csv": "runtime/model_selection/card/quantbench_paper_soxl_v1/ensemble_candidate_screen.csv",
     "ensemble_hazard_metrics_json": "runtime/model_selection/card/quantbench_paper_soxl_v1/ensemble_hazard_metrics.json",
@@ -123,7 +124,7 @@
     ],
     "rolling_refit_step_rows": 63,
     "rolling_train_lookback_rows": 1260,
-    "selector_count": 25,
+    "selector_count": 26,
     "signal_blends": [
       "blend_logistic_sequence_lowcorr_v1",
       "blend_sequence_lstm_lowcorr_v1",
@@ -355,6 +356,6 @@
     ],
     "eligible_count": 0,
     "eligible_profiles": [],
-    "records": 25
+    "records": 26
   }
 }

@@ -291,6 +291,129 @@ def test_apply_quantbench_ensemble_drawdown_guard_preserves_stress_chip_floor_in
     assert bool(guarded.loc[2, "portfolio_drawdown_budget_guard"])
 
 
+def test_apply_quantbench_ensemble_drawdown_guard_applies_rebound_floor_after_budgeted_recovery():
+    index = pd.date_range("2024-01-01", periods=5, freq="D")
+    daily = pd.DataFrame(
+        {
+            "datetime": index,
+            "position": [0.80, 0.80, 0.80, 0.70, 0.70],
+            "macro_regime": ["bull", "bull", "recovery", "neutral", "stress"],
+            "tail_shock_guard": [False] * len(index),
+            "regime_risk": [0.20, 0.30, 0.42, 0.38, 0.88],
+            "cum_drop_30": [0.00, -0.12, -0.10, -0.08, -0.20],
+            "drawdown_63": [0.00, -0.24, -0.18, -0.14, -0.30],
+            "mom_21": [0.05, 0.35, 0.40, 0.38, -0.10],
+        }
+    )
+    close = pd.Series([100.0, 80.0, 82.0, 85.0, 85.0], index=index)
+    config = QuantBenchPathSelectorConfig(
+        name="rebound_floor",
+        defensive_path="lowdd",
+        offensive_path="attack",
+        portfolio_drawdown_budget_start=0.05,
+        portfolio_drawdown_budget_full=0.12,
+        portfolio_drawdown_budget_start_cap=0.20,
+        portfolio_drawdown_budget_min_cap=0.02,
+        portfolio_drawdown_budget_stress_floor=0.10,
+        portfolio_drawdown_budget_rebound_floor=0.12,
+        portfolio_drawdown_budget_rebound_floor_min_raw=0.50,
+        portfolio_drawdown_budget_rebound_floor_max_budget_drawdown=0.25,
+        portfolio_drawdown_budget_rebound_floor_min_momentum=0.25,
+        portfolio_drawdown_budget_rebound_floor_min_drawdown_63=-0.40,
+        portfolio_drawdown_budget_rebound_floor_max_regime_risk=0.50,
+    )
+
+    guarded = apply_quantbench_ensemble_drawdown_guard(daily, close, config, cost=0.0)
+
+    assert guarded.loc[1, "portfolio_drawdown_budget_cap"] == 0.02
+    assert guarded["position"].round(4).tolist() == [0.80, 0.12, 0.12, 0.02, 0.10]
+    assert guarded["portfolio_drawdown_budget_rebound_floor"].tolist() == [False, True, True, False, False]
+
+
+def test_apply_quantbench_ensemble_drawdown_guard_blocks_rebound_floor_during_panic():
+    index = pd.date_range("2024-01-01", periods=4, freq="D")
+    daily = pd.DataFrame(
+        {
+            "datetime": index,
+            "position": [0.80, 0.80, 0.80, 0.80],
+            "macro_regime": ["bull", "stress", "recovery", "bull"],
+            "tail_shock_guard": [False, True, True, False],
+            "regime_risk": [0.20, 0.92, 0.60, 0.40],
+            "cum_drop_30": [0.00, -0.65, -0.62, -0.20],
+            "drawdown_63": [0.00, -0.75, -0.72, -0.25],
+            "mom_21": [0.05, -0.30, 0.45, 0.35],
+        }
+    )
+    close = pd.Series([100.0, 80.0, 80.0, 84.0], index=index)
+    config = QuantBenchPathSelectorConfig(
+        name="panic_rebound_floor",
+        defensive_path="lowdd",
+        offensive_path="attack",
+        portfolio_drawdown_budget_start=0.05,
+        portfolio_drawdown_budget_full=0.12,
+        portfolio_drawdown_budget_start_cap=0.20,
+        portfolio_drawdown_budget_min_cap=0.04,
+        portfolio_drawdown_budget_stress_floor=0.10,
+        portfolio_drawdown_budget_panic_cap=0.03,
+        portfolio_drawdown_budget_panic_drawdown_63=-0.70,
+        portfolio_drawdown_budget_panic_cum_drop_30=-0.60,
+        portfolio_drawdown_budget_panic_regime_risk=0.85,
+        portfolio_drawdown_budget_panic_requires_tail_shock=True,
+        portfolio_drawdown_budget_rebound_floor=0.12,
+        portfolio_drawdown_budget_rebound_floor_min_raw=0.50,
+        portfolio_drawdown_budget_rebound_floor_max_budget_drawdown=0.25,
+        portfolio_drawdown_budget_rebound_floor_min_momentum=0.25,
+        portfolio_drawdown_budget_rebound_floor_min_drawdown_63=-0.40,
+        portfolio_drawdown_budget_rebound_floor_max_regime_risk=0.50,
+    )
+
+    guarded = apply_quantbench_ensemble_drawdown_guard(daily, close, config, cost=0.0)
+
+    assert guarded["position"].round(4).tolist() == [0.80, 0.03, 0.04, 0.12]
+    assert guarded["portfolio_drawdown_budget_panic"].tolist() == [False, True, False, False]
+    assert guarded["portfolio_drawdown_budget_rebound_floor"].tolist() == [False, False, False, True]
+
+
+def test_apply_quantbench_ensemble_drawdown_guard_can_lift_rebound_floor_above_raw_when_enabled():
+    index = pd.date_range("2024-01-01", periods=3, freq="D")
+    daily = pd.DataFrame(
+        {
+            "datetime": index,
+            "position": [0.80, 0.08, 0.08],
+            "macro_regime": ["bull", "neutral", "neutral"],
+            "tail_shock_guard": [False, False, False],
+            "regime_risk": [0.20, 0.45, 0.44],
+            "cum_drop_30": [0.00, -0.12, -0.10],
+            "drawdown_63": [0.00, -0.32, -0.28],
+            "mom_21": [0.05, 0.12, 0.15],
+        }
+    )
+    close = pd.Series([100.0, 80.0, 82.0], index=index)
+    config = QuantBenchPathSelectorConfig(
+        name="neutral_raw_lift",
+        defensive_path="lowdd",
+        offensive_path="attack",
+        portfolio_drawdown_budget_start=0.05,
+        portfolio_drawdown_budget_full=0.12,
+        portfolio_drawdown_budget_start_cap=0.20,
+        portfolio_drawdown_budget_min_cap=0.04,
+        portfolio_drawdown_budget_rebound_floor=0.10,
+        portfolio_drawdown_budget_rebound_floor_min_raw=0.05,
+        portfolio_drawdown_budget_rebound_floor_allow_raw_lift=True,
+        portfolio_drawdown_budget_rebound_floor_max_portfolio_drawdown=0.25,
+        portfolio_drawdown_budget_rebound_floor_max_budget_drawdown=0.25,
+        portfolio_drawdown_budget_rebound_floor_min_momentum=0.10,
+        portfolio_drawdown_budget_rebound_floor_min_drawdown_63=-0.40,
+        portfolio_drawdown_budget_rebound_floor_max_regime_risk=0.50,
+        portfolio_drawdown_budget_rebound_floor_include_neutral=True,
+    )
+
+    guarded = apply_quantbench_ensemble_drawdown_guard(daily, close, config, cost=0.0)
+
+    assert guarded["position"].round(4).tolist() == [0.80, 0.10, 0.10]
+    assert guarded["portfolio_drawdown_budget_rebound_floor"].tolist() == [False, True, True]
+
+
 def test_apply_quantbench_ensemble_drawdown_guard_releases_budget_on_lagged_long_trend_confirmation():
     index = pd.date_range("2024-01-01", periods=10, freq="D")
     daily = pd.DataFrame(
@@ -787,6 +910,19 @@ def test_default_quantbench_path_selector_configs_include_volatility_budget_cand
     assert panic_chip_floor_candidate.portfolio_drawdown_budget_panic_drawdown_63 < 0.0
     assert panic_chip_floor_candidate.portfolio_drawdown_budget_chip_floor > 0.0
     assert panic_chip_floor_candidate.portfolio_drawdown_budget_chip_floor_max_drawdown_63 < 0.0
+    rebound_floor_candidate = next(
+        config
+        for config in budget_configs
+        if config.name == "quantbench_ensemble_sequence_rebound_floor_panic_cap_v1"
+    )
+    assert rebound_floor_candidate.portfolio_drawdown_budget_panic_cap > 0.0
+    assert rebound_floor_candidate.portfolio_drawdown_budget_panic_requires_tail_shock
+    assert rebound_floor_candidate.portfolio_drawdown_budget_rebound_floor > 0.0
+    assert rebound_floor_candidate.portfolio_drawdown_budget_rebound_floor_min_raw <= 0.05
+    assert rebound_floor_candidate.portfolio_drawdown_budget_rebound_floor_allow_raw_lift
+    assert rebound_floor_candidate.portfolio_drawdown_budget_rebound_floor_include_neutral
+    assert rebound_floor_candidate.portfolio_drawdown_budget_rebound_floor_max_portfolio_drawdown < 0.20
+    assert rebound_floor_candidate.portfolio_drawdown_budget_rebound_floor_min_momentum > 0.0
     blend_candidate = next(
         config for config in budget_configs if config.name == "quantbench_ensemble_blend_anchor_reset_v1"
     )
@@ -1081,6 +1217,12 @@ def test_default_quantbench_supervised_ensemble_architecture_routes_temporal_seq
         config.name == "quantbench_ensemble_sequence_fragile_preshock_v1"
         and config.fragile_market_cap < 1.0
         and config.fragile_market_min_signals >= 2
+        for config in configs
+    )
+    assert any(
+        config.name == "quantbench_ensemble_sequence_rebound_floor_panic_cap_v1"
+        and config.portfolio_drawdown_budget_rebound_floor > 0.0
+        and config.portfolio_drawdown_budget_panic_cap > 0.0
         for config in configs
     )
     assert any("lstm_mse" in spec.model_names for spec in blends)

@@ -78,6 +78,15 @@ class QuantBenchPathSelectorConfig:
     portfolio_drawdown_budget_panic_cum_drop_30: float = 0.0
     portfolio_drawdown_budget_panic_regime_risk: float = 0.0
     portfolio_drawdown_budget_panic_requires_tail_shock: bool = False
+    portfolio_drawdown_budget_rebound_floor: float = 0.0
+    portfolio_drawdown_budget_rebound_floor_min_raw: float = 0.0
+    portfolio_drawdown_budget_rebound_floor_allow_raw_lift: bool = False
+    portfolio_drawdown_budget_rebound_floor_max_portfolio_drawdown: float = 1.0
+    portfolio_drawdown_budget_rebound_floor_max_budget_drawdown: float = 1.0
+    portfolio_drawdown_budget_rebound_floor_min_momentum: float = 0.0
+    portfolio_drawdown_budget_rebound_floor_min_drawdown_63: float = -1.0
+    portfolio_drawdown_budget_rebound_floor_max_regime_risk: float = 1.0
+    portfolio_drawdown_budget_rebound_floor_include_neutral: bool = False
     portfolio_drawdown_budget_bull_release_cap: float = 0.0
     portfolio_drawdown_budget_bull_release_max_drawdown: float = 1.0
     portfolio_drawdown_budget_bull_release_ma_window: int = 200
@@ -451,6 +460,7 @@ def apply_quantbench_ensemble_drawdown_guard(
             or float(config.portfolio_drawdown_budget_panic_regime_risk) > 0.0
         )
     )
+    budget_rebound_floor_enabled = budget_enabled and float(config.portfolio_drawdown_budget_rebound_floor) > 0.0
     bull_release_frame = pd.DataFrame(index=pd.DatetimeIndex(out["datetime"]))
     if bull_release_enabled:
         lagged_close = price.shift(1)
@@ -515,6 +525,7 @@ def apply_quantbench_ensemble_drawdown_guard(
     anchor_reset_streaks: list[int] = []
     budget_chip_floor_flags: list[bool] = []
     budget_panic_flags: list[bool] = []
+    budget_rebound_floor_flags: list[bool] = []
     for row in out.itertuples(index=False):
         date = pd.Timestamp(row.datetime)
         day_return = float(returns.loc[date]) if date in returns.index else 0.0
@@ -638,6 +649,7 @@ def apply_quantbench_ensemble_drawdown_guard(
                         )
                     budget_panic = any(panic_conditions)
             budget_chip_floor = False
+            budget_rebound_floor = False
             if budget_guard:
                 target = min(target, budget_cap)
                 if budget_panic:
@@ -665,6 +677,35 @@ def apply_quantbench_ensemble_drawdown_guard(
                                 min(raw_target, float(config.portfolio_drawdown_budget_chip_floor)),
                             )
                             budget_chip_floor = True
+                    if (
+                        budget_rebound_floor_enabled
+                        and not tail_shock_active
+                        and raw_target >= float(config.portfolio_drawdown_budget_rebound_floor_min_raw)
+                    ):
+                        rebound_regimes = {"bull", "recovery"}
+                        if bool(config.portfolio_drawdown_budget_rebound_floor_include_neutral):
+                            rebound_regimes.add("neutral")
+                        drawdown_63 = float(getattr(row, "drawdown_63", 0.0))
+                        mom_21 = float(getattr(row, "mom_21", 0.0))
+                        regime_risk = float(getattr(row, "regime_risk", 0.0))
+                        if (
+                            str(row.macro_regime) in rebound_regimes
+                            and drawdown
+                            <= float(config.portfolio_drawdown_budget_rebound_floor_max_portfolio_drawdown)
+                            and budget_drawdown
+                            <= float(config.portfolio_drawdown_budget_rebound_floor_max_budget_drawdown)
+                            and mom_21 >= float(config.portfolio_drawdown_budget_rebound_floor_min_momentum)
+                            and drawdown_63 >= float(config.portfolio_drawdown_budget_rebound_floor_min_drawdown_63)
+                            and regime_risk <= float(config.portfolio_drawdown_budget_rebound_floor_max_regime_risk)
+                        ):
+                            rebound_target = float(config.portfolio_drawdown_budget_rebound_floor)
+                            if not bool(config.portfolio_drawdown_budget_rebound_floor_allow_raw_lift):
+                                rebound_target = min(raw_target, rebound_target)
+                            target = max(
+                                target,
+                                rebound_target,
+                            )
+                            budget_rebound_floor = True
                 if (
                     bull_release_enabled
                     and not budget_panic
@@ -685,6 +726,7 @@ def apply_quantbench_ensemble_drawdown_guard(
             budget_drawdown = drawdown
             budget_chip_floor = False
             budget_panic = False
+            budget_rebound_floor = False
 
         equity -= abs(target - previous_target) * float(cost)
         peak = max(peak, equity)
@@ -703,6 +745,7 @@ def apply_quantbench_ensemble_drawdown_guard(
         anchor_reset_streaks.append(int(bull_confirmation_streak))
         budget_chip_floor_flags.append(bool(budget_chip_floor))
         budget_panic_flags.append(bool(budget_panic))
+        budget_rebound_floor_flags.append(bool(budget_rebound_floor))
         previous_target = target
 
     out["position"] = guarded
@@ -716,6 +759,8 @@ def apply_quantbench_ensemble_drawdown_guard(
             out["portfolio_drawdown_budget_chip_floor"] = budget_chip_floor_flags
         if budget_panic_enabled:
             out["portfolio_drawdown_budget_panic"] = budget_panic_flags
+        if budget_rebound_floor_enabled:
+            out["portfolio_drawdown_budget_rebound_floor"] = budget_rebound_floor_flags
         if bull_release_enabled:
             out["portfolio_drawdown_budget_bull_release"] = bull_release_flags
             for column in bull_release_frame.columns:
@@ -2491,10 +2536,42 @@ def default_quantbench_path_selector_configs(
         for config in configs
         if config.name == "quantbench_ensemble_sequence_tapered_reentry_v1"
     )
+    sequence_anchor_reset_config = next(
+        config
+        for config in configs
+        if config.name == "quantbench_ensemble_sequence_anchor_reset_v1"
+    )
     configs.append(
         replace(
             sequence_tapered_config,
             name="quantbench_ensemble_sequence_fragile_preshock_v1",
+            fragile_market_cap=0.30,
+            fragile_market_regime_risk_threshold=0.45,
+            fragile_market_cum_drop_threshold=-0.08,
+            fragile_market_drawdown_threshold=-0.10,
+            fragile_market_momentum_max=0.30,
+            fragile_market_min_signals=4,
+            fragile_market_cooldown_days=1,
+        )
+    )
+    configs.append(
+        replace(
+            sequence_anchor_reset_config,
+            name="quantbench_ensemble_sequence_rebound_floor_panic_cap_v1",
+            portfolio_drawdown_budget_panic_cap=0.03,
+            portfolio_drawdown_budget_panic_drawdown_63=-0.70,
+            portfolio_drawdown_budget_panic_cum_drop_30=-0.60,
+            portfolio_drawdown_budget_panic_regime_risk=0.85,
+            portfolio_drawdown_budget_panic_requires_tail_shock=True,
+            portfolio_drawdown_budget_rebound_floor=0.10,
+            portfolio_drawdown_budget_rebound_floor_min_raw=0.05,
+            portfolio_drawdown_budget_rebound_floor_allow_raw_lift=True,
+            portfolio_drawdown_budget_rebound_floor_max_portfolio_drawdown=0.16,
+            portfolio_drawdown_budget_rebound_floor_max_budget_drawdown=0.18,
+            portfolio_drawdown_budget_rebound_floor_min_momentum=0.10,
+            portfolio_drawdown_budget_rebound_floor_min_drawdown_63=-0.45,
+            portfolio_drawdown_budget_rebound_floor_max_regime_risk=0.60,
+            portfolio_drawdown_budget_rebound_floor_include_neutral=True,
             fragile_market_cap=0.30,
             fragile_market_regime_risk_threshold=0.45,
             fragile_market_cum_drop_threshold=-0.08,
