@@ -99,6 +99,13 @@ QUANTBENCH_SUPERVISED_MODEL_SPECS: tuple[SupervisedModelSpec, ...] = (
         target_kind="return",
         estimator="MLPRegressor",
     ),
+    SupervisedModelSpec(
+        name="sequence_lag_ridge_mse",
+        paper_family="sequence_temporal",
+        objective="mse",
+        target_kind="return",
+        estimator="LaggedRidge",
+    ),
 )
 
 
@@ -253,7 +260,32 @@ def _build_model(spec: SupervisedModelSpec):
                 random_state=0,
             ),
         )
+    if spec.name == "sequence_lag_ridge_mse":
+        return make_pipeline(StandardScaler(), Ridge(alpha=2.0))
     raise ValueError(f"unknown supervised model '{spec.name}'")
+
+
+def _sequence_lookback_for_spec(spec: SupervisedModelSpec) -> int:
+    if spec.name == "sequence_lag_ridge_mse":
+        return 5
+    return 1
+
+
+def _feature_matrix_for_spec(
+    spec: SupervisedModelSpec,
+    frame: pd.DataFrame,
+    feature_columns: list[str],
+) -> pd.DataFrame:
+    features = frame[feature_columns].astype(float)
+    lookback = _sequence_lookback_for_spec(spec)
+    if lookback <= 1:
+        return features
+    lagged_parts = []
+    for lag in range(lookback):
+        shifted = features.shift(lag)
+        shifted.columns = [f"{column}__lag_{lag}" for column in feature_columns]
+        lagged_parts.append(shifted)
+    return pd.concat(lagged_parts, axis=1)
 
 
 def _prediction_from_model(spec: SupervisedModelSpec, model, x: pd.DataFrame) -> np.ndarray:
@@ -302,12 +334,19 @@ def fit_quantbench_supervised_models(
     for spec in quantbench_supervised_model_specs(model_names):
         model = _build_model(spec)
         target_column = _target_column(spec, horizon)
+        x_frame = _feature_matrix_for_spec(spec, frame, feature_columns).replace([np.inf, -np.inf], np.nan)
+        model_frame = pd.concat([x_frame, frame[[target_column]]], axis=1).dropna()
+        train = model_frame.loc[_slice_index(model_frame.index, train_start, train_end).to_numpy()]
+        test = model_frame.loc[_slice_index(model_frame.index, test_start, test_end).to_numpy()]
+        if train.empty or test.empty:
+            raise ValueError(f"{spec.name} train and test windows must both contain rows")
         if spec.target_kind == "binary" and train[target_column].nunique(dropna=True) < 2:
             raise ValueError(f"{spec.name} requires both positive and negative train labels")
-        model.fit(train[feature_columns], train[target_column])
-        pred = pd.Series(_prediction_from_model(spec, model, test[feature_columns]), index=test.index, name=spec.name)
+        model_features = [column for column in model_frame.columns if column != target_column]
+        model.fit(train[model_features], train[target_column])
+        pred = pd.Series(_prediction_from_model(spec, model, test[model_features]), index=test.index, name=spec.name)
         predictions[spec.name] = pred
-        metrics[spec.name] = evaluate_prediction_objectives(pred, test, horizon=horizon)
+        metrics[spec.name] = evaluate_prediction_objectives(pred, frame.loc[test.index], horizon=horizon)
     return predictions, metrics
 
 

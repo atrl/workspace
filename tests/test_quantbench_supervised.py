@@ -208,12 +208,45 @@ def test_fit_quantbench_supervised_models_trains_clf_and_mse_specs():
     assert "mse" in metrics["ridge_mse"]
 
 
+def test_fit_quantbench_supervised_models_trains_sequence_temporal_spec():
+    index = pd.date_range("2024-01-01", periods=90, freq="D")
+    signal = np.sin(np.arange(len(index)) / 4.0)
+    returns = 0.003 * np.sign(pd.Series(signal).shift(2).fillna(0.0).to_numpy())
+    close = pd.Series(100.0 * np.cumprod(1.0 + returns), index=index)
+    features = pd.DataFrame({"signal": signal, "anti_signal": -signal}, index=index)
+    targets = build_soxl_supervised_targets(close, horizons=(1,))
+
+    predictions, metrics = fit_quantbench_supervised_models(
+        features,
+        targets,
+        train_start=index[0],
+        train_end=index[59],
+        test_start=index[60],
+        test_end=index[80],
+        horizon=1,
+        model_names=("sequence_lag_ridge_mse",),
+    )
+
+    pred = predictions["sequence_lag_ridge_mse"]
+    assert pred.index.min() >= index[60]
+    assert pred.index.max() <= index[80]
+    assert pred.nunique() > 1
+    assert metrics["sequence_lag_ridge_mse"]["rows"] > 0
+    assert "mse" in metrics["sequence_lag_ridge_mse"]
+
+
 def test_quantbench_supervised_model_specs_cover_paper_objectives():
     specs = quantbench_supervised_model_specs()
 
-    assert {"linear_classifier", "linear_regression", "tree", "boosted_tree", "tree_ensemble", "neural_tabular"} <= {
-        spec.paper_family for spec in specs
-    }
+    assert {
+        "linear_classifier",
+        "linear_regression",
+        "tree",
+        "boosted_tree",
+        "tree_ensemble",
+        "neural_tabular",
+        "sequence_temporal",
+    } <= {spec.paper_family for spec in specs}
     assert {"clf", "ic", "mse", "ranking"} <= {spec.objective for spec in specs}
 
 

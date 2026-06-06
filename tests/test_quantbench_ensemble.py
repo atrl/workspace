@@ -523,6 +523,7 @@ def test_default_quantbench_path_selector_configs_include_volatility_budget_cand
     assert "quantbench_ensemble_tail_shock_budget_rf_logistic_v1" in names
     assert "quantbench_ensemble_tail_shock_bull_release_rf_logistic_v1" in names
     assert "quantbench_ensemble_tail_shock_anchor_reset_rf_logistic_v1" in names
+    assert "quantbench_ensemble_sequence_anchor_reset_v1" in names
     candidate = next(config for config in budget_configs if config.name == "quantbench_ensemble_vol_budget_rf_logistic_v1")
     assert candidate.volatility_stress_target < candidate.volatility_bull_target
     assert candidate.portfolio_drawdown_trigger > 0.0
@@ -561,6 +562,11 @@ def test_default_quantbench_path_selector_configs_include_volatility_budget_cand
     assert anchor_reset_candidate.portfolio_drawdown_budget_anchor_reset_drawdown > 0.0
     assert anchor_reset_candidate.portfolio_drawdown_budget_anchor_reset_streak_days >= 1
     assert anchor_reset_candidate.portfolio_drawdown_budget_bull_release_cap >= 0.30
+    sequence_candidate = next(
+        config for config in budget_configs if config.name == "quantbench_ensemble_sequence_anchor_reset_v1"
+    )
+    assert sequence_candidate.offensive_path == "quantbench_supervised_sequence_lag_ridge_mse"
+    assert sequence_candidate.portfolio_drawdown_budget_anchor_reset_drawdown > 0.0
 
 
 def test_fit_quantbench_drawdown_hazard_model_predicts_oos_future_drawdown_risk():

@@ -6,3 +6,4 @@ random_forest_clf,tree,clf,binary,RandomForestClassifier
 hist_gradient_mse,boosted_tree,mse,return,HistGradientBoostingRegressor
 extra_trees_rank,tree_ensemble,ranking,return,ExtraTreesRegressor
 mlp_mse,neural_tabular,mse,return,MLPRegressor
+sequence_lag_ridge_mse,sequence_temporal,mse,return,LaggedRidge

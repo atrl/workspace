@@ -169,6 +169,25 @@
       },
       {
         "bull_buy_and_hold_return": 191.7735092699,
+        "bull_capture": 0.7157351908856353,
+        "bull_return": 137.2590492641,
+        "eligible": false,
+        "failed_checks": [
+          "max_drawdown",
+          "stress_avg_pos",
+          "stress_max_drawdown"
+        ],
+        "profile": "quantbench_supervised_sequence_lag_ridge_mse",
+        "proxy_max_dd": 74.5843117922,
+        "proxy_return": 451.3803277236,
+        "score": 217.909927,
+        "source_path": "generated:quantbench_supervised_sequence_lag_ridge_mse",
+        "stress_avg_pos": 0.4984397073062332,
+        "stress_max_dd": 48.4084891537,
+        "stress_relative_return": 53.2933278364
+      },
+      {
+        "bull_buy_and_hold_return": 191.7735092699,
         "bull_capture": 0.5255103629368578,
         "bull_return": 100.7789664581,
         "eligible": false,
@@ -221,29 +240,10 @@
         "stress_avg_pos": 0.04437088300185712,
         "stress_max_dd": 13.5664715032,
         "stress_relative_return": 74.2763429925
-      },
-      {
-        "bull_buy_and_hold_return": 191.7735092699,
-        "bull_capture": 0.07735586135268378,
-        "bull_return": 14.8348049942,
-        "eligible": false,
-        "failed_checks": [
-          "max_drawdown",
-          "stress_max_drawdown",
-          "bull_capture"
-        ],
-        "profile": "quantbench_supervised_random_forest_clf_macro_budget_defensive_v1",
-        "proxy_max_dd": 23.9788223544,
-        "proxy_return": 84.8557110752,
-        "score": 3.585958,
-        "source_path": "generated:quantbench_supervised_random_forest_clf_macro_budget_defensive_v1",
-        "stress_avg_pos": 0.10339423183758989,
-        "stress_max_dd": 22.6883437373,
-        "stress_relative_return": 66.9099506225
       }
     ],
     "eligible_count": 0,
     "eligible_profiles": [],
-    "records": 35
+    "records": 40
   }
 }
