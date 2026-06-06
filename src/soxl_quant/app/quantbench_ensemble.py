@@ -70,6 +70,14 @@ class QuantBenchPathSelectorConfig:
     portfolio_drawdown_budget_start_cap: float = 1.0
     portfolio_drawdown_budget_min_cap: float = 0.0
     portfolio_drawdown_budget_stress_floor: float = 0.0
+    portfolio_drawdown_budget_chip_floor: float = 0.0
+    portfolio_drawdown_budget_chip_floor_max_drawdown_63: float = 0.0
+    portfolio_drawdown_budget_chip_floor_include_tail_shock: bool = False
+    portfolio_drawdown_budget_panic_cap: float = 0.0
+    portfolio_drawdown_budget_panic_drawdown_63: float = 0.0
+    portfolio_drawdown_budget_panic_cum_drop_30: float = 0.0
+    portfolio_drawdown_budget_panic_regime_risk: float = 0.0
+    portfolio_drawdown_budget_panic_requires_tail_shock: bool = False
     portfolio_drawdown_budget_bull_release_cap: float = 0.0
     portfolio_drawdown_budget_bull_release_max_drawdown: float = 1.0
     portfolio_drawdown_budget_bull_release_ma_window: int = 200
@@ -379,6 +387,16 @@ def apply_quantbench_ensemble_drawdown_guard(
         and float(config.portfolio_drawdown_budget_bull_release_cap) > 0.0
         and float(config.portfolio_drawdown_budget_bull_release_max_drawdown) > 0.0
     )
+    budget_chip_floor_enabled = budget_enabled and float(config.portfolio_drawdown_budget_chip_floor) > 0.0
+    budget_panic_enabled = (
+        budget_enabled
+        and float(config.portfolio_drawdown_budget_panic_cap) > 0.0
+        and (
+            float(config.portfolio_drawdown_budget_panic_drawdown_63) < 0.0
+            or float(config.portfolio_drawdown_budget_panic_cum_drop_30) < 0.0
+            or float(config.portfolio_drawdown_budget_panic_regime_risk) > 0.0
+        )
+    )
     bull_release_frame = pd.DataFrame(index=pd.DatetimeIndex(out["datetime"]))
     if bull_release_enabled:
         lagged_close = price.shift(1)
@@ -441,6 +459,8 @@ def apply_quantbench_ensemble_drawdown_guard(
     bull_release_flags: list[bool] = []
     anchor_reset_flags: list[bool] = []
     anchor_reset_streaks: list[int] = []
+    budget_chip_floor_flags: list[bool] = []
+    budget_panic_flags: list[bool] = []
     for row in out.itertuples(index=False):
         date = pd.Timestamp(row.datetime)
         day_return = float(returns.loc[date]) if date in returns.index else 0.0
@@ -540,13 +560,60 @@ def apply_quantbench_ensemble_drawdown_guard(
             )
             budget_cap = float(np.clip(budget_cap, 0.0, 1.0))
             budget_guard = budget_drawdown >= float(config.portfolio_drawdown_budget_start)
+            budget_panic = False
+            if budget_panic_enabled and budget_guard and raw_target > 0.0 and str(row.macro_regime) == "stress":
+                if (
+                    not bool(config.portfolio_drawdown_budget_panic_requires_tail_shock)
+                    or bool(tail_shock_active)
+                ):
+                    panic_conditions: list[bool] = []
+                    drawdown_63 = float(getattr(row, "drawdown_63", 0.0))
+                    cum_drop_30 = float(getattr(row, "cum_drop_30", 0.0))
+                    regime_risk = float(getattr(row, "regime_risk", 0.0))
+                    if float(config.portfolio_drawdown_budget_panic_drawdown_63) < 0.0:
+                        panic_conditions.append(
+                            drawdown_63 <= float(config.portfolio_drawdown_budget_panic_drawdown_63)
+                        )
+                    if float(config.portfolio_drawdown_budget_panic_cum_drop_30) < 0.0:
+                        panic_conditions.append(
+                            cum_drop_30 <= float(config.portfolio_drawdown_budget_panic_cum_drop_30)
+                        )
+                    if float(config.portfolio_drawdown_budget_panic_regime_risk) > 0.0:
+                        panic_conditions.append(
+                            regime_risk >= float(config.portfolio_drawdown_budget_panic_regime_risk)
+                        )
+                    budget_panic = any(panic_conditions)
+            budget_chip_floor = False
             if budget_guard:
                 target = min(target, budget_cap)
-                stress_floor = float(config.portfolio_drawdown_budget_stress_floor)
-                if stress_floor > 0.0 and str(row.macro_regime) == "stress" and raw_target > 0.0:
-                    target = max(target, min(raw_target, stress_floor))
+                if budget_panic:
+                    target = min(target, float(config.portfolio_drawdown_budget_panic_cap))
+                else:
+                    stress_floor = float(config.portfolio_drawdown_budget_stress_floor)
+                    if stress_floor > 0.0 and str(row.macro_regime) == "stress" and raw_target > 0.0:
+                        target = max(target, min(raw_target, stress_floor))
+                    if (
+                        budget_chip_floor_enabled
+                        and str(row.macro_regime) in {"bull", "recovery", "neutral"}
+                        and raw_target > 0.0
+                        and (
+                            bool(config.portfolio_drawdown_budget_chip_floor_include_tail_shock)
+                            or not tail_shock_active
+                        )
+                    ):
+                        drawdown_63 = float(getattr(row, "drawdown_63", 0.0))
+                        if (
+                            float(config.portfolio_drawdown_budget_chip_floor_max_drawdown_63) >= 0.0
+                            or drawdown_63 >= float(config.portfolio_drawdown_budget_chip_floor_max_drawdown_63)
+                        ):
+                            target = max(
+                                target,
+                                min(raw_target, float(config.portfolio_drawdown_budget_chip_floor)),
+                            )
+                            budget_chip_floor = True
                 if (
                     bull_release_enabled
+                    and not budget_panic
                     and not tail_shock_active
                     and str(row.macro_regime) in {"bull", "recovery"}
                     and drawdown <= float(config.portfolio_drawdown_budget_bull_release_max_drawdown)
@@ -562,6 +629,8 @@ def apply_quantbench_ensemble_drawdown_guard(
             budget_cap = 1.0
             budget_guard = False
             budget_drawdown = drawdown
+            budget_chip_floor = False
+            budget_panic = False
 
         equity -= abs(target - previous_target) * float(cost)
         peak = max(peak, equity)
@@ -578,6 +647,8 @@ def apply_quantbench_ensemble_drawdown_guard(
         bull_release_flags.append(bool(bull_release))
         anchor_reset_flags.append(bool(anchor_reset))
         anchor_reset_streaks.append(int(bull_confirmation_streak))
+        budget_chip_floor_flags.append(bool(budget_chip_floor))
+        budget_panic_flags.append(bool(budget_panic))
         previous_target = target
 
     out["position"] = guarded
@@ -587,6 +658,10 @@ def apply_quantbench_ensemble_drawdown_guard(
         out["portfolio_drawdown_budget_cap"] = budget_caps
         out["portfolio_drawdown_budget_guard"] = budget_flags
         out["portfolio_drawdown_budget_drawdown"] = budget_drawdowns
+        if budget_chip_floor_enabled:
+            out["portfolio_drawdown_budget_chip_floor"] = budget_chip_floor_flags
+        if budget_panic_enabled:
+            out["portfolio_drawdown_budget_panic"] = budget_panic_flags
         if bull_release_enabled:
             out["portfolio_drawdown_budget_bull_release"] = bull_release_flags
             for column in bull_release_frame.columns:
@@ -1782,6 +1857,70 @@ def default_quantbench_path_selector_configs(
             portfolio_drawdown_budget_bull_release_volatility_window=20,
             portfolio_drawdown_budget_bull_release_volatility_max=0.80,
             portfolio_drawdown_budget_anchor_reset_drawdown=0.0,
+            portfolio_drawdown_budget_anchor_reset_max_drawdown=0.20,
+            portfolio_drawdown_budget_anchor_reset_streak_days=1,
+            tail_shock_day_threshold=-0.05,
+            tail_shock_rolling_2d_threshold=-0.09,
+            tail_shock_rolling_3d_threshold=-0.15,
+            tail_shock_cooldown_days=3,
+            tail_shock_cap=0.05,
+            tail_shock_stress_floor=0.10,
+        ),
+        QuantBenchPathSelectorConfig(
+            name="quantbench_ensemble_sequence_panic_chip_floor_v1",
+            defensive_path=path("random_forest_clf", "macro_budget_defensive_v1"),
+            neutral_path=path("random_forest_clf", "macro_budget_defensive_v1"),
+            offensive_path=path("sequence_lag_ridge_mse"),
+            recovery_path=path("sequence_lag_ridge_mse"),
+            stress_floor=0.10,
+            stress_cap=0.14,
+            neutral_cap=0.20,
+            bull_floor=0.70,
+            bull_cap=0.98,
+            recovery_floor=0.50,
+            recovery_cap=0.85,
+            stress_risk_threshold=0.92,
+            stress_drop_threshold=-0.35,
+            stress_drawdown_threshold=-0.45,
+            bull_risk_threshold=0.50,
+            bull_momentum_threshold=0.00,
+            bull_trend_threshold=-0.05,
+            bull_drawdown_floor=-0.30,
+            recovery_risk_threshold=0.75,
+            recovery_momentum_threshold=0.00,
+            recovery_trend_threshold=-0.08,
+            recovery_drawdown_min=-0.45,
+            recovery_drawdown_max=-0.02,
+            portfolio_drawdown_trigger=0.15,
+            portfolio_drawdown_cap=0.08,
+            portfolio_drawdown_release=0.05,
+            portfolio_reentry_floor=0.40,
+            portfolio_reentry_cap=0.65,
+            portfolio_reentry_drawdown_cap_start=0.04,
+            portfolio_reentry_drawdown_cap_full=0.20,
+            portfolio_reentry_drawdown_min_cap=0.24,
+            portfolio_drawdown_budget_start=0.04,
+            portfolio_drawdown_budget_full=0.12,
+            portfolio_drawdown_budget_start_cap=0.35,
+            portfolio_drawdown_budget_min_cap=0.04,
+            portfolio_drawdown_budget_stress_floor=0.14,
+            portfolio_drawdown_budget_chip_floor=0.08,
+            portfolio_drawdown_budget_chip_floor_max_drawdown_63=-0.10,
+            portfolio_drawdown_budget_panic_cap=0.08,
+            portfolio_drawdown_budget_panic_drawdown_63=-0.75,
+            portfolio_drawdown_budget_panic_cum_drop_30=-0.55,
+            portfolio_drawdown_budget_panic_regime_risk=0.85,
+            portfolio_drawdown_budget_panic_requires_tail_shock=True,
+            portfolio_drawdown_budget_bull_release_cap=0.30,
+            portfolio_drawdown_budget_bull_release_max_drawdown=0.20,
+            portfolio_drawdown_budget_bull_release_ma_window=200,
+            portfolio_drawdown_budget_bull_release_momentum_window=126,
+            portfolio_drawdown_budget_bull_release_high_window=126,
+            portfolio_drawdown_budget_bull_release_momentum_threshold=0.10,
+            portfolio_drawdown_budget_bull_release_drawdown_floor=-0.12,
+            portfolio_drawdown_budget_bull_release_volatility_window=20,
+            portfolio_drawdown_budget_bull_release_volatility_max=0.80,
+            portfolio_drawdown_budget_anchor_reset_drawdown=0.02,
             portfolio_drawdown_budget_anchor_reset_max_drawdown=0.20,
             portfolio_drawdown_budget_anchor_reset_streak_days=1,
             tail_shock_day_threshold=-0.05,

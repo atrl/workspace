@@ -153,6 +153,45 @@ def test_apply_quantbench_ensemble_drawdown_guard_tapers_reentry_cap_with_accoun
     assert round(float(guarded.loc[2, "portfolio_reentry_drawdown_severity"]), 4) == 1.0
 
 
+def test_apply_quantbench_ensemble_drawdown_guard_splits_panic_cap_from_chip_floor():
+    index = pd.date_range("2024-01-01", periods=5, freq="D")
+    daily = pd.DataFrame(
+        {
+            "datetime": index,
+            "position": [1.00] * len(index),
+            "macro_regime": ["bull", "bull", "recovery", "stress", "recovery"],
+            "regime_risk": [0.20, 0.20, 0.40, 0.90, 0.40],
+            "cum_drop_30": [0.00, 0.00, -0.10, -0.60, -0.10],
+            "drawdown_63": [0.00, 0.00, -0.20, -0.75, -0.20],
+            "tail_shock_guard": [False, False, False, True, False],
+        }
+    )
+    close = pd.Series([100.0, 80.0, 80.0, 80.0, 80.0], index=index)
+    config = QuantBenchPathSelectorConfig(
+        name="panic_chip_floor",
+        defensive_path="lowdd",
+        offensive_path="attack",
+        portfolio_drawdown_budget_start=0.05,
+        portfolio_drawdown_budget_full=0.10,
+        portfolio_drawdown_budget_start_cap=0.10,
+        portfolio_drawdown_budget_min_cap=0.04,
+        portfolio_drawdown_budget_stress_floor=0.10,
+        portfolio_drawdown_budget_chip_floor=0.20,
+        portfolio_drawdown_budget_chip_floor_max_drawdown_63=-0.45,
+        portfolio_drawdown_budget_panic_cap=0.03,
+        portfolio_drawdown_budget_panic_drawdown_63=-0.70,
+        portfolio_drawdown_budget_panic_cum_drop_30=-0.55,
+        portfolio_drawdown_budget_panic_regime_risk=0.85,
+        portfolio_drawdown_budget_panic_requires_tail_shock=True,
+    )
+
+    guarded = apply_quantbench_ensemble_drawdown_guard(daily, close, config, cost=0.0)
+
+    assert guarded["position"].round(4).tolist() == [1.00, 0.20, 0.20, 0.03, 0.20]
+    assert guarded["portfolio_drawdown_budget_panic"].tolist() == [False, False, False, True, False]
+    assert guarded["portfolio_drawdown_budget_chip_floor"].tolist() == [False, True, True, False, True]
+
+
 def test_apply_quantbench_ensemble_drawdown_guard_reenters_only_after_lagged_recovery_confirmation():
     index = pd.date_range("2024-01-01", periods=7, freq="D")
     daily = pd.DataFrame(
@@ -597,6 +636,7 @@ def test_default_quantbench_path_selector_configs_include_volatility_budget_cand
     assert "quantbench_ensemble_sequence_anchor_reset_v1" in names
     assert "quantbench_ensemble_sequence_full_rebase_tail_v1" in names
     assert "quantbench_ensemble_sequence_tapered_reentry_v1" in names
+    assert "quantbench_ensemble_sequence_panic_chip_floor_v1" in names
     assert "quantbench_ensemble_blend_anchor_reset_v1" in names
     assert "quantbench_ensemble_rolling_sequence_anchor_reset_v1" in names
     candidate = next(config for config in budget_configs if config.name == "quantbench_ensemble_vol_budget_rf_logistic_v1")
@@ -661,6 +701,13 @@ def test_default_quantbench_path_selector_configs_include_volatility_budget_cand
         > tapered_reentry_candidate.portfolio_reentry_drawdown_cap_start
     )
     assert tapered_reentry_candidate.portfolio_reentry_drawdown_min_cap < tapered_reentry_candidate.portfolio_reentry_cap
+    panic_chip_floor_candidate = next(
+        config for config in budget_configs if config.name == "quantbench_ensemble_sequence_panic_chip_floor_v1"
+    )
+    assert panic_chip_floor_candidate.portfolio_drawdown_budget_panic_cap > 0.0
+    assert panic_chip_floor_candidate.portfolio_drawdown_budget_panic_drawdown_63 < 0.0
+    assert panic_chip_floor_candidate.portfolio_drawdown_budget_chip_floor > 0.0
+    assert panic_chip_floor_candidate.portfolio_drawdown_budget_chip_floor_max_drawdown_63 < 0.0
     blend_candidate = next(
         config for config in budget_configs if config.name == "quantbench_ensemble_blend_anchor_reset_v1"
     )
