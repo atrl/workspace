@@ -338,9 +338,8 @@ def select_quantbench_path_ensemble(
         },
         index=path_frame.index,
     )
-    for name in path_frame.columns:
-        out[f"{name}_position"] = path_frame[name].astype(float)
-    return out.reset_index(drop=True)
+    path_audit = path_frame.astype(float).add_suffix("_position")
+    return pd.concat([out, path_audit], axis=1).reset_index(drop=True)
 
 
 def backtest_position_path(
@@ -1212,6 +1211,8 @@ def _payload_for_daily(
     common = close.index.intersection(positions.index)
     if len(common) < 2:
         raise ValueError(f"ensemble `{profile}` has fewer than two overlapping close rows")
+    frame_by_date = frame.set_index("datetime", drop=False).sort_index()
+    frame_by_date = frame_by_date.loc[frame_by_date.index.intersection(common)]
     payload = {
         "profile": profile,
         "model_family": "quantbench_path_ensemble",
@@ -1224,7 +1225,15 @@ def _payload_for_daily(
         window_pos = positions.loc[start:end]
         if len(window_close.index.intersection(window_pos.index)) < 2:
             continue
-        payload["slices"][name] = backtest_position_path(window_close, window_pos, cost=cost)
+        window_common = window_close.index.intersection(window_pos.index)
+        metrics = backtest_position_path(window_close, window_pos, cost=cost)
+        if {"macro_regime", "position"} <= set(frame_by_date.columns):
+            window_frame = frame_by_date.loc[frame_by_date.index.intersection(window_common)]
+            stress_frame = window_frame[window_frame["macro_regime"].astype(str).eq("stress")]
+            metrics["stress_regime_rows"] = int(len(stress_frame))
+            if len(stress_frame):
+                metrics["stress_regime_avg_pos"] = float(stress_frame["position"].astype(float).mean())
+        payload["slices"][name] = metrics
     return payload
 
 
@@ -2545,6 +2554,26 @@ def default_quantbench_path_selector_configs(
         replace(
             sequence_tapered_config,
             name="quantbench_ensemble_sequence_fragile_preshock_v1",
+            fragile_market_cap=0.30,
+            fragile_market_regime_risk_threshold=0.45,
+            fragile_market_cum_drop_threshold=-0.08,
+            fragile_market_drawdown_threshold=-0.10,
+            fragile_market_momentum_max=0.30,
+            fragile_market_min_signals=4,
+            fragile_market_cooldown_days=1,
+        )
+    )
+    configs.append(
+        replace(
+            sequence_tapered_config,
+            name="quantbench_ensemble_sequence_fragile_panic_budget_v1",
+            portfolio_drawdown_budget_min_cap=0.05,
+            portfolio_drawdown_budget_stress_floor=0.12,
+            portfolio_drawdown_budget_panic_cap=0.10,
+            portfolio_drawdown_budget_panic_drawdown_63=-0.75,
+            portfolio_drawdown_budget_panic_cum_drop_30=-0.60,
+            portfolio_drawdown_budget_panic_regime_risk=0.85,
+            portfolio_drawdown_budget_panic_requires_tail_shock=True,
             fragile_market_cap=0.30,
             fragile_market_regime_risk_threshold=0.45,
             fragile_market_cum_drop_threshold=-0.08,

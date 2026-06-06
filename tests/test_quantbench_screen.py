@@ -20,9 +20,19 @@ def _payload(
     stress_relative: float,
     stress_max_dd: float,
     stress_avg_pos: float,
+    stress_regime_avg_pos: float | None = None,
     bull_return: float,
     bull_bnh: float,
 ) -> dict:
+    stress_slice = {
+        "return": -12.0,
+        "relative_return": stress_relative,
+        "max_dd": stress_max_dd,
+        "avg_pos": stress_avg_pos,
+        "buy_and_hold_return": -76.0,
+    }
+    if stress_regime_avg_pos is not None:
+        stress_slice["stress_regime_avg_pos"] = stress_regime_avg_pos
     return {
         "profile": profile,
         "test_proxy": {
@@ -32,13 +42,7 @@ def _payload(
             "relative_return": proxy_return - proxy_bnh,
         },
         "slices": {
-            "test_2022": {
-                "return": -12.0,
-                "relative_return": stress_relative,
-                "max_dd": stress_max_dd,
-                "avg_pos": stress_avg_pos,
-                "buy_and_hold_return": -76.0,
-            },
+            "test_2022": stress_slice,
             "test_2023_2024": {
                 "return": bull_return,
                 "max_dd": 11.0,
@@ -154,6 +158,38 @@ def test_screen_quantbench_candidates_requires_drawdown_stress_retention_and_bul
     assert by_profile["too_much_drawdown"]["eligible"] is False
     assert "max_drawdown" in by_profile["too_much_drawdown"]["failed_checks"]
     assert screened[0]["profile"] == "eligible"
+
+
+def test_screen_quantbench_candidates_uses_macro_stress_regime_retention_when_available():
+    gate = QuantBenchGate(
+        max_drawdown_pct=20.0,
+        min_stress_relative_return=30.0,
+        min_stress_avg_pos=0.10,
+        max_stress_avg_pos=0.45,
+        min_bull_capture=0.50,
+        min_proxy_return=0.0,
+    )
+    record = summary_record_from_payload(
+        _payload(
+            "regime_retention_candidate",
+            proxy_return=316.0,
+            proxy_max_dd=19.7,
+            proxy_bnh=100.0,
+            stress_relative=44.0,
+            stress_max_dd=19.1,
+            stress_avg_pos=0.086,
+            stress_regime_avg_pos=0.12,
+            bull_return=90.0,
+            bull_bnh=120.0,
+        )
+    )
+
+    row = screen_quantbench_candidates([record], gate=gate)[0]
+
+    assert row["eligible"] is True
+    assert row["stress_avg_pos"] == 0.12
+    assert row["stress_regime_avg_pos"] == 0.12
+    assert row["stress_window_avg_pos"] == 0.086
 
 
 def test_load_summary_records_can_emit_repo_relative_paths(tmp_path):

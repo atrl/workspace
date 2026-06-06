@@ -246,7 +246,9 @@ def screen_quantbench_candidates(
         proxy_max_dd = _as_float(proxy.get("max_dd"))
         stress_relative = _as_float(stress.get("relative_return"))
         stress_max_dd = _as_float(stress.get("max_dd"))
-        stress_avg_pos = _as_float(stress.get("avg_pos"))
+        stress_window_avg_pos = _as_float(stress.get("avg_pos"))
+        stress_regime_avg_pos = _as_float(stress.get("stress_regime_avg_pos"))
+        stress_avg_pos = stress_regime_avg_pos if math.isfinite(stress_regime_avg_pos) else stress_window_avg_pos
         bull_return = _as_float(bull.get("return"))
         bull_bnh = _as_float(bull.get("buy_and_hold_return"))
         bull_capture = _capture_ratio(bull_return, bull_bnh)
@@ -285,6 +287,8 @@ def screen_quantbench_candidates(
                 "stress_relative_return": stress_relative,
                 "stress_max_dd": stress_max_dd,
                 "stress_avg_pos": stress_avg_pos,
+                "stress_window_avg_pos": stress_window_avg_pos,
+                "stress_regime_avg_pos": stress_regime_avg_pos,
                 "bull_return": bull_return,
                 "bull_buy_and_hold_return": bull_bnh,
                 "bull_capture": bull_capture,

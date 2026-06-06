@@ -107,7 +107,9 @@
         "source_path": "generated:quantbench_supervised_mlp_mse",
         "stress_avg_pos": 0.4987571625847209,
         "stress_max_dd": 51.5311110042,
-        "stress_relative_return": 63.6768458729
+        "stress_regime_avg_pos": NaN,
+        "stress_relative_return": 63.6768458729,
+        "stress_window_avg_pos": 0.4987571625847209
       },
       {
         "bull_buy_and_hold_return": 191.7735092699,
@@ -126,7 +128,9 @@
         "source_path": "generated:quantbench_supervised_market_graph_mse",
         "stress_avg_pos": 0.4989476357518134,
         "stress_max_dd": 48.8135748905,
-        "stress_relative_return": 81.323814226
+        "stress_regime_avg_pos": NaN,
+        "stress_relative_return": 81.323814226,
+        "stress_window_avg_pos": 0.4989476357518134
       },
       {
         "bull_buy_and_hold_return": 191.7735092699,
@@ -145,7 +149,9 @@
         "source_path": "generated:quantbench_supervised_ridge_ic",
         "stress_avg_pos": 0.4984524055173727,
         "stress_max_dd": 50.3514747454,
-        "stress_relative_return": 70.4262290023
+        "stress_regime_avg_pos": NaN,
+        "stress_relative_return": 70.4262290023,
+        "stress_window_avg_pos": 0.4984524055173727
       },
       {
         "bull_buy_and_hold_return": 191.7735092699,
@@ -164,7 +170,9 @@
         "source_path": "generated:quantbench_supervised_ridge_mse",
         "stress_avg_pos": 0.4984524055173727,
         "stress_max_dd": 50.3514747454,
-        "stress_relative_return": 70.4262290023
+        "stress_regime_avg_pos": NaN,
+        "stress_relative_return": 70.4262290023,
+        "stress_window_avg_pos": 0.4984524055173727
       },
       {
         "bull_buy_and_hold_return": 191.7735092699,
@@ -183,7 +191,9 @@
         "source_path": "generated:quantbench_supervised_logistic_clf",
         "stress_avg_pos": 0.49830002698369874,
         "stress_max_dd": 53.015178454,
-        "stress_relative_return": 50.332270061
+        "stress_regime_avg_pos": NaN,
+        "stress_relative_return": 50.332270061,
+        "stress_window_avg_pos": 0.49830002698369874
       },
       {
         "bull_buy_and_hold_return": 191.7735092699,
@@ -202,7 +212,9 @@
         "source_path": "generated:quantbench_supervised_lstm_mse",
         "stress_avg_pos": 0.4993285820859987,
         "stress_max_dd": 49.9069062886,
-        "stress_relative_return": 47.703920002
+        "stress_regime_avg_pos": NaN,
+        "stress_relative_return": 47.703920002,
+        "stress_window_avg_pos": 0.4993285820859987
       },
       {
         "bull_buy_and_hold_return": 191.7735092699,
@@ -221,7 +233,9 @@
         "source_path": "generated:quantbench_supervised_tcn_mse",
         "stress_avg_pos": 0.49923969460802214,
         "stress_max_dd": 47.5461172511,
-        "stress_relative_return": 73.5952798464
+        "stress_regime_avg_pos": NaN,
+        "stress_relative_return": 73.5952798464,
+        "stress_window_avg_pos": 0.49923969460802214
       },
       {
         "bull_buy_and_hold_return": 191.7735092699,
@@ -241,7 +255,9 @@
         "source_path": "generated:quantbench_supervised_hist_gradient_mse",
         "stress_avg_pos": 0.4984270090950937,
         "stress_max_dd": 57.1469252697,
-        "stress_relative_return": 40.881525556
+        "stress_regime_avg_pos": NaN,
+        "stress_relative_return": 40.881525556,
+        "stress_window_avg_pos": 0.4984270090950937
       },
       {
         "bull_buy_and_hold_return": 191.7735092699,
@@ -260,7 +276,9 @@
         "source_path": "generated:quantbench_supervised_random_forest_clf",
         "stress_avg_pos": 0.49818574308344316,
         "stress_max_dd": 53.5460394475,
-        "stress_relative_return": 44.6440485818
+        "stress_regime_avg_pos": NaN,
+        "stress_relative_return": 44.6440485818,
+        "stress_window_avg_pos": 0.49818574308344316
       },
       {
         "bull_buy_and_hold_return": 191.7735092699,
@@ -279,7 +297,9 @@
         "source_path": "generated:quantbench_supervised_sequence_lag_ridge_mse",
         "stress_avg_pos": 0.4984397073062332,
         "stress_max_dd": 48.4084891537,
-        "stress_relative_return": 53.2933278364
+        "stress_regime_avg_pos": NaN,
+        "stress_relative_return": 53.2933278364,
+        "stress_window_avg_pos": 0.4984397073062332
       }
     ],
     "eligible_count": 0,

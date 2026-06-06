@@ -26,6 +26,7 @@
       "runtime/model_selection/card/quantbench_paper_soxl_v1/quantbench_ensemble_external_crash_v19v22_v1_soxl_daily.csv",
       "runtime/model_selection/card/quantbench_paper_soxl_v1/quantbench_ensemble_market_graph_panic_chip_floor_v1_soxl_daily.csv",
       "runtime/model_selection/card/quantbench_paper_soxl_v1/quantbench_ensemble_sequence_fragile_preshock_v1_soxl_daily.csv",
+      "runtime/model_selection/card/quantbench_paper_soxl_v1/quantbench_ensemble_sequence_fragile_panic_budget_v1_soxl_daily.csv",
       "runtime/model_selection/card/quantbench_paper_soxl_v1/quantbench_ensemble_sequence_rebound_floor_panic_cap_v1_soxl_daily.csv"
     ],
     "ensemble_candidate_screen_csv": "runtime/model_selection/card/quantbench_paper_soxl_v1/ensemble_candidate_screen.csv",
@@ -124,7 +125,7 @@
     ],
     "rolling_refit_step_rows": 63,
     "rolling_train_lookback_rows": 1260,
-    "selector_count": 26,
+    "selector_count": 27,
     "signal_blends": [
       "blend_logistic_sequence_lowcorr_v1",
       "blend_sequence_lstm_lowcorr_v1",
@@ -141,7 +142,7 @@
       "2018-12-31"
     ]
   },
-  "decision": "no_ensemble_model_satisfies_quantbench_soxl_20dd_gate",
+  "decision": "eligible_ensemble_candidates_found",
   "gate": {
     "max_drawdown_pct": 20.0,
     "max_stress_avg_pos": 0.45,
@@ -175,21 +176,39 @@
     "best_rows": [
       {
         "bull_buy_and_hold_return": 191.7735092699,
+        "bull_capture": 0.7492635175063402,
+        "bull_return": 143.6888941201,
+        "eligible": true,
+        "failed_checks": [],
+        "profile": "quantbench_ensemble_sequence_fragile_panic_budget_v1",
+        "proxy_max_dd": 19.7422573681,
+        "proxy_return": 316.5201671289,
+        "score": 390.506821,
+        "source_path": "generated:quantbench_ensemble_sequence_fragile_panic_budget_v1",
+        "stress_avg_pos": 0.1004938271604938,
+        "stress_max_dd": 14.3656635436,
+        "stress_regime_avg_pos": 0.1004938271604938,
+        "stress_relative_return": 78.0293312678,
+        "stress_window_avg_pos": 0.08667764978771236
+      },
+      {
+        "bull_buy_and_hold_return": 191.7735092699,
         "bull_capture": 0.7416958022513752,
         "bull_return": 142.2376068085,
         "eligible": false,
         "failed_checks": [
-          "max_drawdown",
-          "stress_avg_pos"
+          "max_drawdown"
         ],
         "profile": "quantbench_ensemble_sequence_fragile_preshock_v1",
         "proxy_max_dd": 20.5497007016,
         "proxy_return": 333.0612422623,
-        "score": 364.100448,
+        "score": 384.100448,
         "source_path": "generated:quantbench_ensemble_sequence_fragile_preshock_v1",
-        "stress_avg_pos": 0.08434320919078934,
+        "stress_avg_pos": 0.10098765432098765,
         "stress_max_dd": 13.9972911025,
-        "stress_relative_return": 79.0684282391
+        "stress_regime_avg_pos": 0.10098765432098765,
+        "stress_relative_return": 79.0684282391,
+        "stress_window_avg_pos": 0.08434320919078934
       },
       {
         "bull_buy_and_hold_return": 191.7735092699,
@@ -197,17 +216,18 @@
         "bull_return": 145.0560205561,
         "eligible": false,
         "failed_checks": [
-          "max_drawdown",
-          "stress_avg_pos"
+          "max_drawdown"
         ],
         "profile": "quantbench_ensemble_sequence_tapered_reentry_v1",
         "proxy_max_dd": 20.549621032,
         "proxy_return": 328.660810871,
-        "score": 361.17261,
+        "score": 381.17261,
         "source_path": "generated:quantbench_ensemble_sequence_tapered_reentry_v1",
-        "stress_avg_pos": 0.08434079817973197,
+        "stress_avg_pos": 0.10098765432098765,
         "stress_max_dd": 13.9962990135,
-        "stress_relative_return": 79.0710454063
+        "stress_regime_avg_pos": 0.10098765432098765,
+        "stress_relative_return": 79.0710454063,
+        "stress_window_avg_pos": 0.08434079817973197
       },
       {
         "bull_buy_and_hold_return": 191.7735092699,
@@ -215,17 +235,18 @@
         "bull_return": 152.9297832034,
         "eligible": false,
         "failed_checks": [
-          "max_drawdown",
-          "stress_avg_pos"
+          "max_drawdown"
         ],
         "profile": "quantbench_ensemble_sequence_full_rebase_tail_v1",
         "proxy_max_dd": 24.0113027338,
         "proxy_return": 323.538434106,
-        "score": 346.314774,
+        "score": 366.314774,
         "source_path": "generated:quantbench_ensemble_sequence_full_rebase_tail_v1",
-        "stress_avg_pos": 0.08433572656530955,
+        "stress_avg_pos": 0.10098765432098765,
         "stress_max_dd": 13.9942119567,
-        "stress_relative_return": 79.0765518043
+        "stress_regime_avg_pos": 0.10098765432098765,
+        "stress_relative_return": 79.0765518043,
+        "stress_window_avg_pos": 0.08433572656530955
       },
       {
         "bull_buy_and_hold_return": 191.7735092699,
@@ -241,9 +262,11 @@
         "proxy_return": 265.4214633432,
         "score": 286.520953,
         "source_path": "generated:quantbench_ensemble_sequence_panic_chip_floor_v1",
-        "stress_avg_pos": 0.08370425633012911,
+        "stress_avg_pos": 0.09950617283950616,
         "stress_max_dd": 14.2858603271,
-        "stress_relative_return": 78.4267530581
+        "stress_regime_avg_pos": 0.09950617283950616,
+        "stress_relative_return": 78.4267530581,
+        "stress_window_avg_pos": 0.08370425633012911
       },
       {
         "bull_buy_and_hold_return": 191.7735092699,
@@ -259,9 +282,11 @@
         "proxy_return": 259.8481229573,
         "score": 279.370021,
         "source_path": "generated:quantbench_ensemble_market_graph_panic_chip_floor_v1",
-        "stress_avg_pos": 0.08370422505632791,
+        "stress_avg_pos": 0.09950617283950616,
         "stress_max_dd": 14.2858346024,
-        "stress_relative_return": 78.4267807284
+        "stress_regime_avg_pos": 0.09950617283950616,
+        "stress_relative_return": 78.4267807284,
+        "stress_window_avg_pos": 0.08370422505632791
       },
       {
         "bull_buy_and_hold_return": 191.7735092699,
@@ -277,9 +302,11 @@
         "proxy_return": 249.3004351979,
         "score": 262.722586,
         "source_path": "generated:quantbench_ensemble_lstm_panic_chip_floor_v1",
-        "stress_avg_pos": 0.08370466616301596,
+        "stress_avg_pos": 0.09950617283950616,
         "stress_max_dd": 14.2861974413,
-        "stress_relative_return": 78.4263904474
+        "stress_regime_avg_pos": 0.09950617283950616,
+        "stress_relative_return": 78.4263904474,
+        "stress_window_avg_pos": 0.08370466616301596
       },
       {
         "bull_buy_and_hold_return": 191.7735092699,
@@ -295,9 +322,11 @@
         "proxy_return": 232.7700222586,
         "score": 243.920806,
         "source_path": "generated:quantbench_ensemble_tcn_panic_chip_floor_v1",
-        "stress_avg_pos": 0.08370321026051976,
+        "stress_avg_pos": 0.09950617283950616,
         "stress_max_dd": 14.2849998707,
-        "stress_relative_return": 78.4276785922
+        "stress_regime_avg_pos": 0.09950617283950616,
+        "stress_relative_return": 78.4276785922,
+        "stress_window_avg_pos": 0.08370321026051976
       },
       {
         "bull_buy_and_hold_return": 191.7735092699,
@@ -313,9 +342,11 @@
         "proxy_return": 166.842013331,
         "score": 149.830463,
         "source_path": "generated:quantbench_ensemble_external_crash_v19v22_v1",
-        "stress_avg_pos": 0.06790517014153398,
+        "stress_avg_pos": 0.06391108344892064,
         "stress_max_dd": 12.3829562975,
-        "stress_relative_return": 76.1642169374
+        "stress_regime_avg_pos": 0.06391108344892064,
+        "stress_relative_return": 76.1642169374,
+        "stress_window_avg_pos": 0.06790517014153398
       },
       {
         "bull_buy_and_hold_return": 191.7735092699,
@@ -324,38 +355,25 @@
         "eligible": false,
         "failed_checks": [
           "max_drawdown",
+          "stress_avg_pos",
           "stress_max_drawdown"
         ],
         "profile": "quantbench_ensemble_guarded_rf_logistic_v1",
         "proxy_max_dd": 47.1457786767,
         "proxy_return": 250.8162943745,
-        "score": 131.035327,
+        "score": 111.035327,
         "source_path": "generated:quantbench_ensemble_guarded_rf_logistic_v1",
-        "stress_avg_pos": 0.16394802221477955,
+        "stress_avg_pos": 0.07999999999999999,
         "stress_max_dd": 32.877232833,
-        "stress_relative_return": 54.1666005191
-      },
-      {
-        "bull_buy_and_hold_return": 191.7735092699,
-        "bull_capture": 0.5126533879569094,
-        "bull_return": 98.3133392476,
-        "eligible": false,
-        "failed_checks": [
-          "max_drawdown",
-          "stress_max_drawdown"
-        ],
-        "profile": "quantbench_ensemble_guarded_hist_logistic_v1",
-        "proxy_max_dd": 47.3364391975,
-        "proxy_return": 247.4574397308,
-        "score": 125.461986,
-        "source_path": "generated:quantbench_ensemble_guarded_hist_logistic_v1",
-        "stress_avg_pos": 0.1615575839677676,
-        "stress_max_dd": 30.9696141336,
-        "stress_relative_return": 56.0849640699
+        "stress_regime_avg_pos": 0.07999999999999999,
+        "stress_relative_return": 54.1666005191,
+        "stress_window_avg_pos": 0.16394802221477955
       }
     ],
-    "eligible_count": 0,
-    "eligible_profiles": [],
-    "records": 26
+    "eligible_count": 1,
+    "eligible_profiles": [
+      "quantbench_ensemble_sequence_fragile_panic_budget_v1"
+    ],
+    "records": 27
   }
 }

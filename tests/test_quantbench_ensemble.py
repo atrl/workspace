@@ -1,7 +1,10 @@
 from __future__ import annotations
 
+import warnings
+
 import numpy as np
 import pandas as pd
+from pandas.errors import PerformanceWarning
 
 from src.soxl_quant.app.quantbench_ensemble import (
     QuantBenchExternalPathSpec,
@@ -13,6 +16,7 @@ from src.soxl_quant.app.quantbench_ensemble import (
     apply_quantbench_tail_shock_guard,
     apply_quantbench_volatility_budget_guard,
     build_quantbench_path_ensemble_report,
+    build_quantbench_path_ensemble_payloads,
     build_quantbench_signal_blend_paths,
     build_quantbench_supervised_ensemble_report,
     default_quantbench_external_path_specs,
@@ -68,6 +72,38 @@ def test_select_quantbench_path_ensemble_routes_stress_and_bull_regimes_with_aud
     assert {"lowdd_position", "neutral_position", "attack_position", "regime_risk", "drawdown_63"} <= set(
         daily.columns
     )
+
+
+def test_select_quantbench_path_ensemble_builds_many_audit_columns_without_fragmentation_warning():
+    index = pd.date_range("2024-01-01", periods=8, freq="D")
+    paths = {
+        f"path_{i}": pd.Series(np.linspace(0.05, 0.95, len(index)), index=index)
+        for i in range(140)
+    }
+    risk_frame = pd.DataFrame(
+        {
+            "regime_risk": np.linspace(0.20, 0.80, len(index)),
+            "cum_drop_30": np.linspace(0.00, -0.30, len(index)),
+            "drawdown_63": np.linspace(-0.02, -0.35, len(index)),
+            "mom_21": np.linspace(0.10, -0.10, len(index)),
+            "trend_gap_63": np.linspace(0.05, -0.05, len(index)),
+        },
+        index=index,
+    )
+    config = QuantBenchPathSelectorConfig(
+        name="wide_audit_selector",
+        defensive_path="path_0",
+        neutral_path="path_1",
+        offensive_path="path_2",
+        recovery_path="path_3",
+    )
+
+    with warnings.catch_warnings():
+        warnings.simplefilter("error", PerformanceWarning)
+        daily = select_quantbench_path_ensemble(paths, risk_frame, config)
+
+    assert daily.shape[0] == len(index)
+    assert "path_139_position" in daily.columns
 
 
 def test_apply_quantbench_ensemble_drawdown_guard_caps_after_account_loss_and_reenters_on_bull():
@@ -838,6 +874,7 @@ def test_default_quantbench_path_selector_configs_include_volatility_budget_cand
     assert "quantbench_ensemble_sequence_anchor_reset_v1" in names
     assert "quantbench_ensemble_sequence_full_rebase_tail_v1" in names
     assert "quantbench_ensemble_sequence_tapered_reentry_v1" in names
+    assert "quantbench_ensemble_sequence_fragile_panic_budget_v1" in names
     assert "quantbench_ensemble_sequence_panic_chip_floor_v1" in names
     assert "quantbench_ensemble_blend_anchor_reset_v1" in names
     assert "quantbench_ensemble_rolling_sequence_anchor_reset_v1" in names
@@ -903,6 +940,17 @@ def test_default_quantbench_path_selector_configs_include_volatility_budget_cand
         > tapered_reentry_candidate.portfolio_reentry_drawdown_cap_start
     )
     assert tapered_reentry_candidate.portfolio_reentry_drawdown_min_cap < tapered_reentry_candidate.portfolio_reentry_cap
+    fragile_panic_candidate = next(
+        config for config in budget_configs if config.name == "quantbench_ensemble_sequence_fragile_panic_budget_v1"
+    )
+    assert fragile_panic_candidate.offensive_path == "quantbench_supervised_sequence_lag_ridge_mse"
+    assert fragile_panic_candidate.fragile_market_cap < 1.0
+    assert fragile_panic_candidate.portfolio_drawdown_budget_min_cap == 0.05
+    assert fragile_panic_candidate.portfolio_drawdown_budget_stress_floor == 0.12
+    assert fragile_panic_candidate.portfolio_drawdown_budget_panic_cap == 0.10
+    assert fragile_panic_candidate.portfolio_drawdown_budget_panic_drawdown_63 == -0.75
+    assert fragile_panic_candidate.portfolio_drawdown_budget_panic_cum_drop_30 == -0.60
+    assert fragile_panic_candidate.portfolio_drawdown_budget_panic_requires_tail_shock
     panic_chip_floor_candidate = next(
         config for config in budget_configs if config.name == "quantbench_ensemble_sequence_panic_chip_floor_v1"
     )
@@ -1056,6 +1104,50 @@ def test_build_quantbench_path_ensemble_report_writes_runtime_screen_artifacts(t
     assert (tmp_path / "ensemble_payloads.json").exists()
     assert (tmp_path / "ensemble_candidate_screen.csv").read_text(encoding="utf-8").startswith("profile,")
     assert (tmp_path / "unit_selector_soxl_daily.csv").exists()
+
+
+def test_build_quantbench_path_ensemble_payloads_records_macro_stress_regime_retention():
+    index = pd.date_range("2024-01-01", periods=8, freq="D")
+    close = pd.Series(np.linspace(100.0, 108.0, len(index)), index=index)
+    paths = {
+        "lowdd": pd.Series(0.12, index=index),
+        "neutral": pd.Series(0.02, index=index),
+        "attack": pd.Series(0.80, index=index),
+    }
+    risk_frame = pd.DataFrame(
+        {
+            "regime_risk": [0.80, 0.76, 0.72, 0.30, 0.28, 0.24, 0.20, 0.18],
+            "cum_drop_30": [-0.22, -0.21, -0.20, 0.0, 0.0, 0.0, 0.0, 0.0],
+            "drawdown_63": [-0.30, -0.28, -0.26, -0.03, -0.02, -0.01, 0.0, 0.0],
+            "mom_21": [-0.08, -0.06, -0.04, 0.00, 0.01, 0.00, 0.01, 0.00],
+            "trend_gap_63": [-0.06, -0.04, -0.02, -0.01, -0.01, -0.01, -0.01, -0.01],
+        },
+        index=index,
+    )
+    config = QuantBenchPathSelectorConfig(
+        name="stress_retention_payload",
+        defensive_path="lowdd",
+        neutral_path="neutral",
+        offensive_path="attack",
+        stress_floor=0.10,
+        stress_cap=0.14,
+        neutral_floor=0.0,
+        neutral_cap=0.05,
+    )
+
+    payloads, _daily = build_quantbench_path_ensemble_payloads(
+        close,
+        paths,
+        risk_frame,
+        configs=(config,),
+        windows={"test_2022": (index[0], index[-1])},
+        cost=0.0,
+    )
+
+    stress_slice = payloads[0]["slices"]["test_2022"]
+    assert stress_slice["avg_pos"] < 0.10
+    assert stress_slice["stress_regime_avg_pos"] == 0.12
+    assert stress_slice["stress_regime_rows"] == 3
 
 
 def test_build_quantbench_supervised_ensemble_report_trains_paths_inside_src(tmp_path):
