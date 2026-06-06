@@ -60,6 +60,8 @@ class QuantBenchPathSelectorConfig:
     portfolio_drawdown_release: float = 0.06
     portfolio_reentry_floor: float = 0.0
     portfolio_reentry_cap: float = 0.55
+    hazard_threshold: float = 0.0
+    hazard_cap: float = 0.12
 
 
 def _display_path(path: Path, root: Path | None = None) -> str:
@@ -310,6 +312,108 @@ def apply_quantbench_ensemble_drawdown_guard(
     return out
 
 
+def apply_quantbench_hazard_guard(
+    daily: pd.DataFrame,
+    hazard_score: pd.Series | None,
+    config: QuantBenchPathSelectorConfig,
+) -> pd.DataFrame:
+    """Cap selected targets when a trained future-drawdown hazard is elevated."""
+    out = daily.copy()
+    out["datetime"] = pd.to_datetime(out["datetime"])
+    out = out.sort_values("datetime").reset_index(drop=True)
+    if hazard_score is None or float(config.hazard_threshold) <= 0.0:
+        out["hazard_score"] = np.nan
+        out["hazard_guard"] = False
+        return out
+
+    hazard = hazard_score.astype(float).copy()
+    hazard.index = pd.to_datetime(hazard.index)
+    aligned = hazard.reindex(pd.DatetimeIndex(out["datetime"])).fillna(0.0).clip(0.0, 1.0)
+    guard = aligned >= float(config.hazard_threshold)
+    out["hazard_score"] = aligned.to_numpy(dtype=float)
+    out["hazard_guard"] = guard.to_numpy(dtype=bool)
+    out.loc[out["hazard_guard"], "position"] = out.loc[out["hazard_guard"], "position"].astype(float).clip(
+        upper=float(config.hazard_cap)
+    )
+    return out
+
+
+def _future_drawdown(close: pd.Series, horizon: int) -> pd.Series:
+    values: list[float] = []
+    prices = close.astype(float).to_numpy()
+    for idx, current in enumerate(prices):
+        if idx + int(horizon) >= len(prices) or not np.isfinite(current) or current <= 0.0:
+            values.append(float("nan"))
+            continue
+        path = prices[idx + 1 : idx + int(horizon) + 1]
+        values.append(float(np.nanmin(path) / current - 1.0) if len(path) else float("nan"))
+    return pd.Series(values, index=close.index)
+
+
+def fit_quantbench_drawdown_hazard_model(
+    features: pd.DataFrame,
+    close: pd.Series,
+    *,
+    train_start: str | pd.Timestamp,
+    train_end: str | pd.Timestamp,
+    test_start: str | pd.Timestamp,
+    test_end: str | pd.Timestamp,
+    horizon: int = 20,
+    drawdown_threshold: float = -0.18,
+) -> tuple[pd.Series, dict[str, Any]]:
+    """Train a non-leaking future-drawdown classifier and return OOS hazard scores."""
+    from sklearn.ensemble import HistGradientBoostingClassifier
+    from sklearn.pipeline import make_pipeline
+    from sklearn.preprocessing import StandardScaler
+
+    feature_frame = features.copy().replace([np.inf, -np.inf], np.nan)
+    feature_frame.index = pd.to_datetime(feature_frame.index)
+    close_series = close.astype(float).sort_index()
+    close_series.index = pd.to_datetime(close_series.index)
+    common_index = feature_frame.index.intersection(close_series.index)
+    feature_frame = feature_frame.loc[common_index]
+    close_series = close_series.loc[common_index]
+    future_dd = _future_drawdown(close_series, int(horizon))
+    label = (future_dd <= float(drawdown_threshold)).astype(float).where(future_dd.notna())
+
+    frame = feature_frame.copy()
+    frame["drawdown_hazard_label"] = label
+    frame = frame.dropna()
+    train = frame.loc[pd.Timestamp(train_start) : pd.Timestamp(train_end)]
+    test = frame.loc[pd.Timestamp(test_start) : pd.Timestamp(test_end)]
+    if train.empty or test.empty:
+        raise ValueError("hazard train and test windows must both contain rows")
+    if train["drawdown_hazard_label"].nunique(dropna=True) < 2:
+        raise ValueError("hazard train window requires both drawdown and non-drawdown labels")
+
+    feature_columns = [column for column in feature_frame.columns if column in frame.columns]
+    model = make_pipeline(
+        StandardScaler(),
+        HistGradientBoostingClassifier(
+            max_iter=120,
+            max_leaf_nodes=15,
+            l2_regularization=0.10,
+            random_state=0,
+        ),
+    )
+    model.fit(train[feature_columns], train["drawdown_hazard_label"].astype(int))
+    hazard = pd.Series(
+        model.predict_proba(test[feature_columns])[:, 1],
+        index=test.index,
+        name="drawdown_hazard",
+    ).clip(0.0, 1.0)
+    metrics = {
+        "train_rows": int(len(train)),
+        "test_rows": int(len(test)),
+        "train_positive_rate": float(train["drawdown_hazard_label"].mean()),
+        "test_positive_rate": float(test["drawdown_hazard_label"].mean()),
+        "horizon": int(horizon),
+        "drawdown_threshold": float(drawdown_threshold),
+        "mean_hazard": float(hazard.mean()),
+    }
+    return hazard, metrics
+
+
 def _payload_for_daily(
     daily: pd.DataFrame,
     close: pd.Series,
@@ -348,6 +452,7 @@ def build_quantbench_path_ensemble_payloads(
     risk_frame: pd.DataFrame,
     *,
     configs: Iterable[QuantBenchPathSelectorConfig],
+    hazard_score: pd.Series | None = None,
     windows: Mapping[str, tuple[str | pd.Timestamp, str | pd.Timestamp]] | None = None,
     cost: float = 0.0008,
 ) -> tuple[list[dict[str, Any]], dict[str, pd.DataFrame]]:
@@ -355,6 +460,7 @@ def build_quantbench_path_ensemble_payloads(
     daily_by_profile: dict[str, pd.DataFrame] = {}
     for config in tuple(configs):
         daily = select_quantbench_path_ensemble(paths, risk_frame, config)
+        daily = apply_quantbench_hazard_guard(daily, hazard_score, config)
         daily = apply_quantbench_ensemble_drawdown_guard(daily, close, config, cost=cost)
         payload = _payload_for_daily(
             daily,
@@ -377,6 +483,7 @@ def build_quantbench_path_ensemble_report(
     card_dir: Path,
     root: Path | None = None,
     configs: Iterable[QuantBenchPathSelectorConfig],
+    hazard_score: pd.Series | None = None,
     gate: QuantBenchGate = QuantBenchGate(),
     windows: Mapping[str, tuple[str | pd.Timestamp, str | pd.Timestamp]] | None = None,
     cost: float = 0.0008,
@@ -391,6 +498,7 @@ def build_quantbench_path_ensemble_report(
         paths,
         risk_frame,
         configs=configs,
+        hazard_score=hazard_score,
         windows=windows,
         cost=cost,
     )
@@ -635,6 +743,39 @@ def default_quantbench_path_selector_configs(
             portfolio_reentry_floor=0.40,
             portfolio_reentry_cap=0.65,
         ),
+        QuantBenchPathSelectorConfig(
+            name="quantbench_ensemble_hazard_rf_logistic_v1",
+            defensive_path=path("random_forest_clf", "macro_budget_defensive_v1"),
+            neutral_path=path("random_forest_clf", "macro_budget_defensive_v1"),
+            offensive_path=path("logistic_clf"),
+            recovery_path=path("logistic_clf"),
+            stress_floor=0.10,
+            stress_cap=0.14,
+            neutral_cap=0.20,
+            bull_floor=0.70,
+            bull_cap=0.98,
+            recovery_floor=0.50,
+            recovery_cap=0.85,
+            stress_risk_threshold=0.92,
+            stress_drop_threshold=-0.35,
+            stress_drawdown_threshold=-0.45,
+            bull_risk_threshold=0.50,
+            bull_momentum_threshold=0.00,
+            bull_trend_threshold=-0.05,
+            bull_drawdown_floor=-0.30,
+            recovery_risk_threshold=0.75,
+            recovery_momentum_threshold=0.00,
+            recovery_trend_threshold=-0.08,
+            recovery_drawdown_min=-0.45,
+            recovery_drawdown_max=-0.02,
+            portfolio_drawdown_trigger=0.15,
+            portfolio_drawdown_cap=0.08,
+            portfolio_drawdown_release=0.05,
+            portfolio_reentry_floor=0.40,
+            portfolio_reentry_cap=0.65,
+            hazard_threshold=0.80,
+            hazard_cap=0.02,
+        ),
     ]
 
 
@@ -669,6 +810,9 @@ def build_quantbench_supervised_ensemble_report(
     min_position: float = 0.10,
     max_position: float = 0.90,
     cost: float = 0.0008,
+    hazard_enabled: bool = True,
+    hazard_drawdown_threshold: float = -0.18,
+    hazard_cap_threshold: float | None = None,
 ) -> dict[str, Any]:
     """Train supervised paths and run the src-owned macro path ensemble screen."""
     root = root.resolve() if root is not None else None
@@ -714,6 +858,27 @@ def build_quantbench_supervised_ensemble_report(
     if not config_tuple:
         raise ValueError("no ensemble selector configs match the generated supervised path library")
 
+    hazard_score = None
+    hazard_metrics: dict[str, Any] = {}
+    if bool(hazard_enabled):
+        hazard_score, hazard_metrics = fit_quantbench_drawdown_hazard_model(
+            feature_frame,
+            close_series,
+            train_start=train_start,
+            train_end=train_end,
+            test_start=test_start,
+            test_end=test_end,
+            horizon=horizon,
+            drawdown_threshold=hazard_drawdown_threshold,
+        )
+        if hazard_cap_threshold is not None:
+            config_tuple = tuple(
+                QuantBenchPathSelectorConfig(**{**asdict(config), "hazard_threshold": float(hazard_cap_threshold)})
+                if config.hazard_threshold > 0.0
+                else config
+                for config in config_tuple
+            )
+
     report = build_quantbench_path_ensemble_report(
         close_series,
         paths,
@@ -721,6 +886,7 @@ def build_quantbench_supervised_ensemble_report(
         card_dir=card_dir,
         root=root,
         configs=config_tuple,
+        hazard_score=hazard_score,
         gate=gate,
         windows=windows,
         cost=cost,
@@ -737,9 +903,14 @@ def build_quantbench_supervised_ensemble_report(
         )
     path_library_path = card_dir / "ensemble_path_library.csv"
     objective_metrics_path = card_dir / "ensemble_objective_metrics.json"
+    hazard_metrics_path = card_dir / "ensemble_hazard_metrics.json"
     _write_rows_csv(path_library_path, path_rows)
     objective_metrics_path.write_text(
         json.dumps(objective_metrics, indent=2, sort_keys=True, allow_nan=True) + "\n",
+        encoding="utf-8",
+    )
+    hazard_metrics_path.write_text(
+        json.dumps(hazard_metrics, indent=2, sort_keys=True, allow_nan=True) + "\n",
         encoding="utf-8",
     )
 
@@ -753,12 +924,15 @@ def build_quantbench_supervised_ensemble_report(
             "model_names": list(predictions.keys()),
             "risk_overlays": [config.name for config in risk_config_tuple],
             "horizon": int(horizon),
+            "hazard_enabled": bool(hazard_enabled),
+            "hazard_drawdown_threshold": float(hazard_drawdown_threshold),
             "train_window": [str(pd.Timestamp(train_start).date()), str(pd.Timestamp(train_end).date())],
             "test_window": [str(pd.Timestamp(test_start).date()), str(pd.Timestamp(test_end).date())],
         }
     )
     report["artifacts"]["ensemble_path_library_csv"] = rel(path_library_path)
     report["artifacts"]["ensemble_objective_metrics_json"] = rel(objective_metrics_path)
+    report["artifacts"]["ensemble_hazard_metrics_json"] = rel(hazard_metrics_path)
     summary_path = card_dir / "ensemble_summary.json"
     summary_path.write_text(json.dumps(report, indent=2, sort_keys=True, allow_nan=True) + "\n", encoding="utf-8")
     return report
@@ -768,11 +942,13 @@ __all__ = [
     "DEFAULT_WINDOWS",
     "QuantBenchPathSelectorConfig",
     "apply_quantbench_ensemble_drawdown_guard",
+    "apply_quantbench_hazard_guard",
     "backtest_position_path",
     "build_quantbench_supervised_ensemble_report",
     "build_quantbench_path_ensemble_payloads",
     "build_quantbench_path_ensemble_report",
     "build_supervised_path_library",
     "default_quantbench_path_selector_configs",
+    "fit_quantbench_drawdown_hazard_model",
     "select_quantbench_path_ensemble",
 ]

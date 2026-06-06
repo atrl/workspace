@@ -6,9 +6,11 @@
       "runtime/model_selection/card/quantbench_paper_soxl_v1/quantbench_ensemble_extra_logistic_v1_soxl_daily.csv",
       "runtime/model_selection/card/quantbench_paper_soxl_v1/quantbench_ensemble_defensive_logistic_v1_soxl_daily.csv",
       "runtime/model_selection/card/quantbench_paper_soxl_v1/quantbench_ensemble_guarded_rf_logistic_v1_soxl_daily.csv",
-      "runtime/model_selection/card/quantbench_paper_soxl_v1/quantbench_ensemble_guarded_hist_logistic_v1_soxl_daily.csv"
+      "runtime/model_selection/card/quantbench_paper_soxl_v1/quantbench_ensemble_guarded_hist_logistic_v1_soxl_daily.csv",
+      "runtime/model_selection/card/quantbench_paper_soxl_v1/quantbench_ensemble_hazard_rf_logistic_v1_soxl_daily.csv"
     ],
     "ensemble_candidate_screen_csv": "runtime/model_selection/card/quantbench_paper_soxl_v1/ensemble_candidate_screen.csv",
+    "ensemble_hazard_metrics_json": "runtime/model_selection/card/quantbench_paper_soxl_v1/ensemble_hazard_metrics.json",
     "ensemble_objective_metrics_json": "runtime/model_selection/card/quantbench_paper_soxl_v1/ensemble_objective_metrics.json",
     "ensemble_path_library_csv": "runtime/model_selection/card/quantbench_paper_soxl_v1/ensemble_path_library.csv",
     "ensemble_payloads_json": "runtime/model_selection/card/quantbench_paper_soxl_v1/ensemble_payloads.json",
@@ -26,6 +28,8 @@
       "soxx_signals",
       "soxx_spread_oscillation"
     ],
+    "hazard_drawdown_threshold": -0.18,
+    "hazard_enabled": true,
     "horizon": 20,
     "model_names": [
       "logistic_clf",
@@ -43,7 +47,7 @@
       "macro_budget_bull_guard_v1",
       "macro_budget_reentry_v1"
     ],
-    "selector_count": 6,
+    "selector_count": 7,
     "start": "2011-03-11",
     "test_window": [
       "2020-01-01",
@@ -106,6 +110,24 @@
         "stress_avg_pos": 0.1615575839677676,
         "stress_max_dd": 30.9696141336,
         "stress_relative_return": 56.0849640699
+      },
+      {
+        "bull_buy_and_hold_return": 191.7735092699,
+        "bull_capture": 0.5384907214215983,
+        "bull_return": 103.2682553563,
+        "eligible": false,
+        "failed_checks": [
+          "max_drawdown",
+          "stress_max_drawdown"
+        ],
+        "profile": "quantbench_ensemble_hazard_rf_logistic_v1",
+        "proxy_max_dd": 47.1457786767,
+        "proxy_return": 465.9692436502,
+        "score": 345.795694,
+        "source_path": "generated:quantbench_ensemble_hazard_rf_logistic_v1",
+        "stress_avg_pos": 0.15960539273270782,
+        "stress_max_dd": 32.4859964907,
+        "stress_relative_return": 54.5604933447
       },
       {
         "bull_buy_and_hold_return": 191.7735092699,
@@ -186,6 +208,6 @@
     ],
     "eligible_count": 0,
     "eligible_profiles": [],
-    "records": 6
+    "records": 7
   }
 }

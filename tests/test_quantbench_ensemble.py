@@ -6,8 +6,10 @@ import pandas as pd
 from src.soxl_quant.app.quantbench_ensemble import (
     QuantBenchPathSelectorConfig,
     apply_quantbench_ensemble_drawdown_guard,
+    apply_quantbench_hazard_guard,
     build_quantbench_path_ensemble_report,
     build_quantbench_supervised_ensemble_report,
+    fit_quantbench_drawdown_hazard_model,
     select_quantbench_path_ensemble,
 )
 from src.soxl_quant.app.quantbench_screen import QuantBenchGate
@@ -82,6 +84,61 @@ def test_apply_quantbench_ensemble_drawdown_guard_caps_after_account_loss_and_re
 
     assert guarded["portfolio_drawdown_guard"].tolist() == [False, False, True, True, True, True]
     assert guarded["position"].round(4).tolist() == [0.80, 0.80, 0.05, 0.05, 0.55, 0.55]
+
+
+def test_apply_quantbench_hazard_guard_caps_before_account_drawdown_with_audit_columns():
+    index = pd.date_range("2024-01-01", periods=5, freq="D")
+    daily = pd.DataFrame(
+        {
+            "datetime": index,
+            "position": [0.80, 0.80, 0.80, 0.80, 0.80],
+            "macro_regime": ["bull"] * 5,
+        }
+    )
+    hazard = pd.Series([0.10, 0.85, 0.90, 0.20, 0.10], index=index)
+    config = QuantBenchPathSelectorConfig(
+        name="hazard_guarded",
+        defensive_path="lowdd",
+        offensive_path="attack",
+        hazard_threshold=0.80,
+        hazard_cap=0.12,
+    )
+
+    guarded = apply_quantbench_hazard_guard(daily, hazard, config)
+
+    assert guarded["hazard_guard"].tolist() == [False, True, True, False, False]
+    assert guarded["position"].round(4).tolist() == [0.80, 0.12, 0.12, 0.80, 0.80]
+    assert guarded["hazard_score"].round(2).tolist() == [0.10, 0.85, 0.90, 0.20, 0.10]
+
+
+def test_fit_quantbench_drawdown_hazard_model_predicts_oos_future_drawdown_risk():
+    index = pd.date_range("2024-01-01", periods=120, freq="D")
+    stress_signal = np.r_[np.zeros(30), np.ones(30), np.zeros(30), np.ones(30)]
+    returns = np.where(stress_signal > 0.5, -0.02, 0.003)
+    close = pd.Series(100.0 * np.cumprod(1.0 + returns), index=index)
+    features = pd.DataFrame(
+        {
+            "stress_signal": stress_signal,
+            "safe_signal": 1.0 - stress_signal,
+        },
+        index=index,
+    )
+
+    hazard, metrics = fit_quantbench_drawdown_hazard_model(
+        features,
+        close,
+        train_start=index[0],
+        train_end=index[79],
+        test_start=index[80],
+        test_end=index[109],
+        horizon=5,
+        drawdown_threshold=-0.05,
+    )
+
+    assert hazard.index.min() >= index[80]
+    assert metrics["train_rows"] > 0
+    assert metrics["test_rows"] > 0
+    assert hazard.loc[index[90]:index[109]].mean() > hazard.loc[index[80]:index[89]].mean()
 
 
 def test_build_quantbench_path_ensemble_report_writes_runtime_screen_artifacts(tmp_path):
@@ -189,6 +246,7 @@ def test_build_quantbench_supervised_ensemble_report_trains_paths_inside_src(tmp
         risk_configs=(),
         ensemble_configs=(config,),
         gate=gate,
+        hazard_enabled=False,
         windows={
             "test_2020": (index[70], index[80]),
             "test_2022": (index[81], index[93]),
@@ -201,3 +259,68 @@ def test_build_quantbench_supervised_ensemble_report_trains_paths_inside_src(tmp
     assert report["data"]["model_names"] == ["logistic_clf", "ridge_mse"]
     assert (tmp_path / "ensemble_summary.json").exists()
     assert (tmp_path / "unit_supervised_selector_soxl_daily.csv").exists()
+
+
+def test_build_quantbench_supervised_ensemble_report_writes_hazard_metrics(tmp_path):
+    index = pd.date_range("2024-01-01", periods=140, freq="D")
+    stress_signal = np.r_[np.zeros(35), np.ones(35), np.zeros(35), np.ones(35)]
+    returns = np.where(stress_signal > 0.5, -0.012, 0.004)
+    close = pd.Series(100.0 * np.cumprod(1.0 + returns), index=index)
+    features = pd.DataFrame(
+        {
+            "signal": np.sin(np.arange(len(index)) / 6.0),
+            "stress_signal": stress_signal,
+            "regime_risk": np.where(stress_signal > 0.5, 0.75, 0.20),
+            "cum_drop_30": np.where(stress_signal > 0.5, -0.22, 0.0),
+            "drawdown_63": np.where(stress_signal > 0.5, -0.20, -0.02),
+            "mom_21": np.where(stress_signal > 0.5, -0.03, 0.08),
+            "trend_gap_63": np.where(stress_signal > 0.5, -0.02, 0.05),
+        },
+        index=index,
+    )
+    config = QuantBenchPathSelectorConfig(
+        name="unit_hazard_selector",
+        defensive_path="quantbench_supervised_ridge_mse",
+        neutral_path="quantbench_supervised_ridge_mse",
+        offensive_path="quantbench_supervised_logistic_clf",
+        hazard_threshold=0.50,
+        hazard_cap=0.10,
+    )
+    gate = QuantBenchGate(
+        max_drawdown_pct=99.0,
+        min_stress_relative_return=-999.0,
+        min_stress_avg_pos=0.0,
+        max_stress_avg_pos=1.0,
+        min_bull_capture=-999.0,
+        min_proxy_return=-999.0,
+    )
+
+    report = build_quantbench_supervised_ensemble_report(
+        features,
+        close,
+        card_dir=tmp_path,
+        root=tmp_path,
+        horizon=5,
+        model_names=("logistic_clf", "ridge_mse"),
+        train_start=index[0],
+        train_end=index[89],
+        test_start=index[90],
+        test_end=index[124],
+        risk_configs=(),
+        ensemble_configs=(config,),
+        gate=gate,
+        hazard_enabled=True,
+        hazard_drawdown_threshold=-0.04,
+        windows={
+            "test_2020": (index[90], index[99]),
+            "test_2022": (index[100], index[112]),
+            "test_2023_2024": (index[113], index[124]),
+        },
+    )
+
+    assert report["data"]["hazard_enabled"] is True
+    assert "ensemble_hazard_metrics_json" in report["artifacts"]
+    assert (tmp_path / "ensemble_hazard_metrics.json").exists()
+    daily = pd.read_csv(tmp_path / "unit_hazard_selector_soxl_daily.csv")
+    assert "hazard_score" in daily.columns
+    assert "hazard_guard" in daily.columns
