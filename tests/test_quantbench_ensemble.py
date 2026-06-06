@@ -563,6 +563,7 @@ def test_default_quantbench_path_selector_configs_include_volatility_budget_cand
     assert "quantbench_ensemble_tail_shock_bull_release_rf_logistic_v1" in names
     assert "quantbench_ensemble_tail_shock_anchor_reset_rf_logistic_v1" in names
     assert "quantbench_ensemble_sequence_anchor_reset_v1" in names
+    assert "quantbench_ensemble_sequence_full_rebase_tail_v1" in names
     assert "quantbench_ensemble_blend_anchor_reset_v1" in names
     assert "quantbench_ensemble_rolling_sequence_anchor_reset_v1" in names
     candidate = next(config for config in budget_configs if config.name == "quantbench_ensemble_vol_budget_rf_logistic_v1")
@@ -608,6 +609,15 @@ def test_default_quantbench_path_selector_configs_include_volatility_budget_cand
     )
     assert sequence_candidate.offensive_path == "quantbench_supervised_sequence_lag_ridge_mse"
     assert sequence_candidate.portfolio_drawdown_budget_anchor_reset_drawdown > 0.0
+    full_rebase_candidate = next(
+        config for config in budget_configs if config.name == "quantbench_ensemble_sequence_full_rebase_tail_v1"
+    )
+    assert full_rebase_candidate.offensive_path == "quantbench_supervised_sequence_lag_ridge_mse"
+    assert (
+        full_rebase_candidate.portfolio_drawdown_budget_anchor_reset_drawdown
+        < full_rebase_candidate.portfolio_drawdown_budget_start
+    )
+    assert full_rebase_candidate.tail_shock_day_threshold <= -0.05
     blend_candidate = next(
         config for config in budget_configs if config.name == "quantbench_ensemble_blend_anchor_reset_v1"
     )
