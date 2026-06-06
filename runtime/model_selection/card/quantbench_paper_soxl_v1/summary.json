@@ -1,0 +1,221 @@
+{
+  "artifacts": {
+    "candidate_screen_csv": "runtime/model_selection/card/quantbench_paper_soxl_v1/candidate_screen.csv",
+    "paper_model_objective_coverage_csv": "runtime/model_selection/card/quantbench_paper_soxl_v1/paper_model_objective_coverage.csv",
+    "paper_objective_families_csv": "runtime/model_selection/card/quantbench_paper_soxl_v1/paper_objective_families.csv",
+    "paper_requirement_matrix_csv": "runtime/model_selection/card/quantbench_paper_soxl_v1/paper_requirement_matrix.csv",
+    "summary_json": "runtime/model_selection/card/quantbench_paper_soxl_v1/summary.json"
+  },
+  "decision": "no_current_model_satisfies_quantbench_soxl_20dd_gate",
+  "gate": {
+    "max_drawdown_pct": 20.0,
+    "max_stress_avg_pos": 0.45,
+    "min_bull_capture": 0.5,
+    "min_proxy_return": 0.0,
+    "min_stress_avg_pos": 0.1,
+    "min_stress_relative_return": 30.0
+  },
+  "next_action": "Implement the first missing paper family: supervised tabular/sequence objective screen, then compare it to PPO/GRU under this same gate.",
+  "paper": {
+    "arxiv_pdf": "https://arxiv.org/pdf/2504.18600",
+    "mapped_claims": [
+      "full-pipeline benchmark coverage",
+      "tree-vs-deep model comparison",
+      "CLF/IC/MSE/ranking objective comparison",
+      "rolling update / alpha decay",
+      "validation-set selection",
+      "seed ensemble robustness"
+    ],
+    "title": "QuantBench: Benchmarking AI Methods for Quantitative Investment"
+  },
+  "screen": {
+    "best_rows": [
+      {
+        "bull_buy_and_hold_return": 55.65447370869805,
+        "bull_capture": 0.8000084633874729,
+        "bull_return": 44.524049992334035,
+        "eligible": false,
+        "failed_checks": [
+          "max_drawdown",
+          "stress_max_drawdown"
+        ],
+        "profile": "balanced_rule_residual_v19_reg_v22_retest_v1",
+        "proxy_max_dd": 59.63728794606605,
+        "proxy_return": 1280.416931546974,
+        "score": 1119.521092,
+        "source_path": "runtime/model/card/balanced_rule_residual_v19_reg_v22_retest_v1/soxl_balanced_rule_residual_v19_reg_v22_retest_v1_summary.json",
+        "stress_avg_pos": 0.38093044393156694,
+        "stress_max_dd": 58.29984349359049,
+        "stress_relative_return": 37.652465478222425
+      },
+      {
+        "bull_buy_and_hold_return": 55.65447370869805,
+        "bull_capture": 1.092302834186433,
+        "bull_return": 60.79153936716519,
+        "eligible": false,
+        "failed_checks": [
+          "max_drawdown",
+          "stress_max_drawdown"
+        ],
+        "profile": "balanced_rule_residual_v22_continued_retention_v1",
+        "proxy_max_dd": 59.130394718428505,
+        "proxy_return": 1128.9356168568706,
+        "score": 1015.381197,
+        "source_path": "runtime/model/card/balanced_rule_residual_v22_continued_retention_v1/soxl_balanced_rule_residual_v22_continued_retention_v1_summary.json",
+        "stress_avg_pos": 0.321447368272041,
+        "stress_max_dd": 55.255626233786124,
+        "stress_relative_return": 53.7368759524236
+      },
+      {
+        "bull_buy_and_hold_return": 55.65447370869805,
+        "bull_capture": 1.0438104115666944,
+        "bull_return": 58.09271910740388,
+        "eligible": false,
+        "failed_checks": [
+          "max_drawdown",
+          "stress_max_drawdown"
+        ],
+        "profile": "balanced_rule_residual_v22_release_v1",
+        "proxy_max_dd": 60.3501256809719,
+        "proxy_return": 1133.8873813437858,
+        "score": 1002.84954,
+        "source_path": "runtime/model/card/balanced_rule_residual_v22_release_v1/soxl_balanced_rule_residual_v22_release_v1_summary.json",
+        "stress_avg_pos": 0.37526315789473674,
+        "stress_max_dd": 38.84520711933593,
+        "stress_relative_return": 45.981620407371665
+      },
+      {
+        "bull_buy_and_hold_return": 55.65447370869805,
+        "bull_capture": 1.0787481647348252,
+        "bull_return": 60.0371613725406,
+        "eligible": false,
+        "failed_checks": [
+          "max_drawdown",
+          "stress_max_drawdown"
+        ],
+        "profile": "balanced_rule_residual_v19_moe_v2",
+        "proxy_max_dd": 49.00827874052002,
+        "proxy_return": 690.9712208921769,
+        "score": 610.398973,
+        "source_path": "runtime/model/card/balanced_rule_residual_v19_moe_v2/soxl_balanced_rule_residual_v19_moe_v2_summary.json",
+        "stress_avg_pos": 0.28763157873561507,
+        "stress_max_dd": 45.14929484263904,
+        "stress_relative_return": 47.58605039802956
+      },
+      {
+        "bull_buy_and_hold_return": 55.65447370869805,
+        "bull_capture": 1.0093756599595949,
+        "bull_return": 56.17627112942101,
+        "eligible": false,
+        "failed_checks": [
+          "max_drawdown",
+          "stress_max_drawdown"
+        ],
+        "profile": "state_conditioned_drawdown_rebound_reward_train_v1",
+        "proxy_max_dd": 43.56511845576983,
+        "proxy_return": 619.7088261372328,
+        "score": 559.292883,
+        "source_path": "runtime/model/card/state_conditioned_drawdown_rebound_reward_train_v1/soxl_state_conditioned_drawdown_rebound_reward_train_v1_summary.json",
+        "stress_avg_pos": 0.2584053044334838,
+        "stress_max_dd": 41.4835439428417,
+        "stress_relative_return": 52.90696438898587
+      },
+      {
+        "bull_buy_and_hold_return": 55.65447370869805,
+        "bull_capture": 0.8191940080598484,
+        "bull_return": 45.59181138388981,
+        "eligible": false,
+        "failed_checks": [
+          "max_drawdown",
+          "stress_max_drawdown"
+        ],
+        "profile": "mode_conditioned_rebound_reward_train_v2",
+        "proxy_max_dd": 44.23421315942921,
+        "proxy_return": 496.78071170873113,
+        "score": 426.778414,
+        "source_path": "runtime/model/card/mode_conditioned_rebound_reward_train_v2/soxl_mode_conditioned_rebound_reward_train_v2_summary.json",
+        "stress_avg_pos": 0.1313807155129157,
+        "stress_max_dd": 43.90938621898536,
+        "stress_relative_return": 65.01515406110568
+      },
+      {
+        "bull_buy_and_hold_return": 55.65447370869805,
+        "bull_capture": 0.9397358523777065,
+        "bull_return": 52.30050428927602,
+        "eligible": false,
+        "failed_checks": [
+          "max_drawdown",
+          "stress_max_drawdown"
+        ],
+        "profile": "drawdown_rebound_reward_train_v1",
+        "proxy_max_dd": 37.67648561691653,
+        "proxy_return": 392.5806977164699,
+        "score": 351.838655,
+        "source_path": "runtime/model/card/drawdown_rebound_reward_train_v1/soxl_drawdown_rebound_reward_train_v1_summary.json",
+        "stress_avg_pos": 0.18546522187559225,
+        "stress_max_dd": 35.87854636324194,
+        "stress_relative_return": 55.99031414366628
+      },
+      {
+        "bull_buy_and_hold_return": NaN,
+        "bull_capture": NaN,
+        "bull_return": NaN,
+        "eligible": false,
+        "failed_checks": [
+          "proxy_return",
+          "bull_capture"
+        ],
+        "profile": "drawdown_rebound_reward_train_v1",
+        "proxy_max_dd": 9.875679050812106,
+        "proxy_return": -7.000281074771864,
+        "score": -1032.939429,
+        "source_path": "runtime/model/card/drawdown_rebound_reward_train_v1/soxl_drawdown_rebound_reward_train_v1_wf_2022_summary.json",
+        "stress_avg_pos": 0.16585526315789478,
+        "stress_max_dd": 9.875679050812106,
+        "stress_relative_return": 53.563568247906005
+      },
+      {
+        "bull_buy_and_hold_return": NaN,
+        "bull_capture": NaN,
+        "bull_return": NaN,
+        "eligible": false,
+        "failed_checks": [
+          "proxy_return",
+          "bull_capture"
+        ],
+        "profile": "mode_conditioned_rebound_reward_train_v2",
+        "proxy_max_dd": 15.9006974847681,
+        "proxy_return": -12.705282323789625,
+        "score": -1054.613515,
+        "source_path": "runtime/model/card/mode_conditioned_rebound_reward_train_v2/soxl_mode_conditioned_rebound_reward_train_v2_wf_2022_summary.json",
+        "stress_avg_pos": 0.14148684210526316,
+        "stress_max_dd": 15.9006974847681,
+        "stress_relative_return": 61.694557067012866
+      },
+      {
+        "bull_buy_and_hold_return": NaN,
+        "bull_capture": NaN,
+        "bull_return": NaN,
+        "eligible": false,
+        "failed_checks": [
+          "max_drawdown",
+          "proxy_return",
+          "stress_max_drawdown",
+          "bull_capture"
+        ],
+        "profile": "state_conditioned_drawdown_rebound_reward_train_v1",
+        "proxy_max_dd": 29.14798508332813,
+        "proxy_return": -23.275007586746234,
+        "score": -1174.74102,
+        "source_path": "runtime/model/card/state_conditioned_drawdown_rebound_reward_train_v1/soxl_state_conditioned_drawdown_rebound_reward_train_v1_wf_2022_summary.json",
+        "stress_avg_pos": 0.24381319917032593,
+        "stress_max_dd": 29.14798508332813,
+        "stress_relative_return": 45.12592745843769
+      }
+    ],
+    "eligible_count": 0,
+    "eligible_profiles": [],
+    "records": 26,
+    "summary_files": 26
+  }
+}
