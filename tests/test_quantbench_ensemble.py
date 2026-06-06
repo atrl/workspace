@@ -7,6 +7,7 @@ from src.soxl_quant.app.quantbench_ensemble import (
     QuantBenchPathSelectorConfig,
     apply_quantbench_ensemble_drawdown_guard,
     apply_quantbench_hazard_guard,
+    apply_quantbench_tail_shock_guard,
     apply_quantbench_volatility_budget_guard,
     build_quantbench_path_ensemble_report,
     build_quantbench_supervised_ensemble_report,
@@ -237,6 +238,59 @@ def test_apply_quantbench_hazard_guard_caps_before_account_drawdown_with_audit_c
     assert guarded["hazard_score"].round(2).tolist() == [0.10, 0.85, 0.90, 0.20, 0.10]
 
 
+def test_apply_quantbench_tail_shock_guard_uses_lagged_single_day_loss_and_cooldown():
+    index = pd.date_range("2024-01-01", periods=6, freq="D")
+    daily = pd.DataFrame(
+        {
+            "datetime": index,
+            "position": [0.80] * len(index),
+            "macro_regime": ["bull"] * len(index),
+        }
+    )
+    close = pd.Series([100.0, 94.0, 93.0, 92.0, 110.0, 115.0], index=index)
+    config = QuantBenchPathSelectorConfig(
+        name="tail_shock",
+        defensive_path="lowdd",
+        offensive_path="attack",
+        tail_shock_day_threshold=-0.05,
+        tail_shock_cooldown_days=2,
+        tail_shock_cap=0.08,
+    )
+
+    guarded = apply_quantbench_tail_shock_guard(daily, close, config)
+
+    assert guarded["tail_shock_guard"].tolist() == [False, False, True, True, False, False]
+    assert guarded["position"].round(4).tolist() == [0.80, 0.80, 0.08, 0.08, 0.80, 0.80]
+    assert guarded.loc[1, "tail_shock_lag_1d_return"] == 0.0
+    assert guarded.loc[2, "tail_shock_lag_1d_return"] < -0.05
+
+
+def test_apply_quantbench_tail_shock_guard_preserves_stress_chip_floor():
+    index = pd.date_range("2024-01-01", periods=4, freq="D")
+    daily = pd.DataFrame(
+        {
+            "datetime": index,
+            "position": [0.80] * len(index),
+            "macro_regime": ["bull", "bull", "stress", "stress"],
+        }
+    )
+    close = pd.Series([100.0, 94.0, 93.0, 92.0], index=index)
+    config = QuantBenchPathSelectorConfig(
+        name="tail_shock_chip_floor",
+        defensive_path="lowdd",
+        offensive_path="attack",
+        tail_shock_day_threshold=-0.05,
+        tail_shock_cooldown_days=2,
+        tail_shock_cap=0.02,
+        tail_shock_stress_floor=0.10,
+    )
+
+    guarded = apply_quantbench_tail_shock_guard(daily, close, config)
+
+    assert bool(guarded.loc[2, "tail_shock_guard"])
+    assert guarded.loc[2, "position"] == 0.10
+
+
 def test_apply_quantbench_volatility_budget_guard_uses_lagged_realized_volatility():
     index = pd.date_range("2024-01-01", periods=8, freq="D")
     daily = pd.DataFrame(
@@ -303,12 +357,17 @@ def test_default_quantbench_path_selector_configs_include_volatility_budget_cand
     configs = default_quantbench_path_selector_configs()
 
     budget_configs = [
-        config for config in configs if config.volatility_target > 0.0 or config.portfolio_drawdown_budget_start > 0.0
+        config
+        for config in configs
+        if config.volatility_target > 0.0
+        or config.portfolio_drawdown_budget_start > 0.0
+        or config.tail_shock_cooldown_days > 0
     ]
     names = {config.name for config in budget_configs}
     assert "quantbench_ensemble_vol_budget_rf_logistic_v1" in names
     assert "quantbench_ensemble_confirmed_reentry_rf_logistic_v1" in names
     assert "quantbench_ensemble_drawdown_budget_guarded_rf_logistic_v1" in names
+    assert "quantbench_ensemble_tail_shock_budget_rf_logistic_v1" in names
     candidate = next(config for config in budget_configs if config.name == "quantbench_ensemble_vol_budget_rf_logistic_v1")
     assert candidate.volatility_stress_target < candidate.volatility_bull_target
     assert candidate.portfolio_drawdown_trigger > 0.0
@@ -325,6 +384,12 @@ def test_default_quantbench_path_selector_configs_include_volatility_budget_cand
     )
     assert budget_candidate.portfolio_drawdown_budget_full <= 0.18
     assert budget_candidate.portfolio_drawdown_budget_min_cap <= 0.03
+    tail_candidate = next(
+        config for config in budget_configs if config.name == "quantbench_ensemble_tail_shock_budget_rf_logistic_v1"
+    )
+    assert tail_candidate.tail_shock_day_threshold < 0.0
+    assert tail_candidate.tail_shock_cooldown_days >= 2
+    assert tail_candidate.tail_shock_cap <= 0.08
 
 
 def test_fit_quantbench_drawdown_hazard_model_predicts_oos_future_drawdown_risk():

@@ -77,6 +77,12 @@ class QuantBenchPathSelectorConfig:
     confirmed_reentry_volatility_max: float = 0.0
     hazard_threshold: float = 0.0
     hazard_cap: float = 0.12
+    tail_shock_day_threshold: float = 0.0
+    tail_shock_rolling_2d_threshold: float = 0.0
+    tail_shock_rolling_3d_threshold: float = 0.0
+    tail_shock_cooldown_days: int = 0
+    tail_shock_cap: float = 1.0
+    tail_shock_stress_floor: float = 0.0
     volatility_target: float = 0.0
     volatility_stress_target: float | None = None
     volatility_neutral_target: float | None = None
@@ -461,6 +467,82 @@ def apply_quantbench_hazard_guard(
     return out
 
 
+def apply_quantbench_tail_shock_guard(
+    daily: pd.DataFrame,
+    close: pd.Series | pd.DataFrame,
+    config: QuantBenchPathSelectorConfig,
+) -> pd.DataFrame:
+    """Cap selected targets for a cooldown period after lagged SOXL tail-loss shocks."""
+    out = daily.copy()
+    out["datetime"] = pd.to_datetime(out["datetime"])
+    out = out.sort_values("datetime").reset_index(drop=True)
+    out["tail_shock_raw_position"] = out["position"].astype(float).clip(0.0, 1.0)
+
+    cooldown_days = max(int(config.tail_shock_cooldown_days), 0)
+    enabled = (
+        cooldown_days > 0
+        and float(config.tail_shock_cap) < 1.0
+        and (
+            float(config.tail_shock_day_threshold) < 0.0
+            or float(config.tail_shock_rolling_2d_threshold) < 0.0
+            or float(config.tail_shock_rolling_3d_threshold) < 0.0
+        )
+    )
+    if not enabled:
+        out["tail_shock_lag_1d_return"] = np.nan
+        out["tail_shock_lag_2d_return"] = np.nan
+        out["tail_shock_lag_3d_return"] = np.nan
+        out["tail_shock_trigger"] = False
+        out["tail_shock_guard"] = False
+        out["tail_shock_cooldown_remaining"] = 0
+        return out
+
+    price = _daily_price_series(close)
+    returns = price.pct_change().fillna(0.0)
+    lag_1d = returns.shift(1)
+    lag_2d = (price / price.shift(2) - 1.0).shift(1)
+    lag_3d = (price / price.shift(3) - 1.0).shift(1)
+    dates = pd.DatetimeIndex(out["datetime"])
+    out["tail_shock_lag_1d_return"] = lag_1d.reindex(dates).reset_index(drop=True).fillna(0.0).to_numpy(dtype=float)
+    out["tail_shock_lag_2d_return"] = lag_2d.reindex(dates).reset_index(drop=True).fillna(0.0).to_numpy(dtype=float)
+    out["tail_shock_lag_3d_return"] = lag_3d.reindex(dates).reset_index(drop=True).fillna(0.0).to_numpy(dtype=float)
+
+    trigger = pd.Series(False, index=out.index, dtype=bool)
+    if float(config.tail_shock_day_threshold) < 0.0:
+        trigger |= out["tail_shock_lag_1d_return"] <= float(config.tail_shock_day_threshold)
+    if float(config.tail_shock_rolling_2d_threshold) < 0.0:
+        trigger |= out["tail_shock_lag_2d_return"] <= float(config.tail_shock_rolling_2d_threshold)
+    if float(config.tail_shock_rolling_3d_threshold) < 0.0:
+        trigger |= out["tail_shock_lag_3d_return"] <= float(config.tail_shock_rolling_3d_threshold)
+
+    guarded: list[float] = []
+    guard_flags: list[bool] = []
+    remaining_values: list[int] = []
+    remaining = 0
+    cap = float(np.clip(float(config.tail_shock_cap), 0.0, 1.0))
+    stress_floor = float(np.clip(float(config.tail_shock_stress_floor), 0.0, 1.0))
+    for idx, row in enumerate(out.itertuples(index=False)):
+        if bool(trigger.iloc[idx]):
+            remaining = cooldown_days
+        active = remaining > 0
+        raw_target = float(row.tail_shock_raw_position)
+        target = raw_target
+        if active:
+            target = min(target, cap)
+            if stress_floor > 0.0 and str(row.macro_regime) == "stress" and raw_target > 0.0:
+                target = max(target, min(raw_target, stress_floor))
+            remaining -= 1
+        guarded.append(float(np.clip(target, 0.0, 1.0)))
+        guard_flags.append(bool(active))
+        remaining_values.append(int(remaining))
+
+    out["position"] = guarded
+    out["tail_shock_trigger"] = trigger.to_numpy(dtype=bool)
+    out["tail_shock_guard"] = guard_flags
+    out["tail_shock_cooldown_remaining"] = remaining_values
+    return out
+
+
 def apply_quantbench_volatility_budget_guard(
     daily: pd.DataFrame,
     close: pd.Series,
@@ -754,6 +836,8 @@ def build_quantbench_path_ensemble_payloads(
         daily = apply_quantbench_hazard_guard(daily, hazard_score, config)
         if float(config.volatility_target) > 0.0:
             daily = apply_quantbench_volatility_budget_guard(daily, close, config)
+        if max(int(config.tail_shock_cooldown_days), 0) > 0:
+            daily = apply_quantbench_tail_shock_guard(daily, close, config)
         daily = apply_quantbench_ensemble_drawdown_guard(daily, close, config, cost=cost)
         payload = _payload_for_daily(
             daily,
@@ -1175,6 +1259,48 @@ def default_quantbench_path_selector_configs(
             portfolio_drawdown_budget_stress_floor=0.10,
         ),
         QuantBenchPathSelectorConfig(
+            name="quantbench_ensemble_tail_shock_budget_rf_logistic_v1",
+            defensive_path=path("random_forest_clf", "macro_budget_defensive_v1"),
+            neutral_path=path("random_forest_clf", "macro_budget_defensive_v1"),
+            offensive_path=path("logistic_clf"),
+            recovery_path=path("logistic_clf"),
+            stress_floor=0.10,
+            stress_cap=0.14,
+            neutral_cap=0.20,
+            bull_floor=0.70,
+            bull_cap=0.98,
+            recovery_floor=0.50,
+            recovery_cap=0.85,
+            stress_risk_threshold=0.92,
+            stress_drop_threshold=-0.35,
+            stress_drawdown_threshold=-0.45,
+            bull_risk_threshold=0.50,
+            bull_momentum_threshold=0.00,
+            bull_trend_threshold=-0.05,
+            bull_drawdown_floor=-0.30,
+            recovery_risk_threshold=0.75,
+            recovery_momentum_threshold=0.00,
+            recovery_trend_threshold=-0.08,
+            recovery_drawdown_min=-0.45,
+            recovery_drawdown_max=-0.02,
+            portfolio_drawdown_trigger=0.15,
+            portfolio_drawdown_cap=0.08,
+            portfolio_drawdown_release=0.05,
+            portfolio_reentry_floor=0.40,
+            portfolio_reentry_cap=0.65,
+            portfolio_drawdown_budget_start=0.04,
+            portfolio_drawdown_budget_full=0.12,
+            portfolio_drawdown_budget_start_cap=0.35,
+            portfolio_drawdown_budget_min_cap=0.02,
+            portfolio_drawdown_budget_stress_floor=0.10,
+            tail_shock_day_threshold=-0.04,
+            tail_shock_rolling_2d_threshold=-0.075,
+            tail_shock_rolling_3d_threshold=-0.12,
+            tail_shock_cooldown_days=3,
+            tail_shock_cap=0.05,
+            tail_shock_stress_floor=0.10,
+        ),
+        QuantBenchPathSelectorConfig(
             name="quantbench_ensemble_hazard_rf_logistic_v1",
             defensive_path=path("random_forest_clf", "macro_budget_defensive_v1"),
             neutral_path=path("random_forest_clf", "macro_budget_defensive_v1"),
@@ -1400,6 +1526,7 @@ __all__ = [
     "QuantBenchPathSelectorConfig",
     "apply_quantbench_ensemble_drawdown_guard",
     "apply_quantbench_hazard_guard",
+    "apply_quantbench_tail_shock_guard",
     "apply_quantbench_volatility_budget_guard",
     "backtest_position_path",
     "build_quantbench_supervised_ensemble_report",
