@@ -10,6 +10,7 @@ from src.soxl_quant.app.quantbench_ensemble import (
     build_quantbench_path_ensemble_report,
     build_quantbench_supervised_ensemble_report,
     fit_quantbench_drawdown_hazard_model,
+    fit_quantbench_rolling_drawdown_hazard_model,
     select_quantbench_path_ensemble,
 )
 from src.soxl_quant.app.quantbench_screen import QuantBenchGate
@@ -139,6 +140,39 @@ def test_fit_quantbench_drawdown_hazard_model_predicts_oos_future_drawdown_risk(
     assert metrics["train_rows"] > 0
     assert metrics["test_rows"] > 0
     assert hazard.loc[index[90]:index[109]].mean() > hazard.loc[index[80]:index[89]].mean()
+
+
+def test_fit_quantbench_rolling_drawdown_hazard_model_refits_without_future_label_leakage():
+    index = pd.date_range("2024-01-01", periods=180, freq="D")
+    stress_signal = np.r_[np.zeros(60), np.ones(40), np.zeros(40), np.ones(40)]
+    returns = np.where(stress_signal > 0.5, -0.018, 0.004)
+    close = pd.Series(100.0 * np.cumprod(1.0 + returns), index=index)
+    features = pd.DataFrame(
+        {
+            "stress_signal": stress_signal,
+            "safe_signal": 1.0 - stress_signal,
+        },
+        index=index,
+    )
+
+    hazard, metrics = fit_quantbench_rolling_drawdown_hazard_model(
+        features,
+        close,
+        test_start=index[90],
+        test_end=index[169],
+        horizon=5,
+        drawdown_threshold=-0.05,
+        min_train_rows=40,
+        refit_step_rows=20,
+        train_lookback_rows=90,
+    )
+
+    assert hazard.index.min() >= index[90]
+    assert hazard.index.max() <= index[169]
+    assert metrics["fold_count"] >= 3
+    assert all(pd.Timestamp(fold["train_end"]) < pd.Timestamp(fold["predict_start"]) for fold in metrics["folds"])
+    assert all(pd.Timestamp(fold["label_cutoff"]) <= pd.Timestamp(fold["train_end"]) for fold in metrics["folds"])
+    assert hazard.loc[index[140]:index[169]].mean() > hazard.loc[index[100]:index[119]].mean()
 
 
 def test_build_quantbench_path_ensemble_report_writes_runtime_screen_artifacts(tmp_path):
@@ -310,7 +344,11 @@ def test_build_quantbench_supervised_ensemble_report_writes_hazard_metrics(tmp_p
         ensemble_configs=(config,),
         gate=gate,
         hazard_enabled=True,
+        hazard_mode="rolling",
         hazard_drawdown_threshold=-0.04,
+        hazard_min_train_rows=40,
+        hazard_refit_step_rows=10,
+        hazard_train_lookback_rows=80,
         windows={
             "test_2020": (index[90], index[99]),
             "test_2022": (index[100], index[112]),
@@ -319,8 +357,12 @@ def test_build_quantbench_supervised_ensemble_report_writes_hazard_metrics(tmp_p
     )
 
     assert report["data"]["hazard_enabled"] is True
+    assert report["data"]["hazard_mode"] == "rolling"
     assert "ensemble_hazard_metrics_json" in report["artifacts"]
     assert (tmp_path / "ensemble_hazard_metrics.json").exists()
+    metrics = pd.read_json(tmp_path / "ensemble_hazard_metrics.json", typ="series")
+    assert metrics["mode"] == "rolling"
+    assert metrics["fold_count"] >= 1
     daily = pd.read_csv(tmp_path / "unit_hazard_selector_soxl_daily.csv")
     assert "hazard_score" in daily.columns
     assert "hazard_guard" in daily.columns

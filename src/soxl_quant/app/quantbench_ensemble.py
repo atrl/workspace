@@ -350,22 +350,31 @@ def _future_drawdown(close: pd.Series, horizon: int) -> pd.Series:
     return pd.Series(values, index=close.index)
 
 
-def fit_quantbench_drawdown_hazard_model(
-    features: pd.DataFrame,
-    close: pd.Series,
-    *,
-    train_start: str | pd.Timestamp,
-    train_end: str | pd.Timestamp,
-    test_start: str | pd.Timestamp,
-    test_end: str | pd.Timestamp,
-    horizon: int = 20,
-    drawdown_threshold: float = -0.18,
-) -> tuple[pd.Series, dict[str, Any]]:
-    """Train a non-leaking future-drawdown classifier and return OOS hazard scores."""
+def _fit_hazard_classifier(train: pd.DataFrame, feature_columns: list[str]):
     from sklearn.ensemble import HistGradientBoostingClassifier
     from sklearn.pipeline import make_pipeline
     from sklearn.preprocessing import StandardScaler
 
+    model = make_pipeline(
+        StandardScaler(),
+        HistGradientBoostingClassifier(
+            max_iter=120,
+            max_leaf_nodes=15,
+            l2_regularization=0.10,
+            random_state=0,
+        ),
+    )
+    model.fit(train[feature_columns], train["drawdown_hazard_label"].astype(int))
+    return model
+
+
+def _hazard_feature_label_frame(
+    features: pd.DataFrame,
+    close: pd.Series,
+    *,
+    horizon: int,
+    drawdown_threshold: float,
+) -> tuple[pd.DataFrame, list[str]]:
     feature_frame = features.copy().replace([np.inf, -np.inf], np.nan)
     feature_frame.index = pd.to_datetime(feature_frame.index)
     close_series = close.astype(float).sort_index()
@@ -379,6 +388,28 @@ def fit_quantbench_drawdown_hazard_model(
     frame = feature_frame.copy()
     frame["drawdown_hazard_label"] = label
     frame = frame.dropna()
+    feature_columns = [column for column in feature_frame.columns if column in frame.columns]
+    return frame, feature_columns
+
+
+def fit_quantbench_drawdown_hazard_model(
+    features: pd.DataFrame,
+    close: pd.Series,
+    *,
+    train_start: str | pd.Timestamp,
+    train_end: str | pd.Timestamp,
+    test_start: str | pd.Timestamp,
+    test_end: str | pd.Timestamp,
+    horizon: int = 20,
+    drawdown_threshold: float = -0.18,
+) -> tuple[pd.Series, dict[str, Any]]:
+    """Train a non-leaking future-drawdown classifier and return OOS hazard scores."""
+    frame, feature_columns = _hazard_feature_label_frame(
+        features,
+        close,
+        horizon=horizon,
+        drawdown_threshold=drawdown_threshold,
+    )
     train = frame.loc[pd.Timestamp(train_start) : pd.Timestamp(train_end)]
     test = frame.loc[pd.Timestamp(test_start) : pd.Timestamp(test_end)]
     if train.empty or test.empty:
@@ -386,17 +417,7 @@ def fit_quantbench_drawdown_hazard_model(
     if train["drawdown_hazard_label"].nunique(dropna=True) < 2:
         raise ValueError("hazard train window requires both drawdown and non-drawdown labels")
 
-    feature_columns = [column for column in feature_frame.columns if column in frame.columns]
-    model = make_pipeline(
-        StandardScaler(),
-        HistGradientBoostingClassifier(
-            max_iter=120,
-            max_leaf_nodes=15,
-            l2_regularization=0.10,
-            random_state=0,
-        ),
-    )
-    model.fit(train[feature_columns], train["drawdown_hazard_label"].astype(int))
+    model = _fit_hazard_classifier(train, feature_columns)
     hazard = pd.Series(
         model.predict_proba(test[feature_columns])[:, 1],
         index=test.index,
@@ -410,6 +431,89 @@ def fit_quantbench_drawdown_hazard_model(
         "horizon": int(horizon),
         "drawdown_threshold": float(drawdown_threshold),
         "mean_hazard": float(hazard.mean()),
+    }
+    return hazard, metrics
+
+
+def fit_quantbench_rolling_drawdown_hazard_model(
+    features: pd.DataFrame,
+    close: pd.Series,
+    *,
+    test_start: str | pd.Timestamp,
+    test_end: str | pd.Timestamp,
+    horizon: int = 20,
+    drawdown_threshold: float = -0.18,
+    min_train_rows: int = 504,
+    refit_step_rows: int = 63,
+    train_lookback_rows: int | None = None,
+) -> tuple[pd.Series, dict[str, Any]]:
+    """Predict drawdown hazard with expanding/rolling refits and label-lag safety."""
+    frame, feature_columns = _hazard_feature_label_frame(
+        features,
+        close,
+        horizon=horizon,
+        drawdown_threshold=drawdown_threshold,
+    )
+    if frame.empty:
+        raise ValueError("rolling hazard feature frame is empty")
+    index = frame.index.sort_values()
+    test_index = index[(index >= pd.Timestamp(test_start)) & (index <= pd.Timestamp(test_end))]
+    if test_index.empty:
+        raise ValueError("rolling hazard test window has no rows")
+
+    hazards: list[pd.Series] = []
+    folds: list[dict[str, Any]] = []
+    step = max(int(refit_step_rows), 1)
+    horizon_rows = max(int(horizon), 1)
+    min_rows = max(int(min_train_rows), 1)
+    for block_start_pos in range(0, len(test_index), step):
+        block_index = test_index[block_start_pos : block_start_pos + step]
+        predict_start = block_index[0]
+        predict_end = block_index[-1]
+        predict_start_pos = int(index.get_loc(predict_start))
+        label_cutoff_pos = predict_start_pos - horizon_rows
+        if label_cutoff_pos <= 0:
+            continue
+        train_end = index[label_cutoff_pos - 1]
+        train = frame.loc[:train_end].copy()
+        if train_lookback_rows is not None and int(train_lookback_rows) > 0 and len(train) > int(train_lookback_rows):
+            train = train.iloc[-int(train_lookback_rows) :]
+        if len(train) < min_rows or train["drawdown_hazard_label"].nunique(dropna=True) < 2:
+            continue
+        predict = frame.loc[block_index]
+        model = _fit_hazard_classifier(train, feature_columns)
+        block_hazard = pd.Series(
+            model.predict_proba(predict[feature_columns])[:, 1],
+            index=predict.index,
+            name="drawdown_hazard",
+        ).clip(0.0, 1.0)
+        hazards.append(block_hazard)
+        folds.append(
+            {
+                "predict_start": str(pd.Timestamp(predict_start).date()),
+                "predict_end": str(pd.Timestamp(predict_end).date()),
+                "train_start": str(pd.Timestamp(train.index.min()).date()),
+                "train_end": str(pd.Timestamp(train.index.max()).date()),
+                "label_cutoff": str(pd.Timestamp(train_end).date()),
+                "train_rows": int(len(train)),
+                "predict_rows": int(len(predict)),
+                "train_positive_rate": float(train["drawdown_hazard_label"].mean()),
+            }
+        )
+
+    if not hazards:
+        raise ValueError("rolling hazard could not produce any folds")
+    hazard = pd.concat(hazards).sort_index()
+    metrics = {
+        "fold_count": int(len(folds)),
+        "test_rows": int(len(hazard)),
+        "horizon": int(horizon),
+        "drawdown_threshold": float(drawdown_threshold),
+        "min_train_rows": int(min_train_rows),
+        "refit_step_rows": int(refit_step_rows),
+        "train_lookback_rows": None if train_lookback_rows is None else int(train_lookback_rows),
+        "mean_hazard": float(hazard.mean()),
+        "folds": folds,
     }
     return hazard, metrics
 
@@ -811,8 +915,12 @@ def build_quantbench_supervised_ensemble_report(
     max_position: float = 0.90,
     cost: float = 0.0008,
     hazard_enabled: bool = True,
+    hazard_mode: str = "rolling",
     hazard_drawdown_threshold: float = -0.18,
     hazard_cap_threshold: float | None = None,
+    hazard_refit_step_rows: int = 63,
+    hazard_train_lookback_rows: int | None = 1260,
+    hazard_min_train_rows: int = 756,
 ) -> dict[str, Any]:
     """Train supervised paths and run the src-owned macro path ensemble screen."""
     root = root.resolve() if root is not None else None
@@ -861,16 +969,32 @@ def build_quantbench_supervised_ensemble_report(
     hazard_score = None
     hazard_metrics: dict[str, Any] = {}
     if bool(hazard_enabled):
-        hazard_score, hazard_metrics = fit_quantbench_drawdown_hazard_model(
-            feature_frame,
-            close_series,
-            train_start=train_start,
-            train_end=train_end,
-            test_start=test_start,
-            test_end=test_end,
-            horizon=horizon,
-            drawdown_threshold=hazard_drawdown_threshold,
-        )
+        if hazard_mode == "rolling":
+            hazard_score, hazard_metrics = fit_quantbench_rolling_drawdown_hazard_model(
+                feature_frame,
+                close_series,
+                test_start=test_start,
+                test_end=test_end,
+                horizon=horizon,
+                drawdown_threshold=hazard_drawdown_threshold,
+                min_train_rows=hazard_min_train_rows,
+                refit_step_rows=hazard_refit_step_rows,
+                train_lookback_rows=hazard_train_lookback_rows,
+            )
+        elif hazard_mode == "static":
+            hazard_score, hazard_metrics = fit_quantbench_drawdown_hazard_model(
+                feature_frame,
+                close_series,
+                train_start=train_start,
+                train_end=train_end,
+                test_start=test_start,
+                test_end=test_end,
+                horizon=horizon,
+                drawdown_threshold=hazard_drawdown_threshold,
+            )
+        else:
+            raise ValueError("hazard_mode must be 'rolling' or 'static'")
+        hazard_metrics["mode"] = str(hazard_mode)
         if hazard_cap_threshold is not None:
             config_tuple = tuple(
                 QuantBenchPathSelectorConfig(**{**asdict(config), "hazard_threshold": float(hazard_cap_threshold)})
@@ -925,7 +1049,13 @@ def build_quantbench_supervised_ensemble_report(
             "risk_overlays": [config.name for config in risk_config_tuple],
             "horizon": int(horizon),
             "hazard_enabled": bool(hazard_enabled),
+            "hazard_mode": str(hazard_mode),
             "hazard_drawdown_threshold": float(hazard_drawdown_threshold),
+            "hazard_refit_step_rows": int(hazard_refit_step_rows),
+            "hazard_train_lookback_rows": (
+                None if hazard_train_lookback_rows is None else int(hazard_train_lookback_rows)
+            ),
+            "hazard_min_train_rows": int(hazard_min_train_rows),
             "train_window": [str(pd.Timestamp(train_start).date()), str(pd.Timestamp(train_end).date())],
             "test_window": [str(pd.Timestamp(test_start).date()), str(pd.Timestamp(test_end).date())],
         }
@@ -950,5 +1080,6 @@ __all__ = [
     "build_supervised_path_library",
     "default_quantbench_path_selector_configs",
     "fit_quantbench_drawdown_hazard_model",
+    "fit_quantbench_rolling_drawdown_hazard_model",
     "select_quantbench_path_ensemble",
 ]

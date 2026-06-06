@@ -30,6 +30,10 @@
     ],
     "hazard_drawdown_threshold": -0.18,
     "hazard_enabled": true,
+    "hazard_min_train_rows": 756,
+    "hazard_mode": "rolling",
+    "hazard_refit_step_rows": 63,
+    "hazard_train_lookback_rows": 1260,
     "horizon": 20,
     "model_names": [
       "logistic_clf",
@@ -113,21 +117,22 @@
       },
       {
         "bull_buy_and_hold_return": 191.7735092699,
-        "bull_capture": 0.5384907214215983,
-        "bull_return": 103.2682553563,
+        "bull_capture": 0.31266921373123846,
+        "bull_return": 59.9616723579,
         "eligible": false,
         "failed_checks": [
           "max_drawdown",
-          "stress_max_drawdown"
+          "stress_max_drawdown",
+          "bull_capture"
         ],
         "profile": "quantbench_ensemble_hazard_rf_logistic_v1",
-        "proxy_max_dd": 47.1457786767,
-        "proxy_return": 465.9692436502,
-        "score": 345.795694,
+        "proxy_max_dd": 47.8700922465,
+        "proxy_return": 344.9709320631,
+        "score": 177.670983,
         "source_path": "generated:quantbench_ensemble_hazard_rf_logistic_v1",
-        "stress_avg_pos": 0.15960539273270782,
-        "stress_max_dd": 32.4859964907,
-        "stress_relative_return": 54.5604933447
+        "stress_avg_pos": 0.16335041265302655,
+        "stress_max_dd": 34.119246833,
+        "stress_relative_return": 52.913498777
       },
       {
         "bull_buy_and_hold_return": 191.7735092699,
