@@ -7,8 +7,10 @@ from src.soxl_quant.app.quantbench_ensemble import (
     QuantBenchPathSelectorConfig,
     apply_quantbench_ensemble_drawdown_guard,
     apply_quantbench_hazard_guard,
+    apply_quantbench_volatility_budget_guard,
     build_quantbench_path_ensemble_report,
     build_quantbench_supervised_ensemble_report,
+    default_quantbench_path_selector_configs,
     fit_quantbench_drawdown_hazard_model,
     fit_quantbench_rolling_drawdown_hazard_model,
     select_quantbench_path_ensemble,
@@ -87,6 +89,35 @@ def test_apply_quantbench_ensemble_drawdown_guard_caps_after_account_loss_and_re
     assert guarded["position"].round(4).tolist() == [0.80, 0.80, 0.05, 0.05, 0.55, 0.55]
 
 
+def test_apply_quantbench_ensemble_drawdown_guard_blocks_reentry_during_deep_drawdown():
+    index = pd.date_range("2024-01-01", periods=4, freq="D")
+    daily = pd.DataFrame(
+        {
+            "datetime": index,
+            "position": [0.80, 0.80, 0.80, 0.80],
+            "macro_regime": ["bull", "stress", "bull", "bull"],
+        }
+    )
+    close = pd.Series([100.0, 80.0, 80.0, 120.0], index=index)
+    config = QuantBenchPathSelectorConfig(
+        name="deep_guard",
+        defensive_path="lowdd",
+        offensive_path="attack",
+        portfolio_drawdown_trigger=0.10,
+        portfolio_drawdown_cap=0.10,
+        portfolio_drawdown_release=0.04,
+        portfolio_reentry_floor=0.40,
+        portfolio_reentry_cap=0.50,
+        portfolio_reentry_max_drawdown=0.15,
+    )
+
+    guarded = apply_quantbench_ensemble_drawdown_guard(daily, close, config, cost=0.0)
+
+    assert guarded["portfolio_drawdown_guard"].tolist() == [False, True, True, True]
+    assert guarded["position"].round(4).tolist() == [0.80, 0.10, 0.10, 0.50]
+    assert guarded.loc[2, "portfolio_drawdown"] > guarded.loc[3, "portfolio_drawdown"]
+
+
 def test_apply_quantbench_hazard_guard_caps_before_account_drawdown_with_audit_columns():
     index = pd.date_range("2024-01-01", periods=5, freq="D")
     daily = pd.DataFrame(
@@ -110,6 +141,80 @@ def test_apply_quantbench_hazard_guard_caps_before_account_drawdown_with_audit_c
     assert guarded["hazard_guard"].tolist() == [False, True, True, False, False]
     assert guarded["position"].round(4).tolist() == [0.80, 0.12, 0.12, 0.80, 0.80]
     assert guarded["hazard_score"].round(2).tolist() == [0.10, 0.85, 0.90, 0.20, 0.10]
+
+
+def test_apply_quantbench_volatility_budget_guard_uses_lagged_realized_volatility():
+    index = pd.date_range("2024-01-01", periods=8, freq="D")
+    daily = pd.DataFrame(
+        {
+            "datetime": index,
+            "position": [0.80] * len(index),
+            "macro_regime": ["bull"] * len(index),
+        }
+    )
+    close = pd.Series([100.0, 101.0, 102.0, 103.0, 60.0, 61.0, 62.0, 63.0], index=index)
+    config = QuantBenchPathSelectorConfig(
+        name="vol_budget",
+        defensive_path="lowdd",
+        offensive_path="attack",
+        volatility_target=0.20,
+        volatility_bull_target=0.20,
+        volatility_lookback=2,
+        volatility_min_periods=2,
+        volatility_floor=0.05,
+    )
+
+    guarded = apply_quantbench_volatility_budget_guard(daily, close, config)
+
+    assert guarded.loc[4, "position"] == 0.80
+    assert not bool(guarded.loc[4, "volatility_budget_guard"])
+    assert guarded.loc[5, "position"] < 0.20
+    assert guarded.loc[5, "position"] >= 0.05
+    assert bool(guarded.loc[5, "volatility_budget_guard"])
+    assert guarded.loc[5, "realized_volatility"] > guarded.loc[4, "realized_volatility"]
+
+
+def test_apply_quantbench_volatility_budget_guard_uses_regime_specific_budget():
+    index = pd.date_range("2024-01-01", periods=6, freq="D")
+    daily = pd.DataFrame(
+        {
+            "datetime": index,
+            "position": [0.80] * len(index),
+            "macro_regime": ["stress", "bull", "stress", "bull", "stress", "bull"],
+        }
+    )
+    close = pd.Series([100.0, 112.0, 96.0, 108.0, 92.0, 103.0], index=index)
+    config = QuantBenchPathSelectorConfig(
+        name="mode_budget",
+        defensive_path="lowdd",
+        offensive_path="attack",
+        volatility_target=0.40,
+        volatility_stress_target=0.12,
+        volatility_bull_target=0.60,
+        volatility_lookback=2,
+        volatility_min_periods=2,
+        volatility_floor=0.03,
+    )
+
+    guarded = apply_quantbench_volatility_budget_guard(daily, close, config)
+
+    assert guarded.loc[4, "macro_regime"] == "stress"
+    assert guarded.loc[5, "macro_regime"] == "bull"
+    assert guarded.loc[5, "realized_volatility"] > 0.0
+    assert guarded.loc[5, "volatility_budget_target"] > guarded.loc[4, "volatility_budget_target"]
+    assert guarded.loc[5, "position"] > guarded.loc[4, "position"]
+
+
+def test_default_quantbench_path_selector_configs_include_volatility_budget_candidate():
+    configs = default_quantbench_path_selector_configs()
+
+    budget_configs = [config for config in configs if config.volatility_target > 0.0]
+    names = {config.name for config in budget_configs}
+    assert "quantbench_ensemble_vol_budget_rf_logistic_v1" in names
+    candidate = next(config for config in budget_configs if config.name == "quantbench_ensemble_vol_budget_rf_logistic_v1")
+    assert candidate.volatility_stress_target < candidate.volatility_bull_target
+    assert candidate.portfolio_drawdown_trigger > 0.0
+    assert candidate.portfolio_reentry_max_drawdown < 1.0
 
 
 def test_fit_quantbench_drawdown_hazard_model_predicts_oos_future_drawdown_risk():

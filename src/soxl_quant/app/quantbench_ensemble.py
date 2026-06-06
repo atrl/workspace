@@ -60,8 +60,18 @@ class QuantBenchPathSelectorConfig:
     portfolio_drawdown_release: float = 0.06
     portfolio_reentry_floor: float = 0.0
     portfolio_reentry_cap: float = 0.55
+    portfolio_reentry_max_drawdown: float = 1.0
     hazard_threshold: float = 0.0
     hazard_cap: float = 0.12
+    volatility_target: float = 0.0
+    volatility_stress_target: float | None = None
+    volatility_neutral_target: float | None = None
+    volatility_recovery_target: float | None = None
+    volatility_bull_target: float | None = None
+    volatility_lookback: int = 20
+    volatility_min_periods: int = 10
+    volatility_floor: float = 0.0
+    volatility_max_scale: float = 1.0
 
 
 def _display_path(path: Path, root: Path | None = None) -> str:
@@ -289,7 +299,13 @@ def apply_quantbench_ensemble_drawdown_guard(
             guard_active = False
 
         raw_target = float(row.raw_position)
-        if guard_active and str(row.macro_regime) in {"bull", "recovery"} and config.portfolio_reentry_floor > 0.0:
+        can_reenter = (
+            guard_active
+            and str(row.macro_regime) in {"bull", "recovery"}
+            and config.portfolio_reentry_floor > 0.0
+            and drawdown <= float(config.portfolio_reentry_max_drawdown)
+        )
+        if can_reenter:
             target = min(
                 max(raw_target, float(config.portfolio_reentry_floor)),
                 float(config.portfolio_reentry_cap),
@@ -335,6 +351,70 @@ def apply_quantbench_hazard_guard(
     out.loc[out["hazard_guard"], "position"] = out.loc[out["hazard_guard"], "position"].astype(float).clip(
         upper=float(config.hazard_cap)
     )
+    return out
+
+
+def apply_quantbench_volatility_budget_guard(
+    daily: pd.DataFrame,
+    close: pd.Series,
+    config: QuantBenchPathSelectorConfig,
+) -> pd.DataFrame:
+    """Scale selected targets by a lagged realized-volatility risk budget."""
+    out = daily.copy()
+    out["datetime"] = pd.to_datetime(out["datetime"])
+    out = out.sort_values("datetime").reset_index(drop=True)
+    out["volatility_budget_raw_position"] = out["position"].astype(float).clip(0.0, 1.0)
+
+    base_target = float(config.volatility_target)
+    if base_target <= 0.0:
+        out["realized_volatility"] = np.nan
+        out["volatility_budget_target"] = np.nan
+        out["volatility_budget_scale"] = 1.0
+        out["volatility_budget_guard"] = False
+        return out
+
+    price = close.astype(float).copy()
+    price.index = pd.to_datetime(price.index)
+    returns = price.sort_index().pct_change().fillna(0.0)
+    lookback = max(int(config.volatility_lookback), 1)
+    min_periods = min(max(int(config.volatility_min_periods), 1), lookback)
+    realized_vol = returns.shift(1).rolling(lookback, min_periods=min_periods).std(ddof=0) * float(np.sqrt(252.0))
+    aligned_vol = realized_vol.reindex(pd.DatetimeIndex(out["datetime"])).astype(float)
+
+    def target_for_regime(regime: object) -> float:
+        label = str(regime)
+        if label == "stress" and config.volatility_stress_target is not None:
+            return float(config.volatility_stress_target)
+        if label == "bull" and config.volatility_bull_target is not None:
+            return float(config.volatility_bull_target)
+        if label == "recovery" and config.volatility_recovery_target is not None:
+            return float(config.volatility_recovery_target)
+        if label == "neutral" and config.volatility_neutral_target is not None:
+            return float(config.volatility_neutral_target)
+        return base_target
+
+    target = pd.Series([target_for_regime(regime) for regime in out["macro_regime"]], index=out.index, dtype=float)
+    raw = out["volatility_budget_raw_position"].astype(float)
+    finite_budget = target > 0.0
+    finite_vol = aligned_vol.reset_index(drop=True).replace([np.inf, -np.inf], np.nan)
+    scale = pd.Series(1.0, index=out.index, dtype=float)
+    guard = finite_budget & finite_vol.notna() & (finite_vol > target)
+    scale.loc[guard] = (target.loc[guard] / finite_vol.loc[guard]).clip(
+        lower=0.0,
+        upper=max(float(config.volatility_max_scale), 0.0),
+    )
+    budgeted = raw * scale
+    floor = max(float(config.volatility_floor), 0.0)
+    if floor > 0.0:
+        budgeted.loc[guard & (raw > 0.0)] = np.maximum(
+            budgeted.loc[guard & (raw > 0.0)],
+            np.minimum(raw.loc[guard & (raw > 0.0)], floor),
+        )
+    out.loc[guard, "position"] = np.minimum(raw.loc[guard], budgeted.loc[guard]).clip(0.0, 1.0)
+    out["realized_volatility"] = finite_vol.to_numpy(dtype=float)
+    out["volatility_budget_target"] = target.to_numpy(dtype=float)
+    out["volatility_budget_scale"] = scale.to_numpy(dtype=float)
+    out["volatility_budget_guard"] = guard.to_numpy(dtype=bool)
     return out
 
 
@@ -565,6 +645,8 @@ def build_quantbench_path_ensemble_payloads(
     for config in tuple(configs):
         daily = select_quantbench_path_ensemble(paths, risk_frame, config)
         daily = apply_quantbench_hazard_guard(daily, hazard_score, config)
+        if float(config.volatility_target) > 0.0:
+            daily = apply_quantbench_volatility_budget_guard(daily, close, config)
         daily = apply_quantbench_ensemble_drawdown_guard(daily, close, config, cost=cost)
         payload = _payload_for_daily(
             daily,
@@ -848,6 +930,48 @@ def default_quantbench_path_selector_configs(
             portfolio_reentry_cap=0.65,
         ),
         QuantBenchPathSelectorConfig(
+            name="quantbench_ensemble_vol_budget_rf_logistic_v1",
+            defensive_path=path("random_forest_clf", "macro_budget_defensive_v1"),
+            neutral_path=path("random_forest_clf", "macro_budget_defensive_v1"),
+            offensive_path=path("logistic_clf"),
+            recovery_path=path("logistic_clf"),
+            stress_floor=0.05,
+            stress_cap=0.18,
+            neutral_cap=0.35,
+            bull_floor=0.55,
+            bull_cap=0.95,
+            recovery_floor=0.30,
+            recovery_cap=0.70,
+            stress_risk_threshold=0.68,
+            stress_drop_threshold=-0.14,
+            stress_drawdown_threshold=-0.18,
+            bull_risk_threshold=0.42,
+            bull_momentum_threshold=0.02,
+            bull_trend_threshold=0.00,
+            bull_drawdown_floor=-0.15,
+            recovery_risk_threshold=0.60,
+            recovery_momentum_threshold=0.00,
+            recovery_trend_threshold=-0.04,
+            recovery_drawdown_min=-0.30,
+            recovery_drawdown_max=-0.04,
+            portfolio_drawdown_trigger=0.10,
+            portfolio_drawdown_cap=0.10,
+            portfolio_drawdown_release=0.04,
+            portfolio_reentry_floor=0.30,
+            portfolio_reentry_cap=0.55,
+            portfolio_reentry_max_drawdown=0.18,
+            hazard_threshold=0.85,
+            hazard_cap=0.05,
+            volatility_target=0.30,
+            volatility_stress_target=0.16,
+            volatility_neutral_target=0.26,
+            volatility_recovery_target=0.38,
+            volatility_bull_target=0.58,
+            volatility_lookback=20,
+            volatility_min_periods=10,
+            volatility_floor=0.05,
+        ),
+        QuantBenchPathSelectorConfig(
             name="quantbench_ensemble_hazard_rf_logistic_v1",
             defensive_path=path("random_forest_clf", "macro_budget_defensive_v1"),
             neutral_path=path("random_forest_clf", "macro_budget_defensive_v1"),
@@ -1073,6 +1197,7 @@ __all__ = [
     "QuantBenchPathSelectorConfig",
     "apply_quantbench_ensemble_drawdown_guard",
     "apply_quantbench_hazard_guard",
+    "apply_quantbench_volatility_budget_guard",
     "backtest_position_path",
     "build_quantbench_supervised_ensemble_report",
     "build_quantbench_path_ensemble_payloads",
