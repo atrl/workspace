@@ -126,9 +126,9 @@ def quantbench_model_objective_coverage() -> list[dict[str, str]]:
         {
             "family": "attention_tide_mixer",
             "paper_family": "deep sequence / mixer style",
-            "current_soxl_surface": "attention and TiDE actor surfaces exist; MLP-Mixer missing",
-            "coverage": "partial",
-            "next_step": "small-capacity mixer/attention screen only after objective gate",
+            "current_soxl_surface": "attention and TiDE actor surfaces exist; supervised TorchTCN temporal-convolution baseline implemented; MLP-Mixer missing",
+            "coverage": "implemented_partial",
+            "next_step": "compare TorchTCN and mixer-style signals under the same QuantBench gate before any actor retrain",
         },
         {
             "family": "relational_rgcn",

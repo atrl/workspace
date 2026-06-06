@@ -18,6 +18,7 @@
       "runtime/model_selection/card/quantbench_paper_soxl_v1/quantbench_ensemble_sequence_tapered_reentry_v1_soxl_daily.csv",
       "runtime/model_selection/card/quantbench_paper_soxl_v1/quantbench_ensemble_sequence_panic_chip_floor_v1_soxl_daily.csv",
       "runtime/model_selection/card/quantbench_paper_soxl_v1/quantbench_ensemble_lstm_panic_chip_floor_v1_soxl_daily.csv",
+      "runtime/model_selection/card/quantbench_paper_soxl_v1/quantbench_ensemble_tcn_panic_chip_floor_v1_soxl_daily.csv",
       "runtime/model_selection/card/quantbench_paper_soxl_v1/quantbench_ensemble_blend_anchor_reset_v1_soxl_daily.csv",
       "runtime/model_selection/card/quantbench_paper_soxl_v1/quantbench_ensemble_rolling_sequence_anchor_reset_v1_soxl_daily.csv",
       "runtime/model_selection/card/quantbench_paper_soxl_v1/quantbench_ensemble_hazard_rf_logistic_v1_soxl_daily.csv"
@@ -58,10 +59,11 @@
       "mlp_mse",
       "sequence_lag_ridge_mse",
       "lstm_mse",
+      "tcn_mse",
       "rolling_logistic_clf",
       "rolling_sequence_lag_ridge_mse"
     ],
-    "path_count": 57,
+    "path_count": 63,
     "risk_overlays": [
       "macro_budget_defensive_v1",
       "macro_budget_lowdd_v1",
@@ -76,10 +78,11 @@
     ],
     "rolling_refit_step_rows": 63,
     "rolling_train_lookback_rows": 1260,
-    "selector_count": 20,
+    "selector_count": 21,
     "signal_blends": [
       "blend_logistic_sequence_lowcorr_v1",
-      "blend_sequence_lstm_lowcorr_v1"
+      "blend_sequence_lstm_lowcorr_v1",
+      "blend_sequence_tcn_lowcorr_v1"
     ],
     "start": "2011-03-11",
     "test_window": [
@@ -197,6 +200,24 @@
       },
       {
         "bull_buy_and_hold_return": 191.7735092699,
+        "bull_capture": 0.5729843844660084,
+        "bull_return": 109.8832261659,
+        "eligible": false,
+        "failed_checks": [
+          "max_drawdown",
+          "stress_avg_pos"
+        ],
+        "profile": "quantbench_ensemble_tcn_panic_chip_floor_v1",
+        "proxy_max_dd": 21.143833211,
+        "proxy_return": 360.8587091392,
+        "score": 372.009493,
+        "source_path": "generated:quantbench_ensemble_tcn_panic_chip_floor_v1",
+        "stress_avg_pos": 0.08370321026051976,
+        "stress_max_dd": 14.2849998707,
+        "stress_relative_return": 78.4276785922
+      },
+      {
+        "bull_buy_and_hold_return": 191.7735092699,
         "bull_capture": 0.5463554725587185,
         "bull_return": 104.7765062814,
         "eligible": false,
@@ -285,28 +306,10 @@
         "stress_avg_pos": 0.08231605716491663,
         "stress_max_dd": 13.0458014842,
         "stress_relative_return": 80.2167122497
-      },
-      {
-        "bull_buy_and_hold_return": 191.7735092699,
-        "bull_capture": 0.24404856095703653,
-        "bull_return": 46.802048967,
-        "eligible": false,
-        "failed_checks": [
-          "stress_avg_pos",
-          "bull_capture"
-        ],
-        "profile": "quantbench_ensemble_rolling_sequence_anchor_reset_v1",
-        "proxy_max_dd": 19.8771495335,
-        "proxy_return": 146.3525165395,
-        "score": 131.465506,
-        "source_path": "generated:quantbench_ensemble_rolling_sequence_anchor_reset_v1",
-        "stress_avg_pos": 0.08231603859419209,
-        "stress_max_dd": 13.0457832824,
-        "stress_relative_return": 80.2167319477
       }
     ],
     "eligible_count": 0,
     "eligible_profiles": [],
-    "records": 20
+    "records": 21
   }
 }

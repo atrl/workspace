@@ -113,7 +113,37 @@ QUANTBENCH_SUPERVISED_MODEL_SPECS: tuple[SupervisedModelSpec, ...] = (
         target_kind="return",
         estimator="TorchLSTM",
     ),
+    SupervisedModelSpec(
+        name="tcn_mse",
+        paper_family="sequence_convolutional",
+        objective="mse",
+        target_kind="return",
+        estimator="TorchTemporalConv",
+    ),
 )
+
+
+def _sequence_shape_for_lagged_features(x: pd.DataFrame) -> tuple[int, int]:
+    lag_numbers = []
+    base_names = []
+    for column in x.columns:
+        name = str(column)
+        if "__lag_" not in name:
+            raise ValueError("sequence model features must be lag-expanded")
+        base, lag = name.rsplit("__lag_", 1)
+        lag_numbers.append(int(lag))
+        base_names.append(base)
+    lookback = max(lag_numbers) + 1
+    feature_count = len(tuple(dict.fromkeys(base_names)))
+    if lookback * feature_count != len(x.columns):
+        raise ValueError("sequence model lag feature layout is not rectangular")
+    return lookback, feature_count
+
+
+def _reshape_lagged_features(x: pd.DataFrame) -> np.ndarray:
+    lookback, feature_count = _sequence_shape_for_lagged_features(x)
+    arr = x.to_numpy(dtype=np.float32, copy=True).reshape(len(x), lookback, feature_count)
+    return arr[:, ::-1, :]
 
 
 class _TorchLSTMRegressor:
@@ -132,26 +162,8 @@ class _TorchLSTMRegressor:
         self.learning_rate = float(learning_rate)
         self.random_state = int(random_state)
 
-    def _sequence_shape(self, x: pd.DataFrame) -> tuple[int, int]:
-        lag_numbers = []
-        base_names = []
-        for column in x.columns:
-            name = str(column)
-            if "__lag_" not in name:
-                raise ValueError("TorchLSTM features must be lag-expanded")
-            base, lag = name.rsplit("__lag_", 1)
-            lag_numbers.append(int(lag))
-            base_names.append(base)
-        lookback = max(lag_numbers) + 1
-        feature_count = len(tuple(dict.fromkeys(base_names)))
-        if lookback * feature_count != len(x.columns):
-            raise ValueError("TorchLSTM lag feature layout is not rectangular")
-        return lookback, feature_count
-
     def _reshape_features(self, x: pd.DataFrame) -> np.ndarray:
-        lookback, feature_count = self._sequence_shape(x)
-        arr = x.to_numpy(dtype=np.float32, copy=True).reshape(len(x), lookback, feature_count)
-        return arr[:, ::-1, :]
+        return _reshape_lagged_features(x)
 
     def fit(self, x: pd.DataFrame, y: pd.Series):
         import torch
@@ -197,6 +209,81 @@ class _TorchLSTMRegressor:
         import torch
 
         values = (self._reshape_features(x) - self.x_mean_) / self.x_std_
+        self.model_.eval()
+        with torch.no_grad():
+            pred = self.model_(torch.as_tensor(values, dtype=torch.float32)).numpy().reshape(-1)
+        return pred * self.y_std_ + self.y_mean_
+
+
+class _TorchTemporalConvRegressor:
+    """Small TCN-style sequence regressor with a sklearn-like fit/predict API."""
+
+    def __init__(
+        self,
+        *,
+        hidden_size: int = 8,
+        epochs: int = 24,
+        learning_rate: float = 0.01,
+        random_state: int = 0,
+    ) -> None:
+        self.hidden_size = int(hidden_size)
+        self.epochs = int(epochs)
+        self.learning_rate = float(learning_rate)
+        self.random_state = int(random_state)
+
+    def _reshape_features(self, x: pd.DataFrame) -> np.ndarray:
+        return _reshape_lagged_features(x)
+
+    def fit(self, x: pd.DataFrame, y: pd.Series):
+        import torch
+        from torch import nn
+
+        torch.manual_seed(self.random_state)
+        train_x = self._reshape_features(x)
+        train_y = y.to_numpy(dtype=np.float32, copy=True).reshape(-1, 1)
+        self.x_mean_ = train_x.mean(axis=(0, 1), keepdims=True)
+        self.x_std_ = train_x.std(axis=(0, 1), keepdims=True)
+        self.x_std_[self.x_std_ < 1e-6] = 1.0
+        self.y_mean_ = float(train_y.mean())
+        self.y_std_ = float(train_y.std())
+        if self.y_std_ < 1e-6:
+            self.y_std_ = 1.0
+        train_x = (train_x - self.x_mean_) / self.x_std_
+        train_y = (train_y - self.y_mean_) / self.y_std_
+        x_tensor = torch.as_tensor(np.transpose(train_x, (0, 2, 1)), dtype=torch.float32)
+        y_tensor = torch.as_tensor(train_y, dtype=torch.float32)
+
+        class _Net(nn.Module):
+            def __init__(self, feature_count: int, hidden_size: int) -> None:
+                super().__init__()
+                self.layers = nn.Sequential(
+                    nn.Conv1d(feature_count, hidden_size, kernel_size=3, padding=1),
+                    nn.ReLU(),
+                    nn.Conv1d(hidden_size, hidden_size, kernel_size=3, padding=2, dilation=2),
+                    nn.ReLU(),
+                )
+                self.head = nn.Linear(hidden_size, 1)
+
+            def forward(self, values):
+                encoded = self.layers(values)
+                return self.head(encoded[:, :, -1])
+
+        self.model_ = _Net(int(train_x.shape[-1]), self.hidden_size)
+        optimizer = torch.optim.Adam(self.model_.parameters(), lr=self.learning_rate)
+        loss_fn = nn.MSELoss()
+        self.model_.train()
+        for _ in range(max(self.epochs, 1)):
+            optimizer.zero_grad()
+            loss = loss_fn(self.model_(x_tensor), y_tensor)
+            loss.backward()
+            optimizer.step()
+        return self
+
+    def predict(self, x: pd.DataFrame) -> np.ndarray:
+        import torch
+
+        values = (self._reshape_features(x) - self.x_mean_) / self.x_std_
+        values = np.transpose(values, (0, 2, 1))
         self.model_.eval()
         with torch.no_grad():
             pred = self.model_(torch.as_tensor(values, dtype=torch.float32)).numpy().reshape(-1)
@@ -358,6 +445,8 @@ def _build_model(spec: SupervisedModelSpec):
         return make_pipeline(StandardScaler(), Ridge(alpha=2.0))
     if spec.name == "lstm_mse":
         return _TorchLSTMRegressor(hidden_size=8, epochs=24, learning_rate=0.01, random_state=0)
+    if spec.name == "tcn_mse":
+        return _TorchTemporalConvRegressor(hidden_size=8, epochs=24, learning_rate=0.01, random_state=0)
     raise ValueError(f"unknown supervised model '{spec.name}'")
 
 
@@ -365,6 +454,8 @@ def _sequence_lookback_for_spec(spec: SupervisedModelSpec) -> int:
     if spec.name == "sequence_lag_ridge_mse":
         return 5
     if spec.name == "lstm_mse":
+        return 8
+    if spec.name == "tcn_mse":
         return 8
     return 1
 
