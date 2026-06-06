@@ -61,6 +61,11 @@ class QuantBenchPathSelectorConfig:
     portfolio_reentry_floor: float = 0.0
     portfolio_reentry_cap: float = 0.55
     portfolio_reentry_max_drawdown: float = 1.0
+    portfolio_drawdown_budget_start: float = 0.0
+    portfolio_drawdown_budget_full: float = 0.0
+    portfolio_drawdown_budget_start_cap: float = 1.0
+    portfolio_drawdown_budget_min_cap: float = 0.0
+    portfolio_drawdown_budget_stress_floor: float = 0.0
     confirmed_reentry_floor: float = 0.0
     confirmed_reentry_cap: float = 0.0
     confirmed_reentry_ma_window: int = 50
@@ -281,7 +286,11 @@ def apply_quantbench_ensemble_drawdown_guard(
     out["datetime"] = pd.to_datetime(out["datetime"])
     out = out.sort_values("datetime").reset_index(drop=True)
     out["raw_position"] = out["position"].astype(float).clip(0.0, 1.0)
-    if float(config.portfolio_drawdown_trigger) <= 0.0:
+    budget_enabled = (
+        float(config.portfolio_drawdown_budget_start) > 0.0
+        and float(config.portfolio_drawdown_budget_full) > float(config.portfolio_drawdown_budget_start)
+    )
+    if float(config.portfolio_drawdown_trigger) <= 0.0 and not budget_enabled:
         out["portfolio_drawdown_guard"] = False
         out["portfolio_drawdown"] = 0.0
         return out
@@ -336,15 +345,20 @@ def apply_quantbench_ensemble_drawdown_guard(
     guard_flags: list[bool] = []
     drawdowns: list[float] = []
     confirmed_flags: list[bool] = []
+    budget_caps: list[float] = []
+    budget_flags: list[bool] = []
     for row in out.itertuples(index=False):
         date = pd.Timestamp(row.datetime)
         day_return = float(returns.loc[date]) if date in returns.index else 0.0
         equity *= 1.0 + previous_target * day_return
         peak = max(peak, equity)
         drawdown = 1.0 - equity / peak if peak > 0.0 else 0.0
-        if drawdown >= float(config.portfolio_drawdown_trigger):
-            guard_active = True
-        elif drawdown <= float(config.portfolio_drawdown_release):
+        if float(config.portfolio_drawdown_trigger) > 0.0:
+            if drawdown >= float(config.portfolio_drawdown_trigger):
+                guard_active = True
+            elif drawdown <= float(config.portfolio_drawdown_release):
+                guard_active = False
+        else:
             guard_active = False
 
         raw_target = float(row.raw_position)
@@ -375,17 +389,45 @@ def apply_quantbench_ensemble_drawdown_guard(
         else:
             target = raw_target
 
+        if budget_enabled:
+            severity = float(
+                np.clip(
+                    (drawdown - float(config.portfolio_drawdown_budget_start))
+                    / (float(config.portfolio_drawdown_budget_full) - float(config.portfolio_drawdown_budget_start)),
+                    0.0,
+                    1.0,
+                )
+            )
+            budget_cap = (1.0 - severity) * float(config.portfolio_drawdown_budget_start_cap) + severity * float(
+                config.portfolio_drawdown_budget_min_cap
+            )
+            budget_cap = float(np.clip(budget_cap, 0.0, 1.0))
+            budget_guard = drawdown >= float(config.portfolio_drawdown_budget_start)
+            if budget_guard:
+                target = min(target, budget_cap)
+                stress_floor = float(config.portfolio_drawdown_budget_stress_floor)
+                if stress_floor > 0.0 and str(row.macro_regime) == "stress" and raw_target > 0.0:
+                    target = max(target, min(raw_target, stress_floor))
+        else:
+            budget_cap = 1.0
+            budget_guard = False
+
         equity -= abs(target - previous_target) * float(cost)
         peak = max(peak, equity)
         guarded.append(float(np.clip(target, 0.0, 1.0)))
         guard_flags.append(bool(guard_active))
         drawdowns.append(float(drawdown))
         confirmed_flags.append(bool(confirmed_reentry))
+        budget_caps.append(float(budget_cap))
+        budget_flags.append(bool(budget_guard))
         previous_target = target
 
     out["position"] = guarded
     out["portfolio_drawdown_guard"] = guard_flags
     out["portfolio_drawdown"] = drawdowns
+    if budget_enabled:
+        out["portfolio_drawdown_budget_cap"] = budget_caps
+        out["portfolio_drawdown_budget_guard"] = budget_flags
     if confirmed_reentry_enabled:
         out["confirmed_reentry"] = confirmed_flags
         for column in confirmed_frame.columns:
@@ -1095,6 +1137,42 @@ def default_quantbench_path_selector_configs(
             volatility_lookback=20,
             volatility_min_periods=10,
             volatility_floor=0.10,
+        ),
+        QuantBenchPathSelectorConfig(
+            name="quantbench_ensemble_drawdown_budget_guarded_rf_logistic_v1",
+            defensive_path=path("random_forest_clf", "macro_budget_defensive_v1"),
+            neutral_path=path("random_forest_clf", "macro_budget_defensive_v1"),
+            offensive_path=path("logistic_clf"),
+            recovery_path=path("logistic_clf"),
+            stress_floor=0.10,
+            stress_cap=0.14,
+            neutral_cap=0.20,
+            bull_floor=0.70,
+            bull_cap=0.98,
+            recovery_floor=0.50,
+            recovery_cap=0.85,
+            stress_risk_threshold=0.92,
+            stress_drop_threshold=-0.35,
+            stress_drawdown_threshold=-0.45,
+            bull_risk_threshold=0.50,
+            bull_momentum_threshold=0.00,
+            bull_trend_threshold=-0.05,
+            bull_drawdown_floor=-0.30,
+            recovery_risk_threshold=0.75,
+            recovery_momentum_threshold=0.00,
+            recovery_trend_threshold=-0.08,
+            recovery_drawdown_min=-0.45,
+            recovery_drawdown_max=-0.02,
+            portfolio_drawdown_trigger=0.15,
+            portfolio_drawdown_cap=0.08,
+            portfolio_drawdown_release=0.05,
+            portfolio_reentry_floor=0.40,
+            portfolio_reentry_cap=0.65,
+            portfolio_drawdown_budget_start=0.06,
+            portfolio_drawdown_budget_full=0.16,
+            portfolio_drawdown_budget_start_cap=0.45,
+            portfolio_drawdown_budget_min_cap=0.02,
+            portfolio_drawdown_budget_stress_floor=0.10,
         ),
         QuantBenchPathSelectorConfig(
             name="quantbench_ensemble_hazard_rf_logistic_v1",
