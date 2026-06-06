@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
+import builtins
 import pandas as pd
 import pytest
 
@@ -134,9 +135,11 @@ def test_fetch_intraday_cli_dry_run_does_not_write(monkeypatch: pytest.MonkeyPat
     from scripts import fetch_intraday_data
     from src.soxl_quant.app import intraday_data
 
+    seen_kwargs = {}
+
     class FakeProvider:
         def __init__(self, *args, **kwargs):
-            pass
+            seen_kwargs.update(kwargs)
 
         def fetch(self, symbol: str, start: str, end: str, interval: str):
             return intraday_data.normalize_intraday_bars(
@@ -163,11 +166,42 @@ def test_fetch_intraday_cli_dry_run_does_not_write(monkeypatch: pytest.MonkeyPat
             "--end",
             "2026-06-04",
             "--dry-run",
+            "--futu-timeout-sec",
+            "7",
         ]
     )
 
     assert result["rows"] == 1
+    assert seen_kwargs["connect_timeout_sec"] == 7
     assert not (tmp_path / "data").exists()
+
+
+def test_prepare_futu_log_home_points_sdk_home_to_writable_runtime(monkeypatch: pytest.MonkeyPatch, tmp_path: Path):
+    from src.soxl_quant.app.intraday_data import _prepare_futu_log_home
+
+    monkeypatch.setenv("HOME", "/original/home")
+
+    previous = _prepare_futu_log_home(tmp_path / "futu_home")
+
+    assert previous == "/original/home"
+    assert Path.home() == tmp_path / "futu_home"
+    assert (tmp_path / "futu_home").exists()
+
+
+def test_futu_import_permission_error_is_not_reported_as_missing_sdk(monkeypatch: pytest.MonkeyPatch):
+    from src.soxl_quant.app.intraday_data import _import_futu_sdk
+
+    real_import = builtins.__import__
+
+    def fake_import(name, *args, **kwargs):
+        if name == "futu":
+            raise PermissionError("cannot write futu log")
+        return real_import(name, *args, **kwargs)
+
+    monkeypatch.setattr(builtins, "__import__", fake_import)
+
+    with pytest.raises(RuntimeError, match="failed to import futu-api.*PermissionError"):
+        _import_futu_sdk()
 
 
 def test_intraday_daily_feature_builder_lags_features_by_one_day(tmp_path: Path):

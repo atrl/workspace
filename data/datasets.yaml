@@ -9,7 +9,7 @@ external:
     end: null
     exists: true
     path: data/raw/external/VIX.csv
-    rows: 4080
+    rows: 4084
     start: null
   VIX3M:
     end: null
@@ -119,6 +119,12 @@ external:
     path: data/raw/external/futu_snapshot_US_SOXX.csv
     rows: 1
     start: '2026-05-22'
+  intraday_features_soxl_1m:
+    end: '2026-06-05'
+    exists: true
+    path: data/raw/external/intraday_features_soxl_1m.csv
+    rows: 608
+    start: '2024-01-03'
   oil_wti:
     end: null
     exists: true
@@ -155,19 +161,35 @@ external:
     path: data/raw/external/yield_curve_10y3m.csv
     rows: 11081
     start: null
-generated_at: '2026-05-29T22:15:11.317036+00:00'
+generated_at: '2026-06-06T09:13:48.267475+00:00'
+intraday:
+  soxl_soxx_1m:
+    end: '2026-06-04T16:00:00-04:00'
+    exists: true
+    intervals:
+    - 1m
+    path: data/processed/intraday/soxl_soxx_1m.parquet
+    providers:
+    - futu
+    rows: 472080
+    start: '2024-01-02T09:31:00-05:00'
+    symbols:
+    - SOXL
+    - SOXX
 layout:
+  processed_intraday: data/processed/intraday/<asset>_<interval>.parquet
   processed_panels: data/processed/panels/<asset>_with_underlying_vix.csv
   qlib: data/qlib/<asset>/
   raw_external: data/raw/external/<NAME>.csv
+  raw_intraday: data/raw/intraday/<provider>/<ticker>_<interval>.parquet
   raw_symbols: data/raw/symbols/<TICKER>.csv
   training_cache: data/cache/training/<profile>.pkl
 processed_panels:
   soxl_soxx_vix_full:
-    end: '2026-05-29'
+    end: '2026-06-04'
     exists: true
     path: data/processed/panels/soxl_soxx_vix_full.csv
-    rows: 4080
+    rows: 4084
     start: '2010-03-11'
   soxl_with_underlying_vix:
     end: '2026-04-13'
@@ -256,16 +278,16 @@ qlib:
     path: data/qlib/upro
 symbols:
   SOXL:
-    end: '2026-05-29'
+    end: '2026-06-04'
     exists: true
     path: data/raw/symbols/SOXL.csv
-    rows: 4080
+    rows: 4084
     start: '2010-03-11'
   SOXX:
-    end: '2026-05-29'
+    end: '2026-06-04'
     exists: true
     path: data/raw/symbols/SOXX.csv
-    rows: 4080
+    rows: 4084
     start: '2010-03-11'
   SPXL:
     end: '2026-04-15'

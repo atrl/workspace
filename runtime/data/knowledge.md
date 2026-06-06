@@ -126,6 +126,26 @@
 
 - `runtime/data/card/futu_full_history_probe_v1/notes.md`
 
+## Futu SOXL/SOXX 1m Intraday Cache（2026-06-06）
+
+- `scripts/fetch_intraday_data.py` 现在给 Futu SDK 配置 repo 内可写
+  `runtime/futu_sdk_home`，并对 OpenD 连接和 `request_history_kline` 调用加
+  timeout，避免分钟级分页卡住时无限等待。
+- 使用本机 Futu OpenD 成功拉取并落盘 SOXL/SOXX 真实 1m regular-session K 线：
+  - `data/raw/intraday/futu/soxl_1m.parquet`：`236040` rows。
+  - `data/raw/intraday/futu/soxx_1m.parquet`：`236040` rows。
+  - `data/processed/intraday/soxl_soxx_1m.parquet`：`472080` rows，`2024-01-02 09:31 America/New_York` 至 `2026-06-04 16:00 America/New_York`，`608` trading days。
+  - `data/raw/external/intraday_features_soxl_1m.csv`：`608` T+1 daily-safe rows，`2024-01-03` 至 `2026-06-05`。
+- Futu 1m timestamp 表现为 minute bar close time，regular session 每日 `390`
+  bars，首根通常为 `09:31`，不应误判为缺少 `09:30`。
+- 这批分钟数据足够开始 2024-2026 的分钟微结构因子筛选/模型辅助实验，但还不是
+  SOXL 上市以来全历史分钟覆盖；训练前仍需按切片验证并保持 T+1 滞后。
+
+证据卡：
+
+- `runtime/data/card/quantbench_intraday_soxl_v1/quantbench_intraday_soxl_v1.ipynb`
+- `runtime/data/card/quantbench_intraday_soxl_v1/summary.json`
+
 ## 50 Core Features 主题分类
 
 | 主题 | 特征数 | 关键驱动 |

@@ -11,6 +11,8 @@ from typing import Iterable, Sequence
 import pandas as pd
 import requests
 
+from src.soxl_quant.app.futu import call_with_connect_timeout, check_opend_port
+
 NEW_YORK_TZ = "America/New_York"
 CANONICAL_INTRADAY_COLUMNS = [
     "provider",
@@ -48,6 +50,27 @@ def _session_for_timestamp(timestamp: pd.Timestamp) -> str:
     if 930 <= hhmm <= 1600:
         return "regular"
     return "extended"
+
+
+def _prepare_futu_log_home(log_home: Path | str | None) -> str | None:
+    if log_home is None:
+        return os.environ.get("HOME")
+    previous = os.environ.get("HOME")
+    path = Path(log_home)
+    path.mkdir(parents=True, exist_ok=True)
+    os.environ["HOME"] = str(path)
+    return previous
+
+
+def _import_futu_sdk(log_home: Path | str | None = None):
+    _prepare_futu_log_home(log_home)
+    try:
+        import futu
+    except ModuleNotFoundError as exc:
+        raise RuntimeError("futu-api not installed") from exc
+    except Exception as exc:
+        raise RuntimeError(f"failed to import futu-api: {type(exc).__name__}: {exc}") from exc
+    return futu
 
 
 def normalize_intraday_bars(
@@ -144,29 +167,38 @@ class PolygonIntradayProvider:
 class FutuIntradayProvider:
     host: str = "127.0.0.1"
     port: int = 11111
+    log_home: Path | None = None
+    connect_timeout_sec: float = 20.0
 
     def fetch(self, symbol: str, *, start: str, end: str, interval: str = "1m") -> pd.DataFrame:
-        try:
-            import futu
-        except Exception as exc:
-            raise RuntimeError("futu-api not installed") from exc
+        if not check_opend_port(self.host, self.port, timeout=min(float(self.connect_timeout_sec), 5.0)):
+            raise RuntimeError(f"Futu OpenD is not reachable at {self.host}:{self.port}")
+        futu = _import_futu_sdk(self.log_home)
+        if hasattr(futu, "SysConfig"):
+            futu.SysConfig.set_all_thread_daemon(True)
 
         ktype = getattr(futu.KLType, "K_1M" if interval == "1m" else f"K_{interval.upper()}", None)
         if ktype is None:
             raise ValueError(f"Unsupported Futu interval: {interval}")
         code = symbol if symbol.startswith("US.") else f"US.{symbol.upper()}"
-        ctx = futu.OpenQuoteContext(host=self.host, port=self.port)
+        ctx = call_with_connect_timeout(
+            lambda: futu.OpenQuoteContext(host=self.host, port=self.port),
+            seconds=float(self.connect_timeout_sec),
+        )
         rows: list[pd.DataFrame] = []
         page_req_key = None
         try:
             while True:
-                ret, data, page_req_key = ctx.request_history_kline(
-                    code=code,
-                    start=start,
-                    end=end,
-                    ktype=ktype,
-                    max_count=1000,
-                    page_req_key=page_req_key,
+                ret, data, page_req_key = call_with_connect_timeout(
+                    lambda: ctx.request_history_kline(
+                        code=code,
+                        start=start,
+                        end=end,
+                        ktype=ktype,
+                        max_count=1000,
+                        page_req_key=page_req_key,
+                    ),
+                    seconds=float(self.connect_timeout_sec),
                 )
                 if ret != futu.RET_OK:
                     raise RuntimeError(f"request_history_kline failed: {data}")

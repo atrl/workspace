@@ -1,18 +1,19 @@
 {
   "coverage": {
-    "end": "2026-06-04T15:59:00-04:00",
-    "max_close_disagreement_abs": 0.010000000000001563,
+    "end": "2026-06-04T16:00:00-04:00",
+    "max_close_disagreement_abs": 0.0,
     "providers": [
       "futu"
     ],
-    "rows": 2,
-    "source": "offline_fixture",
-    "start": "2026-06-04T09:30:00-04:00",
+    "rows": 472080,
+    "source": "canonical_cache",
+    "start": "2024-01-02T09:31:00-05:00",
     "symbols": [
-      "SOXL"
+      "SOXL",
+      "SOXX"
     ]
   },
-  "decision": "architecture_ready_live_fetch_pending",
+  "decision": "canonical_intraday_cache_available",
   "experiment": "quantbench_intraday_soxl_v1",
   "feature_columns": [
     "INTRADAY_SOXL_BAR_COUNT_1M",
@@ -21,7 +22,7 @@
     "INTRADAY_SOXL_REALIZED_VOL_1M",
     "INTRADAY_SOXL_VOLUME_CONCENTRATION_CLOSE_30M"
   ],
-  "feature_rows": 1,
+  "feature_rows": 608,
   "live_fetch_command": "PYTHONPATH=. qlib_venv/bin/python scripts/fetch_intraday_data.py --providers futu,polygon --symbols SOXL,SOXX --interval 1m --start 2024-01-01 --end 2026-06-04 --session regular",
   "promotion_allowed": false,
   "provider_requirements": {
@@ -36,6 +37,6 @@
   "sidecars": [
     "summary.json"
   ],
-  "source": "offline_fixture",
+  "source": "canonical_cache",
   "training_allowed_from_this_card": false
 }

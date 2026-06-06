@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-06T02:14:16.785593+00:00",
+  "generated_at": "2026-06-06T12:32:53.918293+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -23,7 +23,7 @@
       "path": "runtime/data/card/quantbench_intraday_soxl_v1/summary.json",
       "category": "data",
       "suffix": ".json",
-      "bytes": 1453
+      "bytes": 1454
     },
     {
       "path": "runtime/data/card/soxl_data_pipeline/card.md",
@@ -35,7 +35,7 @@
       "path": "runtime/data/knowledge.md",
       "category": "data",
       "suffix": ".md",
-      "bytes": 9091
+      "bytes": 10389
     },
     {
       "path": "runtime/data/leakage_validation_report.json",
@@ -2897,7 +2897,7 @@
       "path": "runtime/model/card/balanced/balanced_soxl_daily.csv",
       "category": "model",
       "suffix": ".csv",
-      "bytes": 202831
+      "bytes": 203862
     },
     {
       "path": "runtime/model/card/balanced/balanced_stress_select_v2.md",
@@ -3215,7 +3215,7 @@
       "path": "runtime/model/card/balanced_macro_v1/balanced_macro_v1_soxl_daily.csv",
       "category": "model",
       "suffix": ".csv",
-      "bytes": 202893
+      "bytes": 203926
     },
     {
       "path": "runtime/model/card/balanced_macro_v1/notes.md",
@@ -3263,7 +3263,7 @@
       "path": "runtime/model/card/balanced_rule_residual_imitation_v4/balanced_rule_residual_imitation_v4_soxl_daily.csv",
       "category": "model",
       "suffix": ".csv",
-      "bytes": 203048
+      "bytes": 204079
     },
     {
       "path": "runtime/model/card/balanced_rule_residual_imitation_v4/balanced_rule_residual_imitation_v4_wf_2020_soxl_daily.csv",
@@ -3503,7 +3503,7 @@
       "path": "runtime/model/card/balanced_rule_residual_v19/balanced_rule_residual_v19_soxl_daily.csv",
       "category": "model",
       "suffix": ".csv",
-      "bytes": 203240
+      "bytes": 204274
     },
     {
       "path": "runtime/model/card/balanced_rule_residual_v19/soxl_balanced_rule_residual_v19_summary.json",
@@ -3671,7 +3671,7 @@
       "path": "runtime/model/card/balanced_rule_residual_v19_reg/balanced_rule_residual_v19_reg_soxl_daily.csv",
       "category": "model",
       "suffix": ".csv",
-      "bytes": 202729
+      "bytes": 203773
     },
     {
       "path": "runtime/model/card/balanced_rule_residual_v19_reg/soxl_balanced_rule_residual_v19_reg_summary.json",
@@ -3731,7 +3731,7 @@
       "path": "runtime/model/card/balanced_rule_residual_v19_reg_light/balanced_rule_residual_v19_reg_light_soxl_daily.csv",
       "category": "model",
       "suffix": ".csv",
-      "bytes": 201284
+      "bytes": 202302
     },
     {
       "path": "runtime/model/card/balanced_rule_residual_v19_reg_light/soxl_balanced_rule_residual_v19_reg_light_summary.json",
@@ -3767,7 +3767,7 @@
       "path": "runtime/model/card/balanced_rule_residual_v19_reg_v22_retest_v1/balanced_rule_residual_v19_reg_v22_retest_v1_soxl_daily.csv",
       "category": "model",
       "suffix": ".csv",
-      "bytes": 202896
+      "bytes": 203929
     },
     {
       "path": "runtime/model/card/balanced_rule_residual_v19_reg_v22_retest_v1/notes.md",
@@ -3935,7 +3935,7 @@
       "path": "runtime/model/card/balanced_rule_residual_v22/balanced_rule_residual_v22_soxl_daily.csv",
       "category": "model",
       "suffix": ".csv",
-      "bytes": 202560
+      "bytes": 203596
     },
     {
       "path": "runtime/model/card/balanced_rule_residual_v22/runtime_selection_review.json",
@@ -3971,7 +3971,7 @@
       "path": "runtime/model/card/balanced_rule_residual_v22_continued_retention_v1/balanced_rule_residual_v22_continued_retention_v1_soxl_daily.csv",
       "category": "model",
       "suffix": ".csv",
-      "bytes": 202560
+      "bytes": 203596
     },
     {
       "path": "runtime/model/card/balanced_rule_residual_v22_continued_retention_v1/notes.md",
@@ -4139,7 +4139,7 @@
       "path": "runtime/model/card/drawdown_rebound_reward_train_v1/drawdown_rebound_reward_train_v1_soxl_daily.csv",
       "category": "model",
       "suffix": ".csv",
-      "bytes": 199728
+      "bytes": 202092
     },
     {
       "path": "runtime/model/card/drawdown_rebound_reward_train_v1/drawdown_rebound_reward_train_v1_wf_2020_soxl_daily.csv",
@@ -4343,7 +4343,7 @@
       "path": "runtime/model/card/mode_conditioned_rebound_reward_train_v2/mode_conditioned_rebound_reward_train_v2_soxl_daily.csv",
       "category": "model",
       "suffix": ".csv",
-      "bytes": 201392
+      "bytes": 201825
     },
     {
       "path": "runtime/model/card/mode_conditioned_rebound_reward_train_v2/mode_conditioned_rebound_reward_train_v2_wf_2020_soxl_daily.csv",
@@ -4637,7 +4637,7 @@
       "path": "runtime/model/card/smoke/smoke_soxl_daily.csv",
       "category": "model",
       "suffix": ".csv",
-      "bytes": 198652
+      "bytes": 199580
     },
     {
       "path": "runtime/model/card/smoke/soxl_smoke_summary.json",
@@ -4691,7 +4691,7 @@
       "path": "runtime/model/card/state_conditioned_drawdown_rebound_reward_train_v1/state_conditioned_drawdown_rebound_reward_train_v1_soxl_daily.csv",
       "category": "model",
       "suffix": ".csv",
-      "bytes": 200705
+      "bytes": 202863
     },
     {
       "path": "runtime/model/card/state_conditioned_drawdown_rebound_reward_train_v1/state_conditioned_drawdown_rebound_reward_train_v1_wf_2020_soxl_daily.csv",
@@ -6836,6 +6836,18 @@
       "bytes": 341
     },
     {
+      "path": "runtime/model_selection/card/heuristic_strategy_search_v1/heuristic_strategy_screen.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 566344
+    },
+    {
+      "path": "runtime/model_selection/card/heuristic_strategy_search_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 11562
+    },
+    {
       "path": "runtime/model_selection/card/joint_reward_checkpoint_recipe_v1/alignment_summary.json",
       "category": "model_selection",
       "suffix": ".json",
@@ -7442,6 +7454,18 @@
       "bytes": 80909
     },
     {
+      "path": "runtime/model_selection/card/quantbench_model_gate_scan_v1/model_gate_scan.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 49317
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_model_gate_scan_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 107839
+    },
+    {
       "path": "runtime/model_selection/card/rebound_representation_separability_v1/base_context.json",
       "category": "model_selection",
       "suffix": ".json",
@@ -7536,6 +7560,36 @@
       "category": "model_selection",
       "suffix": ".json",
       "bytes": 3780
+    },
+    {
+      "path": "runtime/model_selection/card/rolling_heuristic_selector_v1/heuristic_strategy_screen.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 566344
+    },
+    {
+      "path": "runtime/model_selection/card/rolling_heuristic_selector_v1/rolling_selector_candidates.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 782
+    },
+    {
+      "path": "runtime/model_selection/card/rolling_heuristic_selector_v1/rolling_selector_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 293836
+    },
+    {
+      "path": "runtime/model_selection/card/rolling_heuristic_selector_v1/rolling_selector_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 419
+    },
+    {
+      "path": "runtime/model_selection/card/rolling_heuristic_selector_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1835
     },
     {
       "path": "runtime/model_selection/card/selection_overfit_audit_v1/risk_budget_conservative_frontier.csv",
@@ -11909,7 +11963,7 @@
       "path": "runtime/production/card/vercel_remote_deploy_v1/vercel_deployment_check.json",
       "category": "production",
       "suffix": ".json",
-      "bytes": 1443
+      "bytes": 1474
     },
     {
       "path": "runtime/production/card/vercel_scheduled_deploy_v1/notes.md",

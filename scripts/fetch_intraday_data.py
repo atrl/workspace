@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import argparse
 import sys
+import tempfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -28,12 +29,18 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--dry-run", action="store_true", help="Fetch and summarize without writing files")
     parser.add_argument("--futu-host", default="127.0.0.1")
     parser.add_argument("--futu-port", type=int, default=11111)
+    parser.add_argument("--futu-timeout-sec", type=float, default=20.0, help="Timeout for Futu SDK connect/request calls")
     return parser.parse_args(argv)
 
 
 def _provider_for_name(name: str, args: argparse.Namespace):
     if name == "futu":
-        return FutuIntradayProvider(host=args.futu_host, port=args.futu_port)
+        return FutuIntradayProvider(
+            host=args.futu_host,
+            port=args.futu_port,
+            log_home=Path(tempfile.gettempdir()) / "soxl_futu_sdk_home",
+            connect_timeout_sec=args.futu_timeout_sec,
+        )
     if name == "polygon":
         return PolygonIntradayProvider()
     raise ValueError(f"Unsupported provider: {name}")
