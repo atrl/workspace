@@ -1,0 +1,3267 @@
+{
+  "decision": "hard_gate_no_existing_model_passes",
+  "experiment": "quantbench_model_gate_scan_v1",
+  "next_action": "If no pass, train or compose candidates explicitly against 2022 drawdown control and 2023-2024 participation, then rerun this scan.",
+  "passing_profiles": [],
+  "promotion_allowed": false,
+  "rows": [
+    {
+      "buyhold_return_pct": 146.146723,
+      "end": "2026-03-31",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 56.61581,
+      "path": "runtime/model/card/balanced/balanced_fixed_leakage_soxl_daily.csv",
+      "profile": "balanced_fixed_leakage",
+      "relative_return_pct": 220.008263,
+      "rows": 1569,
+      "start": "2020-01-02",
+      "strategy_return_pct": 366.154985,
+      "window": "full_replay"
+    },
+    {
+      "buyhold_return_pct": 59.775308,
+      "end": "2020-12-31",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 23.230513,
+      "path": "runtime/model/card/balanced/balanced_fixed_leakage_soxl_daily.csv",
+      "profile": "balanced_fixed_leakage",
+      "relative_return_pct": 70.722595,
+      "rows": 253,
+      "start": "2020-01-02",
+      "strategy_return_pct": 130.497903,
+      "window": "test_2020"
+    },
+    {
+      "buyhold_return_pct": -86.588072,
+      "end": "2022-12-30",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 52.073659,
+      "path": "runtime/model/card/balanced/balanced_fixed_leakage_soxl_daily.csv",
+      "profile": "balanced_fixed_leakage",
+      "relative_return_pct": 41.505788,
+      "rows": 251,
+      "start": "2022-01-03",
+      "strategy_return_pct": -45.082284,
+      "window": "test_2022"
+    },
+    {
+      "buyhold_return_pct": 191.773509,
+      "end": "2024-12-31",
+      "failures": [
+        "max_drawdown_ge_20",
+        "relative_return_not_positive"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 39.193369,
+      "path": "runtime/model/card/balanced/balanced_fixed_leakage_soxl_daily.csv",
+      "profile": "balanced_fixed_leakage",
+      "relative_return_pct": -115.854661,
+      "rows": 502,
+      "start": "2023-01-03",
+      "strategy_return_pct": 75.918849,
+      "window": "test_2023_2024"
+    },
+    {
+      "buyhold_return_pct": 73.147812,
+      "end": "2026-03-31",
+      "failures": [
+        "max_drawdown_ge_20",
+        "relative_return_not_positive"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 35.012851,
+      "path": "runtime/model/card/balanced/balanced_fixed_leakage_soxl_daily.csv",
+      "profile": "balanced_fixed_leakage",
+      "relative_return_pct": -38.249499,
+      "rows": 311,
+      "start": "2025-01-02",
+      "strategy_return_pct": 34.898313,
+      "window": "latest_2025_2026"
+    },
+    {
+      "buyhold_return_pct": 1341.327571,
+      "end": "2026-06-03",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 56.239583,
+      "path": "runtime/model/card/balanced/balanced_soxl_daily.csv",
+      "profile": "balanced",
+      "relative_return_pct": 419.749144,
+      "rows": 1613,
+      "start": "2020-01-02",
+      "strategy_return_pct": 1761.076715,
+      "window": "full_replay"
+    },
+    {
+      "buyhold_return_pct": 59.775308,
+      "end": "2020-12-31",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 24.249376,
+      "path": "runtime/model/card/balanced/balanced_soxl_daily.csv",
+      "profile": "balanced",
+      "relative_return_pct": 45.304882,
+      "rows": 253,
+      "start": "2020-01-02",
+      "strategy_return_pct": 105.080191,
+      "window": "test_2020"
+    },
+    {
+      "buyhold_return_pct": -86.588072,
+      "end": "2022-12-30",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 52.108327,
+      "path": "runtime/model/card/balanced/balanced_soxl_daily.csv",
+      "profile": "balanced",
+      "relative_return_pct": 37.003287,
+      "rows": 251,
+      "start": "2022-01-03",
+      "strategy_return_pct": -49.584784,
+      "window": "test_2022"
+    },
+    {
+      "buyhold_return_pct": 191.773509,
+      "end": "2024-12-31",
+      "failures": [
+        "max_drawdown_ge_20",
+        "relative_return_not_positive"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 37.083739,
+      "path": "runtime/model/card/balanced/balanced_soxl_daily.csv",
+      "profile": "balanced",
+      "relative_return_pct": -48.238749,
+      "rows": 502,
+      "start": "2023-01-03",
+      "strategy_return_pct": 143.53476,
+      "window": "test_2023_2024"
+    },
+    {
+      "buyhold_return_pct": 913.877874,
+      "end": "2026-06-03",
+      "failures": [
+        "max_drawdown_ge_20",
+        "relative_return_not_positive"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 37.073959,
+      "path": "runtime/model/card/balanced/balanced_soxl_daily.csv",
+      "profile": "balanced",
+      "relative_return_pct": -525.137472,
+      "rows": 355,
+      "start": "2025-01-02",
+      "strategy_return_pct": 388.740402,
+      "window": "latest_2025_2026"
+    },
+    {
+      "buyhold_return_pct": 1341.327571,
+      "end": "2026-06-03",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 59.030511,
+      "path": "runtime/model/card/balanced_macro_v1/balanced_macro_v1_soxl_daily.csv",
+      "profile": "balanced_macro_v1",
+      "relative_return_pct": 1852.707509,
+      "rows": 1613,
+      "start": "2020-01-02",
+      "strategy_return_pct": 3194.03508,
+      "window": "full_replay"
+    },
+    {
+      "buyhold_return_pct": 59.775308,
+      "end": "2020-12-31",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 25.877209,
+      "path": "runtime/model/card/balanced_macro_v1/balanced_macro_v1_soxl_daily.csv",
+      "profile": "balanced_macro_v1",
+      "relative_return_pct": 67.605011,
+      "rows": 253,
+      "start": "2020-01-02",
+      "strategy_return_pct": 127.380319,
+      "window": "test_2020"
+    },
+    {
+      "buyhold_return_pct": -86.588072,
+      "end": "2022-12-30",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 58.208064,
+      "path": "runtime/model/card/balanced_macro_v1/balanced_macro_v1_soxl_daily.csv",
+      "profile": "balanced_macro_v1",
+      "relative_return_pct": 35.148101,
+      "rows": 251,
+      "start": "2022-01-03",
+      "strategy_return_pct": -51.43997,
+      "window": "test_2022"
+    },
+    {
+      "buyhold_return_pct": 191.773509,
+      "end": "2024-12-31",
+      "failures": [
+        "max_drawdown_ge_20",
+        "relative_return_not_positive"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 40.157589,
+      "path": "runtime/model/card/balanced_macro_v1/balanced_macro_v1_soxl_daily.csv",
+      "profile": "balanced_macro_v1",
+      "relative_return_pct": -23.072697,
+      "rows": 502,
+      "start": "2023-01-03",
+      "strategy_return_pct": 168.700813,
+      "window": "test_2023_2024"
+    },
+    {
+      "buyhold_return_pct": 913.877874,
+      "end": "2026-06-03",
+      "failures": [
+        "max_drawdown_ge_20",
+        "relative_return_not_positive"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 39.723524,
+      "path": "runtime/model/card/balanced_macro_v1/balanced_macro_v1_soxl_daily.csv",
+      "profile": "balanced_macro_v1",
+      "relative_return_pct": -326.742571,
+      "rows": 355,
+      "start": "2025-01-02",
+      "strategy_return_pct": 587.135303,
+      "window": "latest_2025_2026"
+    },
+    {
+      "buyhold_return_pct": 1341.327571,
+      "end": "2026-06-03",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 57.279834,
+      "path": "runtime/model/card/balanced_rule_residual_imitation_v4/balanced_rule_residual_imitation_v4_soxl_daily.csv",
+      "profile": "balanced_rule_residual_imitation_v4",
+      "relative_return_pct": 58.858456,
+      "rows": 1613,
+      "start": "2020-01-02",
+      "strategy_return_pct": 1400.186027,
+      "window": "full_replay"
+    },
+    {
+      "buyhold_return_pct": 59.775308,
+      "end": "2020-12-31",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 21.143984,
+      "path": "runtime/model/card/balanced_rule_residual_imitation_v4/balanced_rule_residual_imitation_v4_soxl_daily.csv",
+      "profile": "balanced_rule_residual_imitation_v4",
+      "relative_return_pct": 53.695623,
+      "rows": 253,
+      "start": "2020-01-02",
+      "strategy_return_pct": 113.470931,
+      "window": "test_2020"
+    },
+    {
+      "buyhold_return_pct": -86.588072,
+      "end": "2022-12-30",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 49.016983,
+      "path": "runtime/model/card/balanced_rule_residual_imitation_v4/balanced_rule_residual_imitation_v4_soxl_daily.csv",
+      "profile": "balanced_rule_residual_imitation_v4",
+      "relative_return_pct": 40.764022,
+      "rows": 251,
+      "start": "2022-01-03",
+      "strategy_return_pct": -45.82405,
+      "window": "test_2022"
+    },
+    {
+      "buyhold_return_pct": 191.773509,
+      "end": "2024-12-31",
+      "failures": [
+        "max_drawdown_ge_20",
+        "relative_return_not_positive"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 36.514545,
+      "path": "runtime/model/card/balanced_rule_residual_imitation_v4/balanced_rule_residual_imitation_v4_soxl_daily.csv",
+      "profile": "balanced_rule_residual_imitation_v4",
+      "relative_return_pct": -83.301408,
+      "rows": 502,
+      "start": "2023-01-03",
+      "strategy_return_pct": 108.472102,
+      "window": "test_2023_2024"
+    },
+    {
+      "buyhold_return_pct": 913.877874,
+      "end": "2026-06-03",
+      "failures": [
+        "max_drawdown_ge_20",
+        "relative_return_not_positive"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 39.339053,
+      "path": "runtime/model/card/balanced_rule_residual_imitation_v4/balanced_rule_residual_imitation_v4_soxl_daily.csv",
+      "profile": "balanced_rule_residual_imitation_v4",
+      "relative_return_pct": -633.277684,
+      "rows": 355,
+      "start": "2025-01-02",
+      "strategy_return_pct": 280.600191,
+      "window": "latest_2025_2026"
+    },
+    {
+      "buyhold_return_pct": 59.775308,
+      "end": "2020-12-31",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 20.757988,
+      "path": "runtime/model/card/balanced_rule_residual_imitation_v4/balanced_rule_residual_imitation_v4_wf_2020_soxl_daily.csv",
+      "profile": "balanced_rule_residual_imitation_v4_wf_2020",
+      "relative_return_pct": 42.752995,
+      "rows": 253,
+      "start": "2020-01-02",
+      "strategy_return_pct": 102.528303,
+      "window": "full_replay"
+    },
+    {
+      "buyhold_return_pct": 59.775308,
+      "end": "2020-12-31",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 20.757988,
+      "path": "runtime/model/card/balanced_rule_residual_imitation_v4/balanced_rule_residual_imitation_v4_wf_2020_soxl_daily.csv",
+      "profile": "balanced_rule_residual_imitation_v4_wf_2020",
+      "relative_return_pct": 42.752995,
+      "rows": 253,
+      "start": "2020-01-02",
+      "strategy_return_pct": 102.528303,
+      "window": "test_2020"
+    },
+    {
+      "buyhold_return_pct": 0.0,
+      "end": null,
+      "failures": [
+        "empty_window"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 0.0,
+      "path": "runtime/model/card/balanced_rule_residual_imitation_v4/balanced_rule_residual_imitation_v4_wf_2020_soxl_daily.csv",
+      "profile": "balanced_rule_residual_imitation_v4_wf_2020",
+      "relative_return_pct": 0.0,
+      "rows": 0,
+      "start": null,
+      "strategy_return_pct": 0.0,
+      "window": "test_2022"
+    },
+    {
+      "buyhold_return_pct": 0.0,
+      "end": null,
+      "failures": [
+        "empty_window"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 0.0,
+      "path": "runtime/model/card/balanced_rule_residual_imitation_v4/balanced_rule_residual_imitation_v4_wf_2020_soxl_daily.csv",
+      "profile": "balanced_rule_residual_imitation_v4_wf_2020",
+      "relative_return_pct": 0.0,
+      "rows": 0,
+      "start": null,
+      "strategy_return_pct": 0.0,
+      "window": "test_2023_2024"
+    },
+    {
+      "buyhold_return_pct": 0.0,
+      "end": null,
+      "failures": [
+        "empty_window"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 0.0,
+      "path": "runtime/model/card/balanced_rule_residual_imitation_v4/balanced_rule_residual_imitation_v4_wf_2020_soxl_daily.csv",
+      "profile": "balanced_rule_residual_imitation_v4_wf_2020",
+      "relative_return_pct": 0.0,
+      "rows": 0,
+      "start": null,
+      "strategy_return_pct": 0.0,
+      "window": "latest_2025_2026"
+    },
+    {
+      "buyhold_return_pct": -86.588072,
+      "end": "2022-12-30",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 37.705459,
+      "path": "runtime/model/card/balanced_rule_residual_imitation_v4/balanced_rule_residual_imitation_v4_wf_2022_soxl_daily.csv",
+      "profile": "balanced_rule_residual_imitation_v4_wf_2022",
+      "relative_return_pct": 58.319777,
+      "rows": 251,
+      "start": "2022-01-03",
+      "strategy_return_pct": -28.268295,
+      "window": "full_replay"
+    },
+    {
+      "buyhold_return_pct": 0.0,
+      "end": null,
+      "failures": [
+        "empty_window"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 0.0,
+      "path": "runtime/model/card/balanced_rule_residual_imitation_v4/balanced_rule_residual_imitation_v4_wf_2022_soxl_daily.csv",
+      "profile": "balanced_rule_residual_imitation_v4_wf_2022",
+      "relative_return_pct": 0.0,
+      "rows": 0,
+      "start": null,
+      "strategy_return_pct": 0.0,
+      "window": "test_2020"
+    },
+    {
+      "buyhold_return_pct": -86.588072,
+      "end": "2022-12-30",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 37.705459,
+      "path": "runtime/model/card/balanced_rule_residual_imitation_v4/balanced_rule_residual_imitation_v4_wf_2022_soxl_daily.csv",
+      "profile": "balanced_rule_residual_imitation_v4_wf_2022",
+      "relative_return_pct": 58.319777,
+      "rows": 251,
+      "start": "2022-01-03",
+      "strategy_return_pct": -28.268295,
+      "window": "test_2022"
+    },
+    {
+      "buyhold_return_pct": 0.0,
+      "end": null,
+      "failures": [
+        "empty_window"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 0.0,
+      "path": "runtime/model/card/balanced_rule_residual_imitation_v4/balanced_rule_residual_imitation_v4_wf_2022_soxl_daily.csv",
+      "profile": "balanced_rule_residual_imitation_v4_wf_2022",
+      "relative_return_pct": 0.0,
+      "rows": 0,
+      "start": null,
+      "strategy_return_pct": 0.0,
+      "window": "test_2023_2024"
+    },
+    {
+      "buyhold_return_pct": 0.0,
+      "end": null,
+      "failures": [
+        "empty_window"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 0.0,
+      "path": "runtime/model/card/balanced_rule_residual_imitation_v4/balanced_rule_residual_imitation_v4_wf_2022_soxl_daily.csv",
+      "profile": "balanced_rule_residual_imitation_v4_wf_2022",
+      "relative_return_pct": 0.0,
+      "rows": 0,
+      "start": null,
+      "strategy_return_pct": 0.0,
+      "window": "latest_2025_2026"
+    },
+    {
+      "buyhold_return_pct": -2.603429,
+      "end": "2024-12-31",
+      "failures": [
+        "max_drawdown_ge_20",
+        "relative_return_not_positive"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 34.464267,
+      "path": "runtime/model/card/balanced_rule_residual_imitation_v4/balanced_rule_residual_imitation_v4_wf_2023_2024_soxl_daily.csv",
+      "profile": "balanced_rule_residual_imitation_v4_wf_2023_2024",
+      "relative_return_pct": -13.695568,
+      "rows": 252,
+      "start": "2024-01-02",
+      "strategy_return_pct": -16.298996,
+      "window": "full_replay"
+    },
+    {
+      "buyhold_return_pct": 0.0,
+      "end": null,
+      "failures": [
+        "empty_window"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 0.0,
+      "path": "runtime/model/card/balanced_rule_residual_imitation_v4/balanced_rule_residual_imitation_v4_wf_2023_2024_soxl_daily.csv",
+      "profile": "balanced_rule_residual_imitation_v4_wf_2023_2024",
+      "relative_return_pct": 0.0,
+      "rows": 0,
+      "start": null,
+      "strategy_return_pct": 0.0,
+      "window": "test_2020"
+    },
+    {
+      "buyhold_return_pct": 0.0,
+      "end": null,
+      "failures": [
+        "empty_window"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 0.0,
+      "path": "runtime/model/card/balanced_rule_residual_imitation_v4/balanced_rule_residual_imitation_v4_wf_2023_2024_soxl_daily.csv",
+      "profile": "balanced_rule_residual_imitation_v4_wf_2023_2024",
+      "relative_return_pct": 0.0,
+      "rows": 0,
+      "start": null,
+      "strategy_return_pct": 0.0,
+      "window": "test_2022"
+    },
+    {
+      "buyhold_return_pct": -2.603429,
+      "end": "2024-12-31",
+      "failures": [
+        "max_drawdown_ge_20",
+        "relative_return_not_positive"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 34.464267,
+      "path": "runtime/model/card/balanced_rule_residual_imitation_v4/balanced_rule_residual_imitation_v4_wf_2023_2024_soxl_daily.csv",
+      "profile": "balanced_rule_residual_imitation_v4_wf_2023_2024",
+      "relative_return_pct": -13.695568,
+      "rows": 252,
+      "start": "2024-01-02",
+      "strategy_return_pct": -16.298996,
+      "window": "test_2023_2024"
+    },
+    {
+      "buyhold_return_pct": 0.0,
+      "end": null,
+      "failures": [
+        "empty_window"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 0.0,
+      "path": "runtime/model/card/balanced_rule_residual_imitation_v4/balanced_rule_residual_imitation_v4_wf_2023_2024_soxl_daily.csv",
+      "profile": "balanced_rule_residual_imitation_v4_wf_2023_2024",
+      "relative_return_pct": 0.0,
+      "rows": 0,
+      "start": null,
+      "strategy_return_pct": 0.0,
+      "window": "latest_2025_2026"
+    },
+    {
+      "buyhold_return_pct": 146.146723,
+      "end": "2026-03-31",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 48.137196,
+      "path": "runtime/model/card/balanced_rule_residual_mode_v1/balanced_rule_residual_mode_v1_soxl_daily.csv",
+      "profile": "balanced_rule_residual_mode_v1",
+      "relative_return_pct": 511.848031,
+      "rows": 1569,
+      "start": "2020-01-02",
+      "strategy_return_pct": 657.994754,
+      "window": "full_replay"
+    },
+    {
+      "buyhold_return_pct": 59.775308,
+      "end": "2020-12-31",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 22.030984,
+      "path": "runtime/model/card/balanced_rule_residual_mode_v1/balanced_rule_residual_mode_v1_soxl_daily.csv",
+      "profile": "balanced_rule_residual_mode_v1",
+      "relative_return_pct": 38.354819,
+      "rows": 253,
+      "start": "2020-01-02",
+      "strategy_return_pct": 98.130128,
+      "window": "test_2020"
+    },
+    {
+      "buyhold_return_pct": -86.588072,
+      "end": "2022-12-30",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 48.041478,
+      "path": "runtime/model/card/balanced_rule_residual_mode_v1/balanced_rule_residual_mode_v1_soxl_daily.csv",
+      "profile": "balanced_rule_residual_mode_v1",
+      "relative_return_pct": 44.094582,
+      "rows": 251,
+      "start": "2022-01-03",
+      "strategy_return_pct": -42.49349,
+      "window": "test_2022"
+    },
+    {
+      "buyhold_return_pct": 191.773509,
+      "end": "2024-12-31",
+      "failures": [
+        "max_drawdown_ge_20",
+        "relative_return_not_positive"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 33.341402,
+      "path": "runtime/model/card/balanced_rule_residual_mode_v1/balanced_rule_residual_mode_v1_soxl_daily.csv",
+      "profile": "balanced_rule_residual_mode_v1",
+      "relative_return_pct": -66.353469,
+      "rows": 502,
+      "start": "2023-01-03",
+      "strategy_return_pct": 125.42004,
+      "window": "test_2023_2024"
+    },
+    {
+      "buyhold_return_pct": 73.147812,
+      "end": "2026-03-31",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 29.012964,
+      "path": "runtime/model/card/balanced_rule_residual_mode_v1/balanced_rule_residual_mode_v1_soxl_daily.csv",
+      "profile": "balanced_rule_residual_mode_v1",
+      "relative_return_pct": 3.4215,
+      "rows": 311,
+      "start": "2025-01-02",
+      "strategy_return_pct": 76.569312,
+      "window": "latest_2025_2026"
+    },
+    {
+      "buyhold_return_pct": 59.775308,
+      "end": "2020-12-31",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 21.954938,
+      "path": "runtime/model/card/balanced_rule_residual_mode_v1/balanced_rule_residual_mode_v1_wf_2020_soxl_daily.csv",
+      "profile": "balanced_rule_residual_mode_v1_wf_2020",
+      "relative_return_pct": 22.204088,
+      "rows": 253,
+      "start": "2020-01-02",
+      "strategy_return_pct": 81.979396,
+      "window": "full_replay"
+    },
+    {
+      "buyhold_return_pct": 59.775308,
+      "end": "2020-12-31",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 21.954938,
+      "path": "runtime/model/card/balanced_rule_residual_mode_v1/balanced_rule_residual_mode_v1_wf_2020_soxl_daily.csv",
+      "profile": "balanced_rule_residual_mode_v1_wf_2020",
+      "relative_return_pct": 22.204088,
+      "rows": 253,
+      "start": "2020-01-02",
+      "strategy_return_pct": 81.979396,
+      "window": "test_2020"
+    },
+    {
+      "buyhold_return_pct": 0.0,
+      "end": null,
+      "failures": [
+        "empty_window"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 0.0,
+      "path": "runtime/model/card/balanced_rule_residual_mode_v1/balanced_rule_residual_mode_v1_wf_2020_soxl_daily.csv",
+      "profile": "balanced_rule_residual_mode_v1_wf_2020",
+      "relative_return_pct": 0.0,
+      "rows": 0,
+      "start": null,
+      "strategy_return_pct": 0.0,
+      "window": "test_2022"
+    },
+    {
+      "buyhold_return_pct": 0.0,
+      "end": null,
+      "failures": [
+        "empty_window"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 0.0,
+      "path": "runtime/model/card/balanced_rule_residual_mode_v1/balanced_rule_residual_mode_v1_wf_2020_soxl_daily.csv",
+      "profile": "balanced_rule_residual_mode_v1_wf_2020",
+      "relative_return_pct": 0.0,
+      "rows": 0,
+      "start": null,
+      "strategy_return_pct": 0.0,
+      "window": "test_2023_2024"
+    },
+    {
+      "buyhold_return_pct": 0.0,
+      "end": null,
+      "failures": [
+        "empty_window"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 0.0,
+      "path": "runtime/model/card/balanced_rule_residual_mode_v1/balanced_rule_residual_mode_v1_wf_2020_soxl_daily.csv",
+      "profile": "balanced_rule_residual_mode_v1_wf_2020",
+      "relative_return_pct": 0.0,
+      "rows": 0,
+      "start": null,
+      "strategy_return_pct": 0.0,
+      "window": "latest_2025_2026"
+    },
+    {
+      "buyhold_return_pct": -86.588072,
+      "end": "2022-12-30",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 28.927496,
+      "path": "runtime/model/card/balanced_rule_residual_mode_v1/balanced_rule_residual_mode_v1_wf_2022_soxl_daily.csv",
+      "profile": "balanced_rule_residual_mode_v1_wf_2022",
+      "relative_return_pct": 62.373736,
+      "rows": 251,
+      "start": "2022-01-03",
+      "strategy_return_pct": -24.214336,
+      "window": "full_replay"
+    },
+    {
+      "buyhold_return_pct": 0.0,
+      "end": null,
+      "failures": [
+        "empty_window"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 0.0,
+      "path": "runtime/model/card/balanced_rule_residual_mode_v1/balanced_rule_residual_mode_v1_wf_2022_soxl_daily.csv",
+      "profile": "balanced_rule_residual_mode_v1_wf_2022",
+      "relative_return_pct": 0.0,
+      "rows": 0,
+      "start": null,
+      "strategy_return_pct": 0.0,
+      "window": "test_2020"
+    },
+    {
+      "buyhold_return_pct": -86.588072,
+      "end": "2022-12-30",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 28.927496,
+      "path": "runtime/model/card/balanced_rule_residual_mode_v1/balanced_rule_residual_mode_v1_wf_2022_soxl_daily.csv",
+      "profile": "balanced_rule_residual_mode_v1_wf_2022",
+      "relative_return_pct": 62.373736,
+      "rows": 251,
+      "start": "2022-01-03",
+      "strategy_return_pct": -24.214336,
+      "window": "test_2022"
+    },
+    {
+      "buyhold_return_pct": 0.0,
+      "end": null,
+      "failures": [
+        "empty_window"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 0.0,
+      "path": "runtime/model/card/balanced_rule_residual_mode_v1/balanced_rule_residual_mode_v1_wf_2022_soxl_daily.csv",
+      "profile": "balanced_rule_residual_mode_v1_wf_2022",
+      "relative_return_pct": 0.0,
+      "rows": 0,
+      "start": null,
+      "strategy_return_pct": 0.0,
+      "window": "test_2023_2024"
+    },
+    {
+      "buyhold_return_pct": 0.0,
+      "end": null,
+      "failures": [
+        "empty_window"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 0.0,
+      "path": "runtime/model/card/balanced_rule_residual_mode_v1/balanced_rule_residual_mode_v1_wf_2022_soxl_daily.csv",
+      "profile": "balanced_rule_residual_mode_v1_wf_2022",
+      "relative_return_pct": 0.0,
+      "rows": 0,
+      "start": null,
+      "strategy_return_pct": 0.0,
+      "window": "latest_2025_2026"
+    },
+    {
+      "buyhold_return_pct": -2.603429,
+      "end": "2024-12-31",
+      "failures": [
+        "max_drawdown_ge_20",
+        "relative_return_not_positive"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 31.924701,
+      "path": "runtime/model/card/balanced_rule_residual_mode_v1/balanced_rule_residual_mode_v1_wf_2023_2024_soxl_daily.csv",
+      "profile": "balanced_rule_residual_mode_v1_wf_2023_2024",
+      "relative_return_pct": -13.852407,
+      "rows": 252,
+      "start": "2024-01-02",
+      "strategy_return_pct": -16.455836,
+      "window": "full_replay"
+    },
+    {
+      "buyhold_return_pct": 0.0,
+      "end": null,
+      "failures": [
+        "empty_window"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 0.0,
+      "path": "runtime/model/card/balanced_rule_residual_mode_v1/balanced_rule_residual_mode_v1_wf_2023_2024_soxl_daily.csv",
+      "profile": "balanced_rule_residual_mode_v1_wf_2023_2024",
+      "relative_return_pct": 0.0,
+      "rows": 0,
+      "start": null,
+      "strategy_return_pct": 0.0,
+      "window": "test_2020"
+    },
+    {
+      "buyhold_return_pct": 0.0,
+      "end": null,
+      "failures": [
+        "empty_window"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 0.0,
+      "path": "runtime/model/card/balanced_rule_residual_mode_v1/balanced_rule_residual_mode_v1_wf_2023_2024_soxl_daily.csv",
+      "profile": "balanced_rule_residual_mode_v1_wf_2023_2024",
+      "relative_return_pct": 0.0,
+      "rows": 0,
+      "start": null,
+      "strategy_return_pct": 0.0,
+      "window": "test_2022"
+    },
+    {
+      "buyhold_return_pct": -2.603429,
+      "end": "2024-12-31",
+      "failures": [
+        "max_drawdown_ge_20",
+        "relative_return_not_positive"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 31.924701,
+      "path": "runtime/model/card/balanced_rule_residual_mode_v1/balanced_rule_residual_mode_v1_wf_2023_2024_soxl_daily.csv",
+      "profile": "balanced_rule_residual_mode_v1_wf_2023_2024",
+      "relative_return_pct": -13.852407,
+      "rows": 252,
+      "start": "2024-01-02",
+      "strategy_return_pct": -16.455836,
+      "window": "test_2023_2024"
+    },
+    {
+      "buyhold_return_pct": 0.0,
+      "end": null,
+      "failures": [
+        "empty_window"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 0.0,
+      "path": "runtime/model/card/balanced_rule_residual_mode_v1/balanced_rule_residual_mode_v1_wf_2023_2024_soxl_daily.csv",
+      "profile": "balanced_rule_residual_mode_v1_wf_2023_2024",
+      "relative_return_pct": 0.0,
+      "rows": 0,
+      "start": null,
+      "strategy_return_pct": 0.0,
+      "window": "latest_2025_2026"
+    },
+    {
+      "buyhold_return_pct": 1341.327571,
+      "end": "2026-06-03",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 54.696238,
+      "path": "runtime/model/card/balanced_rule_residual_v19/balanced_rule_residual_v19_soxl_daily.csv",
+      "profile": "balanced_rule_residual_v19",
+      "relative_return_pct": 68.888528,
+      "rows": 1613,
+      "start": "2020-01-02",
+      "strategy_return_pct": 1410.216099,
+      "window": "full_replay"
+    },
+    {
+      "buyhold_return_pct": 59.775308,
+      "end": "2020-12-31",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 22.378191,
+      "path": "runtime/model/card/balanced_rule_residual_v19/balanced_rule_residual_v19_soxl_daily.csv",
+      "profile": "balanced_rule_residual_v19",
+      "relative_return_pct": 46.110255,
+      "rows": 253,
+      "start": "2020-01-02",
+      "strategy_return_pct": 105.885564,
+      "window": "test_2020"
+    },
+    {
+      "buyhold_return_pct": -86.588072,
+      "end": "2022-12-30",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 51.710136,
+      "path": "runtime/model/card/balanced_rule_residual_v19/balanced_rule_residual_v19_soxl_daily.csv",
+      "profile": "balanced_rule_residual_v19",
+      "relative_return_pct": 36.673996,
+      "rows": 251,
+      "start": "2022-01-03",
+      "strategy_return_pct": -49.914076,
+      "window": "test_2022"
+    },
+    {
+      "buyhold_return_pct": 191.773509,
+      "end": "2024-12-31",
+      "failures": [
+        "max_drawdown_ge_20",
+        "relative_return_not_positive"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 41.932696,
+      "path": "runtime/model/card/balanced_rule_residual_v19/balanced_rule_residual_v19_soxl_daily.csv",
+      "profile": "balanced_rule_residual_v19",
+      "relative_return_pct": -68.417871,
+      "rows": 502,
+      "start": "2023-01-03",
+      "strategy_return_pct": 123.355638,
+      "window": "test_2023_2024"
+    },
+    {
+      "buyhold_return_pct": 913.877874,
+      "end": "2026-06-03",
+      "failures": [
+        "max_drawdown_ge_20",
+        "relative_return_not_positive"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 37.889212,
+      "path": "runtime/model/card/balanced_rule_residual_v19/balanced_rule_residual_v19_soxl_daily.csv",
+      "profile": "balanced_rule_residual_v19",
+      "relative_return_pct": -580.972399,
+      "rows": 355,
+      "start": "2025-01-02",
+      "strategy_return_pct": 332.905476,
+      "window": "latest_2025_2026"
+    },
+    {
+      "buyhold_return_pct": 146.146723,
+      "end": "2026-03-31",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 50.923933,
+      "path": "runtime/model/card/balanced_rule_residual_v19_lowcap/balanced_rule_residual_v19_lowcap_soxl_daily.csv",
+      "profile": "balanced_rule_residual_v19_lowcap",
+      "relative_return_pct": 343.916374,
+      "rows": 1569,
+      "start": "2020-01-02",
+      "strategy_return_pct": 490.063097,
+      "window": "full_replay"
+    },
+    {
+      "buyhold_return_pct": 59.775308,
+      "end": "2020-12-31",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 23.506045,
+      "path": "runtime/model/card/balanced_rule_residual_v19_lowcap/balanced_rule_residual_v19_lowcap_soxl_daily.csv",
+      "profile": "balanced_rule_residual_v19_lowcap",
+      "relative_return_pct": 53.95111,
+      "rows": 253,
+      "start": "2020-01-02",
+      "strategy_return_pct": 113.726419,
+      "window": "test_2020"
+    },
+    {
+      "buyhold_return_pct": -86.588072,
+      "end": "2022-12-30",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 50.914197,
+      "path": "runtime/model/card/balanced_rule_residual_v19_lowcap/balanced_rule_residual_v19_lowcap_soxl_daily.csv",
+      "profile": "balanced_rule_residual_v19_lowcap",
+      "relative_return_pct": 39.915602,
+      "rows": 251,
+      "start": "2022-01-03",
+      "strategy_return_pct": -46.672469,
+      "window": "test_2022"
+    },
+    {
+      "buyhold_return_pct": 191.773509,
+      "end": "2024-12-31",
+      "failures": [
+        "max_drawdown_ge_20",
+        "relative_return_not_positive"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 40.161307,
+      "path": "runtime/model/card/balanced_rule_residual_v19_lowcap/balanced_rule_residual_v19_lowcap_soxl_daily.csv",
+      "profile": "balanced_rule_residual_v19_lowcap",
+      "relative_return_pct": -83.896988,
+      "rows": 502,
+      "start": "2023-01-03",
+      "strategy_return_pct": 107.876521,
+      "window": "test_2023_2024"
+    },
+    {
+      "buyhold_return_pct": 73.147812,
+      "end": "2026-03-31",
+      "failures": [
+        "max_drawdown_ge_20",
+        "relative_return_not_positive"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 30.815508,
+      "path": "runtime/model/card/balanced_rule_residual_v19_lowcap/balanced_rule_residual_v19_lowcap_soxl_daily.csv",
+      "profile": "balanced_rule_residual_v19_lowcap",
+      "relative_return_pct": -5.090228,
+      "rows": 311,
+      "start": "2025-01-02",
+      "strategy_return_pct": 68.057584,
+      "window": "latest_2025_2026"
+    },
+    {
+      "buyhold_return_pct": 1341.327571,
+      "end": "2026-06-03",
+      "failures": [
+        "max_drawdown_ge_20",
+        "relative_return_not_positive"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 56.161498,
+      "path": "runtime/model/card/balanced_rule_residual_v19_reg/balanced_rule_residual_v19_reg_soxl_daily.csv",
+      "profile": "balanced_rule_residual_v19_reg",
+      "relative_return_pct": -168.839984,
+      "rows": 1613,
+      "start": "2020-01-02",
+      "strategy_return_pct": 1172.487587,
+      "window": "full_replay"
+    },
+    {
+      "buyhold_return_pct": 59.775308,
+      "end": "2020-12-31",
+      "failures": [],
+      "gate_pass": true,
+      "max_drawdown_pct": 19.729651,
+      "path": "runtime/model/card/balanced_rule_residual_v19_reg/balanced_rule_residual_v19_reg_soxl_daily.csv",
+      "profile": "balanced_rule_residual_v19_reg",
+      "relative_return_pct": 44.973555,
+      "rows": 253,
+      "start": "2020-01-02",
+      "strategy_return_pct": 104.748863,
+      "window": "test_2020"
+    },
+    {
+      "buyhold_return_pct": -86.588072,
+      "end": "2022-12-30",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 47.727936,
+      "path": "runtime/model/card/balanced_rule_residual_v19_reg/balanced_rule_residual_v19_reg_soxl_daily.csv",
+      "profile": "balanced_rule_residual_v19_reg",
+      "relative_return_pct": 42.91331,
+      "rows": 251,
+      "start": "2022-01-03",
+      "strategy_return_pct": -43.674762,
+      "window": "test_2022"
+    },
+    {
+      "buyhold_return_pct": 191.773509,
+      "end": "2024-12-31",
+      "failures": [
+        "max_drawdown_ge_20",
+        "relative_return_not_positive"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 35.844294,
+      "path": "runtime/model/card/balanced_rule_residual_v19_reg/balanced_rule_residual_v19_reg_soxl_daily.csv",
+      "profile": "balanced_rule_residual_v19_reg",
+      "relative_return_pct": -103.164258,
+      "rows": 502,
+      "start": "2023-01-03",
+      "strategy_return_pct": 88.609251,
+      "window": "test_2023_2024"
+    },
+    {
+      "buyhold_return_pct": 913.877874,
+      "end": "2026-06-03",
+      "failures": [
+        "max_drawdown_ge_20",
+        "relative_return_not_positive"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 37.164339,
+      "path": "runtime/model/card/balanced_rule_residual_v19_reg/balanced_rule_residual_v19_reg_soxl_daily.csv",
+      "profile": "balanced_rule_residual_v19_reg",
+      "relative_return_pct": -643.942592,
+      "rows": 355,
+      "start": "2025-01-02",
+      "strategy_return_pct": 269.935282,
+      "window": "latest_2025_2026"
+    },
+    {
+      "buyhold_return_pct": 1341.327571,
+      "end": "2026-06-03",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 62.354532,
+      "path": "runtime/model/card/balanced_rule_residual_v19_reg_light/balanced_rule_residual_v19_reg_light_soxl_daily.csv",
+      "profile": "balanced_rule_residual_v19_reg_light",
+      "relative_return_pct": 145.311035,
+      "rows": 1613,
+      "start": "2020-01-02",
+      "strategy_return_pct": 1486.638606,
+      "window": "full_replay"
+    },
+    {
+      "buyhold_return_pct": 59.775308,
+      "end": "2020-12-31",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 22.662387,
+      "path": "runtime/model/card/balanced_rule_residual_v19_reg_light/balanced_rule_residual_v19_reg_light_soxl_daily.csv",
+      "profile": "balanced_rule_residual_v19_reg_light",
+      "relative_return_pct": 62.671644,
+      "rows": 253,
+      "start": "2020-01-02",
+      "strategy_return_pct": 122.446952,
+      "window": "test_2020"
+    },
+    {
+      "buyhold_return_pct": -86.588072,
+      "end": "2022-12-30",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 52.897795,
+      "path": "runtime/model/card/balanced_rule_residual_v19_reg_light/balanced_rule_residual_v19_reg_light_soxl_daily.csv",
+      "profile": "balanced_rule_residual_v19_reg_light",
+      "relative_return_pct": 37.628461,
+      "rows": 251,
+      "start": "2022-01-03",
+      "strategy_return_pct": -48.959611,
+      "window": "test_2022"
+    },
+    {
+      "buyhold_return_pct": 191.773509,
+      "end": "2024-12-31",
+      "failures": [
+        "max_drawdown_ge_20",
+        "relative_return_not_positive"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 39.929616,
+      "path": "runtime/model/card/balanced_rule_residual_v19_reg_light/balanced_rule_residual_v19_reg_light_soxl_daily.csv",
+      "profile": "balanced_rule_residual_v19_reg_light",
+      "relative_return_pct": -87.150039,
+      "rows": 502,
+      "start": "2023-01-03",
+      "strategy_return_pct": 104.62347,
+      "window": "test_2023_2024"
+    },
+    {
+      "buyhold_return_pct": 913.877874,
+      "end": "2026-06-03",
+      "failures": [
+        "max_drawdown_ge_20",
+        "relative_return_not_positive"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 43.324122,
+      "path": "runtime/model/card/balanced_rule_residual_v19_reg_light/balanced_rule_residual_v19_reg_light_soxl_daily.csv",
+      "profile": "balanced_rule_residual_v19_reg_light",
+      "relative_return_pct": -611.453541,
+      "rows": 355,
+      "start": "2025-01-02",
+      "strategy_return_pct": 302.424333,
+      "window": "latest_2025_2026"
+    },
+    {
+      "buyhold_return_pct": 1341.327571,
+      "end": "2026-06-03",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 63.385499,
+      "path": "runtime/model/card/balanced_rule_residual_v19_reg_v22_retest_v1/balanced_rule_residual_v19_reg_v22_retest_v1_soxl_daily.csv",
+      "profile": "balanced_rule_residual_v19_reg_v22_retest_v1",
+      "relative_return_pct": 387.988301,
+      "rows": 1613,
+      "start": "2020-01-02",
+      "strategy_return_pct": 1729.315872,
+      "window": "full_replay"
+    },
+    {
+      "buyhold_return_pct": 59.775308,
+      "end": "2020-12-31",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 24.150464,
+      "path": "runtime/model/card/balanced_rule_residual_v19_reg_v22_retest_v1/balanced_rule_residual_v19_reg_v22_retest_v1_soxl_daily.csv",
+      "profile": "balanced_rule_residual_v19_reg_v22_retest_v1",
+      "relative_return_pct": 89.41044,
+      "rows": 253,
+      "start": "2020-01-02",
+      "strategy_return_pct": 149.185748,
+      "window": "test_2020"
+    },
+    {
+      "buyhold_return_pct": -86.588072,
+      "end": "2022-12-30",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 57.372699,
+      "path": "runtime/model/card/balanced_rule_residual_v19_reg_v22_retest_v1/balanced_rule_residual_v19_reg_v22_retest_v1_soxl_daily.csv",
+      "profile": "balanced_rule_residual_v19_reg_v22_retest_v1",
+      "relative_return_pct": 32.515576,
+      "rows": 251,
+      "start": "2022-01-03",
+      "strategy_return_pct": -54.072496,
+      "window": "test_2022"
+    },
+    {
+      "buyhold_return_pct": 191.773509,
+      "end": "2024-12-31",
+      "failures": [
+        "max_drawdown_ge_20",
+        "relative_return_not_positive"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 41.286773,
+      "path": "runtime/model/card/balanced_rule_residual_v19_reg_v22_retest_v1/balanced_rule_residual_v19_reg_v22_retest_v1_soxl_daily.csv",
+      "profile": "balanced_rule_residual_v19_reg_v22_retest_v1",
+      "relative_return_pct": -96.36064,
+      "rows": 502,
+      "start": "2023-01-03",
+      "strategy_return_pct": 95.41287,
+      "window": "test_2023_2024"
+    },
+    {
+      "buyhold_return_pct": 913.877874,
+      "end": "2026-06-03",
+      "failures": [
+        "max_drawdown_ge_20",
+        "relative_return_not_positive"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 43.924708,
+      "path": "runtime/model/card/balanced_rule_residual_v19_reg_v22_retest_v1/balanced_rule_residual_v19_reg_v22_retest_v1_soxl_daily.csv",
+      "profile": "balanced_rule_residual_v19_reg_v22_retest_v1",
+      "relative_return_pct": -542.419371,
+      "rows": 355,
+      "start": "2025-01-02",
+      "strategy_return_pct": 371.458503,
+      "window": "latest_2025_2026"
+    },
+    {
+      "buyhold_return_pct": 0.0,
+      "end": "2026-03-31",
+      "failures": [
+        "max_drawdown_ge_20",
+        "relative_return_not_positive"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 43.963716,
+      "path": "runtime/model/card/balanced_rule_residual_v19_small/balanced_rule_residual_v19_small_soxl_daily.csv",
+      "profile": "balanced_rule_residual_v19_small",
+      "relative_return_pct": -2.797742,
+      "rows": 1569,
+      "start": "2020-01-02",
+      "strategy_return_pct": -2.797742,
+      "window": "full_replay"
+    },
+    {
+      "buyhold_return_pct": 0.0,
+      "end": "2020-12-31",
+      "failures": [
+        "relative_return_not_positive"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 0.0,
+      "path": "runtime/model/card/balanced_rule_residual_v19_small/balanced_rule_residual_v19_small_soxl_daily.csv",
+      "profile": "balanced_rule_residual_v19_small",
+      "relative_return_pct": 0.0,
+      "rows": 253,
+      "start": "2020-01-02",
+      "strategy_return_pct": 0.0,
+      "window": "test_2020"
+    },
+    {
+      "buyhold_return_pct": 0.0,
+      "end": "2022-12-30",
+      "failures": [
+        "relative_return_not_positive"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 0.0,
+      "path": "runtime/model/card/balanced_rule_residual_v19_small/balanced_rule_residual_v19_small_soxl_daily.csv",
+      "profile": "balanced_rule_residual_v19_small",
+      "relative_return_pct": 0.0,
+      "rows": 251,
+      "start": "2022-01-03",
+      "strategy_return_pct": 0.0,
+      "window": "test_2022"
+    },
+    {
+      "buyhold_return_pct": 0.0,
+      "end": "2024-12-31",
+      "failures": [
+        "max_drawdown_ge_20",
+        "relative_return_not_positive"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 35.56896,
+      "path": "runtime/model/card/balanced_rule_residual_v19_small/balanced_rule_residual_v19_small_soxl_daily.csv",
+      "profile": "balanced_rule_residual_v19_small",
+      "relative_return_pct": -17.835743,
+      "rows": 502,
+      "start": "2023-01-03",
+      "strategy_return_pct": -17.835743,
+      "window": "test_2023_2024"
+    },
+    {
+      "buyhold_return_pct": 0.0,
+      "end": "2026-03-31",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 22.343348,
+      "path": "runtime/model/card/balanced_rule_residual_v19_small/balanced_rule_residual_v19_small_soxl_daily.csv",
+      "profile": "balanced_rule_residual_v19_small",
+      "relative_return_pct": 17.925182,
+      "rows": 311,
+      "start": "2025-01-02",
+      "strategy_return_pct": 17.925182,
+      "window": "latest_2025_2026"
+    },
+    {
+      "buyhold_return_pct": 1341.327571,
+      "end": "2026-06-03",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 56.922809,
+      "path": "runtime/model/card/balanced_rule_residual_v22/balanced_rule_residual_v22_soxl_daily.csv",
+      "profile": "balanced_rule_residual_v22",
+      "relative_return_pct": 54.134273,
+      "rows": 1613,
+      "start": "2020-01-02",
+      "strategy_return_pct": 1395.461844,
+      "window": "full_replay"
+    },
+    {
+      "buyhold_return_pct": 59.775308,
+      "end": "2020-12-31",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 21.104523,
+      "path": "runtime/model/card/balanced_rule_residual_v22/balanced_rule_residual_v22_soxl_daily.csv",
+      "profile": "balanced_rule_residual_v22",
+      "relative_return_pct": 56.230381,
+      "rows": 253,
+      "start": "2020-01-02",
+      "strategy_return_pct": 116.00569,
+      "window": "test_2020"
+    },
+    {
+      "buyhold_return_pct": -86.588072,
+      "end": "2022-12-30",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 54.446812,
+      "path": "runtime/model/card/balanced_rule_residual_v22/balanced_rule_residual_v22_soxl_daily.csv",
+      "profile": "balanced_rule_residual_v22",
+      "relative_return_pct": 35.400234,
+      "rows": 251,
+      "start": "2022-01-03",
+      "strategy_return_pct": -51.187837,
+      "window": "test_2022"
+    },
+    {
+      "buyhold_return_pct": 191.773509,
+      "end": "2024-12-31",
+      "failures": [
+        "max_drawdown_ge_20",
+        "relative_return_not_positive"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 36.077312,
+      "path": "runtime/model/card/balanced_rule_residual_v22/balanced_rule_residual_v22_soxl_daily.csv",
+      "profile": "balanced_rule_residual_v22",
+      "relative_return_pct": -64.736652,
+      "rows": 502,
+      "start": "2023-01-03",
+      "strategy_return_pct": 127.036857,
+      "window": "test_2023_2024"
+    },
+    {
+      "buyhold_return_pct": 913.877874,
+      "end": "2026-06-03",
+      "failures": [
+        "max_drawdown_ge_20",
+        "relative_return_not_positive"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 39.756082,
+      "path": "runtime/model/card/balanced_rule_residual_v22/balanced_rule_residual_v22_soxl_daily.csv",
+      "profile": "balanced_rule_residual_v22",
+      "relative_return_pct": -616.611345,
+      "rows": 355,
+      "start": "2025-01-02",
+      "strategy_return_pct": 297.266529,
+      "window": "latest_2025_2026"
+    },
+    {
+      "buyhold_return_pct": 1341.327571,
+      "end": "2026-06-03",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 56.922809,
+      "path": "runtime/model/card/balanced_rule_residual_v22_continued_retention_v1/balanced_rule_residual_v22_continued_retention_v1_soxl_daily.csv",
+      "profile": "balanced_rule_residual_v22_continued_retention_v1",
+      "relative_return_pct": 54.134273,
+      "rows": 1613,
+      "start": "2020-01-02",
+      "strategy_return_pct": 1395.461844,
+      "window": "full_replay"
+    },
+    {
+      "buyhold_return_pct": 59.775308,
+      "end": "2020-12-31",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 21.104523,
+      "path": "runtime/model/card/balanced_rule_residual_v22_continued_retention_v1/balanced_rule_residual_v22_continued_retention_v1_soxl_daily.csv",
+      "profile": "balanced_rule_residual_v22_continued_retention_v1",
+      "relative_return_pct": 56.230381,
+      "rows": 253,
+      "start": "2020-01-02",
+      "strategy_return_pct": 116.00569,
+      "window": "test_2020"
+    },
+    {
+      "buyhold_return_pct": -86.588072,
+      "end": "2022-12-30",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 54.446812,
+      "path": "runtime/model/card/balanced_rule_residual_v22_continued_retention_v1/balanced_rule_residual_v22_continued_retention_v1_soxl_daily.csv",
+      "profile": "balanced_rule_residual_v22_continued_retention_v1",
+      "relative_return_pct": 35.400234,
+      "rows": 251,
+      "start": "2022-01-03",
+      "strategy_return_pct": -51.187837,
+      "window": "test_2022"
+    },
+    {
+      "buyhold_return_pct": 191.773509,
+      "end": "2024-12-31",
+      "failures": [
+        "max_drawdown_ge_20",
+        "relative_return_not_positive"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 36.077312,
+      "path": "runtime/model/card/balanced_rule_residual_v22_continued_retention_v1/balanced_rule_residual_v22_continued_retention_v1_soxl_daily.csv",
+      "profile": "balanced_rule_residual_v22_continued_retention_v1",
+      "relative_return_pct": -64.736652,
+      "rows": 502,
+      "start": "2023-01-03",
+      "strategy_return_pct": 127.036857,
+      "window": "test_2023_2024"
+    },
+    {
+      "buyhold_return_pct": 913.877874,
+      "end": "2026-06-03",
+      "failures": [
+        "max_drawdown_ge_20",
+        "relative_return_not_positive"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 39.756082,
+      "path": "runtime/model/card/balanced_rule_residual_v22_continued_retention_v1/balanced_rule_residual_v22_continued_retention_v1_soxl_daily.csv",
+      "profile": "balanced_rule_residual_v22_continued_retention_v1",
+      "relative_return_pct": -616.611345,
+      "rows": 355,
+      "start": "2025-01-02",
+      "strategy_return_pct": 297.266529,
+      "window": "latest_2025_2026"
+    },
+    {
+      "buyhold_return_pct": 559.268407,
+      "end": "2026-04-24",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 59.637288,
+      "path": "runtime/model/card/balanced_rule_residual_v22_soxx/balanced_rule_residual_v22_soxx_soxl_daily.csv",
+      "profile": "balanced_rule_residual_v22_soxx",
+      "relative_return_pct": 540.025695,
+      "rows": 1586,
+      "start": "2020-01-02",
+      "strategy_return_pct": 1099.294102,
+      "window": "full_replay"
+    },
+    {
+      "buyhold_return_pct": 59.775308,
+      "end": "2020-12-31",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 23.77951,
+      "path": "runtime/model/card/balanced_rule_residual_v22_soxx/balanced_rule_residual_v22_soxx_soxl_daily.csv",
+      "profile": "balanced_rule_residual_v22_soxx",
+      "relative_return_pct": 75.700491,
+      "rows": 253,
+      "start": "2020-01-02",
+      "strategy_return_pct": 135.4758,
+      "window": "test_2020"
+    },
+    {
+      "buyhold_return_pct": -86.588072,
+      "end": "2022-12-30",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 59.275518,
+      "path": "runtime/model/card/balanced_rule_residual_v22_soxx/balanced_rule_residual_v22_soxx_soxl_daily.csv",
+      "profile": "balanced_rule_residual_v22_soxx",
+      "relative_return_pct": 30.971463,
+      "rows": 251,
+      "start": "2022-01-03",
+      "strategy_return_pct": -55.616609,
+      "window": "test_2022"
+    },
+    {
+      "buyhold_return_pct": 191.773509,
+      "end": "2024-12-31",
+      "failures": [
+        "max_drawdown_ge_20",
+        "relative_return_not_positive"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 37.65383,
+      "path": "runtime/model/card/balanced_rule_residual_v22_soxx/balanced_rule_residual_v22_soxx_soxl_daily.csv",
+      "profile": "balanced_rule_residual_v22_soxx",
+      "relative_return_pct": -28.648738,
+      "rows": 502,
+      "start": "2023-01-03",
+      "strategy_return_pct": 163.124771,
+      "window": "test_2023_2024"
+    },
+    {
+      "buyhold_return_pct": 363.75138,
+      "end": "2026-04-24",
+      "failures": [
+        "max_drawdown_ge_20",
+        "relative_return_not_positive"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 40.947475,
+      "path": "runtime/model/card/balanced_rule_residual_v22_soxx/balanced_rule_residual_v22_soxx_soxl_daily.csv",
+      "profile": "balanced_rule_residual_v22_soxx",
+      "relative_return_pct": -193.07488,
+      "rows": 328,
+      "start": "2025-01-02",
+      "strategy_return_pct": 170.6765,
+      "window": "latest_2025_2026"
+    },
+    {
+      "buyhold_return_pct": 1341.327571,
+      "end": "2026-06-03",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 56.302225,
+      "path": "runtime/model/card/drawdown_rebound_reward_train_v1/drawdown_rebound_reward_train_v1_soxl_daily.csv",
+      "profile": "drawdown_rebound_reward_train_v1",
+      "relative_return_pct": 672.228365,
+      "rows": 1613,
+      "start": "2020-01-02",
+      "strategy_return_pct": 2013.555937,
+      "window": "full_replay"
+    },
+    {
+      "buyhold_return_pct": 59.775308,
+      "end": "2020-12-31",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 22.45689,
+      "path": "runtime/model/card/drawdown_rebound_reward_train_v1/drawdown_rebound_reward_train_v1_soxl_daily.csv",
+      "profile": "drawdown_rebound_reward_train_v1",
+      "relative_return_pct": 53.142806,
+      "rows": 253,
+      "start": "2020-01-02",
+      "strategy_return_pct": 112.918114,
+      "window": "test_2020"
+    },
+    {
+      "buyhold_return_pct": -86.588072,
+      "end": "2022-12-30",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 54.03182,
+      "path": "runtime/model/card/drawdown_rebound_reward_train_v1/drawdown_rebound_reward_train_v1_soxl_daily.csv",
+      "profile": "drawdown_rebound_reward_train_v1",
+      "relative_return_pct": 39.919663,
+      "rows": 251,
+      "start": "2022-01-03",
+      "strategy_return_pct": -46.668409,
+      "window": "test_2022"
+    },
+    {
+      "buyhold_return_pct": 191.773509,
+      "end": "2024-12-31",
+      "failures": [
+        "max_drawdown_ge_20",
+        "relative_return_not_positive"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 36.148446,
+      "path": "runtime/model/card/drawdown_rebound_reward_train_v1/drawdown_rebound_reward_train_v1_soxl_daily.csv",
+      "profile": "drawdown_rebound_reward_train_v1",
+      "relative_return_pct": -61.398964,
+      "rows": 502,
+      "start": "2023-01-03",
+      "strategy_return_pct": 130.374546,
+      "window": "test_2023_2024"
+    },
+    {
+      "buyhold_return_pct": 913.877874,
+      "end": "2026-06-03",
+      "failures": [
+        "max_drawdown_ge_20",
+        "relative_return_not_positive"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 39.236213,
+      "path": "runtime/model/card/drawdown_rebound_reward_train_v1/drawdown_rebound_reward_train_v1_soxl_daily.csv",
+      "profile": "drawdown_rebound_reward_train_v1",
+      "relative_return_pct": -511.753531,
+      "rows": 355,
+      "start": "2025-01-02",
+      "strategy_return_pct": 402.124343,
+      "window": "latest_2025_2026"
+    },
+    {
+      "buyhold_return_pct": 58.093571,
+      "end": "2020-12-30",
+      "failures": [
+        "max_drawdown_ge_20",
+        "relative_return_not_positive"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 20.93452,
+      "path": "runtime/model/card/drawdown_rebound_reward_train_v1/drawdown_rebound_reward_train_v1_wf_2020_soxl_daily.csv",
+      "profile": "drawdown_rebound_reward_train_v1_wf_2020",
+      "relative_return_pct": -4.487425,
+      "rows": 252,
+      "start": "2020-01-02",
+      "strategy_return_pct": 53.606145,
+      "window": "full_replay"
+    },
+    {
+      "buyhold_return_pct": 58.093571,
+      "end": "2020-12-30",
+      "failures": [
+        "max_drawdown_ge_20",
+        "relative_return_not_positive"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 20.93452,
+      "path": "runtime/model/card/drawdown_rebound_reward_train_v1/drawdown_rebound_reward_train_v1_wf_2020_soxl_daily.csv",
+      "profile": "drawdown_rebound_reward_train_v1_wf_2020",
+      "relative_return_pct": -4.487425,
+      "rows": 252,
+      "start": "2020-01-02",
+      "strategy_return_pct": 53.606145,
+      "window": "test_2020"
+    },
+    {
+      "buyhold_return_pct": 0.0,
+      "end": null,
+      "failures": [
+        "empty_window"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 0.0,
+      "path": "runtime/model/card/drawdown_rebound_reward_train_v1/drawdown_rebound_reward_train_v1_wf_2020_soxl_daily.csv",
+      "profile": "drawdown_rebound_reward_train_v1_wf_2020",
+      "relative_return_pct": 0.0,
+      "rows": 0,
+      "start": null,
+      "strategy_return_pct": 0.0,
+      "window": "test_2022"
+    },
+    {
+      "buyhold_return_pct": 0.0,
+      "end": null,
+      "failures": [
+        "empty_window"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 0.0,
+      "path": "runtime/model/card/drawdown_rebound_reward_train_v1/drawdown_rebound_reward_train_v1_wf_2020_soxl_daily.csv",
+      "profile": "drawdown_rebound_reward_train_v1_wf_2020",
+      "relative_return_pct": 0.0,
+      "rows": 0,
+      "start": null,
+      "strategy_return_pct": 0.0,
+      "window": "test_2023_2024"
+    },
+    {
+      "buyhold_return_pct": 0.0,
+      "end": null,
+      "failures": [
+        "empty_window"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 0.0,
+      "path": "runtime/model/card/drawdown_rebound_reward_train_v1/drawdown_rebound_reward_train_v1_wf_2020_soxl_daily.csv",
+      "profile": "drawdown_rebound_reward_train_v1_wf_2020",
+      "relative_return_pct": 0.0,
+      "rows": 0,
+      "start": null,
+      "strategy_return_pct": 0.0,
+      "window": "latest_2025_2026"
+    },
+    {
+      "buyhold_return_pct": -86.588072,
+      "end": "2022-12-29",
+      "failures": [],
+      "gate_pass": true,
+      "max_drawdown_pct": 9.875679,
+      "path": "runtime/model/card/drawdown_rebound_reward_train_v1/drawdown_rebound_reward_train_v1_wf_2022_soxl_daily.csv",
+      "profile": "drawdown_rebound_reward_train_v1_wf_2022",
+      "relative_return_pct": 79.587791,
+      "rows": 250,
+      "start": "2022-01-03",
+      "strategy_return_pct": -7.000281,
+      "window": "full_replay"
+    },
+    {
+      "buyhold_return_pct": 0.0,
+      "end": null,
+      "failures": [
+        "empty_window"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 0.0,
+      "path": "runtime/model/card/drawdown_rebound_reward_train_v1/drawdown_rebound_reward_train_v1_wf_2022_soxl_daily.csv",
+      "profile": "drawdown_rebound_reward_train_v1_wf_2022",
+      "relative_return_pct": 0.0,
+      "rows": 0,
+      "start": null,
+      "strategy_return_pct": 0.0,
+      "window": "test_2020"
+    },
+    {
+      "buyhold_return_pct": -86.588072,
+      "end": "2022-12-29",
+      "failures": [],
+      "gate_pass": true,
+      "max_drawdown_pct": 9.875679,
+      "path": "runtime/model/card/drawdown_rebound_reward_train_v1/drawdown_rebound_reward_train_v1_wf_2022_soxl_daily.csv",
+      "profile": "drawdown_rebound_reward_train_v1_wf_2022",
+      "relative_return_pct": 79.587791,
+      "rows": 250,
+      "start": "2022-01-03",
+      "strategy_return_pct": -7.000281,
+      "window": "test_2022"
+    },
+    {
+      "buyhold_return_pct": 0.0,
+      "end": null,
+      "failures": [
+        "empty_window"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 0.0,
+      "path": "runtime/model/card/drawdown_rebound_reward_train_v1/drawdown_rebound_reward_train_v1_wf_2022_soxl_daily.csv",
+      "profile": "drawdown_rebound_reward_train_v1_wf_2022",
+      "relative_return_pct": 0.0,
+      "rows": 0,
+      "start": null,
+      "strategy_return_pct": 0.0,
+      "window": "test_2023_2024"
+    },
+    {
+      "buyhold_return_pct": 0.0,
+      "end": null,
+      "failures": [
+        "empty_window"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 0.0,
+      "path": "runtime/model/card/drawdown_rebound_reward_train_v1/drawdown_rebound_reward_train_v1_wf_2022_soxl_daily.csv",
+      "profile": "drawdown_rebound_reward_train_v1_wf_2022",
+      "relative_return_pct": 0.0,
+      "rows": 0,
+      "start": null,
+      "strategy_return_pct": 0.0,
+      "window": "latest_2025_2026"
+    },
+    {
+      "buyhold_return_pct": -0.356635,
+      "end": "2024-12-30",
+      "failures": [
+        "relative_return_not_positive"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 9.737972,
+      "path": "runtime/model/card/drawdown_rebound_reward_train_v1/drawdown_rebound_reward_train_v1_wf_2023_2024_soxl_daily.csv",
+      "profile": "drawdown_rebound_reward_train_v1_wf_2023_2024",
+      "relative_return_pct": -2.602144,
+      "rows": 251,
+      "start": "2024-01-02",
+      "strategy_return_pct": -2.958779,
+      "window": "full_replay"
+    },
+    {
+      "buyhold_return_pct": 0.0,
+      "end": null,
+      "failures": [
+        "empty_window"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 0.0,
+      "path": "runtime/model/card/drawdown_rebound_reward_train_v1/drawdown_rebound_reward_train_v1_wf_2023_2024_soxl_daily.csv",
+      "profile": "drawdown_rebound_reward_train_v1_wf_2023_2024",
+      "relative_return_pct": 0.0,
+      "rows": 0,
+      "start": null,
+      "strategy_return_pct": 0.0,
+      "window": "test_2020"
+    },
+    {
+      "buyhold_return_pct": 0.0,
+      "end": null,
+      "failures": [
+        "empty_window"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 0.0,
+      "path": "runtime/model/card/drawdown_rebound_reward_train_v1/drawdown_rebound_reward_train_v1_wf_2023_2024_soxl_daily.csv",
+      "profile": "drawdown_rebound_reward_train_v1_wf_2023_2024",
+      "relative_return_pct": 0.0,
+      "rows": 0,
+      "start": null,
+      "strategy_return_pct": 0.0,
+      "window": "test_2022"
+    },
+    {
+      "buyhold_return_pct": -0.356635,
+      "end": "2024-12-30",
+      "failures": [
+        "relative_return_not_positive"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 9.737972,
+      "path": "runtime/model/card/drawdown_rebound_reward_train_v1/drawdown_rebound_reward_train_v1_wf_2023_2024_soxl_daily.csv",
+      "profile": "drawdown_rebound_reward_train_v1_wf_2023_2024",
+      "relative_return_pct": -2.602144,
+      "rows": 251,
+      "start": "2024-01-02",
+      "strategy_return_pct": -2.958779,
+      "window": "test_2023_2024"
+    },
+    {
+      "buyhold_return_pct": 0.0,
+      "end": null,
+      "failures": [
+        "empty_window"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 0.0,
+      "path": "runtime/model/card/drawdown_rebound_reward_train_v1/drawdown_rebound_reward_train_v1_wf_2023_2024_soxl_daily.csv",
+      "profile": "drawdown_rebound_reward_train_v1_wf_2023_2024",
+      "relative_return_pct": 0.0,
+      "rows": 0,
+      "start": null,
+      "strategy_return_pct": 0.0,
+      "window": "latest_2025_2026"
+    },
+    {
+      "buyhold_return_pct": 1341.327571,
+      "end": "2026-06-03",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 54.510349,
+      "path": "runtime/model/card/mode_conditioned_rebound_reward_train_v2/mode_conditioned_rebound_reward_train_v2_soxl_daily.csv",
+      "profile": "mode_conditioned_rebound_reward_train_v2",
+      "relative_return_pct": 796.868462,
+      "rows": 1613,
+      "start": "2020-01-02",
+      "strategy_return_pct": 2138.196034,
+      "window": "full_replay"
+    },
+    {
+      "buyhold_return_pct": 59.775308,
+      "end": "2020-12-31",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 22.605416,
+      "path": "runtime/model/card/mode_conditioned_rebound_reward_train_v2/mode_conditioned_rebound_reward_train_v2_soxl_daily.csv",
+      "profile": "mode_conditioned_rebound_reward_train_v2",
+      "relative_return_pct": 51.407864,
+      "rows": 253,
+      "start": "2020-01-02",
+      "strategy_return_pct": 111.183172,
+      "window": "test_2020"
+    },
+    {
+      "buyhold_return_pct": -86.588072,
+      "end": "2022-12-30",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 54.168462,
+      "path": "runtime/model/card/mode_conditioned_rebound_reward_train_v2/mode_conditioned_rebound_reward_train_v2_soxl_daily.csv",
+      "profile": "mode_conditioned_rebound_reward_train_v2",
+      "relative_return_pct": 34.176923,
+      "rows": 251,
+      "start": "2022-01-03",
+      "strategy_return_pct": -52.411148,
+      "window": "test_2022"
+    },
+    {
+      "buyhold_return_pct": 191.773509,
+      "end": "2024-12-31",
+      "failures": [
+        "max_drawdown_ge_20",
+        "relative_return_not_positive"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 35.235781,
+      "path": "runtime/model/card/mode_conditioned_rebound_reward_train_v2/mode_conditioned_rebound_reward_train_v2_soxl_daily.csv",
+      "profile": "mode_conditioned_rebound_reward_train_v2",
+      "relative_return_pct": -50.560443,
+      "rows": 502,
+      "start": "2023-01-03",
+      "strategy_return_pct": 141.213067,
+      "window": "test_2023_2024"
+    },
+    {
+      "buyhold_return_pct": 913.877874,
+      "end": "2026-06-03",
+      "failures": [
+        "max_drawdown_ge_20",
+        "relative_return_not_positive"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 36.88283,
+      "path": "runtime/model/card/mode_conditioned_rebound_reward_train_v2/mode_conditioned_rebound_reward_train_v2_soxl_daily.csv",
+      "profile": "mode_conditioned_rebound_reward_train_v2",
+      "relative_return_pct": -469.773472,
+      "rows": 355,
+      "start": "2025-01-02",
+      "strategy_return_pct": 444.104402,
+      "window": "latest_2025_2026"
+    },
+    {
+      "buyhold_return_pct": 58.093571,
+      "end": "2020-12-30",
+      "failures": [
+        "max_drawdown_ge_20",
+        "relative_return_not_positive"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 23.086304,
+      "path": "runtime/model/card/mode_conditioned_rebound_reward_train_v2/mode_conditioned_rebound_reward_train_v2_wf_2020_soxl_daily.csv",
+      "profile": "mode_conditioned_rebound_reward_train_v2_wf_2020",
+      "relative_return_pct": -8.010244,
+      "rows": 252,
+      "start": "2020-01-02",
+      "strategy_return_pct": 50.083327,
+      "window": "full_replay"
+    },
+    {
+      "buyhold_return_pct": 58.093571,
+      "end": "2020-12-30",
+      "failures": [
+        "max_drawdown_ge_20",
+        "relative_return_not_positive"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 23.086304,
+      "path": "runtime/model/card/mode_conditioned_rebound_reward_train_v2/mode_conditioned_rebound_reward_train_v2_wf_2020_soxl_daily.csv",
+      "profile": "mode_conditioned_rebound_reward_train_v2_wf_2020",
+      "relative_return_pct": -8.010244,
+      "rows": 252,
+      "start": "2020-01-02",
+      "strategy_return_pct": 50.083327,
+      "window": "test_2020"
+    },
+    {
+      "buyhold_return_pct": 0.0,
+      "end": null,
+      "failures": [
+        "empty_window"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 0.0,
+      "path": "runtime/model/card/mode_conditioned_rebound_reward_train_v2/mode_conditioned_rebound_reward_train_v2_wf_2020_soxl_daily.csv",
+      "profile": "mode_conditioned_rebound_reward_train_v2_wf_2020",
+      "relative_return_pct": 0.0,
+      "rows": 0,
+      "start": null,
+      "strategy_return_pct": 0.0,
+      "window": "test_2022"
+    },
+    {
+      "buyhold_return_pct": 0.0,
+      "end": null,
+      "failures": [
+        "empty_window"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 0.0,
+      "path": "runtime/model/card/mode_conditioned_rebound_reward_train_v2/mode_conditioned_rebound_reward_train_v2_wf_2020_soxl_daily.csv",
+      "profile": "mode_conditioned_rebound_reward_train_v2_wf_2020",
+      "relative_return_pct": 0.0,
+      "rows": 0,
+      "start": null,
+      "strategy_return_pct": 0.0,
+      "window": "test_2023_2024"
+    },
+    {
+      "buyhold_return_pct": 0.0,
+      "end": null,
+      "failures": [
+        "empty_window"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 0.0,
+      "path": "runtime/model/card/mode_conditioned_rebound_reward_train_v2/mode_conditioned_rebound_reward_train_v2_wf_2020_soxl_daily.csv",
+      "profile": "mode_conditioned_rebound_reward_train_v2_wf_2020",
+      "relative_return_pct": 0.0,
+      "rows": 0,
+      "start": null,
+      "strategy_return_pct": 0.0,
+      "window": "latest_2025_2026"
+    },
+    {
+      "buyhold_return_pct": -86.588072,
+      "end": "2022-12-29",
+      "failures": [],
+      "gate_pass": true,
+      "max_drawdown_pct": 15.900697,
+      "path": "runtime/model/card/mode_conditioned_rebound_reward_train_v2/mode_conditioned_rebound_reward_train_v2_wf_2022_soxl_daily.csv",
+      "profile": "mode_conditioned_rebound_reward_train_v2_wf_2022",
+      "relative_return_pct": 73.882789,
+      "rows": 250,
+      "start": "2022-01-03",
+      "strategy_return_pct": -12.705282,
+      "window": "full_replay"
+    },
+    {
+      "buyhold_return_pct": 0.0,
+      "end": null,
+      "failures": [
+        "empty_window"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 0.0,
+      "path": "runtime/model/card/mode_conditioned_rebound_reward_train_v2/mode_conditioned_rebound_reward_train_v2_wf_2022_soxl_daily.csv",
+      "profile": "mode_conditioned_rebound_reward_train_v2_wf_2022",
+      "relative_return_pct": 0.0,
+      "rows": 0,
+      "start": null,
+      "strategy_return_pct": 0.0,
+      "window": "test_2020"
+    },
+    {
+      "buyhold_return_pct": -86.588072,
+      "end": "2022-12-29",
+      "failures": [],
+      "gate_pass": true,
+      "max_drawdown_pct": 15.900697,
+      "path": "runtime/model/card/mode_conditioned_rebound_reward_train_v2/mode_conditioned_rebound_reward_train_v2_wf_2022_soxl_daily.csv",
+      "profile": "mode_conditioned_rebound_reward_train_v2_wf_2022",
+      "relative_return_pct": 73.882789,
+      "rows": 250,
+      "start": "2022-01-03",
+      "strategy_return_pct": -12.705282,
+      "window": "test_2022"
+    },
+    {
+      "buyhold_return_pct": 0.0,
+      "end": null,
+      "failures": [
+        "empty_window"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 0.0,
+      "path": "runtime/model/card/mode_conditioned_rebound_reward_train_v2/mode_conditioned_rebound_reward_train_v2_wf_2022_soxl_daily.csv",
+      "profile": "mode_conditioned_rebound_reward_train_v2_wf_2022",
+      "relative_return_pct": 0.0,
+      "rows": 0,
+      "start": null,
+      "strategy_return_pct": 0.0,
+      "window": "test_2023_2024"
+    },
+    {
+      "buyhold_return_pct": 0.0,
+      "end": null,
+      "failures": [
+        "empty_window"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 0.0,
+      "path": "runtime/model/card/mode_conditioned_rebound_reward_train_v2/mode_conditioned_rebound_reward_train_v2_wf_2022_soxl_daily.csv",
+      "profile": "mode_conditioned_rebound_reward_train_v2_wf_2022",
+      "relative_return_pct": 0.0,
+      "rows": 0,
+      "start": null,
+      "strategy_return_pct": 0.0,
+      "window": "latest_2025_2026"
+    },
+    {
+      "buyhold_return_pct": -0.356635,
+      "end": "2024-12-30",
+      "failures": [
+        "max_drawdown_ge_20",
+        "relative_return_not_positive"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 30.489188,
+      "path": "runtime/model/card/mode_conditioned_rebound_reward_train_v2/mode_conditioned_rebound_reward_train_v2_wf_2023_2024_soxl_daily.csv",
+      "profile": "mode_conditioned_rebound_reward_train_v2_wf_2023_2024",
+      "relative_return_pct": -15.729268,
+      "rows": 251,
+      "start": "2024-01-02",
+      "strategy_return_pct": -16.085903,
+      "window": "full_replay"
+    },
+    {
+      "buyhold_return_pct": 0.0,
+      "end": null,
+      "failures": [
+        "empty_window"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 0.0,
+      "path": "runtime/model/card/mode_conditioned_rebound_reward_train_v2/mode_conditioned_rebound_reward_train_v2_wf_2023_2024_soxl_daily.csv",
+      "profile": "mode_conditioned_rebound_reward_train_v2_wf_2023_2024",
+      "relative_return_pct": 0.0,
+      "rows": 0,
+      "start": null,
+      "strategy_return_pct": 0.0,
+      "window": "test_2020"
+    },
+    {
+      "buyhold_return_pct": 0.0,
+      "end": null,
+      "failures": [
+        "empty_window"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 0.0,
+      "path": "runtime/model/card/mode_conditioned_rebound_reward_train_v2/mode_conditioned_rebound_reward_train_v2_wf_2023_2024_soxl_daily.csv",
+      "profile": "mode_conditioned_rebound_reward_train_v2_wf_2023_2024",
+      "relative_return_pct": 0.0,
+      "rows": 0,
+      "start": null,
+      "strategy_return_pct": 0.0,
+      "window": "test_2022"
+    },
+    {
+      "buyhold_return_pct": -0.356635,
+      "end": "2024-12-30",
+      "failures": [
+        "max_drawdown_ge_20",
+        "relative_return_not_positive"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 30.489188,
+      "path": "runtime/model/card/mode_conditioned_rebound_reward_train_v2/mode_conditioned_rebound_reward_train_v2_wf_2023_2024_soxl_daily.csv",
+      "profile": "mode_conditioned_rebound_reward_train_v2_wf_2023_2024",
+      "relative_return_pct": -15.729268,
+      "rows": 251,
+      "start": "2024-01-02",
+      "strategy_return_pct": -16.085903,
+      "window": "test_2023_2024"
+    },
+    {
+      "buyhold_return_pct": 0.0,
+      "end": null,
+      "failures": [
+        "empty_window"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 0.0,
+      "path": "runtime/model/card/mode_conditioned_rebound_reward_train_v2/mode_conditioned_rebound_reward_train_v2_wf_2023_2024_soxl_daily.csv",
+      "profile": "mode_conditioned_rebound_reward_train_v2_wf_2023_2024",
+      "relative_return_pct": 0.0,
+      "rows": 0,
+      "start": null,
+      "strategy_return_pct": 0.0,
+      "window": "latest_2025_2026"
+    },
+    {
+      "buyhold_return_pct": 146.146723,
+      "end": "2026-03-31",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 22.153538,
+      "path": "runtime/model/card/risk_budget_usage_v1/risk_budget_usage_v1_actor_parity_soxl_daily.csv",
+      "profile": "risk_budget_usage_v1_actor_parity",
+      "relative_return_pct": 2.767661,
+      "rows": 1569,
+      "start": "2020-01-02",
+      "strategy_return_pct": 148.914384,
+      "window": "full_replay"
+    },
+    {
+      "buyhold_return_pct": 59.775308,
+      "end": "2020-12-31",
+      "failures": [
+        "relative_return_not_positive"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 18.034446,
+      "path": "runtime/model/card/risk_budget_usage_v1/risk_budget_usage_v1_actor_parity_soxl_daily.csv",
+      "profile": "risk_budget_usage_v1_actor_parity",
+      "relative_return_pct": -29.546849,
+      "rows": 253,
+      "start": "2020-01-02",
+      "strategy_return_pct": 30.22846,
+      "window": "test_2020"
+    },
+    {
+      "buyhold_return_pct": -86.588072,
+      "end": "2022-12-30",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 21.978182,
+      "path": "runtime/model/card/risk_budget_usage_v1/risk_budget_usage_v1_actor_parity_soxl_daily.csv",
+      "profile": "risk_budget_usage_v1_actor_parity",
+      "relative_return_pct": 68.435027,
+      "rows": 251,
+      "start": "2022-01-03",
+      "strategy_return_pct": -18.153045,
+      "window": "test_2022"
+    },
+    {
+      "buyhold_return_pct": 191.773509,
+      "end": "2024-12-31",
+      "failures": [
+        "relative_return_not_positive"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 13.799342,
+      "path": "runtime/model/card/risk_budget_usage_v1/risk_budget_usage_v1_actor_parity_soxl_daily.csv",
+      "profile": "risk_budget_usage_v1_actor_parity",
+      "relative_return_pct": -135.679246,
+      "rows": 502,
+      "start": "2023-01-03",
+      "strategy_return_pct": 56.094264,
+      "window": "test_2023_2024"
+    },
+    {
+      "buyhold_return_pct": 73.147812,
+      "end": "2026-03-31",
+      "failures": [
+        "relative_return_not_positive"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 11.346967,
+      "path": "runtime/model/card/risk_budget_usage_v1/risk_budget_usage_v1_actor_parity_soxl_daily.csv",
+      "profile": "risk_budget_usage_v1_actor_parity",
+      "relative_return_pct": -42.347894,
+      "rows": 311,
+      "start": "2025-01-02",
+      "strategy_return_pct": 30.799919,
+      "window": "latest_2025_2026"
+    },
+    {
+      "buyhold_return_pct": 146.146723,
+      "end": "2026-03-31",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 57.774367,
+      "path": "runtime/model/card/risk_budget_usage_v1/risk_budget_usage_v1_composed_balanced_imitation_v4_soxl_daily.csv",
+      "profile": "risk_budget_usage_v1_composed_balanced_imitation_v4",
+      "relative_return_pct": 1995.575531,
+      "rows": 1569,
+      "start": "2020-01-02",
+      "strategy_return_pct": 2141.722253,
+      "window": "full_replay"
+    },
+    {
+      "buyhold_return_pct": 59.775308,
+      "end": "2020-12-31",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 30.954623,
+      "path": "runtime/model/card/risk_budget_usage_v1/risk_budget_usage_v1_composed_balanced_imitation_v4_soxl_daily.csv",
+      "profile": "risk_budget_usage_v1_composed_balanced_imitation_v4",
+      "relative_return_pct": 109.349042,
+      "rows": 253,
+      "start": "2020-01-02",
+      "strategy_return_pct": 169.124351,
+      "window": "test_2020"
+    },
+    {
+      "buyhold_return_pct": -86.588072,
+      "end": "2022-12-30",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 32.70014,
+      "path": "runtime/model/card/risk_budget_usage_v1/risk_budget_usage_v1_composed_balanced_imitation_v4_soxl_daily.csv",
+      "profile": "risk_budget_usage_v1_composed_balanced_imitation_v4",
+      "relative_return_pct": 82.615233,
+      "rows": 251,
+      "start": "2022-01-03",
+      "strategy_return_pct": -3.972838,
+      "window": "test_2022"
+    },
+    {
+      "buyhold_return_pct": 191.773509,
+      "end": "2024-12-31",
+      "failures": [
+        "max_drawdown_ge_20",
+        "relative_return_not_positive"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 33.911228,
+      "path": "runtime/model/card/risk_budget_usage_v1/risk_budget_usage_v1_composed_balanced_imitation_v4_soxl_daily.csv",
+      "profile": "risk_budget_usage_v1_composed_balanced_imitation_v4",
+      "relative_return_pct": -36.745207,
+      "rows": 502,
+      "start": "2023-01-03",
+      "strategy_return_pct": 155.028303,
+      "window": "test_2023_2024"
+    },
+    {
+      "buyhold_return_pct": 73.147812,
+      "end": "2026-03-31",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 45.761712,
+      "path": "runtime/model/card/risk_budget_usage_v1/risk_budget_usage_v1_composed_balanced_imitation_v4_soxl_daily.csv",
+      "profile": "risk_budget_usage_v1_composed_balanced_imitation_v4",
+      "relative_return_pct": 23.772924,
+      "rows": 311,
+      "start": "2025-01-02",
+      "strategy_return_pct": 96.920737,
+      "window": "latest_2025_2026"
+    },
+    {
+      "buyhold_return_pct": 146.146723,
+      "end": "2026-03-31",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 21.103797,
+      "path": "runtime/model/card/risk_budget_usage_v1/risk_budget_usage_v1_soxl_daily.csv",
+      "profile": "risk_budget_usage_v1",
+      "relative_return_pct": 42.496862,
+      "rows": 1569,
+      "start": "2020-01-02",
+      "strategy_return_pct": 188.643585,
+      "window": "full_replay"
+    },
+    {
+      "buyhold_return_pct": 59.775308,
+      "end": "2020-12-31",
+      "failures": [
+        "relative_return_not_positive"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 18.042859,
+      "path": "runtime/model/card/risk_budget_usage_v1/risk_budget_usage_v1_soxl_daily.csv",
+      "profile": "risk_budget_usage_v1",
+      "relative_return_pct": -30.129579,
+      "rows": 253,
+      "start": "2020-01-02",
+      "strategy_return_pct": 29.645729,
+      "window": "test_2020"
+    },
+    {
+      "buyhold_return_pct": -86.588072,
+      "end": "2022-12-30",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 20.925397,
+      "path": "runtime/model/card/risk_budget_usage_v1/risk_budget_usage_v1_soxl_daily.csv",
+      "profile": "risk_budget_usage_v1",
+      "relative_return_pct": 70.249165,
+      "rows": 251,
+      "start": "2022-01-03",
+      "strategy_return_pct": -16.338907,
+      "window": "test_2022"
+    },
+    {
+      "buyhold_return_pct": 191.773509,
+      "end": "2024-12-31",
+      "failures": [
+        "relative_return_not_positive"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 12.996222,
+      "path": "runtime/model/card/risk_budget_usage_v1/risk_budget_usage_v1_soxl_daily.csv",
+      "profile": "risk_budget_usage_v1",
+      "relative_return_pct": -131.555073,
+      "rows": 502,
+      "start": "2023-01-03",
+      "strategy_return_pct": 60.218436,
+      "window": "test_2023_2024"
+    },
+    {
+      "buyhold_return_pct": 73.147812,
+      "end": "2026-03-31",
+      "failures": [
+        "relative_return_not_positive"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 11.10311,
+      "path": "runtime/model/card/risk_budget_usage_v1/risk_budget_usage_v1_soxl_daily.csv",
+      "profile": "risk_budget_usage_v1",
+      "relative_return_pct": -39.296973,
+      "rows": 311,
+      "start": "2025-01-02",
+      "strategy_return_pct": 33.85084,
+      "window": "latest_2025_2026"
+    },
+    {
+      "buyhold_return_pct": 146.146723,
+      "end": "2026-03-31",
+      "failures": [
+        "max_drawdown_ge_20",
+        "relative_return_not_positive"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 23.666471,
+      "path": "runtime/model/card/risk_budget_usage_v2/risk_budget_usage_v2_soxl_daily.csv",
+      "profile": "risk_budget_usage_v2",
+      "relative_return_pct": -26.589526,
+      "rows": 1569,
+      "start": "2020-01-02",
+      "strategy_return_pct": 119.557196,
+      "window": "full_replay"
+    },
+    {
+      "buyhold_return_pct": 59.775308,
+      "end": "2020-12-31",
+      "failures": [
+        "relative_return_not_positive"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 15.476894,
+      "path": "runtime/model/card/risk_budget_usage_v2/risk_budget_usage_v2_soxl_daily.csv",
+      "profile": "risk_budget_usage_v2",
+      "relative_return_pct": -38.557916,
+      "rows": 253,
+      "start": "2020-01-02",
+      "strategy_return_pct": 21.217393,
+      "window": "test_2020"
+    },
+    {
+      "buyhold_return_pct": -86.588072,
+      "end": "2022-12-30",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 23.582304,
+      "path": "runtime/model/card/risk_budget_usage_v2/risk_budget_usage_v2_soxl_daily.csv",
+      "profile": "risk_budget_usage_v2",
+      "relative_return_pct": 66.385272,
+      "rows": 251,
+      "start": "2022-01-03",
+      "strategy_return_pct": -20.202799,
+      "window": "test_2022"
+    },
+    {
+      "buyhold_return_pct": 191.773509,
+      "end": "2024-12-31",
+      "failures": [
+        "relative_return_not_positive"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 14.65945,
+      "path": "runtime/model/card/risk_budget_usage_v2/risk_budget_usage_v2_soxl_daily.csv",
+      "profile": "risk_budget_usage_v2",
+      "relative_return_pct": -156.395323,
+      "rows": 502,
+      "start": "2023-01-03",
+      "strategy_return_pct": 35.378187,
+      "window": "test_2023_2024"
+    },
+    {
+      "buyhold_return_pct": 73.147812,
+      "end": "2026-03-31",
+      "failures": [
+        "relative_return_not_positive"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 12.407604,
+      "path": "runtime/model/card/risk_budget_usage_v2/risk_budget_usage_v2_soxl_daily.csv",
+      "profile": "risk_budget_usage_v2",
+      "relative_return_pct": -53.763485,
+      "rows": 311,
+      "start": "2025-01-02",
+      "strategy_return_pct": 19.384327,
+      "window": "latest_2025_2026"
+    },
+    {
+      "buyhold_return_pct": 1341.327571,
+      "end": "2026-06-03",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 65.869155,
+      "path": "runtime/model/card/smoke/smoke_soxl_daily.csv",
+      "profile": "smoke",
+      "relative_return_pct": 3268.91284,
+      "rows": 1613,
+      "start": "2020-01-02",
+      "strategy_return_pct": 4610.240412,
+      "window": "full_replay"
+    },
+    {
+      "buyhold_return_pct": 59.775308,
+      "end": "2020-12-31",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 26.914897,
+      "path": "runtime/model/card/smoke/smoke_soxl_daily.csv",
+      "profile": "smoke",
+      "relative_return_pct": 88.651674,
+      "rows": 253,
+      "start": "2020-01-02",
+      "strategy_return_pct": 148.426982,
+      "window": "test_2020"
+    },
+    {
+      "buyhold_return_pct": -86.588072,
+      "end": "2022-12-30",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 65.437647,
+      "path": "runtime/model/card/smoke/smoke_soxl_daily.csv",
+      "profile": "smoke",
+      "relative_return_pct": 23.813432,
+      "rows": 251,
+      "start": "2022-01-03",
+      "strategy_return_pct": -62.77464,
+      "window": "test_2022"
+    },
+    {
+      "buyhold_return_pct": 191.773509,
+      "end": "2024-12-31",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 38.854889,
+      "path": "runtime/model/card/smoke/smoke_soxl_daily.csv",
+      "profile": "smoke",
+      "relative_return_pct": 23.353029,
+      "rows": 502,
+      "start": "2023-01-03",
+      "strategy_return_pct": 215.126538,
+      "window": "test_2023_2024"
+    },
+    {
+      "buyhold_return_pct": 913.877874,
+      "end": "2026-06-03",
+      "failures": [
+        "max_drawdown_ge_20",
+        "relative_return_not_positive"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 36.995456,
+      "path": "runtime/model/card/smoke/smoke_soxl_daily.csv",
+      "profile": "smoke",
+      "relative_return_pct": -158.894579,
+      "rows": 355,
+      "start": "2025-01-02",
+      "strategy_return_pct": 754.983295,
+      "window": "latest_2025_2026"
+    },
+    {
+      "buyhold_return_pct": 146.146723,
+      "end": "2026-03-31",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 51.610712,
+      "path": "runtime/model/card/smoke_tide/smoke_soxl_daily.csv",
+      "profile": "smoke",
+      "relative_return_pct": 416.513285,
+      "rows": 1569,
+      "start": "2020-01-02",
+      "strategy_return_pct": 562.660007,
+      "window": "full_replay"
+    },
+    {
+      "buyhold_return_pct": 59.775308,
+      "end": "2020-12-31",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 20.164985,
+      "path": "runtime/model/card/smoke_tide/smoke_soxl_daily.csv",
+      "profile": "smoke",
+      "relative_return_pct": 54.280284,
+      "rows": 253,
+      "start": "2020-01-02",
+      "strategy_return_pct": 114.055592,
+      "window": "test_2020"
+    },
+    {
+      "buyhold_return_pct": -86.588072,
+      "end": "2022-12-30",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 50.659491,
+      "path": "runtime/model/card/smoke_tide/smoke_soxl_daily.csv",
+      "profile": "smoke",
+      "relative_return_pct": 40.425236,
+      "rows": 251,
+      "start": "2022-01-03",
+      "strategy_return_pct": -46.162836,
+      "window": "test_2022"
+    },
+    {
+      "buyhold_return_pct": 191.773509,
+      "end": "2024-12-31",
+      "failures": [
+        "max_drawdown_ge_20",
+        "relative_return_not_positive"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 34.362326,
+      "path": "runtime/model/card/smoke_tide/smoke_soxl_daily.csv",
+      "profile": "smoke",
+      "relative_return_pct": -58.734733,
+      "rows": 502,
+      "start": "2023-01-03",
+      "strategy_return_pct": 133.038776,
+      "window": "test_2023_2024"
+    },
+    {
+      "buyhold_return_pct": 73.147812,
+      "end": "2026-03-31",
+      "failures": [
+        "max_drawdown_ge_20",
+        "relative_return_not_positive"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 30.242633,
+      "path": "runtime/model/card/smoke_tide/smoke_soxl_daily.csv",
+      "profile": "smoke",
+      "relative_return_pct": -14.7643,
+      "rows": 311,
+      "start": "2025-01-02",
+      "strategy_return_pct": 58.383513,
+      "window": "latest_2025_2026"
+    },
+    {
+      "buyhold_return_pct": 1341.327571,
+      "end": "2026-06-03",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 61.771875,
+      "path": "runtime/model/card/state_conditioned_drawdown_rebound_reward_train_v1/state_conditioned_drawdown_rebound_reward_train_v1_soxl_daily.csv",
+      "profile": "state_conditioned_drawdown_rebound_reward_train_v1",
+      "relative_return_pct": 925.088749,
+      "rows": 1613,
+      "start": "2020-01-02",
+      "strategy_return_pct": 2266.41632,
+      "window": "full_replay"
+    },
+    {
+      "buyhold_return_pct": 59.775308,
+      "end": "2020-12-31",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 25.496734,
+      "path": "runtime/model/card/state_conditioned_drawdown_rebound_reward_train_v1/state_conditioned_drawdown_rebound_reward_train_v1_soxl_daily.csv",
+      "profile": "state_conditioned_drawdown_rebound_reward_train_v1",
+      "relative_return_pct": 62.437288,
+      "rows": 253,
+      "start": "2020-01-02",
+      "strategy_return_pct": 122.212596,
+      "window": "test_2020"
+    },
+    {
+      "buyhold_return_pct": -86.588072,
+      "end": "2022-12-30",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 60.074772,
+      "path": "runtime/model/card/state_conditioned_drawdown_rebound_reward_train_v1/state_conditioned_drawdown_rebound_reward_train_v1_soxl_daily.csv",
+      "profile": "state_conditioned_drawdown_rebound_reward_train_v1",
+      "relative_return_pct": 28.728048,
+      "rows": 251,
+      "start": "2022-01-03",
+      "strategy_return_pct": -57.860024,
+      "window": "test_2022"
+    },
+    {
+      "buyhold_return_pct": 191.773509,
+      "end": "2024-12-31",
+      "failures": [
+        "max_drawdown_ge_20",
+        "relative_return_not_positive"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 39.548481,
+      "path": "runtime/model/card/state_conditioned_drawdown_rebound_reward_train_v1/state_conditioned_drawdown_rebound_reward_train_v1_soxl_daily.csv",
+      "profile": "state_conditioned_drawdown_rebound_reward_train_v1",
+      "relative_return_pct": -36.131845,
+      "rows": 502,
+      "start": "2023-01-03",
+      "strategy_return_pct": 155.641664,
+      "window": "test_2023_2024"
+    },
+    {
+      "buyhold_return_pct": 913.877874,
+      "end": "2026-06-03",
+      "failures": [
+        "max_drawdown_ge_20",
+        "relative_return_not_positive"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 41.749362,
+      "path": "runtime/model/card/state_conditioned_drawdown_rebound_reward_train_v1/state_conditioned_drawdown_rebound_reward_train_v1_soxl_daily.csv",
+      "profile": "state_conditioned_drawdown_rebound_reward_train_v1",
+      "relative_return_pct": -409.148898,
+      "rows": 355,
+      "start": "2025-01-02",
+      "strategy_return_pct": 504.728976,
+      "window": "latest_2025_2026"
+    },
+    {
+      "buyhold_return_pct": 58.093571,
+      "end": "2020-12-30",
+      "failures": [
+        "max_drawdown_ge_20",
+        "relative_return_not_positive"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 24.41307,
+      "path": "runtime/model/card/state_conditioned_drawdown_rebound_reward_train_v1/state_conditioned_drawdown_rebound_reward_train_v1_wf_2020_soxl_daily.csv",
+      "profile": "state_conditioned_drawdown_rebound_reward_train_v1_wf_2020",
+      "relative_return_pct": -1.318018,
+      "rows": 252,
+      "start": "2020-01-02",
+      "strategy_return_pct": 56.775553,
+      "window": "full_replay"
+    },
+    {
+      "buyhold_return_pct": 58.093571,
+      "end": "2020-12-30",
+      "failures": [
+        "max_drawdown_ge_20",
+        "relative_return_not_positive"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 24.41307,
+      "path": "runtime/model/card/state_conditioned_drawdown_rebound_reward_train_v1/state_conditioned_drawdown_rebound_reward_train_v1_wf_2020_soxl_daily.csv",
+      "profile": "state_conditioned_drawdown_rebound_reward_train_v1_wf_2020",
+      "relative_return_pct": -1.318018,
+      "rows": 252,
+      "start": "2020-01-02",
+      "strategy_return_pct": 56.775553,
+      "window": "test_2020"
+    },
+    {
+      "buyhold_return_pct": 0.0,
+      "end": null,
+      "failures": [
+        "empty_window"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 0.0,
+      "path": "runtime/model/card/state_conditioned_drawdown_rebound_reward_train_v1/state_conditioned_drawdown_rebound_reward_train_v1_wf_2020_soxl_daily.csv",
+      "profile": "state_conditioned_drawdown_rebound_reward_train_v1_wf_2020",
+      "relative_return_pct": 0.0,
+      "rows": 0,
+      "start": null,
+      "strategy_return_pct": 0.0,
+      "window": "test_2022"
+    },
+    {
+      "buyhold_return_pct": 0.0,
+      "end": null,
+      "failures": [
+        "empty_window"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 0.0,
+      "path": "runtime/model/card/state_conditioned_drawdown_rebound_reward_train_v1/state_conditioned_drawdown_rebound_reward_train_v1_wf_2020_soxl_daily.csv",
+      "profile": "state_conditioned_drawdown_rebound_reward_train_v1_wf_2020",
+      "relative_return_pct": 0.0,
+      "rows": 0,
+      "start": null,
+      "strategy_return_pct": 0.0,
+      "window": "test_2023_2024"
+    },
+    {
+      "buyhold_return_pct": 0.0,
+      "end": null,
+      "failures": [
+        "empty_window"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 0.0,
+      "path": "runtime/model/card/state_conditioned_drawdown_rebound_reward_train_v1/state_conditioned_drawdown_rebound_reward_train_v1_wf_2020_soxl_daily.csv",
+      "profile": "state_conditioned_drawdown_rebound_reward_train_v1_wf_2020",
+      "relative_return_pct": 0.0,
+      "rows": 0,
+      "start": null,
+      "strategy_return_pct": 0.0,
+      "window": "latest_2025_2026"
+    },
+    {
+      "buyhold_return_pct": -86.588072,
+      "end": "2022-12-29",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 29.147985,
+      "path": "runtime/model/card/state_conditioned_drawdown_rebound_reward_train_v1/state_conditioned_drawdown_rebound_reward_train_v1_wf_2022_soxl_daily.csv",
+      "profile": "state_conditioned_drawdown_rebound_reward_train_v1_wf_2022",
+      "relative_return_pct": 63.313064,
+      "rows": 250,
+      "start": "2022-01-03",
+      "strategy_return_pct": -23.275008,
+      "window": "full_replay"
+    },
+    {
+      "buyhold_return_pct": 0.0,
+      "end": null,
+      "failures": [
+        "empty_window"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 0.0,
+      "path": "runtime/model/card/state_conditioned_drawdown_rebound_reward_train_v1/state_conditioned_drawdown_rebound_reward_train_v1_wf_2022_soxl_daily.csv",
+      "profile": "state_conditioned_drawdown_rebound_reward_train_v1_wf_2022",
+      "relative_return_pct": 0.0,
+      "rows": 0,
+      "start": null,
+      "strategy_return_pct": 0.0,
+      "window": "test_2020"
+    },
+    {
+      "buyhold_return_pct": -86.588072,
+      "end": "2022-12-29",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 29.147985,
+      "path": "runtime/model/card/state_conditioned_drawdown_rebound_reward_train_v1/state_conditioned_drawdown_rebound_reward_train_v1_wf_2022_soxl_daily.csv",
+      "profile": "state_conditioned_drawdown_rebound_reward_train_v1_wf_2022",
+      "relative_return_pct": 63.313064,
+      "rows": 250,
+      "start": "2022-01-03",
+      "strategy_return_pct": -23.275008,
+      "window": "test_2022"
+    },
+    {
+      "buyhold_return_pct": 0.0,
+      "end": null,
+      "failures": [
+        "empty_window"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 0.0,
+      "path": "runtime/model/card/state_conditioned_drawdown_rebound_reward_train_v1/state_conditioned_drawdown_rebound_reward_train_v1_wf_2022_soxl_daily.csv",
+      "profile": "state_conditioned_drawdown_rebound_reward_train_v1_wf_2022",
+      "relative_return_pct": 0.0,
+      "rows": 0,
+      "start": null,
+      "strategy_return_pct": 0.0,
+      "window": "test_2023_2024"
+    },
+    {
+      "buyhold_return_pct": 0.0,
+      "end": null,
+      "failures": [
+        "empty_window"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 0.0,
+      "path": "runtime/model/card/state_conditioned_drawdown_rebound_reward_train_v1/state_conditioned_drawdown_rebound_reward_train_v1_wf_2022_soxl_daily.csv",
+      "profile": "state_conditioned_drawdown_rebound_reward_train_v1_wf_2022",
+      "relative_return_pct": 0.0,
+      "rows": 0,
+      "start": null,
+      "strategy_return_pct": 0.0,
+      "window": "latest_2025_2026"
+    },
+    {
+      "buyhold_return_pct": -0.356635,
+      "end": "2024-12-30",
+      "failures": [
+        "relative_return_not_positive"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 15.229639,
+      "path": "runtime/model/card/state_conditioned_drawdown_rebound_reward_train_v1/state_conditioned_drawdown_rebound_reward_train_v1_wf_2023_2024_soxl_daily.csv",
+      "profile": "state_conditioned_drawdown_rebound_reward_train_v1_wf_2023_2024",
+      "relative_return_pct": -2.803735,
+      "rows": 251,
+      "start": "2024-01-02",
+      "strategy_return_pct": -3.16037,
+      "window": "full_replay"
+    },
+    {
+      "buyhold_return_pct": 0.0,
+      "end": null,
+      "failures": [
+        "empty_window"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 0.0,
+      "path": "runtime/model/card/state_conditioned_drawdown_rebound_reward_train_v1/state_conditioned_drawdown_rebound_reward_train_v1_wf_2023_2024_soxl_daily.csv",
+      "profile": "state_conditioned_drawdown_rebound_reward_train_v1_wf_2023_2024",
+      "relative_return_pct": 0.0,
+      "rows": 0,
+      "start": null,
+      "strategy_return_pct": 0.0,
+      "window": "test_2020"
+    },
+    {
+      "buyhold_return_pct": 0.0,
+      "end": null,
+      "failures": [
+        "empty_window"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 0.0,
+      "path": "runtime/model/card/state_conditioned_drawdown_rebound_reward_train_v1/state_conditioned_drawdown_rebound_reward_train_v1_wf_2023_2024_soxl_daily.csv",
+      "profile": "state_conditioned_drawdown_rebound_reward_train_v1_wf_2023_2024",
+      "relative_return_pct": 0.0,
+      "rows": 0,
+      "start": null,
+      "strategy_return_pct": 0.0,
+      "window": "test_2022"
+    },
+    {
+      "buyhold_return_pct": -0.356635,
+      "end": "2024-12-30",
+      "failures": [
+        "relative_return_not_positive"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 15.229639,
+      "path": "runtime/model/card/state_conditioned_drawdown_rebound_reward_train_v1/state_conditioned_drawdown_rebound_reward_train_v1_wf_2023_2024_soxl_daily.csv",
+      "profile": "state_conditioned_drawdown_rebound_reward_train_v1_wf_2023_2024",
+      "relative_return_pct": -2.803735,
+      "rows": 251,
+      "start": "2024-01-02",
+      "strategy_return_pct": -3.16037,
+      "window": "test_2023_2024"
+    },
+    {
+      "buyhold_return_pct": 0.0,
+      "end": null,
+      "failures": [
+        "empty_window"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 0.0,
+      "path": "runtime/model/card/state_conditioned_drawdown_rebound_reward_train_v1/state_conditioned_drawdown_rebound_reward_train_v1_wf_2023_2024_soxl_daily.csv",
+      "profile": "state_conditioned_drawdown_rebound_reward_train_v1_wf_2023_2024",
+      "relative_return_pct": 0.0,
+      "rows": 0,
+      "start": null,
+      "strategy_return_pct": 0.0,
+      "window": "latest_2025_2026"
+    },
+    {
+      "buyhold_return_pct": 146.146723,
+      "end": "2026-03-31",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 51.635725,
+      "path": "runtime/model/card/two_speed_mode_budget_v1/two_speed_mode_budget_v1_soxl_daily.csv",
+      "profile": "two_speed_mode_budget_v1",
+      "relative_return_pct": 1252.131881,
+      "rows": 1569,
+      "start": "2020-01-02",
+      "strategy_return_pct": 1398.278603,
+      "window": "full_replay"
+    },
+    {
+      "buyhold_return_pct": 59.775308,
+      "end": "2020-12-31",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 32.079648,
+      "path": "runtime/model/card/two_speed_mode_budget_v1/two_speed_mode_budget_v1_soxl_daily.csv",
+      "profile": "two_speed_mode_budget_v1",
+      "relative_return_pct": 69.805553,
+      "rows": 253,
+      "start": "2020-01-02",
+      "strategy_return_pct": 129.580861,
+      "window": "test_2020"
+    },
+    {
+      "buyhold_return_pct": -86.588072,
+      "end": "2022-12-30",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 33.875654,
+      "path": "runtime/model/card/two_speed_mode_budget_v1/two_speed_mode_budget_v1_soxl_daily.csv",
+      "profile": "two_speed_mode_budget_v1",
+      "relative_return_pct": 70.09518,
+      "rows": 251,
+      "start": "2022-01-03",
+      "strategy_return_pct": -16.492892,
+      "window": "test_2022"
+    },
+    {
+      "buyhold_return_pct": 191.773509,
+      "end": "2024-12-31",
+      "failures": [
+        "max_drawdown_ge_20",
+        "relative_return_not_positive"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 31.382965,
+      "path": "runtime/model/card/two_speed_mode_budget_v1/two_speed_mode_budget_v1_soxl_daily.csv",
+      "profile": "two_speed_mode_budget_v1",
+      "relative_return_pct": -35.123373,
+      "rows": 502,
+      "start": "2023-01-03",
+      "strategy_return_pct": 156.650136,
+      "window": "test_2023_2024"
+    },
+    {
+      "buyhold_return_pct": 73.147812,
+      "end": "2026-03-31",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 44.540598,
+      "path": "runtime/model/card/two_speed_mode_budget_v1/two_speed_mode_budget_v1_soxl_daily.csv",
+      "profile": "two_speed_mode_budget_v1",
+      "relative_return_pct": 7.485864,
+      "rows": 311,
+      "start": "2025-01-02",
+      "strategy_return_pct": 80.633676,
+      "window": "latest_2025_2026"
+    },
+    {
+      "buyhold_return_pct": 680.363717,
+      "end": "2026-05-19",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 40.886137,
+      "path": "runtime/model/card/v19reg_v22_budget_usage_v1/v19reg_v22_budget_usage_v1_soxl_daily.csv",
+      "profile": "v19reg_v22_budget_usage_v1",
+      "relative_return_pct": 1583.77585,
+      "rows": 1603,
+      "start": "2020-01-02",
+      "strategy_return_pct": 2264.139567,
+      "window": "full_replay"
+    },
+    {
+      "buyhold_return_pct": 59.775308,
+      "end": "2020-12-31",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 25.186126,
+      "path": "runtime/model/card/v19reg_v22_budget_usage_v1/v19reg_v22_budget_usage_v1_soxl_daily.csv",
+      "profile": "v19reg_v22_budget_usage_v1",
+      "relative_return_pct": 72.176797,
+      "rows": 253,
+      "start": "2020-01-02",
+      "strategy_return_pct": 131.952105,
+      "window": "test_2020"
+    },
+    {
+      "buyhold_return_pct": -86.588072,
+      "end": "2022-12-30",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 31.268609,
+      "path": "runtime/model/card/v19reg_v22_budget_usage_v1/v19reg_v22_budget_usage_v1_soxl_daily.csv",
+      "profile": "v19reg_v22_budget_usage_v1",
+      "relative_return_pct": 65.388436,
+      "rows": 251,
+      "start": "2022-01-03",
+      "strategy_return_pct": -21.199636,
+      "window": "test_2022"
+    },
+    {
+      "buyhold_return_pct": 191.773509,
+      "end": "2024-12-31",
+      "failures": [
+        "max_drawdown_ge_20"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 30.668184,
+      "path": "runtime/model/card/v19reg_v22_budget_usage_v1/v19reg_v22_budget_usage_v1_soxl_daily.csv",
+      "profile": "v19reg_v22_budget_usage_v1",
+      "relative_return_pct": 53.031408,
+      "rows": 502,
+      "start": "2023-01-03",
+      "strategy_return_pct": 244.804917,
+      "window": "test_2023_2024"
+    },
+    {
+      "buyhold_return_pct": 448.93386,
+      "end": "2026-05-19",
+      "failures": [
+        "max_drawdown_ge_20",
+        "relative_return_not_positive"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 33.161513,
+      "path": "runtime/model/card/v19reg_v22_budget_usage_v1/v19reg_v22_budget_usage_v1_soxl_daily.csv",
+      "profile": "v19reg_v22_budget_usage_v1",
+      "relative_return_pct": -312.738728,
+      "rows": 345,
+      "start": "2025-01-02",
+      "strategy_return_pct": 136.195131,
+      "window": "latest_2025_2026"
+    }
+  ],
+  "sidecars": [
+    "summary.json",
+    "model_gate_scan.csv"
+  ],
+  "summary": {
+    "max_drawdown_pct": 20.0,
+    "passing_profiles": 0,
+    "profiles_scanned": 39,
+    "required_windows": [
+      "test_2022",
+      "test_2023_2024"
+    ],
+    "rows": 200
+  },
+  "training_allowed_from_this_card": false
+}
