@@ -4,12 +4,14 @@ import numpy as np
 import pandas as pd
 
 from src.soxl_quant.app.quantbench_ensemble import (
+    QuantBenchSignalBlendSpec,
     QuantBenchPathSelectorConfig,
     apply_quantbench_ensemble_drawdown_guard,
     apply_quantbench_hazard_guard,
     apply_quantbench_tail_shock_guard,
     apply_quantbench_volatility_budget_guard,
     build_quantbench_path_ensemble_report,
+    build_quantbench_signal_blend_paths,
     build_quantbench_supervised_ensemble_report,
     default_quantbench_path_selector_configs,
     fit_quantbench_drawdown_hazard_model,
@@ -506,6 +508,43 @@ def test_apply_quantbench_volatility_budget_guard_uses_regime_specific_budget():
     assert guarded.loc[5, "position"] > guarded.loc[4, "position"]
 
 
+def test_build_quantbench_signal_blend_paths_requires_low_correlation_sources():
+    index = pd.date_range("2024-01-01", periods=20, freq="D")
+    predictions = {
+        "logistic_clf": pd.Series(np.sin(np.arange(len(index)) / 2.0), index=index),
+        "sequence_lag_ridge_mse": pd.Series(np.cos(np.arange(len(index)) / 3.0), index=index),
+        "ridge_mse": pd.Series(np.sin(np.arange(len(index)) / 2.0) * 1.01, index=index),
+    }
+
+    paths = build_quantbench_signal_blend_paths(
+        predictions,
+        blend_specs=(
+            QuantBenchSignalBlendSpec(
+                name="blend_logistic_sequence_lowcorr_v1",
+                model_names=("logistic_clf", "sequence_lag_ridge_mse"),
+                max_abs_correlation=0.65,
+                min_rows=10,
+            ),
+            QuantBenchSignalBlendSpec(
+                name="blend_logistic_ridge_too_correlated_v1",
+                model_names=("logistic_clf", "ridge_mse"),
+                max_abs_correlation=0.65,
+                min_rows=10,
+            ),
+        ),
+        min_position=0.10,
+        max_position=0.90,
+    )
+
+    assert "quantbench_supervised_blend_logistic_sequence_lowcorr_v1" in paths
+    assert "quantbench_supervised_blend_logistic_ridge_too_correlated_v1" not in paths
+    blended = paths["quantbench_supervised_blend_logistic_sequence_lowcorr_v1"]
+    assert blended.index.equals(index)
+    assert float(blended.min()) >= 0.10
+    assert float(blended.max()) <= 0.90
+    assert blended.nunique() > 3
+
+
 def test_default_quantbench_path_selector_configs_include_volatility_budget_candidate():
     configs = default_quantbench_path_selector_configs()
 
@@ -524,6 +563,7 @@ def test_default_quantbench_path_selector_configs_include_volatility_budget_cand
     assert "quantbench_ensemble_tail_shock_bull_release_rf_logistic_v1" in names
     assert "quantbench_ensemble_tail_shock_anchor_reset_rf_logistic_v1" in names
     assert "quantbench_ensemble_sequence_anchor_reset_v1" in names
+    assert "quantbench_ensemble_blend_anchor_reset_v1" in names
     candidate = next(config for config in budget_configs if config.name == "quantbench_ensemble_vol_budget_rf_logistic_v1")
     assert candidate.volatility_stress_target < candidate.volatility_bull_target
     assert candidate.portfolio_drawdown_trigger > 0.0
@@ -567,6 +607,12 @@ def test_default_quantbench_path_selector_configs_include_volatility_budget_cand
     )
     assert sequence_candidate.offensive_path == "quantbench_supervised_sequence_lag_ridge_mse"
     assert sequence_candidate.portfolio_drawdown_budget_anchor_reset_drawdown > 0.0
+    blend_candidate = next(
+        config for config in budget_configs if config.name == "quantbench_ensemble_blend_anchor_reset_v1"
+    )
+    assert blend_candidate.offensive_path == "quantbench_supervised_blend_logistic_sequence_lowcorr_v1"
+    assert blend_candidate.recovery_path == "quantbench_supervised_blend_logistic_sequence_lowcorr_v1"
+    assert blend_candidate.portfolio_drawdown_budget_anchor_reset_drawdown > 0.0
 
 
 def test_fit_quantbench_drawdown_hazard_model_predicts_oos_future_drawdown_risk():

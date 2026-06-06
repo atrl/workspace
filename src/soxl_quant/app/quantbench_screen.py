@@ -161,9 +161,9 @@ def quantbench_model_objective_coverage() -> list[dict[str, str]]:
         {
             "family": "seed_ensemble",
             "paper_family": "seed ensemble for overfit mitigation",
-            "current_soxl_surface": "single-profile summaries exist; no general ensemble gate",
-            "coverage": "missing",
-            "next_step": "rank low-correlation candidates and ensemble only if individual risk gates pass",
+            "current_soxl_surface": "low-correlation signal blend paths and macro path-ensemble gates exist in quantbench_ensemble",
+            "coverage": "implemented_partial",
+            "next_step": "keep only blends that improve the QuantBench gate; add seed/checkpoint actor ensembles after individual gates pass",
         },
     ]
 

@@ -106,6 +106,16 @@ class QuantBenchPathSelectorConfig:
     volatility_max_scale: float = 1.0
 
 
+@dataclass(frozen=True)
+class QuantBenchSignalBlendSpec:
+    """Low-correlation prediction blend used to reduce single-signal overfit."""
+
+    name: str
+    model_names: tuple[str, ...]
+    max_abs_correlation: float = 0.85
+    min_rows: int = 60
+
+
 def _display_path(path: Path, root: Path | None = None) -> str:
     if root is None:
         return str(path)
@@ -1082,12 +1092,61 @@ def _supervised_path_name(profile_prefix: str, model_name: str, risk_config: Ris
     return f"{profile_prefix}_{model_name}{suffix}"
 
 
+def default_quantbench_signal_blend_specs() -> list[QuantBenchSignalBlendSpec]:
+    """Return paper-style low signal-to-noise robustness blends."""
+    return [
+        QuantBenchSignalBlendSpec(
+            name="blend_logistic_sequence_lowcorr_v1",
+            model_names=("logistic_clf", "sequence_lag_ridge_mse"),
+            max_abs_correlation=0.85,
+            min_rows=60,
+        )
+    ]
+
+
+def build_quantbench_signal_blend_paths(
+    predictions: Mapping[str, pd.Series],
+    *,
+    blend_specs: Iterable[QuantBenchSignalBlendSpec],
+    profile_prefix: str = "quantbench_supervised",
+    min_position: float = 0.10,
+    max_position: float = 0.90,
+) -> dict[str, pd.Series]:
+    """Create rank-blended position paths from sufficiently low-correlated signals."""
+    paths: dict[str, pd.Series] = {}
+    for spec in tuple(blend_specs):
+        source_names = tuple(spec.model_names)
+        if len(source_names) < 2 or any(name not in predictions for name in source_names):
+            continue
+        frame = pd.concat(
+            {name: predictions[name].astype(float).sort_index() for name in source_names},
+            axis=1,
+            join="inner",
+        ).replace([np.inf, -np.inf], np.nan)
+        frame = frame.dropna()
+        if len(frame) < int(spec.min_rows):
+            continue
+        corr = frame.corr(method="spearman").abs()
+        upper_mask = np.triu(np.ones(corr.shape, dtype=bool), k=1)
+        pairwise = corr.where(upper_mask).stack()
+        if pairwise.empty or not np.isfinite(pairwise).all() or float(pairwise.max()) > float(spec.max_abs_correlation):
+            continue
+        blended_score = frame.rank(pct=True, method="average").mean(axis=1)
+        paths[f"{profile_prefix}_{spec.name}"] = prediction_rank_position_series(
+            blended_score,
+            min_position=min_position,
+            max_position=max_position,
+        )
+    return paths
+
+
 def build_supervised_path_library(
     predictions: Mapping[str, pd.Series],
     *,
     risk_frame: pd.DataFrame,
     profile_prefix: str = "quantbench_supervised",
     risk_configs: Iterable[RiskAwarePositionConfig] = (),
+    blend_specs: Iterable[QuantBenchSignalBlendSpec] = (),
     min_position: float = 0.10,
     max_position: float = 0.90,
 ) -> dict[str, pd.Series]:
@@ -1107,6 +1166,15 @@ def build_supervised_path_library(
                 min_position=min_position,
                 max_position=max_position,
             )
+    paths.update(
+        build_quantbench_signal_blend_paths(
+            predictions,
+            blend_specs=blend_specs,
+            profile_prefix=profile_prefix,
+            min_position=min_position,
+            max_position=max_position,
+        )
+    )
     return paths
 
 
@@ -1578,6 +1646,60 @@ def default_quantbench_path_selector_configs(
             tail_shock_stress_floor=0.10,
         ),
         QuantBenchPathSelectorConfig(
+            name="quantbench_ensemble_blend_anchor_reset_v1",
+            defensive_path=path("random_forest_clf", "macro_budget_defensive_v1"),
+            neutral_path=path("random_forest_clf", "macro_budget_defensive_v1"),
+            offensive_path=path("blend_logistic_sequence_lowcorr_v1"),
+            recovery_path=path("blend_logistic_sequence_lowcorr_v1"),
+            stress_floor=0.10,
+            stress_cap=0.14,
+            neutral_cap=0.20,
+            bull_floor=0.70,
+            bull_cap=0.98,
+            recovery_floor=0.50,
+            recovery_cap=0.85,
+            stress_risk_threshold=0.92,
+            stress_drop_threshold=-0.35,
+            stress_drawdown_threshold=-0.45,
+            bull_risk_threshold=0.50,
+            bull_momentum_threshold=0.00,
+            bull_trend_threshold=-0.05,
+            bull_drawdown_floor=-0.30,
+            recovery_risk_threshold=0.75,
+            recovery_momentum_threshold=0.00,
+            recovery_trend_threshold=-0.08,
+            recovery_drawdown_min=-0.45,
+            recovery_drawdown_max=-0.02,
+            portfolio_drawdown_trigger=0.15,
+            portfolio_drawdown_cap=0.08,
+            portfolio_drawdown_release=0.05,
+            portfolio_reentry_floor=0.40,
+            portfolio_reentry_cap=0.65,
+            portfolio_drawdown_budget_start=0.04,
+            portfolio_drawdown_budget_full=0.12,
+            portfolio_drawdown_budget_start_cap=0.35,
+            portfolio_drawdown_budget_min_cap=0.04,
+            portfolio_drawdown_budget_stress_floor=0.14,
+            portfolio_drawdown_budget_bull_release_cap=0.30,
+            portfolio_drawdown_budget_bull_release_max_drawdown=0.20,
+            portfolio_drawdown_budget_bull_release_ma_window=200,
+            portfolio_drawdown_budget_bull_release_momentum_window=126,
+            portfolio_drawdown_budget_bull_release_high_window=126,
+            portfolio_drawdown_budget_bull_release_momentum_threshold=0.10,
+            portfolio_drawdown_budget_bull_release_drawdown_floor=-0.12,
+            portfolio_drawdown_budget_bull_release_volatility_window=20,
+            portfolio_drawdown_budget_bull_release_volatility_max=0.80,
+            portfolio_drawdown_budget_anchor_reset_drawdown=0.08,
+            portfolio_drawdown_budget_anchor_reset_max_drawdown=0.20,
+            portfolio_drawdown_budget_anchor_reset_streak_days=1,
+            tail_shock_day_threshold=-0.04,
+            tail_shock_rolling_2d_threshold=-0.075,
+            tail_shock_rolling_3d_threshold=-0.12,
+            tail_shock_cooldown_days=3,
+            tail_shock_cap=0.05,
+            tail_shock_stress_floor=0.10,
+        ),
+        QuantBenchPathSelectorConfig(
             name="quantbench_ensemble_hazard_rf_logistic_v1",
             defensive_path=path("random_forest_clf", "macro_budget_defensive_v1"),
             neutral_path=path("random_forest_clf", "macro_budget_defensive_v1"),
@@ -1639,6 +1761,7 @@ def build_quantbench_supervised_ensemble_report(
     profile_prefix: str = "quantbench_supervised",
     risk_configs: Iterable[RiskAwarePositionConfig] | None = None,
     ensemble_configs: Iterable[QuantBenchPathSelectorConfig] | None = None,
+    blend_specs: Iterable[QuantBenchSignalBlendSpec] | None = None,
     gate: QuantBenchGate = QuantBenchGate(),
     windows: Mapping[str, tuple[str | pd.Timestamp, str | pd.Timestamp]] | None = None,
     min_position: float = 0.10,
@@ -1679,11 +1802,13 @@ def build_quantbench_supervised_ensemble_report(
         model_names=model_names,
     )
     risk_config_tuple = tuple(quantbench_risk_overlay_configs() if risk_configs is None else risk_configs)
+    blend_spec_tuple = tuple(default_quantbench_signal_blend_specs() if blend_specs is None else blend_specs)
     paths = build_supervised_path_library(
         predictions,
         risk_frame=feature_frame,
         profile_prefix=profile_prefix,
         risk_configs=risk_config_tuple,
+        blend_specs=blend_spec_tuple,
         min_position=min_position,
         max_position=max_position,
     )
@@ -1777,6 +1902,7 @@ def build_quantbench_supervised_ensemble_report(
             "feature_packs": list(feature_packs),
             "model_names": list(predictions.keys()),
             "risk_overlays": [config.name for config in risk_config_tuple],
+            "signal_blends": [config.name for config in blend_spec_tuple],
             "horizon": int(horizon),
             "hazard_enabled": bool(hazard_enabled),
             "hazard_mode": str(hazard_mode),
@@ -1801,6 +1927,7 @@ def build_quantbench_supervised_ensemble_report(
 __all__ = [
     "DEFAULT_WINDOWS",
     "QuantBenchPathSelectorConfig",
+    "QuantBenchSignalBlendSpec",
     "apply_quantbench_ensemble_drawdown_guard",
     "apply_quantbench_hazard_guard",
     "apply_quantbench_tail_shock_guard",
@@ -1809,7 +1936,9 @@ __all__ = [
     "build_quantbench_supervised_ensemble_report",
     "build_quantbench_path_ensemble_payloads",
     "build_quantbench_path_ensemble_report",
+    "build_quantbench_signal_blend_paths",
     "build_supervised_path_library",
+    "default_quantbench_signal_blend_specs",
     "default_quantbench_path_selector_configs",
     "fit_quantbench_drawdown_hazard_model",
     "fit_quantbench_rolling_drawdown_hazard_model",

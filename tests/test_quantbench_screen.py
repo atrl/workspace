@@ -189,6 +189,8 @@ def test_quantbench_model_objective_coverage_is_src_owned():
     assert by_family["tree_xgboost_lightgbm"]["coverage"] == "implemented_partial"
     assert by_family["objectives_clf_ic_mse_ranking"]["coverage"] == "implemented"
     assert by_family["utility_rl_execution"]["coverage"] == "implemented_partial"
+    assert by_family["seed_ensemble"]["coverage"] == "implemented_partial"
+    assert "low-correlation signal blend" in by_family["seed_ensemble"]["current_soxl_surface"]
     assert all(row["next_step"] for row in coverage)
 
 
