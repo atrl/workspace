@@ -319,6 +319,18 @@ def _prediction_to_position(predictions: pd.Series, min_position: float, max_pos
     )
 
 
+def prediction_rank_position_series(
+    predictions: pd.Series,
+    *,
+    min_position: float = 0.10,
+    max_position: float = 0.90,
+) -> pd.Series:
+    """Map model predictions to a reusable rank-scaled target-position path."""
+    pred = predictions.astype(float).sort_index()
+    ranked = _prediction_to_position(pred.dropna(), min_position, max_position)
+    return ranked.reindex(pred.index).fillna(0.0).clip(0.0, 1.0)
+
+
 def _risk_column(frame: pd.DataFrame, column: str, default: float) -> pd.Series:
     if column in frame.columns:
         return frame[column].astype(float).replace([np.inf, -np.inf], np.nan).fillna(default)
@@ -766,6 +778,7 @@ __all__ = [
     "build_quantbench_supervised_report",
     "build_supervised_summary_payloads",
     "fit_quantbench_supervised_models",
+    "prediction_rank_position_series",
     "quantbench_risk_overlay_configs",
     "quantbench_supervised_model_specs",
     "risk_aware_position_series",

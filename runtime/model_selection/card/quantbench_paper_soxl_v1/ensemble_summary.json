@@ -1,0 +1,191 @@
+{
+  "artifacts": {
+    "daily_csvs": [
+      "runtime/model_selection/card/quantbench_paper_soxl_v1/quantbench_ensemble_lowdd_mlp_v1_soxl_daily.csv",
+      "runtime/model_selection/card/quantbench_paper_soxl_v1/quantbench_ensemble_lowdd_ridge_v1_soxl_daily.csv",
+      "runtime/model_selection/card/quantbench_paper_soxl_v1/quantbench_ensemble_extra_logistic_v1_soxl_daily.csv",
+      "runtime/model_selection/card/quantbench_paper_soxl_v1/quantbench_ensemble_defensive_logistic_v1_soxl_daily.csv",
+      "runtime/model_selection/card/quantbench_paper_soxl_v1/quantbench_ensemble_guarded_rf_logistic_v1_soxl_daily.csv",
+      "runtime/model_selection/card/quantbench_paper_soxl_v1/quantbench_ensemble_guarded_hist_logistic_v1_soxl_daily.csv"
+    ],
+    "ensemble_candidate_screen_csv": "runtime/model_selection/card/quantbench_paper_soxl_v1/ensemble_candidate_screen.csv",
+    "ensemble_objective_metrics_json": "runtime/model_selection/card/quantbench_paper_soxl_v1/ensemble_objective_metrics.json",
+    "ensemble_path_library_csv": "runtime/model_selection/card/quantbench_paper_soxl_v1/ensemble_path_library.csv",
+    "ensemble_payloads_json": "runtime/model_selection/card/quantbench_paper_soxl_v1/ensemble_payloads.json",
+    "summary_json": "runtime/model_selection/card/quantbench_paper_soxl_v1/ensemble_summary.json"
+  },
+  "data": {
+    "end": "2026-06-04",
+    "feature_count": 113,
+    "feature_packs": [
+      "vix_term",
+      "academic_signals",
+      "macro_signals",
+      "rulebase_signals",
+      "transition_signals",
+      "soxx_signals",
+      "soxx_spread_oscillation"
+    ],
+    "horizon": 20,
+    "model_names": [
+      "logistic_clf",
+      "ridge_ic",
+      "ridge_mse",
+      "random_forest_clf",
+      "hist_gradient_mse",
+      "extra_trees_rank",
+      "mlp_mse"
+    ],
+    "path_count": 35,
+    "risk_overlays": [
+      "macro_budget_defensive_v1",
+      "macro_budget_lowdd_v1",
+      "macro_budget_bull_guard_v1",
+      "macro_budget_reentry_v1"
+    ],
+    "selector_count": 6,
+    "start": "2011-03-11",
+    "test_window": [
+      "2020-01-01",
+      "2026-12-31"
+    ],
+    "train_window": [
+      "2010-03-11",
+      "2018-12-31"
+    ]
+  },
+  "decision": "no_ensemble_model_satisfies_quantbench_soxl_20dd_gate",
+  "gate": {
+    "max_drawdown_pct": 20.0,
+    "max_stress_avg_pos": 0.45,
+    "min_bull_capture": 0.5,
+    "min_proxy_return": 0.0,
+    "min_stress_avg_pos": 0.1,
+    "min_stress_relative_return": 30.0
+  },
+  "next_action": "Promote only an eligible ensemble; otherwise inspect regime audit columns and adjust reusable path selection logic before another screen.",
+  "paper": {
+    "arxiv_pdf": "https://arxiv.org/pdf/2504.18600",
+    "mapped_claim": "seed/model ensemble robustness with macro-risk regime selection",
+    "title": "QuantBench: Benchmarking AI Methods for Quantitative Investment"
+  },
+  "screen": {
+    "best_rows": [
+      {
+        "bull_buy_and_hold_return": 191.7735092699,
+        "bull_capture": 0.5463554725587185,
+        "bull_return": 104.7765062814,
+        "eligible": false,
+        "failed_checks": [
+          "max_drawdown",
+          "stress_max_drawdown"
+        ],
+        "profile": "quantbench_ensemble_guarded_rf_logistic_v1",
+        "proxy_max_dd": 47.1457786767,
+        "proxy_return": 480.0458581832,
+        "score": 360.264891,
+        "source_path": "generated:quantbench_ensemble_guarded_rf_logistic_v1",
+        "stress_avg_pos": 0.16394802221477955,
+        "stress_max_dd": 32.877232833,
+        "stress_relative_return": 54.1666005191
+      },
+      {
+        "bull_buy_and_hold_return": 191.7735092699,
+        "bull_capture": 0.5126533879569094,
+        "bull_return": 98.3133392476,
+        "eligible": false,
+        "failed_checks": [
+          "max_drawdown",
+          "stress_max_drawdown"
+        ],
+        "profile": "quantbench_ensemble_guarded_hist_logistic_v1",
+        "proxy_max_dd": 47.3364391975,
+        "proxy_return": 471.2970380718,
+        "score": 349.301584,
+        "source_path": "generated:quantbench_ensemble_guarded_hist_logistic_v1",
+        "stress_avg_pos": 0.1615575839677676,
+        "stress_max_dd": 30.9696141336,
+        "stress_relative_return": 56.0849640699
+      },
+      {
+        "bull_buy_and_hold_return": 191.7735092699,
+        "bull_capture": 0.07671964078674375,
+        "bull_return": 14.7127947436,
+        "eligible": false,
+        "failed_checks": [
+          "max_drawdown",
+          "stress_max_drawdown",
+          "bull_capture"
+        ],
+        "profile": "quantbench_ensemble_defensive_logistic_v1",
+        "proxy_max_dd": 44.7052742225,
+        "proxy_return": 142.1884299977,
+        "score": -37.033286,
+        "source_path": "generated:quantbench_ensemble_defensive_logistic_v1",
+        "stress_avg_pos": 0.15963238638919855,
+        "stress_max_dd": 35.2318638338,
+        "stress_relative_return": 51.9274169888
+      },
+      {
+        "bull_buy_and_hold_return": 191.7735092699,
+        "bull_capture": 0.09660372845671117,
+        "bull_return": 18.5260360147,
+        "eligible": false,
+        "failed_checks": [
+          "max_drawdown",
+          "stress_max_drawdown",
+          "bull_capture"
+        ],
+        "profile": "quantbench_ensemble_lowdd_mlp_v1",
+        "proxy_max_dd": 45.9675614324,
+        "proxy_return": 104.1141020545,
+        "score": -70.842397,
+        "source_path": "generated:quantbench_ensemble_lowdd_mlp_v1",
+        "stress_avg_pos": 0.14323009092863176,
+        "stress_max_dd": 27.9745633584,
+        "stress_relative_return": 59.2533734848
+      },
+      {
+        "bull_buy_and_hold_return": 191.7735092699,
+        "bull_capture": 0.12742849625391717,
+        "bull_return": 24.4374099076,
+        "eligible": false,
+        "failed_checks": [
+          "max_drawdown",
+          "stress_max_drawdown",
+          "bull_capture"
+        ],
+        "profile": "quantbench_ensemble_lowdd_ridge_v1",
+        "proxy_max_dd": 44.0445568564,
+        "proxy_return": 91.0731237368,
+        "score": -74.500654,
+        "source_path": "generated:quantbench_ensemble_lowdd_ridge_v1",
+        "stress_avg_pos": 0.13828050408154086,
+        "stress_max_dd": 29.3540814502,
+        "stress_relative_return": 57.8615999242
+      },
+      {
+        "bull_buy_and_hold_return": 191.7735092699,
+        "bull_capture": 0.1216220272653728,
+        "bull_return": 23.3238829732,
+        "eligible": false,
+        "failed_checks": [
+          "max_drawdown",
+          "stress_max_drawdown",
+          "bull_capture"
+        ],
+        "profile": "quantbench_ensemble_extra_logistic_v1",
+        "proxy_max_dd": 45.802637236,
+        "proxy_return": 89.4188977667,
+        "score": -83.600335,
+        "source_path": "generated:quantbench_ensemble_extra_logistic_v1",
+        "stress_avg_pos": 0.1346799502117003,
+        "stress_max_dd": 29.1863428435,
+        "stress_relative_return": 58.0291136347
+      }
+    ],
+    "eligible_count": 0,
+    "eligible_profiles": [],
+    "records": 6
+  }
+}
