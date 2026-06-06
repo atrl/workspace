@@ -9,6 +9,7 @@ from src.soxl_quant.app.quantbench_supervised import (
     backtest_prediction_strategy,
     build_quantbench_supervised_report,
     build_supervised_summary_payloads,
+    fit_quantbench_rolling_supervised_models,
     fit_quantbench_supervised_models,
     quantbench_supervised_model_specs,
     risk_aware_position_series,
@@ -233,6 +234,42 @@ def test_fit_quantbench_supervised_models_trains_sequence_temporal_spec():
     assert pred.nunique() > 1
     assert metrics["sequence_lag_ridge_mse"]["rows"] > 0
     assert "mse" in metrics["sequence_lag_ridge_mse"]
+
+
+def test_fit_quantbench_rolling_supervised_models_refits_without_future_label_leakage():
+    index = pd.date_range("2024-01-01", periods=180, freq="D")
+    signal = np.sin(np.arange(len(index)) / 5.0)
+    returns = 0.004 * np.sign(pd.Series(signal).shift(1).fillna(0.0).to_numpy())
+    close = pd.Series(100.0 * np.cumprod(1.0 + returns), index=index)
+    features = pd.DataFrame({"signal": signal, "anti_signal": -signal}, index=index)
+    targets = build_soxl_supervised_targets(close, horizons=(3,))
+
+    predictions, metrics = fit_quantbench_rolling_supervised_models(
+        features,
+        targets,
+        test_start=index[90],
+        test_end=index[160],
+        horizon=3,
+        model_names=("ridge_mse",),
+        min_train_rows=40,
+        refit_step_rows=15,
+        train_lookback_rows=80,
+    )
+
+    pred = predictions["rolling_ridge_mse"]
+    assert pred.index.min() >= index[90]
+    assert pred.index.max() <= index[160]
+    assert pred.nunique() > 1
+    assert metrics["rolling_ridge_mse"]["fold_count"] >= 3
+    assert metrics["rolling_ridge_mse"]["train_lookback_rows"] == 80
+    assert all(
+        pd.Timestamp(fold["train_end"]) < pd.Timestamp(fold["predict_start"])
+        for fold in metrics["rolling_ridge_mse"]["folds"]
+    )
+    assert all(
+        pd.Timestamp(fold["label_cutoff"]) <= pd.Timestamp(fold["train_end"])
+        for fold in metrics["rolling_ridge_mse"]["folds"]
+    )
 
 
 def test_quantbench_supervised_model_specs_cover_paper_objectives():

@@ -12,6 +12,7 @@ import pandas as pd
 from .quantbench_screen import QuantBenchGate, screen_quantbench_candidates, summary_record_from_payload
 from .quantbench_supervised import (
     RiskAwarePositionConfig,
+    fit_quantbench_rolling_supervised_models,
     fit_quantbench_supervised_models,
     prediction_rank_position_series,
     quantbench_risk_overlay_configs,
@@ -1700,6 +1701,60 @@ def default_quantbench_path_selector_configs(
             tail_shock_stress_floor=0.10,
         ),
         QuantBenchPathSelectorConfig(
+            name="quantbench_ensemble_rolling_sequence_anchor_reset_v1",
+            defensive_path=path("random_forest_clf", "macro_budget_defensive_v1"),
+            neutral_path=path("random_forest_clf", "macro_budget_defensive_v1"),
+            offensive_path=path("rolling_sequence_lag_ridge_mse"),
+            recovery_path=path("rolling_sequence_lag_ridge_mse"),
+            stress_floor=0.10,
+            stress_cap=0.14,
+            neutral_cap=0.20,
+            bull_floor=0.70,
+            bull_cap=0.98,
+            recovery_floor=0.50,
+            recovery_cap=0.85,
+            stress_risk_threshold=0.92,
+            stress_drop_threshold=-0.35,
+            stress_drawdown_threshold=-0.45,
+            bull_risk_threshold=0.50,
+            bull_momentum_threshold=0.00,
+            bull_trend_threshold=-0.05,
+            bull_drawdown_floor=-0.30,
+            recovery_risk_threshold=0.75,
+            recovery_momentum_threshold=0.00,
+            recovery_trend_threshold=-0.08,
+            recovery_drawdown_min=-0.45,
+            recovery_drawdown_max=-0.02,
+            portfolio_drawdown_trigger=0.15,
+            portfolio_drawdown_cap=0.08,
+            portfolio_drawdown_release=0.05,
+            portfolio_reentry_floor=0.40,
+            portfolio_reentry_cap=0.65,
+            portfolio_drawdown_budget_start=0.04,
+            portfolio_drawdown_budget_full=0.12,
+            portfolio_drawdown_budget_start_cap=0.35,
+            portfolio_drawdown_budget_min_cap=0.04,
+            portfolio_drawdown_budget_stress_floor=0.14,
+            portfolio_drawdown_budget_bull_release_cap=0.30,
+            portfolio_drawdown_budget_bull_release_max_drawdown=0.20,
+            portfolio_drawdown_budget_bull_release_ma_window=200,
+            portfolio_drawdown_budget_bull_release_momentum_window=126,
+            portfolio_drawdown_budget_bull_release_high_window=126,
+            portfolio_drawdown_budget_bull_release_momentum_threshold=0.10,
+            portfolio_drawdown_budget_bull_release_drawdown_floor=-0.12,
+            portfolio_drawdown_budget_bull_release_volatility_window=20,
+            portfolio_drawdown_budget_bull_release_volatility_max=0.80,
+            portfolio_drawdown_budget_anchor_reset_drawdown=0.08,
+            portfolio_drawdown_budget_anchor_reset_max_drawdown=0.20,
+            portfolio_drawdown_budget_anchor_reset_streak_days=1,
+            tail_shock_day_threshold=-0.04,
+            tail_shock_rolling_2d_threshold=-0.075,
+            tail_shock_rolling_3d_threshold=-0.12,
+            tail_shock_cooldown_days=3,
+            tail_shock_cap=0.05,
+            tail_shock_stress_floor=0.10,
+        ),
+        QuantBenchPathSelectorConfig(
             name="quantbench_ensemble_hazard_rf_logistic_v1",
             defensive_path=path("random_forest_clf", "macro_budget_defensive_v1"),
             neutral_path=path("random_forest_clf", "macro_budget_defensive_v1"),
@@ -1774,6 +1829,11 @@ def build_quantbench_supervised_ensemble_report(
     hazard_refit_step_rows: int = 63,
     hazard_train_lookback_rows: int | None = 1260,
     hazard_min_train_rows: int = 756,
+    rolling_enabled: bool = True,
+    rolling_model_names: Iterable[str] = ("logistic_clf", "sequence_lag_ridge_mse"),
+    rolling_min_train_rows: int = 756,
+    rolling_refit_step_rows: int = 63,
+    rolling_train_lookback_rows: int | None = 1260,
 ) -> dict[str, Any]:
     """Train supervised paths and run the src-owned macro path ensemble screen."""
     root = root.resolve() if root is not None else None
@@ -1801,6 +1861,36 @@ def build_quantbench_supervised_ensemble_report(
         horizon=horizon,
         model_names=model_names,
     )
+    rolling_metrics: dict[str, Any] = {"enabled": bool(rolling_enabled)}
+    if bool(rolling_enabled):
+        try:
+            rolling_predictions, rolling_objective_metrics = fit_quantbench_rolling_supervised_models(
+                feature_frame,
+                targets,
+                test_start=test_start,
+                test_end=test_end,
+                horizon=horizon,
+                model_names=rolling_model_names,
+                min_train_rows=rolling_min_train_rows,
+                refit_step_rows=rolling_refit_step_rows,
+                train_lookback_rows=rolling_train_lookback_rows,
+            )
+            predictions.update(rolling_predictions)
+            objective_metrics.update(rolling_objective_metrics)
+            rolling_metrics.update(
+                {
+                    "model_names": list(rolling_model_names),
+                    "generated_model_names": list(rolling_predictions.keys()),
+                    "fold_count": int(sum(metric.get("fold_count", 0) for metric in rolling_objective_metrics.values())),
+                    "min_train_rows": int(rolling_min_train_rows),
+                    "refit_step_rows": int(rolling_refit_step_rows),
+                    "train_lookback_rows": (
+                        None if rolling_train_lookback_rows is None else int(rolling_train_lookback_rows)
+                    ),
+                }
+            )
+        except ValueError as exc:
+            rolling_metrics["error"] = str(exc)
     risk_config_tuple = tuple(quantbench_risk_overlay_configs() if risk_configs is None else risk_configs)
     blend_spec_tuple = tuple(default_quantbench_signal_blend_specs() if blend_specs is None else blend_specs)
     paths = build_supervised_path_library(
@@ -1903,6 +1993,13 @@ def build_quantbench_supervised_ensemble_report(
             "model_names": list(predictions.keys()),
             "risk_overlays": [config.name for config in risk_config_tuple],
             "signal_blends": [config.name for config in blend_spec_tuple],
+            "rolling_enabled": bool(rolling_enabled),
+            "rolling_model_names": list(rolling_model_names),
+            "rolling_refit_step_rows": int(rolling_refit_step_rows),
+            "rolling_train_lookback_rows": (
+                None if rolling_train_lookback_rows is None else int(rolling_train_lookback_rows)
+            ),
+            "rolling_min_train_rows": int(rolling_min_train_rows),
             "horizon": int(horizon),
             "hazard_enabled": bool(hazard_enabled),
             "hazard_mode": str(hazard_mode),
@@ -1919,6 +2016,7 @@ def build_quantbench_supervised_ensemble_report(
     report["artifacts"]["ensemble_path_library_csv"] = rel(path_library_path)
     report["artifacts"]["ensemble_objective_metrics_json"] = rel(objective_metrics_path)
     report["artifacts"]["ensemble_hazard_metrics_json"] = rel(hazard_metrics_path)
+    report["rolling"] = rolling_metrics
     summary_path = card_dir / "ensemble_summary.json"
     summary_path.write_text(json.dumps(report, indent=2, sort_keys=True, allow_nan=True) + "\n", encoding="utf-8")
     return report

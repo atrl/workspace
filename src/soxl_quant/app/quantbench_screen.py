@@ -154,9 +154,9 @@ def quantbench_model_objective_coverage() -> list[dict[str, str]]:
         {
             "family": "rolling_continual",
             "paper_family": "3/6/12 month rolling updates",
-            "current_soxl_surface": "walk-forward folds exist; cadence-specific rolling missing",
-            "coverage": "partial",
-            "next_step": "add rolling cadence screen with cost/evidence ledger",
+            "current_soxl_surface": "rolling supervised refit paths and rolling hazard refits exist with non-leaking fold ledgers",
+            "coverage": "implemented_partial",
+            "next_step": "keep cadence only if QuantBench gate improves; otherwise use rolling diagnostics to adjust risk objective",
         },
         {
             "family": "seed_ensemble",

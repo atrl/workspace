@@ -564,6 +564,7 @@ def test_default_quantbench_path_selector_configs_include_volatility_budget_cand
     assert "quantbench_ensemble_tail_shock_anchor_reset_rf_logistic_v1" in names
     assert "quantbench_ensemble_sequence_anchor_reset_v1" in names
     assert "quantbench_ensemble_blend_anchor_reset_v1" in names
+    assert "quantbench_ensemble_rolling_sequence_anchor_reset_v1" in names
     candidate = next(config for config in budget_configs if config.name == "quantbench_ensemble_vol_budget_rf_logistic_v1")
     assert candidate.volatility_stress_target < candidate.volatility_bull_target
     assert candidate.portfolio_drawdown_trigger > 0.0
@@ -613,6 +614,12 @@ def test_default_quantbench_path_selector_configs_include_volatility_budget_cand
     assert blend_candidate.offensive_path == "quantbench_supervised_blend_logistic_sequence_lowcorr_v1"
     assert blend_candidate.recovery_path == "quantbench_supervised_blend_logistic_sequence_lowcorr_v1"
     assert blend_candidate.portfolio_drawdown_budget_anchor_reset_drawdown > 0.0
+    rolling_candidate = next(
+        config for config in budget_configs if config.name == "quantbench_ensemble_rolling_sequence_anchor_reset_v1"
+    )
+    assert rolling_candidate.offensive_path == "quantbench_supervised_rolling_sequence_lag_ridge_mse"
+    assert rolling_candidate.recovery_path == "quantbench_supervised_rolling_sequence_lag_ridge_mse"
+    assert rolling_candidate.portfolio_drawdown_budget_anchor_reset_drawdown > 0.0
 
 
 def test_fit_quantbench_drawdown_hazard_model_predicts_oos_future_drawdown_risk():
@@ -796,6 +803,76 @@ def test_build_quantbench_supervised_ensemble_report_trains_paths_inside_src(tmp
     assert report["data"]["model_names"] == ["logistic_clf", "ridge_mse"]
     assert (tmp_path / "ensemble_summary.json").exists()
     assert (tmp_path / "unit_supervised_selector_soxl_daily.csv").exists()
+
+
+def test_build_quantbench_supervised_ensemble_report_can_route_rolling_refit_paths(tmp_path):
+    index = pd.date_range("2024-01-01", periods=160, freq="D")
+    signal = np.sin(np.arange(len(index)) / 6.0)
+    returns = 0.003 * np.sign(pd.Series(signal).shift(1).fillna(0.0).to_numpy())
+    close = pd.Series(100.0 * np.cumprod(1.0 + returns), index=index)
+    features = pd.DataFrame(
+        {
+            "signal": signal,
+            "signal_lag": pd.Series(signal, index=index).shift(1).fillna(0.0),
+            "regime_risk": np.where(np.arange(len(index)) < 110, 0.65, 0.20),
+            "cum_drop_30": np.where(np.arange(len(index)) < 110, -0.18, 0.0),
+            "drawdown_63": np.where(np.arange(len(index)) < 110, -0.20, -0.02),
+            "mom_21": np.where(np.arange(len(index)) < 110, -0.02, 0.08),
+            "trend_gap_63": np.where(np.arange(len(index)) < 110, -0.01, 0.05),
+        },
+        index=index,
+    )
+    config = QuantBenchPathSelectorConfig(
+        name="unit_rolling_selector",
+        defensive_path="quantbench_supervised_ridge_mse",
+        neutral_path="quantbench_supervised_ridge_mse",
+        offensive_path="quantbench_supervised_rolling_ridge_mse",
+        recovery_path="quantbench_supervised_rolling_ridge_mse",
+        stress_floor=0.10,
+        stress_cap=0.20,
+    )
+    gate = QuantBenchGate(
+        max_drawdown_pct=99.0,
+        min_stress_relative_return=-999.0,
+        min_stress_avg_pos=0.0,
+        max_stress_avg_pos=1.0,
+        min_bull_capture=-999.0,
+        min_proxy_return=-999.0,
+    )
+
+    report = build_quantbench_supervised_ensemble_report(
+        features,
+        close,
+        card_dir=tmp_path,
+        root=tmp_path,
+        horizon=3,
+        model_names=("ridge_mse",),
+        train_start=index[0],
+        train_end=index[79],
+        test_start=index[80],
+        test_end=index[140],
+        risk_configs=(),
+        ensemble_configs=(config,),
+        gate=gate,
+        hazard_enabled=False,
+        rolling_enabled=True,
+        rolling_model_names=("ridge_mse",),
+        rolling_min_train_rows=40,
+        rolling_refit_step_rows=15,
+        rolling_train_lookback_rows=80,
+        windows={
+            "test_2020": (index[80], index[95]),
+            "test_2022": (index[96], index[118]),
+            "test_2023_2024": (index[119], index[140]),
+        },
+    )
+
+    assert report["data"]["rolling_enabled"] is True
+    assert report["data"]["rolling_model_names"] == ["ridge_mse"]
+    assert "rolling_ridge_mse" in report["data"]["model_names"]
+    assert report["data"]["path_count"] == 2
+    assert report["screen"]["records"] == 1
+    assert (tmp_path / "unit_rolling_selector_soxl_daily.csv").exists()
 
 
 def test_build_quantbench_supervised_ensemble_report_writes_hazard_metrics(tmp_path):

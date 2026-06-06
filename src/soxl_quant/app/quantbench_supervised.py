@@ -350,6 +350,95 @@ def fit_quantbench_supervised_models(
     return predictions, metrics
 
 
+def fit_quantbench_rolling_supervised_models(
+    features: pd.DataFrame,
+    targets: pd.DataFrame,
+    *,
+    test_start,
+    test_end,
+    horizon: int,
+    model_names: Iterable[str] | None = None,
+    min_train_rows: int = 756,
+    refit_step_rows: int = 63,
+    train_lookback_rows: int | None = 1260,
+) -> tuple[dict[str, pd.Series], dict[str, dict[str, Any]]]:
+    """Fit supervised baselines with non-leaking rolling refits."""
+    horizon = int(horizon)
+    horizon_rows = max(horizon, 1)
+    min_rows = max(int(min_train_rows), 1)
+    step = max(int(refit_step_rows), 1)
+    frame = _clean_feature_target_frame(features, targets, horizon)
+    feature_columns = list(features.columns)
+
+    predictions: dict[str, pd.Series] = {}
+    metrics: dict[str, dict[str, Any]] = {}
+    for spec in quantbench_supervised_model_specs(model_names):
+        target_column = _target_column(spec, horizon)
+        x_frame = _feature_matrix_for_spec(spec, frame, feature_columns).replace([np.inf, -np.inf], np.nan)
+        model_frame = pd.concat([x_frame, frame[[target_column]]], axis=1).dropna().sort_index()
+        index = model_frame.index
+        test_index = index[(index >= pd.Timestamp(test_start)) & (index <= pd.Timestamp(test_end))]
+        if test_index.empty:
+            continue
+        model_features = [column for column in model_frame.columns if column != target_column]
+        fold_predictions: list[pd.Series] = []
+        folds: list[dict[str, Any]] = []
+        for block_start_pos in range(0, len(test_index), step):
+            block_index = test_index[block_start_pos : block_start_pos + step]
+            predict_start = block_index[0]
+            predict_start_pos = int(index.get_loc(predict_start))
+            label_cutoff_pos = predict_start_pos - horizon_rows
+            if label_cutoff_pos <= 0:
+                continue
+            train = model_frame.iloc[:label_cutoff_pos].copy()
+            if train_lookback_rows is not None and int(train_lookback_rows) > 0 and len(train) > int(train_lookback_rows):
+                train = train.iloc[-int(train_lookback_rows) :]
+            if len(train) < min_rows:
+                continue
+            if spec.target_kind == "binary" and train[target_column].nunique(dropna=True) < 2:
+                continue
+            predict = model_frame.loc[block_index]
+            model = _build_model(spec)
+            model.fit(train[model_features], train[target_column])
+            block_pred = pd.Series(
+                _prediction_from_model(spec, model, predict[model_features]),
+                index=predict.index,
+                name=f"rolling_{spec.name}",
+            )
+            fold_predictions.append(block_pred)
+            folds.append(
+                {
+                    "predict_start": str(pd.Timestamp(predict.index.min()).date()),
+                    "predict_end": str(pd.Timestamp(predict.index.max()).date()),
+                    "train_start": str(pd.Timestamp(train.index.min()).date()),
+                    "train_end": str(pd.Timestamp(train.index.max()).date()),
+                    "label_cutoff": str(pd.Timestamp(train.index.max()).date()),
+                    "train_rows": int(len(train)),
+                    "predict_rows": int(len(predict)),
+                }
+            )
+        if not fold_predictions:
+            continue
+        name = f"rolling_{spec.name}"
+        pred = pd.concat(fold_predictions).sort_index()
+        predictions[name] = pred
+        metric = evaluate_prediction_objectives(pred, frame.loc[pred.index], horizon=horizon)
+        metric.update(
+            {
+                "base_model_name": spec.name,
+                "fold_count": int(len(folds)),
+                "min_train_rows": int(min_rows),
+                "refit_step_rows": int(step),
+                "train_lookback_rows": None if train_lookback_rows is None else int(train_lookback_rows),
+                "folds": folds,
+            }
+        )
+        metrics[name] = metric
+    if not predictions:
+        raise ValueError("rolling supervised refit could not produce any predictions")
+    return predictions, metrics
+
+
 def _prediction_to_position(predictions: pd.Series, min_position: float, max_position: float) -> pd.Series:
     ranks = predictions.astype(float).rank(pct=True, method="average")
     return (float(min_position) + (float(max_position) - float(min_position)) * ranks).clip(
@@ -695,6 +784,11 @@ def build_quantbench_supervised_report(
     max_position: float = 0.90,
     cost: float = 0.0008,
     risk_configs: Iterable[RiskAwarePositionConfig] | None = None,
+    rolling_enabled: bool = True,
+    rolling_model_names: Iterable[str] = ("logistic_clf", "sequence_lag_ridge_mse"),
+    rolling_min_train_rows: int = 756,
+    rolling_refit_step_rows: int = 63,
+    rolling_train_lookback_rows: int | None = 1260,
 ) -> dict[str, Any]:
     """Train QuantBench-style supervised SOXL baselines and persist screen artifacts."""
     root = root.resolve() if root is not None else None
@@ -723,6 +817,36 @@ def build_quantbench_supervised_report(
         horizon=horizon,
         model_names=model_names,
     )
+    rolling_metrics: dict[str, Any] = {"enabled": bool(rolling_enabled)}
+    if bool(rolling_enabled):
+        try:
+            rolling_predictions, rolling_objective_metrics = fit_quantbench_rolling_supervised_models(
+                feature_frame,
+                targets,
+                test_start=test_start,
+                test_end=test_end,
+                horizon=horizon,
+                model_names=rolling_model_names,
+                min_train_rows=rolling_min_train_rows,
+                refit_step_rows=rolling_refit_step_rows,
+                train_lookback_rows=rolling_train_lookback_rows,
+            )
+            predictions.update(rolling_predictions)
+            objective_metrics.update(rolling_objective_metrics)
+            rolling_metrics.update(
+                {
+                    "model_names": list(rolling_model_names),
+                    "generated_model_names": list(rolling_predictions.keys()),
+                    "fold_count": int(sum(metric.get("fold_count", 0) for metric in rolling_objective_metrics.values())),
+                    "min_train_rows": int(rolling_min_train_rows),
+                    "refit_step_rows": int(rolling_refit_step_rows),
+                    "train_lookback_rows": (
+                        None if rolling_train_lookback_rows is None else int(rolling_train_lookback_rows)
+                    ),
+                }
+            )
+        except ValueError as exc:
+            rolling_metrics["error"] = str(exc)
     payloads = build_supervised_summary_payloads(
         close_series,
         predictions,
@@ -780,6 +904,14 @@ def build_quantbench_supervised_report(
             "feature_packs": list(feature_packs),
             "risk_overlays": [config.name for config in risk_configs],
             "horizon": int(horizon),
+            "model_names": list(predictions.keys()),
+            "rolling_enabled": bool(rolling_enabled),
+            "rolling_model_names": list(rolling_model_names),
+            "rolling_refit_step_rows": int(rolling_refit_step_rows),
+            "rolling_train_lookback_rows": (
+                None if rolling_train_lookback_rows is None else int(rolling_train_lookback_rows)
+            ),
+            "rolling_min_train_rows": int(rolling_min_train_rows),
             "train_window": [str(pd.Timestamp(train_start).date()), str(pd.Timestamp(train_end).date())],
             "test_window": [str(pd.Timestamp(test_start).date()), str(pd.Timestamp(test_end).date())],
         },
@@ -791,6 +923,7 @@ def build_quantbench_supervised_report(
             "supervised_candidate_screen_csv": rel(screen_path),
             "supervised_payloads_json": rel(payloads_path),
         },
+        "rolling": rolling_metrics,
         "screen": {
             "records": len(records),
             "eligible_count": len(eligible_rows),
@@ -816,6 +949,7 @@ __all__ = [
     "backtest_prediction_strategy",
     "build_quantbench_supervised_report",
     "build_supervised_summary_payloads",
+    "fit_quantbench_rolling_supervised_models",
     "fit_quantbench_supervised_models",
     "prediction_rank_position_series",
     "quantbench_risk_overlay_configs",

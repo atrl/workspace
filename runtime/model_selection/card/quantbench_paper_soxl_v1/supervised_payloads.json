@@ -1100,8 +1100,8 @@
     "objective": "clf",
     "objective_metrics": {
       "clf_accuracy": 0.5,
-      "ic": -0.03280759961806663,
-      "mse": 0.10474681848761278,
+      "ic": -0.03280759961806667,
+      "mse": 0.10474681848761279,
       "ranking_spread": -0.07485088712876582,
       "rows": 1594.0,
       "utility_return": 0.008161107694169417
@@ -1153,8 +1153,8 @@
     "objective": "clf",
     "objective_metrics": {
       "clf_accuracy": 0.5,
-      "ic": -0.03280759961806663,
-      "mse": 0.10474681848761278,
+      "ic": -0.03280759961806667,
+      "mse": 0.10474681848761279,
       "ranking_spread": -0.07485088712876582,
       "rows": 1594.0,
       "utility_return": 0.008161107694169417
@@ -1231,8 +1231,8 @@
     "objective": "clf",
     "objective_metrics": {
       "clf_accuracy": 0.5,
-      "ic": -0.03280759961806663,
-      "mse": 0.10474681848761278,
+      "ic": -0.03280759961806667,
+      "mse": 0.10474681848761279,
       "ranking_spread": -0.07485088712876582,
       "rows": 1594.0,
       "utility_return": 0.008161107694169417
@@ -1309,8 +1309,8 @@
     "objective": "clf",
     "objective_metrics": {
       "clf_accuracy": 0.5,
-      "ic": -0.03280759961806663,
-      "mse": 0.10474681848761278,
+      "ic": -0.03280759961806667,
+      "mse": 0.10474681848761279,
       "ranking_spread": -0.07485088712876582,
       "rows": 1594.0,
       "utility_return": 0.008161107694169417
@@ -1387,8 +1387,8 @@
     "objective": "clf",
     "objective_metrics": {
       "clf_accuracy": 0.5,
-      "ic": -0.03280759961806663,
-      "mse": 0.10474681848761278,
+      "ic": -0.03280759961806667,
+      "mse": 0.10474681848761279,
       "ranking_spread": -0.07485088712876582,
       "rows": 1594.0,
       "utility_return": 0.008161107694169417
@@ -1834,7 +1834,7 @@
       "mse": 0.09950123746607113,
       "ranking_spread": -0.003517271828936075,
       "rows": 1594.0,
-      "utility_return": 0.007680649499740533
+      "utility_return": 0.007680649499740534
     },
     "paper_family": "tree_ensemble",
     "profile": "quantbench_supervised_extra_trees_rank",
@@ -1887,7 +1887,7 @@
       "mse": 0.09950123746607113,
       "ranking_spread": -0.003517271828936075,
       "rows": 1594.0,
-      "utility_return": 0.007680649499740533
+      "utility_return": 0.007680649499740534
     },
     "paper_family": "tree_ensemble",
     "profile": "quantbench_supervised_extra_trees_rank_macro_budget_defensive_v1",
@@ -1965,7 +1965,7 @@
       "mse": 0.09950123746607113,
       "ranking_spread": -0.003517271828936075,
       "rows": 1594.0,
-      "utility_return": 0.007680649499740533
+      "utility_return": 0.007680649499740534
     },
     "paper_family": "tree_ensemble",
     "profile": "quantbench_supervised_extra_trees_rank_macro_budget_lowdd_v1",
@@ -2043,7 +2043,7 @@
       "mse": 0.09950123746607113,
       "ranking_spread": -0.003517271828936075,
       "rows": 1594.0,
-      "utility_return": 0.007680649499740533
+      "utility_return": 0.007680649499740534
     },
     "paper_family": "tree_ensemble",
     "profile": "quantbench_supervised_extra_trees_rank_macro_budget_bull_guard_v1",
@@ -2121,7 +2121,7 @@
       "mse": 0.09950123746607113,
       "ranking_spread": -0.003517271828936075,
       "rows": 1594.0,
-      "utility_return": 0.007680649499740533
+      "utility_return": 0.007680649499740534
     },
     "paper_family": "tree_ensemble",
     "profile": "quantbench_supervised_extra_trees_rank_macro_budget_reentry_v1",
@@ -2917,6 +2917,3146 @@
       "return": -7.2328135718,
       "trades": 231,
       "turnover": 46.109874529485566
+    }
+  },
+  {
+    "model_family": "quantbench_supervised",
+    "model_name": "rolling_logistic_clf",
+    "objective": "custom",
+    "objective_metrics": {
+      "base_model_name": "logistic_clf",
+      "clf_accuracy": 0.482434,
+      "fold_count": 26,
+      "folds": [
+        {
+          "label_cutoff": "2019-12-02",
+          "predict_end": "2020-04-01",
+          "predict_rows": 63,
+          "predict_start": "2020-01-02",
+          "train_end": "2019-12-02",
+          "train_rows": 1260,
+          "train_start": "2014-12-01"
+        },
+        {
+          "label_cutoff": "2020-03-04",
+          "predict_end": "2020-07-01",
+          "predict_rows": 63,
+          "predict_start": "2020-04-02",
+          "train_end": "2020-03-04",
+          "train_rows": 1260,
+          "train_start": "2015-03-04"
+        },
+        {
+          "label_cutoff": "2020-06-03",
+          "predict_end": "2020-09-30",
+          "predict_rows": 63,
+          "predict_start": "2020-07-02",
+          "train_end": "2020-06-03",
+          "train_rows": 1260,
+          "train_start": "2015-06-03"
+        },
+        {
+          "label_cutoff": "2020-09-01",
+          "predict_end": "2020-12-30",
+          "predict_rows": 63,
+          "predict_start": "2020-10-01",
+          "train_end": "2020-09-01",
+          "train_rows": 1260,
+          "train_start": "2015-09-01"
+        },
+        {
+          "label_cutoff": "2020-12-01",
+          "predict_end": "2021-04-01",
+          "predict_rows": 63,
+          "predict_start": "2020-12-31",
+          "train_end": "2020-12-01",
+          "train_rows": 1260,
+          "train_start": "2015-12-01"
+        },
+        {
+          "label_cutoff": "2021-03-04",
+          "predict_end": "2021-07-01",
+          "predict_rows": 63,
+          "predict_start": "2021-04-05",
+          "train_end": "2021-03-04",
+          "train_rows": 1260,
+          "train_start": "2016-03-03"
+        },
+        {
+          "label_cutoff": "2021-06-03",
+          "predict_end": "2021-09-30",
+          "predict_rows": 63,
+          "predict_start": "2021-07-02",
+          "train_end": "2021-06-03",
+          "train_rows": 1260,
+          "train_start": "2016-06-02"
+        },
+        {
+          "label_cutoff": "2021-09-01",
+          "predict_end": "2021-12-30",
+          "predict_rows": 63,
+          "predict_start": "2021-10-01",
+          "train_end": "2021-09-01",
+          "train_rows": 1260,
+          "train_start": "2016-08-31"
+        },
+        {
+          "label_cutoff": "2021-12-01",
+          "predict_end": "2022-03-31",
+          "predict_rows": 63,
+          "predict_start": "2021-12-31",
+          "train_end": "2021-12-01",
+          "train_rows": 1260,
+          "train_start": "2016-11-30"
+        },
+        {
+          "label_cutoff": "2022-03-03",
+          "predict_end": "2022-07-01",
+          "predict_rows": 63,
+          "predict_start": "2022-04-01",
+          "train_end": "2022-03-03",
+          "train_rows": 1260,
+          "train_start": "2017-03-03"
+        },
+        {
+          "label_cutoff": "2022-06-02",
+          "predict_end": "2022-09-30",
+          "predict_rows": 63,
+          "predict_start": "2022-07-05",
+          "train_end": "2022-06-02",
+          "train_rows": 1260,
+          "train_start": "2017-06-02"
+        },
+        {
+          "label_cutoff": "2022-09-01",
+          "predict_end": "2022-12-30",
+          "predict_rows": 63,
+          "predict_start": "2022-10-03",
+          "train_end": "2022-09-01",
+          "train_rows": 1260,
+          "train_start": "2017-08-31"
+        },
+        {
+          "label_cutoff": "2022-12-01",
+          "predict_end": "2023-04-03",
+          "predict_rows": 63,
+          "predict_start": "2023-01-03",
+          "train_end": "2022-12-01",
+          "train_rows": 1260,
+          "train_start": "2017-11-30"
+        },
+        {
+          "label_cutoff": "2023-03-06",
+          "predict_end": "2023-07-05",
+          "predict_rows": 63,
+          "predict_start": "2023-04-04",
+          "train_end": "2023-03-06",
+          "train_rows": 1260,
+          "train_start": "2018-03-05"
+        },
+        {
+          "label_cutoff": "2023-06-05",
+          "predict_end": "2023-10-03",
+          "predict_rows": 63,
+          "predict_start": "2023-07-06",
+          "train_end": "2023-06-05",
+          "train_rows": 1260,
+          "train_start": "2018-06-04"
+        },
+        {
+          "label_cutoff": "2023-09-05",
+          "predict_end": "2024-01-03",
+          "predict_rows": 63,
+          "predict_start": "2023-10-04",
+          "train_end": "2023-09-05",
+          "train_rows": 1260,
+          "train_start": "2018-08-31"
+        },
+        {
+          "label_cutoff": "2023-12-04",
+          "predict_end": "2024-04-04",
+          "predict_rows": 63,
+          "predict_start": "2024-01-04",
+          "train_end": "2023-12-04",
+          "train_rows": 1260,
+          "train_start": "2018-11-30"
+        },
+        {
+          "label_cutoff": "2024-03-06",
+          "predict_end": "2024-07-05",
+          "predict_rows": 63,
+          "predict_start": "2024-04-05",
+          "train_end": "2024-03-06",
+          "train_rows": 1260,
+          "train_start": "2019-03-06"
+        },
+        {
+          "label_cutoff": "2024-06-05",
+          "predict_end": "2024-10-03",
+          "predict_rows": 63,
+          "predict_start": "2024-07-08",
+          "train_end": "2024-06-05",
+          "train_rows": 1260,
+          "train_start": "2019-06-05"
+        },
+        {
+          "label_cutoff": "2024-09-05",
+          "predict_end": "2025-01-03",
+          "predict_rows": 63,
+          "predict_start": "2024-10-04",
+          "train_end": "2024-09-05",
+          "train_rows": 1260,
+          "train_start": "2019-09-04"
+        },
+        {
+          "label_cutoff": "2024-12-04",
+          "predict_end": "2025-04-07",
+          "predict_rows": 63,
+          "predict_start": "2025-01-06",
+          "train_end": "2024-12-04",
+          "train_rows": 1260,
+          "train_start": "2019-12-03"
+        },
+        {
+          "label_cutoff": "2025-03-10",
+          "predict_end": "2025-07-09",
+          "predict_rows": 63,
+          "predict_start": "2025-04-08",
+          "train_end": "2025-03-10",
+          "train_rows": 1260,
+          "train_start": "2020-03-05"
+        },
+        {
+          "label_cutoff": "2025-06-09",
+          "predict_end": "2025-10-07",
+          "predict_rows": 63,
+          "predict_start": "2025-07-10",
+          "train_end": "2025-06-09",
+          "train_rows": 1260,
+          "train_start": "2020-06-04"
+        },
+        {
+          "label_cutoff": "2025-09-09",
+          "predict_end": "2026-01-07",
+          "predict_rows": 63,
+          "predict_start": "2025-10-08",
+          "train_end": "2025-09-09",
+          "train_rows": 1260,
+          "train_start": "2020-09-02"
+        },
+        {
+          "label_cutoff": "2025-12-08",
+          "predict_end": "2026-04-09",
+          "predict_rows": 63,
+          "predict_start": "2026-01-08",
+          "train_end": "2025-12-08",
+          "train_rows": 1260,
+          "train_start": "2020-12-02"
+        },
+        {
+          "label_cutoff": "2026-03-11",
+          "predict_end": "2026-05-06",
+          "predict_rows": 19,
+          "predict_start": "2026-04-10",
+          "train_end": "2026-03-11",
+          "train_rows": 1260,
+          "train_start": "2021-03-05"
+        }
+      ],
+      "ic": -0.13131092511865136,
+      "min_train_rows": 756,
+      "mse": 0.2789229802397136,
+      "ranking_spread": -0.08469104898288375,
+      "refit_step_rows": 63,
+      "rows": 1594.0,
+      "train_lookback_rows": 1260,
+      "utility_return": 0.02952691037393115
+    },
+    "paper_family": "custom",
+    "profile": "quantbench_supervised_rolling_logistic_clf",
+    "slices": {
+      "test_2020": {
+        "avg_pos": 0.5001109219016076,
+        "buy_and_hold_return": 59.7753083811,
+        "max_dd": 66.5691961792,
+        "relative_return": -14.9993152537,
+        "return": 44.7759931275,
+        "trades": 232,
+        "turnover": 8.014624505928854
+      },
+      "test_2022": {
+        "avg_pos": 0.4987190679513024,
+        "buy_and_hold_return": -86.5880717324,
+        "max_dd": 63.8342006119,
+        "relative_return": 42.3447666836,
+        "return": -44.2433050488,
+        "trades": 251,
+        "turnover": 14.350199203187252
+      },
+      "test_2023_2024": {
+        "avg_pos": 0.4991246170695704,
+        "buy_and_hold_return": 191.7735092699,
+        "max_dd": 26.9030345042,
+        "relative_return": -55.3081460393,
+        "return": 136.4653632306,
+        "trades": 502,
+        "turnover": 31.462549800796815
+      }
+    },
+    "test_proxy": {
+      "avg_pos": 0.5001856869156451,
+      "buy_and_hold_return": 752.0859028087,
+      "max_dd": 71.8230352754,
+      "relative_return": -399.526939964,
+      "return": 352.5589628447,
+      "trades": 1573,
+      "turnover": 73.07314930991217
+    }
+  },
+  {
+    "model_family": "quantbench_supervised",
+    "model_name": "rolling_logistic_clf",
+    "objective": "custom",
+    "objective_metrics": {
+      "base_model_name": "logistic_clf",
+      "clf_accuracy": 0.482434,
+      "fold_count": 26,
+      "folds": [
+        {
+          "label_cutoff": "2019-12-02",
+          "predict_end": "2020-04-01",
+          "predict_rows": 63,
+          "predict_start": "2020-01-02",
+          "train_end": "2019-12-02",
+          "train_rows": 1260,
+          "train_start": "2014-12-01"
+        },
+        {
+          "label_cutoff": "2020-03-04",
+          "predict_end": "2020-07-01",
+          "predict_rows": 63,
+          "predict_start": "2020-04-02",
+          "train_end": "2020-03-04",
+          "train_rows": 1260,
+          "train_start": "2015-03-04"
+        },
+        {
+          "label_cutoff": "2020-06-03",
+          "predict_end": "2020-09-30",
+          "predict_rows": 63,
+          "predict_start": "2020-07-02",
+          "train_end": "2020-06-03",
+          "train_rows": 1260,
+          "train_start": "2015-06-03"
+        },
+        {
+          "label_cutoff": "2020-09-01",
+          "predict_end": "2020-12-30",
+          "predict_rows": 63,
+          "predict_start": "2020-10-01",
+          "train_end": "2020-09-01",
+          "train_rows": 1260,
+          "train_start": "2015-09-01"
+        },
+        {
+          "label_cutoff": "2020-12-01",
+          "predict_end": "2021-04-01",
+          "predict_rows": 63,
+          "predict_start": "2020-12-31",
+          "train_end": "2020-12-01",
+          "train_rows": 1260,
+          "train_start": "2015-12-01"
+        },
+        {
+          "label_cutoff": "2021-03-04",
+          "predict_end": "2021-07-01",
+          "predict_rows": 63,
+          "predict_start": "2021-04-05",
+          "train_end": "2021-03-04",
+          "train_rows": 1260,
+          "train_start": "2016-03-03"
+        },
+        {
+          "label_cutoff": "2021-06-03",
+          "predict_end": "2021-09-30",
+          "predict_rows": 63,
+          "predict_start": "2021-07-02",
+          "train_end": "2021-06-03",
+          "train_rows": 1260,
+          "train_start": "2016-06-02"
+        },
+        {
+          "label_cutoff": "2021-09-01",
+          "predict_end": "2021-12-30",
+          "predict_rows": 63,
+          "predict_start": "2021-10-01",
+          "train_end": "2021-09-01",
+          "train_rows": 1260,
+          "train_start": "2016-08-31"
+        },
+        {
+          "label_cutoff": "2021-12-01",
+          "predict_end": "2022-03-31",
+          "predict_rows": 63,
+          "predict_start": "2021-12-31",
+          "train_end": "2021-12-01",
+          "train_rows": 1260,
+          "train_start": "2016-11-30"
+        },
+        {
+          "label_cutoff": "2022-03-03",
+          "predict_end": "2022-07-01",
+          "predict_rows": 63,
+          "predict_start": "2022-04-01",
+          "train_end": "2022-03-03",
+          "train_rows": 1260,
+          "train_start": "2017-03-03"
+        },
+        {
+          "label_cutoff": "2022-06-02",
+          "predict_end": "2022-09-30",
+          "predict_rows": 63,
+          "predict_start": "2022-07-05",
+          "train_end": "2022-06-02",
+          "train_rows": 1260,
+          "train_start": "2017-06-02"
+        },
+        {
+          "label_cutoff": "2022-09-01",
+          "predict_end": "2022-12-30",
+          "predict_rows": 63,
+          "predict_start": "2022-10-03",
+          "train_end": "2022-09-01",
+          "train_rows": 1260,
+          "train_start": "2017-08-31"
+        },
+        {
+          "label_cutoff": "2022-12-01",
+          "predict_end": "2023-04-03",
+          "predict_rows": 63,
+          "predict_start": "2023-01-03",
+          "train_end": "2022-12-01",
+          "train_rows": 1260,
+          "train_start": "2017-11-30"
+        },
+        {
+          "label_cutoff": "2023-03-06",
+          "predict_end": "2023-07-05",
+          "predict_rows": 63,
+          "predict_start": "2023-04-04",
+          "train_end": "2023-03-06",
+          "train_rows": 1260,
+          "train_start": "2018-03-05"
+        },
+        {
+          "label_cutoff": "2023-06-05",
+          "predict_end": "2023-10-03",
+          "predict_rows": 63,
+          "predict_start": "2023-07-06",
+          "train_end": "2023-06-05",
+          "train_rows": 1260,
+          "train_start": "2018-06-04"
+        },
+        {
+          "label_cutoff": "2023-09-05",
+          "predict_end": "2024-01-03",
+          "predict_rows": 63,
+          "predict_start": "2023-10-04",
+          "train_end": "2023-09-05",
+          "train_rows": 1260,
+          "train_start": "2018-08-31"
+        },
+        {
+          "label_cutoff": "2023-12-04",
+          "predict_end": "2024-04-04",
+          "predict_rows": 63,
+          "predict_start": "2024-01-04",
+          "train_end": "2023-12-04",
+          "train_rows": 1260,
+          "train_start": "2018-11-30"
+        },
+        {
+          "label_cutoff": "2024-03-06",
+          "predict_end": "2024-07-05",
+          "predict_rows": 63,
+          "predict_start": "2024-04-05",
+          "train_end": "2024-03-06",
+          "train_rows": 1260,
+          "train_start": "2019-03-06"
+        },
+        {
+          "label_cutoff": "2024-06-05",
+          "predict_end": "2024-10-03",
+          "predict_rows": 63,
+          "predict_start": "2024-07-08",
+          "train_end": "2024-06-05",
+          "train_rows": 1260,
+          "train_start": "2019-06-05"
+        },
+        {
+          "label_cutoff": "2024-09-05",
+          "predict_end": "2025-01-03",
+          "predict_rows": 63,
+          "predict_start": "2024-10-04",
+          "train_end": "2024-09-05",
+          "train_rows": 1260,
+          "train_start": "2019-09-04"
+        },
+        {
+          "label_cutoff": "2024-12-04",
+          "predict_end": "2025-04-07",
+          "predict_rows": 63,
+          "predict_start": "2025-01-06",
+          "train_end": "2024-12-04",
+          "train_rows": 1260,
+          "train_start": "2019-12-03"
+        },
+        {
+          "label_cutoff": "2025-03-10",
+          "predict_end": "2025-07-09",
+          "predict_rows": 63,
+          "predict_start": "2025-04-08",
+          "train_end": "2025-03-10",
+          "train_rows": 1260,
+          "train_start": "2020-03-05"
+        },
+        {
+          "label_cutoff": "2025-06-09",
+          "predict_end": "2025-10-07",
+          "predict_rows": 63,
+          "predict_start": "2025-07-10",
+          "train_end": "2025-06-09",
+          "train_rows": 1260,
+          "train_start": "2020-06-04"
+        },
+        {
+          "label_cutoff": "2025-09-09",
+          "predict_end": "2026-01-07",
+          "predict_rows": 63,
+          "predict_start": "2025-10-08",
+          "train_end": "2025-09-09",
+          "train_rows": 1260,
+          "train_start": "2020-09-02"
+        },
+        {
+          "label_cutoff": "2025-12-08",
+          "predict_end": "2026-04-09",
+          "predict_rows": 63,
+          "predict_start": "2026-01-08",
+          "train_end": "2025-12-08",
+          "train_rows": 1260,
+          "train_start": "2020-12-02"
+        },
+        {
+          "label_cutoff": "2026-03-11",
+          "predict_end": "2026-05-06",
+          "predict_rows": 19,
+          "predict_start": "2026-04-10",
+          "train_end": "2026-03-11",
+          "train_rows": 1260,
+          "train_start": "2021-03-05"
+        }
+      ],
+      "ic": -0.13131092511865136,
+      "min_train_rows": 756,
+      "mse": 0.2789229802397136,
+      "ranking_spread": -0.08469104898288375,
+      "refit_step_rows": 63,
+      "rows": 1594.0,
+      "train_lookback_rows": 1260,
+      "utility_return": 0.02952691037393115
+    },
+    "paper_family": "custom",
+    "profile": "quantbench_supervised_rolling_logistic_clf_macro_budget_defensive_v1",
+    "risk_overlay": {
+      "bull_cap": 0.9,
+      "bull_drawdown_floor": -0.08,
+      "bull_floor": 0.55,
+      "bull_momentum_threshold": 0.03,
+      "bull_risk_threshold": 0.4,
+      "bull_trend_threshold": 0.0,
+      "crash_cap": 0.1,
+      "crash_drawdown_threshold": -0.25,
+      "crash_drop_threshold": -0.2,
+      "defensive_cap": 0.4,
+      "defensive_risk_threshold": 0.52,
+      "name": "macro_budget_defensive_v1",
+      "portfolio_drawdown_cap": 0.08,
+      "portfolio_drawdown_release": 0.08,
+      "portfolio_drawdown_trigger": 0.18,
+      "reentry_drawdown_floor": -0.1,
+      "reentry_max_target": 0.55,
+      "reentry_min_target": 0.0,
+      "reentry_momentum_threshold": 0.05,
+      "reentry_risk_threshold": 0.35,
+      "reentry_trend_threshold": 0.02,
+      "stress_cap": 0.18,
+      "stress_risk_threshold": 0.68
+    },
+    "slices": {
+      "test_2020": {
+        "avg_pos": 0.21926072895999005,
+        "buy_and_hold_return": 59.7753083811,
+        "max_dd": 20.0267601277,
+        "relative_return": -52.6233743005,
+        "return": 7.1519340806,
+        "trades": 73,
+        "turnover": 10.218063241106721
+      },
+      "test_2022": {
+        "avg_pos": 0.09849494452469011,
+        "buy_and_hold_return": -86.5880717324,
+        "max_dd": 20.1256249524,
+        "relative_return": 69.579224461,
+        "return": -17.0088472714,
+        "trades": 19,
+        "turnover": 1.0270916334661355
+      },
+      "test_2023_2024": {
+        "avg_pos": 0.17571363946604027,
+        "buy_and_hold_return": 191.7735092699,
+        "max_dd": 20.2748338748,
+        "relative_return": -174.8710434908,
+        "return": 16.9024657792,
+        "trades": 113,
+        "turnover": 12.785657370517928
+      }
+    },
+    "test_proxy": {
+      "avg_pos": 0.1357953917529506,
+      "buy_and_hold_return": 752.0859028087,
+      "max_dd": 24.6721375926,
+      "relative_return": -698.89112986,
+      "return": 53.1947729487,
+      "trades": 198,
+      "turnover": 25.521606022584695
+    }
+  },
+  {
+    "model_family": "quantbench_supervised",
+    "model_name": "rolling_logistic_clf",
+    "objective": "custom",
+    "objective_metrics": {
+      "base_model_name": "logistic_clf",
+      "clf_accuracy": 0.482434,
+      "fold_count": 26,
+      "folds": [
+        {
+          "label_cutoff": "2019-12-02",
+          "predict_end": "2020-04-01",
+          "predict_rows": 63,
+          "predict_start": "2020-01-02",
+          "train_end": "2019-12-02",
+          "train_rows": 1260,
+          "train_start": "2014-12-01"
+        },
+        {
+          "label_cutoff": "2020-03-04",
+          "predict_end": "2020-07-01",
+          "predict_rows": 63,
+          "predict_start": "2020-04-02",
+          "train_end": "2020-03-04",
+          "train_rows": 1260,
+          "train_start": "2015-03-04"
+        },
+        {
+          "label_cutoff": "2020-06-03",
+          "predict_end": "2020-09-30",
+          "predict_rows": 63,
+          "predict_start": "2020-07-02",
+          "train_end": "2020-06-03",
+          "train_rows": 1260,
+          "train_start": "2015-06-03"
+        },
+        {
+          "label_cutoff": "2020-09-01",
+          "predict_end": "2020-12-30",
+          "predict_rows": 63,
+          "predict_start": "2020-10-01",
+          "train_end": "2020-09-01",
+          "train_rows": 1260,
+          "train_start": "2015-09-01"
+        },
+        {
+          "label_cutoff": "2020-12-01",
+          "predict_end": "2021-04-01",
+          "predict_rows": 63,
+          "predict_start": "2020-12-31",
+          "train_end": "2020-12-01",
+          "train_rows": 1260,
+          "train_start": "2015-12-01"
+        },
+        {
+          "label_cutoff": "2021-03-04",
+          "predict_end": "2021-07-01",
+          "predict_rows": 63,
+          "predict_start": "2021-04-05",
+          "train_end": "2021-03-04",
+          "train_rows": 1260,
+          "train_start": "2016-03-03"
+        },
+        {
+          "label_cutoff": "2021-06-03",
+          "predict_end": "2021-09-30",
+          "predict_rows": 63,
+          "predict_start": "2021-07-02",
+          "train_end": "2021-06-03",
+          "train_rows": 1260,
+          "train_start": "2016-06-02"
+        },
+        {
+          "label_cutoff": "2021-09-01",
+          "predict_end": "2021-12-30",
+          "predict_rows": 63,
+          "predict_start": "2021-10-01",
+          "train_end": "2021-09-01",
+          "train_rows": 1260,
+          "train_start": "2016-08-31"
+        },
+        {
+          "label_cutoff": "2021-12-01",
+          "predict_end": "2022-03-31",
+          "predict_rows": 63,
+          "predict_start": "2021-12-31",
+          "train_end": "2021-12-01",
+          "train_rows": 1260,
+          "train_start": "2016-11-30"
+        },
+        {
+          "label_cutoff": "2022-03-03",
+          "predict_end": "2022-07-01",
+          "predict_rows": 63,
+          "predict_start": "2022-04-01",
+          "train_end": "2022-03-03",
+          "train_rows": 1260,
+          "train_start": "2017-03-03"
+        },
+        {
+          "label_cutoff": "2022-06-02",
+          "predict_end": "2022-09-30",
+          "predict_rows": 63,
+          "predict_start": "2022-07-05",
+          "train_end": "2022-06-02",
+          "train_rows": 1260,
+          "train_start": "2017-06-02"
+        },
+        {
+          "label_cutoff": "2022-09-01",
+          "predict_end": "2022-12-30",
+          "predict_rows": 63,
+          "predict_start": "2022-10-03",
+          "train_end": "2022-09-01",
+          "train_rows": 1260,
+          "train_start": "2017-08-31"
+        },
+        {
+          "label_cutoff": "2022-12-01",
+          "predict_end": "2023-04-03",
+          "predict_rows": 63,
+          "predict_start": "2023-01-03",
+          "train_end": "2022-12-01",
+          "train_rows": 1260,
+          "train_start": "2017-11-30"
+        },
+        {
+          "label_cutoff": "2023-03-06",
+          "predict_end": "2023-07-05",
+          "predict_rows": 63,
+          "predict_start": "2023-04-04",
+          "train_end": "2023-03-06",
+          "train_rows": 1260,
+          "train_start": "2018-03-05"
+        },
+        {
+          "label_cutoff": "2023-06-05",
+          "predict_end": "2023-10-03",
+          "predict_rows": 63,
+          "predict_start": "2023-07-06",
+          "train_end": "2023-06-05",
+          "train_rows": 1260,
+          "train_start": "2018-06-04"
+        },
+        {
+          "label_cutoff": "2023-09-05",
+          "predict_end": "2024-01-03",
+          "predict_rows": 63,
+          "predict_start": "2023-10-04",
+          "train_end": "2023-09-05",
+          "train_rows": 1260,
+          "train_start": "2018-08-31"
+        },
+        {
+          "label_cutoff": "2023-12-04",
+          "predict_end": "2024-04-04",
+          "predict_rows": 63,
+          "predict_start": "2024-01-04",
+          "train_end": "2023-12-04",
+          "train_rows": 1260,
+          "train_start": "2018-11-30"
+        },
+        {
+          "label_cutoff": "2024-03-06",
+          "predict_end": "2024-07-05",
+          "predict_rows": 63,
+          "predict_start": "2024-04-05",
+          "train_end": "2024-03-06",
+          "train_rows": 1260,
+          "train_start": "2019-03-06"
+        },
+        {
+          "label_cutoff": "2024-06-05",
+          "predict_end": "2024-10-03",
+          "predict_rows": 63,
+          "predict_start": "2024-07-08",
+          "train_end": "2024-06-05",
+          "train_rows": 1260,
+          "train_start": "2019-06-05"
+        },
+        {
+          "label_cutoff": "2024-09-05",
+          "predict_end": "2025-01-03",
+          "predict_rows": 63,
+          "predict_start": "2024-10-04",
+          "train_end": "2024-09-05",
+          "train_rows": 1260,
+          "train_start": "2019-09-04"
+        },
+        {
+          "label_cutoff": "2024-12-04",
+          "predict_end": "2025-04-07",
+          "predict_rows": 63,
+          "predict_start": "2025-01-06",
+          "train_end": "2024-12-04",
+          "train_rows": 1260,
+          "train_start": "2019-12-03"
+        },
+        {
+          "label_cutoff": "2025-03-10",
+          "predict_end": "2025-07-09",
+          "predict_rows": 63,
+          "predict_start": "2025-04-08",
+          "train_end": "2025-03-10",
+          "train_rows": 1260,
+          "train_start": "2020-03-05"
+        },
+        {
+          "label_cutoff": "2025-06-09",
+          "predict_end": "2025-10-07",
+          "predict_rows": 63,
+          "predict_start": "2025-07-10",
+          "train_end": "2025-06-09",
+          "train_rows": 1260,
+          "train_start": "2020-06-04"
+        },
+        {
+          "label_cutoff": "2025-09-09",
+          "predict_end": "2026-01-07",
+          "predict_rows": 63,
+          "predict_start": "2025-10-08",
+          "train_end": "2025-09-09",
+          "train_rows": 1260,
+          "train_start": "2020-09-02"
+        },
+        {
+          "label_cutoff": "2025-12-08",
+          "predict_end": "2026-04-09",
+          "predict_rows": 63,
+          "predict_start": "2026-01-08",
+          "train_end": "2025-12-08",
+          "train_rows": 1260,
+          "train_start": "2020-12-02"
+        },
+        {
+          "label_cutoff": "2026-03-11",
+          "predict_end": "2026-05-06",
+          "predict_rows": 19,
+          "predict_start": "2026-04-10",
+          "train_end": "2026-03-11",
+          "train_rows": 1260,
+          "train_start": "2021-03-05"
+        }
+      ],
+      "ic": -0.13131092511865136,
+      "min_train_rows": 756,
+      "mse": 0.2789229802397136,
+      "ranking_spread": -0.08469104898288375,
+      "refit_step_rows": 63,
+      "rows": 1594.0,
+      "train_lookback_rows": 1260,
+      "utility_return": 0.02952691037393115
+    },
+    "paper_family": "custom",
+    "profile": "quantbench_supervised_rolling_logistic_clf_macro_budget_lowdd_v1",
+    "risk_overlay": {
+      "bull_cap": 0.7,
+      "bull_drawdown_floor": -0.06,
+      "bull_floor": 0.35,
+      "bull_momentum_threshold": 0.04,
+      "bull_risk_threshold": 0.32,
+      "bull_trend_threshold": 0.0,
+      "crash_cap": 0.04,
+      "crash_drawdown_threshold": -0.25,
+      "crash_drop_threshold": -0.2,
+      "defensive_cap": 0.25,
+      "defensive_risk_threshold": 0.48,
+      "name": "macro_budget_lowdd_v1",
+      "portfolio_drawdown_cap": 0.03,
+      "portfolio_drawdown_release": 0.05,
+      "portfolio_drawdown_trigger": 0.12,
+      "reentry_drawdown_floor": -0.1,
+      "reentry_max_target": 0.55,
+      "reentry_min_target": 0.0,
+      "reentry_momentum_threshold": 0.05,
+      "reentry_risk_threshold": 0.35,
+      "reentry_trend_threshold": 0.02,
+      "stress_cap": 0.08,
+      "stress_risk_threshold": 0.62
+    },
+    "slices": {
+      "test_2020": {
+        "avg_pos": 0.09081847865143965,
+        "buy_and_hold_return": 59.7753083811,
+        "max_dd": 15.8318615399,
+        "relative_return": -69.369170556,
+        "return": -9.5938621749,
+        "trades": 34,
+        "turnover": 3.68312252964427
+      },
+      "test_2022": {
+        "avg_pos": 0.052847732575673406,
+        "buy_and_hold_return": -86.5880717324,
+        "max_dd": 13.8052936137,
+        "relative_return": 74.0434209955,
+        "return": -12.5446507369,
+        "trades": 33,
+        "turnover": 2.3194023904382473
+      },
+      "test_2023_2024": {
+        "avg_pos": 0.06803685655783241,
+        "buy_and_hold_return": 191.7735092699,
+        "max_dd": 12.4102715738,
+        "relative_return": -185.2160536267,
+        "return": 6.5574556433,
+        "trades": 47,
+        "turnover": 5.71804780876494
+      }
+    },
+    "test_proxy": {
+      "avg_pos": 0.041015059610301496,
+      "buy_and_hold_return": 752.0859028087,
+      "max_dd": 18.6896330575,
+      "relative_return": -745.0790743994,
+      "return": 7.0068284093,
+      "trades": 46,
+      "turnover": 4.7433626097867005
+    }
+  },
+  {
+    "model_family": "quantbench_supervised",
+    "model_name": "rolling_logistic_clf",
+    "objective": "custom",
+    "objective_metrics": {
+      "base_model_name": "logistic_clf",
+      "clf_accuracy": 0.482434,
+      "fold_count": 26,
+      "folds": [
+        {
+          "label_cutoff": "2019-12-02",
+          "predict_end": "2020-04-01",
+          "predict_rows": 63,
+          "predict_start": "2020-01-02",
+          "train_end": "2019-12-02",
+          "train_rows": 1260,
+          "train_start": "2014-12-01"
+        },
+        {
+          "label_cutoff": "2020-03-04",
+          "predict_end": "2020-07-01",
+          "predict_rows": 63,
+          "predict_start": "2020-04-02",
+          "train_end": "2020-03-04",
+          "train_rows": 1260,
+          "train_start": "2015-03-04"
+        },
+        {
+          "label_cutoff": "2020-06-03",
+          "predict_end": "2020-09-30",
+          "predict_rows": 63,
+          "predict_start": "2020-07-02",
+          "train_end": "2020-06-03",
+          "train_rows": 1260,
+          "train_start": "2015-06-03"
+        },
+        {
+          "label_cutoff": "2020-09-01",
+          "predict_end": "2020-12-30",
+          "predict_rows": 63,
+          "predict_start": "2020-10-01",
+          "train_end": "2020-09-01",
+          "train_rows": 1260,
+          "train_start": "2015-09-01"
+        },
+        {
+          "label_cutoff": "2020-12-01",
+          "predict_end": "2021-04-01",
+          "predict_rows": 63,
+          "predict_start": "2020-12-31",
+          "train_end": "2020-12-01",
+          "train_rows": 1260,
+          "train_start": "2015-12-01"
+        },
+        {
+          "label_cutoff": "2021-03-04",
+          "predict_end": "2021-07-01",
+          "predict_rows": 63,
+          "predict_start": "2021-04-05",
+          "train_end": "2021-03-04",
+          "train_rows": 1260,
+          "train_start": "2016-03-03"
+        },
+        {
+          "label_cutoff": "2021-06-03",
+          "predict_end": "2021-09-30",
+          "predict_rows": 63,
+          "predict_start": "2021-07-02",
+          "train_end": "2021-06-03",
+          "train_rows": 1260,
+          "train_start": "2016-06-02"
+        },
+        {
+          "label_cutoff": "2021-09-01",
+          "predict_end": "2021-12-30",
+          "predict_rows": 63,
+          "predict_start": "2021-10-01",
+          "train_end": "2021-09-01",
+          "train_rows": 1260,
+          "train_start": "2016-08-31"
+        },
+        {
+          "label_cutoff": "2021-12-01",
+          "predict_end": "2022-03-31",
+          "predict_rows": 63,
+          "predict_start": "2021-12-31",
+          "train_end": "2021-12-01",
+          "train_rows": 1260,
+          "train_start": "2016-11-30"
+        },
+        {
+          "label_cutoff": "2022-03-03",
+          "predict_end": "2022-07-01",
+          "predict_rows": 63,
+          "predict_start": "2022-04-01",
+          "train_end": "2022-03-03",
+          "train_rows": 1260,
+          "train_start": "2017-03-03"
+        },
+        {
+          "label_cutoff": "2022-06-02",
+          "predict_end": "2022-09-30",
+          "predict_rows": 63,
+          "predict_start": "2022-07-05",
+          "train_end": "2022-06-02",
+          "train_rows": 1260,
+          "train_start": "2017-06-02"
+        },
+        {
+          "label_cutoff": "2022-09-01",
+          "predict_end": "2022-12-30",
+          "predict_rows": 63,
+          "predict_start": "2022-10-03",
+          "train_end": "2022-09-01",
+          "train_rows": 1260,
+          "train_start": "2017-08-31"
+        },
+        {
+          "label_cutoff": "2022-12-01",
+          "predict_end": "2023-04-03",
+          "predict_rows": 63,
+          "predict_start": "2023-01-03",
+          "train_end": "2022-12-01",
+          "train_rows": 1260,
+          "train_start": "2017-11-30"
+        },
+        {
+          "label_cutoff": "2023-03-06",
+          "predict_end": "2023-07-05",
+          "predict_rows": 63,
+          "predict_start": "2023-04-04",
+          "train_end": "2023-03-06",
+          "train_rows": 1260,
+          "train_start": "2018-03-05"
+        },
+        {
+          "label_cutoff": "2023-06-05",
+          "predict_end": "2023-10-03",
+          "predict_rows": 63,
+          "predict_start": "2023-07-06",
+          "train_end": "2023-06-05",
+          "train_rows": 1260,
+          "train_start": "2018-06-04"
+        },
+        {
+          "label_cutoff": "2023-09-05",
+          "predict_end": "2024-01-03",
+          "predict_rows": 63,
+          "predict_start": "2023-10-04",
+          "train_end": "2023-09-05",
+          "train_rows": 1260,
+          "train_start": "2018-08-31"
+        },
+        {
+          "label_cutoff": "2023-12-04",
+          "predict_end": "2024-04-04",
+          "predict_rows": 63,
+          "predict_start": "2024-01-04",
+          "train_end": "2023-12-04",
+          "train_rows": 1260,
+          "train_start": "2018-11-30"
+        },
+        {
+          "label_cutoff": "2024-03-06",
+          "predict_end": "2024-07-05",
+          "predict_rows": 63,
+          "predict_start": "2024-04-05",
+          "train_end": "2024-03-06",
+          "train_rows": 1260,
+          "train_start": "2019-03-06"
+        },
+        {
+          "label_cutoff": "2024-06-05",
+          "predict_end": "2024-10-03",
+          "predict_rows": 63,
+          "predict_start": "2024-07-08",
+          "train_end": "2024-06-05",
+          "train_rows": 1260,
+          "train_start": "2019-06-05"
+        },
+        {
+          "label_cutoff": "2024-09-05",
+          "predict_end": "2025-01-03",
+          "predict_rows": 63,
+          "predict_start": "2024-10-04",
+          "train_end": "2024-09-05",
+          "train_rows": 1260,
+          "train_start": "2019-09-04"
+        },
+        {
+          "label_cutoff": "2024-12-04",
+          "predict_end": "2025-04-07",
+          "predict_rows": 63,
+          "predict_start": "2025-01-06",
+          "train_end": "2024-12-04",
+          "train_rows": 1260,
+          "train_start": "2019-12-03"
+        },
+        {
+          "label_cutoff": "2025-03-10",
+          "predict_end": "2025-07-09",
+          "predict_rows": 63,
+          "predict_start": "2025-04-08",
+          "train_end": "2025-03-10",
+          "train_rows": 1260,
+          "train_start": "2020-03-05"
+        },
+        {
+          "label_cutoff": "2025-06-09",
+          "predict_end": "2025-10-07",
+          "predict_rows": 63,
+          "predict_start": "2025-07-10",
+          "train_end": "2025-06-09",
+          "train_rows": 1260,
+          "train_start": "2020-06-04"
+        },
+        {
+          "label_cutoff": "2025-09-09",
+          "predict_end": "2026-01-07",
+          "predict_rows": 63,
+          "predict_start": "2025-10-08",
+          "train_end": "2025-09-09",
+          "train_rows": 1260,
+          "train_start": "2020-09-02"
+        },
+        {
+          "label_cutoff": "2025-12-08",
+          "predict_end": "2026-04-09",
+          "predict_rows": 63,
+          "predict_start": "2026-01-08",
+          "train_end": "2025-12-08",
+          "train_rows": 1260,
+          "train_start": "2020-12-02"
+        },
+        {
+          "label_cutoff": "2026-03-11",
+          "predict_end": "2026-05-06",
+          "predict_rows": 19,
+          "predict_start": "2026-04-10",
+          "train_end": "2026-03-11",
+          "train_rows": 1260,
+          "train_start": "2021-03-05"
+        }
+      ],
+      "ic": -0.13131092511865136,
+      "min_train_rows": 756,
+      "mse": 0.2789229802397136,
+      "ranking_spread": -0.08469104898288375,
+      "refit_step_rows": 63,
+      "rows": 1594.0,
+      "train_lookback_rows": 1260,
+      "utility_return": 0.02952691037393115
+    },
+    "paper_family": "custom",
+    "profile": "quantbench_supervised_rolling_logistic_clf_macro_budget_bull_guard_v1",
+    "risk_overlay": {
+      "bull_cap": 0.95,
+      "bull_drawdown_floor": -0.08,
+      "bull_floor": 0.65,
+      "bull_momentum_threshold": 0.03,
+      "bull_risk_threshold": 0.42,
+      "bull_trend_threshold": 0.0,
+      "crash_cap": 0.08,
+      "crash_drawdown_threshold": -0.25,
+      "crash_drop_threshold": -0.2,
+      "defensive_cap": 0.35,
+      "defensive_risk_threshold": 0.55,
+      "name": "macro_budget_bull_guard_v1",
+      "portfolio_drawdown_cap": 0.06,
+      "portfolio_drawdown_release": 0.07,
+      "portfolio_drawdown_trigger": 0.16,
+      "reentry_drawdown_floor": -0.1,
+      "reentry_max_target": 0.55,
+      "reentry_min_target": 0.0,
+      "reentry_momentum_threshold": 0.05,
+      "reentry_risk_threshold": 0.35,
+      "reentry_trend_threshold": 0.02,
+      "stress_cap": 0.15,
+      "stress_risk_threshold": 0.7
+    },
+    "slices": {
+      "test_2020": {
+        "avg_pos": 0.12005671077504727,
+        "buy_and_hold_return": 59.7753083811,
+        "max_dd": 21.9864518186,
+        "relative_return": -65.9283558964,
+        "return": -6.1530475153,
+        "trades": 17,
+        "turnover": 3.440790513833992
+      },
+      "test_2022": {
+        "avg_pos": 0.0807106236408946,
+        "buy_and_hold_return": -86.5880717324,
+        "max_dd": 17.9274827257,
+        "relative_return": 71.033065896,
+        "return": -15.5550058364,
+        "trades": 19,
+        "turnover": 1.8831075697211155
+      },
+      "test_2023_2024": {
+        "avg_pos": 0.11179751115061667,
+        "buy_and_hold_return": 191.7735092699,
+        "max_dd": 19.999811511,
+        "relative_return": -185.3386872514,
+        "return": 6.4348220185,
+        "trades": 43,
+        "turnover": 8.118406374501992
+      }
+    },
+    "test_proxy": {
+      "avg_pos": 0.0863020360227894,
+      "buy_and_hold_return": 752.0859028087,
+      "max_dd": 23.430811863,
+      "relative_return": -724.8941353392,
+      "return": 27.1917674695,
+      "trades": 48,
+      "turnover": 9.699033877038897
+    }
+  },
+  {
+    "model_family": "quantbench_supervised",
+    "model_name": "rolling_logistic_clf",
+    "objective": "custom",
+    "objective_metrics": {
+      "base_model_name": "logistic_clf",
+      "clf_accuracy": 0.482434,
+      "fold_count": 26,
+      "folds": [
+        {
+          "label_cutoff": "2019-12-02",
+          "predict_end": "2020-04-01",
+          "predict_rows": 63,
+          "predict_start": "2020-01-02",
+          "train_end": "2019-12-02",
+          "train_rows": 1260,
+          "train_start": "2014-12-01"
+        },
+        {
+          "label_cutoff": "2020-03-04",
+          "predict_end": "2020-07-01",
+          "predict_rows": 63,
+          "predict_start": "2020-04-02",
+          "train_end": "2020-03-04",
+          "train_rows": 1260,
+          "train_start": "2015-03-04"
+        },
+        {
+          "label_cutoff": "2020-06-03",
+          "predict_end": "2020-09-30",
+          "predict_rows": 63,
+          "predict_start": "2020-07-02",
+          "train_end": "2020-06-03",
+          "train_rows": 1260,
+          "train_start": "2015-06-03"
+        },
+        {
+          "label_cutoff": "2020-09-01",
+          "predict_end": "2020-12-30",
+          "predict_rows": 63,
+          "predict_start": "2020-10-01",
+          "train_end": "2020-09-01",
+          "train_rows": 1260,
+          "train_start": "2015-09-01"
+        },
+        {
+          "label_cutoff": "2020-12-01",
+          "predict_end": "2021-04-01",
+          "predict_rows": 63,
+          "predict_start": "2020-12-31",
+          "train_end": "2020-12-01",
+          "train_rows": 1260,
+          "train_start": "2015-12-01"
+        },
+        {
+          "label_cutoff": "2021-03-04",
+          "predict_end": "2021-07-01",
+          "predict_rows": 63,
+          "predict_start": "2021-04-05",
+          "train_end": "2021-03-04",
+          "train_rows": 1260,
+          "train_start": "2016-03-03"
+        },
+        {
+          "label_cutoff": "2021-06-03",
+          "predict_end": "2021-09-30",
+          "predict_rows": 63,
+          "predict_start": "2021-07-02",
+          "train_end": "2021-06-03",
+          "train_rows": 1260,
+          "train_start": "2016-06-02"
+        },
+        {
+          "label_cutoff": "2021-09-01",
+          "predict_end": "2021-12-30",
+          "predict_rows": 63,
+          "predict_start": "2021-10-01",
+          "train_end": "2021-09-01",
+          "train_rows": 1260,
+          "train_start": "2016-08-31"
+        },
+        {
+          "label_cutoff": "2021-12-01",
+          "predict_end": "2022-03-31",
+          "predict_rows": 63,
+          "predict_start": "2021-12-31",
+          "train_end": "2021-12-01",
+          "train_rows": 1260,
+          "train_start": "2016-11-30"
+        },
+        {
+          "label_cutoff": "2022-03-03",
+          "predict_end": "2022-07-01",
+          "predict_rows": 63,
+          "predict_start": "2022-04-01",
+          "train_end": "2022-03-03",
+          "train_rows": 1260,
+          "train_start": "2017-03-03"
+        },
+        {
+          "label_cutoff": "2022-06-02",
+          "predict_end": "2022-09-30",
+          "predict_rows": 63,
+          "predict_start": "2022-07-05",
+          "train_end": "2022-06-02",
+          "train_rows": 1260,
+          "train_start": "2017-06-02"
+        },
+        {
+          "label_cutoff": "2022-09-01",
+          "predict_end": "2022-12-30",
+          "predict_rows": 63,
+          "predict_start": "2022-10-03",
+          "train_end": "2022-09-01",
+          "train_rows": 1260,
+          "train_start": "2017-08-31"
+        },
+        {
+          "label_cutoff": "2022-12-01",
+          "predict_end": "2023-04-03",
+          "predict_rows": 63,
+          "predict_start": "2023-01-03",
+          "train_end": "2022-12-01",
+          "train_rows": 1260,
+          "train_start": "2017-11-30"
+        },
+        {
+          "label_cutoff": "2023-03-06",
+          "predict_end": "2023-07-05",
+          "predict_rows": 63,
+          "predict_start": "2023-04-04",
+          "train_end": "2023-03-06",
+          "train_rows": 1260,
+          "train_start": "2018-03-05"
+        },
+        {
+          "label_cutoff": "2023-06-05",
+          "predict_end": "2023-10-03",
+          "predict_rows": 63,
+          "predict_start": "2023-07-06",
+          "train_end": "2023-06-05",
+          "train_rows": 1260,
+          "train_start": "2018-06-04"
+        },
+        {
+          "label_cutoff": "2023-09-05",
+          "predict_end": "2024-01-03",
+          "predict_rows": 63,
+          "predict_start": "2023-10-04",
+          "train_end": "2023-09-05",
+          "train_rows": 1260,
+          "train_start": "2018-08-31"
+        },
+        {
+          "label_cutoff": "2023-12-04",
+          "predict_end": "2024-04-04",
+          "predict_rows": 63,
+          "predict_start": "2024-01-04",
+          "train_end": "2023-12-04",
+          "train_rows": 1260,
+          "train_start": "2018-11-30"
+        },
+        {
+          "label_cutoff": "2024-03-06",
+          "predict_end": "2024-07-05",
+          "predict_rows": 63,
+          "predict_start": "2024-04-05",
+          "train_end": "2024-03-06",
+          "train_rows": 1260,
+          "train_start": "2019-03-06"
+        },
+        {
+          "label_cutoff": "2024-06-05",
+          "predict_end": "2024-10-03",
+          "predict_rows": 63,
+          "predict_start": "2024-07-08",
+          "train_end": "2024-06-05",
+          "train_rows": 1260,
+          "train_start": "2019-06-05"
+        },
+        {
+          "label_cutoff": "2024-09-05",
+          "predict_end": "2025-01-03",
+          "predict_rows": 63,
+          "predict_start": "2024-10-04",
+          "train_end": "2024-09-05",
+          "train_rows": 1260,
+          "train_start": "2019-09-04"
+        },
+        {
+          "label_cutoff": "2024-12-04",
+          "predict_end": "2025-04-07",
+          "predict_rows": 63,
+          "predict_start": "2025-01-06",
+          "train_end": "2024-12-04",
+          "train_rows": 1260,
+          "train_start": "2019-12-03"
+        },
+        {
+          "label_cutoff": "2025-03-10",
+          "predict_end": "2025-07-09",
+          "predict_rows": 63,
+          "predict_start": "2025-04-08",
+          "train_end": "2025-03-10",
+          "train_rows": 1260,
+          "train_start": "2020-03-05"
+        },
+        {
+          "label_cutoff": "2025-06-09",
+          "predict_end": "2025-10-07",
+          "predict_rows": 63,
+          "predict_start": "2025-07-10",
+          "train_end": "2025-06-09",
+          "train_rows": 1260,
+          "train_start": "2020-06-04"
+        },
+        {
+          "label_cutoff": "2025-09-09",
+          "predict_end": "2026-01-07",
+          "predict_rows": 63,
+          "predict_start": "2025-10-08",
+          "train_end": "2025-09-09",
+          "train_rows": 1260,
+          "train_start": "2020-09-02"
+        },
+        {
+          "label_cutoff": "2025-12-08",
+          "predict_end": "2026-04-09",
+          "predict_rows": 63,
+          "predict_start": "2026-01-08",
+          "train_end": "2025-12-08",
+          "train_rows": 1260,
+          "train_start": "2020-12-02"
+        },
+        {
+          "label_cutoff": "2026-03-11",
+          "predict_end": "2026-05-06",
+          "predict_rows": 19,
+          "predict_start": "2026-04-10",
+          "train_end": "2026-03-11",
+          "train_rows": 1260,
+          "train_start": "2021-03-05"
+        }
+      ],
+      "ic": -0.13131092511865136,
+      "min_train_rows": 756,
+      "mse": 0.2789229802397136,
+      "ranking_spread": -0.08469104898288375,
+      "refit_step_rows": 63,
+      "rows": 1594.0,
+      "train_lookback_rows": 1260,
+      "utility_return": 0.02952691037393115
+    },
+    "paper_family": "custom",
+    "profile": "quantbench_supervised_rolling_logistic_clf_macro_budget_reentry_v1",
+    "risk_overlay": {
+      "bull_cap": 0.7,
+      "bull_drawdown_floor": -0.06,
+      "bull_floor": 0.35,
+      "bull_momentum_threshold": 0.04,
+      "bull_risk_threshold": 0.32,
+      "bull_trend_threshold": 0.0,
+      "crash_cap": 0.04,
+      "crash_drawdown_threshold": -0.25,
+      "crash_drop_threshold": -0.2,
+      "defensive_cap": 0.25,
+      "defensive_risk_threshold": 0.48,
+      "name": "macro_budget_reentry_v1",
+      "portfolio_drawdown_cap": 0.03,
+      "portfolio_drawdown_release": 0.05,
+      "portfolio_drawdown_trigger": 0.12,
+      "reentry_drawdown_floor": -0.04,
+      "reentry_max_target": 0.55,
+      "reentry_min_target": 0.35,
+      "reentry_momentum_threshold": 0.08,
+      "reentry_risk_threshold": 0.3,
+      "reentry_trend_threshold": 0.04,
+      "stress_cap": 0.08,
+      "stress_risk_threshold": 0.62
+    },
+    "slices": {
+      "test_2020": {
+        "avg_pos": 0.10819697230077022,
+        "buy_and_hold_return": 59.7753083811,
+        "max_dd": 15.8318615399,
+        "relative_return": -63.9840929633,
+        "return": -4.2087845821,
+        "trades": 45,
+        "turnover": 7.058577075098815
+      },
+      "test_2022": {
+        "avg_pos": 0.052847732575673406,
+        "buy_and_hold_return": -86.5880717324,
+        "max_dd": 13.8052936137,
+        "relative_return": 74.0434209955,
+        "return": -12.5446507369,
+        "trades": 33,
+        "turnover": 2.3194023904382473
+      },
+      "test_2023_2024": {
+        "avg_pos": 0.11415580705068173,
+        "buy_and_hold_return": 191.7735092699,
+        "max_dd": 18.328813452,
+        "relative_return": -194.7556102023,
+        "return": -2.9821009323,
+        "trades": 92,
+        "turnover": 17.808565737051794
+      }
+    },
+    "test_proxy": {
+      "avg_pos": 0.08052869213125129,
+      "buy_and_hold_return": 752.0859028087,
+      "max_dd": 30.7021894227,
+      "relative_return": -769.361036104,
+      "return": -17.2751332953,
+      "trades": 186,
+      "turnover": 47.772785445420325
+    }
+  },
+  {
+    "model_family": "quantbench_supervised",
+    "model_name": "rolling_sequence_lag_ridge_mse",
+    "objective": "custom",
+    "objective_metrics": {
+      "base_model_name": "sequence_lag_ridge_mse",
+      "clf_accuracy": 0.49059,
+      "fold_count": 26,
+      "folds": [
+        {
+          "label_cutoff": "2019-12-02",
+          "predict_end": "2020-04-01",
+          "predict_rows": 63,
+          "predict_start": "2020-01-02",
+          "train_end": "2019-12-02",
+          "train_rows": 1260,
+          "train_start": "2014-12-01"
+        },
+        {
+          "label_cutoff": "2020-03-04",
+          "predict_end": "2020-07-01",
+          "predict_rows": 63,
+          "predict_start": "2020-04-02",
+          "train_end": "2020-03-04",
+          "train_rows": 1260,
+          "train_start": "2015-03-04"
+        },
+        {
+          "label_cutoff": "2020-06-03",
+          "predict_end": "2020-09-30",
+          "predict_rows": 63,
+          "predict_start": "2020-07-02",
+          "train_end": "2020-06-03",
+          "train_rows": 1260,
+          "train_start": "2015-06-03"
+        },
+        {
+          "label_cutoff": "2020-09-01",
+          "predict_end": "2020-12-30",
+          "predict_rows": 63,
+          "predict_start": "2020-10-01",
+          "train_end": "2020-09-01",
+          "train_rows": 1260,
+          "train_start": "2015-09-01"
+        },
+        {
+          "label_cutoff": "2020-12-01",
+          "predict_end": "2021-04-01",
+          "predict_rows": 63,
+          "predict_start": "2020-12-31",
+          "train_end": "2020-12-01",
+          "train_rows": 1260,
+          "train_start": "2015-12-01"
+        },
+        {
+          "label_cutoff": "2021-03-04",
+          "predict_end": "2021-07-01",
+          "predict_rows": 63,
+          "predict_start": "2021-04-05",
+          "train_end": "2021-03-04",
+          "train_rows": 1260,
+          "train_start": "2016-03-03"
+        },
+        {
+          "label_cutoff": "2021-06-03",
+          "predict_end": "2021-09-30",
+          "predict_rows": 63,
+          "predict_start": "2021-07-02",
+          "train_end": "2021-06-03",
+          "train_rows": 1260,
+          "train_start": "2016-06-02"
+        },
+        {
+          "label_cutoff": "2021-09-01",
+          "predict_end": "2021-12-30",
+          "predict_rows": 63,
+          "predict_start": "2021-10-01",
+          "train_end": "2021-09-01",
+          "train_rows": 1260,
+          "train_start": "2016-08-31"
+        },
+        {
+          "label_cutoff": "2021-12-01",
+          "predict_end": "2022-03-31",
+          "predict_rows": 63,
+          "predict_start": "2021-12-31",
+          "train_end": "2021-12-01",
+          "train_rows": 1260,
+          "train_start": "2016-11-30"
+        },
+        {
+          "label_cutoff": "2022-03-03",
+          "predict_end": "2022-07-01",
+          "predict_rows": 63,
+          "predict_start": "2022-04-01",
+          "train_end": "2022-03-03",
+          "train_rows": 1260,
+          "train_start": "2017-03-03"
+        },
+        {
+          "label_cutoff": "2022-06-02",
+          "predict_end": "2022-09-30",
+          "predict_rows": 63,
+          "predict_start": "2022-07-05",
+          "train_end": "2022-06-02",
+          "train_rows": 1260,
+          "train_start": "2017-06-02"
+        },
+        {
+          "label_cutoff": "2022-09-01",
+          "predict_end": "2022-12-30",
+          "predict_rows": 63,
+          "predict_start": "2022-10-03",
+          "train_end": "2022-09-01",
+          "train_rows": 1260,
+          "train_start": "2017-08-31"
+        },
+        {
+          "label_cutoff": "2022-12-01",
+          "predict_end": "2023-04-03",
+          "predict_rows": 63,
+          "predict_start": "2023-01-03",
+          "train_end": "2022-12-01",
+          "train_rows": 1260,
+          "train_start": "2017-11-30"
+        },
+        {
+          "label_cutoff": "2023-03-06",
+          "predict_end": "2023-07-05",
+          "predict_rows": 63,
+          "predict_start": "2023-04-04",
+          "train_end": "2023-03-06",
+          "train_rows": 1260,
+          "train_start": "2018-03-05"
+        },
+        {
+          "label_cutoff": "2023-06-05",
+          "predict_end": "2023-10-03",
+          "predict_rows": 63,
+          "predict_start": "2023-07-06",
+          "train_end": "2023-06-05",
+          "train_rows": 1260,
+          "train_start": "2018-06-04"
+        },
+        {
+          "label_cutoff": "2023-09-05",
+          "predict_end": "2024-01-03",
+          "predict_rows": 63,
+          "predict_start": "2023-10-04",
+          "train_end": "2023-09-05",
+          "train_rows": 1260,
+          "train_start": "2018-08-31"
+        },
+        {
+          "label_cutoff": "2023-12-04",
+          "predict_end": "2024-04-04",
+          "predict_rows": 63,
+          "predict_start": "2024-01-04",
+          "train_end": "2023-12-04",
+          "train_rows": 1260,
+          "train_start": "2018-11-30"
+        },
+        {
+          "label_cutoff": "2024-03-06",
+          "predict_end": "2024-07-05",
+          "predict_rows": 63,
+          "predict_start": "2024-04-05",
+          "train_end": "2024-03-06",
+          "train_rows": 1260,
+          "train_start": "2019-03-06"
+        },
+        {
+          "label_cutoff": "2024-06-05",
+          "predict_end": "2024-10-03",
+          "predict_rows": 63,
+          "predict_start": "2024-07-08",
+          "train_end": "2024-06-05",
+          "train_rows": 1260,
+          "train_start": "2019-06-05"
+        },
+        {
+          "label_cutoff": "2024-09-05",
+          "predict_end": "2025-01-03",
+          "predict_rows": 63,
+          "predict_start": "2024-10-04",
+          "train_end": "2024-09-05",
+          "train_rows": 1260,
+          "train_start": "2019-09-04"
+        },
+        {
+          "label_cutoff": "2024-12-04",
+          "predict_end": "2025-04-07",
+          "predict_rows": 63,
+          "predict_start": "2025-01-06",
+          "train_end": "2024-12-04",
+          "train_rows": 1260,
+          "train_start": "2019-12-03"
+        },
+        {
+          "label_cutoff": "2025-03-10",
+          "predict_end": "2025-07-09",
+          "predict_rows": 63,
+          "predict_start": "2025-04-08",
+          "train_end": "2025-03-10",
+          "train_rows": 1260,
+          "train_start": "2020-03-05"
+        },
+        {
+          "label_cutoff": "2025-06-09",
+          "predict_end": "2025-10-07",
+          "predict_rows": 63,
+          "predict_start": "2025-07-10",
+          "train_end": "2025-06-09",
+          "train_rows": 1260,
+          "train_start": "2020-06-04"
+        },
+        {
+          "label_cutoff": "2025-09-09",
+          "predict_end": "2026-01-07",
+          "predict_rows": 63,
+          "predict_start": "2025-10-08",
+          "train_end": "2025-09-09",
+          "train_rows": 1260,
+          "train_start": "2020-09-02"
+        },
+        {
+          "label_cutoff": "2025-12-08",
+          "predict_end": "2026-04-09",
+          "predict_rows": 63,
+          "predict_start": "2026-01-08",
+          "train_end": "2025-12-08",
+          "train_rows": 1260,
+          "train_start": "2020-12-02"
+        },
+        {
+          "label_cutoff": "2026-03-11",
+          "predict_end": "2026-05-06",
+          "predict_rows": 19,
+          "predict_start": "2026-04-10",
+          "train_end": "2026-03-11",
+          "train_rows": 1260,
+          "train_start": "2021-03-05"
+        }
+      ],
+      "ic": -0.0030574734373008277,
+      "min_train_rows": 756,
+      "mse": 0.5300119867642652,
+      "ranking_spread": -0.09263484049018296,
+      "refit_step_rows": 63,
+      "rows": 1594.0,
+      "train_lookback_rows": 1260,
+      "utility_return": 0.037307521819898645
+    },
+    "paper_family": "custom",
+    "profile": "quantbench_supervised_rolling_sequence_lag_ridge_mse",
+    "slices": {
+      "test_2020": {
+        "avg_pos": 0.499985939477261,
+        "buy_and_hold_return": 59.7753083811,
+        "max_dd": 66.5033335137,
+        "relative_return": -26.1714915247,
+        "return": 33.6038168565,
+        "trades": 253,
+        "turnover": 8.106324110671936
+      },
+      "test_2022": {
+        "avg_pos": 0.49953175346423073,
+        "buy_and_hold_return": -86.5880717324,
+        "max_dd": 62.1279402884,
+        "relative_return": 46.2497213782,
+        "return": -40.3383503542,
+        "trades": 251,
+        "turnover": 14.33745019920319
+      },
+      "test_2023_2024": {
+        "avg_pos": 0.4992928683671688,
+        "buy_and_hold_return": 191.7735092699,
+        "max_dd": 29.6861288972,
+        "relative_return": -22.3922309228,
+        "return": 169.3812783471,
+        "trades": 502,
+        "turnover": 27.610756972111556
+      }
+    },
+    "test_proxy": {
+      "avg_pos": 0.5001878909146438,
+      "buy_and_hold_return": 752.0859028087,
+      "max_dd": 69.5956909958,
+      "relative_return": -382.7644565495,
+      "return": 369.3214462592,
+      "trades": 1594,
+      "turnover": 65.05006273525721
+    }
+  },
+  {
+    "model_family": "quantbench_supervised",
+    "model_name": "rolling_sequence_lag_ridge_mse",
+    "objective": "custom",
+    "objective_metrics": {
+      "base_model_name": "sequence_lag_ridge_mse",
+      "clf_accuracy": 0.49059,
+      "fold_count": 26,
+      "folds": [
+        {
+          "label_cutoff": "2019-12-02",
+          "predict_end": "2020-04-01",
+          "predict_rows": 63,
+          "predict_start": "2020-01-02",
+          "train_end": "2019-12-02",
+          "train_rows": 1260,
+          "train_start": "2014-12-01"
+        },
+        {
+          "label_cutoff": "2020-03-04",
+          "predict_end": "2020-07-01",
+          "predict_rows": 63,
+          "predict_start": "2020-04-02",
+          "train_end": "2020-03-04",
+          "train_rows": 1260,
+          "train_start": "2015-03-04"
+        },
+        {
+          "label_cutoff": "2020-06-03",
+          "predict_end": "2020-09-30",
+          "predict_rows": 63,
+          "predict_start": "2020-07-02",
+          "train_end": "2020-06-03",
+          "train_rows": 1260,
+          "train_start": "2015-06-03"
+        },
+        {
+          "label_cutoff": "2020-09-01",
+          "predict_end": "2020-12-30",
+          "predict_rows": 63,
+          "predict_start": "2020-10-01",
+          "train_end": "2020-09-01",
+          "train_rows": 1260,
+          "train_start": "2015-09-01"
+        },
+        {
+          "label_cutoff": "2020-12-01",
+          "predict_end": "2021-04-01",
+          "predict_rows": 63,
+          "predict_start": "2020-12-31",
+          "train_end": "2020-12-01",
+          "train_rows": 1260,
+          "train_start": "2015-12-01"
+        },
+        {
+          "label_cutoff": "2021-03-04",
+          "predict_end": "2021-07-01",
+          "predict_rows": 63,
+          "predict_start": "2021-04-05",
+          "train_end": "2021-03-04",
+          "train_rows": 1260,
+          "train_start": "2016-03-03"
+        },
+        {
+          "label_cutoff": "2021-06-03",
+          "predict_end": "2021-09-30",
+          "predict_rows": 63,
+          "predict_start": "2021-07-02",
+          "train_end": "2021-06-03",
+          "train_rows": 1260,
+          "train_start": "2016-06-02"
+        },
+        {
+          "label_cutoff": "2021-09-01",
+          "predict_end": "2021-12-30",
+          "predict_rows": 63,
+          "predict_start": "2021-10-01",
+          "train_end": "2021-09-01",
+          "train_rows": 1260,
+          "train_start": "2016-08-31"
+        },
+        {
+          "label_cutoff": "2021-12-01",
+          "predict_end": "2022-03-31",
+          "predict_rows": 63,
+          "predict_start": "2021-12-31",
+          "train_end": "2021-12-01",
+          "train_rows": 1260,
+          "train_start": "2016-11-30"
+        },
+        {
+          "label_cutoff": "2022-03-03",
+          "predict_end": "2022-07-01",
+          "predict_rows": 63,
+          "predict_start": "2022-04-01",
+          "train_end": "2022-03-03",
+          "train_rows": 1260,
+          "train_start": "2017-03-03"
+        },
+        {
+          "label_cutoff": "2022-06-02",
+          "predict_end": "2022-09-30",
+          "predict_rows": 63,
+          "predict_start": "2022-07-05",
+          "train_end": "2022-06-02",
+          "train_rows": 1260,
+          "train_start": "2017-06-02"
+        },
+        {
+          "label_cutoff": "2022-09-01",
+          "predict_end": "2022-12-30",
+          "predict_rows": 63,
+          "predict_start": "2022-10-03",
+          "train_end": "2022-09-01",
+          "train_rows": 1260,
+          "train_start": "2017-08-31"
+        },
+        {
+          "label_cutoff": "2022-12-01",
+          "predict_end": "2023-04-03",
+          "predict_rows": 63,
+          "predict_start": "2023-01-03",
+          "train_end": "2022-12-01",
+          "train_rows": 1260,
+          "train_start": "2017-11-30"
+        },
+        {
+          "label_cutoff": "2023-03-06",
+          "predict_end": "2023-07-05",
+          "predict_rows": 63,
+          "predict_start": "2023-04-04",
+          "train_end": "2023-03-06",
+          "train_rows": 1260,
+          "train_start": "2018-03-05"
+        },
+        {
+          "label_cutoff": "2023-06-05",
+          "predict_end": "2023-10-03",
+          "predict_rows": 63,
+          "predict_start": "2023-07-06",
+          "train_end": "2023-06-05",
+          "train_rows": 1260,
+          "train_start": "2018-06-04"
+        },
+        {
+          "label_cutoff": "2023-09-05",
+          "predict_end": "2024-01-03",
+          "predict_rows": 63,
+          "predict_start": "2023-10-04",
+          "train_end": "2023-09-05",
+          "train_rows": 1260,
+          "train_start": "2018-08-31"
+        },
+        {
+          "label_cutoff": "2023-12-04",
+          "predict_end": "2024-04-04",
+          "predict_rows": 63,
+          "predict_start": "2024-01-04",
+          "train_end": "2023-12-04",
+          "train_rows": 1260,
+          "train_start": "2018-11-30"
+        },
+        {
+          "label_cutoff": "2024-03-06",
+          "predict_end": "2024-07-05",
+          "predict_rows": 63,
+          "predict_start": "2024-04-05",
+          "train_end": "2024-03-06",
+          "train_rows": 1260,
+          "train_start": "2019-03-06"
+        },
+        {
+          "label_cutoff": "2024-06-05",
+          "predict_end": "2024-10-03",
+          "predict_rows": 63,
+          "predict_start": "2024-07-08",
+          "train_end": "2024-06-05",
+          "train_rows": 1260,
+          "train_start": "2019-06-05"
+        },
+        {
+          "label_cutoff": "2024-09-05",
+          "predict_end": "2025-01-03",
+          "predict_rows": 63,
+          "predict_start": "2024-10-04",
+          "train_end": "2024-09-05",
+          "train_rows": 1260,
+          "train_start": "2019-09-04"
+        },
+        {
+          "label_cutoff": "2024-12-04",
+          "predict_end": "2025-04-07",
+          "predict_rows": 63,
+          "predict_start": "2025-01-06",
+          "train_end": "2024-12-04",
+          "train_rows": 1260,
+          "train_start": "2019-12-03"
+        },
+        {
+          "label_cutoff": "2025-03-10",
+          "predict_end": "2025-07-09",
+          "predict_rows": 63,
+          "predict_start": "2025-04-08",
+          "train_end": "2025-03-10",
+          "train_rows": 1260,
+          "train_start": "2020-03-05"
+        },
+        {
+          "label_cutoff": "2025-06-09",
+          "predict_end": "2025-10-07",
+          "predict_rows": 63,
+          "predict_start": "2025-07-10",
+          "train_end": "2025-06-09",
+          "train_rows": 1260,
+          "train_start": "2020-06-04"
+        },
+        {
+          "label_cutoff": "2025-09-09",
+          "predict_end": "2026-01-07",
+          "predict_rows": 63,
+          "predict_start": "2025-10-08",
+          "train_end": "2025-09-09",
+          "train_rows": 1260,
+          "train_start": "2020-09-02"
+        },
+        {
+          "label_cutoff": "2025-12-08",
+          "predict_end": "2026-04-09",
+          "predict_rows": 63,
+          "predict_start": "2026-01-08",
+          "train_end": "2025-12-08",
+          "train_rows": 1260,
+          "train_start": "2020-12-02"
+        },
+        {
+          "label_cutoff": "2026-03-11",
+          "predict_end": "2026-05-06",
+          "predict_rows": 19,
+          "predict_start": "2026-04-10",
+          "train_end": "2026-03-11",
+          "train_rows": 1260,
+          "train_start": "2021-03-05"
+        }
+      ],
+      "ic": -0.0030574734373008277,
+      "min_train_rows": 756,
+      "mse": 0.5300119867642652,
+      "ranking_spread": -0.09263484049018296,
+      "refit_step_rows": 63,
+      "rows": 1594.0,
+      "train_lookback_rows": 1260,
+      "utility_return": 0.037307521819898645
+    },
+    "paper_family": "custom",
+    "profile": "quantbench_supervised_rolling_sequence_lag_ridge_mse_macro_budget_defensive_v1",
+    "risk_overlay": {
+      "bull_cap": 0.9,
+      "bull_drawdown_floor": -0.08,
+      "bull_floor": 0.55,
+      "bull_momentum_threshold": 0.03,
+      "bull_risk_threshold": 0.4,
+      "bull_trend_threshold": 0.0,
+      "crash_cap": 0.1,
+      "crash_drawdown_threshold": -0.25,
+      "crash_drop_threshold": -0.2,
+      "defensive_cap": 0.4,
+      "defensive_risk_threshold": 0.52,
+      "name": "macro_budget_defensive_v1",
+      "portfolio_drawdown_cap": 0.08,
+      "portfolio_drawdown_release": 0.08,
+      "portfolio_drawdown_trigger": 0.18,
+      "reentry_drawdown_floor": -0.1,
+      "reentry_max_target": 0.55,
+      "reentry_min_target": 0.0,
+      "reentry_momentum_threshold": 0.05,
+      "reentry_risk_threshold": 0.35,
+      "reentry_trend_threshold": 0.02,
+      "stress_cap": 0.18,
+      "stress_risk_threshold": 0.68
+    },
+    "slices": {
+      "test_2020": {
+        "avg_pos": 0.24406380352762896,
+        "buy_and_hold_return": 59.7753083811,
+        "max_dd": 19.6303654152,
+        "relative_return": -52.1149696702,
+        "return": 7.6603387109,
+        "trades": 78,
+        "turnover": 10.563675889328064
+      },
+      "test_2022": {
+        "avg_pos": 0.10828812241075539,
+        "buy_and_hold_return": -86.5880717324,
+        "max_dd": 19.7127479619,
+        "relative_return": 70.0092759968,
+        "return": -16.5787957356,
+        "trades": 36,
+        "turnover": 1.3974501992031871
+      },
+      "test_2023_2024": {
+        "avg_pos": 0.17452310280789193,
+        "buy_and_hold_return": 191.7735092699,
+        "max_dd": 20.8864920518,
+        "relative_return": -174.9355142933,
+        "return": 16.8379949767,
+        "trades": 117,
+        "turnover": 13.874980079681276
+      }
+    },
+    "test_proxy": {
+      "avg_pos": 0.13854522684659695,
+      "buy_and_hold_return": 752.0859028087,
+      "max_dd": 25.0528013377,
+      "relative_return": -691.7484273548,
+      "return": 60.3374754539,
+      "trades": 165,
+      "turnover": 22.32391468005019
+    }
+  },
+  {
+    "model_family": "quantbench_supervised",
+    "model_name": "rolling_sequence_lag_ridge_mse",
+    "objective": "custom",
+    "objective_metrics": {
+      "base_model_name": "sequence_lag_ridge_mse",
+      "clf_accuracy": 0.49059,
+      "fold_count": 26,
+      "folds": [
+        {
+          "label_cutoff": "2019-12-02",
+          "predict_end": "2020-04-01",
+          "predict_rows": 63,
+          "predict_start": "2020-01-02",
+          "train_end": "2019-12-02",
+          "train_rows": 1260,
+          "train_start": "2014-12-01"
+        },
+        {
+          "label_cutoff": "2020-03-04",
+          "predict_end": "2020-07-01",
+          "predict_rows": 63,
+          "predict_start": "2020-04-02",
+          "train_end": "2020-03-04",
+          "train_rows": 1260,
+          "train_start": "2015-03-04"
+        },
+        {
+          "label_cutoff": "2020-06-03",
+          "predict_end": "2020-09-30",
+          "predict_rows": 63,
+          "predict_start": "2020-07-02",
+          "train_end": "2020-06-03",
+          "train_rows": 1260,
+          "train_start": "2015-06-03"
+        },
+        {
+          "label_cutoff": "2020-09-01",
+          "predict_end": "2020-12-30",
+          "predict_rows": 63,
+          "predict_start": "2020-10-01",
+          "train_end": "2020-09-01",
+          "train_rows": 1260,
+          "train_start": "2015-09-01"
+        },
+        {
+          "label_cutoff": "2020-12-01",
+          "predict_end": "2021-04-01",
+          "predict_rows": 63,
+          "predict_start": "2020-12-31",
+          "train_end": "2020-12-01",
+          "train_rows": 1260,
+          "train_start": "2015-12-01"
+        },
+        {
+          "label_cutoff": "2021-03-04",
+          "predict_end": "2021-07-01",
+          "predict_rows": 63,
+          "predict_start": "2021-04-05",
+          "train_end": "2021-03-04",
+          "train_rows": 1260,
+          "train_start": "2016-03-03"
+        },
+        {
+          "label_cutoff": "2021-06-03",
+          "predict_end": "2021-09-30",
+          "predict_rows": 63,
+          "predict_start": "2021-07-02",
+          "train_end": "2021-06-03",
+          "train_rows": 1260,
+          "train_start": "2016-06-02"
+        },
+        {
+          "label_cutoff": "2021-09-01",
+          "predict_end": "2021-12-30",
+          "predict_rows": 63,
+          "predict_start": "2021-10-01",
+          "train_end": "2021-09-01",
+          "train_rows": 1260,
+          "train_start": "2016-08-31"
+        },
+        {
+          "label_cutoff": "2021-12-01",
+          "predict_end": "2022-03-31",
+          "predict_rows": 63,
+          "predict_start": "2021-12-31",
+          "train_end": "2021-12-01",
+          "train_rows": 1260,
+          "train_start": "2016-11-30"
+        },
+        {
+          "label_cutoff": "2022-03-03",
+          "predict_end": "2022-07-01",
+          "predict_rows": 63,
+          "predict_start": "2022-04-01",
+          "train_end": "2022-03-03",
+          "train_rows": 1260,
+          "train_start": "2017-03-03"
+        },
+        {
+          "label_cutoff": "2022-06-02",
+          "predict_end": "2022-09-30",
+          "predict_rows": 63,
+          "predict_start": "2022-07-05",
+          "train_end": "2022-06-02",
+          "train_rows": 1260,
+          "train_start": "2017-06-02"
+        },
+        {
+          "label_cutoff": "2022-09-01",
+          "predict_end": "2022-12-30",
+          "predict_rows": 63,
+          "predict_start": "2022-10-03",
+          "train_end": "2022-09-01",
+          "train_rows": 1260,
+          "train_start": "2017-08-31"
+        },
+        {
+          "label_cutoff": "2022-12-01",
+          "predict_end": "2023-04-03",
+          "predict_rows": 63,
+          "predict_start": "2023-01-03",
+          "train_end": "2022-12-01",
+          "train_rows": 1260,
+          "train_start": "2017-11-30"
+        },
+        {
+          "label_cutoff": "2023-03-06",
+          "predict_end": "2023-07-05",
+          "predict_rows": 63,
+          "predict_start": "2023-04-04",
+          "train_end": "2023-03-06",
+          "train_rows": 1260,
+          "train_start": "2018-03-05"
+        },
+        {
+          "label_cutoff": "2023-06-05",
+          "predict_end": "2023-10-03",
+          "predict_rows": 63,
+          "predict_start": "2023-07-06",
+          "train_end": "2023-06-05",
+          "train_rows": 1260,
+          "train_start": "2018-06-04"
+        },
+        {
+          "label_cutoff": "2023-09-05",
+          "predict_end": "2024-01-03",
+          "predict_rows": 63,
+          "predict_start": "2023-10-04",
+          "train_end": "2023-09-05",
+          "train_rows": 1260,
+          "train_start": "2018-08-31"
+        },
+        {
+          "label_cutoff": "2023-12-04",
+          "predict_end": "2024-04-04",
+          "predict_rows": 63,
+          "predict_start": "2024-01-04",
+          "train_end": "2023-12-04",
+          "train_rows": 1260,
+          "train_start": "2018-11-30"
+        },
+        {
+          "label_cutoff": "2024-03-06",
+          "predict_end": "2024-07-05",
+          "predict_rows": 63,
+          "predict_start": "2024-04-05",
+          "train_end": "2024-03-06",
+          "train_rows": 1260,
+          "train_start": "2019-03-06"
+        },
+        {
+          "label_cutoff": "2024-06-05",
+          "predict_end": "2024-10-03",
+          "predict_rows": 63,
+          "predict_start": "2024-07-08",
+          "train_end": "2024-06-05",
+          "train_rows": 1260,
+          "train_start": "2019-06-05"
+        },
+        {
+          "label_cutoff": "2024-09-05",
+          "predict_end": "2025-01-03",
+          "predict_rows": 63,
+          "predict_start": "2024-10-04",
+          "train_end": "2024-09-05",
+          "train_rows": 1260,
+          "train_start": "2019-09-04"
+        },
+        {
+          "label_cutoff": "2024-12-04",
+          "predict_end": "2025-04-07",
+          "predict_rows": 63,
+          "predict_start": "2025-01-06",
+          "train_end": "2024-12-04",
+          "train_rows": 1260,
+          "train_start": "2019-12-03"
+        },
+        {
+          "label_cutoff": "2025-03-10",
+          "predict_end": "2025-07-09",
+          "predict_rows": 63,
+          "predict_start": "2025-04-08",
+          "train_end": "2025-03-10",
+          "train_rows": 1260,
+          "train_start": "2020-03-05"
+        },
+        {
+          "label_cutoff": "2025-06-09",
+          "predict_end": "2025-10-07",
+          "predict_rows": 63,
+          "predict_start": "2025-07-10",
+          "train_end": "2025-06-09",
+          "train_rows": 1260,
+          "train_start": "2020-06-04"
+        },
+        {
+          "label_cutoff": "2025-09-09",
+          "predict_end": "2026-01-07",
+          "predict_rows": 63,
+          "predict_start": "2025-10-08",
+          "train_end": "2025-09-09",
+          "train_rows": 1260,
+          "train_start": "2020-09-02"
+        },
+        {
+          "label_cutoff": "2025-12-08",
+          "predict_end": "2026-04-09",
+          "predict_rows": 63,
+          "predict_start": "2026-01-08",
+          "train_end": "2025-12-08",
+          "train_rows": 1260,
+          "train_start": "2020-12-02"
+        },
+        {
+          "label_cutoff": "2026-03-11",
+          "predict_end": "2026-05-06",
+          "predict_rows": 19,
+          "predict_start": "2026-04-10",
+          "train_end": "2026-03-11",
+          "train_rows": 1260,
+          "train_start": "2021-03-05"
+        }
+      ],
+      "ic": -0.0030574734373008277,
+      "min_train_rows": 756,
+      "mse": 0.5300119867642652,
+      "ranking_spread": -0.09263484049018296,
+      "refit_step_rows": 63,
+      "rows": 1594.0,
+      "train_lookback_rows": 1260,
+      "utility_return": 0.037307521819898645
+    },
+    "paper_family": "custom",
+    "profile": "quantbench_supervised_rolling_sequence_lag_ridge_mse_macro_budget_lowdd_v1",
+    "risk_overlay": {
+      "bull_cap": 0.7,
+      "bull_drawdown_floor": -0.06,
+      "bull_floor": 0.35,
+      "bull_momentum_threshold": 0.04,
+      "bull_risk_threshold": 0.32,
+      "bull_trend_threshold": 0.0,
+      "crash_cap": 0.04,
+      "crash_drawdown_threshold": -0.25,
+      "crash_drop_threshold": -0.2,
+      "defensive_cap": 0.25,
+      "defensive_risk_threshold": 0.48,
+      "name": "macro_budget_lowdd_v1",
+      "portfolio_drawdown_cap": 0.03,
+      "portfolio_drawdown_release": 0.05,
+      "portfolio_drawdown_trigger": 0.12,
+      "reentry_drawdown_floor": -0.1,
+      "reentry_max_target": 0.55,
+      "reentry_min_target": 0.0,
+      "reentry_momentum_threshold": 0.05,
+      "reentry_risk_threshold": 0.35,
+      "reentry_trend_threshold": 0.02,
+      "stress_cap": 0.08,
+      "stress_risk_threshold": 0.62
+    },
+    "slices": {
+      "test_2020": {
+        "avg_pos": 0.07732568857504414,
+        "buy_and_hold_return": 59.7753083811,
+        "max_dd": 13.6231994678,
+        "relative_return": -63.3899916971,
+        "return": -3.6146833159,
+        "trades": 26,
+        "turnover": 2.800118577075099
+      },
+      "test_2022": {
+        "avg_pos": 0.05044142156473707,
+        "buy_and_hold_return": -86.5880717324,
+        "max_dd": 13.3237901073,
+        "relative_return": 74.5330880991,
+        "return": -12.0549836333,
+        "trades": 36,
+        "turnover": 1.7138247011952192
+      },
+      "test_2023_2024": {
+        "avg_pos": 0.11338843827875751,
+        "buy_and_hold_return": 191.7735092699,
+        "max_dd": 13.8083429179,
+        "relative_return": -175.6508032548,
+        "return": 16.1227060152,
+        "trades": 100,
+        "turnover": 13.51629482071713
+      }
+    },
+    "test_proxy": {
+      "avg_pos": 0.040682806761239226,
+      "buy_and_hold_return": 752.0859028087,
+      "max_dd": 18.6564922907,
+      "relative_return": -744.4285569864,
+      "return": 7.6573458224,
+      "trades": 46,
+      "turnover": 4.363186951066498
+    }
+  },
+  {
+    "model_family": "quantbench_supervised",
+    "model_name": "rolling_sequence_lag_ridge_mse",
+    "objective": "custom",
+    "objective_metrics": {
+      "base_model_name": "sequence_lag_ridge_mse",
+      "clf_accuracy": 0.49059,
+      "fold_count": 26,
+      "folds": [
+        {
+          "label_cutoff": "2019-12-02",
+          "predict_end": "2020-04-01",
+          "predict_rows": 63,
+          "predict_start": "2020-01-02",
+          "train_end": "2019-12-02",
+          "train_rows": 1260,
+          "train_start": "2014-12-01"
+        },
+        {
+          "label_cutoff": "2020-03-04",
+          "predict_end": "2020-07-01",
+          "predict_rows": 63,
+          "predict_start": "2020-04-02",
+          "train_end": "2020-03-04",
+          "train_rows": 1260,
+          "train_start": "2015-03-04"
+        },
+        {
+          "label_cutoff": "2020-06-03",
+          "predict_end": "2020-09-30",
+          "predict_rows": 63,
+          "predict_start": "2020-07-02",
+          "train_end": "2020-06-03",
+          "train_rows": 1260,
+          "train_start": "2015-06-03"
+        },
+        {
+          "label_cutoff": "2020-09-01",
+          "predict_end": "2020-12-30",
+          "predict_rows": 63,
+          "predict_start": "2020-10-01",
+          "train_end": "2020-09-01",
+          "train_rows": 1260,
+          "train_start": "2015-09-01"
+        },
+        {
+          "label_cutoff": "2020-12-01",
+          "predict_end": "2021-04-01",
+          "predict_rows": 63,
+          "predict_start": "2020-12-31",
+          "train_end": "2020-12-01",
+          "train_rows": 1260,
+          "train_start": "2015-12-01"
+        },
+        {
+          "label_cutoff": "2021-03-04",
+          "predict_end": "2021-07-01",
+          "predict_rows": 63,
+          "predict_start": "2021-04-05",
+          "train_end": "2021-03-04",
+          "train_rows": 1260,
+          "train_start": "2016-03-03"
+        },
+        {
+          "label_cutoff": "2021-06-03",
+          "predict_end": "2021-09-30",
+          "predict_rows": 63,
+          "predict_start": "2021-07-02",
+          "train_end": "2021-06-03",
+          "train_rows": 1260,
+          "train_start": "2016-06-02"
+        },
+        {
+          "label_cutoff": "2021-09-01",
+          "predict_end": "2021-12-30",
+          "predict_rows": 63,
+          "predict_start": "2021-10-01",
+          "train_end": "2021-09-01",
+          "train_rows": 1260,
+          "train_start": "2016-08-31"
+        },
+        {
+          "label_cutoff": "2021-12-01",
+          "predict_end": "2022-03-31",
+          "predict_rows": 63,
+          "predict_start": "2021-12-31",
+          "train_end": "2021-12-01",
+          "train_rows": 1260,
+          "train_start": "2016-11-30"
+        },
+        {
+          "label_cutoff": "2022-03-03",
+          "predict_end": "2022-07-01",
+          "predict_rows": 63,
+          "predict_start": "2022-04-01",
+          "train_end": "2022-03-03",
+          "train_rows": 1260,
+          "train_start": "2017-03-03"
+        },
+        {
+          "label_cutoff": "2022-06-02",
+          "predict_end": "2022-09-30",
+          "predict_rows": 63,
+          "predict_start": "2022-07-05",
+          "train_end": "2022-06-02",
+          "train_rows": 1260,
+          "train_start": "2017-06-02"
+        },
+        {
+          "label_cutoff": "2022-09-01",
+          "predict_end": "2022-12-30",
+          "predict_rows": 63,
+          "predict_start": "2022-10-03",
+          "train_end": "2022-09-01",
+          "train_rows": 1260,
+          "train_start": "2017-08-31"
+        },
+        {
+          "label_cutoff": "2022-12-01",
+          "predict_end": "2023-04-03",
+          "predict_rows": 63,
+          "predict_start": "2023-01-03",
+          "train_end": "2022-12-01",
+          "train_rows": 1260,
+          "train_start": "2017-11-30"
+        },
+        {
+          "label_cutoff": "2023-03-06",
+          "predict_end": "2023-07-05",
+          "predict_rows": 63,
+          "predict_start": "2023-04-04",
+          "train_end": "2023-03-06",
+          "train_rows": 1260,
+          "train_start": "2018-03-05"
+        },
+        {
+          "label_cutoff": "2023-06-05",
+          "predict_end": "2023-10-03",
+          "predict_rows": 63,
+          "predict_start": "2023-07-06",
+          "train_end": "2023-06-05",
+          "train_rows": 1260,
+          "train_start": "2018-06-04"
+        },
+        {
+          "label_cutoff": "2023-09-05",
+          "predict_end": "2024-01-03",
+          "predict_rows": 63,
+          "predict_start": "2023-10-04",
+          "train_end": "2023-09-05",
+          "train_rows": 1260,
+          "train_start": "2018-08-31"
+        },
+        {
+          "label_cutoff": "2023-12-04",
+          "predict_end": "2024-04-04",
+          "predict_rows": 63,
+          "predict_start": "2024-01-04",
+          "train_end": "2023-12-04",
+          "train_rows": 1260,
+          "train_start": "2018-11-30"
+        },
+        {
+          "label_cutoff": "2024-03-06",
+          "predict_end": "2024-07-05",
+          "predict_rows": 63,
+          "predict_start": "2024-04-05",
+          "train_end": "2024-03-06",
+          "train_rows": 1260,
+          "train_start": "2019-03-06"
+        },
+        {
+          "label_cutoff": "2024-06-05",
+          "predict_end": "2024-10-03",
+          "predict_rows": 63,
+          "predict_start": "2024-07-08",
+          "train_end": "2024-06-05",
+          "train_rows": 1260,
+          "train_start": "2019-06-05"
+        },
+        {
+          "label_cutoff": "2024-09-05",
+          "predict_end": "2025-01-03",
+          "predict_rows": 63,
+          "predict_start": "2024-10-04",
+          "train_end": "2024-09-05",
+          "train_rows": 1260,
+          "train_start": "2019-09-04"
+        },
+        {
+          "label_cutoff": "2024-12-04",
+          "predict_end": "2025-04-07",
+          "predict_rows": 63,
+          "predict_start": "2025-01-06",
+          "train_end": "2024-12-04",
+          "train_rows": 1260,
+          "train_start": "2019-12-03"
+        },
+        {
+          "label_cutoff": "2025-03-10",
+          "predict_end": "2025-07-09",
+          "predict_rows": 63,
+          "predict_start": "2025-04-08",
+          "train_end": "2025-03-10",
+          "train_rows": 1260,
+          "train_start": "2020-03-05"
+        },
+        {
+          "label_cutoff": "2025-06-09",
+          "predict_end": "2025-10-07",
+          "predict_rows": 63,
+          "predict_start": "2025-07-10",
+          "train_end": "2025-06-09",
+          "train_rows": 1260,
+          "train_start": "2020-06-04"
+        },
+        {
+          "label_cutoff": "2025-09-09",
+          "predict_end": "2026-01-07",
+          "predict_rows": 63,
+          "predict_start": "2025-10-08",
+          "train_end": "2025-09-09",
+          "train_rows": 1260,
+          "train_start": "2020-09-02"
+        },
+        {
+          "label_cutoff": "2025-12-08",
+          "predict_end": "2026-04-09",
+          "predict_rows": 63,
+          "predict_start": "2026-01-08",
+          "train_end": "2025-12-08",
+          "train_rows": 1260,
+          "train_start": "2020-12-02"
+        },
+        {
+          "label_cutoff": "2026-03-11",
+          "predict_end": "2026-05-06",
+          "predict_rows": 19,
+          "predict_start": "2026-04-10",
+          "train_end": "2026-03-11",
+          "train_rows": 1260,
+          "train_start": "2021-03-05"
+        }
+      ],
+      "ic": -0.0030574734373008277,
+      "min_train_rows": 756,
+      "mse": 0.5300119867642652,
+      "ranking_spread": -0.09263484049018296,
+      "refit_step_rows": 63,
+      "rows": 1594.0,
+      "train_lookback_rows": 1260,
+      "utility_return": 0.037307521819898645
+    },
+    "paper_family": "custom",
+    "profile": "quantbench_supervised_rolling_sequence_lag_ridge_mse_macro_budget_bull_guard_v1",
+    "risk_overlay": {
+      "bull_cap": 0.95,
+      "bull_drawdown_floor": -0.08,
+      "bull_floor": 0.65,
+      "bull_momentum_threshold": 0.03,
+      "bull_risk_threshold": 0.42,
+      "bull_trend_threshold": 0.0,
+      "crash_cap": 0.08,
+      "crash_drawdown_threshold": -0.25,
+      "crash_drop_threshold": -0.2,
+      "defensive_cap": 0.35,
+      "defensive_risk_threshold": 0.55,
+      "name": "macro_budget_bull_guard_v1",
+      "portfolio_drawdown_cap": 0.06,
+      "portfolio_drawdown_release": 0.07,
+      "portfolio_drawdown_trigger": 0.16,
+      "reentry_drawdown_floor": -0.1,
+      "reentry_max_target": 0.55,
+      "reentry_min_target": 0.0,
+      "reentry_momentum_threshold": 0.05,
+      "reentry_risk_threshold": 0.35,
+      "reentry_trend_threshold": 0.02,
+      "stress_cap": 0.15,
+      "stress_risk_threshold": 0.7
+    },
+    "slices": {
+      "test_2020": {
+        "avg_pos": 0.11922010967207738,
+        "buy_and_hold_return": 59.7753083811,
+        "max_dd": 21.8336330116,
+        "relative_return": -65.744521426,
+        "return": -5.9692130449,
+        "trades": 15,
+        "turnover": 3.3075889328063246
+      },
+      "test_2022": {
+        "avg_pos": 0.08107887176394026,
+        "buy_and_hold_return": -86.5880717324,
+        "max_dd": 17.7227033925,
+        "relative_return": 71.2437648018,
+        "return": -15.3443069306,
+        "trades": 19,
+        "turnover": 1.9659760956175298
+      },
+      "test_2023_2024": {
+        "avg_pos": 0.11210996650846813,
+        "buy_and_hold_return": 191.7735092699,
+        "max_dd": 22.9506230966,
+        "relative_return": -195.2225484236,
+        "return": -3.4490391537,
+        "trades": 54,
+        "turnover": 9.885338645418328
+      }
+    },
+    "test_proxy": {
+      "avg_pos": 0.08373566023151438,
+      "buy_and_hold_return": 752.0859028087,
+      "max_dd": 24.3925216044,
+      "relative_return": -740.2185520258,
+      "return": 11.8673507829,
+      "trades": 43,
+      "turnover": 10.00442910915935
+    }
+  },
+  {
+    "model_family": "quantbench_supervised",
+    "model_name": "rolling_sequence_lag_ridge_mse",
+    "objective": "custom",
+    "objective_metrics": {
+      "base_model_name": "sequence_lag_ridge_mse",
+      "clf_accuracy": 0.49059,
+      "fold_count": 26,
+      "folds": [
+        {
+          "label_cutoff": "2019-12-02",
+          "predict_end": "2020-04-01",
+          "predict_rows": 63,
+          "predict_start": "2020-01-02",
+          "train_end": "2019-12-02",
+          "train_rows": 1260,
+          "train_start": "2014-12-01"
+        },
+        {
+          "label_cutoff": "2020-03-04",
+          "predict_end": "2020-07-01",
+          "predict_rows": 63,
+          "predict_start": "2020-04-02",
+          "train_end": "2020-03-04",
+          "train_rows": 1260,
+          "train_start": "2015-03-04"
+        },
+        {
+          "label_cutoff": "2020-06-03",
+          "predict_end": "2020-09-30",
+          "predict_rows": 63,
+          "predict_start": "2020-07-02",
+          "train_end": "2020-06-03",
+          "train_rows": 1260,
+          "train_start": "2015-06-03"
+        },
+        {
+          "label_cutoff": "2020-09-01",
+          "predict_end": "2020-12-30",
+          "predict_rows": 63,
+          "predict_start": "2020-10-01",
+          "train_end": "2020-09-01",
+          "train_rows": 1260,
+          "train_start": "2015-09-01"
+        },
+        {
+          "label_cutoff": "2020-12-01",
+          "predict_end": "2021-04-01",
+          "predict_rows": 63,
+          "predict_start": "2020-12-31",
+          "train_end": "2020-12-01",
+          "train_rows": 1260,
+          "train_start": "2015-12-01"
+        },
+        {
+          "label_cutoff": "2021-03-04",
+          "predict_end": "2021-07-01",
+          "predict_rows": 63,
+          "predict_start": "2021-04-05",
+          "train_end": "2021-03-04",
+          "train_rows": 1260,
+          "train_start": "2016-03-03"
+        },
+        {
+          "label_cutoff": "2021-06-03",
+          "predict_end": "2021-09-30",
+          "predict_rows": 63,
+          "predict_start": "2021-07-02",
+          "train_end": "2021-06-03",
+          "train_rows": 1260,
+          "train_start": "2016-06-02"
+        },
+        {
+          "label_cutoff": "2021-09-01",
+          "predict_end": "2021-12-30",
+          "predict_rows": 63,
+          "predict_start": "2021-10-01",
+          "train_end": "2021-09-01",
+          "train_rows": 1260,
+          "train_start": "2016-08-31"
+        },
+        {
+          "label_cutoff": "2021-12-01",
+          "predict_end": "2022-03-31",
+          "predict_rows": 63,
+          "predict_start": "2021-12-31",
+          "train_end": "2021-12-01",
+          "train_rows": 1260,
+          "train_start": "2016-11-30"
+        },
+        {
+          "label_cutoff": "2022-03-03",
+          "predict_end": "2022-07-01",
+          "predict_rows": 63,
+          "predict_start": "2022-04-01",
+          "train_end": "2022-03-03",
+          "train_rows": 1260,
+          "train_start": "2017-03-03"
+        },
+        {
+          "label_cutoff": "2022-06-02",
+          "predict_end": "2022-09-30",
+          "predict_rows": 63,
+          "predict_start": "2022-07-05",
+          "train_end": "2022-06-02",
+          "train_rows": 1260,
+          "train_start": "2017-06-02"
+        },
+        {
+          "label_cutoff": "2022-09-01",
+          "predict_end": "2022-12-30",
+          "predict_rows": 63,
+          "predict_start": "2022-10-03",
+          "train_end": "2022-09-01",
+          "train_rows": 1260,
+          "train_start": "2017-08-31"
+        },
+        {
+          "label_cutoff": "2022-12-01",
+          "predict_end": "2023-04-03",
+          "predict_rows": 63,
+          "predict_start": "2023-01-03",
+          "train_end": "2022-12-01",
+          "train_rows": 1260,
+          "train_start": "2017-11-30"
+        },
+        {
+          "label_cutoff": "2023-03-06",
+          "predict_end": "2023-07-05",
+          "predict_rows": 63,
+          "predict_start": "2023-04-04",
+          "train_end": "2023-03-06",
+          "train_rows": 1260,
+          "train_start": "2018-03-05"
+        },
+        {
+          "label_cutoff": "2023-06-05",
+          "predict_end": "2023-10-03",
+          "predict_rows": 63,
+          "predict_start": "2023-07-06",
+          "train_end": "2023-06-05",
+          "train_rows": 1260,
+          "train_start": "2018-06-04"
+        },
+        {
+          "label_cutoff": "2023-09-05",
+          "predict_end": "2024-01-03",
+          "predict_rows": 63,
+          "predict_start": "2023-10-04",
+          "train_end": "2023-09-05",
+          "train_rows": 1260,
+          "train_start": "2018-08-31"
+        },
+        {
+          "label_cutoff": "2023-12-04",
+          "predict_end": "2024-04-04",
+          "predict_rows": 63,
+          "predict_start": "2024-01-04",
+          "train_end": "2023-12-04",
+          "train_rows": 1260,
+          "train_start": "2018-11-30"
+        },
+        {
+          "label_cutoff": "2024-03-06",
+          "predict_end": "2024-07-05",
+          "predict_rows": 63,
+          "predict_start": "2024-04-05",
+          "train_end": "2024-03-06",
+          "train_rows": 1260,
+          "train_start": "2019-03-06"
+        },
+        {
+          "label_cutoff": "2024-06-05",
+          "predict_end": "2024-10-03",
+          "predict_rows": 63,
+          "predict_start": "2024-07-08",
+          "train_end": "2024-06-05",
+          "train_rows": 1260,
+          "train_start": "2019-06-05"
+        },
+        {
+          "label_cutoff": "2024-09-05",
+          "predict_end": "2025-01-03",
+          "predict_rows": 63,
+          "predict_start": "2024-10-04",
+          "train_end": "2024-09-05",
+          "train_rows": 1260,
+          "train_start": "2019-09-04"
+        },
+        {
+          "label_cutoff": "2024-12-04",
+          "predict_end": "2025-04-07",
+          "predict_rows": 63,
+          "predict_start": "2025-01-06",
+          "train_end": "2024-12-04",
+          "train_rows": 1260,
+          "train_start": "2019-12-03"
+        },
+        {
+          "label_cutoff": "2025-03-10",
+          "predict_end": "2025-07-09",
+          "predict_rows": 63,
+          "predict_start": "2025-04-08",
+          "train_end": "2025-03-10",
+          "train_rows": 1260,
+          "train_start": "2020-03-05"
+        },
+        {
+          "label_cutoff": "2025-06-09",
+          "predict_end": "2025-10-07",
+          "predict_rows": 63,
+          "predict_start": "2025-07-10",
+          "train_end": "2025-06-09",
+          "train_rows": 1260,
+          "train_start": "2020-06-04"
+        },
+        {
+          "label_cutoff": "2025-09-09",
+          "predict_end": "2026-01-07",
+          "predict_rows": 63,
+          "predict_start": "2025-10-08",
+          "train_end": "2025-09-09",
+          "train_rows": 1260,
+          "train_start": "2020-09-02"
+        },
+        {
+          "label_cutoff": "2025-12-08",
+          "predict_end": "2026-04-09",
+          "predict_rows": 63,
+          "predict_start": "2026-01-08",
+          "train_end": "2025-12-08",
+          "train_rows": 1260,
+          "train_start": "2020-12-02"
+        },
+        {
+          "label_cutoff": "2026-03-11",
+          "predict_end": "2026-05-06",
+          "predict_rows": 19,
+          "predict_start": "2026-04-10",
+          "train_end": "2026-03-11",
+          "train_rows": 1260,
+          "train_start": "2021-03-05"
+        }
+      ],
+      "ic": -0.0030574734373008277,
+      "min_train_rows": 756,
+      "mse": 0.5300119867642652,
+      "ranking_spread": -0.09263484049018296,
+      "refit_step_rows": 63,
+      "rows": 1594.0,
+      "train_lookback_rows": 1260,
+      "utility_return": 0.037307521819898645
+    },
+    "paper_family": "custom",
+    "profile": "quantbench_supervised_rolling_sequence_lag_ridge_mse_macro_budget_reentry_v1",
+    "risk_overlay": {
+      "bull_cap": 0.7,
+      "bull_drawdown_floor": -0.06,
+      "bull_floor": 0.35,
+      "bull_momentum_threshold": 0.04,
+      "bull_risk_threshold": 0.32,
+      "bull_trend_threshold": 0.0,
+      "crash_cap": 0.04,
+      "crash_drawdown_threshold": -0.25,
+      "crash_drop_threshold": -0.2,
+      "defensive_cap": 0.25,
+      "defensive_risk_threshold": 0.48,
+      "name": "macro_budget_reentry_v1",
+      "portfolio_drawdown_cap": 0.03,
+      "portfolio_drawdown_release": 0.05,
+      "portfolio_drawdown_trigger": 0.12,
+      "reentry_drawdown_floor": -0.04,
+      "reentry_max_target": 0.55,
+      "reentry_min_target": 0.35,
+      "reentry_momentum_threshold": 0.08,
+      "reentry_risk_threshold": 0.3,
+      "reentry_trend_threshold": 0.04,
+      "stress_cap": 0.08,
+      "stress_risk_threshold": 0.62
+    },
+    "slices": {
+      "test_2020": {
+        "avg_pos": 0.10384336577668765,
+        "buy_and_hold_return": 59.7753083811,
+        "max_dd": 13.6231994678,
+        "relative_return": -57.4484158941,
+        "return": 2.3268924871,
+        "trades": 47,
+        "turnover": 6.0932806324110675
+      },
+      "test_2022": {
+        "avg_pos": 0.05044142156473707,
+        "buy_and_hold_return": -86.5880717324,
+        "max_dd": 13.3237901073,
+        "relative_return": 74.5330880991,
+        "return": -12.0549836333,
+        "trades": 36,
+        "turnover": 1.7138247011952192
+      },
+      "test_2023_2024": {
+        "avg_pos": 0.1793719147315122,
+        "buy_and_hold_return": 191.7735092699,
+        "max_dd": 16.7129331716,
+        "relative_return": -151.6709702702,
+        "return": 40.1025389997,
+        "trades": 184,
+        "turnover": 23.46051792828685
+      }
+    },
+    "test_proxy": {
+      "avg_pos": 0.0810237260492216,
+      "buy_and_hold_return": 752.0859028087,
+      "max_dd": 28.2899456686,
+      "relative_return": -765.1496079266,
+      "return": -13.0637051179,
+      "trades": 195,
+      "turnover": 48.48144291091593
     }
   }
 ]
