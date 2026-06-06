@@ -112,9 +112,9 @@ def quantbench_model_objective_coverage() -> list[dict[str, str]]:
         {
             "family": "tree_xgboost_lightgbm",
             "paper_family": "XGBoost/tree model",
-            "current_soxl_surface": "not implemented as supervised baseline",
-            "coverage": "missing",
-            "next_step": "add tabular return/drawdown classifier baseline using existing feature frame",
+            "current_soxl_surface": "sklearn tree/boosted supervised baselines implemented; XGBoost/LightGBM dependency-specific runs pending",
+            "coverage": "implemented_partial",
+            "next_step": "promote only if QuantBench gate passes; otherwise test rolling/ensemble or external GBDT variants",
         },
         {
             "family": "sequence_lstm_gru",
@@ -140,9 +140,9 @@ def quantbench_model_objective_coverage() -> list[dict[str, str]]:
         {
             "family": "objectives_clf_ic_mse_ranking",
             "paper_family": "CLF / IC / MSE / Ranking",
-            "current_soxl_surface": "PPO/BC reward objectives exist; supervised objective family missing",
-            "coverage": "missing",
-            "next_step": "implement common target builder and objective comparison",
+            "current_soxl_surface": "common supervised target builder and CLF/IC/MSE/ranking screen implemented in quantbench_supervised",
+            "coverage": "implemented",
+            "next_step": "use objective metrics and risk-gate failures to choose the next macro-risk or rolling screen",
         },
         {
             "family": "utility_rl_execution",
@@ -371,8 +371,8 @@ def build_quantbench_screen_report(
         if eligible_rows
         else "no_current_model_satisfies_quantbench_soxl_20dd_gate",
         "next_action": (
-            "Implement the first missing paper family: supervised tabular/sequence objective screen, "
-            "then compare it to PPO/GRU under this same gate."
+            "Compare the supervised screen sidecars to PPO/GRU summaries under the same gate, "
+            "then test rolling or ensemble variants only when the risk failures justify it."
         ),
     }
     summary_path.write_text(json.dumps(report, indent=2, sort_keys=True, allow_nan=True) + "\n", encoding="utf-8")

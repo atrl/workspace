@@ -1,0 +1,188 @@
+{
+  "artifacts": {
+    "summary_json": "runtime/model_selection/card/quantbench_paper_soxl_v1/supervised_summary.json",
+    "supervised_candidate_screen_csv": "runtime/model_selection/card/quantbench_paper_soxl_v1/supervised_candidate_screen.csv",
+    "supervised_model_specs_csv": "runtime/model_selection/card/quantbench_paper_soxl_v1/supervised_model_specs.csv",
+    "supervised_objective_metrics_csv": "runtime/model_selection/card/quantbench_paper_soxl_v1/supervised_objective_metrics.csv",
+    "supervised_payloads_json": "runtime/model_selection/card/quantbench_paper_soxl_v1/supervised_payloads.json"
+  },
+  "data": {
+    "end": "2026-06-04",
+    "feature_count": 113,
+    "feature_packs": [
+      "vix_term",
+      "academic_signals",
+      "macro_signals",
+      "rulebase_signals",
+      "transition_signals",
+      "soxx_signals",
+      "soxx_spread_oscillation"
+    ],
+    "horizon": 20,
+    "rows": 3831,
+    "start": "2011-03-11",
+    "test_window": [
+      "2020-01-01",
+      "2026-12-31"
+    ],
+    "train_window": [
+      "2010-03-11",
+      "2018-12-31"
+    ]
+  },
+  "decision": "no_supervised_model_satisfies_quantbench_soxl_20dd_gate",
+  "gate": {
+    "max_drawdown_pct": 20.0,
+    "max_stress_avg_pos": 0.45,
+    "min_bull_capture": 0.5,
+    "min_proxy_return": 0.0,
+    "min_stress_avg_pos": 0.1,
+    "min_stress_relative_return": 30.0
+  },
+  "next_action": "Promote only an eligible candidate; otherwise use the screen deltas to choose the next macro-risk feature or rolling/ensemble experiment.",
+  "paper": {
+    "arxiv_pdf": "https://arxiv.org/pdf/2504.18600",
+    "title": "QuantBench: Benchmarking AI Methods for Quantitative Investment"
+  },
+  "screen": {
+    "best_rows": [
+      {
+        "bull_buy_and_hold_return": 191.7735092699,
+        "bull_capture": 1.2054666147499264,
+        "bull_return": 231.1765630183,
+        "eligible": false,
+        "failed_checks": [
+          "max_drawdown",
+          "stress_avg_pos",
+          "stress_max_drawdown"
+        ],
+        "profile": "quantbench_supervised_mlp_mse",
+        "proxy_max_dd": 67.4090866518,
+        "proxy_return": 1498.768596023,
+        "score": 1353.355757,
+        "source_path": "generated:quantbench_supervised_mlp_mse",
+        "stress_avg_pos": 0.4987571625847209,
+        "stress_max_dd": 51.5311110042,
+        "stress_relative_return": 63.6768458729
+      },
+      {
+        "bull_buy_and_hold_return": 191.7735092699,
+        "bull_capture": 1.3186128444247553,
+        "bull_return": 252.8750125437,
+        "eligible": false,
+        "failed_checks": [
+          "max_drawdown",
+          "stress_avg_pos",
+          "stress_max_drawdown"
+        ],
+        "profile": "quantbench_supervised_ridge_ic",
+        "proxy_max_dd": 68.1786278524,
+        "proxy_return": 854.4893163147,
+        "score": 724.062318,
+        "source_path": "generated:quantbench_supervised_ridge_ic",
+        "stress_avg_pos": 0.4984524055173727,
+        "stress_max_dd": 50.3514747454,
+        "stress_relative_return": 70.4262290023
+      },
+      {
+        "bull_buy_and_hold_return": 191.7735092699,
+        "bull_capture": 1.3186128444247553,
+        "bull_return": 252.8750125437,
+        "eligible": false,
+        "failed_checks": [
+          "max_drawdown",
+          "stress_avg_pos",
+          "stress_max_drawdown"
+        ],
+        "profile": "quantbench_supervised_ridge_mse",
+        "proxy_max_dd": 68.1786278524,
+        "proxy_return": 854.4893163147,
+        "score": 724.062318,
+        "source_path": "generated:quantbench_supervised_ridge_mse",
+        "stress_avg_pos": 0.4984524055173727,
+        "stress_max_dd": 50.3514747454,
+        "stress_relative_return": 70.4262290023
+      },
+      {
+        "bull_buy_and_hold_return": 191.7735092699,
+        "bull_capture": 1.588231020681467,
+        "bull_return": 304.5806363674,
+        "eligible": false,
+        "failed_checks": [
+          "max_drawdown",
+          "stress_avg_pos",
+          "stress_max_drawdown"
+        ],
+        "profile": "quantbench_supervised_logistic_clf",
+        "proxy_max_dd": 66.5168793697,
+        "proxy_return": 728.5000359832,
+        "score": 611.587891,
+        "source_path": "generated:quantbench_supervised_logistic_clf",
+        "stress_avg_pos": 0.49830002698369874,
+        "stress_max_dd": 53.015178454,
+        "stress_relative_return": 50.332270061
+      },
+      {
+        "bull_buy_and_hold_return": 191.7735092699,
+        "bull_capture": 0.4679299574536424,
+        "bull_return": 89.7365700334,
+        "eligible": false,
+        "failed_checks": [
+          "max_drawdown",
+          "stress_avg_pos",
+          "stress_max_drawdown",
+          "bull_capture"
+        ],
+        "profile": "quantbench_supervised_hist_gradient_mse",
+        "proxy_max_dd": 70.8836732922,
+        "proxy_return": 681.7612725903,
+        "score": 405.901101,
+        "source_path": "generated:quantbench_supervised_hist_gradient_mse",
+        "stress_avg_pos": 0.4984270090950937,
+        "stress_max_dd": 57.1469252697,
+        "stress_relative_return": 40.881525556
+      },
+      {
+        "bull_buy_and_hold_return": 191.7735092699,
+        "bull_capture": 0.5846336055925607,
+        "bull_return": 112.1172381816,
+        "eligible": false,
+        "failed_checks": [
+          "max_drawdown",
+          "stress_avg_pos",
+          "stress_max_drawdown"
+        ],
+        "profile": "quantbench_supervised_random_forest_clf",
+        "proxy_max_dd": 65.6616131829,
+        "proxy_return": 587.4189000727,
+        "score": 367.879856,
+        "source_path": "generated:quantbench_supervised_random_forest_clf",
+        "stress_avg_pos": 0.49818574308344316,
+        "stress_max_dd": 53.5460394475,
+        "stress_relative_return": 44.6440485818
+      },
+      {
+        "bull_buy_and_hold_return": 191.7735092699,
+        "bull_capture": 0.5255103629368578,
+        "bull_return": 100.7789664581,
+        "eligible": false,
+        "failed_checks": [
+          "max_drawdown",
+          "stress_avg_pos",
+          "stress_max_drawdown"
+        ],
+        "profile": "quantbench_supervised_extra_trees_rank",
+        "proxy_max_dd": 78.137709247,
+        "proxy_return": 325.0095334986,
+        "score": 53.897026,
+        "source_path": "generated:quantbench_supervised_extra_trees_rank",
+        "stress_avg_pos": 0.4993031856637196,
+        "stress_max_dd": 49.8734728087,
+        "stress_relative_return": 48.8872932182
+      }
+    ],
+    "eligible_count": 0,
+    "eligible_profiles": [],
+    "records": 7
+  }
+}

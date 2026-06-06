@@ -186,7 +186,8 @@ def test_quantbench_model_objective_coverage_is_src_owned():
     coverage = quantbench_model_objective_coverage()
     by_family = {row["family"]: row for row in coverage}
 
-    assert by_family["tree_xgboost_lightgbm"]["coverage"] == "missing"
+    assert by_family["tree_xgboost_lightgbm"]["coverage"] == "implemented_partial"
+    assert by_family["objectives_clf_ic_mse_ranking"]["coverage"] == "implemented"
     assert by_family["utility_rl_execution"]["coverage"] == "implemented_partial"
     assert all(row["next_step"] for row in coverage)
 

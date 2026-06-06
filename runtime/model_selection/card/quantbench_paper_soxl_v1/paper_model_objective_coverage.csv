@@ -1,9 +1,9 @@
 family,paper_family,current_soxl_surface,coverage,next_step
-tree_xgboost_lightgbm,XGBoost/tree model,not implemented as supervised baseline,missing,add tabular return/drawdown classifier baseline using existing feature frame
+tree_xgboost_lightgbm,XGBoost/tree model,sklearn tree/boosted supervised baselines implemented; XGBoost/LightGBM dependency-specific runs pending,implemented_partial,promote only if QuantBench gate passes; otherwise test rolling/ensemble or external GBDT variants
 sequence_lstm_gru,LSTM/temporal sequence,GRU actor exists; LSTM supervised objective missing,partial,compare GRU PPO actor to supervised sequence labels and LSTM-like baseline
 attention_tide_mixer,deep sequence / mixer style,attention and TiDE actor surfaces exist; MLP-Mixer missing,partial,small-capacity mixer/attention screen only after objective gate
 relational_rgcn,RGCN/relational model,"SOXX-relative and multi-asset relation features exist, no graph model",partial,screen relation features before graph implementation
-objectives_clf_ic_mse_ranking,CLF / IC / MSE / Ranking,PPO/BC reward objectives exist; supervised objective family missing,missing,implement common target builder and objective comparison
+objectives_clf_ic_mse_ranking,CLF / IC / MSE / Ranking,common supervised target builder and CLF/IC/MSE/ranking screen implemented in quantbench_supervised,implemented,use objective metrics and risk-gate failures to choose the next macro-risk or rolling screen
 utility_rl_execution,utility maximization / RL / execution,"PPO reward, risk budget, execution overlays exist",implemented_partial,use QuantBench gate for promotion selection
 rolling_continual,3/6/12 month rolling updates,walk-forward folds exist; cadence-specific rolling missing,partial,add rolling cadence screen with cost/evidence ledger
 seed_ensemble,seed ensemble for overfit mitigation,single-profile summaries exist; no general ensemble gate,missing,rank low-correlation candidates and ensemble only if individual risk gates pass

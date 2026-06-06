@@ -1,0 +1,373 @@
+[
+  {
+    "model_family": "quantbench_supervised",
+    "model_name": "logistic_clf",
+    "objective": "clf",
+    "objective_metrics": {
+      "clf_accuracy": 0.471142,
+      "ic": 0.08440964644651328,
+      "mse": 0.26767543487215045,
+      "ranking_spread": 0.0074058477953278246,
+      "rows": 1594.0,
+      "utility_return": 0.01817873508150035
+    },
+    "paper_family": "linear_classifier",
+    "profile": "quantbench_supervised_logistic_clf",
+    "slices": {
+      "test_2020": {
+        "avg_pos": 0.5006608445687326,
+        "buy_and_hold_return": 59.7753083811,
+        "max_dd": 60.3924429015,
+        "relative_return": -42.6483226001,
+        "return": 17.126985781,
+        "trades": 253,
+        "turnover": 15.20197628458498
+      },
+      "test_2022": {
+        "avg_pos": 0.49830002698369874,
+        "buy_and_hold_return": -86.5880717324,
+        "max_dd": 53.015178454,
+        "relative_return": 50.332270061,
+        "return": -36.2558016714,
+        "trades": 251,
+        "turnover": 17.789243027888446
+      },
+      "test_2023_2024": {
+        "avg_pos": 0.4995150870621101,
+        "buy_and_hold_return": 191.7735092699,
+        "max_dd": 41.6962905061,
+        "relative_return": 112.8071270975,
+        "return": 304.5806363674,
+        "trades": 502,
+        "turnover": 34.92549800796813
+      }
+    },
+    "test_proxy": {
+      "avg_pos": 0.5001850572016454,
+      "buy_and_hold_return": 752.0859028087,
+      "max_dd": 66.5168793697,
+      "relative_return": -23.5858668255,
+      "return": 728.5000359832,
+      "trades": 1594,
+      "turnover": 83.7366373902133
+    }
+  },
+  {
+    "model_family": "quantbench_supervised",
+    "model_name": "ridge_ic",
+    "objective": "ic",
+    "objective_metrics": {
+      "clf_accuracy": 0.444793,
+      "ic": -0.11069042644905039,
+      "mse": 0.31710871198278584,
+      "ranking_spread": -0.007967587447005181,
+      "rows": 1594.0,
+      "utility_return": 0.009131597749335685
+    },
+    "paper_family": "linear_regression",
+    "profile": "quantbench_supervised_ridge_ic",
+    "slices": {
+      "test_2020": {
+        "avg_pos": 0.5005733568716899,
+        "buy_and_hold_return": 59.7753083811,
+        "max_dd": 51.1132280949,
+        "relative_return": -11.6400961018,
+        "return": 48.1352122794,
+        "trades": 253,
+        "turnover": 12.751383399209487
+      },
+      "test_2022": {
+        "avg_pos": 0.4984524055173727,
+        "buy_and_hold_return": -86.5880717324,
+        "max_dd": 50.3514747454,
+        "relative_return": 70.4262290023,
+        "return": -16.1618427301,
+        "trades": 251,
+        "turnover": 17.872111553784862
+      },
+      "test_2023_2024": {
+        "avg_pos": 0.49968968746527836,
+        "buy_and_hold_return": 191.7735092699,
+        "max_dd": 41.2992912749,
+        "relative_return": 61.1015032738,
+        "return": 252.8750125437,
+        "trades": 502,
+        "turnover": 31.583665338645417
+      }
+    },
+    "test_proxy": {
+      "avg_pos": 0.5001819086316472,
+      "buy_and_hold_return": 752.0859028087,
+      "max_dd": 68.1786278524,
+      "relative_return": 102.403413506,
+      "return": 854.4893163147,
+      "trades": 1594,
+      "turnover": 68.60188205771644
+    }
+  },
+  {
+    "model_family": "quantbench_supervised",
+    "model_name": "ridge_mse",
+    "objective": "mse",
+    "objective_metrics": {
+      "clf_accuracy": 0.444793,
+      "ic": -0.11069042644905039,
+      "mse": 0.31710871198278584,
+      "ranking_spread": -0.007967587447005181,
+      "rows": 1594.0,
+      "utility_return": 0.009131597749335685
+    },
+    "paper_family": "linear_regression",
+    "profile": "quantbench_supervised_ridge_mse",
+    "slices": {
+      "test_2020": {
+        "avg_pos": 0.5005733568716899,
+        "buy_and_hold_return": 59.7753083811,
+        "max_dd": 51.1132280949,
+        "relative_return": -11.6400961018,
+        "return": 48.1352122794,
+        "trades": 253,
+        "turnover": 12.751383399209487
+      },
+      "test_2022": {
+        "avg_pos": 0.4984524055173727,
+        "buy_and_hold_return": -86.5880717324,
+        "max_dd": 50.3514747454,
+        "relative_return": 70.4262290023,
+        "return": -16.1618427301,
+        "trades": 251,
+        "turnover": 17.872111553784862
+      },
+      "test_2023_2024": {
+        "avg_pos": 0.49968968746527836,
+        "buy_and_hold_return": 191.7735092699,
+        "max_dd": 41.2992912749,
+        "relative_return": 61.1015032738,
+        "return": 252.8750125437,
+        "trades": 502,
+        "turnover": 31.583665338645417
+      }
+    },
+    "test_proxy": {
+      "avg_pos": 0.5001819086316472,
+      "buy_and_hold_return": 752.0859028087,
+      "max_dd": 68.1786278524,
+      "relative_return": 102.403413506,
+      "return": 854.4893163147,
+      "trades": 1594,
+      "turnover": 68.60188205771644
+    }
+  },
+  {
+    "model_family": "quantbench_supervised",
+    "model_name": "random_forest_clf",
+    "objective": "clf",
+    "objective_metrics": {
+      "clf_accuracy": 0.5,
+      "ic": -0.03280759961806667,
+      "mse": 0.10474681848761278,
+      "ranking_spread": -0.07485088712876582,
+      "rows": 1594.0,
+      "utility_return": 0.008161107694169417
+    },
+    "paper_family": "tree",
+    "profile": "quantbench_supervised_random_forest_clf",
+    "slices": {
+      "test_2020": {
+        "avg_pos": 0.4989235888703151,
+        "buy_and_hold_return": 59.7753083811,
+        "max_dd": 68.7017655717,
+        "relative_return": -20.3678199403,
+        "return": 39.4074884408,
+        "trades": 253,
+        "turnover": 20.036758893280627
+      },
+      "test_2022": {
+        "avg_pos": 0.49818574308344316,
+        "buy_and_hold_return": -86.5880717324,
+        "max_dd": 53.5460394475,
+        "relative_return": 44.6440485818,
+        "return": -41.9440231506,
+        "trades": 251,
+        "turnover": 20.775697211155375
+      },
+      "test_2023_2024": {
+        "avg_pos": 0.4994484214536277,
+        "buy_and_hold_return": 191.7735092699,
+        "max_dd": 46.8646099333,
+        "relative_return": -79.6562710883,
+        "return": 112.1172381816,
+        "trades": 502,
+        "turnover": 29.451394422310756
+      }
+    },
+    "test_proxy": {
+      "avg_pos": 0.5001686846376547,
+      "buy_and_hold_return": 752.0859028087,
+      "max_dd": 65.6616131829,
+      "relative_return": -164.667002736,
+      "return": 587.4189000727,
+      "trades": 1594,
+      "turnover": 92.36097867001256
+    }
+  },
+  {
+    "model_family": "quantbench_supervised",
+    "model_name": "hist_gradient_mse",
+    "objective": "mse",
+    "objective_metrics": {
+      "clf_accuracy": 0.456713,
+      "ic": 0.049199688176420335,
+      "mse": 0.11189420335984564,
+      "ranking_spread": 0.05409687216918851,
+      "rows": 1594.0,
+      "utility_return": 0.010012003399997783
+    },
+    "paper_family": "boosted_tree",
+    "profile": "quantbench_supervised_hist_gradient_mse",
+    "slices": {
+      "test_2020": {
+        "avg_pos": 0.49901107656735766,
+        "buy_and_hold_return": 59.7753083811,
+        "max_dd": 71.3754799404,
+        "relative_return": -7.2699202487,
+        "return": 52.5053881324,
+        "trades": 253,
+        "turnover": 22.65177865612648
+      },
+      "test_2022": {
+        "avg_pos": 0.4984270090950937,
+        "buy_and_hold_return": -86.5880717324,
+        "max_dd": 57.1469252697,
+        "relative_return": 40.881525556,
+        "return": -45.7065461764,
+        "trades": 251,
+        "turnover": 23.296812749003983
+      },
+      "test_2023_2024": {
+        "avg_pos": 0.4993023920255234,
+        "buy_and_hold_return": 191.7735092699,
+        "max_dd": 46.5921157003,
+        "relative_return": -102.0369392365,
+        "return": 89.7365700334,
+        "trades": 502,
+        "turnover": 39.24262948207171
+      }
+    },
+    "test_proxy": {
+      "avg_pos": 0.5000436864087253,
+      "buy_and_hold_return": 752.0859028087,
+      "max_dd": 70.8836732922,
+      "relative_return": -70.3246302184,
+      "return": 681.7612725903,
+      "trades": 1594,
+      "turnover": 115.09372647427855
+    }
+  },
+  {
+    "model_family": "quantbench_supervised",
+    "model_name": "extra_trees_rank",
+    "objective": "ranking",
+    "objective_metrics": {
+      "clf_accuracy": 0.493726,
+      "ic": -0.017903180350612696,
+      "mse": 0.09950123746607113,
+      "ranking_spread": -0.003517271828936075,
+      "rows": 1594.0,
+      "utility_return": 0.007680649499740533
+    },
+    "paper_family": "tree_ensemble",
+    "profile": "quantbench_supervised_extra_trees_rank",
+    "slices": {
+      "test_2020": {
+        "avg_pos": 0.49969847990126387,
+        "buy_and_hold_return": 59.7753083811,
+        "max_dd": 69.5339198888,
+        "relative_return": -37.0192172551,
+        "return": 22.756091126,
+        "trades": 249,
+        "turnover": 11.306324110671936
+      },
+      "test_2022": {
+        "avg_pos": 0.4993031856637196,
+        "buy_and_hold_return": -86.5880717324,
+        "max_dd": 49.8734728087,
+        "relative_return": 48.8872932182,
+        "return": -37.7007785142,
+        "trades": 251,
+        "turnover": 21.668127490039844
+      },
+      "test_2023_2024": {
+        "avg_pos": 0.49955635624831357,
+        "buy_and_hold_return": 191.7735092699,
+        "max_dd": 46.686907005,
+        "relative_return": -90.9945428118,
+        "return": 100.7789664581,
+        "trades": 500,
+        "turnover": 25.507171314741033
+      }
+    },
+    "test_proxy": {
+      "avg_pos": 0.5000210167047382,
+      "buy_and_hold_return": 752.0859028087,
+      "max_dd": 78.137709247,
+      "relative_return": -427.0763693101,
+      "return": 325.0095334986,
+      "trades": 1584,
+      "turnover": 64.05984943538269
+    }
+  },
+  {
+    "model_family": "quantbench_supervised",
+    "model_name": "mlp_mse",
+    "objective": "mse",
+    "objective_metrics": {
+      "clf_accuracy": 0.484944,
+      "ic": -0.012545164260332123,
+      "mse": 0.2741404878997389,
+      "ranking_spread": 0.003873179740747204,
+      "rows": 1594.0,
+      "utility_return": 0.03264768060377378
+    },
+    "paper_family": "neural_tabular",
+    "profile": "quantbench_supervised_mlp_mse",
+    "slices": {
+      "test_2020": {
+        "avg_pos": 0.5007483322657751,
+        "buy_and_hold_return": 59.7753083811,
+        "max_dd": 63.7723216088,
+        "relative_return": -49.5531527967,
+        "return": 10.2221555844,
+        "trades": 253,
+        "turnover": 18.911067193675887
+      },
+      "test_2022": {
+        "avg_pos": 0.4987571625847209,
+        "buy_and_hold_return": -86.5880717324,
+        "max_dd": 51.5311110042,
+        "relative_return": 63.6768458729,
+        "return": -22.9112258595,
+        "trades": 251,
+        "turnover": 23.169322709163346
+      },
+      "test_2023_2024": {
+        "avg_pos": 0.49972460754591197,
+        "buy_and_hold_return": 191.7735092699,
+        "max_dd": 29.7105534356,
+        "relative_return": 39.4030537483,
+        "return": 231.1765630183,
+        "trades": 502,
+        "turnover": 68.64023904382469
+      }
+    },
+    "test_proxy": {
+      "avg_pos": 0.5001872612006442,
+      "buy_and_hold_return": 752.0859028087,
+      "max_dd": 67.4090866518,
+      "relative_return": 746.6826932143,
+      "return": 1498.768596023,
+      "trades": 1594,
+      "turnover": 152.54215809284818
+    }
+  }
+]

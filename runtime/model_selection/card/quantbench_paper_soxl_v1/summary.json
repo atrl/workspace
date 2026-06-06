@@ -15,7 +15,7 @@
     "min_stress_avg_pos": 0.1,
     "min_stress_relative_return": 30.0
   },
-  "next_action": "Implement the first missing paper family: supervised tabular/sequence objective screen, then compare it to PPO/GRU under this same gate.",
+  "next_action": "Compare the supervised screen sidecars to PPO/GRU summaries under the same gate, then test rolling or ensemble variants only when the risk failures justify it.",
   "paper": {
     "arxiv_pdf": "https://arxiv.org/pdf/2504.18600",
     "mapped_claims": [

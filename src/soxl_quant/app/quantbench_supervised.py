@@ -1,0 +1,521 @@
+from __future__ import annotations
+
+import csv
+import json
+from dataclasses import dataclass
+from pathlib import Path
+from typing import Any, Iterable, Mapping
+
+import numpy as np
+import pandas as pd
+
+from .quantbench_objectives import evaluate_prediction_objectives
+from .quantbench_screen import QuantBenchGate, screen_quantbench_candidates, summary_record_from_payload
+
+
+@dataclass(frozen=True)
+class SupervisedModelSpec:
+    name: str
+    paper_family: str
+    objective: str
+    target_kind: str
+    estimator: str
+
+
+QUANTBENCH_SUPERVISED_MODEL_SPECS: tuple[SupervisedModelSpec, ...] = (
+    SupervisedModelSpec(
+        name="logistic_clf",
+        paper_family="linear_classifier",
+        objective="clf",
+        target_kind="binary",
+        estimator="LogisticRegression",
+    ),
+    SupervisedModelSpec(
+        name="ridge_ic",
+        paper_family="linear_regression",
+        objective="ic",
+        target_kind="return",
+        estimator="Ridge",
+    ),
+    SupervisedModelSpec(
+        name="ridge_mse",
+        paper_family="linear_regression",
+        objective="mse",
+        target_kind="return",
+        estimator="Ridge",
+    ),
+    SupervisedModelSpec(
+        name="random_forest_clf",
+        paper_family="tree",
+        objective="clf",
+        target_kind="binary",
+        estimator="RandomForestClassifier",
+    ),
+    SupervisedModelSpec(
+        name="hist_gradient_mse",
+        paper_family="boosted_tree",
+        objective="mse",
+        target_kind="return",
+        estimator="HistGradientBoostingRegressor",
+    ),
+    SupervisedModelSpec(
+        name="extra_trees_rank",
+        paper_family="tree_ensemble",
+        objective="ranking",
+        target_kind="return",
+        estimator="ExtraTreesRegressor",
+    ),
+    SupervisedModelSpec(
+        name="mlp_mse",
+        paper_family="neural_tabular",
+        objective="mse",
+        target_kind="return",
+        estimator="MLPRegressor",
+    ),
+)
+
+
+def quantbench_supervised_model_specs(model_names: Iterable[str] | None = None) -> list[SupervisedModelSpec]:
+    if model_names is None:
+        return list(QUANTBENCH_SUPERVISED_MODEL_SPECS)
+    wanted = tuple(model_names)
+    by_name = {spec.name: spec for spec in QUANTBENCH_SUPERVISED_MODEL_SPECS}
+    missing = [name for name in wanted if name not in by_name]
+    if missing:
+        raise ValueError(f"unknown supervised model(s): {missing}")
+    return [by_name[name] for name in wanted]
+
+
+def _slice_index(index: pd.Index, start, end) -> pd.Series:
+    start_ts = pd.Timestamp(start)
+    end_ts = pd.Timestamp(end)
+    return pd.Series((index >= start_ts) & (index <= end_ts), index=index)
+
+
+def _clean_feature_target_frame(
+    features: pd.DataFrame,
+    targets: pd.DataFrame,
+    horizon: int,
+) -> pd.DataFrame:
+    frame = features.copy()
+    for column in (
+        f"fwd_return_{horizon}",
+        f"fwd_positive_{horizon}",
+        f"chip_retention_label_{horizon}",
+        f"bull_capture_label_{horizon}",
+    ):
+        frame[column] = targets[column]
+    return frame.replace([np.inf, -np.inf], np.nan).dropna()
+
+
+def _build_model(spec: SupervisedModelSpec):
+    from sklearn.ensemble import ExtraTreesRegressor, RandomForestClassifier
+    from sklearn.ensemble import HistGradientBoostingRegressor
+    from sklearn.linear_model import LogisticRegression, Ridge
+    from sklearn.neural_network import MLPRegressor
+    from sklearn.pipeline import make_pipeline
+    from sklearn.preprocessing import StandardScaler
+
+    if spec.name == "logistic_clf":
+        return make_pipeline(StandardScaler(), LogisticRegression(max_iter=1000, random_state=0))
+    if spec.name in {"ridge_ic", "ridge_mse"}:
+        return make_pipeline(StandardScaler(), Ridge(alpha=1.0))
+    if spec.name == "random_forest_clf":
+        return RandomForestClassifier(
+            n_estimators=120,
+            max_depth=4,
+            min_samples_leaf=20,
+            random_state=0,
+            n_jobs=-1,
+        )
+    if spec.name == "hist_gradient_mse":
+        return HistGradientBoostingRegressor(
+            max_iter=120,
+            max_leaf_nodes=15,
+            l2_regularization=0.10,
+            random_state=0,
+        )
+    if spec.name == "extra_trees_rank":
+        return ExtraTreesRegressor(
+            n_estimators=120,
+            max_depth=4,
+            min_samples_leaf=20,
+            random_state=0,
+            n_jobs=-1,
+        )
+    if spec.name == "mlp_mse":
+        return make_pipeline(
+            StandardScaler(),
+            MLPRegressor(
+                hidden_layer_sizes=(32,),
+                alpha=0.01,
+                max_iter=500,
+                early_stopping=True,
+                random_state=0,
+            ),
+        )
+    raise ValueError(f"unknown supervised model '{spec.name}'")
+
+
+def _prediction_from_model(spec: SupervisedModelSpec, model, x: pd.DataFrame) -> np.ndarray:
+    if spec.target_kind == "binary" and hasattr(model, "predict_proba"):
+        return model.predict_proba(x)[:, 1] - 0.5
+    if spec.target_kind == "binary" and hasattr(model, "decision_function"):
+        return np.asarray(model.decision_function(x), dtype=float)
+    return np.asarray(model.predict(x), dtype=float)
+
+
+def _target_column(spec: SupervisedModelSpec, horizon: int) -> str:
+    if spec.target_kind == "binary":
+        return f"fwd_positive_{horizon}"
+    return f"fwd_return_{horizon}"
+
+
+def fit_quantbench_supervised_models(
+    features: pd.DataFrame,
+    targets: pd.DataFrame,
+    *,
+    train_start,
+    train_end,
+    test_start,
+    test_end,
+    horizon: int,
+    model_names: Iterable[str] | None = None,
+) -> tuple[dict[str, pd.Series], dict[str, dict[str, float]]]:
+    """Fit paper-style supervised baselines and return OOS predictions.
+
+    This is intentionally app-layer logic, not a notebook helper, so tree,
+    sequence, rolling, and ensemble screens can reuse the same target and
+    evaluation semantics.
+    """
+    horizon = int(horizon)
+    frame = _clean_feature_target_frame(features, targets, horizon)
+    feature_columns = list(features.columns)
+    train_mask = _slice_index(frame.index, train_start, train_end)
+    test_mask = _slice_index(frame.index, test_start, test_end)
+    train = frame.loc[train_mask.to_numpy()]
+    test = frame.loc[test_mask.to_numpy()]
+    if train.empty or test.empty:
+        raise ValueError("train and test windows must both contain rows")
+
+    predictions: dict[str, pd.Series] = {}
+    metrics: dict[str, dict[str, float]] = {}
+    for spec in quantbench_supervised_model_specs(model_names):
+        model = _build_model(spec)
+        target_column = _target_column(spec, horizon)
+        if spec.target_kind == "binary" and train[target_column].nunique(dropna=True) < 2:
+            raise ValueError(f"{spec.name} requires both positive and negative train labels")
+        model.fit(train[feature_columns], train[target_column])
+        pred = pd.Series(_prediction_from_model(spec, model, test[feature_columns]), index=test.index, name=spec.name)
+        predictions[spec.name] = pred
+        metrics[spec.name] = evaluate_prediction_objectives(pred, test, horizon=horizon)
+    return predictions, metrics
+
+
+def _prediction_to_position(predictions: pd.Series, min_position: float, max_position: float) -> pd.Series:
+    ranks = predictions.astype(float).rank(pct=True, method="average")
+    return (float(min_position) + (float(max_position) - float(min_position)) * ranks).clip(
+        lower=float(min_position),
+        upper=float(max_position),
+    )
+
+
+def backtest_prediction_strategy(
+    close: pd.Series,
+    predictions: pd.Series,
+    *,
+    min_position: float = 0.0,
+    max_position: float = 1.0,
+    cost: float = 0.0008,
+) -> dict[str, float]:
+    """Backtest a prediction-ranked long-flat SOXL allocation with T+1 execution."""
+    close = close.astype(float).sort_index()
+    pred = predictions.astype(float).reindex(close.index)
+    position = _prediction_to_position(pred.dropna(), min_position, max_position).reindex(close.index).ffill().fillna(0.0)
+    exec_position = position.shift(1).fillna(0.0)
+    returns = close.pct_change().fillna(0.0)
+    turnover = position.diff().abs().fillna(position.abs())
+    strategy_returns = exec_position * returns - turnover * float(cost)
+    equity = (1.0 + strategy_returns).cumprod()
+    peak = equity.cummax()
+    drawdown = equity / peak - 1.0
+    buy_hold = close / close.iloc[0]
+    return_pct = (float(equity.iloc[-1]) - 1.0) * 100.0
+    bnh_return_pct = (float(buy_hold.iloc[-1]) - 1.0) * 100.0
+    return {
+        "return": round(return_pct, 10),
+        "max_dd": round(abs(float(drawdown.min())) * 100.0, 10),
+        "avg_pos": float(exec_position.mean()),
+        "buy_and_hold_return": round(bnh_return_pct, 10),
+        "relative_return": round(return_pct - bnh_return_pct, 10),
+        "turnover": float(turnover.sum()),
+        "trades": int((turnover > 1e-8).sum()),
+    }
+
+
+def build_supervised_summary_payloads(
+    close: pd.Series,
+    predictions: Mapping[str, pd.Series],
+    *,
+    objective_metrics: Mapping[str, dict[str, float]],
+    profile_prefix: str = "quantbench_supervised",
+    windows: Mapping[str, tuple[str, str]] | None = None,
+    min_position: float = 0.10,
+    max_position: float = 0.90,
+    cost: float = 0.0008,
+) -> list[dict[str, object]]:
+    """Build runtime-summary-compatible payloads for supervised model screens."""
+    close = close.astype(float).sort_index()
+    windows = windows or {
+        "test_2020": ("2020-01-01", "2020-12-31"),
+        "test_2022": ("2022-01-01", "2022-12-31"),
+        "test_2023_2024": ("2023-01-01", "2024-12-31"),
+    }
+    spec_by_name = {spec.name: spec for spec in quantbench_supervised_model_specs()}
+    payloads = []
+    for name, pred in predictions.items():
+        aligned_pred = pred.reindex(close.index)
+        valid_pred = aligned_pred.dropna()
+        if valid_pred.empty:
+            continue
+        start = valid_pred.index.min()
+        end = valid_pred.index.max()
+        spec = spec_by_name.get(name)
+        test_proxy = backtest_prediction_strategy(
+            close.loc[start:end],
+            aligned_pred.loc[start:end],
+            min_position=min_position,
+            max_position=max_position,
+            cost=cost,
+        )
+        slices: dict[str, dict[str, float]] = {}
+        for window_name, (start, end) in windows.items():
+            window_close = close.loc[start:end]
+            window_pred = aligned_pred.loc[start:end]
+            if len(window_close) < 2 or window_pred.dropna().empty:
+                continue
+            slices[window_name] = backtest_prediction_strategy(
+                window_close,
+                window_pred,
+                min_position=min_position,
+                max_position=max_position,
+                cost=cost,
+            )
+        payloads.append(
+            {
+                "profile": f"{profile_prefix}_{name}",
+                "model_family": "quantbench_supervised",
+                "model_name": name,
+                "paper_family": spec.paper_family if spec else "custom",
+                "objective": spec.objective if spec else "custom",
+                "test_proxy": test_proxy,
+                "slices": slices,
+                "objective_metrics": dict(objective_metrics.get(name, {})),
+            }
+        )
+    return payloads
+
+
+def _daily_index_frame(features: pd.DataFrame) -> pd.DataFrame:
+    frame = features.copy()
+    if isinstance(frame.index, pd.MultiIndex) and "instrument" in frame.index.names:
+        frame = frame.droplevel("instrument")
+    if isinstance(frame.columns, pd.MultiIndex):
+        frame.columns = frame.columns.get_level_values(-1)
+    frame.index = pd.to_datetime(frame.index)
+    return frame.sort_index()
+
+
+def _daily_price_series(close: pd.Series | pd.DataFrame) -> pd.Series:
+    if isinstance(close, pd.DataFrame):
+        if "price" in close.columns:
+            close = close["price"]
+        elif "close" in close.columns:
+            close = close["close"]
+        else:
+            close = close.iloc[:, 0]
+    series = close.copy()
+    if isinstance(series.index, pd.MultiIndex) and "instrument" in series.index.names:
+        series = series.droplevel("instrument")
+    series.index = pd.to_datetime(series.index)
+    return series.astype(float).sort_index()
+
+
+def _write_rows_csv(path: Path, rows: list[dict[str, Any]]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    if not rows:
+        path.write_text("", encoding="utf-8")
+        return
+    fieldnames: list[str] = []
+    for row in rows:
+        for key in row:
+            if key not in fieldnames:
+                fieldnames.append(key)
+    with path.open("w", newline="", encoding="utf-8") as handle:
+        writer = csv.DictWriter(handle, fieldnames=fieldnames, lineterminator="\n")
+        writer.writeheader()
+        writer.writerows(rows)
+
+
+def _display_path(path: Path, root: Path | None = None) -> str:
+    if root is None:
+        return str(path)
+    try:
+        return str(path.relative_to(root))
+    except ValueError:
+        return str(path)
+
+
+def _metric_rows(metrics: Mapping[str, dict[str, float]]) -> list[dict[str, Any]]:
+    spec_by_name = {spec.name: spec for spec in quantbench_supervised_model_specs()}
+    rows = []
+    for name, values in metrics.items():
+        spec = spec_by_name.get(name)
+        rows.append(
+            {
+                "model_name": name,
+                "paper_family": spec.paper_family if spec else "custom",
+                "objective": spec.objective if spec else "custom",
+                **values,
+            }
+        )
+    return rows
+
+
+def build_quantbench_supervised_report(
+    features: pd.DataFrame,
+    close: pd.Series | pd.DataFrame,
+    *,
+    card_dir: Path,
+    root: Path | None = None,
+    horizon: int = 20,
+    model_names: Iterable[str] | None = None,
+    feature_packs: Iterable[str] = (),
+    train_start: str | pd.Timestamp = "2010-03-11",
+    train_end: str | pd.Timestamp = "2018-12-31",
+    test_start: str | pd.Timestamp = "2020-01-01",
+    test_end: str | pd.Timestamp = "2026-12-31",
+    profile_prefix: str = "quantbench_supervised",
+    gate: QuantBenchGate = QuantBenchGate(),
+    min_position: float = 0.10,
+    max_position: float = 0.90,
+    cost: float = 0.0008,
+) -> dict[str, Any]:
+    """Train QuantBench-style supervised SOXL baselines and persist screen artifacts."""
+    root = root.resolve() if root is not None else None
+    card_dir = card_dir.resolve()
+    card_dir.mkdir(parents=True, exist_ok=True)
+
+    feature_frame = _daily_index_frame(features).replace([np.inf, -np.inf], np.nan)
+    close_series = _daily_price_series(close)
+    common_index = feature_frame.index.intersection(close_series.index)
+    feature_frame = feature_frame.loc[common_index]
+    close_series = close_series.loc[common_index]
+    if feature_frame.empty or close_series.empty:
+        raise ValueError("features and close must have overlapping rows")
+
+    from .quantbench_objectives import build_soxl_supervised_targets
+
+    targets = build_soxl_supervised_targets(close_series, horizons=(horizon,))
+    predictions, objective_metrics = fit_quantbench_supervised_models(
+        feature_frame,
+        targets,
+        train_start=train_start,
+        train_end=train_end,
+        test_start=test_start,
+        test_end=test_end,
+        horizon=horizon,
+        model_names=model_names,
+    )
+    payloads = build_supervised_summary_payloads(
+        close_series,
+        predictions,
+        objective_metrics=objective_metrics,
+        profile_prefix=profile_prefix,
+        min_position=min_position,
+        max_position=max_position,
+        cost=cost,
+    )
+    records = [
+        summary_record_from_payload(payload, source_path=f"generated:{payload['profile']}")
+        for payload in payloads
+    ]
+    screen_rows = screen_quantbench_candidates(records, gate=gate)
+    eligible_rows = [row for row in screen_rows if row["eligible"]]
+
+    model_spec_rows = [
+        {
+            "name": spec.name,
+            "paper_family": spec.paper_family,
+            "objective": spec.objective,
+            "target_kind": spec.target_kind,
+            "estimator": spec.estimator,
+        }
+        for spec in quantbench_supervised_model_specs(model_names)
+    ]
+    objective_metric_rows = _metric_rows(objective_metrics)
+
+    model_specs_path = card_dir / "supervised_model_specs.csv"
+    objective_metrics_path = card_dir / "supervised_objective_metrics.csv"
+    screen_path = card_dir / "supervised_candidate_screen.csv"
+    payloads_path = card_dir / "supervised_payloads.json"
+    summary_path = card_dir / "supervised_summary.json"
+
+    _write_rows_csv(model_specs_path, model_spec_rows)
+    _write_rows_csv(objective_metrics_path, objective_metric_rows)
+    _write_rows_csv(screen_path, screen_rows)
+    payloads_path.write_text(json.dumps(payloads, indent=2, sort_keys=True, allow_nan=True) + "\n", encoding="utf-8")
+
+    def rel(path: Path) -> str:
+        return _display_path(path, root=root)
+
+    report = {
+        "paper": {
+            "title": "QuantBench: Benchmarking AI Methods for Quantitative Investment",
+            "arxiv_pdf": "https://arxiv.org/pdf/2504.18600",
+        },
+        "data": {
+            "rows": int(len(feature_frame)),
+            "start": str(feature_frame.index.min().date()),
+            "end": str(feature_frame.index.max().date()),
+            "feature_count": int(feature_frame.shape[1]),
+            "feature_packs": list(feature_packs),
+            "horizon": int(horizon),
+            "train_window": [str(pd.Timestamp(train_start).date()), str(pd.Timestamp(train_end).date())],
+            "test_window": [str(pd.Timestamp(test_start).date()), str(pd.Timestamp(test_end).date())],
+        },
+        "gate": gate.__dict__,
+        "artifacts": {
+            "summary_json": rel(summary_path),
+            "supervised_model_specs_csv": rel(model_specs_path),
+            "supervised_objective_metrics_csv": rel(objective_metrics_path),
+            "supervised_candidate_screen_csv": rel(screen_path),
+            "supervised_payloads_json": rel(payloads_path),
+        },
+        "screen": {
+            "records": len(records),
+            "eligible_count": len(eligible_rows),
+            "eligible_profiles": [row["profile"] for row in eligible_rows],
+            "best_rows": screen_rows[:10],
+        },
+        "decision": "eligible_supervised_candidates_found"
+        if eligible_rows
+        else "no_supervised_model_satisfies_quantbench_soxl_20dd_gate",
+        "next_action": (
+            "Promote only an eligible candidate; otherwise use the screen deltas to choose the next "
+            "macro-risk feature or rolling/ensemble experiment."
+        ),
+    }
+    summary_path.write_text(json.dumps(report, indent=2, sort_keys=True, allow_nan=True) + "\n", encoding="utf-8")
+    return report
+
+
+__all__ = [
+    "QUANTBENCH_SUPERVISED_MODEL_SPECS",
+    "SupervisedModelSpec",
+    "backtest_prediction_strategy",
+    "build_quantbench_supervised_report",
+    "build_supervised_summary_payloads",
+    "fit_quantbench_supervised_models",
+    "quantbench_supervised_model_specs",
+]

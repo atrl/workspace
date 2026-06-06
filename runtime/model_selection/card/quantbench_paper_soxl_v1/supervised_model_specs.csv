@@ -1,0 +1,8 @@
+name,paper_family,objective,target_kind,estimator
+logistic_clf,linear_classifier,clf,binary,LogisticRegression
+ridge_ic,linear_regression,ic,return,Ridge
+ridge_mse,linear_regression,mse,return,Ridge
+random_forest_clf,tree,clf,binary,RandomForestClassifier
+hist_gradient_mse,boosted_tree,mse,return,HistGradientBoostingRegressor
+extra_trees_rank,tree_ensemble,ranking,return,ExtraTreesRegressor
+mlp_mse,neural_tabular,mse,return,MLPRegressor
