@@ -101,6 +101,14 @@ class QuantBenchPathSelectorConfig:
     confirmed_reentry_volatility_max: float = 0.0
     hazard_threshold: float = 0.0
     hazard_cap: float = 0.12
+    fragile_market_cap: float = 1.0
+    fragile_market_regime_risk_threshold: float = 0.0
+    fragile_market_cum_drop_threshold: float = 0.0
+    fragile_market_drawdown_threshold: float = 0.0
+    fragile_market_momentum_max: float = 0.0
+    fragile_market_min_signals: int = 1
+    fragile_market_cooldown_days: int = 0
+    fragile_market_include_stress: bool = False
     tail_shock_day_threshold: float = 0.0
     tail_shock_rolling_2d_threshold: float = 0.0
     tail_shock_rolling_3d_threshold: float = 0.0
@@ -751,6 +759,78 @@ def apply_quantbench_hazard_guard(
     return out
 
 
+def apply_quantbench_fragile_market_guard(
+    daily: pd.DataFrame,
+    config: QuantBenchPathSelectorConfig,
+) -> pd.DataFrame:
+    """Cap non-stress exposure when lagged market state is fragile but not yet in panic."""
+    out = daily.copy()
+    out["datetime"] = pd.to_datetime(out["datetime"])
+    out = out.sort_values("datetime").reset_index(drop=True)
+    out["fragile_market_raw_position"] = out["position"].astype(float).clip(0.0, 1.0)
+
+    enabled = (
+        float(config.fragile_market_cap) < 1.0
+        and max(int(config.fragile_market_cooldown_days), 0) > 0
+        and (
+            float(config.fragile_market_regime_risk_threshold) > 0.0
+            or float(config.fragile_market_cum_drop_threshold) < 0.0
+            or float(config.fragile_market_drawdown_threshold) < 0.0
+            or float(config.fragile_market_momentum_max) > 0.0
+        )
+    )
+    if not enabled:
+        out["fragile_market_signal_count"] = 0
+        out["fragile_market_trigger"] = False
+        out["fragile_market_guard"] = False
+        out["fragile_market_cooldown_remaining"] = 0
+        return out
+
+    signal_count = pd.Series(0, index=out.index, dtype=int)
+    regime_risk = out.get("regime_risk", pd.Series(0.0, index=out.index)).astype(float)
+    cum_drop_30 = out.get("cum_drop_30", pd.Series(0.0, index=out.index)).astype(float)
+    drawdown_63 = out.get("drawdown_63", pd.Series(0.0, index=out.index)).astype(float)
+    mom_21 = out.get("mom_21", pd.Series(0.0, index=out.index)).astype(float)
+    if float(config.fragile_market_regime_risk_threshold) > 0.0:
+        signal_count += (regime_risk >= float(config.fragile_market_regime_risk_threshold)).astype(int)
+    if float(config.fragile_market_cum_drop_threshold) < 0.0:
+        signal_count += (cum_drop_30 <= float(config.fragile_market_cum_drop_threshold)).astype(int)
+    if float(config.fragile_market_drawdown_threshold) < 0.0:
+        signal_count += (drawdown_63 <= float(config.fragile_market_drawdown_threshold)).astype(int)
+    if float(config.fragile_market_momentum_max) > 0.0:
+        signal_count += (mom_21 <= float(config.fragile_market_momentum_max)).astype(int)
+
+    eligible_regime = pd.Series(True, index=out.index, dtype=bool)
+    if not bool(config.fragile_market_include_stress):
+        eligible_regime = out["macro_regime"].astype(str) != "stress"
+    trigger = eligible_regime & (signal_count >= max(int(config.fragile_market_min_signals), 1))
+
+    cap = float(np.clip(float(config.fragile_market_cap), 0.0, 1.0))
+    cooldown_days = max(int(config.fragile_market_cooldown_days), 0)
+    guarded: list[float] = []
+    guard_flags: list[bool] = []
+    remaining_values: list[int] = []
+    remaining = 0
+    for idx, row in enumerate(out.itertuples(index=False)):
+        if bool(trigger.iloc[idx]):
+            remaining = cooldown_days
+        active = remaining > 0
+        target = float(row.fragile_market_raw_position)
+        if active:
+            target = min(target, cap)
+            remaining -= 1
+        guarded.append(float(np.clip(target, 0.0, 1.0)))
+        guard_flags.append(bool(active))
+        remaining_values.append(int(remaining))
+
+    out["position"] = guarded
+    out["fragile_market_signal_count"] = signal_count.to_numpy(dtype=int)
+    out["fragile_market_trigger"] = trigger.to_numpy(dtype=bool)
+    out["fragile_market_guard"] = guard_flags
+    out["fragile_market_cooldown_remaining"] = remaining_values
+    return out
+
+
 def apply_quantbench_tail_shock_guard(
     daily: pd.DataFrame,
     close: pd.Series | pd.DataFrame,
@@ -1120,6 +1200,8 @@ def build_quantbench_path_ensemble_payloads(
         daily = apply_quantbench_hazard_guard(daily, hazard_score, config)
         if float(config.volatility_target) > 0.0:
             daily = apply_quantbench_volatility_budget_guard(daily, close, config)
+        if float(config.fragile_market_cap) < 1.0:
+            daily = apply_quantbench_fragile_market_guard(daily, config)
         if max(int(config.tail_shock_cooldown_days), 0) > 0:
             daily = apply_quantbench_tail_shock_guard(daily, close, config)
         daily = apply_quantbench_ensemble_drawdown_guard(daily, close, config, cost=cost)
@@ -2404,6 +2486,24 @@ def default_quantbench_path_selector_configs(
             recovery_path=path("market_graph_mse"),
         )
     )
+    sequence_tapered_config = next(
+        config
+        for config in configs
+        if config.name == "quantbench_ensemble_sequence_tapered_reentry_v1"
+    )
+    configs.append(
+        replace(
+            sequence_tapered_config,
+            name="quantbench_ensemble_sequence_fragile_preshock_v1",
+            fragile_market_cap=0.30,
+            fragile_market_regime_risk_threshold=0.45,
+            fragile_market_cum_drop_threshold=-0.08,
+            fragile_market_drawdown_threshold=-0.10,
+            fragile_market_momentum_max=0.30,
+            fragile_market_min_signals=4,
+            fragile_market_cooldown_days=1,
+        )
+    )
     return configs
 
 
@@ -2659,6 +2759,7 @@ __all__ = [
     "QuantBenchPathSelectorConfig",
     "QuantBenchSignalBlendSpec",
     "apply_quantbench_ensemble_drawdown_guard",
+    "apply_quantbench_fragile_market_guard",
     "apply_quantbench_hazard_guard",
     "apply_quantbench_tail_shock_guard",
     "apply_quantbench_volatility_budget_guard",

@@ -24,7 +24,8 @@
       "runtime/model_selection/card/quantbench_paper_soxl_v1/quantbench_ensemble_hazard_rf_logistic_v1_soxl_daily.csv",
       "runtime/model_selection/card/quantbench_paper_soxl_v1/quantbench_ensemble_external_crash_condvol_v1_soxl_daily.csv",
       "runtime/model_selection/card/quantbench_paper_soxl_v1/quantbench_ensemble_external_crash_v19v22_v1_soxl_daily.csv",
-      "runtime/model_selection/card/quantbench_paper_soxl_v1/quantbench_ensemble_market_graph_panic_chip_floor_v1_soxl_daily.csv"
+      "runtime/model_selection/card/quantbench_paper_soxl_v1/quantbench_ensemble_market_graph_panic_chip_floor_v1_soxl_daily.csv",
+      "runtime/model_selection/card/quantbench_paper_soxl_v1/quantbench_ensemble_sequence_fragile_preshock_v1_soxl_daily.csv"
     ],
     "ensemble_candidate_screen_csv": "runtime/model_selection/card/quantbench_paper_soxl_v1/ensemble_candidate_screen.csv",
     "ensemble_hazard_metrics_json": "runtime/model_selection/card/quantbench_paper_soxl_v1/ensemble_hazard_metrics.json",
@@ -122,7 +123,7 @@
     ],
     "rolling_refit_step_rows": 63,
     "rolling_train_lookback_rows": 1260,
-    "selector_count": 24,
+    "selector_count": 25,
     "signal_blends": [
       "blend_logistic_sequence_lowcorr_v1",
       "blend_sequence_lstm_lowcorr_v1",
@@ -171,6 +172,24 @@
   },
   "screen": {
     "best_rows": [
+      {
+        "bull_buy_and_hold_return": 191.7735092699,
+        "bull_capture": 0.7416958022513752,
+        "bull_return": 142.2376068085,
+        "eligible": false,
+        "failed_checks": [
+          "max_drawdown",
+          "stress_avg_pos"
+        ],
+        "profile": "quantbench_ensemble_sequence_fragile_preshock_v1",
+        "proxy_max_dd": 20.5497007016,
+        "proxy_return": 333.0612422623,
+        "score": 364.100448,
+        "source_path": "generated:quantbench_ensemble_sequence_fragile_preshock_v1",
+        "stress_avg_pos": 0.08434320919078934,
+        "stress_max_dd": 13.9972911025,
+        "stress_relative_return": 79.0684282391
+      },
       {
         "bull_buy_and_hold_return": 191.7735092699,
         "bull_capture": 0.7563923771762956,
@@ -332,28 +351,10 @@
         "stress_avg_pos": 0.1615575839677676,
         "stress_max_dd": 30.9696141336,
         "stress_relative_return": 56.0849640699
-      },
-      {
-        "bull_buy_and_hold_return": 191.7735092699,
-        "bull_capture": 0.14271739675462983,
-        "bull_return": 27.3694160095,
-        "eligible": false,
-        "failed_checks": [
-          "stress_avg_pos",
-          "bull_capture"
-        ],
-        "profile": "quantbench_ensemble_external_crash_condvol_v1",
-        "proxy_max_dd": 17.9029418556,
-        "proxy_return": 120.4263401689,
-        "score": 97.630515,
-        "source_path": "generated:quantbench_ensemble_external_crash_condvol_v1",
-        "stress_avg_pos": 0.06794877401904811,
-        "stress_max_dd": 14.3849012661,
-        "stress_relative_return": 74.5442022911
       }
     ],
     "eligible_count": 0,
     "eligible_profiles": [],
-    "records": 24
+    "records": 25
   }
 }

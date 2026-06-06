@@ -8,6 +8,7 @@ from src.soxl_quant.app.quantbench_ensemble import (
     QuantBenchSignalBlendSpec,
     QuantBenchPathSelectorConfig,
     apply_quantbench_ensemble_drawdown_guard,
+    apply_quantbench_fragile_market_guard,
     apply_quantbench_hazard_guard,
     apply_quantbench_tail_shock_guard,
     apply_quantbench_volatility_budget_guard,
@@ -466,6 +467,41 @@ def test_apply_quantbench_hazard_guard_caps_before_account_drawdown_with_audit_c
     assert guarded["hazard_guard"].tolist() == [False, True, True, False, False]
     assert guarded["position"].round(4).tolist() == [0.80, 0.12, 0.12, 0.80, 0.80]
     assert guarded["hazard_score"].round(2).tolist() == [0.10, 0.85, 0.90, 0.20, 0.10]
+
+
+def test_apply_quantbench_fragile_market_guard_caps_pre_shock_bull_with_cooldown():
+    index = pd.date_range("2024-01-01", periods=6, freq="D")
+    daily = pd.DataFrame(
+        {
+            "datetime": index,
+            "position": [0.80, 0.80, 0.80, 0.80, 0.80, 0.80],
+            "macro_regime": ["bull", "bull", "bull", "stress", "recovery", "bull"],
+            "regime_risk": [0.20, 0.48, 0.30, 0.80, 0.30, 0.20],
+            "cum_drop_30": [0.00, -0.10, -0.04, -0.25, -0.02, 0.00],
+            "drawdown_63": [0.00, -0.11, -0.03, -0.30, -0.02, 0.00],
+            "mom_21": [0.35, 0.20, 0.10, -0.20, 0.25, 0.30],
+        }
+    )
+    config = QuantBenchPathSelectorConfig(
+        name="fragile_preshock",
+        defensive_path="lowdd",
+        offensive_path="attack",
+        fragile_market_cap=0.25,
+        fragile_market_regime_risk_threshold=0.45,
+        fragile_market_cum_drop_threshold=-0.08,
+        fragile_market_drawdown_threshold=-0.10,
+        fragile_market_momentum_max=0.30,
+        fragile_market_min_signals=2,
+        fragile_market_cooldown_days=2,
+    )
+
+    guarded = apply_quantbench_fragile_market_guard(daily, config)
+
+    assert guarded["fragile_market_trigger"].tolist() == [False, True, False, False, False, False]
+    assert guarded["fragile_market_guard"].tolist() == [False, True, True, False, False, False]
+    assert guarded["fragile_market_cooldown_remaining"].tolist() == [0, 1, 0, 0, 0, 0]
+    assert guarded["position"].round(4).tolist() == [0.80, 0.25, 0.25, 0.80, 0.80, 0.80]
+    assert guarded["fragile_market_signal_count"].tolist() == [0, 4, 1, 4, 1, 1]
 
 
 def test_apply_quantbench_tail_shock_guard_uses_lagged_single_day_loss_and_cooldown():
@@ -1039,6 +1075,12 @@ def test_default_quantbench_supervised_ensemble_architecture_routes_temporal_seq
     assert any(
         config.offensive_path == "quantbench_supervised_market_graph_mse"
         and config.recovery_path == "quantbench_supervised_market_graph_mse"
+        for config in configs
+    )
+    assert any(
+        config.name == "quantbench_ensemble_sequence_fragile_preshock_v1"
+        and config.fragile_market_cap < 1.0
+        and config.fragile_market_min_signals >= 2
         for config in configs
     )
     assert any("lstm_mse" in spec.model_names for spec in blends)

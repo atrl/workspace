@@ -1,11 +1,11 @@
 {
   "extra_trees_rank": {
     "clf_accuracy": 0.493726,
-    "ic": -0.01790318035061269,
+    "ic": -0.017903180350612696,
     "mse": 0.09950123746607113,
     "ranking_spread": -0.003517271828936075,
     "rows": 1594.0,
-    "utility_return": 0.007680649499740534
+    "utility_return": 0.007680649499740533
   },
   "hist_gradient_mse": {
     "clf_accuracy": 0.456713,
@@ -49,11 +49,11 @@
   },
   "random_forest_clf": {
     "clf_accuracy": 0.5,
-    "ic": -0.03280759961806667,
+    "ic": -0.03280759961806661,
     "mse": 0.10474681848761278,
     "ranking_spread": -0.07485088712876582,
     "rows": 1594.0,
-    "utility_return": 0.008161107694169415
+    "utility_return": 0.008161107694169419
   },
   "ridge_ic": {
     "clf_accuracy": 0.444793,
