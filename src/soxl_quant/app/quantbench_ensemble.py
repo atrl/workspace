@@ -66,6 +66,15 @@ class QuantBenchPathSelectorConfig:
     portfolio_drawdown_budget_start_cap: float = 1.0
     portfolio_drawdown_budget_min_cap: float = 0.0
     portfolio_drawdown_budget_stress_floor: float = 0.0
+    portfolio_drawdown_budget_bull_release_cap: float = 0.0
+    portfolio_drawdown_budget_bull_release_max_drawdown: float = 1.0
+    portfolio_drawdown_budget_bull_release_ma_window: int = 200
+    portfolio_drawdown_budget_bull_release_momentum_window: int = 126
+    portfolio_drawdown_budget_bull_release_high_window: int = 126
+    portfolio_drawdown_budget_bull_release_momentum_threshold: float = 0.10
+    portfolio_drawdown_budget_bull_release_drawdown_floor: float = -0.12
+    portfolio_drawdown_budget_bull_release_volatility_window: int = 20
+    portfolio_drawdown_budget_bull_release_volatility_max: float = 0.0
     confirmed_reentry_floor: float = 0.0
     confirmed_reentry_cap: float = 0.0
     confirmed_reentry_ma_window: int = 50
@@ -343,6 +352,50 @@ def apply_quantbench_ensemble_drawdown_guard(
         confirmed_reentry_by_date = confirmed_reentry_series.to_dict()
     else:
         confirmed_reentry_by_date = {}
+    bull_release_enabled = (
+        budget_enabled
+        and float(config.portfolio_drawdown_budget_bull_release_cap) > 0.0
+        and float(config.portfolio_drawdown_budget_bull_release_max_drawdown) > 0.0
+    )
+    bull_release_frame = pd.DataFrame(index=pd.DatetimeIndex(out["datetime"]))
+    if bull_release_enabled:
+        lagged_close = price.shift(1)
+        ma_window = max(int(config.portfolio_drawdown_budget_bull_release_ma_window), 1)
+        momentum_window = max(int(config.portfolio_drawdown_budget_bull_release_momentum_window), 1)
+        high_window = max(int(config.portfolio_drawdown_budget_bull_release_high_window), 1)
+        vol_window = max(int(config.portfolio_drawdown_budget_bull_release_volatility_window), 1)
+        bull_release_frame["portfolio_drawdown_budget_bull_release_price_above_ma"] = (
+            lagged_close > lagged_close.rolling(ma_window, min_periods=ma_window).mean()
+        )
+        bull_release_frame["portfolio_drawdown_budget_bull_release_momentum"] = (
+            lagged_close / lagged_close.shift(momentum_window) - 1.0
+        )
+        bull_release_frame["portfolio_drawdown_budget_bull_release_rolling_high_drawdown"] = (
+            lagged_close / lagged_close.rolling(high_window, min_periods=high_window).max() - 1.0
+        )
+        bull_release_frame["portfolio_drawdown_budget_bull_release_realized_volatility"] = (
+            returns.shift(1).rolling(vol_window, min_periods=vol_window).std(ddof=0) * float(np.sqrt(252.0))
+        )
+        bull_release_frame = bull_release_frame.reindex(pd.DatetimeIndex(out["datetime"]))
+        bull_release_series = (
+            bull_release_frame["portfolio_drawdown_budget_bull_release_price_above_ma"].fillna(False).astype(bool)
+            & (
+                bull_release_frame["portfolio_drawdown_budget_bull_release_momentum"].fillna(-np.inf)
+                >= float(config.portfolio_drawdown_budget_bull_release_momentum_threshold)
+            )
+            & (
+                bull_release_frame["portfolio_drawdown_budget_bull_release_rolling_high_drawdown"].fillna(-np.inf)
+                >= float(config.portfolio_drawdown_budget_bull_release_drawdown_floor)
+            )
+        )
+        if float(config.portfolio_drawdown_budget_bull_release_volatility_max) > 0.0:
+            bull_release_series &= (
+                bull_release_frame["portfolio_drawdown_budget_bull_release_realized_volatility"].fillna(np.inf)
+                <= float(config.portfolio_drawdown_budget_bull_release_volatility_max)
+            )
+        bull_release_by_date = bull_release_series.to_dict()
+    else:
+        bull_release_by_date = {}
     equity = 1.0
     peak = 1.0
     previous_target = 0.0
@@ -353,6 +406,7 @@ def apply_quantbench_ensemble_drawdown_guard(
     confirmed_flags: list[bool] = []
     budget_caps: list[float] = []
     budget_flags: list[bool] = []
+    bull_release_flags: list[bool] = []
     for row in out.itertuples(index=False):
         date = pd.Timestamp(row.datetime)
         day_return = float(returns.loc[date]) if date in returns.index else 0.0
@@ -369,6 +423,7 @@ def apply_quantbench_ensemble_drawdown_guard(
 
         raw_target = float(row.raw_position)
         confirmed_reentry = bool(confirmed_reentry_by_date.get(date, False))
+        bull_release = False
         can_reenter = (
             guard_active
             and str(row.macro_regime) in {"bull", "recovery"}
@@ -414,6 +469,20 @@ def apply_quantbench_ensemble_drawdown_guard(
                 stress_floor = float(config.portfolio_drawdown_budget_stress_floor)
                 if stress_floor > 0.0 and str(row.macro_regime) == "stress" and raw_target > 0.0:
                     target = max(target, min(raw_target, stress_floor))
+                tail_shock_active = bool(getattr(row, "tail_shock_guard", False))
+                if (
+                    bull_release_enabled
+                    and not tail_shock_active
+                    and str(row.macro_regime) in {"bull", "recovery"}
+                    and drawdown <= float(config.portfolio_drawdown_budget_bull_release_max_drawdown)
+                    and bool(bull_release_by_date.get(date, False))
+                    and raw_target > 0.0
+                ):
+                    target = max(
+                        target,
+                        min(raw_target, float(config.portfolio_drawdown_budget_bull_release_cap)),
+                    )
+                    bull_release = True
         else:
             budget_cap = 1.0
             budget_guard = False
@@ -426,6 +495,7 @@ def apply_quantbench_ensemble_drawdown_guard(
         confirmed_flags.append(bool(confirmed_reentry))
         budget_caps.append(float(budget_cap))
         budget_flags.append(bool(budget_guard))
+        bull_release_flags.append(bool(bull_release))
         previous_target = target
 
     out["position"] = guarded
@@ -434,6 +504,10 @@ def apply_quantbench_ensemble_drawdown_guard(
     if budget_enabled:
         out["portfolio_drawdown_budget_cap"] = budget_caps
         out["portfolio_drawdown_budget_guard"] = budget_flags
+        if bull_release_enabled:
+            out["portfolio_drawdown_budget_bull_release"] = bull_release_flags
+            for column in bull_release_frame.columns:
+                out[column] = bull_release_frame[column].reset_index(drop=True).to_numpy()
     if confirmed_reentry_enabled:
         out["confirmed_reentry"] = confirmed_flags
         for column in confirmed_frame.columns:
@@ -1293,6 +1367,57 @@ def default_quantbench_path_selector_configs(
             portfolio_drawdown_budget_start_cap=0.35,
             portfolio_drawdown_budget_min_cap=0.02,
             portfolio_drawdown_budget_stress_floor=0.10,
+            tail_shock_day_threshold=-0.04,
+            tail_shock_rolling_2d_threshold=-0.075,
+            tail_shock_rolling_3d_threshold=-0.12,
+            tail_shock_cooldown_days=3,
+            tail_shock_cap=0.05,
+            tail_shock_stress_floor=0.10,
+        ),
+        QuantBenchPathSelectorConfig(
+            name="quantbench_ensemble_tail_shock_bull_release_rf_logistic_v1",
+            defensive_path=path("random_forest_clf", "macro_budget_defensive_v1"),
+            neutral_path=path("random_forest_clf", "macro_budget_defensive_v1"),
+            offensive_path=path("logistic_clf"),
+            recovery_path=path("logistic_clf"),
+            stress_floor=0.10,
+            stress_cap=0.14,
+            neutral_cap=0.20,
+            bull_floor=0.70,
+            bull_cap=0.98,
+            recovery_floor=0.50,
+            recovery_cap=0.85,
+            stress_risk_threshold=0.92,
+            stress_drop_threshold=-0.35,
+            stress_drawdown_threshold=-0.45,
+            bull_risk_threshold=0.50,
+            bull_momentum_threshold=0.00,
+            bull_trend_threshold=-0.05,
+            bull_drawdown_floor=-0.30,
+            recovery_risk_threshold=0.75,
+            recovery_momentum_threshold=0.00,
+            recovery_trend_threshold=-0.08,
+            recovery_drawdown_min=-0.45,
+            recovery_drawdown_max=-0.02,
+            portfolio_drawdown_trigger=0.15,
+            portfolio_drawdown_cap=0.08,
+            portfolio_drawdown_release=0.05,
+            portfolio_reentry_floor=0.40,
+            portfolio_reentry_cap=0.65,
+            portfolio_drawdown_budget_start=0.04,
+            portfolio_drawdown_budget_full=0.12,
+            portfolio_drawdown_budget_start_cap=0.35,
+            portfolio_drawdown_budget_min_cap=0.04,
+            portfolio_drawdown_budget_stress_floor=0.14,
+            portfolio_drawdown_budget_bull_release_cap=0.20,
+            portfolio_drawdown_budget_bull_release_max_drawdown=0.12,
+            portfolio_drawdown_budget_bull_release_ma_window=200,
+            portfolio_drawdown_budget_bull_release_momentum_window=126,
+            portfolio_drawdown_budget_bull_release_high_window=126,
+            portfolio_drawdown_budget_bull_release_momentum_threshold=0.10,
+            portfolio_drawdown_budget_bull_release_drawdown_floor=-0.12,
+            portfolio_drawdown_budget_bull_release_volatility_window=20,
+            portfolio_drawdown_budget_bull_release_volatility_max=0.80,
             tail_shock_day_threshold=-0.04,
             tail_shock_rolling_2d_threshold=-0.075,
             tail_shock_rolling_3d_threshold=-0.12,
