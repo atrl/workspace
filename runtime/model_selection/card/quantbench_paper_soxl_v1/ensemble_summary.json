@@ -12,6 +12,7 @@
       "runtime/model_selection/card/quantbench_paper_soxl_v1/quantbench_ensemble_drawdown_budget_guarded_rf_logistic_v1_soxl_daily.csv",
       "runtime/model_selection/card/quantbench_paper_soxl_v1/quantbench_ensemble_tail_shock_budget_rf_logistic_v1_soxl_daily.csv",
       "runtime/model_selection/card/quantbench_paper_soxl_v1/quantbench_ensemble_tail_shock_bull_release_rf_logistic_v1_soxl_daily.csv",
+      "runtime/model_selection/card/quantbench_paper_soxl_v1/quantbench_ensemble_tail_shock_anchor_reset_rf_logistic_v1_soxl_daily.csv",
       "runtime/model_selection/card/quantbench_paper_soxl_v1/quantbench_ensemble_hazard_rf_logistic_v1_soxl_daily.csv"
     ],
     "ensemble_candidate_screen_csv": "runtime/model_selection/card/quantbench_paper_soxl_v1/ensemble_candidate_screen.csv",
@@ -56,7 +57,7 @@
       "macro_budget_bull_guard_v1",
       "macro_budget_reentry_v1"
     ],
-    "selector_count": 12,
+    "selector_count": 13,
     "start": "2011-03-11",
     "test_window": [
       "2020-01-01",
@@ -138,6 +139,24 @@
         "stress_avg_pos": 0.16335041265302655,
         "stress_max_dd": 34.119246833,
         "stress_relative_return": 52.913498777
+      },
+      {
+        "bull_buy_and_hold_return": 191.7735092699,
+        "bull_capture": 0.24231858491204963,
+        "bull_return": 46.4702853899,
+        "eligible": false,
+        "failed_checks": [
+          "stress_avg_pos",
+          "bull_capture"
+        ],
+        "profile": "quantbench_ensemble_tail_shock_anchor_reset_rf_logistic_v1",
+        "proxy_max_dd": 19.8769446215,
+        "proxy_return": 145.8564591648,
+        "score": 130.797251,
+        "source_path": "generated:quantbench_ensemble_tail_shock_anchor_reset_rf_logistic_v1",
+        "stress_avg_pos": 0.08231605716491663,
+        "stress_max_dd": 13.0458014842,
+        "stress_relative_return": 80.2167122497
       },
       {
         "bull_buy_and_hold_return": 191.7735092699,
@@ -250,29 +269,10 @@
         "stress_avg_pos": 0.05664742483291383,
         "stress_max_dd": 14.2603116824,
         "stress_relative_return": 72.6984237438
-      },
-      {
-        "bull_buy_and_hold_return": 191.7735092699,
-        "bull_capture": 0.09660372845671117,
-        "bull_return": 18.5260360147,
-        "eligible": false,
-        "failed_checks": [
-          "max_drawdown",
-          "stress_max_drawdown",
-          "bull_capture"
-        ],
-        "profile": "quantbench_ensemble_lowdd_mlp_v1",
-        "proxy_max_dd": 45.9675614324,
-        "proxy_return": 104.1141020545,
-        "score": -70.842397,
-        "source_path": "generated:quantbench_ensemble_lowdd_mlp_v1",
-        "stress_avg_pos": 0.14323009092863176,
-        "stress_max_dd": 27.9745633584,
-        "stress_relative_return": 59.2533734848
       }
     ],
     "eligible_count": 0,
     "eligible_profiles": [],
-    "records": 12
+    "records": 13
   }
 }

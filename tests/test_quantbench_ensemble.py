@@ -289,6 +289,83 @@ def test_apply_quantbench_ensemble_drawdown_guard_does_not_release_budget_during
     assert guarded.loc[7, "position"] < 0.30
 
 
+def test_apply_quantbench_ensemble_drawdown_guard_resets_budget_anchor_after_lagged_bull_confirmation():
+    index = pd.date_range("2024-01-01", periods=8, freq="D")
+    daily = pd.DataFrame(
+        {
+            "datetime": index,
+            "position": [0.60] * len(index),
+            "macro_regime": ["bull"] * len(index),
+            "tail_shock_guard": [False] * len(index),
+        }
+    )
+    close = pd.Series([100.0, 80.0, 80.0, 90.0, 100.0, 110.0, 120.0, 130.0], index=index)
+    config = QuantBenchPathSelectorConfig(
+        name="budget_anchor_reset",
+        defensive_path="lowdd",
+        offensive_path="attack",
+        portfolio_drawdown_budget_start=0.05,
+        portfolio_drawdown_budget_full=0.12,
+        portfolio_drawdown_budget_start_cap=0.20,
+        portfolio_drawdown_budget_min_cap=0.02,
+        portfolio_drawdown_budget_bull_release_cap=0.30,
+        portfolio_drawdown_budget_bull_release_max_drawdown=0.20,
+        portfolio_drawdown_budget_bull_release_ma_window=2,
+        portfolio_drawdown_budget_bull_release_momentum_window=1,
+        portfolio_drawdown_budget_bull_release_high_window=2,
+        portfolio_drawdown_budget_bull_release_momentum_threshold=0.05,
+        portfolio_drawdown_budget_bull_release_drawdown_floor=-0.05,
+        portfolio_drawdown_budget_anchor_reset_drawdown=0.05,
+        portfolio_drawdown_budget_anchor_reset_max_drawdown=0.20,
+        portfolio_drawdown_budget_anchor_reset_streak_days=1,
+    )
+
+    guarded = apply_quantbench_ensemble_drawdown_guard(daily, close, config, cost=0.0)
+
+    assert guarded.loc[2, "position"] == 0.02
+    assert bool(guarded.loc[4, "portfolio_drawdown_budget_anchor_reset"])
+    assert guarded.loc[4, "portfolio_drawdown"] > guarded.loc[4, "portfolio_drawdown_budget_drawdown"]
+    assert guarded.loc[4, "position"] == 0.30
+
+
+def test_apply_quantbench_ensemble_drawdown_guard_does_not_reset_budget_anchor_during_tail_shock():
+    index = pd.date_range("2024-01-01", periods=8, freq="D")
+    daily = pd.DataFrame(
+        {
+            "datetime": index,
+            "position": [0.60] * len(index),
+            "macro_regime": ["bull"] * len(index),
+            "tail_shock_guard": [False, False, False, False, True, False, False, False],
+        }
+    )
+    close = pd.Series([100.0, 80.0, 80.0, 90.0, 100.0, 110.0, 120.0, 130.0], index=index)
+    config = QuantBenchPathSelectorConfig(
+        name="budget_anchor_reset_tail_block",
+        defensive_path="lowdd",
+        offensive_path="attack",
+        portfolio_drawdown_budget_start=0.05,
+        portfolio_drawdown_budget_full=0.12,
+        portfolio_drawdown_budget_start_cap=0.20,
+        portfolio_drawdown_budget_min_cap=0.02,
+        portfolio_drawdown_budget_bull_release_cap=0.30,
+        portfolio_drawdown_budget_bull_release_max_drawdown=0.20,
+        portfolio_drawdown_budget_bull_release_ma_window=2,
+        portfolio_drawdown_budget_bull_release_momentum_window=1,
+        portfolio_drawdown_budget_bull_release_high_window=2,
+        portfolio_drawdown_budget_bull_release_momentum_threshold=0.05,
+        portfolio_drawdown_budget_bull_release_drawdown_floor=-0.05,
+        portfolio_drawdown_budget_anchor_reset_drawdown=0.05,
+        portfolio_drawdown_budget_anchor_reset_max_drawdown=0.20,
+        portfolio_drawdown_budget_anchor_reset_streak_days=1,
+    )
+
+    guarded = apply_quantbench_ensemble_drawdown_guard(daily, close, config, cost=0.0)
+
+    assert bool(guarded.loc[4, "tail_shock_guard"])
+    assert not bool(guarded.loc[4, "portfolio_drawdown_budget_anchor_reset"])
+    assert guarded.loc[4, "position"] < 0.30
+
+
 def test_apply_quantbench_hazard_guard_caps_before_account_drawdown_with_audit_columns():
     index = pd.date_range("2024-01-01", periods=5, freq="D")
     daily = pd.DataFrame(
@@ -445,6 +522,7 @@ def test_default_quantbench_path_selector_configs_include_volatility_budget_cand
     assert "quantbench_ensemble_drawdown_budget_guarded_rf_logistic_v1" in names
     assert "quantbench_ensemble_tail_shock_budget_rf_logistic_v1" in names
     assert "quantbench_ensemble_tail_shock_bull_release_rf_logistic_v1" in names
+    assert "quantbench_ensemble_tail_shock_anchor_reset_rf_logistic_v1" in names
     candidate = next(config for config in budget_configs if config.name == "quantbench_ensemble_vol_budget_rf_logistic_v1")
     assert candidate.volatility_stress_target < candidate.volatility_bull_target
     assert candidate.portfolio_drawdown_trigger > 0.0
@@ -475,6 +553,14 @@ def test_default_quantbench_path_selector_configs_include_volatility_budget_cand
     assert release_candidate.portfolio_drawdown_budget_bull_release_cap > 0.0
     assert release_candidate.portfolio_drawdown_budget_bull_release_momentum_window >= 63
     assert release_candidate.portfolio_drawdown_budget_bull_release_volatility_max > 0.0
+    anchor_reset_candidate = next(
+        config
+        for config in budget_configs
+        if config.name == "quantbench_ensemble_tail_shock_anchor_reset_rf_logistic_v1"
+    )
+    assert anchor_reset_candidate.portfolio_drawdown_budget_anchor_reset_drawdown > 0.0
+    assert anchor_reset_candidate.portfolio_drawdown_budget_anchor_reset_streak_days >= 1
+    assert anchor_reset_candidate.portfolio_drawdown_budget_bull_release_cap >= 0.30
 
 
 def test_fit_quantbench_drawdown_hazard_model_predicts_oos_future_drawdown_risk():

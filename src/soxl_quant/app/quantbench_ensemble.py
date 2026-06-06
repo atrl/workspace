@@ -75,6 +75,9 @@ class QuantBenchPathSelectorConfig:
     portfolio_drawdown_budget_bull_release_drawdown_floor: float = -0.12
     portfolio_drawdown_budget_bull_release_volatility_window: int = 20
     portfolio_drawdown_budget_bull_release_volatility_max: float = 0.0
+    portfolio_drawdown_budget_anchor_reset_drawdown: float = 0.0
+    portfolio_drawdown_budget_anchor_reset_max_drawdown: float = 0.0
+    portfolio_drawdown_budget_anchor_reset_streak_days: int = 0
     confirmed_reentry_floor: float = 0.0
     confirmed_reentry_cap: float = 0.0
     confirmed_reentry_ma_window: int = 50
@@ -396,23 +399,57 @@ def apply_quantbench_ensemble_drawdown_guard(
         bull_release_by_date = bull_release_series.to_dict()
     else:
         bull_release_by_date = {}
+    anchor_reset_enabled = (
+        bull_release_enabled
+        and float(config.portfolio_drawdown_budget_anchor_reset_max_drawdown) > 0.0
+        and int(config.portfolio_drawdown_budget_anchor_reset_streak_days) > 0
+    )
     equity = 1.0
     peak = 1.0
+    budget_peak = 1.0
     previous_target = 0.0
     guard_active = False
+    bull_confirmation_streak = 0
     guarded: list[float] = []
     guard_flags: list[bool] = []
     drawdowns: list[float] = []
     confirmed_flags: list[bool] = []
     budget_caps: list[float] = []
     budget_flags: list[bool] = []
+    budget_drawdowns: list[float] = []
     bull_release_flags: list[bool] = []
+    anchor_reset_flags: list[bool] = []
+    anchor_reset_streaks: list[int] = []
     for row in out.itertuples(index=False):
         date = pd.Timestamp(row.datetime)
         day_return = float(returns.loc[date]) if date in returns.index else 0.0
         equity *= 1.0 + previous_target * day_return
         peak = max(peak, equity)
+        budget_peak = max(budget_peak, equity)
         drawdown = 1.0 - equity / peak if peak > 0.0 else 0.0
+        raw_target = float(row.raw_position)
+        tail_shock_active = bool(getattr(row, "tail_shock_guard", False))
+        anchor_reset = False
+        if anchor_reset_enabled:
+            if (
+                not tail_shock_active
+                and str(row.macro_regime) in {"bull", "recovery"}
+                and drawdown <= float(config.portfolio_drawdown_budget_anchor_reset_max_drawdown)
+                and bool(bull_release_by_date.get(date, False))
+                and raw_target > 0.0
+            ):
+                bull_confirmation_streak += 1
+            else:
+                bull_confirmation_streak = 0
+            if bull_confirmation_streak >= int(config.portfolio_drawdown_budget_anchor_reset_streak_days):
+                reset_drawdown = float(np.clip(float(config.portfolio_drawdown_budget_anchor_reset_drawdown), 0.0, 0.99))
+                reset_peak = equity / max(1.0 - reset_drawdown, 1e-12)
+                if reset_peak < budget_peak:
+                    budget_peak = reset_peak
+                    anchor_reset = True
+        else:
+            bull_confirmation_streak = 0
+        budget_drawdown = 1.0 - equity / budget_peak if budget_peak > 0.0 else 0.0
         if float(config.portfolio_drawdown_trigger) > 0.0:
             if drawdown >= float(config.portfolio_drawdown_trigger):
                 guard_active = True
@@ -421,7 +458,6 @@ def apply_quantbench_ensemble_drawdown_guard(
         else:
             guard_active = False
 
-        raw_target = float(row.raw_position)
         confirmed_reentry = bool(confirmed_reentry_by_date.get(date, False))
         bull_release = False
         can_reenter = (
@@ -453,7 +489,7 @@ def apply_quantbench_ensemble_drawdown_guard(
         if budget_enabled:
             severity = float(
                 np.clip(
-                    (drawdown - float(config.portfolio_drawdown_budget_start))
+                    (budget_drawdown - float(config.portfolio_drawdown_budget_start))
                     / (float(config.portfolio_drawdown_budget_full) - float(config.portfolio_drawdown_budget_start)),
                     0.0,
                     1.0,
@@ -463,13 +499,12 @@ def apply_quantbench_ensemble_drawdown_guard(
                 config.portfolio_drawdown_budget_min_cap
             )
             budget_cap = float(np.clip(budget_cap, 0.0, 1.0))
-            budget_guard = drawdown >= float(config.portfolio_drawdown_budget_start)
+            budget_guard = budget_drawdown >= float(config.portfolio_drawdown_budget_start)
             if budget_guard:
                 target = min(target, budget_cap)
                 stress_floor = float(config.portfolio_drawdown_budget_stress_floor)
                 if stress_floor > 0.0 and str(row.macro_regime) == "stress" and raw_target > 0.0:
                     target = max(target, min(raw_target, stress_floor))
-                tail_shock_active = bool(getattr(row, "tail_shock_guard", False))
                 if (
                     bull_release_enabled
                     and not tail_shock_active
@@ -486,16 +521,21 @@ def apply_quantbench_ensemble_drawdown_guard(
         else:
             budget_cap = 1.0
             budget_guard = False
+            budget_drawdown = drawdown
 
         equity -= abs(target - previous_target) * float(cost)
         peak = max(peak, equity)
+        budget_peak = max(budget_peak, equity)
         guarded.append(float(np.clip(target, 0.0, 1.0)))
         guard_flags.append(bool(guard_active))
         drawdowns.append(float(drawdown))
         confirmed_flags.append(bool(confirmed_reentry))
         budget_caps.append(float(budget_cap))
         budget_flags.append(bool(budget_guard))
+        budget_drawdowns.append(float(budget_drawdown))
         bull_release_flags.append(bool(bull_release))
+        anchor_reset_flags.append(bool(anchor_reset))
+        anchor_reset_streaks.append(int(bull_confirmation_streak))
         previous_target = target
 
     out["position"] = guarded
@@ -504,10 +544,14 @@ def apply_quantbench_ensemble_drawdown_guard(
     if budget_enabled:
         out["portfolio_drawdown_budget_cap"] = budget_caps
         out["portfolio_drawdown_budget_guard"] = budget_flags
+        out["portfolio_drawdown_budget_drawdown"] = budget_drawdowns
         if bull_release_enabled:
             out["portfolio_drawdown_budget_bull_release"] = bull_release_flags
             for column in bull_release_frame.columns:
                 out[column] = bull_release_frame[column].reset_index(drop=True).to_numpy()
+        if anchor_reset_enabled:
+            out["portfolio_drawdown_budget_anchor_reset"] = anchor_reset_flags
+            out["portfolio_drawdown_budget_anchor_reset_streak"] = anchor_reset_streaks
     if confirmed_reentry_enabled:
         out["confirmed_reentry"] = confirmed_flags
         for column in confirmed_frame.columns:
@@ -1418,6 +1462,60 @@ def default_quantbench_path_selector_configs(
             portfolio_drawdown_budget_bull_release_drawdown_floor=-0.12,
             portfolio_drawdown_budget_bull_release_volatility_window=20,
             portfolio_drawdown_budget_bull_release_volatility_max=0.80,
+            tail_shock_day_threshold=-0.04,
+            tail_shock_rolling_2d_threshold=-0.075,
+            tail_shock_rolling_3d_threshold=-0.12,
+            tail_shock_cooldown_days=3,
+            tail_shock_cap=0.05,
+            tail_shock_stress_floor=0.10,
+        ),
+        QuantBenchPathSelectorConfig(
+            name="quantbench_ensemble_tail_shock_anchor_reset_rf_logistic_v1",
+            defensive_path=path("random_forest_clf", "macro_budget_defensive_v1"),
+            neutral_path=path("random_forest_clf", "macro_budget_defensive_v1"),
+            offensive_path=path("logistic_clf"),
+            recovery_path=path("logistic_clf"),
+            stress_floor=0.10,
+            stress_cap=0.14,
+            neutral_cap=0.20,
+            bull_floor=0.70,
+            bull_cap=0.98,
+            recovery_floor=0.50,
+            recovery_cap=0.85,
+            stress_risk_threshold=0.92,
+            stress_drop_threshold=-0.35,
+            stress_drawdown_threshold=-0.45,
+            bull_risk_threshold=0.50,
+            bull_momentum_threshold=0.00,
+            bull_trend_threshold=-0.05,
+            bull_drawdown_floor=-0.30,
+            recovery_risk_threshold=0.75,
+            recovery_momentum_threshold=0.00,
+            recovery_trend_threshold=-0.08,
+            recovery_drawdown_min=-0.45,
+            recovery_drawdown_max=-0.02,
+            portfolio_drawdown_trigger=0.15,
+            portfolio_drawdown_cap=0.08,
+            portfolio_drawdown_release=0.05,
+            portfolio_reentry_floor=0.40,
+            portfolio_reentry_cap=0.65,
+            portfolio_drawdown_budget_start=0.04,
+            portfolio_drawdown_budget_full=0.12,
+            portfolio_drawdown_budget_start_cap=0.35,
+            portfolio_drawdown_budget_min_cap=0.04,
+            portfolio_drawdown_budget_stress_floor=0.14,
+            portfolio_drawdown_budget_bull_release_cap=0.30,
+            portfolio_drawdown_budget_bull_release_max_drawdown=0.20,
+            portfolio_drawdown_budget_bull_release_ma_window=200,
+            portfolio_drawdown_budget_bull_release_momentum_window=126,
+            portfolio_drawdown_budget_bull_release_high_window=126,
+            portfolio_drawdown_budget_bull_release_momentum_threshold=0.10,
+            portfolio_drawdown_budget_bull_release_drawdown_floor=-0.12,
+            portfolio_drawdown_budget_bull_release_volatility_window=20,
+            portfolio_drawdown_budget_bull_release_volatility_max=0.80,
+            portfolio_drawdown_budget_anchor_reset_drawdown=0.08,
+            portfolio_drawdown_budget_anchor_reset_max_drawdown=0.20,
+            portfolio_drawdown_budget_anchor_reset_streak_days=1,
             tail_shock_day_threshold=-0.04,
             tail_shock_rolling_2d_threshold=-0.075,
             tail_shock_rolling_3d_threshold=-0.12,
