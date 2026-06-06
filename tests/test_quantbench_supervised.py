@@ -236,6 +236,33 @@ def test_fit_quantbench_supervised_models_trains_sequence_temporal_spec():
     assert "mse" in metrics["sequence_lag_ridge_mse"]
 
 
+def test_fit_quantbench_supervised_models_trains_recurrent_sequence_spec():
+    index = pd.date_range("2024-01-01", periods=120, freq="D")
+    signal = np.sin(np.arange(len(index)) / 5.0)
+    lagged_signal = pd.Series(signal, index=index).shift(3).fillna(0.0).to_numpy()
+    close = pd.Series(100.0 * np.cumprod(1.0 + 0.004 * np.sign(lagged_signal)), index=index)
+    features = pd.DataFrame({"signal": signal, "anti_signal": -signal}, index=index)
+    targets = build_soxl_supervised_targets(close, horizons=(1,))
+
+    predictions, metrics = fit_quantbench_supervised_models(
+        features,
+        targets,
+        train_start=index[0],
+        train_end=index[79],
+        test_start=index[80],
+        test_end=index[110],
+        horizon=1,
+        model_names=("lstm_mse",),
+    )
+
+    pred = predictions["lstm_mse"]
+    assert pred.index.min() >= index[80]
+    assert pred.index.max() <= index[110]
+    assert pred.nunique() > 1
+    assert metrics["lstm_mse"]["rows"] > 0
+    assert "mse" in metrics["lstm_mse"]
+
+
 def test_fit_quantbench_rolling_supervised_models_refits_without_future_label_leakage():
     index = pd.date_range("2024-01-01", periods=180, freq="D")
     signal = np.sin(np.arange(len(index)) / 5.0)
@@ -283,6 +310,7 @@ def test_quantbench_supervised_model_specs_cover_paper_objectives():
         "tree_ensemble",
         "neural_tabular",
         "sequence_temporal",
+        "sequence_recurrent",
     } <= {spec.paper_family for spec in specs}
     assert {"clf", "ic", "mse", "ranking"} <= {spec.objective for spec in specs}
 

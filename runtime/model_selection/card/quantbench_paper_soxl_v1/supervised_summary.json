@@ -28,6 +28,7 @@
       "extra_trees_rank",
       "mlp_mse",
       "sequence_lag_ridge_mse",
+      "lstm_mse",
       "rolling_logistic_clf",
       "rolling_sequence_lag_ridge_mse"
     ],
@@ -165,6 +166,25 @@
       },
       {
         "bull_buy_and_hold_return": 191.7735092699,
+        "bull_capture": 0.7125922039783471,
+        "bull_return": 136.6563076353,
+        "eligible": false,
+        "failed_checks": [
+          "max_drawdown",
+          "stress_avg_pos",
+          "stress_max_drawdown"
+        ],
+        "profile": "quantbench_supervised_lstm_mse",
+        "proxy_max_dd": 67.4892279062,
+        "proxy_return": 762.0578098451,
+        "score": 551.064039,
+        "source_path": "generated:quantbench_supervised_lstm_mse",
+        "stress_avg_pos": 0.4993285820859987,
+        "stress_max_dd": 49.9069062886,
+        "stress_relative_return": 47.703920002
+      },
+      {
+        "bull_buy_and_hold_return": 191.7735092699,
         "bull_capture": 0.4679299574536424,
         "bull_return": 89.7365700334,
         "eligible": false,
@@ -258,29 +278,10 @@
         "stress_avg_pos": 0.4987190679513024,
         "stress_max_dd": 63.8342006119,
         "stress_relative_return": 42.3447666836
-      },
-      {
-        "bull_buy_and_hold_return": 191.7735092699,
-        "bull_capture": 0.5255103629368578,
-        "bull_return": 100.7789664581,
-        "eligible": false,
-        "failed_checks": [
-          "max_drawdown",
-          "stress_avg_pos",
-          "stress_max_drawdown"
-        ],
-        "profile": "quantbench_supervised_extra_trees_rank",
-        "proxy_max_dd": 78.137709247,
-        "proxy_return": 325.0095334986,
-        "score": 53.897026,
-        "source_path": "generated:quantbench_supervised_extra_trees_rank",
-        "stress_avg_pos": 0.4993031856637196,
-        "stress_max_dd": 49.8734728087,
-        "stress_relative_return": 48.8872932182
       }
     ],
     "eligible_count": 0,
     "eligible_profiles": [],
-    "records": 50
+    "records": 55
   }
 }

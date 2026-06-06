@@ -119,9 +119,9 @@ def quantbench_model_objective_coverage() -> list[dict[str, str]]:
         {
             "family": "sequence_lstm_gru",
             "paper_family": "LSTM/temporal sequence",
-            "current_soxl_surface": "GRU actor exists; LSTM supervised objective missing",
-            "coverage": "partial",
-            "next_step": "compare GRU PPO actor to supervised sequence labels and LSTM-like baseline",
+            "current_soxl_surface": "GRU actor exists; supervised TorchLSTM MSE baseline is implemented alongside lagged sequence regression",
+            "coverage": "implemented_partial",
+            "next_step": "compare recurrent supervised signals with GRU PPO actors under the same QuantBench gate",
         },
         {
             "family": "attention_tide_mixer",

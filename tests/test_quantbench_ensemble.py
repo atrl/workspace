@@ -13,6 +13,7 @@ from src.soxl_quant.app.quantbench_ensemble import (
     build_quantbench_path_ensemble_report,
     build_quantbench_signal_blend_paths,
     build_quantbench_supervised_ensemble_report,
+    default_quantbench_signal_blend_specs,
     default_quantbench_path_selector_configs,
     fit_quantbench_drawdown_hazard_model,
     fit_quantbench_rolling_drawdown_hazard_model,
@@ -903,6 +904,18 @@ def test_build_quantbench_supervised_ensemble_report_trains_paths_inside_src(tmp
     assert report["data"]["model_names"] == ["logistic_clf", "ridge_mse"]
     assert (tmp_path / "ensemble_summary.json").exists()
     assert (tmp_path / "unit_supervised_selector_soxl_daily.csv").exists()
+
+
+def test_default_quantbench_supervised_ensemble_architecture_routes_recurrent_sequence_model():
+    configs = default_quantbench_path_selector_configs()
+    blends = default_quantbench_signal_blend_specs()
+
+    assert any(
+        config.offensive_path == "quantbench_supervised_lstm_mse"
+        and config.recovery_path == "quantbench_supervised_lstm_mse"
+        for config in configs
+    )
+    assert any("lstm_mse" in spec.model_names for spec in blends)
 
 
 def test_build_quantbench_supervised_ensemble_report_can_route_rolling_refit_paths(tmp_path):
