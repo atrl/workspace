@@ -1,0 +1,68 @@
+{
+  "configs_screened": 2592,
+  "decision": "hard_gate_no_rolling_selector_passes",
+  "experiment": "rolling_heuristic_selector_v1",
+  "initial_candidate_id": 0,
+  "lookback_days": 252,
+  "max_drawdown_pct": 20.0,
+  "min_history_days": 252,
+  "next_action": "The rolling selector passed 2022 but failed 2023-2024 because the static heuristic family has no positive-excess 2023-2024 candidate; next branch should use model replay/BC candidate paths with cached lookback scoring or train a stronger reentry learner.",
+  "promotion_allowed": false,
+  "rebalance_days": 21,
+  "selected_config_ids": [
+    236,
+    239,
+    242,
+    230,
+    227,
+    233,
+    290,
+    293,
+    296,
+    317,
+    320,
+    323
+  ],
+  "sidecars": [
+    "summary.json",
+    "heuristic_strategy_screen.csv",
+    "rolling_selector_candidates.csv",
+    "rolling_selector_daily.csv",
+    "rolling_selector_metrics.csv"
+  ],
+  "top_n": 12,
+  "training_allowed_from_this_card": false,
+  "window_metrics": [
+    {
+      "buyhold_return_pct": -86.588072,
+      "end": "2022-12-30",
+      "failures": [],
+      "gate_pass": true,
+      "max_drawdown_pct": 19.134734,
+      "path": "",
+      "profile": "rolling_heuristic_selector",
+      "relative_return_pct": 67.453338,
+      "rows": 251,
+      "start": "2022-01-03",
+      "strategy_return_pct": -19.134734,
+      "window": "test_2022"
+    },
+    {
+      "buyhold_return_pct": 191.773509,
+      "end": "2024-12-31",
+      "failures": [
+        "max_drawdown_ge_20",
+        "relative_return_not_positive"
+      ],
+      "gate_pass": false,
+      "max_drawdown_pct": 26.405222,
+      "path": "",
+      "profile": "rolling_heuristic_selector",
+      "relative_return_pct": -20.313636,
+      "rows": 502,
+      "start": "2023-01-03",
+      "strategy_return_pct": 171.459874,
+      "window": "test_2023_2024"
+    }
+  ]
+}

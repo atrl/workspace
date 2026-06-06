@@ -184,6 +184,93 @@ def screen_heuristic_strategies(
     return out
 
 
+def _position_nav_for_prices(position: np.ndarray, price: np.ndarray) -> np.ndarray:
+    returns = np.zeros(len(price), dtype=float)
+    if len(price) > 1:
+        returns[1:] = np.divide(price[1:], price[:-1], out=np.ones(len(price) - 1), where=price[:-1] != 0.0) - 1.0
+    active_position = np.r_[position[0], position[:-1]] if len(position) else np.asarray([], dtype=float)
+    return np.cumprod(1.0 + active_position * returns)
+
+
+def _candidate_lookback_score(position: np.ndarray, price: np.ndarray, *, max_drawdown_pct: float) -> float:
+    if len(price) < 2 or len(position) < 2:
+        return 1_000_000.0
+    nav = _position_nav_for_prices(position, price)
+    buyhold = price / price[0] if price[0] else np.ones(len(price), dtype=float)
+    frame = pd.DataFrame(
+        {
+            "datetime": pd.date_range("2000-01-01", periods=len(price), freq="D"),
+            "strategy_nav": nav,
+            "buyhold_nav": buyhold,
+        }
+    )
+    metric = compute_backtest_metrics(frame, window="lookback", max_drawdown_pct=max_drawdown_pct)
+    score = max(0.0, metric.max_drawdown_pct - float(max_drawdown_pct)) ** 2
+    score += max(0.0, -metric.relative_return_pct) ** 2
+    score -= max(0.0, metric.relative_return_pct) * 0.01
+    return float(score)
+
+
+def rolling_select_candidate_path(
+    panel: pd.DataFrame,
+    candidate_paths: Sequence[pd.DataFrame],
+    *,
+    lookback_days: int = 252,
+    rebalance_days: int = 21,
+    min_history_days: int = 63,
+    max_drawdown_pct: float = 20.0,
+    initial_candidate_id: int = 0,
+) -> pd.DataFrame:
+    """Select among candidate position paths using only past lookback performance."""
+
+    frame = _normalise_panel(panel)
+    if not candidate_paths:
+        raise ValueError("candidate_paths must not be empty")
+    lookback = max(int(lookback_days), 2)
+    rebalance = max(int(rebalance_days), 1)
+    min_history = max(int(min_history_days), 1)
+
+    candidates: list[np.ndarray] = []
+    base = frame[["datetime"]].copy()
+    for candidate in candidate_paths:
+        if "datetime" not in candidate.columns or "position" not in candidate.columns:
+            raise ValueError("each candidate path must contain `datetime` and `position`")
+        c = candidate[["datetime", "position"]].copy()
+        c["datetime"] = pd.to_datetime(c["datetime"], errors="coerce")
+        c["position"] = pd.to_numeric(c["position"], errors="coerce").fillna(0.0).clip(0.0, 1.0)
+        merged = base.merge(c.dropna(subset=["datetime"]), on="datetime", how="left")
+        candidates.append(pd.to_numeric(merged["position"], errors="coerce").fillna(0.0).to_numpy(dtype=float))
+
+    price = frame["soxl_close"].to_numpy(dtype=float)
+    selected_ids: list[int] = []
+    selected_positions: list[float] = []
+    current_id = max(0, min(int(initial_candidate_id), len(candidates) - 1))
+    for idx in range(len(frame)):
+        if idx >= min_history and (idx - min_history) % rebalance == 0:
+            start = max(0, idx - lookback)
+            scores = [
+                _candidate_lookback_score(candidate[start:idx], price[start:idx], max_drawdown_pct=max_drawdown_pct)
+                for candidate in candidates
+            ]
+            current_id = int(np.argmin(scores))
+        selected_ids.append(current_id)
+        selected_positions.append(float(candidates[current_id][idx]))
+
+    position = np.asarray(selected_positions, dtype=float)
+    strategy_nav = _position_nav_for_prices(position, price)
+    out = pd.DataFrame(
+        {
+            "datetime": frame["datetime"],
+            "price": price,
+            "strategy_nav": strategy_nav,
+            "buyhold_nav": price / price[0] if len(price) and price[0] else np.ones(len(price), dtype=float),
+            "position": position,
+            "selected_candidate_id": selected_ids,
+        }
+    )
+    return out
+
+
 def default_heuristic_config_grid() -> list[HeuristicStrategyConfig]:
     configs: list[HeuristicStrategyConfig] = []
     drawdown_budgets = (

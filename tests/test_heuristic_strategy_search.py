@@ -106,3 +106,67 @@ def test_default_heuristic_grid_includes_recoverable_drawdown_budgets():
     assert any(config.drawdown_min_position > 0 for config in configs)
     assert any(config.drawdown_start >= 0.95 and config.drawdown_full >= 0.95 for config in configs)
     assert any(config.require_soxx_confirmation is False for config in configs)
+
+
+def test_rolling_selector_uses_only_past_lookback_to_choose_candidate():
+    from src.soxl_quant.app.heuristic_strategy_search import rolling_select_candidate_path
+
+    dates = pd.date_range("2022-01-03", periods=6, freq="B")
+    panel = pd.DataFrame(
+        {
+            "datetime": dates,
+            "soxl_close": [100.0, 80.0, 80.0, 120.0, 140.0, 160.0],
+            "soxx_close": [100.0, 95.0, 95.0, 100.0, 110.0, 120.0],
+            "vix": [30.0, 30.0, 25.0, 18.0, 16.0, 15.0],
+        }
+    )
+    always_long = pd.DataFrame({"datetime": dates, "position": [1.0] * len(dates)})
+    cash_then_long = pd.DataFrame({"datetime": dates, "position": [0.0, 0.0, 1.0, 1.0, 1.0, 1.0]})
+
+    selected = rolling_select_candidate_path(
+        panel,
+        [always_long, cash_then_long],
+        lookback_days=2,
+        rebalance_days=1,
+        min_history_days=2,
+        initial_candidate_id=1,
+    )
+
+    assert selected.loc[0, "selected_candidate_id"] == 1
+    assert selected.loc[2, "selected_candidate_id"] == 1
+    assert selected.loc[2, "position"] == 1.0
+    assert selected.loc[3, "position"] == 1.0
+    assert selected["strategy_nav"].iloc[-1] > selected["buyhold_nav"].iloc[-1]
+
+
+def test_rolling_selector_path_can_be_scored_by_hard_gate():
+    from src.soxl_quant.app.heuristic_strategy_search import rolling_select_candidate_path
+    from src.soxl_quant.app.quantbench_gates import compute_backtest_metrics
+
+    dates = pd.date_range("2022-01-03", periods=6, freq="B")
+    panel = pd.DataFrame(
+        {
+            "datetime": dates,
+            "soxl_close": [100.0, 80.0, 80.0, 120.0, 140.0, 160.0],
+            "soxx_close": [100.0, 95.0, 95.0, 100.0, 110.0, 120.0],
+            "vix": [30.0, 30.0, 25.0, 18.0, 16.0, 15.0],
+        }
+    )
+    candidates = [
+        pd.DataFrame({"datetime": dates, "position": [1.0] * len(dates)}),
+        pd.DataFrame({"datetime": dates, "position": [0.0, 0.0, 1.0, 1.0, 1.0, 1.0]}),
+    ]
+
+    selected = rolling_select_candidate_path(
+        panel,
+        candidates,
+        lookback_days=2,
+        rebalance_days=1,
+        min_history_days=2,
+        initial_candidate_id=1,
+    )
+    metrics = compute_backtest_metrics(selected, window="demo", max_drawdown_pct=20.0)
+
+    assert metrics.gate_pass is True
+    assert metrics.relative_return_pct > 0
+    assert metrics.max_drawdown_pct < 20.0
