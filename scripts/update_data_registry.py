@@ -8,6 +8,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 import sys
 
+import pandas as pd
 import yaml
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -43,10 +44,36 @@ def qlib_metadata(path: Path) -> dict:
     }
 
 
+def parquet_intraday_metadata(path: Path) -> dict:
+    meta = {"path": str(path.relative_to(ROOT)), "exists": path.exists()}
+    if not path.exists():
+        return meta
+    frame = pd.read_parquet(path)
+    meta["rows"] = int(len(frame))
+    if frame.empty:
+        meta.update({"start": None, "end": None, "symbols": [], "providers": [], "intervals": []})
+        return meta
+    timestamps = pd.to_datetime(frame["timestamp"], errors="coerce")
+    meta.update(
+        {
+            "start": timestamps.min().isoformat(),
+            "end": timestamps.max().isoformat(),
+            "symbols": sorted(str(value) for value in frame.get("symbol", pd.Series(dtype=object)).dropna().unique()),
+            "providers": sorted(str(value) for value in frame.get("provider", pd.Series(dtype=object)).dropna().unique()),
+            "intervals": sorted(str(value) for value in frame.get("interval", pd.Series(dtype=object)).dropna().unique()),
+        }
+    )
+    return meta
+
+
 def build_registry() -> dict:
     symbols = {path.stem.upper(): csv_metadata(path) for path in sorted((DATA / "raw" / "symbols").glob("*.csv"))}
     external = {path.stem: csv_metadata(path) for path in sorted((DATA / "raw" / "external").glob("*.csv"))}
     panels = {path.stem: csv_metadata(path) for path in sorted((DATA / "processed" / "panels").glob("*.csv"))}
+    intraday = {
+        path.stem: parquet_intraday_metadata(path)
+        for path in sorted((DATA / "processed" / "intraday").glob("*.parquet"))
+    }
     qlib = {path.name.upper(): qlib_metadata(path) for path in sorted((DATA / "qlib").iterdir()) if path.is_dir()}
     training = {
         path.stem: {"path": str(path.relative_to(ROOT)), "exists": path.exists(), "bytes": path.stat().st_size}
@@ -57,6 +84,8 @@ def build_registry() -> dict:
         "layout": {
             "raw_symbols": "data/raw/symbols/<TICKER>.csv",
             "raw_external": "data/raw/external/<NAME>.csv",
+            "raw_intraday": "data/raw/intraday/<provider>/<ticker>_<interval>.parquet",
+            "processed_intraday": "data/processed/intraday/<asset>_<interval>.parquet",
             "processed_panels": "data/processed/panels/<asset>_with_underlying_vix.csv",
             "qlib": "data/qlib/<asset>/",
             "training_cache": "data/cache/training/<profile>.pkl",
@@ -64,6 +93,7 @@ def build_registry() -> dict:
         "symbols": symbols,
         "external": external,
         "processed_panels": panels,
+        "intraday": intraday,
         "qlib": qlib,
         "training_cache": training,
     }
@@ -75,6 +105,7 @@ def _compare_current_metadata(registry: dict, current_registry: dict) -> list[st
         "symbols": ("path", "exists", "rows", "start", "end"),
         "external": ("path", "exists", "rows", "start", "end"),
         "processed_panels": ("path", "exists", "rows", "start", "end"),
+        "intraday": ("path", "exists", "rows", "start", "end", "symbols", "providers", "intervals"),
         "qlib": ("path", "exists", "has_calendar", "has_instruments"),
         "training_cache": ("path", "exists", "bytes"),
     }

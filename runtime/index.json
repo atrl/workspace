@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-02T07:24:58.604693+00:00",
+  "generated_at": "2026-06-06T02:14:16.785593+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -18,6 +18,12 @@
       "category": "data",
       "suffix": ".md",
       "bytes": 2653
+    },
+    {
+      "path": "runtime/data/card/quantbench_intraday_soxl_v1/summary.json",
+      "category": "data",
+      "suffix": ".json",
+      "bytes": 1453
     },
     {
       "path": "runtime/data/card/soxl_data_pipeline/card.md",

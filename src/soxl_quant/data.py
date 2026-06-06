@@ -654,6 +654,40 @@ def _builtin_futu_small_order_flow_pack(context: dict[str, Any]) -> dict[str, pd
     }
 
 
+def _load_intraday_daily_features(index: pd.Index) -> pd.DataFrame:
+    path = EXTERNAL_DATA_DIR / "intraday_features_soxl_1m.csv"
+    if not path.exists():
+        return pd.DataFrame(index=index)
+    df = pd.read_csv(path)
+    if "date" not in df.columns:
+        return pd.DataFrame(index=index)
+    df = df.assign(date=pd.to_datetime(df["date"], errors="coerce")).dropna(subset=["date"]).set_index("date").sort_index()
+    return df.reindex(index)
+
+
+def _intraday_feature_numeric(df: pd.DataFrame, column: str, index: pd.Index) -> pd.Series:
+    if column not in df.columns:
+        return pd.Series(0.0, index=index)
+    return pd.to_numeric(df[column], errors="coerce").reindex(index).fillna(0.0)
+
+
+def _builtin_intraday_microstructure_pack(context: dict[str, Any]) -> dict[str, pd.Series]:
+    """Lagged daily features derived from canonical SOXL 1-minute bars."""
+    index = context["index"]
+    df = _load_intraday_daily_features(index)
+    return {
+        "INTRADAY_SOXL_BAR_COUNT_1M": _intraday_feature_numeric(df, "INTRADAY_SOXL_BAR_COUNT_1M", index),
+        "INTRADAY_SOXL_OPEN_RANGE_RETURN_30M": _intraday_feature_numeric(
+            df, "INTRADAY_SOXL_OPEN_RANGE_RETURN_30M", index
+        ),
+        "INTRADAY_SOXL_CLOSE_LOCATION": _intraday_feature_numeric(df, "INTRADAY_SOXL_CLOSE_LOCATION", index),
+        "INTRADAY_SOXL_REALIZED_VOL_1M": _intraday_feature_numeric(df, "INTRADAY_SOXL_REALIZED_VOL_1M", index),
+        "INTRADAY_SOXL_VOLUME_CONCENTRATION_CLOSE_30M": _intraday_feature_numeric(
+            df, "INTRADAY_SOXL_VOLUME_CONCENTRATION_CLOSE_30M", index
+        ),
+    }
+
+
 def _builtin_soxx_signals_pack(context: dict[str, Any]) -> dict[str, pd.Series]:
     """SOXX-based standalone signals for SOXL timing.
 
@@ -865,6 +899,16 @@ BUILTIN_FEATURE_PACKS: dict[str, dict[str, Any]] = {
             "FUTU_STRESS_SMALL_FLOW_CAPITULATION",
         ),
         "builder": _builtin_futu_small_order_flow_pack,
+    },
+    "intraday_microstructure_v1": {
+        "columns": (
+            "INTRADAY_SOXL_BAR_COUNT_1M",
+            "INTRADAY_SOXL_OPEN_RANGE_RETURN_30M",
+            "INTRADAY_SOXL_CLOSE_LOCATION",
+            "INTRADAY_SOXL_REALIZED_VOL_1M",
+            "INTRADAY_SOXL_VOLUME_CONCENTRATION_CLOSE_30M",
+        ),
+        "builder": _builtin_intraday_microstructure_pack,
     },
     "soxx_signals": {
         "columns": (
