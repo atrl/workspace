@@ -41,6 +41,12 @@ class RiskAwarePositionConfig:
     portfolio_drawdown_trigger: float = 0.0
     portfolio_drawdown_cap: float = 0.08
     portfolio_drawdown_release: float = 0.06
+    reentry_min_target: float = 0.0
+    reentry_max_target: float = 0.55
+    reentry_risk_threshold: float = 0.35
+    reentry_momentum_threshold: float = 0.05
+    reentry_trend_threshold: float = 0.02
+    reentry_drawdown_floor: float = -0.10
 
 
 QUANTBENCH_SUPERVISED_MODEL_SPECS: tuple[SupervisedModelSpec, ...] = (
@@ -142,6 +148,28 @@ def quantbench_risk_overlay_configs() -> list[RiskAwarePositionConfig]:
             portfolio_drawdown_trigger=0.16,
             portfolio_drawdown_cap=0.06,
             portfolio_drawdown_release=0.07,
+        ),
+        RiskAwarePositionConfig(
+            name="macro_budget_reentry_v1",
+            defensive_cap=0.25,
+            stress_cap=0.08,
+            crash_cap=0.04,
+            bull_floor=0.35,
+            bull_cap=0.70,
+            defensive_risk_threshold=0.48,
+            stress_risk_threshold=0.62,
+            bull_risk_threshold=0.32,
+            bull_momentum_threshold=0.04,
+            bull_drawdown_floor=-0.06,
+            portfolio_drawdown_trigger=0.12,
+            portfolio_drawdown_cap=0.03,
+            portfolio_drawdown_release=0.05,
+            reentry_min_target=0.35,
+            reentry_max_target=0.55,
+            reentry_risk_threshold=0.30,
+            reentry_momentum_threshold=0.08,
+            reentry_trend_threshold=0.04,
+            reentry_drawdown_floor=-0.04,
         ),
     ]
 
@@ -373,6 +401,7 @@ def backtest_prediction_strategy(
             position.ffill().fillna(0.0),
             returns,
             risk_config=risk_config,
+            risk_frame=risk_frame,
             cost=cost,
         )
     else:
@@ -402,9 +431,11 @@ def _apply_portfolio_drawdown_guard(
     returns: pd.Series,
     *,
     risk_config: RiskAwarePositionConfig,
+    risk_frame: pd.DataFrame | None = None,
     cost: float,
 ) -> pd.Series:
     """Apply a no-lookahead drawdown guard to the next target position."""
+    reentry_signal = _reentry_signal(target_position.index, risk_frame, risk_config)
     guarded = []
     equity = 1.0
     peak = 1.0
@@ -419,12 +450,40 @@ def _apply_portfolio_drawdown_guard(
             guard_active = True
         elif drawdown <= float(risk_config.portfolio_drawdown_release):
             guard_active = False
-        target = min(float(raw_target), float(risk_config.portfolio_drawdown_cap)) if guard_active else float(raw_target)
+        if guard_active and bool(reentry_signal.loc[date]):
+            target = min(
+                max(float(raw_target), float(risk_config.reentry_min_target)),
+                float(risk_config.reentry_max_target),
+            )
+        elif guard_active:
+            target = min(float(raw_target), float(risk_config.portfolio_drawdown_cap))
+        else:
+            target = float(raw_target)
         equity -= abs(target - previous_target) * float(cost)
         peak = max(peak, equity)
         guarded.append(target)
         previous_target = target
     return pd.Series(guarded, index=target_position.index, dtype=float)
+
+
+def _reentry_signal(
+    index: pd.Index,
+    risk_frame: pd.DataFrame | None,
+    risk_config: RiskAwarePositionConfig,
+) -> pd.Series:
+    if risk_frame is None or risk_config.reentry_min_target <= 0.0:
+        return pd.Series(False, index=index)
+    frame = risk_frame.reindex(index).replace([np.inf, -np.inf], np.nan)
+    regime_risk = _risk_column(frame, "regime_risk", 1.0)
+    mom_21 = _risk_column(frame, "mom_21", 0.0)
+    trend_gap_63 = _risk_column(frame, "trend_gap_63", 0.0)
+    drawdown_63 = _risk_column(frame, "drawdown_63", -1.0)
+    return (
+        (regime_risk <= float(risk_config.reentry_risk_threshold))
+        & (mom_21 >= float(risk_config.reentry_momentum_threshold))
+        & (trend_gap_63 >= float(risk_config.reentry_trend_threshold))
+        & (drawdown_63 >= float(risk_config.reentry_drawdown_floor))
+    )
 
 
 def build_supervised_summary_payloads(

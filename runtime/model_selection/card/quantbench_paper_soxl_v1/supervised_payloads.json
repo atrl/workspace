@@ -82,6 +82,12 @@
       "portfolio_drawdown_cap": 0.08,
       "portfolio_drawdown_release": 0.08,
       "portfolio_drawdown_trigger": 0.18,
+      "reentry_drawdown_floor": -0.1,
+      "reentry_max_target": 0.55,
+      "reentry_min_target": 0.0,
+      "reentry_momentum_threshold": 0.05,
+      "reentry_risk_threshold": 0.35,
+      "reentry_trend_threshold": 0.02,
       "stress_cap": 0.18,
       "stress_risk_threshold": 0.68
     },
@@ -154,6 +160,12 @@
       "portfolio_drawdown_cap": 0.03,
       "portfolio_drawdown_release": 0.05,
       "portfolio_drawdown_trigger": 0.12,
+      "reentry_drawdown_floor": -0.1,
+      "reentry_max_target": 0.55,
+      "reentry_min_target": 0.0,
+      "reentry_momentum_threshold": 0.05,
+      "reentry_risk_threshold": 0.35,
+      "reentry_trend_threshold": 0.02,
       "stress_cap": 0.08,
       "stress_risk_threshold": 0.62
     },
@@ -226,6 +238,12 @@
       "portfolio_drawdown_cap": 0.06,
       "portfolio_drawdown_release": 0.07,
       "portfolio_drawdown_trigger": 0.16,
+      "reentry_drawdown_floor": -0.1,
+      "reentry_max_target": 0.55,
+      "reentry_min_target": 0.0,
+      "reentry_momentum_threshold": 0.05,
+      "reentry_risk_threshold": 0.35,
+      "reentry_trend_threshold": 0.02,
       "stress_cap": 0.15,
       "stress_risk_threshold": 0.7
     },
@@ -266,6 +284,84 @@
       "return": -0.3609294921,
       "trades": 46,
       "turnover": 10.190966122961106
+    }
+  },
+  {
+    "model_family": "quantbench_supervised",
+    "model_name": "logistic_clf",
+    "objective": "clf",
+    "objective_metrics": {
+      "clf_accuracy": 0.471142,
+      "ic": 0.08440964644651328,
+      "mse": 0.26767543487215045,
+      "ranking_spread": 0.0074058477953278246,
+      "rows": 1594.0,
+      "utility_return": 0.01817873508150035
+    },
+    "paper_family": "linear_classifier",
+    "profile": "quantbench_supervised_logistic_clf_macro_budget_reentry_v1",
+    "risk_overlay": {
+      "bull_cap": 0.7,
+      "bull_drawdown_floor": -0.06,
+      "bull_floor": 0.35,
+      "bull_momentum_threshold": 0.04,
+      "bull_risk_threshold": 0.32,
+      "bull_trend_threshold": 0.0,
+      "crash_cap": 0.04,
+      "crash_drawdown_threshold": -0.25,
+      "crash_drop_threshold": -0.2,
+      "defensive_cap": 0.25,
+      "defensive_risk_threshold": 0.48,
+      "name": "macro_budget_reentry_v1",
+      "portfolio_drawdown_cap": 0.03,
+      "portfolio_drawdown_release": 0.05,
+      "portfolio_drawdown_trigger": 0.12,
+      "reentry_drawdown_floor": -0.04,
+      "reentry_max_target": 0.55,
+      "reentry_min_target": 0.35,
+      "reentry_momentum_threshold": 0.08,
+      "reentry_risk_threshold": 0.3,
+      "reentry_trend_threshold": 0.04,
+      "stress_cap": 0.08,
+      "stress_risk_threshold": 0.62
+    },
+    "slices": {
+      "test_2020": {
+        "avg_pos": 0.11032151728663156,
+        "buy_and_hold_return": 59.7753083811,
+        "max_dd": 14.1186267819,
+        "relative_return": -58.9657442304,
+        "return": 0.8095641508,
+        "trades": 46,
+        "turnover": 7.063438735177865
+      },
+      "test_2022": {
+        "avg_pos": 0.04416025142458056,
+        "buy_and_hold_return": -86.5880717324,
+        "max_dd": 13.2709137485,
+        "relative_return": 74.5793330259,
+        "return": -12.0087387065,
+        "trades": 15,
+        "turnover": 1.4469721115537848
+      },
+      "test_2023_2024": {
+        "avg_pos": 0.14014975952762657,
+        "buy_and_hold_return": 191.7735092699,
+        "max_dd": 16.527887267,
+        "relative_return": -166.4053530407,
+        "return": 25.3681562293,
+        "trades": 142,
+        "turnover": 18.500836653386454
+      }
+    },
+    "test_proxy": {
+      "avg_pos": 0.08695665521111952,
+      "buy_and_hold_return": 752.0859028087,
+      "max_dd": 31.3482422443,
+      "relative_return": -754.1318074582,
+      "return": -2.0459046495,
+      "trades": 212,
+      "turnover": 46.72957340025094
     }
   },
   {
@@ -351,6 +447,12 @@
       "portfolio_drawdown_cap": 0.08,
       "portfolio_drawdown_release": 0.08,
       "portfolio_drawdown_trigger": 0.18,
+      "reentry_drawdown_floor": -0.1,
+      "reentry_max_target": 0.55,
+      "reentry_min_target": 0.0,
+      "reentry_momentum_threshold": 0.05,
+      "reentry_risk_threshold": 0.35,
+      "reentry_trend_threshold": 0.02,
       "stress_cap": 0.18,
       "stress_risk_threshold": 0.68
     },
@@ -423,6 +525,12 @@
       "portfolio_drawdown_cap": 0.03,
       "portfolio_drawdown_release": 0.05,
       "portfolio_drawdown_trigger": 0.12,
+      "reentry_drawdown_floor": -0.1,
+      "reentry_max_target": 0.55,
+      "reentry_min_target": 0.0,
+      "reentry_momentum_threshold": 0.05,
+      "reentry_risk_threshold": 0.35,
+      "reentry_trend_threshold": 0.02,
       "stress_cap": 0.08,
       "stress_risk_threshold": 0.62
     },
@@ -495,6 +603,12 @@
       "portfolio_drawdown_cap": 0.06,
       "portfolio_drawdown_release": 0.07,
       "portfolio_drawdown_trigger": 0.16,
+      "reentry_drawdown_floor": -0.1,
+      "reentry_max_target": 0.55,
+      "reentry_min_target": 0.0,
+      "reentry_momentum_threshold": 0.05,
+      "reentry_risk_threshold": 0.35,
+      "reentry_trend_threshold": 0.02,
       "stress_cap": 0.15,
       "stress_risk_threshold": 0.7
     },
@@ -535,6 +649,84 @@
       "return": 0.0579093484,
       "trades": 56,
       "turnover": 11.358971141781682
+    }
+  },
+  {
+    "model_family": "quantbench_supervised",
+    "model_name": "ridge_ic",
+    "objective": "ic",
+    "objective_metrics": {
+      "clf_accuracy": 0.444793,
+      "ic": -0.11069042644905039,
+      "mse": 0.31710871198278584,
+      "ranking_spread": -0.007967587447005181,
+      "rows": 1594.0,
+      "utility_return": 0.009131597749335685
+    },
+    "paper_family": "linear_regression",
+    "profile": "quantbench_supervised_ridge_ic_macro_budget_reentry_v1",
+    "risk_overlay": {
+      "bull_cap": 0.7,
+      "bull_drawdown_floor": -0.06,
+      "bull_floor": 0.35,
+      "bull_momentum_threshold": 0.04,
+      "bull_risk_threshold": 0.32,
+      "bull_trend_threshold": 0.0,
+      "crash_cap": 0.04,
+      "crash_drawdown_threshold": -0.25,
+      "crash_drop_threshold": -0.2,
+      "defensive_cap": 0.25,
+      "defensive_risk_threshold": 0.48,
+      "name": "macro_budget_reentry_v1",
+      "portfolio_drawdown_cap": 0.03,
+      "portfolio_drawdown_release": 0.05,
+      "portfolio_drawdown_trigger": 0.12,
+      "reentry_drawdown_floor": -0.04,
+      "reentry_max_target": 0.55,
+      "reentry_min_target": 0.35,
+      "reentry_momentum_threshold": 0.08,
+      "reentry_risk_threshold": 0.3,
+      "reentry_trend_threshold": 0.04,
+      "stress_cap": 0.08,
+      "stress_risk_threshold": 0.62
+    },
+    "slices": {
+      "test_2020": {
+        "avg_pos": 0.11471386836226151,
+        "buy_and_hold_return": 59.7753083811,
+        "max_dd": 14.8855817695,
+        "relative_return": -59.2796213346,
+        "return": 0.4956870465,
+        "trades": 45,
+        "turnover": 6.867786561264822
+      },
+      "test_2022": {
+        "avg_pos": 0.044126918620339364,
+        "buy_and_hold_return": -86.5880717324,
+        "max_dd": 12.8855152594,
+        "relative_return": 74.9746229456,
+        "return": -11.6134487868,
+        "trades": 15,
+        "turnover": 1.3513545816733068
+      },
+      "test_2023_2024": {
+        "avg_pos": 0.14093466770368726,
+        "buy_and_hold_return": 191.7735092699,
+        "max_dd": 15.9692634064,
+        "relative_return": -161.4760006087,
+        "return": 30.2975086613,
+        "trades": 144,
+        "turnover": 18.63151394422311
+      }
+    },
+    "test_proxy": {
+      "avg_pos": 0.08563032797079387,
+      "buy_and_hold_return": 752.0859028087,
+      "max_dd": 34.2952404583,
+      "relative_return": -761.8616755906,
+      "return": -9.7757727819,
+      "trades": 202,
+      "turnover": 45.87579673776662
     }
   },
   {
@@ -620,6 +812,12 @@
       "portfolio_drawdown_cap": 0.08,
       "portfolio_drawdown_release": 0.08,
       "portfolio_drawdown_trigger": 0.18,
+      "reentry_drawdown_floor": -0.1,
+      "reentry_max_target": 0.55,
+      "reentry_min_target": 0.0,
+      "reentry_momentum_threshold": 0.05,
+      "reentry_risk_threshold": 0.35,
+      "reentry_trend_threshold": 0.02,
       "stress_cap": 0.18,
       "stress_risk_threshold": 0.68
     },
@@ -692,6 +890,12 @@
       "portfolio_drawdown_cap": 0.03,
       "portfolio_drawdown_release": 0.05,
       "portfolio_drawdown_trigger": 0.12,
+      "reentry_drawdown_floor": -0.1,
+      "reentry_max_target": 0.55,
+      "reentry_min_target": 0.0,
+      "reentry_momentum_threshold": 0.05,
+      "reentry_risk_threshold": 0.35,
+      "reentry_trend_threshold": 0.02,
       "stress_cap": 0.08,
       "stress_risk_threshold": 0.62
     },
@@ -764,6 +968,12 @@
       "portfolio_drawdown_cap": 0.06,
       "portfolio_drawdown_release": 0.07,
       "portfolio_drawdown_trigger": 0.16,
+      "reentry_drawdown_floor": -0.1,
+      "reentry_max_target": 0.55,
+      "reentry_min_target": 0.0,
+      "reentry_momentum_threshold": 0.05,
+      "reentry_risk_threshold": 0.35,
+      "reentry_trend_threshold": 0.02,
       "stress_cap": 0.15,
       "stress_risk_threshold": 0.7
     },
@@ -808,12 +1018,90 @@
   },
   {
     "model_family": "quantbench_supervised",
+    "model_name": "ridge_mse",
+    "objective": "mse",
+    "objective_metrics": {
+      "clf_accuracy": 0.444793,
+      "ic": -0.11069042644905039,
+      "mse": 0.31710871198278584,
+      "ranking_spread": -0.007967587447005181,
+      "rows": 1594.0,
+      "utility_return": 0.009131597749335685
+    },
+    "paper_family": "linear_regression",
+    "profile": "quantbench_supervised_ridge_mse_macro_budget_reentry_v1",
+    "risk_overlay": {
+      "bull_cap": 0.7,
+      "bull_drawdown_floor": -0.06,
+      "bull_floor": 0.35,
+      "bull_momentum_threshold": 0.04,
+      "bull_risk_threshold": 0.32,
+      "bull_trend_threshold": 0.0,
+      "crash_cap": 0.04,
+      "crash_drawdown_threshold": -0.25,
+      "crash_drop_threshold": -0.2,
+      "defensive_cap": 0.25,
+      "defensive_risk_threshold": 0.48,
+      "name": "macro_budget_reentry_v1",
+      "portfolio_drawdown_cap": 0.03,
+      "portfolio_drawdown_release": 0.05,
+      "portfolio_drawdown_trigger": 0.12,
+      "reentry_drawdown_floor": -0.04,
+      "reentry_max_target": 0.55,
+      "reentry_min_target": 0.35,
+      "reentry_momentum_threshold": 0.08,
+      "reentry_risk_threshold": 0.3,
+      "reentry_trend_threshold": 0.04,
+      "stress_cap": 0.08,
+      "stress_risk_threshold": 0.62
+    },
+    "slices": {
+      "test_2020": {
+        "avg_pos": 0.11471386836226151,
+        "buy_and_hold_return": 59.7753083811,
+        "max_dd": 14.8855817695,
+        "relative_return": -59.2796213346,
+        "return": 0.4956870465,
+        "trades": 45,
+        "turnover": 6.867786561264822
+      },
+      "test_2022": {
+        "avg_pos": 0.044126918620339364,
+        "buy_and_hold_return": -86.5880717324,
+        "max_dd": 12.8855152594,
+        "relative_return": 74.9746229456,
+        "return": -11.6134487868,
+        "trades": 15,
+        "turnover": 1.3513545816733068
+      },
+      "test_2023_2024": {
+        "avg_pos": 0.14093466770368726,
+        "buy_and_hold_return": 191.7735092699,
+        "max_dd": 15.9692634064,
+        "relative_return": -161.4760006087,
+        "return": 30.2975086613,
+        "trades": 144,
+        "turnover": 18.63151394422311
+      }
+    },
+    "test_proxy": {
+      "avg_pos": 0.08563032797079387,
+      "buy_and_hold_return": 752.0859028087,
+      "max_dd": 34.2952404583,
+      "relative_return": -761.8616755906,
+      "return": -9.7757727819,
+      "trades": 202,
+      "turnover": 45.87579673776662
+    }
+  },
+  {
+    "model_family": "quantbench_supervised",
     "model_name": "random_forest_clf",
     "objective": "clf",
     "objective_metrics": {
       "clf_accuracy": 0.5,
-      "ic": -0.032807599618066646,
-      "mse": 0.10474681848761278,
+      "ic": -0.03280759961806667,
+      "mse": 0.10474681848761279,
       "ranking_spread": -0.07485088712876582,
       "rows": 1594.0,
       "utility_return": 0.008161107694169419
@@ -865,8 +1153,8 @@
     "objective": "clf",
     "objective_metrics": {
       "clf_accuracy": 0.5,
-      "ic": -0.032807599618066646,
-      "mse": 0.10474681848761278,
+      "ic": -0.03280759961806667,
+      "mse": 0.10474681848761279,
       "ranking_spread": -0.07485088712876582,
       "rows": 1594.0,
       "utility_return": 0.008161107694169419
@@ -889,6 +1177,12 @@
       "portfolio_drawdown_cap": 0.08,
       "portfolio_drawdown_release": 0.08,
       "portfolio_drawdown_trigger": 0.18,
+      "reentry_drawdown_floor": -0.1,
+      "reentry_max_target": 0.55,
+      "reentry_min_target": 0.0,
+      "reentry_momentum_threshold": 0.05,
+      "reentry_risk_threshold": 0.35,
+      "reentry_trend_threshold": 0.02,
       "stress_cap": 0.18,
       "stress_risk_threshold": 0.68
     },
@@ -937,8 +1231,8 @@
     "objective": "clf",
     "objective_metrics": {
       "clf_accuracy": 0.5,
-      "ic": -0.032807599618066646,
-      "mse": 0.10474681848761278,
+      "ic": -0.03280759961806667,
+      "mse": 0.10474681848761279,
       "ranking_spread": -0.07485088712876582,
       "rows": 1594.0,
       "utility_return": 0.008161107694169419
@@ -961,6 +1255,12 @@
       "portfolio_drawdown_cap": 0.03,
       "portfolio_drawdown_release": 0.05,
       "portfolio_drawdown_trigger": 0.12,
+      "reentry_drawdown_floor": -0.1,
+      "reentry_max_target": 0.55,
+      "reentry_min_target": 0.0,
+      "reentry_momentum_threshold": 0.05,
+      "reentry_risk_threshold": 0.35,
+      "reentry_trend_threshold": 0.02,
       "stress_cap": 0.08,
       "stress_risk_threshold": 0.62
     },
@@ -1009,8 +1309,8 @@
     "objective": "clf",
     "objective_metrics": {
       "clf_accuracy": 0.5,
-      "ic": -0.032807599618066646,
-      "mse": 0.10474681848761278,
+      "ic": -0.03280759961806667,
+      "mse": 0.10474681848761279,
       "ranking_spread": -0.07485088712876582,
       "rows": 1594.0,
       "utility_return": 0.008161107694169419
@@ -1033,6 +1333,12 @@
       "portfolio_drawdown_cap": 0.06,
       "portfolio_drawdown_release": 0.07,
       "portfolio_drawdown_trigger": 0.16,
+      "reentry_drawdown_floor": -0.1,
+      "reentry_max_target": 0.55,
+      "reentry_min_target": 0.0,
+      "reentry_momentum_threshold": 0.05,
+      "reentry_risk_threshold": 0.35,
+      "reentry_trend_threshold": 0.02,
       "stress_cap": 0.15,
       "stress_risk_threshold": 0.7
     },
@@ -1073,6 +1379,84 @@
       "return": 5.0950037598,
       "trades": 48,
       "turnover": 11.494893350062735
+    }
+  },
+  {
+    "model_family": "quantbench_supervised",
+    "model_name": "random_forest_clf",
+    "objective": "clf",
+    "objective_metrics": {
+      "clf_accuracy": 0.5,
+      "ic": -0.03280759961806667,
+      "mse": 0.10474681848761279,
+      "ranking_spread": -0.07485088712876582,
+      "rows": 1594.0,
+      "utility_return": 0.008161107694169419
+    },
+    "paper_family": "tree",
+    "profile": "quantbench_supervised_random_forest_clf_macro_budget_reentry_v1",
+    "risk_overlay": {
+      "bull_cap": 0.7,
+      "bull_drawdown_floor": -0.06,
+      "bull_floor": 0.35,
+      "bull_momentum_threshold": 0.04,
+      "bull_risk_threshold": 0.32,
+      "bull_trend_threshold": 0.0,
+      "crash_cap": 0.04,
+      "crash_drawdown_threshold": -0.25,
+      "crash_drop_threshold": -0.2,
+      "defensive_cap": 0.25,
+      "defensive_risk_threshold": 0.48,
+      "name": "macro_budget_reentry_v1",
+      "portfolio_drawdown_cap": 0.03,
+      "portfolio_drawdown_release": 0.05,
+      "portfolio_drawdown_trigger": 0.12,
+      "reentry_drawdown_floor": -0.04,
+      "reentry_max_target": 0.55,
+      "reentry_min_target": 0.35,
+      "reentry_momentum_threshold": 0.08,
+      "reentry_risk_threshold": 0.3,
+      "reentry_trend_threshold": 0.04,
+      "stress_cap": 0.08,
+      "stress_risk_threshold": 0.62
+    },
+    "slices": {
+      "test_2020": {
+        "avg_pos": 0.18823290474776985,
+        "buy_and_hold_return": 59.7753083811,
+        "max_dd": 12.4332669934,
+        "relative_return": -52.1174304308,
+        "return": 7.6578779504,
+        "trades": 102,
+        "turnover": 9.98703557312253
+      },
+      "test_2022": {
+        "avg_pos": 0.044312629958254635,
+        "buy_and_hold_return": -86.5880717324,
+        "max_dd": 13.5154001499,
+        "relative_return": 74.330393494,
+        "return": -12.2576782384,
+        "trades": 15,
+        "turnover": 1.4979681274900398
+      },
+      "test_2023_2024": {
+        "avg_pos": 0.15952342026317046,
+        "buy_and_hold_return": 191.7735092699,
+        "max_dd": 12.9274219449,
+        "relative_return": -165.2415565912,
+        "return": 26.5319526787,
+        "trades": 170,
+        "turnover": 17.226573705179284
+      }
+    },
+    "test_proxy": {
+      "avg_pos": 0.09364291910221677,
+      "buy_and_hold_return": 752.0859028087,
+      "max_dd": 29.8412224303,
+      "relative_return": -745.9448839081,
+      "return": 6.1410189006,
+      "trades": 228,
+      "turnover": 44.19843161856963
     }
   },
   {
@@ -1158,6 +1542,12 @@
       "portfolio_drawdown_cap": 0.08,
       "portfolio_drawdown_release": 0.08,
       "portfolio_drawdown_trigger": 0.18,
+      "reentry_drawdown_floor": -0.1,
+      "reentry_max_target": 0.55,
+      "reentry_min_target": 0.0,
+      "reentry_momentum_threshold": 0.05,
+      "reentry_risk_threshold": 0.35,
+      "reentry_trend_threshold": 0.02,
       "stress_cap": 0.18,
       "stress_risk_threshold": 0.68
     },
@@ -1230,6 +1620,12 @@
       "portfolio_drawdown_cap": 0.03,
       "portfolio_drawdown_release": 0.05,
       "portfolio_drawdown_trigger": 0.12,
+      "reentry_drawdown_floor": -0.1,
+      "reentry_max_target": 0.55,
+      "reentry_min_target": 0.0,
+      "reentry_momentum_threshold": 0.05,
+      "reentry_risk_threshold": 0.35,
+      "reentry_trend_threshold": 0.02,
       "stress_cap": 0.08,
       "stress_risk_threshold": 0.62
     },
@@ -1302,6 +1698,12 @@
       "portfolio_drawdown_cap": 0.06,
       "portfolio_drawdown_release": 0.07,
       "portfolio_drawdown_trigger": 0.16,
+      "reentry_drawdown_floor": -0.1,
+      "reentry_max_target": 0.55,
+      "reentry_min_target": 0.0,
+      "reentry_momentum_threshold": 0.05,
+      "reentry_risk_threshold": 0.35,
+      "reentry_trend_threshold": 0.02,
       "stress_cap": 0.15,
       "stress_risk_threshold": 0.7
     },
@@ -1346,11 +1748,89 @@
   },
   {
     "model_family": "quantbench_supervised",
+    "model_name": "hist_gradient_mse",
+    "objective": "mse",
+    "objective_metrics": {
+      "clf_accuracy": 0.456713,
+      "ic": 0.049199688176420335,
+      "mse": 0.11189420335984564,
+      "ranking_spread": 0.05409687216918851,
+      "rows": 1594.0,
+      "utility_return": 0.010012003399997783
+    },
+    "paper_family": "boosted_tree",
+    "profile": "quantbench_supervised_hist_gradient_mse_macro_budget_reentry_v1",
+    "risk_overlay": {
+      "bull_cap": 0.7,
+      "bull_drawdown_floor": -0.06,
+      "bull_floor": 0.35,
+      "bull_momentum_threshold": 0.04,
+      "bull_risk_threshold": 0.32,
+      "bull_trend_threshold": 0.0,
+      "crash_cap": 0.04,
+      "crash_drawdown_threshold": -0.25,
+      "crash_drop_threshold": -0.2,
+      "defensive_cap": 0.25,
+      "defensive_risk_threshold": 0.48,
+      "name": "macro_budget_reentry_v1",
+      "portfolio_drawdown_cap": 0.03,
+      "portfolio_drawdown_release": 0.05,
+      "portfolio_drawdown_trigger": 0.12,
+      "reentry_drawdown_floor": -0.04,
+      "reentry_max_target": 0.55,
+      "reentry_min_target": 0.35,
+      "reentry_momentum_threshold": 0.08,
+      "reentry_risk_threshold": 0.3,
+      "reentry_trend_threshold": 0.04,
+      "stress_cap": 0.08,
+      "stress_risk_threshold": 0.62
+    },
+    "slices": {
+      "test_2020": {
+        "avg_pos": 0.18898201815369717,
+        "buy_and_hold_return": 59.7753083811,
+        "max_dd": 12.5049379028,
+        "relative_return": -47.7123502411,
+        "return": 12.0629581401,
+        "trades": 107,
+        "turnover": 10.238418972332017
+      },
+      "test_2022": {
+        "avg_pos": 0.04477547975428962,
+        "buy_and_hold_return": -86.5880717324,
+        "max_dd": 14.0214735278,
+        "relative_return": 73.8111763171,
+        "return": -12.7768954153,
+        "trades": 15,
+        "turnover": 1.6445816733067729
+      },
+      "test_2023_2024": {
+        "avg_pos": 0.11012102982492343,
+        "buy_and_hold_return": 191.7735092699,
+        "max_dd": 15.395210226,
+        "relative_return": -192.7353128975,
+        "return": -0.9618036276,
+        "trades": 90,
+        "turnover": 14.779800796812747
+      }
+    },
+    "test_proxy": {
+      "avg_pos": 0.09141870628407345,
+      "buy_and_hold_return": 752.0859028087,
+      "max_dd": 29.8820222402,
+      "relative_return": -739.7236261905,
+      "return": 12.3622766183,
+      "trades": 251,
+      "turnover": 43.86013801756587
+    }
+  },
+  {
+    "model_family": "quantbench_supervised",
     "model_name": "extra_trees_rank",
     "objective": "ranking",
     "objective_metrics": {
       "clf_accuracy": 0.493726,
-      "ic": -0.01790318035061268,
+      "ic": -0.017903180350612696,
       "mse": 0.09950123746607113,
       "ranking_spread": -0.003517271828936075,
       "rows": 1594.0,
@@ -1403,7 +1883,7 @@
     "objective": "ranking",
     "objective_metrics": {
       "clf_accuracy": 0.493726,
-      "ic": -0.01790318035061268,
+      "ic": -0.017903180350612696,
       "mse": 0.09950123746607113,
       "ranking_spread": -0.003517271828936075,
       "rows": 1594.0,
@@ -1427,6 +1907,12 @@
       "portfolio_drawdown_cap": 0.08,
       "portfolio_drawdown_release": 0.08,
       "portfolio_drawdown_trigger": 0.18,
+      "reentry_drawdown_floor": -0.1,
+      "reentry_max_target": 0.55,
+      "reentry_min_target": 0.0,
+      "reentry_momentum_threshold": 0.05,
+      "reentry_risk_threshold": 0.35,
+      "reentry_trend_threshold": 0.02,
       "stress_cap": 0.18,
       "stress_risk_threshold": 0.68
     },
@@ -1475,7 +1961,7 @@
     "objective": "ranking",
     "objective_metrics": {
       "clf_accuracy": 0.493726,
-      "ic": -0.01790318035061268,
+      "ic": -0.017903180350612696,
       "mse": 0.09950123746607113,
       "ranking_spread": -0.003517271828936075,
       "rows": 1594.0,
@@ -1499,6 +1985,12 @@
       "portfolio_drawdown_cap": 0.03,
       "portfolio_drawdown_release": 0.05,
       "portfolio_drawdown_trigger": 0.12,
+      "reentry_drawdown_floor": -0.1,
+      "reentry_max_target": 0.55,
+      "reentry_min_target": 0.0,
+      "reentry_momentum_threshold": 0.05,
+      "reentry_risk_threshold": 0.35,
+      "reentry_trend_threshold": 0.02,
       "stress_cap": 0.08,
       "stress_risk_threshold": 0.62
     },
@@ -1547,7 +2039,7 @@
     "objective": "ranking",
     "objective_metrics": {
       "clf_accuracy": 0.493726,
-      "ic": -0.01790318035061268,
+      "ic": -0.017903180350612696,
       "mse": 0.09950123746607113,
       "ranking_spread": -0.003517271828936075,
       "rows": 1594.0,
@@ -1571,6 +2063,12 @@
       "portfolio_drawdown_cap": 0.06,
       "portfolio_drawdown_release": 0.07,
       "portfolio_drawdown_trigger": 0.16,
+      "reentry_drawdown_floor": -0.1,
+      "reentry_max_target": 0.55,
+      "reentry_min_target": 0.0,
+      "reentry_momentum_threshold": 0.05,
+      "reentry_risk_threshold": 0.35,
+      "reentry_trend_threshold": 0.02,
       "stress_cap": 0.15,
       "stress_risk_threshold": 0.7
     },
@@ -1611,6 +2109,84 @@
       "return": -0.2142346075,
       "trades": 62,
       "turnover": 12.91076537013802
+    }
+  },
+  {
+    "model_family": "quantbench_supervised",
+    "model_name": "extra_trees_rank",
+    "objective": "ranking",
+    "objective_metrics": {
+      "clf_accuracy": 0.493726,
+      "ic": -0.017903180350612696,
+      "mse": 0.09950123746607113,
+      "ranking_spread": -0.003517271828936075,
+      "rows": 1594.0,
+      "utility_return": 0.007680649499740533
+    },
+    "paper_family": "tree_ensemble",
+    "profile": "quantbench_supervised_extra_trees_rank_macro_budget_reentry_v1",
+    "risk_overlay": {
+      "bull_cap": 0.7,
+      "bull_drawdown_floor": -0.06,
+      "bull_floor": 0.35,
+      "bull_momentum_threshold": 0.04,
+      "bull_risk_threshold": 0.32,
+      "bull_trend_threshold": 0.0,
+      "crash_cap": 0.04,
+      "crash_drawdown_threshold": -0.25,
+      "crash_drop_threshold": -0.2,
+      "defensive_cap": 0.25,
+      "defensive_risk_threshold": 0.48,
+      "name": "macro_budget_reentry_v1",
+      "portfolio_drawdown_cap": 0.03,
+      "portfolio_drawdown_release": 0.05,
+      "portfolio_drawdown_trigger": 0.12,
+      "reentry_drawdown_floor": -0.04,
+      "reentry_max_target": 0.55,
+      "reentry_min_target": 0.35,
+      "reentry_momentum_threshold": 0.08,
+      "reentry_risk_threshold": 0.3,
+      "reentry_trend_threshold": 0.04,
+      "stress_cap": 0.08,
+      "stress_risk_threshold": 0.62
+    },
+    "slices": {
+      "test_2020": {
+        "avg_pos": 0.22540377134465467,
+        "buy_and_hold_return": 59.7753083811,
+        "max_dd": 11.6832270052,
+        "relative_return": -41.6780341781,
+        "return": 18.097274203,
+        "trades": 115,
+        "turnover": 11.693359683794467
+      },
+      "test_2022": {
+        "avg_pos": 0.04437088300185712,
+        "buy_and_hold_return": -86.5880717324,
+        "max_dd": 13.5664715032,
+        "relative_return": 74.2763429925,
+        "return": -12.3117287399,
+        "trades": 15,
+        "turnover": 1.5234661354581673
+      },
+      "test_2023_2024": {
+        "avg_pos": 0.08954159457786384,
+        "buy_and_hold_return": 191.7735092699,
+        "max_dd": 18.8184700962,
+        "relative_return": -188.364035378,
+        "return": 3.4094738919,
+        "trades": 60,
+        "turnover": 15.86872509960159
+      }
+    },
+    "test_proxy": {
+      "avg_pos": 0.09754614622903644,
+      "buy_and_hold_return": 752.0859028087,
+      "max_dd": 28.1769623116,
+      "relative_return": -735.333713896,
+      "return": 16.7521889127,
+      "trades": 249,
+      "turnover": 44.09755332496863
     }
   },
   {
@@ -1696,6 +2272,12 @@
       "portfolio_drawdown_cap": 0.08,
       "portfolio_drawdown_release": 0.08,
       "portfolio_drawdown_trigger": 0.18,
+      "reentry_drawdown_floor": -0.1,
+      "reentry_max_target": 0.55,
+      "reentry_min_target": 0.0,
+      "reentry_momentum_threshold": 0.05,
+      "reentry_risk_threshold": 0.35,
+      "reentry_trend_threshold": 0.02,
       "stress_cap": 0.18,
       "stress_risk_threshold": 0.68
     },
@@ -1768,6 +2350,12 @@
       "portfolio_drawdown_cap": 0.03,
       "portfolio_drawdown_release": 0.05,
       "portfolio_drawdown_trigger": 0.12,
+      "reentry_drawdown_floor": -0.1,
+      "reentry_max_target": 0.55,
+      "reentry_min_target": 0.0,
+      "reentry_momentum_threshold": 0.05,
+      "reentry_risk_threshold": 0.35,
+      "reentry_trend_threshold": 0.02,
       "stress_cap": 0.08,
       "stress_risk_threshold": 0.62
     },
@@ -1840,6 +2428,12 @@
       "portfolio_drawdown_cap": 0.06,
       "portfolio_drawdown_release": 0.07,
       "portfolio_drawdown_trigger": 0.16,
+      "reentry_drawdown_floor": -0.1,
+      "reentry_max_target": 0.55,
+      "reentry_min_target": 0.0,
+      "reentry_momentum_threshold": 0.05,
+      "reentry_risk_threshold": 0.35,
+      "reentry_trend_threshold": 0.02,
       "stress_cap": 0.15,
       "stress_risk_threshold": 0.7
     },
@@ -1880,6 +2474,84 @@
       "return": 13.2166933481,
       "trades": 104,
       "turnover": 16.2304391468005
+    }
+  },
+  {
+    "model_family": "quantbench_supervised",
+    "model_name": "mlp_mse",
+    "objective": "mse",
+    "objective_metrics": {
+      "clf_accuracy": 0.484944,
+      "ic": -0.012545164260332123,
+      "mse": 0.2741404878997389,
+      "ranking_spread": 0.003873179740747204,
+      "rows": 1594.0,
+      "utility_return": 0.03264768060377378
+    },
+    "paper_family": "neural_tabular",
+    "profile": "quantbench_supervised_mlp_mse_macro_budget_reentry_v1",
+    "risk_overlay": {
+      "bull_cap": 0.7,
+      "bull_drawdown_floor": -0.06,
+      "bull_floor": 0.35,
+      "bull_momentum_threshold": 0.04,
+      "bull_risk_threshold": 0.32,
+      "bull_trend_threshold": 0.0,
+      "crash_cap": 0.04,
+      "crash_drawdown_threshold": -0.25,
+      "crash_drop_threshold": -0.2,
+      "defensive_cap": 0.25,
+      "defensive_risk_threshold": 0.48,
+      "name": "macro_budget_reentry_v1",
+      "portfolio_drawdown_cap": 0.03,
+      "portfolio_drawdown_release": 0.05,
+      "portfolio_drawdown_trigger": 0.12,
+      "reentry_drawdown_floor": -0.04,
+      "reentry_max_target": 0.55,
+      "reentry_min_target": 0.35,
+      "reentry_momentum_threshold": 0.08,
+      "reentry_risk_threshold": 0.3,
+      "reentry_trend_threshold": 0.04,
+      "stress_cap": 0.08,
+      "stress_risk_threshold": 0.62
+    },
+    "slices": {
+      "test_2020": {
+        "avg_pos": 0.09722539017950603,
+        "buy_and_hold_return": 59.7753083811,
+        "max_dd": 14.5093867189,
+        "relative_return": -56.5456770285,
+        "return": 3.2296313526,
+        "trades": 38,
+        "turnover": 7.304071146245059
+      },
+      "test_2022": {
+        "avg_pos": 0.04183647878605102,
+        "buy_and_hold_return": -86.5880717324,
+        "max_dd": 13.1914976548,
+        "relative_return": 74.6679909499,
+        "return": -11.9200807825,
+        "trades": 19,
+        "turnover": 1.3569322709163345
+      },
+      "test_2023_2024": {
+        "avg_pos": 0.15306177679719368,
+        "buy_and_hold_return": 191.7735092699,
+        "max_dd": 16.8082362102,
+        "relative_return": -166.79141094,
+        "return": 24.9820983299,
+        "trades": 148,
+        "turnover": 21.89446215139442
+      }
+    },
+    "test_proxy": {
+      "avg_pos": 0.1070986163609143,
+      "buy_and_hold_return": 752.0859028087,
+      "max_dd": 29.7833652804,
+      "relative_return": -747.478823466,
+      "return": 4.6070793427,
+      "trades": 310,
+      "turnover": 53.00053952321204
     }
   }
 ]

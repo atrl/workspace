@@ -120,6 +120,69 @@ def test_backtest_prediction_strategy_portfolio_drawdown_guard_reduces_crash_dam
     assert guarded["avg_pos"] < plain["avg_pos"]
 
 
+def test_backtest_prediction_strategy_reentry_guard_captures_confirmed_rebound():
+    index = pd.date_range("2024-01-01", periods=12, freq="D")
+    close = pd.Series([100.0, 112.0, 92.0, 70.0, 50.0, 52.0, 58.0, 70.0, 88.0, 110.0, 132.0, 150.0], index=index)
+    predictions = pd.Series(np.linspace(0.8, 1.0, len(index)), index=index)
+    risk_frame = pd.DataFrame(
+        {
+            "regime_risk": [0.10, 0.15, 0.72, 0.85, 0.80, 0.55, 0.35, 0.28, 0.22, 0.20, 0.18, 0.16],
+            "cum_drop_30": [0.00, 0.00, -0.18, -0.32, -0.28, -0.20, -0.10, -0.05, -0.02, 0.00, 0.00, 0.00],
+            "drawdown_63": [0.00, 0.00, -0.18, -0.35, -0.30, -0.22, -0.12, -0.07, -0.03, 0.00, 0.00, 0.00],
+            "mom_21": [0.02, 0.04, -0.08, -0.20, -0.10, -0.04, 0.02, 0.06, 0.09, 0.12, 0.14, 0.16],
+            "trend_gap_63": [0.01, 0.02, -0.05, -0.12, -0.10, -0.05, 0.00, 0.03, 0.05, 0.07, 0.08, 0.09],
+        },
+        index=index,
+    )
+    capped_config = RiskAwarePositionConfig(
+        name="capped_test",
+        defensive_cap=0.80,
+        stress_cap=0.70,
+        crash_cap=0.60,
+        portfolio_drawdown_trigger=0.10,
+        portfolio_drawdown_cap=0.02,
+        portfolio_drawdown_release=0.04,
+    )
+    reentry_config = RiskAwarePositionConfig(
+        name="reentry_test",
+        defensive_cap=0.80,
+        stress_cap=0.70,
+        crash_cap=0.60,
+        portfolio_drawdown_trigger=0.10,
+        portfolio_drawdown_cap=0.02,
+        portfolio_drawdown_release=0.04,
+        reentry_min_target=0.45,
+        reentry_max_target=0.65,
+        reentry_risk_threshold=0.35,
+        reentry_momentum_threshold=0.05,
+        reentry_trend_threshold=0.02,
+        reentry_drawdown_floor=-0.10,
+    )
+
+    capped = backtest_prediction_strategy(
+        close,
+        predictions,
+        min_position=0.20,
+        max_position=0.95,
+        cost=0.0,
+        risk_frame=risk_frame,
+        risk_config=capped_config,
+    )
+    reentry = backtest_prediction_strategy(
+        close,
+        predictions,
+        min_position=0.20,
+        max_position=0.95,
+        cost=0.0,
+        risk_frame=risk_frame,
+        risk_config=reentry_config,
+    )
+
+    assert reentry["return"] > capped["return"]
+    assert reentry["avg_pos"] > capped["avg_pos"]
+    assert reentry["max_dd"] <= capped["max_dd"] + 1.0
+
+
 def test_fit_quantbench_supervised_models_trains_clf_and_mse_specs():
     index = pd.date_range("2024-01-01", periods=80, freq="D")
     signal = np.linspace(-1.0, 1.0, len(index))
@@ -237,12 +300,13 @@ def test_build_quantbench_supervised_report_writes_screen_artifacts(tmp_path):
         test_end=index[90],
     )
 
-    assert report["screen"]["records"] == 8
+    assert report["screen"]["records"] == 10
     assert report["data"]["feature_count"] == 3
     assert report["data"]["risk_overlays"] == [
         "macro_budget_defensive_v1",
         "macro_budget_lowdd_v1",
         "macro_budget_bull_guard_v1",
+        "macro_budget_reentry_v1",
     ]
     assert (tmp_path / "supervised_summary.json").exists()
     assert (tmp_path / "supervised_candidate_screen.csv").read_text(encoding="utf-8").startswith("profile,")

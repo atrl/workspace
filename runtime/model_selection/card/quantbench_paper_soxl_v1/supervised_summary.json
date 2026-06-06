@@ -22,7 +22,8 @@
     "risk_overlays": [
       "macro_budget_defensive_v1",
       "macro_budget_lowdd_v1",
-      "macro_budget_bull_guard_v1"
+      "macro_budget_bull_guard_v1",
+      "macro_budget_reentry_v1"
     ],
     "rows": 3831,
     "start": "2011-03-11",
@@ -243,6 +244,6 @@
     ],
     "eligible_count": 0,
     "eligible_profiles": [],
-    "records": 28
+    "records": 35
   }
 }
