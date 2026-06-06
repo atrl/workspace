@@ -920,8 +920,14 @@ def test_default_quantbench_supervised_ensemble_architecture_routes_temporal_seq
         and config.recovery_path == "quantbench_supervised_tcn_mse"
         for config in configs
     )
+    assert any(
+        config.offensive_path == "quantbench_supervised_market_graph_mse"
+        and config.recovery_path == "quantbench_supervised_market_graph_mse"
+        for config in configs
+    )
     assert any("lstm_mse" in spec.model_names for spec in blends)
     assert any("tcn_mse" in spec.model_names for spec in blends)
+    assert any("market_graph_mse" in spec.model_names for spec in blends)
 
 
 def test_build_quantbench_supervised_ensemble_report_can_route_rolling_refit_paths(tmp_path):

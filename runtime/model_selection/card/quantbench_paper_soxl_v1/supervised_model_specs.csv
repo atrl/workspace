@@ -9,3 +9,4 @@ mlp_mse,neural_tabular,mse,return,MLPRegressor
 sequence_lag_ridge_mse,sequence_temporal,mse,return,LaggedRidge
 lstm_mse,sequence_recurrent,mse,return,TorchLSTM
 tcn_mse,sequence_convolutional,mse,return,TorchTemporalConv
+market_graph_mse,relational_graph,mse,return,MarketGraphRidge

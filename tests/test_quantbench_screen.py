@@ -192,6 +192,8 @@ def test_quantbench_model_objective_coverage_is_src_owned():
     assert by_family["rolling_continual"]["coverage"] == "implemented_partial"
     assert "rolling supervised refit" in by_family["rolling_continual"]["current_soxl_surface"]
     assert "TorchTCN" in by_family["attention_tide_mixer"]["current_soxl_surface"]
+    assert by_family["relational_rgcn"]["coverage"] == "implemented_partial"
+    assert "MarketGraphRidge" in by_family["relational_rgcn"]["current_soxl_surface"]
     assert by_family["seed_ensemble"]["coverage"] == "implemented_partial"
     assert "low-correlation signal blend" in by_family["seed_ensemble"]["current_soxl_surface"]
     assert all(row["next_step"] for row in coverage)

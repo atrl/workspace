@@ -30,6 +30,7 @@
       "sequence_lag_ridge_mse",
       "lstm_mse",
       "tcn_mse",
+      "market_graph_mse",
       "rolling_logistic_clf",
       "rolling_sequence_lag_ridge_mse"
     ],
@@ -107,6 +108,25 @@
         "stress_avg_pos": 0.4987571625847209,
         "stress_max_dd": 51.5311110042,
         "stress_relative_return": 63.6768458729
+      },
+      {
+        "bull_buy_and_hold_return": 191.7735092699,
+        "bull_capture": 1.1284485858056221,
+        "bull_return": 216.4065453306,
+        "eligible": false,
+        "failed_checks": [
+          "max_drawdown",
+          "stress_avg_pos",
+          "stress_max_drawdown"
+        ],
+        "profile": "quantbench_supervised_market_graph_mse",
+        "proxy_max_dd": 69.4187835315,
+        "proxy_return": 1089.88677428,
+        "score": 946.380313,
+        "source_path": "generated:quantbench_supervised_market_graph_mse",
+        "stress_avg_pos": 0.4989476357518134,
+        "stress_max_dd": 48.8135748905,
+        "stress_relative_return": 81.323814226
       },
       {
         "bull_buy_and_hold_return": 191.7735092699,
@@ -260,29 +280,10 @@
         "stress_avg_pos": 0.4984397073062332,
         "stress_max_dd": 48.4084891537,
         "stress_relative_return": 53.2933278364
-      },
-      {
-        "bull_buy_and_hold_return": 191.7735092699,
-        "bull_capture": 0.8832360579516464,
-        "bull_return": 169.3812783471,
-        "eligible": false,
-        "failed_checks": [
-          "max_drawdown",
-          "stress_avg_pos",
-          "stress_max_drawdown"
-        ],
-        "profile": "quantbench_supervised_rolling_sequence_lag_ridge_mse",
-        "proxy_max_dd": 69.5956909958,
-        "proxy_return": 369.3214462592,
-        "score": 165.512009,
-        "source_path": "generated:quantbench_supervised_rolling_sequence_lag_ridge_mse",
-        "stress_avg_pos": 0.49953175346423073,
-        "stress_max_dd": 62.1279402884,
-        "stress_relative_return": 46.2497213782
       }
     ],
     "eligible_count": 0,
     "eligible_profiles": [],
-    "records": 60
+    "records": 65
   }
 }

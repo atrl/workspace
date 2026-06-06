@@ -290,6 +290,47 @@ def test_fit_quantbench_supervised_models_trains_temporal_convolution_spec():
     assert "mse" in metrics["tcn_mse"]
 
 
+def test_fit_quantbench_supervised_models_trains_relational_market_graph_spec():
+    index = pd.date_range("2024-01-01", periods=120, freq="D")
+    base_signal = np.sin(np.arange(len(index)) / 5.0)
+    sector_signal = np.cos(np.arange(len(index)) / 7.0)
+    vix_signal = np.where(np.arange(len(index)) % 17 < 4, 1.0, -0.3)
+    spread_signal = base_signal - 0.6 * sector_signal
+    relation_signal = spread_signal - 0.4 * vix_signal
+    lagged_relation = pd.Series(relation_signal, index=index).shift(1).fillna(0.0).to_numpy()
+    close = pd.Series(100.0 * np.cumprod(1.0 + 0.004 * np.sign(lagged_relation)), index=index)
+    features = pd.DataFrame(
+        {
+            "SOXL_momentum_21": base_signal,
+            "SOXX_momentum_21": sector_signal,
+            "SOXL_SOXX_RATIO_Z_252": spread_signal,
+            "SOXL_SOXX_SPREAD_VOL_Z_21": spread_signal * vix_signal,
+            "vix_zscore": vix_signal,
+            "regime_risk": np.clip((vix_signal + 1.0) / 2.0, 0.0, 1.0),
+        },
+        index=index,
+    )
+    targets = build_soxl_supervised_targets(close, horizons=(1,))
+
+    predictions, metrics = fit_quantbench_supervised_models(
+        features,
+        targets,
+        train_start=index[0],
+        train_end=index[79],
+        test_start=index[80],
+        test_end=index[110],
+        horizon=1,
+        model_names=("market_graph_mse",),
+    )
+
+    pred = predictions["market_graph_mse"]
+    assert pred.index.min() >= index[80]
+    assert pred.index.max() <= index[110]
+    assert pred.nunique() > 1
+    assert metrics["market_graph_mse"]["rows"] > 0
+    assert "mse" in metrics["market_graph_mse"]
+
+
 def test_fit_quantbench_rolling_supervised_models_refits_without_future_label_leakage():
     index = pd.date_range("2024-01-01", periods=180, freq="D")
     signal = np.sin(np.arange(len(index)) / 5.0)
@@ -339,6 +380,7 @@ def test_quantbench_supervised_model_specs_cover_paper_objectives():
         "sequence_temporal",
         "sequence_recurrent",
         "sequence_convolutional",
+        "relational_graph",
     } <= {spec.paper_family for spec in specs}
     assert {"clf", "ic", "mse", "ranking"} <= {spec.objective for spec in specs}
 

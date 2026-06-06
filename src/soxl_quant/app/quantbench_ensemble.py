@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import csv
 import json
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, replace
 from pathlib import Path
 from typing import Any, Iterable, Mapping
 
@@ -1222,7 +1222,13 @@ def default_quantbench_signal_blend_specs() -> list[QuantBenchSignalBlendSpec]:
             model_names=("sequence_lag_ridge_mse", "tcn_mse"),
             max_abs_correlation=0.85,
             min_rows=60,
-        )
+        ),
+        QuantBenchSignalBlendSpec(
+            name="blend_sequence_market_graph_lowcorr_v1",
+            model_names=("sequence_lag_ridge_mse", "market_graph_mse"),
+            max_abs_correlation=0.85,
+            min_rows=60,
+        ),
     ]
 
 
@@ -1309,7 +1315,7 @@ def default_quantbench_path_selector_configs(
         suffix = f"_{overlay}" if overlay else ""
         return f"{profile_prefix}_{model_name}{suffix}"
 
-    return [
+    configs = [
         QuantBenchPathSelectorConfig(
             name="quantbench_ensemble_lowdd_mlp_v1",
             defensive_path=path("hist_gradient_mse", "macro_budget_lowdd_v1"),
@@ -2212,6 +2218,20 @@ def default_quantbench_path_selector_configs(
             hazard_cap=0.02,
         ),
     ]
+    tcn_panic_config = next(
+        config
+        for config in configs
+        if config.name == "quantbench_ensemble_tcn_panic_chip_floor_v1"
+    )
+    configs.append(
+        replace(
+            tcn_panic_config,
+            name="quantbench_ensemble_market_graph_panic_chip_floor_v1",
+            offensive_path=path("market_graph_mse"),
+            recovery_path=path("market_graph_mse"),
+        )
+    )
+    return configs
 
 
 def _config_paths_available(config: QuantBenchPathSelectorConfig, paths: Mapping[str, pd.Series]) -> bool:

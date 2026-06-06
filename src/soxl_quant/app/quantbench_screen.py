@@ -133,9 +133,9 @@ def quantbench_model_objective_coverage() -> list[dict[str, str]]:
         {
             "family": "relational_rgcn",
             "paper_family": "RGCN/relational model",
-            "current_soxl_surface": "SOXX-relative and multi-asset relation features exist, no graph model",
-            "coverage": "partial",
-            "next_step": "screen relation features before graph implementation",
+            "current_soxl_surface": "SOXX-relative and multi-asset relation features plus supervised MarketGraphRidge relational baseline implemented",
+            "coverage": "implemented_partial",
+            "next_step": "promote only if MarketGraphRidge or graph-derived blends satisfy the QuantBench gate; otherwise test richer graph learners",
         },
         {
             "family": "objectives_clf_ic_mse_ranking",

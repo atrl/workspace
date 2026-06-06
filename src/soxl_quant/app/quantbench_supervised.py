@@ -120,6 +120,13 @@ QUANTBENCH_SUPERVISED_MODEL_SPECS: tuple[SupervisedModelSpec, ...] = (
         target_kind="return",
         estimator="TorchTemporalConv",
     ),
+    SupervisedModelSpec(
+        name="market_graph_mse",
+        paper_family="relational_graph",
+        objective="mse",
+        target_kind="return",
+        estimator="MarketGraphRidge",
+    ),
 )
 
 
@@ -290,6 +297,111 @@ class _TorchTemporalConvRegressor:
         return pred * self.y_std_ + self.y_mean_
 
 
+def _columns_with_tokens(columns: Iterable[str], tokens: tuple[str, ...]) -> list[str]:
+    return [column for column in columns if any(token in str(column).lower() for token in tokens)]
+
+
+def _market_graph_feature_frame(x: pd.DataFrame) -> pd.DataFrame:
+    """Build relation-aware SOXL/SOXX/VIX graph features from tabular factors."""
+    frame = x.astype(float)
+    columns = [str(column) for column in frame.columns]
+    frame.columns = columns
+
+    primary_columns = [
+        column
+        for column in columns
+        if "soxl" in column.lower() and "soxx" not in column.lower()
+    ]
+    sector_columns = _columns_with_tokens(columns, ("soxx", "semiconductor", "sector"))
+    risk_columns = _columns_with_tokens(
+        columns,
+        ("vix", "vvix", "regime_risk", "credit_spread", "variance_risk", "risk", "volatility"),
+    )
+    relation_columns = _columns_with_tokens(
+        columns,
+        ("soxl_soxx", "spread", "relative", "ratio", "divergence", "corr"),
+    )
+    groups = {
+        "primary": primary_columns,
+        "sector": sector_columns,
+        "risk": risk_columns,
+        "relation": relation_columns,
+    }
+
+    parts: dict[str, pd.Series] = {
+        f"raw__{column}": frame[column]
+        for column in columns
+    }
+
+    for group_name, group_columns in groups.items():
+        if not group_columns:
+            continue
+        group_frame = frame[group_columns]
+        parts[f"{group_name}__mean"] = group_frame.mean(axis=1)
+        parts[f"{group_name}__std"] = group_frame.std(axis=1, ddof=0)
+        parts[f"{group_name}__min"] = group_frame.min(axis=1)
+        parts[f"{group_name}__max"] = group_frame.max(axis=1)
+
+    lower_to_column = {column.lower(): column for column in columns}
+    for primary_column in primary_columns:
+        sector_key = primary_column.lower().replace("soxl", "soxx")
+        sector_column = lower_to_column.get(sector_key)
+        if sector_column is None:
+            continue
+        edge_name = f"edge__{primary_column}__minus__{sector_column}"
+        edge = frame[primary_column] - frame[sector_column]
+        parts[edge_name] = edge
+        parts[f"{edge_name}__abs"] = edge.abs()
+        parts[f"edge__{primary_column}__x__{sector_column}"] = frame[primary_column] * frame[sector_column]
+
+    if {"primary__mean", "sector__mean"} <= set(parts):
+        parts["edge__primary_sector_mean_diff"] = parts["primary__mean"] - parts["sector__mean"]
+        parts["edge__primary_sector_mean_product"] = parts["primary__mean"] * parts["sector__mean"]
+    if {"primary__mean", "risk__mean"} <= set(parts):
+        parts["edge__primary_risk_mean_diff"] = parts["primary__mean"] - parts["risk__mean"]
+        parts["edge__primary_risk_mean_product"] = parts["primary__mean"] * parts["risk__mean"]
+    if {"sector__mean", "risk__mean"} <= set(parts):
+        parts["edge__sector_risk_mean_diff"] = parts["sector__mean"] - parts["risk__mean"]
+        parts["edge__sector_risk_mean_product"] = parts["sector__mean"] * parts["risk__mean"]
+    if {"relation__mean", "risk__mean"} <= set(parts):
+        parts["edge__relation_risk_mean_diff"] = parts["relation__mean"] - parts["risk__mean"]
+        parts["edge__relation_risk_mean_product"] = parts["relation__mean"] * parts["risk__mean"]
+
+    graph = pd.DataFrame(parts, index=frame.index)
+    return graph.replace([np.inf, -np.inf], np.nan).fillna(0.0)
+
+
+class _MarketGraphRidgeRegressor:
+    """Relation-aware ridge baseline over SOXL, SOXX, volatility, and spread nodes."""
+
+    def __init__(self, *, alpha: float = 1.5) -> None:
+        self.alpha = float(alpha)
+
+    def fit(self, x: pd.DataFrame, y: pd.Series):
+        from sklearn.linear_model import Ridge
+        from sklearn.pipeline import make_pipeline
+        from sklearn.preprocessing import StandardScaler
+
+        self.feature_columns_ = [str(column) for column in x.columns]
+        x_aligned = x.copy()
+        x_aligned.columns = self.feature_columns_
+        graph_x = _market_graph_feature_frame(x_aligned)
+        self.graph_feature_columns_ = list(graph_x.columns)
+        self.model_ = make_pipeline(StandardScaler(), Ridge(alpha=self.alpha))
+        self.model_.fit(graph_x, y)
+        return self
+
+    def predict(self, x: pd.DataFrame) -> np.ndarray:
+        x_aligned = x.copy()
+        x_aligned.columns = [str(column) for column in x_aligned.columns]
+        x_aligned = x_aligned.reindex(columns=self.feature_columns_, fill_value=0.0)
+        graph_x = _market_graph_feature_frame(x_aligned).reindex(
+            columns=self.graph_feature_columns_,
+            fill_value=0.0,
+        )
+        return np.asarray(self.model_.predict(graph_x), dtype=float)
+
+
 def quantbench_risk_overlay_configs() -> list[RiskAwarePositionConfig]:
     """Return reusable SOXL risk-budget overlays for supervised signal screens."""
     return [
@@ -447,6 +559,8 @@ def _build_model(spec: SupervisedModelSpec):
         return _TorchLSTMRegressor(hidden_size=8, epochs=24, learning_rate=0.01, random_state=0)
     if spec.name == "tcn_mse":
         return _TorchTemporalConvRegressor(hidden_size=8, epochs=24, learning_rate=0.01, random_state=0)
+    if spec.name == "market_graph_mse":
+        return _MarketGraphRidgeRegressor(alpha=1.5)
     raise ValueError(f"unknown supervised model '{spec.name}'")
 
 
