@@ -22,6 +22,27 @@ class SupervisedModelSpec:
     estimator: str
 
 
+@dataclass(frozen=True)
+class RiskAwarePositionConfig:
+    name: str
+    defensive_cap: float = 0.45
+    stress_cap: float = 0.20
+    crash_cap: float = 0.12
+    bull_floor: float = 0.55
+    bull_cap: float = 0.90
+    defensive_risk_threshold: float = 0.55
+    stress_risk_threshold: float = 0.70
+    crash_drop_threshold: float = -0.20
+    crash_drawdown_threshold: float = -0.25
+    bull_risk_threshold: float = 0.40
+    bull_momentum_threshold: float = 0.03
+    bull_trend_threshold: float = 0.00
+    bull_drawdown_floor: float = -0.08
+    portfolio_drawdown_trigger: float = 0.0
+    portfolio_drawdown_cap: float = 0.08
+    portfolio_drawdown_release: float = 0.06
+
+
 QUANTBENCH_SUPERVISED_MODEL_SPECS: tuple[SupervisedModelSpec, ...] = (
     SupervisedModelSpec(
         name="logistic_clf",
@@ -73,6 +94,56 @@ QUANTBENCH_SUPERVISED_MODEL_SPECS: tuple[SupervisedModelSpec, ...] = (
         estimator="MLPRegressor",
     ),
 )
+
+
+def quantbench_risk_overlay_configs() -> list[RiskAwarePositionConfig]:
+    """Return reusable SOXL risk-budget overlays for supervised signal screens."""
+    return [
+        RiskAwarePositionConfig(
+            name="macro_budget_defensive_v1",
+            defensive_cap=0.40,
+            stress_cap=0.18,
+            crash_cap=0.10,
+            bull_floor=0.55,
+            bull_cap=0.90,
+            defensive_risk_threshold=0.52,
+            stress_risk_threshold=0.68,
+            portfolio_drawdown_trigger=0.18,
+            portfolio_drawdown_cap=0.08,
+            portfolio_drawdown_release=0.08,
+        ),
+        RiskAwarePositionConfig(
+            name="macro_budget_lowdd_v1",
+            defensive_cap=0.25,
+            stress_cap=0.08,
+            crash_cap=0.04,
+            bull_floor=0.35,
+            bull_cap=0.70,
+            defensive_risk_threshold=0.48,
+            stress_risk_threshold=0.62,
+            bull_risk_threshold=0.32,
+            bull_momentum_threshold=0.04,
+            bull_drawdown_floor=-0.06,
+            portfolio_drawdown_trigger=0.12,
+            portfolio_drawdown_cap=0.03,
+            portfolio_drawdown_release=0.05,
+        ),
+        RiskAwarePositionConfig(
+            name="macro_budget_bull_guard_v1",
+            defensive_cap=0.35,
+            stress_cap=0.15,
+            crash_cap=0.08,
+            bull_floor=0.65,
+            bull_cap=0.95,
+            defensive_risk_threshold=0.55,
+            stress_risk_threshold=0.70,
+            bull_risk_threshold=0.42,
+            bull_momentum_threshold=0.03,
+            portfolio_drawdown_trigger=0.16,
+            portfolio_drawdown_cap=0.06,
+            portfolio_drawdown_release=0.07,
+        ),
+    ]
 
 
 def quantbench_supervised_model_specs(model_names: Iterable[str] | None = None) -> list[SupervisedModelSpec]:
@@ -220,6 +291,57 @@ def _prediction_to_position(predictions: pd.Series, min_position: float, max_pos
     )
 
 
+def _risk_column(frame: pd.DataFrame, column: str, default: float) -> pd.Series:
+    if column in frame.columns:
+        return frame[column].astype(float).replace([np.inf, -np.inf], np.nan).fillna(default)
+    return pd.Series(default, index=frame.index, dtype=float)
+
+
+def risk_aware_position_series(
+    predictions: pd.Series,
+    *,
+    risk_frame: pd.DataFrame,
+    config: RiskAwarePositionConfig,
+    min_position: float = 0.10,
+    max_position: float = 0.90,
+) -> pd.Series:
+    """Map prediction ranks into a two-speed risk-budget style position path."""
+    pred = predictions.astype(float).sort_index()
+    position = _prediction_to_position(pred.dropna(), min_position, max_position).reindex(pred.index)
+    frame = risk_frame.reindex(pred.index).replace([np.inf, -np.inf], np.nan)
+
+    regime_risk = _risk_column(frame, "regime_risk", 0.0)
+    cum_drop_30 = _risk_column(frame, "cum_drop_30", 0.0)
+    drawdown_63 = _risk_column(frame, "drawdown_63", 0.0)
+    mom_21 = _risk_column(frame, "mom_21", 0.0)
+    trend_gap_63 = _risk_column(frame, "trend_gap_63", 0.0)
+
+    defensive_mask = (regime_risk >= config.defensive_risk_threshold) | (drawdown_63 <= config.bull_drawdown_floor)
+    stress_mask = (
+        (regime_risk >= config.stress_risk_threshold)
+        | (cum_drop_30 <= config.crash_drop_threshold)
+        | (drawdown_63 <= config.crash_drawdown_threshold)
+    )
+    crash_mask = (cum_drop_30 <= config.crash_drop_threshold) & (drawdown_63 <= config.crash_drawdown_threshold)
+    bull_mask = (
+        (regime_risk <= config.bull_risk_threshold)
+        & (mom_21 >= config.bull_momentum_threshold)
+        & (trend_gap_63 >= config.bull_trend_threshold)
+        & (drawdown_63 >= config.bull_drawdown_floor)
+        & ~stress_mask
+    )
+
+    cap = pd.Series(float(max_position), index=pred.index)
+    cap.loc[defensive_mask] = np.minimum(cap.loc[defensive_mask], float(config.defensive_cap))
+    cap.loc[stress_mask] = np.minimum(cap.loc[stress_mask], float(config.stress_cap))
+    cap.loc[crash_mask] = np.minimum(cap.loc[crash_mask], float(config.crash_cap))
+    cap.loc[bull_mask] = np.minimum(float(config.bull_cap), float(max_position))
+
+    out = position.clip(upper=cap)
+    out.loc[bull_mask] = out.loc[bull_mask].clip(lower=float(config.bull_floor), upper=float(config.bull_cap))
+    return out.clip(lower=0.0, upper=float(max_position)).fillna(0.0)
+
+
 def backtest_prediction_strategy(
     close: pd.Series,
     predictions: pd.Series,
@@ -227,13 +349,35 @@ def backtest_prediction_strategy(
     min_position: float = 0.0,
     max_position: float = 1.0,
     cost: float = 0.0008,
+    risk_frame: pd.DataFrame | None = None,
+    risk_config: RiskAwarePositionConfig | None = None,
 ) -> dict[str, float]:
     """Backtest a prediction-ranked long-flat SOXL allocation with T+1 execution."""
     close = close.astype(float).sort_index()
     pred = predictions.astype(float).reindex(close.index)
-    position = _prediction_to_position(pred.dropna(), min_position, max_position).reindex(close.index).ffill().fillna(0.0)
-    exec_position = position.shift(1).fillna(0.0)
+    if risk_config is not None:
+        if risk_frame is None:
+            raise ValueError("risk_frame is required when risk_config is set")
+        position = risk_aware_position_series(
+            pred.dropna(),
+            risk_frame=risk_frame,
+            config=risk_config,
+            min_position=min_position,
+            max_position=max_position,
+        ).reindex(close.index)
+    else:
+        position = _prediction_to_position(pred.dropna(), min_position, max_position).reindex(close.index)
     returns = close.pct_change().fillna(0.0)
+    if risk_config is not None and risk_config.portfolio_drawdown_trigger > 0.0:
+        position = _apply_portfolio_drawdown_guard(
+            position.ffill().fillna(0.0),
+            returns,
+            risk_config=risk_config,
+            cost=cost,
+        )
+    else:
+        position = position.ffill().fillna(0.0)
+    exec_position = position.shift(1).fillna(0.0)
     turnover = position.diff().abs().fillna(position.abs())
     strategy_returns = exec_position * returns - turnover * float(cost)
     equity = (1.0 + strategy_returns).cumprod()
@@ -253,6 +397,36 @@ def backtest_prediction_strategy(
     }
 
 
+def _apply_portfolio_drawdown_guard(
+    target_position: pd.Series,
+    returns: pd.Series,
+    *,
+    risk_config: RiskAwarePositionConfig,
+    cost: float,
+) -> pd.Series:
+    """Apply a no-lookahead drawdown guard to the next target position."""
+    guarded = []
+    equity = 1.0
+    peak = 1.0
+    previous_target = 0.0
+    guard_active = False
+    for date, raw_target in target_position.items():
+        day_return = float(returns.loc[date]) if date in returns.index else 0.0
+        equity *= 1.0 + previous_target * day_return
+        peak = max(peak, equity)
+        drawdown = 1.0 - equity / peak if peak > 0 else 0.0
+        if drawdown >= float(risk_config.portfolio_drawdown_trigger):
+            guard_active = True
+        elif drawdown <= float(risk_config.portfolio_drawdown_release):
+            guard_active = False
+        target = min(float(raw_target), float(risk_config.portfolio_drawdown_cap)) if guard_active else float(raw_target)
+        equity -= abs(target - previous_target) * float(cost)
+        peak = max(peak, equity)
+        guarded.append(target)
+        previous_target = target
+    return pd.Series(guarded, index=target_position.index, dtype=float)
+
+
 def build_supervised_summary_payloads(
     close: pd.Series,
     predictions: Mapping[str, pd.Series],
@@ -263,6 +437,8 @@ def build_supervised_summary_payloads(
     min_position: float = 0.10,
     max_position: float = 0.90,
     cost: float = 0.0008,
+    risk_frame: pd.DataFrame | None = None,
+    risk_configs: Iterable[RiskAwarePositionConfig] = (),
 ) -> list[dict[str, object]]:
     """Build runtime-summary-compatible payloads for supervised model screens."""
     close = close.astype(float).sort_index()
@@ -273,6 +449,7 @@ def build_supervised_summary_payloads(
     }
     spec_by_name = {spec.name: spec for spec in quantbench_supervised_model_specs()}
     payloads = []
+    configs: tuple[RiskAwarePositionConfig | None, ...] = (None, *tuple(risk_configs))
     for name, pred in predictions.items():
         aligned_pred = pred.reindex(close.index)
         valid_pred = aligned_pred.dropna()
@@ -281,29 +458,34 @@ def build_supervised_summary_payloads(
         start = valid_pred.index.min()
         end = valid_pred.index.max()
         spec = spec_by_name.get(name)
-        test_proxy = backtest_prediction_strategy(
-            close.loc[start:end],
-            aligned_pred.loc[start:end],
-            min_position=min_position,
-            max_position=max_position,
-            cost=cost,
-        )
-        slices: dict[str, dict[str, float]] = {}
-        for window_name, (start, end) in windows.items():
-            window_close = close.loc[start:end]
-            window_pred = aligned_pred.loc[start:end]
-            if len(window_close) < 2 or window_pred.dropna().empty:
-                continue
-            slices[window_name] = backtest_prediction_strategy(
-                window_close,
-                window_pred,
+        for risk_config in configs:
+            suffix = f"_{risk_config.name}" if risk_config is not None else ""
+            test_proxy = backtest_prediction_strategy(
+                close.loc[start:end],
+                aligned_pred.loc[start:end],
                 min_position=min_position,
                 max_position=max_position,
                 cost=cost,
+                risk_frame=risk_frame,
+                risk_config=risk_config,
             )
-        payloads.append(
-            {
-                "profile": f"{profile_prefix}_{name}",
+            slices: dict[str, dict[str, float]] = {}
+            for window_name, (window_start, window_end) in windows.items():
+                window_close = close.loc[window_start:window_end]
+                window_pred = aligned_pred.loc[window_start:window_end]
+                if len(window_close) < 2 or window_pred.dropna().empty:
+                    continue
+                slices[window_name] = backtest_prediction_strategy(
+                    window_close,
+                    window_pred,
+                    min_position=min_position,
+                    max_position=max_position,
+                    cost=cost,
+                    risk_frame=risk_frame,
+                    risk_config=risk_config,
+                )
+            payload = {
+                "profile": f"{profile_prefix}_{name}{suffix}",
                 "model_family": "quantbench_supervised",
                 "model_name": name,
                 "paper_family": spec.paper_family if spec else "custom",
@@ -312,7 +494,9 @@ def build_supervised_summary_payloads(
                 "slices": slices,
                 "objective_metrics": dict(objective_metrics.get(name, {})),
             }
-        )
+            if risk_config is not None:
+                payload["risk_overlay"] = risk_config.__dict__
+            payloads.append(payload)
     return payloads
 
 
@@ -400,6 +584,7 @@ def build_quantbench_supervised_report(
     min_position: float = 0.10,
     max_position: float = 0.90,
     cost: float = 0.0008,
+    risk_configs: Iterable[RiskAwarePositionConfig] | None = None,
 ) -> dict[str, Any]:
     """Train QuantBench-style supervised SOXL baselines and persist screen artifacts."""
     root = root.resolve() if root is not None else None
@@ -416,6 +601,7 @@ def build_quantbench_supervised_report(
 
     from .quantbench_objectives import build_soxl_supervised_targets
 
+    risk_configs = tuple(quantbench_risk_overlay_configs() if risk_configs is None else risk_configs)
     targets = build_soxl_supervised_targets(close_series, horizons=(horizon,))
     predictions, objective_metrics = fit_quantbench_supervised_models(
         feature_frame,
@@ -435,6 +621,8 @@ def build_quantbench_supervised_report(
         min_position=min_position,
         max_position=max_position,
         cost=cost,
+        risk_frame=feature_frame,
+        risk_configs=risk_configs,
     )
     records = [
         summary_record_from_payload(payload, source_path=f"generated:{payload['profile']}")
@@ -480,6 +668,7 @@ def build_quantbench_supervised_report(
             "end": str(feature_frame.index.max().date()),
             "feature_count": int(feature_frame.shape[1]),
             "feature_packs": list(feature_packs),
+            "risk_overlays": [config.name for config in risk_configs],
             "horizon": int(horizon),
             "train_window": [str(pd.Timestamp(train_start).date()), str(pd.Timestamp(train_end).date())],
             "test_window": [str(pd.Timestamp(test_start).date()), str(pd.Timestamp(test_end).date())],
@@ -513,9 +702,12 @@ def build_quantbench_supervised_report(
 __all__ = [
     "QUANTBENCH_SUPERVISED_MODEL_SPECS",
     "SupervisedModelSpec",
+    "RiskAwarePositionConfig",
     "backtest_prediction_strategy",
     "build_quantbench_supervised_report",
     "build_supervised_summary_payloads",
     "fit_quantbench_supervised_models",
+    "quantbench_risk_overlay_configs",
     "quantbench_supervised_model_specs",
+    "risk_aware_position_series",
 ]

@@ -5,11 +5,13 @@ import pandas as pd
 
 from src.soxl_quant.app.quantbench_objectives import build_soxl_supervised_targets
 from src.soxl_quant.app.quantbench_supervised import (
+    RiskAwarePositionConfig,
     backtest_prediction_strategy,
     build_quantbench_supervised_report,
     build_supervised_summary_payloads,
     fit_quantbench_supervised_models,
     quantbench_supervised_model_specs,
+    risk_aware_position_series,
 )
 
 
@@ -25,6 +27,97 @@ def test_backtest_prediction_strategy_uses_lagged_rank_position_and_reports_metr
     assert metrics["max_dd"] >= 0.0
     assert 0.10 <= metrics["avg_pos"] <= 0.90
     assert metrics["trades"] > 0
+
+
+def test_risk_aware_position_series_caps_stress_and_restores_bull_participation():
+    index = pd.date_range("2024-01-01", periods=8, freq="D")
+    predictions = pd.Series(np.linspace(0.1, 0.8, len(index)), index=index)
+    risk_frame = pd.DataFrame(
+        {
+            "regime_risk": [0.90, 0.85, 0.30, 0.25, 0.20, 0.20, 0.18, 0.16],
+            "cum_drop_30": [-0.24, -0.18, -0.05, -0.02, -0.01, -0.01, -0.01, -0.01],
+            "drawdown_63": [-0.30, -0.22, -0.06, -0.04, -0.03, -0.02, -0.02, -0.01],
+            "mom_21": [-0.10, -0.06, 0.01, 0.02, 0.04, 0.06, 0.08, 0.10],
+            "trend_gap_63": [-0.12, -0.08, 0.00, 0.01, 0.03, 0.04, 0.05, 0.06],
+        },
+        index=index,
+    )
+    config = RiskAwarePositionConfig(
+        name="test_overlay",
+        stress_cap=0.18,
+        defensive_cap=0.35,
+        bull_floor=0.55,
+        bull_cap=0.90,
+        stress_risk_threshold=0.70,
+        bull_risk_threshold=0.35,
+        bull_momentum_threshold=0.03,
+        bull_drawdown_floor=-0.08,
+    )
+
+    positions = risk_aware_position_series(
+        predictions,
+        risk_frame=risk_frame,
+        config=config,
+        min_position=0.10,
+        max_position=0.90,
+    )
+
+    assert positions.loc[index[:2]].max() <= 0.18
+    assert positions.loc[index[-3:]].min() >= 0.55
+    assert positions.max() <= 0.90
+
+
+def test_backtest_prediction_strategy_portfolio_drawdown_guard_reduces_crash_damage():
+    index = pd.date_range("2024-01-01", periods=10, freq="D")
+    close = pd.Series([100.0, 112.0, 92.0, 70.0, 50.0, 52.0, 58.0, 70.0, 88.0, 110.0], index=index)
+    predictions = pd.Series(np.linspace(0.8, 1.0, len(index)), index=index)
+    risk_frame = pd.DataFrame(
+        {
+            "regime_risk": [0.10, 0.15, 0.72, 0.85, 0.80, 0.55, 0.30, 0.25, 0.20, 0.18],
+            "cum_drop_30": [0.00, 0.00, -0.18, -0.32, -0.28, -0.20, -0.10, -0.05, -0.02, 0.00],
+            "drawdown_63": [0.00, 0.00, -0.18, -0.35, -0.30, -0.22, -0.12, -0.07, -0.03, 0.00],
+            "mom_21": [0.02, 0.04, -0.08, -0.20, -0.10, -0.04, 0.02, 0.04, 0.06, 0.08],
+            "trend_gap_63": [0.01, 0.02, -0.05, -0.12, -0.10, -0.05, 0.00, 0.02, 0.04, 0.06],
+        },
+        index=index,
+    )
+    no_guard_config = RiskAwarePositionConfig(
+        name="no_guard_test",
+        defensive_cap=0.80,
+        stress_cap=0.70,
+        crash_cap=0.60,
+    )
+    risk_config = RiskAwarePositionConfig(
+        name="guard_test",
+        defensive_cap=0.80,
+        stress_cap=0.70,
+        crash_cap=0.60,
+        portfolio_drawdown_trigger=0.10,
+        portfolio_drawdown_cap=0.02,
+        portfolio_drawdown_release=0.04,
+    )
+
+    plain = backtest_prediction_strategy(
+        close,
+        predictions,
+        min_position=0.20,
+        max_position=0.95,
+        cost=0.0,
+        risk_frame=risk_frame,
+        risk_config=no_guard_config,
+    )
+    guarded = backtest_prediction_strategy(
+        close,
+        predictions,
+        min_position=0.20,
+        max_position=0.95,
+        cost=0.0,
+        risk_frame=risk_frame,
+        risk_config=risk_config,
+    )
+
+    assert guarded["max_dd"] < plain["max_dd"]
+    assert guarded["avg_pos"] < plain["avg_pos"]
 
 
 def test_fit_quantbench_supervised_models_trains_clf_and_mse_specs():
@@ -85,6 +178,39 @@ def test_build_supervised_summary_payloads_matches_quantbench_screen_schema():
     assert payload["objective_metrics"]["ic"] == 0.1
 
 
+def test_build_supervised_summary_payloads_can_emit_risk_overlay_profiles():
+    index = pd.date_range("2020-01-01", periods=900, freq="D")
+    close = pd.Series(100.0 * np.cumprod(1.0 + np.sin(np.arange(len(index)) / 30.0) * 0.002), index=index)
+    prediction = pd.Series(np.cos(np.arange(len(index)) / 25.0), index=index)
+    risk_frame = pd.DataFrame(
+        {
+            "regime_risk": np.where(index.year == 2021, 0.85, 0.25),
+            "cum_drop_30": np.where(index.year == 2021, -0.22, -0.02),
+            "drawdown_63": np.where(index.year == 2021, -0.25, -0.03),
+            "mom_21": np.where(index.year == 2022, 0.06, 0.01),
+            "trend_gap_63": np.where(index.year == 2022, 0.04, 0.0),
+        },
+        index=index,
+    )
+
+    payloads = build_supervised_summary_payloads(
+        close,
+        {"ridge_mse": prediction},
+        objective_metrics={"ridge_mse": {"ic": 0.1, "rows": 100.0}},
+        profile_prefix="quantbench_supervised",
+        risk_frame=risk_frame,
+        risk_configs=(
+            RiskAwarePositionConfig(name="macro_budget_test", stress_cap=0.15, defensive_cap=0.35),
+        ),
+    )
+
+    profiles = {payload["profile"] for payload in payloads}
+    assert "quantbench_supervised_ridge_mse" in profiles
+    assert "quantbench_supervised_ridge_mse_macro_budget_test" in profiles
+    overlay_payload = [payload for payload in payloads if payload["profile"].endswith("macro_budget_test")][0]
+    assert overlay_payload["risk_overlay"]["name"] == "macro_budget_test"
+
+
 def test_build_quantbench_supervised_report_writes_screen_artifacts(tmp_path):
     index = pd.date_range("2024-01-01", periods=100, freq="D")
     signal = np.sin(np.arange(len(index)) / 8.0)
@@ -111,8 +237,13 @@ def test_build_quantbench_supervised_report_writes_screen_artifacts(tmp_path):
         test_end=index[90],
     )
 
-    assert report["screen"]["records"] == 2
+    assert report["screen"]["records"] == 8
     assert report["data"]["feature_count"] == 3
+    assert report["data"]["risk_overlays"] == [
+        "macro_budget_defensive_v1",
+        "macro_budget_lowdd_v1",
+        "macro_budget_bull_guard_v1",
+    ]
     assert (tmp_path / "supervised_summary.json").exists()
     assert (tmp_path / "supervised_candidate_screen.csv").read_text(encoding="utf-8").startswith("profile,")
     assert "supervised_payloads_json" in report["artifacts"]

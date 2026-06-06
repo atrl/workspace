@@ -54,6 +54,222 @@
   },
   {
     "model_family": "quantbench_supervised",
+    "model_name": "logistic_clf",
+    "objective": "clf",
+    "objective_metrics": {
+      "clf_accuracy": 0.471142,
+      "ic": 0.08440964644651328,
+      "mse": 0.26767543487215045,
+      "ranking_spread": 0.0074058477953278246,
+      "rows": 1594.0,
+      "utility_return": 0.01817873508150035
+    },
+    "paper_family": "linear_classifier",
+    "profile": "quantbench_supervised_logistic_clf_macro_budget_defensive_v1",
+    "risk_overlay": {
+      "bull_cap": 0.9,
+      "bull_drawdown_floor": -0.08,
+      "bull_floor": 0.55,
+      "bull_momentum_threshold": 0.03,
+      "bull_risk_threshold": 0.4,
+      "bull_trend_threshold": 0.0,
+      "crash_cap": 0.1,
+      "crash_drawdown_threshold": -0.25,
+      "crash_drop_threshold": -0.2,
+      "defensive_cap": 0.4,
+      "defensive_risk_threshold": 0.52,
+      "name": "macro_budget_defensive_v1",
+      "portfolio_drawdown_cap": 0.08,
+      "portfolio_drawdown_release": 0.08,
+      "portfolio_drawdown_trigger": 0.18,
+      "stress_cap": 0.18,
+      "stress_risk_threshold": 0.68
+    },
+    "slices": {
+      "test_2020": {
+        "avg_pos": 0.24441156712337328,
+        "buy_and_hold_return": 59.7753083811,
+        "max_dd": 19.9431275423,
+        "relative_return": -51.135944514,
+        "return": 8.6393638671,
+        "trades": 73,
+        "turnover": 10.151818181818182
+      },
+      "test_2022": {
+        "avg_pos": 0.10214917223536137,
+        "buy_and_hold_return": -86.5880717324,
+        "max_dd": 21.3500147874,
+        "relative_return": 68.3012226112,
+        "return": -18.2868491212,
+        "trades": 27,
+        "turnover": 1.5257370517928288
+      },
+      "test_2023_2024": {
+        "avg_pos": 0.1726129743972318,
+        "buy_and_hold_return": 191.7735092699,
+        "max_dd": 20.0118011364,
+        "relative_return": -182.6972016644,
+        "return": 9.0763076056,
+        "trades": 92,
+        "turnover": 14.012111553784862
+      }
+    },
+    "test_proxy": {
+      "avg_pos": 0.14106503528759828,
+      "buy_and_hold_return": 752.0859028087,
+      "max_dd": 25.3460772467,
+      "relative_return": -670.4005086257,
+      "return": 81.6853941831,
+      "trades": 181,
+      "turnover": 21.515796737766628
+    }
+  },
+  {
+    "model_family": "quantbench_supervised",
+    "model_name": "logistic_clf",
+    "objective": "clf",
+    "objective_metrics": {
+      "clf_accuracy": 0.471142,
+      "ic": 0.08440964644651328,
+      "mse": 0.26767543487215045,
+      "ranking_spread": 0.0074058477953278246,
+      "rows": 1594.0,
+      "utility_return": 0.01817873508150035
+    },
+    "paper_family": "linear_classifier",
+    "profile": "quantbench_supervised_logistic_clf_macro_budget_lowdd_v1",
+    "risk_overlay": {
+      "bull_cap": 0.7,
+      "bull_drawdown_floor": -0.06,
+      "bull_floor": 0.35,
+      "bull_momentum_threshold": 0.04,
+      "bull_risk_threshold": 0.32,
+      "bull_trend_threshold": 0.0,
+      "crash_cap": 0.04,
+      "crash_drawdown_threshold": -0.25,
+      "crash_drop_threshold": -0.2,
+      "defensive_cap": 0.25,
+      "defensive_risk_threshold": 0.48,
+      "name": "macro_budget_lowdd_v1",
+      "portfolio_drawdown_cap": 0.03,
+      "portfolio_drawdown_release": 0.05,
+      "portfolio_drawdown_trigger": 0.12,
+      "stress_cap": 0.08,
+      "stress_risk_threshold": 0.62
+    },
+    "slices": {
+      "test_2020": {
+        "avg_pos": 0.08073161586651875,
+        "buy_and_hold_return": 59.7753083811,
+        "max_dd": 14.1186267819,
+        "relative_return": -65.2903871378,
+        "return": -5.5150787566,
+        "trades": 26,
+        "turnover": 3.729762845849802
+      },
+      "test_2022": {
+        "avg_pos": 0.04416025142458056,
+        "buy_and_hold_return": -86.5880717324,
+        "max_dd": 13.2709137485,
+        "relative_return": 74.5793330259,
+        "return": -12.0087387065,
+        "trades": 15,
+        "turnover": 1.4469721115537848
+      },
+      "test_2023_2024": {
+        "avg_pos": 0.06604601514261677,
+        "buy_and_hold_return": 191.7735092699,
+        "max_dd": 12.5639530389,
+        "relative_return": -187.0486369096,
+        "return": 4.7248723604,
+        "trades": 44,
+        "turnover": 6.1718326693227095
+      }
+    },
+    "test_proxy": {
+      "avg_pos": 0.05507976114947995,
+      "buy_and_hold_return": 752.0859028087,
+      "max_dd": 13.7399782634,
+      "relative_return": -741.7442914746,
+      "return": 10.3416113341,
+      "trades": 138,
+      "turnover": 10.987578419071516
+    }
+  },
+  {
+    "model_family": "quantbench_supervised",
+    "model_name": "logistic_clf",
+    "objective": "clf",
+    "objective_metrics": {
+      "clf_accuracy": 0.471142,
+      "ic": 0.08440964644651328,
+      "mse": 0.26767543487215045,
+      "ranking_spread": 0.0074058477953278246,
+      "rows": 1594.0,
+      "utility_return": 0.01817873508150035
+    },
+    "paper_family": "linear_classifier",
+    "profile": "quantbench_supervised_logistic_clf_macro_budget_bull_guard_v1",
+    "risk_overlay": {
+      "bull_cap": 0.95,
+      "bull_drawdown_floor": -0.08,
+      "bull_floor": 0.65,
+      "bull_momentum_threshold": 0.03,
+      "bull_risk_threshold": 0.42,
+      "bull_trend_threshold": 0.0,
+      "crash_cap": 0.08,
+      "crash_drawdown_threshold": -0.25,
+      "crash_drop_threshold": -0.2,
+      "defensive_cap": 0.35,
+      "defensive_risk_threshold": 0.55,
+      "name": "macro_budget_bull_guard_v1",
+      "portfolio_drawdown_cap": 0.06,
+      "portfolio_drawdown_release": 0.07,
+      "portfolio_drawdown_trigger": 0.16,
+      "stress_cap": 0.15,
+      "stress_risk_threshold": 0.7
+    },
+    "slices": {
+      "test_2020": {
+        "avg_pos": 0.12074567638925776,
+        "buy_and_hold_return": 59.7753083811,
+        "max_dd": 22.6360722795,
+        "relative_return": -66.7119097649,
+        "return": -6.9366013837,
+        "trades": 17,
+        "turnover": 3.8139130434782613
+      },
+      "test_2022": {
+        "avg_pos": 0.0838239075570229,
+        "buy_and_hold_return": -86.5880717324,
+        "max_dd": 19.3638650388,
+        "relative_return": 69.5551619632,
+        "return": -17.0329097692,
+        "trades": 23,
+        "turnover": 1.999442231075697
+      },
+      "test_2023_2024": {
+        "avg_pos": 0.10846446881795528,
+        "buy_and_hold_return": 191.7735092699,
+        "max_dd": 20.0159989166,
+        "relative_return": -183.0506233498,
+        "return": 8.7228859201,
+        "trades": 32,
+        "turnover": 8.901673306772908
+      }
+    },
+    "test_proxy": {
+      "avg_pos": 0.08007499893735763,
+      "buy_and_hold_return": 752.0859028087,
+      "max_dd": 24.9847517147,
+      "relative_return": -752.4468323008,
+      "return": -0.3609294921,
+      "trades": 46,
+      "turnover": 10.190966122961106
+    }
+  },
+  {
+    "model_family": "quantbench_supervised",
     "model_name": "ridge_ic",
     "objective": "ic",
     "objective_metrics": {
@@ -103,6 +319,222 @@
       "return": 854.4893163147,
       "trades": 1594,
       "turnover": 68.60188205771644
+    }
+  },
+  {
+    "model_family": "quantbench_supervised",
+    "model_name": "ridge_ic",
+    "objective": "ic",
+    "objective_metrics": {
+      "clf_accuracy": 0.444793,
+      "ic": -0.11069042644905039,
+      "mse": 0.31710871198278584,
+      "ranking_spread": -0.007967587447005181,
+      "rows": 1594.0,
+      "utility_return": 0.009131597749335685
+    },
+    "paper_family": "linear_regression",
+    "profile": "quantbench_supervised_ridge_ic_macro_budget_defensive_v1",
+    "risk_overlay": {
+      "bull_cap": 0.9,
+      "bull_drawdown_floor": -0.08,
+      "bull_floor": 0.55,
+      "bull_momentum_threshold": 0.03,
+      "bull_risk_threshold": 0.4,
+      "bull_trend_threshold": 0.0,
+      "crash_cap": 0.1,
+      "crash_drawdown_threshold": -0.25,
+      "crash_drop_threshold": -0.2,
+      "defensive_cap": 0.4,
+      "defensive_risk_threshold": 0.52,
+      "name": "macro_budget_defensive_v1",
+      "portfolio_drawdown_cap": 0.08,
+      "portfolio_drawdown_release": 0.08,
+      "portfolio_drawdown_trigger": 0.18,
+      "stress_cap": 0.18,
+      "stress_risk_threshold": 0.68
+    },
+    "slices": {
+      "test_2020": {
+        "avg_pos": 0.15932775078504588,
+        "buy_and_hold_return": 59.7753083811,
+        "max_dd": 21.3775749591,
+        "relative_return": -69.9917169706,
+        "return": -10.2164085895,
+        "trades": 41,
+        "turnover": 5.0621343873517795
+      },
+      "test_2022": {
+        "avg_pos": 0.11711210933159794,
+        "buy_and_hold_return": -86.5880717324,
+        "max_dd": 24.243782254,
+        "relative_return": 65.2985659979,
+        "return": -21.2895057345,
+        "trades": 44,
+        "turnover": 2.990916334661355
+      },
+      "test_2023_2024": {
+        "avg_pos": 0.1709884763733909,
+        "buy_and_hold_return": 191.7735092699,
+        "max_dd": 19.9533338812,
+        "relative_return": -183.0460606968,
+        "return": 8.7274485732,
+        "trades": 95,
+        "turnover": 13.156733067729085
+      }
+    },
+    "test_proxy": {
+      "avg_pos": 0.139100878608458,
+      "buy_and_hold_return": 752.0859028087,
+      "max_dd": 26.3821207947,
+      "relative_return": -658.8994604706,
+      "return": 93.1864423381,
+      "trades": 171,
+      "turnover": 21.638381430363864
+    }
+  },
+  {
+    "model_family": "quantbench_supervised",
+    "model_name": "ridge_ic",
+    "objective": "ic",
+    "objective_metrics": {
+      "clf_accuracy": 0.444793,
+      "ic": -0.11069042644905039,
+      "mse": 0.31710871198278584,
+      "ranking_spread": -0.007967587447005181,
+      "rows": 1594.0,
+      "utility_return": 0.009131597749335685
+    },
+    "paper_family": "linear_regression",
+    "profile": "quantbench_supervised_ridge_ic_macro_budget_lowdd_v1",
+    "risk_overlay": {
+      "bull_cap": 0.7,
+      "bull_drawdown_floor": -0.06,
+      "bull_floor": 0.35,
+      "bull_momentum_threshold": 0.04,
+      "bull_risk_threshold": 0.32,
+      "bull_trend_threshold": 0.0,
+      "crash_cap": 0.04,
+      "crash_drawdown_threshold": -0.25,
+      "crash_drop_threshold": -0.2,
+      "defensive_cap": 0.25,
+      "defensive_risk_threshold": 0.48,
+      "name": "macro_budget_lowdd_v1",
+      "portfolio_drawdown_cap": 0.03,
+      "portfolio_drawdown_release": 0.05,
+      "portfolio_drawdown_trigger": 0.12,
+      "stress_cap": 0.08,
+      "stress_risk_threshold": 0.62
+    },
+    "slices": {
+      "test_2020": {
+        "avg_pos": 0.08502319986251929,
+        "buy_and_hold_return": 59.7753083811,
+        "max_dd": 14.8855817695,
+        "relative_return": -65.183399531,
+        "return": -5.4080911498,
+        "trades": 25,
+        "turnover": 3.4641501976284585
+      },
+      "test_2022": {
+        "avg_pos": 0.044126918620339364,
+        "buy_and_hold_return": -86.5880717324,
+        "max_dd": 12.8855152594,
+        "relative_return": 74.9746229456,
+        "return": -11.6134487868,
+        "trades": 15,
+        "turnover": 1.3513545816733068
+      },
+      "test_2023_2024": {
+        "avg_pos": 0.06493428675735306,
+        "buy_and_hold_return": 191.7735092699,
+        "max_dd": 12.1323503896,
+        "relative_return": -185.8955133931,
+        "return": 5.8779958769,
+        "trades": 41,
+        "turnover": 5.550239043824701
+      }
+    },
+    "test_proxy": {
+      "avg_pos": 0.04159888320222164,
+      "buy_and_hold_return": 752.0859028087,
+      "max_dd": 14.5664222806,
+      "relative_return": -757.7541585855,
+      "return": -5.6682557768,
+      "trades": 59,
+      "turnover": 5.430878293601003
+    }
+  },
+  {
+    "model_family": "quantbench_supervised",
+    "model_name": "ridge_ic",
+    "objective": "ic",
+    "objective_metrics": {
+      "clf_accuracy": 0.444793,
+      "ic": -0.11069042644905039,
+      "mse": 0.31710871198278584,
+      "ranking_spread": -0.007967587447005181,
+      "rows": 1594.0,
+      "utility_return": 0.009131597749335685
+    },
+    "paper_family": "linear_regression",
+    "profile": "quantbench_supervised_ridge_ic_macro_budget_bull_guard_v1",
+    "risk_overlay": {
+      "bull_cap": 0.95,
+      "bull_drawdown_floor": -0.08,
+      "bull_floor": 0.65,
+      "bull_momentum_threshold": 0.03,
+      "bull_risk_threshold": 0.42,
+      "bull_trend_threshold": 0.0,
+      "crash_cap": 0.08,
+      "crash_drawdown_threshold": -0.25,
+      "crash_drop_threshold": -0.2,
+      "defensive_cap": 0.35,
+      "defensive_risk_threshold": 0.55,
+      "name": "macro_budget_bull_guard_v1",
+      "portfolio_drawdown_cap": 0.06,
+      "portfolio_drawdown_release": 0.07,
+      "portfolio_drawdown_trigger": 0.16,
+      "stress_cap": 0.15,
+      "stress_risk_threshold": 0.7
+    },
+    "slices": {
+      "test_2020": {
+        "avg_pos": 0.12192363573872425,
+        "buy_and_hold_return": 59.7753083811,
+        "max_dd": 23.2766444618,
+        "relative_return": -67.4747155114,
+        "return": -7.6994071302,
+        "trades": 21,
+        "turnover": 4.1305138339920955
+      },
+      "test_2022": {
+        "avg_pos": 0.08307566546562754,
+        "buy_and_hold_return": -86.5880717324,
+        "max_dd": 18.2717396577,
+        "relative_return": 70.678857501,
+        "return": -15.9092142314,
+        "trades": 28,
+        "turnover": 2.0388844621513944
+      },
+      "test_2023_2024": {
+        "avg_pos": 0.10680616180695547,
+        "buy_and_hold_return": 191.7735092699,
+        "max_dd": 19.999811511,
+        "relative_return": -184.682469137,
+        "return": 7.091040133,
+        "trades": 28,
+        "turnover": 8.055059760956176
+      }
+    },
+    "test_proxy": {
+      "avg_pos": 0.08120191149684595,
+      "buy_and_hold_return": 752.0859028087,
+      "max_dd": 25.4883690765,
+      "relative_return": -752.0279934603,
+      "return": 0.0579093484,
+      "trades": 56,
+      "turnover": 11.358971141781682
     }
   },
   {
@@ -160,15 +592,231 @@
   },
   {
     "model_family": "quantbench_supervised",
+    "model_name": "ridge_mse",
+    "objective": "mse",
+    "objective_metrics": {
+      "clf_accuracy": 0.444793,
+      "ic": -0.11069042644905039,
+      "mse": 0.31710871198278584,
+      "ranking_spread": -0.007967587447005181,
+      "rows": 1594.0,
+      "utility_return": 0.009131597749335685
+    },
+    "paper_family": "linear_regression",
+    "profile": "quantbench_supervised_ridge_mse_macro_budget_defensive_v1",
+    "risk_overlay": {
+      "bull_cap": 0.9,
+      "bull_drawdown_floor": -0.08,
+      "bull_floor": 0.55,
+      "bull_momentum_threshold": 0.03,
+      "bull_risk_threshold": 0.4,
+      "bull_trend_threshold": 0.0,
+      "crash_cap": 0.1,
+      "crash_drawdown_threshold": -0.25,
+      "crash_drop_threshold": -0.2,
+      "defensive_cap": 0.4,
+      "defensive_risk_threshold": 0.52,
+      "name": "macro_budget_defensive_v1",
+      "portfolio_drawdown_cap": 0.08,
+      "portfolio_drawdown_release": 0.08,
+      "portfolio_drawdown_trigger": 0.18,
+      "stress_cap": 0.18,
+      "stress_risk_threshold": 0.68
+    },
+    "slices": {
+      "test_2020": {
+        "avg_pos": 0.15932775078504588,
+        "buy_and_hold_return": 59.7753083811,
+        "max_dd": 21.3775749591,
+        "relative_return": -69.9917169706,
+        "return": -10.2164085895,
+        "trades": 41,
+        "turnover": 5.0621343873517795
+      },
+      "test_2022": {
+        "avg_pos": 0.11711210933159794,
+        "buy_and_hold_return": -86.5880717324,
+        "max_dd": 24.243782254,
+        "relative_return": 65.2985659979,
+        "return": -21.2895057345,
+        "trades": 44,
+        "turnover": 2.990916334661355
+      },
+      "test_2023_2024": {
+        "avg_pos": 0.1709884763733909,
+        "buy_and_hold_return": 191.7735092699,
+        "max_dd": 19.9533338812,
+        "relative_return": -183.0460606968,
+        "return": 8.7274485732,
+        "trades": 95,
+        "turnover": 13.156733067729085
+      }
+    },
+    "test_proxy": {
+      "avg_pos": 0.139100878608458,
+      "buy_and_hold_return": 752.0859028087,
+      "max_dd": 26.3821207947,
+      "relative_return": -658.8994604706,
+      "return": 93.1864423381,
+      "trades": 171,
+      "turnover": 21.638381430363864
+    }
+  },
+  {
+    "model_family": "quantbench_supervised",
+    "model_name": "ridge_mse",
+    "objective": "mse",
+    "objective_metrics": {
+      "clf_accuracy": 0.444793,
+      "ic": -0.11069042644905039,
+      "mse": 0.31710871198278584,
+      "ranking_spread": -0.007967587447005181,
+      "rows": 1594.0,
+      "utility_return": 0.009131597749335685
+    },
+    "paper_family": "linear_regression",
+    "profile": "quantbench_supervised_ridge_mse_macro_budget_lowdd_v1",
+    "risk_overlay": {
+      "bull_cap": 0.7,
+      "bull_drawdown_floor": -0.06,
+      "bull_floor": 0.35,
+      "bull_momentum_threshold": 0.04,
+      "bull_risk_threshold": 0.32,
+      "bull_trend_threshold": 0.0,
+      "crash_cap": 0.04,
+      "crash_drawdown_threshold": -0.25,
+      "crash_drop_threshold": -0.2,
+      "defensive_cap": 0.25,
+      "defensive_risk_threshold": 0.48,
+      "name": "macro_budget_lowdd_v1",
+      "portfolio_drawdown_cap": 0.03,
+      "portfolio_drawdown_release": 0.05,
+      "portfolio_drawdown_trigger": 0.12,
+      "stress_cap": 0.08,
+      "stress_risk_threshold": 0.62
+    },
+    "slices": {
+      "test_2020": {
+        "avg_pos": 0.08502319986251929,
+        "buy_and_hold_return": 59.7753083811,
+        "max_dd": 14.8855817695,
+        "relative_return": -65.183399531,
+        "return": -5.4080911498,
+        "trades": 25,
+        "turnover": 3.4641501976284585
+      },
+      "test_2022": {
+        "avg_pos": 0.044126918620339364,
+        "buy_and_hold_return": -86.5880717324,
+        "max_dd": 12.8855152594,
+        "relative_return": 74.9746229456,
+        "return": -11.6134487868,
+        "trades": 15,
+        "turnover": 1.3513545816733068
+      },
+      "test_2023_2024": {
+        "avg_pos": 0.06493428675735306,
+        "buy_and_hold_return": 191.7735092699,
+        "max_dd": 12.1323503896,
+        "relative_return": -185.8955133931,
+        "return": 5.8779958769,
+        "trades": 41,
+        "turnover": 5.550239043824701
+      }
+    },
+    "test_proxy": {
+      "avg_pos": 0.04159888320222164,
+      "buy_and_hold_return": 752.0859028087,
+      "max_dd": 14.5664222806,
+      "relative_return": -757.7541585855,
+      "return": -5.6682557768,
+      "trades": 59,
+      "turnover": 5.430878293601003
+    }
+  },
+  {
+    "model_family": "quantbench_supervised",
+    "model_name": "ridge_mse",
+    "objective": "mse",
+    "objective_metrics": {
+      "clf_accuracy": 0.444793,
+      "ic": -0.11069042644905039,
+      "mse": 0.31710871198278584,
+      "ranking_spread": -0.007967587447005181,
+      "rows": 1594.0,
+      "utility_return": 0.009131597749335685
+    },
+    "paper_family": "linear_regression",
+    "profile": "quantbench_supervised_ridge_mse_macro_budget_bull_guard_v1",
+    "risk_overlay": {
+      "bull_cap": 0.95,
+      "bull_drawdown_floor": -0.08,
+      "bull_floor": 0.65,
+      "bull_momentum_threshold": 0.03,
+      "bull_risk_threshold": 0.42,
+      "bull_trend_threshold": 0.0,
+      "crash_cap": 0.08,
+      "crash_drawdown_threshold": -0.25,
+      "crash_drop_threshold": -0.2,
+      "defensive_cap": 0.35,
+      "defensive_risk_threshold": 0.55,
+      "name": "macro_budget_bull_guard_v1",
+      "portfolio_drawdown_cap": 0.06,
+      "portfolio_drawdown_release": 0.07,
+      "portfolio_drawdown_trigger": 0.16,
+      "stress_cap": 0.15,
+      "stress_risk_threshold": 0.7
+    },
+    "slices": {
+      "test_2020": {
+        "avg_pos": 0.12192363573872425,
+        "buy_and_hold_return": 59.7753083811,
+        "max_dd": 23.2766444618,
+        "relative_return": -67.4747155114,
+        "return": -7.6994071302,
+        "trades": 21,
+        "turnover": 4.1305138339920955
+      },
+      "test_2022": {
+        "avg_pos": 0.08307566546562754,
+        "buy_and_hold_return": -86.5880717324,
+        "max_dd": 18.2717396577,
+        "relative_return": 70.678857501,
+        "return": -15.9092142314,
+        "trades": 28,
+        "turnover": 2.0388844621513944
+      },
+      "test_2023_2024": {
+        "avg_pos": 0.10680616180695547,
+        "buy_and_hold_return": 191.7735092699,
+        "max_dd": 19.999811511,
+        "relative_return": -184.682469137,
+        "return": 7.091040133,
+        "trades": 28,
+        "turnover": 8.055059760956176
+      }
+    },
+    "test_proxy": {
+      "avg_pos": 0.08120191149684595,
+      "buy_and_hold_return": 752.0859028087,
+      "max_dd": 25.4883690765,
+      "relative_return": -752.0279934603,
+      "return": 0.0579093484,
+      "trades": 56,
+      "turnover": 11.358971141781682
+    }
+  },
+  {
+    "model_family": "quantbench_supervised",
     "model_name": "random_forest_clf",
     "objective": "clf",
     "objective_metrics": {
       "clf_accuracy": 0.5,
-      "ic": -0.03280759961806667,
+      "ic": -0.032807599618066646,
       "mse": 0.10474681848761278,
       "ranking_spread": -0.07485088712876582,
       "rows": 1594.0,
-      "utility_return": 0.008161107694169417
+      "utility_return": 0.008161107694169419
     },
     "paper_family": "tree",
     "profile": "quantbench_supervised_random_forest_clf",
@@ -209,6 +857,222 @@
       "return": 587.4189000727,
       "trades": 1594,
       "turnover": 92.36097867001256
+    }
+  },
+  {
+    "model_family": "quantbench_supervised",
+    "model_name": "random_forest_clf",
+    "objective": "clf",
+    "objective_metrics": {
+      "clf_accuracy": 0.5,
+      "ic": -0.032807599618066646,
+      "mse": 0.10474681848761278,
+      "ranking_spread": -0.07485088712876582,
+      "rows": 1594.0,
+      "utility_return": 0.008161107694169419
+    },
+    "paper_family": "tree",
+    "profile": "quantbench_supervised_random_forest_clf_macro_budget_defensive_v1",
+    "risk_overlay": {
+      "bull_cap": 0.9,
+      "bull_drawdown_floor": -0.08,
+      "bull_floor": 0.55,
+      "bull_momentum_threshold": 0.03,
+      "bull_risk_threshold": 0.4,
+      "bull_trend_threshold": 0.0,
+      "crash_cap": 0.1,
+      "crash_drawdown_threshold": -0.25,
+      "crash_drop_threshold": -0.2,
+      "defensive_cap": 0.4,
+      "defensive_risk_threshold": 0.52,
+      "name": "macro_budget_defensive_v1",
+      "portfolio_drawdown_cap": 0.08,
+      "portfolio_drawdown_release": 0.08,
+      "portfolio_drawdown_trigger": 0.18,
+      "stress_cap": 0.18,
+      "stress_risk_threshold": 0.68
+    },
+    "slices": {
+      "test_2020": {
+        "avg_pos": 0.3530152009873612,
+        "buy_and_hold_return": 59.7753083811,
+        "max_dd": 17.9488447263,
+        "relative_return": -20.8877259229,
+        "return": 38.8875824582,
+        "trades": 103,
+        "turnover": 13.117865612648222
+      },
+      "test_2022": {
+        "avg_pos": 0.10339423183758989,
+        "buy_and_hold_return": -86.5880717324,
+        "max_dd": 22.6883437373,
+        "relative_return": 66.9099506225,
+        "return": -19.6781211099,
+        "trades": 17,
+        "turnover": 1.1732270916334662
+      },
+      "test_2023_2024": {
+        "avg_pos": 0.17903104712623608,
+        "buy_and_hold_return": 191.7735092699,
+        "max_dd": 20.9818046903,
+        "relative_return": -176.9387042757,
+        "return": 14.8348049942,
+        "trades": 100,
+        "turnover": 13.691235059760958
+      }
+    },
+    "test_proxy": {
+      "avg_pos": 0.13921619498464285,
+      "buy_and_hold_return": 752.0859028087,
+      "max_dd": 23.9788223544,
+      "relative_return": -667.2301917335,
+      "return": 84.8557110752,
+      "trades": 169,
+      "turnover": 22.41745294855709
+    }
+  },
+  {
+    "model_family": "quantbench_supervised",
+    "model_name": "random_forest_clf",
+    "objective": "clf",
+    "objective_metrics": {
+      "clf_accuracy": 0.5,
+      "ic": -0.032807599618066646,
+      "mse": 0.10474681848761278,
+      "ranking_spread": -0.07485088712876582,
+      "rows": 1594.0,
+      "utility_return": 0.008161107694169419
+    },
+    "paper_family": "tree",
+    "profile": "quantbench_supervised_random_forest_clf_macro_budget_lowdd_v1",
+    "risk_overlay": {
+      "bull_cap": 0.7,
+      "bull_drawdown_floor": -0.06,
+      "bull_floor": 0.35,
+      "bull_momentum_threshold": 0.04,
+      "bull_risk_threshold": 0.32,
+      "bull_trend_threshold": 0.0,
+      "crash_cap": 0.04,
+      "crash_drawdown_threshold": -0.25,
+      "crash_drop_threshold": -0.2,
+      "defensive_cap": 0.25,
+      "defensive_risk_threshold": 0.48,
+      "name": "macro_budget_lowdd_v1",
+      "portfolio_drawdown_cap": 0.03,
+      "portfolio_drawdown_release": 0.05,
+      "portfolio_drawdown_trigger": 0.12,
+      "stress_cap": 0.08,
+      "stress_risk_threshold": 0.62
+    },
+    "slices": {
+      "test_2020": {
+        "avg_pos": 0.15484806824040373,
+        "buy_and_hold_return": 59.7753083811,
+        "max_dd": 12.4332669934,
+        "relative_return": -56.9699202896,
+        "return": 2.8053880916,
+        "trades": 87,
+        "turnover": 7.753399209486166
+      },
+      "test_2022": {
+        "avg_pos": 0.044312629958254635,
+        "buy_and_hold_return": -86.5880717324,
+        "max_dd": 13.5154001499,
+        "relative_return": 74.330393494,
+        "return": -12.2576782384,
+        "trades": 15,
+        "turnover": 1.4979681274900398
+      },
+      "test_2023_2024": {
+        "avg_pos": 0.10081760606974494,
+        "buy_and_hold_return": 191.7735092699,
+        "max_dd": 12.9274219449,
+        "relative_return": -182.1894042014,
+        "return": 9.5841050686,
+        "trades": 96,
+        "turnover": 8.886015936254982
+      }
+    },
+    "test_proxy": {
+      "avg_pos": 0.052411009604712795,
+      "buy_and_hold_return": 752.0859028087,
+      "max_dd": 14.5699158887,
+      "relative_return": -742.2992871057,
+      "return": 9.786615703,
+      "trades": 108,
+      "turnover": 9.672421580928482
+    }
+  },
+  {
+    "model_family": "quantbench_supervised",
+    "model_name": "random_forest_clf",
+    "objective": "clf",
+    "objective_metrics": {
+      "clf_accuracy": 0.5,
+      "ic": -0.032807599618066646,
+      "mse": 0.10474681848761278,
+      "ranking_spread": -0.07485088712876582,
+      "rows": 1594.0,
+      "utility_return": 0.008161107694169419
+    },
+    "paper_family": "tree",
+    "profile": "quantbench_supervised_random_forest_clf_macro_budget_bull_guard_v1",
+    "risk_overlay": {
+      "bull_cap": 0.95,
+      "bull_drawdown_floor": -0.08,
+      "bull_floor": 0.65,
+      "bull_momentum_threshold": 0.03,
+      "bull_risk_threshold": 0.42,
+      "bull_trend_threshold": 0.0,
+      "crash_cap": 0.08,
+      "crash_drawdown_threshold": -0.25,
+      "crash_drop_threshold": -0.2,
+      "defensive_cap": 0.35,
+      "defensive_risk_threshold": 0.55,
+      "name": "macro_budget_bull_guard_v1",
+      "portfolio_drawdown_cap": 0.06,
+      "portfolio_drawdown_release": 0.07,
+      "portfolio_drawdown_trigger": 0.16,
+      "stress_cap": 0.15,
+      "stress_risk_threshold": 0.7
+    },
+    "slices": {
+      "test_2020": {
+        "avg_pos": 0.11606711556187412,
+        "buy_and_hold_return": 59.7753083811,
+        "max_dd": 19.8729890212,
+        "relative_return": -63.9125916586,
+        "return": -4.1372832774,
+        "trades": 20,
+        "turnover": 2.9807114624505933
+      },
+      "test_2022": {
+        "avg_pos": 0.0841799336518468,
+        "buy_and_hold_return": -86.5880717324,
+        "max_dd": 20.0097731778,
+        "relative_return": 68.8905825054,
+        "return": -17.697489227,
+        "trades": 17,
+        "turnover": 1.796653386454183
+      },
+      "test_2023_2024": {
+        "avg_pos": 0.11332804241202522,
+        "buy_and_hold_return": 191.7735092699,
+        "max_dd": 20.1454921782,
+        "relative_return": -183.8991434351,
+        "return": 7.8743658348,
+        "trades": 33,
+        "turnover": 7.694900398406375
+      }
+    },
+    "test_proxy": {
+      "avg_pos": 0.08345457164492318,
+      "buy_and_hold_return": 752.0859028087,
+      "max_dd": 24.9125032183,
+      "relative_return": -746.9908990489,
+      "return": 5.0950037598,
+      "trades": 48,
+      "turnover": 11.494893350062735
     }
   },
   {
@@ -266,11 +1130,227 @@
   },
   {
     "model_family": "quantbench_supervised",
+    "model_name": "hist_gradient_mse",
+    "objective": "mse",
+    "objective_metrics": {
+      "clf_accuracy": 0.456713,
+      "ic": 0.049199688176420335,
+      "mse": 0.11189420335984564,
+      "ranking_spread": 0.05409687216918851,
+      "rows": 1594.0,
+      "utility_return": 0.010012003399997783
+    },
+    "paper_family": "boosted_tree",
+    "profile": "quantbench_supervised_hist_gradient_mse_macro_budget_defensive_v1",
+    "risk_overlay": {
+      "bull_cap": 0.9,
+      "bull_drawdown_floor": -0.08,
+      "bull_floor": 0.55,
+      "bull_momentum_threshold": 0.03,
+      "bull_risk_threshold": 0.4,
+      "bull_trend_threshold": 0.0,
+      "crash_cap": 0.1,
+      "crash_drawdown_threshold": -0.25,
+      "crash_drop_threshold": -0.2,
+      "defensive_cap": 0.4,
+      "defensive_risk_threshold": 0.52,
+      "name": "macro_budget_defensive_v1",
+      "portfolio_drawdown_cap": 0.08,
+      "portfolio_drawdown_release": 0.08,
+      "portfolio_drawdown_trigger": 0.18,
+      "stress_cap": 0.18,
+      "stress_risk_threshold": 0.68
+    },
+    "slices": {
+      "test_2020": {
+        "avg_pos": 0.34471574309862674,
+        "buy_and_hold_return": 59.7753083811,
+        "max_dd": 17.5263189546,
+        "relative_return": -12.935152895,
+        "return": 46.8401554861,
+        "trades": 107,
+        "turnover": 13.035889328063242
+      },
+      "test_2022": {
+        "avg_pos": 0.10382247900826971,
+        "buy_and_hold_return": -86.5880717324,
+        "max_dd": 22.9727710441,
+        "relative_return": 66.6091422787,
+        "return": -19.9789294537,
+        "trades": 17,
+        "turnover": 1.1222310756972111
+      },
+      "test_2023_2024": {
+        "avg_pos": 0.14633045507214174,
+        "buy_and_hold_return": 191.7735092699,
+        "max_dd": 19.7158535655,
+        "relative_return": -187.3736112283,
+        "return": 4.3998980417,
+        "trades": 64,
+        "turnover": 10.176733067729085
+      }
+    },
+    "test_proxy": {
+      "avg_pos": 0.1455060381701141,
+      "buy_and_hold_return": 752.0859028087,
+      "max_dd": 24.755814171,
+      "relative_return": -685.315082663,
+      "return": 66.7708201457,
+      "trades": 201,
+      "turnover": 26.549159347553324
+    }
+  },
+  {
+    "model_family": "quantbench_supervised",
+    "model_name": "hist_gradient_mse",
+    "objective": "mse",
+    "objective_metrics": {
+      "clf_accuracy": 0.456713,
+      "ic": 0.049199688176420335,
+      "mse": 0.11189420335984564,
+      "ranking_spread": 0.05409687216918851,
+      "rows": 1594.0,
+      "utility_return": 0.010012003399997783
+    },
+    "paper_family": "boosted_tree",
+    "profile": "quantbench_supervised_hist_gradient_mse_macro_budget_lowdd_v1",
+    "risk_overlay": {
+      "bull_cap": 0.7,
+      "bull_drawdown_floor": -0.06,
+      "bull_floor": 0.35,
+      "bull_momentum_threshold": 0.04,
+      "bull_risk_threshold": 0.32,
+      "bull_trend_threshold": 0.0,
+      "crash_cap": 0.04,
+      "crash_drawdown_threshold": -0.25,
+      "crash_drop_threshold": -0.2,
+      "defensive_cap": 0.25,
+      "defensive_risk_threshold": 0.48,
+      "name": "macro_budget_lowdd_v1",
+      "portfolio_drawdown_cap": 0.03,
+      "portfolio_drawdown_release": 0.05,
+      "portfolio_drawdown_trigger": 0.12,
+      "stress_cap": 0.08,
+      "stress_risk_threshold": 0.62
+    },
+    "slices": {
+      "test_2020": {
+        "avg_pos": 0.1564040994235186,
+        "buy_and_hold_return": 59.7753083811,
+        "max_dd": 12.5049379028,
+        "relative_return": -55.5626368832,
+        "return": 4.2126714979,
+        "trades": 94,
+        "turnover": 8.137588932806324
+      },
+      "test_2022": {
+        "avg_pos": 0.04477547975428962,
+        "buy_and_hold_return": -86.5880717324,
+        "max_dd": 14.0214735278,
+        "relative_return": 73.8111763171,
+        "return": -12.7768954153,
+        "trades": 15,
+        "turnover": 1.6445816733067729
+      },
+      "test_2023_2024": {
+        "avg_pos": 0.06568308439548577,
+        "buy_and_hold_return": 191.7735092699,
+        "max_dd": 12.1453492114,
+        "relative_return": -186.5621025071,
+        "return": 5.2114067628,
+        "trades": 38,
+        "turnover": 4.6525498007968125
+      }
+    },
+    "test_proxy": {
+      "avg_pos": 0.05215066222298488,
+      "buy_and_hold_return": 752.0859028087,
+      "max_dd": 14.1036116645,
+      "relative_return": -722.8233891382,
+      "return": 29.2625136705,
+      "trades": 126,
+      "turnover": 9.29237139272271
+    }
+  },
+  {
+    "model_family": "quantbench_supervised",
+    "model_name": "hist_gradient_mse",
+    "objective": "mse",
+    "objective_metrics": {
+      "clf_accuracy": 0.456713,
+      "ic": 0.049199688176420335,
+      "mse": 0.11189420335984564,
+      "ranking_spread": 0.05409687216918851,
+      "rows": 1594.0,
+      "utility_return": 0.010012003399997783
+    },
+    "paper_family": "boosted_tree",
+    "profile": "quantbench_supervised_hist_gradient_mse_macro_budget_bull_guard_v1",
+    "risk_overlay": {
+      "bull_cap": 0.95,
+      "bull_drawdown_floor": -0.08,
+      "bull_floor": 0.65,
+      "bull_momentum_threshold": 0.03,
+      "bull_risk_threshold": 0.42,
+      "bull_trend_threshold": 0.0,
+      "crash_cap": 0.08,
+      "crash_drawdown_threshold": -0.25,
+      "crash_drop_threshold": -0.2,
+      "defensive_cap": 0.35,
+      "defensive_risk_threshold": 0.55,
+      "name": "macro_budget_bull_guard_v1",
+      "portfolio_drawdown_cap": 0.06,
+      "portfolio_drawdown_release": 0.07,
+      "portfolio_drawdown_trigger": 0.16,
+      "stress_cap": 0.15,
+      "stress_risk_threshold": 0.7
+    },
+    "slices": {
+      "test_2020": {
+        "avg_pos": 0.1793147838585199,
+        "buy_and_hold_return": 59.7753083811,
+        "max_dd": 18.3619024793,
+        "relative_return": -52.1366964791,
+        "return": 7.638611902,
+        "trades": 34,
+        "turnover": 6.067351778656127
+      },
+      "test_2022": {
+        "avg_pos": 0.0803701528547166,
+        "buy_and_hold_return": -86.5880717324,
+        "max_dd": 19.6830926207,
+        "relative_return": 69.2267064438,
+        "return": -17.3613652886,
+        "trades": 15,
+        "turnover": 1.5518725099601591
+      },
+      "test_2023_2024": {
+        "avg_pos": 0.11357446707195126,
+        "buy_and_hold_return": 191.7735092699,
+        "max_dd": 20.3459768865,
+        "relative_return": -184.4607393651,
+        "return": 7.3127699048,
+        "trades": 38,
+        "turnover": 8.42996015936255
+      }
+    },
+    "test_proxy": {
+      "avg_pos": 0.0794016221432631,
+      "buy_and_hold_return": 752.0859028087,
+      "max_dd": 23.6302730649,
+      "relative_return": -758.6755230017,
+      "return": -6.589620193,
+      "trades": 49,
+      "turnover": 11.197816813048933
+    }
+  },
+  {
+    "model_family": "quantbench_supervised",
     "model_name": "extra_trees_rank",
     "objective": "ranking",
     "objective_metrics": {
       "clf_accuracy": 0.493726,
-      "ic": -0.017903180350612696,
+      "ic": -0.01790318035061268,
       "mse": 0.09950123746607113,
       "ranking_spread": -0.003517271828936075,
       "rows": 1594.0,
@@ -315,6 +1395,222 @@
       "return": 325.0095334986,
       "trades": 1584,
       "turnover": 64.05984943538269
+    }
+  },
+  {
+    "model_family": "quantbench_supervised",
+    "model_name": "extra_trees_rank",
+    "objective": "ranking",
+    "objective_metrics": {
+      "clf_accuracy": 0.493726,
+      "ic": -0.01790318035061268,
+      "mse": 0.09950123746607113,
+      "ranking_spread": -0.003517271828936075,
+      "rows": 1594.0,
+      "utility_return": 0.007680649499740533
+    },
+    "paper_family": "tree_ensemble",
+    "profile": "quantbench_supervised_extra_trees_rank_macro_budget_defensive_v1",
+    "risk_overlay": {
+      "bull_cap": 0.9,
+      "bull_drawdown_floor": -0.08,
+      "bull_floor": 0.55,
+      "bull_momentum_threshold": 0.03,
+      "bull_risk_threshold": 0.4,
+      "bull_trend_threshold": 0.0,
+      "crash_cap": 0.1,
+      "crash_drawdown_threshold": -0.25,
+      "crash_drop_threshold": -0.2,
+      "defensive_cap": 0.4,
+      "defensive_risk_threshold": 0.52,
+      "name": "macro_budget_defensive_v1",
+      "portfolio_drawdown_cap": 0.08,
+      "portfolio_drawdown_release": 0.08,
+      "portfolio_drawdown_trigger": 0.18,
+      "stress_cap": 0.18,
+      "stress_risk_threshold": 0.68
+    },
+    "slices": {
+      "test_2020": {
+        "avg_pos": 0.27487790779421645,
+        "buy_and_hold_return": 59.7753083811,
+        "max_dd": 19.3927493397,
+        "relative_return": -44.8530129108,
+        "return": 14.9222954703,
+        "trades": 76,
+        "turnover": 9.799644268774705
+      },
+      "test_2022": {
+        "avg_pos": 0.1027104331677275,
+        "buy_and_hold_return": -86.5880717324,
+        "max_dd": 21.4047779666,
+        "relative_return": 68.2414110608,
+        "return": -18.3466606715,
+        "trades": 26,
+        "turnover": 1.0924302788844622
+      },
+      "test_2023_2024": {
+        "avg_pos": 0.1898590498563515,
+        "buy_and_hold_return": 191.7735092699,
+        "max_dd": 20.2629261984,
+        "relative_return": -168.7342802538,
+        "return": 23.0392290161,
+        "trades": 113,
+        "turnover": 12.84780876494024
+      }
+    },
+    "test_proxy": {
+      "avg_pos": 0.14571411928987152,
+      "buy_and_hold_return": 752.0859028087,
+      "max_dd": 24.609006439,
+      "relative_return": -711.525046242,
+      "return": 40.5608565667,
+      "trades": 168,
+      "turnover": 24.24072772898369
+    }
+  },
+  {
+    "model_family": "quantbench_supervised",
+    "model_name": "extra_trees_rank",
+    "objective": "ranking",
+    "objective_metrics": {
+      "clf_accuracy": 0.493726,
+      "ic": -0.01790318035061268,
+      "mse": 0.09950123746607113,
+      "ranking_spread": -0.003517271828936075,
+      "rows": 1594.0,
+      "utility_return": 0.007680649499740533
+    },
+    "paper_family": "tree_ensemble",
+    "profile": "quantbench_supervised_extra_trees_rank_macro_budget_lowdd_v1",
+    "risk_overlay": {
+      "bull_cap": 0.7,
+      "bull_drawdown_floor": -0.06,
+      "bull_floor": 0.35,
+      "bull_momentum_threshold": 0.04,
+      "bull_risk_threshold": 0.32,
+      "bull_trend_threshold": 0.0,
+      "crash_cap": 0.04,
+      "crash_drawdown_threshold": -0.25,
+      "crash_drop_threshold": -0.2,
+      "defensive_cap": 0.25,
+      "defensive_risk_threshold": 0.48,
+      "name": "macro_budget_lowdd_v1",
+      "portfolio_drawdown_cap": 0.03,
+      "portfolio_drawdown_release": 0.05,
+      "portfolio_drawdown_trigger": 0.12,
+      "stress_cap": 0.08,
+      "stress_risk_threshold": 0.62
+    },
+    "slices": {
+      "test_2020": {
+        "avg_pos": 0.22540377134465467,
+        "buy_and_hold_return": 59.7753083811,
+        "max_dd": 11.6832270052,
+        "relative_return": -41.6780341781,
+        "return": 18.097274203,
+        "trades": 115,
+        "turnover": 11.693359683794467
+      },
+      "test_2022": {
+        "avg_pos": 0.04437088300185712,
+        "buy_and_hold_return": -86.5880717324,
+        "max_dd": 13.5664715032,
+        "relative_return": 74.2763429925,
+        "return": -12.3117287399,
+        "trades": 15,
+        "turnover": 1.5234661354581673
+      },
+      "test_2023_2024": {
+        "avg_pos": 0.05225361502198378,
+        "buy_and_hold_return": 191.7735092699,
+        "max_dd": 12.4657353665,
+        "relative_return": -186.0527429147,
+        "return": 5.7207663553,
+        "trades": 24,
+        "turnover": 4.511593625498008
+      }
+    },
+    "test_proxy": {
+      "avg_pos": 0.07064825120550874,
+      "buy_and_hold_return": 752.0859028087,
+      "max_dd": 14.4536531735,
+      "relative_return": -727.3824383326,
+      "return": 24.7034644761,
+      "trades": 156,
+      "turnover": 15.520338770388957
+    }
+  },
+  {
+    "model_family": "quantbench_supervised",
+    "model_name": "extra_trees_rank",
+    "objective": "ranking",
+    "objective_metrics": {
+      "clf_accuracy": 0.493726,
+      "ic": -0.01790318035061268,
+      "mse": 0.09950123746607113,
+      "ranking_spread": -0.003517271828936075,
+      "rows": 1594.0,
+      "utility_return": 0.007680649499740533
+    },
+    "paper_family": "tree_ensemble",
+    "profile": "quantbench_supervised_extra_trees_rank_macro_budget_bull_guard_v1",
+    "risk_overlay": {
+      "bull_cap": 0.95,
+      "bull_drawdown_floor": -0.08,
+      "bull_floor": 0.65,
+      "bull_momentum_threshold": 0.03,
+      "bull_risk_threshold": 0.42,
+      "bull_trend_threshold": 0.0,
+      "crash_cap": 0.08,
+      "crash_drawdown_threshold": -0.25,
+      "crash_drop_threshold": -0.2,
+      "defensive_cap": 0.35,
+      "defensive_risk_threshold": 0.55,
+      "name": "macro_budget_bull_guard_v1",
+      "portfolio_drawdown_cap": 0.06,
+      "portfolio_drawdown_release": 0.07,
+      "portfolio_drawdown_trigger": 0.16,
+      "stress_cap": 0.15,
+      "stress_risk_threshold": 0.7
+    },
+    "slices": {
+      "test_2020": {
+        "avg_pos": 0.11882875845584216,
+        "buy_and_hold_return": 59.7753083811,
+        "max_dd": 21.4833264221,
+        "relative_return": -66.2605401676,
+        "return": -6.4852317865,
+        "trades": 18,
+        "turnover": 4.035256916996048
+      },
+      "test_2022": {
+        "avg_pos": 0.08380486024031365,
+        "buy_and_hold_return": -86.5880717324,
+        "max_dd": 19.6262314497,
+        "relative_return": 69.2852113053,
+        "return": -17.3028604271,
+        "trades": 18,
+        "turnover": 1.6349003984063746
+      },
+      "test_2023_2024": {
+        "avg_pos": 0.11572998841288236,
+        "buy_and_hold_return": 191.7735092699,
+        "max_dd": 20.2415609499,
+        "relative_return": -184.2319183221,
+        "return": 7.5415909478,
+        "trades": 35,
+        "turnover": 7.9399203187251
+      }
+    },
+    "test_proxy": {
+      "avg_pos": 0.08977124851820427,
+      "buy_and_hold_return": 752.0859028087,
+      "max_dd": 22.6393457674,
+      "relative_return": -752.3001374163,
+      "return": -0.2142346075,
+      "trades": 62,
+      "turnover": 12.91076537013802
     }
   },
   {
@@ -368,6 +1664,222 @@
       "return": 1498.768596023,
       "trades": 1594,
       "turnover": 152.54215809284818
+    }
+  },
+  {
+    "model_family": "quantbench_supervised",
+    "model_name": "mlp_mse",
+    "objective": "mse",
+    "objective_metrics": {
+      "clf_accuracy": 0.484944,
+      "ic": -0.012545164260332123,
+      "mse": 0.2741404878997389,
+      "ranking_spread": 0.003873179740747204,
+      "rows": 1594.0,
+      "utility_return": 0.03264768060377378
+    },
+    "paper_family": "neural_tabular",
+    "profile": "quantbench_supervised_mlp_mse_macro_budget_defensive_v1",
+    "risk_overlay": {
+      "bull_cap": 0.9,
+      "bull_drawdown_floor": -0.08,
+      "bull_floor": 0.55,
+      "bull_momentum_threshold": 0.03,
+      "bull_risk_threshold": 0.4,
+      "bull_trend_threshold": 0.0,
+      "crash_cap": 0.1,
+      "crash_drawdown_threshold": -0.25,
+      "crash_drop_threshold": -0.2,
+      "defensive_cap": 0.4,
+      "defensive_risk_threshold": 0.52,
+      "name": "macro_budget_defensive_v1",
+      "portfolio_drawdown_cap": 0.08,
+      "portfolio_drawdown_release": 0.08,
+      "portfolio_drawdown_trigger": 0.18,
+      "stress_cap": 0.18,
+      "stress_risk_threshold": 0.68
+    },
+    "slices": {
+      "test_2020": {
+        "avg_pos": 0.19425330812854447,
+        "buy_and_hold_return": 59.7753083811,
+        "max_dd": 21.7370856879,
+        "relative_return": -48.5565468523,
+        "return": 11.2187615288,
+        "trades": 48,
+        "turnover": 8.518932806324111
+      },
+      "test_2022": {
+        "avg_pos": 0.09674894049300806,
+        "buy_and_hold_return": -86.5880717324,
+        "max_dd": 20.9693353051,
+        "relative_return": 68.7042669317,
+        "return": -17.8838048007,
+        "trades": 25,
+        "turnover": 1.2890836653386453
+      },
+      "test_2023_2024": {
+        "avg_pos": 0.13976230536023243,
+        "buy_and_hold_return": 191.7735092699,
+        "max_dd": 19.1312007696,
+        "relative_return": -184.3632177563,
+        "return": 7.4102915136,
+        "trades": 69,
+        "turnover": 10.38231075697211
+      }
+    },
+    "test_proxy": {
+      "avg_pos": 0.13661446862371282,
+      "buy_and_hold_return": 752.0859028087,
+      "max_dd": 24.4653854374,
+      "relative_return": -660.2462954157,
+      "return": 91.839607393,
+      "trades": 185,
+      "turnover": 26.249874529485574
+    }
+  },
+  {
+    "model_family": "quantbench_supervised",
+    "model_name": "mlp_mse",
+    "objective": "mse",
+    "objective_metrics": {
+      "clf_accuracy": 0.484944,
+      "ic": -0.012545164260332123,
+      "mse": 0.2741404878997389,
+      "ranking_spread": 0.003873179740747204,
+      "rows": 1594.0,
+      "utility_return": 0.03264768060377378
+    },
+    "paper_family": "neural_tabular",
+    "profile": "quantbench_supervised_mlp_mse_macro_budget_lowdd_v1",
+    "risk_overlay": {
+      "bull_cap": 0.7,
+      "bull_drawdown_floor": -0.06,
+      "bull_floor": 0.35,
+      "bull_momentum_threshold": 0.04,
+      "bull_risk_threshold": 0.32,
+      "bull_trend_threshold": 0.0,
+      "crash_cap": 0.04,
+      "crash_drawdown_threshold": -0.25,
+      "crash_drop_threshold": -0.2,
+      "defensive_cap": 0.25,
+      "defensive_risk_threshold": 0.48,
+      "name": "macro_budget_lowdd_v1",
+      "portfolio_drawdown_cap": 0.03,
+      "portfolio_drawdown_release": 0.05,
+      "portfolio_drawdown_trigger": 0.12,
+      "stress_cap": 0.08,
+      "stress_risk_threshold": 0.62
+    },
+    "slices": {
+      "test_2020": {
+        "avg_pos": 0.06650986580012186,
+        "buy_and_hold_return": 59.7753083811,
+        "max_dd": 14.5093867189,
+        "relative_return": -63.3195630692,
+        "return": -3.5442546881,
+        "trades": 18,
+        "turnover": 3.0178260869565214
+      },
+      "test_2022": {
+        "avg_pos": 0.04183647878605102,
+        "buy_and_hold_return": -86.5880717324,
+        "max_dd": 13.1914976548,
+        "relative_return": 74.6679909499,
+        "return": -11.9200807825,
+        "trades": 19,
+        "turnover": 1.3569322709163345
+      },
+      "test_2023_2024": {
+        "avg_pos": 0.0669060808558594,
+        "buy_and_hold_return": 191.7735092699,
+        "max_dd": 12.0831990191,
+        "relative_return": -184.9312584964,
+        "return": 6.8422507736,
+        "trades": 35,
+        "turnover": 5.967290836653386
+      }
+    },
+    "test_proxy": {
+      "avg_pos": 0.04100570048598179,
+      "buy_and_hold_return": 752.0859028087,
+      "max_dd": 15.0420125259,
+      "relative_return": -737.8497924227,
+      "return": 14.236110386,
+      "trades": 47,
+      "turnover": 5.743488080301129
+    }
+  },
+  {
+    "model_family": "quantbench_supervised",
+    "model_name": "mlp_mse",
+    "objective": "mse",
+    "objective_metrics": {
+      "clf_accuracy": 0.484944,
+      "ic": -0.012545164260332123,
+      "mse": 0.2741404878997389,
+      "ranking_spread": 0.003873179740747204,
+      "rows": 1594.0,
+      "utility_return": 0.03264768060377378
+    },
+    "paper_family": "neural_tabular",
+    "profile": "quantbench_supervised_mlp_mse_macro_budget_bull_guard_v1",
+    "risk_overlay": {
+      "bull_cap": 0.95,
+      "bull_drawdown_floor": -0.08,
+      "bull_floor": 0.65,
+      "bull_momentum_threshold": 0.03,
+      "bull_risk_threshold": 0.42,
+      "bull_trend_threshold": 0.0,
+      "crash_cap": 0.08,
+      "crash_drawdown_threshold": -0.25,
+      "crash_drop_threshold": -0.2,
+      "defensive_cap": 0.35,
+      "defensive_risk_threshold": 0.55,
+      "name": "macro_budget_bull_guard_v1",
+      "portfolio_drawdown_cap": 0.06,
+      "portfolio_drawdown_release": 0.07,
+      "portfolio_drawdown_trigger": 0.16,
+      "stress_cap": 0.15,
+      "stress_risk_threshold": 0.7
+    },
+    "slices": {
+      "test_2020": {
+        "avg_pos": 0.1228352262963021,
+        "buy_and_hold_return": 59.7753083811,
+        "max_dd": 23.9806933494,
+        "relative_return": -68.061632212,
+        "return": -8.2863238309,
+        "trades": 22,
+        "turnover": 4.668853754940711
+      },
+      "test_2022": {
+        "avg_pos": 0.0785438326375772,
+        "buy_and_hold_return": -86.5880717324,
+        "max_dd": 18.93325157,
+        "relative_return": 69.9982232104,
+        "return": -16.589848522,
+        "trades": 22,
+        "turnover": 1.8747410358565737
+      },
+      "test_2023_2024": {
+        "avg_pos": 0.10519944127870988,
+        "buy_and_hold_return": 191.7735092699,
+        "max_dd": 20.149669203,
+        "relative_return": -181.9471836666,
+        "return": 9.8263256033,
+        "trades": 37,
+        "turnover": 8.370199203187251
+      }
+    },
+    "test_proxy": {
+      "avg_pos": 0.09211971177990237,
+      "buy_and_hold_return": 752.0859028087,
+      "max_dd": 24.7092001042,
+      "relative_return": -738.8692094606,
+      "return": 13.2166933481,
+      "trades": 104,
+      "turnover": 16.2304391468005
     }
   }
 ]
