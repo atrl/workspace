@@ -121,6 +121,38 @@ def test_apply_quantbench_ensemble_drawdown_guard_blocks_reentry_during_deep_dra
     assert guarded.loc[2, "portfolio_drawdown"] > guarded.loc[3, "portfolio_drawdown"]
 
 
+def test_apply_quantbench_ensemble_drawdown_guard_tapers_reentry_cap_with_account_drawdown():
+    index = pd.date_range("2024-01-01", periods=4, freq="D")
+    daily = pd.DataFrame(
+        {
+            "datetime": index,
+            "position": [1.00, 1.00, 1.00, 1.00],
+            "macro_regime": ["bull"] * len(index),
+        }
+    )
+    close = pd.Series([100.0, 100.0, 80.0, 80.0], index=index)
+    config = QuantBenchPathSelectorConfig(
+        name="drawdown_tapered_reentry",
+        defensive_path="lowdd",
+        offensive_path="attack",
+        portfolio_drawdown_trigger=0.10,
+        portfolio_drawdown_cap=0.05,
+        portfolio_drawdown_release=0.04,
+        portfolio_reentry_floor=0.40,
+        portfolio_reentry_cap=0.65,
+        portfolio_reentry_drawdown_cap_start=0.10,
+        portfolio_reentry_drawdown_cap_full=0.20,
+        portfolio_reentry_drawdown_min_cap=0.25,
+    )
+
+    guarded = apply_quantbench_ensemble_drawdown_guard(daily, close, config, cost=0.0)
+
+    assert guarded["portfolio_drawdown_guard"].tolist() == [False, False, True, True]
+    assert guarded["position"].round(4).tolist() == [1.00, 1.00, 0.25, 0.25]
+    assert round(float(guarded.loc[2, "portfolio_reentry_drawdown_cap"]), 4) == 0.25
+    assert round(float(guarded.loc[2, "portfolio_reentry_drawdown_severity"]), 4) == 1.0
+
+
 def test_apply_quantbench_ensemble_drawdown_guard_reenters_only_after_lagged_recovery_confirmation():
     index = pd.date_range("2024-01-01", periods=7, freq="D")
     daily = pd.DataFrame(
@@ -564,6 +596,7 @@ def test_default_quantbench_path_selector_configs_include_volatility_budget_cand
     assert "quantbench_ensemble_tail_shock_anchor_reset_rf_logistic_v1" in names
     assert "quantbench_ensemble_sequence_anchor_reset_v1" in names
     assert "quantbench_ensemble_sequence_full_rebase_tail_v1" in names
+    assert "quantbench_ensemble_sequence_tapered_reentry_v1" in names
     assert "quantbench_ensemble_blend_anchor_reset_v1" in names
     assert "quantbench_ensemble_rolling_sequence_anchor_reset_v1" in names
     candidate = next(config for config in budget_configs if config.name == "quantbench_ensemble_vol_budget_rf_logistic_v1")
@@ -618,6 +651,16 @@ def test_default_quantbench_path_selector_configs_include_volatility_budget_cand
         < full_rebase_candidate.portfolio_drawdown_budget_start
     )
     assert full_rebase_candidate.tail_shock_day_threshold <= -0.05
+    tapered_reentry_candidate = next(
+        config for config in budget_configs if config.name == "quantbench_ensemble_sequence_tapered_reentry_v1"
+    )
+    assert tapered_reentry_candidate.offensive_path == "quantbench_supervised_sequence_lag_ridge_mse"
+    assert tapered_reentry_candidate.portfolio_reentry_drawdown_cap_start > 0.0
+    assert (
+        tapered_reentry_candidate.portfolio_reentry_drawdown_cap_full
+        > tapered_reentry_candidate.portfolio_reentry_drawdown_cap_start
+    )
+    assert tapered_reentry_candidate.portfolio_reentry_drawdown_min_cap < tapered_reentry_candidate.portfolio_reentry_cap
     blend_candidate = next(
         config for config in budget_configs if config.name == "quantbench_ensemble_blend_anchor_reset_v1"
     )

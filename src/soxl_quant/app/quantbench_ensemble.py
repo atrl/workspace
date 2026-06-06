@@ -62,6 +62,9 @@ class QuantBenchPathSelectorConfig:
     portfolio_reentry_floor: float = 0.0
     portfolio_reentry_cap: float = 0.55
     portfolio_reentry_max_drawdown: float = 1.0
+    portfolio_reentry_drawdown_cap_start: float = 0.0
+    portfolio_reentry_drawdown_cap_full: float = 0.0
+    portfolio_reentry_drawdown_min_cap: float = 0.0
     portfolio_drawdown_budget_start: float = 0.0
     portfolio_drawdown_budget_full: float = 0.0
     portfolio_drawdown_budget_start_cap: float = 1.0
@@ -366,6 +369,11 @@ def apply_quantbench_ensemble_drawdown_guard(
         confirmed_reentry_by_date = confirmed_reentry_series.to_dict()
     else:
         confirmed_reentry_by_date = {}
+    reentry_drawdown_cap_enabled = (
+        float(config.portfolio_reentry_drawdown_cap_start) > 0.0
+        and float(config.portfolio_reentry_drawdown_cap_full) > float(config.portfolio_reentry_drawdown_cap_start)
+        and float(config.portfolio_reentry_drawdown_min_cap) > 0.0
+    )
     bull_release_enabled = (
         budget_enabled
         and float(config.portfolio_drawdown_budget_bull_release_cap) > 0.0
@@ -425,6 +433,8 @@ def apply_quantbench_ensemble_drawdown_guard(
     guard_flags: list[bool] = []
     drawdowns: list[float] = []
     confirmed_flags: list[bool] = []
+    reentry_drawdown_caps: list[float] = []
+    reentry_drawdown_severities: list[float] = []
     budget_caps: list[float] = []
     budget_flags: list[bool] = []
     budget_drawdowns: list[float] = []
@@ -471,6 +481,8 @@ def apply_quantbench_ensemble_drawdown_guard(
 
         confirmed_reentry = bool(confirmed_reentry_by_date.get(date, False))
         bull_release = False
+        reentry_drawdown_cap = np.nan
+        reentry_drawdown_severity = np.nan
         can_reenter = (
             guard_active
             and str(row.macro_regime) in {"bull", "recovery"}
@@ -488,6 +500,23 @@ def apply_quantbench_ensemble_drawdown_guard(
                 if confirmed_reentry and float(config.confirmed_reentry_cap) > 0.0
                 else float(config.portfolio_reentry_cap)
             )
+            if reentry_drawdown_cap_enabled:
+                reentry_drawdown_severity = float(
+                    np.clip(
+                        (drawdown - float(config.portfolio_reentry_drawdown_cap_start))
+                        / (
+                            float(config.portfolio_reentry_drawdown_cap_full)
+                            - float(config.portfolio_reentry_drawdown_cap_start)
+                        ),
+                        0.0,
+                        1.0,
+                    )
+                )
+                reentry_drawdown_cap = (1.0 - reentry_drawdown_severity) * reentry_cap + reentry_drawdown_severity * min(
+                    reentry_cap,
+                    float(config.portfolio_reentry_drawdown_min_cap),
+                )
+                reentry_cap = float(np.clip(reentry_drawdown_cap, 0.0, 1.0))
             target = min(
                 max(raw_target, reentry_floor),
                 reentry_cap,
@@ -541,6 +570,8 @@ def apply_quantbench_ensemble_drawdown_guard(
         guard_flags.append(bool(guard_active))
         drawdowns.append(float(drawdown))
         confirmed_flags.append(bool(confirmed_reentry))
+        reentry_drawdown_caps.append(float(reentry_drawdown_cap))
+        reentry_drawdown_severities.append(float(reentry_drawdown_severity))
         budget_caps.append(float(budget_cap))
         budget_flags.append(bool(budget_guard))
         budget_drawdowns.append(float(budget_drawdown))
@@ -567,6 +598,9 @@ def apply_quantbench_ensemble_drawdown_guard(
         out["confirmed_reentry"] = confirmed_flags
         for column in confirmed_frame.columns:
             out[column] = confirmed_frame[column].reset_index(drop=True).to_numpy()
+    if reentry_drawdown_cap_enabled:
+        out["portfolio_reentry_drawdown_cap"] = reentry_drawdown_caps
+        out["portfolio_reentry_drawdown_severity"] = reentry_drawdown_severities
     return out
 
 
@@ -1676,6 +1710,63 @@ def default_quantbench_path_selector_configs(
             portfolio_drawdown_release=0.05,
             portfolio_reentry_floor=0.40,
             portfolio_reentry_cap=0.65,
+            portfolio_drawdown_budget_start=0.04,
+            portfolio_drawdown_budget_full=0.12,
+            portfolio_drawdown_budget_start_cap=0.35,
+            portfolio_drawdown_budget_min_cap=0.04,
+            portfolio_drawdown_budget_stress_floor=0.14,
+            portfolio_drawdown_budget_bull_release_cap=0.30,
+            portfolio_drawdown_budget_bull_release_max_drawdown=0.20,
+            portfolio_drawdown_budget_bull_release_ma_window=200,
+            portfolio_drawdown_budget_bull_release_momentum_window=126,
+            portfolio_drawdown_budget_bull_release_high_window=126,
+            portfolio_drawdown_budget_bull_release_momentum_threshold=0.10,
+            portfolio_drawdown_budget_bull_release_drawdown_floor=-0.12,
+            portfolio_drawdown_budget_bull_release_volatility_window=20,
+            portfolio_drawdown_budget_bull_release_volatility_max=0.80,
+            portfolio_drawdown_budget_anchor_reset_drawdown=0.0,
+            portfolio_drawdown_budget_anchor_reset_max_drawdown=0.20,
+            portfolio_drawdown_budget_anchor_reset_streak_days=1,
+            tail_shock_day_threshold=-0.05,
+            tail_shock_rolling_2d_threshold=-0.09,
+            tail_shock_rolling_3d_threshold=-0.15,
+            tail_shock_cooldown_days=3,
+            tail_shock_cap=0.05,
+            tail_shock_stress_floor=0.10,
+        ),
+        QuantBenchPathSelectorConfig(
+            name="quantbench_ensemble_sequence_tapered_reentry_v1",
+            defensive_path=path("random_forest_clf", "macro_budget_defensive_v1"),
+            neutral_path=path("random_forest_clf", "macro_budget_defensive_v1"),
+            offensive_path=path("sequence_lag_ridge_mse"),
+            recovery_path=path("sequence_lag_ridge_mse"),
+            stress_floor=0.10,
+            stress_cap=0.14,
+            neutral_cap=0.20,
+            bull_floor=0.70,
+            bull_cap=0.98,
+            recovery_floor=0.50,
+            recovery_cap=0.85,
+            stress_risk_threshold=0.92,
+            stress_drop_threshold=-0.35,
+            stress_drawdown_threshold=-0.45,
+            bull_risk_threshold=0.50,
+            bull_momentum_threshold=0.00,
+            bull_trend_threshold=-0.05,
+            bull_drawdown_floor=-0.30,
+            recovery_risk_threshold=0.75,
+            recovery_momentum_threshold=0.00,
+            recovery_trend_threshold=-0.08,
+            recovery_drawdown_min=-0.45,
+            recovery_drawdown_max=-0.02,
+            portfolio_drawdown_trigger=0.15,
+            portfolio_drawdown_cap=0.08,
+            portfolio_drawdown_release=0.05,
+            portfolio_reentry_floor=0.40,
+            portfolio_reentry_cap=0.65,
+            portfolio_reentry_drawdown_cap_start=0.04,
+            portfolio_reentry_drawdown_cap_full=0.20,
+            portfolio_reentry_drawdown_min_cap=0.24,
             portfolio_drawdown_budget_start=0.04,
             portfolio_drawdown_budget_full=0.12,
             portfolio_drawdown_budget_start_cap=0.35,
