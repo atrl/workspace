@@ -118,6 +118,42 @@ def test_apply_quantbench_ensemble_drawdown_guard_blocks_reentry_during_deep_dra
     assert guarded.loc[2, "portfolio_drawdown"] > guarded.loc[3, "portfolio_drawdown"]
 
 
+def test_apply_quantbench_ensemble_drawdown_guard_reenters_only_after_lagged_recovery_confirmation():
+    index = pd.date_range("2024-01-01", periods=7, freq="D")
+    daily = pd.DataFrame(
+        {
+            "datetime": index,
+            "position": [0.80] * len(index),
+            "macro_regime": ["bull"] * len(index),
+        }
+    )
+    close = pd.Series([100.0, 80.0, 80.0, 81.0, 100.0, 110.0, 120.0], index=index)
+    config = QuantBenchPathSelectorConfig(
+        name="confirmed_reentry",
+        defensive_path="lowdd",
+        offensive_path="attack",
+        portfolio_drawdown_trigger=0.10,
+        portfolio_drawdown_cap=0.10,
+        portfolio_drawdown_release=0.04,
+        portfolio_reentry_floor=0.35,
+        portfolio_reentry_cap=0.50,
+        portfolio_reentry_max_drawdown=0.12,
+        confirmed_reentry_floor=0.35,
+        confirmed_reentry_cap=0.45,
+        confirmed_reentry_ma_window=3,
+        confirmed_reentry_momentum_window=2,
+        confirmed_reentry_high_window=3,
+        confirmed_reentry_momentum_threshold=0.05,
+        confirmed_reentry_drawdown_floor=-0.08,
+    )
+
+    guarded = apply_quantbench_ensemble_drawdown_guard(daily, close, config, cost=0.0)
+
+    assert guarded["position"].round(4).tolist() == [0.80, 0.10, 0.10, 0.10, 0.10, 0.45, 0.45]
+    assert guarded["confirmed_reentry"].tolist() == [False, False, False, False, False, True, True]
+    assert guarded.loc[4, "confirmed_reentry_momentum"] > guarded.loc[3, "confirmed_reentry_momentum"]
+
+
 def test_apply_quantbench_hazard_guard_caps_before_account_drawdown_with_audit_columns():
     index = pd.date_range("2024-01-01", periods=5, freq="D")
     daily = pd.DataFrame(
@@ -211,10 +247,18 @@ def test_default_quantbench_path_selector_configs_include_volatility_budget_cand
     budget_configs = [config for config in configs if config.volatility_target > 0.0]
     names = {config.name for config in budget_configs}
     assert "quantbench_ensemble_vol_budget_rf_logistic_v1" in names
+    assert "quantbench_ensemble_confirmed_reentry_rf_logistic_v1" in names
     candidate = next(config for config in budget_configs if config.name == "quantbench_ensemble_vol_budget_rf_logistic_v1")
     assert candidate.volatility_stress_target < candidate.volatility_bull_target
     assert candidate.portfolio_drawdown_trigger > 0.0
     assert candidate.portfolio_reentry_max_drawdown < 1.0
+    assert candidate.confirmed_reentry_floor > 0.0
+    reentry_candidate = next(
+        config for config in budget_configs if config.name == "quantbench_ensemble_confirmed_reentry_rf_logistic_v1"
+    )
+    assert reentry_candidate.volatility_floor >= 0.10
+    assert reentry_candidate.volatility_stress_target >= 0.30
+    assert reentry_candidate.portfolio_drawdown_cap >= 0.12
 
 
 def test_fit_quantbench_drawdown_hazard_model_predicts_oos_future_drawdown_risk():

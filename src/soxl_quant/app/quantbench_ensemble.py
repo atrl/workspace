@@ -61,6 +61,15 @@ class QuantBenchPathSelectorConfig:
     portfolio_reentry_floor: float = 0.0
     portfolio_reentry_cap: float = 0.55
     portfolio_reentry_max_drawdown: float = 1.0
+    confirmed_reentry_floor: float = 0.0
+    confirmed_reentry_cap: float = 0.0
+    confirmed_reentry_ma_window: int = 50
+    confirmed_reentry_momentum_window: int = 20
+    confirmed_reentry_high_window: int = 50
+    confirmed_reentry_momentum_threshold: float = 0.03
+    confirmed_reentry_drawdown_floor: float = -0.08
+    confirmed_reentry_volatility_window: int = 20
+    confirmed_reentry_volatility_max: float = 0.0
     hazard_threshold: float = 0.0
     hazard_cap: float = 0.12
     volatility_target: float = 0.0
@@ -279,7 +288,46 @@ def apply_quantbench_ensemble_drawdown_guard(
 
     price = close.astype(float).copy()
     price.index = pd.to_datetime(price.index)
-    returns = price.sort_index().pct_change().fillna(0.0)
+    price = price.sort_index()
+    returns = price.pct_change().fillna(0.0)
+    confirmed_reentry_enabled = float(config.confirmed_reentry_floor) > 0.0
+    confirmed_frame = pd.DataFrame(index=pd.DatetimeIndex(out["datetime"]))
+    if confirmed_reentry_enabled:
+        lagged_close = price.shift(1)
+        ma_window = max(int(config.confirmed_reentry_ma_window), 1)
+        momentum_window = max(int(config.confirmed_reentry_momentum_window), 1)
+        high_window = max(int(config.confirmed_reentry_high_window), 1)
+        vol_window = max(int(config.confirmed_reentry_volatility_window), 1)
+        confirmed_frame["confirmed_reentry_price_above_ma"] = (
+            lagged_close > lagged_close.rolling(ma_window, min_periods=ma_window).mean()
+        )
+        confirmed_frame["confirmed_reentry_momentum"] = lagged_close / lagged_close.shift(momentum_window) - 1.0
+        confirmed_frame["confirmed_reentry_rolling_high_drawdown"] = (
+            lagged_close / lagged_close.rolling(high_window, min_periods=high_window).max() - 1.0
+        )
+        confirmed_frame["confirmed_reentry_realized_volatility"] = (
+            returns.shift(1).rolling(vol_window, min_periods=vol_window).std(ddof=0) * float(np.sqrt(252.0))
+        )
+        confirmed_frame = confirmed_frame.reindex(pd.DatetimeIndex(out["datetime"]))
+        confirmed_reentry_series = (
+            confirmed_frame["confirmed_reentry_price_above_ma"].fillna(False).astype(bool)
+            & (
+                confirmed_frame["confirmed_reentry_momentum"].fillna(-np.inf)
+                >= float(config.confirmed_reentry_momentum_threshold)
+            )
+            & (
+                confirmed_frame["confirmed_reentry_rolling_high_drawdown"].fillna(-np.inf)
+                >= float(config.confirmed_reentry_drawdown_floor)
+            )
+        )
+        if float(config.confirmed_reentry_volatility_max) > 0.0:
+            confirmed_reentry_series &= (
+                confirmed_frame["confirmed_reentry_realized_volatility"].fillna(np.inf)
+                <= float(config.confirmed_reentry_volatility_max)
+            )
+        confirmed_reentry_by_date = confirmed_reentry_series.to_dict()
+    else:
+        confirmed_reentry_by_date = {}
     equity = 1.0
     peak = 1.0
     previous_target = 0.0
@@ -287,6 +335,7 @@ def apply_quantbench_ensemble_drawdown_guard(
     guarded: list[float] = []
     guard_flags: list[bool] = []
     drawdowns: list[float] = []
+    confirmed_flags: list[bool] = []
     for row in out.itertuples(index=False):
         date = pd.Timestamp(row.datetime)
         day_return = float(returns.loc[date]) if date in returns.index else 0.0
@@ -299,16 +348,27 @@ def apply_quantbench_ensemble_drawdown_guard(
             guard_active = False
 
         raw_target = float(row.raw_position)
+        confirmed_reentry = bool(confirmed_reentry_by_date.get(date, False))
         can_reenter = (
             guard_active
             and str(row.macro_regime) in {"bull", "recovery"}
             and config.portfolio_reentry_floor > 0.0
-            and drawdown <= float(config.portfolio_reentry_max_drawdown)
+            and (drawdown <= float(config.portfolio_reentry_max_drawdown) or confirmed_reentry)
         )
         if can_reenter:
+            reentry_floor = (
+                float(config.confirmed_reentry_floor)
+                if confirmed_reentry and float(config.confirmed_reentry_floor) > 0.0
+                else float(config.portfolio_reentry_floor)
+            )
+            reentry_cap = (
+                float(config.confirmed_reentry_cap)
+                if confirmed_reentry and float(config.confirmed_reentry_cap) > 0.0
+                else float(config.portfolio_reentry_cap)
+            )
             target = min(
-                max(raw_target, float(config.portfolio_reentry_floor)),
-                float(config.portfolio_reentry_cap),
+                max(raw_target, reentry_floor),
+                reentry_cap,
             )
         elif guard_active:
             target = min(raw_target, float(config.portfolio_drawdown_cap))
@@ -320,11 +380,16 @@ def apply_quantbench_ensemble_drawdown_guard(
         guarded.append(float(np.clip(target, 0.0, 1.0)))
         guard_flags.append(bool(guard_active))
         drawdowns.append(float(drawdown))
+        confirmed_flags.append(bool(confirmed_reentry))
         previous_target = target
 
     out["position"] = guarded
     out["portfolio_drawdown_guard"] = guard_flags
     out["portfolio_drawdown"] = drawdowns
+    if confirmed_reentry_enabled:
+        out["confirmed_reentry"] = confirmed_flags
+        for column in confirmed_frame.columns:
+            out[column] = confirmed_frame[column].reset_index(drop=True).to_numpy()
     return out
 
 
@@ -960,6 +1025,15 @@ def default_quantbench_path_selector_configs(
             portfolio_reentry_floor=0.30,
             portfolio_reentry_cap=0.55,
             portfolio_reentry_max_drawdown=0.18,
+            confirmed_reentry_floor=0.30,
+            confirmed_reentry_cap=0.45,
+            confirmed_reentry_ma_window=50,
+            confirmed_reentry_momentum_window=21,
+            confirmed_reentry_high_window=50,
+            confirmed_reentry_momentum_threshold=0.03,
+            confirmed_reentry_drawdown_floor=-0.10,
+            confirmed_reentry_volatility_window=20,
+            confirmed_reentry_volatility_max=1.50,
             hazard_threshold=0.85,
             hazard_cap=0.05,
             volatility_target=0.30,
@@ -970,6 +1044,57 @@ def default_quantbench_path_selector_configs(
             volatility_lookback=20,
             volatility_min_periods=10,
             volatility_floor=0.05,
+        ),
+        QuantBenchPathSelectorConfig(
+            name="quantbench_ensemble_confirmed_reentry_rf_logistic_v1",
+            defensive_path=path("random_forest_clf", "macro_budget_defensive_v1"),
+            neutral_path=path("random_forest_clf", "macro_budget_defensive_v1"),
+            offensive_path=path("logistic_clf"),
+            recovery_path=path("logistic_clf"),
+            stress_floor=0.10,
+            stress_cap=0.20,
+            neutral_cap=0.40,
+            bull_floor=0.55,
+            bull_cap=0.95,
+            recovery_floor=0.30,
+            recovery_cap=0.75,
+            stress_risk_threshold=0.68,
+            stress_drop_threshold=-0.14,
+            stress_drawdown_threshold=-0.18,
+            bull_risk_threshold=0.45,
+            bull_momentum_threshold=0.02,
+            bull_trend_threshold=-0.02,
+            bull_drawdown_floor=-0.18,
+            recovery_risk_threshold=0.65,
+            recovery_momentum_threshold=0.00,
+            recovery_trend_threshold=-0.05,
+            recovery_drawdown_min=-0.32,
+            recovery_drawdown_max=-0.04,
+            portfolio_drawdown_trigger=0.10,
+            portfolio_drawdown_cap=0.12,
+            portfolio_drawdown_release=0.04,
+            portfolio_reentry_floor=0.30,
+            portfolio_reentry_cap=0.55,
+            portfolio_reentry_max_drawdown=0.18,
+            confirmed_reentry_floor=0.30,
+            confirmed_reentry_cap=0.40,
+            confirmed_reentry_ma_window=50,
+            confirmed_reentry_momentum_window=21,
+            confirmed_reentry_high_window=50,
+            confirmed_reentry_momentum_threshold=0.10,
+            confirmed_reentry_drawdown_floor=-0.10,
+            confirmed_reentry_volatility_window=20,
+            confirmed_reentry_volatility_max=1.00,
+            hazard_threshold=0.90,
+            hazard_cap=0.10,
+            volatility_target=0.35,
+            volatility_stress_target=0.30,
+            volatility_neutral_target=0.32,
+            volatility_recovery_target=0.45,
+            volatility_bull_target=0.75,
+            volatility_lookback=20,
+            volatility_min_periods=10,
+            volatility_floor=0.10,
         ),
         QuantBenchPathSelectorConfig(
             name="quantbench_ensemble_hazard_rf_logistic_v1",
