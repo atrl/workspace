@@ -4,6 +4,7 @@ import numpy as np
 import pandas as pd
 
 from src.soxl_quant.app.quantbench_ensemble import (
+    QuantBenchExternalPathSpec,
     QuantBenchSignalBlendSpec,
     QuantBenchPathSelectorConfig,
     apply_quantbench_ensemble_drawdown_guard,
@@ -13,10 +14,12 @@ from src.soxl_quant.app.quantbench_ensemble import (
     build_quantbench_path_ensemble_report,
     build_quantbench_signal_blend_paths,
     build_quantbench_supervised_ensemble_report,
+    default_quantbench_external_path_specs,
     default_quantbench_signal_blend_specs,
     default_quantbench_path_selector_configs,
     fit_quantbench_drawdown_hazard_model,
     fit_quantbench_rolling_drawdown_hazard_model,
+    load_quantbench_external_position_paths,
     select_quantbench_path_ensemble,
 )
 from src.soxl_quant.app.quantbench_screen import QuantBenchGate
@@ -617,6 +620,45 @@ def test_build_quantbench_signal_blend_paths_requires_low_correlation_sources():
     assert blended.nunique() > 3
 
 
+def test_load_quantbench_external_position_paths_reads_repo_relative_daily_csv(tmp_path):
+    daily_path = tmp_path / "runtime/execution/card/example/example_soxl_daily.csv"
+    daily_path.parent.mkdir(parents=True)
+    daily_path.write_text(
+        "datetime,position\n2024-01-02,0.2\n2024-01-03,1.2\n2024-01-04,-0.1\n",
+        encoding="utf-8",
+    )
+
+    paths = load_quantbench_external_position_paths(
+        (
+            QuantBenchExternalPathSpec(
+                name="quantbench_external_example",
+                path="runtime/execution/card/example/example_soxl_daily.csv",
+            ),
+        ),
+        root=tmp_path,
+    )
+
+    assert list(paths) == ["quantbench_external_example"]
+    assert paths["quantbench_external_example"].index.tolist() == list(pd.date_range("2024-01-02", periods=3))
+    assert paths["quantbench_external_example"].tolist() == [0.2, 1.0, 0.0]
+
+
+def test_default_quantbench_path_selector_configs_include_external_repo_paths():
+    specs = default_quantbench_external_path_specs()
+    spec_names = {spec.name for spec in specs}
+
+    assert "quantbench_external_risk_budget_crash_risk_factor_v1" in spec_names
+    assert "quantbench_external_recovery_reentry_conditional_vol_target_v1" in spec_names
+    assert all(spec.path.startswith("runtime/") for spec in specs)
+
+    configs = default_quantbench_path_selector_configs()
+    assert any(
+        config.defensive_path == "quantbench_external_risk_budget_crash_risk_factor_v1"
+        and config.offensive_path == "quantbench_external_recovery_reentry_conditional_vol_target_v1"
+        for config in configs
+    )
+
+
 def test_default_quantbench_path_selector_configs_include_volatility_budget_candidate():
     configs = default_quantbench_path_selector_configs()
 
@@ -904,6 +946,80 @@ def test_build_quantbench_supervised_ensemble_report_trains_paths_inside_src(tmp
     assert report["data"]["model_names"] == ["logistic_clf", "ridge_mse"]
     assert (tmp_path / "ensemble_summary.json").exists()
     assert (tmp_path / "unit_supervised_selector_soxl_daily.csv").exists()
+
+
+def test_build_quantbench_supervised_ensemble_report_loads_external_repo_paths(tmp_path):
+    index = pd.date_range("2024-01-01", periods=120, freq="D")
+    signal = np.sin(np.arange(len(index)) / 8.0)
+    close = pd.Series(100.0 * np.cumprod(1.0 + 0.003 * np.sign(signal + 0.1)), index=index)
+    features = pd.DataFrame(
+        {
+            "signal": signal,
+            "signal_lag": pd.Series(signal, index=index).shift(1).fillna(0.0),
+            "regime_risk": np.where(np.arange(len(index)) < 80, 0.70, 0.20),
+            "cum_drop_30": np.where(np.arange(len(index)) < 80, -0.20, 0.0),
+            "drawdown_63": np.where(np.arange(len(index)) < 80, -0.22, -0.02),
+            "mom_21": np.where(np.arange(len(index)) < 80, -0.02, 0.08),
+            "trend_gap_63": np.where(np.arange(len(index)) < 80, -0.01, 0.05),
+        },
+        index=index,
+    )
+    external_daily = tmp_path / "runtime/execution/card/unit_external/unit_external_soxl_daily.csv"
+    external_daily.parent.mkdir(parents=True)
+    pd.DataFrame({"datetime": index, "position": np.linspace(0.05, 0.85, len(index))}).to_csv(
+        external_daily,
+        index=False,
+    )
+    config = QuantBenchPathSelectorConfig(
+        name="unit_external_selector",
+        defensive_path="quantbench_external_unit",
+        neutral_path="quantbench_external_unit",
+        offensive_path="quantbench_supervised_logistic_clf",
+        stress_floor=0.05,
+        stress_cap=0.20,
+    )
+    gate = QuantBenchGate(
+        max_drawdown_pct=99.0,
+        min_stress_relative_return=-999.0,
+        min_stress_avg_pos=0.0,
+        max_stress_avg_pos=1.0,
+        min_bull_capture=-999.0,
+        min_proxy_return=-999.0,
+    )
+
+    report = build_quantbench_supervised_ensemble_report(
+        features,
+        close,
+        card_dir=tmp_path,
+        root=tmp_path,
+        horizon=1,
+        model_names=("logistic_clf", "ridge_mse"),
+        train_start=index[0],
+        train_end=index[69],
+        test_start=index[70],
+        test_end=index[105],
+        risk_configs=(),
+        ensemble_configs=(config,),
+        external_path_specs=(
+            QuantBenchExternalPathSpec(
+                name="quantbench_external_unit",
+                path="runtime/execution/card/unit_external/unit_external_soxl_daily.csv",
+            ),
+        ),
+        gate=gate,
+        hazard_enabled=False,
+        rolling_enabled=False,
+        windows={
+            "test_2020": (index[70], index[80]),
+            "test_2022": (index[81], index[93]),
+            "test_2023_2024": (index[94], index[105]),
+        },
+    )
+
+    assert report["data"]["external_path_count"] == 1
+    assert report["data"]["external_path_names"] == ["quantbench_external_unit"]
+    assert report["data"]["path_count"] == 3
+    assert (tmp_path / "unit_external_selector_soxl_daily.csv").exists()
 
 
 def test_default_quantbench_supervised_ensemble_architecture_routes_temporal_sequence_models():

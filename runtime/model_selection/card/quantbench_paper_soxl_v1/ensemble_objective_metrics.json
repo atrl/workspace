@@ -49,11 +49,11 @@
   },
   "random_forest_clf": {
     "clf_accuracy": 0.5,
-    "ic": -0.03280759961806664,
+    "ic": -0.03280759961806667,
     "mse": 0.10474681848761278,
     "ranking_spread": -0.07485088712876582,
     "rows": 1594.0,
-    "utility_return": 0.008161107694169417
+    "utility_return": 0.008161107694169415
   },
   "ridge_ic": {
     "clf_accuracy": 0.444793,

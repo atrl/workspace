@@ -128,6 +128,16 @@ class QuantBenchSignalBlendSpec:
     min_rows: int = 60
 
 
+@dataclass(frozen=True)
+class QuantBenchExternalPathSpec:
+    """Repo-owned position path that can be routed inside the QuantBench ensemble."""
+
+    name: str
+    path: str
+    date_column: str = "datetime"
+    position_column: str = "position"
+
+
 def _display_path(path: Path, root: Path | None = None) -> str:
     if root is None:
         return str(path)
@@ -160,6 +170,42 @@ def _as_position_series(series: pd.Series, name: str) -> pd.Series:
     if out.empty:
         raise ValueError(f"path `{name}` has no finite positions")
     return out.clip(0.0, 1.0).sort_index()
+
+
+def _resolve_runtime_path(path: str | Path, root: Path | None) -> Path:
+    candidate = Path(path).expanduser()
+    if not candidate.is_absolute():
+        base = root if root is not None else Path.cwd()
+        candidate = base / candidate
+    return candidate
+
+
+def load_quantbench_external_position_paths(
+    specs: Iterable[QuantBenchExternalPathSpec],
+    *,
+    root: Path | None = None,
+) -> dict[str, pd.Series]:
+    """Load existing repo daily position paths for QuantBench ensemble routing."""
+    resolved_root = root.resolve() if root is not None else None
+    paths: dict[str, pd.Series] = {}
+    for spec in tuple(specs):
+        if spec.name in paths:
+            raise ValueError(f"duplicate external path spec `{spec.name}`")
+        daily_path = _resolve_runtime_path(spec.path, resolved_root)
+        if not daily_path.exists():
+            continue
+        frame = pd.read_csv(daily_path)
+        missing = {spec.date_column, spec.position_column} - set(frame.columns)
+        if missing:
+            missing_text = ", ".join(sorted(missing))
+            raise ValueError(f"external path `{spec.name}` is missing columns: {missing_text}")
+        series = pd.Series(
+            frame[spec.position_column].astype(float).to_numpy(),
+            index=pd.to_datetime(frame[spec.date_column]),
+            name=spec.name,
+        )
+        paths[spec.name] = _as_position_series(series, spec.name)
+    return paths
 
 
 def _path_position_frame(paths: Mapping[str, pd.Series]) -> pd.DataFrame:
@@ -1306,6 +1352,47 @@ def build_supervised_path_library(
     return paths
 
 
+def default_quantbench_external_path_specs() -> list[QuantBenchExternalPathSpec]:
+    """Return repo-owned execution/model paths that complement supervised QuantBench paths."""
+    return [
+        QuantBenchExternalPathSpec(
+            name="quantbench_external_risk_budget_crash_risk_factor_v1",
+            path=(
+                "runtime/execution/card/risk_budget_crash_risk_factor_v1/"
+                "risk_budget_crash_risk_factor_v1_selected_soxl_daily.csv"
+            ),
+        ),
+        QuantBenchExternalPathSpec(
+            name="quantbench_external_risk_budget_residual_drawdown_guard_v1",
+            path=(
+                "runtime/execution/card/risk_budget_residual_drawdown_guard_v1/"
+                "risk_budget_residual_drawdown_guard_v1_selected_soxl_daily.csv"
+            ),
+        ),
+        QuantBenchExternalPathSpec(
+            name="quantbench_external_risk_budget_downside_vol_target_v1",
+            path=(
+                "runtime/execution/card/risk_budget_downside_vol_target_v1/"
+                "risk_budget_downside_vol_target_v1_best_combo_soxl_daily.csv"
+            ),
+        ),
+        QuantBenchExternalPathSpec(
+            name="quantbench_external_recovery_reentry_conditional_vol_target_v1",
+            path=(
+                "runtime/execution/card/recovery_reentry_conditional_vol_target_v1/"
+                "recovery_reentry_conditional_vol_target_v1_soxl_daily.csv"
+            ),
+        ),
+        QuantBenchExternalPathSpec(
+            name="quantbench_external_v19reg_v22_budget_usage_v1",
+            path=(
+                "runtime/model/card/v19reg_v22_budget_usage_v1/"
+                "v19reg_v22_budget_usage_v1_soxl_daily.csv"
+            ),
+        ),
+    ]
+
+
 def default_quantbench_path_selector_configs(
     profile_prefix: str = "quantbench_supervised",
 ) -> list[QuantBenchPathSelectorConfig]:
@@ -2217,6 +2304,92 @@ def default_quantbench_path_selector_configs(
             hazard_threshold=0.80,
             hazard_cap=0.02,
         ),
+        QuantBenchPathSelectorConfig(
+            name="quantbench_ensemble_external_crash_condvol_v1",
+            defensive_path="quantbench_external_risk_budget_crash_risk_factor_v1",
+            neutral_path="quantbench_external_risk_budget_crash_risk_factor_v1",
+            offensive_path="quantbench_external_recovery_reentry_conditional_vol_target_v1",
+            recovery_path="quantbench_external_recovery_reentry_conditional_vol_target_v1",
+            stress_floor=0.05,
+            stress_cap=0.25,
+            neutral_cap=0.18,
+            bull_floor=0.45,
+            bull_cap=0.90,
+            recovery_floor=0.25,
+            recovery_cap=0.70,
+            stress_risk_threshold=0.70,
+            stress_drop_threshold=-0.18,
+            stress_drawdown_threshold=-0.22,
+            bull_risk_threshold=0.42,
+            bull_momentum_threshold=0.03,
+            bull_trend_threshold=-0.01,
+            bull_drawdown_floor=-0.15,
+            recovery_risk_threshold=0.60,
+            recovery_momentum_threshold=0.00,
+            recovery_trend_threshold=-0.05,
+            recovery_drawdown_min=-0.30,
+            recovery_drawdown_max=-0.04,
+            tail_shock_day_threshold=-0.05,
+            tail_shock_rolling_2d_threshold=-0.09,
+            tail_shock_rolling_3d_threshold=-0.15,
+            tail_shock_cooldown_days=3,
+            tail_shock_cap=0.08,
+            tail_shock_stress_floor=0.10,
+            portfolio_drawdown_budget_start=0.06,
+            portfolio_drawdown_budget_full=0.16,
+            portfolio_drawdown_budget_start_cap=0.25,
+            portfolio_drawdown_budget_min_cap=0.05,
+            portfolio_drawdown_budget_stress_floor=0.10,
+            portfolio_drawdown_budget_chip_floor=0.10,
+            portfolio_drawdown_budget_chip_floor_max_drawdown_63=-0.18,
+            portfolio_drawdown_budget_bull_release_cap=0.35,
+            portfolio_drawdown_budget_bull_release_max_drawdown=0.18,
+            portfolio_drawdown_budget_bull_release_momentum_threshold=0.10,
+            portfolio_drawdown_budget_bull_release_volatility_max=0.90,
+        ),
+        QuantBenchPathSelectorConfig(
+            name="quantbench_ensemble_external_crash_v19v22_v1",
+            defensive_path="quantbench_external_risk_budget_crash_risk_factor_v1",
+            neutral_path="quantbench_external_risk_budget_residual_drawdown_guard_v1",
+            offensive_path="quantbench_external_v19reg_v22_budget_usage_v1",
+            recovery_path="quantbench_external_recovery_reentry_conditional_vol_target_v1",
+            stress_floor=0.05,
+            stress_cap=0.22,
+            neutral_cap=0.16,
+            bull_floor=0.35,
+            bull_cap=0.85,
+            recovery_floor=0.24,
+            recovery_cap=0.68,
+            stress_risk_threshold=0.68,
+            stress_drop_threshold=-0.16,
+            stress_drawdown_threshold=-0.20,
+            bull_risk_threshold=0.40,
+            bull_momentum_threshold=0.04,
+            bull_trend_threshold=0.00,
+            bull_drawdown_floor=-0.12,
+            recovery_risk_threshold=0.58,
+            recovery_momentum_threshold=0.02,
+            recovery_trend_threshold=-0.04,
+            recovery_drawdown_min=-0.28,
+            recovery_drawdown_max=-0.04,
+            tail_shock_day_threshold=-0.05,
+            tail_shock_rolling_2d_threshold=-0.09,
+            tail_shock_rolling_3d_threshold=-0.15,
+            tail_shock_cooldown_days=3,
+            tail_shock_cap=0.08,
+            tail_shock_stress_floor=0.10,
+            portfolio_drawdown_budget_start=0.06,
+            portfolio_drawdown_budget_full=0.18,
+            portfolio_drawdown_budget_start_cap=0.25,
+            portfolio_drawdown_budget_min_cap=0.05,
+            portfolio_drawdown_budget_stress_floor=0.10,
+            portfolio_drawdown_budget_chip_floor=0.12,
+            portfolio_drawdown_budget_chip_floor_max_drawdown_63=-0.16,
+            portfolio_drawdown_budget_bull_release_cap=0.35,
+            portfolio_drawdown_budget_bull_release_max_drawdown=0.18,
+            portfolio_drawdown_budget_bull_release_momentum_threshold=0.10,
+            portfolio_drawdown_budget_bull_release_volatility_max=0.90,
+        ),
     ]
     tcn_panic_config = next(
         config
@@ -2261,6 +2434,7 @@ def build_quantbench_supervised_ensemble_report(
     risk_configs: Iterable[RiskAwarePositionConfig] | None = None,
     ensemble_configs: Iterable[QuantBenchPathSelectorConfig] | None = None,
     blend_specs: Iterable[QuantBenchSignalBlendSpec] | None = None,
+    external_path_specs: Iterable[QuantBenchExternalPathSpec] | None = None,
     gate: QuantBenchGate = QuantBenchGate(),
     windows: Mapping[str, tuple[str | pd.Timestamp, str | pd.Timestamp]] | None = None,
     min_position: float = 0.10,
@@ -2346,6 +2520,14 @@ def build_quantbench_supervised_ensemble_report(
         min_position=min_position,
         max_position=max_position,
     )
+    external_spec_tuple = tuple(
+        default_quantbench_external_path_specs() if external_path_specs is None else external_path_specs
+    )
+    external_paths = load_quantbench_external_position_paths(
+        external_spec_tuple,
+        root=root,
+    )
+    paths.update(external_paths)
     config_tuple = tuple(
         default_quantbench_path_selector_configs(profile_prefix=profile_prefix)
         if ensemble_configs is None
@@ -2406,10 +2588,12 @@ def build_quantbench_supervised_ensemble_report(
     )
     path_rows = []
     for name in sorted(paths):
+        is_external = name in external_paths
         parts = name.removeprefix(f"{profile_prefix}_").split("_macro_budget_", maxsplit=1)
         path_rows.append(
             {
                 "path": name,
+                "source": "external_runtime_daily" if is_external else "supervised_prediction",
                 "model_name": parts[0],
                 "risk_overlay": f"macro_budget_{parts[1]}" if len(parts) == 2 else "",
             }
@@ -2437,6 +2621,9 @@ def build_quantbench_supervised_ensemble_report(
             "model_names": list(predictions.keys()),
             "risk_overlays": [config.name for config in risk_config_tuple],
             "signal_blends": [config.name for config in blend_spec_tuple],
+            "external_path_count": int(len(external_paths)),
+            "external_path_names": list(external_paths.keys()),
+            "external_path_specs": [asdict(spec) for spec in external_spec_tuple],
             "rolling_enabled": bool(rolling_enabled),
             "rolling_model_names": list(rolling_model_names),
             "rolling_refit_step_rows": int(rolling_refit_step_rows),
@@ -2468,6 +2655,7 @@ def build_quantbench_supervised_ensemble_report(
 
 __all__ = [
     "DEFAULT_WINDOWS",
+    "QuantBenchExternalPathSpec",
     "QuantBenchPathSelectorConfig",
     "QuantBenchSignalBlendSpec",
     "apply_quantbench_ensemble_drawdown_guard",
@@ -2480,9 +2668,11 @@ __all__ = [
     "build_quantbench_path_ensemble_report",
     "build_quantbench_signal_blend_paths",
     "build_supervised_path_library",
+    "default_quantbench_external_path_specs",
     "default_quantbench_signal_blend_specs",
     "default_quantbench_path_selector_configs",
     "fit_quantbench_drawdown_hazard_model",
     "fit_quantbench_rolling_drawdown_hazard_model",
+    "load_quantbench_external_position_paths",
     "select_quantbench_path_ensemble",
 ]
