@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 from tempfile import TemporaryDirectory
 from pathlib import Path
+from unittest.mock import patch
 
 from scripts.review_runtime_selection import (
     build_runtime_selection_review,
@@ -124,10 +125,15 @@ def test_runtime_selection_review_script_succeeds_when_review_blocks_selection()
 
 
 def test_runtime_selection_context_uses_explicit_family_for_auto_select():
-    context = runtime_selection_context("balanced_rule_residual_v22", family="balanced")
+    with patch(
+        "scripts.review_runtime_selection.auto_select_profile",
+        return_value=("balanced_rule_residual_v22", Path("actor.pt")),
+    ) as auto_select:
+        context = runtime_selection_context("balanced_rule_residual_v22", family="balanced")
 
     assert context["profile_overlay_auto_select_allowed"] is True
     assert context["current_auto_select_profile"] == "balanced_rule_residual_v22"
+    auto_select.assert_called_once_with("balanced")
 
 
 def test_load_walk_forward_results_maps_corrected_report_for_promotion():

@@ -14,6 +14,7 @@ from production.soxl_paper_trading import (
     _append_execution_daily_csv,
     _block_risk_decision,
     _data_freshness_status,
+    _format_signal_message,
     _paper_output_dir,
     _last_trading_day,
     _load_paper_broker_state,
@@ -113,6 +114,61 @@ def test_post_execution_audit_uses_realized_paper_position():
     assert account.position == 0.35
     assert reconcile.expected_position == 0.35
     assert reconcile.action_required == "none"
+
+
+def test_signal_notification_uses_entry_target_without_account_details():
+    signal = SignalIntent(
+        date="2026-05-14",
+        symbol="SOXL",
+        profile="balanced_rule_residual_v19",
+        model_path="runtime/model/card/balanced_rule_residual_v19/soxl_balanced_rule_residual_v19_actor.pt",
+        seed=42,
+        action=0,
+        target_position=0.65,
+        current_position=0.10,
+        price=50.0,
+        regime_risk=0.5,
+        note="test",
+    )
+    decision = RiskGateDecision(
+        approved=True,
+        capped_target_position=0.35,
+        checks=(),
+        blocking_reasons=(),
+    )
+    account = AccountSnapshot(
+        date="2026-05-14",
+        cash=10_000.0,
+        shares=100,
+        market_value=5_000.0,
+        account_value=15_000.0,
+        position=0.333333,
+    )
+    reconcile = ReconciliationRecord(
+        date="2026-05-14",
+        expected_position=0.35,
+        actual_position=0.333333,
+        position_gap=-0.016667,
+        action_required="none",
+        note="position aligned",
+    )
+
+    _title, body = _format_signal_message(
+        signal,
+        decision,
+        account,
+        reconcile,
+        profile="balanced_rule_residual_v19",
+        model_path=Path("actor.pt"),
+        executed=True,
+    )
+
+    assert "Signal Target: 65.0%" in body
+    assert "Entry Target: 35.0%" in body
+    assert "Account Value" not in body
+    assert "Current Pos" not in body
+    assert "Reconcile" not in body
+    assert "15,000" not in body
 
 
 def test_block_risk_decision_preserves_frozen_decision_contract():
@@ -788,8 +844,10 @@ def test_main_uses_budget_runtime_composer_when_requested(
     monkeypatch.setattr(soxl_paper_trading, "plan_budget_usage_composed_session", fake_plan_budget_usage_composed_session)
     monkeypatch.setattr(soxl_paper_trading, "_last_trading_day", lambda: "2026-05-20")
 
+    import src.soxl_quant.runtime as runtime
     from src.soxl_quant import settings
 
+    monkeypatch.setattr(runtime, "latest_model_path", lambda profile: Path(f"{profile}.pt"))
     monkeypatch.setattr(settings, "CSV_PATH", csv_path)
     monkeypatch.setattr(
         sys,

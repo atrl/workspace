@@ -20,6 +20,34 @@ import scripts.build_backtest_dashboard as dashboard_builder
 from src.soxl_quant.app.dashboard import review_daily_csv_path, write_review_daily_csv
 
 
+def _assert_no_sensitive_public_fields(payload: object) -> None:
+    forbidden_keys = {
+        "account_value",
+        "cash",
+        "shares",
+        "market_value",
+        "current_position",
+        "resulting_position",
+        "actual_position",
+        "position_gap",
+        "filled_qty",
+        "quantity",
+        "broker_order_id",
+        "reconcile_action",
+    }
+
+    def walk(value: object) -> None:
+        if isinstance(value, dict):
+            for key, child in value.items():
+                assert str(key) not in forbidden_keys
+                walk(child)
+        elif isinstance(value, list):
+            for child in value:
+                walk(child)
+
+    walk(payload)
+
+
 def test_review_daily_csv_path_uses_dashboard_convention():
     assert review_daily_csv_path("balanced_rule_residual_v1").name == "balanced_rule_residual_v1_soxl_daily.csv"
 
@@ -233,7 +261,15 @@ def test_load_versions_enriches_paper_trading_row_with_latest_non_dry_summary_me
                 "dry_run": False,
                 "executed": True,
                 "signal": {"target_position": 0.5},
+                "risk_gate": {"approved": True, "capped_target_position": 0.5},
                 "reconcile": {"action_required": "none"},
+                "account": {
+                    "cash": 10_000,
+                    "shares": 100,
+                    "market_value": 17_319.9997,
+                    "account_value": 27_319.9997,
+                    "position": 0.63,
+                },
             }
         ),
         encoding="utf-8",
@@ -249,6 +285,8 @@ def test_load_versions_enriches_paper_trading_row_with_latest_non_dry_summary_me
                 "execution_result": {
                     "status": "duplicate_skipped",
                     "target_position": 0.484086,
+                    "resulting_position": 0.484086,
+                    "filled_qty": 100,
                 },
                 "signal": {
                     "target_position": 0.484086,
@@ -284,7 +322,9 @@ def test_load_versions_enriches_paper_trading_row_with_latest_non_dry_summary_me
     assert row["execution_status"] == "duplicate_skipped"
     assert row["dry_run"] is False
     assert row["target_position"] == 0.484086
-    assert row["reconcile_action"] == "none"
+    assert row["entry_target_position"] == 0.484086
+    assert row["entry_status"] == "duplicate_skipped"
+    assert "reconcile_action" not in row
     assert row["summary_path"] == (
         "runtime/soxl/paper_trading/2026-05-20/duplicate_skip/"
         "v19reg_v22_budget_usage_bull_guard_v1/summary.json"
@@ -294,12 +334,17 @@ def test_load_versions_enriches_paper_trading_row_with_latest_non_dry_summary_me
     assert meta["latest_profile"] == "v19reg_v22_budget_usage_bull_guard_v1"
     assert meta["latest_execution_status"] == "duplicate_skipped"
     assert meta["latest_target_position"] == 0.484086
+    assert meta["latest_entry_status"] == "duplicate_skipped"
+    assert meta["latest_entry_target_position"] == 0.484086
     assert meta["latest_signal_profile"] == "v19reg_v22_budget_usage_bull_guard_v1"
     assert meta["latest_signal_execution_status"] == "duplicate_skipped"
+    assert meta["latest_public_review"]["entry_status"] == "duplicate_skipped"
+    assert meta["latest_public_review"]["entry_target_position"] == 0.484086
     assert meta["latest_signal_summary_path"] == (
         "runtime/soxl/paper_trading/2026-05-20/duplicate_skip/"
         "v19reg_v22_budget_usage_bull_guard_v1/summary.json"
     )
+    _assert_no_sensitive_public_fields(meta)
 
 
 def test_load_versions_exports_latest_dry_run_signal_metadata_without_annotating_seed_row(
@@ -329,6 +374,8 @@ def test_load_versions_exports_latest_dry_run_signal_metadata_without_annotating
                 "signal": {
                     "target_position": 0.8500000003,
                     "current_position": 0.0,
+                    "price": 190.56,
+                    "symbol": "SOXL",
                 },
                 "risk_gate": {
                     "approved": True,
@@ -358,12 +405,19 @@ def test_load_versions_exports_latest_dry_run_signal_metadata_without_annotating
     assert meta["latest_signal_execution_status"] == "dry_run"
     assert meta["latest_signal_target_position"] == 0.8500000003
     assert meta["latest_signal_capped_target_position"] == 0.35
+    assert meta["latest_entry_status"] == "dry_run"
+    assert meta["latest_entry_side"] == "BUY"
+    assert meta["latest_entry_target_position"] == 0.35
+    assert meta["latest_public_review"]["entry_signal_target_position"] == 0.8500000003
+    assert meta["latest_public_review"]["entry_target_position"] == 0.35
     assert meta["latest_signal_risk_gate_approved"] is True
     assert meta["latest_signal_slow_profile"] == "balanced_rule_residual_v19_reg"
     assert meta["latest_signal_fast_profile"] == "balanced_rule_residual_v22"
     assert meta["latest_signal_summary_path"] == (
         "runtime/soxl/paper_trading/2026-05-22/dry_run/futu/summary.json"
     )
+    assert "latest_signal_reconcile_action" not in meta
+    _assert_no_sensitive_public_fields(meta)
 
 
 def test_load_versions_drops_unannotated_paper_seed_row_and_rebases_buyhold(
@@ -419,11 +473,12 @@ def test_load_versions_drops_unannotated_paper_seed_row_and_rebases_buyhold(
 
     rows = versions["paper_trading"]["detailed"]["SOXL"]["rows"]
     assert [r["datetime"] for r in rows] == ["2026-05-14", "2026-05-15"]
-    assert rows[0]["buyhold_nav"] == pytest.approx(rows[0]["strategy_nav"])
-    assert rows[1]["buyhold_nav"] == pytest.approx(
-        3167397.210598 * (999664.857996 / 3886245.093747)
-    )
+    assert rows[0]["strategy_nav"] == pytest.approx(1.0)
+    assert rows[0]["buyhold_nav"] == pytest.approx(1.0)
+    assert rows[1]["strategy_nav"] == pytest.approx(937490.753601 / 999664.857996)
+    assert rows[1]["buyhold_nav"] == pytest.approx(3167397.210598 / 3886245.093747)
     assert rows[0]["excess"] == pytest.approx(0.0, abs=1e-6)
+    assert max(float(row["strategy_nav"]) for row in rows) < 10.0
 
 
 def test_load_versions_keeps_retained_dashboard_export_without_source_csv(tmp_path: Path, monkeypatch):

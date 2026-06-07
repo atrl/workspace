@@ -112,6 +112,98 @@ def test_dashboard_static_export_integrity_check_passes():
     assert "research_backtests=" in result.stdout
 
 
+def test_dashboard_static_export_rejects_sensitive_paper_review_fields():
+    from scripts.check_dashboard_static_export import check_static_export
+
+    with TemporaryDirectory() as tmpdir:
+        root = Path(tmpdir)
+        data_dir = root / "dashboard_data"
+        paper_dir = data_dir / "versioned" / "paper_trading"
+        paper_dir.mkdir(parents=True)
+        (root / "dashboard.html").write_text("<html></html>", encoding="utf-8")
+        (root / "vercel.json").write_text(
+            json.dumps(
+                {
+                    "rewrites": [{"source": "/", "destination": "/dashboard.html"}],
+                    "headers": [
+                        {
+                            "source": source,
+                            "headers": [{"key": "Cache-Control", "value": "public, max-age=0, must-revalidate"}],
+                        }
+                        for source in ("/", "/dashboard.html", "/dashboard_data/:path*")
+                    ],
+                }
+            ),
+            encoding="utf-8",
+        )
+        (data_dir / "index.json").write_text(
+            json.dumps(
+                {
+                    "versions": ["paper_trading"],
+                    "latest_version": "paper_trading",
+                    "version_summaries": {
+                        "paper_trading": {
+                            "etfs": ["SOXL"],
+                            "windows": {"SOXL": {"rows": 1, "end": "2026-05-22"}},
+                            "meta": {"source_kind": "paper_trading"},
+                        }
+                    },
+                    "etfs": ["SOXL"],
+                }
+            ),
+            encoding="utf-8",
+        )
+        (data_dir / "model_versions.json").write_text("[]", encoding="utf-8")
+        (data_dir / "model_replay_freshness.json").write_text(
+            json.dumps({"counts": {}, "profiles": [], "safe_backtest_end": "2026-05-22", "latest_data_date": "2026-05-22"}),
+            encoding="utf-8",
+        )
+        (data_dir / "production_status.json").write_text(
+            json.dumps(
+                {
+                    "status": "ready_for_deploy",
+                    "auth_status": "token",
+                    "project_status": "env_configured",
+                    "static_export": {"latest": "paper_trading"},
+                }
+            ),
+            encoding="utf-8",
+        )
+        (data_dir / "research_backtests.json").write_text(
+            json.dumps([{"experiment": "x", "decision": "y", "summary_path": "z"}]),
+            encoding="utf-8",
+        )
+        (paper_dir / "SOXL.json").write_text(
+            json.dumps(
+                {
+                    "meta": {
+                        "source_kind": "paper_trading",
+                        "latest_public_review": {
+                            "entry_status": "filled",
+                            "account_value": 12345.67,
+                        },
+                    },
+                    "rows": [
+                        {
+                            "datetime": "2026-05-22",
+                            "strategy_nav": 12345.67,
+                            "buyhold_nav": 12345.67,
+                            "price": 190.56,
+                            "position": 0.35,
+                            "action": "BUY",
+                        }
+                    ],
+                }
+            ),
+            encoding="utf-8",
+        )
+
+        errors, _info = check_static_export(root)
+
+    assert any("sensitive paper_trading field" in error for error in errors)
+    assert any("paper_trading rows must use normalized nav" in error for error in errors)
+
+
 def test_vercel_deploy_command_is_non_interactive_and_token_safe():
     from scripts.deploy_vercel_dashboard import build_deploy_command, sanitize_command
 

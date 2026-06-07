@@ -29,6 +29,7 @@ if str(ROOT) not in sys.path:
 
 from production.notify import get_notifier
 from scripts.update_market_data import update_master_csv, refresh_qlib, refresh_data_registry, sync_local_data_surfaces
+from src.soxl_quant.app.paper_review import public_order_entry_from_execution, public_paper_review_from_summary
 from src.soxl_quant.app.futu import FutuBroker
 from src.soxl_quant.app.ibkr import IBConnectionConfig, IBBroker
 from src.soxl_quant.data import init_qlib
@@ -313,17 +314,13 @@ def _format_signal_message(
         f"Profile: {profile}",
         f"Model: {model_label}",
         f"Price: ${signal.price:.2f}",
-        f"Current Pos: {signal.current_position:.1%}",
-        f"Target Pos: {signal.target_position:.1%}",
+        f"Signal Target: {signal.target_position:.1%}",
+        f"Entry Target: {decision.capped_target_position:.1%}",
         f"Action: {signal.action}",
         f"Risk Gate: {'APPROVED' if decision.approved else 'BLOCKED'}",
     ]
     if not decision.approved:
         body_lines.append(f"Reason: {'; '.join(decision.blocking_reasons)}")
-    body_lines.extend([
-        f"Account Value: ${account.account_value:,.2f}",
-        f"Reconcile: {reconcile.note}",
-    ])
     return title, "\n".join(body_lines)
 
 
@@ -751,6 +748,13 @@ def main() -> None:
                         json.dumps(_jsonable(value), ensure_ascii=False, indent=2),
                         encoding="utf-8",
                     )
+                order_entry = public_order_entry_from_execution(
+                    signal=signal,
+                    risk_gate=decision,
+                    commands=[],
+                    execution_result=duplicate_result,
+                    dry_run=False,
+                )
                 summary = {
                     "date": signal.date,
                     "profile": profile_name,
@@ -760,6 +764,7 @@ def main() -> None:
                     "executed": False,
                     "execution_result": asdict(duplicate_result),
                     "duplicate_of": existing_summary,
+                    "order_entry": order_entry,
                     "signal": asdict(signal),
                     "risk_gate": asdict(decision),
                     "account": asdict(account),
@@ -767,6 +772,7 @@ def main() -> None:
                 }
                 if "composition" in result:
                     summary["composition"] = result["composition"]
+                summary["public_review"] = public_paper_review_from_summary(summary)
                 (run_dir / "summary.json").write_text(
                     json.dumps(summary, indent=2, default=str),
                     encoding="utf-8",
@@ -847,6 +853,13 @@ def main() -> None:
             (run_dir / f"{name}.json").write_text(
                 json.dumps(_jsonable(value), ensure_ascii=False, indent=2), encoding="utf-8"
             )
+        order_entry = public_order_entry_from_execution(
+            signal=signal,
+            risk_gate=decision,
+            commands=commands,
+            execution_result=exec_result,
+            dry_run=args.dry_run,
+        )
         summary = {
             "date": signal.date,
             "profile": profile_name,
@@ -854,6 +867,7 @@ def main() -> None:
             "broker": args.broker,
             "dry_run": args.dry_run,
             "executed": executed,
+            "order_entry": order_entry,
             "signal": asdict(signal),
             "risk_gate": asdict(decision),
             "account": asdict(account),
@@ -863,6 +877,7 @@ def main() -> None:
             summary["execution_result"] = asdict(exec_result)
         if "composition" in result:
             summary["composition"] = result["composition"]
+        summary["public_review"] = public_paper_review_from_summary(summary)
         (run_dir / "summary.json").write_text(json.dumps(summary, indent=2, default=str), encoding="utf-8")
         print(f"[paper] output={run_dir}")
 

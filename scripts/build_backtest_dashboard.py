@@ -13,6 +13,8 @@ import pandas as pd
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
+from src.soxl_quant.app.paper_review import public_paper_review_from_summary
+
 ROOT = Path(__file__).resolve().parent.parent
 GENERALIZATION_DIR = ROOT / "runtime" / "execution" / "generalization"
 GENERALIZATION_DIR.mkdir(parents=True, exist_ok=True)
@@ -206,7 +208,9 @@ def compact_payload_rows(rows: list[dict[str, object]]) -> list[dict[str, object
         "execution_status",
         "dry_run",
         "target_position",
-        "reconcile_action",
+        "entry_status",
+        "entry_side",
+        "entry_target_position",
         "summary_path",
     )
     for row in rows:
@@ -275,11 +279,8 @@ def _summary_priority(path: Path, payload: dict[str, object]) -> int:
     return 20
 
 
-def _summary_reconcile_action(payload: dict[str, object]) -> str | None:
-    reconcile = payload.get("reconcile")
-    if isinstance(reconcile, dict) and reconcile.get("action_required") is not None:
-        return str(reconcile["action_required"])
-    return None
+def _public_review_for_summary(path: Path, payload: dict[str, object]) -> dict[str, object]:
+    return public_paper_review_from_summary(payload, summary_path=_relative_to_root(path))
 
 
 def _latest_paper_signal_metadata(paper_dir: Path) -> dict[str, object]:
@@ -294,16 +295,20 @@ def _latest_paper_signal_metadata(paper_dir: Path) -> dict[str, object]:
             continue
         risk_gate = payload.get("risk_gate")
         composition = payload.get("composition")
+        public_review = _public_review_for_summary(summary_path, payload)
         metadata: dict[str, object] = {
             "latest_signal_date": str(date),
             "latest_signal_profile": str(payload.get("profile") or ""),
             "latest_signal_execution_status": _summary_execution_status(payload),
             "latest_signal_target_position": _summary_target_position(payload),
             "latest_signal_capped_target_position": _summary_capped_target_position(payload),
-            "latest_signal_reconcile_action": _summary_reconcile_action(payload),
             "latest_signal_summary_path": _relative_to_root(summary_path),
             "latest_signal_broker": str(payload.get("broker") or ""),
             "latest_signal_dry_run": payload.get("dry_run") is True,
+            "latest_public_review": public_review,
+            "latest_entry_status": public_review.get("entry_status"),
+            "latest_entry_side": public_review.get("entry_side"),
+            "latest_entry_target_position": public_review.get("entry_target_position"),
         }
         if isinstance(risk_gate, dict) and risk_gate.get("approved") is not None:
             metadata["latest_signal_risk_gate_approved"] = risk_gate.get("approved") is True
@@ -326,13 +331,17 @@ def _paper_summary_metadata(path: Path, payload: dict[str, object]) -> dict[str,
     date = payload.get("date")
     if not date or payload.get("dry_run") is True:
         return None
+    public_review = _public_review_for_summary(path, payload)
+    entry_target = public_review.get("entry_target_position")
     return {
         "date": str(date),
         "profile": str(payload.get("profile") or ""),
         "execution_status": _summary_execution_status(payload),
         "dry_run": payload.get("dry_run") is True,
-        "target_position": _summary_target_position(payload),
-        "reconcile_action": _summary_reconcile_action(payload),
+        "target_position": entry_target,
+        "entry_status": public_review.get("entry_status"),
+        "entry_side": public_review.get("entry_side"),
+        "entry_target_position": entry_target,
         "summary_path": _relative_to_root(path),
         "_priority": _summary_priority(path, payload),
         "_mtime": path.stat().st_mtime,
@@ -386,6 +395,15 @@ def _prepare_paper_trading_rows(rows: list[dict[str, object]]) -> list[dict[str,
     if not prepared:
         return prepared
 
+    for row in prepared:
+        entry_target = row.get("entry_target_position")
+        if entry_target is not None:
+            row["position"] = entry_target
+            row["target_position"] = entry_target
+        entry_side = row.get("entry_side")
+        if isinstance(entry_side, str) and entry_side in {"BUY", "SELL", "HOLD"}:
+            row["action"] = entry_side
+
     first_strategy = float(prepared[0].get("strategy_nav") or 0.0)
     first_buyhold = float(prepared[0].get("buyhold_nav") or 0.0)
     if first_strategy <= 0 or first_buyhold <= 0:
@@ -395,9 +413,12 @@ def _prepare_paper_trading_rows(rows: list[dict[str, object]]) -> list[dict[str,
     for row in prepared:
         strategy_nav = float(row.get("strategy_nav") or 0.0)
         buyhold_nav = float(row.get("buyhold_nav") or 0.0) * scale
-        row["buyhold_nav"] = buyhold_nav
-        row["excess"] = strategy_nav - buyhold_nav
-        row["excess_pct"] = (strategy_nav / buyhold_nav - 1) * 100 if buyhold_nav else 0.0
+        strategy_index = strategy_nav / first_strategy if first_strategy else 0.0
+        buyhold_index = buyhold_nav / first_strategy if first_strategy else 0.0
+        row["strategy_nav"] = strategy_index
+        row["buyhold_nav"] = buyhold_index
+        row["excess"] = strategy_index - buyhold_index
+        row["excess_pct"] = (strategy_index / buyhold_index - 1) * 100 if buyhold_index else 0.0
     return prepared
 
 
@@ -422,7 +443,9 @@ def _paper_trading_detail_meta(
             "latest_profile": latest.get("profile"),
             "latest_execution_status": latest.get("execution_status"),
             "latest_target_position": latest.get("target_position"),
-            "latest_reconcile_action": latest.get("reconcile_action"),
+            "latest_entry_status": latest.get("entry_status"),
+            "latest_entry_side": latest.get("entry_side"),
+            "latest_entry_target_position": latest.get("entry_target_position"),
             "latest_summary_path": latest.get("summary_path"),
         }
     )
@@ -580,7 +603,11 @@ def _research_backtest_record(card_dir: Path) -> dict[str, object] | None:
         "updated_at_ts": updated_at,
         "notebook_path": _relpath(notebook_path) if notebook_path else None,
         "selection_path": _relpath(selection_path) if selection_path.exists() else None,
-        "summary_path": _relpath(summary_path) if summary_path.exists() else None,
+        "summary_path": (
+            _relpath(summary_path)
+            if summary_path.exists()
+            else (_relpath(selection_path) if selection_path.exists() else None)
+        ),
         "external_reference": selection.get("external_reference") or summary.get("external_sources") or [],
     }
     return {key: value for key, value in record.items() if value not in (None, "")}
@@ -1008,6 +1035,9 @@ def _load_retained_dashboard_versions() -> dict[str, dict]:
             if not isinstance(rows, list) or not rows:
                 continue
             etf = json_path.stem.upper()
+            if tag_dir.name == "paper_trading":
+                detail = _sanitize_retained_paper_detail(detail)
+                rows = detail.get("rows") or []
             details[etf] = detail
             windows[etf] = {
                 "start": rows[0].get("datetime", ""),
@@ -1016,17 +1046,98 @@ def _load_retained_dashboard_versions() -> dict[str, dict]:
             }
             updated_at = max(updated_at, json_path.stat().st_mtime)
         if details:
+            source_kind = "paper_trading" if tag_dir.name == "paper_trading" else "retained_dashboard_export"
             versioned[tag_dir.name] = {
                 "_meta": {
                     "updated_at": updated_at,
                     "source": str(tag_dir.relative_to(ROOT)),
-                    "source_kind": "retained_dashboard_export",
+                    "source_kind": source_kind,
                     "shared_market_data": True,
                 },
                 "detailed": details,
                 "windows": windows,
             }
     return versioned
+
+
+def _retained_paper_public_review(detail: dict[str, object]) -> dict[str, object]:
+    rows = detail.get("rows")
+    latest = rows[-1] if isinstance(rows, list) and rows else {}
+    if not isinstance(latest, dict):
+        latest = {}
+    meta = detail.get("meta")
+    if not isinstance(meta, dict):
+        meta = {}
+    target = meta.get("latest_signal_capped_target_position")
+    if target is None:
+        target = meta.get("latest_signal_target_position")
+    pseudo_summary = {
+        "date": meta.get("latest_signal_date") or latest.get("datetime"),
+        "profile": meta.get("latest_signal_profile") or meta.get("latest_profile") or latest.get("profile"),
+        "broker": meta.get("latest_signal_broker") or "",
+        "dry_run": meta.get("latest_signal_dry_run") is True,
+        "executed": meta.get("latest_signal_execution_status") == "executed",
+        "signal": {
+            "symbol": "SOXL",
+            "target_position": meta.get("latest_signal_target_position") or target,
+            "current_position": 0.0,
+            "price": latest.get("price"),
+        },
+        "risk_gate": {
+            "approved": meta.get("latest_signal_risk_gate_approved"),
+            "capped_target_position": target,
+        },
+        "execution_result": {
+            "status": meta.get("latest_signal_execution_status"),
+            "target_position": target,
+        },
+    }
+    return public_paper_review_from_summary(
+        pseudo_summary,
+        summary_path=meta.get("latest_signal_summary_path"),
+    )
+
+
+def _sanitize_retained_paper_detail(detail: dict[str, object]) -> dict[str, object]:
+    sanitized = dict(detail)
+    rows = [dict(row) for row in sanitized.get("rows", []) if isinstance(row, dict)]
+    review = _retained_paper_public_review(sanitized)
+    if rows:
+        rows[-1]["entry_status"] = review.get("entry_status")
+        rows[-1]["entry_side"] = review.get("entry_side")
+        rows[-1]["entry_target_position"] = review.get("entry_target_position")
+        rows[-1]["target_position"] = review.get("entry_target_position")
+    sanitized["rows"] = _prepare_paper_trading_rows(rows)
+
+    old_meta = sanitized.get("meta")
+    old_meta = old_meta if isinstance(old_meta, dict) else {}
+    meta = {
+        "source_kind": "paper_trading",
+        "source": old_meta.get("source") or sanitized.get("csv_path") or "runtime/soxl/paper_trading/paper_trading_soxl_daily.csv",
+        "latest_data_date": old_meta.get("latest_data_date") or review.get("date"),
+        "latest_signal_date": old_meta.get("latest_signal_date") or review.get("date"),
+        "latest_signal_profile": old_meta.get("latest_signal_profile") or review.get("profile"),
+        "latest_signal_execution_status": old_meta.get("latest_signal_execution_status") or review.get("entry_status"),
+        "latest_signal_target_position": old_meta.get("latest_signal_target_position"),
+        "latest_signal_capped_target_position": old_meta.get("latest_signal_capped_target_position") or review.get("entry_target_position"),
+        "latest_signal_summary_path": old_meta.get("latest_signal_summary_path") or review.get("summary_path"),
+        "latest_signal_broker": old_meta.get("latest_signal_broker") or review.get("broker"),
+        "latest_signal_dry_run": old_meta.get("latest_signal_dry_run") if "latest_signal_dry_run" in old_meta else review.get("dry_run"),
+        "latest_signal_risk_gate_approved": old_meta.get("latest_signal_risk_gate_approved") if "latest_signal_risk_gate_approved" in old_meta else review.get("risk_gate_approved"),
+        "latest_public_review": review,
+        "latest_entry_status": review.get("entry_status"),
+        "latest_entry_side": review.get("entry_side"),
+        "latest_entry_target_position": review.get("entry_target_position"),
+    }
+    for source, target in (
+        ("latest_signal_slow_profile", "latest_signal_slow_profile"),
+        ("latest_signal_fast_profile", "latest_signal_fast_profile"),
+        ("latest_signal_mode", "latest_signal_mode"),
+    ):
+        if old_meta.get(source) is not None:
+            meta[target] = old_meta[source]
+    sanitized["meta"] = {key: value for key, value in meta.items() if value is not None}
+    return sanitized
 
 
 def _load_versioned_data(features: dict[str, dict[str, float]] | None) -> dict[str, dict]:
@@ -2991,26 +3102,28 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       const rows = paperPayload && Array.isArray(paperPayload.rows) ? paperPayload.rows : [];
       const latest = rows.length ? rows[rows.length - 1] : {{}};
       const meta = (paperPayload && paperPayload.meta) || {{}};
+      const review = meta.latest_public_review || {{}};
       const signalBits = [];
       if (meta.latest_signal_slow_profile) signalBits.push(`slow=${{meta.latest_signal_slow_profile}}`);
       if (meta.latest_signal_fast_profile) signalBits.push(`fast=${{meta.latest_signal_fast_profile}}`);
       const signalProfile = meta.latest_signal_profile
         ? (signalBits.length ? `${{meta.latest_signal_profile}} (${{signalBits.join(', ')}})` : meta.latest_signal_profile)
         : null;
-      const profile = meta.latest_profile || latest.profile || signalProfile || 'unknown';
-      const execution = meta.latest_execution_status || latest.execution_status || meta.latest_signal_execution_status || 'unknown';
-      const dataDate = meta.latest_data_date || meta.latest_signal_date || latest.datetime || 'unknown';
-      const target = meta.latest_target_position != null
-        ? meta.latest_target_position
-        : (latest.target_position != null
-          ? latest.target_position
-          : (meta.latest_signal_capped_target_position != null
-            ? meta.latest_signal_capped_target_position
-            : meta.latest_signal_target_position));
-      const source = meta.latest_summary_path || latest.summary_path || meta.latest_signal_summary_path || paperPayload?.csv_path || 'paper_trading_soxl_daily.csv';
+      const profile = review.profile || meta.latest_profile || latest.profile || signalProfile || 'unknown';
+      const execution = review.entry_status || meta.latest_entry_status || meta.latest_execution_status || latest.execution_status || meta.latest_signal_execution_status || 'unknown';
+      const dataDate = review.date || meta.latest_data_date || meta.latest_signal_date || latest.datetime || 'unknown';
+      const target = review.entry_target_position != null
+        ? review.entry_target_position
+        : (meta.latest_entry_target_position != null
+          ? meta.latest_entry_target_position
+          : (latest.entry_target_position != null
+            ? latest.entry_target_position
+            : latest.target_position));
+      const side = review.entry_side || meta.latest_entry_side || latest.entry_side || latest.action || 'entry';
+      const source = review.summary_path || meta.latest_summary_path || latest.summary_path || meta.latest_signal_summary_path || paperPayload?.csv_path || 'paper_trading_soxl_daily.csv';
       setProductionText(productionPaperModel, profile);
       setProductionText(productionPaperExecution, execution);
-      setProductionText(productionPaperSource, `${{dataDate}} · target ${{fmtPctValue(target)}} · ${{source}}`);
+      setProductionText(productionPaperSource, `${{dataDate}} · ${{side}} ${{fmtPctValue(target)}} · ${{source}}`);
     }}
 
     function renderModelReplayStatus(modelReplay) {{

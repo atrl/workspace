@@ -9,6 +9,12 @@ import sys
 from pathlib import Path
 from typing import Any
 
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from src.soxl_quant.app.paper_review import collect_sensitive_public_keys
+
 
 NO_CACHE_HEADER = {
     "key": "Cache-Control",
@@ -213,6 +219,26 @@ def check_static_export(root: Path) -> tuple[list[str], dict[str, Any]]:
                     f"row mismatch in {payload_path.relative_to(root)}: "
                     f"index={expected_rows} payload={len(rows)}"
                 )
+            if version == "paper_trading":
+                findings = collect_sensitive_public_keys(
+                    {
+                        "meta": payload.get("meta", {}),
+                        "rows": rows,
+                    }
+                )
+                for finding in findings[:10]:
+                    errors.append(f"sensitive paper_trading field in {payload_path.relative_to(root)}: {finding}")
+                for idx, row in enumerate(rows[:10]):
+                    if not isinstance(row, dict):
+                        continue
+                    for nav_key in ("strategy_nav", "buyhold_nav"):
+                        value = row.get(nav_key)
+                        if isinstance(value, (int, float)) and abs(float(value)) > 1000.0:
+                            errors.append(
+                                "paper_trading rows must use normalized nav "
+                                f"in {payload_path.relative_to(root)} row={idx} field={nav_key}"
+                            )
+                            break
 
     info["missing"] = missing
     paper = version_summaries.get("paper_trading", {})
