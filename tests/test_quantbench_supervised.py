@@ -30,11 +30,15 @@ FULL_PAPER_ARCHITECTURE_MODEL_NAMES = (
     "dlinear_mse",
     "patch_tst_mse",
     "autoformer_mse",
+    "fedformer_mse",
     "gcn_mse",
     "gat_mse",
     "rgcn_mse",
     "rsr_mse",
     "hypergraph_mse",
+    "thgnn_mse",
+    "sthan_mse",
+    "sthgcn_mse",
 )
 
 
@@ -459,12 +463,16 @@ def test_quantbench_supervised_model_specs_cover_paper_objectives():
         "sequence_linear_decomposition",
         "sequence_patch_transformer",
         "sequence_auto_correlation",
+        "sequence_frequency_transformer",
         "relational_graph",
         "relational_gcn",
         "relational_gat",
         "relational_rgcn",
         "relational_rsr",
         "relational_hypergraph",
+        "relational_temporal_hypergraph",
+        "relational_temporal_hypergraph_attention",
+        "relational_temporal_hypergraph_convolution",
     } <= {spec.paper_family for spec in specs}
     assert set(FULL_PAPER_ARCHITECTURE_MODEL_NAMES) <= {spec.name for spec in specs}
     assert {"clf", "ic", "mse", "ranking"} <= {spec.objective for spec in specs}

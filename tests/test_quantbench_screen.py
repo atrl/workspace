@@ -232,8 +232,10 @@ def test_quantbench_model_objective_coverage_is_src_owned():
     assert "hawkes_gru_mse" in by_family["sequence_lstm_gru_alstm_sfm_darnn_hawkes"]["current_soxl_surface"]
     assert by_family["sequence_mixer_transformer"]["coverage"] == "implemented"
     assert "patch_tst_mse" in by_family["sequence_mixer_transformer"]["current_soxl_surface"]
+    assert "fedformer_mse" in by_family["sequence_mixer_transformer"]["current_soxl_surface"]
     assert by_family["relational_gnn_hypergraph"]["coverage"] == "implemented"
     assert "hypergraph_mse" in by_family["relational_gnn_hypergraph"]["current_soxl_surface"]
+    assert "sthgcn_mse" in by_family["relational_gnn_hypergraph"]["current_soxl_surface"]
     assert by_family["seed_ensemble"]["coverage"] == "implemented"
     assert "low-correlation signal blend" in by_family["seed_ensemble"]["current_soxl_surface"]
     assert all(row["next_step"] for row in coverage)

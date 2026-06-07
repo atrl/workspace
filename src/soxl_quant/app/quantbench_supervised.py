@@ -205,6 +205,13 @@ QUANTBENCH_SUPERVISED_MODEL_SPECS: tuple[SupervisedModelSpec, ...] = (
         estimator="TorchAutoformerLite",
     ),
     SupervisedModelSpec(
+        name="fedformer_mse",
+        paper_family="sequence_frequency_transformer",
+        objective="mse",
+        target_kind="return",
+        estimator="TorchFEDformerLite",
+    ),
+    SupervisedModelSpec(
         name="market_graph_mse",
         paper_family="relational_graph",
         objective="mse",
@@ -245,6 +252,27 @@ QUANTBENCH_SUPERVISED_MODEL_SPECS: tuple[SupervisedModelSpec, ...] = (
         objective="mse",
         target_kind="return",
         estimator="HypergraphRidge",
+    ),
+    SupervisedModelSpec(
+        name="thgnn_mse",
+        paper_family="relational_temporal_hypergraph",
+        objective="mse",
+        target_kind="return",
+        estimator="TemporalHypergraphRidge",
+    ),
+    SupervisedModelSpec(
+        name="sthan_mse",
+        paper_family="relational_temporal_hypergraph_attention",
+        objective="mse",
+        target_kind="return",
+        estimator="SpatioTemporalHypergraphAttentionRidge",
+    ),
+    SupervisedModelSpec(
+        name="sthgcn_mse",
+        paper_family="relational_temporal_hypergraph_convolution",
+        objective="mse",
+        target_kind="return",
+        estimator="SpatioTemporalHypergraphConvolutionRidge",
     ),
 )
 
@@ -517,6 +545,12 @@ class _TorchSequenceArchitectureRegressor:
                         nn.ReLU(),
                         nn.Linear(hidden_size, 1),
                     )
+                elif architecture == "fedformer":
+                    self.head = nn.Sequential(
+                        nn.Linear(feature_count * 5, hidden_size),
+                        nn.ReLU(),
+                        nn.Linear(hidden_size, 1),
+                    )
                 else:
                     self.head = nn.Sequential(
                         nn.Linear(lookback * feature_count, hidden_size),
@@ -583,6 +617,24 @@ class _TorchSequenceArchitectureRegressor:
                             trend.mean(dim=1),
                             seasonal.mean(dim=1),
                             seasonal_fft,
+                        ],
+                        dim=1,
+                    )
+                    return self.head(encoded)
+                if self.architecture == "fedformer":
+                    trend = self._moving_average(values)
+                    seasonal = values - trend
+                    spectrum = torch.fft.rfft(seasonal, dim=1).abs()
+                    low_modes = spectrum[:, : min(2, spectrum.shape[1]), :].mean(dim=1)
+                    high_source = spectrum[:, min(2, spectrum.shape[1]) :, :]
+                    high_modes = high_source.mean(dim=1) if high_source.shape[1] else low_modes
+                    encoded = torch.cat(
+                        [
+                            trend[:, -1, :],
+                            trend.mean(dim=1),
+                            seasonal[:, -1, :],
+                            low_modes,
+                            high_modes,
                         ],
                         dim=1,
                     )
@@ -767,6 +819,30 @@ def _relational_graph_feature_frame(x: pd.DataFrame, architecture: str) -> pd.Da
         parts["hypergraph__edge_gap"] = semis_hyperedge - risk_hyperedge
         parts["hypergraph__edge_product"] = semis_hyperedge * risk_hyperedge
         parts["hypergraph__edge_dispersion"] = pd.concat([primary, sector, relation, risk], axis=1).std(axis=1, ddof=0)
+    elif architecture in {"thgnn", "sthan", "sthgcn"}:
+        semis_hyperedge = pd.concat([primary, sector, relation], axis=1).mean(axis=1)
+        risk_hyperedge = pd.concat([risk, relation, primary - sector], axis=1).mean(axis=1)
+        temporal_gap = (semis_hyperedge - risk_hyperedge).diff().fillna(0.0)
+        semis_roll = semis_hyperedge.rolling(5, min_periods=1).mean()
+        risk_roll = risk_hyperedge.rolling(5, min_periods=1).mean()
+        parts[f"{architecture}__semis_hyperedge"] = semis_hyperedge
+        parts[f"{architecture}__risk_hyperedge"] = risk_hyperedge
+        parts[f"{architecture}__temporal_gap"] = temporal_gap
+        parts[f"{architecture}__semis_roll5"] = semis_roll
+        parts[f"{architecture}__risk_roll5"] = risk_roll
+        if architecture == "thgnn":
+            parts["thgnn__hyperedge_message"] = semis_roll - risk_roll
+            parts["thgnn__temporal_message"] = temporal_gap.rolling(3, min_periods=1).mean()
+        elif architecture == "sthan":
+            attention = 1.0 / (1.0 + np.exp(-(semis_roll - risk_roll).clip(-20.0, 20.0)))
+            parts["sthan__attention_semis"] = semis_hyperedge * attention
+            parts["sthan__attention_risk"] = risk_hyperedge * (1.0 - attention)
+            parts["sthan__attention_gap"] = (semis_hyperedge - risk_hyperedge) * attention
+        elif architecture == "sthgcn":
+            stacked = pd.concat([primary, sector, relation, risk, semis_roll, risk_roll], axis=1)
+            parts["sthgcn__graph_conv_mean"] = stacked.mean(axis=1)
+            parts["sthgcn__graph_conv_std"] = stacked.std(axis=1, ddof=0)
+            parts["sthgcn__temporal_conv"] = stacked.mean(axis=1).rolling(3, min_periods=1).mean()
 
     frame = pd.DataFrame(parts, index=graph.index)
     return frame.replace([np.inf, -np.inf], np.nan).fillna(0.0)
@@ -1130,6 +1206,14 @@ def _build_model(spec: SupervisedModelSpec):
             learning_rate=0.01,
             random_state=8,
         )
+    if spec.name == "fedformer_mse":
+        return _TorchSequenceArchitectureRegressor(
+            architecture="fedformer",
+            hidden_size=8,
+            epochs=12,
+            learning_rate=0.01,
+            random_state=9,
+        )
     if spec.name == "market_graph_mse":
         return _MarketGraphRidgeRegressor(alpha=1.5)
     if spec.name == "gcn_mse":
@@ -1142,6 +1226,12 @@ def _build_model(spec: SupervisedModelSpec):
         return _RelationalGraphRidgeRegressor(architecture="rsr", alpha=1.2)
     if spec.name == "hypergraph_mse":
         return _RelationalGraphRidgeRegressor(architecture="hypergraph", alpha=1.2)
+    if spec.name == "thgnn_mse":
+        return _RelationalGraphRidgeRegressor(architecture="thgnn", alpha=1.2)
+    if spec.name == "sthan_mse":
+        return _RelationalGraphRidgeRegressor(architecture="sthan", alpha=1.2)
+    if spec.name == "sthgcn_mse":
+        return _RelationalGraphRidgeRegressor(architecture="sthgcn", alpha=1.2)
     raise ValueError(f"unknown supervised model '{spec.name}'")
 
 
@@ -1161,7 +1251,7 @@ def _sequence_lookback_for_spec(spec: SupervisedModelSpec) -> int:
         return 8
     if spec.name == "tcn_mse":
         return 8
-    if spec.name in {"patch_tst_mse", "autoformer_mse"}:
+    if spec.name in {"patch_tst_mse", "autoformer_mse", "fedformer_mse"}:
         return 12
     return 1
 
