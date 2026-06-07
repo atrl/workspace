@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import numpy as np
 import pandas as pd
+import pytest
 
 from src.soxl_quant.app.quantbench_objectives import build_soxl_supervised_targets
 from src.soxl_quant.app.quantbench_supervised import (
@@ -13,6 +14,27 @@ from src.soxl_quant.app.quantbench_supervised import (
     fit_quantbench_supervised_models,
     quantbench_supervised_model_specs,
     risk_aware_position_series,
+)
+
+
+FULL_PAPER_ARCHITECTURE_MODEL_NAMES = (
+    "xgboost_mse",
+    "lightgbm_mse",
+    "catboost_rank",
+    "gru_mse",
+    "alstm_mse",
+    "sfm_mse",
+    "darnn_mse",
+    "hawkes_gru_mse",
+    "mlp_mixer_mse",
+    "dlinear_mse",
+    "patch_tst_mse",
+    "autoformer_mse",
+    "gcn_mse",
+    "gat_mse",
+    "rgcn_mse",
+    "rsr_mse",
+    "hypergraph_mse",
 )
 
 
@@ -331,6 +353,52 @@ def test_fit_quantbench_supervised_models_trains_relational_market_graph_spec():
     assert "mse" in metrics["market_graph_mse"]
 
 
+@pytest.mark.parametrize("model_name", FULL_PAPER_ARCHITECTURE_MODEL_NAMES)
+def test_fit_quantbench_supervised_models_trains_full_paper_architecture_specs(model_name):
+    index = pd.date_range("2024-01-01", periods=150, freq="D")
+    step = np.arange(len(index), dtype=float)
+    base_signal = np.sin(step / 5.0) + 0.30 * np.cos(step / 13.0)
+    sector_signal = np.cos(step / 7.0) - 0.20 * np.sin(step / 17.0)
+    risk_signal = np.where((step.astype(int) % 23) < 6, 0.90, -0.20)
+    spread_signal = base_signal - 0.55 * sector_signal
+    relation_signal = spread_signal - 0.35 * risk_signal
+    lagged_relation = pd.Series(relation_signal, index=index).shift(2).fillna(0.0).to_numpy()
+    close = pd.Series(100.0 * np.cumprod(1.0 + 0.004 * np.sign(lagged_relation)), index=index)
+    features = pd.DataFrame(
+        {
+            "signal": base_signal,
+            "anti_signal": -base_signal,
+            "SOXL_momentum_21": base_signal,
+            "SOXX_momentum_21": sector_signal,
+            "SOXL_SOXX_RATIO_Z_252": spread_signal,
+            "SOXL_SOXX_SPREAD_VOL_Z_21": spread_signal * risk_signal,
+            "vix_zscore": risk_signal,
+            "regime_risk": np.clip((risk_signal + 1.0) / 2.0, 0.0, 1.0),
+        },
+        index=index,
+    )
+    targets = build_soxl_supervised_targets(close, horizons=(1,))
+
+    predictions, metrics = fit_quantbench_supervised_models(
+        features,
+        targets,
+        train_start=index[0],
+        train_end=index[94],
+        test_start=index[95],
+        test_end=index[135],
+        horizon=1,
+        model_names=(model_name,),
+    )
+
+    pred = predictions[model_name]
+    assert pred.index.min() >= index[95]
+    assert pred.index.max() <= index[135]
+    assert np.isfinite(pred.to_numpy()).all()
+    assert pred.nunique() > 1
+    assert metrics[model_name]["rows"] > 0
+    assert {"mse", "ic", "ranking_spread"} <= set(metrics[model_name])
+
+
 def test_fit_quantbench_rolling_supervised_models_refits_without_future_label_leakage():
     index = pd.date_range("2024-01-01", periods=180, freq="D")
     signal = np.sin(np.arange(len(index)) / 5.0)
@@ -376,12 +444,29 @@ def test_quantbench_supervised_model_specs_cover_paper_objectives():
         "tree",
         "boosted_tree",
         "tree_ensemble",
+        "boosted_tree_xgboost",
+        "boosted_tree_lightgbm",
+        "boosted_tree_catboost",
         "neural_tabular",
         "sequence_temporal",
         "sequence_recurrent",
         "sequence_convolutional",
+        "sequence_attention_recurrent",
+        "sequence_frequency",
+        "sequence_dual_attention",
+        "sequence_hawkes_recurrent",
+        "sequence_mlp_mixer",
+        "sequence_linear_decomposition",
+        "sequence_patch_transformer",
+        "sequence_auto_correlation",
         "relational_graph",
+        "relational_gcn",
+        "relational_gat",
+        "relational_rgcn",
+        "relational_rsr",
+        "relational_hypergraph",
     } <= {spec.paper_family for spec in specs}
+    assert set(FULL_PAPER_ARCHITECTURE_MODEL_NAMES) <= {spec.name for spec in specs}
     assert {"clf", "ic", "mse", "ranking"} <= {spec.objective for spec in specs}
 
 
@@ -479,3 +564,30 @@ def test_build_quantbench_supervised_report_writes_screen_artifacts(tmp_path):
     assert (tmp_path / "supervised_summary.json").exists()
     assert (tmp_path / "supervised_candidate_screen.csv").read_text(encoding="utf-8").startswith("profile,")
     assert "supervised_payloads_json" in report["artifacts"]
+
+
+def test_build_quantbench_supervised_report_accepts_custom_latest_windows(tmp_path):
+    index = pd.date_range("2024-01-01", periods=140, freq="D")
+    signal = np.sin(np.arange(len(index)) / 8.0)
+    close = pd.Series(100.0 * np.cumprod(1.0 + 0.003 * np.sign(signal + 0.2)), index=index)
+    features = pd.DataFrame({"signal": signal, "anti_signal": -signal}, index=index)
+
+    build_quantbench_supervised_report(
+        features,
+        close,
+        card_dir=tmp_path,
+        root=tmp_path,
+        horizon=1,
+        model_names=("ridge_mse",),
+        rolling_enabled=False,
+        train_start=index[0],
+        train_end=index[79],
+        test_start=index[80],
+        test_end=index[120],
+        windows={"latest_test": (str(index[90].date()), str(index[120].date()))},
+    )
+
+    import json
+
+    payloads = json.loads((tmp_path / "supervised_payloads.json").read_text(encoding="utf-8"))
+    assert set(payloads[0]["slices"]) == {"latest_test"}

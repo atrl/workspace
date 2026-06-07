@@ -222,15 +222,19 @@ def test_quantbench_model_objective_coverage_is_src_owned():
     coverage = quantbench_model_objective_coverage()
     by_family = {row["family"]: row for row in coverage}
 
-    assert by_family["tree_xgboost_lightgbm"]["coverage"] == "implemented_partial"
+    assert by_family["tree_xgboost_lightgbm_catboost"]["coverage"] == "implemented"
+    assert "xgboost_mse" in by_family["tree_xgboost_lightgbm_catboost"]["current_soxl_surface"]
     assert by_family["objectives_clf_ic_mse_ranking"]["coverage"] == "implemented"
-    assert by_family["utility_rl_execution"]["coverage"] == "implemented_partial"
-    assert by_family["rolling_continual"]["coverage"] == "implemented_partial"
+    assert by_family["utility_rl_execution"]["coverage"] == "implemented"
+    assert by_family["rolling_continual"]["coverage"] == "implemented"
     assert "rolling supervised refit" in by_family["rolling_continual"]["current_soxl_surface"]
-    assert "TorchTCN" in by_family["attention_tide_mixer"]["current_soxl_surface"]
-    assert by_family["relational_rgcn"]["coverage"] == "implemented_partial"
-    assert "MarketGraphRidge" in by_family["relational_rgcn"]["current_soxl_surface"]
-    assert by_family["seed_ensemble"]["coverage"] == "implemented_partial"
+    assert by_family["sequence_lstm_gru_alstm_sfm_darnn_hawkes"]["coverage"] == "implemented"
+    assert "hawkes_gru_mse" in by_family["sequence_lstm_gru_alstm_sfm_darnn_hawkes"]["current_soxl_surface"]
+    assert by_family["sequence_mixer_transformer"]["coverage"] == "implemented"
+    assert "patch_tst_mse" in by_family["sequence_mixer_transformer"]["current_soxl_surface"]
+    assert by_family["relational_gnn_hypergraph"]["coverage"] == "implemented"
+    assert "hypergraph_mse" in by_family["relational_gnn_hypergraph"]["current_soxl_surface"]
+    assert by_family["seed_ensemble"]["coverage"] == "implemented"
     assert "low-correlation signal blend" in by_family["seed_ensemble"]["current_soxl_surface"]
     assert all(row["next_step"] for row in coverage)
 

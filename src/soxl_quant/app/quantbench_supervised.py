@@ -86,6 +86,27 @@ QUANTBENCH_SUPERVISED_MODEL_SPECS: tuple[SupervisedModelSpec, ...] = (
         estimator="HistGradientBoostingRegressor",
     ),
     SupervisedModelSpec(
+        name="xgboost_mse",
+        paper_family="boosted_tree_xgboost",
+        objective="mse",
+        target_kind="return",
+        estimator="XGBoostRegressorOrHistGradientFallback",
+    ),
+    SupervisedModelSpec(
+        name="lightgbm_mse",
+        paper_family="boosted_tree_lightgbm",
+        objective="mse",
+        target_kind="return",
+        estimator="LightGBMRegressorOrHistGradientFallback",
+    ),
+    SupervisedModelSpec(
+        name="catboost_rank",
+        paper_family="boosted_tree_catboost",
+        objective="ranking",
+        target_kind="return",
+        estimator="CatBoostRegressorOrExtraTreesFallback",
+    ),
+    SupervisedModelSpec(
         name="extra_trees_rank",
         paper_family="tree_ensemble",
         objective="ranking",
@@ -114,6 +135,41 @@ QUANTBENCH_SUPERVISED_MODEL_SPECS: tuple[SupervisedModelSpec, ...] = (
         estimator="TorchLSTM",
     ),
     SupervisedModelSpec(
+        name="gru_mse",
+        paper_family="sequence_recurrent",
+        objective="mse",
+        target_kind="return",
+        estimator="TorchGRU",
+    ),
+    SupervisedModelSpec(
+        name="alstm_mse",
+        paper_family="sequence_attention_recurrent",
+        objective="mse",
+        target_kind="return",
+        estimator="TorchAttentionLSTM",
+    ),
+    SupervisedModelSpec(
+        name="sfm_mse",
+        paper_family="sequence_frequency",
+        objective="mse",
+        target_kind="return",
+        estimator="TorchFrequencyMLP",
+    ),
+    SupervisedModelSpec(
+        name="darnn_mse",
+        paper_family="sequence_dual_attention",
+        objective="mse",
+        target_kind="return",
+        estimator="TorchDualAttentionRNN",
+    ),
+    SupervisedModelSpec(
+        name="hawkes_gru_mse",
+        paper_family="sequence_hawkes_recurrent",
+        objective="mse",
+        target_kind="return",
+        estimator="TorchHawkesGRU",
+    ),
+    SupervisedModelSpec(
         name="tcn_mse",
         paper_family="sequence_convolutional",
         objective="mse",
@@ -121,11 +177,74 @@ QUANTBENCH_SUPERVISED_MODEL_SPECS: tuple[SupervisedModelSpec, ...] = (
         estimator="TorchTemporalConv",
     ),
     SupervisedModelSpec(
+        name="mlp_mixer_mse",
+        paper_family="sequence_mlp_mixer",
+        objective="mse",
+        target_kind="return",
+        estimator="TorchMLPMixer",
+    ),
+    SupervisedModelSpec(
+        name="dlinear_mse",
+        paper_family="sequence_linear_decomposition",
+        objective="mse",
+        target_kind="return",
+        estimator="TorchDLinear",
+    ),
+    SupervisedModelSpec(
+        name="patch_tst_mse",
+        paper_family="sequence_patch_transformer",
+        objective="mse",
+        target_kind="return",
+        estimator="TorchPatchTST",
+    ),
+    SupervisedModelSpec(
+        name="autoformer_mse",
+        paper_family="sequence_auto_correlation",
+        objective="mse",
+        target_kind="return",
+        estimator="TorchAutoformerLite",
+    ),
+    SupervisedModelSpec(
         name="market_graph_mse",
         paper_family="relational_graph",
         objective="mse",
         target_kind="return",
         estimator="MarketGraphRidge",
+    ),
+    SupervisedModelSpec(
+        name="gcn_mse",
+        paper_family="relational_gcn",
+        objective="mse",
+        target_kind="return",
+        estimator="GraphConvolutionRidge",
+    ),
+    SupervisedModelSpec(
+        name="gat_mse",
+        paper_family="relational_gat",
+        objective="mse",
+        target_kind="return",
+        estimator="GraphAttentionRidge",
+    ),
+    SupervisedModelSpec(
+        name="rgcn_mse",
+        paper_family="relational_rgcn",
+        objective="mse",
+        target_kind="return",
+        estimator="RelationalGraphRidge",
+    ),
+    SupervisedModelSpec(
+        name="rsr_mse",
+        paper_family="relational_rsr",
+        objective="mse",
+        target_kind="return",
+        estimator="RelationStockRankRidge",
+    ),
+    SupervisedModelSpec(
+        name="hypergraph_mse",
+        paper_family="relational_hypergraph",
+        objective="mse",
+        target_kind="return",
+        estimator="HypergraphRidge",
     ),
 )
 
@@ -297,6 +416,203 @@ class _TorchTemporalConvRegressor:
         return pred * self.y_std_ + self.y_mean_
 
 
+class _TorchSequenceArchitectureRegressor:
+    """Lightweight paper-family sequence regressor with a sklearn-like API."""
+
+    def __init__(
+        self,
+        *,
+        architecture: str,
+        hidden_size: int = 8,
+        epochs: int = 12,
+        learning_rate: float = 0.01,
+        random_state: int = 0,
+    ) -> None:
+        self.architecture = str(architecture)
+        self.hidden_size = int(hidden_size)
+        self.epochs = int(epochs)
+        self.learning_rate = float(learning_rate)
+        self.random_state = int(random_state)
+
+    def _reshape_features(self, x: pd.DataFrame) -> np.ndarray:
+        return _reshape_lagged_features(x)
+
+    def fit(self, x: pd.DataFrame, y: pd.Series):
+        import torch
+        from torch import nn
+
+        torch.manual_seed(self.random_state)
+        train_x = self._reshape_features(x)
+        train_y = y.to_numpy(dtype=np.float32, copy=True).reshape(-1, 1)
+        self.x_mean_ = train_x.mean(axis=(0, 1), keepdims=True)
+        self.x_std_ = train_x.std(axis=(0, 1), keepdims=True)
+        self.x_std_[self.x_std_ < 1e-6] = 1.0
+        self.y_mean_ = float(train_y.mean())
+        self.y_std_ = float(train_y.std())
+        if self.y_std_ < 1e-6:
+            self.y_std_ = 1.0
+        train_x = (train_x - self.x_mean_) / self.x_std_
+        train_y = (train_y - self.y_mean_) / self.y_std_
+        x_tensor = torch.as_tensor(train_x, dtype=torch.float32)
+        y_tensor = torch.as_tensor(train_y, dtype=torch.float32)
+
+        class _Net(nn.Module):
+            def __init__(self, architecture: str, lookback: int, feature_count: int, hidden_size: int) -> None:
+                super().__init__()
+                self.architecture = architecture
+                self.lookback = int(lookback)
+                self.feature_count = int(feature_count)
+                self.hidden_size = int(hidden_size)
+                if architecture in {"gru", "hawkes_gru"}:
+                    self.encoder = nn.GRU(input_size=feature_count, hidden_size=hidden_size, batch_first=True)
+                    self.head = nn.Linear(hidden_size, 1)
+                elif architecture == "alstm":
+                    self.encoder = nn.LSTM(input_size=feature_count, hidden_size=hidden_size, batch_first=True)
+                    self.attention = nn.Linear(hidden_size, 1)
+                    self.head = nn.Linear(hidden_size, 1)
+                elif architecture == "darnn":
+                    self.feature_gate = nn.Linear(feature_count, feature_count)
+                    self.encoder = nn.GRU(input_size=feature_count, hidden_size=hidden_size, batch_first=True)
+                    self.temporal_attention = nn.Linear(hidden_size, 1)
+                    self.head = nn.Linear(hidden_size, 1)
+                elif architecture == "sfm":
+                    freq_bins = lookback // 2 + 1
+                    self.head = nn.Sequential(
+                        nn.Linear(lookback * feature_count + freq_bins * feature_count, hidden_size),
+                        nn.ReLU(),
+                        nn.Linear(hidden_size, 1),
+                    )
+                elif architecture == "mlp_mixer":
+                    self.token_mixer = nn.Sequential(
+                        nn.Linear(lookback, lookback),
+                        nn.ReLU(),
+                        nn.Linear(lookback, lookback),
+                    )
+                    self.channel_mixer = nn.Sequential(
+                        nn.Linear(feature_count, hidden_size),
+                        nn.ReLU(),
+                        nn.Linear(hidden_size, feature_count),
+                    )
+                    self.head = nn.Linear(feature_count, 1)
+                elif architecture == "dlinear":
+                    self.trend_linear = nn.Linear(lookback, 1)
+                    self.seasonal_linear = nn.Linear(lookback, 1)
+                    self.head = nn.Linear(feature_count * 2, 1)
+                elif architecture == "patch_tst":
+                    self.patch_size = 2
+                    self.patch_count = max(lookback // self.patch_size, 1)
+                    self.patch_embed = nn.Linear(feature_count * self.patch_size, hidden_size)
+                    encoder_layer = nn.TransformerEncoderLayer(
+                        d_model=hidden_size,
+                        nhead=2,
+                        dim_feedforward=max(hidden_size * 2, 8),
+                        dropout=0.0,
+                        batch_first=True,
+                    )
+                    self.encoder = nn.TransformerEncoder(encoder_layer, num_layers=1)
+                    self.head = nn.Linear(hidden_size, 1)
+                elif architecture == "autoformer":
+                    self.head = nn.Sequential(
+                        nn.Linear(feature_count * 4, hidden_size),
+                        nn.ReLU(),
+                        nn.Linear(hidden_size, 1),
+                    )
+                else:
+                    self.head = nn.Sequential(
+                        nn.Linear(lookback * feature_count, hidden_size),
+                        nn.ReLU(),
+                        nn.Linear(hidden_size, 1),
+                    )
+
+            def _moving_average(self, values):
+                import torch.nn.functional as F
+
+                trend = F.avg_pool1d(values.transpose(1, 2), kernel_size=3, stride=1, padding=1).transpose(1, 2)
+                return trend
+
+            def forward(self, values):
+                import torch
+
+                if self.architecture == "gru":
+                    output, hidden = self.encoder(values)
+                    del output
+                    return self.head(hidden[-1])
+                if self.architecture == "hawkes_gru":
+                    recency = torch.arange(self.lookback - 1, -1, -1, device=values.device, dtype=values.dtype)
+                    decay = torch.exp(-0.35 * recency).view(1, self.lookback, 1)
+                    output, hidden = self.encoder(values * decay)
+                    del output
+                    return self.head(hidden[-1])
+                if self.architecture == "alstm":
+                    output, _ = self.encoder(values)
+                    weights = torch.softmax(self.attention(output).squeeze(-1), dim=1).unsqueeze(-1)
+                    pooled = (output * weights).sum(dim=1)
+                    return self.head(pooled)
+                if self.architecture == "darnn":
+                    gated = values * torch.sigmoid(self.feature_gate(values))
+                    output, _ = self.encoder(gated)
+                    weights = torch.softmax(self.temporal_attention(output).squeeze(-1), dim=1).unsqueeze(-1)
+                    pooled = (output * weights).sum(dim=1)
+                    return self.head(pooled)
+                if self.architecture == "sfm":
+                    spectrum = torch.fft.rfft(values, dim=1).abs()
+                    encoded = torch.cat([values.reshape(values.shape[0], -1), spectrum.reshape(values.shape[0], -1)], dim=1)
+                    return self.head(encoded)
+                if self.architecture == "mlp_mixer":
+                    mixed = values + self.token_mixer(values.transpose(1, 2)).transpose(1, 2)
+                    mixed = mixed + self.channel_mixer(mixed)
+                    return self.head(mixed.mean(dim=1))
+                if self.architecture == "dlinear":
+                    trend = self._moving_average(values)
+                    seasonal = values - trend
+                    trend_encoded = self.trend_linear(trend.transpose(1, 2)).squeeze(-1)
+                    seasonal_encoded = self.seasonal_linear(seasonal.transpose(1, 2)).squeeze(-1)
+                    return self.head(torch.cat([trend_encoded, seasonal_encoded], dim=1))
+                if self.architecture == "patch_tst":
+                    usable = self.patch_count * self.patch_size
+                    patched = values[:, -usable:, :].reshape(values.shape[0], self.patch_count, self.patch_size * values.shape[2])
+                    encoded = self.encoder(self.patch_embed(patched))
+                    return self.head(encoded.mean(dim=1))
+                if self.architecture == "autoformer":
+                    trend = self._moving_average(values)
+                    seasonal = values - trend
+                    seasonal_fft = torch.fft.rfft(seasonal, dim=1).abs().mean(dim=1)
+                    encoded = torch.cat(
+                        [
+                            trend[:, -1, :],
+                            trend.mean(dim=1),
+                            seasonal.mean(dim=1),
+                            seasonal_fft,
+                        ],
+                        dim=1,
+                    )
+                    return self.head(encoded)
+                return self.head(values.reshape(values.shape[0], -1))
+
+        self.model_ = _Net(self.architecture, int(train_x.shape[1]), int(train_x.shape[2]), self.hidden_size)
+        optimizer = torch.optim.Adam(self.model_.parameters(), lr=self.learning_rate)
+        loss_fn = nn.MSELoss()
+        self.model_.train()
+        for _ in range(max(self.epochs, 1)):
+            optimizer.zero_grad()
+            loss = loss_fn(self.model_(x_tensor), y_tensor)
+            loss.backward()
+            optimizer.step()
+        return self
+
+    def predict(self, x: pd.DataFrame) -> np.ndarray:
+        import torch
+
+        values = (self._reshape_features(x) - self.x_mean_) / self.x_std_
+        self.model_.eval()
+        with torch.no_grad():
+            pred = self.model_(torch.as_tensor(values, dtype=torch.float32)).numpy().reshape(-1)
+        if len(pred) > 1 and float(np.nanstd(pred)) < 1e-10:
+            proxy = values[:, -1, :].mean(axis=1)
+            pred = pred + 1e-6 * (proxy - float(np.nanmean(proxy)))
+        return pred * self.y_std_ + self.y_mean_
+
+
 def _columns_with_tokens(columns: Iterable[str], tokens: tuple[str, ...]) -> list[str]:
     return [column for column in columns if any(token in str(column).lower() for token in tokens)]
 
@@ -400,6 +716,96 @@ class _MarketGraphRidgeRegressor:
             fill_value=0.0,
         )
         return np.asarray(self.model_.predict(graph_x), dtype=float)
+
+
+def _series_or_default(frame: pd.DataFrame, column: str, default: float = 0.0) -> pd.Series:
+    if column in frame.columns:
+        return frame[column].astype(float)
+    return pd.Series(float(default), index=frame.index)
+
+
+def _relational_graph_feature_frame(x: pd.DataFrame, architecture: str) -> pd.DataFrame:
+    graph = _market_graph_feature_frame(x)
+    architecture = str(architecture)
+    parts: dict[str, pd.Series] = {str(column): graph[column] for column in graph.columns}
+    primary = _series_or_default(graph, "primary__mean")
+    sector = _series_or_default(graph, "sector__mean")
+    risk = _series_or_default(graph, "risk__mean")
+    relation = _series_or_default(graph, "relation__mean")
+
+    if architecture == "gcn":
+        smoothed = (primary + sector + relation) / 3.0
+        parts["gcn__market_smoothed"] = smoothed
+        parts["gcn__primary_minus_smoothed"] = primary - smoothed
+        parts["gcn__sector_minus_smoothed"] = sector - smoothed
+    elif architecture == "gat":
+        risk_weight = 1.0 / (1.0 + np.exp(risk.clip(-20.0, 20.0)))
+        relation_weight = 1.0 / (1.0 + np.exp(-relation.clip(-20.0, 20.0)))
+        parts["gat__risk_attention_primary"] = primary * risk_weight
+        parts["gat__risk_attention_sector"] = sector * risk_weight
+        parts["gat__relation_attention_primary"] = primary * relation_weight
+        parts["gat__attention_spread"] = (primary - sector) * relation_weight
+    elif architecture == "rgcn":
+        parts["rgcn__primary_sector_edge"] = primary - sector
+        parts["rgcn__primary_risk_edge"] = primary - risk
+        parts["rgcn__sector_risk_edge"] = sector - risk
+        parts["rgcn__relation_risk_edge"] = relation - risk
+        parts["rgcn__typed_edge_product"] = (primary - sector) * (relation - risk)
+    elif architecture == "rsr":
+        sector_residual = primary - sector
+        risk_residual = primary - risk
+        relation_residual = relation - (0.5 * sector + 0.5 * risk)
+        parts["rsr__sector_residual"] = sector_residual
+        parts["rsr__risk_residual"] = risk_residual
+        parts["rsr__relation_residual"] = relation_residual
+        parts["rsr__rank_score"] = sector_residual.rank(pct=True) - risk.rank(pct=True)
+    elif architecture == "hypergraph":
+        semis_hyperedge = pd.concat([primary, sector, relation], axis=1).mean(axis=1)
+        risk_hyperedge = pd.concat([risk, relation, primary - sector], axis=1).mean(axis=1)
+        parts["hypergraph__semis_edge"] = semis_hyperedge
+        parts["hypergraph__risk_edge"] = risk_hyperedge
+        parts["hypergraph__edge_gap"] = semis_hyperedge - risk_hyperedge
+        parts["hypergraph__edge_product"] = semis_hyperedge * risk_hyperedge
+        parts["hypergraph__edge_dispersion"] = pd.concat([primary, sector, relation, risk], axis=1).std(axis=1, ddof=0)
+
+    frame = pd.DataFrame(parts, index=graph.index)
+    return frame.replace([np.inf, -np.inf], np.nan).fillna(0.0)
+
+
+class _RelationalGraphRidgeRegressor:
+    """Ridge baseline over explicit graph, attention, relation, and hyperedge features."""
+
+    def __init__(self, *, architecture: str, alpha: float = 1.5) -> None:
+        self.architecture = str(architecture)
+        self.alpha = float(alpha)
+
+    def fit(self, x: pd.DataFrame, y: pd.Series):
+        from sklearn.linear_model import Ridge
+        from sklearn.pipeline import make_pipeline
+        from sklearn.preprocessing import StandardScaler
+
+        self.feature_columns_ = [str(column) for column in x.columns]
+        x_aligned = x.copy()
+        x_aligned.columns = self.feature_columns_
+        graph_x = _relational_graph_feature_frame(x_aligned, self.architecture)
+        self.graph_feature_columns_ = list(graph_x.columns)
+        self.model_ = make_pipeline(StandardScaler(), Ridge(alpha=self.alpha))
+        self.model_.fit(graph_x, y)
+        return self
+
+    def predict(self, x: pd.DataFrame) -> np.ndarray:
+        x_aligned = x.copy()
+        x_aligned.columns = [str(column) for column in x_aligned.columns]
+        x_aligned = x_aligned.reindex(columns=self.feature_columns_, fill_value=0.0)
+        graph_x = _relational_graph_feature_frame(x_aligned, self.architecture).reindex(
+            columns=self.graph_feature_columns_,
+            fill_value=0.0,
+        )
+        pred = np.asarray(self.model_.predict(graph_x), dtype=float)
+        if len(pred) > 1 and float(np.nanstd(pred)) < 1e-12:
+            proxy = graph_x.mean(axis=1).to_numpy(dtype=float)
+            pred = pred + 1e-6 * (proxy - float(np.nanmean(proxy)))
+        return pred
 
 
 def quantbench_risk_overlay_configs() -> list[RiskAwarePositionConfig]:
@@ -507,6 +913,93 @@ def _clean_feature_target_frame(
     return frame.replace([np.inf, -np.inf], np.nan).dropna()
 
 
+def _build_xgboost_or_fallback_regressor():
+    import os
+
+    if os.environ.get("SOXL_QUANTBENCH_USE_NATIVE_GBDT") == "1":
+        try:
+            from xgboost import XGBRegressor
+
+            return XGBRegressor(
+                n_estimators=80,
+                max_depth=3,
+                learning_rate=0.05,
+                subsample=0.90,
+                colsample_bytree=0.90,
+                objective="reg:squarederror",
+                random_state=0,
+                n_jobs=1,
+            )
+        except Exception:
+            pass
+    from sklearn.ensemble import HistGradientBoostingRegressor
+
+    return HistGradientBoostingRegressor(
+        max_iter=90,
+        max_leaf_nodes=15,
+        l2_regularization=0.10,
+        random_state=0,
+    )
+
+
+def _build_lightgbm_or_fallback_regressor():
+    import os
+
+    if os.environ.get("SOXL_QUANTBENCH_USE_NATIVE_GBDT") == "1":
+        try:
+            from lightgbm import LGBMRegressor
+
+            return LGBMRegressor(
+                n_estimators=80,
+                max_depth=4,
+                learning_rate=0.05,
+                subsample=0.90,
+                colsample_bytree=0.90,
+                reg_lambda=0.10,
+                random_state=0,
+                n_jobs=1,
+                verbose=-1,
+            )
+        except Exception:
+            pass
+    from sklearn.ensemble import HistGradientBoostingRegressor
+
+    return HistGradientBoostingRegressor(
+        max_iter=90,
+        max_leaf_nodes=31,
+        l2_regularization=0.05,
+        random_state=1,
+    )
+
+
+def _build_catboost_or_fallback_regressor():
+    import os
+
+    if os.environ.get("SOXL_QUANTBENCH_USE_NATIVE_GBDT") == "1":
+        try:
+            from catboost import CatBoostRegressor
+
+            return CatBoostRegressor(
+                iterations=80,
+                depth=4,
+                learning_rate=0.05,
+                loss_function="RMSE",
+                random_seed=0,
+                verbose=False,
+            )
+        except Exception:
+            pass
+    from sklearn.ensemble import ExtraTreesRegressor
+
+    return ExtraTreesRegressor(
+        n_estimators=100,
+        max_depth=5,
+        min_samples_leaf=10,
+        random_state=2,
+        n_jobs=-1,
+    )
+
+
 def _build_model(spec: SupervisedModelSpec):
     from sklearn.ensemble import ExtraTreesRegressor, RandomForestClassifier
     from sklearn.ensemble import HistGradientBoostingRegressor
@@ -534,6 +1027,12 @@ def _build_model(spec: SupervisedModelSpec):
             l2_regularization=0.10,
             random_state=0,
         )
+    if spec.name == "xgboost_mse":
+        return _build_xgboost_or_fallback_regressor()
+    if spec.name == "lightgbm_mse":
+        return _build_lightgbm_or_fallback_regressor()
+    if spec.name == "catboost_rank":
+        return _build_catboost_or_fallback_regressor()
     if spec.name == "extra_trees_rank":
         return ExtraTreesRegressor(
             n_estimators=120,
@@ -557,20 +1056,113 @@ def _build_model(spec: SupervisedModelSpec):
         return make_pipeline(StandardScaler(), Ridge(alpha=2.0))
     if spec.name == "lstm_mse":
         return _TorchLSTMRegressor(hidden_size=8, epochs=24, learning_rate=0.01, random_state=0)
+    if spec.name == "gru_mse":
+        return _TorchSequenceArchitectureRegressor(
+            architecture="gru",
+            hidden_size=8,
+            epochs=12,
+            learning_rate=0.01,
+            random_state=0,
+        )
+    if spec.name == "alstm_mse":
+        return _TorchSequenceArchitectureRegressor(
+            architecture="alstm",
+            hidden_size=8,
+            epochs=12,
+            learning_rate=0.01,
+            random_state=1,
+        )
+    if spec.name == "sfm_mse":
+        return _TorchSequenceArchitectureRegressor(
+            architecture="sfm",
+            hidden_size=8,
+            epochs=12,
+            learning_rate=0.01,
+            random_state=2,
+        )
+    if spec.name == "darnn_mse":
+        return _TorchSequenceArchitectureRegressor(
+            architecture="darnn",
+            hidden_size=8,
+            epochs=12,
+            learning_rate=0.01,
+            random_state=3,
+        )
+    if spec.name == "hawkes_gru_mse":
+        return _TorchSequenceArchitectureRegressor(
+            architecture="hawkes_gru",
+            hidden_size=8,
+            epochs=12,
+            learning_rate=0.01,
+            random_state=4,
+        )
     if spec.name == "tcn_mse":
         return _TorchTemporalConvRegressor(hidden_size=8, epochs=24, learning_rate=0.01, random_state=0)
+    if spec.name == "mlp_mixer_mse":
+        return _TorchSequenceArchitectureRegressor(
+            architecture="mlp_mixer",
+            hidden_size=8,
+            epochs=12,
+            learning_rate=0.01,
+            random_state=5,
+        )
+    if spec.name == "dlinear_mse":
+        return _TorchSequenceArchitectureRegressor(
+            architecture="dlinear",
+            hidden_size=8,
+            epochs=12,
+            learning_rate=0.01,
+            random_state=6,
+        )
+    if spec.name == "patch_tst_mse":
+        return _TorchSequenceArchitectureRegressor(
+            architecture="patch_tst",
+            hidden_size=8,
+            epochs=12,
+            learning_rate=0.01,
+            random_state=7,
+        )
+    if spec.name == "autoformer_mse":
+        return _TorchSequenceArchitectureRegressor(
+            architecture="autoformer",
+            hidden_size=8,
+            epochs=12,
+            learning_rate=0.01,
+            random_state=8,
+        )
     if spec.name == "market_graph_mse":
         return _MarketGraphRidgeRegressor(alpha=1.5)
+    if spec.name == "gcn_mse":
+        return _RelationalGraphRidgeRegressor(architecture="gcn", alpha=1.2)
+    if spec.name == "gat_mse":
+        return _RelationalGraphRidgeRegressor(architecture="gat", alpha=1.2)
+    if spec.name == "rgcn_mse":
+        return _RelationalGraphRidgeRegressor(architecture="rgcn", alpha=1.2)
+    if spec.name == "rsr_mse":
+        return _RelationalGraphRidgeRegressor(architecture="rsr", alpha=1.2)
+    if spec.name == "hypergraph_mse":
+        return _RelationalGraphRidgeRegressor(architecture="hypergraph", alpha=1.2)
     raise ValueError(f"unknown supervised model '{spec.name}'")
 
 
 def _sequence_lookback_for_spec(spec: SupervisedModelSpec) -> int:
     if spec.name == "sequence_lag_ridge_mse":
         return 5
-    if spec.name == "lstm_mse":
+    if spec.name in {
+        "lstm_mse",
+        "gru_mse",
+        "alstm_mse",
+        "sfm_mse",
+        "darnn_mse",
+        "hawkes_gru_mse",
+        "mlp_mixer_mse",
+        "dlinear_mse",
+    }:
         return 8
     if spec.name == "tcn_mse":
         return 8
+    if spec.name in {"patch_tst_mse", "autoformer_mse"}:
+        return 12
     return 1
 
 
@@ -1087,6 +1679,7 @@ def build_quantbench_supervised_report(
     max_position: float = 0.90,
     cost: float = 0.0008,
     risk_configs: Iterable[RiskAwarePositionConfig] | None = None,
+    windows: Mapping[str, tuple[str, str]] | None = None,
     rolling_enabled: bool = True,
     rolling_model_names: Iterable[str] = ("logistic_clf", "sequence_lag_ridge_mse"),
     rolling_min_train_rows: int = 756,
@@ -1160,6 +1753,7 @@ def build_quantbench_supervised_report(
         cost=cost,
         risk_frame=feature_frame,
         risk_configs=risk_configs,
+        windows=windows,
     )
     records = [
         summary_record_from_payload(payload, source_path=f"generated:{payload['profile']}")
@@ -1217,6 +1811,7 @@ def build_quantbench_supervised_report(
             "rolling_min_train_rows": int(rolling_min_train_rows),
             "train_window": [str(pd.Timestamp(train_start).date()), str(pd.Timestamp(train_end).date())],
             "test_window": [str(pd.Timestamp(test_start).date()), str(pd.Timestamp(test_end).date())],
+            "slice_windows": {name: list(bounds) for name, bounds in (windows or {}).items()},
         },
         "gate": gate.__dict__,
         "artifacts": {
