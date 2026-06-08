@@ -1,0 +1,86 @@
+{
+  "canonical_daily_end": "2026-06-04",
+  "data_surfaces": {
+    "canonical_daily": {
+      "date_col": "date",
+      "end": "2026-06-04",
+      "exists": true,
+      "path": "data/processed/panels/soxl_soxx_vix_full.csv",
+      "rows": 4084,
+      "start": "2010-03-11"
+    },
+    "futu_daily_soxl": {
+      "date_col": "date",
+      "end": "2026-05-22",
+      "exists": true,
+      "path": "data/raw/external/futu_history_kline_US_SOXL.csv",
+      "rows": 4060,
+      "start": "2010-03-31"
+    },
+    "intraday_daily_safe": {
+      "date_col": "date",
+      "end": "2026-06-05",
+      "exists": true,
+      "path": "data/raw/external/intraday_features_soxl_1m.csv",
+      "rows": 608,
+      "start": "2024-01-03"
+    },
+    "raw_soxl": {
+      "date_col": "date",
+      "end": "2026-06-04",
+      "exists": true,
+      "path": "data/raw/symbols/SOXL.csv",
+      "rows": 4084,
+      "start": "2010-03-11"
+    },
+    "raw_soxx": {
+      "date_col": "date",
+      "end": "2026-06-04",
+      "exists": true,
+      "path": "data/raw/symbols/SOXX.csv",
+      "rows": 4084,
+      "start": "2010-03-11"
+    },
+    "raw_vix": {
+      "date_col": "DATE",
+      "end": "2026-06-04",
+      "exists": true,
+      "path": "data/raw/external/VIX.csv",
+      "rows": 4084,
+      "start": "2010-03-11"
+    },
+    "tushare_daily_soxl": {
+      "date_col": "date",
+      "end": "2026-05-22",
+      "exists": true,
+      "path": "data/raw/external/tushare_us_daily_adj_SOXL.csv",
+      "rows": 3860,
+      "start": "2010-03-11"
+    }
+  },
+  "live_refresh_probe": {
+    "cboe_vix": {
+      "end": "2026-06-05",
+      "latest_vix": 21.51,
+      "rows": 10,
+      "status": "ok"
+    },
+    "futu_opend_reachable": true,
+    "yahoo_api": {
+      "SOXL": {
+        "error": "Failed to fetch SOXL: 429 Client Error: Too Many Requests for url: https://query1.finance.yahoo.com/v8/finance/chart/SOXL?interval=1d&period1=1779667200&period2=1780963200",
+        "status": "failed"
+      },
+      "SOXX": {
+        "error": "Failed to fetch SOXX: 429 Client Error: Too Many Requests for url: https://query1.finance.yahoo.com/v8/finance/chart/SOXX?interval=1d&period1=1779667200&period2=1780963200",
+        "status": "failed"
+      },
+      "^VIX": {
+        "error": "Failed to fetch ^VIX: 429 Client Error: Too Many Requests for url: https://query1.finance.yahoo.com/v8/finance/chart/%5EVIX?interval=1d&period1=1779667200&period2=1780963200",
+        "status": "failed"
+      }
+    }
+  },
+  "model_backtest_data_end": "2026-06-04",
+  "note": "Yahoo API was probed live; model backtest uses canonical local OHLCV only."
+}

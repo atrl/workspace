@@ -230,12 +230,27 @@ def test_quantbench_model_objective_coverage_is_src_owned():
     assert "rolling supervised refit" in by_family["rolling_continual"]["current_soxl_surface"]
     assert by_family["sequence_lstm_gru_alstm_sfm_darnn_hawkes"]["coverage"] == "implemented"
     assert "hawkes_gru_mse" in by_family["sequence_lstm_gru_alstm_sfm_darnn_hawkes"]["current_soxl_surface"]
+    assert by_family["sequence_multiscale_rnn_dlstm_mstr"]["coverage"] == "implemented"
+    assert "multi_scale_rnn_mse" in by_family["sequence_multiscale_rnn_dlstm_mstr"]["current_soxl_surface"]
+    assert "dlstm_mse" in by_family["sequence_multiscale_rnn_dlstm_mstr"]["current_soxl_surface"]
+    assert "mstr_i_mse" in by_family["sequence_multiscale_rnn_dlstm_mstr"]["current_soxl_surface"]
     assert by_family["sequence_mixer_transformer"]["coverage"] == "implemented"
     assert "patch_tst_mse" in by_family["sequence_mixer_transformer"]["current_soxl_surface"]
     assert "fedformer_mse" in by_family["sequence_mixer_transformer"]["current_soxl_surface"]
+    assert by_family["sequence_informer_pyraformer_tft_crossformer"]["coverage"] == "implemented"
+    assert "informer_mse" in by_family["sequence_informer_pyraformer_tft_crossformer"]["current_soxl_surface"]
+    assert "pyraformer_mse" in by_family["sequence_informer_pyraformer_tft_crossformer"]["current_soxl_surface"]
+    assert "tft_mse" in by_family["sequence_informer_pyraformer_tft_crossformer"]["current_soxl_surface"]
+    assert "crossformer_mse" in by_family["sequence_informer_pyraformer_tft_crossformer"]["current_soxl_surface"]
     assert by_family["relational_gnn_hypergraph"]["coverage"] == "implemented"
     assert "hypergraph_mse" in by_family["relational_gnn_hypergraph"]["current_soxl_surface"]
     assert "sthgcn_mse" in by_family["relational_gnn_hypergraph"]["current_soxl_surface"]
+    assert by_family["relational_hats_hatr_estimate_sthcn_dtml"]["coverage"] == "implemented"
+    assert "hats_mse" in by_family["relational_hats_hatr_estimate_sthcn_dtml"]["current_soxl_surface"]
+    assert "hatr_i_mse" in by_family["relational_hats_hatr_estimate_sthcn_dtml"]["current_soxl_surface"]
+    assert "estimate_mse" in by_family["relational_hats_hatr_estimate_sthcn_dtml"]["current_soxl_surface"]
+    assert "sthcn_mse" in by_family["relational_hats_hatr_estimate_sthcn_dtml"]["current_soxl_surface"]
+    assert "dtml_mse" in by_family["relational_hats_hatr_estimate_sthcn_dtml"]["current_soxl_surface"]
     assert by_family["seed_ensemble"]["coverage"] == "implemented"
     assert "low-correlation signal blend" in by_family["seed_ensemble"]["current_soxl_surface"]
     assert all(row["next_step"] for row in coverage)

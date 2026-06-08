@@ -1,0 +1,416 @@
+{
+  "artifacts": {
+    "daily_csvs": [
+      "runtime/model_selection/card/quantbench_paper_soxl_v2/quantbench_ensemble_lowdd_mlp_v1_soxl_daily.csv",
+      "runtime/model_selection/card/quantbench_paper_soxl_v2/quantbench_ensemble_lowdd_ridge_v1_soxl_daily.csv",
+      "runtime/model_selection/card/quantbench_paper_soxl_v2/quantbench_ensemble_extra_logistic_v1_soxl_daily.csv",
+      "runtime/model_selection/card/quantbench_paper_soxl_v2/quantbench_ensemble_defensive_logistic_v1_soxl_daily.csv",
+      "runtime/model_selection/card/quantbench_paper_soxl_v2/quantbench_ensemble_guarded_rf_logistic_v1_soxl_daily.csv",
+      "runtime/model_selection/card/quantbench_paper_soxl_v2/quantbench_ensemble_guarded_hist_logistic_v1_soxl_daily.csv",
+      "runtime/model_selection/card/quantbench_paper_soxl_v2/quantbench_ensemble_vol_budget_rf_logistic_v1_soxl_daily.csv",
+      "runtime/model_selection/card/quantbench_paper_soxl_v2/quantbench_ensemble_confirmed_reentry_rf_logistic_v1_soxl_daily.csv",
+      "runtime/model_selection/card/quantbench_paper_soxl_v2/quantbench_ensemble_drawdown_budget_guarded_rf_logistic_v1_soxl_daily.csv",
+      "runtime/model_selection/card/quantbench_paper_soxl_v2/quantbench_ensemble_tail_shock_budget_rf_logistic_v1_soxl_daily.csv",
+      "runtime/model_selection/card/quantbench_paper_soxl_v2/quantbench_ensemble_tail_shock_bull_release_rf_logistic_v1_soxl_daily.csv",
+      "runtime/model_selection/card/quantbench_paper_soxl_v2/quantbench_ensemble_tail_shock_anchor_reset_rf_logistic_v1_soxl_daily.csv",
+      "runtime/model_selection/card/quantbench_paper_soxl_v2/quantbench_ensemble_sequence_anchor_reset_v1_soxl_daily.csv",
+      "runtime/model_selection/card/quantbench_paper_soxl_v2/quantbench_ensemble_sequence_full_rebase_tail_v1_soxl_daily.csv",
+      "runtime/model_selection/card/quantbench_paper_soxl_v2/quantbench_ensemble_sequence_tapered_reentry_v1_soxl_daily.csv",
+      "runtime/model_selection/card/quantbench_paper_soxl_v2/quantbench_ensemble_sequence_panic_chip_floor_v1_soxl_daily.csv",
+      "runtime/model_selection/card/quantbench_paper_soxl_v2/quantbench_ensemble_lstm_panic_chip_floor_v1_soxl_daily.csv",
+      "runtime/model_selection/card/quantbench_paper_soxl_v2/quantbench_ensemble_tcn_panic_chip_floor_v1_soxl_daily.csv",
+      "runtime/model_selection/card/quantbench_paper_soxl_v2/quantbench_ensemble_blend_anchor_reset_v1_soxl_daily.csv",
+      "runtime/model_selection/card/quantbench_paper_soxl_v2/quantbench_ensemble_rolling_sequence_anchor_reset_v1_soxl_daily.csv",
+      "runtime/model_selection/card/quantbench_paper_soxl_v2/quantbench_ensemble_hazard_rf_logistic_v1_soxl_daily.csv",
+      "runtime/model_selection/card/quantbench_paper_soxl_v2/quantbench_ensemble_external_crash_condvol_v1_soxl_daily.csv",
+      "runtime/model_selection/card/quantbench_paper_soxl_v2/quantbench_ensemble_external_crash_v19v22_v1_soxl_daily.csv",
+      "runtime/model_selection/card/quantbench_paper_soxl_v2/quantbench_ensemble_market_graph_panic_chip_floor_v1_soxl_daily.csv",
+      "runtime/model_selection/card/quantbench_paper_soxl_v2/quantbench_ensemble_sequence_fragile_preshock_v1_soxl_daily.csv",
+      "runtime/model_selection/card/quantbench_paper_soxl_v2/quantbench_ensemble_sequence_fragile_panic_budget_v1_soxl_daily.csv",
+      "runtime/model_selection/card/quantbench_paper_soxl_v2/quantbench_ensemble_sequence_rebound_floor_panic_cap_v1_soxl_daily.csv"
+    ],
+    "ensemble_candidate_screen_csv": "runtime/model_selection/card/quantbench_paper_soxl_v2/ensemble_candidate_screen.csv",
+    "ensemble_hazard_metrics_json": "runtime/model_selection/card/quantbench_paper_soxl_v2/ensemble_hazard_metrics.json",
+    "ensemble_objective_metrics_json": "runtime/model_selection/card/quantbench_paper_soxl_v2/ensemble_objective_metrics.json",
+    "ensemble_path_library_csv": "runtime/model_selection/card/quantbench_paper_soxl_v2/ensemble_path_library.csv",
+    "ensemble_payloads_json": "runtime/model_selection/card/quantbench_paper_soxl_v2/ensemble_payloads.json",
+    "summary_json": "runtime/model_selection/card/quantbench_paper_soxl_v2/ensemble_summary.json"
+  },
+  "data": {
+    "end": "2026-06-04",
+    "external_path_count": 5,
+    "external_path_names": [
+      "quantbench_external_risk_budget_crash_risk_factor_v1",
+      "quantbench_external_risk_budget_residual_drawdown_guard_v1",
+      "quantbench_external_risk_budget_downside_vol_target_v1",
+      "quantbench_external_recovery_reentry_conditional_vol_target_v1",
+      "quantbench_external_v19reg_v22_budget_usage_v1"
+    ],
+    "external_path_specs": [
+      {
+        "date_column": "datetime",
+        "name": "quantbench_external_risk_budget_crash_risk_factor_v1",
+        "path": "runtime/execution/card/risk_budget_crash_risk_factor_v1/risk_budget_crash_risk_factor_v1_selected_soxl_daily.csv",
+        "position_column": "position"
+      },
+      {
+        "date_column": "datetime",
+        "name": "quantbench_external_risk_budget_residual_drawdown_guard_v1",
+        "path": "runtime/execution/card/risk_budget_residual_drawdown_guard_v1/risk_budget_residual_drawdown_guard_v1_selected_soxl_daily.csv",
+        "position_column": "position"
+      },
+      {
+        "date_column": "datetime",
+        "name": "quantbench_external_risk_budget_downside_vol_target_v1",
+        "path": "runtime/execution/card/risk_budget_downside_vol_target_v1/risk_budget_downside_vol_target_v1_best_combo_soxl_daily.csv",
+        "position_column": "position"
+      },
+      {
+        "date_column": "datetime",
+        "name": "quantbench_external_recovery_reentry_conditional_vol_target_v1",
+        "path": "runtime/execution/card/recovery_reentry_conditional_vol_target_v1/recovery_reentry_conditional_vol_target_v1_soxl_daily.csv",
+        "position_column": "position"
+      },
+      {
+        "date_column": "datetime",
+        "name": "quantbench_external_v19reg_v22_budget_usage_v1",
+        "path": "runtime/model/card/v19reg_v22_budget_usage_v1/v19reg_v22_budget_usage_v1_soxl_daily.csv",
+        "position_column": "position"
+      }
+    ],
+    "feature_count": 113,
+    "feature_packs": [
+      "vix_term",
+      "academic_signals",
+      "macro_signals",
+      "rulebase_signals",
+      "transition_signals",
+      "soxx_signals",
+      "soxx_spread_oscillation"
+    ],
+    "hazard_drawdown_threshold": -0.18,
+    "hazard_enabled": true,
+    "hazard_min_train_rows": 756,
+    "hazard_mode": "rolling",
+    "hazard_refit_step_rows": 63,
+    "hazard_train_lookback_rows": 1260,
+    "horizon": 20,
+    "model_names": [
+      "logistic_clf",
+      "ridge_ic",
+      "ridge_mse",
+      "random_forest_clf",
+      "hist_gradient_mse",
+      "xgboost_mse",
+      "lightgbm_mse",
+      "catboost_rank",
+      "extra_trees_rank",
+      "mlp_mse",
+      "sequence_lag_ridge_mse",
+      "lstm_mse",
+      "gru_mse",
+      "alstm_mse",
+      "sfm_mse",
+      "darnn_mse",
+      "multi_scale_rnn_mse",
+      "dlstm_mse",
+      "hawkes_gru_mse",
+      "mstr_i_mse",
+      "tcn_mse",
+      "mlp_mixer_mse",
+      "dlinear_mse",
+      "informer_mse",
+      "patch_tst_mse",
+      "autoformer_mse",
+      "fedformer_mse",
+      "pyraformer_mse",
+      "tft_mse",
+      "market_graph_mse",
+      "gcn_mse",
+      "gat_mse",
+      "rgcn_mse",
+      "hats_mse",
+      "rsr_mse",
+      "hatr_i_mse",
+      "hypergraph_mse",
+      "estimate_mse",
+      "thgnn_mse",
+      "sthan_mse",
+      "sthcn_mse",
+      "sthgcn_mse",
+      "dtml_mse",
+      "crossformer_mse",
+      "rolling_logistic_clf",
+      "rolling_sequence_lag_ridge_mse",
+      "rolling_gru_mse"
+    ],
+    "path_count": 243,
+    "risk_overlays": [
+      "macro_budget_defensive_v1",
+      "macro_budget_lowdd_v1",
+      "macro_budget_bull_guard_v1",
+      "macro_budget_reentry_v1"
+    ],
+    "rolling_enabled": true,
+    "rolling_min_train_rows": 756,
+    "rolling_model_names": [
+      "logistic_clf",
+      "sequence_lag_ridge_mse",
+      "gru_mse"
+    ],
+    "rolling_refit_step_rows": 63,
+    "rolling_train_lookback_rows": 1260,
+    "selector_count": 27,
+    "signal_blends": [
+      "blend_logistic_sequence_lowcorr_v1",
+      "blend_sequence_lstm_lowcorr_v1",
+      "blend_sequence_tcn_lowcorr_v1",
+      "blend_sequence_market_graph_lowcorr_v1"
+    ],
+    "start": "2011-03-11",
+    "test_window": [
+      "2020-01-01",
+      "2026-06-04"
+    ],
+    "train_window": [
+      "2010-03-11",
+      "2018-12-31"
+    ]
+  },
+  "decision": "eligible_ensemble_candidates_found",
+  "gate": {
+    "max_drawdown_pct": 20.0,
+    "max_stress_avg_pos": 0.45,
+    "min_bull_capture": 0.5,
+    "min_proxy_return": 0.0,
+    "min_stress_avg_pos": 0.1,
+    "min_stress_relative_return": 30.0
+  },
+  "next_action": "Promote only an eligible ensemble; otherwise inspect regime audit columns and adjust reusable path selection logic before another screen.",
+  "paper": {
+    "arxiv_pdf": "https://arxiv.org/pdf/2504.18600",
+    "mapped_claim": "seed/model ensemble robustness with macro-risk regime selection",
+    "title": "QuantBench: Benchmarking AI Methods for Quantitative Investment"
+  },
+  "rolling": {
+    "enabled": true,
+    "fold_count": 78,
+    "generated_model_names": [
+      "rolling_logistic_clf",
+      "rolling_sequence_lag_ridge_mse",
+      "rolling_gru_mse"
+    ],
+    "min_train_rows": 756,
+    "model_names": [
+      "logistic_clf",
+      "sequence_lag_ridge_mse",
+      "gru_mse"
+    ],
+    "refit_step_rows": 63,
+    "train_lookback_rows": 1260
+  },
+  "screen": {
+    "best_rows": [
+      {
+        "bull_buy_and_hold_return": 191.7735092699,
+        "bull_capture": 0.7492635175063402,
+        "bull_return": 143.6888941201,
+        "eligible": true,
+        "failed_checks": [],
+        "profile": "quantbench_ensemble_sequence_fragile_panic_budget_v1",
+        "proxy_max_dd": 19.7422573681,
+        "proxy_return": 316.5201671289,
+        "score": 390.506821,
+        "source_path": "generated:quantbench_ensemble_sequence_fragile_panic_budget_v1",
+        "stress_avg_pos": 0.1004938271604938,
+        "stress_max_dd": 14.3656635436,
+        "stress_regime_avg_pos": 0.1004938271604938,
+        "stress_relative_return": 78.0293312678,
+        "stress_window_avg_pos": 0.08667764978771236
+      },
+      {
+        "bull_buy_and_hold_return": 191.7735092699,
+        "bull_capture": 0.7416958022513752,
+        "bull_return": 142.2376068085,
+        "eligible": false,
+        "failed_checks": [
+          "max_drawdown"
+        ],
+        "profile": "quantbench_ensemble_sequence_fragile_preshock_v1",
+        "proxy_max_dd": 20.5497007016,
+        "proxy_return": 333.0612422623,
+        "score": 384.100448,
+        "source_path": "generated:quantbench_ensemble_sequence_fragile_preshock_v1",
+        "stress_avg_pos": 0.10098765432098765,
+        "stress_max_dd": 13.9972911025,
+        "stress_regime_avg_pos": 0.10098765432098765,
+        "stress_relative_return": 79.0684282391,
+        "stress_window_avg_pos": 0.08434320919078934
+      },
+      {
+        "bull_buy_and_hold_return": 191.7735092699,
+        "bull_capture": 0.7563923771762956,
+        "bull_return": 145.0560205561,
+        "eligible": false,
+        "failed_checks": [
+          "max_drawdown"
+        ],
+        "profile": "quantbench_ensemble_sequence_tapered_reentry_v1",
+        "proxy_max_dd": 20.549621032,
+        "proxy_return": 328.660810871,
+        "score": 381.17261,
+        "source_path": "generated:quantbench_ensemble_sequence_tapered_reentry_v1",
+        "stress_avg_pos": 0.10098765432098765,
+        "stress_max_dd": 13.9962990135,
+        "stress_regime_avg_pos": 0.10098765432098765,
+        "stress_relative_return": 79.0710454063,
+        "stress_window_avg_pos": 0.08434079817973197
+      },
+      {
+        "bull_buy_and_hold_return": 191.7735092699,
+        "bull_capture": 0.797449990802266,
+        "bull_return": 152.9297832034,
+        "eligible": false,
+        "failed_checks": [
+          "max_drawdown"
+        ],
+        "profile": "quantbench_ensemble_sequence_full_rebase_tail_v1",
+        "proxy_max_dd": 24.0113027338,
+        "proxy_return": 323.538434106,
+        "score": 366.314774,
+        "source_path": "generated:quantbench_ensemble_sequence_full_rebase_tail_v1",
+        "stress_avg_pos": 0.10098765432098765,
+        "stress_max_dd": 13.9942119567,
+        "stress_regime_avg_pos": 0.10098765432098765,
+        "stress_relative_return": 79.0765518043,
+        "stress_window_avg_pos": 0.08433572656530955
+      },
+      {
+        "bull_buy_and_hold_return": 191.7735092699,
+        "bull_capture": 0.6465307461736092,
+        "bull_return": 123.9874700446,
+        "eligible": false,
+        "failed_checks": [
+          "max_drawdown",
+          "stress_avg_pos"
+        ],
+        "profile": "quantbench_ensemble_sequence_panic_chip_floor_v1",
+        "proxy_max_dd": 20.4950845165,
+        "proxy_return": 265.4214633432,
+        "score": 286.520953,
+        "source_path": "generated:quantbench_ensemble_sequence_panic_chip_floor_v1",
+        "stress_avg_pos": 0.09950617283950616,
+        "stress_max_dd": 14.2858603271,
+        "stress_regime_avg_pos": 0.09950617283950616,
+        "stress_relative_return": 78.4267530581,
+        "stress_window_avg_pos": 0.08370425633012911
+      },
+      {
+        "bull_buy_and_hold_return": 191.7735092699,
+        "bull_capture": 0.6320723778293261,
+        "bull_return": 121.2147380089,
+        "eligible": false,
+        "failed_checks": [
+          "max_drawdown",
+          "stress_avg_pos"
+        ],
+        "profile": "quantbench_ensemble_market_graph_panic_chip_floor_v1",
+        "proxy_max_dd": 20.5280301736,
+        "proxy_return": 259.8481229573,
+        "score": 279.370021,
+        "source_path": "generated:quantbench_ensemble_market_graph_panic_chip_floor_v1",
+        "stress_avg_pos": 0.09950617283950616,
+        "stress_max_dd": 14.2858346024,
+        "stress_regime_avg_pos": 0.09950617283950616,
+        "stress_relative_return": 78.4267807284,
+        "stress_window_avg_pos": 0.08370422505632791
+      },
+      {
+        "bull_buy_and_hold_return": 191.7735092699,
+        "bull_capture": 0.5957702029960855,
+        "bull_return": 114.252942547,
+        "eligible": false,
+        "failed_checks": [
+          "max_drawdown",
+          "stress_avg_pos"
+        ],
+        "profile": "quantbench_ensemble_lstm_panic_chip_floor_v1",
+        "proxy_max_dd": 21.1453150619,
+        "proxy_return": 249.3004351979,
+        "score": 262.722586,
+        "source_path": "generated:quantbench_ensemble_lstm_panic_chip_floor_v1",
+        "stress_avg_pos": 0.09950617283950616,
+        "stress_max_dd": 14.2861974413,
+        "stress_regime_avg_pos": 0.09950617283950616,
+        "stress_relative_return": 78.4263904474,
+        "stress_window_avg_pos": 0.08370466616301596
+      },
+      {
+        "bull_buy_and_hold_return": 191.7735092699,
+        "bull_capture": 0.5729843844660084,
+        "bull_return": 109.8832261659,
+        "eligible": false,
+        "failed_checks": [
+          "max_drawdown",
+          "stress_avg_pos"
+        ],
+        "profile": "quantbench_ensemble_tcn_panic_chip_floor_v1",
+        "proxy_max_dd": 21.143833211,
+        "proxy_return": 232.7700222586,
+        "score": 243.920806,
+        "source_path": "generated:quantbench_ensemble_tcn_panic_chip_floor_v1",
+        "stress_avg_pos": 0.09950617283950616,
+        "stress_max_dd": 14.2849998707,
+        "stress_regime_avg_pos": 0.09950617283950616,
+        "stress_relative_return": 78.4276785922,
+        "stress_window_avg_pos": 0.08370321026051976
+      },
+      {
+        "bull_buy_and_hold_return": 191.7735092699,
+        "bull_capture": 0.16874358478603063,
+        "bull_return": 32.3605494212,
+        "eligible": false,
+        "failed_checks": [
+          "stress_avg_pos",
+          "bull_capture"
+        ],
+        "profile": "quantbench_ensemble_external_crash_v19v22_v1",
+        "proxy_max_dd": 17.5125314603,
+        "proxy_return": 166.842013331,
+        "score": 149.830463,
+        "source_path": "generated:quantbench_ensemble_external_crash_v19v22_v1",
+        "stress_avg_pos": 0.06391108344892064,
+        "stress_max_dd": 12.3829562975,
+        "stress_regime_avg_pos": 0.06391108344892064,
+        "stress_relative_return": 76.1642169374,
+        "stress_window_avg_pos": 0.06790517014153398
+      },
+      {
+        "bull_buy_and_hold_return": 191.7735092699,
+        "bull_capture": 0.5463554725587185,
+        "bull_return": 104.7765062814,
+        "eligible": false,
+        "failed_checks": [
+          "max_drawdown",
+          "stress_avg_pos",
+          "stress_max_drawdown"
+        ],
+        "profile": "quantbench_ensemble_guarded_rf_logistic_v1",
+        "proxy_max_dd": 47.1457786767,
+        "proxy_return": 250.8162943745,
+        "score": 111.035327,
+        "source_path": "generated:quantbench_ensemble_guarded_rf_logistic_v1",
+        "stress_avg_pos": 0.07999999999999999,
+        "stress_max_dd": 32.877232833,
+        "stress_regime_avg_pos": 0.07999999999999999,
+        "stress_relative_return": 54.1666005191,
+        "stress_window_avg_pos": 0.16394802221477955
+      }
+    ],
+    "eligible_count": 1,
+    "eligible_profiles": [
+      "quantbench_ensemble_sequence_fragile_panic_budget_v1"
+    ],
+    "records": 27
+  }
+}

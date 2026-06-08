@@ -124,6 +124,13 @@ def quantbench_model_objective_coverage() -> list[dict[str, str]]:
             "next_step": "compare recurrent and attention recurrent signals under the same fixed-split, rolling, and risk-overlay gates",
         },
         {
+            "family": "sequence_multiscale_rnn_dlstm_mstr",
+            "paper_family": "Multi-scale RNN / D-LSTM / MSTR-I temporal models",
+            "current_soxl_surface": "multi_scale_rnn_mse, dlstm_mse, and mstr_i_mse are implemented as distinct Torch multi-scale, dilated recurrent, and temporal-routing baselines over lagged SOXL features",
+            "coverage": "implemented",
+            "next_step": "keep only multi-scale recurrent signals that improve latest-window return without raising full-window drawdown",
+        },
+        {
             "family": "sequence_mixer_transformer",
             "paper_family": "TCN / MLP-Mixer / DLinear / PatchTST / Autoformer / FEDformer sequence models",
             "current_soxl_surface": "tcn_mse, mlp_mixer_mse, dlinear_mse, patch_tst_mse, autoformer_mse, and fedformer_mse are implemented as supervised sequence baselines",
@@ -131,11 +138,25 @@ def quantbench_model_objective_coverage() -> list[dict[str, str]]:
             "next_step": "keep only sequence-family signals that improve latest-window return without breaching drawdown and stress-retention gates",
         },
         {
+            "family": "sequence_informer_pyraformer_tft_crossformer",
+            "paper_family": "Informer / Pyraformer / TFT / Crossformer transformer-style models",
+            "current_soxl_surface": "informer_mse, pyraformer_mse, tft_mse, and crossformer_mse are implemented as sparse-attention, pyramid, temporal-fusion, and cross-dimension Torch sequence baselines",
+            "coverage": "implemented",
+            "next_step": "treat transformer-family wins as diagnostic unless the 20% drawdown gate and 2025-2026 bull-capture checks both pass",
+        },
+        {
             "family": "relational_gnn_hypergraph",
             "paper_family": "GCN / GAT / RGCN / RSR / Hypergraph / THGNN / STHAN / STHGCN relational models",
             "current_soxl_surface": "market_graph_mse, gcn_mse, gat_mse, rgcn_mse, rsr_mse, hypergraph_mse, thgnn_mse, sthan_mse, and sthgcn_mse are implemented through explicit SOXL/SOXX/VIX graph, attention, relation, residual, temporal-hyperedge, and hyperedge feature maps",
             "coverage": "implemented",
             "next_step": "promote graph-derived signals only if they add robust 2025-2026 return or improve stress risk retention versus tabular baselines",
+        },
+        {
+            "family": "relational_hats_hatr_estimate_sthcn_dtml",
+            "paper_family": "HATS / HATR-I / ESTIMATE / STHCN / DTML relational and hypergraph models",
+            "current_soxl_surface": "hats_mse, hatr_i_mse, estimate_mse, sthcn_mse, and dtml_mse are implemented through explicit hierarchy, temporal-relation, estimate-hypergraph, spatio-temporal hypergraph convolution, and dynamic-relation feature maps",
+            "coverage": "implemented",
+            "next_step": "use these relation-heavy models as SOXL/SOXX/VIX structure diagnostics before promoting any relation-derived signal",
         },
         {
             "family": "objectives_clf_ic_mse_ranking",

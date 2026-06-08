@@ -163,11 +163,32 @@ QUANTBENCH_SUPERVISED_MODEL_SPECS: tuple[SupervisedModelSpec, ...] = (
         estimator="TorchDualAttentionRNN",
     ),
     SupervisedModelSpec(
+        name="multi_scale_rnn_mse",
+        paper_family="sequence_multi_scale_recurrent",
+        objective="mse",
+        target_kind="return",
+        estimator="TorchMultiScaleRNN",
+    ),
+    SupervisedModelSpec(
+        name="dlstm_mse",
+        paper_family="sequence_dilated_recurrent",
+        objective="mse",
+        target_kind="return",
+        estimator="TorchDilatedLSTM",
+    ),
+    SupervisedModelSpec(
         name="hawkes_gru_mse",
         paper_family="sequence_hawkes_recurrent",
         objective="mse",
         target_kind="return",
         estimator="TorchHawkesGRU",
+    ),
+    SupervisedModelSpec(
+        name="mstr_i_mse",
+        paper_family="sequence_multi_scale_temporal_routing",
+        objective="mse",
+        target_kind="return",
+        estimator="TorchMSTRI",
     ),
     SupervisedModelSpec(
         name="tcn_mse",
@@ -191,6 +212,13 @@ QUANTBENCH_SUPERVISED_MODEL_SPECS: tuple[SupervisedModelSpec, ...] = (
         estimator="TorchDLinear",
     ),
     SupervisedModelSpec(
+        name="informer_mse",
+        paper_family="sequence_sparse_attention_transformer",
+        objective="mse",
+        target_kind="return",
+        estimator="TorchInformerLite",
+    ),
+    SupervisedModelSpec(
         name="patch_tst_mse",
         paper_family="sequence_patch_transformer",
         objective="mse",
@@ -210,6 +238,20 @@ QUANTBENCH_SUPERVISED_MODEL_SPECS: tuple[SupervisedModelSpec, ...] = (
         objective="mse",
         target_kind="return",
         estimator="TorchFEDformerLite",
+    ),
+    SupervisedModelSpec(
+        name="pyraformer_mse",
+        paper_family="sequence_pyramid_transformer",
+        objective="mse",
+        target_kind="return",
+        estimator="TorchPyraformerLite",
+    ),
+    SupervisedModelSpec(
+        name="tft_mse",
+        paper_family="sequence_temporal_fusion_transformer",
+        objective="mse",
+        target_kind="return",
+        estimator="TorchTFTLite",
     ),
     SupervisedModelSpec(
         name="market_graph_mse",
@@ -240,6 +282,13 @@ QUANTBENCH_SUPERVISED_MODEL_SPECS: tuple[SupervisedModelSpec, ...] = (
         estimator="RelationalGraphRidge",
     ),
     SupervisedModelSpec(
+        name="hats_mse",
+        paper_family="relational_hats",
+        objective="mse",
+        target_kind="return",
+        estimator="HierarchicalAttentionStockRidge",
+    ),
+    SupervisedModelSpec(
         name="rsr_mse",
         paper_family="relational_rsr",
         objective="mse",
@@ -247,11 +296,25 @@ QUANTBENCH_SUPERVISED_MODEL_SPECS: tuple[SupervisedModelSpec, ...] = (
         estimator="RelationStockRankRidge",
     ),
     SupervisedModelSpec(
+        name="hatr_i_mse",
+        paper_family="relational_hatr",
+        objective="mse",
+        target_kind="return",
+        estimator="HierarchicalAttentionTemporalRelationRidge",
+    ),
+    SupervisedModelSpec(
         name="hypergraph_mse",
         paper_family="relational_hypergraph",
         objective="mse",
         target_kind="return",
         estimator="HypergraphRidge",
+    ),
+    SupervisedModelSpec(
+        name="estimate_mse",
+        paper_family="relational_estimate_hypergraph",
+        objective="mse",
+        target_kind="return",
+        estimator="EstimateHypergraphRidge",
     ),
     SupervisedModelSpec(
         name="thgnn_mse",
@@ -268,11 +331,32 @@ QUANTBENCH_SUPERVISED_MODEL_SPECS: tuple[SupervisedModelSpec, ...] = (
         estimator="SpatioTemporalHypergraphAttentionRidge",
     ),
     SupervisedModelSpec(
+        name="sthcn_mse",
+        paper_family="relational_temporal_hypergraph_convolution_sthcn",
+        objective="mse",
+        target_kind="return",
+        estimator="SpatioTemporalHypergraphConvolutionRidgeSTHCN",
+    ),
+    SupervisedModelSpec(
         name="sthgcn_mse",
         paper_family="relational_temporal_hypergraph_convolution",
         objective="mse",
         target_kind="return",
         estimator="SpatioTemporalHypergraphConvolutionRidge",
+    ),
+    SupervisedModelSpec(
+        name="dtml_mse",
+        paper_family="relational_dynamic_temporal",
+        objective="mse",
+        target_kind="return",
+        estimator="DynamicTemporalMarketLearningRidge",
+    ),
+    SupervisedModelSpec(
+        name="crossformer_mse",
+        paper_family="sequence_cross_dimension_transformer",
+        objective="mse",
+        target_kind="return",
+        estimator="TorchCrossformerLite",
     ),
 )
 
@@ -494,15 +578,28 @@ class _TorchSequenceArchitectureRegressor:
                 if architecture in {"gru", "hawkes_gru"}:
                     self.encoder = nn.GRU(input_size=feature_count, hidden_size=hidden_size, batch_first=True)
                     self.head = nn.Linear(hidden_size, 1)
+                elif architecture == "multi_scale_rnn":
+                    self.short_encoder = nn.GRU(input_size=feature_count, hidden_size=hidden_size, batch_first=True)
+                    self.long_encoder = nn.GRU(input_size=feature_count, hidden_size=hidden_size, batch_first=True)
+                    self.head = nn.Linear(hidden_size * 2, 1)
                 elif architecture == "alstm":
                     self.encoder = nn.LSTM(input_size=feature_count, hidden_size=hidden_size, batch_first=True)
                     self.attention = nn.Linear(hidden_size, 1)
                     self.head = nn.Linear(hidden_size, 1)
+                elif architecture == "dlstm":
+                    self.encoder = nn.LSTM(input_size=feature_count, hidden_size=hidden_size, batch_first=True)
+                    self.head = nn.Linear(hidden_size + feature_count, 1)
                 elif architecture == "darnn":
                     self.feature_gate = nn.Linear(feature_count, feature_count)
                     self.encoder = nn.GRU(input_size=feature_count, hidden_size=hidden_size, batch_first=True)
                     self.temporal_attention = nn.Linear(hidden_size, 1)
                     self.head = nn.Linear(hidden_size, 1)
+                elif architecture == "mstr_i":
+                    self.head = nn.Sequential(
+                        nn.Linear(feature_count * 4, hidden_size),
+                        nn.ReLU(),
+                        nn.Linear(hidden_size, 1),
+                    )
                 elif architecture == "sfm":
                     freq_bins = lookback // 2 + 1
                     self.head = nn.Sequential(
@@ -526,6 +623,18 @@ class _TorchSequenceArchitectureRegressor:
                     self.trend_linear = nn.Linear(lookback, 1)
                     self.seasonal_linear = nn.Linear(lookback, 1)
                     self.head = nn.Linear(feature_count * 2, 1)
+                elif architecture == "informer":
+                    self.sparse_keep = max(lookback // 2, 1)
+                    self.input_projection = nn.Linear(feature_count, hidden_size)
+                    encoder_layer = nn.TransformerEncoderLayer(
+                        d_model=hidden_size,
+                        nhead=2,
+                        dim_feedforward=max(hidden_size * 2, 8),
+                        dropout=0.0,
+                        batch_first=True,
+                    )
+                    self.encoder = nn.TransformerEncoder(encoder_layer, num_layers=1)
+                    self.head = nn.Linear(hidden_size, 1)
                 elif architecture == "patch_tst":
                     self.patch_size = 2
                     self.patch_count = max(lookback // self.patch_size, 1)
@@ -551,6 +660,29 @@ class _TorchSequenceArchitectureRegressor:
                         nn.ReLU(),
                         nn.Linear(hidden_size, 1),
                     )
+                elif architecture == "pyraformer":
+                    self.head = nn.Sequential(
+                        nn.Linear(feature_count * 3, hidden_size),
+                        nn.ReLU(),
+                        nn.Linear(hidden_size, 1),
+                    )
+                elif architecture == "tft":
+                    self.variable_gate = nn.Linear(feature_count, feature_count)
+                    self.encoder = nn.LSTM(input_size=feature_count, hidden_size=hidden_size, batch_first=True)
+                    self.temporal_attention = nn.Linear(hidden_size, 1)
+                    self.head = nn.Linear(hidden_size + feature_count, 1)
+                elif architecture == "crossformer":
+                    self.cross_feature_gate = nn.Linear(lookback, lookback)
+                    self.input_projection = nn.Linear(feature_count, hidden_size)
+                    encoder_layer = nn.TransformerEncoderLayer(
+                        d_model=hidden_size,
+                        nhead=2,
+                        dim_feedforward=max(hidden_size * 2, 8),
+                        dropout=0.0,
+                        batch_first=True,
+                    )
+                    self.encoder = nn.TransformerEncoder(encoder_layer, num_layers=1)
+                    self.head = nn.Linear(hidden_size + feature_count, 1)
                 else:
                     self.head = nn.Sequential(
                         nn.Linear(lookback * feature_count, hidden_size),
@@ -577,17 +709,36 @@ class _TorchSequenceArchitectureRegressor:
                     output, hidden = self.encoder(values * decay)
                     del output
                     return self.head(hidden[-1])
+                if self.architecture == "multi_scale_rnn":
+                    short_values = values[:, -min(4, self.lookback) :, :]
+                    short_output, short_hidden = self.short_encoder(short_values)
+                    long_output, long_hidden = self.long_encoder(values)
+                    del short_output, long_output
+                    return self.head(torch.cat([short_hidden[-1], long_hidden[-1]], dim=1))
                 if self.architecture == "alstm":
                     output, _ = self.encoder(values)
                     weights = torch.softmax(self.attention(output).squeeze(-1), dim=1).unsqueeze(-1)
                     pooled = (output * weights).sum(dim=1)
                     return self.head(pooled)
+                if self.architecture == "dlstm":
+                    dilated = values[:, ::2, :]
+                    output, hidden = self.encoder(dilated)
+                    del output
+                    hidden_state, _cell_state = hidden
+                    return self.head(torch.cat([hidden_state[-1], values[:, -1, :]], dim=1))
                 if self.architecture == "darnn":
                     gated = values * torch.sigmoid(self.feature_gate(values))
                     output, _ = self.encoder(gated)
                     weights = torch.softmax(self.temporal_attention(output).squeeze(-1), dim=1).unsqueeze(-1)
                     pooled = (output * weights).sum(dim=1)
                     return self.head(pooled)
+                if self.architecture == "mstr_i":
+                    short_scale = values[:, -1, :]
+                    mid_scale = values[:, -min(3, self.lookback) :, :].mean(dim=1)
+                    long_scale = values.mean(dim=1)
+                    route = torch.sigmoid(short_scale - long_scale)
+                    encoded = torch.cat([short_scale, mid_scale, long_scale, route], dim=1)
+                    return self.head(encoded)
                 if self.architecture == "sfm":
                     spectrum = torch.fft.rfft(values, dim=1).abs()
                     encoded = torch.cat([values.reshape(values.shape[0], -1), spectrum.reshape(values.shape[0], -1)], dim=1)
@@ -602,6 +753,13 @@ class _TorchSequenceArchitectureRegressor:
                     trend_encoded = self.trend_linear(trend.transpose(1, 2)).squeeze(-1)
                     seasonal_encoded = self.seasonal_linear(seasonal.transpose(1, 2)).squeeze(-1)
                     return self.head(torch.cat([trend_encoded, seasonal_encoded], dim=1))
+                if self.architecture == "informer":
+                    scores = values.abs().mean(dim=2)
+                    keep = min(self.sparse_keep, values.shape[1])
+                    index = scores.topk(keep, dim=1).indices.sort(dim=1).values
+                    sparse_values = torch.gather(values, 1, index.unsqueeze(-1).expand(-1, -1, values.shape[2]))
+                    encoded = self.encoder(self.input_projection(sparse_values))
+                    return self.head(encoded.mean(dim=1))
                 if self.architecture == "patch_tst":
                     usable = self.patch_count * self.patch_size
                     patched = values[:, -usable:, :].reshape(values.shape[0], self.patch_count, self.patch_size * values.shape[2])
@@ -639,6 +797,23 @@ class _TorchSequenceArchitectureRegressor:
                         dim=1,
                     )
                     return self.head(encoded)
+                if self.architecture == "pyraformer":
+                    level_1 = values[:, -1, :]
+                    level_2 = values[:, -min(2, self.lookback) :, :].mean(dim=1)
+                    level_4 = values[:, -min(4, self.lookback) :, :].mean(dim=1)
+                    return self.head(torch.cat([level_1, level_2, level_4], dim=1))
+                if self.architecture == "tft":
+                    gated = values * torch.sigmoid(self.variable_gate(values))
+                    output, _ = self.encoder(gated)
+                    weights = torch.softmax(self.temporal_attention(output).squeeze(-1), dim=1).unsqueeze(-1)
+                    pooled = (output * weights).sum(dim=1)
+                    context = gated[:, -1, :]
+                    return self.head(torch.cat([pooled, context], dim=1))
+                if self.architecture == "crossformer":
+                    cross = values.transpose(1, 2)
+                    cross = (cross + self.cross_feature_gate(cross)).transpose(1, 2)
+                    encoded = self.encoder(self.input_projection(cross))
+                    return self.head(torch.cat([encoded.mean(dim=1), values[:, -1, :]], dim=1))
                 return self.head(values.reshape(values.shape[0], -1))
 
         self.model_ = _Net(self.architecture, int(train_x.shape[1]), int(train_x.shape[2]), self.hidden_size)
@@ -803,6 +978,15 @@ def _relational_graph_feature_frame(x: pd.DataFrame, architecture: str) -> pd.Da
         parts["rgcn__sector_risk_edge"] = sector - risk
         parts["rgcn__relation_risk_edge"] = relation - risk
         parts["rgcn__typed_edge_product"] = (primary - sector) * (relation - risk)
+    elif architecture == "hats":
+        hierarchy = pd.concat([primary, sector, relation, risk], axis=1)
+        risk_attention = 1.0 / (1.0 + np.exp(risk.clip(-20.0, 20.0)))
+        relation_attention = 1.0 / (1.0 + np.exp(-relation.clip(-20.0, 20.0)))
+        parts["hats__hierarchy_mean"] = hierarchy.mean(axis=1)
+        parts["hats__hierarchy_dispersion"] = hierarchy.std(axis=1, ddof=0)
+        parts["hats__risk_attention_primary"] = primary * risk_attention
+        parts["hats__relation_attention_sector"] = sector * relation_attention
+        parts["hats__attention_residual"] = (primary - sector) * relation_attention - risk * risk_attention
     elif architecture == "rsr":
         sector_residual = primary - sector
         risk_residual = primary - risk
@@ -811,6 +995,14 @@ def _relational_graph_feature_frame(x: pd.DataFrame, architecture: str) -> pd.Da
         parts["rsr__risk_residual"] = risk_residual
         parts["rsr__relation_residual"] = relation_residual
         parts["rsr__rank_score"] = sector_residual.rank(pct=True) - risk.rank(pct=True)
+    elif architecture == "hatr_i":
+        temporal_relation = (primary - sector).rolling(5, min_periods=1).mean()
+        attention = 1.0 / (1.0 + np.exp(-(temporal_relation - risk).clip(-20.0, 20.0)))
+        parts["hatr_i__temporal_relation"] = temporal_relation
+        parts["hatr_i__attention_primary"] = primary * attention
+        parts["hatr_i__attention_risk"] = risk * (1.0 - attention)
+        parts["hatr_i__relation_interaction"] = relation * temporal_relation
+        parts["hatr_i__hierarchical_rank"] = temporal_relation.rank(pct=True) - risk.rank(pct=True)
     elif architecture == "hypergraph":
         semis_hyperedge = pd.concat([primary, sector, relation], axis=1).mean(axis=1)
         risk_hyperedge = pd.concat([risk, relation, primary - sector], axis=1).mean(axis=1)
@@ -819,7 +1011,16 @@ def _relational_graph_feature_frame(x: pd.DataFrame, architecture: str) -> pd.Da
         parts["hypergraph__edge_gap"] = semis_hyperedge - risk_hyperedge
         parts["hypergraph__edge_product"] = semis_hyperedge * risk_hyperedge
         parts["hypergraph__edge_dispersion"] = pd.concat([primary, sector, relation, risk], axis=1).std(axis=1, ddof=0)
-    elif architecture in {"thgnn", "sthan", "sthgcn"}:
+    elif architecture == "estimate":
+        industry_hyperedge = pd.concat([primary, sector, relation], axis=1).mean(axis=1)
+        risk_hyperedge = pd.concat([risk, relation, primary - sector], axis=1).mean(axis=1)
+        confidence = 1.0 / (1.0 + np.exp((risk - relation).clip(-20.0, 20.0)))
+        parts["estimate__industry_hyperedge"] = industry_hyperedge
+        parts["estimate__risk_hyperedge"] = risk_hyperedge
+        parts["estimate__confidence_weight"] = confidence
+        parts["estimate__confidence_adjusted_gap"] = (industry_hyperedge - risk_hyperedge) * confidence
+        parts["estimate__higher_order_dispersion"] = pd.concat([primary, sector, relation, risk], axis=1).std(axis=1, ddof=0)
+    elif architecture in {"thgnn", "sthan", "sthcn", "sthgcn"}:
         semis_hyperedge = pd.concat([primary, sector, relation], axis=1).mean(axis=1)
         risk_hyperedge = pd.concat([risk, relation, primary - sector], axis=1).mean(axis=1)
         temporal_gap = (semis_hyperedge - risk_hyperedge).diff().fillna(0.0)
@@ -838,11 +1039,25 @@ def _relational_graph_feature_frame(x: pd.DataFrame, architecture: str) -> pd.Da
             parts["sthan__attention_semis"] = semis_hyperedge * attention
             parts["sthan__attention_risk"] = risk_hyperedge * (1.0 - attention)
             parts["sthan__attention_gap"] = (semis_hyperedge - risk_hyperedge) * attention
+        elif architecture == "sthcn":
+            stacked = pd.concat([primary, sector, relation, risk, semis_hyperedge, risk_hyperedge], axis=1)
+            parts["sthcn__hypergraph_conv_mean"] = stacked.mean(axis=1)
+            parts["sthcn__hypergraph_conv_std"] = stacked.std(axis=1, ddof=0)
+            parts["sthcn__temporal_conv_fast"] = temporal_gap.rolling(2, min_periods=1).mean()
+            parts["sthcn__temporal_conv_slow"] = temporal_gap.rolling(6, min_periods=1).mean()
         elif architecture == "sthgcn":
             stacked = pd.concat([primary, sector, relation, risk, semis_roll, risk_roll], axis=1)
             parts["sthgcn__graph_conv_mean"] = stacked.mean(axis=1)
             parts["sthgcn__graph_conv_std"] = stacked.std(axis=1, ddof=0)
             parts["sthgcn__temporal_conv"] = stacked.mean(axis=1).rolling(3, min_periods=1).mean()
+    elif architecture == "dtml":
+        dynamic_primary_sector = primary.rolling(10, min_periods=3).corr(sector).replace([np.inf, -np.inf], np.nan).fillna(0.0)
+        dynamic_relation_risk = relation.rolling(10, min_periods=3).corr(risk).replace([np.inf, -np.inf], np.nan).fillna(0.0)
+        parts["dtml__dynamic_primary_sector_corr"] = dynamic_primary_sector
+        parts["dtml__dynamic_relation_risk_corr"] = dynamic_relation_risk
+        parts["dtml__adaptive_sector_message"] = (primary - sector) * dynamic_primary_sector
+        parts["dtml__adaptive_risk_message"] = (relation - risk) * dynamic_relation_risk
+        parts["dtml__temporal_residual"] = (primary - sector).diff().fillna(0.0).rolling(5, min_periods=1).mean()
 
     frame = pd.DataFrame(parts, index=graph.index)
     return frame.replace([np.inf, -np.inf], np.nan).fillna(0.0)
@@ -1164,6 +1379,22 @@ def _build_model(spec: SupervisedModelSpec):
             learning_rate=0.01,
             random_state=3,
         )
+    if spec.name == "multi_scale_rnn_mse":
+        return _TorchSequenceArchitectureRegressor(
+            architecture="multi_scale_rnn",
+            hidden_size=8,
+            epochs=12,
+            learning_rate=0.01,
+            random_state=10,
+        )
+    if spec.name == "dlstm_mse":
+        return _TorchSequenceArchitectureRegressor(
+            architecture="dlstm",
+            hidden_size=8,
+            epochs=12,
+            learning_rate=0.01,
+            random_state=11,
+        )
     if spec.name == "hawkes_gru_mse":
         return _TorchSequenceArchitectureRegressor(
             architecture="hawkes_gru",
@@ -1171,6 +1402,14 @@ def _build_model(spec: SupervisedModelSpec):
             epochs=12,
             learning_rate=0.01,
             random_state=4,
+        )
+    if spec.name == "mstr_i_mse":
+        return _TorchSequenceArchitectureRegressor(
+            architecture="mstr_i",
+            hidden_size=8,
+            epochs=12,
+            learning_rate=0.01,
+            random_state=12,
         )
     if spec.name == "tcn_mse":
         return _TorchTemporalConvRegressor(hidden_size=8, epochs=24, learning_rate=0.01, random_state=0)
@@ -1189,6 +1428,14 @@ def _build_model(spec: SupervisedModelSpec):
             epochs=12,
             learning_rate=0.01,
             random_state=6,
+        )
+    if spec.name == "informer_mse":
+        return _TorchSequenceArchitectureRegressor(
+            architecture="informer",
+            hidden_size=8,
+            epochs=12,
+            learning_rate=0.01,
+            random_state=13,
         )
     if spec.name == "patch_tst_mse":
         return _TorchSequenceArchitectureRegressor(
@@ -1214,6 +1461,22 @@ def _build_model(spec: SupervisedModelSpec):
             learning_rate=0.01,
             random_state=9,
         )
+    if spec.name == "pyraformer_mse":
+        return _TorchSequenceArchitectureRegressor(
+            architecture="pyraformer",
+            hidden_size=8,
+            epochs=12,
+            learning_rate=0.01,
+            random_state=14,
+        )
+    if spec.name == "tft_mse":
+        return _TorchSequenceArchitectureRegressor(
+            architecture="tft",
+            hidden_size=8,
+            epochs=12,
+            learning_rate=0.01,
+            random_state=15,
+        )
     if spec.name == "market_graph_mse":
         return _MarketGraphRidgeRegressor(alpha=1.5)
     if spec.name == "gcn_mse":
@@ -1222,16 +1485,34 @@ def _build_model(spec: SupervisedModelSpec):
         return _RelationalGraphRidgeRegressor(architecture="gat", alpha=1.2)
     if spec.name == "rgcn_mse":
         return _RelationalGraphRidgeRegressor(architecture="rgcn", alpha=1.2)
+    if spec.name == "hats_mse":
+        return _RelationalGraphRidgeRegressor(architecture="hats", alpha=1.2)
     if spec.name == "rsr_mse":
         return _RelationalGraphRidgeRegressor(architecture="rsr", alpha=1.2)
+    if spec.name == "hatr_i_mse":
+        return _RelationalGraphRidgeRegressor(architecture="hatr_i", alpha=1.2)
     if spec.name == "hypergraph_mse":
         return _RelationalGraphRidgeRegressor(architecture="hypergraph", alpha=1.2)
+    if spec.name == "estimate_mse":
+        return _RelationalGraphRidgeRegressor(architecture="estimate", alpha=1.2)
     if spec.name == "thgnn_mse":
         return _RelationalGraphRidgeRegressor(architecture="thgnn", alpha=1.2)
     if spec.name == "sthan_mse":
         return _RelationalGraphRidgeRegressor(architecture="sthan", alpha=1.2)
+    if spec.name == "sthcn_mse":
+        return _RelationalGraphRidgeRegressor(architecture="sthcn", alpha=1.2)
     if spec.name == "sthgcn_mse":
         return _RelationalGraphRidgeRegressor(architecture="sthgcn", alpha=1.2)
+    if spec.name == "dtml_mse":
+        return _RelationalGraphRidgeRegressor(architecture="dtml", alpha=1.2)
+    if spec.name == "crossformer_mse":
+        return _TorchSequenceArchitectureRegressor(
+            architecture="crossformer",
+            hidden_size=8,
+            epochs=12,
+            learning_rate=0.01,
+            random_state=16,
+        )
     raise ValueError(f"unknown supervised model '{spec.name}'")
 
 
@@ -1244,14 +1525,25 @@ def _sequence_lookback_for_spec(spec: SupervisedModelSpec) -> int:
         "alstm_mse",
         "sfm_mse",
         "darnn_mse",
+        "multi_scale_rnn_mse",
+        "dlstm_mse",
         "hawkes_gru_mse",
+        "mstr_i_mse",
         "mlp_mixer_mse",
         "dlinear_mse",
     }:
         return 8
     if spec.name == "tcn_mse":
         return 8
-    if spec.name in {"patch_tst_mse", "autoformer_mse", "fedformer_mse"}:
+    if spec.name in {
+        "informer_mse",
+        "patch_tst_mse",
+        "autoformer_mse",
+        "fedformer_mse",
+        "pyraformer_mse",
+        "tft_mse",
+        "crossformer_mse",
+    }:
         return 12
     return 1
 
