@@ -2,7 +2,7 @@
 
 ## Retained Insight
 
-Network changes are only justified when they address a specific behavioral bottleneck such as asset-specific behavior, transition classification, or temporal abstraction.
+Network changes are only justified when they address a specific behavioral bottleneck such as asset-specific behavior, transition classification, temporal convolution, or temporal abstraction.
 
 ## Failed Pattern
 

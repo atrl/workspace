@@ -33,6 +33,7 @@ from .environment import (
 from .models.attention import WindowSelfAttentionNet
 from .models.gru import GRUNet
 from .models.moe import QNetwork, RegimeMoENet, SoxlPPOPolicy
+from .models.temporal_conv import TemporalConvNet
 from .models.tide import TiDENet
 
 
@@ -61,6 +62,17 @@ def _build_net(obs_dim: int, profile: StrategyConfig, model_cfg):
             mlp_hidden_sizes=list(profile.hidden_sizes),
             device=DEVICE,
         )
+    if getattr(model_cfg, "use_temporal_conv", False):
+        return TemporalConvNet(
+            obs_dim,
+            feature_dim=len(feature_columns),
+            observation_window=max(int(model_cfg.observation_window), 1),
+            channels=int(getattr(model_cfg, "temporal_conv_channels", 32)),
+            kernel_size=int(getattr(model_cfg, "temporal_conv_kernel", 3)),
+            mlp_hidden_sizes=list(profile.hidden_sizes),
+            device=DEVICE,
+            dropout=float(getattr(model_cfg, "dropout", 0.0)),
+        ).to(DEVICE)
     if model_cfg.use_gru:
         return GRUNet(
             obs_dim,

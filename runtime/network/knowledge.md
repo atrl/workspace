@@ -1,6 +1,6 @@
 # NETWORK Knowledge
 
-> 最后更新: 2026-04-24
+> 最后更新: 2026-06-08
 > 该方向负责网络架构选择、超参实验和模型结构诊断。
 
 ## 架构索引
@@ -11,6 +11,7 @@
 | Attention | attention | 🟡 No improvement | 1 | Sharpe 0.76 | [card](cards/attention/card.md) |
 | TiDE | temporal_decomposition | 🟡 No improvement | 1 | Sharpe 0.69 | [card](cards/tide/card.md) |
 | MoE (RegimeMoENet) | mixture_of_experts | 🟡 Trained, weaker than baseline | 1 | proxy Sharpe 1.00, 2022 Ret -25.4% | `balanced_rule_residual_v19_moe` |
+| TemporalConvNet | temporal_convolution | ⚪ Implemented, not trained | 0 | — | `model.use_temporal_conv` |
 | MLP Fallback | dense | ⚪ Unused | 0 | — | [card](cards/mlp_fallback/card.md) |
 
 ## 核心结论
@@ -19,12 +20,13 @@
 2. **Attention 替换 GRU 无提升**：同规模下指标无差异，计算成本更高。
 3. **TiDE 未超越 GRU**：时序分解网络无优势，可能与短窗口（5步）有关。
 4. **MoE 首次实验完成但弱于基线**：RegimeMoENet (3 experts, top-1) 在固定切分上通过晋升门，但 proxy Sharpe 1.00 低于 v19 (~1.15)，test_2022 收益 -25.4% 差于 v19 (~-18%)。训练过程中出现明显退化（iter 0 score=81.9 → iter 80 score=64.4），疑似学习率过高或负载均衡损失太弱。
+5. **TemporalConvNet 已补齐为可选代码路径**：`model.use_temporal_conv=true` 会使用 1D-CNN 窗口编码器，但尚未训练或回测，不能作为性能结论。
 
 ## 待验证方向
 
 - [ ] 跨资产 shared backbone + asset-specific head
 - [ ] 更轻量网络 [64,32]
-- [ ] 1D-CNN 局部特征提取
+- [ ] 训练/回测 TemporalConvNet 局部特征提取路径
 
 
 <!-- MIGRATED FROM memory/2026-04-24-risk-budget-v3-gate-pass.md -->
