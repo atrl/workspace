@@ -1,0 +1,7 @@
+key,paper_basis,soxl_target,metric
+clf,Classification loss predicts future up/down movement.,fwd_positive_h,clf_accuracy
+ic,IC objective aligns predictions with future return correlation.,fwd_return_h,ic
+mse,MSE loss regresses future returns directly.,fwd_return_h,mse
+ranking,Pairwise or listwise ranking objectives prefer better-return observations.,relative ordering of fwd_return_h,ranking_spread
+utility,"Utility maximization should reflect trading outcomes, not only prediction error.",position-weighted fwd_return_h with chip retention and bull capture labels,utility_return
+rl,Non-differentiable simulation and execution feedback can be optimized with RL rewards.,PPO reward and execution gate metrics,portfolio_return_sharpe_maxdd
