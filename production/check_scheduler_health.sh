@@ -650,6 +650,30 @@ except Exception:
 PY
 }
 
+configured_scheduler_flag_present() {
+    flag="$1"
+    plist="${LAUNCHAGENTS_DIR}/${SCHEDULER_LABEL}.plist"
+    if [ ! -f "$plist" ]; then
+        plist="${ROOT}/production/${SCHEDULER_LABEL}.plist"
+    fi
+    if [ ! -f "$plist" ]; then
+        return 1
+    fi
+    python3 - "$plist" "$flag" <<'PY' 2>/dev/null
+import plistlib
+import sys
+
+try:
+    with open(sys.argv[1], "rb") as f:
+        payload = plistlib.load(f)
+except Exception:
+    raise SystemExit(1)
+
+args = list(payload.get("ProgramArguments", []))
+raise SystemExit(0 if sys.argv[2] in args else 1)
+PY
+}
+
 configured_scheduler_broker() {
     configured_scheduler_arg_value "--broker" "paper"
 }
@@ -672,6 +696,7 @@ truthy_config_value() {
 
 load_runtime_composer_env() {
     RUNTIME_COMPOSER=$(env_or_launch_value "SOXL_RUNTIME_COMPOSER")
+    [ -z "$RUNTIME_COMPOSER" ] && RUNTIME_COMPOSER=$(configured_scheduler_arg_value "--runtime-composer" "")
     RUNTIME_COMPOSER_PROFILE=""
     RUNTIME_SLOW_PROFILE=""
     RUNTIME_FAST_PROFILE=""
@@ -684,9 +709,15 @@ load_runtime_composer_env() {
     fi
 
     RUNTIME_COMPOSER_PROFILE=$(env_or_launch_value "SOXL_RUNTIME_COMPOSER_PROFILE")
+    [ -z "$RUNTIME_COMPOSER_PROFILE" ] && RUNTIME_COMPOSER_PROFILE=$(configured_scheduler_arg_value "--composer-profile" "")
     RUNTIME_SLOW_PROFILE=$(env_or_launch_value "SOXL_RUNTIME_SLOW_PROFILE")
+    [ -z "$RUNTIME_SLOW_PROFILE" ] && RUNTIME_SLOW_PROFILE=$(configured_scheduler_arg_value "--slow-profile" "")
     RUNTIME_FAST_PROFILE=$(env_or_launch_value "SOXL_RUNTIME_FAST_PROFILE")
+    [ -z "$RUNTIME_FAST_PROFILE" ] && RUNTIME_FAST_PROFILE=$(configured_scheduler_arg_value "--fast-profile" "")
     RUNTIME_BULL_PARTICIPATION_GUARD=$(env_or_launch_value "SOXL_RUNTIME_BULL_PARTICIPATION_GUARD")
+    if [ -z "$RUNTIME_BULL_PARTICIPATION_GUARD" ] && configured_scheduler_flag_present "--bull-participation-guard"; then
+        RUNTIME_BULL_PARTICIPATION_GUARD="true"
+    fi
     [ -z "$RUNTIME_BULL_PARTICIPATION_GUARD" ] && RUNTIME_BULL_PARTICIPATION_GUARD="false"
 
     [ -z "$RUNTIME_COMPOSER_PROFILE" ] && RUNTIME_COMPOSER_MISSING="${RUNTIME_COMPOSER_MISSING} SOXL_RUNTIME_COMPOSER_PROFILE"

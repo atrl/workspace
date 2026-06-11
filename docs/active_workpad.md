@@ -15,6 +15,39 @@ direction: execution
 3. Keep model optimization paused until the production loop can repeat data refresh -> inference -> paper state -> dashboard under the corrected schedule.
 4. Resume model optimization from the SOXX-aware / selective-release frontier only after production timing is stable.
 
+## 2026-06-11 Scheduler Data Refresh + Current Model Comparison
+
+### Current State
+
+- Scheduler path drift is fixed for the current checkout at `/Users/rziiiii/dev/workspace`; cron and LaunchAgent plists no longer point at the retired `/Users/rziiiii/.openclaw/workspace`.
+- Scheduled preopen/postclose jobs now explicitly use the production runtime composer:
+  `v19reg_v22_budget_usage_bull_guard_v1` with slow `balanced_rule_residual_v19_reg`,
+  fast `balanced_rule_residual_v22`, and bull participation guard enabled.
+- Installed daily/preopen/weekly LaunchAgent plists were synced to
+  `~/Library/LaunchAgents/` and reloaded.
+- Manual post-close verification refreshed data/dashboard successfully. Futu OpenD was
+  unreachable at `127.0.0.1:11111`, so the scheduler retried as local paper dry-run
+  and produced `runtime/soxl/paper_trading/2026-06-10/summary.json`.
+- Canonical data is fresh through `2026-06-10`; model replay safe backtest end is
+  `2026-06-09`.
+
+### Evidence
+
+- Executed comparison notebook:
+  `runtime/production/card/current_model_ytd_june_comparison_v1/current_model_ytd_june_comparison_v1.ipynb`
+- Sidecars:
+  `summary.json`, `comparison_metrics.csv`, `market_only_latest_metrics.csv`,
+  `current_model_daily.csv`.
+- Common-window result through `2026-06-09`:
+  YTD SOXL buy-and-hold `326.93%` vs current model `3.25%`;
+  June SOXL buy-and-hold `-11.17%` vs current model `0.00%`.
+
+### Next Action
+
+1. Real Futu execution proof still requires OpenD to be reachable locally.
+2. Inspect the next natural LaunchAgent post-close run for a scheduled success marker
+   with `schedule_trigger=launchagent_postclose`.
+
 ## 2026-05-20 Loop Evidence
 
 ### Root-Cause Evidence

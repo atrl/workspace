@@ -3,7 +3,9 @@
 
 set -euo pipefail
 
-ROOT="${SOXL_WEEKLY_WF_ROOT:-${SOXL_SCHEDULER_ROOT:-/Users/rziiiii/.openclaw/workspace}}"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+DEFAULT_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
+ROOT="${SOXL_WEEKLY_WF_ROOT:-${SOXL_SCHEDULER_ROOT:-${DEFAULT_ROOT}}}"
 ENV_FILE="${SOXL_LAUNCH_ENV_FILE:-${HOME}/.openclaw/soxl.env}"
 WEEKLY_PYTHON="${SOXL_WEEKLY_WF_PYTHON:-${SOXL_SCHEDULER_PYTHON:-${ROOT}/qlib_venv/bin/python}}"
 

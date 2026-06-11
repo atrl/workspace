@@ -202,10 +202,10 @@ Pipeline order:
 ```bash
 # Asia/Shanghai local time:
 # Mon-Fri 21:00: US pre-open cached-data dry-run + dashboard + Vercel deploy attempt
-0 21 * * 1-5 SOXL_SCHEDULE_TRIGGER=cron_preopen /Users/rziiiii/.openclaw/workspace/production/run_soxl_scheduler.sh --broker futu --account-notional 10000 --dry-run --no-notify --skip-data-update --vercel-deploy --health-summary --schedule-slot preopen >> /Users/rziiiii/.openclaw/workspace/runtime/soxl/paper_trading/scheduler_preopen.log 2>&1
+0 21 * * 1-5 SOXL_SCHEDULE_TRIGGER=cron_preopen /Users/rziiiii/dev/workspace/production/run_soxl_scheduler.sh --broker futu --account-notional 10000 --runtime-composer budget_usage --composer-profile v19reg_v22_budget_usage_bull_guard_v1 --slow-profile balanced_rule_residual_v19_reg --fast-profile balanced_rule_residual_v22 --bull-participation-guard --dry-run --no-notify --skip-data-update --vercel-deploy --health-summary --schedule-slot preopen >> /Users/rziiiii/dev/workspace/runtime/soxl/paper_trading/scheduler_preopen.log 2>&1
 
 # Tue-Sat 06:15: US post-close data refresh + Futu simulated trading + dashboard + Vercel deploy attempt
-15 6 * * 2-6 SOXL_SCHEDULE_TRIGGER=cron_postclose /Users/rziiiii/.openclaw/workspace/production/run_soxl_scheduler.sh --broker futu --account-notional 10000 --no-notify --vercel-deploy --health-summary --schedule-slot postclose >> /Users/rziiiii/.openclaw/workspace/runtime/soxl/paper_trading/scheduler_postclose.log 2>&1
+15 6 * * 2-6 SOXL_SCHEDULE_TRIGGER=cron_postclose /Users/rziiiii/dev/workspace/production/run_soxl_scheduler.sh --broker futu --account-notional 10000 --runtime-composer budget_usage --composer-profile v19reg_v22_budget_usage_bull_guard_v1 --slow-profile balanced_rule_residual_v19_reg --fast-profile balanced_rule_residual_v22 --bull-participation-guard --no-notify --vercel-deploy --health-summary --schedule-slot postclose >> /Users/rziiiii/dev/workspace/runtime/soxl/paper_trading/scheduler_postclose.log 2>&1
 ```
 
 ### Notification Setup (Bark)

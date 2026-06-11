@@ -38,6 +38,12 @@ TRANSIENT_DATA_SOURCE_SNIPPETS = (
     "Data update completed but data is stale",
     "Cached data is stale for non-dry-run execution",
 )
+BROKER_UNAVAILABLE_SNIPPETS = (
+    "Futu OpenD is not reachable",
+    "IBKR TWS/Gateway is NOT reachable",
+    "IBKR TWS/Gateway is not reachable",
+    "ConnectionRefusedError",
+)
 
 
 class SchedulerStepError(RuntimeError):
@@ -52,6 +58,49 @@ class SchedulerStepError(RuntimeError):
 def _is_transient_data_source_failure(exc: BaseException) -> bool:
     text = f"{exc}\n{getattr(exc, 'stdout', '')}\n{getattr(exc, 'stderr', '')}".lower()
     return any(snippet.lower() in text for snippet in TRANSIENT_DATA_SOURCE_SNIPPETS)
+
+
+def _is_broker_unavailable_failure(exc: BaseException) -> bool:
+    text = f"{exc}\n{getattr(exc, 'stdout', '')}\n{getattr(exc, 'stderr', '')}".lower()
+    return any(snippet.lower() in text for snippet in BROKER_UNAVAILABLE_SNIPPETS)
+
+
+def _set_arg_value(cmd: list[str], flag: str, value: str) -> None:
+    if flag in cmd:
+        idx = cmd.index(flag)
+        if idx + 1 < len(cmd):
+            cmd[idx + 1] = value
+            return
+    cmd.extend([flag, value])
+
+
+def _remove_arg_value(cmd: list[str], flag: str) -> None:
+    while flag in cmd:
+        idx = cmd.index(flag)
+        del cmd[idx : idx + 2]
+
+
+def _local_paper_dry_run_retry_cmd(paper_cmd: list[str], *, account_notional: float) -> list[str]:
+    retry_cmd = list(paper_cmd)
+    _set_arg_value(retry_cmd, "--broker", "paper")
+    for broker_flag in (
+        "--futu-host",
+        "--futu-port",
+        "--unlock-password",
+        "--ibkr-host",
+        "--ibkr-port",
+        "--ibkr-client-id",
+        "--ibkr-connect-timeout",
+        "--ibkr-account",
+    ):
+        _remove_arg_value(retry_cmd, broker_flag)
+    if account_notional > 0:
+        _set_arg_value(retry_cmd, "--initial-cash", str(account_notional))
+    if "--skip-data-update" not in retry_cmd:
+        retry_cmd.append("--skip-data-update")
+    if "--dry-run" not in retry_cmd:
+        retry_cmd.append("--dry-run")
+    return retry_cmd
 
 
 def parse_args() -> argparse.Namespace:
@@ -336,6 +385,38 @@ def main() -> None:
             except Exception as exc2:
                 msg2 = str(exc2)
                 print(f"[scheduler] RETRY FAILED: {msg2}", file=sys.stderr)
+                if use_notify:
+                    notifier.send(title="SOXL Daily Pipeline FAILED", body=msg2, level="error")
+                sys.exit(1)
+        if _is_broker_unavailable_failure(exc):
+            print("[scheduler] Broker unavailable. Retrying current data as local paper dry-run...", file=sys.stderr)
+            try:
+                retry_cmd = _local_paper_dry_run_retry_cmd(
+                    paper_cmd,
+                    account_notional=args.account_notional,
+                )
+                _run(retry_cmd, "paper trading (local paper dry-run after broker unavailable)")
+                if not args.skip_dashboard:
+                    if not args.skip_model_replay_refresh:
+                        _run_dashboard_model_replay_refresh(venv_python)
+                    dash_cmd = [venv_python, "scripts/build_backtest_dashboard.py"]
+                    _run(dash_cmd, "dashboard build")
+                if use_notify:
+                    notifier.send(
+                        title="SOXL Daily Pipeline OK (broker dry-run fallback)",
+                        body=(
+                            "Fresh data path reached broker execution, but the external broker was unavailable. "
+                            "Generated a local paper dry-run and refreshed dashboard evidence; no external order was placed."
+                        ),
+                        level="warning",
+                    )
+                print("[scheduler] all done (with local paper dry-run)", flush=True)
+                if args.health_summary:
+                    _run_health_summary()
+                return
+            except Exception as exc2:
+                msg2 = str(exc2)
+                print(f"[scheduler] BROKER FALLBACK FAILED: {msg2}", file=sys.stderr)
                 if use_notify:
                     notifier.send(title="SOXL Daily Pipeline FAILED", body=msg2, level="error")
                 sys.exit(1)

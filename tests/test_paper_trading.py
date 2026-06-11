@@ -239,6 +239,35 @@ def test_data_update_auto_provider_falls_back_to_yahoo_api(monkeypatch: pytest.M
     assert result["last_date"] == "2026-05-19"
 
 
+def test_data_update_auto_provider_retries_yfinance_vix_no_data(monkeypatch: pytest.MonkeyPatch):
+    calls: list[str] = []
+
+    def fake_update_master_csv(*, dry_run: bool, provider: str):
+        calls.append(provider)
+        if provider == "yfinance":
+            raise RuntimeError(
+                "Failed to fetch ^VIX from yfinance after 5 attempts: "
+                "No data returned for ^VIX from yfinance"
+            )
+        return {
+            "before_rows": 1,
+            "after_rows": 2,
+            "new_rows": 1,
+            "last_date": "2026-06-10",
+            "dry_run": dry_run,
+        }
+
+    monkeypatch.setattr(soxl_paper_trading, "update_master_csv", fake_update_master_csv)
+    monkeypatch.setattr(soxl_paper_trading, "sync_local_data_surfaces", lambda dry_run: None)
+    monkeypatch.setattr(soxl_paper_trading, "refresh_qlib", lambda dry_run: None)
+    monkeypatch.setattr(soxl_paper_trading, "refresh_data_registry", lambda dry_run: None)
+
+    result = _run_data_update(dry_run=False, provider="auto")
+
+    assert calls == ["yfinance", "yahoo_api"]
+    assert result["last_date"] == "2026-06-10"
+
+
 def test_data_update_syncs_raw_surfaces_before_qlib_refresh(monkeypatch: pytest.MonkeyPatch):
     calls: list[tuple[str, bool]] = []
 

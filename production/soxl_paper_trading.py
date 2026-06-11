@@ -52,6 +52,8 @@ US_DATA_READY_TIME = time(17, 30)
 DATA_UPDATE_PROVIDERS = ("yfinance", "yahoo_api", "polygon")
 RETRYABLE_DATA_UPDATE_SNIPPETS = (
     "No overlapping dates for SOXL/SOXX/VIX",
+    "No data returned",
+    "possibly delisted; no price data found",
     "Too Many Requests",
     "Rate limited",
     "429",
