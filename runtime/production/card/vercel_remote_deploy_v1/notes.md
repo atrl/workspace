@@ -1,9 +1,9 @@
 # Vercel Dashboard Deployment Check
 
 - status: `blocked_no_credentials`
-- checked_at: `2026-05-23T15:13:44.352573+00:00`
+- checked_at: `2026-06-11T00:54:06.468606+00:00`
 - dashboard_latest: `paper_trading`
-- paper_trading_end: `2026-05-22`
+- paper_trading_end: `2026-06-08`
 - auth: `blocked_no_credentials`
 - project: `missing_project_link`
 - env_file: `present`

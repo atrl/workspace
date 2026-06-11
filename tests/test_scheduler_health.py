@@ -10,9 +10,15 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def _write_scheduler_plist(path: Path, *, broker: str = "paper", account_notional: str = "") -> None:
+def _write_scheduler_plist(
+    path: Path,
+    *,
+    broker: str = "paper",
+    account_notional: str = "",
+    extra_args: list[str] | None = None,
+) -> None:
     args = [
-        "/Users/rziiiii/.openclaw/workspace/production/run_soxl_scheduler.sh",
+        str(path.parents[1] / "production" / "run_soxl_scheduler.sh"),
         "--broker",
         broker,
         "--schedule-slot",
@@ -20,10 +26,12 @@ def _write_scheduler_plist(path: Path, *, broker: str = "paper", account_notiona
     ]
     if account_notional:
         args.extend(["--account-notional", account_notional])
+    if extra_args:
+        args.extend(extra_args)
     payload = {
         "Label": "com.soxl.daily.scheduler",
         "ProgramArguments": args,
-        "WorkingDirectory": "/Users/rziiiii/.openclaw/workspace",
+        "WorkingDirectory": str(path.parents[1]),
     }
     with path.open("wb") as f:
         plistlib.dump(payload, f)
@@ -502,6 +510,8 @@ def test_scheduler_health_reports_launch_env_vercel_token_without_leaking_secret
     with TemporaryDirectory() as tmpdir:
         root = Path(tmpdir)
         (root / "runtime" / "soxl" / "paper_trading").mkdir(parents=True)
+        launchagents_dir = root / "LaunchAgents"
+        launchagents_dir.mkdir()
         env_file = root / "private" / "soxl.env"
         env_file.parent.mkdir()
         env_file.write_text("export VERCEL_TOKEN='secret-token-123'\n", encoding="utf-8")
@@ -534,6 +544,7 @@ def test_scheduler_health_reports_launch_env_vercel_token_without_leaking_secret
             "SOXL_SCHEDULER_HEALTH_OS": "Darwin",
             "SOXL_SCHEDULER_HEALTH_ROOT": str(root),
             "SOXL_SCHEDULER_HEALTH_PYTHON": str(fake_python),
+            "SOXL_SCHEDULER_HEALTH_LAUNCHAGENTS_DIR": str(launchagents_dir),
             "SOXL_LAUNCH_ENV_FILE": str(env_file),
         }
         env.pop("VERCEL_TOKEN", None)
@@ -749,10 +760,105 @@ def test_scheduler_health_reports_launch_env_runtime_composer_configuration():
     ) in result.stdout
 
 
+def test_scheduler_health_reads_runtime_composer_from_launchagent_args():
+    with TemporaryDirectory() as tmpdir:
+        root = Path(tmpdir)
+        (root / "runtime" / "soxl" / "paper_trading").mkdir(parents=True)
+        production_dir = root / "production"
+        launchagents_dir = root / "LaunchAgents"
+        production_dir.mkdir()
+        launchagents_dir.mkdir()
+        composer_args = [
+            "--runtime-composer",
+            "budget_usage",
+            "--composer-profile",
+            "v19reg_v22_budget_usage_bull_guard_v1",
+            "--slow-profile",
+            "balanced_rule_residual_v19_reg",
+            "--fast-profile",
+            "balanced_rule_residual_v22",
+            "--bull-participation-guard",
+        ]
+        _write_scheduler_plist(
+            production_dir / "com.soxl.daily.scheduler.plist",
+            broker="futu",
+            account_notional="10000",
+            extra_args=composer_args,
+        )
+        _write_scheduler_plist(
+            launchagents_dir / "com.soxl.daily.scheduler.plist",
+            broker="futu",
+            account_notional="10000",
+            extra_args=composer_args,
+        )
+
+        fake_bin = root / "bin"
+        fake_bin.mkdir()
+        launchctl = fake_bin / "launchctl"
+        launchctl.write_text("#!/bin/sh\nprintf '456\\t0\\tcom.soxl.daily.scheduler\\n'\n", encoding="utf-8")
+        launchctl.chmod(0o755)
+        captured_args = root / "health_args.txt"
+        fake_python = fake_bin / "python"
+        fake_python.write_text(
+            "#!/bin/sh\n"
+            "printf '%s\\n' \"$@\" > \"$SOXL_CAPTURE_HEALTH_ARGS\"\n"
+            "cat <<'JSON'\n"
+            "{\"data\":{\"ok\":true,\"last_date\":\"2026-06-10\","
+            "\"expected_last_trading_day\":\"2026-06-10\",\"stale_days\":0},"
+            "\"model\":{\"ok\":true,\"name\":\"v19reg_v22_budget_usage_bull_guard_v1 "
+            "(slow=balanced_rule_residual_v19_reg, fast=balanced_rule_residual_v22)\"},"
+            "\"broker\":{\"ok\":true,\"msg\":\"paper broker ready\"},"
+            "\"all_ok\":true}\n"
+            "JSON\n",
+            encoding="utf-8",
+        )
+        fake_python.chmod(0o755)
+
+        env = {
+            **os.environ,
+            "PATH": f"{fake_bin}:{os.environ['PATH']}",
+            "SOXL_SCHEDULER_HEALTH_OS": "Darwin",
+            "SOXL_SCHEDULER_HEALTH_ROOT": str(root),
+            "SOXL_SCHEDULER_HEALTH_PYTHON": str(fake_python),
+            "SOXL_SCHEDULER_HEALTH_LAUNCHAGENTS_DIR": str(launchagents_dir),
+            "SOXL_LAUNCH_ENV_FILE": str(root / "missing.env"),
+            "SOXL_CAPTURE_HEALTH_ARGS": str(captured_args),
+        }
+        for key in (
+            "SOXL_RUNTIME_COMPOSER",
+            "SOXL_RUNTIME_COMPOSER_PROFILE",
+            "SOXL_RUNTIME_SLOW_PROFILE",
+            "SOXL_RUNTIME_FAST_PROFILE",
+            "SOXL_RUNTIME_BULL_PARTICIPATION_GUARD",
+        ):
+            env.pop(key, None)
+        result = subprocess.run(
+            ["bash", str(ROOT / "production" / "check_scheduler_health.sh")],
+            capture_output=True,
+            text=True,
+            env=env,
+            check=True,
+        )
+        args = captured_args.read_text(encoding="utf-8").splitlines()
+
+    assert (
+        "runtime composer: enabled composer=budget_usage "
+        "profile=v19reg_v22_budget_usage_bull_guard_v1 "
+        "slow=balanced_rule_residual_v19_reg fast=balanced_rule_residual_v22 "
+        "bull_guard=true"
+    ) in result.stdout
+    assert "--runtime-composer" in args
+    assert args[args.index("--runtime-composer") + 1] == "budget_usage"
+    assert "--composer-profile" in args
+    assert args[args.index("--composer-profile") + 1] == "v19reg_v22_budget_usage_bull_guard_v1"
+
+
 def test_scheduler_health_reports_incomplete_launch_env_runtime_composer_configuration():
     with TemporaryDirectory() as tmpdir:
         root = Path(tmpdir)
         (root / "runtime" / "soxl" / "paper_trading").mkdir(parents=True)
+        launchagents_dir = root / "LaunchAgents"
+        launchagents_dir.mkdir()
         env_file = root / "private" / "soxl.env"
         env_file.parent.mkdir()
         env_file.write_text(
@@ -795,6 +901,7 @@ def test_scheduler_health_reports_incomplete_launch_env_runtime_composer_configu
             "SOXL_SCHEDULER_HEALTH_OS": "Darwin",
             "SOXL_SCHEDULER_HEALTH_ROOT": str(root),
             "SOXL_SCHEDULER_HEALTH_PYTHON": str(fake_python),
+            "SOXL_SCHEDULER_HEALTH_LAUNCHAGENTS_DIR": str(launchagents_dir),
             "SOXL_LAUNCH_ENV_FILE": str(env_file),
         }
         for key in (

@@ -125,6 +125,60 @@ def test_scheduler_retries_stale_post_update_data_as_cached_dry_run(monkeypatch:
     assert "--dry-run" in calls[1][0]
 
 
+def test_scheduler_retries_external_broker_failure_as_local_paper_dry_run(monkeypatch: pytest.MonkeyPatch):
+    calls: list[tuple[list[str], str]] = []
+
+    def fake_run(cmd: list[str], description: str):
+        calls.append((cmd, description))
+        if len(calls) == 1:
+            raise soxl_daily_scheduler.SchedulerStepError(
+                description,
+                1,
+                stderr="RuntimeError: Futu OpenD is not reachable at 127.0.0.1:11111\n",
+            )
+
+    monkeypatch.setattr(soxl_daily_scheduler, "_run", fake_run)
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "soxl_daily_scheduler.py",
+            "--no-notify",
+            "--broker",
+            "futu",
+            "--account-notional",
+            "10000",
+            "--runtime-composer",
+            "budget_usage",
+            "--composer-profile",
+            "v19reg_v22_budget_usage_bull_guard_v1",
+            "--slow-profile",
+            "balanced_rule_residual_v19_reg",
+            "--fast-profile",
+            "balanced_rule_residual_v22",
+        ],
+    )
+
+    soxl_daily_scheduler.main()
+
+    assert [description for _cmd, description in calls] == [
+        "paper trading",
+        "paper trading (local paper dry-run after broker unavailable)",
+        "dashboard model replay refresh",
+        "dashboard build",
+    ]
+    retry_cmd = calls[1][0]
+    assert retry_cmd[retry_cmd.index("--broker") + 1] == "paper"
+    assert "--skip-data-update" in retry_cmd
+    assert "--dry-run" in retry_cmd
+    assert "--futu-host" not in retry_cmd
+    assert "--futu-port" not in retry_cmd
+    assert "--initial-cash" in retry_cmd
+    assert retry_cmd[retry_cmd.index("--initial-cash") + 1] == "10000.0"
+    assert "--runtime-composer" in retry_cmd
+    assert "budget_usage" in retry_cmd
+
+
 def test_scheduler_smoke_mode_runs_cached_dry_run_with_dashboard(monkeypatch: pytest.MonkeyPatch):
     calls: list[tuple[list[str], str]] = []
 

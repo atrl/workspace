@@ -6,18 +6,18 @@
     <string>com.soxl.weekly.wf</string>
     <key>ProgramArguments</key>
     <array>
-        <string>/Users/rziiiii/.openclaw/workspace/production/run_soxl_weekly_wf.sh</string>
+        <string>/Users/rziiiii/dev/workspace/production/run_soxl_weekly_wf.sh</string>
     </array>
     <key>WorkingDirectory</key>
-    <string>/Users/rziiiii/.openclaw/workspace</string>
+    <string>/Users/rziiiii/dev/workspace</string>
     <key>StartCalendarInterval</key>
     <array>
         <dict><key>Hour</key><integer>7</integer><key>Minute</key><integer>0</integer><key>Weekday</key><integer>6</integer></dict>
     </array>
     <key>StandardOutPath</key>
-    <string>/Users/rziiiii/.openclaw/workspace/runtime/soxl/wf_weekly.log</string>
+    <string>/Users/rziiiii/dev/workspace/runtime/soxl/wf_weekly.log</string>
     <key>StandardErrorPath</key>
-    <string>/Users/rziiiii/.openclaw/workspace/runtime/soxl/wf_weekly.err</string>
+    <string>/Users/rziiiii/dev/workspace/runtime/soxl/wf_weekly.err</string>
     <key>EnvironmentVariables</key>
     <dict>
         <key>PATH</key>

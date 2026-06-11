@@ -449,7 +449,25 @@ def _paper_trading_detail_meta(
             "latest_summary_path": latest.get("summary_path"),
         }
     )
-    meta.update(_latest_paper_signal_metadata(paper_dir))
+    signal_meta = _latest_paper_signal_metadata(paper_dir)
+    meta.update(signal_meta)
+    signal_date = str(signal_meta.get("latest_signal_date") or "")
+    row_date = str(meta.get("latest_data_date") or "")
+    if signal_date and signal_date >= row_date:
+        meta.update(
+            {
+                "latest_data_date": signal_meta.get("latest_signal_date"),
+                "latest_profile": signal_meta.get("latest_signal_profile"),
+                "latest_execution_status": signal_meta.get("latest_signal_execution_status"),
+                "latest_target_position": (
+                    signal_meta.get("latest_signal_capped_target_position")
+                    if signal_meta.get("latest_signal_capped_target_position") is not None
+                    else signal_meta.get("latest_signal_target_position")
+                ),
+                "latest_reconcile_action": signal_meta.get("latest_signal_reconcile_action"),
+                "latest_summary_path": signal_meta.get("latest_signal_summary_path"),
+            }
+        )
     return {key: value for key, value in meta.items() if value is not None}
 
 
@@ -3067,7 +3085,9 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
 
     async function loadJson(path) {{
       try {{
-        const res = await fetch(path);
+        const sep = path.includes('?') ? '&' : '?';
+        const cacheKey = encodeURIComponent(DATA.generated_at || Date.now());
+        const res = await fetch(`${{path}}${{sep}}v=${{cacheKey}}`, {{ cache: 'no-store' }});
         if (!res.ok) throw new Error(`${{res.status}} ${{res.statusText}}`);
         return await res.json();
       }} catch (err) {{
@@ -3255,6 +3275,19 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       return null;
     }}
 
+    function paperPayloadFreshness(payload) {{
+      const rows = payload && Array.isArray(payload.rows) ? payload.rows : [];
+      const latest = rows.length ? rows[rows.length - 1] : {{}};
+      const meta = (payload && payload.meta) || {{}};
+      return String(meta.latest_data_date || meta.latest_signal_date || latest.datetime || '');
+    }}
+
+    function chooseFreshestPaperPayload(primary, fallback) {{
+      if (!primary) return fallback || null;
+      if (!fallback) return primary;
+      return paperPayloadFreshness(fallback) > paperPayloadFreshness(primary) ? fallback : primary;
+    }}
+
     function renderProductionStatus(payload, goalGates, paperPayload, modelReplay) {{
       if (!productionStatusCard) return;
       const data = payload || {{}};
@@ -3262,7 +3295,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       const paperRows = paperPayload && Array.isArray(paperPayload.rows) ? paperPayload.rows : [];
       const paperMeta = (paperPayload && paperPayload.meta) || {{}};
       const latestPaperRow = paperRows.length ? paperRows[paperRows.length - 1] : {{}};
-      const paperEnd = staticExport.paper_trading_end || data.paper_trading_end || paperMeta.latest_data_date || latestPaperRow.datetime;
+      const paperEnd = paperMeta.latest_data_date || paperMeta.latest_signal_date || staticExport.paper_trading_end || data.paper_trading_end || latestPaperRow.datetime;
       const gates = goalGates || data.goal_gates || {{}};
       const overall = gates.overall || {{}};
       const issues = Array.isArray(overall.issues) ? overall.issues : [];
@@ -3300,7 +3333,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       renderProductionStatus(
         status || {{ status: 'unavailable' }},
         goalGates,
-        paperPayload || embeddedPaperPayload(),
+        chooseFreshestPaperPayload(paperPayload, embeddedPaperPayload()),
         modelReplay
       );
     }}

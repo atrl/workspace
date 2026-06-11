@@ -15,6 +15,43 @@ direction: execution
 3. Keep model optimization paused until the production loop can repeat data refresh -> inference -> paper state -> dashboard under the corrected schedule.
 4. Resume model optimization from the SOXX-aware / selective-release frontier only after production timing is stable.
 
+## 2026-06-11 Scheduler Data Refresh + Current Model Comparison
+
+### Current State
+
+- Scheduler path drift is fixed for the current checkout at `/Users/rziiiii/dev/workspace`; cron and LaunchAgent plists no longer point at the retired `/Users/rziiiii/.openclaw/workspace`.
+- Scheduled preopen/postclose jobs now explicitly use the production runtime composer:
+  `v19reg_v22_budget_usage_bull_guard_v1` with slow `balanced_rule_residual_v19_reg`,
+  fast `balanced_rule_residual_v22`, and bull participation guard enabled.
+- Installed daily/preopen/weekly LaunchAgent plists were synced to
+  `~/Library/LaunchAgents/` and reloaded.
+- Manual post-close verification refreshed data/dashboard successfully. Futu OpenD was
+  unreachable at `127.0.0.1:11111`, so the scheduler retried as local paper dry-run
+  and produced `runtime/soxl/paper_trading/2026-06-10/summary.json`.
+- Canonical data is fresh through `2026-06-10`; model replay safe backtest end is
+  `2026-06-09`.
+
+### Evidence
+
+- Executed comparison notebook:
+  `runtime/production/card/current_model_ytd_june_comparison_v1/current_model_ytd_june_comparison_v1.ipynb`
+- Sidecars:
+  `summary.json`, `comparison_metrics.csv`, `market_only_latest_metrics.csv`,
+  `current_model_daily.csv`, `all_model_daily_nav.csv`,
+  `all_model_source_paths.csv`, `all_model_comparison_metrics.csv`.
+- Common-window result through `2026-06-09`:
+  YTD SOXL buy-and-hold `326.93%` vs current model `3.25%`;
+  June SOXL buy-and-hold `-11.17%` vs current model `0.00%`.
+- All-model table covers 13 dashboard replay models plus the current production
+  composer. YTD leader is `smoke` at `224.36%`; June leader is the production
+  composer at `0.00%` because it stayed flat during the selloff.
+
+### Next Action
+
+1. Real Futu execution proof still requires OpenD to be reachable locally.
+2. Inspect the next natural LaunchAgent post-close run for a scheduled success marker
+   with `schedule_trigger=launchagent_postclose`.
+
 ## 2026-05-20 Loop Evidence
 
 ### Root-Cause Evidence
@@ -8329,4 +8366,57 @@ runtime/execution/card/recovery_reentry_equity_drawdown_guard_v1/notes.md
 runtime/execution/card/recovery_reentry_equity_drawdown_guard_v1/recovery_reentry_equity_drawdown_guard_v1.md
 runtime/execution/card/recovery_reentry_equity_drawdown_guard_v1/oos_poor_window_diagnostics/
 runtime/execution/card/recovery_reentry_equity_drawdown_guard_v1/walkforward/
+```
+
+## 2026-06-11 Fresh Data Composer Dry-Run + Dashboard Refresh
+
+Goal:
+
+- Refresh the local SOXL/SOXX/VIX data surface, continue testing the current
+  production composer, and open the refreshed dashboard.
+
+Run evidence:
+
+```text
+data last_date=2026-06-10
+composer=v19reg_v22_budget_usage_bull_guard_v1
+slow=balanced_rule_residual_v19_reg
+fast=balanced_rule_residual_v22
+broker=paper
+dry_run=true
+signal date=2026-06-10
+target=20.50%
+risk_gate=approved
+dashboard generated_at=2026-06-11 08:36:25
+model_replays=13/13 safe_backtest_end=2026-06-09
+```
+
+Commands:
+
+```bash
+PYTHONPATH=. qlib_venv/bin/python scripts/update_market_data.py --local-only
+PYTHONPATH=. qlib_venv/bin/python scripts/update_data_registry.py --check
+PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py --broker paper --dry-run --no-notify --skip-data-update --runtime-composer budget_usage --composer-profile v19reg_v22_budget_usage_bull_guard_v1 --slow-profile balanced_rule_residual_v19_reg --fast-profile balanced_rule_residual_v22 --bull-participation-guard --health-summary
+PYTHONPATH=. qlib_venv/bin/python scripts/export_production_goal_gates.py
+PYTHONPATH=. qlib_venv/bin/python scripts/deploy_vercel_dashboard.py
+PYTHONPATH=. qlib_venv/bin/python scripts/check_dashboard_static_export.py
+```
+
+Status:
+
+- Data, registry, model selection, model replay refresh, and static dashboard
+  export passed.
+- Futu scheduled broker proof remains blocked because Futu OpenD is not
+  reachable at `127.0.0.1:11111`.
+- Vercel remote remains blocked by missing credentials.
+
+Artifacts:
+
+```text
+runtime/soxl/paper_trading/2026-06-10/summary.json
+dashboard.html
+dashboard_data/index.json
+dashboard_data/model_replay_freshness.json
+dashboard_data/production_goal_gates.json
+dashboard_data/production_status.json
 ```

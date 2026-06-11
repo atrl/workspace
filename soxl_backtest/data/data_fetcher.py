@@ -102,14 +102,25 @@ class YahooDataFetcher(DataFetcher):
         end_date = pd.to_datetime(config['END_DATE']) if config['END_DATE'] else datetime.now()
 
         root = Path(__file__).resolve().parents[2]
-        stock_path = root / "data" / "symbols" / f"{config['STOCK_CODE']}.csv"
-        vix_path = root / "data" / "soxl_soxx_vix_full.csv"
+        stock_paths = [
+            root / "data" / "symbols" / f"{config['STOCK_CODE']}.csv",
+            root / "data" / "raw" / "symbols" / f"{config['STOCK_CODE']}.csv",
+        ]
+        vix_paths = [
+            root / "data" / "soxl_soxx_vix_full.csv",
+            root / "data" / "processed" / "panels" / "soxl_soxx_vix_full.csv",
+        ]
+        stock_path = next((path for path in stock_paths if path.exists()), None)
+        vix_path = next((path for path in vix_paths if path.exists()), None)
+        if stock_path is None:
+            checked = ", ".join(str(path) for path in stock_paths)
+            raise FileNotFoundError(f"找不到本地股票数据: {checked}")
 
         stock_df = pd.read_csv(stock_path, parse_dates=['date'])
         stock_df = stock_df.rename(columns={'close': 'price'})
         stock_df = stock_df[(stock_df['date'] >= actual_start) & (stock_df['date'] <= end_date)].copy()
 
-        if vix_path.exists():
+        if vix_path is not None:
             vix_df = pd.read_csv(vix_path, parse_dates=['date'])[['date', 'vix']]
             df = pd.merge(stock_df[['date', 'price']], vix_df, on='date', how='left')
         else:

@@ -1,6 +1,6 @@
 # PRODUCTION Knowledge
 
-> 最后更新: 2026-05-24
+> 最后更新: 2026-06-11
 > 该方向负责定时任务、数据刷新到推理闭环、paper/Futu 模拟盘、通知、dashboard 发布与运行证据。
 
 ## 当前结论
@@ -46,6 +46,8 @@
 39. **Futu 模拟盘账户与下单/撤单链路已实测通过**：`2026-05-24` 通过本机 OpenD 的 `OpenSecTradeContext(TrdMarket.US)` 读取 `TrdEnv.SIMULATE` 账户，模拟账户 cash/total_assets 为 `1000000.0`，`US.SOXL` 初始仓位为空；提交 `BUY 1` 限价单后 Futu 返回 `ret=OK`，随后 `modify_order(CANCEL)` 返回 `OK`，最终订单状态 `CANCELLED_ALL`、成交数量 `0`、仓位仍为空，复查活跃挂单数为 `0`。这证明 Futu 模拟交易通道已可用；下一步仍需等待自然 post-close LaunchAgent 产出 scheduled non-dry Futu proof。
 40. **Futu scheduled simulation 已重置为 10000 notional 起步**：`2026-05-24` 新增 `--account-notional`，daily/preopen LaunchAgent 与 cron 均配置 `--broker futu --account-notional 10000`；本地旧 paper state 已归档到 `runtime/soxl/paper_trading/archive_reset_20260524_10000`，新的 active `paper_broker_state.json` 与 dashboard CSV 从 `2026-05-22` 的 `10000.0`、`0` 仓位开始。Futu dry-run 证据显示 `account_value=10000.0`、目标 `0.85` 被 cold-start step clip 到 `0.35`，`risk_gate.approved=true` 且未下单。Futu 后台模拟账户仍可能显示券商侧现金，但 SOXL 策略 sizing/dashboard 现在以 repo-side `10000` notional 为准。
 41. **Vercel paper_trading 推理显示已从 row metadata 解耦**：`paper_trading` 当前推理模型是 `v19reg_v22_budget_usage_bull_guard_v1` runtime composer，slow actor 为 `balanced_rule_residual_v19_reg`，fast actor 为 `balanced_rule_residual_v22`。`10000` reset 后 ordinary paper CSV 只有 seed row，且 dashboard builder 不应把 dry-run summary 贴到普通 row 上；现在静态导出改为在 meta 中携带 `latest_signal_*`，直接指向 `runtime/soxl/paper_trading/2026-05-22/dry_run/futu/summary.json`，Vercel 首屏可显示 profile、dry_run、Futu broker、target `0.85` 与 capped target `0.35`。
+42. **2026-06-11 scheduler root / composer 配置漂移已修复**：repo 已从旧的 `/Users/rziiiii/.openclaw/workspace` 路径迁移到 `/Users/rziiiii/dev/workspace`；`run_soxl_scheduler.sh` / `run_soxl_weekly_wf.sh` 现在默认按自身位置定位 repo root，cron 与 daily/preopen/weekly LaunchAgent plist 均指向当前 workspace，并把生产 runtime composer 参数显式写入定时配置。
+43. **Futu 不可达不再阻断数据/dashboard 证据刷新**：当 `--broker futu` 因本机 OpenD 不可达失败时，scheduler 会用同一模型参数重试本地 `--broker paper --dry-run --skip-data-update`，不推进外部交易状态但仍生成最新 signal、刷新 model replay 与 dashboard。2026-06-11 手动 post-close 验证显示 canonical 数据 fresh 到 `2026-06-10`，model replay safe end 为 `2026-06-09`，最新 signal 为 `2026-06-10`、target `0.205`、risk gate approved；真实 Futu execution proof 仍需要 `127.0.0.1:11111` OpenD 恢复。
 
 ## 2026-05-20 验证记录
 

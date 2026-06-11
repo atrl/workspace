@@ -6,18 +6,27 @@
     <string>com.soxl.daily.scheduler</string>
     <key>ProgramArguments</key>
     <array>
-        <string>/Users/rziiiii/.openclaw/workspace/production/run_soxl_scheduler.sh</string>
+        <string>/Users/rziiiii/dev/workspace/production/run_soxl_scheduler.sh</string>
         <string>--broker</string>
         <string>futu</string>
         <string>--account-notional</string>
         <string>10000</string>
+        <string>--runtime-composer</string>
+        <string>budget_usage</string>
+        <string>--composer-profile</string>
+        <string>v19reg_v22_budget_usage_bull_guard_v1</string>
+        <string>--slow-profile</string>
+        <string>balanced_rule_residual_v19_reg</string>
+        <string>--fast-profile</string>
+        <string>balanced_rule_residual_v22</string>
+        <string>--bull-participation-guard</string>
         <string>--vercel-deploy</string>
         <string>--health-summary</string>
         <string>--schedule-slot</string>
         <string>postclose</string>
     </array>
     <key>WorkingDirectory</key>
-    <string>/Users/rziiiii/.openclaw/workspace</string>
+    <string>/Users/rziiiii/dev/workspace</string>
     <key>StartCalendarInterval</key>
     <array>
         <dict><key>Hour</key><integer>6</integer><key>Minute</key><integer>15</integer><key>Weekday</key><integer>2</integer></dict>
@@ -27,9 +36,9 @@
         <dict><key>Hour</key><integer>6</integer><key>Minute</key><integer>15</integer><key>Weekday</key><integer>6</integer></dict>
     </array>
     <key>StandardOutPath</key>
-    <string>/Users/rziiiii/.openclaw/workspace/runtime/soxl/paper_trading/scheduler_postclose.log</string>
+    <string>/Users/rziiiii/dev/workspace/runtime/soxl/paper_trading/scheduler_postclose.log</string>
     <key>StandardErrorPath</key>
-    <string>/Users/rziiiii/.openclaw/workspace/runtime/soxl/paper_trading/scheduler_postclose.err</string>
+    <string>/Users/rziiiii/dev/workspace/runtime/soxl/paper_trading/scheduler_postclose.err</string>
     <key>EnvironmentVariables</key>
     <dict>
         <key>PATH</key>
