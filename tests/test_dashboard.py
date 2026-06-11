@@ -366,6 +366,59 @@ def test_load_versions_exports_latest_dry_run_signal_metadata_without_annotating
     )
 
 
+def test_load_versions_promotes_newer_dry_run_signal_to_visible_paper_status(
+    tmp_path: Path,
+    monkeypatch,
+):
+    paper_dir = tmp_path / "runtime" / "soxl" / "paper_trading"
+    dry_run_dir = paper_dir / "2026-06-10" / "dry_run"
+    dry_run_dir.mkdir(parents=True)
+    (paper_dir / "paper_trading_soxl_daily.csv").write_text(
+        "\n".join(
+            [
+                "datetime,strategy_nav,price,buyhold_nav,position,excess,excess_pct,action",
+                "2026-06-08,10000,211.44,10000,0,0,0,HOLD",
+            ]
+        ),
+        encoding="utf-8",
+    )
+    (dry_run_dir / "summary.json").write_text(
+        json.dumps(
+            {
+                "date": "2026-06-10",
+                "profile": "v19reg_v22_budget_usage_bull_guard_v1",
+                "broker": "paper",
+                "dry_run": True,
+                "executed": False,
+                "signal": {"target_position": 0.205},
+                "risk_gate": {"approved": True, "capped_target_position": 0.205},
+                "composition": {
+                    "slow_profile": "balanced_rule_residual_v19_reg",
+                    "fast_profile": "balanced_rule_residual_v22",
+                    "mode": "defensive_hold",
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(dashboard_builder, "ROOT", tmp_path)
+    monkeypatch.setattr(dashboard_builder, "load_ohlc_and_indicators", lambda _etf: {})
+
+    versions = _load_post_train_review_versions(features=None)
+
+    detail = versions["paper_trading"]["detailed"]["SOXL"]
+    rows = detail["rows"]
+    meta = detail["meta"]
+    assert [row["datetime"] for row in rows] == ["2026-06-08"]
+    assert "profile" not in rows[0]
+    assert meta["latest_data_date"] == "2026-06-10"
+    assert meta["latest_profile"] == "v19reg_v22_budget_usage_bull_guard_v1"
+    assert meta["latest_execution_status"] == "dry_run"
+    assert meta["latest_target_position"] == 0.205
+    assert meta["latest_summary_path"] == "runtime/soxl/paper_trading/2026-06-10/dry_run/summary.json"
+    assert meta["latest_signal_date"] == "2026-06-10"
+
+
 def test_load_versions_drops_unannotated_paper_seed_row_and_rebases_buyhold(
     tmp_path: Path,
     monkeypatch,
@@ -628,6 +681,8 @@ def test_build_html_loads_production_status_json():
     assert "renderModelReplayStatus" in html
     assert "dashboard_data/model_replay_freshness.json" in html
     assert "embeddedPaperPayload" in html
-    assert "paperPayload || embeddedPaperPayload()" in html
+    assert "chooseFreshestPaperPayload(paperPayload, embeddedPaperPayload())" in html
+    assert "cache: 'no-store'" in html
     assert "paperMeta.latest_data_date" in html
+    assert "paperMeta.latest_signal_date" in html
     assert ".metric .k {\\n    .metric .k" not in html

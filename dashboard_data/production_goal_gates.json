@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-06-11T00:36:49.962706+00:00",
+  "checked_at": "2026-06-11T00:54:06.071693+00:00",
   "overall": {
     "status": "pending",
     "issues": [
@@ -38,8 +38,8 @@
     "dashboard_static": {
       "label": "dashboard static",
       "status": "ok",
-      "detail": "dashboard_static_export generated_at=2026-06-11 08:36:25 versions=50 missing=0 model_versions=106 latest=paper_trading paper_trading_rows=2 paper_trading_end=2026-06-08 production_status=blocked_no_credentials goal_gates=pending model_replays=13/13@2026-06-09 paper_trading research_backtests=30",
-      "raw": "dashboard static: ok dashboard_static_export generated_at=2026-06-11 08:36:25 versions=50 missing=0 model_versions=106 latest=paper_trading paper_trading_rows=2 paper_trading_end=2026-06-08 production_status=blocked_no_credentials goal_gates=pending model_replays=13/13@2026-06-09 paper_trading research_backtests=30"
+      "detail": "dashboard_static_export generated_at=2026-06-11 08:53:59 versions=50 missing=0 model_versions=106 latest=paper_trading paper_trading_rows=2 paper_trading_end=2026-06-08 production_status=blocked_no_credentials goal_gates=pending model_replays=13/13@2026-06-09 paper_trading research_backtests=30",
+      "raw": "dashboard static: ok dashboard_static_export generated_at=2026-06-11 08:53:59 versions=50 missing=0 model_versions=106 latest=paper_trading paper_trading_rows=2 paper_trading_end=2026-06-08 production_status=blocked_no_credentials goal_gates=pending model_replays=13/13@2026-06-09 paper_trading research_backtests=30"
     },
     "vercel_remote": {
       "label": "Vercel remote",
