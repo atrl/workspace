@@ -37,10 +37,14 @@ direction: execution
   `runtime/production/card/current_model_ytd_june_comparison_v1/current_model_ytd_june_comparison_v1.ipynb`
 - Sidecars:
   `summary.json`, `comparison_metrics.csv`, `market_only_latest_metrics.csv`,
-  `current_model_daily.csv`.
+  `current_model_daily.csv`, `all_model_daily_nav.csv`,
+  `all_model_source_paths.csv`, `all_model_comparison_metrics.csv`.
 - Common-window result through `2026-06-09`:
   YTD SOXL buy-and-hold `326.93%` vs current model `3.25%`;
   June SOXL buy-and-hold `-11.17%` vs current model `0.00%`.
+- All-model table covers 13 dashboard replay models plus the current production
+  composer. YTD leader is `smoke` at `224.36%`; June leader is the production
+  composer at `0.00%` because it stayed flat during the selloff.
 
 ### Next Action
 

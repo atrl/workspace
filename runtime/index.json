@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-11T07:10:17.915165+00:00",
+  "generated_at": "2026-06-11T07:38:14.170945+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -11504,6 +11504,24 @@
       "bytes": 2365
     },
     {
+      "path": "runtime/production/card/current_model_ytd_june_comparison_v1/all_model_comparison_metrics.csv",
+      "category": "production",
+      "suffix": ".csv",
+      "bytes": 8861
+    },
+    {
+      "path": "runtime/production/card/current_model_ytd_june_comparison_v1/all_model_daily_nav.csv",
+      "category": "production",
+      "suffix": ".csv",
+      "bytes": 6789681
+    },
+    {
+      "path": "runtime/production/card/current_model_ytd_june_comparison_v1/all_model_source_paths.csv",
+      "category": "production",
+      "suffix": ".csv",
+      "bytes": 2610
+    },
+    {
       "path": "runtime/production/card/current_model_ytd_june_comparison_v1/comparison_metrics.csv",
       "category": "production",
       "suffix": ".csv",
@@ -11513,7 +11531,7 @@
       "path": "runtime/production/card/current_model_ytd_june_comparison_v1/conclusion.md",
       "category": "production",
       "suffix": ".md",
-      "bytes": 1584
+      "bytes": 2224
     },
     {
       "path": "runtime/production/card/current_model_ytd_june_comparison_v1/current_model_composition_payload.json",
@@ -11537,7 +11555,7 @@
       "path": "runtime/production/card/current_model_ytd_june_comparison_v1/summary.json",
       "category": "production",
       "suffix": ".json",
-      "bytes": 11364
+      "bytes": 37190
     },
     {
       "path": "runtime/production/card/dashboard_data_correctness_v1/notes.md",
