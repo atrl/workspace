@@ -1,18 +1,19 @@
 {
-  "checked_at": "2026-05-23T15:13:44.352573+00:00",
+  "checked_at": "2026-06-11T00:37:15.792996+00:00",
   "root": "/Users/rziiiii/.openclaw/workspace",
   "status": "blocked_no_credentials",
   "static_export": {
-    "generated_at": "2026-05-23 12:18:13",
-    "versions": 38,
+    "generated_at": "2026-06-11 08:36:25",
+    "versions": 50,
     "missing": 0,
-    "model_versions": 94,
+    "model_versions": 106,
     "latest": "paper_trading",
-    "paper_trading_rows": 4,
-    "paper_trading_end": "2026-05-22",
+    "paper_trading_rows": 2,
+    "paper_trading_end": "2026-06-08",
     "production_status": "blocked_no_credentials",
     "goal_gates": "pending",
-    "model_replays": "10/10@2026-05-21"
+    "model_replays": "13/13@2026-06-09",
+    "research_backtests": 30
   },
   "static_errors": [],
   "vercel_cli": "/opt/homebrew/bin/vercel",
@@ -30,7 +31,7 @@
     "status": "missing_project_link",
     "detail": "Run `vercel link --yes --team <team-id> --project <project-name-or-id>` or configure VERCEL_ORG_ID and VERCEL_PROJECT_ID for non-interactive deploys."
   },
-  "deploy_requested": true,
+  "deploy_requested": false,
   "deployment_url": null,
   "detail": "Set VERCEL_TOKEN or run vercel login. CLI detail: Error: No existing credentials found. Please run `vercel login` or pass \"--token\"\nLearn More: https://err.sh/vercel/no-credentials-found"
 }

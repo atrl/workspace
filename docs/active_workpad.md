@@ -8330,3 +8330,56 @@ runtime/execution/card/recovery_reentry_equity_drawdown_guard_v1/recovery_reentr
 runtime/execution/card/recovery_reentry_equity_drawdown_guard_v1/oos_poor_window_diagnostics/
 runtime/execution/card/recovery_reentry_equity_drawdown_guard_v1/walkforward/
 ```
+
+## 2026-06-11 Fresh Data Composer Dry-Run + Dashboard Refresh
+
+Goal:
+
+- Refresh the local SOXL/SOXX/VIX data surface, continue testing the current
+  production composer, and open the refreshed dashboard.
+
+Run evidence:
+
+```text
+data last_date=2026-06-10
+composer=v19reg_v22_budget_usage_bull_guard_v1
+slow=balanced_rule_residual_v19_reg
+fast=balanced_rule_residual_v22
+broker=paper
+dry_run=true
+signal date=2026-06-10
+target=20.50%
+risk_gate=approved
+dashboard generated_at=2026-06-11 08:36:25
+model_replays=13/13 safe_backtest_end=2026-06-09
+```
+
+Commands:
+
+```bash
+PYTHONPATH=. qlib_venv/bin/python scripts/update_market_data.py --local-only
+PYTHONPATH=. qlib_venv/bin/python scripts/update_data_registry.py --check
+PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py --broker paper --dry-run --no-notify --skip-data-update --runtime-composer budget_usage --composer-profile v19reg_v22_budget_usage_bull_guard_v1 --slow-profile balanced_rule_residual_v19_reg --fast-profile balanced_rule_residual_v22 --bull-participation-guard --health-summary
+PYTHONPATH=. qlib_venv/bin/python scripts/export_production_goal_gates.py
+PYTHONPATH=. qlib_venv/bin/python scripts/deploy_vercel_dashboard.py
+PYTHONPATH=. qlib_venv/bin/python scripts/check_dashboard_static_export.py
+```
+
+Status:
+
+- Data, registry, model selection, model replay refresh, and static dashboard
+  export passed.
+- Futu scheduled broker proof remains blocked because Futu OpenD is not
+  reachable at `127.0.0.1:11111`.
+- Vercel remote remains blocked by missing credentials.
+
+Artifacts:
+
+```text
+runtime/soxl/paper_trading/2026-06-10/summary.json
+dashboard.html
+dashboard_data/index.json
+dashboard_data/model_replay_freshness.json
+dashboard_data/production_goal_gates.json
+dashboard_data/production_status.json
+```

@@ -1,16 +1,16 @@
 {
-  "checked_at": "2026-05-23T15:13:44.352573+00:00",
+  "checked_at": "2026-06-11T00:37:15.792996+00:00",
   "status": "blocked_no_credentials",
-  "deploy_requested": true,
+  "deploy_requested": false,
   "deployment_url": null,
   "auth_status": "blocked_no_credentials",
   "project_status": "missing_project_link",
   "static_errors_count": 0,
   "static_export": {
-    "generated_at": "2026-05-23 12:18:13",
+    "generated_at": "2026-06-11 08:36:25",
     "latest": "paper_trading",
-    "paper_trading_rows": 4,
-    "paper_trading_end": "2026-05-22"
+    "paper_trading_rows": 2,
+    "paper_trading_end": "2026-06-08"
   },
   "env_file": {
     "present": true,
