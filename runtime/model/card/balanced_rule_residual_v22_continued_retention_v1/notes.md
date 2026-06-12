@@ -86,9 +86,13 @@ before `backtest_profile` corrected `test_proxy` and `test_2022` metrics.
 
 ## Decision
 
-- Status: `ablation`.
+- Status: `dropped` / idea-only after
+  `runtime/production/card/underperforming_backtest_cleanup_v1`.
 - Retention support worked: iter `0`, `10`, and `20` actor files are replayable.
 - The model-selection hypothesis failed because iter `0` stayed best and later
   checkpoints widened risk.
 - Do not run walk-forward for this profile and do not bind it to production.
-- Keep actor files only as checkpoint-retention proof for this diagnostic card.
+- The 2026 YTD common-window replay trails the reimplemented `soxl_backtest`
+  rule policy by `15.20pp`; prune the executable `profile.yaml` and actor
+  checkpoints, while retaining this note, the review, and summary JSON as the
+  idea record.

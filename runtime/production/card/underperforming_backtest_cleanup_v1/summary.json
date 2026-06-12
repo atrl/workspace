@@ -1,0 +1,34 @@
+{
+  "generated_at": "2026-06-12T07:58:33.964968+00:00",
+  "primary_profile": "soxl_backtest_policy_reimplementation_v1",
+  "primary_return_pct": 132.07797795135497,
+  "comparison_window": "ytd_2026_common",
+  "decision_counts": {
+    "keep_executable": 11,
+    "keep_primary": 1,
+    "protect_runtime_component": 1,
+    "archive_idea_only": 1,
+    "protect_production_runtime": 1
+  },
+  "cleanup_action_counts": {
+    "none": 14,
+    "delete_profile_and_actor_checkpoints": 1
+  },
+  "applied": {
+    "deleted": [
+      "runtime/model/card/balanced_rule_residual_v22_continued_retention_v1/profile.yaml",
+      "runtime/model/card/balanced_rule_residual_v22_continued_retention_v1/soxl_balanced_rule_residual_v22_continued_retention_v1_actor.pt",
+      "runtime/model/card/balanced_rule_residual_v22_continued_retention_v1/soxl_balanced_rule_residual_v22_continued_retention_v1_checkpoint_iter0_actor.pt",
+      "runtime/model/card/balanced_rule_residual_v22_continued_retention_v1/soxl_balanced_rule_residual_v22_continued_retention_v1_checkpoint_iter10_actor.pt",
+      "runtime/model/card/balanced_rule_residual_v22_continued_retention_v1/soxl_balanced_rule_residual_v22_continued_retention_v1_checkpoint_iter20_actor.pt"
+    ],
+    "missing": [],
+    "deleted_count": 5,
+    "freed_bytes": 747810
+  },
+  "outputs": {
+    "cleanup_decisions_csv": "runtime/production/card/underperforming_backtest_cleanup_v1/cleanup_decisions.csv",
+    "delete_manifest_csv": "runtime/production/card/underperforming_backtest_cleanup_v1/delete_manifest.csv",
+    "retained_ideas_md": "runtime/production/card/underperforming_backtest_cleanup_v1/retained_ideas.md"
+  }
+}
