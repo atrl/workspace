@@ -164,6 +164,7 @@ def _primary_blocker(
     *,
     promotion_allowed: bool,
     training_contract_ready: bool,
+    target_revision_ready: bool,
     missing_windows: list[str],
     wf_drawdown_gap_pct: float | None,
     relative_return_gap_to_target_pp: float | None,
@@ -173,6 +174,8 @@ def _primary_blocker(
         return "promotion_ready"
     if training_contract_ready:
         return "training_contract_ready"
+    if target_revision_ready:
+        return "target_revision_ready"
     if missing_windows:
         return "missing_walkforward_evidence"
     if (wf_drawdown_gap_pct or 0.0) > 0 and (ytd_gap_to_best_pct or 0.0) > 0:
@@ -190,6 +193,7 @@ def _frontier_sort_key(row: dict[str, Any]) -> tuple[float, str]:
     blocker_priority = {
         "promotion_ready": -1.0,
         "training_contract_ready": 0.0,
+        "target_revision_ready": 5.0,
         "walkforward_relative_return_gap": 10.0,
         "joint_drawdown_return_gap": 20.0,
         "walkforward_drawdown_gap": 30.0,
@@ -215,7 +219,11 @@ def _row_from_summary(path: Path, payload: dict[str, Any], gate_summary: dict[st
     promotion_allowed = bool(selection.get("promotion_allowed", summary.get("promotion_allowed", False)))
     next_action = str(selection.get("next_mechanism") or summary.get("next_mechanism") or "")
     required_windows = [str(item) for item in gate_summary.get("required_wf_windows", DEFAULT_REQUIRED_WF_WINDOWS)]
-    target_relative = float(selection.get("target_relative_return_pp") or summary.get("target_relative_return_pp") or DEFAULT_TARGET_RELATIVE_RETURN_PP)
+    target_relative = float(
+        selection.get("target_relative_return_pp")
+        or summary.get("target_relative_return_pp")
+        or DEFAULT_TARGET_RELATIVE_RETURN_PP
+    )
     max_dd_threshold = float(gate_summary.get("max_walkforward_drawdown_pct") or 20.0)
     required_best = _number(selection.get("required_best_return_pct")) or _number(gate_summary.get("required_best_return_pct"))
     reference_return = (
@@ -251,9 +259,17 @@ def _row_from_summary(path: Path, payload: dict[str, Any], gate_summary: dict[st
         and (selection.get("bc_readiness_gate") or summary.get("bc_readiness_gate"))
         and (selection.get("bc_screen_allowed_next") or summary.get("bc_screen_allowed_next") or next_action)
     )
+    target_revision_ready = bool(
+        (
+            selection.get("next_training_allowed_after_target_revision")
+            or summary.get("next_training_allowed_after_target_revision")
+        )
+        and next_action
+    )
     primary_blocker = _primary_blocker(
         promotion_allowed=promotion_allowed,
         training_contract_ready=training_contract_ready,
+        target_revision_ready=target_revision_ready,
         missing_windows=missing_windows,
         wf_drawdown_gap_pct=wf_drawdown_gap,
         relative_return_gap_to_target_pp=relative_gap,
@@ -267,6 +283,7 @@ def _row_from_summary(path: Path, payload: dict[str, Any], gate_summary: dict[st
         "reference_baseline": str(selection.get("reference_baseline") or summary.get("reference_baseline") or ""),
         "primary_blocker": primary_blocker,
         "next_action": next_action,
+        "target_revision_ready": target_revision_ready,
         "source_path": str(path),
         "handoff_completed_by": "",
         "wf_windows_present": _string_list(present_windows),
@@ -335,6 +352,7 @@ def scan_model_retention_frontier(*, root: Path, card_names: Iterable[str] | Non
                     "reference_baseline": "",
                     "primary_blocker": "unreadable_summary",
                     "next_action": "",
+                    "target_revision_ready": False,
                     "source_path": str(path.relative_to(root)),
                     "handoff_completed_by": "",
                     "wf_windows_present": "",

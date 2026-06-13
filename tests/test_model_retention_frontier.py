@@ -461,3 +461,66 @@ def _run_retention_frontier_recommends_actionable_row_before_actionless_diagnost
     assert result["summary"]["recommended_next_action"] == (
         "inspect_failed_fold_drawdown_or_reward_drift_before_full_retention_training"
     )
+
+
+def test_retention_frontier_prioritizes_target_revision_ready_failed_fold_audit():
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp_path = Path(tmp)
+        _run_retention_frontier_prioritizes_target_revision_ready_failed_fold_audit(tmp_path)
+
+
+def _run_retention_frontier_prioritizes_target_revision_ready_failed_fold_audit(tmp_path: Path) -> None:
+    from src.soxl_quant.app.model_retention_frontier import scan_model_retention_frontier
+
+    _write_json(
+        tmp_path / "runtime" / "model_selection" / "card" / "model_retention_walkforward_gate_v1" / "summary.json",
+        {
+            "summary": {
+                "required_best_return_pct": 213.14,
+                "reference_return_pct": 132.08,
+                "max_walkforward_drawdown_pct": 20.0,
+                "required_wf_windows": ["wf_2020", "wf_2022", "wf_2023_2024"],
+            }
+        },
+    )
+    _write_json(
+        tmp_path / "runtime" / "model_selection" / "card" / "metric_handoff" / "summary.json",
+        {
+            "experiment": "metric_handoff",
+            "decision": "metric_replay_handoff_completed_no_promotion",
+            "promotion_allowed": False,
+            "reference_baseline": "soxlbacktest_qlib_buysell_reference",
+            "selected_by_fold": {
+                "wf_2020": {"selected_max_dd": 14.98, "selected_relative_return": -292.75},
+                "wf_2022": {"selected_max_dd": 18.8, "selected_relative_return": 65.86},
+                "wf_2023_2024": {"selected_max_dd": 8.96, "selected_relative_return": 35.57},
+            },
+            "target_relative_return_pp": 30.0,
+            "next_mechanism": "inspect_failed_fold_drawdown_or_reward_drift_before_full_retention_training",
+        },
+    )
+    _write_json(
+        tmp_path / "runtime" / "model_selection" / "card" / "failed_fold_objective" / "summary.json",
+        {
+            "experiment": "failed_fold_objective",
+            "decision": "wf2020_failed_fold_requires_bull_reentry_target_revision_no_promotion",
+            "promotion_allowed": False,
+            "reference_baseline": "soxlbacktest_qlib_buysell_reference",
+            "direct_comparison_baseline": "metric_handoff",
+            "failed_folds": ["wf_2020"],
+            "primary_failure": "wf_2020_relative_underparticipation_after_metric_replay",
+            "next_training_allowed_after_target_revision": True,
+            "next_mechanism": "build_fold_local_bull_reentry_participation_target_then_rerun_three_fold_bc_checkpoint_metric_replay",
+        },
+    )
+
+    result = scan_model_retention_frontier(root=tmp_path)
+    by_experiment = {row["experiment"]: row for row in result["rows"]}
+
+    assert by_experiment["metric_handoff"]["primary_blocker"] == "completed_handoff"
+    assert by_experiment["failed_fold_objective"]["primary_blocker"] == "target_revision_ready"
+    assert result["summary"]["recommended_next_source"] == "failed_fold_objective"
+    assert result["summary"]["recommended_primary_blocker"] == "target_revision_ready"
+    assert result["summary"]["recommended_next_action"] == (
+        "build_fold_local_bull_reentry_participation_target_then_rerun_three_fold_bc_checkpoint_metric_replay"
+    )

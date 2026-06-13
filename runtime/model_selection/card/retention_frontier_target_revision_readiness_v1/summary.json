@@ -1,0 +1,41 @@
+{
+  "actor_retention_allowed": false,
+  "auto_update_configured": true,
+  "auto_update_loaded_task_count": 3,
+  "dashboard_replay_profile_count": 7,
+  "dashboard_replay_ready_count": 0,
+  "dashboard_replay_skipped_count": 7,
+  "decision": "target_revision_before_retained_actor_training",
+  "generated_at": "2026-06-13T23:03:43.078860+00:00",
+  "manual_refresh_command": "production/run_dashboard_refresh.sh",
+  "max_walkforward_drawdown_pct": 20.0,
+  "promotion_allowed": false,
+  "recommended_next_action": "build_fold_local_bull_reentry_participation_target_then_rerun_three_fold_bc_checkpoint_metric_replay",
+  "recommended_next_source": "cap10_wf2020_failed_fold_objective_audit_v1",
+  "recommended_primary_blocker": "target_revision_ready",
+  "registry_keep_actor_protected_exception_count": 7,
+  "registry_keep_actor_strict_violation_count": 7,
+  "required_best_return_pct": 213.143462,
+  "required_wf_windows": [
+    "wf_2020",
+    "wf_2022",
+    "wf_2023_2024"
+  ],
+  "safe_backtest_end": "2026-06-09",
+  "source_paths": [
+    "runtime/model_selection/card/model_retention_frontier_v1/summary.json",
+    "runtime/model_selection/card/model_retention_walkforward_gate_v1/summary.json",
+    "runtime/model_selection/card/cap10_metric_replay_handoff_audit_v1/summary.json",
+    "runtime/model_selection/card/cap10_wf2020_failed_fold_objective_audit_v1/summary.json",
+    "dashboard_data/model_replay_freshness.json",
+    "dashboard_data/v2/manifest.json"
+  ],
+  "soxlbacktest_reference_max_drawdown_pct": 13.554089,
+  "soxlbacktest_reference_return_pct": 132.077978,
+  "strict_gate_passing_profile_count": 0,
+  "wf2020_maxdd_gap_to_target_pp": 0.0,
+  "wf2020_relative_gap_to_target_pp": 322.75302146825334,
+  "wf2020_selected_candidate": "bc_initialization",
+  "wf2020_selected_max_dd_pct": 14.984700509769244,
+  "wf2020_selected_relative_return_pp": -292.75302146825334
+}

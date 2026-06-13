@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-13T22:35:49.536553+00:00",
+  "generated_at": "2026-06-13T23:08:43.359212+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -5693,19 +5693,19 @@
       "path": "runtime/model_selection/card/model_retention_frontier_v1/conclusion.md",
       "category": "model_selection",
       "suffix": ".md",
-      "bytes": 523
+      "bytes": 545
     },
     {
       "path": "runtime/model_selection/card/model_retention_frontier_v1/retention_frontier.csv",
       "category": "model_selection",
       "suffix": ".csv",
-      "bytes": 35452
+      "bytes": 36320
     },
     {
       "path": "runtime/model_selection/card/model_retention_frontier_v1/summary.json",
       "category": "model_selection",
       "suffix": ".json",
-      "bytes": 94149
+      "bytes": 98757
     },
     {
       "path": "runtime/model_selection/card/model_retention_walkforward_gate_v1/conclusion.md",
@@ -6912,6 +6912,24 @@
       "category": "model_selection",
       "suffix": ".json",
       "bytes": 3780
+    },
+    {
+      "path": "runtime/model_selection/card/retention_frontier_target_revision_readiness_v1/frontier_top_rows.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4058
+    },
+    {
+      "path": "runtime/model_selection/card/retention_frontier_target_revision_readiness_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1879
+    },
+    {
+      "path": "runtime/model_selection/card/retention_frontier_target_revision_readiness_v1/target_revision_readout.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1652
     },
     {
       "path": "runtime/model_selection/card/retraining_actor_retention_guard_v1/summary.json",
