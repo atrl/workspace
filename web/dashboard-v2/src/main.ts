@@ -30,6 +30,7 @@ import {
   renderComparisonPanel,
   renderDataSourcePanel,
   renderFeatureComparisonPanel,
+  renderFeatureSnapshotPanel,
   renderInspectorPanel,
 } from './render';
 import type { ModelPayload } from './types';
@@ -270,7 +271,8 @@ function renderInspector(data: DashboardData, state: ViewState, lookup?: Inspect
     inspector,
     rows,
   );
-  renderFeatureComparisonPanel(featurePanel, {
+  const featureSnapshotPanel = document.getElementById('feature-date-snapshot') ?? featurePanel;
+  renderFeatureSnapshotPanel(featureSnapshotPanel, {
     date: state.hoveredDate,
     marketRows: data.market.rows,
     models: selectedModels(data, state.selectedProfiles),
@@ -280,6 +282,7 @@ function renderInspector(data: DashboardData, state: ViewState, lookup?: Inspect
 interface DashboardRenderResult {
   inspectorLookup: InspectorLookup;
   chartHandles: ChartRangeTarget[];
+  chartSyncCleanup: () => void;
 }
 
 function renderDashboard(
@@ -306,13 +309,19 @@ function renderDashboard(
   const marketHandles = renderMarketChart(marketChart, market, primary, (date) => update({ hoveredDate: date }));
   const positionHandles = renderPositionChart(positionChart, primary);
   const navHandles = renderNavChart(navChart, models, state.baselineProfile);
-  syncVisibleLogicalRanges([marketHandles.chart, positionHandles.chart, navHandles]);
-  renderInspector(data, state, inspectorLookup);
+  const chartSyncCleanup = syncVisibleLogicalRanges([marketHandles.chart, positionHandles.chart, navHandles]);
   renderComparisonPanel(comparison, data.comparison, state.start, state.end, state.selectedProfiles, data.models);
+  renderFeatureComparisonPanel(requireElement('feature-panel'), {
+    date: state.hoveredDate,
+    marketRows: data.market.rows,
+    models: selectedModels(data, state.selectedProfiles),
+  });
+  renderInspector(data, state, inspectorLookup);
   renderDataSourcePanel(source, data.manifest, warningsFor(data, state));
   return {
     inspectorLookup,
     chartHandles: [marketHandles.chart, positionHandles.chart, navHandles],
+    chartSyncCleanup,
   };
 }
 
@@ -355,11 +364,14 @@ async function main(): Promise<void> {
     };
     let inspectorLookup: InspectorLookup | null = null;
     let chartHandles: ChartRangeTarget[] = [];
+    let chartSyncCleanup: (() => void) | null = null;
     const runChartCommand = (command: ChartRangeCommand) => applyChartRangeCommand(chartHandles, command);
     const rerender = () => {
+      chartSyncCleanup?.();
       const result = renderDashboard(data, state, update, runChartCommand, runInteractiveBacktest);
       inspectorLookup = result.inspectorLookup;
       chartHandles = result.chartHandles;
+      chartSyncCleanup = result.chartSyncCleanup;
     };
     const update = (next: Partial<ViewState>) => {
       if (next.hoveredDate !== undefined && next.hoveredDate === state.hoveredDate && Object.keys(next).length === 1) {

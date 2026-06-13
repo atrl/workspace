@@ -13,5 +13,8 @@ def test_dashboard_v2_frontend_loads_v2_contract_and_feature_comparison():
     assert "dashboard_data/v2/comparison/default.json" in html
     assert "featureActionTable" in html
     assert "feature_action_summary" in html
+    assert "loadFeatureSummaryModels" in html
+    assert "renderFeatureActionTable(featureModels)" in html
+    assert "slice(0, 8)" in html
     assert "candlestick" in html
     assert "autoUpdateTasks" in html

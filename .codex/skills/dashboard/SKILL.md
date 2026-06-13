@@ -171,6 +171,14 @@ for a container before creating a new one, and hover/crosshair callbacks must
 only schedule inspector updates. Range buttons and keyboard shortcuts should
 call `applyChartRangeCommand()` on existing chart handles.
 
+Dashboard V2 currently has two inspection surfaces: root `dashboard_v2.html`
+and the typed source under `web/dashboard-v2/`. Do not fix only one surface.
+For feature-comparison work, verify both the root HTML contract test and the
+`web/dashboard-v2` Vitest suite. The BUY/SELL feature table must compare
+`feature_action_summary` across models, not only the selected model. Limit rows
+per model (for example top 8 per model) before flattening; a global `slice()`
+can hide every model after the first wide feature schema.
+
 Version-selector rows from `dashboard_data/index.json` are only summaries. If
 `DATA.versioned[version]` exists but lacks `detailed[ETF]`, the frontend must
 still fetch `dashboard_data/versioned/<version>/<ETF>.json`; otherwise the Main

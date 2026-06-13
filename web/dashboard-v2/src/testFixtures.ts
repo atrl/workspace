@@ -108,6 +108,24 @@ export const modelFixture: ModelPayload = {
       feature_snapshot: { alpha_signal: -0.5, shared_feature: 11 },
     },
   ],
+  feature_action_summary: [
+    {
+      feature: 'alpha_signal',
+      buy_count: 1,
+      sell_count: 1,
+      buy_mean: 1.25,
+      sell_mean: -0.5,
+      buy_minus_sell: 1.75,
+    },
+    {
+      feature: 'shared_feature',
+      buy_count: 1,
+      sell_count: 1,
+      buy_mean: 10,
+      sell_mean: 11,
+      buy_minus_sell: -1,
+    },
+  ],
 };
 
 export const betaModelFixture: ModelPayload = {
@@ -133,6 +151,24 @@ export const betaModelFixture: ModelPayload = {
       position: 0.2,
       position_delta: -0.5,
       feature_snapshot: { beta_signal: -2.5, shared_feature: 20 },
+    },
+  ],
+  feature_action_summary: [
+    {
+      feature: 'beta_signal',
+      buy_count: 0,
+      sell_count: 1,
+      buy_mean: null,
+      sell_mean: -2.5,
+      buy_minus_sell: null,
+    },
+    {
+      feature: 'shared_feature',
+      buy_count: 0,
+      sell_count: 1,
+      buy_mean: null,
+      sell_mean: 20,
+      buy_minus_sell: null,
     },
   ],
 };

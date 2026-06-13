@@ -203,7 +203,7 @@
 
     <section class="footer-grid">
       <div class="panel">
-        <h2>BUY vs SELL Features</h2>
+        <h2>BUY vs SELL Features By Model</h2>
         <div class="table-wrap">
           <table id="featureActionTable"></table>
         </div>
@@ -257,6 +257,17 @@
       const payload = await loadJson(`${BASE}/models/${profile}.json`);
       cache.models.set(profile, payload);
       return payload;
+    }
+
+    async function loadFeatureSummaryModels() {
+      const profiles = [
+        state.profile,
+        state.baseline,
+        ...(manifest.default_comparison_profiles || []),
+        ...(manifest.available_profiles || []),
+      ].filter(Boolean);
+      const uniqueProfiles = [...new Set(profiles)];
+      return Promise.all(uniqueProfiles.map(profile => loadModel(profile)));
     }
 
     function marketByDate() {
@@ -376,17 +387,22 @@
       `).join('');
     }
 
-    function renderFeatureActionTable(model) {
-      const rows = model.feature_action_summary || [];
+    function renderFeatureActionTable(featureModels) {
+      const rows = featureModels.flatMap(model => (model.feature_action_summary || []).slice(0, 8).map(row => ({
+        ...row,
+        profile: model.display_name || model.profile,
+        source_kind: model.source_kind || '',
+      })));
       if (!rows.length) {
         $('featureActionTable').innerHTML = '<tr><th>No BUY/SELL feature rows</th></tr>';
         return;
       }
       const body = rows.slice(0, 30).map(row => {
         const delta = row.buy_minus_sell;
-        const cls = Number(delta) >= 0 ? 'good' : 'bad';
+        const cls = Number.isFinite(Number(delta)) ? (Number(delta) >= 0 ? 'good' : 'bad') : 'warn';
         return `
           <tr>
+            <td class="mono">${esc(row.profile)}</td>
             <td class="mono">${esc(row.feature)}</td>
             <td>${fmt(row.buy_mean, 4)}</td>
             <td>${fmt(row.sell_mean, 4)}</td>
@@ -397,7 +413,7 @@
         `;
       }).join('');
       $('featureActionTable').innerHTML = `
-        <tr><th>Feature</th><th>BUY mean</th><th>SELL mean</th><th>BUY minus SELL</th><th>BUY n</th><th>SELL n</th></tr>
+        <tr><th>Model</th><th>Feature</th><th>BUY mean</th><th>SELL mean</th><th>BUY minus SELL</th><th>BUY n</th><th>SELL n</th></tr>
         ${body}
       `;
     }
@@ -590,11 +606,12 @@
 
     async function renderAll() {
       const [model, baseline] = await Promise.all([loadModel(state.profile), loadModel(state.baseline)]);
+      const featureModels = await loadFeatureSummaryModels();
       $('buildMeta').textContent = `Built ${manifest.generated_at || 'unknown'} | safe end ${manifest.safe_backtest_end || 'unknown'}`;
       $('dataMeta').textContent = `Market ${manifest.latest_market_date || 'unknown'} | ${state.profile}`;
       renderAutoUpdate();
       renderChart(model, baseline);
-      renderFeatureActionTable(model);
+      renderFeatureActionTable(featureModels);
       renderRanking();
     }
 

@@ -113,6 +113,7 @@ function toModelPayload(payload: ApiResponse, request: RunBacktestRequest): Mode
     row_count: rows.length,
     rows,
     events: deriveEvents(rows),
+    feature_action_summary: [],
     warmup_start_date: payload.warmup_start_date,
     replay_aligned: Boolean(payload.replay_aligned),
   };

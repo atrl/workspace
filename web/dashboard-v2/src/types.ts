@@ -6,6 +6,10 @@ export type FeatureValue = string | number | boolean | null;
 export interface AutoUpdateTask {
   name: string;
   enabled: boolean;
+  configured?: boolean;
+  installed?: boolean;
+  loaded?: boolean | null;
+  label?: string;
   schedule?: string;
   source_path?: string;
   log_path?: string;
@@ -85,6 +89,15 @@ export interface ModelEvent {
   feature_snapshot?: Record<string, FeatureValue>;
 }
 
+export interface FeatureActionSummaryRow {
+  feature: string;
+  buy_count: number;
+  sell_count: number;
+  buy_mean: number | null;
+  sell_mean: number | null;
+  buy_minus_sell: number | null;
+}
+
 export interface ModelPayload {
   profile: string;
   status: string | null;
@@ -107,6 +120,7 @@ export interface ModelPayload {
   row_count: number;
   rows: ModelRow[];
   events: ModelEvent[];
+  feature_action_summary: FeatureActionSummaryRow[];
   replay_aligned?: boolean;
   warmup_start_date?: string;
 }

@@ -1,6 +1,14 @@
 import { buildActionFeatureRows, computeVisibleComparison } from './domain';
 import type { ChartRangeCommand } from './chart';
-import type { ComparisonPayload, FeatureValue, InspectorRow, Manifest, MarketRow, ModelPayload } from './types';
+import type {
+  ComparisonPayload,
+  FeatureActionSummaryRow,
+  FeatureValue,
+  InspectorRow,
+  Manifest,
+  MarketRow,
+  ModelPayload,
+} from './types';
 
 function element<K extends keyof HTMLElementTagNameMap>(
   tag: K,
@@ -43,15 +51,28 @@ export function renderDataSourcePanel(container: HTMLElement, manifest: Manifest
       ['freshness safe end', auto.model_replay_freshness?.safe_backtest_end ?? 'n/a'],
       ['freshness source', auto.model_replay_freshness?.source_path ?? 'n/a'],
       ['remote deploy required', auto.remote_deploy_required ? 'yes' : 'no'],
-      ...auto.tasks.map((task) => [
-        task.name,
-        `${task.enabled ? 'enabled' : 'disabled'}${task.schedule ? ` · ${task.schedule}` : ''}`,
-      ] as [string, string]),
     ];
     for (const [label, value] of autoRows) {
       const item = element('div', 'source-row');
       item.appendChild(element('span', 'source-label', label));
       item.appendChild(element('span', 'source-value', value));
+      taskList.appendChild(item);
+    }
+    for (const task of auto.tasks) {
+      const stateBits = [
+        task.enabled ? 'enabled' : 'disabled',
+        task.configured === undefined ? null : task.configured ? 'configured' : 'not configured',
+        task.installed === undefined ? null : task.installed ? 'installed' : 'not installed',
+        task.loaded === undefined || task.loaded === null ? null : task.loaded ? 'loaded' : 'not loaded',
+      ].filter((value): value is string => Boolean(value));
+      const detailBits = [
+        task.schedule,
+        task.command_path ? `cmd ${task.command_path}` : null,
+        task.log_path ? `log ${task.log_path}` : null,
+      ].filter((value): value is string => Boolean(value));
+      const item = element('div', 'source-row');
+      item.appendChild(element('span', 'source-label', task.name));
+      item.appendChild(element('span', 'source-value', [...stateBits, ...detailBits].join(' · ')));
       taskList.appendChild(item);
     }
     autoSection.appendChild(taskList);
@@ -218,6 +239,69 @@ function renderFeatureList(features: Record<string, FeatureValue>): string {
   return entries.map(([key, value]) => `${key} ${formatFeatureValue(value)}`).join(' · ');
 }
 
+function formatSignedFeatureDelta(value: number | null | undefined): string {
+  if (typeof value !== 'number' || !Number.isFinite(value)) return 'n/a';
+  return value > 0 ? `+${value.toFixed(2)}` : value.toFixed(2);
+}
+
+function topFeatureSummaryRows(model: ModelPayload, limit = 8): FeatureActionSummaryRow[] {
+  return [...(model.feature_action_summary ?? [])]
+    .sort((left, right) => {
+      const leftScore = Math.abs(left.buy_minus_sell ?? 0);
+      const rightScore = Math.abs(right.buy_minus_sell ?? 0);
+      return rightScore - leftScore || left.feature.localeCompare(right.feature);
+    })
+    .slice(0, limit);
+}
+
+function renderFeatureActionSummaryTable(
+  container: HTMLElement,
+  models: Record<string, ModelPayload>,
+): void {
+  container.appendChild(element('h3', undefined, 'Buy/Sell Feature Summary'));
+  const rows = Object.entries(models).flatMap(([profile, model]) =>
+    topFeatureSummaryRows(model).map((summary) => ({
+      profile: model.display_name || profile,
+      feature: summary.feature,
+      buyCount: summary.buy_count,
+      sellCount: summary.sell_count,
+      buyMean: summary.buy_mean,
+      sellMean: summary.sell_mean,
+      delta: summary.buy_minus_sell,
+    })),
+  );
+  if (!rows.length) {
+    container.appendChild(element('p', 'empty-state', 'No buy/sell feature summary for selected models.'));
+    return;
+  }
+
+  const table = element('table', 'comparison-table feature-table');
+  const thead = element('thead');
+  const headerRow = element('tr');
+  for (const title of ['Model', 'Feature', 'BUY n', 'BUY mean', 'SELL n', 'SELL mean', 'BUY-SELL']) {
+    headerRow.appendChild(element('th', undefined, title));
+  }
+  thead.appendChild(headerRow);
+  table.appendChild(thead);
+
+  const tbody = element('tbody');
+  for (const row of rows) {
+    const tr = element('tr');
+    tr.appendChild(element('td', undefined, row.profile));
+    tr.appendChild(element('td', undefined, row.feature));
+    tr.appendChild(element('td', undefined, String(row.buyCount)));
+    tr.appendChild(element('td', undefined, formatFeatureValue(row.buyMean)));
+    tr.appendChild(element('td', undefined, String(row.sellCount)));
+    tr.appendChild(element('td', undefined, formatFeatureValue(row.sellMean)));
+    tr.appendChild(element('td', undefined, formatSignedFeatureDelta(row.delta)));
+    tbody.appendChild(tr);
+  }
+  table.appendChild(tbody);
+  const tableScroll = element('div', 'table-scroll');
+  tableScroll.appendChild(table);
+  container.appendChild(tableScroll);
+}
+
 function renderRecentEventFeatureTable(
   container: HTMLElement,
   models: Record<string, ModelPayload>,
@@ -271,17 +355,15 @@ function renderRecentEventFeatureTable(
   container.appendChild(tableScroll);
 }
 
-export function renderFeatureComparisonPanel(
+export function renderFeatureSnapshotPanel(
   container: HTMLElement,
   input: { date: string; marketRows: readonly MarketRow[]; models: Record<string, ModelPayload> },
 ): void {
   container.replaceChildren();
-  container.appendChild(element('h2', undefined, 'Buy/Sell Feature Comparison'));
   const rows = buildActionFeatureRows(input);
   container.appendChild(element('div', 'comparison-summary', `${input.date} | ${rows.length} selected model rows`));
   if (!rows.length) {
     container.appendChild(element('p', 'empty-state', 'No model rows for selected date.'));
-    renderRecentEventFeatureTable(container, input.models);
     return;
   }
 
@@ -310,5 +392,18 @@ export function renderFeatureComparisonPanel(
   const tableScroll = element('div', 'table-scroll');
   tableScroll.appendChild(table);
   container.appendChild(tableScroll);
+}
+
+export function renderFeatureComparisonPanel(
+  container: HTMLElement,
+  input: { date: string; marketRows: readonly MarketRow[]; models: Record<string, ModelPayload> },
+): void {
+  container.replaceChildren();
+  container.appendChild(element('h2', undefined, 'Buy/Sell Feature Comparison'));
+  const snapshotPanel = element('section', 'feature-date-snapshot');
+  snapshotPanel.id = 'feature-date-snapshot';
+  renderFeatureSnapshotPanel(snapshotPanel, input);
+  container.appendChild(snapshotPanel);
+  renderFeatureActionSummaryTable(container, input.models);
   renderRecentEventFeatureTable(container, input.models);
 }

@@ -19,6 +19,18 @@ describe('dashboard v2 DOM render helpers', () => {
         registry_keep_actor_count: 3,
         registry_keep_actor_strict_violation_count: 2,
       },
+      auto_update: {
+        ...manifestFixture.auto_update!,
+        tasks: [
+          {
+            ...manifestFixture.auto_update!.tasks[0],
+            installed: true,
+            loaded: true,
+            log_path: 'runtime/soxl/paper_trading/dashboard_refresh.log',
+            command_path: 'production/run_dashboard_refresh.sh',
+          } as never,
+        ],
+      },
     });
 
     expect(panel.textContent).toContain('safe_backtest_end');
@@ -26,6 +38,10 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.textContent).toContain('model_replay_freshness.json');
     expect(panel.textContent).toContain('Auto Update');
     expect(panel.textContent).toContain('dashboard_refresh');
+    expect(panel.textContent).toContain('installed');
+    expect(panel.textContent).toContain('loaded');
+    expect(panel.textContent).toContain('runtime/soxl/paper_trading/dashboard_refresh.log');
+    expect(panel.textContent).toContain('production/run_dashboard_refresh.sh');
     expect(panel.textContent).toContain('06:30 Tue-Sat Asia/Shanghai');
     expect(panel.textContent).toContain('Retention Gate');
     expect(panel.textContent).toContain('0 / 2 promotable');
@@ -90,6 +106,11 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.textContent).toContain('balanced_rule_residual_v22');
     expect(panel.textContent).toContain('alpha_signal 1.25');
     expect(panel.textContent).toContain('beta_signal -2.50');
+    expect(panel.textContent).toContain('Buy/Sell Feature Summary');
+    expect(panel.textContent).toContain('alpha_signal');
+    expect(panel.textContent).toContain('1.75');
+    expect(panel.textContent).toContain('beta_signal');
+    expect(panel.textContent).toContain('-2.50');
     expect(panel.textContent).toContain('Recent Buy/Sell Events');
   });
 });
