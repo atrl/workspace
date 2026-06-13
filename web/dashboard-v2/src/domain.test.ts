@@ -114,6 +114,7 @@ describe('dashboard v2 domain helpers', () => {
 
   test('computes trading range presets from available dates', () => {
     const rows = [
+      { date: '2025-06-09' },
       { date: '2025-12-31' },
       { date: '2026-01-02' },
       { date: '2026-03-06' },
@@ -124,7 +125,9 @@ describe('dashboard v2 domain helpers', () => {
     expect(computeDateRangePreset(rows, 'YTD')).toEqual({ start: '2026-01-02', end: '2026-06-09' });
     expect(computeDateRangePreset(rows, '1M')).toEqual({ start: '2026-05-08', end: '2026-06-09' });
     expect(computeDateRangePreset(rows, '3M')).toEqual({ start: '2026-03-06', end: '2026-06-09' });
-    expect(computeDateRangePreset(rows, 'ALL')).toEqual({ start: '2025-12-31', end: '2026-06-09' });
+    expect(computeDateRangePreset(rows, '6M')).toEqual({ start: '2025-12-31', end: '2026-06-09' });
+    expect(computeDateRangePreset(rows, '1Y')).toEqual({ start: '2025-06-09', end: '2026-06-09' });
+    expect(computeDateRangePreset(rows, 'ALL')).toEqual({ start: '2025-06-09', end: '2026-06-09' });
   });
 
   test('computes keyboard zoom, pan, and reset ranges', () => {

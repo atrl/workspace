@@ -74,7 +74,7 @@ export function clipRowsByDate<T extends { date: string }>(rows: readonly T[], s
   return rows.filter((row) => row.date >= start && row.date <= end);
 }
 
-export type DateRangePreset = '1M' | '3M' | 'YTD' | 'ALL';
+export type DateRangePreset = '1M' | '3M' | '6M' | 'YTD' | '1Y' | 'ALL';
 export type KeyboardRangeAction = 'zoom_in' | 'zoom_out' | 'pan_left' | 'pan_right' | 'reset';
 
 function sortedDates(rows: readonly { date: string }[]): string[] {
@@ -95,8 +95,19 @@ function snapStart(dates: readonly string[], target: string): string {
   return dates.find((date) => date >= target) ?? dates[dates.length - 1];
 }
 
-function snapStartAtOrBefore(dates: readonly string[], target: string): string {
-  return [...dates].reverse().find((date) => date <= target) ?? dates[0];
+function snapStartNearest(dates: readonly string[], target: string): string {
+  const targetTime = Date.parse(`${target}T00:00:00Z`);
+  if (!Number.isFinite(targetTime)) return dates[0];
+  let best = dates[0];
+  let bestDistance = Math.abs(Date.parse(`${best}T00:00:00Z`) - targetTime);
+  for (const date of dates.slice(1)) {
+    const distance = Math.abs(Date.parse(`${date}T00:00:00Z`) - targetTime);
+    if (distance < bestDistance) {
+      best = date;
+      bestDistance = distance;
+    }
+  }
+  return best;
 }
 
 function nearestIndex(dates: readonly string[], date: string, fallback: number): number {
@@ -118,8 +129,8 @@ export function computeDateRangePreset(
   const target =
     preset === 'YTD'
       ? `${endDate.getUTCFullYear()}-01-01`
-      : formatDate(addMonths(endDate, preset === '1M' ? -1 : -3));
-  return { start: preset === 'YTD' ? snapStart(dates, target) : snapStartAtOrBefore(dates, target), end };
+      : formatDate(addMonths(endDate, { '1M': -1, '3M': -3, '6M': -6, '1Y': -12 }[preset]));
+  return { start: preset === 'YTD' ? snapStart(dates, target) : snapStartNearest(dates, target), end };
 }
 
 export function computeKeyboardDateRange(

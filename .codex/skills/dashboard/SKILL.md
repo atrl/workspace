@@ -31,7 +31,10 @@ Use these rules before editing TradingView-like interactions:
    markers, and a visible position overlay. Missing OHLC enrichment must not
    suppress the price line.
 5. Chart command buttons and keyboard shortcuts should operate on existing chart
-   handles: zoom in/out, pan left/right, reset, and follow latest.
+   handles: zoom in/out, pan left/right, reset, and follow latest. Range
+   presets should be click-level controls for `1M`, `3M`, `6M`, `YTD`, `1Y`,
+   and `ALL`, snapping to available trading dates instead of forcing calendar
+   dates that may not exist in the data.
 6. All linked chart panes should behave as one inspection surface. Main,
    Position, and NAV panes should emit hover/click dates into the same
    inspector/feature panel path; do not make subcharts passive visuals.
@@ -45,7 +48,7 @@ Use these rules before editing TradingView-like interactions:
 9. Verify frontend changes with:
    ```bash
    cd web/dashboard-v2
-   npm test -- --run
+   npm test
    npm run build
    ```
    For visual changes, also open the Vite page in Chrome/Browser and capture a

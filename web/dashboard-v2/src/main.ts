@@ -190,7 +190,7 @@ function renderToolbar(
 
   const rangeGroup = document.createElement('div');
   rangeGroup.className = 'toolbar-group range-group';
-  for (const preset of ['1M', '3M', 'YTD', 'ALL'] as const satisfies readonly DateRangePreset[]) {
+  for (const preset of ['1M', '3M', '6M', 'YTD', '1Y', 'ALL'] as const satisfies readonly DateRangePreset[]) {
     const button = document.createElement('button');
     button.type = 'button';
     button.className = 'range-button';
