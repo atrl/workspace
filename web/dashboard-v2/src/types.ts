@@ -33,6 +33,7 @@ export interface Manifest {
   safe_backtest_end: string;
   available_profiles: string[];
   default_baseline_profile: string;
+  default_chart_profile?: string;
   default_comparison_profiles: string[];
   source_paths: Record<string, string>;
   auto_update: AutoUpdateStatus;
@@ -57,6 +58,7 @@ export interface ModelRow {
   price: number;
   excess: number;
   excess_pct: number;
+  feature_snapshot?: Record<string, FeatureValue>;
 }
 
 export interface ModelEvent {

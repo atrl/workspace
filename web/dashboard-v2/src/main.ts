@@ -1,13 +1,16 @@
 import './styles.css';
 import { renderMarketChart, renderNavChart, renderPositionChart, syncVisibleLogicalRange } from './chart';
 import {
+  chartRangeRows,
   buildInspectorLookup,
   clampComparisonProfiles,
   clipRowsByDate,
   computeCommonWindow,
   computeDateRangePreset,
+  computeDefaultChartWindow,
   computeInspectorRowsFromLookup,
   computeKeyboardDateRange,
+  chooseDefaultChartProfile,
   type DateRangePreset,
   type InspectorLookup,
   type KeyboardRangeAction,
@@ -26,6 +29,7 @@ import { viewUpdateRequiresChartRender } from './viewState';
 interface ViewState {
   selectedProfiles: string[];
   baselineProfile: string;
+  chartProfile: string;
   start: string;
   end: string;
   hoveredDate: string;
@@ -90,8 +94,14 @@ function clippedModels(models: Record<string, ModelPayload>, start: string, end:
 function visibleContext(data: DashboardData, state: ViewState) {
   const models = clippedModels(selectedModels(data, state.selectedProfiles), state.start, state.end);
   const market = clippedMarket(data, state.start, state.end);
-  const primary = models[state.baselineProfile] ?? Object.values(models)[0];
+  const primary = clippedModel(data.models[state.chartProfile] ?? Object.values(data.models)[0], state.start, state.end);
   return { models, market, primary };
+}
+
+function selectableChartProfiles(data: DashboardData, selectedProfiles: readonly string[]): string[] {
+  const selected = selectedProfiles.filter((profile) => Boolean(data.models[profile]));
+  const runnable = selected.filter((profile) => data.models[profile].runnable);
+  return runnable.length ? runnable : selected;
 }
 
 function renderToolbar(
@@ -137,6 +147,25 @@ function renderToolbar(
   baselineGroup.appendChild(baseline);
   container.appendChild(baselineGroup);
 
+  const chartGroup = document.createElement('label');
+  chartGroup.className = 'toolbar-group';
+  chartGroup.append('Chart');
+  const chartSelect = document.createElement('select');
+  for (const profile of selectableChartProfiles(data, state.selectedProfiles)) {
+    const option = document.createElement('option');
+    option.value = profile;
+    option.textContent = data.models[profile].runnable ? profile : `${profile} (reference)`;
+    option.selected = profile === state.chartProfile;
+    chartSelect.appendChild(option);
+  }
+  chartSelect.addEventListener('change', () => {
+    const chartProfile = chartSelect.value;
+    const chartWindow = computeDefaultChartWindow(data.market.rows, data.models[chartProfile]?.rows ?? []);
+    update({ chartProfile, ...(chartWindow ?? {}), hoveredDate: chartWindow?.end ?? state.hoveredDate });
+  });
+  chartGroup.appendChild(chartSelect);
+  container.appendChild(chartGroup);
+
   const rangeGroup = document.createElement('div');
   rangeGroup.className = 'toolbar-group range-group';
   for (const preset of ['1M', '3M', 'YTD', 'ALL'] as const satisfies readonly DateRangePreset[]) {
@@ -145,7 +174,7 @@ function renderToolbar(
     button.className = 'range-button';
     button.textContent = preset;
     button.addEventListener('click', () => {
-      const range = computeDateRangePreset(data.comparison.rows, preset);
+      const range = computeDateRangePreset(chartRangeRows(data.models, state.chartProfile, data.market.rows), preset);
       if (range) update({ ...range, hoveredDate: range.end });
     });
     rangeGroup.appendChild(button);
@@ -252,16 +281,20 @@ async function main(): Promise<void> {
   try {
     const data = await loadDashboardData();
     const models = selectedModels(data, data.manifest.default_comparison_profiles);
+    const selectedProfiles = clampComparisonProfiles(
+      data.manifest.default_comparison_profiles,
+      data.manifest.available_profiles,
+    );
+    const defaultChartProfile = chooseDefaultChartProfile(data.manifest, data.models);
+    const chartWindow = computeDefaultChartWindow(data.market.rows, data.models[defaultChartProfile]?.rows ?? []);
     const common = computeCommonWindow(data.market.rows, Object.values(models).map((model) => model.rows));
     const state: ViewState = {
-      selectedProfiles: clampComparisonProfiles(
-        data.manifest.default_comparison_profiles,
-        data.manifest.available_profiles,
-      ),
+      selectedProfiles,
       baselineProfile: data.manifest.default_baseline_profile,
-      start: common?.start ?? data.comparison.common_start,
-      end: common?.end ?? data.comparison.common_end,
-      hoveredDate: common?.end ?? data.comparison.common_end,
+      chartProfile: defaultChartProfile,
+      start: chartWindow?.start ?? common?.start ?? data.comparison.common_start,
+      end: chartWindow?.end ?? common?.end ?? data.comparison.common_end,
+      hoveredDate: chartWindow?.end ?? common?.end ?? data.comparison.common_end,
     };
     let inspectorLookup: InspectorLookup | null = null;
     const update = (next: Partial<ViewState>) => {
@@ -273,6 +306,10 @@ async function main(): Promise<void> {
       if (!state.selectedProfiles.includes(state.baselineProfile)) {
         state.baselineProfile = state.selectedProfiles[0];
       }
+      const chartProfiles = selectableChartProfiles(data, state.selectedProfiles);
+      if (!chartProfiles.includes(state.chartProfile)) {
+        state.chartProfile = chartProfiles[0] ?? state.selectedProfiles[0];
+      }
       if (needsChartRender) {
         inspectorLookup = renderDashboard(data, state, update);
       } else if (inspectorLookup) {
@@ -283,7 +320,12 @@ async function main(): Promise<void> {
       if (isEditingTarget(event.target)) return;
       const action = keyboardRangeAction(event);
       if (!action) return;
-      const range = computeKeyboardDateRange(data.comparison.rows, state.start, state.end, action);
+      const range = computeKeyboardDateRange(
+        chartRangeRows(data.models, state.chartProfile, data.market.rows),
+        state.start,
+        state.end,
+        action,
+      );
       if (!range) return;
       event.preventDefault();
       update({ ...range, hoveredDate: range.end });

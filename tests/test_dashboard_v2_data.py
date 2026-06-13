@@ -134,6 +134,7 @@ def test_build_dashboard_v2_data_writes_manifest_market_model_and_comparison(tmp
     assert manifest["safe_backtest_end"] == "2026-01-06"
     assert manifest["default_baseline_profile"] == "smoke"
     assert manifest["auto_update"]["timezone"] == "Asia/Shanghai"
+    assert "dashboard_refresh" in {task["name"] for task in manifest["auto_update"]["tasks"]}
     assert manifest["auto_update"]["model_replay_freshness"]["safe_backtest_end"] == "2026-01-06"
     assert market["rows"][1]["vix"] == 18.0
     assert model["feature_packs"] == []
@@ -237,6 +238,7 @@ def test_build_dashboard_v2_data_uses_model_specific_feature_snapshots(tmp_path:
     model = json.loads((output_dir / "models" / "smoke.json").read_text())
 
     assert model["snapshot_columns"] == ["rsi_6", "vix_level", "RB_BUY_COMPOSITE"]
+    assert model["rows"][1]["feature_snapshot"] == model_feature_rows_by_profile["smoke"]["2026-01-05"]
     assert model["events"][0]["feature_snapshot"] == model_feature_rows_by_profile["smoke"]["2026-01-05"]
 
 

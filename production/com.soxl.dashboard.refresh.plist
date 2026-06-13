@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.soxl.dashboard.refresh</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/Users/rziiiii/dev/workspace/production/run_dashboard_refresh.sh</string>
+    </array>
+    <key>WorkingDirectory</key>
+    <string>/Users/rziiiii/dev/workspace</string>
+    <key>StartCalendarInterval</key>
+    <array>
+        <dict><key>Hour</key><integer>6</integer><key>Minute</key><integer>30</integer><key>Weekday</key><integer>2</integer></dict>
+        <dict><key>Hour</key><integer>6</integer><key>Minute</key><integer>30</integer><key>Weekday</key><integer>3</integer></dict>
+        <dict><key>Hour</key><integer>6</integer><key>Minute</key><integer>30</integer><key>Weekday</key><integer>4</integer></dict>
+        <dict><key>Hour</key><integer>6</integer><key>Minute</key><integer>30</integer><key>Weekday</key><integer>5</integer></dict>
+        <dict><key>Hour</key><integer>6</integer><key>Minute</key><integer>30</integer><key>Weekday</key><integer>6</integer></dict>
+    </array>
+    <key>StandardOutPath</key>
+    <string>/Users/rziiiii/dev/workspace/runtime/soxl/paper_trading/dashboard_refresh.log</string>
+    <key>StandardErrorPath</key>
+    <string>/Users/rziiiii/dev/workspace/runtime/soxl/paper_trading/dashboard_refresh.err</string>
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>PATH</key>
+        <string>/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+        <key>SOXL_SCHEDULE_TRIGGER</key>
+        <string>launchagent_dashboard_refresh</string>
+        <key>BARK_KEY</key>
+        <string></string>
+    </dict>
+</dict>
+</plist>

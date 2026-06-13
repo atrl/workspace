@@ -181,20 +181,23 @@ Pipeline order:
    notifications, a different notional size, or a temporary broker override.
 3. Install:
    ```bash
-   cp production/com.soxl.daily.scheduler.plist production/com.soxl.preopen.scheduler.plist ~/Library/LaunchAgents/
+   cp production/com.soxl.daily.scheduler.plist production/com.soxl.preopen.scheduler.plist production/com.soxl.dashboard.refresh.plist ~/Library/LaunchAgents/
    launchctl bootout "gui/$(id -u)" ~/Library/LaunchAgents/com.soxl.daily.scheduler.plist 2>/dev/null || true
    launchctl bootout "gui/$(id -u)" ~/Library/LaunchAgents/com.soxl.preopen.scheduler.plist 2>/dev/null || true
+   launchctl bootout "gui/$(id -u)" ~/Library/LaunchAgents/com.soxl.dashboard.refresh.plist 2>/dev/null || true
    launchctl bootstrap "gui/$(id -u)" ~/Library/LaunchAgents/com.soxl.daily.scheduler.plist
    launchctl bootstrap "gui/$(id -u)" ~/Library/LaunchAgents/com.soxl.preopen.scheduler.plist
+   launchctl bootstrap "gui/$(id -u)" ~/Library/LaunchAgents/com.soxl.dashboard.refresh.plist
    ```
 4. Verify:
    ```bash
-   launchctl list | grep 'com.soxl.*scheduler'
+   launchctl list | grep 'com.soxl.*\\(scheduler\\|dashboard.refresh\\)'
    ```
 5. Unload when needed:
    ```bash
    launchctl bootout "gui/$(id -u)" ~/Library/LaunchAgents/com.soxl.daily.scheduler.plist
    launchctl bootout "gui/$(id -u)" ~/Library/LaunchAgents/com.soxl.preopen.scheduler.plist
+   launchctl bootout "gui/$(id -u)" ~/Library/LaunchAgents/com.soxl.dashboard.refresh.plist
    ```
 
 ### Manual cron (alternative)
@@ -206,6 +209,9 @@ Pipeline order:
 
 # Tue-Sat 06:15: US post-close data refresh + Futu simulated trading + local dashboard refresh
 15 6 * * 2-6 SOXL_SCHEDULE_TRIGGER=cron_postclose /Users/rziiiii/dev/workspace/production/run_soxl_scheduler.sh --broker futu --account-notional 10000 --runtime-composer budget_usage --composer-profile v19reg_v22_budget_usage_bull_guard_v1 --slow-profile balanced_rule_residual_v19_reg --fast-profile balanced_rule_residual_v22 --bull-participation-guard --no-notify --health-summary --schedule-slot postclose >> /Users/rziiiii/dev/workspace/runtime/soxl/paper_trading/scheduler_postclose.log 2>&1
+
+# Tue-Sat 06:30: dashboard-only refresh, no orders, no remote deploy
+30 6 * * 2-6 SOXL_SCHEDULE_TRIGGER=cron_dashboard_refresh /Users/rziiiii/dev/workspace/production/run_dashboard_refresh.sh >> /Users/rziiiii/dev/workspace/runtime/soxl/paper_trading/dashboard_refresh.log 2>&1
 ```
 
 ### Notification Setup (Bark)
@@ -227,14 +233,16 @@ Pipeline order:
 
 ## Dashboard Auto-Update
 
-The daily scheduler automatically rebuilds `dashboard.html` and refreshes `dashboard_data/v2` after each paper-trading run. Paper-trading results are appended to `runtime/soxl/paper_trading/paper_trading_soxl_daily.csv` in the same format as post-train review outputs, so they appear as a new versioned series in the dashboard.
+The daily scheduler automatically rebuilds `dashboard.html` and refreshes `dashboard_data/v2` after each paper-trading run. The separate `com.soxl.dashboard.refresh` LaunchAgent is dashboard-only: it refreshes model replay CSVs, rebuilds the legacy dashboard, rebuilds v2 JSON, and runs static checks without placing orders or deploying to Vercel. Paper-trading results are appended to `runtime/soxl/paper_trading/paper_trading_soxl_daily.csv` in the same format as post-train review outputs, so they appear as a new versioned series in the dashboard.
 
 To rebuild the dashboard manually:
 ```bash
-PYTHONPATH=. qlib_venv/bin/python scripts/build_backtest_dashboard.py
+production/run_dashboard_refresh.sh
 ```
 
-Then open `dashboard.html` in a browser. For Vercel static deployment, keep the generated
+Then open `dashboard.html` for the legacy/API dashboard or run `npm run dev` under
+`web/dashboard-v2/` for the TradingView-like local dashboard. Vercel is not required
+for local use. For Vercel static deployment, keep the generated
 `dashboard.html`, `dashboard_data/index.json`, `dashboard_data/model_versions.json`, and
 `dashboard_data/versioned/*/SOXL.json` export together; `vercel.json` serves `/` from
 `dashboard.html` and revalidates the dashboard data on each request.

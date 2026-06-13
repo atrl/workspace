@@ -3,14 +3,17 @@ import {
   buildActionMarkers,
   buildActionFeatureRows,
   buildInspectorLookup,
+  chartRangeRows,
   clampComparisonProfiles,
   clipRowsByDate,
   computeCommonWindow,
   computeDateRangePreset,
+  computeDefaultChartWindow,
   computeInspectorRowsFromLookup,
   computeInspectorRows,
   computeKeyboardDateRange,
   computeVisibleComparison,
+  chooseDefaultChartProfile,
 } from './domain';
 import { comparisonFixture, manifestFixture, marketFixture, modelFixture } from './testFixtures';
 import { viewUpdateRequiresChartRender } from './viewState';
@@ -59,6 +62,75 @@ describe('dashboard v2 domain helpers', () => {
     expect(rows[0].features.vix).toBe(18);
   });
 
+  test('uses model row feature snapshots before shared market fallback', () => {
+    const rows = buildActionFeatureRows({
+      date: '2026-01-05',
+      models: {
+        smoke: {
+          ...modelFixture,
+          rows: modelFixture.rows.map((row) =>
+            row.date === '2026-01-05'
+              ? { ...row, feature_snapshot: { model_only_signal: 0.77, rsi_6: 0.61 } }
+              : row,
+          ),
+        },
+      },
+      marketRows: marketFixture.rows,
+    });
+
+    expect(rows[0].features).toEqual({ model_only_signal: 0.77, rsi_6: 0.61 });
+  });
+
+  test('defaults main chart to runnable model window instead of reference baseline window', () => {
+    const reference = {
+      ...modelFixture,
+      profile: 'soxl_backtest_policy_reimplementation_v1',
+      source_kind: 'soxlbacktest_qlib_buysell',
+      runnable: false,
+      rows: modelFixture.rows.slice(1),
+    };
+    const runnable = {
+      ...modelFixture,
+      profile: 'balanced_rule_residual_v19_reg_v22_retest_v1',
+      runnable: true,
+      rows: [
+        { ...modelFixture.rows[0], date: '2020-01-02' },
+        ...modelFixture.rows,
+      ],
+    };
+    const models = {
+      soxl_backtest_policy_reimplementation_v1: reference,
+      balanced_rule_residual_v19_reg_v22_retest_v1: runnable,
+    };
+
+    expect(
+      chooseDefaultChartProfile(
+        {
+          ...manifestFixture,
+          default_baseline_profile: 'soxl_backtest_policy_reimplementation_v1',
+          default_comparison_profiles: [
+            'soxl_backtest_policy_reimplementation_v1',
+            'balanced_rule_residual_v19_reg_v22_retest_v1',
+          ],
+          available_profiles: [
+            'soxl_backtest_policy_reimplementation_v1',
+            'balanced_rule_residual_v19_reg_v22_retest_v1',
+          ],
+        },
+        models,
+      ),
+    ).toBe('balanced_rule_residual_v19_reg_v22_retest_v1');
+    expect(
+      computeDefaultChartWindow(
+        [{ ...marketFixture.rows[0], date: '2020-01-02' }, ...marketFixture.rows],
+        runnable.rows,
+      ),
+    ).toEqual({ start: '2020-01-02', end: '2026-01-06' });
+    expect(chartRangeRows(models, 'balanced_rule_residual_v19_reg_v22_retest_v1', marketFixture.rows)[0].date).toBe(
+      '2020-01-02',
+    );
+  });
+
   test('clips rows to selected date inputs', () => {
     expect(clipRowsByDate(marketFixture.rows, '2026-01-05', '2026-01-06').map((row) => row.date)).toEqual([
       '2026-01-05',
@@ -104,6 +176,7 @@ describe('dashboard v2 domain helpers', () => {
     expect(viewUpdateRequiresChartRender({ start: '2026-01-05' })).toBe(true);
     expect(viewUpdateRequiresChartRender({ selectedProfiles: ['smoke', 'balanced_rule_residual_v22'] })).toBe(true);
     expect(viewUpdateRequiresChartRender({ baselineProfile: 'balanced_rule_residual_v22' })).toBe(true);
+    expect(viewUpdateRequiresChartRender({ chartProfile: 'smoke' })).toBe(true);
   });
 
   test('computes trading range presets from available dates', () => {

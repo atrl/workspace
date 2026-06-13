@@ -309,11 +309,32 @@ def _derive_model_events_with_features(
     return events
 
 
+def _attach_row_feature_snapshots(
+    rows: list[dict[str, Any]],
+    *,
+    market_rows_by_date: dict[str, dict[str, Any]],
+    snapshot_columns: list[str],
+    model_feature_rows_by_date: FeatureRowsByDate | None = None,
+) -> list[dict[str, Any]]:
+    enriched: list[dict[str, Any]] = []
+    for row in rows:
+        date = str(row["date"])
+        model_snapshot = _feature_snapshot(
+            (model_feature_rows_by_date or {}).get(date),
+            snapshot_columns,
+        )
+        snapshot = model_snapshot or _feature_snapshot(market_rows_by_date.get(date), snapshot_columns)
+        enriched.append({**row, "feature_snapshot": snapshot})
+    return enriched
+
+
 def _auto_update_status(root: Path, freshness: dict[str, Any], freshness_path: Path) -> dict[str, Any]:
     cron_path = root / "production" / "crontab.txt"
     preopen_plist = root / "production" / "com.soxl.preopen.scheduler.plist"
     postclose_plist = root / "production" / "com.soxl.daily.scheduler.plist"
+    dashboard_refresh_plist = root / "production" / "com.soxl.dashboard.refresh.plist"
     scheduler = root / "production" / "run_soxl_scheduler.sh"
+    dashboard_refresh = root / "production" / "run_dashboard_refresh.sh"
     goal_gates = root / "dashboard_data" / "production_goal_gates.json"
     production_status = root / "dashboard_data" / "production_status.json"
     tasks = [
@@ -332,6 +353,18 @@ def _auto_update_status(root: Path, freshness: dict[str, Any], freshness_path: P
             "source_path": _relative_to(root, postclose_plist if postclose_plist.exists() else cron_path),
             "log_path": "runtime/soxl/paper_trading/scheduler_postclose.log",
             "command_path": _relative_to(root, scheduler),
+        },
+        {
+            "name": "dashboard_refresh",
+            "enabled": dashboard_refresh.exists()
+            and (
+                dashboard_refresh_plist.exists()
+                or (cron_path.exists() and "dashboard_refresh.log" in cron_path.read_text(encoding="utf-8"))
+            ),
+            "schedule": "06:30 Tue-Sat Asia/Shanghai",
+            "source_path": _relative_to(root, dashboard_refresh_plist if dashboard_refresh_plist.exists() else cron_path),
+            "log_path": "runtime/soxl/paper_trading/dashboard_refresh.log",
+            "command_path": _relative_to(root, dashboard_refresh),
         },
     ]
     return {
@@ -781,6 +814,12 @@ def build_dashboard_v2_data(
             market_payload_rows,
             model_feature_rows,
         )
+        enriched_rows = _attach_row_feature_snapshots(
+            rows,
+            market_rows_by_date=market_rows_by_date,
+            snapshot_columns=snapshot_columns,
+            model_feature_rows_by_date=model_feature_rows,
+        )
         payload = {
             "profile": profile_name,
             "status": source.get("status"),
@@ -792,7 +831,7 @@ def build_dashboard_v2_data(
             "replay_start": rows[0]["date"],
             "replay_end": rows[-1]["date"],
             "row_count": len(rows),
-            "rows": rows,
+            "rows": enriched_rows,
             "events": _derive_model_events_with_features(
                 rows,
                 market_rows_by_date=market_rows_by_date,
@@ -814,12 +853,21 @@ def build_dashboard_v2_data(
         baseline_profile=baseline,
         compared_profiles=profiles_to_write,
     )
+    default_chart_profile = next(
+        (
+            profile_name
+            for profile_name in defaults
+            if bool(model_payloads.get(profile_name, {}).get("runnable"))
+        ),
+        defaults[0],
+    )
     manifest = {
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "latest_market_date": latest_market_date,
         "safe_backtest_end": safe_backtest_end,
         "available_profiles": profiles_to_write,
         "default_baseline_profile": baseline,
+        "default_chart_profile": default_chart_profile,
         "default_comparison_profiles": defaults,
         "auto_update": _auto_update_status(root, freshness, freshness_path),
         "source_paths": {

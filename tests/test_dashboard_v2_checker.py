@@ -80,6 +80,7 @@ def test_check_dashboard_v2_data_passes_valid_contract(tmp_path: Path):
                     "position": 0.5,
                     "action": "BUY",
                     "price": 10.5,
+                    "feature_snapshot": {"rsi6": 60.0, "vix": 18.0},
                 }
             ],
             "events": [{"date": "2026-01-06", "kind": "BUY", "feature_snapshot": {"rsi6": 60.0, "vix": 18.0}}],
@@ -166,6 +167,37 @@ def test_check_dashboard_v2_data_fails_missing_model_position(tmp_path: Path):
         check_dashboard_v2_data(root)
 
 
+def test_check_dashboard_v2_data_fails_missing_row_feature_snapshot(tmp_path: Path):
+    root = tmp_path / "dashboard_data" / "v2"
+    _write_json(
+        root / "manifest.json",
+        _manifest(["smoke"]),
+    )
+    _write_json(
+        root / "market" / "SOXL.json",
+        {"rows": [{"date": "2026-01-06", "open": 10, "high": 11, "low": 9, "close": 10.5, "volume": 1000}]},
+    )
+    _write_json(
+        root / "models" / "smoke.json",
+        _model_payload(
+            [
+                {
+                    "date": "2026-01-06",
+                    "strategy_nav": 100,
+                    "buyhold_nav": 100,
+                    "position": 0.5,
+                    "action": "BUY",
+                    "price": 10.5,
+                }
+            ]
+        ),
+    )
+    _write_json(root / "comparison" / "default.json", {"baseline_profile": "smoke", "compared_profiles": ["smoke"], "rows": []})
+
+    with pytest.raises(ValueError, match="feature_snapshot"):
+        check_dashboard_v2_data(root)
+
+
 def test_check_dashboard_v2_data_fails_when_comparison_references_unknown_profile(tmp_path: Path):
     root = tmp_path / "dashboard_data" / "v2"
     _write_json(
@@ -187,6 +219,7 @@ def test_check_dashboard_v2_data_fails_when_comparison_references_unknown_profil
                     "position": 0.5,
                     "action": "BUY",
                     "price": 10.5,
+                    "feature_snapshot": {"rsi6": 60.0, "vix": 18.0},
                 }
             ]
         ),

@@ -97,10 +97,12 @@ export function renderComparisonPanel(
   container.replaceChildren();
   container.appendChild(element('h2', undefined, 'Model Difference'));
   const visible = computeVisibleComparison(comparison, start, end);
+  const visibleStart = visible[0]?.date ?? start;
+  const visibleEnd = visible[visible.length - 1]?.date ?? end;
   const header = element(
     'div',
     'comparison-summary',
-    `${visible.length} rows | baseline ${comparison.baseline_profile} | ${start} to ${end}`,
+    `${visible.length} rows | baseline ${comparison.baseline_profile} | ${visibleStart} to ${visibleEnd}`,
   );
   container.appendChild(header);
 

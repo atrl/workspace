@@ -16,6 +16,7 @@ PRODUCTION_ROOT = Path(
 )
 SCHEDULER_WRAPPER = PRODUCTION_ROOT / "production" / "run_soxl_scheduler.sh"
 WEEKLY_WRAPPER = PRODUCTION_ROOT / "production" / "run_soxl_weekly_wf.sh"
+DASHBOARD_REFRESH_WRAPPER = PRODUCTION_ROOT / "production" / "run_dashboard_refresh.sh"
 CURRENT_COMPOSER_ARGS = [
     "--runtime-composer",
     "budget_usage",
@@ -110,6 +111,22 @@ def test_crontab_weekly_walkforward_uses_repo_wrapper():
     assert str(WEEKLY_WRAPPER) in weekly
     assert "balanced_trade_lock" not in weekly
     assert "/Users/rziiiii/.openclaw/workspace" not in weekly
+
+
+def test_crontab_has_local_dashboard_refresh_task_without_vercel():
+    lines = (ROOT / "production" / "crontab.txt").read_text(encoding="utf-8").splitlines()
+    dashboard_refresh = next(
+        line
+        for line in lines
+        if line.strip()
+        and not line.lstrip().startswith("#")
+        and "dashboard_refresh.log" in line
+    )
+
+    assert dashboard_refresh.split(maxsplit=5)[:5] == ["30", "6", "*", "*", "2-6"]
+    assert str(DASHBOARD_REFRESH_WRAPPER) in dashboard_refresh
+    assert "--vercel-deploy" not in dashboard_refresh
+    assert "/Users/rziiiii/.openclaw/workspace" not in dashboard_refresh
 
 
 def test_operator_doc_scheduler_examples_include_current_production_flags():
@@ -230,6 +247,35 @@ def test_launchagent_runs_weekly_walkforward_after_postclose_refresh():
     assert plist["StandardErrorPath"] == str(PRODUCTION_ROOT / "runtime" / "soxl" / "wf_weekly.err")
 
 
+def test_launchagent_runs_local_dashboard_refresh_after_postclose():
+    with (ROOT / "production" / "com.soxl.dashboard.refresh.plist").open("rb") as f:
+        plist = plistlib.load(f)
+
+    intervals = plist["StartCalendarInterval"]
+    schedule = {
+        (entry["Weekday"], entry["Hour"], entry["Minute"])
+        for entry in intervals
+    }
+
+    assert plist["Label"] == "com.soxl.dashboard.refresh"
+    assert schedule == {
+        (2, 6, 30),
+        (3, 6, 30),
+        (4, 6, 30),
+        (5, 6, 30),
+        (6, 6, 30),
+    }
+    assert plist["ProgramArguments"][0] == str(DASHBOARD_REFRESH_WRAPPER)
+    assert plist["WorkingDirectory"] == str(PRODUCTION_ROOT)
+    assert plist["StandardOutPath"] == str(
+        PRODUCTION_ROOT / "runtime" / "soxl" / "paper_trading" / "dashboard_refresh.log"
+    )
+    assert plist["StandardErrorPath"] == str(
+        PRODUCTION_ROOT / "runtime" / "soxl" / "paper_trading" / "dashboard_refresh.err"
+    )
+    assert plist["EnvironmentVariables"]["SOXL_SCHEDULE_TRIGGER"] == "launchagent_dashboard_refresh"
+
+
 def test_launchagent_wrapper_exists_and_loads_private_env_file():
     wrapper = ROOT / "production" / "run_soxl_scheduler.sh"
 
@@ -238,9 +284,24 @@ def test_launchagent_wrapper_exists_and_loads_private_env_file():
 
     text = wrapper.read_text(encoding="utf-8")
     assert "SOXL_LAUNCH_ENV_FILE" in text
+
+
+def test_dashboard_refresh_wrapper_rebuilds_both_dashboards_without_remote_deploy():
+    wrapper = ROOT / "production" / "run_dashboard_refresh.sh"
+
+    assert wrapper.exists()
+    assert wrapper.stat().st_mode & 0o111
+
+    text = wrapper.read_text(encoding="utf-8")
+    assert "refresh_dashboard_model_replays.py" in text
+    assert "build_backtest_dashboard.py" in text
+    assert "build_dashboard_v2_data.py" in text
+    assert "check_dashboard_v2_data.py" in text
+    assert "deploy_vercel_dashboard.py" not in text
     assert "/opt/homebrew/bin" in text
     assert ". \"$ENV_FILE\"" in text
-    assert "soxl_daily_scheduler.py" in text
+    assert "soxl_daily_scheduler.py" not in text
+    assert "--broker" not in text
 
 
 def test_launchagent_wrapper_can_enable_runtime_composer_from_private_env_file():

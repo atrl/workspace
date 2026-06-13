@@ -98,6 +98,8 @@ def check_dashboard_v2_data(root: Path) -> dict[str, int]:
             _require_numeric(row, ("strategy_nav", "buyhold_nav", "position", "price"), f"model {profile} row")
             if row["action"] not in ACTION_VALUES:
                 raise ValueError(f"model {profile} row action must be BUY, SELL, or HOLD")
+            if not isinstance(row.get("feature_snapshot"), dict):
+                raise ValueError(f"model {profile} row missing feature_snapshot")
         _require_unique_dates(rows, f"model {profile} rows")
         events = model.get("events")
         if not isinstance(events, list):

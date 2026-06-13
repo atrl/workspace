@@ -41,6 +41,35 @@ export function computeCommonWindow(
   return { start: common[0], end: common[common.length - 1] };
 }
 
+export function computeDefaultChartWindow(
+  marketRows: readonly MarketRow[],
+  chartModelRows: readonly ModelRow[],
+): { start: string; end: string } | null {
+  return computeCommonWindow(marketRows, [chartModelRows]);
+}
+
+export function chooseDefaultChartProfile(
+  manifest: Manifest,
+  models: Record<string, ModelPayload>,
+): string {
+  const preferred = [
+    manifest.default_chart_profile,
+    ...manifest.default_comparison_profiles,
+    ...manifest.available_profiles,
+  ].filter((profile): profile is string => typeof profile === 'string' && profile in models);
+  const runnable = preferred.find((profile) => models[profile].runnable);
+  return runnable ?? preferred[0] ?? manifest.default_baseline_profile;
+}
+
+export function chartRangeRows(
+  models: Record<string, ModelPayload>,
+  chartProfile: string,
+  marketRows: readonly MarketRow[],
+): readonly { date: string }[] {
+  const rows = models[chartProfile]?.rows;
+  return rows && rows.length ? rows : marketRows;
+}
+
 export function clipRowsByDate<T extends { date: string }>(rows: readonly T[], start: string, end: string): T[] {
   return rows.filter((row) => row.date >= start && row.date <= end);
 }
@@ -170,6 +199,7 @@ export function buildActionFeatureRows(input: {
       if (!modelRow) return null;
       const eventSnapshot = eventSnapshotFor(model, input.date);
       const marketSnapshot = snapshotFromMarket(market.get(input.date), model.snapshot_columns);
+      const rowSnapshot = modelRow.feature_snapshot ?? {};
       return {
         profile,
         display_name: model.display_name || profile,
@@ -179,7 +209,11 @@ export function buildActionFeatureRows(input: {
         source_kind: model.source_kind,
         feature_packs: model.feature_packs,
         feature_columns: model.feature_columns,
-        features: Object.keys(eventSnapshot).length ? eventSnapshot : marketSnapshot,
+        features: Object.keys(rowSnapshot).length
+          ? rowSnapshot
+          : Object.keys(eventSnapshot).length
+            ? eventSnapshot
+            : marketSnapshot,
       };
     })
     .filter((row): row is ActionFeatureRow => row !== null);

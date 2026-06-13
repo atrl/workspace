@@ -8,7 +8,7 @@
         "refreshed": 0,
         "skipped": 0
       },
-      "generated_at": "2026-06-13T15:18:47+00:00",
+      "generated_at": "2026-06-13T16:28:57+00:00",
       "latest_data_date": "2026-06-12",
       "safe_backtest_end": "2026-06-11",
       "source_path": "dashboard_data/model_replay_freshness.json"
@@ -34,6 +34,14 @@
         "name": "postclose",
         "schedule": "06:15 Tue-Sat Asia/Shanghai",
         "source_path": "production/com.soxl.daily.scheduler.plist"
+      },
+      {
+        "command_path": "production/run_dashboard_refresh.sh",
+        "enabled": true,
+        "log_path": "runtime/soxl/paper_trading/dashboard_refresh.log",
+        "name": "dashboard_refresh",
+        "schedule": "06:30 Tue-Sat Asia/Shanghai",
+        "source_path": "production/com.soxl.dashboard.refresh.plist"
       }
     ],
     "timezone": "Asia/Shanghai"
@@ -43,11 +51,12 @@
     "balanced_rule_residual_v19_reg_v22_retest_v1"
   ],
   "default_baseline_profile": "soxl_backtest_policy_reimplementation_v1",
+  "default_chart_profile": "balanced_rule_residual_v19_reg_v22_retest_v1",
   "default_comparison_profiles": [
     "soxl_backtest_policy_reimplementation_v1",
     "balanced_rule_residual_v19_reg_v22_retest_v1"
   ],
-  "generated_at": "2026-06-13T15:24:49.900233+00:00",
+  "generated_at": "2026-06-13T16:29:02.226977+00:00",
   "latest_market_date": "2026-06-12",
   "safe_backtest_end": "2026-06-11",
   "source_paths": {

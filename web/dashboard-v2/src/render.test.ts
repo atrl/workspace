@@ -47,6 +47,14 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.textContent).toContain('1');
   });
 
+  test('labels comparison panel with actual visible comparison row dates', () => {
+    const panel = document.createElement('section');
+
+    renderComparisonPanel(panel, comparisonFixture, '2020-01-02', '2026-06-11');
+
+    expect(panel.textContent).toContain('3 rows | baseline balanced_rule_residual_v22 | 2026-01-02 to 2026-01-06');
+  });
+
   test('renders visible buy and sell action labels', () => {
     const panel = document.createElement('div');
 
