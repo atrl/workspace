@@ -1,0 +1,22 @@
+{
+  "actor_retention_allowed": false,
+  "created_at": "2026-06-13T18:44:03.242244+00:00",
+  "decision": "revise_fold_local_reentry_participation_targets_before_ppo",
+  "experiment": "state_objective_budget_gap_diagnostic_v1",
+  "largest_ytd_flat_positive_run_return_pct": 301.1137580990243,
+  "max_walkforward_drawdown_pct": 20.0,
+  "next_mechanism": "build_fold_local_reentry_participation_target_then_bc_or_ppo",
+  "ppo_allowed_from_current_target": false,
+  "promotion_allowed": false,
+  "reference_baseline": "soxlbacktest_qlib_buysell_reference",
+  "required_best_return_pct": 213.143462,
+  "required_soxlbacktest_return_pct": 132.077978,
+  "source_experiment": "state_objective_budget_usage_bc_official_replay_v1",
+  "structural_ytd_participation_gap": true,
+  "training_allowed_from_this_card": false,
+  "walkforward_drawdown_gap": true,
+  "worst_wf_max_drawdown_pct": 21.349091653065926,
+  "ytd_gap_to_best_pp": 185.95740992289734,
+  "ytd_gap_to_soxlbacktest_pp": 104.89192592289734,
+  "ytd_return_pct": 27.18605207710265
+}
