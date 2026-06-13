@@ -2271,11 +2271,11 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
           </div>
         </div>
         <div class="toolbar-group">
-          <label>Start</label>
+          <label>Chart Start</label>
           <input id="startDateInput" class="date-input" type="date">
         </div>
         <div class="toolbar-group">
-          <label>End</label>
+          <label>Chart End</label>
           <input id="endDateInput" class="date-input" type="date">
         </div>
         <div class="toolbar-group">
@@ -2297,6 +2297,8 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
             <select id="runProfileSelect" style="min-width:120px;padding:9px 10px;border-radius:8px;border:1px solid var(--line);background:var(--panel);font-size:13px;">
               <option value="">Select profile...</option>
             </select>
+            <input id="runStartDateInput" class="date-input" type="date">
+            <input id="runEndDateInput" class="date-input" type="date">
             <button class="btn primary" id="runBacktestBtn" type="button">Run</button>
           </div>
         </div>
@@ -2461,6 +2463,9 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     const chartMeta = document.getElementById('chartMeta');
     const startDateInput = document.getElementById('startDateInput');
     const endDateInput = document.getElementById('endDateInput');
+    const runProfileSelect = document.getElementById('runProfileSelect');
+    const runStartDateInput = document.getElementById('runStartDateInput');
+    const runEndDateInput = document.getElementById('runEndDateInput');
     const applyZoomBtn = document.getElementById('applyZoomBtn');
     const resetZoomBtn = document.getElementById('resetZoomBtn');
     const infoEmpty = document.getElementById('infoEmpty');
@@ -2481,6 +2486,8 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     const researchBacktestTable = document.getElementById('researchBacktestTable');
     const STORAGE_KEY = 'soxl-dashboard-state-v10';
     const hydratedVersionCache = {{}};
+    let indexVersionSummaries = {{}};
+    let modelReplayProfiles = [];
     const baseRowLookup = Object.fromEntries(
       ETFS.map(etf => [
         etf,
@@ -2797,6 +2804,67 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       if (!rows.length) return {{ start: '', end: '' }};
       return {{ start: rows[0].datetime, end: rows[rows.length - 1].datetime }};
     }}
+    function getVersionWindow(version, etf) {{
+      if (!version) return null;
+      const payload = DATA.versioned && DATA.versioned[version];
+      const payloadWindows = payload && payload.windows;
+      if (payloadWindows) {{
+        const direct = payloadWindows[etf] || payloadWindows.SOXL || Object.values(payloadWindows)[0];
+        if (direct && direct.start && direct.end) return direct;
+      }}
+      const summary = indexVersionSummaries[version] || {{}};
+      const summaryWindows = summary.windows || {{}};
+      const indexed = summaryWindows[etf] || summaryWindows.SOXL || Object.values(summaryWindows)[0];
+      if (indexed && indexed.start && indexed.end) return indexed;
+      const detail = payload && payload.detailed && (payload.detailed[etf] || payload.detailed.SOXL);
+      const rows = detail && detail.rows;
+      if (rows && rows.length) return {{ start: rows[0].datetime, end: rows[rows.length - 1].datetime, rows: rows.length }};
+      return null;
+    }}
+    function getBacktestBoundsForProfile(profile) {{
+      const window = getVersionWindow(profile, state.etf);
+      if (window) return {{ start: window.start, end: window.end }};
+      const profileRecord = modelReplayProfiles.find(item => item && item.profile === profile);
+      if (profileRecord && profileRecord.before_end) {{
+        return {{ start: '', end: profileRecord.after_end || profileRecord.before_end }};
+      }}
+      return null;
+    }}
+    function getBacktestBounds() {{
+      const selectedProfile = runProfileSelect ? runProfileSelect.value : '';
+      const selectedBounds = getBacktestBoundsForProfile(selectedProfile);
+      if (selectedBounds && selectedBounds.start && selectedBounds.end) return selectedBounds;
+      const windows = [];
+      Object.keys(DATA.versioned || {{}}).forEach(version => {{
+        if (version === 'paper_trading' || String(version).startsWith('rerun:')) return;
+        const window = getVersionWindow(version, state.etf);
+        if (window && window.start && window.end) windows.push(window);
+      }});
+      Object.keys(indexVersionSummaries || {{}}).forEach(version => {{
+        if (version === 'paper_trading' || String(version).startsWith('rerun:')) return;
+        const window = getVersionWindow(version, state.etf);
+        if (window && window.start && window.end) windows.push(window);
+      }});
+      if (windows.length) {{
+        return {{
+          start: windows.map(w => w.start).sort()[0],
+          end: windows.map(w => w.end).sort().slice(-1)[0],
+        }};
+      }}
+      return getDateBounds(getRangeRows(getDetailed(state.etf).rows));
+    }}
+    function syncBacktestInputs(reset = false) {{
+      if (!runStartDateInput || !runEndDateInput) return;
+      const bounds = getBacktestBounds();
+      runStartDateInput.min = bounds.start || '';
+      runStartDateInput.max = bounds.end || '';
+      runEndDateInput.min = bounds.start || '';
+      runEndDateInput.max = bounds.end || '';
+      const startOutOfBounds = runStartDateInput.value && bounds.start && runStartDateInput.value < bounds.start;
+      const endOutOfBounds = runEndDateInput.value && bounds.end && runEndDateInput.value > bounds.end;
+      if (reset || !runStartDateInput.value || startOutOfBounds) runStartDateInput.value = bounds.start || '';
+      if (reset || !runEndDateInput.value || endOutOfBounds) runEndDateInput.value = bounds.end || '';
+    }}
     function getFilteredRows(rows) {{
       let filtered = getRangeRows(rows);
       if (state.zoomStart) {{
@@ -2820,6 +2888,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       endDateInput.max = bounds.end;
       startDateInput.value = state.zoomStart || bounds.start;
       endDateInput.value = state.zoomEnd || bounds.end;
+      syncBacktestInputs();
     }}
     function applyZoomPreset(mode) {{
       const bounds = getDateBounds(getRangeRows(getDetailed(state.etf).rows));
@@ -2851,6 +2920,129 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       saveState();
       syncZoomInputs();
       renderChart();
+    }}
+
+    function runProfileLabel(profile) {{
+      const window = getVersionWindow(profile, state.etf);
+      if (window) return `${{profile}} · ${{window.start}} → ${{window.end}}`;
+      const record = modelReplayProfiles.find(item => item && item.profile === profile);
+      if (record && (record.after_end || record.before_end)) {{
+        return `${{profile}} · end ${{record.after_end || record.before_end}}`;
+      }}
+      return profile;
+    }}
+    function runnableProfilesFromVersions(versions) {{
+      const names = [];
+      (versions || []).forEach(version => {{
+        if (!version || version === 'paper_trading' || String(version).startsWith('rerun:')) return;
+        if (getVersionWindow(version, state.etf)) names.push(version);
+      }});
+      return names;
+    }}
+    function populateRunProfileSelect(profileSource, resetWindow = false) {{
+      if (!runProfileSelect) return;
+      const previous = runProfileSelect.value;
+      const names = [];
+      const seen = new Set();
+      (profileSource || []).forEach(item => {{
+        const name = typeof item === 'string' ? item : (item && item.profile);
+        const result = typeof item === 'string' ? 'current' : (item && item.result);
+        if (!name || seen.has(name) || name === 'paper_trading' || String(name).startsWith('rerun:')) return;
+        if (result === 'failed' || result === 'skipped') return;
+        seen.add(name);
+        names.push(name);
+      }});
+      const fallback = runnableProfilesFromVersions(VERSIONS);
+      fallback.forEach(name => {{
+        if (!seen.has(name)) {{
+          seen.add(name);
+          names.push(name);
+        }}
+      }});
+      runProfileSelect.innerHTML = '<option value="">Select profile...</option>';
+      names.forEach(name => {{
+        const opt = document.createElement('option');
+        opt.value = name;
+        opt.textContent = runProfileLabel(name);
+        runProfileSelect.appendChild(opt);
+      }});
+      if (previous && seen.has(previous)) runProfileSelect.value = previous;
+      syncBacktestInputs(resetWindow || !runStartDateInput.value || !runEndDateInput.value);
+    }}
+    function upsertVersionOption(version, label) {{
+      let opt = Array.from(versionSelect.options).find(item => item.value === version);
+      if (!opt) {{
+        opt = document.createElement('option');
+        opt.value = version;
+        versionSelect.appendChild(opt);
+      }}
+      opt.textContent = label || version;
+    }}
+    function registerBacktestResult(data, profile, start, end) {{
+      const rows = Array.isArray(data.rows) ? data.rows : [];
+      const trades = Array.isArray(data.trades) ? data.trades : computeTradesFromRows(rows);
+      const strategyReturn = rows.length > 1 && rows[0].strategy_nav
+        ? (rows[rows.length - 1].strategy_nav / rows[0].strategy_nav - 1)
+        : 0;
+      const buyholdReturn = rows.length > 1 && rows[0].buyhold_nav
+        ? (rows[rows.length - 1].buyhold_nav / rows[0].buyhold_nav - 1)
+        : 0;
+      const summary = {{
+        etf: state.etf,
+        strategy_return: strategyReturn,
+        buyhold_return: buyholdReturn,
+        excess_return: strategyReturn - buyholdReturn,
+        max_dd_strategy: Math.abs(Number(data.summary && data.summary.max_dd) || 0) / 100,
+        max_dd_buyhold: 0,
+        trades: Number(data.summary && data.summary.trades) || trades.length,
+        buy_count: rows.filter(r => r.action === 'BUY').length,
+        sell_count: rows.filter(r => r.action === 'SELL').length,
+        max_position: rows.length ? Math.max(...rows.map(r => Number(r.position) || 0)) : 0,
+        min_position: rows.length ? Math.min(...rows.map(r => Number(r.position) || 0)) : 0,
+      }};
+      const resultVersion = `rerun:${{profile}}:${{start}}:${{end}}`;
+      if (!DATA.versioned) DATA.versioned = {{}};
+      DATA.versioned[resultVersion] = {{
+        detailed: {{
+          [state.etf]: {{
+            summary,
+            rows,
+            trades,
+            csv_path: null,
+            kelly: computeKellyStatsFromTrades(trades),
+            regime_shapes: [],
+          }},
+        }},
+        windows: data.windows || {{
+          [state.etf]: {{ start, end, rows: rows.length }},
+        }},
+        _meta: {{
+          source_kind: 'interactive_backtest',
+          profile,
+          start_date: start,
+          end_date: end,
+          updated_at: Date.now() / 1000,
+        }},
+      }};
+      if (!DATA.versioned[resultVersion].windows[state.etf]) {{
+        DATA.versioned[resultVersion].windows[state.etf] = {{ start, end, rows: rows.length }};
+      }}
+      if (!VERSIONS.includes(resultVersion)) VERSIONS.unshift(resultVersion);
+      indexVersionSummaries[resultVersion] = {{
+        etfs: [state.etf],
+        windows: DATA.versioned[resultVersion].windows,
+        meta: DATA.versioned[resultVersion]._meta,
+      }};
+      upsertVersionOption(resultVersion, `${{resultVersion}} · rows ${{rows.length}} · interactive`);
+      state.version = resultVersion;
+      state.versionSource = 'manual';
+      state.range = 'all';
+      state.zoomMode = 'all';
+      state.zoomStart = null;
+      state.zoomEnd = null;
+      clearSegmentMode();
+      saveState();
+      return resultVersion;
     }}
 
     function initControls() {{
@@ -2915,16 +3107,8 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       applyZoomBtn.addEventListener('click', applyCustomZoom);
       resetZoomBtn.addEventListener('click', () => applyZoomPreset('all'));
 
-      // Populate run-profile selector from versionSelect options
-      const runProfileSelect = document.getElementById('runProfileSelect');
-      versionSelect.querySelectorAll('option').forEach(opt => {{
-        if (opt.value) {{
-          const ropt = document.createElement('option');
-          ropt.value = opt.value;
-          ropt.textContent = opt.textContent;
-          runProfileSelect.appendChild(ropt);
-        }}
-      }});
+      populateRunProfileSelect(VERSIONS, true);
+      runProfileSelect.addEventListener('change', () => syncBacktestInputs(true));
 
       // Slice & Recompute button
       document.getElementById('sliceRecomputeBtn').addEventListener('click', recomputeSegment);
@@ -3017,21 +3201,22 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     }}
 
     async function runSegmentBacktest() {{
-      const profile = document.getElementById('runProfileSelect').value;
+      const profile = runProfileSelect.value;
       if (!profile) {{
         alert('Please select a profile first');
         return;
       }}
-      const start = startDateInput.value;
-      const end = endDateInput.value;
+      let start = runStartDateInput.value;
+      let end = runEndDateInput.value;
       if (!start || !end) {{
         alert('Please set start and end dates');
         return;
       }}
+      if (start > end) {{ [start, end] = [end, start]; }}
 
       showLoading(`Running backtest: ${{profile}} [${{start}} → ${{end}}]...`);
       try {{
-        const resp = await fetch('http://localhost:8765/api/run-backtest', {{
+        const resp = await fetch('/api/run-backtest', {{
           method: 'POST',
           headers: {{ 'Content-Type': 'application/json' }},
           body: JSON.stringify({{ profile, start_date: start, end_date: end, tag: '' }}),
@@ -3045,34 +3230,17 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
           throw new Error(data.error);
         }}
 
-        // Inject result into DATA.detailed for current ETF
-        DATA.detailed[state.etf] = {{
-          summary: {{
-            strategy_return: data.summary.return / 100,
-            buyhold_return: (data.rows[data.rows.length - 1].buyhold_nav / data.rows[0].buyhold_nav - 1),
-            excess_return: (data.rows[data.rows.length - 1].strategy_nav / data.rows[0].strategy_nav - 1) - (data.rows[data.rows.length - 1].buyhold_nav / data.rows[0].buyhold_nav - 1),
-            max_dd_strategy: Math.abs(data.summary.max_dd) / 100,
-            max_dd_buyhold: 0,
-            trades: data.summary.trades,
-            buy_count: data.rows.filter(r => r.action === 'BUY').length,
-            sell_count: data.rows.filter(r => r.action === 'SELL').length,
-            max_position: Math.max(...data.rows.map(r => r.position)),
-            min_position: Math.min(...data.rows.map(r => r.position)),
-          }},
-          rows: data.rows,
-          trades: data.trades,
-          csv_path: null,
-          kelly: {{}},
-          regime_shapes: [],
-        }};
-        DATA.windows[state.etf] = data.windows.SOXL;
+        const resultVersion = registerBacktestResult(data, profile, start, end);
 
         hideLoading();
         render();
-        chartMeta.innerHTML = `<span style="color:var(--good);">✓ Backtest complete: Return ${{data.summary.return}}% | Sharpe ${{data.summary.sharpe}} | Trades ${{data.summary.trades}}</span>`;
+        chartMeta.innerHTML = `<span style="color:var(--good);">✓ Backtest complete: ${{resultVersion}} | Return ${{data.summary.return}}% | Sharpe ${{data.summary.sharpe}} | Trades ${{data.summary.trades}}</span>`;
       }} catch (err) {{
         hideLoading();
-        chartMeta.innerHTML = `<span style="color:var(--bad);">✗ ${{err.message}}</span>`;
+        const serverHint = window.location.protocol === 'file:'
+          ? '请用 qlib_venv/bin/python scripts/dashboard_server.py 启动后访问 http://127.0.0.1:8765/dashboard.html'
+          : '请确认当前页面由 scripts/dashboard_server.py 提供，而不是普通静态 http.server。';
+        chartMeta.innerHTML = `<span style="color:var(--bad);">✗ ${{err.message}} · ${{serverHint}}</span>`;
         console.error(err);
       }}
     }}
@@ -3334,6 +3502,10 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
         loadJson('dashboard_data/versioned/paper_trading/SOXL.json'),
         loadJson('dashboard_data/model_replay_freshness.json'),
       ]);
+      if (modelReplay && Array.isArray(modelReplay.profiles)) {{
+        modelReplayProfiles = modelReplay.profiles;
+        populateRunProfileSelect(modelReplayProfiles, true);
+      }}
       renderProductionStatus(
         status || {{ status: 'unavailable' }},
         goalGates,
@@ -3356,6 +3528,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       const idx = await loadJson(`${{DATA_BASE}}/index.json`);
       if (!idx) return;
       _indexLoaded = true;
+      indexVersionSummaries = idx.version_summaries || {{}};
       // Populate version selector from index
       versionSelect.innerHTML = '';
       const defaultOpt = document.createElement('option');
@@ -3377,16 +3550,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
           loadVersionData(state.version, state.etf).then(() => render());
         }}
       }}
-      // Sync run-profile selector
-      const runProfileSelect = document.getElementById('runProfileSelect');
-      runProfileSelect.innerHTML = '<option value=\"\">Select profile...</option>';
-      (idx.versions || []).forEach(v => {{
-        const vs = idx.version_summaries[v] || {{}};
-        const ropt = document.createElement('option');
-        ropt.value = v;
-        ropt.textContent = versionOptionLabel(v, vs);
-        runProfileSelect.appendChild(ropt);
-      }});
+      populateRunProfileSelect(modelReplayProfiles.length ? modelReplayProfiles : (idx.versions || []), true);
     }}
 
     async function loadVersionData(version, etf) {{

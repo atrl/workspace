@@ -77,6 +77,23 @@ newer than the replay curve.
 dashboard build by default. Use `--skip-model-replay-refresh` only for fast
 diagnostic runs where stale model curves are acceptable.
 
+### Interactive Main Chart Reruns
+
+For selectable-window reruns from the Main Chart, use the dashboard API server,
+not a plain static server:
+
+```bash
+qlib_venv/bin/python scripts/dashboard_server.py --port 8765
+# open http://127.0.0.1:8765/dashboard.html
+```
+
+The chart Start/End inputs control only the visible chart window. The Run Model
+Backtest inputs use the replayable model window, so they are not locked to the
+short `paper_trading` display range. A successful rerun is registered in the
+browser as `rerun:<profile>:<start>:<end>` and selected in the Model dropdown.
+Opening `dashboard.html` through `file://` or a plain `python -m http.server`
+can inspect static data but cannot perform backend model inference.
+
 If the dashboard opens on an older run after fresh training, check:
 - whether the latest `*_soxl_daily.csv` was written
 - whether `scripts/build_backtest_dashboard.py` was rerun

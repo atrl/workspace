@@ -772,3 +772,21 @@ def test_build_html_loads_production_status_json():
     assert "paperMeta.latest_data_date" in html
     assert "paperMeta.latest_signal_date" in html
     assert ".metric .k {\\n    .metric .k" not in html
+
+
+def test_build_html_run_backtest_uses_same_origin_api_and_dedicated_window_inputs():
+    html = build_html({"detailed": {}, "versioned": {}, "model_versions": []}, {"all": {}})
+
+    assert 'id="runStartDateInput"' in html
+    assert 'id="runEndDateInput"' in html
+    assert "fetch('/api/run-backtest'" in html
+    assert "http://localhost:8765/api/run-backtest" not in html
+
+
+def test_build_html_registers_backtest_result_as_selectable_version():
+    html = build_html({"detailed": {}, "versioned": {}, "model_versions": []}, {"all": {}})
+
+    assert "function registerBacktestResult" in html
+    assert "DATA.versioned[resultVersion]" in html
+    assert "state.version = resultVersion" in html
+    assert "DATA.detailed[state.etf] =" not in html
