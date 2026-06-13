@@ -1,0 +1,42 @@
+{
+  "experiment": "state_conditioned_ytd_participation_rescue_v1",
+  "decision": "participation_rescue_improves_return_but_fails_drawdown_no_actor_retention",
+  "promotion_allowed": false,
+  "actor_retention_allowed": false,
+  "role": "diagnose",
+  "baseline": "state_conditioned_multi_objective_ytd_gate_v1",
+  "reference_baseline": "soxl_backtest_policy_reimplementation_v1",
+  "changed_layer": [
+    "reward",
+    "selection",
+    "sampling"
+  ],
+  "target_window": [
+    "test_2020",
+    "test_2022",
+    "test_2023_2024",
+    "ytd_2026"
+  ],
+  "accepted_tradeoff": "Only accept higher participation if full and walk-forward MaxDD remain below 20% and YTD return clears the SOXLBacktest/current-best floors.",
+  "closest_success_case": "sequence_trend_joint_bc_screen_v1 trend_plus_slope_low_cap15_weighted improved fold drawdown/relative metrics but was BC-only",
+  "closest_failure_case": "state_conditioned_multi_objective_ytd_gate_v1 solved drawdown by underparticipating; full replay YTD return was only 18.97%",
+  "why_not_duplicate": "This run adds a stronger trend preservation floor, higher rebound target, warm-start, and test_proxy return Pareto objective specifically to test the participation side of the prior low-drawdown failure.",
+  "selected_candidate": "full_warm_start_actor",
+  "selected_candidate_allowed_for_retention": false,
+  "failure_mode": "participation lift creates unacceptable full-history and 2022 drawdown while still missing the YTD return floor",
+  "summary_path": "runtime/model_selection/card/state_conditioned_ytd_participation_rescue_v1/summary.json",
+  "notebook_path": "runtime/model_selection/card/state_conditioned_ytd_participation_rescue_v1/state_conditioned_ytd_participation_rescue_v1.ipynb",
+  "profile_yaml": "runtime/model_selection/card/state_conditioned_ytd_participation_rescue_v1/profile.yaml",
+  "replay_artifacts": {
+    "smoke_selected_replay": "runtime/model_selection/card/state_conditioned_ytd_participation_rescue_v1/smoke_selected_replay.csv",
+    "full_selected_replay": "runtime/model_selection/card/state_conditioned_ytd_participation_rescue_v1/full_selected_replay.csv"
+  },
+  "gate_result": {
+    "full_fixed_split_gate": false,
+    "full_replay_maxdd_gate": false,
+    "full_ytd_soxlbacktest_return_gate": false,
+    "full_ytd_current_best_alignment_gate": false,
+    "walk_forward_gate": false
+  },
+  "next_mechanism": "drawdown_gated_warmstart_checkpoint_selector_before_any_new_actor_retention_attempt"
+}

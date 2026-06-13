@@ -550,6 +550,15 @@ profiles:
   notes_ref: runtime/model_selection/card/state_conditioned_multi_objective_ytd_gate_v1/state_conditioned_multi_objective_ytd_gate_v1.ipynb
   wf_status: pending
   wf_notes: "Candidate profile created from retention_ytd_training_objective_handoff_v1; actor retention blocked until official wf_2020/wf_2022/wf_2023_2024 plus YTD gates pass."
+- name: state_conditioned_ytd_participation_rescue_v1
+  family: balanced
+  status: candidate
+  baseline: state_conditioned_multi_objective_ytd_gate_v1
+  keep_actor: false
+  keep_summary: true
+  notes_ref: runtime/model_selection/card/state_conditioned_ytd_participation_rescue_v1/state_conditioned_ytd_participation_rescue_v1.ipynb
+  wf_status: pending
+  wf_notes: "Successor after state_conditioned_multi_objective_ytd_gate_v1 solved drawdown by staying too flat; actor retention blocked until official WF and YTD participation gates pass."
 - name: balanced_kelly_warmstart_v9
   family: balanced
   status: candidate

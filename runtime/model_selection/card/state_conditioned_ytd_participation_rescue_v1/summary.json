@@ -1,0 +1,122 @@
+{
+  "experiment": "state_conditioned_ytd_participation_rescue_v1",
+  "decision": "participation_rescue_improves_return_but_fails_drawdown_no_actor_retention",
+  "promotion_allowed": false,
+  "actor_retention_allowed": false,
+  "training_allowed_next": false,
+  "profile_yaml": "runtime/model_selection/card/state_conditioned_ytd_participation_rescue_v1/profile.yaml",
+  "source_failure": "runtime/model_selection/card/state_conditioned_multi_objective_ytd_gate_v1/summary.json",
+  "baseline": "state_conditioned_multi_objective_ytd_gate_v1",
+  "changed_layer": [
+    "reward",
+    "selection",
+    "sampling"
+  ],
+  "hypothesis": "Raise trend/YTD participation with a stronger trend preservation floor, rebound target, warm-start, and Pareto return objective while preserving the fixed 2022 drawdown gate.",
+  "target_thresholds": {
+    "wf_max_drawdown_hard_gate_pct": 20.0,
+    "soxlbacktest_reference_ytd_return_pct": 132.077978,
+    "required_current_best_alignment_ytd_pct": 213.143462,
+    "safe_backtest_end": "2026-06-11"
+  },
+  "smoke_training": {
+    "exit_code": 0,
+    "warm_start_enabled": false,
+    "selection_winner_iter": 12,
+    "valid_return_pct": 3.5467986206712876,
+    "valid_sharpe": 0.31714502961982327,
+    "valid_max_dd_pct": 17.487884304200215,
+    "test_proxy_return_pct": 210.12473288763042,
+    "test_proxy_sharpe": 0.9611897615777513,
+    "test_proxy_max_dd_pct": 20.09516619261026,
+    "test_2022_return_pct": -13.670294776296599,
+    "test_2022_max_dd_pct": 17.37037123511142,
+    "test_2023_2024_return_pct": 29.491459027031386,
+    "promotion": "blocked_missing_walk_forward_and_test_proxy_drawdown_margin"
+  },
+  "smoke_explicit_replay": {
+    "full": {
+      "rows": 1619,
+      "start": "2020-01-02",
+      "end": "2026-06-11",
+      "return_pct": 215.26557088834755,
+      "buyhold_return_pct": 1050.7911909972836,
+      "relative_return_pp": -835.525620108936,
+      "max_dd_pct": 20.11855048429863,
+      "avg_pos": 0.14634018282773473,
+      "max_pos": 0.6909627389938595,
+      "trades": 197
+    },
+    "ytd_2026": {
+      "rows": 111,
+      "start": "2026-01-02",
+      "end": "2026-06-11",
+      "return_pct": 25.968367485799714,
+      "buyhold_return_pct": 374.15325473043845,
+      "relative_return_pp": -348.18488724463873,
+      "max_dd_pct": 7.65811611363799,
+      "avg_pos": 0.053397449633860755,
+      "max_pos": 0.3928482126441038,
+      "trades": 19
+    }
+  },
+  "full_training": {
+    "exit_code": 0,
+    "warm_start_enabled": true,
+    "warm_start_loss": 0.9049,
+    "warm_start_accuracy": 1.0,
+    "selection_winner_iter": 0,
+    "valid_return_pct": 10.5,
+    "valid_sharpe": 0.56,
+    "valid_max_dd_pct": 26.5,
+    "test_proxy_return_pct": 651.8,
+    "test_proxy_sharpe": 1.11,
+    "test_proxy_max_dd_pct": 35.4,
+    "test_2022_max_dd_pct": 21.667549489719065,
+    "promotion": "blocked_fixed_split_and_test_proxy_drawdown"
+  },
+  "full_explicit_replay": {
+    "full": {
+      "rows": 1619,
+      "start": "2020-01-02",
+      "end": "2026-06-11",
+      "return_pct": 507.5276907761861,
+      "buyhold_return_pct": 1050.7911909972836,
+      "relative_return_pp": -543.2635002210975,
+      "max_dd_pct": 40.12928125108847,
+      "avg_pos": 0.3097036321249938,
+      "max_pos": 0.8715692069021644,
+      "trades": 275
+    },
+    "ytd_2026": {
+      "rows": 111,
+      "start": "2026-01-02",
+      "end": "2026-06-11",
+      "return_pct": 78.61535094051087,
+      "buyhold_return_pct": 374.15325473043845,
+      "relative_return_pp": -295.53790378992755,
+      "max_dd_pct": 15.08727370191067,
+      "avg_pos": 0.14595433130811644,
+      "max_pos": 0.6278961588551164,
+      "trades": 21
+    }
+  },
+  "gate_result": {
+    "smoke_full_maxdd_gate": false,
+    "smoke_ytd_soxlbacktest_return_gate": false,
+    "smoke_ytd_current_best_alignment_gate": false,
+    "full_fixed_split_gate": false,
+    "full_replay_maxdd_gate": false,
+    "full_ytd_maxdd_gate": true,
+    "full_ytd_soxlbacktest_return_gate": false,
+    "full_ytd_current_best_alignment_gate": false,
+    "walk_forward_gate": false
+  },
+  "conclusion": [
+    "The successor profile moved in the intended direction on participation: smoke full replay return improved to 215.27% vs the previous profile's 126.14%, and full warm-start replay reached 507.53%.",
+    "The trade-off is unacceptable: smoke full replay MaxDD is still 20.12%, and full warm-start replay MaxDD rises to 40.13%; full fixed-split 2022 MaxDD also exceeds the 20% gate.",
+    "YTD participation is still not enough for retention: full warm-start YTD return is 78.62%, below the 132.08% SOXLBacktest floor and far below the 213.14% current-best alignment floor.",
+    "No actor or checkpoint should be retained from this run."
+  ],
+  "next_mechanism": "use the warm-start participation lift only inside a stricter drawdown-gated checkpoint selector or add an explicit path drawdown cap before another retained-model attempt"
+}

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-13T15:48:01.869248+00:00",
+  "generated_at": "2026-06-13T16:08:29.258624+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -9708,6 +9708,30 @@
       "category": "model_selection",
       "suffix": ".csv",
       "bytes": 2662
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_ytd_participation_rescue_v1/full_selected_replay.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 202975
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_ytd_participation_rescue_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2481
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_ytd_participation_rescue_v1/smoke_selected_replay.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 200849
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_ytd_participation_rescue_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 4910
     },
     {
       "path": "runtime/model_selection/card/state_head_fold_consensus_target_v1/base_context.json",

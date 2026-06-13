@@ -107,3 +107,30 @@ def test_state_conditioned_multi_objective_candidate_is_pre_promotion_only():
     assert profile.promotion_gate.min_wf_relative_outperformance >= 30.0
     assert profile.selection_score.use_pareto is True
     assert profile.checkpoint_retention.enabled is True
+
+
+def test_state_conditioned_ytd_participation_rescue_candidate_targets_underparticipation():
+    name = "state_conditioned_ytd_participation_rescue_v1"
+    registry = load_profile_registry()
+    entry = registry[name]
+    profile = load_profile(name)
+
+    assert entry.status == "candidate"
+    assert entry.baseline == "state_conditioned_multi_objective_ytd_gate_v1"
+    assert entry.keep_actor is False
+    assert entry.keep_summary is True
+    assert entry.notes_ref.endswith(
+        "runtime/model_selection/card/state_conditioned_ytd_participation_rescue_v1/"
+        "state_conditioned_ytd_participation_rescue_v1.ipynb"
+    )
+    assert profile.reward.state_conditioned_reward_enabled is True
+    assert profile.reward.drawdown_drift_reward_enabled is True
+    assert profile.reward.trend_preservation_floor_enabled is True
+    assert profile.reward.trend_preservation_floor_position >= 0.50
+    assert profile.reward.state_rebound_target_position >= 0.55
+    assert profile.mode_router.trend_hold_floor >= 0.60
+    assert profile.position_cap.bull_min_cap >= 0.75
+    assert "test_proxy_return" in profile.selection_score.pareto_objectives
+    assert "test_proxy_max_dd" in profile.selection_score.pareto_objectives
+    assert profile.promotion_gate.max_test_2022_drawdown <= 20.0
+    assert profile.promotion_gate.min_wf_relative_outperformance >= 30.0
