@@ -3216,6 +3216,8 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
           profile,
           start_date: resultWindow.start,
           end_date: resultWindow.end,
+          warmup_start_date: data.warmup_start_date || resultWindow.start,
+          replay_aligned: Boolean(data.replay_aligned),
           requested_start_date: start,
           requested_end_date: end,
           updated_at: Date.now() / 1000,
@@ -3454,10 +3456,13 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
         const requestedNote = (resultWindow.start === start && resultWindow.end === end)
           ? ''
           : ` · requested ${{start}} → ${{end}}`;
+        const warmupNote = data.replay_aligned && data.warmup_start_date
+          ? ` · replay warmup ${{data.warmup_start_date}}`
+          : '';
 
         hideLoading();
         render();
-        chartMeta.innerHTML = `<span style="color:var(--good);">✓ Backtest complete: ${{resultVersion}} · effective ${{resultWindow.start}} → ${{resultWindow.end}}${{requestedNote}} | Return ${{data.summary.return}}% | Sharpe ${{data.summary.sharpe}} | Trades ${{data.summary.trades}}</span>`;
+        chartMeta.innerHTML = `<span style="color:var(--good);">✓ Backtest complete: ${{resultVersion}} · effective ${{resultWindow.start}} → ${{resultWindow.end}}${{requestedNote}}${{warmupNote}} | Return ${{data.summary.return}}% | Sharpe ${{data.summary.sharpe}} | Trades ${{data.summary.trades}}</span>`;
       }} catch (err) {{
         hideLoading();
         const serverHint = window.location.protocol === 'file:'

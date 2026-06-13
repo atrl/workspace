@@ -9,6 +9,7 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import csv
 import json
 import sys
 import urllib.parse
@@ -17,6 +18,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
+DASHBOARD_DATA_DIR = ROOT / "dashboard_data"
 
 try:
     from run_segment_backtest import (
@@ -34,6 +36,7 @@ from src.soxl_quant.policy.policy_builder import build_policy
 from src.soxl_quant.settings import (
     ACCOUNT,
     QLIB_DATA_PATH,
+    TEST_SEG,
     load_profile,
     model_artifact_path,
 )
@@ -157,6 +160,81 @@ def _response_window_from_rows(
     return {"start": requested_start, "end": requested_end, "rows": 0}
 
 
+def _first_csv_date(csv_path: Path) -> str:
+    try:
+        with csv_path.open("r", encoding="utf-8", newline="") as handle:
+            for row in csv.DictReader(handle):
+                dt = str(row.get("datetime") or row.get("date") or "").strip()
+                if dt:
+                    return dt
+    except Exception:
+        return ""
+    return ""
+
+
+def _profile_replay_start(profile_name: str) -> str:
+    manifest_path = DASHBOARD_DATA_DIR / "model_replay_freshness.json"
+    try:
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    except Exception:
+        return ""
+    for record in manifest.get("profiles") or []:
+        if not isinstance(record, dict):
+            continue
+        if str(record.get("profile") or "").strip() != profile_name:
+            continue
+        output = str(record.get("output") or "").strip()
+        if not output:
+            return ""
+        return _first_csv_date(ROOT / output)
+    return ""
+
+
+def _warmup_start_date(profile_name: str, requested_start: str) -> str:
+    replay_start = _profile_replay_start(profile_name)
+    if replay_start and replay_start < requested_start:
+        return replay_start
+    return requested_start
+
+
+def _backtest_request_scope(
+    profile_name: str,
+    requested_start: str,
+    requested_end: str,
+    *,
+    default_test_seg: tuple[str, str] = TEST_SEG,
+) -> dict[str, object]:
+    warmup_start = _warmup_start_date(profile_name, requested_start)
+    replay_aligned = warmup_start < requested_start
+    if replay_aligned:
+        return {
+            "warmup_start": warmup_start,
+            "feature_start": warmup_start,
+            "feature_end": "",
+            "test_seg": default_test_seg,
+            "replay_aligned": True,
+        }
+    return {
+        "warmup_start": requested_start,
+        "feature_start": requested_start,
+        "feature_end": requested_end,
+        "test_seg": (requested_start, requested_end),
+        "replay_aligned": False,
+    }
+
+
+def _slice_daily_rows(
+    rows: list[dict[str, object]],
+    requested_start: str,
+    requested_end: str,
+) -> list[dict[str, object]]:
+    return [
+        row
+        for row in rows
+        if requested_start <= str(row.get("datetime") or "") <= requested_end
+    ]
+
+
 class DashboardHandler(SimpleHTTPRequestHandler):
     """Custom handler: static files + /api/run-backtest endpoint."""
 
@@ -197,8 +275,15 @@ class DashboardHandler(SimpleHTTPRequestHandler):
 
         try:
             dataset = _ensure_qlib()
+            scope = _backtest_request_scope(profile_name, start_date, end_date)
+            warmup_start_date = str(scope["warmup_start"])
+            feature_start = str(scope["feature_start"])
+            feature_end = str(scope["feature_end"])
             full_df = _segment_frame(dataset, "test")
-            seg_df = full_df.loc[start_date:end_date]
+            if feature_end:
+                seg_df = full_df.loc[feature_start:feature_end]
+            else:
+                seg_df = full_df.loc[feature_start:]
 
             if seg_df.empty:
                 self._send_json({"error": f"No data for {start_date} to {end_date}"}, 400)
@@ -230,7 +315,7 @@ class DashboardHandler(SimpleHTTPRequestHandler):
                 position_budget_config=profile.position_budget,
                 execution_config=profile.execution,
                 symbol="SOXL",
-                test_seg=(start_date, end_date),
+                test_seg=scope["test_seg"],
                 model_config=profile.model,
             )
 
@@ -239,13 +324,14 @@ class DashboardHandler(SimpleHTTPRequestHandler):
             account = pdf["account"].astype(float)
             from scripts.build_backtest_dashboard import load_ohlc_and_indicators
 
-            rows = _build_daily_rows(
+            all_rows = _build_daily_rows(
                 account=account,
                 price=price,
                 position_history=result.get("position_history", []),
                 trade_signals=result.get("trade_signals", []),
                 market_lookup=load_ohlc_and_indicators("SOXL"),
             )
+            rows = _slice_daily_rows(all_rows, start_date, end_date)
 
             # Metrics
             metrics = _compute_metrics_from_daily(rows)
@@ -260,6 +346,8 @@ class DashboardHandler(SimpleHTTPRequestHandler):
                 "tag": tag,
                 "start_date": start_date,
                 "end_date": end_date,
+                "warmup_start_date": warmup_start_date,
+                "replay_aligned": bool(scope["replay_aligned"]),
                 "effective_start_date": window["start"],
                 "effective_end_date": window["end"],
                 "summary": metrics,

@@ -960,6 +960,9 @@ def test_build_html_registers_backtest_result_as_selectable_version():
     assert "function getBacktestResultWindow(data, fallbackStart, fallbackEnd)" in html
     assert "const resultWindow = getBacktestResultWindow(data, start, end);" in html
     assert "const resultVersion = `rerun:${profile}:${resultWindow.start}:${resultWindow.end}`;" in html
+    assert "warmup_start_date: data.warmup_start_date || resultWindow.start" in html
+    assert "replay_aligned: Boolean(data.replay_aligned)" in html
+    assert "replay warmup" in html
     assert "DATA.versioned[resultVersion]" in html
     assert "state.version = resultVersion" in html
     assert "DATA.detailed[state.etf] =" not in html
