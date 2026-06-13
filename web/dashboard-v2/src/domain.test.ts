@@ -8,6 +8,7 @@ import {
   computeVisibleComparison,
 } from './domain';
 import { comparisonFixture, manifestFixture, marketFixture, modelFixture } from './testFixtures';
+import { viewUpdateRequiresChartRender } from './viewState';
 
 describe('dashboard v2 domain helpers', () => {
   test('clamps comparison profiles to two through four unique models', () => {
@@ -54,5 +55,12 @@ describe('dashboard v2 domain helpers', () => {
     expect(rows.some((row) => row.label === 'SOXL close' && row.value === '11.00')).toBe(true);
     expect(rows.some((row) => row.label === 'smoke action' && row.value === 'BUY')).toBe(true);
     expect(rows.some((row) => row.label === 'action mismatches' && row.value === '1')).toBe(true);
+  });
+
+  test('treats hover-only updates as inspector updates instead of chart renders', () => {
+    expect(viewUpdateRequiresChartRender({ hoveredDate: '2026-01-06' })).toBe(false);
+    expect(viewUpdateRequiresChartRender({ start: '2026-01-05' })).toBe(true);
+    expect(viewUpdateRequiresChartRender({ selectedProfiles: ['smoke', 'balanced_rule_residual_v22'] })).toBe(true);
+    expect(viewUpdateRequiresChartRender({ baselineProfile: 'balanced_rule_residual_v22' })).toBe(true);
   });
 });

@@ -1,0 +1,1155 @@
+{
+  "actor": null,
+  "events": [
+    {
+      "date": "2026-03-30",
+      "kind": "BUY",
+      "position": 0.2998,
+      "position_delta": 0.2998,
+      "price": 40.619998931884766
+    },
+    {
+      "date": "2026-03-30",
+      "kind": "POSITION_INCREASE",
+      "position": 0.2998,
+      "position_delta": 0.2998,
+      "price": 40.619998931884766
+    },
+    {
+      "date": "2026-04-28",
+      "kind": "POSITION_INCREASE",
+      "position": 0.5359,
+      "position_delta": 0.23610000000000003,
+      "price": 109.55999755859376
+    },
+    {
+      "date": "2026-05-27",
+      "kind": "SELL",
+      "position": 0.0699,
+      "position_delta": -0.466,
+      "price": 217.97999572753903
+    },
+    {
+      "date": "2026-05-27",
+      "kind": "POSITION_DECREASE",
+      "position": 0.0699,
+      "position_delta": -0.466,
+      "price": 217.97999572753903
+    },
+    {
+      "date": "2026-06-05",
+      "kind": "BUY",
+      "position": 0.1591,
+      "position_delta": 0.08919999999999999,
+      "price": 182.54
+    }
+  ],
+  "metrics": {
+    "full": {
+      "avg_position": 0.1622073394495413,
+      "max_drawdown": -0.13554088542803522,
+      "return": 1.3207797795135496,
+      "row_count": 109.0
+    }
+  },
+  "profile": "soxl_backtest_policy_reimplementation_v1",
+  "profile_yaml": null,
+  "replay_end": "2026-06-09",
+  "replay_start": "2026-01-02",
+  "row_count": 109,
+  "rows": [
+    {
+      "action": "HOLD",
+      "buyhold_nav": 100000.0,
+      "date": "2026-01-02",
+      "excess": 0.0,
+      "excess_pct": 0.0,
+      "position": 0.0,
+      "price": 47.2400016784668,
+      "strategy_nav": 100000.0
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 104191.362133543,
+      "date": "2026-01-05",
+      "excess": -4191.362133543007,
+      "excess_pct": 0.0,
+      "position": 0.0,
+      "price": 49.220001220703125,
+      "strategy_nav": 100000.0
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 114331.0677445474,
+      "date": "2026-01-06",
+      "excess": -14331.0677445474,
+      "excess_pct": 0.0,
+      "position": 0.0,
+      "price": 54.0099983215332,
+      "strategy_nav": 100000.0
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 110690.09114655148,
+      "date": "2026-01-07",
+      "excess": -10690.09114655148,
+      "excess_pct": 0.0,
+      "position": 0.0,
+      "price": 52.290000915527344,
+      "strategy_nav": 100000.0
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 105101.6083018275,
+      "date": "2026-01-08",
+      "excess": -5101.608301827495,
+      "excess_pct": 0.0,
+      "position": 0.0,
+      "price": 49.650001525878906,
+      "strategy_nav": 100000.0
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 114204.06190953049,
+      "date": "2026-01-09",
+      "excess": -14204.061909530486,
+      "excess_pct": 0.0,
+      "position": 0.0,
+      "price": 53.95000076293945,
+      "strategy_nav": 100000.0
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 115685.85856081748,
+      "date": "2026-01-12",
+      "excess": -15685.858560817476,
+      "excess_pct": 0.0,
+      "position": 0.0,
+      "price": 54.650001525878906,
+      "strategy_nav": 100000.0
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 118691.78175830244,
+      "date": "2026-01-13",
+      "excess": -18691.781758302444,
+      "excess_pct": 0.0,
+      "position": 0.0,
+      "price": 56.06999969482422,
+      "strategy_nav": 100000.0
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 117231.15812961296,
+      "date": "2026-01-14",
+      "excess": -17231.15812961296,
+      "excess_pct": 0.0,
+      "position": 0.0,
+      "price": 55.380001068115234,
+      "strategy_nav": 100000.0
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 122946.654884496,
+      "date": "2026-01-15",
+      "excess": -22946.654884496005,
+      "excess_pct": 0.0,
+      "position": 0.0,
+      "price": 58.08000183105469,
+      "strategy_nav": 100000.0
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 128598.64064672844,
+      "date": "2026-01-16",
+      "excess": -28598.64064672844,
+      "excess_pct": 0.0,
+      "position": 0.0,
+      "price": 60.75,
+      "strategy_nav": 100000.0
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 122650.2890941249,
+      "date": "2026-01-20",
+      "excess": -22650.289094124906,
+      "excess_pct": 0.0,
+      "position": 0.0,
+      "price": 57.939998626708984,
+      "strategy_nav": 100000.0
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 134377.64031911994,
+      "date": "2026-01-21",
+      "excess": -34377.640319119935,
+      "excess_pct": 0.0,
+      "position": 0.0,
+      "price": 63.47999954223633,
+      "strategy_nav": 100000.0
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 134885.68788461396,
+      "date": "2026-01-22",
+      "excess": -34885.68788461396,
+      "excess_pct": 0.0,
+      "position": 0.0,
+      "price": 63.720001220703125,
+      "strategy_nav": 100000.0
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 130397.9599606999,
+      "date": "2026-01-23",
+      "excess": -30397.959960699896,
+      "excess_pct": 0.0,
+      "position": 0.0,
+      "price": 61.599998474121094,
+      "strategy_nav": 100000.0
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 128492.79975916696,
+      "date": "2026-01-26",
+      "excess": -28492.799759166955,
+      "excess_pct": 0.0,
+      "position": 0.0,
+      "price": 60.70000076293945,
+      "strategy_nav": 100000.0
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 137510.57742676392,
+      "date": "2026-01-27",
+      "excess": -37510.57742676392,
+      "excess_pct": 0.0,
+      "position": 0.0,
+      "price": 64.95999908447266,
+      "strategy_nav": 100000.0
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 148370.01237838532,
+      "date": "2026-01-28",
+      "excess": -48370.01237838532,
+      "excess_pct": 0.0,
+      "position": 0.0,
+      "price": 70.08999633789062,
+      "strategy_nav": 100000.0
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 149174.42573425046,
+      "date": "2026-01-29",
+      "excess": -49174.42573425046,
+      "excess_pct": 0.0,
+      "position": 0.0,
+      "price": 70.47000122070312,
+      "strategy_nav": 100000.0
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 130800.16663863248,
+      "date": "2026-01-30",
+      "excess": -30800.16663863248,
+      "excess_pct": 0.0,
+      "position": 0.0,
+      "price": 61.790000915527344,
+      "strategy_nav": 100000.0
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 138018.61691711584,
+      "date": "2026-02-02",
+      "excess": -38018.61691711584,
+      "excess_pct": 0.0,
+      "position": 0.0,
+      "price": 65.19999694824219,
+      "strategy_nav": 100000.0
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 129551.22478506596,
+      "date": "2026-02-03",
+      "excess": -29551.224785065962,
+      "excess_pct": 0.0,
+      "position": 0.0,
+      "price": 61.20000076293945,
+      "strategy_nav": 100000.0
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 112595.2513480844,
+      "date": "2026-02-04",
+      "excess": -12595.251348084406,
+      "excess_pct": 0.0,
+      "position": 0.0,
+      "price": 53.189998626708984,
+      "strategy_nav": 100000.0
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 112722.26525824344,
+      "date": "2026-02-05",
+      "excess": -12722.265258243438,
+      "excess_pct": 0.0,
+      "position": 0.0,
+      "price": 53.25,
+      "strategy_nav": 100000.0
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 130715.49069852644,
+      "date": "2026-02-06",
+      "excess": -30715.49069852644,
+      "excess_pct": 0.0,
+      "position": 0.0,
+      "price": 61.75,
+      "strategy_nav": 100000.0
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 135541.9062325804,
+      "date": "2026-02-09",
+      "excess": -35541.9062325804,
+      "excess_pct": 0.0,
+      "position": 0.0,
+      "price": 64.02999877929688,
+      "strategy_nav": 100000.0
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 134081.28260389096,
+      "date": "2026-02-10",
+      "excess": -34081.282603890955,
+      "excess_pct": 0.0,
+      "position": 0.0,
+      "price": 63.34000015258789,
+      "strategy_nav": 100000.0
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 144051.65248496752,
+      "date": "2026-02-11",
+      "excess": -44051.65248496752,
+      "excess_pct": 0.0,
+      "position": 0.0,
+      "price": 68.05000305175781,
+      "strategy_nav": 100000.0
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 133573.2350383969,
+      "date": "2026-02-12",
+      "excess": -33573.2350383969,
+      "excess_pct": 0.0,
+      "position": 0.0,
+      "price": 63.099998474121094,
+      "strategy_nav": 100000.0
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 136727.33709349635,
+      "date": "2026-02-13",
+      "excess": -36727.337093496346,
+      "excess_pct": 0.0,
+      "position": 0.0,
+      "price": 64.58999633789062,
+      "strategy_nav": 100000.0
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 136219.2976031444,
+      "date": "2026-02-17",
+      "excess": -36219.2976031444,
+      "excess_pct": 0.0,
+      "position": 0.0,
+      "price": 64.3499984741211,
+      "strategy_nav": 100000.0
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 140325.99187172347,
+      "date": "2026-02-18",
+      "excess": -40325.99187172347,
+      "excess_pct": 0.0,
+      "position": 0.0,
+      "price": 66.29000091552734,
+      "strategy_nav": 100000.0
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 138082.13598490853,
+      "date": "2026-02-19",
+      "excess": -38082.13598490853,
+      "excess_pct": 0.0,
+      "position": 0.0,
+      "price": 65.2300033569336,
+      "strategy_nav": 100000.0
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 142061.80826818646,
+      "date": "2026-02-20",
+      "excess": -42061.80826818646,
+      "excess_pct": 0.0,
+      "position": 0.0,
+      "price": 67.11000061035156,
+      "strategy_nav": 100000.0
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 139415.74570343897,
+      "date": "2026-02-23",
+      "excess": -39415.745703438966,
+      "excess_pct": 0.0,
+      "position": 0.0,
+      "price": 65.86000061035156,
+      "strategy_nav": 100000.0
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 145067.7314656714,
+      "date": "2026-02-24",
+      "excess": -45067.731465671386,
+      "excess_pct": 0.0,
+      "position": 0.0,
+      "price": 68.52999877929688,
+      "strategy_nav": 100000.0
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 152116.84601422693,
+      "date": "2026-02-25",
+      "excess": -52116.84601422693,
+      "excess_pct": 0.0,
+      "position": 0.0,
+      "price": 71.86000061035156,
+      "strategy_nav": 100000.0
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 138314.97463234485,
+      "date": "2026-02-26",
+      "excess": -38314.97463234485,
+      "excess_pct": 0.0,
+      "position": 0.0,
+      "price": 65.33999633789062,
+      "strategy_nav": 100000.0
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 132874.67872037744,
+      "date": "2026-02-27",
+      "excess": -32874.678720377444,
+      "excess_pct": 0.0,
+      "position": 0.0,
+      "price": 62.77000045776367,
+      "strategy_nav": 100000.0
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 132853.50569777988,
+      "date": "2026-03-02",
+      "excess": -32853.50569777988,
+      "excess_pct": 0.0,
+      "position": 0.0,
+      "price": 62.7599983215332,
+      "strategy_nav": 100000.0
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 113082.1258909809,
+      "date": "2026-03-03",
+      "excess": -13082.125890980897,
+      "excess_pct": 0.0,
+      "position": 0.0,
+      "price": 53.41999816894531,
+      "strategy_nav": 100000.0
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 119856.04767176292,
+      "date": "2026-03-04",
+      "excess": -19856.04767176292,
+      "excess_pct": 0.0,
+      "position": 0.0,
+      "price": 56.619998931884766,
+      "strategy_nav": 100000.0
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 116003.38122350191,
+      "date": "2026-03-05",
+      "excess": -16003.381223501914,
+      "excess_pct": 0.0,
+      "position": 0.0,
+      "price": 54.79999923706055,
+      "strategy_nav": 100000.0
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 101375.94768858344,
+      "date": "2026-03-06",
+      "excess": -1375.9476885834447,
+      "excess_pct": 0.0,
+      "position": 0.0,
+      "price": 47.88999938964844,
+      "strategy_nav": 100000.0
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 112870.44411585794,
+      "date": "2026-03-09",
+      "excess": -12870.444115857943,
+      "excess_pct": 0.0,
+      "position": 0.0,
+      "price": 53.31999969482422,
+      "strategy_nav": 100000.0
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 115558.84465065844,
+      "date": "2026-03-10",
+      "excess": -15558.844650658444,
+      "excess_pct": 0.0,
+      "position": 0.0,
+      "price": 54.59000015258789,
+      "strategy_nav": 100000.0
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 118734.11972835544,
+      "date": "2026-03-11",
+      "excess": -18734.119728355436,
+      "excess_pct": 0.0,
+      "position": 0.0,
+      "price": 56.09000015258789,
+      "strategy_nav": 100000.0
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 106435.21802035792,
+      "date": "2026-03-12",
+      "excess": -6435.218020357919,
+      "excess_pct": 0.0,
+      "position": 0.0,
+      "price": 50.279998779296875,
+      "strategy_nav": 100000.0
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 107366.63721123998,
+      "date": "2026-03-13",
+      "excess": -7366.637211239984,
+      "excess_pct": 0.0,
+      "position": 0.0,
+      "price": 50.720001220703125,
+      "strategy_nav": 100000.0
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 113653.6763739834,
+      "date": "2026-03-16",
+      "excess": -13653.676373983399,
+      "excess_pct": 0.0,
+      "position": 0.0,
+      "price": 53.689998626708984,
+      "strategy_nav": 100000.0
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 116320.91196132849,
+      "date": "2026-03-17",
+      "excess": -16320.911961328486,
+      "excess_pct": 0.0,
+      "position": 0.0,
+      "price": 54.95000076293945,
+      "strategy_nav": 100000.0
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 114352.24076714496,
+      "date": "2026-03-18",
+      "excess": -14352.240767144962,
+      "excess_pct": 0.0,
+      "position": 0.0,
+      "price": 54.02000045776367,
+      "strategy_nav": 100000.0
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 116109.2221110634,
+      "date": "2026-03-19",
+      "excess": -16109.222111063398,
+      "excess_pct": 0.0,
+      "position": 0.0,
+      "price": 54.849998474121094,
+      "strategy_nav": 100000.0
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 108255.71035692694,
+      "date": "2026-03-20",
+      "excess": -8255.710356926938,
+      "excess_pct": 0.0,
+      "position": 0.0,
+      "price": 51.13999938964844,
+      "strategy_nav": 100000.0
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 112256.55566280242,
+      "date": "2026-03-23",
+      "excess": -12256.55566280242,
+      "excess_pct": 0.0,
+      "position": 0.0,
+      "price": 53.029998779296875,
+      "strategy_nav": 100000.0
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 116342.07690878391,
+      "date": "2026-03-24",
+      "excess": -16342.076908783914,
+      "excess_pct": 0.0,
+      "position": 0.0,
+      "price": 54.959999084472656,
+      "strategy_nav": 100000.0
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 120745.12889259197,
+      "date": "2026-03-25",
+      "excess": -20745.128892591965,
+      "excess_pct": 0.0,
+      "position": 0.0,
+      "price": 57.040000915527344,
+      "strategy_nav": 100000.0
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 103662.14962059348,
+      "date": "2026-03-26",
+      "excess": -3662.149620593482,
+      "excess_pct": 0.0,
+      "position": 0.0,
+      "price": 48.970001220703125,
+      "strategy_nav": 100000.0
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 98666.38220632749,
+      "date": "2026-03-27",
+      "excess": 1333.6177936725144,
+      "excess_pct": 0.0,
+      "position": 0.0,
+      "price": 46.61000061035156,
+      "strategy_nav": 100000.0
+    },
+    {
+      "action": "BUY",
+      "buyhold_nav": 85986.44684299493,
+      "date": "2026-03-30",
+      "excess": 14013.553157005066,
+      "excess_pct": 0.0,
+      "position": 0.2998,
+      "price": 40.619998931884766,
+      "strategy_nav": 100000.0
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 101418.28565863644,
+      "date": "2026-03-31",
+      "excess": 3961.7350170227437,
+      "excess_pct": 0.053800206756591695,
+      "position": 0.2998,
+      "price": 47.90999984741211,
+      "strategy_nav": 105380.02067565918
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 110626.5801539009,
+      "date": "2026-04-01",
+      "excess": -2036.2606043403357,
+      "excess_pct": 0.08590319549560554,
+      "position": 0.2998,
+      "price": 52.2599983215332,
+      "strategy_nav": 108590.31954956056
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 111663.84023234445,
+      "date": "2026-04-02",
+      "excess": -2711.899444075403,
+      "excess_pct": 0.08951940788269042,
+      "position": 0.2998,
+      "price": 52.75,
+      "strategy_nav": 108951.94078826904
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 116024.55345589836,
+      "date": "2026-04-06",
+      "excess": -5552.331929629319,
+      "excess_pct": 0.10472221526269054,
+      "position": 0.2998,
+      "price": 54.810001,
+      "strategy_nav": 110472.22152626904
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 119707.8683123268,
+      "date": "2026-04-07",
+      "excess": -7951.528262057764,
+      "excess_pct": 0.11756340050269043,
+      "position": 0.2998,
+      "price": 56.549999,
+      "strategy_nav": 111756.34005026903
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 142887.37849636492,
+      "date": "2026-04-08",
+      "excess": -23049.93770809588,
+      "excess_pct": 0.19837440788269034,
+      "position": 0.2998,
+      "price": 67.5,
+      "strategy_nav": 119837.44078826904
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 152370.87307897012,
+      "date": "2026-04-09",
+      "excess": -29227.19007670108,
+      "excess_pct": 0.23143683002269033,
+      "position": 0.2998,
+      "price": 71.980003,
+      "strategy_nav": 123143.68300226904
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 161706.1733399991,
+      "date": "2026-04-10",
+      "excess": -35307.91328973007,
+      "excess_pct": 0.2639826005026904,
+      "position": 0.2998,
+      "price": 76.389999,
+      "strategy_nav": 126398.26005026903
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 170533.43593914667,
+      "date": "2026-04-13",
+      "excess": -41057.716626877635,
+      "excess_pct": 0.29475719312269044,
+      "position": 0.2998,
+      "price": 80.559998,
+      "strategy_nav": 129475.71931226904
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 180588.47368518717,
+      "date": "2026-04-14",
+      "excess": -47607.254372918134,
+      "excess_pct": 0.3298121931226903,
+      "position": 0.2998,
+      "price": 85.309998,
+      "strategy_nav": 132981.21931226904
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 181964.42833570595,
+      "date": "2026-04-15",
+      "excess": -48503.508285436896,
+      "excess_pct": 0.3346092005026906,
+      "position": 0.2998,
+      "price": 85.959999,
+      "strategy_nav": 133460.92005026905
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 187066.0454279393,
+      "date": "2026-04-16",
+      "excess": -51826.54242567025,
+      "excess_pct": 0.35239503002269057,
+      "position": 0.2998,
+      "price": 88.370003,
+      "strategy_nav": 135239.50300226905
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 200423.3635502459,
+      "date": "2026-04-17",
+      "excess": -60527.08253675714,
+      "excess_pct": 0.39896281013488766,
+      "position": 0.2998,
+      "price": 94.68000030517578,
+      "strategy_nav": 139896.28101348877
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 203090.59913759097,
+      "date": "2026-04-20",
+      "excess": -62264.43654756411,
+      "excess_pct": 0.4082616259002685,
+      "position": 0.2998,
+      "price": 95.94000244140624,
+      "strategy_nav": 140826.16259002686
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 207641.8138287293,
+      "date": "2026-04-21",
+      "excess": -65228.95574309697,
+      "excess_pct": 0.4241285808563233,
+      "position": 0.2998,
+      "price": 98.08999633789062,
+      "strategy_nav": 142412.85808563232
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 223624.03817991787,
+      "date": "2026-04-22",
+      "excess": -75639.27784208828,
+      "excess_pct": 0.4798476033782959,
+      "position": 0.2998,
+      "price": 105.63999938964844,
+      "strategy_nav": 147984.7603378296
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 238717.1732351353,
+      "date": "2026-04-23",
+      "excess": -85470.47492428325,
+      "excess_pct": 0.5324669831085205,
+      "position": 0.2998,
+      "price": 112.7699966430664,
+      "strategy_nav": 153246.69831085205
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 271634.21415099205,
+      "date": "2026-04-24",
+      "excess": -106911.60795744957,
+      "excess_pct": 0.6472260619354249,
+      "position": 0.2998,
+      "price": 128.32000732421875,
+      "strategy_nav": 164722.60619354248
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 261198.1265993324,
+      "date": "2026-04-27",
+      "excess": -100113.86626150282,
+      "excess_pct": 0.6108426033782959,
+      "position": 0.2998,
+      "price": 123.38999938964844,
+      "strategy_nav": 161084.2603378296
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 231922.08650689787,
+      "date": "2026-04-28",
+      "excess": -81044.36752038664,
+      "excess_pct": 0.5087771898651123,
+      "position": 0.5359,
+      "price": 109.55999755859376,
+      "strategy_nav": 150877.71898651123
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 249724.80319465543,
+      "date": "2026-04-29",
+      "excess": -92640.50150550748,
+      "excess_pct": 0.5708430168914795,
+      "position": 0.5359,
+      "price": 117.97000122070312,
+      "strategy_nav": 157084.30168914795
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 268797.626683435,
+      "date": "2026-04-30",
+      "excess": -105063.94341774896,
+      "excess_pct": 0.6373368326568603,
+      "position": 0.5359,
+      "price": 126.9800033569336,
+      "strategy_nav": 163733.68326568604
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 276037.2338342317,
+      "date": "2026-05-01",
+      "excess": -109779.59755035717,
+      "excess_pct": 0.6625763628387451,
+      "position": 0.5359,
+      "price": 130.39999389648438,
+      "strategy_nav": 166257.6362838745
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 270004.2305669484,
+      "date": "2026-05-04",
+      "excess": -105849.88752648211,
+      "excess_pct": 0.641543430404663,
+      "position": 0.5359,
+      "price": 127.5500030517578,
+      "strategy_nav": 164154.3430404663
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 305165.10346719954,
+      "date": "2026-05-05",
+      "excess": -128752.58267893048,
+      "excess_pct": 0.7641252078826906,
+      "position": 0.5359,
+      "price": 144.16,
+      "strategy_nav": 176412.52078826906
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 351079.58109069814,
+      "date": "2026-05-06",
+      "excess": -158659.8403024291,
+      "excess_pct": 0.9241974078826902,
+      "position": 0.5359,
+      "price": 165.85,
+      "strategy_nav": 192419.74078826903
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 321972.89287847566,
+      "date": "2026-05-07",
+      "excess": -139700.65209020663,
+      "excess_pct": 0.8227224078826902,
+      "position": 0.5359,
+      "price": 152.1,
+      "strategy_nav": 182272.24078826903
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 374555.4481651379,
+      "date": "2026-05-08",
+      "excess": -173951.28737686886,
+      "excess_pct": 1.0060416078826906,
+      "position": 0.5359,
+      "price": 176.94,
+      "strategy_nav": 200604.16078826904
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 403090.5829873067,
+      "date": "2026-05-11",
+      "excess": -192538.183550356,
+      "excess_pct": 1.105523994369507,
+      "position": 0.5359,
+      "price": 190.4199981689453,
+      "strategy_nav": 210552.39943695068
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 365198.97998034995,
+      "date": "2026-05-12",
+      "excess": -167856.77603900476,
+      "excess_pct": 0.9734220394134518,
+      "position": 0.5359,
+      "price": 172.52000427246094,
+      "strategy_nav": 197342.2039413452
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 390008.465171468,
+      "date": "2026-05-13",
+      "excess": -184016.90032924383,
+      "excess_pct": 1.0599156484222414,
+      "position": 0.5359,
+      "price": 184.2400054931641,
+      "strategy_nav": 205991.56484222415
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 394136.3163123604,
+      "date": "2026-05-14",
+      "excess": -186705.65372233352,
+      "excess_pct": 1.074306625900269,
+      "position": 0.5359,
+      "price": 186.19000244140625,
+      "strategy_nav": 207430.66259002688
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 347544.4259999226,
+      "date": "2026-05-15",
+      "excess": -156357.150616927,
+      "excess_pct": 0.911872753829956,
+      "position": 0.5359,
+      "price": 164.17999267578125,
+      "strategy_nav": 191187.2753829956
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 321231.99536034634,
+      "date": "2026-05-18",
+      "excess": -139218.0545720773,
+      "excess_pct": 0.8201394078826905,
+      "position": 0.5359,
+      "price": 151.75,
+      "strategy_nav": 182013.94078826904
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 321528.3530755753,
+      "date": "2026-05-19",
+      "excess": -139411.09273774573,
+      "excess_pct": 0.821172603378296,
+      "position": 0.5359,
+      "price": 151.88999938964844,
+      "strategy_nav": 182117.2603378296
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 366638.4225112997,
+      "date": "2026-05-20",
+      "excess": -168794.38397522797,
+      "excess_pct": 0.9784403853607175,
+      "position": 0.5359,
+      "price": 173.1999969482422,
+      "strategy_nav": 197844.03853607175
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 377624.8794482223,
+      "date": "2026-05-21",
+      "excess": -175950.6191103927,
+      "excess_pct": 1.016742603378296,
+      "position": 0.5359,
+      "price": 178.38999938964844,
+      "strategy_nav": 201674.2603378296
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 403386.94070253574,
+      "date": "2026-05-22",
+      "excess": -192731.2217160245,
+      "excess_pct": 1.106557189865112,
+      "position": 0.5359,
+      "price": 190.55999755859375,
+      "strategy_nav": 210655.71898651123
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 477963.5589832201,
+      "date": "2026-05-26",
+      "excess": -241308.10314978505,
+      "excess_pct": 1.3665545583343501,
+      "position": 0.5359,
+      "price": 225.7899932861328,
+      "strategy_nav": 236655.45583343503
+    },
+    {
+      "action": "SELL",
+      "buyhold_nav": 461430.9652467686,
+      "date": "2026-05-27",
+      "excess": -230539.28761157577,
+      "excess_pct": 1.3089167763519285,
+      "position": 0.0699,
+      "price": 217.97999572753903,
+      "strategy_nav": 230891.67763519284
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 475508.0374715664,
+      "date": "2026-05-28",
+      "excess": -244124.25915888333,
+      "excess_pct": 1.3138377831268309,
+      "position": 0.0699,
+      "price": 224.6300048828125,
+      "strategy_nav": 231383.77831268308
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 474894.13286822673,
+      "date": "2026-05-29",
+      "excess": -243531.81518786785,
+      "excess_pct": 1.3136231768035889,
+      "position": 0.0699,
+      "price": 224.33999633789065,
+      "strategy_nav": 231362.3176803589
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 480588.4672596997,
+      "date": "2026-06-01",
+      "excess": -249027.08930834476,
+      "excess_pct": 1.3156137795135496,
+      "position": 0.0699,
+      "price": 227.03,
+      "strategy_nav": 231561.37795135495
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 563759.5057948431,
+      "date": "2026-06-02",
+      "excess": -329290.6678434881,
+      "excess_pct": 1.3446883795135496,
+      "position": 0.0699,
+      "price": 266.32,
+      "strategy_nav": 234468.83795135497
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 593861.1135314107,
+      "date": "2026-06-03",
+      "excess": -358339.99558005575,
+      "excess_pct": 1.3552111795135495,
+      "position": 0.0699,
+      "price": 280.54,
+      "strategy_nav": 235521.11795135497
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 556096.5086073343,
+      "date": "2026-06-04",
+      "excess": -321895.5506559794,
+      "excess_pct": 1.3420095795135496,
+      "position": 0.0699,
+      "price": 262.7,
+      "strategy_nav": 234200.95795135497
+    },
+    {
+      "action": "BUY",
+      "buyhold_nav": 386409.80845520674,
+      "date": "2026-06-05",
+      "excess": -158140.69050385177,
+      "excess_pct": 1.2826911795135496,
+      "position": 0.1591,
+      "price": 182.54,
+      "strategy_nav": 228269.11795135497
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 447586.7749521689,
+      "date": "2026-06-08",
+      "excess": -213566.55700081398,
+      "excess_pct": 1.3402021795135495,
+      "position": 0.1591,
+      "price": 211.44,
+      "strategy_nav": 234020.21795135495
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 426926.3184466204,
+      "date": "2026-06-09",
+      "excess": -194848.34049526547,
+      "excess_pct": 1.3207797795135496,
+      "position": 0.1591,
+      "price": 201.68,
+      "strategy_nav": 232077.97795135496
+    }
+  ],
+  "source_path": "runtime/production/card/soxl_backtest_policy_reimplementation_v1/new_policy_daily.csv",
+  "status": "reference",
+  "window": "ytd_2026"
+}

@@ -13,8 +13,15 @@ import pandas as pd
 from scripts.build_backtest_dashboard import FEATURE_COLS
 
 
-REQUIRED_MODEL_FIELDS = ("datetime", "strategy_nav", "buyhold_nav", "position", "action", "price")
+SOXL_BACKTEST_REFERENCE_PROFILE = "soxl_backtest_policy_reimplementation_v1"
+SOXL_BACKTEST_REFERENCE_WINDOW = "ytd_2026"
+SOXL_BACKTEST_REFERENCE_DAILY = (
+    "runtime/production/card/soxl_backtest_policy_reimplementation_v1/new_policy_daily.csv"
+)
+MODEL_DATE_FIELDS = ("datetime", "date")
+REQUIRED_MODEL_FIELDS = ("strategy_nav", "buyhold_nav", "position", "action", "price")
 ACTION_VALUES = {"BUY", "SELL", "HOLD"}
+SELL_ACTION_ALIASES = {"TAKE_PROFIT", "STOP_LOSS", "STOP", "TRIM", "REDUCE"}
 
 
 @dataclass(frozen=True)
@@ -63,6 +70,30 @@ def _dedupe_preserve_order(values: list[str]) -> list[str]:
         if value not in result:
             result.append(value)
     return result
+
+
+def _normalize_action(value: object) -> str:
+    action = str(value or "HOLD").upper()
+    if action in ACTION_VALUES:
+        return action
+    if action in SELL_ACTION_ALIASES:
+        return "SELL"
+    return "HOLD"
+
+
+def _reference_model_sources(root: Path) -> dict[str, dict[str, Any]]:
+    daily_path = root / SOXL_BACKTEST_REFERENCE_DAILY
+    if not daily_path.exists():
+        return {}
+    return {
+        SOXL_BACKTEST_REFERENCE_PROFILE: {
+            "profile": SOXL_BACKTEST_REFERENCE_PROFILE,
+            "status": "reference",
+            "output": SOXL_BACKTEST_REFERENCE_DAILY,
+            "result": "current",
+            "window": SOXL_BACKTEST_REFERENCE_WINDOW,
+        }
+    }
 
 
 def load_feature_rows(root: Path) -> dict[str, dict[str, float | None]] | None:
@@ -207,19 +238,29 @@ def normalize_market_rows(
     return rows
 
 
-def normalize_model_rows(path: Path, *, safe_backtest_end: str | None) -> list[dict[str, Any]]:
+def normalize_model_rows(
+    path: Path,
+    *,
+    safe_backtest_end: str | None,
+    window: str | None = None,
+) -> list[dict[str, Any]]:
     if not path.exists():
         raise FileNotFoundError(f"missing replay CSV: {path}")
     frame = pd.read_csv(path)
     missing = [field for field in REQUIRED_MODEL_FIELDS if field not in frame.columns]
     if missing:
         raise ValueError(f"missing replay CSV columns: {', '.join(missing)}")
-    frame["datetime"] = pd.to_datetime(frame["datetime"], errors="raise")
-    frame = frame.sort_values("datetime")
-    if frame["datetime"].duplicated().any():
+    date_field = next((field for field in MODEL_DATE_FIELDS if field in frame.columns), None)
+    if date_field is None:
+        raise ValueError(f"missing replay CSV date column: {' or '.join(MODEL_DATE_FIELDS)}")
+    if window is not None and "window" in frame.columns:
+        frame = frame[frame["window"].astype(str).eq(window)].copy()
+    frame[date_field] = pd.to_datetime(frame[date_field], errors="raise")
+    frame = frame.sort_values(date_field)
+    if frame[date_field].duplicated().any():
         raise ValueError(f"duplicate model dates in {path}")
     if safe_backtest_end is not None:
-        frame = frame[frame["datetime"] <= pd.Timestamp(safe_backtest_end)]
+        frame = frame[frame[date_field] <= pd.Timestamp(safe_backtest_end)]
     rows: list[dict[str, Any]] = []
     first_strategy_nav: float | None = None
     for idx, source in frame.reset_index(drop=True).iterrows():
@@ -227,16 +268,14 @@ def normalize_model_rows(path: Path, *, safe_backtest_end: str | None) -> list[d
         buyhold_nav = _as_float(source["buyhold_nav"], "buyhold_nav", idx)
         position = _as_float(source["position"], "position", idx)
         price = _as_float(source["price"], "price", idx)
-        action = str(source.get("action") or "HOLD").upper()
-        if action not in ACTION_VALUES:
-            action = "HOLD"
+        action = _normalize_action(source.get("action"))
         if first_strategy_nav is None:
             first_strategy_nav = strategy_nav
         excess = strategy_nav - buyhold_nav
         excess_pct = (strategy_nav / first_strategy_nav - 1.0) if first_strategy_nav else 0.0
         rows.append(
             {
-                "date": source["datetime"].strftime("%Y-%m-%d"),
+                "date": source[date_field].strftime("%Y-%m-%d"),
                 "strategy_nav": strategy_nav,
                 "buyhold_nav": buyhold_nav,
                 "position": position,
@@ -398,16 +437,30 @@ def build_dashboard_v2_data(
         if profile.get("result") in {"current", "refreshed"}
     ]
     by_name = {str(profile["profile"]): profile for profile in ready_profiles}
+    by_name.update(_reference_model_sources(root))
     if selected_profiles:
         defaults = _dedupe_preserve_order(selected_profiles)
     else:
-        defaults = [name for name in ("smoke", "balanced_rule_residual_v22") if name in by_name] or list(by_name)[:2]
+        preferred = [
+            SOXL_BACKTEST_REFERENCE_PROFILE,
+            "smoke",
+            "balanced_rule_residual_v22",
+        ]
+        defaults = [name for name in preferred if name in by_name]
+        if len(defaults) < 2:
+            defaults.extend(name for name in by_name if name not in defaults)
     if baseline_profile and baseline_profile not in defaults:
         defaults = [baseline_profile] + defaults
     defaults = [profile for profile in _dedupe_preserve_order(defaults) if profile in by_name][:4]
     if not defaults:
         raise ValueError("no replayable profiles selected for dashboard v2")
-    baseline = baseline_profile or ("balanced_rule_residual_v22" if "balanced_rule_residual_v22" in defaults else defaults[0])
+    baseline = baseline_profile or (
+        SOXL_BACKTEST_REFERENCE_PROFILE
+        if SOXL_BACKTEST_REFERENCE_PROFILE in defaults
+        else "balanced_rule_residual_v22"
+        if "balanced_rule_residual_v22" in defaults
+        else defaults[0]
+    )
     if baseline not in defaults:
         raise ValueError(f"baseline profile not selected or replayable: {baseline}")
     model_payloads: dict[str, dict[str, Any]] = {}
@@ -418,6 +471,7 @@ def build_dashboard_v2_data(
         rows = normalize_model_rows(
             replay_path,
             safe_backtest_end=str(safe_backtest_end) if safe_backtest_end else None,
+            window=source.get("window"),
         )
         payload = {
             "profile": profile_name,
@@ -432,6 +486,8 @@ def build_dashboard_v2_data(
             "events": derive_model_events(rows),
             "metrics": {"full": compute_metrics(rows)},
         }
+        if source.get("window"):
+            payload["window"] = source.get("window")
         model_payloads[profile_name] = payload
         model_path = output_dir / "models" / f"{profile_name}.json"
         _write_json(model_path, payload)
@@ -451,6 +507,10 @@ def build_dashboard_v2_data(
         "source_paths": {
             "model_replay_freshness": _relative_to(root, freshness_path),
             "market": "data/processed/panels/soxl_soxx_vix_full.csv",
+            **{
+                f"model:{profile_name}": payload["source_path"]
+                for profile_name, payload in model_payloads.items()
+            },
         },
     }
     market_payload = {"symbol": "SOXL", "rows": market_payload_rows}

@@ -4,6 +4,7 @@ import { clampComparisonProfiles, clipRowsByDate, computeCommonWindow, computeIn
 import { loadDashboardData, type DashboardData } from './data';
 import { renderActionLegend, renderComparisonPanel, renderDataSourcePanel, renderInspectorPanel } from './render';
 import type { ModelPayload } from './types';
+import { viewUpdateRequiresChartRender } from './viewState';
 
 interface ViewState {
   selectedProfiles: string[];
@@ -66,6 +67,13 @@ function clippedModel(model: ModelPayload, start: string, end: string): ModelPay
 
 function clippedModels(models: Record<string, ModelPayload>, start: string, end: string): Record<string, ModelPayload> {
   return Object.fromEntries(Object.entries(models).map(([profile, model]) => [profile, clippedModel(model, start, end)]));
+}
+
+function visibleContext(data: DashboardData, state: ViewState) {
+  const models = clippedModels(selectedModels(data, state.selectedProfiles), state.start, state.end);
+  const market = clippedMarket(data, state.start, state.end);
+  const primary = models[state.baselineProfile] ?? Object.values(models)[0];
+  return { models, market, primary };
 }
 
 function renderToolbar(
@@ -138,24 +146,9 @@ function warningsFor(data: DashboardData, state: ViewState): string[] {
   return warnings;
 }
 
-function renderDashboard(data: DashboardData, state: ViewState, update: (next: Partial<ViewState>) => void): void {
-  const toolbar = requireElement('toolbar');
-  const marketChart = requireElement('market-chart');
-  const positionChart = requireElement('position-chart');
-  const navChart = requireElement('nav-chart');
+function renderInspector(data: DashboardData, state: ViewState): void {
   const inspector = requireElement('inspector');
-  const comparison = requireElement('comparison-panel');
-  const source = requireElement('source-panel');
-  const actionLegend = requireElement('action-legend');
-  const models = clippedModels(selectedModels(data, state.selectedProfiles), state.start, state.end);
-  const market = clippedMarket(data, state.start, state.end);
-  const primary = models[state.baselineProfile] ?? Object.values(models)[0];
-
-  renderToolbar(toolbar, data, state, update);
-  renderActionLegend(actionLegend);
-  renderMarketChart(marketChart, market, primary, (date) => update({ hoveredDate: date }));
-  renderPositionChart(positionChart, primary);
-  renderNavChart(navChart, models);
+  const { models, market } = visibleContext(data, state);
   renderInspectorPanel(
     inspector,
     computeInspectorRows({
@@ -166,6 +159,24 @@ function renderDashboard(data: DashboardData, state: ViewState, update: (next: P
       comparison: data.comparison,
     }),
   );
+}
+
+function renderDashboard(data: DashboardData, state: ViewState, update: (next: Partial<ViewState>) => void): void {
+  const toolbar = requireElement('toolbar');
+  const marketChart = requireElement('market-chart');
+  const positionChart = requireElement('position-chart');
+  const navChart = requireElement('nav-chart');
+  const comparison = requireElement('comparison-panel');
+  const source = requireElement('source-panel');
+  const actionLegend = requireElement('action-legend');
+  const { models, market, primary } = visibleContext(data, state);
+
+  renderToolbar(toolbar, data, state, update);
+  renderActionLegend(actionLegend);
+  renderMarketChart(marketChart, market, primary, (date) => update({ hoveredDate: date }));
+  renderPositionChart(positionChart, primary);
+  renderNavChart(navChart, models);
+  renderInspector(data, state);
   renderComparisonPanel(comparison, data.comparison, state.start, state.end);
   renderDataSourcePanel(source, data.manifest, warningsFor(data, state));
 }
@@ -188,11 +199,19 @@ async function main(): Promise<void> {
       hoveredDate: common?.end ?? data.comparison.common_end,
     };
     const update = (next: Partial<ViewState>) => {
+      if (next.hoveredDate !== undefined && next.hoveredDate === state.hoveredDate && Object.keys(next).length === 1) {
+        return;
+      }
+      const needsChartRender = viewUpdateRequiresChartRender(next);
       Object.assign(state, next);
       if (!state.selectedProfiles.includes(state.baselineProfile)) {
         state.baselineProfile = state.selectedProfiles[0];
       }
-      renderDashboard(data, state, update);
+      if (needsChartRender) {
+        renderDashboard(data, state, update);
+      } else {
+        renderInspector(data, state);
+      }
     };
     renderDashboard(data, state, update);
   } catch (error) {

@@ -1,116 +1,143 @@
 {
-  "url": "http://127.0.0.1:5173/",
-  "desktop_nonwhite_ratio": 0.9992260355671221,
-  "mobile_nonwhite_ratio": 0.9983261615819755,
   "canvas_count": 21,
   "canvas_nonblank_max": 1,
   "canvas_stats": [
     {
-      "width": 1036,
-      "height": 698,
-      "nonblankRatio": 1
+      "height": 598,
+      "nonblankRatio": 1,
+      "width": 1036
     },
     {
-      "width": 1036,
-      "height": 698,
-      "nonblankRatio": 0
+      "height": 598,
+      "nonblankRatio": 0,
+      "width": 1036
     },
     {
-      "width": 62,
-      "height": 698,
-      "nonblankRatio": 1
+      "height": 598,
+      "nonblankRatio": 1,
+      "width": 62
     },
     {
-      "width": 62,
-      "height": 698,
-      "nonblankRatio": 0
+      "height": 598,
+      "nonblankRatio": 0,
+      "width": 62
     },
     {
-      "width": 1036,
       "height": 28,
-      "nonblankRatio": 1
+      "nonblankRatio": 1,
+      "width": 1036
     },
     {
-      "width": 1036,
       "height": 28,
-      "nonblankRatio": 0
+      "nonblankRatio": 0,
+      "width": 1036
     },
     {
-      "width": 62,
       "height": 28,
-      "nonblankRatio": 1
+      "nonblankRatio": 1,
+      "width": 62
     },
     {
-      "width": 494,
       "height": 152,
-      "nonblankRatio": 1
+      "nonblankRatio": 1,
+      "width": 494
     },
     {
-      "width": 494,
       "height": 152,
-      "nonblankRatio": 0
+      "nonblankRatio": 0,
+      "width": 494
     },
     {
-      "width": 54,
       "height": 152,
-      "nonblankRatio": 0.9978070175438597
+      "nonblankRatio": 0.9976851851851852,
+      "width": 54
     },
     {
-      "width": 54,
       "height": 152,
-      "nonblankRatio": 0
+      "nonblankRatio": 0,
+      "width": 54
     },
     {
-      "width": 494,
       "height": 28,
-      "nonblankRatio": 1
+      "nonblankRatio": 1,
+      "width": 494
     },
     {
-      "width": 494,
       "height": 28,
-      "nonblankRatio": 0
+      "nonblankRatio": 0,
+      "width": 494
     },
     {
-      "width": 54,
       "height": 28,
-      "nonblankRatio": 1
+      "nonblankRatio": 1,
+      "width": 54
     },
     {
-      "width": 448,
       "height": 152,
-      "nonblankRatio": 0.9994419642857143
+      "nonblankRatio": 0.9976944313909775,
+      "width": 448
     },
     {
-      "width": 448,
       "height": 152,
-      "nonblankRatio": 0.0546140742481203
+      "nonblankRatio": 0.1165266682330827,
+      "width": 448
     },
     {
-      "width": 100,
       "height": 152,
-      "nonblankRatio": 0.9957236842105263
+      "nonblankRatio": 0.9957236842105263,
+      "width": 100
     },
     {
-      "width": 100,
       "height": 152,
-      "nonblankRatio": 0
+      "nonblankRatio": 0,
+      "width": 100
     },
     {
-      "width": 448,
       "height": 28,
-      "nonblankRatio": 1
+      "nonblankRatio": 1,
+      "width": 448
     },
     {
-      "width": 448,
       "height": 28,
-      "nonblankRatio": 0
+      "nonblankRatio": 0,
+      "width": 448
     },
     {
-      "width": 100,
       "height": 28,
-      "nonblankRatio": 1
+      "nonblankRatio": 1,
+      "width": 100
     }
   ],
+  "checked_profiles": [
+    "soxl_backtest_policy_reimplementation_v1",
+    "smoke",
+    "balanced_rule_residual_v22"
+  ],
+  "console_errors": [],
+  "console_warnings": [],
+  "default_baseline": "soxl_backtest_policy_reimplementation_v1",
+  "desktop_nonwhite_ratio": 0.9998322384686021,
+  "http_failures": [],
+  "ignored_http_failures": [],
+  "inspector_contains_position": true,
+  "inspector_contains_soxl_close": true,
+  "market_canvas_count": 7,
+  "market_canvas_size": {
+    "height": 598,
+    "width": 1036
+  },
+  "market_canvas_still_attached_after_80_mouse_moves": true,
+  "missing_text": [],
+  "mobile_layout": {
+    "bodyScrollWidth": 392,
+    "clientWidth": 390,
+    "comparisonClientWidth": 366,
+    "comparisonScrollWidth": 640,
+    "scrollWidth": 392
+  },
+  "mobile_nonwhite_ratio": 0.9996752469832154,
+  "nav_canvas_count": 7,
+  "position_canvas_count": 7,
   "required_text": [
     "SOXL",
     "BUY",
@@ -119,5 +146,9 @@
     "safe_backtest_end",
     "Model Difference"
   ],
-  "missing_text": []
+  "screenshots": {
+    "desktop": "runtime/production/card/dashboard_v2_visual_v1/dashboard_v2_desktop.png",
+    "mobile": "runtime/production/card/dashboard_v2_visual_v1/dashboard_v2_mobile.png"
+  },
+  "url": "http://127.0.0.1:5173/"
 }

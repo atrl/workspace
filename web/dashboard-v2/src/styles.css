@@ -213,11 +213,14 @@ h2 {
 .inspector-label,
 .source-label {
   color: #9ca3af;
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 .inspector-value,
 .source-value {
   color: #e5e7eb;
+  min-width: 0;
   overflow-wrap: anywhere;
 }
 
@@ -236,6 +239,12 @@ h2 {
 .comparison-summary {
   margin-top: 8px;
   color: #9ca3af;
+  overflow-wrap: anywhere;
+}
+
+.table-scroll {
+  width: 100%;
+  overflow-x: auto;
 }
 
 .comparison-table {
@@ -277,8 +286,39 @@ h2 {
     display: block;
   }
 
+  .toolbar {
+    flex-wrap: wrap;
+    align-items: flex-start;
+    overflow-x: visible;
+  }
+
+  .toolbar-group,
+  .check-label {
+    min-width: 0;
+    white-space: normal;
+  }
+
+  .profile-group {
+    flex: 1 1 100%;
+    flex-wrap: wrap;
+  }
+
+  .toolbar select,
+  .toolbar input[type="date"] {
+    max-width: 100%;
+  }
+
   .workspace {
     grid-template-columns: 1fr;
+  }
+
+  .chart-title-row {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .action-legend {
+    margin-left: 0;
   }
 
   .chart-column {
@@ -287,5 +327,17 @@ h2 {
 
   .lower-charts {
     grid-template-columns: 1fr;
+  }
+
+  .inspector-row,
+  .source-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2px;
+    align-items: start;
+    padding: 4px 0;
+  }
+
+  .comparison-table {
+    min-width: 640px;
   }
 }

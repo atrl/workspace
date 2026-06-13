@@ -29,6 +29,7 @@ describe('dashboard v2 DOM render helpers', () => {
 
     renderComparisonPanel(panel, comparisonFixture, '2026-01-02', '2026-01-06');
 
+    expect(panel.querySelector('.table-scroll .comparison-table')).not.toBeNull();
     expect(panel.textContent).toContain('smoke');
     expect(panel.textContent).toContain('balanced_rule_residual_v22');
     expect(panel.textContent).toContain('Action mismatches');

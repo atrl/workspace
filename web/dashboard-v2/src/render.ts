@@ -101,5 +101,7 @@ export function renderComparisonPanel(
     tbody.appendChild(tr);
   }
   table.appendChild(tbody);
-  container.appendChild(table);
+  const tableScroll = element('div', 'table-scroll');
+  tableScroll.appendChild(table);
+  container.appendChild(tableScroll);
 }

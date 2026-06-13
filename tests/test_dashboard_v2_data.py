@@ -211,6 +211,136 @@ def test_build_dashboard_v2_data_loads_market_from_requested_root(tmp_path: Path
     assert row["rsi6"] is not None
 
 
+def test_build_dashboard_v2_data_adds_soxl_backtest_reference_baseline(tmp_path: Path):
+    freshness = tmp_path / "dashboard_data" / "model_replay_freshness.json"
+    freshness.parent.mkdir()
+    model_csv = tmp_path / "runtime" / "model" / "card" / "smoke" / "smoke_soxl_daily.csv"
+    model_csv.parent.mkdir(parents=True)
+    _write_csv(
+        model_csv,
+        [
+            {
+                "datetime": "2026-01-02",
+                "strategy_nav": 100.0,
+                "buyhold_nav": 100.0,
+                "position": 0.0,
+                "action": "HOLD",
+                "price": 47.24,
+            },
+            {
+                "datetime": "2026-03-30",
+                "strategy_nav": 110.0,
+                "buyhold_nav": 90.0,
+                "position": 0.5,
+                "action": "BUY",
+                "price": 40.62,
+            },
+            {
+                "datetime": "2026-05-27",
+                "strategy_nav": 120.0,
+                "buyhold_nav": 130.0,
+                "position": 0.1,
+                "action": "SELL",
+                "price": 217.98,
+            },
+        ],
+    )
+    freshness.write_text(
+        json.dumps(
+            {
+                "generated_at": "2026-06-13T00:00:00+00:00",
+                "latest_data_date": "2026-05-27",
+                "safe_backtest_end": "2026-05-27",
+                "profiles": [
+                    {
+                        "profile": "smoke",
+                        "status": "canonical",
+                        "output": "runtime/model/card/smoke/smoke_soxl_daily.csv",
+                        "result": "current",
+                    }
+                ],
+            }
+        )
+    )
+    reference_csv = (
+        tmp_path
+        / "runtime"
+        / "production"
+        / "card"
+        / "soxl_backtest_policy_reimplementation_v1"
+        / "new_policy_daily.csv"
+    )
+    reference_csv.parent.mkdir(parents=True)
+    _write_csv(
+        reference_csv,
+        [
+            {
+                "window": "june_2026",
+                "date": "2026-05-27",
+                "strategy_nav": 999.0,
+                "buyhold_nav": 999.0,
+                "position": 0.9,
+                "action": "BUY",
+                "price": 200.0,
+            },
+            {
+                "window": "ytd_2026",
+                "date": "2026-01-02",
+                "strategy_nav": 100000.0,
+                "buyhold_nav": 100000.0,
+                "position": 0.0,
+                "action": "HOLD",
+                "price": 47.24,
+            },
+            {
+                "window": "ytd_2026",
+                "date": "2026-03-30",
+                "strategy_nav": 100000.0,
+                "buyhold_nav": 90000.0,
+                "position": 0.2998,
+                "action": "BUY",
+                "price": 40.62,
+            },
+            {
+                "window": "ytd_2026",
+                "date": "2026-05-27",
+                "strategy_nav": 230891.68,
+                "buyhold_nav": 130000.0,
+                "position": 0.0699,
+                "action": "TAKE_PROFIT",
+                "price": 217.98,
+            },
+        ],
+    )
+    market_rows = {
+        "2026-01-02": {"open": 47.0, "high": 48.0, "low": 46.0, "close": 47.24, "volume": 1000},
+        "2026-03-30": {"open": 40.0, "high": 42.0, "low": 39.0, "close": 40.62, "volume": 1000},
+        "2026-05-27": {"open": 216.0, "high": 218.5, "low": 210.0, "close": 217.98, "volume": 1000},
+    }
+
+    output_dir = tmp_path / "dashboard_data" / "v2"
+    build_dashboard_v2_data(
+        root=tmp_path,
+        output_dir=output_dir,
+        freshness_path=freshness,
+        market_rows=market_rows,
+    )
+
+    reference_name = "soxl_backtest_policy_reimplementation_v1"
+    manifest = json.loads((output_dir / "manifest.json").read_text())
+    reference = json.loads((output_dir / "models" / f"{reference_name}.json").read_text())
+    comparison = json.loads((output_dir / "comparison" / "default.json").read_text())
+
+    assert manifest["default_baseline_profile"] == reference_name
+    assert manifest["default_comparison_profiles"] == [reference_name, "smoke"]
+    assert reference["source_path"] == "runtime/production/card/soxl_backtest_policy_reimplementation_v1/new_policy_daily.csv"
+    assert reference["rows"][-1]["action"] == "SELL"
+    assert [event["kind"] for event in reference["events"] if event["kind"] in {"BUY", "SELL"}] == ["BUY", "SELL"]
+    assert comparison["baseline_profile"] == reference_name
+    assert comparison["common_start"] == "2026-01-02"
+    assert comparison["common_end"] == "2026-05-27"
+
+
 def test_normalize_model_rows_rejects_invalid_numeric_fields(tmp_path: Path):
     csv_path = tmp_path / "bad.csv"
     csv_path.write_text(
