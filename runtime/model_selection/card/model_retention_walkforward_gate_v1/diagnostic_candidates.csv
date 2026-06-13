@@ -1,0 +1,13 @@
+profile,status,ytd_return_pct,best_return_gap_pct,worst_wf_max_drawdown_pct,wf_drawdown_gap_pct,missing_wf_window_count,failures
+mode_conditioned_rebound_reward_train_v2,ablation,177.573569,35.569893,21.83172,1.83172,0,"['wf_max_drawdown_ge_20:wf_2020', 'wf_max_drawdown_ge_20:wf_2023_2024', 'ytd_return_below_best_alignment']"
+drawdown_rebound_reward_train_v1,ablation,172.832548,40.310914,23.54683,3.54683,0,"['wf_max_drawdown_ge_20:wf_2020', 'ytd_return_below_best_alignment']"
+state_conditioned_drawdown_rebound_reward_train_v1,ablation,196.505054,16.638408,27.608986,7.608986,0,"['wf_max_drawdown_ge_20:wf_2020', 'ytd_return_below_best_alignment']"
+balanced_rule_residual_imitation_v4,candidate,145.031235,68.112227,35.710864,15.710864,0,"['wf_max_drawdown_ge_20:wf_2020', 'wf_max_drawdown_ge_20:wf_2022', 'wf_max_drawdown_ge_20:wf_2023_2024', 'ytd_return_below_best_alignment']"
+balanced_rule_residual_v19_reg,candidate,141.992184,71.151278,46.171637,26.171637,0,"['wf_max_drawdown_ge_20:wf_2022', 'wf_max_drawdown_ge_20:wf_2023_2024', 'ytd_return_below_best_alignment']"
+balanced_rule_residual_v19,archived,173.299227,39.844235,46.653957,26.653957,0,"['wf_max_drawdown_ge_20:wf_2020', 'wf_max_drawdown_ge_20:wf_2022', 'wf_max_drawdown_ge_20:wf_2023_2024', 'ytd_return_below_best_alignment']"
+balanced_rule_residual_v19_reg_light,candidate,164.253638,48.889824,51.596776,31.596776,0,"['wf_max_drawdown_ge_20:wf_2020', 'wf_max_drawdown_ge_20:wf_2022', 'wf_max_drawdown_ge_20:wf_2023_2024', 'ytd_return_below_best_alignment']"
+balanced_rule_residual_v22,canonical,116.882644,96.260818,54.66561,34.66561,0,"['wf_max_drawdown_ge_20:wf_2020', 'wf_max_drawdown_ge_20:wf_2022', 'wf_max_drawdown_ge_20:wf_2023_2024', 'ytd_return_below_soxlbacktest_baseline', 'ytd_return_below_best_alignment']"
+smoke,canonical,224.361539,0.0,,,3,"['missing_wf_window:wf_2020', 'missing_wf_window:wf_2022', 'missing_wf_window:wf_2023_2024']"
+balanced_macro_v1,candidate,196.749008,16.394453,,,3,"['missing_wf_window:wf_2020', 'missing_wf_window:wf_2022', 'missing_wf_window:wf_2023_2024', 'ytd_return_below_best_alignment']"
+balanced_rule_residual_v19_reg_v22_retest_v1,ablation,175.012377,38.131085,,,3,"['missing_wf_window:wf_2020', 'missing_wf_window:wf_2022', 'missing_wf_window:wf_2023_2024', 'ytd_return_below_best_alignment']"
+balanced,archived,159.205721,53.93774,,,3,"['missing_wf_window:wf_2020', 'missing_wf_window:wf_2022', 'missing_wf_window:wf_2023_2024', 'ytd_return_below_best_alignment']"

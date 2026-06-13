@@ -71,7 +71,7 @@ def test_retention_gate_requires_complete_walkforward_drawdown_and_return_alignm
         comparison_rows,
     )
     _write_report(tmp_path, "passer", {"wf_2020": 10.0, "wf_2022": 19.9, "wf_2023_2024": 18.0})
-    _write_report(tmp_path, "high_dd", {"wf_2020": 10.0, "wf_2022": 20.0, "wf_2023_2024": 18.0})
+    _write_report(tmp_path, "high_dd", {"wf_2020": 10.0, "wf_2022": 22.5, "wf_2023_2024": 18.0})
     _write_report(tmp_path, "missing_wf", {"wf_2020": 10.0, "wf_2022": 19.0})
     _write_report(tmp_path, "low_return", {"wf_2020": 10.0, "wf_2022": 19.0, "wf_2023_2024": 18.0})
 
@@ -83,8 +83,14 @@ def test_retention_gate_requires_complete_walkforward_drawdown_and_return_alignm
     assert by_profile["passer"]["retention_decision"] == "retain_promotable"
     assert by_profile["high_dd"]["gate_pass"] is False
     assert "wf_max_drawdown_ge_20:wf_2022" in by_profile["high_dd"]["failures"]
+    assert by_profile["high_dd"]["wf_drawdown_gap_pct"] == 2.5
+    assert by_profile["missing_wf"]["missing_wf_window_count"] == 1
     assert by_profile["missing_wf"]["gate_pass"] is False
     assert "missing_wf_window:wf_2023_2024" in by_profile["missing_wf"]["failures"]
     assert by_profile["low_return"]["gate_pass"] is False
     assert "ytd_return_below_best_alignment" in by_profile["low_return"]["failures"]
+    assert by_profile["low_return"]["best_return_gap_pct"] == 1.0
+    assert by_profile["low_return"]["soxlbacktest_return_gap_pct"] == 6.0
     assert result["summary"]["passing_profiles"] == ["passer"]
+    assert result["summary"]["closest_wf_drawdown_candidate"]["profile"] == "passer"
+    assert result["summary"]["closest_ytd_return_candidate"]["profile"] == "passer"
