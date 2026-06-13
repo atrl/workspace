@@ -84,6 +84,23 @@ def _source_references(payload: dict[str, Any], known_experiments: set[str]) -> 
     return sorted(references)
 
 
+def _sidecar_manifest_references(card_dir: Path, known_experiments: set[str]) -> list[str]:
+    references: set[str] = set()
+    for path in sorted(card_dir.glob("*manifest*.csv")):
+        try:
+            frame = pd.read_csv(path)
+        except (OSError, pd.errors.EmptyDataError, UnicodeDecodeError):
+            continue
+        for column in frame.columns:
+            if column not in {"path", "source_path", "source", "source_label", "candidate", "mechanism", "variant"}:
+                continue
+            for value in frame[column].dropna().astype(str):
+                for experiment in known_experiments:
+                    if experiment and experiment in value:
+                        references.add(experiment)
+    return sorted(references)
+
+
 def _load_gate_summary(root: Path) -> dict[str, Any]:
     path = root / RETENTION_GATE_SUMMARY_PATH
     if not path.exists():
@@ -277,7 +294,9 @@ def scan_model_retention_frontier(*, root: Path, card_names: Iterable[str] | Non
             or _summary_payload(payload).get("experiment")
             or path.parent.name
         )
-        for source in _source_references(payload, known_experiments):
+        sources = set(_source_references(payload, known_experiments))
+        sources.update(_sidecar_manifest_references(path.parent, known_experiments))
+        for source in sorted(sources):
             if source != downstream:
                 downstream_by_source.setdefault(source, []).append(downstream)
 

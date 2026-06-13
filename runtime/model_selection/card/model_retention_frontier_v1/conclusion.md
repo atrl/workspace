@@ -1,7 +1,7 @@
 # Model Retention Frontier
 
 - Rows scanned: `92`.
-- Completed handoffs: `47`.
+- Completed handoffs: `49`.
 - Recommended next source: `state_objective_budget_usage_bc_official_replay_v1`.
 - Recommended next action: `run_fold_local_ppo_only_if_ytd_and_wf_gap_is_not_structural_else_revise_targets`.
 - Primary blocker: `joint_drawdown_return_gap`.

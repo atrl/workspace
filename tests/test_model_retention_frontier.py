@@ -12,6 +12,11 @@ def _write_json(path: Path, payload: dict[str, object]) -> None:
     path.write_text(json.dumps(payload), encoding="utf-8")
 
 
+def _write_csv(path: Path, rows: list[dict[str, object]]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    pd.DataFrame(rows).to_csv(path, index=False)
+
+
 def test_retention_frontier_prioritizes_training_ready_soxlbacktest_contract():
     with tempfile.TemporaryDirectory() as tmp:
         tmp_path = Path(tmp)
@@ -286,3 +291,67 @@ def _run_retention_frontier_advances_past_completed_training_contract_handoff(tm
     assert by_experiment["bc_done"]["primary_blocker"] == "completed_handoff"
     assert by_experiment["checkpoint_partial"]["frontier_rank"] == 1
     assert by_experiment["checkpoint_partial"]["primary_blocker"] == "walkforward_relative_return_gap"
+
+
+def test_retention_frontier_uses_sidecar_manifest_paths_as_downstream_handoffs():
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp_path = Path(tmp)
+        _run_retention_frontier_uses_sidecar_manifest_paths_as_downstream_handoffs(tmp_path)
+
+
+def _run_retention_frontier_uses_sidecar_manifest_paths_as_downstream_handoffs(tmp_path: Path) -> None:
+    from src.soxl_quant.app.model_retention_frontier import scan_model_retention_frontier
+
+    _write_json(
+        tmp_path / "runtime" / "model_selection" / "card" / "model_retention_walkforward_gate_v1" / "summary.json",
+        {
+            "summary": {
+                "required_best_return_pct": 213.14,
+                "reference_return_pct": 132.08,
+                "max_walkforward_drawdown_pct": 20.0,
+                "required_wf_windows": ["wf_2020", "wf_2022", "wf_2023_2024"],
+            }
+        },
+    )
+    _write_json(
+        tmp_path / "runtime" / "model_selection" / "card" / "child_screen" / "summary.json",
+        {
+            "experiment": "child_screen",
+            "decision": "official_child_screen_no_promotion",
+            "promotion_allowed": False,
+            "next_mechanism": "aggregate_child_mechanism",
+        },
+    )
+    _write_json(
+        tmp_path / "runtime" / "model_selection" / "card" / "aggregate_screen" / "summary.json",
+        {
+            "experiment": "aggregate_screen",
+            "decision": "aggregate_ready_for_next_target_revision",
+            "promotion_allowed": False,
+            "selected_by_fold": {
+                "wf_2020": {"selected_max_dd": 14.0, "selected_relative_return": -20.0},
+                "wf_2022": {"selected_max_dd": 18.0, "selected_relative_return": 40.0},
+                "wf_2023_2024": {"selected_max_dd": 10.0, "selected_relative_return": 35.0},
+            },
+            "target_relative_return_pp": 30.0,
+            "next_mechanism": "revise_target_from_aggregate",
+        },
+    )
+    _write_csv(
+        tmp_path / "runtime" / "model_selection" / "card" / "aggregate_screen" / "source_manifest.csv",
+        [
+            {
+                "source_label": "child",
+                "path": "runtime/model_selection/card/child_screen/official_replay_metrics.csv",
+                "rows": 2,
+            }
+        ],
+    )
+
+    result = scan_model_retention_frontier(root=tmp_path)
+    by_experiment = {row["experiment"]: row for row in result["rows"]}
+
+    assert result["summary"]["recommended_next_source"] == "aggregate_screen"
+    assert by_experiment["child_screen"]["primary_blocker"] == "completed_handoff"
+    assert by_experiment["child_screen"]["handoff_completed_by"] == "aggregate_screen"
+    assert by_experiment["aggregate_screen"]["frontier_rank"] == 1
