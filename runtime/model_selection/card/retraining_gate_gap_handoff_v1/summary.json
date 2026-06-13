@@ -1,0 +1,57 @@
+{
+  "created_at": "2026-06-13T10:22:17.771588+00:00",
+  "decision": "run_full_walkforward_cap10_joint_contract_bc_checkpoint_training",
+  "do_not_repeat": [
+    "do_not_promote_any_replayable_model_without_complete_wf_2020_wf_2022_wf_2023_2024_metrics",
+    "do_not_continue_static_heuristic_or_rolling_selector_branch_without_model_replay_or_bc_candidate_paths",
+    "do_not_lengthen_ppo_when_wf_2022_dd_delta_vs_bc_exceeds_2pp",
+    "do_not_retry_rebound_weight_only_bc_without_target_enrichment_or_sampling_change"
+  ],
+  "experiment": "retraining_gate_gap_handoff_v1",
+  "nearest_known_gap": {
+    "wf_2022_ppo_selected_max_dd_delta_vs_bc": 18.820132,
+    "wf_2022_ppo_selected_relative_delta_vs_bc": 5.351209,
+    "wf_2022_selected_max_dd_gap_to_15pct": 3.455088,
+    "wf_2022_selected_max_dd_gap_to_20pct": 0.0,
+    "wf_2023_2024_selected_gate": true
+  },
+  "next_training_allowed": true,
+  "promotion_allowed": false,
+  "required_next_run_controls": [
+    "add_wf_2020_coverage_before_actor_retention",
+    "use_bc_initialization_or_iter0_bc_equivalent_as_checkpoint_reference",
+    "apply_checkpoint_drift_stop: ppo_vs_bc_max_dd_delta_pp <= 2.0",
+    "apply_checkpoint_drift_stop: ppo_vs_bc_relative_delta_pp >= -5.0",
+    "require_fold_gate_before_full_training_continuation",
+    "export_daily_paths_for_dashboard_and_retention_gate_review"
+  ],
+  "retention_gate": {
+    "max_walkforward_drawdown_pct": 20.0,
+    "passing_profile_count": 0,
+    "profiles_scanned": 12,
+    "required_wf_windows": [
+      "wf_2020",
+      "wf_2022",
+      "wf_2023_2024"
+    ]
+  },
+  "sidecars": [
+    "summary.json",
+    "source_card_decisions.csv",
+    "retention_failure_summary.csv",
+    "closest_by_walkforward_drawdown.csv",
+    "closest_by_ytd_return.csv",
+    "selected_checkpoint_by_fold.csv",
+    "training_objective_handoff.json",
+    "conclusion.md"
+  ],
+  "start_from": {
+    "candidate_family": "cap10_joint_contract_bc_initialization_or_ppo_iter0_bc_equivalent",
+    "wf_2022_selected_candidate": "bc_initialization",
+    "wf_2022_selected_max_dd": 18.45508836162262,
+    "wf_2022_selected_relative_return": 36.41912423582883,
+    "wf_2023_2024_selected_candidate": "bc_initialization",
+    "wf_2023_2024_selected_max_dd": 13.5974748138093,
+    "wf_2023_2024_selected_relative_return": 30.5011159708892
+  }
+}

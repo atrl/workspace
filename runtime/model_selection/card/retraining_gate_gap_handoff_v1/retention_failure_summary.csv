@@ -1,0 +1,9 @@
+failure,count
+ytd_return_below_best_alignment,11
+wf_max_drawdown_ge_20:wf_2020,7
+wf_max_drawdown_ge_20:wf_2023_2024,6
+wf_max_drawdown_ge_20:wf_2022,5
+missing_wf_window:wf_2020,4
+missing_wf_window:wf_2022,4
+missing_wf_window:wf_2023_2024,4
+ytd_return_below_soxlbacktest_baseline,1
