@@ -35,6 +35,12 @@ def test_build_daily_rows_include_market_ohlc_for_rerun_kline():
         position_history=[0.0, 0.5],
         trade_signals=[(idx[1], 211.44, 0.5, "buy")],
         market_lookup=market,
+        feature_lookup={
+            "2026-06-08": {
+                "alpha_signal": 1.25,
+                "shared_feature": 20.0,
+            }
+        },
     )
 
     assert rows[0]["open"] == 180.0
@@ -44,6 +50,7 @@ def test_build_daily_rows_include_market_ohlc_for_rerun_kline():
     assert rows[0]["volume"] == 123
     assert rows[1]["action"] == "BUY"
     assert rows[1]["position"] == 0.5
+    assert rows[1]["feature_snapshot"] == {"alpha_signal": 1.25, "shared_feature": 20.0}
 
 
 def test_health_payload_marks_dashboard_server_api_available():

@@ -1,4 +1,4 @@
-import type { Action, ModelEvent, ModelPayload, ModelRow } from './types';
+import type { Action, FeatureActionSummaryRow, FeatureValue, ModelEvent, ModelPayload, ModelRow } from './types';
 
 const DASHBOARD_API_PATH = '/api/run-backtest';
 const DASHBOARD_API_FALLBACK = 'http://127.0.0.1:8765/api/run-backtest';
@@ -24,6 +24,7 @@ interface ApiRow {
   close?: number;
   excess?: number;
   excess_pct?: number;
+  feature_snapshot?: Record<string, FeatureValue>;
   [key: string]: unknown;
 }
 
@@ -34,8 +35,36 @@ interface ApiResponse {
   end_date: string;
   warmup_start_date?: string;
   replay_aligned?: boolean;
+  feature_packs?: string[];
+  feature_columns?: string[];
+  snapshot_columns?: string[];
+  source_kind?: string;
   rows: ApiRow[];
 }
+
+const API_ROW_FIELDS = new Set([
+  'datetime',
+  'date',
+  'strategy_nav',
+  'buyhold_nav',
+  'position',
+  'action',
+  'price',
+  'excess',
+  'excess_pct',
+  'feature_snapshot',
+  'open',
+  'high',
+  'low',
+  'close',
+  'volume',
+  'rsi6',
+  'ma180',
+  'hv_20',
+  'vol_coef',
+  'panic_score',
+  'market_state',
+]);
 
 function normalizeAction(value: unknown): Action {
   const action = String(value || 'HOLD').toUpperCase();
@@ -45,6 +74,27 @@ function normalizeAction(value: unknown): Action {
 function numberOr(value: unknown, fallback: number): number {
   const number = Number(value);
   return Number.isFinite(number) ? number : fallback;
+}
+
+function isFeatureValue(value: unknown): value is FeatureValue {
+  return value === null || ['string', 'number', 'boolean'].includes(typeof value);
+}
+
+function normalizeFeatureSnapshot(row: ApiRow): Record<string, FeatureValue> | undefined {
+  const nested = row.feature_snapshot;
+  if (nested && typeof nested === 'object') {
+    const entries = Object.entries(nested).filter((entry): entry is [string, FeatureValue] => isFeatureValue(entry[1]));
+    return entries.length ? Object.fromEntries(entries) : undefined;
+  }
+
+  const snapshot = Object.fromEntries(
+    Object.entries(row).filter((entry): entry is [string, FeatureValue] => {
+      const [key, value] = entry;
+      if (API_ROW_FIELDS.has(key)) return false;
+      return isFeatureValue(value);
+    }),
+  );
+  return Object.keys(snapshot).length ? snapshot : undefined;
 }
 
 function normalizeRows(rows: readonly ApiRow[]): ModelRow[] {
@@ -62,6 +112,7 @@ function normalizeRows(rows: readonly ApiRow[]): ModelRow[] {
       price,
       excess: numberOr(row.excess, strategyNav - buyholdNav),
       excess_pct: numberOr(row.excess_pct, 0),
+      feature_snapshot: normalizeFeatureSnapshot(row),
     };
   });
 }
@@ -78,6 +129,7 @@ function deriveEvents(rows: readonly ModelRow[], materialPositionDelta = 0.1): M
         price: row.price,
         position: row.position,
         position_delta: positionDelta,
+        feature_snapshot: row.feature_snapshot,
       });
     }
     if (Math.abs(positionDelta) >= materialPositionDelta) {
@@ -87,6 +139,7 @@ function deriveEvents(rows: readonly ModelRow[], materialPositionDelta = 0.1): M
         price: row.price,
         position: row.position,
         position_delta: positionDelta,
+        feature_snapshot: row.feature_snapshot,
       });
     }
     previousPosition = row.position;
@@ -94,26 +147,78 @@ function deriveEvents(rows: readonly ModelRow[], materialPositionDelta = 0.1): M
   return events;
 }
 
+function orderedSnapshotColumns(rows: readonly ModelRow[], preferred: readonly string[] = []): string[] {
+  const columns: string[] = [];
+  for (const column of preferred) {
+    if (!columns.includes(column)) columns.push(column);
+  }
+  for (const row of rows) {
+    for (const column of Object.keys(row.feature_snapshot ?? {})) {
+      if (!columns.includes(column)) columns.push(column);
+    }
+  }
+  return columns;
+}
+
+function featureNumber(value: FeatureValue): number | null {
+  if (typeof value === 'boolean') return value ? 1 : 0;
+  if (typeof value !== 'number' || !Number.isFinite(value)) return null;
+  return value;
+}
+
+function buildFeatureActionSummary(rows: readonly ModelRow[], columns: readonly string[]): FeatureActionSummaryRow[] {
+  return columns
+    .map((feature) => {
+      const buyValues: number[] = [];
+      const sellValues: number[] = [];
+      for (const row of rows) {
+        if (row.action !== 'BUY' && row.action !== 'SELL') continue;
+        const value = featureNumber(row.feature_snapshot?.[feature] ?? null);
+        if (value === null) continue;
+        if (row.action === 'BUY') buyValues.push(value);
+        if (row.action === 'SELL') sellValues.push(value);
+      }
+      const buyMean = buyValues.length ? buyValues.reduce((sum, value) => sum + value, 0) / buyValues.length : null;
+      const sellMean = sellValues.length ? sellValues.reduce((sum, value) => sum + value, 0) / sellValues.length : null;
+      return {
+        feature,
+        buy_count: buyValues.length,
+        sell_count: sellValues.length,
+        buy_mean: buyMean,
+        sell_mean: sellMean,
+        buy_minus_sell: buyMean !== null && sellMean !== null ? buyMean - sellMean : null,
+      };
+    })
+    .filter((row) => row.buy_count > 0 || row.sell_count > 0)
+    .sort((left, right) => {
+      const leftScore = Math.abs(left.buy_minus_sell ?? 0);
+      const rightScore = Math.abs(right.buy_minus_sell ?? 0);
+      return rightScore - leftScore || left.feature.localeCompare(right.feature);
+    });
+}
+
 function toModelPayload(payload: ApiResponse, request: RunBacktestRequest): ModelPayload {
   const rows = normalizeRows(payload.rows || []);
   const profile = `rerun:${request.profile}:${request.startDate}:${request.endDate}`;
+  const snapshotColumns = orderedSnapshotColumns(rows, payload.snapshot_columns ?? payload.feature_columns ?? []);
+  const featureColumns = payload.feature_columns?.length ? payload.feature_columns : snapshotColumns;
   return {
     profile,
     status: 'rerun',
-    source_kind: 'interactive_rerun',
+    source_kind: payload.source_kind ?? 'interactive_rerun',
     display_name: `${request.profile} rerun ${request.startDate} to ${request.endDate}`,
     runnable: true,
     runnable_reason: 'interactive_rerun',
-    feature_packs: [],
-    feature_columns: [],
-    snapshot_columns: [],
+    feature_packs: payload.feature_packs ?? [],
+    feature_columns: featureColumns,
+    snapshot_columns: snapshotColumns,
     source_path: 'api/run-backtest',
     replay_start: rows[0]?.date ?? request.startDate,
     replay_end: rows[rows.length - 1]?.date ?? request.endDate,
     row_count: rows.length,
     rows,
     events: deriveEvents(rows),
-    feature_action_summary: [],
+    feature_action_summary: buildFeatureActionSummary(rows, snapshotColumns),
     warmup_start_date: payload.warmup_start_date,
     replay_aligned: Boolean(payload.replay_aligned),
   };

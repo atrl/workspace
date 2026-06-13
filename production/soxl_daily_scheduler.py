@@ -344,7 +344,7 @@ def main() -> None:
         if not args.skip_dashboard:
             if not args.skip_model_replay_refresh:
                 _run_dashboard_model_replay_refresh(venv_python)
-            dash_cmd = [venv_python, "scripts/build_backtest_dashboard.py"]
+            dash_cmd = [venv_python, "scripts/build_dashboard_bundle.py"]
             _run(dash_cmd, "dashboard build")
             print("[scheduler] core done", flush=True)
             if args.vercel_deploy:
@@ -381,7 +381,7 @@ def main() -> None:
                 if not args.skip_dashboard:
                     if not args.skip_model_replay_refresh:
                         _run_dashboard_model_replay_refresh(venv_python)
-                    dash_cmd = [venv_python, "scripts/build_backtest_dashboard.py"]
+                    dash_cmd = [venv_python, "scripts/build_dashboard_bundle.py"]
                     _run(dash_cmd, "dashboard build")
                 if use_notify:
                     notifier.send(
@@ -410,7 +410,7 @@ def main() -> None:
                 if not args.skip_dashboard:
                     if not args.skip_model_replay_refresh:
                         _run_dashboard_model_replay_refresh(venv_python)
-                    dash_cmd = [venv_python, "scripts/build_backtest_dashboard.py"]
+                    dash_cmd = [venv_python, "scripts/build_dashboard_bundle.py"]
                     _run(dash_cmd, "dashboard build")
                 if use_notify:
                     notifier.send(

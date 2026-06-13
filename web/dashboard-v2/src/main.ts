@@ -236,7 +236,13 @@ function warningsFor(data: DashboardData, state: ViewState): string[] {
   for (const profile of state.selectedProfiles) {
     const model = data.models[profile];
     if (model && !model.runnable) {
-      warnings.push(`${profile} is a reference baseline; interactive inference is disabled for this model.`);
+      const reason =
+        model.runnable_reason === 'reference_baseline'
+          ? 'reference baseline'
+          : model.runnable_reason
+            ? `not runnable: ${model.runnable_reason}`
+            : 'not runnable';
+      warnings.push(`${profile} is ${reason}; interactive inference is disabled for this model.`);
     }
   }
   return warnings;

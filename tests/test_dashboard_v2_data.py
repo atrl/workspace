@@ -154,6 +154,7 @@ def test_build_dashboard_v2_data_keeps_model_specific_feature_snapshots(tmp_path
     ]:
         model_csv = tmp_path / "runtime" / "model" / "card" / profile / f"{profile}_soxl_daily.csv"
         model_csv.parent.mkdir(parents=True)
+        (model_csv.parent / f"soxl_{profile.split('_')[0]}_actor.pt").write_bytes(b"actor")
         _write_csv(
             model_csv,
             [
@@ -239,6 +240,72 @@ def test_build_dashboard_v2_data_keeps_model_specific_feature_snapshots(tmp_path
     assert beta["events"][0]["feature_snapshot"]["beta_signal"] == -2.5
     assert alpha["feature_action_summary"][0]["feature"] == "alpha_signal"
     assert beta["feature_action_summary"][0]["feature"] == "beta_signal"
+
+
+def test_build_dashboard_v2_data_disables_models_with_missing_actor_artifacts(tmp_path: Path):
+    freshness = tmp_path / "dashboard_data" / "model_replay_freshness.json"
+    freshness.parent.mkdir()
+    model_csv = tmp_path / "runtime" / "model" / "card" / "missing_actor_model" / "missing_actor_model_soxl_daily.csv"
+    model_csv.parent.mkdir(parents=True)
+    _write_csv(
+        model_csv,
+        [
+            {
+                "datetime": "2026-01-02",
+                "strategy_nav": 100.0,
+                "buyhold_nav": 100.0,
+                "position": 0.0,
+                "action": "HOLD",
+                "price": 10.0,
+            },
+            {
+                "datetime": "2026-01-05",
+                "strategy_nav": 105.0,
+                "buyhold_nav": 110.0,
+                "position": 0.7,
+                "action": "BUY",
+                "price": 11.0,
+            },
+        ],
+    )
+    freshness.write_text(
+        json.dumps(
+            {
+                "generated_at": "2026-06-13T00:00:00+00:00",
+                "latest_data_date": "2026-01-05",
+                "safe_backtest_end": "2026-01-05",
+                "profiles": [
+                    {
+                        "profile": "missing_actor_model",
+                        "status": "candidate",
+                        "actor": "runtime/model/card/missing_actor_model/soxl_missing_actor_model_actor.pt",
+                        "output": "runtime/model/card/missing_actor_model/missing_actor_model_soxl_daily.csv",
+                        "result": "current",
+                    }
+                ],
+            }
+        )
+    )
+
+    output_dir = tmp_path / "dashboard_data" / "v2"
+    build_dashboard_v2_data(
+        root=tmp_path,
+        output_dir=output_dir,
+        freshness_path=freshness,
+        market_rows={
+            "2026-01-02": {"open": 10.0, "high": 10.5, "low": 9.5, "close": 10.0, "volume": 1000},
+            "2026-01-05": {"open": 10.5, "high": 11.5, "low": 10.0, "close": 11.0, "volume": 1200},
+        },
+        selected_profiles=["missing_actor_model"],
+        baseline_profile="missing_actor_model",
+    )
+
+    manifest = json.loads((output_dir / "manifest.json").read_text())
+    model = json.loads((output_dir / "models" / "missing_actor_model.json").read_text())
+
+    assert model["runnable"] is False
+    assert model["runnable_reason"] == "missing_actor_artifact"
+    assert manifest["default_chart_profile"] == "missing_actor_model"
 
 
 def test_build_feature_action_summary_compares_buy_and_sell_snapshots():

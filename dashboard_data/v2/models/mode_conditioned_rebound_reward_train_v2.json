@@ -139717,8 +139717,8 @@
       "strategy_nav": 17468905.925337065
     }
   ],
-  "runnable": true,
-  "runnable_reason": "ok",
+  "runnable": false,
+  "runnable_reason": "missing_actor_artifact",
   "snapshot_columns": [
     "return",
     "anchor_gap_180",

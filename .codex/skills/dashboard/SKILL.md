@@ -54,9 +54,14 @@ Use these rules before editing TradingView-like interactions:
 ### Regenerate Dashboard After Backtest
 ```bash
 cd /Users/rziiiii/dev/workspace
-qlib_venv/bin/python scripts/build_backtest_dashboard.py
-# Open dashboard.html in browser
+PYTHONPATH=. qlib_venv/bin/python scripts/build_dashboard_bundle.py
+# Open dashboard.html or web/dashboard-v2 against the generated JSON
 ```
+
+`scripts/build_dashboard_bundle.py` is the canonical dashboard rebuild entrypoint.
+It regenerates legacy `dashboard.html`, rebuilds `dashboard_data/v2/`, and runs
+the v2 data contract checker. Use the lower-level builders only when debugging a
+specific layer.
 
 ### Post-Train Default View
 After a training run, the harness should:
@@ -102,7 +107,7 @@ Before scheduled/static dashboard rebuilds, refresh retained model replay CSVs:
 
 ```bash
 PYTHONPATH=. qlib_venv/bin/python scripts/refresh_dashboard_model_replays.py --python qlib_venv/bin/python
-PYTHONPATH=. qlib_venv/bin/python scripts/build_backtest_dashboard.py
+PYTHONPATH=. qlib_venv/bin/python scripts/build_dashboard_bundle.py
 PYTHONPATH=. qlib_venv/bin/python scripts/check_dashboard_static_export.py
 ```
 
@@ -138,6 +143,16 @@ qlib_venv/bin/python scripts/dashboard_server.py --port 8765
 # open http://127.0.0.1:8765/dashboard.html
 ```
 
+If another local server already owns 8765, run the API on a free port and open
+the v2 frontend with an explicit API base:
+
+```bash
+qlib_venv/bin/python scripts/dashboard_server.py --port 8766
+cd web/dashboard-v2
+npm run dev -- --host 127.0.0.1
+# open http://127.0.0.1:<vite-port>/?apiBase=http://127.0.0.1:8766
+```
+
 The chart Start/End inputs control only the visible chart window. The Run Model
 Backtest inputs use the replayable model window, so they are not locked to the
 short `paper_trading` display range. For profiles listed in
@@ -147,10 +162,13 @@ model replay CSV start and full `TEST_SEG`, then slice to the requested dates so
 The response should expose `warmup_start_date` and `replay_aligned` for UI
 diagnostics. A successful rerun is registered in the browser as
 `rerun:<profile>:<start>:<end>` using the effective returned window and selected
-in the Model dropdown. Rerun API rows should carry OHLC/indicator fields when
-market data is available. The Main Chart must still draw a full `close || price`
-SOXL line and a visible position line; OHLC candles are supplemental and must
-not suppress the price line if enrichment is incomplete.
+in the Model dropdown. Rerun API rows should carry OHLC/indicator fields and a
+nested `feature_snapshot` keyed by the selected profile's `feature_columns`.
+The API response should also expose `feature_packs` and `feature_columns` so
+the frontend can compare model-specific BUY/SELL feature summaries instead of
+assuming a single global feature schema. The Main Chart must still draw a full
+`close || price` SOXL line and a visible position line; OHLC candles are
+supplemental and must not suppress the price line if enrichment is incomplete.
 Opening `dashboard.html` through `file://` or a plain `python -m http.server`
 can inspect static data. Backend model inference still needs
 `scripts/dashboard_server.py` running at `127.0.0.1:8765`; the static page will
@@ -185,6 +203,13 @@ still fetch `dashboard_data/versioned/<version>/<ETF>.json`; otherwise the Main
 Chart silently falls back to the current ETF rows and shows a wrong window.
 The converted `soxl_backtest_policy_reimplementation_v1` buy/sell path is a
 `reference_baseline` dashboard version, not a runnable inference profile.
+
+For qlib-backed dashboard v2 models, `runnable=true` requires both a retained
+profile and the referenced actor artifact to exist in the current checkout.
+Disable missing-actor profiles with `runnable_reason=missing_actor_artifact`
+instead of letting the UI offer a broken rerun. Keep
+`runnable_reason=reference_baseline` only for evidence-only baselines such as
+the SOXLBacktest policy reimplementation.
 
 If the dashboard opens on an older run after fresh training, check:
 - whether the latest `*_soxl_daily.csv` was written

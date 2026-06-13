@@ -67,14 +67,14 @@
     "state_conditioned_drawdown_rebound_reward_train_v1"
   ],
   "default_baseline_profile": "soxl_backtest_policy_reimplementation_v1",
-  "default_chart_profile": "drawdown_rebound_reward_train_v1",
+  "default_chart_profile": "state_conditioned_drawdown_rebound_reward_train_v1",
   "default_comparison_profiles": [
     "soxl_backtest_policy_reimplementation_v1",
     "drawdown_rebound_reward_train_v1",
     "mode_conditioned_rebound_reward_train_v2",
     "state_conditioned_drawdown_rebound_reward_train_v1"
   ],
-  "generated_at": "2026-06-13T18:26:02.321407+00:00",
+  "generated_at": "2026-06-13T19:36:06.050832+00:00",
   "latest_market_date": "2026-06-12",
   "model_retention_gate": {
     "max_walkforward_drawdown_pct": 20.0,

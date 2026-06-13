@@ -15,8 +15,6 @@ cd "$ROOT"
 
 echo "[dashboard-refresh] run started at $(date -Iseconds)"
 "$PYTHON_BIN" "$ROOT/scripts/refresh_dashboard_model_replays.py" --python "$PYTHON_BIN"
-"$PYTHON_BIN" "$ROOT/scripts/build_backtest_dashboard.py"
-"$PYTHON_BIN" "$ROOT/scripts/build_dashboard_v2_data.py" --detect-launchd
+"$PYTHON_BIN" "$ROOT/scripts/build_dashboard_bundle.py"
 "$PYTHON_BIN" "$ROOT/scripts/check_dashboard_static_export.py"
-"$PYTHON_BIN" "$ROOT/scripts/check_dashboard_v2_data.py"
 echo "[dashboard-refresh] all done"

@@ -231,7 +231,7 @@ def _schema_signature(columns: list[str]) -> str:
     return hashlib.sha1(payload).hexdigest()[:12]
 
 
-def _feature_metadata(profile_name: str, source: dict[str, Any]) -> dict[str, Any]:
+def _feature_metadata(root: Path, profile_name: str, source: dict[str, Any]) -> dict[str, Any]:
     if profile_name == SOXL_BACKTEST_REFERENCE_PROFILE:
         columns = list(REFERENCE_FEATURE_COLUMNS)
         return {
@@ -254,12 +254,14 @@ def _feature_metadata(profile_name: str, source: dict[str, Any]) -> dict[str, An
         feature_error = str(exc)
     else:
         feature_error = None
-    runnable = bool(source.get("actor"))
+    actor = str(source.get("actor") or "").strip()
+    actor_exists = bool(actor) and (root / actor).exists()
+    runnable_reason = "ok" if actor_exists else "missing_actor_artifact" if actor else "missing_actor"
     metadata: dict[str, Any] = {
         "source_kind": source.get("source_kind", "qlib_model"),
         "display_name": source.get("display_name", profile_name),
-        "runnable": runnable,
-        "runnable_reason": "ok" if runnable else "missing_actor",
+        "runnable": actor_exists,
+        "runnable_reason": runnable_reason,
         "feature_packs": packs,
         "feature_columns": columns,
         "feature_schema_signature": _schema_signature(columns),
@@ -1013,7 +1015,7 @@ def build_dashboard_v2_data(
             safe_backtest_end=str(safe_backtest_end) if safe_backtest_end else None,
             window=source.get("window"),
         )
-        feature_metadata = _feature_metadata(profile_name, source)
+        feature_metadata = _feature_metadata(root, profile_name, source)
         model_feature_rows = model_feature_rows_by_profile.get(profile_name)
         feature_snapshot_error = None
         if model_feature_rows is None:

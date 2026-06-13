@@ -31,7 +31,12 @@ except ModuleNotFoundError:
         _pair_trades,
     )
 from src.soxl_quant.backtest import backtest_profile
-from src.soxl_quant.data import build_dataset as _build_dataset, init_qlib as _init_qlib, segment_frame as _segment_frame
+from src.soxl_quant.data import (
+    build_dataset as _build_dataset,
+    feature_columns_for_packs as _feature_columns_for_packs,
+    init_qlib as _init_qlib,
+    segment_frame as _segment_frame,
+)
 from src.soxl_quant.policy.policy_builder import build_policy
 from src.soxl_quant.settings import (
     ACCOUNT,
@@ -48,7 +53,7 @@ import pandas as pd
 
 # Pre-init qlib once at module load to avoid repeated init
 _QLIB_INITIALIZED = False
-_DATASET = None
+_DATASETS: dict[tuple[str, tuple[str, ...]], object] = {}
 
 MARKET_ROW_FIELDS = (
     "open",
@@ -65,13 +70,15 @@ MARKET_ROW_FIELDS = (
 )
 
 
-def _ensure_qlib():
-    global _QLIB_INITIALIZED, _DATASET
+def _ensure_qlib(*, feature_packs: tuple[str, ...] = (), profile_name: str = ""):
+    global _QLIB_INITIALIZED
     if not _QLIB_INITIALIZED:
         _init_qlib(QLIB_DATA_PATH)
-        _DATASET = _build_dataset()
         _QLIB_INITIALIZED = True
-    return _DATASET
+    key = (profile_name, tuple(feature_packs))
+    if key not in _DATASETS:
+        _DATASETS[key] = _build_dataset(feature_packs=feature_packs, profile_name=profile_name or None)
+    return _DATASETS[key]
 
 
 def _json_scalar(value):
@@ -98,6 +105,7 @@ def _build_daily_rows(
     position_history: list[float],
     trade_signals: list[tuple],
     market_lookup: dict[str, dict] | None = None,
+    feature_lookup: dict[str, dict[str, object]] | None = None,
 ) -> list[dict[str, object]]:
     """Build JSON-ready daily rows for the interactive dashboard API."""
     account = account.astype(float)
@@ -116,6 +124,7 @@ def _build_daily_rows(
         action_map[pd.Timestamp(sig_date).strftime("%Y-%m-%d")] = str(sig_type).upper()
 
     market_lookup = market_lookup or {}
+    feature_lookup = feature_lookup or {}
     rows: list[dict[str, object]] = []
     for i, (ts, acc) in enumerate(account.items()):
         dt_str = pd.Timestamp(ts).strftime("%Y-%m-%d")
@@ -142,8 +151,43 @@ def _build_daily_rows(
             value = _json_scalar(market_row.get(field))
             if value is not None:
                 row[field] = value
+        feature_snapshot = {
+            str(key): _json_scalar(value)
+            for key, value in (feature_lookup.get(dt_str) or {}).items()
+            if _json_scalar(value) is not None
+        }
+        if feature_snapshot:
+            row["feature_snapshot"] = feature_snapshot
         rows.append(row)
     return rows
+
+
+def _feature_lookup_from_frame(
+    feature_frame: pd.DataFrame,
+    feature_columns: list[str],
+) -> dict[str, dict[str, object]]:
+    if feature_frame.empty:
+        return {}
+    frame = feature_frame.copy()
+    if isinstance(frame.index, pd.MultiIndex):
+        if "instrument" in frame.index.names:
+            frame = frame.droplevel("instrument")
+        else:
+            frame = frame.reset_index(level=list(range(1, frame.index.nlevels)), drop=True)
+    frame.index = pd.to_datetime(frame.index)
+    columns = [column for column in feature_columns if column in frame.columns]
+    if not columns:
+        columns = [str(column) for column in frame.columns]
+    lookup: dict[str, dict[str, object]] = {}
+    for dt, source in frame[columns].sort_index().iterrows():
+        snapshot: dict[str, object] = {}
+        for column in columns:
+            value = _json_scalar(source[column])
+            if value is not None:
+                snapshot[str(column)] = value
+        if snapshot:
+            lookup[pd.Timestamp(dt).strftime("%Y-%m-%d")] = snapshot
+    return lookup
 
 
 def _response_window_from_rows(
@@ -289,7 +333,10 @@ class DashboardHandler(SimpleHTTPRequestHandler):
             return
 
         try:
-            dataset = _ensure_qlib()
+            profile = load_profile(profile_name)
+            feature_packs = tuple(str(pack) for pack in profile.feature.packs)
+            feature_columns = _feature_columns_for_packs(feature_packs, profile.name)
+            dataset = _ensure_qlib(feature_packs=feature_packs, profile_name=profile.name)
             scope = _backtest_request_scope(profile_name, start_date, end_date)
             warmup_start_date = str(scope["warmup_start"])
             feature_start = str(scope["feature_start"])
@@ -306,7 +353,6 @@ class DashboardHandler(SimpleHTTPRequestHandler):
 
             price = dataset.handler.price_frame.droplevel("instrument")["price"].loc[seg_df.index]
 
-            profile = load_profile(profile_name)
             mpath = model_artifact_path(profile_name, tag)
             if not mpath.exists():
                 self._send_json({"error": f"Model not found: {mpath}"}, 404)
@@ -345,6 +391,7 @@ class DashboardHandler(SimpleHTTPRequestHandler):
                 position_history=result.get("position_history", []),
                 trade_signals=result.get("trade_signals", []),
                 market_lookup=load_ohlc_and_indicators("SOXL"),
+                feature_lookup=_feature_lookup_from_frame(seg_df, feature_columns),
             )
             rows = _slice_daily_rows(all_rows, start_date, end_date)
 
@@ -363,6 +410,9 @@ class DashboardHandler(SimpleHTTPRequestHandler):
                 "end_date": end_date,
                 "warmup_start_date": warmup_start_date,
                 "replay_aligned": bool(scope["replay_aligned"]),
+                "source_kind": "interactive_rerun",
+                "feature_packs": list(feature_packs),
+                "feature_columns": feature_columns,
                 "effective_start_date": window["start"],
                 "effective_end_date": window["end"],
                 "summary": metrics,

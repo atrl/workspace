@@ -223,6 +223,21 @@ def test_scheduler_smoke_mode_runs_cached_dry_run_with_dashboard(monkeypatch: py
     assert "--no-notify" in paper_cmd
 
 
+def test_scheduler_dashboard_build_uses_bundle_builder(monkeypatch: pytest.MonkeyPatch):
+    calls: list[tuple[list[str], str]] = []
+
+    def fake_run(cmd: list[str], description: str):
+        calls.append((cmd, description))
+
+    monkeypatch.setattr(soxl_daily_scheduler, "_run", fake_run)
+    monkeypatch.setattr(sys, "argv", ["soxl_daily_scheduler.py", "--no-notify"])
+
+    soxl_daily_scheduler.main()
+
+    dashboard_cmd = next(cmd for cmd, description in calls if description == "dashboard build")
+    assert "scripts/build_dashboard_bundle.py" in dashboard_cmd
+
+
 def test_scheduler_prints_run_start_marker(monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]):
     def fake_run(cmd: list[str], description: str):
         return None
