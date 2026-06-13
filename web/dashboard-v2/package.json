@@ -1,0 +1,20 @@
+{
+  "name": "soxl-dashboard-v2",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "tsc --noEmit && vite build",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "lightweight-charts": "^5.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.0",
+    "jsdom": "^29.1.1",
+    "typescript": "^6.0.3",
+    "vite": "^8.0.16",
+    "vitest": "^4.1.8"
+  }
+}

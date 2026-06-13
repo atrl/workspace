@@ -1,0 +1,124 @@
+{
+  "url": "http://127.0.0.1:5173/",
+  "desktop_nonwhite_ratio": 0.9992270413688542,
+  "mobile_nonwhite_ratio": 0.9983261615819755,
+  "canvas_count": 21,
+  "canvas_nonblank_max": 1,
+  "canvas_stats": [
+    {
+      "width": 1036,
+      "height": 700,
+      "nonblankRatio": 1
+    },
+    {
+      "width": 1036,
+      "height": 700,
+      "nonblankRatio": 0
+    },
+    {
+      "width": 62,
+      "height": 700,
+      "nonblankRatio": 1
+    },
+    {
+      "width": 62,
+      "height": 700,
+      "nonblankRatio": 0
+    },
+    {
+      "width": 1036,
+      "height": 28,
+      "nonblankRatio": 1
+    },
+    {
+      "width": 1036,
+      "height": 28,
+      "nonblankRatio": 0
+    },
+    {
+      "width": 62,
+      "height": 28,
+      "nonblankRatio": 1
+    },
+    {
+      "width": 494,
+      "height": 152,
+      "nonblankRatio": 1
+    },
+    {
+      "width": 494,
+      "height": 152,
+      "nonblankRatio": 0
+    },
+    {
+      "width": 54,
+      "height": 152,
+      "nonblankRatio": 0.9978070175438597
+    },
+    {
+      "width": 54,
+      "height": 152,
+      "nonblankRatio": 0
+    },
+    {
+      "width": 494,
+      "height": 28,
+      "nonblankRatio": 1
+    },
+    {
+      "width": 494,
+      "height": 28,
+      "nonblankRatio": 0
+    },
+    {
+      "width": 54,
+      "height": 28,
+      "nonblankRatio": 1
+    },
+    {
+      "width": 448,
+      "height": 152,
+      "nonblankRatio": 0.9994419642857143
+    },
+    {
+      "width": 448,
+      "height": 152,
+      "nonblankRatio": 0.0546140742481203
+    },
+    {
+      "width": 100,
+      "height": 152,
+      "nonblankRatio": 0.9957236842105263
+    },
+    {
+      "width": 100,
+      "height": 152,
+      "nonblankRatio": 0
+    },
+    {
+      "width": 448,
+      "height": 28,
+      "nonblankRatio": 1
+    },
+    {
+      "width": 448,
+      "height": 28,
+      "nonblankRatio": 0
+    },
+    {
+      "width": 100,
+      "height": 28,
+      "nonblankRatio": 1
+    }
+  ],
+  "required_text": [
+    "SOXL",
+    "BUY",
+    "SELL",
+    "Position",
+    "safe_backtest_end",
+    "Model Difference"
+  ],
+  "missing_text": [],
+  "chart_text": "SOXL\nTradingView-like replay review\nBUY\nSELL\nPosition\n\t\n\t\n\n\t\n\t\nPosition\n\t\n\t\n\n\t\n\t\nNAV\n\t\n\t\n\n\t\n\t"
+}
