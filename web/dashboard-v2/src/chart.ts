@@ -6,6 +6,7 @@ import {
   createSeriesMarkers,
   type IChartApi,
   type ISeriesApi,
+  type LogicalRange,
   type MouseEventParams,
   type Time,
 } from 'lightweight-charts';
@@ -41,6 +42,18 @@ function resetChartContainer(container: HTMLElement): void {
 
 function registerChart(container: HTMLElement, chart: IChartApi): void {
   chartByContainer.set(container, chart);
+}
+
+export function syncVisibleLogicalRange(source: IChartApi, targets: IChartApi[]): () => void {
+  const sourceTimeScale = source.timeScale();
+  const syncRange = (range: LogicalRange | null) => {
+    if (!range) return;
+    for (const target of targets) {
+      target.timeScale().setVisibleLogicalRange(range);
+    }
+  };
+  sourceTimeScale.subscribeVisibleLogicalRangeChange(syncRange);
+  return () => sourceTimeScale.unsubscribeVisibleLogicalRangeChange(syncRange);
 }
 
 function createDateEmitter(onDate: (date: string) => void): {

@@ -1,5 +1,5 @@
 import './styles.css';
-import { renderMarketChart, renderNavChart, renderPositionChart } from './chart';
+import { renderMarketChart, renderNavChart, renderPositionChart, syncVisibleLogicalRange } from './chart';
 import {
   clampComparisonProfiles,
   clipRowsByDate,
@@ -197,9 +197,10 @@ function renderDashboard(data: DashboardData, state: ViewState, update: (next: P
 
   renderToolbar(toolbar, data, state, update);
   renderActionLegend(actionLegend);
-  renderMarketChart(marketChart, market, primary, (date) => update({ hoveredDate: date }));
-  renderPositionChart(positionChart, primary);
-  renderNavChart(navChart, models, state.baselineProfile);
+  const marketHandles = renderMarketChart(marketChart, market, primary, (date) => update({ hoveredDate: date }));
+  const positionHandles = renderPositionChart(positionChart, primary);
+  const navHandles = renderNavChart(navChart, models, state.baselineProfile);
+  syncVisibleLogicalRange(marketHandles.chart, [positionHandles.chart, navHandles]);
   renderInspector(data, state);
   renderComparisonPanel(comparison, data.comparison, state.start, state.end);
   renderDataSourcePanel(source, data.manifest, warningsFor(data, state));

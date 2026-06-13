@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, test, vi } from 'vitest';
-import { renderMarketChart, renderNavChart } from './chart';
+import { renderMarketChart, renderNavChart, renderPositionChart, syncVisibleLogicalRange } from './chart';
 import { marketFixture, modelFixture } from './testFixtures';
 
 const chartMocks = vi.hoisted(() => {
@@ -7,6 +7,18 @@ const chartMocks = vi.hoisted(() => {
   const subscriptions = {
     click: undefined as ((param: { time?: string }) => void) | undefined,
     crosshairMove: undefined as ((param: { time?: string }) => void) | undefined,
+  };
+  type VisibleLogicalRange = { from: number; to: number };
+  type TimeScaleMock = {
+    fitContent: ReturnType<typeof vi.fn>;
+    setVisibleLogicalRange: ReturnType<typeof vi.fn>;
+    subscribeVisibleLogicalRangeChange: ReturnType<typeof vi.fn>;
+    unsubscribeVisibleLogicalRangeChange: ReturnType<typeof vi.fn>;
+  };
+  type ChartMock = {
+    remove: ReturnType<typeof vi.fn>;
+    timeScaleApi: TimeScaleMock;
+    visibleLogicalRangeHandler?: (range: VisibleLogicalRange | null) => void;
   };
   const addSeries = vi.fn((kind: string, options: Record<string, unknown> = {}) => {
     const record = { kind, options, data: [] as unknown[] };
@@ -19,18 +31,32 @@ const chartMocks = vi.hoisted(() => {
   });
   return {
     addSeries,
-    chartInstances: [] as { remove: ReturnType<typeof vi.fn> }[],
+    chartInstances: [] as ChartMock[],
     createChart: vi.fn(() => {
+      const timeScaleApi: TimeScaleMock = {
+        fitContent: vi.fn(),
+        setVisibleLogicalRange: vi.fn(),
+        subscribeVisibleLogicalRangeChange: vi.fn((callback: (range: VisibleLogicalRange | null) => void) => {
+          chart.visibleLogicalRangeHandler = callback;
+        }),
+        unsubscribeVisibleLogicalRangeChange: vi.fn(),
+      };
       const chart = {
         addSeries,
         remove: vi.fn(),
+        timeScaleApi,
         subscribeClick: vi.fn((callback: (param: { time?: string }) => void) => {
           subscriptions.click = callback;
         }),
         subscribeCrosshairMove: vi.fn((callback: (param: { time?: string }) => void) => {
           subscriptions.crosshairMove = callback;
         }),
-        timeScale: vi.fn(() => ({ fitContent: vi.fn() })),
+        timeScale: vi.fn(() => timeScaleApi),
+      } as ChartMock & {
+        addSeries: typeof addSeries;
+        subscribeClick: ReturnType<typeof vi.fn>;
+        subscribeCrosshairMove: ReturnType<typeof vi.fn>;
+        timeScale: ReturnType<typeof vi.fn>;
       };
       chartMocks.chartInstances.push(chart);
       return chart;
@@ -115,6 +141,18 @@ describe('dashboard v2 chart rendering', () => {
 
     expect(firstChart.remove).toHaveBeenCalledTimes(1);
     expect(chartMocks.chartInstances[1].remove).not.toHaveBeenCalled();
+  });
+
+  test('syncs visible logical range from the main chart to companion charts', () => {
+    const main = renderMarketChart(document.createElement('div'), marketFixture, modelFixture, () => {});
+    const position = renderPositionChart(document.createElement('div'), modelFixture);
+    const nav = renderNavChart(document.createElement('div'), { smoke: modelFixture }, 'smoke');
+
+    syncVisibleLogicalRange(main.chart, [position.chart, nav]);
+    chartMocks.chartInstances[0].visibleLogicalRangeHandler?.({ from: 1, to: 12 });
+
+    expect(chartMocks.chartInstances[1].timeScaleApi.setVisibleLogicalRange).toHaveBeenCalledWith({ from: 1, to: 12 });
+    expect(chartMocks.chartInstances[2].timeScaleApi.setVisibleLogicalRange).toHaveBeenCalledWith({ from: 1, to: 12 });
   });
 
   test('renders buyhold baseline on the NAV chart before strategy lines', () => {

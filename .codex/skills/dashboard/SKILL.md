@@ -124,6 +124,14 @@ Do not close over per-render `rows` in repeatedly registered handlers; hover
 lookups should use a date map instead of scanning the row array on every mouse
 move.
 
+Dashboard v2 uses `lightweight-charts` under `web/dashboard-v2/`. When changing
+its chart interactions, keep lifecycle and synchronization explicit: call
+`chart.remove()` before rerendering into the same container, throttle hover-only
+state updates, and sync the main chart visible logical range to companion
+Position/NAV charts so mouse wheel zoom and drag pan preserve one shared time
+context. Cover these behaviors in `web/dashboard-v2/src/chart.test.ts` before
+editing production code.
+
 Version-selector rows from `dashboard_data/index.json` are only summaries. If
 `DATA.versioned[version]` exists but lacks `detailed[ETF]`, the frontend must
 still fetch `dashboard_data/versioned/<version>/<ETF>.json`; otherwise the Main
