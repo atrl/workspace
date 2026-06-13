@@ -202,8 +202,10 @@ def persist_summary_bundle(
     test_proxy,
     promotion_report,
     retained_checkpoints=None,
+    actor_retention=None,
 ):
     retained_checkpoints = retained_checkpoints or []
+    actor_retention = actor_retention or {}
     summary_path = summary_artifact_path(profile.name, effective_tag)
     summary_path.parent.mkdir(parents=True, exist_ok=True)
     summary_path.write_text(
@@ -220,6 +222,7 @@ def persist_summary_bundle(
                 "sampling_config": serialize_sampling_config(profile),
                 "warm_start": serialize_warm_start(profile),
                 "model_path": str(model_path),
+                "actor_retention": actor_retention,
                 "retained_checkpoints": retained_checkpoints,
                 "valid": valid_metrics,
                 "best_score": selection["best_score"],

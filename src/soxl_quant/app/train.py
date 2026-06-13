@@ -32,6 +32,39 @@ from .promote import build_promotion_report
 from .selection import train_with_selection
 from .sources import build_multi_asset_sources
 
+
+def _actor_retention_report(
+    *,
+    model_path: Path,
+    promotion_report: Dict[str, object],
+    retained_checkpoint_count: int,
+    blocked_retained_checkpoint_count: int,
+) -> Dict[str, object]:
+    walk_forward_evaluated = bool(promotion_report.get("walk_forward_evaluated", False))
+    promotion_eligible = bool(promotion_report.get("eligible", False))
+    final_retention_allowed = walk_forward_evaluated and promotion_eligible
+    if final_retention_allowed:
+        decision = "retain_promotable"
+        reason = "walk_forward_promotion_gate_passed"
+    elif not walk_forward_evaluated:
+        decision = "candidate_for_walkforward"
+        reason = "walk_forward_gate_not_evaluated"
+    else:
+        decision = "evidence_only_gate_failed"
+        reason = "walk_forward_promotion_gate_failed"
+    return {
+        "decision": decision,
+        "reason": reason,
+        "final_retention_allowed": final_retention_allowed,
+        "walk_forward_evaluated": walk_forward_evaluated,
+        "promotion_eligible": promotion_eligible,
+        "candidate_actor_path": str(model_path),
+        "final_actor_path": str(model_path) if final_retention_allowed else None,
+        "retained_checkpoint_count": int(retained_checkpoint_count),
+        "blocked_retained_checkpoint_count": int(blocked_retained_checkpoint_count),
+    }
+
+
 def set_global_seed(seed: int) -> None:
     os.environ["PYTHONHASHSEED"] = str(seed)
     random.seed(seed)
@@ -137,14 +170,6 @@ def run_profile(
     )
 
     model_path = persist_actor_bundle(profile, actor, obs_dim=obs_dim, seed=seed, effective_tag=effective_tag)
-    retained_checkpoint_records = persist_retained_checkpoint_bundles(
-        profile=profile,
-        actor=actor,
-        obs_dim=obs_dim,
-        seed=seed,
-        effective_tag=effective_tag,
-        retained_checkpoints=selection.get("retained_checkpoints", []),
-    )
     slice_result = slice_metrics(
         actor,
         test_df,
@@ -220,6 +245,29 @@ def run_profile(
         promotion_report = build_promotion_report(profile, slice_result, test_proxy)
     else:
         promotion_report = build_promotion_report(profile, slice_result, test_proxy)
+    retained_checkpoint_candidates = selection.get("retained_checkpoints", [])
+    promotion_allows_final_retention = bool(promotion_report.get("eligible", False)) and bool(
+        promotion_report.get("walk_forward_evaluated", False)
+    )
+    if promotion_allows_final_retention:
+        retained_checkpoint_records = persist_retained_checkpoint_bundles(
+            profile=profile,
+            actor=actor,
+            obs_dim=obs_dim,
+            seed=seed,
+            effective_tag=effective_tag,
+            retained_checkpoints=retained_checkpoint_candidates,
+        )
+        blocked_retained_checkpoint_count = 0
+    else:
+        retained_checkpoint_records = []
+        blocked_retained_checkpoint_count = len(retained_checkpoint_candidates)
+    actor_retention = _actor_retention_report(
+        model_path=model_path,
+        promotion_report=promotion_report,
+        retained_checkpoint_count=len(retained_checkpoint_records),
+        blocked_retained_checkpoint_count=blocked_retained_checkpoint_count,
+    )
     summary_path = persist_summary_bundle(
         profile=profile,
         seed=seed,
@@ -231,6 +279,7 @@ def run_profile(
         test_proxy=test_proxy,
         promotion_report=promotion_report,
         retained_checkpoints=retained_checkpoint_records,
+        actor_retention=actor_retention,
     )
     bt_result["valid"] = valid_metrics
     bt_result["selection_history"] = selection["history"]
@@ -240,6 +289,7 @@ def run_profile(
     bt_result["slices"] = slice_result
     bt_result["test_proxy"] = test_proxy
     bt_result["promotion"] = promotion_report
+    bt_result["actor_retention"] = actor_retention
     review_csv_path = export_review_daily_csv(profile.name, bt_result, price_series, effective_tag)
     if review_csv_path is not None:
         bt_result["review_daily_csv"] = str(review_csv_path)

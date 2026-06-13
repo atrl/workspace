@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+from unittest.mock import patch
 
 import pandas as pd
 
@@ -103,6 +104,149 @@ def test_run_profile_persists_summary_after_main_backtest_corrections():
     assert captured["test_proxy"]["relative_return"] == -77.0
     assert captured["slice_result"]["test_2022"]["max_dd"] == 12.0
     assert captured["promotion_report"]["proxy_return"] == 123.0
+
+
+def test_run_profile_marks_actor_candidate_and_suppresses_retained_checkpoints_until_walkforward_gate():
+    profile = load_profile("balanced")
+    dates = pd.to_datetime(["2022-01-03", "2022-01-04"])
+    frame = pd.DataFrame({"value": [1.0, 2.0]}, index=dates)
+    price_series = pd.Series([100.0, 101.0], index=dates)
+    captured: dict[str, object] = {}
+
+    def fail_retained_checkpoint_persist(**_kwargs):
+        raise AssertionError("retained checkpoint actors require a passed walk-forward promotion gate")
+
+    def fake_persist_summary_bundle(**kwargs):
+        captured["actor_retention"] = dict(kwargs["actor_retention"])
+        captured["retained_checkpoints"] = list(kwargs["retained_checkpoints"])
+        return Path("runtime/model/card/balanced/soxl_balanced_summary.json")
+
+    with (
+        patch.object(train_module, "observation_dim_for_profile", lambda _profile: 3),
+        patch.object(train_module, "feature_columns_for_packs", lambda _packs, _name: []),
+        patch.object(train_module, "build_initial_states", lambda *_args, **_kwargs: [object()]),
+        patch.object(train_module, "build_policy", lambda *_args, **_kwargs: (object(), _DummyActor())),
+        patch.object(
+            train_module,
+            "train_with_selection",
+            lambda **_kwargs: {
+                "best_metrics": {"return": 1.0, "sharpe": 0.5, "max_dd": 2.0},
+                "best_score": 3.0,
+                "history": [{"iter": 0, "score": 3.0}],
+                "retained_checkpoints": [{"iter": 20, "score": 3.0, "state_dict": {"w": 20}}],
+            },
+        ),
+        patch.object(
+            train_module,
+            "persist_actor_bundle",
+            lambda *_args, **_kwargs: Path("runtime/model/card/balanced/soxl_balanced_actor.pt"),
+        ),
+        patch.object(train_module, "persist_retained_checkpoint_bundles", fail_retained_checkpoint_persist),
+        patch.object(train_module, "slice_metrics", lambda *_args, **_kwargs: {"test_2022": {"return": 1.0, "max_dd": 10.0}}),
+        patch.object(train_module, "evaluate_split", lambda *_args, **_kwargs: {"return": 1.0, "sharpe": 1.0, "max_dd": 10.0}),
+        patch.object(
+            train_module,
+            "backtest_profile",
+            lambda *_args, **_kwargs: {
+                "return": 1.0,
+                "sharpe": 1.0,
+                "max_dd": 10.0,
+                "bnh_return": 2.0,
+                "relative_outperformance": -1.0,
+            },
+        ),
+        patch.object(train_module, "build_promotion_report", lambda *_args, **_kwargs: {"eligible": False, "walk_forward_evaluated": False}),
+        patch.object(train_module, "persist_summary_bundle", fake_persist_summary_bundle),
+        patch.object(train_module, "export_review_daily_csv", lambda *_args, **_kwargs: None),
+    ):
+        result = train_module.run_profile(
+            profile=profile,
+            train_df=frame,
+            valid_df=frame,
+            test_df=frame,
+            price_series=price_series,
+            smoke=False,
+            seed=1,
+        )
+
+    assert captured["retained_checkpoints"] == []
+    assert captured["actor_retention"]["final_retention_allowed"] is False
+    assert captured["actor_retention"]["decision"] == "candidate_for_walkforward"
+    assert captured["actor_retention"]["candidate_actor_path"].endswith("soxl_balanced_actor.pt")
+    assert captured["actor_retention"]["blocked_retained_checkpoint_count"] == 1
+    assert result["actor_retention"]["final_retention_allowed"] is False
+
+
+def test_run_profile_persists_retained_checkpoints_after_walkforward_promotion_gate():
+    profile = load_profile("balanced")
+    dates = pd.to_datetime(["2022-01-03", "2022-01-04"])
+    frame = pd.DataFrame({"value": [1.0, 2.0]}, index=dates)
+    price_series = pd.Series([100.0, 101.0], index=dates)
+    captured: dict[str, object] = {}
+
+    def fake_persist_summary_bundle(**kwargs):
+        captured["actor_retention"] = dict(kwargs["actor_retention"])
+        captured["retained_checkpoints"] = list(kwargs["retained_checkpoints"])
+        return Path("runtime/model/card/balanced/soxl_balanced_summary.json")
+
+    with (
+        patch.object(train_module, "observation_dim_for_profile", lambda _profile: 3),
+        patch.object(train_module, "feature_columns_for_packs", lambda _packs, _name: []),
+        patch.object(train_module, "build_initial_states", lambda *_args, **_kwargs: [object()]),
+        patch.object(train_module, "build_policy", lambda *_args, **_kwargs: (object(), _DummyActor())),
+        patch.object(
+            train_module,
+            "train_with_selection",
+            lambda **_kwargs: {
+                "best_metrics": {"return": 1.0, "sharpe": 0.5, "max_dd": 2.0},
+                "best_score": 3.0,
+                "history": [{"iter": 0, "score": 3.0}],
+                "retained_checkpoints": [{"iter": 20, "score": 3.0, "state_dict": {"w": 20}}],
+            },
+        ),
+        patch.object(
+            train_module,
+            "persist_actor_bundle",
+            lambda *_args, **_kwargs: Path("runtime/model/card/balanced/soxl_balanced_actor.pt"),
+        ),
+        patch.object(
+            train_module,
+            "persist_retained_checkpoint_bundles",
+            lambda **_kwargs: [{"iter": 20, "score": 3.0, "path": "runtime/model/card/balanced/soxl_balanced_checkpoint_iter20_actor.pt"}],
+        ),
+        patch.object(train_module, "slice_metrics", lambda *_args, **_kwargs: {"test_2022": {"return": 1.0, "max_dd": 10.0}}),
+        patch.object(train_module, "evaluate_split", lambda *_args, **_kwargs: {"return": 1.0, "sharpe": 1.0, "max_dd": 10.0}),
+        patch.object(
+            train_module,
+            "backtest_profile",
+            lambda *_args, **_kwargs: {
+                "return": 1.0,
+                "sharpe": 1.0,
+                "max_dd": 10.0,
+                "bnh_return": 2.0,
+                "relative_outperformance": -1.0,
+            },
+        ),
+        patch.object(train_module, "build_promotion_report", lambda *_args, **_kwargs: {"eligible": True, "walk_forward_evaluated": True}),
+        patch.object(train_module, "persist_summary_bundle", fake_persist_summary_bundle),
+        patch.object(train_module, "export_review_daily_csv", lambda *_args, **_kwargs: None),
+    ):
+        result = train_module.run_profile(
+            profile=profile,
+            train_df=frame,
+            valid_df=frame,
+            test_df=frame,
+            price_series=price_series,
+            smoke=False,
+            seed=1,
+        )
+
+    assert captured["retained_checkpoints"] == [
+        {"iter": 20, "score": 3.0, "path": "runtime/model/card/balanced/soxl_balanced_checkpoint_iter20_actor.pt"}
+    ]
+    assert captured["actor_retention"]["final_retention_allowed"] is True
+    assert captured["actor_retention"]["decision"] == "retain_promotable"
+    assert result["actor_retention"]["final_retention_allowed"] is True
 
 
 if __name__ == "__main__":

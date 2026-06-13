@@ -1,0 +1,25 @@
+{
+  "experiment": "retraining_actor_retention_guard_v1",
+  "generated_at": "2026-06-14T06:31:00+08:00",
+  "decision": "training_outputs_are_candidates_until_walkforward_promotion_passes",
+  "changed_layer": "selection",
+  "goal_alignment": {
+    "walk_forward_required": true,
+    "max_walkforward_drawdown_pct": 20.0,
+    "return_alignment_required": true,
+    "soxlbacktest_reference_profile": "soxl_backtest_policy_reimplementation_v1"
+  },
+  "implementation": {
+    "train_run_profile_actor_retention": "run_profile now records actor_retention in summary/result.",
+    "checkpoint_retention_guard": "retained checkpoint actor files are written only when promotion eligible and walk_forward_evaluated are both true.",
+    "candidate_actor_policy": "main trained actor remains a candidate artifact for walk-forward evaluation, not a final retained/promotable actor."
+  },
+  "tests": [
+    "tests/test_train_summary_persistence.py::test_run_profile_marks_actor_candidate_and_suppresses_retained_checkpoints_until_walkforward_gate",
+    "tests/test_train_summary_persistence.py::test_run_profile_persists_retained_checkpoints_after_walkforward_promotion_gate"
+  ],
+  "risk_notes": [
+    "This does not create a new passing model.",
+    "It prevents future retraining loops from treating checkpoint-retention artifacts as final retained models before walk-forward promotion passes."
+  ]
+}
