@@ -1,0 +1,20 @@
+{
+  "checked_at": "2026-06-14T03:54:00+08:00",
+  "tool": "playwright",
+  "browser": "Google Chrome",
+  "url": "http://127.0.0.1:5174/?apiBase=http://127.0.0.1:8766",
+  "run_disabled": true,
+  "profiles": [
+    "soxl_backtest_policy_reimplementation_v1"
+  ],
+  "chart_options": [
+    "soxl_backtest_policy_reimplementation_v1",
+    "soxl_backtest_policy_reimplementation_v1 (reference)"
+  ],
+  "has_retention_gate": true,
+  "has_reference_warning": true,
+  "has_promotable_zero": true,
+  "has_kline_canvas": true,
+  "canvas_count": 24,
+  "screenshot_path": "runtime/model_selection/card/model_retention_walkforward_gate_v1/dashboard_ref_only_2026-06-14.png"
+}

@@ -12,6 +12,7 @@ if str(ROOT) not in sys.path:
 
 from src.soxl_quant.app.model_retention_gate import (  # noqa: E402
     scan_model_retention_gates,
+    write_registry_retention_updates,
     write_retention_gate_outputs,
 )
 
@@ -26,6 +27,14 @@ def main(argv: list[str] | None = None) -> dict[str, object]:
     )
     parser.add_argument("--max-walkforward-drawdown-pct", type=float, default=20.0)
     parser.add_argument("--best-return-ratio", type=float, default=0.95)
+    parser.add_argument(
+        "--apply-registry-retention",
+        action="store_true",
+        help=(
+            "Apply the strict retention plan to the registry by setting unprotected "
+            "failed candidate/ablation keep_actor rows to false. Actor files are not deleted."
+        ),
+    )
     args = parser.parse_args(argv)
 
     result = scan_model_retention_gates(
@@ -34,11 +43,17 @@ def main(argv: list[str] | None = None) -> dict[str, object]:
         best_return_ratio=args.best_return_ratio,
     )
     write_retention_gate_outputs(result, output_dir=args.output_dir)
+    changed: list[str] = []
+    if args.apply_registry_retention:
+        changed = write_registry_retention_updates(args.root, result)
     summary = result["summary"]
     print(
         "model_retention_gate "
         f"profiles={summary['profiles_scanned']} "
         f"passing={summary['passing_profile_count']} "
+        f"disable_plan={summary.get('registry_keep_actor_disable_count', 0)} "
+        f"protected_exceptions={summary.get('registry_keep_actor_protected_exception_count', 0)} "
+        f"registry_changed={len(changed)} "
         f"output={args.output_dir}"
     )
     return result

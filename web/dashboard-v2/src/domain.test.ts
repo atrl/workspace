@@ -9,6 +9,7 @@ import {
   computeInspectorRows,
   computeKeyboardDateRange,
   computeVisibleComparison,
+  chooseDefaultChartProfile,
 } from './domain';
 import { betaModelFixture, comparisonFixture, manifestFixture, marketFixture, modelFixture } from './testFixtures';
 import { viewUpdateRequiresChartRender } from './viewState';
@@ -29,6 +30,28 @@ describe('dashboard v2 domain helpers', () => {
       start: '2026-01-02',
       end: '2026-01-06',
     });
+  });
+
+  test('uses a reference baseline as the default chart profile when no runnable model remains', () => {
+    const reference = {
+      ...modelFixture,
+      profile: 'soxl_backtest_policy_reimplementation_v1',
+      runnable: false,
+      runnable_reason: 'reference_baseline',
+    };
+
+    expect(
+      chooseDefaultChartProfile(
+        {
+          ...manifestFixture,
+          available_profiles: ['soxl_backtest_policy_reimplementation_v1'],
+          default_baseline_profile: 'soxl_backtest_policy_reimplementation_v1',
+          default_chart_profile: 'soxl_backtest_policy_reimplementation_v1',
+          default_comparison_profiles: ['soxl_backtest_policy_reimplementation_v1'],
+        },
+        { soxl_backtest_policy_reimplementation_v1: reference },
+      ),
+    ).toBe('soxl_backtest_policy_reimplementation_v1');
   });
 
   test('builds action markers from event rows instead of price movement', () => {

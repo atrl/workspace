@@ -59,9 +59,10 @@ PYTHONPATH=. qlib_venv/bin/python scripts/build_dashboard_bundle.py
 ```
 
 `scripts/build_dashboard_bundle.py` is the canonical dashboard rebuild entrypoint.
-It regenerates legacy `dashboard.html`, rebuilds `dashboard_data/v2/`, and runs
-the v2 data contract checker. Use the lower-level builders only when debugging a
-specific layer.
+It regenerates legacy `dashboard.html`, refreshes
+`runtime/model_selection/card/model_retention_walkforward_gate_v1`, rebuilds
+`dashboard_data/v2/`, and runs the v2 data contract checker. Use the lower-level
+builders only when debugging a specific layer.
 
 ### Post-Train Default View
 After a training run, the harness should:
@@ -117,6 +118,23 @@ status, a retained actor, and a resolvable `profile.yaml`. It writes
 as `model_replays=<ready>/<total>@<safe_backtest_end>`. The checker also reports
 `paper_latest_signal=<YYYY-MM-DD>` so dry-run/latest-signal freshness is visible
 even when ordinary non-dry `paper_trading` rows have not advanced.
+
+`scripts/build_dashboard_bundle.py` runs
+`scripts/review_model_retention_gates.py` after replay freshness is available.
+The retention gate requires complete `wf_2020`, `wf_2022`, and
+`wf_2023_2024` evidence, WF MaxDD strictly below `20%`, YTD return above the
+SOXLBacktest qlib reference baseline, and YTD return at least `95%` of the
+current best common-window model. To enforce strict registry retention for
+unprotected experiment candidates, run:
+
+```bash
+PYTHONPATH=. qlib_venv/bin/python scripts/review_model_retention_gates.py --apply-registry-retention
+```
+
+This only changes registry metadata: failed candidate/ablation rows become
+`keep_actor=false`, `keep_summary=true`, with a `wf_status=blocked` note. It
+does not delete actor files, and it preserves canonical/archived runtime or
+rollback entries as protected exceptions that remain visible in the audit.
 
 Qlib daily backtests need a following calendar boundary, so replay curves target
 `safe_backtest_end` (usually the penultimate qlib calendar date). Paper trading
@@ -209,7 +227,10 @@ profile and the referenced actor artifact to exist in the current checkout.
 Disable missing-actor profiles with `runnable_reason=missing_actor_artifact`
 instead of letting the UI offer a broken rerun. Keep
 `runnable_reason=reference_baseline` only for evidence-only baselines such as
-the SOXLBacktest policy reimplementation.
+the SOXLBacktest policy reimplementation. If strict retention leaves no
+runnable qlib actors in the current checkout, the v2 dashboard should still
+render the SOXLBacktest reference baseline, disable Run, and show the retention
+gate blockers rather than offering broken model inference.
 
 If the dashboard opens on an older run after fresh training, check:
 - whether the latest `*_soxl_daily.csv` was written

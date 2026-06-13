@@ -5,14 +5,14 @@
     "launchd_detected": true,
     "model_replay_freshness": {
       "counts": {
-        "current": 12,
+        "current": 0,
         "failed": 0,
         "refreshed": 0,
         "skipped": 0
       },
-      "generated_at": "2026-06-13T01:47:40+00:00",
-      "latest_data_date": "2026-06-12",
-      "safe_backtest_end": "2026-06-11",
+      "generated_at": "2026-06-13T19:51:54+00:00",
+      "latest_data_date": "2026-06-10",
+      "safe_backtest_end": "2026-06-09",
       "source_path": "dashboard_data/model_replay_freshness.json"
     },
     "remote_deploy_required": false,
@@ -61,53 +61,31 @@
     "timezone": "Asia/Shanghai"
   },
   "available_profiles": [
-    "soxl_backtest_policy_reimplementation_v1",
-    "drawdown_rebound_reward_train_v1",
-    "mode_conditioned_rebound_reward_train_v2",
-    "state_conditioned_drawdown_rebound_reward_train_v1"
+    "soxl_backtest_policy_reimplementation_v1"
   ],
   "default_baseline_profile": "soxl_backtest_policy_reimplementation_v1",
-  "default_chart_profile": "state_conditioned_drawdown_rebound_reward_train_v1",
+  "default_chart_profile": "soxl_backtest_policy_reimplementation_v1",
   "default_comparison_profiles": [
-    "soxl_backtest_policy_reimplementation_v1",
-    "drawdown_rebound_reward_train_v1",
-    "mode_conditioned_rebound_reward_train_v2",
-    "state_conditioned_drawdown_rebound_reward_train_v1"
+    "soxl_backtest_policy_reimplementation_v1"
   ],
-  "generated_at": "2026-06-13T19:36:06.050832+00:00",
-  "latest_market_date": "2026-06-12",
+  "generated_at": "2026-06-13T19:52:08.740234+00:00",
+  "latest_market_date": "2026-06-10",
   "model_retention_gate": {
     "max_walkforward_drawdown_pct": 20.0,
     "passing_profile_count": 0,
     "passing_profiles": [],
-    "profiles_scanned": 12,
+    "profiles_scanned": 0,
     "reference_profile": "soxl_backtest_policy_reimplementation_v1",
-    "registry_keep_actor_count": 23,
-    "registry_keep_actor_strict_violation_count": 23,
+    "registry_keep_actor_count": 7,
+    "registry_keep_actor_strict_violation_count": 7,
     "registry_keep_actor_strict_violations": [
       "balanced",
       "balanced_checkpoint_review",
-      "balanced_kelly_warmstart_v9",
-      "balanced_macro_v1",
-      "balanced_rule_residual_imitation_v1",
-      "balanced_rule_residual_imitation_v2",
-      "balanced_rule_residual_imitation_v2_fix",
-      "balanced_rule_residual_imitation_v3",
-      "balanced_rule_residual_imitation_v4",
-      "balanced_rule_residual_imitation_v5",
-      "balanced_rule_residual_imitation_v6",
-      "balanced_rule_residual_imitation_v7",
       "balanced_rule_residual_v19",
-      "balanced_rule_residual_v19_reg",
-      "balanced_rule_residual_v19_reg_light",
-      "balanced_rule_residual_v19_reg_v22_retest_v1",
       "balanced_rule_residual_v20",
       "balanced_rule_residual_v21",
       "balanced_rule_residual_v22",
-      "drawdown_rebound_reward_train_v1",
-      "mode_conditioned_rebound_reward_train_v2",
-      "smoke",
-      "state_conditioned_drawdown_rebound_reward_train_v1"
+      "smoke"
     ],
     "required_best_return_pct": 213.143462,
     "required_wf_windows": [
@@ -117,13 +95,10 @@
     ],
     "source_path": "runtime/model_selection/card/model_retention_walkforward_gate_v1/summary.json"
   },
-  "safe_backtest_end": "2026-06-11",
+  "safe_backtest_end": "2026-06-09",
   "source_paths": {
     "market": "data/processed/panels/soxl_soxx_vix_full.csv",
-    "model:drawdown_rebound_reward_train_v1": "runtime/model/card/drawdown_rebound_reward_train_v1/drawdown_rebound_reward_train_v1_soxl_daily.csv",
-    "model:mode_conditioned_rebound_reward_train_v2": "runtime/model/card/mode_conditioned_rebound_reward_train_v2/mode_conditioned_rebound_reward_train_v2_soxl_daily.csv",
     "model:soxl_backtest_policy_reimplementation_v1": "runtime/production/card/soxl_backtest_policy_reimplementation_v1/new_policy_daily.csv",
-    "model:state_conditioned_drawdown_rebound_reward_train_v1": "runtime/model/card/state_conditioned_drawdown_rebound_reward_train_v1/state_conditioned_drawdown_rebound_reward_train_v1_soxl_daily.csv",
     "model_replay_freshness": "dashboard_data/model_replay_freshness.json"
   }
 }

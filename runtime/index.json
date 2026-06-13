@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-13T19:01:35.169493+00:00",
+  "generated_at": "2026-06-13T19:57:20.476502+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -5615,25 +5615,37 @@
       "path": "runtime/model_selection/card/model_retention_walkforward_gate_v1/conclusion.md",
       "category": "model_selection",
       "suffix": ".md",
-      "bytes": 591
+      "bytes": 780
+    },
+    {
+      "path": "runtime/model_selection/card/model_retention_walkforward_gate_v1/dashboard_ref_only_visual_check.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 659
     },
     {
       "path": "runtime/model_selection/card/model_retention_walkforward_gate_v1/registry_keep_actor_audit.csv",
       "category": "model_selection",
       "suffix": ".csv",
-      "bytes": 5626
+      "bytes": 1315
+    },
+    {
+      "path": "runtime/model_selection/card/model_retention_walkforward_gate_v1/registry_retention_plan.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 962
     },
     {
       "path": "runtime/model_selection/card/model_retention_walkforward_gate_v1/retention_gate.csv",
       "category": "model_selection",
       "suffix": ".csv",
-      "bytes": 4504
+      "bytes": 440
     },
     {
       "path": "runtime/model_selection/card/model_retention_walkforward_gate_v1/summary.json",
       "category": "model_selection",
       "suffix": ".json",
-      "bytes": 24961
+      "bytes": 7358
     },
     {
       "path": "runtime/model_selection/card/official_replay_bad_interval_feature_audit_v1/bc_initialization_wf_2022_official_daily_with_features.csv",

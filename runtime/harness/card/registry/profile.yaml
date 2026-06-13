@@ -1,5 +1,4 @@
 profiles:
-profiles:
 - name: aggressive
   family: aggressive
   status: candidate
@@ -18,9 +17,12 @@ profiles:
   family: balanced
   status: candidate
   baseline: balanced
-  keep_actor: true
+  keep_actor: false
   keep_summary: true
   notes_ref: runtime/model/card/balanced_macro_v1/notes.md
+  wf_status: blocked
+  wf_notes: 'Strict retention gate blocked executable actor retention; kept summary
+    evidence only. Failures: missing_wf_window:wf_2020;missing_wf_window:wf_2022;missing_wf_window:wf_2023_2024;ytd_return_below_best_alignment'
 - name: balanced_budget
   family: balanced
   status: ablation
@@ -246,7 +248,9 @@ profiles:
   keep_summary: true
   notes_ref: runtime/model/cards/balanced_rule_residual_v19/v19_walk_forward_review.md
   wf_status: completed
-  wf_notes: "Former production canonical and rollback actor. Corrected walk-forward remains promoted, but runtime selection now prefers balanced_rule_residual_v22 after complete walk-forward selection scoring and post-release-cap overlay approval."
+  wf_notes: Former production canonical and rollback actor. Corrected walk-forward
+    remains promoted, but runtime selection now prefers balanced_rule_residual_v22
+    after complete walk-forward selection scoring and post-release-cap overlay approval.
 - name: balanced_sac_quick
   family: balanced
   status: ablation
@@ -409,7 +413,12 @@ profiles:
   keep_summary: true
   notes_ref: runtime/model/card/balanced_rule_residual_v22/v22_corrected_runtime_selection_review.md
   wf_status: completed
-  wf_notes: "Corrected main-backtest WF evidence persisted. wf_2020 +136.65% Sharpe 2.16 MaxDD 20.16% relative +76.87pp; wf_2022 -48.40% Sharpe -1.24 MaxDD 54.67% relative +38.18pp; wf_2023_2024 +50.98% Sharpe 1.01 MaxDD 30.55% relative +53.58pp. Model promotion gate passes; complete walk-forward runtime selection score 64.88 now beats v19 46.17, and profile overlay auto_select_allowed=true approves selective_release_recovery_post_release_cap_v1 for scheduled selection."
+  wf_notes: Corrected main-backtest WF evidence persisted. wf_2020 +136.65% Sharpe
+    2.16 MaxDD 20.16% relative +76.87pp; wf_2022 -48.40% Sharpe -1.24 MaxDD 54.67%
+    relative +38.18pp; wf_2023_2024 +50.98% Sharpe 1.01 MaxDD 30.55% relative +53.58pp.
+    Model promotion gate passes; complete walk-forward runtime selection score 64.88
+    now beats v19 46.17, and profile overlay auto_select_allowed=true approves selective_release_recovery_post_release_cap_v1
+    for scheduled selection.
 - name: balanced_rule_residual_v22_release_v1
   family: balanced
   status: ablation
@@ -425,7 +434,13 @@ profiles:
   keep_summary: true
   notes_ref: runtime/model/card/balanced_rule_residual_v22_continued_retention_v1/notes.md
   wf_status: not_applicable
-  wf_notes: "Short continuation diagnostic from the canonical v22 actor with checkpoint_retention enabled for iter 0/10/20 replay. Retained iter0 remains best: score 86.24 vs iter10 77.14 and iter20 69.26. Test proxy return rises to 1128.94% but MaxDD worsens to 59.13%, and test_2022 MaxDD worsens to 55.26% above the 55% fixed-split limit. The 2026 YTD common-window replay now trails the reimplemented soxl_backtest rule policy by 15.20pp, so underperforming_backtest_cleanup_v1 keeps notes/review/summary only and prunes executable profile/actor artifacts."
+  wf_notes: 'Short continuation diagnostic from the canonical v22 actor with checkpoint_retention
+    enabled for iter 0/10/20 replay. Retained iter0 remains best: score 86.24 vs iter10
+    77.14 and iter20 69.26. Test proxy return rises to 1128.94% but MaxDD worsens
+    to 59.13%, and test_2022 MaxDD worsens to 55.26% above the 55% fixed-split limit.
+    The 2026 YTD common-window replay now trails the reimplemented soxl_backtest rule
+    policy by 15.20pp, so underperforming_backtest_cleanup_v1 keeps notes/review/summary
+    only and prunes executable profile/actor artifacts.'
 - name: balanced_rule_residual_v23
   family: balanced
   status: dropped
@@ -434,7 +449,9 @@ profiles:
   keep_summary: true
   notes_ref: runtime/model/card/balanced_rule_residual_v23/notes.md
   wf_status: not_applicable
-  wf_notes: "Summary-only historical artifact. Actor path is missing, no profile.yaml exists, and v23_vs_v22_review.md shows proxy return falls from 695.45% to 493.23% while 2020/2023-2024 deteriorate. Keep summary evidence only."
+  wf_notes: Summary-only historical artifact. Actor path is missing, no profile.yaml
+    exists, and v23_vs_v22_review.md shows proxy return falls from 695.45% to 493.23%
+    while 2020/2023-2024 deteriorate. Keep summary evidence only.
 - name: balanced_rule_residual_v24
   family: balanced
   status: dropped
@@ -443,35 +460,49 @@ profiles:
   keep_summary: true
   notes_ref: runtime/model/card/balanced_rule_residual_v24/notes.md
   wf_status: not_applicable
-  wf_notes: "Summary-only historical artifact. Actor path is missing, no profile.yaml exists, and v24_vs_v22_review.md shows only modest fixed-split gains with worse 2020 and no walk-forward evidence. Keep summary evidence only."
+  wf_notes: Summary-only historical artifact. Actor path is missing, no profile.yaml
+    exists, and v24_vs_v22_review.md shows only modest fixed-split gains with worse
+    2020 and no walk-forward evidence. Keep summary evidence only.
 - name: balanced_rule_residual_imitation_v1
   family: balanced
   status: candidate
   baseline: balanced_rule_residual_v16
-  keep_actor: true
+  keep_actor: false
   keep_summary: true
   notes_ref: experiments/candidate/balanced_rule_residual_imitation_v1/notes.md
+  wf_status: blocked
+  wf_notes: 'Strict retention gate blocked executable actor retention; kept summary
+    evidence only. Failures: missing_replay_evidence'
 - name: balanced_rule_residual_imitation_v2
   family: balanced
   status: candidate
   baseline: balanced_rule_residual_v16
-  keep_actor: true
+  keep_actor: false
   keep_summary: true
   notes_ref: experiments/candidate/balanced_rule_residual_imitation_v2/notes.md
+  wf_status: blocked
+  wf_notes: 'Strict retention gate blocked executable actor retention; kept summary
+    evidence only. Failures: missing_replay_evidence'
 - name: balanced_rule_residual_imitation_v3
   family: balanced
   status: candidate
   baseline: balanced_rule_residual_v16
-  keep_actor: true
+  keep_actor: false
   keep_summary: true
   notes_ref: experiments/candidate/balanced_rule_residual_imitation_v3/notes.md
+  wf_status: blocked
+  wf_notes: 'Strict retention gate blocked executable actor retention; kept summary
+    evidence only. Failures: missing_replay_evidence'
 - name: balanced_rule_residual_imitation_v4
   family: balanced
   status: candidate
   baseline: balanced_rule_residual_v16
-  keep_actor: true
+  keep_actor: false
   keep_summary: true
   notes_ref: experiments/candidate/balanced_rule_residual_imitation_v4/notes.md
+  wf_status: blocked
+  wf_notes: 'Strict retention gate blocked executable actor retention; kept summary
+    evidence only. Failures: missing_wf_window:wf_2020;missing_wf_window:wf_2022;missing_wf_window:wf_2023_2024;ytd_return_below_best_alignment'
 - name: balanced_rule_residual_imitation_v4_budget
   family: balanced
   status: candidate
@@ -518,64 +549,94 @@ profiles:
   family: balanced
   status: ablation
   baseline: risk_budget_usage_v1
-  keep_actor: true
+  keep_actor: false
   keep_summary: true
   notes_ref: runtime/reward/card/drawdown_rebound_reward_train_v1/drawdown_rebound_reward_train_v1.ipynb
   wf_status: blocked
-  wf_notes: "Completed in runtime/reward/card/drawdown_rebound_reward_train_v1/drawdown_rebound_reward_train_v1.ipynb. Fixed split: rel=-2026.4pp, MaxDD=37.7%; WF pass count=1/3. Keep as upstream reward diagnostic only; no runtime binding."
+  wf_notes: Completed in runtime/reward/card/drawdown_rebound_reward_train_v1/drawdown_rebound_reward_train_v1.ipynb.
+    Fixed split rel=-2026.4pp, MaxDD=37.7%; WF pass count=1/3. Keep as
+    upstream reward diagnostic only; no runtime binding. Strict retention gate
+    blocked executable actor retention; kept summary evidence only. Failures
+    wf_max_drawdown_ge_20:wf_2020;ytd_return_below_best_alignment.
 - name: mode_conditioned_rebound_reward_train_v2
   family: balanced
   status: ablation
   baseline: drawdown_rebound_reward_train_v1
-  keep_actor: true
+  keep_actor: false
   keep_summary: true
   notes_ref: runtime/reward/card/mode_conditioned_rebound_reward_train_v2/mode_conditioned_rebound_reward_train_v2.ipynb
   wf_status: blocked
-  wf_notes: "Completed in runtime/reward/card/mode_conditioned_rebound_reward_train_v2/mode_conditioned_rebound_reward_train_v2.ipynb. Decision=blocked_underparticipation_not_promoted; test_proxy rel=-2107.5pp MaxDD=44.2%; WF relative pass=2/3 but MaxDD<=15 pass=0/3. Keep as reward diagnostic only; no runtime binding."
+  wf_notes: Completed in runtime/reward/card/mode_conditioned_rebound_reward_train_v2/mode_conditioned_rebound_reward_train_v2.ipynb.
+    Decision=blocked_underparticipation_not_promoted; test_proxy rel=-2107.5pp
+    MaxDD=44.2%; WF relative pass=2/3 but MaxDD<=15 pass=0/3. Keep as reward
+    diagnostic only; no runtime binding. Strict retention gate blocked executable
+    actor retention; kept summary evidence only. Failures
+    wf_max_drawdown_ge_20:wf_2020;wf_max_drawdown_ge_20:wf_2023_2024;ytd_return_below_best_alignment.
 - name: state_conditioned_drawdown_rebound_reward_train_v1
   family: balanced
   status: ablation
   baseline: mode_conditioned_rebound_reward_train_v2
-  keep_actor: true
+  keep_actor: false
   keep_summary: true
   notes_ref: runtime/reward/card/state_conditioned_drawdown_rebound_reward_train_v1/state_conditioned_drawdown_rebound_reward_train_v1.ipynb
   wf_status: blocked
-  wf_notes: "Completed in runtime/reward/card/state_conditioned_drawdown_rebound_reward_train_v1/state_conditioned_drawdown_rebound_reward_train_v1.ipynb. Decision=diagnostic_no_promotion; test_proxy rel=-1470.0pp MaxDD=43.6%; wf_2023_2024 nearly reaches DD target at 15.23% with +36.99pp relative, but wf_2020/test_proxy underparticipation remains severe. Keep as reward diagnostic only; no runtime binding."
+  wf_notes: Completed in runtime/reward/card/state_conditioned_drawdown_rebound_reward_train_v1/state_conditioned_drawdown_rebound_reward_train_v1.ipynb.
+    Decision=diagnostic_no_promotion; test_proxy rel=-1470.0pp MaxDD=43.6%;
+    wf_2023_2024 nearly reaches DD target at 15.23% with +36.99pp relative,
+    but wf_2020/test_proxy underparticipation remains severe. Keep as reward
+    diagnostic only; no runtime binding. Strict retention gate blocked executable
+    actor retention; kept summary evidence only. Failures
+    wf_max_drawdown_ge_20:wf_2020;ytd_return_below_best_alignment.
 - name: balanced_kelly_warmstart_v9
   family: balanced
   status: candidate
   baseline: balanced_rule_residual_imitation_v4
-  keep_actor: true
+  keep_actor: false
   keep_summary: true
   notes_ref: experiments/candidate/balanced_kelly_warmstart_v9/notes.md
+  wf_status: blocked
+  wf_notes: 'Strict retention gate blocked executable actor retention; kept summary
+    evidence only. Failures: missing_replay_evidence'
 - name: balanced_rule_residual_imitation_v5
   family: balanced
   status: candidate
   baseline: balanced_rule_residual_v16
-  keep_actor: true
+  keep_actor: false
   keep_summary: true
   notes_ref: experiments/candidate/balanced_rule_residual_imitation_v5/notes.md
+  wf_status: blocked
+  wf_notes: 'Strict retention gate blocked executable actor retention; kept summary
+    evidence only. Failures: missing_replay_evidence'
 - name: balanced_rule_residual_imitation_v6
   family: balanced
   status: candidate
   baseline: balanced_rule_residual_v16
-  keep_actor: true
+  keep_actor: false
   keep_summary: true
   notes_ref: experiments/candidate/balanced_rule_residual_imitation_v6/notes.md
+  wf_status: blocked
+  wf_notes: 'Strict retention gate blocked executable actor retention; kept summary
+    evidence only. Failures: missing_replay_evidence'
 - name: balanced_rule_residual_imitation_v7
   family: balanced
   status: candidate
   baseline: balanced_rule_residual_v16
-  keep_actor: true
+  keep_actor: false
   keep_summary: true
   notes_ref: experiments/candidate/balanced_rule_residual_imitation_v7/notes.md
+  wf_status: blocked
+  wf_notes: 'Strict retention gate blocked executable actor retention; kept summary
+    evidence only. Failures: missing_replay_evidence'
 - name: balanced_rule_residual_imitation_v2_fix
   family: balanced
   status: candidate
   baseline: balanced_rule_residual_imitation_v2
-  keep_actor: true
+  keep_actor: false
   keep_summary: true
   notes_ref: experiments/candidate/balanced_rule_residual_imitation_v2_fix/notes.md
+  wf_status: blocked
+  wf_notes: 'Strict retention gate blocked executable actor retention; kept summary
+    evidence only. Failures: missing_replay_evidence'
 - name: balanced_kelly_warmstart_v9b
   family: balanced
   status: candidate
@@ -587,20 +648,32 @@ profiles:
   family: balanced
   status: candidate
   baseline: balanced_rule_residual_v19
-  keep_actor: true
+  keep_actor: false
   keep_summary: true
   notes_ref: runtime/model/cards/balanced_rule_residual_v19_reg/v19_reg_walk_forward_review.md
-  wf_status: completed
-  wf_notes: "Walk-forward complete. BUG FIXED: prior backtest used full 2020-2026 window due to missing test_seg. Corrected isolated-window backtest: wf_2020 +102.5% Sharpe 1.92 MaxDD 20.8%; wf_2022 -30.7% Sharpe -0.87 MaxDD 39.4%; wf_2024 -17.4% Sharpe -0.30 MaxDD 35.6%. vs v19: wf_2020 v19=+105.9% > v19_reg=+102.5%, wf_2022 identical. Worker eval (-21.9%) directionally correct, 8.8pp gap from fixed backtest. Regularization does NOT improve walk-forward over v19."
+  wf_status: blocked
+  wf_notes: Walk-forward complete. BUG FIXED; prior backtest used full 2020-2026
+    window due to missing test_seg. Corrected isolated-window backtest wf_2020
+    +102.5% Sharpe 1.92 MaxDD 20.8%; wf_2022 -30.7% Sharpe -0.87 MaxDD
+    39.4%; wf_2024 -17.4% Sharpe -0.30 MaxDD 35.6%. vs v19, wf_2020
+    v19=+105.9% > v19_reg=+102.5%, wf_2022 identical. Worker eval (-21.9%)
+    directionally correct, 8.8pp gap from fixed backtest. Regularization does
+    NOT improve walk-forward over v19. Strict retention gate blocked executable
+    actor retention; kept summary evidence only. Failures
+    missing_wf_window:wf_2020;missing_wf_window:wf_2022;missing_wf_window:wf_2023_2024;ytd_return_below_best_alignment.
 - name: balanced_rule_residual_v19_reg_light
   family: balanced
   status: candidate
   baseline: balanced_rule_residual_v19_reg
-  keep_actor: true
+  keep_actor: false
   keep_summary: true
   notes_ref: codex_exec_plans/completed/2026-04-25-v19-reg-light.md
   wf_status: blocked
-  wf_notes: Walk-forward blocked. wf_2022 -21.9% (vs v19 -25.2%), wf_2023_2024 -24.3% (vs v19 -18.7%). Lower regularization did not recover 2023_2024 performance.
+  wf_notes: Walk-forward blocked. wf_2022 -21.9% (vs v19 -25.2%), wf_2023_2024
+    -24.3% (vs v19 -18.7%). Lower regularization did not recover 2023_2024
+    performance. Strict retention gate blocked executable actor retention; kept
+    summary evidence only. Failures
+    missing_wf_window:wf_2020;missing_wf_window:wf_2022;missing_wf_window:wf_2023_2024;ytd_return_below_best_alignment.
 - name: balanced_core50
   family: balanced
   status: ablation
@@ -651,16 +724,26 @@ profiles:
   keep_summary: true
   notes_ref: runtime/model/card/balanced_rule_residual_v19_reg_v22/notes.md
   wf_status: not_applicable
-  wf_notes: "Profile-only historical idea. Older knowledge claimed a fixed-split pass and a started walk-forward task, but the repo has no retained actor, summary JSON, or walk-forward outputs; do not treat as an active candidate."
+  wf_notes: Profile-only historical idea. Older knowledge claimed a fixed-split pass
+    and a started walk-forward task, but the repo has no retained actor, summary JSON,
+    or walk-forward outputs; do not treat as an active candidate.
 - name: balanced_rule_residual_v19_reg_v22_retest_v1
   family: balanced
   status: ablation
   baseline: balanced_rule_residual_v22
-  keep_actor: true
+  keep_actor: false
   keep_summary: true
   notes_ref: runtime/model/card/balanced_rule_residual_v19_reg_v22_retest_v1/notes.md
-  wf_status: not_applicable
-  wf_notes: "Fresh governed retest of v19_reg regularization plus v22 VIX term features. Fixed split is blocked: proxy 1280.42% / Sharpe 1.020 passes, but test_2022 MaxDD 58.30% exceeds 55% and avg_pos 0.381 exceeds 0.35. Versus v22, 2022 MaxDD worsens from 32.71% to 58.30%; versus v19_reg, 2023-2024 return falls from 58.70% to 44.52%. Keep small retained checkpoint actors as replay evidence only; do not walk-forward or bind runtime."
+  wf_status: blocked
+  wf_notes: Fresh governed retest of v19_reg regularization plus v22 VIX term
+    features. Fixed split is blocked, proxy 1280.42% / Sharpe 1.020 passes,
+    but test_2022 MaxDD 58.30% exceeds 55% and avg_pos 0.381 exceeds 0.35.
+    Versus v22, 2022 MaxDD worsens from 32.71% to 58.30%; versus v19_reg,
+    2023-2024 return falls from 58.70% to 44.52%. Keep small retained checkpoint
+    actors as replay evidence only; do not walk-forward or bind runtime. Strict
+    retention gate blocked executable actor retention; kept summary evidence only.
+    Failures
+    missing_wf_window:wf_2020;missing_wf_window:wf_2022;missing_wf_window:wf_2023_2024;ytd_return_below_best_alignment.
 - name: balanced_rule_residual_v22_soxx
   family: balanced
   status: dropped
@@ -669,7 +752,12 @@ profiles:
   keep_summary: true
   notes_ref: runtime/model/card/balanced_rule_residual_v22_soxx/notes.md
   wf_status: blocked
-  wf_notes: "Direct SOXX actor-feature injection has only fixed-window artifacts and was blocked in training output. Follow-up SOXX fixed-actor cap walk-forward validation also blocked the SOXX mechanism: wf_2022 had eligible days but no cap-changed or position-changed days, wf_2023_2024 had no position change, and wf_2020 lost return. Keep summary/daily evidence only; do not retain actor or repeat direct SOXX actor-feature retraining."
+  wf_notes: 'Direct SOXX actor-feature injection has only fixed-window artifacts and
+    was blocked in training output. Follow-up SOXX fixed-actor cap walk-forward validation
+    also blocked the SOXX mechanism: wf_2022 had eligible days but no cap-changed
+    or position-changed days, wf_2023_2024 had no position change, and wf_2020 lost
+    return. Keep summary/daily evidence only; do not retain actor or repeat direct
+    SOXX actor-feature retraining.'
 - name: balanced_trade_lock
   family: balanced
   status: dropped
