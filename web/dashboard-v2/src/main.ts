@@ -1,13 +1,15 @@
 import './styles.css';
 import { renderMarketChart, renderNavChart, renderPositionChart, syncVisibleLogicalRange } from './chart';
 import {
+  buildInspectorLookup,
   clampComparisonProfiles,
   clipRowsByDate,
   computeCommonWindow,
   computeDateRangePreset,
-  computeInspectorRows,
+  computeInspectorRowsFromLookup,
   computeKeyboardDateRange,
   type DateRangePreset,
+  type InspectorLookup,
   type KeyboardRangeAction,
 } from './domain';
 import { loadDashboardData, type DashboardData } from './data';
@@ -170,22 +172,31 @@ function warningsFor(data: DashboardData, state: ViewState): string[] {
   return warnings;
 }
 
-function renderInspector(data: DashboardData, state: ViewState): void {
+function buildCurrentInspectorLookup(data: DashboardData, state: ViewState): InspectorLookup {
+  return buildInspectorLookup({
+    market: data.market,
+    models: selectedModels(data, state.selectedProfiles),
+    comparison: data.comparison,
+  });
+}
+
+function renderInspector(data: DashboardData, state: ViewState, lookup: InspectorLookup): void {
   const inspector = requireElement('inspector');
-  const { models, market } = visibleContext(data, state);
   renderInspectorPanel(
     inspector,
-    computeInspectorRows({
+    computeInspectorRowsFromLookup({
       date: state.hoveredDate,
       manifest: data.manifest,
-      market,
-      models,
-      comparison: data.comparison,
+      lookup,
     }),
   );
 }
 
-function renderDashboard(data: DashboardData, state: ViewState, update: (next: Partial<ViewState>) => void): void {
+function renderDashboard(
+  data: DashboardData,
+  state: ViewState,
+  update: (next: Partial<ViewState>) => void,
+): InspectorLookup {
   const toolbar = requireElement('toolbar');
   const marketChart = requireElement('market-chart');
   const positionChart = requireElement('position-chart');
@@ -194,6 +205,7 @@ function renderDashboard(data: DashboardData, state: ViewState, update: (next: P
   const source = requireElement('source-panel');
   const actionLegend = requireElement('action-legend');
   const { models, market, primary } = visibleContext(data, state);
+  const inspectorLookup = buildCurrentInspectorLookup(data, state);
 
   renderToolbar(toolbar, data, state, update);
   renderActionLegend(actionLegend);
@@ -201,9 +213,10 @@ function renderDashboard(data: DashboardData, state: ViewState, update: (next: P
   const positionHandles = renderPositionChart(positionChart, primary);
   const navHandles = renderNavChart(navChart, models, state.baselineProfile);
   syncVisibleLogicalRange(marketHandles.chart, [positionHandles.chart, navHandles]);
-  renderInspector(data, state);
+  renderInspector(data, state, inspectorLookup);
   renderComparisonPanel(comparison, data.comparison, state.start, state.end);
   renderDataSourcePanel(source, data.manifest, warningsFor(data, state));
+  return inspectorLookup;
 }
 
 function keyboardRangeAction(event: KeyboardEvent): KeyboardRangeAction | null {
@@ -237,6 +250,7 @@ async function main(): Promise<void> {
       end: common?.end ?? data.comparison.common_end,
       hoveredDate: common?.end ?? data.comparison.common_end,
     };
+    let inspectorLookup: InspectorLookup | null = null;
     const update = (next: Partial<ViewState>) => {
       if (next.hoveredDate !== undefined && next.hoveredDate === state.hoveredDate && Object.keys(next).length === 1) {
         return;
@@ -247,9 +261,9 @@ async function main(): Promise<void> {
         state.baselineProfile = state.selectedProfiles[0];
       }
       if (needsChartRender) {
-        renderDashboard(data, state, update);
-      } else {
-        renderInspector(data, state);
+        inspectorLookup = renderDashboard(data, state, update);
+      } else if (inspectorLookup) {
+        renderInspector(data, state, inspectorLookup);
       }
     };
     window.addEventListener('keydown', (event) => {
@@ -261,7 +275,7 @@ async function main(): Promise<void> {
       event.preventDefault();
       update({ ...range, hoveredDate: range.end });
     });
-    renderDashboard(data, state, update);
+    inspectorLookup = renderDashboard(data, state, update);
   } catch (error) {
     app.replaceChildren();
     const message = document.createElement('pre');

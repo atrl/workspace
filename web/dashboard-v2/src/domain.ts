@@ -144,6 +144,30 @@ export function computeVisibleComparison(
   return comparison.rows.filter((row) => row.date >= start && row.date <= end);
 }
 
+export interface InspectorLookup {
+  marketRowsByDate: Map<string, MarketRow>;
+  comparisonRowsByDate: Map<string, ComparisonRow>;
+  modelRowsByProfileAndDate: Record<string, Map<string, ModelRow>>;
+}
+
+function indexRowsByDate<T extends { date: string }>(rows: readonly T[]): Map<string, T> {
+  return new Map(rows.map((row) => [row.date, row]));
+}
+
+export function buildInspectorLookup(input: {
+  market: MarketPayload;
+  models: Record<string, ModelPayload>;
+  comparison: ComparisonPayload;
+}): InspectorLookup {
+  return {
+    marketRowsByDate: indexRowsByDate(input.market.rows),
+    comparisonRowsByDate: indexRowsByDate(input.comparison.rows),
+    modelRowsByProfileAndDate: Object.fromEntries(
+      Object.entries(input.models).map(([profile, model]) => [profile, indexRowsByDate(model.rows)]),
+    ),
+  };
+}
+
 function formatNumber(value: number | null | undefined, digits = 2): string {
   return typeof value === 'number' && Number.isFinite(value) ? value.toFixed(digits) : 'n/a';
 }
@@ -165,8 +189,24 @@ export function computeInspectorRows(input: {
   models: Record<string, ModelPayload>;
   comparison: ComparisonPayload;
 }): InspectorRow[] {
-  const marketRow = input.market.rows.find((row) => row.date === input.date);
-  const comparisonRow = input.comparison.rows.find((row) => row.date === input.date);
+  return computeInspectorRowsFromLookup({
+    date: input.date,
+    manifest: input.manifest,
+    lookup: buildInspectorLookup({
+      market: input.market,
+      models: input.models,
+      comparison: input.comparison,
+    }),
+  });
+}
+
+export function computeInspectorRowsFromLookup(input: {
+  date: string;
+  manifest: Manifest;
+  lookup: InspectorLookup;
+}): InspectorRow[] {
+  const marketRow = input.lookup.marketRowsByDate.get(input.date);
+  const comparisonRow = input.lookup.comparisonRowsByDate.get(input.date);
   const rows: InspectorRow[] = [
     { label: 'date', value: input.date },
     { label: 'safe end', value: input.manifest.safe_backtest_end, tone: 'muted' },
@@ -182,8 +222,8 @@ export function computeInspectorRows(input: {
     }
   }
 
-  for (const [profile, model] of Object.entries(input.models)) {
-    const modelRow = model.rows.find((row) => row.date === input.date);
+  for (const [profile, modelRowsByDate] of Object.entries(input.lookup.modelRowsByProfileAndDate)) {
+    const modelRow = modelRowsByDate.get(input.date);
     const comparisonValues = comparisonRow?.profiles[profile];
     if (modelRow) {
       rows.push({ label: `${profile} action`, value: modelRow.action, tone: rowToneForAction(modelRow.action) });
