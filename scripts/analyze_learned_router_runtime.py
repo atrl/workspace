@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """Analyze the learned router's mode distribution on test data vs rule router."""
 import sys
-sys.path.insert(0, "/Users/rziiiii/.openclaw/workspace")
-
 import json
 from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
 
 import numpy as np
 import pandas as pd

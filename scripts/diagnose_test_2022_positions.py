@@ -2,7 +2,10 @@
 """Diagnose why test_2022 has high MaxDD despite low avg_pos."""
 
 import sys
-sys.path.insert(0, '/Users/rziiiii/.openclaw/workspace')
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
 
 import pandas as pd
 import numpy as np

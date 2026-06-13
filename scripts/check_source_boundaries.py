@@ -22,6 +22,9 @@ OLD_DATA_PREFIXES = (
     "data/symbols",
     "data/external",
 )
+RETIRED_WORKSPACE_PREFIXES = (
+    "/Users/rziiiii/.openclaw/workspace",
+)
 RUNTIME_SURFACES = {
     "README.md",
     "index.json",
@@ -100,6 +103,9 @@ def main() -> int:
         if path.name == "check_source_boundaries.py":
             continue
         text = read(path)
+        for prefix in RETIRED_WORKSPACE_PREFIXES:
+            if prefix in text:
+                failures.append(f"{path.relative_to(ROOT)} references retired workspace path {prefix}")
         for prefix in OLD_DATA_PREFIXES:
             if prefix in text:
                 failures.append(f"{path.relative_to(ROOT)} references old data path {prefix}")
