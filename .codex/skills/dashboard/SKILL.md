@@ -25,7 +25,11 @@ After a training run, the harness should:
 
 For static/Vercel exports, `paper_trading` is the production first-load view
 when present. Keep source priority as:
-`paper_trading > post_train_review > generalization_version`.
+`paper_trading > generated/static dashboard versions`.
+
+Do not export model-card `post_train_review`/PostTrainPreview daily CSVs into
+the dashboard. Use retained dashboard exports, model replay freshness, or an
+interactive rerun from `scripts/dashboard_server.py` instead.
 
 Production/Vercel status is split across:
 

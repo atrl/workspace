@@ -15,6 +15,7 @@ from scripts.build_backtest_dashboard import (
     build_html,
     compact_payload_rows,
     load_research_backtests,
+    load_run_profile_windows,
     normalize_post_train_review_rows,
     select_best_version,
     select_latest_version,
@@ -114,12 +115,12 @@ def test_select_latest_version_prefers_most_recent_timestamp():
     assert select_latest_version(versioned) == "newer"
 
 
-def test_select_latest_version_prefers_post_train_review_over_older_snapshots():
+def test_select_latest_version_does_not_prefer_post_train_review_over_static_snapshots():
     versioned = {
         "snapshot_newer": {"_meta": {"updated_at": 50, "source_kind": "generalization_version"}},
         "post_train": {"_meta": {"updated_at": 20, "source_kind": "post_train_review"}},
     }
-    assert select_latest_version(versioned) == "post_train"
+    assert select_latest_version(versioned) == "snapshot_newer"
 
 
 def test_select_latest_version_prefers_paper_trading_for_static_dashboard():
@@ -262,6 +263,25 @@ def test_load_versions_keeps_short_paper_trading_history(tmp_path: Path, monkeyp
     paper = versions["paper_trading"]
     assert paper["_meta"]["source_kind"] == "paper_trading"
     assert paper["windows"]["SOXL"] == {"start": "2026-05-14", "end": "2026-05-14", "rows": 1}
+
+
+def test_load_versions_excludes_model_card_post_train_preview_daily_csv(tmp_path: Path, monkeypatch):
+    model_dir = tmp_path / "runtime" / "model" / "card" / "bad_preview"
+    model_dir.mkdir(parents=True)
+    rows = [
+        "datetime,strategy_nav,price,buyhold_nav,position,excess,excess_pct,action",
+        *[
+            f"2026-01-{day:02d},{1000 + day},10,{1000 + day},0,0,0,HOLD"
+            for day in range(2, 12)
+        ],
+    ]
+    (model_dir / "bad_preview_soxl_daily.csv").write_text("\n".join(rows), encoding="utf-8")
+    monkeypatch.setattr(dashboard_builder, "ROOT", tmp_path)
+    monkeypatch.setattr(dashboard_builder, "load_ohlc_and_indicators", lambda _etf: {})
+
+    versions = _load_post_train_review_versions(features=None)
+
+    assert "bad_preview" not in versions
 
 
 def test_load_versions_enriches_paper_trading_row_with_latest_non_dry_summary_metadata(
@@ -594,6 +614,86 @@ def test_load_versions_keeps_retained_dashboard_export_without_source_csv(tmp_pa
     assert retained["windows"]["SOXL"] == {"start": "2026-05-19", "end": "2026-05-19", "rows": 1}
 
 
+def test_load_versions_skips_retained_post_train_review_export(tmp_path: Path, monkeypatch):
+    retained_dir = tmp_path / "dashboard_data" / "versioned" / "bad_preview"
+    retained_dir.mkdir(parents=True)
+    (retained_dir / "SOXL.json").write_text(
+        json.dumps(
+            {
+                "summary": {"etf": "SOXL", "strategy_return": 0.1},
+                "csv_path": "runtime/model/card/bad_preview/bad_preview_soxl_daily.csv",
+                "meta": {"source_kind": "post_train_review"},
+                "rows": [
+                    {
+                        "datetime": "2026-05-19",
+                        "strategy_nav": 1000000,
+                        "price": 100,
+                        "buyhold_nav": 1000000,
+                        "position": 0.2,
+                        "excess": 0,
+                        "excess_pct": 0,
+                        "action": "BUY",
+                    }
+                ],
+                "regime_shapes": [],
+                "trades": [],
+                "kelly": {},
+            }
+        ),
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(dashboard_builder, "ROOT", tmp_path)
+    monkeypatch.setattr(dashboard_builder, "DASHBOARD_DATA_DIR", tmp_path / "dashboard_data")
+
+    versions = _load_retained_dashboard_versions()
+
+    assert "bad_preview" not in versions
+
+
+def test_load_run_profile_windows_reads_replay_csv_start_and_manifest_end(tmp_path: Path, monkeypatch):
+    data_dir = tmp_path / "dashboard_data"
+    replay_csv = tmp_path / "runtime" / "model" / "card" / "smoke" / "smoke_soxl_daily.csv"
+    replay_csv.parent.mkdir(parents=True)
+    data_dir.mkdir()
+    replay_csv.write_text(
+        "\n".join(
+            [
+                "datetime,strategy_nav,price,buyhold_nav,position,excess,excess_pct,action",
+                "2020-01-02,1000000,10,1000000,0,0,0,HOLD",
+                "2026-06-10,1000000,20,2000000,0,0,0,HOLD",
+            ]
+        ),
+        encoding="utf-8",
+    )
+    (data_dir / "model_replay_freshness.json").write_text(
+        json.dumps(
+            {
+                "profiles": [
+                    {
+                        "profile": "smoke",
+                        "output": "runtime/model/card/smoke/smoke_soxl_daily.csv",
+                        "before_end": "2026-06-10",
+                        "after_end": "2026-06-11",
+                        "result": "current",
+                    }
+                ]
+            }
+        ),
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(dashboard_builder, "ROOT", tmp_path)
+    monkeypatch.setattr(dashboard_builder, "DASHBOARD_DATA_DIR", data_dir)
+
+    windows = load_run_profile_windows()
+
+    assert windows["smoke"] == {
+        "start": "2020-01-02",
+        "end": "2026-06-11",
+        "rows": 2,
+        "source": "runtime/model/card/smoke/smoke_soxl_daily.csv",
+    }
+
+
 def test_load_research_backtests_exports_recent_model_selection_cards(tmp_path: Path, monkeypatch):
     card_dir = tmp_path / "runtime" / "model_selection" / "card" / "stress_case"
     card_dir.mkdir(parents=True)
@@ -644,7 +744,7 @@ def test_load_research_backtests_exports_recent_model_selection_cards(tmp_path: 
     assert "base full_gate=False stress pass 0/4" in rows[0]["conclusion"]
 
 
-def test_load_versions_prefers_matching_profile_directory_for_duplicate_tag(tmp_path: Path, monkeypatch):
+def test_load_versions_excludes_duplicate_model_card_post_train_preview_tags(tmp_path: Path, monkeypatch):
     canonical = tmp_path / "runtime" / "model" / "card" / "smoke"
     stale_alias = tmp_path / "runtime" / "model" / "card" / "smoke_tide"
     canonical.mkdir(parents=True)
@@ -692,8 +792,7 @@ def test_load_versions_prefers_matching_profile_directory_for_duplicate_tag(tmp_
 
     versions = _load_post_train_review_versions(features=None)
 
-    assert versions["smoke"]["windows"]["SOXL"]["end"] == "2026-05-29"
-    assert versions["smoke"]["_meta"]["source"] == "runtime/model/card/smoke/smoke_soxl_daily.csv"
+    assert "smoke" not in versions
 
 
 def test_compact_payload_rows_preserves_market_ohlc_for_static_price_chart():
@@ -779,6 +878,15 @@ def test_build_html_run_backtest_uses_same_origin_api_and_dedicated_window_input
 
     assert 'id="runStartDateInput"' in html
     assert 'id="runEndDateInput"' in html
+    assert 'id="useChartWindowBtn"' in html
+    assert 'aria-label="Inference start date"' in html
+    assert 'aria-label="Inference end date"' in html
+    assert "copyChartWindowToBacktestInputs" in html
+    assert "const runProfileWindows = DATA.run_windows || {};" in html
+    assert "const runWindow = runProfileWindows[profile];" in html
+    assert "return { start: globalBounds.start || '', end: profileRecord.after_end || profileRecord.before_end };" in html
+    assert "runProfileSelect.addEventListener('change', () => syncBacktestInputs(false));" in html
+    assert "runStartDateInput.dataset.manual" in html
     assert "fetch('/api/run-backtest'" in html
     assert "http://localhost:8765/api/run-backtest" not in html
 

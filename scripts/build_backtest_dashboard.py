@@ -507,6 +507,51 @@ def load_model_versions() -> list[dict]:
     return versions
 
 
+def _csv_date_window(csv_path: Path) -> dict[str, object]:
+    try:
+        with csv_path.open("r", encoding="utf-8") as f:
+            reader = csv.DictReader(f)
+            start = ""
+            end = ""
+            rows = 0
+            for row in reader:
+                dt = str(row.get("datetime") or row.get("date") or "").strip()
+                if not dt:
+                    continue
+                if not start:
+                    start = dt
+                end = dt
+                rows += 1
+    except Exception:
+        return {}
+    if not start or not end:
+        return {}
+    return {"start": start, "end": end, "rows": rows}
+
+
+def load_run_profile_windows() -> dict[str, dict[str, object]]:
+    """Load selectable rerun windows without exporting model-card preview data."""
+    manifest = _load_dashboard_json(DASHBOARD_DATA_DIR / "model_replay_freshness.json")
+    windows: dict[str, dict[str, object]] = {}
+    for record in manifest.get("profiles") or []:
+        if not isinstance(record, dict):
+            continue
+        profile = str(record.get("profile") or "").strip()
+        output = str(record.get("output") or "").strip()
+        if not profile or not output:
+            continue
+        csv_path = ROOT / output
+        window = _csv_date_window(csv_path)
+        if not window:
+            continue
+        manifest_end = str(record.get("after_end") or record.get("before_end") or "").strip()
+        if manifest_end:
+            window["end"] = manifest_end
+        window["source"] = output
+        windows[profile] = window
+    return windows
+
+
 def _load_dashboard_json(path: Path) -> dict[str, object]:
     try:
         payload = json.loads(path.read_text(encoding="utf-8"))
@@ -670,8 +715,7 @@ def select_best_version(model_versions: list[dict], versioned: dict[str, dict]) 
 
 def _latest_source_priority(source_kind: str) -> int:
     priorities = {
-        "paper_trading": 2,
-        "post_train_review": 1,
+        "paper_trading": 1,
     }
     return priorities.get(source_kind, 0)
 
@@ -893,7 +937,11 @@ def normalize_post_train_review_rows(raw_rows: list[dict[str, str]]) -> list[dic
 
 
 def _load_post_train_review_versions(features: dict[str, dict[str, float]] | None) -> dict[str, dict]:
-    """Load SOXL daily CSVs from runtime/model/card/ and runtime/soxl/paper_trading/ as versioned data."""
+    """Load paper-trading SOXL daily CSVs as versioned data.
+
+    The legacy function name is kept for callers/tests, but model-card
+    post-train preview CSVs are intentionally excluded from the dashboard.
+    """
     versioned: dict[str, dict] = {}
 
     def version_source_score(tag: str, source_path: Path, end_date: str, rows_count: int, updated_at: float) -> tuple:
@@ -908,7 +956,6 @@ def _load_post_train_review_versions(features: dict[str, dict[str, float]] | Non
         )
 
     dirs_to_scan = [
-        (ROOT / "runtime" / "model" / "card", True),   # (path, recursive)
         (ROOT / "runtime" / "soxl" / "paper_trading", False),
     ]
 
@@ -918,7 +965,7 @@ def _load_post_train_review_versions(features: dict[str, dict[str, float]] | Non
         globber = ptr_dir.rglob if recursive else ptr_dir.glob
         for csv_path in sorted(globber("*_soxl_daily.csv")):
             tag = csv_path.stem.replace("_soxl_daily", "")
-            source_kind = "paper_trading" if "paper_trading" in str(csv_path) else "post_train_review"
+            source_kind = "paper_trading"
             try:
                 with csv_path.open("r", encoding="utf-8") as f:
                     reader = csv.DictReader(f)
@@ -927,13 +974,10 @@ def _load_post_train_review_versions(features: dict[str, dict[str, float]] | Non
                 continue
             if not raw_rows:
                 continue
-            if len(raw_rows) < 10 and source_kind != "paper_trading":
-                continue
 
             rows = normalize_post_train_review_rows(raw_rows)
-            if source_kind == "paper_trading":
-                _attach_paper_trading_summary_metadata(rows, ptr_dir)
-                rows = _prepare_paper_trading_rows(rows)
+            _attach_paper_trading_summary_metadata(rows, ptr_dir)
+            rows = _prepare_paper_trading_rows(rows)
             ohlc = load_ohlc_and_indicators("SOXL")
 
             # Merge features
@@ -1053,6 +1097,8 @@ def _load_retained_dashboard_versions() -> dict[str, dict]:
                 detail = load_json(json_path)
             except Exception:
                 continue
+            if _is_post_train_review_detail(detail):
+                continue
             rows = detail.get("rows") or []
             if not isinstance(rows, list) or not rows:
                 continue
@@ -1080,6 +1126,34 @@ def _load_retained_dashboard_versions() -> dict[str, dict]:
                 "windows": windows,
             }
     return versioned
+
+
+def _is_post_train_review_detail(detail: object) -> bool:
+    if not isinstance(detail, dict):
+        return False
+    meta = detail.get("meta")
+    return isinstance(meta, dict) and meta.get("source_kind") == "post_train_review"
+
+
+def prune_post_train_review_exports() -> list[Path]:
+    """Delete stale static PostTrainPreview payloads from dashboard_data/versioned."""
+    removed: list[Path] = []
+    versioned_dir = DASHBOARD_DATA_DIR / "versioned"
+    if not versioned_dir.exists():
+        return removed
+    for json_path in sorted(versioned_dir.glob("*/*.json")):
+        try:
+            detail = load_json(json_path)
+        except Exception:
+            continue
+        if not _is_post_train_review_detail(detail):
+            continue
+        json_path.unlink()
+        removed.append(json_path)
+    for tag_dir in sorted(versioned_dir.iterdir()):
+        if tag_dir.is_dir() and not any(tag_dir.iterdir()):
+            tag_dir.rmdir()
+    return removed
 
 
 def _retained_paper_public_review(detail: dict[str, object]) -> dict[str, object]:
@@ -1296,6 +1370,7 @@ def build_payload() -> dict[str, object]:
                     detailed_summary.append(detail.get("summary", {}))
 
     model_versions = load_model_versions()
+    run_windows = load_run_profile_windows()
     research_backtests = load_research_backtests()
     best_version = select_best_version(model_versions, versioned)
     latest_version = select_latest_version(versioned)
@@ -1323,6 +1398,7 @@ def build_payload() -> dict[str, object]:
         if (RUNTIME_DIR / "execution_overlay_review.md").exists()
         else "",
         "model_versions": model_versions,
+        "run_windows": run_windows,
         "research_backtests": research_backtests,
     }
 
@@ -2292,13 +2368,14 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
           </div>
         </div>
         <div class="toolbar-group">
-          <label>Run Model Backtest <span class="help-icon" data-tip="选择模型并在当前日期区间运行回测（需要本地启动 dashboard_server.py）">?</span></label>
+          <label>Run Model Backtest <span class="help-icon" data-tip="选择模型、推理起始日期和结束日期后重新运行（需要本地启动 dashboard_server.py）">?</span></label>
           <div class="zoom-row">
             <select id="runProfileSelect" style="min-width:120px;padding:9px 10px;border-radius:8px;border:1px solid var(--line);background:var(--panel);font-size:13px;">
               <option value="">Select profile...</option>
             </select>
-            <input id="runStartDateInput" class="date-input" type="date">
-            <input id="runEndDateInput" class="date-input" type="date">
+            <input id="runStartDateInput" class="date-input" type="date" aria-label="Inference start date" title="Inference start date">
+            <input id="runEndDateInput" class="date-input" type="date" aria-label="Inference end date" title="Inference end date">
+            <button class="btn" id="useChartWindowBtn" type="button">Use Chart</button>
             <button class="btn primary" id="runBacktestBtn" type="button">Run</button>
           </div>
         </div>
@@ -2466,6 +2543,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     const runProfileSelect = document.getElementById('runProfileSelect');
     const runStartDateInput = document.getElementById('runStartDateInput');
     const runEndDateInput = document.getElementById('runEndDateInput');
+    const useChartWindowBtn = document.getElementById('useChartWindowBtn');
     const applyZoomBtn = document.getElementById('applyZoomBtn');
     const resetZoomBtn = document.getElementById('resetZoomBtn');
     const infoEmpty = document.getElementById('infoEmpty');
@@ -2489,6 +2567,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     const hydratedVersionCache = {{}};
     let indexVersionSummaries = {{}};
     let modelReplayProfiles = [];
+    const runProfileWindows = DATA.run_windows || {{}};
     const baseRowLookup = Object.fromEntries(
       ETFS.map(etf => [
         etf,
@@ -2823,19 +2902,24 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       return null;
     }}
     function getBacktestBoundsForProfile(profile) {{
+      const runWindow = runProfileWindows[profile];
+      if (runWindow && runWindow.start && runWindow.end) {{
+        return {{ start: runWindow.start, end: runWindow.end }};
+      }}
       const window = getVersionWindow(profile, state.etf);
       if (window) return {{ start: window.start, end: window.end }};
       const profileRecord = modelReplayProfiles.find(item => item && item.profile === profile);
       if (profileRecord && profileRecord.before_end) {{
-        return {{ start: '', end: profileRecord.after_end || profileRecord.before_end }};
+        const globalBounds = getGlobalBacktestBounds();
+        return {{ start: globalBounds.start || '', end: profileRecord.after_end || profileRecord.before_end }};
       }}
       return null;
     }}
-    function getBacktestBounds() {{
-      const selectedProfile = runProfileSelect ? runProfileSelect.value : '';
-      const selectedBounds = getBacktestBoundsForProfile(selectedProfile);
-      if (selectedBounds && selectedBounds.start && selectedBounds.end) return selectedBounds;
+    function getGlobalBacktestBounds() {{
       const windows = [];
+      Object.values(runProfileWindows || {{}}).forEach(window => {{
+        if (window && window.start && window.end) windows.push(window);
+      }});
       Object.keys(DATA.versioned || {{}}).forEach(version => {{
         if (version === 'paper_trading' || String(version).startsWith('rerun:')) return;
         const window = getVersionWindow(version, state.etf);
@@ -2854,6 +2938,12 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       }}
       return getDateBounds(getRangeRows(getDetailed(state.etf).rows));
     }}
+    function getBacktestBounds() {{
+      const selectedProfile = runProfileSelect ? runProfileSelect.value : '';
+      const selectedBounds = getBacktestBoundsForProfile(selectedProfile);
+      if (selectedBounds && selectedBounds.start && selectedBounds.end) return selectedBounds;
+      return getGlobalBacktestBounds();
+    }}
     function syncBacktestInputs(reset = false) {{
       if (!runStartDateInput || !runEndDateInput) return;
       const bounds = getBacktestBounds();
@@ -2861,10 +2951,43 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       runStartDateInput.max = bounds.end || '';
       runEndDateInput.min = bounds.start || '';
       runEndDateInput.max = bounds.end || '';
+      if (reset) {{
+        runStartDateInput.dataset.manual = '';
+        runEndDateInput.dataset.manual = '';
+      }}
+      const startManual = runStartDateInput.dataset.manual === '1';
+      const endManual = runEndDateInput.dataset.manual === '1';
       const startOutOfBounds = runStartDateInput.value && bounds.start && runStartDateInput.value < bounds.start;
+      const startAfterMax = runStartDateInput.value && bounds.end && runStartDateInput.value > bounds.end;
       const endOutOfBounds = runEndDateInput.value && bounds.end && runEndDateInput.value > bounds.end;
-      if (reset || !runStartDateInput.value || startOutOfBounds) runStartDateInput.value = bounds.start || '';
-      if (reset || !runEndDateInput.value || endOutOfBounds) runEndDateInput.value = bounds.end || '';
+      const endBeforeMin = runEndDateInput.value && bounds.start && runEndDateInput.value < bounds.start;
+      if (reset || !runStartDateInput.value || startOutOfBounds || startAfterMax) {{
+        runStartDateInput.value = bounds.start || '';
+        runStartDateInput.dataset.manual = '';
+      }} else if (!startManual) {{
+        runStartDateInput.value = runStartDateInput.value || bounds.start || '';
+      }}
+      if (reset || !runEndDateInput.value || endOutOfBounds || endBeforeMin) {{
+        runEndDateInput.value = bounds.end || '';
+        runEndDateInput.dataset.manual = '';
+      }} else if (!endManual) {{
+        runEndDateInput.value = runEndDateInput.value || bounds.end || '';
+      }}
+    }}
+    function copyChartWindowToBacktestInputs() {{
+      if (!runStartDateInput || !runEndDateInput) return;
+      const bounds = getBacktestBounds();
+      const start = state.zoomStart || startDateInput.value || bounds.start || '';
+      const end = state.zoomEnd || endDateInput.value || bounds.end || '';
+      if (start) {{
+        runStartDateInput.value = start;
+        runStartDateInput.dataset.manual = '1';
+      }}
+      if (end) {{
+        runEndDateInput.value = end;
+        runEndDateInput.dataset.manual = '1';
+      }}
+      syncBacktestInputs(false);
     }}
     function getFilteredRows(rows) {{
       let filtered = getRangeRows(rows);
@@ -3133,7 +3256,14 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       resetZoomBtn.addEventListener('click', () => applyZoomPreset('all'));
 
       populateRunProfileSelect(VERSIONS, true);
-      runProfileSelect.addEventListener('change', () => syncBacktestInputs(true));
+      runProfileSelect.addEventListener('change', () => syncBacktestInputs(false));
+      [runStartDateInput, runEndDateInput].forEach(input => {{
+        input.addEventListener('change', () => {{
+          input.dataset.manual = '1';
+          syncBacktestInputs(false);
+        }});
+      }});
+      useChartWindowBtn.addEventListener('click', copyChartWindowToBacktestInputs);
 
       // Slice & Recompute button
       document.getElementById('sliceRecomputeBtn').addEventListener('click', recomputeSegment);
@@ -3659,7 +3789,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
         tradeStatRow.innerHTML = '<div class="stat-cell"><div class="sk">无交易数据</div></div>';
         return;
       }}
-      // For data sources without discrete trade signals (e.g. post_train_review daily CSVs
+      // For data sources without discrete trade signals (e.g. retained daily CSVs
       // that only record position, not entry/exit actions), trade pairing may yield only
       // 1 trade. Show a warning instead of misleading Kelly stats.
       if (k.total <= 1) {{
@@ -4225,6 +4355,7 @@ def main() -> None:
     layouts = build_plotly_layouts()
 
     # Write split data files
+    removed_preview_exports = prune_post_train_review_exports()
     write_versioned_json(payload.get("versioned", {}))
     write_model_versions_json(payload.get("model_versions", []))
     write_research_backtests_json(payload.get("research_backtests", []))
@@ -4253,6 +4384,8 @@ def main() -> None:
     print(f"[done] wrote {DASHBOARD_DATA_DIR}/model_versions.json")
     print(f"[done] wrote {DASHBOARD_DATA_DIR}/research_backtests.json")
     vc = len(payload.get('versioned', {}))
+    if removed_preview_exports:
+        print(f"[done] pruned {len(removed_preview_exports)} stale post_train_review dashboard exports")
     print(f"[done] wrote {DASHBOARD_DATA_DIR}/versioned/ ({vc} versions)")
 
 
