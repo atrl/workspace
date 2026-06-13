@@ -36,6 +36,9 @@ export interface ModelRetentionGateStatus {
   required_best_return_pct?: number;
   max_walkforward_drawdown_pct?: number;
   required_wf_windows?: string[];
+  registry_keep_actor_count?: number;
+  registry_keep_actor_strict_violation_count?: number;
+  registry_keep_actor_strict_violations?: string[];
 }
 
 export interface Manifest {

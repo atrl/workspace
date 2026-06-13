@@ -186,6 +186,9 @@ def _model_retention_gate_manifest(gate: dict[str, Any] | None) -> dict[str, Any
         "required_best_return_pct": summary.get("required_best_return_pct"),
         "max_walkforward_drawdown_pct": summary.get("max_walkforward_drawdown_pct"),
         "required_wf_windows": summary.get("required_wf_windows", []),
+        "registry_keep_actor_count": summary.get("registry_keep_actor_count"),
+        "registry_keep_actor_strict_violation_count": summary.get("registry_keep_actor_strict_violation_count"),
+        "registry_keep_actor_strict_violations": summary.get("registry_keep_actor_strict_violations", []),
     }
 
 

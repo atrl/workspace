@@ -353,6 +353,9 @@ def test_build_dashboard_v2_data_attaches_model_retention_gate_status(tmp_path: 
                     "required_best_return_pct": 213.14,
                     "reference_profile": "soxl_backtest_policy_reimplementation_v1",
                     "required_wf_windows": ["wf_2020", "wf_2022", "wf_2023_2024"],
+                    "registry_keep_actor_count": 3,
+                    "registry_keep_actor_strict_violation_count": 2,
+                    "registry_keep_actor_strict_violations": ["high_dd", "missing_replay"],
                 },
                 "rows": [
                     {
@@ -387,6 +390,9 @@ def test_build_dashboard_v2_data_attaches_model_retention_gate_status(tmp_path: 
 
     assert manifest["model_retention_gate"]["passing_profile_count"] == 0
     assert manifest["model_retention_gate"]["max_walkforward_drawdown_pct"] == 20.0
+    assert manifest["model_retention_gate"]["registry_keep_actor_count"] == 3
+    assert manifest["model_retention_gate"]["registry_keep_actor_strict_violation_count"] == 2
+    assert manifest["model_retention_gate"]["registry_keep_actor_strict_violations"] == ["high_dd", "missing_replay"]
     assert manifest["model_retention_gate"]["source_path"] == "runtime/model_selection/card/model_retention_walkforward_gate_v1/summary.json"
     assert model["retention_gate_pass"] is False
     assert model["retention_decision"] == "retain_as_evidence_only"

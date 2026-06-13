@@ -12,7 +12,14 @@ describe('dashboard v2 DOM render helpers', () => {
   test('renders data source provenance and safe replay window', () => {
     const panel = document.createElement('section');
 
-    renderDataSourcePanel(panel, manifestFixture);
+    renderDataSourcePanel(panel, {
+      ...manifestFixture,
+      model_retention_gate: {
+        ...manifestFixture.model_retention_gate!,
+        registry_keep_actor_count: 3,
+        registry_keep_actor_strict_violation_count: 2,
+      },
+    });
 
     expect(panel.textContent).toContain('safe_backtest_end');
     expect(panel.textContent).toContain('2026-01-06');
@@ -23,6 +30,8 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.textContent).toContain('Retention Gate');
     expect(panel.textContent).toContain('0 / 2 promotable');
     expect(panel.textContent).toContain('MaxDD < 20.00%');
+    expect(panel.textContent).toContain('keep_actor strict violations');
+    expect(panel.textContent).toContain('2 / 3 blocked');
   });
 
   test('renders inspector rows with tone classes', () => {

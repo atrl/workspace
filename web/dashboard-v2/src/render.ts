@@ -74,6 +74,12 @@ export function renderDataSourcePanel(container: HTMLElement, manifest: Manifest
       ],
       ['return floor', retention.required_best_return_pct !== undefined ? `${retention.required_best_return_pct.toFixed(2)}%` : 'n/a'],
       ['windows', retention.required_wf_windows?.join(', ') || 'n/a'],
+      [
+        'keep_actor strict violations',
+        retention.registry_keep_actor_count !== undefined
+          ? `${retention.registry_keep_actor_strict_violation_count ?? 0} / ${retention.registry_keep_actor_count} blocked`
+          : 'n/a',
+      ],
       ['source', retention.source_path ?? 'n/a'],
     ];
     const gateGrid = element('div', 'source-grid');
