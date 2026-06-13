@@ -1,6 +1,7 @@
-import { describe, expect, test } from 'vitest';
+import { describe, expect, test, vi } from 'vitest';
 import {
   renderActionLegend,
+  renderChartCommandBar,
   renderComparisonPanel,
   renderDataSourcePanel,
   renderFeatureComparisonPanel,
@@ -62,6 +63,29 @@ describe('dashboard v2 DOM render helpers', () => {
 
     expect(panel.textContent).toContain('BUY');
     expect(panel.textContent).toContain('SELL');
+  });
+
+  test('renders chart command buttons that emit trading view range commands', () => {
+    const panel = document.createElement('div');
+    const onCommand = vi.fn();
+
+    renderChartCommandBar(panel, onCommand);
+
+    const zoomIn = panel.querySelector<HTMLButtonElement>('button[aria-label="Zoom in"]');
+    const panRight = panel.querySelector<HTMLButtonElement>('button[aria-label="Pan right"]');
+    const latest = panel.querySelector<HTMLButtonElement>('button[aria-label="Follow latest"]');
+    expect(panel.querySelectorAll('button')).toHaveLength(6);
+    expect(zoomIn?.textContent).toBe('+');
+    expect(panRight?.textContent).toBe('>');
+    expect(latest?.textContent).toBe('>|');
+
+    zoomIn?.click();
+    panRight?.click();
+    latest?.click();
+
+    expect(onCommand).toHaveBeenNthCalledWith(1, 'zoom_in');
+    expect(onCommand).toHaveBeenNthCalledWith(2, 'pan_right');
+    expect(onCommand).toHaveBeenNthCalledWith(3, 'latest');
   });
 
   test('renders buy sell feature comparison for selected date', () => {

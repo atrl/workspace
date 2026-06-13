@@ -1,5 +1,13 @@
 import './styles.css';
-import { renderMarketChart, renderNavChart, renderPositionChart, syncVisibleLogicalRange } from './chart';
+import {
+  applyChartRangeCommand,
+  renderMarketChart,
+  renderNavChart,
+  renderPositionChart,
+  syncVisibleLogicalRange,
+  type ChartRangeCommand,
+  type ChartRangeTarget,
+} from './chart';
 import {
   chartRangeRows,
   buildInspectorLookup,
@@ -9,15 +17,14 @@ import {
   computeDateRangePreset,
   computeDefaultChartWindow,
   computeInspectorRowsFromLookup,
-  computeKeyboardDateRange,
   chooseDefaultChartProfile,
   type DateRangePreset,
   type InspectorLookup,
-  type KeyboardRangeAction,
 } from './domain';
 import { loadDashboardData, type DashboardData } from './data';
 import {
   renderActionLegend,
+  renderChartCommandBar,
   renderComparisonPanel,
   renderDataSourcePanel,
   renderFeatureComparisonPanel,
@@ -49,6 +56,7 @@ function createShell(app: HTMLElement): void {
         <div class="chart-title-row">
           <h1>SOXL</h1>
           <span>TradingView-like replay review</span>
+          <div id="chart-command-bar" class="chart-command-bar" aria-label="Chart controls"></div>
           <div id="action-legend" class="action-legend"></div>
         </div>
         <div id="market-chart" class="chart chart-main"></div>
@@ -234,11 +242,17 @@ function renderInspector(data: DashboardData, state: ViewState, lookup: Inspecto
   });
 }
 
+interface DashboardRenderResult {
+  inspectorLookup: InspectorLookup;
+  chartHandles: ChartRangeTarget[];
+}
+
 function renderDashboard(
   data: DashboardData,
   state: ViewState,
   update: (next: Partial<ViewState>) => void,
-): InspectorLookup {
+  onChartCommand: (command: ChartRangeCommand) => void,
+): DashboardRenderResult {
   const toolbar = requireElement('toolbar');
   const marketChart = requireElement('market-chart');
   const positionChart = requireElement('position-chart');
@@ -246,11 +260,13 @@ function renderDashboard(
   const comparison = requireElement('comparison-panel');
   const source = requireElement('source-panel');
   const actionLegend = requireElement('action-legend');
+  const chartCommandBar = requireElement('chart-command-bar');
   const { models, market, primary } = visibleContext(data, state);
   const inspectorLookup = buildCurrentInspectorLookup(data, state);
 
   renderToolbar(toolbar, data, state, update);
   renderActionLegend(actionLegend);
+  renderChartCommandBar(chartCommandBar, onChartCommand);
   const marketHandles = renderMarketChart(marketChart, market, primary, (date) => update({ hoveredDate: date }));
   const positionHandles = renderPositionChart(positionChart, primary);
   const navHandles = renderNavChart(navChart, models, state.baselineProfile);
@@ -258,10 +274,13 @@ function renderDashboard(
   renderInspector(data, state, inspectorLookup);
   renderComparisonPanel(comparison, data.comparison, state.start, state.end, state.selectedProfiles);
   renderDataSourcePanel(source, data.manifest, warningsFor(data, state));
-  return inspectorLookup;
+  return {
+    inspectorLookup,
+    chartHandles: [marketHandles.chart, positionHandles.chart, navHandles],
+  };
 }
 
-function keyboardRangeAction(event: KeyboardEvent): KeyboardRangeAction | null {
+function keyboardRangeAction(event: KeyboardEvent): ChartRangeCommand | null {
   if (event.key === '+' || event.key === '=') return 'zoom_in';
   if (event.key === '-' || event.key === '_') return 'zoom_out';
   if (event.key === 'ArrowLeft') return 'pan_left';
@@ -297,6 +316,8 @@ async function main(): Promise<void> {
       hoveredDate: chartWindow?.end ?? common?.end ?? data.comparison.common_end,
     };
     let inspectorLookup: InspectorLookup | null = null;
+    let chartHandles: ChartRangeTarget[] = [];
+    const runChartCommand = (command: ChartRangeCommand) => applyChartRangeCommand(chartHandles, command);
     const update = (next: Partial<ViewState>) => {
       if (next.hoveredDate !== undefined && next.hoveredDate === state.hoveredDate && Object.keys(next).length === 1) {
         return;
@@ -311,7 +332,9 @@ async function main(): Promise<void> {
         state.chartProfile = chartProfiles[0] ?? state.selectedProfiles[0];
       }
       if (needsChartRender) {
-        inspectorLookup = renderDashboard(data, state, update);
+        const result = renderDashboard(data, state, update, runChartCommand);
+        inspectorLookup = result.inspectorLookup;
+        chartHandles = result.chartHandles;
       } else if (inspectorLookup) {
         renderInspector(data, state, inspectorLookup);
       }
@@ -320,17 +343,12 @@ async function main(): Promise<void> {
       if (isEditingTarget(event.target)) return;
       const action = keyboardRangeAction(event);
       if (!action) return;
-      const range = computeKeyboardDateRange(
-        chartRangeRows(data.models, state.chartProfile, data.market.rows),
-        state.start,
-        state.end,
-        action,
-      );
-      if (!range) return;
       event.preventDefault();
-      update({ ...range, hoveredDate: range.end });
+      runChartCommand(action);
     });
-    inspectorLookup = renderDashboard(data, state, update);
+    const result = renderDashboard(data, state, update, runChartCommand);
+    inspectorLookup = result.inspectorLookup;
+    chartHandles = result.chartHandles;
   } catch (error) {
     app.replaceChildren();
     const message = document.createElement('pre');

@@ -29,6 +29,25 @@ export interface ChartHandles {
   primarySeries: ISeriesApi<'Candlestick'> | ISeriesApi<'Line'>;
 }
 
+export type ChartRangeCommand = 'zoom_in' | 'zoom_out' | 'pan_left' | 'pan_right' | 'reset' | 'latest';
+export type ChartRangeTarget = IChartApi;
+
+const TRADING_VIEW_INTERACTION_OPTIONS = {
+  handleScroll: {
+    mouseWheel: true,
+    pressedMouseMove: true,
+    horzTouchDrag: true,
+    vertTouchDrag: true,
+  },
+  handleScale: {
+    mouseWheel: true,
+    pinch: true,
+    axisPressedMouseMove: { time: true, price: true },
+    axisDoubleClickReset: { time: true, price: true },
+  },
+  kineticScroll: { mouse: true, touch: true },
+} as const;
+
 const chartByContainer = new WeakMap<HTMLElement, IChartApi>();
 
 function resetChartContainer(container: HTMLElement): void {
@@ -54,6 +73,40 @@ export function syncVisibleLogicalRange(source: IChartApi, targets: IChartApi[])
   };
   sourceTimeScale.subscribeVisibleLogicalRangeChange(syncRange);
   return () => sourceTimeScale.unsubscribeVisibleLogicalRangeChange(syncRange);
+}
+
+export function applyChartRangeCommand(charts: readonly ChartRangeTarget[], command: ChartRangeCommand): void {
+  if (charts.length === 0) return;
+  if (command === 'reset') {
+    for (const chart of charts) chart.timeScale().fitContent();
+    return;
+  }
+  if (command === 'latest') {
+    for (const chart of charts) chart.timeScale().scrollToRealTime();
+    return;
+  }
+
+  const sourceRange = charts[0].timeScale().getVisibleLogicalRange();
+  if (!sourceRange) return;
+  const from = Number(sourceRange.from);
+  const to = Number(sourceRange.to);
+  const width = Math.max(2, to - from);
+  const center = (from + to) / 2;
+  let nextFrom = from;
+  let nextTo = to;
+
+  if (command === 'zoom_in' || command === 'zoom_out') {
+    const nextWidth = command === 'zoom_in' ? Math.max(2, width / 2) : width * 2;
+    nextFrom = center - nextWidth / 2;
+    nextTo = center + nextWidth / 2;
+  } else {
+    const shift = Math.max(1, width * 0.25);
+    nextFrom = command === 'pan_left' ? from - shift : from + shift;
+    nextTo = command === 'pan_left' ? to - shift : to + shift;
+  }
+
+  const nextRange = { from: nextFrom, to: nextTo };
+  for (const chart of charts) chart.timeScale().setVisibleLogicalRange(nextRange);
 }
 
 function createDateEmitter(onDate: (date: string) => void): {
@@ -105,6 +158,7 @@ export function renderMarketChart(
   resetChartContainer(container);
   const chart = createChart(container, {
     autoSize: true,
+    ...TRADING_VIEW_INTERACTION_OPTIONS,
     layout: { background: { color: '#111827' }, textColor: '#d1d5db' },
     grid: { vertLines: { color: '#253044' }, horzLines: { color: '#253044' } },
     leftPriceScale: { visible: true, borderColor: '#374151' },
@@ -169,6 +223,7 @@ export function renderPositionChart(container: HTMLElement, model: ModelPayload)
   resetChartContainer(container);
   const chart = createChart(container, {
     autoSize: true,
+    ...TRADING_VIEW_INTERACTION_OPTIONS,
     layout: { background: { color: '#0b1220' }, textColor: '#d1d5db' },
     grid: { vertLines: { color: '#1f2937' }, horzLines: { color: '#1f2937' } },
     rightPriceScale: { borderColor: '#374151' },
@@ -189,6 +244,7 @@ export function renderNavChart(
   resetChartContainer(container);
   const chart = createChart(container, {
     autoSize: true,
+    ...TRADING_VIEW_INTERACTION_OPTIONS,
     layout: { background: { color: '#0b1220' }, textColor: '#d1d5db' },
     grid: { vertLines: { color: '#1f2937' }, horzLines: { color: '#1f2937' } },
     rightPriceScale: { borderColor: '#374151' },

@@ -152,6 +152,44 @@ h3 {
   color: #9ca3af;
 }
 
+.chart-command-bar {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  height: 30px;
+  margin-left: 8px;
+  border: 1px solid #374151;
+  border-radius: 6px;
+  overflow: hidden;
+  flex: 0 0 auto;
+}
+
+.chart-command-button {
+  width: 34px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-left: 1px solid #374151;
+  color: #d1d5db;
+  background: #0b1220;
+  cursor: pointer;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.chart-command-button:first-child {
+  border-left: 0;
+}
+
+.chart-command-button:hover,
+.chart-command-button:focus-visible {
+  color: #f9fafb;
+  background: #1f2937;
+  outline: 0;
+}
+
 .action-legend {
   display: inline-flex;
   align-items: center;
@@ -379,6 +417,11 @@ h3 {
   }
 
   .action-legend {
+    margin-left: 0;
+  }
+
+  .chart-command-bar {
+    order: 3;
     margin-left: 0;
   }
 

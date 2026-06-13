@@ -1,4 +1,5 @@
 import { buildActionFeatureRows, computeVisibleComparison } from './domain';
+import type { ChartRangeCommand } from './chart';
 import type { ComparisonPayload, FeatureValue, InspectorRow, Manifest, MarketRow, ModelPayload } from './types';
 
 function element<K extends keyof HTMLElementTagNameMap>(
@@ -71,6 +72,30 @@ export function renderActionLegend(container: HTMLElement): void {
   const sell = element('span', 'legend-item legend-sell', 'SELL');
   const position = element('span', 'legend-item legend-position', 'Position');
   container.append(buy, sell, position);
+}
+
+const CHART_COMMANDS: readonly { command: ChartRangeCommand; label: string; icon: string }[] = [
+  { command: 'zoom_in', label: 'Zoom in', icon: '+' },
+  { command: 'zoom_out', label: 'Zoom out', icon: '-' },
+  { command: 'pan_left', label: 'Pan left', icon: '<' },
+  { command: 'pan_right', label: 'Pan right', icon: '>' },
+  { command: 'reset', label: 'Reset range', icon: 'R' },
+  { command: 'latest', label: 'Follow latest', icon: '>|' },
+];
+
+export function renderChartCommandBar(
+  container: HTMLElement,
+  onCommand: (command: ChartRangeCommand) => void,
+): void {
+  container.replaceChildren();
+  for (const item of CHART_COMMANDS) {
+    const button = element('button', 'chart-command-button', item.icon);
+    button.type = 'button';
+    button.title = item.label;
+    button.setAttribute('aria-label', item.label);
+    button.addEventListener('click', () => onCommand(item.command));
+    container.appendChild(button);
+  }
 }
 
 export function renderInspectorPanel(container: HTMLElement, rows: InspectorRow[]): void {

@@ -1,5 +1,11 @@
 import { beforeEach, describe, expect, test, vi } from 'vitest';
-import { renderMarketChart, renderNavChart, renderPositionChart, syncVisibleLogicalRange } from './chart';
+import {
+  applyChartRangeCommand,
+  renderMarketChart,
+  renderNavChart,
+  renderPositionChart,
+  syncVisibleLogicalRange,
+} from './chart';
 import { marketFixture, modelFixture } from './testFixtures';
 
 const chartMocks = vi.hoisted(() => {
@@ -11,6 +17,8 @@ const chartMocks = vi.hoisted(() => {
   type VisibleLogicalRange = { from: number; to: number };
   type TimeScaleMock = {
     fitContent: ReturnType<typeof vi.fn>;
+    getVisibleLogicalRange: ReturnType<typeof vi.fn>;
+    scrollToRealTime: ReturnType<typeof vi.fn>;
     setVisibleLogicalRange: ReturnType<typeof vi.fn>;
     subscribeVisibleLogicalRangeChange: ReturnType<typeof vi.fn>;
     unsubscribeVisibleLogicalRangeChange: ReturnType<typeof vi.fn>;
@@ -35,6 +43,8 @@ const chartMocks = vi.hoisted(() => {
     createChart: vi.fn(() => {
       const timeScaleApi: TimeScaleMock = {
         fitContent: vi.fn(),
+        getVisibleLogicalRange: vi.fn(() => ({ from: 4, to: 20 })),
+        scrollToRealTime: vi.fn(),
         setVisibleLogicalRange: vi.fn(),
         subscribeVisibleLogicalRangeChange: vi.fn((callback: (range: VisibleLogicalRange | null) => void) => {
           chart.visibleLogicalRangeHandler = callback;
@@ -104,6 +114,29 @@ describe('dashboard v2 chart rendering', () => {
     );
   });
 
+  test('enables wheel zoom, drag pan, touch drag, and kinetic scrolling on chart surfaces', () => {
+    const container = document.createElement('div');
+
+    renderMarketChart(container, marketFixture, modelFixture, () => {});
+    const chartOptions = (chartMocks.createChart.mock.calls[0] as unknown[])[1];
+
+    expect(chartOptions).toMatchObject({
+      handleScroll: {
+        mouseWheel: true,
+        pressedMouseMove: true,
+        horzTouchDrag: true,
+        vertTouchDrag: true,
+      },
+      handleScale: {
+        mouseWheel: true,
+        pinch: true,
+        axisPressedMouseMove: { time: true, price: true },
+        axisDoubleClickReset: { time: true, price: true },
+      },
+      kineticScroll: { mouse: true, touch: true },
+    });
+  });
+
   test('coalesces crosshair hover date updates into one animation frame', () => {
     const container = document.createElement('div');
     const callbacks: FrameRequestCallback[] = [];
@@ -153,6 +186,34 @@ describe('dashboard v2 chart rendering', () => {
 
     expect(chartMocks.chartInstances[1].timeScaleApi.setVisibleLogicalRange).toHaveBeenCalledWith({ from: 1, to: 12 });
     expect(chartMocks.chartInstances[2].timeScaleApi.setVisibleLogicalRange).toHaveBeenCalledWith({ from: 1, to: 12 });
+  });
+
+  test('applies trading chart range commands to synced chart time scales', () => {
+    const main = renderMarketChart(document.createElement('div'), marketFixture, modelFixture, () => {});
+    const position = renderPositionChart(document.createElement('div'), modelFixture);
+    const nav = renderNavChart(document.createElement('div'), { smoke: modelFixture }, 'smoke');
+
+    applyChartRangeCommand([main.chart, position.chart, nav], 'zoom_in');
+
+    expect(chartMocks.chartInstances[0].timeScaleApi.setVisibleLogicalRange).toHaveBeenCalledWith({ from: 8, to: 16 });
+    expect(chartMocks.chartInstances[1].timeScaleApi.setVisibleLogicalRange).toHaveBeenCalledWith({ from: 8, to: 16 });
+    expect(chartMocks.chartInstances[2].timeScaleApi.setVisibleLogicalRange).toHaveBeenCalledWith({ from: 8, to: 16 });
+
+    applyChartRangeCommand([main.chart, position.chart, nav], 'pan_right');
+    expect(chartMocks.chartInstances[0].timeScaleApi.setVisibleLogicalRange).toHaveBeenLastCalledWith({
+      from: 8,
+      to: 24,
+    });
+
+    applyChartRangeCommand([main.chart, position.chart, nav], 'reset');
+    expect(chartMocks.chartInstances[0].timeScaleApi.fitContent).toHaveBeenCalledTimes(2);
+    expect(chartMocks.chartInstances[1].timeScaleApi.fitContent).toHaveBeenCalledTimes(2);
+    expect(chartMocks.chartInstances[2].timeScaleApi.fitContent).toHaveBeenCalledTimes(2);
+
+    applyChartRangeCommand([main.chart, position.chart, nav], 'latest');
+    expect(chartMocks.chartInstances[0].timeScaleApi.scrollToRealTime).toHaveBeenCalledTimes(1);
+    expect(chartMocks.chartInstances[1].timeScaleApi.scrollToRealTime).toHaveBeenCalledTimes(1);
+    expect(chartMocks.chartInstances[2].timeScaleApi.scrollToRealTime).toHaveBeenCalledTimes(1);
   });
 
   test('renders buyhold baseline on the NAV chart before strategy lines', () => {
