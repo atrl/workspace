@@ -3,12 +3,12 @@
     "configured": true,
     "model_replay_freshness": {
       "counts": {
-        "current": 0,
+        "current": 1,
         "failed": 0,
-        "refreshed": 1,
+        "refreshed": 0,
         "skipped": 0
       },
-      "generated_at": "2026-06-13T15:01:19+00:00",
+      "generated_at": "2026-06-13T15:18:47+00:00",
       "latest_data_date": "2026-06-12",
       "safe_backtest_end": "2026-06-11",
       "source_path": "dashboard_data/model_replay_freshness.json"
@@ -47,7 +47,7 @@
     "soxl_backtest_policy_reimplementation_v1",
     "balanced_rule_residual_v19_reg_v22_retest_v1"
   ],
-  "generated_at": "2026-06-13T15:01:27.946429+00:00",
+  "generated_at": "2026-06-13T15:24:49.900233+00:00",
   "latest_market_date": "2026-06-12",
   "safe_backtest_end": "2026-06-11",
   "source_paths": {

@@ -17,6 +17,7 @@ from scripts.build_backtest_dashboard import (
     compact_payload_rows,
     load_research_backtests,
     load_run_profile_windows,
+    load_model_versions,
     normalize_post_train_review_rows,
     select_best_version,
     select_latest_version,
@@ -743,6 +744,50 @@ def test_load_run_profile_windows_marks_missing_actor_unrunnable(tmp_path: Path,
     assert windows["missing_actor"]["model_path"] == (
         "runtime/model/card/missing_actor/soxl_missing_actor_actor.pt"
     )
+
+
+def test_load_model_versions_excludes_non_retained_registry_profiles(tmp_path: Path, monkeypatch):
+    registry = tmp_path / "runtime" / "harness" / "card" / "registry"
+    registry.mkdir(parents=True)
+    (registry / "profile.yaml").write_text(
+        "\n".join(
+            [
+                "profiles:",
+                "- name: retained",
+                "  status: canonical",
+                "  keep_actor: true",
+                "- name: summary_only",
+                "  status: candidate",
+                "  keep_actor: false",
+                "- name: dropped",
+                "  status: dropped",
+                "  keep_actor: true",
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    models_dir = tmp_path / "runtime" / "model" / "card"
+    for name in ("retained", "summary_only", "dropped"):
+        card = models_dir / name
+        card.mkdir(parents=True)
+        if name == "retained":
+            (card / f"soxl_{name}_actor.pt").write_bytes(b"actor")
+        (card / f"soxl_{name}_summary.json").write_text(
+            json.dumps(
+                {
+                    "test_proxy": {"return": 1.0, "sharpe": 1.1, "max_dd": 2.0, "avg_pos": 0.3},
+                    "valid": {"return": 1.0, "sharpe": 1.0, "max_dd": 1.0},
+                }
+            ),
+            encoding="utf-8",
+        )
+    monkeypatch.setattr(dashboard_builder, "ROOT", tmp_path)
+    monkeypatch.setattr(dashboard_builder, "MODELS_DIR", models_dir)
+
+    versions = load_model_versions()
+
+    assert [version["name"] for version in versions] == ["retained"]
 
 
 def test_load_research_backtests_exports_recent_model_selection_cards(tmp_path: Path, monkeypatch):

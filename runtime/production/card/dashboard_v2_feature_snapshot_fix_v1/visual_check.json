@@ -1,0 +1,37 @@
+{
+  "url": "http://127.0.0.1:5175/",
+  "state": {
+    "title": "SOXL Dashboard V2",
+    "charts": [
+      {
+        "id": "market-chart",
+        "width": 1084,
+        "height": 1076,
+        "canvases": 10
+      },
+      {
+        "id": "position-chart",
+        "width": 541,
+        "height": 180,
+        "canvases": 7
+      },
+      {
+        "id": "nav-chart",
+        "width": 541,
+        "height": 180,
+        "canvases": 7
+      }
+    ],
+    "hasRecentEvents": true,
+    "hasBuy": true,
+    "hasSell": true,
+    "hasAutoUpdate": true,
+    "hasBaseline": true,
+    "hasQlibModel": true
+  },
+  "afterMouseMove": {
+    "now": 1781364322212
+  },
+  "featurePanelText": "Buy/Sell Feature Comparison\n2026-05-11 | 2 selected model rows\nModel\tAction\tPosition\tFeature packs\tSnapshot\tSchema cols\nSOXLBacktest Buy/Sell Baseline\tHOLD\t0.536\tsoxlbacktest_qlib_buysell_reference\topen 181.00 · high 191.29 · low 178.94 · close 190.42 · rsi6 84.59 · ma180 55.50 · hv_20 1.13 · vol_coef 1.55 · panic_score 73.01 · market_state true · vix 18.38\t11\nbalanced_rule_residual_v19_reg_v22_retest_v1\tHOLD\t0.000\tvix_term\tn/a\t64\nRecent Buy/Sell Events\nDate\tModel\tAction\tPosition\tSnapshot\tSchema cols\n2026-06-08\tbalanced_rule_residual_v19_reg_v22_retest_v1\tSELL\t0.000\tanchor_gap_180 1.85 · anchor_gap_velocity_10 -0.18 · anchor_slope_180 0.38 · below_anchor_ratio_63 0.02 · below_ma63_days 0.00 · cum_drop_20 -0.25 · cum_drop_30 -0.25 · days_since_high_63 0.05 · decay_63 -0.29 · downside_ratio_10 0.40 · downside_ratio_21 0.33 · downside_semivol_21 1.23 · drawdown_21 -0.25 · drawdown_63 -0.25 · drawdown_streak_63 0.05 · expectancy_proxy_21 0.29 · gain_streak_10 0.10 · intraday_range 0.10 · jump_variation_5 0.00 · loss_streak_21 0.00 · mom_10 0.21 · mom_21 0.48 · mom_5 0.02 · mom_63 1.66 · negative_gap_frequency_21 0.33 · new_low_ratio_21 0.00 · realized_kurtosis_21 1.78 · realized_skew_21 -0.93 · realized_vol_10 2.29 · realized_vol_21 1.85 · realized_vol_63 1.44 · regime_risk 0.75 · regime_risk_no_vix 0.81 · regime_risk_velocity_5 0.31 · relative_strength_21 3.11 · relative_volume_zscore 2.69 · return 0.16 · rolling_new_low_ratio_63 0.02 · rsi_14 0.61 · rsi_14_velocity_5 -0.01 · rsi_6 0.42 · sharpe_proxy_21 3.09 · skew_zscore_252 -0.85 · tracking_error_21 -0.02 · tracking_error_5 -0.04 · tracking_error_vol_21 0.10 · trend_gap_21 0.19 · trend_gap_21_velocity -0.06 · trend_gap_63 0.66 · trend_slope_21 0.31 · trend_slope_63 0.62 · vix_level 0.38 · vix_momentum_10 0.13 · vix_percentile_252 0.72 · vix_short_ratio -0.22 · vix_term_slope -0.08 · vix_term_slope_velocity_5 0.14 · vix_zscore 0.24 · vol_coef_21 1.79 · vol_of_vol_21 0.18 · vol_stress_score 0.97 · volume_shock 0.15 · volume_shock_velocity_5 0.49 · vvix_zscore_252 -0.55\t64\n2026-06-05\tSOXLBacktest Buy/Sell Baseline\tBUY\t0.159\tclose 182.54 · high 233.69 · hv_20 1.93 · low 181.81 · ma180 73.08 · market_state true · ope",
+  "logProblems": []
+}

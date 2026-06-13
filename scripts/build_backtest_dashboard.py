@@ -13,6 +13,7 @@ import numpy as np
 import pandas as pd
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
+import yaml
 
 ROOT = Path(__file__).resolve().parent.parent
 if str(ROOT) not in sys.path:
@@ -484,14 +485,17 @@ def _paper_trading_detail_meta(
 def load_model_versions() -> list[dict]:
     """Load all historical model versions from runtime/model/card/*/*_summary.json."""
     versions = []
+    retained_names = _retained_model_version_names()
     if not MODELS_DIR.exists():
         return versions
     for f in sorted(MODELS_DIR.rglob("*_summary.json")):
         try:
             data = json.loads(f.read_text(encoding="utf-8"))
-            raw_name = f.stem.replace("_summary", "")
+            raw_name = f.stem.removesuffix("_summary")
             # Files are named soxl_<name>_summary.json; strip soxl_ prefix if present
             name = raw_name[5:] if raw_name.startswith("soxl_") else raw_name
+            if retained_names is not None and name not in retained_names:
+                continue
             tp = data.get("test_proxy", {})
             valid = data.get("valid", {})
             versions.append(
@@ -511,6 +515,31 @@ def load_model_versions() -> list[dict]:
         except Exception:
             continue
     return versions
+
+
+def _retained_model_version_names() -> set[str] | None:
+    registry_path = ROOT / "runtime" / "harness" / "card" / "registry" / "profile.yaml"
+    if not registry_path.exists():
+        return None
+    try:
+        payload = yaml.safe_load(registry_path.read_text(encoding="utf-8")) or {}
+    except Exception:
+        return None
+    retained: set[str] = set()
+    for item in payload.get("profiles") or []:
+        if not isinstance(item, dict):
+            continue
+        name = str(item.get("name") or "").strip()
+        if not name:
+            continue
+        if str(item.get("status") or "") == "dropped":
+            continue
+        if not bool(item.get("keep_actor", False)):
+            continue
+        actor_path = MODELS_DIR / name / f"soxl_{name}_actor.pt"
+        if actor_path.exists():
+            retained.add(name)
+    return retained
 
 
 def _csv_date_window(csv_path: Path) -> dict[str, object]:

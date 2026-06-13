@@ -70,4 +70,21 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.textContent).toContain('rsi6');
     expect(panel.textContent).toContain('60.00');
   });
+
+  test('renders recent buy sell event feature snapshots without relying on hover date', () => {
+    const panel = document.createElement('section');
+
+    renderFeatureComparisonPanel(panel, {
+      date: '2026-01-02',
+      marketRows: marketFixture.rows,
+      models: { smoke: modelFixture },
+    });
+
+    expect(panel.textContent).toContain('Recent Buy/Sell Events');
+    expect(panel.textContent).toContain('2026-01-05');
+    expect(panel.textContent).toContain('BUY');
+    expect(panel.textContent).toContain('2026-01-06');
+    expect(panel.textContent).toContain('SELL');
+    expect(panel.textContent).toContain('58.00');
+  });
 });

@@ -12,6 +12,7 @@ from src.soxl_quant.app.dashboard_v2 import (
     derive_model_events,
     normalize_model_rows,
 )
+import src.soxl_quant.app.dashboard_v2 as dashboard_v2
 
 
 def _write_csv(path: Path, rows: list[dict[str, object]]) -> None:
@@ -149,6 +150,94 @@ def test_build_dashboard_v2_data_writes_manifest_market_model_and_comparison(tmp
     assert comparison["rows"][2]["profiles"]["smoke"]["buyhold_return"] == pytest.approx(0.08)
     assert comparison["rows"][2]["profiles"]["smoke"]["return_delta_vs_buyhold"] == pytest.approx(-0.05)
     assert comparison["rows"][1]["action_mismatch_count"] == 0
+
+
+def test_build_dashboard_v2_data_uses_model_specific_feature_snapshots(tmp_path: Path, monkeypatch):
+    freshness = tmp_path / "dashboard_data" / "model_replay_freshness.json"
+    freshness.parent.mkdir()
+    model_csv = tmp_path / "runtime" / "model" / "card" / "smoke" / "smoke_soxl_daily.csv"
+    model_csv.parent.mkdir(parents=True)
+    _write_csv(
+        model_csv,
+        [
+            {
+                "datetime": "2026-01-02",
+                "strategy_nav": 100.0,
+                "buyhold_nav": 100.0,
+                "position": 0.0,
+                "action": "HOLD",
+                "price": 10.0,
+            },
+            {
+                "datetime": "2026-01-05",
+                "strategy_nav": 105.0,
+                "buyhold_nav": 110.0,
+                "position": 0.7,
+                "action": "BUY",
+                "price": 11.0,
+            },
+        ],
+    )
+    freshness.write_text(
+        json.dumps(
+            {
+                "generated_at": "2026-06-13T00:00:00+00:00",
+                "latest_data_date": "2026-01-05",
+                "safe_backtest_end": "2026-01-05",
+                "profiles": [
+                    {
+                        "profile": "smoke",
+                        "status": "canonical",
+                        "actor": "runtime/model/card/smoke/soxl_smoke_actor.pt",
+                        "output": "runtime/model/card/smoke/smoke_soxl_daily.csv",
+                        "result": "current",
+                    }
+                ],
+            }
+        )
+    )
+    market_rows = {
+        "2026-01-02": {"open": 9.5, "high": 10.2, "low": 9.4, "close": 10.0, "volume": 1000, "rsi6": 50.0},
+        "2026-01-05": {"open": 10.2, "high": 11.5, "low": 10.1, "close": 11.0, "volume": 1200, "rsi6": 60.0},
+    }
+    model_feature_rows_by_profile = {
+        "smoke": {
+            "2026-01-05": {
+                "rsi_6": 61.25,
+                "vix_level": 18.75,
+                "RB_BUY_COMPOSITE": 0.42,
+            }
+        }
+    }
+    monkeypatch.setattr(
+        dashboard_v2,
+        "_feature_metadata",
+        lambda profile_name, source: {
+            "source_kind": "qlib_model",
+            "display_name": profile_name,
+            "runnable": True,
+            "runnable_reason": "ok",
+            "feature_packs": ["rulebase_signals"],
+            "feature_columns": ["rsi_6", "vix_level", "RB_BUY_COMPOSITE"],
+            "feature_schema_signature": "test-signature",
+        },
+    )
+
+    output_dir = tmp_path / "dashboard_data" / "v2"
+    build_dashboard_v2_data(
+        root=tmp_path,
+        output_dir=output_dir,
+        freshness_path=freshness,
+        market_rows=market_rows,
+        selected_profiles=["smoke"],
+        baseline_profile="smoke",
+        model_feature_rows_by_profile=model_feature_rows_by_profile,
+    )
+
+    model = json.loads((output_dir / "models" / "smoke.json").read_text())
+
+    assert model["snapshot_columns"] == ["rsi_6", "vix_level", "RB_BUY_COMPOSITE"]
+    assert model["events"][0]["feature_snapshot"] == model_feature_rows_by_profile["smoke"]["2026-01-05"]
 
 
 def test_build_dashboard_v2_data_removes_stale_model_payloads(tmp_path: Path):

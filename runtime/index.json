@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-13T15:01:26.898112+00:00",
+  "generated_at": "2026-06-13T15:26:21.186732+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -11298,6 +11298,12 @@
       "category": "production",
       "suffix": ".md",
       "bytes": 906
+    },
+    {
+      "path": "runtime/production/card/dashboard_v2_feature_snapshot_fix_v1/visual_check.json",
+      "category": "production",
+      "suffix": ".json",
+      "bytes": 3018
     },
     {
       "path": "runtime/production/card/dashboard_v2_visual_v1/visual_check.json",

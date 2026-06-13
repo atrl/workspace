@@ -146,6 +146,59 @@ function renderFeatureList(features: Record<string, FeatureValue>): string {
   return entries.map(([key, value]) => `${key} ${formatFeatureValue(value)}`).join(' · ');
 }
 
+function renderRecentEventFeatureTable(
+  container: HTMLElement,
+  models: Record<string, ModelPayload>,
+): void {
+  const rows = Object.entries(models)
+    .flatMap(([profile, model]) =>
+      model.events
+        .filter((event) => event.kind === 'BUY' || event.kind === 'SELL')
+        .map((event) => ({
+          profile: model.display_name || profile,
+          date: event.date,
+          action: event.kind,
+          position: event.position,
+          features: event.feature_snapshot ?? {},
+          featureCount: model.feature_columns.length,
+        })),
+    )
+    .sort((left, right) => right.date.localeCompare(left.date))
+    .slice(0, 24);
+
+  container.appendChild(element('h3', undefined, 'Recent Buy/Sell Events'));
+  if (!rows.length) {
+    container.appendChild(element('p', 'empty-state', 'No buy/sell events in selected models.'));
+    return;
+  }
+
+  const table = element('table', 'comparison-table feature-table');
+  const thead = element('thead');
+  const headerRow = element('tr');
+  for (const title of ['Date', 'Model', 'Action', 'Position', 'Snapshot', 'Schema cols']) {
+    headerRow.appendChild(element('th', undefined, title));
+  }
+  thead.appendChild(headerRow);
+  table.appendChild(thead);
+
+  const tbody = element('tbody');
+  for (const row of rows) {
+    const tr = element('tr');
+    tr.dataset.trade = 'true';
+    tr.appendChild(element('td', undefined, row.date));
+    tr.appendChild(element('td', undefined, row.profile));
+    tr.appendChild(element('td', undefined, row.action));
+    tr.appendChild(element('td', undefined, row.position.toFixed(3)));
+    tr.appendChild(element('td', 'feature-snapshot-cell', renderFeatureList(row.features)));
+    tr.appendChild(element('td', undefined, String(row.featureCount)));
+    tbody.appendChild(tr);
+  }
+  table.appendChild(tbody);
+  const tableScroll = element('div', 'table-scroll');
+  tableScroll.appendChild(table);
+  container.appendChild(tableScroll);
+}
+
 export function renderFeatureComparisonPanel(
   container: HTMLElement,
   input: { date: string; marketRows: readonly MarketRow[]; models: Record<string, ModelPayload> },
@@ -156,6 +209,7 @@ export function renderFeatureComparisonPanel(
   container.appendChild(element('div', 'comparison-summary', `${input.date} | ${rows.length} selected model rows`));
   if (!rows.length) {
     container.appendChild(element('p', 'empty-state', 'No model rows for selected date.'));
+    renderRecentEventFeatureTable(container, input.models);
     return;
   }
 
@@ -184,4 +238,5 @@ export function renderFeatureComparisonPanel(
   const tableScroll = element('div', 'table-scroll');
   tableScroll.appendChild(table);
   container.appendChild(tableScroll);
+  renderRecentEventFeatureTable(container, input.models);
 }

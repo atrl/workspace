@@ -13,7 +13,7 @@ import pandas as pd
 
 from scripts.build_backtest_dashboard import FEATURE_COLS
 from src.soxl_quant.config import load_profile
-from src.soxl_quant.data import feature_columns_for_packs
+from src.soxl_quant.data import build_dataset, feature_columns_for_packs, init_qlib
 
 
 SOXL_BACKTEST_REFERENCE_PROFILE = "soxl_backtest_policy_reimplementation_v1"
@@ -68,6 +68,9 @@ FEATURE_SNAPSHOT_ALIASES = {
     "RB_PANIC_SCORE_PROXY": ("panic_score",),
     "RB_VOL_REGIME": ("vol_coef",),
 }
+FeatureSnapshot = dict[str, str | int | float | bool | None]
+FeatureRowsByDate = dict[str, FeatureSnapshot]
+FeatureRowsByProfile = dict[str, FeatureRowsByDate]
 
 
 @dataclass(frozen=True)
@@ -193,7 +196,16 @@ def _feature_metadata(profile_name: str, source: dict[str, Any]) -> dict[str, An
 def _snapshot_columns_for_model(
     feature_columns: list[str],
     market_payload_rows: list[dict[str, Any]],
+    model_feature_rows_by_date: FeatureRowsByDate | None = None,
 ) -> list[str]:
+    if model_feature_rows_by_date:
+        available_model_columns: set[str] = set()
+        for row in model_feature_rows_by_date.values():
+            available_model_columns.update(str(key) for key, value in row.items() if value is not None)
+        model_columns = [column for column in feature_columns if column in available_model_columns]
+        if model_columns:
+            return model_columns
+
     available: set[str] = set()
     for row in market_payload_rows:
         available.update(str(key) for key, value in row.items() if key != "date" and value is not None)
@@ -210,15 +222,90 @@ def _feature_snapshot(row: dict[str, Any] | None, columns: list[str]) -> dict[st
     return {column: row[column] for column in columns if column in row}
 
 
+def _json_feature_value(value: object) -> str | int | float | bool | None:
+    if value is None:
+        return None
+    if isinstance(value, (np.generic,)):
+        value = value.item()
+    try:
+        if pd.isna(value):
+            return None
+    except TypeError:
+        pass
+    if isinstance(value, bool):
+        return value
+    if isinstance(value, (int, float)):
+        number = float(value)
+        if not np.isfinite(number):
+            return None
+        return int(number) if isinstance(value, int) and not isinstance(value, bool) else number
+    if isinstance(value, str):
+        return value
+    return str(value)
+
+
+def _feature_frame_to_rows(frame: pd.DataFrame, columns: list[str]) -> FeatureRowsByDate:
+    if isinstance(frame.index, pd.MultiIndex):
+        if "instrument" in frame.index.names:
+            frame = frame.droplevel("instrument")
+        else:
+            frame = frame.reset_index(level=list(range(1, frame.index.nlevels)), drop=True)
+    frame = frame.copy()
+    frame.index = pd.to_datetime(frame.index)
+    available_columns = [column for column in columns if column in frame.columns]
+    rows: FeatureRowsByDate = {}
+    if not available_columns:
+        return rows
+    for dt, source in frame[available_columns].sort_index().iterrows():
+        snapshot = {}
+        for column in available_columns:
+            value = _json_feature_value(source[column])
+            if value is not None:
+                snapshot[column] = value
+        if snapshot:
+            rows[pd.Timestamp(dt).strftime("%Y-%m-%d")] = snapshot
+    return rows
+
+
+def _load_model_feature_rows(
+    profile_name: str,
+    feature_metadata: dict[str, Any],
+    provider_uri: Path,
+) -> tuple[FeatureRowsByDate, str | None]:
+    if feature_metadata.get("source_kind") != "qlib_model":
+        return {}, None
+    columns = feature_metadata.get("feature_columns")
+    packs = feature_metadata.get("feature_packs")
+    if not isinstance(columns, list) or not columns:
+        return {}, "missing_feature_columns"
+    if not isinstance(packs, list):
+        packs = []
+    if not provider_uri.exists():
+        return {}, f"missing_qlib_store: {provider_uri}"
+    try:
+        init_qlib(provider_uri)
+        dataset = build_dataset(feature_packs=tuple(str(pack) for pack in packs), profile_name=profile_name)
+        frame = dataset.handler.feature_frame
+    except Exception as exc:
+        return {}, str(exc)
+    return _feature_frame_to_rows(frame, [str(column) for column in columns]), None
+
+
 def _derive_model_events_with_features(
     rows: list[dict[str, Any]],
     *,
     market_rows_by_date: dict[str, dict[str, Any]],
     snapshot_columns: list[str],
+    model_feature_rows_by_date: FeatureRowsByDate | None = None,
 ) -> list[dict[str, Any]]:
     events = derive_model_events(rows)
     for event in events:
-        event["feature_snapshot"] = _feature_snapshot(market_rows_by_date.get(str(event["date"])), snapshot_columns)
+        date = str(event["date"])
+        model_snapshot = _feature_snapshot(
+            (model_feature_rows_by_date or {}).get(date),
+            snapshot_columns,
+        )
+        event["feature_snapshot"] = model_snapshot or _feature_snapshot(market_rows_by_date.get(date), snapshot_columns)
     return events
 
 
@@ -615,6 +702,7 @@ def build_dashboard_v2_data(
     freshness_path: Path | None = None,
     market_rows: dict[str, dict[str, Any]] | None = None,
     feature_rows: dict[str, dict[str, Any]] | None = None,
+    model_feature_rows_by_profile: FeatureRowsByProfile | None = None,
     selected_profiles: list[str] | None = None,
     baseline_profile: str | None = None,
 ) -> DashboardV2Result:
@@ -670,6 +758,7 @@ def build_dashboard_v2_data(
                 stale_path.unlink()
     model_payloads: dict[str, dict[str, Any]] = {}
     model_paths: dict[str, Path] = {}
+    model_feature_rows_by_profile = model_feature_rows_by_profile or {}
     for profile_name in profiles_to_write:
         source = by_name[profile_name]
         replay_path = root / str(source["output"])
@@ -679,7 +768,19 @@ def build_dashboard_v2_data(
             window=source.get("window"),
         )
         feature_metadata = _feature_metadata(profile_name, source)
-        snapshot_columns = _snapshot_columns_for_model(feature_metadata["feature_columns"], market_payload_rows)
+        model_feature_rows = model_feature_rows_by_profile.get(profile_name)
+        feature_snapshot_error = None
+        if model_feature_rows is None:
+            model_feature_rows, feature_snapshot_error = _load_model_feature_rows(
+                profile_name,
+                feature_metadata,
+                root / "data" / "qlib" / "soxl",
+            )
+        snapshot_columns = _snapshot_columns_for_model(
+            feature_metadata["feature_columns"],
+            market_payload_rows,
+            model_feature_rows,
+        )
         payload = {
             "profile": profile_name,
             "status": source.get("status"),
@@ -696,9 +797,12 @@ def build_dashboard_v2_data(
                 rows,
                 market_rows_by_date=market_rows_by_date,
                 snapshot_columns=snapshot_columns,
+                model_feature_rows_by_date=model_feature_rows,
             ),
             "metrics": {"full": compute_metrics(rows)},
         }
+        if feature_snapshot_error:
+            payload["feature_snapshot_error"] = feature_snapshot_error
         if source.get("window"):
             payload["window"] = source.get("window")
         model_payloads[profile_name] = payload

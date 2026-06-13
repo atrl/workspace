@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-06-13T15:01:19+00:00",
+  "generated_at": "2026-06-13T15:18:47+00:00",
   "latest_data_date": "2026-06-12",
   "safe_backtest_end": "2026-06-11",
   "terminal_note": "qlib daily backtests require a following calendar boundary, so model replay curves target safe_backtest_end while paper trading/latest signal can use latest_data_date.",
   "counts": {
-    "current": 0,
-    "refreshed": 1,
+    "current": 1,
+    "refreshed": 0,
     "failed": 0,
     "skipped": 0
   },
@@ -16,10 +16,10 @@
       "actor": "runtime/model/card/balanced_rule_residual_v19_reg_v22_retest_v1/soxl_balanced_rule_residual_v19_reg_v22_retest_v1_actor.pt",
       "profile_yaml": "runtime/model/card/balanced_rule_residual_v19_reg_v22_retest_v1/profile.yaml",
       "output": "runtime/model/card/balanced_rule_residual_v19_reg_v22_retest_v1/balanced_rule_residual_v19_reg_v22_retest_v1_soxl_daily.csv",
-      "before_end": "2026-06-09",
+      "before_end": "2026-06-11",
       "after_end": "2026-06-11",
-      "result": "refreshed",
-      "reason": "exported daily replay"
+      "result": "current",
+      "reason": "already at safe_backtest_end"
     }
   ]
 }
