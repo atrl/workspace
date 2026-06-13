@@ -1,0 +1,82 @@
+{
+  "actor_retention_allowed": false,
+  "best_wf_drawdown_pass_variant_by_ytd": {
+    "failures": "ytd_return_below_soxlbacktest_reference;ytd_return_below_current_best_alignment",
+    "mean_wf_return_pct": -2.182904,
+    "min_wf_return_pct": -17.85165,
+    "retention_gate_pass": false,
+    "variant": "static_cap_0_20",
+    "wf_drawdown_pass": true,
+    "worst_wf_max_drawdown_pct": 18.95674,
+    "ytd_current_best_alignment_pass": false,
+    "ytd_max_drawdown_pct": 7.595172,
+    "ytd_return_pct": 8.696692,
+    "ytd_soxlbacktest_return_pass": false
+  },
+  "best_ytd_pass_variant_by_wf_dd": {
+    "failures": "worst_wf_max_drawdown_ge_20;ytd_return_below_current_best_alignment",
+    "mean_wf_return_pct": 8.271083,
+    "min_wf_return_pct": -21.818904,
+    "retention_gate_pass": false,
+    "variant": "dd18_cap_0_30",
+    "wf_drawdown_pass": false,
+    "worst_wf_max_drawdown_pct": 27.803341,
+    "ytd_current_best_alignment_pass": false,
+    "ytd_max_drawdown_pct": 31.390931,
+    "ytd_return_pct": 195.414088,
+    "ytd_soxlbacktest_return_pass": true
+  },
+  "counterfactual_method": "scale_reported_model_daily_return_by_position_throttle_ratio; not broker-accurate promotion evidence",
+  "created_at": "2026-06-13T11:11:16.896002+00:00",
+  "decision": "simple_position_throttles_do_not_satisfy_both_drawdown_and_return_gates",
+  "experiment": "state_conditioned_overlay_gap_to_20_v1",
+  "next_action": "do_not_use_simple_posthoc_cap_as_final_model; retrain or select with drawdown-aware objective/checkpoint gate that reduces wf_2020/wf_2022 exposure before drawdown rather than only after drawdown appears",
+  "original_reported": {
+    "failures": "worst_wf_max_drawdown_ge_20;ytd_return_below_current_best_alignment",
+    "mean_wf_return_pct": 10.113392,
+    "min_wf_return_pct": -23.275008,
+    "retention_gate_pass": false,
+    "variant": "original_reported",
+    "wf_drawdown_pass": false,
+    "worst_wf_max_drawdown_pct": 29.147985,
+    "ytd_current_best_alignment_pass": false,
+    "ytd_max_drawdown_pct": 31.390931,
+    "ytd_return_pct": 196.370488,
+    "ytd_soxlbacktest_return_pass": true
+  },
+  "profile": "state_conditioned_drawdown_rebound_reward_train_v1",
+  "promotion_allowed": false,
+  "retention_gate_pass_variants": [],
+  "sidecars": {
+    "conclusion": "runtime/model_selection/card/state_conditioned_overlay_gap_to_20_v1/conclusion.md",
+    "drawdown_intervals": "runtime/model_selection/card/state_conditioned_overlay_gap_to_20_v1/drawdown_intervals.csv",
+    "overlay_gate_summary": "runtime/model_selection/card/state_conditioned_overlay_gap_to_20_v1/overlay_gate_summary.csv",
+    "overlay_window_metrics": "runtime/model_selection/card/state_conditioned_overlay_gap_to_20_v1/overlay_window_metrics.csv",
+    "selection": "runtime/model_selection/card/state_conditioned_overlay_gap_to_20_v1/selection.json",
+    "summary": "runtime/model_selection/card/state_conditioned_overlay_gap_to_20_v1/summary.json",
+    "variant_daily": "runtime/model_selection/card/state_conditioned_overlay_gap_to_20_v1/variant_daily.csv"
+  },
+  "thresholds": {
+    "max_walkforward_drawdown_pct": 20.0,
+    "required_best_return_pct": 213.143462,
+    "required_soxlbacktest_return_pct": 132.077978,
+    "required_wf_windows": [
+      "wf_2020",
+      "wf_2022",
+      "wf_2023_2024"
+    ],
+    "ytd_end": "2026-06-09",
+    "ytd_start": "2026-01-02"
+  },
+  "wf_drawdown_pass_variants": [
+    "static_cap_0_20",
+    "risk_floor_plus_0_10",
+    "risk_floor_plus_0_00"
+  ],
+  "ytd_soxlbacktest_return_pass_variants": [
+    "original_reported",
+    "dd18_cap_0_30",
+    "dd15_cap_0_20",
+    "dd15_cap_0_30"
+  ]
+}

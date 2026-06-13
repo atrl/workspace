@@ -1,0 +1,11 @@
+variant,worst_wf_max_drawdown_pct,min_wf_return_pct,mean_wf_return_pct,ytd_return_pct,ytd_max_drawdown_pct,wf_drawdown_pass,ytd_soxlbacktest_return_pass,ytd_current_best_alignment_pass,retention_gate_pass,failures
+static_cap_0_20,18.95674,-17.85165,-2.182904,8.696692,7.595172,True,False,False,False,ytd_return_below_soxlbacktest_reference;ytd_return_below_current_best_alignment
+risk_floor_plus_0_10,19.948353,-17.414445,-0.155303,4.401244,3.848353,True,False,False,False,ytd_return_below_soxlbacktest_reference;ytd_return_below_current_best_alignment
+risk_floor_plus_0_00,14.089214,-10.580423,-0.776293,0.0,0.0,True,False,False,False,ytd_return_below_soxlbacktest_reference;ytd_return_below_current_best_alignment
+original_reported,29.147985,-23.275008,10.113392,196.370488,31.390931,False,True,False,False,worst_wf_max_drawdown_ge_20;ytd_return_below_current_best_alignment
+dd18_cap_0_30,27.803341,-21.818904,8.271083,195.414088,31.390931,False,True,False,False,worst_wf_max_drawdown_ge_20;ytd_return_below_current_best_alignment
+dd15_cap_0_20,28.027275,-22.061401,10.24706,183.549207,31.390931,False,True,False,False,worst_wf_max_drawdown_ge_20;ytd_return_below_current_best_alignment
+dd15_cap_0_30,28.598784,-22.680283,9.496188,179.159504,31.390931,False,True,False,False,worst_wf_max_drawdown_ge_20;ytd_return_below_current_best_alignment
+static_cap_0_30,23.868587,-23.117036,-2.40797,12.535347,11.25099,False,False,False,False,worst_wf_max_drawdown_ge_20;ytd_return_below_soxlbacktest_reference;ytd_return_below_current_best_alignment
+static_cap_0_40,26.722774,-25.999399,-2.275365,12.199978,14.830492,False,False,False,False,worst_wf_max_drawdown_ge_20;ytd_return_below_soxlbacktest_reference;ytd_return_below_current_best_alignment
+risk_floor_plus_0_20,24.41307,-22.896394,-2.271591,8.696692,7.595172,False,False,False,False,worst_wf_max_drawdown_ge_20;ytd_return_below_soxlbacktest_reference;ytd_return_below_current_best_alignment
