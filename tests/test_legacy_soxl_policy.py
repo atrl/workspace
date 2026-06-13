@@ -66,6 +66,24 @@ def test_legacy_policy_replay_matches_june_fresh_start():
     assert result.trades["type"].tolist() == ["buy"]
 
 
+def test_legacy_policy_replay_accepts_risk_parameter_overrides():
+    default = replay_legacy_soxl_policy(start="2020-01-01", end="2020-12-31")
+    capped = replay_legacy_soxl_policy(
+        start="2020-01-01",
+        end="2020-12-31",
+        config_overrides={
+            "max_position": 0.35,
+            "min_position": 0.0,
+            "buy_step_initial": 0.15,
+            "buy_step_normal": 0.05,
+        },
+    )
+
+    assert capped.trades.iloc[0]["position"] <= 0.16
+    assert capped.metrics["average_position_pct"] < default.metrics["average_position_pct"]
+    assert capped.metrics["rulebase_max_drawdown_pct"] < default.metrics["rulebase_max_drawdown_pct"]
+
+
 def test_export_legacy_soxl_policy_replay_writes_sidecars(tmp_path):
     from scripts.export_legacy_soxl_policy_replay import write_legacy_soxl_policy_replay_outputs
 

@@ -1,0 +1,50 @@
+{
+  "actor_retention_allowed": false,
+  "canonical_reference_baseline": "soxl_backtest_policy_reimplementation_v1",
+  "created_at": "2026-06-13T10:59:05.708644+00:00",
+  "decision": "soxlbacktest_reference_qlib_aligned_not_promotable",
+  "experiment": "soxlbacktest_qlib_walkforward_baseline_v1",
+  "legacy_default": {
+    "failures": "worst_wf_max_drawdown_ge_20;ytd_return_below_current_best_alignment",
+    "worst_wf_max_drawdown_pct": 84.918053,
+    "ytd_return_pct": 132.077977
+  },
+  "low_risk_15_05_02": {
+    "failures": "ytd_return_below_soxlbacktest_reference;ytd_return_below_current_best_alignment",
+    "worst_wf_max_drawdown_pct": 19.45605,
+    "ytd_return_pct": 6.03279
+  },
+  "next_action": "do_not_treat_soxlbacktest_risk_caps_as_final_model; use this qlib-aligned reference to score trained candidates against buy/sell timing and return gates",
+  "promotion_allowed": false,
+  "retention_gate_pass_candidates": [],
+  "selected_buy_sell_reference": "legacy_default",
+  "selected_risk_floor": "wf_pass_ytd18_15_15_02",
+  "sidecars": {
+    "candidate_daily": "runtime/model_selection/card/soxlbacktest_qlib_walkforward_baseline_v1/candidate_daily.csv",
+    "candidate_gate_summary": "runtime/model_selection/card/soxlbacktest_qlib_walkforward_baseline_v1/candidate_gate_summary.csv",
+    "candidate_metrics": "runtime/model_selection/card/soxlbacktest_qlib_walkforward_baseline_v1/candidate_metrics.csv",
+    "candidate_trades": "runtime/model_selection/card/soxlbacktest_qlib_walkforward_baseline_v1/candidate_trades.csv",
+    "conclusion": "runtime/model_selection/card/soxlbacktest_qlib_walkforward_baseline_v1/conclusion.md",
+    "summary": "runtime/model_selection/card/soxlbacktest_qlib_walkforward_baseline_v1/summary.json"
+  },
+  "thresholds": {
+    "max_walkforward_drawdown_pct": 20.0,
+    "required_best_return_pct": 213.143462,
+    "required_soxlbacktest_return_pct": 132.077978,
+    "required_wf_windows": [
+      "wf_2020",
+      "wf_2022",
+      "wf_2023_2024"
+    ]
+  },
+  "wf_drawdown_pass_candidates": [
+    "wf_pass_ytd18_15_15_02",
+    "low_risk_15_05_02",
+    "floor_10_03_01"
+  ],
+  "wf_pass_ytd18_15_15_02": {
+    "failures": "ytd_return_below_soxlbacktest_reference;ytd_return_below_current_best_alignment",
+    "worst_wf_max_drawdown_pct": 18.514585,
+    "ytd_return_pct": 18.30891
+  }
+}

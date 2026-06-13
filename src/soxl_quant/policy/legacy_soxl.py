@@ -1,8 +1,9 @@
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, fields, replace
 from datetime import timedelta
 from pathlib import Path
+from typing import Any, Mapping
 
 import numpy as np
 import pandas as pd
@@ -46,8 +47,26 @@ class LegacySoxlConfig:
     take_profit_position: float = 0.9
 
     @classmethod
-    def from_dates(cls, *, start: str, end: str | None = None) -> "LegacySoxlConfig":
-        return cls(start_date=start, end_date=end)
+    def from_dates(
+        cls,
+        *,
+        start: str,
+        end: str | None = None,
+        config_overrides: Mapping[str, Any] | None = None,
+    ) -> "LegacySoxlConfig":
+        return cls(start_date=start, end_date=end).with_overrides(config_overrides)
+
+    def with_overrides(self, config_overrides: Mapping[str, Any] | None = None) -> "LegacySoxlConfig":
+        if not config_overrides:
+            return self
+        allowed = {item.name for item in fields(self)}
+        payload: dict[str, Any] = {}
+        for raw_key, value in config_overrides.items():
+            key = str(raw_key).lower()
+            if key not in allowed:
+                raise ValueError(f"unknown legacy SOXL config override: {raw_key!r}")
+            payload[key] = value
+        return replace(self, **payload)
 
 
 def _first_existing(paths: list[Path], label: str) -> Path:
@@ -82,10 +101,11 @@ def build_legacy_soxl_source_frame(
     *,
     start: str,
     end: str | None = None,
+    config_overrides: Mapping[str, Any] | None = None,
     root: Path = ROOT,
 ) -> pd.DataFrame:
     """Load local SOXL/VIX data with the same ordering as legacy YahooDataFetcher."""
-    config = LegacySoxlConfig.from_dates(start=start, end=end)
+    config = LegacySoxlConfig.from_dates(start=start, end=end, config_overrides=config_overrides)
     start_date = pd.to_datetime(config.start_date)
     actual_start = start_date - timedelta(days=30)
     end_date = pd.to_datetime(config.end_date) if config.end_date else pd.Timestamp.now()
@@ -154,11 +174,17 @@ def build_legacy_soxl_feature_frame(
     *,
     start: str,
     end: str | None = None,
+    config_overrides: Mapping[str, Any] | None = None,
     root: Path = ROOT,
 ) -> pd.DataFrame:
     """Build the non-qlib soxl_backtest feature frame without importing it."""
-    config = LegacySoxlConfig.from_dates(start=start, end=end)
-    frame = build_legacy_soxl_source_frame(start=start, end=end, root=root).copy()
+    config = LegacySoxlConfig.from_dates(start=start, end=end, config_overrides=config_overrides)
+    frame = build_legacy_soxl_source_frame(
+        start=start,
+        end=end,
+        config_overrides=config_overrides,
+        root=root,
+    ).copy()
     frame["RSI6"] = _calculate_rsi(frame["price"], 6)
     frame["MA5"] = frame["price"].rolling(window=5).mean()
     frame["MA20"] = frame["price"].rolling(window=180).mean()
@@ -641,10 +667,16 @@ def replay_legacy_soxl_policy(
     *,
     start: str,
     end: str | None = None,
+    config_overrides: Mapping[str, Any] | None = None,
     root: Path = ROOT,
 ) -> LegacySoxlReplayResult:
-    config = LegacySoxlConfig.from_dates(start=start, end=end)
-    frame = build_legacy_soxl_feature_frame(start=start, end=end, root=root).reset_index(drop=True)
+    config = LegacySoxlConfig.from_dates(start=start, end=end, config_overrides=config_overrides)
+    frame = build_legacy_soxl_feature_frame(
+        start=start,
+        end=end,
+        config_overrides=config_overrides,
+        root=root,
+    ).reset_index(drop=True)
     state = LegacySoxlPolicyState(config)
     policy = LegacySoxlRulePolicy(config, state)
     trades: list[dict[str, object]] = []
