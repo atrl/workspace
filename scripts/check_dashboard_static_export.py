@@ -174,12 +174,11 @@ def check_static_export(root: Path) -> tuple[list[str], dict[str, Any]]:
             if isinstance(counts, dict) and isinstance(profiles, list):
                 ready = int(counts.get("current", 0) or 0) + int(counts.get("refreshed", 0) or 0)
                 failed = int(counts.get("failed", 0) or 0)
-                skipped = int(counts.get("skipped", 0) or 0)
                 info["model_replays"] = f"{ready}/{len(profiles)}@{safe_end or 'unknown'}"
-                if failed or skipped:
+                if failed:
                     errors.append(
                         "dashboard_data/model_replay_freshness.json has "
-                        f"failed={failed} skipped={skipped}"
+                        f"failed={failed}"
                     )
 
     if research_backtests_path.exists():

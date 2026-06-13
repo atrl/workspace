@@ -8,11 +8,11 @@
         "current": 0,
         "failed": 0,
         "refreshed": 0,
-        "skipped": 0
+        "skipped": 7
       },
-      "generated_at": "2026-06-13T21:09:17+00:00",
+      "generated_at": "2026-06-13T22:29:16+00:00",
       "latest_data_date": "2026-06-10",
-      "profile_count": 0,
+      "profile_count": 7,
       "ready_count": 0,
       "safe_backtest_end": "2026-06-09",
       "source_path": "dashboard_data/model_replay_freshness.json"
@@ -72,7 +72,7 @@
     "soxl_backtest_policy_reimplementation_v1",
     "balanced_rule_residual_v19_moe_v2"
   ],
-  "generated_at": "2026-06-13T22:11:55.118350+00:00",
+  "generated_at": "2026-06-13T22:29:27.793079+00:00",
   "latest_market_date": "2026-06-10",
   "model_retention_frontier": {
     "completed_handoff_count": 64,
@@ -87,7 +87,7 @@
       "wf_2022",
       "wf_2023_2024"
     ],
-    "rows_scanned": 96,
+    "rows_scanned": 97,
     "source_path": "runtime/model_selection/card/model_retention_frontier_v1/summary.json"
   },
   "model_retention_gate": {

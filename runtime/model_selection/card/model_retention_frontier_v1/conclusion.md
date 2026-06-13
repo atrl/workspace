@@ -1,6 +1,6 @@
 # Model Retention Frontier
 
-- Rows scanned: `96`.
+- Rows scanned: `97`.
 - Completed handoffs: `64`.
 - Recommended next source: `cap10_metric_replay_handoff_audit_v1`.
 - Recommended next action: `inspect_failed_fold_drawdown_or_reward_drift_before_full_retention_training`.

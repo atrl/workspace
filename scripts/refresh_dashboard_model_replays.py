@@ -26,8 +26,9 @@ class ReplayCandidate:
     name: str
     status: str
     actor_path: Path
-    profile_path: Path
+    profile_path: Path | None
     output_path: Path
+    skip_reason: str = ""
 
 
 def _relative(path: Path, root: Path) -> str:
@@ -73,11 +74,12 @@ def discover_replay_candidates(root: Path = ROOT, profile_names: set[str] | None
         if status == "dropped" or not bool(row.get("keep_actor", False)):
             continue
         actor_path = root / "runtime" / "model" / "card" / name / f"soxl_{name}_actor.pt"
-        if not actor_path.exists():
-            continue
         profile_path = _profile_path(root, name)
+        skip_reasons = []
+        if not actor_path.exists():
+            skip_reasons.append("missing_actor_artifact")
         if profile_path is None:
-            continue
+            skip_reasons.append("missing_profile_yaml")
         candidates.append(
             ReplayCandidate(
                 name=name,
@@ -85,6 +87,7 @@ def discover_replay_candidates(root: Path = ROOT, profile_names: set[str] | None
                 actor_path=actor_path,
                 profile_path=profile_path,
                 output_path=root / "runtime" / "model" / "card" / name / f"{name}_soxl_daily.csv",
+                skip_reason=";".join(skip_reasons),
             )
         )
     return candidates
@@ -157,13 +160,19 @@ def refresh_model_replays(
             "profile": candidate.name,
             "status": candidate.status,
             "actor": _relative(candidate.actor_path, root),
-            "profile_yaml": _relative(candidate.profile_path, root),
+            "profile_yaml": _relative(candidate.profile_path, root) if candidate.profile_path is not None else "",
             "output": _relative(candidate.output_path, root),
             "before_end": before_end,
             "after_end": before_end,
             "result": "current",
             "reason": "",
         }
+        if candidate.skip_reason:
+            row["result"] = "skipped"
+            row["reason"] = candidate.skip_reason
+            counts["skipped"] += 1
+            profiles.append(row)
+            continue
         if not safe_backtest_end:
             row["result"] = "skipped"
             row["reason"] = "missing qlib calendar"

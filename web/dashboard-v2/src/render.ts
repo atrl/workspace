@@ -170,10 +170,13 @@ export function renderOperationsPanel(container: HTMLElement, manifest: Manifest
   const counts = auto.model_replay_freshness?.counts ?? {};
   const readyCount = auto.model_replay_freshness?.ready_count ?? 0;
   const profileCount = auto.model_replay_freshness?.profile_count ?? 0;
+  const runnableCount = manifest.profile_groups?.runnable?.length ?? 0;
+  const availableProfileCount = manifest.available_profiles?.length ?? 0;
   const grid = element('div', 'source-grid operations-grid');
   const rows: [string, string][] = [
     ['auto update', auto.configured ? 'configured' : 'not configured'],
     ['replay ready', `${readyCount} / ${profileCount}`],
+    ['runnable inference', `${runnableCount} / ${availableProfileCount}`],
     [
       'refresh counts',
       Object.entries(counts)
@@ -551,9 +554,11 @@ export function renderFeatureSpotlightPanel(
 ): void {
   container.replaceChildren();
   container.appendChild(element('h2', undefined, 'Buy/Sell Features'));
+  renderFeatureSchemaTable(container, input.models);
   const snapshotPanel = element('section', 'feature-date-snapshot');
   snapshotPanel.id = 'feature-date-snapshot';
   renderFeatureSnapshotPanel(snapshotPanel, input);
   container.appendChild(snapshotPanel);
   renderFeatureActionSummaryTable(container, input.models);
+  renderRecentEventFeatureTable(container, input.models);
 }

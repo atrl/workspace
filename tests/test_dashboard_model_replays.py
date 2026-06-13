@@ -71,10 +71,13 @@ def test_discover_replay_candidates_requires_registry_actor_and_profile(tmp_path
 
     candidates = discover_replay_candidates(tmp_path)
 
-    assert [candidate.name for candidate in candidates] == ["fresh"]
+    assert [candidate.name for candidate in candidates] == ["fresh", "no_actor", "no_profile"]
     assert candidates[0].output_path == (
         tmp_path / "runtime" / "model" / "card" / "fresh" / "fresh_soxl_daily.csv"
     )
+    assert candidates[0].skip_reason == ""
+    assert candidates[1].skip_reason == "missing_actor_artifact"
+    assert candidates[2].skip_reason == "missing_profile_yaml"
 
 
 def test_refresh_model_replays_exports_only_stale_profiles(tmp_path: Path):
@@ -117,3 +120,37 @@ def test_refresh_model_replays_exports_only_stale_profiles(tmp_path: Path):
     persisted = json.loads((tmp_path / "dashboard_data" / "model_replay_freshness.json").read_text())
     assert persisted["profiles"][0]["result"] == "current"
     assert persisted["profiles"][1]["result"] == "refreshed"
+
+
+def test_refresh_model_replays_reports_skipped_keep_actor_profiles(tmp_path: Path):
+    missing_actor = ReplayCandidate(
+        name="missing_actor",
+        status="canonical",
+        actor_path=tmp_path / "runtime/model/card/missing_actor/soxl_missing_actor_actor.pt",
+        profile_path=tmp_path / "runtime/model/card/missing_actor/profile.yaml",
+        output_path=tmp_path / "runtime/model/card/missing_actor/missing_actor_soxl_daily.csv",
+        skip_reason="missing_actor_artifact",
+    )
+
+    manifest = refresh_model_replays(
+        tmp_path,
+        [missing_actor],
+        latest_data_date="2026-05-22",
+        safe_backtest_end="2026-05-21",
+        exporter=lambda _candidate: (_ for _ in ()).throw(AssertionError("skipped profiles must not export")),
+    )
+
+    assert manifest["counts"] == {"current": 0, "refreshed": 0, "failed": 0, "skipped": 1}
+    assert manifest["profiles"] == [
+        {
+            "profile": "missing_actor",
+            "status": "canonical",
+            "actor": "runtime/model/card/missing_actor/soxl_missing_actor_actor.pt",
+            "profile_yaml": "runtime/model/card/missing_actor/profile.yaml",
+            "output": "runtime/model/card/missing_actor/missing_actor_soxl_daily.csv",
+            "before_end": "",
+            "after_end": "",
+            "result": "skipped",
+            "reason": "missing_actor_artifact",
+        }
+    ]
