@@ -19,16 +19,22 @@ const chartMocks = vi.hoisted(() => {
   });
   return {
     addSeries,
-    createChart: vi.fn(() => ({
-      addSeries,
-      subscribeClick: vi.fn((callback: (param: { time?: string }) => void) => {
-        subscriptions.click = callback;
-      }),
-      subscribeCrosshairMove: vi.fn((callback: (param: { time?: string }) => void) => {
-        subscriptions.crosshairMove = callback;
-      }),
-      timeScale: vi.fn(() => ({ fitContent: vi.fn() })),
-    })),
+    chartInstances: [] as { remove: ReturnType<typeof vi.fn> }[],
+    createChart: vi.fn(() => {
+      const chart = {
+        addSeries,
+        remove: vi.fn(),
+        subscribeClick: vi.fn((callback: (param: { time?: string }) => void) => {
+          subscriptions.click = callback;
+        }),
+        subscribeCrosshairMove: vi.fn((callback: (param: { time?: string }) => void) => {
+          subscriptions.crosshairMove = callback;
+        }),
+        timeScale: vi.fn(() => ({ fitContent: vi.fn() })),
+      };
+      chartMocks.chartInstances.push(chart);
+      return chart;
+    }),
     createSeriesMarkers: vi.fn(),
     subscriptions,
     seriesRecords,
@@ -51,6 +57,7 @@ describe('dashboard v2 chart rendering', () => {
     chartMocks.subscriptions.click = undefined;
     chartMocks.subscriptions.crosshairMove = undefined;
     chartMocks.seriesRecords.length = 0;
+    chartMocks.chartInstances.length = 0;
   });
 
   test('renders candles with SOXL close and position overlays on the main chart', () => {
@@ -97,6 +104,17 @@ describe('dashboard v2 chart rendering', () => {
       window.requestAnimationFrame = previousRequestAnimationFrame;
       window.cancelAnimationFrame = previousCancelAnimationFrame;
     }
+  });
+
+  test('removes the previous chart instance before rerendering into the same container', () => {
+    const container = document.createElement('div');
+
+    renderMarketChart(container, marketFixture, modelFixture, () => {});
+    const firstChart = chartMocks.chartInstances[0];
+    renderMarketChart(container, marketFixture, modelFixture, () => {});
+
+    expect(firstChart.remove).toHaveBeenCalledTimes(1);
+    expect(chartMocks.chartInstances[1].remove).not.toHaveBeenCalled();
   });
 
   test('renders buyhold baseline on the NAV chart before strategy lines', () => {

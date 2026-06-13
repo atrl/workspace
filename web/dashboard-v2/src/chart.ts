@@ -28,6 +28,21 @@ export interface ChartHandles {
   primarySeries: ISeriesApi<'Candlestick'> | ISeriesApi<'Line'>;
 }
 
+const chartByContainer = new WeakMap<HTMLElement, IChartApi>();
+
+function resetChartContainer(container: HTMLElement): void {
+  const previousChart = chartByContainer.get(container);
+  if (previousChart) {
+    previousChart.remove();
+    chartByContainer.delete(container);
+  }
+  container.replaceChildren();
+}
+
+function registerChart(container: HTMLElement, chart: IChartApi): void {
+  chartByContainer.set(container, chart);
+}
+
 function createDateEmitter(onDate: (date: string) => void): {
   onMove: (date: string) => void;
   onClick: (date: string) => void;
@@ -74,7 +89,7 @@ export function renderMarketChart(
   model: ModelPayload,
   onDate: (date: string) => void,
 ): ChartHandles {
-  container.replaceChildren();
+  resetChartContainer(container);
   const chart = createChart(container, {
     autoSize: true,
     layout: { background: { color: '#111827' }, textColor: '#d1d5db' },
@@ -84,6 +99,7 @@ export function renderMarketChart(
     timeScale: { borderColor: '#374151', timeVisible: false },
     crosshair: { mode: 1 },
   });
+  registerChart(container, chart);
   const candleSeries = chart.addSeries(CandlestickSeries, {
     upColor: '#0f766e',
     downColor: '#b91c1c',
@@ -137,7 +153,7 @@ export function renderMarketChart(
 }
 
 export function renderPositionChart(container: HTMLElement, model: ModelPayload): ChartHandles {
-  container.replaceChildren();
+  resetChartContainer(container);
   const chart = createChart(container, {
     autoSize: true,
     layout: { background: { color: '#0b1220' }, textColor: '#d1d5db' },
@@ -145,6 +161,7 @@ export function renderPositionChart(container: HTMLElement, model: ModelPayload)
     rightPriceScale: { borderColor: '#374151' },
     timeScale: { borderColor: '#374151' },
   });
+  registerChart(container, chart);
   const line = chart.addSeries(LineSeries, { color: '#38bdf8', lineWidth: 2 });
   line.setData(model.rows.map((row) => ({ time: toTime(row.date), value: row.position })));
   chart.timeScale().fitContent();
@@ -156,7 +173,7 @@ export function renderNavChart(
   models: Record<string, ModelPayload>,
   baselineProfile?: string,
 ): IChartApi {
-  container.replaceChildren();
+  resetChartContainer(container);
   const chart = createChart(container, {
     autoSize: true,
     layout: { background: { color: '#0b1220' }, textColor: '#d1d5db' },
@@ -164,6 +181,7 @@ export function renderNavChart(
     rightPriceScale: { borderColor: '#374151' },
     timeScale: { borderColor: '#374151' },
   });
+  registerChart(container, chart);
   const buyholdSource = (baselineProfile ? models[baselineProfile] : undefined) ?? Object.values(models)[0];
   if (buyholdSource) {
     const buyholdSeries = chart.addSeries(LineSeries, {
