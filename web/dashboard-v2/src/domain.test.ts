@@ -4,7 +4,9 @@ import {
   clampComparisonProfiles,
   clipRowsByDate,
   computeCommonWindow,
+  computeDateRangePreset,
   computeInspectorRows,
+  computeKeyboardDateRange,
   computeVisibleComparison,
 } from './domain';
 import { comparisonFixture, manifestFixture, marketFixture, modelFixture } from './testFixtures';
@@ -62,5 +64,44 @@ describe('dashboard v2 domain helpers', () => {
     expect(viewUpdateRequiresChartRender({ start: '2026-01-05' })).toBe(true);
     expect(viewUpdateRequiresChartRender({ selectedProfiles: ['smoke', 'balanced_rule_residual_v22'] })).toBe(true);
     expect(viewUpdateRequiresChartRender({ baselineProfile: 'balanced_rule_residual_v22' })).toBe(true);
+  });
+
+  test('computes trading range presets from available dates', () => {
+    const rows = [
+      { date: '2025-12-31' },
+      { date: '2026-01-02' },
+      { date: '2026-03-06' },
+      { date: '2026-05-08' },
+      { date: '2026-06-09' },
+    ];
+
+    expect(computeDateRangePreset(rows, 'YTD')).toEqual({ start: '2026-01-02', end: '2026-06-09' });
+    expect(computeDateRangePreset(rows, '1M')).toEqual({ start: '2026-05-08', end: '2026-06-09' });
+    expect(computeDateRangePreset(rows, '3M')).toEqual({ start: '2026-03-06', end: '2026-06-09' });
+    expect(computeDateRangePreset(rows, 'ALL')).toEqual({ start: '2025-12-31', end: '2026-06-09' });
+  });
+
+  test('computes keyboard zoom, pan, and reset ranges', () => {
+    const rows = [
+      { date: '2026-01-02' },
+      { date: '2026-01-05' },
+      { date: '2026-01-06' },
+      { date: '2026-01-07' },
+      { date: '2026-01-08' },
+      { date: '2026-01-09' },
+    ];
+
+    expect(computeKeyboardDateRange(rows, '2026-01-02', '2026-01-09', 'zoom_in')).toEqual({
+      start: '2026-01-06',
+      end: '2026-01-08',
+    });
+    expect(computeKeyboardDateRange(rows, '2026-01-05', '2026-01-08', 'pan_right')).toEqual({
+      start: '2026-01-06',
+      end: '2026-01-09',
+    });
+    expect(computeKeyboardDateRange(rows, '2026-01-05', '2026-01-08', 'reset')).toEqual({
+      start: '2026-01-02',
+      end: '2026-01-09',
+    });
   });
 });

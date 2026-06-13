@@ -1,6 +1,15 @@
 import './styles.css';
 import { renderMarketChart, renderNavChart, renderPositionChart } from './chart';
-import { clampComparisonProfiles, clipRowsByDate, computeCommonWindow, computeInspectorRows } from './domain';
+import {
+  clampComparisonProfiles,
+  clipRowsByDate,
+  computeCommonWindow,
+  computeDateRangePreset,
+  computeInspectorRows,
+  computeKeyboardDateRange,
+  type DateRangePreset,
+  type KeyboardRangeAction,
+} from './domain';
 import { loadDashboardData, type DashboardData } from './data';
 import { renderActionLegend, renderComparisonPanel, renderDataSourcePanel, renderInspectorPanel } from './render';
 import type { ModelPayload } from './types';
@@ -119,6 +128,21 @@ function renderToolbar(
   baselineGroup.appendChild(baseline);
   container.appendChild(baselineGroup);
 
+  const rangeGroup = document.createElement('div');
+  rangeGroup.className = 'toolbar-group range-group';
+  for (const preset of ['1M', '3M', 'YTD', 'ALL'] as const satisfies readonly DateRangePreset[]) {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'range-button';
+    button.textContent = preset;
+    button.addEventListener('click', () => {
+      const range = computeDateRangePreset(data.comparison.rows, preset);
+      if (range) update({ ...range, hoveredDate: range.end });
+    });
+    rangeGroup.appendChild(button);
+  }
+  container.appendChild(rangeGroup);
+
   for (const [labelText, key] of [
     ['Start', 'start'],
     ['End', 'end'],
@@ -181,6 +205,20 @@ function renderDashboard(data: DashboardData, state: ViewState, update: (next: P
   renderDataSourcePanel(source, data.manifest, warningsFor(data, state));
 }
 
+function keyboardRangeAction(event: KeyboardEvent): KeyboardRangeAction | null {
+  if (event.key === '+' || event.key === '=') return 'zoom_in';
+  if (event.key === '-' || event.key === '_') return 'zoom_out';
+  if (event.key === 'ArrowLeft') return 'pan_left';
+  if (event.key === 'ArrowRight') return 'pan_right';
+  if (event.key.toLowerCase() === 'r') return 'reset';
+  return null;
+}
+
+function isEditingTarget(target: EventTarget | null): boolean {
+  const element = target instanceof HTMLElement ? target : null;
+  return element ? ['INPUT', 'SELECT', 'TEXTAREA', 'BUTTON'].includes(element.tagName) : false;
+}
+
 async function main(): Promise<void> {
   const app = requireElement('app');
   createShell(app);
@@ -213,6 +251,15 @@ async function main(): Promise<void> {
         renderInspector(data, state);
       }
     };
+    window.addEventListener('keydown', (event) => {
+      if (isEditingTarget(event.target)) return;
+      const action = keyboardRangeAction(event);
+      if (!action) return;
+      const range = computeKeyboardDateRange(data.comparison.rows, state.start, state.end, action);
+      if (!range) return;
+      event.preventDefault();
+      update({ ...range, hoveredDate: range.end });
+    });
     renderDashboard(data, state, update);
   } catch (error) {
     app.replaceChildren();

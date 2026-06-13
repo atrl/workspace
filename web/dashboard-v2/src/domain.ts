@@ -44,6 +44,79 @@ export function clipRowsByDate<T extends { date: string }>(rows: readonly T[], s
   return rows.filter((row) => row.date >= start && row.date <= end);
 }
 
+export type DateRangePreset = '1M' | '3M' | 'YTD' | 'ALL';
+export type KeyboardRangeAction = 'zoom_in' | 'zoom_out' | 'pan_left' | 'pan_right' | 'reset';
+
+function sortedDates(rows: readonly { date: string }[]): string[] {
+  return [...new Set(rows.map((row) => row.date))].sort();
+}
+
+function addMonths(date: Date, months: number): Date {
+  const result = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()));
+  result.setUTCMonth(result.getUTCMonth() + months);
+  return result;
+}
+
+function formatDate(date: Date): string {
+  return date.toISOString().slice(0, 10);
+}
+
+function snapStart(dates: readonly string[], target: string): string {
+  return dates.find((date) => date >= target) ?? dates[dates.length - 1];
+}
+
+function snapStartAtOrBefore(dates: readonly string[], target: string): string {
+  return [...dates].reverse().find((date) => date <= target) ?? dates[0];
+}
+
+function nearestIndex(dates: readonly string[], date: string, fallback: number): number {
+  const exact = dates.indexOf(date);
+  if (exact >= 0) return exact;
+  const next = dates.findIndex((item) => item >= date);
+  return next >= 0 ? next : fallback;
+}
+
+export function computeDateRangePreset(
+  rows: readonly { date: string }[],
+  preset: DateRangePreset,
+): { start: string; end: string } | null {
+  const dates = sortedDates(rows);
+  if (dates.length === 0) return null;
+  const end = dates[dates.length - 1];
+  if (preset === 'ALL') return { start: dates[0], end };
+  const endDate = new Date(`${end}T00:00:00Z`);
+  const target =
+    preset === 'YTD'
+      ? `${endDate.getUTCFullYear()}-01-01`
+      : formatDate(addMonths(endDate, preset === '1M' ? -1 : -3));
+  return { start: preset === 'YTD' ? snapStart(dates, target) : snapStartAtOrBefore(dates, target), end };
+}
+
+export function computeKeyboardDateRange(
+  rows: readonly { date: string }[],
+  start: string,
+  end: string,
+  action: KeyboardRangeAction,
+): { start: string; end: string } | null {
+  const dates = sortedDates(rows);
+  if (dates.length === 0) return null;
+  if (action === 'reset') return { start: dates[0], end: dates[dates.length - 1] };
+
+  const startIndex = nearestIndex(dates, start, 0);
+  const endIndex = nearestIndex(dates, end, dates.length - 1);
+  const width = Math.max(1, endIndex - startIndex + 1);
+  if (action === 'zoom_in' || action === 'zoom_out') {
+    const center = Math.round((startIndex + endIndex) / 2);
+    const nextWidth = action === 'zoom_in' ? Math.max(2, Math.ceil(width / 2)) : Math.min(dates.length, width * 2);
+    const nextStart = Math.max(0, Math.min(dates.length - nextWidth, center - Math.floor(nextWidth / 2)));
+    return { start: dates[nextStart], end: dates[nextStart + nextWidth - 1] };
+  }
+
+  const shift = action === 'pan_left' ? -Math.max(1, Math.floor(width * 0.25)) : Math.max(1, Math.floor(width * 0.25));
+  const nextStart = Math.max(0, Math.min(dates.length - width, startIndex + shift));
+  return { start: dates[nextStart], end: dates[nextStart + width - 1] };
+}
+
 export function buildActionMarkers(
   events: readonly ModelEvent[],
   options: { showText?: boolean } = {},

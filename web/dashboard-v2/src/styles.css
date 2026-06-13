@@ -33,6 +33,7 @@ select {
 .toolbar {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 12px;
   min-height: 56px;
   padding: 10px 14px;
@@ -50,7 +51,8 @@ select {
 }
 
 .profile-group {
-  min-width: max-content;
+  flex-wrap: wrap;
+  min-width: 0;
 }
 
 .check-label {
@@ -68,6 +70,36 @@ select {
   color: #e5e7eb;
   background: #0b1220;
   padding: 4px 8px;
+}
+
+select {
+  max-width: min(320px, 80vw);
+}
+
+.range-group {
+  gap: 0;
+  border: 1px solid #374151;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.range-group::before {
+  content: "Range";
+  padding: 0 8px;
+}
+
+.range-button {
+  min-height: 30px;
+  min-width: 44px;
+  border: 0;
+  border-left: 1px solid #374151;
+  color: #d1d5db;
+  background: #0b1220;
+  cursor: pointer;
+}
+
+.range-button:hover {
+  background: #1f2937;
 }
 
 .workspace {
@@ -287,7 +319,6 @@ h2 {
   }
 
   .toolbar {
-    flex-wrap: wrap;
     align-items: flex-start;
     overflow-x: visible;
   }
@@ -300,7 +331,6 @@ h2 {
 
   .profile-group {
     flex: 1 1 100%;
-    flex-wrap: wrap;
   }
 
   .toolbar select,

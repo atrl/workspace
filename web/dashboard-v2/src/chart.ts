@@ -38,6 +38,7 @@ export function renderMarketChart(
     autoSize: true,
     layout: { background: { color: '#111827' }, textColor: '#d1d5db' },
     grid: { vertLines: { color: '#253044' }, horzLines: { color: '#253044' } },
+    leftPriceScale: { visible: true, borderColor: '#374151' },
     rightPriceScale: { borderColor: '#374151' },
     timeScale: { borderColor: '#374151', timeVisible: false },
     crosshair: { mode: 1 },
@@ -58,6 +59,22 @@ export function renderMarketChart(
       close: Number(row.close),
     })),
   );
+  const closeLine = chart.addSeries(LineSeries, {
+    color: '#e5e7eb',
+    lineWidth: 1,
+    priceLineVisible: false,
+    title: 'SOXL Close',
+  });
+  closeLine.setData(market.rows.map((row) => ({ time: toTime(row.date), value: Number(row.close) })));
+
+  const positionLine = chart.addSeries(LineSeries, {
+    color: '#38bdf8',
+    lineWidth: 2,
+    priceScaleId: 'left',
+    priceLineVisible: true,
+    title: 'Position',
+  });
+  positionLine.setData(model.rows.map((row) => ({ time: toTime(row.date), value: row.position })));
   createSeriesMarkers(
     candleSeries,
     buildActionMarkers(model.events, { showText: false }).map((marker) => ({
