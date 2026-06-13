@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-13T18:43:50.780649+00:00",
+  "generated_at": "2026-06-13T18:54:50.541084+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -5573,19 +5573,19 @@
       "path": "runtime/model_selection/card/model_retention_frontier_v1/conclusion.md",
       "category": "model_selection",
       "suffix": ".md",
-      "bytes": 532
+      "bytes": 598
     },
     {
       "path": "runtime/model_selection/card/model_retention_frontier_v1/retention_frontier.csv",
       "category": "model_selection",
       "suffix": ".csv",
-      "bytes": 32635
+      "bytes": 33815
     },
     {
       "path": "runtime/model_selection/card/model_retention_frontier_v1/summary.json",
       "category": "model_selection",
       "suffix": ".json",
-      "bytes": 88961
+      "bytes": 90188
     },
     {
       "path": "runtime/model_selection/card/model_retention_walkforward_gate_v1/conclusion.md",

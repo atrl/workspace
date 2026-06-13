@@ -101,6 +101,17 @@ def _sidecar_manifest_references(card_dir: Path, known_experiments: set[str]) ->
     return sorted(references)
 
 
+def _selection_sidecar_references(card_dir: Path, known_experiments: set[str]) -> list[str]:
+    path = card_dir / "selection.json"
+    if not path.exists():
+        return []
+    try:
+        payload = _load_json(path)
+    except (json.JSONDecodeError, OSError):
+        return []
+    return _source_references(payload, known_experiments)
+
+
 def _load_gate_summary(root: Path) -> dict[str, Any]:
     path = root / RETENTION_GATE_SUMMARY_PATH
     if not path.exists():
@@ -190,7 +201,10 @@ def _frontier_sort_key(row: dict[str, Any]) -> tuple[float, str]:
     gap = float(row.get("wf_drawdown_gap_pct") or 0.0)
     gap += float(row.get("relative_return_gap_to_target_pp") or 0.0) / 100.0
     gap += float(row.get("ytd_gap_to_best_pct") or 0.0) / 1000.0
-    return (blocker_priority.get(str(row.get("primary_blocker")), 99.0) + gap, str(row.get("experiment")))
+    primary_blocker = str(row.get("primary_blocker"))
+    needs_next_action = primary_blocker not in {"promotion_ready", "training_contract_ready"}
+    action_penalty = 25.0 if needs_next_action and not str(row.get("next_action") or "").strip() else 0.0
+    return (blocker_priority.get(primary_blocker, 99.0) + action_penalty + gap, str(row.get("experiment")))
 
 
 def _row_from_summary(path: Path, payload: dict[str, Any], gate_summary: dict[str, Any]) -> dict[str, Any]:
@@ -296,6 +310,7 @@ def scan_model_retention_frontier(*, root: Path, card_names: Iterable[str] | Non
         )
         sources = set(_source_references(payload, known_experiments))
         sources.update(_sidecar_manifest_references(path.parent, known_experiments))
+        sources.update(_selection_sidecar_references(path.parent, known_experiments))
         for source in sorted(sources):
             if source != downstream:
                 downstream_by_source.setdefault(source, []).append(downstream)
@@ -362,6 +377,12 @@ def _csv_rows(rows: Iterable[dict[str, Any]]) -> list[dict[str, Any]]:
     return [dict(row) for row in rows]
 
 
+def _sentence_line(label: str, value: Any) -> str:
+    text = str(value)
+    suffix = "" if text.endswith((".", "!", "?")) else "."
+    return f"- {label}: `{text}`{suffix}"
+
+
 def write_retention_frontier_outputs(result: dict[str, Any], *, output_dir: Path) -> None:
     output_dir.mkdir(parents=True, exist_ok=True)
     pd.DataFrame(_csv_rows(result["rows"])).to_csv(output_dir / "retention_frontier.csv", index=False)
@@ -375,9 +396,9 @@ def write_retention_frontier_outputs(result: dict[str, Any], *, output_dir: Path
         "",
         f"- Rows scanned: `{summary['rows_scanned']}`.",
         f"- Completed handoffs: `{summary.get('completed_handoff_count', 0)}`.",
-        f"- Recommended next source: `{summary.get('recommended_next_source')}`.",
-        f"- Recommended next action: `{summary.get('recommended_next_action')}`.",
-        f"- Primary blocker: `{summary.get('recommended_primary_blocker')}`.",
+        _sentence_line("Recommended next source", summary.get("recommended_next_source")),
+        _sentence_line("Recommended next action", summary.get("recommended_next_action")),
+        _sentence_line("Primary blocker", summary.get("recommended_primary_blocker")),
         f"- Retention gate: MaxDD `< {summary.get('max_walkforward_drawdown_pct')}` and YTD return floor `{summary.get('required_best_return_pct')}` versus SOXLBacktest reference `{summary.get('reference_return_pct')}`.",
         "",
         "This card ranks model-selection evidence for the next training run. It does not promote or retain actors.",

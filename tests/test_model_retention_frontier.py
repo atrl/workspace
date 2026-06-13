@@ -128,7 +128,7 @@ def _run_write_retention_frontier_outputs_writes_csv_summary_and_conclusion(tmp_
         {
             "summary": {
                 "recommended_next_source": "target_ready",
-                "recommended_next_action": "run_three_fold_bc_slice_screen_before_any_ppo",
+                "recommended_next_action": "run_three_fold_bc_slice_screen_before_any_ppo.",
                 "rows_scanned": 1,
                 "completed_handoff_count": 2,
                 "required_best_return_pct": 213.14,
@@ -155,7 +155,8 @@ def _run_write_retention_frontier_outputs_writes_csv_summary_and_conclusion(tmp_
     conclusion = (output / "conclusion.md").read_text(encoding="utf-8")
     assert "target_ready" in conclusion
     assert "Completed handoffs: `2`" in conclusion
-    assert "run_three_fold_bc_slice_screen_before_any_ppo" in conclusion
+    assert "run_three_fold_bc_slice_screen_before_any_ppo." in conclusion
+    assert "run_three_fold_bc_slice_screen_before_any_ppo.`." not in conclusion
 
 
 def test_retention_frontier_does_not_scan_its_own_output_card():
@@ -355,3 +356,108 @@ def _run_retention_frontier_uses_sidecar_manifest_paths_as_downstream_handoffs(t
     assert by_experiment["child_screen"]["primary_blocker"] == "completed_handoff"
     assert by_experiment["child_screen"]["handoff_completed_by"] == "aggregate_screen"
     assert by_experiment["aggregate_screen"]["frontier_rank"] == 1
+
+
+def test_retention_frontier_uses_selection_sidecar_lineage_as_downstream_handoff():
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp_path = Path(tmp)
+        _run_retention_frontier_uses_selection_sidecar_lineage_as_downstream_handoff(tmp_path)
+
+
+def _run_retention_frontier_uses_selection_sidecar_lineage_as_downstream_handoff(tmp_path: Path) -> None:
+    from src.soxl_quant.app.model_retention_frontier import scan_model_retention_frontier
+
+    _write_json(
+        tmp_path / "runtime" / "model_selection" / "card" / "model_retention_walkforward_gate_v1" / "summary.json",
+        {
+            "summary": {
+                "required_best_return_pct": 213.14,
+                "reference_return_pct": 132.08,
+                "max_walkforward_drawdown_pct": 20.0,
+                "required_wf_windows": ["wf_2020", "wf_2022", "wf_2023_2024"],
+            }
+        },
+    )
+    _write_json(
+        tmp_path / "runtime" / "model_selection" / "card" / "sequence_source" / "summary.json",
+        {
+            "experiment": "sequence_source",
+            "decision": "sequence_risk_state_candidate_ready_for_target_screen_no_promotion",
+            "promotion_allowed": False,
+            "next_mechanism": "add_sequence_risk_state_cap_to_joint_contract_then_screen_bc_and_checkpoint_drift",
+        },
+    )
+    _write_json(
+        tmp_path / "runtime" / "model_selection" / "card" / "joint_bc_screen" / "summary.json",
+        {
+            "experiment": "joint_bc_screen",
+            "decision": "sequence_trend_joint_bc_mixed_no_promotion",
+            "promotion_allowed": False,
+            "next_mechanism": "inspect_failed_fold_action_distribution_then_try_drawdown_drift_reward_or_checkpoint_selector",
+        },
+    )
+    _write_json(
+        tmp_path / "runtime" / "model_selection" / "card" / "joint_bc_screen" / "selection.json",
+        {
+            "experiment": "joint_bc_screen",
+            "source_selection": {
+                "sequence_target": {
+                    "experiment": "cap_target_intermediate",
+                    "direct_comparison_baseline": "sequence_source",
+                }
+            },
+        },
+    )
+
+    result = scan_model_retention_frontier(root=tmp_path)
+    by_experiment = {row["experiment"]: row for row in result["rows"]}
+
+    assert by_experiment["sequence_source"]["primary_blocker"] == "completed_handoff"
+    assert by_experiment["sequence_source"]["handoff_completed_by"] == "joint_bc_screen"
+    assert result["summary"]["recommended_next_source"] == "joint_bc_screen"
+
+
+def test_retention_frontier_recommends_actionable_row_before_actionless_diagnostic():
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp_path = Path(tmp)
+        _run_retention_frontier_recommends_actionable_row_before_actionless_diagnostic(tmp_path)
+
+
+def _run_retention_frontier_recommends_actionable_row_before_actionless_diagnostic(tmp_path: Path) -> None:
+    from src.soxl_quant.app.model_retention_frontier import scan_model_retention_frontier
+
+    _write_json(
+        tmp_path / "runtime" / "model_selection" / "card" / "model_retention_walkforward_gate_v1" / "summary.json",
+        {
+            "summary": {
+                "required_best_return_pct": 213.14,
+                "reference_return_pct": 132.08,
+                "max_walkforward_drawdown_pct": 20.0,
+                "required_wf_windows": ["wf_2020", "wf_2022", "wf_2023_2024"],
+            }
+        },
+    )
+    _write_json(
+        tmp_path / "runtime" / "model_selection" / "card" / "aaa_actionless_diagnostic" / "summary.json",
+        {
+            "experiment": "aaa_actionless_diagnostic",
+            "decision": "diagnostic_no_objective_pass_no_promotion",
+            "promotion_allowed": False,
+        },
+    )
+    _write_json(
+        tmp_path / "runtime" / "model_selection" / "card" / "zzz_actionable_screen" / "summary.json",
+        {
+            "experiment": "zzz_actionable_screen",
+            "decision": "screen_ready_for_next_target_revision",
+            "promotion_allowed": False,
+            "next_mechanism": "inspect_failed_fold_drawdown_or_reward_drift_before_full_retention_training",
+        },
+    )
+
+    result = scan_model_retention_frontier(root=tmp_path)
+
+    assert result["summary"]["recommended_next_source"] == "zzz_actionable_screen"
+    assert result["summary"]["recommended_next_action"] == (
+        "inspect_failed_fold_drawdown_or_reward_drift_before_full_retention_training"
+    )
