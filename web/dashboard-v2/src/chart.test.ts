@@ -1,12 +1,12 @@
 import { beforeEach, describe, expect, test, vi } from 'vitest';
-import { applyChartRangeCommand, renderMarketChart, renderNavChart, syncVisibleLogicalRanges } from './chart';
+import { applyChartRangeCommand, renderMarketChart, renderNavChart, renderPositionChart, syncVisibleLogicalRanges } from './chart';
 import { marketFixture, modelFixture } from './testFixtures';
 
 const chartMocks = vi.hoisted(() => {
   const seriesRecords: { kind: string; options: Record<string, unknown>; data: unknown[] }[] = [];
   const subscriptions = {
-    click: undefined as ((param: { time?: string }) => void) | undefined,
-    crosshairMove: undefined as ((param: { time?: string }) => void) | undefined,
+    click: [] as ((param: { time?: string }) => void)[],
+    crosshairMove: [] as ((param: { time?: string }) => void)[],
   };
   const addSeries = vi.fn((kind: string, options: Record<string, unknown> = {}) => {
     const record = { kind, options, data: [] as unknown[] };
@@ -31,10 +31,10 @@ const chartMocks = vi.hoisted(() => {
     createChart: vi.fn(() => ({
       addSeries,
       subscribeClick: vi.fn((callback: (param: { time?: string }) => void) => {
-        subscriptions.click = callback;
+        subscriptions.click.push(callback);
       }),
       subscribeCrosshairMove: vi.fn((callback: (param: { time?: string }) => void) => {
-        subscriptions.crosshairMove = callback;
+        subscriptions.crosshairMove.push(callback);
       }),
       timeScale: vi.fn(() => timeScaleApi),
       remove: vi.fn(),
@@ -62,8 +62,8 @@ describe('dashboard v2 chart rendering', () => {
     chartMocks.timeScaleApi.scrollToRealTime.mockClear();
     chartMocks.timeScaleApi.getVisibleLogicalRange.mockClear();
     chartMocks.timeScaleApi.setVisibleLogicalRange.mockClear();
-    chartMocks.subscriptions.click = undefined;
-    chartMocks.subscriptions.crosshairMove = undefined;
+    chartMocks.subscriptions.click.length = 0;
+    chartMocks.subscriptions.crosshairMove.length = 0;
     chartMocks.seriesRecords.length = 0;
   });
 
@@ -173,9 +173,9 @@ describe('dashboard v2 chart rendering', () => {
 
     try {
       renderMarketChart(container, marketFixture, modelFixture, onDate);
-      chartMocks.subscriptions.crosshairMove?.({ time: '2026-01-02' });
-      chartMocks.subscriptions.crosshairMove?.({ time: '2026-01-05' });
-      chartMocks.subscriptions.crosshairMove?.({ time: '2026-01-06' });
+      chartMocks.subscriptions.crosshairMove[0]?.({ time: '2026-01-02' });
+      chartMocks.subscriptions.crosshairMove[0]?.({ time: '2026-01-05' });
+      chartMocks.subscriptions.crosshairMove[0]?.({ time: '2026-01-06' });
 
       expect(onDate).not.toHaveBeenCalled();
       callbacks[0](0);
@@ -200,5 +200,18 @@ describe('dashboard v2 chart rendering', () => {
     expect(chartMocks.seriesRecords[0].data).toEqual(
       modelFixture.rows.map((row) => ({ time: row.date, value: row.buyhold_nav })),
     );
+  });
+
+  test('emits date updates from position and NAV subchart hover and click events', () => {
+    const onDate = vi.fn();
+
+    renderPositionChart(document.createElement('div'), modelFixture, onDate);
+    renderNavChart(document.createElement('div'), { smoke: modelFixture }, 'smoke', onDate);
+
+    chartMocks.subscriptions.click[0]?.({ time: '2026-01-05' });
+    chartMocks.subscriptions.click[1]?.({ time: '2026-01-06' });
+
+    expect(onDate).toHaveBeenCalledWith('2026-01-05');
+    expect(onDate).toHaveBeenCalledWith('2026-01-06');
   });
 });

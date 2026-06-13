@@ -313,8 +313,8 @@ function renderDashboard(
   renderActionLegend(actionLegend);
   renderChartCommandBar(chartCommandBar, onChartCommand);
   const marketHandles = renderMarketChart(marketChart, market, primary, (date) => update({ hoveredDate: date }));
-  const positionHandles = renderPositionChart(positionChart, primary);
-  const navHandles = renderNavChart(navChart, models, state.baselineProfile);
+  const positionHandles = renderPositionChart(positionChart, primary, (date) => update({ hoveredDate: date }));
+  const navHandles = renderNavChart(navChart, models, state.baselineProfile, (date) => update({ hoveredDate: date }));
   const chartSyncCleanup = syncVisibleLogicalRanges([marketHandles.chart, positionHandles.chart, navHandles]);
   renderComparisonPanel(comparison, data.comparison, state.start, state.end, state.selectedProfiles, data.models);
   renderFeatureComparisonPanel(requireElement('feature-panel'), {

@@ -32,14 +32,17 @@ Use these rules before editing TradingView-like interactions:
    suppress the price line.
 5. Chart command buttons and keyboard shortcuts should operate on existing chart
    handles: zoom in/out, pan left/right, reset, and follow latest.
-6. Start/End inputs set the visible chart window. The Run button calls
+6. All linked chart panes should behave as one inspection surface. Main,
+   Position, and NAV panes should emit hover/click dates into the same
+   inspector/feature panel path; do not make subcharts passive visuals.
+7. Start/End inputs set the visible chart window. The Run button calls
    `/api/run-backtest`, falling back to `127.0.0.1:8765` or a configured
    `?apiBase=` server when static hosting returns `501`, `405`, or `404`.
-7. Model JSON must expose model-specific `feature_columns`,
+8. Model JSON must expose model-specific `feature_columns`,
    `snapshot_columns`, row/event `feature_snapshot`, and retention-gate fields
    when the retention audit exists. The UI should show buy/sell feature
    comparisons and clearly label evidence-only models.
-8. Verify frontend changes with:
+9. Verify frontend changes with:
    ```bash
    cd web/dashboard-v2
    npm test -- --run
@@ -205,7 +208,9 @@ For `web/dashboard-v2`, the equivalent freeze check is: `renderMarketChart()`,
 `renderPositionChart()`, and `renderNavChart()` must remove the previous chart
 for a container before creating a new one, and hover/crosshair callbacks must
 only schedule inspector updates. Range buttons and keyboard shortcuts should
-call `applyChartRangeCommand()` on existing chart handles.
+call `applyChartRangeCommand()` on existing chart handles. The subcharts should
+also use the shared date-event wiring so clicking or hovering Position/NAV
+updates the same selected date as the main candle pane.
 
 Dashboard V2 currently has two inspection surfaces: root `dashboard_v2.html`
 and the typed source under `web/dashboard-v2/`. Do not fix only one surface.

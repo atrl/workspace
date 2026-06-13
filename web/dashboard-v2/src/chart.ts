@@ -176,6 +176,19 @@ function createDateEmitter(onDate: (date: string) => void): {
   };
 }
 
+function wireDateEvents(chart: IChartApi, onDate?: (date: string) => void): void {
+  if (!onDate) return;
+  const emitDate = createDateEmitter(onDate);
+  chart.subscribeCrosshairMove((param) => {
+    const date = eventDate(param);
+    if (date) emitDate.onMove(date);
+  });
+  chart.subscribeClick((param) => {
+    const date = eventDate(param);
+    if (date) emitDate.onClick(date);
+  });
+}
+
 export function renderMarketChart(
   container: HTMLElement,
   market: MarketPayload,
@@ -233,20 +246,16 @@ export function renderMarketChart(
       time: toTime(marker.time),
     })),
   );
-  const emitDate = createDateEmitter(onDate);
-  chart.subscribeCrosshairMove((param) => {
-    const date = eventDate(param);
-    if (date) emitDate.onMove(date);
-  });
-  chart.subscribeClick((param) => {
-    const date = eventDate(param);
-    if (date) emitDate.onClick(date);
-  });
+  wireDateEvents(chart, onDate);
   chart.timeScale().fitContent();
   return { chart, primarySeries: candleSeries };
 }
 
-export function renderPositionChart(container: HTMLElement, model: ModelPayload): ChartHandles {
+export function renderPositionChart(
+  container: HTMLElement,
+  model: ModelPayload,
+  onDate?: (date: string) => void,
+): ChartHandles {
   resetChartContainer(container);
   const chart = createChart(container, {
     autoSize: true,
@@ -259,6 +268,7 @@ export function renderPositionChart(container: HTMLElement, model: ModelPayload)
   registerChart(container, chart);
   const line = chart.addSeries(LineSeries, { color: '#38bdf8', lineWidth: 2 });
   line.setData(model.rows.map((row) => ({ time: toTime(row.date), value: row.position })));
+  wireDateEvents(chart, onDate);
   chart.timeScale().fitContent();
   return { chart, primarySeries: line };
 }
@@ -267,6 +277,7 @@ export function renderNavChart(
   container: HTMLElement,
   models: Record<string, ModelPayload>,
   baselineProfile?: string,
+  onDate?: (date: string) => void,
 ): IChartApi {
   resetChartContainer(container);
   const chart = createChart(container, {
@@ -296,6 +307,7 @@ export function renderNavChart(
     const series = chart.addSeries(LineSeries, { color: colors[index % colors.length], lineWidth: 2, title: profile });
     series.setData(model.rows.map((row) => ({ time: toTime(row.date), value: row.strategy_nav })));
   });
+  wireDateEvents(chart, onDate);
   chart.timeScale().fitContent();
   return chart;
 }
