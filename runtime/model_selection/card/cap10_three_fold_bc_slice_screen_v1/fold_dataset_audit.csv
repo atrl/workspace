@@ -1,0 +1,4 @@
+fold,source_contract_id,contract_rows,dataset_samples,dropped_rows_before_dataset,start,end,release_gate_samples,downtrend_samples,drawdown_control_samples,rebound_cluster_samples
+wf_2020_train,cap10_wf2020_soxlbacktest_target_contract_v1,2470,2157,313,2010-03-11,2019-12-31,36,640,640,36
+wf_2022_train,cap10_foldlocal_joint_target_contract_v1,505,505,0,2020-01-02,2021-12-31,40,234,49,66
+wf_2023_2024_train,cap10_foldlocal_joint_target_contract_v1,756,755,1,2020-01-02,2022-12-30,40,477,49,66

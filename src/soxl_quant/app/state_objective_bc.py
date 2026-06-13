@@ -31,6 +31,7 @@ class StateObjectiveBCTrainingConfig:
 class StateObjectiveBCSampleWeightConfig:
     rebound_multiplier: float = 1.0
     downtrend_multiplier: float = 1.0
+    release_gate_multiplier: float = 1.0
     ordinary_multiplier: float = 1.0
     objective_weight_power: float = 0.0
     class_balanced_beta: float = 0.0
@@ -540,8 +541,15 @@ def state_objective_bc_sample_weights(
         .astype(bool)
         .to_numpy()
     )
+    release_gate = (
+        metadata.get("release_gate_state", pd.Series(False, index=metadata.index))
+        .fillna(False)
+        .astype(bool)
+        .to_numpy()
+    )
     weights[downtrend] = float(config.downtrend_multiplier)
     weights[rebound] = float(config.rebound_multiplier)
+    weights[release_gate] = float(config.release_gate_multiplier)
 
     objective_power = float(config.objective_weight_power)
     if objective_power:
