@@ -333,7 +333,19 @@ class DashboardHandler(SimpleHTTPRequestHandler):
             return
 
         try:
-            profile = load_profile(profile_name)
+            try:
+                profile = load_profile(profile_name)
+            except (FileNotFoundError, KeyError, ValueError) as exc:
+                self._send_json(
+                    {
+                        "error": f"profile is not runnable: {profile_name}",
+                        "profile": profile_name,
+                        "runnable": False,
+                        "reason": str(exc),
+                    },
+                    400,
+                )
+                return
             feature_packs = tuple(str(pack) for pack in profile.feature.packs)
             feature_columns = _feature_columns_for_packs(feature_packs, profile.name)
             dataset = _ensure_qlib(feature_packs=feature_packs, profile_name=profile.name)

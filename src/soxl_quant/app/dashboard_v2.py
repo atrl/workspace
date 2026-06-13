@@ -51,6 +51,8 @@ REFERENCE_FEATURE_COLUMNS = (
     "market_state",
     "vix",
 )
+RETAINED_DASHBOARD_EXPORT_SOURCE_KIND = "retained_dashboard_export"
+RETAINED_DASHBOARD_EXPORT_REASON = "evidence_only_retained_dashboard_export"
 DEFAULT_SNAPSHOT_COLUMNS = (
     "close",
     "rsi6",
@@ -161,6 +163,39 @@ def _reference_model_sources(root: Path) -> dict[str, dict[str, Any]]:
     }
 
 
+def _retained_dashboard_model_sources(root: Path) -> dict[str, dict[str, Any]]:
+    versioned_dir = root / "dashboard_data" / "versioned"
+    if not versioned_dir.exists():
+        return {}
+    sources: dict[str, dict[str, Any]] = {}
+    for detail_path in sorted(versioned_dir.glob("*/SOXL.json")):
+        profile_name = detail_path.parent.name
+        if profile_name in {SOXL_BACKTEST_REFERENCE_PROFILE, "paper_trading"}:
+            continue
+        try:
+            payload = json.loads(detail_path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            continue
+        meta = payload.get("meta") or payload.get("_meta") or {}
+        if isinstance(meta, dict) and meta.get("source_kind") == "post_train_review":
+            continue
+        rows = payload.get("rows")
+        if not isinstance(rows, list) or not rows:
+            continue
+        sources[profile_name] = {
+            "profile": profile_name,
+            "status": "retained_dashboard_export",
+            "output": _relative_to(root, detail_path),
+            "result": "current",
+            "source_kind": RETAINED_DASHBOARD_EXPORT_SOURCE_KIND,
+            "display_name": profile_name,
+            "runnable": False,
+            "runnable_reason": RETAINED_DASHBOARD_EXPORT_REASON,
+            "format": "dashboard_versioned_json",
+        }
+    return sources
+
+
 def _load_model_retention_gate(root: Path) -> dict[str, Any] | None:
     path = root / MODEL_RETENTION_GATE_SUMMARY
     if not path.exists():
@@ -254,13 +289,19 @@ def _feature_metadata(root: Path, profile_name: str, source: dict[str, Any]) -> 
         feature_error = str(exc)
     else:
         feature_error = None
-    actor = str(source.get("actor") or "").strip()
-    actor_exists = bool(actor) and (root / actor).exists()
-    runnable_reason = "ok" if actor_exists else "missing_actor_artifact" if actor else "missing_actor"
+    source_kind = str(source.get("source_kind") or "qlib_model")
+    if source_kind == RETAINED_DASHBOARD_EXPORT_SOURCE_KIND:
+        runnable = False
+        runnable_reason = str(source.get("runnable_reason") or RETAINED_DASHBOARD_EXPORT_REASON)
+    else:
+        actor = str(source.get("actor") or "").strip()
+        actor_exists = bool(actor) and (root / actor).exists()
+        runnable = actor_exists
+        runnable_reason = "ok" if actor_exists else "missing_actor_artifact" if actor else "missing_actor"
     metadata: dict[str, Any] = {
-        "source_kind": source.get("source_kind", "qlib_model"),
+        "source_kind": source_kind,
         "display_name": source.get("display_name", profile_name),
-        "runnable": actor_exists,
+        "runnable": runnable,
         "runnable_reason": runnable_reason,
         "feature_packs": packs,
         "feature_columns": columns,
@@ -453,7 +494,7 @@ def _load_model_feature_rows(
     feature_metadata: dict[str, Any],
     provider_uri: Path,
 ) -> tuple[FeatureRowsByDate, str | None]:
-    if feature_metadata.get("source_kind") != "qlib_model":
+    if feature_metadata.get("source_kind") not in {"qlib_model", RETAINED_DASHBOARD_EXPORT_SOURCE_KIND}:
         return {}, None
     columns = feature_metadata.get("feature_columns")
     packs = feature_metadata.get("feature_packs")
@@ -746,6 +787,41 @@ def normalize_model_rows(
     if not path.exists():
         raise FileNotFoundError(f"missing replay CSV: {path}")
     frame = pd.read_csv(path)
+    return _normalize_model_frame(
+        frame,
+        path_label=str(path),
+        safe_backtest_end=safe_backtest_end,
+        window=window,
+    )
+
+
+def normalize_dashboard_version_rows(
+    path: Path,
+    *,
+    safe_backtest_end: str | None,
+    window: str | None = None,
+) -> list[dict[str, Any]]:
+    if not path.exists():
+        raise FileNotFoundError(f"missing dashboard version JSON: {path}")
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    raw_rows = payload.get("rows") if isinstance(payload, dict) else None
+    if not isinstance(raw_rows, list):
+        raise ValueError(f"dashboard version JSON must contain rows list: {path}")
+    return _normalize_model_frame(
+        pd.DataFrame(raw_rows),
+        path_label=str(path),
+        safe_backtest_end=safe_backtest_end,
+        window=window,
+    )
+
+
+def _normalize_model_frame(
+    frame: pd.DataFrame,
+    *,
+    path_label: str,
+    safe_backtest_end: str | None,
+    window: str | None = None,
+) -> list[dict[str, Any]]:
     missing = [field for field in REQUIRED_MODEL_FIELDS if field not in frame.columns]
     if missing:
         raise ValueError(f"missing replay CSV columns: {', '.join(missing)}")
@@ -785,7 +861,7 @@ def normalize_model_rows(
             }
         )
     if not rows:
-        raise ValueError(f"no replay rows remain after safe_backtest_end filter: {path}")
+        raise ValueError(f"no replay rows remain after safe_backtest_end filter: {path_label}")
     return rows
 
 
@@ -972,6 +1048,8 @@ def build_dashboard_v2_data(
         if (root / str(profile.get("output", ""))).exists()
     }
     by_name.update(_reference_model_sources(root))
+    for profile_name, source in _retained_dashboard_model_sources(root).items():
+        by_name.setdefault(profile_name, source)
     if selected_profiles:
         defaults = _dedupe_preserve_order(selected_profiles)
     else:
@@ -1010,11 +1088,18 @@ def build_dashboard_v2_data(
     for profile_name in profiles_to_write:
         source = by_name[profile_name]
         replay_path = root / str(source["output"])
-        rows = normalize_model_rows(
-            replay_path,
-            safe_backtest_end=str(safe_backtest_end) if safe_backtest_end else None,
-            window=source.get("window"),
-        )
+        if source.get("format") == "dashboard_versioned_json":
+            rows = normalize_dashboard_version_rows(
+                replay_path,
+                safe_backtest_end=str(safe_backtest_end) if safe_backtest_end else None,
+                window=source.get("window"),
+            )
+        else:
+            rows = normalize_model_rows(
+                replay_path,
+                safe_backtest_end=str(safe_backtest_end) if safe_backtest_end else None,
+                window=source.get("window"),
+            )
         feature_metadata = _feature_metadata(root, profile_name, source)
         model_feature_rows = model_feature_rows_by_profile.get(profile_name)
         feature_snapshot_error = None
@@ -1078,6 +1163,13 @@ def build_dashboard_v2_data(
             profile_name
             for profile_name in defaults
             if bool(model_payloads.get(profile_name, {}).get("runnable"))
+        ),
+        None,
+    ) or next(
+        (
+            profile_name
+            for profile_name in defaults
+            if model_payloads.get(profile_name, {}).get("source_kind") != "soxlbacktest_qlib_buysell"
         ),
         defaults[0],
     )

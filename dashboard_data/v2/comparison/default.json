@@ -1,19 +1,29 @@
 {
   "baseline_profile": "soxl_backtest_policy_reimplementation_v1",
-  "common_end": "2026-06-09",
+  "common_end": "2026-05-19",
   "common_start": "2026-01-02",
   "compared_profiles": [
-    "soxl_backtest_policy_reimplementation_v1"
+    "soxl_backtest_policy_reimplementation_v1",
+    "balanced_rule_residual_v19_moe_v2"
   ],
   "rankings": [
     {
-      "avg_position": 0.1622073394495413,
-      "buyhold_return": 3.2692631844662046,
-      "excess_return": -1.948483404952655,
+      "avg_position": 0.19736782972870626,
+      "buyhold_return": 2.215283530755753,
+      "excess_return": -1.2864177041349973,
+      "max_drawdown": -0.2190780107589202,
+      "profile": "balanced_rule_residual_v19_moe_v2",
+      "return": 0.9288658266207557,
+      "row_count": 95.0
+    },
+    {
+      "avg_position": 0.15337263157894737,
+      "buyhold_return": 2.215283530755753,
+      "excess_return": -1.394110927377457,
       "max_drawdown": -0.13554088542803522,
       "profile": "soxl_backtest_policy_reimplementation_v1",
-      "return": 1.3207797795135496,
-      "row_count": 109.0
+      "return": 0.821172603378296,
+      "row_count": 95.0
     }
   ],
   "rows": [
@@ -21,6 +31,21 @@
       "action_mismatch_count": 0,
       "date": "2026-01-02",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "buyhold_nav": 2427044.7993687643,
+          "buyhold_nav_delta_vs_baseline": 2327044.7993687643,
+          "buyhold_return": 0.0,
+          "drawdown_delta_vs_baseline": 0.0,
+          "nav_delta_vs_baseline": 4000706.2802180788,
+          "position": 0.19657166267936774,
+          "position_delta_vs_baseline": 0.19657166267936774,
+          "return_delta_vs_baseline": 0.0,
+          "return_delta_vs_buyhold": 0.0,
+          "strategy_nav": 4100706.2802180788,
+          "strategy_return": 0.0
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -42,6 +67,21 @@
       "action_mismatch_count": 0,
       "date": "2026-01-05",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "buyhold_nav": 2528771.0360536305,
+          "buyhold_nav_delta_vs_baseline": 2424579.6739200875,
+          "buyhold_return": 0.04191362133542964,
+          "drawdown_delta_vs_baseline": 0.0,
+          "nav_delta_vs_baseline": 4119110.252843811,
+          "position": 0.3089895486831664,
+          "position_delta_vs_baseline": 0.3089895486831664,
+          "return_delta_vs_baseline": 0.028874043770683144,
+          "return_delta_vs_buyhold": -0.013039577564746496,
+          "strategy_nav": 4219110.252843811,
+          "strategy_return": 0.028874043770683144
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -63,6 +103,21 @@
       "action_mismatch_count": 0,
       "date": "2026-01-06",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "buyhold_nav": 2774866.2337568165,
+          "buyhold_nav_delta_vs_baseline": 2660535.166012269,
+          "buyhold_return": 0.143310677445474,
+          "drawdown_delta_vs_baseline": 0.0,
+          "nav_delta_vs_baseline": 4405552.07947345,
+          "position": 0.3112009337623116,
+          "position_delta_vs_baseline": 0.3112009337623116,
+          "return_delta_vs_baseline": 0.09872587100626018,
+          "return_delta_vs_buyhold": -0.04458480643921381,
+          "strategy_nav": 4505552.07947345,
+          "strategy_return": 0.09872587100626018
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -81,9 +136,24 @@
       }
     },
     {
-      "action_mismatch_count": 0,
+      "action_mismatch_count": 1,
       "date": "2026-01-07",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "SELL",
+          "action_mismatch": true,
+          "buyhold_nav": 2686498.1005889224,
+          "buyhold_nav_delta_vs_baseline": 2575808.009442371,
+          "buyhold_return": 0.10690091146551461,
+          "drawdown_delta_vs_baseline": -0.025873201489608144,
+          "nav_delta_vs_baseline": 4288979.02269931,
+          "position": 0.319471443761796,
+          "position_delta_vs_baseline": 0.319471443761796,
+          "return_delta_vs_baseline": 0.07029831516387008,
+          "return_delta_vs_buyhold": -0.03660259630164453,
+          "strategy_nav": 4388979.02269931,
+          "strategy_return": 0.07029831516387008
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -105,6 +175,21 @@
       "action_mismatch_count": 0,
       "date": "2026-01-08",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "buyhold_nav": 2550863.118342433,
+          "buyhold_nav_delta_vs_baseline": 2445761.5100406054,
+          "buyhold_return": 0.05101608301827465,
+          "drawdown_delta_vs_baseline": -0.05792431621796035,
+          "nav_delta_vs_baseline": 4144571.056085541,
+          "position": 0.32630402648198537,
+          "position_delta_vs_baseline": 0.32630402648198537,
+          "return_delta_vs_baseline": 0.03508292621723963,
+          "return_delta_vs_buyhold": -0.01593315680103502,
+          "strategy_nav": 4244571.056085541,
+          "strategy_return": 0.03508292621723963
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -126,6 +211,21 @@
       "action_mismatch_count": 0,
       "date": "2026-01-09",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "buyhold_nav": 2771783.745243143,
+          "buyhold_nav_delta_vs_baseline": 2657579.6833336125,
+          "buyhold_return": 0.14204061909530452,
+          "drawdown_delta_vs_baseline": -0.005719846239954807,
+          "nav_delta_vs_baseline": 4379781.014352753,
+          "position": 0.36634085656041626,
+          "position_delta_vs_baseline": 0.36634085656041626,
+          "return_delta_vs_baseline": 0.09244132796424398,
+          "return_delta_vs_buyhold": -0.04959929113106054,
+          "strategy_nav": 4479781.014352753,
+          "strategy_return": 0.09244132796424398
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -147,6 +247,21 @@
       "action_mismatch_count": 0,
       "date": "2026-01-12",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "buyhold_nav": 2807747.6138054254,
+          "buyhold_nav_delta_vs_baseline": 2692061.755244608,
+          "buyhold_return": 0.156858585608175,
+          "drawdown_delta_vs_baseline": 0.0,
+          "nav_delta_vs_baseline": 4418071.056085541,
+          "position": 0.38138205486814547,
+          "position_delta_vs_baseline": 0.38138205486814547,
+          "return_delta_vs_baseline": 0.10177875403582104,
+          "return_delta_vs_buyhold": -0.055079831572353966,
+          "strategy_nav": 4518071.056085541,
+          "strategy_return": 0.10177875403582104
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -165,9 +280,24 @@
       }
     },
     {
-      "action_mismatch_count": 0,
+      "action_mismatch_count": 1,
       "date": "2026-01-13",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "SELL",
+          "action_mismatch": true,
+          "buyhold_nav": 2880702.7164430027,
+          "buyhold_nav_delta_vs_baseline": 2762010.9346847003,
+          "buyhold_return": 0.18691781758302417,
+          "drawdown_delta_vs_baseline": 0.0,
+          "nav_delta_vs_baseline": 4494626.887985184,
+          "position": 0.3955067170607689,
+          "position_delta_vs_baseline": 0.3955067170607689,
+          "return_delta_vs_baseline": 0.12044769218165952,
+          "return_delta_vs_buyhold": -0.06647012540136465,
+          "strategy_nav": 4594626.887985184,
+          "strategy_return": 0.12044769218165952
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -189,6 +319,21 @@
       "action_mismatch_count": 0,
       "date": "2026-01-14",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "buyhold_nav": 2845252.726624544,
+          "buyhold_nav_delta_vs_baseline": 2728021.568494931,
+          "buyhold_return": 0.17231158129612956,
+          "drawdown_delta_vs_baseline": -0.007989316180799788,
+          "nav_delta_vs_baseline": 4457918.961044266,
+          "position": 0.4082819272851489,
+          "position_delta_vs_baseline": 0.4082819272851489,
+          "return_delta_vs_baseline": 0.11149608130477273,
+          "return_delta_vs_buyhold": -0.060815499991356825,
+          "strategy_nav": 4557918.961044266,
+          "strategy_return": 0.11149608130477273
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -210,6 +355,21 @@
       "action_mismatch_count": 0,
       "date": "2026-01-15",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "buyhold_nav": 2983970.3933720225,
+          "buyhold_nav_delta_vs_baseline": 2861023.738487527,
+          "buyhold_return": 0.22946654884495987,
+          "drawdown_delta_vs_baseline": 0.0,
+          "nav_delta_vs_baseline": 4601559.001632645,
+          "position": 0.42219163944310634,
+          "position_delta_vs_baseline": 0.42219163944310634,
+          "return_delta_vs_baseline": 0.14652420348004358,
+          "return_delta_vs_buyhold": -0.08294234536491629,
+          "strategy_nav": 4701559.001632645,
+          "strategy_return": 0.14652420348004358
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -228,9 +388,24 @@
       }
     },
     {
-      "action_mismatch_count": 0,
+      "action_mismatch_count": 1,
       "date": "2026-01-16",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "SELL",
+          "action_mismatch": true,
+          "buyhold_nav": 3121146.619875348,
+          "buyhold_nav_delta_vs_baseline": 2992547.97922862,
+          "buyhold_return": 0.28598640646728435,
+          "drawdown_delta_vs_baseline": 0.0,
+          "nav_delta_vs_baseline": 4739587.786299851,
+          "position": 0.6499999985098839,
+          "position_delta_vs_baseline": 0.6499999985098839,
+          "return_delta_vs_baseline": 0.18018396236915502,
+          "return_delta_vs_buyhold": -0.10580244409812933,
+          "strategy_nav": 4839587.786299851,
+          "strategy_return": 0.18018396236915502
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -252,6 +427,21 @@
       "action_mismatch_count": 0,
       "date": "2026-01-20",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "buyhold_nav": 2976777.462869713,
+          "buyhold_nav_delta_vs_baseline": 2854127.173775588,
+          "buyhold_return": 0.22650289094124898,
+          "drawdown_delta_vs_baseline": -0.03007654320240405,
+          "nav_delta_vs_baseline": 4594029.715163376,
+          "position": 0.6603986613286751,
+          "position_delta_vs_baseline": 0.6603986613286751,
+          "return_delta_vs_baseline": 0.1446881084381748,
+          "return_delta_vs_buyhold": -0.08181478250307417,
+          "strategy_nav": 4694029.715163376,
+          "strategy_return": 0.1446881084381748
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -270,9 +460,24 @@
       }
     },
     {
-      "action_mismatch_count": 0,
+      "action_mismatch_count": 1,
       "date": "2026-01-21",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "BUY",
+          "action_mismatch": true,
+          "buyhold_nav": 3261405.530879664,
+          "buyhold_nav_delta_vs_baseline": 3127027.8905605436,
+          "buyhold_return": 0.3437764031911992,
+          "drawdown_delta_vs_baseline": 0.0,
+          "nav_delta_vs_baseline": 4880060.225380661,
+          "position": 0.6756915245960097,
+          "position_delta_vs_baseline": 0.6756915245960097,
+          "return_delta_vs_baseline": 0.21443963187624782,
+          "return_delta_vs_buyhold": -0.12933677131495136,
+          "strategy_nav": 4980060.225380661,
+          "strategy_return": 0.21443963187624782
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -294,6 +499,21 @@
       "action_mismatch_count": 0,
       "date": "2026-01-22",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "buyhold_nav": 3273736.0728963064,
+          "buyhold_nav_delta_vs_baseline": 3138850.3850116925,
+          "buyhold_return": 0.3488568788461395,
+          "drawdown_delta_vs_baseline": 0.0,
+          "nav_delta_vs_baseline": 4893236.317528488,
+          "position": 0.6785817521135143,
+          "position_delta_vs_baseline": 0.6785817521135143,
+          "return_delta_vs_baseline": 0.2176527593834261,
+          "return_delta_vs_buyhold": -0.13120411946271338,
+          "strategy_nav": 4993236.317528488,
+          "strategy_return": 0.2176527593834261
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -315,6 +535,21 @@
       "action_mismatch_count": 0,
       "date": "2026-01-23",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "buyhold_nav": 3164816.9057091298,
+          "buyhold_nav_delta_vs_baseline": 3034418.9457484297,
+          "buyhold_return": 0.3039795996069987,
+          "drawdown_delta_vs_baseline": -0.023309161310627213,
+          "nav_delta_vs_baseline": 4776848.166741135,
+          "position": 0.6499999985098839,
+          "position_delta_vs_baseline": 0.6499999985098839,
+          "return_delta_vs_baseline": 0.18927029479462743,
+          "return_delta_vs_buyhold": -0.1147093048123713,
+          "strategy_nav": 4876848.166741135,
+          "strategy_return": 0.18927029479462743
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -336,6 +571,21 @@
       "action_mismatch_count": 0,
       "date": "2026-01-26",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "buyhold_nav": 3118577.8141181814,
+          "buyhold_nav_delta_vs_baseline": 2990085.0143590146,
+          "buyhold_return": 0.2849279975916694,
+          "drawdown_delta_vs_baseline": -0.03320452199492352,
+          "nav_delta_vs_baseline": 4727438.2923972625,
+          "position": 0.6642801191980533,
+          "position_delta_vs_baseline": 0.6642801191980533,
+          "return_delta_vs_baseline": 0.1772211815522997,
+          "return_delta_vs_buyhold": -0.10770681603936971,
+          "strategy_nav": 4827438.2923972625,
+          "strategy_return": 0.1772211815522997
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -354,9 +604,24 @@
       }
     },
     {
-      "action_mismatch_count": 0,
+      "action_mismatch_count": 1,
       "date": "2026-01-27",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "SELL",
+          "action_mismatch": true,
+          "buyhold_nav": 3337443.318018231,
+          "buyhold_nav_delta_vs_baseline": 3199932.7405914674,
+          "buyhold_return": 0.3751057742676389,
+          "drawdown_delta_vs_baseline": 0.0,
+          "nav_delta_vs_baseline": 4983069.801454879,
+          "position": 0.6786860653715093,
+          "position_delta_vs_baseline": 0.6786860653715093,
+          "return_delta_vs_baseline": 0.23955959147226658,
+          "return_delta_vs_buyhold": -0.13554618279537234,
+          "strategy_nav": 5083069.801454879,
+          "strategy_return": 0.23955959147226658
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -378,6 +643,21 @@
       "action_mismatch_count": 0,
       "date": "2026-01-28",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "buyhold_nav": 3601006.6692523924,
+          "buyhold_nav_delta_vs_baseline": 3452636.656874007,
+          "buyhold_return": 0.48370012378385296,
+          "drawdown_delta_vs_baseline": 0.0,
+          "nav_delta_vs_baseline": 5242647.662477829,
+          "position": 0.7061829244769751,
+          "position_delta_vs_baseline": 0.7061829244769751,
+          "return_delta_vs_baseline": 0.3028603604825124,
+          "return_delta_vs_buyhold": -0.18083976330134055,
+          "strategy_nav": 5342647.662477829,
+          "strategy_return": 0.3028603604825124
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -399,6 +679,21 @@
       "action_mismatch_count": 0,
       "date": "2026-01-29",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "buyhold_nav": 3620530.141771345,
+          "buyhold_nav_delta_vs_baseline": 3471355.7160370946,
+          "buyhold_return": 0.4917442573425044,
+          "drawdown_delta_vs_baseline": 0.0,
+          "nav_delta_vs_baseline": 5261875.909548141,
+          "position": 0.6499999985098839,
+          "position_delta_vs_baseline": 0.6499999985098839,
+          "return_delta_vs_baseline": 0.30754936909624075,
+          "return_delta_vs_buyhold": -0.18419488824626362,
+          "strategy_nav": 5361875.909548141,
+          "strategy_return": 0.30754936909624075
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -420,6 +715,21 @@
       "action_mismatch_count": 0,
       "date": "2026-01-30",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "buyhold_nav": 3174578.641968606,
+          "buyhold_nav_delta_vs_baseline": 3043778.4753299737,
+          "buyhold_return": 0.3080016663863243,
+          "drawdown_delta_vs_baseline": -0.08191312571403908,
+          "nav_delta_vs_baseline": 4822667.8941062465,
+          "position": 0.6246135311615414,
+          "position_delta_vs_baseline": 0.6246135311615414,
+          "return_delta_vs_baseline": 0.20044391324814792,
+          "return_delta_vs_buyhold": -0.10755775313817639,
+          "strategy_nav": 4922667.8941062465,
+          "strategy_return": 0.20044391324814792
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -438,9 +748,24 @@
       }
     },
     {
-      "action_mismatch_count": 0,
+      "action_mismatch_count": 1,
       "date": "2026-02-02",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "SELL",
+          "action_mismatch": true,
+          "buyhold_nav": 3349773.664047558,
+          "buyhold_nav_delta_vs_baseline": 3211755.047130442,
+          "buyhold_return": 0.38018616917115855,
+          "drawdown_delta_vs_baseline": -0.05851908869918754,
+          "nav_delta_vs_baseline": 4948103.817603257,
+          "position": 0.6417884670087121,
+          "position_delta_vs_baseline": 0.6417884670087121,
+          "return_delta_vs_baseline": 0.2310327715875311,
+          "return_delta_vs_buyhold": -0.14915339758362745,
+          "strategy_nav": 5048103.817603257,
+          "strategy_return": 0.2310327715875311
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -462,6 +787,21 @@
       "action_mismatch_count": 0,
       "date": "2026-02-03",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "buyhold_nav": 3144266.2636644803,
+          "buyhold_nav_delta_vs_baseline": 3014715.0388794146,
+          "buyhold_return": 0.2955122478506593,
+          "drawdown_delta_vs_baseline": -0.08761335605233733,
+          "nav_delta_vs_baseline": 4792103.96637645,
+          "position": 0.6585264193559132,
+          "position_delta_vs_baseline": 0.6585264193559132,
+          "return_delta_vs_baseline": 0.1929905806656027,
+          "return_delta_vs_buyhold": -0.10252166718505662,
+          "strategy_nav": 4892103.96637645,
+          "strategy_return": 0.1929905806656027
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -483,6 +823,21 @@
       "action_mismatch_count": 0,
       "date": "2026-02-04",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "buyhold_nav": 2732737.192179871,
+          "buyhold_nav_delta_vs_baseline": 2620141.9408317865,
+          "buyhold_return": 0.1259525134808439,
+          "drawdown_delta_vs_baseline": -0.1458746975273798,
+          "nav_delta_vs_baseline": 4479713.883063462,
+          "position": 0.6499999985098839,
+          "position_delta_vs_baseline": 0.6499999985098839,
+          "return_delta_vs_baseline": 0.11681100037721026,
+          "return_delta_vs_buyhold": -0.009141513103633647,
+          "strategy_nav": 4579713.883063462,
+          "strategy_return": 0.11681100037721026
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -504,6 +859,21 @@
       "action_mismatch_count": 0,
       "date": "2026-02-05",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "buyhold_nav": 2735819.8766808608,
+          "buyhold_nav_delta_vs_baseline": 2623097.6114226175,
+          "buyhold_return": 0.12722265258243448,
+          "drawdown_delta_vs_baseline": -0.14543827311215174,
+          "nav_delta_vs_baseline": 4482053.936621811,
+          "position": 0.6999999992549419,
+          "position_delta_vs_baseline": 0.6999999992549419,
+          "return_delta_vs_baseline": 0.11738164684599983,
+          "return_delta_vs_buyhold": -0.00984100573643465,
+          "strategy_nav": 4582053.936621811,
+          "strategy_return": 0.11738164684599983
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -522,9 +892,24 @@
       }
     },
     {
-      "action_mismatch_count": 0,
+      "action_mismatch_count": 1,
       "date": "2026-02-06",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "BUY",
+          "action_mismatch": true,
+          "buyhold_nav": 3172523.5189679465,
+          "buyhold_nav_delta_vs_baseline": 3041808.02826942,
+          "buyhold_return": 0.3071549069852644,
+          "drawdown_delta_vs_baseline": -0.08479324368874663,
+          "nav_delta_vs_baseline": 4807225.058921006,
+          "position": 0.7286565077783148,
+          "position_delta_vs_baseline": 0.7286565077783148,
+          "return_delta_vs_baseline": 0.19667801680739627,
+          "return_delta_vs_buyhold": -0.1104768901778681,
+          "strategy_nav": 4907225.058921006,
+          "strategy_return": 0.19667801680739627
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -546,6 +931,21 @@
       "action_mismatch_count": 0,
       "date": "2026-02-09",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "buyhold_nav": 3289662.7861831295,
+          "buyhold_nav_delta_vs_baseline": 3154120.879950549,
+          "buyhold_return": 0.355419062325804,
+          "drawdown_delta_vs_baseline": -0.06706139933043664,
+          "nav_delta_vs_baseline": 4902301.008017685,
+          "position": 0.755465350659418,
+          "position_delta_vs_baseline": 0.755465350659418,
+          "return_delta_vs_baseline": 0.2198632787110173,
+          "return_delta_vs_buyhold": -0.1355557836147867,
+          "strategy_nav": 5002301.008017685,
+          "strategy_return": 0.2198632787110173
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -567,6 +967,21 @@
       "action_mismatch_count": 0,
       "date": "2026-02-10",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "buyhold_nav": 3254212.7963646706,
+          "buyhold_nav_delta_vs_baseline": 3120131.5137607795,
+          "buyhold_return": 0.3408128260389094,
+          "drawdown_delta_vs_baseline": -0.07242760757903244,
+          "nav_delta_vs_baseline": 4873528.065283921,
+          "position": 0.739126089881134,
+          "position_delta_vs_baseline": 0.739126089881134,
+          "return_delta_vs_baseline": 0.21284669650112686,
+          "return_delta_vs_buyhold": -0.12796612953778252,
+          "strategy_nav": 4973528.065283921,
+          "strategy_return": 0.21284669650112686
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -588,6 +1003,21 @@
       "action_mismatch_count": 0,
       "date": "2026-02-11",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "buyhold_nav": 3496198.1400411692,
+          "buyhold_nav_delta_vs_baseline": 3352146.487556202,
+          "buyhold_return": 0.4405165248496752,
+          "drawdown_delta_vs_baseline": -0.03579730799570291,
+          "nav_delta_vs_baseline": 5069935.186179306,
+          "position": 0.6499999985098839,
+          "position_delta_vs_baseline": 0.6499999985098839,
+          "return_delta_vs_baseline": 0.2607426216111155,
+          "return_delta_vs_buyhold": -0.17977390323855968,
+          "strategy_nav": 5169935.186179306,
+          "strategy_return": 0.2607426216111155
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -606,9 +1036,24 @@
       }
     },
     {
-      "action_mismatch_count": 0,
+      "action_mismatch_count": 1,
       "date": "2026-02-12",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "BUY",
+          "action_mismatch": true,
+          "buyhold_nav": 3241882.2543480275,
+          "buyhold_nav_delta_vs_baseline": 3108309.0193096306,
+          "buyhold_return": 0.33573235038396887,
+          "drawdown_delta_vs_baseline": -0.07701950718514439,
+          "nav_delta_vs_baseline": 4848906.869406845,
+          "position": 0.6591837010633014,
+          "position_delta_vs_baseline": 0.6591837010633014,
+          "return_delta_vs_baseline": 0.20684256106820187,
+          "return_delta_vs_buyhold": -0.128889789315767,
+          "strategy_nav": 4948906.869406845,
+          "strategy_return": 0.20684256106820187
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -630,6 +1075,21 @@
       "action_mismatch_count": 0,
       "date": "2026-02-13",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "buyhold_nav": 3318433.7242431017,
+          "buyhold_nav_delta_vs_baseline": 3181706.3871496054,
+          "buyhold_return": 0.36727337093496315,
+          "drawdown_delta_vs_baseline": -0.0628194600145191,
+          "nav_delta_vs_baseline": 4925045.7602454685,
+          "position": 0.6366699364268686,
+          "position_delta_vs_baseline": 0.6366699364268686,
+          "return_delta_vs_baseline": 0.2254098237872897,
+          "return_delta_vs_buyhold": -0.14186354714767346,
+          "strategy_nav": 5025045.7602454685,
+          "strategy_return": 0.2254098237872897
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -651,6 +1111,21 @@
       "action_mismatch_count": 0,
       "date": "2026-02-17",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "buyhold_nav": 3306103.378213776,
+          "buyhold_nav_delta_vs_baseline": 3169884.0806106315,
+          "buyhold_return": 0.36219297603144396,
+          "drawdown_delta_vs_baseline": -0.0651066988550868,
+          "nav_delta_vs_baseline": 4912781.869406845,
+          "position": 0.6517330517142352,
+          "position_delta_vs_baseline": 0.6517330517142352,
+          "return_delta_vs_baseline": 0.222419146084333,
+          "return_delta_vs_buyhold": -0.13977382994711096,
+          "strategy_nav": 5012781.869406845,
+          "strategy_return": 0.222419146084333
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -672,6 +1147,21 @@
       "action_mismatch_count": 0,
       "date": "2026-02-18",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "buyhold_nav": 3405774.687885299,
+          "buyhold_nav_delta_vs_baseline": 3265448.6960135754,
+          "buyhold_return": 0.40325991871723454,
+          "drawdown_delta_vs_baseline": -0.046617997059633765,
+          "nav_delta_vs_baseline": 5011915.994162705,
+          "position": 0.6541189204474038,
+          "position_delta_vs_baseline": 0.6541189204474038,
+          "return_delta_vs_baseline": 0.2465940364523862,
+          "return_delta_vs_buyhold": -0.15666588226484834,
+          "strategy_nav": 5111915.994162705,
+          "strategy_return": 0.2465940364523862
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -693,6 +1183,21 @@
       "action_mismatch_count": 0,
       "date": "2026-02-19",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "buyhold_nav": 3351315.300279027,
+          "buyhold_nav_delta_vs_baseline": 3213233.1642941185,
+          "buyhold_return": 0.38082135984908505,
+          "drawdown_delta_vs_baseline": -0.056720035256318746,
+          "nav_delta_vs_baseline": 4957750.118918564,
+          "position": 0.5499999992549419,
+          "position_delta_vs_baseline": 0.5499999992549419,
+          "return_delta_vs_baseline": 0.23338512278172452,
+          "return_delta_vs_buyhold": -0.14743623706736053,
+          "strategy_nav": 5057750.118918564,
+          "strategy_return": 0.23338512278172452
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -711,9 +1216,24 @@
       }
     },
     {
-      "action_mismatch_count": 0,
+      "action_mismatch_count": 1,
       "date": "2026-02-20",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "SELL",
+          "action_mismatch": true,
+          "buyhold_nav": 3447903.729462244,
+          "buyhold_nav_delta_vs_baseline": 3305841.9211940574,
+          "buyhold_return": 0.4206180826818644,
+          "drawdown_delta_vs_baseline": -0.03909769015865161,
+          "nav_delta_vs_baseline": 5052238.94656749,
+          "position": 0.0,
+          "position_delta_vs_baseline": 0.0,
+          "return_delta_vs_baseline": 0.25642720899617566,
+          "return_delta_vs_buyhold": -0.16419087368568874,
+          "strategy_nav": 5152238.94656749,
+          "strategy_return": 0.25642720899617566
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -735,6 +1255,21 @@
       "action_mismatch_count": 0,
       "date": "2026-02-23",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "buyhold_nav": 3383682.6055964963,
+          "buyhold_nav_delta_vs_baseline": 3244266.8598930575,
+          "buyhold_return": 0.3941574570343893,
+          "drawdown_delta_vs_baseline": -0.050730745651212716,
+          "nav_delta_vs_baseline": 4989863.94656749,
+          "position": 0.0,
+          "position_delta_vs_baseline": 0.0,
+          "return_delta_vs_baseline": 0.24121641462621568,
+          "return_delta_vs_buyhold": -0.15294104240817363,
+          "strategy_nav": 5089863.94656749,
+          "strategy_return": 0.24121641462621568
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -756,6 +1291,21 @@
       "action_mismatch_count": 0,
       "date": "2026-02-24",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "buyhold_nav": 3520858.832099822,
+          "buyhold_nav_delta_vs_baseline": 3375791.1006341507,
+          "buyhold_return": 0.4506773146567138,
+          "drawdown_delta_vs_baseline": -0.0258825561597108,
+          "nav_delta_vs_baseline": 5123096.855197861,
+          "position": 0.0,
+          "position_delta_vs_baseline": 0.0,
+          "return_delta_vs_baseline": 0.27370664911901277,
+          "return_delta_vs_buyhold": -0.17697066553770102,
+          "strategy_nav": 5223096.855197861,
+          "strategy_return": 0.27370664911901277
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -777,6 +1327,21 @@
       "action_mismatch_count": 0,
       "date": "2026-02-25",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "buyhold_nav": 3691944.0001520864,
+          "buyhold_nav_delta_vs_baseline": 3539827.1541378596,
+          "buyhold_return": 0.5211684601422695,
+          "drawdown_delta_vs_baseline": 0.0,
+          "nav_delta_vs_baseline": 5289263.94656749,
+          "position": 0.0,
+          "position_delta_vs_baseline": 0.0,
+          "return_delta_vs_baseline": 0.31422822760202296,
+          "return_delta_vs_buyhold": -0.20694023254024652,
+          "strategy_nav": 5389263.94656749,
+          "strategy_return": 0.31422822760202296
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -795,9 +1360,24 @@
       }
     },
     {
-      "action_mismatch_count": 0,
+      "action_mismatch_count": 1,
       "date": "2026-02-26",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "BUY",
+          "action_mismatch": true,
+          "buyhold_nav": 3356966.3985625505,
+          "buyhold_nav_delta_vs_baseline": 3218651.423930206,
+          "buyhold_return": 0.3831497463234481,
+          "drawdown_delta_vs_baseline": -0.05836922166589675,
+          "nav_delta_vs_baseline": 4974696.804654267,
+          "position": 0.0,
+          "position_delta_vs_baseline": 0.0,
+          "return_delta_vs_baseline": 0.23751774886554178,
+          "return_delta_vs_buyhold": -0.14563199745790634,
+          "strategy_nav": 5074696.804654267,
+          "strategy_return": 0.23751774886554178
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -819,6 +1399,21 @@
       "action_mismatch_count": 0,
       "date": "2026-02-27",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "buyhold_nav": 3224927.979560875,
+          "buyhold_nav_delta_vs_baseline": 3092053.3008404975,
+          "buyhold_return": 0.32874678720377437,
+          "drawdown_delta_vs_baseline": -0.08421575248790247,
+          "nav_delta_vs_baseline": 4835403.027951386,
+          "position": 0.0,
+          "position_delta_vs_baseline": 0.0,
+          "return_delta_vs_baseline": 0.20354950847367625,
+          "return_delta_vs_buyhold": -0.12519727873009812,
+          "strategy_nav": 4935403.027951386,
+          "strategy_return": 0.20354950847367625
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -840,6 +1435,21 @@
       "action_mismatch_count": 0,
       "date": "2026-03-02",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "buyhold_nav": 3224414.1008170517,
+          "buyhold_nav_delta_vs_baseline": 3091560.595119272,
+          "buyhold_return": 0.32853505697779894,
+          "drawdown_delta_vs_baseline": -0.08431634429210166,
+          "nav_delta_vs_baseline": 4834860.912167694,
+          "position": 0.0,
+          "position_delta_vs_baseline": 0.0,
+          "return_delta_vs_baseline": 0.20341730788513201,
+          "return_delta_vs_buyhold": -0.12511774909266693,
+          "strategy_nav": 4934860.912167694,
+          "strategy_return": 0.20341730788513201
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -861,6 +1471,21 @@
       "action_mismatch_count": 0,
       "date": "2026-03-03",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "buyhold_nav": 2744553.8554526907,
+          "buyhold_nav_delta_vs_baseline": 2631471.72956171,
+          "buyhold_return": 0.130821258909809,
+          "drawdown_delta_vs_baseline": -0.1782490247637436,
+          "nav_delta_vs_baseline": 4328632.903897431,
+          "position": 0.0,
+          "position_delta_vs_baseline": 0.0,
+          "return_delta_vs_baseline": 0.07996832771497897,
+          "return_delta_vs_buyhold": -0.05085293119483003,
+          "strategy_nav": 4428632.903897431,
+          "strategy_return": 0.07996832771497897
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -879,9 +1504,24 @@
       }
     },
     {
-      "action_mismatch_count": 0,
+      "action_mismatch_count": 1,
       "date": "2026-03-04",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "SELL",
+          "action_mismatch": true,
+          "buyhold_nav": 2908959.9717464685,
+          "buyhold_nav_delta_vs_baseline": 2789103.9240747057,
+          "buyhold_return": 0.198560476717629,
+          "drawdown_delta_vs_baseline": -0.15079763864146767,
+          "nav_delta_vs_baseline": 4476575.669409515,
+          "position": 0.0,
+          "position_delta_vs_baseline": 0.0,
+          "return_delta_vs_baseline": 0.11604571424367638,
+          "return_delta_vs_buyhold": -0.08251476247395262,
+          "strategy_nav": 4576575.669409515,
+          "strategy_return": 0.11604571424367638
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -903,6 +1543,21 @@
       "action_mismatch_count": 0,
       "date": "2026-03-05",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "buyhold_nav": 2815454.031076925,
+          "buyhold_nav_delta_vs_baseline": 2699450.649853423,
+          "buyhold_return": 0.1600338122350191,
+          "drawdown_delta_vs_baseline": -0.16450859960802533,
+          "nav_delta_vs_baseline": 4402683.681799652,
+          "position": 0.0,
+          "position_delta_vs_baseline": 0.0,
+          "return_delta_vs_baseline": 0.09802638231387695,
+          "return_delta_vs_buyhold": -0.062007429921142165,
+          "strategy_nav": 4502683.681799652,
+          "strategy_return": 0.09802638231387695
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -924,6 +1579,21 @@
       "action_mismatch_count": 0,
       "date": "2026-03-06",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "buyhold_nav": 2460439.666186563,
+          "buyhold_nav_delta_vs_baseline": 2359063.71849798,
+          "buyhold_return": 0.013759476885834232,
+          "drawdown_delta_vs_baseline": -0.21656505788997982,
+          "nav_delta_vs_baseline": 4122137.6879947204,
+          "position": 0.0,
+          "position_delta_vs_baseline": 0.0,
+          "return_delta_vs_baseline": 0.02961231541074527,
+          "return_delta_vs_buyhold": 0.01585283852491104,
+          "strategy_nav": 4222137.68799472,
+          "strategy_return": 0.02961231541074527
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -945,6 +1615,21 @@
       "action_mismatch_count": 0,
       "date": "2026-03-09",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "buyhold_nav": 2739416.2439383576,
+          "buyhold_nav_delta_vs_baseline": 2626545.7998224995,
+          "buyhold_return": 0.12870444115857937,
+          "drawdown_delta_vs_baseline": -0.17565817068313772,
+          "nav_delta_vs_baseline": 4342595.700384857,
+          "position": 0.0,
+          "position_delta_vs_baseline": 0.0,
+          "return_delta_vs_baseline": 0.08337330128130915,
+          "return_delta_vs_buyhold": -0.04533113987727022,
+          "strategy_nav": 4442595.700384857,
+          "strategy_return": 0.08337330128130915
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -963,9 +1648,24 @@
       }
     },
     {
-      "action_mismatch_count": 0,
+      "action_mismatch_count": 1,
       "date": "2026-03-10",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "SELL",
+          "action_mismatch": true,
+          "buyhold_nav": 2804664.929304435,
+          "buyhold_nav_delta_vs_baseline": 2689106.0846537766,
+          "buyhold_return": 0.1555884465065842,
+          "drawdown_delta_vs_baseline": -0.1648849715672367,
+          "nav_delta_vs_baseline": 4400655.313969376,
+          "position": 0.0,
+          "position_delta_vs_baseline": 0.0,
+          "return_delta_vs_baseline": 0.09753174366100348,
+          "return_delta_vs_buyhold": -0.05805670284558073,
+          "strategy_nav": 4500655.313969376,
+          "strategy_return": 0.09753174366100348
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -987,6 +1687,21 @@
       "action_mismatch_count": 0,
       "date": "2026-03-11",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "buyhold_nav": 2881730.2779433327,
+          "buyhold_nav_delta_vs_baseline": 2762996.158214977,
+          "buyhold_return": 0.18734119728355436,
+          "drawdown_delta_vs_baseline": -0.15483721726593003,
+          "nav_delta_vs_baseline": 4454805.313969376,
+          "position": 0.0,
+          "position_delta_vs_baseline": 0.0,
+          "return_delta_vs_baseline": 0.11073678598779035,
+          "return_delta_vs_buyhold": -0.07660441129576401,
+          "strategy_nav": 4554805.313969376,
+          "strategy_return": 0.11073678598779035
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1008,6 +1723,21 @@
       "action_mismatch_count": 0,
       "date": "2026-03-12",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "buyhold_nav": 2583230.4236599025,
+          "buyhold_nav_delta_vs_baseline": 2476795.2056395444,
+          "buyhold_return": 0.06435218020357913,
+          "drawdown_delta_vs_baseline": -0.19375552812531804,
+          "nav_delta_vs_baseline": 4245064.26439357,
+          "position": 0.0,
+          "position_delta_vs_baseline": 0.0,
+          "return_delta_vs_baseline": 0.05958924328579229,
+          "return_delta_vs_buyhold": -0.004762936917786842,
+          "strategy_nav": 4345064.26439357,
+          "strategy_return": 0.05958924328579229
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1029,6 +1759,21 @@
       "action_mismatch_count": 0,
       "date": "2026-03-13",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "buyhold_nav": 2605836.3846925283,
+          "buyhold_nav_delta_vs_baseline": 2498469.7474812884,
+          "buyhold_return": 0.07366637211239979,
+          "drawdown_delta_vs_baseline": -0.19080817050983467,
+          "nav_delta_vs_baseline": 4260948.3525283355,
+          "position": 0.0,
+          "position_delta_vs_baseline": 0.0,
+          "return_delta_vs_baseline": 0.06346274386089834,
+          "return_delta_vs_buyhold": -0.010203628251501451,
+          "strategy_nav": 4360948.3525283355,
+          "strategy_return": 0.06346274386089834
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1047,9 +1792,24 @@
       }
     },
     {
-      "action_mismatch_count": 0,
+      "action_mismatch_count": 1,
       "date": "2026-03-16",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "SELL",
+          "action_mismatch": true,
+          "buyhold_nav": 2758425.6417261697,
+          "buyhold_nav_delta_vs_baseline": 2644771.9653521865,
+          "buyhold_return": 0.1365367637398338,
+          "drawdown_delta_vs_baseline": -0.17006394540228675,
+          "nav_delta_vs_baseline": 4372744.456999924,
+          "position": 0.0,
+          "position_delta_vs_baseline": 0.0,
+          "return_delta_vs_baseline": 0.09072539005696845,
+          "return_delta_vs_buyhold": -0.045811373682865364,
+          "strategy_nav": 4472744.456999924,
+          "strategy_return": 0.09072539005696845
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1071,6 +1831,21 @@
       "action_mismatch_count": 0,
       "date": "2026-03-17",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "buyhold_nav": 2823160.644335741,
+          "buyhold_nav_delta_vs_baseline": 2706839.7323744125,
+          "buyhold_return": 0.16320911961328455,
+          "drawdown_delta_vs_baseline": -0.16251225199781627,
+          "nav_delta_vs_baseline": 4413442.526000168,
+          "position": 0.0,
+          "position_delta_vs_baseline": 0.0,
+          "return_delta_vs_baseline": 0.10065003869531952,
+          "return_delta_vs_buyhold": -0.06255908091796503,
+          "strategy_nav": 4513442.526000168,
+          "strategy_return": 0.10065003869531952
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1092,6 +1867,21 @@
       "action_mismatch_count": 0,
       "date": "2026-03-18",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "buyhold_nav": 2775380.112500639,
+          "buyhold_nav_delta_vs_baseline": 2661027.871733494,
+          "buyhold_return": 0.14352240767144941,
+          "drawdown_delta_vs_baseline": -0.16808611331821233,
+          "nav_delta_vs_baseline": 4383403.51614299,
+          "position": 0.0,
+          "position_delta_vs_baseline": 0.0,
+          "return_delta_vs_baseline": 0.09332471281131594,
+          "return_delta_vs_buyhold": -0.05019769486013348,
+          "strategy_nav": 4483403.51614299,
+          "strategy_return": 0.09332471281131594
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1113,6 +1903,21 @@
       "action_mismatch_count": 0,
       "date": "2026-03-19",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "buyhold_nav": 2818022.836834091,
+          "buyhold_nav_delta_vs_baseline": 2701913.6147230277,
+          "buyhold_return": 0.16109222111063382,
+          "drawdown_delta_vs_baseline": -0.16311160544586745,
+          "nav_delta_vs_baseline": 4410212.452071335,
+          "position": 0.0,
+          "position_delta_vs_baseline": 0.0,
+          "return_delta_vs_baseline": 0.09986235147558009,
+          "return_delta_vs_buyhold": -0.061229869635053724,
+          "strategy_nav": 4510212.452071335,
+          "strategy_return": 0.09986235147558009
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1131,9 +1936,24 @@
       }
     },
     {
-      "action_mismatch_count": 0,
+      "action_mismatch_count": 1,
       "date": "2026-03-20",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "SELL",
+          "action_mismatch": true,
+          "buyhold_nav": 2627414.5882375077,
+          "buyhold_nav_delta_vs_baseline": 2519158.8778805807,
+          "buyhold_return": 0.08255710356926937,
+          "drawdown_delta_vs_baseline": -0.18152950336937734,
+          "nav_delta_vs_baseline": 4310953.538820603,
+          "position": 0.0,
+          "position_delta_vs_baseline": 0.0,
+          "return_delta_vs_baseline": 0.07565703013141079,
+          "return_delta_vs_buyhold": -0.006900073437858589,
+          "strategy_nav": 4410953.538820603,
+          "strategy_return": 0.07565703013141079
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1155,6 +1975,21 @@
       "action_mismatch_count": 0,
       "date": "2026-03-23",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "buyhold_nav": 2724516.8961645477,
+          "buyhold_nav_delta_vs_baseline": 2612260.340501745,
+          "buyhold_return": 0.12256555662802393,
+          "drawdown_delta_vs_baseline": -0.17412979396249595,
+          "nav_delta_vs_baseline": 4350832.525942185,
+          "position": 0.0,
+          "position_delta_vs_baseline": 0.0,
+          "return_delta_vs_baseline": 0.08538193710998643,
+          "return_delta_vs_buyhold": -0.0371836195180375,
+          "strategy_nav": 4450832.525942185,
+          "strategy_return": 0.08538193710998643
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1176,6 +2011,21 @@
       "action_mismatch_count": 0,
       "date": "2026-03-24",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "buyhold_nav": 2823674.327092248,
+          "buyhold_nav_delta_vs_baseline": 2707332.250183464,
+          "buyhold_return": 0.1634207690878391,
+          "drawdown_delta_vs_baseline": -0.16657347331408046,
+          "nav_delta_vs_baseline": 4391555.532381394,
+          "position": 0.0,
+          "position_delta_vs_baseline": 0.0,
+          "return_delta_vs_baseline": 0.09531266700294605,
+          "return_delta_vs_buyhold": -0.06810810208489304,
+          "strategy_nav": 4491555.532381394,
+          "strategy_return": 0.09531266700294605
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1197,6 +2047,21 @@
       "action_mismatch_count": 0,
       "date": "2026-03-25",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "buyhold_nav": 2930538.3712787647,
+          "buyhold_nav_delta_vs_baseline": 2809793.2423861725,
+          "buyhold_return": 0.20745128892591969,
+          "drawdown_delta_vs_baseline": -0.1584298679775471,
+          "nav_delta_vs_baseline": 4435443.571016648,
+          "position": 0.0,
+          "position_delta_vs_baseline": 0.0,
+          "return_delta_vs_baseline": 0.10601522301066857,
+          "return_delta_vs_buyhold": -0.10143606591525112,
+          "strategy_nav": 4535443.571016648,
+          "strategy_return": 0.10601522301066857
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1215,9 +2080,24 @@
       }
     },
     {
-      "action_mismatch_count": 0,
+      "action_mismatch_count": 1,
       "date": "2026-03-26",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "SELL",
+          "action_mismatch": true,
+          "buyhold_nav": 2515926.8112804815,
+          "buyhold_nav_delta_vs_baseline": 2412264.661659888,
+          "buyhold_return": 0.0366214962059348,
+          "drawdown_delta_vs_baseline": -0.19149909790280906,
+          "nav_delta_vs_baseline": 4257224.762439683,
+          "position": 0.0,
+          "position_delta_vs_baseline": 0.0,
+          "return_delta_vs_baseline": 0.06255470757782788,
+          "return_delta_vs_buyhold": 0.025933211371893083,
+          "strategy_nav": 4357224.762439683,
+          "strategy_return": 0.06255470757782788
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1239,6 +2119,21 @@
       "action_mismatch_count": 0,
       "date": "2026-03-27",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "buyhold_nav": 2394677.2980639786,
+          "buyhold_nav_delta_vs_baseline": 2296010.9158576513,
+          "buyhold_return": -0.013336177936725369,
+          "drawdown_delta_vs_baseline": -0.19929385638573938,
+          "nav_delta_vs_baseline": 4215216.751575425,
+          "position": 0.0,
+          "position_delta_vs_baseline": 0.0,
+          "return_delta_vs_baseline": 0.05231061595222042,
+          "return_delta_vs_buyhold": 0.06564679388894579,
+          "strategy_nav": 4315216.751575425,
+          "strategy_return": 0.05231061595222042
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1257,9 +2152,24 @@
       }
     },
     {
-      "action_mismatch_count": 0,
+      "action_mismatch_count": 1,
       "date": "2026-03-30",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "HOLD",
+          "action_mismatch": true,
+          "buyhold_nav": 2086929.5862648953,
+          "buyhold_nav_delta_vs_baseline": 2000943.1394219003,
+          "buyhold_return": -0.14013553157005076,
+          "drawdown_delta_vs_baseline": -0.2190780107589202,
+          "nav_delta_vs_baseline": 4108594.7216987163,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.2998,
+          "return_delta_vs_baseline": 0.026309721815750198,
+          "return_delta_vs_buyhold": 0.16644525338580096,
+          "strategy_nav": 4208594.721698716,
+          "strategy_return": 0.026309721815750198
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "BUY",
           "action_mismatch": false,
@@ -1281,6 +2191,21 @@
       "action_mismatch_count": 0,
       "date": "2026-03-31",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "buyhold_nav": 2461467.227686893,
+          "buyhold_nav_delta_vs_baseline": 2360048.9420282566,
+          "buyhold_return": 0.014182856586364423,
+          "drawdown_delta_vs_baseline": -0.19500013712294173,
+          "nav_delta_vs_baseline": 4232976.717319444,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.2998,
+          "return_delta_vs_baseline": 0.004153336252195938,
+          "return_delta_vs_buyhold": 0.04377068642242321,
+          "strategy_nav": 4338356.737995103,
+          "strategy_return": 0.057953543008787634
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1299,9 +2224,24 @@
       }
     },
     {
-      "action_mismatch_count": 0,
+      "action_mismatch_count": 1,
       "date": "2026-04-01",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "BUY",
+          "action_mismatch": true,
+          "buyhold_nav": 2684956.6603447692,
+          "buyhold_nav_delta_vs_baseline": 2574330.080190868,
+          "buyhold_return": 0.106265801539009,
+          "drawdown_delta_vs_baseline": -0.1814685798210347,
+          "nav_delta_vs_baseline": 4302691.552353622,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.2998,
+          "return_delta_vs_baseline": -0.010166097917237327,
+          "return_delta_vs_buyhold": -0.03052870396064078,
+          "strategy_nav": 4411281.871903183,
+          "strategy_return": 0.07573709757836822
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1323,6 +2263,21 @@
       "action_mismatch_count": 0,
       "date": "2026-04-02",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "buyhold_nav": 2710131.4271345614,
+          "buyhold_nav_delta_vs_baseline": 2598467.586902217,
+          "buyhold_return": 0.11663840232344436,
+          "drawdown_delta_vs_baseline": -0.17909552035785348,
+          "nav_delta_vs_baseline": 4315118.974922897,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.2998,
+          "return_delta_vs_baseline": -0.010663568572031323,
+          "return_delta_vs_buyhold": -0.037782563012785264,
+          "strategy_nav": 4424070.915711166,
+          "strategy_return": 0.07885583931065909
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1344,6 +2299,21 @@
       "action_mismatch_count": 0,
       "date": "2026-04-06",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "buyhold_nav": 2815967.909820748,
+          "buyhold_nav_delta_vs_baseline": 2699943.3563648495,
+          "buyhold_return": 0.16024554246099476,
+          "drawdown_delta_vs_baseline": -0.16911901217863534,
+          "nav_delta_vs_baseline": 4367364.730027793,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.2998,
+          "return_delta_vs_baseline": -0.012754967290000474,
+          "return_delta_vs_buyhold": -0.06827829448830469,
+          "strategy_nav": 4477836.951554062,
+          "strategy_return": 0.09196724797269007
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1365,6 +2335,21 @@
       "action_mismatch_count": 0,
       "date": "2026-04-07",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "buyhold_nav": 2905363.6044889716,
+          "buyhold_nav_delta_vs_baseline": 2785655.736176645,
+          "buyhold_return": 0.1970786881414841,
+          "drawdown_delta_vs_baseline": -0.16069226880613652,
+          "nav_delta_vs_baseline": 4411494.555748178,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.2998,
+          "return_delta_vs_baseline": -0.014521488523104198,
+          "return_delta_vs_buyhold": -0.09403677616189787,
+          "strategy_nav": 4523250.895798447,
+          "strategy_return": 0.10304191197958623
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1386,6 +2371,21 @@
       "action_mismatch_count": 0,
       "date": "2026-04-08",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "buyhold_nav": 3467940.688750387,
+          "buyhold_nav_delta_vs_baseline": 3325053.3102540225,
+          "buyhold_return": 0.42887378496364925,
+          "drawdown_delta_vs_baseline": -0.10766183222958936,
+          "nav_delta_vs_baseline": 4689208.474922897,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.2998,
+          "return_delta_vs_baseline": -0.025638399232146947,
+          "return_delta_vs_buyhold": -0.25613777631310586,
+          "strategy_nav": 4809045.915711166,
+          "strategy_return": 0.1727360086505434
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1407,6 +2407,21 @@
       "action_mismatch_count": 0,
       "date": "2026-04-09",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "buyhold_nav": 3698109.369154066,
+          "buyhold_nav_delta_vs_baseline": 3545738.4960750956,
+          "buyhold_return": 0.5237087383454502,
+          "drawdown_delta_vs_baseline": -0.08596534662872346,
+          "nav_delta_vs_baseline": 4802830.320324864,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.2998,
+          "return_delta_vs_baseline": -0.030186687555728176,
+          "return_delta_vs_buyhold": -0.322458595878488,
+          "strategy_nav": 4925974.003327133,
+          "strategy_return": 0.20125014246696216
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1428,6 +2443,21 @@
       "action_mismatch_count": 0,
       "date": "2026-04-10",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "buyhold_nav": 3924681.290325615,
+          "buyhold_nav_delta_vs_baseline": 3762975.116985616,
+          "buyhold_return": 0.6170617416482638,
+          "drawdown_delta_vs_baseline": -0.06460790383226012,
+          "nav_delta_vs_baseline": 4914676.639730722,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.2998,
+          "return_delta_vs_baseline": -0.03466390384322082,
+          "return_delta_vs_buyhold": -0.3877430449887942,
+          "strategy_nav": 5041074.899780991,
+          "strategy_return": 0.22931869665946958
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1449,6 +2479,21 @@
       "action_mismatch_count": 0,
       "date": "2026-04-13",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "buyhold_nav": 4138922.865467839,
+          "buyhold_nav_delta_vs_baseline": 3968389.4295286923,
+          "buyhold_return": 0.7053343500475586,
+          "drawdown_delta_vs_baseline": -0.04441276154779428,
+          "nav_delta_vs_baseline": 5020436.132678194,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.2998,
+          "return_delta_vs_baseline": -0.03889747041253644,
+          "return_delta_vs_buyhold": -0.4494746273374046,
+          "strategy_nav": 5149911.851990463,
+          "strategy_return": 0.255859722710154
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1470,6 +2515,21 @@
       "action_mismatch_count": 0,
       "date": "2026-04-14",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "buyhold_nav": 4382963.136157681,
+          "buyhold_nav_delta_vs_baseline": 4202374.662472494,
+          "buyhold_return": 0.8058847275079637,
+          "drawdown_delta_vs_baseline": -0.021408692489539694,
+          "nav_delta_vs_baseline": 5140905.632678194,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.2998,
+          "return_delta_vs_baseline": -0.043719873506471885,
+          "return_delta_vs_buyhold": -0.5197924078917453,
+          "strategy_nav": 5273886.851990463,
+          "strategy_return": 0.2860923196162184
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1488,9 +2548,24 @@
       }
     },
     {
-      "action_mismatch_count": 0,
+      "action_mismatch_count": 1,
       "date": "2026-04-15",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "BUY",
+          "action_mismatch": true,
+          "buyhold_nav": 4416358.1989627965,
+          "buyhold_nav_delta_vs_baseline": 4234393.770627091,
+          "buyhold_return": 0.819644285145219,
+          "drawdown_delta_vs_baseline": -0.0247045700513302,
+          "nav_delta_vs_baseline": 5122663.577824136,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.2998,
+          "return_delta_vs_baseline": -0.05284841621289749,
+          "return_delta_vs_buyhold": -0.5378835008554259,
+          "strategy_nav": 5256124.497874405,
+          "strategy_return": 0.2817607842897931
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1512,6 +2587,21 @@
       "action_mismatch_count": 0,
       "date": "2026-04-16",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "buyhold_nav": 4540176.713923782,
+          "buyhold_nav_delta_vs_baseline": 4353110.668495843,
+          "buyhold_return": 0.8706604489149148,
+          "drawdown_delta_vs_baseline": -0.006817128010979889,
+          "nav_delta_vs_baseline": 5217285.141356511,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.2998,
+          "return_delta_vs_baseline": -0.04712606448387402,
+          "return_delta_vs_buyhold": -0.5653914833760982,
+          "strategy_nav": 5352524.64435878,
+          "strategy_return": 0.30526896553881655
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1533,6 +2623,21 @@
       "action_mismatch_count": 0,
       "date": "2026-04-17",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "buyhold_nav": 4864364.821766195,
+          "buyhold_nav_delta_vs_baseline": 4663941.458215949,
+          "buyhold_return": 1.0042336355024593,
+          "drawdown_delta_vs_baseline": 0.0,
+          "nav_delta_vs_baseline": 5465028.265689041,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.2998,
+          "return_delta_vs_baseline": -0.03214349568146235,
+          "return_delta_vs_buyhold": -0.637414321049034,
+          "strategy_nav": 5604924.54670253,
+          "strategy_return": 0.3668193144534253
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1554,6 +2659,21 @@
       "action_mismatch_count": 0,
       "date": "2026-04-20",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "buyhold_nav": 4929099.824375765,
+          "buyhold_nav_delta_vs_baseline": 4726009.225238174,
+          "buyhold_return": 1.0309059913759095,
+          "drawdown_delta_vs_baseline": 0.0,
+          "nav_delta_vs_baseline": 5514498.469561722,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.2998,
+          "return_delta_vs_baseline": -0.02915172489780149,
+          "return_delta_vs_buyhold": -0.6517960903734425,
+          "strategy_nav": 5655324.632151749,
+          "strategy_return": 0.379109901002467
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1572,9 +2692,24 @@
       }
     },
     {
-      "action_mismatch_count": 0,
+      "action_mismatch_count": 1,
       "date": "2026-04-21",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "SELL",
+          "action_mismatch": true,
+          "buyhold_nav": 5039559.843845146,
+          "buyhold_nav_delta_vs_baseline": 4831918.030016417,
+          "buyhold_return": 1.076418138287293,
+          "drawdown_delta_vs_baseline": 0.0,
+          "nav_delta_vs_baseline": 5613800.256030228,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.2998,
+          "return_delta_vs_baseline": -0.020415971181255266,
+          "return_delta_vs_buyhold": -0.672705528612225,
+          "strategy_nav": 5756213.11411586,
+          "strategy_return": 0.40371260967506806
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1596,6 +2731,21 @@
       "action_mismatch_count": 0,
       "date": "2026-04-22",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "buyhold_nav": 5427455.588784115,
+          "buyhold_nav_delta_vs_baseline": 5203831.550604197,
+          "buyhold_return": 1.236240381799178,
+          "drawdown_delta_vs_baseline": 0.0,
+          "nav_delta_vs_baseline": 5895128.469744828,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.2998,
+          "return_delta_vs_baseline": -0.006171407832469278,
+          "return_delta_vs_buyhold": -0.7625641862533514,
+          "strategy_nav": 6043113.230082657,
+          "strategy_return": 0.47367619554582663
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1617,6 +2767,21 @@
       "action_mismatch_count": 0,
       "date": "2026-04-23",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "buyhold_nav": 5793772.738203474,
+          "buyhold_nav_delta_vs_baseline": 5555055.564968339,
+          "buyhold_return": 1.3871717323513528,
+          "drawdown_delta_vs_baseline": 0.0,
+          "nav_delta_vs_baseline": 6160806.427401688,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.2998,
+          "return_delta_vs_baseline": 0.00728073210134661,
+          "return_delta_vs_buyhold": -0.8474240171414857,
+          "strategy_nav": 6314053.12571254,
+          "strategy_return": 0.5397477152098671
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1638,6 +2803,21 @@
       "action_mismatch_count": 0,
       "date": "2026-04-24",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "buyhold_nav": 6592684.067857864,
+          "buyhold_nav_delta_vs_baseline": 6321049.853706872,
+          "buyhold_return": 1.7163421415099203,
+          "drawdown_delta_vs_baseline": 0.0,
+          "nav_delta_vs_baseline": 6740230.925402787,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.2998,
+          "return_delta_vs_baseline": 0.0366188808018828,
+          "return_delta_vs_buyhold": -1.0324971987726126,
+          "strategy_nav": 6904953.531596329,
+          "strategy_return": 0.6838449427373077
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1656,9 +2836,24 @@
       }
     },
     {
-      "action_mismatch_count": 0,
+      "action_mismatch_count": 1,
       "date": "2026-04-27",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "SELL",
+          "action_mismatch": true,
+          "buyhold_nav": 6339395.547677737,
+          "buyhold_nav_delta_vs_baseline": 6078197.421078404,
+          "buyhold_return": 1.6119812659933235,
+          "drawdown_delta_vs_baseline": -0.010494274526383185,
+          "nav_delta_vs_baseline": 6518892.152807572,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.2998,
+          "return_delta_vs_baseline": 0.018139322337718866,
+          "return_delta_vs_buyhold": -0.9829993402773087,
+          "strategy_nav": 6679976.4131454015,
+          "strategy_return": 0.6289819257160147
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1680,6 +2875,21 @@
       "action_mismatch_count": 0,
       "date": "2026-04-28",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "buyhold_nav": 5628852.93915319,
+          "buyhold_nav_delta_vs_baseline": 5396930.852646292,
+          "buyhold_return": 1.3192208650689778,
+          "drawdown_delta_vs_baseline": -0.019235009140381232,
+          "nav_delta_vs_baseline": 6040899.62952266,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.5359,
+          "return_delta_vs_baseline": 0.0011523016418695242,
+          "return_delta_vs_buyhold": -0.809291373561996,
+          "strategy_nav": 6191777.348509171,
+          "strategy_return": 0.5099294915069819
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1701,6 +2911,21 @@
       "action_mismatch_count": 0,
       "date": "2026-04-29",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "buyhold_nav": 6060932.8486697655,
+          "buyhold_nav_delta_vs_baseline": 5811208.04547511,
+          "buyhold_return": 1.4972480319465538,
+          "drawdown_delta_vs_baseline": -0.013919781347121907,
+          "nav_delta_vs_baseline": 6331566.176092484,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.5359,
+          "return_delta_vs_baseline": 0.01148208380716409,
+          "return_delta_vs_buyhold": -0.9149229312479101,
+          "strategy_nav": 6488650.477781632,
+          "strategy_return": 0.5823251006986436
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1722,6 +2947,21 @@
       "action_mismatch_count": 0,
       "date": "2026-04-30",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "buyhold_nav": 6523838.819246974,
+          "buyhold_nav_delta_vs_baseline": 6255041.192563538,
+          "buyhold_return": 1.6879762668343496,
+          "drawdown_delta_vs_baseline": -0.008225346992998706,
+          "nav_delta_vs_baseline": 6642969.8699248815,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.5359,
+          "return_delta_vs_baseline": 0.022548828022202594,
+          "return_delta_vs_buyhold": -1.0280906061552868,
+          "strategy_nav": 6806703.5531905675,
+          "strategy_return": 0.6598856606790628
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1740,9 +2980,24 @@
       }
     },
     {
-      "action_mismatch_count": 0,
+      "action_mismatch_count": 1,
       "date": "2026-05-01",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "SELL",
+          "action_mismatch": true,
+          "buyhold_nav": 6699547.328095116,
+          "buyhold_nav_delta_vs_baseline": 6423510.094260884,
+          "buyhold_return": 1.760372338342317,
+          "drawdown_delta_vs_baseline": 0.0,
+          "nav_delta_vs_baseline": 6758789.550274612,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.5359,
+          "return_delta_vs_baseline": 0.026168627253597698,
+          "return_delta_vs_buyhold": -1.0716273482499743,
+          "strategy_nav": 6925047.186558487,
+          "strategy_return": 0.6887449900923428
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1761,9 +3016,24 @@
       }
     },
     {
-      "action_mismatch_count": 0,
+      "action_mismatch_count": 1,
       "date": "2026-05-04",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "BUY",
+          "action_mismatch": true,
+          "buyhold_nav": 6553123.63605077,
+          "buyhold_nav_delta_vs_baseline": 6283119.405483821,
+          "buyhold_return": 1.7000423056694847,
+          "drawdown_delta_vs_baseline": -0.008563741728390584,
+          "nav_delta_vs_baseline": 6613981.0935943145,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.5359,
+          "return_delta_vs_baseline": 0.011375597064506193,
+          "return_delta_vs_buyhold": -1.0471232782003155,
+          "strategy_nav": 6778135.436634781,
+          "strategy_return": 0.6529190274691692
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1785,6 +3055,21 @@
       "action_mismatch_count": 0,
       "date": "2026-05-05",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "buyhold_nav": 7406493.961336798,
+          "buyhold_nav_delta_vs_baseline": 7101328.857869598,
+          "buyhold_return": 2.051651112193359,
+          "drawdown_delta_vs_baseline": 0.0,
+          "nav_delta_vs_baseline": 7222936.93867366,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.5359,
+          "return_delta_vs_baseline": 0.04028333880025459,
+          "return_delta_vs_buyhold": -1.247242565510414,
+          "strategy_nav": 7399349.459461929,
+          "strategy_return": 0.8044085466829451
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1806,6 +3091,21 @@
       "action_mismatch_count": 0,
       "date": "2026-05-06",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "buyhold_nav": 8520859.028087137,
+          "buyhold_nav_delta_vs_baseline": 8169779.446996439,
+          "buyhold_return": 2.5107959401092543,
+          "drawdown_delta_vs_baseline": 0.0,
+          "nav_delta_vs_baseline": 8018135.809982254,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.5359,
+          "return_delta_vs_baseline": 0.07803220567887381,
+          "return_delta_vs_buyhold": -1.5085663265476903,
+          "strategy_nav": 8210555.550770523,
+          "strategy_return": 1.002229613561564
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1827,6 +3127,21 @@
       "action_mismatch_count": 0,
       "date": "2026-05-07",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "buyhold_nav": 7814426.665563911,
+          "buyhold_nav_delta_vs_baseline": 7492453.772685436,
+          "buyhold_return": 2.21972905798703,
+          "drawdown_delta_vs_baseline": -0.009896516705984015,
+          "nav_delta_vs_baseline": 7514033.309982254,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.5359,
+          "return_delta_vs_baseline": 0.05410197914978632,
+          "return_delta_vs_buyhold": -1.3429046709545533,
+          "strategy_nav": 7696305.550770523,
+          "strategy_return": 0.8768243870324766
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1845,9 +3160,24 @@
       }
     },
     {
-      "action_mismatch_count": 0,
+      "action_mismatch_count": 1,
       "date": "2026-05-08",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "SELL",
+          "action_mismatch": true,
+          "buyhold_nav": 9090628.65087623,
+          "buyhold_nav_delta_vs_baseline": 8716073.202711092,
+          "buyhold_return": 2.7455545333322884,
+          "drawdown_delta_vs_baseline": 0.0,
+          "nav_delta_vs_baseline": 8501796.79224971,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.5359,
+          "return_delta_vs_baseline": 0.11612963735342952,
+          "return_delta_vs_buyhold": -1.6233832880961683,
+          "strategy_nav": 8702400.95303798,
+          "strategy_return": 1.12217124523612
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1869,6 +3199,21 @@
       "action_mismatch_count": 0,
       "date": "2026-05-11",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "buyhold_nav": 9783189.031138662,
+          "buyhold_nav_delta_vs_baseline": 9380098.448151356,
+          "buyhold_return": 3.030905829873068,
+          "drawdown_delta_vs_baseline": 0.0,
+          "nav_delta_vs_baseline": 8917816.418591263,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.5359,
+          "return_delta_vs_baseline": 0.12052395792196036,
+          "return_delta_vs_buyhold": -1.8048578775816004,
+          "strategy_nav": 9128368.818028213,
+          "strategy_return": 1.2260479522914673
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1890,6 +3235,21 @@
       "action_mismatch_count": 0,
       "date": "2026-05-12",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "buyhold_nav": 8863542.850960858,
+          "buyhold_nav_delta_vs_baseline": 8498343.870980509,
+          "buyhold_return": 2.6519897998034994,
+          "drawdown_delta_vs_baseline": 0.0007756077351701585,
+          "nav_delta_vs_baseline": 8365386.806957962,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.5359,
+          "return_delta_vs_baseline": 0.11468874584472433,
+          "return_delta_vs_buyhold": -1.5638790145453232,
+          "strategy_nav": 8562729.010899307,
+          "strategy_return": 1.0881107852581762
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1911,6 +3271,21 @@
       "action_mismatch_count": 0,
       "date": "2026-05-13",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "buyhold_nav": 9465680.171042051,
+          "buyhold_nav_delta_vs_baseline": 9075671.705870584,
+          "buyhold_return": 2.9000846517146797,
+          "drawdown_delta_vs_baseline": 0.00026777942776667896,
+          "nav_delta_vs_baseline": 8727089.484631302,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.5359,
+          "return_delta_vs_baseline": 0.11850934450323525,
+          "return_delta_vs_buyhold": -1.721659658789203,
+          "strategy_nav": 8933081.049473526,
+          "strategy_return": 1.1784249929254766
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1932,6 +3307,21 @@
       "action_mismatch_count": 0,
       "date": "2026-05-14",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "buyhold_nav": 9565864.967482764,
+          "buyhold_nav_delta_vs_baseline": 9171728.651170405,
+          "buyhold_return": 2.9413631631236035,
+          "drawdown_delta_vs_baseline": 0.00018328595110062018,
+          "nav_delta_vs_baseline": 8787270.290447952,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.5359,
+          "return_delta_vs_baseline": 0.11914502325311416,
+          "return_delta_vs_buyhold": -1.7479115139702204,
+          "strategy_nav": 8994700.95303798,
+          "strategy_return": 1.193451649153383
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1950,9 +3340,24 @@
       }
     },
     {
-      "action_mismatch_count": 0,
+      "action_mismatch_count": 1,
       "date": "2026-05-15",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "SELL",
+          "action_mismatch": true,
+          "buyhold_nav": 8435058.916727146,
+          "buyhold_nav_delta_vs_baseline": 8087514.490727223,
+          "buyhold_return": 2.4754442599992266,
+          "drawdown_delta_vs_baseline": -0.0041006056929567825,
+          "nav_delta_vs_baseline": 8060186.746893265,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.5359,
+          "return_delta_vs_baseline": 0.1003108697768158,
+          "return_delta_vs_buyhold": -1.4632606363924547,
+          "strategy_nav": 8251374.022276261,
+          "strategy_return": 1.0121836236067718
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1974,6 +3379,21 @@
       "action_mismatch_count": 0,
       "date": "2026-05-18",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "buyhold_nav": 7796444.437301796,
+          "buyhold_nav_delta_vs_baseline": 7475212.441941449,
+          "buyhold_return": 2.2123199536034632,
+          "drawdown_delta_vs_baseline": 0.0016124019815535462,
+          "nav_delta_vs_baseline": 7723806.285101273,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.5359,
+          "return_delta_vs_baseline": 0.10777731807923452,
+          "return_delta_vs_buyhold": -1.2844032276415382,
+          "strategy_nav": 7905820.225889542,
+          "strategy_return": 0.927916725961925
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1995,6 +3415,21 @@
       "action_mismatch_count": 0,
       "date": "2026-05-19",
       "profiles": {
+        "balanced_rule_residual_v19_moe_v2": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "buyhold_nav": 7803637.171816789,
+          "buyhold_nav_delta_vs_baseline": 7482108.8187412135,
+          "buyhold_return": 2.215283530755753,
+          "drawdown_delta_vs_baseline": 0.0015480562004778209,
+          "nav_delta_vs_baseline": 7727594.948583939,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.5359,
+          "return_delta_vs_baseline": 0.10769322324245967,
+          "return_delta_vs_buyhold": -1.2864177041349973,
+          "strategy_nav": 7909712.208921769,
+          "strategy_return": 0.9288658266207557
+        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -2009,300 +3444,6 @@
           "return_delta_vs_buyhold": -1.394110927377457,
           "strategy_nav": 182117.2603378296,
           "strategy_return": 0.821172603378296
-        }
-      }
-    },
-    {
-      "action_mismatch_count": 0,
-      "date": "2026-05-20",
-      "profiles": {
-        "soxl_backtest_policy_reimplementation_v1": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "buyhold_nav": 366638.4225112997,
-          "buyhold_nav_delta_vs_baseline": 0.0,
-          "buyhold_return": 2.6663842251129974,
-          "drawdown_delta_vs_baseline": 0.0,
-          "nav_delta_vs_baseline": 0.0,
-          "position": 0.5359,
-          "position_delta_vs_baseline": 0.0,
-          "return_delta_vs_baseline": 0.0,
-          "return_delta_vs_buyhold": -1.68794383975228,
-          "strategy_nav": 197844.03853607175,
-          "strategy_return": 0.9784403853607175
-        }
-      }
-    },
-    {
-      "action_mismatch_count": 0,
-      "date": "2026-05-21",
-      "profiles": {
-        "soxl_backtest_policy_reimplementation_v1": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "buyhold_nav": 377624.8794482223,
-          "buyhold_nav_delta_vs_baseline": 0.0,
-          "buyhold_return": 2.776248794482223,
-          "drawdown_delta_vs_baseline": 0.0,
-          "nav_delta_vs_baseline": 0.0,
-          "position": 0.5359,
-          "position_delta_vs_baseline": 0.0,
-          "return_delta_vs_baseline": 0.0,
-          "return_delta_vs_buyhold": -1.759506191103927,
-          "strategy_nav": 201674.2603378296,
-          "strategy_return": 1.016742603378296
-        }
-      }
-    },
-    {
-      "action_mismatch_count": 0,
-      "date": "2026-05-22",
-      "profiles": {
-        "soxl_backtest_policy_reimplementation_v1": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "buyhold_nav": 403386.94070253574,
-          "buyhold_nav_delta_vs_baseline": 0.0,
-          "buyhold_return": 3.0338694070253576,
-          "drawdown_delta_vs_baseline": 0.0,
-          "nav_delta_vs_baseline": 0.0,
-          "position": 0.5359,
-          "position_delta_vs_baseline": 0.0,
-          "return_delta_vs_baseline": 0.0,
-          "return_delta_vs_buyhold": -1.9273122171602455,
-          "strategy_nav": 210655.71898651123,
-          "strategy_return": 1.106557189865112
-        }
-      }
-    },
-    {
-      "action_mismatch_count": 0,
-      "date": "2026-05-26",
-      "profiles": {
-        "soxl_backtest_policy_reimplementation_v1": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "buyhold_nav": 477963.5589832201,
-          "buyhold_nav_delta_vs_baseline": 0.0,
-          "buyhold_return": 3.7796355898322007,
-          "drawdown_delta_vs_baseline": 0.0,
-          "nav_delta_vs_baseline": 0.0,
-          "position": 0.5359,
-          "position_delta_vs_baseline": 0.0,
-          "return_delta_vs_baseline": 0.0,
-          "return_delta_vs_buyhold": -2.4130810314978506,
-          "strategy_nav": 236655.45583343503,
-          "strategy_return": 1.3665545583343501
-        }
-      }
-    },
-    {
-      "action_mismatch_count": 0,
-      "date": "2026-05-27",
-      "profiles": {
-        "soxl_backtest_policy_reimplementation_v1": {
-          "action": "SELL",
-          "action_mismatch": false,
-          "buyhold_nav": 461430.9652467686,
-          "buyhold_nav_delta_vs_baseline": 0.0,
-          "buyhold_return": 3.6143096524676865,
-          "drawdown_delta_vs_baseline": 0.0,
-          "nav_delta_vs_baseline": 0.0,
-          "position": 0.0699,
-          "position_delta_vs_baseline": 0.0,
-          "return_delta_vs_baseline": 0.0,
-          "return_delta_vs_buyhold": -2.305392876115758,
-          "strategy_nav": 230891.67763519284,
-          "strategy_return": 1.3089167763519285
-        }
-      }
-    },
-    {
-      "action_mismatch_count": 0,
-      "date": "2026-05-28",
-      "profiles": {
-        "soxl_backtest_policy_reimplementation_v1": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "buyhold_nav": 475508.0374715664,
-          "buyhold_nav_delta_vs_baseline": 0.0,
-          "buyhold_return": 3.7550803747156642,
-          "drawdown_delta_vs_baseline": 0.0,
-          "nav_delta_vs_baseline": 0.0,
-          "position": 0.0699,
-          "position_delta_vs_baseline": 0.0,
-          "return_delta_vs_baseline": 0.0,
-          "return_delta_vs_buyhold": -2.4412425915888334,
-          "strategy_nav": 231383.77831268308,
-          "strategy_return": 1.3138377831268309
-        }
-      }
-    },
-    {
-      "action_mismatch_count": 0,
-      "date": "2026-05-29",
-      "profiles": {
-        "soxl_backtest_policy_reimplementation_v1": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "buyhold_nav": 474894.13286822673,
-          "buyhold_nav_delta_vs_baseline": 0.0,
-          "buyhold_return": 3.7489413286822675,
-          "drawdown_delta_vs_baseline": 0.0,
-          "nav_delta_vs_baseline": 0.0,
-          "position": 0.0699,
-          "position_delta_vs_baseline": 0.0,
-          "return_delta_vs_baseline": 0.0,
-          "return_delta_vs_buyhold": -2.4353181518786786,
-          "strategy_nav": 231362.3176803589,
-          "strategy_return": 1.3136231768035889
-        }
-      }
-    },
-    {
-      "action_mismatch_count": 0,
-      "date": "2026-06-01",
-      "profiles": {
-        "soxl_backtest_policy_reimplementation_v1": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "buyhold_nav": 480588.4672596997,
-          "buyhold_nav_delta_vs_baseline": 0.0,
-          "buyhold_return": 3.8058846725969975,
-          "drawdown_delta_vs_baseline": 0.0,
-          "nav_delta_vs_baseline": 0.0,
-          "position": 0.0699,
-          "position_delta_vs_baseline": 0.0,
-          "return_delta_vs_baseline": 0.0,
-          "return_delta_vs_buyhold": -2.490270893083448,
-          "strategy_nav": 231561.37795135495,
-          "strategy_return": 1.3156137795135496
-        }
-      }
-    },
-    {
-      "action_mismatch_count": 0,
-      "date": "2026-06-02",
-      "profiles": {
-        "soxl_backtest_policy_reimplementation_v1": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "buyhold_nav": 563759.5057948431,
-          "buyhold_nav_delta_vs_baseline": 0.0,
-          "buyhold_return": 4.637595057948431,
-          "drawdown_delta_vs_baseline": 0.0,
-          "nav_delta_vs_baseline": 0.0,
-          "position": 0.0699,
-          "position_delta_vs_baseline": 0.0,
-          "return_delta_vs_baseline": 0.0,
-          "return_delta_vs_buyhold": -3.2929066784348815,
-          "strategy_nav": 234468.83795135497,
-          "strategy_return": 1.3446883795135496
-        }
-      }
-    },
-    {
-      "action_mismatch_count": 0,
-      "date": "2026-06-03",
-      "profiles": {
-        "soxl_backtest_policy_reimplementation_v1": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "buyhold_nav": 593861.1135314107,
-          "buyhold_nav_delta_vs_baseline": 0.0,
-          "buyhold_return": 4.938611135314107,
-          "drawdown_delta_vs_baseline": 0.0,
-          "nav_delta_vs_baseline": 0.0,
-          "position": 0.0699,
-          "position_delta_vs_baseline": 0.0,
-          "return_delta_vs_baseline": 0.0,
-          "return_delta_vs_buyhold": -3.583399955800558,
-          "strategy_nav": 235521.11795135497,
-          "strategy_return": 1.3552111795135495
-        }
-      }
-    },
-    {
-      "action_mismatch_count": 0,
-      "date": "2026-06-04",
-      "profiles": {
-        "soxl_backtest_policy_reimplementation_v1": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "buyhold_nav": 556096.5086073343,
-          "buyhold_nav_delta_vs_baseline": 0.0,
-          "buyhold_return": 4.5609650860733435,
-          "drawdown_delta_vs_baseline": 0.0,
-          "nav_delta_vs_baseline": 0.0,
-          "position": 0.0699,
-          "position_delta_vs_baseline": 0.0,
-          "return_delta_vs_baseline": 0.0,
-          "return_delta_vs_buyhold": -3.218955506559794,
-          "strategy_nav": 234200.95795135497,
-          "strategy_return": 1.3420095795135496
-        }
-      }
-    },
-    {
-      "action_mismatch_count": 0,
-      "date": "2026-06-05",
-      "profiles": {
-        "soxl_backtest_policy_reimplementation_v1": {
-          "action": "BUY",
-          "action_mismatch": false,
-          "buyhold_nav": 386409.80845520674,
-          "buyhold_nav_delta_vs_baseline": 0.0,
-          "buyhold_return": 2.8640980845520674,
-          "drawdown_delta_vs_baseline": 0.0,
-          "nav_delta_vs_baseline": 0.0,
-          "position": 0.1591,
-          "position_delta_vs_baseline": 0.0,
-          "return_delta_vs_baseline": 0.0,
-          "return_delta_vs_buyhold": -1.5814069050385178,
-          "strategy_nav": 228269.11795135497,
-          "strategy_return": 1.2826911795135496
-        }
-      }
-    },
-    {
-      "action_mismatch_count": 0,
-      "date": "2026-06-08",
-      "profiles": {
-        "soxl_backtest_policy_reimplementation_v1": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "buyhold_nav": 447586.7749521689,
-          "buyhold_nav_delta_vs_baseline": 0.0,
-          "buyhold_return": 3.475867749521689,
-          "drawdown_delta_vs_baseline": 0.0,
-          "nav_delta_vs_baseline": 0.0,
-          "position": 0.1591,
-          "position_delta_vs_baseline": 0.0,
-          "return_delta_vs_baseline": 0.0,
-          "return_delta_vs_buyhold": -2.1356655700081397,
-          "strategy_nav": 234020.21795135495,
-          "strategy_return": 1.3402021795135495
-        }
-      }
-    },
-    {
-      "action_mismatch_count": 0,
-      "date": "2026-06-09",
-      "profiles": {
-        "soxl_backtest_policy_reimplementation_v1": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "buyhold_nav": 426926.3184466204,
-          "buyhold_nav_delta_vs_baseline": 0.0,
-          "buyhold_return": 3.2692631844662046,
-          "drawdown_delta_vs_baseline": 0.0,
-          "nav_delta_vs_baseline": 0.0,
-          "position": 0.1591,
-          "position_delta_vs_baseline": 0.0,
-          "return_delta_vs_baseline": 0.0,
-          "return_delta_vs_buyhold": -1.948483404952655,
-          "strategy_nav": 232077.97795135496,
-          "strategy_return": 1.3207797795135496
         }
       }
     }

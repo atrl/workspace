@@ -308,6 +308,91 @@ def test_build_dashboard_v2_data_disables_models_with_missing_actor_artifacts(tm
     assert manifest["default_chart_profile"] == "missing_actor_model"
 
 
+def test_build_dashboard_v2_data_includes_retained_dashboard_exports_when_replay_manifest_empty(tmp_path: Path):
+    freshness = tmp_path / "dashboard_data" / "model_replay_freshness.json"
+    freshness.parent.mkdir()
+    freshness.write_text(
+        json.dumps(
+            {
+                "generated_at": "2026-06-13T00:00:00+00:00",
+                "latest_data_date": "2026-01-06",
+                "safe_backtest_end": "2026-01-06",
+                "counts": {"current": 0, "refreshed": 0, "failed": 0, "skipped": 0},
+                "profiles": [],
+            }
+        )
+    )
+    retained_json = tmp_path / "dashboard_data" / "versioned" / "retained_model" / "SOXL.json"
+    retained_json.parent.mkdir(parents=True)
+    retained_json.write_text(
+        json.dumps(
+            {
+                "summary": {"etf": "SOXL", "strategy_return": 0.03},
+                "rows": [
+                    {
+                        "datetime": "2026-01-02",
+                        "strategy_nav": 100.0,
+                        "buyhold_nav": 100.0,
+                        "position": 0.0,
+                        "action": "HOLD",
+                        "price": 10.0,
+                    },
+                    {
+                        "datetime": "2026-01-05",
+                        "strategy_nav": 105.0,
+                        "buyhold_nav": 110.0,
+                        "position": 0.7,
+                        "action": "BUY",
+                        "price": 11.0,
+                    },
+                    {
+                        "datetime": "2026-01-06",
+                        "strategy_nav": 103.0,
+                        "buyhold_nav": 108.0,
+                        "position": 0.2,
+                        "action": "SELL",
+                        "price": 10.8,
+                    },
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    output_dir = tmp_path / "dashboard_data" / "v2"
+    build_dashboard_v2_data(
+        root=tmp_path,
+        output_dir=output_dir,
+        freshness_path=freshness,
+        market_rows={
+            "2026-01-02": {"open": 9.5, "high": 10.2, "low": 9.4, "close": 10.0, "volume": 1000},
+            "2026-01-05": {"open": 10.2, "high": 11.5, "low": 10.1, "close": 11.0, "volume": 1200},
+            "2026-01-06": {"open": 11.0, "high": 11.1, "low": 10.5, "close": 10.8, "volume": 1300},
+        },
+        model_feature_rows_by_profile={
+            "retained_model": {
+                "2026-01-05": {"retained_buy_signal": 1.25, "shared_feature": 10.0},
+                "2026-01-06": {"retained_sell_signal": -0.5, "shared_feature": 11.0},
+            }
+        },
+    )
+
+    manifest = json.loads((output_dir / "manifest.json").read_text())
+    model = json.loads((output_dir / "models" / "retained_model.json").read_text())
+    comparison = json.loads((output_dir / "comparison" / "default.json").read_text())
+
+    assert manifest["available_profiles"] == ["retained_model"]
+    assert manifest["default_chart_profile"] == "retained_model"
+    assert model["source_kind"] == "retained_dashboard_export"
+    assert model["runnable"] is False
+    assert model["runnable_reason"] == "evidence_only_retained_dashboard_export"
+    assert model["source_path"] == "dashboard_data/versioned/retained_model/SOXL.json"
+    assert model["rows"][1]["feature_snapshot"]["retained_buy_signal"] == 1.25
+    assert model["events"][0]["feature_snapshot"]["retained_buy_signal"] == 1.25
+    assert model["feature_action_summary"][0]["feature"] in {"retained_buy_signal", "shared_feature"}
+    assert comparison["baseline_profile"] == "retained_model"
+
+
 def test_build_feature_action_summary_compares_buy_and_sell_snapshots():
     rows = [
         {
@@ -767,6 +852,7 @@ def test_build_dashboard_v2_data_adds_soxl_backtest_reference_baseline(tmp_path:
 
     assert manifest["default_baseline_profile"] == reference_name
     assert manifest["default_comparison_profiles"] == [reference_name, "smoke"]
+    assert manifest["default_chart_profile"] == "smoke"
     assert reference["source_path"] == "runtime/production/card/soxl_backtest_policy_reimplementation_v1/new_policy_daily.csv"
     assert reference["rows"][-1]["action"] == "SELL"
     assert [event["kind"] for event in reference["events"] if event["kind"] in {"BUY", "SELL"}] == ["BUY", "SELL"]

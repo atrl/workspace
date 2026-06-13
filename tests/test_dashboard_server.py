@@ -1,5 +1,8 @@
 from __future__ import annotations
 
+import io
+import json
+
 import pandas as pd
 
 import scripts.dashboard_server as dashboard_server
@@ -140,3 +143,30 @@ def test_backtest_request_scope_uses_full_test_seg_for_replay_aligned_runs(monke
         "test_seg": ("2020-01-01", "2026-12-31"),
         "replay_aligned": True,
     }
+
+
+def test_run_backtest_returns_400_for_non_runnable_reference_profile(monkeypatch):
+    body = json.dumps(
+        {
+            "profile": "soxl_backtest_policy_reimplementation_v1",
+            "start_date": "2026-01-02",
+            "end_date": "2026-01-31",
+        }
+    ).encode("utf-8")
+    sent: dict[str, object] = {}
+    handler = object.__new__(dashboard_server.DashboardHandler)
+    handler.headers = {"Content-Length": str(len(body))}
+    handler.rfile = io.BytesIO(body)
+    handler._send_json = lambda data, status=200: sent.update({"data": data, "status": status})
+    monkeypatch.setattr(
+        dashboard_server,
+        "load_profile",
+        lambda _profile: (_ for _ in ()).throw(FileNotFoundError("unknown profile")),
+    )
+
+    handler._handle_run_backtest()
+
+    assert sent["status"] == 400
+    assert sent["data"]["profile"] == "soxl_backtest_policy_reimplementation_v1"
+    assert sent["data"]["runnable"] is False
+    assert "traceback" not in sent["data"]

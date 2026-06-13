@@ -78,11 +78,15 @@ export function syncVisibleLogicalRange(source: IChartApi, targets: IChartApi[])
 export function syncVisibleLogicalRanges(charts: readonly IChartApi[]): () => void {
   const unsubscribers: (() => void)[] = [];
   let syncing = false;
+  let lastRangeKey: string | null = null;
 
   for (const source of charts) {
     const sourceTimeScale = source.timeScale();
     const syncRange = (range: LogicalRange | null) => {
       if (!range || syncing) return;
+      const rangeKey = `${Number(range.from).toPrecision(12)}:${Number(range.to).toPrecision(12)}`;
+      if (rangeKey === lastRangeKey) return;
+      lastRangeKey = rangeKey;
       syncing = true;
       try {
         for (const target of charts) {

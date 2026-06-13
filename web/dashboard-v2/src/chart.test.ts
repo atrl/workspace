@@ -159,6 +159,33 @@ describe('dashboard v2 chart rendering', () => {
     expect(nav.api.unsubscribeVisibleLogicalRangeChange).toHaveBeenCalled();
   });
 
+  test('does not echo an unchanged logical range back across linked charts', () => {
+    const callbacks: ((range: { from: number; to: number } | null) => void)[] = [];
+    const makeChart = () => {
+      const api = {
+        setVisibleLogicalRange: vi.fn(),
+        subscribeVisibleLogicalRangeChange: vi.fn((callback) => callbacks.push(callback)),
+        unsubscribeVisibleLogicalRangeChange: vi.fn(),
+      };
+      return { timeScale: () => api, api };
+    };
+    const market = makeChart();
+    const position = makeChart();
+    const nav = makeChart();
+
+    syncVisibleLogicalRanges([market as never, position as never, nav as never]);
+    callbacks[0]({ from: 20, to: 40 });
+    market.api.setVisibleLogicalRange.mockClear();
+    position.api.setVisibleLogicalRange.mockClear();
+    nav.api.setVisibleLogicalRange.mockClear();
+
+    callbacks[1]({ from: 20, to: 40 });
+
+    expect(market.api.setVisibleLogicalRange).not.toHaveBeenCalled();
+    expect(position.api.setVisibleLogicalRange).not.toHaveBeenCalled();
+    expect(nav.api.setVisibleLogicalRange).not.toHaveBeenCalled();
+  });
+
   test('coalesces crosshair hover date updates into one animation frame', () => {
     const container = document.createElement('div');
     const callbacks: FrameRequestCallback[] = [];

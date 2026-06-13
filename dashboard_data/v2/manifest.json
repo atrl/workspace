@@ -61,14 +61,16 @@
     "timezone": "Asia/Shanghai"
   },
   "available_profiles": [
-    "soxl_backtest_policy_reimplementation_v1"
+    "soxl_backtest_policy_reimplementation_v1",
+    "balanced_rule_residual_v19_moe_v2"
   ],
   "default_baseline_profile": "soxl_backtest_policy_reimplementation_v1",
-  "default_chart_profile": "soxl_backtest_policy_reimplementation_v1",
+  "default_chart_profile": "balanced_rule_residual_v19_moe_v2",
   "default_comparison_profiles": [
-    "soxl_backtest_policy_reimplementation_v1"
+    "soxl_backtest_policy_reimplementation_v1",
+    "balanced_rule_residual_v19_moe_v2"
   ],
-  "generated_at": "2026-06-13T20:17:49.477205+00:00",
+  "generated_at": "2026-06-13T20:33:32.320719+00:00",
   "latest_market_date": "2026-06-10",
   "model_retention_gate": {
     "max_walkforward_drawdown_pct": 20.0,
@@ -98,6 +100,7 @@
   "safe_backtest_end": "2026-06-09",
   "source_paths": {
     "market": "data/processed/panels/soxl_soxx_vix_full.csv",
+    "model:balanced_rule_residual_v19_moe_v2": "dashboard_data/versioned/balanced_rule_residual_v19_moe_v2/SOXL.json",
     "model:soxl_backtest_policy_reimplementation_v1": "runtime/production/card/soxl_backtest_policy_reimplementation_v1/new_policy_daily.csv",
     "model_replay_freshness": "dashboard_data/model_replay_freshness.json"
   }
