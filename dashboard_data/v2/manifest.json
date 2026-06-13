@@ -1,0 +1,28 @@
+{
+  "available_profiles": [
+    "balanced",
+    "balanced_macro_v1",
+    "balanced_rule_residual_imitation_v4",
+    "balanced_rule_residual_v19",
+    "balanced_rule_residual_v19_reg",
+    "balanced_rule_residual_v19_reg_light",
+    "balanced_rule_residual_v19_reg_v22_retest_v1",
+    "balanced_rule_residual_v22",
+    "drawdown_rebound_reward_train_v1",
+    "mode_conditioned_rebound_reward_train_v2",
+    "smoke",
+    "state_conditioned_drawdown_rebound_reward_train_v1"
+  ],
+  "default_baseline_profile": "balanced_rule_residual_v22",
+  "default_comparison_profiles": [
+    "smoke",
+    "balanced_rule_residual_v22"
+  ],
+  "generated_at": "2026-06-13T08:55:22.386615+00:00",
+  "latest_market_date": "2026-06-12",
+  "safe_backtest_end": "2026-06-11",
+  "source_paths": {
+    "market": "data/processed/panels/soxl_soxx_vix_full.csv",
+    "model_replay_freshness": "dashboard_data/model_replay_freshness.json"
+  }
+}
