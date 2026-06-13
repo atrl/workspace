@@ -1,28 +1,28 @@
 {
   "url": "http://127.0.0.1:5173/",
-  "desktop_nonwhite_ratio": 0.9992270413688542,
+  "desktop_nonwhite_ratio": 0.9992260355671221,
   "mobile_nonwhite_ratio": 0.9983261615819755,
   "canvas_count": 21,
   "canvas_nonblank_max": 1,
   "canvas_stats": [
     {
       "width": 1036,
-      "height": 700,
+      "height": 698,
       "nonblankRatio": 1
     },
     {
       "width": 1036,
-      "height": 700,
+      "height": 698,
       "nonblankRatio": 0
     },
     {
       "width": 62,
-      "height": 700,
+      "height": 698,
       "nonblankRatio": 1
     },
     {
       "width": 62,
-      "height": 700,
+      "height": 698,
       "nonblankRatio": 0
     },
     {
@@ -119,6 +119,5 @@
     "safe_backtest_end",
     "Model Difference"
   ],
-  "missing_text": [],
-  "chart_text": "SOXL\nTradingView-like replay review\nBUY\nSELL\nPosition\n\t\n\t\n\n\t\n\t\nPosition\n\t\n\t\n\n\t\n\t\nNAV\n\t\n\t\n\n\t\n\t"
+  "missing_text": []
 }

@@ -22,14 +22,6 @@ function eventDate(param: MouseEventParams<Time>): string | null {
   return `${param.time.year}-${String(param.time.month).padStart(2, '0')}-${String(param.time.day).padStart(2, '0')}`;
 }
 
-function resizeChart(container: HTMLElement, chart: IChartApi, fallbackHeight: number): void {
-  const resize = () => {
-    chart.resize(container.clientWidth || 800, container.clientHeight || fallbackHeight);
-  };
-  resize();
-  new ResizeObserver(resize).observe(container);
-}
-
 export interface ChartHandles {
   chart: IChartApi;
   primarySeries: ISeriesApi<'Candlestick'> | ISeriesApi<'Line'>;
@@ -44,7 +36,6 @@ export function renderMarketChart(
   container.replaceChildren();
   const chart = createChart(container, {
     autoSize: true,
-    height: container.clientHeight || 480,
     layout: { background: { color: '#111827' }, textColor: '#d1d5db' },
     grid: { vertLines: { color: '#253044' }, horzLines: { color: '#253044' } },
     rightPriceScale: { borderColor: '#374151' },
@@ -82,7 +73,6 @@ export function renderMarketChart(
     const date = eventDate(param);
     if (date) onDate(date);
   });
-  resizeChart(container, chart, 480);
   chart.timeScale().fitContent();
   return { chart, primarySeries: candleSeries };
 }
@@ -91,7 +81,6 @@ export function renderPositionChart(container: HTMLElement, model: ModelPayload)
   container.replaceChildren();
   const chart = createChart(container, {
     autoSize: true,
-    height: container.clientHeight || 180,
     layout: { background: { color: '#0b1220' }, textColor: '#d1d5db' },
     grid: { vertLines: { color: '#1f2937' }, horzLines: { color: '#1f2937' } },
     rightPriceScale: { borderColor: '#374151' },
@@ -99,7 +88,6 @@ export function renderPositionChart(container: HTMLElement, model: ModelPayload)
   });
   const line = chart.addSeries(LineSeries, { color: '#38bdf8', lineWidth: 2 });
   line.setData(model.rows.map((row) => ({ time: toTime(row.date), value: row.position })));
-  resizeChart(container, chart, 180);
   chart.timeScale().fitContent();
   return { chart, primarySeries: line };
 }
@@ -108,7 +96,6 @@ export function renderNavChart(container: HTMLElement, models: Record<string, Mo
   container.replaceChildren();
   const chart = createChart(container, {
     autoSize: true,
-    height: container.clientHeight || 220,
     layout: { background: { color: '#0b1220' }, textColor: '#d1d5db' },
     grid: { vertLines: { color: '#1f2937' }, horzLines: { color: '#1f2937' } },
     rightPriceScale: { borderColor: '#374151' },
@@ -119,7 +106,6 @@ export function renderNavChart(container: HTMLElement, models: Record<string, Mo
     const series = chart.addSeries(LineSeries, { color: colors[index % colors.length], lineWidth: 2, title: profile });
     series.setData(model.rows.map((row) => ({ time: toTime(row.date), value: row.strategy_nav })));
   });
-  resizeChart(container, chart, 220);
   chart.timeScale().fitContent();
   return chart;
 }
