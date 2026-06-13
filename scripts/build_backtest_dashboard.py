@@ -2453,6 +2453,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
 <body>
   <div class="shell">
     <div class="jump-links" style="margin-bottom:18px;">
+      <a class="badge" href="dashboard_v2.html">Dashboard V2</a>
       <a class="badge" href="#researchBacktests">Research Backtests</a>
       <a class="badge" href="#mainChart">Main Chart</a>
       <a class="badge" href="#tradeStats">Trade Quality</a>

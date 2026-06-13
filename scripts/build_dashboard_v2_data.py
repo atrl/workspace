@@ -24,6 +24,11 @@ def main() -> int:
     )
     parser.add_argument("--profile", action="append", dest="profiles", help="Profile to include; may be repeated.")
     parser.add_argument("--baseline", help="Baseline profile for comparison.")
+    parser.add_argument(
+        "--detect-launchd",
+        action="store_true",
+        help="Read launchctl/LaunchAgents status so auto_update tasks distinguish configured from loaded.",
+    )
     args = parser.parse_args()
 
     result = build_dashboard_v2_data(
@@ -32,6 +37,7 @@ def main() -> int:
         freshness_path=args.freshness_path or args.root / "dashboard_data" / "model_replay_freshness.json",
         selected_profiles=args.profiles,
         baseline_profile=args.baseline,
+        detect_launchd=args.detect_launchd,
     )
     print(f"dashboard_v2_data={result.output_dir}")
     print(f"manifest={result.manifest_path}")

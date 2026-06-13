@@ -1,7 +1,11 @@
 from __future__ import annotations
 
 import json
+import os
 import pickle
+import platform
+import shutil
+import subprocess
 from dataclasses import dataclass
 from datetime import datetime, timezone
 import hashlib
@@ -24,6 +28,11 @@ SOXL_BACKTEST_REFERENCE_DAILY = (
 MODEL_RETENTION_GATE_SUMMARY = (
     "runtime/model_selection/card/model_retention_walkforward_gate_v1/summary.json"
 )
+DASHBOARD_TASK_LABELS = {
+    "preopen": "com.soxl.preopen.scheduler",
+    "postclose": "com.soxl.daily.scheduler",
+    "dashboard_refresh": "com.soxl.dashboard.refresh",
+}
 MODEL_DATE_FIELDS = ("datetime", "date")
 REQUIRED_MODEL_FIELDS = ("strategy_nav", "buyhold_nav", "position", "action", "price")
 ACTION_VALUES = {"BUY", "SELL", "HOLD"}
@@ -319,6 +328,101 @@ def _json_feature_value(value: object) -> str | int | float | bool | None:
     return str(value)
 
 
+def _feature_summary_number(value: object) -> float | None:
+    if value is None:
+        return None
+    if isinstance(value, bool):
+        return float(value)
+    if isinstance(value, np.generic):
+        value = value.item()
+    try:
+        number = float(value)
+    except (TypeError, ValueError):
+        return None
+    if not np.isfinite(number):
+        return None
+    return number
+
+
+def build_feature_action_summary(
+    rows: list[dict[str, Any]],
+    *,
+    feature_columns: list[str],
+) -> list[dict[str, Any]]:
+    ordered_columns = _dedupe_preserve_order([str(column) for column in feature_columns])
+    stats: dict[str, dict[str, list[float]]] = {
+        column: {"BUY": [], "SELL": []}
+        for column in ordered_columns
+    }
+    for row in rows:
+        action = str(row.get("action") or "").upper()
+        if action not in {"BUY", "SELL"}:
+            continue
+        snapshot = row.get("feature_snapshot")
+        if not isinstance(snapshot, dict):
+            continue
+        for column in ordered_columns:
+            value = _feature_summary_number(snapshot.get(column))
+            if value is not None:
+                stats[column][action].append(value)
+
+    summary: list[dict[str, Any]] = []
+    for column in ordered_columns:
+        buy_values = stats[column]["BUY"]
+        sell_values = stats[column]["SELL"]
+        if not buy_values and not sell_values:
+            continue
+        buy_mean = float(np.mean(buy_values)) if buy_values else None
+        sell_mean = float(np.mean(sell_values)) if sell_values else None
+        buy_minus_sell = buy_mean - sell_mean if buy_mean is not None and sell_mean is not None else None
+        summary.append(
+            {
+                "feature": column,
+                "buy_count": len(buy_values),
+                "sell_count": len(sell_values),
+                "buy_mean": buy_mean,
+                "sell_mean": sell_mean,
+                "buy_minus_sell": buy_minus_sell,
+            }
+        )
+    return sorted(
+        summary,
+        key=lambda row: (
+            -abs(float(row["buy_minus_sell"])) if row.get("buy_minus_sell") is not None else 0.0,
+            str(row["feature"]),
+        ),
+    )
+
+
+def _launchagent_loaded_labels(*, detect_launchd: bool) -> set[str] | None:
+    if not detect_launchd:
+        return None
+    output = os.environ.get("SOXL_DASHBOARD_V2_LAUNCHCTL_LIST")
+    if output is None:
+        if platform.system() != "Darwin" or shutil.which("launchctl") is None:
+            return None
+        try:
+            completed = subprocess.run(
+                ["launchctl", "list"],
+                check=False,
+                capture_output=True,
+                text=True,
+                timeout=5,
+            )
+        except (OSError, subprocess.TimeoutExpired):
+            return None
+        output = completed.stdout
+    labels = set(DASHBOARD_TASK_LABELS.values())
+    return {label for label in labels if label in output}
+
+
+def _launchagents_dir() -> Path:
+    override = os.environ.get("SOXL_DASHBOARD_V2_LAUNCHAGENTS_DIR")
+    if override:
+        return Path(override).expanduser()
+    return Path.home() / "Library" / "LaunchAgents"
+
+
 def _feature_frame_to_rows(frame: pd.DataFrame, columns: list[str]) -> FeatureRowsByDate:
     if isinstance(frame.index, pd.MultiIndex):
         if "instrument" in frame.index.names:
@@ -397,7 +501,13 @@ def _attach_row_feature_snapshots(
     return enriched
 
 
-def _auto_update_status(root: Path, freshness: dict[str, Any], freshness_path: Path) -> dict[str, Any]:
+def _auto_update_status(
+    root: Path,
+    freshness: dict[str, Any],
+    freshness_path: Path,
+    *,
+    detect_launchd: bool,
+) -> dict[str, Any]:
     cron_path = root / "production" / "crontab.txt"
     preopen_plist = root / "production" / "com.soxl.preopen.scheduler.plist"
     postclose_plist = root / "production" / "com.soxl.daily.scheduler.plist"
@@ -405,36 +515,68 @@ def _auto_update_status(root: Path, freshness: dict[str, Any], freshness_path: P
     scheduler = root / "production" / "run_soxl_scheduler.sh"
     dashboard_refresh = root / "production" / "run_dashboard_refresh.sh"
     cron_text = cron_path.read_text(encoding="utf-8") if cron_path.exists() else ""
+    loaded_labels = _launchagent_loaded_labels(detect_launchd=detect_launchd)
+    launchagents_dir = _launchagents_dir()
+    launchd_detected = loaded_labels is not None
+
+    def _task(
+        *,
+        name: str,
+        configured: bool,
+        schedule: str,
+        source_path: Path,
+        log_path: str,
+        command_path: Path,
+    ) -> dict[str, Any]:
+        label = DASHBOARD_TASK_LABELS[name]
+        installed = (launchagents_dir / f"{label}.plist").exists()
+        loaded = label in loaded_labels if loaded_labels is not None else None
+        enabled = configured if loaded is None else bool(configured and loaded)
+        return {
+            "name": name,
+            "label": label,
+            "configured": bool(configured),
+            "installed": bool(installed),
+            "loaded": loaded,
+            "enabled": enabled,
+            "schedule": schedule,
+            "source_path": _relative_to(root, source_path),
+            "log_path": log_path,
+            "command_path": _relative_to(root, command_path),
+        }
+
     tasks = [
-        {
-            "name": "preopen",
-            "enabled": preopen_plist.exists() or "schedule-slot preopen" in cron_text,
-            "schedule": "21:00 Mon-Fri Asia/Shanghai",
-            "source_path": _relative_to(root, preopen_plist if preopen_plist.exists() else cron_path),
-            "log_path": "runtime/soxl/paper_trading/scheduler_preopen.log",
-            "command_path": _relative_to(root, scheduler),
-        },
-        {
-            "name": "postclose",
-            "enabled": postclose_plist.exists() or "schedule-slot postclose" in cron_text,
-            "schedule": "06:15 Tue-Sat Asia/Shanghai",
-            "source_path": _relative_to(root, postclose_plist if postclose_plist.exists() else cron_path),
-            "log_path": "runtime/soxl/paper_trading/scheduler_postclose.log",
-            "command_path": _relative_to(root, scheduler),
-        },
-        {
-            "name": "dashboard_refresh",
-            "enabled": dashboard_refresh.exists()
+        _task(
+            name="preopen",
+            configured=preopen_plist.exists() or "schedule-slot preopen" in cron_text,
+            schedule="21:00 Mon-Fri Asia/Shanghai",
+            source_path=preopen_plist if preopen_plist.exists() else cron_path,
+            log_path="runtime/soxl/paper_trading/scheduler_preopen.log",
+            command_path=scheduler,
+        ),
+        _task(
+            name="postclose",
+            configured=postclose_plist.exists() or "schedule-slot postclose" in cron_text,
+            schedule="06:15 Tue-Sat Asia/Shanghai",
+            source_path=postclose_plist if postclose_plist.exists() else cron_path,
+            log_path="runtime/soxl/paper_trading/scheduler_postclose.log",
+            command_path=scheduler,
+        ),
+        _task(
+            name="dashboard_refresh",
+            configured=dashboard_refresh.exists()
             and (dashboard_refresh_plist.exists() or "dashboard_refresh.log" in cron_text),
-            "schedule": "06:30 Tue-Sat Asia/Shanghai",
-            "source_path": _relative_to(root, dashboard_refresh_plist if dashboard_refresh_plist.exists() else cron_path),
-            "log_path": "runtime/soxl/paper_trading/dashboard_refresh.log",
-            "command_path": _relative_to(root, dashboard_refresh),
-        },
+            schedule="06:30 Tue-Sat Asia/Shanghai",
+            source_path=dashboard_refresh_plist if dashboard_refresh_plist.exists() else cron_path,
+            log_path="runtime/soxl/paper_trading/dashboard_refresh.log",
+            command_path=dashboard_refresh,
+        ),
     ]
     return {
-        "configured": any(bool(task["enabled"]) for task in tasks),
+        "configured": any(bool(task["configured"]) for task in tasks),
         "timezone": "Asia/Shanghai",
+        "launchd_detected": launchd_detected,
+        "launchagents_dir": str(launchagents_dir),
         "tasks": tasks,
         "model_replay_freshness": {
             "generated_at": freshness.get("generated_at"),
@@ -803,6 +945,7 @@ def build_dashboard_v2_data(
     model_feature_rows_by_profile: FeatureRowsByProfile | None = None,
     selected_profiles: list[str] | None = None,
     baseline_profile: str | None = None,
+    detect_launchd: bool = False,
 ) -> DashboardV2Result:
     root = root.resolve()
     output_dir = output_dir.resolve()
@@ -903,6 +1046,10 @@ def build_dashboard_v2_data(
             "replay_end": rows[-1]["date"],
             "row_count": len(rows),
             "rows": enriched_rows,
+            "feature_action_summary": build_feature_action_summary(
+                enriched_rows,
+                feature_columns=snapshot_columns,
+            ),
             "events": _derive_model_events_with_features(
                 rows,
                 market_rows_by_date=market_rows_by_date,
@@ -941,7 +1088,12 @@ def build_dashboard_v2_data(
         "default_chart_profile": default_chart_profile,
         "default_comparison_profiles": defaults,
         "model_retention_gate": _model_retention_gate_manifest(retention_gate),
-        "auto_update": _auto_update_status(root, freshness, freshness_path),
+        "auto_update": _auto_update_status(
+            root,
+            freshness,
+            freshness_path,
+            detect_launchd=detect_launchd,
+        ),
         "source_paths": {
             "model_replay_freshness": _relative_to(root, freshness_path),
             "market": "data/processed/panels/soxl_soxx_vix_full.csv",

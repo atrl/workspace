@@ -8,6 +8,7 @@ OS_NAME="${SOXL_SCHEDULER_HEALTH_OS:-$(uname -s)}"
 HEALTH_PYTHON="${SOXL_SCHEDULER_HEALTH_PYTHON:-${ROOT}/qlib_venv/bin/python}"
 SCHEDULER_LABEL="com.soxl.daily.scheduler"
 PREOPEN_SCHEDULER_LABEL="com.soxl.preopen.scheduler"
+DASHBOARD_REFRESH_LABEL="com.soxl.dashboard.refresh"
 WEEKLY_WF_SCHEDULER_LABEL="com.soxl.weekly.wf"
 LAUNCHAGENTS_DIR="${SOXL_SCHEDULER_HEALTH_LAUNCHAGENTS_DIR:-${HOME:-}/Library/LaunchAgents}"
 LAUNCH_ENV_FILE="${SOXL_LAUNCH_ENV_FILE:-${HOME:-}/.openclaw/soxl.env}"
@@ -492,7 +493,7 @@ print_scheduler_service() {
             return
         fi
         launchctl_output=$(launchctl list 2>/dev/null || true)
-        for label in "$PREOPEN_SCHEDULER_LABEL" "$SCHEDULER_LABEL" "$WEEKLY_WF_SCHEDULER_LABEL"; do
+        for label in "$PREOPEN_SCHEDULER_LABEL" "$SCHEDULER_LABEL" "$DASHBOARD_REFRESH_LABEL" "$WEEKLY_WF_SCHEDULER_LABEL"; do
             if printf "%s\n" "$launchctl_output" | grep -q "$label"; then
                 echo "  LaunchAgent ${label}: loaded"
             else
@@ -1375,6 +1376,7 @@ print_next_runs() {
     echo "--- Next Scheduled Runs ---"
     echo "  pre-open: $(next_run_day_label preopen 2100) 21:00 Mon-Fri Asia/Shanghai — US pre-open dry-run + dashboard + Vercel deploy attempt"
     echo "  post-close: $(next_run_day_label postclose "$POSTCLOSE_HHMM") ${POSTCLOSE_TIME_LABEL} Tue-Sat Asia/Shanghai — US post-close data + ${SCHEDULER_BROKER} simulated trading + dashboard + Vercel deploy attempt"
+    echo "  dashboard-refresh: $(next_run_day_label postclose 0630) 06:30 Tue-Sat Asia/Shanghai — model replay refresh + dashboard artifacts"
     echo "  weekly: $(next_run_day_label weekly 0700) 07:00 Sat Asia/Shanghai — weekly walk-forward after post-close refresh"
 }
 
@@ -1474,7 +1476,7 @@ echo ""
 
 # 检查日志文件
 echo "--- Log Files ---"
-for log in runtime/soxl/paper_trading/scheduler_preopen.log runtime/soxl/paper_trading/scheduler_preopen.err runtime/soxl/paper_trading/scheduler_postclose.log runtime/soxl/paper_trading/scheduler_postclose.err runtime/soxl/wf_weekly.log runtime/soxl/wf_weekly.err; do
+for log in runtime/soxl/paper_trading/scheduler_preopen.log runtime/soxl/paper_trading/scheduler_preopen.err runtime/soxl/paper_trading/scheduler_postclose.log runtime/soxl/paper_trading/scheduler_postclose.err runtime/soxl/paper_trading/dashboard_refresh.log runtime/soxl/paper_trading/dashboard_refresh.err runtime/soxl/wf_weekly.log runtime/soxl/wf_weekly.err; do
     path="${ROOT}/${log}"
     if [ -f "$path" ]; then
         size=$(file_size "$path")

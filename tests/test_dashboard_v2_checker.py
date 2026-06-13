@@ -21,6 +21,7 @@ def _model_contract(**overrides: object) -> dict[str, object]:
         "runnable": True,
         "feature_columns": [],
         "snapshot_columns": [],
+        "feature_action_summary": [],
         "rows": [
             {
                 "date": "2026-01-06",

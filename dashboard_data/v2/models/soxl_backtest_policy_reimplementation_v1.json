@@ -123,6 +123,96 @@
       "price": 182.54
     }
   ],
+  "feature_action_summary": [
+    {
+      "buy_count": 2,
+      "buy_mean": -112.65178734422436,
+      "buy_minus_sell": -212.26729613914443,
+      "feature": "panic_score",
+      "sell_count": 1,
+      "sell_mean": 99.61550879492006
+    },
+    {
+      "buy_count": 2,
+      "buy_mean": 111.57999946594238,
+      "buy_minus_sell": -106.39999626159666,
+      "feature": "close",
+      "sell_count": 1,
+      "sell_mean": 217.97999572753903
+    },
+    {
+      "buy_count": 2,
+      "buy_mean": 139.3541003051758,
+      "buy_minus_sell": -103.30590335693356,
+      "feature": "open",
+      "sell_count": 1,
+      "sell_mean": 242.66000366210935
+    },
+    {
+      "buy_count": 2,
+      "buy_mean": 140.99000045776367,
+      "buy_minus_sell": -101.67000320434568,
+      "feature": "high",
+      "sell_count": 1,
+      "sell_mean": 242.66000366210935
+    },
+    {
+      "buy_count": 2,
+      "buy_mean": 110.66500022888184,
+      "buy_minus_sell": -93.33499977111816,
+      "feature": "low",
+      "sell_count": 1,
+      "sell_mean": 204.0
+    },
+    {
+      "buy_count": 2,
+      "buy_mean": 17.864569469005723,
+      "buy_minus_sell": -58.80833160380683,
+      "feature": "rsi6",
+      "sell_count": 1,
+      "sell_mean": 76.67290107281255
+    },
+    {
+      "buy_count": 2,
+      "buy_mean": 26.06000030517578,
+      "buy_minus_sell": 9.769999389648437,
+      "feature": "vix",
+      "sell_count": 1,
+      "sell_mean": 16.290000915527344
+    },
+    {
+      "buy_count": 2,
+      "buy_mean": 58.02638879712423,
+      "buy_minus_sell": -6.928999931547381,
+      "feature": "ma180",
+      "sell_count": 1,
+      "sell_mean": 64.95538872867161
+    },
+    {
+      "buy_count": 2,
+      "buy_mean": 0.5,
+      "buy_minus_sell": -0.5,
+      "feature": "market_state",
+      "sell_count": 1,
+      "sell_mean": 1.0
+    },
+    {
+      "buy_count": 2,
+      "buy_mean": 1.6013656101412597,
+      "buy_minus_sell": 0.20270112589010436,
+      "feature": "hv_20",
+      "sell_count": 1,
+      "sell_mean": 1.3986644842511553
+    },
+    {
+      "buy_count": 2,
+      "buy_mean": 1.869849642759557,
+      "buy_minus_sell": -0.04468274108170234,
+      "feature": "vol_coef",
+      "sell_count": 1,
+      "sell_mean": 1.9145323838412593
+    }
+  ],
   "feature_columns": [
     "open",
     "high",

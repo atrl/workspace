@@ -164,6 +164,7 @@ def test_scheduler_health_reports_macos_launchagent_and_logs():
     assert "--- Scheduler Service ---" in result.stdout
     assert "LaunchAgent com.soxl.preopen.scheduler: loaded" in result.stdout
     assert "LaunchAgent com.soxl.daily.scheduler: loaded" in result.stdout
+    assert "LaunchAgent com.soxl.dashboard.refresh: not loaded" in result.stdout
     assert "LaunchAgent com.soxl.weekly.wf: loaded" in result.stdout
     assert "scheduler_preopen: [scheduler] all done" in result.stdout
     assert "wf_weekly: [weekly-wf] all done" in result.stdout

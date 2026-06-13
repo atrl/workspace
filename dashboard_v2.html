@@ -1,0 +1,645 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>SOXL Dashboard V2</title>
+  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+  <style>
+    :root {
+      --bg: #f7f8fb;
+      --panel: #ffffff;
+      --ink: #172033;
+      --muted: #677083;
+      --line: #d9e0ea;
+      --blue: #2563eb;
+      --green: #0f766e;
+      --red: #b91c1c;
+      --amber: #b7791f;
+      --soft-blue: #eef4ff;
+      --soft-green: #e9f7f4;
+      --soft-red: #fceeee;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      letter-spacing: 0;
+    }
+    .shell { max-width: 1480px; margin: 0 auto; padding: 20px; }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 14px;
+    }
+    h1 { margin: 0 0 6px; font-size: 24px; font-weight: 720; }
+    .sub { color: var(--muted); font-size: 13px; }
+    .toolbar {
+      display: grid;
+      grid-template-columns: minmax(220px, 1.4fr) minmax(220px, 1.4fr) 150px 150px auto auto;
+      gap: 10px;
+      align-items: end;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 14px;
+    }
+    label { display: grid; gap: 4px; color: var(--muted); font-size: 12px; font-weight: 650; }
+    select, input, button {
+      min-height: 34px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #fff;
+      color: var(--ink);
+      font: inherit;
+      padding: 6px 9px;
+    }
+    button {
+      cursor: pointer;
+      font-weight: 700;
+      background: var(--soft-blue);
+      color: var(--blue);
+      border-color: #c8d8ff;
+    }
+    button.secondary { background: #fff; color: var(--ink); }
+    .status-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .status, .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+    }
+    .status { padding: 12px; min-height: 78px; }
+    .k { color: var(--muted); font-size: 12px; font-weight: 700; text-transform: uppercase; }
+    .v { margin-top: 6px; font-size: 18px; font-weight: 760; overflow-wrap: anywhere; }
+    .meta { margin-top: 4px; color: var(--muted); font-size: 12px; overflow-wrap: anywhere; }
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 360px;
+      gap: 14px;
+      align-items: start;
+    }
+    .panel { padding: 12px; }
+    .panel h2 { margin: 0 0 10px; font-size: 15px; }
+    #mainChart { width: 100%; height: 720px; }
+    .side { display: grid; gap: 14px; }
+    .task-row, .info-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 7px 0;
+      border-top: 1px solid var(--line);
+      font-size: 13px;
+    }
+    .task-row:first-child, .info-row:first-child { border-top: 0; }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 22px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 750;
+      border: 1px solid var(--line);
+      background: #fff;
+      white-space: nowrap;
+    }
+    .good { color: var(--green); }
+    .bad { color: var(--red); }
+    .warn { color: var(--amber); }
+    .pill.good { background: var(--soft-green); border-color: #bde6dd; }
+    .pill.bad { background: var(--soft-red); border-color: #f3c6c6; }
+    .pill.warn { background: #fff8e7; border-color: #eed49d; }
+    .table-wrap { overflow: auto; border: 1px solid var(--line); border-radius: 8px; }
+    table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    th, td { padding: 7px 8px; border-bottom: 1px solid var(--line); text-align: right; white-space: nowrap; }
+    th:first-child, td:first-child { text-align: left; }
+    th { color: var(--muted); font-weight: 760; background: #fbfcfe; position: sticky; top: 0; z-index: 1; }
+    tr:last-child td { border-bottom: 0; }
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+    .features { max-height: 340px; overflow: auto; }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 14px;
+      margin-top: 14px;
+    }
+    .error {
+      display: none;
+      margin-bottom: 14px;
+      padding: 10px 12px;
+      border: 1px solid #f3c6c6;
+      border-radius: 8px;
+      background: var(--soft-red);
+      color: var(--red);
+      font-size: 13px;
+    }
+    @media (max-width: 1000px) {
+      .toolbar, .status-grid, .layout, .footer-grid { grid-template-columns: 1fr; }
+      #mainChart { height: 620px; }
+      header { display: block; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header>
+      <div>
+        <h1>SOXL Dashboard V2</h1>
+        <div class="sub" id="buildMeta">Loading</div>
+      </div>
+      <div class="sub mono" id="dataMeta"></div>
+    </header>
+
+    <div class="error" id="errorBox"></div>
+
+    <section class="toolbar" aria-label="Controls">
+      <label>Model
+        <select id="modelSelect"></select>
+      </label>
+      <label>Baseline
+        <select id="baselineSelect"></select>
+      </label>
+      <label>Start
+        <input id="startDate" type="date">
+      </label>
+      <label>End
+        <input id="endDate" type="date">
+      </label>
+      <button id="applyBtn" type="button">Apply</button>
+      <button id="resetBtn" class="secondary" type="button">Reset</button>
+    </section>
+
+    <section class="status-grid" id="summaryCards"></section>
+
+    <section class="layout">
+      <div class="panel">
+        <h2>Main Chart</h2>
+        <div id="mainChart"></div>
+      </div>
+      <aside class="side">
+        <div class="panel">
+          <h2>Auto Update</h2>
+          <div id="autoUpdateTasks"></div>
+        </div>
+        <div class="panel">
+          <h2>Hover</h2>
+          <div id="hoverInfo" class="sub">Move over the chart.</div>
+          <div id="hoverFeatures" class="features"></div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="footer-grid">
+      <div class="panel">
+        <h2>BUY vs SELL Features</h2>
+        <div class="table-wrap">
+          <table id="featureActionTable"></table>
+        </div>
+      </div>
+      <div class="panel">
+        <h2>Model Ranking</h2>
+        <div class="table-wrap">
+          <table id="rankingTable"></table>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const BASE = 'dashboard_data/v2';
+    const MANIFEST_PATH = 'dashboard_data/v2/manifest.json';
+    const MARKET_PATH = 'dashboard_data/v2/market/SOXL.json';
+    const COMPARISON_PATH = 'dashboard_data/v2/comparison/default.json';
+    const state = { profile: '', baseline: '', start: '', end: '' };
+    const cache = { models: new Map() };
+    let manifest = null;
+    let market = null;
+    let comparison = null;
+
+    const $ = id => document.getElementById(id);
+    const fmt = (value, digits = 2) => {
+      const n = Number(value);
+      if (!Number.isFinite(n)) return 'n/a';
+      return n.toLocaleString(undefined, { maximumFractionDigits: digits, minimumFractionDigits: digits });
+    };
+    const pct = value => {
+      const n = Number(value);
+      if (!Number.isFinite(n)) return 'n/a';
+      return `${fmt(n * 100, 2)}%`;
+    };
+    const esc = value => String(value == null ? '' : value)
+      .replaceAll('&', '&amp;')
+      .replaceAll('<', '&lt;')
+      .replaceAll('>', '&gt;')
+      .replaceAll('"', '&quot;')
+      .replaceAll("'", '&#39;');
+
+    async function loadJson(path) {
+      const response = await fetch(path, { cache: 'no-store' });
+      if (!response.ok) throw new Error(`${path}: HTTP ${response.status}`);
+      return response.json();
+    }
+
+    async function loadModel(profile) {
+      if (cache.models.has(profile)) return cache.models.get(profile);
+      const payload = await loadJson(`${BASE}/models/${profile}.json`);
+      cache.models.set(profile, payload);
+      return payload;
+    }
+
+    function marketByDate() {
+      return new Map((market.rows || []).map(row => [row.date, row]));
+    }
+
+    function mergedRows(model) {
+      const byDate = marketByDate();
+      return (model.rows || []).map(row => {
+        const m = byDate.get(row.date) || {};
+        return { ...m, ...row };
+      });
+    }
+
+    function filteredRows(rows) {
+      return rows.filter(row => {
+        if (state.start && row.date < state.start) return false;
+        if (state.end && row.date > state.end) return false;
+        return true;
+      });
+    }
+
+    function rowDateRange(rows) {
+      if (!rows.length) return { start: '', end: '' };
+      return { start: rows[0].date, end: rows[rows.length - 1].date };
+    }
+
+    function populateSelects() {
+      const profiles = manifest.available_profiles || [];
+      for (const select of [$('modelSelect'), $('baselineSelect')]) {
+        select.innerHTML = profiles.map(profile => `<option value="${esc(profile)}">${esc(profile)}</option>`).join('');
+      }
+      state.profile = manifest.default_chart_profile || profiles[0] || '';
+      state.baseline = manifest.default_baseline_profile || profiles[0] || '';
+      state.start = comparison.common_start || '';
+      state.end = comparison.common_end || '';
+      $('modelSelect').value = state.profile;
+      $('baselineSelect').value = state.baseline;
+      $('startDate').value = state.start;
+      $('endDate').value = state.end;
+    }
+
+    function taskTone(task) {
+      if (task.loaded === false) return 'bad';
+      if (task.loaded === true && task.configured) return 'good';
+      if (task.configured) return 'warn';
+      return 'bad';
+    }
+
+    function renderAutoUpdate() {
+      const auto = manifest.auto_update || {};
+      const tasks = auto.tasks || [];
+      $('autoUpdateTasks').innerHTML = tasks.map(task => {
+        const loaded = task.loaded === null || task.loaded === undefined ? 'unknown' : (task.loaded ? 'loaded' : 'not loaded');
+        const installed = task.installed ? 'installed' : 'not installed';
+        return `
+          <div class="task-row">
+            <div>
+              <strong>${esc(task.name)}</strong>
+              <div class="meta">${esc(task.schedule || '')}</div>
+              <div class="meta mono">${esc(task.command_path || '')}</div>
+            </div>
+            <div style="text-align:right;display:grid;gap:4px;justify-items:end;">
+              <span class="pill ${taskTone(task)}">${esc(loaded)}</span>
+              <span class="meta">${esc(installed)}</span>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function computeWindowMetrics(rows) {
+      if (!rows.length) {
+        return { return: null, buyhold_return: null, max_drawdown: null, avg_position: null };
+      }
+      const first = rows[0];
+      const last = rows[rows.length - 1];
+      const startNav = Number(first.strategy_nav) || 0;
+      const endNav = Number(last.strategy_nav) || 0;
+      const startBuyhold = Number(first.buyhold_nav) || 0;
+      const endBuyhold = Number(last.buyhold_nav) || 0;
+      let peak = startNav;
+      let maxDrawdown = 0;
+      let positionSum = 0;
+      for (const row of rows) {
+        const nav = Number(row.strategy_nav) || 0;
+        peak = Math.max(peak, nav);
+        if (peak > 0) maxDrawdown = Math.min(maxDrawdown, nav / peak - 1);
+        positionSum += Number(row.position) || 0;
+      }
+      return {
+        return: startNav ? endNav / startNav - 1 : null,
+        buyhold_return: startBuyhold ? endBuyhold / startBuyhold - 1 : null,
+        max_drawdown: maxDrawdown,
+        avg_position: positionSum / rows.length,
+      };
+    }
+
+    function renderCards(model, baseline, rows) {
+      const range = rowDateRange(rows);
+      const metrics = computeWindowMetrics(rows);
+      const gate = model.retention_gate_pass ? 'PASS' : 'FAIL';
+      const failures = (model.retention_failures || []).slice(0, 3).join(', ') || model.retention_decision || '';
+      const baselineName = baseline ? baseline.profile : state.baseline;
+      const cards = [
+        { k: 'Window Return', v: pct(metrics.return), meta: `${range.start} to ${range.end}` },
+        { k: 'Window BuyHold', v: pct(metrics.buyhold_return), meta: `Baseline ${baselineName}` },
+        { k: 'Max Drawdown', v: pct(metrics.max_drawdown), meta: `Average position ${fmt(metrics.avg_position, 3)}` },
+        { k: 'Retention Gate', v: gate, meta: failures },
+      ];
+      $('summaryCards').innerHTML = cards.map(card => `
+        <div class="status">
+          <div class="k">${esc(card.k)}</div>
+          <div class="v">${esc(card.v)}</div>
+          <div class="meta">${esc(card.meta)}</div>
+        </div>
+      `).join('');
+    }
+
+    function renderFeatureActionTable(model) {
+      const rows = model.feature_action_summary || [];
+      if (!rows.length) {
+        $('featureActionTable').innerHTML = '<tr><th>No BUY/SELL feature rows</th></tr>';
+        return;
+      }
+      const body = rows.slice(0, 30).map(row => {
+        const delta = row.buy_minus_sell;
+        const cls = Number(delta) >= 0 ? 'good' : 'bad';
+        return `
+          <tr>
+            <td class="mono">${esc(row.feature)}</td>
+            <td>${fmt(row.buy_mean, 4)}</td>
+            <td>${fmt(row.sell_mean, 4)}</td>
+            <td class="${cls}">${fmt(delta, 4)}</td>
+            <td>${esc(row.buy_count)}</td>
+            <td>${esc(row.sell_count)}</td>
+          </tr>
+        `;
+      }).join('');
+      $('featureActionTable').innerHTML = `
+        <tr><th>Feature</th><th>BUY mean</th><th>SELL mean</th><th>BUY minus SELL</th><th>BUY n</th><th>SELL n</th></tr>
+        ${body}
+      `;
+    }
+
+    function renderRanking() {
+      const rows = comparison.rankings || [];
+      const body = rows.map((row, idx) => `
+        <tr>
+          <td>${idx + 1}</td>
+          <td class="mono">${esc(row.profile)}</td>
+          <td>${pct(row.return)}</td>
+          <td>${pct(row.buyhold_return)}</td>
+          <td>${pct(row.excess_return)}</td>
+          <td>${pct(row.max_drawdown)}</td>
+          <td>${fmt(row.avg_position, 3)}</td>
+        </tr>
+      `).join('');
+      $('rankingTable').innerHTML = `
+        <tr><th>#</th><th>Profile</th><th>Return</th><th>BuyHold</th><th>Excess</th><th>MaxDD</th><th>Avg Pos</th></tr>
+        ${body}
+      `;
+    }
+
+    function updateHover(row, model) {
+      if (!row) return;
+      $('hoverInfo').innerHTML = `
+        <div class="info-row"><span>Date</span><strong class="mono">${esc(row.date)}</strong></div>
+        <div class="info-row"><span>Action</span><strong>${esc(row.action || 'HOLD')}</strong></div>
+        <div class="info-row"><span>SOXL</span><strong>$${fmt(row.close != null ? row.close : row.price, 2)}</strong></div>
+        <div class="info-row"><span>Position</span><strong>${fmt(row.position, 4)}</strong></div>
+        <div class="info-row"><span>Strategy NAV</span><strong>${fmt(row.strategy_nav, 2)}</strong></div>
+      `;
+      const snapshot = row.feature_snapshot || {};
+      const columns = model.snapshot_columns || Object.keys(snapshot);
+      const featureRows = columns.slice(0, 24)
+        .filter(key => snapshot[key] !== undefined && snapshot[key] !== null)
+        .map(key => `<div class="info-row"><span class="mono">${esc(key)}</span><strong>${fmt(snapshot[key], 4)}</strong></div>`)
+        .join('');
+      $('hoverFeatures').innerHTML = featureRows || '<div class="sub">No feature snapshot.</div>';
+    }
+
+    function renderChart(model, baselineModel) {
+      const rows = filteredRows(mergedRows(model));
+      const baselineRows = baselineModel ? filteredRows(mergedRows(baselineModel)) : [];
+      const baseByDate = new Map(baselineRows.map(row => [row.date, row]));
+      const firstNav = Number(rows[0] && rows[0].strategy_nav) || 1;
+      const firstBaselineNav = Number(baselineRows[0] && baselineRows[0].strategy_nav) || null;
+      const dates = rows.map(row => row.date);
+      const priceRows = rows.filter(row => row.open != null && row.high != null && row.low != null && row.close != null);
+      const buyRows = rows.filter(row => row.action === 'BUY');
+      const sellRows = rows.filter(row => row.action === 'SELL');
+      const baselineNav = rows.map(row => {
+        const base = baseByDate.get(row.date);
+        return base ? base.strategy_nav : null;
+      });
+      const traces = [];
+
+      if (priceRows.length) {
+        traces.push({
+          type: 'candlestick',
+          name: 'SOXL',
+          x: priceRows.map(row => row.date),
+          open: priceRows.map(row => row.open),
+          high: priceRows.map(row => row.high),
+          low: priceRows.map(row => row.low),
+          close: priceRows.map(row => row.close),
+          increasing: { line: { color: '#0f766e' } },
+          decreasing: { line: { color: '#b91c1c' } },
+          xaxis: 'x',
+          yaxis: 'y',
+        });
+      }
+      traces.push({
+        type: 'scatter',
+        mode: 'lines',
+        name: 'SOXL Close',
+        x: dates,
+        y: rows.map(row => row.close != null ? row.close : row.price),
+        line: { color: '#172033', width: 1.4 },
+        xaxis: 'x',
+        yaxis: 'y',
+      });
+      if (buyRows.length) {
+        traces.push({
+          type: 'scatter',
+          mode: 'markers',
+          name: 'BUY',
+          x: buyRows.map(row => row.date),
+          y: buyRows.map(row => row.close != null ? row.close : row.price),
+          marker: { symbol: 'triangle-up', size: 12, color: '#0f766e', line: { color: '#fff', width: 1 } },
+          xaxis: 'x',
+          yaxis: 'y',
+        });
+      }
+      if (sellRows.length) {
+        traces.push({
+          type: 'scatter',
+          mode: 'markers',
+          name: 'SELL',
+          x: sellRows.map(row => row.date),
+          y: sellRows.map(row => row.close != null ? row.close : row.price),
+          marker: { symbol: 'triangle-down', size: 12, color: '#b91c1c', line: { color: '#fff', width: 1 } },
+          xaxis: 'x',
+          yaxis: 'y',
+        });
+      }
+      traces.push({
+        type: 'scatter',
+        mode: 'lines',
+        name: `${model.profile} NAV index`,
+        x: dates,
+        y: rows.map(row => Number(row.strategy_nav) / firstNav * 100),
+        line: { color: '#2563eb', width: 2 },
+        xaxis: 'x2',
+        yaxis: 'y2',
+      });
+      if (firstBaselineNav) {
+        traces.push({
+          type: 'scatter',
+          mode: 'lines',
+          name: `${state.baseline} NAV index`,
+          x: dates,
+          y: baselineNav.map(value => value == null ? null : Number(value) / firstBaselineNav * 100),
+          line: { color: '#0f766e', width: 1.7, dash: 'dot' },
+          xaxis: 'x2',
+          yaxis: 'y2',
+        });
+      }
+      traces.push({
+        type: 'scatter',
+        mode: 'lines',
+        name: 'Position',
+        x: dates,
+        y: rows.map(row => row.position),
+        line: { color: '#0f766e', width: 2, shape: 'hv' },
+        fill: 'tozeroy',
+        fillcolor: 'rgba(15,118,110,0.10)',
+        xaxis: 'x3',
+        yaxis: 'y3',
+      });
+      traces.push({
+        type: 'scatter',
+        mode: 'lines',
+        name: 'Excess',
+        x: dates,
+        y: rows.map(row => row.excess_pct),
+        line: { color: '#b7791f', width: 1.6 },
+        xaxis: 'x4',
+        yaxis: 'y4',
+      });
+
+      const layout = {
+        margin: { l: 58, r: 18, t: 12, b: 36 },
+        paper_bgcolor: '#ffffff',
+        plot_bgcolor: '#ffffff',
+        hovermode: 'x unified',
+        showlegend: true,
+        legend: { orientation: 'h', x: 0, y: 1.08 },
+        xaxis: { domain: [0, 1], anchor: 'y', rangeslider: { visible: false }, showgrid: true, gridcolor: '#e8edf4' },
+        yaxis: { domain: [0.62, 1], title: 'SOXL', showgrid: true, gridcolor: '#e8edf4' },
+        xaxis2: { domain: [0, 1], anchor: 'y2', matches: 'x', showticklabels: false, showgrid: true, gridcolor: '#e8edf4' },
+        yaxis2: { domain: [0.38, 0.57], title: 'NAV Index', showgrid: true, gridcolor: '#e8edf4' },
+        xaxis3: { domain: [0, 1], anchor: 'y3', matches: 'x', showticklabels: false, showgrid: true, gridcolor: '#e8edf4' },
+        yaxis3: { domain: [0.19, 0.33], title: 'Position', range: [0, 1], showgrid: true, gridcolor: '#e8edf4' },
+        xaxis4: { domain: [0, 1], anchor: 'y4', matches: 'x', showgrid: true, gridcolor: '#e8edf4' },
+        yaxis4: { domain: [0, 0.14], title: 'Excess', showgrid: true, gridcolor: '#e8edf4' },
+      };
+
+      Plotly.react('mainChart', traces, layout, {
+        responsive: true,
+        scrollZoom: true,
+        displaylogo: false,
+        modeBarButtonsToRemove: ['lasso2d', 'select2d'],
+      }).then(gd => {
+        gd.__rowsByDate = new Map(rows.map(row => [row.date, row]));
+        gd.__modelPayload = model;
+        if (gd.dataset.boundHover !== '1') {
+          gd.dataset.boundHover = '1';
+          gd.on('plotly_hover', event => {
+            const point = event.points && event.points[0];
+            if (!point) return;
+            const date = point.x instanceof Date ? point.x.toISOString().slice(0, 10) : String(point.x).slice(0, 10);
+            updateHover(gd.__rowsByDate.get(date), gd.__modelPayload);
+          });
+        }
+      });
+      if (rows.length) updateHover(rows[rows.length - 1], model);
+      renderCards(model, baselineModel, rows);
+    }
+
+    async function renderAll() {
+      const [model, baseline] = await Promise.all([loadModel(state.profile), loadModel(state.baseline)]);
+      $('buildMeta').textContent = `Built ${manifest.generated_at || 'unknown'} | safe end ${manifest.safe_backtest_end || 'unknown'}`;
+      $('dataMeta').textContent = `Market ${manifest.latest_market_date || 'unknown'} | ${state.profile}`;
+      renderAutoUpdate();
+      renderChart(model, baseline);
+      renderFeatureActionTable(model);
+      renderRanking();
+    }
+
+    function bindControls() {
+      $('modelSelect').addEventListener('change', event => {
+        state.profile = event.target.value;
+        renderAll().catch(showError);
+      });
+      $('baselineSelect').addEventListener('change', event => {
+        state.baseline = event.target.value;
+        renderAll().catch(showError);
+      });
+      $('applyBtn').addEventListener('click', () => {
+        state.start = $('startDate').value;
+        state.end = $('endDate').value;
+        renderAll().catch(showError);
+      });
+      $('resetBtn').addEventListener('click', () => {
+        state.start = '';
+        state.end = '';
+        $('startDate').value = '';
+        $('endDate').value = '';
+        renderAll().catch(showError);
+      });
+    }
+
+    function showError(error) {
+      console.error(error);
+      const box = $('errorBox');
+      box.style.display = 'block';
+      box.textContent = error && error.message ? error.message : String(error);
+    }
+
+    async function boot() {
+      [manifest, market, comparison] = await Promise.all([
+        loadJson(MANIFEST_PATH),
+        loadJson(MARKET_PATH),
+        loadJson(COMPARISON_PATH),
+      ]);
+      populateSelects();
+      bindControls();
+      await renderAll();
+    }
+
+    boot().catch(showError);
+  </script>
+</body>
+</html>

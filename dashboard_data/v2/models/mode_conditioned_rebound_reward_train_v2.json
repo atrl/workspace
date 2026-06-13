@@ -24347,6 +24347,480 @@
       "price": 227.02999877929688
     }
   ],
+  "feature_action_summary": [
+    {
+      "buy_count": 112,
+      "buy_mean": 0.7246178175887792,
+      "buy_minus_sell": -1.6209874176331907,
+      "feature": "sharpe_proxy_21",
+      "sell_count": 140,
+      "sell_mean": 2.34560523522197
+    },
+    {
+      "buy_count": 112,
+      "buy_mean": 0.21639428601495658,
+      "buy_minus_sell": -1.2854064076198124,
+      "feature": "relative_volume_zscore",
+      "sell_count": 140,
+      "sell_mean": 1.501800693634769
+    },
+    {
+      "buy_count": 112,
+      "buy_mean": 0.3176235661684604,
+      "buy_minus_sell": -0.7673319570371462,
+      "feature": "relative_strength_21",
+      "sell_count": 140,
+      "sell_mean": 1.0849555232056065
+    },
+    {
+      "buy_count": 112,
+      "buy_mean": -0.09757417766530982,
+      "buy_minus_sell": 0.20670560424571796,
+      "feature": "vix_zscore",
+      "sell_count": 140,
+      "sell_mean": -0.3042797819110278
+    },
+    {
+      "buy_count": 112,
+      "buy_mean": 0.09177119185342901,
+      "buy_minus_sell": -0.19906027371082474,
+      "feature": "anchor_gap_180",
+      "sell_count": 140,
+      "sell_mean": 0.29083146556425377
+    },
+    {
+      "buy_count": 112,
+      "buy_mean": 0.5306122448979592,
+      "buy_minus_sell": 0.18072562358276645,
+      "feature": "drawdown_streak_63",
+      "sell_count": 140,
+      "sell_mean": 0.34988662131519277
+    },
+    {
+      "buy_count": 112,
+      "buy_mean": 0.1736346425248114,
+      "buy_minus_sell": -0.15851975819527261,
+      "feature": "mom_63",
+      "sell_count": 140,
+      "sell_mean": 0.332154400720084
+    },
+    {
+      "buy_count": 112,
+      "buy_mean": 0.4513888888888889,
+      "buy_minus_sell": 0.14810090702947848,
+      "feature": "days_since_high_63",
+      "sell_count": 140,
+      "sell_mean": 0.3032879818594104
+    },
+    {
+      "buy_count": 112,
+      "buy_mean": 0.34744731563332737,
+      "buy_minus_sell": 0.13602144314258116,
+      "feature": "jump_variation_5",
+      "sell_count": 140,
+      "sell_mean": 0.2114258724907462
+    },
+    {
+      "buy_count": 112,
+      "buy_mean": 0.05122967858551406,
+      "buy_minus_sell": -0.11475855529703144,
+      "feature": "mom_21",
+      "sell_count": 140,
+      "sell_mean": 0.1659882338825455
+    },
+    {
+      "buy_count": 112,
+      "buy_mean": 0.7082921960549611,
+      "buy_minus_sell": 0.10649394161897052,
+      "feature": "downside_semivol_21",
+      "sell_count": 140,
+      "sell_mean": 0.6017982544359906
+    },
+    {
+      "buy_count": 112,
+      "buy_mean": 1.1471047407117818,
+      "buy_minus_sell": 0.0951025055447623,
+      "feature": "vol_coef_21",
+      "sell_count": 140,
+      "sell_mean": 1.0520022351670195
+    },
+    {
+      "buy_count": 112,
+      "buy_mean": 0.04240608244193638,
+      "buy_minus_sell": -0.09360679034878674,
+      "feature": "expectancy_proxy_21",
+      "sell_count": 140,
+      "sell_mean": 0.13601287279072313
+    },
+    {
+      "buy_count": 112,
+      "buy_mean": 1.0592796215417153,
+      "buy_minus_sell": 0.08941888229132644,
+      "feature": "realized_vol_21",
+      "sell_count": 140,
+      "sell_mean": 0.9698607392503888
+    },
+    {
+      "buy_count": 112,
+      "buy_mean": 0.4129818594104308,
+      "buy_minus_sell": 0.08463718820861682,
+      "feature": "below_anchor_ratio_63",
+      "sell_count": 140,
+      "sell_mean": 0.328344671201814
+    },
+    {
+      "buy_count": 112,
+      "buy_mean": 0.17616213151927435,
+      "buy_minus_sell": 0.08217120181405893,
+      "feature": "below_ma63_days",
+      "sell_count": 140,
+      "sell_mean": 0.09399092970521541
+    },
+    {
+      "buy_count": 112,
+      "buy_mean": 0.008227351561675252,
+      "buy_minus_sell": -0.06907898196406685,
+      "feature": "trend_gap_63",
+      "sell_count": 140,
+      "sell_mean": 0.07730633352574211
+    },
+    {
+      "buy_count": 112,
+      "buy_mean": 1.019241318020145,
+      "buy_minus_sell": 0.06882115232188046,
+      "feature": "realized_vol_10",
+      "sell_count": 140,
+      "sell_mean": 0.9504201656982645
+    },
+    {
+      "buy_count": 112,
+      "buy_mean": 0.512401525118921,
+      "buy_minus_sell": -0.06799933893185628,
+      "feature": "rsi_14",
+      "sell_count": 140,
+      "sell_mean": 0.5804008640507773
+    },
+    {
+      "buy_count": 112,
+      "buy_mean": 0.495110544217687,
+      "buy_minus_sell": -0.06784297052154215,
+      "feature": "vol_stress_score",
+      "sell_count": 140,
+      "sell_mean": 0.5629535147392292
+    },
+    {
+      "buy_count": 112,
+      "buy_mean": 1.0815745732001123,
+      "buy_minus_sell": 0.0639871048381837,
+      "feature": "realized_vol_63",
+      "sell_count": 140,
+      "sell_mean": 1.0175874683619286
+    },
+    {
+      "buy_count": 112,
+      "buy_mean": -0.23586800363985372,
+      "buy_minus_sell": -0.0621356133639962,
+      "feature": "drawdown_63",
+      "sell_count": 140,
+      "sell_mean": -0.17373239027585752
+    },
+    {
+      "buy_count": 112,
+      "buy_mean": 0.47488307823129255,
+      "buy_minus_sell": 0.05798426870748308,
+      "feature": "regime_risk",
+      "sell_count": 140,
+      "sell_mean": 0.4168988095238095
+    },
+    {
+      "buy_count": 112,
+      "buy_mean": 0.013142705721206635,
+      "buy_minus_sell": -0.051193179644669566,
+      "feature": "volume_shock",
+      "sell_count": 140,
+      "sell_mean": 0.0643358853658762
+    },
+    {
+      "buy_count": 112,
+      "buy_mean": 0.3808172000807574,
+      "buy_minus_sell": -0.04529343649662976,
+      "feature": "realized_kurtosis_21",
+      "sell_count": 140,
+      "sell_mean": 0.4261106365773872
+    },
+    {
+      "buy_count": 112,
+      "buy_mean": 0.01421769242470368,
+      "buy_minus_sell": -0.04525161934411906,
+      "feature": "trend_slope_63",
+      "sell_count": 140,
+      "sell_mean": 0.05946931176882274
+    },
+    {
+      "buy_count": 112,
+      "buy_mean": 0.008297820352372611,
+      "buy_minus_sell": -0.045125299471767175,
+      "feature": "trend_gap_21",
+      "sell_count": 140,
+      "sell_mean": 0.05342311982413979
+    },
+    {
+      "buy_count": 112,
+      "buy_mean": 0.37329931972789115,
+      "buy_minus_sell": 0.045068027210884376,
+      "feature": "negative_gap_frequency_21",
+      "sell_count": 140,
+      "sell_mean": 0.3282312925170068
+    },
+    {
+      "buy_count": 112,
+      "buy_mean": 0.46322278911564624,
+      "buy_minus_sell": 0.04462868480725618,
+      "feature": "vix_percentile_252",
+      "sell_count": 140,
+      "sell_mean": 0.41859410430839006
+    },
+    {
+      "buy_count": 112,
+      "buy_mean": 0.01378380061038408,
+      "buy_minus_sell": -0.0437675861857042,
+      "feature": "trend_slope_21",
+      "sell_count": 140,
+      "sell_mean": 0.05755138679608828
+    },
+    {
+      "buy_count": 112,
+      "buy_mean": -0.16627033199006266,
+      "buy_minus_sell": -0.037980785166972564,
+      "feature": "cum_drop_30",
+      "sell_count": 140,
+      "sell_mean": -0.1282895468230901
+    },
+    {
+      "buy_count": 112,
+      "buy_mean": 0.09821428571428571,
+      "buy_minus_sell": 0.036989795918367346,
+      "feature": "new_low_ratio_21",
+      "sell_count": 140,
+      "sell_mean": 0.061224489795918366
+    },
+    {
+      "buy_count": 112,
+      "buy_mean": 0.018247231627052513,
+      "buy_minus_sell": -0.03626453729749522,
+      "feature": "volume_shock_velocity_5",
+      "sell_count": 140,
+      "sell_mean": 0.05451176892454774
+    },
+    {
+      "buy_count": 112,
+      "buy_mean": 0.4829931972789116,
+      "buy_minus_sell": 0.03537414965986396,
+      "feature": "downside_ratio_21",
+      "sell_count": 140,
+      "sell_mean": 0.44761904761904764
+    },
+    {
+      "buy_count": 112,
+      "buy_mean": -0.1438546225099615,
+      "buy_minus_sell": -0.034229184021197,
+      "feature": "drawdown_21",
+      "sell_count": 140,
+      "sell_mean": -0.1096254384887645
+    },
+    {
+      "buy_count": 112,
+      "buy_mean": 0.48189838435374144,
+      "buy_minus_sell": 0.033240504535147375,
+      "feature": "regime_risk_no_vix",
+      "sell_count": 140,
+      "sell_mean": 0.44865787981859406
+    },
+    {
+      "buy_count": 112,
+      "buy_mean": -0.13921191099224015,
+      "buy_minus_sell": -0.03162037116852341,
+      "feature": "cum_drop_20",
+      "sell_count": 140,
+      "sell_mean": -0.10759153982371673
+    },
+    {
+      "buy_count": 112,
+      "buy_mean": 0.13718149431774337,
+      "buy_minus_sell": 0.029338492480821557,
+      "feature": "vol_of_vol_21",
+      "sell_count": 140,
+      "sell_mean": 0.10784300183692182
+    },
+    {
+      "buy_count": 112,
+      "buy_mean": 0.048227293304698944,
+      "buy_minus_sell": -0.0276684465715863,
+      "feature": "mom_10",
+      "sell_count": 140,
+      "sell_mean": 0.07589573987628524
+    },
+    {
+      "buy_count": 112,
+      "buy_mean": -0.012137169832666416,
+      "buy_minus_sell": -0.027029151945607472,
+      "feature": "vix_momentum_10",
+      "sell_count": 140,
+      "sell_mean": 0.014891982112941056
+    },
+    {
+      "buy_count": 112,
+      "buy_mean": 0.4732142857142857,
+      "buy_minus_sell": 0.02535714285714291,
+      "feature": "downside_ratio_10",
+      "sell_count": 140,
+      "sell_mean": 0.4478571428571428
+    },
+    {
+      "buy_count": 112,
+      "buy_mean": 0.015732509810900307,
+      "buy_minus_sell": -0.024524597667408412,
+      "feature": "anchor_slope_180",
+      "sell_count": 140,
+      "sell_mean": 0.04025710747830872
+    },
+    {
+      "buy_count": 112,
+      "buy_mean": 0.015653397431016135,
+      "buy_minus_sell": 0.023184971465592175,
+      "feature": "rsi_14_velocity_5",
+      "sell_count": 140,
+      "sell_mean": -0.00753157403457604
+    },
+    {
+      "buy_count": 112,
+      "buy_mean": 0.4117375033242362,
+      "buy_minus_sell": 0.021977503640311202,
+      "feature": "vix_level",
+      "sell_count": 140,
+      "sell_mean": 0.389759999683925
+    },
+    {
+      "buy_count": 112,
+      "buy_mean": 0.5336691493977929,
+      "buy_minus_sell": -0.021029860500014874,
+      "feature": "rsi_6",
+      "sell_count": 140,
+      "sell_mean": 0.5546990098978077
+    },
+    {
+      "buy_count": 112,
+      "buy_mean": 0.020407107634335862,
+      "buy_minus_sell": -0.017760688652124143,
+      "feature": "anchor_gap_velocity_10",
+      "sell_count": 140,
+      "sell_mean": 0.038167796286460005
+    },
+    {
+      "buy_count": 112,
+      "buy_mean": 0.05059523809523809,
+      "buy_minus_sell": 0.01748866213151927,
+      "feature": "rolling_new_low_ratio_63",
+      "sell_count": 140,
+      "sell_mean": 0.03310657596371882
+    },
+    {
+      "buy_count": 112,
+      "buy_mean": 0.013982964777716092,
+      "buy_minus_sell": 0.015215329774981821,
+      "feature": "trend_gap_21_velocity",
+      "sell_count": 140,
+      "sell_mean": -0.0012323649972657295
+    },
+    {
+      "buy_count": 112,
+      "buy_mean": 0.0672595569934676,
+      "buy_minus_sell": 0.011511973599550425,
+      "feature": "tracking_error_vol_21",
+      "sell_count": 140,
+      "sell_mean": 0.05574758339391717
+    },
+    {
+      "buy_count": 112,
+      "buy_mean": -0.00513180272108843,
+      "buy_minus_sell": -0.011077947845804986,
+      "feature": "regime_risk_velocity_5",
+      "sell_count": 140,
+      "sell_mean": 0.005946145124716556
+    },
+    {
+      "buy_count": 112,
+      "buy_mean": 0.10625,
+      "buy_minus_sell": -0.006607142857142853,
+      "feature": "gain_streak_10",
+      "sell_count": 140,
+      "sell_mean": 0.11285714285714285
+    },
+    {
+      "buy_count": 112,
+      "buy_mean": -0.24118507509237622,
+      "buy_minus_sell": 0.006147869225006014,
+      "feature": "decay_63",
+      "sell_count": 140,
+      "sell_mean": -0.24733294431738223
+    },
+    {
+      "buy_count": 112,
+      "buy_mean": 0.04761904761904762,
+      "buy_minus_sell": 0.006122448979591841,
+      "feature": "loss_streak_21",
+      "sell_count": 140,
+      "sell_mean": 0.04149659863945578
+    },
+    {
+      "buy_count": 112,
+      "buy_mean": -0.046656240572338366,
+      "buy_minus_sell": -0.005838482449212035,
+      "feature": "realized_skew_21",
+      "sell_count": 140,
+      "sell_mean": -0.04081775812312633
+    },
+    {
+      "buy_count": 112,
+      "buy_mean": 0.024679938997531483,
+      "buy_minus_sell": -0.004936900779171086,
+      "feature": "mom_5",
+      "sell_count": 140,
+      "sell_mean": 0.02961683977670257
+    },
+    {
+      "buy_count": 112,
+      "buy_mean": 0.002094088745965541,
+      "buy_minus_sell": -0.002900680251560971,
+      "feature": "return",
+      "sell_count": 140,
+      "sell_mean": 0.004994768997526512
+    },
+    {
+      "buy_count": 112,
+      "buy_mean": -0.0021969424349603806,
+      "buy_minus_sell": 0.0019797251150862486,
+      "feature": "tracking_error_5",
+      "sell_count": 140,
+      "sell_mean": -0.004176667550046629
+    },
+    {
+      "buy_count": 112,
+      "buy_mean": 0.07524645904399654,
+      "buy_minus_sell": -0.0012906290399403442,
+      "feature": "intraday_range",
+      "sell_count": 140,
+      "sell_mean": 0.07653708808393689
+    },
+    {
+      "buy_count": 112,
+      "buy_mean": -0.006830749829038073,
+      "buy_minus_sell": -0.0006499776353151975,
+      "feature": "tracking_error_21",
+      "sell_count": 140,
+      "sell_mean": -0.006180772193722876
+    }
+  ],
   "feature_columns": [
     "return",
     "anchor_gap_180",

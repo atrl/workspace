@@ -1,6 +1,8 @@
 {
   "auto_update": {
     "configured": true,
+    "launchagents_dir": "/Users/rziiiii/Library/LaunchAgents",
+    "launchd_detected": true,
     "model_replay_freshness": {
       "counts": {
         "current": 12,
@@ -21,7 +23,11 @@
     "tasks": [
       {
         "command_path": "production/run_soxl_scheduler.sh",
+        "configured": true,
         "enabled": true,
+        "installed": true,
+        "label": "com.soxl.preopen.scheduler",
+        "loaded": true,
         "log_path": "runtime/soxl/paper_trading/scheduler_preopen.log",
         "name": "preopen",
         "schedule": "21:00 Mon-Fri Asia/Shanghai",
@@ -29,7 +35,11 @@
       },
       {
         "command_path": "production/run_soxl_scheduler.sh",
+        "configured": true,
         "enabled": true,
+        "installed": true,
+        "label": "com.soxl.daily.scheduler",
+        "loaded": true,
         "log_path": "runtime/soxl/paper_trading/scheduler_postclose.log",
         "name": "postclose",
         "schedule": "06:15 Tue-Sat Asia/Shanghai",
@@ -37,7 +47,11 @@
       },
       {
         "command_path": "production/run_dashboard_refresh.sh",
+        "configured": true,
         "enabled": true,
+        "installed": true,
+        "label": "com.soxl.dashboard.refresh",
+        "loaded": true,
         "log_path": "runtime/soxl/paper_trading/dashboard_refresh.log",
         "name": "dashboard_refresh",
         "schedule": "06:30 Tue-Sat Asia/Shanghai",
@@ -60,7 +74,7 @@
     "mode_conditioned_rebound_reward_train_v2",
     "state_conditioned_drawdown_rebound_reward_train_v1"
   ],
-  "generated_at": "2026-06-13T17:42:39.062896+00:00",
+  "generated_at": "2026-06-13T18:26:02.321407+00:00",
   "latest_market_date": "2026-06-12",
   "model_retention_gate": {
     "max_walkforward_drawdown_pct": 20.0,

@@ -7,6 +7,7 @@ import pandas as pd
 import pytest
 
 from src.soxl_quant.app.dashboard_v2 import (
+    build_feature_action_summary,
     build_comparison_payload,
     build_dashboard_v2_data,
     derive_model_events,
@@ -236,6 +237,43 @@ def test_build_dashboard_v2_data_keeps_model_specific_feature_snapshots(tmp_path
     assert beta["rows"][1]["feature_snapshot"] == {"beta_signal": -2.5, "shared_feature": 20.0}
     assert alpha["events"][0]["feature_snapshot"]["alpha_signal"] == 1.25
     assert beta["events"][0]["feature_snapshot"]["beta_signal"] == -2.5
+    assert alpha["feature_action_summary"][0]["feature"] == "alpha_signal"
+    assert beta["feature_action_summary"][0]["feature"] == "beta_signal"
+
+
+def test_build_feature_action_summary_compares_buy_and_sell_snapshots():
+    rows = [
+        {
+            "date": "2026-01-02",
+            "action": "HOLD",
+            "feature_snapshot": {"alpha_signal": 0.0, "shared_feature": 10.0},
+        },
+        {
+            "date": "2026-01-03",
+            "action": "BUY",
+            "feature_snapshot": {"alpha_signal": 1.0, "shared_feature": 12.0},
+        },
+        {
+            "date": "2026-01-04",
+            "action": "BUY",
+            "feature_snapshot": {"alpha_signal": 3.0, "shared_feature": 14.0},
+        },
+        {
+            "date": "2026-01-05",
+            "action": "SELL",
+            "feature_snapshot": {"alpha_signal": -1.0, "shared_feature": 8.0},
+        },
+    ]
+
+    summary = build_feature_action_summary(rows, feature_columns=["alpha_signal", "shared_feature"])
+    by_feature = {row["feature"]: row for row in summary}
+
+    assert by_feature["alpha_signal"]["buy_count"] == 2
+    assert by_feature["alpha_signal"]["sell_count"] == 1
+    assert by_feature["alpha_signal"]["buy_mean"] == pytest.approx(2.0)
+    assert by_feature["alpha_signal"]["sell_mean"] == pytest.approx(-1.0)
+    assert by_feature["alpha_signal"]["buy_minus_sell"] == pytest.approx(3.0)
+    assert by_feature["shared_feature"]["buy_minus_sell"] == pytest.approx(5.0)
 
 
 def test_build_dashboard_v2_data_reports_dashboard_refresh_task(tmp_path: Path):
@@ -295,6 +333,74 @@ def test_build_dashboard_v2_data_reports_dashboard_refresh_task(tmp_path: Path):
     assert task["enabled"] is True
     assert task["schedule"] == "06:30 Tue-Sat Asia/Shanghai"
     assert task["command_path"] == "production/run_dashboard_refresh.sh"
+
+
+def test_build_dashboard_v2_data_can_report_loaded_dashboard_refresh_task(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
+    freshness = tmp_path / "dashboard_data" / "model_replay_freshness.json"
+    freshness.parent.mkdir()
+    model_csv = tmp_path / "runtime" / "model" / "card" / "smoke" / "smoke_soxl_daily.csv"
+    model_csv.parent.mkdir(parents=True)
+    _write_csv(
+        model_csv,
+        [
+            {
+                "datetime": "2026-01-02",
+                "strategy_nav": 100.0,
+                "buyhold_nav": 100.0,
+                "position": 0.0,
+                "action": "HOLD",
+                "price": 10.0,
+            }
+        ],
+    )
+    freshness.write_text(
+        json.dumps(
+            {
+                "generated_at": "2026-06-13T00:00:00+00:00",
+                "latest_data_date": "2026-01-02",
+                "safe_backtest_end": "2026-01-02",
+                "profiles": [
+                    {
+                        "profile": "smoke",
+                        "status": "canonical",
+                        "actor": "runtime/model/card/smoke/soxl_smoke_actor.pt",
+                        "output": "runtime/model/card/smoke/smoke_soxl_daily.csv",
+                        "result": "current",
+                    }
+                ],
+            }
+        )
+    )
+    production = tmp_path / "production"
+    production.mkdir()
+    (production / "run_dashboard_refresh.sh").write_text("#!/bin/sh\n", encoding="utf-8")
+    (production / "com.soxl.dashboard.refresh.plist").write_text("<plist></plist>\n", encoding="utf-8")
+    launchagents_dir = tmp_path / "LaunchAgents"
+    launchagents_dir.mkdir()
+    (launchagents_dir / "com.soxl.dashboard.refresh.plist").write_text("<plist></plist>\n", encoding="utf-8")
+    monkeypatch.setenv(
+        "SOXL_DASHBOARD_V2_LAUNCHCTL_LIST",
+        "-\t0\tcom.soxl.dashboard.refresh\n-\t0\tcom.soxl.daily.scheduler\n",
+    )
+    monkeypatch.setenv("SOXL_DASHBOARD_V2_LAUNCHAGENTS_DIR", str(launchagents_dir))
+
+    output_dir = tmp_path / "dashboard_data" / "v2"
+    build_dashboard_v2_data(
+        root=tmp_path,
+        output_dir=output_dir,
+        freshness_path=freshness,
+        market_rows={"2026-01-02": {"open": 10.0, "high": 10.5, "low": 9.5, "close": 10.0, "volume": 1000}},
+        selected_profiles=["smoke"],
+        baseline_profile="smoke",
+        detect_launchd=True,
+    )
+
+    manifest = json.loads((output_dir / "manifest.json").read_text())
+    task = {item["name"]: item for item in manifest["auto_update"]["tasks"]}["dashboard_refresh"]
+    assert task["configured"] is True
+    assert task["installed"] is True
+    assert task["loaded"] is True
+    assert task["enabled"] is True
 
 
 def test_build_dashboard_v2_data_attaches_model_retention_gate_status(tmp_path: Path):
