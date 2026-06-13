@@ -1,0 +1,23 @@
+{
+  "closest_failure_case": {
+    "card": "cap10_three_fold_checkpoint_metric_replay_v2",
+    "why": "Corrected checkpoint replay passes wf_2022 and wf_2023_2024 but fails wf_2020 after same-source buyhold metric alignment."
+  },
+  "closest_success_case": {
+    "card": "soxlbacktest_qlib_walkforward_baseline_v1",
+    "why": "SOXLBacktest legacy_default has sufficient wf_2020/YTD raw return but violates walk-forward drawdown budgets."
+  },
+  "experiment": "soxlbacktest_teacher_risk_budget_feasibility_v1",
+  "source_handoff_decision": "train_state_conditioned_multi_objective",
+  "source_handoff_objective_terms": [
+    "walkforward_relative_return_gap_penalty",
+    "walkforward_drawdown_gap_penalty",
+    "high_vol_rebound_participation_floor",
+    "downtrend_drawdown_state_cap"
+  ],
+  "source_replay_decision": "three_fold_checkpoint_metric_replay_partial_pass_no_promotion",
+  "source_replay_failed_folds": [
+    "wf_2020"
+  ],
+  "why_not_duplicate": "This screen tests SOXLBacktest teacher position paths plus explicit risk-budget caps before training; it is not another BC/PPO checkpoint rerun and does not use OOS labels as supervised training targets."
+}
