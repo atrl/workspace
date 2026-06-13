@@ -33,6 +33,8 @@ interface ApiResponse {
   tag?: string;
   start_date: string;
   end_date: string;
+  effective_start_date?: string;
+  effective_end_date?: string;
   warmup_start_date?: string;
   replay_aligned?: boolean;
   feature_packs?: string[];
@@ -204,22 +206,24 @@ function buildFeatureActionSummary(rows: readonly ModelRow[], columns: readonly 
 
 function toModelPayload(payload: ApiResponse, request: RunBacktestRequest): ModelPayload {
   const rows = normalizeRows(payload.rows || []);
-  const profile = `rerun:${request.profile}:${request.startDate}:${request.endDate}`;
+  const effectiveStart = payload.effective_start_date || rows[0]?.date || request.startDate;
+  const effectiveEnd = payload.effective_end_date || rows[rows.length - 1]?.date || request.endDate;
+  const profile = `rerun:${request.profile}:${effectiveStart}:${effectiveEnd}`;
   const snapshotColumns = orderedSnapshotColumns(rows, payload.snapshot_columns ?? payload.feature_columns ?? []);
   const featureColumns = payload.feature_columns?.length ? payload.feature_columns : snapshotColumns;
   return {
     profile,
     status: 'rerun',
     source_kind: payload.source_kind ?? 'interactive_rerun',
-    display_name: `${request.profile} rerun ${request.startDate} to ${request.endDate}`,
+    display_name: `${request.profile} rerun ${effectiveStart} to ${effectiveEnd}`,
     runnable: true,
     runnable_reason: 'interactive_rerun',
     feature_packs: payload.feature_packs ?? [],
     feature_columns: featureColumns,
     snapshot_columns: snapshotColumns,
     source_path: 'api/run-backtest',
-    replay_start: rows[0]?.date ?? request.startDate,
-    replay_end: rows[rows.length - 1]?.date ?? request.endDate,
+    replay_start: effectiveStart,
+    replay_end: effectiveEnd,
     row_count: rows.length,
     rows,
     events: deriveEvents(rows),

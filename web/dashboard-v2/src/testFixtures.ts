@@ -46,9 +46,13 @@ export const manifestFixture: Manifest = {
     tasks: [
       {
         name: 'dashboard_refresh',
+        label: 'com.soxl.dashboard.refresh',
         enabled: true,
+        installed: true,
+        loaded: true,
         schedule: '06:30 Tue-Sat Asia/Shanghai',
         command_path: 'production/run_dashboard_refresh.sh',
+        log_path: 'runtime/soxl/paper_trading/dashboard_refresh.log',
       },
     ],
     manual_refresh_command: 'production/run_dashboard_refresh.sh',

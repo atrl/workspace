@@ -237,11 +237,14 @@ export function renderOperationsPanel(container: HTMLElement, manifest: Manifest
   for (const task of auto.tasks) {
     const item = element('div', 'task-card');
     item.dataset.enabled = task.enabled ? 'true' : 'false';
+    const configured = task.configured === undefined ? 'configured unknown' : task.configured ? 'configured' : 'not configured';
+    const installed = task.installed === undefined ? 'install unknown' : task.installed ? 'installed' : 'not installed';
     const loaded = task.loaded === undefined || task.loaded === null ? 'loaded unknown' : task.loaded ? 'loaded' : 'not loaded';
     item.appendChild(element('strong', undefined, task.name));
-    item.appendChild(element('span', undefined, `${task.configured ? 'configured' : 'not configured'} · ${loaded}`));
+    item.appendChild(element('span', undefined, [task.label, configured, installed, loaded].filter(Boolean).join(' · ')));
     item.appendChild(element('span', undefined, task.schedule ?? 'n/a'));
     item.appendChild(element('code', undefined, task.command_path ?? 'n/a'));
+    item.appendChild(element('code', undefined, task.log_path ?? 'n/a'));
     taskList.appendChild(item);
   }
   container.appendChild(taskList);
@@ -368,10 +371,14 @@ function formatFeatureValue(value: FeatureValue): string {
   return value === null || value === undefined ? 'n/a' : String(value);
 }
 
-function renderFeatureList(features: Record<string, FeatureValue>): string {
+const FEATURE_LIST_LIMIT = 12;
+
+function renderFeatureList(features: Record<string, FeatureValue>, limit = FEATURE_LIST_LIMIT): string {
   const entries = Object.entries(features);
   if (!entries.length) return 'n/a';
-  return entries.map(([key, value]) => `${key} ${formatFeatureValue(value)}`).join(' · ');
+  const visibleEntries = entries.slice(0, Math.max(1, limit));
+  const suffix = entries.length > visibleEntries.length ? ` · +${entries.length - visibleEntries.length} more` : '';
+  return `${visibleEntries.map(([key, value]) => `${key} ${formatFeatureValue(value)}`).join(' · ')}${suffix}`;
 }
 
 function formatSignedFeatureDelta(value: number | null | undefined): string {
@@ -379,7 +386,7 @@ function formatSignedFeatureDelta(value: number | null | undefined): string {
   return value > 0 ? `+${value.toFixed(2)}` : value.toFixed(2);
 }
 
-function topFeatureSummaryRows(model: ModelPayload, limit = 8): FeatureActionSummaryRow[] {
+function topFeatureSummaryRows(model: ModelPayload, limit = 4): FeatureActionSummaryRow[] {
   return [...(model.feature_action_summary ?? [])]
     .sort((left, right) => {
       const leftScore = Math.abs(left.buy_minus_sell ?? 0);
@@ -630,14 +637,14 @@ export function renderFeatureComparisonPanel(
 ): void {
   container.replaceChildren();
   container.appendChild(element('h2', undefined, 'Buy/Sell Feature Comparison'));
-  renderFeatureSchemaTable(container, input.models);
+  renderFeatureActionSummaryTable(container, input.models);
+  renderBaselineFeatureContrastTable(container, input.models, input.baselineProfile ?? Object.keys(input.models)[0] ?? '');
   const snapshotPanel = element('section', 'feature-date-snapshot');
   snapshotPanel.id = 'feature-date-snapshot';
   renderFeatureSnapshotPanel(snapshotPanel, input);
   container.appendChild(snapshotPanel);
-  renderBaselineFeatureContrastTable(container, input.models, input.baselineProfile ?? Object.keys(input.models)[0] ?? '');
-  renderFeatureActionSummaryTable(container, input.models);
   renderRecentEventFeatureTable(container, input.models);
+  renderFeatureSchemaTable(container, input.models);
 }
 
 export function renderFeatureSpotlightPanel(
@@ -646,12 +653,12 @@ export function renderFeatureSpotlightPanel(
 ): void {
   container.replaceChildren();
   container.appendChild(element('h2', undefined, 'Buy/Sell Features'));
-  renderFeatureSchemaTable(container, input.models);
+  renderFeatureActionSummaryTable(container, input.models);
+  renderBaselineFeatureContrastTable(container, input.models, input.baselineProfile ?? Object.keys(input.models)[0] ?? '');
   const snapshotPanel = element('section', 'feature-date-snapshot');
   snapshotPanel.id = 'feature-date-snapshot';
   renderFeatureSnapshotPanel(snapshotPanel, input);
   container.appendChild(snapshotPanel);
-  renderBaselineFeatureContrastTable(container, input.models, input.baselineProfile ?? Object.keys(input.models)[0] ?? '');
-  renderFeatureActionSummaryTable(container, input.models);
   renderRecentEventFeatureTable(container, input.models);
+  renderFeatureSchemaTable(container, input.models);
 }

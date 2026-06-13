@@ -85,7 +85,10 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.textContent).toContain('1 / 3');
     expect(panel.textContent).toContain('current=1');
     expect(panel.textContent).toContain('dashboard_refresh');
+    expect(panel.textContent).toContain('com.soxl.dashboard.refresh');
+    expect(panel.textContent).toContain('installed');
     expect(panel.textContent).toContain('production/run_dashboard_refresh.sh');
+    expect(panel.textContent).toContain('runtime/soxl/paper_trading/dashboard_refresh.log');
     expect(panel.textContent).toContain('pipeline');
     expect(panel.textContent).toContain('scripts/check_dashboard_static_export.py');
     expect(panel.textContent).toContain('Unavailable Model Replays');
@@ -190,5 +193,35 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.textContent).toContain('baseline SELL');
     expect(panel.textContent).toContain('BUY-SELL');
     expect(panel.textContent).toContain('Recent Buy/Sell Events');
+    expect(panel.querySelector('h3')?.textContent).toBe('Buy/Sell Feature Summary');
+  });
+
+  test('limits hover feature snapshots so mouse interaction stays lightweight', () => {
+    const panel = document.createElement('section');
+    const features = Object.fromEntries(Array.from({ length: 20 }, (_, index) => [`feature_${index}`, index]));
+    const model = {
+      ...modelFixture,
+      feature_columns: Object.keys(features),
+      snapshot_columns: Object.keys(features),
+      rows: [
+        {
+          ...modelFixture.rows[1],
+          feature_snapshot: features,
+        },
+      ],
+      events: [],
+    };
+
+    renderFeatureSpotlightPanel(panel, {
+      date: '2026-01-05',
+      marketRows: marketFixture.rows,
+      models: { smoke: model },
+      baselineProfile: 'smoke',
+    });
+
+    const snapshotCell = panel.querySelector('.feature-snapshot-cell');
+    expect(snapshotCell?.textContent).toContain('feature_0 0.00');
+    expect(snapshotCell?.textContent).toContain('+8 more');
+    expect(snapshotCell?.textContent).not.toContain('feature_19');
   });
 });

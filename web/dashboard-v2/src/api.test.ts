@@ -143,6 +143,62 @@ describe('dashboard v2 backtest API client', () => {
     );
   });
 
+  test('uses the effective API window when registering rerun models', async () => {
+    const originalFetch = globalThis.fetch;
+    const calls: string[] = [];
+    globalThis.fetch = vi.fn(async (url: RequestInfo | URL) => {
+      calls.push(String(url));
+      return new Response(
+        JSON.stringify({
+          profile: 'smoke',
+          start_date: '2026-06-01',
+          end_date: '2026-06-30',
+          effective_start_date: '2026-06-05',
+          effective_end_date: '2026-06-10',
+          warmup_start_date: '2020-01-02',
+          replay_aligned: true,
+          rows: [
+            {
+              datetime: '2026-06-05',
+              strategy_nav: 100,
+              buyhold_nav: 100,
+              position: 0.25,
+              action: 'HOLD',
+              price: 180,
+            },
+            {
+              datetime: '2026-06-10',
+              strategy_nav: 110,
+              buyhold_nav: 115,
+              position: 0.75,
+              action: 'BUY',
+              price: 200,
+            },
+          ],
+        }),
+        { status: 200, headers: { 'Content-Type': 'application/json' } },
+      );
+    }) as typeof fetch;
+
+    try {
+      const model = await runBacktest({
+        profile: 'smoke',
+        startDate: '2026-06-01',
+        endDate: '2026-06-30',
+      });
+
+      expect(calls).toEqual(['/api/run-backtest']);
+      expect(model.profile).toBe('rerun:smoke:2026-06-05:2026-06-10');
+      expect(model.display_name).toContain('2026-06-05 to 2026-06-10');
+      expect(model.replay_start).toBe('2026-06-05');
+      expect(model.replay_end).toBe('2026-06-10');
+      expect(model.warmup_start_date).toBe('2020-01-02');
+      expect(model.replay_aligned).toBe(true);
+    } finally {
+      globalThis.fetch = originalFetch;
+    }
+  });
+
   test('does not treat flat market fields as feature snapshots', async () => {
     const fetchMock = vi.fn().mockResolvedValueOnce({
       ok: true,
