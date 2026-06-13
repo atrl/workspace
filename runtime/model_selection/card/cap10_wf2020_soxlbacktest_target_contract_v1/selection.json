@@ -1,0 +1,136 @@
+{
+  "acceptance_gate_for_retention": {
+    "max_walkforward_drawdown_pct": 20.0,
+    "required_wf_windows": [
+      "wf_2020",
+      "wf_2022",
+      "wf_2023_2024"
+    ],
+    "ytd_return_must_align_current_best": true,
+    "ytd_return_must_exceed_soxlbacktest_reference": true
+  },
+  "actor_retention_allowed": false,
+  "bc_readiness_gate": true,
+  "bc_screen_allowed_next": true,
+  "canonical_baseline": "v19reg_v22_budget_usage_bull_guard_v1",
+  "changed_layer": [
+    "model_selection",
+    "training_objective"
+  ],
+  "created_at": "2026-06-13T11:35:17.991558+00:00",
+  "current_positive_rebound_lift_rows": 42,
+  "decision": "wf2020_soxlbacktest_target_contract_ready_for_bc_screen_no_promotion",
+  "direct_comparison_baseline": [
+    "cap10_wf2020_coverage_readiness_v1",
+    "cap10_foldlocal_joint_target_contract_v1"
+  ],
+  "downtrend_rows": 781,
+  "eval_overlap_rows": 0,
+  "experiment": "cap10_wf2020_soxlbacktest_target_contract_v1",
+  "missing_bc_or_checkpoint_after_this_card": [
+    "wf_2020"
+  ],
+  "missing_target_contract_after_this_card": [],
+  "next_mechanism": "run_three_fold_bc_slice_screen_before_any_ppo",
+  "outside_train_eval_rows": 0,
+  "ppo_training_allowed_next": false,
+  "promotion_allowed": false,
+  "promotion_blocker": "This card only creates a non-leaking wf_2020 target contract. Actor retention still requires three-fold BC metrics, checkpoint drift selection, fixed-split replay, and YTD return gates.",
+  "rebound_rows": 42,
+  "reference_baseline": "soxl_backtest_policy_reimplementation_v1",
+  "required_next_run_controls": [
+    "merge_wf2020_soxlbacktest_contract_with_existing_cap10_joint_contract_for_bc_screen",
+    "run_bc_slice_screen_for_wf_2020_wf_2022_wf_2023_2024",
+    "keep_bc_initialization_or_iter0_bc_equivalent_as_checkpoint_reference",
+    "reject_ppo_if_ppo_vs_bc_max_dd_delta_pp_gt_2",
+    "reject_ppo_if_ppo_vs_bc_relative_delta_pp_lt_-5",
+    "require_full_fixed_split_and_walkforward_replay_before_actor_retention"
+  ],
+  "role": "diagnose",
+  "selected_dominant_action_share": 0.36923076923076925,
+  "selected_samples": 2470,
+  "selected_unique_actions": 18,
+  "sidecars": [
+    "soxlbacktest_wf2020_target_contract.csv",
+    "target_summary.csv",
+    "target_scope_audit.csv",
+    "target_lift_audit.csv",
+    "action_distribution.csv",
+    "bc_readiness_scores.csv",
+    "combined_coverage_audit.csv",
+    "teacher_replay_metrics.json",
+    "selection.json",
+    "summary.json",
+    "conclusion.md"
+  ],
+  "source_context": {
+    "existing_joint_contract_folds": [
+      "wf_2022_train",
+      "wf_2023_2024_train"
+    ],
+    "prior_decision": "wf2020_missing_target_contract_blocks_actor_retention",
+    "prior_missing_required_ready_folds": [
+      "wf_2020",
+      "wf_2022"
+    ],
+    "retraining_handoff_decision": "run_full_walkforward_cap10_joint_contract_bc_checkpoint_training"
+  },
+  "target_contract_gate": true,
+  "target_lift_gate": true,
+  "target_rows": 2470,
+  "target_scope_gate": true,
+  "target_window": {
+    "eval_end": "2020-12-31",
+    "eval_start": "2020-01-01",
+    "note": "Pre-2020 train plus validation-year target material only; 2020 is eval/test and has zero target rows.",
+    "target_fold": "wf_2020_train",
+    "train_end": "2019-12-31",
+    "train_start": "2010-03-11"
+  },
+  "teacher_replay_metrics": {
+    "test_context_2020_not_used_as_label": {
+      "average_position_pct": 79.10233201581028,
+      "end": "2020-12-31",
+      "end_position_pct": 98.13,
+      "final_capital": 320777.2054042816,
+      "initial_capital": 100000.0,
+      "requested_start": "2020-01-01",
+      "rows": 253,
+      "rulebase_max_drawdown_pct": 54.27514385862544,
+      "rulebase_return_pct": 220.77720540428163,
+      "soxl_buyhold_return_pct": 59.7753083811428,
+      "start": "2020-01-02",
+      "trade_count": 4
+    },
+    "train_valid_2010_2019": {
+      "average_position_pct": 41.30783400809717,
+      "end": "2019-12-31",
+      "end_position_pct": 20.8,
+      "final_capital": 641828.3579739332,
+      "initial_capital": 100000.0,
+      "requested_start": "2010-03-11",
+      "rows": 2470,
+      "rulebase_max_drawdown_pct": 48.817576545265936,
+      "rulebase_return_pct": 541.8283579739332,
+      "soxl_buyhold_return_pct": 2673.8581694596623,
+      "start": "2010-03-11",
+      "trade_count": 57
+    }
+  },
+  "training_allowed_from_this_card": false,
+  "worker_window": {
+    "fold": "wf_2020",
+    "test": [
+      "2020-01-01",
+      "2020-12-31"
+    ],
+    "train": [
+      "2010-03-11",
+      "2018-12-31"
+    ],
+    "valid": [
+      "2019-01-01",
+      "2019-12-31"
+    ]
+  }
+}

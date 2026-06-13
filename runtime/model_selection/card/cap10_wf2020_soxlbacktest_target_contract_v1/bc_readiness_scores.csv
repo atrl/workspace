@@ -1,0 +1,2 @@
+profile,samples,unique_actions,dominant_action,dominant_action_share,action_entropy,rebound_rows,downtrend_rows,sample_gate,label_distribution_gate,fold_local_scope_gate,bc_readiness_gate,bc_readiness_loss,target_scope
+wf_2020_train_soxlbacktest_contract,2470,18,5,0.36923076923076925,2.031113286762896,42,781,True,True,True,True,0.0,fold_local
