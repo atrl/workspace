@@ -783,6 +783,15 @@ def test_build_html_run_backtest_uses_same_origin_api_and_dedicated_window_input
     assert "http://localhost:8765/api/run-backtest" not in html
 
 
+def test_build_html_falls_back_to_dashboard_api_server_when_static_server_rejects_post():
+    html = build_html({"detailed": {}, "versioned": {}, "model_versions": []}, {"all": {}})
+
+    assert "const DASHBOARD_API_FALLBACK = 'http://127.0.0.1:8765/api/run-backtest'" in html
+    assert "function shouldRetryOnDashboardApi" in html
+    assert "response.status === 501" in html
+    assert "fetch(DASHBOARD_API_FALLBACK" in html
+
+
 def test_build_html_registers_backtest_result_as_selectable_version():
     html = build_html({"detailed": {}, "versioned": {}, "model_versions": []}, {"all": {}})
 

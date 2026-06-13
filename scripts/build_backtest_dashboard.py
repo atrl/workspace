@@ -2484,6 +2484,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     const productionGateIssues = document.getElementById('productionGateIssues');
     const researchBacktestSummary = document.getElementById('researchBacktestSummary');
     const researchBacktestTable = document.getElementById('researchBacktestTable');
+    const DASHBOARD_API_FALLBACK = 'http://127.0.0.1:8765/api/run-backtest';
     const STORAGE_KEY = 'soxl-dashboard-state-v10';
     const hydratedVersionCache = {{}};
     let indexVersionSummaries = {{}};
@@ -3044,6 +3045,30 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       saveState();
       return resultVersion;
     }}
+    function shouldRetryOnDashboardApi(response) {{
+      return response && (response.status === 501 || response.status === 405 || response.status === 404);
+    }}
+    async function runBacktestRequest(payload) {{
+      const request = {{
+        method: 'POST',
+        headers: {{ 'Content-Type': 'application/json' }},
+        body: JSON.stringify(payload),
+      }};
+      let response = null;
+      try {{
+        response = await fetch('/api/run-backtest', request);
+      }} catch (err) {{
+        if (window.location.protocol !== 'file:') {{
+          response = await fetch(DASHBOARD_API_FALLBACK, request);
+        }} else {{
+          throw err;
+        }}
+      }}
+      if (shouldRetryOnDashboardApi(response) && window.location.origin !== 'http://127.0.0.1:8765') {{
+        response = await fetch(DASHBOARD_API_FALLBACK, request);
+      }}
+      return response;
+    }}
 
     function initControls() {{
       ETFS.forEach(etf => {{
@@ -3216,11 +3241,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
 
       showLoading(`Running backtest: ${{profile}} [${{start}} → ${{end}}]...`);
       try {{
-        const resp = await fetch('/api/run-backtest', {{
-          method: 'POST',
-          headers: {{ 'Content-Type': 'application/json' }},
-          body: JSON.stringify({{ profile, start_date: start, end_date: end, tag: '' }}),
-        }});
+        const resp = await runBacktestRequest({{ profile, start_date: start, end_date: end, tag: '' }});
         if (!resp.ok) {{
           const err = await resp.json().catch(() => ({{ error: `HTTP ${{resp.status}}` }}));
           throw new Error(err.error || `HTTP ${{resp.status}}`);
@@ -3239,7 +3260,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
         hideLoading();
         const serverHint = window.location.protocol === 'file:'
           ? '请用 qlib_venv/bin/python scripts/dashboard_server.py 启动后访问 http://127.0.0.1:8765/dashboard.html'
-          : '请确认当前页面由 scripts/dashboard_server.py 提供，而不是普通静态 http.server。';
+          : '请确认 qlib_venv/bin/python scripts/dashboard_server.py --port 8765 正在运行；静态页面会自动 fallback 到 http://127.0.0.1:8765/api/run-backtest。';
         chartMeta.innerHTML = `<span style="color:var(--bad);">✗ ${{err.message}} · ${{serverHint}}</span>`;
         console.error(err);
       }}

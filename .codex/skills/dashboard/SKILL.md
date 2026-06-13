@@ -92,7 +92,10 @@ Backtest inputs use the replayable model window, so they are not locked to the
 short `paper_trading` display range. A successful rerun is registered in the
 browser as `rerun:<profile>:<start>:<end>` and selected in the Model dropdown.
 Opening `dashboard.html` through `file://` or a plain `python -m http.server`
-can inspect static data but cannot perform backend model inference.
+can inspect static data. Backend model inference still needs
+`scripts/dashboard_server.py` running at `127.0.0.1:8765`; the static page will
+fall back to that API if its own origin returns `501`/`405`/`404` for
+`/api/run-backtest`.
 
 If the dashboard opens on an older run after fresh training, check:
 - whether the latest `*_soxl_daily.csv` was written
