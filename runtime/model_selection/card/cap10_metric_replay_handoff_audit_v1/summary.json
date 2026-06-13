@@ -1,0 +1,59 @@
+{
+  "actor_retention_allowed": false,
+  "changed_layer": [
+    "model_selection",
+    "metric_reconciliation",
+    "lineage"
+  ],
+  "created_at": "2026-06-13T19:01:50.126948+00:00",
+  "decision": "metric_replay_handoff_completed_no_promotion",
+  "direct_comparison_baseline": "cap10_three_fold_checkpoint_metric_replay_v2",
+  "experiment": "cap10_metric_replay_handoff_audit_v1",
+  "failed_folds": [
+    "wf_2020"
+  ],
+  "folds_evaluated": [
+    "wf_2020",
+    "wf_2022",
+    "wf_2023_2024"
+  ],
+  "metric_replay_experiment": "cap10_three_fold_checkpoint_metric_replay_v2",
+  "metric_replay_fold_coverage": true,
+  "metric_replay_handoff_completed": true,
+  "metric_replay_source_fields_present": true,
+  "missing_folds": [],
+  "next_mechanism": "inspect_failed_fold_drawdown_or_reward_drift_before_full_retention_training",
+  "promotion_allowed": false,
+  "reference_baseline": "soxlbacktest_qlib_buysell_reference",
+  "required_folds": [
+    "wf_2020",
+    "wf_2022",
+    "wf_2023_2024"
+  ],
+  "role": "diagnose",
+  "selected_by_fold": {
+    "wf_2020": {
+      "selected_candidate": "bc_initialization",
+      "selected_candidate_gate": false,
+      "selected_max_dd": 14.984700509769244,
+      "selected_relative_return": -292.75302146825334
+    },
+    "wf_2022": {
+      "selected_candidate": "bc_initialization",
+      "selected_candidate_gate": true,
+      "selected_max_dd": 18.80228364916748,
+      "selected_relative_return": 65.86482008395255
+    },
+    "wf_2023_2024": {
+      "selected_candidate": "ppo_retained_iter_4",
+      "selected_candidate_gate": true,
+      "selected_max_dd": 8.955768917531602,
+      "selected_relative_return": 35.56622898283519
+    }
+  },
+  "source_experiment": "cap10_wf2020_bull_participation_diagnostic_v1",
+  "source_requires_metric_replay": true,
+  "target_max_dd_pct": 20.0,
+  "target_relative_return_pp": 30.0,
+  "training_allowed_from_this_card": false
+}

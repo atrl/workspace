@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-13T18:54:50.541084+00:00",
+  "generated_at": "2026-06-13T19:01:35.169493+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -3752,6 +3752,30 @@
       "bytes": 15036
     },
     {
+      "path": "runtime/model_selection/card/cap10_metric_replay_handoff_audit_v1/conclusion.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 504
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_metric_replay_handoff_audit_v1/fold_metric_replay_handoff.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 301
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_metric_replay_handoff_audit_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1903
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_metric_replay_handoff_audit_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1903
+    },
+    {
       "path": "runtime/model_selection/card/cap10_release_oos_poor_window_diagnostic_v1/aggregate/feature_delta_clusters.csv",
       "category": "model_selection",
       "suffix": ".csv",
@@ -5573,19 +5597,19 @@
       "path": "runtime/model_selection/card/model_retention_frontier_v1/conclusion.md",
       "category": "model_selection",
       "suffix": ".md",
-      "bytes": 598
+      "bytes": 523
     },
     {
       "path": "runtime/model_selection/card/model_retention_frontier_v1/retention_frontier.csv",
       "category": "model_selection",
       "suffix": ".csv",
-      "bytes": 33815
+      "bytes": 34259
     },
     {
       "path": "runtime/model_selection/card/model_retention_frontier_v1/summary.json",
       "category": "model_selection",
       "suffix": ".json",
-      "bytes": 90188
+      "bytes": 91144
     },
     {
       "path": "runtime/model_selection/card/model_retention_walkforward_gate_v1/conclusion.md",
