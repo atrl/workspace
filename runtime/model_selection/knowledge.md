@@ -23,3 +23,10 @@
 - 训练/筛选目标：保留 `<=15%` warm-start drawdown margin 作为 checkpoint loss，加入 YTD trend participation floor，但只有在 risk-state coverage 与 drawdown interval behavior 同时改善时才允许提高 reentry/trend floor。
 - stop rules：缺 official evidence、WF MaxDD `>=20%`、YTD 低于 current-best alignment、ordinary-vs-official gate flip、或 reentry floor 改善收益但恶化 drawdown 时，直接拒绝训练 handoff / 停止 floor sweep。
 - 主要证据卡片：`runtime/model_selection/card/retention_ytd_training_objective_handoff_v1/retention_ytd_training_objective_handoff_v1.ipynb`。
+
+## 2026-06-14 Strict Candidate Actor Retention
+
+- `runtime/harness/card/registry/profile.yaml` 中的 `status=candidate` profile 现在默认不得 `keep_actor=true`；只有通过当前 strict retention gate 后才允许把 actor retention 打开。
+- `scripts/review_model_retention_gates.py` 现在输出 `registry_keep_actor_audit.csv`，审计 registry 中 `keep_actor=true` 的条目是否有 replayable evidence、完整 `wf_2020` / `wf_2022` / `wf_2023_2024`、最差 WF MaxDD `<20%` 和 YTD `>=213.143462%`。
+- 已将旧 imitation / Kelly / v19_reg candidate 的 actor retention 降为 evidence-only：保留 summary/notes，避免后续 dashboard refresh 或 replay selector 把未达标候选当作可保留模型。
+- 当前 strict gate 仍无 passing profile；剩余 `keep_actor=true` 违规只代表 canonical/archived/ablation 的历史或生产保护，不等于可 promotion retained model。

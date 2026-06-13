@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-13T16:08:29.258624+00:00",
+  "generated_at": "2026-06-13T16:49:37.817645+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -5591,19 +5591,25 @@
       "path": "runtime/model_selection/card/model_retention_walkforward_gate_v1/conclusion.md",
       "category": "model_selection",
       "suffix": ".md",
-      "bytes": 518
+      "bytes": 589
+    },
+    {
+      "path": "runtime/model_selection/card/model_retention_walkforward_gate_v1/registry_keep_actor_audit.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1613
     },
     {
       "path": "runtime/model_selection/card/model_retention_walkforward_gate_v1/retention_gate.csv",
       "category": "model_selection",
       "suffix": ".csv",
-      "bytes": 4678
+      "bytes": 819
     },
     {
       "path": "runtime/model_selection/card/model_retention_walkforward_gate_v1/summary.json",
       "category": "model_selection",
       "suffix": ".json",
-      "bytes": 10561
+      "bytes": 6601
     },
     {
       "path": "runtime/model_selection/card/official_replay_bad_interval_feature_audit_v1/bc_initialization_wf_2022_official_daily_with_features.csv",
@@ -11153,7 +11159,7 @@
       "path": "runtime/model_selection/knowledge.md",
       "category": "model_selection",
       "suffix": ".md",
-      "bytes": 2707
+      "bytes": 3620
     },
     {
       "path": "runtime/multi_asset/card/soxl_baseline/card.md",

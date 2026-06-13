@@ -134,3 +134,12 @@ def test_state_conditioned_ytd_participation_rescue_candidate_targets_underparti
     assert "test_proxy_max_dd" in profile.selection_score.pareto_objectives
     assert profile.promotion_gate.max_test_2022_drawdown <= 20.0
     assert profile.promotion_gate.min_wf_relative_outperformance >= 30.0
+
+
+def test_candidate_profiles_do_not_keep_actor_before_strict_retention_gate_passes():
+    registry = load_profile_registry()
+    offenders = sorted(
+        name for name, entry in registry.items() if entry.status == "candidate" and entry.keep_actor
+    )
+
+    assert offenders == []

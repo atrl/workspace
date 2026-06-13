@@ -14,6 +14,7 @@ from pathlib import Path
 from typing import Any, Iterable
 
 import pandas as pd
+import yaml
 
 
 PRIMARY_REFERENCE_PROFILE = "soxl_backtest_policy_reimplementation_v1"
@@ -25,6 +26,7 @@ COMPARISON_METRICS_PATH = (
     "runtime/production/card/current_model_ytd_june_comparison_v1/all_model_comparison_metrics.csv"
 )
 FRESHNESS_PATH = "dashboard_data/model_replay_freshness.json"
+REGISTRY_PATH = "runtime/harness/card/registry/profile.yaml"
 YTD_WINDOW = "ytd_2026_common"
 RETURN_COLUMNS = ("model_return_pct", "current_model_return_pct")
 MAX_DRAWDOWN_COLUMNS = ("current_model_max_drawdown_pct", "model_max_drawdown_pct")
@@ -85,6 +87,21 @@ def _load_replayable_profiles(root: Path) -> list[dict[str, Any]]:
         profile
         for profile in profiles
         if isinstance(profile, dict) and profile.get("result") in {"current", "refreshed"}
+    ]
+
+
+def _load_registry_keep_actor_entries(root: Path) -> list[dict[str, Any]]:
+    path = root / REGISTRY_PATH
+    if not path.exists():
+        return []
+    payload = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+    entries = payload.get("profiles", [])
+    if not isinstance(entries, list):
+        raise ValueError(f"{REGISTRY_PATH} must contain profiles list")
+    return [
+        entry
+        for entry in entries
+        if isinstance(entry, dict) and bool(entry.get("keep_actor", False)) and entry.get("name")
     ]
 
 
@@ -162,6 +179,52 @@ def _reference_row(reference: ReferenceBaseline) -> dict[str, Any]:
         "retention_decision": "keep_reference_baseline",
         "failures": [],
     }
+
+
+def _registry_keep_actor_audit(rows: Iterable[dict[str, Any]], registry_entries: Iterable[dict[str, Any]]) -> list[dict[str, Any]]:
+    rows_by_profile = {str(row["profile"]): row for row in rows}
+    audit: list[dict[str, Any]] = []
+    for entry in registry_entries:
+        profile = str(entry["name"])
+        gate_row = rows_by_profile.get(profile)
+        if gate_row is None:
+            audit.append(
+                {
+                    "profile": profile,
+                    "registry_status": str(entry.get("status", "")),
+                    "keep_actor": True,
+                    "strict_retention_allowed": False,
+                    "strict_retention_decision": "block_missing_replay_evidence",
+                    "gate_pass": False,
+                    "ytd_return_pct": None,
+                    "worst_wf_max_drawdown_pct": None,
+                    "wf_windows_present": "",
+                    "failures": ["missing_replay_evidence"],
+                    "notes_ref": str(entry.get("notes_ref", "")),
+                }
+            )
+            continue
+
+        failures = gate_row.get("failures") if isinstance(gate_row.get("failures"), list) else []
+        gate_pass = bool(gate_row.get("gate_pass"))
+        audit.append(
+            {
+                "profile": profile,
+                "registry_status": str(entry.get("status", "")),
+                "keep_actor": True,
+                "strict_retention_allowed": gate_pass,
+                "strict_retention_decision": (
+                    "allow_promotable_retention" if gate_pass else "block_current_gate_failed"
+                ),
+                "gate_pass": gate_pass,
+                "ytd_return_pct": gate_row.get("ytd_return_pct"),
+                "worst_wf_max_drawdown_pct": gate_row.get("worst_wf_max_drawdown_pct"),
+                "wf_windows_present": gate_row.get("wf_windows_present", ""),
+                "failures": failures,
+                "notes_ref": str(entry.get("notes_ref", "")),
+            }
+        )
+    return audit
 
 
 def _evaluate_profile(
@@ -254,12 +317,19 @@ def scan_model_retention_gates(
         for row in rows
         if row["profile"] != PRIMARY_REFERENCE_PROFILE and row["gate_pass"]
     )
+    registry_keep_actor_audit = _registry_keep_actor_audit(rows, _load_registry_keep_actor_entries(root))
+    registry_keep_actor_violations = [
+        row for row in registry_keep_actor_audit if not bool(row["strict_retention_allowed"])
+    ]
     return {
         "summary": {
             "generated_at": datetime.now(timezone.utc).isoformat(),
             "profiles_scanned": len(rows) - 1,
             "passing_profiles": passing_profiles,
             "passing_profile_count": len(passing_profiles),
+            "registry_keep_actor_count": len(registry_keep_actor_audit),
+            "registry_keep_actor_strict_violation_count": len(registry_keep_actor_violations),
+            "registry_keep_actor_strict_violations": sorted(row["profile"] for row in registry_keep_actor_violations),
             "reference_profile": PRIMARY_REFERENCE_PROFILE,
             "reference_return_pct": round(reference.return_pct, 6),
             "reference_max_drawdown_pct": round(reference.max_drawdown_pct, 6),
@@ -270,6 +340,7 @@ def scan_model_retention_gates(
             "required_wf_windows": list(REQUIRED_WF_WINDOWS),
         },
         "rows": rows,
+        "registry_keep_actor_audit": registry_keep_actor_audit,
     }
 
 
@@ -288,6 +359,8 @@ def write_retention_gate_outputs(result: dict[str, Any], *, output_dir: Path) ->
     output_dir.mkdir(parents=True, exist_ok=True)
     rows = result["rows"]
     pd.DataFrame(_csv_rows(rows)).to_csv(output_dir / "retention_gate.csv", index=False)
+    registry_audit = result.get("registry_keep_actor_audit", [])
+    pd.DataFrame(_csv_rows(registry_audit)).to_csv(output_dir / "registry_keep_actor_audit.csv", index=False)
     (output_dir / "summary.json").write_text(
         json.dumps(result, indent=2, sort_keys=True) + "\n",
         encoding="utf-8",
@@ -301,6 +374,7 @@ def write_retention_gate_outputs(result: dict[str, Any], *, output_dir: Path) ->
         f"- Current best YTD model return: `{summary['current_best_return_pct']:.6f}%`; required alignment floor at ratio `{summary['best_return_ratio']:.2f}` is `{summary['required_best_return_pct']:.6f}%`.",
         f"- Walk-forward requirement: windows `{', '.join(summary['required_wf_windows'])}` all present and MaxDD strictly below `{summary['max_walkforward_drawdown_pct']:.2f}%`.",
         f"- Passing promotable profiles: `{', '.join(passing) if passing else 'none'}`.",
+        f"- Registry keep_actor entries: `{summary.get('registry_keep_actor_count', 0)}`; keep_actor strict violations: `{summary.get('registry_keep_actor_strict_violation_count', 0)}`.",
         "",
         "This card is a retention/promotion audit. It does not delete actors or override production runtime protection.",
     ]
