@@ -78,14 +78,14 @@
     "soxl_backtest_policy_reimplementation_v1",
     "balanced_rule_residual_v19_moe_v2"
   ],
-  "generated_at": "2026-06-13T23:24:06.684554+00:00",
+  "generated_at": "2026-06-13T23:43:45.917132+00:00",
   "latest_market_date": "2026-06-10",
   "model_retention_frontier": {
-    "completed_handoff_count": 64,
+    "completed_handoff_count": 65,
     "max_walkforward_drawdown_pct": 20.0,
-    "recommended_next_action": "build_fold_local_bull_reentry_participation_target_then_rerun_three_fold_bc_checkpoint_metric_replay",
-    "recommended_next_source": "cap10_wf2020_failed_fold_objective_audit_v1",
-    "recommended_primary_blocker": "target_revision_ready",
+    "recommended_next_action": "rerun_three_fold_bc_checkpoint_metric_replay_with_bull_reentry_target_contract",
+    "recommended_next_source": "fold_local_bull_reentry_participation_target_v1",
+    "recommended_primary_blocker": "training_contract_ready",
     "reference_return_pct": 132.077978,
     "required_best_return_pct": 213.143462,
     "required_wf_windows": [
@@ -93,7 +93,7 @@
       "wf_2022",
       "wf_2023_2024"
     ],
-    "rows_scanned": 98,
+    "rows_scanned": 99,
     "source_path": "runtime/model_selection/card/model_retention_frontier_v1/summary.json"
   },
   "model_retention_gate": {

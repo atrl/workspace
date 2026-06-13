@@ -1,0 +1,9 @@
+action,bull_reentry_target_state,bull_reentry_forward_ready,rows
+HOLD,True,True,107
+BUY,True,False,7
+HOLD,True,False,5
+HOLD,False,False,2298
+SELL,False,False,24
+BUY,False,False,23
+HOLD,False,True,3
+TAKE_PROFIT,False,False,3

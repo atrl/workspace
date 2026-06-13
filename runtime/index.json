@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-13T23:08:43.359212+00:00",
+  "generated_at": "2026-06-13T23:49:35.826080+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -5336,6 +5336,36 @@
       "bytes": 2220
     },
     {
+      "path": "runtime/model_selection/card/fold_local_bull_reentry_participation_target_v1/action_state_counts.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 224
+    },
+    {
+      "path": "runtime/model_selection/card/fold_local_bull_reentry_participation_target_v1/bull_reentry_target_contract.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 921567
+    },
+    {
+      "path": "runtime/model_selection/card/fold_local_bull_reentry_participation_target_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 3735
+    },
+    {
+      "path": "runtime/model_selection/card/fold_local_bull_reentry_participation_target_v1/target_lift_audit.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 433
+    },
+    {
+      "path": "runtime/model_selection/card/fold_local_bull_reentry_participation_target_v1/target_position_audit.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 592
+    },
+    {
       "path": "runtime/model_selection/card/fold_local_joint_reward_targets_v1/bc_readiness_scores.csv",
       "category": "model_selection",
       "suffix": ".csv",
@@ -5693,19 +5723,19 @@
       "path": "runtime/model_selection/card/model_retention_frontier_v1/conclusion.md",
       "category": "model_selection",
       "suffix": ".md",
-      "bytes": 545
+      "bytes": 529
     },
     {
       "path": "runtime/model_selection/card/model_retention_frontier_v1/retention_frontier.csv",
       "category": "model_selection",
       "suffix": ".csv",
-      "bytes": 36320
+      "bytes": 36726
     },
     {
       "path": "runtime/model_selection/card/model_retention_frontier_v1/summary.json",
       "category": "model_selection",
       "suffix": ".json",
-      "bytes": 98757
+      "bytes": 99783
     },
     {
       "path": "runtime/model_selection/card/model_retention_walkforward_gate_v1/conclusion.md",
