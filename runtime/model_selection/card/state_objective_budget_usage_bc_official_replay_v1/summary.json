@@ -1,0 +1,221 @@
+{
+  "context": {
+    "experiment": "state_objective_budget_usage_bc_official_replay_v1",
+    "created_at": "2026-06-13T13:25:04.916317+00:00",
+    "profile": "risk_budget_usage_v1",
+    "source_card": "runtime/model_selection/card/state_objective_budget_usage_bc_warm_start_v1",
+    "actor_path": "runtime/model/card/risk_budget_usage_v1/soxl_risk_budget_usage_v1_state_objective_budget_usage_bc_warm_start_v1_actor.pt",
+    "freshness_safe_backtest_end": "2026-06-11",
+    "freshness_latest_data_date": "2026-06-12",
+    "reference_soxlbacktest_return_pct": 132.077978,
+    "current_best_return_pct": 224.361539,
+    "required_best_return_pct": 213.143462,
+    "max_walkforward_drawdown_pct": 20.0,
+    "required_wf_windows": [
+      "wf_2020",
+      "wf_2022",
+      "wf_2023_2024"
+    ],
+    "actual_latest_data_date": "2026-06-10",
+    "actual_safe_backtest_end": "2026-06-09",
+    "safe_backtest_end_used": "2026-06-09",
+    "data_freshness_mismatch": true
+  },
+  "data_context": {
+    "test_frame_start": "2020-01-02",
+    "test_frame_end": "2026-06-10",
+    "test_rows": 1618,
+    "price_start": "2020-01-02",
+    "price_end": "2026-06-10",
+    "actor_obs_dim": 315,
+    "freshness_safe_backtest_end": "2026-06-11",
+    "freshness_latest_data_date": "2026-06-12",
+    "actual_safe_backtest_end": "2026-06-09",
+    "actual_latest_data_date": "2026-06-10",
+    "safe_backtest_end_used": "2026-06-09",
+    "data_freshness_mismatch": true
+  },
+  "metrics": [
+    {
+      "window": "wf_2020",
+      "requested_start": "2020-01-01",
+      "requested_end": "2020-12-31",
+      "effective_start": "2020-01-02",
+      "effective_end": "2020-12-31",
+      "return_pct": 16.238860172042834,
+      "buyhold_return_pct": 355.7365870125431,
+      "relative_return_pct": -339.49772684050026,
+      "sharpe": 0.7165675011264685,
+      "max_dd_pct": 21.349091653065926,
+      "trades": 30,
+      "avg_position": 0.24025936527558575,
+      "max_position": 0.7,
+      "daily_path": "runtime/model_selection/card/state_objective_budget_usage_bc_official_replay_v1/wf_2020_daily.csv"
+    },
+    {
+      "window": "wf_2022",
+      "requested_start": "2022-01-01",
+      "requested_end": "2022-12-31",
+      "effective_start": "2022-01-03",
+      "effective_end": "2022-12-31",
+      "return_pct": -12.139385595874764,
+      "buyhold_return_pct": -76.6142673926677,
+      "relative_return_pct": 64.47488179679294,
+      "sharpe": -0.9413190328914759,
+      "max_dd_pct": 14.800121389344174,
+      "trades": 24,
+      "avg_position": 0.0836889504576455,
+      "max_position": 0.30595155357553766,
+      "daily_path": "runtime/model_selection/card/state_objective_budget_usage_bc_official_replay_v1/wf_2022_daily.csv"
+    },
+    {
+      "window": "wf_2023_2024",
+      "requested_start": "2023-01-01",
+      "requested_end": "2024-12-31",
+      "effective_start": "2023-01-03",
+      "effective_end": "2024-12-31",
+      "return_pct": 24.278118249502167,
+      "buyhold_return_pct": 55.65459245965081,
+      "relative_return_pct": -31.37647421014864,
+      "sharpe": 0.7421314173356935,
+      "max_dd_pct": 15.514461141389022,
+      "trades": 64,
+      "avg_position": 0.16525227295781178,
+      "max_position": 0.6095108385683203,
+      "daily_path": "runtime/model_selection/card/state_objective_budget_usage_bc_official_replay_v1/wf_2023_2024_daily.csv"
+    },
+    {
+      "window": "ytd_2026",
+      "requested_start": "2026-01-02",
+      "requested_end": "2026-06-09",
+      "effective_start": "2026-01-02",
+      "effective_end": "2026-06-09",
+      "return_pct": 27.18605207710265,
+      "buyhold_return_pct": 341.3274955433491,
+      "relative_return_pct": -314.1414434662464,
+      "sharpe": 1.7187828674950094,
+      "max_dd_pct": 17.82079394534554,
+      "trades": 7,
+      "avg_position": 0.24489731701512343,
+      "max_position": 0.5101474395185013,
+      "daily_path": "runtime/model_selection/card/state_objective_budget_usage_bc_official_replay_v1/ytd_2026_daily.csv"
+    }
+  ],
+  "gate": [
+    {
+      "window": "wf_2020",
+      "gate_type": "walkforward",
+      "return_pct": 16.238860172042834,
+      "relative_return_pct": -339.49772684050026,
+      "max_dd_pct": 21.349091653065926,
+      "threshold": 20.0,
+      "gate_pass": false,
+      "failure": "wf_max_drawdown_ge_20"
+    },
+    {
+      "window": "wf_2022",
+      "gate_type": "walkforward",
+      "return_pct": -12.139385595874764,
+      "relative_return_pct": 64.47488179679294,
+      "max_dd_pct": 14.800121389344174,
+      "threshold": 20.0,
+      "gate_pass": true,
+      "failure": ""
+    },
+    {
+      "window": "wf_2023_2024",
+      "gate_type": "walkforward",
+      "return_pct": 24.278118249502167,
+      "relative_return_pct": -31.37647421014864,
+      "max_dd_pct": 15.514461141389022,
+      "threshold": 20.0,
+      "gate_pass": true,
+      "failure": ""
+    },
+    {
+      "window": "ytd_2026",
+      "gate_type": "soxlbacktest_return_alignment",
+      "return_pct": 27.18605207710265,
+      "relative_return_pct": NaN,
+      "max_dd_pct": NaN,
+      "threshold": 132.077978,
+      "gate_pass": false,
+      "failure": "ytd_return_below_soxlbacktest_baseline"
+    },
+    {
+      "window": "ytd_2026",
+      "gate_type": "current_best_return_alignment",
+      "return_pct": 27.18605207710265,
+      "relative_return_pct": NaN,
+      "max_dd_pct": NaN,
+      "threshold": 213.143462,
+      "gate_pass": false,
+      "failure": "ytd_return_below_best_alignment"
+    }
+  ],
+  "selection": {
+    "experiment": "state_objective_budget_usage_bc_official_replay_v1",
+    "created_at": "2026-06-13T13:25:04.916317+00:00",
+    "decision": "budget_usage_bc_official_replay_no_promotion",
+    "promotion_allowed": false,
+    "actor_retention_allowed": false,
+    "training_allowed_from_this_card": false,
+    "profile": "risk_budget_usage_v1",
+    "actor_path": "runtime/model/card/risk_budget_usage_v1/soxl_risk_budget_usage_v1_state_objective_budget_usage_bc_warm_start_v1_actor.pt",
+    "source_experiment": "state_objective_budget_usage_bc_warm_start_v1",
+    "canonical_baseline": "v19reg_v22_budget_usage_bull_guard_v1",
+    "direct_comparison_baseline": [
+      "state_objective_budget_usage_bc_warm_start_v1",
+      "state_objective_state_conditioned_loss_v1",
+      "state_conditioned_checkpoint_replay_v1",
+      "model_retention_walkforward_gate_v1"
+    ],
+    "reference_baseline": "soxlbacktest_qlib_buysell_reference",
+    "freshness_safe_backtest_end": "2026-06-11",
+    "actual_safe_backtest_end": "2026-06-09",
+    "safe_backtest_end": "2026-06-09",
+    "data_freshness_mismatch": true,
+    "required_soxlbacktest_return_pct": 132.077978,
+    "required_best_return_pct": 213.143462,
+    "target_max_dd_pct": 20.0,
+    "required_windows": [
+      "wf_2020",
+      "wf_2022",
+      "wf_2023_2024"
+    ],
+    "failures": [
+      "wf_max_drawdown_ge_20",
+      "ytd_return_below_soxlbacktest_baseline",
+      "ytd_return_below_best_alignment"
+    ],
+    "all_gate_pass": false,
+    "wf_pass_count": 2,
+    "ytd_return_pct": 27.18605207710265,
+    "ytd_max_dd_pct": 17.82079394534554,
+    "wf_max_dd_pct": {
+      "wf_2020": 21.349091653065926,
+      "wf_2022": 14.800121389344174,
+      "wf_2023_2024": 15.514461141389022
+    },
+    "wf_return_pct": {
+      "wf_2020": 16.238860172042834,
+      "wf_2022": -12.139385595874764,
+      "wf_2023_2024": 24.278118249502167
+    },
+    "promotion_blocker": "Official replay is a diagnostic of a BC warm-start actor. Full retention still requires a trained retained actor bundle plus fixed-split, all WF, YTD alignment, and dashboard replay evidence.",
+    "next_mechanism": "run_fold_local_ppo_only_if_ytd_and_wf_gap_is_not_structural_else_revise_targets",
+    "sidecars": [
+      "context.json",
+      "data_context.json",
+      "official_replay_metrics.csv",
+      "retention_style_gate.csv",
+      "selection.json",
+      "summary.json",
+      "conclusion.md",
+      "wf_2020_daily.csv",
+      "wf_2022_daily.csv",
+      "wf_2023_2024_daily.csv",
+      "ytd_2026_daily.csv"
+    ]
+  }
+}

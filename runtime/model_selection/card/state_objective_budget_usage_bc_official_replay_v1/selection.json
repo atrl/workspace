@@ -1,0 +1,65 @@
+{
+  "experiment": "state_objective_budget_usage_bc_official_replay_v1",
+  "created_at": "2026-06-13T13:25:04.916317+00:00",
+  "decision": "budget_usage_bc_official_replay_no_promotion",
+  "promotion_allowed": false,
+  "actor_retention_allowed": false,
+  "training_allowed_from_this_card": false,
+  "profile": "risk_budget_usage_v1",
+  "actor_path": "runtime/model/card/risk_budget_usage_v1/soxl_risk_budget_usage_v1_state_objective_budget_usage_bc_warm_start_v1_actor.pt",
+  "source_experiment": "state_objective_budget_usage_bc_warm_start_v1",
+  "canonical_baseline": "v19reg_v22_budget_usage_bull_guard_v1",
+  "direct_comparison_baseline": [
+    "state_objective_budget_usage_bc_warm_start_v1",
+    "state_objective_state_conditioned_loss_v1",
+    "state_conditioned_checkpoint_replay_v1",
+    "model_retention_walkforward_gate_v1"
+  ],
+  "reference_baseline": "soxlbacktest_qlib_buysell_reference",
+  "freshness_safe_backtest_end": "2026-06-11",
+  "actual_safe_backtest_end": "2026-06-09",
+  "safe_backtest_end": "2026-06-09",
+  "data_freshness_mismatch": true,
+  "required_soxlbacktest_return_pct": 132.077978,
+  "required_best_return_pct": 213.143462,
+  "target_max_dd_pct": 20.0,
+  "required_windows": [
+    "wf_2020",
+    "wf_2022",
+    "wf_2023_2024"
+  ],
+  "failures": [
+    "wf_max_drawdown_ge_20",
+    "ytd_return_below_soxlbacktest_baseline",
+    "ytd_return_below_best_alignment"
+  ],
+  "all_gate_pass": false,
+  "wf_pass_count": 2,
+  "ytd_return_pct": 27.18605207710265,
+  "ytd_max_dd_pct": 17.82079394534554,
+  "wf_max_dd_pct": {
+    "wf_2020": 21.349091653065926,
+    "wf_2022": 14.800121389344174,
+    "wf_2023_2024": 15.514461141389022
+  },
+  "wf_return_pct": {
+    "wf_2020": 16.238860172042834,
+    "wf_2022": -12.139385595874764,
+    "wf_2023_2024": 24.278118249502167
+  },
+  "promotion_blocker": "Official replay is a diagnostic of a BC warm-start actor. Full retention still requires a trained retained actor bundle plus fixed-split, all WF, YTD alignment, and dashboard replay evidence.",
+  "next_mechanism": "run_fold_local_ppo_only_if_ytd_and_wf_gap_is_not_structural_else_revise_targets",
+  "sidecars": [
+    "context.json",
+    "data_context.json",
+    "official_replay_metrics.csv",
+    "retention_style_gate.csv",
+    "selection.json",
+    "summary.json",
+    "conclusion.md",
+    "wf_2020_daily.csv",
+    "wf_2022_daily.csv",
+    "wf_2023_2024_daily.csv",
+    "ytd_2026_daily.csv"
+  ]
+}

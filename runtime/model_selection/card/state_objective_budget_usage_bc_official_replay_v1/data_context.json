@@ -1,0 +1,14 @@
+{
+  "test_frame_start": "2020-01-02",
+  "test_frame_end": "2026-06-10",
+  "test_rows": 1618,
+  "price_start": "2020-01-02",
+  "price_end": "2026-06-10",
+  "actor_obs_dim": 315,
+  "freshness_safe_backtest_end": "2026-06-11",
+  "freshness_latest_data_date": "2026-06-12",
+  "actual_safe_backtest_end": "2026-06-09",
+  "actual_latest_data_date": "2026-06-10",
+  "safe_backtest_end_used": "2026-06-09",
+  "data_freshness_mismatch": true
+}

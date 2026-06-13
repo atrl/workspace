@@ -81,6 +81,12 @@ newer than the replay curve.
 dashboard build by default. Use `--skip-model-replay-refresh` only for fast
 diagnostic runs where stale model curves are acceptable.
 
+When working in an isolated or partial worktree, verify the current qlib
+calendar/test frame before treating `dashboard_data/model_replay_freshness.json`
+as authoritative. If the freshness file reports dates beyond the visible qlib
+data in the current checkout, use the penultimate visible qlib date as the
+actual safe replay end and record the mismatch in the runtime card.
+
 ### Interactive Main Chart Reruns
 
 For selectable-window reruns from the Main Chart, use the dashboard API server,
