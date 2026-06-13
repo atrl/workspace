@@ -151,6 +151,67 @@ def test_build_dashboard_v2_data_writes_manifest_market_model_and_comparison(tmp
     assert comparison["rows"][1]["action_mismatch_count"] == 0
 
 
+def test_build_dashboard_v2_data_removes_stale_model_payloads(tmp_path: Path):
+    freshness = tmp_path / "dashboard_data" / "model_replay_freshness.json"
+    freshness.parent.mkdir()
+    model_csv = tmp_path / "runtime" / "model" / "card" / "smoke" / "smoke_soxl_daily.csv"
+    model_csv.parent.mkdir(parents=True)
+    _write_csv(
+        model_csv,
+        [
+            {
+                "datetime": "2026-01-02",
+                "strategy_nav": 100.0,
+                "buyhold_nav": 100.0,
+                "position": 0.0,
+                "action": "HOLD",
+                "price": 10.0,
+            }
+        ],
+    )
+    freshness.write_text(
+        json.dumps(
+            {
+                "generated_at": "2026-06-13T00:00:00+00:00",
+                "latest_data_date": "2026-01-02",
+                "safe_backtest_end": "2026-01-02",
+                "profiles": [
+                    {
+                        "profile": "smoke",
+                        "status": "canonical",
+                        "output": "runtime/model/card/smoke/smoke_soxl_daily.csv",
+                        "result": "current",
+                    }
+                ],
+            }
+        )
+    )
+    output_dir = tmp_path / "dashboard_data" / "v2"
+    stale_path = output_dir / "models" / "old_blocked_profile.json"
+    stale_path.parent.mkdir(parents=True)
+    stale_path.write_text("{}\n", encoding="utf-8")
+
+    build_dashboard_v2_data(
+        root=tmp_path,
+        output_dir=output_dir,
+        freshness_path=freshness,
+        market_rows={
+            "2026-01-02": {
+                "open": 9.5,
+                "high": 10.2,
+                "low": 9.4,
+                "close": 10.0,
+                "volume": 1000,
+            }
+        },
+        selected_profiles=["smoke"],
+        baseline_profile="smoke",
+    )
+
+    assert not stale_path.exists()
+    assert sorted(path.name for path in (output_dir / "models").glob("*.json")) == ["smoke.json"]
+
+
 def test_build_dashboard_v2_data_loads_market_from_requested_root(tmp_path: Path):
     freshness = tmp_path / "dashboard_data" / "model_replay_freshness.json"
     freshness.parent.mkdir()

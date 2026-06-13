@@ -1,0 +1,49 @@
+{
+  "acceptance_criteria": [
+    "official wf_2020/wf_2022/wf_2023_2024 metrics are present",
+    "worst official WF MaxDD < 20pct",
+    "YTD return >= SOXLBacktest buy/sell reference and >= 95pct of current best",
+    "checkpoint selector table includes retention_ytd_loss and wf_drawdown_loss",
+    "drawdown interval audit exists for selected checkpoint"
+  ],
+  "canonical_baseline": "v19reg_v22_budget_usage_bull_guard_v1",
+  "changed_layer": [
+    "feature",
+    "reward",
+    "selection"
+  ],
+  "closest_failure_case": "mode_conditioned_rebound_reward_train_v2",
+  "closest_failure_gap": "worst_wf_max_drawdown_ge_20;ytd_return_below_current_best_alignment",
+  "closest_success_case": "wf_pass_ytd18_15_15_02",
+  "closest_success_gap": "ytd_return_below_soxlbacktest_reference;ytd_return_below_current_best_alignment",
+  "direct_comparison_baseline": "mode_conditioned_rebound_reward_train_v2",
+  "expected_tradeoff": "More conservative stress-state positioning may reduce peak YTD return; trend-preservation terms are intended to prevent the low-drawdown underparticipation failure mode.",
+  "experiment": "state_conditioned_multi_objective_ytd_gate_v1",
+  "failure_mode": "Either WF drawdown stays above 20pct like mode_conditioned_rebound_reward_train_v2, or the new drawdown terms collapse YTD participation like wf_pass_ytd18_15_15_02.",
+  "feature_count": 79,
+  "feature_packs": [
+    "vix_term",
+    "transition_signals",
+    "soxx_spread_oscillation"
+  ],
+  "feature_schema_signature": "2f64801809a1",
+  "hard_wf_max_drawdown_pct": 20.0,
+  "hypothesis": "State-conditioned reward plus trend-preservation and drawdown-drift terms can keep the best complete candidate's participation while reducing WF drawdown below 20pct.",
+  "min_wf_relative_outperformance_pp": 30.0,
+  "profile_name": "state_conditioned_multi_objective_ytd_gate_v1",
+  "reference_baseline": "soxlbacktest_policy_reimplementation_v1",
+  "registry_baseline": "mode_conditioned_rebound_reward_train_v2",
+  "registry_issues": [],
+  "registry_keep_actor": false,
+  "registry_keep_summary": true,
+  "registry_notes_ref": "runtime/model_selection/card/state_conditioned_multi_objective_ytd_gate_v1/state_conditioned_multi_objective_ytd_gate_v1.ipynb",
+  "registry_status": "candidate",
+  "safe_backtest_end": "2026-06-11",
+  "soxlbacktest_reference_ytd_return_pct": 132.077978,
+  "target_window": [
+    "wf_2020",
+    "wf_2022",
+    "wf_2023_2024"
+  ],
+  "ytd_current_best_alignment_pct": 213.143462
+}

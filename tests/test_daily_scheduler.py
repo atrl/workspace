@@ -112,6 +112,7 @@ def test_scheduler_retries_data_source_failure_as_cached_dry_run(monkeypatch: py
         "paper trading (cached dry-run)",
         "dashboard model replay refresh",
         "dashboard build",
+        "dashboard v2 data build",
     ]
     assert "--skip-data-update" not in calls[0][0]
     assert "--skip-data-update" in calls[1][0]
@@ -143,6 +144,7 @@ def test_scheduler_retries_stale_post_update_data_as_cached_dry_run(monkeypatch:
         "paper trading (cached dry-run)",
         "dashboard model replay refresh",
         "dashboard build",
+        "dashboard v2 data build",
     ]
     assert "--skip-data-update" in calls[1][0]
     assert "--dry-run" in calls[1][0]
@@ -189,6 +191,7 @@ def test_scheduler_retries_external_broker_failure_as_local_paper_dry_run(monkey
         "paper trading (local paper dry-run after broker unavailable)",
         "dashboard model replay refresh",
         "dashboard build",
+        "dashboard v2 data build",
     ]
     retry_cmd = calls[1][0]
     assert retry_cmd[retry_cmd.index("--broker") + 1] == "paper"
@@ -216,6 +219,7 @@ def test_scheduler_smoke_mode_runs_cached_dry_run_with_dashboard(monkeypatch: py
     assert [description for _cmd, description in calls] == [
         "paper trading",
         "dashboard build",
+        "dashboard v2 data build",
     ]
     paper_cmd = calls[0][0]
     assert "--dry-run" in paper_cmd
@@ -300,7 +304,7 @@ def test_scheduler_prints_goal_gates_when_requested(
     soxl_daily_scheduler.main()
 
     captured = capsys.readouterr()
-    assert calls == ["paper trading", "dashboard model replay refresh", "dashboard build"]
+    assert calls == ["paper trading", "dashboard model replay refresh", "dashboard build", "dashboard v2 data build"]
     assert "[scheduler] all done" in captured.out
     assert "--- Production Goal Gates ---" in captured.out
     assert captured.out.index("[scheduler] all done") < captured.out.index("--- Production Goal Gates ---")
@@ -443,14 +447,15 @@ def test_scheduler_runs_vercel_deploy_after_dashboard_when_requested(
         "paper trading",
         "dashboard model replay refresh",
         "dashboard build",
+        "dashboard v2 data build",
         "production goal gates export",
         "vercel dashboard deploy",
     ]
     assert "[scheduler] core done" in captured.out
     assert captured.out.index("[scheduler] core done") < captured.out.index("[test-step] production goal gates export")
     assert captured.out.index("[test-step] vercel dashboard deploy") < captured.out.index("[scheduler] all done")
-    gate_cmd = calls[3][0]
-    vercel_cmd = calls[4][0]
+    gate_cmd = calls[4][0]
+    vercel_cmd = calls[5][0]
     assert "scripts/export_production_goal_gates.py" in gate_cmd
     assert "scripts/deploy_vercel_dashboard.py" in vercel_cmd
     assert "--deploy" in vercel_cmd
@@ -479,9 +484,32 @@ def test_scheduler_treats_missing_vercel_credentials_as_nonfatal(monkeypatch: py
         "paper trading",
         "dashboard model replay refresh",
         "dashboard build",
+        "dashboard v2 data build",
         "production goal gates export",
         "vercel dashboard deploy",
     ]
+
+
+def test_scheduler_builds_dashboard_v2_data_after_static_dashboard(monkeypatch: pytest.MonkeyPatch):
+    calls: list[tuple[list[str], str]] = []
+
+    def fake_run(cmd: list[str], description: str):
+        calls.append((cmd, description))
+
+    monkeypatch.setattr(soxl_daily_scheduler, "_run", fake_run)
+    monkeypatch.setattr(sys, "argv", ["soxl_daily_scheduler.py", "--no-notify"])
+
+    soxl_daily_scheduler.main()
+
+    descriptions = [description for _cmd, description in calls]
+    assert descriptions == [
+        "paper trading",
+        "dashboard model replay refresh",
+        "dashboard build",
+        "dashboard v2 data build",
+    ]
+    v2_cmd = calls[-1][0]
+    assert "scripts/build_dashboard_v2_data.py" in v2_cmd
 
 
 def test_scheduler_accepts_polygon_data_provider(monkeypatch: pytest.MonkeyPatch):

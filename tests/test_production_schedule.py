@@ -8,8 +8,14 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SCHEDULER_WRAPPER = ROOT / "production" / "run_soxl_scheduler.sh"
-WEEKLY_WRAPPER = ROOT / "production" / "run_soxl_weekly_wf.sh"
+PRODUCTION_ROOT = Path(
+    os.environ.get(
+        "SOXL_PRODUCTION_INSTALL_ROOT",
+        "/Users/rziiiii/dev/workspace" if ".worktrees" in ROOT.parts else str(ROOT),
+    )
+)
+SCHEDULER_WRAPPER = PRODUCTION_ROOT / "production" / "run_soxl_scheduler.sh"
+WEEKLY_WRAPPER = PRODUCTION_ROOT / "production" / "run_soxl_weekly_wf.sh"
 CURRENT_COMPOSER_ARGS = [
     "--runtime-composer",
     "budget_usage",
@@ -59,7 +65,7 @@ def test_crontab_uses_shanghai_safe_us_market_windows():
     assert "/Users/rziiiii/.openclaw/workspace" not in post_close
     assert "--skip-data-update" not in post_close
     assert "--skip-dashboard" not in post_close
-    assert "--vercel-deploy" in post_close
+    assert "--vercel-deploy" not in post_close
     assert "--health-summary" in post_close
     assert "--schedule-slot postclose" in post_close
     assert "--broker futu" in post_close
@@ -75,7 +81,7 @@ def test_crontab_uses_shanghai_safe_us_market_windows():
     assert "/Users/rziiiii/.openclaw/workspace" not in pre_open
     assert "--dry-run" in pre_open
     assert "--skip-data-update" in pre_open
-    assert "--vercel-deploy" in pre_open
+    assert "--vercel-deploy" not in pre_open
     assert "--health-summary" in pre_open
     assert "--schedule-slot preopen" in pre_open
     assert "--broker futu" in pre_open
@@ -117,18 +123,18 @@ def test_operator_doc_scheduler_examples_include_current_production_flags():
 
     pre_open = next(line for line in scheduler_lines if "scheduler_preopen.log" in line)
     post_close = next(line for line in scheduler_lines if "scheduler_postclose.log" in line)
-    assert "--vercel-deploy" in pre_open
+    assert "--vercel-deploy" not in pre_open
     assert "--health-summary" in pre_open
     assert "--schedule-slot preopen" in pre_open
     assert "SOXL_SCHEDULE_TRIGGER=cron_preopen" in pre_open
-    assert "--vercel-deploy" in post_close
+    assert "--vercel-deploy" not in post_close
     assert "--health-summary" in post_close
     assert "--schedule-slot postclose" in post_close
     assert "SOXL_SCHEDULE_TRIGGER=cron_postclose" in post_close
 
-    assert "export VERCEL_TOKEN='REPLACE_ME'" in text
-    assert "export VERCEL_PROJECT_ID='REPLACE_ME'" in text
-    assert "export VERCEL_ORG_ID='REPLACE_ME'" in text
+    assert "# export VERCEL_TOKEN='REPLACE_ME'" in text
+    assert "# export VERCEL_PROJECT_ID='REPLACE_ME'" in text
+    assert "# export VERCEL_ORG_ID='REPLACE_ME'" in text
 
 
 def test_launchagent_runs_post_close_in_shanghai_local_time():
@@ -149,8 +155,8 @@ def test_launchagent_runs_post_close_in_shanghai_local_time():
         (6, 6, 15),
     }
     assert plist["ProgramArguments"][0] == str(SCHEDULER_WRAPPER)
-    assert plist["WorkingDirectory"] == str(ROOT)
-    assert "--vercel-deploy" in plist["ProgramArguments"]
+    assert plist["WorkingDirectory"] == str(PRODUCTION_ROOT)
+    assert "--vercel-deploy" not in plist["ProgramArguments"]
     assert "--health-summary" in plist["ProgramArguments"]
     assert plist["ProgramArguments"][plist["ProgramArguments"].index("--broker") + 1] == "futu"
     assert plist["ProgramArguments"][plist["ProgramArguments"].index("--account-notional") + 1] == "10000"
@@ -159,8 +165,12 @@ def test_launchagent_runs_post_close_in_shanghai_local_time():
     assert plist["ProgramArguments"][plist["ProgramArguments"].index("--schedule-slot") + 1] == "postclose"
     assert plist["EnvironmentVariables"]["SOXL_SCHEDULE_TRIGGER"] == "launchagent_postclose"
     assert "--skip-data-update" not in plist["ProgramArguments"]
-    assert plist["StandardOutPath"] == str(ROOT / "runtime" / "soxl" / "paper_trading" / "scheduler_postclose.log")
-    assert plist["StandardErrorPath"] == str(ROOT / "runtime" / "soxl" / "paper_trading" / "scheduler_postclose.err")
+    assert plist["StandardOutPath"] == str(
+        PRODUCTION_ROOT / "runtime" / "soxl" / "paper_trading" / "scheduler_postclose.log"
+    )
+    assert plist["StandardErrorPath"] == str(
+        PRODUCTION_ROOT / "runtime" / "soxl" / "paper_trading" / "scheduler_postclose.err"
+    )
 
 
 def test_launchagent_runs_preopen_cached_dry_run_in_shanghai_local_time():
@@ -182,11 +192,11 @@ def test_launchagent_runs_preopen_cached_dry_run_in_shanghai_local_time():
         (5, 21, 0),
     }
     assert plist["ProgramArguments"][0] == str(SCHEDULER_WRAPPER)
-    assert plist["WorkingDirectory"] == str(ROOT)
+    assert plist["WorkingDirectory"] == str(PRODUCTION_ROOT)
     assert "--dry-run" in plist["ProgramArguments"]
     assert "--skip-data-update" in plist["ProgramArguments"]
     assert "--skip-dashboard" not in plist["ProgramArguments"]
-    assert "--vercel-deploy" in plist["ProgramArguments"]
+    assert "--vercel-deploy" not in plist["ProgramArguments"]
     assert "--health-summary" in plist["ProgramArguments"]
     assert plist["ProgramArguments"][plist["ProgramArguments"].index("--broker") + 1] == "futu"
     assert plist["ProgramArguments"][plist["ProgramArguments"].index("--account-notional") + 1] == "10000"
@@ -194,8 +204,12 @@ def test_launchagent_runs_preopen_cached_dry_run_in_shanghai_local_time():
     assert "--schedule-slot" in plist["ProgramArguments"]
     assert plist["ProgramArguments"][plist["ProgramArguments"].index("--schedule-slot") + 1] == "preopen"
     assert plist["EnvironmentVariables"]["SOXL_SCHEDULE_TRIGGER"] == "launchagent_preopen"
-    assert plist["StandardOutPath"] == str(ROOT / "runtime" / "soxl" / "paper_trading" / "scheduler_preopen.log")
-    assert plist["StandardErrorPath"] == str(ROOT / "runtime" / "soxl" / "paper_trading" / "scheduler_preopen.err")
+    assert plist["StandardOutPath"] == str(
+        PRODUCTION_ROOT / "runtime" / "soxl" / "paper_trading" / "scheduler_preopen.log"
+    )
+    assert plist["StandardErrorPath"] == str(
+        PRODUCTION_ROOT / "runtime" / "soxl" / "paper_trading" / "scheduler_preopen.err"
+    )
 
 
 def test_launchagent_runs_weekly_walkforward_after_postclose_refresh():
@@ -211,9 +225,9 @@ def test_launchagent_runs_weekly_walkforward_after_postclose_refresh():
     assert plist["Label"] == "com.soxl.weekly.wf"
     assert schedule == {(6, 7, 0)}
     assert plist["ProgramArguments"][0] == str(WEEKLY_WRAPPER)
-    assert plist["WorkingDirectory"] == str(ROOT)
-    assert plist["StandardOutPath"] == str(ROOT / "runtime" / "soxl" / "wf_weekly.log")
-    assert plist["StandardErrorPath"] == str(ROOT / "runtime" / "soxl" / "wf_weekly.err")
+    assert plist["WorkingDirectory"] == str(PRODUCTION_ROOT)
+    assert plist["StandardOutPath"] == str(PRODUCTION_ROOT / "runtime" / "soxl" / "wf_weekly.log")
+    assert plist["StandardErrorPath"] == str(PRODUCTION_ROOT / "runtime" / "soxl" / "wf_weekly.err")
 
 
 def test_launchagent_wrapper_exists_and_loads_private_env_file():

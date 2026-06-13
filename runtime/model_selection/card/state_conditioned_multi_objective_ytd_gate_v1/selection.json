@@ -1,0 +1,59 @@
+{
+  "acceptance_criteria": [
+    "official wf_2020/wf_2022/wf_2023_2024 metrics are present",
+    "worst official WF MaxDD < 20pct",
+    "YTD return >= SOXLBacktest buy/sell reference and >= 95pct of current best",
+    "checkpoint selector table includes retention_ytd_loss and wf_drawdown_loss",
+    "drawdown interval audit exists for selected checkpoint"
+  ],
+  "actor_retention_allowed": false,
+  "candidate_profile": {
+    "baseline": "mode_conditioned_rebound_reward_train_v2",
+    "changed_layer": [
+      "feature",
+      "reward",
+      "selection"
+    ],
+    "feature_count": 79,
+    "feature_packs": [
+      "vix_term",
+      "transition_signals",
+      "soxx_spread_oscillation"
+    ],
+    "feature_schema_signature": "2f64801809a1",
+    "name": "state_conditioned_multi_objective_ytd_gate_v1"
+  },
+  "closest_failure_case": "mode_conditioned_rebound_reward_train_v2",
+  "closest_success_case": "wf_pass_ytd18_15_15_02",
+  "created_at": "2026-06-13T14:50:21.070060+00:00",
+  "decision": "candidate_profile_ready_for_smoke_training_no_promotion",
+  "expected_tradeoff": "More conservative stress-state positioning may reduce peak YTD return; trend-preservation terms are intended to prevent the low-drawdown underparticipation failure mode.",
+  "experiment": "state_conditioned_multi_objective_ytd_gate_v1",
+  "failure_mode": "Either WF drawdown stays above 20pct like mode_conditioned_rebound_reward_train_v2, or the new drawdown terms collapse YTD participation like wf_pass_ytd18_15_15_02.",
+  "hypothesis": "State-conditioned reward plus trend-preservation and drawdown-drift terms can keep the best complete candidate's participation while reducing WF drawdown below 20pct.",
+  "next_required_artifacts": [
+    "profile.yaml registered in runtime/harness/card/registry/profile.yaml before a retained actor is kept",
+    "official replay metrics for wf_2020, wf_2022, wf_2023_2024",
+    "dashboard/YTD replay through safe_backtest_end",
+    "checkpoint selector table with retention_ytd_loss and wf_drawdown_loss",
+    "drawdown interval audit for any selected checkpoint"
+  ],
+  "profile_preflight": "runtime/model_selection/card/state_conditioned_multi_objective_ytd_gate_v1/profile_preflight.json",
+  "profile_yaml": "runtime/model_selection/card/state_conditioned_multi_objective_ytd_gate_v1/profile.yaml",
+  "promotion_allowed": false,
+  "source_handoff": "runtime/model_selection/card/retention_ytd_training_objective_handoff_v1/selection.json",
+  "source_retention_gap": "runtime/model_selection/card/retention_gap_aggregate_v1/selection.json",
+  "target_thresholds": {
+    "official_internal_relative_return_floor_pp": 30.0,
+    "required_current_best_alignment_ytd_pct": 213.143462,
+    "required_wf_windows": [
+      "wf_2020",
+      "wf_2022",
+      "wf_2023_2024"
+    ],
+    "safe_backtest_end": "2026-06-11",
+    "soxlbacktest_reference_ytd_return_pct": 132.077978,
+    "wf_max_drawdown_hard_gate_pct": 20.0
+  },
+  "training_allowed_next": true
+}

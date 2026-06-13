@@ -518,7 +518,7 @@ profiles:
   family: balanced
   status: ablation
   baseline: risk_budget_usage_v1
-  keep_actor: true
+  keep_actor: false
   keep_summary: true
   notes_ref: runtime/reward/card/drawdown_rebound_reward_train_v1/drawdown_rebound_reward_train_v1.ipynb
   wf_status: blocked
@@ -527,7 +527,7 @@ profiles:
   family: balanced
   status: ablation
   baseline: drawdown_rebound_reward_train_v1
-  keep_actor: true
+  keep_actor: false
   keep_summary: true
   notes_ref: runtime/reward/card/mode_conditioned_rebound_reward_train_v2/mode_conditioned_rebound_reward_train_v2.ipynb
   wf_status: blocked
@@ -536,11 +536,20 @@ profiles:
   family: balanced
   status: ablation
   baseline: mode_conditioned_rebound_reward_train_v2
-  keep_actor: true
+  keep_actor: false
   keep_summary: true
   notes_ref: runtime/reward/card/state_conditioned_drawdown_rebound_reward_train_v1/state_conditioned_drawdown_rebound_reward_train_v1.ipynb
   wf_status: blocked
   wf_notes: "Completed in runtime/reward/card/state_conditioned_drawdown_rebound_reward_train_v1/state_conditioned_drawdown_rebound_reward_train_v1.ipynb. Decision=diagnostic_no_promotion; test_proxy rel=-1470.0pp MaxDD=43.6%; wf_2023_2024 nearly reaches DD target at 15.23% with +36.99pp relative, but wf_2020/test_proxy underparticipation remains severe. Keep as reward diagnostic only; no runtime binding."
+- name: state_conditioned_multi_objective_ytd_gate_v1
+  family: balanced
+  status: candidate
+  baseline: mode_conditioned_rebound_reward_train_v2
+  keep_actor: false
+  keep_summary: true
+  notes_ref: runtime/model_selection/card/state_conditioned_multi_objective_ytd_gate_v1/state_conditioned_multi_objective_ytd_gate_v1.ipynb
+  wf_status: pending
+  wf_notes: "Candidate profile created from retention_ytd_training_objective_handoff_v1; actor retention blocked until official wf_2020/wf_2022/wf_2023_2024 plus YTD gates pass."
 - name: balanced_kelly_warmstart_v9
   family: balanced
   status: candidate

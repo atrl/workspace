@@ -1,0 +1,47 @@
+{
+  "actor_retention_allowed": false,
+  "candidate_profile": {
+    "baseline": "mode_conditioned_rebound_reward_train_v2",
+    "changed_layer": [
+      "feature",
+      "reward",
+      "selection"
+    ],
+    "feature_count": 79,
+    "feature_packs": [
+      "vix_term",
+      "transition_signals",
+      "soxx_spread_oscillation"
+    ],
+    "feature_schema_signature": "2f64801809a1",
+    "name": "state_conditioned_multi_objective_ytd_gate_v1"
+  },
+  "created_at": "2026-06-13T14:50:21.070060+00:00",
+  "decision": "candidate_profile_ready_for_smoke_training_no_promotion",
+  "experiment": "state_conditioned_multi_objective_ytd_gate_v1",
+  "next_required_artifacts": [
+    "profile.yaml registered in runtime/harness/card/registry/profile.yaml before a retained actor is kept",
+    "official replay metrics for wf_2020, wf_2022, wf_2023_2024",
+    "dashboard/YTD replay through safe_backtest_end",
+    "checkpoint selector table with retention_ytd_loss and wf_drawdown_loss",
+    "drawdown interval audit for any selected checkpoint"
+  ],
+  "profile_preflight": "runtime/model_selection/card/state_conditioned_multi_objective_ytd_gate_v1/profile_preflight.json",
+  "profile_yaml": "runtime/model_selection/card/state_conditioned_multi_objective_ytd_gate_v1/profile.yaml",
+  "promotion_allowed": false,
+  "source_handoff": "runtime/model_selection/card/retention_ytd_training_objective_handoff_v1/selection.json",
+  "source_retention_gap": "runtime/model_selection/card/retention_gap_aggregate_v1/selection.json",
+  "target_thresholds": {
+    "official_internal_relative_return_floor_pp": 30.0,
+    "required_current_best_alignment_ytd_pct": 213.143462,
+    "required_wf_windows": [
+      "wf_2020",
+      "wf_2022",
+      "wf_2023_2024"
+    ],
+    "safe_backtest_end": "2026-06-11",
+    "soxlbacktest_reference_ytd_return_pct": 132.077978,
+    "wf_max_drawdown_hard_gate_pct": 20.0
+  },
+  "training_allowed_next": true
+}

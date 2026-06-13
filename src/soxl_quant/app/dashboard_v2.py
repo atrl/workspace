@@ -662,6 +662,12 @@ def build_dashboard_v2_data(
     if baseline not in defaults:
         raise ValueError(f"baseline profile not selected or replayable: {baseline}")
     profiles_to_write = _dedupe_preserve_order(defaults + sorted(name for name in by_name if name not in defaults))
+    models_dir = output_dir / "models"
+    expected_model_files = {models_dir / f"{profile_name}.json" for profile_name in profiles_to_write}
+    if models_dir.exists():
+        for stale_path in models_dir.glob("*.json"):
+            if stale_path not in expected_model_files:
+                stale_path.unlink()
     model_payloads: dict[str, dict[str, Any]] = {}
     model_paths: dict[str, Path] = {}
     for profile_name in profiles_to_write:

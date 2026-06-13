@@ -142,7 +142,7 @@ PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py --smoke
 Pipeline order:
 1. Market data update (incremental fetch + qlib refresh)
 2. Paper-trading signal generation + execution
-3. Dashboard rebuild (`dashboard.html`)
+3. Dashboard rebuild (`dashboard.html`) and dashboard v2 data refresh
 4. Completion notification via Bark / macOS
 
 ### macOS LaunchAgent (recommended over cron)
@@ -201,11 +201,11 @@ Pipeline order:
 
 ```bash
 # Asia/Shanghai local time:
-# Mon-Fri 21:00: US pre-open cached-data dry-run + dashboard + Vercel deploy attempt
-0 21 * * 1-5 SOXL_SCHEDULE_TRIGGER=cron_preopen /Users/rziiiii/dev/workspace/production/run_soxl_scheduler.sh --broker futu --account-notional 10000 --runtime-composer budget_usage --composer-profile v19reg_v22_budget_usage_bull_guard_v1 --slow-profile balanced_rule_residual_v19_reg --fast-profile balanced_rule_residual_v22 --bull-participation-guard --dry-run --no-notify --skip-data-update --vercel-deploy --health-summary --schedule-slot preopen >> /Users/rziiiii/dev/workspace/runtime/soxl/paper_trading/scheduler_preopen.log 2>&1
+# Mon-Fri 21:00: US pre-open cached-data dry-run + local dashboard refresh
+0 21 * * 1-5 SOXL_SCHEDULE_TRIGGER=cron_preopen /Users/rziiiii/dev/workspace/production/run_soxl_scheduler.sh --broker futu --account-notional 10000 --runtime-composer budget_usage --composer-profile v19reg_v22_budget_usage_bull_guard_v1 --slow-profile balanced_rule_residual_v19_reg --fast-profile balanced_rule_residual_v22 --bull-participation-guard --dry-run --no-notify --skip-data-update --health-summary --schedule-slot preopen >> /Users/rziiiii/dev/workspace/runtime/soxl/paper_trading/scheduler_preopen.log 2>&1
 
-# Tue-Sat 06:15: US post-close data refresh + Futu simulated trading + dashboard + Vercel deploy attempt
-15 6 * * 2-6 SOXL_SCHEDULE_TRIGGER=cron_postclose /Users/rziiiii/dev/workspace/production/run_soxl_scheduler.sh --broker futu --account-notional 10000 --runtime-composer budget_usage --composer-profile v19reg_v22_budget_usage_bull_guard_v1 --slow-profile balanced_rule_residual_v19_reg --fast-profile balanced_rule_residual_v22 --bull-participation-guard --no-notify --vercel-deploy --health-summary --schedule-slot postclose >> /Users/rziiiii/dev/workspace/runtime/soxl/paper_trading/scheduler_postclose.log 2>&1
+# Tue-Sat 06:15: US post-close data refresh + Futu simulated trading + local dashboard refresh
+15 6 * * 2-6 SOXL_SCHEDULE_TRIGGER=cron_postclose /Users/rziiiii/dev/workspace/production/run_soxl_scheduler.sh --broker futu --account-notional 10000 --runtime-composer budget_usage --composer-profile v19reg_v22_budget_usage_bull_guard_v1 --slow-profile balanced_rule_residual_v19_reg --fast-profile balanced_rule_residual_v22 --bull-participation-guard --no-notify --health-summary --schedule-slot postclose >> /Users/rziiiii/dev/workspace/runtime/soxl/paper_trading/scheduler_postclose.log 2>&1
 ```
 
 ### Notification Setup (Bark)
@@ -227,7 +227,7 @@ Pipeline order:
 
 ## Dashboard Auto-Update
 
-The daily scheduler automatically rebuilds `dashboard.html` after each paper-trading run. Paper-trading results are appended to `runtime/soxl/paper_trading/paper_trading_soxl_daily.csv` in the same format as post-train review outputs, so they appear as a new versioned series in the dashboard.
+The daily scheduler automatically rebuilds `dashboard.html` and refreshes `dashboard_data/v2` after each paper-trading run. Paper-trading results are appended to `runtime/soxl/paper_trading/paper_trading_soxl_daily.csv` in the same format as post-train review outputs, so they appear as a new versioned series in the dashboard.
 
 To rebuild the dashboard manually:
 ```bash

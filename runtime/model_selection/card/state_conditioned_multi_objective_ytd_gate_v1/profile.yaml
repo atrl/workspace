@@ -1,0 +1,161 @@
+name: state_conditioned_multi_objective_ytd_gate_v1
+max_iters: 10
+episode_per_iter: 8
+episode_len: 360
+hidden_sizes: [128, 64]
+lr: 0.0002
+update_batch_size: 64
+update_repeat: 6
+feature:
+  packs:
+    - vix_term
+    - transition_signals
+    - soxx_spread_oscillation
+reward:
+  use_moderate_reward: true
+  use_alpha_reward: true
+  alpha_scale: 3.0
+  use_kelly_alpha: true
+  pbrs_coef: 0.16
+  transaction_cost: 0.10
+  turnover_penalty: 0.06
+  smoothness_penalty: 0.04
+  micro_rebalance_penalty: 0.50
+  micro_rebalance_threshold: 0.05
+  episode_drawdown_penalty: 3.0
+  episode_drawdown_threshold: 0.13
+  use_cvar_terminal: true
+  cvar_terminal_coef: 0.60
+  cvar_terminal_alpha: 0.10
+  downside_asymmetry_coef: 1.25
+  drawdown_penalty: 0.24
+  downside_penalty: 0.16
+  risk_budget_penalty: 0.18
+  high_exposure_penalty: 0.05
+  trend_alignment_bonus: 0.85
+  trend_alignment_threshold: 0.02
+  opportunity_cost_penalty: 0.18
+  opportunity_threshold_pos: 0.46
+  opportunity_threshold_anchor: 0.04
+  opportunity_threshold_trend: 0.015
+  profit_taking_bonus: 0.20
+  tranche_profit_threshold: 0.02
+  panic_buy_bonus: 0.45
+  panic_buy_cum_drop_threshold: -0.12
+  panic_buy_regime_risk_threshold: 0.58
+  rule_imitation_bonus: 0.08
+  rule_decision_bonus: 0.12
+  mode_conditional_reward_enabled: true
+  flat_wait_pos_penalty: 0.10
+  crash_rebuild_bonus: 0.40
+  trend_hold_alignment_multiplier: 1.45
+  defensive_hold_neutral_bonus: 0.015
+  state_conditioned_reward_enabled: true
+  state_downtrend_position_penalty: 1.40
+  state_downtrend_position_threshold: 0.25
+  state_downtrend_anchor_gap_max: -0.05
+  state_downtrend_below_anchor_ratio_min: 0.55
+  state_downtrend_vix_percentile_min: 0.60
+  state_rebound_opportunity_penalty: 0.75
+  state_rebound_target_position: 0.48
+  state_rebound_mom10_min: 0.02
+  state_rebound_mom21_min: 0.20
+  state_rebound_relative_strength_min: 0.50
+  state_rebound_vol_of_vol_min: 0.08
+  state_rebound_vix_percentile_max: 0.85
+  drawdown_drift_reward_enabled: true
+  drawdown_drift_penalty: 1.50
+  drawdown_drift_threshold_pct: 15.0
+  drawdown_drift_position_threshold: 0.05
+  trend_preservation_floor_enabled: true
+  trend_preservation_floor_penalty: 0.70
+  trend_preservation_floor_position: 0.25
+  trend_preservation_lookback: 63
+  trend_preservation_min_buyhold_return_pct: 5.0
+  return_scale: 0.0
+  activity_bonus: 0.0
+  inactivity_penalty: 0.0
+  rule_deviation_penalty: 0.0
+  short_hold_turnover_penalty: 0.0
+  flat_trade_penalty: 0.0
+  cooldown_penalty: 0.0
+  vol_trading_bonus: 0.0
+  underwater_sell_penalty: 0.0
+position_cap:
+  start_drawdown: 0.10
+  full_drawdown: 0.30
+  min_cap: 0.38
+  curve_power: 1.0
+  bull_min_cap: 0.68
+  bull_vol_threshold: 0.42
+  bull_anchor_threshold: 0.02
+  bear_min_cap: 0.25
+  bear_regime_threshold: 0.68
+promotion_gate:
+  max_test_2022_drawdown: 20.0
+  max_test_2022_avg_pos: 0.35
+  min_test_proxy_sharpe: 0.90
+  min_wf_2023_2024_return: 0.0
+  min_wf_2023_2024_sharpe: 0.0
+  min_wf_relative_outperformance: 30.0
+selection_score:
+  return_weight: 1.0
+  sharpe_weight: 20.0
+  max_dd_penalty: 0.42
+  avg_pos_penalty: 0.0
+  stress_avg_pos_penalty: 5.0
+  stress_threshold: 0.55
+  staged_training: true
+  stage_iters: 4
+  use_pareto: true
+  pareto_objectives:
+    - test_2022_max_dd
+    - test_proxy_sharpe
+    - test_2023_2024_return
+checkpoint_retention:
+  enabled: true
+  keep_stage: true
+  keep_top_n: 3
+execution:
+  base_threshold: 0.04
+  quiet_threshold: 0.08
+  stress_threshold: 0.012
+  trade_lock_days: 5
+model:
+  position_mapping: budget_usage
+  use_hybrid_overlay: true
+  delta_levels: [-0.10, -0.05, 0.0, 0.05, 0.10]
+  hard_floor: 0.20
+  observation_window: 5
+  use_gru: true
+  gru_hidden_size: 64
+mode_router:
+  enabled: true
+  trend_hold_floor: 0.50
+  trend_hold_cap: 0.98
+  defensive_hold_floor: 0.10
+  defensive_hold_cap: 0.50
+  crash_rebuild_floor: 0.30
+  crash_rebuild_cap: 0.75
+  flat_wait_floor: 0.00
+  flat_wait_cap: 0.22
+sampling:
+  regime_stratified: true
+  phase_balanced: true
+  mild_risk_threshold: 0.42
+  severe_risk_threshold: 0.58
+  mild_drawdown_threshold: 0.10
+  severe_drawdown_threshold: 0.18
+  mild_repeat: 2
+  severe_repeat: 2
+  trend_repeat: 3
+  rebound_repeat: 3
+  episode_stride: 21
+  bull_anchor_threshold: 0.04
+  bull_trend_threshold: 0.02
+  bull_vol_threshold: 0.45
+  bull_risk_threshold: 0.45
+  rebound_anchor_ceiling: -0.02
+  rebound_trend_floor: 0.01
+  rebound_risk_ceiling: 0.60
+  rebound_risk_release: 0.06

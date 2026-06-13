@@ -3,12 +3,12 @@
     "configured": true,
     "model_replay_freshness": {
       "counts": {
-        "current": 12,
+        "current": 0,
         "failed": 0,
-        "refreshed": 0,
+        "refreshed": 1,
         "skipped": 0
       },
-      "generated_at": "2026-06-13T01:47:40+00:00",
+      "generated_at": "2026-06-13T15:01:19+00:00",
       "latest_data_date": "2026-06-12",
       "safe_backtest_end": "2026-06-11",
       "source_path": "dashboard_data/model_replay_freshness.json"
@@ -40,43 +40,20 @@
   },
   "available_profiles": [
     "soxl_backtest_policy_reimplementation_v1",
-    "smoke",
-    "balanced_rule_residual_v22",
-    "balanced",
-    "balanced_macro_v1",
-    "balanced_rule_residual_imitation_v4",
-    "balanced_rule_residual_v19",
-    "balanced_rule_residual_v19_reg",
-    "balanced_rule_residual_v19_reg_light",
-    "balanced_rule_residual_v19_reg_v22_retest_v1",
-    "drawdown_rebound_reward_train_v1",
-    "mode_conditioned_rebound_reward_train_v2",
-    "state_conditioned_drawdown_rebound_reward_train_v1"
+    "balanced_rule_residual_v19_reg_v22_retest_v1"
   ],
   "default_baseline_profile": "soxl_backtest_policy_reimplementation_v1",
   "default_comparison_profiles": [
     "soxl_backtest_policy_reimplementation_v1",
-    "smoke",
-    "balanced_rule_residual_v22"
+    "balanced_rule_residual_v19_reg_v22_retest_v1"
   ],
-  "generated_at": "2026-06-13T14:34:46.211542+00:00",
+  "generated_at": "2026-06-13T15:01:27.946429+00:00",
   "latest_market_date": "2026-06-12",
   "safe_backtest_end": "2026-06-11",
   "source_paths": {
     "market": "data/processed/panels/soxl_soxx_vix_full.csv",
-    "model:balanced": "runtime/model/card/balanced/balanced_soxl_daily.csv",
-    "model:balanced_macro_v1": "runtime/model/card/balanced_macro_v1/balanced_macro_v1_soxl_daily.csv",
-    "model:balanced_rule_residual_imitation_v4": "runtime/model/card/balanced_rule_residual_imitation_v4/balanced_rule_residual_imitation_v4_soxl_daily.csv",
-    "model:balanced_rule_residual_v19": "runtime/model/card/balanced_rule_residual_v19/balanced_rule_residual_v19_soxl_daily.csv",
-    "model:balanced_rule_residual_v19_reg": "runtime/model/card/balanced_rule_residual_v19_reg/balanced_rule_residual_v19_reg_soxl_daily.csv",
-    "model:balanced_rule_residual_v19_reg_light": "runtime/model/card/balanced_rule_residual_v19_reg_light/balanced_rule_residual_v19_reg_light_soxl_daily.csv",
     "model:balanced_rule_residual_v19_reg_v22_retest_v1": "runtime/model/card/balanced_rule_residual_v19_reg_v22_retest_v1/balanced_rule_residual_v19_reg_v22_retest_v1_soxl_daily.csv",
-    "model:balanced_rule_residual_v22": "runtime/model/card/balanced_rule_residual_v22/balanced_rule_residual_v22_soxl_daily.csv",
-    "model:drawdown_rebound_reward_train_v1": "runtime/model/card/drawdown_rebound_reward_train_v1/drawdown_rebound_reward_train_v1_soxl_daily.csv",
-    "model:mode_conditioned_rebound_reward_train_v2": "runtime/model/card/mode_conditioned_rebound_reward_train_v2/mode_conditioned_rebound_reward_train_v2_soxl_daily.csv",
-    "model:smoke": "runtime/model/card/smoke/smoke_soxl_daily.csv",
     "model:soxl_backtest_policy_reimplementation_v1": "runtime/production/card/soxl_backtest_policy_reimplementation_v1/new_policy_daily.csv",
-    "model:state_conditioned_drawdown_rebound_reward_train_v1": "runtime/model/card/state_conditioned_drawdown_rebound_reward_train_v1/state_conditioned_drawdown_rebound_reward_train_v1_soxl_daily.csv",
     "model_replay_freshness": "dashboard_data/model_replay_freshness.json"
   }
 }
