@@ -1,15 +1,6 @@
-# SOXL + A股 定时任务配置
+# SOXL 定时任务配置
 # 安装方法: crontab production/crontab.txt
 # 当前生效配置可直接用: crontab -l
-
-# ============================================
-# A股数据自动更新
-# ============================================
-# 每天 17:30 执行增量更新（A股收盘后）
-30 17 * * 1-5 /bin/bash /home/rziiiii/dev/data/auto_update.sh
-
-# 每周六凌晨 2:00 执行全量验证和导出
-0 2 * * 6 /usr/bin/python3 /home/rziiiii/dev/data/main.py --validate
 
 # ============================================
 # SOXL Daily Scheduler (Asia/Shanghai local time)

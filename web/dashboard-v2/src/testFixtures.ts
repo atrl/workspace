@@ -5,6 +5,11 @@ export const manifestFixture: Manifest = {
   latest_market_date: '2026-01-06',
   safe_backtest_end: '2026-01-06',
   available_profiles: ['smoke', 'balanced_rule_residual_v22', 'candidate'],
+  profile_groups: {
+    runnable: ['smoke'],
+    reference: ['balanced_rule_residual_v22'],
+    evidence_only: ['candidate'],
+  },
   default_baseline_profile: 'balanced_rule_residual_v22',
   default_chart_profile: 'smoke',
   default_comparison_profiles: ['smoke', 'balanced_rule_residual_v22'],

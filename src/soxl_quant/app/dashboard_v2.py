@@ -1031,6 +1031,25 @@ def build_comparison_payload(
     }
 
 
+def _profile_groups(
+    model_payloads: dict[str, dict[str, Any]],
+    profiles: list[str],
+) -> dict[str, list[str]]:
+    groups = {"runnable": [], "reference": [], "evidence_only": []}
+    for profile in profiles:
+        payload = model_payloads.get(profile, {})
+        if payload.get("runnable"):
+            groups["runnable"].append(profile)
+            continue
+        source_kind = str(payload.get("source_kind") or "")
+        runnable_reason = str(payload.get("runnable_reason") or "")
+        if source_kind in {"soxlbacktest_qlib_buysell", "reference_baseline"} or runnable_reason == "reference_baseline":
+            groups["reference"].append(profile)
+        else:
+            groups["evidence_only"].append(profile)
+    return groups
+
+
 def build_dashboard_v2_data(
     *,
     root: Path,
@@ -1196,6 +1215,7 @@ def build_dashboard_v2_data(
         "latest_market_date": latest_market_date,
         "safe_backtest_end": safe_backtest_end,
         "available_profiles": profiles_to_write,
+        "profile_groups": _profile_groups(model_payloads, profiles_to_write),
         "default_baseline_profile": baseline,
         "default_chart_profile": default_chart_profile,
         "default_comparison_profiles": defaults,

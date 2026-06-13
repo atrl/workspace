@@ -11,7 +11,7 @@ import {
   type Time,
 } from 'lightweight-charts';
 import { buildActionMarkers } from './domain';
-import type { MarketPayload, ModelPayload } from './types';
+import type { MarketPayload, MarketRow, ModelPayload, ModelRow } from './types';
 
 function toTime(date: string): Time {
   return date as Time;
@@ -22,6 +22,58 @@ function eventDate(param: MouseEventParams<Time>): string | null {
   if (typeof param.time === 'string') return param.time;
   if (typeof param.time === 'number') return new Date(param.time * 1000).toISOString().slice(0, 10);
   return `${param.time.year}-${String(param.time.month).padStart(2, '0')}-${String(param.time.day).padStart(2, '0')}`;
+}
+
+interface PriceRow {
+  date: string;
+  open?: number;
+  high?: number;
+  low?: number;
+  close?: number;
+  price?: number;
+}
+
+function finiteNumber(value: unknown): number | undefined {
+  const number = Number(value);
+  return Number.isFinite(number) ? number : undefined;
+}
+
+function priceRowFromMarket(row: MarketRow): PriceRow {
+  return {
+    date: row.date,
+    open: finiteNumber(row.open),
+    high: finiteNumber(row.high),
+    low: finiteNumber(row.low),
+    close: finiteNumber(row.close),
+    price: finiteNumber(row.close),
+  };
+}
+
+function priceRowFromModel(row: ModelRow): PriceRow {
+  return {
+    date: row.date,
+    open: finiteNumber(row.open),
+    high: finiteNumber(row.high),
+    low: finiteNumber(row.low),
+    close: finiteNumber(row.close ?? row.price),
+    price: finiteNumber(row.price ?? row.close),
+  };
+}
+
+function mergePriceRows(marketRows: readonly MarketRow[], modelRows: readonly ModelRow[]): PriceRow[] {
+  const byDate = new Map<string, PriceRow>();
+  for (const row of modelRows) {
+    byDate.set(row.date, priceRowFromModel(row));
+  }
+  for (const row of marketRows) {
+    const marketRow = priceRowFromMarket(row);
+    byDate.set(row.date, { ...byDate.get(row.date), ...marketRow });
+  }
+  return [...byDate.values()].sort((left, right) => left.date.localeCompare(right.date));
+}
+
+function hasOhlc(row: PriceRow): row is Required<Pick<PriceRow, 'date' | 'open' | 'high' | 'low' | 'close'>> & PriceRow {
+  return [row.open, row.high, row.low, row.close].every((value) => typeof value === 'number' && Number.isFinite(value));
 }
 
 export interface ChartHandles {
@@ -218,22 +270,27 @@ export function renderMarketChart(
     wickUpColor: '#34d399',
     wickDownColor: '#f87171',
   });
+  const priceRows = mergePriceRows(market.rows, model.rows);
   candleSeries.setData(
-    market.rows.map((row) => ({
+    priceRows.filter(hasOhlc).map((row) => ({
       time: toTime(row.date),
-      open: Number(row.open),
-      high: Number(row.high),
-      low: Number(row.low),
-      close: Number(row.close),
+      open: row.open,
+      high: row.high,
+      low: row.low,
+      close: row.close,
     })),
   );
   const closeLine = chart.addSeries(LineSeries, {
     color: '#e5e7eb',
     lineWidth: 1,
     priceLineVisible: false,
-    title: 'SOXL Close',
+    title: 'SOXL Price',
   });
-  closeLine.setData(market.rows.map((row) => ({ time: toTime(row.date), value: Number(row.close) })));
+  closeLine.setData(
+    priceRows
+      .map((row) => ({ time: toTime(row.date), value: finiteNumber(row.close ?? row.price) }))
+      .filter((row): row is { time: Time; value: number } => row.value !== undefined),
+  );
 
   const positionLine = chart.addSeries(LineSeries, {
     color: '#38bdf8',

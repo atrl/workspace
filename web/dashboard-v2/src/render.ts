@@ -25,12 +25,16 @@ export function renderDataSourcePanel(container: HTMLElement, manifest: Manifest
   container.replaceChildren();
   container.appendChild(element('h2', undefined, 'Data Sources'));
   const grid = element('div', 'source-grid');
+  const groups = manifest.profile_groups;
   const rows: [string, string][] = [
     ['safe_backtest_end', manifest.safe_backtest_end],
     ['latest_market_date', manifest.latest_market_date],
     ['generated_at', manifest.generated_at],
     ['baseline', manifest.default_baseline_profile],
     ['models', manifest.default_comparison_profiles.join(', ')],
+    ['runnable profiles', groups?.runnable?.join(', ') || 'none'],
+    ['reference profiles', groups?.reference?.join(', ') || 'none'],
+    ['evidence-only profiles', groups?.evidence_only?.join(', ') || 'none'],
     ...Object.entries(manifest.source_paths),
   ];
   for (const [label, value] of rows) {
@@ -514,4 +518,17 @@ export function renderFeatureComparisonPanel(
   container.appendChild(snapshotPanel);
   renderFeatureActionSummaryTable(container, input.models);
   renderRecentEventFeatureTable(container, input.models);
+}
+
+export function renderFeatureSpotlightPanel(
+  container: HTMLElement,
+  input: { date: string; marketRows: readonly MarketRow[]; models: Record<string, ModelPayload> },
+): void {
+  container.replaceChildren();
+  container.appendChild(element('h2', undefined, 'Buy/Sell Features'));
+  const snapshotPanel = element('section', 'feature-date-snapshot');
+  snapshotPanel.id = 'feature-date-snapshot';
+  renderFeatureSnapshotPanel(snapshotPanel, input);
+  container.appendChild(snapshotPanel);
+  renderFeatureActionSummaryTable(container, input.models);
 }

@@ -72,7 +72,7 @@
     "soxl_backtest_policy_reimplementation_v1",
     "balanced_rule_residual_v19_moe_v2"
   ],
-  "generated_at": "2026-06-13T21:09:23.619914+00:00",
+  "generated_at": "2026-06-13T21:55:06.910088+00:00",
   "latest_market_date": "2026-06-10",
   "model_retention_gate": {
     "max_walkforward_drawdown_pct": 20.0,
@@ -98,6 +98,15 @@
       "wf_2023_2024"
     ],
     "source_path": "runtime/model_selection/card/model_retention_walkforward_gate_v1/summary.json"
+  },
+  "profile_groups": {
+    "evidence_only": [
+      "balanced_rule_residual_v19_moe_v2"
+    ],
+    "reference": [
+      "soxl_backtest_policy_reimplementation_v1"
+    ],
+    "runnable": []
   },
   "safe_backtest_end": "2026-06-09",
   "source_paths": {

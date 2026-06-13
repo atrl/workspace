@@ -49,20 +49,24 @@ def test_dashboard_static_export_is_trackable():
 
 def test_dashboard_page_loads_production_status_export():
     html = (ROOT / "dashboard.html").read_text(encoding="utf-8")
+    manifest = json.loads((ROOT / "dashboard_data" / "v2" / "manifest.json").read_text(encoding="utf-8"))
+    production_status = json.loads((ROOT / "dashboard_data" / "production_status.json").read_text(encoding="utf-8"))
+    goal_gates = json.loads((ROOT / "dashboard_data" / "production_goal_gates.json").read_text(encoding="utf-8"))
 
-    assert 'id="productionStatusCard"' in html
-    assert "dashboard_data/production_status.json" in html
-    assert "dashboard_data/production_goal_gates.json" in html
-    assert "renderProductionStatus" in html
-    assert 'id="productionGateOverall"' in html
+    assert "/web/dashboard-v2/dist/index.html" in html
+    assert manifest["auto_update"]["status_paths"]["production_status"].endswith("production_status.json")
+    assert manifest["auto_update"]["status_paths"]["production_goal_gates"].endswith("production_goal_gates.json")
+    assert production_status["static_export"]["generated_at"]
+    assert goal_gates["overall"]["status"] in {"ok", "pending", "blocked", "missing", "unknown"}
 
 
 def test_dashboard_page_loads_research_backtest_export():
     html = (ROOT / "dashboard.html").read_text(encoding="utf-8")
+    research_backtests = json.loads((ROOT / "dashboard_data" / "research_backtests.json").read_text(encoding="utf-8"))
 
-    assert 'id="researchBacktests"' in html
-    assert "dashboard_data/research_backtests.json" in html
-    assert "renderResearchBacktests" in html
+    assert "/web/dashboard-v2/dist/index.html" in html
+    assert research_backtests
+    assert {"experiment", "decision", "summary_path"} <= set(research_backtests[0])
 
 
 def test_production_goal_gates_parser_extracts_overall_blockers():

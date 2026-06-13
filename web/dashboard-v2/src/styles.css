@@ -33,7 +33,7 @@ select {
 .toolbar {
   display: flex;
   align-items: center;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 12px;
   min-height: 56px;
   padding: 10px 14px;
@@ -51,8 +51,10 @@ select {
 }
 
 .profile-group {
-  flex-wrap: wrap;
+  flex: 0 1 520px;
+  flex-wrap: nowrap;
   min-width: 0;
+  overflow-x: auto;
 }
 
 .check-label {
@@ -128,6 +130,7 @@ select {
   grid-template-columns: minmax(0, 1fr) 340px;
   gap: 0;
   min-height: 0;
+  height: calc(100vh - 60px);
 }
 
 .chart-column {
@@ -245,7 +248,7 @@ h2 {
 .right-stack {
   min-width: 0;
   display: grid;
-  grid-template-rows: minmax(220px, 1fr) auto;
+  grid-template-rows: minmax(180px, 0.8fr) auto minmax(260px, 1fr);
   min-height: 0;
   overflow: hidden;
 }
@@ -258,12 +261,18 @@ h2 {
 
 .side-panel {
   min-width: 0;
+  min-height: 0;
   overflow: auto;
 }
 
 .operations-panel {
   border-top: 1px solid #1f2937;
   max-height: 360px;
+}
+
+.feature-panel {
+  border-top: 1px solid #1f2937;
+  min-height: 0;
 }
 
 .panel {
@@ -426,6 +435,7 @@ h2 {
 
   .toolbar {
     align-items: flex-start;
+    flex-wrap: wrap;
     overflow-x: visible;
   }
 

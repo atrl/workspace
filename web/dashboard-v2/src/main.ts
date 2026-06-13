@@ -29,7 +29,7 @@ import {
   renderChartCommandBar,
   renderComparisonPanel,
   renderDataSourcePanel,
-  renderFeatureComparisonPanel,
+  renderFeatureSpotlightPanel,
   renderFeatureSnapshotPanel,
   renderInspectorPanel,
   renderOperationsPanel,
@@ -78,10 +78,10 @@ function createShell(app: HTMLElement): void {
       <aside class="right-stack">
         <section id="inspector" class="side-panel"></section>
         <section id="operations-panel" class="side-panel operations-panel"></section>
+        <section id="feature-panel" class="side-panel feature-panel"></section>
       </aside>
     </main>
     <section id="comparison-panel" class="panel"></section>
-    <section id="feature-panel" class="panel"></section>
     <section id="source-panel" class="panel"></section>
   `;
 }
@@ -119,6 +119,16 @@ function selectableChartProfiles(data: DashboardData, selectedProfiles: readonly
   return runnable.length ? runnable : selected;
 }
 
+function profileOptionLabel(model: ModelPayload | undefined, profile: string): string {
+  if (!model) return profile;
+  const name = model.display_name || profile;
+  if (model.runnable) return `${name} [run]`;
+  if (model.runnable_reason === 'reference_baseline' || model.source_kind === 'soxlbacktest_qlib_buysell') {
+    return `${name} [baseline]`;
+  }
+  return `${name} [evidence]`;
+}
+
 function apiProfileFor(chartProfile: string): string {
   return chartProfile.startsWith('rerun:') ? chartProfile.split(':')[1] : chartProfile;
 }
@@ -147,7 +157,7 @@ function renderToolbar(
         : state.selectedProfiles.filter((item) => item !== profile);
       update({ selectedProfiles: clampComparisonProfiles(raw, data.manifest.available_profiles) });
     });
-    label.append(input, document.createTextNode(profile));
+    label.append(input, document.createTextNode(profileOptionLabel(data.models[profile], profile)));
     profileGroup.appendChild(label);
   }
   container.appendChild(profileGroup);
@@ -174,7 +184,7 @@ function renderToolbar(
   for (const profile of selectableChartProfiles(data, state.selectedProfiles)) {
     const option = document.createElement('option');
     option.value = profile;
-    option.textContent = data.models[profile].runnable ? profile : `${profile} (reference)`;
+    option.textContent = profileOptionLabel(data.models[profile], profile);
     option.selected = profile === state.chartProfile;
     chartSelect.appendChild(option);
   }
@@ -222,7 +232,7 @@ function renderToolbar(
   runGroup.className = 'toolbar-group run-group';
   const runButton = document.createElement('button');
   runButton.type = 'button';
-  runButton.textContent = 'Run';
+  runButton.textContent = data.models[state.chartProfile]?.runnable ? 'Run inference' : 'Evidence only';
   runButton.disabled = !data.models[state.chartProfile]?.runnable;
   runButton.addEventListener('click', runInteractiveBacktest);
   runGroup.appendChild(runButton);
@@ -331,7 +341,7 @@ function renderDashboard(
   const navHandles = renderNavChart(navChart, models, state.baselineProfile, (date) => update({ hoveredDate: date }));
   const chartSyncCleanup = syncVisibleLogicalRanges([marketHandles.chart, positionHandles.chart, navHandles]);
   renderComparisonPanel(comparison, data.comparison, state.start, state.end, state.selectedProfiles, data.models);
-  renderFeatureComparisonPanel(requireElement('feature-panel'), {
+  renderFeatureSpotlightPanel(requireElement('feature-panel'), {
     date: state.hoveredDate,
     marketRows: data.market.rows,
     models: selectedModels(data, state.selectedProfiles),

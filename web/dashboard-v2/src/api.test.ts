@@ -80,6 +80,12 @@ describe('dashboard v2 backtest API client', () => {
     expect(model.display_name).toContain('balanced_rule_residual_v22 rerun');
     expect(model.runnable).toBe(true);
     expect(model.rows[0]).toMatchObject({ date: '2026-01-05', price: 11, position: 0 });
+    expect(model.rows[1]).toMatchObject({
+      open: 11.5,
+      high: 12.5,
+      low: 11.2,
+      close: 12,
+    });
     expect(model.rows[1].feature_snapshot).toEqual({ alpha_signal: 1.25, shared_feature: 20 });
     expect(model.snapshot_columns).toEqual(['alpha_signal', 'shared_feature']);
     expect(model.feature_columns).toEqual(['alpha_signal', 'shared_feature']);

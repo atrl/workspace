@@ -103,7 +103,7 @@ function normalizeRows(rows: readonly ApiRow[]): ModelRow[] {
     const price = numberOr(row.price ?? row.close, 0);
     const buyholdNav = numberOr(row.buyhold_nav, numberOr(row.strategy_nav, 0));
     const strategyNav = numberOr(row.strategy_nav, buyholdNav);
-    return {
+    const normalized: ModelRow = {
       date,
       strategy_nav: strategyNav,
       buyhold_nav: buyholdNav,
@@ -114,6 +114,11 @@ function normalizeRows(rows: readonly ApiRow[]): ModelRow[] {
       excess_pct: numberOr(row.excess_pct, 0),
       feature_snapshot: normalizeFeatureSnapshot(row),
     };
+    for (const field of ['open', 'high', 'low', 'close', 'volume'] as const) {
+      const value = Number(row[field]);
+      if (Number.isFinite(value)) normalized[field] = value;
+    }
+    return normalized;
   });
 }
 

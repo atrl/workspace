@@ -101,6 +101,14 @@ def test_crontab_uses_shanghai_safe_us_market_windows():
     assert ("35", "16") not in stale_local_times
 
 
+def test_crontab_is_scoped_to_repo_owned_soxl_jobs():
+    text = (ROOT / "production" / "crontab.txt").read_text(encoding="utf-8")
+
+    assert "/home/rziiiii/dev/data" not in text
+    assert "auto_update.sh" not in text
+    assert "A股" not in text
+
+
 def test_crontab_weekly_walkforward_uses_repo_wrapper():
     lines = (ROOT / "production" / "crontab.txt").read_text(encoding="utf-8").splitlines()
     weekly = next(

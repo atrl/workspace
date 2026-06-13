@@ -52,6 +52,11 @@ export interface Manifest {
   latest_market_date: string;
   safe_backtest_end: string;
   available_profiles: string[];
+  profile_groups?: {
+    runnable: string[];
+    reference: string[];
+    evidence_only: string[];
+  };
   default_baseline_profile: string;
   default_chart_profile?: string;
   default_comparison_profiles: string[];
@@ -77,6 +82,11 @@ export interface ModelRow {
   position: number;
   action: Action;
   price: number;
+  open?: number;
+  high?: number;
+  low?: number;
+  close?: number;
+  volume?: number;
   excess: number;
   excess_pct: number;
   feature_snapshot?: Record<string, FeatureValue>;

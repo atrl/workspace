@@ -85,6 +85,38 @@ describe('dashboard v2 chart rendering', () => {
     );
   });
 
+  test('uses model rerun OHLC and price rows when static market rows are missing', () => {
+    const container = document.createElement('div');
+    const rerunModel = {
+      ...modelFixture,
+      rows: modelFixture.rows.map((row) => ({
+        ...row,
+        open: row.price - 0.25,
+        high: row.price + 0.5,
+        low: row.price - 0.5,
+        close: row.price,
+      })),
+    };
+
+    renderMarketChart(container, { ...marketFixture, rows: [] }, rerunModel, () => {});
+
+    expect(chartMocks.seriesRecords[0].data).toEqual(
+      rerunModel.rows.map((row) => ({
+        time: row.date,
+        open: row.open,
+        high: row.high,
+        low: row.low,
+        close: row.close,
+      })),
+    );
+    expect(chartMocks.seriesRecords[1].data).toEqual(
+      rerunModel.rows.map((row) => ({ time: row.date, value: row.price })),
+    );
+    expect(chartMocks.seriesRecords[2].data).toEqual(
+      rerunModel.rows.map((row) => ({ time: row.date, value: row.position })),
+    );
+  });
+
   test('enables TradingView-style mouse wheel, drag, and kinetic interactions', () => {
     const container = document.createElement('div');
 

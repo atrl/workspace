@@ -4,6 +4,7 @@ import {
   renderComparisonPanel,
   renderDataSourcePanel,
   renderFeatureComparisonPanel,
+  renderFeatureSpotlightPanel,
   renderInspectorPanel,
   renderOperationsPanel,
 } from './render';
@@ -40,6 +41,12 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.textContent).toContain('1 / 1');
     expect(panel.textContent).toContain('current=1');
     expect(panel.textContent).toContain('model_replay_freshness.json');
+    expect(panel.textContent).toContain('runnable profiles');
+    expect(panel.textContent).toContain('smoke');
+    expect(panel.textContent).toContain('reference profiles');
+    expect(panel.textContent).toContain('balanced_rule_residual_v22');
+    expect(panel.textContent).toContain('evidence-only profiles');
+    expect(panel.textContent).toContain('candidate');
     expect(panel.textContent).toContain('Auto Update');
     expect(panel.textContent).toContain('dashboard_refresh');
     expect(panel.textContent).toContain('installed');
@@ -135,5 +142,24 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.textContent).toContain('beta_signal');
     expect(panel.textContent).toContain('-2.50');
     expect(panel.textContent).toContain('Recent Buy/Sell Events');
+  });
+
+  test('renders compact first-screen buy and sell feature spotlight', () => {
+    const panel = document.createElement('section');
+
+    renderFeatureSpotlightPanel(panel, {
+      date: '2026-01-05',
+      marketRows: marketFixture.rows,
+      models: { smoke: modelFixture, balanced_rule_residual_v22: betaModelFixture },
+    });
+
+    expect(panel.textContent).toContain('Buy/Sell Features');
+    expect(panel.textContent).toContain('2026-01-05');
+    expect(panel.textContent).toContain('smoke');
+    expect(panel.textContent).toContain('balanced_rule_residual_v22');
+    expect(panel.textContent).toContain('alpha_signal');
+    expect(panel.textContent).toContain('beta_signal');
+    expect(panel.textContent).toContain('BUY-SELL');
+    expect(panel.textContent).not.toContain('Recent Buy/Sell Events');
   });
 });

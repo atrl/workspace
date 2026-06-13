@@ -1,0 +1,23 @@
+{
+  "experiment": "dashboard_v2_interaction_fix_v1",
+  "generated_at": "2026-06-13T22:01:00+00:00",
+  "decision": "dashboard_v2_unified_entrypoint_and_interaction_fix_verified",
+  "url": "http://127.0.0.1:8871/web/dashboard-v2/dist/index.html?apiBase=http://127.0.0.1:8871",
+  "screenshot_path": "runtime/production/card/dashboard_v2_interaction_fix_v1/dashboard_v2_interaction_fix_2026-06-14.png",
+  "browser": "Google Chrome via Playwright",
+  "checks": {
+    "dashboard_server_health": true,
+    "auto_update_tasks_visible": true,
+    "profile_groups_visible": true,
+    "buy_sell_feature_panel_visible": true,
+    "model_specific_features_visible": true,
+    "market_position_nav_canvases_present": true,
+    "workspace_bottom_px": 999,
+    "viewport_height_px": 1000
+  },
+  "notes": [
+    "KimiBrowser was not installed locally; verification used the system Google Chrome app.",
+    "The current worktree has no runnable actor artifacts, so the run button correctly renders as Evidence only.",
+    "Use scripts/dashboard_server.py for interactive reruns; plain static servers do not provide /api/run-backtest."
+  ]
+}

@@ -41,3 +41,17 @@ def test_dashboard_bundle_can_skip_retention_gate_refresh(monkeypatch):
 
     assert "scripts/review_model_retention_gates.py" not in [part for cmd in calls for part in cmd]
     assert ["npm", "--prefix", "web/dashboard-v2", "run", "build"] in calls
+
+
+def test_unified_dashboard_entrypoint_replaces_legacy_plotly_dashboard(tmp_path, monkeypatch):
+    legacy = tmp_path / "dashboard.html"
+    legacy.write_text("<script src=\"plotly.js\"></script>", encoding="utf-8")
+    monkeypatch.setattr(build_dashboard_bundle, "ROOT", tmp_path)
+
+    build_dashboard_bundle.write_unified_dashboard_entrypoints()
+
+    html = legacy.read_text(encoding="utf-8")
+    assert "/web/dashboard-v2/dist/index.html" in html
+    assert "scripts/dashboard_server.py" in html
+    assert "plotly" not in html.lower()
+    assert (tmp_path / "dashboard_v2.html").read_text(encoding="utf-8") == html

@@ -231,6 +231,9 @@ def test_build_dashboard_v2_data_keeps_model_specific_feature_snapshots(tmp_path
     beta = json.loads((output_dir / "models" / "beta_model.json").read_text())
 
     assert manifest["available_profiles"] == ["alpha_model", "beta_model"]
+    assert manifest["profile_groups"]["runnable"] == ["alpha_model", "beta_model"]
+    assert manifest["profile_groups"]["reference"] == []
+    assert manifest["profile_groups"]["evidence_only"] == []
     assert manifest["default_chart_profile"] == "alpha_model"
     assert alpha["runnable"] is True
     assert beta["runnable"] is True
@@ -384,6 +387,9 @@ def test_build_dashboard_v2_data_includes_retained_dashboard_exports_when_replay
     comparison = json.loads((output_dir / "comparison" / "default.json").read_text())
 
     assert manifest["available_profiles"] == ["retained_model"]
+    assert manifest["profile_groups"]["runnable"] == []
+    assert manifest["profile_groups"]["reference"] == []
+    assert manifest["profile_groups"]["evidence_only"] == ["retained_model"]
     assert manifest["default_chart_profile"] == "retained_model"
     assert model["source_kind"] == "retained_dashboard_export"
     assert model["runnable"] is False
