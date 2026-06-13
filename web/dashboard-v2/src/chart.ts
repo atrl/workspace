@@ -1,5 +1,6 @@
 import {
   CandlestickSeries,
+  LineStyle,
   LineSeries,
   createChart,
   createSeriesMarkers,
@@ -25,6 +26,46 @@ function eventDate(param: MouseEventParams<Time>): string | null {
 export interface ChartHandles {
   chart: IChartApi;
   primarySeries: ISeriesApi<'Candlestick'> | ISeriesApi<'Line'>;
+}
+
+function createDateEmitter(onDate: (date: string) => void): {
+  onMove: (date: string) => void;
+  onClick: (date: string) => void;
+} {
+  const requestFrame =
+    window.requestAnimationFrame?.bind(window) ??
+    ((callback: FrameRequestCallback) => window.setTimeout(() => callback(performance.now()), 16));
+  const cancelFrame = window.cancelAnimationFrame?.bind(window) ?? window.clearTimeout.bind(window);
+  let pendingDate: string | null = null;
+  let frameId: number | null = null;
+  let lastDate: string | null = null;
+
+  const flush = () => {
+    frameId = null;
+    const date = pendingDate;
+    pendingDate = null;
+    if (!date || date === lastDate) return;
+    lastDate = date;
+    onDate(date);
+  };
+
+  return {
+    onMove(date: string) {
+      pendingDate = date;
+      if (frameId !== null) return;
+      frameId = requestFrame(flush);
+    },
+    onClick(date: string) {
+      if (frameId !== null) {
+        cancelFrame(frameId);
+        frameId = null;
+      }
+      pendingDate = null;
+      if (date === lastDate) return;
+      lastDate = date;
+      onDate(date);
+    },
+  };
 }
 
 export function renderMarketChart(
@@ -82,13 +123,14 @@ export function renderMarketChart(
       time: toTime(marker.time),
     })),
   );
+  const emitDate = createDateEmitter(onDate);
   chart.subscribeCrosshairMove((param) => {
     const date = eventDate(param);
-    if (date) onDate(date);
+    if (date) emitDate.onMove(date);
   });
   chart.subscribeClick((param) => {
     const date = eventDate(param);
-    if (date) onDate(date);
+    if (date) emitDate.onClick(date);
   });
   chart.timeScale().fitContent();
   return { chart, primarySeries: candleSeries };
@@ -109,7 +151,11 @@ export function renderPositionChart(container: HTMLElement, model: ModelPayload)
   return { chart, primarySeries: line };
 }
 
-export function renderNavChart(container: HTMLElement, models: Record<string, ModelPayload>): IChartApi {
+export function renderNavChart(
+  container: HTMLElement,
+  models: Record<string, ModelPayload>,
+  baselineProfile?: string,
+): IChartApi {
   container.replaceChildren();
   const chart = createChart(container, {
     autoSize: true,
@@ -118,6 +164,19 @@ export function renderNavChart(container: HTMLElement, models: Record<string, Mo
     rightPriceScale: { borderColor: '#374151' },
     timeScale: { borderColor: '#374151' },
   });
+  const buyholdSource = (baselineProfile ? models[baselineProfile] : undefined) ?? Object.values(models)[0];
+  if (buyholdSource) {
+    const buyholdSeries = chart.addSeries(LineSeries, {
+      color: '#e5e7eb',
+      lineWidth: 2,
+      lineStyle: LineStyle.Dashed,
+      priceLineVisible: false,
+      title: 'SOXL BuyHold',
+    });
+    buyholdSeries.setData(
+      buyholdSource.rows.map((row) => ({ time: toTime(row.date), value: row.buyhold_nav })),
+    );
+  }
   const colors = ['#38bdf8', '#a78bfa', '#f59e0b', '#22c55e'];
   Object.entries(models).forEach(([profile, model], index) => {
     const series = chart.addSeries(LineSeries, { color: colors[index % colors.length], lineWidth: 2, title: profile });

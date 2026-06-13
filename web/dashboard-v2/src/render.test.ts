@@ -33,6 +33,9 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.textContent).toContain('smoke');
     expect(panel.textContent).toContain('balanced_rule_residual_v22');
     expect(panel.textContent).toContain('Action mismatches');
+    expect(panel.textContent).toContain('BuyHold');
+    expect(panel.textContent).toContain('Vs BuyHold');
+    expect(panel.textContent).toContain('-5.00pp');
     expect(panel.textContent).toContain('1');
   });
 

@@ -59,9 +59,15 @@ export interface MarketPayload {
 
 export interface ComparisonProfileValue {
   strategy_nav: number;
+  buyhold_nav: number;
   position: number;
   action: Action;
   nav_delta_vs_baseline: number;
+  buyhold_nav_delta_vs_baseline: number;
+  strategy_return: number;
+  buyhold_return: number;
+  return_delta_vs_baseline: number;
+  return_delta_vs_buyhold: number;
   position_delta_vs_baseline: number;
   action_mismatch: boolean;
   drawdown_delta_vs_baseline?: number;

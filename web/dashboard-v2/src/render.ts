@@ -81,7 +81,7 @@ export function renderComparisonPanel(
   const table = element('table', 'comparison-table');
   const thead = element('thead');
   const headerRow = element('tr');
-  for (const title of ['Model', 'Last NAV Delta', 'Last Position Delta', 'Action mismatches']) {
+  for (const title of ['Model', 'Return', 'BuyHold', 'Vs BuyHold', 'Last Pos Delta', 'Action mismatches']) {
     headerRow.appendChild(element('th', undefined, title));
   }
   thead.appendChild(headerRow);
@@ -95,7 +95,9 @@ export function renderComparisonPanel(
     const values = last?.profiles[profile];
     const tr = element('tr');
     tr.appendChild(element('td', undefined, profile));
-    tr.appendChild(element('td', undefined, values ? values.nav_delta_vs_baseline.toFixed(2) : 'n/a'));
+    tr.appendChild(element('td', undefined, values ? `${(values.strategy_return * 100).toFixed(2)}%` : 'n/a'));
+    tr.appendChild(element('td', undefined, values ? `${(values.buyhold_return * 100).toFixed(2)}%` : 'n/a'));
+    tr.appendChild(element('td', undefined, values ? `${(values.return_delta_vs_buyhold * 100).toFixed(2)}pp` : 'n/a'));
     tr.appendChild(element('td', undefined, values ? values.position_delta_vs_baseline.toFixed(3) : 'n/a'));
     tr.appendChild(element('td', undefined, String(mismatchCount)));
     tbody.appendChild(tr);

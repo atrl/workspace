@@ -328,6 +328,8 @@ def derive_model_events(
 def compute_metrics(rows: list[dict[str, Any]]) -> dict[str, float]:
     start_nav = float(rows[0]["strategy_nav"])
     end_nav = float(rows[-1]["strategy_nav"])
+    start_buyhold_nav = float(rows[0].get("buyhold_nav", start_nav))
+    end_buyhold_nav = float(rows[-1].get("buyhold_nav", end_nav))
     peak = start_nav
     max_drawdown = 0.0
     position_sum = 0.0
@@ -339,6 +341,12 @@ def compute_metrics(rows: list[dict[str, Any]]) -> dict[str, float]:
         position_sum += float(row["position"])
     return {
         "return": end_nav / start_nav - 1.0 if start_nav else 0.0,
+        "buyhold_return": end_buyhold_nav / start_buyhold_nav - 1.0 if start_buyhold_nav else 0.0,
+        "excess_return": (
+            end_nav / start_nav - end_buyhold_nav / start_buyhold_nav
+            if start_nav and start_buyhold_nav
+            else 0.0
+        ),
         "max_drawdown": max_drawdown,
         "avg_position": position_sum / len(rows),
         "row_count": float(len(rows)),
@@ -363,6 +371,14 @@ def build_comparison_payload(
         for profile in profiles
     }
     baseline_rows = by_profile[baseline_profile]
+    start_strategy_nav = {
+        profile: float(by_profile[profile][common_dates[0]]["strategy_nav"])
+        for profile in profiles
+    }
+    start_buyhold_nav = {
+        profile: float(by_profile[profile][common_dates[0]].get("buyhold_nav", start_strategy_nav[profile]))
+        for profile in profiles
+    }
     rows: list[dict[str, Any]] = []
     running_drawdowns: dict[str, float] = {profile: 0.0 for profile in profiles}
     running_peaks: dict[str, float] = {
@@ -372,6 +388,8 @@ def build_comparison_payload(
     for date in common_dates:
         baseline_row = baseline_rows[date]
         baseline_nav = float(baseline_row["strategy_nav"])
+        baseline_buyhold_nav = float(baseline_row.get("buyhold_nav", baseline_nav))
+        baseline_return = baseline_nav / start_strategy_nav[baseline_profile] - 1.0
         running_peaks[baseline_profile] = max(running_peaks[baseline_profile], baseline_nav)
         running_drawdowns[baseline_profile] = baseline_nav / running_peaks[baseline_profile] - 1.0
         action_mismatch_count = 0
@@ -379,15 +397,24 @@ def build_comparison_payload(
         for profile in profiles:
             row = by_profile[profile][date]
             nav = float(row["strategy_nav"])
+            buyhold_nav = float(row.get("buyhold_nav", nav))
+            strategy_return = nav / start_strategy_nav[profile] - 1.0
+            buyhold_return = buyhold_nav / start_buyhold_nav[profile] - 1.0
             running_peaks[profile] = max(running_peaks[profile], nav)
             running_drawdowns[profile] = nav / running_peaks[profile] - 1.0
             action_mismatch = row["action"] != baseline_row["action"]
             action_mismatch_count += int(action_mismatch)
             profile_values[profile] = {
                 "strategy_nav": nav,
+                "buyhold_nav": buyhold_nav,
                 "position": row["position"],
                 "action": row["action"],
                 "nav_delta_vs_baseline": nav - baseline_nav,
+                "buyhold_nav_delta_vs_baseline": buyhold_nav - baseline_buyhold_nav,
+                "strategy_return": strategy_return,
+                "buyhold_return": buyhold_return,
+                "return_delta_vs_baseline": strategy_return - baseline_return,
+                "return_delta_vs_buyhold": strategy_return - buyhold_return,
                 "position_delta_vs_baseline": row["position"] - baseline_row["position"],
                 "action_mismatch": action_mismatch,
                 "drawdown_delta_vs_baseline": running_drawdowns[profile] - running_drawdowns[baseline_profile],

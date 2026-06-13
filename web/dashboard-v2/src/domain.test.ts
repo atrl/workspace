@@ -56,6 +56,8 @@ describe('dashboard v2 domain helpers', () => {
     });
     expect(rows.some((row) => row.label === 'SOXL close' && row.value === '11.00')).toBe(true);
     expect(rows.some((row) => row.label === 'smoke action' && row.value === 'BUY')).toBe(true);
+    expect(rows.some((row) => row.label === 'smoke BuyHold NAV' && row.value === '110.00')).toBe(true);
+    expect(rows.some((row) => row.label === 'smoke vs BuyHold' && row.value === '-5.00%')).toBe(true);
     expect(rows.some((row) => row.label === 'action mismatches' && row.value === '1')).toBe(true);
   });
 

@@ -199,7 +199,7 @@ function renderDashboard(data: DashboardData, state: ViewState, update: (next: P
   renderActionLegend(actionLegend);
   renderMarketChart(marketChart, market, primary, (date) => update({ hoveredDate: date }));
   renderPositionChart(positionChart, primary);
-  renderNavChart(navChart, models);
+  renderNavChart(navChart, models, state.baselineProfile);
   renderInspector(data, state);
   renderComparisonPanel(comparison, data.comparison, state.start, state.end);
   renderDataSourcePanel(source, data.manifest, warningsFor(data, state));

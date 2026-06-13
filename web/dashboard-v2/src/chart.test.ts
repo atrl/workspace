@@ -1,9 +1,13 @@
 import { beforeEach, describe, expect, test, vi } from 'vitest';
-import { renderMarketChart } from './chart';
+import { renderMarketChart, renderNavChart } from './chart';
 import { marketFixture, modelFixture } from './testFixtures';
 
 const chartMocks = vi.hoisted(() => {
   const seriesRecords: { kind: string; options: Record<string, unknown>; data: unknown[] }[] = [];
+  const subscriptions = {
+    click: undefined as ((param: { time?: string }) => void) | undefined,
+    crosshairMove: undefined as ((param: { time?: string }) => void) | undefined,
+  };
   const addSeries = vi.fn((kind: string, options: Record<string, unknown> = {}) => {
     const record = { kind, options, data: [] as unknown[] };
     seriesRecords.push(record);
@@ -17,11 +21,16 @@ const chartMocks = vi.hoisted(() => {
     addSeries,
     createChart: vi.fn(() => ({
       addSeries,
-      subscribeClick: vi.fn(),
-      subscribeCrosshairMove: vi.fn(),
+      subscribeClick: vi.fn((callback: (param: { time?: string }) => void) => {
+        subscriptions.click = callback;
+      }),
+      subscribeCrosshairMove: vi.fn((callback: (param: { time?: string }) => void) => {
+        subscriptions.crosshairMove = callback;
+      }),
       timeScale: vi.fn(() => ({ fitContent: vi.fn() })),
     })),
     createSeriesMarkers: vi.fn(),
+    subscriptions,
     seriesRecords,
   };
 });
@@ -29,6 +38,7 @@ const chartMocks = vi.hoisted(() => {
 vi.mock('lightweight-charts', () => ({
   CandlestickSeries: 'candlestick',
   LineSeries: 'line',
+  LineStyle: { Dashed: 2 },
   createChart: chartMocks.createChart,
   createSeriesMarkers: chartMocks.createSeriesMarkers,
 }));
@@ -38,6 +48,8 @@ describe('dashboard v2 chart rendering', () => {
     chartMocks.addSeries.mockClear();
     chartMocks.createChart.mockClear();
     chartMocks.createSeriesMarkers.mockClear();
+    chartMocks.subscriptions.click = undefined;
+    chartMocks.subscriptions.crosshairMove = undefined;
     chartMocks.seriesRecords.length = 0;
   });
 
@@ -56,6 +68,49 @@ describe('dashboard v2 chart rendering', () => {
     });
     expect(chartMocks.seriesRecords[2].data).toEqual(
       modelFixture.rows.map((row) => ({ time: row.date, value: row.position })),
+    );
+  });
+
+  test('coalesces crosshair hover date updates into one animation frame', () => {
+    const container = document.createElement('div');
+    const callbacks: FrameRequestCallback[] = [];
+    const onDate = vi.fn();
+    const previousRequestAnimationFrame = window.requestAnimationFrame;
+    const previousCancelAnimationFrame = window.cancelAnimationFrame;
+    window.requestAnimationFrame = vi.fn((callback: FrameRequestCallback) => {
+      callbacks.push(callback);
+      return callbacks.length;
+    });
+    window.cancelAnimationFrame = vi.fn();
+
+    try {
+      renderMarketChart(container, marketFixture, modelFixture, onDate);
+      chartMocks.subscriptions.crosshairMove?.({ time: '2026-01-02' });
+      chartMocks.subscriptions.crosshairMove?.({ time: '2026-01-05' });
+      chartMocks.subscriptions.crosshairMove?.({ time: '2026-01-06' });
+
+      expect(onDate).not.toHaveBeenCalled();
+      callbacks[0](0);
+      expect(onDate).toHaveBeenCalledTimes(1);
+      expect(onDate).toHaveBeenCalledWith('2026-01-06');
+    } finally {
+      window.requestAnimationFrame = previousRequestAnimationFrame;
+      window.cancelAnimationFrame = previousCancelAnimationFrame;
+    }
+  });
+
+  test('renders buyhold baseline on the NAV chart before strategy lines', () => {
+    const container = document.createElement('div');
+
+    renderNavChart(container, { smoke: modelFixture }, 'smoke');
+
+    expect(chartMocks.seriesRecords.map((record) => record.kind)).toEqual(['line', 'line']);
+    expect(chartMocks.seriesRecords[0].options).toMatchObject({
+      title: 'SOXL BuyHold',
+      lineStyle: 2,
+    });
+    expect(chartMocks.seriesRecords[0].data).toEqual(
+      modelFixture.rows.map((row) => ({ time: row.date, value: row.buyhold_nav })),
     );
   });
 });

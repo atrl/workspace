@@ -1,0 +1,4 @@
+fold,status,selected_candidate,selected_kind,selected_iter,selected_target_gate,selected_drift_gate,selected_candidate_gate,selected_loss,selected_relative_return,selected_max_dd,bc_relative_return,bc_max_dd,candidate_count
+wf_2020,evaluated,bc_initialization,bc_initialization,0,False,True,False,10.758434048941778,-292.75302146825334,14.984700509769244,-292.75302146825334,14.984700509769244,4
+wf_2022,evaluated,bc_initialization,bc_initialization,0,True,True,True,0.0,65.86482008395255,18.80228364916748,65.86482008395255,18.80228364916748,4
+wf_2023_2024,evaluated,ppo_retained_iter_4,ppo_retained,4,True,True,True,0.004,35.56622898283519,8.955768917531602,25.313412572656027,19.9339463051674,4

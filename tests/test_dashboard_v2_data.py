@@ -134,8 +134,13 @@ def test_build_dashboard_v2_data_writes_manifest_market_model_and_comparison(tmp
     assert manifest["default_baseline_profile"] == "smoke"
     assert market["rows"][1]["vix"] == 18.0
     assert model["rows"][1]["action"] == "BUY"
+    assert model["metrics"]["full"]["buyhold_return"] == pytest.approx(0.08)
+    assert model["metrics"]["full"]["excess_return"] == pytest.approx(-0.05)
     assert model["events"][0]["kind"] == "BUY"
     assert comparison["common_start"] == "2026-01-02"
+    assert comparison["rankings"][0]["buyhold_return"] == pytest.approx(0.08)
+    assert comparison["rows"][2]["profiles"]["smoke"]["buyhold_return"] == pytest.approx(0.08)
+    assert comparison["rows"][2]["profiles"]["smoke"]["return_delta_vs_buyhold"] == pytest.approx(-0.05)
     assert comparison["rows"][1]["action_mismatch_count"] == 0
 
 
@@ -339,6 +344,8 @@ def test_build_dashboard_v2_data_adds_soxl_backtest_reference_baseline(tmp_path:
     assert comparison["baseline_profile"] == reference_name
     assert comparison["common_start"] == "2026-01-02"
     assert comparison["common_end"] == "2026-05-27"
+    assert comparison["rows"][-1]["profiles"][reference_name]["buyhold_return"] == pytest.approx(0.30)
+    assert comparison["rows"][-1]["profiles"][reference_name]["return_delta_vs_buyhold"] == pytest.approx(1.0089168)
 
 
 def test_normalize_model_rows_rejects_invalid_numeric_fields(tmp_path: Path):
@@ -386,5 +393,7 @@ def test_build_comparison_payload_reports_action_mismatches_against_baseline():
     assert payload["common_start"] == "2026-01-02"
     assert payload["common_end"] == "2026-01-03"
     assert payload["rows"][1]["profiles"]["challenger"]["nav_delta_vs_baseline"] == -2.0
+    assert payload["rows"][1]["profiles"]["challenger"]["buyhold_nav"] == 99.0
+    assert payload["rows"][1]["profiles"]["challenger"]["return_delta_vs_buyhold"] == 0.0
     assert payload["rows"][1]["profiles"]["challenger"]["action_mismatch"] is True
     assert payload["rows"][1]["action_mismatch_count"] == 1

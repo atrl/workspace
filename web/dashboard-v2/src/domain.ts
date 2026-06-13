@@ -148,6 +148,10 @@ function formatNumber(value: number | null | undefined, digits = 2): string {
   return typeof value === 'number' && Number.isFinite(value) ? value.toFixed(digits) : 'n/a';
 }
 
+function formatPercent(value: number | null | undefined, digits = 2): string {
+  return typeof value === 'number' && Number.isFinite(value) ? `${(value * 100).toFixed(digits)}%` : 'n/a';
+}
+
 function rowToneForAction(action: string): InspectorRow['tone'] {
   if (action === 'BUY') return 'buy';
   if (action === 'SELL') return 'sell';
@@ -180,10 +184,21 @@ export function computeInspectorRows(input: {
 
   for (const [profile, model] of Object.entries(input.models)) {
     const modelRow = model.rows.find((row) => row.date === input.date);
+    const comparisonValues = comparisonRow?.profiles[profile];
     if (modelRow) {
       rows.push({ label: `${profile} action`, value: modelRow.action, tone: rowToneForAction(modelRow.action) });
       rows.push({ label: `${profile} position`, value: formatNumber(modelRow.position, 3) });
       rows.push({ label: `${profile} NAV`, value: formatNumber(modelRow.strategy_nav, 2) });
+      rows.push({ label: `${profile} BuyHold NAV`, value: formatNumber(modelRow.buyhold_nav, 2), tone: 'muted' });
+    }
+    if (comparisonValues) {
+      rows.push({ label: `${profile} return`, value: formatPercent(comparisonValues.strategy_return) });
+      rows.push({ label: `${profile} BuyHold return`, value: formatPercent(comparisonValues.buyhold_return), tone: 'muted' });
+      rows.push({
+        label: `${profile} vs BuyHold`,
+        value: formatPercent(comparisonValues.return_delta_vs_buyhold),
+        tone: comparisonValues.return_delta_vs_buyhold >= 0 ? 'buy' : 'warning',
+      });
     }
   }
 
