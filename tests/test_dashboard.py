@@ -1,7 +1,10 @@
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
+import subprocess
+import sys
 
 import pandas as pd
 import pytest
@@ -18,6 +21,9 @@ from scripts.build_backtest_dashboard import (
 )
 import scripts.build_backtest_dashboard as dashboard_builder
 from src.soxl_quant.app.dashboard import review_daily_csv_path, write_review_daily_csv
+
+
+ROOT = Path(__file__).resolve().parents[1]
 
 
 def _assert_no_sensitive_public_fields(payload: object) -> None:
@@ -46,6 +52,31 @@ def _assert_no_sensitive_public_fields(payload: object) -> None:
                 walk(child)
 
     walk(payload)
+
+
+def test_dashboard_builder_imports_without_pythonpath():
+    env = os.environ.copy()
+    env.pop("PYTHONPATH", None)
+
+    result = subprocess.run(
+        [
+            sys.executable,
+            "-c",
+            (
+                "import runpy, sys; "
+                "root = sys.argv[1]; "
+                "sys.path = ['scripts'] + [p for p in sys.path if p not in ('', root)]; "
+                "runpy.run_path('scripts/build_backtest_dashboard.py', run_name='dashboard_builder_import_test')"
+            ),
+            str(ROOT),
+        ],
+        cwd=ROOT,
+        env=env,
+        capture_output=True,
+        text=True,
+    )
+
+    assert result.returncode == 0, result.stderr
 
 
 def test_review_daily_csv_path_uses_dashboard_convention():

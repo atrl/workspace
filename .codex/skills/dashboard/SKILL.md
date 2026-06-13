@@ -12,7 +12,7 @@ Generate and maintain the interactive backtest dashboard (`dashboard.html`) for 
 
 ### Regenerate Dashboard After Backtest
 ```bash
-cd /Users/rziiiii/.openclaw/workspace
+cd /Users/rziiiii/dev/workspace
 qlib_venv/bin/python scripts/build_backtest_dashboard.py
 # Open dashboard.html in browser
 ```
@@ -48,7 +48,7 @@ shows the same blockers as health. Verify with:
 ```bash
 qlib_venv/bin/python scripts/export_production_goal_gates.py
 qlib_venv/bin/python scripts/check_dashboard_static_export.py
-# expect production_status=<status> goal_gates=<status>
+# expect production_status=<status> goal_gates=<status> paper_latest_signal=<YYYY-MM-DD>
 ```
 
 ### Refresh Model Replays For Static/Vercel
@@ -64,7 +64,9 @@ PYTHONPATH=. qlib_venv/bin/python scripts/check_dashboard_static_export.py
 The refresh script discovers registry rows with `keep_actor=true`, non-dropped
 status, a retained actor, and a resolvable `profile.yaml`. It writes
 `dashboard_data/model_replay_freshness.json`, which the static checker reports
-as `model_replays=<ready>/<total>@<safe_backtest_end>`.
+as `model_replays=<ready>/<total>@<safe_backtest_end>`. The checker also reports
+`paper_latest_signal=<YYYY-MM-DD>` so dry-run/latest-signal freshness is visible
+even when ordinary non-dry `paper_trading` rows have not advanced.
 
 Qlib daily backtests need a following calendar boundary, so replay curves target
 `safe_backtest_end` (usually the penultimate qlib calendar date). Paper trading

@@ -1,21 +1,20 @@
 {
-  "checked_at": "2026-06-11T00:54:06.071693+00:00",
+  "checked_at": "2026-06-13T01:51:30.914293+00:00",
   "overall": {
     "status": "pending",
     "issues": [
-      "broker_health",
       "external_vercel_setup",
       "scheduled_postclose_target",
       "scheduled_paper_proof"
     ],
-    "detail": "broker_health,external_vercel_setup,scheduled_postclose_target,scheduled_paper_proof"
+    "detail": "external_vercel_setup,scheduled_postclose_target,scheduled_paper_proof"
   },
   "gates": {
     "data": {
       "label": "data",
       "status": "ok",
-      "detail": "last_date=2026-06-10 expected=2026-06-10",
-      "raw": "data: ok last_date=2026-06-10 expected=2026-06-10"
+      "detail": "last_date=2026-06-12 expected=2026-06-12",
+      "raw": "data: ok last_date=2026-06-12 expected=2026-06-12"
     },
     "data_registry": {
       "label": "data registry",
@@ -31,15 +30,15 @@
     },
     "broker": {
       "label": "broker",
-      "status": "failed",
-      "detail": "Futu OpenD is not reachable at 127.0.0.1:11111",
-      "raw": "broker: failed Futu OpenD is not reachable at 127.0.0.1:11111"
+      "status": "ok",
+      "detail": "futu quote ok",
+      "raw": "broker: ok futu quote ok"
     },
     "dashboard_static": {
       "label": "dashboard static",
       "status": "ok",
-      "detail": "dashboard_static_export generated_at=2026-06-11 08:53:59 versions=50 missing=0 model_versions=106 latest=paper_trading paper_trading_rows=2 paper_trading_end=2026-06-08 production_status=blocked_no_credentials goal_gates=pending model_replays=13/13@2026-06-09 paper_trading research_backtests=30",
-      "raw": "dashboard static: ok dashboard_static_export generated_at=2026-06-11 08:53:59 versions=50 missing=0 model_versions=106 latest=paper_trading paper_trading_rows=2 paper_trading_end=2026-06-08 production_status=blocked_no_credentials goal_gates=pending model_replays=13/13@2026-06-09 paper_trading research_backtests=30"
+      "detail": "dashboard_static_export generated_at=2026-06-13 09:47:48 versions=50 missing=0 model_versions=106 latest=paper_trading paper_trading_rows=2 paper_trading_end=2026-06-08 paper_latest_signal=2026-06-12 production_status=blocked_no_credentials goal_gates=pending model_replays=12/12@2026-06-11 paper_trading research_backtests=30",
+      "raw": "dashboard static: ok dashboard_static_export generated_at=2026-06-13 09:47:48 versions=50 missing=0 model_versions=106 latest=paper_trading paper_trading_rows=2 paper_trading_end=2026-06-08 paper_latest_signal=2026-06-12 production_status=blocked_no_credentials goal_gates=pending model_replays=12/12@2026-06-11 paper_trading research_backtests=30"
     },
     "vercel_remote": {
       "label": "Vercel remote",

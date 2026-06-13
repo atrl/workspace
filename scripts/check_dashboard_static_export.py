@@ -46,9 +46,11 @@ def check_static_export(root: Path) -> tuple[list[str], dict[str, Any]]:
         "latest": "unknown",
         "paper_trading_rows": "n/a",
         "paper_trading_end": "n/a",
+        "paper_latest_signal": "n/a",
         "production_status": "n/a",
         "goal_gates": "n/a",
         "model_replays": "n/a",
+        "model_latest_data": "n/a",
         "research_backtests": "n/a",
     }
 
@@ -167,6 +169,8 @@ def check_static_export(root: Path) -> tuple[list[str], dict[str, Any]]:
                 errors.append("dashboard_data/model_replay_freshness.json missing safe_backtest_end")
             if not isinstance(latest_date, str) or not latest_date:
                 errors.append("dashboard_data/model_replay_freshness.json missing latest_data_date")
+            else:
+                info["model_latest_data"] = latest_date
             if isinstance(counts, dict) and isinstance(profiles, list):
                 ready = int(counts.get("current", 0) or 0) + int(counts.get("refreshed", 0) or 0)
                 failed = int(counts.get("failed", 0) or 0)
@@ -220,9 +224,14 @@ def check_static_export(root: Path) -> tuple[list[str], dict[str, Any]]:
                     f"index={expected_rows} payload={len(rows)}"
                 )
             if version == "paper_trading":
+                meta = payload.get("meta", {})
+                if etf == "SOXL" and isinstance(meta, dict):
+                    latest_signal = meta.get("latest_signal_date")
+                    if isinstance(latest_signal, str) and latest_signal:
+                        info["paper_latest_signal"] = latest_signal
                 findings = collect_sensitive_public_keys(
                     {
-                        "meta": payload.get("meta", {}),
+                        "meta": meta,
                         "rows": rows,
                     }
                 )
@@ -249,6 +258,16 @@ def check_static_export(root: Path) -> tuple[list[str], dict[str, Any]]:
             errors.append("paper_trading source_kind is not paper_trading")
         info["paper_trading_rows"] = paper_window.get("rows", "n/a")
         info["paper_trading_end"] = paper_window.get("end", "n/a")
+        paper_latest = info["paper_latest_signal"]
+        if paper_latest == "n/a":
+            paper_latest = info["paper_trading_end"]
+        model_latest = info["model_latest_data"]
+        if isinstance(paper_latest, str) and isinstance(model_latest, str):
+            if paper_latest not in ("", "n/a") and model_latest not in ("", "n/a") and paper_latest < model_latest:
+                errors.append(
+                    "paper_trading latest signal is stale: "
+                    f"paper_latest={paper_latest} model_latest_data={model_latest}"
+                )
 
     return errors, info
 
@@ -269,6 +288,7 @@ def main() -> int:
             f"missing={info['missing']} model_versions={info['model_versions']} "
             f"latest={info['latest']} paper_trading_rows={info['paper_trading_rows']} "
             f"paper_trading_end={info['paper_trading_end']} "
+            f"paper_latest_signal={info['paper_latest_signal']} "
             f"production_status={info['production_status']} "
             f"goal_gates={info['goal_gates']} "
             f"model_replays={info['model_replays']} "
@@ -282,6 +302,7 @@ def main() -> int:
         f"missing={info['missing']} model_versions={info['model_versions']} "
         f"latest={info['latest']} paper_trading_rows={info['paper_trading_rows']} "
         f"paper_trading_end={info['paper_trading_end']} "
+        f"paper_latest_signal={info['paper_latest_signal']} "
         f"production_status={info['production_status']} "
         f"goal_gates={info['goal_gates']} "
         f"model_replays={info['model_replays']} paper_trading"

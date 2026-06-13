@@ -7,15 +7,19 @@ from datetime import datetime
 import json
 import pickle
 from pathlib import Path
+import sys
 
 import numpy as np
 import pandas as pd
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
+ROOT = Path(__file__).resolve().parent.parent
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
 from src.soxl_quant.app.paper_review import public_paper_review_from_summary
 
-ROOT = Path(__file__).resolve().parent.parent
 GENERALIZATION_DIR = ROOT / "runtime" / "execution" / "generalization"
 GENERALIZATION_DIR.mkdir(parents=True, exist_ok=True)
 RUNTIME_DIR = GENERALIZATION_DIR

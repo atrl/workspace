@@ -181,7 +181,7 @@ def parse_args() -> argparse.Namespace:
 
 def _run(cmd: list[str], description: str, allowed_returncodes: set[int] | None = None) -> int:
     print(f"[scheduler] {description}")
-    result = subprocess.run(cmd, capture_output=True, text=True)
+    result = subprocess.run(cmd, capture_output=True, text=True, cwd=str(ROOT), env=_child_env())
     if result.stdout:
         print(result.stdout)
     if result.stderr:
@@ -228,6 +228,17 @@ def _run_health_summary() -> None:
         if result.stderr:
             print(result.stderr, file=sys.stderr)
         print(f"[scheduler] WARNING: health summary failed with exit code {result.returncode}", file=sys.stderr)
+
+
+def _child_env() -> dict[str, str]:
+    env = os.environ.copy()
+    root = str(ROOT)
+    pythonpath = env.get("PYTHONPATH", "")
+    parts = [part for part in pythonpath.split(os.pathsep) if part]
+    if root not in parts:
+        parts.insert(0, root)
+    env["PYTHONPATH"] = os.pathsep.join(parts)
+    return env
 
 
 def _run_goal_gates_export(venv_python: str) -> None:

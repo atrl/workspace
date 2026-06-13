@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 import subprocess
 import sys
 
@@ -9,7 +10,7 @@ from production import soxl_daily_scheduler
 
 
 def test_run_error_preserves_child_stderr_for_retry_classification(monkeypatch: pytest.MonkeyPatch):
-    def fake_run(cmd, capture_output, text):
+    def fake_run(cmd, capture_output, text, cwd=None, env=None):
         return subprocess.CompletedProcess(
             cmd,
             1,
@@ -27,7 +28,7 @@ def test_run_error_preserves_child_stderr_for_retry_classification(monkeypatch: 
 
 
 def test_run_replays_child_stderr_on_success(monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]):
-    def fake_run(cmd, capture_output, text):
+    def fake_run(cmd, capture_output, text, cwd=None, env=None):
         return subprocess.CompletedProcess(
             cmd,
             0,
@@ -45,7 +46,7 @@ def test_run_replays_child_stderr_on_success(monkeypatch: pytest.MonkeyPatch, ca
 
 
 def test_run_allowed_returncode_does_not_print_error(monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]):
-    def fake_run(cmd, capture_output, text):
+    def fake_run(cmd, capture_output, text, cwd=None, env=None):
         return subprocess.CompletedProcess(
             cmd,
             2,
@@ -65,6 +66,28 @@ def test_run_allowed_returncode_does_not_print_error(monkeypatch: pytest.MonkeyP
     assert returncode == 2
     assert "blocked_no_credentials" in captured.out
     assert "ERROR in vercel dashboard deploy" not in captured.err
+
+
+def test_run_sets_repo_pythonpath_for_child_scripts(monkeypatch: pytest.MonkeyPatch):
+    captured: dict[str, object] = {}
+
+    def fake_run(cmd, capture_output, text, cwd=None, env=None):
+        captured["cmd"] = cmd
+        captured["cwd"] = cwd
+        captured["env"] = env
+        return subprocess.CompletedProcess(cmd, 0, stdout="", stderr="")
+
+    monkeypatch.setattr(soxl_daily_scheduler.subprocess, "run", fake_run)
+
+    soxl_daily_scheduler._run(
+        [str(soxl_daily_scheduler.ROOT / "qlib_venv" / "bin" / "python"), "scripts/build_backtest_dashboard.py"],
+        "dashboard build",
+    )
+
+    env = captured["env"]
+    assert isinstance(env, dict)
+    assert captured["cwd"] == str(soxl_daily_scheduler.ROOT)
+    assert str(soxl_daily_scheduler.ROOT) in env["PYTHONPATH"].split(os.pathsep)
 
 
 def test_scheduler_retries_data_source_failure_as_cached_dry_run(monkeypatch: pytest.MonkeyPatch):
