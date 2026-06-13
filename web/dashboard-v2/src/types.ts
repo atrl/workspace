@@ -47,6 +47,19 @@ export interface ModelRetentionGateStatus {
   registry_keep_actor_strict_violations?: string[];
 }
 
+export interface ModelRetentionFrontierStatus {
+  source_path?: string;
+  rows_scanned?: number;
+  completed_handoff_count?: number;
+  recommended_next_source?: string | null;
+  recommended_next_action?: string | null;
+  recommended_primary_blocker?: string | null;
+  required_best_return_pct?: number | null;
+  reference_return_pct?: number | null;
+  max_walkforward_drawdown_pct?: number | null;
+  required_wf_windows?: string[];
+}
+
 export interface Manifest {
   generated_at: string;
   latest_market_date: string;
@@ -61,6 +74,7 @@ export interface Manifest {
   default_chart_profile?: string;
   default_comparison_profiles: string[];
   model_retention_gate?: ModelRetentionGateStatus | null;
+  model_retention_frontier?: ModelRetentionFrontierStatus | null;
   source_paths: Record<string, string>;
   auto_update?: AutoUpdateStatus;
 }

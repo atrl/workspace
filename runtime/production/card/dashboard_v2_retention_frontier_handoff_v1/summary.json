@@ -1,0 +1,27 @@
+{
+  "experiment": "dashboard_v2_retention_frontier_handoff_v1",
+  "generated_at": "2026-06-14T06:12:58+08:00",
+  "decision": "dashboard_v2_exposes_retention_frontier_handoff",
+  "url": "http://127.0.0.1:8872/web/dashboard-v2/dist/index.html?apiBase=http://127.0.0.1:8872",
+  "screenshot_path": "runtime/production/card/dashboard_v2_retention_frontier_handoff_v1/dashboard_v2_retention_frontier_handoff_2026-06-14.png",
+  "checks": {
+    "has_training_frontier": true,
+    "has_next_training": true,
+    "has_recommended_source": true,
+    "has_blocker": true,
+    "has_retention_gate": true,
+    "has_evidence_only": true,
+    "has_reference_baseline": true,
+    "non_blank_canvases": 15,
+    "canvas_count": 24
+  },
+  "retention_frontier": {
+    "recommended_next_source": "cap10_metric_replay_handoff_audit_v1",
+    "recommended_next_action": "inspect_failed_fold_drawdown_or_reward_drift_before_full_retention_training",
+    "recommended_primary_blocker": "walkforward_relative_return_gap"
+  },
+  "risk_notes": [
+    "This is a dashboard and handoff-surface change, not a new model promotion.",
+    "Current manifest still has zero runnable replay profiles in this checkout; SOXLBacktest remains a reference baseline."
+  ]
+}

@@ -127,6 +127,28 @@ export function renderDataSourcePanel(container: HTMLElement, manifest: Manifest
     retentionSection.appendChild(gateGrid);
     container.appendChild(retentionSection);
   }
+  const frontier = manifest.model_retention_frontier;
+  if (frontier) {
+    const frontierSection = element('section', 'auto-update-block');
+    frontierSection.appendChild(element('h3', undefined, 'Training Frontier'));
+    const frontierRows: [string, string][] = [
+      ['recommended source', frontier.recommended_next_source ?? 'n/a'],
+      ['recommended action', frontier.recommended_next_action ?? 'n/a'],
+      ['primary blocker', frontier.recommended_primary_blocker ?? 'n/a'],
+      ['rows scanned', String(frontier.rows_scanned ?? 0)],
+      ['completed handoffs', String(frontier.completed_handoff_count ?? 0)],
+      ['source', frontier.source_path ?? 'n/a'],
+    ];
+    const frontierGrid = element('div', 'source-grid');
+    for (const [label, value] of frontierRows) {
+      const item = element('div', 'source-row');
+      item.appendChild(element('span', 'source-label', label));
+      item.appendChild(element('span', 'source-value', value));
+      frontierGrid.appendChild(item);
+    }
+    frontierSection.appendChild(frontierGrid);
+    container.appendChild(frontierSection);
+  }
   if (warnings.length) {
     const warningList = element('ul', 'warning-list');
     for (const warning of warnings) {
@@ -159,6 +181,9 @@ export function renderOperationsPanel(container: HTMLElement, manifest: Manifest
         .join(' ') || 'n/a',
     ],
     ['safe replay end', auto.model_replay_freshness?.safe_backtest_end ?? 'n/a'],
+    ['next training', manifest.model_retention_frontier?.recommended_next_source ?? 'n/a'],
+    ['next action', manifest.model_retention_frontier?.recommended_next_action ?? 'n/a'],
+    ['training blocker', manifest.model_retention_frontier?.recommended_primary_blocker ?? 'n/a'],
   ];
   for (const [label, value] of rows) {
     const item = element('div', 'source-row');

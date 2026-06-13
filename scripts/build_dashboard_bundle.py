@@ -98,6 +98,7 @@ def main() -> int:
     _run([python, "scripts/build_backtest_dashboard.py"], "dashboard.html build")
     if not args.skip_retention_gate:
         _run([python, "scripts/review_model_retention_gates.py"], "model retention gate review")
+        _run([python, "scripts/review_model_retention_frontier.py"], "model retention frontier review")
     _run([python, "scripts/build_dashboard_v2_data.py", "--detect-launchd"], "dashboard v2 data build")
     _run(["npm", "--prefix", "web/dashboard-v2", "run", "build"], "dashboard v2 frontend build")
     write_unified_dashboard_entrypoints()

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-13T22:02:08.139615+00:00",
+  "generated_at": "2026-06-13T22:14:37.344621+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -5693,13 +5693,13 @@
       "path": "runtime/model_selection/card/model_retention_frontier_v1/retention_frontier.csv",
       "category": "model_selection",
       "suffix": ".csv",
-      "bytes": 34259
+      "bytes": 35190
     },
     {
       "path": "runtime/model_selection/card/model_retention_frontier_v1/summary.json",
       "category": "model_selection",
       "suffix": ".json",
-      "bytes": 91144
+      "bytes": 93283
     },
     {
       "path": "runtime/model_selection/card/model_retention_walkforward_gate_v1/conclusion.md",
@@ -11352,6 +11352,12 @@
       "category": "production",
       "suffix": ".json",
       "bytes": 2571
+    },
+    {
+      "path": "runtime/production/card/dashboard_v2_retention_frontier_handoff_v1/summary.json",
+      "category": "production",
+      "suffix": ".json",
+      "bytes": 1228
     },
     {
       "path": "runtime/production/card/dashboard_v2_visual_v1/visual_check.json",

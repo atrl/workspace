@@ -72,6 +72,24 @@ def test_build_dashboard_v2_data_writes_manifest_market_model_and_comparison(tmp
             }
         )
     )
+    frontier_summary = (
+        tmp_path / "runtime" / "model_selection" / "card" / "model_retention_frontier_v1" / "summary.json"
+    )
+    frontier_summary.parent.mkdir(parents=True)
+    frontier_summary.write_text(
+        json.dumps(
+            {
+                "summary": {
+                    "recommended_next_source": "cap10_metric_replay_handoff_audit_v1",
+                    "recommended_next_action": "inspect_failed_fold_drawdown_or_reward_drift_before_full_retention_training",
+                    "recommended_primary_blocker": "walkforward_relative_return_gap",
+                    "rows_scanned": 94,
+                    "completed_handoff_count": 64,
+                }
+            }
+        ),
+        encoding="utf-8",
+    )
     market_rows = {
         "2026-01-02": {
             "open": 9.5,
@@ -133,6 +151,11 @@ def test_build_dashboard_v2_data_writes_manifest_market_model_and_comparison(tmp
 
     assert manifest["safe_backtest_end"] == "2026-01-06"
     assert manifest["default_baseline_profile"] == "smoke"
+    assert manifest["model_retention_frontier"]["recommended_next_source"] == "cap10_metric_replay_handoff_audit_v1"
+    assert manifest["model_retention_frontier"]["recommended_next_action"] == (
+        "inspect_failed_fold_drawdown_or_reward_drift_before_full_retention_training"
+    )
+    assert manifest["model_retention_frontier"]["source_path"].endswith("model_retention_frontier_v1/summary.json")
     assert manifest["auto_update"]["model_replay_freshness"]["profile_count"] == 1
     assert manifest["auto_update"]["model_replay_freshness"]["ready_count"] == 1
     assert market["rows"][1]["vix"] == 18.0

@@ -59,6 +59,10 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.textContent).toContain('MaxDD < 20.00%');
     expect(panel.textContent).toContain('keep_actor strict violations');
     expect(panel.textContent).toContain('2 / 3 blocked');
+    expect(panel.textContent).toContain('Training Frontier');
+    expect(panel.textContent).toContain('cap10_metric_replay_handoff_audit_v1');
+    expect(panel.textContent).toContain('inspect_failed_fold_drawdown_or_reward_drift_before_full_retention_training');
+    expect(panel.textContent).toContain('walkforward_relative_return_gap');
   });
 
   test('renders first-screen operations status with replay counts and tasks', () => {
@@ -75,6 +79,9 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.textContent).toContain('dashboard_refresh');
     expect(panel.textContent).toContain('production/run_dashboard_refresh.sh');
     expect(panel.querySelector('.task-card[data-enabled="true"]')?.textContent).toContain('configured');
+    expect(panel.textContent).toContain('next training');
+    expect(panel.textContent).toContain('cap10_metric_replay_handoff_audit_v1');
+    expect(panel.textContent).toContain('walkforward_relative_return_gap');
   });
 
   test('renders inspector rows with tone classes', () => {

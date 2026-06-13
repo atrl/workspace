@@ -28,6 +28,9 @@ SOXL_BACKTEST_REFERENCE_DAILY = (
 MODEL_RETENTION_GATE_SUMMARY = (
     "runtime/model_selection/card/model_retention_walkforward_gate_v1/summary.json"
 )
+MODEL_RETENTION_FRONTIER_SUMMARY = (
+    "runtime/model_selection/card/model_retention_frontier_v1/summary.json"
+)
 DASHBOARD_TASK_LABELS = {
     "preopen": "com.soxl.preopen.scheduler",
     "postclose": "com.soxl.daily.scheduler",
@@ -233,6 +236,28 @@ def _model_retention_gate_manifest(gate: dict[str, Any] | None) -> dict[str, Any
         "registry_keep_actor_count": summary.get("registry_keep_actor_count"),
         "registry_keep_actor_strict_violation_count": summary.get("registry_keep_actor_strict_violation_count"),
         "registry_keep_actor_strict_violations": summary.get("registry_keep_actor_strict_violations", []),
+    }
+
+
+def _load_model_retention_frontier(root: Path) -> dict[str, Any] | None:
+    path = root / MODEL_RETENTION_FRONTIER_SUMMARY
+    if not path.exists():
+        return None
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    summary = payload.get("summary", {}) if isinstance(payload, dict) else {}
+    if not isinstance(summary, dict):
+        return None
+    return {
+        "source_path": MODEL_RETENTION_FRONTIER_SUMMARY,
+        "rows_scanned": summary.get("rows_scanned"),
+        "completed_handoff_count": summary.get("completed_handoff_count"),
+        "recommended_next_source": summary.get("recommended_next_source"),
+        "recommended_next_action": summary.get("recommended_next_action"),
+        "recommended_primary_blocker": summary.get("recommended_primary_blocker"),
+        "required_best_return_pct": summary.get("required_best_return_pct"),
+        "reference_return_pct": summary.get("reference_return_pct"),
+        "max_walkforward_drawdown_pct": summary.get("max_walkforward_drawdown_pct"),
+        "required_wf_windows": summary.get("required_wf_windows", []),
     }
 
 
@@ -1195,6 +1220,7 @@ def build_dashboard_v2_data(
         baseline_profile=baseline,
         compared_profiles=profiles_to_write,
     )
+    retention_frontier = _load_model_retention_frontier(root)
     default_chart_profile = next(
         (
             profile_name
@@ -1220,6 +1246,7 @@ def build_dashboard_v2_data(
         "default_chart_profile": default_chart_profile,
         "default_comparison_profiles": defaults,
         "model_retention_gate": _model_retention_gate_manifest(retention_gate),
+        "model_retention_frontier": retention_frontier,
         "auto_update": _auto_update_status(
             root,
             freshness,

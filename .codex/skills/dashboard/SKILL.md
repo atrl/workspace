@@ -66,9 +66,19 @@ PYTHONPATH=. qlib_venv/bin/python scripts/build_dashboard_bundle.py
 
 `scripts/build_dashboard_bundle.py` is the canonical dashboard rebuild entrypoint.
 It regenerates legacy `dashboard.html`, refreshes
-`runtime/model_selection/card/model_retention_walkforward_gate_v1`, rebuilds
+`runtime/model_selection/card/model_retention_walkforward_gate_v1`, refreshes
+`runtime/model_selection/card/model_retention_frontier_v1`, rebuilds
 `dashboard_data/v2/`, and runs the v2 data contract checker. Use the lower-level
 builders only when debugging a specific layer.
+
+The v2 manifest should expose both model governance surfaces:
+
+- `model_retention_gate`: hard retention criteria, including required
+  walk-forward windows, MaxDD `< 20%`, required return floor, passing profiles,
+  and strict `keep_actor` violations.
+- `model_retention_frontier`: next training handoff, including recommended
+  source/action and primary blocker. This keeps retraining pointed at the
+  current WF/return gap instead of producing actors that cannot be retained.
 
 ### Post-Train Default View
 After a training run, the harness should:
