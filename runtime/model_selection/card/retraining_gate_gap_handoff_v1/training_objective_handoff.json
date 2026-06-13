@@ -6,15 +6,36 @@
     "YTD return >= 95% of current best replay model YTD return",
     "dashboard replay CSV includes date, strategy_nav, position, action, price/close fields"
   ],
+  "actor_retention_allowed": false,
   "canonical_reference_baseline": "soxl_backtest_policy_reimplementation_v1",
-  "created_at": "2026-06-13T10:22:17.771588+00:00",
+  "created_at": "2026-06-13T20:16:36.217469+00:00",
   "current_best_ytd_return_pct": 224.361539,
-  "decision": "run_full_walkforward_cap10_joint_contract_bc_checkpoint_training",
+  "dashboard_contract": {
+    "auto_refresh_entrypoints": [
+      "production/soxl_daily_scheduler.py",
+      "production/run_dashboard_refresh.sh",
+      "scripts/build_dashboard_bundle.py"
+    ],
+    "feature_requirements": [
+      "each model exposes its own feature_packs and feature_columns",
+      "rerun/API rows preserve feature_snapshot by date",
+      "dashboard v2 renders BUY/SELL feature mean deltas and recent trade snapshots",
+      "reference baselines remain non-runnable and must not be offered as inference models"
+    ],
+    "live_inference_entrypoint": "scripts/dashboard_server.py",
+    "scope": "local_dashboard_and_dashboard_server_only",
+    "vercel": "excluded_per_user_request"
+  },
+  "decision": "run_full_walkforward_cap10_joint_contract_bc_checkpoint_training_with_qlib_buy_sell_reference",
   "do_not_repeat": [
     "do_not_promote_any_replayable_model_without_complete_wf_2020_wf_2022_wf_2023_2024_metrics",
     "do_not_continue_static_heuristic_or_rolling_selector_branch_without_model_replay_or_bc_candidate_paths",
     "do_not_lengthen_ppo_when_wf_2022_dd_delta_vs_bc_exceeds_2pp",
-    "do_not_retry_rebound_weight_only_bc_without_target_enrichment_or_sampling_change"
+    "do_not_retry_rebound_weight_only_bc_without_target_enrichment_or_sampling_change",
+    "do_not_treat_soxlbacktest_low_risk_caps_as_promotable_model",
+    "do_not_treat_reference_baseline_as_runnable_inference_profile",
+    "do_not_consider_vercel_deploy_status_as_dashboard_fix_scope",
+    "do_not_ship_dashboard_replay_without_model_specific_feature_snapshot"
   ],
   "experiment": "retraining_gate_gap_handoff_v1",
   "nearest_known_gap": {
@@ -33,20 +54,24 @@
     "apply_checkpoint_drift_stop: ppo_vs_bc_max_dd_delta_pp <= 2.0",
     "apply_checkpoint_drift_stop: ppo_vs_bc_relative_delta_pp >= -5.0",
     "require_fold_gate_before_full_training_continuation",
-    "export_daily_paths_for_dashboard_and_retention_gate_review"
+    "export_daily_paths_for_dashboard_and_retention_gate_review",
+    "score_candidate_buy_sell_events_against_soxlbacktest_legacy_default_reference",
+    "export_feature_packs_feature_columns_and_feature_snapshot_for_dashboard_replay",
+    "export_feature_action_summary_buy_sell_mean_deltas_for_dashboard_v2",
+    "refresh_dashboard_model_replays_then_build_dashboard_bundle_after_training"
   ],
   "required_soxlbacktest_return_pct": 132.077978,
   "retention_gate": {
     "max_walkforward_drawdown_pct": 20.0,
     "passing_profile_count": 0,
-    "profiles_scanned": 12,
+    "profiles_scanned": 0,
     "required_wf_windows": [
       "wf_2020",
       "wf_2022",
       "wf_2023_2024"
     ]
   },
-  "selected_training_source": "cap10_joint_contract_checkpoint_drift_selector_v1",
+  "selected_training_source": "cap10_joint_contract_checkpoint_drift_selector_v1_plus_walkforward_weighted_reference",
   "sidecars": [
     "summary.json",
     "source_card_decisions.csv",
@@ -55,8 +80,20 @@
     "closest_by_ytd_return.csv",
     "selected_checkpoint_by_fold.csv",
     "training_objective_handoff.json",
-    "conclusion.md"
+    "conclusion.md",
+    "strict_gate_frontier_gap.csv",
+    "buy_sell_reference_alignment.csv"
   ],
+  "soxlbacktest_qlib_reference": {
+    "card": "soxlbacktest_qlib_walkforward_baseline_v1",
+    "interpretation": "legacy_default is the buy/sell timing reference; low-risk variants show drawdown can pass only by destroying return",
+    "legacy_default_worst_wf_max_drawdown_pct": 84.918053,
+    "legacy_default_ytd_return_pct": 132.077977,
+    "risk_floor_worst_wf_max_drawdown_pct": 18.514585,
+    "risk_floor_ytd_return_pct": 18.30891,
+    "selected_buy_sell_reference": "legacy_default",
+    "selected_risk_floor": "wf_pass_ytd18_15_15_02"
+  },
   "start_from": {
     "candidate_family": "cap10_joint_contract_bc_initialization_or_ppo_iter0_bc_equivalent",
     "wf_2022_selected_candidate": "bc_initialization",
@@ -65,5 +102,47 @@
     "wf_2023_2024_selected_candidate": "bc_initialization",
     "wf_2023_2024_selected_max_dd": 13.5974748138093,
     "wf_2023_2024_selected_relative_return": 30.5011159708892
+  },
+  "strict_retention_current_scope": {
+    "passing_replayable_profiles": [],
+    "protected_keep_actor_exceptions": 7,
+    "protected_keep_actor_strict_violations": [
+      "balanced",
+      "balanced_checkpoint_review",
+      "balanced_rule_residual_v19",
+      "balanced_rule_residual_v20",
+      "balanced_rule_residual_v21",
+      "balanced_rule_residual_v22",
+      "smoke"
+    ],
+    "reference_baseline_rows": 1,
+    "reference_profile": "soxl_backtest_policy_reimplementation_v1",
+    "replayable_profile_rows": 0
+  },
+  "updated_at": "2026-06-13T20:16:36.243351+00:00",
+  "walkforward_weighted_reference": {
+    "card": "walkforward_weighted_objective_v1",
+    "dominant_failure_type": "drawdown_control",
+    "next_mechanism": "walk_forward_weighted_multi_objective_training",
+    "selected_diagnostic_candidate": "recovery_reentry_conditional_vol_target_v1",
+    "selected_max_wf_drawdown_pct": 26.13931993503821,
+    "selected_min_relative_return_pp": 55.79639159159535,
+    "selected_weighted_objective_loss": 237.49554277112543,
+    "strict_vs_walkforward": {
+      "matched_walkforward_candidates": [
+        "risk_budget_residual_drawdown_guard_walkforward_v1"
+      ],
+      "strict_pass_best_loss": 855.0339847636832,
+      "strict_pass_candidates": [
+        "risk_budget_residual_drawdown_guard_v1"
+      ],
+      "strict_pass_count": 1,
+      "strict_pass_full_walkforward_count": 0,
+      "unmatched_strict_candidates": []
+    },
+    "target": {
+      "max_dd_max_pct": 15.0,
+      "relative_return_min_pp": 30.0
+    }
   }
 }

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-13T19:57:20.476502+00:00",
+  "generated_at": "2026-06-13T20:16:55.733471+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -6818,28 +6818,34 @@
       "bytes": 3780
     },
     {
+      "path": "runtime/model_selection/card/retraining_gate_gap_handoff_v1/buy_sell_reference_alignment.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 5864
+    },
+    {
       "path": "runtime/model_selection/card/retraining_gate_gap_handoff_v1/closest_by_walkforward_drawdown.csv",
       "category": "model_selection",
       "suffix": ".csv",
-      "bytes": 2089
+      "bytes": 228
     },
     {
       "path": "runtime/model_selection/card/retraining_gate_gap_handoff_v1/closest_by_ytd_return.csv",
       "category": "model_selection",
       "suffix": ".csv",
-      "bytes": 1906
+      "bytes": 228
     },
     {
       "path": "runtime/model_selection/card/retraining_gate_gap_handoff_v1/conclusion.md",
       "category": "model_selection",
       "suffix": ".md",
-      "bytes": 873
+      "bytes": 1745
     },
     {
       "path": "runtime/model_selection/card/retraining_gate_gap_handoff_v1/retention_failure_summary.csv",
       "category": "model_selection",
       "suffix": ".csv",
-      "bytes": 280
+      "bytes": 40
     },
     {
       "path": "runtime/model_selection/card/retraining_gate_gap_handoff_v1/selected_checkpoint_by_fold.csv",
@@ -6851,19 +6857,25 @@
       "path": "runtime/model_selection/card/retraining_gate_gap_handoff_v1/source_card_decisions.csv",
       "category": "model_selection",
       "suffix": ".csv",
-      "bytes": 2773
+      "bytes": 2804
+    },
+    {
+      "path": "runtime/model_selection/card/retraining_gate_gap_handoff_v1/strict_gate_frontier_gap.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 5685
     },
     {
       "path": "runtime/model_selection/card/retraining_gate_gap_handoff_v1/summary.json",
       "category": "model_selection",
       "suffix": ".json",
-      "bytes": 2317
+      "bytes": 5988
     },
     {
       "path": "runtime/model_selection/card/retraining_gate_gap_handoff_v1/training_objective_handoff.json",
       "category": "model_selection",
       "suffix": ".json",
-      "bytes": 2992
+      "bytes": 6580
     },
     {
       "path": "runtime/model_selection/card/rolling_heuristic_selector_v1/heuristic_strategy_screen.csv",
