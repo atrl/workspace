@@ -1,0 +1,73 @@
+{
+  "actor_retention_allowed": false,
+  "all_gate_count": 0,
+  "best_return_ratio": 0.95,
+  "candidate_count": 3,
+  "canonical_baseline": "v19reg_v22_budget_usage_bull_guard_v1",
+  "changed_layer": [
+    "model_selection",
+    "training_target",
+    "quantbench_path_ensemble"
+  ],
+  "config_names": [
+    "quantbench_ensemble_sequence_fragile_panic_budget_v1",
+    "quantbench_ensemble_sequence_fragile_preshock_v1",
+    "quantbench_ensemble_sequence_tapered_reentry_v1"
+  ],
+  "created_at": "2026-06-13T13:13:53.078582+00:00",
+  "decision": "quantbench_current_walkforward_not_target_ready_no_promotion",
+  "direct_comparison_baseline": [
+    "quantbench_paper_soxl_v2",
+    "model_retention_walkforward_gate_v1",
+    "cap10_three_fold_checkpoint_metric_replay_v2",
+    "soxlbacktest_teacher_risk_budget_feasibility_v1"
+  ],
+  "experiment": "quantbench_ensemble_current_walkforward_v1",
+  "latest_data_date": "2026-06-12",
+  "model_names": [
+    "random_forest_clf",
+    "sequence_lag_ridge_mse"
+  ],
+  "next_mechanism": "use_failure_columns_to_tune_bull_release_or_drawdown_budget_before_actor_training",
+  "promotion_allowed": false,
+  "promotion_blocker": "No actor bundle is trained or retained by this notebook; a target-ready path still must be distilled into an actor and replayed through the retention gate.",
+  "reference_baseline": "soxlbacktest_qlib_buysell_reference",
+  "required_best_return_pct": 213.14346182652025,
+  "required_soxlbacktest_return_pct": 132.07797795135497,
+  "role": "diagnose_training_target",
+  "safe_backtest_end": "2026-06-11",
+  "selected_daily_path": "runtime/model_selection/card/quantbench_ensemble_current_walkforward_v1/quantbench_ensemble_sequence_fragile_panic_budget_v1_soxl_daily.csv",
+  "selected_failures": "ytd_return_below_soxlbacktest_baseline;ytd_return_below_best_alignment",
+  "selected_profile": "quantbench_ensemble_sequence_fragile_panic_budget_v1",
+  "selected_proxy_max_dd_pct": 19.7424908705,
+  "selected_proxy_return_pct": 316.6040315409,
+  "selected_retention_style_gate": false,
+  "selected_wf_max_dd_pct": {
+    "wf_2020": 18.9419187137,
+    "wf_2022": 14.3656633326,
+    "wf_2023_2024": 15.2052503056
+  },
+  "selected_wf_return_pct": {
+    "wf_2020": 5.3289360131,
+    "wf_2022": -8.5587402384,
+    "wf_2023_2024": 143.7475588455
+  },
+  "selected_ytd_max_dd_pct": 12.2993865906,
+  "selected_ytd_return_pct": 15.5019005096,
+  "sidecars": [
+    "context.json",
+    "data_context.json",
+    "ensemble_config_subset.csv",
+    "ensemble_candidate_screen.csv",
+    "ensemble_payloads.json",
+    "ensemble_path_library.csv",
+    "ensemble_objective_metrics.json",
+    "ensemble_hazard_metrics.json",
+    "retention_style_gate.csv",
+    "selection.json",
+    "summary.json",
+    "conclusion.md"
+  ],
+  "target_max_dd_pct": 20.0,
+  "training_allowed_from_this_card": false
+}
