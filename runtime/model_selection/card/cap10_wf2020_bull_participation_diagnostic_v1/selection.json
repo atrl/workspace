@@ -1,0 +1,33 @@
+{
+  "actor_retention_allowed": false,
+  "all_checkpoint_benchmarks_match_warmup_alignment": true,
+  "canonical_baseline": "v19reg_v22_budget_usage_bull_guard_v1",
+  "changed_layer": [
+    "model_selection",
+    "metric_reconciliation",
+    "dashboard_interpretation"
+  ],
+  "created_at": "2026-06-13T12:22:27.659168+00:00",
+  "decision": "checkpoint_selector_mixed_metric_source_no_promotion",
+  "direct_comparison_baseline": "cap10_three_fold_checkpoint_drift_selector_v1",
+  "experiment": "cap10_wf2020_bull_participation_diagnostic_v1",
+  "lookback_rows": 60,
+  "max_checkpoint_relative_identity_gap_pp": 23.476766849775288,
+  "mixed_metric_source_detected": true,
+  "next_mechanism": "Rerun checkpoint selection with backtest_profile bnh_return and relative_outperformance from the same qlib replay source before any new training.",
+  "promotion_allowed": false,
+  "reference_baseline": "soxlbacktest_qlib_buysell_reference",
+  "role": "diagnose",
+  "sidecars": [
+    "benchmark_alignment.csv",
+    "selection.json",
+    "summary.json",
+    "conclusion.md"
+  ],
+  "target_max_dd_pct": 20.0,
+  "target_relative_return_pp": 30.0,
+  "training_allowed_from_this_card": false,
+  "wf2020_benchmark_gap_pp": 295.9612786314003,
+  "wf2020_calendar_buy_and_hold_return": 59.7753083811428,
+  "wf2020_warmup_aligned_buy_and_hold_return": 355.7365870125431
+}

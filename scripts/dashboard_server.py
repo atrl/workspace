@@ -235,6 +235,14 @@ def _slice_daily_rows(
     ]
 
 
+def _health_payload() -> dict[str, object]:
+    return {
+        "ok": True,
+        "service": "dashboard_server",
+        "run_backtest_api": "/api/run-backtest",
+    }
+
+
 class DashboardHandler(SimpleHTTPRequestHandler):
     """Custom handler: static files + /api/run-backtest endpoint."""
 
@@ -247,6 +255,13 @@ class DashboardHandler(SimpleHTTPRequestHandler):
     def do_OPTIONS(self):
         self.send_response(204)
         self.end_headers()
+
+    def do_GET(self):
+        parsed = urllib.parse.urlparse(self.path)
+        if parsed.path == "/api/health":
+            self._send_json(_health_payload())
+            return
+        super().do_GET()
 
     def do_POST(self):
         parsed = urllib.parse.urlparse(self.path)

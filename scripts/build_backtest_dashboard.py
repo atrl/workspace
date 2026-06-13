@@ -1882,6 +1882,30 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       min-height: 16px;
       max-width: 680px;
     }}
+    .server-mode-status {{
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+      margin: 0 0 10px 0;
+      padding: 9px 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel-2);
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.35;
+    }}
+    .server-mode-status.good {{
+      border-color: rgba(15,118,110,0.35);
+      color: var(--good);
+      background: rgba(15,118,110,0.06);
+    }}
+    .server-mode-status.bad {{
+      border-color: rgba(185,28,28,0.30);
+      color: var(--bad);
+      background: rgba(185,28,28,0.05);
+    }}
     .grid {{
       display: grid;
       gap: 18px;
@@ -2485,7 +2509,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     <section class="card research-panel" id="researchBacktests">
       <div class="research-head">
         <h2 class="section-title" style="margin:0;">Research Backtests</h2>
-        <div class="sub">Latest runtime/model_selection notebook diagnostics exported for Vercel.</div>
+        <div class="sub">Latest runtime/model_selection notebook diagnostics exported for the local dashboard.</div>
       </div>
       <div class="research-summary" id="researchBacktestSummary">
         <div class="research-metric">
@@ -2564,6 +2588,9 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
           </div>
           <div class="run-status" id="runProfileStatus"></div>
         </div>
+      </div>
+      <div class="server-mode-status" id="serverModeStatus">
+        Checking dashboard server status. Static view: chart/recompute only; live inference requires scripts/dashboard_server.py, and reference baselines are not runnable inference profiles.
       </div>
       <div id="segmentBanner" style="display:none;background:rgba(15,118,110,0.08);border:1px solid rgba(15,118,110,0.3);border-radius:8px;padding:10px 14px;margin-bottom:10px;font-size:13px;color:var(--accent-2);align-items:center;gap:8px;">
         <span>Segment View</span>
@@ -2731,6 +2758,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     const useChartWindowBtn = document.getElementById('useChartWindowBtn');
     const runBacktestBtn = document.getElementById('runBacktestBtn');
     const runProfileStatus = document.getElementById('runProfileStatus');
+    const serverModeStatus = document.getElementById('serverModeStatus');
     const applyZoomBtn = document.getElementById('applyZoomBtn');
     const resetZoomBtn = document.getElementById('resetZoomBtn');
     const infoEmpty = document.getElementById('infoEmpty');
@@ -2750,6 +2778,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     const researchBacktestSummary = document.getElementById('researchBacktestSummary');
     const researchBacktestTable = document.getElementById('researchBacktestTable');
     const DASHBOARD_API_FALLBACK = 'http://127.0.0.1:8765/api/run-backtest';
+    const DASHBOARD_HEALTH_FALLBACK = 'http://127.0.0.1:8765/api/health';
     const STORAGE_KEY = 'soxl-dashboard-state-v10';
     const hydratedVersionCache = {{}};
     let indexVersionSummaries = {{}};
@@ -3253,7 +3282,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       const start = runStartDateInput ? runStartDateInput.value : '';
       const end = runEndDateInput ? runEndDateInput.value : '';
       if (!profile) {{
-        runProfileStatus.textContent = 'Select a runnable replay profile.';
+        runProfileStatus.textContent = 'Select a runnable replay profile. SOXLBacktest and other reference baselines are chart baselines, not runnable inference profiles.';
         runBacktestBtn.disabled = true;
         return;
       }}
@@ -3415,6 +3444,36 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
         response = await fetch(DASHBOARD_API_FALLBACK, request);
       }}
       return response;
+    }}
+
+    async function updateDashboardServerStatus() {{
+      if (!serverModeStatus) return;
+      const staticText = 'Static view: chart/recompute only; live inference requires scripts/dashboard_server.py, and reference baselines are not runnable inference profiles.';
+      const connectedText = 'Live inference API connected via dashboard_server.py. Run Model Backtest can use selectable start/end dates for runnable model replays.';
+      serverModeStatus.classList.remove('good', 'bad');
+      if (window.location.protocol === 'file:') {{
+        serverModeStatus.textContent = staticText;
+        serverModeStatus.classList.add('bad');
+        return;
+      }}
+      const healthRequest = {{ cache: 'no-store' }};
+      try {{
+        let response = await fetch('/api/health', healthRequest);
+        if (!response.ok && window.location.origin !== 'http://127.0.0.1:8765') {{
+          response = await fetch(DASHBOARD_HEALTH_FALLBACK, healthRequest);
+        }}
+        if (!response.ok) throw new Error(`HTTP ${{response.status}}`);
+        const payload = await response.json();
+        if (payload && payload.ok && payload.service === 'dashboard_server') {{
+          serverModeStatus.textContent = connectedText;
+          serverModeStatus.classList.add('good');
+          return;
+        }}
+        throw new Error('unexpected health payload');
+      }} catch (_err) {{
+        serverModeStatus.textContent = staticText;
+        serverModeStatus.classList.add('bad');
+      }}
     }}
 
     function initControls() {{
@@ -3957,6 +4016,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     }}
 
     function initAsyncData() {{
+      updateDashboardServerStatus();
       loadProductionStatus();
       loadResearchBacktests();
       // Detect file:// protocol and show banner

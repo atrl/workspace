@@ -286,6 +286,43 @@ def _normalize_backtest_seg(index: pd.Index | pd.MultiIndex, test_seg: Tuple[str
     return str(start.date()), str(end.date())
 
 
+def _benchmark_metrics_from_price_series(
+    price_series: pd.Series,
+    *,
+    effective_test_seg: Tuple[str, str],
+    strategy_return: float,
+    lookback: int = LOOKBACK,
+) -> Dict[str, object]:
+    """Compute benchmark metrics on the same tradable anchor as actor evaluation."""
+
+    prices = price_series.copy()
+    if isinstance(prices.index, pd.MultiIndex):
+        level_name = "datetime" if "datetime" in prices.index.names else prices.index.names[0]
+        prices.index = pd.DatetimeIndex(pd.to_datetime(prices.index.get_level_values(level_name)))
+    else:
+        prices.index = pd.DatetimeIndex(pd.to_datetime(prices.index))
+    prices = prices.sort_index().loc[effective_test_seg[0] : effective_test_seg[1]].dropna().astype(float)
+    if len(prices) < 2:
+        bnh_return = 0.0
+        start_idx = 0
+        end_idx = 0
+    else:
+        start_idx = min(max(int(lookback), 0), len(prices) - 1)
+        end_idx = max(start_idx, len(prices) - 2)
+        start_price = float(prices.iloc[start_idx])
+        end_price = float(prices.iloc[end_idx])
+        bnh_return = 0.0 if start_price == 0.0 else (end_price / start_price - 1.0) * 100.0
+    start_date = str(pd.Timestamp(prices.index[start_idx]).date()) if len(prices) else ""
+    end_date = str(pd.Timestamp(prices.index[end_idx]).date()) if len(prices) else ""
+    return {
+        "bnh_return": float(bnh_return),
+        "relative_outperformance": float(strategy_return) - float(bnh_return),
+        "benchmark_start_date": start_date,
+        "benchmark_end_date": end_date,
+        "benchmark_warmup_rows": int(start_idx),
+    }
+
+
 class RLStrategy(BaseStrategy):
     """qlib 策略包装器：把训练好的 actor 接入官方回测引擎。"""
     def __init__(
@@ -889,12 +926,20 @@ def backtest_profile(
     account = pdf["account"].astype(float)
     daily_ret = account.pct_change().dropna()
     peak = account.cummax()
+    strategy_return = (account.iloc[-1] / ACCOUNT - 1) * 100
+    benchmark_metrics = _benchmark_metrics_from_price_series(
+        price_series,
+        effective_test_seg=effective_test_seg,
+        strategy_return=float(strategy_return),
+        lookback=LOOKBACK,
+    )
     return {
         "portfolio": pdf,
         "indicator": indicator_metric,
-        "return": (account.iloc[-1] / ACCOUNT - 1) * 100,
+        "return": strategy_return,
         "sharpe": float(daily_ret.mean() / (daily_ret.std() + 1e-8) * np.sqrt(252)),
         "max_dd": float(((peak - account) / peak).max() * 100),
+        **benchmark_metrics,
         "trades": strategy.trades,
         "position_history": strategy.position_history,
         "trade_signals": strategy.trade_signals,

@@ -945,6 +945,17 @@ def test_build_html_run_backtest_uses_same_origin_api_and_dedicated_window_input
     assert "http://localhost:8765/api/run-backtest" not in html
 
 
+def test_build_html_surfaces_dashboard_server_status_for_live_inference():
+    html = build_html({"detailed": {}, "versioned": {}, "model_versions": []}, {"all": {}})
+
+    assert 'id="serverModeStatus"' in html
+    assert "function updateDashboardServerStatus" in html
+    assert "fetch('/api/health'" in html
+    assert "Static view: chart/recompute only" in html
+    assert "dashboard_server.py" in html
+    assert "reference baselines are not runnable inference profiles" in html
+
+
 def test_build_html_falls_back_to_dashboard_api_server_when_static_server_rejects_post():
     html = build_html({"detailed": {}, "versioned": {}, "model_versions": []}, {"all": {}})
 

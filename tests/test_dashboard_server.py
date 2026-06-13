@@ -3,7 +3,7 @@ from __future__ import annotations
 import pandas as pd
 
 import scripts.dashboard_server as dashboard_server
-from scripts.dashboard_server import _build_daily_rows, _response_window_from_rows
+from scripts.dashboard_server import _build_daily_rows, _health_payload, _response_window_from_rows
 
 
 def test_build_daily_rows_include_market_ohlc_for_rerun_kline():
@@ -44,6 +44,14 @@ def test_build_daily_rows_include_market_ohlc_for_rerun_kline():
     assert rows[0]["volume"] == 123
     assert rows[1]["action"] == "BUY"
     assert rows[1]["position"] == 0.5
+
+
+def test_health_payload_marks_dashboard_server_api_available():
+    payload = _health_payload()
+
+    assert payload["ok"] is True
+    assert payload["service"] == "dashboard_server"
+    assert payload["run_backtest_api"] == "/api/run-backtest"
 
 
 def test_response_window_from_rows_uses_actual_row_dates():
