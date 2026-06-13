@@ -20,6 +20,9 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.textContent).toContain('Auto Update');
     expect(panel.textContent).toContain('dashboard_refresh');
     expect(panel.textContent).toContain('06:30 Tue-Sat Asia/Shanghai');
+    expect(panel.textContent).toContain('Retention Gate');
+    expect(panel.textContent).toContain('0 / 2 promotable');
+    expect(panel.textContent).toContain('MaxDD < 20.00%');
   });
 
   test('renders inspector rows with tone classes', () => {
@@ -36,7 +39,10 @@ describe('dashboard v2 DOM render helpers', () => {
   test('renders comparison panel with model deltas and action mismatch counts', () => {
     const panel = document.createElement('section');
 
-    renderComparisonPanel(panel, comparisonFixture, '2026-01-02', '2026-01-06');
+    renderComparisonPanel(panel, comparisonFixture, '2026-01-02', '2026-01-06', undefined, {
+      smoke: { ...modelFixture, retention_decision: 'keep_reference_baseline' },
+      balanced_rule_residual_v22: betaModelFixture,
+    });
 
     expect(panel.querySelector('.table-scroll .comparison-table')).not.toBeNull();
     expect(panel.textContent).toContain('smoke');
@@ -44,6 +50,10 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.textContent).toContain('Action mismatches');
     expect(panel.textContent).toContain('BuyHold');
     expect(panel.textContent).toContain('Vs BuyHold');
+    expect(panel.textContent).toContain('Retention');
+    expect(panel.textContent).toContain('baseline');
+    expect(panel.textContent).toContain('evidence-only');
+    expect(panel.textContent).toContain('wf_max_drawdown_ge_20:wf_2022');
     expect(panel.textContent).toContain('-5.00pp');
     expect(panel.textContent).toContain('1');
   });

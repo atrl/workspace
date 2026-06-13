@@ -68,6 +68,7 @@ def check_dashboard_v2_data(root: Path) -> dict[str, int]:
     default_chart_profile = manifest.get("default_chart_profile")
     if default_chart_profile is not None and default_chart_profile not in available_profiles:
         raise ValueError(f"manifest default_chart_profile is unknown: {default_chart_profile}")
+    has_retention_gate = manifest.get("model_retention_gate") is not None
 
     market_rows = _require_rows(market, "market SOXL")
     for row in market_rows:
@@ -82,6 +83,12 @@ def check_dashboard_v2_data(root: Path) -> dict[str, int]:
         for field in ("source_kind", "display_name", "runnable", "feature_columns", "snapshot_columns"):
             if field not in model:
                 raise ValueError(f"model {profile} missing metadata field: {field}")
+        if has_retention_gate:
+            for field in ("retention_gate_pass", "retention_decision", "retention_failures"):
+                if field not in model:
+                    raise ValueError(f"model {profile} missing retention gate field: {field}")
+            if not isinstance(model["retention_failures"], list):
+                raise ValueError(f"model {profile} retention_failures must be a list")
         for row in rows:
             _require_fields(row, REQUIRED_MODEL_FIELDS, f"model {profile} row")
             _require_numeric(row, ("strategy_nav", "buyhold_nav", "position", "price"), f"model {profile} row")

@@ -46,6 +46,7 @@ DEFAULT_TEST_FILES = [
     "tests/test_runtime_selection_review.py",
     "tests/test_model_runtime_readiness_review.py",
     "tests/test_metric_reconciliation.py",
+    "tests/test_model_retention_gate.py",
     "tests/test_state_objective_bc.py",
     "tests/test_state_objective_training_targets.py",
     "tests/test_oos_diagnostics.py",
@@ -67,6 +68,7 @@ DEFAULT_COMPILE_TARGETS = [
     "src/soxl_quant/app/train.py",
     "src/soxl_quant/app/budget_counterfactual.py",
     "src/soxl_quant/app/oos_diagnostics.py",
+    "src/soxl_quant/app/model_retention_gate.py",
     "src/soxl_quant/app/participation_counterfactual.py",
     "src/soxl_quant/app/purged_walkforward.py",
     "src/soxl_quant/app/reentry_labels.py",
@@ -104,6 +106,7 @@ DEFAULT_COMPILE_TARGETS = [
     "scripts/review_runtime_selection.py",
     "scripts/review_budget_usage_runtime_promotion.py",
     "scripts/review_model_runtime_readiness.py",
+    "scripts/review_model_retention_gates.py",
 
     "scripts/prune_artifacts.py",
     "scripts/rank_counterfactual_variants.py",

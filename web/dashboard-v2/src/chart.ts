@@ -75,6 +75,33 @@ export function syncVisibleLogicalRange(source: IChartApi, targets: IChartApi[])
   return () => sourceTimeScale.unsubscribeVisibleLogicalRangeChange(syncRange);
 }
 
+export function syncVisibleLogicalRanges(charts: readonly IChartApi[]): () => void {
+  const unsubscribers: (() => void)[] = [];
+  let syncing = false;
+
+  for (const source of charts) {
+    const sourceTimeScale = source.timeScale();
+    const syncRange = (range: LogicalRange | null) => {
+      if (!range || syncing) return;
+      syncing = true;
+      try {
+        for (const target of charts) {
+          if (target === source) continue;
+          target.timeScale().setVisibleLogicalRange(range);
+        }
+      } finally {
+        syncing = false;
+      }
+    };
+    sourceTimeScale.subscribeVisibleLogicalRangeChange(syncRange);
+    unsubscribers.push(() => sourceTimeScale.unsubscribeVisibleLogicalRangeChange(syncRange));
+  }
+
+  return () => {
+    for (const unsubscribe of unsubscribers) unsubscribe();
+  };
+}
+
 export function applyChartRangeCommand(charts: readonly ChartRangeTarget[], command: ChartRangeCommand): void {
   if (charts.length === 0) return;
   if (command === 'reset') {

@@ -4,7 +4,7 @@ import {
   renderMarketChart,
   renderNavChart,
   renderPositionChart,
-  syncVisibleLogicalRange,
+  syncVisibleLogicalRanges,
   type ChartRangeCommand,
   type ChartRangeTarget,
 } from './chart';
@@ -306,9 +306,9 @@ function renderDashboard(
   const marketHandles = renderMarketChart(marketChart, market, primary, (date) => update({ hoveredDate: date }));
   const positionHandles = renderPositionChart(positionChart, primary);
   const navHandles = renderNavChart(navChart, models, state.baselineProfile);
-  syncVisibleLogicalRange(marketHandles.chart, [positionHandles.chart, navHandles]);
+  syncVisibleLogicalRanges([marketHandles.chart, positionHandles.chart, navHandles]);
   renderInspector(data, state, inspectorLookup);
-  renderComparisonPanel(comparison, data.comparison, state.start, state.end, state.selectedProfiles);
+  renderComparisonPanel(comparison, data.comparison, state.start, state.end, state.selectedProfiles, data.models);
   renderDataSourcePanel(source, data.manifest, warningsFor(data, state));
   return {
     inspectorLookup,

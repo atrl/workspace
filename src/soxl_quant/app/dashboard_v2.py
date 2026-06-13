@@ -21,6 +21,9 @@ SOXL_BACKTEST_REFERENCE_WINDOW = "ytd_2026"
 SOXL_BACKTEST_REFERENCE_DAILY = (
     "runtime/production/card/soxl_backtest_policy_reimplementation_v1/new_policy_daily.csv"
 )
+MODEL_RETENTION_GATE_SUMMARY = (
+    "runtime/model_selection/card/model_retention_walkforward_gate_v1/summary.json"
+)
 MODEL_DATE_FIELDS = ("datetime", "date")
 REQUIRED_MODEL_FIELDS = ("strategy_nav", "buyhold_nav", "position", "action", "price")
 ACTION_VALUES = {"BUY", "SELL", "HOLD"}
@@ -146,6 +149,68 @@ def _reference_model_sources(root: Path) -> dict[str, dict[str, Any]]:
             "runnable": False,
             "runnable_reason": "reference_baseline",
         }
+    }
+
+
+def _load_model_retention_gate(root: Path) -> dict[str, Any] | None:
+    path = root / MODEL_RETENTION_GATE_SUMMARY
+    if not path.exists():
+        return None
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    summary = payload.get("summary", {}) if isinstance(payload, dict) else {}
+    rows = payload.get("rows", []) if isinstance(payload, dict) else []
+    by_profile = {
+        str(row.get("profile")): row
+        for row in rows
+        if isinstance(row, dict) and row.get("profile")
+    }
+    if not isinstance(summary, dict):
+        summary = {}
+    return {
+        "source_path": MODEL_RETENTION_GATE_SUMMARY,
+        "summary": summary,
+        "by_profile": by_profile,
+    }
+
+
+def _model_retention_gate_manifest(gate: dict[str, Any] | None) -> dict[str, Any] | None:
+    if gate is None:
+        return None
+    summary = gate["summary"]
+    return {
+        "source_path": gate["source_path"],
+        "profiles_scanned": summary.get("profiles_scanned"),
+        "passing_profile_count": summary.get("passing_profile_count"),
+        "passing_profiles": summary.get("passing_profiles", []),
+        "reference_profile": summary.get("reference_profile"),
+        "required_best_return_pct": summary.get("required_best_return_pct"),
+        "max_walkforward_drawdown_pct": summary.get("max_walkforward_drawdown_pct"),
+        "required_wf_windows": summary.get("required_wf_windows", []),
+    }
+
+
+def _model_retention_gate_metadata(profile_name: str, gate: dict[str, Any] | None) -> dict[str, Any]:
+    if gate is None:
+        return {}
+    row = gate["by_profile"].get(profile_name)
+    if not isinstance(row, dict):
+        return {
+            "retention_gate_pass": False,
+            "retention_decision": "missing_retention_gate_row",
+            "retention_failures": ["missing_retention_gate_row"],
+        }
+    failures = row.get("failures", [])
+    if isinstance(failures, str):
+        failures = [item for item in failures.split(";") if item]
+    elif not isinstance(failures, list):
+        failures = []
+    return {
+        "retention_gate_pass": bool(row.get("gate_pass", False)),
+        "retention_decision": str(row.get("retention_decision") or ""),
+        "retention_failures": [str(item) for item in failures],
+        "worst_wf_max_drawdown_pct": row.get("worst_wf_max_drawdown_pct"),
+        "required_best_return_pct": row.get("required_best_return_pct"),
+        "required_soxlbacktest_return_pct": row.get("required_soxlbacktest_return_pct"),
     }
 
 
@@ -740,6 +805,7 @@ def build_dashboard_v2_data(
     output_dir = output_dir.resolve()
     freshness_path = freshness_path or root / "dashboard_data" / "model_replay_freshness.json"
     freshness = load_replay_freshness(freshness_path)
+    retention_gate = _load_model_retention_gate(root)
     safe_backtest_end = freshness.get("safe_backtest_end")
     latest_market_date = freshness.get("latest_data_date")
     market_payload_rows = normalize_market_rows(
@@ -827,6 +893,7 @@ def build_dashboard_v2_data(
             "actor": source.get("actor"),
             "profile_yaml": source.get("profile_yaml"),
             **feature_metadata,
+            **_model_retention_gate_metadata(profile_name, retention_gate),
             "snapshot_columns": snapshot_columns,
             "source_path": _relative_to(root, replay_path),
             "replay_start": rows[0]["date"],
@@ -870,6 +937,7 @@ def build_dashboard_v2_data(
         "default_baseline_profile": baseline,
         "default_chart_profile": default_chart_profile,
         "default_comparison_profiles": defaults,
+        "model_retention_gate": _model_retention_gate_manifest(retention_gate),
         "auto_update": _auto_update_status(root, freshness, freshness_path),
         "source_paths": {
             "model_replay_freshness": _relative_to(root, freshness_path),

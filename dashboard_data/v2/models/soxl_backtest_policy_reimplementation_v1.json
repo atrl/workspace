@@ -154,6 +154,11 @@
   "profile_yaml": null,
   "replay_end": "2026-06-09",
   "replay_start": "2026-01-02",
+  "required_best_return_pct": null,
+  "required_soxlbacktest_return_pct": 132.077978,
+  "retention_decision": "keep_reference_baseline",
+  "retention_failures": [],
+  "retention_gate_pass": true,
   "row_count": 109,
   "rows": [
     {
@@ -2682,5 +2687,6 @@
   "source_kind": "soxlbacktest_qlib_buysell",
   "source_path": "runtime/production/card/soxl_backtest_policy_reimplementation_v1/new_policy_daily.csv",
   "status": "reference",
-  "window": "ytd_2026"
+  "window": "ytd_2026",
+  "worst_wf_max_drawdown_pct": null
 }

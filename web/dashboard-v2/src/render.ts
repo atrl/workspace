@@ -57,6 +57,35 @@ export function renderDataSourcePanel(container: HTMLElement, manifest: Manifest
     autoSection.appendChild(taskList);
     container.appendChild(autoSection);
   }
+  const retention = manifest.model_retention_gate;
+  if (retention) {
+    const retentionSection = element('section', 'auto-update-block');
+    retentionSection.appendChild(element('h3', undefined, 'Retention Gate'));
+    const gateRows: [string, string][] = [
+      [
+        'promotable',
+        `${retention.passing_profile_count ?? 0} / ${retention.profiles_scanned ?? 0} promotable`,
+      ],
+      [
+        'walk-forward MaxDD',
+        retention.max_walkforward_drawdown_pct !== undefined
+          ? `MaxDD < ${retention.max_walkforward_drawdown_pct.toFixed(2)}%`
+          : 'n/a',
+      ],
+      ['return floor', retention.required_best_return_pct !== undefined ? `${retention.required_best_return_pct.toFixed(2)}%` : 'n/a'],
+      ['windows', retention.required_wf_windows?.join(', ') || 'n/a'],
+      ['source', retention.source_path ?? 'n/a'],
+    ];
+    const gateGrid = element('div', 'source-grid');
+    for (const [label, value] of gateRows) {
+      const item = element('div', 'source-row');
+      item.appendChild(element('span', 'source-label', label));
+      item.appendChild(element('span', 'source-value', value));
+      gateGrid.appendChild(item);
+    }
+    retentionSection.appendChild(gateGrid);
+    container.appendChild(retentionSection);
+  }
   if (warnings.length) {
     const warningList = element('ul', 'warning-list');
     for (const warning of warnings) {
@@ -118,6 +147,7 @@ export function renderComparisonPanel(
   start: string,
   end: string,
   selectedProfiles: readonly string[] = comparison.compared_profiles,
+  models: Record<string, ModelPayload> = {},
 ): void {
   container.replaceChildren();
   container.appendChild(element('h2', undefined, 'Model Difference'));
@@ -132,7 +162,7 @@ export function renderComparisonPanel(
   const table = element('table', 'comparison-table');
   const thead = element('thead');
   const headerRow = element('tr');
-  for (const title of ['Model', 'Return', 'BuyHold', 'Vs BuyHold', 'Last Pos Delta', 'Action mismatches']) {
+  for (const title of ['Model', 'Return', 'BuyHold', 'Vs BuyHold', 'Last Pos Delta', 'Action mismatches', 'Retention']) {
     headerRow.appendChild(element('th', undefined, title));
   }
   thead.appendChild(headerRow);
@@ -151,6 +181,17 @@ export function renderComparisonPanel(
     tr.appendChild(element('td', undefined, values ? `${(values.return_delta_vs_buyhold * 100).toFixed(2)}pp` : 'n/a'));
     tr.appendChild(element('td', undefined, values ? values.position_delta_vs_baseline.toFixed(3) : 'n/a'));
     tr.appendChild(element('td', undefined, String(mismatchCount)));
+    const model = models[profile];
+    const hasRetention = model?.retention_gate_pass !== undefined || model?.retention_decision !== undefined;
+    const retentionLabel = model?.retention_decision === 'keep_reference_baseline'
+      ? 'baseline'
+      : model?.retention_gate_pass
+        ? 'promotable'
+        : 'evidence-only';
+    const retentionText = model && hasRetention
+      ? [retentionLabel, ...(model.retention_failures ?? []).slice(0, 2)].join(' · ')
+      : 'n/a';
+    tr.appendChild(element('td', undefined, retentionText));
     tbody.appendChild(tr);
   }
   table.appendChild(tbody);

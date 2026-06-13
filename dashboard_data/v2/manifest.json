@@ -60,8 +60,22 @@
     "mode_conditioned_rebound_reward_train_v2",
     "state_conditioned_drawdown_rebound_reward_train_v1"
   ],
-  "generated_at": "2026-06-13T17:09:54.144785+00:00",
+  "generated_at": "2026-06-13T17:28:21.203439+00:00",
   "latest_market_date": "2026-06-12",
+  "model_retention_gate": {
+    "max_walkforward_drawdown_pct": 20.0,
+    "passing_profile_count": 0,
+    "passing_profiles": [],
+    "profiles_scanned": 12,
+    "reference_profile": "soxl_backtest_policy_reimplementation_v1",
+    "required_best_return_pct": 213.143462,
+    "required_wf_windows": [
+      "wf_2020",
+      "wf_2022",
+      "wf_2023_2024"
+    ],
+    "source_path": "runtime/model_selection/card/model_retention_walkforward_gate_v1/summary.json"
+  },
   "safe_backtest_end": "2026-06-11",
   "source_paths": {
     "market": "data/processed/panels/soxl_soxx_vix_full.csv",

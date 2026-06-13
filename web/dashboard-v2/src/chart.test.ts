@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, test, vi } from 'vitest';
-import { applyChartRangeCommand, renderMarketChart, renderNavChart } from './chart';
+import { applyChartRangeCommand, renderMarketChart, renderNavChart, syncVisibleLogicalRanges } from './chart';
 import { marketFixture, modelFixture } from './testFixtures';
 
 const chartMocks = vi.hoisted(() => {
@@ -130,6 +130,33 @@ describe('dashboard v2 chart rendering', () => {
       'latest',
     );
     expect(chartMocks.timeScaleApi.scrollToRealTime).toHaveBeenCalled();
+  });
+
+  test('synchronizes logical ranges from any linked chart and cleans up subscriptions', () => {
+    const callbacks: ((range: { from: number; to: number } | null) => void)[] = [];
+    const makeChart = () => {
+      const api = {
+        setVisibleLogicalRange: vi.fn(),
+        subscribeVisibleLogicalRangeChange: vi.fn((callback) => callbacks.push(callback)),
+        unsubscribeVisibleLogicalRangeChange: vi.fn(),
+      };
+      return { timeScale: () => api, api };
+    };
+    const market = makeChart();
+    const position = makeChart();
+    const nav = makeChart();
+
+    const cleanup = syncVisibleLogicalRanges([market as never, position as never, nav as never]);
+    callbacks[1]({ from: 20, to: 40 });
+
+    expect(market.api.setVisibleLogicalRange).toHaveBeenCalledWith({ from: 20, to: 40 });
+    expect(position.api.setVisibleLogicalRange).not.toHaveBeenCalled();
+    expect(nav.api.setVisibleLogicalRange).toHaveBeenCalledWith({ from: 20, to: 40 });
+
+    cleanup();
+    expect(market.api.unsubscribeVisibleLogicalRangeChange).toHaveBeenCalled();
+    expect(position.api.unsubscribeVisibleLogicalRangeChange).toHaveBeenCalled();
+    expect(nav.api.unsubscribeVisibleLogicalRangeChange).toHaveBeenCalled();
   });
 
   test('coalesces crosshair hover date updates into one animation frame', () => {

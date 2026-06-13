@@ -297,6 +297,103 @@ def test_build_dashboard_v2_data_reports_dashboard_refresh_task(tmp_path: Path):
     assert task["command_path"] == "production/run_dashboard_refresh.sh"
 
 
+def test_build_dashboard_v2_data_attaches_model_retention_gate_status(tmp_path: Path):
+    freshness = tmp_path / "dashboard_data" / "model_replay_freshness.json"
+    freshness.parent.mkdir()
+    model_csv = tmp_path / "runtime" / "model" / "card" / "smoke" / "smoke_soxl_daily.csv"
+    model_csv.parent.mkdir(parents=True)
+    _write_csv(
+        model_csv,
+        [
+            {
+                "datetime": "2026-01-02",
+                "strategy_nav": 100.0,
+                "buyhold_nav": 100.0,
+                "position": 0.0,
+                "action": "HOLD",
+                "price": 10.0,
+            },
+            {
+                "datetime": "2026-01-05",
+                "strategy_nav": 105.0,
+                "buyhold_nav": 110.0,
+                "position": 0.5,
+                "action": "BUY",
+                "price": 11.0,
+            },
+        ],
+    )
+    freshness.write_text(
+        json.dumps(
+            {
+                "generated_at": "2026-06-13T00:00:00+00:00",
+                "latest_data_date": "2026-01-05",
+                "safe_backtest_end": "2026-01-05",
+                "profiles": [
+                    {
+                        "profile": "smoke",
+                        "status": "canonical",
+                        "actor": "runtime/model/card/smoke/soxl_smoke_actor.pt",
+                        "output": "runtime/model/card/smoke/smoke_soxl_daily.csv",
+                        "result": "current",
+                    }
+                ],
+            }
+        )
+    )
+    retention_summary = tmp_path / "runtime" / "model_selection" / "card" / "model_retention_walkforward_gate_v1" / "summary.json"
+    retention_summary.parent.mkdir(parents=True)
+    retention_summary.write_text(
+        json.dumps(
+            {
+                "summary": {
+                    "passing_profile_count": 0,
+                    "passing_profiles": [],
+                    "max_walkforward_drawdown_pct": 20.0,
+                    "required_best_return_pct": 213.14,
+                    "reference_profile": "soxl_backtest_policy_reimplementation_v1",
+                    "required_wf_windows": ["wf_2020", "wf_2022", "wf_2023_2024"],
+                },
+                "rows": [
+                    {
+                        "profile": "smoke",
+                        "gate_pass": False,
+                        "retention_decision": "retain_as_evidence_only",
+                        "failures": ["wf_max_drawdown_ge_20:wf_2022", "ytd_return_below_best_alignment"],
+                        "worst_wf_max_drawdown_pct": 24.2,
+                        "required_best_return_pct": 213.14,
+                    }
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    output_dir = tmp_path / "dashboard_data" / "v2"
+    build_dashboard_v2_data(
+        root=tmp_path,
+        output_dir=output_dir,
+        freshness_path=freshness,
+        market_rows={
+            "2026-01-02": {"open": 10.0, "high": 10.5, "low": 9.5, "close": 10.0, "volume": 1000},
+            "2026-01-05": {"open": 10.5, "high": 11.5, "low": 10.0, "close": 11.0, "volume": 1200},
+        },
+        selected_profiles=["smoke"],
+        baseline_profile="smoke",
+    )
+
+    manifest = json.loads((output_dir / "manifest.json").read_text())
+    model = json.loads((output_dir / "models" / "smoke.json").read_text())
+
+    assert manifest["model_retention_gate"]["passing_profile_count"] == 0
+    assert manifest["model_retention_gate"]["max_walkforward_drawdown_pct"] == 20.0
+    assert manifest["model_retention_gate"]["source_path"] == "runtime/model_selection/card/model_retention_walkforward_gate_v1/summary.json"
+    assert model["retention_gate_pass"] is False
+    assert model["retention_decision"] == "retain_as_evidence_only"
+    assert model["retention_failures"] == ["wf_max_drawdown_ge_20:wf_2022", "ytd_return_below_best_alignment"]
+    assert model["worst_wf_max_drawdown_pct"] == 24.2
+
+
 def test_build_dashboard_v2_data_loads_market_from_requested_root(tmp_path: Path):
     freshness = tmp_path / "dashboard_data" / "model_replay_freshness.json"
     freshness.parent.mkdir()

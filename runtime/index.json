@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-11T07:38:14.170945+00:00",
+  "generated_at": "2026-06-13T17:30:16.640460+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -36,12 +36,6 @@
       "category": "data",
       "suffix": ".md",
       "bytes": 10389
-    },
-    {
-      "path": "runtime/data/leakage_validation_report.json",
-      "category": "data",
-      "suffix": ".json",
-      "bytes": 2805
     },
     {
       "path": "runtime/execution/card/balanced_floor40/card.md",
@@ -716,46 +710,10 @@
       "bytes": 2039
     },
     {
-      "path": "runtime/execution/card/recovery_reentry_cppi_floor_v1/oos_poor_window_diagnostics/feature_differences.csv",
-      "category": "execution",
-      "suffix": ".csv",
-      "bytes": 4337
-    },
-    {
-      "path": "runtime/execution/card/recovery_reentry_cppi_floor_v1/oos_poor_window_diagnostics/manifest.json",
-      "category": "execution",
-      "suffix": ".json",
-      "bytes": 1612
-    },
-    {
       "path": "runtime/execution/card/recovery_reentry_cppi_floor_v1/oos_poor_window_diagnostics/oos_diagnostic_review.md",
       "category": "execution",
       "suffix": ".md",
       "bytes": 3977
-    },
-    {
-      "path": "runtime/execution/card/recovery_reentry_cppi_floor_v1/oos_poor_window_diagnostics/poor_windows.csv",
-      "category": "execution",
-      "suffix": ".csv",
-      "bytes": 1745
-    },
-    {
-      "path": "runtime/execution/card/recovery_reentry_cppi_floor_v1/parameter_screen.csv",
-      "category": "execution",
-      "suffix": ".csv",
-      "bytes": 64565
-    },
-    {
-      "path": "runtime/execution/card/recovery_reentry_cppi_floor_v1/parameter_screen_top.csv",
-      "category": "execution",
-      "suffix": ".csv",
-      "bytes": 2617
-    },
-    {
-      "path": "runtime/execution/card/recovery_reentry_cppi_floor_v1/recovery_reentry_cppi_floor_v1.json",
-      "category": "execution",
-      "suffix": ".json",
-      "bytes": 10203
     },
     {
       "path": "runtime/execution/card/recovery_reentry_cppi_floor_v1/recovery_reentry_cppi_floor_v1.md",
@@ -764,46 +722,10 @@
       "bytes": 2221
     },
     {
-      "path": "runtime/execution/card/recovery_reentry_cppi_floor_v1/recovery_reentry_cppi_floor_v1_soxl_daily.csv",
-      "category": "execution",
-      "suffix": ".csv",
-      "bytes": 751966
-    },
-    {
-      "path": "runtime/execution/card/recovery_reentry_cppi_floor_v1/selection.json",
-      "category": "execution",
-      "suffix": ".json",
-      "bytes": 6495
-    },
-    {
-      "path": "runtime/execution/card/recovery_reentry_cppi_floor_v1/selection_table.csv",
-      "category": "execution",
-      "suffix": ".csv",
-      "bytes": 3638
-    },
-    {
-      "path": "runtime/execution/card/recovery_reentry_cppi_floor_v1/walkforward/wf_2020/recovery_reentry_cppi_floor_v1_wf_2020.json",
-      "category": "execution",
-      "suffix": ".json",
-      "bytes": 6103
-    },
-    {
       "path": "runtime/execution/card/recovery_reentry_cppi_floor_v1/walkforward/wf_2020/recovery_reentry_cppi_floor_v1_wf_2020.md",
       "category": "execution",
       "suffix": ".md",
       "bytes": 1452
-    },
-    {
-      "path": "runtime/execution/card/recovery_reentry_cppi_floor_v1/walkforward/wf_2020/recovery_reentry_cppi_floor_v1_wf_2020_soxl_daily.csv",
-      "category": "execution",
-      "suffix": ".csv",
-      "bytes": 113259
-    },
-    {
-      "path": "runtime/execution/card/recovery_reentry_cppi_floor_v1/walkforward/wf_2022/recovery_reentry_cppi_floor_v1_wf_2022.json",
-      "category": "execution",
-      "suffix": ".json",
-      "bytes": 6123
     },
     {
       "path": "runtime/execution/card/recovery_reentry_cppi_floor_v1/walkforward/wf_2022/recovery_reentry_cppi_floor_v1_wf_2022.md",
@@ -812,40 +734,10 @@
       "bytes": 1470
     },
     {
-      "path": "runtime/execution/card/recovery_reentry_cppi_floor_v1/walkforward/wf_2022/recovery_reentry_cppi_floor_v1_wf_2022_soxl_daily.csv",
-      "category": "execution",
-      "suffix": ".csv",
-      "bytes": 112384
-    },
-    {
-      "path": "runtime/execution/card/recovery_reentry_cppi_floor_v1/walkforward/wf_2023_2024/recovery_reentry_cppi_floor_v1_wf_2023_2024.json",
-      "category": "execution",
-      "suffix": ".json",
-      "bytes": 6184
-    },
-    {
       "path": "runtime/execution/card/recovery_reentry_cppi_floor_v1/walkforward/wf_2023_2024/recovery_reentry_cppi_floor_v1_wf_2023_2024.md",
       "category": "execution",
       "suffix": ".md",
       "bytes": 1522
-    },
-    {
-      "path": "runtime/execution/card/recovery_reentry_cppi_floor_v1/walkforward/wf_2023_2024/recovery_reentry_cppi_floor_v1_wf_2023_2024_soxl_daily.csv",
-      "category": "execution",
-      "suffix": ".csv",
-      "bytes": 114219
-    },
-    {
-      "path": "runtime/execution/card/recovery_reentry_cppi_floor_v1/walkforward_screen.csv",
-      "category": "execution",
-      "suffix": ".csv",
-      "bytes": 6338
-    },
-    {
-      "path": "runtime/execution/card/recovery_reentry_cppi_floor_v1/walkforward_summary.csv",
-      "category": "execution",
-      "suffix": ".csv",
-      "bytes": 1790
     },
     {
       "path": "runtime/execution/card/recovery_reentry_equity_drawdown_guard_v1/notes.md",
@@ -854,34 +746,10 @@
       "bytes": 5163
     },
     {
-      "path": "runtime/execution/card/recovery_reentry_equity_drawdown_guard_v1/oos_poor_window_diagnostics/feature_differences.csv",
-      "category": "execution",
-      "suffix": ".csv",
-      "bytes": 4340
-    },
-    {
-      "path": "runtime/execution/card/recovery_reentry_equity_drawdown_guard_v1/oos_poor_window_diagnostics/manifest.json",
-      "category": "execution",
-      "suffix": ".json",
-      "bytes": 1538
-    },
-    {
       "path": "runtime/execution/card/recovery_reentry_equity_drawdown_guard_v1/oos_poor_window_diagnostics/oos_diagnostic_review.md",
       "category": "execution",
       "suffix": ".md",
       "bytes": 3973
-    },
-    {
-      "path": "runtime/execution/card/recovery_reentry_equity_drawdown_guard_v1/oos_poor_window_diagnostics/poor_windows.csv",
-      "category": "execution",
-      "suffix": ".csv",
-      "bytes": 1738
-    },
-    {
-      "path": "runtime/execution/card/recovery_reentry_equity_drawdown_guard_v1/recovery_reentry_equity_drawdown_guard_v1.json",
-      "category": "execution",
-      "suffix": ".json",
-      "bytes": 9855
     },
     {
       "path": "runtime/execution/card/recovery_reentry_equity_drawdown_guard_v1/recovery_reentry_equity_drawdown_guard_v1.md",
@@ -890,34 +758,10 @@
       "bytes": 2054
     },
     {
-      "path": "runtime/execution/card/recovery_reentry_equity_drawdown_guard_v1/recovery_reentry_equity_drawdown_guard_v1_soxl_daily.csv",
-      "category": "execution",
-      "suffix": ".csv",
-      "bytes": 754765
-    },
-    {
-      "path": "runtime/execution/card/recovery_reentry_equity_drawdown_guard_v1/walkforward/wf_2020/recovery_reentry_equity_drawdown_guard_v1_wf_2020.json",
-      "category": "execution",
-      "suffix": ".json",
-      "bytes": 5997
-    },
-    {
       "path": "runtime/execution/card/recovery_reentry_equity_drawdown_guard_v1/walkforward/wf_2020/recovery_reentry_equity_drawdown_guard_v1_wf_2020.md",
       "category": "execution",
       "suffix": ".md",
       "bytes": 1519
-    },
-    {
-      "path": "runtime/execution/card/recovery_reentry_equity_drawdown_guard_v1/walkforward/wf_2020/recovery_reentry_equity_drawdown_guard_v1_wf_2020_soxl_daily.csv",
-      "category": "execution",
-      "suffix": ".csv",
-      "bytes": 113245
-    },
-    {
-      "path": "runtime/execution/card/recovery_reentry_equity_drawdown_guard_v1/walkforward/wf_2022/recovery_reentry_equity_drawdown_guard_v1_wf_2022.json",
-      "category": "execution",
-      "suffix": ".json",
-      "bytes": 6009
     },
     {
       "path": "runtime/execution/card/recovery_reentry_equity_drawdown_guard_v1/walkforward/wf_2022/recovery_reentry_equity_drawdown_guard_v1_wf_2022.md",
@@ -926,28 +770,10 @@
       "bytes": 1527
     },
     {
-      "path": "runtime/execution/card/recovery_reentry_equity_drawdown_guard_v1/walkforward/wf_2022/recovery_reentry_equity_drawdown_guard_v1_wf_2022_soxl_daily.csv",
-      "category": "execution",
-      "suffix": ".csv",
-      "bytes": 112052
-    },
-    {
-      "path": "runtime/execution/card/recovery_reentry_equity_drawdown_guard_v1/walkforward/wf_2023_2024/recovery_reentry_equity_drawdown_guard_v1_wf_2023_2024.json",
-      "category": "execution",
-      "suffix": ".json",
-      "bytes": 6066
-    },
-    {
       "path": "runtime/execution/card/recovery_reentry_equity_drawdown_guard_v1/walkforward/wf_2023_2024/recovery_reentry_equity_drawdown_guard_v1_wf_2023_2024.md",
       "category": "execution",
       "suffix": ".md",
       "bytes": 1579
-    },
-    {
-      "path": "runtime/execution/card/recovery_reentry_equity_drawdown_guard_v1/walkforward/wf_2023_2024/recovery_reentry_equity_drawdown_guard_v1_wf_2023_2024_soxl_daily.csv",
-      "category": "execution",
-      "suffix": ".csv",
-      "bytes": 115433
     },
     {
       "path": "runtime/execution/card/recovery_reentry_floor_v1/notes.md",
@@ -1052,46 +878,10 @@
       "bytes": 90885
     },
     {
-      "path": "runtime/execution/card/recovery_reentry_regime_drawdown_guard_v1/oos_poor_window_diagnostics/feature_differences.csv",
-      "category": "execution",
-      "suffix": ".csv",
-      "bytes": 4327
-    },
-    {
-      "path": "runtime/execution/card/recovery_reentry_regime_drawdown_guard_v1/oos_poor_window_diagnostics/manifest.json",
-      "category": "execution",
-      "suffix": ".json",
-      "bytes": 1678
-    },
-    {
       "path": "runtime/execution/card/recovery_reentry_regime_drawdown_guard_v1/oos_poor_window_diagnostics/oos_diagnostic_review.md",
       "category": "execution",
       "suffix": ".md",
       "bytes": 3972
-    },
-    {
-      "path": "runtime/execution/card/recovery_reentry_regime_drawdown_guard_v1/oos_poor_window_diagnostics/poor_windows.csv",
-      "category": "execution",
-      "suffix": ".csv",
-      "bytes": 1742
-    },
-    {
-      "path": "runtime/execution/card/recovery_reentry_regime_drawdown_guard_v1/parameter_screen.csv",
-      "category": "execution",
-      "suffix": ".csv",
-      "bytes": 56312
-    },
-    {
-      "path": "runtime/execution/card/recovery_reentry_regime_drawdown_guard_v1/parameter_screen_top.csv",
-      "category": "execution",
-      "suffix": ".csv",
-      "bytes": 1875
-    },
-    {
-      "path": "runtime/execution/card/recovery_reentry_regime_drawdown_guard_v1/recovery_reentry_regime_drawdown_guard_v1.json",
-      "category": "execution",
-      "suffix": ".json",
-      "bytes": 10183
     },
     {
       "path": "runtime/execution/card/recovery_reentry_regime_drawdown_guard_v1/recovery_reentry_regime_drawdown_guard_v1.md",
@@ -1100,46 +890,10 @@
       "bytes": 2204
     },
     {
-      "path": "runtime/execution/card/recovery_reentry_regime_drawdown_guard_v1/recovery_reentry_regime_drawdown_guard_v1_soxl_daily.csv",
-      "category": "execution",
-      "suffix": ".csv",
-      "bytes": 755524
-    },
-    {
-      "path": "runtime/execution/card/recovery_reentry_regime_drawdown_guard_v1/selection.json",
-      "category": "execution",
-      "suffix": ".json",
-      "bytes": 5911
-    },
-    {
-      "path": "runtime/execution/card/recovery_reentry_regime_drawdown_guard_v1/selection_table.csv",
-      "category": "execution",
-      "suffix": ".csv",
-      "bytes": 2725
-    },
-    {
-      "path": "runtime/execution/card/recovery_reentry_regime_drawdown_guard_v1/walkforward/wf_2020/recovery_reentry_regime_drawdown_guard_v1_wf_2020.json",
-      "category": "execution",
-      "suffix": ".json",
-      "bytes": 6147
-    },
-    {
       "path": "runtime/execution/card/recovery_reentry_regime_drawdown_guard_v1/walkforward/wf_2020/recovery_reentry_regime_drawdown_guard_v1_wf_2020.md",
       "category": "execution",
       "suffix": ".md",
       "bytes": 1507
-    },
-    {
-      "path": "runtime/execution/card/recovery_reentry_regime_drawdown_guard_v1/walkforward/wf_2020/recovery_reentry_regime_drawdown_guard_v1_wf_2020_soxl_daily.csv",
-      "category": "execution",
-      "suffix": ".csv",
-      "bytes": 114049
-    },
-    {
-      "path": "runtime/execution/card/recovery_reentry_regime_drawdown_guard_v1/walkforward/wf_2022/recovery_reentry_regime_drawdown_guard_v1_wf_2022.json",
-      "category": "execution",
-      "suffix": ".json",
-      "bytes": 6161
     },
     {
       "path": "runtime/execution/card/recovery_reentry_regime_drawdown_guard_v1/walkforward/wf_2022/recovery_reentry_regime_drawdown_guard_v1_wf_2022.md",
@@ -1148,40 +902,10 @@
       "bytes": 1525
     },
     {
-      "path": "runtime/execution/card/recovery_reentry_regime_drawdown_guard_v1/walkforward/wf_2022/recovery_reentry_regime_drawdown_guard_v1_wf_2022_soxl_daily.csv",
-      "category": "execution",
-      "suffix": ".csv",
-      "bytes": 112773
-    },
-    {
-      "path": "runtime/execution/card/recovery_reentry_regime_drawdown_guard_v1/walkforward/wf_2023_2024/recovery_reentry_regime_drawdown_guard_v1_wf_2023_2024.json",
-      "category": "execution",
-      "suffix": ".json",
-      "bytes": 6228
-    },
-    {
       "path": "runtime/execution/card/recovery_reentry_regime_drawdown_guard_v1/walkforward/wf_2023_2024/recovery_reentry_regime_drawdown_guard_v1_wf_2023_2024.md",
       "category": "execution",
       "suffix": ".md",
       "bytes": 1577
-    },
-    {
-      "path": "runtime/execution/card/recovery_reentry_regime_drawdown_guard_v1/walkforward/wf_2023_2024/recovery_reentry_regime_drawdown_guard_v1_wf_2023_2024_soxl_daily.csv",
-      "category": "execution",
-      "suffix": ".csv",
-      "bytes": 114655
-    },
-    {
-      "path": "runtime/execution/card/recovery_reentry_regime_drawdown_guard_v1/walkforward_screen.csv",
-      "category": "execution",
-      "suffix": ".csv",
-      "bytes": 4330
-    },
-    {
-      "path": "runtime/execution/card/recovery_reentry_regime_drawdown_guard_v1/walkforward_summary.csv",
-      "category": "execution",
-      "suffix": ".csv",
-      "bytes": 1984
     },
     {
       "path": "runtime/execution/card/reentry_participation_counterfactual_v1/grid_results.csv",
@@ -1868,112 +1592,10 @@
       "bytes": 12061
     },
     {
-      "path": "runtime/execution/card/soxl_soxx_efficiency_chop_guard_v1/oos_poor_window_diagnostics/feature_differences.csv",
-      "category": "execution",
-      "suffix": ".csv",
-      "bytes": 4334
-    },
-    {
-      "path": "runtime/execution/card/soxl_soxx_efficiency_chop_guard_v1/oos_poor_window_diagnostics/manifest.json",
-      "category": "execution",
-      "suffix": ".json",
-      "bytes": 1636
-    },
-    {
       "path": "runtime/execution/card/soxl_soxx_efficiency_chop_guard_v1/oos_poor_window_diagnostics/oos_diagnostic_review.md",
       "category": "execution",
       "suffix": ".md",
       "bytes": 3967
-    },
-    {
-      "path": "runtime/execution/card/soxl_soxx_efficiency_chop_guard_v1/oos_poor_window_diagnostics/poor_windows.csv",
-      "category": "execution",
-      "suffix": ".csv",
-      "bytes": 1752
-    },
-    {
-      "path": "runtime/execution/card/soxl_soxx_efficiency_chop_guard_v1/parameter_screen.csv",
-      "category": "execution",
-      "suffix": ".csv",
-      "bytes": 15354162
-    },
-    {
-      "path": "runtime/execution/card/soxl_soxx_efficiency_chop_guard_v1/parameter_screen_top.csv",
-      "category": "execution",
-      "suffix": ".csv",
-      "bytes": 5741
-    },
-    {
-      "path": "runtime/execution/card/soxl_soxx_efficiency_chop_guard_v1/selection_table.csv",
-      "category": "execution",
-      "suffix": ".csv",
-      "bytes": 8245
-    },
-    {
-      "path": "runtime/execution/card/soxl_soxx_efficiency_chop_guard_v1/soxl_soxx_efficiency_chop_guard_v1.json",
-      "category": "execution",
-      "suffix": ".json",
-      "bytes": 4617
-    },
-    {
-      "path": "runtime/execution/card/soxl_soxx_efficiency_chop_guard_v1/soxl_soxx_efficiency_chop_guard_v1_soxl_daily.csv",
-      "category": "execution",
-      "suffix": ".csv",
-      "bytes": 418385
-    },
-    {
-      "path": "runtime/execution/card/soxl_soxx_efficiency_chop_guard_v1/walkforward/wf_2020/soxl_soxx_efficiency_chop_guard_v1_wf_2020.json",
-      "category": "execution",
-      "suffix": ".json",
-      "bytes": 1388
-    },
-    {
-      "path": "runtime/execution/card/soxl_soxx_efficiency_chop_guard_v1/walkforward/wf_2020/soxl_soxx_efficiency_chop_guard_v1_wf_2020_soxl_daily.csv",
-      "category": "execution",
-      "suffix": ".csv",
-      "bytes": 64894
-    },
-    {
-      "path": "runtime/execution/card/soxl_soxx_efficiency_chop_guard_v1/walkforward/wf_2022/soxl_soxx_efficiency_chop_guard_v1_wf_2022.json",
-      "category": "execution",
-      "suffix": ".json",
-      "bytes": 1387
-    },
-    {
-      "path": "runtime/execution/card/soxl_soxx_efficiency_chop_guard_v1/walkforward/wf_2022/soxl_soxx_efficiency_chop_guard_v1_wf_2022_soxl_daily.csv",
-      "category": "execution",
-      "suffix": ".csv",
-      "bytes": 63968
-    },
-    {
-      "path": "runtime/execution/card/soxl_soxx_efficiency_chop_guard_v1/walkforward/wf_2023_2024/soxl_soxx_efficiency_chop_guard_v1_wf_2023_2024.json",
-      "category": "execution",
-      "suffix": ".json",
-      "bytes": 1402
-    },
-    {
-      "path": "runtime/execution/card/soxl_soxx_efficiency_chop_guard_v1/walkforward/wf_2023_2024/soxl_soxx_efficiency_chop_guard_v1_wf_2023_2024_soxl_daily.csv",
-      "category": "execution",
-      "suffix": ".csv",
-      "bytes": 65083
-    },
-    {
-      "path": "runtime/execution/card/soxl_soxx_efficiency_chop_guard_v1/walkforward_screen.csv",
-      "category": "execution",
-      "suffix": ".csv",
-      "bytes": 16873
-    },
-    {
-      "path": "runtime/execution/card/soxl_soxx_efficiency_chop_guard_v1/walkforward_selected_summary.csv",
-      "category": "execution",
-      "suffix": ".csv",
-      "bytes": 1579
-    },
-    {
-      "path": "runtime/execution/card/soxl_soxx_efficiency_chop_guard_v1/walkforward_summary.csv",
-      "category": "execution",
-      "suffix": ".csv",
-      "bytes": 2311
     },
     {
       "path": "runtime/execution/card/soxx_relative_weakness_cap_v1/soxx_relative_overlay_results.csv",
@@ -2042,46 +1664,10 @@
       "bytes": 933
     },
     {
-      "path": "runtime/execution/state/selective_release_post_release_cap_v1.json",
-      "category": "execution",
-      "suffix": ".json",
-      "bytes": 185
-    },
-    {
-      "path": "runtime/factor/analysis/ic.csv",
-      "category": "factor",
-      "suffix": ".csv",
-      "bytes": 2192
-    },
-    {
-      "path": "runtime/factor/analysis/shap_importance.csv",
-      "category": "factor",
-      "suffix": ".csv",
-      "bytes": 2368
-    },
-    {
-      "path": "runtime/factor/analysis/summary.json",
-      "category": "factor",
-      "suffix": ".json",
-      "bytes": 1750
-    },
-    {
-      "path": "runtime/factor/card/acad_amihud_zscore/backtest_ACAD_AMIHUD_ZSCORE.csv",
-      "category": "factor",
-      "suffix": ".csv",
-      "bytes": 1973
-    },
-    {
       "path": "runtime/factor/card/acad_amihud_zscore/card.md",
       "category": "factor",
       "suffix": ".md",
       "bytes": 662
-    },
-    {
-      "path": "runtime/factor/card/acad_down_runs/backtest_ACAD_DOWN_RUNS.csv",
-      "category": "factor",
-      "suffix": ".csv",
-      "bytes": 1286
     },
     {
       "path": "runtime/factor/card/acad_down_runs/card.md",
@@ -2090,22 +1676,10 @@
       "bytes": 668
     },
     {
-      "path": "runtime/factor/card/acad_down_up_ratio/backtest_ACAD_DOWN_UP_RATIO.csv",
-      "category": "factor",
-      "suffix": ".csv",
-      "bytes": 1973
-    },
-    {
       "path": "runtime/factor/card/acad_down_up_ratio/card.md",
       "category": "factor",
       "suffix": ".md",
       "bytes": 684
-    },
-    {
-      "path": "runtime/factor/card/acad_down_up_ratio_63/backtest_ACAD_DOWN_UP_RATIO_63.csv",
-      "category": "factor",
-      "suffix": ".csv",
-      "bytes": 1947
     },
     {
       "path": "runtime/factor/card/acad_down_up_ratio_63/card.md",
@@ -2114,34 +1688,16 @@
       "bytes": 686
     },
     {
-      "path": "runtime/factor/card/acad_intraday_reversal_21/backtest_ACAD_INTRADAY_REVERSAL_21.csv",
-      "category": "factor",
-      "suffix": ".csv",
-      "bytes": 2026
-    },
-    {
       "path": "runtime/factor/card/acad_intraday_reversal_21/card.md",
       "category": "factor",
       "suffix": ".md",
       "bytes": 761
     },
     {
-      "path": "runtime/factor/card/acad_volatility_drag/backtest_ACAD_VOLATILITY_DRAG.csv",
-      "category": "factor",
-      "suffix": ".csv",
-      "bytes": 2009
-    },
-    {
       "path": "runtime/factor/card/acad_volatility_drag/card.md",
       "category": "factor",
       "suffix": ".md",
       "bytes": 670
-    },
-    {
-      "path": "runtime/factor/card/cicc_price_volume/backtest_cicc_price_volume.csv",
-      "category": "factor",
-      "suffix": ".csv",
-      "bytes": 5699
     },
     {
       "path": "runtime/factor/card/cicc_price_volume/card_CICC_MOM_RANGE_M.md",
@@ -2166,12 +1722,6 @@
       "category": "factor",
       "suffix": ".md",
       "bytes": 497
-    },
-    {
-      "path": "runtime/factor/card/cicc_price_volume/correlation_cicc_price_volume.csv",
-      "category": "factor",
-      "suffix": ".csv",
-      "bytes": 305
     },
     {
       "path": "runtime/factor/card/futu_small_order_flow/backtest_futu_small_order_flow.csv",
@@ -2264,22 +1814,10 @@
       "bytes": 129
     },
     {
-      "path": "runtime/factor/card/rb_buy_composite/backtest_RB_BUY_COMPOSITE.csv",
-      "category": "factor",
-      "suffix": ".csv",
-      "bytes": 1977
-    },
-    {
       "path": "runtime/factor/card/rb_buy_composite/card.md",
       "category": "factor",
       "suffix": ".md",
       "bytes": 965
-    },
-    {
-      "path": "runtime/factor/card/rb_cooldown_proxy/backtest_RB_COOLDOWN_PROXY.csv",
-      "category": "factor",
-      "suffix": ".csv",
-      "bytes": 1861
     },
     {
       "path": "runtime/factor/card/rb_cooldown_proxy/card.md",
@@ -2300,12 +1838,6 @@
       "bytes": 722
     },
     {
-      "path": "runtime/factor/card/rb_panic_score_proxy/backtest_RB_PANIC_SCORE_PROXY.csv",
-      "category": "factor",
-      "suffix": ".csv",
-      "bytes": 1976
-    },
-    {
       "path": "runtime/factor/card/rb_panic_score_proxy/card.md",
       "category": "factor",
       "suffix": ".md",
@@ -2322,12 +1854,6 @@
       "category": "factor",
       "suffix": ".md",
       "bytes": 738
-    },
-    {
-      "path": "runtime/factor/card/rb_rsi6_oversold/backtest_RB_RSI6_OVERSOLD.csv",
-      "category": "factor",
-      "suffix": ".csv",
-      "bytes": 1012
     },
     {
       "path": "runtime/factor/card/rb_rsi6_oversold/card.md",
@@ -2366,12 +1892,6 @@
       "bytes": 697
     },
     {
-      "path": "runtime/factor/card/rb_volume_stress/backtest_RB_VOLUME_STRESS.csv",
-      "category": "factor",
-      "suffix": ".csv",
-      "bytes": 1980
-    },
-    {
       "path": "runtime/factor/card/rb_volume_stress/card.md",
       "category": "factor",
       "suffix": ".md",
@@ -2390,22 +1910,10 @@
       "bytes": 617
     },
     {
-      "path": "runtime/factor/card/rulebase_signals/backtest_rulebase_signals.csv",
-      "category": "factor",
-      "suffix": ".csv",
-      "bytes": 2224
-    },
-    {
       "path": "runtime/factor/card/rulebase_signals/card_RB_TREND_REVERSAL.md",
       "category": "factor",
       "suffix": ".md",
       "bytes": 492
-    },
-    {
-      "path": "runtime/factor/card/rulebase_signals/correlation_rulebase_signals.csv",
-      "category": "factor",
-      "suffix": ".csv",
-      "bytes": 123
     },
     {
       "path": "runtime/factor/card/signed_te_reversion/backtest_SIGNED_TE_REVERSION.csv",
@@ -2618,12 +2126,6 @@
       "bytes": 622
     },
     {
-      "path": "runtime/factor/card/trans_vix_divergence/backtest_TRANS_VIX_DIVERGENCE.csv",
-      "category": "factor",
-      "suffix": ".csv",
-      "bytes": 1888
-    },
-    {
       "path": "runtime/factor/card/trans_vix_divergence/card.md",
       "category": "factor",
       "suffix": ".md",
@@ -2678,24 +2180,6 @@
       "bytes": 620
     },
     {
-      "path": "runtime/factor/cicc_price_volume_ic.csv",
-      "category": "factor",
-      "suffix": ".csv",
-      "bytes": 2151
-    },
-    {
-      "path": "runtime/factor/factor_ic_results.csv",
-      "category": "factor",
-      "suffix": ".csv",
-      "bytes": 466
-    },
-    {
-      "path": "runtime/factor/feature_correlation_matrix.csv",
-      "category": "factor",
-      "suffix": ".csv",
-      "bytes": 73473
-    },
-    {
       "path": "runtime/factor/futu_small_order_flow_ic.csv",
       "category": "factor",
       "suffix": ".csv",
@@ -2712,12 +2196,6 @@
       "category": "factor",
       "suffix": ".md",
       "bytes": 19909
-    },
-    {
-      "path": "runtime/factor/rulebase_signals_ic.csv",
-      "category": "factor",
-      "suffix": ".csv",
-      "bytes": 459
     },
     {
       "path": "runtime/factor/signed_te_reversion_ic.csv",
@@ -2792,12 +2270,6 @@
       "bytes": 1262
     },
     {
-      "path": "runtime/harness/card/registry/retention_manifest.json",
-      "category": "harness",
-      "suffix": ".json",
-      "bytes": 12529
-    },
-    {
       "path": "runtime/harness/knowledge.md",
       "category": "harness",
       "suffix": ".md",
@@ -2822,30 +2294,6 @@
       "bytes": 5232
     },
     {
-      "path": "runtime/model/card/balanced/balanced-wf_2020-seed42.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 1666
-    },
-    {
-      "path": "runtime/model/card/balanced/balanced-wf_2022-seed42.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 1689
-    },
-    {
-      "path": "runtime/model/card/balanced/balanced-wf_2023_2024-seed42.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 1668
-    },
-    {
-      "path": "runtime/model/card/balanced/balanced_fixed_leakage_soxl_daily.csv",
-      "category": "model",
-      "suffix": ".csv",
-      "bytes": 197135
-    },
-    {
       "path": "runtime/model/card/balanced/balanced_phase_sampling_v1.md",
       "category": "model",
       "suffix": ".md",
@@ -2862,12 +2310,6 @@
       "category": "model",
       "suffix": ".md",
       "bytes": 1787
-    },
-    {
-      "path": "runtime/model/card/balanced/balanced_position_cap_counterfactual.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 11453
     },
     {
       "path": "runtime/model/card/balanced/balanced_position_cap_counterfactual_ranking.md",
@@ -2892,12 +2334,6 @@
       "category": "model",
       "suffix": ".md",
       "bytes": 1744
-    },
-    {
-      "path": "runtime/model/card/balanced/balanced_soxl_daily.csv",
-      "category": "model",
-      "suffix": ".csv",
-      "bytes": 204377
     },
     {
       "path": "runtime/model/card/balanced/balanced_stress_select_v2.md",
@@ -2942,12 +2378,6 @@
       "bytes": 2080
     },
     {
-      "path": "runtime/model/card/balanced/balanced_unit_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 2568
-    },
-    {
       "path": "runtime/model/card/balanced/dual_kurtosis_walkforward_validation.md",
       "category": "model",
       "suffix": ".md",
@@ -2958,12 +2388,6 @@
       "category": "model",
       "suffix": ".md",
       "bytes": 2679
-    },
-    {
-      "path": "runtime/model/card/balanced/soxl_balanced_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 5644
     },
     {
       "path": "runtime/model/card/balanced_checkpoint_review/balanced_checkpoint_review.md",
@@ -2984,18 +2408,6 @@
       "bytes": 972
     },
     {
-      "path": "runtime/model/card/balanced_checkpoint_review/soxl_balanced_checkpoint_review_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 4152
-    },
-    {
-      "path": "runtime/model/card/balanced_conservative_ft/soxl_balanced_conservative_ft_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 4669
-    },
-    {
       "path": "runtime/model/card/balanced_curriculum/notes.md",
       "category": "model",
       "suffix": ".md",
@@ -3008,28 +2420,10 @@
       "bytes": 991
     },
     {
-      "path": "runtime/model/card/balanced_floor40_moe/soxl_balanced_floor40_moe_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 2884
-    },
-    {
       "path": "runtime/model/card/balanced_floor40_sym/card.md",
       "category": "model",
       "suffix": ".md",
       "bytes": 1003
-    },
-    {
-      "path": "runtime/model/card/balanced_floor40_sym/soxl_balanced_floor40_sym_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 2885
-    },
-    {
-      "path": "runtime/model/card/balanced_floor40_sym_bear30/soxl_balanced_floor40_sym_bear30_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 2896
     },
     {
       "path": "runtime/model/card/balanced_floor40_sym_cap25/card.md",
@@ -3038,22 +2432,10 @@
       "bytes": 1013
     },
     {
-      "path": "runtime/model/card/balanced_floor40_sym_cap25_moe/soxl_balanced_floor40_sym_cap25_moe_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 5141
-    },
-    {
       "path": "runtime/model/card/balanced_floor40_sym_crisis30/card.md",
       "category": "model",
       "suffix": ".md",
       "bytes": 1023
-    },
-    {
-      "path": "runtime/model/card/balanced_floor40_sym_crisis30_moe/soxl_balanced_floor40_sym_crisis30_moe_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 4587
     },
     {
       "path": "runtime/model/card/balanced_floor40_sym_crisis30_v2/card.md",
@@ -3062,34 +2444,10 @@
       "bytes": 1028
     },
     {
-      "path": "runtime/model/card/balanced_floor40_sym_crisis30_v2_moe/soxl_balanced_floor40_sym_crisis30_v2_moe_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 4600
-    },
-    {
       "path": "runtime/model/card/balanced_floor40_sym_expectancy/card.md",
       "category": "model",
       "suffix": ".md",
       "bytes": 1030
-    },
-    {
-      "path": "runtime/model/card/balanced_floor40_sym_expectancy/soxl_balanced_floor40_sym_expectancy_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 4312
-    },
-    {
-      "path": "runtime/model/card/balanced_floor40_sym_expectancy_moe/soxl_balanced_floor40_sym_expectancy_moe_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 5150
-    },
-    {
-      "path": "runtime/model/card/balanced_floor40_sym_moe/soxl_balanced_floor40_sym_moe_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 2883
     },
     {
       "path": "runtime/model/card/balanced_floor40_sym_slow_bear/card.md",
@@ -3098,22 +2456,10 @@
       "bytes": 1024
     },
     {
-      "path": "runtime/model/card/balanced_floor40_sym_slow_bear/soxl_balanced_floor40_sym_slow_bear_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 4592
-    },
-    {
       "path": "runtime/model/card/balanced_floor40_sym_tconv/card.md",
       "category": "model",
       "suffix": ".md",
       "bytes": 1013
-    },
-    {
-      "path": "runtime/model/card/balanced_floor40_sym_tconv/soxl_balanced_floor40_sym_tconv_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 4299
     },
     {
       "path": "runtime/model/card/balanced_floor40_sym_tight_crash/card.md",
@@ -3122,28 +2468,10 @@
       "bytes": 1029
     },
     {
-      "path": "runtime/model/card/balanced_floor40_sym_tight_crash/soxl_balanced_floor40_sym_tight_crash_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 4591
-    },
-    {
       "path": "runtime/model/card/balanced_floor40_sym_v2/card.md",
       "category": "model",
       "suffix": ".md",
       "bytes": 1011
-    },
-    {
-      "path": "runtime/model/card/balanced_floor40_sym_v2/soxl_balanced_floor40_sym_v2_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 4295
-    },
-    {
-      "path": "runtime/model/card/balanced_floor40_sym_v2_moe/soxl_balanced_floor40_sym_v2_moe_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 4585
     },
     {
       "path": "runtime/model/card/balanced_floor40_sym_velocity/card.md",
@@ -3152,70 +2480,10 @@
       "bytes": 1019
     },
     {
-      "path": "runtime/model/card/balanced_floor40_sym_velocity/soxl_balanced_floor40_sym_velocity_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 4312
-    },
-    {
       "path": "runtime/model/card/balanced_floor40_sym_velocity_rules/card.md",
       "category": "model",
       "suffix": ".md",
       "bytes": 1031
-    },
-    {
-      "path": "runtime/model/card/balanced_floor40_sym_velocity_rules/soxl_balanced_floor40_sym_velocity_rules_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 4325
-    },
-    {
-      "path": "runtime/model/card/balanced_kelly_attention_v10/soxl_balanced_kelly_attention_v10_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 4974
-    },
-    {
-      "path": "runtime/model/card/balanced_kelly_dynamic_v5/soxl_balanced_kelly_dynamic_v5_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 4683
-    },
-    {
-      "path": "runtime/model/card/balanced_kelly_dynamic_v6/soxl_balanced_kelly_dynamic_v6_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 4683
-    },
-    {
-      "path": "runtime/model/card/balanced_kelly_dynamic_v7/soxl_balanced_kelly_dynamic_v7_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 4683
-    },
-    {
-      "path": "runtime/model/card/balanced_kelly_execution_v8/soxl_balanced_kelly_execution_v8_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 4689
-    },
-    {
-      "path": "runtime/model/card/balanced_kelly_warmstart_v9/soxl_balanced_kelly_warmstart_v9_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 4695
-    },
-    {
-      "path": "runtime/model/card/balanced_kelly_warmstart_v9b/soxl_balanced_kelly_warmstart_v9b_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 4697
-    },
-    {
-      "path": "runtime/model/card/balanced_macro_v1/balanced_macro_v1_soxl_daily.csv",
-      "category": "model",
-      "suffix": ".csv",
-      "bytes": 204445
     },
     {
       "path": "runtime/model/card/balanced_macro_v1/notes.md",
@@ -3224,214 +2492,10 @@
       "bytes": 6516
     },
     {
-      "path": "runtime/model/card/balanced_macro_v1/soxl_balanced_macro_v1_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 5665
-    },
-    {
-      "path": "runtime/model/card/balanced_moe/soxl_balanced_moe_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 2244
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_imitation_v1/soxl_balanced_rule_residual_imitation_v1_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 5551
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_imitation_v2/soxl_balanced_rule_residual_imitation_v2_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 5500
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_imitation_v2_fix/soxl_balanced_rule_residual_imitation_v2_fix_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 4727
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_imitation_v3/soxl_balanced_rule_residual_imitation_v3_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 4993
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_imitation_v4/balanced_rule_residual_imitation_v4_soxl_daily.csv",
-      "category": "model",
-      "suffix": ".csv",
-      "bytes": 204596
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_imitation_v4/balanced_rule_residual_imitation_v4_wf_2020_soxl_daily.csv",
-      "category": "model",
-      "suffix": ".csv",
-      "bytes": 30797
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_imitation_v4/balanced_rule_residual_imitation_v4_wf_2022_soxl_daily.csv",
-      "category": "model",
-      "suffix": ".csv",
-      "bytes": 30036
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_imitation_v4/balanced_rule_residual_imitation_v4_wf_2023_2024_soxl_daily.csv",
-      "category": "model",
-      "suffix": ".csv",
-      "bytes": 30788
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_imitation_v4/soxl_balanced_rule_residual_imitation_v4_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 6087
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_imitation_v4/soxl_balanced_rule_residual_imitation_v4_wf_2020_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 5066
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_imitation_v4/soxl_balanced_rule_residual_imitation_v4_wf_2022_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 5092
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_imitation_v4/soxl_balanced_rule_residual_imitation_v4_wf_2023_2024_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 5036
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_imitation_v5/soxl_balanced_rule_residual_imitation_v5_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 4711
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_imitation_v6/soxl_balanced_rule_residual_imitation_v6_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 4715
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_imitation_v7/soxl_balanced_rule_residual_imitation_v7_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 4712
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_learned_mode_v1/soxl_balanced_rule_residual_learned_mode_v1_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 5558
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_minimal_v1/soxl_balanced_rule_residual_minimal_v1_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 5549
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_mode_v1/balanced_rule_residual_mode_v1_soxl_daily.csv",
-      "category": "model",
-      "suffix": ".csv",
-      "bytes": 196174
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_mode_v1/balanced_rule_residual_mode_v1_wf_2020_soxl_daily.csv",
-      "category": "model",
-      "suffix": ".csv",
-      "bytes": 30934
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_mode_v1/balanced_rule_residual_mode_v1_wf_2022_soxl_daily.csv",
-      "category": "model",
-      "suffix": ".csv",
-      "bytes": 30347
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_mode_v1/balanced_rule_residual_mode_v1_wf_2023_2024_soxl_daily.csv",
-      "category": "model",
-      "suffix": ".csv",
-      "bytes": 30992
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_mode_v1/soxl_balanced_rule_residual_mode_v1_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 6850
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_mode_v1/soxl_balanced_rule_residual_mode_v1_wf_2020_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 6162
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_mode_v1/soxl_balanced_rule_residual_mode_v1_wf_2022_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 6193
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_mode_v1/soxl_balanced_rule_residual_mode_v1_wf_2023_2024_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 6076
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_mode_v2/soxl_balanced_rule_residual_mode_v2_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 5547
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_refined_v1/soxl_balanced_rule_residual_refined_v1_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 5542
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_refined_v2/soxl_balanced_rule_residual_refined_v2_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 5547
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_refined_v3/soxl_balanced_rule_residual_refined_v3_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 5542
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_refined_v4/soxl_balanced_rule_residual_refined_v4_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 5554
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_simplified_v1/soxl_balanced_rule_residual_simplified_v1_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 6109
-    },
-    {
       "path": "runtime/model/card/balanced_rule_residual_v16/card.md",
       "category": "model",
       "suffix": ".md",
       "bytes": 997
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_v16/soxl_balanced_rule_residual_v16_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 5286
     },
     {
       "path": "runtime/model/card/balanced_rule_residual_v17/card.md",
@@ -3440,82 +2504,10 @@
       "bytes": 993
     },
     {
-      "path": "runtime/model/card/balanced_rule_residual_v17/soxl_balanced_rule_residual_v17_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 5278
-    },
-    {
       "path": "runtime/model/card/balanced_rule_residual_v18/card.md",
       "category": "model",
       "suffix": ".md",
       "bytes": 993
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_v18/soxl_balanced_rule_residual_v18_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 5271
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_v19/balanced_rule_residual_v19-wf_2020-seed42.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 1720
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_v19/balanced_rule_residual_v19-wf_2020.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 455
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_v19/balanced_rule_residual_v19-wf_2022-seed42.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 1746
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_v19/balanced_rule_residual_v19-wf_2022.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 460
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_v19/balanced_rule_residual_v19-wf_2023_2024-seed42.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 1724
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_v19/balanced_rule_residual_v19-wf_2023_2024.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 464
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_v19/balanced_rule_residual_v19_report.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 1551
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_v19/balanced_rule_residual_v19_soxl_daily.csv",
-      "category": "model",
-      "suffix": ".csv",
-      "bytes": 204792
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_v19/soxl_balanced_rule_residual_v19_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 5643
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_v19/v19_dwell_overlay_diagnostic.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 46593
     },
     {
       "path": "runtime/model/card/balanced_rule_residual_v19/v19_dwell_overlay_diagnostic.md",
@@ -3524,28 +2516,10 @@
       "bytes": 1879
     },
     {
-      "path": "runtime/model/card/balanced_rule_residual_v19/v19_dwell_overlay_variants.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 1499
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_v19/v19_dwell_stress_merge_review.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 11135
-    },
-    {
       "path": "runtime/model/card/balanced_rule_residual_v19/v19_dwell_stress_merge_review.md",
       "category": "model",
       "suffix": ".md",
       "bytes": 914
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_v19/v19_overlay_promotion_review.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 12336
     },
     {
       "path": "runtime/model/card/balanced_rule_residual_v19/v19_overlay_promotion_review.md",
@@ -3564,42 +2538,6 @@
       "category": "model",
       "suffix": ".md",
       "bytes": 5880
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_v19_lowcap/balanced_rule_residual_v19_lowcap-wf_2020.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 380
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_v19_lowcap/balanced_rule_residual_v19_lowcap-wf_2022.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 384
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_v19_lowcap/balanced_rule_residual_v19_lowcap-wf_2023_2024.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 389
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_v19_lowcap/balanced_rule_residual_v19_lowcap_report.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 1307
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_v19_lowcap/balanced_rule_residual_v19_lowcap_soxl_daily.csv",
-      "category": "model",
-      "suffix": ".csv",
-      "bytes": 198040
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_v19_lowcap/soxl_balanced_rule_residual_v19_lowcap_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 6853
     },
     {
       "path": "runtime/model/card/balanced_rule_residual_v19_moe/notes.md",
@@ -3626,148 +2564,16 @@
       "bytes": 2412
     },
     {
-      "path": "runtime/model/card/balanced_rule_residual_v19_reg/balanced_rule_residual_v19_reg-wf_2020-seed42.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 1730
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_v19_reg/balanced_rule_residual_v19_reg-wf_2020.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 460
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_v19_reg/balanced_rule_residual_v19_reg-wf_2022-seed42.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 1760
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_v19_reg/balanced_rule_residual_v19_reg-wf_2022.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 465
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_v19_reg/balanced_rule_residual_v19_reg-wf_2023_2024-seed42.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 1730
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_v19_reg/balanced_rule_residual_v19_reg-wf_2023_2024.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 470
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_v19_reg/balanced_rule_residual_v19_reg_report.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 1567
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_v19_reg/balanced_rule_residual_v19_reg_soxl_daily.csv",
-      "category": "model",
-      "suffix": ".csv",
-      "bytes": 204298
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_v19_reg/soxl_balanced_rule_residual_v19_reg_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 6126
-    },
-    {
       "path": "runtime/model/card/balanced_rule_residual_v19_reg/v19_reg_walk_forward_review.md",
       "category": "model",
       "suffix": ".md",
       "bytes": 3485
     },
     {
-      "path": "runtime/model/card/balanced_rule_residual_v19_reg_light/balanced_rule_residual_v19_reg_light-wf_2020-seed42.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 1746
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_v19_reg_light/balanced_rule_residual_v19_reg_light-wf_2020.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 462
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_v19_reg_light/balanced_rule_residual_v19_reg_light-wf_2022-seed42.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 1707
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_v19_reg_light/balanced_rule_residual_v19_reg_light-wf_2022.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 468
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_v19_reg_light/balanced_rule_residual_v19_reg_light-wf_2023_2024-seed42.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 1755
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_v19_reg_light/balanced_rule_residual_v19_reg_light-wf_2023_2024.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 477
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_v19_reg_light/balanced_rule_residual_v19_reg_light_report.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 1579
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_v19_reg_light/balanced_rule_residual_v19_reg_light_soxl_daily.csv",
-      "category": "model",
-      "suffix": ".csv",
-      "bytes": 202821
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_v19_reg_light/soxl_balanced_rule_residual_v19_reg_light_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 6181
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_v19_reg_light_wf_2020/soxl_balanced_rule_residual_v19_reg_light_wf_2020_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 5445
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_v19_reg_light_wf_2022/soxl_balanced_rule_residual_v19_reg_light_wf_2022_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 5398
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_v19_reg_light_wf_2023_2024/soxl_balanced_rule_residual_v19_reg_light_wf_2023_2024_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 5372
-    },
-    {
       "path": "runtime/model/card/balanced_rule_residual_v19_reg_v22/notes.md",
       "category": "model",
       "suffix": ".md",
       "bytes": 2530
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_v19_reg_v22_retest_v1/balanced_rule_residual_v19_reg_v22_retest_v1_soxl_daily.csv",
-      "category": "model",
-      "suffix": ".csv",
-      "bytes": 204442
     },
     {
       "path": "runtime/model/card/balanced_rule_residual_v19_reg_v22_retest_v1/notes.md",
@@ -3788,112 +2594,10 @@
       "bytes": 2946
     },
     {
-      "path": "runtime/model/card/balanced_rule_residual_v19_reg_wf_2020/soxl_balanced_rule_residual_v19_reg_wf_2020_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 5429
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_v19_reg_wf_2022/soxl_balanced_rule_residual_v19_reg_wf_2022_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 5455
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_v19_reg_wf_2023_2024/soxl_balanced_rule_residual_v19_reg_wf_2023_2024_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 5344
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_v19_small/balanced_rule_residual_v19_small-wf_2020-seed42.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 1733
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_v19_small/balanced_rule_residual_v19_small-wf_2022-seed42.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 1761
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_v19_small/balanced_rule_residual_v19_small-wf_2023_2024-seed42.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 1746
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_v19_small/balanced_rule_residual_v19_small_soxl_daily.csv",
-      "category": "model",
-      "suffix": ".csv",
-      "bytes": 88635
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_v19_small/soxl_balanced_rule_residual_v19_small_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 6169
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_v19_small_wf_2020/soxl_balanced_rule_residual_v19_small_wf_2020_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 5428
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_v19_small_wf_2022/soxl_balanced_rule_residual_v19_small_wf_2022_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 5453
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_v19_small_wf_2023_2024/soxl_balanced_rule_residual_v19_small_wf_2023_2024_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 5368
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_v19_transition/soxl_balanced_rule_residual_v19_transition_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 5064
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_v19_wf_2020/soxl_balanced_rule_residual_v19_wf_2020_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 4805
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_v19_wf_2022/soxl_balanced_rule_residual_v19_wf_2022_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 4834
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_v19_wf_2023_2024/soxl_balanced_rule_residual_v19_wf_2023_2024_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 5345
-    },
-    {
       "path": "runtime/model/card/balanced_rule_residual_v20/card.md",
       "category": "model",
       "suffix": ".md",
       "bytes": 993
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_v20/soxl_balanced_rule_residual_v20_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 5265
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_v22/balanced_rule_residual_v22-wf_2020-seed42.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 1714
     },
     {
       "path": "runtime/model/card/balanced_rule_residual_v22/balanced_rule_residual_v22-wf_2020.json",
@@ -3902,22 +2606,10 @@
       "bytes": 374
     },
     {
-      "path": "runtime/model/card/balanced_rule_residual_v22/balanced_rule_residual_v22-wf_2022-seed42.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 1746
-    },
-    {
       "path": "runtime/model/card/balanced_rule_residual_v22/balanced_rule_residual_v22-wf_2022.json",
       "category": "model",
       "suffix": ".json",
       "bytes": 377
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_v22/balanced_rule_residual_v22-wf_2023_2024-seed42.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 1723
     },
     {
       "path": "runtime/model/card/balanced_rule_residual_v22/balanced_rule_residual_v22-wf_2023_2024.json",
@@ -3930,12 +2622,6 @@
       "category": "model",
       "suffix": ".json",
       "bytes": 1288
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_v22/balanced_rule_residual_v22_soxl_daily.csv",
-      "category": "model",
-      "suffix": ".csv",
-      "bytes": 204111
     },
     {
       "path": "runtime/model/card/balanced_rule_residual_v22/runtime_selection_review.json",
@@ -3968,16 +2654,10 @@
       "bytes": 3317
     },
     {
-      "path": "runtime/model/card/balanced_rule_residual_v22_continued_retention_v1/balanced_rule_residual_v22_continued_retention_v1_soxl_daily.csv",
-      "category": "model",
-      "suffix": ".csv",
-      "bytes": 204111
-    },
-    {
       "path": "runtime/model/card/balanced_rule_residual_v22_continued_retention_v1/notes.md",
       "category": "model",
       "suffix": ".md",
-      "bytes": 3722
+      "bytes": 3967
     },
     {
       "path": "runtime/model/card/balanced_rule_residual_v22_continued_retention_v1/soxl_balanced_rule_residual_v22_continued_retention_v1_summary.json",
@@ -4010,40 +2690,10 @@
       "bytes": 2480
     },
     {
-      "path": "runtime/model/card/balanced_rule_residual_v22_soxx/balanced_rule_residual_v22_soxx_soxl_daily.csv",
-      "category": "model",
-      "suffix": ".csv",
-      "bytes": 199911
-    },
-    {
       "path": "runtime/model/card/balanced_rule_residual_v22_soxx/notes.md",
       "category": "model",
       "suffix": ".md",
       "bytes": 2586
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_v22_soxx/soxl_balanced_rule_residual_v22_soxx_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 6851
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_v22_wf_2020/soxl_balanced_rule_residual_v22_wf_2020_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 5408
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_v22_wf_2022/soxl_balanced_rule_residual_v22_wf_2022_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 5436
-    },
-    {
-      "path": "runtime/model/card/balanced_rule_residual_v22_wf_2023_2024/soxl_balanced_rule_residual_v22_wf_2023_2024_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 5344
     },
     {
       "path": "runtime/model/card/balanced_rule_residual_v23/notes.md",
@@ -4080,30 +2730,6 @@
       "category": "model",
       "suffix": ".md",
       "bytes": 1778
-    },
-    {
-      "path": "runtime/model/card/balanced_unit_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 2995
-    },
-    {
-      "path": "runtime/model/card/balanced_wf_2020/soxl_balanced_wf_2020_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 1888
-    },
-    {
-      "path": "runtime/model/card/balanced_wf_2022/soxl_balanced_wf_2022_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 1923
-    },
-    {
-      "path": "runtime/model/card/balanced_wf_2023_2024/soxl_balanced_wf_2023_2024_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 1916
     },
     {
       "path": "runtime/model/card/barrier_action_label_purged_bc_v1/barrier_grid_results.csv",
@@ -4182,162 +2808,6 @@
       "category": "model",
       "suffix": ".json",
       "bytes": 7514
-    },
-    {
-      "path": "runtime/model/card/hierarchical_online_budget/soxl_actor_runtime.csv",
-      "category": "model",
-      "suffix": ".csv",
-      "bytes": 227885
-    },
-    {
-      "path": "runtime/model/card/hierarchical_online_budget/soxl_hier_learned_daily.csv",
-      "category": "model",
-      "suffix": ".csv",
-      "bytes": 235813
-    },
-    {
-      "path": "runtime/model/card/hierarchical_online_budget/soxl_hier_learned_slow5.csv",
-      "category": "model",
-      "suffix": ".csv",
-      "bytes": 235972
-    },
-    {
-      "path": "runtime/model/card/hierarchical_online_budget/soxl_hier_rule_daily.csv",
-      "category": "model",
-      "suffix": ".csv",
-      "bytes": 232327
-    },
-    {
-      "path": "runtime/model/card/hierarchical_online_budget/soxl_hier_rule_slow5.csv",
-      "category": "model",
-      "suffix": ".csv",
-      "bytes": 233301
-    },
-    {
-      "path": "runtime/model/card/hierarchical_online_budget/spxl_actor_runtime.csv",
-      "category": "model",
-      "suffix": ".csv",
-      "bytes": 225613
-    },
-    {
-      "path": "runtime/model/card/hierarchical_online_budget/spxl_hier_learned_daily.csv",
-      "category": "model",
-      "suffix": ".csv",
-      "bytes": 230580
-    },
-    {
-      "path": "runtime/model/card/hierarchical_online_budget/spxl_hier_learned_slow5.csv",
-      "category": "model",
-      "suffix": ".csv",
-      "bytes": 230602
-    },
-    {
-      "path": "runtime/model/card/hierarchical_online_budget/spxl_hier_rule_daily.csv",
-      "category": "model",
-      "suffix": ".csv",
-      "bytes": 229199
-    },
-    {
-      "path": "runtime/model/card/hierarchical_online_budget/spxl_hier_rule_slow5.csv",
-      "category": "model",
-      "suffix": ".csv",
-      "bytes": 228976
-    },
-    {
-      "path": "runtime/model/card/hierarchical_online_budget/tecl_actor_runtime.csv",
-      "category": "model",
-      "suffix": ".csv",
-      "bytes": 226466
-    },
-    {
-      "path": "runtime/model/card/hierarchical_online_budget/tecl_hier_learned_daily.csv",
-      "category": "model",
-      "suffix": ".csv",
-      "bytes": 233003
-    },
-    {
-      "path": "runtime/model/card/hierarchical_online_budget/tecl_hier_learned_slow5.csv",
-      "category": "model",
-      "suffix": ".csv",
-      "bytes": 232027
-    },
-    {
-      "path": "runtime/model/card/hierarchical_online_budget/tecl_hier_rule_daily.csv",
-      "category": "model",
-      "suffix": ".csv",
-      "bytes": 230012
-    },
-    {
-      "path": "runtime/model/card/hierarchical_online_budget/tecl_hier_rule_slow5.csv",
-      "category": "model",
-      "suffix": ".csv",
-      "bytes": 230895
-    },
-    {
-      "path": "runtime/model/card/hierarchical_online_budget/tqqq_actor_runtime.csv",
-      "category": "model",
-      "suffix": ".csv",
-      "bytes": 226235
-    },
-    {
-      "path": "runtime/model/card/hierarchical_online_budget/tqqq_hier_learned_daily.csv",
-      "category": "model",
-      "suffix": ".csv",
-      "bytes": 231658
-    },
-    {
-      "path": "runtime/model/card/hierarchical_online_budget/tqqq_hier_learned_slow5.csv",
-      "category": "model",
-      "suffix": ".csv",
-      "bytes": 231921
-    },
-    {
-      "path": "runtime/model/card/hierarchical_online_budget/tqqq_hier_rule_daily.csv",
-      "category": "model",
-      "suffix": ".csv",
-      "bytes": 229827
-    },
-    {
-      "path": "runtime/model/card/hierarchical_online_budget/tqqq_hier_rule_slow5.csv",
-      "category": "model",
-      "suffix": ".csv",
-      "bytes": 230263
-    },
-    {
-      "path": "runtime/model/card/hierarchical_online_budget/upro_actor_runtime.csv",
-      "category": "model",
-      "suffix": ".csv",
-      "bytes": 225701
-    },
-    {
-      "path": "runtime/model/card/hierarchical_online_budget/upro_hier_learned_daily.csv",
-      "category": "model",
-      "suffix": ".csv",
-      "bytes": 230862
-    },
-    {
-      "path": "runtime/model/card/hierarchical_online_budget/upro_hier_learned_slow5.csv",
-      "category": "model",
-      "suffix": ".csv",
-      "bytes": 230698
-    },
-    {
-      "path": "runtime/model/card/hierarchical_online_budget/upro_hier_rule_daily.csv",
-      "category": "model",
-      "suffix": ".csv",
-      "bytes": 229433
-    },
-    {
-      "path": "runtime/model/card/hierarchical_online_budget/upro_hier_rule_slow5.csv",
-      "category": "model",
-      "suffix": ".csv",
-      "bytes": 229130
-    },
-    {
-      "path": "runtime/model/card/macro_ic_analysis/ic_results.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 20836
     },
     {
       "path": "runtime/model/card/mode_conditioned_rebound_reward_train_v2/mode_conditioned_rebound_reward_train_v2_soxl_daily.csv",
@@ -4436,64 +2906,10 @@
       "bytes": 3075
     },
     {
-      "path": "runtime/model/card/risk_budget_bc_warmstart_v1/risk_budget_bc_warmstart_v1_bc.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 1545
-    },
-    {
-      "path": "runtime/model/card/risk_budget_bc_warmstart_v1/soxl_risk_budget_bc_warmstart_v1_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 5372
-    },
-    {
-      "path": "runtime/model/card/risk_budget_learned_attention_oracle_distill_v1/risk_budget_learned_attention_oracle_distill_v1.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 1595
-    },
-    {
-      "path": "runtime/model/card/risk_budget_learned_conditioned_oracle_distill_v1/risk_budget_learned_conditioned_oracle_distill_v1.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 1598
-    },
-    {
-      "path": "runtime/model/card/risk_budget_learned_oracle_distill_v1/risk_budget_learned_oracle_distill_v1.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 1544
-    },
-    {
-      "path": "runtime/model/card/risk_budget_learned_usage_regression_v1/risk_budget_learned_usage_regression_v1.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 1469
-    },
-    {
-      "path": "runtime/model/card/risk_budget_oracle_distill_v1/risk_budget_oracle_distill_v1.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 1516
-    },
-    {
-      "path": "runtime/model/card/risk_budget_usage_v1/risk_budget_usage_v1.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 3518
-    },
-    {
       "path": "runtime/model/card/risk_budget_usage_v1/risk_budget_usage_v1.md",
       "category": "model",
       "suffix": ".md",
       "bytes": 985
-    },
-    {
-      "path": "runtime/model/card/risk_budget_usage_v1/risk_budget_usage_v1_actor_parity.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 1456
     },
     {
       "path": "runtime/model/card/risk_budget_usage_v1/risk_budget_usage_v1_actor_parity.md",
@@ -4502,34 +2918,10 @@
       "bytes": 1358
     },
     {
-      "path": "runtime/model/card/risk_budget_usage_v1/risk_budget_usage_v1_actor_parity_soxl_daily.csv",
-      "category": "model",
-      "suffix": ".csv",
-      "bytes": 198520
-    },
-    {
       "path": "runtime/model/card/risk_budget_usage_v1/risk_budget_usage_v1_composed.json",
       "category": "model",
       "suffix": ".json",
       "bytes": 5847
-    },
-    {
-      "path": "runtime/model/card/risk_budget_usage_v1/risk_budget_usage_v1_composed_balanced_imitation_v4.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 5817
-    },
-    {
-      "path": "runtime/model/card/risk_budget_usage_v1/risk_budget_usage_v1_composed_balanced_imitation_v4_soxl_daily.csv",
-      "category": "model",
-      "suffix": ".csv",
-      "bytes": 186356
-    },
-    {
-      "path": "runtime/model/card/risk_budget_usage_v1/risk_budget_usage_v1_cross_etf.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 11329
     },
     {
       "path": "runtime/model/card/risk_budget_usage_v1/risk_budget_usage_v1_cross_etf.md",
@@ -4544,124 +2936,10 @@
       "bytes": 2252
     },
     {
-      "path": "runtime/model/card/risk_budget_usage_v1/risk_budget_usage_v1_soxl_daily.csv",
-      "category": "model",
-      "suffix": ".csv",
-      "bytes": 197495
-    },
-    {
-      "path": "runtime/model/card/risk_budget_usage_v1/risk_budget_usage_v1_walkforward_composed.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 1374
-    },
-    {
-      "path": "runtime/model/card/risk_budget_usage_v1/soxl_actor_budget_runtime.csv",
-      "category": "model",
-      "suffix": ".csv",
-      "bytes": 198470
-    },
-    {
-      "path": "runtime/model/card/risk_budget_usage_v1/soxl_fixed_signal_transfer.csv",
-      "category": "model",
-      "suffix": ".csv",
-      "bytes": 187455
-    },
-    {
-      "path": "runtime/model/card/risk_budget_usage_v1/soxl_risk_budget_usage_v1_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 5727
-    },
-    {
-      "path": "runtime/model/card/risk_budget_usage_v1/spxl_actor_budget_runtime.csv",
-      "category": "model",
-      "suffix": ".csv",
-      "bytes": 200292
-    },
-    {
-      "path": "runtime/model/card/risk_budget_usage_v1/spxl_fixed_signal_transfer.csv",
-      "category": "model",
-      "suffix": ".csv",
-      "bytes": 188015
-    },
-    {
-      "path": "runtime/model/card/risk_budget_usage_v1/tecl_actor_budget_runtime.csv",
-      "category": "model",
-      "suffix": ".csv",
-      "bytes": 199234
-    },
-    {
-      "path": "runtime/model/card/risk_budget_usage_v1/tecl_fixed_signal_transfer.csv",
-      "category": "model",
-      "suffix": ".csv",
-      "bytes": 187541
-    },
-    {
-      "path": "runtime/model/card/risk_budget_usage_v1/tqqq_actor_budget_runtime.csv",
-      "category": "model",
-      "suffix": ".csv",
-      "bytes": 199810
-    },
-    {
-      "path": "runtime/model/card/risk_budget_usage_v1/tqqq_fixed_signal_transfer.csv",
-      "category": "model",
-      "suffix": ".csv",
-      "bytes": 188022
-    },
-    {
-      "path": "runtime/model/card/risk_budget_usage_v1/upro_actor_budget_runtime.csv",
-      "category": "model",
-      "suffix": ".csv",
-      "bytes": 200248
-    },
-    {
-      "path": "runtime/model/card/risk_budget_usage_v1/upro_fixed_signal_transfer.csv",
-      "category": "model",
-      "suffix": ".csv",
-      "bytes": 187866
-    },
-    {
-      "path": "runtime/model/card/risk_budget_usage_v2/risk_budget_usage_v2_soxl_daily.csv",
-      "category": "model",
-      "suffix": ".csv",
-      "bytes": 195987
-    },
-    {
-      "path": "runtime/model/card/risk_budget_usage_v2/soxl_risk_budget_usage_v2_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 5034
-    },
-    {
-      "path": "runtime/model/card/smoke/smoke_soxl_daily.csv",
-      "category": "model",
-      "suffix": ".csv",
-      "bytes": 200033
-    },
-    {
-      "path": "runtime/model/card/smoke/soxl_smoke_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 3892
-    },
-    {
       "path": "runtime/model/card/smoke_tide/card.md",
       "category": "model",
       "suffix": ".md",
       "bytes": 955
-    },
-    {
-      "path": "runtime/model/card/smoke_tide/smoke_soxl_daily.csv",
-      "category": "model",
-      "suffix": ".csv",
-      "bytes": 199075
-    },
-    {
-      "path": "runtime/model/card/smoke_tide/soxl_smoke_tide_summary.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 3895
     },
     {
       "path": "runtime/model/card/state_conditioned_drawdown_rebound_reward_train_v1/soxl_state_conditioned_drawdown_rebound_reward_train_v1_summary.json",
@@ -4746,18 +3024,6 @@
       "category": "model",
       "suffix": ".csv",
       "bytes": 3895
-    },
-    {
-      "path": "runtime/model/card/two_speed_mode_budget_v1/two_speed_mode_budget_v1.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 3078
-    },
-    {
-      "path": "runtime/model/card/two_speed_mode_budget_v1/two_speed_mode_budget_v1_soxl_daily.csv",
-      "category": "model",
-      "suffix": ".csv",
-      "bytes": 279651
     },
     {
       "path": "runtime/model/card/two_stage_reentry_derisk_purged_bc_v1/selected_comparison.csv",
@@ -5114,12 +3380,6 @@
       "bytes": 8226
     },
     {
-      "path": "runtime/model/hierarchical_online_budget_generalization.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 25115
-    },
-    {
       "path": "runtime/model/hierarchical_online_budget_generalization.md",
       "category": "model",
       "suffix": ".md",
@@ -5160,12 +3420,6 @@
       "category": "model",
       "suffix": ".md",
       "bytes": 2009
-    },
-    {
-      "path": "runtime/model/walk_forward_rebacktest_results.json",
-      "category": "model",
-      "suffix": ".json",
-      "bytes": 1125
     },
     {
       "path": "runtime/model/worker_eval_backtest_gap_analysis.md",
@@ -6218,6 +4472,198 @@
       "bytes": 23563
     },
     {
+      "path": "runtime/model_selection/card/cap10_three_fold_bc_slice_screen_v1/bc_action_distribution.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 9770
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_three_fold_bc_slice_screen_v1/bc_slice_summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 11684
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_three_fold_bc_slice_screen_v1/bc_weight_configs.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 3621
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_three_fold_bc_slice_screen_v1/bc_weight_screen.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 3466
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_three_fold_bc_slice_screen_v1/combined_target_contract.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1244855
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_three_fold_bc_slice_screen_v1/conclusion.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 1502
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_three_fold_bc_slice_screen_v1/dataset_summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2584
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_three_fold_bc_slice_screen_v1/fold_bc_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4292
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_three_fold_bc_slice_screen_v1/fold_dataset_audit.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 494
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_three_fold_bc_slice_screen_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2583
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_three_fold_bc_slice_screen_v1/state_slice_bc_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 20567
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_three_fold_bc_slice_screen_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 13966
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_three_fold_checkpoint_drift_selector_v1/bc_slice_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1700
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_three_fold_checkpoint_drift_selector_v1/checkpoint_candidate_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4303
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_three_fold_checkpoint_drift_selector_v1/checkpoint_selection_by_fold.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 699
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_three_fold_checkpoint_drift_selector_v1/conclusion.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 942
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_three_fold_checkpoint_drift_selector_v1/coverage.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 576
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_three_fold_checkpoint_drift_selector_v1/coverage.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2108
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_three_fold_checkpoint_drift_selector_v1/drift_score_summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2359
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_three_fold_checkpoint_drift_selector_v1/ppo_selection_history.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1077
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_three_fold_checkpoint_drift_selector_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2666
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_three_fold_checkpoint_drift_selector_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 4893
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_three_fold_checkpoint_metric_replay_v2/bc_slice_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1723
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_three_fold_checkpoint_metric_replay_v2/checkpoint_candidate_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4355
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_three_fold_checkpoint_metric_replay_v2/checkpoint_selection_by_fold.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 698
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_three_fold_checkpoint_metric_replay_v2/conclusion.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 943
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_three_fold_checkpoint_metric_replay_v2/coverage.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 576
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_three_fold_checkpoint_metric_replay_v2/coverage.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2235
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_three_fold_checkpoint_metric_replay_v2/drift_score_summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2362
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_three_fold_checkpoint_metric_replay_v2/ppo_selection_history.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1082
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_three_fold_checkpoint_metric_replay_v2/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2736
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_three_fold_checkpoint_metric_replay_v2/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 4958
+    },
+    {
       "path": "runtime/model_selection/card/cap10_training_objective_handoff_v1/fold_local_requirements.json",
       "category": "model_selection",
       "suffix": ".json",
@@ -6258,6 +4704,126 @@
       "category": "model_selection",
       "suffix": ".csv",
       "bytes": 863
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_wf2020_bull_participation_diagnostic_v1/benchmark_alignment.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1676
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_wf2020_bull_participation_diagnostic_v1/conclusion.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 995
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_wf2020_bull_participation_diagnostic_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1350
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_wf2020_bull_participation_diagnostic_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 5469
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_wf2020_coverage_readiness_v1/conclusion.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 1205
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_wf2020_coverage_readiness_v1/next_run_blockers.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 484
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_wf2020_coverage_readiness_v1/source_sidecar_audit.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 8540
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_wf2020_coverage_readiness_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1985
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_wf2020_coverage_readiness_v1/wf2020_coverage_audit.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1194
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_wf2020_soxlbacktest_target_contract_v1/action_distribution.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 222
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_wf2020_soxlbacktest_target_contract_v1/bc_readiness_scores.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 345
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_wf2020_soxlbacktest_target_contract_v1/combined_coverage_audit.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 580
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_wf2020_soxlbacktest_target_contract_v1/conclusion.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 947
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_wf2020_soxlbacktest_target_contract_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 4576
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_wf2020_soxlbacktest_target_contract_v1/soxlbacktest_wf2020_target_contract.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 793562
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_wf2020_soxlbacktest_target_contract_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 5106
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_wf2020_soxlbacktest_target_contract_v1/target_lift_audit.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 430
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_wf2020_soxlbacktest_target_contract_v1/target_scope_audit.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 287
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_wf2020_soxlbacktest_target_contract_v1/target_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 183
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_wf2020_soxlbacktest_target_contract_v1/teacher_replay_metrics.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 939
     },
     {
       "path": "runtime/model_selection/card/conservative_rebound_release_gate_v1/conservative_recipe_row_scores.csv",
@@ -7004,6 +5570,24 @@
       "bytes": 7905
     },
     {
+      "path": "runtime/model_selection/card/model_retention_walkforward_gate_v1/conclusion.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 518
+    },
+    {
+      "path": "runtime/model_selection/card/model_retention_walkforward_gate_v1/retention_gate.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4504
+    },
+    {
+      "path": "runtime/model_selection/card/model_retention_walkforward_gate_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 10422
+    },
+    {
       "path": "runtime/model_selection/card/official_replay_bad_interval_feature_audit_v1/bc_initialization_wf_2022_official_daily_with_features.csv",
       "category": "model_selection",
       "suffix": ".csv",
@@ -7454,6 +6038,102 @@
       "bytes": 80909
     },
     {
+      "path": "runtime/model_selection/card/quantbench_ensemble_current_walkforward_v1/conclusion.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 703
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_ensemble_current_walkforward_v1/context.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1825
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_ensemble_current_walkforward_v1/data_context.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 212
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_ensemble_current_walkforward_v1/ensemble_candidate_screen.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1131
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_ensemble_current_walkforward_v1/ensemble_config_subset.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 5312
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_ensemble_current_walkforward_v1/ensemble_hazard_metrics.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 7777
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_ensemble_current_walkforward_v1/ensemble_objective_metrics.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 467
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_ensemble_current_walkforward_v1/ensemble_path_library.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1958
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_ensemble_current_walkforward_v1/ensemble_payloads.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 26281
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_ensemble_current_walkforward_v1/ensemble_summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 7678
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_ensemble_current_walkforward_v1/quantbench_ensemble_sequence_fragile_panic_budget_v1_soxl_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 971953
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_ensemble_current_walkforward_v1/quantbench_ensemble_sequence_fragile_preshock_v1_soxl_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 963586
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_ensemble_current_walkforward_v1/quantbench_ensemble_sequence_tapered_reentry_v1_soxl_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 931240
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_ensemble_current_walkforward_v1/retention_style_gate.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2349
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_ensemble_current_walkforward_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2833
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_ensemble_current_walkforward_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 3477
+    },
+    {
       "path": "runtime/model_selection/card/quantbench_model_gate_scan_v1/model_gate_scan.csv",
       "category": "model_selection",
       "suffix": ".csv",
@@ -7464,6 +6144,522 @@
       "category": "model_selection",
       "suffix": ".json",
       "bytes": 107839
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v1/candidate_screen.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 9442
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v1/ensemble_candidate_screen.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 9038
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v1/ensemble_hazard_metrics.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 7776
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v1/ensemble_objective_metrics.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 16729
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v1/ensemble_path_library.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 8504
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v1/ensemble_payloads.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 180366
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v1/ensemble_summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 16487
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v1/paper_model_objective_coverage.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2140
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v1/paper_objective_families.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 740
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v1/paper_requirement_matrix.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2447
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v1/quantbench_ensemble_blend_anchor_reset_v1_soxl_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1905246
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v1/quantbench_ensemble_confirmed_reentry_rf_logistic_v1_soxl_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1801849
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v1/quantbench_ensemble_defensive_logistic_v1_soxl_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1564205
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v1/quantbench_ensemble_drawdown_budget_guarded_rf_logistic_v1_soxl_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1642742
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v1/quantbench_ensemble_external_crash_condvol_v1_soxl_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1913012
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v1/quantbench_ensemble_external_crash_v19v22_v1_soxl_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1904790
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v1/quantbench_ensemble_extra_logistic_v1_soxl_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1558140
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v1/quantbench_ensemble_guarded_hist_logistic_v1_soxl_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1567935
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v1/quantbench_ensemble_guarded_rf_logistic_v1_soxl_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1570776
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v1/quantbench_ensemble_hazard_rf_logistic_v1_soxl_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1601045
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v1/quantbench_ensemble_lowdd_mlp_v1_soxl_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1556523
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v1/quantbench_ensemble_lowdd_ridge_v1_soxl_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1558241
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v1/quantbench_ensemble_lstm_panic_chip_floor_v1_soxl_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1911645
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v1/quantbench_ensemble_market_graph_panic_chip_floor_v1_soxl_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1918298
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v1/quantbench_ensemble_rolling_sequence_anchor_reset_v1_soxl_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1902102
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v1/quantbench_ensemble_sequence_anchor_reset_v1_soxl_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1896295
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v1/quantbench_ensemble_sequence_fragile_panic_budget_v1_soxl_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1943590
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v1/quantbench_ensemble_sequence_fragile_preshock_v1_soxl_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1935092
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v1/quantbench_ensemble_sequence_full_rebase_tail_v1_soxl_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1886409
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v1/quantbench_ensemble_sequence_panic_chip_floor_v1_soxl_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1922769
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v1/quantbench_ensemble_sequence_tapered_reentry_v1_soxl_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1902665
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v1/quantbench_ensemble_tail_shock_anchor_reset_rf_logistic_v1_soxl_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1886541
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v1/quantbench_ensemble_tail_shock_budget_rf_logistic_v1_soxl_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1762807
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v1/quantbench_ensemble_tail_shock_bull_release_rf_logistic_v1_soxl_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1873538
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v1/quantbench_ensemble_tcn_panic_chip_floor_v1_soxl_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1909987
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v1/quantbench_ensemble_vol_budget_rf_logistic_v1_soxl_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1812137
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 9962
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v1/supervised_candidate_screen.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 22776
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v1/supervised_model_specs.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 676
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v1/supervised_objective_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 11819
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v1/supervised_payloads.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 223382
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v1/supervised_summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 10535
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v2/candidate_screen.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 9442
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v2/data_refresh_status.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2595
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v2/ensemble_candidate_screen.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 9038
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v2/ensemble_hazard_metrics.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 7776
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v2/ensemble_objective_metrics.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 31232
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v2/ensemble_path_library.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 26740
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v2/ensemble_payloads.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 202392
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v2/ensemble_summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 17252
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v2/paper_model_objective_coverage.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 3866
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v2/paper_objective_families.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 740
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v2/paper_requirement_matrix.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2447
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v2/quantbench_ensemble_blend_anchor_reset_v1_soxl_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4596346
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v2/quantbench_ensemble_confirmed_reentry_rf_logistic_v1_soxl_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4492949
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v2/quantbench_ensemble_defensive_logistic_v1_soxl_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4255305
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v2/quantbench_ensemble_drawdown_budget_guarded_rf_logistic_v1_soxl_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4333842
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v2/quantbench_ensemble_external_crash_condvol_v1_soxl_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4604112
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v2/quantbench_ensemble_external_crash_v19v22_v1_soxl_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4595890
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v2/quantbench_ensemble_extra_logistic_v1_soxl_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4249240
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v2/quantbench_ensemble_guarded_hist_logistic_v1_soxl_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4259035
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v2/quantbench_ensemble_guarded_rf_logistic_v1_soxl_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4261876
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v2/quantbench_ensemble_hazard_rf_logistic_v1_soxl_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4292145
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v2/quantbench_ensemble_lowdd_mlp_v1_soxl_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4247623
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v2/quantbench_ensemble_lowdd_ridge_v1_soxl_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4249341
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v2/quantbench_ensemble_lstm_panic_chip_floor_v1_soxl_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4602745
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v2/quantbench_ensemble_market_graph_panic_chip_floor_v1_soxl_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4609398
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v2/quantbench_ensemble_rolling_sequence_anchor_reset_v1_soxl_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4593202
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v2/quantbench_ensemble_sequence_anchor_reset_v1_soxl_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4587395
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v2/quantbench_ensemble_sequence_fragile_panic_budget_v1_soxl_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4634690
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v2/quantbench_ensemble_sequence_fragile_preshock_v1_soxl_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4626192
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v2/quantbench_ensemble_sequence_full_rebase_tail_v1_soxl_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4577509
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v2/quantbench_ensemble_sequence_panic_chip_floor_v1_soxl_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4613869
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v2/quantbench_ensemble_sequence_rebound_floor_panic_cap_v1_soxl_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4635666
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v2/quantbench_ensemble_sequence_tapered_reentry_v1_soxl_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4593765
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v2/quantbench_ensemble_tail_shock_anchor_reset_rf_logistic_v1_soxl_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4577641
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v2/quantbench_ensemble_tail_shock_budget_rf_logistic_v1_soxl_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4453907
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v2/quantbench_ensemble_tail_shock_bull_release_rf_logistic_v1_soxl_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4564638
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v2/quantbench_ensemble_tcn_panic_chip_floor_v1_soxl_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4601087
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v2/quantbench_ensemble_vol_budget_rf_logistic_v1_soxl_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4503237
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v2/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 13951
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v2/supervised_candidate_screen.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 80986
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v2/supervised_model_specs.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 3101
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v2/supervised_objective_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 21728
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v2/supervised_payloads.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 788482
+    },
+    {
+      "path": "runtime/model_selection/card/quantbench_paper_soxl_v2/supervised_summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 11607
     },
     {
       "path": "runtime/model_selection/card/rebound_representation_separability_v1/base_context.json",
@@ -7560,6 +6756,54 @@
       "category": "model_selection",
       "suffix": ".json",
       "bytes": 3780
+    },
+    {
+      "path": "runtime/model_selection/card/retraining_gate_gap_handoff_v1/closest_by_walkforward_drawdown.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2089
+    },
+    {
+      "path": "runtime/model_selection/card/retraining_gate_gap_handoff_v1/closest_by_ytd_return.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1906
+    },
+    {
+      "path": "runtime/model_selection/card/retraining_gate_gap_handoff_v1/conclusion.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 873
+    },
+    {
+      "path": "runtime/model_selection/card/retraining_gate_gap_handoff_v1/retention_failure_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 280
+    },
+    {
+      "path": "runtime/model_selection/card/retraining_gate_gap_handoff_v1/selected_checkpoint_by_fold.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 540
+    },
+    {
+      "path": "runtime/model_selection/card/retraining_gate_gap_handoff_v1/source_card_decisions.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2773
+    },
+    {
+      "path": "runtime/model_selection/card/retraining_gate_gap_handoff_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2317
+    },
+    {
+      "path": "runtime/model_selection/card/retraining_gate_gap_handoff_v1/training_objective_handoff.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2992
     },
     {
       "path": "runtime/model_selection/card/rolling_heuristic_selector_v1/heuristic_strategy_screen.csv",
@@ -9014,6 +8258,168 @@
       "bytes": 503
     },
     {
+      "path": "runtime/model_selection/card/soxlbacktest_qlib_walkforward_baseline_v1/candidate_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1179448
+    },
+    {
+      "path": "runtime/model_selection/card/soxlbacktest_qlib_walkforward_baseline_v1/candidate_gate_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2317
+    },
+    {
+      "path": "runtime/model_selection/card/soxlbacktest_qlib_walkforward_baseline_v1/candidate_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 9969
+    },
+    {
+      "path": "runtime/model_selection/card/soxlbacktest_qlib_walkforward_baseline_v1/candidate_trades.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 36138
+    },
+    {
+      "path": "runtime/model_selection/card/soxlbacktest_qlib_walkforward_baseline_v1/conclusion.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 1345
+    },
+    {
+      "path": "runtime/model_selection/card/soxlbacktest_qlib_walkforward_baseline_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2328
+    },
+    {
+      "path": "runtime/model_selection/card/soxlbacktest_reference_model_score_v1/candidate_score_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 6389
+    },
+    {
+      "path": "runtime/model_selection/card/soxlbacktest_reference_model_score_v1/conclusion.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 1423
+    },
+    {
+      "path": "runtime/model_selection/card/soxlbacktest_reference_model_score_v1/fold_alignment_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 15894
+    },
+    {
+      "path": "runtime/model_selection/card/soxlbacktest_reference_model_score_v1/missing_evidence.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1807
+    },
+    {
+      "path": "runtime/model_selection/card/soxlbacktest_reference_model_score_v1/profile_source_audit.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 10839
+    },
+    {
+      "path": "runtime/model_selection/card/soxlbacktest_reference_model_score_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2890
+    },
+    {
+      "path": "runtime/model_selection/card/soxlbacktest_reference_model_score_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2262
+    },
+    {
+      "path": "runtime/model_selection/card/soxlbacktest_teacher_risk_budget_feasibility_v1/candidate_screen_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 8248005
+    },
+    {
+      "path": "runtime/model_selection/card/soxlbacktest_teacher_risk_budget_feasibility_v1/combined_screen.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 6965871
+    },
+    {
+      "path": "runtime/model_selection/card/soxlbacktest_teacher_risk_budget_feasibility_v1/combined_window_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 7655938
+    },
+    {
+      "path": "runtime/model_selection/card/soxlbacktest_teacher_risk_budget_feasibility_v1/conclusion.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 648
+    },
+    {
+      "path": "runtime/model_selection/card/soxlbacktest_teacher_risk_budget_feasibility_v1/equity_budget_screen.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 306819
+    },
+    {
+      "path": "runtime/model_selection/card/soxlbacktest_teacher_risk_budget_feasibility_v1/equity_budget_window_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 349761
+    },
+    {
+      "path": "runtime/model_selection/card/soxlbacktest_teacher_risk_budget_feasibility_v1/feature_cap_screen.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 626025
+    },
+    {
+      "path": "runtime/model_selection/card/soxlbacktest_teacher_risk_budget_feasibility_v1/feature_cap_window_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 673404
+    },
+    {
+      "path": "runtime/model_selection/card/soxlbacktest_teacher_risk_budget_feasibility_v1/historical_context.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1168
+    },
+    {
+      "path": "runtime/model_selection/card/soxlbacktest_teacher_risk_budget_feasibility_v1/historical_gate_context.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1967
+    },
+    {
+      "path": "runtime/model_selection/card/soxlbacktest_teacher_risk_budget_feasibility_v1/legacy_teacher_window_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 616
+    },
+    {
+      "path": "runtime/model_selection/card/soxlbacktest_teacher_risk_budget_feasibility_v1/selected_window_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 391
+    },
+    {
+      "path": "runtime/model_selection/card/soxlbacktest_teacher_risk_budget_feasibility_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 4092
+    },
+    {
+      "path": "runtime/model_selection/card/soxlbacktest_teacher_risk_budget_feasibility_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 4531
+    },
+    {
       "path": "runtime/model_selection/card/sparse_rebound_release_target_revision_v1/bc_readiness_scores.csv",
       "category": "model_selection",
       "suffix": ".csv",
@@ -9776,6 +9182,42 @@
       "bytes": 16630
     },
     {
+      "path": "runtime/model_selection/card/state_conditioned_checkpoint_replay_v1/checkpoint_replay_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 8169
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_checkpoint_replay_v1/conclusion.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 989
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_checkpoint_replay_v1/fold_checkpoint_selection.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1924
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_checkpoint_replay_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 3468
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_checkpoint_replay_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2328
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_checkpoint_replay_v1/ytd_checkpoint_selection.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2339
+    },
+    {
       "path": "runtime/model_selection/card/state_conditioned_multi_objective_bc_screen_v1/bc_action_distribution.csv",
       "category": "model_selection",
       "suffix": ".csv",
@@ -9948,6 +9390,48 @@
       "category": "model_selection",
       "suffix": ".csv",
       "bytes": 5514
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_overlay_gap_to_20_v1/conclusion.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 1423
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_overlay_gap_to_20_v1/drawdown_intervals.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 5657
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_overlay_gap_to_20_v1/overlay_gate_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1942
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_overlay_gap_to_20_v1/overlay_window_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4851
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_overlay_gap_to_20_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 3619
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_overlay_gap_to_20_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2962
+    },
+    {
+      "path": "runtime/model_selection/card/state_conditioned_overlay_gap_to_20_v1/variant_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1225948
     },
     {
       "path": "runtime/model_selection/card/state_conditioned_participation_drawdown_objective_v1/candidate_configs.csv",
@@ -10212,6 +9696,72 @@
       "category": "model_selection",
       "suffix": ".csv",
       "bytes": 572
+    },
+    {
+      "path": "runtime/model_selection/card/state_objective_budget_usage_bc_official_replay_v1/conclusion.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 999
+    },
+    {
+      "path": "runtime/model_selection/card/state_objective_budget_usage_bc_official_replay_v1/context.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 908
+    },
+    {
+      "path": "runtime/model_selection/card/state_objective_budget_usage_bc_official_replay_v1/data_context.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 434
+    },
+    {
+      "path": "runtime/model_selection/card/state_objective_budget_usage_bc_official_replay_v1/official_replay_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1319
+    },
+    {
+      "path": "runtime/model_selection/card/state_objective_budget_usage_bc_official_replay_v1/retention_style_gate.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 602
+    },
+    {
+      "path": "runtime/model_selection/card/state_objective_budget_usage_bc_official_replay_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2417
+    },
+    {
+      "path": "runtime/model_selection/card/state_objective_budget_usage_bc_official_replay_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 8008
+    },
+    {
+      "path": "runtime/model_selection/card/state_objective_budget_usage_bc_official_replay_v1/wf_2020_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30507
+    },
+    {
+      "path": "runtime/model_selection/card/state_objective_budget_usage_bc_official_replay_v1/wf_2022_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 29281
+    },
+    {
+      "path": "runtime/model_selection/card/state_objective_budget_usage_bc_official_replay_v1/wf_2023_2024_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 62381
+    },
+    {
+      "path": "runtime/model_selection/card/state_objective_budget_usage_bc_official_replay_v1/ytd_2026_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 12562
     },
     {
       "path": "runtime/model_selection/card/state_objective_budget_usage_bc_warm_start_v1/actor_record.json",
@@ -11489,7 +11039,7 @@
       "path": "runtime/network/knowledge.md",
       "category": "network",
       "suffix": ".md",
-      "bytes": 17970
+      "bytes": 18288
     },
     {
       "path": "runtime/production/card/budget_usage_runtime_composer_v1/notes.md",
@@ -11570,6 +11120,12 @@
       "bytes": 2435
     },
     {
+      "path": "runtime/production/card/dashboard_interaction_baseline_fix_v1/visual_check.json",
+      "category": "production",
+      "suffix": ".json",
+      "bytes": 988
+    },
+    {
       "path": "runtime/production/card/dashboard_model_replay_refresh_v1/notes.md",
       "category": "production",
       "suffix": ".md",
@@ -11604,6 +11160,12 @@
       "category": "production",
       "suffix": ".md",
       "bytes": 906
+    },
+    {
+      "path": "runtime/production/card/dashboard_v2_visual_v1/visual_check.json",
+      "category": "production",
+      "suffix": ".json",
+      "bytes": 13131
     },
     {
       "path": "runtime/production/card/data_freshness_health_v1/notes.md",
@@ -11942,6 +11504,114 @@
       "bytes": 2669
     },
     {
+      "path": "runtime/production/card/soxl_backtest_jan_june_windows_v1/all_model_window_metrics.csv",
+      "category": "production",
+      "suffix": ".csv",
+      "bytes": 9258
+    },
+    {
+      "path": "runtime/production/card/soxl_backtest_jan_june_windows_v1/conclusion.md",
+      "category": "production",
+      "suffix": ".md",
+      "bytes": 2555
+    },
+    {
+      "path": "runtime/production/card/soxl_backtest_jan_june_windows_v1/current_model_june_2026_common_daily.csv",
+      "category": "production",
+      "suffix": ".csv",
+      "bytes": 2336
+    },
+    {
+      "path": "runtime/production/card/soxl_backtest_jan_june_windows_v1/current_model_window_daily.csv",
+      "category": "production",
+      "suffix": ".csv",
+      "bytes": 39279
+    },
+    {
+      "path": "runtime/production/card/soxl_backtest_jan_june_windows_v1/current_model_window_metrics.csv",
+      "category": "production",
+      "suffix": ".csv",
+      "bytes": 534
+    },
+    {
+      "path": "runtime/production/card/soxl_backtest_jan_june_windows_v1/current_model_ytd_2026_common_daily.csv",
+      "category": "production",
+      "suffix": ".csv",
+      "bytes": 37343
+    },
+    {
+      "path": "runtime/production/card/soxl_backtest_jan_june_windows_v1/legacy_soxl_backtest_run_log.md",
+      "category": "production",
+      "suffix": ".md",
+      "bytes": 877
+    },
+    {
+      "path": "runtime/production/card/soxl_backtest_jan_june_windows_v1/legacy_soxl_backtest_trades.csv",
+      "category": "production",
+      "suffix": ".csv",
+      "bytes": 1342
+    },
+    {
+      "path": "runtime/production/card/soxl_backtest_jan_june_windows_v1/legacy_soxl_backtest_window_daily.csv",
+      "category": "production",
+      "suffix": ".csv",
+      "bytes": 27180
+    },
+    {
+      "path": "runtime/production/card/soxl_backtest_jan_june_windows_v1/legacy_soxl_backtest_window_metrics.csv",
+      "category": "production",
+      "suffix": ".csv",
+      "bytes": 668
+    },
+    {
+      "path": "runtime/production/card/soxl_backtest_jan_june_windows_v1/market_only_latest_metrics.csv",
+      "category": "production",
+      "suffix": ".csv",
+      "bytes": 286
+    },
+    {
+      "path": "runtime/production/card/soxl_backtest_jan_june_windows_v1/summary.json",
+      "category": "production",
+      "suffix": ".json",
+      "bytes": 7155
+    },
+    {
+      "path": "runtime/production/card/soxl_backtest_jan_june_windows_v1/window_definitions.csv",
+      "category": "production",
+      "suffix": ".csv",
+      "bytes": 265
+    },
+    {
+      "path": "runtime/production/card/soxl_backtest_policy_reimplementation_v1/legacy_comparison_metrics.csv",
+      "category": "production",
+      "suffix": ".csv",
+      "bytes": 614
+    },
+    {
+      "path": "runtime/production/card/soxl_backtest_policy_reimplementation_v1/new_policy_daily.csv",
+      "category": "production",
+      "suffix": ".csv",
+      "bytes": 20859
+    },
+    {
+      "path": "runtime/production/card/soxl_backtest_policy_reimplementation_v1/new_policy_trades.csv",
+      "category": "production",
+      "suffix": ".csv",
+      "bytes": 1210
+    },
+    {
+      "path": "runtime/production/card/soxl_backtest_policy_reimplementation_v1/summary.json",
+      "category": "production",
+      "suffix": ".json",
+      "bytes": 5930
+    },
+    {
+      "path": "runtime/production/card/soxl_backtest_policy_reimplementation_v1/trade_timing_diagnostics.csv",
+      "category": "production",
+      "suffix": ".csv",
+      "bytes": 372
+    },
+    {
       "path": "runtime/production/card/stale_execution_guard_v1/notes.md",
       "category": "production",
       "suffix": ".md",
@@ -11952,6 +11622,36 @@
       "category": "production",
       "suffix": ".md",
       "bytes": 7292
+    },
+    {
+      "path": "runtime/production/card/underperforming_backtest_cleanup_v1/applied_cleanup.json",
+      "category": "production",
+      "suffix": ".json",
+      "bytes": 788
+    },
+    {
+      "path": "runtime/production/card/underperforming_backtest_cleanup_v1/cleanup_decisions.csv",
+      "category": "production",
+      "suffix": ".csv",
+      "bytes": 6963
+    },
+    {
+      "path": "runtime/production/card/underperforming_backtest_cleanup_v1/delete_manifest.csv",
+      "category": "production",
+      "suffix": ".csv",
+      "bytes": 1229
+    },
+    {
+      "path": "runtime/production/card/underperforming_backtest_cleanup_v1/retained_ideas.md",
+      "category": "production",
+      "suffix": ".md",
+      "bytes": 1267
+    },
+    {
+      "path": "runtime/production/card/underperforming_backtest_cleanup_v1/summary.json",
+      "category": "production",
+      "suffix": ".json",
+      "bytes": 1655
     },
     {
       "path": "runtime/production/card/v22_next_execution_preflight_v1/notes.md",

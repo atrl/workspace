@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+import tempfile
 
 import pandas as pd
 
@@ -35,7 +36,13 @@ def _write_report(root: Path, profile: str, max_drawdowns: dict[str, float]) -> 
     _write_json(root / "runtime" / "model" / "card" / profile / f"{profile}_report.json", payload)
 
 
-def test_retention_gate_requires_complete_walkforward_drawdown_and_return_alignment(tmp_path: Path):
+def test_retention_gate_requires_complete_walkforward_drawdown_and_return_alignment():
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp_path = Path(tmp)
+        _run_retention_gate_requires_complete_walkforward_drawdown_and_return_alignment(tmp_path)
+
+
+def _run_retention_gate_requires_complete_walkforward_drawdown_and_return_alignment(tmp_path: Path) -> None:
     from src.soxl_quant.app.model_retention_gate import scan_model_retention_gates
 
     _write_json(

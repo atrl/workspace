@@ -27,6 +27,17 @@ export interface AutoUpdateStatus {
   remote_deploy_required?: boolean;
 }
 
+export interface ModelRetentionGateStatus {
+  source_path?: string;
+  profiles_scanned?: number;
+  passing_profile_count?: number;
+  passing_profiles?: string[];
+  reference_profile?: string;
+  required_best_return_pct?: number;
+  max_walkforward_drawdown_pct?: number;
+  required_wf_windows?: string[];
+}
+
 export interface Manifest {
   generated_at: string;
   latest_market_date: string;
@@ -35,6 +46,7 @@ export interface Manifest {
   default_baseline_profile: string;
   default_chart_profile?: string;
   default_comparison_profiles: string[];
+  model_retention_gate?: ModelRetentionGateStatus | null;
   source_paths: Record<string, string>;
   auto_update?: AutoUpdateStatus;
 }
@@ -77,6 +89,12 @@ export interface ModelPayload {
   display_name: string;
   runnable: boolean;
   runnable_reason?: string;
+  retention_gate_pass?: boolean;
+  retention_decision?: string;
+  retention_failures?: string[];
+  worst_wf_max_drawdown_pct?: number | null;
+  required_best_return_pct?: number | null;
+  required_soxlbacktest_return_pct?: number | null;
   feature_packs: string[];
   feature_columns: string[];
   snapshot_columns: string[];

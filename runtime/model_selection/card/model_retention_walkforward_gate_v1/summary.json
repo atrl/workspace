@@ -58,9 +58,9 @@
     {
       "current_best_return_pct": 224.361539,
       "failures": [
-        "wf_max_drawdown_ge_20:wf_2020",
-        "wf_max_drawdown_ge_20:wf_2022",
-        "wf_max_drawdown_ge_20:wf_2023_2024",
+        "missing_wf_window:wf_2020",
+        "missing_wf_window:wf_2022",
+        "missing_wf_window:wf_2023_2024",
         "ytd_return_below_best_alignment"
       ],
       "gate_pass": false,
@@ -70,8 +70,8 @@
       "retention_decision": "retain_as_evidence_only",
       "source_path": "runtime/model/card/balanced_rule_residual_v19/balanced_rule_residual_v19_soxl_daily.csv",
       "status": "archived",
-      "wf_windows_present": "wf_2020,wf_2022,wf_2023_2024",
-      "worst_wf_max_drawdown_pct": 46.653957,
+      "wf_windows_present": "",
+      "worst_wf_max_drawdown_pct": null,
       "ytd_max_drawdown_pct": 24.399161,
       "ytd_return_pct": 173.299227
     },
@@ -118,9 +118,9 @@
     {
       "current_best_return_pct": 224.361539,
       "failures": [
-        "wf_max_drawdown_ge_20:wf_2020",
-        "wf_max_drawdown_ge_20:wf_2022",
-        "wf_max_drawdown_ge_20:wf_2023_2024",
+        "missing_wf_window:wf_2020",
+        "missing_wf_window:wf_2022",
+        "missing_wf_window:wf_2023_2024",
         "ytd_return_below_best_alignment"
       ],
       "gate_pass": false,
@@ -130,8 +130,8 @@
       "retention_decision": "retain_as_evidence_only",
       "source_path": "runtime/model/card/balanced_rule_residual_imitation_v4/balanced_rule_residual_imitation_v4_soxl_daily.csv",
       "status": "candidate",
-      "wf_windows_present": "wf_2020,wf_2022,wf_2023_2024",
-      "worst_wf_max_drawdown_pct": 35.710864,
+      "wf_windows_present": "",
+      "worst_wf_max_drawdown_pct": null,
       "ytd_max_drawdown_pct": 25.999446,
       "ytd_return_pct": 145.031235
     },
@@ -193,8 +193,9 @@
     {
       "current_best_return_pct": 224.361539,
       "failures": [
-        "wf_max_drawdown_ge_20:wf_2022",
-        "wf_max_drawdown_ge_20:wf_2023_2024",
+        "missing_wf_window:wf_2020",
+        "missing_wf_window:wf_2022",
+        "missing_wf_window:wf_2023_2024",
         "ytd_return_below_best_alignment"
       ],
       "gate_pass": false,
@@ -204,17 +205,17 @@
       "retention_decision": "retain_as_evidence_only",
       "source_path": "runtime/model/card/balanced_rule_residual_v19_reg/balanced_rule_residual_v19_reg_soxl_daily.csv",
       "status": "candidate",
-      "wf_windows_present": "wf_2020,wf_2022,wf_2023_2024",
-      "worst_wf_max_drawdown_pct": 46.171637,
+      "wf_windows_present": "",
+      "worst_wf_max_drawdown_pct": null,
       "ytd_max_drawdown_pct": 25.513909,
       "ytd_return_pct": 141.992184
     },
     {
       "current_best_return_pct": 224.361539,
       "failures": [
-        "wf_max_drawdown_ge_20:wf_2020",
-        "wf_max_drawdown_ge_20:wf_2022",
-        "wf_max_drawdown_ge_20:wf_2023_2024",
+        "missing_wf_window:wf_2020",
+        "missing_wf_window:wf_2022",
+        "missing_wf_window:wf_2023_2024",
         "ytd_return_below_best_alignment"
       ],
       "gate_pass": false,
@@ -224,8 +225,8 @@
       "retention_decision": "retain_as_evidence_only",
       "source_path": "runtime/model/card/balanced_rule_residual_v19_reg_light/balanced_rule_residual_v19_reg_light_soxl_daily.csv",
       "status": "candidate",
-      "wf_windows_present": "wf_2020,wf_2022,wf_2023_2024",
-      "worst_wf_max_drawdown_pct": 51.596776,
+      "wf_windows_present": "",
+      "worst_wf_max_drawdown_pct": null,
       "ytd_max_drawdown_pct": 25.990693,
       "ytd_return_pct": 164.253638
     },
@@ -253,7 +254,7 @@
   "summary": {
     "best_return_ratio": 0.95,
     "current_best_return_pct": 224.361539,
-    "generated_at": "2026-06-13T10:09:34.555040+00:00",
+    "generated_at": "2026-06-13T17:28:16.324652+00:00",
     "max_walkforward_drawdown_pct": 20.0,
     "passing_profile_count": 0,
     "passing_profiles": [],
