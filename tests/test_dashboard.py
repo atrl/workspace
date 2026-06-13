@@ -653,7 +653,9 @@ def test_load_versions_skips_retained_post_train_review_export(tmp_path: Path, m
 def test_load_run_profile_windows_reads_replay_csv_start_and_manifest_end(tmp_path: Path, monkeypatch):
     data_dir = tmp_path / "dashboard_data"
     replay_csv = tmp_path / "runtime" / "model" / "card" / "smoke" / "smoke_soxl_daily.csv"
+    actor_path = tmp_path / "runtime" / "model" / "card" / "smoke" / "soxl_smoke_actor.pt"
     replay_csv.parent.mkdir(parents=True)
+    actor_path.write_bytes(b"actor")
     data_dir.mkdir()
     replay_csv.write_text(
         "\n".join(
@@ -683,6 +685,8 @@ def test_load_run_profile_windows_reads_replay_csv_start_and_manifest_end(tmp_pa
     )
     monkeypatch.setattr(dashboard_builder, "ROOT", tmp_path)
     monkeypatch.setattr(dashboard_builder, "DASHBOARD_DATA_DIR", data_dir)
+    monkeypatch.setattr(dashboard_builder, "load_profile", lambda _profile: object())
+    monkeypatch.setattr(dashboard_builder, "model_artifact_path", lambda _profile, _tag="": actor_path)
 
     windows = load_run_profile_windows()
 
@@ -691,7 +695,53 @@ def test_load_run_profile_windows_reads_replay_csv_start_and_manifest_end(tmp_pa
         "end": "2026-06-11",
         "rows": 2,
         "source": "runtime/model/card/smoke/smoke_soxl_daily.csv",
+        "runnable": True,
+        "model_path": "runtime/model/card/smoke/soxl_smoke_actor.pt",
     }
+
+
+def test_load_run_profile_windows_marks_missing_actor_unrunnable(tmp_path: Path, monkeypatch):
+    data_dir = tmp_path / "dashboard_data"
+    replay_csv = tmp_path / "runtime" / "model" / "card" / "missing_actor" / "missing_actor_soxl_daily.csv"
+    actor_path = tmp_path / "runtime" / "model" / "card" / "missing_actor" / "soxl_missing_actor_actor.pt"
+    replay_csv.parent.mkdir(parents=True)
+    data_dir.mkdir()
+    replay_csv.write_text(
+        "\n".join(
+            [
+                "datetime,strategy_nav,price,buyhold_nav,position,excess,excess_pct,action",
+                "2026-06-10,1000000,20,1000000,0,0,0,HOLD",
+            ]
+        ),
+        encoding="utf-8",
+    )
+    (data_dir / "model_replay_freshness.json").write_text(
+        json.dumps(
+            {
+                "profiles": [
+                    {
+                        "profile": "missing_actor",
+                        "output": "runtime/model/card/missing_actor/missing_actor_soxl_daily.csv",
+                        "after_end": "2026-06-10",
+                        "result": "current",
+                    }
+                ]
+            }
+        ),
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(dashboard_builder, "ROOT", tmp_path)
+    monkeypatch.setattr(dashboard_builder, "DASHBOARD_DATA_DIR", data_dir)
+    monkeypatch.setattr(dashboard_builder, "load_profile", lambda _profile: object())
+    monkeypatch.setattr(dashboard_builder, "model_artifact_path", lambda _profile, _tag="": actor_path)
+
+    windows = load_run_profile_windows()
+
+    assert windows["missing_actor"]["runnable"] is False
+    assert windows["missing_actor"]["runnable_reason"] == "missing_model_artifact"
+    assert windows["missing_actor"]["model_path"] == (
+        "runtime/model/card/missing_actor/soxl_missing_actor_actor.pt"
+    )
 
 
 def test_load_research_backtests_exports_recent_model_selection_cards(tmp_path: Path, monkeypatch):
@@ -884,9 +934,12 @@ def test_build_html_run_backtest_uses_same_origin_api_and_dedicated_window_input
     assert "copyChartWindowToBacktestInputs" in html
     assert "const runProfileWindows = DATA.run_windows || {};" in html
     assert "const runWindow = runProfileWindows[profile];" in html
-    assert "return { start: globalBounds.start || '', end: profileRecord.after_end || profileRecord.before_end };" in html
+    assert "function isRunnableRunProfile(profile)" in html
+    assert "if (!isRunnableRunProfile(name)) return;" in html
+    assert "return { start: globalBounds.start || '', end: profileRecord.after_end || profileRecord.before_end };" not in html
     assert "runProfileSelect.addEventListener('change', () => syncBacktestInputs(false));" in html
     assert "runStartDateInput.dataset.manual" in html
+    assert "runProfileStatus" in html
     assert "fetch('/api/run-backtest'" in html
     assert "http://localhost:8765/api/run-backtest" not in html
 
@@ -904,6 +957,9 @@ def test_build_html_registers_backtest_result_as_selectable_version():
     html = build_html({"detailed": {}, "versioned": {}, "model_versions": []}, {"all": {}})
 
     assert "function registerBacktestResult" in html
+    assert "function getBacktestResultWindow(data, fallbackStart, fallbackEnd)" in html
+    assert "const resultWindow = getBacktestResultWindow(data, start, end);" in html
+    assert "const resultVersion = `rerun:${profile}:${resultWindow.start}:${resultWindow.end}`;" in html
     assert "DATA.versioned[resultVersion]" in html
     assert "state.version = resultVersion" in html
     assert "DATA.detailed[state.etf] =" not in html

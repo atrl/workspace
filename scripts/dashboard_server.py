@@ -18,13 +18,16 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
-from run_segment_backtest import (
-    _compute_metrics_from_daily,
-    _pair_trades,
-    build_dataset,
-    init_qlib,
-    segment_frame,
-)
+try:
+    from run_segment_backtest import (
+        _compute_metrics_from_daily,
+        _pair_trades,
+    )
+except ModuleNotFoundError:
+    from scripts.run_segment_backtest import (
+        _compute_metrics_from_daily,
+        _pair_trades,
+    )
 from src.soxl_quant.backtest import backtest_profile
 from src.soxl_quant.data import build_dataset as _build_dataset, init_qlib as _init_qlib, segment_frame as _segment_frame
 from src.soxl_quant.policy.policy_builder import build_policy
@@ -44,6 +47,20 @@ import pandas as pd
 _QLIB_INITIALIZED = False
 _DATASET = None
 
+MARKET_ROW_FIELDS = (
+    "open",
+    "high",
+    "low",
+    "close",
+    "volume",
+    "rsi6",
+    "ma180",
+    "hv_20",
+    "vol_coef",
+    "panic_score",
+    "market_state",
+)
+
 
 def _ensure_qlib():
     global _QLIB_INITIALIZED, _DATASET
@@ -52,6 +69,92 @@ def _ensure_qlib():
         _DATASET = _build_dataset()
         _QLIB_INITIALIZED = True
     return _DATASET
+
+
+def _json_scalar(value):
+    if value is None:
+        return None
+    if isinstance(value, (np.integer,)):
+        return int(value)
+    if isinstance(value, (np.floating,)):
+        value = float(value)
+    if isinstance(value, float):
+        return value if np.isfinite(value) else None
+    try:
+        if pd.isna(value):
+            return None
+    except (TypeError, ValueError):
+        pass
+    return value
+
+
+def _build_daily_rows(
+    *,
+    account: pd.Series,
+    price: pd.Series,
+    position_history: list[float],
+    trade_signals: list[tuple],
+    market_lookup: dict[str, dict] | None = None,
+) -> list[dict[str, object]]:
+    """Build JSON-ready daily rows for the interactive dashboard API."""
+    account = account.astype(float)
+    aligned_price = price.reindex(account.index).ffill().bfill()
+    if aligned_price.empty:
+        return []
+
+    initial_price = float(aligned_price.iloc[0]) if float(aligned_price.iloc[0]) > 0 else 1.0
+    buyhold_nav = ACCOUNT * (aligned_price.astype(float) / initial_price)
+
+    action_map: dict[str, str] = {}
+    for signal in trade_signals:
+        if len(signal) < 4:
+            continue
+        sig_date, _sig_price, _sig_pos, sig_type = signal[:4]
+        action_map[pd.Timestamp(sig_date).strftime("%Y-%m-%d")] = str(sig_type).upper()
+
+    market_lookup = market_lookup or {}
+    rows: list[dict[str, object]] = []
+    for i, (ts, acc) in enumerate(account.items()):
+        dt_str = pd.Timestamp(ts).strftime("%Y-%m-%d")
+        p = float(aligned_price.iloc[i])
+        bh_nav = float(buyhold_nav.iloc[i])
+        pos = float(position_history[i]) if i < len(position_history) else 0.0
+        excess = float(acc) - bh_nav
+        excess_pct = (excess / bh_nav * 100) if bh_nav != 0 else 0.0
+
+        row: dict[str, object] = {
+            "datetime": dt_str,
+            "strategy_nav": round(float(acc), 6),
+            "price": round(p, 6),
+            "buyhold_nav": round(bh_nav, 6),
+            "position": round(pos, 6),
+            "excess": round(excess, 6),
+            "excess_pct": round(excess_pct, 6),
+            "action": action_map.get(dt_str, "HOLD"),
+        }
+        market_row = market_lookup.get(dt_str) or {}
+        for field in MARKET_ROW_FIELDS:
+            if field not in market_row:
+                continue
+            value = _json_scalar(market_row.get(field))
+            if value is not None:
+                row[field] = value
+        rows.append(row)
+    return rows
+
+
+def _response_window_from_rows(
+    rows: list[dict[str, object]],
+    requested_start: str,
+    requested_end: str,
+) -> dict[str, object]:
+    if rows:
+        return {
+            "start": str(rows[0]["datetime"]),
+            "end": str(rows[-1]["datetime"]),
+            "rows": len(rows),
+        }
+    return {"start": requested_start, "end": requested_end, "rows": 0}
 
 
 class DashboardHandler(SimpleHTTPRequestHandler):
@@ -134,36 +237,15 @@ class DashboardHandler(SimpleHTTPRequestHandler):
             # Build daily rows
             pdf = result["portfolio"]
             account = pdf["account"].astype(float)
-            bh_nav = [ACCOUNT]
-            for i in range(1, len(account)):
-                prev_price = price.iloc[i - 1]
-                curr_price = price.iloc[i]
-                bh_nav.append(bh_nav[-1] * (curr_price / prev_price) if prev_price > 0 else bh_nav[-1])
+            from scripts.build_backtest_dashboard import load_ohlc_and_indicators
 
-            rows = []
-            for i, (ts, acc) in enumerate(account.items()):
-                dt_str = str(ts)[:10]
-                pos = result["position_history"][i] if i < len(result["position_history"]) else 0.0
-                action = "HOLD"
-                for sig_date, sig_price, sig_pos, sig_type in result.get("trade_signals", []):
-                    if str(sig_date)[:10] == dt_str:
-                        action = sig_type.upper()
-                        break
-
-                p = price.iloc[i] if i < len(price) else 0
-                excess = acc - bh_nav[i]
-                excess_pct = (excess / bh_nav[i] * 100) if bh_nav[i] != 0 else 0.0
-
-                rows.append({
-                    "datetime": dt_str,
-                    "strategy_nav": round(acc, 6),
-                    "price": round(p, 6),
-                    "buyhold_nav": round(bh_nav[i], 6),
-                    "position": round(pos, 6),
-                    "excess": round(excess, 6),
-                    "excess_pct": round(excess_pct, 6),
-                    "action": action,
-                })
+            rows = _build_daily_rows(
+                account=account,
+                price=price,
+                position_history=result.get("position_history", []),
+                trade_signals=result.get("trade_signals", []),
+                market_lookup=load_ohlc_and_indicators("SOXL"),
+            )
 
             # Metrics
             metrics = _compute_metrics_from_daily(rows)
@@ -172,20 +254,19 @@ class DashboardHandler(SimpleHTTPRequestHandler):
             # Pair trades
             paired = _pair_trades(rows)
 
+            window = _response_window_from_rows(rows, start_date, end_date)
             response = {
                 "profile": profile_name,
                 "tag": tag,
                 "start_date": start_date,
                 "end_date": end_date,
+                "effective_start_date": window["start"],
+                "effective_end_date": window["end"],
                 "summary": metrics,
                 "rows": rows,
                 "trades": paired,
                 "windows": {
-                    "SOXL": {
-                        "start": start_date,
-                        "end": end_date,
-                        "rows": len(rows),
-                    }
+                    "SOXL": window,
                 },
             }
             self._send_json(response)

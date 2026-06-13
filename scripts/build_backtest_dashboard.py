@@ -19,6 +19,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from src.soxl_quant.app.paper_review import public_paper_review_from_summary
+from src.soxl_quant.settings import load_profile, model_artifact_path
 
 GENERALIZATION_DIR = ROOT / "runtime" / "execution" / "generalization"
 GENERALIZATION_DIR.mkdir(parents=True, exist_ok=True)
@@ -529,6 +530,30 @@ def _csv_date_window(csv_path: Path) -> dict[str, object]:
     return {"start": start, "end": end, "rows": rows}
 
 
+def _profile_rerun_status(profile: str) -> dict[str, object]:
+    try:
+        load_profile(profile)
+    except Exception as exc:
+        return {
+            "runnable": False,
+            "runnable_reason": f"profile_load_failed: {exc}",
+        }
+    try:
+        actor_path = model_artifact_path(profile, "")
+    except Exception as exc:
+        return {
+            "runnable": False,
+            "runnable_reason": f"model_path_failed: {exc}",
+        }
+    status: dict[str, object] = {"model_path": _relpath(actor_path)}
+    if actor_path.exists():
+        status["runnable"] = True
+    else:
+        status["runnable"] = False
+        status["runnable_reason"] = "missing_model_artifact"
+    return status
+
+
 def load_run_profile_windows() -> dict[str, dict[str, object]]:
     """Load selectable rerun windows without exporting model-card preview data."""
     manifest = _load_dashboard_json(DASHBOARD_DATA_DIR / "model_replay_freshness.json")
@@ -548,6 +573,7 @@ def load_run_profile_windows() -> dict[str, dict[str, object]]:
         if manifest_end:
             window["end"] = manifest_end
         window["source"] = output
+        window.update(_profile_rerun_status(profile))
         windows[profile] = window
     return windows
 
@@ -1698,6 +1724,17 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       color: white;
       border-color: var(--accent);
     }}
+    .btn:disabled {{
+      cursor: not-allowed;
+      opacity: 0.55;
+    }}
+    .run-status {{
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.35;
+      min-height: 16px;
+      max-width: 680px;
+    }}
     .grid {{
       display: grid;
       gap: 18px;
@@ -2378,6 +2415,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
             <button class="btn" id="useChartWindowBtn" type="button">Use Chart</button>
             <button class="btn primary" id="runBacktestBtn" type="button">Run</button>
           </div>
+          <div class="run-status" id="runProfileStatus"></div>
         </div>
       </div>
       <div id="segmentBanner" style="display:none;background:rgba(15,118,110,0.08);border:1px solid rgba(15,118,110,0.3);border-radius:8px;padding:10px 14px;margin-bottom:10px;font-size:13px;color:var(--accent-2);align-items:center;gap:8px;">
@@ -2544,6 +2582,8 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     const runStartDateInput = document.getElementById('runStartDateInput');
     const runEndDateInput = document.getElementById('runEndDateInput');
     const useChartWindowBtn = document.getElementById('useChartWindowBtn');
+    const runBacktestBtn = document.getElementById('runBacktestBtn');
+    const runProfileStatus = document.getElementById('runProfileStatus');
     const applyZoomBtn = document.getElementById('applyZoomBtn');
     const resetZoomBtn = document.getElementById('resetZoomBtn');
     const infoEmpty = document.getElementById('infoEmpty');
@@ -2901,24 +2941,26 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       if (rows && rows.length) return {{ start: rows[0].datetime, end: rows[rows.length - 1].datetime, rows: rows.length }};
       return null;
     }}
-    function getBacktestBoundsForProfile(profile) {{
+    function getRunProfileWindow(profile) {{
       const runWindow = runProfileWindows[profile];
-      if (runWindow && runWindow.start && runWindow.end) {{
+      if (runWindow && runWindow.start && runWindow.end) return runWindow;
+      return null;
+    }}
+    function isRunnableRunProfile(profile) {{
+      const runWindow = getRunProfileWindow(profile);
+      return Boolean(runWindow && runWindow.runnable !== false);
+    }}
+    function getBacktestBoundsForProfile(profile) {{
+      const runWindow = getRunProfileWindow(profile);
+      if (runWindow && isRunnableRunProfile(profile)) {{
         return {{ start: runWindow.start, end: runWindow.end }};
-      }}
-      const window = getVersionWindow(profile, state.etf);
-      if (window) return {{ start: window.start, end: window.end }};
-      const profileRecord = modelReplayProfiles.find(item => item && item.profile === profile);
-      if (profileRecord && profileRecord.before_end) {{
-        const globalBounds = getGlobalBacktestBounds();
-        return {{ start: globalBounds.start || '', end: profileRecord.after_end || profileRecord.before_end }};
       }}
       return null;
     }}
     function getGlobalBacktestBounds() {{
       const windows = [];
-      Object.values(runProfileWindows || {{}}).forEach(window => {{
-        if (window && window.start && window.end) windows.push(window);
+      Object.entries(runProfileWindows || {{}}).forEach(([profile, window]) => {{
+        if (isRunnableRunProfile(profile) && window && window.start && window.end) windows.push(window);
       }});
       Object.keys(DATA.versioned || {{}}).forEach(version => {{
         if (version === 'paper_trading' || String(version).startsWith('rerun:')) return;
@@ -2973,6 +3015,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       }} else if (!endManual) {{
         runEndDateInput.value = runEndDateInput.value || bounds.end || '';
       }}
+      updateRunProfileStatus();
     }}
     function copyChartWindowToBacktestInputs() {{
       if (!runStartDateInput || !runEndDateInput) return;
@@ -3047,21 +3090,30 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     }}
 
     function runProfileLabel(profile) {{
-      const window = getVersionWindow(profile, state.etf);
+      const window = getRunProfileWindow(profile);
       if (window) return `${{profile}} · ${{window.start}} → ${{window.end}}`;
-      const record = modelReplayProfiles.find(item => item && item.profile === profile);
-      if (record && (record.after_end || record.before_end)) {{
-        return `${{profile}} · end ${{record.after_end || record.before_end}}`;
-      }}
       return profile;
     }}
-    function runnableProfilesFromVersions(versions) {{
-      const names = [];
-      (versions || []).forEach(version => {{
-        if (!version || version === 'paper_trading' || String(version).startsWith('rerun:')) return;
-        if (getVersionWindow(version, state.etf)) names.push(version);
-      }});
-      return names;
+    function updateRunProfileStatus() {{
+      if (!runProfileStatus || !runBacktestBtn) return;
+      const profile = runProfileSelect ? runProfileSelect.value : '';
+      const runWindow = getRunProfileWindow(profile);
+      const start = runStartDateInput ? runStartDateInput.value : '';
+      const end = runEndDateInput ? runEndDateInput.value : '';
+      if (!profile) {{
+        runProfileStatus.textContent = 'Select a runnable replay profile.';
+        runBacktestBtn.disabled = true;
+        return;
+      }}
+      if (!runWindow || !isRunnableRunProfile(profile)) {{
+        const reason = runWindow && runWindow.runnable_reason ? ` · ${{runWindow.runnable_reason}}` : '';
+        runProfileStatus.textContent = `Not runnable: ${{profile}}${{reason}}`;
+        runBacktestBtn.disabled = true;
+        return;
+      }}
+      const invalidDate = !start || !end || start > end || start < runWindow.start || end > runWindow.end;
+      runProfileStatus.textContent = `Runnable window: ${{runWindow.start}} → ${{runWindow.end}} · rows ${{runWindow.rows || 'n/a'}}`;
+      runBacktestBtn.disabled = invalidDate;
     }}
     function populateRunProfileSelect(profileSource, resetWindow = false) {{
       if (!runProfileSelect) return;
@@ -3073,15 +3125,9 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
         const result = typeof item === 'string' ? 'current' : (item && item.result);
         if (!name || seen.has(name) || name === 'paper_trading' || String(name).startsWith('rerun:')) return;
         if (result === 'failed' || result === 'skipped') return;
+        if (!isRunnableRunProfile(name)) return;
         seen.add(name);
         names.push(name);
-      }});
-      const fallback = runnableProfilesFromVersions(VERSIONS);
-      fallback.forEach(name => {{
-        if (!seen.has(name)) {{
-          seen.add(name);
-          names.push(name);
-        }}
       }});
       runProfileSelect.innerHTML = '<option value="">Select profile...</option>';
       names.forEach(name => {{
@@ -3102,9 +3148,28 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       }}
       opt.textContent = label || version;
     }}
+    function getBacktestResultWindow(data, fallbackStart, fallbackEnd) {{
+      const windows = data && data.windows;
+      if (windows) {{
+        const direct = windows[state.etf] || windows.SOXL || Object.values(windows)[0];
+        if (direct && direct.start && direct.end) {{
+          return {{
+            start: direct.start,
+            end: direct.end,
+            rows: Number(direct.rows) || (Array.isArray(data.rows) ? data.rows.length : 0),
+          }};
+        }}
+      }}
+      const rows = data && Array.isArray(data.rows) ? data.rows : [];
+      if (rows.length) {{
+        return {{ start: rows[0].datetime, end: rows[rows.length - 1].datetime, rows: rows.length }};
+      }}
+      return {{ start: fallbackStart, end: fallbackEnd, rows: 0 }};
+    }}
     function registerBacktestResult(data, profile, start, end) {{
       const rows = Array.isArray(data.rows) ? data.rows : [];
       const trades = Array.isArray(data.trades) ? data.trades : computeTradesFromRows(rows);
+      const resultWindow = getBacktestResultWindow(data, start, end);
       const strategyReturn = rows.length > 1 && rows[0].strategy_nav
         ? (rows[rows.length - 1].strategy_nav / rows[0].strategy_nav - 1)
         : 0;
@@ -3124,7 +3189,15 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
         max_position: rows.length ? Math.max(...rows.map(r => Number(r.position) || 0)) : 0,
         min_position: rows.length ? Math.min(...rows.map(r => Number(r.position) || 0)) : 0,
       }};
-      const resultVersion = `rerun:${{profile}}:${{start}}:${{end}}`;
+      const resultVersion = `rerun:${{profile}}:${{resultWindow.start}}:${{resultWindow.end}}`;
+      const resultWindows = data.windows || {{
+        [state.etf]: {{ start: resultWindow.start, end: resultWindow.end, rows: rows.length }},
+      }};
+      if (!resultWindows[state.etf]) {{
+        resultWindows[state.etf] = {{ start: resultWindow.start, end: resultWindow.end, rows: rows.length }};
+      }}
+      resultWindows[state.etf].requested_start = start;
+      resultWindows[state.etf].requested_end = end;
       if (!DATA.versioned) DATA.versioned = {{}};
       DATA.versioned[resultVersion] = {{
         detailed: {{
@@ -3137,20 +3210,17 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
             regime_shapes: [],
           }},
         }},
-        windows: data.windows || {{
-          [state.etf]: {{ start, end, rows: rows.length }},
-        }},
+        windows: resultWindows,
         _meta: {{
           source_kind: 'interactive_backtest',
           profile,
-          start_date: start,
-          end_date: end,
+          start_date: resultWindow.start,
+          end_date: resultWindow.end,
+          requested_start_date: start,
+          requested_end_date: end,
           updated_at: Date.now() / 1000,
         }},
       }};
-      if (!DATA.versioned[resultVersion].windows[state.etf]) {{
-        DATA.versioned[resultVersion].windows[state.etf] = {{ start, end, rows: rows.length }};
-      }}
       if (!VERSIONS.includes(resultVersion)) VERSIONS.unshift(resultVersion);
       indexVersionSummaries[resultVersion] = {{
         etfs: [state.etf],
@@ -3264,6 +3334,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
         }});
       }});
       useChartWindowBtn.addEventListener('click', copyChartWindowToBacktestInputs);
+      runBacktestBtn.addEventListener('click', runSegmentBacktest);
 
       // Slice & Recompute button
       document.getElementById('sliceRecomputeBtn').addEventListener('click', recomputeSegment);
@@ -3273,9 +3344,6 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
         clearSegmentMode();
         render();
       }});
-
-      // Run backtest button
-      document.getElementById('runBacktestBtn').addEventListener('click', runSegmentBacktest);
 
       document.addEventListener('keydown', e => {{
         if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT' || e.target.tagName === 'TEXTAREA') return;
@@ -3382,10 +3450,14 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
         }}
 
         const resultVersion = registerBacktestResult(data, profile, start, end);
+        const resultWindow = getBacktestResultWindow(data, start, end);
+        const requestedNote = (resultWindow.start === start && resultWindow.end === end)
+          ? ''
+          : ` · requested ${{start}} → ${{end}}`;
 
         hideLoading();
         render();
-        chartMeta.innerHTML = `<span style="color:var(--good);">✓ Backtest complete: ${{resultVersion}} | Return ${{data.summary.return}}% | Sharpe ${{data.summary.sharpe}} | Trades ${{data.summary.trades}}</span>`;
+        chartMeta.innerHTML = `<span style="color:var(--good);">✓ Backtest complete: ${{resultVersion}} · effective ${{resultWindow.start}} → ${{resultWindow.end}}${{requestedNote}} | Return ${{data.summary.return}}% | Sharpe ${{data.summary.sharpe}} | Trades ${{data.summary.trades}}</span>`;
       }} catch (err) {{
         hideLoading();
         const serverHint = window.location.protocol === 'file:'
