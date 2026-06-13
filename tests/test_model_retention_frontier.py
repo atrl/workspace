@@ -125,6 +125,7 @@ def _run_write_retention_frontier_outputs_writes_csv_summary_and_conclusion(tmp_
                 "recommended_next_source": "target_ready",
                 "recommended_next_action": "run_three_fold_bc_slice_screen_before_any_ppo",
                 "rows_scanned": 1,
+                "completed_handoff_count": 2,
                 "required_best_return_pct": 213.14,
                 "reference_return_pct": 132.08,
                 "max_walkforward_drawdown_pct": 20.0,
@@ -148,6 +149,7 @@ def _run_write_retention_frontier_outputs_writes_csv_summary_and_conclusion(tmp_
     assert summary["summary"]["recommended_next_source"] == "target_ready"
     conclusion = (output / "conclusion.md").read_text(encoding="utf-8")
     assert "target_ready" in conclusion
+    assert "Completed handoffs: `2`" in conclusion
     assert "run_three_fold_bc_slice_screen_before_any_ppo" in conclusion
 
 
@@ -198,3 +200,89 @@ def _run_retention_frontier_does_not_scan_its_own_output_card(tmp_path: Path) ->
 
     assert result["summary"]["rows_scanned"] == 1
     assert [row["experiment"] for row in result["rows"]] == ["target_ready"]
+
+
+def test_retention_frontier_advances_past_completed_training_contract_handoff():
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp_path = Path(tmp)
+        _run_retention_frontier_advances_past_completed_training_contract_handoff(tmp_path)
+
+
+def _run_retention_frontier_advances_past_completed_training_contract_handoff(tmp_path: Path) -> None:
+    from src.soxl_quant.app.model_retention_frontier import scan_model_retention_frontier
+
+    _write_json(
+        tmp_path / "runtime" / "model_selection" / "card" / "model_retention_walkforward_gate_v1" / "summary.json",
+        {
+            "summary": {
+                "required_best_return_pct": 213.14,
+                "reference_return_pct": 132.08,
+                "max_walkforward_drawdown_pct": 20.0,
+                "required_wf_windows": ["wf_2020", "wf_2022", "wf_2023_2024"],
+            }
+        },
+    )
+    _write_json(
+        tmp_path / "runtime" / "model_selection" / "card" / "target_ready" / "summary.json",
+        {
+            "experiment": "target_ready",
+            "decision": "wf2020_soxlbacktest_target_contract_ready_for_bc_screen_no_promotion",
+            "promotion_allowed": False,
+            "target_contract_gate": True,
+            "bc_readiness_gate": True,
+            "bc_screen_allowed_next": True,
+            "next_mechanism": "run_three_fold_bc_slice_screen_before_any_ppo",
+        },
+    )
+    _write_json(
+        tmp_path / "runtime" / "model_selection" / "card" / "bc_done" / "summary.json",
+        {
+            "experiment": "bc_done",
+            "decision": "three_fold_bc_slice_ready_for_checkpoint_screen_no_promotion",
+            "promotion_allowed": False,
+            "source_decisions": {
+                "target_ready": "wf2020_soxlbacktest_target_contract_ready_for_bc_screen_no_promotion"
+            },
+            "next_mechanism": "run_walkforward_checkpoint_or_ppo_screen_with_bc_warmstart_against_soxlbacktest_reference_and_drawdown_drift_stop_rules",
+        },
+    )
+    _write_json(
+        tmp_path / "runtime" / "model_selection" / "card" / "checkpoint_partial" / "summary.json",
+        {
+            "experiment": "checkpoint_partial",
+            "decision": "three_fold_checkpoint_metric_replay_partial_pass_no_promotion",
+            "promotion_allowed": False,
+            "direct_comparison_baseline": "bc_done",
+            "selected_by_fold": {
+                "wf_2020": {
+                    "selected_max_dd": 14.98,
+                    "selected_relative_return": -292.75,
+                    "selected_candidate_gate": False,
+                },
+                "wf_2022": {
+                    "selected_max_dd": 18.8,
+                    "selected_relative_return": 65.86,
+                    "selected_candidate_gate": True,
+                },
+                "wf_2023_2024": {
+                    "selected_max_dd": 8.96,
+                    "selected_relative_return": 35.57,
+                    "selected_candidate_gate": True,
+                },
+            },
+            "target_relative_return_pp": 30.0,
+            "next_mechanism": "inspect_failed_fold_drawdown_or_reward_drift_before_full_retention_training",
+        },
+    )
+
+    result = scan_model_retention_frontier(root=tmp_path)
+    by_experiment = {row["experiment"]: row for row in result["rows"]}
+
+    assert result["summary"]["recommended_next_source"] == "checkpoint_partial"
+    assert result["summary"]["recommended_next_action"] == "inspect_failed_fold_drawdown_or_reward_drift_before_full_retention_training"
+    assert by_experiment["target_ready"]["handoff_completed_by"] == "bc_done"
+    assert by_experiment["target_ready"]["primary_blocker"] == "completed_handoff"
+    assert by_experiment["bc_done"]["handoff_completed_by"] == "checkpoint_partial"
+    assert by_experiment["bc_done"]["primary_blocker"] == "completed_handoff"
+    assert by_experiment["checkpoint_partial"]["frontier_rank"] == 1
+    assert by_experiment["checkpoint_partial"]["primary_blocker"] == "walkforward_relative_return_gap"

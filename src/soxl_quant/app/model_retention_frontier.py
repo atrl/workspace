@@ -50,6 +50,40 @@ def _string_list(values: Iterable[str]) -> str:
     return ",".join(sorted(str(value) for value in values if value))
 
 
+def _coerce_text_values(value: Any) -> list[str]:
+    if value is None:
+        return []
+    if isinstance(value, str):
+        return [value]
+    if isinstance(value, dict):
+        return [str(key) for key in value] + [str(item) for item in value.values()]
+    if isinstance(value, list | tuple | set):
+        return [str(item) for item in value]
+    return [str(value)]
+
+
+def _source_references(payload: dict[str, Any], known_experiments: set[str]) -> list[str]:
+    summary = _summary_payload(payload)
+    selection = _selection_payload(summary)
+    values: list[str] = []
+    for container in (summary, selection):
+        for field in (
+            "source_decisions",
+            "direct_comparison_baseline",
+            "source_card",
+            "source_experiment",
+            "source_selection",
+            "source_bc_decision",
+        ):
+            values.extend(_coerce_text_values(container.get(field)))
+    references: set[str] = set()
+    for text in values:
+        for experiment in known_experiments:
+            if experiment and experiment in text:
+                references.add(experiment)
+    return sorted(references)
+
+
 def _load_gate_summary(root: Path) -> dict[str, Any]:
     path = root / RETENTION_GATE_SUMMARY_PATH
     if not path.exists():
@@ -134,6 +168,7 @@ def _frontier_sort_key(row: dict[str, Any]) -> tuple[float, str]:
         "return_alignment_gap": 40.0,
         "missing_walkforward_evidence": 50.0,
         "diagnostic_no_promotion": 60.0,
+        "completed_handoff": 90.0,
     }
     gap = float(row.get("wf_drawdown_gap_pct") or 0.0)
     gap += float(row.get("relative_return_gap_to_target_pp") or 0.0) / 100.0
@@ -202,6 +237,7 @@ def _row_from_summary(path: Path, payload: dict[str, Any], gate_summary: dict[st
         "primary_blocker": primary_blocker,
         "next_action": next_action,
         "source_path": str(path),
+        "handoff_completed_by": "",
         "wf_windows_present": _string_list(present_windows),
         "missing_wf_windows": _string_list(missing_windows),
         "failed_wf_windows": _string_list(failed_windows),
@@ -220,14 +256,41 @@ def scan_model_retention_frontier(*, root: Path, card_names: Iterable[str] | Non
     gate_summary = _load_gate_summary(root)
     card_root = root / MODEL_SELECTION_CARD_ROOT
     selected_names = {str(name) for name in card_names} if card_names is not None else None
-    rows: list[dict[str, Any]] = []
+    payloads: list[tuple[Path, dict[str, Any]]] = []
     for path in sorted(card_root.glob("*/summary.json")):
         if path.parent.name in EXCLUDED_CARD_NAMES:
             continue
         if selected_names is not None and path.parent.name not in selected_names:
             continue
         try:
-            rows.append(_row_from_summary(path.relative_to(root), _load_json(path), gate_summary))
+            payloads.append((path, _load_json(path)))
+        except (json.JSONDecodeError, OSError) as exc:
+            payloads.append((path, {"experiment": path.parent.name, "load_error": str(exc)}))
+    known_experiments = {
+        str(_selection_payload(_summary_payload(payload)).get("experiment") or _summary_payload(payload).get("experiment") or path.parent.name)
+        for path, payload in payloads
+    }
+    downstream_by_source: dict[str, list[str]] = {}
+    for path, payload in payloads:
+        downstream = str(
+            _selection_payload(_summary_payload(payload)).get("experiment")
+            or _summary_payload(payload).get("experiment")
+            or path.parent.name
+        )
+        for source in _source_references(payload, known_experiments):
+            if source != downstream:
+                downstream_by_source.setdefault(source, []).append(downstream)
+
+    rows: list[dict[str, Any]] = []
+    for path, payload in payloads:
+        try:
+            row = _row_from_summary(path.relative_to(root), payload, gate_summary)
+            completed_by = sorted(set(downstream_by_source.get(str(row["experiment"]), [])))
+            if completed_by:
+                row["handoff_completed_by"] = _string_list(completed_by)
+                if not bool(row["promotion_allowed"]):
+                    row["primary_blocker"] = "completed_handoff"
+            rows.append(row)
         except (json.JSONDecodeError, OSError, TypeError, ValueError) as exc:
             rows.append(
                 {
@@ -239,6 +302,7 @@ def scan_model_retention_frontier(*, root: Path, card_names: Iterable[str] | Non
                     "primary_blocker": "unreadable_summary",
                     "next_action": "",
                     "source_path": str(path.relative_to(root)),
+                    "handoff_completed_by": "",
                     "wf_windows_present": "",
                     "missing_wf_windows": "",
                     "failed_wf_windows": "",
@@ -262,6 +326,7 @@ def scan_model_retention_frontier(*, root: Path, card_names: Iterable[str] | Non
         "summary": {
             "generated_at": datetime.now(timezone.utc).isoformat(),
             "rows_scanned": len(rows),
+            "completed_handoff_count": sum(1 for row in rows if row.get("primary_blocker") == "completed_handoff"),
             "recommended_next_source": recommended.get("experiment") if recommended else None,
             "recommended_next_action": recommended.get("next_action") if recommended else None,
             "recommended_primary_blocker": recommended.get("primary_blocker") if recommended else None,
@@ -290,6 +355,7 @@ def write_retention_frontier_outputs(result: dict[str, Any], *, output_dir: Path
         "# Model Retention Frontier",
         "",
         f"- Rows scanned: `{summary['rows_scanned']}`.",
+        f"- Completed handoffs: `{summary.get('completed_handoff_count', 0)}`.",
         f"- Recommended next source: `{summary.get('recommended_next_source')}`.",
         f"- Recommended next action: `{summary.get('recommended_next_action')}`.",
         f"- Primary blocker: `{summary.get('recommended_primary_blocker')}`.",
