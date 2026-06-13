@@ -1,0 +1,86 @@
+{
+  "actor_retention_allowed": false,
+  "canonical_baseline": "v19reg_v22_budget_usage_bull_guard_v1",
+  "changed_layer": [
+    "model_selection",
+    "failure_attribution",
+    "target_contract"
+  ],
+  "checkpoint_selection_exhausted_failed_count": 1,
+  "created_at": "2026-06-13T21:43:33.752789+00:00",
+  "decision": "wf2020_bull_participation_target_rebuild_required_no_promotion",
+  "direct_comparison_baseline": "cap10_three_fold_checkpoint_metric_replay_v2",
+  "experiment": "cap10_wf2020_participation_failure_attribution_v1",
+  "failed_fold_count": 1,
+  "failed_fold_rows": [
+    {
+      "best_relative_candidate": "ppo_retained_iter_4",
+      "best_relative_gap_pp": 302.009298,
+      "best_relative_max_dd_gap_pct": 0.918285,
+      "best_relative_max_dd_pct": 20.918285,
+      "best_relative_return_pp": -272.009298,
+      "best_relative_test_return_pct": 61.32405,
+      "candidate_gate_pass_count": 0,
+      "checkpoint_selection_exhausted": true,
+      "failure_type": "bull_underparticipation",
+      "fold": "wf_2020",
+      "next_training_target": "bull_rebound_participation_lift_with_drawdown_budget",
+      "selected_buyhold_return_pct": 333.333347,
+      "selected_candidate": "bc_initialization",
+      "selected_candidate_gate": false,
+      "selected_drawdown_gap_pct": 0.0,
+      "selected_max_dd_pct": 14.984701,
+      "selected_relative_gap_pp": 322.753021,
+      "selected_relative_return_pp": -292.753021,
+      "selected_return_vs_buyhold_gap_pp": -292.753021,
+      "selected_test_return_pct": 40.580326
+    }
+  ],
+  "failed_folds": [
+    "wf_2020"
+  ],
+  "max_selected_drawdown_gap_pct": 0.0,
+  "max_selected_relative_gap_pp": 322.753021,
+  "next_mechanism": "rebuild_wf2020_bull_participation_target_before_full_retention_training",
+  "primary_failure_type": "bull_underparticipation",
+  "promotion_allowed": false,
+  "reference_baseline": "soxlbacktest_qlib_buysell_reference",
+  "role": "diagnose",
+  "sidecars": [
+    "failure_attribution.csv",
+    "bull_participation_target_contract.csv",
+    "selection.json",
+    "summary.json"
+  ],
+  "source_candidate_metrics": "runtime/model_selection/card/cap10_three_fold_checkpoint_metric_replay_v2/checkpoint_candidate_metrics.csv",
+  "source_selection": "runtime/model_selection/card/cap10_three_fold_checkpoint_metric_replay_v2/checkpoint_selection_by_fold.csv",
+  "target_contract_rows": [
+    {
+      "acceptance_rule": "fold relative_return>=30pp and MaxDD<20pct before any retained actor",
+      "best_relative_candidate": "ppo_retained_iter_4",
+      "best_relative_gap_pp": 302.009298,
+      "best_relative_max_dd_gap_pct": 0.918285,
+      "best_relative_max_dd_pct": 20.918285,
+      "best_relative_return_pp": -272.009298,
+      "checkpoint_selection_exhausted": true,
+      "failure_type": "bull_underparticipation",
+      "fold": "wf_2020",
+      "next_training_target": "bull_rebound_participation_lift_with_drawdown_budget",
+      "observed_best_checkpoint_lift_pp": 20.74372299999999,
+      "remaining_gap_after_best_checkpoint_pp": 302.009298,
+      "selected_candidate": "bc_initialization",
+      "selected_drawdown_gap_pct": 0.0,
+      "selected_max_dd_headroom_pct": 5.015299000000001,
+      "selected_max_dd_pct": 14.984701,
+      "selected_relative_gap_pp": 322.753021,
+      "selected_relative_return_pp": -292.753021,
+      "selected_return_vs_buyhold_gap_pp": -292.753021,
+      "target_max_dd_pct": 20.0,
+      "target_relative_return_pp": 30.0,
+      "training_blocker": "checkpoint_selection_cannot_close_gap"
+    }
+  ],
+  "target_max_dd_pct": 20.0,
+  "target_relative_return_pp": 30.0,
+  "training_allowed_from_this_card": false
+}

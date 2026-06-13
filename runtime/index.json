@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-13T21:12:37.433350+00:00",
+  "generated_at": "2026-06-13T21:43:34.258663+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -4848,6 +4848,30 @@
       "category": "model_selection",
       "suffix": ".csv",
       "bytes": 840
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_wf2020_participation_failure_attribution_v1/bull_participation_target_contract.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 906
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_wf2020_participation_failure_attribution_v1/failure_attribution.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1070
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_wf2020_participation_failure_attribution_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 3639
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_wf2020_participation_failure_attribution_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1470
     },
     {
       "path": "runtime/model_selection/card/cap10_wf2020_soxlbacktest_target_contract_v1/action_distribution.csv",
