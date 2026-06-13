@@ -1,6 +1,12 @@
 import { describe, expect, test } from 'vitest';
-import { renderActionLegend, renderComparisonPanel, renderDataSourcePanel, renderInspectorPanel } from './render';
-import { comparisonFixture, manifestFixture } from './testFixtures';
+import {
+  renderActionLegend,
+  renderComparisonPanel,
+  renderDataSourcePanel,
+  renderFeatureComparisonPanel,
+  renderInspectorPanel,
+} from './render';
+import { comparisonFixture, manifestFixture, marketFixture, modelFixture } from './testFixtures';
 
 describe('dashboard v2 DOM render helpers', () => {
   test('renders data source provenance and safe replay window', () => {
@@ -11,6 +17,8 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.textContent).toContain('safe_backtest_end');
     expect(panel.textContent).toContain('2026-01-06');
     expect(panel.textContent).toContain('model_replay_freshness.json');
+    expect(panel.textContent).toContain('Auto Update');
+    expect(panel.textContent).toContain('postclose');
   });
 
   test('renders inspector rows with tone classes', () => {
@@ -46,5 +54,20 @@ describe('dashboard v2 DOM render helpers', () => {
 
     expect(panel.textContent).toContain('BUY');
     expect(panel.textContent).toContain('SELL');
+  });
+
+  test('renders buy sell feature comparison for selected date', () => {
+    const panel = document.createElement('section');
+
+    renderFeatureComparisonPanel(panel, {
+      date: '2026-01-05',
+      marketRows: marketFixture.rows,
+      models: { smoke: modelFixture },
+    });
+
+    expect(panel.textContent).toContain('Buy/Sell Feature Comparison');
+    expect(panel.textContent).toContain('rulebase_signals');
+    expect(panel.textContent).toContain('rsi6');
+    expect(panel.textContent).toContain('60.00');
   });
 });

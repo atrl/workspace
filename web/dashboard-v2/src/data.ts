@@ -20,7 +20,7 @@ export async function loadDashboardData(baseUrl = '/dashboard_data/v2'): Promise
   const market = await fetchJson<MarketPayload>(baseUrl, 'market/SOXL.json');
   const comparison = await fetchJson<ComparisonPayload>(baseUrl, 'comparison/default.json');
   const models: Record<string, ModelPayload> = {};
-  for (const profile of manifest.default_comparison_profiles) {
+  for (const profile of manifest.available_profiles) {
     models[profile] = await fetchJson<ModelPayload>(baseUrl, `models/${profile}.json`);
   }
   return { manifest, market, models, comparison };

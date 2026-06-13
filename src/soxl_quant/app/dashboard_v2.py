@@ -4,6 +4,7 @@ import json
 import pickle
 from dataclasses import dataclass
 from datetime import datetime, timezone
+import hashlib
 from pathlib import Path
 from typing import Any
 
@@ -11,6 +12,8 @@ import numpy as np
 import pandas as pd
 
 from scripts.build_backtest_dashboard import FEATURE_COLS
+from src.soxl_quant.config import load_profile
+from src.soxl_quant.data import feature_columns_for_packs
 
 
 SOXL_BACKTEST_REFERENCE_PROFILE = "soxl_backtest_policy_reimplementation_v1"
@@ -22,6 +25,49 @@ MODEL_DATE_FIELDS = ("datetime", "date")
 REQUIRED_MODEL_FIELDS = ("strategy_nav", "buyhold_nav", "position", "action", "price")
 ACTION_VALUES = {"BUY", "SELL", "HOLD"}
 SELL_ACTION_ALIASES = {"TAKE_PROFIT", "STOP_LOSS", "STOP", "TRIM", "REDUCE"}
+REFERENCE_FEATURE_PACKS = ("soxlbacktest_qlib_buysell_reference",)
+REFERENCE_FEATURE_COLUMNS = (
+    "open",
+    "high",
+    "low",
+    "close",
+    "rsi6",
+    "ma180",
+    "hv_20",
+    "vol_coef",
+    "panic_score",
+    "market_state",
+    "vix",
+)
+DEFAULT_SNAPSHOT_COLUMNS = (
+    "close",
+    "rsi6",
+    "rsi",
+    "vix",
+    "hv_20",
+    "volatility",
+    "spread",
+    "vix_zscore",
+    "panic_score",
+    "vol_coef",
+    "market_state",
+    "intraday_range",
+)
+FEATURE_SNAPSHOT_ALIASES = {
+    "return": ("close",),
+    "rsi_6": ("rsi6", "rsi"),
+    "rsi_14": ("rsi", "rsi6"),
+    "realized_vol_10": ("volatility", "hv_20"),
+    "realized_vol_21": ("volatility", "hv_20"),
+    "realized_vol_63": ("volatility", "hv_20"),
+    "vol_coef_21": ("vol_coef",),
+    "vix_level": ("vix",),
+    "vix_zscore": ("vix_zscore",),
+    "intraday_range": ("intraday_range",),
+    "mom_21": ("mom_20",),
+    "RB_PANIC_SCORE_PROXY": ("panic_score",),
+    "RB_VOL_REGIME": ("vol_coef",),
+}
 
 
 @dataclass(frozen=True)
@@ -92,7 +138,131 @@ def _reference_model_sources(root: Path) -> dict[str, dict[str, Any]]:
             "output": SOXL_BACKTEST_REFERENCE_DAILY,
             "result": "current",
             "window": SOXL_BACKTEST_REFERENCE_WINDOW,
+            "source_kind": "soxlbacktest_qlib_buysell",
+            "display_name": "SOXLBacktest Buy/Sell Baseline",
+            "runnable": False,
+            "runnable_reason": "reference_baseline",
         }
+    }
+
+
+def _schema_signature(columns: list[str]) -> str:
+    payload = "|".join(columns).encode("utf-8")
+    return hashlib.sha1(payload).hexdigest()[:12]
+
+
+def _feature_metadata(profile_name: str, source: dict[str, Any]) -> dict[str, Any]:
+    if profile_name == SOXL_BACKTEST_REFERENCE_PROFILE:
+        columns = list(REFERENCE_FEATURE_COLUMNS)
+        return {
+            "source_kind": source.get("source_kind", "soxlbacktest_qlib_buysell"),
+            "display_name": source.get("display_name", "SOXLBacktest Buy/Sell Baseline"),
+            "runnable": False,
+            "runnable_reason": source.get("runnable_reason", "reference_baseline"),
+            "feature_packs": list(REFERENCE_FEATURE_PACKS),
+            "feature_columns": columns,
+            "feature_schema_signature": _schema_signature(columns),
+        }
+
+    try:
+        profile = load_profile(profile_name)
+        packs = list(profile.feature.packs)
+        columns = feature_columns_for_packs(profile.feature.packs, profile.name)
+    except (FileNotFoundError, KeyError, ValueError) as exc:
+        packs = []
+        columns = []
+        feature_error = str(exc)
+    else:
+        feature_error = None
+    actor_path = source.get("actor")
+    runnable = bool(actor_path)
+    metadata: dict[str, Any] = {
+        "source_kind": "qlib_model",
+        "display_name": profile_name,
+        "runnable": runnable,
+        "runnable_reason": "ok" if runnable else "missing_actor",
+        "feature_packs": packs,
+        "feature_columns": columns,
+        "feature_schema_signature": _schema_signature(columns),
+    }
+    if feature_error:
+        metadata["feature_error"] = feature_error
+    return metadata
+
+
+def _snapshot_columns_for_model(
+    feature_columns: list[str],
+    market_payload_rows: list[dict[str, Any]],
+) -> list[str]:
+    available: set[str] = set()
+    for row in market_payload_rows:
+        available.update(str(key) for key, value in row.items() if key != "date" and value is not None)
+    candidates: list[str] = []
+    for column in feature_columns:
+        candidates.extend(FEATURE_SNAPSHOT_ALIASES.get(column, (column,)))
+    candidates.extend(DEFAULT_SNAPSHOT_COLUMNS)
+    return [column for column in _dedupe_preserve_order(candidates) if column in available]
+
+
+def _feature_snapshot(row: dict[str, Any] | None, columns: list[str]) -> dict[str, Any]:
+    if not row:
+        return {}
+    return {column: row[column] for column in columns if column in row}
+
+
+def _derive_model_events_with_features(
+    rows: list[dict[str, Any]],
+    *,
+    market_rows_by_date: dict[str, dict[str, Any]],
+    snapshot_columns: list[str],
+) -> list[dict[str, Any]]:
+    events = derive_model_events(rows)
+    for event in events:
+        event["feature_snapshot"] = _feature_snapshot(market_rows_by_date.get(str(event["date"])), snapshot_columns)
+    return events
+
+
+def _auto_update_status(root: Path, freshness: dict[str, Any], freshness_path: Path) -> dict[str, Any]:
+    cron_path = root / "production" / "crontab.txt"
+    preopen_plist = root / "production" / "com.soxl.preopen.scheduler.plist"
+    postclose_plist = root / "production" / "com.soxl.daily.scheduler.plist"
+    scheduler = root / "production" / "run_soxl_scheduler.sh"
+    goal_gates = root / "dashboard_data" / "production_goal_gates.json"
+    production_status = root / "dashboard_data" / "production_status.json"
+    tasks = [
+        {
+            "name": "preopen",
+            "enabled": preopen_plist.exists() or (cron_path.exists() and "schedule-slot preopen" in cron_path.read_text(encoding="utf-8")),
+            "schedule": "21:00 Mon-Fri Asia/Shanghai",
+            "source_path": _relative_to(root, preopen_plist if preopen_plist.exists() else cron_path),
+            "log_path": "runtime/soxl/paper_trading/scheduler_preopen.log",
+            "command_path": _relative_to(root, scheduler),
+        },
+        {
+            "name": "postclose",
+            "enabled": postclose_plist.exists() or (cron_path.exists() and "schedule-slot postclose" in cron_path.read_text(encoding="utf-8")),
+            "schedule": "06:15 Tue-Sat Asia/Shanghai",
+            "source_path": _relative_to(root, postclose_plist if postclose_plist.exists() else cron_path),
+            "log_path": "runtime/soxl/paper_trading/scheduler_postclose.log",
+            "command_path": _relative_to(root, scheduler),
+        },
+    ]
+    return {
+        "configured": any(bool(task["enabled"]) for task in tasks),
+        "timezone": "Asia/Shanghai",
+        "tasks": tasks,
+        "model_replay_freshness": {
+            "generated_at": freshness.get("generated_at"),
+            "latest_data_date": freshness.get("latest_data_date"),
+            "safe_backtest_end": freshness.get("safe_backtest_end"),
+            "counts": freshness.get("counts", {}),
+            "source_path": _relative_to(root, freshness_path),
+        },
+        "status_paths": {
+            "production_goal_gates": _relative_to(root, goal_gates) if goal_gates.exists() else "",
+            "production_status": _relative_to(root, production_status) if production_status.exists() else "",
+        },
+        "remote_deploy_required": False,
     }
 
 
@@ -458,6 +628,7 @@ def build_dashboard_v2_data(
         market_rows or load_ohlc_and_indicators_for_root(root, "SOXL"),
         feature_rows if feature_rows is not None else load_feature_rows(root),
     )
+    market_rows_by_date = {row["date"]: row for row in market_payload_rows}
     ready_profiles = [
         profile
         for profile in freshness["profiles"]
@@ -490,9 +661,10 @@ def build_dashboard_v2_data(
     )
     if baseline not in defaults:
         raise ValueError(f"baseline profile not selected or replayable: {baseline}")
+    profiles_to_write = _dedupe_preserve_order(defaults + sorted(name for name in by_name if name not in defaults))
     model_payloads: dict[str, dict[str, Any]] = {}
     model_paths: dict[str, Path] = {}
-    for profile_name in defaults:
+    for profile_name in profiles_to_write:
         source = by_name[profile_name]
         replay_path = root / str(source["output"])
         rows = normalize_model_rows(
@@ -500,17 +672,25 @@ def build_dashboard_v2_data(
             safe_backtest_end=str(safe_backtest_end) if safe_backtest_end else None,
             window=source.get("window"),
         )
+        feature_metadata = _feature_metadata(profile_name, source)
+        snapshot_columns = _snapshot_columns_for_model(feature_metadata["feature_columns"], market_payload_rows)
         payload = {
             "profile": profile_name,
             "status": source.get("status"),
             "actor": source.get("actor"),
             "profile_yaml": source.get("profile_yaml"),
+            **feature_metadata,
+            "snapshot_columns": snapshot_columns,
             "source_path": _relative_to(root, replay_path),
             "replay_start": rows[0]["date"],
             "replay_end": rows[-1]["date"],
             "row_count": len(rows),
             "rows": rows,
-            "events": derive_model_events(rows),
+            "events": _derive_model_events_with_features(
+                rows,
+                market_rows_by_date=market_rows_by_date,
+                snapshot_columns=snapshot_columns,
+            ),
             "metrics": {"full": compute_metrics(rows)},
         }
         if source.get("window"):
@@ -522,15 +702,16 @@ def build_dashboard_v2_data(
     comparison = build_comparison_payload(
         model_payloads,
         baseline_profile=baseline,
-        compared_profiles=defaults,
+        compared_profiles=profiles_to_write,
     )
     manifest = {
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "latest_market_date": latest_market_date,
         "safe_backtest_end": safe_backtest_end,
-        "available_profiles": sorted(by_name),
+        "available_profiles": profiles_to_write,
         "default_baseline_profile": baseline,
         "default_comparison_profiles": defaults,
+        "auto_update": _auto_update_status(root, freshness, freshness_path),
         "source_paths": {
             "model_replay_freshness": _relative_to(root, freshness_path),
             "market": "data/processed/panels/soxl_soxx_vix_full.csv",

@@ -1,0 +1,16 @@
+{
+  "url": "http://127.0.0.1:8785/dashboard.html",
+  "server_status": "Live inference API connected via dashboard_server.py. Run Model Backtest can use selectable start/end dates for runnable model replays.",
+  "soxlbacktest_option_label": "soxl_backtest_policy_reimplementation_v1 · end 2026-06-09 · rows 109 · Buy/Sell Reference Baseline",
+  "chart_meta": "Built: 2026-06-13 22:14:54\nVersion: soxl_backtest_policy_reimplementation_v1\nZoom: all\nWindow: 2026-01-02 → 2026-06-09\nRows: 109\nBUY: 2\nSELL: 1",
+  "hover_info_date": "2026-03-09",
+  "event_counts": {
+    "hover": 1,
+    "click": 1,
+    "doubleclick": 1,
+    "rowsByDate": 109,
+    "renderEpoch": 8
+  },
+  "screenshot": "runtime/harness/card/dashboard_interaction_baseline_v1/dashboard_soxlbacktest_baseline_verified.png",
+  "non_white_pixel_ratio": 0.43758838383838383
+}

@@ -1,5 +1,6 @@
 import type {
   ActionMarker,
+  ActionFeatureRow,
   ComparisonPayload,
   ComparisonRow,
   InspectorRow,
@@ -134,6 +135,54 @@ export function buildActionMarkers(
         text: showText ? text : '',
       };
     });
+}
+
+function marketRowsByDate(rows: readonly MarketRow[]): Map<string, MarketRow> {
+  return new Map(rows.map((row) => [row.date, row]));
+}
+
+function eventSnapshotFor(model: ModelPayload, date: string): Record<string, string | number | boolean | null> {
+  const event = model.events.find((item) => item.date === date && (item.kind === 'BUY' || item.kind === 'SELL'));
+  return event?.feature_snapshot ?? {};
+}
+
+function snapshotFromMarket(
+  marketRow: MarketRow | undefined,
+  columns: readonly string[],
+): Record<string, string | number | boolean | null> {
+  if (!marketRow) return {};
+  const result: Record<string, string | number | boolean | null> = {};
+  for (const column of columns) {
+    if (marketRow[column] !== undefined) result[column] = marketRow[column];
+  }
+  return result;
+}
+
+export function buildActionFeatureRows(input: {
+  date: string;
+  models: Record<string, ModelPayload>;
+  marketRows: readonly MarketRow[];
+}): ActionFeatureRow[] {
+  const market = marketRowsByDate(input.marketRows);
+  return Object.entries(input.models)
+    .map(([profile, model]) => {
+      const modelRow = model.rows.find((row) => row.date === input.date);
+      if (!modelRow) return null;
+      const eventSnapshot = eventSnapshotFor(model, input.date);
+      const marketSnapshot = snapshotFromMarket(market.get(input.date), model.snapshot_columns);
+      return {
+        profile,
+        display_name: model.display_name || profile,
+        action: modelRow.action,
+        position: modelRow.position,
+        is_trade: modelRow.action === 'BUY' || modelRow.action === 'SELL',
+        source_kind: model.source_kind,
+        feature_packs: model.feature_packs,
+        feature_columns: model.feature_columns,
+        features: Object.keys(eventSnapshot).length ? eventSnapshot : marketSnapshot,
+      };
+    })
+    .filter((row): row is ActionFeatureRow => row !== null);
 }
 
 export function computeVisibleComparison(

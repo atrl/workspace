@@ -1,0 +1,19 @@
+{
+  "canvas_count": 24,
+  "checkbox_count": 13,
+  "has_auto_update_panel": true,
+  "has_reference_baseline": true,
+  "hover_trade_feature_panel": {
+    "actions": [
+      "HOLD",
+      "BUY",
+      "HOLD"
+    ],
+    "panel_excerpt": "Buy/Sell Feature Comparison\n2026-01-02 | 3 selected model rows\nModel\tAction\tPosition\tFeature packs\tSnapshot\tSchema cols\nSOXLBacktest Buy/Sell Baseline\tHOLD\t0.000\tsoxlbacktest_qlib_buysell_reference\topen 45.13 \u00b7 high 48.09 \u00b7 low 45.08 \u00b7 close 47.24 \u00b7 rsi6 77.84 \u00b7 ma180 29.86 \u00b7 hv_20 0.97 \u00b7 vol_coef 1.33 \u00b7 panic_score 115.77 \u00b7 market_state true \u00b7 vix 14.51\t11\nsmoke\tBUY\t0.310\tcore\tclose 47.24 \u00b7 hv_20 0.97 \u00b7 market_state true \u00b7 panic_score 115.77 \u00b7 rsi6 77.84 \u00b7 vix 14.51 \u00b7 vol_coef 1.33\t59\nbalanced_rule_residual_v22\tHOLD\t0.337\tvix_term\tclose 47.24 \u00b7 rsi6 77.84 \u00b7 hv_20 0.97 \u00b7 vol_coef 1.33 \u00b7 vix 14.51 \u00b7 panic_score 115.77 \u00b7 market_state true\t64",
+    "probe_index": 2
+  },
+  "initial_feature_panel_has_schema": true,
+  "non_dark_pixel_ratio": 0.08611418776371307,
+  "screenshot": "runtime/harness/card/dashboard_v2_feature_compare_v1/dashboard_v2_feature_compare_verified.png",
+  "url": "http://127.0.0.1:5174/"
+}

@@ -141,6 +141,13 @@ h2 {
   color: #f9fafb;
 }
 
+h3 {
+  margin: 12px 0 0;
+  font-size: 12px;
+  color: #e5e7eb;
+  letter-spacing: 0;
+}
+
 .chart-title-row span {
   color: #9ca3af;
 }
@@ -290,6 +297,7 @@ h2 {
   text-align: left;
   padding: 8px;
   border-bottom: 1px solid #1f2937;
+  vertical-align: top;
 }
 
 .comparison-table th {
@@ -301,6 +309,29 @@ h2 {
   margin: 10px 0 0;
   padding-left: 18px;
   color: #f59e0b;
+}
+
+.auto-update-block {
+  margin-top: 12px;
+}
+
+.feature-table {
+  min-width: 860px;
+}
+
+.feature-snapshot-cell {
+  max-width: 520px;
+  overflow-wrap: anywhere;
+  color: #d1d5db;
+}
+
+.feature-table tr[data-trade="false"] {
+  color: #9ca3af;
+}
+
+.empty-state {
+  margin: 10px 0 0;
+  color: #9ca3af;
 }
 
 .load-error {

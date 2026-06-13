@@ -11,6 +11,16 @@ export const manifestFixture: Manifest = {
     model_replay_freshness: 'dashboard_data/model_replay_freshness.json',
     market: 'data/processed/panels/soxl_soxx_vix_full.csv',
   },
+  auto_update: {
+    configured: true,
+    timezone: 'Asia/Shanghai',
+    tasks: [{ name: 'postclose', enabled: true, schedule: '06:15 Tue-Sat', source_path: 'production/crontab.txt' }],
+    model_replay_freshness: {
+      generated_at: '2026-06-13T00:00:00+00:00',
+      latest_data_date: '2026-01-06',
+      safe_backtest_end: '2026-01-06',
+    },
+  },
 };
 
 export const marketFixture: MarketPayload = {
@@ -26,6 +36,12 @@ export const modelFixture: ModelPayload = {
   profile: 'smoke',
   status: 'canonical',
   source_path: 'runtime/model/card/smoke/smoke_soxl_daily.csv',
+  source_kind: 'qlib_model',
+  display_name: 'smoke',
+  runnable: true,
+  feature_packs: ['rulebase_signals'],
+  feature_columns: ['rsi_6', 'vix_level', 'RB_BUY_COMPOSITE'],
+  snapshot_columns: ['rsi6', 'vix'],
   replay_start: '2026-01-02',
   replay_end: '2026-01-06',
   row_count: 3,
@@ -35,8 +51,8 @@ export const modelFixture: ModelPayload = {
     { date: '2026-01-06', strategy_nav: 103, buyhold_nav: 108, position: 0.2, action: 'SELL', price: 10.8, excess: -5, excess_pct: 0.03 },
   ],
   events: [
-    { date: '2026-01-05', kind: 'BUY', price: 11, position: 0.7, position_delta: 0.7 },
-    { date: '2026-01-06', kind: 'SELL', price: 10.8, position: 0.2, position_delta: -0.5 },
+    { date: '2026-01-05', kind: 'BUY', price: 11, position: 0.7, position_delta: 0.7, feature_snapshot: { rsi6: 60, vix: 18 } },
+    { date: '2026-01-06', kind: 'SELL', price: 10.8, position: 0.2, position_delta: -0.5, feature_snapshot: { rsi6: 58, vix: 18.5 } },
   ],
 };
 

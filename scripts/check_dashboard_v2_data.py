@@ -58,10 +58,24 @@ def check_dashboard_v2_data(root: Path) -> dict[str, int]:
     profiles = manifest.get("default_comparison_profiles")
     if not isinstance(profiles, list) or not profiles:
         raise ValueError("manifest default_comparison_profiles must be a non-empty list")
+    auto_update = manifest.get("auto_update")
+    if not isinstance(auto_update, dict):
+        raise ValueError("manifest auto_update must be an object")
+    if not isinstance(auto_update.get("tasks"), list):
+        raise ValueError("manifest auto_update tasks must be a list")
     available_profiles = set(manifest.get("available_profiles") or [])
     unknown_defaults = sorted(profile for profile in profiles if profile not in available_profiles)
     if unknown_defaults:
         raise ValueError(f"manifest references unknown profile: {', '.join(unknown_defaults)}")
+    comparison_profiles = comparison.get("compared_profiles")
+    if comparison_profiles is None:
+        comparison_profiles = profiles
+    if not isinstance(comparison_profiles, list) or not comparison_profiles:
+        raise ValueError("comparison compared_profiles must be a non-empty list")
+    unknown_comparison = sorted(profile for profile in comparison_profiles if profile not in available_profiles)
+    if unknown_comparison:
+        raise ValueError(f"comparison references unknown profile: {', '.join(unknown_comparison)}")
+    profiles_to_check = list(dict.fromkeys([*profiles, *comparison_profiles]))
 
     market_rows = _require_rows(market, "market SOXL")
     for row in market_rows:
@@ -70,8 +84,14 @@ def check_dashboard_v2_data(root: Path) -> dict[str, int]:
     _require_unique_dates(market_rows, "market rows")
 
     model_dates_by_profile: dict[str, set[str]] = {}
-    for profile in profiles:
+    for profile in profiles_to_check:
         model = _load(root / "models" / f"{profile}.json")
+        if not isinstance(model.get("feature_columns"), list) or not model["feature_columns"]:
+            raise ValueError(f"model {profile} feature_columns must be a non-empty list")
+        if not isinstance(model.get("feature_packs"), list):
+            raise ValueError(f"model {profile} feature_packs must be a list")
+        if not isinstance(model.get("snapshot_columns"), list):
+            raise ValueError(f"model {profile} snapshot_columns must be a list")
         rows = _require_rows(model, f"model {profile}")
         for row in rows:
             _require_fields(row, REQUIRED_MODEL_FIELDS, f"model {profile} row")
@@ -79,8 +99,14 @@ def check_dashboard_v2_data(root: Path) -> dict[str, int]:
             if row["action"] not in ACTION_VALUES:
                 raise ValueError(f"model {profile} row action must be BUY, SELL, or HOLD")
         _require_unique_dates(rows, f"model {profile} rows")
-        if not isinstance(model.get("events"), list):
+        events = model.get("events")
+        if not isinstance(events, list):
             raise ValueError(f"model {profile} events must be a list")
+        for event in events:
+            if not isinstance(event, dict):
+                raise ValueError(f"model {profile} events must contain JSON objects")
+            if event.get("kind") in {"BUY", "SELL"} and not isinstance(event.get("feature_snapshot"), dict):
+                raise ValueError(f"model {profile} buy/sell event missing feature_snapshot")
         model_dates_by_profile[profile] = {str(row["date"]) for row in rows}
 
     comparison_rows = comparison.get("rows")
@@ -94,13 +120,13 @@ def check_dashboard_v2_data(root: Path) -> dict[str, int]:
         profile_values = row.get("profiles")
         if not isinstance(profile_values, dict):
             raise ValueError("comparison row profiles must be an object")
-        unknown = sorted(profile for profile in profile_values if profile not in profiles)
+        unknown = sorted(profile for profile in profile_values if profile not in comparison_profiles)
         if unknown:
             raise ValueError(f"comparison row references unknown profile: {', '.join(unknown)}")
-        missing = sorted(profile for profile in profiles if profile not in profile_values)
+        missing = sorted(profile for profile in comparison_profiles if profile not in profile_values)
         if missing:
             raise ValueError(f"comparison row missing compared profile: {', '.join(missing)}")
-        for profile in profiles:
+        for profile in comparison_profiles:
             if row["date"] not in model_dates_by_profile[profile]:
                 raise ValueError(f"comparison row date missing from model {profile}: {row['date']}")
 

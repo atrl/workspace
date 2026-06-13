@@ -1,8 +1,22 @@
 {
   "actor": null,
+  "display_name": "SOXLBacktest Buy/Sell Baseline",
   "events": [
     {
       "date": "2026-03-30",
+      "feature_snapshot": {
+        "close": 40.619998931884766,
+        "high": 48.290000915527344,
+        "hv_20": 1.2709399039000244,
+        "low": 39.52000045776367,
+        "ma180": 42.97016663021512,
+        "market_state": false,
+        "open": 47.86000061035156,
+        "panic_score": -150.0,
+        "rsi6": 13.429193077499036,
+        "vix": 30.61000061035156,
+        "vol_coef": 1.7395680006038852
+      },
       "kind": "BUY",
       "position": 0.2998,
       "position_delta": 0.2998,
@@ -10,6 +24,19 @@
     },
     {
       "date": "2026-03-30",
+      "feature_snapshot": {
+        "close": 40.619998931884766,
+        "high": 48.290000915527344,
+        "hv_20": 1.2709399039000244,
+        "low": 39.52000045776367,
+        "ma180": 42.97016663021512,
+        "market_state": false,
+        "open": 47.86000061035156,
+        "panic_score": -150.0,
+        "rsi6": 13.429193077499036,
+        "vix": 30.61000061035156,
+        "vol_coef": 1.7395680006038852
+      },
       "kind": "POSITION_INCREASE",
       "position": 0.2998,
       "position_delta": 0.2998,
@@ -17,6 +44,19 @@
     },
     {
       "date": "2026-04-28",
+      "feature_snapshot": {
+        "close": 109.55999755859376,
+        "high": 115.62000274658205,
+        "hv_20": 1.0401389762372208,
+        "low": 103.98999786376952,
+        "ma180": 49.4571110496521,
+        "market_state": true,
+        "open": 108.75,
+        "panic_score": 49.48780548427075,
+        "rsi6": 45.33910231991523,
+        "vix": 17.829999923706055,
+        "vol_coef": 1.423664859125775
+      },
       "kind": "POSITION_INCREASE",
       "position": 0.5359,
       "position_delta": 0.23610000000000003,
@@ -24,6 +64,19 @@
     },
     {
       "date": "2026-05-27",
+      "feature_snapshot": {
+        "close": 217.97999572753903,
+        "high": 242.66000366210935,
+        "hv_20": 1.3986644842511553,
+        "low": 204.0,
+        "ma180": 64.95538872867161,
+        "market_state": true,
+        "open": 242.66000366210935,
+        "panic_score": 99.61550879492006,
+        "rsi6": 76.67290107281255,
+        "vix": 16.290000915527344,
+        "vol_coef": 1.914387905296141
+      },
       "kind": "SELL",
       "position": 0.0699,
       "position_delta": -0.466,
@@ -31,6 +84,19 @@
     },
     {
       "date": "2026-05-27",
+      "feature_snapshot": {
+        "close": 217.97999572753903,
+        "high": 242.66000366210935,
+        "hv_20": 1.3986644842511553,
+        "low": 204.0,
+        "ma180": 64.95538872867161,
+        "market_state": true,
+        "open": 242.66000366210935,
+        "panic_score": 99.61550879492006,
+        "rsi6": 76.67290107281255,
+        "vix": 16.290000915527344,
+        "vol_coef": 1.914387905296141
+      },
       "kind": "POSITION_DECREASE",
       "position": 0.0699,
       "position_delta": -0.466,
@@ -38,12 +104,42 @@
     },
     {
       "date": "2026-06-05",
+      "feature_snapshot": {
+        "close": 182.5399932861328,
+        "high": 233.69000244140625,
+        "hv_20": 1.9317915561829286,
+        "low": 181.80999755859375,
+        "ma180": 73.08261107593113,
+        "market_state": true,
+        "open": 230.8500061035156,
+        "panic_score": -75.30358168781801,
+        "rsi6": 22.299945052070825,
+        "vix": 21.510000228881836,
+        "vol_coef": 2.0
+      },
       "kind": "BUY",
       "position": 0.1591,
       "position_delta": 0.08919999999999999,
       "price": 182.54
     }
   ],
+  "feature_columns": [
+    "open",
+    "high",
+    "low",
+    "close",
+    "rsi6",
+    "ma180",
+    "hv_20",
+    "vol_coef",
+    "panic_score",
+    "market_state",
+    "vix"
+  ],
+  "feature_packs": [
+    "soxlbacktest_qlib_buysell_reference"
+  ],
+  "feature_schema_signature": "8676dad3b068",
   "metrics": {
     "full": {
       "avg_position": 0.1622073394495413,
@@ -1151,6 +1247,22 @@
       "strategy_nav": 232077.97795135496
     }
   ],
+  "runnable": false,
+  "runnable_reason": "reference_baseline",
+  "snapshot_columns": [
+    "open",
+    "high",
+    "low",
+    "close",
+    "rsi6",
+    "ma180",
+    "hv_20",
+    "vol_coef",
+    "panic_score",
+    "market_state",
+    "vix"
+  ],
+  "source_kind": "soxlbacktest_qlib_buysell",
   "source_path": "runtime/production/card/soxl_backtest_policy_reimplementation_v1/new_policy_daily.csv",
   "status": "reference",
   "window": "ytd_2026"

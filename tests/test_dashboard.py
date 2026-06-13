@@ -1002,6 +1002,23 @@ def test_build_html_binds_plotly_interactions_once_per_chart_node():
     assert "Plotly.react('plotlyChart', traces, layout" in html
 
 
+def test_build_html_ignores_stale_plotly_render_promises():
+    html = build_html({"detailed": {}, "versioned": {}, "model_versions": []}, {"all": {}})
+
+    assert "let chartRenderEpoch = 0;" in html
+    assert "const renderEpoch = ++chartRenderEpoch;" in html
+    assert "if (renderEpoch !== chartRenderEpoch) return;" in html
+    assert "gd.__dashboardRenderEpoch = renderEpoch;" in html
+
+
+def test_build_html_labels_reference_baselines_as_buy_sell_baselines():
+    html = build_html({"detailed": {}, "versioned": {}, "model_versions": []}, {"all": {}})
+
+    assert "function sourceKindLabel(source, summary)" in html
+    assert "Buy/Sell Reference Baseline" in html
+    assert "summary.meta && summary.meta.baseline_kind === 'soxlbacktest_qlib_buysell'" in html
+
+
 def test_build_html_fetches_version_detail_when_only_index_stub_exists():
     html = build_html({"detailed": {}, "versioned": {}, "model_versions": []}, {"all": {}})
 
@@ -1009,6 +1026,14 @@ def test_build_html_fetches_version_detail_when_only_index_stub_exists():
     assert "if (state.version && !hasVersionDetail(state.version, state.etf))" in html
     assert "if (!version || hasVersionDetail(version, etf)) return;" in html
     assert "if (!hasVersionDetail(state.version, state.etf))" in html
+
+
+def test_build_html_does_not_fallback_to_current_rows_for_unloaded_version():
+    html = build_html({"detailed": {}, "versioned": {}, "model_versions": []}, {"all": {}})
+
+    assert "function pendingVersionDetail(version)" in html
+    assert "const isInlineLatest = state.version === DATA.latest_version" in html
+    assert "if (!isInlineLatest) return pendingVersionDetail(state.version);" in html
 
 
 def test_soxlbacktest_reference_version_exports_buy_sell_baseline():
@@ -1020,9 +1045,13 @@ def test_soxlbacktest_reference_version_exports_buy_sell_baseline():
     actions = {row["action"] for row in rows}
 
     assert payload["_meta"]["source_kind"] == "reference_baseline"
+    assert payload["_meta"]["baseline_kind"] == "soxlbacktest_qlib_buysell"
     assert payload["windows"]["SOXL"] == {"start": "2026-01-02", "end": "2026-06-09", "rows": 109}
     assert detail["summary"]["source_profile"] == "soxl_backtest_policy_reimplementation_v1"
     assert detail["summary"]["window"] == "ytd_2026"
+    assert detail["meta"]["baseline_kind"] == "soxlbacktest_qlib_buysell"
+    assert detail["meta"]["runnable"] is False
+    assert detail["meta"]["runnable_reason"] == "reference_baseline"
     assert "BUY" in actions
     assert "SELL" in actions
     assert "TAKE_PROFIT" not in actions

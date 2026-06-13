@@ -132,11 +132,18 @@ def test_build_dashboard_v2_data_writes_manifest_market_model_and_comparison(tmp
 
     assert manifest["safe_backtest_end"] == "2026-01-06"
     assert manifest["default_baseline_profile"] == "smoke"
+    assert manifest["auto_update"]["timezone"] == "Asia/Shanghai"
+    assert manifest["auto_update"]["model_replay_freshness"]["safe_backtest_end"] == "2026-01-06"
     assert market["rows"][1]["vix"] == 18.0
+    assert model["feature_packs"] == []
+    assert "rsi_6" in model["feature_columns"]
+    assert "rsi6" in model["snapshot_columns"]
     assert model["rows"][1]["action"] == "BUY"
     assert model["metrics"]["full"]["buyhold_return"] == pytest.approx(0.08)
     assert model["metrics"]["full"]["excess_return"] == pytest.approx(-0.05)
     assert model["events"][0]["kind"] == "BUY"
+    assert model["events"][0]["feature_snapshot"]["rsi6"] == 60.0
+    assert model["events"][0]["feature_snapshot"]["vix"] == 18.0
     assert comparison["common_start"] == "2026-01-02"
     assert comparison["rankings"][0]["buyhold_return"] == pytest.approx(0.08)
     assert comparison["rows"][2]["profiles"]["smoke"]["buyhold_return"] == pytest.approx(0.08)
@@ -339,8 +346,14 @@ def test_build_dashboard_v2_data_adds_soxl_backtest_reference_baseline(tmp_path:
     assert manifest["default_baseline_profile"] == reference_name
     assert manifest["default_comparison_profiles"] == [reference_name, "smoke"]
     assert reference["source_path"] == "runtime/production/card/soxl_backtest_policy_reimplementation_v1/new_policy_daily.csv"
+    assert reference["source_kind"] == "soxlbacktest_qlib_buysell"
+    assert reference["display_name"] == "SOXLBacktest Buy/Sell Baseline"
+    assert reference["runnable"] is False
+    assert reference["feature_packs"] == ["soxlbacktest_qlib_buysell_reference"]
+    assert "panic_score" in reference["feature_columns"]
     assert reference["rows"][-1]["action"] == "SELL"
     assert [event["kind"] for event in reference["events"] if event["kind"] in {"BUY", "SELL"}] == ["BUY", "SELL"]
+    assert "feature_snapshot" in reference["events"][0]
     assert comparison["baseline_profile"] == reference_name
     assert comparison["common_start"] == "2026-01-02"
     assert comparison["common_end"] == "2026-05-27"

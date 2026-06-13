@@ -1080,6 +1080,8 @@ def _load_soxlbacktest_reference_version(features: dict[str, dict[str, float]] |
                 "updated_at": SOXL_BACKTEST_REFERENCE_DAILY.stat().st_mtime,
                 "source": relative_source,
                 "source_kind": "reference_baseline",
+                "baseline_kind": "soxlbacktest_qlib_buysell",
+                "display_name": "SOXLBacktest Buy/Sell Baseline",
                 "shared_market_data": True,
             },
             "detailed": {
@@ -1088,8 +1090,12 @@ def _load_soxlbacktest_reference_version(features: dict[str, dict[str, float]] |
                     "csv_path": relative_source,
                     "meta": {
                         "source_kind": "reference_baseline",
+                        "baseline_kind": "soxlbacktest_qlib_buysell",
+                        "display_name": "SOXLBacktest Buy/Sell Baseline",
                         "profile": SOXL_BACKTEST_REFERENCE_PROFILE,
                         "window": SOXL_BACKTEST_REFERENCE_WINDOW,
+                        "runnable": False,
+                        "runnable_reason": "reference_baseline",
                     },
                     "rows": compact_payload_rows(rows),
                     "regime_shapes": regime_shapes,
@@ -2783,6 +2789,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     const hydratedVersionCache = {{}};
     let indexVersionSummaries = {{}};
     let modelReplayProfiles = [];
+    let chartRenderEpoch = 0;
     const runProfileWindows = DATA.run_windows || {{}};
     const baseRowLookup = Object.fromEntries(
       ETFS.map(etf => [
@@ -2878,6 +2885,25 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       return Boolean(payload && payload.detailed && payload.detailed[etf]);
     }}
 
+    function pendingVersionDetail(version) {{
+      return {{
+        rows: [],
+        summary: {{
+          etf: state.etf,
+          strategy_return: null,
+          buyhold_return: null,
+          excess_return: null,
+          trades: 0,
+          buy_count: 0,
+          sell_count: 0,
+        }},
+        trades: [],
+        kelly: {{}},
+        regime_shapes: [],
+        pending_version: version,
+      }};
+    }}
+
     function getSegmentKey(etf, version, start, end) {{
       return `${{etf}}::${{version || 'current'}}::${{start}}::${{end}}`;
     }}
@@ -2892,6 +2918,8 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
         if (versionDetail) {{
           return hydrateVersionDetail(etf, state.version, versionDetail);
         }}
+        const isInlineLatest = state.version === DATA.latest_version && DATA.detailed && DATA.detailed[etf];
+        if (!isInlineLatest) return pendingVersionDetail(state.version);
       }}
       return DATA.detailed[etf] || {{ rows: [], summary: {{}}, trades: [], kelly: {{}}, regime_shapes: [] }};
     }}
@@ -3959,7 +3987,18 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       const end = firstWindow.end || 'no-date';
       const rows = firstWindow.rows != null ? firstWindow.rows : 'n/a';
       const source = (summary && summary.meta && summary.meta.source_kind) || 'unknown';
-      return `${{version}} · end ${{end}} · rows ${{rows}} · ${{source}}`;
+      return `${{version}} · end ${{end}} · rows ${{rows}} · ${{sourceKindLabel(source, summary)}}`;
+    }}
+
+    function sourceKindLabel(source, summary) {{
+      if (source === 'reference_baseline' && summary.meta && summary.meta.baseline_kind === 'soxlbacktest_qlib_buysell') {{
+        return 'Buy/Sell Reference Baseline';
+      }}
+      if (source === 'reference_baseline') return 'Reference Baseline';
+      if (source === 'paper_trading') return 'Paper Trading';
+      if (source === 'retained_dashboard_export') return 'Retained Replay';
+      if (source === 'interactive_backtest') return 'Interactive Backtest';
+      return source || 'unknown';
     }}
 
     async function loadIndex() {{
@@ -4350,6 +4389,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     }}
 
     function renderChart() {{
+      const renderEpoch = ++chartRenderEpoch;
       const allRows = getDetailed(state.etf).rows;
       const rows = getFilteredRows(allRows);
       const layout = JSON.parse(JSON.stringify(PLOTLY_LAYOUTS[state.view || 'all']));
@@ -4570,6 +4610,8 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
         modeBarButtonsToRemove: ['lasso2d', 'select2d'],
         displaylogo: false,
       }}).then(gd => {{
+        if (renderEpoch !== chartRenderEpoch) return;
+        gd.__dashboardRenderEpoch = renderEpoch;
         gd.__dashboardRowsByDate = new Map(rows.map(r => [r.datetime, r]));
         gd.__dashboardTradeMap = tradeMap;
         bindPlotlyChartInteractions(gd);

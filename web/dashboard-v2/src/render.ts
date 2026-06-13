@@ -1,5 +1,5 @@
-import { computeVisibleComparison } from './domain';
-import type { ComparisonPayload, InspectorRow, Manifest } from './types';
+import { buildActionFeatureRows, computeVisibleComparison } from './domain';
+import type { ComparisonPayload, FeatureValue, InspectorRow, Manifest, MarketRow, ModelPayload } from './types';
 
 function element<K extends keyof HTMLElementTagNameMap>(
   tag: K,
@@ -31,6 +31,31 @@ export function renderDataSourcePanel(container: HTMLElement, manifest: Manifest
     grid.appendChild(item);
   }
   container.appendChild(grid);
+  const auto = manifest.auto_update;
+  if (auto) {
+    const autoSection = element('section', 'auto-update-block');
+    autoSection.appendChild(element('h3', undefined, 'Auto Update'));
+    const taskList = element('div', 'source-grid');
+    const autoRows: [string, string][] = [
+      ['configured', auto.configured ? 'yes' : 'no'],
+      ['timezone', auto.timezone],
+      ['freshness safe end', auto.model_replay_freshness?.safe_backtest_end ?? 'n/a'],
+      ['freshness source', auto.model_replay_freshness?.source_path ?? 'n/a'],
+      ['remote deploy required', auto.remote_deploy_required ? 'yes' : 'no'],
+      ...auto.tasks.map((task) => [
+        task.name,
+        `${task.enabled ? 'enabled' : 'disabled'}${task.schedule ? ` · ${task.schedule}` : ''}`,
+      ] as [string, string]),
+    ];
+    for (const [label, value] of autoRows) {
+      const item = element('div', 'source-row');
+      item.appendChild(element('span', 'source-label', label));
+      item.appendChild(element('span', 'source-value', value));
+      taskList.appendChild(item);
+    }
+    autoSection.appendChild(taskList);
+    container.appendChild(autoSection);
+  }
   if (warnings.length) {
     const warningList = element('ul', 'warning-list');
     for (const warning of warnings) {
@@ -67,6 +92,7 @@ export function renderComparisonPanel(
   comparison: ComparisonPayload,
   start: string,
   end: string,
+  selectedProfiles: readonly string[] = comparison.compared_profiles,
 ): void {
   container.replaceChildren();
   container.appendChild(element('h2', undefined, 'Model Difference'));
@@ -89,7 +115,7 @@ export function renderComparisonPanel(
 
   const tbody = element('tbody');
   const last = visible[visible.length - 1];
-  for (const profile of comparison.compared_profiles) {
+  for (const profile of selectedProfiles) {
     const profileRows = visible.filter((row) => row.profiles[profile]);
     const mismatchCount = profileRows.filter((row) => row.profiles[profile].action_mismatch).length;
     const values = last?.profiles[profile];
@@ -100,6 +126,58 @@ export function renderComparisonPanel(
     tr.appendChild(element('td', undefined, values ? `${(values.return_delta_vs_buyhold * 100).toFixed(2)}pp` : 'n/a'));
     tr.appendChild(element('td', undefined, values ? values.position_delta_vs_baseline.toFixed(3) : 'n/a'));
     tr.appendChild(element('td', undefined, String(mismatchCount)));
+    tbody.appendChild(tr);
+  }
+  table.appendChild(tbody);
+  const tableScroll = element('div', 'table-scroll');
+  tableScroll.appendChild(table);
+  container.appendChild(tableScroll);
+}
+
+function formatFeatureValue(value: FeatureValue): string {
+  if (typeof value === 'number' && Number.isFinite(value)) return value.toFixed(2);
+  if (typeof value === 'boolean') return value ? 'true' : 'false';
+  return value === null || value === undefined ? 'n/a' : String(value);
+}
+
+function renderFeatureList(features: Record<string, FeatureValue>): string {
+  const entries = Object.entries(features);
+  if (!entries.length) return 'n/a';
+  return entries.map(([key, value]) => `${key} ${formatFeatureValue(value)}`).join(' · ');
+}
+
+export function renderFeatureComparisonPanel(
+  container: HTMLElement,
+  input: { date: string; marketRows: readonly MarketRow[]; models: Record<string, ModelPayload> },
+): void {
+  container.replaceChildren();
+  container.appendChild(element('h2', undefined, 'Buy/Sell Feature Comparison'));
+  const rows = buildActionFeatureRows(input);
+  container.appendChild(element('div', 'comparison-summary', `${input.date} | ${rows.length} selected model rows`));
+  if (!rows.length) {
+    container.appendChild(element('p', 'empty-state', 'No model rows for selected date.'));
+    return;
+  }
+
+  const table = element('table', 'comparison-table feature-table');
+  const thead = element('thead');
+  const headerRow = element('tr');
+  for (const title of ['Model', 'Action', 'Position', 'Feature packs', 'Snapshot', 'Schema cols']) {
+    headerRow.appendChild(element('th', undefined, title));
+  }
+  thead.appendChild(headerRow);
+  table.appendChild(thead);
+
+  const tbody = element('tbody');
+  for (const row of rows) {
+    const tr = element('tr');
+    tr.dataset.trade = row.is_trade ? 'true' : 'false';
+    tr.appendChild(element('td', undefined, row.display_name));
+    tr.appendChild(element('td', undefined, row.action));
+    tr.appendChild(element('td', undefined, row.position.toFixed(3)));
+    tr.appendChild(element('td', undefined, row.feature_packs.length ? row.feature_packs.join(', ') : 'core'));
+    tr.appendChild(element('td', 'feature-snapshot-cell', renderFeatureList(row.features)));
+    tr.appendChild(element('td', undefined, String(row.feature_columns.length)));
     tbody.appendChild(tr);
   }
   table.appendChild(tbody);

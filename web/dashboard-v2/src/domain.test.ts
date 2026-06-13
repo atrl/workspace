@@ -1,6 +1,7 @@
 import { describe, expect, test } from 'vitest';
 import {
   buildActionMarkers,
+  buildActionFeatureRows,
   buildInspectorLookup,
   clampComparisonProfiles,
   clipRowsByDate,
@@ -39,6 +40,23 @@ describe('dashboard v2 domain helpers', () => {
   test('computes visible comparison deltas against baseline', () => {
     const rows = computeVisibleComparison(comparisonFixture, '2026-01-02', '2026-01-06');
     expect(rows[1].profiles.smoke.nav_delta_vs_baseline).toBe(5);
+  });
+
+  test('builds per-model buy sell feature rows for selected date', () => {
+    const rows = buildActionFeatureRows({
+      date: '2026-01-05',
+      models: { smoke: modelFixture },
+      marketRows: marketFixture.rows,
+    });
+
+    expect(rows).toHaveLength(1);
+    expect(rows[0]).toMatchObject({
+      profile: 'smoke',
+      action: 'BUY',
+      feature_packs: ['rulebase_signals'],
+    });
+    expect(rows[0].features.rsi6).toBe(60);
+    expect(rows[0].features.vix).toBe(18);
   });
 
   test('clips rows to selected date inputs', () => {

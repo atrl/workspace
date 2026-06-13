@@ -123,6 +123,10 @@ must be bound once per chart DOM node and read fresh rows from node-owned state.
 Do not close over per-render `rows` in repeatedly registered handlers; hover
 lookups should use a date map instead of scanning the row array on every mouse
 move.
+Also guard asynchronous `Plotly.react(...).then(...)` callbacks with a render
+epoch. Rapid range/version/zoom changes can let an older render promise finish
+after a newer one; stale callbacks must not replace the chart node's row/date
+map or trade map.
 
 Dashboard v2 uses `lightweight-charts` under `web/dashboard-v2/`. When changing
 its chart interactions, keep lifecycle and synchronization explicit: call
@@ -132,12 +136,29 @@ Position/NAV charts so mouse wheel zoom and drag pan preserve one shared time
 context. Cover these behaviors in `web/dashboard-v2/src/chart.test.ts` before
 editing production code.
 
+Dashboard v2 model payloads must expose the model feature surface, not only the
+replay curve. Each `dashboard_data/v2/models/<profile>.json` should include
+`source_kind`, `display_name`, `runnable`, `feature_packs`, `feature_columns`,
+`snapshot_columns`, and BUY/SELL `events[].feature_snapshot`. The front-end
+should render a Buy/Sell Feature Comparison panel for the hovered date so
+reference buy/sell baselines and qlib models can be compared by action,
+position, feature packs, schema size, and available feature values.
+
+Dashboard v2 `manifest.json` should also expose local auto-update state under
+`auto_update`: timezone, preopen/postclose task status, scheduler command/log
+paths, replay freshness, and local status files. Do not make Vercel a required
+dashboard health dependency; local scheduler and `model_replay_freshness.json`
+are the source of truth for automatic refresh visibility.
+
 Version-selector rows from `dashboard_data/index.json` are only summaries. If
 `DATA.versioned[version]` exists but lacks `detailed[ETF]`, the frontend must
-still fetch `dashboard_data/versioned/<version>/<ETF>.json`; otherwise the Main
-Chart silently falls back to the current ETF rows and shows a wrong window.
+still fetch `dashboard_data/versioned/<version>/<ETF>.json` and should show a
+pending/empty detail instead of falling back to current ETF rows; otherwise the
+Main Chart silently shows a wrong window while the version label says otherwise.
 The converted `soxl_backtest_policy_reimplementation_v1` buy/sell path is a
-`reference_baseline` dashboard version, not a runnable inference profile.
+`reference_baseline` dashboard version, not a runnable inference profile. Label
+it as a buy/sell reference baseline in the version selector so it is not
+confused with a runnable model.
 
 If the dashboard opens on an older run after fresh training, check:
 - whether the latest `*_soxl_daily.csv` was written

@@ -13,7 +13,13 @@ import {
   type KeyboardRangeAction,
 } from './domain';
 import { loadDashboardData, type DashboardData } from './data';
-import { renderActionLegend, renderComparisonPanel, renderDataSourcePanel, renderInspectorPanel } from './render';
+import {
+  renderActionLegend,
+  renderComparisonPanel,
+  renderDataSourcePanel,
+  renderFeatureComparisonPanel,
+  renderInspectorPanel,
+} from './render';
 import type { ModelPayload } from './types';
 import { viewUpdateRequiresChartRender } from './viewState';
 
@@ -56,6 +62,7 @@ function createShell(app: HTMLElement): void {
       <aside id="inspector" class="side-panel"></aside>
     </main>
     <section id="comparison-panel" class="panel"></section>
+    <section id="feature-panel" class="panel"></section>
     <section id="source-panel" class="panel"></section>
   `;
 }
@@ -98,7 +105,7 @@ function renderToolbar(
   const profileGroup = document.createElement('div');
   profileGroup.className = 'toolbar-group profile-group';
   profileGroup.append('Models');
-  for (const profile of data.manifest.default_comparison_profiles) {
+  for (const profile of data.manifest.available_profiles) {
     const label = document.createElement('label');
     label.className = 'check-label';
     const input = document.createElement('input');
@@ -108,7 +115,7 @@ function renderToolbar(
       const raw = input.checked
         ? [...state.selectedProfiles, profile]
         : state.selectedProfiles.filter((item) => item !== profile);
-      update({ selectedProfiles: clampComparisonProfiles(raw, data.manifest.default_comparison_profiles) });
+      update({ selectedProfiles: clampComparisonProfiles(raw, data.manifest.available_profiles) });
     });
     label.append(input, document.createTextNode(profile));
     profileGroup.appendChild(label);
@@ -182,6 +189,7 @@ function buildCurrentInspectorLookup(data: DashboardData, state: ViewState): Ins
 
 function renderInspector(data: DashboardData, state: ViewState, lookup: InspectorLookup): void {
   const inspector = requireElement('inspector');
+  const featurePanel = requireElement('feature-panel');
   renderInspectorPanel(
     inspector,
     computeInspectorRowsFromLookup({
@@ -190,6 +198,11 @@ function renderInspector(data: DashboardData, state: ViewState, lookup: Inspecto
       lookup,
     }),
   );
+  renderFeatureComparisonPanel(featurePanel, {
+    date: state.hoveredDate,
+    marketRows: data.market.rows,
+    models: selectedModels(data, state.selectedProfiles),
+  });
 }
 
 function renderDashboard(
@@ -214,7 +227,7 @@ function renderDashboard(
   const navHandles = renderNavChart(navChart, models, state.baselineProfile);
   syncVisibleLogicalRange(marketHandles.chart, [positionHandles.chart, navHandles]);
   renderInspector(data, state, inspectorLookup);
-  renderComparisonPanel(comparison, data.comparison, state.start, state.end);
+  renderComparisonPanel(comparison, data.comparison, state.start, state.end, state.selectedProfiles);
   renderDataSourcePanel(source, data.manifest, warningsFor(data, state));
   return inspectorLookup;
 }
@@ -243,7 +256,7 @@ async function main(): Promise<void> {
     const state: ViewState = {
       selectedProfiles: clampComparisonProfiles(
         data.manifest.default_comparison_profiles,
-        data.manifest.default_comparison_profiles,
+        data.manifest.available_profiles,
       ),
       baselineProfile: data.manifest.default_baseline_profile,
       start: common?.start ?? data.comparison.common_start,
