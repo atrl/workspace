@@ -16,15 +16,13 @@
     "feature_schema_signature": "2f64801809a1",
     "name": "state_conditioned_multi_objective_ytd_gate_v1"
   },
-  "created_at": "2026-06-13T14:50:21.070060+00:00",
-  "decision": "candidate_profile_ready_for_smoke_training_no_promotion",
+  "created_at": "2026-06-13T15:47:51.169531+00:00",
+  "decision": "full_training_low_drawdown_underparticipation_no_actor_retention",
   "experiment": "state_conditioned_multi_objective_ytd_gate_v1",
   "next_required_artifacts": [
-    "profile.yaml registered in runtime/harness/card/registry/profile.yaml before a retained actor is kept",
-    "official replay metrics for wf_2020, wf_2022, wf_2023_2024",
-    "dashboard/YTD replay through safe_backtest_end",
-    "checkpoint selector table with retention_ytd_loss and wf_drawdown_loss",
-    "drawdown interval audit for any selected checkpoint"
+    "new or revised objective that lifts YTD participation without losing <20pct drawdown evidence",
+    "official wf_2020/wf_2022/wf_2023_2024 metrics for any successor candidate",
+    "dashboard/YTD replay through safe_backtest_end for any successor candidate"
   ],
   "profile_preflight": "runtime/model_selection/card/state_conditioned_multi_objective_ytd_gate_v1/profile_preflight.json",
   "profile_yaml": "runtime/model_selection/card/state_conditioned_multi_objective_ytd_gate_v1/profile.yaml",
@@ -43,5 +41,97 @@
     "soxlbacktest_reference_ytd_return_pct": 132.077978,
     "wf_max_drawdown_hard_gate_pct": 20.0
   },
-  "training_allowed_next": true
+  "training_allowed_next": false,
+  "latest_training_evidence": {
+    "updated_at": "2026-06-13T15:47:51+00:00",
+    "decision": "full_training_low_drawdown_underparticipation_no_actor_retention",
+    "export_replay_fix": {
+      "script": "scripts/export_profile_daily_backtest.py",
+      "behavior": "build_dataset(feature_packs=profile.feature.packs, profile_name=profile.name) and pass feature_columns/mode_router_config to backtest_profile",
+      "regression_test": "tests/test_artifact_paths.py::test_export_profile_daily_backtest_uses_profile_specific_feature_packs"
+    },
+    "smoke_training": {
+      "exit_code": 0,
+      "feature_count": 79,
+      "valid_return_pct": 19.249673389962794,
+      "valid_sharpe": 1.0442795056470329,
+      "valid_max_dd_pct": 16.1256678708669,
+      "test_proxy_return_pct": 445.9026548861792,
+      "test_proxy_sharpe": 1.0398150049554507,
+      "test_proxy_max_dd_pct": 37.48769144071225,
+      "test_2022_max_dd_pct": 35.16293192654828,
+      "promotion": "blocked_fixed_split_drawdown",
+      "explicit_replay_ytd_return_pct": 67.20440245729888,
+      "explicit_replay_ytd_max_dd_pct": 13.21597504652031
+    },
+    "full_training": {
+      "exit_code": 0,
+      "feature_count": 79,
+      "episodes": 154,
+      "selection_winner_iter": 0,
+      "valid_return_pct": 5.7928704148944465,
+      "valid_sharpe": 0.5144474514827932,
+      "valid_max_dd_pct": 13.309654079740898,
+      "test_proxy_return_pct": 188.13510663063994,
+      "test_proxy_sharpe": 1.0679053039575948,
+      "test_proxy_max_dd_pct": 16.563316750310896,
+      "test_proxy_relative_return_pp": -2387.368414916369,
+      "test_2020": {
+        "return_pct": 26.040639622431417,
+        "max_dd_pct": 16.22290216880506,
+        "relative_return_pp": -329.69552010272724
+      },
+      "test_2022": {
+        "return_pct": -11.877414582653056,
+        "max_dd_pct": 14.078273680027062,
+        "relative_return_pp": 73.31970192520201
+      },
+      "test_2023_2024": {
+        "return_pct": 23.48713830351126,
+        "max_dd_pct": 10.904924929821144,
+        "relative_return_pp": -32.16733540518679
+      },
+      "fixed_split_gate": "passed",
+      "promotion": "blocked_missing_walk_forward_and_ytd_underparticipation"
+    },
+    "explicit_full_selected_replay": {
+      "rows": 1619,
+      "start": "2020-01-02",
+      "end": "2026-06-11",
+      "return_pct": 126.14093558897008,
+      "buyhold_return_pct": 1050.7911909972836,
+      "relative_return_pp": -924.6502554083136,
+      "max_dd_pct": 18.528988813487622,
+      "avg_pos": 0.121072870302098,
+      "trades": 160
+    },
+    "explicit_ytd_2026_replay": {
+      "rows": 111,
+      "start": "2026-01-02",
+      "end": "2026-06-11",
+      "return_pct": 18.966005478709192,
+      "buyhold_return_pct": 374.15325473043845,
+      "relative_return_pp": -355.18724925172927,
+      "max_dd_pct": 6.573022638581703,
+      "avg_pos": 0.04855675811762275,
+      "trades": 14
+    },
+    "target_thresholds": {
+      "wf_max_drawdown_hard_gate_pct": 20.0,
+      "soxlbacktest_reference_ytd_return_pct": 132.077978,
+      "required_current_best_alignment_ytd_pct": 213.143462
+    },
+    "gate_result": {
+      "fixed_split_gate": true,
+      "full_replay_maxdd_gate": true,
+      "ytd_maxdd_gate": true,
+      "ytd_soxlbacktest_return_gate": false,
+      "ytd_current_best_alignment_gate": false,
+      "walk_forward_gate": false
+    },
+    "actor_retention_allowed": false,
+    "promotion_allowed": false,
+    "cleanup": "generated actor/checkpoint/daily CSV artifacts are not retained; rerun notebook commands to reproduce",
+    "next_mechanism": "revise trend/YTD participation objective before another PPO branch; this profile solved drawdown by staying too flat"
+  }
 }

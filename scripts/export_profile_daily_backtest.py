@@ -14,7 +14,7 @@ sys.path.insert(0, str(ROOT))
 
 from src.soxl_quant.backtest import backtest_profile
 from src.soxl_quant.app.dashboard import write_review_daily_csv
-from src.soxl_quant.data import build_dataset, init_qlib, segment_frame
+from src.soxl_quant.data import build_dataset, feature_columns_for_packs, init_qlib, segment_frame
 from src.soxl_quant.policy.policy_builder import build_policy
 from src.soxl_quant.settings import MODEL_DIR, QLIB_DATA_PATH, TEST_SEG, load_profile, model_artifact_path
 
@@ -60,24 +60,41 @@ def resolve_model_path(
     raise FileNotFoundError(f"actor checkpoint not found for profile={profile_name} tag={tag!r}: {primary}")
 
 
+def load_profile_backtest_inputs(profile) -> dict[str, object]:
+    feature_packs = tuple(profile.feature.packs)
+    dataset = build_dataset(feature_packs=feature_packs, profile_name=profile.name)
+    test_df = segment_frame(dataset, "test")
+    price = None
+    price_frame = getattr(dataset.handler, "price_frame", None)
+    if price_frame is not None:
+        price = price_frame.droplevel("instrument")["price"].loc[test_df.index]
+    return {
+        "dataset": dataset,
+        "test_df": test_df,
+        "price": price,
+        "feature_columns": feature_columns_for_packs(feature_packs, profile.name),
+    }
+
+
 def main() -> None:
     args = parse_args()
     output = Path(args.output)
     output.parent.mkdir(parents=True, exist_ok=True)
 
     init_qlib(QLIB_DATA_PATH)
-    dataset = build_dataset()
-    test_df = segment_frame(dataset, "test")
+    profile = load_profile(args.profile)
+    inputs = load_profile_backtest_inputs(profile)
+    test_df = inputs["test_df"]
+    price = inputs["price"]
+    feature_columns = inputs["feature_columns"]
 
     if args.test_start and args.test_end:
         test_df = test_df.loc[args.test_start:args.test_end]
+        price = price.loc[test_df.index]
         test_seg = (args.test_start, args.test_end)
     else:
         test_seg = TEST_SEG
 
-    price = dataset.handler.price_frame.droplevel("instrument")["price"].loc[test_df.index]
-
-    profile = load_profile(args.profile)
     model_path = resolve_model_path(args.profile, args.tag, explicit_model=args.model)
     ckpt = torch.load(model_path, map_location="cpu", weights_only=False)
     _, actor = build_policy(
@@ -99,6 +116,8 @@ def main() -> None:
         symbol="SOXL",
         test_seg=test_seg,
         model_config=profile.model,
+        mode_router_config=profile.mode_router,
+        feature_columns=feature_columns,
     )
     write_review_daily_csv(
         output,
