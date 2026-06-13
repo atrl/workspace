@@ -13,6 +13,30 @@ def _write_json(path: Path, payload: dict[str, object]) -> None:
     path.write_text(json.dumps(payload), encoding="utf-8")
 
 
+def _model_contract(**overrides: object) -> dict[str, object]:
+    payload: dict[str, object] = {
+        "profile": "smoke",
+        "source_kind": "qlib_model",
+        "display_name": "smoke",
+        "runnable": True,
+        "feature_columns": [],
+        "snapshot_columns": [],
+        "rows": [
+            {
+                "date": "2026-01-06",
+                "strategy_nav": 100,
+                "buyhold_nav": 100,
+                "position": 0.5,
+                "action": "BUY",
+                "price": 10.5,
+            }
+        ],
+        "events": [{"date": "2026-01-06", "kind": "BUY"}],
+    }
+    payload.update(overrides)
+    return payload
+
+
 def test_check_dashboard_v2_data_passes_valid_contract(tmp_path: Path):
     root = tmp_path / "dashboard_data" / "v2"
     _write_json(
@@ -42,20 +66,7 @@ def test_check_dashboard_v2_data_passes_valid_contract(tmp_path: Path):
     )
     _write_json(
         root / "models" / "smoke.json",
-        {
-            "profile": "smoke",
-            "rows": [
-                {
-                    "date": "2026-01-06",
-                    "strategy_nav": 100,
-                    "buyhold_nav": 100,
-                    "position": 0.5,
-                    "action": "BUY",
-                    "price": 10.5,
-                }
-            ],
-            "events": [{"date": "2026-01-06", "kind": "BUY"}],
-        },
+        _model_contract(),
     )
     _write_json(
         root / "comparison" / "default.json",
@@ -91,11 +102,10 @@ def test_check_dashboard_v2_data_fails_missing_model_position(tmp_path: Path):
     )
     _write_json(
         root / "models" / "smoke.json",
-        {
-            "profile": "smoke",
-            "rows": [{"date": "2026-01-06", "strategy_nav": 100, "buyhold_nav": 100, "action": "BUY", "price": 10.5}],
-            "events": [],
-        },
+        _model_contract(
+            rows=[{"date": "2026-01-06", "strategy_nav": 100, "buyhold_nav": 100, "action": "BUY", "price": 10.5}],
+            events=[],
+        ),
     )
     _write_json(root / "comparison" / "default.json", {"rows": []})
 
@@ -115,11 +125,7 @@ def test_check_dashboard_v2_data_fails_when_comparison_references_unknown_profil
     )
     _write_json(
         root / "models" / "smoke.json",
-        {
-            "profile": "smoke",
-            "rows": [{"date": "2026-01-06", "strategy_nav": 100, "buyhold_nav": 100, "position": 0.5, "action": "BUY", "price": 10.5}],
-            "events": [],
-        },
+        _model_contract(events=[]),
     )
     _write_json(
         root / "comparison" / "default.json",

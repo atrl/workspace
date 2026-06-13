@@ -10,6 +10,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 SCHEDULER_WRAPPER = ROOT / "production" / "run_soxl_scheduler.sh"
 WEEKLY_WRAPPER = ROOT / "production" / "run_soxl_weekly_wf.sh"
+DEPLOY_ROOT = Path("/Users/rziiiii/dev/workspace")
+DEPLOY_SCHEDULER_WRAPPER = DEPLOY_ROOT / "production" / "run_soxl_scheduler.sh"
+DEPLOY_WEEKLY_WRAPPER = DEPLOY_ROOT / "production" / "run_soxl_weekly_wf.sh"
 CURRENT_COMPOSER_ARGS = [
     "--runtime-composer",
     "budget_usage",
@@ -21,6 +24,14 @@ CURRENT_COMPOSER_ARGS = [
     "balanced_rule_residual_v22",
     "--bull-participation-guard",
 ]
+
+
+def _path_is_checkout_or_deploy(value: str, checkout_path: Path, deploy_path: Path) -> bool:
+    return value in {str(checkout_path), str(deploy_path)}
+
+
+def _line_contains_checkout_or_deploy(line: str, checkout_path: Path, deploy_path: Path) -> bool:
+    return str(checkout_path) in line or str(deploy_path) in line
 
 
 def _assert_current_runtime_composer_args(args: list[str]) -> None:
@@ -55,7 +66,7 @@ def test_crontab_uses_shanghai_safe_us_market_windows():
     # Asia/Shanghai local time: Tue-Sat 06:15 covers Mon-Fri US post-close
     # and leaves a provider-availability buffer before the daily data refresh.
     assert post_close.split(maxsplit=5)[:5] == ["15", "6", "*", "*", "2-6"]
-    assert str(SCHEDULER_WRAPPER) in post_close
+    assert _line_contains_checkout_or_deploy(post_close, SCHEDULER_WRAPPER, DEPLOY_SCHEDULER_WRAPPER)
     assert "/Users/rziiiii/.openclaw/workspace" not in post_close
     assert "--skip-data-update" not in post_close
     assert "--skip-dashboard" not in post_close
@@ -71,7 +82,7 @@ def test_crontab_uses_shanghai_safe_us_market_windows():
 
     # Mon-Fri 21:00 China time is a cached-data pre-open inference/dashboard pass.
     assert pre_open.split(maxsplit=5)[:5] == ["0", "21", "*", "*", "1-5"]
-    assert str(SCHEDULER_WRAPPER) in pre_open
+    assert _line_contains_checkout_or_deploy(pre_open, SCHEDULER_WRAPPER, DEPLOY_SCHEDULER_WRAPPER)
     assert "/Users/rziiiii/.openclaw/workspace" not in pre_open
     assert "--dry-run" in pre_open
     assert "--skip-data-update" in pre_open
@@ -101,7 +112,7 @@ def test_crontab_weekly_walkforward_uses_repo_wrapper():
     )
 
     assert weekly.split(maxsplit=5)[:5] == ["0", "7", "*", "*", "6"]
-    assert str(WEEKLY_WRAPPER) in weekly
+    assert _line_contains_checkout_or_deploy(weekly, WEEKLY_WRAPPER, DEPLOY_WEEKLY_WRAPPER)
     assert "balanced_trade_lock" not in weekly
     assert "/Users/rziiiii/.openclaw/workspace" not in weekly
 
@@ -148,8 +159,8 @@ def test_launchagent_runs_post_close_in_shanghai_local_time():
         (5, 6, 15),
         (6, 6, 15),
     }
-    assert plist["ProgramArguments"][0] == str(SCHEDULER_WRAPPER)
-    assert plist["WorkingDirectory"] == str(ROOT)
+    assert _path_is_checkout_or_deploy(plist["ProgramArguments"][0], SCHEDULER_WRAPPER, DEPLOY_SCHEDULER_WRAPPER)
+    assert _path_is_checkout_or_deploy(plist["WorkingDirectory"], ROOT, DEPLOY_ROOT)
     assert "--vercel-deploy" in plist["ProgramArguments"]
     assert "--health-summary" in plist["ProgramArguments"]
     assert plist["ProgramArguments"][plist["ProgramArguments"].index("--broker") + 1] == "futu"
@@ -159,8 +170,16 @@ def test_launchagent_runs_post_close_in_shanghai_local_time():
     assert plist["ProgramArguments"][plist["ProgramArguments"].index("--schedule-slot") + 1] == "postclose"
     assert plist["EnvironmentVariables"]["SOXL_SCHEDULE_TRIGGER"] == "launchagent_postclose"
     assert "--skip-data-update" not in plist["ProgramArguments"]
-    assert plist["StandardOutPath"] == str(ROOT / "runtime" / "soxl" / "paper_trading" / "scheduler_postclose.log")
-    assert plist["StandardErrorPath"] == str(ROOT / "runtime" / "soxl" / "paper_trading" / "scheduler_postclose.err")
+    assert _path_is_checkout_or_deploy(
+        plist["StandardOutPath"],
+        ROOT / "runtime" / "soxl" / "paper_trading" / "scheduler_postclose.log",
+        DEPLOY_ROOT / "runtime" / "soxl" / "paper_trading" / "scheduler_postclose.log",
+    )
+    assert _path_is_checkout_or_deploy(
+        plist["StandardErrorPath"],
+        ROOT / "runtime" / "soxl" / "paper_trading" / "scheduler_postclose.err",
+        DEPLOY_ROOT / "runtime" / "soxl" / "paper_trading" / "scheduler_postclose.err",
+    )
 
 
 def test_launchagent_runs_preopen_cached_dry_run_in_shanghai_local_time():
@@ -181,8 +200,8 @@ def test_launchagent_runs_preopen_cached_dry_run_in_shanghai_local_time():
         (4, 21, 0),
         (5, 21, 0),
     }
-    assert plist["ProgramArguments"][0] == str(SCHEDULER_WRAPPER)
-    assert plist["WorkingDirectory"] == str(ROOT)
+    assert _path_is_checkout_or_deploy(plist["ProgramArguments"][0], SCHEDULER_WRAPPER, DEPLOY_SCHEDULER_WRAPPER)
+    assert _path_is_checkout_or_deploy(plist["WorkingDirectory"], ROOT, DEPLOY_ROOT)
     assert "--dry-run" in plist["ProgramArguments"]
     assert "--skip-data-update" in plist["ProgramArguments"]
     assert "--skip-dashboard" not in plist["ProgramArguments"]
@@ -194,8 +213,16 @@ def test_launchagent_runs_preopen_cached_dry_run_in_shanghai_local_time():
     assert "--schedule-slot" in plist["ProgramArguments"]
     assert plist["ProgramArguments"][plist["ProgramArguments"].index("--schedule-slot") + 1] == "preopen"
     assert plist["EnvironmentVariables"]["SOXL_SCHEDULE_TRIGGER"] == "launchagent_preopen"
-    assert plist["StandardOutPath"] == str(ROOT / "runtime" / "soxl" / "paper_trading" / "scheduler_preopen.log")
-    assert plist["StandardErrorPath"] == str(ROOT / "runtime" / "soxl" / "paper_trading" / "scheduler_preopen.err")
+    assert _path_is_checkout_or_deploy(
+        plist["StandardOutPath"],
+        ROOT / "runtime" / "soxl" / "paper_trading" / "scheduler_preopen.log",
+        DEPLOY_ROOT / "runtime" / "soxl" / "paper_trading" / "scheduler_preopen.log",
+    )
+    assert _path_is_checkout_or_deploy(
+        plist["StandardErrorPath"],
+        ROOT / "runtime" / "soxl" / "paper_trading" / "scheduler_preopen.err",
+        DEPLOY_ROOT / "runtime" / "soxl" / "paper_trading" / "scheduler_preopen.err",
+    )
 
 
 def test_launchagent_runs_weekly_walkforward_after_postclose_refresh():
@@ -210,10 +237,18 @@ def test_launchagent_runs_weekly_walkforward_after_postclose_refresh():
 
     assert plist["Label"] == "com.soxl.weekly.wf"
     assert schedule == {(6, 7, 0)}
-    assert plist["ProgramArguments"][0] == str(WEEKLY_WRAPPER)
-    assert plist["WorkingDirectory"] == str(ROOT)
-    assert plist["StandardOutPath"] == str(ROOT / "runtime" / "soxl" / "wf_weekly.log")
-    assert plist["StandardErrorPath"] == str(ROOT / "runtime" / "soxl" / "wf_weekly.err")
+    assert _path_is_checkout_or_deploy(plist["ProgramArguments"][0], WEEKLY_WRAPPER, DEPLOY_WEEKLY_WRAPPER)
+    assert _path_is_checkout_or_deploy(plist["WorkingDirectory"], ROOT, DEPLOY_ROOT)
+    assert _path_is_checkout_or_deploy(
+        plist["StandardOutPath"],
+        ROOT / "runtime" / "soxl" / "wf_weekly.log",
+        DEPLOY_ROOT / "runtime" / "soxl" / "wf_weekly.log",
+    )
+    assert _path_is_checkout_or_deploy(
+        plist["StandardErrorPath"],
+        ROOT / "runtime" / "soxl" / "wf_weekly.err",
+        DEPLOY_ROOT / "runtime" / "soxl" / "wf_weekly.err",
+    )
 
 
 def test_launchagent_wrapper_exists_and_loads_private_env_file():

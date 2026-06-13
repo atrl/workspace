@@ -58,10 +58,16 @@ def check_dashboard_v2_data(root: Path) -> dict[str, int]:
     profiles = manifest.get("default_comparison_profiles")
     if not isinstance(profiles, list) or not profiles:
         raise ValueError("manifest default_comparison_profiles must be a non-empty list")
-    available_profiles = set(manifest.get("available_profiles") or [])
+    available_profile_list = manifest.get("available_profiles") or []
+    if not isinstance(available_profile_list, list) or not available_profile_list:
+        raise ValueError("manifest available_profiles must be a non-empty list")
+    available_profiles = set(available_profile_list)
     unknown_defaults = sorted(profile for profile in profiles if profile not in available_profiles)
     if unknown_defaults:
         raise ValueError(f"manifest references unknown profile: {', '.join(unknown_defaults)}")
+    default_chart_profile = manifest.get("default_chart_profile")
+    if default_chart_profile is not None and default_chart_profile not in available_profiles:
+        raise ValueError(f"manifest default_chart_profile is unknown: {default_chart_profile}")
 
     market_rows = _require_rows(market, "market SOXL")
     for row in market_rows:
@@ -70,9 +76,12 @@ def check_dashboard_v2_data(root: Path) -> dict[str, int]:
     _require_unique_dates(market_rows, "market rows")
 
     model_dates_by_profile: dict[str, set[str]] = {}
-    for profile in profiles:
+    for profile in available_profile_list:
         model = _load(root / "models" / f"{profile}.json")
         rows = _require_rows(model, f"model {profile}")
+        for field in ("source_kind", "display_name", "runnable", "feature_columns", "snapshot_columns"):
+            if field not in model:
+                raise ValueError(f"model {profile} missing metadata field: {field}")
         for row in rows:
             _require_fields(row, REQUIRED_MODEL_FIELDS, f"model {profile} row")
             _require_numeric(row, ("strategy_nav", "buyhold_nav", "position", "price"), f"model {profile} row")
@@ -83,6 +92,9 @@ def check_dashboard_v2_data(root: Path) -> dict[str, int]:
             raise ValueError(f"model {profile} events must be a list")
         model_dates_by_profile[profile] = {str(row["date"]) for row in rows}
 
+    compared_profiles = comparison.get("compared_profiles")
+    if not isinstance(compared_profiles, list) or not compared_profiles:
+        raise ValueError("comparison compared_profiles must be a non-empty list")
     comparison_rows = comparison.get("rows")
     if not isinstance(comparison_rows, list):
         raise ValueError("comparison rows must be a list")
@@ -94,17 +106,17 @@ def check_dashboard_v2_data(root: Path) -> dict[str, int]:
         profile_values = row.get("profiles")
         if not isinstance(profile_values, dict):
             raise ValueError("comparison row profiles must be an object")
-        unknown = sorted(profile for profile in profile_values if profile not in profiles)
+        unknown = sorted(profile for profile in profile_values if profile not in available_profiles)
         if unknown:
             raise ValueError(f"comparison row references unknown profile: {', '.join(unknown)}")
-        missing = sorted(profile for profile in profiles if profile not in profile_values)
+        missing = sorted(profile for profile in compared_profiles if profile not in profile_values)
         if missing:
             raise ValueError(f"comparison row missing compared profile: {', '.join(missing)}")
-        for profile in profiles:
+        for profile in compared_profiles:
             if row["date"] not in model_dates_by_profile[profile]:
                 raise ValueError(f"comparison row date missing from model {profile}: {row['date']}")
 
-    return {"profiles": len(profiles), "market_rows": len(market_rows), "comparison_rows": len(comparison_rows)}
+    return {"profiles": len(available_profile_list), "market_rows": len(market_rows), "comparison_rows": len(comparison_rows)}
 
 
 def main() -> int:

@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, test, vi } from 'vitest';
-import { renderMarketChart, renderNavChart } from './chart';
+import { applyChartRangeCommand, renderMarketChart, renderNavChart } from './chart';
 import { marketFixture, modelFixture } from './testFixtures';
 
 const chartMocks = vi.hoisted(() => {
@@ -17,8 +17,17 @@ const chartMocks = vi.hoisted(() => {
       }),
     };
   });
+  const timeScaleApi = {
+    fitContent: vi.fn(),
+    scrollToRealTime: vi.fn(),
+    getVisibleLogicalRange: vi.fn(() => ({ from: 10, to: 30 })),
+    setVisibleLogicalRange: vi.fn(),
+    subscribeVisibleLogicalRangeChange: vi.fn(),
+    unsubscribeVisibleLogicalRangeChange: vi.fn(),
+  };
   return {
     addSeries,
+    timeScaleApi,
     createChart: vi.fn(() => ({
       addSeries,
       subscribeClick: vi.fn((callback: (param: { time?: string }) => void) => {
@@ -27,7 +36,8 @@ const chartMocks = vi.hoisted(() => {
       subscribeCrosshairMove: vi.fn((callback: (param: { time?: string }) => void) => {
         subscriptions.crosshairMove = callback;
       }),
-      timeScale: vi.fn(() => ({ fitContent: vi.fn() })),
+      timeScale: vi.fn(() => timeScaleApi),
+      remove: vi.fn(),
     })),
     createSeriesMarkers: vi.fn(),
     subscriptions,
@@ -48,6 +58,10 @@ describe('dashboard v2 chart rendering', () => {
     chartMocks.addSeries.mockClear();
     chartMocks.createChart.mockClear();
     chartMocks.createSeriesMarkers.mockClear();
+    chartMocks.timeScaleApi.fitContent.mockClear();
+    chartMocks.timeScaleApi.scrollToRealTime.mockClear();
+    chartMocks.timeScaleApi.getVisibleLogicalRange.mockClear();
+    chartMocks.timeScaleApi.setVisibleLogicalRange.mockClear();
     chartMocks.subscriptions.click = undefined;
     chartMocks.subscriptions.crosshairMove = undefined;
     chartMocks.seriesRecords.length = 0;
@@ -69,6 +83,53 @@ describe('dashboard v2 chart rendering', () => {
     expect(chartMocks.seriesRecords[2].data).toEqual(
       modelFixture.rows.map((row) => ({ time: row.date, value: row.position })),
     );
+  });
+
+  test('enables TradingView-style mouse wheel, drag, and kinetic interactions', () => {
+    const container = document.createElement('div');
+
+    renderMarketChart(container, marketFixture, modelFixture, () => {});
+
+    const chartOptions = (chartMocks.createChart.mock.calls[0] as unknown[])[1];
+    expect(chartOptions).toMatchObject({
+      handleScroll: {
+        mouseWheel: true,
+        pressedMouseMove: true,
+        horzTouchDrag: true,
+        vertTouchDrag: true,
+      },
+      handleScale: {
+        mouseWheel: true,
+        pinch: true,
+      },
+      kineticScroll: {
+        mouse: true,
+        touch: true,
+      },
+    });
+  });
+
+  test('applies chart range commands to existing chart handles', () => {
+    applyChartRangeCommand(
+      [
+        {
+          timeScale: () => chartMocks.timeScaleApi,
+        } as never,
+      ],
+      'zoom_in',
+    );
+
+    expect(chartMocks.timeScaleApi.setVisibleLogicalRange).toHaveBeenCalledWith({ from: 15, to: 25 });
+
+    applyChartRangeCommand(
+      [
+        {
+          timeScale: () => chartMocks.timeScaleApi,
+        } as never,
+      ],
+      'latest',
+    );
+    expect(chartMocks.timeScaleApi.scrollToRealTime).toHaveBeenCalled();
   });
 
   test('coalesces crosshair hover date updates into one animation frame', () => {

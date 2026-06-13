@@ -6,7 +6,25 @@ export const manifestFixture: Manifest = {
   safe_backtest_end: '2026-01-06',
   available_profiles: ['smoke', 'balanced_rule_residual_v22', 'candidate'],
   default_baseline_profile: 'balanced_rule_residual_v22',
+  default_chart_profile: 'smoke',
   default_comparison_profiles: ['smoke', 'balanced_rule_residual_v22'],
+  auto_update: {
+    configured: true,
+    timezone: 'Asia/Shanghai',
+    tasks: [
+      {
+        name: 'dashboard_refresh',
+        enabled: true,
+        schedule: '06:30 Tue-Sat Asia/Shanghai',
+        command_path: 'production/run_dashboard_refresh.sh',
+      },
+    ],
+    model_replay_freshness: {
+      safe_backtest_end: '2026-01-06',
+      source_path: 'dashboard_data/model_replay_freshness.json',
+    },
+    remote_deploy_required: false,
+  },
   source_paths: {
     model_replay_freshness: 'dashboard_data/model_replay_freshness.json',
     market: 'data/processed/panels/soxl_soxx_vix_full.csv',
@@ -25,18 +43,81 @@ export const marketFixture: MarketPayload = {
 export const modelFixture: ModelPayload = {
   profile: 'smoke',
   status: 'canonical',
+  source_kind: 'qlib_model',
+  display_name: 'smoke',
+  runnable: true,
+  feature_packs: ['core'],
+  feature_columns: ['alpha_signal', 'shared_feature'],
+  snapshot_columns: ['alpha_signal', 'shared_feature'],
   source_path: 'runtime/model/card/smoke/smoke_soxl_daily.csv',
   replay_start: '2026-01-02',
   replay_end: '2026-01-06',
   row_count: 3,
   rows: [
     { date: '2026-01-02', strategy_nav: 100, buyhold_nav: 100, position: 0, action: 'HOLD', price: 10, excess: 0, excess_pct: 0 },
-    { date: '2026-01-05', strategy_nav: 105, buyhold_nav: 110, position: 0.7, action: 'BUY', price: 11, excess: -5, excess_pct: 0.05 },
-    { date: '2026-01-06', strategy_nav: 103, buyhold_nav: 108, position: 0.2, action: 'SELL', price: 10.8, excess: -5, excess_pct: 0.03 },
+    {
+      date: '2026-01-05',
+      strategy_nav: 105,
+      buyhold_nav: 110,
+      position: 0.7,
+      action: 'BUY',
+      price: 11,
+      excess: -5,
+      excess_pct: 0.05,
+      feature_snapshot: { alpha_signal: 1.25, shared_feature: 10 },
+    },
+    {
+      date: '2026-01-06',
+      strategy_nav: 103,
+      buyhold_nav: 108,
+      position: 0.2,
+      action: 'SELL',
+      price: 10.8,
+      excess: -5,
+      excess_pct: 0.03,
+      feature_snapshot: { alpha_signal: -0.5, shared_feature: 11 },
+    },
   ],
   events: [
-    { date: '2026-01-05', kind: 'BUY', price: 11, position: 0.7, position_delta: 0.7 },
-    { date: '2026-01-06', kind: 'SELL', price: 10.8, position: 0.2, position_delta: -0.5 },
+    {
+      date: '2026-01-05',
+      kind: 'BUY',
+      price: 11,
+      position: 0.7,
+      position_delta: 0.7,
+      feature_snapshot: { alpha_signal: 1.25, shared_feature: 10 },
+    },
+    {
+      date: '2026-01-06',
+      kind: 'SELL',
+      price: 10.8,
+      position: 0.2,
+      position_delta: -0.5,
+      feature_snapshot: { alpha_signal: -0.5, shared_feature: 11 },
+    },
+  ],
+};
+
+export const betaModelFixture: ModelPayload = {
+  ...modelFixture,
+  profile: 'balanced_rule_residual_v22',
+  display_name: 'balanced_rule_residual_v22',
+  feature_columns: ['beta_signal', 'shared_feature'],
+  snapshot_columns: ['beta_signal', 'shared_feature'],
+  rows: modelFixture.rows.map((row) =>
+    row.date === '2026-01-05'
+      ? { ...row, action: 'SELL', position: 0.2, feature_snapshot: { beta_signal: -2.5, shared_feature: 20 } }
+      : { ...row, feature_snapshot: undefined },
+  ),
+  events: [
+    {
+      date: '2026-01-05',
+      kind: 'SELL',
+      price: 11,
+      position: 0.2,
+      position_delta: -0.5,
+      feature_snapshot: { beta_signal: -2.5, shared_feature: 20 },
+    },
   ],
 };
 

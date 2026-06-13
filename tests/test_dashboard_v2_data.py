@@ -144,6 +144,159 @@ def test_build_dashboard_v2_data_writes_manifest_market_model_and_comparison(tmp
     assert comparison["rows"][1]["action_mismatch_count"] == 0
 
 
+def test_build_dashboard_v2_data_keeps_model_specific_feature_snapshots(tmp_path: Path):
+    freshness = tmp_path / "dashboard_data" / "model_replay_freshness.json"
+    freshness.parent.mkdir()
+    for profile, action, position in [
+        ("alpha_model", "BUY", 0.7),
+        ("beta_model", "SELL", 0.2),
+    ]:
+        model_csv = tmp_path / "runtime" / "model" / "card" / profile / f"{profile}_soxl_daily.csv"
+        model_csv.parent.mkdir(parents=True)
+        _write_csv(
+            model_csv,
+            [
+                {
+                    "datetime": "2026-01-02",
+                    "strategy_nav": 100.0,
+                    "buyhold_nav": 100.0,
+                    "position": 0.0,
+                    "action": "HOLD",
+                    "price": 10.0,
+                },
+                {
+                    "datetime": "2026-01-05",
+                    "strategy_nav": 105.0,
+                    "buyhold_nav": 110.0,
+                    "position": position,
+                    "action": action,
+                    "price": 11.0,
+                },
+            ],
+        )
+    freshness.write_text(
+        json.dumps(
+            {
+                "generated_at": "2026-06-13T00:00:00+00:00",
+                "latest_data_date": "2026-01-05",
+                "safe_backtest_end": "2026-01-05",
+                "profiles": [
+                    {
+                        "profile": "alpha_model",
+                        "status": "candidate",
+                        "actor": "runtime/model/card/alpha_model/soxl_alpha_actor.pt",
+                        "output": "runtime/model/card/alpha_model/alpha_model_soxl_daily.csv",
+                        "result": "current",
+                    },
+                    {
+                        "profile": "beta_model",
+                        "status": "candidate",
+                        "actor": "runtime/model/card/beta_model/soxl_beta_actor.pt",
+                        "output": "runtime/model/card/beta_model/beta_model_soxl_daily.csv",
+                        "result": "current",
+                    },
+                ],
+            }
+        )
+    )
+    market_rows = {
+        "2026-01-02": {"open": 10.0, "high": 10.5, "low": 9.5, "close": 10.0, "volume": 1000},
+        "2026-01-05": {"open": 10.5, "high": 11.5, "low": 10.0, "close": 11.0, "volume": 1200},
+    }
+
+    output_dir = tmp_path / "dashboard_data" / "v2"
+    build_dashboard_v2_data(
+        root=tmp_path,
+        output_dir=output_dir,
+        freshness_path=freshness,
+        market_rows=market_rows,
+        selected_profiles=["alpha_model", "beta_model"],
+        baseline_profile="alpha_model",
+        model_feature_rows_by_profile={
+            "alpha_model": {
+                "2026-01-05": {"alpha_signal": 1.25, "shared_feature": 10.0},
+            },
+            "beta_model": {
+                "2026-01-05": {"beta_signal": -2.5, "shared_feature": 20.0},
+            },
+        },
+    )
+
+    manifest = json.loads((output_dir / "manifest.json").read_text())
+    alpha = json.loads((output_dir / "models" / "alpha_model.json").read_text())
+    beta = json.loads((output_dir / "models" / "beta_model.json").read_text())
+
+    assert manifest["available_profiles"] == ["alpha_model", "beta_model"]
+    assert manifest["default_chart_profile"] == "alpha_model"
+    assert alpha["runnable"] is True
+    assert beta["runnable"] is True
+    assert alpha["snapshot_columns"] == ["alpha_signal", "shared_feature"]
+    assert beta["snapshot_columns"] == ["beta_signal", "shared_feature"]
+    assert alpha["rows"][1]["feature_snapshot"] == {"alpha_signal": 1.25, "shared_feature": 10.0}
+    assert beta["rows"][1]["feature_snapshot"] == {"beta_signal": -2.5, "shared_feature": 20.0}
+    assert alpha["events"][0]["feature_snapshot"]["alpha_signal"] == 1.25
+    assert beta["events"][0]["feature_snapshot"]["beta_signal"] == -2.5
+
+
+def test_build_dashboard_v2_data_reports_dashboard_refresh_task(tmp_path: Path):
+    freshness = tmp_path / "dashboard_data" / "model_replay_freshness.json"
+    freshness.parent.mkdir()
+    model_csv = tmp_path / "runtime" / "model" / "card" / "smoke" / "smoke_soxl_daily.csv"
+    model_csv.parent.mkdir(parents=True)
+    _write_csv(
+        model_csv,
+        [
+            {
+                "datetime": "2026-01-02",
+                "strategy_nav": 100.0,
+                "buyhold_nav": 100.0,
+                "position": 0.0,
+                "action": "HOLD",
+                "price": 10.0,
+            }
+        ],
+    )
+    freshness.write_text(
+        json.dumps(
+            {
+                "generated_at": "2026-06-13T00:00:00+00:00",
+                "latest_data_date": "2026-01-02",
+                "safe_backtest_end": "2026-01-02",
+                "profiles": [
+                    {
+                        "profile": "smoke",
+                        "status": "canonical",
+                        "actor": "runtime/model/card/smoke/soxl_smoke_actor.pt",
+                        "output": "runtime/model/card/smoke/smoke_soxl_daily.csv",
+                        "result": "current",
+                    }
+                ],
+            }
+        )
+    )
+    production = tmp_path / "production"
+    production.mkdir()
+    (production / "run_dashboard_refresh.sh").write_text("#!/bin/sh\n", encoding="utf-8")
+    (production / "com.soxl.dashboard.refresh.plist").write_text("<plist></plist>\n", encoding="utf-8")
+
+    output_dir = tmp_path / "dashboard_data" / "v2"
+    build_dashboard_v2_data(
+        root=tmp_path,
+        output_dir=output_dir,
+        freshness_path=freshness,
+        market_rows={"2026-01-02": {"open": 10.0, "high": 10.5, "low": 9.5, "close": 10.0, "volume": 1000}},
+        selected_profiles=["smoke"],
+        baseline_profile="smoke",
+    )
+
+    manifest = json.loads((output_dir / "manifest.json").read_text())
+    task = {item["name"]: item for item in manifest["auto_update"]["tasks"]}["dashboard_refresh"]
+    assert manifest["auto_update"]["configured"] is True
+    assert task["enabled"] is True
+    assert task["schedule"] == "06:30 Tue-Sat Asia/Shanghai"
+    assert task["command_path"] == "production/run_dashboard_refresh.sh"
+
+
 def test_build_dashboard_v2_data_loads_market_from_requested_root(tmp_path: Path):
     freshness = tmp_path / "dashboard_data" / "model_replay_freshness.json"
     freshness.parent.mkdir()

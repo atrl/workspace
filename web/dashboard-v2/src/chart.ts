@@ -6,6 +6,7 @@ import {
   createSeriesMarkers,
   type IChartApi,
   type ISeriesApi,
+  type LogicalRange,
   type MouseEventParams,
   type Time,
 } from 'lightweight-charts';
@@ -26,6 +27,86 @@ function eventDate(param: MouseEventParams<Time>): string | null {
 export interface ChartHandles {
   chart: IChartApi;
   primarySeries: ISeriesApi<'Candlestick'> | ISeriesApi<'Line'>;
+}
+
+export type ChartRangeCommand = 'zoom_in' | 'zoom_out' | 'pan_left' | 'pan_right' | 'reset' | 'latest';
+export type ChartRangeTarget = IChartApi;
+
+const TRADING_VIEW_INTERACTION_OPTIONS = {
+  handleScroll: {
+    mouseWheel: true,
+    pressedMouseMove: true,
+    horzTouchDrag: true,
+    vertTouchDrag: true,
+  },
+  handleScale: {
+    mouseWheel: true,
+    pinch: true,
+    axisPressedMouseMove: { time: true, price: true },
+    axisDoubleClickReset: { time: true, price: true },
+  },
+  kineticScroll: { mouse: true, touch: true },
+} as const;
+
+const chartByContainer = new WeakMap<HTMLElement, IChartApi>();
+
+function resetChartContainer(container: HTMLElement): void {
+  const previousChart = chartByContainer.get(container);
+  if (previousChart) {
+    previousChart.remove();
+    chartByContainer.delete(container);
+  }
+  container.replaceChildren();
+}
+
+function registerChart(container: HTMLElement, chart: IChartApi): void {
+  chartByContainer.set(container, chart);
+}
+
+export function syncVisibleLogicalRange(source: IChartApi, targets: IChartApi[]): () => void {
+  const sourceTimeScale = source.timeScale();
+  const syncRange = (range: LogicalRange | null) => {
+    if (!range) return;
+    for (const target of targets) {
+      target.timeScale().setVisibleLogicalRange(range);
+    }
+  };
+  sourceTimeScale.subscribeVisibleLogicalRangeChange(syncRange);
+  return () => sourceTimeScale.unsubscribeVisibleLogicalRangeChange(syncRange);
+}
+
+export function applyChartRangeCommand(charts: readonly ChartRangeTarget[], command: ChartRangeCommand): void {
+  if (charts.length === 0) return;
+  if (command === 'reset') {
+    for (const chart of charts) chart.timeScale().fitContent();
+    return;
+  }
+  if (command === 'latest') {
+    for (const chart of charts) chart.timeScale().scrollToRealTime();
+    return;
+  }
+
+  const sourceRange = charts[0].timeScale().getVisibleLogicalRange();
+  if (!sourceRange) return;
+  const from = Number(sourceRange.from);
+  const to = Number(sourceRange.to);
+  const width = Math.max(2, to - from);
+  const center = (from + to) / 2;
+  let nextFrom = from;
+  let nextTo = to;
+
+  if (command === 'zoom_in' || command === 'zoom_out') {
+    const nextWidth = command === 'zoom_in' ? Math.max(2, width / 2) : width * 2;
+    nextFrom = center - nextWidth / 2;
+    nextTo = center + nextWidth / 2;
+  } else {
+    const shift = Math.max(1, width * 0.25);
+    nextFrom = command === 'pan_left' ? from - shift : from + shift;
+    nextTo = command === 'pan_left' ? to - shift : to + shift;
+  }
+
+  const nextRange = { from: nextFrom, to: nextTo };
+  for (const chart of charts) chart.timeScale().setVisibleLogicalRange(nextRange);
 }
 
 function createDateEmitter(onDate: (date: string) => void): {
@@ -74,9 +155,10 @@ export function renderMarketChart(
   model: ModelPayload,
   onDate: (date: string) => void,
 ): ChartHandles {
-  container.replaceChildren();
+  resetChartContainer(container);
   const chart = createChart(container, {
     autoSize: true,
+    ...TRADING_VIEW_INTERACTION_OPTIONS,
     layout: { background: { color: '#111827' }, textColor: '#d1d5db' },
     grid: { vertLines: { color: '#253044' }, horzLines: { color: '#253044' } },
     leftPriceScale: { visible: true, borderColor: '#374151' },
@@ -84,6 +166,7 @@ export function renderMarketChart(
     timeScale: { borderColor: '#374151', timeVisible: false },
     crosshair: { mode: 1 },
   });
+  registerChart(container, chart);
   const candleSeries = chart.addSeries(CandlestickSeries, {
     upColor: '#0f766e',
     downColor: '#b91c1c',
@@ -137,14 +220,16 @@ export function renderMarketChart(
 }
 
 export function renderPositionChart(container: HTMLElement, model: ModelPayload): ChartHandles {
-  container.replaceChildren();
+  resetChartContainer(container);
   const chart = createChart(container, {
     autoSize: true,
+    ...TRADING_VIEW_INTERACTION_OPTIONS,
     layout: { background: { color: '#0b1220' }, textColor: '#d1d5db' },
     grid: { vertLines: { color: '#1f2937' }, horzLines: { color: '#1f2937' } },
     rightPriceScale: { borderColor: '#374151' },
     timeScale: { borderColor: '#374151' },
   });
+  registerChart(container, chart);
   const line = chart.addSeries(LineSeries, { color: '#38bdf8', lineWidth: 2 });
   line.setData(model.rows.map((row) => ({ time: toTime(row.date), value: row.position })));
   chart.timeScale().fitContent();
@@ -156,14 +241,16 @@ export function renderNavChart(
   models: Record<string, ModelPayload>,
   baselineProfile?: string,
 ): IChartApi {
-  container.replaceChildren();
+  resetChartContainer(container);
   const chart = createChart(container, {
     autoSize: true,
+    ...TRADING_VIEW_INTERACTION_OPTIONS,
     layout: { background: { color: '#0b1220' }, textColor: '#d1d5db' },
     grid: { vertLines: { color: '#1f2937' }, horzLines: { color: '#1f2937' } },
     rightPriceScale: { borderColor: '#374151' },
     timeScale: { borderColor: '#374151' },
   });
+  registerChart(container, chart);
   const buyholdSource = (baselineProfile ? models[baselineProfile] : undefined) ?? Object.values(models)[0];
   if (buyholdSource) {
     const buyholdSeries = chart.addSeries(LineSeries, {

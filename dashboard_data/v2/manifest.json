@@ -1,33 +1,74 @@
 {
+  "auto_update": {
+    "configured": true,
+    "model_replay_freshness": {
+      "counts": {
+        "current": 12,
+        "failed": 0,
+        "refreshed": 0,
+        "skipped": 0
+      },
+      "generated_at": "2026-06-13T01:47:40+00:00",
+      "latest_data_date": "2026-06-12",
+      "safe_backtest_end": "2026-06-11",
+      "source_path": "dashboard_data/model_replay_freshness.json"
+    },
+    "remote_deploy_required": false,
+    "status_paths": {
+      "production_goal_gates": "dashboard_data/production_goal_gates.json",
+      "production_status": "dashboard_data/production_status.json"
+    },
+    "tasks": [
+      {
+        "command_path": "production/run_soxl_scheduler.sh",
+        "enabled": true,
+        "log_path": "runtime/soxl/paper_trading/scheduler_preopen.log",
+        "name": "preopen",
+        "schedule": "21:00 Mon-Fri Asia/Shanghai",
+        "source_path": "production/com.soxl.preopen.scheduler.plist"
+      },
+      {
+        "command_path": "production/run_soxl_scheduler.sh",
+        "enabled": true,
+        "log_path": "runtime/soxl/paper_trading/scheduler_postclose.log",
+        "name": "postclose",
+        "schedule": "06:15 Tue-Sat Asia/Shanghai",
+        "source_path": "production/com.soxl.daily.scheduler.plist"
+      },
+      {
+        "command_path": "production/run_dashboard_refresh.sh",
+        "enabled": true,
+        "log_path": "runtime/soxl/paper_trading/dashboard_refresh.log",
+        "name": "dashboard_refresh",
+        "schedule": "06:30 Tue-Sat Asia/Shanghai",
+        "source_path": "production/com.soxl.dashboard.refresh.plist"
+      }
+    ],
+    "timezone": "Asia/Shanghai"
+  },
   "available_profiles": [
-    "balanced",
-    "balanced_macro_v1",
-    "balanced_rule_residual_imitation_v4",
-    "balanced_rule_residual_v19",
-    "balanced_rule_residual_v19_reg",
-    "balanced_rule_residual_v19_reg_light",
-    "balanced_rule_residual_v19_reg_v22_retest_v1",
-    "balanced_rule_residual_v22",
+    "soxl_backtest_policy_reimplementation_v1",
     "drawdown_rebound_reward_train_v1",
     "mode_conditioned_rebound_reward_train_v2",
-    "smoke",
-    "soxl_backtest_policy_reimplementation_v1",
     "state_conditioned_drawdown_rebound_reward_train_v1"
   ],
   "default_baseline_profile": "soxl_backtest_policy_reimplementation_v1",
+  "default_chart_profile": "drawdown_rebound_reward_train_v1",
   "default_comparison_profiles": [
     "soxl_backtest_policy_reimplementation_v1",
-    "smoke",
-    "balanced_rule_residual_v22"
+    "drawdown_rebound_reward_train_v1",
+    "mode_conditioned_rebound_reward_train_v2",
+    "state_conditioned_drawdown_rebound_reward_train_v1"
   ],
-  "generated_at": "2026-06-13T12:39:54.549783+00:00",
+  "generated_at": "2026-06-13T17:09:54.144785+00:00",
   "latest_market_date": "2026-06-12",
   "safe_backtest_end": "2026-06-11",
   "source_paths": {
     "market": "data/processed/panels/soxl_soxx_vix_full.csv",
-    "model:balanced_rule_residual_v22": "runtime/model/card/balanced_rule_residual_v22/balanced_rule_residual_v22_soxl_daily.csv",
-    "model:smoke": "runtime/model/card/smoke/smoke_soxl_daily.csv",
+    "model:drawdown_rebound_reward_train_v1": "runtime/model/card/drawdown_rebound_reward_train_v1/drawdown_rebound_reward_train_v1_soxl_daily.csv",
+    "model:mode_conditioned_rebound_reward_train_v2": "runtime/model/card/mode_conditioned_rebound_reward_train_v2/mode_conditioned_rebound_reward_train_v2_soxl_daily.csv",
     "model:soxl_backtest_policy_reimplementation_v1": "runtime/production/card/soxl_backtest_policy_reimplementation_v1/new_policy_daily.csv",
+    "model:state_conditioned_drawdown_rebound_reward_train_v1": "runtime/model/card/state_conditioned_drawdown_rebound_reward_train_v1/state_conditioned_drawdown_rebound_reward_train_v1_soxl_daily.csv",
     "model_replay_freshness": "dashboard_data/model_replay_freshness.json"
   }
 }

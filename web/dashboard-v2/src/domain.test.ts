@@ -1,5 +1,6 @@
 import { describe, expect, test } from 'vitest';
 import {
+  buildActionFeatureRows,
   buildActionMarkers,
   clampComparisonProfiles,
   clipRowsByDate,
@@ -9,7 +10,7 @@ import {
   computeKeyboardDateRange,
   computeVisibleComparison,
 } from './domain';
-import { comparisonFixture, manifestFixture, marketFixture, modelFixture } from './testFixtures';
+import { betaModelFixture, comparisonFixture, manifestFixture, marketFixture, modelFixture } from './testFixtures';
 import { viewUpdateRequiresChartRender } from './viewState';
 
 describe('dashboard v2 domain helpers', () => {
@@ -59,6 +60,26 @@ describe('dashboard v2 domain helpers', () => {
     expect(rows.some((row) => row.label === 'smoke BuyHold NAV' && row.value === '110.00')).toBe(true);
     expect(rows.some((row) => row.label === 'smoke vs BuyHold' && row.value === '-5.00%')).toBe(true);
     expect(rows.some((row) => row.label === 'action mismatches' && row.value === '1')).toBe(true);
+  });
+
+  test('builds buy/sell feature rows from each model-specific snapshot', () => {
+    const rows = buildActionFeatureRows({
+      date: '2026-01-05',
+      marketRows: marketFixture.rows,
+      models: { smoke: modelFixture, balanced_rule_residual_v22: betaModelFixture },
+    });
+
+    expect(rows).toHaveLength(2);
+    expect(rows[0]).toMatchObject({
+      profile: 'smoke',
+      action: 'BUY',
+      features: { alpha_signal: 1.25, shared_feature: 10 },
+    });
+    expect(rows[1]).toMatchObject({
+      profile: 'balanced_rule_residual_v22',
+      action: 'SELL',
+      features: { beta_signal: -2.5, shared_feature: 20 },
+    });
   });
 
   test('treats hover-only updates as inspector updates instead of chart renders', () => {

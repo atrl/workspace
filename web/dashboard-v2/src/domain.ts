@@ -1,5 +1,6 @@
 import type {
   ActionMarker,
+  ActionFeatureRow,
   ComparisonPayload,
   ComparisonRow,
   InspectorRow,
@@ -38,6 +39,35 @@ export function computeCommonWindow(
   const common = [...sets[0]].filter((date) => sets.every((set) => set.has(date))).sort();
   if (common.length === 0) return null;
   return { start: common[0], end: common[common.length - 1] };
+}
+
+export function computeDefaultChartWindow(
+  marketRows: readonly MarketRow[],
+  chartModelRows: readonly ModelRow[],
+): { start: string; end: string } | null {
+  return computeCommonWindow(marketRows, [chartModelRows]);
+}
+
+export function chooseDefaultChartProfile(
+  manifest: Manifest,
+  models: Record<string, ModelPayload>,
+): string {
+  const preferred = [
+    manifest.default_chart_profile,
+    ...manifest.default_comparison_profiles,
+    ...manifest.available_profiles,
+  ].filter((profile): profile is string => typeof profile === 'string' && profile in models);
+  const runnable = preferred.find((profile) => models[profile].runnable);
+  return runnable ?? preferred[0] ?? manifest.default_baseline_profile;
+}
+
+export function chartRangeRows(
+  models: Record<string, ModelPayload>,
+  chartProfile: string,
+  marketRows: readonly MarketRow[],
+): readonly { date: string }[] {
+  const rows = models[chartProfile]?.rows;
+  return rows && rows.length ? rows : marketRows;
 }
 
 export function clipRowsByDate<T extends { date: string }>(rows: readonly T[], start: string, end: string): T[] {
@@ -136,6 +166,59 @@ export function buildActionMarkers(
     });
 }
 
+function marketRowsByDate(rows: readonly MarketRow[]): Map<string, MarketRow> {
+  return new Map(rows.map((row) => [row.date, row]));
+}
+
+function eventSnapshotFor(model: ModelPayload, date: string): Record<string, string | number | boolean | null> {
+  const event = model.events.find((item) => item.date === date && (item.kind === 'BUY' || item.kind === 'SELL'));
+  return event?.feature_snapshot ?? {};
+}
+
+function snapshotFromMarket(
+  marketRow: MarketRow | undefined,
+  columns: readonly string[],
+): Record<string, string | number | boolean | null> {
+  if (!marketRow) return {};
+  const result: Record<string, string | number | boolean | null> = {};
+  for (const column of columns) {
+    if (marketRow[column] !== undefined) result[column] = marketRow[column];
+  }
+  return result;
+}
+
+export function buildActionFeatureRows(input: {
+  date: string;
+  models: Record<string, ModelPayload>;
+  marketRows: readonly MarketRow[];
+}): ActionFeatureRow[] {
+  const market = marketRowsByDate(input.marketRows);
+  return Object.entries(input.models)
+    .map(([profile, model]) => {
+      const modelRow = model.rows.find((row) => row.date === input.date);
+      if (!modelRow) return null;
+      const rowSnapshot = modelRow.feature_snapshot ?? {};
+      const eventSnapshot = eventSnapshotFor(model, input.date);
+      const marketSnapshot = snapshotFromMarket(market.get(input.date), model.snapshot_columns);
+      return {
+        profile,
+        display_name: model.display_name || profile,
+        action: modelRow.action,
+        position: modelRow.position,
+        is_trade: modelRow.action === 'BUY' || modelRow.action === 'SELL',
+        source_kind: model.source_kind,
+        feature_packs: model.feature_packs,
+        feature_columns: model.feature_columns,
+        features: Object.keys(rowSnapshot).length
+          ? rowSnapshot
+          : Object.keys(eventSnapshot).length
+            ? eventSnapshot
+            : marketSnapshot,
+      };
+    })
+    .filter((row): row is ActionFeatureRow => row !== null);
+}
+
 export function computeVisibleComparison(
   comparison: ComparisonPayload,
   start: string,
@@ -152,6 +235,30 @@ function formatPercent(value: number | null | undefined, digits = 2): string {
   return typeof value === 'number' && Number.isFinite(value) ? `${(value * 100).toFixed(digits)}%` : 'n/a';
 }
 
+export interface InspectorLookup {
+  marketRowsByDate: Map<string, MarketRow>;
+  comparisonRowsByDate: Map<string, ComparisonRow>;
+  modelRowsByProfileAndDate: Record<string, Map<string, ModelRow>>;
+}
+
+function indexRowsByDate<T extends { date: string }>(rows: readonly T[]): Map<string, T> {
+  return new Map(rows.map((row) => [row.date, row]));
+}
+
+export function buildInspectorLookup(input: {
+  market: MarketPayload;
+  models: Record<string, ModelPayload>;
+  comparison: ComparisonPayload;
+}): InspectorLookup {
+  return {
+    marketRowsByDate: indexRowsByDate(input.market.rows),
+    comparisonRowsByDate: indexRowsByDate(input.comparison.rows),
+    modelRowsByProfileAndDate: Object.fromEntries(
+      Object.entries(input.models).map(([profile, model]) => [profile, indexRowsByDate(model.rows)]),
+    ),
+  };
+}
+
 function rowToneForAction(action: string): InspectorRow['tone'] {
   if (action === 'BUY') return 'buy';
   if (action === 'SELL') return 'sell';
@@ -165,8 +272,24 @@ export function computeInspectorRows(input: {
   models: Record<string, ModelPayload>;
   comparison: ComparisonPayload;
 }): InspectorRow[] {
-  const marketRow = input.market.rows.find((row) => row.date === input.date);
-  const comparisonRow = input.comparison.rows.find((row) => row.date === input.date);
+  return computeInspectorRowsFromLookup({
+    date: input.date,
+    manifest: input.manifest,
+    lookup: buildInspectorLookup({
+      market: input.market,
+      models: input.models,
+      comparison: input.comparison,
+    }),
+  });
+}
+
+export function computeInspectorRowsFromLookup(input: {
+  date: string;
+  manifest: Manifest;
+  lookup: InspectorLookup;
+}): InspectorRow[] {
+  const marketRow = input.lookup.marketRowsByDate.get(input.date);
+  const comparisonRow = input.lookup.comparisonRowsByDate.get(input.date);
   const rows: InspectorRow[] = [
     { label: 'date', value: input.date },
     { label: 'safe end', value: input.manifest.safe_backtest_end, tone: 'muted' },
@@ -182,8 +305,8 @@ export function computeInspectorRows(input: {
     }
   }
 
-  for (const [profile, model] of Object.entries(input.models)) {
-    const modelRow = model.rows.find((row) => row.date === input.date);
+  for (const [profile, modelRowsByDate] of Object.entries(input.lookup.modelRowsByProfileAndDate)) {
+    const modelRow = modelRowsByDate.get(input.date);
     const comparisonValues = comparisonRow?.profiles[profile];
     if (modelRow) {
       rows.push({ label: `${profile} action`, value: modelRow.action, tone: rowToneForAction(modelRow.action) });
