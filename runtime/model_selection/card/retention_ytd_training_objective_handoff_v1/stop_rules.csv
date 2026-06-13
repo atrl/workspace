@@ -1,0 +1,7 @@
+rule,action,details
+missing_official_replay_evidence,reject,candidate must have official replay or dashboard replay YTD plus all required WF windows
+wf_maxdd_ge_20pct,reject,retained model cannot breach requested walk-forward drawdown gate
+ytd_below_current_best_alignment,reject,YTD must be >= 213.143462%
+ytd_below_soxlbacktest_reference,reject_or_downrank_reference,YTD below 132.077978% cannot beat SOXLBacktest reference floor
+ordinary_vs_official_gate_flip,reject_training_handoff,do not use ordinary split metrics to justify PPO/retention
+risk_state_reentry_drift,stop_floor_sweep,"if reentry/trend floor improves return but worsens drawdown, revise state representation before longer training"

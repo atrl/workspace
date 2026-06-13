@@ -1,0 +1,54 @@
+{
+  "experiment": "retention_ytd_training_objective_handoff_v1",
+  "created_at": "2026-06-13T14:06:52.481747+00:00",
+  "decision": "retention_ytd_training_objective_contract_ready_no_promotion",
+  "promotion_allowed": false,
+  "actor_retention_allowed": false,
+  "training_allowed_next": true,
+  "next_mechanism": "train_state_conditioned_multi_objective_ytd_gate_v1",
+  "next_profile_candidate": "state_conditioned_multi_objective_ytd_gate_v1",
+  "safe_backtest_end": "2026-06-11",
+  "target_thresholds": {
+    "required_wf_windows": [
+      "wf_2020",
+      "wf_2022",
+      "wf_2023_2024"
+    ],
+    "wf_max_drawdown_hard_gate_pct": 20.0,
+    "soxlbacktest_reference_ytd_return_pct": 132.077978,
+    "current_best_ytd_return_pct": 224.361539,
+    "required_current_best_alignment_ytd_pct": 213.143462,
+    "official_internal_relative_return_floor_pp": 30.0,
+    "official_internal_maxdd_margin_pct": 15.0,
+    "safe_backtest_end": "2026-06-11",
+    "latest_data_date": "2026-06-12"
+  },
+  "closest_retention_candidate": "existing_model_retention_gate::mode_conditioned_rebound_reward_train_v2",
+  "closest_retention_objective_loss": 53.887093000000014,
+  "best_low_drawdown_reference": "soxlbacktest_qlib_reference::wf_pass_ytd18_15_15_02",
+  "best_low_drawdown_ytd_return_pct": 18.30891,
+  "soxlbacktest_reference_ytd_return_pct": 132.077978,
+  "required_current_best_alignment_ytd_pct": 213.143462,
+  "recipe_terms": [
+    "official_replay_metric_source_required",
+    "complete_wf_coverage_gate",
+    "walkforward_drawdown_hard_gate_20pct",
+    "ytd_current_best_alignment_floor",
+    "soxlbacktest_buysell_reference_floor",
+    "warm_start_drawdown_margin_15pct",
+    "state_conditioned_risk_representation_before_reentry_floor",
+    "trend_ytd_participation_floor_with_drawdown_guard",
+    "ppo_drawdown_drift_stop"
+  ],
+  "stop_rule_count": 6,
+  "sidecars": {
+    "source_audit": "runtime/model_selection/card/retention_ytd_training_objective_handoff_v1/source_audit.csv",
+    "candidate_gap_table": "runtime/model_selection/card/retention_ytd_training_objective_handoff_v1/candidate_gap_table.csv",
+    "training_objective_recipe": "runtime/model_selection/card/retention_ytd_training_objective_handoff_v1/training_objective_recipe.csv",
+    "stop_rules": "runtime/model_selection/card/retention_ytd_training_objective_handoff_v1/stop_rules.csv",
+    "contract": "runtime/model_selection/card/retention_ytd_training_objective_handoff_v1/training_contract.json",
+    "selection": "runtime/model_selection/card/retention_ytd_training_objective_handoff_v1/selection.json",
+    "summary": "runtime/model_selection/card/retention_ytd_training_objective_handoff_v1/summary.json",
+    "conclusion": "runtime/model_selection/card/retention_ytd_training_objective_handoff_v1/conclusion.md"
+  }
+}

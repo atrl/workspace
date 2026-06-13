@@ -1,0 +1,59 @@
+{
+  "experiment": "retention_ytd_training_objective_handoff_v1",
+  "created_at": "2026-06-13T14:06:52.481747+00:00",
+  "decision": "retention_ytd_training_objective_contract_ready_no_promotion",
+  "promotion_allowed": false,
+  "actor_retention_allowed": false,
+  "training_allowed_next": true,
+  "next_mechanism": "train_state_conditioned_multi_objective_ytd_gate_v1",
+  "next_profile_candidate": "state_conditioned_multi_objective_ytd_gate_v1",
+  "canonical_baseline": "v19reg_v22_budget_usage_bull_guard_v1",
+  "reference_baseline": "soxlbacktest_policy_reimplementation_v1",
+  "direct_comparison_baseline": [
+    "retention_gap_aggregate_v1",
+    "state_conditioned_multi_objective_bc_screen_v1",
+    "sequence_trend_joint_warm_start_official_eval_v1",
+    "soxlbacktest_qlib_walkforward_baseline_v1"
+  ],
+  "target_thresholds": {
+    "required_wf_windows": [
+      "wf_2020",
+      "wf_2022",
+      "wf_2023_2024"
+    ],
+    "wf_max_drawdown_hard_gate_pct": 20.0,
+    "soxlbacktest_reference_ytd_return_pct": 132.077978,
+    "current_best_ytd_return_pct": 224.361539,
+    "required_current_best_alignment_ytd_pct": 213.143462,
+    "official_internal_relative_return_floor_pp": 30.0,
+    "official_internal_maxdd_margin_pct": 15.0,
+    "safe_backtest_end": "2026-06-11",
+    "latest_data_date": "2026-06-12"
+  },
+  "selected_diagnostic_candidate": "existing_model_retention_gate::mode_conditioned_rebound_reward_train_v2",
+  "best_low_drawdown_reference": "soxlbacktest_qlib_reference::wf_pass_ytd18_15_15_02",
+  "soxlbacktest_qlib_reference_candidate": "wf_pass_ytd18_15_15_02",
+  "primary_failure_modes": [
+    "joint_drawdown_and_ytd_return_gap",
+    "low_drawdown_underparticipation",
+    "official_replay_drawdown_drift_after_reentry_lift",
+    "missing_or_incomplete_wf_evidence"
+  ],
+  "required_next_artifacts": [
+    "profile.yaml registered in runtime/harness/card/registry/profile.yaml before a retained actor is kept",
+    "official replay metrics for wf_2020, wf_2022, wf_2023_2024",
+    "dashboard/YTD replay through safe_backtest_end",
+    "checkpoint selector table with retention_ytd_loss and wf_drawdown_loss",
+    "drawdown interval audit for any selected checkpoint"
+  ],
+  "sidecars": {
+    "source_audit": "runtime/model_selection/card/retention_ytd_training_objective_handoff_v1/source_audit.csv",
+    "candidate_gap_table": "runtime/model_selection/card/retention_ytd_training_objective_handoff_v1/candidate_gap_table.csv",
+    "training_objective_recipe": "runtime/model_selection/card/retention_ytd_training_objective_handoff_v1/training_objective_recipe.csv",
+    "stop_rules": "runtime/model_selection/card/retention_ytd_training_objective_handoff_v1/stop_rules.csv",
+    "contract": "runtime/model_selection/card/retention_ytd_training_objective_handoff_v1/training_contract.json",
+    "selection": "runtime/model_selection/card/retention_ytd_training_objective_handoff_v1/selection.json",
+    "summary": "runtime/model_selection/card/retention_ytd_training_objective_handoff_v1/summary.json",
+    "conclusion": "runtime/model_selection/card/retention_ytd_training_objective_handoff_v1/conclusion.md"
+  }
+}
