@@ -1,6 +1,7 @@
 import type {
   ActionMarker,
   ActionFeatureRow,
+  BaselineFeatureContrastRow,
   ComparisonPayload,
   ComparisonRow,
   InspectorRow,
@@ -10,6 +11,7 @@ import type {
   ModelEvent,
   ModelPayload,
   ModelRow,
+  FeatureValue,
 } from './types';
 
 export function clampComparisonProfiles(
@@ -228,6 +230,76 @@ export function buildActionFeatureRows(input: {
       };
     })
     .filter((row): row is ActionFeatureRow => row !== null);
+}
+
+function modelRowsByDate(rows: readonly ModelRow[]): Map<string, ModelRow> {
+  return new Map(rows.map((row) => [row.date, row]));
+}
+
+function numericFeatureValue(value: FeatureValue | undefined): number | null {
+  if (typeof value === 'boolean') return value ? 1 : 0;
+  if (typeof value !== 'number' || !Number.isFinite(value)) return null;
+  return value;
+}
+
+function featureDelta(value: FeatureValue | undefined, baselineValue: FeatureValue | undefined): number | null {
+  const left = numericFeatureValue(value);
+  const right = numericFeatureValue(baselineValue);
+  return left !== null && right !== null ? left - right : null;
+}
+
+export function buildBaselineFeatureContrastRows(input: {
+  models: Record<string, ModelPayload>;
+  baselineProfile: string;
+  limitPerEvent?: number;
+  maxRows?: number;
+}): BaselineFeatureContrastRow[] {
+  const baseline = input.models[input.baselineProfile];
+  if (!baseline) return [];
+  const limitPerEvent = input.limitPerEvent ?? 5;
+  const maxRows = input.maxRows ?? 48;
+  const baselineRows = modelRowsByDate(baseline.rows);
+  const contrastRows: BaselineFeatureContrastRow[] = [];
+
+  for (const [profile, model] of Object.entries(input.models)) {
+    if (profile === input.baselineProfile) continue;
+    for (const row of model.rows) {
+      if (row.action !== 'BUY' && row.action !== 'SELL') continue;
+      const baselineRow = baselineRows.get(row.date);
+      const snapshot = row.feature_snapshot ?? {};
+      const baselineSnapshot = baselineRow?.feature_snapshot ?? {};
+      const featureRows = Object.keys(snapshot)
+        .map((feature) => {
+          const value = snapshot[feature] ?? null;
+          const baselineValue = baselineSnapshot[feature] ?? null;
+          return {
+            date: row.date,
+            profile,
+            display_name: model.display_name || profile,
+            action: row.action,
+            baseline_action: baselineRow?.action ?? 'n/a',
+            position_delta_vs_baseline:
+              baselineRow === undefined ? null : row.position - baselineRow.position,
+            feature,
+            value,
+            baseline_value: baselineValue,
+            delta: featureDelta(value, baselineValue),
+          } satisfies BaselineFeatureContrastRow;
+        })
+        .sort((left, right) => {
+          const leftScore = Math.abs(left.delta ?? 0);
+          const rightScore = Math.abs(right.delta ?? 0);
+          const missingDeltaOrder = Number(left.delta === null) - Number(right.delta === null);
+          return missingDeltaOrder || rightScore - leftScore || left.feature.localeCompare(right.feature);
+        })
+        .slice(0, limitPerEvent);
+      contrastRows.push(...featureRows);
+    }
+  }
+
+  return contrastRows
+    .sort((left, right) => right.date.localeCompare(left.date) || left.display_name.localeCompare(right.display_name))
+    .slice(0, maxRows);
 }
 
 export function computeVisibleComparison(

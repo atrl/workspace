@@ -59,6 +59,7 @@ def test_build_dashboard_v2_data_writes_manifest_market_model_and_comparison(tmp
                 "generated_at": "2026-06-13T00:00:00+00:00",
                 "latest_data_date": "2026-01-06",
                 "safe_backtest_end": "2026-01-06",
+                "counts": {"current": 1, "refreshed": 0, "failed": 0, "skipped": 1},
                 "profiles": [
                     {
                         "profile": "smoke",
@@ -67,6 +68,15 @@ def test_build_dashboard_v2_data_writes_manifest_market_model_and_comparison(tmp
                         "profile_yaml": "runtime/harness/card/smoke/profile.yaml",
                         "output": "runtime/model/card/smoke/smoke_soxl_daily.csv",
                         "result": "current",
+                    },
+                    {
+                        "profile": "missing_actor_model",
+                        "status": "canonical",
+                        "actor": "runtime/model/card/missing_actor_model/soxl_missing_actor_model_actor.pt",
+                        "profile_yaml": "runtime/model/card/missing_actor_model/profile.yaml",
+                        "output": "runtime/model/card/missing_actor_model/missing_actor_model_soxl_daily.csv",
+                        "result": "skipped",
+                        "reason": "missing_actor_artifact",
                     }
                 ],
             }
@@ -156,8 +166,25 @@ def test_build_dashboard_v2_data_writes_manifest_market_model_and_comparison(tmp
         "inspect_failed_fold_drawdown_or_reward_drift_before_full_retention_training"
     )
     assert manifest["model_retention_frontier"]["source_path"].endswith("model_retention_frontier_v1/summary.json")
-    assert manifest["auto_update"]["model_replay_freshness"]["profile_count"] == 1
+    assert manifest["auto_update"]["model_replay_freshness"]["profile_count"] == 2
     assert manifest["auto_update"]["model_replay_freshness"]["ready_count"] == 1
+    assert manifest["auto_update"]["manual_refresh_command"] == "production/run_dashboard_refresh.sh"
+    assert manifest["auto_update"]["refresh_pipeline"] == [
+        "scripts/refresh_dashboard_model_replays.py",
+        "scripts/build_dashboard_bundle.py",
+        "scripts/check_dashboard_static_export.py",
+    ]
+    assert manifest["unavailable_profiles"] == [
+        {
+            "profile": "missing_actor_model",
+            "status": "canonical",
+            "result": "skipped",
+            "reason": "missing_actor_artifact",
+            "actor": "runtime/model/card/missing_actor_model/soxl_missing_actor_model_actor.pt",
+            "profile_yaml": "runtime/model/card/missing_actor_model/profile.yaml",
+            "output": "runtime/model/card/missing_actor_model/missing_actor_model_soxl_daily.csv",
+        }
+    ]
     assert market["rows"][1]["vix"] == 18.0
     assert model["rows"][1]["action"] == "BUY"
     assert model["metrics"]["full"]["buyhold_return"] == pytest.approx(0.08)

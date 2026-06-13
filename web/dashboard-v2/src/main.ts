@@ -343,8 +343,9 @@ function renderDashboard(
   renderComparisonPanel(comparison, data.comparison, state.start, state.end, state.selectedProfiles, data.models);
   renderFeatureSpotlightPanel(requireElement('feature-panel'), {
     date: state.hoveredDate,
-    marketRows: data.market.rows,
-    models: selectedModels(data, state.selectedProfiles),
+    marketRows: market.rows,
+    models,
+    baselineProfile: state.baselineProfile,
   });
   renderInspector(data, state, inspectorLookup);
   const warnings = warningsFor(data, state);

@@ -68,6 +68,16 @@ def check_dashboard_v2_data(root: Path) -> dict[str, int]:
     default_chart_profile = manifest.get("default_chart_profile")
     if default_chart_profile is not None and default_chart_profile not in available_profiles:
         raise ValueError(f"manifest default_chart_profile is unknown: {default_chart_profile}")
+    unavailable_profiles = manifest.get("unavailable_profiles", [])
+    if unavailable_profiles is not None:
+        if not isinstance(unavailable_profiles, list):
+            raise ValueError("manifest unavailable_profiles must be a list")
+        for item in unavailable_profiles:
+            if not isinstance(item, dict):
+                raise ValueError("manifest unavailable profile entries must be objects")
+            missing = [field for field in ("profile", "result", "reason") if not item.get(field)]
+            if missing:
+                raise ValueError(f"manifest unavailable profile missing fields: {', '.join(missing)}")
     has_retention_gate = manifest.get("model_retention_gate") is not None
 
     market_rows = _require_rows(market, "market SOXL")

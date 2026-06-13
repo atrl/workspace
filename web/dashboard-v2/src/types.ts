@@ -19,7 +19,11 @@ export interface AutoUpdateTask {
 export interface AutoUpdateStatus {
   configured: boolean;
   timezone: string;
+  launchd_detected?: boolean;
+  launchagents_dir?: string;
   tasks: AutoUpdateTask[];
+  manual_refresh_command?: string;
+  refresh_pipeline?: string[];
   model_replay_freshness?: {
     generated_at?: string;
     latest_data_date?: string;
@@ -31,6 +35,16 @@ export interface AutoUpdateStatus {
   };
   status_paths?: Record<string, string>;
   remote_deploy_required?: boolean;
+}
+
+export interface UnavailableProfile {
+  profile: string;
+  status?: string;
+  result: string;
+  reason: string;
+  actor?: string;
+  profile_yaml?: string;
+  output?: string;
 }
 
 export interface ModelRetentionGateStatus {
@@ -65,6 +79,7 @@ export interface Manifest {
   latest_market_date: string;
   safe_backtest_end: string;
   available_profiles: string[];
+  unavailable_profiles?: UnavailableProfile[];
   profile_groups?: {
     runnable: string[];
     reference: string[];
@@ -203,6 +218,19 @@ export interface ActionFeatureRow {
   feature_packs: string[];
   feature_columns: string[];
   features: Record<string, FeatureValue>;
+}
+
+export interface BaselineFeatureContrastRow {
+  date: string;
+  profile: string;
+  display_name: string;
+  action: Action;
+  baseline_action: Action | 'n/a';
+  position_delta_vs_baseline: number | null;
+  feature: string;
+  value: FeatureValue;
+  baseline_value: FeatureValue;
+  delta: number | null;
 }
 
 export interface ActionMarker {

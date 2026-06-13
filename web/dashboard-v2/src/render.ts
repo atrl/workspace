@@ -1,4 +1,4 @@
-import { buildActionFeatureRows, computeVisibleComparison } from './domain';
+import { buildActionFeatureRows, buildBaselineFeatureContrastRows, computeVisibleComparison } from './domain';
 import type { ChartRangeCommand } from './chart';
 import type {
   ComparisonPayload,
@@ -35,6 +35,7 @@ export function renderDataSourcePanel(container: HTMLElement, manifest: Manifest
     ['runnable profiles', groups?.runnable?.join(', ') || 'none'],
     ['reference profiles', groups?.reference?.join(', ') || 'none'],
     ['evidence-only profiles', groups?.evidence_only?.join(', ') || 'none'],
+    ['unavailable profiles', String(manifest.unavailable_profiles?.length ?? 0)],
     ...Object.entries(manifest.source_paths),
   ];
   for (const [label, value] of rows) {
@@ -64,6 +65,8 @@ export function renderDataSourcePanel(container: HTMLElement, manifest: Manifest
           .join(' ') || 'n/a',
       ],
       ['freshness source', auto.model_replay_freshness?.source_path ?? 'n/a'],
+      ['manual refresh', auto.manual_refresh_command ?? 'n/a'],
+      ['refresh pipeline', auto.refresh_pipeline?.join(' -> ') ?? 'n/a'],
       ['remote deploy required', auto.remote_deploy_required ? 'yes' : 'no'],
     ];
     for (const [label, value] of autoRows) {
@@ -92,6 +95,7 @@ export function renderDataSourcePanel(container: HTMLElement, manifest: Manifest
     autoSection.appendChild(taskList);
     container.appendChild(autoSection);
   }
+  renderUnavailableProfileTable(container, manifest);
   const retention = manifest.model_retention_gate;
   if (retention) {
     const retentionSection = element('section', 'auto-update-block');
@@ -158,6 +162,37 @@ export function renderDataSourcePanel(container: HTMLElement, manifest: Manifest
   }
 }
 
+function renderUnavailableProfileTable(container: HTMLElement, manifest: Manifest): void {
+  const unavailable = manifest.unavailable_profiles ?? [];
+  if (!unavailable.length) return;
+  const section = element('section', 'auto-update-block unavailable-models');
+  section.appendChild(element('h3', undefined, 'Unavailable Model Replays'));
+  const table = element('table', 'comparison-table compact-table');
+  const thead = element('thead');
+  const headerRow = element('tr');
+  for (const title of ['Model', 'Result', 'Reason', 'Actor/Profile', 'Output']) {
+    headerRow.appendChild(element('th', undefined, title));
+  }
+  thead.appendChild(headerRow);
+  table.appendChild(thead);
+  const tbody = element('tbody');
+  for (const item of unavailable) {
+    const tr = element('tr');
+    tr.dataset.tone = 'warning';
+    tr.appendChild(element('td', undefined, item.profile));
+    tr.appendChild(element('td', undefined, item.result));
+    tr.appendChild(element('td', undefined, item.reason));
+    tr.appendChild(element('td', 'feature-snapshot-cell', [item.actor, item.profile_yaml].filter(Boolean).join(' · ') || 'n/a'));
+    tr.appendChild(element('td', 'feature-snapshot-cell', item.output ?? 'n/a'));
+    tbody.appendChild(tr);
+  }
+  table.appendChild(tbody);
+  const tableScroll = element('div', 'table-scroll');
+  tableScroll.appendChild(table);
+  section.appendChild(tableScroll);
+  container.appendChild(section);
+}
+
 export function renderOperationsPanel(container: HTMLElement, manifest: Manifest, warnings: string[] = []): void {
   container.replaceChildren();
   container.appendChild(element('h2', undefined, 'Operations'));
@@ -184,6 +219,8 @@ export function renderOperationsPanel(container: HTMLElement, manifest: Manifest
         .join(' ') || 'n/a',
     ],
     ['safe replay end', auto.model_replay_freshness?.safe_backtest_end ?? 'n/a'],
+    ['manual refresh', auto.manual_refresh_command ?? 'n/a'],
+    ['pipeline', auto.refresh_pipeline?.join(' -> ') ?? 'n/a'],
     ['next training', manifest.model_retention_frontier?.recommended_next_source ?? 'n/a'],
     ['next action', manifest.model_retention_frontier?.recommended_next_action ?? 'n/a'],
     ['training blocker', manifest.model_retention_frontier?.recommended_primary_blocker ?? 'n/a'],
@@ -208,6 +245,7 @@ export function renderOperationsPanel(container: HTMLElement, manifest: Manifest
     taskList.appendChild(item);
   }
   container.appendChild(taskList);
+  renderUnavailableProfileTable(container, manifest);
 
   const critical = warnings.filter((warning) => warning.includes('Replay') || warning.includes('runnable') || warning.includes('not runnable'));
   if (critical.length) {
@@ -399,6 +437,59 @@ function renderFeatureActionSummaryTable(
   container.appendChild(tableScroll);
 }
 
+function renderBaselineFeatureContrastTable(
+  container: HTMLElement,
+  models: Record<string, ModelPayload>,
+  baselineProfile: string,
+): void {
+  container.appendChild(element('h3', undefined, 'Trade Feature vs Baseline'));
+  const rows = buildBaselineFeatureContrastRows({
+    models,
+    baselineProfile,
+    limitPerEvent: 5,
+    maxRows: 40,
+  });
+  if (!rows.length) {
+    container.appendChild(element('p', 'empty-state', 'No buy/sell feature contrast against the selected baseline.'));
+    return;
+  }
+
+  const table = element('table', 'comparison-table feature-table baseline-feature-table');
+  const thead = element('thead');
+  const headerRow = element('tr');
+  for (const title of ['Date', 'Model', 'Action', 'Baseline', 'Pos Delta', 'Feature', 'Value', 'Baseline Value', 'Delta']) {
+    headerRow.appendChild(element('th', undefined, title));
+  }
+  thead.appendChild(headerRow);
+  table.appendChild(thead);
+
+  const tbody = element('tbody');
+  for (const row of rows) {
+    const tr = element('tr');
+    tr.dataset.trade = 'true';
+    tr.appendChild(element('td', undefined, row.date));
+    tr.appendChild(element('td', undefined, row.display_name));
+    tr.appendChild(element('td', undefined, row.action));
+    tr.appendChild(element('td', undefined, `baseline ${row.baseline_action}`));
+    tr.appendChild(
+      element(
+        'td',
+        undefined,
+        row.position_delta_vs_baseline === null ? 'n/a' : formatSignedFeatureDelta(row.position_delta_vs_baseline),
+      ),
+    );
+    tr.appendChild(element('td', undefined, row.feature));
+    tr.appendChild(element('td', undefined, formatFeatureValue(row.value)));
+    tr.appendChild(element('td', undefined, formatFeatureValue(row.baseline_value)));
+    tr.appendChild(element('td', undefined, formatSignedFeatureDelta(row.delta)));
+    tbody.appendChild(tr);
+  }
+  table.appendChild(tbody);
+  const tableScroll = element('div', 'table-scroll');
+  tableScroll.appendChild(table);
+  container.appendChild(tableScroll);
+}
+
 function renderFeatureSchemaTable(container: HTMLElement, models: Record<string, ModelPayload>): void {
   container.appendChild(element('h3', undefined, 'Model Feature Schemas'));
   const rows = Object.entries(models).map(([profile, model]) => ({
@@ -535,7 +626,7 @@ export function renderFeatureSnapshotPanel(
 
 export function renderFeatureComparisonPanel(
   container: HTMLElement,
-  input: { date: string; marketRows: readonly MarketRow[]; models: Record<string, ModelPayload> },
+  input: { date: string; marketRows: readonly MarketRow[]; models: Record<string, ModelPayload>; baselineProfile?: string },
 ): void {
   container.replaceChildren();
   container.appendChild(element('h2', undefined, 'Buy/Sell Feature Comparison'));
@@ -544,13 +635,14 @@ export function renderFeatureComparisonPanel(
   snapshotPanel.id = 'feature-date-snapshot';
   renderFeatureSnapshotPanel(snapshotPanel, input);
   container.appendChild(snapshotPanel);
+  renderBaselineFeatureContrastTable(container, input.models, input.baselineProfile ?? Object.keys(input.models)[0] ?? '');
   renderFeatureActionSummaryTable(container, input.models);
   renderRecentEventFeatureTable(container, input.models);
 }
 
 export function renderFeatureSpotlightPanel(
   container: HTMLElement,
-  input: { date: string; marketRows: readonly MarketRow[]; models: Record<string, ModelPayload> },
+  input: { date: string; marketRows: readonly MarketRow[]; models: Record<string, ModelPayload>; baselineProfile?: string },
 ): void {
   container.replaceChildren();
   container.appendChild(element('h2', undefined, 'Buy/Sell Features'));
@@ -559,6 +651,7 @@ export function renderFeatureSpotlightPanel(
   snapshotPanel.id = 'feature-date-snapshot';
   renderFeatureSnapshotPanel(snapshotPanel, input);
   container.appendChild(snapshotPanel);
+  renderBaselineFeatureContrastTable(container, input.models, input.baselineProfile ?? Object.keys(input.models)[0] ?? '');
   renderFeatureActionSummaryTable(container, input.models);
   renderRecentEventFeatureTable(container, input.models);
 }

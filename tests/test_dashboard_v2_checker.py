@@ -48,6 +48,13 @@ def test_check_dashboard_v2_data_passes_valid_contract(tmp_path: Path):
             "default_baseline_profile": "smoke",
             "default_comparison_profiles": ["smoke"],
             "available_profiles": ["smoke"],
+            "unavailable_profiles": [
+                {
+                    "profile": "missing_actor_model",
+                    "result": "skipped",
+                    "reason": "missing_actor_artifact",
+                }
+            ],
         },
     )
     _write_json(
@@ -90,6 +97,56 @@ def test_check_dashboard_v2_data_passes_valid_contract(tmp_path: Path):
     result = check_dashboard_v2_data(root)
 
     assert result == {"profiles": 1, "market_rows": 1, "comparison_rows": 1}
+
+
+def test_check_dashboard_v2_data_fails_malformed_unavailable_profile(tmp_path: Path):
+    root = tmp_path / "dashboard_data" / "v2"
+    _write_json(
+        root / "manifest.json",
+        {
+            "safe_backtest_end": "2026-01-06",
+            "default_baseline_profile": "smoke",
+            "default_comparison_profiles": ["smoke"],
+            "available_profiles": ["smoke"],
+            "unavailable_profiles": [{"profile": "missing_actor_model", "result": "skipped"}],
+        },
+    )
+    _write_json(
+        root / "market" / "SOXL.json",
+        {
+            "symbol": "SOXL",
+            "rows": [
+                {
+                    "date": "2026-01-06",
+                    "open": 10,
+                    "high": 11,
+                    "low": 9,
+                    "close": 10.5,
+                    "volume": 1000,
+                }
+            ],
+        },
+    )
+    _write_json(root / "models" / "smoke.json", _model_contract())
+    _write_json(
+        root / "comparison" / "default.json",
+        {
+            "baseline_profile": "smoke",
+            "compared_profiles": ["smoke"],
+            "common_start": "2026-01-06",
+            "common_end": "2026-01-06",
+            "rows": [
+                {
+                    "date": "2026-01-06",
+                    "profiles": {"smoke": {"action": "BUY"}},
+                    "action_mismatch_count": 0,
+                }
+            ],
+        },
+    )
+
+    with pytest.raises(ValueError, match="unavailable profile"):
+        check_dashboard_v2_data(root)
 
 
 def test_check_dashboard_v2_data_fails_missing_model_position(tmp_path: Path):

@@ -662,6 +662,12 @@ def _auto_update_status(
         "launchd_detected": launchd_detected,
         "launchagents_dir": str(launchagents_dir),
         "tasks": tasks,
+        "manual_refresh_command": "production/run_dashboard_refresh.sh",
+        "refresh_pipeline": [
+            "scripts/refresh_dashboard_model_replays.py",
+            "scripts/build_dashboard_bundle.py",
+            "scripts/check_dashboard_static_export.py",
+        ],
         "model_replay_freshness": {
             "generated_at": freshness.get("generated_at"),
             "latest_data_date": freshness.get("latest_data_date"),
@@ -677,6 +683,42 @@ def _auto_update_status(
         },
         "remote_deploy_required": False,
     }
+
+
+def _unavailable_profiles_from_freshness(
+    root: Path,
+    freshness: dict[str, Any],
+) -> list[dict[str, Any]]:
+    rows = freshness.get("profiles", [])
+    if not isinstance(rows, list):
+        return []
+    unavailable: list[dict[str, Any]] = []
+    for row in rows:
+        if not isinstance(row, dict):
+            continue
+        profile = str(row.get("profile") or "").strip()
+        if not profile:
+            continue
+        result = str(row.get("result") or "").strip() or "unknown"
+        output = str(row.get("output") or "").strip()
+        output_exists = bool(output) and (root / output).exists()
+        if result in {"current", "refreshed"} and output_exists:
+            continue
+        reason = str(row.get("reason") or "").strip()
+        if result in {"current", "refreshed"} and not output_exists:
+            reason = reason or "missing_output_artifact"
+        item = {
+            "profile": profile,
+            "status": str(row.get("status") or ""),
+            "result": result,
+            "reason": reason or "not_replayable",
+        }
+        for field in ("actor", "profile_yaml", "output"):
+            value = str(row.get(field) or "").strip()
+            if value:
+                item[field] = value
+        unavailable.append(item)
+    return unavailable
 
 
 def load_feature_rows(root: Path) -> dict[str, dict[str, float | None]] | None:
@@ -1241,6 +1283,7 @@ def build_dashboard_v2_data(
         "latest_market_date": latest_market_date,
         "safe_backtest_end": safe_backtest_end,
         "available_profiles": profiles_to_write,
+        "unavailable_profiles": _unavailable_profiles_from_freshness(root, freshness),
         "profile_groups": _profile_groups(model_payloads, profiles_to_write),
         "default_baseline_profile": baseline,
         "default_chart_profile": default_chart_profile,

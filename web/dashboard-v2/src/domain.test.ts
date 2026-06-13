@@ -1,6 +1,7 @@
 import { describe, expect, test } from 'vitest';
 import {
   buildActionFeatureRows,
+  buildBaselineFeatureContrastRows,
   buildActionMarkers,
   clampComparisonProfiles,
   clipRowsByDate,
@@ -102,6 +103,30 @@ describe('dashboard v2 domain helpers', () => {
       profile: 'balanced_rule_residual_v22',
       action: 'SELL',
       features: { beta_signal: -2.5, shared_feature: 20 },
+    });
+  });
+
+  test('builds buy/sell feature contrasts against the selected baseline', () => {
+    const rows = buildBaselineFeatureContrastRows({
+      models: { smoke: modelFixture, balanced_rule_residual_v22: betaModelFixture },
+      baselineProfile: 'balanced_rule_residual_v22',
+      limitPerEvent: 10,
+    });
+
+    const sharedFeature = rows.find((row) => row.date === '2026-01-05' && row.feature === 'shared_feature');
+    expect(sharedFeature).toMatchObject({
+      profile: 'smoke',
+      action: 'BUY',
+      baseline_action: 'SELL',
+      value: 10,
+      baseline_value: 20,
+      delta: -10,
+    });
+    const modelSpecificFeature = rows.find((row) => row.date === '2026-01-05' && row.feature === 'alpha_signal');
+    expect(modelSpecificFeature).toMatchObject({
+      profile: 'smoke',
+      baseline_value: null,
+      delta: null,
     });
   });
 

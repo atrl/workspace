@@ -2040,7 +2040,7 @@
   ],
   "summary": {
     "completed_handoff_count": 64,
-    "generated_at": "2026-06-13T22:29:24.240510+00:00",
+    "generated_at": "2026-06-13T22:46:52.916832+00:00",
     "max_walkforward_drawdown_pct": 20.0,
     "recommended_next_action": "inspect_failed_fold_drawdown_or_reward_drift_before_full_retention_training",
     "recommended_next_source": "cap10_metric_replay_handoff_audit_v1",

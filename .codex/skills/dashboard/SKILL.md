@@ -233,6 +233,23 @@ For feature-comparison work, verify both the root HTML contract test and the
 per model (for example top 8 per model) before flattening; a global `slice()`
 can hide every model after the first wide feature schema.
 
+`dashboard_data/v2/manifest.json` should make operational status explicit:
+include `auto_update.manual_refresh_command`, `auto_update.refresh_pipeline`,
+and `unavailable_profiles` derived from skipped/failed
+`dashboard_data/model_replay_freshness.json` rows. The first screen should show
+configured/loaded scheduler tasks, replay ready counts, and each unavailable
+model's actor/profile/output reason so missing actors do not look like missing
+automation. When comparing BUY/SELL features, include a baseline-relative table
+that uses each model's own `feature_snapshot` on trade dates and shows `n/a`
+for baseline features that do not exist in a model-specific schema.
+
+The Vite build output under `web/dashboard-v2/dist/` is ignored by
+`.gitignore`, while selected hashed assets are intentionally tracked for the
+static bundle. After `npm run build`, check `web/dashboard-v2/dist/index.html`
+for the new asset names and use `git add -f web/dashboard-v2/dist/assets/<new>`
+for new hashed JS/CSS files; otherwise the committed HTML can point at an
+untracked bundle.
+
 Version-selector rows from `dashboard_data/index.json` are only summaries. If
 `DATA.versioned[version]` exists but lacks `detailed[ETF]`, the frontend must
 still fetch `dashboard_data/versioned/<version>/<ETF>.json`; otherwise the Main

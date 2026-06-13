@@ -5,6 +5,17 @@ export const manifestFixture: Manifest = {
   latest_market_date: '2026-01-06',
   safe_backtest_end: '2026-01-06',
   available_profiles: ['smoke', 'balanced_rule_residual_v22', 'candidate'],
+  unavailable_profiles: [
+    {
+      profile: 'missing_actor_model',
+      status: 'canonical',
+      result: 'skipped',
+      reason: 'missing_actor_artifact',
+      actor: 'runtime/model/card/missing_actor_model/soxl_missing_actor_model_actor.pt',
+      profile_yaml: 'runtime/model/card/missing_actor_model/profile.yaml',
+      output: 'runtime/model/card/missing_actor_model/missing_actor_model_soxl_daily.csv',
+    },
+  ],
   profile_groups: {
     runnable: ['smoke'],
     reference: ['balanced_rule_residual_v22'],
@@ -39,6 +50,12 @@ export const manifestFixture: Manifest = {
         schedule: '06:30 Tue-Sat Asia/Shanghai',
         command_path: 'production/run_dashboard_refresh.sh',
       },
+    ],
+    manual_refresh_command: 'production/run_dashboard_refresh.sh',
+    refresh_pipeline: [
+      'scripts/refresh_dashboard_model_replays.py',
+      'scripts/build_dashboard_bundle.py',
+      'scripts/check_dashboard_static_export.py',
     ],
     model_replay_freshness: {
       safe_backtest_end: '2026-01-06',

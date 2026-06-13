@@ -47,8 +47,14 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.textContent).toContain('balanced_rule_residual_v22');
     expect(panel.textContent).toContain('evidence-only profiles');
     expect(panel.textContent).toContain('candidate');
+    expect(panel.textContent).toContain('unavailable profiles');
+    expect(panel.textContent).toContain('Unavailable Model Replays');
+    expect(panel.textContent).toContain('missing_actor_model');
+    expect(panel.textContent).toContain('missing_actor_artifact');
     expect(panel.textContent).toContain('Auto Update');
     expect(panel.textContent).toContain('dashboard_refresh');
+    expect(panel.textContent).toContain('manual refresh');
+    expect(panel.textContent).toContain('scripts/refresh_dashboard_model_replays.py -> scripts/build_dashboard_bundle.py');
     expect(panel.textContent).toContain('installed');
     expect(panel.textContent).toContain('loaded');
     expect(panel.textContent).toContain('runtime/soxl/paper_trading/dashboard_refresh.log');
@@ -80,6 +86,10 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.textContent).toContain('current=1');
     expect(panel.textContent).toContain('dashboard_refresh');
     expect(panel.textContent).toContain('production/run_dashboard_refresh.sh');
+    expect(panel.textContent).toContain('pipeline');
+    expect(panel.textContent).toContain('scripts/check_dashboard_static_export.py');
+    expect(panel.textContent).toContain('Unavailable Model Replays');
+    expect(panel.textContent).toContain('missing_actor_model');
     expect(panel.querySelector('.task-card[data-enabled="true"]')?.textContent).toContain('configured');
     expect(panel.textContent).toContain('next training');
     expect(panel.textContent).toContain('cap10_metric_replay_handoff_audit_v1');
@@ -135,6 +145,7 @@ describe('dashboard v2 DOM render helpers', () => {
       date: '2026-01-05',
       marketRows: marketFixture.rows,
       models: { smoke: modelFixture, balanced_rule_residual_v22: betaModelFixture },
+      baselineProfile: 'balanced_rule_residual_v22',
     });
 
     expect(panel.textContent).toContain('Buy/Sell Feature Comparison');
@@ -146,6 +157,9 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.textContent).toContain('alpha_signal 1.25');
     expect(panel.textContent).toContain('beta_signal -2.50');
     expect(panel.textContent).toContain('Buy/Sell Feature Summary');
+    expect(panel.textContent).toContain('Trade Feature vs Baseline');
+    expect(panel.textContent).toContain('baseline SELL');
+    expect(panel.textContent).toContain('-10.00');
     expect(panel.textContent).toContain('alpha_signal');
     expect(panel.textContent).toContain('1.75');
     expect(panel.textContent).toContain('beta_signal');
@@ -160,6 +174,7 @@ describe('dashboard v2 DOM render helpers', () => {
       date: '2026-01-05',
       marketRows: marketFixture.rows,
       models: { smoke: modelFixture, balanced_rule_residual_v22: betaModelFixture },
+      baselineProfile: 'balanced_rule_residual_v22',
     });
 
     expect(panel.textContent).toContain('Buy/Sell Features');
@@ -171,6 +186,8 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.textContent).toContain('beta456');
     expect(panel.textContent).toContain('alpha_signal');
     expect(panel.textContent).toContain('beta_signal');
+    expect(panel.textContent).toContain('Trade Feature vs Baseline');
+    expect(panel.textContent).toContain('baseline SELL');
     expect(panel.textContent).toContain('BUY-SELL');
     expect(panel.textContent).toContain('Recent Buy/Sell Events');
   });
