@@ -907,3 +907,13 @@ def test_build_html_registers_backtest_result_as_selectable_version():
     assert "DATA.versioned[resultVersion]" in html
     assert "state.version = resultVersion" in html
     assert "DATA.detailed[state.etf] =" not in html
+
+
+def test_build_html_rerun_chart_draws_full_price_and_position_lines():
+    html = build_html({"detailed": {}, "versioned": {}, "model_versions": []}, {"all": {}})
+
+    price_rows_index = html.index("const priceRows = rows.filter(r => r.close != null || r.price != null);")
+    ohlc_index = html.index("if (ohlcRows.length)")
+    assert price_rows_index < ohlc_index
+    assert "name: 'SOXL Close', type: 'scatter', mode: 'lines'" in html
+    assert "name: 'Position %', type: 'scatter', mode: 'lines+markers'" in html

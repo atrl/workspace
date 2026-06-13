@@ -4127,9 +4127,20 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
           showlegend: false,
         }});
       }}
-      // Price row: prefer true OHLC candles, fall back to the daily close/price series.
+      // Price row: always draw the full close/price line; OHLC candles are supplemental.
       const ohlcRows = rows.filter(r => r.open != null && r.high != null && r.low != null && r.close != null);
       const ma180Rows = rows.filter(r => r.ma180 != null);
+      const priceRows = rows.filter(r => r.close != null || r.price != null);
+      if (priceRows.length) {{
+        traces.push({{
+          x: priceRows.map(r => r.datetime),
+          y: priceRows.map(r => r.close != null ? r.close : r.price),
+          name: 'SOXL Close', type: 'scatter', mode: 'lines',
+          line: {{ color: '{C_BUYHOLD}', width: 1.8 }},
+          hovertemplate: '%{{x}}<br>SOXL: $%{{y:,.2f}}<extra></extra>',
+          xaxis: xaPrice, yaxis: yaPrice,
+        }});
+      }}
       if (ohlcRows.length) {{
         traces.push({{
           x: ohlcRows.map(r => r.datetime),
@@ -4142,18 +4153,6 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
           decreasing: {{line: {{color: '#b91c1c'}}, fillcolor: 'rgba(185,28,28,0.12)'}},
           xaxis: xaPrice, yaxis: yaPrice,
         }});
-      }} else {{
-        const priceRows = rows.filter(r => r.close != null || r.price != null);
-        if (priceRows.length) {{
-          traces.push({{
-            x: priceRows.map(r => r.datetime),
-            y: priceRows.map(r => r.close != null ? r.close : r.price),
-            name: 'SOXL Close', type: 'scatter', mode: 'lines',
-            line: {{ color: '{C_BUYHOLD}', width: 1.8 }},
-            hovertemplate: '%{{x}}<br>SOXL: $%{{y:,.2f}}<extra></extra>',
-            xaxis: xaPrice, yaxis: yaPrice,
-          }});
-        }}
       }}
       if (ma180Rows.length) {{
         traces.push({{
@@ -4192,8 +4191,11 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
 
       traces.push({{
         x: dates, y: positions,
-        name: 'Position %', type: 'bar',
-        marker: {{ color: positions.map(p => p > 0 ? 'rgba(15,118,110,0.7)' : 'rgba(109,100,88,0.4)') }},
+        name: 'Position %', type: 'scatter', mode: 'lines+markers',
+        line: {{ color: '#0f766e', width: 2, shape: 'hv' }},
+        marker: {{ size: 5, color: positions.map(p => p > 0 ? '#0f766e' : '#6d6458') }},
+        fill: 'tozeroy',
+        fillcolor: 'rgba(15,118,110,0.08)',
         hovertemplate: '%{{x}}<br>Position: %{{y:.1%}}<extra></extra>',
         xaxis: xa2, yaxis: ya2,
       }});

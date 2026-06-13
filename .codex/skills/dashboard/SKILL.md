@@ -95,6 +95,10 @@ The chart Start/End inputs control only the visible chart window. The Run Model
 Backtest inputs use the replayable model window, so they are not locked to the
 short `paper_trading` display range. A successful rerun is registered in the
 browser as `rerun:<profile>:<start>:<end>` and selected in the Model dropdown.
+Rerun API rows may carry only `price` and `position`, not full OHLC. The Main
+Chart must always draw a full `close || price` SOXL line and a visible position
+line for rerun versions; OHLC candles are supplemental and must not suppress the
+price line when only a few rows have OHLC enrichment.
 Opening `dashboard.html` through `file://` or a plain `python -m http.server`
 can inspect static data. Backend model inference still needs
 `scripts/dashboard_server.py` running at `127.0.0.1:8765`; the static page will
