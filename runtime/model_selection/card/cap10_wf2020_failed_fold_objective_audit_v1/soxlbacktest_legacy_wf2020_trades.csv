@@ -1,0 +1,5 @@
+date,type,price,position,score,buy_type,buy_step,gain,trigger_summary
+2020-02-27,buy,12.741999626159668,0.2999,-150.0,cumulative,0.3,,"[{'type': 'cumulative_drop', 'value': -0.41367571229578964, 'threshold': -0.3573995949024364, 'cooldown_days': 6}]"
+2020-03-09,buy,9.88599967956543,0.5494,-150.0,daily,0.3,,"[{'type': 'daily_drop', 'value': -0.2533609203098335, 'threshold': -0.24725655631359572}, {'type': 'cumulative_drop', 'value': -0.545094813182612, 'threshold': -0.49451311262719144"
+2020-03-12,buy,6.802667140960693,0.7562,-149.469065604042,daily,0.3,,"[{'type': 'daily_drop', 'value': -0.3041461615145394, 'threshold': -0.3}, {'type': 'cumulative_drop', 'value': -0.6869746442525413, 'threshold': -0.6, 'cooldown_days': 16}]"
+2020-03-13,buy,8.661333084106445,0.9417,-98.66142981514302,cumulative,0.3,,"[{'type': 'cumulative_drop', 'value': -0.6014479594959622, 'threshold': -0.6, 'cooldown_days': 17}]"

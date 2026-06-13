@@ -1,0 +1,16 @@
+slice,samples,accuracy,loss,label_unique_actions,predicted_unique_actions,label_dominant_action,label_dominant_share,predicted_dominant_action,predicted_dominant_share,config_name,complexity,fold,min_samples,min_accuracy,slice_gate,fit_problem
+all,2157,0.7273991655076495,1.1801155805587769,5,3,4,0.3133982382939267,0,0.3773759851645804,release10_rebound4_downtrend2_steps600,4,wf_2020_train,0,,True,none
+drawdown_control_state,640,0.8703125,1.0378273725509644,4,3,2,0.596875,2,0.6734375,release10_rebound4_downtrend2_steps600,4,wf_2020_train,20,0.6,True,none
+is_downtrend_state,640,0.8703125,1.0378273725509644,4,3,2,0.596875,2,0.6734375,release10_rebound4_downtrend2_steps600,4,wf_2020_train,100,0.6,True,none
+is_rebound_cluster,36,0.6111111111111112,1.2879384756088257,4,3,4,0.7222222222222222,4,0.6111111111111112,release10_rebound4_downtrend2_steps600,4,wf_2020_train,0,,True,weak_rebound_release_fit
+release_gate_state,36,0.6111111111111112,1.2879384756088257,4,3,4,0.7222222222222222,4,0.6111111111111112,release10_rebound4_downtrend2_steps600,4,wf_2020_train,20,0.6,True,weak_rebound_release_fit
+all,505,0.8237623762376237,1.081028699874878,5,4,4,0.3049504950495049,4,0.3267326732673267,release10_rebound4_downtrend2_steps600,4,wf_2022_train,0,,True,none
+drawdown_control_state,49,0.9183673469387756,0.9855055809020996,3,2,4,0.8571428571428571,4,0.9183673469387756,release10_rebound4_downtrend2_steps600,4,wf_2022_train,20,0.6,True,none
+is_downtrend_state,234,0.8333333333333334,1.071117639541626,4,4,1,0.4316239316239316,1,0.4914529914529914,release10_rebound4_downtrend2_steps600,4,wf_2022_train,100,0.6,True,none
+is_rebound_cluster,66,0.803030303030303,1.1017965078353882,2,1,4,0.803030303030303,4,1.0,release10_rebound4_downtrend2_steps600,4,wf_2022_train,0,,True,none
+release_gate_state,40,1.0,0.9048324823379515,1,1,4,1.0,4,1.0,release10_rebound4_downtrend2_steps600,4,wf_2022_train,20,0.6,True,none
+all,755,0.8066225165562914,1.1007696390151978,5,4,1,0.295364238410596,2,0.3350993377483444,release10_rebound4_downtrend2_steps600,4,wf_2023_2024_train,0,,True,none
+drawdown_control_state,49,0.9591836734693876,0.9459746479988098,3,3,4,0.8571428571428571,4,0.8979591836734694,release10_rebound4_downtrend2_steps600,4,wf_2023_2024_train,20,0.6,True,none
+is_downtrend_state,477,0.8658280922431866,1.0407122373580933,5,4,1,0.3836477987421384,1,0.4088050314465409,release10_rebound4_downtrend2_steps600,4,wf_2023_2024_train,100,0.6,True,none
+is_rebound_cluster,66,0.9242424242424242,0.9816535115242004,2,2,4,0.803030303030303,4,0.8787878787878788,release10_rebound4_downtrend2_steps600,4,wf_2023_2024_train,0,,True,none
+release_gate_state,40,1.0,0.9052797555923462,1,1,4,1.0,4,1.0,release10_rebound4_downtrend2_steps600,4,wf_2023_2024_train,20,0.6,True,none

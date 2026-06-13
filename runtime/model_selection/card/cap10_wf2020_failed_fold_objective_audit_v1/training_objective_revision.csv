@@ -1,0 +1,5 @@
+proposal,reason,evidence,allowed_next
+do_not_run_full_retention_training_as_is,metric replay already has three-fold coverage but wf_2020 fails only on relative return; full training from the same target would repeat underparticipation.,"wf_2020 selected relative -292.75pp, MaxDD 14.98%",False
+build_fold_local_bull_reentry_participation_target,legacy SOXLBacktest buy/sell captures the 2020 rebound but current cap10 target has sparse high-participation labels.,legacy rebound avg_pos 0.959; wf2020 target share_ge_70pct 0.009; release slice accuracy 0.611,True
+separate_reference_roles,legacy_default is a buy/sell timing teacher but not a risk-retention model; low-risk SOXLBacktest probes are drawdown floor references only.,legacy full return 220.78% / MaxDD 54.28%; risk floor return 29.16% / MaxDD 12.79%; capped return 69.60% / MaxDD 17.94%,True
+keep_existing_drift_stop_rules,PPO improves some fold returns but prior screens show drawdown drift; stop rules must stay before actor retention.,ppo_vs_bc_max_dd_delta_pp <= 2.0 and ppo_vs_bc_relative_delta_pp >= -5.0 remain required controls.,True

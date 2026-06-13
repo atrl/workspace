@@ -1,0 +1,86 @@
+{
+  "actor_retention_allowed": false,
+  "canonical_baseline": "v19reg_v22_budget_usage_bull_guard_v1",
+  "changed_layer": [
+    "model_selection",
+    "training_objective",
+    "target_design"
+  ],
+  "conclusion": [
+    "Do not start full retained cap10 training from the current target as-is.",
+    "After qlib metric replay, wf_2020 is the only failed fold; its MaxDD is already under 20%, but relative return is deeply negative because the candidate under-participates in the post-crash bull rebound.",
+    "SOXLBacktest legacy_default is useful as a buy/sell timing reference because it captures the 2020 rebound, but it is not promotable because full-year drawdown is too high.",
+    "Low-risk SOXLBacktest variants show how to pass drawdown by reducing exposure, but their rebound participation is too low to satisfy return alignment.",
+    "The next training objective should add a fold-local bull/reentry participation target before rerunning BC/checkpoint metric replay; keep existing drift stop rules and block actor retention until all folds pass."
+  ],
+  "created_at": "2026-06-13T20:53:31.586999+00:00",
+  "decision": "wf2020_failed_fold_requires_bull_reentry_target_revision_no_promotion",
+  "direct_comparison_baseline": "cap10_three_fold_checkpoint_metric_replay_v2",
+  "experiment": "cap10_wf2020_failed_fold_objective_audit_v1",
+  "failed_folds": [
+    "wf_2020"
+  ],
+  "metric_replay_folds_present": [
+    "wf_2020",
+    "wf_2022",
+    "wf_2023_2024"
+  ],
+  "missing_required_folds": [],
+  "next_mechanism": "build_fold_local_bull_reentry_participation_target_then_rerun_three_fold_bc_checkpoint_metric_replay",
+  "next_training_allowed_after_target_revision": true,
+  "primary_failure": "wf_2020_relative_underparticipation_after_metric_replay",
+  "promotion_allowed": false,
+  "reference_baseline": "soxlbacktest_qlib_buysell_reference",
+  "required_next_run_controls": [
+    "derive bull/reentry labels fold-locally from train windows only",
+    "keep SOXLBacktest legacy_default as buy/sell timing reference, not risk-retention model",
+    "keep low-risk SOXLBacktest variants as drawdown floor references only",
+    "require wf_2020 relative >= +30pp and MaxDD < 20% before full retention training",
+    "require wf_2022 and wf_2023_2024 gates remain passed",
+    "apply PPO-vs-BC MaxDD drift stop <= 2pp and relative delta >= -5pp",
+    "export per-model dashboard feature snapshots and BUY/SELL feature summaries only after a retained actor exists"
+  ],
+  "role": "diagnose",
+  "sidecars": [
+    "wf_fold_metric_gap.csv",
+    "wf2020_checkpoint_candidate_gap.csv",
+    "soxlbacktest_wf2020_stage_metrics.csv",
+    "soxlbacktest_legacy_wf2020_trades.csv",
+    "target_contract_position_audit.csv",
+    "target_contract_position_buckets.csv",
+    "bc_slice_failure_focus.csv",
+    "training_objective_revision.csv",
+    "selection.json",
+    "summary.json",
+    "conclusion.md"
+  ],
+  "soxlbacktest_reference_readout": {
+    "legacy_default_full_max_dd_pct": 54.27514385862544,
+    "legacy_default_full_return_pct": 220.77720540428163,
+    "legacy_default_rebound_avg_position": 0.9591030456852793,
+    "legacy_default_rebound_return_pct": 366.21235310455484,
+    "risk_cap_35_15_05_full_max_dd_pct": 17.94235040318888,
+    "risk_cap_35_15_05_full_return_pct": 69.60455156850816,
+    "risk_floor_full_max_dd_pct": 12.78520723360268,
+    "risk_floor_full_return_pct": 29.15660308837891
+  },
+  "target_contract_readout": {
+    "wf2020_release_ge_70pct_rows": 4,
+    "wf2020_release_mean_position": 0.5715119047619047,
+    "wf2020_release_rows": 42,
+    "wf2020_release_slice_accuracy": 0.6111111111111112,
+    "wf2020_rows_ge_70pct": 21,
+    "wf2020_share_ge_70pct": 0.008502024291497975,
+    "wf2020_target_rows": 2470
+  },
+  "target_max_dd_pct": 20.0,
+  "target_relative_return_pp": 30.0,
+  "training_allowed_from_current_cap10_as_is": false,
+  "wf_2020_selected": {
+    "candidate": "bc_initialization",
+    "max_dd_pct": 14.984700509769244,
+    "maxdd_gap_to_target_pp": 0.0,
+    "relative_gap_to_target_pp": 322.75302146825334,
+    "relative_return_pp": -292.75302146825334
+  }
+}

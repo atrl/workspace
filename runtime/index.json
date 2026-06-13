@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-13T20:16:55.733471+00:00",
+  "generated_at": "2026-06-13T20:53:41.863159+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -4782,6 +4782,72 @@
       "category": "model_selection",
       "suffix": ".csv",
       "bytes": 1194
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_wf2020_failed_fold_objective_audit_v1/bc_slice_failure_focus.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2766
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_wf2020_failed_fold_objective_audit_v1/conclusion.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 902
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_wf2020_failed_fold_objective_audit_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 3240
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_wf2020_failed_fold_objective_audit_v1/soxlbacktest_legacy_wf2020_trades.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 912
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_wf2020_failed_fold_objective_audit_v1/soxlbacktest_wf2020_stage_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2155
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_wf2020_failed_fold_objective_audit_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 4107
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_wf2020_failed_fold_objective_audit_v1/target_contract_position_audit.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1046
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_wf2020_failed_fold_objective_audit_v1/target_contract_position_buckets.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1027
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_wf2020_failed_fold_objective_audit_v1/training_objective_revision.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1104
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_wf2020_failed_fold_objective_audit_v1/wf2020_checkpoint_candidate_gap.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2107
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_wf2020_failed_fold_objective_audit_v1/wf_fold_metric_gap.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 840
     },
     {
       "path": "runtime/model_selection/card/cap10_wf2020_soxlbacktest_target_contract_v1/action_distribution.csv",
