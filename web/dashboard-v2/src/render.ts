@@ -49,6 +49,16 @@ export function renderDataSourcePanel(container: HTMLElement, manifest: Manifest
       ['configured', auto.configured ? 'yes' : 'no'],
       ['timezone', auto.timezone],
       ['freshness safe end', auto.model_replay_freshness?.safe_backtest_end ?? 'n/a'],
+      [
+        'runnable replay profiles',
+        `${auto.model_replay_freshness?.ready_count ?? 0} / ${auto.model_replay_freshness?.profile_count ?? 0}`,
+      ],
+      [
+        'replay refresh counts',
+        Object.entries(auto.model_replay_freshness?.counts ?? {})
+          .map(([key, value]) => `${key}=${value}`)
+          .join(' ') || 'n/a',
+      ],
       ['freshness source', auto.model_replay_freshness?.source_path ?? 'n/a'],
       ['remote deploy required', auto.remote_deploy_required ? 'yes' : 'no'],
     ];
@@ -116,6 +126,61 @@ export function renderDataSourcePanel(container: HTMLElement, manifest: Manifest
   if (warnings.length) {
     const warningList = element('ul', 'warning-list');
     for (const warning of warnings) {
+      warningList.appendChild(element('li', undefined, warning));
+    }
+    container.appendChild(warningList);
+  }
+}
+
+export function renderOperationsPanel(container: HTMLElement, manifest: Manifest, warnings: string[] = []): void {
+  container.replaceChildren();
+  container.appendChild(element('h2', undefined, 'Operations'));
+  const auto = manifest.auto_update;
+  if (!auto) {
+    container.appendChild(element('p', 'empty-state', 'No auto update status in manifest.'));
+    return;
+  }
+
+  const counts = auto.model_replay_freshness?.counts ?? {};
+  const readyCount = auto.model_replay_freshness?.ready_count ?? 0;
+  const profileCount = auto.model_replay_freshness?.profile_count ?? 0;
+  const grid = element('div', 'source-grid operations-grid');
+  const rows: [string, string][] = [
+    ['auto update', auto.configured ? 'configured' : 'not configured'],
+    ['replay ready', `${readyCount} / ${profileCount}`],
+    [
+      'refresh counts',
+      Object.entries(counts)
+        .map(([key, value]) => `${key}=${value}`)
+        .join(' ') || 'n/a',
+    ],
+    ['safe replay end', auto.model_replay_freshness?.safe_backtest_end ?? 'n/a'],
+  ];
+  for (const [label, value] of rows) {
+    const item = element('div', 'source-row');
+    item.appendChild(element('span', 'source-label', label));
+    item.appendChild(element('span', 'source-value', value));
+    grid.appendChild(item);
+  }
+  container.appendChild(grid);
+
+  const taskList = element('div', 'task-list');
+  for (const task of auto.tasks) {
+    const item = element('div', 'task-card');
+    item.dataset.enabled = task.enabled ? 'true' : 'false';
+    const loaded = task.loaded === undefined || task.loaded === null ? 'loaded unknown' : task.loaded ? 'loaded' : 'not loaded';
+    item.appendChild(element('strong', undefined, task.name));
+    item.appendChild(element('span', undefined, `${task.configured ? 'configured' : 'not configured'} · ${loaded}`));
+    item.appendChild(element('span', undefined, task.schedule ?? 'n/a'));
+    item.appendChild(element('code', undefined, task.command_path ?? 'n/a'));
+    taskList.appendChild(item);
+  }
+  container.appendChild(taskList);
+
+  const critical = warnings.filter((warning) => warning.includes('Replay') || warning.includes('runnable') || warning.includes('not runnable'));
+  if (critical.length) {
+    const warningList = element('ul', 'warning-list');
+    for (const warning of critical.slice(0, 4)) {
       warningList.appendChild(element('li', undefined, warning));
     }
     container.appendChild(warningList);
@@ -302,6 +367,48 @@ function renderFeatureActionSummaryTable(
   container.appendChild(tableScroll);
 }
 
+function renderFeatureSchemaTable(container: HTMLElement, models: Record<string, ModelPayload>): void {
+  container.appendChild(element('h3', undefined, 'Model Feature Schemas'));
+  const rows = Object.entries(models).map(([profile, model]) => ({
+    profile: model.display_name || profile,
+    source: model.source_kind,
+    runtime: model.runnable ? 'runnable' : `evidence-only: ${model.runnable_reason ?? 'not runnable'}`,
+    signature: model.feature_schema_signature ?? 'n/a',
+    packs: model.feature_packs.length ? model.feature_packs.join(', ') : 'core',
+    snapshotColumns: model.snapshot_columns.slice(0, 10).join(', '),
+    featureCount: model.feature_columns.length,
+  }));
+  if (!rows.length) {
+    container.appendChild(element('p', 'empty-state', 'No selected model schemas.'));
+    return;
+  }
+
+  const table = element('table', 'comparison-table feature-table schema-table');
+  const thead = element('thead');
+  const headerRow = element('tr');
+  for (const title of ['Model', 'Runtime', 'Schema', 'Feature cols', 'Feature packs', 'Snapshot columns']) {
+    headerRow.appendChild(element('th', undefined, title));
+  }
+  thead.appendChild(headerRow);
+  table.appendChild(thead);
+
+  const tbody = element('tbody');
+  for (const row of rows) {
+    const tr = element('tr');
+    tr.appendChild(element('td', undefined, row.profile));
+    tr.appendChild(element('td', undefined, `${row.source} · ${row.runtime}`));
+    tr.appendChild(element('td', undefined, row.signature));
+    tr.appendChild(element('td', undefined, String(row.featureCount)));
+    tr.appendChild(element('td', undefined, row.packs));
+    tr.appendChild(element('td', 'feature-snapshot-cell', row.snapshotColumns || 'n/a'));
+    tbody.appendChild(tr);
+  }
+  table.appendChild(tbody);
+  const tableScroll = element('div', 'table-scroll');
+  tableScroll.appendChild(table);
+  container.appendChild(tableScroll);
+}
+
 function renderRecentEventFeatureTable(
   container: HTMLElement,
   models: Record<string, ModelPayload>,
@@ -400,6 +507,7 @@ export function renderFeatureComparisonPanel(
 ): void {
   container.replaceChildren();
   container.appendChild(element('h2', undefined, 'Buy/Sell Feature Comparison'));
+  renderFeatureSchemaTable(container, input.models);
   const snapshotPanel = element('section', 'feature-date-snapshot');
   snapshotPanel.id = 'feature-date-snapshot';
   renderFeatureSnapshotPanel(snapshotPanel, input);

@@ -32,6 +32,7 @@ import {
   renderFeatureComparisonPanel,
   renderFeatureSnapshotPanel,
   renderInspectorPanel,
+  renderOperationsPanel,
 } from './render';
 import type { ModelPayload } from './types';
 import { viewUpdateRequiresChartRender } from './viewState';
@@ -74,7 +75,10 @@ function createShell(app: HTMLElement): void {
           </section>
         </div>
       </section>
-      <aside id="inspector" class="side-panel"></aside>
+      <aside class="right-stack">
+        <section id="inspector" class="side-panel"></section>
+        <section id="operations-panel" class="side-panel operations-panel"></section>
+      </aside>
     </main>
     <section id="comparison-panel" class="panel"></section>
     <section id="feature-panel" class="panel"></section>
@@ -233,6 +237,15 @@ function warningsFor(data: DashboardData, state: ViewState): string[] {
   if (data.manifest.safe_backtest_end < data.manifest.latest_market_date) {
     warnings.push(`Replay safe end ${data.manifest.safe_backtest_end} is before market latest ${data.manifest.latest_market_date}.`);
   }
+  const freshness = data.manifest.auto_update?.model_replay_freshness;
+  if (freshness && (freshness.ready_count ?? 0) === 0) {
+    warnings.push(
+      `Replay refresh found 0 runnable model profiles; dashboard is using retained exports/reference rows only.`,
+    );
+  }
+  if (!Object.values(models).some((model) => model.runnable)) {
+    warnings.push('No selected model is runnable for interactive inference. Select a profile with a retained actor replay.');
+  }
   for (const profile of state.selectedProfiles) {
     const model = data.models[profile];
     if (model && !model.runnable) {
@@ -304,6 +317,7 @@ function renderDashboard(
   const navChart = requireElement('nav-chart');
   const comparison = requireElement('comparison-panel');
   const source = requireElement('source-panel');
+  const operations = requireElement('operations-panel');
   const actionLegend = requireElement('action-legend');
   const chartCommandBar = requireElement('chart-command-bar');
   const { models, market, primary } = visibleContext(data, state);
@@ -323,7 +337,9 @@ function renderDashboard(
     models: selectedModels(data, state.selectedProfiles),
   });
   renderInspector(data, state, inspectorLookup);
-  renderDataSourcePanel(source, data.manifest, warningsFor(data, state));
+  const warnings = warningsFor(data, state);
+  renderOperationsPanel(operations, data.manifest, warnings);
+  renderDataSourcePanel(source, data.manifest, warnings);
   return {
     inspectorLookup,
     chartHandles: [marketHandles.chart, positionHandles.chart, navHandles],

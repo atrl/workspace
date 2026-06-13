@@ -5,6 +5,7 @@ import {
   renderDataSourcePanel,
   renderFeatureComparisonPanel,
   renderInspectorPanel,
+  renderOperationsPanel,
 } from './render';
 import { betaModelFixture, comparisonFixture, manifestFixture, marketFixture, modelFixture } from './testFixtures';
 
@@ -35,6 +36,9 @@ describe('dashboard v2 DOM render helpers', () => {
 
     expect(panel.textContent).toContain('safe_backtest_end');
     expect(panel.textContent).toContain('2026-01-06');
+    expect(panel.textContent).toContain('runnable replay profiles');
+    expect(panel.textContent).toContain('1 / 1');
+    expect(panel.textContent).toContain('current=1');
     expect(panel.textContent).toContain('model_replay_freshness.json');
     expect(panel.textContent).toContain('Auto Update');
     expect(panel.textContent).toContain('dashboard_refresh');
@@ -48,6 +52,22 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.textContent).toContain('MaxDD < 20.00%');
     expect(panel.textContent).toContain('keep_actor strict violations');
     expect(panel.textContent).toContain('2 / 3 blocked');
+  });
+
+  test('renders first-screen operations status with replay counts and tasks', () => {
+    const panel = document.createElement('section');
+
+    renderOperationsPanel(panel, manifestFixture, [
+      'Replay refresh found 0 runnable model profiles; dashboard is using retained exports/reference rows only.',
+    ]);
+
+    expect(panel.textContent).toContain('Operations');
+    expect(panel.textContent).toContain('replay ready');
+    expect(panel.textContent).toContain('1 / 1');
+    expect(panel.textContent).toContain('current=1');
+    expect(panel.textContent).toContain('dashboard_refresh');
+    expect(panel.textContent).toContain('production/run_dashboard_refresh.sh');
+    expect(panel.querySelector('.task-card[data-enabled="true"]')?.textContent).toContain('configured');
   });
 
   test('renders inspector rows with tone classes', () => {
@@ -102,8 +122,11 @@ describe('dashboard v2 DOM render helpers', () => {
     });
 
     expect(panel.textContent).toContain('Buy/Sell Feature Comparison');
+    expect(panel.textContent).toContain('Model Feature Schemas');
     expect(panel.textContent).toContain('smoke');
     expect(panel.textContent).toContain('balanced_rule_residual_v22');
+    expect(panel.textContent).toContain('alpha123');
+    expect(panel.textContent).toContain('beta456');
     expect(panel.textContent).toContain('alpha_signal 1.25');
     expect(panel.textContent).toContain('beta_signal -2.50');
     expect(panel.textContent).toContain('Buy/Sell Feature Summary');

@@ -29,6 +29,9 @@ export const manifestFixture: Manifest = {
     ],
     model_replay_freshness: {
       safe_backtest_end: '2026-01-06',
+      counts: { current: 1, refreshed: 0, failed: 0, skipped: 0 },
+      profile_count: 1,
+      ready_count: 1,
       source_path: 'dashboard_data/model_replay_freshness.json',
     },
     remote_deploy_required: false,
@@ -60,6 +63,7 @@ export const modelFixture: ModelPayload = {
   worst_wf_max_drawdown_pct: 18.4,
   feature_packs: ['core'],
   feature_columns: ['alpha_signal', 'shared_feature'],
+  feature_schema_signature: 'alpha123',
   snapshot_columns: ['alpha_signal', 'shared_feature'],
   source_path: 'runtime/model/card/smoke/smoke_soxl_daily.csv',
   replay_start: '2026-01-02',
@@ -137,6 +141,7 @@ export const betaModelFixture: ModelPayload = {
   retention_failures: ['wf_max_drawdown_ge_20:wf_2022'],
   worst_wf_max_drawdown_pct: 54.6,
   feature_columns: ['beta_signal', 'shared_feature'],
+  feature_schema_signature: 'beta456',
   snapshot_columns: ['beta_signal', 'shared_feature'],
   rows: modelFixture.rows.map((row) =>
     row.date === '2026-01-05'

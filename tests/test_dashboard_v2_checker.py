@@ -20,6 +20,7 @@ def _model_contract(**overrides: object) -> dict[str, object]:
         "display_name": "smoke",
         "runnable": True,
         "feature_columns": [],
+        "feature_schema_signature": "empty",
         "snapshot_columns": [],
         "feature_action_summary": [],
         "rows": [

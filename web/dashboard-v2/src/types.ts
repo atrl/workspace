@@ -25,6 +25,8 @@ export interface AutoUpdateStatus {
     latest_data_date?: string;
     safe_backtest_end?: string;
     counts?: Record<string, number>;
+    profile_count?: number;
+    ready_count?: number;
     source_path?: string;
   };
   status_paths?: Record<string, string>;
@@ -113,6 +115,7 @@ export interface ModelPayload {
   required_soxlbacktest_return_pct?: number | null;
   feature_packs: string[];
   feature_columns: string[];
+  feature_schema_signature?: string;
   snapshot_columns: string[];
   source_path: string;
   replay_start: string;

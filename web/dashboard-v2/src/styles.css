@@ -242,6 +242,14 @@ h2 {
   border-bottom: 1px solid #1f2937;
 }
 
+.right-stack {
+  min-width: 0;
+  display: grid;
+  grid-template-rows: minmax(220px, 1fr) auto;
+  min-height: 0;
+  overflow: hidden;
+}
+
 .side-panel,
 .panel {
   padding: 12px;
@@ -251,6 +259,11 @@ h2 {
 .side-panel {
   min-width: 0;
   overflow: auto;
+}
+
+.operations-panel {
+  border-top: 1px solid #1f2937;
+  max-height: 360px;
 }
 
 .panel {
@@ -365,6 +378,37 @@ h2 {
   color: #f59e0b;
 }
 
+.task-list {
+  display: grid;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.task-card {
+  display: grid;
+  gap: 3px;
+  padding: 8px;
+  border: 1px solid #374151;
+  border-radius: 6px;
+  color: #d1d5db;
+  background: #111827;
+}
+
+.task-card[data-enabled="true"] {
+  border-color: rgba(52, 211, 153, 0.5);
+}
+
+.task-card strong {
+  color: #f9fafb;
+}
+
+.task-card span,
+.task-card code {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  color: #9ca3af;
+}
+
 .load-error {
   margin: 24px;
   padding: 16px;
@@ -402,6 +446,14 @@ h2 {
 
   .workspace {
     grid-template-columns: 1fr;
+  }
+
+  .right-stack {
+    display: block;
+  }
+
+  .operations-panel {
+    max-height: none;
   }
 
   .chart-title-row {

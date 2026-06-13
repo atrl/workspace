@@ -18,11 +18,12 @@ def test_dashboard_bundle_refreshes_retention_gate_before_v2_data(monkeypatch):
 
     assert build_dashboard_bundle.main() == 0
 
-    assert [cmd[1] for cmd in calls] == [
-        "scripts/build_backtest_dashboard.py",
-        "scripts/review_model_retention_gates.py",
-        "scripts/build_dashboard_v2_data.py",
-        "scripts/check_dashboard_v2_data.py",
+    assert calls == [
+        [sys.executable, "scripts/build_backtest_dashboard.py"],
+        [sys.executable, "scripts/review_model_retention_gates.py"],
+        [sys.executable, "scripts/build_dashboard_v2_data.py", "--detect-launchd"],
+        ["npm", "--prefix", "web/dashboard-v2", "run", "build"],
+        [sys.executable, "scripts/check_dashboard_v2_data.py"],
     ]
 
 
@@ -38,4 +39,5 @@ def test_dashboard_bundle_can_skip_retention_gate_refresh(monkeypatch):
 
     assert build_dashboard_bundle.main() == 0
 
-    assert "scripts/review_model_retention_gates.py" not in [cmd[1] for cmd in calls]
+    assert "scripts/review_model_retention_gates.py" not in [part for cmd in calls for part in cmd]
+    assert ["npm", "--prefix", "web/dashboard-v2", "run", "build"] in calls

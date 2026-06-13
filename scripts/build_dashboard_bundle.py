@@ -34,6 +34,7 @@ def main() -> int:
     if not args.skip_retention_gate:
         _run([python, "scripts/review_model_retention_gates.py"], "model retention gate review")
     _run([python, "scripts/build_dashboard_v2_data.py", "--detect-launchd"], "dashboard v2 data build")
+    _run(["npm", "--prefix", "web/dashboard-v2", "run", "build"], "dashboard v2 frontend build")
     if not args.skip_v2_check:
         _run([python, "scripts/check_dashboard_v2_data.py"], "dashboard v2 data check")
     return 0

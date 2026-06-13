@@ -80,7 +80,15 @@ def check_dashboard_v2_data(root: Path) -> dict[str, int]:
     for profile in available_profile_list:
         model = _load(root / "models" / f"{profile}.json")
         rows = _require_rows(model, f"model {profile}")
-        for field in ("source_kind", "display_name", "runnable", "feature_columns", "snapshot_columns", "feature_action_summary"):
+        for field in (
+            "source_kind",
+            "display_name",
+            "runnable",
+            "feature_columns",
+            "feature_schema_signature",
+            "snapshot_columns",
+            "feature_action_summary",
+        ):
             if field not in model:
                 raise ValueError(f"model {profile} missing metadata field: {field}")
         if not isinstance(model["feature_action_summary"], list):

@@ -142,7 +142,7 @@ PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py --smoke
 Pipeline order:
 1. Market data update (incremental fetch + qlib refresh)
 2. Paper-trading signal generation + execution
-3. Dashboard rebuild (`dashboard.html`)
+3. Local dashboard rebuild (`dashboard.html`, `dashboard_data/v2`, and `web/dashboard-v2/dist`)
 4. Completion notification via Bark / macOS
 
 ### macOS LaunchAgent (recommended over cron)
@@ -152,10 +152,6 @@ Pipeline order:
    mkdir -p ~/.openclaw
    cat > ~/.openclaw/soxl.env <<'EOF'
    export POLYGON_API_KEY='REPLACE_ME'
-   # Optional Vercel deployment; uncomment only after replacing with real values.
-   # export VERCEL_TOKEN='REPLACE_ME'
-   # export VERCEL_PROJECT_ID='REPLACE_ME'
-   # export VERCEL_ORG_ID='REPLACE_ME'
    EOF
    chmod 600 ~/.openclaw/soxl.env
    ```
@@ -201,11 +197,11 @@ Pipeline order:
 
 ```bash
 # Asia/Shanghai local time:
-# Mon-Fri 21:00: US pre-open cached-data dry-run + dashboard + Vercel deploy attempt
-0 21 * * 1-5 SOXL_SCHEDULE_TRIGGER=cron_preopen /Users/rziiiii/dev/workspace/production/run_soxl_scheduler.sh --broker futu --account-notional 10000 --runtime-composer budget_usage --composer-profile v19reg_v22_budget_usage_bull_guard_v1 --slow-profile balanced_rule_residual_v19_reg --fast-profile balanced_rule_residual_v22 --bull-participation-guard --dry-run --no-notify --skip-data-update --vercel-deploy --health-summary --schedule-slot preopen >> /Users/rziiiii/dev/workspace/runtime/soxl/paper_trading/scheduler_preopen.log 2>&1
+# Mon-Fri 21:00: US pre-open cached-data dry-run + local dashboard refresh
+0 21 * * 1-5 SOXL_SCHEDULE_TRIGGER=cron_preopen /Users/rziiiii/dev/workspace/production/run_soxl_scheduler.sh --broker futu --account-notional 10000 --runtime-composer budget_usage --composer-profile v19reg_v22_budget_usage_bull_guard_v1 --slow-profile balanced_rule_residual_v19_reg --fast-profile balanced_rule_residual_v22 --bull-participation-guard --dry-run --no-notify --skip-data-update --health-summary --schedule-slot preopen >> /Users/rziiiii/dev/workspace/runtime/soxl/paper_trading/scheduler_preopen.log 2>&1
 
-# Tue-Sat 06:15: US post-close data refresh + Futu simulated trading + dashboard + Vercel deploy attempt
-15 6 * * 2-6 SOXL_SCHEDULE_TRIGGER=cron_postclose /Users/rziiiii/dev/workspace/production/run_soxl_scheduler.sh --broker futu --account-notional 10000 --runtime-composer budget_usage --composer-profile v19reg_v22_budget_usage_bull_guard_v1 --slow-profile balanced_rule_residual_v19_reg --fast-profile balanced_rule_residual_v22 --bull-participation-guard --no-notify --vercel-deploy --health-summary --schedule-slot postclose >> /Users/rziiiii/dev/workspace/runtime/soxl/paper_trading/scheduler_postclose.log 2>&1
+# Tue-Sat 06:15: US post-close data refresh + Futu simulated trading + local dashboard refresh
+15 6 * * 2-6 SOXL_SCHEDULE_TRIGGER=cron_postclose /Users/rziiiii/dev/workspace/production/run_soxl_scheduler.sh --broker futu --account-notional 10000 --runtime-composer budget_usage --composer-profile v19reg_v22_budget_usage_bull_guard_v1 --slow-profile balanced_rule_residual_v19_reg --fast-profile balanced_rule_residual_v22 --bull-participation-guard --no-notify --health-summary --schedule-slot postclose >> /Users/rziiiii/dev/workspace/runtime/soxl/paper_trading/scheduler_postclose.log 2>&1
 ```
 
 ### Notification Setup (Bark)
@@ -227,41 +223,18 @@ Pipeline order:
 
 ## Dashboard Auto-Update
 
-The daily scheduler automatically rebuilds `dashboard.html` after each paper-trading run. Paper-trading results are appended to `runtime/soxl/paper_trading/paper_trading_soxl_daily.csv` in the same format as post-train review outputs, so they appear as a new versioned series in the dashboard.
+The daily scheduler automatically rebuilds local dashboard artifacts after each paper-trading run. Paper-trading results are appended to `runtime/soxl/paper_trading/paper_trading_soxl_daily.csv` in the same format as post-train review outputs, so they appear as a new versioned series in the dashboard.
 
 To rebuild the dashboard manually:
 ```bash
-PYTHONPATH=. qlib_venv/bin/python scripts/build_backtest_dashboard.py
+production/run_dashboard_refresh.sh
 ```
 
-Then open `dashboard.html` in a browser. For Vercel static deployment, keep the generated
-`dashboard.html`, `dashboard_data/index.json`, `dashboard_data/model_versions.json`, and
-`dashboard_data/versioned/*/SOXL.json` export together; `vercel.json` serves `/` from
-`dashboard.html` and revalidates the dashboard data on each request.
+Then run `qlib_venv/bin/python scripts/dashboard_server.py --port 8765` and open
+`http://127.0.0.1:8765/dashboard_v2.html`. The root `dashboard_v2.html` redirects
+to the unified Vite dashboard bundle under `web/dashboard-v2/dist/`.
 
-Scheduled Vercel deployment is opt-in through the scheduler flag:
-```bash
-PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py --broker futu --account-notional 10000 --dry-run --skip-data-update --vercel-deploy --health-summary
-```
-
-Without Vercel credentials, the scheduler records `blocked_no_credentials` under
-`runtime/production/card/vercel_remote_deploy_v1/` and continues. To publish remotely,
-make `VERCEL_TOKEN` visible to the scheduler environment or run `vercel login` for the
-same user. The checkout also needs a Vercel project link: run
-`vercel link --yes --team <team-id> --project <project-name-or-id>` for this
-checkout, or expose `VERCEL_ORG_ID` and `VERCEL_PROJECT_ID` to the scheduler
-environment. `scripts/deploy_vercel_dashboard.py` reads
-`${SOXL_LAUNCH_ENV_FILE:-$HOME/.openclaw/soxl.env}` for those Vercel variables
-when they are not already in the current shell, so you can run it without
-`--deploy` as a non-publishing readiness probe before the next scheduled deploy
-attempt. Then rerun with `--vercel-deploy`.
-
-`production/check_scheduler_health.sh` prints a `Scheduler Private Env` section
-that confirms whether `${SOXL_LAUNCH_ENV_FILE:-$HOME/.openclaw/soxl.env}` is
-present and whether `VERCEL_TOKEN` / Vercel project env IDs are configured,
-without printing their values. The `Vercel Remote Deployment` section also
-reports whether the Vercel project is linked/configured and whether the evidence
-probe applied Vercel variables from the env file.
+Remote deployment is not part of the scheduled dashboard path.
 
 ## Current limitations
 

@@ -12,8 +12,9 @@ function contentType(pathname: string): string {
   return 'application/octet-stream';
 }
 
-export default defineConfig({
+export default defineConfig(({ command }) => ({
   root: '.',
+  base: command === 'build' ? '/web/dashboard-v2/dist/' : '/',
   plugins: [
     {
       name: 'dashboard-data-v2-dev-server',
@@ -39,4 +40,4 @@ export default defineConfig({
   test: {
     environment: 'jsdom',
   },
-});
+}));

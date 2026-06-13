@@ -1,0 +1,128 @@
+{
+  "desktop": {
+    "url": "http://127.0.0.1:8876/web/dashboard-v2/dist/index.html",
+    "screenshot": "/Users/rziiiii/dev/workspace/.worktrees/dashboard-v2-model-features-fix/runtime/production/card/dashboard_v2_ops_feature_schema_fix_v1/dashboard_v2_desktop.png",
+    "console_errors": [],
+    "request_failures": [],
+    "canvas_count": 24,
+    "visible_canvases": 24,
+    "canvas_info": [
+      {
+        "width": 54,
+        "height": 1320
+      },
+      {
+        "width": 54,
+        "height": 1320
+      },
+      {
+        "width": 982,
+        "height": 1320
+      },
+      {
+        "width": 982,
+        "height": 1320
+      },
+      {
+        "width": 62,
+        "height": 1320
+      },
+      {
+        "width": 62,
+        "height": 1320
+      },
+      {
+        "width": 54,
+        "height": 28
+      },
+      {
+        "width": 982,
+        "height": 28
+      },
+      {
+        "width": 982,
+        "height": 28
+      },
+      {
+        "width": 62,
+        "height": 28
+      },
+      {
+        "width": 494,
+        "height": 152
+      },
+      {
+        "width": 494,
+        "height": 152
+      }
+    ],
+    "has_operations": true,
+    "has_replay_ready_zero": true,
+    "has_feature_schema": true,
+    "has_buy_sell_summary": true,
+    "has_kline_title": true
+  },
+  "mobile": {
+    "url": "http://127.0.0.1:8876/web/dashboard-v2/dist/index.html",
+    "screenshot": "/Users/rziiiii/dev/workspace/.worktrees/dashboard-v2-model-features-fix/runtime/production/card/dashboard_v2_ops_feature_schema_fix_v1/dashboard_v2_mobile.png",
+    "console_errors": [],
+    "request_failures": [],
+    "canvas_count": 24,
+    "visible_canvases": 24,
+    "canvas_info": [
+      {
+        "width": 54,
+        "height": 432
+      },
+      {
+        "width": 54,
+        "height": 432
+      },
+      {
+        "width": 274,
+        "height": 432
+      },
+      {
+        "width": 274,
+        "height": 432
+      },
+      {
+        "width": 62,
+        "height": 432
+      },
+      {
+        "width": 62,
+        "height": 432
+      },
+      {
+        "width": 54,
+        "height": 28
+      },
+      {
+        "width": 274,
+        "height": 28
+      },
+      {
+        "width": 274,
+        "height": 28
+      },
+      {
+        "width": 62,
+        "height": 28
+      },
+      {
+        "width": 334,
+        "height": 152
+      },
+      {
+        "width": 334,
+        "height": 152
+      }
+    ],
+    "has_operations": true,
+    "has_replay_ready_zero": true,
+    "has_feature_schema": true,
+    "has_buy_sell_summary": true,
+    "has_kline_title": true
+  }
+}

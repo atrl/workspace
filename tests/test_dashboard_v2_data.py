@@ -133,6 +133,8 @@ def test_build_dashboard_v2_data_writes_manifest_market_model_and_comparison(tmp
 
     assert manifest["safe_backtest_end"] == "2026-01-06"
     assert manifest["default_baseline_profile"] == "smoke"
+    assert manifest["auto_update"]["model_replay_freshness"]["profile_count"] == 1
+    assert manifest["auto_update"]["model_replay_freshness"]["ready_count"] == 1
     assert market["rows"][1]["vix"] == 18.0
     assert model["rows"][1]["action"] == "BUY"
     assert model["metrics"]["full"]["buyhold_return"] == pytest.approx(0.08)

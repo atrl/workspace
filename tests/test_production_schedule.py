@@ -70,7 +70,7 @@ def test_crontab_uses_shanghai_safe_us_market_windows():
     assert "/Users/rziiiii/.openclaw/workspace" not in post_close
     assert "--skip-data-update" not in post_close
     assert "--skip-dashboard" not in post_close
-    assert "--vercel-deploy" in post_close
+    assert "--vercel-deploy" not in post_close
     assert "--health-summary" in post_close
     assert "--schedule-slot postclose" in post_close
     assert "--broker futu" in post_close
@@ -86,7 +86,7 @@ def test_crontab_uses_shanghai_safe_us_market_windows():
     assert "/Users/rziiiii/.openclaw/workspace" not in pre_open
     assert "--dry-run" in pre_open
     assert "--skip-data-update" in pre_open
-    assert "--vercel-deploy" in pre_open
+    assert "--vercel-deploy" not in pre_open
     assert "--health-summary" in pre_open
     assert "--schedule-slot preopen" in pre_open
     assert "--broker futu" in pre_open
@@ -128,18 +128,16 @@ def test_operator_doc_scheduler_examples_include_current_production_flags():
 
     pre_open = next(line for line in scheduler_lines if "scheduler_preopen.log" in line)
     post_close = next(line for line in scheduler_lines if "scheduler_postclose.log" in line)
-    assert "--vercel-deploy" in pre_open
+    assert "--vercel-deploy" not in pre_open
     assert "--health-summary" in pre_open
     assert "--schedule-slot preopen" in pre_open
     assert "SOXL_SCHEDULE_TRIGGER=cron_preopen" in pre_open
-    assert "--vercel-deploy" in post_close
+    assert "--vercel-deploy" not in post_close
     assert "--health-summary" in post_close
     assert "--schedule-slot postclose" in post_close
     assert "SOXL_SCHEDULE_TRIGGER=cron_postclose" in post_close
 
-    assert "export VERCEL_TOKEN='REPLACE_ME'" in text
-    assert "export VERCEL_PROJECT_ID='REPLACE_ME'" in text
-    assert "export VERCEL_ORG_ID='REPLACE_ME'" in text
+    assert "Remote deployment is not part of the scheduled dashboard path." in text
 
 
 def test_launchagent_runs_post_close_in_shanghai_local_time():
@@ -161,7 +159,7 @@ def test_launchagent_runs_post_close_in_shanghai_local_time():
     }
     assert _path_is_checkout_or_deploy(plist["ProgramArguments"][0], SCHEDULER_WRAPPER, DEPLOY_SCHEDULER_WRAPPER)
     assert _path_is_checkout_or_deploy(plist["WorkingDirectory"], ROOT, DEPLOY_ROOT)
-    assert "--vercel-deploy" in plist["ProgramArguments"]
+    assert "--vercel-deploy" not in plist["ProgramArguments"]
     assert "--health-summary" in plist["ProgramArguments"]
     assert plist["ProgramArguments"][plist["ProgramArguments"].index("--broker") + 1] == "futu"
     assert plist["ProgramArguments"][plist["ProgramArguments"].index("--account-notional") + 1] == "10000"
@@ -205,7 +203,7 @@ def test_launchagent_runs_preopen_cached_dry_run_in_shanghai_local_time():
     assert "--dry-run" in plist["ProgramArguments"]
     assert "--skip-data-update" in plist["ProgramArguments"]
     assert "--skip-dashboard" not in plist["ProgramArguments"]
-    assert "--vercel-deploy" in plist["ProgramArguments"]
+    assert "--vercel-deploy" not in plist["ProgramArguments"]
     assert "--health-summary" in plist["ProgramArguments"]
     assert plist["ProgramArguments"][plist["ProgramArguments"].index("--broker") + 1] == "futu"
     assert plist["ProgramArguments"][plist["ProgramArguments"].index("--account-notional") + 1] == "10000"

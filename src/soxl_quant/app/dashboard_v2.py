@@ -615,6 +615,22 @@ def _auto_update_status(
             command_path=dashboard_refresh,
         ),
     ]
+    counts = freshness.get("counts", {})
+    if not isinstance(counts, dict):
+        counts = {}
+    profile_rows = freshness.get("profiles", [])
+    if not isinstance(profile_rows, list):
+        profile_rows = []
+    if not counts and profile_rows:
+        derived_counts = {"current": 0, "refreshed": 0, "failed": 0, "skipped": 0}
+        for profile_row in profile_rows:
+            if not isinstance(profile_row, dict):
+                continue
+            result = str(profile_row.get("result") or "")
+            if result in derived_counts:
+                derived_counts[result] += 1
+        counts = derived_counts
+    ready_count = int(counts.get("current", 0) or 0) + int(counts.get("refreshed", 0) or 0)
     return {
         "configured": any(bool(task["configured"]) for task in tasks),
         "timezone": "Asia/Shanghai",
@@ -625,7 +641,9 @@ def _auto_update_status(
             "generated_at": freshness.get("generated_at"),
             "latest_data_date": freshness.get("latest_data_date"),
             "safe_backtest_end": freshness.get("safe_backtest_end"),
-            "counts": freshness.get("counts", {}),
+            "counts": counts,
+            "profile_count": len(profile_rows),
+            "ready_count": ready_count,
             "source_path": _relative_to(root, freshness_path),
         },
         "status_paths": {
