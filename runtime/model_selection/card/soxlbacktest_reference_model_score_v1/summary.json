@@ -1,0 +1,49 @@
+{
+  "actor_retention_allowed": false,
+  "best_wf_drawdown_profile": "drawdown_rebound_reward_train_v1",
+  "best_ytd_profile": "smoke",
+  "closest_complete_profile": "state_conditioned_drawdown_rebound_reward_train_v1",
+  "complete_wf_profiles": 12,
+  "created_at": "2026-06-13T11:05:52.513204+00:00",
+  "decision": "no_existing_model_passes_retention_gate_use_reference_scoring_for_next_training",
+  "experiment": "soxlbacktest_reference_model_score_v1",
+  "profiles_scored": 21,
+  "promotion_allowed": false,
+  "retention_gate_pass_candidates": [],
+  "selected_next_training_source": "state_conditioned_drawdown_rebound_reward_train_v1",
+  "sidecars": {
+    "candidate_score_summary": "runtime/model_selection/card/soxlbacktest_reference_model_score_v1/candidate_score_summary.csv",
+    "conclusion": "runtime/model_selection/card/soxlbacktest_reference_model_score_v1/conclusion.md",
+    "fold_alignment_metrics": "runtime/model_selection/card/soxlbacktest_reference_model_score_v1/fold_alignment_metrics.csv",
+    "missing_evidence": "runtime/model_selection/card/soxlbacktest_reference_model_score_v1/missing_evidence.csv",
+    "profile_source_audit": "runtime/model_selection/card/soxlbacktest_reference_model_score_v1/profile_source_audit.csv",
+    "selection": "runtime/model_selection/card/soxlbacktest_reference_model_score_v1/selection.json",
+    "summary": "runtime/model_selection/card/soxlbacktest_reference_model_score_v1/summary.json"
+  },
+  "thresholds": {
+    "max_walkforward_drawdown_pct": 20.0,
+    "required_best_return_pct": 213.143462,
+    "required_soxlbacktest_return_pct": 132.077978,
+    "required_wf_windows": [
+      "wf_2020",
+      "wf_2022",
+      "wf_2023_2024"
+    ],
+    "ytd_end": "2026-06-09",
+    "ytd_start": "2026-01-02"
+  },
+  "wf_drawdown_pass_profiles": [],
+  "ytd_soxlbacktest_return_pass_profiles": [
+    "state_conditioned_drawdown_rebound_reward_train_v1",
+    "drawdown_rebound_reward_train_v1",
+    "balanced",
+    "mode_conditioned_rebound_reward_train_v2",
+    "balanced_rule_residual_v19",
+    "balanced_rule_residual_imitation_v4",
+    "balanced_rule_residual_v19_reg_light",
+    "balanced_rule_residual_v19_reg",
+    "smoke",
+    "balanced_macro_v1",
+    "balanced_rule_residual_v19_reg_v22_retest_v1"
+  ]
+}
