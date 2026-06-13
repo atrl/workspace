@@ -1,0 +1,32 @@
+{
+  "boundChartInteractions": "1",
+  "infoDate": "2026-05-22",
+  "meta": "\n          Built: 2026-06-13 18:34:39\n          Version: soxl_backtest_policy_reimplementation_v1\n          Zoom: all\n          Window: 2026-01-02 \u2192 2026-06-09\n          Rows: 109\n          BUY: 2\n          SELL: 1\n          \n        ",
+  "mouse_move_count": 80,
+  "mouse_move_duration_seconds": 1.313448,
+  "rowsByDateSize": 109,
+  "screenshot": "runtime/production/card/dashboard_interaction_baseline_fix_v1/dashboard_soxlbacktest_reference.png",
+  "traceNames": [
+    "Strategy NAV",
+    "Buy&Hold NAV",
+    "BUY (NAV)",
+    "SELL (NAV)",
+    "SOXL Close",
+    "SOXL",
+    "MA180",
+    "BUY",
+    "SELL",
+    "Position %",
+    "Excess %",
+    "Strategy DD",
+    "Buy&Hold DD"
+  ],
+  "tradeMapSize": 1,
+  "url": "http://127.0.0.1:8765/dashboard.html",
+  "version_options": [
+    "",
+    "soxl_backtest_policy_reimplementation_v1",
+    "paper_trading",
+    "balanced_rule_residual_v19_moe_v2"
+  ]
+}

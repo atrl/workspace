@@ -110,6 +110,21 @@ can inspect static data. Backend model inference still needs
 fall back to that API if its own origin returns `501`/`405`/`404` for
 `/api/run-backtest`.
 
+When debugging Main Chart freezes, check for repeated Plotly event registration
+first. `renderChart()` is called by range, version, zoom, rerun, and segment
+controls, so `plotly_hover`, `plotly_click`, and `plotly_doubleclick` handlers
+must be bound once per chart DOM node and read fresh rows from node-owned state.
+Do not close over per-render `rows` in repeatedly registered handlers; hover
+lookups should use a date map instead of scanning the row array on every mouse
+move.
+
+Version-selector rows from `dashboard_data/index.json` are only summaries. If
+`DATA.versioned[version]` exists but lacks `detailed[ETF]`, the frontend must
+still fetch `dashboard_data/versioned/<version>/<ETF>.json`; otherwise the Main
+Chart silently falls back to the current ETF rows and shows a wrong window.
+The converted `soxl_backtest_policy_reimplementation_v1` buy/sell path is a
+`reference_baseline` dashboard version, not a runnable inference profile.
+
 If the dashboard opens on an older run after fresh training, check:
 - whether the latest `*_soxl_daily.csv` was written
 - whether `scripts/build_backtest_dashboard.py` was rerun

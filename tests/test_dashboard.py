@@ -10,6 +10,7 @@ import pandas as pd
 import pytest
 
 from scripts.build_backtest_dashboard import (
+    _load_soxlbacktest_reference_version,
     _load_post_train_review_versions,
     _load_retained_dashboard_versions,
     build_html,
@@ -976,3 +977,42 @@ def test_build_html_rerun_chart_draws_full_price_and_position_lines():
     assert price_rows_index < ohlc_index
     assert "name: 'SOXL Close', type: 'scatter', mode: 'lines'" in html
     assert "name: 'Position %', type: 'scatter', mode: 'lines+markers'" in html
+
+
+def test_build_html_binds_plotly_interactions_once_per_chart_node():
+    html = build_html({"detailed": {}, "versioned": {}, "model_versions": []}, {"all": {}})
+
+    assert "function bindPlotlyChartInteractions(gd)" in html
+    assert "gd.dataset.boundChartInteractions === '1'" in html
+    assert "gd.dataset.boundChartInteractions = '1'" in html
+    assert "gd.__dashboardRowsByDate = new Map" in html
+    assert "gd.__dashboardRowsByDate.get(dateStr)" in html
+    assert "bindPlotlyChartInteractions(gd)" in html
+    assert "Plotly.react('plotlyChart', traces, layout" in html
+
+
+def test_build_html_fetches_version_detail_when_only_index_stub_exists():
+    html = build_html({"detailed": {}, "versioned": {}, "model_versions": []}, {"all": {}})
+
+    assert "function hasVersionDetail(version, etf)" in html
+    assert "if (state.version && !hasVersionDetail(state.version, state.etf))" in html
+    assert "if (!version || hasVersionDetail(version, etf)) return;" in html
+    assert "if (!hasVersionDetail(state.version, state.etf))" in html
+
+
+def test_soxlbacktest_reference_version_exports_buy_sell_baseline():
+    versioned = _load_soxlbacktest_reference_version(features=None)
+
+    payload = versioned["soxl_backtest_policy_reimplementation_v1"]
+    detail = payload["detailed"]["SOXL"]
+    rows = detail["rows"]
+    actions = {row["action"] for row in rows}
+
+    assert payload["_meta"]["source_kind"] == "reference_baseline"
+    assert payload["windows"]["SOXL"] == {"start": "2026-01-02", "end": "2026-06-09", "rows": 109}
+    assert detail["summary"]["source_profile"] == "soxl_backtest_policy_reimplementation_v1"
+    assert detail["summary"]["window"] == "ytd_2026"
+    assert "BUY" in actions
+    assert "SELL" in actions
+    assert "TAKE_PROFIT" not in actions
+    assert all(field in rows[0] for field in ("open", "high", "low", "close"))

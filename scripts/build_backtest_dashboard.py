@@ -31,6 +31,11 @@ MODEL_SELECTION_DIR = ROOT / "runtime" / "model_selection" / "card"
 OUTPUT_PATH = ROOT / "dashboard.html"
 DASHBOARD_DATA_DIR = ROOT / "dashboard_data"
 MAX_RESEARCH_BACKTESTS = 30
+SOXL_BACKTEST_REFERENCE_PROFILE = "soxl_backtest_policy_reimplementation_v1"
+SOXL_BACKTEST_REFERENCE_WINDOW = "ytd_2026"
+SOXL_BACKTEST_REFERENCE_DAILY = (
+    ROOT / "runtime" / "production" / "card" / SOXL_BACKTEST_REFERENCE_PROFILE / "new_policy_daily.csv"
+)
 
 C_STRATEGY = "#2563eb"
 C_BUYHOLD = "#0f766e"
@@ -962,6 +967,147 @@ def normalize_post_train_review_rows(raw_rows: list[dict[str, str]]) -> list[dic
     return rows
 
 
+def _normalize_dashboard_action(raw_action: object, prev_pos: float | None, pos: float, index: int) -> str:
+    action = str(raw_action or "").upper()
+    if action in {"TAKE_PROFIT", "STOP_LOSS", "STOP", "TRIM", "REDUCE"}:
+        action = "SELL"
+    elif action not in {"BUY", "SELL", "HOLD"}:
+        action = infer_action_from_position(prev_pos, pos, index)
+    if action in {"BUY", "SELL"}:
+        action = sanitize_explicit_action(action, prev_pos, pos)
+    return action
+
+
+def _normalize_soxlbacktest_reference_rows(raw_rows: list[dict[str, str]], window: str) -> list[dict[str, object]]:
+    rows: list[dict[str, object]] = []
+    prev_pos: float | None = None
+    for index, raw in enumerate(row for row in raw_rows if str(row.get("window") or "") == window):
+        date_value = raw.get("datetime") or raw.get("date")
+        if not date_value:
+            raise ValueError("soxlbacktest reference row missing date/datetime")
+        pos = float(raw.get("position", 0.0))
+        strat_nav = float(raw["strategy_nav"])
+        bh_nav = float(raw["buyhold_nav"])
+        row: dict[str, object] = {
+            "datetime": str(date_value),
+            "strategy_nav": strat_nav,
+            "price": float(raw["price"]),
+            "buyhold_nav": bh_nav,
+            "position": pos,
+            "excess": strat_nav - bh_nav,
+            "excess_pct": (strat_nav / bh_nav - 1) * 100 if bh_nav != 0 else 0.0,
+            "action": _normalize_dashboard_action(raw.get("action"), prev_pos, pos, index),
+        }
+        if raw.get("panic_score") not in (None, ""):
+            row["panic_score"] = float(raw["panic_score"])
+        for source, target in (("HV_20", "hv_20"), ("VOL_COEF", "vol_coef")):
+            if raw.get(source) not in (None, ""):
+                row[target] = float(raw[source])
+        rows.append(row)
+        prev_pos = pos
+    return rows
+
+
+def _summarize_dashboard_rows(rows: list[dict[str, object]], *, etf: str, source_profile: str, window: str) -> dict[str, object]:
+    strategy_return = rows[-1]["strategy_nav"] / rows[0]["strategy_nav"] - 1
+    buyhold_return = rows[-1]["buyhold_nav"] / rows[0]["buyhold_nav"] - 1
+    peak_s = float(rows[0]["strategy_nav"])
+    peak_b = float(rows[0]["buyhold_nav"])
+    max_dd_strategy = 0.0
+    max_dd_buyhold = 0.0
+    buy_count = sell_count = 0
+    max_pos = min_pos = float(rows[0]["position"])
+    for row in rows:
+        strategy_nav = float(row["strategy_nav"])
+        buyhold_nav = float(row["buyhold_nav"])
+        position = float(row["position"])
+        peak_s = max(peak_s, strategy_nav)
+        peak_b = max(peak_b, buyhold_nav)
+        if peak_s:
+            max_dd_strategy = max(max_dd_strategy, (peak_s - strategy_nav) / peak_s)
+        if peak_b:
+            max_dd_buyhold = max(max_dd_buyhold, (peak_b - buyhold_nav) / peak_b)
+        if row["action"] == "BUY":
+            buy_count += 1
+        elif row["action"] == "SELL":
+            sell_count += 1
+        max_pos = max(max_pos, position)
+        min_pos = min(min_pos, position)
+    return {
+        "etf": etf,
+        "source_profile": source_profile,
+        "window": window,
+        "strategy_return": strategy_return,
+        "buyhold_return": buyhold_return,
+        "excess_return": strategy_return - buyhold_return,
+        "max_dd_strategy": max_dd_strategy,
+        "max_dd_buyhold": max_dd_buyhold,
+        "trades": buy_count + sell_count,
+        "buy_count": buy_count,
+        "sell_count": sell_count,
+        "max_position": max_pos,
+        "min_position": min_pos,
+    }
+
+
+def _load_soxlbacktest_reference_version(features: dict[str, dict[str, float]] | None) -> dict[str, dict]:
+    if not SOXL_BACKTEST_REFERENCE_DAILY.exists():
+        return {}
+    with SOXL_BACKTEST_REFERENCE_DAILY.open("r", encoding="utf-8") as handle:
+        raw_rows = list(csv.DictReader(handle))
+    rows = _normalize_soxlbacktest_reference_rows(raw_rows, SOXL_BACKTEST_REFERENCE_WINDOW)
+    if not rows:
+        return {}
+    ohlc = load_ohlc_and_indicators("SOXL")
+    for row in rows:
+        dt = str(row["datetime"])
+        row["_features"] = features.get(dt, {}) if features else {}
+        if dt in ohlc:
+            row.update(ohlc[dt])
+    regime_shapes = compute_regime_shapes(rows)
+    trades = compute_trades(rows)
+    kelly_stats = compute_kelly_stats(trades)
+    summary = _summarize_dashboard_rows(
+        rows,
+        etf="SOXL",
+        source_profile=SOXL_BACKTEST_REFERENCE_PROFILE,
+        window=SOXL_BACKTEST_REFERENCE_WINDOW,
+    )
+    relative_source = str(SOXL_BACKTEST_REFERENCE_DAILY.relative_to(ROOT))
+    return {
+        SOXL_BACKTEST_REFERENCE_PROFILE: {
+            "_meta": {
+                "updated_at": SOXL_BACKTEST_REFERENCE_DAILY.stat().st_mtime,
+                "source": relative_source,
+                "source_kind": "reference_baseline",
+                "shared_market_data": True,
+            },
+            "detailed": {
+                "SOXL": {
+                    "summary": summary,
+                    "csv_path": relative_source,
+                    "meta": {
+                        "source_kind": "reference_baseline",
+                        "profile": SOXL_BACKTEST_REFERENCE_PROFILE,
+                        "window": SOXL_BACKTEST_REFERENCE_WINDOW,
+                    },
+                    "rows": compact_payload_rows(rows),
+                    "regime_shapes": regime_shapes,
+                    "trades": trades,
+                    "kelly": kelly_stats,
+                }
+            },
+            "windows": {
+                "SOXL": {
+                    "start": rows[0]["datetime"],
+                    "end": rows[-1]["datetime"],
+                    "rows": len(rows),
+                }
+            },
+        }
+    }
+
+
 def _load_post_train_review_versions(features: dict[str, dict[str, float]] | None) -> dict[str, dict]:
     """Load paper-trading SOXL daily CSVs as versioned data.
 
@@ -1373,6 +1519,7 @@ def build_payload() -> dict[str, object]:
             "rows": len(rows),
         }
     versioned = _load_versioned_data(features)
+    versioned.update(_load_soxlbacktest_reference_version(features))
     ptr_versioned = _load_post_train_review_versions(features)
     versioned.update(ptr_versioned)
     retained_versioned = _load_retained_dashboard_versions()
@@ -2697,6 +2844,11 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       return hydrated;
     }}
 
+    function hasVersionDetail(version, etf) {{
+      const payload = DATA.versioned && DATA.versioned[version];
+      return Boolean(payload && payload.detailed && payload.detailed[etf]);
+    }}
+
     function getSegmentKey(etf, version, start, end) {{
       return `${{etf}}::${{version || 'current'}}::${{start}}::${{end}}`;
     }}
@@ -3302,7 +3454,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
         state.zoomEnd = null;
         clearSegmentMode();
         saveState();
-        if (state.version && !DATA.versioned[state.version]) {{
+        if (state.version && !hasVersionDetail(state.version, state.etf)) {{
           await loadVersionData(state.version, state.etf);
         }}
         render();
@@ -3774,7 +3926,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       if (state.version && idx.versions && idx.versions.includes(state.version)) {{
         versionSelect.value = state.version;
         // Auto-load version data if not already cached
-        if (!DATA.versioned[state.version]) {{
+        if (!hasVersionDetail(state.version, state.etf)) {{
           loadVersionData(state.version, state.etf).then(() => render());
         }}
       }}
@@ -3782,7 +3934,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     }}
 
     async function loadVersionData(version, etf) {{
-      if (!version || DATA.versioned[version]) return;
+      if (!version || hasVersionDetail(version, etf)) return;
       showLoading(`正在加载 ${{version}} / ${{etf}} ...`);
       const data = await loadJson(`${{DATA_BASE}}/versioned/${{version}}/${{etf}}.json`);
       hideLoading();
@@ -4095,6 +4247,48 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       }}
     }}
 
+    function bindPlotlyChartInteractions(gd) {{
+      if (!gd || gd.dataset.boundChartInteractions === '1') return;
+      gd.dataset.boundChartInteractions = '1';
+      gd.on('plotly_hover', function(data) {{
+        const pt = data.points && data.points[0];
+        if (!pt) return;
+        let dateStr = pt.x;
+        if (dateStr instanceof Date) {{
+          dateStr = dateStr.toISOString().slice(0, 10);
+        }}
+        const row = gd.__dashboardRowsByDate ? gd.__dashboardRowsByDate.get(dateStr) : null;
+        updateInfoPanel(row, gd.__dashboardTradeMap || {{}});
+      }});
+      gd.on('plotly_click', function(data) {{
+        const pt = data.points && data.points[0];
+        if (!pt) return;
+        const trace = pt.data || {{}};
+        const idx = pt.pointNumber;
+        const pairedDate = trace.customdata ? trace.customdata[idx] : null;
+        if (pairedDate) {{
+          const dateStr = pt.x instanceof Date ? pt.x.toISOString().slice(0, 10) : pt.x;
+          const start = dateStr < pairedDate ? dateStr : pairedDate;
+          const end = dateStr > pairedDate ? dateStr : pairedDate;
+          state.zoomStart = start;
+          state.zoomEnd = end;
+          state.zoomMode = 'custom';
+          saveState();
+          syncZoomInputs();
+          renderChart();
+        }}
+      }});
+      gd.on('plotly_doubleclick', function() {{
+        state.zoomMode = 'all';
+        state.zoomStart = null;
+        state.zoomEnd = null;
+        clearSegmentMode();
+        saveState();
+        syncZoomInputs();
+        renderChart();
+      }});
+    }}
+
     function renderChart() {{
       const allRows = getDetailed(state.etf).rows;
       const rows = getFilteredRows(allRows);
@@ -4316,41 +4510,9 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
         modeBarButtonsToRemove: ['lasso2d', 'select2d'],
         displaylogo: false,
       }}).then(gd => {{
-        gd.on('plotly_hover', function(data) {{
-          const pt = data.points[0];
-          let dateStr = pt.x;
-          if (dateStr instanceof Date) {{
-            dateStr = dateStr.toISOString().slice(0, 10);
-          }}
-          const row = rows.find(r => r.datetime === dateStr);
-          updateInfoPanel(row, tradeMap);
-        }});
-        gd.on('plotly_click', function(data) {{
-          const pt = data.points[0];
-          const trace = pt.data;
-          const idx = pt.pointNumber;
-          const pairedDate = trace.customdata ? trace.customdata[idx] : null;
-          if (pairedDate) {{
-            const dateStr = pt.x;
-            const start = dateStr < pairedDate ? dateStr : pairedDate;
-            const end = dateStr > pairedDate ? dateStr : pairedDate;
-            state.zoomStart = start;
-            state.zoomEnd = end;
-            state.zoomMode = 'custom';
-            saveState();
-            syncZoomInputs();
-            renderChart();
-          }}
-        }});
-        gd.on('plotly_doubleclick', function() {{
-          state.zoomMode = 'all';
-          state.zoomStart = null;
-          state.zoomEnd = null;
-          clearSegmentMode();
-          saveState();
-          syncZoomInputs();
-          renderChart();
-        }});
+        gd.__dashboardRowsByDate = new Map(rows.map(r => [r.datetime, r]));
+        gd.__dashboardTradeMap = tradeMap;
+        bindPlotlyChartInteractions(gd);
       }});
 
       if (rows.length) {{
