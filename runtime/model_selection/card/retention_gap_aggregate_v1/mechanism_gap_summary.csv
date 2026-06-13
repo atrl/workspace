@@ -1,0 +1,10 @@
+source_label,role,candidates,full_gate_count,complete_wf_count,wf_dd_pass_count,ytd_best_pass_count,best_objective_loss,best_ytd_return_pct,best_worst_wf_maxdd_pct
+existing_model_retention_gate,existing_model,13,0,8,0,1,53.887093000000014,224.361539,21.83172
+soxlbacktest_reference_score,existing_model_scored_against_reference,21,0,12,0,1,60.780349999999984,224.361539,20.93452
+teacher_risk_budget_selected,teacher_budget_diagnostic,1,0,1,0,0,81.92910295156341,,20.69291029515634
+official_risk_state_target_screen,official_warm_replay_partial,5,0,0,0,0,175.0,,15.111238650889158
+soxlbacktest_qlib_reference,reference_baseline,6,0,6,3,0,223.276819,132.077977,11.567078
+budget_usage_bc_official_replay,trained_actor_official_replay,1,0,1,0,0,225.67130793428095,27.18605207710265,21.349091653065926
+quantbench_current_walkforward,training_target_diagnostic,3,0,3,1,0,226.785580863,15.5019005096,18.9419187137
+state_conditioned_overlay_gap,fixed_actor_overlay_diagnostic,10,0,0,0,0,395.762784,196.370488,14.089214
+soxlbacktest_legacy_teacher,legacy_teacher_window_path,1,0,1,0,0,723.0043105715733,,84.80043105715734
