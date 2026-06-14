@@ -1,0 +1,143 @@
+{
+  "experiment": "release16_full_probe_failure_attribution_v1",
+  "created_at": "2026-06-14T18:32:31.383117+00:00",
+  "profile": "release16_rulebase_reversal_drawdown_upside_state_head_actor_probe_v1",
+  "decision": "release16_full_probe_failure_attribution_no_actor_retention",
+  "promotion_allowed": false,
+  "actor_retention_allowed": false,
+  "soxlbacktest_reference": {
+    "converted_qilib_daily_path": "runtime/production/card/soxl_backtest_policy_reimplementation_v1/new_policy_daily.csv",
+    "ytd_return_pct": 132.07797795135497,
+    "ytd_max_drawdown_pct": 13.554088542803521,
+    "legacy_alignment_delta_pct": 0.0
+  },
+  "release16_ytd": {
+    "return_pct": 38.555494067096085,
+    "relative_return_pp": -288.37080887525156,
+    "max_drawdown_pct": 9.559552575516284,
+    "avg_position": 0.08525600842690058
+  },
+  "baseline_gates_failed": [
+    "soxlbacktest_reference_return",
+    "current_best_alignment_floor"
+  ],
+  "poor_window_cluster_count": 6,
+  "dominant_failure_types": {
+    "underparticipation": 6
+  },
+  "top_feature_groups": [
+    {
+      "feature_group": "trend_quality",
+      "top_mentions": 15,
+      "mean_abs_delta_z": 0.929201488905966,
+      "mean_delta_z": 0.46987691209647386,
+      "example_features": "anchor_gap_velocity_10;trend_gap_21;anchor_gap_180;mom_21;below_anchor_ratio_63"
+    },
+    {
+      "feature_group": "volatility_regime",
+      "top_mentions": 12,
+      "mean_abs_delta_z": 1.4328897458337384,
+      "mean_delta_z": 1.2234499627421842,
+      "example_features": "tracking_error_vol_21;vix_level;realized_vol_63;vol_coef_21;vol_of_vol_21"
+    },
+    {
+      "feature_group": "other",
+      "top_mentions": 9,
+      "mean_abs_delta_z": 0.7846272836385791,
+      "mean_delta_z": 0.621682279162052,
+      "example_features": "gain_streak_10;expectancy_proxy_21;sharpe_proxy_21;rsi_14;rsi_6"
+    },
+    {
+      "feature_group": "drawdown_path",
+      "top_mentions": 6,
+      "mean_abs_delta_z": 0.7163873429416924,
+      "mean_delta_z": -0.009737296498251377,
+      "example_features": "drawdown_streak_63;days_since_high_63;drawdown_63;cum_drop_30;drawdown_21"
+    },
+    {
+      "feature_group": "path_decay_or_tracking",
+      "top_mentions": 4,
+      "mean_abs_delta_z": 1.7280204066532068,
+      "mean_delta_z": -1.1134183099525348,
+      "example_features": "tracking_error_21;decay_63;jump_variation_5;tracking_error_5"
+    }
+  ],
+  "objective_summary": {
+    "decision": "no_objective_pass_candidate",
+    "selected_candidate": "release16_full_probe",
+    "selected_objective_loss": 1040.3225188259737,
+    "selected_window_gate": false,
+    "selected_cluster_gate": false,
+    "next_mechanism": "train_state_conditioned_multi_objective",
+    "required_terms": [
+      "walkforward_relative_return_gap_penalty",
+      "walkforward_drawdown_gap_penalty",
+      "high_vol_rebound_participation_floor",
+      "downtrend_drawdown_state_cap"
+    ]
+  },
+  "handoff": {
+    "decision": "train_state_conditioned_multi_objective",
+    "promotion": "blocked",
+    "selected_diagnostic_candidate": "release16_full_probe",
+    "selected_dominant_failure_type": "joint_tradeoff",
+    "risk_gap": {
+      "target_max_dd": 15.0,
+      "observed_max_dd": 20.91,
+      "max_dd_gap": 5.91,
+      "target_relative_return": 30.0,
+      "observed_min_relative_return": -288.37,
+      "relative_gap": 318.37,
+      "worst_window": "ytd_2026"
+    },
+    "primary_underparticipation_cluster": {
+      "cluster_id": "C005",
+      "cluster_start": "2025-04-08",
+      "cluster_end": "2025-07-21",
+      "profile_count": 1,
+      "window_count": 2,
+      "profiles": "release16_fixed",
+      "mean_excess_return": -205.9365521878694,
+      "worst_excess_return": -210.5332915516857,
+      "mean_max_dd": 2.0131006981689903,
+      "max_max_dd": 2.0131006981689903,
+      "mean_avg_pos": 0.34659036107708413,
+      "mean_bad_score": 235.9365521878694,
+      "max_bad_score": 240.5332915516857,
+      "dominant_failure_type": "underparticipation",
+      "primary_optimization_path": "reentry_participation_or_behavior_clone"
+    },
+    "state_feature_groups": [
+      "trend_quality",
+      "volatility_regime"
+    ],
+    "objective_terms": [
+      "walkforward_relative_return_gap_penalty",
+      "walkforward_drawdown_gap_penalty",
+      "high_vol_rebound_participation_floor",
+      "downtrend_drawdown_state_cap"
+    ],
+    "stop_mechanisms": [],
+    "router_cluster_delta_max": 0.0,
+    "input_counts": {
+      "walkforward_candidates": 1,
+      "poor_window_clusters": 6,
+      "feature_groups": 6
+    }
+  },
+  "sidecars": [
+    "window_metrics.csv",
+    "current_best_ytd_leaders.csv",
+    "release16_vs_baseline_gates.csv",
+    "poor_windows.csv",
+    "poor_window_clusters.csv",
+    "feature_differences.csv",
+    "feature_group_consensus.csv",
+    "objective_scores.csv",
+    "training_objective_handoff.json",
+    "training_objective_handoff.md",
+    "selection.json",
+    "summary.json",
+    "conclusion.md"
+  ]
+}

@@ -1,0 +1,7 @@
+feature_group,top_mentions,mean_abs_delta_z,mean_delta_z,example_features
+trend_quality,15,0.929201488905966,0.46987691209647386,anchor_gap_velocity_10;trend_gap_21;anchor_gap_180;mom_21;below_anchor_ratio_63
+volatility_regime,12,1.4328897458337384,1.2234499627421842,tracking_error_vol_21;vix_level;realized_vol_63;vol_coef_21;vol_of_vol_21
+other,9,0.7846272836385791,0.621682279162052,gain_streak_10;expectancy_proxy_21;sharpe_proxy_21;rsi_14;rsi_6
+drawdown_path,6,0.7163873429416924,-0.009737296498251377,drawdown_streak_63;days_since_high_63;drawdown_63;cum_drop_30;drawdown_21
+path_decay_or_tracking,4,1.7280204066532068,-1.1134183099525348,tracking_error_21;decay_63;jump_variation_5;tracking_error_5
+relative_strength_spread,4,1.1630179145595367,-0.1812902526520187,downside_ratio_21;downside_ratio_10;relative_strength_21;rolling_new_low_ratio_63

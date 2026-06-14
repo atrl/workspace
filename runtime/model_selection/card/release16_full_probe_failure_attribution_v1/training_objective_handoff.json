@@ -1,0 +1,49 @@
+{
+  "decision": "train_state_conditioned_multi_objective",
+  "promotion": "blocked",
+  "selected_diagnostic_candidate": "release16_full_probe",
+  "selected_dominant_failure_type": "joint_tradeoff",
+  "risk_gap": {
+    "target_max_dd": 15.0,
+    "observed_max_dd": 20.91,
+    "max_dd_gap": 5.91,
+    "target_relative_return": 30.0,
+    "observed_min_relative_return": -288.37,
+    "relative_gap": 318.37,
+    "worst_window": "ytd_2026"
+  },
+  "primary_underparticipation_cluster": {
+    "cluster_id": "C005",
+    "cluster_start": "2025-04-08",
+    "cluster_end": "2025-07-21",
+    "profile_count": 1,
+    "window_count": 2,
+    "profiles": "release16_fixed",
+    "mean_excess_return": -205.9365521878694,
+    "worst_excess_return": -210.5332915516857,
+    "mean_max_dd": 2.0131006981689903,
+    "max_max_dd": 2.0131006981689903,
+    "mean_avg_pos": 0.34659036107708413,
+    "mean_bad_score": 235.9365521878694,
+    "max_bad_score": 240.5332915516857,
+    "dominant_failure_type": "underparticipation",
+    "primary_optimization_path": "reentry_participation_or_behavior_clone"
+  },
+  "state_feature_groups": [
+    "trend_quality",
+    "volatility_regime"
+  ],
+  "objective_terms": [
+    "walkforward_relative_return_gap_penalty",
+    "walkforward_drawdown_gap_penalty",
+    "high_vol_rebound_participation_floor",
+    "downtrend_drawdown_state_cap"
+  ],
+  "stop_mechanisms": [],
+  "router_cluster_delta_max": 0.0,
+  "input_counts": {
+    "walkforward_candidates": 1,
+    "poor_window_clusters": 6,
+    "feature_groups": 6
+  }
+}

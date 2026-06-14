@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-14T18:22:11.800333+00:00",
+  "generated_at": "2026-06-14T18:33:07.049279+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -2969,25 +2969,25 @@
       "path": "runtime/model/card/release16_rulebase_reversal_drawdown_upside_state_head_actor_probe_v1/release16_rulebase_reversal_drawdown_upside_state_head_actor_probe_v1_soxl_daily.csv",
       "category": "model",
       "suffix": ".csv",
-      "bytes": 203202
+      "bytes": 201584
     },
     {
       "path": "runtime/model/card/release16_rulebase_reversal_drawdown_upside_state_head_actor_probe_v1/release16_rulebase_reversal_drawdown_upside_state_head_actor_probe_v1_wf_2020_soxl_daily.csv",
       "category": "model",
       "suffix": ".csv",
-      "bytes": 30593
+      "bytes": 30340
     },
     {
       "path": "runtime/model/card/release16_rulebase_reversal_drawdown_upside_state_head_actor_probe_v1/release16_rulebase_reversal_drawdown_upside_state_head_actor_probe_v1_wf_2022_soxl_daily.csv",
       "category": "model",
       "suffix": ".csv",
-      "bytes": 30079
+      "bytes": 29828
     },
     {
       "path": "runtime/model/card/release16_rulebase_reversal_drawdown_upside_state_head_actor_probe_v1/release16_rulebase_reversal_drawdown_upside_state_head_actor_probe_v1_wf_2023_2024_soxl_daily.csv",
       "category": "model",
       "suffix": ".csv",
-      "bytes": 31015
+      "bytes": 30763
     },
     {
       "path": "runtime/model/card/release16_rulebase_reversal_drawdown_upside_state_head_actor_probe_v1/soxl_release16_rulebase_reversal_drawdown_upside_state_head_actor_probe_v1_summary.json",
@@ -8262,6 +8262,84 @@
       "category": "model_selection",
       "suffix": ".csv",
       "bytes": 6247210
+    },
+    {
+      "path": "runtime/model_selection/card/release16_full_probe_failure_attribution_v1/conclusion.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 2419
+    },
+    {
+      "path": "runtime/model_selection/card/release16_full_probe_failure_attribution_v1/current_best_ytd_leaders.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2791
+    },
+    {
+      "path": "runtime/model_selection/card/release16_full_probe_failure_attribution_v1/feature_differences.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 7848
+    },
+    {
+      "path": "runtime/model_selection/card/release16_full_probe_failure_attribution_v1/feature_group_consensus.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 855
+    },
+    {
+      "path": "runtime/model_selection/card/release16_full_probe_failure_attribution_v1/objective_scores.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 419
+    },
+    {
+      "path": "runtime/model_selection/card/release16_full_probe_failure_attribution_v1/poor_window_clusters.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1688
+    },
+    {
+      "path": "runtime/model_selection/card/release16_full_probe_failure_attribution_v1/poor_windows.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 10845
+    },
+    {
+      "path": "runtime/model_selection/card/release16_full_probe_failure_attribution_v1/release16_vs_baseline_gates.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 306
+    },
+    {
+      "path": "runtime/model_selection/card/release16_full_probe_failure_attribution_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2522
+    },
+    {
+      "path": "runtime/model_selection/card/release16_full_probe_failure_attribution_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 4958
+    },
+    {
+      "path": "runtime/model_selection/card/release16_full_probe_failure_attribution_v1/training_objective_handoff.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1527
+    },
+    {
+      "path": "runtime/model_selection/card/release16_full_probe_failure_attribution_v1/training_objective_handoff.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 548
+    },
+    {
+      "path": "runtime/model_selection/card/release16_full_probe_failure_attribution_v1/window_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1564
     },
     {
       "path": "runtime/model_selection/card/release16_remaining_failedfold_diagnostic_v1/bc_representation_summary.csv",

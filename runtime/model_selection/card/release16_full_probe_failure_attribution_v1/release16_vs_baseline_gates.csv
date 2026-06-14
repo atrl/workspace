@@ -1,0 +1,4 @@
+gate,actual_return_pct,required_return_pct,gap_pct,passed
+soxlbacktest_reference_return,38.555494067096085,132.07797795135497,-93.52248388425889,False
+current_best_alignment_floor,38.555494067096085,213.143462,-174.58796793290392,False
+ytd_max_drawdown_lt_20,9.559552575516284,20.0,10.440447424483716,True
