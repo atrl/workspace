@@ -1,6 +1,7 @@
 import { describe, expect, test } from 'vitest';
 import {
   renderActionLegend,
+  renderChartCommandBar,
   renderComparisonPanel,
   renderDataSourcePanel,
   renderFeatureComparisonPanel,
@@ -176,6 +177,29 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.textContent).toContain('SELL');
     expect(panel.textContent).toContain('SOXL Price');
     expect(panel.textContent).toContain('Position');
+  });
+
+  test('renders chart command buttons with inspect and date-range click modes', () => {
+    const panel = document.createElement('div');
+    const commands: string[] = [];
+    const modes: string[] = [];
+
+    renderChartCommandBar(
+      panel,
+      (command) => commands.push(command),
+      'set_start',
+      (mode) => modes.push(mode),
+    );
+
+    expect(panel.querySelector('[aria-label="Inspect candles"]')?.getAttribute('data-active')).toBe('false');
+    expect(panel.querySelector('[aria-label="Click chart to set Start"]')?.getAttribute('data-active')).toBe('true');
+    expect(panel.querySelector('[aria-label="Click chart to set End"]')?.getAttribute('data-active')).toBe('false');
+
+    (panel.querySelector('[aria-label="Click chart to set End"]') as HTMLButtonElement).click();
+    (panel.querySelector('[aria-label="Zoom in"]') as HTMLButtonElement).click();
+
+    expect(modes).toEqual(['set_end']);
+    expect(commands).toEqual(['zoom_in']);
   });
 
   test('renders model-specific buy and sell feature comparison rows', () => {

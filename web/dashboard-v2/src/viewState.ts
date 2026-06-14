@@ -1,3 +1,7 @@
+import type { ChartDateInteraction } from './chart';
+
+export type ChartClickMode = 'inspect' | 'set_start' | 'set_end';
+
 export interface ViewUpdate {
   selectedProfiles?: string[];
   baselineProfile?: string;
@@ -6,6 +10,15 @@ export interface ViewUpdate {
   end?: string;
   hoveredDate?: string;
   selectedDate?: string;
+  chartClickMode?: ChartClickMode;
+}
+
+export interface ChartDateState {
+  chartClickMode: ChartClickMode;
+  start: string;
+  end: string;
+  hoveredDate: string;
+  selectedDate: string;
 }
 
 export function viewUpdateRequiresChartRender(update: ViewUpdate): boolean {
@@ -20,4 +33,31 @@ export function viewUpdateRequiresChartRender(update: ViewUpdate): boolean {
 
 export function viewUpdateRequiresFeatureRender(update: ViewUpdate): boolean {
   return update.selectedDate !== undefined || viewUpdateRequiresChartRender(update);
+}
+
+export function applyChartDateInteraction(
+  state: ChartDateState,
+  date: string,
+  interaction: ChartDateInteraction,
+): ViewUpdate {
+  if (interaction === 'hover') return { hoveredDate: date };
+  if (state.chartClickMode === 'set_start') {
+    return {
+      start: date,
+      ...(date > state.end ? { end: date } : {}),
+      hoveredDate: date,
+      selectedDate: date,
+      chartClickMode: 'inspect',
+    };
+  }
+  if (state.chartClickMode === 'set_end') {
+    return {
+      ...(date < state.start ? { start: date } : {}),
+      end: date,
+      hoveredDate: date,
+      selectedDate: date,
+      chartClickMode: 'inspect',
+    };
+  }
+  return { hoveredDate: date, selectedDate: date };
 }

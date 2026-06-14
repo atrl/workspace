@@ -157,6 +157,7 @@ select {
   min-height: 48px;
   display: flex;
   align-items: baseline;
+  flex-wrap: wrap;
   gap: 10px;
   padding: 10px 14px;
   border-bottom: 1px solid #1f2937;
@@ -194,6 +195,20 @@ h2 {
   gap: 4px;
   align-items: center;
   margin-left: auto;
+}
+
+.chart-mode-group {
+  display: inline-flex;
+  gap: 2px;
+  padding-right: 6px;
+  margin-right: 2px;
+  border-right: 1px solid #374151;
+}
+
+.chart-mode-button[data-active="true"] {
+  color: #111827;
+  border-color: #38bdf8;
+  background: #38bdf8;
 }
 
 .chart-command-bar + .action-legend {

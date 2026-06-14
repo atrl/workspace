@@ -37,7 +37,12 @@ import {
   renderOperationsPanel,
 } from './render';
 import type { ModelPayload } from './types';
-import { viewUpdateRequiresChartRender, viewUpdateRequiresFeatureRender } from './viewState';
+import {
+  applyChartDateInteraction,
+  viewUpdateRequiresChartRender,
+  viewUpdateRequiresFeatureRender,
+  type ChartClickMode,
+} from './viewState';
 
 interface ViewState {
   selectedProfiles: string[];
@@ -47,6 +52,7 @@ interface ViewState {
   end: string;
   hoveredDate: string;
   selectedDate: string;
+  chartClickMode: ChartClickMode;
 }
 
 function requireElement(id: string): HTMLElement {
@@ -346,6 +352,7 @@ function renderDashboard(
   state: ViewState,
   update: (next: Partial<ViewState>) => void,
   onChartCommand: (command: ChartRangeCommand) => void,
+  onChartModeChange: (mode: ChartClickMode) => void,
   runInteractiveBacktest: () => void,
 ): DashboardRenderResult {
   const toolbar = requireElement('toolbar');
@@ -360,16 +367,12 @@ function renderDashboard(
   const { models, market, primary } = visibleContext(data, state);
   const inspectorLookup = buildCurrentInspectorLookup(data, state);
   const chartDateUpdate = (date: string, interaction: ChartDateInteraction) => {
-    if (interaction === 'select') {
-      update({ hoveredDate: date, selectedDate: date });
-      return;
-    }
-    update({ hoveredDate: date });
+    update(applyChartDateInteraction(state, date, interaction));
   };
 
   renderToolbar(toolbar, data, state, update, runInteractiveBacktest);
   renderActionLegend(actionLegend);
-  renderChartCommandBar(chartCommandBar, onChartCommand);
+  renderChartCommandBar(chartCommandBar, onChartCommand, state.chartClickMode, onChartModeChange);
   const marketHandles = renderMarketChart(marketChart, market, primary, chartDateUpdate);
   const positionHandles = renderPositionChart(positionChart, primary, chartDateUpdate);
   const navHandles = renderNavChart(navChart, models, state.baselineProfile, chartDateUpdate);
@@ -403,6 +406,13 @@ function keyboardRangeAction(event: KeyboardEvent): ChartRangeCommand | null {
   return null;
 }
 
+function keyboardModeAction(event: KeyboardEvent): ChartClickMode | null {
+  if (event.key === 'Escape') return 'inspect';
+  if (event.key.toLowerCase() === 's') return 'set_start';
+  if (event.key.toLowerCase() === 'e') return 'set_end';
+  return null;
+}
+
 function isEditingTarget(target: EventTarget | null): boolean {
   const element = target instanceof HTMLElement ? target : null;
   return element ? ['INPUT', 'SELECT', 'TEXTAREA', 'BUTTON'].includes(element.tagName) : false;
@@ -431,14 +441,19 @@ async function main(): Promise<void> {
       end: chartWindow?.end ?? common?.end ?? data.comparison.common_end,
       hoveredDate: chartWindow?.end ?? common?.end ?? data.comparison.common_end,
       selectedDate: chartWindow?.end ?? common?.end ?? data.comparison.common_end,
+      chartClickMode: 'inspect',
     };
     let inspectorLookup: InspectorLookup | null = null;
     let chartHandles: ChartRangeTarget[] = [];
     let chartSyncCleanup: (() => void) | null = null;
     const runChartCommand = (command: ChartRangeCommand) => applyChartRangeCommand(chartHandles, command);
+    const setChartClickMode = (mode: ChartClickMode) => update({ chartClickMode: mode });
+    const renderChartChrome = () => {
+      renderChartCommandBar(requireElement('chart-command-bar'), runChartCommand, state.chartClickMode, setChartClickMode);
+    };
     const rerender = () => {
       chartSyncCleanup?.();
-      const result = renderDashboard(data, state, update, runChartCommand, runInteractiveBacktest);
+      const result = renderDashboard(data, state, update, runChartCommand, setChartClickMode, runInteractiveBacktest);
       inspectorLookup = result.inspectorLookup;
       chartHandles = result.chartHandles;
       chartSyncCleanup = result.chartSyncCleanup;
@@ -449,6 +464,7 @@ async function main(): Promise<void> {
       }
       const needsChartRender = viewUpdateRequiresChartRender(next);
       const needsFeatureRender = viewUpdateRequiresFeatureRender(next);
+      const needsChartChromeRender = next.chartClickMode !== undefined;
       Object.assign(state, next);
       if (!state.selectedProfiles.includes(state.baselineProfile)) {
         state.baselineProfile = state.selectedProfiles[0];
@@ -460,6 +476,7 @@ async function main(): Promise<void> {
       if (needsChartRender) {
         rerender();
       } else if (inspectorLookup) {
+        if (needsChartChromeRender) renderChartChrome();
         renderInspector(data, state, inspectorLookup, { renderFeaturePanel: needsFeatureRender });
       }
     };
@@ -502,10 +519,15 @@ async function main(): Promise<void> {
     }
     window.addEventListener('keydown', (event) => {
       if (isEditingTarget(event.target)) return;
-      const action = keyboardRangeAction(event);
-      if (!action) return;
+      const modeAction = keyboardModeAction(event);
+      const action = modeAction ? null : keyboardRangeAction(event);
+      if (!action && !modeAction) return;
       event.preventDefault();
-      runChartCommand(action);
+      if (modeAction) {
+        setChartClickMode(modeAction);
+      } else if (action) {
+        runChartCommand(action);
+      }
     });
     rerender();
   } catch (error) {

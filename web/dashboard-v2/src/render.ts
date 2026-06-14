@@ -6,6 +6,7 @@ import {
   computeVisibleComparison,
 } from './domain';
 import type { ChartRangeCommand } from './chart';
+import type { ChartClickMode } from './viewState';
 import type {
   ComparisonPayload,
   DecisionFeatureCard,
@@ -292,11 +293,30 @@ const CHART_COMMANDS: readonly { command: ChartRangeCommand; label: string; icon
   { command: 'latest', label: 'Follow latest', icon: '>|' },
 ];
 
+const CHART_CLICK_MODES: readonly { mode: ChartClickMode; label: string; icon: string }[] = [
+  { mode: 'inspect', label: 'Inspect candles', icon: 'I' },
+  { mode: 'set_start', label: 'Click chart to set Start', icon: '[' },
+  { mode: 'set_end', label: 'Click chart to set End', icon: ']' },
+];
+
 export function renderChartCommandBar(
   container: HTMLElement,
   onCommand: (command: ChartRangeCommand) => void,
+  activeMode: ChartClickMode = 'inspect',
+  onModeChange?: (mode: ChartClickMode) => void,
 ): void {
   container.replaceChildren();
+  const modeGroup = element('div', 'chart-mode-group');
+  for (const item of CHART_CLICK_MODES) {
+    const button = element('button', 'chart-command-button chart-mode-button', item.icon);
+    button.type = 'button';
+    button.title = item.label;
+    button.setAttribute('aria-label', item.label);
+    button.dataset.active = item.mode === activeMode ? 'true' : 'false';
+    button.addEventListener('click', () => onModeChange?.(item.mode));
+    modeGroup.appendChild(button);
+  }
+  container.appendChild(modeGroup);
   for (const item of CHART_COMMANDS) {
     const button = element('button', 'chart-command-button', item.icon);
     button.type = 'button';
