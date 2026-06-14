@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-14T22:30:05.322254+00:00",
+  "generated_at": "2026-06-14T22:48:40.879012+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -8658,6 +8658,150 @@
       "category": "model_selection",
       "suffix": ".csv",
       "bytes": 6247210
+    },
+    {
+      "path": "runtime/model_selection/card/release16_failedfold_state_head_checkpoint_bc_screen_v1/bc_slice_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2197
+    },
+    {
+      "path": "runtime/model_selection/card/release16_failedfold_state_head_checkpoint_bc_screen_v1/checkpoint_candidate_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 25087
+    },
+    {
+      "path": "runtime/model_selection/card/release16_failedfold_state_head_checkpoint_bc_screen_v1/checkpoint_selection_by_fold.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2132
+    },
+    {
+      "path": "runtime/model_selection/card/release16_failedfold_state_head_checkpoint_bc_screen_v1/conclusion.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 1804
+    },
+    {
+      "path": "runtime/model_selection/card/release16_failedfold_state_head_checkpoint_bc_screen_v1/coverage.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 783
+    },
+    {
+      "path": "runtime/model_selection/card/release16_failedfold_state_head_checkpoint_bc_screen_v1/coverage.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2496
+    },
+    {
+      "path": "runtime/model_selection/card/release16_failedfold_state_head_checkpoint_bc_screen_v1/drift_score_summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 5484
+    },
+    {
+      "path": "runtime/model_selection/card/release16_failedfold_state_head_checkpoint_bc_screen_v1/metric_basis_reconciliation.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4149
+    },
+    {
+      "path": "runtime/model_selection/card/release16_failedfold_state_head_checkpoint_bc_screen_v1/official_daily_paths/wf_2020__bc_initialization_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31411
+    },
+    {
+      "path": "runtime/model_selection/card/release16_failedfold_state_head_checkpoint_bc_screen_v1/official_daily_paths/wf_2020__ppo_retained_iter_0_bc_equivalent_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31411
+    },
+    {
+      "path": "runtime/model_selection/card/release16_failedfold_state_head_checkpoint_bc_screen_v1/official_daily_paths/wf_2020__ppo_retained_iter_4_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31411
+    },
+    {
+      "path": "runtime/model_selection/card/release16_failedfold_state_head_checkpoint_bc_screen_v1/official_daily_paths/wf_2020__ppo_selected_best_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31411
+    },
+    {
+      "path": "runtime/model_selection/card/release16_failedfold_state_head_checkpoint_bc_screen_v1/official_daily_paths/wf_2022__bc_initialization_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30121
+    },
+    {
+      "path": "runtime/model_selection/card/release16_failedfold_state_head_checkpoint_bc_screen_v1/official_daily_paths/wf_2022__ppo_retained_iter_0_bc_equivalent_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30121
+    },
+    {
+      "path": "runtime/model_selection/card/release16_failedfold_state_head_checkpoint_bc_screen_v1/official_daily_paths/wf_2022__ppo_retained_iter_4_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30546
+    },
+    {
+      "path": "runtime/model_selection/card/release16_failedfold_state_head_checkpoint_bc_screen_v1/official_daily_paths/wf_2022__ppo_selected_best_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30546
+    },
+    {
+      "path": "runtime/model_selection/card/release16_failedfold_state_head_checkpoint_bc_screen_v1/official_daily_paths/wf_2023_2024__bc_initialization_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31598
+    },
+    {
+      "path": "runtime/model_selection/card/release16_failedfold_state_head_checkpoint_bc_screen_v1/official_daily_paths/wf_2023_2024__ppo_retained_iter_0_bc_equivalent_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31598
+    },
+    {
+      "path": "runtime/model_selection/card/release16_failedfold_state_head_checkpoint_bc_screen_v1/official_daily_paths/wf_2023_2024__ppo_retained_iter_4_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31355
+    },
+    {
+      "path": "runtime/model_selection/card/release16_failedfold_state_head_checkpoint_bc_screen_v1/official_daily_paths/wf_2023_2024__ppo_selected_best_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31355
+    },
+    {
+      "path": "runtime/model_selection/card/release16_failedfold_state_head_checkpoint_bc_screen_v1/ppo_selection_history.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1070
+    },
+    {
+      "path": "runtime/model_selection/card/release16_failedfold_state_head_checkpoint_bc_screen_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 7240
+    },
+    {
+      "path": "runtime/model_selection/card/release16_failedfold_state_head_checkpoint_bc_screen_v1/state_head_vs_drawdown_upside_checkpoint_delta.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1199
+    },
+    {
+      "path": "runtime/model_selection/card/release16_failedfold_state_head_checkpoint_bc_screen_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 12616
     },
     {
       "path": "runtime/model_selection/card/release16_failedfold_state_head_target_recipe_v1/bc_readiness_scores.csv",
