@@ -1,0 +1,16 @@
+{
+  "actor_retention_allowed": false,
+  "experiment": "release16_guarded_reward_checkpoint_objective_v1",
+  "missing_patch_keys": [],
+  "missing_ready_required_terms": [],
+  "primary_gate_count_20dd": 1,
+  "promotion_allowed": false,
+  "reward_patch_valid_for_reward_config": true,
+  "selected_bull_candidate": "bull65_hold3",
+  "selected_bull_profile": "release16_bull_reentry_participation_objective_replay_v1::bull65_hold3",
+  "selected_checkpoint_candidate": "release16_bull_reentry_participation_objective_replay_v1::bull65_hold3",
+  "selected_recipe": "dd1.5_thr18_pos0.15_tf1_floor0.25_lb21",
+  "short_training_allowed_next": true,
+  "strict_gate_count_15dd": 0,
+  "window_count": 3
+}

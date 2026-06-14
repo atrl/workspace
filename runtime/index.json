@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-14T20:37:42.596017+00:00",
+  "generated_at": "2026-06-14T20:53:32.041575+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -15846,6 +15846,90 @@
       "category": "reward",
       "suffix": ".csv",
       "bytes": 548
+    },
+    {
+      "path": "runtime/reward/card/release16_guarded_reward_checkpoint_objective_v1/candidate_gate_summary.csv",
+      "category": "reward",
+      "suffix": ".csv",
+      "bytes": 3099
+    },
+    {
+      "path": "runtime/reward/card/release16_guarded_reward_checkpoint_objective_v1/conclusion.md",
+      "category": "reward",
+      "suffix": ".md",
+      "bytes": 1055
+    },
+    {
+      "path": "runtime/reward/card/release16_guarded_reward_checkpoint_objective_v1/feature_groups.csv",
+      "category": "reward",
+      "suffix": ".csv",
+      "bytes": 68
+    },
+    {
+      "path": "runtime/reward/card/release16_guarded_reward_checkpoint_objective_v1/gate_gaps.csv",
+      "category": "reward",
+      "suffix": ".csv",
+      "bytes": 19755
+    },
+    {
+      "path": "runtime/reward/card/release16_guarded_reward_checkpoint_objective_v1/poor_window_clusters.csv",
+      "category": "reward",
+      "suffix": ".csv",
+      "bytes": 555
+    },
+    {
+      "path": "runtime/reward/card/release16_guarded_reward_checkpoint_objective_v1/reward_checkpoint_review.md",
+      "category": "reward",
+      "suffix": ".md",
+      "bytes": 3942
+    },
+    {
+      "path": "runtime/reward/card/release16_guarded_reward_checkpoint_objective_v1/reward_checkpoint_scores.csv",
+      "category": "reward",
+      "suffix": ".csv",
+      "bytes": 6975
+    },
+    {
+      "path": "runtime/reward/card/release16_guarded_reward_checkpoint_objective_v1/reward_checkpoint_summary.json",
+      "category": "reward",
+      "suffix": ".json",
+      "bytes": 693
+    },
+    {
+      "path": "runtime/reward/card/release16_guarded_reward_checkpoint_objective_v1/reward_objective_patch.json",
+      "category": "reward",
+      "suffix": ".json",
+      "bytes": 383
+    },
+    {
+      "path": "runtime/reward/card/release16_guarded_reward_checkpoint_objective_v1/reward_recipe_review.md",
+      "category": "reward",
+      "suffix": ".md",
+      "bytes": 1431
+    },
+    {
+      "path": "runtime/reward/card/release16_guarded_reward_checkpoint_objective_v1/reward_recipe_scores.csv",
+      "category": "reward",
+      "suffix": ".csv",
+      "bytes": 251794
+    },
+    {
+      "path": "runtime/reward/card/release16_guarded_reward_checkpoint_objective_v1/reward_recipe_summary.json",
+      "category": "reward",
+      "suffix": ".json",
+      "bytes": 861
+    },
+    {
+      "path": "runtime/reward/card/release16_guarded_reward_checkpoint_objective_v1/selection.json",
+      "category": "reward",
+      "suffix": ".json",
+      "bytes": 692
+    },
+    {
+      "path": "runtime/reward/card/release16_guarded_reward_checkpoint_objective_v1/summary.json",
+      "category": "reward",
+      "suffix": ".json",
+      "bytes": 4416
     },
     {
       "path": "runtime/reward/card/release16_rulebase_reversal_drawdown_upside_state_head_actor_probe_v1/conclusion.md",

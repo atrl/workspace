@@ -1,0 +1,22 @@
+{
+  "decision": "drawdown_drift_reward_recipe_ready_for_short_training_screen",
+  "drawdown_failure_capture": 1.0,
+  "next_mechanism": "short_foldlocal_bc_or_ppo_training_screen",
+  "overreach_share": 0.0,
+  "promotion_allowed": false,
+  "reward_objective_patch": {
+    "drawdown_drift_penalty": 1.5,
+    "drawdown_drift_position_threshold": 0.15,
+    "drawdown_drift_reward_enabled": true,
+    "drawdown_drift_threshold_pct": 18.0,
+    "trend_preservation_floor_enabled": true,
+    "trend_preservation_floor_penalty": 1.0,
+    "trend_preservation_floor_position": 0.25,
+    "trend_preservation_lookback": 21,
+    "trend_preservation_min_buyhold_return_pct": 5.0
+  },
+  "selected_recipe": "dd1.5_thr18_pos0.15_tf1_floor0.25_lb21",
+  "selected_reward_recipe_loss": 1.5071085999435105,
+  "training_allowed_next": true,
+  "trend_underparticipation_capture": 1.0
+}

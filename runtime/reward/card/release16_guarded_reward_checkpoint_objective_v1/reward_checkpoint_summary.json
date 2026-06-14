@@ -1,0 +1,17 @@
+{
+  "decision": "reward_checkpoint_screen_no_promotion",
+  "next_mechanism": "train_drawdown_drift_reward_or_checkpoint_recipe",
+  "ppo_allowed_next": false,
+  "promotion_allowed": false,
+  "required_objective_terms": [
+    "checkpoint_objective_loss",
+    "drawdown_drift_penalty",
+    "trend_preservation_floor"
+  ],
+  "selected_candidate": "release16_bull_reentry_participation_objective_replay_v1::bull65_hold3",
+  "selected_failure_mix": "joint_tradeoff:1,pass:1,underparticipation:1",
+  "selected_gate_gap_loss": 34.47785927885962,
+  "selected_max_max_dd": 21.10615606724233,
+  "selected_min_relative_return": 14.302062458265096,
+  "selected_reward_checkpoint_loss": 34.47785927885962
+}
