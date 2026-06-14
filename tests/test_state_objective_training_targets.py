@@ -16,6 +16,7 @@ from src.soxl_quant.app.state_objective_training_targets import (
     apply_trend_participation_target_gate,
     audit_state_objective_target_lift,
     audit_state_objective_target_scope,
+    build_failedfold_state_head_target_contract,
     build_fold_local_joint_target_contract,
     build_drawdown_control_training_targets,
     build_fold_local_state_objective_training_targets,
@@ -26,6 +27,7 @@ from src.soxl_quant.app.state_objective_training_targets import (
     score_state_objective_bc_readiness,
     score_state_objective_checkpoint_candidates,
     score_state_objective_target_alignment,
+    summarize_failedfold_state_head_target_contract,
     summarize_state_objective_bc_readiness,
     summarize_state_objective_checkpoint_selection,
     summarize_state_objective_target_alignment,
@@ -33,6 +35,84 @@ from src.soxl_quant.app.state_objective_training_targets import (
     summarize_state_objective_target_scope_audit,
     summarize_state_objective_training_targets,
 )
+
+
+def test_failedfold_state_head_target_contract_lifts_failed_fold_train_rows_only():
+    targets = pd.DataFrame(
+        {
+            "datetime": pd.to_datetime(
+                ["2019-01-02", "2019-01-03", "2019-01-04", "2021-01-04"]
+            ),
+            "fold": ["wf_a_train", "wf_a_train", "wf_a_train", "wf_guard_train"],
+            "window": ["wf_a_train", "wf_a_train", "wf_a_train", "wf_guard_train"],
+            "target_scope": ["fold_local", "fold_local", "fold_local", "fold_local"],
+            "train_start": ["2019-01-02"] * 3 + ["2021-01-04"],
+            "train_end": ["2019-12-31"] * 3 + ["2021-12-31"],
+            "eval_start": ["2020-01-01"] * 3 + ["2022-01-01"],
+            "eval_end": ["2020-12-31"] * 3 + ["2022-12-31"],
+            "teacher_position": [0.20, 0.18, 0.45, 0.10],
+            "rebound_target_position": [0.20, 0.18, 0.45, 0.10],
+            "risk_target_position": [0.20, 0.18, 0.45, 0.10],
+            "objective_weight": [1.0, 1.0, 1.0, 1.0],
+            "is_rebound_cluster": [False, False, False, False],
+            "is_downtrend_state": [False, False, False, False],
+            "is_overlay_lift": [True, False, True, True],
+            "RB_SELL_COMPOSITE": [0.80, 0.10, 0.75, 0.85],
+            "RB_TREND_REVERSAL": [0.70, -0.20, 0.80, 0.90],
+            "RB_RSI6_OVERSOLD": [0.00, 0.30, 0.00, 0.00],
+        }
+    )
+
+    contract = build_failedfold_state_head_target_contract(
+        targets,
+        feature_columns=["RB_SELL_COMPOSITE", "RB_TREND_REVERSAL", "RB_RSI6_OVERSOLD"],
+        target_folds=["wf_a_train"],
+        guard_folds=["wf_guard_train"],
+        min_feature_hits=2,
+        min_target_position=0.55,
+        objective_weight_bonus=4.0,
+    )
+
+    by_date = contract.set_index("datetime")
+    lifted = by_date.loc[pd.Timestamp("2019-01-02")]
+    neutral = by_date.loc[pd.Timestamp("2019-01-03")]
+    already_high = by_date.loc[pd.Timestamp("2019-01-04")]
+    guard = by_date.loc[pd.Timestamp("2021-01-04")]
+    assert bool(lifted["failedfold_state_head_target_state"]) is True
+    assert lifted["risk_target_position_original"] == 0.20
+    assert lifted["risk_target_position"] == 0.55
+    assert lifted["rebound_target_position"] == 0.55
+    assert bool(lifted["is_rebound_cluster"]) is True
+    assert lifted["objective_weight"] > 1.0
+    assert bool(neutral["failedfold_state_head_target_state"]) is False
+    assert neutral["risk_target_position"] == 0.18
+    assert bool(already_high["failedfold_state_head_target_state"]) is True
+    assert already_high["risk_target_position"] == 0.55
+    assert bool(guard["failedfold_state_head_target_state"]) is False
+    assert guard["risk_target_position"] == 0.10
+    assert "RB_SELL_COMPOSITE" in lifted["failedfold_state_head_thresholds_json"]
+
+
+def test_failedfold_state_head_target_summary_blocks_guard_fold_target_rows():
+    contract = pd.DataFrame(
+        {
+            "fold": ["wf_failed_train", "wf_guard_train"],
+            "failedfold_state_head_target_state": [True, True],
+            "failedfold_state_head_target_lift": [0.30, 0.40],
+            "objective_weight": [5.0, 5.0],
+        }
+    )
+
+    summary = summarize_failedfold_state_head_target_contract(
+        contract,
+        failed_folds=["wf_failed_train"],
+        guard_folds=["wf_guard_train"],
+    )
+
+    assert summary["decision"] == "failedfold_state_head_target_guard_blocked_no_training"
+    assert summary["target_rows"] == 2
+    assert summary["guard_target_rows"] == 1
+    assert summary["training_ready"] is False
 
 
 def test_drawdown_control_targets_cap_high_exposure_inside_failed_interval():

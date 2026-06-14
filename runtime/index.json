@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-14T22:09:23.561270+00:00",
+  "generated_at": "2026-06-14T22:30:05.322254+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -8658,6 +8658,72 @@
       "category": "model_selection",
       "suffix": ".csv",
       "bytes": 6247210
+    },
+    {
+      "path": "runtime/model_selection/card/release16_failedfold_state_head_target_recipe_v1/bc_readiness_scores.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 295
+    },
+    {
+      "path": "runtime/model_selection/card/release16_failedfold_state_head_target_recipe_v1/feature_set_gate.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1103
+    },
+    {
+      "path": "runtime/model_selection/card/release16_failedfold_state_head_target_recipe_v1/rulebase_reversal_transfer_alignment.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2791
+    },
+    {
+      "path": "runtime/model_selection/card/release16_failedfold_state_head_target_recipe_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 3006
+    },
+    {
+      "path": "runtime/model_selection/card/release16_failedfold_state_head_target_recipe_v1/state_head_feature_thresholds.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 865
+    },
+    {
+      "path": "runtime/model_selection/card/release16_failedfold_state_head_target_recipe_v1/state_head_target_contract.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 13031661
+    },
+    {
+      "path": "runtime/model_selection/card/release16_failedfold_state_head_target_recipe_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 3904
+    },
+    {
+      "path": "runtime/model_selection/card/release16_failedfold_state_head_target_recipe_v1/target_action_distribution.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 187
+    },
+    {
+      "path": "runtime/model_selection/card/release16_failedfold_state_head_target_recipe_v1/target_coverage_by_fold.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 409
+    },
+    {
+      "path": "runtime/model_selection/card/release16_failedfold_state_head_target_recipe_v1/target_lift_audit.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 745
+    },
+    {
+      "path": "runtime/model_selection/card/release16_failedfold_state_head_target_recipe_v1/target_scope_audit.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 532
     },
     {
       "path": "runtime/model_selection/card/release16_full_probe_failure_attribution_v1/conclusion.md",

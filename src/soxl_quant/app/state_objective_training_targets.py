@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+import json
 from typing import Iterable, Mapping
 
 import numpy as np
@@ -168,6 +169,36 @@ class ShortVolshockDeRiskTargetConfig:
             raise ValueError("min_position_delta must be non-negative")
         if float(self.objective_weight_bonus) < 0.0:
             raise ValueError("objective_weight_bonus must be non-negative")
+
+
+@dataclass(frozen=True)
+class FailedFoldStateHeadTargetConfig:
+    label_col: str = "is_overlay_lift"
+    min_feature_hits: int = 3
+    min_target_position: float = 0.50
+    max_target_position: float = 0.65
+    max_teacher_position: float = 1.00
+    min_target_lift: float = 0.01
+    objective_weight_bonus: float = 5.0
+    max_objective_weight: float = 25.0
+
+    def __post_init__(self) -> None:
+        if int(self.min_feature_hits) < 1:
+            raise ValueError("min_feature_hits must be >= 1")
+        if not 0.0 <= float(self.min_target_position) <= 1.0:
+            raise ValueError("min_target_position must be within [0, 1]")
+        if not 0.0 <= float(self.max_target_position) <= 1.0:
+            raise ValueError("max_target_position must be within [0, 1]")
+        if float(self.min_target_position) > float(self.max_target_position):
+            raise ValueError("min_target_position must be <= max_target_position")
+        if not 0.0 <= float(self.max_teacher_position) <= 1.0:
+            raise ValueError("max_teacher_position must be within [0, 1]")
+        if float(self.min_target_lift) < 0.0:
+            raise ValueError("min_target_lift must be non-negative")
+        if float(self.objective_weight_bonus) < 0.0:
+            raise ValueError("objective_weight_bonus must be non-negative")
+        if float(self.max_objective_weight) < 1.0:
+            raise ValueError("max_objective_weight must be >= 1")
 
 
 def _fold_threshold_key(value: object) -> str:
@@ -1926,6 +1957,310 @@ def apply_state_objective_sparse_release_gate(
     )
     result.loc[result["release_gate_state"], "risk_target_position"] = candidate_release[result["release_gate_state"]]
     return result.drop(columns=["_date_key"]).reset_index(drop=True)
+
+
+def _append_recipe_value(existing: pd.Series, value: str, mask: pd.Series) -> pd.Series:
+    base = existing.fillna("").astype(str)
+    appended = np.where(
+        base.str.len() > 0,
+        base + "+" + str(value),
+        str(value),
+    )
+    return pd.Series(np.where(mask, appended, base), index=existing.index)
+
+
+def _failedfold_state_head_thresholds(
+    frame: pd.DataFrame,
+    *,
+    feature_columns: list[str],
+    label_col: str,
+) -> dict[str, dict[str, float | int]]:
+    label = frame[label_col].fillna(False).astype(bool)
+    thresholds: dict[str, dict[str, float | int]] = {}
+    for column in feature_columns:
+        values = pd.to_numeric(frame[column], errors="coerce")
+        positive = values[label].dropna()
+        negative = values[~label].dropna()
+        if positive.empty or negative.empty:
+            continue
+        pos_mean = float(positive.mean())
+        neg_mean = float(negative.mean())
+        direction = 1 if pos_mean >= neg_mean else -1
+        thresholds[column] = {
+            "direction": direction,
+            "threshold": float(positive.median()),
+            "positive_mean": pos_mean,
+            "negative_mean": neg_mean,
+        }
+    return thresholds
+
+
+def build_failedfold_state_head_target_contract(
+    targets: pd.DataFrame,
+    *,
+    feature_columns: Iterable[str],
+    target_folds: Iterable[str],
+    guard_folds: Iterable[str] = (),
+    config: FailedFoldStateHeadTargetConfig | None = None,
+    label_col: str | None = None,
+    min_feature_hits: int | None = None,
+    min_target_position: float | None = None,
+    max_target_position: float | None = None,
+    max_teacher_position: float | None = None,
+    min_target_lift: float | None = None,
+    objective_weight_bonus: float | None = None,
+) -> pd.DataFrame:
+    """Build fold-local state-head target rows from train-overlay labels.
+
+    The helper calibrates feature-hit thresholds on fold-local training labels,
+    then only applies target lifts to explicitly named failed train folds.
+    Guard folds can carry features for coverage checks without receiving new
+    labels.
+    """
+
+    if config is None:
+        config = FailedFoldStateHeadTargetConfig(
+            label_col=label_col or FailedFoldStateHeadTargetConfig.label_col,
+            min_feature_hits=(
+                int(min_feature_hits)
+                if min_feature_hits is not None
+                else FailedFoldStateHeadTargetConfig.min_feature_hits
+            ),
+            min_target_position=(
+                float(min_target_position)
+                if min_target_position is not None
+                else FailedFoldStateHeadTargetConfig.min_target_position
+            ),
+            max_target_position=(
+                float(max_target_position)
+                if max_target_position is not None
+                else FailedFoldStateHeadTargetConfig.max_target_position
+            ),
+            max_teacher_position=(
+                float(max_teacher_position)
+                if max_teacher_position is not None
+                else FailedFoldStateHeadTargetConfig.max_teacher_position
+            ),
+            min_target_lift=(
+                float(min_target_lift)
+                if min_target_lift is not None
+                else FailedFoldStateHeadTargetConfig.min_target_lift
+            ),
+            objective_weight_bonus=(
+                float(objective_weight_bonus)
+                if objective_weight_bonus is not None
+                else FailedFoldStateHeadTargetConfig.objective_weight_bonus
+            ),
+        )
+    elif any(
+        value is not None
+        for value in (
+            label_col,
+            min_feature_hits,
+            min_target_position,
+            max_target_position,
+            max_teacher_position,
+            min_target_lift,
+            objective_weight_bonus,
+        )
+    ):
+        raise ValueError("pass either config or individual failedfold state-head options, not both")
+
+    features = [str(column) for column in feature_columns]
+    if not features:
+        raise ValueError("feature_columns must contain at least one feature")
+    failed_fold_set = {str(value) for value in target_folds}
+    guard_fold_set = {str(value) for value in guard_folds}
+    if not failed_fold_set:
+        raise ValueError("target_folds must contain at least one failed fold")
+    required = {
+        "datetime",
+        "fold",
+        "teacher_position",
+        "rebound_target_position",
+        "risk_target_position",
+        "objective_weight",
+        "is_rebound_cluster",
+        "is_downtrend_state",
+        config.label_col,
+        *features,
+    }
+    missing = sorted(required - set(targets.columns))
+    if missing:
+        raise ValueError(f"targets missing columns: {missing}")
+
+    result = targets.copy()
+    result["datetime"] = pd.to_datetime(result["datetime"])
+    result["fold"] = result["fold"].fillna("").astype(str)
+    result[config.label_col] = result[config.label_col].fillna(False).astype(bool)
+    if "target_scope" not in result.columns:
+        result["target_scope"] = "fold_local"
+    if "window" not in result.columns:
+        result["window"] = result["fold"]
+    for column in ("teacher_position", "rebound_target_position", "risk_target_position", "objective_weight"):
+        result[column] = pd.to_numeric(result[column], errors="coerce").fillna(0.0)
+    if "risk_target_position_original" not in result.columns:
+        result["risk_target_position_original"] = result["risk_target_position"]
+    else:
+        result["risk_target_position_original"] = pd.to_numeric(
+            result["risk_target_position_original"],
+            errors="coerce",
+        ).fillna(result["risk_target_position"])
+    if "state_target_position" in result.columns:
+        state_target = pd.to_numeric(result["state_target_position"], errors="coerce")
+    else:
+        state_target = pd.Series(np.nan, index=result.index)
+    for column in ("is_rebound_cluster", "is_downtrend_state"):
+        result[column] = result[column].fillna(False).astype(bool)
+    for column in features:
+        result[column] = pd.to_numeric(result[column], errors="coerce")
+
+    calibration = result[
+        result["fold"].isin(failed_fold_set)
+        & result["target_scope"].fillna("").astype(str).eq("fold_local")
+        & result[features].notna().any(axis=1)
+    ].copy()
+    thresholds = _failedfold_state_head_thresholds(
+        calibration,
+        feature_columns=features,
+        label_col=config.label_col,
+    )
+    if not thresholds:
+        raise ValueError("could not derive failedfold state-head thresholds from target labels")
+
+    hit_frame = pd.DataFrame(index=result.index)
+    for column, threshold in thresholds.items():
+        values = result[column]
+        boundary = float(threshold["threshold"])
+        if int(threshold["direction"]) >= 0:
+            hit_frame[column] = values >= boundary
+        else:
+            hit_frame[column] = values <= boundary
+        hit_frame[column] = hit_frame[column] & values.notna()
+
+    valid_counts = result[list(thresholds.keys())].notna().sum(axis=1).astype(int)
+    hit_counts = hit_frame.sum(axis=1).astype(int)
+    result["failedfold_state_head_feature_set"] = ",".join(features)
+    result["failedfold_state_head_thresholds_json"] = json.dumps(thresholds, sort_keys=True)
+    result["failedfold_state_head_valid_features"] = valid_counts
+    result["failedfold_state_head_feature_hits"] = hit_counts
+    result["failedfold_state_head_state_score"] = np.where(
+        valid_counts > 0,
+        hit_counts / valid_counts.clip(lower=1),
+        0.0,
+    )
+    state_target_position = (
+        state_target.fillna(float(config.min_target_position))
+        .clip(lower=float(config.min_target_position), upper=float(config.max_target_position))
+        .astype(float)
+    )
+    result["failedfold_state_head_target_position"] = state_target_position
+    result["failedfold_state_head_target_lift"] = (
+        state_target_position - result["risk_target_position_original"]
+    ).clip(lower=0.0)
+    target_mask = (
+        result["fold"].isin(failed_fold_set)
+        & ~result["fold"].isin(guard_fold_set)
+        & (result["target_scope"].fillna("").astype(str) == "fold_local")
+        & (valid_counts >= int(config.min_feature_hits))
+        & (hit_counts >= int(config.min_feature_hits))
+        & (result["teacher_position"] <= float(config.max_teacher_position))
+        & (result["failedfold_state_head_target_lift"] > float(config.min_target_lift))
+    )
+    result["failedfold_state_head_target_state"] = target_mask.astype(bool)
+    result["failedfold_state_head_guard_fold"] = result["fold"].isin(guard_fold_set)
+    result.loc[target_mask, "rebound_target_position"] = np.maximum(
+        result.loc[target_mask, "rebound_target_position"],
+        state_target_position[target_mask],
+    )
+    result.loc[target_mask, "risk_target_position"] = np.maximum(
+        result.loc[target_mask, "risk_target_position"],
+        state_target_position[target_mask],
+    )
+    result.loc[target_mask, "is_rebound_cluster"] = True
+    if "rebound_participation_weight" in result.columns:
+        result.loc[target_mask, "rebound_participation_weight"] = np.maximum(
+            pd.to_numeric(result.loc[target_mask, "rebound_participation_weight"], errors="coerce").fillna(0.0),
+            result.loc[target_mask, "failedfold_state_head_target_lift"] * float(config.objective_weight_bonus) * 10.0,
+        )
+    weight_floor = 1.0 + result["failedfold_state_head_target_lift"] * float(config.objective_weight_bonus) * 10.0
+    result["objective_weight"] = np.where(
+        target_mask,
+        np.maximum(result["objective_weight"], weight_floor),
+        result["objective_weight"],
+    ).clip(max=float(config.max_objective_weight))
+    if "target_recipe" in result.columns:
+        result["target_recipe"] = _append_recipe_value(
+            result["target_recipe"],
+            "failedfold_state_head_participation",
+            target_mask,
+        )
+    else:
+        result["target_recipe"] = np.where(target_mask, "failedfold_state_head_participation", "")
+    return result.sort_values(["fold", "datetime"]).reset_index(drop=True)
+
+
+def summarize_failedfold_state_head_target_contract(
+    targets: pd.DataFrame,
+    *,
+    failed_folds: Iterable[str],
+    guard_folds: Iterable[str] = (),
+) -> dict[str, object]:
+    failed_fold_set = {str(value) for value in failed_folds}
+    guard_fold_set = {str(value) for value in guard_folds}
+    if targets.empty:
+        return {
+            "decision": "failedfold_state_head_target_empty_no_training",
+            "training_ready": False,
+            "rows": 0,
+            "target_rows": 0,
+            "failed_target_rows": 0,
+            "guard_target_rows": 0,
+            "next_mechanism": "collect_failedfold_state_head_targets",
+        }
+    required = {"fold", "failedfold_state_head_target_state"}
+    missing = sorted(required - set(targets.columns))
+    if missing:
+        raise ValueError(f"failedfold state-head targets missing columns: {missing}")
+    frame = targets.copy()
+    frame["fold"] = frame["fold"].fillna("").astype(str)
+    target_mask = frame["failedfold_state_head_target_state"].fillna(False).astype(bool)
+    target_rows = int(target_mask.sum())
+    failed_target_rows = int((target_mask & frame["fold"].isin(failed_fold_set)).sum())
+    guard_target_rows = int((target_mask & frame["fold"].isin(guard_fold_set)).sum())
+    if guard_target_rows > 0:
+        decision = "failedfold_state_head_target_guard_blocked_no_training"
+        training_ready = False
+        next_mechanism = "restrict_failedfold_state_head_targets_to_failed_train_folds"
+    elif failed_target_rows > 0:
+        decision = "failedfold_state_head_target_ready_for_checkpoint_screen_no_promotion"
+        training_ready = True
+        next_mechanism = "run_state_head_checkpoint_or_bc_screen"
+    else:
+        decision = "failedfold_state_head_target_no_failedfold_signal_no_training"
+        training_ready = False
+        next_mechanism = "revise_failedfold_state_head_thresholds_or_feature_group"
+    return {
+        "decision": decision,
+        "training_ready": bool(training_ready),
+        "rows": int(len(frame)),
+        "target_rows": target_rows,
+        "failed_target_rows": failed_target_rows,
+        "guard_target_rows": guard_target_rows,
+        "folds": sorted(str(value) for value in frame["fold"].dropna().unique()),
+        "mean_target_lift": float(
+            pd.to_numeric(
+                frame.loc[target_mask, "failedfold_state_head_target_lift"],
+                errors="coerce",
+            ).fillna(0.0).mean()
+        )
+        if target_rows > 0 and "failedfold_state_head_target_lift" in frame.columns
+        else 0.0,
+        "max_objective_weight": float(
+            pd.to_numeric(frame.get("objective_weight", pd.Series(dtype=float)), errors="coerce").fillna(0.0).max()
+        ),
+        "next_mechanism": next_mechanism,
+    }
 
 
 def _normalise_joint_target_component(

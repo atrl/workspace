@@ -1,0 +1,109 @@
+{
+  "actor_retention_allowed": false,
+  "bc_or_checkpoint_screen_allowed_next": true,
+  "bc_summary": {
+    "decision": "state_objective_bc_ready_for_training",
+    "next_mechanism": "run_fold_local_bc_warm_start_then_walkforward_ppo",
+    "selected_bc_readiness_gate": true,
+    "selected_bc_readiness_loss": 0.0,
+    "selected_dominant_action_share": 0.6376306620209059,
+    "selected_fold_local_scope_gate": true,
+    "selected_label_distribution_gate": true,
+    "selected_profile": "failedfold_state_head_rulebase_reversal",
+    "selected_samples": 3731,
+    "selected_target_scope": "fold_local",
+    "selected_unique_actions": 5
+  },
+  "decision": "release16_failedfold_state_head_target_recipe_ready_no_promotion",
+  "experiment": "release16_failedfold_state_head_target_recipe_v1",
+  "failed_folds": [
+    "wf_2020_train",
+    "wf_2023_2024_train"
+  ],
+  "feature_set": "rulebase_reversal",
+  "features": [
+    "RB_PANIC_SCORE_PROXY",
+    "RB_DAILY_DROP_SEVERITY",
+    "RB_CUMULATIVE_DROP_SEVERITY",
+    "RB_RSI6_OVERSOLD",
+    "RB_VOL_REGIME",
+    "RB_BUY_COMPOSITE",
+    "RB_SELL_COMPOSITE",
+    "RB_PROFIT_TAKE_PROXY",
+    "RB_VOLUME_STRESS",
+    "RB_TREND_REVERSAL"
+  ],
+  "guard_folds": [
+    "wf_2022_train"
+  ],
+  "lift_summary": {
+    "audited_groups": 3,
+    "blocked_groups": 0,
+    "candidate_release_positive_lift_rows": 1369,
+    "current_positive_rebound_lift_rows": 1368,
+    "decision": "state_objective_target_lift_training_ready",
+    "lift_semantics_gate": true,
+    "max_candidate_release_lift": 0.75,
+    "next_mechanism": "run_fold_local_weighted_bc_or_ppo",
+    "rebound_downtrend_rows": 311,
+    "rebound_rows": 1372,
+    "training_allowed": true
+  },
+  "max_target_position": 0.65,
+  "min_feature_hits": 5,
+  "min_target_position": 0.5,
+  "next_mechanism": "run_rulebase_reversal_state_head_checkpoint_or_bc_screen_before_retention_training",
+  "ppo_allowed_next": false,
+  "promotion_allowed": false,
+  "scope_summary": {
+    "audited_groups": 3,
+    "blocked_groups": 0,
+    "decision": "state_objective_targets_training_ready",
+    "eval_overlap_rows": 0,
+    "leakage_gate": true,
+    "next_mechanism": "run_fold_local_state_objective_training_or_bc",
+    "outside_train_eval_rows": 0,
+    "scope_issues": [],
+    "top_scope_issue": "",
+    "training_allowed": true
+  },
+  "sidecars": [
+    "state_head_target_contract.csv",
+    "target_scope_audit.csv",
+    "target_lift_audit.csv",
+    "target_coverage_by_fold.csv",
+    "target_action_distribution.csv",
+    "bc_readiness_scores.csv",
+    "feature_set_gate.csv",
+    "rulebase_reversal_transfer_alignment.csv",
+    "state_head_feature_thresholds.csv",
+    "selection.json",
+    "summary.json"
+  ],
+  "source_card": "runtime/model_selection/card/release16_failedfold_state_feature_mining_v1",
+  "source_decision": "failedfold_state_head_features_ready_for_target_recipe_no_promotion",
+  "summary_points": [
+    "rulebase_reversal remains the transfer-stable state feature group from the source mining card.",
+    "State-head target rows: 1315 total, 1315 failed-fold rows, 0 guard-fold rows.",
+    "Scope audit decision: state_objective_targets_training_ready with eval_overlap_rows=0.",
+    "Lift audit decision: state_objective_target_lift_training_ready with current_positive_rebound_lift_rows=1368.",
+    "No actor is promoted or retained; this only permits a subsequent checkpoint/BC screen."
+  ],
+  "target_summary": {
+    "decision": "failedfold_state_head_target_ready_for_checkpoint_screen_no_promotion",
+    "failed_target_rows": 1315,
+    "folds": [
+      "wf_2020_train",
+      "wf_2022_train",
+      "wf_2023_2024_train"
+    ],
+    "guard_target_rows": 0,
+    "max_objective_weight": 25.0,
+    "mean_target_lift": 0.26273921486481533,
+    "next_mechanism": "run_state_head_checkpoint_or_bc_screen",
+    "rows": 3731,
+    "target_rows": 1315,
+    "training_ready": true
+  },
+  "training_ready": true
+}
