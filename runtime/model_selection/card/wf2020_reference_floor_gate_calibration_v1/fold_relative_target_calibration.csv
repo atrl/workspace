@@ -1,0 +1,4 @@
+fold,selected_candidate,selected_relative_return_pp,selected_max_dd_pct,target_relative_return_pp,relative_gap_to_target_pp,max_dd_target_pct,max_dd_gap_pct,target_source,passes_calibrated_fold_gate
+wf_2020,bc_initialization,-277.73538777196427,15.489487944520992,-263.7287958891489,14.006591882815371,20.0,0.0,soxlbacktest_risk_cap_reference_floor,False
+wf_2022,bc_initialization,65.86482008395255,18.80228364916748,30.0,0.0,20.0,0.0,existing_plus_30pp_relative_gate,True
+wf_2023_2024,ppo_retained_iter_4,35.56622898283519,8.955768917531602,30.0,0.0,20.0,0.0,existing_plus_30pp_relative_gate,True

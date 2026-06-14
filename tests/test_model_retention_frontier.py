@@ -463,6 +463,55 @@ def _run_retention_frontier_recommends_actionable_row_before_actionless_diagnost
     )
 
 
+def test_retention_frontier_uses_fold_specific_relative_return_targets():
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp_path = Path(tmp)
+        _run_retention_frontier_uses_fold_specific_relative_return_targets(tmp_path)
+
+
+def _run_retention_frontier_uses_fold_specific_relative_return_targets(tmp_path: Path) -> None:
+    from src.soxl_quant.app.model_retention_frontier import scan_model_retention_frontier
+
+    _write_json(
+        tmp_path / "runtime" / "model_selection" / "card" / "model_retention_walkforward_gate_v1" / "summary.json",
+        {
+            "summary": {
+                "required_best_return_pct": 213.14,
+                "reference_return_pct": 132.08,
+                "max_walkforward_drawdown_pct": 20.0,
+                "required_wf_windows": ["wf_2020", "wf_2022", "wf_2023_2024"],
+            }
+        },
+    )
+    _write_json(
+        tmp_path / "runtime" / "model_selection" / "card" / "wf2020_calibrated" / "summary.json",
+        {
+            "experiment": "wf2020_calibrated",
+            "decision": "wf2020_reference_floor_calibrated_no_promotion",
+            "promotion_allowed": False,
+            "selected_by_fold": {
+                "wf_2020": {"selected_max_dd": 15.49, "selected_relative_return": -277.74},
+                "wf_2022": {"selected_max_dd": 18.8, "selected_relative_return": 65.86},
+                "wf_2023_2024": {"selected_max_dd": 8.96, "selected_relative_return": 35.57},
+            },
+            "target_relative_return_pp": 30.0,
+            "target_relative_return_by_fold_pp": {
+                "wf_2020": -263.73,
+                "wf_2022": 30.0,
+                "wf_2023_2024": 30.0,
+            },
+            "next_mechanism": "build_wf2020_reference_floor_target_screen",
+        },
+    )
+
+    result = scan_model_retention_frontier(root=tmp_path)
+    row = {item["experiment"]: item for item in result["rows"]}["wf2020_calibrated"]
+
+    assert row["failed_wf_windows"] == "wf_2020"
+    assert row["relative_return_gap_to_target_pp"] == 14.01
+    assert row["primary_blocker"] == "walkforward_relative_return_gap"
+
+
 def test_retention_frontier_prioritizes_target_revision_ready_failed_fold_audit():
     with tempfile.TemporaryDirectory() as tmp:
         tmp_path = Path(tmp)

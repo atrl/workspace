@@ -1,0 +1,152 @@
+{
+  "actor_retention_allowed": false,
+  "calibrated_gate": {
+    "current_best_return_pct": 224.361539,
+    "max_walkforward_drawdown_pct": 20.0,
+    "next_target_screen_acceptance": [
+      "all required walk-forward windows present",
+      "each walk-forward selected MaxDD < 20%",
+      "wf_2020 selected return >= risk-cap SOXLBacktest reference floor return",
+      "wf_2020 selected relative return >= risk-cap SOXLBacktest reference floor in the current replay coordinate",
+      "wf_2022 and wf_2023_2024 selected relative return >= +30pp",
+      "current YTD/common-window return remains >= 95% of current best and >= SOXLBacktest reference return before actor retention"
+    ],
+    "required_soxlbacktest_reference_return_pct": 132.077978,
+    "required_wf_windows": [
+      "wf_2020",
+      "wf_2022",
+      "wf_2023_2024"
+    ],
+    "required_ytd_return_pct": 213.143462,
+    "target_relative_return_by_fold_pp": {
+      "wf_2020": -263.7287958891489,
+      "wf_2022": 30.0,
+      "wf_2023_2024": 30.0
+    },
+    "wf2020_reference_floor_avg_position": 0.3103197628458498,
+    "wf2020_reference_floor_candidate": "risk_cap_35_15_05",
+    "wf2020_reference_floor_max_dd_pct": 17.94235040318888,
+    "wf2020_reference_floor_return_pct": 69.60455156850816
+  },
+  "calibrated_maxdd_gap_pct": 0.0,
+  "calibrated_relative_gap_to_target_pp": 14.006591882815371,
+  "calibrated_wf2020_return_gap_pp": 14.006591882815385,
+  "canonical_baseline": "v19reg_v22_budget_usage_bull_guard_v1",
+  "changed_layer": [
+    "model_selection",
+    "retention_gate_feasibility",
+    "target_contract"
+  ],
+  "conclusion": [
+    "The old wf_2020 relative gate requires 363.33% return; no available reference satisfies that return with MaxDD < 20%.",
+    "The calibrated wf_2020 floor is risk_cap_35_15_05 at 69.60% return and 17.94% MaxDD.",
+    "The current post-revision candidate needs 14.01pp more wf_2020 return to match that risk-managed floor while keeping MaxDD under 20%.",
+    "Keep +30pp relative targets for wf_2022 and wf_2023_2024; keep the global YTD return floor against the SOXLBacktest reference and current-best alignment before actor retention.",
+    "Next mechanism: build_wf2020_risk_cap_reference_target_screen_then_rerun_three_fold_bc_checkpoint_metric_replay."
+  ],
+  "created_at": "2026-06-14T00:36:30.777094+00:00",
+  "current_best_return_pct": 224.361539,
+  "decision": "wf2020_reference_floor_gate_calibrated_no_promotion",
+  "direct_comparison_baseline": "bull_reentry_wf2020_post_revision_gap_diagnostic_v1",
+  "experiment": "wf2020_reference_floor_gate_calibration_v1",
+  "failed_folds": [
+    "wf_2020"
+  ],
+  "missing_folds": [],
+  "next_mechanism": "build_wf2020_risk_cap_reference_target_screen_then_rerun_three_fold_bc_checkpoint_metric_replay",
+  "next_training_allowed": false,
+  "old_wf2020_return_gap_pp": 307.73538777196427,
+  "promotion_allowed": false,
+  "promotion_blocker": "This card calibrates the next gate only. No actor is trained, retained, or promoted.",
+  "reference_baseline": "soxlbacktest_qlib_buysell_reference",
+  "required_best_return_pct": 213.143462,
+  "required_soxlbacktest_return_pct": 132.077978,
+  "role": "diagnose",
+  "selected_by_fold": {
+    "wf_2020": {
+      "bc_max_dd": 15.489487944520992,
+      "bc_relative_return": -277.73538777196427,
+      "candidate_count": 4,
+      "fold": "wf_2020",
+      "selected_candidate": "bc_initialization",
+      "selected_candidate_gate": false,
+      "selected_drift_gate": true,
+      "selected_iter": 0,
+      "selected_kind": "bc_initialization",
+      "selected_loss": 10.257846259065476,
+      "selected_max_dd": 15.489487944520992,
+      "selected_relative_return": -277.73538777196427,
+      "selected_target_gate": false,
+      "status": "evaluated"
+    },
+    "wf_2022": {
+      "bc_max_dd": 18.80228364916748,
+      "bc_relative_return": 65.86482008395255,
+      "candidate_count": 4,
+      "fold": "wf_2022",
+      "selected_candidate": "bc_initialization",
+      "selected_candidate_gate": true,
+      "selected_drift_gate": true,
+      "selected_iter": 0,
+      "selected_kind": "bc_initialization",
+      "selected_loss": 0.0,
+      "selected_max_dd": 18.80228364916748,
+      "selected_relative_return": 65.86482008395255,
+      "selected_target_gate": true,
+      "status": "evaluated"
+    },
+    "wf_2023_2024": {
+      "bc_max_dd": 19.9339463051674,
+      "bc_relative_return": 25.313412572656027,
+      "candidate_count": 4,
+      "fold": "wf_2023_2024",
+      "selected_candidate": "ppo_retained_iter_4",
+      "selected_candidate_gate": true,
+      "selected_drift_gate": true,
+      "selected_iter": 4,
+      "selected_kind": "ppo_retained",
+      "selected_loss": 0.004,
+      "selected_max_dd": 8.955768917531602,
+      "selected_relative_return": 35.56622898283519,
+      "selected_target_gate": true,
+      "status": "evaluated"
+    }
+  },
+  "selection_scope": "wf2020_reference_floor_gate_calibration",
+  "sidecars": [
+    "wf2020_reference_floor_gap.csv",
+    "fold_relative_target_calibration.csv",
+    "training_gate_contract.json",
+    "selection.json",
+    "summary.json",
+    "conclusion.md"
+  ],
+  "target_max_dd_pct": 20.0,
+  "target_relative_return_by_fold_pp": {
+    "wf_2020": -263.7287958891489,
+    "wf_2022": 30.0,
+    "wf_2023_2024": 30.0
+  },
+  "target_relative_return_pp": 30.0,
+  "training_allowed_from_this_card": false,
+  "upstream_cards": [
+    "runtime/model_selection/card/bull_reentry_wf2020_post_revision_gap_diagnostic_v1",
+    "runtime/model_selection/card/soxlbacktest_qlib_walkforward_baseline_v1",
+    "runtime/model_selection/card/model_retention_walkforward_gate_v1"
+  ],
+  "wf2020_gap": {
+    "current_candidate": "bc_initialization",
+    "current_max_dd_pct": 15.489487944520992,
+    "current_relative_return_pp": -277.73538777196427,
+    "current_return_pct": 55.59795968569277,
+    "old_relative_target_pp": 30.0,
+    "old_required_return_pct": 363.33334745765706,
+    "old_return_gap_pp": 307.73538777196427,
+    "relative_gap_to_risk_floor_pp": 14.006591882815371,
+    "return_gap_to_risk_floor_pp": 14.006591882815385,
+    "risk_floor_candidate": "risk_cap_35_15_05",
+    "risk_floor_max_dd_pct": 17.94235040318888,
+    "risk_floor_relative_return_pp": -263.7287958891489,
+    "risk_floor_return_pct": 69.60455156850816
+  }
+}

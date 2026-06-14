@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-14T00:28:54.505598+00:00",
+  "generated_at": "2026-06-14T00:37:52.351389+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -5837,19 +5837,19 @@
       "path": "runtime/model_selection/card/model_retention_frontier_v1/conclusion.md",
       "category": "model_selection",
       "suffix": ".md",
-      "bytes": 565
+      "bytes": 550
     },
     {
       "path": "runtime/model_selection/card/model_retention_frontier_v1/retention_frontier.csv",
       "category": "model_selection",
       "suffix": ".csv",
-      "bytes": 37703
+      "bytes": 38158
     },
     {
       "path": "runtime/model_selection/card/model_retention_frontier_v1/summary.json",
       "category": "model_selection",
       "suffix": ".json",
-      "bytes": 102036
+      "bytes": 103096
     },
     {
       "path": "runtime/model_selection/card/model_retention_walkforward_gate_v1/conclusion.md",
@@ -11274,6 +11274,42 @@
       "category": "model_selection",
       "suffix": ".csv",
       "bytes": 1283
+    },
+    {
+      "path": "runtime/model_selection/card/wf2020_reference_floor_gate_calibration_v1/conclusion.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 804
+    },
+    {
+      "path": "runtime/model_selection/card/wf2020_reference_floor_gate_calibration_v1/fold_relative_target_calibration.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 598
+    },
+    {
+      "path": "runtime/model_selection/card/wf2020_reference_floor_gate_calibration_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 6289
+    },
+    {
+      "path": "runtime/model_selection/card/wf2020_reference_floor_gate_calibration_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 5961
+    },
+    {
+      "path": "runtime/model_selection/card/wf2020_reference_floor_gate_calibration_v1/training_gate_contract.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1155
+    },
+    {
+      "path": "runtime/model_selection/card/wf2020_reference_floor_gate_calibration_v1/wf2020_reference_floor_gap.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 530
     },
     {
       "path": "runtime/model_selection/card/wf2024_state_coverage_diagnostic_v1/drawdown_intervals.csv",

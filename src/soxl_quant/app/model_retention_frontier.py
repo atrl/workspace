@@ -160,6 +160,27 @@ def _wf_metrics_from_selection(summary: dict[str, Any], selection: dict[str, Any
     return max_dd, relative
 
 
+def _target_relative_by_window(
+    *,
+    summary: dict[str, Any],
+    selection: dict[str, Any],
+    required_windows: Iterable[str],
+    default_target: float,
+) -> dict[str, float]:
+    targets = {str(window): float(default_target) for window in required_windows}
+    for container in (summary, selection):
+        fold_targets = container.get("target_relative_return_by_fold_pp")
+        if not isinstance(fold_targets, dict):
+            fold_targets = container.get("target_relative_return_by_window_pp")
+        if not isinstance(fold_targets, dict):
+            continue
+        for window, value in fold_targets.items():
+            number = _number(value)
+            if number is not None:
+                targets[str(window)] = number
+    return targets
+
+
 def _primary_blocker(
     *,
     promotion_allowed: bool,
@@ -224,6 +245,12 @@ def _row_from_summary(path: Path, payload: dict[str, Any], gate_summary: dict[st
         or summary.get("target_relative_return_pp")
         or DEFAULT_TARGET_RELATIVE_RETURN_PP
     )
+    target_relative_by_window = _target_relative_by_window(
+        summary=summary,
+        selection=selection,
+        required_windows=required_windows,
+        default_target=target_relative,
+    )
     max_dd_threshold = float(gate_summary.get("max_walkforward_drawdown_pct") or 20.0)
     required_best = _number(selection.get("required_best_return_pct")) or _number(gate_summary.get("required_best_return_pct"))
     reference_return = (
@@ -239,7 +266,10 @@ def _row_from_summary(path: Path, payload: dict[str, Any], gate_summary: dict[st
         for window in present_windows
         if (
             (window in wf_max_dd and wf_max_dd[window] >= max_dd_threshold)
-            or (window in wf_relative and wf_relative[window] < target_relative)
+            or (
+                window in wf_relative
+                and wf_relative[window] < target_relative_by_window.get(window, target_relative)
+            )
         )
     )
 
@@ -247,7 +277,12 @@ def _row_from_summary(path: Path, payload: dict[str, Any], gate_summary: dict[st
     worst_dd = max(wf_max_dd.values()) if wf_max_dd else None
     min_relative = min(wf_relative.values()) if wf_relative else None
     wf_drawdown_gap = max(0.0, worst_dd - max_dd_threshold) if worst_dd is not None else None
-    relative_gap = max(0.0, target_relative - min_relative) if min_relative is not None else None
+    relative_gaps = [
+        target_relative_by_window.get(window, target_relative) - relative
+        for window, relative in wf_relative.items()
+        if window in required_windows
+    ]
+    relative_gap = max(0.0, max(relative_gaps)) if relative_gaps else None
     ytd_best_gap = max(0.0, required_best - ytd_return) if ytd_return is not None and required_best is not None else None
     ytd_reference_gap = (
         max(0.0, reference_return - ytd_return)

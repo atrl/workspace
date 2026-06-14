@@ -1,0 +1,28 @@
+{
+  "current_best_return_pct": 224.361539,
+  "max_walkforward_drawdown_pct": 20.0,
+  "next_target_screen_acceptance": [
+    "all required walk-forward windows present",
+    "each walk-forward selected MaxDD < 20%",
+    "wf_2020 selected return >= risk-cap SOXLBacktest reference floor return",
+    "wf_2020 selected relative return >= risk-cap SOXLBacktest reference floor in the current replay coordinate",
+    "wf_2022 and wf_2023_2024 selected relative return >= +30pp",
+    "current YTD/common-window return remains >= 95% of current best and >= SOXLBacktest reference return before actor retention"
+  ],
+  "required_soxlbacktest_reference_return_pct": 132.077978,
+  "required_wf_windows": [
+    "wf_2020",
+    "wf_2022",
+    "wf_2023_2024"
+  ],
+  "required_ytd_return_pct": 213.143462,
+  "target_relative_return_by_fold_pp": {
+    "wf_2020": -263.7287958891489,
+    "wf_2022": 30.0,
+    "wf_2023_2024": 30.0
+  },
+  "wf2020_reference_floor_avg_position": 0.3103197628458498,
+  "wf2020_reference_floor_candidate": "risk_cap_35_15_05",
+  "wf2020_reference_floor_max_dd_pct": 17.94235040318888,
+  "wf2020_reference_floor_return_pct": 69.60455156850816
+}
