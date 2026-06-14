@@ -239,7 +239,7 @@ describe('dashboard v2 chart rendering', () => {
       expect(onDate).not.toHaveBeenCalled();
       callbacks[0](0);
       expect(onDate).toHaveBeenCalledTimes(1);
-      expect(onDate).toHaveBeenCalledWith('2026-01-06');
+      expect(onDate).toHaveBeenCalledWith('2026-01-06', 'hover');
     } finally {
       window.requestAnimationFrame = previousRequestAnimationFrame;
       window.cancelAnimationFrame = previousCancelAnimationFrame;
@@ -270,7 +270,7 @@ describe('dashboard v2 chart rendering', () => {
     chartMocks.subscriptions.click[0]?.({ time: '2026-01-05' });
     chartMocks.subscriptions.click[1]?.({ time: '2026-01-06' });
 
-    expect(onDate).toHaveBeenCalledWith('2026-01-05');
-    expect(onDate).toHaveBeenCalledWith('2026-01-06');
+    expect(onDate).toHaveBeenCalledWith('2026-01-05', 'select');
+    expect(onDate).toHaveBeenCalledWith('2026-01-06', 'select');
   });
 });

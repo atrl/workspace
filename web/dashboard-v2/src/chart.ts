@@ -83,6 +83,7 @@ export interface ChartHandles {
 
 export type ChartRangeCommand = 'zoom_in' | 'zoom_out' | 'pan_left' | 'pan_right' | 'reset' | 'latest';
 export type ChartRangeTarget = IChartApi;
+export type ChartDateInteraction = 'hover' | 'select';
 
 const TRADING_VIEW_INTERACTION_OPTIONS = {
   handleScroll: {
@@ -192,7 +193,7 @@ export function applyChartRangeCommand(charts: readonly ChartRangeTarget[], comm
   for (const chart of charts) chart.timeScale().setVisibleLogicalRange(nextRange);
 }
 
-function createDateEmitter(onDate: (date: string) => void): {
+function createDateEmitter(onDate: (date: string, interaction: ChartDateInteraction) => void): {
   onMove: (date: string) => void;
   onClick: (date: string) => void;
 } {
@@ -210,7 +211,7 @@ function createDateEmitter(onDate: (date: string) => void): {
     pendingDate = null;
     if (!date || date === lastDate) return;
     lastDate = date;
-    onDate(date);
+    onDate(date, 'hover');
   };
 
   return {
@@ -227,12 +228,12 @@ function createDateEmitter(onDate: (date: string) => void): {
       pendingDate = null;
       if (date === lastDate) return;
       lastDate = date;
-      onDate(date);
+      onDate(date, 'select');
     },
   };
 }
 
-function wireDateEvents(chart: IChartApi, onDate?: (date: string) => void): void {
+function wireDateEvents(chart: IChartApi, onDate?: (date: string, interaction: ChartDateInteraction) => void): void {
   if (!onDate) return;
   const emitDate = createDateEmitter(onDate);
   chart.subscribeCrosshairMove((param) => {
@@ -249,7 +250,7 @@ export function renderMarketChart(
   container: HTMLElement,
   market: MarketPayload,
   model: ModelPayload,
-  onDate: (date: string) => void,
+  onDate: (date: string, interaction: ChartDateInteraction) => void,
 ): ChartHandles {
   resetChartContainer(container);
   const chart = createChart(container, {
@@ -315,7 +316,7 @@ export function renderMarketChart(
 export function renderPositionChart(
   container: HTMLElement,
   model: ModelPayload,
-  onDate?: (date: string) => void,
+  onDate?: (date: string, interaction: ChartDateInteraction) => void,
 ): ChartHandles {
   resetChartContainer(container);
   const chart = createChart(container, {
@@ -338,7 +339,7 @@ export function renderNavChart(
   container: HTMLElement,
   models: Record<string, ModelPayload>,
   baselineProfile?: string,
-  onDate?: (date: string) => void,
+  onDate?: (date: string, interaction: ChartDateInteraction) => void,
 ): IChartApi {
   resetChartContainer(container);
   const chart = createChart(container, {

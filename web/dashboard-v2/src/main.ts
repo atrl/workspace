@@ -6,6 +6,7 @@ import {
   renderPositionChart,
   syncVisibleLogicalRanges,
   type ChartRangeCommand,
+  type ChartDateInteraction,
   type ChartRangeTarget,
 } from './chart';
 import {
@@ -35,7 +36,7 @@ import {
   renderOperationsPanel,
 } from './render';
 import type { ModelPayload } from './types';
-import { viewUpdateRequiresChartRender } from './viewState';
+import { viewUpdateRequiresChartRender, viewUpdateRequiresFeatureRender } from './viewState';
 
 interface ViewState {
   selectedProfiles: string[];
@@ -44,6 +45,7 @@ interface ViewState {
   start: string;
   end: string;
   hoveredDate: string;
+  selectedDate: string;
 }
 
 function requireElement(id: string): HTMLElement {
@@ -194,7 +196,12 @@ function renderToolbar(
     const chartWindow =
       computeDateRangePreset(chartRangeRows(data.models, chartProfile, data.market.rows), 'YTD') ??
       computeDefaultChartWindow(data.market.rows, data.models[chartProfile]?.rows ?? []);
-    update({ chartProfile, ...(chartWindow ?? {}), hoveredDate: chartWindow?.end ?? state.hoveredDate });
+    update({
+      chartProfile,
+      ...(chartWindow ?? {}),
+      hoveredDate: chartWindow?.end ?? state.hoveredDate,
+      selectedDate: chartWindow?.end ?? state.selectedDate,
+    });
   });
   chartGroup.appendChild(chartSelect);
   container.appendChild(chartGroup);
@@ -208,7 +215,7 @@ function renderToolbar(
     button.textContent = preset;
     button.addEventListener('click', () => {
       const range = computeDateRangePreset(chartRangeRows(data.models, state.chartProfile, data.market.rows), preset);
-      if (range) update({ ...range, hoveredDate: range.end });
+      if (range) update({ ...range, hoveredDate: range.end, selectedDate: range.end });
     });
     rangeGroup.appendChild(button);
   }
@@ -280,10 +287,14 @@ function buildCurrentInspectorLookup(data: DashboardData, state: ViewState): Ins
   });
 }
 
-function renderInspector(data: DashboardData, state: ViewState, lookup?: InspectorLookup): void {
+function renderInspector(
+  data: DashboardData,
+  state: ViewState,
+  lookup?: InspectorLookup,
+  options: { renderFeaturePanel?: boolean } = {},
+): void {
   const inspector = requireElement('inspector');
   const featurePanel = requireElement('feature-panel');
-  const { models } = visibleContext(data, state);
   const rows = lookup
     ? computeInspectorRowsFromLookup({
         date: state.hoveredDate,
@@ -294,18 +305,20 @@ function renderInspector(data: DashboardData, state: ViewState, lookup?: Inspect
         date: state.hoveredDate,
         manifest: data.manifest,
         market: data.market,
-        models,
+        models: selectedModels(data, state.selectedProfiles),
         comparison: data.comparison,
       });
   renderInspectorPanel(
     inspector,
     rows,
   );
-  renderFeatureDateSnapshotPanel(featurePanel, {
-    date: state.hoveredDate,
-    marketRows: data.market.rows,
-    models: selectedModels(data, state.selectedProfiles),
-  });
+  if (options.renderFeaturePanel !== false) {
+    renderFeatureDateSnapshotPanel(featurePanel, {
+      date: state.selectedDate,
+      marketRows: data.market.rows,
+      models: selectedModels(data, state.selectedProfiles),
+    });
+  }
 }
 
 interface DashboardRenderResult {
@@ -333,13 +346,20 @@ function renderDashboard(
   const chartCommandBar = requireElement('chart-command-bar');
   const { models, market, primary } = visibleContext(data, state);
   const inspectorLookup = buildCurrentInspectorLookup(data, state);
+  const chartDateUpdate = (date: string, interaction: ChartDateInteraction) => {
+    if (interaction === 'select') {
+      update({ hoveredDate: date, selectedDate: date });
+      return;
+    }
+    update({ hoveredDate: date });
+  };
 
   renderToolbar(toolbar, data, state, update, runInteractiveBacktest);
   renderActionLegend(actionLegend);
   renderChartCommandBar(chartCommandBar, onChartCommand);
-  const marketHandles = renderMarketChart(marketChart, market, primary, (date) => update({ hoveredDate: date }));
-  const positionHandles = renderPositionChart(positionChart, primary, (date) => update({ hoveredDate: date }));
-  const navHandles = renderNavChart(navChart, models, state.baselineProfile, (date) => update({ hoveredDate: date }));
+  const marketHandles = renderMarketChart(marketChart, market, primary, chartDateUpdate);
+  const positionHandles = renderPositionChart(positionChart, primary, chartDateUpdate);
+  const navHandles = renderNavChart(navChart, models, state.baselineProfile, chartDateUpdate);
   const chartSyncCleanup = syncVisibleLogicalRanges([marketHandles.chart, positionHandles.chart, navHandles]);
   renderFeatureComparisonPanel(featureComparison, {
     date: state.hoveredDate,
@@ -395,6 +415,7 @@ async function main(): Promise<void> {
       start: chartWindow?.start ?? common?.start ?? data.comparison.common_start,
       end: chartWindow?.end ?? common?.end ?? data.comparison.common_end,
       hoveredDate: chartWindow?.end ?? common?.end ?? data.comparison.common_end,
+      selectedDate: chartWindow?.end ?? common?.end ?? data.comparison.common_end,
     };
     let inspectorLookup: InspectorLookup | null = null;
     let chartHandles: ChartRangeTarget[] = [];
@@ -412,6 +433,7 @@ async function main(): Promise<void> {
         return;
       }
       const needsChartRender = viewUpdateRequiresChartRender(next);
+      const needsFeatureRender = viewUpdateRequiresFeatureRender(next);
       Object.assign(state, next);
       if (!state.selectedProfiles.includes(state.baselineProfile)) {
         state.baselineProfile = state.selectedProfiles[0];
@@ -423,7 +445,7 @@ async function main(): Promise<void> {
       if (needsChartRender) {
         rerender();
       } else if (inspectorLookup) {
-        renderInspector(data, state, inspectorLookup);
+        renderInspector(data, state, inspectorLookup, { renderFeaturePanel: needsFeatureRender });
       }
     };
     async function runInteractiveBacktest(): Promise<void> {
@@ -446,6 +468,7 @@ async function main(): Promise<void> {
       state.start = rerunModel.replay_start;
       state.end = rerunModel.replay_end;
       state.hoveredDate = rerunModel.replay_end;
+      state.selectedDate = rerunModel.replay_end;
       rerender();
     }
     window.addEventListener('keydown', (event) => {

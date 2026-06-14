@@ -1,0 +1,5 @@
+variant,wf2020_train_rows,avg_target_position,median_target_position,target_ge_35_rows,target_ge_70_rows,riskcap_active_rows,riskcap_buy_rows,changed_rows_vs_current
+current_bull_reentry_contract,2470,0.3301833603238866,0.25,966,140,0,0,0
+riskcap_full_replacement,2470,0.06227963562753037,0.0343,49,0,424,31,2470
+riskcap_active10_replacement,2470,0.30238360323886637,0.25,898,84,424,31,424
+riskcap_crash_cap,2470,0.2635961133603239,0.25,779,36,413,31,680

@@ -1,0 +1,269 @@
+{
+  "experiment": "wf2020_risk_cap_reference_target_screen_v1",
+  "fold_min_accuracy": 0.64,
+  "global_min_accuracy": 0.8,
+  "profile": "sparse_release_bc_ppo_screen_v1",
+  "required_slices": {
+    "drawdown_control_state": 20,
+    "is_downtrend_state": 100,
+    "release_gate_state": 20,
+    "risk_cap_reference_active_state": 20,
+    "risk_cap_reference_buy_state": 10
+  },
+  "riskcap_buy_min_accuracy": 0.7,
+  "sample_weight_config": {
+    "class_balanced_beta": 0.0,
+    "downtrend_multiplier": 2.0,
+    "normalize_mean": true,
+    "objective_weight_power": 0.0,
+    "ordinary_multiplier": 1.0,
+    "rebound_multiplier": 4.0,
+    "release_gate_multiplier": 10.0,
+    "weight_cap": 30.0,
+    "weight_floor": 0.05
+  },
+  "screen_rows": [
+    {
+      "bc_screen_gate": false,
+      "fold_accuracy_gate": true,
+      "gate_loss": 4.12387361029842,
+      "global_accuracy_gate": false,
+      "min_fold_accuracy": 0.6468253968253969,
+      "sample_weight_config": {
+        "class_balanced_beta": 0.0,
+        "downtrend_multiplier": 2.0,
+        "normalize_mean": true,
+        "objective_weight_power": 0.0,
+        "ordinary_multiplier": 1.0,
+        "rebound_multiplier": 4.0,
+        "release_gate_multiplier": 10.0,
+        "weight_cap": 30.0,
+        "weight_floor": 0.05
+      },
+      "train_steps": 200,
+      "variant": "current_bull_reentry_contract",
+      "weighted_accuracy": 0.6761263897015799,
+      "wf2020_slice_details": {
+        "drawdown_control_state": {
+          "accuracy": 0.8453125,
+          "gate": true,
+          "min_accuracy": 0.6,
+          "min_samples": 20,
+          "samples": 640
+        },
+        "is_downtrend_state": {
+          "accuracy": 0.8453125,
+          "gate": true,
+          "min_accuracy": 0.6,
+          "min_samples": 100,
+          "samples": 640
+        },
+        "release_gate_state": {
+          "accuracy": 0.6944444444444444,
+          "gate": true,
+          "min_accuracy": 0.6,
+          "min_samples": 20,
+          "samples": 36
+        },
+        "risk_cap_reference_active_state": {
+          "accuracy": null,
+          "gate": false,
+          "min_accuracy": 0.6,
+          "min_samples": 20,
+          "samples": 0
+        },
+        "risk_cap_reference_buy_state": {
+          "accuracy": null,
+          "gate": false,
+          "min_accuracy": 0.7,
+          "min_samples": 10,
+          "samples": 0
+        }
+      },
+      "wf2020_slice_gate": false
+    },
+    {
+      "bc_screen_gate": true,
+      "fold_accuracy_gate": true,
+      "gate_loss": 0.0,
+      "global_accuracy_gate": true,
+      "min_fold_accuracy": 0.6468253968253969,
+      "sample_weight_config": {
+        "class_balanced_beta": 0.0,
+        "downtrend_multiplier": 2.0,
+        "normalize_mean": true,
+        "objective_weight_power": 0.0,
+        "ordinary_multiplier": 1.0,
+        "rebound_multiplier": 4.0,
+        "release_gate_multiplier": 10.0,
+        "weight_cap": 30.0,
+        "weight_floor": 0.05
+      },
+      "train_steps": 200,
+      "variant": "riskcap_full_replacement",
+      "weighted_accuracy": 0.8241661790520772,
+      "wf2020_slice_details": {
+        "drawdown_control_state": {
+          "accuracy": 0.7761627906976745,
+          "gate": true,
+          "min_accuracy": 0.6,
+          "min_samples": 20,
+          "samples": 688
+        },
+        "is_downtrend_state": {
+          "accuracy": 0.7761627906976745,
+          "gate": true,
+          "min_accuracy": 0.6,
+          "min_samples": 100,
+          "samples": 688
+        },
+        "release_gate_state": {
+          "accuracy": 0.8055555555555556,
+          "gate": true,
+          "min_accuracy": 0.6,
+          "min_samples": 20,
+          "samples": 36
+        },
+        "risk_cap_reference_active_state": {
+          "accuracy": 0.6284584980237155,
+          "gate": true,
+          "min_accuracy": 0.6,
+          "min_samples": 20,
+          "samples": 253
+        },
+        "risk_cap_reference_buy_state": {
+          "accuracy": 0.7916666666666666,
+          "gate": true,
+          "min_accuracy": 0.7,
+          "min_samples": 10,
+          "samples": 24
+        }
+      },
+      "wf2020_slice_gate": true
+    },
+    {
+      "bc_screen_gate": false,
+      "fold_accuracy_gate": false,
+      "gate_loss": 0.8209370436313721,
+      "global_accuracy_gate": false,
+      "min_fold_accuracy": 0.6216968011126565,
+      "sample_weight_config": {
+        "class_balanced_beta": 0.0,
+        "downtrend_multiplier": 2.0,
+        "normalize_mean": true,
+        "objective_weight_power": 0.0,
+        "ordinary_multiplier": 1.0,
+        "rebound_multiplier": 4.0,
+        "release_gate_multiplier": 10.0,
+        "weight_cap": 30.0,
+        "weight_floor": 0.05
+      },
+      "train_steps": 200,
+      "variant": "riskcap_active10_replacement",
+      "weighted_accuracy": 0.6433586892919836,
+      "wf2020_slice_details": {
+        "drawdown_control_state": {
+          "accuracy": 0.684593023255814,
+          "gate": true,
+          "min_accuracy": 0.6,
+          "min_samples": 20,
+          "samples": 688
+        },
+        "is_downtrend_state": {
+          "accuracy": 0.684593023255814,
+          "gate": true,
+          "min_accuracy": 0.6,
+          "min_samples": 100,
+          "samples": 688
+        },
+        "release_gate_state": {
+          "accuracy": 0.3888888888888889,
+          "gate": false,
+          "min_accuracy": 0.6,
+          "min_samples": 20,
+          "samples": 36
+        },
+        "risk_cap_reference_active_state": {
+          "accuracy": 0.4901185770750988,
+          "gate": false,
+          "min_accuracy": 0.6,
+          "min_samples": 20,
+          "samples": 253
+        },
+        "risk_cap_reference_buy_state": {
+          "accuracy": 0.375,
+          "gate": false,
+          "min_accuracy": 0.7,
+          "min_samples": 10,
+          "samples": 24
+        }
+      },
+      "wf2020_slice_gate": false
+    },
+    {
+      "bc_screen_gate": false,
+      "fold_accuracy_gate": false,
+      "gate_loss": 0.720182953244928,
+      "global_accuracy_gate": false,
+      "min_fold_accuracy": 0.5108947612424664,
+      "sample_weight_config": {
+        "class_balanced_beta": 0.0,
+        "downtrend_multiplier": 2.0,
+        "normalize_mean": true,
+        "objective_weight_power": 0.0,
+        "ordinary_multiplier": 1.0,
+        "rebound_multiplier": 4.0,
+        "release_gate_multiplier": 10.0,
+        "weight_cap": 30.0,
+        "weight_floor": 0.05
+      },
+      "train_steps": 200,
+      "variant": "riskcap_crash_cap",
+      "weighted_accuracy": 0.5734347571679345,
+      "wf2020_slice_details": {
+        "drawdown_control_state": {
+          "accuracy": 0.6217008797653959,
+          "gate": true,
+          "min_accuracy": 0.6,
+          "min_samples": 20,
+          "samples": 682
+        },
+        "is_downtrend_state": {
+          "accuracy": 0.6217008797653959,
+          "gate": true,
+          "min_accuracy": 0.6,
+          "min_samples": 100,
+          "samples": 682
+        },
+        "release_gate_state": {
+          "accuracy": 0.4722222222222222,
+          "gate": false,
+          "min_accuracy": 0.6,
+          "min_samples": 20,
+          "samples": 36
+        },
+        "risk_cap_reference_active_state": {
+          "accuracy": 0.563265306122449,
+          "gate": false,
+          "min_accuracy": 0.6,
+          "min_samples": 20,
+          "samples": 245
+        },
+        "risk_cap_reference_buy_state": {
+          "accuracy": 0.5,
+          "gate": false,
+          "min_accuracy": 0.7,
+          "min_samples": 10,
+          "samples": 24
+        }
+      },
+      "wf2020_slice_gate": false
+    }
+  ],
+  "train_config": {
+    "batch_size": 128,
+    "lr": 0.001,
+    "seed": 42,
+    "steps": 200
+  }
+}

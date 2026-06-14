@@ -13,7 +13,7 @@ import {
   chooseDefaultChartProfile,
 } from './domain';
 import { betaModelFixture, comparisonFixture, manifestFixture, marketFixture, modelFixture } from './testFixtures';
-import { viewUpdateRequiresChartRender } from './viewState';
+import { viewUpdateRequiresChartRender, viewUpdateRequiresFeatureRender } from './viewState';
 
 describe('dashboard v2 domain helpers', () => {
   test('clamps comparison profiles to two through four unique models', () => {
@@ -132,7 +132,11 @@ describe('dashboard v2 domain helpers', () => {
 
   test('treats hover-only updates as inspector updates instead of chart renders', () => {
     expect(viewUpdateRequiresChartRender({ hoveredDate: '2026-01-06' })).toBe(false);
+    expect(viewUpdateRequiresChartRender({ selectedDate: '2026-01-06' })).toBe(false);
+    expect(viewUpdateRequiresFeatureRender({ hoveredDate: '2026-01-06' })).toBe(false);
+    expect(viewUpdateRequiresFeatureRender({ selectedDate: '2026-01-06' })).toBe(true);
     expect(viewUpdateRequiresChartRender({ start: '2026-01-05' })).toBe(true);
+    expect(viewUpdateRequiresFeatureRender({ start: '2026-01-05' })).toBe(true);
     expect(viewUpdateRequiresChartRender({ selectedProfiles: ['smoke', 'balanced_rule_residual_v22'] })).toBe(true);
     expect(viewUpdateRequiresChartRender({ baselineProfile: 'balanced_rule_residual_v22' })).toBe(true);
   });

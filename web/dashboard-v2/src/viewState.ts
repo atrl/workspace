@@ -5,6 +5,7 @@ export interface ViewUpdate {
   start?: string;
   end?: string;
   hoveredDate?: string;
+  selectedDate?: string;
 }
 
 export function viewUpdateRequiresChartRender(update: ViewUpdate): boolean {
@@ -15,4 +16,8 @@ export function viewUpdateRequiresChartRender(update: ViewUpdate): boolean {
     update.start !== undefined ||
     update.end !== undefined
   );
+}
+
+export function viewUpdateRequiresFeatureRender(update: ViewUpdate): boolean {
+  return update.selectedDate !== undefined || viewUpdateRequiresChartRender(update);
 }

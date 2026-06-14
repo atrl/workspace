@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-14T00:37:52.351389+00:00",
+  "generated_at": "2026-06-14T01:05:03.724965+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -5837,19 +5837,19 @@
       "path": "runtime/model_selection/card/model_retention_frontier_v1/conclusion.md",
       "category": "model_selection",
       "suffix": ".md",
-      "bytes": 550
+      "bytes": 575
     },
     {
       "path": "runtime/model_selection/card/model_retention_frontier_v1/retention_frontier.csv",
       "category": "model_selection",
       "suffix": ".csv",
-      "bytes": 38158
+      "bytes": 38688
     },
     {
       "path": "runtime/model_selection/card/model_retention_frontier_v1/summary.json",
       "category": "model_selection",
       "suffix": ".json",
-      "bytes": 103096
+      "bytes": 104285
     },
     {
       "path": "runtime/model_selection/card/model_retention_walkforward_gate_v1/conclusion.md",
@@ -11310,6 +11310,108 @@
       "category": "model_selection",
       "suffix": ".csv",
       "bytes": 530
+    },
+    {
+      "path": "runtime/model_selection/card/wf2020_risk_cap_reference_target_screen_v1/bc_action_distribution.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4031
+    },
+    {
+      "path": "runtime/model_selection/card/wf2020_risk_cap_reference_target_screen_v1/bc_fold_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1599
+    },
+    {
+      "path": "runtime/model_selection/card/wf2020_risk_cap_reference_target_screen_v1/bc_screen_summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 7722
+    },
+    {
+      "path": "runtime/model_selection/card/wf2020_risk_cap_reference_target_screen_v1/bc_slice_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 9280
+    },
+    {
+      "path": "runtime/model_selection/card/wf2020_risk_cap_reference_target_screen_v1/bc_target_screen.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4142
+    },
+    {
+      "path": "runtime/model_selection/card/wf2020_risk_cap_reference_target_screen_v1/buy_sell_feature_comparison.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2462
+    },
+    {
+      "path": "runtime/model_selection/card/wf2020_risk_cap_reference_target_screen_v1/buy_sell_feature_events.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 21932
+    },
+    {
+      "path": "runtime/model_selection/card/wf2020_risk_cap_reference_target_screen_v1/candidate_contract_manifest.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 621
+    },
+    {
+      "path": "runtime/model_selection/card/wf2020_risk_cap_reference_target_screen_v1/candidate_target_distribution.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 455
+    },
+    {
+      "path": "runtime/model_selection/card/wf2020_risk_cap_reference_target_screen_v1/conclusion.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 1253
+    },
+    {
+      "path": "runtime/model_selection/card/wf2020_risk_cap_reference_target_screen_v1/current_bull_reentry_contract_combined_target_contract.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1581338
+    },
+    {
+      "path": "runtime/model_selection/card/wf2020_risk_cap_reference_target_screen_v1/input_coverage.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 190
+    },
+    {
+      "path": "runtime/model_selection/card/wf2020_risk_cap_reference_target_screen_v1/riskcap_active10_replacement_combined_target_contract.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1605060
+    },
+    {
+      "path": "runtime/model_selection/card/wf2020_risk_cap_reference_target_screen_v1/riskcap_crash_cap_combined_target_contract.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1577982
+    },
+    {
+      "path": "runtime/model_selection/card/wf2020_risk_cap_reference_target_screen_v1/riskcap_full_replacement_combined_target_contract.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1716130
+    },
+    {
+      "path": "runtime/model_selection/card/wf2020_risk_cap_reference_target_screen_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 4515
+    },
+    {
+      "path": "runtime/model_selection/card/wf2020_risk_cap_reference_target_screen_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 13351
     },
     {
       "path": "runtime/model_selection/card/wf2024_state_coverage_diagnostic_v1/drawdown_intervals.csv",
