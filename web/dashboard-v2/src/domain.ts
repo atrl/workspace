@@ -144,12 +144,6 @@ export function clipRowsByDate<T extends { date: string }>(rows: readonly T[], s
 
 export type DateRangePreset = '1M' | '3M' | '6M' | 'YTD' | '1Y' | 'ALL';
 export type KeyboardRangeAction = 'zoom_in' | 'zoom_out' | 'pan_left' | 'pan_right' | 'reset';
-export type ChartDateRangeCommand =
-  | KeyboardRangeAction
-  | 'latest'
-  | 'last_60'
-  | 'last_120'
-  | 'last_250';
 
 function sortedDates(rows: readonly { date: string }[]): string[] {
   return [...new Set(rows.map((row) => row.date))].sort();
@@ -230,49 +224,6 @@ export function computeKeyboardDateRange(
   const shift = action === 'pan_left' ? -Math.max(1, Math.floor(width * 0.25)) : Math.max(1, Math.floor(width * 0.25));
   const nextStart = Math.max(0, Math.min(dates.length - width, startIndex + shift));
   return { start: dates[nextStart], end: dates[nextStart + width - 1] };
-}
-
-function fixedBarCountForChartCommand(command: ChartDateRangeCommand): number | null {
-  if (command === 'last_60') return 60;
-  if (command === 'last_120') return 120;
-  if (command === 'last_250') return 250;
-  return null;
-}
-
-export function computeChartCommandDateRange(
-  rows: readonly { date: string }[],
-  start: string,
-  end: string,
-  command: ChartDateRangeCommand,
-): { start: string; end: string } | null {
-  const dates = sortedDates(rows);
-  if (dates.length === 0) return null;
-
-  const fixedBarCount = fixedBarCountForChartCommand(command);
-  if (fixedBarCount !== null) {
-    const nextStart = Math.max(0, dates.length - fixedBarCount);
-    return { start: dates[nextStart], end: dates[dates.length - 1] };
-  }
-
-  if (command === 'latest') {
-    const startIndex = nearestIndex(dates, start, 0);
-    const endIndex = nearestIndex(dates, end, dates.length - 1);
-    const width = Math.max(1, endIndex - startIndex + 1);
-    const nextEnd = dates.length - 1;
-    const nextStart = Math.max(0, nextEnd - width + 1);
-    return { start: dates[nextStart], end: dates[nextEnd] };
-  }
-
-  if (
-    command === 'zoom_in' ||
-    command === 'zoom_out' ||
-    command === 'pan_left' ||
-    command === 'pan_right' ||
-    command === 'reset'
-  ) {
-    return computeKeyboardDateRange(rows, start, end, command);
-  }
-  return null;
 }
 
 export function buildActionMarkers(

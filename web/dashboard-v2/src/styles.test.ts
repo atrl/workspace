@@ -20,7 +20,7 @@ describe('dashboard v2 layout styles', () => {
     expect(inspectorRule).toContain('max-height: 260px;');
   });
 
-  test('keeps desktop layout constrained to the viewport while model labels scroll inside toolbar', () => {
+  test('keeps desktop layout constrained while model labels wrap inside toolbar', () => {
     const css = readFileSync('src/styles.css', 'utf8');
     const appRule = css.match(/#app\s*\{[^}]*\}/)?.[0] ?? '';
     const toolbarRule = css.match(/\.toolbar\s*\{[^}]*\}/)?.[0] ?? '';
@@ -29,6 +29,7 @@ describe('dashboard v2 layout styles', () => {
     expect(appRule).toContain('max-width: 100vw;');
     expect(toolbarRule).toContain('max-width: 100vw;');
     expect(profileGroupRule).toContain('max-width: 100%;');
-    expect(profileGroupRule).toContain('overflow-x: auto;');
+    expect(profileGroupRule).toContain('flex-wrap: wrap;');
+    expect(profileGroupRule).not.toContain('overflow-x: auto;');
   });
 });

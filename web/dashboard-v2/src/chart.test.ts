@@ -67,6 +67,8 @@ vi.mock('lightweight-charts', () => ({
 
 describe('dashboard v2 chart rendering', () => {
   beforeEach(() => {
+    window.history.pushState(null, '', '/');
+    delete (window as typeof window & { __SOXL_DASHBOARD_CHART_DEBUG__?: unknown }).__SOXL_DASHBOARD_CHART_DEBUG__;
     chartMocks.addSeries.mockClear();
     chartMocks.createChart.mockClear();
     chartMocks.createSeriesMarkers.mockClear();
@@ -260,6 +262,27 @@ describe('dashboard v2 chart rendering', () => {
 
     expect(chartMocks.timeScaleApi.setVisibleLogicalRange).toHaveBeenCalledWith({ from: 0, to: 3 });
     expect(chartMocks.timeScaleApi.setVisibleLogicalRange).toHaveBeenCalledTimes(2);
+  });
+
+  test('exposes position chart row counts for browser verification', () => {
+    window.history.pushState(null, '', '/?debugChart=1');
+
+    renderPositionChart(document.createElement('div'), modelFixture);
+
+    expect(
+      (window as typeof window & {
+        __SOXL_DASHBOARD_CHART_DEBUG__?: {
+          position?: { rows?: unknown[]; series?: unknown };
+        };
+      }).__SOXL_DASHBOARD_CHART_DEBUG__?.position?.rows,
+    ).toHaveLength(modelFixture.rows.length);
+    expect(
+      (window as typeof window & {
+        __SOXL_DASHBOARD_CHART_DEBUG__?: {
+          position?: { series?: unknown };
+        };
+      }).__SOXL_DASHBOARD_CHART_DEBUG__?.position?.series,
+    ).toBeTruthy();
   });
 
   test('synchronizes logical ranges from any linked chart and cleans up subscriptions', () => {

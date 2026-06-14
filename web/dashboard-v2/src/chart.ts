@@ -461,6 +461,7 @@ export function renderPositionChart(
   const line = chart.addSeries(LineSeries, { color: '#38bdf8', lineWidth: 2 });
   line.setData(model.rows.map((row) => ({ time: toTime(row.date), value: row.position })));
   applyInitialDateRange(chart, model.rows);
+  exposeChartDebug('position', { chart, series: line, rows: model.rows });
   return { chart, primarySeries: line };
 }
 

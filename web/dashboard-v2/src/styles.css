@@ -122,10 +122,12 @@ select {
 
 .profile-group {
   flex: 1 1 100%;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  row-gap: 6px;
   max-width: 100%;
   min-width: 0;
-  overflow-x: auto;
+  overflow: visible;
   padding-bottom: 2px;
 }
 
@@ -133,7 +135,16 @@ select {
   display: inline-flex;
   align-items: center;
   gap: 4px;
+  max-width: min(420px, 100%);
+  min-height: 28px;
+  line-height: 1.2;
+  white-space: normal;
+  overflow-wrap: anywhere;
   color: #e5e7eb;
+}
+
+.check-label input {
+  flex: 0 0 auto;
 }
 
 input,

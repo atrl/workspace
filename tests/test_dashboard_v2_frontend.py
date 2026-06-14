@@ -28,3 +28,18 @@ def test_dashboard_v2_main_mounts_full_width_buy_sell_feature_comparison():
 
     assert 'id="feature-comparison-panel"' in source
     assert "renderFeatureComparisonPanel(" in source
+
+
+def test_dashboard_v2_chart_commands_use_existing_chart_handles():
+    source = (ROOT / "web" / "dashboard-v2" / "src" / "main.ts").read_text(encoding="utf-8")
+
+    assert "computeChartCommandDateRange" not in source
+    assert "applyChartRangeCommand(chartHandles, command)" in source
+
+
+def test_dashboard_v2_model_picker_wraps_without_horizontal_scroll():
+    styles = (ROOT / "web" / "dashboard-v2" / "src" / "styles.css").read_text(encoding="utf-8")
+    profile_group = styles.split(".profile-group {", 1)[1].split("}", 1)[0]
+
+    assert "flex-wrap: wrap;" in profile_group
+    assert "overflow-x: auto;" not in profile_group
