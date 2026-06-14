@@ -722,7 +722,9 @@ function renderDecisionFeatureCard(card: DecisionFeatureCard): HTMLElement {
   node.appendChild(element('div', 'decision-card-label', 'Model-only'));
   renderChipList(node, card.model_only_features.map(formatFeatureChip), 'none on selected date');
   node.appendChild(element('div', 'decision-card-label', 'Shared vs baseline'));
-  renderChipList(node, card.shared_feature_deltas.map(formatFeatureDeltaChip), 'baseline row or shared deltas unavailable');
+  renderChipList(node, card.shared_feature_deltas.map(formatFeatureDeltaChip), 'no shared feature overlap on selected date');
+  node.appendChild(element('div', 'decision-card-label', 'Baseline-only'));
+  renderChipList(node, card.baseline_only_features.map(formatFeatureChip), 'no baseline-only features on selected date');
   node.appendChild(element('div', 'decision-card-label', 'BUY/SELL drivers'));
   renderChipList(node, card.buy_sell_features, 'no trade feature summary');
   return node;

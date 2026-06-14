@@ -273,6 +273,7 @@ export interface DecisionFeatureCard {
   source_kind: string;
   model_only_features: FeatureNameValue[];
   shared_feature_deltas: FeatureDeltaValue[];
+  baseline_only_features: FeatureNameValue[];
   buy_sell_features: string[];
 }
 

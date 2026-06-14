@@ -228,6 +228,36 @@ describe('dashboard v2 domain helpers', () => {
     });
   });
 
+  test('keeps baseline-only selected-date features when model schemas do not overlap', () => {
+    const baselineWithOwnFeature = {
+      ...betaModelFixture,
+      feature_columns: [...betaModelFixture.feature_columns, 'baseline_only_signal'],
+      snapshot_columns: [...betaModelFixture.snapshot_columns, 'baseline_only_signal'],
+      rows: betaModelFixture.rows.map((row) =>
+        row.date === '2026-01-05'
+          ? {
+              ...row,
+              feature_snapshot: {
+                ...(row.feature_snapshot ?? {}),
+                baseline_only_signal: 99,
+              },
+            }
+          : row,
+      ),
+    };
+    const cards = buildSelectedDateDecisionFeatureCards({
+      date: '2026-01-05',
+      marketRows: marketFixture.rows,
+      models: { smoke: modelFixture, balanced_rule_residual_v22: baselineWithOwnFeature },
+      baselineProfile: 'balanced_rule_residual_v22',
+    });
+
+    const smoke = cards.find((card) => card.profile === 'smoke');
+
+    expect(smoke?.baseline_only_features).toContainEqual({ feature: 'baseline_only_signal', value: 99 });
+    expect(smoke?.baseline_only_features).toContainEqual({ feature: 'beta_signal', value: -2.5 });
+  });
+
   test('uses latest available model row for decision cards when selected date is beyond replay end', () => {
     const truncatedBeta = {
       ...betaModelFixture,

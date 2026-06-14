@@ -403,10 +403,12 @@ export function buildSelectedDateDecisionFeatureCards(input: {
   baselineProfile: string;
   modelOnlyLimit?: number;
   deltaLimit?: number;
+  baselineOnlyLimit?: number;
   buySellLimit?: number;
 }): DecisionFeatureCard[] {
   const modelOnlyLimit = input.modelOnlyLimit ?? 4;
   const deltaLimit = input.deltaLimit ?? 4;
+  const baselineOnlyLimit = input.baselineOnlyLimit ?? 4;
   const buySellLimit = input.buySellLimit ?? 4;
   const market = marketRowsByDate(input.marketRows);
   const rows = Object.entries(input.models)
@@ -432,6 +434,13 @@ export function buildSelectedDateDecisionFeatureCards(input: {
   const rowsByProfile = new Map(rows.map((row) => [row.profile, row]));
   const baselineRow = rowsByProfile.get(input.baselineProfile);
   const baselineFeatures = baselineRow?.features ?? {};
+  const baselineModel = input.models[input.baselineProfile];
+  const baselineFeatureOrder = [
+    ...new Set([
+      ...topSummaryFeatureNames(baselineModel, Number.MAX_SAFE_INTEGER),
+      ...Object.keys(baselineFeatures).sort(),
+    ]),
+  ];
   const featureSets = new Map(
     Object.entries(input.models).map(([profile, model]) => [
       profile,
@@ -453,6 +462,10 @@ export function buildSelectedDateDecisionFeatureCards(input: {
       const absentFromBaseline = row.profile !== input.baselineProfile && baselineFeatures[feature] === undefined;
       return schemaOnly || absentFromBaseline;
     });
+    const baselineOnlyNames =
+      row.profile === input.baselineProfile
+        ? []
+        : baselineFeatureOrder.filter((feature) => baselineFeatures[feature] !== undefined && row.features[feature] === undefined);
     const topBuySell = [...(model.feature_action_summary ?? [])]
       .sort((left, right) => {
         const leftScore = Math.abs(left.buy_minus_sell ?? 0);
@@ -479,6 +492,7 @@ export function buildSelectedDateDecisionFeatureCards(input: {
         row.profile === input.baselineProfile
           ? []
           : topFeatureDeltas(row.features, baselineFeatures, deltaLimit),
+      baseline_only_features: featureEntries(baselineFeatures, baselineOnlyNames, baselineOnlyLimit),
       buy_sell_features: topBuySell,
     } satisfies DecisionFeatureCard;
   });
