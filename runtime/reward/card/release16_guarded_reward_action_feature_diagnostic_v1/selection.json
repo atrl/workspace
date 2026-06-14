@@ -1,0 +1,13 @@
+{
+  "actor_retention_allowed": false,
+  "bc_gate_count_20dd": 1,
+  "decision": "reward_ppo_wf2020_underparticipation_action_drift_no_promotion",
+  "experiment": "release16_guarded_reward_action_feature_diagnostic_v1",
+  "next_mechanism": "state_conditioned_trend_participation_checkpoint_or_auxiliary_action_head_before_reward_ppo",
+  "promotion_allowed": false,
+  "reward_ppo_gate_count_20dd": 1,
+  "source_decision": "release16_guarded_reward_short_ppo_drift_failed_no_promotion",
+  "wf2020_action_change_rate": 0.10714285714285714,
+  "wf2020_avg_position_delta": -0.026661500331646715,
+  "wf2020_relative_delta_pp": -37.542461825065544
+}

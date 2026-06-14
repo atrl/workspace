@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-14T21:06:04.834507+00:00",
+  "generated_at": "2026-06-14T21:15:54.952341+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -15846,6 +15846,72 @@
       "category": "reward",
       "suffix": ".csv",
       "bytes": 548
+    },
+    {
+      "path": "runtime/reward/card/release16_guarded_reward_action_feature_diagnostic_v1/conclusion.md",
+      "category": "reward",
+      "suffix": ".md",
+      "bytes": 837
+    },
+    {
+      "path": "runtime/reward/card/release16_guarded_reward_action_feature_diagnostic_v1/daily_paths_merged.csv",
+      "category": "reward",
+      "suffix": ".csv",
+      "bytes": 351874
+    },
+    {
+      "path": "runtime/reward/card/release16_guarded_reward_action_feature_diagnostic_v1/daily_position_deltas.csv",
+      "category": "reward",
+      "suffix": ".csv",
+      "bytes": 962268
+    },
+    {
+      "path": "runtime/reward/card/release16_guarded_reward_action_feature_diagnostic_v1/drawdown_intervals.csv",
+      "category": "reward",
+      "suffix": ".csv",
+      "bytes": 1997
+    },
+    {
+      "path": "runtime/reward/card/release16_guarded_reward_action_feature_diagnostic_v1/feature_deltas.csv",
+      "category": "reward",
+      "suffix": ".csv",
+      "bytes": 19676
+    },
+    {
+      "path": "runtime/reward/card/release16_guarded_reward_action_feature_diagnostic_v1/feature_group_summary.csv",
+      "category": "reward",
+      "suffix": ".csv",
+      "bytes": 2032
+    },
+    {
+      "path": "runtime/reward/card/release16_guarded_reward_action_feature_diagnostic_v1/position_action_summary.csv",
+      "category": "reward",
+      "suffix": ".csv",
+      "bytes": 1521
+    },
+    {
+      "path": "runtime/reward/card/release16_guarded_reward_action_feature_diagnostic_v1/rolling_loss_windows.csv",
+      "category": "reward",
+      "suffix": ".csv",
+      "bytes": 121341
+    },
+    {
+      "path": "runtime/reward/card/release16_guarded_reward_action_feature_diagnostic_v1/selection.json",
+      "category": "reward",
+      "suffix": ".json",
+      "bytes": 641
+    },
+    {
+      "path": "runtime/reward/card/release16_guarded_reward_action_feature_diagnostic_v1/state_position_bins.csv",
+      "category": "reward",
+      "suffix": ".csv",
+      "bytes": 28158
+    },
+    {
+      "path": "runtime/reward/card/release16_guarded_reward_action_feature_diagnostic_v1/summary.json",
+      "category": "reward",
+      "suffix": ".json",
+      "bytes": 7188
     },
     {
       "path": "runtime/reward/card/release16_guarded_reward_checkpoint_objective_v1/candidate_gate_summary.csv",

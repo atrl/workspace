@@ -1,0 +1,165 @@
+{
+  "actor_retention_allowed": false,
+  "comparison_pair": {
+    "baseline_family": "soxlbacktest_policy_reimplementation_v1 / release16 bull-reentry BC warm-start",
+    "latest": "reward_ppo_selected",
+    "previous": "bc_initialization"
+  },
+  "conclusion": [
+    "Reward PPO remains non-promotable: 1/3 primary 20% gates, versus BC 1/3.",
+    "wf_2020 is the critical regression: relative return delta is -37.54pp while MaxDD is roughly unchanged (21.11% -> 21.11%).",
+    "wf_2020 average position changed by -0.027; action_changed_rate=10.7%.",
+    "Worst 21-day PPO-vs-BC window: 2020-11-05 to 2020-12-04, delta=-14.36pp, avg position delta=0.000.",
+    "No actor is promoted or retained; the next step should change state/action objective before another reward PPO run."
+  ],
+  "created_at": "2026-06-14T21:13:32.545356+00:00",
+  "decision": "reward_ppo_wf2020_underparticipation_action_drift_no_promotion",
+  "experiment": "release16_guarded_reward_action_feature_diagnostic_v1",
+  "gate_counts": {
+    "bc_initialization_20dd": 1,
+    "reward_ppo_selected_20dd": 1,
+    "window_count": 3
+  },
+  "next_mechanism": "state_conditioned_trend_participation_checkpoint_or_auxiliary_action_head_before_reward_ppo",
+  "output_paths": {
+    "conclusion": "runtime/reward/card/release16_guarded_reward_action_feature_diagnostic_v1/conclusion.md",
+    "daily_position_deltas": "runtime/reward/card/release16_guarded_reward_action_feature_diagnostic_v1/daily_position_deltas.csv",
+    "drawdown_intervals": "runtime/reward/card/release16_guarded_reward_action_feature_diagnostic_v1/drawdown_intervals.csv",
+    "feature_deltas": "runtime/reward/card/release16_guarded_reward_action_feature_diagnostic_v1/feature_deltas.csv",
+    "feature_group_summary": "runtime/reward/card/release16_guarded_reward_action_feature_diagnostic_v1/feature_group_summary.csv",
+    "notebook": "runtime/reward/card/release16_guarded_reward_action_feature_diagnostic_v1/release16_guarded_reward_action_feature_diagnostic_v1.ipynb",
+    "position_action_summary": "runtime/reward/card/release16_guarded_reward_action_feature_diagnostic_v1/position_action_summary.csv",
+    "rolling_loss_windows": "runtime/reward/card/release16_guarded_reward_action_feature_diagnostic_v1/rolling_loss_windows.csv",
+    "selection": "runtime/reward/card/release16_guarded_reward_action_feature_diagnostic_v1/selection.json",
+    "state_position_bins": "runtime/reward/card/release16_guarded_reward_action_feature_diagnostic_v1/state_position_bins.csv",
+    "summary": "runtime/reward/card/release16_guarded_reward_action_feature_diagnostic_v1/summary.json"
+  },
+  "promotion_allowed": false,
+  "source_decision": "release16_guarded_reward_short_ppo_drift_failed_no_promotion",
+  "source_experiment": "release16_guarded_reward_short_ppo_screen_v1",
+  "top_feature_groups": [
+    {
+      "feature_count": 2,
+      "feature_group": "other",
+      "fold": "wf_2020",
+      "interval_type": "worst_rolling_ppo_vs_bc_loss",
+      "max_abs_delta_z": 1.794457,
+      "mean_abs_delta_z": 1.07162,
+      "mean_delta_z": 1.07162,
+      "mean_position_delta": 0.000422,
+      "mean_return_delta": -14.035033,
+      "top_features": "anchor_gap_180,anchor_gap_180,anchor_gap_180,anchor_slope_180"
+    },
+    {
+      "feature_count": 5,
+      "feature_group": "volatility_or_stress",
+      "fold": "wf_2020",
+      "interval_type": "worst_rolling_ppo_vs_bc_loss",
+      "max_abs_delta_z": 1.664624,
+      "mean_abs_delta_z": 0.832796,
+      "mean_delta_z": -0.496524,
+      "mean_position_delta": 0.000422,
+      "mean_return_delta": -14.035033,
+      "top_features": "vix_percentile_252,vix_percentile_252,vix_percentile_252,regime_risk"
+    },
+    {
+      "feature_count": 1,
+      "feature_group": "relative_strength_spread",
+      "fold": "wf_2020",
+      "interval_type": "worst_rolling_ppo_vs_bc_loss",
+      "max_abs_delta_z": 0.65229,
+      "mean_abs_delta_z": 0.631738,
+      "mean_delta_z": 0.631738,
+      "mean_position_delta": 0.000422,
+      "mean_return_delta": -14.035033,
+      "top_features": "relative_strength_21,relative_strength_21,relative_strength_21"
+    },
+    {
+      "feature_count": 4,
+      "feature_group": "trend_or_momentum",
+      "fold": "wf_2020",
+      "interval_type": "worst_rolling_ppo_vs_bc_loss",
+      "max_abs_delta_z": 0.888741,
+      "mean_abs_delta_z": 0.574177,
+      "mean_delta_z": 0.574177,
+      "mean_position_delta": 0.000422,
+      "mean_return_delta": -14.035033,
+      "top_features": "trend_gap_21,trend_gap_21,trend_gap_21,mom_21"
+    },
+    {
+      "feature_count": 2,
+      "feature_group": "other",
+      "fold": "wf_2022",
+      "interval_type": "worst_rolling_ppo_vs_bc_loss",
+      "max_abs_delta_z": 3.416262,
+      "mean_abs_delta_z": 2.580658,
+      "mean_delta_z": 2.580658,
+      "mean_position_delta": 0.0,
+      "mean_return_delta": 0.0,
+      "top_features": "anchor_gap_180,anchor_gap_180,anchor_gap_180,anchor_slope_180"
+    },
+    {
+      "feature_count": 4,
+      "feature_group": "trend_or_momentum",
+      "fold": "wf_2022",
+      "interval_type": "worst_rolling_ppo_vs_bc_loss",
+      "max_abs_delta_z": 2.104659,
+      "mean_abs_delta_z": 1.013479,
+      "mean_delta_z": 0.551694,
+      "mean_position_delta": 0.0,
+      "mean_return_delta": 0.0,
+      "top_features": "mom_63,mom_63,mom_63,trend_gap_63"
+    },
+    {
+      "feature_count": 5,
+      "feature_group": "volatility_or_stress",
+      "fold": "wf_2022",
+      "interval_type": "worst_rolling_ppo_vs_bc_loss",
+      "max_abs_delta_z": 1.388353,
+      "mean_abs_delta_z": 0.799857,
+      "mean_delta_z": -0.09321,
+      "mean_position_delta": 0.0,
+      "mean_return_delta": 0.0,
+      "top_features": "realized_vol_21,realized_vol_21,drawdown_63,realized_vol_21"
+    },
+    {
+      "feature_count": 1,
+      "feature_group": "relative_strength_spread",
+      "fold": "wf_2022",
+      "interval_type": "worst_rolling_ppo_vs_bc_loss",
+      "max_abs_delta_z": 0.477618,
+      "mean_abs_delta_z": 0.386713,
+      "mean_delta_z": -0.386713,
+      "mean_position_delta": 0.0,
+      "mean_return_delta": 0.0,
+      "top_features": "relative_strength_21,relative_strength_21,relative_strength_21"
+    }
+  ],
+  "wf2020_diagnostic": {
+    "action_change_rate": 0.10714285714285714,
+    "avg_position_delta": -0.026661500331646715,
+    "bc_avg_pos": 0.42520206270201244,
+    "bc_max_dd_pct": 21.106156067242352,
+    "bc_relative_return_pp": 22.281638935298567,
+    "ppo_avg_pos": 0.3985405623703657,
+    "ppo_max_dd_pct": 21.11277117574144,
+    "ppo_relative_return_pp": -15.260822889766978,
+    "relative_delta_pp": -37.542461825065544,
+    "worst_rolling_loss_window": {
+      "action_changed_days": 8,
+      "avg_bc_pos": 0.4500228649966684,
+      "avg_position_delta": 0.0004218372929445935,
+      "avg_ppo_pos": 0.4504447022896129,
+      "bc_return_pct": 16.302957602991786,
+      "buyhold_return_pct": 39.436080954105734,
+      "end": "2020-12-04",
+      "fold": "wf_2020",
+      "max_bc_dd_pct": 4.87672546572,
+      "max_ppo_dd_pct": 8.984484126081915,
+      "ppo_minus_bc_return_pp": -14.35783223396314,
+      "ppo_return_pct": 1.945125369028644,
+      "rows": 21,
+      "start": "2020-11-05"
+    }
+  }
+}

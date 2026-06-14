@@ -1,0 +1,13 @@
+fold,interval_type,feature_group,feature_count,mean_abs_delta_z,max_abs_delta_z,mean_delta_z,mean_position_delta,mean_return_delta,top_features
+wf_2020,worst_rolling_ppo_vs_bc_loss,other,2,1.07162,1.794457,1.07162,0.000422,-14.035033,"anchor_gap_180,anchor_gap_180,anchor_gap_180,anchor_slope_180"
+wf_2020,worst_rolling_ppo_vs_bc_loss,volatility_or_stress,5,0.832796,1.664624,-0.496524,0.000422,-14.035033,"vix_percentile_252,vix_percentile_252,vix_percentile_252,regime_risk"
+wf_2020,worst_rolling_ppo_vs_bc_loss,relative_strength_spread,1,0.631738,0.65229,0.631738,0.000422,-14.035033,"relative_strength_21,relative_strength_21,relative_strength_21"
+wf_2020,worst_rolling_ppo_vs_bc_loss,trend_or_momentum,4,0.574177,0.888741,0.574177,0.000422,-14.035033,"trend_gap_21,trend_gap_21,trend_gap_21,mom_21"
+wf_2022,worst_rolling_ppo_vs_bc_loss,other,2,2.580658,3.416262,2.580658,0.0,0.0,"anchor_gap_180,anchor_gap_180,anchor_gap_180,anchor_slope_180"
+wf_2022,worst_rolling_ppo_vs_bc_loss,trend_or_momentum,4,1.013479,2.104659,0.551694,0.0,0.0,"mom_63,mom_63,mom_63,trend_gap_63"
+wf_2022,worst_rolling_ppo_vs_bc_loss,volatility_or_stress,5,0.799857,1.388353,-0.09321,0.0,0.0,"realized_vol_21,realized_vol_21,drawdown_63,realized_vol_21"
+wf_2022,worst_rolling_ppo_vs_bc_loss,relative_strength_spread,1,0.386713,0.477618,-0.386713,0.0,0.0,"relative_strength_21,relative_strength_21,relative_strength_21"
+wf_2023_2024,worst_rolling_ppo_vs_bc_loss,trend_or_momentum,4,0.922678,1.450151,0.922678,0.0,0.0,"trend_gap_63,mom_63,trend_gap_63,trend_gap_63"
+wf_2023_2024,worst_rolling_ppo_vs_bc_loss,volatility_or_stress,5,0.793834,1.175966,-0.402994,0.0,0.0,"vix_percentile_252,vix_percentile_252,vix_percentile_252,drawdown_63"
+wf_2023_2024,worst_rolling_ppo_vs_bc_loss,relative_strength_spread,1,0.489486,0.50141,0.489486,0.0,0.0,"relative_strength_21,relative_strength_21,relative_strength_21"
+wf_2023_2024,worst_rolling_ppo_vs_bc_loss,other,2,0.467746,0.544826,0.467746,0.0,0.0,"anchor_gap_180,anchor_gap_180,anchor_gap_180,anchor_slope_180"
