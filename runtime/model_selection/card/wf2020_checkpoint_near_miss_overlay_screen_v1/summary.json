@@ -1,0 +1,116 @@
+{
+  "acceptance_criteria": {
+    "max_dd_pct_lt": 20.0,
+    "previous_day_visible_only": true,
+    "return_pct_gte": 69.60455156850816
+  },
+  "actor_retention_allowed": false,
+  "base_max_drawdown_interval": {
+    "max_dd_pct": 20.91828508709568,
+    "peak_date": "2020-09-02",
+    "recovery_date": "2020-11-05",
+    "trough_date": "2020-09-08"
+  },
+  "base_metrics": {
+    "max_dd_pct": 20.91828508709568,
+    "return_pct": 61.32404958994388
+  },
+  "baseline_context": {
+    "frontier_reference_return_pct": 132.077978,
+    "frontier_required_best_return_pct": 213.143462,
+    "max_dd_gate_pct": 20.0,
+    "near_miss_max_dd_pct": 20.918285087095683,
+    "near_miss_return_pct": 61.32404958994388,
+    "wf2020_reference_floor_return_pct": 69.60455156850816
+  },
+  "best_drawdown_safe_variant_by_return": {
+    "avg_scale": 1.0095600386242882,
+    "boost_cap": 0.65,
+    "boost_days": 18,
+    "family": "risk_cap_plus_recovery_boost",
+    "fold_gate": false,
+    "max_dd_delta_vs_base_pp": -0.9637581532386044,
+    "max_dd_gap_pct": -0.045473066142925234,
+    "max_dd_gate": true,
+    "max_dd_pct": 19.954526933857075,
+    "max_scale": 3.0,
+    "min_scale": 0.30103011776926764,
+    "return_delta_vs_base_pp": 2.613313488262328,
+    "return_floor_gap_pp": 5.667188490301946,
+    "return_floor_gate": false,
+    "return_pct": 63.93736307820621,
+    "risk_cap": 0.2,
+    "risk_days": 16,
+    "variant": "strategy_dd_ge_12__cap_0.20__boost_recover_from_dd_0.65"
+  },
+  "best_hard_gap_variant": {
+    "avg_scale": 1.0273656231969241,
+    "boost_cap": 0.8,
+    "boost_days": 18,
+    "family": "risk_cap_plus_recovery_boost",
+    "fold_gate": false,
+    "hard_gap_score": 9.128859147567496,
+    "max_dd_delta_vs_base_pp": -0.4618421297173043,
+    "max_dd_gap_pct": 0.4564429573783748,
+    "max_dd_gate": false,
+    "max_dd_pct": 20.456442957378375,
+    "max_scale": 3.0,
+    "min_scale": 0.2257725883269507,
+    "return_delta_vs_base_pp": 11.099137043027383,
+    "return_floor_gap_pp": -2.818635064463109,
+    "return_floor_gate": true,
+    "return_pct": 72.42318663297127,
+    "risk_cap": 0.15,
+    "risk_days": 16,
+    "variant": "strategy_dd_ge_12__cap_0.15__boost_recover_from_dd_0.80"
+  },
+  "best_return_floor_variant_by_drawdown": {
+    "avg_scale": 1.0273656231969241,
+    "boost_cap": 0.8,
+    "boost_days": 18,
+    "family": "risk_cap_plus_recovery_boost",
+    "fold_gate": false,
+    "max_dd_delta_vs_base_pp": -0.4618421297173043,
+    "max_dd_gap_pct": 0.4564429573783748,
+    "max_dd_gate": false,
+    "max_dd_pct": 20.456442957378375,
+    "max_scale": 3.0,
+    "min_scale": 0.2257725883269507,
+    "return_delta_vs_base_pp": 11.099137043027383,
+    "return_floor_gap_pp": -2.818635064463109,
+    "return_floor_gate": true,
+    "return_pct": 72.42318663297127,
+    "risk_cap": 0.15,
+    "risk_days": 16,
+    "variant": "strategy_dd_ge_12__cap_0.15__boost_recover_from_dd_0.80"
+  },
+  "canonical_baseline": "v19reg_v22_budget_usage_bull_guard_v1",
+  "changed_layer": [
+    "model_selection",
+    "selection",
+    "execution_overlay_diagnostic"
+  ],
+  "conclusion": [
+    "No screened previous-day-visible overlay passed both wf_2020 floor and MaxDD gates.",
+    "Best drawdown-safe variant returned 63.94% with MaxDD 19.95%",
+    "Best return-floor variant still had MaxDD 20.46%",
+    "Next mechanism should move the repair into training target/checkpoint selection, not a post-hoc overlay, because caps give up too much rebound while recovery boosts reopen drawdown."
+  ],
+  "created_at": "2026-06-14T03:11:31.842271+00:00",
+  "decision": "wf2020_overlay_screen_no_pass_train_target_repair_needed",
+  "direct_comparison_baseline": "cap10_three_fold_checkpoint_metric_replay_v2:ppo_retained_iter_4",
+  "experiment": "wf2020_checkpoint_near_miss_overlay_screen_v1",
+  "next_mechanism": "build_wf2020_recovery_participation_target_with_drawdown_state_then_rerun_three_fold_checkpoint_replay",
+  "pass_variant_count": 0,
+  "promotion_allowed": false,
+  "reference_baseline": "soxlbacktest_qlib_buysell_reference:risk_cap_35_15_05",
+  "role": "diagnose",
+  "sidecars": [
+    "overlay_screen.csv",
+    "variant_daily.csv",
+    "selection.json",
+    "summary.json"
+  ],
+  "target_window": "wf_2020",
+  "variant_count": 1386
+}

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-14T02:40:35.217606+00:00",
+  "generated_at": "2026-06-14T03:12:33.308395+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -11628,6 +11628,30 @@
       "category": "model_selection",
       "suffix": ".csv",
       "bytes": 1283
+    },
+    {
+      "path": "runtime/model_selection/card/wf2020_checkpoint_near_miss_overlay_screen_v1/overlay_screen.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 369914
+    },
+    {
+      "path": "runtime/model_selection/card/wf2020_checkpoint_near_miss_overlay_screen_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 830
+    },
+    {
+      "path": "runtime/model_selection/card/wf2020_checkpoint_near_miss_overlay_screen_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 4226
+    },
+    {
+      "path": "runtime/model_selection/card/wf2020_checkpoint_near_miss_overlay_screen_v1/variant_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 97710
     },
     {
       "path": "runtime/model_selection/card/wf2020_near_miss_timing_repair_v1/available_daily_path_metrics.csv",

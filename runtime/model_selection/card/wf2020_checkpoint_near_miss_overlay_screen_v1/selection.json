@@ -1,0 +1,13 @@
+{
+  "baseline_daily_path": "runtime/model_selection/card/cap10_three_fold_checkpoint_metric_replay_v2/official_daily_paths/wf_2020__ppo_retained_iter_4_official_daily_path.csv",
+  "experiment": "wf2020_checkpoint_near_miss_overlay_screen_v1",
+  "promotion_allowed": false,
+  "screen_path": "runtime/model_selection/card/wf2020_checkpoint_near_miss_overlay_screen_v1/overlay_screen.csv",
+  "selected_variant": "strategy_dd_ge_12__cap_0.15__boost_recover_from_dd_0.80",
+  "selection_reason": "no_overlay_variant_passed_both_return_floor_and_max_drawdown_gate",
+  "top_variants": [
+    "strategy_dd_ge_12__cap_0.20__boost_recover_from_dd_0.65",
+    "strategy_dd_ge_12__cap_0.15__boost_recover_from_dd_0.80"
+  ],
+  "variant_daily_path": "runtime/model_selection/card/wf2020_checkpoint_near_miss_overlay_screen_v1/variant_daily.csv"
+}
