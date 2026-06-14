@@ -120,6 +120,61 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.textContent).toContain('walkforward_relative_return_gap');
   });
 
+  test('puts auto update task cards before dense operations metadata', () => {
+    const panel = document.createElement('section');
+
+    renderOperationsPanel(panel, {
+      ...manifestFixture,
+      auto_update: {
+        ...manifestFixture.auto_update!,
+        tasks: [
+          {
+            name: 'preopen',
+            label: 'com.soxl.preopen.scheduler',
+            enabled: true,
+            configured: true,
+            installed: true,
+            loaded: true,
+            schedule: '21:00 Mon-Fri Asia/Shanghai',
+            command_path: 'production/run_soxl_scheduler.sh',
+            log_path: 'runtime/soxl/paper_trading/scheduler_preopen.log',
+          },
+          {
+            name: 'postclose',
+            label: 'com.soxl.daily.scheduler',
+            enabled: true,
+            configured: true,
+            installed: true,
+            loaded: true,
+            schedule: '06:15 Tue-Sat Asia/Shanghai',
+            command_path: 'production/run_soxl_scheduler.sh',
+            log_path: 'runtime/soxl/paper_trading/scheduler_postclose.log',
+          },
+          {
+            name: 'dashboard_refresh',
+            label: 'com.soxl.dashboard.refresh',
+            enabled: true,
+            configured: true,
+            installed: true,
+            loaded: true,
+            schedule: '06:30 Tue-Sat Asia/Shanghai',
+            command_path: 'production/run_dashboard_refresh.sh',
+            log_path: 'runtime/soxl/paper_trading/dashboard_refresh.log',
+          },
+        ],
+      },
+    });
+
+    const text = panel.textContent ?? '';
+    expect(text).toContain('Auto Update Tasks');
+    expect(text).toContain('3 local tasks');
+    expect(text).toContain('preopen');
+    expect(text).toContain('postclose');
+    expect(text).toContain('dashboard_refresh');
+    expect(text.indexOf('Auto Update Tasks')).toBeLessThan(text.indexOf('replay ready'));
+    expect(panel.querySelectorAll('.task-card')).toHaveLength(3);
+  });
+
   test('renders a first-screen dashboard status strip with auto update and runtime roles', () => {
     const panel = document.createElement('div');
 
@@ -196,6 +251,10 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.textContent).toContain('safe 2026-06-09');
     expect(panel.textContent).toContain('Training Frontier');
     expect(panel.textContent).toContain('walkforward_relative_return_gap');
+    expect(panel.textContent).toContain('preopen');
+    expect(panel.textContent).toContain('postclose');
+    expect(panel.textContent).toContain('dashboard_refresh');
+    expect(panel.querySelectorAll('.status-task-chip')).toHaveLength(3);
   });
 
   test('renders inspector rows with tone classes', () => {
@@ -404,6 +463,29 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.textContent).toContain('BUY-SELL');
     expect(panel.textContent).toContain('Recent Buy/Sell Events');
     expect([...panel.querySelectorAll('h3')].map((node) => node.textContent)).toContain('Buy/Sell Feature Summary');
+  });
+
+  test('renders baseline-relative schema and buy/sell driver comparisons per model', () => {
+    const panel = document.createElement('section');
+
+    renderFeatureSpotlightPanel(panel, {
+      date: '2026-01-05',
+      marketRows: marketFixture.rows,
+      models: { smoke: modelFixture, balanced_rule_residual_v22: betaModelFixture },
+      baselineProfile: 'balanced_rule_residual_v22',
+    });
+
+    expect(panel.textContent).toContain('Schema vs Baseline');
+    expect(panel.textContent).toContain('baseline balanced_rule_residual_v22');
+    expect(panel.textContent).toContain('model-only vs baseline');
+    expect(panel.textContent).toContain('baseline-only');
+    expect(panel.textContent).toContain('alpha_signal');
+    expect(panel.textContent).toContain('beta_signal');
+    expect(panel.textContent).toContain('Buy/Sell Drivers vs Baseline');
+    expect(panel.textContent).toContain('model BUY mean');
+    expect(panel.textContent).toContain('baseline SELL mean');
+    expect(panel.textContent).toContain('model_only');
+    expect(panel.textContent).toContain('baseline_only');
   });
 
   test('limits hover feature snapshots so mouse interaction stays lightweight', () => {

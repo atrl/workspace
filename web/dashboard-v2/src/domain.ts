@@ -2,9 +2,12 @@ import type {
   ActionMarker,
   ActionFeatureRow,
   BaselineFeatureContrastRow,
+  BuySellFeatureBaselineContrastRow,
   ComparisonPayload,
   ComparisonRow,
   DecisionFeatureCard,
+  FeatureBaselineSchemaRow,
+  FeatureActionSummaryRow,
   FeatureSchemaOverlapRow,
   FeatureDeltaValue,
   FeatureNameValue,
@@ -482,6 +485,146 @@ function topBuySellFeatureLabels(model: ModelPayload, limit: number): string[] {
     })
     .slice(0, limit)
     .map((row) => row.feature);
+}
+
+function featureSetFor(model: ModelPayload | undefined): Set<string> {
+  if (!model) return new Set();
+  return new Set(model.feature_columns.length ? model.feature_columns : model.snapshot_columns);
+}
+
+function topBuySellFeatureLabelsWithValues(model: ModelPayload, limit: number): string[] {
+  return [...(model.feature_action_summary ?? [])]
+    .sort((left, right) => {
+      const leftScore = Math.abs(left.buy_minus_sell ?? 0);
+      const rightScore = Math.abs(right.buy_minus_sell ?? 0);
+      return rightScore - leftScore || left.feature.localeCompare(right.feature);
+    })
+    .slice(0, limit)
+    .map((row) => {
+      const delta = row.buy_minus_sell === null ? 'n/a' : row.buy_minus_sell.toFixed(2);
+      return `${row.feature} ${delta}`;
+    });
+}
+
+export function buildFeatureBaselineSchemaRows(
+  models: Record<string, ModelPayload>,
+  baselineProfile: string,
+  options: { featureNameLimit?: number; topBuySellLimit?: number } = {},
+): FeatureBaselineSchemaRow[] {
+  const entries = Object.entries(models);
+  const baseline = models[baselineProfile] ?? entries[0]?.[1];
+  if (!baseline) return [];
+  const baselineSet = featureSetFor(baseline);
+  const featureNameLimit = options.featureNameLimit ?? 6;
+  const topBuySellLimit = options.topBuySellLimit ?? 4;
+
+  return entries.map(([profile, model]) => {
+    const featureSet = featureSetFor(model);
+    const shared = [...featureSet].filter((feature) => baselineSet.has(feature)).sort();
+    const modelOnly = [...featureSet].filter((feature) => !baselineSet.has(feature)).sort();
+    const baselineOnly = profile === baselineProfile
+      ? []
+      : [...baselineSet].filter((feature) => !featureSet.has(feature)).sort();
+    return {
+      profile,
+      display_name: model.display_name || profile,
+      runtime: modelRuntimeLabel(model),
+      feature_schema_signature: model.feature_schema_signature ?? 'n/a',
+      feature_schema_source: model.feature_schema_source ?? 'n/a',
+      feature_count: featureSet.size,
+      snapshot_count: model.snapshot_columns.length,
+      shared_count: shared.length,
+      model_only_count: modelOnly.length,
+      baseline_only_count: baselineOnly.length,
+      shared_features: shared.slice(0, featureNameLimit),
+      model_only_features: modelOnly.slice(0, featureNameLimit),
+      baseline_only_features: baselineOnly.slice(0, featureNameLimit),
+      top_buy_sell_features: topBuySellFeatureLabelsWithValues(model, topBuySellLimit),
+    };
+  });
+}
+
+function summaryByFeature(model: ModelPayload | undefined): Map<string, FeatureActionSummaryRow> {
+  return new Map((model?.feature_action_summary ?? []).map((row) => [row.feature, row]));
+}
+
+function topSummaryFeatureNames(model: ModelPayload | undefined, limit: number): string[] {
+  return [...(model?.feature_action_summary ?? [])]
+    .sort((left, right) => {
+      const leftScore = Math.abs(left.buy_minus_sell ?? 0);
+      const rightScore = Math.abs(right.buy_minus_sell ?? 0);
+      const missingOrder = Number(left.buy_minus_sell === null) - Number(right.buy_minus_sell === null);
+      return missingOrder || rightScore - leftScore || left.feature.localeCompare(right.feature);
+    })
+    .slice(0, limit)
+    .map((row) => row.feature);
+}
+
+function nullableDelta(left: number | null | undefined, right: number | null | undefined): number | null {
+  return typeof left === 'number' && Number.isFinite(left) && typeof right === 'number' && Number.isFinite(right)
+    ? left - right
+    : null;
+}
+
+export function buildBuySellFeatureBaselineContrastRows(
+  models: Record<string, ModelPayload>,
+  baselineProfile: string,
+  options: { limitPerModel?: number; baselineFeatureLimit?: number } = {},
+): BuySellFeatureBaselineContrastRow[] {
+  const entries = Object.entries(models);
+  const baseline = models[baselineProfile] ?? entries[0]?.[1];
+  if (!baseline) return [];
+  const limitPerModel = options.limitPerModel ?? 6;
+  const baselineFeatureLimit = options.baselineFeatureLimit ?? 4;
+  const baselineSet = featureSetFor(baseline);
+  const baselineSummary = summaryByFeature(baseline);
+  const baselineTop = topSummaryFeatureNames(baseline, baselineFeatureLimit);
+  const rows: BuySellFeatureBaselineContrastRow[] = [];
+
+  for (const [profile, model] of entries) {
+    if (profile === baselineProfile) continue;
+    const modelSet = featureSetFor(model);
+    const modelSummary = summaryByFeature(model);
+    const featureNames = [...new Set([...topSummaryFeatureNames(model, limitPerModel), ...baselineTop])];
+    for (const feature of featureNames) {
+      const modelRow = modelSummary.get(feature);
+      const baselineRow = baselineSummary.get(feature);
+      const inModel = modelSet.has(feature);
+      const inBaseline = baselineSet.has(feature);
+      const presence = inModel && inBaseline ? 'shared' : inModel ? 'model_only' : 'baseline_only';
+      rows.push({
+        profile,
+        display_name: model.display_name || profile,
+        feature,
+        presence,
+        model_buy_count: modelRow?.buy_count ?? 0,
+        model_sell_count: modelRow?.sell_count ?? 0,
+        model_buy_mean: modelRow?.buy_mean ?? null,
+        model_sell_mean: modelRow?.sell_mean ?? null,
+        model_buy_minus_sell: modelRow?.buy_minus_sell ?? null,
+        baseline_buy_count: baselineRow?.buy_count ?? 0,
+        baseline_sell_count: baselineRow?.sell_count ?? 0,
+        baseline_buy_mean: baselineRow?.buy_mean ?? null,
+        baseline_sell_mean: baselineRow?.sell_mean ?? null,
+        baseline_buy_minus_sell: baselineRow?.buy_minus_sell ?? null,
+        buy_mean_delta: nullableDelta(modelRow?.buy_mean, baselineRow?.buy_mean),
+        sell_mean_delta: nullableDelta(modelRow?.sell_mean, baselineRow?.sell_mean),
+        driver_delta_vs_baseline: nullableDelta(modelRow?.buy_minus_sell, baselineRow?.buy_minus_sell),
+      });
+    }
+  }
+
+  return rows.sort((left, right) => {
+    const leftScore = Math.abs(left.driver_delta_vs_baseline ?? left.model_buy_minus_sell ?? 0);
+    const rightScore = Math.abs(right.driver_delta_vs_baseline ?? right.model_buy_minus_sell ?? 0);
+    const presenceOrder = { model_only: 0, shared: 1, baseline_only: 2 } as const;
+    return (
+      left.display_name.localeCompare(right.display_name) ||
+      presenceOrder[left.presence] - presenceOrder[right.presence] ||
+      rightScore - leftScore ||
+      left.feature.localeCompare(right.feature)
+    );
+  });
 }
 
 export function buildFeatureSchemaOverlapRows(

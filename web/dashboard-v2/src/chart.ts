@@ -156,6 +156,7 @@ const TRADING_VIEW_INTERACTION_OPTIONS = {
 const HOVER_UPDATE_THROTTLE_MS = 64;
 const chartByContainer = new WeakMap<HTMLElement, IChartApi>();
 const rowCountByChart = new WeakMap<IChartApi, number>();
+const cleanupByContainer = new WeakMap<HTMLElement, () => void>();
 
 function exposeChartDebug(name: string, payload: Record<string, unknown>): void {
   if (!window.location.search.includes('debugChart=1')) return;
@@ -169,6 +170,11 @@ function exposeChartDebug(name: string, payload: Record<string, unknown>): void 
 }
 
 function resetChartContainer(container: HTMLElement): void {
+  const previousCleanup = cleanupByContainer.get(container);
+  if (previousCleanup) {
+    previousCleanup();
+    cleanupByContainer.delete(container);
+  }
   const previousChart = chartByContainer.get(container);
   if (previousChart) {
     rowCountByChart.delete(previousChart);
@@ -178,9 +184,10 @@ function resetChartContainer(container: HTMLElement): void {
   container.replaceChildren();
 }
 
-function registerChart(container: HTMLElement, chart: IChartApi, rowCount: number): void {
+function registerChart(container: HTMLElement, chart: IChartApi, rowCount: number, cleanup?: () => void): void {
   chartByContainer.set(container, chart);
   rowCountByChart.set(chart, rowCount);
+  if (cleanup) cleanupByContainer.set(container, cleanup);
 }
 
 function barCountForCommand(command: ChartRangeCommand): number | null {
@@ -285,6 +292,7 @@ export function applyChartRangeCommand(charts: readonly ChartRangeTarget[], comm
 function createDateEmitter(onDate: (date: string, interaction: ChartDateInteraction) => void): {
   onMove: (date: string) => void;
   onClick: (date: string) => void;
+  dispose: () => void;
 } {
   const requestFrame =
     window.requestAnimationFrame?.bind(window) ??
@@ -330,20 +338,34 @@ function createDateEmitter(onDate: (date: string, interaction: ChartDateInteract
       lastSelectedDate = date;
       onDate(date, 'select');
     },
+    dispose() {
+      if (frameId !== null) {
+        cancelFrame(frameId);
+        frameId = null;
+      }
+      pendingDate = null;
+    },
   };
 }
 
-function wireDateEvents(chart: IChartApi, onDate?: (date: string, interaction: ChartDateInteraction) => void): void {
-  if (!onDate) return;
+function wireDateEvents(chart: IChartApi, onDate?: (date: string, interaction: ChartDateInteraction) => void): () => void {
+  if (!onDate) return () => {};
   const emitDate = createDateEmitter(onDate);
-  chart.subscribeCrosshairMove((param) => {
+  const crosshairMove = (param: MouseEventParams<Time>) => {
     const date = eventDate(param);
     if (date) emitDate.onMove(date);
-  });
-  chart.subscribeClick((param) => {
+  };
+  const click = (param: MouseEventParams<Time>) => {
     const date = eventDate(param);
     if (date) emitDate.onClick(date);
-  });
+  };
+  chart.subscribeCrosshairMove(crosshairMove);
+  chart.subscribeClick(click);
+  return () => {
+    emitDate.dispose();
+    chart.unsubscribeCrosshairMove(crosshairMove);
+    chart.unsubscribeClick(click);
+  };
 }
 
 export function renderMarketChart(
@@ -364,7 +386,8 @@ export function renderMarketChart(
     crosshair: { mode: 1 },
   });
   const priceRows = mergePriceRows(market.rows, model.rows);
-  registerChart(container, chart, priceRows.length || model.rows.length);
+  const dateCleanup = wireDateEvents(chart, onDate);
+  registerChart(container, chart, priceRows.length || model.rows.length, dateCleanup);
   const priceAutoscale = fixedAutoscaleInfo(priceRangeFromRows(priceRows), { above: 24, below: 16 });
   const candleSeries = chart.addSeries(CandlestickSeries, {
     upColor: '#0f766e',
@@ -414,7 +437,6 @@ export function renderMarketChart(
       time: toTime(marker.time),
     })),
   );
-  wireDateEvents(chart, onDate);
   applyInitialDateRange(chart, priceRows.length ? priceRows : model.rows);
   exposeChartDebug('market', { chart, candleSeries, closeLine, positionLine, priceRows, modelRows: model.rows });
   return { chart, primarySeries: candleSeries };
@@ -434,10 +456,10 @@ export function renderPositionChart(
     rightPriceScale: { borderColor: '#374151', mode: PriceScaleMode.Normal },
     timeScale: { borderColor: '#374151' },
   });
-  registerChart(container, chart, model.rows.length);
+  const dateCleanup = wireDateEvents(chart, onDate);
+  registerChart(container, chart, model.rows.length, dateCleanup);
   const line = chart.addSeries(LineSeries, { color: '#38bdf8', lineWidth: 2 });
   line.setData(model.rows.map((row) => ({ time: toTime(row.date), value: row.position })));
-  wireDateEvents(chart, onDate);
   applyInitialDateRange(chart, model.rows);
   return { chart, primarySeries: line };
 }
@@ -457,10 +479,12 @@ export function renderNavChart(
     rightPriceScale: { borderColor: '#374151', mode: PriceScaleMode.Normal },
     timeScale: { borderColor: '#374151' },
   });
+  const dateCleanup = wireDateEvents(chart, onDate);
   registerChart(
     container,
     chart,
     Math.max(0, ...Object.values(models).map((model) => model.rows.length)),
+    dateCleanup,
   );
   const buyholdSource = (baselineProfile ? models[baselineProfile] : undefined) ?? Object.values(models)[0];
   if (buyholdSource) {
@@ -480,7 +504,6 @@ export function renderNavChart(
     const series = chart.addSeries(LineSeries, { color: colors[index % colors.length], lineWidth: 2, title: profile });
     series.setData(model.rows.map((row) => ({ time: toTime(row.date), value: row.strategy_nav })));
   });
-  wireDateEvents(chart, onDate);
   applyInitialDateRange(
     chart,
     Object.values(models).flatMap((model) => model.rows),

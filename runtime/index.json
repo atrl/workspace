@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-14T10:19:36.929309+00:00",
+  "generated_at": "2026-06-14T10:37:36.438351+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -2268,6 +2268,12 @@
       "category": "harness",
       "suffix": ".json",
       "bytes": 812
+    },
+    {
+      "path": "runtime/harness/card/dashboard_v2_task_feature_repair_v2/visual_check_summary.json",
+      "category": "harness",
+      "suffix": ".json",
+      "bytes": 2940
     },
     {
       "path": "runtime/harness/card/harness_validation/card.md",

@@ -305,6 +305,43 @@ export interface FeatureSchemaOverlapRow {
   top_buy_sell_features: string[];
 }
 
+export interface FeatureBaselineSchemaRow {
+  profile: string;
+  display_name: string;
+  runtime: string;
+  feature_schema_signature: string;
+  feature_schema_source: string;
+  feature_count: number;
+  snapshot_count: number;
+  shared_count: number;
+  model_only_count: number;
+  baseline_only_count: number;
+  shared_features: string[];
+  model_only_features: string[];
+  baseline_only_features: string[];
+  top_buy_sell_features: string[];
+}
+
+export interface BuySellFeatureBaselineContrastRow {
+  profile: string;
+  display_name: string;
+  feature: string;
+  presence: 'shared' | 'model_only' | 'baseline_only';
+  model_buy_count: number;
+  model_sell_count: number;
+  model_buy_mean: number | null;
+  model_sell_mean: number | null;
+  model_buy_minus_sell: number | null;
+  baseline_buy_count: number;
+  baseline_sell_count: number;
+  baseline_buy_mean: number | null;
+  baseline_sell_mean: number | null;
+  baseline_buy_minus_sell: number | null;
+  buy_mean_delta: number | null;
+  sell_mean_delta: number | null;
+  driver_delta_vs_baseline: number | null;
+}
+
 export interface ActionMarker {
   time: string;
   position: 'aboveBar' | 'belowBar';

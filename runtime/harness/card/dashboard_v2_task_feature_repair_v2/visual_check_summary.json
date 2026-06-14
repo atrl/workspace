@@ -1,0 +1,161 @@
+{
+  "url": "http://127.0.0.1:8765/web/dashboard-v2/dist/index.html",
+  "required_text": {
+    "Auto Update Tasks": true,
+    "preopen": true,
+    "postclose": true,
+    "dashboard_refresh": true,
+    "Schema vs Baseline": true,
+    "Buy/Sell Drivers vs Baseline": true,
+    "model-only vs baseline": true,
+    "baseline-only": true,
+    "SOXLBacktest Buy/Sell Baseline": true,
+    "Position": true,
+    "NAV": true,
+    "Model Runtime Status": true,
+    "Run baseline window": true
+  },
+  "task_chips": 3,
+  "task_cards": 3,
+  "schema_baseline_rows": 8,
+  "buy_sell_baseline_rows": 60,
+  "canvas_count": 24,
+  "nonblank_canvas_count": 15,
+  "canvas_stats": [
+    {
+      "width": 54,
+      "height": 432,
+      "nonBlank": 8640
+    },
+    {
+      "width": 54,
+      "height": 432,
+      "nonBlank": 0
+    },
+    {
+      "width": 918,
+      "height": 432,
+      "nonBlank": 38400
+    },
+    {
+      "width": 918,
+      "height": 432,
+      "nonBlank": 0
+    },
+    {
+      "width": 62,
+      "height": 432,
+      "nonBlank": 9920
+    },
+    {
+      "width": 62,
+      "height": 432,
+      "nonBlank": 0
+    },
+    {
+      "width": 54,
+      "height": 28,
+      "nonBlank": 1512
+    },
+    {
+      "width": 918,
+      "height": 28,
+      "nonBlank": 6720
+    },
+    {
+      "width": 918,
+      "height": 28,
+      "nonBlank": 0
+    },
+    {
+      "width": 62,
+      "height": 28,
+      "nonBlank": 1736
+    },
+    {
+      "width": 462,
+      "height": 152,
+      "nonBlank": 36480
+    },
+    {
+      "width": 462,
+      "height": 152,
+      "nonBlank": 0
+    },
+    {
+      "width": 54,
+      "height": 152,
+      "nonBlank": 8189
+    },
+    {
+      "width": 54,
+      "height": 152,
+      "nonBlank": 0
+    },
+    {
+      "width": 462,
+      "height": 28,
+      "nonBlank": 6720
+    },
+    {
+      "width": 462,
+      "height": 28,
+      "nonBlank": 0
+    },
+    {
+      "width": 54,
+      "height": 28,
+      "nonBlank": 1512
+    },
+    {
+      "width": 416,
+      "height": 152,
+      "nonBlank": 36435
+    },
+    {
+      "width": 416,
+      "height": 152,
+      "nonBlank": 6234
+    },
+    {
+      "width": 100,
+      "height": 152,
+      "nonBlank": 15067
+    },
+    {
+      "width": 100,
+      "height": 152,
+      "nonBlank": 0
+    },
+    {
+      "width": 416,
+      "height": 28,
+      "nonBlank": 6720
+    },
+    {
+      "width": 416,
+      "height": 28,
+      "nonBlank": 0
+    },
+    {
+      "width": 100,
+      "height": 28,
+      "nonBlank": 2800
+    }
+  ],
+  "api_run_backtest": {
+    "ok": true,
+    "status": 200,
+    "profile": "soxl_backtest_policy_reimplementation_v1",
+    "rows": 10,
+    "features": [
+      "panic_score",
+      "HV_20",
+      "HV_30",
+      "VOL_COEF"
+    ]
+  },
+  "console_errors": [],
+  "page_errors": [],
+  "screenshot": "/Users/rziiiii/dev/workspace/.worktrees/dashboard-v2-model-features-fix/runtime/harness/card/dashboard_v2_task_feature_repair_v2/dashboard_v2_task_feature_repair_1440x1000.png"
+}

@@ -1,5 +1,7 @@
 import {
   buildActionFeatureRows,
+  buildBuySellFeatureBaselineContrastRows,
+  buildFeatureBaselineSchemaRows,
   buildBaselineFeatureContrastRows,
   buildFeatureSchemaOverlapRows,
   buildSelectedDateDecisionFeatureCards,
@@ -9,6 +11,8 @@ import type { ChartRangeCommand } from './chart';
 import type { ChartClickMode } from './viewState';
 import type {
   ComparisonPayload,
+  AutoUpdateStatus,
+  AutoUpdateTask,
   DecisionFeatureCard,
   FeatureActionSummaryRow,
   FeatureDeltaValue,
@@ -255,6 +259,8 @@ export function renderOperationsPanel(container: HTMLElement, manifest: Manifest
     return;
   }
 
+  container.appendChild(renderAutoUpdateTaskList(auto));
+
   const counts = auto.model_replay_freshness?.counts ?? {};
   const readyCount = auto.model_replay_freshness?.ready_count ?? 0;
   const profileCount = auto.model_replay_freshness?.profile_count ?? 0;
@@ -288,22 +294,6 @@ export function renderOperationsPanel(container: HTMLElement, manifest: Manifest
     grid.appendChild(item);
   }
   container.appendChild(grid);
-
-  const taskList = element('div', 'task-list');
-  for (const task of auto.tasks) {
-    const item = element('div', 'task-card');
-    item.dataset.enabled = task.enabled ? 'true' : 'false';
-    const configured = task.configured === undefined ? 'configured unknown' : task.configured ? 'configured' : 'not configured';
-    const installed = task.installed === undefined ? 'install unknown' : task.installed ? 'installed' : 'not installed';
-    const loaded = task.loaded === undefined || task.loaded === null ? 'loaded unknown' : task.loaded ? 'loaded' : 'not loaded';
-    item.appendChild(element('strong', undefined, task.name));
-    item.appendChild(element('span', undefined, [task.label, configured, installed, loaded].filter(Boolean).join(' · ')));
-    item.appendChild(element('span', undefined, task.schedule ?? 'n/a'));
-    item.appendChild(element('code', undefined, task.command_path ?? 'n/a'));
-    item.appendChild(element('code', undefined, task.log_path ?? 'n/a'));
-    taskList.appendChild(item);
-  }
-  container.appendChild(taskList);
   renderModelRuntimeStatusTable(container, manifest);
   renderUnavailableProfileTable(container, manifest);
 
@@ -326,6 +316,48 @@ function taskCount(
   field: 'enabled' | 'loaded' | 'installed',
 ): number {
   return tasks.filter((task) => task[field] === true).length;
+}
+
+function taskStateBits(task: AutoUpdateTask): string[] {
+  return [
+    task.enabled ? 'enabled' : 'disabled',
+    task.configured === undefined ? 'configured unknown' : task.configured ? 'configured' : 'not configured',
+    task.installed === undefined ? 'install unknown' : task.installed ? 'installed' : 'not installed',
+    task.loaded === undefined || task.loaded === null ? 'loaded unknown' : task.loaded ? 'loaded' : 'not loaded',
+  ].filter((value): value is string => Boolean(value));
+}
+
+function renderAutoUpdateTaskCard(task: AutoUpdateTask): HTMLElement {
+  const item = element('div', 'task-card');
+  item.dataset.enabled = task.enabled ? 'true' : 'false';
+  const detailBits = [
+    task.label,
+    ...taskStateBits(task),
+  ].filter((value): value is string => Boolean(value));
+  item.appendChild(element('strong', undefined, task.name));
+  item.appendChild(element('span', undefined, detailBits.join(' · ')));
+  item.appendChild(element('span', undefined, task.schedule ?? 'n/a'));
+  item.appendChild(element('code', undefined, task.command_path ?? 'n/a'));
+  item.appendChild(element('code', undefined, task.log_path ?? 'n/a'));
+  return item;
+}
+
+function renderAutoUpdateTaskList(auto: AutoUpdateStatus): HTMLElement {
+  const section = element('section', 'auto-update-block auto-update-task-section');
+  section.appendChild(element('h3', undefined, 'Auto Update Tasks'));
+  section.appendChild(
+    element(
+      'div',
+      'comparison-summary',
+      `${auto.tasks.length} local tasks | refresh ${auto.run_now_command ?? auto.manual_refresh_command ?? 'n/a'}`,
+    ),
+  );
+  const taskList = element('div', 'task-list');
+  for (const task of auto.tasks) {
+    taskList.appendChild(renderAutoUpdateTaskCard(task));
+  }
+  section.appendChild(taskList);
+  return section;
 }
 
 function statusPill(title: string, value: string, detail: string): HTMLElement {
@@ -389,6 +421,16 @@ export function renderDashboardStatusStrip(container: HTMLElement, manifest: Man
       frontier?.recommended_primary_blocker ?? frontier?.recommended_next_action ?? 'n/a',
     ),
   );
+  if (tasks.length) {
+    const taskRail = element('div', 'status-task-rail');
+    for (const task of tasks) {
+      const chip = element('span', 'status-task-chip');
+      chip.dataset.enabled = task.enabled ? 'true' : 'false';
+      chip.textContent = `${task.name} · ${task.schedule ?? 'n/a'} · ${task.loaded ? 'loaded' : 'not loaded'}`;
+      taskRail.appendChild(chip);
+    }
+    container.appendChild(taskRail);
+  }
 }
 
 export function renderActionLegend(container: HTMLElement): void {
@@ -769,6 +811,132 @@ function renderFeatureDriverMatrix(container: HTMLElement, models: Record<string
   container.appendChild(tableScroll);
 }
 
+function renderFeatureBaselineSchemaTable(
+  container: HTMLElement,
+  models: Record<string, ModelPayload>,
+  baselineProfile: string,
+): void {
+  container.appendChild(element('h3', undefined, 'Schema vs Baseline'));
+  container.appendChild(element('div', 'comparison-summary', `baseline ${baselineProfile}`));
+  const rows = buildFeatureBaselineSchemaRows(models, baselineProfile, {
+    featureNameLimit: 6,
+    topBuySellLimit: 5,
+  });
+  if (!rows.length) {
+    container.appendChild(element('p', 'empty-state', 'No baseline-relative feature schemas.'));
+    return;
+  }
+
+  const table = element('table', 'comparison-table feature-table schema-baseline-table');
+  const thead = element('thead');
+  const headerRow = element('tr');
+  for (const title of [
+    'Model',
+    'Runtime',
+    'Schema',
+    'Shared',
+    'model-only vs baseline',
+    'baseline-only',
+    'Top BUY/SELL',
+  ]) {
+    headerRow.appendChild(element('th', undefined, title));
+  }
+  thead.appendChild(headerRow);
+  table.appendChild(thead);
+
+  const tbody = element('tbody');
+  for (const row of rows) {
+    const tr = element('tr');
+    tr.appendChild(element('td', undefined, row.display_name));
+    tr.appendChild(element('td', undefined, row.runtime));
+    tr.appendChild(
+      element(
+        'td',
+        'feature-snapshot-cell',
+        `${row.feature_schema_signature} · ${row.feature_count} schema / ${row.snapshot_count} snapshot · ${row.feature_schema_source}`,
+      ),
+    );
+    tr.appendChild(element('td', 'feature-snapshot-cell', `${row.shared_count}: ${row.shared_features.join(', ') || 'n/a'}`));
+    tr.appendChild(
+      element('td', 'feature-snapshot-cell', `${row.model_only_count}: ${row.model_only_features.join(', ') || 'n/a'}`),
+    );
+    tr.appendChild(
+      element('td', 'feature-snapshot-cell', `${row.baseline_only_count}: ${row.baseline_only_features.join(', ') || 'n/a'}`),
+    );
+    tr.appendChild(element('td', 'feature-snapshot-cell', row.top_buy_sell_features.join(', ') || 'n/a'));
+    tbody.appendChild(tr);
+  }
+  table.appendChild(tbody);
+  const tableScroll = element('div', 'table-scroll');
+  tableScroll.appendChild(table);
+  container.appendChild(tableScroll);
+}
+
+function renderBuySellFeatureBaselineContrastTable(
+  container: HTMLElement,
+  models: Record<string, ModelPayload>,
+  baselineProfile: string,
+): void {
+  container.appendChild(element('h3', undefined, 'Buy/Sell Drivers vs Baseline'));
+  const rows = buildBuySellFeatureBaselineContrastRows(models, baselineProfile, {
+    limitPerModel: 6,
+    baselineFeatureLimit: 4,
+  });
+  if (!rows.length) {
+    container.appendChild(element('p', 'empty-state', 'No baseline-relative buy/sell driver rows.'));
+    return;
+  }
+
+  const table = element('table', 'comparison-table feature-table buy-sell-baseline-table');
+  const thead = element('thead');
+  const headerRow = element('tr');
+  for (const title of [
+    'Model',
+    'Feature',
+    'Presence',
+    'model BUY mean',
+    'model SELL mean',
+    'model BUY-SELL',
+    'baseline BUY mean',
+    'baseline SELL mean',
+    'baseline BUY-SELL',
+    'Driver delta',
+  ]) {
+    headerRow.appendChild(element('th', undefined, title));
+  }
+  thead.appendChild(headerRow);
+  table.appendChild(thead);
+
+  const tbody = element('tbody');
+  for (const row of rows) {
+    const tr = element('tr');
+    tr.dataset.presence = row.presence;
+    tr.appendChild(element('td', undefined, row.display_name));
+    tr.appendChild(element('td', undefined, row.feature));
+    tr.appendChild(element('td', undefined, row.presence));
+    tr.appendChild(
+      element('td', undefined, `${formatFeatureValue(row.model_buy_mean)} (${row.model_buy_count})`),
+    );
+    tr.appendChild(
+      element('td', undefined, `${formatFeatureValue(row.model_sell_mean)} (${row.model_sell_count})`),
+    );
+    tr.appendChild(element('td', undefined, formatSignedFeatureDelta(row.model_buy_minus_sell)));
+    tr.appendChild(
+      element('td', undefined, `${formatFeatureValue(row.baseline_buy_mean)} (${row.baseline_buy_count})`),
+    );
+    tr.appendChild(
+      element('td', undefined, `${formatFeatureValue(row.baseline_sell_mean)} (${row.baseline_sell_count})`),
+    );
+    tr.appendChild(element('td', undefined, formatSignedFeatureDelta(row.baseline_buy_minus_sell)));
+    tr.appendChild(element('td', undefined, formatSignedFeatureDelta(row.driver_delta_vs_baseline)));
+    tbody.appendChild(tr);
+  }
+  table.appendChild(tbody);
+  const tableScroll = element('div', 'table-scroll');
+  tableScroll.appendChild(table);
+  container.appendChild(tableScroll);
+}
+
 function renderBaselineFeatureContrastTable(
   container: HTMLElement,
   models: Record<string, ModelPayload>,
@@ -968,6 +1136,7 @@ export function renderFeatureComparisonPanel(
 ): void {
   container.replaceChildren();
   container.appendChild(element('h2', undefined, 'Buy/Sell Feature Comparison'));
+  const baselineProfile = input.baselineProfile ?? Object.keys(input.models)[0] ?? '';
   container.appendChild(
     element(
       'div',
@@ -975,9 +1144,11 @@ export function renderFeatureComparisonPanel(
       `${Object.keys(input.models).length} selected models | feature schemas and BUY/SELL event snapshots`,
     ),
   );
+  renderFeatureBaselineSchemaTable(container, input.models, baselineProfile);
+  renderBuySellFeatureBaselineContrastTable(container, input.models, baselineProfile);
   renderFeatureDriverMatrix(container, input.models);
   renderFeatureActionSummaryTable(container, input.models);
-  renderBaselineFeatureContrastTable(container, input.models, input.baselineProfile ?? Object.keys(input.models)[0] ?? '');
+  renderBaselineFeatureContrastTable(container, input.models, baselineProfile);
   renderDecisionFeatureCards(container, input);
   renderRecentEventFeatureTable(container, input.models);
   renderFeatureSchemaTable(container, input.models);
@@ -988,6 +1159,7 @@ export function renderFeatureSpotlightPanel(
   input: { date: string; marketRows: readonly MarketRow[]; models: Record<string, ModelPayload>; baselineProfile?: string },
 ): void {
   container.replaceChildren();
+  const baselineProfile = input.baselineProfile ?? Object.keys(input.models)[0] ?? '';
   container.appendChild(element('h2', undefined, 'Buy/Sell Features'));
   container.appendChild(
     element(
@@ -996,9 +1168,11 @@ export function renderFeatureSpotlightPanel(
       `${input.date} | selected model snapshots and buy/sell contrasts`,
     ),
   );
+  renderFeatureBaselineSchemaTable(container, input.models, baselineProfile);
+  renderBuySellFeatureBaselineContrastTable(container, input.models, baselineProfile);
   renderFeatureDriverMatrix(container, input.models);
   renderFeatureActionSummaryTable(container, input.models);
-  renderBaselineFeatureContrastTable(container, input.models, input.baselineProfile ?? Object.keys(input.models)[0] ?? '');
+  renderBaselineFeatureContrastTable(container, input.models, baselineProfile);
   renderDecisionFeatureCards(container, input);
   const snapshotPanel = element('section', 'feature-date-snapshot');
   snapshotPanel.id = 'feature-date-snapshot';

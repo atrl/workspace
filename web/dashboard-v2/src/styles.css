@@ -97,6 +97,29 @@ select {
   color: #9ca3af;
 }
 
+.status-task-rail {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  min-width: 0;
+}
+
+.status-task-chip {
+  max-width: 100%;
+  padding: 4px 7px;
+  border: 1px solid #374151;
+  border-radius: 6px;
+  color: #d1d5db;
+  background: #111827;
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+
+.status-task-chip[data-enabled="true"] {
+  border-color: rgba(52, 211, 153, 0.5);
+}
+
 .profile-group {
   flex: 1 1 100%;
   flex-wrap: nowrap;
@@ -587,6 +610,21 @@ h2 {
 
 .runtime-status-table tr[data-role="unavailable"] td:nth-child(2) {
   color: #f87171;
+  font-weight: 700;
+}
+
+.buy-sell-baseline-table tr[data-presence="model_only"] td:nth-child(3) {
+  color: #38bdf8;
+  font-weight: 700;
+}
+
+.buy-sell-baseline-table tr[data-presence="baseline_only"] td:nth-child(3) {
+  color: #f59e0b;
+  font-weight: 700;
+}
+
+.buy-sell-baseline-table tr[data-presence="shared"] td:nth-child(3) {
+  color: #34d399;
   font-weight: 700;
 }
 

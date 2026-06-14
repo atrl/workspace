@@ -38,8 +38,14 @@ const chartMocks = vi.hoisted(() => {
       subscribeClick: vi.fn((callback: (param: { time?: string }) => void) => {
         subscriptions.click.push(callback);
       }),
+      unsubscribeClick: vi.fn((callback: (param: { time?: string }) => void) => {
+        subscriptions.click = subscriptions.click.filter((item) => item !== callback);
+      }),
       subscribeCrosshairMove: vi.fn((callback: (param: { time?: string }) => void) => {
         subscriptions.crosshairMove.push(callback);
+      }),
+      unsubscribeCrosshairMove: vi.fn((callback: (param: { time?: string }) => void) => {
+        subscriptions.crosshairMove = subscriptions.crosshairMove.filter((item) => item !== callback);
       }),
       timeScale: vi.fn(() => timeScaleApi),
       remove: vi.fn(),
@@ -418,5 +424,21 @@ describe('dashboard v2 chart rendering', () => {
 
     expect(onDate).toHaveBeenCalledWith('2026-01-05', 'select');
     expect(onDate).toHaveBeenCalledWith('2026-01-06', 'select');
+  });
+
+  test('removes old chart event subscriptions when rerendering into the same container', () => {
+    const container = document.createElement('div');
+    const onDate = vi.fn();
+
+    renderMarketChart(container, marketFixture, modelFixture, onDate);
+    expect(chartMocks.subscriptions.click).toHaveLength(1);
+    expect(chartMocks.subscriptions.crosshairMove).toHaveLength(1);
+
+    renderMarketChart(container, marketFixture, modelFixture, onDate);
+
+    expect(chartMocks.subscriptions.click).toHaveLength(1);
+    expect(chartMocks.subscriptions.crosshairMove).toHaveLength(1);
+    chartMocks.subscriptions.click[0]?.({ time: '2026-01-05' });
+    expect(onDate).toHaveBeenCalledTimes(1);
   });
 });
