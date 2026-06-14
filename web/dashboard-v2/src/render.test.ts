@@ -437,7 +437,7 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.textContent).not.toContain('Recent Buy/Sell Events');
   });
 
-  test('renders complete first-screen buy and sell feature spotlight', () => {
+  test('renders compact first-screen buy and sell feature spotlight', () => {
     const panel = document.createElement('section');
 
     renderFeatureSpotlightPanel(panel, {
@@ -451,24 +451,23 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.textContent).toContain('2026-01-05');
     expect(panel.textContent).toContain('smoke');
     expect(panel.textContent).toContain('balanced_rule_residual_v22');
-    expect(panel.textContent).toContain('Model Feature Schemas');
-    expect(panel.textContent).toContain('Feature Driver Matrix');
-    expect(panel.textContent).toContain('alpha123');
-    expect(panel.textContent).toContain('beta456');
     expect(panel.textContent).toContain('alpha_signal');
     expect(panel.textContent).toContain('beta_signal');
-    expect(panel.textContent).toContain('Trade Feature vs Baseline');
     expect(panel.textContent).toContain('Selected Decision Features');
     expect(panel.textContent).toContain('baseline SELL');
     expect(panel.textContent).toContain('BUY-SELL');
-    expect(panel.textContent).toContain('Recent Buy/Sell Events');
     expect([...panel.querySelectorAll('h3')].map((node) => node.textContent)).toContain('Buy/Sell Feature Summary');
+    expect(panel.textContent).not.toContain('Schema vs Baseline');
+    expect(panel.textContent).not.toContain('Feature Driver Matrix');
+    expect(panel.textContent).not.toContain('Trade Feature vs Baseline');
+    expect(panel.textContent).not.toContain('Recent Buy/Sell Events');
+    expect(panel.textContent).not.toContain('Model Feature Schemas');
   });
 
   test('renders baseline-relative schema and buy/sell driver comparisons per model', () => {
     const panel = document.createElement('section');
 
-    renderFeatureSpotlightPanel(panel, {
+    renderFeatureComparisonPanel(panel, {
       date: '2026-01-05',
       marketRows: marketFixture.rows,
       models: { smoke: modelFixture, balanced_rule_residual_v22: betaModelFixture },

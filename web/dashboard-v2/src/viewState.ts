@@ -6,6 +6,7 @@ export interface ViewUpdate {
   selectedProfiles?: string[];
   baselineProfile?: string;
   chartProfile?: string;
+  runProfile?: string;
   start?: string;
   end?: string;
   hoveredDate?: string;
@@ -33,6 +34,10 @@ export function viewUpdateRequiresChartRender(update: ViewUpdate): boolean {
 
 export function viewUpdateRequiresFeatureRender(update: ViewUpdate): boolean {
   return update.selectedDate !== undefined || viewUpdateRequiresChartRender(update);
+}
+
+export function viewUpdateRequiresToolbarRender(update: ViewUpdate): boolean {
+  return update.runProfile !== undefined;
 }
 
 export function applyChartDateInteraction(

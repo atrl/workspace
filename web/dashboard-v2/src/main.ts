@@ -21,8 +21,10 @@ import {
   computeInspectorRows,
   computeInspectorRowsFromLookup,
   chooseDefaultChartProfile,
+  chooseDefaultRunProfile,
   runnableProfileReason,
   selectableChartProfiles,
+  selectableRunProfiles,
   type DateRangePreset,
   type InspectorLookup,
 } from './domain';
@@ -49,6 +51,7 @@ import {
   applyChartDateInteraction,
   viewUpdateRequiresChartRender,
   viewUpdateRequiresFeatureRender,
+  viewUpdateRequiresToolbarRender,
   type ChartClickMode,
 } from './viewState';
 
@@ -56,6 +59,7 @@ interface ViewState {
   selectedProfiles: string[];
   baselineProfile: string;
   chartProfile: string;
+  runProfile: string;
   start: string;
   end: string;
   hoveredDate: string;
@@ -219,6 +223,23 @@ function renderToolbar(
   chartGroup.appendChild(chartSelect);
   container.appendChild(chartGroup);
 
+  const runProfileGroup = document.createElement('label');
+  runProfileGroup.className = 'toolbar-group';
+  runProfileGroup.append('Run source');
+  const runProfileSelect = document.createElement('select');
+  const runProfiles = selectableRunProfiles(data.models, data.manifest.available_profiles);
+  for (const profile of runProfiles) {
+    const option = document.createElement('option');
+    option.value = profile;
+    option.textContent = profileOptionLabel(data.models[profile], profile);
+    option.selected = profile === state.runProfile;
+    runProfileSelect.appendChild(option);
+  }
+  runProfileSelect.disabled = runProfiles.length === 0;
+  runProfileSelect.addEventListener('change', () => update({ runProfile: runProfileSelect.value }));
+  runProfileGroup.appendChild(runProfileSelect);
+  container.appendChild(runProfileGroup);
+
   const rangeGroup = document.createElement('div');
   rangeGroup.className = 'toolbar-group range-group';
   for (const preset of ['1M', '3M', '6M', 'YTD', '1Y', 'ALL'] as const satisfies readonly DateRangePreset[]) {
@@ -251,7 +272,7 @@ function renderToolbar(
 
   const runGroup = document.createElement('div');
   runGroup.className = 'toolbar-group run-group';
-  const runModel = data.models[state.chartProfile];
+  const runModel = data.models[state.runProfile];
   const canRun = canRunSelectedWindow(runModel);
   const runButton = document.createElement('button');
   runButton.type = 'button';
@@ -418,6 +439,7 @@ async function main(): Promise<void> {
       data.manifest.available_profiles,
     );
     const defaultChartProfile = chooseDefaultChartProfile(data.manifest, data.models);
+    const defaultRunProfile = chooseDefaultRunProfile(data.manifest, data.models, defaultChartProfile);
     const chartWindow =
       computeDateRangePreset(chartRangeRows(data.models, defaultChartProfile, data.market.rows), 'YTD') ??
       computeDefaultChartWindow(data.market.rows, data.models[defaultChartProfile]?.rows ?? []);
@@ -426,6 +448,7 @@ async function main(): Promise<void> {
       selectedProfiles,
       baselineProfile: data.manifest.default_baseline_profile,
       chartProfile: defaultChartProfile,
+      runProfile: defaultRunProfile,
       start: chartWindow?.start ?? common?.start ?? data.comparison.common_start,
       end: chartWindow?.end ?? common?.end ?? data.comparison.common_end,
       hoveredDate: chartWindow?.end ?? common?.end ?? data.comparison.common_end,
@@ -440,6 +463,9 @@ async function main(): Promise<void> {
     const renderChartChrome = () => {
       renderChartCommandBar(requireElement('chart-command-bar'), runChartCommand, state.chartClickMode, setChartClickMode);
     };
+    const renderToolbarChrome = () => {
+      renderToolbar(requireElement('toolbar'), data, state, update, runInteractiveBacktest);
+    };
     const rerender = () => {
       chartSyncCleanup?.();
       const result = renderDashboard(data, state, update, runChartCommand, setChartClickMode, runInteractiveBacktest);
@@ -453,6 +479,7 @@ async function main(): Promise<void> {
       }
       const needsChartRender = viewUpdateRequiresChartRender(next);
       const needsFeatureRender = viewUpdateRequiresFeatureRender(next);
+      const needsToolbarRender = viewUpdateRequiresToolbarRender(next);
       const needsChartChromeRender = next.chartClickMode !== undefined;
       Object.assign(state, next);
       if (!state.selectedProfiles.includes(state.baselineProfile)) {
@@ -462,15 +489,20 @@ async function main(): Promise<void> {
       if (!chartProfiles.includes(state.chartProfile)) {
         state.chartProfile = chartProfiles[0] ?? state.selectedProfiles[0];
       }
+      const runProfiles = selectableRunProfiles(data.models, data.manifest.available_profiles);
+      if (!runProfiles.includes(state.runProfile)) {
+        state.runProfile = chooseDefaultRunProfile(data.manifest, data.models, state.chartProfile);
+      }
       if (needsChartRender) {
         rerender();
       } else if (inspectorLookup) {
         if (needsChartChromeRender) renderChartChrome();
+        if (needsToolbarRender) renderToolbarChrome();
         renderInspector(data, state, inspectorLookup, { renderFeaturePanel: needsFeatureRender });
       }
     };
     async function runInteractiveBacktest(): Promise<void> {
-      const sourceProfile = apiProfileFor(state.chartProfile);
+      const sourceProfile = apiProfileFor(state.runProfile);
       const statusNode = document.getElementById('run-status');
       if (statusNode) {
         statusNode.dataset.tone = 'muted';
@@ -500,6 +532,7 @@ async function main(): Promise<void> {
         data.manifest.available_profiles,
       );
       state.chartProfile = rerunModel.profile;
+      state.runProfile = rerunModel.profile;
       state.start = rerunModel.replay_start;
       state.end = rerunModel.replay_end;
       state.hoveredDate = rerunModel.replay_end;

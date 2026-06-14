@@ -107,6 +107,28 @@ export function selectableChartProfiles(
   return selectedProfiles.filter((profile) => Boolean(models[profile]?.rows.length));
 }
 
+export function selectableRunProfiles(
+  models: Record<string, ModelPayload>,
+  availableProfiles: readonly string[] = Object.keys(models),
+): string[] {
+  return availableProfiles.filter((profile) => canRunSelectedWindow(models[profile]));
+}
+
+export function chooseDefaultRunProfile(
+  manifest: Manifest,
+  models: Record<string, ModelPayload>,
+  chartProfile?: string,
+): string {
+  const preferred = [
+    chartProfile,
+    manifest.default_chart_profile,
+    manifest.default_baseline_profile,
+    ...manifest.default_comparison_profiles,
+    ...manifest.available_profiles,
+  ].filter((profile): profile is string => typeof profile === 'string' && profile in models);
+  return preferred.find((profile) => canRunSelectedWindow(models[profile])) ?? selectableRunProfiles(models, manifest.available_profiles)[0] ?? '';
+}
+
 export function clipRowsByDate<T extends { date: string }>(rows: readonly T[], start: string, end: string): T[] {
   return rows.filter((row) => row.date >= start && row.date <= end);
 }

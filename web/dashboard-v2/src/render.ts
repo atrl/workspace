@@ -1159,7 +1159,6 @@ export function renderFeatureSpotlightPanel(
   input: { date: string; marketRows: readonly MarketRow[]; models: Record<string, ModelPayload>; baselineProfile?: string },
 ): void {
   container.replaceChildren();
-  const baselineProfile = input.baselineProfile ?? Object.keys(input.models)[0] ?? '';
   container.appendChild(element('h2', undefined, 'Buy/Sell Features'));
   container.appendChild(
     element(
@@ -1168,16 +1167,10 @@ export function renderFeatureSpotlightPanel(
       `${input.date} | selected model snapshots and buy/sell contrasts`,
     ),
   );
-  renderFeatureBaselineSchemaTable(container, input.models, baselineProfile);
-  renderBuySellFeatureBaselineContrastTable(container, input.models, baselineProfile);
-  renderFeatureDriverMatrix(container, input.models);
-  renderFeatureActionSummaryTable(container, input.models);
-  renderBaselineFeatureContrastTable(container, input.models, baselineProfile);
   renderDecisionFeatureCards(container, input);
   const snapshotPanel = element('section', 'feature-date-snapshot');
   snapshotPanel.id = 'feature-date-snapshot';
   renderFeatureSnapshotPanel(snapshotPanel, input);
   container.appendChild(snapshotPanel);
-  renderRecentEventFeatureTable(container, input.models);
-  renderFeatureSchemaTable(container, input.models);
+  renderFeatureActionSummaryTable(container, input.models);
 }

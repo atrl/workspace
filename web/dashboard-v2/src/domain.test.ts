@@ -14,11 +14,13 @@ import {
   computeKeyboardDateRange,
   computeVisibleComparison,
   chooseDefaultChartProfile,
+  chooseDefaultRunProfile,
   runnableProfileReason,
   selectableChartProfiles,
+  selectableRunProfiles,
 } from './domain';
 import { betaModelFixture, comparisonFixture, manifestFixture, marketFixture, modelFixture } from './testFixtures';
-import { viewUpdateRequiresChartRender, viewUpdateRequiresFeatureRender } from './viewState';
+import { viewUpdateRequiresChartRender, viewUpdateRequiresFeatureRender, viewUpdateRequiresToolbarRender } from './viewState';
 
 describe('dashboard v2 domain helpers', () => {
   test('clamps comparison profiles to two through four unique models', () => {
@@ -278,6 +280,8 @@ describe('dashboard v2 domain helpers', () => {
     expect(viewUpdateRequiresFeatureRender({ start: '2026-01-05' })).toBe(true);
     expect(viewUpdateRequiresChartRender({ selectedProfiles: ['smoke', 'balanced_rule_residual_v22'] })).toBe(true);
     expect(viewUpdateRequiresChartRender({ baselineProfile: 'balanced_rule_residual_v22' })).toBe(true);
+    expect(viewUpdateRequiresToolbarRender({ runProfile: 'soxl_backtest_policy_reimplementation_v1' })).toBe(true);
+    expect(viewUpdateRequiresChartRender({ runProfile: 'soxl_backtest_policy_reimplementation_v1' })).toBe(false);
   });
 
   test('computes trading range presets from available dates', () => {
@@ -384,5 +388,44 @@ describe('dashboard v2 domain helpers', () => {
         ['soxl_backtest_policy_reimplementation_v1', 'balanced_rule_residual_v22'],
       ),
     ).toEqual(['soxl_backtest_policy_reimplementation_v1', 'balanced_rule_residual_v22']);
+  });
+
+  test('keeps selected-window run sources separate from evidence-only chart review profiles', () => {
+    const baseline = {
+      ...modelFixture,
+      profile: 'soxl_backtest_policy_reimplementation_v1',
+      runnable: false,
+      runnable_reason: 'reference_baseline',
+      source_kind: 'soxlbacktest_qlib_buysell',
+    };
+    const evidenceOnly = {
+      ...betaModelFixture,
+      profile: 'balanced_rule_residual_v19_moe_v2',
+      runnable: false,
+      runnable_reason: 'evidence_only_retained_dashboard_export',
+      source_kind: 'retained_dashboard_export',
+    };
+
+    const models = {
+      soxl_backtest_policy_reimplementation_v1: baseline,
+      balanced_rule_residual_v19_moe_v2: evidenceOnly,
+      smoke: modelFixture,
+    };
+    const manifest = {
+      ...manifestFixture,
+      available_profiles: ['balanced_rule_residual_v19_moe_v2', 'soxl_backtest_policy_reimplementation_v1', 'smoke'],
+      default_chart_profile: 'balanced_rule_residual_v19_moe_v2',
+      default_baseline_profile: 'soxl_backtest_policy_reimplementation_v1',
+      default_comparison_profiles: ['balanced_rule_residual_v19_moe_v2', 'soxl_backtest_policy_reimplementation_v1'],
+    };
+
+    expect(selectableRunProfiles(models, manifest.available_profiles)).toEqual([
+      'soxl_backtest_policy_reimplementation_v1',
+      'smoke',
+    ]);
+    expect(chooseDefaultRunProfile(manifest, models, 'balanced_rule_residual_v19_moe_v2')).toBe(
+      'soxl_backtest_policy_reimplementation_v1',
+    );
+    expect(chooseDefaultRunProfile(manifest, models, 'smoke')).toBe('smoke');
   });
 });

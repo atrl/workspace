@@ -41,10 +41,16 @@ Use these rules before editing TradingView-like interactions:
 7. Start/End inputs set the visible chart window. The Run button calls
    `/api/run-backtest`, falling back to `127.0.0.1:8765` or a configured
    `?apiBase=` server when static hosting returns `501`, `405`, or `404`.
+   Keep the Chart profile and Run source separate: evidence-only profiles may
+   remain selectable for visual comparison, but selected-window reruns should
+   only offer runnable actors or deterministic reference baselines.
 8. Model JSON must expose model-specific `feature_columns`,
    `snapshot_columns`, row/event `feature_snapshot`, and retention-gate fields
    when the retention audit exists. The UI should show buy/sell feature
    comparisons and clearly label evidence-only models.
+   Keep the first-screen side spotlight compact. Wide schema/driver/event
+   tables belong in the full-width feature-comparison panel, not the right
+   rail, so they do not crowd the Main Chart or make the UI look clipped.
 9. Verify frontend changes with:
    ```bash
    cd web/dashboard-v2
