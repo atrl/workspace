@@ -1,0 +1,9 @@
+check,pass,value,threshold
+recipe_rows_matched_source,True,569,569
+no_eval_overlap,True,0,0
+no_guard_fold_overlay,True,0,0
+consumed_target_matches_overlay,True,0,0
+failed_fold_wf_2020_coverage,True,424,100
+failed_fold_wf_2023_2024_coverage,True,145,100
+mean_abs_target_lift,True,0.18763316331148497,0.05
+previous_failed_fold_context_retained,True,"wf_2020,wf_2023_2024","wf_2020,wf_2023_2024"

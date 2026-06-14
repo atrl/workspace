@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-14T16:10:19.204173+00:00",
+  "generated_at": "2026-06-14T16:26:54.444874+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -6185,19 +6185,19 @@
       "path": "runtime/model_selection/card/model_retention_frontier_v1/conclusion.md",
       "category": "model_selection",
       "suffix": ".md",
-      "bytes": 541
+      "bytes": 555
     },
     {
       "path": "runtime/model_selection/card/model_retention_frontier_v1/retention_frontier.csv",
       "category": "model_selection",
       "suffix": ".csv",
-      "bytes": 54463
+      "bytes": 55068
     },
     {
       "path": "runtime/model_selection/card/model_retention_frontier_v1/summary.json",
       "category": "model_selection",
       "suffix": ".json",
-      "bytes": 138315
+      "bytes": 139552
     },
     {
       "path": "runtime/model_selection/card/model_retention_walkforward_gate_v1/conclusion.md",
@@ -8274,6 +8274,60 @@
       "category": "model_selection",
       "suffix": ".csv",
       "bytes": 663
+    },
+    {
+      "path": "runtime/model_selection/card/release16_rulebase_reversal_checkpoint_readiness_v1/bc_readiness_checks.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 393
+    },
+    {
+      "path": "runtime/model_selection/card/release16_rulebase_reversal_checkpoint_readiness_v1/conclusion.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 731
+    },
+    {
+      "path": "runtime/model_selection/card/release16_rulebase_reversal_checkpoint_readiness_v1/previous_checkpoint_gap_context.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2105
+    },
+    {
+      "path": "runtime/model_selection/card/release16_rulebase_reversal_checkpoint_readiness_v1/rulebase_reversal_bc_target_contract.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 3503399
+    },
+    {
+      "path": "runtime/model_selection/card/release16_rulebase_reversal_checkpoint_readiness_v1/rulebase_reversal_overlay_rows.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 574666
+    },
+    {
+      "path": "runtime/model_selection/card/release16_rulebase_reversal_checkpoint_readiness_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 7725
+    },
+    {
+      "path": "runtime/model_selection/card/release16_rulebase_reversal_checkpoint_readiness_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 9600
+    },
+    {
+      "path": "runtime/model_selection/card/release16_rulebase_reversal_checkpoint_readiness_v1/target_position_bucket_delta.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 498
+    },
+    {
+      "path": "runtime/model_selection/card/release16_rulebase_reversal_checkpoint_readiness_v1/target_position_delta_by_fold.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 302
     },
     {
       "path": "runtime/model_selection/card/release16_rulebase_reversal_target_recipe_v1/best_rulebase_reversal_row_scores.csv",
