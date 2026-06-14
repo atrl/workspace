@@ -1,0 +1,10 @@
+variant,fold,rows,avg_target_position,median_target_position,target_ge_15_rows,target_ge_35_rows,target_ge_50_rows,target_ge_65_rows,hybrid_restore_rows,hybrid_blend_rows,riskcap_active_rows
+hybrid_restore_nonrisk_cap50,wf_2020_train,2470,0.2554723886639676,0.2007,1395,894,584,0,1586,0,424
+hybrid_restore_nonrisk_cap50,wf_2022_train,505,0.3488165434578397,0.25,478,189,114,71,0,0,0
+hybrid_restore_nonrisk_cap50,wf_2023_2024_train,756,0.277529657902077,0.2,631,189,114,71,0,0,0
+hybrid_restore_nonrisk_cap65,wf_2020_train,2470,0.2655382591093117,0.2007,1395,894,584,84,1586,0,424
+hybrid_restore_nonrisk_cap65,wf_2022_train,505,0.3488165434578397,0.25,478,189,114,71,0,0,0
+hybrid_restore_nonrisk_cap65,wf_2023_2024_train,756,0.277529657902077,0.2,631,189,114,71,0,0,0
+hybrid_blend_nonrisk_50,wf_2020_train,2470,0.16475914979757086,0.1375,1168,133,0,0,0,1586,424
+hybrid_blend_nonrisk_50,wf_2022_train,505,0.3488165434578397,0.25,478,189,114,71,0,0,0
+hybrid_blend_nonrisk_50,wf_2023_2024_train,756,0.277529657902077,0.2,631,189,114,71,0,0,0

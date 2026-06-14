@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-14T01:18:40.707740+00:00",
+  "generated_at": "2026-06-14T01:36:58.598095+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -5837,19 +5837,19 @@
       "path": "runtime/model_selection/card/model_retention_frontier_v1/conclusion.md",
       "category": "model_selection",
       "suffix": ".md",
-      "bytes": 534
+      "bytes": 556
     },
     {
       "path": "runtime/model_selection/card/model_retention_frontier_v1/retention_frontier.csv",
       "category": "model_selection",
       "suffix": ".csv",
-      "bytes": 39175
+      "bytes": 39762
     },
     {
       "path": "runtime/model_selection/card/model_retention_frontier_v1/summary.json",
       "category": "model_selection",
       "suffix": ".json",
-      "bytes": 105349
+      "bytes": 106574
     },
     {
       "path": "runtime/model_selection/card/model_retention_walkforward_gate_v1/conclusion.md",
@@ -7140,6 +7140,228 @@
       "category": "model_selection",
       "suffix": ".json",
       "bytes": 6580
+    },
+    {
+      "path": "runtime/model_selection/card/return_preserving_hybrid_target_bc_replay_v1/bc_action_distribution.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 13000
+    },
+    {
+      "path": "runtime/model_selection/card/return_preserving_hybrid_target_bc_replay_v1/bc_fit_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 6043
+    },
+    {
+      "path": "runtime/model_selection/card/return_preserving_hybrid_target_bc_replay_v1/bc_slice_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 32163
+    },
+    {
+      "path": "runtime/model_selection/card/return_preserving_hybrid_target_bc_replay_v1/candidate_contract_manifest.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 486
+    },
+    {
+      "path": "runtime/model_selection/card/return_preserving_hybrid_target_bc_replay_v1/candidate_scorecard.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1927
+    },
+    {
+      "path": "runtime/model_selection/card/return_preserving_hybrid_target_bc_replay_v1/candidate_target_distribution.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1037
+    },
+    {
+      "path": "runtime/model_selection/card/return_preserving_hybrid_target_bc_replay_v1/candidate_weight_config_manifest.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 314
+    },
+    {
+      "path": "runtime/model_selection/card/return_preserving_hybrid_target_bc_replay_v1/conclusion.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 1099
+    },
+    {
+      "path": "runtime/model_selection/card/return_preserving_hybrid_target_bc_replay_v1/coverage.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1811
+    },
+    {
+      "path": "runtime/model_selection/card/return_preserving_hybrid_target_bc_replay_v1/daily_path_manifest.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 5580
+    },
+    {
+      "path": "runtime/model_selection/card/return_preserving_hybrid_target_bc_replay_v1/drawdown_interval_diagnostic.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 7255
+    },
+    {
+      "path": "runtime/model_selection/card/return_preserving_hybrid_target_bc_replay_v1/fold_candidate_replay_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 10378
+    },
+    {
+      "path": "runtime/model_selection/card/return_preserving_hybrid_target_bc_replay_v1/fold_replay_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2013
+    },
+    {
+      "path": "runtime/model_selection/card/return_preserving_hybrid_target_bc_replay_v1/hybrid_blend_nonrisk_50__participation_balanced_weight_wf_2020_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31669
+    },
+    {
+      "path": "runtime/model_selection/card/return_preserving_hybrid_target_bc_replay_v1/hybrid_blend_nonrisk_50__participation_balanced_weight_wf_2022_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30205
+    },
+    {
+      "path": "runtime/model_selection/card/return_preserving_hybrid_target_bc_replay_v1/hybrid_blend_nonrisk_50__participation_balanced_weight_wf_2023_2024_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31883
+    },
+    {
+      "path": "runtime/model_selection/card/return_preserving_hybrid_target_bc_replay_v1/hybrid_blend_nonrisk_50__riskcap_default_weight_wf_2020_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31580
+    },
+    {
+      "path": "runtime/model_selection/card/return_preserving_hybrid_target_bc_replay_v1/hybrid_blend_nonrisk_50__riskcap_default_weight_wf_2022_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30141
+    },
+    {
+      "path": "runtime/model_selection/card/return_preserving_hybrid_target_bc_replay_v1/hybrid_blend_nonrisk_50__riskcap_default_weight_wf_2023_2024_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31906
+    },
+    {
+      "path": "runtime/model_selection/card/return_preserving_hybrid_target_bc_replay_v1/hybrid_blend_nonrisk_50_combined_target_contract.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1831209
+    },
+    {
+      "path": "runtime/model_selection/card/return_preserving_hybrid_target_bc_replay_v1/hybrid_restore_nonrisk_cap50__participation_balanced_weight_wf_2020_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31584
+    },
+    {
+      "path": "runtime/model_selection/card/return_preserving_hybrid_target_bc_replay_v1/hybrid_restore_nonrisk_cap50__participation_balanced_weight_wf_2022_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30205
+    },
+    {
+      "path": "runtime/model_selection/card/return_preserving_hybrid_target_bc_replay_v1/hybrid_restore_nonrisk_cap50__participation_balanced_weight_wf_2023_2024_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31883
+    },
+    {
+      "path": "runtime/model_selection/card/return_preserving_hybrid_target_bc_replay_v1/hybrid_restore_nonrisk_cap50__riskcap_default_weight_wf_2020_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31812
+    },
+    {
+      "path": "runtime/model_selection/card/return_preserving_hybrid_target_bc_replay_v1/hybrid_restore_nonrisk_cap50__riskcap_default_weight_wf_2022_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30141
+    },
+    {
+      "path": "runtime/model_selection/card/return_preserving_hybrid_target_bc_replay_v1/hybrid_restore_nonrisk_cap50__riskcap_default_weight_wf_2023_2024_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31906
+    },
+    {
+      "path": "runtime/model_selection/card/return_preserving_hybrid_target_bc_replay_v1/hybrid_restore_nonrisk_cap50_combined_target_contract.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1830170
+    },
+    {
+      "path": "runtime/model_selection/card/return_preserving_hybrid_target_bc_replay_v1/hybrid_restore_nonrisk_cap65__participation_balanced_weight_wf_2020_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31641
+    },
+    {
+      "path": "runtime/model_selection/card/return_preserving_hybrid_target_bc_replay_v1/hybrid_restore_nonrisk_cap65__participation_balanced_weight_wf_2022_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30205
+    },
+    {
+      "path": "runtime/model_selection/card/return_preserving_hybrid_target_bc_replay_v1/hybrid_restore_nonrisk_cap65__participation_balanced_weight_wf_2023_2024_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31883
+    },
+    {
+      "path": "runtime/model_selection/card/return_preserving_hybrid_target_bc_replay_v1/hybrid_restore_nonrisk_cap65__riskcap_default_weight_wf_2020_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31631
+    },
+    {
+      "path": "runtime/model_selection/card/return_preserving_hybrid_target_bc_replay_v1/hybrid_restore_nonrisk_cap65__riskcap_default_weight_wf_2022_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30141
+    },
+    {
+      "path": "runtime/model_selection/card/return_preserving_hybrid_target_bc_replay_v1/hybrid_restore_nonrisk_cap65__riskcap_default_weight_wf_2023_2024_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31906
+    },
+    {
+      "path": "runtime/model_selection/card/return_preserving_hybrid_target_bc_replay_v1/hybrid_restore_nonrisk_cap65_combined_target_contract.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1835574
+    },
+    {
+      "path": "runtime/model_selection/card/return_preserving_hybrid_target_bc_replay_v1/selected_hybrid_target_contract.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1831209
+    },
+    {
+      "path": "runtime/model_selection/card/return_preserving_hybrid_target_bc_replay_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 6929
+    },
+    {
+      "path": "runtime/model_selection/card/return_preserving_hybrid_target_bc_replay_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 14707
     },
     {
       "path": "runtime/model_selection/card/rolling_heuristic_selector_v1/heuristic_strategy_screen.csv",

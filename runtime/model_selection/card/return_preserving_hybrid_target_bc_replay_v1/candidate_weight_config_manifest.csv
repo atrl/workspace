@@ -1,0 +1,3 @@
+weight_config,rebound_multiplier,downtrend_multiplier,release_gate_multiplier,ordinary_multiplier,objective_weight_power,class_balanced_beta,weight_floor,weight_cap,normalize_mean
+riskcap_default_weight,4.0,2.0,10.0,1.0,0.0,0.0,0.05,30.0,True
+participation_balanced_weight,5.0,2.0,10.0,1.5,0.25,0.4,0.05,40.0,True
