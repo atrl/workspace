@@ -1,8 +1,1 @@
-profile,registry_status,keep_actor,strict_retention_allowed,strict_retention_decision,gate_pass,ytd_return_pct,worst_wf_max_drawdown_pct,wf_windows_present,failures,notes_ref
-balanced,archived,True,False,block_missing_replay_evidence,False,,,,missing_replay_evidence,experiments/canonical/balanced/notes.md
-balanced_checkpoint_review,archived,True,False,block_missing_replay_evidence,False,,,,missing_replay_evidence,experiments/archive/balanced_checkpoint_review/notes.md
-balanced_rule_residual_v19,archived,True,False,block_missing_replay_evidence,False,,,,missing_replay_evidence,runtime/model/cards/balanced_rule_residual_v19/v19_walk_forward_review.md
-smoke,canonical,True,False,block_missing_replay_evidence,False,,,,missing_replay_evidence,experiments/canonical/smoke/notes.md
-balanced_rule_residual_v20,archived,True,False,block_missing_replay_evidence,False,,,,missing_replay_evidence,experiments/archive/balanced_rule_residual_v20/notes.md
-balanced_rule_residual_v21,archived,True,False,block_missing_replay_evidence,False,,,,missing_replay_evidence,experiments/archive/balanced_rule_residual_v21/notes.md
-balanced_rule_residual_v22,canonical,True,False,block_missing_replay_evidence,False,,,,missing_replay_evidence,runtime/model/card/balanced_rule_residual_v22/v22_corrected_runtime_selection_review.md
+

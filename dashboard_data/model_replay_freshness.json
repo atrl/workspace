@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-14T02:34:21+00:00",
+  "generated_at": "2026-06-14T04:22:06+00:00",
   "latest_data_date": "2026-06-10",
   "safe_backtest_end": "2026-06-09",
   "terminal_note": "qlib daily backtests require a following calendar boundary, so model replay curves target safe_backtest_end while paper trading/latest signal can use latest_data_date.",
@@ -7,85 +7,7 @@
     "current": 0,
     "refreshed": 0,
     "failed": 0,
-    "skipped": 7
+    "skipped": 0
   },
-  "profiles": [
-    {
-      "profile": "balanced",
-      "status": "archived",
-      "actor": "runtime/model/card/balanced/soxl_balanced_actor.pt",
-      "profile_yaml": "runtime/model/card/balanced/profile.yaml",
-      "output": "runtime/model/card/balanced/balanced_soxl_daily.csv",
-      "before_end": "",
-      "after_end": "",
-      "result": "skipped",
-      "reason": "missing_actor_artifact"
-    },
-    {
-      "profile": "balanced_checkpoint_review",
-      "status": "archived",
-      "actor": "runtime/model/card/balanced_checkpoint_review/soxl_balanced_checkpoint_review_actor.pt",
-      "profile_yaml": "",
-      "output": "runtime/model/card/balanced_checkpoint_review/balanced_checkpoint_review_soxl_daily.csv",
-      "before_end": "",
-      "after_end": "",
-      "result": "skipped",
-      "reason": "missing_actor_artifact;missing_profile_yaml"
-    },
-    {
-      "profile": "balanced_rule_residual_v19",
-      "status": "archived",
-      "actor": "runtime/model/card/balanced_rule_residual_v19/soxl_balanced_rule_residual_v19_actor.pt",
-      "profile_yaml": "runtime/model/card/balanced_rule_residual_v19/profile.yaml",
-      "output": "runtime/model/card/balanced_rule_residual_v19/balanced_rule_residual_v19_soxl_daily.csv",
-      "before_end": "",
-      "after_end": "",
-      "result": "skipped",
-      "reason": "missing_actor_artifact"
-    },
-    {
-      "profile": "smoke",
-      "status": "canonical",
-      "actor": "runtime/model/card/smoke/soxl_smoke_actor.pt",
-      "profile_yaml": "runtime/harness/card/smoke/profile.yaml",
-      "output": "runtime/model/card/smoke/smoke_soxl_daily.csv",
-      "before_end": "",
-      "after_end": "",
-      "result": "skipped",
-      "reason": "missing_actor_artifact"
-    },
-    {
-      "profile": "balanced_rule_residual_v20",
-      "status": "archived",
-      "actor": "runtime/model/card/balanced_rule_residual_v20/soxl_balanced_rule_residual_v20_actor.pt",
-      "profile_yaml": "",
-      "output": "runtime/model/card/balanced_rule_residual_v20/balanced_rule_residual_v20_soxl_daily.csv",
-      "before_end": "",
-      "after_end": "",
-      "result": "skipped",
-      "reason": "missing_actor_artifact;missing_profile_yaml"
-    },
-    {
-      "profile": "balanced_rule_residual_v21",
-      "status": "archived",
-      "actor": "runtime/model/card/balanced_rule_residual_v21/soxl_balanced_rule_residual_v21_actor.pt",
-      "profile_yaml": "",
-      "output": "runtime/model/card/balanced_rule_residual_v21/balanced_rule_residual_v21_soxl_daily.csv",
-      "before_end": "",
-      "after_end": "",
-      "result": "skipped",
-      "reason": "missing_actor_artifact;missing_profile_yaml"
-    },
-    {
-      "profile": "balanced_rule_residual_v22",
-      "status": "canonical",
-      "actor": "runtime/model/card/balanced_rule_residual_v22/soxl_balanced_rule_residual_v22_actor.pt",
-      "profile_yaml": "runtime/model/card/balanced_rule_residual_v22/profile.yaml",
-      "output": "runtime/model/card/balanced_rule_residual_v22/balanced_rule_residual_v22_soxl_daily.csv",
-      "before_end": "",
-      "after_end": "",
-      "result": "skipped",
-      "reason": "missing_actor_artifact"
-    }
-  ]
+  "profiles": []
 }

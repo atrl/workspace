@@ -31,8 +31,8 @@ def main(argv: list[str] | None = None) -> dict[str, object]:
         "--apply-registry-retention",
         action="store_true",
         help=(
-            "Apply the strict retention plan to the registry by setting unprotected "
-            "failed candidate/ablation keep_actor rows to false. Actor files are not deleted."
+            "Apply the strict retention plan to the registry by setting every failed "
+            "keep_actor row to false. Actor files are not deleted."
         ),
     )
     args = parser.parse_args(argv)
@@ -52,7 +52,6 @@ def main(argv: list[str] | None = None) -> dict[str, object]:
         f"profiles={summary['profiles_scanned']} "
         f"passing={summary['passing_profile_count']} "
         f"disable_plan={summary.get('registry_keep_actor_disable_count', 0)} "
-        f"protected_exceptions={summary.get('registry_keep_actor_protected_exception_count', 0)} "
         f"registry_changed={len(changed)} "
         f"output={args.output_dir}"
     )

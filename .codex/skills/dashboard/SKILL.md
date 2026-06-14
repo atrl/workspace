@@ -140,17 +140,17 @@ even when ordinary non-dry `paper_trading` rows have not advanced.
 The retention gate requires complete `wf_2020`, `wf_2022`, and
 `wf_2023_2024` evidence, WF MaxDD strictly below `20%`, YTD return above the
 SOXLBacktest qlib reference baseline, and YTD return at least `95%` of the
-current best common-window model. To enforce strict registry retention for
-unprotected experiment candidates, run:
+current best common-window model. To enforce final registry retention, run:
 
 ```bash
 PYTHONPATH=. qlib_venv/bin/python scripts/review_model_retention_gates.py --apply-registry-retention
 ```
 
-This only changes registry metadata: failed candidate/ablation rows become
+This only changes registry metadata: every failed `keep_actor=true` row becomes
 `keep_actor=false`, `keep_summary=true`, with a `wf_status=blocked` note. It
-does not delete actor files, and it preserves canonical/archived runtime or
-rollback entries as protected exceptions that remain visible in the audit.
+does not delete actor files. The final retained executable actor set should be
+empty unless a model passes the complete walk-forward, drawdown, SOXLBacktest
+reference-return, and best-model alignment gates.
 
 Qlib daily backtests need a following calendar boundary, so replay curves target
 `safe_backtest_end` (usually the penultimate qlib calendar date). Paper trading

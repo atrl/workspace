@@ -3,8 +3,9 @@ from __future__ import annotations
 """Retention gate review for replayable SOXL models.
 
 The gate is intentionally stricter than the historical runtime-protection
-registry: a model can remain protected for production reasons while still being
-reported as not promotable under the current walk-forward/drawdown objective.
+registry: executable actor retention is allowed only when the model satisfies
+the current walk-forward/drawdown/return objective. Failed actors are downgraded
+to summary-only evidence; actor files are not deleted by this review.
 """
 
 import json
@@ -30,7 +31,6 @@ REGISTRY_PATH = "runtime/harness/card/registry/profile.yaml"
 YTD_WINDOW = "ytd_2026_common"
 RETURN_COLUMNS = ("model_return_pct", "current_model_return_pct")
 MAX_DRAWDOWN_COLUMNS = ("current_model_max_drawdown_pct", "model_max_drawdown_pct")
-RETENTION_PROTECTED_STATUSES = {"canonical", "archived", "archive"}
 
 
 @dataclass(frozen=True)
@@ -335,9 +335,6 @@ def scan_model_retention_gates(
     ]
     registry_retention_plan = plan_registry_retention_updates(registry_payload or {}, {"registry_keep_actor_audit": registry_keep_actor_audit})
     registry_disable_plan = [row for row in registry_retention_plan if row["action"] == "disable_keep_actor"]
-    registry_protected_exceptions = [
-        row for row in registry_retention_plan if row["action"] == "protect_existing_runtime_retention"
-    ]
     return {
         "summary": {
             "generated_at": datetime.now(timezone.utc).isoformat(),
@@ -347,7 +344,7 @@ def scan_model_retention_gates(
             "registry_keep_actor_count": len(registry_keep_actor_audit),
             "registry_keep_actor_strict_violation_count": len(registry_keep_actor_violations),
             "registry_keep_actor_disable_count": len(registry_disable_plan),
-            "registry_keep_actor_protected_exception_count": len(registry_protected_exceptions),
+            "registry_keep_actor_protected_exception_count": 0,
             "registry_keep_actor_strict_violations": sorted(
                 row["profile"] for row in registry_keep_actor_violations
             ),
@@ -395,18 +392,16 @@ def _normalized_failures(value: Any) -> list[str]:
 def plan_registry_retention_updates(
     registry_payload: dict[str, Any],
     gate_result: dict[str, Any],
-    *,
-    protected_statuses: set[str] | None = None,
 ) -> list[dict[str, Any]]:
     """Plan registry keep_actor updates from the strict retention gate.
 
-    The plan is intentionally conservative: canonical and archived rows can
-    remain protected for runtime or rollback reasons, while ordinary candidate
-    and ablation actors are downgraded to summary-only when they fail the strict
-    walk-forward/drawdown/return gate.
+    The plan is intentionally strict: every failed `keep_actor` row is
+    downgraded to summary-only when it fails the walk-forward/drawdown/return
+    gate, regardless of lifecycle status. This keeps rollback evidence while
+    preventing old protected statuses from masquerading as final retained
+    executable models.
     """
 
-    protected = protected_statuses or RETENTION_PROTECTED_STATUSES
     entries = registry_payload.get("profiles", [])
     if not isinstance(entries, list):
         raise ValueError("registry payload must contain profiles list")
@@ -424,8 +419,6 @@ def plan_registry_retention_updates(
         strict_allowed = bool(audit.get("strict_retention_allowed", False))
         if strict_allowed:
             action = "keep_actor_allowed"
-        elif status in protected:
-            action = "protect_existing_runtime_retention"
         else:
             action = "disable_keep_actor"
         plan.append(
@@ -445,7 +438,7 @@ def apply_registry_retention_updates(
     registry_payload: dict[str, Any],
     plan: Iterable[dict[str, Any]],
 ) -> tuple[dict[str, Any], list[str]]:
-    """Apply non-protected strict-retention failures to a registry payload."""
+    """Apply strict-retention failures to a registry payload."""
 
     disable_by_profile = {
         str(row.get("profile")): row
@@ -529,8 +522,8 @@ def write_retention_gate_outputs(result: dict[str, Any], *, output_dir: Path) ->
         f"- Walk-forward requirement: windows `{', '.join(summary['required_wf_windows'])}` all present and MaxDD strictly below `{summary['max_walkforward_drawdown_pct']:.2f}%`.",
         f"- Passing promotable profiles: `{', '.join(passing) if passing else 'none'}`.",
         f"- Registry keep_actor entries: `{summary.get('registry_keep_actor_count', 0)}`; keep_actor strict violations: `{summary.get('registry_keep_actor_strict_violation_count', 0)}`.",
-        f"- Registry actor disable plan: `{summary.get('registry_keep_actor_disable_count', 0)}`; protected runtime/rollback exceptions: `{summary.get('registry_keep_actor_protected_exception_count', 0)}`.",
+        f"- Registry actor disable plan: `{summary.get('registry_keep_actor_disable_count', 0)}`; protected exceptions: `0`.",
         "",
-        "This card is a retention/promotion audit. Applying the registry plan only downgrades unprotected candidate/ablation actors to summary-only; it does not delete actor files or override protected production/rollback entries.",
+        "This card is a retention/promotion audit. Applying the registry plan downgrades every failed executable actor to summary-only evidence; it does not delete actor files.",
     ]
     (output_dir / "conclusion.md").write_text("\n".join(conclusion) + "\n", encoding="utf-8")

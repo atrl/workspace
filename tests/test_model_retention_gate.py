@@ -223,7 +223,7 @@ def _run_write_retention_gate_outputs_includes_registry_keep_actor_audit(tmp_pat
     assert "Registry actor disable plan: `1`" in (output / "conclusion.md").read_text(encoding="utf-8")
 
 
-def test_plan_registry_retention_updates_disables_only_unprotected_failed_candidates():
+def test_plan_registry_retention_updates_disables_all_failed_keep_actor_entries():
     from src.soxl_quant.app.model_retention_gate import plan_registry_retention_updates
 
     registry_payload = {
@@ -277,8 +277,8 @@ def test_plan_registry_retention_updates_disables_only_unprotected_failed_candid
     assert by_profile["passing_candidate"]["action"] == "keep_actor_allowed"
     assert by_profile["failed_candidate"]["action"] == "disable_keep_actor"
     assert by_profile["failed_ablation"]["action"] == "disable_keep_actor"
-    assert by_profile["canonical_runtime"]["action"] == "protect_existing_runtime_retention"
-    assert by_profile["archived_rollback"]["action"] == "protect_existing_runtime_retention"
+    assert by_profile["canonical_runtime"]["action"] == "disable_keep_actor"
+    assert by_profile["archived_rollback"]["action"] == "disable_keep_actor"
     assert "summary_only" not in by_profile
 
 
@@ -299,7 +299,7 @@ def test_apply_registry_retention_updates_marks_failed_candidates_summary_only()
         },
         {
             "profile": "canonical_runtime",
-            "action": "protect_existing_runtime_retention",
+            "action": "disable_keep_actor",
             "failures": ["wf_max_drawdown_ge_20:wf_2022"],
         },
     ]
@@ -307,12 +307,14 @@ def test_apply_registry_retention_updates_marks_failed_candidates_summary_only()
     updated, changed = apply_registry_retention_updates(registry_payload, plan)
     by_name = {row["name"]: row for row in updated["profiles"]}
 
-    assert changed == ["failed_candidate"]
+    assert changed == ["failed_candidate", "canonical_runtime"]
     assert by_name["failed_candidate"]["keep_actor"] is False
     assert by_name["failed_candidate"]["keep_summary"] is True
     assert by_name["failed_candidate"]["wf_status"] == "blocked"
     assert "wf_max_drawdown_ge_20:wf_2022" in by_name["failed_candidate"]["wf_notes"]
-    assert by_name["canonical_runtime"]["keep_actor"] is True
+    assert by_name["canonical_runtime"]["keep_actor"] is False
+    assert by_name["canonical_runtime"]["keep_summary"] is True
+    assert by_name["canonical_runtime"]["wf_status"] == "blocked"
 
 
 def test_write_registry_retention_updates_persists_summary_only_registry_metadata():
@@ -347,12 +349,12 @@ def _run_write_registry_retention_updates_persists_summary_only_registry_metadat
                 "profile": "failed_candidate",
                 "action": "disable_keep_actor",
                 "failures": ["wf_max_drawdown_ge_20:wf_2022"],
-            },
-            {
-                "profile": "canonical_runtime",
-                "action": "protect_existing_runtime_retention",
-                "failures": ["wf_max_drawdown_ge_20:wf_2022"],
-            },
+        },
+        {
+            "profile": "canonical_runtime",
+            "action": "disable_keep_actor",
+            "failures": ["wf_max_drawdown_ge_20:wf_2022"],
+        },
         ]
     }
 
@@ -360,8 +362,8 @@ def _run_write_registry_retention_updates_persists_summary_only_registry_metadat
     payload = yaml.safe_load(registry_path.read_text(encoding="utf-8"))
     by_name = {row["name"]: row for row in payload["profiles"]}
 
-    assert changed == ["failed_candidate"]
+    assert changed == ["failed_candidate", "canonical_runtime"]
     assert actor_path.exists()
     assert by_name["failed_candidate"]["keep_actor"] is False
     assert by_name["failed_candidate"]["keep_summary"] is True
-    assert by_name["canonical_runtime"]["keep_actor"] is True
+    assert by_name["canonical_runtime"]["keep_actor"] is False

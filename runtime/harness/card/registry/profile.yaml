@@ -10,9 +10,12 @@ profiles:
   family: balanced
   status: archived
   baseline: balanced
-  keep_actor: true
+  keep_actor: false
   keep_summary: true
   notes_ref: experiments/canonical/balanced/notes.md
+  wf_status: blocked
+  wf_notes: 'Strict retention gate blocked executable actor retention; kept summary
+    evidence only. Failures: missing_replay_evidence'
 - name: balanced_macro_v1
   family: balanced
   status: candidate
@@ -34,9 +37,12 @@ profiles:
   family: balanced
   status: archived
   baseline: balanced
-  keep_actor: true
+  keep_actor: false
   keep_summary: true
   notes_ref: experiments/archive/balanced_checkpoint_review/notes.md
+  wf_status: blocked
+  wf_notes: 'Strict retention gate blocked executable actor retention; kept summary
+    evidence only. Failures: missing_replay_evidence'
 - name: balanced_decision_freq_quick
   family: balanced
   status: ablation
@@ -244,13 +250,13 @@ profiles:
   family: balanced
   status: archived
   baseline: balanced_rule_residual_v16
-  keep_actor: true
+  keep_actor: false
   keep_summary: true
   notes_ref: runtime/model/cards/balanced_rule_residual_v19/v19_walk_forward_review.md
-  wf_status: completed
-  wf_notes: Former production canonical and rollback actor. Corrected walk-forward
-    remains promoted, but runtime selection now prefers balanced_rule_residual_v22
-    after complete walk-forward selection scoring and post-release-cap overlay approval.
+  wf_status: blocked
+  wf_notes: 'Former production canonical and rollback evidence is retained as summary
+    evidence only. Strict retention gate blocked executable actor retention. Failures:
+    missing_replay_evidence'
 - name: balanced_sac_quick
   family: balanced
   status: ablation
@@ -269,9 +275,12 @@ profiles:
   family: smoke
   status: canonical
   baseline: smoke
-  keep_actor: true
+  keep_actor: false
   keep_summary: true
   notes_ref: experiments/canonical/smoke/notes.md
+  wf_status: blocked
+  wf_notes: 'Strict retention gate blocked executable actor retention; kept summary
+    evidence only. Failures: missing_replay_evidence'
 - name: smoke_action5
   family: smoke
   status: archived
@@ -395,30 +404,33 @@ profiles:
   family: balanced
   status: archived
   baseline: balanced_rule_residual_v16
-  keep_actor: true
+  keep_actor: false
   keep_summary: true
   notes_ref: experiments/archive/balanced_rule_residual_v20/notes.md
+  wf_status: blocked
+  wf_notes: 'Strict retention gate blocked executable actor retention; kept summary
+    evidence only. Failures: missing_replay_evidence'
 - name: balanced_rule_residual_v21
   family: balanced
   status: archived
   baseline: balanced_rule_residual_v19
-  keep_actor: true
+  keep_actor: false
   keep_summary: true
   notes_ref: experiments/archive/balanced_rule_residual_v21/notes.md
+  wf_status: blocked
+  wf_notes: 'Strict retention gate blocked executable actor retention; kept summary
+    evidence only. Failures: missing_replay_evidence'
 - name: balanced_rule_residual_v22
   family: balanced
   status: canonical
   baseline: balanced_rule_residual_v19
-  keep_actor: true
+  keep_actor: false
   keep_summary: true
   notes_ref: runtime/model/card/balanced_rule_residual_v22/v22_corrected_runtime_selection_review.md
-  wf_status: completed
-  wf_notes: Corrected main-backtest WF evidence persisted. wf_2020 +136.65% Sharpe
-    2.16 MaxDD 20.16% relative +76.87pp; wf_2022 -48.40% Sharpe -1.24 MaxDD 54.67%
-    relative +38.18pp; wf_2023_2024 +50.98% Sharpe 1.01 MaxDD 30.55% relative +53.58pp.
-    Model promotion gate passes; complete walk-forward runtime selection score 64.88
-    now beats v19 46.17, and profile overlay auto_select_allowed=true approves selective_release_recovery_post_release_cap_v1
-    for scheduled selection.
+  wf_status: blocked
+  wf_notes: 'Historical corrected WF evidence is retained as summary evidence only.
+    Strict retention gate blocked executable actor retention under the current complete
+    WF/DD/SOXLBacktest/best-alignment requirement. Failures: missing_replay_evidence'
 - name: balanced_rule_residual_v22_release_v1
   family: balanced
   status: ablation
