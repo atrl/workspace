@@ -1,0 +1,76 @@
+{
+  "experiment": "release16_state_head_revision_handoff_v1",
+  "created_at": "2026-06-14T23:32:02.304169+00:00",
+  "role": "diagnose_target_objective_revision",
+  "canonical_baseline": "soxlbacktest_policy_reimplementation_v1",
+  "direct_comparison_baseline": "release16_failedfold_state_head_checkpoint_bc_screen_v1",
+  "source_card": "release16_failedfold_state_head_checkpoint_bc_screen_v1",
+  "reference_baseline": "soxlbacktest_qlib_walkforward_baseline_v1:wf_pass_ytd18_15_15_02",
+  "decision": "state_head_revision_handoff_no_training_no_actor_retention",
+  "promotion_allowed": false,
+  "actor_retention_allowed": false,
+  "training_allowed_from_this_card": false,
+  "target_revision_ready": false,
+  "next_training_allowed_after_target_revision": false,
+  "next_mechanism": "build_risk_gated_state_head_target_or_drawdown_drift_checkpoint_objective_then_rerun_official_three_fold_replay",
+  "changed_layer": [
+    "model_selection",
+    "target_revision",
+    "checkpoint_objective"
+  ],
+  "target_relative_return_pp": 30.0,
+  "target_max_dd_pct": 20.0,
+  "strict_max_dd_context_pct": 15.0,
+  "failed_folds": [
+    "wf_2020",
+    "wf_2023_2024"
+  ],
+  "metric_gate_pass_count": 1,
+  "strict_gate_pass_count": 0,
+  "bc_slice_gate_count": 0,
+  "worst_wf_max_drawdown_pct": 30.559989,
+  "min_wf_relative_return_pp": -16.012653,
+  "worst_relative_fold": "wf_2023_2024",
+  "worst_drawdown_fold": "wf_2023_2024",
+  "primary_blocker": "walkforward_relative_return_gap",
+  "metrics": [
+    {
+      "window": "wf_2020",
+      "split_type": "walk_forward_test",
+      "return_pct": 85.93430160250661,
+      "relative_return_pct": 27.840730986022617,
+      "max_dd_pct": 26.374298542028697,
+      "avg_pos": 0.4764053447903945
+    },
+    {
+      "window": "wf_2022",
+      "split_type": "walk_forward_test",
+      "return_pct": -14.224764360523212,
+      "relative_return_pct": 72.36330737187106,
+      "max_dd_pct": 15.487774149897104,
+      "avg_pos": 0.0876144891096805
+    },
+    {
+      "window": "wf_2023_2024",
+      "split_type": "walk_forward_test",
+      "return_pct": -16.36928777833937,
+      "relative_return_pct": -16.012653048650925,
+      "max_dd_pct": 30.55998911589769,
+      "avg_pos": 0.3091185570787547
+    }
+  ],
+  "conclusion": [
+    "State-head screen passes 0/3 candidate gates and 1/3 headline 20% drawdown gates; no actor retention.",
+    "wf_2020 nearly reaches the relative-return target (27.84pp) but MaxDD is 26.37%.",
+    "wf_2023_2024 is the worst fold: relative -16.01pp and MaxDD 30.56%.",
+    "Next step is target/model-objective revision with explicit drawdown-drift control, not longer PPO or actor retention."
+  ],
+  "sidecars": [
+    "fold_failure_matrix.csv",
+    "bc_slice_gate_focus.csv",
+    "revision_recipe.csv",
+    "selection.json",
+    "summary.json"
+  ],
+  "selected_next_action": "build_risk_gated_state_head_target_or_drawdown_drift_checkpoint_objective_then_rerun_official_three_fold_replay"
+}

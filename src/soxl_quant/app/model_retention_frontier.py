@@ -37,6 +37,8 @@ SOURCE_REFERENCE_FIELDS = {
     "source_failed_fold_experiment",
     "source_guard_experiment",
     "source_handoff_decision",
+    "source_path",
+    "source_paths",
     "source_reward_decision",
     "source_selection",
     "source_target_contract",
@@ -44,6 +46,13 @@ SOURCE_REFERENCE_FIELDS = {
     "source_target_experiment",
     "source_target_selection",
 }
+HANDOFF_ACTION_CONTAINER_FIELDS = {
+    "handoff",
+    "objective_handoff",
+    "training_handoff",
+    "training_objective_handoff",
+}
+HANDOFF_ACTION_VALUE_FIELDS = {"action", "decision", "next_action", "next_mechanism"}
 
 
 def _load_json(path: Path) -> dict[str, Any]:
@@ -90,7 +99,9 @@ def _coerce_text_values(value: Any) -> list[str]:
 
 
 def _is_source_reference_key(key: str) -> bool:
-    return key in SOURCE_REFERENCE_FIELDS or (key.startswith("source_") and key.endswith("_experiment"))
+    return key in SOURCE_REFERENCE_FIELDS or (
+        key.startswith("source_") and (key.endswith("_experiment") or key.endswith("_diagnostic"))
+    )
 
 
 def _source_reference_text_values(value: Any, *, key: str | None = None) -> list[str]:
@@ -125,9 +136,41 @@ def _source_references(payload: dict[str, Any], known_experiments: set[str]) -> 
     return sorted(references)
 
 
+def _handoff_action_text_values(payload: dict[str, Any]) -> list[str]:
+    summary = _summary_payload(payload)
+    selection = _selection_payload(summary)
+    containers = [payload]
+    if summary is not payload:
+        containers.append(summary)
+    if selection not in containers:
+        containers.append(selection)
+
+    values: set[str] = set()
+    for container in containers:
+        if not isinstance(container, dict):
+            continue
+        for key in HANDOFF_ACTION_CONTAINER_FIELDS:
+            handoff = container.get(key)
+            handoffs = handoff if isinstance(handoff, list | tuple | set) else [handoff]
+            for item in handoffs:
+                if not isinstance(item, dict):
+                    continue
+                for value_key in HANDOFF_ACTION_VALUE_FIELDS:
+                    for value in _coerce_text_values(item.get(value_key)):
+                        text = value.strip()
+                        if text:
+                            values.add(text)
+    return sorted(values)
+
+
+def _allows_handoff_action_completion(row: dict[str, Any]) -> bool:
+    decision = str(row.get("decision") or "").lower()
+    return "handoff" in decision
+
+
 def _sidecar_manifest_references(card_dir: Path, known_experiments: set[str]) -> list[str]:
     references: set[str] = set()
-    paths = sorted({*card_dir.glob("*manifest*.csv"), *card_dir.glob("*frontier*.csv")})
+    paths = sorted({*card_dir.glob("*manifest*.csv"), *card_dir.glob("*candidate_frontier.csv")})
     for path in paths:
         try:
             frame = pd.read_csv(path)
@@ -439,6 +482,7 @@ def scan_model_retention_frontier(*, root: Path, card_names: Iterable[str] | Non
     )
     known_experiments = {_experiment_name(path, payload) for path, payload in payloads}
     downstream_by_source: dict[str, list[str]] = {}
+    downstream_by_handoff_action: dict[str, list[str]] = {}
     downstream_payloads: list[tuple[Path, dict[str, Any]]] = []
     for downstream_root in DOWNSTREAM_CARD_ROOTS:
         downstream_payloads.extend(
@@ -456,12 +500,26 @@ def scan_model_retention_frontier(*, root: Path, card_names: Iterable[str] | Non
         for source in sorted(sources):
             if source != downstream:
                 downstream_by_source.setdefault(source, []).append(downstream)
+        for action in _handoff_action_text_values(payload):
+            downstream_by_handoff_action.setdefault(action, []).append(downstream)
 
     rows: list[dict[str, Any]] = []
     for path, payload in payloads:
         try:
             row = _row_from_summary(path.relative_to(root), payload, gate_summary)
             completed_by = sorted(set(downstream_by_source.get(str(row["experiment"]), [])))
+            next_action = str(row.get("next_action") or "").strip()
+            if next_action and _allows_handoff_action_completion(row):
+                completed_by = sorted(
+                    {
+                        *completed_by,
+                        *(
+                            downstream
+                            for downstream in downstream_by_handoff_action.get(next_action, [])
+                            if downstream != str(row["experiment"])
+                        ),
+                    }
+                )
             if completed_by:
                 row["handoff_completed_by"] = _string_list(completed_by)
                 if not bool(row["promotion_allowed"]):

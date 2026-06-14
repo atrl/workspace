@@ -7,12 +7,12 @@
     "wf_2020",
     "wf_2023_2024"
   ],
-  "recommended_min_wf_relative_return_pp": -0.43,
-  "recommended_next_action": "diagnose_remaining_rulebase_reversal_failed_folds_before_full_retention_training",
-  "recommended_next_source": "release16_rulebase_reversal_drawdown_upside_checkpoint_metric_replay_v1",
+  "recommended_min_wf_relative_return_pp": -16.01,
+  "recommended_next_action": "build_risk_gated_state_head_target_or_drawdown_drift_checkpoint_objective_then_rerun_official_three_fold_replay",
+  "recommended_next_source": "release16_state_head_revision_handoff_v1",
   "recommended_primary_blocker": "walkforward_relative_return_gap",
-  "recommended_relative_gap_to_target_pp": 30.43,
-  "recommended_worst_wf_max_drawdown_pct": 19.33,
+  "recommended_relative_gap_to_target_pp": 46.01,
+  "recommended_worst_wf_max_drawdown_pct": 30.56,
   "required_controls_before_training": [
     "Use official daily-path metrics as the selection basis, not raw backtest metrics.",
     "Diagnose wf_2020 and wf_2023_2024 relative-return gaps before launching a full retained actor run.",
