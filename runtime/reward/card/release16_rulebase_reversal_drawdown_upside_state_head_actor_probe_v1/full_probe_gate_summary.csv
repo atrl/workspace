@@ -1,0 +1,19 @@
+gate,scope,actual,operator,limit,passed,note
+fixed_test_max_drawdown,fixed_test_2020_2026,25.329679974531977,<,20.0,False,User hard drawdown gate.
+fixed_promotion_eligible,fixed_plus_wf,False,==,True,False,Repo promotion bundle must pass.
+actor_retention_allowed,retention,False,==,True,False,No actor may be retained if strict retention rejects it.
+ytd_return_vs_soxlbacktest_reference,ytd_2026_daily_replay,38.555494067096085,>=,132.077978,False,SOXLBacktest qlib reference baseline.
+ytd_return_vs_current_best_floor,ytd_2026_daily_replay,38.555494067096085,>=,213.143462,False,Current-best alignment floor from retention audit.
+ytd_max_drawdown,ytd_2026_daily_replay,9.559552575516284,<,20.0,True,YTD drawdown sanity check.
+wf_2020_return_nonnegative,wf_2020,35.37474397513867,>=,0.0,True,Fold return must not be negative.
+wf_2020_max_drawdown,wf_2020,19.260466079246555,<,20.0,True,Walk-forward drawdown hard gate.
+wf_2020_relative_outperformance,wf_2020,-297.95860348251836,>=,30.0,False,Relative return floor from handoff validation list.
+wf_2020_sharpe_nonnegative,wf_2020,1.2782244021364517,>=,0.0,True,Fold Sharpe must not be negative.
+wf_2022_return_nonnegative,wf_2022,-16.46715765133857,>=,0.0,False,Fold return must not be negative.
+wf_2022_max_drawdown,wf_2022,18.149535085492122,<,20.0,True,Walk-forward drawdown hard gate.
+wf_2022_relative_outperformance,wf_2022,62.10599837375227,>=,30.0,True,Relative return floor from handoff validation list.
+wf_2022_sharpe_nonnegative,wf_2022,-1.0799698010267638,>=,0.0,False,Fold Sharpe must not be negative.
+wf_2023_2024_return_nonnegative,wf_2023_2024,-7.690928791789997,>=,0.0,False,Fold return must not be negative.
+wf_2023_2024_max_drawdown,wf_2023_2024,20.914378220126107,<,20.0,False,Walk-forward drawdown hard gate.
+wf_2023_2024_relative_outperformance,wf_2023_2024,28.500772663255116,>=,30.0,False,Relative return floor from handoff validation list.
+wf_2023_2024_sharpe_nonnegative,wf_2023_2024,-0.3084881799673175,>=,0.0,False,Fold Sharpe must not be negative.

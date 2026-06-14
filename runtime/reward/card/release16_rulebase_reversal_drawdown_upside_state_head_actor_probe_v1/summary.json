@@ -1,0 +1,81 @@
+{
+  "experiment": "release16_rulebase_reversal_drawdown_upside_state_head_actor_probe_v1",
+  "created_at": "2026-06-14T18:21:26.571537+00:00",
+  "decision": "full_probe_failed_no_actor_retention",
+  "promotion_allowed": false,
+  "actor_retention_allowed": false,
+  "seed": 20260615,
+  "command": "PYTHONPATH=. /Users/rziiiii/dev/workspace/qlib_venv/bin/python -m src.soxl_quant.cli --profiles release16_rulebase_reversal_drawdown_upside_state_head_actor_probe_v1 --walk-forward --skip-data-refresh --seed 20260615",
+  "fixed_test": {
+    "return_pct": 291.03488641953004,
+    "sharpe": 1.0545205667232205,
+    "max_drawdown_pct": 25.329679974531977,
+    "relative_return_pp": -2740.4818046469063
+  },
+  "ytd_2026_daily_replay": {
+    "start": "2026-01-02",
+    "end": "2026-06-09",
+    "rows": 109,
+    "return_pct": 38.555494067096085,
+    "buyhold_return_pct": 326.92630294234766,
+    "relative_return_pp": -288.37080887525156,
+    "max_drawdown_pct": 9.559552575516284,
+    "soxlbacktest_reference_return_pct": 132.077978,
+    "current_best_required_return_pct": 213.143462
+  },
+  "walk_forward": {
+    "wf_2020": {
+      "return_pct": 35.37474397513867,
+      "sharpe": 1.2782244021364517,
+      "max_drawdown_pct": 19.260466079246555,
+      "relative_return_pp": -297.95860348251836,
+      "trades": 33
+    },
+    "wf_2022": {
+      "return_pct": -16.46715765133857,
+      "sharpe": -1.0799698010267638,
+      "max_drawdown_pct": 18.149535085492122,
+      "relative_return_pp": 62.10599837375227,
+      "trades": 28
+    },
+    "wf_2023_2024": {
+      "return_pct": -7.690928791789997,
+      "sharpe": -0.3084881799673175,
+      "max_drawdown_pct": 20.914378220126107,
+      "relative_return_pp": 28.500772663255116,
+      "trades": 34
+    }
+  },
+  "failed_gates": [
+    "fixed_test_max_drawdown",
+    "fixed_promotion_eligible",
+    "actor_retention_allowed",
+    "ytd_return_vs_soxlbacktest_reference",
+    "ytd_return_vs_current_best_floor",
+    "wf_2020_relative_outperformance",
+    "wf_2022_return_nonnegative",
+    "wf_2022_sharpe_nonnegative",
+    "wf_2023_2024_return_nonnegative",
+    "wf_2023_2024_max_drawdown",
+    "wf_2023_2024_relative_outperformance",
+    "wf_2023_2024_sharpe_nonnegative"
+  ],
+  "sidecars": [
+    "full_probe_gate_summary.csv",
+    "summary.json",
+    "conclusion.md"
+  ],
+  "evidence_inputs": {
+    "fixed_summary": "runtime/model/card/release16_rulebase_reversal_drawdown_upside_state_head_actor_probe_v1/soxl_release16_rulebase_reversal_drawdown_upside_state_head_actor_probe_v1_summary.json",
+    "daily_replay": "runtime/model/card/release16_rulebase_reversal_drawdown_upside_state_head_actor_probe_v1/release16_rulebase_reversal_drawdown_upside_state_head_actor_probe_v1_soxl_daily.csv",
+    "wf_workers": {
+      "wf_2020": "runtime/soxl/wf_workers/release16_rulebase_reversal_drawdown_upside_state_head_actor_probe_v1-wf_2020-seed20260615.json",
+      "wf_2022": "runtime/soxl/wf_workers/release16_rulebase_reversal_drawdown_upside_state_head_actor_probe_v1-wf_2022-seed20260615.json",
+      "wf_2023_2024": "runtime/soxl/wf_workers/release16_rulebase_reversal_drawdown_upside_state_head_actor_probe_v1-wf_2023_2024-seed20260615.json"
+    }
+  },
+  "checkpoint_retention": {
+    "generated_actor_paths_removed": true,
+    "reason": "promotion blocked and actor_retention.final_retention_allowed=false"
+  }
+}

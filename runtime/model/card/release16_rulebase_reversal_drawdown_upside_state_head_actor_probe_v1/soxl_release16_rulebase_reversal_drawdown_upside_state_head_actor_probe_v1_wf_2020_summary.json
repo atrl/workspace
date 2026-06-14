@@ -1,0 +1,247 @@
+{
+  "profile": "release16_rulebase_reversal_drawdown_upside_state_head_actor_probe_v1",
+  "seed": 20260615,
+  "feature_schema": {
+    "signature": "f0f670da1d41",
+    "feature_count": 73,
+    "extra_obs_dim": 15,
+    "n_assets": 5
+  },
+  "position_cap": {
+    "start_drawdown": 0.1,
+    "full_drawdown": 0.3,
+    "min_cap": 0.38,
+    "curve_power": 1.0,
+    "bull_min_cap": 0.68,
+    "bull_vol_threshold": 0.42,
+    "bull_anchor_threshold": 0.02,
+    "bear_min_cap": 0.25,
+    "bear_regime_threshold": 0.68
+  },
+  "position_budget": {
+    "enabled": false,
+    "budget": 0.3,
+    "regime_threshold": 0.6,
+    "thresholds": [
+      [
+        0.0,
+        0.3,
+        1.0
+      ],
+      [
+        0.3,
+        0.6,
+        0.7
+      ],
+      [
+        0.6,
+        0.9,
+        0.45
+      ],
+      [
+        0.9,
+        Infinity,
+        0.15
+      ]
+    ]
+  },
+  "selection_score": {
+    "return_weight": 1.0,
+    "sharpe_weight": 20.0,
+    "max_dd_penalty": 0.38,
+    "avg_pos_penalty": 0.0,
+    "stress_avg_pos_penalty": 5.0,
+    "stress_threshold": 0.55,
+    "staged_training": true,
+    "stage_iters": 4
+  },
+  "checkpoint_retention": {
+    "enabled": true,
+    "keep_stage": true,
+    "keep_top_n": 2
+  },
+  "model_config": {
+    "observation_window": 5,
+    "action_levels": [
+      0.0,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7,
+      0.8,
+      0.9,
+      1.0
+    ],
+    "use_hybrid_overlay": true,
+    "delta_levels": [
+      -0.1,
+      -0.05,
+      0.0,
+      0.05,
+      0.1
+    ],
+    "hard_floor": 0.2,
+    "use_regime_router": false,
+    "hard_regime_routing": false,
+    "router_experts": 3,
+    "router_top_k": 1,
+    "router_noise_std": 0.1,
+    "use_temporal_conv": false,
+    "temporal_conv_channels": 32,
+    "temporal_conv_kernel": 3,
+    "use_gru": true,
+    "gru_hidden_size": 64,
+    "use_attention": false,
+    "attention_dim": 64,
+    "attention_heads": 4
+  },
+  "sampling_config": {
+    "regime_stratified": true,
+    "phase_balanced": true,
+    "mild_risk_threshold": 0.42,
+    "severe_risk_threshold": 0.58,
+    "mild_drawdown_threshold": 0.1,
+    "severe_drawdown_threshold": 0.18,
+    "mild_repeat": 2,
+    "severe_repeat": 2,
+    "persistent_stress_days": 0.3,
+    "trend_repeat": 3,
+    "rebound_repeat": 3,
+    "episode_stride": 21,
+    "bull_anchor_threshold": 0.04,
+    "bull_trend_threshold": 0.02,
+    "bull_vol_threshold": 0.45,
+    "bull_risk_threshold": 0.45,
+    "rebound_anchor_ceiling": -0.02,
+    "rebound_trend_floor": 0.01,
+    "rebound_risk_ceiling": 0.6,
+    "rebound_risk_release": 0.06
+  },
+  "warm_start": {
+    "enabled": false,
+    "steps": 500,
+    "lr": 0.0005,
+    "batch_size": 128,
+    "sample_size": 2000
+  },
+  "model_path": "/Users/rziiiii/dev/workspace/.worktrees/dashboard-v2-model-features-fix/runtime/model/card/release16_rulebase_reversal_drawdown_upside_state_head_actor_probe_v1/soxl_release16_rulebase_reversal_drawdown_upside_state_head_actor_probe_v1_wf_2020_actor.pt",
+  "actor_retention": {
+    "decision": "candidate_for_walkforward",
+    "reason": "walk_forward_gate_not_evaluated",
+    "final_retention_allowed": false,
+    "walk_forward_evaluated": false,
+    "promotion_eligible": false,
+    "strict_retention_required": true,
+    "strict_retention_gate_evaluated": false,
+    "strict_retention_gate_passed": false,
+    "strict_retention_source": "runtime/model_selection/card/model_retention_walkforward_gate_v1",
+    "candidate_actor_path": "/Users/rziiiii/dev/workspace/.worktrees/dashboard-v2-model-features-fix/runtime/model/card/release16_rulebase_reversal_drawdown_upside_state_head_actor_probe_v1/soxl_release16_rulebase_reversal_drawdown_upside_state_head_actor_probe_v1_wf_2020_actor.pt",
+    "final_actor_path": null,
+    "retained_checkpoint_count": 0,
+    "blocked_retained_checkpoint_count": 3
+  },
+  "retained_checkpoints": [],
+  "valid": {
+    "return": 13.976924971083404,
+    "sharpe": 0.930648598904651,
+    "max_dd": 15.011077427083128,
+    "avg_pos": 0.23712308473143912,
+    "stress_avg_pos": 0.12844693877595537,
+    "stress_days": 47.0,
+    "buy_and_hold_return": 98.48033593410877,
+    "relative_return": -84.50341096302536
+  },
+  "best_score": 26.243452833005062,
+  "selection_history": [
+    {
+      "iter": 0,
+      "score": 26.243452833005062,
+      "return": 13.976924971083404,
+      "sharpe": 0.930648598904651,
+      "max_dd": 15.011077427083128,
+      "avg_pos": 0.23712308473143912,
+      "stress_avg_pos": 0.12844693877595537,
+      "stress_days": 47.0,
+      "buy_and_hold_return": 98.48033593410877,
+      "relative_return": -84.50341096302536
+    },
+    {
+      "iter": 4,
+      "score": 15.48670214528046,
+      "return": 8.03017943114459,
+      "sharpe": 0.6475180738601685,
+      "max_dd": 13.309654079740898,
+      "avg_pos": 0.19424083769633513,
+      "stress_avg_pos": 0.0872340425531915,
+      "stress_days": 47.0,
+      "buy_and_hold_return": 98.48033593410877,
+      "relative_return": -90.45015650296418
+    },
+    {
+      "iter": 8,
+      "score": 14.788390113491502,
+      "return": 8.015969102066567,
+      "sharpe": 0.6296744032821372,
+      "max_dd": 13.389706133719875,
+      "avg_pos": 0.210890052356021,
+      "stress_avg_pos": 0.14659574468085101,
+      "stress_days": 47.0,
+      "buy_and_hold_return": 98.48033593410877,
+      "relative_return": -90.4643668320422
+    }
+  ],
+  "slices": {
+    "test_2020": {
+      "return": 29.49495853168884,
+      "sharpe": 1.3190496826304874,
+      "max_dd": 18.84649433341164,
+      "avg_pos": 0.24738722650411848,
+      "stress_avg_pos": 0.06736486486486488,
+      "stress_days": 37.0,
+      "buy_and_hold_return": 355.73615972515864,
+      "relative_return": -326.2412011934698
+    }
+  },
+  "test_proxy": {
+    "return": 35.37474397513867,
+    "sharpe": 1.2782244021364517,
+    "max_dd": 19.260466079246555,
+    "avg_pos": 0.20841569697950035,
+    "stress_avg_pos": 0.048716216216216225,
+    "stress_days": 37.0,
+    "buy_and_hold_return": 333.33334745765706,
+    "relative_return": -297.95860348251836
+  },
+  "promotion": {
+    "eligible": false,
+    "fixed_split": {
+      "eligible": false,
+      "checks": {
+        "test_2022_max_dd": {
+          "passed": false,
+          "actual": Infinity,
+          "limit": 30.0
+        },
+        "test_2022_avg_pos": {
+          "passed": false,
+          "actual": Infinity,
+          "limit": 0.35
+        },
+        "test_proxy_sharpe": {
+          "passed": true,
+          "actual": 1.2782244021364517,
+          "limit": 0.9
+        }
+      }
+    },
+    "walk_forward": {
+      "eligible": false,
+      "checks": {},
+      "status": "missing"
+    },
+    "walk_forward_evaluated": false
+  }
+}

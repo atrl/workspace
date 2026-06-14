@@ -1,0 +1,71 @@
+{
+  "return": 35.37474397513867,
+  "sharpe": 1.2782244021364517,
+  "max_dd": 19.260466079246555,
+  "trades": 33,
+  "valid": {
+    "return": 13.976924971083404,
+    "sharpe": 0.930648598904651,
+    "max_dd": 15.011077427083128,
+    "avg_pos": 0.23712308473143912,
+    "stress_avg_pos": 0.12844693877595537,
+    "stress_days": 47.0,
+    "buy_and_hold_return": 98.48033593410877,
+    "relative_return": -84.50341096302536
+  },
+  "slices": {
+    "test_2020": {
+      "return": 29.49495853168884,
+      "sharpe": 1.3190496826304874,
+      "max_dd": 18.84649433341164,
+      "avg_pos": 0.24738722650411848,
+      "stress_avg_pos": 0.06736486486486488,
+      "stress_days": 37.0,
+      "buy_and_hold_return": 355.73615972515864,
+      "relative_return": -326.2412011934698
+    }
+  },
+  "test_proxy": {
+    "return": 35.37474397513867,
+    "sharpe": 1.2782244021364517,
+    "max_dd": 19.260466079246555,
+    "avg_pos": 0.20841569697950035,
+    "stress_avg_pos": 0.048716216216216225,
+    "stress_days": 37.0,
+    "buy_and_hold_return": 333.33334745765706,
+    "relative_return": -297.95860348251836
+  },
+  "promotion": {
+    "eligible": false,
+    "fixed_split": {
+      "eligible": false,
+      "checks": {
+        "test_2022_max_dd": {
+          "passed": false,
+          "actual": Infinity,
+          "limit": 30.0
+        },
+        "test_2022_avg_pos": {
+          "passed": false,
+          "actual": Infinity,
+          "limit": 0.35
+        },
+        "test_proxy_sharpe": {
+          "passed": true,
+          "actual": 1.2782244021364517,
+          "limit": 0.9
+        }
+      }
+    },
+    "walk_forward": {
+      "eligible": false,
+      "checks": {},
+      "status": "missing"
+    },
+    "walk_forward_evaluated": false
+  },
+  "model_path": "/Users/rziiiii/dev/workspace/.worktrees/dashboard-v2-model-features-fix/runtime/model/card/release16_rulebase_reversal_drawdown_upside_state_head_actor_probe_v1/soxl_release16_rulebase_reversal_drawdown_upside_state_head_actor_probe_v1_wf_2020_actor.pt",
+  "summary_path": "/Users/rziiiii/dev/workspace/.worktrees/dashboard-v2-model-features-fix/runtime/model/card/release16_rulebase_reversal_drawdown_upside_state_head_actor_probe_v1/soxl_release16_rulebase_reversal_drawdown_upside_state_head_actor_probe_v1_wf_2020_summary.json",
+  "buy_and_hold_return": 333.33334745765706,
+  "relative_return": -297.95860348251836
+}

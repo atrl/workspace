@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-14T18:06:11.415688+00:00",
+  "generated_at": "2026-06-14T18:22:11.800333+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -2964,6 +2964,54 @@
       "category": "model",
       "suffix": ".json",
       "bytes": 3075
+    },
+    {
+      "path": "runtime/model/card/release16_rulebase_reversal_drawdown_upside_state_head_actor_probe_v1/release16_rulebase_reversal_drawdown_upside_state_head_actor_probe_v1_soxl_daily.csv",
+      "category": "model",
+      "suffix": ".csv",
+      "bytes": 203202
+    },
+    {
+      "path": "runtime/model/card/release16_rulebase_reversal_drawdown_upside_state_head_actor_probe_v1/release16_rulebase_reversal_drawdown_upside_state_head_actor_probe_v1_wf_2020_soxl_daily.csv",
+      "category": "model",
+      "suffix": ".csv",
+      "bytes": 30593
+    },
+    {
+      "path": "runtime/model/card/release16_rulebase_reversal_drawdown_upside_state_head_actor_probe_v1/release16_rulebase_reversal_drawdown_upside_state_head_actor_probe_v1_wf_2022_soxl_daily.csv",
+      "category": "model",
+      "suffix": ".csv",
+      "bytes": 30079
+    },
+    {
+      "path": "runtime/model/card/release16_rulebase_reversal_drawdown_upside_state_head_actor_probe_v1/release16_rulebase_reversal_drawdown_upside_state_head_actor_probe_v1_wf_2023_2024_soxl_daily.csv",
+      "category": "model",
+      "suffix": ".csv",
+      "bytes": 31015
+    },
+    {
+      "path": "runtime/model/card/release16_rulebase_reversal_drawdown_upside_state_head_actor_probe_v1/soxl_release16_rulebase_reversal_drawdown_upside_state_head_actor_probe_v1_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 7717
+    },
+    {
+      "path": "runtime/model/card/release16_rulebase_reversal_drawdown_upside_state_head_actor_probe_v1/soxl_release16_rulebase_reversal_drawdown_upside_state_head_actor_probe_v1_wf_2020_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 6658
+    },
+    {
+      "path": "runtime/model/card/release16_rulebase_reversal_drawdown_upside_state_head_actor_probe_v1/soxl_release16_rulebase_reversal_drawdown_upside_state_head_actor_probe_v1_wf_2022_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 6680
+    },
+    {
+      "path": "runtime/model/card/release16_rulebase_reversal_drawdown_upside_state_head_actor_probe_v1/soxl_release16_rulebase_reversal_drawdown_upside_state_head_actor_probe_v1_wf_2023_2024_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 6645
     },
     {
       "path": "runtime/model/card/risk_budget_usage_v1/risk_budget_usage_v1.md",
@@ -15116,10 +15164,34 @@
       "bytes": 548
     },
     {
+      "path": "runtime/reward/card/release16_rulebase_reversal_drawdown_upside_state_head_actor_probe_v1/conclusion.md",
+      "category": "reward",
+      "suffix": ".md",
+      "bytes": 1056
+    },
+    {
+      "path": "runtime/reward/card/release16_rulebase_reversal_drawdown_upside_state_head_actor_probe_v1/full_probe_gate_summary.csv",
+      "category": "reward",
+      "suffix": ".csv",
+      "bytes": 2026
+    },
+    {
+      "path": "runtime/reward/card/release16_rulebase_reversal_drawdown_upside_state_head_actor_probe_v1/full_probe_metrics.csv",
+      "category": "reward",
+      "suffix": ".csv",
+      "bytes": 521
+    },
+    {
       "path": "runtime/reward/card/release16_rulebase_reversal_drawdown_upside_state_head_actor_probe_v1/notes.md",
       "category": "reward",
       "suffix": ".md",
-      "bytes": 1417
+      "bytes": 2573
+    },
+    {
+      "path": "runtime/reward/card/release16_rulebase_reversal_drawdown_upside_state_head_actor_probe_v1/summary.json",
+      "category": "reward",
+      "suffix": ".json",
+      "bytes": 3353
     },
     {
       "path": "runtime/reward/card/sequence_risk_reward_feature_screen_v1/reward_penalty_grid.csv",
