@@ -1,0 +1,11 @@
+{
+  "drawdown_drift_penalty": 1.5,
+  "drawdown_drift_position_threshold": 0.15,
+  "drawdown_drift_reward_enabled": true,
+  "drawdown_drift_threshold_pct": 18.0,
+  "trend_preservation_floor_enabled": true,
+  "trend_preservation_floor_penalty": 1.0,
+  "trend_preservation_floor_position": 0.25,
+  "trend_preservation_lookback": 21,
+  "trend_preservation_min_buyhold_return_pct": 5.0
+}

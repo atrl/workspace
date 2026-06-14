@@ -1,0 +1,43 @@
+{
+  "actor_retention_allowed": false,
+  "canonical_baseline": "soxlbacktest_policy_reimplementation_v1",
+  "changed_layer": [
+    "reward",
+    "checkpoint_selection",
+    "model_selection"
+  ],
+  "checkpoint_reference_candidate": "release64_cb99_obj020",
+  "checkpoint_screen_decision": "reward_checkpoint_screen_no_promotion",
+  "created_at": "2026-06-14T22:08:48.285579+00:00",
+  "direct_comparison_baseline": [
+    "release16_checkpoint_distillation_bc_repair_screen_v1",
+    "release16_release_gate_bc_official_replay_v1"
+  ],
+  "experiment": "release16_drawdown_drift_trend_reward_checkpoint_screen_v1",
+  "next_mechanism": "short_foldlocal_bc_or_ppo_training_screen",
+  "promotion_allowed": false,
+  "recipe_decision": "drawdown_drift_reward_recipe_ready_for_short_training_screen",
+  "reward_objective_patch": {
+    "drawdown_drift_penalty": 1.5,
+    "drawdown_drift_position_threshold": 0.15,
+    "drawdown_drift_reward_enabled": true,
+    "drawdown_drift_threshold_pct": 18.0,
+    "trend_preservation_floor_enabled": true,
+    "trend_preservation_floor_penalty": 1.0,
+    "trend_preservation_floor_position": 0.25,
+    "trend_preservation_lookback": 21,
+    "trend_preservation_min_buyhold_return_pct": 5.0
+  },
+  "reward_patch_contract_gate": true,
+  "role": "diagnose_reward_checkpoint_objective_before_training",
+  "selected_recipe": "dd1.5_thr18_pos0.15_tf1_floor0.25_lb21",
+  "selected_recipe_candidate": "release64_cb99_obj020",
+  "source_replay": "runtime/model_selection/card/release16_repaired_bc_warm_start_official_replay_v1",
+  "source_selected_candidate": "release128_cb995_obj000",
+  "soxlbacktest_qlib_baseline": "runtime/model_selection/card/soxlbacktest_qlib_walkforward_baseline_v1",
+  "strict_context_max_dd_pct": 15.0,
+  "target_max_dd_pct": 20.0,
+  "target_relative_return_pp": 30.0,
+  "training_allowed_next": true,
+  "training_scope": "short_foldlocal_bc_or_ppo_training_screen_only"
+}

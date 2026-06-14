@@ -1,0 +1,127 @@
+{
+  "actor_retention_allowed": false,
+  "canonical_baseline": "soxlbacktest_policy_reimplementation_v1",
+  "changed_layer": [
+    "reward",
+    "checkpoint_selection",
+    "model_selection"
+  ],
+  "checkpoint_reference_candidate": "release64_cb99_obj020",
+  "checkpoint_screen_decision": "reward_checkpoint_screen_no_promotion",
+  "checkpoint_summary": {
+    "decision": "reward_checkpoint_screen_no_promotion",
+    "next_mechanism": "train_drawdown_drift_reward_or_checkpoint_recipe",
+    "ppo_allowed_next": false,
+    "promotion_allowed": false,
+    "required_objective_terms": [
+      "checkpoint_objective_loss",
+      "drawdown_drift_penalty",
+      "trend_preservation_floor"
+    ],
+    "selected_candidate": "release64_cb99_obj020",
+    "selected_failure_mix": "joint_tradeoff:1,drawdown_control:1,pass:1",
+    "selected_gate_gap_loss": 145.34949171005215,
+    "selected_max_max_dd": 26.70674924237374,
+    "selected_min_relative_return": -2.028796400955727,
+    "selected_reward_checkpoint_loss": 145.34949171005215
+  },
+  "conclusion": [
+    "The source selected repaired BC still has 0/3 folds passing the 20% official warm-start gate, so no actor or checkpoint can be promoted.",
+    "The reward/checkpoint screen selects `release64_cb99_obj020` only as the lowest-loss diagnostic reference; its decision remains `reward_checkpoint_screen_no_promotion`.",
+    "The selected reward recipe `dd1.5_thr18_pos0.15_tf1_floor0.25_lb21` captures 68.0% of drawdown-breach rows and 100.0% of trend-underparticipation rows with overreach_share=0.0%.",
+    "Every reward patch key is accepted by RewardConfig and consumed by ContinuousReward, so the patch is a real default-off training objective.",
+    "Next action is limited to a short fold-local BC/PPO training screen using this reward/checkpoint objective; promotion remains false until official walk-forward replay passes."
+  ],
+  "created_at": "2026-06-14T22:08:48.285579+00:00",
+  "decision": "drawdown_drift_reward_recipe_ready_for_short_training_screen",
+  "direct_comparison_baseline": [
+    "release16_checkpoint_distillation_bc_repair_screen_v1",
+    "release16_release_gate_bc_official_replay_v1"
+  ],
+  "experiment": "release16_drawdown_drift_trend_reward_checkpoint_screen_v1",
+  "next_mechanism": "short_foldlocal_bc_or_ppo_training_screen",
+  "patch_contract_summary": {
+    "accepted_key_count": 9,
+    "consumed_key_count": 9,
+    "focused_tests": [
+      "tests/test_reward.py::test_drawdown_drift_reward_penalizes_position_after_drawdown_threshold",
+      "tests/test_reward.py::test_trend_preservation_floor_penalizes_underposition_only_outside_drawdown_breach",
+      "tests/test_drawdown_drift_reward_screen.py",
+      "tests/test_reward_checkpoint_screen.py"
+    ],
+    "patch_key_count": 9,
+    "reward_config_instantiated": true,
+    "reward_patch_contract_gate": true
+  },
+  "promotion_allowed": false,
+  "recipe_decision": "drawdown_drift_reward_recipe_ready_for_short_training_screen",
+  "recipe_summary": {
+    "decision": "drawdown_drift_reward_recipe_ready_for_short_training_screen",
+    "drawdown_failure_capture": 0.68,
+    "next_mechanism": "short_foldlocal_bc_or_ppo_training_screen",
+    "overreach_share": 0.0,
+    "promotion_allowed": false,
+    "reward_objective_patch": {
+      "drawdown_drift_penalty": 1.5,
+      "drawdown_drift_position_threshold": 0.15,
+      "drawdown_drift_reward_enabled": true,
+      "drawdown_drift_threshold_pct": 18.0,
+      "trend_preservation_floor_enabled": true,
+      "trend_preservation_floor_penalty": 1.0,
+      "trend_preservation_floor_position": 0.25,
+      "trend_preservation_lookback": 21,
+      "trend_preservation_min_buyhold_return_pct": 5.0
+    },
+    "selected_candidate": "release64_cb99_obj020",
+    "selected_recipe": "dd1.5_thr18_pos0.15_tf1_floor0.25_lb21",
+    "selected_reward_recipe_loss": 1.3057646575311084,
+    "source_selected_candidate": "release128_cb995_obj000",
+    "source_selected_candidate_recipe": "dd1.5_thr18_pos0.15_tf1_floor0.25_lb21",
+    "source_selected_candidate_recipe_ready": true,
+    "training_allowed_next": true,
+    "trend_underparticipation_capture": 1.0
+  },
+  "reward_objective_patch": {
+    "drawdown_drift_penalty": 1.5,
+    "drawdown_drift_position_threshold": 0.15,
+    "drawdown_drift_reward_enabled": true,
+    "drawdown_drift_threshold_pct": 18.0,
+    "trend_preservation_floor_enabled": true,
+    "trend_preservation_floor_penalty": 1.0,
+    "trend_preservation_floor_position": 0.25,
+    "trend_preservation_lookback": 21,
+    "trend_preservation_min_buyhold_return_pct": 5.0
+  },
+  "reward_patch_contract_gate": true,
+  "role": "diagnose_reward_checkpoint_objective_before_training",
+  "selected_official_fold_count": 3,
+  "selected_official_gate_count_20dd": 0,
+  "selected_recipe": "dd1.5_thr18_pos0.15_tf1_floor0.25_lb21",
+  "selected_recipe_candidate": "release64_cb99_obj020",
+  "selected_strict_gate_count_15dd": 0,
+  "sidecars": [
+    "gate_gap_attribution.csv",
+    "strict_gate_gap_attribution_15dd.csv",
+    "reward_checkpoint_scores.csv",
+    "reward_recipe_scores.csv",
+    "reward_recipe_summary_by_candidate.csv",
+    "reward_objective_patch.json",
+    "reward_patch_contract_audit.csv",
+    "reward_patch_contract_audit.json",
+    "soxlbacktest_reference_context.csv",
+    "selection.json",
+    "summary.json",
+    "reward_checkpoint_review.md",
+    "reward_recipe_review.md"
+  ],
+  "source_replay": "runtime/model_selection/card/release16_repaired_bc_warm_start_official_replay_v1",
+  "source_replay_decision": "repaired_bc_warm_start_official_replay_failed_no_promotion",
+  "source_replay_next_mechanism": "repair_replay_objective_with_drawdown_drift_and_trend_participation_before_ppo",
+  "source_selected_candidate": "release128_cb995_obj000",
+  "soxlbacktest_qlib_baseline": "runtime/model_selection/card/soxlbacktest_qlib_walkforward_baseline_v1",
+  "strict_context_max_dd_pct": 15.0,
+  "target_max_dd_pct": 20.0,
+  "target_relative_return_pp": 30.0,
+  "training_allowed_next": true,
+  "training_scope": "short_foldlocal_bc_or_ppo_training_screen_only"
+}

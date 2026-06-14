@@ -1,0 +1,13 @@
+{
+  "accepted_key_count": 9,
+  "consumed_key_count": 9,
+  "focused_tests": [
+    "tests/test_reward.py::test_drawdown_drift_reward_penalizes_position_after_drawdown_threshold",
+    "tests/test_reward.py::test_trend_preservation_floor_penalizes_underposition_only_outside_drawdown_breach",
+    "tests/test_drawdown_drift_reward_screen.py",
+    "tests/test_reward_checkpoint_screen.py"
+  ],
+  "patch_key_count": 9,
+  "reward_config_instantiated": true,
+  "reward_patch_contract_gate": true
+}

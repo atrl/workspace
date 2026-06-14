@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-14T21:52:27.341948+00:00",
+  "generated_at": "2026-06-14T22:09:23.561270+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -16074,6 +16074,84 @@
       "category": "reward",
       "suffix": ".csv",
       "bytes": 548
+    },
+    {
+      "path": "runtime/reward/card/release16_drawdown_drift_trend_reward_checkpoint_screen_v1/gate_gap_attribution.csv",
+      "category": "reward",
+      "suffix": ".csv",
+      "bytes": 3211
+    },
+    {
+      "path": "runtime/reward/card/release16_drawdown_drift_trend_reward_checkpoint_screen_v1/reward_checkpoint_review.md",
+      "category": "reward",
+      "suffix": ".md",
+      "bytes": 1036
+    },
+    {
+      "path": "runtime/reward/card/release16_drawdown_drift_trend_reward_checkpoint_screen_v1/reward_checkpoint_scores.csv",
+      "category": "reward",
+      "suffix": ".csv",
+      "bytes": 1213
+    },
+    {
+      "path": "runtime/reward/card/release16_drawdown_drift_trend_reward_checkpoint_screen_v1/reward_objective_patch.json",
+      "category": "reward",
+      "suffix": ".json",
+      "bytes": 383
+    },
+    {
+      "path": "runtime/reward/card/release16_drawdown_drift_trend_reward_checkpoint_screen_v1/reward_patch_contract_audit.csv",
+      "category": "reward",
+      "suffix": ".csv",
+      "bytes": 550
+    },
+    {
+      "path": "runtime/reward/card/release16_drawdown_drift_trend_reward_checkpoint_screen_v1/reward_patch_contract_audit.json",
+      "category": "reward",
+      "suffix": ".json",
+      "bytes": 490
+    },
+    {
+      "path": "runtime/reward/card/release16_drawdown_drift_trend_reward_checkpoint_screen_v1/reward_recipe_review.md",
+      "category": "reward",
+      "suffix": ".md",
+      "bytes": 1607
+    },
+    {
+      "path": "runtime/reward/card/release16_drawdown_drift_trend_reward_checkpoint_screen_v1/reward_recipe_scores.csv",
+      "category": "reward",
+      "suffix": ".csv",
+      "bytes": 840031
+    },
+    {
+      "path": "runtime/reward/card/release16_drawdown_drift_trend_reward_checkpoint_screen_v1/reward_recipe_summary_by_candidate.csv",
+      "category": "reward",
+      "suffix": ".csv",
+      "bytes": 2043
+    },
+    {
+      "path": "runtime/reward/card/release16_drawdown_drift_trend_reward_checkpoint_screen_v1/selection.json",
+      "category": "reward",
+      "suffix": ".json",
+      "bytes": 1919
+    },
+    {
+      "path": "runtime/reward/card/release16_drawdown_drift_trend_reward_checkpoint_screen_v1/soxlbacktest_reference_context.csv",
+      "category": "reward",
+      "suffix": ".csv",
+      "bytes": 2899
+    },
+    {
+      "path": "runtime/reward/card/release16_drawdown_drift_trend_reward_checkpoint_screen_v1/strict_gate_gap_attribution_15dd.csv",
+      "category": "reward",
+      "suffix": ".csv",
+      "bytes": 3251
+    },
+    {
+      "path": "runtime/reward/card/release16_drawdown_drift_trend_reward_checkpoint_screen_v1/summary.json",
+      "category": "reward",
+      "suffix": ".json",
+      "bytes": 6066
     },
     {
       "path": "runtime/reward/card/release16_guarded_reward_action_feature_diagnostic_v1/conclusion.md",

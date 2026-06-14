@@ -1,0 +1,10 @@
+patch_key,patch_value,accepted_by_reward_config,consumed_by_continuous_reward,default_value
+drawdown_drift_penalty,1.5,True,True,0.0
+drawdown_drift_position_threshold,0.15,True,True,0.05
+drawdown_drift_reward_enabled,True,True,True,False
+drawdown_drift_threshold_pct,18.0,True,True,15.0
+trend_preservation_floor_enabled,True,True,True,False
+trend_preservation_floor_penalty,1.0,True,True,0.0
+trend_preservation_floor_position,0.25,True,True,0.25
+trend_preservation_lookback,21,True,True,63
+trend_preservation_min_buyhold_return_pct,5.0,True,True,5.0
