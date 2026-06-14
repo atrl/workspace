@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-14T14:12:20.283036+00:00",
+  "generated_at": "2026-06-14T14:32:06.856604+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -6185,19 +6185,19 @@
       "path": "runtime/model_selection/card/model_retention_frontier_v1/conclusion.md",
       "category": "model_selection",
       "suffix": ".md",
-      "bytes": 518
+      "bytes": 534
     },
     {
       "path": "runtime/model_selection/card/model_retention_frontier_v1/retention_frontier.csv",
       "category": "model_selection",
       "suffix": ".csv",
-      "bytes": 51442
+      "bytes": 51889
     },
     {
       "path": "runtime/model_selection/card/model_retention_frontier_v1/summary.json",
       "category": "model_selection",
       "suffix": ".json",
-      "bytes": 131531
+      "bytes": 132630
     },
     {
       "path": "runtime/model_selection/card/model_retention_walkforward_gate_v1/conclusion.md",
@@ -7836,6 +7836,102 @@
       "category": "model_selection",
       "suffix": ".json",
       "bytes": 8604
+    },
+    {
+      "path": "runtime/model_selection/card/release16_failed_fold_daily_path_diagnostic_v1/aligned_daily_paths.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 817657
+    },
+    {
+      "path": "runtime/model_selection/card/release16_failed_fold_daily_path_diagnostic_v1/checkpoint_failure_decomposition.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1027
+    },
+    {
+      "path": "runtime/model_selection/card/release16_failed_fold_daily_path_diagnostic_v1/conclusion.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 1603
+    },
+    {
+      "path": "runtime/model_selection/card/release16_failed_fold_daily_path_diagnostic_v1/daily_path_metric_reconciliation.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 3329
+    },
+    {
+      "path": "runtime/model_selection/card/release16_failed_fold_daily_path_diagnostic_v1/fold_feasibility_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 782
+    },
+    {
+      "path": "runtime/model_selection/card/release16_failed_fold_daily_path_diagnostic_v1/missed_up_days_low_position.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 52247
+    },
+    {
+      "path": "runtime/model_selection/card/release16_failed_fold_daily_path_diagnostic_v1/missed_up_days_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 505
+    },
+    {
+      "path": "runtime/model_selection/card/release16_failed_fold_daily_path_diagnostic_v1/monthly_path_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 28971
+    },
+    {
+      "path": "runtime/model_selection/card/release16_failed_fold_daily_path_diagnostic_v1/monthly_selected_vs_reference_gap.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 9897
+    },
+    {
+      "path": "runtime/model_selection/card/release16_failed_fold_daily_path_diagnostic_v1/reference_feasibility_matrix.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1748
+    },
+    {
+      "path": "runtime/model_selection/card/release16_failed_fold_daily_path_diagnostic_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 9226
+    },
+    {
+      "path": "runtime/model_selection/card/release16_failed_fold_daily_path_diagnostic_v1/stage_path_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 13578
+    },
+    {
+      "path": "runtime/model_selection/card/release16_failed_fold_daily_path_diagnostic_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 10764
+    },
+    {
+      "path": "runtime/model_selection/card/release16_failed_fold_daily_path_diagnostic_v1/target_distribution_by_fold.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 714
+    },
+    {
+      "path": "runtime/model_selection/card/release16_failed_fold_daily_path_diagnostic_v1/target_feature_contrast.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1102
+    },
+    {
+      "path": "runtime/model_selection/card/release16_failed_fold_daily_path_diagnostic_v1/target_position_buckets.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 965
     },
     {
       "path": "runtime/model_selection/card/retention_candidate_overlay_screen_v1/conclusion.md",

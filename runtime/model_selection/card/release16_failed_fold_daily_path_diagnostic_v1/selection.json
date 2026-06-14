@@ -1,0 +1,238 @@
+{
+  "actor_retention_allowed": false,
+  "candidate_decomposition": {
+    "wf_2020": {
+      "any_candidate_gate": false,
+      "bc_avg_pos": 0.2244455596671677,
+      "bc_max_dd_pct": 14.96163924013486,
+      "bc_relative_return_pp": -15.032278476982412,
+      "bc_return_pct": 43.06129213950158,
+      "best_loss_candidate": "bc_initialization",
+      "best_loss_max_dd_pct": 14.96163924013486,
+      "best_loss_relative_return_pp": -15.032278476982412,
+      "best_relative_candidate": "ppo_retained_iter_4",
+      "best_relative_max_dd_delta_vs_bc_pp": 5.978335893986211,
+      "best_relative_max_dd_pct": 20.93997513412107,
+      "best_relative_return_lift_vs_bc_pp": 11.640485285482406,
+      "best_relative_return_pp": -3.391793191500007,
+      "candidate_gate_count": 0,
+      "drift_gate_count": 2,
+      "target_gate_count": 0
+    },
+    "wf_2022": {
+      "any_candidate_gate": true,
+      "bc_avg_pos": 0.0813840878420415,
+      "bc_max_dd_pct": 15.617042880121645,
+      "bc_relative_return_pp": 71.71497994984345,
+      "bc_return_pct": -14.873091782550818,
+      "best_loss_candidate": "bc_initialization",
+      "best_loss_max_dd_pct": 15.617042880121645,
+      "best_loss_relative_return_pp": 71.71497994984345,
+      "best_relative_candidate": "bc_initialization",
+      "best_relative_max_dd_delta_vs_bc_pp": 0.0,
+      "best_relative_max_dd_pct": 15.617042880121645,
+      "best_relative_return_lift_vs_bc_pp": 0.0,
+      "best_relative_return_pp": 71.71497994984345,
+      "candidate_gate_count": 2,
+      "drift_gate_count": 2,
+      "target_gate_count": 4
+    },
+    "wf_2023_2024": {
+      "any_candidate_gate": false,
+      "bc_avg_pos": 0.0855603767424863,
+      "bc_max_dd_pct": 5.618566215623799,
+      "bc_relative_return_pp": 4.707958912656595,
+      "bc_return_pct": 4.351324182968153,
+      "best_loss_candidate": "bc_initialization",
+      "best_loss_max_dd_pct": 5.618566215623799,
+      "best_loss_relative_return_pp": 4.707958912656595,
+      "best_relative_candidate": "bc_initialization",
+      "best_relative_max_dd_delta_vs_bc_pp": 0.0,
+      "best_relative_max_dd_pct": 5.618566215623799,
+      "best_relative_return_lift_vs_bc_pp": 0.0,
+      "best_relative_return_pp": 4.707958912656595,
+      "candidate_gate_count": 0,
+      "drift_gate_count": 4,
+      "target_gate_count": 0
+    }
+  },
+  "canonical_baseline": "v19reg_v22_budget_usage_bull_guard_v1",
+  "changed_layer": [
+    "model_selection",
+    "target_design",
+    "retention_gate_feasibility"
+  ],
+  "created_at": "2026-06-14T14:30:06.279213+00:00",
+  "decision": "release16_failed_folds_require_participation_target_revision_no_promotion",
+  "direct_comparison_baseline": "release16_cb99_rebound_checkpoint_screen_v1",
+  "experiment": "release16_failed_fold_daily_path_diagnostic_v1",
+  "failed_fold_readout": {
+    "wf_2020": {
+      "maxdd_gap_to_20pct_pp": 0.0,
+      "relative_gap_to_plus30_pp": 45.03227847698241,
+      "selected_avg_position": 0.2244455596671677,
+      "selected_candidate": "bc_initialization",
+      "selected_max_dd_pct": 14.96163924013486,
+      "selected_relative_return_pp": -15.032278476982412,
+      "selected_return_pct": 43.06129213950158
+    },
+    "wf_2023_2024": {
+      "maxdd_gap_to_20pct_pp": 0.0,
+      "relative_gap_to_plus30_pp": 25.292041087343407,
+      "selected_avg_position": 0.0855603767424863,
+      "selected_candidate": "bc_initialization",
+      "selected_max_dd_pct": 5.618566215623799,
+      "selected_relative_return_pp": 4.707958912656595,
+      "selected_return_pct": 4.351324182968153
+    }
+  },
+  "failed_folds": [
+    "wf_2020",
+    "wf_2023_2024"
+  ],
+  "fold_feasibility": {
+    "wf_2020": {
+      "best_reference_by_return": "legacy_default",
+      "best_reference_max_dd_pct": 54.27514385862544,
+      "best_reference_return_pct": 220.77720540428163,
+      "lowest_dd_reference": "wf_pass_ytd18_15_15_02",
+      "lowest_dd_reference_max_dd_pct": 12.78520723360268,
+      "lowest_dd_reference_return_pct": 29.15660308837891,
+      "reference_gate_pass_count": 0,
+      "required_return_for_plus30_relative_pct": 88.09357061648399,
+      "selected_max_dd_pct": 14.961639240134861,
+      "selected_relative_return_pp": -15.032278476982412,
+      "selected_return_gap_to_plus30_relative_pp": 45.032278476982405,
+      "selected_return_pct": 43.06129213950158
+    },
+    "wf_2023_2024": {
+      "best_reference_by_return": "wf_pass_ytd18_15_15_02",
+      "best_reference_max_dd_pct": 1.0618037513389744,
+      "best_reference_return_pct": 4.505779460906978,
+      "lowest_dd_reference": "wf_pass_ytd18_15_15_02",
+      "lowest_dd_reference_max_dd_pct": 1.0618037513389744,
+      "lowest_dd_reference_return_pct": 4.505779460906978,
+      "reference_gate_pass_count": 0,
+      "required_return_for_plus30_relative_pct": 29.643365270311556,
+      "selected_max_dd_pct": 5.618566215623799,
+      "selected_relative_return_pp": 4.707958912656595,
+      "selected_return_gap_to_plus30_relative_pp": 25.292041087343403,
+      "selected_return_pct": 4.351324182968153
+    }
+  },
+  "guard_folds": [
+    "wf_2022"
+  ],
+  "high_position_sparse_by_failed_fold": {
+    "wf_2020": false,
+    "wf_2023_2024": true
+  },
+  "metric_basis": "official_daily_path_rebased_eval_window",
+  "missed_up_days_summary": {
+    "wf_2020": {
+      "days": 74,
+      "mean_legacy_prev_position": 0.7811324324324325,
+      "mean_risk_cap_prev_position": 0.3064040540540541,
+      "mean_selected_prev_position": 0.15917800230329796,
+      "mean_soxl_up_day_return_pp": 7.310168642471178,
+      "sum_incremental_if_legacy_pos_pp": 333.24940461580616,
+      "sum_incremental_if_risk_cap_pos_pp": 68.10907078222944,
+      "sum_soxl_up_day_return_pp": 540.9524795428672
+    },
+    "wf_2023_2024": {
+      "days": 85,
+      "mean_legacy_prev_position": 0.3130694117647059,
+      "mean_risk_cap_prev_position": 0.03213529411764706,
+      "mean_selected_prev_position": 0.07941429841930091,
+      "mean_soxl_up_day_return_pp": 6.624844852868958,
+      "sum_incremental_if_legacy_pos_pp": 137.88886105487603,
+      "sum_incremental_if_risk_cap_pos_pp": -25.449754622451355,
+      "sum_soxl_up_day_return_pp": 563.1118124938615
+    }
+  },
+  "next_mechanism": "build_release16_failedfold_participation_target_overlay_then_rerun_checkpoint_screen",
+  "next_training_allowed_after_target_revision": true,
+  "ppo_no_candidate_gate_on_failed_folds": true,
+  "primary_failure": "daily_path_return_gap_from_low_participation",
+  "promotion_allowed": false,
+  "promotion_blocker": "Diagnostic only. No actor is trained or retained; rerun the release16 three-fold checkpoint screen after a training-safe target/selection revision.",
+  "reference_baseline": "soxlbacktest_qlib_walkforward_baseline_v1",
+  "reference_gate_gap_exists": true,
+  "return_only_failures": true,
+  "role": "diagnose",
+  "sidecars": [
+    "aligned_daily_paths.csv",
+    "daily_path_metric_reconciliation.csv",
+    "stage_path_metrics.csv",
+    "monthly_path_metrics.csv",
+    "monthly_selected_vs_reference_gap.csv",
+    "missed_up_days_low_position.csv",
+    "missed_up_days_summary.csv",
+    "target_distribution_by_fold.csv",
+    "target_position_buckets.csv",
+    "target_feature_contrast.csv",
+    "checkpoint_failure_decomposition.csv",
+    "reference_feasibility_matrix.csv",
+    "fold_feasibility_summary.csv",
+    "selection.json",
+    "summary.json",
+    "conclusion.md"
+  ],
+  "source_card": "release16_cb99_rebound_checkpoint_screen_v1",
+  "target_distribution": {
+    "wf_2020": {
+      "downtrend_rows": 781,
+      "drawdown_control_rows": 781,
+      "end": "2019-12-31",
+      "max_target_position": 0.9155,
+      "mean_target_position": 0.31206554655870444,
+      "median_target_position": 0.25,
+      "rebound_rows": 42,
+      "release_rows": 42,
+      "rows": 2470,
+      "rows_ge_70pct": 21,
+      "share_ge_30pct": 0.3838056680161943,
+      "share_ge_50pct": 0.24615384615384617,
+      "share_ge_70pct": 0.008502024291497975,
+      "start": "2010-03-11",
+      "target_fold": "wf_2020_train"
+    },
+    "wf_2022": {
+      "downtrend_rows": 234,
+      "drawdown_control_rows": 0,
+      "end": "2021-12-31",
+      "max_target_position": 1.0,
+      "mean_target_position": 0.19809267526870336,
+      "median_target_position": 0.1462768531990405,
+      "rebound_rows": 13,
+      "release_rows": 9,
+      "rows": 505,
+      "rows_ge_70pct": 22,
+      "share_ge_30pct": 0.14653465346534653,
+      "share_ge_50pct": 0.06732673267326733,
+      "share_ge_70pct": 0.04356435643564356,
+      "start": "2020-01-02",
+      "target_fold": "wf_2022_train"
+    },
+    "wf_2023_2024": {
+      "downtrend_rows": 478,
+      "drawdown_control_rows": 0,
+      "end": "2022-12-30",
+      "max_target_position": 1.0,
+      "mean_target_position": 0.154589261017843,
+      "median_target_position": 0.1050630308496156,
+      "rebound_rows": 14,
+      "release_rows": 11,
+      "rows": 756,
+      "rows_ge_70pct": 22,
+      "share_ge_30pct": 0.10052910052910052,
+      "share_ge_50pct": 0.04497354497354497,
+      "share_ge_70pct": 0.0291005291005291,
+      "start": "2020-01-02",
+      "target_fold": "wf_2023_2024_train"
+    }
+  },
+  "target_max_dd_pct": 20.0,
+  "target_relative_return_pp": 30.0,
+  "training_allowed_from_this_card": false
+}
