@@ -1,0 +1,15 @@
+{
+  "actor_retention_allowed": false,
+  "best_candidate_id": "release16_drawdown_upside_checkpoint_replay_v1::bc_initialization",
+  "best_failure_profile": "trend_capture",
+  "best_total_gate_loss": 57.435334572088735,
+  "best_worst_window": "wf_2020",
+  "decision": "official_candidate_pool_no_full_gate_training_objective_handoff",
+  "experiment": "release16_official_replay_candidate_handoff_v1",
+  "full_gate_count_15dd": 0,
+  "full_gate_count_20dd": 0,
+  "next_mechanism": "train_rebound_participation_objective",
+  "nonreference_full_gate_count_20dd": 0,
+  "promotion_allowed": false,
+  "reference_full_gate_count_20dd": 0
+}

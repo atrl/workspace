@@ -1,0 +1,123 @@
+{
+  "acceptance_criteria": [
+    "candidate pool uses official qlib daily path metrics where available",
+    "primary gate uses relative_return >= 30pp and MaxDD <= 20% across all walk-forward folds",
+    "strict <=15% MaxDD scores are retained for risk context",
+    "no candidate is promoted without fixed/YTD/dashboard/retention evidence"
+  ],
+  "actor_retention_allowed": false,
+  "canonical_baseline": "soxlbacktest_policy_reimplementation_v1",
+  "changed_layer": [
+    "model_selection",
+    "checkpoint_objective",
+    "training_objective_handoff"
+  ],
+  "closest_historical_failure_case": "release_gate_weighted_bc_official_replay_failed_no_promotion",
+  "closest_historical_success_case": "release16_rulebase_reversal_drawdown_upside_checkpoint_metric_replay_v1 selected bc_initialization passed wf_2022 candidate gate with MaxDD 15.6170 and relative return 71.715 pp.",
+  "comparison_table_row_key": "release16_official_replay_candidate_handoff_v1",
+  "conclusion": "No trainable non-reference candidate passes the official walk-forward pool gate; next step is the emitted training/checkpoint objective handoff, not PPO length or actor retention.",
+  "created_at": "2026-06-14T20:08:01.752948+00:00",
+  "decision": "official_candidate_pool_no_full_gate_training_objective_handoff",
+  "direct_comparison_baseline": "release16_release_gate_bc_official_replay_v1",
+  "expected_tradeoff": "Release-gate weighting improved supervised fit and some return windows, but official replay may require a joint objective that penalizes drawdown drift and relative-return gaps simultaneously.",
+  "experiment": "release16_official_replay_candidate_handoff_v1",
+  "external_reference": "soxlbacktest_qlib_walkforward_baseline_v1 and release16 official replay candidates",
+  "failure_mode": "A low-loss candidate can still be reference-only, stress-fragile, or fail one fold badly enough to block PPO and actor retention.",
+  "hypothesis": "A unified official replay candidate pool will distinguish drawdown-control, underparticipation, and joint-tradeoff blockers after release-gate BC slice repair.",
+  "next_mechanism": "train_rebound_participation_objective",
+  "output_paths": {
+    "candidate_window_metrics": "runtime/model_selection/card/release16_official_replay_candidate_handoff_v1/candidate_window_metrics.csv",
+    "gate_gap_attribution": "runtime/model_selection/card/release16_official_replay_candidate_handoff_v1/gate_gap_attribution.csv",
+    "gate_gap_profile_summary": "runtime/model_selection/card/release16_official_replay_candidate_handoff_v1/gate_gap_profile_summary.csv",
+    "official_candidate_scores_15dd": "runtime/model_selection/card/release16_official_replay_candidate_handoff_v1/official_candidate_scores_15dd.csv",
+    "official_candidate_scores_20dd": "runtime/model_selection/card/release16_official_replay_candidate_handoff_v1/official_candidate_scores_20dd.csv",
+    "official_candidate_stress_scores": "runtime/model_selection/card/release16_official_replay_candidate_handoff_v1/official_candidate_stress_scores.csv",
+    "selection": "runtime/model_selection/card/release16_official_replay_candidate_handoff_v1/selection.json",
+    "summary": "runtime/model_selection/card/release16_official_replay_candidate_handoff_v1/summary.json",
+    "training_objective_handoff": "runtime/model_selection/card/release16_official_replay_candidate_handoff_v1/training_objective_handoff.json",
+    "training_objective_handoff_markdown": "runtime/model_selection/card/release16_official_replay_candidate_handoff_v1/training_objective_handoff.md"
+  },
+  "pool_summary": {
+    "best_candidate_id": "release16_drawdown_upside_checkpoint_replay_v1::bc_initialization",
+    "best_failure_profile": "trend_capture",
+    "best_max_max_dd": 19.32690642920399,
+    "best_min_relative_return": -0.4270525146105939,
+    "best_source_label": "release16_drawdown_upside_checkpoint_replay_v1",
+    "best_total_gate_loss": 57.435334572088735,
+    "best_worst_window": "wf_2020",
+    "best_worst_window_failure_type": "trend_capture",
+    "candidate_count": 16,
+    "candidate_window_rows": 48,
+    "full_gate_count_15dd": 0,
+    "full_gate_count_20dd": 0,
+    "nonreference_full_gate_count_20dd": 0,
+    "reference_candidate_count": 5,
+    "reference_full_gate_count_20dd": 0,
+    "trainable_candidate_count": 11
+  },
+  "primary_gate": {
+    "max_dd_pct": 20.0,
+    "relative_return_pp": 30.0
+  },
+  "promotion_allowed": false,
+  "retention_gate_current": {
+    "current_best_return_pct": 224.361539,
+    "max_walkforward_drawdown_pct": 20.0,
+    "passing_profile_count": 0,
+    "reference_profile": "soxl_backtest_policy_reimplementation_v1",
+    "reference_return_pct": 132.077978,
+    "required_best_return_pct": 213.143462
+  },
+  "role": "diagnose_official_candidate_handoff",
+  "strict_gate": {
+    "max_dd_pct": 15.0,
+    "relative_return_pp": 30.0
+  },
+  "target_window": [
+    "wf_2020",
+    "wf_2022",
+    "wf_2023_2024"
+  ],
+  "training_objective_handoff": {
+    "decision": "train_rebound_participation_objective",
+    "input_counts": {
+      "feature_groups": 9,
+      "poor_window_clusters": 8,
+      "walkforward_candidates": 11
+    },
+    "objective_terms": [
+      "walkforward_relative_return_gap_penalty",
+      "walkforward_drawdown_gap_penalty",
+      "high_vol_rebound_participation_floor"
+    ],
+    "primary_underparticipation_cluster": {
+      "candidate_id": "release16_drawdown_upside_checkpoint_replay_v1::bc_initialization",
+      "cluster_id": "wf_2020",
+      "dominant_failure_type": "underparticipation",
+      "max_dd_gap": 0.0,
+      "mean_excess_return": -0.4270525146105939,
+      "mean_relative_gap": 30.427052514610594
+    },
+    "promotion": "blocked",
+    "risk_gap": {
+      "max_dd_gap": 4.33,
+      "observed_max_dd": 19.33,
+      "observed_min_relative_return": -0.43,
+      "relative_gap": 30.43,
+      "target_max_dd": 15.0,
+      "target_relative_return": 30.0,
+      "worst_window": "wf_2020"
+    },
+    "router_cluster_delta_max": 0.0,
+    "selected_diagnostic_candidate": "release16_drawdown_upside_checkpoint_replay_v1::bc_initialization",
+    "selected_dominant_failure_type": "underparticipation",
+    "state_feature_groups": [
+      "trend_momentum",
+      "relative_strength_spread"
+    ],
+    "stop_mechanisms": [
+      "path_level_threshold_router_search"
+    ]
+  },
+  "why_not_duplicate": "This aggregates multiple official replay sources and emits a handoff objective; prior notebooks only screened one weighting config or one candidate pair."
+}

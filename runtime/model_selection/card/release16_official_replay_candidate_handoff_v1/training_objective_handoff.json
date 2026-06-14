@@ -1,0 +1,41 @@
+{
+  "decision": "train_rebound_participation_objective",
+  "input_counts": {
+    "feature_groups": 9,
+    "poor_window_clusters": 8,
+    "walkforward_candidates": 11
+  },
+  "objective_terms": [
+    "walkforward_relative_return_gap_penalty",
+    "walkforward_drawdown_gap_penalty",
+    "high_vol_rebound_participation_floor"
+  ],
+  "primary_underparticipation_cluster": {
+    "candidate_id": "release16_drawdown_upside_checkpoint_replay_v1::bc_initialization",
+    "cluster_id": "wf_2020",
+    "dominant_failure_type": "underparticipation",
+    "max_dd_gap": 0.0,
+    "mean_excess_return": -0.4270525146105939,
+    "mean_relative_gap": 30.427052514610594
+  },
+  "promotion": "blocked",
+  "risk_gap": {
+    "max_dd_gap": 4.33,
+    "observed_max_dd": 19.33,
+    "observed_min_relative_return": -0.43,
+    "relative_gap": 30.43,
+    "target_max_dd": 15.0,
+    "target_relative_return": 30.0,
+    "worst_window": "wf_2020"
+  },
+  "router_cluster_delta_max": 0.0,
+  "selected_diagnostic_candidate": "release16_drawdown_upside_checkpoint_replay_v1::bc_initialization",
+  "selected_dominant_failure_type": "underparticipation",
+  "state_feature_groups": [
+    "trend_momentum",
+    "relative_strength_spread"
+  ],
+  "stop_mechanisms": [
+    "path_level_threshold_router_search"
+  ]
+}

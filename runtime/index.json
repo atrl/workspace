@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-14T19:55:50.493110+00:00",
+  "generated_at": "2026-06-14T20:08:37.226674+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -8484,6 +8484,90 @@
       "category": "model_selection",
       "suffix": ".csv",
       "bytes": 1564
+    },
+    {
+      "path": "runtime/model_selection/card/release16_official_replay_candidate_handoff_v1/candidate_window_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 16086
+    },
+    {
+      "path": "runtime/model_selection/card/release16_official_replay_candidate_handoff_v1/feature_group_consensus.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 413
+    },
+    {
+      "path": "runtime/model_selection/card/release16_official_replay_candidate_handoff_v1/gate_gap_attribution.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4653
+    },
+    {
+      "path": "runtime/model_selection/card/release16_official_replay_candidate_handoff_v1/gate_gap_profile_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1145
+    },
+    {
+      "path": "runtime/model_selection/card/release16_official_replay_candidate_handoff_v1/official_candidate_scores_15dd.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 6027
+    },
+    {
+      "path": "runtime/model_selection/card/release16_official_replay_candidate_handoff_v1/official_candidate_scores_20dd.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 8122
+    },
+    {
+      "path": "runtime/model_selection/card/release16_official_replay_candidate_handoff_v1/official_candidate_stress_scores.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 13882
+    },
+    {
+      "path": "runtime/model_selection/card/release16_official_replay_candidate_handoff_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 631
+    },
+    {
+      "path": "runtime/model_selection/card/release16_official_replay_candidate_handoff_v1/source_tables.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 589
+    },
+    {
+      "path": "runtime/model_selection/card/release16_official_replay_candidate_handoff_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 6508
+    },
+    {
+      "path": "runtime/model_selection/card/release16_official_replay_candidate_handoff_v1/training_objective_handoff.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1276
+    },
+    {
+      "path": "runtime/model_selection/card/release16_official_replay_candidate_handoff_v1/training_objective_handoff.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 598
+    },
+    {
+      "path": "runtime/model_selection/card/release16_official_replay_candidate_handoff_v1/underparticipation_gap_proxy.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1338
+    },
+    {
+      "path": "runtime/model_selection/card/release16_official_replay_candidate_handoff_v1/worst_window_attribution.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 3010
     },
     {
       "path": "runtime/model_selection/card/release16_release_gate_bc_official_replay_v1/bc_official_replay_metrics.csv",

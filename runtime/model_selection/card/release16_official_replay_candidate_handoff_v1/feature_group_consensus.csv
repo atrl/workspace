@@ -1,0 +1,10 @@
+failure_type,feature_group,top_mentions,mean_abs_delta_z
+drawdown_control,drawdown_path,0,0.0
+drawdown_control,volatility_regime,0,0.0
+drawdown_control,sequence_risk,0,0.0
+underparticipation,trend_momentum,8,8.0
+underparticipation,relative_strength_spread,8,8.0
+underparticipation,release_rebound,8,8.0
+joint_tradeoff,drawdown_path,0,0.0
+joint_tradeoff,trend_momentum,0,0.0
+joint_tradeoff,volatility_regime,0,0.0
