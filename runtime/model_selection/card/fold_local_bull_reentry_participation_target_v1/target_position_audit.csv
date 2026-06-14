@@ -1,3 +1,4 @@
 contract,fold,rows,start,end,mean_risk_target_position,median_risk_target_position,p90_risk_target_position,max_risk_target_position,rows_ge_50pct,rows_ge_70pct,share_ge_70pct,release_rows,bull_reentry_target_rows,bull_reentry_forward_rows,eval_leakage_rows,downtrend_lifted_rows,drawdown_control_lifted_rows
 source_contract,wf_2020_train,2470,2010-03-11,2019-12-31,0.31206554655870444,0.25,0.5345,0.9155,608,21,0.008502024291497975,42,0,0,0,0,0
 bull_reentry_revision,wf_2020_train,2470,2010-03-11,2019-12-31,0.3301833603238866,0.25,0.5455,0.9155,694,140,0.05668016194331984,42,119,107,0,0,0
+bull_reentry_three_fold_revision,"wf_2020_train,wf_2022_train,wf_2023_2024_train",3731,2010-03-11,2022-12-30,0.32203636446533884,0.25,0.5636,0.9155,922,272,0.07290270704904851,122,119,107,0,0,0

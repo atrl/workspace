@@ -1,6 +1,6 @@
 {
   "experiment": "fold_local_bull_reentry_participation_target_v1",
-  "created_at": "2026-06-13T23:43:17.111141+00:00",
+  "created_at": "2026-06-13T23:57:46.979218+00:00",
   "decision": "target_revision_ready_for_three_fold_bc_checkpoint_metric_replay",
   "promotion_allowed": false,
   "actor_retention_allowed": false,
@@ -13,6 +13,8 @@
   "bc_readiness_gate": true,
   "bc_screen_allowed_next": true,
   "source_contract": "runtime/model_selection/card/cap10_wf2020_soxlbacktest_target_contract_v1/soxlbacktest_wf2020_target_contract.csv",
+  "source_three_fold_contract": "runtime/model_selection/card/cap10_three_fold_bc_slice_screen_v1/combined_target_contract.csv",
+  "combined_contract": "bull_reentry_three_fold_target_contract.csv",
   "config": {
     "enabled": true,
     "min_target_position": 0.7,
@@ -47,6 +49,14 @@
   "revised_share_ge_70pct": 0.05668016194331984,
   "bull_reentry_target_rows": 119,
   "bull_reentry_forward_rows": 107,
+  "combined_rows": 3731,
+  "combined_folds": [
+    "wf_2020_train",
+    "wf_2022_train",
+    "wf_2023_2024_train"
+  ],
+  "combined_rows_ge_70pct": 272,
+  "combined_share_ge_70pct": 0.07290270704904851,
   "eval_leakage_rows": 0,
   "downtrend_lifted_rows": 0,
   "drawdown_control_lifted_rows": 0,
@@ -85,6 +95,7 @@
   ],
   "sidecars": {
     "target_contract": "bull_reentry_target_contract.csv",
+    "three_fold_target_contract": "bull_reentry_three_fold_target_contract.csv",
     "position_audit": "target_position_audit.csv",
     "target_lift_audit": "target_lift_audit.csv",
     "action_state_counts": "action_state_counts.csv",
