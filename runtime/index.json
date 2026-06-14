@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-14T01:05:03.724965+00:00",
+  "generated_at": "2026-06-14T01:18:40.707740+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -5837,19 +5837,19 @@
       "path": "runtime/model_selection/card/model_retention_frontier_v1/conclusion.md",
       "category": "model_selection",
       "suffix": ".md",
-      "bytes": 575
+      "bytes": 534
     },
     {
       "path": "runtime/model_selection/card/model_retention_frontier_v1/retention_frontier.csv",
       "category": "model_selection",
       "suffix": ".csv",
-      "bytes": 38688
+      "bytes": 39175
     },
     {
       "path": "runtime/model_selection/card/model_retention_frontier_v1/summary.json",
       "category": "model_selection",
       "suffix": ".json",
-      "bytes": 104285
+      "bytes": 105349
     },
     {
       "path": "runtime/model_selection/card/model_retention_walkforward_gate_v1/conclusion.md",
@@ -11412,6 +11412,84 @@
       "category": "model_selection",
       "suffix": ".json",
       "bytes": 13351
+    },
+    {
+      "path": "runtime/model_selection/card/wf2020_riskcap_full_bc_replay_v1/bc_action_distribution.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 552
+    },
+    {
+      "path": "runtime/model_selection/card/wf2020_riskcap_full_bc_replay_v1/bc_fit_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 858
+    },
+    {
+      "path": "runtime/model_selection/card/wf2020_riskcap_full_bc_replay_v1/bc_slice_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2181
+    },
+    {
+      "path": "runtime/model_selection/card/wf2020_riskcap_full_bc_replay_v1/conclusion.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 974
+    },
+    {
+      "path": "runtime/model_selection/card/wf2020_riskcap_full_bc_replay_v1/coverage.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 647
+    },
+    {
+      "path": "runtime/model_selection/card/wf2020_riskcap_full_bc_replay_v1/daily_path_manifest.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 494
+    },
+    {
+      "path": "runtime/model_selection/card/wf2020_riskcap_full_bc_replay_v1/drawdown_interval_diagnostic.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 881
+    },
+    {
+      "path": "runtime/model_selection/card/wf2020_riskcap_full_bc_replay_v1/fold_replay_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1590
+    },
+    {
+      "path": "runtime/model_selection/card/wf2020_riskcap_full_bc_replay_v1/riskcap_full_replacement_wf_2020_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31342
+    },
+    {
+      "path": "runtime/model_selection/card/wf2020_riskcap_full_bc_replay_v1/riskcap_full_replacement_wf_2022_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 29796
+    },
+    {
+      "path": "runtime/model_selection/card/wf2020_riskcap_full_bc_replay_v1/riskcap_full_replacement_wf_2023_2024_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31955
+    },
+    {
+      "path": "runtime/model_selection/card/wf2020_riskcap_full_bc_replay_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 5049
+    },
+    {
+      "path": "runtime/model_selection/card/wf2020_riskcap_full_bc_replay_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 9231
     },
     {
       "path": "runtime/model_selection/card/wf2024_state_coverage_diagnostic_v1/drawdown_intervals.csv",

@@ -1,0 +1,4 @@
+fold,path,rows,start,end
+wf_2020,runtime/model_selection/card/wf2020_riskcap_full_bc_replay_v1/riskcap_full_replacement_wf_2020_official_daily_path.csv,252,2020-01-02,2020-12-30
+wf_2022,runtime/model_selection/card/wf2020_riskcap_full_bc_replay_v1/riskcap_full_replacement_wf_2022_official_daily_path.csv,250,2022-01-03,2022-12-29
+wf_2023_2024,runtime/model_selection/card/wf2020_riskcap_full_bc_replay_v1/riskcap_full_replacement_wf_2023_2024_official_daily_path.csv,251,2024-01-02,2024-12-30

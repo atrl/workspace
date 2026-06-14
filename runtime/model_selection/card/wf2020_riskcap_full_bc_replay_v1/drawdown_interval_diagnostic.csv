@@ -1,0 +1,4 @@
+fold,peak_date,trough_date,max_dd,interval_return,interval_days,interval_avg_pos,interval_min_pos,interval_max_pos,interval_trades,daily_path
+wf_2020,2020-09-02,2020-09-08,14.873321268658824,-14.873321268658824,4,0.44450201960342134,0.41022247682284313,0.48210834594952745,1,runtime/model_selection/card/wf2020_riskcap_full_bc_replay_v1/riskcap_full_replacement_wf_2020_official_daily_path.csv
+wf_2022,2022-01-03,2022-11-09,19.096274932605695,-19.096274932605695,216,0.06376551335231467,0.0,0.3696715793214332,27,runtime/model_selection/card/wf2020_riskcap_full_bc_replay_v1/riskcap_full_replacement_wf_2022_official_daily_path.csv
+wf_2023_2024,2024-07-10,2024-12-19,16.056518634625228,-16.056518634625228,115,0.12390723726007806,0.0433234033297614,0.35,14,runtime/model_selection/card/wf2020_riskcap_full_bc_replay_v1/riskcap_full_replacement_wf_2023_2024_official_daily_path.csv

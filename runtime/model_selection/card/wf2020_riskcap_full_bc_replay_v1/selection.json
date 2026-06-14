@@ -1,0 +1,121 @@
+{
+  "actor_retention_allowed": false,
+  "canonical_baseline": "v19reg_v22_budget_usage_bull_guard_v1",
+  "changed_layer": [
+    "model_selection",
+    "training_target",
+    "bc_warm_start",
+    "official_replay"
+  ],
+  "closest_historical_failure_case": "wf2020_reference_floor_gate_calibration_v1 showed the prior wf_2020 candidate stayed short of the calibrated risk-cap reference floor.",
+  "closest_historical_success_case": "bull_reentry_three_fold_checkpoint_metric_replay_v1 passed wf_2022 and wf_2023_2024 but failed wf_2020 return.",
+  "created_at": "2026-06-14T01:16:29.461682+00:00",
+  "decision": "wf2020_riskcap_full_bc_underparticipation_no_promotion",
+  "direct_comparison_baseline": "wf2020_risk_cap_reference_target_screen_v1",
+  "experiment": "wf2020_riskcap_full_bc_replay_v1",
+  "failed_folds": [
+    "wf_2020",
+    "wf_2023_2024"
+  ],
+  "fold_gate_pass_count": 1,
+  "folds_evaluated": [
+    "wf_2020",
+    "wf_2022",
+    "wf_2023_2024"
+  ],
+  "max_dd_pass_count": 3,
+  "missing_folds": [],
+  "next_mechanism": "design_return_preserving_hybrid_target_with_riskcap_floor_then_rerun_three_fold_bc_replay",
+  "next_training_allowed_after_replay": false,
+  "profile": "sparse_release_bc_ppo_screen_v1",
+  "promotion_allowed": false,
+  "promotion_blocker": "Diagnostic BC official replay only. No retained actor bundle, fixed-split/YTD replay, or full promotion review is produced in this card.",
+  "reference_baseline": "soxlbacktest_qlib_buysell_reference:risk_cap_35_15_05",
+  "relative_pass_count": 2,
+  "required_wf_windows": [
+    "wf_2020",
+    "wf_2022",
+    "wf_2023_2024"
+  ],
+  "return_floor_pass_count": 2,
+  "role": "diagnose",
+  "selected_by_fold": {
+    "wf_2020": {
+      "daily_path": "runtime/model_selection/card/wf2020_riskcap_full_bc_replay_v1/riskcap_full_replacement_wf_2020_official_daily_path.csv",
+      "fold": "wf_2020",
+      "selected_avg_pos": 0.16976616362724464,
+      "selected_candidate": "riskcap_full_replacement_bc_initialization",
+      "selected_candidate_gate": false,
+      "selected_drift_gate": true,
+      "selected_iter": 0,
+      "selected_kind": "bc_initialization",
+      "selected_max_dd": 14.873321268658824,
+      "selected_relative_return": -44.036234755931815,
+      "selected_return": 14.057335860552179,
+      "selected_target_gate": false,
+      "status": "evaluated",
+      "target_max_dd": 20.0,
+      "target_relative_return": -263.7287958891489
+    },
+    "wf_2022": {
+      "daily_path": "runtime/model_selection/card/wf2020_riskcap_full_bc_replay_v1/riskcap_full_replacement_wf_2022_official_daily_path.csv",
+      "fold": "wf_2022",
+      "selected_avg_pos": 0.0797054769541217,
+      "selected_candidate": "riskcap_full_replacement_bc_initialization",
+      "selected_candidate_gate": true,
+      "selected_drift_gate": true,
+      "selected_iter": 0,
+      "selected_kind": "bc_initialization",
+      "selected_max_dd": 19.096274932605695,
+      "selected_relative_return": 75.88035115485827,
+      "selected_return": -10.707720577535994,
+      "selected_target_gate": true,
+      "status": "evaluated",
+      "target_max_dd": 20.0,
+      "target_relative_return": 30.0
+    },
+    "wf_2023_2024": {
+      "daily_path": "runtime/model_selection/card/wf2020_riskcap_full_bc_replay_v1/riskcap_full_replacement_wf_2023_2024_official_daily_path.csv",
+      "fold": "wf_2023_2024",
+      "selected_avg_pos": 0.179097464634859,
+      "selected_candidate": "riskcap_full_replacement_bc_initialization",
+      "selected_candidate_gate": false,
+      "selected_drift_gate": true,
+      "selected_iter": 0,
+      "selected_kind": "bc_initialization",
+      "selected_max_dd": 16.056518634625228,
+      "selected_relative_return": 15.612951855194945,
+      "selected_return": 15.256317125506502,
+      "selected_target_gate": false,
+      "status": "evaluated",
+      "target_max_dd": 20.0,
+      "target_relative_return": 30.0
+    }
+  },
+  "sidecars": [
+    "coverage.csv",
+    "bc_fit_metrics.csv",
+    "bc_slice_metrics.csv",
+    "bc_action_distribution.csv",
+    "fold_replay_metrics.csv",
+    "drawdown_interval_diagnostic.csv",
+    "daily_path_manifest.csv",
+    "riskcap_full_replacement_<fold>_official_daily_path.csv",
+    "selection.json",
+    "summary.json",
+    "conclusion.md"
+  ],
+  "source_decisions": {
+    "bull_reentry_three_fold_checkpoint_metric_replay_v1": "three_fold_checkpoint_metric_replay_partial_pass_no_promotion",
+    "wf2020_risk_cap_reference_target_screen_v1": "wf2020_riskcap_reference_target_bc_lower_bound_ready_no_promotion"
+  },
+  "target_contract": "runtime/model_selection/card/wf2020_risk_cap_reference_target_screen_v1/riskcap_full_replacement_combined_target_contract.csv",
+  "target_max_dd_pct": 20.0,
+  "target_relative_return_by_fold_pp": {
+    "wf_2020": -263.7287958891489,
+    "wf_2022": 30.0,
+    "wf_2023_2024": 30.0
+  },
+  "training_allowed_from_this_card": false,
+  "why_not_duplicate": "This card runs the selected riskcap_full_replacement target through file-backed official BC replay for all required walk-forward folds."
+}
