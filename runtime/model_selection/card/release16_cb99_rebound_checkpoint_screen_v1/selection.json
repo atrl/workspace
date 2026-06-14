@@ -1,0 +1,85 @@
+{
+  "actor_retention": "no actor bundle is promoted or retained by this notebook; rerun the notebook to regenerate diagnostic fold-local states",
+  "actor_retention_allowed": false,
+  "canonical_baseline": "v19reg_v22_budget_usage_bull_guard_v1",
+  "changed_layer": [
+    "model_selection",
+    "checkpoint_selection",
+    "bc_warm_start"
+  ],
+  "created_at": "2026-06-14T13:25:39.792743+00:00",
+  "decision": "release16_cb99_checkpoint_metric_screen_partial_pass_no_promotion",
+  "direct_comparison_baseline": "rebound_state_factor_target_repair_screen_v1",
+  "drawdown_gate_operator": "<",
+  "drift_max_dd_ceiling_pp": 2.0,
+  "drift_relative_floor_pp": -5.0,
+  "experiment": "release16_cb99_rebound_checkpoint_screen_v1",
+  "failed_folds": [
+    "wf_2020"
+  ],
+  "feature_frame_source": "build_dataset_rebuilt_full_2010_2024",
+  "metrics": [
+    {
+      "avg_pos": 0.3392805205658078,
+      "max_dd_pct": 14.961639240134858,
+      "relative_return_pct": -290.2720553181555,
+      "return_pct": 43.06129213950158,
+      "split_type": "walk_forward_test",
+      "window": "wf_2020"
+    },
+    {
+      "avg_pos": 0.1611220737821177,
+      "max_dd_pct": 15.61704288012166,
+      "relative_return_pct": 63.70006424254002,
+      "return_pct": -14.873091782550818,
+      "split_type": "walk_forward_test",
+      "window": "wf_2022"
+    },
+    {
+      "avg_pos": 0.1100130890052356,
+      "max_dd_pct": 5.618566215623794,
+      "relative_return_pct": 40.54302563801326,
+      "return_pct": 4.351324182968153,
+      "split_type": "walk_forward_test",
+      "window": "wf_2023_2024"
+    }
+  ],
+  "missing_folds": [],
+  "next_mechanism": "inspect_failed_release16_folds_before_full_retention_training",
+  "profile": "sparse_release_bc_ppo_screen_v1",
+  "promotion_allowed": false,
+  "promotion_blocker": "Diagnostic fold-local checkpoint screen only. Retention still requires a full retained actor bundle plus fixed-split, wf_2020/wf_2022/wf_2023_2024, YTD return alignment, and dashboard replay evidence.",
+  "reference_baseline": "soxlbacktest_qlib_walkforward_baseline_v1:wf_pass_ytd18_15_15_02",
+  "required_fold_coverage": true,
+  "role": "diagnose",
+  "selected_candidate_gate_count": 2,
+  "selected_drift_gate_count": 3,
+  "selected_target_gate_count": 2,
+  "sidecars": [
+    "coverage.csv",
+    "coverage.json",
+    "bc_slice_metrics.csv",
+    "ppo_selection_history.csv",
+    "checkpoint_candidate_metrics.csv",
+    "checkpoint_selection_by_fold.csv",
+    "official_daily_paths/",
+    "drift_score_summary.json",
+    "selection.json",
+    "summary.json",
+    "conclusion.md"
+  ],
+  "source_bc_decision": "rebound_state_factor_target_repair_screen_ready_for_checkpoint_no_promotion",
+  "source_bc_selected_config": "release16_rebound6_downtrend2_cb99",
+  "source_bc_selection": "runtime/model_selection/card/rebound_state_factor_target_repair_screen_v1/selection.json",
+  "target_max_dd_pct": 20.0,
+  "target_relative_return_by_window_pp": {
+    "wf_2020": 30.0,
+    "wf_2022": 30.0,
+    "wf_2023_2024": 30.0
+  },
+  "target_relative_return_pp": 30.0,
+  "training_allowed_from_this_card": false,
+  "wf_2020_coverage": true,
+  "ytd_return_alignment_blocker": "This card trains fold-local diagnostic actors; a single retained actor must be trained before comparing YTD return to current best and SOXLBacktest references.",
+  "ytd_return_alignment_evaluated": false
+}
