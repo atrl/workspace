@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-14T15:38:02.904064+00:00",
+  "generated_at": "2026-06-14T15:50:41.534765+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -6185,19 +6185,19 @@
       "path": "runtime/model_selection/card/model_retention_frontier_v1/conclusion.md",
       "category": "model_selection",
       "suffix": ".md",
-      "bytes": 557
+      "bytes": 540
     },
     {
       "path": "runtime/model_selection/card/model_retention_frontier_v1/retention_frontier.csv",
       "category": "model_selection",
       "suffix": ".csv",
-      "bytes": 53345
+      "bytes": 53896
     },
     {
       "path": "runtime/model_selection/card/model_retention_frontier_v1/summary.json",
       "category": "model_selection",
       "suffix": ".json",
-      "bytes": 135977
+      "bytes": 137129
     },
     {
       "path": "runtime/model_selection/card/model_retention_walkforward_gate_v1/conclusion.md",
@@ -8130,6 +8130,90 @@
       "category": "model_selection",
       "suffix": ".csv",
       "bytes": 560
+    },
+    {
+      "path": "runtime/model_selection/card/release16_failedfold_state_feature_mining_v1/candidate_feature_groups.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1542
+    },
+    {
+      "path": "runtime/model_selection/card/release16_failedfold_state_feature_mining_v1/conclusion.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 2987
+    },
+    {
+      "path": "runtime/model_selection/card/release16_failedfold_state_feature_mining_v1/fold_signal_coverage.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 537
+    },
+    {
+      "path": "runtime/model_selection/card/release16_failedfold_state_feature_mining_v1/missed_up_day_state_frame.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1347611
+    },
+    {
+      "path": "runtime/model_selection/card/release16_failedfold_state_feature_mining_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 4306
+    },
+    {
+      "path": "runtime/model_selection/card/release16_failedfold_state_feature_mining_v1/state_transfer_feature_alignment.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 14934
+    },
+    {
+      "path": "runtime/model_selection/card/release16_failedfold_state_feature_mining_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 29116
+    },
+    {
+      "path": "runtime/model_selection/card/release16_failedfold_state_feature_mining_v1/test_state_feature_effects.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 5996
+    },
+    {
+      "path": "runtime/model_selection/card/release16_failedfold_state_feature_mining_v1/test_state_feature_set_scores.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1807
+    },
+    {
+      "path": "runtime/model_selection/card/release16_failedfold_state_feature_mining_v1/test_state_fold_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 3175
+    },
+    {
+      "path": "runtime/model_selection/card/release16_failedfold_state_feature_mining_v1/train_overlay_feature_effects.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 6076
+    },
+    {
+      "path": "runtime/model_selection/card/release16_failedfold_state_feature_mining_v1/train_overlay_feature_set_scores.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1809
+    },
+    {
+      "path": "runtime/model_selection/card/release16_failedfold_state_feature_mining_v1/train_overlay_fold_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 3216
+    },
+    {
+      "path": "runtime/model_selection/card/release16_failedfold_state_feature_mining_v1/train_overlay_state_frame.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 6247210
     },
     {
       "path": "runtime/model_selection/card/release16_remaining_failedfold_diagnostic_v1/bc_representation_summary.csv",

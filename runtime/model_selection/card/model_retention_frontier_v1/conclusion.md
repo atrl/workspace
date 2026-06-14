@@ -1,9 +1,9 @@
 # Model Retention Frontier
 
-- Rows scanned: `130`.
-- Completed handoffs: `106`.
-- Recommended next source: `release16_remaining_failedfold_diagnostic_v1`.
-- Recommended next action: `mine_failedfold_test_state_features_then_rebuild_representation_or_reward_objective_before_training`.
+- Rows scanned: `131`.
+- Completed handoffs: `107`.
+- Recommended next source: `release16_failedfold_state_feature_mining_v1`.
+- Recommended next action: `build_rulebase_reversal_failedfold_state_head_target_recipe_then_checkpoint_screen`.
 - Primary blocker: `walkforward_relative_return_gap`.
 - Retention gate: MaxDD `< 20.0` and YTD return floor `213.143462` versus SOXLBacktest reference `132.077978`.
 

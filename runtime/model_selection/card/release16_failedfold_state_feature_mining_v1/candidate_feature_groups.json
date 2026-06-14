@@ -1,0 +1,71 @@
+{
+  "compact_state_head": [
+    "mom_5",
+    "mom_21",
+    "drawdown_63",
+    "vol_of_vol_21",
+    "vol_coef_21",
+    "relative_strength_21",
+    "RB_BUY_COMPOSITE",
+    "RB_TREND_REVERSAL",
+    "TRANS_PANIC_EXHAUSTION",
+    "TRANS_GAP_RECOVERY",
+    "SIGNED_TE_REVERSION_5"
+  ],
+  "momentum_drawdown": [
+    "mom_5",
+    "mom_21",
+    "mom_63",
+    "drawdown_21",
+    "drawdown_63",
+    "trend_gap_21",
+    "trend_gap_63",
+    "anchor_gap_180",
+    "anchor_slope_180"
+  ],
+  "rulebase_reversal": [
+    "RB_PANIC_SCORE_PROXY",
+    "RB_DAILY_DROP_SEVERITY",
+    "RB_CUMULATIVE_DROP_SEVERITY",
+    "RB_RSI6_OVERSOLD",
+    "RB_VOL_REGIME",
+    "RB_BUY_COMPOSITE",
+    "RB_SELL_COMPOSITE",
+    "RB_PROFIT_TAKE_PROXY",
+    "RB_VOLUME_STRESS",
+    "RB_TREND_REVERSAL"
+  ],
+  "soxx_relative_decay": [
+    "tracking_error_5",
+    "tracking_error_21",
+    "tracking_error_vol_21",
+    "decay_63",
+    "relative_strength_21",
+    "ACAD_BETA_DEVIATION",
+    "ACAD_VOLATILITY_DRAG",
+    "ACAD_AUTOCORR_5"
+  ],
+  "transition_recovery": [
+    "TRANS_VIX_DIVERGENCE",
+    "TRANS_SPRING_COMPRESSION",
+    "TRANS_PANIC_EXHAUSTION",
+    "TRANS_GAP_RECOVERY",
+    "TRANS_VOL_TERM_ZSCORE",
+    "TRANS_VOV_TREND",
+    "TRANS_TE_ZSCORE",
+    "INTRADAY_REJECTION_EVENT",
+    "SIGNED_TE_REVERSION_5"
+  ],
+  "volatility_stress": [
+    "realized_vol_10",
+    "realized_vol_21",
+    "realized_vol_63",
+    "vol_of_vol_21",
+    "downside_ratio_21",
+    "downside_semivol_21",
+    "vol_coef_21",
+    "realized_kurtosis_21",
+    "vol_stress_score",
+    "regime_risk"
+  ]
+}
