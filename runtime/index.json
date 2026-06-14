@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-14T18:50:08.216738+00:00",
+  "generated_at": "2026-06-14T19:06:42.570877+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -7884,6 +7884,84 @@
       "category": "model_selection",
       "suffix": ".json",
       "bytes": 8604
+    },
+    {
+      "path": "runtime/model_selection/card/release16_checkpoint_distillation_ytd_alignment_contract_v1/buy_sell_feature_contrast.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4499
+    },
+    {
+      "path": "runtime/model_selection/card/release16_checkpoint_distillation_ytd_alignment_contract_v1/checkpoint_distillation_reference_rows.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 327661
+    },
+    {
+      "path": "runtime/model_selection/card/release16_checkpoint_distillation_ytd_alignment_contract_v1/checkpoint_objective_scores.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1195
+    },
+    {
+      "path": "runtime/model_selection/card/release16_checkpoint_distillation_ytd_alignment_contract_v1/checkpoint_objective_terms.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 26177
+    },
+    {
+      "path": "runtime/model_selection/card/release16_checkpoint_distillation_ytd_alignment_contract_v1/conclusion.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 966
+    },
+    {
+      "path": "runtime/model_selection/card/release16_checkpoint_distillation_ytd_alignment_contract_v1/distillation_target_contract.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2400710
+    },
+    {
+      "path": "runtime/model_selection/card/release16_checkpoint_distillation_ytd_alignment_contract_v1/drift_stop_contract.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1686
+    },
+    {
+      "path": "runtime/model_selection/card/release16_checkpoint_distillation_ytd_alignment_contract_v1/drift_stop_rules.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 859
+    },
+    {
+      "path": "runtime/model_selection/card/release16_checkpoint_distillation_ytd_alignment_contract_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 3584
+    },
+    {
+      "path": "runtime/model_selection/card/release16_checkpoint_distillation_ytd_alignment_contract_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 8388
+    },
+    {
+      "path": "runtime/model_selection/card/release16_checkpoint_distillation_ytd_alignment_contract_v1/target_lift_audit.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 753
+    },
+    {
+      "path": "runtime/model_selection/card/release16_checkpoint_distillation_ytd_alignment_contract_v1/target_scope_audit.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 532
+    },
+    {
+      "path": "runtime/model_selection/card/release16_checkpoint_distillation_ytd_alignment_contract_v1/ytd_alignment_target_rows.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 35997
     },
     {
       "path": "runtime/model_selection/card/release16_failed_fold_daily_path_diagnostic_v1/aligned_daily_paths.csv",

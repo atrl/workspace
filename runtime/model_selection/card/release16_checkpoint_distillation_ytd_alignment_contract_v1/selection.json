@@ -1,0 +1,58 @@
+{
+  "acceptance_criteria_next_training": [
+    "target_scope_audit leakage_gate passes for train labels",
+    "all WF folds pass relative >= 30 pp, return >= 0, MaxDD < 20%",
+    "single retained actor has YTD replay through dashboard/model source",
+    "YTD return >= SOXLBacktest qlib baseline and current-best floor",
+    "PPO does not worsen drawdown or relative return versus BC initialization"
+  ],
+  "actor_retention_allowed": false,
+  "all_checkpoint_coverage_pass": true,
+  "all_checkpoint_windows_pass": false,
+  "canonical_baseline": "soxlbacktest_policy_reimplementation_v1",
+  "changed_layer": "selection_training_objective_contract",
+  "checkpoint_objective_summary": {
+    "decision": "checkpoint_objective_no_promotion",
+    "next_mechanism": "train_state_objective_checkpoint_or_bc",
+    "required_terms": [
+      "checkpoint_objective_alignment_loss",
+      "checkpoint_objective_walkforward_gate_loss",
+      "checkpoint_objective_rebound_mae",
+      "checkpoint_objective_risk_cap_violation"
+    ],
+    "selected_alignment_loss": 0.9809605966586142,
+    "selected_candidate": "bc_initialization",
+    "selected_checkpoint_objective_loss": 4.080960596658614,
+    "selected_checkpoint_selection_score": -4.080960596658614,
+    "selected_coverage_gate": true,
+    "selected_missing_target_ratio": 1.0,
+    "selected_window_gate": false,
+    "selected_window_gate_loss": 2.0
+  },
+  "closest_historical_failure_case": "release16_state_head_post_fullprobe_objective_screen_v1 failed fixed MaxDD, YTD return alignment, and multiple WF gates; full actor YTD avg position was 0.0853 versus SOXLBacktest 0.1622.",
+  "closest_historical_success_case": "release16_rulebase_reversal_drawdown_upside_checkpoint_metric_replay_v1 selected bc_initialization passed wf_2022 candidate gate with MaxDD 15.6170 and relative return 71.715 pp.",
+  "comparison_table_row_key": "release16_checkpoint_distillation_ytd_alignment_contract_v1",
+  "created_at": "2026-06-14T19:06:14.909544+00:00",
+  "decision": "release16_checkpoint_distillation_ytd_alignment_contract_no_actor_retention",
+  "direct_comparison_baseline": "release16_state_head_post_fullprobe_objective_screen_v1",
+  "expected_tradeoff": "Increase participation in missed high-upside states without letting PPO drift above 20% drawdown.",
+  "experiment": "release16_checkpoint_distillation_ytd_alignment_contract_v1",
+  "external_reference": "converted SOXLBacktest qlib baseline and release16 state objective target screens",
+  "failure_mode": "Checkpoint-only/fold-local evidence may still fail to become a single retained actor with YTD replay; YTD labels may leak if used directly.",
+  "hypothesis": "Checkpoint distillation plus explicit YTD participation recipe and PPO drift stops are required before a retained actor can align with SOXLBacktest while preserving drawdown under 20%.",
+  "lift_semantics_all_pass": true,
+  "promotion_allowed": false,
+  "promotion_blocker": "no_single_retained_actor_ytd_replay_and_checkpoint_windows_do_not_all_pass",
+  "role": "diagnose_contract",
+  "scope_training_allowed": true,
+  "selected_checkpoint_objective_candidate": "bc_initialization",
+  "selected_checkpoint_objective_loss": 4.080960596658614,
+  "single_retained_actor_ytd_replay_available": false,
+  "target_window": [
+    "wf_2020",
+    "wf_2022",
+    "wf_2023_2024",
+    "ytd_2026_recipe_only"
+  ],
+  "why_not_duplicate": "This run does not rerun PPO or select a checkpoint. It converts the failure into an explicit trainable target contract, YTD recipe guard, checkpoint objective terms, and PPO drift-stop contract."
+}

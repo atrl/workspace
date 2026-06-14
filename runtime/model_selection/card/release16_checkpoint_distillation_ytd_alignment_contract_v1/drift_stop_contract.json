@@ -1,0 +1,45 @@
+{
+  "actor_retention_allowed": false,
+  "created_at": "2026-06-14T19:06:14.909544+00:00",
+  "decision": "ppo_drift_stop_contract_ready_no_actor_retention",
+  "experiment": "release16_checkpoint_distillation_ytd_alignment_contract_v1",
+  "next_run_must_stop_on_any_violation": true,
+  "promotion_allowed": false,
+  "rules": [
+    {
+      "limit": 0.0,
+      "metric": "candidate_max_dd_pct_minus_bc_max_dd_pct",
+      "operator": "<=",
+      "reason": "PPO must not increase max drawdown versus BC initialization in any fold before actor retention review.",
+      "rule_id": "ppo_vs_bc_drawdown_drift_stop"
+    },
+    {
+      "limit": 0.0,
+      "metric": "candidate_relative_return_pp_minus_bc_relative_return_pp",
+      "operator": ">=",
+      "reason": "PPO must not reduce relative return versus BC initialization when BC already fails a fold objective.",
+      "rule_id": "ppo_vs_bc_relative_return_drift_stop"
+    },
+    {
+      "limit": 20.0,
+      "metric": "test_max_dd_pct",
+      "operator": "<",
+      "reason": "User hard gate: drawdown under 20%.",
+      "rule_id": "walkforward_max_drawdown_hard_stop"
+    },
+    {
+      "limit": 30.0,
+      "metric": "test_relative_return_pp",
+      "operator": ">=",
+      "reason": "State objective must produce positive relative-return edge across all walk-forward folds.",
+      "rule_id": "walkforward_relative_return_hard_stop"
+    },
+    {
+      "limit": true,
+      "metric": "single_retained_actor_ytd_replay_available",
+      "operator": "==",
+      "reason": "No checkpoint-only candidate can be retained without single actor replay through dashboard/model source.",
+      "rule_id": "ytd_replay_availability_stop"
+    }
+  ]
+}

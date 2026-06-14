@@ -1,0 +1,4 @@
+fold,window,rows,rebound_rows,downtrend_rows,rebound_downtrend_rows,current_positive_rebound_lift_rows,candidate_release_positive_lift_rows,mean_current_effective_lift,mean_candidate_release_lift,max_current_effective_lift,max_candidate_release_lift,lift_semantics_gate,release_candidate_gate,target_position_priority,min_lift
+wf_2020_train,wf_2020_train,2470,42,873,30,9,9,0.08595714285714286,0.08595714285714286,0.5682,0.5682,True,True,risk,1e-09
+wf_2022_train,wf_2022_train,505,13,234,9,1,2,0.0156710112923815,0.031055626676996885,0.2037231468009595,0.2037231468009595,True,True,risk,1e-09
+wf_2023_2024_train,wf_2023_2024_train,756,165,478,10,152,152,0.18170849838056638,0.18170849838056638,0.5037231468009595,0.5037231468009595,True,True,risk,1e-09

@@ -1,0 +1,6 @@
+rule_id,metric,operator,limit,reason
+ppo_vs_bc_drawdown_drift_stop,candidate_max_dd_pct_minus_bc_max_dd_pct,<=,0.0,PPO must not increase max drawdown versus BC initialization in any fold before actor retention review.
+ppo_vs_bc_relative_return_drift_stop,candidate_relative_return_pp_minus_bc_relative_return_pp,>=,0.0,PPO must not reduce relative return versus BC initialization when BC already fails a fold objective.
+walkforward_max_drawdown_hard_stop,test_max_dd_pct,<,20.0,User hard gate: drawdown under 20%.
+walkforward_relative_return_hard_stop,test_relative_return_pp,>=,30.0,State objective must produce positive relative-return edge across all walk-forward folds.
+ytd_replay_availability_stop,single_retained_actor_ytd_replay_available,==,True,No checkpoint-only candidate can be retained without single actor replay through dashboard/model source.

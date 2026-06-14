@@ -1,0 +1,124 @@
+{
+  "acceptance_criteria_next_training": [
+    "target_scope_audit leakage_gate passes for train labels",
+    "all WF folds pass relative >= 30 pp, return >= 0, MaxDD < 20%",
+    "single retained actor has YTD replay through dashboard/model source",
+    "YTD return >= SOXLBacktest qlib baseline and current-best floor",
+    "PPO does not worsen drawdown or relative return versus BC initialization"
+  ],
+  "actor_retention_allowed": false,
+  "all_checkpoint_coverage_pass": true,
+  "all_checkpoint_windows_pass": false,
+  "canonical_baseline": "soxlbacktest_policy_reimplementation_v1",
+  "changed_layer": "selection_training_objective_contract",
+  "checkpoint_objective_summary": {
+    "decision": "checkpoint_objective_no_promotion",
+    "next_mechanism": "train_state_objective_checkpoint_or_bc",
+    "required_terms": [
+      "checkpoint_objective_alignment_loss",
+      "checkpoint_objective_walkforward_gate_loss",
+      "checkpoint_objective_rebound_mae",
+      "checkpoint_objective_risk_cap_violation"
+    ],
+    "selected_alignment_loss": 0.9809605966586142,
+    "selected_candidate": "bc_initialization",
+    "selected_checkpoint_objective_loss": 4.080960596658614,
+    "selected_checkpoint_selection_score": -4.080960596658614,
+    "selected_coverage_gate": true,
+    "selected_missing_target_ratio": 1.0,
+    "selected_window_gate": false,
+    "selected_window_gate_loss": 2.0
+  },
+  "closest_historical_failure_case": "release16_state_head_post_fullprobe_objective_screen_v1 failed fixed MaxDD, YTD return alignment, and multiple WF gates; full actor YTD avg position was 0.0853 versus SOXLBacktest 0.1622.",
+  "closest_historical_success_case": "release16_rulebase_reversal_drawdown_upside_checkpoint_metric_replay_v1 selected bc_initialization passed wf_2022 candidate gate with MaxDD 15.6170 and relative return 71.715 pp.",
+  "comparison_table_row_key": "release16_checkpoint_distillation_ytd_alignment_contract_v1",
+  "conclusion": "No actor retained. The next run should use the train-local distillation contract plus recipe-only YTD alignment and stop PPO drift before a full fixed/WF/YTD/dashboard replay review.",
+  "created_at": "2026-06-14T19:06:14.909544+00:00",
+  "decision": "release16_checkpoint_distillation_ytd_alignment_contract_no_actor_retention",
+  "direct_comparison_baseline": "release16_state_head_post_fullprobe_objective_screen_v1",
+  "distillation_contract_rows": 3731,
+  "expected_tradeoff": "Increase participation in missed high-upside states without letting PPO drift above 20% drawdown.",
+  "experiment": "release16_checkpoint_distillation_ytd_alignment_contract_v1",
+  "external_reference": "converted SOXLBacktest qlib baseline and release16 state objective target screens",
+  "failure_mode": "Checkpoint-only/fold-local evidence may still fail to become a single retained actor with YTD replay; YTD labels may leak if used directly.",
+  "hard_gates": {
+    "current_best_required_return_pct": 213.143462,
+    "full_actor_ytd_return_pct": 38.555494067096085,
+    "max_drawdown_pct": 20.0,
+    "return_floor_pct": 0.0,
+    "soxlbacktest_ytd_return_pct": 132.07797795135497,
+    "walkforward_relative_return_pp": 30.0
+  },
+  "hypothesis": "Checkpoint distillation plus explicit YTD participation recipe and PPO drift stops are required before a retained actor can align with SOXLBacktest while preserving drawdown under 20%.",
+  "lift_semantics_all_pass": true,
+  "next_mechanism": "train_checkpoint_distilled_actor_with_ytd_participation_recipe_and_ppo_drift_stop",
+  "output_paths": {
+    "buy_sell_feature_contrast": "runtime/model_selection/card/release16_checkpoint_distillation_ytd_alignment_contract_v1/buy_sell_feature_contrast.csv",
+    "checkpoint_distillation_reference_rows": "runtime/model_selection/card/release16_checkpoint_distillation_ytd_alignment_contract_v1/checkpoint_distillation_reference_rows.csv",
+    "checkpoint_objective_scores": "runtime/model_selection/card/release16_checkpoint_distillation_ytd_alignment_contract_v1/checkpoint_objective_scores.csv",
+    "checkpoint_objective_terms": "runtime/model_selection/card/release16_checkpoint_distillation_ytd_alignment_contract_v1/checkpoint_objective_terms.csv",
+    "distillation_target_contract": "runtime/model_selection/card/release16_checkpoint_distillation_ytd_alignment_contract_v1/distillation_target_contract.csv",
+    "drift_stop_contract": "runtime/model_selection/card/release16_checkpoint_distillation_ytd_alignment_contract_v1/drift_stop_contract.json",
+    "target_lift_audit": "runtime/model_selection/card/release16_checkpoint_distillation_ytd_alignment_contract_v1/target_lift_audit.csv",
+    "target_scope_audit": "runtime/model_selection/card/release16_checkpoint_distillation_ytd_alignment_contract_v1/target_scope_audit.csv",
+    "ytd_alignment_target_rows": "runtime/model_selection/card/release16_checkpoint_distillation_ytd_alignment_contract_v1/ytd_alignment_target_rows.csv"
+  },
+  "promotion_allowed": false,
+  "promotion_blocker": "no_single_retained_actor_ytd_replay_and_checkpoint_windows_do_not_all_pass",
+  "required_next_terms": [
+    "official_daily_path_checkpoint_objective_loss",
+    "ytd_soxlbacktest_position_alignment_loss",
+    "walkforward_relative_return_gap_penalty",
+    "walkforward_drawdown_gap_penalty",
+    "ppo_vs_bc_drawdown_drift_stop",
+    "single_retained_actor_ytd_replay_gate"
+  ],
+  "role": "diagnose_contract",
+  "scope_training_allowed": true,
+  "selected_checkpoint_objective_candidate": "bc_initialization",
+  "selected_checkpoint_objective_loss": 4.080960596658614,
+  "single_retained_actor_ytd_replay_available": false,
+  "source_paths": {
+    "checkpoint_metrics": "runtime/model_selection/card/release16_rulebase_reversal_drawdown_upside_checkpoint_metric_replay_v1/checkpoint_candidate_metrics.csv",
+    "checkpoint_selection": "runtime/model_selection/card/release16_rulebase_reversal_drawdown_upside_checkpoint_metric_replay_v1/checkpoint_selection_by_fold.csv",
+    "checkpoint_summary": "runtime/model_selection/card/release16_rulebase_reversal_drawdown_upside_checkpoint_metric_replay_v1/summary.json",
+    "post_fullprobe_gate_matrix": "runtime/model_selection/card/release16_state_head_post_fullprobe_objective_screen_v1/candidate_gate_matrix.csv",
+    "post_fullprobe_summary": "runtime/model_selection/card/release16_state_head_post_fullprobe_objective_screen_v1/summary.json",
+    "post_fullprobe_walkforward_metrics": "runtime/model_selection/card/release16_state_head_post_fullprobe_objective_screen_v1/walkforward_candidate_metrics.csv",
+    "source_target_conclusion": "runtime/model_selection/card/release16_rulebase_reversal_drawdown_upside_target_v1/conclusion.md",
+    "source_target_contract": "runtime/model_selection/card/release16_rulebase_reversal_drawdown_upside_target_v1/drawdown_upside_bc_target_contract.csv",
+    "soxlbacktest_reference": "runtime/production/card/soxl_backtest_policy_reimplementation_v1/new_policy_daily.csv",
+    "ytd_position_comparison": "runtime/model_selection/card/release16_state_head_post_fullprobe_objective_screen_v1/ytd_position_comparison_vs_soxlbacktest.csv",
+    "ytd_underparticipation": "runtime/model_selection/card/release16_state_head_post_fullprobe_objective_screen_v1/ytd_underparticipation_days.csv"
+  },
+  "target_lift_audit": {
+    "groups_with_release_candidate_lift": 3,
+    "groups_without_current_lift": 0,
+    "rows": 3
+  },
+  "target_scope_audit": {
+    "blocked_groups": 0,
+    "eval_overlap_rows": 0,
+    "rows": 3
+  },
+  "target_window": [
+    "wf_2020",
+    "wf_2022",
+    "wf_2023_2024",
+    "ytd_2026_recipe_only"
+  ],
+  "why_not_duplicate": "This run does not rerun PPO or select a checkpoint. It converts the failure into an explicit trainable target contract, YTD recipe guard, checkpoint objective terms, and PPO drift-stop contract.",
+  "ytd_alignment_summary": {
+    "end": "2026-06-09",
+    "guard": "YTD rows may only shape a future recipe/reward/checkpoint objective after split-aware implementation; do not feed them as direct labels.",
+    "large_gap_rows": 40,
+    "max_absolute_position_gap": 0.5359,
+    "mean_absolute_position_gap": 0.24746334787644184,
+    "rows": 109,
+    "start": "2026-01-02",
+    "training_label_allowed": false,
+    "underparticipation_forward_10d_mean": 0.29001102012188984,
+    "underparticipation_forward_5d_mean": 0.1906784568945215,
+    "underparticipation_rows": 20
+  }
+}
