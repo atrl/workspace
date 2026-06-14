@@ -1,0 +1,5 @@
+config_name,complexity,description,train_steps,lr,batch_size,rebound_multiplier,downtrend_multiplier,release_gate_multiplier,ordinary_multiplier,objective_weight_power,class_balanced_beta,weight_floor,weight_cap,normalize_mean
+release10_rebound4_downtrend2_steps600,1,Prior moderate release-gate weighting from cap10 three-fold screen.,600,0.001,128,4.0,2.0,10.0,1.0,0.0,0.0,0.05,30.0,True
+release12_rebound4_downtrend2_steps600,2,"Slightly stronger release weighting, no class balancing.",600,0.001,128,4.0,2.0,12.0,1.0,0.0,0.0,0.05,30.0,True
+release9_rebound4_downtrend2_steps1000,3,Longer optimization sanity check without class balancing.,1000,0.001,128,4.0,2.0,9.0,1.0,0.0,0.0,0.05,30.0,True
+release16_rebound6_downtrend2_cb99,4,"Release-heavy, rebound-heavy, class-balanced weighting for sparse factor-state repair.",600,0.001,128,6.0,2.0,16.0,1.0,0.2,0.99,0.05,35.0,True

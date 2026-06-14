@@ -1,0 +1,48 @@
+{
+  "actor_retention_allowed": false,
+  "bc_screen_gate": true,
+  "checkpoint_screen_allowed_next": true,
+  "created_at": "2026-06-14T13:03:55.762908+00:00",
+  "decision": "rebound_state_factor_target_repair_screen_ready_for_checkpoint_no_promotion",
+  "evaluated_folds": [
+    "wf_2020",
+    "wf_2022",
+    "wf_2023_2024"
+  ],
+  "experiment": "rebound_state_factor_target_repair_screen_v1",
+  "failed_folds": [
+    "wf_2020",
+    "wf_2022"
+  ],
+  "missing_folds": [],
+  "next_mechanism": "run_release16_cb99_foldlocal_checkpoint_or_ppo_screen_before_actor_retention",
+  "next_training_allowed_after_target_revision": true,
+  "ppo_screen_allowed_next": true,
+  "primary_blocker": "target_revision_ready",
+  "profile": "sparse_release_bc_ppo_screen_v1",
+  "promotion_allowed": false,
+  "reference_baseline": "soxlbacktest_qlib_walkforward_baseline_v1:wf_pass_ytd18_15_15_02",
+  "required_wf_windows": [
+    "wf_2020",
+    "wf_2022",
+    "wf_2023_2024"
+  ],
+  "selected_config": "release16_rebound6_downtrend2_cb99",
+  "sidecars": {
+    "baseline_comparison": "runtime/model_selection/card/rebound_state_factor_target_repair_screen_v1/soxlbacktest_qlib_baseline_comparison.csv",
+    "bc_action_distribution": "runtime/model_selection/card/rebound_state_factor_target_repair_screen_v1/bc_action_distribution.csv",
+    "bc_weight_configs": "runtime/model_selection/card/rebound_state_factor_target_repair_screen_v1/bc_weight_configs.csv",
+    "bc_weight_screen": "runtime/model_selection/card/rebound_state_factor_target_repair_screen_v1/bc_weight_screen.csv",
+    "combined_target_contract": "runtime/model_selection/card/rebound_state_factor_target_repair_screen_v1/combined_target_contract.csv",
+    "dashboard_kimi_target_repair_check": "runtime/model_selection/card/rebound_state_factor_target_repair_screen_v1/dashboard_kimi_target_repair_check.png",
+    "fold_bc_metrics": "runtime/model_selection/card/rebound_state_factor_target_repair_screen_v1/fold_bc_metrics.csv",
+    "fold_gate_scores": "runtime/model_selection/card/rebound_state_factor_target_repair_screen_v1/fold_gate_scores.csv",
+    "fold_replay_metrics": "runtime/model_selection/card/rebound_state_factor_target_repair_screen_v1/fold_replay_metrics.csv",
+    "selected_state_slice_bc_metrics": "runtime/model_selection/card/rebound_state_factor_target_repair_screen_v1/selected_state_slice_bc_metrics.csv",
+    "state_slice_bc_metrics": "runtime/model_selection/card/rebound_state_factor_target_repair_screen_v1/state_slice_bc_metrics.csv",
+    "target_scope_audit": "runtime/model_selection/card/rebound_state_factor_target_repair_screen_v1/target_scope_audit.csv"
+  },
+  "source_card": "rebound_state_factor_bc_replay_v1",
+  "target_contract_gate": true,
+  "training_allowed": false
+}

@@ -1,0 +1,4 @@
+fold,target_fold,source_contract_ids,fold_rows,train_rows,valid_overlap_rows,test_overlap_rows,train_start,train_end,valid_start,valid_end,test_start,test_end,release_gate_rows,factor_rebound_rows,rebound_cluster_rows,downtrend_rows,drawdown_control_rows,target_contract_gate,bc_dataset_samples,dropped_rows_before_dataset
+wf_2020,wf_2020_train,cap10_wf2020_soxlbacktest_target_contract_v1,2470,2218,252,0,2010-03-11,2018-12-31,2019-01-01,2019-12-31,2020-01-01,2020-12-31,38,0,38,768,768,True,1904,314
+wf_2022,wf_2022_train,rebound_state_factor_target_contract_v1,505,253,252,0,2010-03-11,2020-12-31,2021-01-01,2021-12-31,2022-01-01,2022-12-31,8,8,12,118,0,True,252,1
+wf_2023_2024,wf_2023_2024_train,rebound_state_factor_target_contract_v1,756,756,0,0,2010-03-11,2022-12-31,2023-01-01,2023-12-31,2024-01-01,2024-12-31,11,11,14,478,0,True,755,1

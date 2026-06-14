@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-14T12:38:12.816028+00:00",
+  "generated_at": "2026-06-14T13:11:16.007356+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -6185,19 +6185,19 @@
       "path": "runtime/model_selection/card/model_retention_frontier_v1/conclusion.md",
       "category": "model_selection",
       "suffix": ".md",
-      "bytes": 582
+      "bytes": 524
     },
     {
       "path": "runtime/model_selection/card/model_retention_frontier_v1/retention_frontier.csv",
       "category": "model_selection",
       "suffix": ".csv",
-      "bytes": 50389
+      "bytes": 50950
     },
     {
       "path": "runtime/model_selection/card/model_retention_frontier_v1/summary.json",
       "category": "model_selection",
       "suffix": ".json",
-      "bytes": 129310
+      "bytes": 130427
     },
     {
       "path": "runtime/model_selection/card/model_retention_walkforward_gate_v1/conclusion.md",
@@ -7494,6 +7494,90 @@
       "category": "model_selection",
       "suffix": ".json",
       "bytes": 1178
+    },
+    {
+      "path": "runtime/model_selection/card/rebound_state_factor_target_repair_screen_v1/bc_action_distribution.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4531
+    },
+    {
+      "path": "runtime/model_selection/card/rebound_state_factor_target_repair_screen_v1/bc_weight_configs.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 878
+    },
+    {
+      "path": "runtime/model_selection/card/rebound_state_factor_target_repair_screen_v1/bc_weight_screen.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2253
+    },
+    {
+      "path": "runtime/model_selection/card/rebound_state_factor_target_repair_screen_v1/combined_target_contract.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2039664
+    },
+    {
+      "path": "runtime/model_selection/card/rebound_state_factor_target_repair_screen_v1/conclusion.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 557
+    },
+    {
+      "path": "runtime/model_selection/card/rebound_state_factor_target_repair_screen_v1/fold_bc_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2914
+    },
+    {
+      "path": "runtime/model_selection/card/rebound_state_factor_target_repair_screen_v1/fold_gate_scores.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 5155
+    },
+    {
+      "path": "runtime/model_selection/card/rebound_state_factor_target_repair_screen_v1/fold_replay_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1049
+    },
+    {
+      "path": "runtime/model_selection/card/rebound_state_factor_target_repair_screen_v1/selected_state_slice_bc_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 3115
+    },
+    {
+      "path": "runtime/model_selection/card/rebound_state_factor_target_repair_screen_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2755
+    },
+    {
+      "path": "runtime/model_selection/card/rebound_state_factor_target_repair_screen_v1/soxlbacktest_qlib_baseline_comparison.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 5155
+    },
+    {
+      "path": "runtime/model_selection/card/rebound_state_factor_target_repair_screen_v1/state_slice_bc_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 11804
+    },
+    {
+      "path": "runtime/model_selection/card/rebound_state_factor_target_repair_screen_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 16790
+    },
+    {
+      "path": "runtime/model_selection/card/rebound_state_factor_target_repair_screen_v1/target_scope_audit.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 844
     },
     {
       "path": "runtime/model_selection/card/rebound_state_head_lift_guard_v1/base_context.json",
