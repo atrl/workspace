@@ -80,10 +80,10 @@
     "soxl_backtest_policy_reimplementation_v1",
     "balanced_rule_residual_v19_moe_v2"
   ],
-  "generated_at": "2026-06-14T03:01:29.451307+00:00",
+  "generated_at": "2026-06-14T04:03:31.977718+00:00",
   "latest_market_date": "2026-06-10",
   "model_retention_frontier": {
-    "completed_handoff_count": 82,
+    "completed_handoff_count": 83,
     "max_walkforward_drawdown_pct": 20.0,
     "recommended_next_action": "screen drawdown-drift reward/checkpoint penalty with trend-preservation term before PPO",
     "recommended_next_source": "short_volshock_drawdown_drift_feature_audit_v1",
@@ -95,7 +95,7 @@
       "wf_2022",
       "wf_2023_2024"
     ],
-    "rows_scanned": 107,
+    "rows_scanned": 109,
     "source_path": "runtime/model_selection/card/model_retention_frontier_v1/summary.json"
   },
   "model_retention_gate": {

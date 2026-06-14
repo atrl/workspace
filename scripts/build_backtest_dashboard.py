@@ -222,6 +222,7 @@ def compact_payload_rows(rows: list[dict[str, object]]) -> list[dict[str, object
         "entry_side",
         "entry_target_position",
         "summary_path",
+        "feature_snapshot",
     )
     for row in rows:
         compact_row = {
@@ -767,6 +768,56 @@ def select_latest_version(versioned: dict[str, dict]) -> str:
     return latest_version
 
 
+def _version_rows_count(payload: dict[str, object]) -> int:
+    windows = payload.get("windows") if isinstance(payload, dict) else {}
+    if not isinstance(windows, dict):
+        return 0
+    counts: list[int] = []
+    for window in windows.values():
+        if not isinstance(window, dict):
+            continue
+        try:
+            counts.append(int(window.get("rows") or 0))
+        except (TypeError, ValueError):
+            continue
+    return max(counts) if counts else 0
+
+
+def select_default_chart_version(versioned: dict[str, dict], *, best_version: str = "") -> str:
+    """Pick a readable model/replay default for Main Chart, separate from latest paper status."""
+    if best_version and best_version in versioned and _version_rows_count(versioned[best_version]) > 0:
+        return best_version
+
+    preferred_source_kinds = (
+        "retained_dashboard_export",
+        "reference_baseline",
+        "generalization_version",
+        "interactive_backtest",
+    )
+    best_tag = ""
+    best_score: tuple[int, int, float] | None = None
+    for tag, payload in versioned.items():
+        if tag == "paper_trading":
+            continue
+        meta = payload.get("_meta", {}) if isinstance(payload, dict) else {}
+        source_kind = str(meta.get("source_kind") or "generalization_version")
+        if source_kind not in preferred_source_kinds:
+            continue
+        rows = _version_rows_count(payload)
+        if rows <= 0:
+            continue
+        source_rank = len(preferred_source_kinds) - preferred_source_kinds.index(source_kind)
+        try:
+            updated_at = float(meta.get("updated_at") or 0.0)
+        except (TypeError, ValueError):
+            updated_at = 0.0
+        score = (source_rank, rows, updated_at)
+        if best_score is None or score > best_score:
+            best_score = score
+            best_tag = tag
+    return best_tag or select_latest_version(versioned)
+
+
 def compute_regime_shapes(rows: list[dict]) -> list[dict]:
     shapes = []
     if not rows:
@@ -1278,6 +1329,23 @@ def _load_retained_dashboard_versions() -> dict[str, dict]:
             if tag_dir.name == "paper_trading":
                 detail = _sanitize_retained_paper_detail(detail)
                 rows = detail.get("rows") or []
+            ohlc = load_ohlc_and_indicators(etf)
+            if ohlc:
+                enriched_rows = []
+                for source_row in rows:
+                    if not isinstance(source_row, dict):
+                        enriched_rows.append(source_row)
+                        continue
+                    row = dict(source_row)
+                    market_row = ohlc.get(str(row.get("datetime") or row.get("date") or ""))
+                    if isinstance(market_row, dict):
+                        for field, value in market_row.items():
+                            if value is not None and row.get(field) is None:
+                                row[field] = value
+                    enriched_rows.append(row)
+                detail = dict(detail)
+                detail["rows"] = enriched_rows
+                rows = enriched_rows
             details[etf] = detail
             windows[etf] = {
                 "start": rows[0].get("datetime", ""),
@@ -1526,12 +1594,17 @@ def build_payload() -> dict[str, object]:
     for tag, payload in retained_versioned.items():
         versioned.setdefault(tag, payload)
 
+    model_versions = load_model_versions()
+    best_version = select_best_version(model_versions, versioned)
+    latest_version = select_latest_version(versioned)
+    default_chart_version = select_default_chart_version(versioned, best_version=best_version)
+
     # If no detailed data exists but versioned data does, populate from latest version
     # so that the dashboard has a default ETF to display.
     if not detailed_rows and versioned:
-        latest_tag = select_latest_version(versioned)
-        if latest_tag and latest_tag in versioned:
-            latest_payload = versioned[latest_tag]
+        default_tag = default_chart_version or latest_version
+        if default_tag and default_tag in versioned:
+            latest_payload = versioned[default_tag]
             for etf, detail in (latest_payload.get("detailed") or {}).items():
                 detailed_rows[etf] = detail
                 windows[etf] = latest_payload.get("windows", {}).get(etf, {
@@ -1542,11 +1615,8 @@ def build_payload() -> dict[str, object]:
                 if detailed_summary is not None and isinstance(detailed_summary, list):
                     detailed_summary.append(detail.get("summary", {}))
 
-    model_versions = load_model_versions()
     run_windows = load_run_profile_windows()
     research_backtests = load_research_backtests()
-    best_version = select_best_version(model_versions, versioned)
-    latest_version = select_latest_version(versioned)
 
     return {
         "generated_from": {
@@ -1564,6 +1634,7 @@ def build_payload() -> dict[str, object]:
         "versioned": versioned,
         "best_version": best_version,
         "latest_version": latest_version,
+        "default_chart_version": default_chart_version,
         "results": load_json_or(RUNTIME_DIR / "results.json", {}),
         "rule_based": load_json_or(RUNTIME_DIR / "rule_based_results.json", {}),
         "execution_overlay": load_json_or(RUNTIME_DIR / "execution_overlay_results.json", {}),
@@ -1678,6 +1749,7 @@ def write_index_json(
     model_versions: list[dict],
     best_version: str,
     latest_version: str,
+    default_chart_version: str,
     research_backtests: list[dict] | None = None,
 ) -> None:
     """Write a lightweight index with ETF lists, version metadata, and summaries."""
@@ -1687,6 +1759,7 @@ def write_index_json(
         "versions": list(versioned.keys()),
         "best_version": best_version,
         "latest_version": latest_version,
+        "default_chart_version": default_chart_version,
         "version_summaries": {},
     }
     for tag, payload in versioned.items():
@@ -2505,6 +2578,10 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
         <span class="production-k">Model Replays</span>
         <span class="production-v" id="productionModelReplayStatus">n/a</span>
       </div>
+      <div class="production-detail production-auto-refresh">
+        <span class="production-k">Auto Refresh</span>
+        <span class="production-v" id="productionAutoRefreshStatus">n/a</span>
+      </div>
     </section>
 
     <section class="card research-panel" id="researchBacktests">
@@ -2731,7 +2808,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     const VERSIONS = Object.keys(DATA.versioned || {{}});
     const state = {{
       etf: ETFS[0] || 'SOXL',
-      version: DATA.latest_version || DATA.best_version || '',
+      version: DATA.default_chart_version || DATA.latest_version || DATA.best_version || '',
       versionSource: 'auto_latest',
       range: 'all',
       zoomMode: 'all',
@@ -2776,6 +2853,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     const productionDeploymentStatus = document.getElementById('productionDeploymentStatus');
     const productionGateOverall = document.getElementById('productionGateOverall');
     const productionGateIssues = document.getElementById('productionGateIssues');
+    const productionAutoRefreshStatus = document.getElementById('productionAutoRefreshStatus');
     const researchBacktestSummary = document.getElementById('researchBacktestSummary');
     const researchBacktestTable = document.getElementById('researchBacktestTable');
     const DASHBOARD_API_FALLBACK = 'http://127.0.0.1:8765/api/run-backtest';
@@ -2789,7 +2867,10 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       ETFS.map(etf => [
         etf,
         Object.fromEntries(
-          (DATA.detailed[etf].rows || []).map(row => [
+          ((() => {{
+            const detailRows = DATA.detailed && DATA.detailed[etf] && DATA.detailed[etf].rows;
+            return Array.isArray(detailRows) ? detailRows : [];
+          }})()).map(row => [
             row.datetime,
             {{
               open: row.open,
@@ -2803,7 +2884,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
               vol_coef: row.vol_coef,
               panic_score: row.panic_score,
               market_state: row.market_state,
-              _features: row._features || {{}},
+              _features: row._features || row.feature_snapshot || {{}},
             }},
           ])
         ),
@@ -2837,11 +2918,11 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
         if (!parsed) return;
         Object.assign(state, parsed);
         if (parsed.versionSource !== 'manual' && parsed.versionSource !== 'current') {{
-          state.version = DATA.latest_version || DATA.best_version || '';
+          state.version = DATA.default_chart_version || DATA.latest_version || DATA.best_version || '';
           state.versionSource = 'auto_latest';
         }}
         if (state.version && (!DATA.versioned || !DATA.versioned[state.version])) {{
-          state.version = DATA.latest_version || DATA.best_version || '';
+          state.version = DATA.default_chart_version || DATA.latest_version || DATA.best_version || '';
           state.versionSource = 'auto_latest';
         }}
         // Segment cache is not persisted; always start clean
@@ -2866,7 +2947,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
           return {{
             ...market,
             ...row,
-            _features: market._features || {{}},
+            _features: row._features || row.feature_snapshot || market._features || {{}},
           }};
         }}),
       }};
@@ -3774,6 +3855,25 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       setProductionText(productionModelReplayStatus, text);
     }}
 
+    function renderAutoUpdateStatus(manifest) {{
+      if (typeof productionAutoRefreshStatus === 'undefined' || !productionAutoRefreshStatus) return;
+      const auto = manifest && manifest.auto_update;
+      const tasks = auto && Array.isArray(auto.tasks) ? auto.tasks : [];
+      const task = tasks.find(item => item && item.name === 'dashboard_refresh') || {{}};
+      if (!auto || !Object.keys(task).length) {{
+        setProductionText(productionAutoRefreshStatus, 'not configured');
+        return;
+      }}
+      const loaded = task.loaded === true ? 'loaded' : task.loaded === false ? 'not loaded' : 'loaded unknown';
+      const installed = task.installed === true ? 'installed' : task.installed === false ? 'not installed' : 'install unknown';
+      const configured = task.configured ? 'configured' : 'not configured';
+      const command = auto.run_now_command || auto.manual_refresh_command || task.command_path || 'n/a';
+      setProductionText(
+        productionAutoRefreshStatus,
+        `${{configured}} · ${{installed}} · ${{loaded}} · ${{task.schedule || 'n/a'}} · ${{command}}`
+      );
+    }}
+
     function escapeHtml(value) {{
       const map = {{ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }};
       return String(value == null ? '' : value).replace(/[&<>"']/g, ch => map[ch]);
@@ -3900,7 +4000,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       return paperPayloadFreshness(fallback) > paperPayloadFreshness(primary) ? fallback : primary;
     }}
 
-    function renderProductionStatus(payload, goalGates, paperPayload, modelReplay) {{
+    function renderProductionStatus(payload, goalGates, paperPayload, modelReplay, manifest) {{
       if (!productionStatusCard) return;
       const data = payload || {{}};
       const staticExport = data.static_export || {{}};
@@ -3920,6 +4020,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       setProductionText(productionGateOverall, overall.status || 'unknown');
       setProductionText(productionGateIssues, issues.length ? issues.join(', ') : (overall.detail || 'none'));
       renderModelReplayStatus(modelReplay);
+      renderAutoUpdateStatus(manifest);
       productionDeploymentStatus.classList.remove('production-tone-good', 'production-tone-bad', 'production-tone-warn');
       productionDeploymentStatus.textContent = '';
       if (data.deployment_url) {{
@@ -3936,11 +4037,12 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
     }}
 
     async function loadProductionStatus() {{
-      const [status, goalGates, paperPayload, modelReplay] = await Promise.all([
+      const [status, goalGates, paperPayload, modelReplay, v2Manifest] = await Promise.all([
         loadJson('dashboard_data/production_status.json'),
         loadJson('dashboard_data/production_goal_gates.json'),
         loadJson('dashboard_data/versioned/paper_trading/SOXL.json'),
         loadJson('dashboard_data/model_replay_freshness.json'),
+        loadJson('dashboard_data/v2/manifest.json'),
       ]);
       if (modelReplay && Array.isArray(modelReplay.profiles)) {{
         modelReplayProfiles = modelReplay.profiles;
@@ -3950,7 +4052,8 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
         status || {{ status: 'unavailable' }},
         goalGates,
         chooseFreshestPaperPayload(paperPayload, embeddedPaperPayload()),
-        modelReplay
+        modelReplay,
+        v2Manifest
       );
     }}
 
@@ -3969,6 +4072,10 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       if (!idx) return;
       _indexLoaded = true;
       indexVersionSummaries = idx.version_summaries || {{}};
+      if (state.versionSource !== 'manual' && idx.default_chart_version && DATA.versioned && DATA.versioned[idx.default_chart_version]) {{
+        state.version = idx.default_chart_version;
+        state.versionSource = 'auto_latest';
+      }}
       // Populate version selector from index
       versionSelect.innerHTML = '';
       const defaultOpt = document.createElement('option');
@@ -4254,7 +4361,7 @@ def build_html(payload: dict[str, object], layouts: dict[str, dict]) -> str:
       }}
       infoEmpty.style.display = 'none';
       infoContent.style.display = 'block';
-      const f = row._features || {{}};
+      const f = row.feature_snapshot || row._features || {{}};
       document.getElementById('infoDate').textContent = row.datetime;
       const actionEl = document.getElementById('infoAction');
       if (actionEl) {{
@@ -4667,6 +4774,7 @@ def main() -> None:
         payload.get("model_versions", []),
         payload.get("best_version", ""),
         payload.get("latest_version", ""),
+        payload.get("default_chart_version", ""),
         payload.get("research_backtests", []),
     )
 

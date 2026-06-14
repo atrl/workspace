@@ -167,13 +167,15 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.textContent).not.toContain('smoke rerunn/a');
   });
 
-  test('renders visible buy and sell action labels', () => {
+  test('renders visible action, price, and position labels', () => {
     const panel = document.createElement('div');
 
     renderActionLegend(panel);
 
     expect(panel.textContent).toContain('BUY');
     expect(panel.textContent).toContain('SELL');
+    expect(panel.textContent).toContain('SOXL Price');
+    expect(panel.textContent).toContain('Position');
   });
 
   test('renders model-specific buy and sell feature comparison rows', () => {

@@ -477,6 +477,16 @@ def test_build_dashboard_v2_data_includes_retained_dashboard_exports_when_replay
                 "rows": [
                     {
                         "datetime": "2026-01-02",
+                        "open": 9.5,
+                        "high": 10.2,
+                        "low": 9.4,
+                        "close": 10.0,
+                        "rsi6": 48.0,
+                        "ma180": 9.8,
+                        "hv_20": 0.22,
+                        "vol_coef": 1.1,
+                        "panic_score": 0.4,
+                        "market_state": "neutral",
                         "strategy_nav": 100.0,
                         "buyhold_nav": 100.0,
                         "position": 0.0,
@@ -485,6 +495,16 @@ def test_build_dashboard_v2_data_includes_retained_dashboard_exports_when_replay
                     },
                     {
                         "datetime": "2026-01-05",
+                        "open": 10.2,
+                        "high": 11.5,
+                        "low": 10.1,
+                        "close": 11.0,
+                        "rsi6": 62.0,
+                        "ma180": 9.9,
+                        "hv_20": 0.25,
+                        "vol_coef": 1.4,
+                        "panic_score": 0.7,
+                        "market_state": "risk_on",
                         "strategy_nav": 105.0,
                         "buyhold_nav": 110.0,
                         "position": 0.7,
@@ -493,6 +513,16 @@ def test_build_dashboard_v2_data_includes_retained_dashboard_exports_when_replay
                     },
                     {
                         "datetime": "2026-01-06",
+                        "open": 11.0,
+                        "high": 11.1,
+                        "low": 10.5,
+                        "close": 10.8,
+                        "rsi6": 41.0,
+                        "ma180": 9.95,
+                        "hv_20": 0.28,
+                        "vol_coef": 1.6,
+                        "panic_score": 0.9,
+                        "market_state": "risk_off",
                         "strategy_nav": 103.0,
                         "buyhold_nav": 108.0,
                         "position": 0.2,
@@ -536,7 +566,10 @@ def test_build_dashboard_v2_data_includes_retained_dashboard_exports_when_replay
     assert model["runnable"] is False
     assert model["runnable_reason"] == "evidence_only_retained_dashboard_export"
     assert model["source_path"] == "dashboard_data/versioned/retained_model/SOXL.json"
+    assert "replay_inline_snapshot" not in model["feature_schema_source"]
+    assert model["snapshot_columns"] == ["retained_buy_signal", "shared_feature", "retained_sell_signal"]
     assert model["rows"][1]["feature_snapshot"]["retained_buy_signal"] == 1.25
+    assert "panic_score" not in model["rows"][1]["feature_snapshot"]
     assert model["events"][0]["feature_snapshot"]["retained_buy_signal"] == 1.25
     assert model["feature_action_summary"][0]["feature"] in {"retained_buy_signal", "shared_feature"}
     assert comparison["baseline_profile"] == "retained_model"

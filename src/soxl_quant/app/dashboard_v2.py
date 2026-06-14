@@ -67,6 +67,16 @@ REFERENCE_FEATURE_COLUMNS = (
     "market_state",
     "vix",
 )
+VERSIONED_DASHBOARD_CONTEXT_FIELDS = {
+    *REFERENCE_FEATURE_COLUMNS,
+    *FEATURE_COLS,
+    "rsi6",
+    "ma180",
+    "hv_20",
+    "vol_coef",
+    "panic_score",
+    "market_state",
+}
 RETAINED_DASHBOARD_EXPORT_SOURCE_KIND = "retained_dashboard_export"
 RETAINED_DASHBOARD_EXPORT_REASON = "evidence_only_retained_dashboard_export"
 DEFAULT_SNAPSHOT_COLUMNS = (
@@ -390,7 +400,11 @@ def _feature_snapshot(row: dict[str, Any] | None, columns: list[str]) -> dict[st
     return {column: row[column] for column in columns if column in row}
 
 
-def _feature_snapshot_from_source_row(source: pd.Series) -> FeatureSnapshot:
+def _feature_snapshot_from_source_row(
+    source: pd.Series,
+    *,
+    extra_non_feature_fields: set[str] | frozenset[str] | None = None,
+) -> FeatureSnapshot:
     nested = source.get("feature_snapshot")
     if isinstance(nested, dict):
         snapshot = {
@@ -402,9 +416,10 @@ def _feature_snapshot_from_source_row(source: pd.Series) -> FeatureSnapshot:
             return snapshot
 
     snapshot: FeatureSnapshot = {}
+    non_feature_fields = MODEL_NON_FEATURE_FIELDS | set(extra_non_feature_fields or ())
     for key, value in source.items():
         column = str(key)
-        if column in MODEL_NON_FEATURE_FIELDS:
+        if column in non_feature_fields:
             continue
         json_value = _json_feature_value(value)
         if json_value is not None:
@@ -971,6 +986,7 @@ def normalize_dashboard_version_rows(
         path_label=str(path),
         safe_backtest_end=safe_backtest_end,
         window=window,
+        extra_non_feature_fields=VERSIONED_DASHBOARD_CONTEXT_FIELDS,
     )
 
 
@@ -980,6 +996,7 @@ def _normalize_model_frame(
     path_label: str,
     safe_backtest_end: str | None,
     window: str | None = None,
+    extra_non_feature_fields: set[str] | frozenset[str] | None = None,
 ) -> list[dict[str, Any]]:
     missing = [field for field in REQUIRED_MODEL_FIELDS if field not in frame.columns]
     if missing:
@@ -1003,7 +1020,10 @@ def _normalize_model_frame(
         position = _as_float(source["position"], "position", idx)
         price = _as_float(source["price"], "price", idx)
         action = _normalize_action(source.get("action"))
-        source_feature_snapshot = _feature_snapshot_from_source_row(source)
+        source_feature_snapshot = _feature_snapshot_from_source_row(
+            source,
+            extra_non_feature_fields=extra_non_feature_fields,
+        )
         if first_strategy_nav is None:
             first_strategy_nav = strategy_nav
         excess = strategy_nav - buyhold_nav

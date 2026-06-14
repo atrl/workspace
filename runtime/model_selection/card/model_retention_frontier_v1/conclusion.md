@@ -1,7 +1,7 @@
 # Model Retention Frontier
 
-- Rows scanned: `107`.
-- Completed handoffs: `82`.
+- Rows scanned: `109`.
+- Completed handoffs: `83`.
 - Recommended next source: `short_volshock_drawdown_drift_feature_audit_v1`.
 - Recommended next action: `screen drawdown-drift reward/checkpoint penalty with trend-preservation term before PPO`.
 - Primary blocker: `missing_walkforward_evidence`.

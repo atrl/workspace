@@ -278,8 +278,9 @@ export function renderActionLegend(container: HTMLElement): void {
   container.replaceChildren();
   const buy = element('span', 'legend-item legend-buy', 'BUY');
   const sell = element('span', 'legend-item legend-sell', 'SELL');
+  const price = element('span', 'legend-item legend-price', 'SOXL Price');
   const position = element('span', 'legend-item legend-position', 'Position');
-  container.append(buy, sell, position);
+  container.append(buy, sell, price, position);
 }
 
 const CHART_COMMANDS: readonly { command: ChartRangeCommand; label: string; icon: string }[] = [

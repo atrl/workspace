@@ -18,6 +18,7 @@ from scripts.build_backtest_dashboard import (
     load_research_backtests,
     load_run_profile_windows,
     normalize_post_train_review_rows,
+    select_default_chart_version,
     select_best_version,
     select_latest_version,
 )
@@ -131,6 +132,27 @@ def test_select_latest_version_prefers_paper_trading_for_static_dashboard():
         "paper_trading": {"_meta": {"updated_at": 100, "source_kind": "paper_trading"}},
     }
     assert select_latest_version(versioned) == "paper_trading"
+
+
+def test_select_default_chart_version_prefers_readable_model_over_short_paper_view():
+    versioned = {
+        "paper_trading": {
+            "_meta": {"updated_at": 300, "source_kind": "paper_trading"},
+            "windows": {"SOXL": {"start": "2026-06-04", "end": "2026-06-08", "rows": 2}},
+        },
+        "balanced_rule_residual_v19_moe_v2": {
+            "_meta": {"updated_at": 200, "source_kind": "retained_dashboard_export"},
+            "windows": {"SOXL": {"start": "2020-01-02", "end": "2026-05-19", "rows": 1603}},
+        },
+        "soxl_backtest_policy_reimplementation_v1": {
+            "_meta": {"updated_at": 250, "source_kind": "reference_baseline"},
+            "windows": {"SOXL": {"start": "2026-01-02", "end": "2026-06-09", "rows": 109}},
+        },
+    }
+
+    assert select_default_chart_version(versioned, best_version="balanced_rule_residual_v19_moe_v2") == (
+        "balanced_rule_residual_v19_moe_v2"
+    )
 
 
 def test_select_best_version_maps_soxl_prefix():
@@ -606,6 +628,19 @@ def test_load_versions_keeps_retained_dashboard_export_without_source_csv(tmp_pa
     )
     monkeypatch.setattr(dashboard_builder, "ROOT", tmp_path)
     monkeypatch.setattr(dashboard_builder, "DASHBOARD_DATA_DIR", tmp_path / "dashboard_data")
+    monkeypatch.setattr(
+        dashboard_builder,
+        "load_ohlc_and_indicators",
+        lambda _etf: {
+            "2026-05-19": {
+                "open": 98.0,
+                "high": 101.0,
+                "low": 97.0,
+                "close": 100.0,
+                "volume": 12345,
+            }
+        },
+    )
 
     versions = _load_retained_dashboard_versions()
 
@@ -613,6 +648,8 @@ def test_load_versions_keeps_retained_dashboard_export_without_source_csv(tmp_pa
     retained = versions["retained_ablation"]
     assert retained["_meta"]["source_kind"] == "retained_dashboard_export"
     assert retained["windows"]["SOXL"] == {"start": "2026-05-19", "end": "2026-05-19", "rows": 1}
+    assert retained["detailed"]["SOXL"]["rows"][0]["open"] == 98.0
+    assert retained["detailed"]["SOXL"]["rows"][0]["close"] == 100.0
 
 
 def test_load_versions_skips_retained_post_train_review_export(tmp_path: Path, monkeypatch):
@@ -865,6 +902,7 @@ def test_compact_payload_rows_preserves_market_ohlc_for_static_price_chart():
                 "volume": 12345,
                 "ma180": 9.5,
                 "market_state": True,
+                "feature_snapshot": {"alpha_signal": 1.25},
                 "_features": {"vix": 20.0},
             }
         ]
@@ -886,6 +924,7 @@ def test_compact_payload_rows_preserves_market_ohlc_for_static_price_chart():
             "volume": 12345,
             "ma180": 9.5,
             "market_state": True,
+            "feature_snapshot": {"alpha_signal": 1.25},
         }
     ]
 
@@ -913,9 +952,12 @@ def test_build_html_loads_production_status_json():
     assert 'id="productionPaperExecution"' in html
     assert 'id="productionPaperSource"' in html
     assert 'id="productionModelReplayStatus"' in html
+    assert 'id="productionAutoRefreshStatus"' in html
     assert "renderPaperStatus" in html
     assert "renderModelReplayStatus" in html
+    assert "renderAutoUpdateStatus" in html
     assert "dashboard_data/model_replay_freshness.json" in html
+    assert "dashboard_data/v2/manifest.json" in html
     assert "embeddedPaperPayload" in html
     assert "chooseFreshestPaperPayload(paperPayload, embeddedPaperPayload())" in html
     assert "cache: 'no-store'" in html
@@ -988,6 +1030,14 @@ def test_build_html_rerun_chart_draws_full_price_and_position_lines():
     assert price_rows_index < ohlc_index
     assert "name: 'SOXL Close', type: 'scatter', mode: 'lines'" in html
     assert "name: 'Position %', type: 'scatter', mode: 'lines+markers'" in html
+
+
+def test_build_html_uses_default_chart_version_and_model_feature_snapshots():
+    html = build_html({"detailed": {}, "versioned": {}, "model_versions": []}, {"all": {}})
+
+    assert "version: DATA.default_chart_version || DATA.latest_version || DATA.best_version || ''" in html
+    assert "const detailRows = DATA.detailed && DATA.detailed[etf] && DATA.detailed[etf].rows;" in html
+    assert "const f = row.feature_snapshot || row._features || {};" in html
 
 
 def test_build_html_binds_plotly_interactions_once_per_chart_node():
