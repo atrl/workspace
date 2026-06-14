@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-14T21:15:54.952341+00:00",
+  "generated_at": "2026-06-14T21:41:44.654893+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -8109,6 +8109,96 @@
     },
     {
       "path": "runtime/model_selection/card/release16_checkpoint_distillation_bc_readiness_v1/target_scope_audit.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 262
+    },
+    {
+      "path": "runtime/model_selection/card/release16_checkpoint_distillation_bc_repair_screen_v1/bc_action_distribution.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 5723
+    },
+    {
+      "path": "runtime/model_selection/card/release16_checkpoint_distillation_bc_repair_screen_v1/candidate_ranking.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1270
+    },
+    {
+      "path": "runtime/model_selection/card/release16_checkpoint_distillation_bc_repair_screen_v1/candidate_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1270
+    },
+    {
+      "path": "runtime/model_selection/card/release16_checkpoint_distillation_bc_repair_screen_v1/conclusion.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 594
+    },
+    {
+      "path": "runtime/model_selection/card/release16_checkpoint_distillation_bc_repair_screen_v1/config_grid.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 678
+    },
+    {
+      "path": "runtime/model_selection/card/release16_checkpoint_distillation_bc_repair_screen_v1/dataset_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 442
+    },
+    {
+      "path": "runtime/model_selection/card/release16_checkpoint_distillation_bc_repair_screen_v1/feature_schema.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 938
+    },
+    {
+      "path": "runtime/model_selection/card/release16_checkpoint_distillation_bc_repair_screen_v1/feature_summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 242
+    },
+    {
+      "path": "runtime/model_selection/card/release16_checkpoint_distillation_bc_repair_screen_v1/fold_config_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 6284
+    },
+    {
+      "path": "runtime/model_selection/card/release16_checkpoint_distillation_bc_repair_screen_v1/release_gate_prediction_trace.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 37334
+    },
+    {
+      "path": "runtime/model_selection/card/release16_checkpoint_distillation_bc_repair_screen_v1/sample_weight_config_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 3078
+    },
+    {
+      "path": "runtime/model_selection/card/release16_checkpoint_distillation_bc_repair_screen_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 5237
+    },
+    {
+      "path": "runtime/model_selection/card/release16_checkpoint_distillation_bc_repair_screen_v1/state_slice_config_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 11009
+    },
+    {
+      "path": "runtime/model_selection/card/release16_checkpoint_distillation_bc_repair_screen_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 12401
+    },
+    {
+      "path": "runtime/model_selection/card/release16_checkpoint_distillation_bc_repair_screen_v1/target_scope_audit.csv",
       "category": "model_selection",
       "suffix": ".csv",
       "bytes": 262

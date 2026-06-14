@@ -1,0 +1,2 @@
+rows,training_label_allowed_rows,blocked_training_label_rows,target_scope_values,label_role_values,oos_guard_values,min_date,max_date,target_scope_gate
+3731,3731,0,['fold_local'],['fold_local_train_label'],['allowed_train_dates_only'],2010-03-11,2022-12-30,True
