@@ -91,6 +91,48 @@ def _load_replayable_profiles(root: Path) -> list[dict[str, Any]]:
     ]
 
 
+def _string_value(value: Any) -> str:
+    if value is None:
+        return ""
+    try:
+        if pd.isna(value):
+            return ""
+    except (TypeError, ValueError):
+        pass
+    return str(value)
+
+
+def _comparison_evidence_profiles(ytd: pd.DataFrame) -> list[dict[str, Any]]:
+    profiles: list[dict[str, Any]] = []
+    seen: set[str] = set()
+    for _, row in ytd.iterrows():
+        profile = _string_value(row.get("profile")).strip()
+        if not profile or profile == PRIMARY_REFERENCE_PROFILE or profile in seen:
+            continue
+        model_kind = _string_value(row.get("model_kind")).strip()
+        status = _string_value(row.get("status")).strip()
+        if model_kind == "runtime_composer" or status == "production_composer":
+            continue
+        source_path = _string_value(row.get("source_path")).strip()
+        profiles.append(
+            {
+                "profile": profile,
+                "status": status or "comparison_evidence",
+                "output": source_path or f"runtime/model/card/{profile}/{profile}_soxl_daily.csv",
+                "result": "comparison_evidence",
+            }
+        )
+        seen.add(profile)
+    return profiles
+
+
+def _model_retention_scan_profiles(root: Path, ytd: pd.DataFrame) -> list[dict[str, Any]]:
+    profiles = _load_replayable_profiles(root)
+    if profiles:
+        return profiles
+    return _comparison_evidence_profiles(ytd)
+
+
 def _load_registry_keep_actor_entries(root: Path) -> list[dict[str, Any]]:
     payload = _load_registry_payload(root)
     entries = payload.get("profiles", [])
@@ -183,6 +225,10 @@ def _reference_row(reference: ReferenceBaseline) -> dict[str, Any]:
         "required_soxlbacktest_return_pct": round(reference.return_pct, 6),
         "wf_windows_present": "",
         "worst_wf_max_drawdown_pct": None,
+        "missing_wf_window_count": 0,
+        "wf_drawdown_gap_pct": None,
+        "best_return_gap_pct": None,
+        "soxlbacktest_return_gap_pct": None,
         "gate_pass": True,
         "retention_decision": "keep_reference_baseline",
         "failures": [],
@@ -254,8 +300,14 @@ def _evaluate_profile(
     for window in REQUIRED_WF_WINDOWS:
         if window not in wf_metrics:
             failures.append(f"missing_wf_window:{window}")
+    missing_wf_window_count = sum(1 for window in REQUIRED_WF_WINDOWS if window not in wf_metrics)
 
     threshold_label = _threshold_label(max_walkforward_drawdown_pct)
+    worst_wf_max_drawdown = (
+        max(float(item["max_drawdown_pct"]) for item in wf_metrics.values())
+        if wf_metrics
+        else None
+    )
     for window, metrics in wf_metrics.items():
         if float(metrics["max_drawdown_pct"]) >= max_walkforward_drawdown_pct:
             failures.append(f"wf_max_drawdown_ge_{threshold_label}:{window}")
@@ -265,9 +317,13 @@ def _evaluate_profile(
     ytd_return = float(ytd_row[ytd_return_column]) if ytd_row is not None and ytd_return_column else None
     ytd_max_dd = float(ytd_row[ytd_max_dd_column]) if ytd_row is not None and ytd_max_dd_column else None
     required_best_return = current_best_return_pct * best_return_ratio
+    best_return_gap = None
+    soxlbacktest_return_gap = None
     if ytd_return is None:
         failures.append("missing_ytd_return")
     else:
+        best_return_gap = max(0.0, required_best_return - ytd_return)
+        soxlbacktest_return_gap = max(0.0, reference.return_pct - ytd_return)
         if ytd_return < reference.return_pct:
             failures.append("ytd_return_below_soxlbacktest_baseline")
         if ytd_return < required_best_return:
@@ -284,14 +340,76 @@ def _evaluate_profile(
         "required_best_return_pct": round(required_best_return, 6),
         "required_soxlbacktest_return_pct": round(reference.return_pct, 6),
         "wf_windows_present": ",".join(sorted(wf_metrics)),
-        "worst_wf_max_drawdown_pct": (
-            round(max(float(item["max_drawdown_pct"]) for item in wf_metrics.values()), 6)
-            if wf_metrics
+        "worst_wf_max_drawdown_pct": round(worst_wf_max_drawdown, 6) if worst_wf_max_drawdown is not None else None,
+        "missing_wf_window_count": missing_wf_window_count,
+        "wf_drawdown_gap_pct": (
+            round(max(0.0, worst_wf_max_drawdown - max_walkforward_drawdown_pct), 6)
+            if worst_wf_max_drawdown is not None
             else None
+        ),
+        "best_return_gap_pct": round(best_return_gap, 6) if best_return_gap is not None else None,
+        "soxlbacktest_return_gap_pct": (
+            round(soxlbacktest_return_gap, 6) if soxlbacktest_return_gap is not None else None
         ),
         "gate_pass": gate_pass,
         "retention_decision": "retain_promotable" if gate_pass else "retain_as_evidence_only",
         "failures": failures,
+    }
+
+
+def _candidate_rows(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    return [row for row in rows if row.get("profile") != PRIMARY_REFERENCE_PROFILE]
+
+
+def _closest_wf_drawdown_candidate(rows: list[dict[str, Any]]) -> dict[str, Any] | None:
+    candidates = [
+        row
+        for row in _candidate_rows(rows)
+        if row.get("worst_wf_max_drawdown_pct") is not None
+    ]
+    if not candidates:
+        return None
+    row = sorted(
+        candidates,
+        key=lambda item: (
+            int(item.get("missing_wf_window_count") or 0),
+            float(item.get("wf_drawdown_gap_pct") or 0.0),
+            float(item.get("best_return_gap_pct") or 0.0),
+        ),
+    )[0]
+    return {
+        "profile": row["profile"],
+        "worst_wf_max_drawdown_pct": row.get("worst_wf_max_drawdown_pct"),
+        "wf_drawdown_gap_pct": row.get("wf_drawdown_gap_pct"),
+        "missing_wf_window_count": row.get("missing_wf_window_count"),
+        "ytd_return_pct": row.get("ytd_return_pct"),
+        "best_return_gap_pct": row.get("best_return_gap_pct"),
+    }
+
+
+def _closest_ytd_return_candidate(rows: list[dict[str, Any]]) -> dict[str, Any] | None:
+    candidates = [
+        row
+        for row in _candidate_rows(rows)
+        if row.get("ytd_return_pct") is not None
+    ]
+    if not candidates:
+        return None
+    row = sorted(
+        candidates,
+        key=lambda item: (
+            float(item.get("best_return_gap_pct") or 0.0),
+            int(item.get("missing_wf_window_count") or 0),
+            float(item.get("wf_drawdown_gap_pct") or 0.0),
+        ),
+    )[0]
+    return {
+        "profile": row["profile"],
+        "ytd_return_pct": row.get("ytd_return_pct"),
+        "best_return_gap_pct": row.get("best_return_gap_pct"),
+        "worst_wf_max_drawdown_pct": row.get("worst_wf_max_drawdown_pct"),
+        "wf_drawdown_gap_pct": row.get("wf_drawdown_gap_pct"),
+        "missing_wf_window_count": row.get("missing_wf_window_count"),
     }
 
 
@@ -310,7 +428,7 @@ def scan_model_retention_gates(
     current_best_return_pct = float(ytd[ytd_return_column].max())
     ytd_by_profile = {str(row["profile"]): row for _, row in ytd.iterrows()}
     rows: list[dict[str, Any]] = [_reference_row(reference)]
-    for profile in _load_replayable_profiles(root):
+    for profile in _model_retention_scan_profiles(root, ytd):
         profile_name = str(profile["profile"])
         rows.append(
             _evaluate_profile(
@@ -356,6 +474,8 @@ def scan_model_retention_gates(
             "required_best_return_pct": round(current_best_return_pct * best_return_ratio, 6),
             "max_walkforward_drawdown_pct": float(max_walkforward_drawdown_pct),
             "required_wf_windows": list(REQUIRED_WF_WINDOWS),
+            "closest_wf_drawdown_candidate": _closest_wf_drawdown_candidate(rows),
+            "closest_ytd_return_candidate": _closest_ytd_return_candidate(rows),
         },
         "rows": rows,
         "registry_keep_actor_audit": registry_keep_actor_audit,

@@ -2621,7 +2621,7 @@
   ],
   "summary": {
     "completed_handoff_count": 89,
-    "generated_at": "2026-06-14T09:18:28.925994+00:00",
+    "generated_at": "2026-06-14T09:33:22.643899+00:00",
     "max_walkforward_drawdown_pct": 20.0,
     "recommended_next_action": "inspect_failed_fold_drawdown_or_reward_drift_before_full_retention_training",
     "recommended_next_source": "low_exposure_rally_floor_three_fold_checkpoint_metric_replay_v1",

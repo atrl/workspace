@@ -24899,9 +24899,13 @@
   "profile_yaml": null,
   "replay_end": "2026-06-09",
   "replay_start": "2020-01-02",
-  "retention_decision": "missing_retention_gate_row",
+  "required_best_return_pct": 213.143462,
+  "required_soxlbacktest_return_pct": 132.077978,
+  "retention_decision": "retain_as_evidence_only",
   "retention_failures": [
-    "missing_retention_gate_row"
+    "wf_max_drawdown_ge_20:wf_2020",
+    "wf_max_drawdown_ge_20:wf_2023_2024",
+    "ytd_return_below_best_alignment"
   ],
   "retention_gate_pass": false,
   "row_count": 1617,
@@ -139779,5 +139783,6 @@
   ],
   "source_kind": "daily_replay_evidence",
   "source_path": "runtime/model/card/mode_conditioned_rebound_reward_train_v2/mode_conditioned_rebound_reward_train_v2_soxl_daily.csv",
-  "status": "evidence_daily_replay"
+  "status": "evidence_daily_replay",
+  "worst_wf_max_drawdown_pct": 21.83172
 }

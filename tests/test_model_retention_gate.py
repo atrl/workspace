@@ -79,7 +79,7 @@ def _run_retention_gate_requires_complete_walkforward_drawdown_and_return_alignm
         comparison_rows,
     )
     _write_report(tmp_path, "passer", {"wf_2020": 10.0, "wf_2022": 19.9, "wf_2023_2024": 18.0})
-    _write_report(tmp_path, "high_dd", {"wf_2020": 10.0, "wf_2022": 20.0, "wf_2023_2024": 18.0})
+    _write_report(tmp_path, "high_dd", {"wf_2020": 10.0, "wf_2022": 22.5, "wf_2023_2024": 18.0})
     _write_report(tmp_path, "missing_wf", {"wf_2020": 10.0, "wf_2022": 19.0})
     _write_report(tmp_path, "low_return", {"wf_2020": 10.0, "wf_2022": 19.0, "wf_2023_2024": 18.0})
 
@@ -91,11 +91,71 @@ def _run_retention_gate_requires_complete_walkforward_drawdown_and_return_alignm
     assert by_profile["passer"]["retention_decision"] == "retain_promotable"
     assert by_profile["high_dd"]["gate_pass"] is False
     assert "wf_max_drawdown_ge_20:wf_2022" in by_profile["high_dd"]["failures"]
+    assert by_profile["high_dd"]["wf_drawdown_gap_pct"] == 2.5
+    assert by_profile["missing_wf"]["missing_wf_window_count"] == 1
     assert by_profile["missing_wf"]["gate_pass"] is False
     assert "missing_wf_window:wf_2023_2024" in by_profile["missing_wf"]["failures"]
     assert by_profile["low_return"]["gate_pass"] is False
     assert "ytd_return_below_best_alignment" in by_profile["low_return"]["failures"]
+    assert by_profile["low_return"]["best_return_gap_pct"] == 1.0
+    assert by_profile["low_return"]["soxlbacktest_return_gap_pct"] == 6.0
     assert result["summary"]["passing_profiles"] == ["passer"]
+    assert result["summary"]["closest_wf_drawdown_candidate"]["profile"] == "passer"
+    assert result["summary"]["closest_ytd_return_candidate"]["profile"] == "passer"
+
+
+def test_retention_gate_scans_comparison_models_when_replay_freshness_has_no_profiles():
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp_path = Path(tmp)
+        _run_retention_gate_scans_comparison_models_when_replay_freshness_has_no_profiles(tmp_path)
+
+
+def _run_retention_gate_scans_comparison_models_when_replay_freshness_has_no_profiles(tmp_path: Path) -> None:
+    from src.soxl_quant.app.model_retention_gate import scan_model_retention_gates
+
+    _write_json(
+        tmp_path / "dashboard_data" / "model_replay_freshness.json",
+        {"safe_backtest_end": "2026-06-11", "profiles": []},
+    )
+    _write_csv(
+        tmp_path / "runtime" / "production" / "card" / "soxl_backtest_policy_reimplementation_v1" / "legacy_comparison_metrics.csv",
+        [{"window": "ytd_2026", "new_return_pct": 100.0, "new_max_drawdown_pct": 12.0}],
+    )
+    _write_csv(
+        tmp_path / "runtime" / "production" / "card" / "current_model_ytd_june_comparison_v1" / "all_model_comparison_metrics.csv",
+        [
+            {
+                "window": "ytd_2026_common",
+                "profile": "drawdown_safe",
+                "status": "ablation",
+                "source_path": "runtime/model/card/drawdown_safe/drawdown_safe_soxl_daily.csv",
+                "current_model_return_pct": 99.0,
+                "current_model_max_drawdown_pct": 18.0,
+            },
+            {
+                "window": "ytd_2026_common",
+                "profile": "return_reference",
+                "status": "canonical",
+                "source_path": "runtime/model/card/return_reference/return_reference_soxl_daily.csv",
+                "current_model_return_pct": 130.0,
+                "current_model_max_drawdown_pct": 30.0,
+            },
+        ],
+    )
+    _write_report(tmp_path, "drawdown_safe", {"wf_2020": 10.0, "wf_2022": 19.5, "wf_2023_2024": 18.0})
+
+    result = scan_model_retention_gates(root=tmp_path, max_walkforward_drawdown_pct=20.0, best_return_ratio=0.95)
+    by_profile = {row["profile"]: row for row in result["rows"]}
+
+    assert result["summary"]["profiles_scanned"] == 2
+    assert by_profile["drawdown_safe"]["source_path"] == "runtime/model/card/drawdown_safe/drawdown_safe_soxl_daily.csv"
+    assert by_profile["drawdown_safe"]["status"] == "ablation"
+    assert by_profile["drawdown_safe"]["gate_pass"] is False
+    assert "ytd_return_below_best_alignment" in by_profile["drawdown_safe"]["failures"]
+    assert by_profile["return_reference"]["status"] == "canonical"
+    assert by_profile["return_reference"]["missing_wf_window_count"] == 3
+    assert result["summary"]["closest_wf_drawdown_candidate"]["profile"] == "drawdown_safe"
+    assert result["summary"]["closest_ytd_return_candidate"]["profile"] == "return_reference"
 
 
 def test_registry_keep_actor_audit_blocks_non_passing_retained_models():

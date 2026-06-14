@@ -85,7 +85,7 @@
     "drawdown_rebound_reward_train_v1",
     "mode_conditioned_rebound_reward_train_v2"
   ],
-  "generated_at": "2026-06-14T09:18:37.762589+00:00",
+  "generated_at": "2026-06-14T09:33:31.349574+00:00",
   "latest_market_date": "2026-06-10",
   "model_retention_frontier": {
     "completed_handoff_count": 89,
@@ -107,7 +107,7 @@
     "max_walkforward_drawdown_pct": 20.0,
     "passing_profile_count": 0,
     "passing_profiles": [],
-    "profiles_scanned": 0,
+    "profiles_scanned": 13,
     "reference_profile": "soxl_backtest_policy_reimplementation_v1",
     "registry_keep_actor_count": 0,
     "registry_keep_actor_strict_violation_count": 0,

@@ -257,6 +257,14 @@ Chart silently falls back to the current ETF rows and shows a wrong window.
 The converted `soxl_backtest_policy_reimplementation_v1` buy/sell path is a
 `reference_baseline` dashboard version, not a runnable inference profile.
 
+`dashboard_data/model_replay_freshness.json` reports executable replay actors,
+not the full model evidence universe. After strict retention, this file can
+legitimately have `profiles=[]`; do not treat that as "no models exist". Model
+retention diagnostics and dashboard summary cards should fall back to
+`runtime/production/card/current_model_ytd_june_comparison_v1/all_model_comparison_metrics.csv`
+for evidence-only model rows, while keeping `runtime_composer` and the converted
+SOXLBacktest reference out of runnable actor lists.
+
 ### Dashboard V2 TradingView-Style Interactions
 
 For `web/dashboard-v2`, TradingView-like interaction means visible controls and

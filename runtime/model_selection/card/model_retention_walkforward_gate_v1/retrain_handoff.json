@@ -1,0 +1,40 @@
+{
+  "closest_wf_drawdown_candidate": {
+    "best_return_gap_pct": 35.569893,
+    "missing_wf_window_count": 0,
+    "profile": "mode_conditioned_rebound_reward_train_v2",
+    "wf_drawdown_gap_pct": 1.83172,
+    "worst_wf_max_drawdown_pct": 21.83172,
+    "ytd_return_pct": 177.573569
+  },
+  "closest_ytd_return_candidate": {
+    "best_return_gap_pct": 0.0,
+    "missing_wf_window_count": 3,
+    "profile": "smoke",
+    "wf_drawdown_gap_pct": null,
+    "worst_wf_max_drawdown_pct": null,
+    "ytd_return_pct": 224.361539
+  },
+  "decision": "train_state_conditioned_multi_objective_no_promotion",
+  "max_walkforward_drawdown_pct": 20.0,
+  "objective_terms": [
+    "walkforward_drawdown_gap_penalty",
+    "walkforward_relative_return_gap_penalty",
+    "state_conditioned_downtrend_drawdown_cap",
+    "rebound_participation_floor_without_exceeding_wf20dd"
+  ],
+  "promotion": "blocked",
+  "reference_baseline": "soxl_backtest_policy_reimplementation_v1",
+  "reference_return_pct": 132.077978,
+  "required_best_return_pct": 213.143462,
+  "required_wf_windows": [
+    "wf_2020",
+    "wf_2022",
+    "wf_2023_2024"
+  ],
+  "stop_conditions": [
+    "do_not_promote_missing_walkforward_windows",
+    "do_not_promote_worst_wf_maxdd_ge_20",
+    "do_not_promote_ytd_return_below_best_alignment"
+  ]
+}
