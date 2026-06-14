@@ -1,0 +1,127 @@
+{
+  "actor_retention_allowed": false,
+  "canonical_baseline": "v19reg_v22_budget_usage_bull_guard_v1",
+  "changed_layer": [
+    "model_selection",
+    "failure_attribution",
+    "target_revision_routing"
+  ],
+  "conclusion": [
+    "wf_2020 failure is now drawdown-dominated: rel 5.08pp and MaxDD 20.93%.",
+    "wf_2020 max drawdown segment 2020-09-02->2020-09-08 had price return -30.85% and avg new position 0.460 vs source overlay 0.191; the rulebase lift crossed the 20% drawdown ceiling.",
+    "wf_2023_2024 failure is return-dominated: rel 11.58pp leaves a 18.42pp gap while MaxDD 11.75% stays below 20%.",
+    "PPO continuation did not solve either failed fold; selected candidates remain BC initialization, so the next useful lever is target/objective revision rather than longer PPO from this target.",
+    "Do not promote or retain any actor from this diagnostic."
+  ],
+  "created_at": "2026-06-14T16:50:53.836753+00:00",
+  "decision": "rulebase_reversal_failed_fold_diagnostic_requires_target_revision_no_promotion",
+  "direct_comparison_baseline": "release16_rulebase_reversal_checkpoint_metric_replay_v1",
+  "experiment": "release16_rulebase_reversal_failed_fold_diagnostic_v1",
+  "failed_folds": [
+    "wf_2020",
+    "wf_2023_2024"
+  ],
+  "metrics": [
+    {
+      "avg_pos": 0.2969370746139454,
+      "max_dd_pct": 20.93461230446718,
+      "relative_return_pct": 5.082694802865696,
+      "return_pct": 63.17626541934969,
+      "split_type": "walk_forward_test",
+      "window": "wf_2020"
+    },
+    {
+      "avg_pos": 0.0813840878420415,
+      "max_dd_pct": 15.617042880121645,
+      "relative_return_pct": 71.71497994984345,
+      "return_pct": -14.873091782550818,
+      "split_type": "walk_forward_test",
+      "window": "wf_2022"
+    },
+    {
+      "avg_pos": 0.1442337291578541,
+      "max_dd_pct": 11.750027701140676,
+      "relative_return_pct": 11.57853880826739,
+      "return_pct": 11.221904078578948,
+      "split_type": "walk_forward_test",
+      "window": "wf_2023_2024"
+    }
+  ],
+  "next_mechanism": "build_drawdown_capped_rulebase_reversal_and_wf2024_upside_participation_target_then_rerun_checkpoint_metric_replay",
+  "next_training_allowed_after_target_revision": false,
+  "primary_blocker": "walkforward_relative_return_gap",
+  "promotion_allowed": false,
+  "reference_baseline": "soxlbacktest_qlib_walkforward_baseline_v1:wf_pass_ytd18_15_15_02",
+  "revision_direction": [
+    {
+      "blocker": "drawdown_overexposure_after_rulebase_lift",
+      "drawdown_gap_to_20pct": 0.9346123044671799,
+      "fold": "wf_2020",
+      "rationale": "new MaxDD 20.93% exceeds 20%; max drawdown segment 2020-09-02->2020-09-08 had avg new position 0.460 vs source 0.191.",
+      "recommended_next_action": "build_drawdown_capped_rulebase_reversal_target_for_wf2020",
+      "relative_gap_to_30pp": 24.917305197134304,
+      "selected_max_dd_pct": 20.93461230446718,
+      "selected_relative_return_pp": 5.082694802865696,
+      "target_revision_hint": "cap reversal lifts when recent drawdown/volshock exposure would exceed the source overlay; keep rebound gains without September-style overexposure."
+    },
+    {
+      "blocker": "upside_underparticipation_after_safe_drawdown",
+      "drawdown_gap_to_20pct": 0.0,
+      "fold": "wf_2023_2024",
+      "rationale": "new MaxDD 11.75% is below 20%, but relative return 11.58pp is 18.42pp below target.",
+      "recommended_next_action": "build_high_participation_rebound_target_for_wf2024_with_drawdown_guard",
+      "relative_gap_to_30pp": 18.42146119173261,
+      "selected_max_dd_pct": 11.750027701140676,
+      "selected_relative_return_pp": 11.57853880826739,
+      "target_revision_hint": "add short-horizon upside/rebound participation targets for large positive SOXL days while preserving the existing drawdown guard."
+    }
+  ],
+  "role": "diagnose",
+  "sidecars": [
+    "failed_fold_daily_comparison.csv",
+    "failed_fold_drawdown_segments.csv",
+    "failed_fold_monthly_attribution.csv",
+    "failed_fold_top_gap_days.csv",
+    "target_pressure_summary.csv",
+    "revision_direction_matrix.csv",
+    "selection.json",
+    "summary.json",
+    "conclusion.md"
+  ],
+  "source_readiness_card": "release16_rulebase_reversal_checkpoint_readiness_v1",
+  "source_replay": "release16_rulebase_reversal_checkpoint_metric_replay_v1",
+  "target_max_dd_pct": 20.0,
+  "target_relative_return_pp": 30.0,
+  "target_revision_ready": false,
+  "training_allowed_from_this_card": false,
+  "wf2020_drawdown_segment": {
+    "avg_new_position": 0.4601788948221116,
+    "avg_reference_position": 0.2265,
+    "avg_source_overlay_position": 0.191263817992876,
+    "fold": "wf_2020",
+    "max_dd_pct": 20.93461230446718,
+    "path": "new",
+    "peak_date": "2020-09-02",
+    "segment_new_return_pct": -20.93461230446718,
+    "segment_price_return_pct": -30.847297317543386,
+    "segment_reference_return_pct": -8.240690365692638,
+    "segment_rows": 4,
+    "segment_source_overlay_return_pct": -16.65215076947679,
+    "trough_date": "2020-09-08"
+  },
+  "wf2023_2024_drawdown_segment": {
+    "avg_new_position": 0.11634397891631582,
+    "avg_reference_position": 0.019174782608695647,
+    "avg_source_overlay_position": 0.09664212098818878,
+    "fold": "wf_2023_2024",
+    "max_dd_pct": 11.750027701140652,
+    "path": "new",
+    "peak_date": "2024-07-10",
+    "segment_new_return_pct": -11.750027701140652,
+    "segment_price_return_pct": -61.65621717269016,
+    "segment_reference_return_pct": -0.20640701765655134,
+    "segment_rows": 115,
+    "segment_source_overlay_return_pct": -5.376169565558431,
+    "trough_date": "2024-12-19"
+  }
+}

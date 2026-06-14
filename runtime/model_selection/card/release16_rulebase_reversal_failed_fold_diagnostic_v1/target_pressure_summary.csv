@@ -1,0 +1,4 @@
+fold_family,contract_rows,rulebase_overlay_rows,overlay_share_pct,mean_rulebase_target_lift,mean_consumed_target_delta,median_consumed_target_delta,release_gate_rows,downtrend_rows,rebound_rows,factor_rebound_rows,min_overlay_date,max_overlay_date
+wf_2020,2470,424,17.16599190283401,0.1454705188679245,0.14478537735849056,0.1226,42,781,42,0,2011-04-21,2019-04-29
+wf_2022,505,0,0.0,0.0,0.0,0.0,9,234,13,9,,
+wf_2023_2024,756,145,19.17989417989418,0.3109225512016205,0.30167033412764954,0.3162391215355873,11,478,14,11,2020-01-14,2022-01-03

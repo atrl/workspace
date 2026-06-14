@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-14T16:42:20.449425+00:00",
+  "generated_at": "2026-06-14T16:51:53.908487+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -6185,19 +6185,19 @@
       "path": "runtime/model_selection/card/model_retention_frontier_v1/conclusion.md",
       "category": "model_selection",
       "suffix": ".md",
-      "bytes": 549
+      "bytes": 581
     },
     {
       "path": "runtime/model_selection/card/model_retention_frontier_v1/retention_frontier.csv",
       "category": "model_selection",
       "suffix": ".csv",
-      "bytes": 55625
+      "bytes": 56202
     },
     {
       "path": "runtime/model_selection/card/model_retention_frontier_v1/summary.json",
       "category": "model_selection",
       "suffix": ".json",
-      "bytes": 140721
+      "bytes": 141948
     },
     {
       "path": "runtime/model_selection/card/model_retention_walkforward_gate_v1/conclusion.md",
@@ -8472,6 +8472,60 @@
       "category": "model_selection",
       "suffix": ".csv",
       "bytes": 302
+    },
+    {
+      "path": "runtime/model_selection/card/release16_rulebase_reversal_failed_fold_diagnostic_v1/conclusion.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 1156
+    },
+    {
+      "path": "runtime/model_selection/card/release16_rulebase_reversal_failed_fold_diagnostic_v1/failed_fold_daily_comparison.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 269482
+    },
+    {
+      "path": "runtime/model_selection/card/release16_rulebase_reversal_failed_fold_diagnostic_v1/failed_fold_drawdown_segments.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1711
+    },
+    {
+      "path": "runtime/model_selection/card/release16_rulebase_reversal_failed_fold_diagnostic_v1/failed_fold_monthly_attribution.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 5275
+    },
+    {
+      "path": "runtime/model_selection/card/release16_rulebase_reversal_failed_fold_diagnostic_v1/failed_fold_top_gap_days.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 20291
+    },
+    {
+      "path": "runtime/model_selection/card/release16_rulebase_reversal_failed_fold_diagnostic_v1/revision_direction_matrix.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1012
+    },
+    {
+      "path": "runtime/model_selection/card/release16_rulebase_reversal_failed_fold_diagnostic_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 5591
+    },
+    {
+      "path": "runtime/model_selection/card/release16_rulebase_reversal_failed_fold_diagnostic_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 5591
+    },
+    {
+      "path": "runtime/model_selection/card/release16_rulebase_reversal_failed_fold_diagnostic_v1/target_pressure_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 538
     },
     {
       "path": "runtime/model_selection/card/release16_rulebase_reversal_target_recipe_v1/best_rulebase_reversal_row_scores.csv",
