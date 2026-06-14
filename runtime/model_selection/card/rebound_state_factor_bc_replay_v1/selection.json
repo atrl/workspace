@@ -1,0 +1,29 @@
+{
+  "bc_evaluated_fold_gate": false,
+  "bc_readiness_gate": false,
+  "decision": "rebound_state_factor_bc_replay_partial_missing_wf_targets_and_slice_failed_no_training",
+  "evaluated_folds": [
+    "wf_2022",
+    "wf_2023_2024"
+  ],
+  "experiment": "rebound_state_factor_bc_replay_v1",
+  "failed_folds": [
+    "wf_2020",
+    "wf_2023_2024"
+  ],
+  "missing_folds": [
+    "wf_2020"
+  ],
+  "next_mechanism": "repair_nonleaking_wf2020_target_contract_and_retune_wf2023_release_factor_slice_weighting_before_training",
+  "primary_blocker": "missing_nonleaking_wf2020_targets_and_wf2023_slice_fit_failed",
+  "profile": "sparse_release_bc_ppo_screen_v1",
+  "promotion_allowed": false,
+  "reference_baseline": "soxlbacktest_qlib_walkforward_baseline_v1:wf_pass_ytd18_15_15_02",
+  "required_wf_windows": [
+    "wf_2020",
+    "wf_2022",
+    "wf_2023_2024"
+  ],
+  "source_card": "rebound_state_factor_target_contract_v1",
+  "training_allowed": false
+}

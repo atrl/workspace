@@ -208,6 +208,60 @@ def _run_retention_frontier_does_not_scan_its_own_output_card(tmp_path: Path) ->
     assert [row["experiment"] for row in result["rows"]] == ["target_ready"]
 
 
+def test_retention_frontier_preserves_explicit_diagnostic_blocker_detail():
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp_path = Path(tmp)
+        _run_retention_frontier_preserves_explicit_diagnostic_blocker_detail(tmp_path)
+
+
+def _run_retention_frontier_preserves_explicit_diagnostic_blocker_detail(tmp_path: Path) -> None:
+    from src.soxl_quant.app.model_retention_frontier import scan_model_retention_frontier
+
+    _write_json(
+        tmp_path / "runtime" / "model_selection" / "card" / "model_retention_walkforward_gate_v1" / "summary.json",
+        {
+            "summary": {
+                "required_best_return_pct": 213.14,
+                "reference_return_pct": 132.08,
+                "max_walkforward_drawdown_pct": 20.0,
+                "required_wf_windows": ["wf_2020", "wf_2022", "wf_2023_2024"],
+            }
+        },
+    )
+    _write_json(
+        tmp_path / "runtime" / "model_selection" / "card" / "bc_replay" / "summary.json",
+        {
+            "experiment": "bc_replay",
+            "decision": "partial_missing_wf_targets_and_slice_failed_no_training",
+            "promotion_allowed": False,
+            "primary_blocker": "missing_nonleaking_wf2020_targets_and_wf2023_slice_fit_failed",
+            "next_mechanism": "repair_nonleaking_wf2020_target_contract_and_retune_wf2023_slice",
+            "metrics": [
+                {
+                    "window": "wf_2022",
+                    "max_dd_pct": 18.9,
+                    "relative_return_pct": 62.8,
+                },
+                {
+                    "window": "wf_2023_2024",
+                    "max_dd_pct": 9.7,
+                    "relative_return_pct": 39.0,
+                },
+            ],
+        },
+    )
+
+    result = scan_model_retention_frontier(root=tmp_path)
+    row = result["rows"][0]
+
+    assert row["experiment"] == "bc_replay"
+    assert row["missing_wf_windows"] == "wf_2020"
+    assert row["primary_blocker"] == "missing_nonleaking_wf2020_targets_and_wf2023_slice_fit_failed"
+    assert result["summary"]["recommended_primary_blocker"] == (
+        "missing_nonleaking_wf2020_targets_and_wf2023_slice_fit_failed"
+    )
+
+
 def test_retention_frontier_advances_past_completed_training_contract_handoff():
     with tempfile.TemporaryDirectory() as tmp:
         tmp_path = Path(tmp)

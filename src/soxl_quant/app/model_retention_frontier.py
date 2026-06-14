@@ -299,6 +299,9 @@ def _frontier_sort_key(row: dict[str, Any]) -> tuple[float, str]:
         "walkforward_drawdown_gap": 30.0,
         "return_alignment_gap": 40.0,
         "missing_walkforward_evidence": 50.0,
+        "missing_nonleaking_wf2020_targets": 50.0,
+        "missing_nonleaking_wf2020_targets_and_wf2023_slice_fit_failed": 50.0,
+        "bc_candidate_or_slice_gate_failed": 60.0,
         "diagnostic_no_promotion": 60.0,
         "completed_handoff": 90.0,
     }
@@ -389,6 +392,17 @@ def _row_from_summary(path: Path, payload: dict[str, Any], gate_summary: dict[st
         relative_return_gap_to_target_pp=relative_gap,
         ytd_gap_to_best_pct=ytd_best_gap,
     )
+    explicit_blocker = str(
+        selection.get("primary_blocker")
+        or summary.get("primary_blocker")
+        or ""
+    ).strip()
+    if explicit_blocker and primary_blocker not in {
+        "promotion_ready",
+        "training_contract_ready",
+        "target_revision_ready",
+    }:
+        primary_blocker = explicit_blocker
     return {
         "frontier_rank": None,
         "experiment": experiment,

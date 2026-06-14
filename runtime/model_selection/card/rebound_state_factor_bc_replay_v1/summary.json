@@ -1,0 +1,73 @@
+{
+  "bc_evaluated_fold_gate": false,
+  "bc_readiness_gate": false,
+  "candidate_gate_pass_count": 2,
+  "decision": "rebound_state_factor_bc_replay_partial_missing_wf_targets_and_slice_failed_no_training",
+  "evaluated_folds": [
+    "wf_2022",
+    "wf_2023_2024"
+  ],
+  "experiment": "rebound_state_factor_bc_replay_v1",
+  "failed_folds": [
+    "wf_2020",
+    "wf_2023_2024"
+  ],
+  "fold_gate_pass_count": 1,
+  "generated_at": "2026-06-14T12:37:56.931398+00:00",
+  "metrics": [
+    {
+      "avg_pos": 0.15578947368421056,
+      "max_dd_pct": 18.901363674498032,
+      "relative_return_pct": 62.86367325306018,
+      "return_pct": -13.750583273722306,
+      "split_type": "walk_forward_test",
+      "window": "wf_2022"
+    },
+    {
+      "avg_pos": 0.08992146596858637,
+      "max_dd_pct": 9.750679005365091,
+      "relative_return_pct": 38.99924490117637,
+      "return_pct": -0.9534654861144909,
+      "split_type": "walk_forward_test",
+      "window": "wf_2023_2024"
+    }
+  ],
+  "missing_folds": [
+    "wf_2020"
+  ],
+  "next_mechanism": "repair_nonleaking_wf2020_target_contract_and_retune_wf2023_release_factor_slice_weighting_before_training",
+  "next_training_allowed_after_target_revision": false,
+  "primary_blocker": "missing_nonleaking_wf2020_targets_and_wf2023_slice_fit_failed",
+  "profile": "sparse_release_bc_ppo_screen_v1",
+  "promotion_allowed": false,
+  "qlib_reference_drawdown_gate_pass_count": 2,
+  "recommended_primary_blocker": "missing_nonleaking_wf2020_targets_and_wf2023_slice_fit_failed",
+  "reference_baseline": "soxlbacktest_qlib_walkforward_baseline_v1:wf_pass_ytd18_15_15_02",
+  "required_wf_windows": [
+    "wf_2020",
+    "wf_2022",
+    "wf_2023_2024"
+  ],
+  "sidecars": {
+    "baseline_comparison": "runtime/model_selection/card/rebound_state_factor_bc_replay_v1/soxlbacktest_qlib_baseline_comparison.csv",
+    "bc_action_distribution": "runtime/model_selection/card/rebound_state_factor_bc_replay_v1/bc_action_distribution.csv",
+    "bc_fit_metrics": "runtime/model_selection/card/rebound_state_factor_bc_replay_v1/bc_fit_metrics.csv",
+    "bc_slice_metrics": "runtime/model_selection/card/rebound_state_factor_bc_replay_v1/bc_slice_metrics.csv",
+    "fold_gate_scores": "runtime/model_selection/card/rebound_state_factor_bc_replay_v1/fold_gate_scores.csv",
+    "fold_replay_metrics": "runtime/model_selection/card/rebound_state_factor_bc_replay_v1/fold_replay_metrics.csv"
+  },
+  "slice_gate_pass_count": 1,
+  "source_card": "rebound_state_factor_target_contract_v1",
+  "source_target_contract": "rebound_state_factor_target_contract_v1",
+  "source_target_decision": "rebound_state_factor_target_contract_ready_for_label_stability_no_training",
+  "source_target_path": "runtime/model_selection/card/rebound_state_factor_target_contract_v1/selected_target_contract.csv",
+  "target_contract_gate": true,
+  "target_max_dd_pct": 20.0,
+  "target_relative_return_by_window_pp": {
+    "wf_2020": 30.0,
+    "wf_2022": 30.0,
+    "wf_2023_2024": 30.0
+  },
+  "target_relative_return_pp": 30.0,
+  "training_allowed": false
+}
