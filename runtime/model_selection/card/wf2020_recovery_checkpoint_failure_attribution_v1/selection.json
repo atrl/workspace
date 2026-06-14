@@ -1,0 +1,12 @@
+{
+  "decision": "wf2020_recovery_target_semantics_mismatch_blocks_checkpoint_replay_no_promotion",
+  "experiment_id": "wf2020_recovery_checkpoint_failure_attribution_v1",
+  "next_action": "project recovery semantics into consumed target columns or add a tested explicit target-priority interface before another three-fold checkpoint replay.",
+  "reason": "recovery_participation_target_position is a diagnostic/new target column but the current state_objective BC target chooser only consumes downtrend risk, rebound, or teacher targets.",
+  "selected_for_promotion": null,
+  "strict_gate": {
+    "all_selected_folds_pass": false,
+    "selected_fold_count": 3,
+    "selected_fold_pass_count": 2
+  }
+}

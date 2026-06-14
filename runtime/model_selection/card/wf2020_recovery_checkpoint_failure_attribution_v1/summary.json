@@ -1,0 +1,29 @@
+{
+  "all_strict_folds_pass": false,
+  "artifacts": {
+    "candidate_delta_vs_prior": "runtime/model_selection/card/wf2020_recovery_checkpoint_failure_attribution_v1/candidate_delta_vs_prior.csv",
+    "ignored_recovery_target_rows": "runtime/model_selection/card/wf2020_recovery_checkpoint_failure_attribution_v1/ignored_recovery_target_rows.csv",
+    "selection_by_fold_sources": "runtime/model_selection/card/wf2020_recovery_checkpoint_failure_attribution_v1/selection_by_fold_sources.csv",
+    "target_semantics_audit": "runtime/model_selection/card/wf2020_recovery_checkpoint_failure_attribution_v1/target_semantics_audit.csv"
+  },
+  "decision": "wf2020_recovery_target_semantics_mismatch_blocks_checkpoint_replay_no_promotion",
+  "experiment_id": "wf2020_recovery_checkpoint_failure_attribution_v1",
+  "next_action": "project recovery semantics into consumed target columns or add a tested explicit target-priority interface before another three-fold checkpoint replay.",
+  "promote_actor": false,
+  "root_cause": "recovery_participation_target_position is a diagnostic/new target column but the current state_objective BC target chooser only consumes downtrend risk, rebound, or teacher targets.",
+  "strict_selected_fold_count": 3,
+  "strict_selected_fold_pass_count": 2,
+  "wf2020_bc_avg_pos_delta": -0.02753906249999999,
+  "wf2020_bc_max_dd_delta_pp": -0.6262542096832338,
+  "wf2020_bc_relative_return_delta_pp": -27.460962754960065,
+  "wf2020_bc_return_delta_pp": -27.460962754960043,
+  "wf2020_bc_return_prior_bull": 55.59795968569277,
+  "wf2020_bc_return_recovery": 28.136996930732728,
+  "wf2020_ignored_recovery_target_rows": 226,
+  "wf2020_ignored_recovery_target_share": 0.09149797570850203,
+  "wf2020_iter4_max_dd_delta_pp": 2.571773781065964,
+  "wf2020_iter4_relative_return_delta_pp": -14.387673482255877,
+  "wf2020_iter4_return_delta_pp": -14.387673482255892,
+  "wf2020_target_delta_nonzero_rows": 949,
+  "wf2020_train_rows": 2470
+}

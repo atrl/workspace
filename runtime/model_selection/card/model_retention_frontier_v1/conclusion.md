@@ -1,6 +1,6 @@
 # Model Retention Frontier
 
-- Rows scanned: `113`.
+- Rows scanned: `114`.
 - Completed handoffs: `84`.
 - Recommended next source: `cap10_wf2020_return_preserving_target_revision_v1`.
 - Recommended next action: `build_return_preserving_wf2020_bull_participation_target_then_rerun_three_fold_bc_checkpoint_metric_replay`.

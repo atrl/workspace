@@ -1,0 +1,7 @@
+fold,status,selected_candidate,selected_kind,selected_iter,selected_target_gate,selected_drift_gate,selected_candidate_gate,selected_loss,selected_relative_return,selected_max_dd,bc_relative_return,bc_max_dd,candidate_count,source
+wf_2020,evaluated,bc_initialization,bc_initialization,0,False,True,False,11.173211684230813,-305.19635052692433,14.863233734837758,-305.19635052692433,14.863233734837758,4,recovery_participation
+wf_2022,evaluated,bc_initialization,bc_initialization,0,True,True,True,0.0,65.86482008395255,18.80228364916748,65.86482008395255,18.80228364916748,4,recovery_participation
+wf_2023_2024,evaluated,ppo_retained_iter_4,ppo_retained,4,True,True,True,0.004,35.56622898283519,8.955768917531602,25.313412572656027,19.9339463051674,4,recovery_participation
+wf_2020,evaluated,bc_initialization,bc_initialization,0,False,True,False,10.257846259065476,-277.73538777196427,15.489487944520992,-277.73538777196427,15.489487944520992,4,bull_reentry_prior
+wf_2022,evaluated,bc_initialization,bc_initialization,0,True,True,True,0.0,65.86482008395255,18.80228364916748,65.86482008395255,18.80228364916748,4,bull_reentry_prior
+wf_2023_2024,evaluated,ppo_retained_iter_4,ppo_retained,4,True,True,True,0.004,35.56622898283519,8.955768917531602,25.313412572656027,19.9339463051674,4,bull_reentry_prior
