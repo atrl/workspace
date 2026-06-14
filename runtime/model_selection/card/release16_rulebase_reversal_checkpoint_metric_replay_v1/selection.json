@@ -1,0 +1,160 @@
+{
+  "actor_retention": "no actor bundle is promoted or retained by this notebook; rerun the notebook to regenerate diagnostic fold-local states",
+  "actor_retention_allowed": false,
+  "canonical_baseline": "v19reg_v22_budget_usage_bull_guard_v1",
+  "changed_layer": [
+    "model_selection",
+    "checkpoint_selection",
+    "bc_warm_start"
+  ],
+  "created_at": "2026-06-14T16:40:35.886862+00:00",
+  "decision": "release16_rulebase_reversal_checkpoint_metric_replay_partial_pass_no_promotion",
+  "direct_checkpoint_comparison": {
+    "path": "runtime/model_selection/card/release16_rulebase_reversal_checkpoint_metric_replay_v1/overlay_vs_source_checkpoint_delta.csv",
+    "previous_checkpoint_screen": "release16_cb99_rebound_checkpoint_screen_v1",
+    "rows": [
+      {
+        "avg_pos_delta": 0.07249151494677772,
+        "fold": "wf_2020",
+        "max_dd_delta_pct": 5.9729730643323204,
+        "overlay_avg_pos": 0.2969370746139454,
+        "overlay_gate": false,
+        "overlay_max_dd_pct": 20.93461230446718,
+        "overlay_relative_return_pp": 5.082694802865696,
+        "overlay_return_pct": 63.17626541934969,
+        "overlay_selected_candidate": "bc_initialization",
+        "previous_avg_pos": 0.2244455596671677,
+        "previous_gate": false,
+        "previous_max_dd_pct": 14.96163924013486,
+        "previous_relative_return_pp": -15.032278476982412,
+        "previous_return_pct": 43.06129213950158,
+        "previous_selected_candidate": "bc_initialization",
+        "relative_return_delta_pp": 20.11497327984811,
+        "return_delta_pct": 20.11497327984811
+      },
+      {
+        "avg_pos_delta": 0.0,
+        "fold": "wf_2022",
+        "max_dd_delta_pct": 0.0,
+        "overlay_avg_pos": 0.0813840878420415,
+        "overlay_gate": true,
+        "overlay_max_dd_pct": 15.617042880121645,
+        "overlay_relative_return_pp": 71.71497994984345,
+        "overlay_return_pct": -14.873091782550818,
+        "overlay_selected_candidate": "bc_initialization",
+        "previous_avg_pos": 0.0813840878420415,
+        "previous_gate": true,
+        "previous_max_dd_pct": 15.617042880121645,
+        "previous_relative_return_pp": 71.71497994984345,
+        "previous_return_pct": -14.873091782550818,
+        "previous_selected_candidate": "bc_initialization",
+        "relative_return_delta_pp": 0.0,
+        "return_delta_pct": 0.0
+      },
+      {
+        "avg_pos_delta": 0.058673352415367794,
+        "fold": "wf_2023_2024",
+        "max_dd_delta_pct": 6.131461485516876,
+        "overlay_avg_pos": 0.1442337291578541,
+        "overlay_gate": false,
+        "overlay_max_dd_pct": 11.750027701140676,
+        "overlay_relative_return_pp": 11.57853880826739,
+        "overlay_return_pct": 11.221904078578948,
+        "overlay_selected_candidate": "bc_initialization",
+        "previous_avg_pos": 0.0855603767424863,
+        "previous_gate": false,
+        "previous_max_dd_pct": 5.618566215623799,
+        "previous_relative_return_pp": 4.707958912656595,
+        "previous_return_pct": 4.351324182968153,
+        "previous_selected_candidate": "bc_initialization",
+        "relative_return_delta_pp": 6.8705798956107955,
+        "return_delta_pct": 6.8705798956107955
+      }
+    ]
+  },
+  "direct_checkpoint_comparison_path": "runtime/model_selection/card/release16_rulebase_reversal_checkpoint_metric_replay_v1/overlay_vs_source_checkpoint_delta.csv",
+  "direct_comparison_baseline": "release16_rulebase_reversal_checkpoint_readiness_v1",
+  "drawdown_gate_operator": "<",
+  "drift_max_dd_ceiling_pp": 2.0,
+  "drift_relative_floor_pp": -5.0,
+  "experiment": "release16_rulebase_reversal_checkpoint_metric_replay_v1",
+  "failed_folds": [
+    "wf_2020",
+    "wf_2023_2024"
+  ],
+  "feature_frame_source": "build_dataset_rebuilt_full_2010_2024",
+  "material_metric_mismatch_count": 12,
+  "material_metric_mismatch_folds": [
+    "wf_2020",
+    "wf_2022",
+    "wf_2023_2024"
+  ],
+  "metric_basis": "official_daily_path_rebased_eval_window",
+  "metric_basis_reconciliation": "selected metrics are recomputed from official_daily_paths; raw backtest metrics are retained only as warmup-benchmark audit columns",
+  "metrics": [
+    {
+      "avg_pos": 0.2969370746139454,
+      "max_dd_pct": 20.93461230446718,
+      "relative_return_pct": 5.082694802865696,
+      "return_pct": 63.17626541934969,
+      "split_type": "walk_forward_test",
+      "window": "wf_2020"
+    },
+    {
+      "avg_pos": 0.0813840878420415,
+      "max_dd_pct": 15.617042880121645,
+      "relative_return_pct": 71.71497994984345,
+      "return_pct": -14.873091782550818,
+      "split_type": "walk_forward_test",
+      "window": "wf_2022"
+    },
+    {
+      "avg_pos": 0.1442337291578541,
+      "max_dd_pct": 11.750027701140676,
+      "relative_return_pct": 11.57853880826739,
+      "return_pct": 11.221904078578948,
+      "split_type": "walk_forward_test",
+      "window": "wf_2023_2024"
+    }
+  ],
+  "missing_folds": [],
+  "next_mechanism": "diagnose_remaining_rulebase_reversal_failed_folds_before_full_retention_training",
+  "profile": "sparse_release_bc_ppo_screen_v1",
+  "promotion_allowed": false,
+  "promotion_blocker": "Diagnostic fold-local checkpoint screen only. Retention still requires a full retained actor bundle plus fixed-split, wf_2020/wf_2022/wf_2023_2024, YTD return alignment, and dashboard replay evidence.",
+  "raw_metric_basis": "backtest_profile_reported_metrics",
+  "reference_baseline": "soxlbacktest_qlib_walkforward_baseline_v1:wf_pass_ytd18_15_15_02",
+  "required_fold_coverage": true,
+  "role": "diagnose",
+  "selected_candidate_gate_count": 1,
+  "selected_drift_gate_count": 3,
+  "selected_target_gate_count": 1,
+  "sidecars": [
+    "coverage.csv",
+    "coverage.json",
+    "bc_slice_metrics.csv",
+    "ppo_selection_history.csv",
+    "checkpoint_candidate_metrics.csv",
+    "checkpoint_selection_by_fold.csv",
+    "metric_basis_reconciliation.csv",
+    "official_daily_paths/",
+    "drift_score_summary.json",
+    "selection.json",
+    "summary.json",
+    "conclusion.md"
+  ],
+  "source_bc_decision": "rulebase_reversal_training_contract_ready_for_checkpoint_replay_no_promotion",
+  "source_bc_selected_config": null,
+  "source_bc_selection": "runtime/model_selection/card/release16_rulebase_reversal_checkpoint_readiness_v1/selection.json",
+  "target_max_dd_pct": 20.0,
+  "target_relative_return_by_window_pp": {
+    "wf_2020": 30.0,
+    "wf_2022": 30.0,
+    "wf_2023_2024": 30.0
+  },
+  "target_relative_return_pp": 30.0,
+  "training_allowed_from_this_card": false,
+  "wf_2020_coverage": true,
+  "ytd_return_alignment_blocker": "This card trains fold-local diagnostic actors; a single retained actor must be trained before comparing YTD return to current best and SOXLBacktest references.",
+  "ytd_return_alignment_evaluated": false
+}
