@@ -1,0 +1,81 @@
+{
+  "actor_retention_allowed": false,
+  "base_near_miss_metrics": {
+    "max_dd_pct": 20.918285087095683,
+    "return_pct": 61.32404958994388
+  },
+  "bc_safe_metrics": {
+    "max_dd_pct": 14.984700509769244,
+    "return_pct": 40.58032598940371
+  },
+  "buy_sell_feature_comparison_path": "runtime/model_selection/card/wf2020_recovery_participation_target_v1/buy_sell_feature_comparison.csv",
+  "canonical_baseline": "v19reg_v22_budget_usage_bull_guard_v1",
+  "changed_layer": [
+    "model_selection",
+    "training_target_composition",
+    "bc_checkpoint_target_contract"
+  ],
+  "checkpoint_replay_allowed_next": true,
+  "closest_historical_failure_case": "wf2020_checkpoint_near_miss_overlay_screen_v1 found no post-hoc overlay passing both wf2020 return and MaxDD gates.",
+  "closest_historical_success_case": "cap10_three_fold_checkpoint_metric_replay_v2 passed wf_2022 and wf_2023_2024 but failed wf_2020.",
+  "created_at": "2026-06-14T03:27:37.429395+00:00",
+  "decision": "wf2020_recovery_participation_target_ready_for_checkpoint_replay_no_promotion",
+  "direct_comparison_baseline": [
+    "cap10_three_fold_checkpoint_metric_replay_v2:ppo_retained_iter_4",
+    "wf2020_checkpoint_near_miss_overlay_screen_v1",
+    "fold_local_bull_reentry_participation_target_v1"
+  ],
+  "experiment": "wf2020_recovery_participation_target_v1",
+  "leakage_guard": {
+    "eval_leakage_rows": 0,
+    "preview_daily": "uses 2020 near-miss official path only as surrogate diagnostics and dashboard/readout evidence",
+    "target_contract": "uses only fold-local train rows from the existing bull-reentry contract; no 2020 eval rows are written as training labels"
+  },
+  "next_mechanism": "rerun_three_fold_checkpoint_replay_with_recovery_participation_target_contract",
+  "promotion_allowed": false,
+  "reference_baseline": "soxlbacktest_qlib_buysell_reference:risk_cap_35_15_05",
+  "role": "diagnose",
+  "selected_preview_metrics": {
+    "avg_scale": 0.9881924753483478,
+    "conflict_days": 5,
+    "max_dd_gap_pct": -4.6455089222680375,
+    "max_dd_gate": true,
+    "max_dd_pct": 15.354491077731963,
+    "max_scale": 1.4594328102461482,
+    "min_scale": 0.2257725883269507,
+    "recovery_days": 16,
+    "return_floor_gap_pp": -3.470340266330993,
+    "return_floor_gate": true,
+    "return_pct": 73.07489183483915,
+    "risk_days": 16,
+    "surrogate_gate": true
+  },
+  "selected_recipe": {
+    "conflict_bridge_floor": 0.35,
+    "recovery_floor": 0.65,
+    "recovery_mom5_threshold": 0.02,
+    "risk_cap": 0.15,
+    "scale_clip": 3.0,
+    "strategy_dd_threshold": 0.12
+  },
+  "selected_recipe_id": "dd12_cap15_recovery65_bridge35_mom02",
+  "sidecars": [
+    "surrogate_grid.csv",
+    "selected_recovery_preview_daily.csv",
+    "recovery_participation_three_fold_target_contract.csv",
+    "target_audit.csv",
+    "buy_sell_feature_comparison.csv",
+    "state_action_comparison.csv",
+    "selection.json",
+    "summary.json",
+    "conclusion.md"
+  ],
+  "surrogate_grid_path": "runtime/model_selection/card/wf2020_recovery_participation_target_v1/surrogate_grid.csv",
+  "target_audit_path": "runtime/model_selection/card/wf2020_recovery_participation_target_v1/target_audit.csv",
+  "target_contract_path": "runtime/model_selection/card/wf2020_recovery_participation_target_v1/recovery_participation_three_fold_target_contract.csv",
+  "target_max_dd_pct": 20.0,
+  "target_return_pct": 69.60455156850816,
+  "target_window": "wf_2020",
+  "training_allowed_from_this_card": false,
+  "why_not_duplicate": "This notebook writes a non-leaking three-fold target contract and BUY/SELL feature-state sidecars, not another post-hoc overlay screen."
+}

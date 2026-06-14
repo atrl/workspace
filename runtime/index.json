@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-14T03:12:33.308395+00:00",
+  "generated_at": "2026-06-14T03:27:52.713644+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -11688,6 +11688,60 @@
       "category": "model_selection",
       "suffix": ".json",
       "bytes": 2264
+    },
+    {
+      "path": "runtime/model_selection/card/wf2020_recovery_participation_target_v1/buy_sell_feature_comparison.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1123
+    },
+    {
+      "path": "runtime/model_selection/card/wf2020_recovery_participation_target_v1/conclusion.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 845
+    },
+    {
+      "path": "runtime/model_selection/card/wf2020_recovery_participation_target_v1/recovery_participation_three_fold_target_contract.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2374529
+    },
+    {
+      "path": "runtime/model_selection/card/wf2020_recovery_participation_target_v1/selected_recovery_preview_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 62890
+    },
+    {
+      "path": "runtime/model_selection/card/wf2020_recovery_participation_target_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 3626
+    },
+    {
+      "path": "runtime/model_selection/card/wf2020_recovery_participation_target_v1/state_action_comparison.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 837
+    },
+    {
+      "path": "runtime/model_selection/card/wf2020_recovery_participation_target_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 6151
+    },
+    {
+      "path": "runtime/model_selection/card/wf2020_recovery_participation_target_v1/surrogate_grid.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 477839
+    },
+    {
+      "path": "runtime/model_selection/card/wf2020_recovery_participation_target_v1/target_audit.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 715
     },
     {
       "path": "runtime/model_selection/card/wf2020_reference_floor_gate_calibration_v1/conclusion.md",

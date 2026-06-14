@@ -1,55 +1,2937 @@
 <!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="refresh" content="0; url=/web/dashboard-v2/dist/index.html">
-    <link rel="icon" href="data:,">
-    <title>SOXL Dashboard</title>
-    <style>
-      :root {
-        color: #d1d5db;
-        background: #0b1220;
-        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Backtest Dashboard</title>
+  <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+  <style>
+    :root {
+      --bg: #eef2f5;
+      --panel: #ffffff;
+      --panel-2: #f7f9fb;
+      --ink: #111827;
+      --muted: #607080;
+      --line: #d7dee6;
+      --accent: #2563eb;
+      --accent-2: #0f766e;
+      --good: #0f766e;
+      --bad: #b91c1c;
+      --shadow: 0 10px 28px rgba(17, 24, 39, 0.08);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+    }
+    .shell {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 28px;
+    }
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      padding: 20px;
+    }
+    .hero h1 {
+      margin: 0 0 12px;
+      font-size: 34px;
+      line-height: 1;
+      letter-spacing: 0;
+    }
+    .sub {
+      color: var(--muted);
+      line-height: 1.55;
+      margin: 0;
+    }
+    .chart-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      align-items: flex-end;
+      margin-bottom: 14px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--line);
+    }
+    .toolbar-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .toolbar-group label {
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .help-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 14px;
+      height: 14px;
+      border-radius: 999px;
+      background: var(--line);
+      color: var(--muted);
+      font-size: 10px;
+      cursor: help;
+      position: relative;
+    }
+    .help-icon:hover::after {
+      content: attr(data-tip);
+      position: absolute;
+      bottom: 120%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--ink);
+      color: white;
+      padding: 6px 10px;
+      border-radius: 8px;
+      font-size: 11px;
+      white-space: nowrap;
+      z-index: 100;
+      letter-spacing: 0;
+      text-transform: none;
+    }
+    select, .date-input {
+      min-width: 140px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: #ffffff;
+      font-size: 14px;
+      color: var(--ink);
+      font-family: inherit;
+    }
+    .date-input { min-width: 130px; }
+    .pill-row {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .pill {
+      padding: 8px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: #ffffff;
+      cursor: pointer;
+      color: var(--muted);
+      font-size: 13px;
+      font-family: inherit;
+    }
+    .pill.active {
+      background: var(--ink);
+      color: white;
+      border-color: var(--ink);
+    }
+    .zoom-row {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .btn {
+      padding: 9px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: var(--panel-2);
+      cursor: pointer;
+      color: var(--ink);
+      font-size: 13px;
+      font-family: inherit;
+    }
+    .btn.primary {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+    }
+    .btn:disabled {
+      cursor: not-allowed;
+      opacity: 0.55;
+    }
+    .run-status {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.35;
+      min-height: 16px;
+      max-width: 680px;
+    }
+    .server-mode-status {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+      margin: 0 0 10px 0;
+      padding: 9px 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel-2);
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.35;
+    }
+    .server-mode-status.good {
+      border-color: rgba(15,118,110,0.35);
+      color: var(--good);
+      background: rgba(15,118,110,0.06);
+    }
+    .server-mode-status.bad {
+      border-color: rgba(185,28,28,0.30);
+      color: var(--bad);
+      background: rgba(185,28,28,0.05);
+    }
+    .grid {
+      display: grid;
+      gap: 18px;
+    }
+    .summary-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      margin-bottom: 18px;
+    }
+    .metric {
+      background: var(--panel-2);
+      border-radius: 8px;
+      padding: 18px;
+      border: 1px solid var(--line);
+    }
+    .metric .k {
+      color: var(--muted);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 10px;
+    }
+    .metric .v {
+      font-size: 30px;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .metric .s {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .section-title {
+      margin: 0 0 12px;
+      font-size: 18px;
+      letter-spacing: 0;
+    }
+    .jump-links {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      background: #ffffff;
+      border: 1px solid var(--line);
+      color: var(--ink);
+      font-size: 13px;
+      text-decoration: none;
+    }
+    .badge.good {
+      background: rgba(15, 118, 110, 0.10);
+      border-color: rgba(15, 118, 110, 0.25);
+    }
+    .badge.bad {
+      background: rgba(185, 28, 28, 0.08);
+      border-color: rgba(185, 28, 28, 0.20);
+    }
+    .production-status {
+      display: grid;
+      grid-template-columns: minmax(220px, 0.9fr) minmax(150px, 0.65fr) minmax(170px, 0.75fr) minmax(320px, 1.4fr) minmax(130px, 0.6fr);
+      gap: 10px;
+      align-items: stretch;
+      margin-bottom: 18px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      box-shadow: var(--shadow);
+    }
+    .production-status[hidden] {
+      display: none;
+    }
+    .production-main, .production-detail {
+      min-width: 0;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #ffffff;
+      padding: 10px 12px;
+    }
+    .production-main {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      justify-content: center;
+    }
+    .production-label, .production-k {
+      color: var(--muted);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .production-value {
+      overflow-wrap: normal;
+      word-break: keep-all;
+      font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .production-detail {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      justify-content: center;
+      color: var(--ink);
+      font-size: 13px;
+    }
+    .production-v {
+      overflow-wrap: anywhere;
+      font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+      font-weight: 700;
+    }
+    .production-paper-model {
+      grid-column: span 2;
+    }
+    .production-paper-model .production-v {
+      font-size: 12px;
+      line-height: 1.25;
+    }
+    .production-paper-source {
+      grid-column: span 3;
+    }
+    .production-blockers {
+      grid-column: span 2;
+    }
+    .production-model-replay {
+      grid-column: span 2;
+    }
+    .production-link {
+      color: var(--accent-2);
+      text-decoration: none;
+    }
+    .production-link:hover {
+      text-decoration: underline;
+    }
+    .production-tone-good {
+      color: var(--good);
+    }
+    .production-tone-bad {
+      color: var(--bad);
+    }
+    .production-tone-warn {
+      color: var(--accent);
+    }
+    .research-panel {
+      margin-bottom: 18px;
+    }
+    .research-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: baseline;
+      margin-bottom: 12px;
+    }
+    .research-summary {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .research-metric {
+      min-width: 0;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel-2);
+      padding: 10px 12px;
+    }
+    .research-metric .rk {
+      color: var(--muted);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 6px;
+    }
+    .research-metric .rv {
+      overflow-wrap: anywhere;
+      font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .research-table td, .research-table th {
+      vertical-align: top;
+      white-space: normal;
+    }
+    .research-table td:nth-child(1), .research-table th:nth-child(1) {
+      min-width: 240px;
+    }
+    .research-table td:nth-child(2), .research-table th:nth-child(2) {
+      min-width: 180px;
+    }
+    .research-table td:nth-child(7), .research-table th:nth-child(7) {
+      min-width: 260px;
+      text-align: left;
+    }
+    .research-path {
+      color: var(--accent-2);
+      text-decoration: none;
+      overflow-wrap: anywhere;
+    }
+    .research-path:hover {
+      text-decoration: underline;
+    }
+    .chart-panel { min-height: 420px; }
+    .chart-meta {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .chart-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 240px;
+      gap: 14px;
+      align-items: start;
+    }
+    .regime-strip {
+      display: flex;
+      height: 10px;
+      border-radius: 5px;
+      overflow: hidden;
+      margin: 0 0 8px 0;
+      border: 1px solid var(--line);
+    }
+    .regime-bar {
+      flex: 1;
+      min-width: 1px;
+      cursor: crosshair;
+    }
+    .info-panel {
+      background: var(--panel-2);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 14px;
+      font-size: 12px;
+      line-height: 1.6;
+      min-height: 400px;
+    }
+    .info-panel .info-title {
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 10px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 4px 0;
+      border-bottom: 1px solid rgba(215,222,230,0.7);
+    }
+    .info-row .info-k {
+      color: var(--muted);
+    }
+    .info-row .info-v {
+      font-weight: 600;
+      font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+    }
+    .info-row.highlight {
+      background: rgba(37, 99, 235, 0.08);
+      margin: 0 -14px;
+      padding: 4px 14px;
+      border-bottom: 1px solid var(--line);
+    }
+    .info-row.highlight .info-k {
+      color: var(--accent);
+      font-weight: 600;
+    }
+    .info-empty {
+      color: var(--muted);
+      font-style: italic;
+      text-align: center;
+      padding: 40px 0;
+    }
+    .info-section {
+      margin-top: 12px;
+      padding-top: 8px;
+      border-top: 1px solid var(--line);
+    }
+    .info-section-title {
+      font-size: 10px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 6px;
+    }
+    .pos-bar-wrap {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin: 3px 0;
+    }
+    .pos-bar-label {
+      width: 40px;
+      font-size: 10px;
+      color: var(--muted);
+      text-align: right;
+    }
+    .pos-bar-track {
+      flex: 1;
+      height: 10px;
+      background: rgba(215,222,230,0.55);
+      border-radius: 5px;
+      overflow: hidden;
+    }
+    .pos-bar-fill {
+      height: 100%;
+      border-radius: 5px;
+      background: var(--accent-2);
+      opacity: 0.7;
+    }
+    .pos-bar-pct {
+      width: 32px;
+      font-size: 10px;
+      color: var(--muted);
+      text-align: right;
+      font-family: ui-monospace, monospace;
+    }
+    .trade-list {
+      max-height: 120px;
+      overflow-y: auto;
+    }
+    .trade-item {
+      padding: 4px 0;
+      border-bottom: 1px solid rgba(215,222,230,0.55);
+      font-size: 11px;
+      line-height: 1.4;
+    }
+    .trade-item:last-child { border-bottom: none; }
+    .trade-entry { color: var(--good); }
+    .trade-exit { color: var(--bad); }
+
+    .trade-table-wrap {
+      max-height: 520px;
+      overflow: auto;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #ffffff;
+    }
+    .trade-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+    .trade-table th, .trade-table td {
+      padding: 8px 10px;
+      border-bottom: 1px solid var(--line);
+      text-align: right;
+      white-space: nowrap;
+    }
+    .trade-table th:first-child, .trade-table td:first-child {
+      text-align: left;
+      position: sticky;
+      left: 0;
+      background: #ffffff;
+      z-index: 1;
+    }
+    .trade-table th {
+      background: var(--panel-2);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      cursor: pointer;
+      user-select: none;
+    }
+    .trade-table th:hover {
+      background: var(--line);
+    }
+    .trade-table th.sort-asc::after { content: ' ▲'; font-size: 9px; }
+    .trade-table th.sort-desc::after { content: ' ▼'; font-size: 9px; }
+    .trade-table tr.clickable { cursor: pointer; }
+    .trade-table tr.clickable:hover { background: rgba(37, 99, 235, 0.06); }
+    .trade-table td.good { color: var(--good); font-weight: 700; }
+    .trade-table td.bad { color: var(--bad); font-weight: 700; }
+
+    .panel-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+    .panel-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      padding: 20px;
+    }
+    .panel-card h2 {
+      margin: 0 0 14px;
+      font-size: 16px;
+      letter-spacing: 0;
+    }
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+    .stat-cell {
+      background: var(--panel-2);
+      border-radius: 8px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      text-align: center;
+    }
+    .stat-cell .sk {
+      font-size: 10px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 6px;
+    }
+    .stat-cell .sv {
+      font-size: 20px;
+      font-weight: 700;
+      font-family: ui-monospace, monospace;
+    }
+    .stat-cell .ss {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+    .kelly-highlight {
+      background: linear-gradient(135deg, rgba(15, 118, 110, 0.08), rgba(37, 99, 235, 0.06));
+    }
+
+    /* Model version comparison */
+    .version-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+    .version-table th, .version-table td {
+      padding: 8px 10px;
+      border-bottom: 1px solid var(--line);
+      text-align: right;
+      white-space: nowrap;
+    }
+    .version-table th:first-child, .version-table td:first-child {
+      text-align: left;
+      position: sticky;
+      left: 0;
+      background: #ffffff;
+      z-index: 1;
+    }
+    .version-table th {
+      background: var(--panel-2);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      position: sticky;
+      top: 0;
+      z-index: 2;
+    }
+    .version-table td.promoted {
+      background: rgba(15, 118, 110, 0.06);
+      font-weight: 600;
+    }
+    .version-table td.best {
+      background: rgba(37, 99, 235, 0.08);
+      font-weight: 700;
+    }
+    .version-table tr.clickable-version {
+      cursor: pointer;
+    }
+    .version-table tr.clickable-version:hover {
+      background: rgba(37, 99, 235, 0.06);
+    }
+    .version-table tr.clickable-version.selected {
+      background: rgba(37, 99, 235, 0.10);
+      outline: 2px solid var(--accent);
+      outline-offset: -2px;
+    }
+    .version-wrap {
+      max-height: 400px;
+      overflow: auto;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #ffffff;
+    }
+
+    .good { color: var(--good); }
+    .bad { color: var(--bad); }
+    .mono { font-family: ui-monospace, "SFMono-Regular", Menlo, monospace; }
+    .raw-tools {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+      align-items: center;
+    }
+    .button-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: 8px;
+      background: var(--accent);
+      color: white;
+      text-decoration: none;
+      font-size: 13px;
+    }
+    @media (max-width: 1100px) {
+      .hero { grid-template-columns: 1fr; }
+      .summary-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .production-status { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .production-paper-model, .production-paper-source { grid-column: auto; }
+      .production-blockers { grid-column: auto; }
+      .research-summary { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .chart-wrapper { grid-template-columns: 1fr; }
+      .info-panel { display: none; }
+      .panel-grid { grid-template-columns: 1fr; }
+      .stat-row { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 720px) {
+      .shell { padding: 14px; }
+      .summary-grid { grid-template-columns: 1fr; }
+      .production-status { grid-template-columns: 1fr; }
+      .production-value { overflow-wrap: anywhere; font-size: 13px; }
+      .research-head { flex-direction: column; align-items: flex-start; }
+      .research-summary { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 28px; }
+      .chart-toolbar { flex-direction: column; align-items: stretch; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <div class="jump-links" style="margin-bottom:18px;">
+      <a class="badge" href="dashboard_v2.html">Dashboard V2</a>
+      <a class="badge" href="#researchBacktests">Research Backtests</a>
+      <a class="badge" href="#mainChart">Main Chart</a>
+      <a class="badge" href="#tradeStats">Trade Quality</a>
+      <a class="badge" href="#tradeTable">Trade Performance</a>
+    </div>
+
+    <section class="production-status" id="productionStatusCard" hidden aria-live="polite">
+      <div class="production-main">
+        <span class="production-label">Production</span>
+        <span class="production-value" id="productionStatusValue">loading</span>
+      </div>
+      <div class="production-detail">
+        <span class="production-k">Auth</span>
+        <span class="production-v" id="productionAuthStatus">n/a</span>
+      </div>
+      <div class="production-detail">
+        <span class="production-k">Project</span>
+        <span class="production-v" id="productionProjectStatus">n/a</span>
+      </div>
+      <div class="production-detail production-paper-model">
+        <span class="production-k">Paper Model</span>
+        <span class="production-v" id="productionPaperModel">n/a</span>
+      </div>
+      <div class="production-detail">
+        <span class="production-k">Paper Exec</span>
+        <span class="production-v" id="productionPaperExecution">n/a</span>
+      </div>
+      <div class="production-detail production-paper-source">
+        <span class="production-k">Paper Source</span>
+        <span class="production-v" id="productionPaperSource">n/a</span>
+      </div>
+      <div class="production-detail">
+        <span class="production-k">Paper End</span>
+        <span class="production-v" id="productionPaperEnd">n/a</span>
+      </div>
+      <div class="production-detail">
+        <span class="production-k">Deploy</span>
+        <span class="production-v" id="productionDeploymentStatus">n/a</span>
+      </div>
+      <div class="production-detail">
+        <span class="production-k">Gates</span>
+        <span class="production-v" id="productionGateOverall">n/a</span>
+      </div>
+      <div class="production-detail production-blockers">
+        <span class="production-k">Blockers</span>
+        <span class="production-v" id="productionGateIssues">n/a</span>
+      </div>
+      <div class="production-detail production-model-replay">
+        <span class="production-k">Model Replays</span>
+        <span class="production-v" id="productionModelReplayStatus">n/a</span>
+      </div>
+    </section>
+
+    <section class="card research-panel" id="researchBacktests">
+      <div class="research-head">
+        <h2 class="section-title" style="margin:0;">Research Backtests</h2>
+        <div class="sub">Latest runtime/model_selection notebook diagnostics exported for the local dashboard.</div>
+      </div>
+      <div class="research-summary" id="researchBacktestSummary">
+        <div class="research-metric">
+          <div class="rk">Status</div>
+          <div class="rv">loading</div>
+        </div>
+      </div>
+      <div class="version-wrap">
+        <table class="version-table research-table" id="researchBacktestTable"></table>
+      </div>
+    </section>
+
+    <div class="grid summary-grid" id="metricGrid"></div>
+
+    <!-- Main Chart -->
+    <div class="card chart-panel" id="mainChart">
+      <h2 class="section-title">Main Chart</h2>
+      <div class="chart-toolbar">
+        <div class="toolbar-group">
+          <label>ETF <span class="help-icon" data-tip="选择要查看的 ETF 标的">?</span></label>
+          <select id="etfSelect"></select>
+        </div>
+        <div class="toolbar-group">
+          <label>Model <span class="help-icon" data-tip="选择回测模型版本">?</span></label>
+          <select id="versionSelect"></select>
+        </div>
+        <div class="toolbar-group">
+          <label>Range <span class="help-icon" data-tip="按年份快速筛选数据">?</span></label>
+          <div class="pill-row">
+            <button class="pill active" data-range="all">All</button>
+            <button class="pill" data-range="2020">2020</button>
+            <button class="pill" data-range="2022">2022</button>
+            <button class="pill" data-range="2023_2024">23-24</button>
+          </div>
+        </div>
+        <div class="toolbar-group">
+          <label>Zoom <span class="help-icon" data-tip="快速缩放到最近 N 个月 [+/-]">?</span></label>
+          <div class="zoom-row">
+            <button class="btn" data-zoom="6m">6M</button>
+            <button class="btn" data-zoom="1y">1Y</button>
+            <button class="btn" data-zoom="2y">2Y</button>
+            <button class="btn" data-zoom="3y">3Y</button>
+          </div>
+        </div>
+        <div class="toolbar-group">
+          <label>Chart Start</label>
+          <input id="startDateInput" class="date-input" type="date">
+        </div>
+        <div class="toolbar-group">
+          <label>Chart End</label>
+          <input id="endDateInput" class="date-input" type="date">
+        </div>
+        <div class="toolbar-group">
+          <label>Action</label>
+          <div class="zoom-row">
+            <button class="btn primary" id="applyZoomBtn" type="button">Apply</button>
+            <button class="btn" id="resetZoomBtn" type="button">Reset <span style="font-size:10px;color:var(--muted);margin-left:4px;opacity:0.7;">[R]</span></button>
+          </div>
+        </div>
+        <div class="toolbar-group">
+          <label>Slice & Recompute <span class="help-icon" data-tip="以当前选中的日期区间为起点，重新计算收益率、回撤、交易统计（纯前端，无需服务器）">?</span></label>
+          <div class="zoom-row">
+            <button class="btn primary" id="sliceRecomputeBtn" type="button">Recompute</button>
+          </div>
+        </div>
+        <div class="toolbar-group">
+          <label>Run Model Backtest <span class="help-icon" data-tip="选择模型、推理起始日期和结束日期后重新运行（需要本地启动 dashboard_server.py）">?</span></label>
+          <div class="zoom-row">
+            <select id="runProfileSelect" style="min-width:120px;padding:9px 10px;border-radius:8px;border:1px solid var(--line);background:var(--panel);font-size:13px;">
+              <option value="">Select profile...</option>
+            </select>
+            <input id="runStartDateInput" class="date-input" type="date" aria-label="Inference start date" title="Inference start date">
+            <input id="runEndDateInput" class="date-input" type="date" aria-label="Inference end date" title="Inference end date">
+            <button class="btn" id="useChartWindowBtn" type="button">Use Chart</button>
+            <button class="btn primary" id="runBacktestBtn" type="button">Run</button>
+          </div>
+          <div class="run-status" id="runProfileStatus"></div>
+        </div>
+      </div>
+      <div class="server-mode-status" id="serverModeStatus">
+        Checking dashboard server status. Static view: chart/recompute only; live inference requires scripts/dashboard_server.py, and reference baselines are not runnable inference profiles.
+      </div>
+      <div id="segmentBanner" style="display:none;background:rgba(15,118,110,0.08);border:1px solid rgba(15,118,110,0.3);border-radius:8px;padding:10px 14px;margin-bottom:10px;font-size:13px;color:var(--accent-2);align-items:center;gap:8px;">
+        <span>Segment View</span>
+        <span id="segmentRange" style="font-family:ui-monospace,monospace;font-weight:600;"></span>
+        <span style="color:var(--muted);">— 所有指标已按该区间重新计算</span>
+        <button class="btn" id="clearSegmentBtn" type="button" style="margin-left:auto;padding:6px 12px;font-size:12px;">Restore Full Range</button>
+      </div>
+      <div class="chart-meta" id="chartMeta"></div>
+      <div id="regimeStrip" class="regime-strip"></div>
+      <div class="chart-wrapper">
+        <div id="plotlyChart" style="width:100%;height:920px;border-radius:8px;background:var(--panel);border:1px solid var(--line);"></div>
+        <div class="info-panel" id="infoPanel">
+          <div class="info-title">数据面板</div>
+          <div class="info-empty" id="infoEmpty">鼠标移到图表上查看当日数据</div>
+          <div id="infoContent" style="display:none;">
+            <div class="info-row highlight">
+              <span class="info-k">日期</span>
+              <span class="info-v" id="infoDate">-</span>
+            </div>
+            <div class="info-row">
+              <span class="info-k">Action</span>
+              <span class="info-v" id="infoAction">-</span>
+            </div>
+            <div class="info-row">
+              <span class="info-k">Profile</span>
+              <span class="info-v" id="infoProfile">-</span>
+            </div>
+            <div class="info-row">
+              <span class="info-k">Execution</span>
+              <span class="info-v" id="infoExecution">-</span>
+            </div>
+            <div class="info-row">
+              <span class="info-k">Target</span>
+              <span class="info-v" id="infoTarget">-</span>
+            </div>
+            <div class="info-row">
+              <span class="info-k">Open</span>
+              <span class="info-v" id="infoOpen">-</span>
+            </div>
+            <div class="info-row">
+              <span class="info-k">High</span>
+              <span class="info-v" id="infoHigh">-</span>
+            </div>
+            <div class="info-row">
+              <span class="info-k">Low</span>
+              <span class="info-v" id="infoLow">-</span>
+            </div>
+            <div class="info-row">
+              <span class="info-k">Close</span>
+              <span class="info-v" id="infoClose">-</span>
+            </div>
+            <div class="info-row">
+              <span class="info-k">Strategy NAV</span>
+              <span class="info-v" id="infoStrat">-</span>
+            </div>
+            <div class="info-row">
+              <span class="info-k">Buy&Hold NAV</span>
+              <span class="info-v" id="infoBH">-</span>
+            </div>
+            <div class="info-row">
+              <span class="info-k">Position</span>
+              <span class="info-v" id="infoPos">-</span>
+            </div>
+            <div class="info-row">
+              <span class="info-k">Excess %</span>
+              <span class="info-v" id="infoExcess">-</span>
+            </div>
+            <div class="info-section">
+              <div class="info-section-title">市场特征</div>
+              <div class="info-row"><span class="info-k">State</span><span class="info-v" id="infoState">-</span></div>
+              <div class="info-row"><span class="info-k">Panic</span><span class="info-v" id="infoPanic">-</span></div>
+              <div class="info-row"><span class="info-k">RSI6</span><span class="info-v" id="infoRsi6">-</span></div>
+              <div class="info-row"><span class="info-k">HV20</span><span class="info-v" id="infoHv20">-</span></div>
+              <div class="info-row"><span class="info-k">VolCoef</span><span class="info-v" id="infoVolCoef">-</span></div>
+              <div class="info-row"><span class="info-k">VIX</span><span class="info-v" id="infoVix">-</span></div>
+              <div class="info-row"><span class="info-k">RSI</span><span class="info-v" id="infoRsi">-</span></div>
+              <div class="info-row"><span class="info-k">Volatility</span><span class="info-v" id="infoVol">-</span></div>
+              <div class="info-row"><span class="info-k">Spread</span><span class="info-v" id="infoSpread">-</span></div>
+              <div class="info-row"><span class="info-k">VIX z-score</span><span class="info-v" id="infoVixZ">-</span></div>
+              <div class="info-row"><span class="info-k">Spread Trend</span><span class="info-v" id="infoSpTr">-</span></div>
+              <div class="info-row"><span class="info-k">MA5/20</span><span class="info-v" id="infoMA">-</span></div>
+              <div class="info-row"><span class="info-k">Vol Strength</span><span class="info-v" id="infoVolStr">-</span></div>
+            </div>
+            <div class="info-section" id="tradeSection" style="display:none;">
+              <div class="info-section-title">交易详情</div>
+              <div class="info-row"><span class="info-k">入场日期</span><span class="info-v" id="tradeEntry">-</span></div>
+              <div class="info-row"><span class="info-k">出场日期</span><span class="info-v" id="tradeExit">-</span></div>
+              <div class="info-row"><span class="info-k">持仓天数</span><span class="info-v" id="tradeDays">-</span></div>
+              <div class="info-row"><span class="info-k">价格收益</span><span class="info-v" id="tradeRet">-</span></div>
+            </div>
+            <div class="info-section">
+              <div class="info-section-title">仓位分布</div>
+              <div id="posDist"></div>
+            </div>
+            <div class="info-section">
+              <div class="info-section-title">最近交易 <span style="font-weight:normal;color:var(--muted);">(最近5笔)</span></div>
+              <div class="trade-list" id="tradeList"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Trade Quality Stats -->
+    <div class="card" id="tradeStats">
+      <h2 class="section-title">Trade Quality <span style="font-size:12px;color:var(--muted);font-weight:normal;">— Kelly / Expectancy / Profit Factor</span></h2>
+      <div class="stat-row" id="tradeStatRow"></div>
+    </div>
+
+    <!-- Trade Performance Table -->
+    <div class="card" id="tradeTable">
+      <h2 class="section-title">Trade Performance — 每笔 T 收益明细</h2>
+      <div class="raw-tools">
+        <a id="csvLink" class="button-link" href="#" target="_blank" rel="noreferrer">Open Raw CSV</a>
+        <div class="sub">点击表头可排序，点击交易行聚焦到图表对应区间。BUY → SELL 配对。</div>
+      </div>
+      <div class="trade-table-wrap">
+        <table class="trade-table" id="tradePerfTable"></table>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const DATA = {"generated_from": {"summary": "runtime/execution/generalization/detailed/summary.json", "detailed_dir": "runtime/execution/generalization/detailed", "results": "runtime/execution/generalization/results.json", "rule_based": "runtime/execution/generalization/rule_based_results.json", "execution_overlay": "runtime/execution/generalization/execution_overlay_results.json", "execution_review": "runtime/execution/generalization/execution_overlay_review.md"}, "generated_at": "2026-06-14 11:28:21", "summary": [{"etf": "SOXL", "strategy_return": 0.0, "buyhold_return": -0.1951275493825143, "excess_return": 0.1951275493825143, "max_dd_strategy": 0.0, "max_dd_buyhold": 0.0, "trades": 2, "buy_count": 2, "sell_count": 0, "max_position": 0.35, "min_position": 0.2312499995}], "windows": {"SOXL": {"start": "2026-06-04", "end": "2026-06-08", "rows": 2}}, "detailed": {"SOXL": {"summary": {"etf": "SOXL", "strategy_return": 0.0, "buyhold_return": -0.1951275493825143, "excess_return": 0.1951275493825143, "max_dd_strategy": 0.0, "max_dd_buyhold": 0.0, "trades": 2, "buy_count": 2, "sell_count": 0, "max_position": 0.35, "min_position": 0.2312499995}, "csv_path": "runtime/soxl/paper_trading/paper_trading_soxl_daily.csv", "meta": {"source_kind": "paper_trading", "source": "runtime/soxl/paper_trading/paper_trading_soxl_daily.csv", "latest_data_date": "2026-06-12", "latest_signal_date": "2026-06-12", "latest_signal_profile": "v19reg_v22_budget_usage_bull_guard_v1", "latest_signal_execution_status": "dry_run", "latest_signal_target_position": 0.26625, "latest_signal_capped_target_position": 0.26625, "latest_signal_summary_path": "runtime/soxl/paper_trading/2026-06-12/dry_run/futu/summary.json", "latest_signal_broker": "futu", "latest_signal_dry_run": true, "latest_signal_risk_gate_approved": true, "latest_public_review": {"date": "2026-06-12", "profile": "v19reg_v22_budget_usage_bull_guard_v1", "broker": "futu", "dry_run": true, "entry_status": "dry_run", "entry_side": "BUY", "entry_symbol": "SOXL", "entry_price": 211.440002, "entry_target_position": 0.26625, "entry_signal_target_position": 0.26625, "risk_gate_approved": true, "summary_path": "runtime/soxl/paper_trading/2026-06-12/dry_run/futu/summary.json"}, "latest_entry_status": "dry_run", "latest_entry_side": "BUY", "latest_entry_target_position": 0.26625, "latest_signal_slow_profile": "balanced_rule_residual_v19_reg", "latest_signal_fast_profile": "balanced_rule_residual_v22", "latest_signal_mode": "defensive_hold"}, "rows": [{"datetime": "2026-06-04", "strategy_nav": 1.0, "price": 262.700012, "buyhold_nav": 1.0, "position": 0.35, "excess": 0.0, "excess_pct": 0.0, "action": "BUY", "open": 242.0399932861328, "high": 274.5, "low": 228.5500030517578, "close": 262.70001220703125, "volume": 59036000, "rsi6": 65.91366354375921, "ma180": 72.23777777608235, "hv_20": 1.3982904731761696, "vol_coef": 1.9138759867578057, "panic_score": 81.7754109563443, "market_state": true, "profile": "v19reg_v22_budget_usage_bull_guard_v1", "execution_status": "rejected", "dry_run": false, "target_position": 0.35, "entry_status": "rejected", "entry_side": "BUY", "entry_target_position": 0.35, "summary_path": "runtime/soxl/paper_trading/2026-06-04/summary.json"}, {"datetime": "2026-06-08", "strategy_nav": 1.0, "price": 211.440002, "buyhold_nav": 0.8048724506174857, "position": 0.26625, "excess": 0.1951275493825143, "excess_pct": 24.243288390951314, "action": "BUY", "open": 210.6199951171875, "high": 222.19000244140625, "low": 201.69000244140625, "close": 211.44000244140625, "volume": 68180500, "rsi6": 41.75304891784851, "ma180": 74.07038887066311, "hv_20": 1.9276502716623434, "vol_coef": 2.0, "panic_score": 26.36248177242871, "market_state": true, "profile": "v19reg_v22_budget_usage_bull_guard_v1", "execution_status": "rejected", "dry_run": false, "target_position": 0.26625, "entry_status": "dry_run", "entry_side": "BUY", "entry_target_position": 0.26625, "summary_path": "runtime/soxl/paper_trading/2026-06-08/summary.json"}], "regime_shapes": [], "trades": [], "kelly": {}}}, "versioned": {"soxl_backtest_policy_reimplementation_v1": {}, "balanced_rule_residual_v19_moe_v2": {}, "paper_trading": {}}, "best_version": "balanced_rule_residual_v19_moe_v2", "latest_version": "paper_trading", "results": {}, "rule_based": {}, "execution_overlay": {}, "execution_review": "", "model_versions": [], "run_windows": {}, "research_backtests": [{"experiment": "wf2020_recovery_participation_target_v1", "decision": "wf2020_recovery_participation_target_ready_for_checkpoint_replay_no_promotion", "promotion_allowed": false, "role": "diagnose", "changed_layer": ["model_selection", "training_target_composition", "bc_checkpoint_target_contract"], "next_mechanism": "rerun_three_fold_checkpoint_replay_with_recovery_participation_target_contract", "conclusion": "The selected surrogate recipe clears the wf2020 diagnostic return/MaxDD gates on a preview path, but this is not an official replay or promotion result. The durable output is the three-fold recovery-participation target contract plus BUY/SELL feature-state comparison sidecars for the next checkpoint replay/dashboard readout.", "created_at": "2026-06-14T03:27:37.429395+00:00", "updated_at": "2026-06-14 11:27:37", "notebook_path": "runtime/model_selection/card/wf2020_recovery_participation_target_v1/wf2020_recovery_participation_target_v1.ipynb", "selection_path": "runtime/model_selection/card/wf2020_recovery_participation_target_v1/selection.json", "summary_path": "runtime/model_selection/card/wf2020_recovery_participation_target_v1/summary.json", "external_reference": []}, {"experiment": "wf2020_checkpoint_near_miss_overlay_screen_v1", "decision": "wf2020_overlay_screen_no_pass_train_target_repair_needed", "promotion_allowed": false, "changed_layer": [], "next_mechanism": "build_wf2020_recovery_participation_target_with_drawdown_state_then_rerun_three_fold_checkpoint_replay", "conclusion": "No screened previous-day-visible overlay passed both wf_2020 floor and MaxDD gates. Best drawdown-safe variant returned 63.94% with MaxDD 19.95%", "created_at": "2026-06-14T03:11:31.842271+00:00", "updated_at": "2026-06-14 11:12:20", "notebook_path": "runtime/model_selection/card/wf2020_checkpoint_near_miss_overlay_screen_v1/wf2020_checkpoint_near_miss_overlay_screen_v1.ipynb", "selection_path": "runtime/model_selection/card/wf2020_checkpoint_near_miss_overlay_screen_v1/selection.json", "summary_path": "runtime/model_selection/card/wf2020_checkpoint_near_miss_overlay_screen_v1/summary.json", "external_reference": []}, {"experiment": "model_retention_frontier_v1", "decision": "unknown", "promotion_allowed": false, "changed_layer": [], "updated_at": "2026-06-14 11:01:26", "notebook_path": "runtime/model_selection/card/model_retention_frontier_v1/model_retention_frontier_v1.ipynb", "summary_path": "runtime/model_selection/card/model_retention_frontier_v1/summary.json", "external_reference": []}, {"experiment": "model_retention_walkforward_gate_v1", "decision": "unknown", "promotion_allowed": false, "changed_layer": [], "updated_at": "2026-06-14 11:01:25", "notebook_path": "runtime/model_selection/card/model_retention_walkforward_gate_v1/model_retention_walkforward_gate_v1.ipynb", "summary_path": "runtime/model_selection/card/model_retention_walkforward_gate_v1/summary.json", "external_reference": []}, {"experiment": "cap10_three_fold_checkpoint_metric_replay_v2", "decision": "three_fold_checkpoint_metric_replay_partial_pass_no_promotion", "promotion_allowed": false, "role": "diagnose", "changed_layer": ["model_selection", "checkpoint_selection", "bc_warm_start"], "next_mechanism": "inspect_failed_fold_drawdown_or_reward_drift_before_full_retention_training", "conclusion": "wf_2020: selected bc_initialization (bc_initialization) with rel=-292.75pp, MaxDD=14.98%, loss=10.7584, gate=False. wf_2022: selected bc_initialization (bc_initialization) with rel=65.86pp, MaxDD=18.80%, loss=0.0000, gate=True.", "created_at": "2026-06-14T02:23:45.158107+00:00", "updated_at": "2026-06-14 10:23:47", "notebook_path": "runtime/model_selection/card/cap10_three_fold_checkpoint_metric_replay_v2/cap10_three_fold_checkpoint_metric_replay_v2.ipynb", "selection_path": "runtime/model_selection/card/cap10_three_fold_checkpoint_metric_replay_v2/selection.json", "summary_path": "runtime/model_selection/card/cap10_three_fold_checkpoint_metric_replay_v2/summary.json", "external_reference": []}, {"experiment": "wf2020_near_miss_timing_repair_v1", "decision": "wf2020_timing_repair_requires_checkpoint_daily_path_export", "promotion_allowed": false, "changed_layer": [], "updated_at": "2026-06-14 10:09:37", "notebook_path": "runtime/model_selection/card/wf2020_near_miss_timing_repair_v1/wf2020_near_miss_timing_repair_v1.ipynb", "selection_path": "runtime/model_selection/card/wf2020_near_miss_timing_repair_v1/selection.json", "summary_path": "runtime/model_selection/card/wf2020_near_miss_timing_repair_v1/summary.json", "external_reference": []}, {"experiment": "fold_frontier_failure_attribution_v1", "decision": "fold_frontier_wf2020_timing_gap_blocks_retention", "promotion_allowed": false, "role": "diagnose", "changed_layer": ["model_selection", "evidence_routing", "target_repair_design"], "next_mechanism": "build_wf2020_near_miss_return_timing_repair_then_rerun_fold_aware_three_fold_replay", "conclusion": "Existing candidates pass 2/3 folds as a combined frontier; no full retention training is allowed from this card. wf_2020 best MaxDD-safe candidate is bull_reentry_three_fold_checkpoint_metric_replay_v1:bc_initialization at 55.60% return and 15.49% MaxDD, leaving 14.01pp to the 69.60% floor.", "created_at": "2026-06-14T01:50:43.465132+00:00", "updated_at": "2026-06-14 09:50:43", "notebook_path": "runtime/model_selection/card/fold_frontier_failure_attribution_v1/fold_frontier_failure_attribution_v1.ipynb", "selection_path": "runtime/model_selection/card/fold_frontier_failure_attribution_v1/selection.json", "summary_path": "runtime/model_selection/card/fold_frontier_failure_attribution_v1/summary.json", "external_reference": []}, {"experiment": "return_preserving_hybrid_target_bc_replay_v1", "decision": "return_preserving_hybrid_bc_replay_no_promotion", "promotion_allowed": false, "role": "diagnose", "changed_layer": ["model_selection", "training_target", "bc_warm_start", "sample_weighting", "official_replay"], "candidate": "hybrid_blend_nonrisk_50__riskcap_default_weight", "next_mechanism": "inspect_selected_hybrid_failure_and_repair_participation_weight_or_target_before_retention_training", "conclusion": "Selected global candidate `hybrid_blend_nonrisk_50__riskcap_default_weight` from 6 candidate groups. wf_2020: return=12.79%, relative=-45.31pp (target -263.73pp), MaxDD=14.83% (<20.00% gate=True), avg_pos=0.182, fold_gate=False.", "created_at": "2026-06-14T01:36:20.435158+00:00", "updated_at": "2026-06-14 09:36:23", "notebook_path": "runtime/model_selection/card/return_preserving_hybrid_target_bc_replay_v1/return_preserving_hybrid_target_bc_replay_v1.ipynb", "selection_path": "runtime/model_selection/card/return_preserving_hybrid_target_bc_replay_v1/selection.json", "summary_path": "runtime/model_selection/card/return_preserving_hybrid_target_bc_replay_v1/summary.json", "external_reference": []}, {"experiment": "wf2020_riskcap_full_bc_replay_v1", "decision": "wf2020_riskcap_full_bc_underparticipation_no_promotion", "promotion_allowed": false, "role": "diagnose", "changed_layer": ["model_selection", "training_target", "bc_warm_start", "official_replay"], "next_mechanism": "design_return_preserving_hybrid_target_with_riskcap_floor_then_rerun_three_fold_bc_replay", "conclusion": "wf_2020: return=14.06%, relative=-44.04pp (target -263.73pp), MaxDD=14.87% (<20.00% gate=True), avg_pos=0.170, fold_gate=False. wf_2022: return=-10.71%, relative=75.88pp (target 30.00pp), MaxDD=19.10% (<20.00% gate=True), avg_pos=0.080, fold_gate=True.", "created_at": "2026-06-14T01:16:29.461682+00:00", "updated_at": "2026-06-14 09:16:32", "notebook_path": "runtime/model_selection/card/wf2020_riskcap_full_bc_replay_v1/wf2020_riskcap_full_bc_replay_v1.ipynb", "selection_path": "runtime/model_selection/card/wf2020_riskcap_full_bc_replay_v1/selection.json", "summary_path": "runtime/model_selection/card/wf2020_riskcap_full_bc_replay_v1/summary.json", "external_reference": []}, {"experiment": "wf2020_risk_cap_reference_target_screen_v1", "decision": "wf2020_riskcap_reference_target_bc_lower_bound_ready_no_promotion", "promotion_allowed": false, "role": "diagnose", "changed_layer": ["model_selection", "training_objective", "bc_warm_start"], "next_mechanism": "run_file_backed_wf2020_riskcap_full_bc_replay_before_any_retention_then_design_return_preserving_hybrid_target_if_ytd_gate_fails", "created_at": "2026-06-14T01:00:20.401561+00:00", "updated_at": "2026-06-14 09:00:21", "notebook_path": "runtime/model_selection/card/wf2020_risk_cap_reference_target_screen_v1/wf2020_risk_cap_reference_target_screen_v1.ipynb", "selection_path": "runtime/model_selection/card/wf2020_risk_cap_reference_target_screen_v1/selection.json", "summary_path": "runtime/model_selection/card/wf2020_risk_cap_reference_target_screen_v1/summary.json", "external_reference": []}, {"experiment": "wf2020_reference_floor_gate_calibration_v1", "decision": "wf2020_reference_floor_gate_calibrated_no_promotion", "promotion_allowed": false, "role": "diagnose", "changed_layer": ["model_selection", "retention_gate_feasibility", "target_contract"], "next_mechanism": "build_wf2020_risk_cap_reference_target_screen_then_rerun_three_fold_bc_checkpoint_metric_replay", "conclusion": "The old wf_2020 relative gate requires 363.33% return; no available reference satisfies that return with MaxDD < 20%. The calibrated wf_2020 floor is risk_cap_35_15_05 at 69.60% return and 17.94% MaxDD.", "created_at": "2026-06-14T00:36:30.777094+00:00", "updated_at": "2026-06-14 08:36:30", "notebook_path": "runtime/model_selection/card/wf2020_reference_floor_gate_calibration_v1/wf2020_reference_floor_gate_calibration_v1.ipynb", "selection_path": "runtime/model_selection/card/wf2020_reference_floor_gate_calibration_v1/selection.json", "summary_path": "runtime/model_selection/card/wf2020_reference_floor_gate_calibration_v1/summary.json", "external_reference": []}, {"experiment": "bull_reentry_wf2020_post_revision_gap_diagnostic_v1", "decision": "wf2020_post_revision_gate_feasibility_blocker_no_promotion", "promotion_allowed": false, "role": "diagnose", "changed_layer": ["model_selection", "training_objective", "retention_gate_feasibility"], "next_mechanism": "calibrate_wf2020_retention_gate_or_run_reference_feasibility_screen_before_more_bull_reentry_training", "conclusion": "Bull/reentry revision improved wf_2020 relative return by 15.02pp, but the fold remains 307.74pp short of the +30pp relative gate. The wf_2020 gate implies required return 363.33% because SOXL buy-and-hold is 333.33% in the replay metrics.", "created_at": "2026-06-14T00:22:59.758727+00:00", "updated_at": "2026-06-14 08:23:00", "notebook_path": "runtime/model_selection/card/bull_reentry_wf2020_post_revision_gap_diagnostic_v1/bull_reentry_wf2020_post_revision_gap_diagnostic_v1.ipynb", "selection_path": "runtime/model_selection/card/bull_reentry_wf2020_post_revision_gap_diagnostic_v1/selection.json", "summary_path": "runtime/model_selection/card/bull_reentry_wf2020_post_revision_gap_diagnostic_v1/summary.json", "external_reference": []}, {"experiment": "bull_reentry_three_fold_checkpoint_metric_replay_v1", "decision": "three_fold_checkpoint_metric_replay_partial_pass_no_promotion", "promotion_allowed": false, "role": "diagnose", "changed_layer": ["model_selection", "checkpoint_selection", "bc_warm_start"], "next_mechanism": "inspect_failed_fold_drawdown_or_reward_drift_before_full_retention_training", "conclusion": "wf_2020: selected bc_initialization (bc_initialization) with rel=-277.74pp, MaxDD=15.49%, loss=10.2578, gate=False. wf_2022: selected bc_initialization (bc_initialization) with rel=65.86pp, MaxDD=18.80%, loss=0.0000, gate=True.", "created_at": "2026-06-14T00:01:27.439948+00:00", "updated_at": "2026-06-14 08:01:30", "notebook_path": "runtime/model_selection/card/bull_reentry_three_fold_checkpoint_metric_replay_v1/bull_reentry_three_fold_checkpoint_metric_replay_v1.ipynb", "selection_path": "runtime/model_selection/card/bull_reentry_three_fold_checkpoint_metric_replay_v1/selection.json", "summary_path": "runtime/model_selection/card/bull_reentry_three_fold_checkpoint_metric_replay_v1/summary.json", "external_reference": []}, {"experiment": "fold_local_bull_reentry_participation_target_v1", "decision": "target_revision_ready_for_three_fold_bc_checkpoint_metric_replay", "promotion_allowed": false, "changed_layer": [], "next_mechanism": "rerun_three_fold_bc_checkpoint_metric_replay_with_bull_reentry_target_contract", "created_at": "2026-06-13T23:57:46.979218+00:00", "updated_at": "2026-06-14 07:57:47", "notebook_path": "runtime/model_selection/card/fold_local_bull_reentry_participation_target_v1/fold_local_bull_reentry_participation_target_v1.ipynb", "summary_path": "runtime/model_selection/card/fold_local_bull_reentry_participation_target_v1/summary.json", "external_reference": []}, {"experiment": "retention_frontier_target_revision_readiness_v1", "decision": "target_revision_before_retained_actor_training", "promotion_allowed": false, "changed_layer": [], "updated_at": "2026-06-14 07:03:43", "notebook_path": "runtime/model_selection/card/retention_frontier_target_revision_readiness_v1/retention_frontier_target_revision_readiness_v1.ipynb", "summary_path": "runtime/model_selection/card/retention_frontier_target_revision_readiness_v1/summary.json", "external_reference": []}, {"experiment": "retraining_actor_retention_guard_v1", "decision": "training_outputs_are_candidates_until_walkforward_promotion_passes", "promotion_allowed": false, "changed_layer": [], "updated_at": "2026-06-14 06:20:27", "summary_path": "runtime/model_selection/card/retraining_actor_retention_guard_v1/summary.json", "external_reference": []}, {"experiment": "cap10_wf2020_participation_failure_attribution_v1", "decision": "wf2020_bull_participation_target_rebuild_required_no_promotion", "promotion_allowed": false, "role": "diagnose", "changed_layer": ["model_selection", "failure_attribution", "target_contract"], "next_mechanism": "rebuild_wf2020_bull_participation_target_before_full_retention_training", "created_at": "2026-06-13T21:43:33.752789+00:00", "updated_at": "2026-06-14 05:43:34", "notebook_path": "runtime/model_selection/card/cap10_wf2020_participation_failure_attribution_v1/cap10_wf2020_participation_failure_attribution_v1.ipynb", "selection_path": "runtime/model_selection/card/cap10_wf2020_participation_failure_attribution_v1/selection.json", "summary_path": "runtime/model_selection/card/cap10_wf2020_participation_failure_attribution_v1/summary.json", "external_reference": []}, {"experiment": "cap10_wf2020_failed_fold_objective_audit_v1", "decision": "wf2020_failed_fold_requires_bull_reentry_target_revision_no_promotion", "promotion_allowed": false, "role": "diagnose", "changed_layer": ["model_selection", "training_objective", "target_design"], "next_mechanism": "build_fold_local_bull_reentry_participation_target_then_rerun_three_fold_bc_checkpoint_metric_replay", "conclusion": "Do not start full retained cap10 training from the current target as-is. After qlib metric replay, wf_2020 is the only failed fold; its MaxDD is already under 20%, but relative return is deeply negative because the candidate under-participates in the post-crash bull rebound.", "created_at": "2026-06-13T20:53:31.586999+00:00", "updated_at": "2026-06-14 04:53:31", "notebook_path": "runtime/model_selection/card/cap10_wf2020_failed_fold_objective_audit_v1/cap10_wf2020_failed_fold_objective_audit_v1.ipynb", "selection_path": "runtime/model_selection/card/cap10_wf2020_failed_fold_objective_audit_v1/selection.json", "summary_path": "runtime/model_selection/card/cap10_wf2020_failed_fold_objective_audit_v1/summary.json", "external_reference": []}, {"experiment": "retraining_gate_gap_handoff_v1", "decision": "run_full_walkforward_cap10_joint_contract_bc_checkpoint_training_with_qlib_buy_sell_reference", "promotion_allowed": false, "changed_layer": [], "created_at": "2026-06-13T20:16:36.217469+00:00", "updated_at": "2026-06-14 04:16:36", "notebook_path": "runtime/model_selection/card/retraining_gate_gap_handoff_v1/retraining_gate_gap_handoff_v1.ipynb", "summary_path": "runtime/model_selection/card/retraining_gate_gap_handoff_v1/summary.json", "external_reference": []}, {"experiment": "cap10_metric_replay_handoff_audit_v1", "decision": "metric_replay_handoff_completed_no_promotion", "promotion_allowed": false, "role": "diagnose", "changed_layer": ["model_selection", "metric_reconciliation", "lineage"], "next_mechanism": "inspect_failed_fold_drawdown_or_reward_drift_before_full_retention_training", "created_at": "2026-06-13T19:01:50.126948+00:00", "updated_at": "2026-06-14 03:01:50", "notebook_path": "runtime/model_selection/card/cap10_metric_replay_handoff_audit_v1/cap10_metric_replay_handoff_audit_v1.ipynb", "selection_path": "runtime/model_selection/card/cap10_metric_replay_handoff_audit_v1/selection.json", "summary_path": "runtime/model_selection/card/cap10_metric_replay_handoff_audit_v1/summary.json", "external_reference": []}, {"experiment": "state_objective_budget_gap_diagnostic_v1", "decision": "revise_fold_local_reentry_participation_targets_before_ppo", "promotion_allowed": false, "changed_layer": [], "next_mechanism": "build_fold_local_reentry_participation_target_then_bc_or_ppo", "created_at": "2026-06-13T18:44:03.242244+00:00", "updated_at": "2026-06-14 02:44:03", "notebook_path": "runtime/model_selection/card/state_objective_budget_gap_diagnostic_v1/state_objective_budget_gap_diagnostic_v1.ipynb", "summary_path": "runtime/model_selection/card/state_objective_budget_gap_diagnostic_v1/summary.json", "external_reference": []}, {"experiment": "wf2024_state_coverage_diagnostic_v1", "decision": "wf2024_underparticipation_state_coverage_gap_no_promotion", "promotion_allowed": false, "role": "diagnose", "changed_layer": [], "candidate": "seq_cap10_two_of_three", "next_mechanism": "screen_trend_participation_state_with_drawdown_guard_before_training", "created_at": "2026-05-26T04:15:51.007690+00:00", "updated_at": "2026-06-14 00:55:00", "notebook_path": "runtime/model_selection/card/wf2024_state_coverage_diagnostic_v1/wf2024_state_coverage_diagnostic_v1.ipynb", "selection_path": "runtime/model_selection/card/wf2024_state_coverage_diagnostic_v1/selection.json", "summary_path": "runtime/model_selection/card/wf2024_state_coverage_diagnostic_v1/summary.json", "external_reference": ["https://github.com/microsoft/qlib", "https://arxiv.org/abs/2009.11189", "https://doi.org/10.21314/JCF.2016.322", "https://doi.org/10.1016/j.jfineco.2011.11.003", "https://doi.org/10.1016/j.jfineco.2016.05.002", "https://doi.org/10.1111/jofi.12513"]}, {"experiment": "warm_start_official_failure_handoff_v1", "decision": "train_state_conditioned_multi_objective", "promotion_allowed": false, "role": "diagnose", "changed_layer": ["model_selection", "training_objective_handoff", "feature_delta_diagnostic"], "next_mechanism": "train_state_conditioned_multi_objective", "conclusion": "Handoff decision is `train_state_conditioned_multi_objective` for `trend_plain_contract`; selected min relative 8.22pp and max MaxDD 20.20% remain outside the +30pp / <=15% full gate. Top poor-window cluster is `underparticipation` from 2024-01-02 to 2024-07-22, mean excess -53.16pp, max MaxDD 12.97%.", "created_at": "2026-05-26T08:56:10.083969+00:00", "updated_at": "2026-06-14 00:55:00", "notebook_path": "runtime/model_selection/card/warm_start_official_failure_handoff_v1/warm_start_official_failure_handoff_v1.ipynb", "selection_path": "runtime/model_selection/card/warm_start_official_failure_handoff_v1/selection.json", "summary_path": "runtime/model_selection/card/warm_start_official_failure_handoff_v1/summary.json", "external_reference": ["https://github.com/microsoft/qlib", "https://arxiv.org/abs/2009.11189", "https://github.com/AI4Finance-Foundation/FinRL", "https://proceedings.mlr.press/v15/ross11a.html", "https://doi.org/10.21314/JCF.2016.322"]}, {"experiment": "warm_start_action_cap_validation_v1", "decision": "warm_start_action_cap_failed_no_promotion", "promotion_allowed": false, "role": "diagnose", "changed_layer": [], "candidate": "seq_cap10_two_of_three", "next_mechanism": "return_to_training_objective_or_checkpoint_selection_not_threshold_search", "created_at": "2026-05-26T03:59:37.559806+00:00", "updated_at": "2026-06-14 00:55:00", "notebook_path": "runtime/model_selection/card/warm_start_action_cap_validation_v1/warm_start_action_cap_validation_v1.ipynb", "selection_path": "runtime/model_selection/card/warm_start_action_cap_validation_v1/selection.json", "summary_path": "runtime/model_selection/card/warm_start_action_cap_validation_v1/summary.json", "external_reference": ["https://github.com/microsoft/qlib", "https://arxiv.org/abs/2009.11189", "https://arxiv.org/abs/1707.06347", "https://arxiv.org/abs/1712.06924", "https://arxiv.org/abs/2006.04779", "https://doi.org/10.21314/JCF.2016.322"]}, {"experiment": "walkforward_weighted_objective_v1", "decision": "no_full_gate_candidate", "promotion_allowed": false, "changed_layer": [], "next_mechanism": "walk_forward_weighted_multi_objective_training", "updated_at": "2026-06-14 00:55:00", "notebook_path": "runtime/model_selection/card/walkforward_weighted_objective_v1/walkforward_weighted_objective_v1.ipynb", "selection_path": "runtime/model_selection/card/walkforward_weighted_objective_v1/selection.json", "summary_path": "runtime/model_selection/card/walkforward_weighted_objective_v1/selection.json", "external_reference": []}, {"experiment": "upstream_actor_low_risk_refresh_v1", "decision": "diagnostic_no_current_actor_pass", "promotion_allowed": false, "changed_layer": [], "created_at": "2026-05-24T13:42:30.196688+00:00", "updated_at": "2026-06-14 00:55:00", "notebook_path": "runtime/model_selection/card/upstream_actor_low_risk_refresh_v1/upstream_actor_low_risk_refresh_v1.ipynb", "selection_path": "runtime/model_selection/card/upstream_actor_low_risk_refresh_v1/selection.json", "summary_path": "runtime/model_selection/card/upstream_actor_low_risk_refresh_v1/selection.json", "external_reference": []}, {"experiment": "trend_participation_guard_screen_v1", "decision": "trend_participation_guard_no_objective_pass_no_promotion", "promotion_allowed": false, "role": "diagnose", "changed_layer": ["model_selection", "counterfactual_overlay"], "candidate": "base_seq_cap10_two_of_three", "next_mechanism": "encode_fold_local_trend_participation_with_drawdown_guard_as_training_or_checkpoint_objective", "conclusion": "Trend-participation guard candidates were derived from fold-local train quantiles; 2024 labels were used only for scoring diagnostic paths. This card is a counterfactual screen, not a runtime profile promotion and not an actor-retention artifact.", "created_at": "2026-05-26T04:58:52.075773+00:00", "updated_at": "2026-06-14 00:55:00", "notebook_path": "runtime/model_selection/card/trend_participation_guard_screen_v1/trend_participation_guard_screen_v1.ipynb", "selection_path": "runtime/model_selection/card/trend_participation_guard_screen_v1/selection.json", "summary_path": "runtime/model_selection/card/trend_participation_guard_screen_v1/summary.json", "external_reference": []}, {"experiment": "trend_participation_foldlocal_target_v1", "decision": "trend_participation_foldlocal_targets_ready_for_bc_screen", "promotion_allowed": false, "role": "diagnose", "changed_layer": ["model_selection", "training_target"], "candidate": "trend_q70_target45_guard", "next_mechanism": "run_fold_local_bc_warm_start_then_walkforward_replay_with_drawdown_drift_stop", "conclusion": "Trend participation is now represented as fold-local target labels rather than a runtime overlay. The card only authorizes a next BC/checkpoint screen if scope, lift, BC-readiness, and trend-row sanity gates pass.", "created_at": "2026-05-26T05:44:48.982317+00:00", "updated_at": "2026-06-14 00:55:00", "notebook_path": "runtime/model_selection/card/trend_participation_foldlocal_target_v1/trend_participation_foldlocal_target_v1.ipynb", "selection_path": "runtime/model_selection/card/trend_participation_foldlocal_target_v1/selection.json", "summary_path": "runtime/model_selection/card/trend_participation_foldlocal_target_v1/summary.json", "external_reference": []}, {"experiment": "trend_participation_bc_warmstart_screen_v1", "decision": "trend_participation_bc_warmstart_mixed_no_promotion", "promotion_allowed": false, "role": "diagnose", "changed_layer": ["model_selection", "training_target", "bc_warm_start"], "candidate": "trend_plain_contract", "next_mechanism": "inspect_failed_fold_trend_slice_and_checkpoint_selection_before_ppo", "conclusion": "wf_2022: trend_plain_contract relative=36.42pp, MaxDD=43.57%, delta vs base rel=0.00pp, delta MaxDD=0.00pp, fold_gate=False. wf_2023_2024: trend_plain_contract relative=41.56pp, MaxDD=13.34%, delta vs base rel=11.06pp, delta MaxDD=-5.29pp, fold_gate=True.", "created_at": "2026-05-26T06:09:24.365310+00:00", "updated_at": "2026-06-14 00:55:00", "notebook_path": "runtime/model_selection/card/trend_participation_bc_warmstart_screen_v1/trend_participation_bc_warmstart_screen_v1.ipynb", "selection_path": "runtime/model_selection/card/trend_participation_bc_warmstart_screen_v1/selection.json", "summary_path": "runtime/model_selection/card/trend_participation_bc_warmstart_screen_v1/summary.json", "external_reference": []}, {"experiment": "training_objective_handoff_v1", "decision": "train_state_conditioned_multi_objective", "promotion_allowed": false, "role": "diagnose", "changed_layer": ["model_selection", "reward"], "updated_at": "2026-06-14 00:55:00", "notebook_path": "runtime/model_selection/card/training_objective_handoff_v1/training_objective_handoff_v1.ipynb", "selection_path": "runtime/model_selection/card/training_objective_handoff_v1/selection.json", "summary_path": "runtime/model_selection/card/training_objective_handoff_v1/selection.json", "external_reference": []}]};
+    const PLOTLY_LAYOUTS = {"all": {"template": {"data": {"histogram2dcontour": [{"type": "histogram2dcontour", "colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]]}], "choropleth": [{"type": "choropleth", "colorbar": {"outlinewidth": 0, "ticks": ""}}], "histogram2d": [{"type": "histogram2d", "colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]]}], "heatmap": [{"type": "heatmap", "colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]]}], "contourcarpet": [{"type": "contourcarpet", "colorbar": {"outlinewidth": 0, "ticks": ""}}], "contour": [{"type": "contour", "colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]]}], "surface": [{"type": "surface", "colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]]}], "mesh3d": [{"type": "mesh3d", "colorbar": {"outlinewidth": 0, "ticks": ""}}], "scatter": [{"fillpattern": {"fillmode": "overlay", "size": 10, "solidity": 0.2}, "type": "scatter"}], "parcoords": [{"type": "parcoords", "line": {"colorbar": {"outlinewidth": 0, "ticks": ""}}}], "scatterpolargl": [{"type": "scatterpolargl", "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}}], "bar": [{"error_x": {"color": "#2a3f5f"}, "error_y": {"color": "#2a3f5f"}, "marker": {"line": {"color": "#E5ECF6", "width": 0.5}, "pattern": {"fillmode": "overlay", "size": 10, "solidity": 0.2}}, "type": "bar"}], "scattergeo": [{"type": "scattergeo", "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}}], "scatterpolar": [{"type": "scatterpolar", "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}}], "histogram": [{"marker": {"pattern": {"fillmode": "overlay", "size": 10, "solidity": 0.2}}, "type": "histogram"}], "scattergl": [{"type": "scattergl", "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}}], "scatter3d": [{"type": "scatter3d", "line": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}}], "scattermap": [{"type": "scattermap", "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}}], "scattermapbox": [{"type": "scattermapbox", "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}}], "scatterternary": [{"type": "scatterternary", "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}}], "scattercarpet": [{"type": "scattercarpet", "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}}], "carpet": [{"aaxis": {"endlinecolor": "#2a3f5f", "gridcolor": "white", "linecolor": "white", "minorgridcolor": "white", "startlinecolor": "#2a3f5f"}, "baxis": {"endlinecolor": "#2a3f5f", "gridcolor": "white", "linecolor": "white", "minorgridcolor": "white", "startlinecolor": "#2a3f5f"}, "type": "carpet"}], "table": [{"cells": {"fill": {"color": "#EBF0F8"}, "line": {"color": "white"}}, "header": {"fill": {"color": "#C8D4E3"}, "line": {"color": "white"}}, "type": "table"}], "barpolar": [{"marker": {"line": {"color": "#E5ECF6", "width": 0.5}, "pattern": {"fillmode": "overlay", "size": 10, "solidity": 0.2}}, "type": "barpolar"}], "pie": [{"automargin": true, "type": "pie"}]}, "layout": {"autotypenumbers": "strict", "colorway": ["#636efa", "#EF553B", "#00cc96", "#ab63fa", "#FFA15A", "#19d3f3", "#FF6692", "#B6E880", "#FF97FF", "#FECB52"], "font": {"color": "#2a3f5f"}, "hovermode": "closest", "hoverlabel": {"align": "left"}, "paper_bgcolor": "white", "plot_bgcolor": "#E5ECF6", "polar": {"bgcolor": "#E5ECF6", "angularaxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}, "radialaxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}}, "ternary": {"bgcolor": "#E5ECF6", "aaxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}, "baxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}, "caxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}}, "coloraxis": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "colorscale": {"sequential": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "sequentialminus": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "diverging": [[0, "#8e0152"], [0.1, "#c51b7d"], [0.2, "#de77ae"], [0.3, "#f1b6da"], [0.4, "#fde0ef"], [0.5, "#f7f7f7"], [0.6, "#e6f5d0"], [0.7, "#b8e186"], [0.8, "#7fbc41"], [0.9, "#4d9221"], [1, "#276419"]]}, "xaxis": {"gridcolor": "white", "linecolor": "white", "ticks": "", "title": {"standoff": 15}, "zerolinecolor": "white", "automargin": true, "zerolinewidth": 2}, "yaxis": {"gridcolor": "white", "linecolor": "white", "ticks": "", "title": {"standoff": 15}, "zerolinecolor": "white", "automargin": true, "zerolinewidth": 2}, "scene": {"xaxis": {"backgroundcolor": "#E5ECF6", "gridcolor": "white", "linecolor": "white", "showbackground": true, "ticks": "", "zerolinecolor": "white", "gridwidth": 2}, "yaxis": {"backgroundcolor": "#E5ECF6", "gridcolor": "white", "linecolor": "white", "showbackground": true, "ticks": "", "zerolinecolor": "white", "gridwidth": 2}, "zaxis": {"backgroundcolor": "#E5ECF6", "gridcolor": "white", "linecolor": "white", "showbackground": true, "ticks": "", "zerolinecolor": "white", "gridwidth": 2}}, "shapedefaults": {"line": {"color": "#2a3f5f"}}, "annotationdefaults": {"arrowcolor": "#2a3f5f", "arrowhead": 0, "arrowwidth": 1}, "geo": {"bgcolor": "white", "landcolor": "#E5ECF6", "subunitcolor": "white", "showland": true, "showlakes": true, "lakecolor": "white"}, "title": {"x": 0.05}, "mapbox": {"style": "light"}}}, "xaxis": {"anchor": "y", "domain": [0.0, 1.0], "matches": "x5", "showticklabels": false, "tickfont": {"size": 11}, "rangeslider": {"visible": false}, "showgrid": true, "gridwidth": 1, "gridcolor": "#d7dee6", "showspikes": true, "spikemode": "across", "spikecolor": "#607080", "spikethickness": 1, "spikedash": "dot"}, "yaxis": {"anchor": "x", "domain": [0.808, 1.0], "tickfont": {"size": 11}, "showgrid": true, "gridwidth": 1, "gridcolor": "#d7dee6", "showspikes": true, "spikemode": "across", "spikecolor": "#607080", "spikethickness": 1, "spikedash": "dot", "fixedrange": true, "title": {"text": "NAV"}}, "xaxis2": {"anchor": "y2", "domain": [0.0, 1.0], "matches": "x5", "showticklabels": false, "tickfont": {"size": 11}, "rangeslider": {"visible": false}, "showgrid": true, "gridwidth": 1, "gridcolor": "#d7dee6", "showspikes": true, "spikemode": "across", "spikecolor": "#607080", "spikethickness": 1, "spikedash": "dot"}, "yaxis2": {"anchor": "x2", "domain": [0.5660000000000001, 0.758], "tickfont": {"size": 11}, "showgrid": true, "gridwidth": 1, "gridcolor": "#d7dee6", "showspikes": true, "spikemode": "across", "spikecolor": "#607080", "spikethickness": 1, "spikedash": "dot", "fixedrange": true, "title": {"text": "Price"}}, "xaxis3": {"anchor": "y3", "domain": [0.0, 1.0], "matches": "x5", "showticklabels": false, "tickfont": {"size": 11}, "rangeslider": {"visible": false}, "showgrid": true, "gridwidth": 1, "gridcolor": "#d7dee6", "showspikes": true, "spikemode": "across", "spikecolor": "#607080", "spikethickness": 1, "spikedash": "dot"}, "yaxis3": {"anchor": "x3", "domain": [0.388, 0.516], "tickfont": {"size": 11}, "showgrid": true, "gridwidth": 1, "gridcolor": "#d7dee6", "showspikes": true, "spikemode": "across", "spikecolor": "#607080", "spikethickness": 1, "spikedash": "dot", "fixedrange": true, "title": {"text": "Position %"}, "range": [0, 1], "tickformat": ".0%"}, "xaxis4": {"anchor": "y4", "domain": [0.0, 1.0], "matches": "x5", "showticklabels": false, "tickfont": {"size": 11}, "rangeslider": {"visible": false}, "showgrid": true, "gridwidth": 1, "gridcolor": "#d7dee6", "showspikes": true, "spikemode": "across", "spikecolor": "#607080", "spikethickness": 1, "spikedash": "dot"}, "yaxis4": {"anchor": "x4", "domain": [0.194, 0.33799999999999997], "tickfont": {"size": 11}, "showgrid": true, "gridwidth": 1, "gridcolor": "#d7dee6", "showspikes": true, "spikemode": "across", "spikecolor": "#607080", "spikethickness": 1, "spikedash": "dot", "fixedrange": true, "title": {"text": "Excess %"}}, "xaxis5": {"anchor": "y5", "domain": [0.0, 1.0], "tickfont": {"size": 11}, "rangeslider": {"visible": false}, "showgrid": true, "gridwidth": 1, "gridcolor": "#d7dee6", "showticklabels": true, "showspikes": true, "spikemode": "across", "spikecolor": "#607080", "spikethickness": 1, "spikedash": "dot", "title": {"text": "Date"}}, "yaxis5": {"anchor": "x5", "domain": [0.0, 0.144], "tickfont": {"size": 11}, "showgrid": true, "gridwidth": 1, "gridcolor": "#d7dee6", "showspikes": true, "spikemode": "across", "spikecolor": "#607080", "spikethickness": 1, "spikedash": "dot", "fixedrange": true, "title": {"text": "DD %"}}, "annotations": [{"font": {"size": 16}, "showarrow": false, "text": "NAV", "x": 0.5, "xanchor": "center", "xref": "paper", "y": 1.0, "yanchor": "bottom", "yref": "paper"}, {"font": {"size": 16}, "showarrow": false, "text": "Price + Signals", "x": 0.5, "xanchor": "center", "xref": "paper", "y": 0.758, "yanchor": "bottom", "yref": "paper"}, {"font": {"size": 16}, "showarrow": false, "text": "Position", "x": 0.5, "xanchor": "center", "xref": "paper", "y": 0.516, "yanchor": "bottom", "yref": "paper"}, {"font": {"size": 16}, "showarrow": false, "text": "Excess Return %", "x": 0.5, "xanchor": "center", "xref": "paper", "y": 0.33799999999999997, "yanchor": "bottom", "yref": "paper"}, {"font": {"size": 16}, "showarrow": false, "text": "Drawdown", "x": 0.5, "xanchor": "center", "xref": "paper", "y": 0.144, "yanchor": "bottom", "yref": "paper"}], "margin": {"l": 60, "r": 60, "t": 90, "b": 40}, "font": {"family": "ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif", "color": "#111827", "size": 12}, "legend": {"orientation": "h", "yanchor": "bottom", "y": 1.02, "xanchor": "right", "x": 1, "bgcolor": "rgba(255,255,255,0.92)"}, "height": 920, "paper_bgcolor": "rgba(0,0,0,0)", "plot_bgcolor": "#ffffff", "hovermode": "x unified", "showlegend": true, "dragmode": "zoom"}};
+    const ETFS = (() => {
+      const fromDetailed = Object.keys(DATA.detailed || {});
+      if (fromDetailed.length) return fromDetailed;
+      // Fallback: collect ETFs from versioned data
+      const etfs = new Set();
+      Object.values(DATA.versioned || {}).forEach(v => {
+        Object.keys(v.detailed || {}).forEach(e => etfs.add(e));
+      });
+      return Array.from(etfs);
+    })();
+    const VERSIONS = Object.keys(DATA.versioned || {});
+    const state = {
+      etf: ETFS[0] || 'SOXL',
+      version: DATA.latest_version || DATA.best_version || '',
+      versionSource: 'auto_latest',
+      range: 'all',
+      zoomMode: 'all',
+      zoomStart: null,
+      zoomEnd: null,
+      sortCol: 'return_pct',
+      sortAsc: false,
+      segmentMode: false,
+      segmentKey: '',
+      segmentCache: {},
+    };
+
+    const etfSelect = document.getElementById('etfSelect');
+    const versionSelect = document.getElementById('versionSelect');
+    const metricGrid = document.getElementById('metricGrid');
+    const tradeStatRow = document.getElementById('tradeStatRow');
+    const tradePerfTable = document.getElementById('tradePerfTable');
+    const csvLink = document.getElementById('csvLink');
+    const chartMeta = document.getElementById('chartMeta');
+    const startDateInput = document.getElementById('startDateInput');
+    const endDateInput = document.getElementById('endDateInput');
+    const runProfileSelect = document.getElementById('runProfileSelect');
+    const runStartDateInput = document.getElementById('runStartDateInput');
+    const runEndDateInput = document.getElementById('runEndDateInput');
+    const useChartWindowBtn = document.getElementById('useChartWindowBtn');
+    const runBacktestBtn = document.getElementById('runBacktestBtn');
+    const runProfileStatus = document.getElementById('runProfileStatus');
+    const serverModeStatus = document.getElementById('serverModeStatus');
+    const applyZoomBtn = document.getElementById('applyZoomBtn');
+    const resetZoomBtn = document.getElementById('resetZoomBtn');
+    const infoEmpty = document.getElementById('infoEmpty');
+    const infoContent = document.getElementById('infoContent');
+    const regimeStrip = document.getElementById('regimeStrip');
+    const productionStatusCard = document.getElementById('productionStatusCard');
+    const productionStatusValue = document.getElementById('productionStatusValue');
+    const productionAuthStatus = document.getElementById('productionAuthStatus');
+    const productionProjectStatus = document.getElementById('productionProjectStatus');
+    const productionPaperModel = document.getElementById('productionPaperModel');
+    const productionPaperExecution = document.getElementById('productionPaperExecution');
+    const productionPaperSource = document.getElementById('productionPaperSource');
+    const productionPaperEnd = document.getElementById('productionPaperEnd');
+    const productionDeploymentStatus = document.getElementById('productionDeploymentStatus');
+    const productionGateOverall = document.getElementById('productionGateOverall');
+    const productionGateIssues = document.getElementById('productionGateIssues');
+    const researchBacktestSummary = document.getElementById('researchBacktestSummary');
+    const researchBacktestTable = document.getElementById('researchBacktestTable');
+    const DASHBOARD_API_FALLBACK = 'http://127.0.0.1:8765/api/run-backtest';
+    const DASHBOARD_HEALTH_FALLBACK = 'http://127.0.0.1:8765/api/health';
+    const STORAGE_KEY = 'soxl-dashboard-state-v10';
+    const hydratedVersionCache = {};
+    let indexVersionSummaries = {};
+    let modelReplayProfiles = [];
+    const runProfileWindows = DATA.run_windows || {};
+    const baseRowLookup = Object.fromEntries(
+      ETFS.map(etf => [
+        etf,
+        Object.fromEntries(
+          (DATA.detailed[etf].rows || []).map(row => [
+            row.datetime,
+            {
+              open: row.open,
+              high: row.high,
+              low: row.low,
+              close: row.close,
+              volume: row.volume,
+              rsi6: row.rsi6,
+              ma180: row.ma180,
+              hv_20: row.hv_20,
+              vol_coef: row.vol_coef,
+              panic_score: row.panic_score,
+              market_state: row.market_state,
+              _features: row._features || {},
+            },
+          ])
+        ),
+      ])
+    );
+
+    function fmtPct(v, digits = 2) {
+      if (v == null || !Number.isFinite(v)) return 'n/a';
+      return `${(v * 100).toFixed(digits)}%`;
+    }
+    function fmtNum(v, digits = 2) {
+      if (v == null || !Number.isFinite(v)) return 'n/a';
+      return Number(v).toFixed(digits);
+    }
+    function fmtDelta(v, digits = 2) {
+      const n = Number(v);
+      if (!Number.isFinite(n)) return 'n/a';
+      const sign = n > 0 ? '+' : '';
+      return `${sign}${n.toFixed(digits)}`;
+    }
+    function fmtMoney(v) {
+      if (v == null || !Number.isFinite(v)) return 'n/a';
+      const n = Number(v);
+      const sign = n >= 0 ? '+' : '';
+      return `${sign}${n.toLocaleString('en-US', {minimumFractionDigits:0, maximumFractionDigits:0})}`;
+    }
+
+    function loadSavedState() {
+      try {
+        const parsed = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
+        if (!parsed) return;
+        Object.assign(state, parsed);
+        if (parsed.versionSource !== 'manual' && parsed.versionSource !== 'current') {
+          state.version = DATA.latest_version || DATA.best_version || '';
+          state.versionSource = 'auto_latest';
+        }
+        if (state.version && (!DATA.versioned || !DATA.versioned[state.version])) {
+          state.version = DATA.latest_version || DATA.best_version || '';
+          state.versionSource = 'auto_latest';
+        }
+        // Segment cache is not persisted; always start clean
+        state.segmentMode = false;
+        state.segmentKey = '';
+        state.segmentCache = {};
+      } catch (_err) {}
+    }
+    function saveState() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
+
+    function hydrateVersionDetail(etf, version, detail) {
+      if (!detail) return null;
+      const cacheKey = `${version}::${etf}`;
+      if (hydratedVersionCache[cacheKey]) return hydratedVersionCache[cacheKey];
+      const lookup = baseRowLookup[etf] || {};
+      const hydrated = {
+        ...detail,
+        rows: (detail.rows || []).map(row => {
+          const market = lookup[row.datetime] || {};
+          return {
+            ...market,
+            ...row,
+            _features: market._features || {},
+          };
+        }),
+      };
+      hydratedVersionCache[cacheKey] = hydrated;
+      return hydrated;
+    }
+
+    function hasVersionDetail(version, etf) {
+      const payload = DATA.versioned && DATA.versioned[version];
+      return Boolean(payload && payload.detailed && payload.detailed[etf]);
+    }
+
+    function getSegmentKey(etf, version, start, end) {
+      return `${etf}::${version || 'current'}::${start}::${end}`;
+    }
+
+    function getDetailed(etf) {
+      if (!etf) return { rows: [], summary: {}, trades: [], kelly: {}, regime_shapes: [] };
+      if (state.segmentMode && state.segmentKey && state.segmentCache[state.segmentKey]) {
+        return state.segmentCache[state.segmentKey];
       }
-      body {
-        margin: 0;
-        min-height: 100vh;
-        display: grid;
-        place-items: center;
+      if (state.version && DATA.versioned && DATA.versioned[state.version]) {
+        const versionDetail = (DATA.versioned[state.version].detailed || {})[etf];
+        if (versionDetail) {
+          return hydrateVersionDetail(etf, state.version, versionDetail);
+        }
       }
-      main {
-        display: grid;
-        gap: 10px;
-        width: min(520px, calc(100vw - 32px));
+      return DATA.detailed[etf] || { rows: [], summary: {}, trades: [], kelly: {}, regime_shapes: [] };
+    }
+    function computeTradesFromRows(rows) {
+      const trades = [];
+      let entryIdx = -1;
+      let cumulative = 0.0;
+      for (let i = 0; i < rows.length; i++) {
+        const row = rows[i];
+        if (row.action === 'BUY' && entryIdx < 0) {
+          entryIdx = i;
+        } else if (row.action === 'SELL' && entryIdx >= 0) {
+          const entryRow = rows[entryIdx];
+          const entryPrice = entryRow.price || entryRow.close || entryRow.strategy_nav;
+          const exitPrice = row.price || row.close || row.strategy_nav;
+          const days = i - entryIdx;
+          const retPct = entryPrice > 0 ? ((exitPrice / entryPrice - 1) * 100) : 0;
+          const pnl = row.strategy_nav - entryRow.strategy_nav;
+          cumulative += pnl;
+          const vixVals = [];
+          const rsiVals = [];
+          for (let j = entryIdx; j <= i; j++) {
+            const f = rows[j]._features || {};
+            if (f.vix != null) vixVals.push(f.vix);
+            if (f.rsi != null) rsiVals.push(f.rsi);
+          }
+          trades.push({
+            entry_date: entryRow.datetime,
+            exit_date: row.datetime,
+            days: days,
+            entry_price: entryPrice,
+            exit_price: exitPrice,
+            return_pct: retPct,
+            pnl: pnl,
+            cumulative: cumulative,
+            entry_nav: entryRow.strategy_nav,
+            exit_nav: row.strategy_nav,
+            avg_vix: vixVals.length ? (vixVals.reduce((a,b)=>a+b,0) / vixVals.length) : null,
+            avg_rsi: rsiVals.length ? (rsiVals.reduce((a,b)=>a+b,0) / rsiVals.length) : null,
+          });
+          entryIdx = -1;
+        }
       }
-      h1 {
-        margin: 0;
-        color: #f9fafb;
-        font-size: 22px;
-        letter-spacing: 0;
+      return trades;
+    }
+
+    function computeKellyStatsFromTrades(trades) {
+      if (!trades || !trades.length) return {};
+      const wins = trades.filter(t => t.return_pct > 0).map(t => t.return_pct);
+      const losses = trades.filter(t => t.return_pct <= 0).map(t => t.return_pct);
+      const winRate = trades.length ? (wins.length / trades.length) : 0;
+      const avgWin = wins.length ? (wins.reduce((a,b)=>a+b,0) / wins.length) : 0;
+      const avgLoss = losses.length ? (losses.reduce((a,b)=>a+b,0) / losses.length) : 0;
+      const r = avgLoss !== 0 ? Math.abs(avgWin / avgLoss) : Infinity;
+      const kelly = r !== Infinity && r > 0 ? (winRate - (1 - winRate) / r) : winRate;
+      const expectancy = (winRate * avgWin) - ((1 - winRate) * Math.abs(avgLoss));
+      const grossProfit = wins.reduce((a,b)=>a+b,0);
+      const grossLoss = Math.abs(losses.reduce((a,b)=>a+b,0));
+      const profitFactor = grossLoss > 0 ? (grossProfit / grossLoss) : Infinity;
+      let maxWinStreak = 0, maxLossStreak = 0, curWin = 0, curLoss = 0;
+      for (const t of trades) {
+        if (t.return_pct > 0) { curWin++; curLoss = 0; maxWinStreak = Math.max(maxWinStreak, curWin); }
+        else { curLoss++; curWin = 0; maxLossStreak = Math.max(maxLossStreak, curLoss); }
       }
-      p {
-        margin: 0;
-        color: #9ca3af;
+      return {
+        total: trades.length,
+        win_rate: winRate,
+        avg_win: avgWin,
+        avg_loss: avgLoss,
+        kelly: kelly,
+        expectancy: expectancy,
+        profit_factor: profitFactor,
+        gross_profit: grossProfit,
+        gross_loss: grossLoss,
+        max_win_streak: maxWinStreak,
+        max_loss_streak: maxLossStreak,
+      };
+    }
+
+    function sliceAndRecompute(rows, start, end) {
+      if (!rows || !rows.length) return { rows: [], summary: {}, trades: [], kelly: {}, regime_shapes: [] };
+      const sliced = rows.filter(r => String(r.datetime) >= start && String(r.datetime) <= end);
+      if (!sliced.length) return { rows: [], summary: {}, trades: [], kelly: {}, regime_shapes: [] };
+      const firstRow = sliced[0];
+      const lastRow = sliced[sliced.length - 1];
+      const initialNav = 1000000.0;
+      const stratNav0 = Number(firstRow.strategy_nav) || 1;
+      const bhNav0 = Number(firstRow.buyhold_nav) || 1;
+      const stratScale = stratNav0 > 0 ? (initialNav / stratNav0) : 1;
+      const bhScale = bhNav0 > 0 ? (initialNav / bhNav0) : 1;
+
+      const newRows = [];
+      let peakS = -Infinity;
+      let maxDdStrategy = 0.0;
+      let buyCount = 0, sellCount = 0;
+      let maxPos = Number(firstRow.position) || 0;
+      let minPos = Number(firstRow.position) || 0;
+
+      for (const r of sliced) {
+        const rawNav = Number(r.strategy_nav) || 0;
+        const rawBh = Number(r.buyhold_nav) || 0;
+        const nav = rawNav * stratScale;
+        const bhNav = rawBh * bhScale;
+        const excess = nav - bhNav;
+        const excessPct = bhNav !== 0 ? (excess / bhNav * 100) : 0.0;
+        peakS = Math.max(peakS, nav);
+        maxDdStrategy = Math.max(maxDdStrategy, (peakS - nav) / peakS);
+        if (r.action === 'BUY') buyCount++;
+        else if (r.action === 'SELL') sellCount++;
+        const pos = Number(r.position) || 0;
+        maxPos = Math.max(maxPos, pos);
+        minPos = Math.min(minPos, pos);
+        newRows.push({
+          ...r,
+          strategy_nav: nav,
+          buyhold_nav: bhNav,
+          excess: excess,
+          excess_pct: excessPct,
+        });
       }
-      a {
-        color: #38bdf8;
+
+      const strategyReturn = stratNav0 > 0 ? ((Number(lastRow.strategy_nav) || 0) / stratNav0 - 1) : 0;
+      const buyholdReturn = bhNav0 > 0 ? ((Number(lastRow.buyhold_nav) || 0) / bhNav0 - 1) : 0;
+      const excessReturn = strategyReturn - buyholdReturn;
+
+      const trades = computeTradesFromRows(newRows);
+      const kelly = computeKellyStatsFromTrades(trades);
+
+      const summary = {
+        etf: state.etf,
+        strategy_return: strategyReturn,
+        buyhold_return: buyholdReturn,
+        excess_return: excessReturn,
+        max_dd_strategy: maxDdStrategy,
+        max_dd_buyhold: 0,
+        trades: buyCount + sellCount,
+        buy_count: buyCount,
+        sell_count: sellCount,
+        max_position: maxPos,
+        min_position: minPos,
+      };
+
+      return {
+        rows: newRows,
+        summary: summary,
+        trades: trades,
+        kelly: kelly,
+        regime_shapes: [],
+        csv_path: null,
+      };
+    }
+
+    function recomputeSegment() {
+      try {
+        const bounds = getDateBounds(getRangeRows(getDetailed(state.etf).rows));
+        const start = state.zoomStart || bounds.start;
+        const end = state.zoomEnd || bounds.end;
+        if (!start || !end || start >= end) {
+          chartMeta.innerHTML = '<span style="color:var(--bad);">✗ 请选择一个有效的日期区间</span>';
+          return;
+        }
+        const sourceRows = (() => {
+          if (state.version && DATA.versioned && DATA.versioned[state.version]) {
+            const vd = (DATA.versioned[state.version].detailed || {})[state.etf];
+            if (vd) return hydrateVersionDetail(state.etf, state.version, vd).rows;
+          }
+          return (DATA.detailed[state.etf] || {}).rows || [];
+        })();
+        if (!sourceRows || !sourceRows.length) {
+          chartMeta.innerHTML = '<span style="color:var(--bad);">✗ 当前版本没有可用数据</span>';
+          return;
+        }
+        const key = getSegmentKey(state.etf, state.version, start, end);
+        if (!state.segmentCache[key]) {
+          state.segmentCache[key] = sliceAndRecompute(sourceRows, start, end);
+        }
+        state.segmentMode = true;
+        state.segmentKey = key;
+        saveState();
+        render();
+        chartMeta.innerHTML = `<span style="color:var(--good);">✓ Segment recomputed: ${start} → ${end}</span>`;
+      } catch (err) {
+        chartMeta.innerHTML = `<span style="color:var(--bad);">✗ Recompute error: ${err.message}</span>`;
+        console.error('recomputeSegment error:', err);
       }
-      code {
-        color: #e5e7eb;
+    }
+
+    function clearSegmentMode() {
+      state.segmentMode = false;
+      state.segmentKey = '';
+      saveState();
+    }
+
+    function getWindows(etf) {
+      if (state.version && DATA.versioned && DATA.versioned[state.version]) {
+        const versionWindows = (DATA.versioned[state.version].windows || {})[etf];
+        if (versionWindows) {
+          return versionWindows;
+        }
       }
-    </style>
-  </head>
-  <body>
-    <main>
-      <h1>SOXL Dashboard</h1>
-      <p>Loading the unified dashboard bundle.</p>
-      <p><a href="/web/dashboard-v2/dist/index.html">Open dashboard</a></p>
-      <p><code>scripts/dashboard_server.py</code> is required for interactive reruns.</p>
-    </main>
-    <script>
-      window.location.replace('/web/dashboard-v2/dist/index.html');
-    </script>
-  </body>
+      return DATA.windows[etf] || { start: '', end: '', rows: 0 };
+    }
+    function getRangeRows(rows) {
+      if (state.range === 'all') return rows;
+      if (state.range === '2020') return rows.filter(r => String(r.datetime).startsWith('2020-'));
+      if (state.range === '2022') return rows.filter(r => String(r.datetime).startsWith('2022-'));
+      if (state.range === '2023_2024') return rows.filter(r => String(r.datetime).startsWith('2023-') || String(r.datetime).startsWith('2024-'));
+      return rows;
+    }
+    function getDateBounds(rows) {
+      if (!rows.length) return { start: '', end: '' };
+      return { start: rows[0].datetime, end: rows[rows.length - 1].datetime };
+    }
+    function getVersionWindow(version, etf) {
+      if (!version) return null;
+      const payload = DATA.versioned && DATA.versioned[version];
+      const payloadWindows = payload && payload.windows;
+      if (payloadWindows) {
+        const direct = payloadWindows[etf] || payloadWindows.SOXL || Object.values(payloadWindows)[0];
+        if (direct && direct.start && direct.end) return direct;
+      }
+      const summary = indexVersionSummaries[version] || {};
+      const summaryWindows = summary.windows || {};
+      const indexed = summaryWindows[etf] || summaryWindows.SOXL || Object.values(summaryWindows)[0];
+      if (indexed && indexed.start && indexed.end) return indexed;
+      const detail = payload && payload.detailed && (payload.detailed[etf] || payload.detailed.SOXL);
+      const rows = detail && detail.rows;
+      if (rows && rows.length) return { start: rows[0].datetime, end: rows[rows.length - 1].datetime, rows: rows.length };
+      return null;
+    }
+    function getRunProfileWindow(profile) {
+      const runWindow = runProfileWindows[profile];
+      if (runWindow && runWindow.start && runWindow.end) return runWindow;
+      return null;
+    }
+    function isRunnableRunProfile(profile) {
+      const runWindow = getRunProfileWindow(profile);
+      return Boolean(runWindow && runWindow.runnable !== false);
+    }
+    function getBacktestBoundsForProfile(profile) {
+      const runWindow = getRunProfileWindow(profile);
+      if (runWindow && isRunnableRunProfile(profile)) {
+        return { start: runWindow.start, end: runWindow.end };
+      }
+      return null;
+    }
+    function getGlobalBacktestBounds() {
+      const windows = [];
+      Object.entries(runProfileWindows || {}).forEach(([profile, window]) => {
+        if (isRunnableRunProfile(profile) && window && window.start && window.end) windows.push(window);
+      });
+      Object.keys(DATA.versioned || {}).forEach(version => {
+        if (version === 'paper_trading' || String(version).startsWith('rerun:')) return;
+        const window = getVersionWindow(version, state.etf);
+        if (window && window.start && window.end) windows.push(window);
+      });
+      Object.keys(indexVersionSummaries || {}).forEach(version => {
+        if (version === 'paper_trading' || String(version).startsWith('rerun:')) return;
+        const window = getVersionWindow(version, state.etf);
+        if (window && window.start && window.end) windows.push(window);
+      });
+      if (windows.length) {
+        return {
+          start: windows.map(w => w.start).sort()[0],
+          end: windows.map(w => w.end).sort().slice(-1)[0],
+        };
+      }
+      return getDateBounds(getRangeRows(getDetailed(state.etf).rows));
+    }
+    function getBacktestBounds() {
+      const selectedProfile = runProfileSelect ? runProfileSelect.value : '';
+      const selectedBounds = getBacktestBoundsForProfile(selectedProfile);
+      if (selectedBounds && selectedBounds.start && selectedBounds.end) return selectedBounds;
+      return getGlobalBacktestBounds();
+    }
+    function syncBacktestInputs(reset = false) {
+      if (!runStartDateInput || !runEndDateInput) return;
+      const bounds = getBacktestBounds();
+      runStartDateInput.min = bounds.start || '';
+      runStartDateInput.max = bounds.end || '';
+      runEndDateInput.min = bounds.start || '';
+      runEndDateInput.max = bounds.end || '';
+      if (reset) {
+        runStartDateInput.dataset.manual = '';
+        runEndDateInput.dataset.manual = '';
+      }
+      const startManual = runStartDateInput.dataset.manual === '1';
+      const endManual = runEndDateInput.dataset.manual === '1';
+      const startOutOfBounds = runStartDateInput.value && bounds.start && runStartDateInput.value < bounds.start;
+      const startAfterMax = runStartDateInput.value && bounds.end && runStartDateInput.value > bounds.end;
+      const endOutOfBounds = runEndDateInput.value && bounds.end && runEndDateInput.value > bounds.end;
+      const endBeforeMin = runEndDateInput.value && bounds.start && runEndDateInput.value < bounds.start;
+      if (reset || !runStartDateInput.value || startOutOfBounds || startAfterMax) {
+        runStartDateInput.value = bounds.start || '';
+        runStartDateInput.dataset.manual = '';
+      } else if (!startManual) {
+        runStartDateInput.value = runStartDateInput.value || bounds.start || '';
+      }
+      if (reset || !runEndDateInput.value || endOutOfBounds || endBeforeMin) {
+        runEndDateInput.value = bounds.end || '';
+        runEndDateInput.dataset.manual = '';
+      } else if (!endManual) {
+        runEndDateInput.value = runEndDateInput.value || bounds.end || '';
+      }
+      updateRunProfileStatus();
+    }
+    function copyChartWindowToBacktestInputs() {
+      if (!runStartDateInput || !runEndDateInput) return;
+      const bounds = getBacktestBounds();
+      const start = state.zoomStart || startDateInput.value || bounds.start || '';
+      const end = state.zoomEnd || endDateInput.value || bounds.end || '';
+      if (start) {
+        runStartDateInput.value = start;
+        runStartDateInput.dataset.manual = '1';
+      }
+      if (end) {
+        runEndDateInput.value = end;
+        runEndDateInput.dataset.manual = '1';
+      }
+      syncBacktestInputs(false);
+    }
+    function getFilteredRows(rows) {
+      let filtered = getRangeRows(rows);
+      if (state.zoomStart) {
+        filtered = filtered.filter(r => String(r.datetime) >= state.zoomStart);
+      }
+      if (state.zoomEnd) {
+        filtered = filtered.filter(r => String(r.datetime) <= state.zoomEnd);
+      }
+      return filtered;
+    }
+    function shiftIsoDate(iso, days) {
+      const dt = new Date(`${iso}T00:00:00Z`);
+      dt.setUTCDate(dt.getUTCDate() + days);
+      return dt.toISOString().slice(0, 10);
+    }
+    function syncZoomInputs() {
+      const bounds = getDateBounds(getRangeRows(getDetailed(state.etf).rows));
+      startDateInput.min = bounds.start;
+      startDateInput.max = bounds.end;
+      endDateInput.min = bounds.start;
+      endDateInput.max = bounds.end;
+      startDateInput.value = state.zoomStart || bounds.start;
+      endDateInput.value = state.zoomEnd || bounds.end;
+      syncBacktestInputs();
+    }
+    function applyZoomPreset(mode) {
+      const bounds = getDateBounds(getRangeRows(getDetailed(state.etf).rows));
+      if (!bounds.start) return;
+      if (mode === 'all') {
+        state.zoomMode = 'all';
+        state.zoomStart = null;
+        state.zoomEnd = null;
+        clearSegmentMode();
+      } else {
+        const monthsMap = { '6m': -180, '1y': -365, '2y': -730, '3y': -1095 };
+        const shifted = shiftIsoDate(bounds.end, monthsMap[mode]);
+        state.zoomMode = mode;
+        state.zoomStart = shifted < bounds.start ? bounds.start : shifted;
+        state.zoomEnd = bounds.end;
+      }
+      saveState();
+      syncZoomInputs();
+      renderChart();
+    }
+    function applyCustomZoom() {
+      const bounds = getDateBounds(getRangeRows(getDetailed(state.etf).rows));
+      let start = startDateInput.value || bounds.start;
+      let end = endDateInput.value || bounds.end;
+      if (start > end) { [start, end] = [end, start]; }
+      state.zoomMode = 'custom';
+      state.zoomStart = start;
+      state.zoomEnd = end;
+      saveState();
+      syncZoomInputs();
+      renderChart();
+    }
+
+    function runProfileLabel(profile) {
+      const window = getRunProfileWindow(profile);
+      if (window) return `${profile} · ${window.start} → ${window.end}`;
+      return profile;
+    }
+    function updateRunProfileStatus() {
+      if (!runProfileStatus || !runBacktestBtn) return;
+      const profile = runProfileSelect ? runProfileSelect.value : '';
+      const runWindow = getRunProfileWindow(profile);
+      const start = runStartDateInput ? runStartDateInput.value : '';
+      const end = runEndDateInput ? runEndDateInput.value : '';
+      if (!profile) {
+        runProfileStatus.textContent = 'Select a runnable replay profile. SOXLBacktest and other reference baselines are chart baselines, not runnable inference profiles.';
+        runBacktestBtn.disabled = true;
+        return;
+      }
+      if (!runWindow || !isRunnableRunProfile(profile)) {
+        const reason = runWindow && runWindow.runnable_reason ? ` · ${runWindow.runnable_reason}` : '';
+        runProfileStatus.textContent = `Not runnable: ${profile}${reason}`;
+        runBacktestBtn.disabled = true;
+        return;
+      }
+      const invalidDate = !start || !end || start > end || start < runWindow.start || end > runWindow.end;
+      runProfileStatus.textContent = `Runnable window: ${runWindow.start} → ${runWindow.end} · rows ${runWindow.rows || 'n/a'}`;
+      runBacktestBtn.disabled = invalidDate;
+    }
+    function populateRunProfileSelect(profileSource, resetWindow = false) {
+      if (!runProfileSelect) return;
+      const previous = runProfileSelect.value;
+      const names = [];
+      const seen = new Set();
+      (profileSource || []).forEach(item => {
+        const name = typeof item === 'string' ? item : (item && item.profile);
+        const result = typeof item === 'string' ? 'current' : (item && item.result);
+        if (!name || seen.has(name) || name === 'paper_trading' || String(name).startsWith('rerun:')) return;
+        if (result === 'failed' || result === 'skipped') return;
+        if (!isRunnableRunProfile(name)) return;
+        seen.add(name);
+        names.push(name);
+      });
+      runProfileSelect.innerHTML = '<option value="">Select profile...</option>';
+      names.forEach(name => {
+        const opt = document.createElement('option');
+        opt.value = name;
+        opt.textContent = runProfileLabel(name);
+        runProfileSelect.appendChild(opt);
+      });
+      if (previous && seen.has(previous)) runProfileSelect.value = previous;
+      syncBacktestInputs(resetWindow || !runStartDateInput.value || !runEndDateInput.value);
+    }
+    function upsertVersionOption(version, label) {
+      let opt = Array.from(versionSelect.options).find(item => item.value === version);
+      if (!opt) {
+        opt = document.createElement('option');
+        opt.value = version;
+        versionSelect.appendChild(opt);
+      }
+      opt.textContent = label || version;
+    }
+    function getBacktestResultWindow(data, fallbackStart, fallbackEnd) {
+      const windows = data && data.windows;
+      if (windows) {
+        const direct = windows[state.etf] || windows.SOXL || Object.values(windows)[0];
+        if (direct && direct.start && direct.end) {
+          return {
+            start: direct.start,
+            end: direct.end,
+            rows: Number(direct.rows) || (Array.isArray(data.rows) ? data.rows.length : 0),
+          };
+        }
+      }
+      const rows = data && Array.isArray(data.rows) ? data.rows : [];
+      if (rows.length) {
+        return { start: rows[0].datetime, end: rows[rows.length - 1].datetime, rows: rows.length };
+      }
+      return { start: fallbackStart, end: fallbackEnd, rows: 0 };
+    }
+    function registerBacktestResult(data, profile, start, end) {
+      const rows = Array.isArray(data.rows) ? data.rows : [];
+      const trades = Array.isArray(data.trades) ? data.trades : computeTradesFromRows(rows);
+      const resultWindow = getBacktestResultWindow(data, start, end);
+      const strategyReturn = rows.length > 1 && rows[0].strategy_nav
+        ? (rows[rows.length - 1].strategy_nav / rows[0].strategy_nav - 1)
+        : 0;
+      const buyholdReturn = rows.length > 1 && rows[0].buyhold_nav
+        ? (rows[rows.length - 1].buyhold_nav / rows[0].buyhold_nav - 1)
+        : 0;
+      const summary = {
+        etf: state.etf,
+        strategy_return: strategyReturn,
+        buyhold_return: buyholdReturn,
+        excess_return: strategyReturn - buyholdReturn,
+        max_dd_strategy: Math.abs(Number(data.summary && data.summary.max_dd) || 0) / 100,
+        max_dd_buyhold: 0,
+        trades: Number(data.summary && data.summary.trades) || trades.length,
+        buy_count: rows.filter(r => r.action === 'BUY').length,
+        sell_count: rows.filter(r => r.action === 'SELL').length,
+        max_position: rows.length ? Math.max(...rows.map(r => Number(r.position) || 0)) : 0,
+        min_position: rows.length ? Math.min(...rows.map(r => Number(r.position) || 0)) : 0,
+      };
+      const resultVersion = `rerun:${profile}:${resultWindow.start}:${resultWindow.end}`;
+      const resultWindows = data.windows || {
+        [state.etf]: { start: resultWindow.start, end: resultWindow.end, rows: rows.length },
+      };
+      if (!resultWindows[state.etf]) {
+        resultWindows[state.etf] = { start: resultWindow.start, end: resultWindow.end, rows: rows.length };
+      }
+      resultWindows[state.etf].requested_start = start;
+      resultWindows[state.etf].requested_end = end;
+      if (!DATA.versioned) DATA.versioned = {};
+      DATA.versioned[resultVersion] = {
+        detailed: {
+          [state.etf]: {
+            summary,
+            rows,
+            trades,
+            csv_path: null,
+            kelly: computeKellyStatsFromTrades(trades),
+            regime_shapes: [],
+          },
+        },
+        windows: resultWindows,
+        _meta: {
+          source_kind: 'interactive_backtest',
+          profile,
+          start_date: resultWindow.start,
+          end_date: resultWindow.end,
+          warmup_start_date: data.warmup_start_date || resultWindow.start,
+          replay_aligned: Boolean(data.replay_aligned),
+          requested_start_date: start,
+          requested_end_date: end,
+          updated_at: Date.now() / 1000,
+        },
+      };
+      if (!VERSIONS.includes(resultVersion)) VERSIONS.unshift(resultVersion);
+      indexVersionSummaries[resultVersion] = {
+        etfs: [state.etf],
+        windows: DATA.versioned[resultVersion].windows,
+        meta: DATA.versioned[resultVersion]._meta,
+      };
+      upsertVersionOption(resultVersion, `${resultVersion} · rows ${rows.length} · interactive`);
+      state.version = resultVersion;
+      state.versionSource = 'manual';
+      state.range = 'all';
+      state.zoomMode = 'all';
+      state.zoomStart = null;
+      state.zoomEnd = null;
+      clearSegmentMode();
+      saveState();
+      return resultVersion;
+    }
+    function shouldRetryOnDashboardApi(response) {
+      return response && (response.status === 501 || response.status === 405 || response.status === 404);
+    }
+    async function runBacktestRequest(payload) {
+      const request = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      };
+      let response = null;
+      try {
+        response = await fetch('/api/run-backtest', request);
+      } catch (err) {
+        if (window.location.protocol !== 'file:') {
+          response = await fetch(DASHBOARD_API_FALLBACK, request);
+        } else {
+          throw err;
+        }
+      }
+      if (shouldRetryOnDashboardApi(response) && window.location.origin !== 'http://127.0.0.1:8765') {
+        response = await fetch(DASHBOARD_API_FALLBACK, request);
+      }
+      return response;
+    }
+
+    async function updateDashboardServerStatus() {
+      if (!serverModeStatus) return;
+      const staticText = 'Static view: chart/recompute only; live inference requires scripts/dashboard_server.py, and reference baselines are not runnable inference profiles.';
+      const connectedText = 'Live inference API connected via dashboard_server.py. Run Model Backtest can use selectable start/end dates for runnable model replays.';
+      serverModeStatus.classList.remove('good', 'bad');
+      if (window.location.protocol === 'file:') {
+        serverModeStatus.textContent = staticText;
+        serverModeStatus.classList.add('bad');
+        return;
+      }
+      const healthRequest = { cache: 'no-store' };
+      try {
+        let response = await fetch('/api/health', healthRequest);
+        if (!response.ok && window.location.origin !== 'http://127.0.0.1:8765') {
+          response = await fetch(DASHBOARD_HEALTH_FALLBACK, healthRequest);
+        }
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const payload = await response.json();
+        if (payload && payload.ok && payload.service === 'dashboard_server') {
+          serverModeStatus.textContent = connectedText;
+          serverModeStatus.classList.add('good');
+          return;
+        }
+        throw new Error('unexpected health payload');
+      } catch (_err) {
+        serverModeStatus.textContent = staticText;
+        serverModeStatus.classList.add('bad');
+      }
+    }
+
+    function initControls() {
+      ETFS.forEach(etf => {
+        const opt = document.createElement('option');
+        opt.value = etf;
+        opt.textContent = etf;
+        etfSelect.appendChild(opt);
+      });
+      // version selector
+      const defaultOpt = document.createElement('option');
+      defaultOpt.value = '';
+      defaultOpt.textContent = 'Current (default)';
+      versionSelect.appendChild(defaultOpt);
+      VERSIONS.forEach(v => {
+        const versionPayload = DATA.versioned[v] || {};
+        const etfCount = Object.keys(versionPayload.detailed || {}).length;
+        const opt = document.createElement('option');
+        opt.value = v;
+        opt.textContent = etfCount <= 1 ? `${v} (SOXL)` : v;
+        versionSelect.appendChild(opt);
+      });
+      etfSelect.addEventListener('change', e => {
+        state.etf = e.target.value;
+        state.zoomMode = 'all';
+        state.zoomStart = null;
+        state.zoomEnd = null;
+        clearSegmentMode();
+        saveState();
+        render();
+      });
+      versionSelect.addEventListener('change', async e => {
+        state.version = e.target.value;
+        state.versionSource = state.version ? 'manual' : 'current';
+        state.zoomMode = 'all';
+        state.zoomStart = null;
+        state.zoomEnd = null;
+        clearSegmentMode();
+        saveState();
+        if (state.version && !hasVersionDetail(state.version, state.etf)) {
+          await loadVersionData(state.version, state.etf);
+        }
+        render();
+      });
+      document.querySelectorAll('.pill').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.pill').forEach(x => x.classList.remove('active'));
+          btn.classList.add('active');
+          state.range = btn.dataset.range;
+          state.zoomMode = 'all';
+          state.zoomStart = null;
+          state.zoomEnd = null;
+          clearSegmentMode();
+          saveState();
+          syncZoomInputs();
+          renderChart();
+        });
+      });
+      document.querySelectorAll('[data-zoom]').forEach(btn => {
+        btn.addEventListener('click', () => applyZoomPreset(btn.dataset.zoom));
+      });
+      applyZoomBtn.addEventListener('click', applyCustomZoom);
+      resetZoomBtn.addEventListener('click', () => applyZoomPreset('all'));
+
+      populateRunProfileSelect(VERSIONS, true);
+      runProfileSelect.addEventListener('change', () => syncBacktestInputs(false));
+      [runStartDateInput, runEndDateInput].forEach(input => {
+        input.addEventListener('change', () => {
+          input.dataset.manual = '1';
+          syncBacktestInputs(false);
+        });
+      });
+      useChartWindowBtn.addEventListener('click', copyChartWindowToBacktestInputs);
+      runBacktestBtn.addEventListener('click', runSegmentBacktest);
+
+      // Slice & Recompute button
+      document.getElementById('sliceRecomputeBtn').addEventListener('click', recomputeSegment);
+
+      // Clear segment mode button
+      document.getElementById('clearSegmentBtn').addEventListener('click', () => {
+        clearSegmentMode();
+        render();
+      });
+
+      document.addEventListener('keydown', e => {
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT' || e.target.tagName === 'TEXTAREA') return;
+        if (e.key === '+' || e.key === '=') {
+          e.preventDefault();
+          const bounds = getDateBounds(getRangeRows(getDetailed(state.etf).rows));
+          const s = state.zoomStart || bounds.start;
+          const e_ = state.zoomEnd || bounds.end;
+          const mid = new Date(`${s}T00:00:00Z`).getTime() + (new Date(`${e_}T00:00:00Z`).getTime() - new Date(`${s}T00:00:00Z`).getTime()) / 2;
+          const half = (new Date(`${e_}T00:00:00Z`).getTime() - new Date(`${s}T00:00:00Z`).getTime()) / 4;
+          const ns = new Date(mid - half).toISOString().slice(0,10);
+          const ne = new Date(mid + half).toISOString().slice(0,10);
+          state.zoomStart = ns < bounds.start ? bounds.start : ns;
+          state.zoomEnd = ne > bounds.end ? bounds.end : ne;
+          state.zoomMode = 'custom';
+          saveState();
+          syncZoomInputs();
+          renderChart();
+          return;
+        }
+        if (e.key === '-' || e.key === '_') {
+          e.preventDefault();
+          const bounds = getDateBounds(getRangeRows(getDetailed(state.etf).rows));
+          const s = state.zoomStart || bounds.start;
+          const e_ = state.zoomEnd || bounds.end;
+          const mid = new Date(`${s}T00:00:00Z`).getTime() + (new Date(`${e_}T00:00:00Z`).getTime() - new Date(`${s}T00:00:00Z`).getTime()) / 2;
+          const double = new Date(`${e_}T00:00:00Z`).getTime() - new Date(`${s}T00:00:00Z`).getTime();
+          const ns = new Date(mid - double).toISOString().slice(0,10);
+          const ne = new Date(mid + double).toISOString().slice(0,10);
+          state.zoomStart = ns < bounds.start ? bounds.start : ns;
+          state.zoomEnd = ne > bounds.end ? bounds.end : ne;
+          state.zoomMode = 'custom';
+          saveState();
+          syncZoomInputs();
+          renderChart();
+          return;
+        }
+        if (e.key === 'r' || e.key === 'R') {
+          e.preventDefault();
+          applyZoomPreset('all');
+          return;
+        }
+        if (e.key === 'ArrowLeft') {
+          e.preventDefault();
+          const bounds = getDateBounds(getRangeRows(getDetailed(state.etf).rows));
+          const s = state.zoomStart || bounds.start;
+          const e_ = state.zoomEnd || bounds.end;
+          const span = Math.max(1, Math.floor((new Date(`${e_}T00:00:00Z`).getTime() - new Date(`${s}T00:00:00Z`).getTime()) / (86400000 * 10)));
+          const ns = shiftIsoDate(s, -span);
+          const ne = shiftIsoDate(e_, -span);
+          state.zoomStart = ns < bounds.start ? bounds.start : ns;
+          state.zoomEnd = ne < bounds.start ? bounds.end : ne;
+          if (state.zoomStart === bounds.start && state.zoomEnd === bounds.end) { state.zoomMode = 'all'; state.zoomStart = null; state.zoomEnd = null; }
+          else state.zoomMode = 'custom';
+          saveState();
+          syncZoomInputs();
+          renderChart();
+          return;
+        }
+        if (e.key === 'ArrowRight') {
+          e.preventDefault();
+          const bounds = getDateBounds(getRangeRows(getDetailed(state.etf).rows));
+          const s = state.zoomStart || bounds.start;
+          const e_ = state.zoomEnd || bounds.end;
+          const span = Math.max(1, Math.floor((new Date(`${e_}T00:00:00Z`).getTime() - new Date(`${s}T00:00:00Z`).getTime()) / (86400000 * 10)));
+          const ns = shiftIsoDate(s, span);
+          const ne = shiftIsoDate(e_, span);
+          state.zoomStart = ns > bounds.end ? bounds.start : ns;
+          state.zoomEnd = ne > bounds.end ? bounds.end : ne;
+          if (state.zoomStart === bounds.start && state.zoomEnd === bounds.end) { state.zoomMode = 'all'; state.zoomStart = null; state.zoomEnd = null; }
+          else state.zoomMode = 'custom';
+          saveState();
+          syncZoomInputs();
+          renderChart();
+          return;
+        }
+      });
+    }
+
+    async function runSegmentBacktest() {
+      const profile = runProfileSelect.value;
+      if (!profile) {
+        alert('Please select a profile first');
+        return;
+      }
+      let start = runStartDateInput.value;
+      let end = runEndDateInput.value;
+      if (!start || !end) {
+        alert('Please set start and end dates');
+        return;
+      }
+      if (start > end) { [start, end] = [end, start]; }
+
+      showLoading(`Running backtest: ${profile} [${start} → ${end}]...`);
+      try {
+        const resp = await runBacktestRequest({ profile, start_date: start, end_date: end, tag: '' });
+        if (!resp.ok) {
+          const err = await resp.json().catch(() => ({ error: `HTTP ${resp.status}` }));
+          throw new Error(err.error || `HTTP ${resp.status}`);
+        }
+        const data = await resp.json();
+        if (data.error) {
+          throw new Error(data.error);
+        }
+
+        const resultVersion = registerBacktestResult(data, profile, start, end);
+        const resultWindow = getBacktestResultWindow(data, start, end);
+        const requestedNote = (resultWindow.start === start && resultWindow.end === end)
+          ? ''
+          : ` · requested ${start} → ${end}`;
+        const warmupNote = data.replay_aligned && data.warmup_start_date
+          ? ` · replay warmup ${data.warmup_start_date}`
+          : '';
+
+        hideLoading();
+        render();
+        chartMeta.innerHTML = `<span style="color:var(--good);">✓ Backtest complete: ${resultVersion} · effective ${resultWindow.start} → ${resultWindow.end}${requestedNote}${warmupNote} | Return ${data.summary.return}% | Sharpe ${data.summary.sharpe} | Trades ${data.summary.trades}</span>`;
+      } catch (err) {
+        hideLoading();
+        const serverHint = window.location.protocol === 'file:'
+          ? '请用 qlib_venv/bin/python scripts/dashboard_server.py 启动后访问 http://127.0.0.1:8765/dashboard.html'
+          : '请确认 qlib_venv/bin/python scripts/dashboard_server.py --port 8765 正在运行；静态页面会自动 fallback 到 http://127.0.0.1:8765/api/run-backtest。';
+        chartMeta.innerHTML = `<span style="color:var(--bad);">✗ ${err.message} · ${serverHint}</span>`;
+        console.error(err);
+      }
+    }
+
+    const DATA_BASE = 'dashboard_data';
+    let _indexLoaded = false;
+
+    function showLoading(msg) {
+      chartMeta.innerHTML = `<span style="color:var(--accent);">⏳ ${msg}</span>`;
+    }
+    function hideLoading() {
+      chartMeta.innerHTML = '';
+    }
+
+    async function loadJson(path) {
+      try {
+        const sep = path.includes('?') ? '&' : '?';
+        const cacheKey = encodeURIComponent(DATA.generated_at || Date.now());
+        const res = await fetch(`${path}${sep}v=${cacheKey}`, { cache: 'no-store' });
+        if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
+        return await res.json();
+      } catch (err) {
+        console.warn('Failed to load', path, err);
+        return null;
+      }
+    }
+
+    function productionStatusTone(status) {
+      const text = String(status || '').toLowerCase();
+      if (['deployed', 'ready_for_deploy', 'linked', 'env_configured', 'token', 'ok'].includes(text)) return 'good';
+      if (text.includes('blocked') || text.includes('missing') || text.includes('failed') || text.includes('unavailable')) return 'bad';
+      if (text.includes('pending') || text.includes('waiting')) return 'warn';
+      return '';
+    }
+
+    function setProductionText(el, value) {
+      const text = value == null || value === '' ? 'n/a' : String(value);
+      el.textContent = text;
+      el.classList.remove('production-tone-good', 'production-tone-bad', 'production-tone-warn');
+      const tone = productionStatusTone(text);
+      if (tone) el.classList.add(`production-tone-${tone}`);
+    }
+
+    function fmtPctValue(value) {
+      const n = Number(value);
+      if (!Number.isFinite(n)) return 'n/a';
+      return `${(n * 100).toFixed(1)}%`;
+    }
+
+    function renderPaperStatus(paperPayload) {
+      const rows = paperPayload && Array.isArray(paperPayload.rows) ? paperPayload.rows : [];
+      const latest = rows.length ? rows[rows.length - 1] : {};
+      const meta = (paperPayload && paperPayload.meta) || {};
+      const review = meta.latest_public_review || {};
+      const signalBits = [];
+      if (meta.latest_signal_slow_profile) signalBits.push(`slow=${meta.latest_signal_slow_profile}`);
+      if (meta.latest_signal_fast_profile) signalBits.push(`fast=${meta.latest_signal_fast_profile}`);
+      const signalProfile = meta.latest_signal_profile
+        ? (signalBits.length ? `${meta.latest_signal_profile} (${signalBits.join(', ')})` : meta.latest_signal_profile)
+        : null;
+      const profile = review.profile || meta.latest_profile || latest.profile || signalProfile || 'unknown';
+      const execution = review.entry_status || meta.latest_entry_status || meta.latest_execution_status || latest.execution_status || meta.latest_signal_execution_status || 'unknown';
+      const dataDate = review.date || meta.latest_data_date || meta.latest_signal_date || latest.datetime || 'unknown';
+      const target = review.entry_target_position != null
+        ? review.entry_target_position
+        : (meta.latest_entry_target_position != null
+          ? meta.latest_entry_target_position
+          : (latest.entry_target_position != null
+            ? latest.entry_target_position
+            : latest.target_position));
+      const side = review.entry_side || meta.latest_entry_side || latest.entry_side || latest.action || 'entry';
+      const source = review.summary_path || meta.latest_summary_path || latest.summary_path || meta.latest_signal_summary_path || paperPayload?.csv_path || 'paper_trading_soxl_daily.csv';
+      setProductionText(productionPaperModel, profile);
+      setProductionText(productionPaperExecution, execution);
+      setProductionText(productionPaperSource, `${dataDate} · ${side} ${fmtPctValue(target)} · ${source}`);
+    }
+
+    function renderModelReplayStatus(modelReplay) {
+      if (typeof productionModelReplayStatus === 'undefined' || !productionModelReplayStatus) return;
+      const data = modelReplay || {};
+      const counts = data.counts || {};
+      const profiles = Array.isArray(data.profiles) ? data.profiles : [];
+      const ready = Number(counts.current || 0) + Number(counts.refreshed || 0);
+      const failed = Number(counts.failed || 0);
+      const skipped = Number(counts.skipped || 0);
+      const total = profiles.length;
+      const safeEnd = data.safe_backtest_end || 'unknown';
+      const latestDate = data.latest_data_date || 'unknown';
+      const issueText = failed || skipped ? ` · failed ${failed} skipped ${skipped}` : '';
+      const text = total ? `${ready}/${total} @ ${safeEnd} · data ${latestDate}${issueText}` : 'n/a';
+      setProductionText(productionModelReplayStatus, text);
+    }
+
+    function escapeHtml(value) {
+      const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
+      return String(value == null ? '' : value).replace(/[&<>"']/g, ch => map[ch]);
+    }
+
+    function fmtBacktestMetric(value, suffix, digits = 2) {
+      const n = Number(value);
+      if (!Number.isFinite(n)) return 'n/a';
+      return `${n.toFixed(digits)}${suffix}`;
+    }
+
+    function gateLabel(record) {
+      if (record.promotion_allowed) return 'promoted';
+      if (record.full_gate === true) return 'gate pass';
+      if (record.near_miss === true) return 'near miss';
+      if (record.full_gate === false) return 'failed';
+      return 'diagnostic';
+    }
+
+    function gateClass(record) {
+      const label = gateLabel(record);
+      if (label === 'promoted' || label === 'gate pass') return 'good';
+      if (label === 'failed') return 'bad';
+      return '';
+    }
+
+    function renderResearchBacktests(records) {
+      if (!researchBacktestSummary || !researchBacktestTable) return;
+      const rows = Array.isArray(records) ? records : [];
+      if (!rows.length) {
+        researchBacktestSummary.innerHTML = `
+          <div class="research-metric" style="grid-column:1/-1;">
+            <div class="rk">Status</div>
+            <div class="rv">No model-selection backtests exported</div>
+          </div>
+        `;
+        researchBacktestTable.innerHTML = '<tr><th>No research backtests</th></tr>';
+        return;
+      }
+      const latest = rows[0] || {};
+      const stressText = latest.stress_scenario_count != null
+        ? `${latest.stress_pass_count || 0}/${latest.stress_scenario_count}`
+        : 'n/a';
+      researchBacktestSummary.innerHTML = [
+        ['Latest', latest.experiment || 'n/a'],
+        ['Decision', latest.decision || 'n/a'],
+        ['Min Excess', fmtBacktestMetric(latest.min_relative_return, 'pp')],
+        ['Max DD', fmtBacktestMetric(latest.max_drawdown, '%')],
+      ].map(item => `
+        <div class="research-metric">
+          <div class="rk">${escapeHtml(item[0])}</div>
+          <div class="rv">${escapeHtml(item[1])}</div>
+        </div>
+      `).join('');
+
+      const header = `
+        <tr>
+          <th>Experiment</th>
+          <th>Decision</th>
+          <th>Gate</th>
+          <th>Min Excess</th>
+          <th>Max DD</th>
+          <th>Stress</th>
+          <th>Conclusion / Notebook</th>
+        </tr>
+      `;
+      const body = rows.slice(0, 12).map(record => {
+        const gate = gateLabel(record);
+        const gateTone = gateClass(record);
+        const notebook = record.notebook_path
+          ? `<a class="research-path" href="${escapeHtml(record.notebook_path)}" target="_blank" rel="noreferrer">${escapeHtml(record.notebook_path)}</a>`
+          : '';
+        const conclusion = record.conclusion || record.next_mechanism || '';
+        const stress = record.stress_scenario_count != null
+          ? `${record.stress_pass_count || 0}/${record.stress_scenario_count}`
+          : 'n/a';
+        return `
+          <tr>
+            <td><span class="mono">${escapeHtml(record.experiment || '')}</span><br><span class="sub">${escapeHtml(record.updated_at || '')}</span></td>
+            <td>${escapeHtml(record.decision || '')}</td>
+            <td class="${gateTone}">${escapeHtml(gate)}</td>
+            <td>${escapeHtml(fmtBacktestMetric(record.min_relative_return, 'pp'))}</td>
+            <td>${escapeHtml(fmtBacktestMetric(record.max_drawdown, '%'))}</td>
+            <td>${escapeHtml(stress)}</td>
+            <td>${escapeHtml(conclusion)}${notebook ? `<br>${notebook}` : ''}</td>
+          </tr>
+        `;
+      }).join('');
+      researchBacktestTable.innerHTML = header + body;
+    }
+
+    async function loadResearchBacktests() {
+      renderResearchBacktests(DATA.research_backtests || []);
+      if (window.location.protocol === 'file:') return;
+      const rows = await loadJson('dashboard_data/research_backtests.json');
+      if (rows) renderResearchBacktests(rows);
+    }
+
+    function embeddedPaperPayload() {
+      if (DATA.latest_version === 'paper_trading' && DATA.detailed && DATA.detailed[state.etf]) {
+        return DATA.detailed[state.etf];
+      }
+      const fallback = DATA.detailed && DATA.detailed.SOXL;
+      if (DATA.latest_version === 'paper_trading' && fallback) {
+        return fallback;
+      }
+      const versioned = DATA.versioned && DATA.versioned.paper_trading;
+      if (versioned && versioned.detailed && versioned.detailed.SOXL) {
+        return versioned.detailed.SOXL;
+      }
+      return null;
+    }
+
+    function paperPayloadFreshness(payload) {
+      const rows = payload && Array.isArray(payload.rows) ? payload.rows : [];
+      const latest = rows.length ? rows[rows.length - 1] : {};
+      const meta = (payload && payload.meta) || {};
+      return String(meta.latest_data_date || meta.latest_signal_date || latest.datetime || '');
+    }
+
+    function chooseFreshestPaperPayload(primary, fallback) {
+      if (!primary) return fallback || null;
+      if (!fallback) return primary;
+      return paperPayloadFreshness(fallback) > paperPayloadFreshness(primary) ? fallback : primary;
+    }
+
+    function renderProductionStatus(payload, goalGates, paperPayload, modelReplay) {
+      if (!productionStatusCard) return;
+      const data = payload || {};
+      const staticExport = data.static_export || {};
+      const paperRows = paperPayload && Array.isArray(paperPayload.rows) ? paperPayload.rows : [];
+      const paperMeta = (paperPayload && paperPayload.meta) || {};
+      const latestPaperRow = paperRows.length ? paperRows[paperRows.length - 1] : {};
+      const paperEnd = paperMeta.latest_data_date || paperMeta.latest_signal_date || staticExport.paper_trading_end || data.paper_trading_end || latestPaperRow.datetime;
+      const gates = goalGates || data.goal_gates || {};
+      const overall = gates.overall || {};
+      const issues = Array.isArray(overall.issues) ? overall.issues : [];
+      productionStatusCard.hidden = false;
+      setProductionText(productionStatusValue, data.status || 'unavailable');
+      setProductionText(productionAuthStatus, data.auth_status || (data.auth && data.auth.status));
+      setProductionText(productionProjectStatus, data.project_status || (data.project && data.project.status));
+      setProductionText(productionPaperEnd, paperEnd);
+      renderPaperStatus(paperPayload);
+      setProductionText(productionGateOverall, overall.status || 'unknown');
+      setProductionText(productionGateIssues, issues.length ? issues.join(', ') : (overall.detail || 'none'));
+      renderModelReplayStatus(modelReplay);
+      productionDeploymentStatus.classList.remove('production-tone-good', 'production-tone-bad', 'production-tone-warn');
+      productionDeploymentStatus.textContent = '';
+      if (data.deployment_url) {
+        const link = document.createElement('a');
+        link.href = data.deployment_url;
+        link.target = '_blank';
+        link.rel = 'noreferrer';
+        link.className = 'production-link';
+        link.textContent = data.deployment_url.replace(/^https?:\/\//, '');
+        productionDeploymentStatus.appendChild(link);
+      } else {
+        setProductionText(productionDeploymentStatus, data.deployment_url || 'none');
+      }
+    }
+
+    async function loadProductionStatus() {
+      const [status, goalGates, paperPayload, modelReplay] = await Promise.all([
+        loadJson('dashboard_data/production_status.json'),
+        loadJson('dashboard_data/production_goal_gates.json'),
+        loadJson('dashboard_data/versioned/paper_trading/SOXL.json'),
+        loadJson('dashboard_data/model_replay_freshness.json'),
+      ]);
+      if (modelReplay && Array.isArray(modelReplay.profiles)) {
+        modelReplayProfiles = modelReplay.profiles;
+        populateRunProfileSelect(modelReplayProfiles, true);
+      }
+      renderProductionStatus(
+        status || { status: 'unavailable' },
+        goalGates,
+        chooseFreshestPaperPayload(paperPayload, embeddedPaperPayload()),
+        modelReplay
+      );
+    }
+
+    function versionOptionLabel(version, summary) {
+      const windows = (summary && summary.windows) || {};
+      const firstWindow = windows[state.etf] || windows.SOXL || Object.values(windows)[0] || {};
+      const end = firstWindow.end || 'no-date';
+      const rows = firstWindow.rows != null ? firstWindow.rows : 'n/a';
+      const source = (summary && summary.meta && summary.meta.source_kind) || 'unknown';
+      return `${version} · end ${end} · rows ${rows} · ${source}`;
+    }
+
+    async function loadIndex() {
+      if (_indexLoaded) return;
+      const idx = await loadJson(`${DATA_BASE}/index.json`);
+      if (!idx) return;
+      _indexLoaded = true;
+      indexVersionSummaries = idx.version_summaries || {};
+      // Populate version selector from index
+      versionSelect.innerHTML = '';
+      const defaultOpt = document.createElement('option');
+      defaultOpt.value = '';
+      defaultOpt.textContent = 'Current (default)';
+      versionSelect.appendChild(defaultOpt);
+      (idx.versions || []).forEach(v => {
+        const vs = idx.version_summaries[v] || {};
+        const opt = document.createElement('option');
+        opt.value = v;
+        opt.textContent = versionOptionLabel(v, vs);
+        versionSelect.appendChild(opt);
+      });
+      // Restore selection if valid
+      if (state.version && idx.versions && idx.versions.includes(state.version)) {
+        versionSelect.value = state.version;
+        // Auto-load version data if not already cached
+        if (!hasVersionDetail(state.version, state.etf)) {
+          loadVersionData(state.version, state.etf).then(() => render());
+        }
+      }
+      populateRunProfileSelect(modelReplayProfiles.length ? modelReplayProfiles : (idx.versions || []), true);
+    }
+
+    async function loadVersionData(version, etf) {
+      if (!version || hasVersionDetail(version, etf)) return;
+      showLoading(`正在加载 ${version} / ${etf} ...`);
+      const data = await loadJson(`${DATA_BASE}/versioned/${version}/${etf}.json`);
+      hideLoading();
+      if (!data) {
+        alert(`无法加载版本 ${version} 的数据。请确认使用了 HTTP server 运行。`);
+        return;
+      }
+      if (!DATA.versioned[version]) DATA.versioned[version] = {};
+      if (!DATA.versioned[version].detailed) DATA.versioned[version].detailed = {};
+      DATA.versioned[version].detailed[etf] = data;
+      // Also need windows; reconstruct from data.rows if not present
+      const rows = data.rows || [];
+      DATA.versioned[version].windows = {
+        [etf]: {
+          start: rows[0] ? rows[0].datetime : '',
+          end: rows[rows.length - 1] ? rows[rows.length - 1].datetime : '',
+          rows: rows.length,
+        }
+      };
+    }
+
+    function initAsyncData() {
+      updateDashboardServerStatus();
+      loadProductionStatus();
+      loadResearchBacktests();
+      // Detect file:// protocol and show banner
+      if (window.location.protocol === 'file:') {
+        const banner = document.createElement('div');
+        banner.style.cssText = 'background:rgba(37,99,235,0.08);border:1px solid var(--accent);border-radius:8px;padding:12px 16px;margin-bottom:18px;font-size:13px;color:var(--accent);';
+        banner.innerHTML = 'Warning: 当前通过 file:// 协议打开，版本切换功能不可用。请运行 <code>python -m http.server</code> 后通过 http://localhost:8000 访问以获得完整功能。';
+        document.querySelector('.shell').insertBefore(banner, document.querySelector('.shell').firstChild);
+        return; // Skip async loads on file protocol
+      }
+      loadIndex();
+    }
+
+    function renderMetrics() {
+      const detail = getDetailed(state.etf);
+      const summary = detail.summary;
+      let window = getWindows(state.etf);
+      if (state.segmentMode && state.segmentKey && state.segmentCache[state.segmentKey]) {
+        const seg = state.segmentCache[state.segmentKey];
+        if (seg.rows && seg.rows.length) {
+          window = { start: seg.rows[0].datetime, end: seg.rows[seg.rows.length-1].datetime, rows: seg.rows.length };
+        }
+      }
+      const rl = DATA.results[state.etf] || {};
+      const rule = DATA.rule_based[state.etf] || {};
+      const cards = [
+        {
+          key: 'Strategy Return',
+          value: fmtPct(summary.strategy_return),
+          sub: `Buy&Hold ${fmtPct(summary.buyhold_return)} | Excess ${fmtPct(summary.excess_return)}`,
+        },
+        {
+          key: 'QLib Proxy',
+          value: `${fmtNum(rl.sharpe, 3)}`,
+          sub: `Return ${fmtNum(rl.return)}% | MaxDD ${fmtNum(rl.max_dd)}%`,
+        },
+        {
+          key: 'Trades / Window',
+          value: String(summary.trades),
+          sub: `BUY ${summary.buy_count} | SELL ${summary.sell_count} | ${window.start} → ${window.end}`,
+        },
+        {
+          key: 'Rule-Based',
+          value: `${fmtNum(rule.sharpe, 3)}`,
+          sub: `Return ${fmtNum(rule.return)}% | MaxDD ${fmtNum(rule.max_dd)}%`,
+        },
+      ];
+      metricGrid.innerHTML = cards.map(card => `
+        <div class="metric">
+          <div class="k">${card.key}</div>
+          <div class="v">${card.value}</div>
+          <div class="s">${card.sub}</div>
+        </div>
+      `).join('');
+    }
+
+    function renderTradeStats(k) {
+      if (!k || !k.total) {
+        tradeStatRow.innerHTML = '<div class="stat-cell"><div class="sk">无交易数据</div></div>';
+        return;
+      }
+      // For data sources without discrete trade signals (e.g. retained daily CSVs
+      // that only record position, not entry/exit actions), trade pairing may yield only
+      // 1 trade. Show a warning instead of misleading Kelly stats.
+      if (k.total <= 1) {
+        tradeStatRow.innerHTML = `
+          <div class="stat-cell" style="grid-column:1/-1;text-align:left;">
+            <div class="sk" style="color:var(--accent);">连续持仓策略</div>
+            <div style="font-size:13px;color:var(--muted);margin-top:6px;">
+              该模型版本的数据源只记录了每日仓位，没有离散买卖信号。<br>
+              整个回测期间仅 ${k.total} 笔完整持仓交易，无法计算有意义的 Kelly / Expectancy。<br>
+              切换到 <b>Current</b> 或其他有 detailed_trades.csv 的版本可查看逐笔交易质量。
+            </div>
+          </div>
+        `;
+        return;
+      }
+      const kellyPct = k.kelly * 100;
+      const kellyColor = kellyPct > 0 ? 'var(--good)' : kellyPct < 0 ? 'var(--bad)' : 'var(--muted)';
+      tradeStatRow.innerHTML = [
+        { k: '总交易', v: String(k.total), s: `${fmtNum(k.win_rate*100,1)}% 盈 | ${fmtNum((1-k.win_rate)*100,1)}% 亏` },
+        { k: '凯利比例', v: fmtNum(kellyPct, 1)+'%', s: `R=${fmtNum(k.avg_win/Math.abs(k.avg_loss),2)}`, color: kellyColor, highlight: true },
+        { k: '期望收益', v: fmtNum(k.expectancy, 2)+'%', s: '每笔期望', color: k.expectancy >= 0 ? 'var(--good)' : 'var(--bad)' },
+        { k: '收益因子', v: k.profit_factor > 900 ? '∞' : fmtNum(k.profit_factor, 2), s: '总盈/总亏' },
+      ].map((s, idx) => `
+        <div class="stat-cell ${s.highlight ? 'kelly-highlight' : ''}">
+          <div class="sk">${s.k}</div>
+          <div class="sv" style="color:${s.color || (String(s.v).includes('-') ? 'var(--bad)' : 'var(--good)')}">${s.v}</div>
+          <div class="ss">${s.s}</div>
+        </div>
+      `).join('');
+    }
+
+    function renderTradeTable() {
+      const csvPath = getDetailed(state.etf).csv_path;
+      if (csvPath) {
+        csvLink.style.display = '';
+        csvLink.href = csvPath;
+      } else {
+        csvLink.style.display = 'none';
+      }
+      const allRows = getDetailed(state.etf).rows;
+      let trades = [...(getDetailed(state.etf).trades || [])];
+      if (!trades.length) {
+        tradePerfTable.innerHTML = '<tr><th>无交易数据</th></tr>';
+        return;
+      }
+
+      trades.sort((a, b) => {
+        const av = a[state.sortCol];
+        const bv = b[state.sortCol];
+        if (av == null && bv == null) return 0;
+        if (av == null) return state.sortAsc ? -1 : 1;
+        if (bv == null) return state.sortAsc ? 1 : -1;
+        return state.sortAsc ? (av > bv ? 1 : -1) : (av > bv ? -1 : 1);
+      });
+
+      const header = ['#', '入场日期', '出场日期', '持仓', '入场价', '出场价', '收益率', 'PnL', '累计', 'Avg VIX', 'Avg RSI'];
+      const colKeys = ['', 'entry_date', 'exit_date', 'days', 'entry_price', 'exit_price', 'return_pct', 'pnl', 'cumulative', 'avg_vix', 'avg_rsi'];
+
+      let headerHtml = '<tr>' + header.map((h, idx) => {
+        const key = colKeys[idx];
+        const isSort = key !== '';
+        const cls = isSort && state.sortCol === key ? (state.sortAsc ? 'sort-asc' : 'sort-desc') : '';
+        return `<th class="${cls}" data-col="${key}" ${isSort ? '' : 'style="cursor:default"'}>${h}</th>`;
+      }).join('') + '</tr>';
+
+      const bodyHtml = trades.map((t, idx) => `
+        <tr class="clickable" data-entry="${t.entry_date}" data-exit="${t.exit_date}">
+          <td>${idx + 1}</td>
+          <td>${t.entry_date}</td>
+          <td>${t.exit_date}</td>
+          <td>${t.days}天</td>
+          <td>${fmtNum(t.entry_price, 2)}</td>
+          <td>${fmtNum(t.exit_price, 2)}</td>
+          <td class="${t.return_pct > 0 ? 'good' : 'bad'}">${fmtNum(t.return_pct, 2)}%</td>
+          <td class="${t.pnl > 0 ? 'good' : 'bad'}">${fmtMoney(t.pnl)}</td>
+          <td>${fmtMoney(t.cumulative)}</td>
+          <td>${t.avg_vix != null ? fmtNum(t.avg_vix, 2) : 'n/a'}</td>
+          <td>${t.avg_rsi != null ? fmtNum(t.avg_rsi, 2) : 'n/a'}</td>
+        </tr>
+      `).join('');
+
+      tradePerfTable.innerHTML = headerHtml + bodyHtml;
+
+      tradePerfTable.querySelectorAll('th[data-col]').forEach(th => {
+        th.addEventListener('click', () => {
+          const col = th.dataset.col;
+          if (!col) return;
+          if (state.sortCol === col) state.sortAsc = !state.sortAsc;
+          else { state.sortCol = col; state.sortAsc = false; }
+          saveState();
+          renderTradeTable();
+        });
+      });
+
+      tradePerfTable.querySelectorAll('tr.clickable').forEach(tr => {
+        tr.addEventListener('click', () => {
+          const entry = tr.dataset.entry;
+          const exit = tr.dataset.exit;
+          if (!entry || !exit) return;
+          const sIdx = allRows.findIndex(r => r.datetime === entry);
+          const eIdx = allRows.findIndex(r => r.datetime === exit);
+          if (sIdx < 0 || eIdx < 0) return;
+          const start = Math.max(0, sIdx - 5);
+          const end = Math.min(allRows.length - 1, eIdx + 5);
+          state.zoomStart = allRows[start].datetime;
+          state.zoomEnd = allRows[end].datetime;
+          state.zoomMode = 'custom';
+          saveState();
+          syncZoomInputs();
+          renderChart();
+          document.getElementById('mainChart').scrollIntoView({ behavior: 'smooth' });
+        });
+      });
+    }
+
+    function renderRegimeStrip(rows) {
+      if (!rows.length) { regimeStrip.innerHTML = ''; return; }
+      regimeStrip.innerHTML = rows.map(r => {
+        const f = r._features || {};
+        const vz = f.vix_zscore;
+        let color = 'rgba(215,222,230,0.6)';
+        let title = `${r.datetime} 正常`;
+        if (vz != null) {
+          if (vz > 2) { color = 'rgba(185,28,28,0.55)'; title = `${r.datetime} 高压力 (VIXz ${fmtNum(vz,2)})`; }
+          else if (vz < -1) { color = 'rgba(15,118,110,0.4)'; title = `${r.datetime} 低波动 (VIXz ${fmtNum(vz,2)})`; }
+        }
+        return `<div class="regime-bar" style="background:${color}" title="${title}"></div>`;
+      }).join('');
+    }
+
+    function renderPositionDist(rows) {
+      const bins = { '0': 0, '低(0-0.3)': 0, '中(0.3-0.7)': 0, '高(0.7-1)': 0 };
+      rows.forEach(r => {
+        const p = r.position;
+        if (p === 0) bins['0']++;
+        else if (p < 0.3) bins['低(0-0.3)']++;
+        else if (p < 0.7) bins['中(0.3-0.7)']++;
+        else bins['高(0.7-1)']++;
+      });
+      const total = rows.length || 1;
+      const maxCount = Math.max(...Object.values(bins));
+      const container = document.getElementById('posDist');
+      container.innerHTML = Object.entries(bins).map(([label, count]) => {
+        const pct = (count / total * 100).toFixed(1);
+        const width = maxCount > 0 ? (count / maxCount * 100).toFixed(1) : 0;
+        return `
+          <div class="pos-bar-wrap">
+            <div class="pos-bar-label">${label}</div>
+            <div class="pos-bar-track"><div class="pos-bar-fill" style="width:${width}%"></div></div>
+            <div class="pos-bar-pct">${pct}%</div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderTradeList(trades) {
+      const container = document.getElementById('tradeList');
+      const recent = trades.slice(-5).reverse();
+      container.innerHTML = recent.map(t => `
+        <div class="trade-item">
+          <span class="trade-entry">BUY</span> ${t.entry_date} → <span class="trade-exit">SELL</span> ${t.exit_date}<br>
+          持有 ${t.days} 天 | 收益 <span class="${t.return_pct >= 0 ? 'good' : 'bad'}">${fmtNum(t.return_pct, 2)}%</span> | PnL ${fmtMoney(t.pnl)}
+        </div>
+      `).join('');
+    }
+
+    function updateInfoPanel(row, tradeMap) {
+      if (!row) {
+        infoEmpty.style.display = 'block';
+        infoContent.style.display = 'none';
+        return;
+      }
+      infoEmpty.style.display = 'none';
+      infoContent.style.display = 'block';
+      const f = row._features || {};
+      document.getElementById('infoDate').textContent = row.datetime;
+      const actionEl = document.getElementById('infoAction');
+      if (actionEl) {
+        actionEl.textContent = row.action || 'HOLD';
+        actionEl.style.color = row.action === 'BUY' ? 'var(--good)' : row.action === 'SELL' ? 'var(--bad)' : 'var(--ink)';
+      }
+      const profileEl = document.getElementById('infoProfile');
+      if (profileEl) profileEl.textContent = row.profile || 'n/a';
+      const executionEl = document.getElementById('infoExecution');
+      if (executionEl) executionEl.textContent = row.execution_status || 'n/a';
+      const targetEl = document.getElementById('infoTarget');
+      if (targetEl) targetEl.textContent = row.target_position != null ? fmtNum(row.target_position, 4) : 'n/a';
+      document.getElementById('infoOpen').textContent = row.open != null ? '$' + fmtNum(row.open, 2) : 'n/a';
+      document.getElementById('infoHigh').textContent = row.high != null ? '$' + fmtNum(row.high, 2) : 'n/a';
+      document.getElementById('infoLow').textContent = row.low != null ? '$' + fmtNum(row.low, 2) : 'n/a';
+      document.getElementById('infoClose').textContent = row.close != null ? '$' + fmtNum(row.close, 2) : 'n/a';
+      document.getElementById('infoStrat').textContent = fmtNum(row.strategy_nav);
+      document.getElementById('infoBH').textContent = fmtNum(row.buyhold_nav);
+      document.getElementById('infoPos').textContent = fmtNum(row.position, 4);
+      document.getElementById('infoExcess').textContent = fmtNum(row.excess_pct, 2) + '%';
+      const stateEl = document.getElementById('infoState');
+      if (row.market_state != null) {
+        stateEl.textContent = row.market_state ? 'Overvalued 🔴' : 'Undervalued 🟢';
+        stateEl.style.color = row.market_state ? 'var(--bad)' : 'var(--good)';
+      } else { stateEl.textContent = 'n/a'; stateEl.style.color = 'var(--ink)'; }
+      document.getElementById('infoPanic').textContent = row.panic_score != null ? fmtNum(row.panic_score, 1) : 'n/a';
+      document.getElementById('infoRsi6').textContent = row.rsi6 != null ? fmtNum(row.rsi6, 1) : 'n/a';
+      document.getElementById('infoHv20').textContent = row.hv_20 != null ? fmtNum(row.hv_20, 3) : 'n/a';
+      document.getElementById('infoVolCoef').textContent = row.vol_coef != null ? fmtNum(row.vol_coef, 2) : 'n/a';
+      document.getElementById('infoVix').textContent = f.vix != null ? fmtNum(f.vix, 2) : 'n/a';
+      document.getElementById('infoRsi').textContent = f.rsi != null ? fmtNum(f.rsi, 2) : 'n/a';
+      document.getElementById('infoVol').textContent = f.volatility != null ? fmtNum(f.volatility, 4) : 'n/a';
+      document.getElementById('infoSpread').textContent = f.spread != null ? fmtNum(f.spread, 4) : 'n/a';
+      document.getElementById('infoVixZ').textContent = f.vix_zscore != null ? fmtNum(f.vix_zscore, 2) : 'n/a';
+      document.getElementById('infoSpTr').textContent = f.spread_trend != null ? fmtNum(f.spread_trend, 4) : 'n/a';
+      document.getElementById('infoMA').textContent = f.ma5_ma20 != null ? fmtNum(f.ma5_ma20, 4) : 'n/a';
+      document.getElementById('infoVolStr').textContent = f.vol_strength != null ? fmtNum(f.vol_strength, 4) : 'n/a';
+
+      const trade = tradeMap[row.datetime];
+      const tradeSection = document.getElementById('tradeSection');
+      if (trade) {
+        tradeSection.style.display = 'block';
+        document.getElementById('tradeEntry').textContent = trade.entry_date;
+        document.getElementById('tradeExit').textContent = trade.exit_date;
+        document.getElementById('tradeDays').textContent = trade.days + ' 天';
+        const retEl = document.getElementById('tradeRet');
+        retEl.textContent = fmtNum(trade.return_pct, 2) + '%';
+        retEl.style.color = trade.return_pct >= 0 ? 'var(--good)' : 'var(--bad)';
+      } else {
+        tradeSection.style.display = 'none';
+      }
+    }
+
+    function bindPlotlyChartInteractions(gd) {
+      if (!gd || gd.dataset.boundChartInteractions === '1') return;
+      gd.dataset.boundChartInteractions = '1';
+      gd.on('plotly_hover', function(data) {
+        const pt = data.points && data.points[0];
+        if (!pt) return;
+        let dateStr = pt.x;
+        if (dateStr instanceof Date) {
+          dateStr = dateStr.toISOString().slice(0, 10);
+        }
+        const row = gd.__dashboardRowsByDate ? gd.__dashboardRowsByDate.get(dateStr) : null;
+        updateInfoPanel(row, gd.__dashboardTradeMap || {});
+      });
+      gd.on('plotly_click', function(data) {
+        const pt = data.points && data.points[0];
+        if (!pt) return;
+        const trace = pt.data || {};
+        const idx = pt.pointNumber;
+        const pairedDate = trace.customdata ? trace.customdata[idx] : null;
+        if (pairedDate) {
+          const dateStr = pt.x instanceof Date ? pt.x.toISOString().slice(0, 10) : pt.x;
+          const start = dateStr < pairedDate ? dateStr : pairedDate;
+          const end = dateStr > pairedDate ? dateStr : pairedDate;
+          state.zoomStart = start;
+          state.zoomEnd = end;
+          state.zoomMode = 'custom';
+          saveState();
+          syncZoomInputs();
+          renderChart();
+        }
+      });
+      gd.on('plotly_doubleclick', function() {
+        state.zoomMode = 'all';
+        state.zoomStart = null;
+        state.zoomEnd = null;
+        clearSegmentMode();
+        saveState();
+        syncZoomInputs();
+        renderChart();
+      });
+    }
+
+    function renderChart() {
+      const allRows = getDetailed(state.etf).rows;
+      const rows = getFilteredRows(allRows);
+      const layout = JSON.parse(JSON.stringify(PLOTLY_LAYOUTS[state.view || 'all']));
+      const shapes = getDetailed(state.etf).regime_shapes || [];
+      // Overvalued / Undervalued background shapes
+      const ovlShapes = [];
+      let curState = null, stateStart = null;
+      for (let i = 0; i < rows.length; i++) {
+        const ms = rows[i].market_state;
+        if (ms !== curState) {
+          if (curState !== null && stateStart !== null) {
+            ovlShapes.push({
+              type: 'rect',
+              x0: stateStart, x1: rows[i-1].datetime,
+              y0: 0, y1: 1, yref: 'paper',
+              fillcolor: curState ? 'rgba(185,28,28,0.05)' : 'rgba(15,118,110,0.05)',
+              line: {width: 0}, layer: 'below',
+            });
+          }
+          curState = ms;
+          stateStart = rows[i].datetime;
+        }
+      }
+      if (curState !== null && stateStart !== null) {
+        ovlShapes.push({
+          type: 'rect',
+          x0: stateStart, x1: rows[rows.length-1].datetime,
+          y0: 0, y1: 1, yref: 'paper',
+          fillcolor: curState ? 'rgba(185,28,28,0.05)' : 'rgba(15,118,110,0.05)',
+          line: {width: 0}, layer: 'below',
+        });
+      }
+      layout.shapes = shapes.concat(ovlShapes);
+
+      const dates = rows.map(r => r.datetime);
+      const strategyNav = rows.map(r => r.strategy_nav);
+      const buyholdNav = rows.map(r => r.buyhold_nav);
+      const positions = rows.map(r => r.position);
+      const excessPct = rows.map(r => r.excess_pct);
+
+      let peakS = -Infinity, peakB = -Infinity;
+      const strategyDD = [], buyholdDD = [];
+      for (const r of rows) {
+        peakS = Math.max(peakS, r.strategy_nav);
+        peakB = Math.max(peakB, r.buyhold_nav);
+        strategyDD.push(r.strategy_nav / peakS - 1);
+        buyholdDD.push(r.buyhold_nav / peakB - 1);
+      }
+
+      const buyRows = rows.filter(r => r.action === 'BUY');
+      const sellRows = rows.filter(r => r.action === 'SELL');
+      const trades = getDetailed(state.etf).trades || [];
+      const tradeMap = {};
+      trades.forEach(t => { tradeMap[t.entry_date] = t; });
+
+      // Build date maps for BUY <-> SELL click pairing
+      const buyToSell = {};
+      const sellToBuy = {};
+      trades.forEach(t => { buyToSell[t.entry_date] = t.exit_date; sellToBuy[t.exit_date] = t.entry_date; });
+
+      renderRegimeStrip(rows);
+      renderPositionDist(rows);
+      renderTradeList(trades);
+
+      const traces = [];
+      const xa = 'x', ya = 'y';
+      const xaPrice = 'x2', yaPrice = 'y2';
+      const xa2 = 'x3', ya2 = 'y3';
+      const xa3 = 'x4', ya3 = 'y4';
+      const xa4 = 'x5', ya4 = 'y5';
+
+      traces.push({
+        x: dates, y: strategyNav,
+        name: 'Strategy NAV', type: 'scatter', mode: 'lines',
+        line: { color: '#2563eb', width: 2 },
+        hovertemplate: '%{x}<br>Strategy: %{y:,.2f}<extra></extra>',
+        xaxis: xa, yaxis: ya,
+      });
+      traces.push({
+        x: dates, y: buyholdNav,
+        name: 'Buy&Hold NAV', type: 'scatter', mode: 'lines',
+        line: { color: '#0f766e', width: 2 },
+        hovertemplate: '%{x}<br>Buy&Hold: %{y:,.2f}<extra></extra>',
+        xaxis: xa, yaxis: ya,
+      });
+      // BUY/SELL markers on NAV line
+      if (buyRows.length) {
+        traces.push({
+          x: buyRows.map(r => r.datetime),
+          y: buyRows.map(r => r.strategy_nav),
+          name: 'BUY (NAV)', type: 'scatter', mode: 'markers',
+          marker: { symbol: 'triangle-up', size: 10, color: '#0f766e', line: { color: 'white', width: 1 } },
+          hovertemplate: '<b>BUY</b> %{x}<br>NAV: %{y:,.2f}<extra></extra>',
+          xaxis: xa, yaxis: ya,
+          showlegend: false,
+        });
+      }
+      if (sellRows.length) {
+        traces.push({
+          x: sellRows.map(r => r.datetime),
+          y: sellRows.map(r => r.strategy_nav),
+          name: 'SELL (NAV)', type: 'scatter', mode: 'markers',
+          marker: { symbol: 'triangle-down', size: 10, color: '#b91c1c', line: { color: 'white', width: 1 } },
+          hovertemplate: '<b>SELL</b> %{x}<br>NAV: %{y:,.2f}<extra></extra>',
+          xaxis: xa, yaxis: ya,
+          showlegend: false,
+        });
+      }
+      // Price row: always draw the full close/price line; OHLC candles are supplemental.
+      const ohlcRows = rows.filter(r => r.open != null && r.high != null && r.low != null && r.close != null);
+      const ma180Rows = rows.filter(r => r.ma180 != null);
+      const priceRows = rows.filter(r => r.close != null || r.price != null);
+      if (priceRows.length) {
+        traces.push({
+          x: priceRows.map(r => r.datetime),
+          y: priceRows.map(r => r.close != null ? r.close : r.price),
+          name: 'SOXL Close', type: 'scatter', mode: 'lines',
+          line: { color: '#0f766e', width: 1.8 },
+          hovertemplate: '%{x}<br>SOXL: $%{y:,.2f}<extra></extra>',
+          xaxis: xaPrice, yaxis: yaPrice,
+        });
+      }
+      if (ohlcRows.length) {
+        traces.push({
+          x: ohlcRows.map(r => r.datetime),
+          open: ohlcRows.map(r => r.open),
+          high: ohlcRows.map(r => r.high),
+          low: ohlcRows.map(r => r.low),
+          close: ohlcRows.map(r => r.close),
+          name: 'SOXL', type: 'candlestick',
+          increasing: {line: {color: '#0f766e'}, fillcolor: 'rgba(15,118,110,0.12)'},
+          decreasing: {line: {color: '#b91c1c'}, fillcolor: 'rgba(185,28,28,0.12)'},
+          xaxis: xaPrice, yaxis: yaPrice,
+        });
+      }
+      if (ma180Rows.length) {
+        traces.push({
+          x: ma180Rows.map(r => r.datetime),
+          y: ma180Rows.map(r => r.ma180),
+          name: 'MA180', type: 'scatter', mode: 'lines',
+          line: { color: '#2563eb', width: 1.5, dash: 'dash' },
+          hovertemplate: '%{x}<br>MA180: $%{y:,.2f}<extra></extra>',
+          xaxis: xaPrice, yaxis: yaPrice,
+        });
+      }
+      if (buyRows.length) {
+        traces.push({
+          x: buyRows.map(r => r.datetime),
+          y: buyRows.map(r => r.close != null ? r.close : (r.price != null ? r.price : r.strategy_nav)),
+          name: 'BUY', type: 'scatter', mode: 'markers',
+          marker: { symbol: 'triangle-up', size: 12, color: '#0f766e', line: { color: 'white', width: 1.5 } },
+          hovertemplate: '<b>BUY</b> %{x}<br>Price: $%{y:.2f}<br>NAV: %{text}<extra></extra>',
+          text: buyRows.map(r => fmtNum(r.strategy_nav, 2)),
+          customdata: buyRows.map(r => buyToSell[r.datetime] || ''),
+          xaxis: xaPrice, yaxis: yaPrice,
+        });
+      }
+      if (sellRows.length) {
+        traces.push({
+          x: sellRows.map(r => r.datetime),
+          y: sellRows.map(r => r.close != null ? r.close : (r.price != null ? r.price : r.strategy_nav)),
+          name: 'SELL', type: 'scatter', mode: 'markers',
+          marker: { symbol: 'triangle-down', size: 12, color: '#b91c1c', line: { color: 'white', width: 1.5 } },
+          hovertemplate: '<b>SELL</b> %{x}<br>Price: $%{y:.2f}<br>NAV: %{text}<extra></extra>',
+          text: sellRows.map(r => fmtNum(r.strategy_nav, 2)),
+          customdata: sellRows.map(r => sellToBuy[r.datetime] || ''),
+          xaxis: xaPrice, yaxis: yaPrice,
+        });
+      }
+
+      traces.push({
+        x: dates, y: positions,
+        name: 'Position %', type: 'scatter', mode: 'lines+markers',
+        line: { color: '#0f766e', width: 2, shape: 'hv' },
+        marker: { size: 5, color: positions.map(p => p > 0 ? '#0f766e' : '#6d6458') },
+        fill: 'tozeroy',
+        fillcolor: 'rgba(15,118,110,0.08)',
+        hovertemplate: '%{x}<br>Position: %{y:.1%}<extra></extra>',
+        xaxis: xa2, yaxis: ya2,
+      });
+
+      traces.push({
+        x: dates, y: excessPct,
+        name: 'Excess %', type: 'scatter', mode: 'lines',
+        line: { color: '#111827', width: 1.5 },
+        fill: 'tozeroy',
+        fillcolor: 'rgba(27,26,23,0.08)',
+        hovertemplate: '%{x}<br>Excess: %{y:.2f}%<extra></extra>',
+        xaxis: xa3, yaxis: ya3,
+        showlegend: false,
+      });
+
+      traces.push({
+        x: dates, y: strategyDD,
+        name: 'Strategy DD', type: 'scatter', mode: 'lines',
+        line: { color: '#2563eb', width: 1.5 },
+        fill: 'tozeroy',
+        fillcolor: 'rgba(37,99,235,0.12)',
+        hovertemplate: '%{x}<br>Strat DD: %{y:.2%}<extra></extra>',
+        xaxis: xa4, yaxis: ya4,
+        showlegend: false,
+      });
+      traces.push({
+        x: dates, y: buyholdDD,
+        name: 'Buy&Hold DD', type: 'scatter', mode: 'lines',
+        line: { color: '#0f766e', width: 1.5 },
+        fill: 'tozeroy',
+        fillcolor: 'rgba(15,118,110,0.10)',
+        hovertemplate: '%{x}<br>BH DD: %{y:.2%}<extra></extra>',
+        xaxis: xa4, yaxis: ya4,
+        showlegend: false,
+      });
+
+      Plotly.react('plotlyChart', traces, layout, {
+        responsive: true,
+        scrollZoom: true,
+        displayModeBar: true,
+        modeBarButtonsToRemove: ['lasso2d', 'select2d'],
+        displaylogo: false,
+      }).then(gd => {
+        gd.__dashboardRowsByDate = new Map(rows.map(r => [r.datetime, r]));
+        gd.__dashboardTradeMap = tradeMap;
+        bindPlotlyChartInteractions(gd);
+      });
+
+      if (rows.length) {
+        const versionPayload = state.version && DATA.versioned ? DATA.versioned[state.version] : null;
+        const versionDetail = versionPayload ? ((versionPayload.detailed || {})[state.etf]) : null;
+        const isInlineLatest = Boolean(state.version && state.version === DATA.latest_version && (DATA.detailed || {})[state.etf]);
+        const isFallbackView = Boolean(versionPayload && !versionDetail && !isInlineLatest);
+        chartMeta.innerHTML = `
+          <span>Built: <span class="mono">${DATA.generated_at}</span></span>
+          <span>Version: <span class="mono">${state.version || 'current'}</span></span>
+          <span>Zoom: <span class="mono">${state.zoomMode}</span></span>
+          <span>Window: <span class="mono">${rows[0].datetime}</span> → <span class="mono">${rows[rows.length-1].datetime}</span></span>
+          <span>Rows: <span class="mono">${rows.length}</span></span>
+          <span>BUY: <span class="mono">${buyRows.length}</span></span>
+          <span>SELL: <span class="mono">${sellRows.length}</span></span>
+          ${isFallbackView ? '<span>Market Data: <span class="mono">current ETF fallback</span></span>' : ''}
+        `;
+      } else {
+        chartMeta.innerHTML = `<span>当前日期筛选下没有数据，请放宽缩放范围。</span>`;
+      }
+    }
+
+    function render() {
+      try {
+        etfSelect.value = state.etf;
+        versionSelect.value = state.version || '';
+        document.querySelectorAll('.pill').forEach(p => {
+          p.classList.toggle('active', p.dataset.range === state.range);
+        });
+        syncZoomInputs();
+        // Segment banner
+        const banner = document.getElementById('segmentBanner');
+        const segmentRange = document.getElementById('segmentRange');
+        if (state.segmentMode && state.segmentKey && state.segmentCache[state.segmentKey]) {
+          const seg = state.segmentCache[state.segmentKey];
+          if (seg.rows && seg.rows.length) {
+            banner.style.display = 'flex';
+            segmentRange.textContent = `${seg.rows[0].datetime} → ${seg.rows[seg.rows.length-1].datetime}`;
+          } else {
+            banner.style.display = 'none';
+          }
+        } else {
+          banner.style.display = 'none';
+        }
+        renderMetrics();
+        const detail = getDetailed(state.etf);
+        const allRows = detail.rows || [];
+        const rows = getFilteredRows(allRows);
+        const k = detail.kelly || {};
+        renderChart();
+        renderTradeStats(k);
+        renderTradeTable();
+      } catch (err) {
+        console.error('Dashboard render error:', err);
+        document.getElementById('plotlyChart').innerHTML = `
+          <div style="display:flex;align-items:center;justify-content:center;height:100%;flex-direction:column;gap:12px;color:var(--muted);">
+            <div style="font-size:18px;font-weight:600;color:var(--bad);">数据加载异常</div>
+            <div style="font-size:13px;max-width:500px;text-align:center;line-height:1.6;">
+              ${err.message}<br>
+              请检查浏览器控制台获取详细信息，或尝试清除 localStorage 后刷新页面。
+            </div>
+            <button class="btn primary" onclick="localStorage.removeItem('${STORAGE_KEY}');location.reload();">清除缓存并刷新</button>
+          </div>
+        `;
+      }
+    }
+
+    loadSavedState();
+    initControls();
+    render();
+    initAsyncData();
+  </script>
+</body>
 </html>
