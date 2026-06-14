@@ -15,6 +15,7 @@ import {
   chartRangeRows,
   clampComparisonProfiles,
   clipRowsByDate,
+  computeChartCommandDateRange,
   computeCommonWindow,
   computeDateRangePreset,
   computeDefaultChartWindow,
@@ -458,7 +459,19 @@ async function main(): Promise<void> {
     let inspectorLookup: InspectorLookup | null = null;
     let chartHandles: ChartRangeTarget[] = [];
     let chartSyncCleanup: (() => void) | null = null;
-    const runChartCommand = (command: ChartRangeCommand) => applyChartRangeCommand(chartHandles, command);
+    const runChartCommand = (command: ChartRangeCommand) => {
+      const range = computeChartCommandDateRange(
+        chartRangeRows(data.models, state.chartProfile, data.market.rows),
+        state.start,
+        state.end,
+        command,
+      );
+      if (range) {
+        update({ ...range, hoveredDate: range.end, selectedDate: range.end });
+        return;
+      }
+      applyChartRangeCommand(chartHandles, command);
+    };
     const setChartClickMode = (mode: ChartClickMode) => update({ chartClickMode: mode });
     const renderChartChrome = () => {
       renderChartCommandBar(requireElement('chart-command-bar'), runChartCommand, state.chartClickMode, setChartClickMode);

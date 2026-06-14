@@ -10,6 +10,7 @@ import {
   clipRowsByDate,
   computeCommonWindow,
   computeDateRangePreset,
+  computeChartCommandDateRange,
   computeInspectorRows,
   computeKeyboardDateRange,
   computeVisibleComparison,
@@ -323,6 +324,34 @@ describe('dashboard v2 domain helpers', () => {
     expect(computeKeyboardDateRange(rows, '2026-01-05', '2026-01-08', 'reset')).toEqual({
       start: '2026-01-02',
       end: '2026-01-09',
+    });
+  });
+
+  test('maps TradingView chart commands to selected rerun date windows', () => {
+    const rows = Array.from({ length: 100 }, (_, index) => {
+      const date = new Date(Date.UTC(2026, 0, 2 + index));
+      return { date: date.toISOString().slice(0, 10) };
+    });
+
+    expect(computeChartCommandDateRange(rows, rows[0].date, rows[99].date, 'last_60')).toEqual({
+      start: rows[40].date,
+      end: rows[99].date,
+    });
+    expect(computeChartCommandDateRange(rows, rows[10].date, rows[39].date, 'latest')).toEqual({
+      start: rows[70].date,
+      end: rows[99].date,
+    });
+    expect(computeChartCommandDateRange(rows, rows[10].date, rows[39].date, 'zoom_in')).toEqual({
+      start: rows[18].date,
+      end: rows[32].date,
+    });
+    expect(computeChartCommandDateRange(rows, rows[10].date, rows[39].date, 'pan_right')).toEqual({
+      start: rows[17].date,
+      end: rows[46].date,
+    });
+    expect(computeChartCommandDateRange(rows, rows[10].date, rows[39].date, 'reset')).toEqual({
+      start: rows[0].date,
+      end: rows[99].date,
     });
   });
 

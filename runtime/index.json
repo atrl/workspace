@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-14T19:06:42.570877+00:00",
+  "generated_at": "2026-06-14T19:24:27.840568+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -2310,6 +2310,12 @@
       "category": "harness",
       "suffix": ".json",
       "bytes": 812
+    },
+    {
+      "path": "runtime/harness/card/dashboard_v2_range_sync_v1/summary.json",
+      "category": "harness",
+      "suffix": ".json",
+      "bytes": 1884
     },
     {
       "path": "runtime/harness/card/dashboard_v2_task_feature_repair_v2/visual_check_summary.json",

@@ -264,7 +264,7 @@ export function renderOperationsPanel(container: HTMLElement, manifest: Manifest
   const counts = auto.model_replay_freshness?.counts ?? {};
   const readyCount = auto.model_replay_freshness?.ready_count ?? 0;
   const profileCount = auto.model_replay_freshness?.profile_count ?? 0;
-  const runnableCount = manifest.profile_groups?.runnable?.length ?? 0;
+  const runnableCount = runnableProfileCount(manifest);
   const availableProfileCount = manifest.available_profiles?.length ?? 0;
   const grid = element('div', 'source-grid operations-grid');
   const rows: [string, string][] = [
@@ -309,6 +309,14 @@ export function renderOperationsPanel(container: HTMLElement, manifest: Manifest
 
 function profileCountLabel(count: number, total: number, noun: string): string {
   return `${count} / ${total} ${noun}`;
+}
+
+function runnableProfileCount(manifest: Manifest): number {
+  const staticRunnable = new Set(manifest.profile_groups?.runnable ?? []);
+  const interactiveReruns = manifest.available_profiles.filter(
+    (profile) => profile.startsWith('rerun:') && !staticRunnable.has(profile),
+  );
+  return staticRunnable.size + interactiveReruns.length;
 }
 
 function taskCount(
@@ -378,7 +386,7 @@ export function renderDashboardStatusStrip(container: HTMLElement, manifest: Man
   const loaded = taskCount(tasks, 'loaded');
   const installed = taskCount(tasks, 'installed');
   const taskNames = tasks.map((task) => task.name).join(', ');
-  const runnableCount = manifest.profile_groups?.runnable?.length ?? 0;
+  const runnableCount = runnableProfileCount(manifest);
   const referenceProfiles = manifest.profile_groups?.reference ?? [];
   const evidenceOnlyCount = manifest.profile_groups?.evidence_only?.length ?? 0;
   const profileTotal = manifest.available_profiles.length;

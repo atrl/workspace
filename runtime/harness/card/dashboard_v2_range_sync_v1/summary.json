@@ -1,0 +1,45 @@
+{
+  "generated_at": "2026-06-14T19:24:03Z",
+  "experiment": "dashboard_v2_range_sync_v1",
+  "direction": "harness",
+  "scope": "dashboard_v2_interactive_range_and_rerun_status",
+  "server": "scripts/dashboard_server.py --port 8765",
+  "browser": "Kimi WebBridge",
+  "page_url": "http://127.0.0.1:8765/web/dashboard-v2/dist/index.html?debugChart=1&v=rerun-count",
+  "actions": [
+    {
+      "action": "click_chart_command",
+      "selector": "Show last 60 bars",
+      "observed_start": "2026-03-16",
+      "observed_end": "2026-06-09",
+      "observed_run_status": "2026-03-16 to 2026-06-09 | deterministic baseline selected-window replay"
+    },
+    {
+      "action": "run_backtest",
+      "profile": "soxl_backtest_policy_reimplementation_v1",
+      "request_start_date": "2026-03-16",
+      "request_end_date": "2026-06-09",
+      "response_status": 200,
+      "response_source_kind": "soxlbacktest_qlib_buysell",
+      "response_rows": 60,
+      "response_trade_count": 6,
+      "response_rulebase_return_pct": 89.17242640081886,
+      "response_rulebase_max_drawdown_pct": 17.46048443465906
+    },
+    {
+      "action": "verify_rendered_state",
+      "observed_run_status": "2026-03-16 to 2026-06-09 | ready for selected-window inference",
+      "observed_runtime_status": "RL Runtime 1 / 6 runnable",
+      "observed_operations_status": "runnable inference 1 / 6",
+      "observed_chart_layers": [
+        "ohlc_candles",
+        "soxl_price_marker",
+        "position_line"
+      ]
+    }
+  ],
+  "artifacts": {
+    "screenshot": "runtime/harness/card/dashboard_v2_range_sync_v1/dashboard_v2_range_sync_after_rerun.png"
+  },
+  "conclusion": "TradingView-style chart range commands now synchronize Start/End before rerun; selected-window SOXLBacktest rerun posts the chosen dates and the temporary rerun profile is counted as runnable in the status strip and operations panel."
+}

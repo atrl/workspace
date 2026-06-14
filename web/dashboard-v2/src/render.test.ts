@@ -257,6 +257,43 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.querySelectorAll('.status-task-chip')).toHaveLength(3);
   });
 
+  test('counts interactive rerun profiles as runnable in runtime status', () => {
+    const panel = document.createElement('div');
+
+    renderDashboardStatusStrip(panel, {
+      ...manifestFixture,
+      available_profiles: [
+        'rerun:soxl_backtest_policy_reimplementation_v1:2026-05-08:2026-06-09',
+        ...manifestFixture.available_profiles,
+      ],
+      profile_groups: {
+        ...manifestFixture.profile_groups!,
+        runnable: [],
+      },
+    });
+
+    expect(panel.textContent).toContain('1 / 4 runnable');
+  });
+
+  test('counts interactive rerun profiles as runnable in operations status', () => {
+    const panel = document.createElement('section');
+
+    renderOperationsPanel(panel, {
+      ...manifestFixture,
+      available_profiles: [
+        'rerun:soxl_backtest_policy_reimplementation_v1:2026-05-08:2026-06-09',
+        ...manifestFixture.available_profiles,
+      ],
+      profile_groups: {
+        ...manifestFixture.profile_groups!,
+        runnable: [],
+      },
+    });
+
+    expect(panel.textContent).toContain('runnable inference');
+    expect(panel.textContent).toContain('1 / 4');
+  });
+
   test('renders inspector rows with tone classes', () => {
     const panel = document.createElement('aside');
 
