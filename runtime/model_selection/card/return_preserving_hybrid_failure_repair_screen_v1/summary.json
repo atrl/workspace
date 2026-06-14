@@ -1,0 +1,234 @@
+{
+  "actor_retention_allowed": false,
+  "baseline_replay_max_abs_nav_error": 2.561137080192566e-09,
+  "best_candidate": {
+    "bull_dd63_floor": -0.2,
+    "bull_min_pos": 0.55,
+    "bull_mom21": 0.1,
+    "fold_gate_pass_count": 2,
+    "global_cap": 0.55,
+    "max_dd_pass_count": 3,
+    "mean_avg_pos": 0.2101457876856908,
+    "mean_return_pct": 21.929362911180533,
+    "min_gate_gap": -22.688524058588058,
+    "min_relative_return_pp": -11.177543106563895,
+    "relative_pass_count": 3,
+    "return_floor_pass_count": 2,
+    "scale": 1.0,
+    "stress_cap": 0.15,
+    "stress_dd": -0.06,
+    "stress_mom21": -0.01,
+    "total_trade_count": 86,
+    "variant": "scale1.00_cap0.55_stress0.15_dd0.06_mom-0.01_bull0.55_mom0.10_dd0.20",
+    "worst_max_dd_pct": 18.760304881561986
+  },
+  "best_candidate_fold_results": [
+    {
+      "avg_pos": 0.30440545414339576,
+      "buyhold_return_pct": 58.093570616483994,
+      "fold": "wf_2020",
+      "fold_gate": false,
+      "max_dd_gap_pct": 3.5811269450721923,
+      "max_dd_gate": true,
+      "max_dd_pct": 16.418873054927808,
+      "relative_gap_pp": 252.551252782585,
+      "relative_gate": true,
+      "relative_return_pp": -11.177543106563895,
+      "return_floor_gap_pp": -22.688524058588058,
+      "return_floor_gate": false,
+      "return_pct": 46.9160275099201,
+      "trade_count": 38
+    },
+    {
+      "avg_pos": 0.07820144696131215,
+      "buyhold_return_pct": -86.58807173239427,
+      "fold": "wf_2022",
+      "fold_gate": true,
+      "max_dd_gap_pct": 1.2396951184380143,
+      "max_dd_gate": true,
+      "max_dd_pct": 18.760304881561986,
+      "relative_gap_pp": 41.76825793582017,
+      "relative_gate": true,
+      "relative_return_pp": 71.76825793582017,
+      "return_floor_gap_pp": null,
+      "return_floor_gate": true,
+      "return_pct": -14.819813796574099,
+      "trade_count": 20
+    },
+    {
+      "avg_pos": 0.24783046195236452,
+      "buyhold_return_pct": -0.3566347296884431,
+      "fold": "wf_2023_2024",
+      "fold_gate": true,
+      "max_dd_gap_pct": 2.5416463750287654,
+      "max_dd_gate": true,
+      "max_dd_pct": 17.458353624971235,
+      "relative_gap_pp": 4.04850974988404,
+      "relative_gate": true,
+      "relative_return_pp": 34.04850974988404,
+      "return_floor_gap_pp": null,
+      "return_floor_gate": true,
+      "return_pct": 33.691875020195596,
+      "trade_count": 28
+    }
+  ],
+  "best_drawdown_safe_candidate": {
+    "bull_dd63_floor": -0.2,
+    "bull_min_pos": 0.55,
+    "bull_mom21": 0.1,
+    "fold_gate_pass_count": 2,
+    "global_cap": 0.55,
+    "max_dd_pass_count": 3,
+    "mean_avg_pos": 0.2101457876856908,
+    "mean_return_pct": 21.929362911180533,
+    "min_gate_gap": -22.688524058588058,
+    "min_relative_return_pp": -11.177543106563895,
+    "relative_pass_count": 3,
+    "return_floor_pass_count": 2,
+    "scale": 1.0,
+    "stress_cap": 0.15,
+    "stress_dd": -0.06,
+    "stress_mom21": -0.01,
+    "total_trade_count": 86,
+    "variant": "scale1.00_cap0.55_stress0.15_dd0.06_mom-0.01_bull0.55_mom0.10_dd0.20",
+    "worst_max_dd_pct": 18.760304881561986
+  },
+  "best_return_floor_safe_candidate": {
+    "bull_dd63_floor": -0.2,
+    "bull_min_pos": 1.0,
+    "bull_mom21": 0.1,
+    "fold_gate_pass_count": 1,
+    "global_cap": 1.0,
+    "max_dd_pass_count": 1,
+    "mean_avg_pos": 0.3126879997896559,
+    "mean_return_pct": 40.963479325504146,
+    "min_gate_gap": -12.633905759761063,
+    "min_relative_return_pp": 21.522931179740688,
+    "relative_pass_count": 3,
+    "return_floor_pass_count": 3,
+    "scale": 1.0,
+    "stress_cap": 0.15,
+    "stress_dd": -0.06,
+    "stress_mom21": -0.01,
+    "total_trade_count": 86,
+    "variant": "scale1.00_cap1.00_stress0.15_dd0.06_mom-0.01_bull1.00_mom0.10_dd0.20",
+    "worst_max_dd_pct": 32.63390575976106
+  },
+  "candidate_count": 302400,
+  "canonical_baseline": "v19reg_v22_budget_usage_bull_guard_v1",
+  "changed_layer": [
+    "model_selection",
+    "target_repair",
+    "execution_overlay_diagnostic"
+  ],
+  "created_at": "2026-06-14T07:19:47.641705+00:00",
+  "decision": "hybrid_failure_repair_screen_no_three_fold_pass_no_actor_promotion",
+  "diagnosis": [
+    "Best path-level variant passes 2/3 fold gates; strict gate pass count is 0.",
+    "wf_2022 stress repair succeeds for the best variant: return=-14.82%, relative=71.77pp, MaxDD=18.76%.",
+    "wf_2023_2024 bull participation repair succeeds for the best variant: return=33.69%, relative=34.05pp, MaxDD=17.46%.",
+    "wf_2020 remains below the 69.60% return floor by 22.69pp despite high-participation grid variants."
+  ],
+  "direct_comparison_baseline": "wf2020_riskcap_full_bc_replay_v1",
+  "experiment": "return_preserving_hybrid_failure_repair_screen_v1",
+  "failed_folds": [
+    "wf_2020"
+  ],
+  "grid": {
+    "bull_dd63_floor": [
+      -0.2,
+      -0.15,
+      -0.12,
+      -0.08
+    ],
+    "bull_min_pos": [
+      0.45,
+      0.55,
+      0.65,
+      0.75,
+      0.85,
+      1.0
+    ],
+    "bull_mom21": [
+      -0.02,
+      0.0,
+      0.02,
+      0.04,
+      0.06,
+      0.08,
+      0.1
+    ],
+    "global_cap": [
+      0.55,
+      0.65,
+      0.8,
+      1.0
+    ],
+    "scale": [
+      1.0,
+      1.25,
+      1.5,
+      2.0,
+      2.5,
+      3.0
+    ],
+    "stress_cap": [
+      0.04,
+      0.06,
+      0.08,
+      0.1,
+      0.12,
+      0.15
+    ],
+    "stress_dd": [
+      -0.06,
+      -0.08,
+      -0.1,
+      -0.12,
+      -0.15
+    ],
+    "stress_mom21": [
+      -0.01,
+      -0.03,
+      -0.05,
+      -0.08
+    ]
+  },
+  "next_action": "do not train actor from the current hybrid repair; build a stronger wf2020 bull/recovery target before rerunning three-fold BC/checkpoint replay",
+  "promotion_allowed": false,
+  "reference_baseline": "soxlbacktest_qlib_buysell_reference:risk_cap_35_15_05",
+  "replay_model": "official_return_scaled_applied_exposure_path_diagnostic",
+  "required_wf_windows": [
+    "wf_2020",
+    "wf_2022",
+    "wf_2023_2024"
+  ],
+  "return_floor_pct_by_fold": {
+    "wf_2020": 69.60455156850816,
+    "wf_2022": null,
+    "wf_2023_2024": null
+  },
+  "role": "diagnose_target_repair_screen",
+  "sidecars": {
+    "baseline_replay_check": "runtime/model_selection/card/return_preserving_hybrid_failure_repair_screen_v1/baseline_replay_check.csv",
+    "conclusion": "runtime/model_selection/card/return_preserving_hybrid_failure_repair_screen_v1/conclusion.md",
+    "fold_repair_metrics": "runtime/model_selection/card/return_preserving_hybrid_failure_repair_screen_v1/fold_repair_metrics.csv",
+    "notebook": "runtime/model_selection/card/return_preserving_hybrid_failure_repair_screen_v1/return_preserving_hybrid_failure_repair_screen_v1.ipynb",
+    "pass_distribution": "runtime/model_selection/card/return_preserving_hybrid_failure_repair_screen_v1/pass_distribution.csv",
+    "repair_grid_top": "runtime/model_selection/card/return_preserving_hybrid_failure_repair_screen_v1/repair_grid_top.csv",
+    "selection": "runtime/model_selection/card/return_preserving_hybrid_failure_repair_screen_v1/selection.json",
+    "summary": "runtime/model_selection/card/return_preserving_hybrid_failure_repair_screen_v1/summary.json"
+  },
+  "source_card": "runtime/model_selection/card/return_preserving_hybrid_target_bc_replay_v1/summary.json",
+  "source_decision": "return_preserving_hybrid_bc_replay_no_promotion",
+  "source_selected_candidate": "hybrid_blend_nonrisk_50__riskcap_default_weight",
+  "strict_gate_pass_count": 0,
+  "target_max_dd_pct": 20.0,
+  "target_relative_return_by_fold_pp": {
+    "wf_2020": -263.7287958891489,
+    "wf_2022": 30.0,
+    "wf_2023_2024": 30.0
+  },
+  "target_revision_contract": "runtime/model_selection/card/cap10_wf2020_return_preserving_target_revision_v1/target_revision_contract.json",
+  "target_revision_next_mechanism": "build_return_preserving_wf2020_bull_participation_target_then_rerun_three_fold_bc_checkpoint_metric_replay"
+}
