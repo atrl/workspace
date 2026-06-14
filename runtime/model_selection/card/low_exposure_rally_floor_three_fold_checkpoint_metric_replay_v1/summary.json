@@ -1,0 +1,130 @@
+{
+  "actor_retention": "no actor bundle is promoted or retained by this notebook; rerun the notebook to regenerate diagnostic fold-local states",
+  "actor_retention_allowed": false,
+  "canonical_baseline": "v19reg_v22_budget_usage_bull_guard_v1",
+  "changed_layer": [
+    "model_selection",
+    "checkpoint_selection",
+    "bc_warm_start"
+  ],
+  "conclusion": [
+    "wf_2020: selected bc_initialization (bc_initialization) with rel=-278.93pp, MaxDD=20.38%, loss=0.0769, gate=False.",
+    "wf_2022: selected bc_initialization (bc_initialization) with rel=65.86pp, MaxDD=18.80%, loss=0.0000, gate=True.",
+    "wf_2023_2024: selected ppo_retained_iter_4 (ppo_retained) with rel=35.57pp, MaxDD=8.96%, loss=0.0040, gate=True.",
+    "Failed folds under per-fold relative targets {'wf_2020': -263.7287958891489, 'wf_2022': 30.0, 'wf_2023_2024': 30.0} and MaxDD < 20%: wf_2020.",
+    "No runtime promotion and no actor retention from this diagnostic selector."
+  ],
+  "created_at": "2026-06-14T08:24:53.307668+00:00",
+  "decision": "three_fold_checkpoint_metric_replay_partial_pass_no_promotion",
+  "direct_comparison_baseline": "wf2020_low_exposure_rally_floor_target_v1",
+  "drawdown_gate_operator": "<",
+  "drift_max_dd_ceiling_pp": 2.0,
+  "drift_relative_floor_pp": -5.0,
+  "experiment": "low_exposure_rally_floor_three_fold_checkpoint_metric_replay_v1",
+  "failed_folds": [
+    "wf_2020"
+  ],
+  "feature_frame_source": "build_dataset_rebuilt_full_2010_2024",
+  "missing_folds": [],
+  "next_mechanism": "inspect_failed_fold_drawdown_or_reward_drift_before_full_retention_training",
+  "profile": "sparse_release_bc_ppo_screen_v1",
+  "promotion_allowed": false,
+  "promotion_blocker": "Diagnostic fold-local checkpoint screen only. Retention still requires a full retained actor bundle plus fixed-split, wf_2020/wf_2022/wf_2023_2024, YTD return alignment, and dashboard replay evidence.",
+  "reference_baseline": "soxlbacktest_qlib_buysell_reference",
+  "reference_thresholds": {
+    "max_walkforward_drawdown_pct": 20.0,
+    "required_best_return_pct": 213.143462,
+    "required_soxlbacktest_return_pct": 132.077978,
+    "required_wf_windows": [
+      "wf_2020",
+      "wf_2022",
+      "wf_2023_2024"
+    ],
+    "ytd_end": "2026-06-09",
+    "ytd_start": "2026-01-02"
+  },
+  "required_fold_coverage": true,
+  "role": "diagnose",
+  "selected_by_fold": {
+    "wf_2020": {
+      "bc_max_dd": 20.38458883710407,
+      "bc_relative_return": -278.93465341661,
+      "candidate_count": 4,
+      "fold": "wf_2020",
+      "selected_candidate": "bc_initialization",
+      "selected_candidate_gate": false,
+      "selected_daily_path": "runtime/model_selection/card/low_exposure_rally_floor_three_fold_checkpoint_metric_replay_v1/official_daily_paths/wf_2020__bc_initialization_official_daily_path.csv",
+      "selected_drift_gate": true,
+      "selected_iter": 0,
+      "selected_kind": "bc_initialization",
+      "selected_loss": 0.076886617576934,
+      "selected_max_dd": 20.38458883710407,
+      "selected_relative_return": -278.93465341661,
+      "selected_target_gate": false,
+      "status": "evaluated"
+    },
+    "wf_2022": {
+      "bc_max_dd": 18.80228364916748,
+      "bc_relative_return": 65.86482008395255,
+      "candidate_count": 4,
+      "fold": "wf_2022",
+      "selected_candidate": "bc_initialization",
+      "selected_candidate_gate": true,
+      "selected_daily_path": "runtime/model_selection/card/low_exposure_rally_floor_three_fold_checkpoint_metric_replay_v1/official_daily_paths/wf_2022__bc_initialization_official_daily_path.csv",
+      "selected_drift_gate": true,
+      "selected_iter": 0,
+      "selected_kind": "bc_initialization",
+      "selected_loss": 0.0,
+      "selected_max_dd": 18.80228364916748,
+      "selected_relative_return": 65.86482008395255,
+      "selected_target_gate": true,
+      "status": "evaluated"
+    },
+    "wf_2023_2024": {
+      "bc_max_dd": 19.9339463051674,
+      "bc_relative_return": 25.313412572656027,
+      "candidate_count": 4,
+      "fold": "wf_2023_2024",
+      "selected_candidate": "ppo_retained_iter_4",
+      "selected_candidate_gate": true,
+      "selected_daily_path": "runtime/model_selection/card/low_exposure_rally_floor_three_fold_checkpoint_metric_replay_v1/official_daily_paths/wf_2023_2024__ppo_retained_iter_4_official_daily_path.csv",
+      "selected_drift_gate": true,
+      "selected_iter": 4,
+      "selected_kind": "ppo_retained",
+      "selected_loss": 0.004,
+      "selected_max_dd": 8.955768917531602,
+      "selected_relative_return": 35.56622898283519,
+      "selected_target_gate": true,
+      "status": "evaluated"
+    }
+  },
+  "selected_candidate_gate_count": 2,
+  "selected_drift_gate_count": 3,
+  "selected_target_gate_count": 2,
+  "sidecars": [
+    "coverage.csv",
+    "coverage.json",
+    "bc_slice_metrics.csv",
+    "ppo_selection_history.csv",
+    "checkpoint_candidate_metrics.csv",
+    "checkpoint_selection_by_fold.csv",
+    "drift_score_summary.json",
+    "selection.json",
+    "summary.json",
+    "conclusion.md"
+  ],
+  "source_target_contract": "runtime/model_selection/card/wf2020_low_exposure_rally_floor_target_v1/low_exposure_rally_floor_three_fold_target_contract.csv",
+  "source_target_decision": "wf2020_low_exposure_rally_floor_target_ready_for_official_replay_no_promotion",
+  "source_target_selection": "runtime/model_selection/card/wf2020_low_exposure_rally_floor_target_v1/summary.json",
+  "target_max_dd_pct": 20.0,
+  "target_relative_return_by_fold_pp": {
+    "wf_2020": -263.7287958891489,
+    "wf_2022": 30.0,
+    "wf_2023_2024": 30.0
+  },
+  "target_relative_return_pp": 30.0,
+  "training_allowed_from_this_card": false,
+  "wf_2020_coverage": true,
+  "ytd_return_alignment_blocker": "This card trains fold-local diagnostic actors; a single retained actor must be trained before comparing YTD return to current best and SOXLBacktest references.",
+  "ytd_return_alignment_evaluated": false
+}
