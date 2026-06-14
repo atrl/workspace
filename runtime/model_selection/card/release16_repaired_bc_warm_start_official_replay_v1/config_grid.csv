@@ -1,0 +1,4 @@
+candidate,role,train_steps,train_lr,train_batch_size,train_seed,rebound_multiplier,downtrend_multiplier,release_gate_multiplier,ordinary_multiplier,objective_weight_power,class_balanced_beta,weight_floor,weight_cap,normalize_mean
+current_readiness_baseline,direct_baseline,400,0.001,128,20260615,6.0,2.0,16.0,1.0,0.2,0.99,0.05,35.0,True
+release64_cb99_obj020,prior_official_reference,500,0.001,128,20260616,6.0,2.0,64.0,1.0,0.2,0.99,0.05,80.0,True
+release128_cb995_obj000,selected_repaired_bc,500,0.001,128,20260617,6.0,2.0,128.0,1.0,0.0,0.995,0.05,140.0,True
