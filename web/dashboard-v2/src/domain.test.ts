@@ -16,7 +16,9 @@ import {
   computeVisibleComparison,
   chooseDefaultChartProfile,
   chooseDefaultRunProfile,
+  isDeterministicBaselineProfile,
   runnableProfileReason,
+  runWindowButtonLabel,
   selectableChartProfiles,
   selectableRunProfiles,
 } from './domain';
@@ -402,6 +404,28 @@ describe('dashboard v2 domain helpers', () => {
         runnable_reason: 'missing_actor_artifact',
       }),
     ).toBe('missing actor artifact');
+  });
+
+  test('keeps deterministic baseline reruns out of model-inference labels', () => {
+    const baselineRerun = {
+      ...modelFixture,
+      profile: 'rerun:soxl_backtest_policy_reimplementation_v1:2026-03-02:2026-06-09',
+      runnable: true,
+      runnable_reason: 'interactive_rerun',
+      source_kind: 'soxlbacktest_qlib_buysell',
+    };
+    const evidenceOnly = {
+      ...betaModelFixture,
+      runnable: false,
+      runnable_reason: 'evidence_only_retained_dashboard_export',
+      source_kind: 'retained_dashboard_export',
+    };
+
+    expect(isDeterministicBaselineProfile(baselineRerun)).toBe(true);
+    expect(runnableProfileReason(baselineRerun)).toBe('deterministic baseline selected-window replay');
+    expect(runWindowButtonLabel(baselineRerun)).toBe('Run baseline window');
+    expect(runWindowButtonLabel(modelFixture)).toBe('Run model window');
+    expect(runWindowButtonLabel(evidenceOnly)).toBe('Cannot rerun');
   });
 
   test('allows selected-window reruns for deterministic SOXLBacktest baseline without marking it as an RL actor', () => {

@@ -23,7 +23,9 @@ import {
   computeInspectorRowsFromLookup,
   chooseDefaultChartProfile,
   chooseDefaultRunProfile,
+  isDeterministicBaselineProfile,
   runnableProfileReason,
+  runWindowButtonLabel,
   selectableChartProfiles,
   selectableRunProfiles,
   type DateRangePreset,
@@ -139,10 +141,10 @@ function visibleContext(data: DashboardData, state: ViewState) {
 function profileOptionLabel(model: ModelPayload | undefined, profile: string): string {
   if (!model) return profile;
   const name = model.display_name || profile;
-  if (model.runnable) return `${name} [run]`;
-  if (model.runnable_reason === 'reference_baseline' || model.source_kind === 'soxlbacktest_qlib_buysell') {
+  if (isDeterministicBaselineProfile(model)) {
     return `${name} [baseline]`;
   }
+  if (model.runnable) return `${name} [run]`;
   return `${name} [evidence]`;
 }
 
@@ -277,7 +279,7 @@ function renderToolbar(
   const canRun = canRunSelectedWindow(runModel);
   const runButton = document.createElement('button');
   runButton.type = 'button';
-  runButton.textContent = runModel?.runnable ? 'Run model window' : canRun ? 'Run baseline window' : 'Cannot rerun';
+  runButton.textContent = runWindowButtonLabel(runModel);
   runButton.disabled = !canRun;
   runButton.title = `${state.start} to ${state.end} | ${runnableProfileReason(runModel)}`;
   runButton.addEventListener('click', () => {

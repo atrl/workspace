@@ -72,10 +72,8 @@ export function chooseDefaultChartProfile(
 
 export function runnableProfileReason(model: ModelPayload | undefined): string {
   if (!model) return 'model data not loaded';
+  if (isDeterministicBaselineProfile(model)) return 'deterministic baseline selected-window replay';
   if (model.runnable) return 'ready for selected-window inference';
-  if (model.runnable_reason === 'reference_baseline' || model.source_kind === 'soxlbacktest_qlib_buysell') {
-    return 'deterministic baseline selected-window replay';
-  }
   if (model.runnable_reason === 'evidence_only_retained_dashboard_export') {
     return 'retained export only';
   }
@@ -85,10 +83,21 @@ export function runnableProfileReason(model: ModelPayload | undefined): string {
   return model.runnable_reason ? model.runnable_reason.replaceAll('_', ' ') : 'not runnable';
 }
 
+export function isDeterministicBaselineProfile(model: ModelPayload | undefined): boolean {
+  return Boolean(
+    model && (model.runnable_reason === 'reference_baseline' || model.source_kind === 'soxlbacktest_qlib_buysell'),
+  );
+}
+
 export function canRunSelectedWindow(model: ModelPayload | undefined): boolean {
   if (!model) return false;
   if (model.runnable) return true;
-  return model.runnable_reason === 'reference_baseline' || model.source_kind === 'soxlbacktest_qlib_buysell';
+  return isDeterministicBaselineProfile(model);
+}
+
+export function runWindowButtonLabel(model: ModelPayload | undefined): string {
+  if (!canRunSelectedWindow(model)) return 'Cannot rerun';
+  return isDeterministicBaselineProfile(model) ? 'Run baseline window' : 'Run model window';
 }
 
 export function chartRangeRows(
