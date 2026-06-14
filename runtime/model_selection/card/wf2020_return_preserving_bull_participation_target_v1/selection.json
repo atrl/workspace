@@ -1,0 +1,47 @@
+{
+  "accepted_tradeoff": "increase downtrend/rebound state labels only where v2 recovery/risk target already changed the target position; no eval rows are written as training labels.",
+  "actor_retention_allowed": false,
+  "canonical_baseline": "v19reg_v22_budget_usage_bull_guard_v1",
+  "changed_layer": [
+    "training_target_composition",
+    "model_selection",
+    "execution_target"
+  ],
+  "checkpoint_replay_allowed_next": true,
+  "closest_historical_failure_case": "wf2020_recovery_checkpoint_failure_attribution_v1 found recovery target mismatch rows and wf_2020 return regression.",
+  "closest_historical_success_case": "cap10_three_fold_checkpoint_metric_replay_v2 passed wf_2022 and wf_2023_2024 while keeping MaxDD below 20%.",
+  "created_at": "2026-06-14T08:01:33.642194+00:00",
+  "decision": "return_preserving_bull_participation_target_ready_for_official_checkpoint_replay_no_promotion",
+  "direct_comparison_baseline": [
+    "wf2020_recovery_participation_target_v1",
+    "recovery_participation_three_fold_checkpoint_metric_replay_v1",
+    "cap10_wf2020_return_preserving_target_revision_v1"
+  ],
+  "experiment": "wf2020_return_preserving_bull_participation_target_v1",
+  "next_mechanism": "rerun_official_daily_three_fold_checkpoint_metric_replay_with_return_preserving_bull_participation_target",
+  "projected_mismatch_rows": 0,
+  "projected_recovery_rows": 172,
+  "projected_risk_rows": 839,
+  "promotion_allowed": false,
+  "reference_baseline": "soxlbacktest_qlib_buysell_reference:risk_cap_35_15_05",
+  "role": "diagnose",
+  "sidecars": [
+    "return_preserving_bull_participation_three_fold_target_contract.csv",
+    "state_projection_audit.csv",
+    "ignored_after_projection_rows.csv",
+    "changed_rows_preview.csv",
+    "selection.json",
+    "summary.json",
+    "conclusion.md"
+  ],
+  "source_mismatch_rows": 226,
+  "source_target_contract": "runtime/model_selection/card/wf2020_recovery_participation_target_v1/recovery_participation_three_fold_target_contract.csv",
+  "state_flag_changed_rows": 300,
+  "target_contract_path": "runtime/model_selection/card/wf2020_return_preserving_bull_participation_target_v1/return_preserving_bull_participation_three_fold_target_contract.csv",
+  "target_contract_rows": 3731,
+  "target_delta_nonzero_rows": 949,
+  "target_eval_leakage_rows": 0,
+  "target_window": "wf_2020",
+  "training_allowed_from_this_card": false,
+  "why_not_duplicate": "This card changes state semantics so existing BC label construction consumes the recovery/risk target positions; it is not another preview overlay or unconsumed target column."
+}

@@ -1,10 +1,10 @@
 # Model Retention Frontier
 
-- Rows scanned: `114`.
-- Completed handoffs: `84`.
-- Recommended next source: `cap10_wf2020_return_preserving_target_revision_v1`.
-- Recommended next action: `build_return_preserving_wf2020_bull_participation_target_then_rerun_three_fold_bc_checkpoint_metric_replay`.
-- Primary blocker: `target_revision_ready`.
+- Rows scanned: `116`.
+- Completed handoffs: `87`.
+- Recommended next source: `return_preserving_bull_participation_three_fold_checkpoint_metric_replay_v1`.
+- Recommended next action: `inspect_failed_fold_drawdown_or_reward_drift_before_full_retention_training`.
+- Primary blocker: `walkforward_relative_return_gap`.
 - Retention gate: MaxDD `< 20.0` and YTD return floor `213.143462` versus SOXLBacktest reference `132.077978`.
 
 This card ranks model-selection evidence for the next training run. It does not promote or retain actors.

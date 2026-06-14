@@ -1,0 +1,4 @@
+fold,train_rows,source_mismatch_rows,projected_mismatch_rows,projected_risk_rows,projected_recovery_rows,state_flag_changed_rows,target_delta_nonzero_rows,downtrend_rows_after,rebound_rows_after,drawdown_control_rows_after,mean_return_preserving_target,mean_consumed_target,eval_leakage_rows
+wf_2020_train,2470,226,0,839,172,300,949,897,285,897,0.3045998380566801,0.3045998380566801,0
+wf_2022_train,505,0,0,0,0,0,0,234,66,49,0.3488165434578397,0.3488165434578397,0
+wf_2023_2024_train,756,0,0,0,0,0,0,478,66,49,0.277529657902077,0.277529657902077,0
