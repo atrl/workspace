@@ -275,6 +275,77 @@ export function renderOperationsPanel(container: HTMLElement, manifest: Manifest
   }
 }
 
+function profileCountLabel(count: number, total: number, noun: string): string {
+  return `${count} / ${total} ${noun}`;
+}
+
+function taskCount(
+  tasks: readonly { enabled?: boolean; loaded?: boolean | null; installed?: boolean }[],
+  field: 'enabled' | 'loaded' | 'installed',
+): number {
+  return tasks.filter((task) => task[field] === true).length;
+}
+
+function statusPill(title: string, value: string, detail: string): HTMLElement {
+  const pill = element('div', 'status-pill');
+  pill.appendChild(element('strong', undefined, title));
+  pill.appendChild(element('span', undefined, value));
+  pill.appendChild(element('small', undefined, detail));
+  return pill;
+}
+
+export function renderDashboardStatusStrip(container: HTMLElement, manifest: Manifest): void {
+  container.replaceChildren();
+  container.className = 'status-strip';
+  const auto = manifest.auto_update;
+  const tasks = auto?.tasks ?? [];
+  const taskTotal = tasks.length;
+  const enabled = taskCount(tasks, 'enabled');
+  const loaded = taskCount(tasks, 'loaded');
+  const installed = taskCount(tasks, 'installed');
+  const runnableCount = manifest.profile_groups?.runnable?.length ?? 0;
+  const referenceProfiles = manifest.profile_groups?.reference ?? [];
+  const evidenceOnlyCount = manifest.profile_groups?.evidence_only?.length ?? 0;
+  const profileTotal = manifest.available_profiles.length;
+  const baselineLabel = referenceProfiles.includes('soxl_backtest_policy_reimplementation_v1')
+    ? 'SOXLBacktest baseline'
+    : referenceProfiles.join(', ') || 'no reference baseline';
+  const safeEnd = auto?.model_replay_freshness?.safe_backtest_end ?? manifest.safe_backtest_end;
+  const latest = auto?.model_replay_freshness?.latest_data_date ?? manifest.latest_market_date;
+  const frontier = manifest.model_retention_frontier;
+
+  container.appendChild(
+    statusPill(
+      'Auto Update',
+      taskTotal ? `${profileCountLabel(enabled, taskTotal, 'enabled')} · ${profileCountLabel(loaded, taskTotal, 'loaded')}` : 'not configured',
+      taskTotal
+        ? `${profileCountLabel(installed, taskTotal, 'installed')} · ${auto?.manual_refresh_command ?? 'manual refresh n/a'}`
+        : 'no local refresh task in manifest',
+    ),
+  );
+  container.appendChild(
+    statusPill(
+      'RL Runtime',
+      profileCountLabel(runnableCount, profileTotal, 'runnable'),
+      `${baselineLabel} · ${evidenceOnlyCount} evidence-only`,
+    ),
+  );
+  container.appendChild(
+    statusPill(
+      'Replay Window',
+      `safe ${safeEnd ?? 'n/a'}`,
+      `market latest ${latest ?? 'n/a'}`,
+    ),
+  );
+  container.appendChild(
+    statusPill(
+      'Training Frontier',
+      frontier?.recommended_next_source ?? 'n/a',
+      frontier?.recommended_primary_blocker ?? frontier?.recommended_next_action ?? 'n/a',
+    ),
+  );
+}
+
 export function renderActionLegend(container: HTMLElement): void {
   container.replaceChildren();
   const buy = element('span', 'legend-item legend-buy', 'BUY');

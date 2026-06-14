@@ -31,6 +31,7 @@ import {
   renderActionLegend,
   renderChartCommandBar,
   renderComparisonPanel,
+  renderDashboardStatusStrip,
   renderDataSourcePanel,
   renderFeatureSpotlightPanel,
   renderInspectorPanel,
@@ -150,6 +151,10 @@ function renderToolbar(
   runInteractiveBacktest: () => void,
 ): void {
   container.replaceChildren();
+
+  const statusStrip = document.createElement('div');
+  renderDashboardStatusStrip(statusStrip, data.manifest);
+  container.appendChild(statusStrip);
 
   const profileGroup = document.createElement('div');
   profileGroup.className = 'toolbar-group profile-group';

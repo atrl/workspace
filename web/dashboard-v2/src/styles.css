@@ -50,6 +50,47 @@ select {
   color: #9ca3af;
 }
 
+.status-strip {
+  flex: 1 1 100%;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(180px, 1fr));
+  gap: 8px;
+  min-width: 0;
+}
+
+.status-pill {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+  min-height: 58px;
+  padding: 8px 10px;
+  border: 1px solid #374151;
+  border-radius: 6px;
+  background: #0b1220;
+}
+
+.status-pill strong {
+  color: #f9fafb;
+  font-size: 12px;
+}
+
+.status-pill span,
+.status-pill small {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.status-pill span {
+  color: #d1d5db;
+  font-weight: 700;
+}
+
+.status-pill small {
+  color: #9ca3af;
+}
+
 .profile-group {
   flex: 1 1 100%;
   flex-wrap: nowrap;
@@ -143,11 +184,13 @@ select {
   grid-template-columns: minmax(0, 1fr) clamp(380px, 28vw, 440px);
   gap: 0;
   min-height: 0;
-  height: calc(100vh - 58px);
+  height: clamp(620px, calc(100vh - 220px), 760px);
+  overflow: hidden;
 }
 
 .chart-column {
   min-width: 0;
+  min-height: 0;
   display: grid;
   grid-template-rows: auto minmax(360px, 1fr) auto;
   border-right: 1px solid #1f2937;
@@ -577,6 +620,16 @@ h2 {
     overflow-x: visible;
   }
 
+  .status-strip {
+    grid-template-columns: 1fr;
+  }
+
+  .status-pill span,
+  .status-pill small {
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
   .toolbar-group,
   .check-label {
     min-width: 0;
@@ -600,6 +653,7 @@ h2 {
   .workspace {
     grid-template-columns: 1fr;
     height: auto;
+    overflow: visible;
   }
 
   .right-stack {

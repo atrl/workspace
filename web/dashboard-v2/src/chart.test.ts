@@ -2,6 +2,10 @@ import { beforeEach, describe, expect, test, vi } from 'vitest';
 import { applyChartRangeCommand, renderMarketChart, renderNavChart, renderPositionChart, syncVisibleLogicalRanges } from './chart';
 import { marketFixture, modelFixture } from './testFixtures';
 
+function time(date: string): number {
+  return Date.parse(`${date}T00:00:00Z`) / 1000;
+}
+
 const chartMocks = vi.hoisted(() => {
   const seriesRecords: { kind: string; options: Record<string, unknown>; data: unknown[] }[] = [];
   const subscriptions = {
@@ -21,6 +25,7 @@ const chartMocks = vi.hoisted(() => {
     fitContent: vi.fn(),
     scrollToRealTime: vi.fn(),
     getVisibleLogicalRange: vi.fn(() => ({ from: 10, to: 30 })),
+    setVisibleRange: vi.fn(),
     setVisibleLogicalRange: vi.fn(),
     subscribeVisibleLogicalRangeChange: vi.fn(),
     unsubscribeVisibleLogicalRangeChange: vi.fn(),
@@ -49,6 +54,7 @@ vi.mock('lightweight-charts', () => ({
   CandlestickSeries: 'candlestick',
   LineSeries: 'line',
   LineStyle: { Dashed: 2 },
+  PriceScaleMode: { Normal: 0 },
   createChart: chartMocks.createChart,
   createSeriesMarkers: chartMocks.createSeriesMarkers,
 }));
@@ -61,6 +67,7 @@ describe('dashboard v2 chart rendering', () => {
     chartMocks.timeScaleApi.fitContent.mockClear();
     chartMocks.timeScaleApi.scrollToRealTime.mockClear();
     chartMocks.timeScaleApi.getVisibleLogicalRange.mockClear();
+    chartMocks.timeScaleApi.setVisibleRange.mockClear();
     chartMocks.timeScaleApi.setVisibleLogicalRange.mockClear();
     chartMocks.subscriptions.click.length = 0;
     chartMocks.subscriptions.crosshairMove.length = 0;
@@ -74,14 +81,48 @@ describe('dashboard v2 chart rendering', () => {
 
     expect(chartMocks.seriesRecords.map((record) => record.kind)).toEqual(['candlestick', 'line', 'line']);
     expect(chartMocks.seriesRecords[1].data).toEqual(
-      marketFixture.rows.map((row) => ({ time: row.date, value: row.close })),
+      marketFixture.rows.map((row) => ({ time: time(row.date), value: row.close })),
     );
+    expect(chartMocks.seriesRecords[0].options).toMatchObject({
+      priceScaleId: 'right',
+    });
+    expect(
+      (chartMocks.seriesRecords[0].options.autoscaleInfoProvider as () => {
+        priceRange: { minValue: number; maxValue: number };
+      })(),
+    ).toEqual({
+      priceRange: {
+        minValue: 9.4,
+        maxValue: 11.5,
+      },
+      margins: {
+        above: 24,
+        below: 16,
+      },
+    });
+    expect(chartMocks.seriesRecords[1].options).toMatchObject({
+      priceScaleId: 'right',
+    });
     expect(chartMocks.seriesRecords[2].options).toMatchObject({
       priceScaleId: 'left',
       title: 'Position',
     });
+    expect(
+      (chartMocks.seriesRecords[2].options.autoscaleInfoProvider as () => {
+        priceRange: { minValue: number; maxValue: number };
+      })(),
+    ).toEqual({
+      priceRange: {
+        minValue: 0,
+        maxValue: 1,
+      },
+      margins: {
+        above: 8,
+        below: 8,
+      },
+    });
     expect(chartMocks.seriesRecords[2].data).toEqual(
-      modelFixture.rows.map((row) => ({ time: row.date, value: row.position })),
+      modelFixture.rows.map((row) => ({ time: time(row.date), value: row.position })),
     );
   });
 
@@ -102,7 +143,7 @@ describe('dashboard v2 chart rendering', () => {
 
     expect(chartMocks.seriesRecords[0].data).toEqual(
       rerunModel.rows.map((row) => ({
-        time: row.date,
+        time: time(row.date),
         open: row.open,
         high: row.high,
         low: row.low,
@@ -110,11 +151,46 @@ describe('dashboard v2 chart rendering', () => {
       })),
     );
     expect(chartMocks.seriesRecords[1].data).toEqual(
-      rerunModel.rows.map((row) => ({ time: row.date, value: row.price })),
+      rerunModel.rows.map((row) => ({ time: time(row.date), value: row.price })),
     );
     expect(chartMocks.seriesRecords[2].data).toEqual(
-      rerunModel.rows.map((row) => ({ time: row.date, value: row.position })),
+      rerunModel.rows.map((row) => ({ time: time(row.date), value: row.position })),
     );
+  });
+
+  test('clips market candles to the selected model window before rendering the main chart', () => {
+    const container = document.createElement('div');
+    const staleMarketRows = [
+      {
+        date: '2010-03-11',
+        open: 0.64,
+        high: 0.68,
+        low: 0.63,
+        close: 0.66,
+        volume: 100,
+      },
+      ...marketFixture.rows,
+    ];
+
+    renderMarketChart(container, { ...marketFixture, rows: staleMarketRows }, modelFixture, () => {});
+
+    expect(chartMocks.seriesRecords[0].data).toEqual(
+      marketFixture.rows.map((row) => ({
+        time: time(row.date),
+        open: row.open,
+        high: row.high,
+        low: row.low,
+        close: row.close,
+      })),
+    );
+    expect(chartMocks.seriesRecords[1].data).toEqual(
+      marketFixture.rows.map((row) => ({ time: time(row.date), value: row.close })),
+    );
+    expect(chartMocks.timeScaleApi.setVisibleRange).toHaveBeenCalledWith({
+      from: time('2026-01-02'),
+      to: time('2026-01-06'),
+    });
+    expect(chartMocks.timeScaleApi.fitContent).not.toHaveBeenCalled();
   });
 
   test('enables TradingView-style mouse wheel, drag, and kinetic interactions', () => {
@@ -124,6 +200,12 @@ describe('dashboard v2 chart rendering', () => {
 
     const chartOptions = (chartMocks.createChart.mock.calls[0] as unknown[])[1];
     expect(chartOptions).toMatchObject({
+      leftPriceScale: {
+        mode: 0,
+      },
+      rightPriceScale: {
+        mode: 0,
+      },
       handleScroll: {
         mouseWheel: true,
         pressedMouseMove: true,
@@ -283,7 +365,7 @@ describe('dashboard v2 chart rendering', () => {
       lineStyle: 2,
     });
     expect(chartMocks.seriesRecords[0].data).toEqual(
-      modelFixture.rows.map((row) => ({ time: row.date, value: row.buyhold_nav })),
+      modelFixture.rows.map((row) => ({ time: time(row.date), value: row.buyhold_nav })),
     );
   });
 

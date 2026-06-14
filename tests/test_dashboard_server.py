@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import io
 import json
+from http.server import SimpleHTTPRequestHandler
 
 import pandas as pd
 
@@ -62,6 +63,18 @@ def test_health_payload_marks_dashboard_server_api_available():
     assert payload["ok"] is True
     assert payload["service"] == "dashboard_server"
     assert payload["run_backtest_api"] == "/api/run-backtest"
+
+
+def test_dashboard_server_disables_browser_cache_for_static_dashboard_payloads(monkeypatch):
+    sent: list[tuple[str, str]] = []
+    handler = object.__new__(dashboard_server.DashboardHandler)
+    handler.send_header = lambda key, value: sent.append((key, value))
+    monkeypatch.setattr(SimpleHTTPRequestHandler, "end_headers", lambda _self: None)
+
+    handler.end_headers()
+
+    assert ("Cache-Control", "no-store, max-age=0") in sent
+    assert ("Pragma", "no-cache") in sent
 
 
 def test_response_window_from_rows_uses_actual_row_dates():

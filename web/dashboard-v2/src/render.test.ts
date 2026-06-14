@@ -9,6 +9,7 @@ import {
   renderFeatureSpotlightPanel,
   renderInspectorPanel,
   renderOperationsPanel,
+  renderDashboardStatusStrip,
 } from './render';
 import { betaModelFixture, comparisonFixture, manifestFixture, marketFixture, modelFixture } from './testFixtures';
 
@@ -102,6 +103,80 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.querySelector('.task-card[data-enabled="true"]')?.textContent).toContain('configured');
     expect(panel.textContent).toContain('next training');
     expect(panel.textContent).toContain('cap10_metric_replay_handoff_audit_v1');
+    expect(panel.textContent).toContain('walkforward_relative_return_gap');
+  });
+
+  test('renders a first-screen dashboard status strip with auto update and runtime roles', () => {
+    const panel = document.createElement('div');
+
+    renderDashboardStatusStrip(panel, {
+      ...manifestFixture,
+      available_profiles: [
+        'soxl_backtest_policy_reimplementation_v1',
+        'state_conditioned_drawdown_rebound_reward_train_v1',
+        'drawdown_rebound_reward_train_v1',
+        'mode_conditioned_rebound_reward_train_v2',
+        'balanced_rule_residual_v19_moe_v2',
+      ],
+      profile_groups: {
+        runnable: [],
+        reference: ['soxl_backtest_policy_reimplementation_v1'],
+        evidence_only: [
+          'state_conditioned_drawdown_rebound_reward_train_v1',
+          'drawdown_rebound_reward_train_v1',
+          'mode_conditioned_rebound_reward_train_v2',
+          'balanced_rule_residual_v19_moe_v2',
+        ],
+      },
+      auto_update: {
+        ...manifestFixture.auto_update!,
+        model_replay_freshness: {
+          ...manifestFixture.auto_update!.model_replay_freshness!,
+          ready_count: 0,
+          profile_count: 0,
+          safe_backtest_end: '2026-06-09',
+        },
+        tasks: [
+          {
+            name: 'preopen',
+            label: 'com.soxl.preopen.scheduler',
+            enabled: true,
+            configured: true,
+            installed: true,
+            loaded: true,
+            schedule: '21:00 Mon-Fri Asia/Shanghai',
+          },
+          {
+            name: 'postclose',
+            label: 'com.soxl.daily.scheduler',
+            enabled: true,
+            configured: true,
+            installed: true,
+            loaded: true,
+            schedule: '06:15 Tue-Sat Asia/Shanghai',
+          },
+          {
+            name: 'dashboard_refresh',
+            label: 'com.soxl.dashboard.refresh',
+            enabled: true,
+            configured: true,
+            installed: true,
+            loaded: true,
+            schedule: '06:30 Tue-Sat Asia/Shanghai',
+          },
+        ],
+      },
+    });
+
+    expect(panel.textContent).toContain('Auto Update');
+    expect(panel.textContent).toContain('3 / 3 enabled');
+    expect(panel.textContent).toContain('3 / 3 loaded');
+    expect(panel.textContent).toContain('RL Runtime');
+    expect(panel.textContent).toContain('0 / 5 runnable');
+    expect(panel.textContent).toContain('SOXLBacktest baseline');
+    expect(panel.textContent).toContain('Replay Window');
+    expect(panel.textContent).toContain('safe 2026-06-09');
+    expect(panel.textContent).toContain('Training Frontier');
     expect(panel.textContent).toContain('walkforward_relative_return_gap');
   });
 

@@ -2,6 +2,7 @@ import {
   CandlestickSeries,
   LineStyle,
   LineSeries,
+  PriceScaleMode,
   createChart,
   createSeriesMarkers,
   type IChartApi,
@@ -14,7 +15,7 @@ import { buildActionMarkers } from './domain';
 import type { MarketPayload, MarketRow, ModelPayload, ModelRow } from './types';
 
 function toTime(date: string): Time {
-  return date as Time;
+  return (Date.parse(`${date}T00:00:00Z`) / 1000) as Time;
 }
 
 function eventDate(param: MouseEventParams<Time>): string | null {
@@ -62,14 +63,56 @@ function priceRowFromModel(row: ModelRow): PriceRow {
 
 function mergePriceRows(marketRows: readonly MarketRow[], modelRows: readonly ModelRow[]): PriceRow[] {
   const byDate = new Map<string, PriceRow>();
+  const modelDates = new Set(modelRows.map((row) => row.date));
   for (const row of modelRows) {
     byDate.set(row.date, priceRowFromModel(row));
   }
   for (const row of marketRows) {
+    if (modelDates.size > 0 && !modelDates.has(row.date)) continue;
     const marketRow = priceRowFromMarket(row);
     byDate.set(row.date, { ...byDate.get(row.date), ...marketRow });
   }
   return [...byDate.values()].sort((left, right) => left.date.localeCompare(right.date));
+}
+
+function dateRangeFromRows(rows: readonly { date: string }[]): { from: Time; to: Time } | null {
+  const dates = [...new Set(rows.map((row) => row.date).filter(Boolean))].sort();
+  if (dates.length === 0) return null;
+  return { from: toTime(dates[0]), to: toTime(dates[dates.length - 1]) };
+}
+
+function applyInitialDateRange(chart: IChartApi, rows: readonly { date: string }[]): void {
+  const range = dateRangeFromRows(rows);
+  if (range) {
+    chart.timeScale().setVisibleRange(range);
+  } else {
+    chart.timeScale().fitContent();
+  }
+}
+
+function rangeFromValues(values: readonly unknown[]): { minValue: number; maxValue: number } | null {
+  const finiteValues = values.map(finiteNumber).filter((value): value is number => value !== undefined);
+  if (finiteValues.length === 0) return null;
+  let minValue = Math.min(...finiteValues);
+  let maxValue = Math.max(...finiteValues);
+  if (minValue === maxValue) {
+    const padding = Math.max(1, Math.abs(minValue) * 0.01);
+    minValue -= padding;
+    maxValue += padding;
+  }
+  return { minValue, maxValue };
+}
+
+function fixedAutoscaleInfo(
+  range: { minValue: number; maxValue: number } | null,
+  margins: { above: number; below: number },
+): (() => { priceRange: { minValue: number; maxValue: number } | null; margins: { above: number; below: number } }) | undefined {
+  if (!range) return undefined;
+  return () => ({ priceRange: range, margins });
+}
+
+function priceRangeFromRows(rows: readonly PriceRow[]): { minValue: number; maxValue: number } | null {
+  return rangeFromValues(rows.flatMap((row) => [row.low, row.high, row.close, row.price]));
 }
 
 function hasOhlc(row: PriceRow): row is Required<Pick<PriceRow, 'date' | 'open' | 'high' | 'low' | 'close'>> & PriceRow {
@@ -102,6 +145,17 @@ const TRADING_VIEW_INTERACTION_OPTIONS = {
 } as const;
 
 const chartByContainer = new WeakMap<HTMLElement, IChartApi>();
+
+function exposeChartDebug(name: string, payload: Record<string, unknown>): void {
+  if (!window.location.search.includes('debugChart=1')) return;
+  const debugWindow = window as typeof window & {
+    __SOXL_DASHBOARD_CHART_DEBUG__?: Record<string, Record<string, unknown>>;
+  };
+  debugWindow.__SOXL_DASHBOARD_CHART_DEBUG__ = {
+    ...(debugWindow.__SOXL_DASHBOARD_CHART_DEBUG__ ?? {}),
+    [name]: payload,
+  };
+}
 
 function resetChartContainer(container: HTMLElement): void {
   const previousChart = chartByContainer.get(container);
@@ -259,20 +313,23 @@ export function renderMarketChart(
     ...TRADING_VIEW_INTERACTION_OPTIONS,
     layout: { background: { color: '#111827' }, textColor: '#d1d5db' },
     grid: { vertLines: { color: '#253044' }, horzLines: { color: '#253044' } },
-    leftPriceScale: { visible: true, borderColor: '#374151' },
-    rightPriceScale: { borderColor: '#374151' },
+    leftPriceScale: { visible: true, borderColor: '#374151', mode: PriceScaleMode.Normal },
+    rightPriceScale: { borderColor: '#374151', mode: PriceScaleMode.Normal },
     timeScale: { borderColor: '#374151', timeVisible: false },
     crosshair: { mode: 1 },
   });
   registerChart(container, chart);
+  const priceRows = mergePriceRows(market.rows, model.rows);
+  const priceAutoscale = fixedAutoscaleInfo(priceRangeFromRows(priceRows), { above: 24, below: 16 });
   const candleSeries = chart.addSeries(CandlestickSeries, {
     upColor: '#0f766e',
     downColor: '#b91c1c',
     borderVisible: false,
     wickUpColor: '#34d399',
     wickDownColor: '#f87171',
+    priceScaleId: 'right',
+    autoscaleInfoProvider: priceAutoscale,
   });
-  const priceRows = mergePriceRows(market.rows, model.rows);
   candleSeries.setData(
     priceRows.filter(hasOhlc).map((row) => ({
       time: toTime(row.date),
@@ -285,8 +342,10 @@ export function renderMarketChart(
   const closeLine = chart.addSeries(LineSeries, {
     color: '#e5e7eb',
     lineWidth: 1,
+    priceScaleId: 'right',
     priceLineVisible: false,
     title: 'SOXL Price',
+    autoscaleInfoProvider: priceAutoscale,
   });
   closeLine.setData(
     priceRows
@@ -300,6 +359,7 @@ export function renderMarketChart(
     priceScaleId: 'left',
     priceLineVisible: true,
     title: 'Position',
+    autoscaleInfoProvider: fixedAutoscaleInfo({ minValue: 0, maxValue: 1 }, { above: 8, below: 8 }),
   });
   positionLine.setData(model.rows.map((row) => ({ time: toTime(row.date), value: row.position })));
   createSeriesMarkers(
@@ -310,7 +370,8 @@ export function renderMarketChart(
     })),
   );
   wireDateEvents(chart, onDate);
-  chart.timeScale().fitContent();
+  applyInitialDateRange(chart, priceRows.length ? priceRows : model.rows);
+  exposeChartDebug('market', { chart, candleSeries, closeLine, positionLine, priceRows, modelRows: model.rows });
   return { chart, primarySeries: candleSeries };
 }
 
@@ -325,14 +386,14 @@ export function renderPositionChart(
     ...TRADING_VIEW_INTERACTION_OPTIONS,
     layout: { background: { color: '#0b1220' }, textColor: '#d1d5db' },
     grid: { vertLines: { color: '#1f2937' }, horzLines: { color: '#1f2937' } },
-    rightPriceScale: { borderColor: '#374151' },
+    rightPriceScale: { borderColor: '#374151', mode: PriceScaleMode.Normal },
     timeScale: { borderColor: '#374151' },
   });
   registerChart(container, chart);
   const line = chart.addSeries(LineSeries, { color: '#38bdf8', lineWidth: 2 });
   line.setData(model.rows.map((row) => ({ time: toTime(row.date), value: row.position })));
   wireDateEvents(chart, onDate);
-  chart.timeScale().fitContent();
+  applyInitialDateRange(chart, model.rows);
   return { chart, primarySeries: line };
 }
 
@@ -348,7 +409,7 @@ export function renderNavChart(
     ...TRADING_VIEW_INTERACTION_OPTIONS,
     layout: { background: { color: '#0b1220' }, textColor: '#d1d5db' },
     grid: { vertLines: { color: '#1f2937' }, horzLines: { color: '#1f2937' } },
-    rightPriceScale: { borderColor: '#374151' },
+    rightPriceScale: { borderColor: '#374151', mode: PriceScaleMode.Normal },
     timeScale: { borderColor: '#374151' },
   });
   registerChart(container, chart);
@@ -371,6 +432,9 @@ export function renderNavChart(
     series.setData(model.rows.map((row) => ({ time: toTime(row.date), value: row.strategy_nav })));
   });
   wireDateEvents(chart, onDate);
-  chart.timeScale().fitContent();
+  applyInitialDateRange(
+    chart,
+    Object.values(models).flatMap((model) => model.rows),
+  );
   return chart;
 }
