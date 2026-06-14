@@ -22,6 +22,7 @@ import {
   computeInspectorRowsFromLookup,
   chooseDefaultChartProfile,
   runnableProfileReason,
+  selectableChartProfiles,
   type DateRangePreset,
   type InspectorLookup,
 } from './domain';
@@ -38,6 +39,7 @@ import {
   renderComparisonPanel,
   renderDashboardStatusStrip,
   renderDataSourcePanel,
+  renderFeatureComparisonPanel,
   renderFeatureSpotlightPanel,
   renderInspectorPanel,
   renderOperationsPanel,
@@ -97,6 +99,7 @@ function createShell(app: HTMLElement): void {
       </aside>
     </main>
     <section id="comparison-panel" class="panel"></section>
+    <section id="feature-comparison-panel" class="panel feature-comparison-main"></section>
     <section id="source-panel" class="panel"></section>
   `;
 }
@@ -126,12 +129,6 @@ function visibleContext(data: DashboardData, state: ViewState) {
   const market = clippedMarket(data, state.start, state.end);
   const primary = clippedModel(data.models[state.chartProfile] ?? Object.values(data.models)[0], state.start, state.end);
   return { models, market, primary };
-}
-
-function selectableChartProfiles(data: DashboardData, selectedProfiles: readonly string[]): string[] {
-  const selected = selectedProfiles.filter((profile) => Boolean(data.models[profile]));
-  const runnableOrReference = selected.filter((profile) => canRunSelectedWindow(data.models[profile]));
-  return runnableOrReference.length ? runnableOrReference : selected;
 }
 
 function profileOptionLabel(model: ModelPayload | undefined, profile: string): string {
@@ -200,7 +197,7 @@ function renderToolbar(
   chartGroup.className = 'toolbar-group';
   chartGroup.append('Chart');
   const chartSelect = document.createElement('select');
-  for (const profile of selectableChartProfiles(data, state.selectedProfiles)) {
+  for (const profile of selectableChartProfiles(data.models, state.selectedProfiles)) {
     const option = document.createElement('option');
     option.value = profile;
     option.textContent = profileOptionLabel(data.models[profile], profile);
@@ -324,6 +321,7 @@ function renderInspector(
 ): void {
   const inspector = requireElement('inspector');
   const featurePanel = requireElement('feature-panel');
+  const featureComparisonPanel = requireElement('feature-comparison-panel');
   const rows = lookup
     ? computeInspectorRowsFromLookup({
         date: state.hoveredDate,
@@ -342,12 +340,14 @@ function renderInspector(
     rows,
   );
   if (options.renderFeaturePanel !== false) {
-    renderFeatureSpotlightPanel(featurePanel, {
+    const featureInput = {
       date: state.selectedDate,
       marketRows: data.market.rows,
       models: selectedModels(data, state.selectedProfiles),
       baselineProfile: state.baselineProfile,
-    });
+    };
+    renderFeatureSpotlightPanel(featurePanel, featureInput);
+    renderFeatureComparisonPanel(featureComparisonPanel, featureInput);
   }
 }
 
@@ -458,7 +458,7 @@ async function main(): Promise<void> {
       if (!state.selectedProfiles.includes(state.baselineProfile)) {
         state.baselineProfile = state.selectedProfiles[0];
       }
-      const chartProfiles = selectableChartProfiles(data, state.selectedProfiles);
+      const chartProfiles = selectableChartProfiles(data.models, state.selectedProfiles);
       if (!chartProfiles.includes(state.chartProfile)) {
         state.chartProfile = chartProfiles[0] ?? state.selectedProfiles[0];
       }

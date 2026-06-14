@@ -21,3 +21,10 @@ def test_dashboard_v2_dist_uses_relative_asset_paths():
     assert 'href="/assets/' not in html
     assert 'src="./assets/' in html
     assert 'href="./assets/' in html
+
+
+def test_dashboard_v2_main_mounts_full_width_buy_sell_feature_comparison():
+    source = (ROOT / "web" / "dashboard-v2" / "src" / "main.ts").read_text(encoding="utf-8")
+
+    assert 'id="feature-comparison-panel"' in source
+    assert "renderFeatureComparisonPanel(" in source

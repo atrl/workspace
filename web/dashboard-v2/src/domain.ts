@@ -97,6 +97,13 @@ export function chartRangeRows(
   return rows && rows.length ? rows : marketRows;
 }
 
+export function selectableChartProfiles(
+  models: Record<string, ModelPayload>,
+  selectedProfiles: readonly string[],
+): string[] {
+  return selectedProfiles.filter((profile) => Boolean(models[profile]?.rows.length));
+}
+
 export function clipRowsByDate<T extends { date: string }>(rows: readonly T[], start: string, end: string): T[] {
   return rows.filter((row) => row.date >= start && row.date <= end);
 }

@@ -85,14 +85,14 @@
     "drawdown_rebound_reward_train_v1",
     "mode_conditioned_rebound_reward_train_v2"
   ],
-  "generated_at": "2026-06-14T06:51:28.150940+00:00",
+  "generated_at": "2026-06-14T08:53:25.023120+00:00",
   "latest_market_date": "2026-06-10",
   "model_retention_frontier": {
-    "completed_handoff_count": 83,
+    "completed_handoff_count": 89,
     "max_walkforward_drawdown_pct": 20.0,
-    "recommended_next_action": "build_return_preserving_wf2020_bull_participation_target_then_rerun_three_fold_bc_checkpoint_metric_replay",
-    "recommended_next_source": "cap10_wf2020_return_preserving_target_revision_v1",
-    "recommended_primary_blocker": "target_revision_ready",
+    "recommended_next_action": "inspect_failed_fold_drawdown_or_reward_drift_before_full_retention_training",
+    "recommended_next_source": "low_exposure_rally_floor_three_fold_checkpoint_metric_replay_v1",
+    "recommended_primary_blocker": "walkforward_relative_return_gap",
     "reference_return_pct": 132.077978,
     "required_best_return_pct": 213.143462,
     "required_wf_windows": [
@@ -100,7 +100,7 @@
       "wf_2022",
       "wf_2023_2024"
     ],
-    "rows_scanned": 111,
+    "rows_scanned": 119,
     "source_path": "runtime/model_selection/card/model_retention_frontier_v1/summary.json"
   },
   "model_retention_gate": {

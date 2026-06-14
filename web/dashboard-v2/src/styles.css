@@ -344,6 +344,12 @@ h2 {
   background: #0f172a;
 }
 
+.feature-comparison-main {
+  max-height: 680px;
+  overflow: auto;
+  border-top: 1px solid #1f2937;
+}
+
 .side-panel {
   min-width: 0;
   min-height: 0;

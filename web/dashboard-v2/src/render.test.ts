@@ -171,6 +171,7 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.textContent).toContain('Auto Update');
     expect(panel.textContent).toContain('3 / 3 enabled');
     expect(panel.textContent).toContain('3 / 3 loaded');
+    expect(panel.textContent).toContain('0 / 0 replay candidates');
     expect(panel.textContent).toContain('preopen');
     expect(panel.textContent).toContain('postclose');
     expect(panel.textContent).toContain('dashboard_refresh');
@@ -323,6 +324,21 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.textContent).toContain('beta_signal');
     expect(panel.textContent).toContain('-2.50');
     expect(panel.textContent).toContain('Recent Buy/Sell Events');
+  });
+
+  test('prioritizes buy/sell summary and baseline contrast before decision cards', () => {
+    const panel = document.createElement('section');
+
+    renderFeatureComparisonPanel(panel, {
+      date: '2026-01-05',
+      marketRows: marketFixture.rows,
+      models: { smoke: modelFixture, balanced_rule_residual_v22: betaModelFixture },
+      baselineProfile: 'balanced_rule_residual_v22',
+    });
+
+    const text = panel.textContent ?? '';
+    expect(text.indexOf('Buy/Sell Feature Summary')).toBeLessThan(text.indexOf('Selected Decision Features'));
+    expect(text.indexOf('Trade Feature vs Baseline')).toBeLessThan(text.indexOf('Selected Decision Features'));
   });
 
   test('renders selected-date feature snapshot as a lightweight side panel', () => {

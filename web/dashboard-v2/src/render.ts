@@ -313,6 +313,8 @@ export function renderDashboardStatusStrip(container: HTMLElement, manifest: Man
     : referenceProfiles.join(', ') || 'no reference baseline';
   const safeEnd = auto?.model_replay_freshness?.safe_backtest_end ?? manifest.safe_backtest_end;
   const latest = auto?.model_replay_freshness?.latest_data_date ?? manifest.latest_market_date;
+  const replayReadyCount = auto?.model_replay_freshness?.ready_count ?? 0;
+  const replayProfileCount = auto?.model_replay_freshness?.profile_count ?? 0;
   const frontier = manifest.model_retention_frontier;
 
   container.appendChild(
@@ -320,7 +322,7 @@ export function renderDashboardStatusStrip(container: HTMLElement, manifest: Man
       'Auto Update',
       taskTotal ? taskNames : 'not configured',
       taskTotal
-        ? `${profileCountLabel(enabled, taskTotal, 'enabled')} · ${profileCountLabel(loaded, taskTotal, 'loaded')} · ${profileCountLabel(installed, taskTotal, 'installed')}`
+        ? `${profileCountLabel(enabled, taskTotal, 'enabled')} · ${profileCountLabel(loaded, taskTotal, 'loaded')} · ${profileCountLabel(installed, taskTotal, 'installed')} · ${profileCountLabel(replayReadyCount, replayProfileCount, 'replay candidates')}`
         : 'no local refresh task in manifest',
     ),
   );
@@ -916,9 +918,9 @@ export function renderFeatureComparisonPanel(
     ),
   );
   renderFeatureDriverMatrix(container, input.models);
-  renderDecisionFeatureCards(container, input);
   renderFeatureActionSummaryTable(container, input.models);
   renderBaselineFeatureContrastTable(container, input.models, input.baselineProfile ?? Object.keys(input.models)[0] ?? '');
+  renderDecisionFeatureCards(container, input);
   renderRecentEventFeatureTable(container, input.models);
   renderFeatureSchemaTable(container, input.models);
 }
@@ -937,13 +939,13 @@ export function renderFeatureSpotlightPanel(
     ),
   );
   renderFeatureDriverMatrix(container, input.models);
+  renderFeatureActionSummaryTable(container, input.models);
+  renderBaselineFeatureContrastTable(container, input.models, input.baselineProfile ?? Object.keys(input.models)[0] ?? '');
   renderDecisionFeatureCards(container, input);
   const snapshotPanel = element('section', 'feature-date-snapshot');
   snapshotPanel.id = 'feature-date-snapshot';
   renderFeatureSnapshotPanel(snapshotPanel, input);
   container.appendChild(snapshotPanel);
-  renderFeatureActionSummaryTable(container, input.models);
-  renderBaselineFeatureContrastTable(container, input.models, input.baselineProfile ?? Object.keys(input.models)[0] ?? '');
   renderRecentEventFeatureTable(container, input.models);
   renderFeatureSchemaTable(container, input.models);
 }

@@ -15,6 +15,7 @@ import {
   computeVisibleComparison,
   chooseDefaultChartProfile,
   runnableProfileReason,
+  selectableChartProfiles,
 } from './domain';
 import { betaModelFixture, comparisonFixture, manifestFixture, marketFixture, modelFixture } from './testFixtures';
 import { viewUpdateRequiresChartRender, viewUpdateRequiresFeatureRender } from './viewState';
@@ -330,5 +331,31 @@ describe('dashboard v2 domain helpers', () => {
     expect(canRunSelectedWindow(modelFixture)).toBe(true);
     expect(canRunSelectedWindow(baseline)).toBe(true);
     expect(canRunSelectedWindow(evidenceOnly)).toBe(false);
+  });
+
+  test('keeps evidence-only models selectable for chart review even when a runnable baseline is selected', () => {
+    const baseline = {
+      ...modelFixture,
+      profile: 'soxl_backtest_policy_reimplementation_v1',
+      runnable: false,
+      runnable_reason: 'reference_baseline',
+      source_kind: 'soxlbacktest_qlib_buysell',
+    };
+    const evidenceOnly = {
+      ...betaModelFixture,
+      runnable: false,
+      runnable_reason: 'evidence_only_retained_dashboard_export',
+      source_kind: 'retained_dashboard_export',
+    };
+
+    expect(
+      selectableChartProfiles(
+        {
+          soxl_backtest_policy_reimplementation_v1: baseline,
+          balanced_rule_residual_v22: evidenceOnly,
+        },
+        ['soxl_backtest_policy_reimplementation_v1', 'balanced_rule_residual_v22'],
+      ),
+    ).toEqual(['soxl_backtest_policy_reimplementation_v1', 'balanced_rule_residual_v22']);
   });
 });
