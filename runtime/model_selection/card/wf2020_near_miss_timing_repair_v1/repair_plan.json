@@ -1,0 +1,14 @@
+{
+  "accepted_tradeoff": "MaxDD must remain below 20 pct while closing the return gap to the SOXLBacktest buy/sell reference floor.",
+  "baseline": "soxl_backtest_policy_reimplementation_v1",
+  "changed_layer": "selection",
+  "direct_comparison": "fold_frontier_failure_attribution_v1",
+  "external_reference": "soxlbacktest qlib buy/sell baseline",
+  "next_steps": [
+    "patch checkpoint replay notebooks/scripts to persist fold daily paths for ppo_retained_iter_4 and bc_initialization",
+    "rerun fold-aware three-fold replay with daily path export",
+    "only then screen timing overlays or reward changes against exported paths"
+  ],
+  "role": "diagnose",
+  "target_window": "wf_2020"
+}

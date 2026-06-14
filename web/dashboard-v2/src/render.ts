@@ -1,4 +1,9 @@
-import { buildActionFeatureRows, buildBaselineFeatureContrastRows, computeVisibleComparison } from './domain';
+import {
+  buildActionFeatureRows,
+  buildBaselineFeatureContrastRows,
+  buildFeatureSchemaOverlapRows,
+  computeVisibleComparison,
+} from './domain';
 import type { ChartRangeCommand } from './chart';
 import type {
   ComparisonPayload,
@@ -499,15 +504,7 @@ function renderBaselineFeatureContrastTable(
 
 function renderFeatureSchemaTable(container: HTMLElement, models: Record<string, ModelPayload>): void {
   container.appendChild(element('h3', undefined, 'Model Feature Schemas'));
-  const rows = Object.entries(models).map(([profile, model]) => ({
-    profile: model.display_name || profile,
-    source: model.source_kind,
-    runtime: model.runnable ? 'runnable' : `evidence-only: ${model.runnable_reason ?? 'not runnable'}`,
-    signature: model.feature_schema_signature ?? 'n/a',
-    packs: model.feature_packs.length ? model.feature_packs.join(', ') : 'core',
-    snapshotColumns: model.snapshot_columns.slice(0, 10).join(', '),
-    featureCount: model.feature_columns.length,
-  }));
+  const rows = buildFeatureSchemaOverlapRows(models);
   if (!rows.length) {
     container.appendChild(element('p', 'empty-state', 'No selected model schemas.'));
     return;
@@ -516,7 +513,7 @@ function renderFeatureSchemaTable(container: HTMLElement, models: Record<string,
   const table = element('table', 'comparison-table feature-table schema-table');
   const thead = element('thead');
   const headerRow = element('tr');
-  for (const title of ['Model', 'Runtime', 'Schema', 'Feature cols', 'Feature packs', 'Snapshot columns']) {
+  for (const title of ['Model', 'Runtime', 'Schema', 'Cols', 'Shared', 'Model-only', 'Top BUY/SELL']) {
     headerRow.appendChild(element('th', undefined, title));
   }
   thead.appendChild(headerRow);
@@ -525,12 +522,15 @@ function renderFeatureSchemaTable(container: HTMLElement, models: Record<string,
   const tbody = element('tbody');
   for (const row of rows) {
     const tr = element('tr');
-    tr.appendChild(element('td', undefined, row.profile));
-    tr.appendChild(element('td', undefined, `${row.source} · ${row.runtime}`));
-    tr.appendChild(element('td', undefined, row.signature));
-    tr.appendChild(element('td', undefined, String(row.featureCount)));
-    tr.appendChild(element('td', undefined, row.packs));
-    tr.appendChild(element('td', 'feature-snapshot-cell', row.snapshotColumns || 'n/a'));
+    tr.appendChild(element('td', undefined, row.display_name));
+    tr.appendChild(element('td', undefined, `${row.source_kind} · ${row.runtime}`));
+    tr.appendChild(element('td', undefined, `${row.feature_schema_signature} · ${row.feature_schema_source}`));
+    tr.appendChild(element('td', undefined, `${row.feature_count} schema / ${row.snapshot_count} snapshot`));
+    tr.appendChild(element('td', 'feature-snapshot-cell', `${row.shared_count}: ${row.shared_features.join(', ') || 'n/a'}`));
+    tr.appendChild(
+      element('td', 'feature-snapshot-cell', `${row.model_only_count}: ${row.model_only_features.join(', ') || 'n/a'}`),
+    );
+    tr.appendChild(element('td', 'feature-snapshot-cell', row.top_buy_sell_features.join(', ') || 'n/a'));
     tbody.appendChild(tr);
   }
   table.appendChild(tbody);

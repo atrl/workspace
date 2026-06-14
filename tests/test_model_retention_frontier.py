@@ -300,6 +300,12 @@ def test_retention_frontier_uses_sidecar_manifest_paths_as_downstream_handoffs()
         _run_retention_frontier_uses_sidecar_manifest_paths_as_downstream_handoffs(tmp_path)
 
 
+def test_retention_frontier_uses_source_card_sidecar_columns_as_downstream_handoffs():
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp_path = Path(tmp)
+        _run_retention_frontier_uses_source_card_sidecar_columns_as_downstream_handoffs(tmp_path)
+
+
 def _run_retention_frontier_uses_sidecar_manifest_paths_as_downstream_handoffs(tmp_path: Path) -> None:
     from src.soxl_quant.app.model_retention_frontier import scan_model_retention_frontier
 
@@ -356,6 +362,62 @@ def _run_retention_frontier_uses_sidecar_manifest_paths_as_downstream_handoffs(t
     assert by_experiment["child_screen"]["primary_blocker"] == "completed_handoff"
     assert by_experiment["child_screen"]["handoff_completed_by"] == "aggregate_screen"
     assert by_experiment["aggregate_screen"]["frontier_rank"] == 1
+
+
+def _run_retention_frontier_uses_source_card_sidecar_columns_as_downstream_handoffs(tmp_path: Path) -> None:
+    from src.soxl_quant.app.model_retention_frontier import scan_model_retention_frontier
+
+    _write_json(
+        tmp_path / "runtime" / "model_selection" / "card" / "model_retention_walkforward_gate_v1" / "summary.json",
+        {
+            "summary": {
+                "required_best_return_pct": 213.14,
+                "reference_return_pct": 132.08,
+                "max_walkforward_drawdown_pct": 20.0,
+                "required_wf_windows": ["wf_2020", "wf_2022", "wf_2023_2024"],
+            }
+        },
+    )
+    _write_json(
+        tmp_path / "runtime" / "model_selection" / "card" / "metric_handoff" / "summary.json",
+        {
+            "experiment": "metric_handoff",
+            "decision": "metric_replay_handoff_completed_no_promotion",
+            "promotion_allowed": False,
+            "selected_by_fold": {
+                "wf_2020": {"selected_max_dd": 14.0, "selected_relative_return": -10.0},
+                "wf_2022": {"selected_max_dd": 18.0, "selected_relative_return": 40.0},
+                "wf_2023_2024": {"selected_max_dd": 10.0, "selected_relative_return": 35.0},
+            },
+            "target_relative_return_pp": 30.0,
+            "next_mechanism": "inspect_metric_gap",
+        },
+    )
+    _write_json(
+        tmp_path / "runtime" / "model_selection" / "card" / "fold_attribution" / "summary.json",
+        {
+            "experiment": "fold_attribution",
+            "decision": "fold_frontier_gap_diagnosed",
+            "promotion_allowed": False,
+            "next_mechanism": "export_checkpoint_daily_paths",
+        },
+    )
+    _write_csv(
+        tmp_path / "runtime" / "model_selection" / "card" / "fold_attribution" / "normalized_candidate_frontier.csv",
+        [
+            {
+                "source_card": "metric_handoff",
+                "source_file": "runtime/model_selection/card/metric_handoff/checkpoint_candidate_metrics.csv",
+                "candidate": "ppo_retained_iter_4",
+            }
+        ],
+    )
+
+    result = scan_model_retention_frontier(root=tmp_path)
+    by_experiment = {row["experiment"]: row for row in result["rows"]}
+
+    assert by_experiment["metric_handoff"]["primary_blocker"] == "completed_handoff"
+    assert by_experiment["metric_handoff"]["handoff_completed_by"] == "fold_attribution"
 
 
 def test_retention_frontier_uses_selection_sidecar_lineage_as_downstream_handoff():

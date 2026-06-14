@@ -155,6 +155,7 @@ export interface ModelPayload {
   feature_packs: string[];
   feature_columns: string[];
   feature_schema_signature?: string;
+  feature_schema_source?: string;
   snapshot_columns: string[];
   source_path: string;
   replay_start: string;
@@ -231,6 +232,22 @@ export interface BaselineFeatureContrastRow {
   value: FeatureValue;
   baseline_value: FeatureValue;
   delta: number | null;
+}
+
+export interface FeatureSchemaOverlapRow {
+  profile: string;
+  display_name: string;
+  source_kind: string;
+  runtime: string;
+  feature_schema_signature: string;
+  feature_schema_source: string;
+  feature_count: number;
+  snapshot_count: number;
+  shared_count: number;
+  model_only_count: number;
+  shared_features: string[];
+  model_only_features: string[];
+  top_buy_sell_features: string[];
 }
 
 export interface ActionMarker {

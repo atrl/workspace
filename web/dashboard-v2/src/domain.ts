@@ -4,6 +4,7 @@ import type {
   BaselineFeatureContrastRow,
   ComparisonPayload,
   ComparisonRow,
+  FeatureSchemaOverlapRow,
   InspectorRow,
   Manifest,
   MarketPayload,
@@ -315,6 +316,63 @@ export function buildBaselineFeatureContrastRows(input: {
   return contrastRows
     .sort((left, right) => right.date.localeCompare(left.date) || left.display_name.localeCompare(right.display_name))
     .slice(0, maxRows);
+}
+
+function modelRuntimeLabel(model: ModelPayload): string {
+  if (model.runnable) return 'runnable';
+  if (model.runnable_reason === 'reference_baseline' || model.source_kind === 'soxlbacktest_qlib_buysell') {
+    return 'reference baseline';
+  }
+  return model.runnable_reason ? model.runnable_reason.replaceAll('_', ' ') : 'evidence only';
+}
+
+function topBuySellFeatureLabels(model: ModelPayload, limit: number): string[] {
+  return [...(model.feature_action_summary ?? [])]
+    .sort((left, right) => {
+      const leftScore = Math.abs(left.buy_minus_sell ?? 0);
+      const rightScore = Math.abs(right.buy_minus_sell ?? 0);
+      return rightScore - leftScore || left.feature.localeCompare(right.feature);
+    })
+    .slice(0, limit)
+    .map((row) => row.feature);
+}
+
+export function buildFeatureSchemaOverlapRows(
+  models: Record<string, ModelPayload>,
+  options: { featureNameLimit?: number; topBuySellLimit?: number } = {},
+): FeatureSchemaOverlapRow[] {
+  const entries = Object.entries(models);
+  const featureNameLimit = options.featureNameLimit ?? 8;
+  const topBuySellLimit = options.topBuySellLimit ?? 4;
+  const featureSets = new Map(
+    entries.map(([profile, model]) => [profile, new Set(model.feature_columns.length ? model.feature_columns : model.snapshot_columns)]),
+  );
+
+  return entries.map(([profile, model]) => {
+    const featureSet = featureSets.get(profile) ?? new Set<string>();
+    const otherFeatures = new Set<string>();
+    for (const [otherProfile, otherSet] of featureSets.entries()) {
+      if (otherProfile === profile) continue;
+      for (const feature of otherSet) otherFeatures.add(feature);
+    }
+    const shared = [...featureSet].filter((feature) => otherFeatures.has(feature)).sort();
+    const modelOnly = [...featureSet].filter((feature) => !otherFeatures.has(feature)).sort();
+    return {
+      profile,
+      display_name: model.display_name || profile,
+      source_kind: model.source_kind,
+      runtime: modelRuntimeLabel(model),
+      feature_schema_signature: model.feature_schema_signature ?? 'n/a',
+      feature_schema_source: model.feature_schema_source ?? 'n/a',
+      feature_count: featureSet.size,
+      snapshot_count: model.snapshot_columns.length,
+      shared_count: shared.length,
+      model_only_count: modelOnly.length,
+      shared_features: shared.slice(0, featureNameLimit),
+      model_only_features: modelOnly.slice(0, featureNameLimit),
+      top_buy_sell_features: topBuySellFeatureLabels(model, topBuySellLimit),
+    };
+  });
 }
 
 export function computeVisibleComparison(

@@ -1,0 +1,50 @@
+{
+  "summary": {
+    "actor_retention_allowed": false,
+    "available_daily_path_gate_pass_count": 0,
+    "available_daily_paths_screened": 7,
+    "best_available_official_daily_path": {
+      "avg_position": 0.18278215054196184,
+      "buyhold_return_pct": 58.093570616483994,
+      "end": "2020-12-30",
+      "max_dd_gap_pct": -5.168136692605357,
+      "max_dd_pct": 14.831863307394643,
+      "path": "runtime/model_selection/card/return_preserving_hybrid_target_bc_replay_v1/hybrid_blend_nonrisk_50__participation_balanced_weight_wf_2020_official_daily_path.csv",
+      "relative_return_pp": -43.62723987389943,
+      "return_pct": 14.466330742584566,
+      "rows": 252,
+      "source_card": "return_preserving_hybrid_target_bc_replay_v1",
+      "start": "2020-01-02",
+      "wf2020_gate_pass": false,
+      "wf2020_return_gap_pp": 55.13822082592359
+    },
+    "best_existing_maxdd_safe_checkpoint": {
+      "candidate": "bc_initialization",
+      "max_dd_pct": 15.489487944520992,
+      "return_gap_pp": 14.006591882815384,
+      "return_pct": 55.59795968569277,
+      "source_card": "bull_reentry_three_fold_checkpoint_metric_replay_v1"
+    },
+    "checkpoint_actor_available": false,
+    "checkpoint_near_miss_daily_path_available": false,
+    "dashboard_implication": "do_not_offer_interactive_rerun_for_models_without_retained_actor_or_daily_path",
+    "decision": "wf2020_timing_repair_requires_checkpoint_daily_path_export",
+    "direct_comparison_baseline": "fold_frontier_failure_attribution_v1",
+    "experiment": "wf2020_near_miss_timing_repair_v1",
+    "generated_at": "2026-06-14T02:09:36+00:00",
+    "highest_checkpoint_near_miss": {
+      "candidate": "ppo_retained_iter_4",
+      "max_dd_gap_pct": 0.9182850870956828,
+      "max_dd_pct": 20.918285087095683,
+      "return_gap_pp": 8.280501978564274,
+      "return_pct": 61.32404958994388,
+      "source_card": "cap10_three_fold_checkpoint_metric_replay_v2"
+    },
+    "next_mechanism": "export_checkpoint_near_miss_daily_paths_then_rerun_timing_overlay_screen",
+    "promotion_allowed": false,
+    "source_card": "fold_frontier_failure_attribution_v1",
+    "target_max_dd_pct": 20.0,
+    "training_allowed_from_this_card": false,
+    "wf2020_reference_floor_return_pct": 69.60455156850816
+  }
+}

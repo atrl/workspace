@@ -158,6 +158,10 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.textContent).toContain('balanced_rule_residual_v22');
     expect(panel.textContent).toContain('alpha123');
     expect(panel.textContent).toContain('beta456');
+    expect(panel.textContent).toContain('Model-only');
+    expect(panel.textContent).toContain('1: alpha_signal');
+    expect(panel.textContent).toContain('1: beta_signal');
+    expect(panel.textContent).toContain('1: shared_feature');
     expect(panel.textContent).toContain('alpha_signal 1.25');
     expect(panel.textContent).toContain('beta_signal -2.50');
     expect(panel.textContent).toContain('Buy/Sell Feature Summary');

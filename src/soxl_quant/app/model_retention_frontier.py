@@ -86,13 +86,24 @@ def _source_references(payload: dict[str, Any], known_experiments: set[str]) -> 
 
 def _sidecar_manifest_references(card_dir: Path, known_experiments: set[str]) -> list[str]:
     references: set[str] = set()
-    for path in sorted(card_dir.glob("*manifest*.csv")):
+    paths = sorted({*card_dir.glob("*manifest*.csv"), *card_dir.glob("*frontier*.csv")})
+    for path in paths:
         try:
             frame = pd.read_csv(path)
         except (OSError, pd.errors.EmptyDataError, UnicodeDecodeError):
             continue
         for column in frame.columns:
-            if column not in {"path", "source_path", "source", "source_label", "candidate", "mechanism", "variant"}:
+            if column not in {
+                "path",
+                "source_path",
+                "source",
+                "source_card",
+                "source_file",
+                "source_label",
+                "candidate",
+                "mechanism",
+                "variant",
+            }:
                 continue
             for value in frame[column].dropna().astype(str):
                 for experiment in known_experiments:

@@ -2,6 +2,7 @@ import { describe, expect, test } from 'vitest';
 import {
   buildActionFeatureRows,
   buildBaselineFeatureContrastRows,
+  buildFeatureSchemaOverlapRows,
   buildActionMarkers,
   clampComparisonProfiles,
   clipRowsByDate,
@@ -128,6 +129,28 @@ describe('dashboard v2 domain helpers', () => {
       profile: 'smoke',
       baseline_value: null,
       delta: null,
+    });
+  });
+
+  test('builds feature schema overlap rows with model-only and shared features', () => {
+    const rows = buildFeatureSchemaOverlapRows(
+      { smoke: modelFixture, balanced_rule_residual_v22: betaModelFixture },
+      { featureNameLimit: 5 },
+    );
+    const smoke = rows.find((row) => row.profile === 'smoke');
+    const beta = rows.find((row) => row.profile === 'balanced_rule_residual_v22');
+
+    expect(smoke).toMatchObject({
+      shared_count: 1,
+      model_only_count: 1,
+      shared_features: ['shared_feature'],
+      model_only_features: ['alpha_signal'],
+      top_buy_sell_features: ['alpha_signal', 'shared_feature'],
+    });
+    expect(beta).toMatchObject({
+      shared_features: ['shared_feature'],
+      model_only_features: ['beta_signal'],
+      runtime: 'runnable',
     });
   });
 

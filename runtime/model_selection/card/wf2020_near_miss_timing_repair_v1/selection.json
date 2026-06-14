@@ -1,0 +1,12 @@
+{
+  "decision": "wf2020_timing_repair_requires_checkpoint_daily_path_export",
+  "direct_comparison_baseline": "fold_frontier_failure_attribution_v1",
+  "experiment": "wf2020_near_miss_timing_repair_v1",
+  "reason": "The highest wf_2020 checkpoint near-miss has no persisted daily path or actor artifact, so timing repair cannot be validated as a retained model yet.",
+  "selected": null,
+  "source_paths": {
+    "available_daily_path_metrics": "runtime/model_selection/card/wf2020_near_miss_timing_repair_v1/available_daily_path_metrics.csv",
+    "candidate_availability": "runtime/model_selection/card/wf2020_near_miss_timing_repair_v1/candidate_availability.csv",
+    "near_miss": "runtime/model_selection/card/fold_frontier_failure_attribution_v1/wf2020_near_miss.csv"
+  }
+}

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-14T01:51:18.184541+00:00",
+  "generated_at": "2026-06-14T02:11:22.538999+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -5897,19 +5897,19 @@
       "path": "runtime/model_selection/card/model_retention_frontier_v1/conclusion.md",
       "category": "model_selection",
       "suffix": ".md",
-      "bytes": 532
+      "bytes": 543
     },
     {
       "path": "runtime/model_selection/card/model_retention_frontier_v1/retention_frontier.csv",
       "category": "model_selection",
       "suffix": ".csv",
-      "bytes": 40279
+      "bytes": 41216
     },
     {
       "path": "runtime/model_selection/card/model_retention_frontier_v1/summary.json",
       "category": "model_selection",
       "suffix": ".json",
-      "bytes": 107685
+      "bytes": 109259
     },
     {
       "path": "runtime/model_selection/card/model_retention_walkforward_gate_v1/conclusion.md",
@@ -11556,6 +11556,42 @@
       "category": "model_selection",
       "suffix": ".csv",
       "bytes": 1283
+    },
+    {
+      "path": "runtime/model_selection/card/wf2020_near_miss_timing_repair_v1/available_daily_path_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2688
+    },
+    {
+      "path": "runtime/model_selection/card/wf2020_near_miss_timing_repair_v1/candidate_availability.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 3245
+    },
+    {
+      "path": "runtime/model_selection/card/wf2020_near_miss_timing_repair_v1/conclusion.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 672
+    },
+    {
+      "path": "runtime/model_selection/card/wf2020_near_miss_timing_repair_v1/repair_plan.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 694
+    },
+    {
+      "path": "runtime/model_selection/card/wf2020_near_miss_timing_repair_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 778
+    },
+    {
+      "path": "runtime/model_selection/card/wf2020_near_miss_timing_repair_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2264
     },
     {
       "path": "runtime/model_selection/card/wf2020_reference_floor_gate_calibration_v1/conclusion.md",

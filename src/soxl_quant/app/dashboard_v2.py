@@ -38,6 +38,19 @@ DASHBOARD_TASK_LABELS = {
 }
 MODEL_DATE_FIELDS = ("datetime", "date")
 REQUIRED_MODEL_FIELDS = ("strategy_nav", "buyhold_nav", "position", "action", "price")
+MODEL_NON_FEATURE_FIELDS = {
+    *MODEL_DATE_FIELDS,
+    *REQUIRED_MODEL_FIELDS,
+    "window",
+    "excess",
+    "excess_pct",
+    "feature_snapshot",
+    "open",
+    "high",
+    "low",
+    "close",
+    "volume",
+}
 ACTION_VALUES = {"BUY", "SELL", "HOLD"}
 SELL_ACTION_ALIASES = {"TAKE_PROFIT", "STOP_LOSS", "STOP", "TRIM", "REDUCE"}
 REFERENCE_FEATURE_PACKS = ("soxlbacktest_qlib_buysell_reference",)
@@ -302,6 +315,7 @@ def _feature_metadata(root: Path, profile_name: str, source: dict[str, Any]) -> 
             "feature_packs": list(REFERENCE_FEATURE_PACKS),
             "feature_columns": columns,
             "feature_schema_signature": _schema_signature(columns),
+            "feature_schema_source": "reference_schema",
         }
 
     try:
@@ -331,6 +345,7 @@ def _feature_metadata(root: Path, profile_name: str, source: dict[str, Any]) -> 
         "feature_packs": packs,
         "feature_columns": columns,
         "feature_schema_signature": _schema_signature(columns),
+        "feature_schema_source": "profile_yaml" if columns else "missing_profile_schema",
     }
     if feature_error:
         metadata["feature_error"] = feature_error
@@ -373,6 +388,52 @@ def _feature_snapshot(row: dict[str, Any] | None, columns: list[str]) -> dict[st
     if not row:
         return {}
     return {column: row[column] for column in columns if column in row}
+
+
+def _feature_snapshot_from_source_row(source: pd.Series) -> FeatureSnapshot:
+    nested = source.get("feature_snapshot")
+    if isinstance(nested, dict):
+        snapshot = {
+            str(key): _json_feature_value(value)
+            for key, value in nested.items()
+            if _json_feature_value(value) is not None
+        }
+        if snapshot:
+            return snapshot
+
+    snapshot: FeatureSnapshot = {}
+    for key, value in source.items():
+        column = str(key)
+        if column in MODEL_NON_FEATURE_FIELDS:
+            continue
+        json_value = _json_feature_value(value)
+        if json_value is not None:
+            snapshot[column] = json_value
+    return snapshot
+
+
+def _feature_columns_from_model_rows(rows: list[dict[str, Any]]) -> list[str]:
+    columns: list[str] = []
+    for row in rows:
+        snapshot = row.get("feature_snapshot")
+        if not isinstance(snapshot, dict):
+            continue
+        for column, value in snapshot.items():
+            if value is not None and column not in columns:
+                columns.append(str(column))
+    return columns
+
+
+def _feature_rows_from_model_rows(rows: list[dict[str, Any]]) -> FeatureRowsByDate:
+    feature_rows: FeatureRowsByDate = {}
+    for row in rows:
+        snapshot = row.get("feature_snapshot")
+        if not isinstance(snapshot, dict) or not snapshot:
+            continue
+        date = str(row.get("date") or "")
+        if date:
+            feature_rows[date] = {str(key): value for key, value in snapshot.items() if value is not None}
+    return feature_rows
 
 
 def _json_feature_value(value: object) -> str | int | float | bool | None:
@@ -546,8 +607,15 @@ def _derive_model_events_with_features(
     model_feature_rows_by_date: FeatureRowsByDate | None = None,
 ) -> list[dict[str, Any]]:
     events = derive_model_events(rows)
+    rows_by_date = {str(row["date"]): row for row in rows}
     for event in events:
         date = str(event["date"])
+        row_snapshot_source = rows_by_date.get(date, {}).get("feature_snapshot")
+        if isinstance(row_snapshot_source, dict):
+            event_snapshot = _feature_snapshot(row_snapshot_source, snapshot_columns)
+            if event_snapshot:
+                event["feature_snapshot"] = event_snapshot
+                continue
         model_snapshot = _feature_snapshot((model_feature_rows_by_date or {}).get(date), snapshot_columns)
         event["feature_snapshot"] = model_snapshot or _feature_snapshot(market_rows_by_date.get(date), snapshot_columns)
     return events
@@ -563,7 +631,10 @@ def _attach_row_feature_snapshots(
     enriched: list[dict[str, Any]] = []
     for row in rows:
         date = str(row["date"])
-        model_snapshot = _feature_snapshot((model_feature_rows_by_date or {}).get(date), snapshot_columns)
+        row_snapshot = row.get("feature_snapshot") if isinstance(row.get("feature_snapshot"), dict) else None
+        model_snapshot = _feature_snapshot(row_snapshot, snapshot_columns)
+        if not model_snapshot:
+            model_snapshot = _feature_snapshot((model_feature_rows_by_date or {}).get(date), snapshot_columns)
         snapshot = model_snapshot or _feature_snapshot(market_rows_by_date.get(date), snapshot_columns)
         enriched.append({**row, "feature_snapshot": snapshot})
     return enriched
@@ -929,22 +1000,24 @@ def _normalize_model_frame(
         position = _as_float(source["position"], "position", idx)
         price = _as_float(source["price"], "price", idx)
         action = _normalize_action(source.get("action"))
+        source_feature_snapshot = _feature_snapshot_from_source_row(source)
         if first_strategy_nav is None:
             first_strategy_nav = strategy_nav
         excess = strategy_nav - buyhold_nav
         excess_pct = (strategy_nav / first_strategy_nav - 1.0) if first_strategy_nav else 0.0
-        rows.append(
-            {
-                "date": source[date_field].strftime("%Y-%m-%d"),
-                "strategy_nav": strategy_nav,
-                "buyhold_nav": buyhold_nav,
-                "position": position,
-                "action": action,
-                "price": price,
-                "excess": excess,
-                "excess_pct": excess_pct,
-            }
-        )
+        row = {
+            "date": source[date_field].strftime("%Y-%m-%d"),
+            "strategy_nav": strategy_nav,
+            "buyhold_nav": buyhold_nav,
+            "position": position,
+            "action": action,
+            "price": price,
+            "excess": excess,
+            "excess_pct": excess_pct,
+        }
+        if source_feature_snapshot:
+            row["feature_snapshot"] = source_feature_snapshot
+        rows.append(row)
     if not rows:
         raise ValueError(f"no replay rows remain after safe_backtest_end filter: {path_label}")
     return rows
@@ -1207,17 +1280,44 @@ def build_dashboard_v2_data(
         feature_metadata = _feature_metadata(root, profile_name, source)
         model_feature_rows = model_feature_rows_by_profile.get(profile_name)
         feature_snapshot_error = None
+        inline_feature_rows = _feature_rows_from_model_rows(rows)
+        if inline_feature_rows:
+            model_feature_rows = inline_feature_rows
+            feature_metadata = {
+                **feature_metadata,
+                "feature_schema_source": "replay_inline_snapshot"
+                if not feature_metadata.get("feature_columns")
+                else f"{feature_metadata.get('feature_schema_source')};replay_inline_snapshot",
+            }
         if model_feature_rows is None:
             model_feature_rows, feature_snapshot_error = _load_model_feature_rows(
                 profile_name,
                 feature_metadata,
                 root / "data" / "qlib" / "soxl",
             )
+            if model_feature_rows:
+                feature_metadata = {
+                    **feature_metadata,
+                    "feature_schema_source": f"{feature_metadata.get('feature_schema_source')};qlib_feature_frame",
+                }
+        inferred_columns = _model_feature_columns(model_feature_rows)
+        if not feature_metadata.get("feature_columns") and inferred_columns:
+            inferred_source = str(feature_metadata.get("feature_schema_source") or "")
+            feature_metadata = {
+                **feature_metadata,
+                "feature_columns": inferred_columns,
+                "feature_schema_signature": _schema_signature(inferred_columns),
+                "feature_schema_source": "replay_inline_snapshot"
+                if "replay_inline_snapshot" in inferred_source
+                else "inferred_snapshot",
+            }
         snapshot_columns = _snapshot_columns_for_model(
             [str(column) for column in feature_metadata.get("feature_columns", [])],
             market_payload_rows,
             model_feature_rows,
         )
+        if not snapshot_columns and inferred_columns:
+            snapshot_columns = inferred_columns
         enriched_rows = _attach_row_feature_snapshots(
             rows,
             market_rows_by_date=market_rows_by_date,
