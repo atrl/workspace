@@ -124,7 +124,16 @@ export interface ChartHandles {
   primarySeries: ISeriesApi<'Candlestick'> | ISeriesApi<'Line'>;
 }
 
-export type ChartRangeCommand = 'zoom_in' | 'zoom_out' | 'pan_left' | 'pan_right' | 'reset' | 'latest';
+export type ChartRangeCommand =
+  | 'zoom_in'
+  | 'zoom_out'
+  | 'pan_left'
+  | 'pan_right'
+  | 'reset'
+  | 'latest'
+  | 'last_60'
+  | 'last_120'
+  | 'last_250';
 export type ChartRangeTarget = IChartApi;
 export type ChartDateInteraction = 'hover' | 'select';
 
@@ -146,6 +155,7 @@ const TRADING_VIEW_INTERACTION_OPTIONS = {
 
 const HOVER_UPDATE_THROTTLE_MS = 64;
 const chartByContainer = new WeakMap<HTMLElement, IChartApi>();
+const rowCountByChart = new WeakMap<IChartApi, number>();
 
 function exposeChartDebug(name: string, payload: Record<string, unknown>): void {
   if (!window.location.search.includes('debugChart=1')) return;
@@ -161,14 +171,23 @@ function exposeChartDebug(name: string, payload: Record<string, unknown>): void 
 function resetChartContainer(container: HTMLElement): void {
   const previousChart = chartByContainer.get(container);
   if (previousChart) {
+    rowCountByChart.delete(previousChart);
     previousChart.remove();
     chartByContainer.delete(container);
   }
   container.replaceChildren();
 }
 
-function registerChart(container: HTMLElement, chart: IChartApi): void {
+function registerChart(container: HTMLElement, chart: IChartApi, rowCount: number): void {
   chartByContainer.set(container, chart);
+  rowCountByChart.set(chart, rowCount);
+}
+
+function barCountForCommand(command: ChartRangeCommand): number | null {
+  if (command === 'last_60') return 60;
+  if (command === 'last_120') return 120;
+  if (command === 'last_250') return 250;
+  return null;
 }
 
 export function syncVisibleLogicalRange(source: IChartApi, targets: IChartApi[]): () => void {
@@ -222,6 +241,21 @@ export function applyChartRangeCommand(charts: readonly ChartRangeTarget[], comm
   }
   if (command === 'latest') {
     for (const chart of charts) chart.timeScale().scrollToRealTime();
+    return;
+  }
+
+  const fixedBarCount = barCountForCommand(command);
+  if (fixedBarCount !== null) {
+    for (const chart of charts) {
+      const rowCount = rowCountByChart.get(chart);
+      const fallbackRange = chart.timeScale().getVisibleLogicalRange();
+      const to = rowCount ?? (fallbackRange ? Number(fallbackRange.to) : 0);
+      if (to <= 0) continue;
+      chart.timeScale().setVisibleLogicalRange({
+        from: Math.max(0, to - fixedBarCount),
+        to,
+      });
+    }
     return;
   }
 
@@ -329,8 +363,8 @@ export function renderMarketChart(
     timeScale: { borderColor: '#374151', timeVisible: false },
     crosshair: { mode: 1 },
   });
-  registerChart(container, chart);
   const priceRows = mergePriceRows(market.rows, model.rows);
+  registerChart(container, chart, priceRows.length || model.rows.length);
   const priceAutoscale = fixedAutoscaleInfo(priceRangeFromRows(priceRows), { above: 24, below: 16 });
   const candleSeries = chart.addSeries(CandlestickSeries, {
     upColor: '#0f766e',
@@ -400,7 +434,7 @@ export function renderPositionChart(
     rightPriceScale: { borderColor: '#374151', mode: PriceScaleMode.Normal },
     timeScale: { borderColor: '#374151' },
   });
-  registerChart(container, chart);
+  registerChart(container, chart, model.rows.length);
   const line = chart.addSeries(LineSeries, { color: '#38bdf8', lineWidth: 2 });
   line.setData(model.rows.map((row) => ({ time: toTime(row.date), value: row.position })));
   wireDateEvents(chart, onDate);
@@ -423,7 +457,11 @@ export function renderNavChart(
     rightPriceScale: { borderColor: '#374151', mode: PriceScaleMode.Normal },
     timeScale: { borderColor: '#374151' },
   });
-  registerChart(container, chart);
+  registerChart(
+    container,
+    chart,
+    Math.max(0, ...Object.values(models).map((model) => model.rows.length)),
+  );
   const buyholdSource = (baselineProfile ? models[baselineProfile] : undefined) ?? Object.values(models)[0];
   if (buyholdSource) {
     const buyholdSeries = chart.addSeries(LineSeries, {

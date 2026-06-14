@@ -367,6 +367,12 @@ const CHART_COMMANDS: readonly { command: ChartRangeCommand; label: string; icon
   { command: 'latest', label: 'Follow latest', icon: '>|', shortcut: 'End' },
 ];
 
+const CHART_BAR_WINDOWS: readonly { command: ChartRangeCommand; label: string; icon: string; shortcut: string }[] = [
+  { command: 'last_60', label: 'Show last 60 bars', icon: '60', shortcut: '60' },
+  { command: 'last_120', label: 'Show last 120 bars', icon: '120', shortcut: '120' },
+  { command: 'last_250', label: 'Show last 250 bars', icon: '250', shortcut: '250' },
+];
+
 const CHART_CLICK_MODES: readonly { mode: ChartClickMode; label: string; icon: string; shortcut: string }[] = [
   { mode: 'inspect', label: 'Inspect candles', icon: 'I', shortcut: 'Esc' },
   { mode: 'set_start', label: 'Click chart to set Start', icon: '[', shortcut: 'S' },
@@ -391,6 +397,16 @@ export function renderChartCommandBar(
     modeGroup.appendChild(button);
   }
   container.appendChild(modeGroup);
+  const barWindowGroup = element('div', 'chart-range-command-group');
+  for (const item of CHART_BAR_WINDOWS) {
+    const button = element('button', 'chart-command-button chart-bars-button', item.icon);
+    button.type = 'button';
+    button.title = `${item.label} (${item.shortcut})`;
+    button.setAttribute('aria-label', item.label);
+    button.addEventListener('click', () => onCommand(item.command));
+    barWindowGroup.appendChild(button);
+  }
+  container.appendChild(barWindowGroup);
   for (const item of CHART_COMMANDS) {
     const button = element('button', 'chart-command-button', item.icon);
     button.type = 'button';

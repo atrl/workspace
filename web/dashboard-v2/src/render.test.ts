@@ -274,16 +274,20 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.querySelector('[aria-label="Click chart to set Start"]')?.getAttribute('data-active')).toBe('true');
     expect(panel.querySelector('[aria-label="Click chart to set End"]')?.getAttribute('data-active')).toBe('false');
     expect(panel.querySelector('[aria-label="Zoom in"]')?.getAttribute('title')).toBe('Zoom in (+/=)');
+    expect(panel.querySelector('[aria-label="Show last 60 bars"]')?.getAttribute('title')).toBe('Show last 60 bars (60)');
+    expect(panel.querySelector('[aria-label="Show last 120 bars"]')?.getAttribute('title')).toBe('Show last 120 bars (120)');
+    expect(panel.querySelector('[aria-label="Show last 250 bars"]')?.getAttribute('title')).toBe('Show last 250 bars (250)');
     expect(panel.querySelector('[aria-label="Follow latest"]')?.getAttribute('title')).toBe('Follow latest (End)');
     expect(panel.querySelector('[aria-label="Click chart to set Start"]')?.getAttribute('title')).toBe(
       'Click chart to set Start (S)',
     );
 
     (panel.querySelector('[aria-label="Click chart to set End"]') as HTMLButtonElement).click();
+    (panel.querySelector('[aria-label="Show last 60 bars"]') as HTMLButtonElement).click();
     (panel.querySelector('[aria-label="Zoom in"]') as HTMLButtonElement).click();
 
     expect(modes).toEqual(['set_end']);
-    expect(commands).toEqual(['zoom_in']);
+    expect(commands).toEqual(['last_60', 'zoom_in']);
   });
 
   test('renders model-specific buy and sell feature comparison rows', () => {

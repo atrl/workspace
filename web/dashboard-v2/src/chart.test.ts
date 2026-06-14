@@ -246,6 +246,16 @@ describe('dashboard v2 chart rendering', () => {
     expect(chartMocks.timeScaleApi.scrollToRealTime).toHaveBeenCalled();
   });
 
+  test('jumps rendered charts to the latest fixed bar windows', () => {
+    const marketHandle = renderMarketChart(document.createElement('div'), marketFixture, modelFixture, () => {});
+    const positionHandle = renderPositionChart(document.createElement('div'), modelFixture);
+
+    applyChartRangeCommand([marketHandle.chart, positionHandle.chart], 'last_60');
+
+    expect(chartMocks.timeScaleApi.setVisibleLogicalRange).toHaveBeenCalledWith({ from: 0, to: 3 });
+    expect(chartMocks.timeScaleApi.setVisibleLogicalRange).toHaveBeenCalledTimes(2);
+  });
+
   test('synchronizes logical ranges from any linked chart and cleans up subscriptions', () => {
     const callbacks: ((range: { from: number; to: number } | null) => void)[] = [];
     const makeChart = () => {

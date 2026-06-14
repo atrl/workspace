@@ -257,6 +257,29 @@ Chart silently falls back to the current ETF rows and shows a wrong window.
 The converted `soxl_backtest_policy_reimplementation_v1` buy/sell path is a
 `reference_baseline` dashboard version, not a runnable inference profile.
 
+### Dashboard V2 TradingView-Style Interactions
+
+For `web/dashboard-v2`, TradingView-like interaction means visible controls and
+fast chart gestures, not only hidden keyboard shortcuts:
+
+- Use `lightweight-charts` with candles, a separate SOXL close line, and a
+  position overlay so incomplete OHLC enrichment never hides price/position.
+- Keep mouse wheel zoom, drag/kinetic pan, touch drag, pinch zoom, axis drag,
+  and crosshair events enabled through shared chart options.
+- Expose visible chart controls for inspect mode, click-to-set Start/End,
+  zoom in/out, pan left/right, reset, follow latest, and latest fixed-bar
+  windows such as 60/120/250 bars.
+- Apply latest fixed-bar commands from retained per-chart row counts, not the
+  current visible range, so a panned chart jumps to the actual latest bars.
+- Synchronize logical ranges across Main, Position, and NAV charts without
+  echoing unchanged ranges back across linked charts.
+- Throttle hover/crosshair updates with `requestAnimationFrame` and avoid
+  repeatedly registering chart handlers on every render; repeated hover scans
+  were a known source of frozen mouse interaction.
+- Add or update `web/dashboard-v2/src/chart.test.ts`,
+  `web/dashboard-v2/src/render.test.ts`, and Playwright/DOM screenshot checks
+  whenever changing chart controls.
+
 For qlib-backed dashboard v2 models, `runnable=true` requires both a retained
 profile and the referenced actor artifact to exist in the current checkout.
 Disable missing-actor profiles with `runnable_reason=missing_actor_artifact`

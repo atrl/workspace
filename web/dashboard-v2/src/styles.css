@@ -257,6 +257,18 @@ h2 {
   border-right: 1px solid #374151;
 }
 
+.chart-range-command-group {
+  display: inline-flex;
+  gap: 2px;
+  padding-right: 6px;
+  margin-right: 2px;
+  border-right: 1px solid #374151;
+}
+
+.chart-bars-button {
+  min-width: 44px;
+}
+
 .chart-mode-button[data-active="true"] {
   color: #111827;
   border-color: #38bdf8;
