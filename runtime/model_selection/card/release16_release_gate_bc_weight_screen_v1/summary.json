@@ -1,0 +1,197 @@
+{
+  "acceptance_criteria": [
+    "baseline current weighting is recomputed",
+    "all three walk-forward folds are screened",
+    "selected config passes all required global and release-gate slice gates",
+    "no actor is retained or promoted from this diagnostic screen"
+  ],
+  "actor_retention_allowed": false,
+  "baseline_summary": {
+    "all_required_gate": false,
+    "avg_after_loss": 1.1276285756953002,
+    "config_id": "baseline_current",
+    "min_all_accuracy": 0.7249343832020997,
+    "min_release_accuracy": 0.36363636363636365,
+    "release_fail_count": 1,
+    "required_fail_count": 1,
+    "score": -57.51464838003793
+  },
+  "canonical_baseline": "soxlbacktest_policy_reimplementation_v1",
+  "changed_layer": [
+    "model_selection",
+    "bc_loss_weighting"
+  ],
+  "closest_historical_failure_case": "release16_checkpoint_distillation_bc_readiness_v1 failed wf_2023_2024 release_gate_state with 0.3636 accuracy and single-action prediction collapse.",
+  "closest_historical_success_case": "release16_rulebase_reversal_drawdown_upside_checkpoint_metric_replay_v1 selected bc_initialization passed wf_2022 candidate gate with MaxDD 15.6170 and relative return 71.715 pp.",
+  "comparison_table_row_key": "release16_release_gate_bc_weight_screen_v1",
+  "conclusion": "A deterministic BC weighting config fixes the release-gate slice screen; next step is official BC walk-forward replay before any PPO or actor retention.",
+  "config_summary": [
+    {
+      "all_required_gate": true,
+      "avg_after_loss": 1.1983738904033858,
+      "config_id": "release64_no_objective",
+      "min_all_accuracy": 0.65249343832021,
+      "min_release_accuracy": 0.8181818181818182,
+      "release_fail_count": 0,
+      "required_fail_count": 0,
+      "score": 10087.14474231098
+    },
+    {
+      "all_required_gate": true,
+      "avg_after_loss": 1.186891000173287,
+      "config_id": "release64_downtrend4",
+      "min_all_accuracy": 0.6320209973753281,
+      "min_release_accuracy": 0.8181818181818182,
+      "release_fail_count": 0,
+      "required_fail_count": 0,
+      "score": 10086.951500791762
+    },
+    {
+      "all_required_gate": true,
+      "avg_after_loss": 1.2501984916594775,
+      "config_id": "release128_cap160",
+      "min_all_accuracy": 0.5758530183727034,
+      "min_release_accuracy": 0.8181818181818182,
+      "release_fail_count": 0,
+      "required_fail_count": 0,
+      "score": 10086.326513510248
+    },
+    {
+      "all_required_gate": true,
+      "avg_after_loss": 1.1963439500177826,
+      "config_id": "release64_beta995",
+      "min_all_accuracy": 0.6635170603674541,
+      "min_release_accuracy": 0.7272727272727273,
+      "release_fail_count": 0,
+      "required_fail_count": 0,
+      "score": 10078.16609938093
+    },
+    {
+      "all_required_gate": true,
+      "avg_after_loss": 1.2321908344504475,
+      "config_id": "release96_cap120",
+      "min_all_accuracy": 0.6335958005249344,
+      "min_release_accuracy": 0.7272727272727273,
+      "release_fail_count": 0,
+      "required_fail_count": 0,
+      "score": 10077.83103989807
+    },
+    {
+      "all_required_gate": true,
+      "avg_after_loss": 1.1829491544606017,
+      "config_id": "release64_cap80",
+      "min_all_accuracy": 0.6220472440944882,
+      "min_release_accuracy": 0.7272727272727273,
+      "release_fail_count": 0,
+      "required_fail_count": 0,
+      "score": 10077.764796013756
+    },
+    {
+      "all_required_gate": false,
+      "avg_after_loss": 1.1276285756953002,
+      "config_id": "baseline_current",
+      "min_all_accuracy": 0.7249343832020997,
+      "min_release_accuracy": 0.36363636363636365,
+      "release_fail_count": 1,
+      "required_fail_count": 1,
+      "score": -57.51464838003793
+    },
+    {
+      "all_required_gate": false,
+      "avg_after_loss": 1.168121097630414,
+      "config_id": "release32_cap50",
+      "min_all_accuracy": 0.6776902887139108,
+      "min_release_accuracy": 0.36363636363636365,
+      "release_fail_count": 1,
+      "required_fail_count": 1,
+      "score": -58.027581846854936
+    }
+  ],
+  "created_at": "2026-06-14T19:51:08.337714+00:00",
+  "decision": "release_gate_bc_weighting_ready_no_promotion",
+  "direct_comparison_baseline": "release16_checkpoint_distillation_bc_readiness_v1",
+  "expected_tradeoff": "Higher release-gate weight may improve sparse release labels but could degrade ordinary/downtrend fit; select only if required fold gates stay intact.",
+  "experiment": "release16_release_gate_bc_weight_screen_v1",
+  "external_reference": "converted SOXLBacktest qlib baseline plus release16 fold-local distillation contract",
+  "failure_mode": "If all weighting configs still fail wf_2023_2024 release-gate accuracy, the blocker is target enrichment or representation/state-head rather than PPO length.",
+  "fold_scope_audit": [
+    {
+      "bc_samples": 1905,
+      "fold": "wf_2020",
+      "release_gate_rows": 32,
+      "target_fold": "wf_2020_train",
+      "target_rows": 2218,
+      "target_scope_ok": true,
+      "test_overlap_rows": 0,
+      "valid_overlap_rows": 252
+    },
+    {
+      "bc_samples": 253,
+      "fold": "wf_2022",
+      "release_gate_rows": 8,
+      "target_fold": "wf_2022_train",
+      "target_rows": 253,
+      "target_scope_ok": true,
+      "test_overlap_rows": 0,
+      "valid_overlap_rows": 252
+    },
+    {
+      "bc_samples": 756,
+      "fold": "wf_2023_2024",
+      "release_gate_rows": 11,
+      "target_fold": "wf_2023_2024_train",
+      "target_rows": 756,
+      "target_scope_ok": true,
+      "test_overlap_rows": 0,
+      "valid_overlap_rows": 0
+    }
+  ],
+  "hypothesis": "The failed wf_2023_2024 release gate can be fixed by deterministic release-gate weighted BC if the target semantics and features are learnable.",
+  "next_mechanism": "wire_selected_bc_weighting_into_training_handoff_then_run_official_bc_walkforward_replay",
+  "output_paths": {
+    "config_fold_metrics": "runtime/model_selection/card/release16_release_gate_bc_weight_screen_v1/config_fold_metrics.csv",
+    "config_grid": "runtime/model_selection/card/release16_release_gate_bc_weight_screen_v1/config_grid.csv",
+    "config_slice_metrics": "runtime/model_selection/card/release16_release_gate_bc_weight_screen_v1/config_slice_metrics.csv",
+    "config_summary": "runtime/model_selection/card/release16_release_gate_bc_weight_screen_v1/config_summary.csv",
+    "fold_scope_audit": "runtime/model_selection/card/release16_release_gate_bc_weight_screen_v1/fold_scope_audit.csv",
+    "release_gate_prediction_trace": "runtime/model_selection/card/release16_release_gate_bc_weight_screen_v1/release_gate_prediction_trace.csv",
+    "selected_release_gate_prediction_trace": "runtime/model_selection/card/release16_release_gate_bc_weight_screen_v1/selected_release_gate_prediction_trace.csv",
+    "selection": "runtime/model_selection/card/release16_release_gate_bc_weight_screen_v1/selection.json",
+    "summary": "runtime/model_selection/card/release16_release_gate_bc_weight_screen_v1/summary.json"
+  },
+  "profile": "sparse_release_bc_ppo_screen_v1",
+  "promotion_allowed": false,
+  "retention_gate_current": {
+    "current_best_return_pct": 224.361539,
+    "max_walkforward_drawdown_pct": 20.0,
+    "passing_profile_count": 0,
+    "reference_profile": "soxl_backtest_policy_reimplementation_v1",
+    "reference_return_pct": 132.077978,
+    "required_best_return_pct": 213.143462
+  },
+  "role": "diagnose_bc_loss_weighting",
+  "selected_config": "release64_no_objective",
+  "selected_pass": true,
+  "selected_summary": {
+    "all_required_gate": true,
+    "avg_after_loss": 1.1983738904033858,
+    "config_id": "release64_no_objective",
+    "min_all_accuracy": 0.65249343832021,
+    "min_release_accuracy": 0.8181818181818182,
+    "release_fail_count": 0,
+    "required_fail_count": 0,
+    "score": 10087.14474231098
+  },
+  "target_window": [
+    "wf_2020",
+    "wf_2022",
+    "wf_2023_2024"
+  ],
+  "train_config": {
+    "batch_size": 128,
+    "lr": 0.001,
+    "seed": 20260615,
+    "steps": 400
+  },
+  "why_not_duplicate": "This screen changes only BC loss weighting over the same fold-local contract; it does not rebuild the contract or rerun PPO."
+}

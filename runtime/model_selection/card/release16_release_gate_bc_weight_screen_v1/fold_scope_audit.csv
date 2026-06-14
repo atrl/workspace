@@ -1,0 +1,4 @@
+fold,target_fold,target_rows,bc_samples,valid_overlap_rows,test_overlap_rows,target_scope_ok,release_gate_rows
+wf_2020,wf_2020_train,2218,1905,252,0,True,32
+wf_2022,wf_2022_train,253,253,252,0,True,8
+wf_2023_2024,wf_2023_2024_train,756,756,0,0,True,11

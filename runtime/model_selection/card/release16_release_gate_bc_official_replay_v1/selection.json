@@ -1,0 +1,12 @@
+{
+  "actor_retention_allowed": false,
+  "all_selected_gate_15dd": false,
+  "all_selected_gate_20dd": false,
+  "decision": "release_gate_weighted_bc_official_replay_failed_no_promotion",
+  "experiment": "release16_release_gate_bc_official_replay_v1",
+  "next_mechanism": "repair_official_replay_objective_or_checkpoint_scoring_before_ppo",
+  "promotion_allowed": false,
+  "selected_config": "release64_no_objective",
+  "selected_gate_count_15dd": 0,
+  "selected_gate_count_20dd": 0
+}

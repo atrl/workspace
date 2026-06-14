@@ -1,0 +1,31 @@
+{
+  "actor_retention_allowed": false,
+  "baseline_summary": {
+    "all_required_gate": false,
+    "avg_after_loss": 1.1276285756953002,
+    "config_id": "baseline_current",
+    "min_all_accuracy": 0.7249343832020997,
+    "min_release_accuracy": 0.36363636363636365,
+    "release_fail_count": 1,
+    "required_fail_count": 1,
+    "score": -57.51464838003793
+  },
+  "decision": "release_gate_bc_weighting_ready_no_promotion",
+  "experiment": "release16_release_gate_bc_weight_screen_v1",
+  "next_mechanism": "wire_selected_bc_weighting_into_training_handoff_then_run_official_bc_walkforward_replay",
+  "profile": "sparse_release_bc_ppo_screen_v1",
+  "promotion_allowed": false,
+  "selected_config": "release64_no_objective",
+  "selected_pass": true,
+  "selected_summary": {
+    "all_required_gate": true,
+    "avg_after_loss": 1.1983738904033858,
+    "config_id": "release64_no_objective",
+    "min_all_accuracy": 0.65249343832021,
+    "min_release_accuracy": 0.8181818181818182,
+    "release_fail_count": 0,
+    "required_fail_count": 0,
+    "score": 10087.14474231098
+  },
+  "source_decision": "bc_contract_readiness_failed_repair_before_training"
+}

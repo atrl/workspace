@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-14T19:42:37.534630+00:00",
+  "generated_at": "2026-06-14T19:55:50.493110+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -8484,6 +8484,150 @@
       "category": "model_selection",
       "suffix": ".csv",
       "bytes": 1564
+    },
+    {
+      "path": "runtime/model_selection/card/release16_release_gate_bc_official_replay_v1/bc_official_replay_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2901
+    },
+    {
+      "path": "runtime/model_selection/card/release16_release_gate_bc_official_replay_v1/official_daily_paths/wf_2020__baseline_current_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31385
+    },
+    {
+      "path": "runtime/model_selection/card/release16_release_gate_bc_official_replay_v1/official_daily_paths/wf_2020__release64_no_objective_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31329
+    },
+    {
+      "path": "runtime/model_selection/card/release16_release_gate_bc_official_replay_v1/official_daily_paths/wf_2022__baseline_current_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30061
+    },
+    {
+      "path": "runtime/model_selection/card/release16_release_gate_bc_official_replay_v1/official_daily_paths/wf_2022__release64_no_objective_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30132
+    },
+    {
+      "path": "runtime/model_selection/card/release16_release_gate_bc_official_replay_v1/official_daily_paths/wf_2023_2024__baseline_current_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31214
+    },
+    {
+      "path": "runtime/model_selection/card/release16_release_gate_bc_official_replay_v1/official_daily_paths/wf_2023_2024__release64_no_objective_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31288
+    },
+    {
+      "path": "runtime/model_selection/card/release16_release_gate_bc_official_replay_v1/replay_config_grid.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 298
+    },
+    {
+      "path": "runtime/model_selection/card/release16_release_gate_bc_official_replay_v1/selected_vs_baseline_replay_delta.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 892
+    },
+    {
+      "path": "runtime/model_selection/card/release16_release_gate_bc_official_replay_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 483
+    },
+    {
+      "path": "runtime/model_selection/card/release16_release_gate_bc_official_replay_v1/soxlbacktest_reference_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2876
+    },
+    {
+      "path": "runtime/model_selection/card/release16_release_gate_bc_official_replay_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 8491
+    },
+    {
+      "path": "runtime/model_selection/card/release16_release_gate_bc_weight_screen_v1/config_action_distribution.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 6909
+    },
+    {
+      "path": "runtime/model_selection/card/release16_release_gate_bc_weight_screen_v1/config_fold_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 7336
+    },
+    {
+      "path": "runtime/model_selection/card/release16_release_gate_bc_weight_screen_v1/config_grid.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 655
+    },
+    {
+      "path": "runtime/model_selection/card/release16_release_gate_bc_weight_screen_v1/config_slice_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 13902
+    },
+    {
+      "path": "runtime/model_selection/card/release16_release_gate_bc_weight_screen_v1/config_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 950
+    },
+    {
+      "path": "runtime/model_selection/card/release16_release_gate_bc_weight_screen_v1/feature_schema.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 938
+    },
+    {
+      "path": "runtime/model_selection/card/release16_release_gate_bc_weight_screen_v1/fold_scope_audit.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 252
+    },
+    {
+      "path": "runtime/model_selection/card/release16_release_gate_bc_weight_screen_v1/release_gate_prediction_trace.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 98283
+    },
+    {
+      "path": "runtime/model_selection/card/release16_release_gate_bc_weight_screen_v1/selected_config_fold_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1172
+    },
+    {
+      "path": "runtime/model_selection/card/release16_release_gate_bc_weight_screen_v1/selected_release_gate_prediction_trace.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 25047
+    },
+    {
+      "path": "runtime/model_selection/card/release16_release_gate_bc_weight_screen_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1150
+    },
+    {
+      "path": "runtime/model_selection/card/release16_release_gate_bc_weight_screen_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 8131
     },
     {
       "path": "runtime/model_selection/card/release16_remaining_failedfold_diagnostic_v1/bc_representation_summary.csv",
