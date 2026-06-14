@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-14T17:54:52.088128+00:00",
+  "generated_at": "2026-06-14T18:06:11.415688+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -15114,6 +15114,12 @@
       "category": "reward",
       "suffix": ".csv",
       "bytes": 548
+    },
+    {
+      "path": "runtime/reward/card/release16_rulebase_reversal_drawdown_upside_state_head_actor_probe_v1/notes.md",
+      "category": "reward",
+      "suffix": ".md",
+      "bytes": 1417
     },
     {
       "path": "runtime/reward/card/sequence_risk_reward_feature_screen_v1/reward_penalty_grid.csv",

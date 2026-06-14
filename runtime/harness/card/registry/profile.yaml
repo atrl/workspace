@@ -599,6 +599,20 @@ profiles:
     diagnostic only; no runtime binding. Strict retention gate blocked executable
     actor retention; kept summary evidence only. Failures
     wf_max_drawdown_ge_20:wf_2020;ytd_return_below_best_alignment.
+- name: release16_rulebase_reversal_drawdown_upside_state_head_actor_probe_v1
+  family: balanced
+  status: candidate
+  baseline: state_conditioned_drawdown_rebound_reward_train_v1
+  keep_actor: false
+  keep_summary: true
+  notes_ref: runtime/reward/card/release16_rulebase_reversal_drawdown_upside_state_head_actor_probe_v1/notes.md
+  wf_status: blocked
+  wf_notes: Candidate profile created from the current retraining handoff. It adds
+    the rulebase_signals feature pack plus state-conditioned, drawdown-drift, and
+    trend-preservation reward shaping for a constrained actor probe only. Actor
+    retention remains blocked until fixed-split, wf_2020, wf_2022, wf_2023_2024,
+    YTD SOXLBacktest/current-best alignment, replay export, and dashboard runnable
+    source gates all pass.
 - name: balanced_kelly_warmstart_v9
   family: balanced
   status: candidate
