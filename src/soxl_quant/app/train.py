@@ -42,22 +42,35 @@ def _actor_retention_report(
 ) -> Dict[str, object]:
     walk_forward_evaluated = bool(promotion_report.get("walk_forward_evaluated", False))
     promotion_eligible = bool(promotion_report.get("eligible", False))
-    final_retention_allowed = walk_forward_evaluated and promotion_eligible
+    strict_retention_gate_evaluated = "strict_retention_gate_passed" in promotion_report
+    strict_retention_gate_passed = bool(promotion_report.get("strict_retention_gate_passed", False))
+    final_retention_allowed = walk_forward_evaluated and promotion_eligible and strict_retention_gate_passed
     if final_retention_allowed:
         decision = "retain_promotable"
-        reason = "walk_forward_promotion_gate_passed"
+        reason = "strict_retention_gate_passed"
     elif not walk_forward_evaluated:
         decision = "candidate_for_walkforward"
         reason = "walk_forward_gate_not_evaluated"
-    else:
+    elif not promotion_eligible:
         decision = "evidence_only_gate_failed"
         reason = "walk_forward_promotion_gate_failed"
+    else:
+        decision = "candidate_for_strict_retention_review"
+        reason = (
+            "strict_retention_gate_failed"
+            if strict_retention_gate_evaluated
+            else "strict_retention_gate_not_evaluated"
+        )
     return {
         "decision": decision,
         "reason": reason,
         "final_retention_allowed": final_retention_allowed,
         "walk_forward_evaluated": walk_forward_evaluated,
         "promotion_eligible": promotion_eligible,
+        "strict_retention_required": True,
+        "strict_retention_gate_evaluated": strict_retention_gate_evaluated,
+        "strict_retention_gate_passed": strict_retention_gate_passed,
+        "strict_retention_source": "runtime/model_selection/card/model_retention_walkforward_gate_v1",
         "candidate_actor_path": str(model_path),
         "final_actor_path": str(model_path) if final_retention_allowed else None,
         "retained_checkpoint_count": int(retained_checkpoint_count),
@@ -246,8 +259,10 @@ def run_profile(
     else:
         promotion_report = build_promotion_report(profile, slice_result, test_proxy)
     retained_checkpoint_candidates = selection.get("retained_checkpoints", [])
-    promotion_allows_final_retention = bool(promotion_report.get("eligible", False)) and bool(
-        promotion_report.get("walk_forward_evaluated", False)
+    promotion_allows_final_retention = (
+        bool(promotion_report.get("eligible", False))
+        and bool(promotion_report.get("walk_forward_evaluated", False))
+        and bool(promotion_report.get("strict_retention_gate_passed", False))
     )
     if promotion_allows_final_retention:
         retained_checkpoint_records = persist_retained_checkpoint_bundles(
