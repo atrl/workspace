@@ -246,6 +246,32 @@ describe('dashboard v2 chart rendering', () => {
     }
   });
 
+  test('emits select events even when clicking the currently hovered candle', () => {
+    const container = document.createElement('div');
+    const callbacks: FrameRequestCallback[] = [];
+    const onDate = vi.fn();
+    const previousRequestAnimationFrame = window.requestAnimationFrame;
+    const previousCancelAnimationFrame = window.cancelAnimationFrame;
+    window.requestAnimationFrame = vi.fn((callback: FrameRequestCallback) => {
+      callbacks.push(callback);
+      return callbacks.length;
+    });
+    window.cancelAnimationFrame = vi.fn();
+
+    try {
+      renderMarketChart(container, marketFixture, modelFixture, onDate);
+      chartMocks.subscriptions.crosshairMove[0]?.({ time: '2026-01-05' });
+      callbacks[0](0);
+      chartMocks.subscriptions.click[0]?.({ time: '2026-01-05' });
+
+      expect(onDate).toHaveBeenCalledWith('2026-01-05', 'hover');
+      expect(onDate).toHaveBeenCalledWith('2026-01-05', 'select');
+    } finally {
+      window.requestAnimationFrame = previousRequestAnimationFrame;
+      window.cancelAnimationFrame = previousCancelAnimationFrame;
+    }
+  });
+
   test('renders buyhold baseline on the NAV chart before strategy lines', () => {
     const container = document.createElement('div');
 

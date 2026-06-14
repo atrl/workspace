@@ -145,10 +145,84 @@ def test_backtest_request_scope_uses_full_test_seg_for_replay_aligned_runs(monke
     }
 
 
-def test_run_backtest_returns_400_for_non_runnable_reference_profile(monkeypatch):
+def test_run_backtest_runs_soxlbacktest_reference_profile(monkeypatch):
     body = json.dumps(
         {
             "profile": "soxl_backtest_policy_reimplementation_v1",
+            "start_date": "2026-01-02",
+            "end_date": "2026-01-31",
+        }
+    ).encode("utf-8")
+    sent: dict[str, object] = {}
+    handler = object.__new__(dashboard_server.DashboardHandler)
+    handler.headers = {"Content-Length": str(len(body))}
+    handler.rfile = io.BytesIO(body)
+    handler._send_json = lambda data, status=200: sent.update({"data": data, "status": status})
+    monkeypatch.setattr(dashboard_server, "_load_market_lookup", lambda: {
+        "2026-01-02": {"open": 47.0, "high": 48.0, "low": 46.0, "close": 47.24, "volume": 1000}
+    })
+    monkeypatch.setattr(
+        dashboard_server,
+        "replay_legacy_soxl_policy",
+        lambda **_kwargs: dashboard_server.LegacySoxlReplayResult(
+            daily=pd.DataFrame(
+                [
+                    {
+                        "date": "2026-01-02",
+                        "price": 47.24,
+                        "strategy_nav": 100000.0,
+                        "buyhold_nav": 100000.0,
+                        "position": 0.0,
+                        "excess": 0.0,
+                        "excess_pct": 0.0,
+                        "action": "HOLD",
+                        "panic_score": 0.0,
+                        "HV_20": 1.0,
+                        "HV_30": 1.0,
+                        "VOL_COEF": 1.0,
+                    },
+                    {
+                        "date": "2026-01-05",
+                        "price": 49.22,
+                        "strategy_nav": 100000.0,
+                        "buyhold_nav": 104191.36,
+                        "position": 0.0,
+                        "excess": -4191.36,
+                        "excess_pct": -4.02,
+                        "action": "BUY",
+                        "panic_score": -150.0,
+                        "HV_20": 1.27,
+                        "HV_30": 1.11,
+                        "VOL_COEF": 1.27,
+                    },
+                ]
+            ),
+            trades=pd.DataFrame(
+                [{"date": "2026-01-05", "type": "buy", "price": 49.22, "position": 0.3}]
+            ),
+            metrics={"rulebase_return_pct": 0.0, "trade_count": 1},
+        ),
+    )
+
+    handler._handle_run_backtest()
+
+    assert sent["status"] == 200
+    assert sent["data"]["profile"] == "soxl_backtest_policy_reimplementation_v1"
+    assert sent["data"]["source_kind"] == "soxlbacktest_qlib_buysell"
+    assert sent["data"]["feature_columns"] == ["panic_score", "HV_20", "HV_30", "VOL_COEF"]
+    assert sent["data"]["rows"][1]["action"] == "BUY"
+    assert sent["data"]["rows"][1]["feature_snapshot"] == {
+        "panic_score": -150.0,
+        "HV_20": 1.27,
+        "HV_30": 1.11,
+        "VOL_COEF": 1.27,
+    }
+
+
+def test_run_backtest_returns_400_for_unknown_non_reference_profile(monkeypatch):
+    body = json.dumps(
+        {
+            "profile": "missing_model",
             "start_date": "2026-01-02",
             "end_date": "2026-01-31",
         }
@@ -167,6 +241,6 @@ def test_run_backtest_returns_400_for_non_runnable_reference_profile(monkeypatch
     handler._handle_run_backtest()
 
     assert sent["status"] == 400
-    assert sent["data"]["profile"] == "soxl_backtest_policy_reimplementation_v1"
+    assert sent["data"]["profile"] == "missing_model"
     assert sent["data"]["runnable"] is False
     assert "traceback" not in sent["data"]

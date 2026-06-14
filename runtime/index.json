@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-14T02:11:22.538999+00:00",
+  "generated_at": "2026-06-14T02:40:35.217606+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -4751,19 +4751,19 @@
       "path": "runtime/model_selection/card/cap10_three_fold_checkpoint_metric_replay_v2/checkpoint_candidate_metrics.csv",
       "category": "model_selection",
       "suffix": ".csv",
-      "bytes": 4355
+      "bytes": 6552
     },
     {
       "path": "runtime/model_selection/card/cap10_three_fold_checkpoint_metric_replay_v2/checkpoint_selection_by_fold.csv",
       "category": "model_selection",
       "suffix": ".csv",
-      "bytes": 698
+      "bytes": 1163
     },
     {
       "path": "runtime/model_selection/card/cap10_three_fold_checkpoint_metric_replay_v2/conclusion.md",
       "category": "model_selection",
       "suffix": ".md",
-      "bytes": 943
+      "bytes": 973
     },
     {
       "path": "runtime/model_selection/card/cap10_three_fold_checkpoint_metric_replay_v2/coverage.csv",
@@ -4781,7 +4781,79 @@
       "path": "runtime/model_selection/card/cap10_three_fold_checkpoint_metric_replay_v2/drift_score_summary.json",
       "category": "model_selection",
       "suffix": ".json",
-      "bytes": 2362
+      "bytes": 2903
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_three_fold_checkpoint_metric_replay_v2/official_daily_paths/wf_2020__bc_initialization_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31370
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_three_fold_checkpoint_metric_replay_v2/official_daily_paths/wf_2020__ppo_retained_iter_0_bc_equivalent_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31370
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_three_fold_checkpoint_metric_replay_v2/official_daily_paths/wf_2020__ppo_retained_iter_4_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31367
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_three_fold_checkpoint_metric_replay_v2/official_daily_paths/wf_2020__ppo_selected_best_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31367
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_three_fold_checkpoint_metric_replay_v2/official_daily_paths/wf_2022__bc_initialization_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30544
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_three_fold_checkpoint_metric_replay_v2/official_daily_paths/wf_2022__ppo_retained_iter_0_bc_equivalent_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30544
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_three_fold_checkpoint_metric_replay_v2/official_daily_paths/wf_2022__ppo_retained_iter_4_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 29644
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_three_fold_checkpoint_metric_replay_v2/official_daily_paths/wf_2022__ppo_selected_best_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 29644
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_three_fold_checkpoint_metric_replay_v2/official_daily_paths/wf_2023_2024__bc_initialization_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31446
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_three_fold_checkpoint_metric_replay_v2/official_daily_paths/wf_2023_2024__ppo_retained_iter_0_bc_equivalent_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31446
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_three_fold_checkpoint_metric_replay_v2/official_daily_paths/wf_2023_2024__ppo_retained_iter_4_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30604
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_three_fold_checkpoint_metric_replay_v2/official_daily_paths/wf_2023_2024__ppo_selected_best_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30604
     },
     {
       "path": "runtime/model_selection/card/cap10_three_fold_checkpoint_metric_replay_v2/ppo_selection_history.csv",
@@ -4799,7 +4871,7 @@
       "path": "runtime/model_selection/card/cap10_three_fold_checkpoint_metric_replay_v2/summary.json",
       "category": "model_selection",
       "suffix": ".json",
-      "bytes": 4958
+      "bytes": 5499
     },
     {
       "path": "runtime/model_selection/card/cap10_training_objective_handoff_v1/fold_local_requirements.json",

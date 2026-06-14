@@ -7,7 +7,7 @@
     "checkpoint_selection",
     "bc_warm_start"
   ],
-  "created_at": "2026-06-13T12:33:53.009334+00:00",
+  "created_at": "2026-06-14T02:23:45.158107+00:00",
   "decision": "three_fold_checkpoint_metric_replay_partial_pass_no_promotion",
   "direct_comparison_baseline": "cap10_three_fold_bc_slice_screen_v1",
   "drawdown_gate_operator": "<",

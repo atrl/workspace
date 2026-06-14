@@ -133,6 +133,36 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.textContent).toContain('1');
   });
 
+  test('renders rerun comparison values from model rows when static comparison lacks the rerun profile', () => {
+    const panel = document.createElement('section');
+    const rerun = {
+      ...modelFixture,
+      profile: 'rerun:smoke:2026-01-02:2026-01-06',
+      display_name: 'smoke rerun',
+      rows: modelFixture.rows.map((row, index) =>
+        index === modelFixture.rows.length - 1
+          ? { ...row, strategy_nav: 112, buyhold_nav: 108, position: 0.4, action: 'BUY' as const }
+          : row,
+      ),
+    };
+
+    renderComparisonPanel(
+      panel,
+      comparisonFixture,
+      '2026-01-02',
+      '2026-01-06',
+      ['rerun:smoke:2026-01-02:2026-01-06', 'smoke'],
+      { 'rerun:smoke:2026-01-02:2026-01-06': rerun, smoke: modelFixture },
+      'smoke',
+    );
+
+    expect(panel.textContent).toContain('smoke rerun');
+    expect(panel.textContent).toContain('12.00%');
+    expect(panel.textContent).toContain('8.00%');
+    expect(panel.textContent).toContain('4.00pp');
+    expect(panel.textContent).not.toContain('smoke rerunn/a');
+  });
+
   test('renders visible buy and sell action labels', () => {
     const panel = document.createElement('div');
 

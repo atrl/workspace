@@ -38,6 +38,7 @@ from src.soxl_quant.data import (
     segment_frame as _segment_frame,
 )
 from src.soxl_quant.policy.policy_builder import build_policy
+from src.soxl_quant.policy.legacy_soxl import LegacySoxlReplayResult, replay_legacy_soxl_policy
 from src.soxl_quant.settings import (
     ACCOUNT,
     QLIB_DATA_PATH,
@@ -68,6 +69,10 @@ MARKET_ROW_FIELDS = (
     "panic_score",
     "market_state",
 )
+LEGACY_SOXL_REFERENCE_PROFILE = "soxl_backtest_policy_reimplementation_v1"
+LEGACY_SOXL_FEATURE_PACKS = ["soxlbacktest_qlib_buysell_reference"]
+LEGACY_SOXL_FEATURE_COLUMNS = ["panic_score", "HV_20", "HV_30", "VOL_COEF"]
+LEGACY_SELL_ACTIONS = {"SELL", "TAKE_PROFIT", "STOP_LOSS", "STOP", "TRIM", "REDUCE"}
 
 
 def _ensure_qlib(*, feature_packs: tuple[str, ...] = (), profile_name: str = ""):
@@ -160,6 +165,96 @@ def _build_daily_rows(
             row["feature_snapshot"] = feature_snapshot
         rows.append(row)
     return rows
+
+
+def _load_market_lookup() -> dict[str, dict]:
+    from scripts.build_backtest_dashboard import load_ohlc_and_indicators
+
+    return load_ohlc_and_indicators("SOXL")
+
+
+def _legacy_action(value: object) -> str:
+    action = str(value or "HOLD").upper()
+    if action == "BUY":
+        return "BUY"
+    if action in LEGACY_SELL_ACTIONS:
+        return "SELL"
+    return "HOLD"
+
+
+def _legacy_soxl_daily_rows(
+    result: LegacySoxlReplayResult,
+    *,
+    market_lookup: dict[str, dict] | None = None,
+) -> list[dict[str, object]]:
+    market_lookup = market_lookup or {}
+    rows: list[dict[str, object]] = []
+    for _, source in result.daily.reset_index(drop=True).iterrows():
+        dt_str = pd.Timestamp(source["date"]).strftime("%Y-%m-%d")
+        row: dict[str, object] = {
+            "datetime": dt_str,
+            "strategy_nav": round(float(source["strategy_nav"]), 6),
+            "price": round(float(source["price"]), 6),
+            "buyhold_nav": round(float(source["buyhold_nav"]), 6),
+            "position": round(float(source["position"]), 6),
+            "excess": round(float(source.get("excess", 0.0)), 6),
+            "excess_pct": round(float(source.get("excess_pct", 0.0)), 6),
+            "action": _legacy_action(source.get("action")),
+        }
+        market_row = market_lookup.get(dt_str) or {}
+        for field in MARKET_ROW_FIELDS:
+            if field not in market_row:
+                continue
+            value = _json_scalar(market_row.get(field))
+            if value is not None:
+                row[field] = value
+        feature_snapshot: dict[str, object] = {}
+        for column in LEGACY_SOXL_FEATURE_COLUMNS:
+            value = _json_scalar(source.get(column))
+            if value is not None:
+                feature_snapshot[column] = value
+        if feature_snapshot:
+            row["feature_snapshot"] = feature_snapshot
+        rows.append(row)
+    return rows
+
+
+def _legacy_trades_payload(result: LegacySoxlReplayResult) -> list[dict[str, object]]:
+    trades: list[dict[str, object]] = []
+    for _, source in result.trades.reset_index(drop=True).iterrows():
+        trades.append({str(key): _json_scalar(value) for key, value in source.items()})
+    return trades
+
+
+def _run_legacy_soxl_reference_backtest(
+    *,
+    start_date: str,
+    end_date: str,
+    tag: str = "",
+) -> dict[str, object]:
+    result = replay_legacy_soxl_policy(start=start_date, end=end_date, root=ROOT)
+    rows = _legacy_soxl_daily_rows(result, market_lookup=_load_market_lookup())
+    window = _response_window_from_rows(rows, start_date, end_date)
+    return {
+        "profile": LEGACY_SOXL_REFERENCE_PROFILE,
+        "tag": tag,
+        "start_date": start_date,
+        "end_date": end_date,
+        "warmup_start_date": start_date,
+        "replay_aligned": False,
+        "source_kind": "soxlbacktest_qlib_buysell",
+        "feature_packs": LEGACY_SOXL_FEATURE_PACKS,
+        "feature_columns": LEGACY_SOXL_FEATURE_COLUMNS,
+        "snapshot_columns": LEGACY_SOXL_FEATURE_COLUMNS,
+        "effective_start_date": window["start"],
+        "effective_end_date": window["end"],
+        "summary": result.metrics,
+        "rows": rows,
+        "trades": _legacy_trades_payload(result),
+        "windows": {
+            "SOXL": window,
+        },
+    }
 
 
 def _feature_lookup_from_frame(
@@ -333,6 +428,16 @@ class DashboardHandler(SimpleHTTPRequestHandler):
             return
 
         try:
+            if profile_name == LEGACY_SOXL_REFERENCE_PROFILE:
+                self._send_json(
+                    _run_legacy_soxl_reference_backtest(
+                        start_date=start_date,
+                        end_date=end_date,
+                        tag=tag,
+                    )
+                )
+                return
+
             try:
                 profile = load_profile(profile_name)
             except (FileNotFoundError, KeyError, ValueError) as exc:

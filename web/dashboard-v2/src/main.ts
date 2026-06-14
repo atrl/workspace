@@ -11,6 +11,7 @@ import {
 } from './chart';
 import {
   buildInspectorLookup,
+  canRunSelectedWindow,
   chartRangeRows,
   clampComparisonProfiles,
   clipRowsByDate,
@@ -117,8 +118,8 @@ function visibleContext(data: DashboardData, state: ViewState) {
 
 function selectableChartProfiles(data: DashboardData, selectedProfiles: readonly string[]): string[] {
   const selected = selectedProfiles.filter((profile) => Boolean(data.models[profile]));
-  const runnable = selected.filter((profile) => data.models[profile].runnable);
-  return runnable.length ? runnable : selected;
+  const runnableOrReference = selected.filter((profile) => canRunSelectedWindow(data.models[profile]));
+  return runnableOrReference.length ? runnableOrReference : selected;
 }
 
 function profileOptionLabel(model: ModelPayload | undefined, profile: string): string {
@@ -238,10 +239,11 @@ function renderToolbar(
   const runGroup = document.createElement('div');
   runGroup.className = 'toolbar-group run-group';
   const runModel = data.models[state.chartProfile];
+  const canRun = canRunSelectedWindow(runModel);
   const runButton = document.createElement('button');
   runButton.type = 'button';
-  runButton.textContent = runModel?.runnable ? 'Run selected window' : 'Cannot rerun';
-  runButton.disabled = !runModel?.runnable;
+  runButton.textContent = runModel?.runnable ? 'Run model window' : canRun ? 'Run baseline window' : 'Cannot rerun';
+  runButton.disabled = !canRun;
   runButton.title = `${state.start} to ${state.end} | ${runnableProfileReason(runModel)}`;
   runButton.addEventListener('click', () => {
     void runInteractiveBacktest();
@@ -268,18 +270,22 @@ function warningsFor(data: DashboardData, state: ViewState): string[] {
       `Replay refresh found 0 runnable model profiles; dashboard is using retained exports/reference rows only.`,
     );
   }
-  if (!Object.values(models).some((model) => model.runnable)) {
-    warnings.push('No selected model is runnable for interactive inference. Select a profile with a retained actor replay.');
+  const selectedValues = Object.values(models);
+  if (!selectedValues.some((model) => model.runnable)) {
+    if (selectedValues.some((model) => canRunSelectedWindow(model))) {
+      warnings.push('No selected RL actor is runnable; deterministic SOXLBacktest baseline windows can still be rerun.');
+    } else {
+      warnings.push('No selected profile can rerun a selected window. Select a retained actor replay or the SOXLBacktest baseline.');
+    }
   }
   for (const profile of state.selectedProfiles) {
     const model = data.models[profile];
     if (model && !model.runnable) {
-      const reason =
-        model.runnable_reason === 'reference_baseline'
-          ? 'reference baseline'
-          : model.runnable_reason
-            ? `not runnable: ${model.runnable_reason}`
-            : 'not runnable';
+      if (canRunSelectedWindow(model)) {
+        warnings.push(`${profile} reruns with deterministic SOXLBacktest baseline logic; RL actor inference is not required.`);
+        continue;
+      }
+      const reason = model.runnable_reason ? `not runnable: ${model.runnable_reason}` : 'not runnable';
       warnings.push(`${profile} is ${reason}; interactive inference is disabled for this model.`);
     }
   }
@@ -368,7 +374,15 @@ function renderDashboard(
   const positionHandles = renderPositionChart(positionChart, primary, chartDateUpdate);
   const navHandles = renderNavChart(navChart, models, state.baselineProfile, chartDateUpdate);
   const chartSyncCleanup = syncVisibleLogicalRanges([marketHandles.chart, positionHandles.chart, navHandles]);
-  renderComparisonPanel(comparison, data.comparison, state.start, state.end, state.selectedProfiles, data.models);
+  renderComparisonPanel(
+    comparison,
+    data.comparison,
+    state.start,
+    state.end,
+    state.selectedProfiles,
+    data.models,
+    state.baselineProfile,
+  );
   renderInspector(data, state, inspectorLookup);
   const warnings = warningsFor(data, state);
   renderOperationsPanel(operations, data.manifest, warnings);

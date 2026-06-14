@@ -4,6 +4,7 @@ import {
   buildBaselineFeatureContrastRows,
   buildFeatureSchemaOverlapRows,
   buildActionMarkers,
+  canRunSelectedWindow,
   clampComparisonProfiles,
   clipRowsByDate,
   computeCommonWindow,
@@ -53,6 +54,39 @@ describe('dashboard v2 domain helpers', () => {
           default_comparison_profiles: ['soxl_backtest_policy_reimplementation_v1'],
         },
         { soxl_backtest_policy_reimplementation_v1: reference },
+      ),
+    ).toBe('soxl_backtest_policy_reimplementation_v1');
+  });
+
+  test('prefers selected-window runnable baseline over evidence-only default chart profile', () => {
+    const reference = {
+      ...modelFixture,
+      profile: 'soxl_backtest_policy_reimplementation_v1',
+      runnable: false,
+      runnable_reason: 'reference_baseline',
+      source_kind: 'soxlbacktest_qlib_buysell',
+    };
+    const evidenceOnly = {
+      ...betaModelFixture,
+      profile: 'balanced_rule_residual_v19_moe_v2',
+      runnable: false,
+      runnable_reason: 'evidence_only_retained_dashboard_export',
+      source_kind: 'retained_dashboard_export',
+    };
+
+    expect(
+      chooseDefaultChartProfile(
+        {
+          ...manifestFixture,
+          available_profiles: ['soxl_backtest_policy_reimplementation_v1', 'balanced_rule_residual_v19_moe_v2'],
+          default_baseline_profile: 'soxl_backtest_policy_reimplementation_v1',
+          default_chart_profile: 'balanced_rule_residual_v19_moe_v2',
+          default_comparison_profiles: ['soxl_backtest_policy_reimplementation_v1', 'balanced_rule_residual_v19_moe_v2'],
+        },
+        {
+          soxl_backtest_policy_reimplementation_v1: reference,
+          balanced_rule_residual_v19_moe_v2: evidenceOnly,
+        },
       ),
     ).toBe('soxl_backtest_policy_reimplementation_v1');
   });
@@ -216,7 +250,7 @@ describe('dashboard v2 domain helpers', () => {
         runnable_reason: 'reference_baseline',
         source_kind: 'soxlbacktest_qlib_buysell',
       }),
-    ).toBe('reference baseline only');
+    ).toBe('deterministic baseline selected-window replay');
     expect(
       runnableProfileReason({
         ...betaModelFixture,
@@ -224,5 +258,24 @@ describe('dashboard v2 domain helpers', () => {
         runnable_reason: 'missing_actor_artifact',
       }),
     ).toBe('missing actor artifact');
+  });
+
+  test('allows selected-window reruns for deterministic SOXLBacktest baseline without marking it as an RL actor', () => {
+    const baseline = {
+      ...modelFixture,
+      runnable: false,
+      runnable_reason: 'reference_baseline',
+      source_kind: 'soxlbacktest_qlib_buysell',
+    };
+    const evidenceOnly = {
+      ...modelFixture,
+      runnable: false,
+      runnable_reason: 'evidence_only_retained_dashboard_export',
+      source_kind: 'retained_dashboard_export',
+    };
+
+    expect(canRunSelectedWindow(modelFixture)).toBe(true);
+    expect(canRunSelectedWindow(baseline)).toBe(true);
+    expect(canRunSelectedWindow(evidenceOnly)).toBe(false);
   });
 });

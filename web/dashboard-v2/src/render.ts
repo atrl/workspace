@@ -13,6 +13,7 @@ import type {
   Manifest,
   MarketRow,
   ModelPayload,
+  ModelRow,
 } from './types';
 
 function element<K extends keyof HTMLElementTagNameMap>(
@@ -318,6 +319,7 @@ export function renderComparisonPanel(
   end: string,
   selectedProfiles: readonly string[] = comparison.compared_profiles,
   models: Record<string, ModelPayload> = {},
+  baselineProfile = comparison.baseline_profile,
 ): void {
   container.replaceChildren();
   container.appendChild(element('h2', undefined, 'Model Difference'));
@@ -325,7 +327,7 @@ export function renderComparisonPanel(
   const header = element(
     'div',
     'comparison-summary',
-    `${visible.length} rows | baseline ${comparison.baseline_profile} | ${start} to ${end}`,
+    `${visible.length} rows | baseline ${baselineProfile} | ${start} to ${end}`,
   );
   container.appendChild(header);
 
@@ -342,10 +344,14 @@ export function renderComparisonPanel(
   const last = visible[visible.length - 1];
   for (const profile of selectedProfiles) {
     const profileRows = visible.filter((row) => row.profiles[profile]);
-    const mismatchCount = profileRows.filter((row) => row.profiles[profile].action_mismatch).length;
-    const values = last?.profiles[profile];
+    const fallback = fallbackComparisonFromModelRows(profile, models, baselineProfile, start, end);
+    const useStaticComparison = baselineProfile === comparison.baseline_profile && profileRows.length > 0;
+    const mismatchCount = useStaticComparison
+      ? profileRows.filter((row) => row.profiles[profile].action_mismatch).length
+      : (fallback?.actionMismatchCount ?? 0);
+    const values = (useStaticComparison ? last?.profiles[profile] : undefined) ?? fallback?.values;
     const tr = element('tr');
-    tr.appendChild(element('td', undefined, profile));
+    tr.appendChild(element('td', undefined, models[profile]?.display_name || profile));
     tr.appendChild(element('td', undefined, values ? `${(values.strategy_return * 100).toFixed(2)}%` : 'n/a'));
     tr.appendChild(element('td', undefined, values ? `${(values.buyhold_return * 100).toFixed(2)}%` : 'n/a'));
     tr.appendChild(element('td', undefined, values ? `${(values.return_delta_vs_buyhold * 100).toFixed(2)}pp` : 'n/a'));
@@ -368,6 +374,53 @@ export function renderComparisonPanel(
   const tableScroll = element('div', 'table-scroll');
   tableScroll.appendChild(table);
   container.appendChild(tableScroll);
+}
+
+function rowsInRange(rows: readonly ModelRow[], start: string, end: string): ModelRow[] {
+  return rows.filter((row) => row.date >= start && row.date <= end);
+}
+
+function fallbackComparisonFromModelRows(
+  profile: string,
+  models: Record<string, ModelPayload>,
+  baselineProfile: string,
+  start: string,
+  end: string,
+):
+  | {
+      values: {
+        strategy_return: number;
+        buyhold_return: number;
+        return_delta_vs_buyhold: number;
+        position_delta_vs_baseline: number;
+      };
+      actionMismatchCount: number;
+    }
+  | null {
+  const modelRows = rowsInRange(models[profile]?.rows ?? [], start, end);
+  if (!modelRows.length) return null;
+  const first = modelRows[0];
+  const last = modelRows[modelRows.length - 1];
+  const strategyReturn = first.strategy_nav ? last.strategy_nav / first.strategy_nav - 1 : 0;
+  const buyholdReturn = first.buyhold_nav ? last.buyhold_nav / first.buyhold_nav - 1 : 0;
+  const baselineRowsByDate = new Map(rowsInRange(models[baselineProfile]?.rows ?? [], start, end).map((row) => [row.date, row]));
+  const baselineLast = baselineRowsByDate.get(last.date);
+  const actionMismatchCount =
+    profile === baselineProfile
+      ? 0
+      : modelRows.filter((row) => {
+          const baselineRow = baselineRowsByDate.get(row.date);
+          return baselineRow !== undefined && row.action !== baselineRow.action;
+        }).length;
+  return {
+    values: {
+      strategy_return: strategyReturn,
+      buyhold_return: buyholdReturn,
+      return_delta_vs_buyhold: strategyReturn - buyholdReturn,
+      position_delta_vs_baseline: baselineLast ? last.position - baselineLast.position : 0,
+    },
+    actionMismatchCount,
+  };
 }
 
 function formatFeatureValue(value: FeatureValue): string {

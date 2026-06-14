@@ -41,6 +41,36 @@ def _require_numeric(row: dict[str, Any], fields: tuple[str, ...], label: str) -
             raise ValueError(f"{label} field {field} must be numeric") from exc
 
 
+def _declared_feature_columns(model: dict[str, Any], profile: str) -> set[str]:
+    declared: set[str] = set()
+    for field in ("feature_columns", "snapshot_columns"):
+        value = model.get(field)
+        if not isinstance(value, list):
+            raise ValueError(f"model {profile} {field} must be a list")
+        declared.update(str(item) for item in value)
+    return declared
+
+
+def _require_feature_snapshot_declared(
+    snapshot: Any,
+    *,
+    declared: set[str],
+    profile: str,
+    label: str,
+) -> None:
+    if snapshot is None:
+        return
+    if not isinstance(snapshot, dict):
+        raise ValueError(f"model {profile} {label} feature_snapshot must be an object")
+    if not snapshot:
+        return
+    unknown = sorted(str(key) for key in snapshot if str(key) not in declared)
+    if unknown:
+        raise ValueError(
+            f"model {profile} {label} feature snapshot key not declared: {', '.join(unknown)}"
+        )
+
+
 def _require_rows(payload: dict[str, Any], label: str) -> list[dict[str, Any]]:
     rows = payload.get("rows")
     if not isinstance(rows, list) or not rows:
@@ -104,8 +134,15 @@ def check_dashboard_v2_data(root: Path) -> dict[str, int]:
         ):
             if field not in model:
                 raise ValueError(f"model {profile} missing metadata field: {field}")
+        declared_features = _declared_feature_columns(model, profile)
         if not isinstance(model["feature_action_summary"], list):
             raise ValueError(f"model {profile} feature_action_summary must be a list")
+        for summary_row in model["feature_action_summary"]:
+            if not isinstance(summary_row, dict):
+                raise ValueError(f"model {profile} feature_action_summary rows must be objects")
+            feature = str(summary_row.get("feature") or "")
+            if feature and feature not in declared_features:
+                raise ValueError(f"model {profile} feature_action_summary feature not declared: {feature}")
         if has_retention_gate:
             for field in ("retention_gate_pass", "retention_decision", "retention_failures"):
                 if field not in model:
@@ -117,9 +154,25 @@ def check_dashboard_v2_data(root: Path) -> dict[str, int]:
             _require_numeric(row, ("strategy_nav", "buyhold_nav", "position", "price"), f"model {profile} row")
             if row["action"] not in ACTION_VALUES:
                 raise ValueError(f"model {profile} row action must be BUY, SELL, or HOLD")
+            _require_feature_snapshot_declared(
+                row.get("feature_snapshot"),
+                declared=declared_features,
+                profile=profile,
+                label="row",
+            )
         _require_unique_dates(rows, f"model {profile} rows")
-        if not isinstance(model.get("events"), list):
+        events = model.get("events")
+        if not isinstance(events, list):
             raise ValueError(f"model {profile} events must be a list")
+        for event in events:
+            if not isinstance(event, dict):
+                raise ValueError(f"model {profile} events must contain objects")
+            _require_feature_snapshot_declared(
+                event.get("feature_snapshot"),
+                declared=declared_features,
+                profile=profile,
+                label="event",
+            )
         model_dates_by_profile[profile] = {str(row["date"]) for row in rows}
 
     compared_profiles = comparison.get("compared_profiles")

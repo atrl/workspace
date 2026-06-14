@@ -203,14 +203,15 @@ function createDateEmitter(onDate: (date: string, interaction: ChartDateInteract
   const cancelFrame = window.cancelAnimationFrame?.bind(window) ?? window.clearTimeout.bind(window);
   let pendingDate: string | null = null;
   let frameId: number | null = null;
-  let lastDate: string | null = null;
+  let lastHoverDate: string | null = null;
+  let lastSelectedDate: string | null = null;
 
   const flush = () => {
     frameId = null;
     const date = pendingDate;
     pendingDate = null;
-    if (!date || date === lastDate) return;
-    lastDate = date;
+    if (!date || date === lastHoverDate) return;
+    lastHoverDate = date;
     onDate(date, 'hover');
   };
 
@@ -226,8 +227,8 @@ function createDateEmitter(onDate: (date: string, interaction: ChartDateInteract
         frameId = null;
       }
       pendingDate = null;
-      if (date === lastDate) return;
-      lastDate = date;
+      if (date === lastSelectedDate) return;
+      lastSelectedDate = date;
       onDate(date, 'select');
     },
   };

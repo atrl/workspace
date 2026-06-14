@@ -240,3 +240,74 @@ def test_check_dashboard_v2_data_fails_post_train_preview_model(tmp_path: Path):
 
     with pytest.raises(ValueError, match="post-train preview"):
         check_dashboard_v2_data(root)
+
+
+def test_check_dashboard_v2_data_fails_feature_snapshot_schema_mismatch(tmp_path: Path):
+    root = tmp_path / "dashboard_data" / "v2"
+    _write_json(
+        root / "manifest.json",
+        {
+            "safe_backtest_end": "2026-01-06",
+            "default_baseline_profile": "smoke",
+            "default_comparison_profiles": ["smoke"],
+            "available_profiles": ["smoke"],
+        },
+    )
+    _write_json(
+        root / "market" / "SOXL.json",
+        {"rows": [{"date": "2026-01-06", "open": 10, "high": 11, "low": 9, "close": 10.5, "volume": 1000}]},
+    )
+    _write_json(
+        root / "models" / "smoke.json",
+        _model_contract(
+            feature_columns=["alpha_signal"],
+            snapshot_columns=["alpha_signal"],
+            feature_action_summary=[
+                {
+                    "feature": "beta_signal",
+                    "buy_count": 1,
+                    "sell_count": 0,
+                    "buy_mean": 2.0,
+                    "sell_mean": None,
+                    "buy_minus_sell": None,
+                }
+            ],
+            rows=[
+                {
+                    "date": "2026-01-06",
+                    "strategy_nav": 100,
+                    "buyhold_nav": 100,
+                    "position": 0.5,
+                    "action": "BUY",
+                    "price": 10.5,
+                    "feature_snapshot": {"beta_signal": 2.0},
+                }
+            ],
+            events=[
+                {
+                    "date": "2026-01-06",
+                    "kind": "BUY",
+                    "feature_snapshot": {"beta_signal": 2.0},
+                }
+            ],
+        ),
+    )
+    _write_json(
+        root / "comparison" / "default.json",
+        {
+            "baseline_profile": "smoke",
+            "compared_profiles": ["smoke"],
+            "common_start": "2026-01-06",
+            "common_end": "2026-01-06",
+            "rows": [
+                {
+                    "date": "2026-01-06",
+                    "profiles": {"smoke": {"action": "BUY"}},
+                    "action_mismatch_count": 0,
+                }
+            ],
+        },
+    )
+
+    with pytest.raises(ValueError, match="feature.*not declared"):
+        check_dashboard_v2_data(root)

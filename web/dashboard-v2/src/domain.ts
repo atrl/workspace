@@ -60,7 +60,7 @@ export function chooseDefaultChartProfile(
     ...manifest.default_comparison_profiles,
     ...manifest.available_profiles,
   ].filter((profile): profile is string => typeof profile === 'string' && profile in models);
-  const runnable = preferred.find((profile) => models[profile].runnable);
+  const runnable = preferred.find((profile) => canRunSelectedWindow(models[profile]));
   return runnable ?? preferred[0] ?? manifest.default_baseline_profile;
 }
 
@@ -68,7 +68,7 @@ export function runnableProfileReason(model: ModelPayload | undefined): string {
   if (!model) return 'model data not loaded';
   if (model.runnable) return 'ready for selected-window inference';
   if (model.runnable_reason === 'reference_baseline' || model.source_kind === 'soxlbacktest_qlib_buysell') {
-    return 'reference baseline only';
+    return 'deterministic baseline selected-window replay';
   }
   if (model.runnable_reason === 'evidence_only_retained_dashboard_export') {
     return 'retained export only';
@@ -77,6 +77,12 @@ export function runnableProfileReason(model: ModelPayload | undefined): string {
     return 'missing actor artifact';
   }
   return model.runnable_reason ? model.runnable_reason.replaceAll('_', ' ') : 'not runnable';
+}
+
+export function canRunSelectedWindow(model: ModelPayload | undefined): boolean {
+  if (!model) return false;
+  if (model.runnable) return true;
+  return model.runnable_reason === 'reference_baseline' || model.source_kind === 'soxlbacktest_qlib_buysell';
 }
 
 export function chartRangeRows(

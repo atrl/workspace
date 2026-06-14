@@ -957,6 +957,10 @@ def test_build_dashboard_v2_data_adds_soxl_backtest_reference_baseline(tmp_path:
                 "position": 0.0,
                 "action": "HOLD",
                 "price": 47.24,
+                "panic_score": 0.0,
+                "HV_20": 1.0,
+                "HV_30": 1.0,
+                "VOL_COEF": 1.0,
             },
             {
                 "window": "ytd_2026",
@@ -966,6 +970,10 @@ def test_build_dashboard_v2_data_adds_soxl_backtest_reference_baseline(tmp_path:
                 "position": 0.2998,
                 "action": "BUY",
                 "price": 40.62,
+                "panic_score": -150.0,
+                "HV_20": 1.27094,
+                "HV_30": 1.106457,
+                "VOL_COEF": 1.27094,
             },
             {
                 "window": "ytd_2026",
@@ -975,6 +983,10 @@ def test_build_dashboard_v2_data_adds_soxl_backtest_reference_baseline(tmp_path:
                 "position": 0.0699,
                 "action": "TAKE_PROFIT",
                 "price": 217.98,
+                "panic_score": 99.615509,
+                "HV_20": 1.398664,
+                "HV_30": 1.285555,
+                "VOL_COEF": 1.398664,
             },
         ],
     )
@@ -1001,7 +1013,19 @@ def test_build_dashboard_v2_data_adds_soxl_backtest_reference_baseline(tmp_path:
     assert manifest["default_comparison_profiles"] == [reference_name, "smoke"]
     assert manifest["default_chart_profile"] == "smoke"
     assert reference["source_path"] == "runtime/production/card/soxl_backtest_policy_reimplementation_v1/new_policy_daily.csv"
+    assert reference["feature_columns"] == ["panic_score", "HV_20", "HV_30", "VOL_COEF"]
+    assert reference["snapshot_columns"] == ["panic_score", "HV_20", "HV_30", "VOL_COEF"]
+    assert reference["feature_schema_source"] == "replay_inline_snapshot"
+    assert reference["rows"][1]["feature_snapshot"] == {
+        "panic_score": -150.0,
+        "HV_20": 1.27094,
+        "HV_30": 1.106457,
+        "VOL_COEF": 1.27094,
+    }
     assert reference["rows"][-1]["action"] == "SELL"
+    by_feature = {row["feature"]: row for row in reference["feature_action_summary"]}
+    assert by_feature["panic_score"]["buy_mean"] == pytest.approx(-150.0)
+    assert by_feature["panic_score"]["sell_mean"] == pytest.approx(99.615509)
     assert [event["kind"] for event in reference["events"] if event["kind"] in {"BUY", "SELL"}] == ["BUY", "SELL"]
     assert comparison["baseline_profile"] == reference_name
     assert comparison["common_start"] == "2026-01-02"

@@ -13,4 +13,4 @@ Risk note: selector output is diagnostic only. It retains no actor and does not 
 
 Next action: `inspect_failed_fold_drawdown_or_reward_drift_before_full_retention_training`.
 
-Artifacts: `checkpoint_candidate_metrics.csv`, `checkpoint_selection_by_fold.csv`, `drift_score_summary.json`, `selection.json`, `summary.json`.
+Artifacts: `checkpoint_candidate_metrics.csv`, `checkpoint_selection_by_fold.csv`, `official_daily_paths/*.csv`, `drift_score_summary.json`, `selection.json`, `summary.json`.

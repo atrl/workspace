@@ -1282,13 +1282,22 @@ def build_dashboard_v2_data(
         feature_snapshot_error = None
         inline_feature_rows = _feature_rows_from_model_rows(rows)
         if inline_feature_rows:
+            inline_columns = _feature_columns_from_model_rows(rows)
             model_feature_rows = inline_feature_rows
-            feature_metadata = {
-                **feature_metadata,
-                "feature_schema_source": "replay_inline_snapshot"
-                if not feature_metadata.get("feature_columns")
-                else f"{feature_metadata.get('feature_schema_source')};replay_inline_snapshot",
-            }
+            if profile_name == SOXL_BACKTEST_REFERENCE_PROFILE and inline_columns:
+                feature_metadata = {
+                    **feature_metadata,
+                    "feature_columns": inline_columns,
+                    "feature_schema_signature": _schema_signature(inline_columns),
+                    "feature_schema_source": "replay_inline_snapshot",
+                }
+            else:
+                feature_metadata = {
+                    **feature_metadata,
+                    "feature_schema_source": "replay_inline_snapshot"
+                    if not feature_metadata.get("feature_columns")
+                    else f"{feature_metadata.get('feature_schema_source')};replay_inline_snapshot",
+                }
         if model_feature_rows is None:
             model_feature_rows, feature_snapshot_error = _load_model_feature_rows(
                 profile_name,

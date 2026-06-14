@@ -116,23 +116,16 @@
     }
   ],
   "feature_columns": [
-    "open",
-    "high",
-    "low",
-    "close",
-    "rsi6",
-    "ma180",
-    "hv_20",
-    "vol_coef",
     "panic_score",
-    "market_state",
-    "vix"
+    "HV_20",
+    "HV_30",
+    "VOL_COEF"
   ],
   "feature_packs": [
     "soxlbacktest_qlib_buysell_reference"
   ],
-  "feature_schema_signature": "8676dad3b068",
-  "feature_schema_source": "reference_schema;replay_inline_snapshot",
+  "feature_schema_signature": "0ede55bc8174",
+  "feature_schema_source": "replay_inline_snapshot",
   "metrics": {
     "full": {
       "avg_position": 0.1622073394495413,
