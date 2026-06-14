@@ -1,0 +1,12 @@
+{
+  "actor_retention_allowed": false,
+  "all_selected_gate_15dd": false,
+  "all_selected_gate_20dd": false,
+  "baseline_candidate": "release64_current_target",
+  "decision": "bull_reentry_participation_objective_partial_improvement_no_promotion",
+  "experiment": "release16_bull_reentry_participation_objective_replay_v1",
+  "next_mechanism": "convert_best_participation_pattern_to_checkpoint_or_reward_objective_with_drawdown_guard",
+  "promotion_allowed": false,
+  "selected_candidate": "bull65_hold3",
+  "selected_improves_gate_loss": true
+}

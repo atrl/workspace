@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-14T20:08:37.226674+00:00",
+  "generated_at": "2026-06-14T20:37:42.596017+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -7752,6 +7752,168 @@
       "category": "model_selection",
       "suffix": ".json",
       "bytes": 5085
+    },
+    {
+      "path": "runtime/model_selection/card/release16_bull_reentry_participation_objective_replay_v1/bc_official_replay_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 6154
+    },
+    {
+      "path": "runtime/model_selection/card/release16_bull_reentry_participation_objective_replay_v1/bc_weight_config.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 237
+    },
+    {
+      "path": "runtime/model_selection/card/release16_bull_reentry_participation_objective_replay_v1/bull55_hold3_target_contract.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2505131
+    },
+    {
+      "path": "runtime/model_selection/card/release16_bull_reentry_participation_objective_replay_v1/bull65_hold3_target_contract.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2504975
+    },
+    {
+      "path": "runtime/model_selection/card/release16_bull_reentry_participation_objective_replay_v1/bull70_hold5_target_contract.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2508930
+    },
+    {
+      "path": "runtime/model_selection/card/release16_bull_reentry_participation_objective_replay_v1/candidate_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 937
+    },
+    {
+      "path": "runtime/model_selection/card/release16_bull_reentry_participation_objective_replay_v1/candidate_vs_release64_current_delta.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 824
+    },
+    {
+      "path": "runtime/model_selection/card/release16_bull_reentry_participation_objective_replay_v1/official_daily_paths/wf_2020__bull55_hold3_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31329
+    },
+    {
+      "path": "runtime/model_selection/card/release16_bull_reentry_participation_objective_replay_v1/official_daily_paths/wf_2020__bull65_hold3_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31329
+    },
+    {
+      "path": "runtime/model_selection/card/release16_bull_reentry_participation_objective_replay_v1/official_daily_paths/wf_2020__bull70_hold5_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31299
+    },
+    {
+      "path": "runtime/model_selection/card/release16_bull_reentry_participation_objective_replay_v1/official_daily_paths/wf_2020__release64_current_target_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31329
+    },
+    {
+      "path": "runtime/model_selection/card/release16_bull_reentry_participation_objective_replay_v1/official_daily_paths/wf_2022__bull55_hold3_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 29013
+    },
+    {
+      "path": "runtime/model_selection/card/release16_bull_reentry_participation_objective_replay_v1/official_daily_paths/wf_2022__bull65_hold3_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 29932
+    },
+    {
+      "path": "runtime/model_selection/card/release16_bull_reentry_participation_objective_replay_v1/official_daily_paths/wf_2022__bull70_hold5_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 29932
+    },
+    {
+      "path": "runtime/model_selection/card/release16_bull_reentry_participation_objective_replay_v1/official_daily_paths/wf_2022__release64_current_target_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30132
+    },
+    {
+      "path": "runtime/model_selection/card/release16_bull_reentry_participation_objective_replay_v1/official_daily_paths/wf_2023_2024__bull55_hold3_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31288
+    },
+    {
+      "path": "runtime/model_selection/card/release16_bull_reentry_participation_objective_replay_v1/official_daily_paths/wf_2023_2024__bull65_hold3_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31288
+    },
+    {
+      "path": "runtime/model_selection/card/release16_bull_reentry_participation_objective_replay_v1/official_daily_paths/wf_2023_2024__bull70_hold5_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31288
+    },
+    {
+      "path": "runtime/model_selection/card/release16_bull_reentry_participation_objective_replay_v1/official_daily_paths/wf_2023_2024__release64_current_target_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31288
+    },
+    {
+      "path": "runtime/model_selection/card/release16_bull_reentry_participation_objective_replay_v1/release64_current_target_target_contract.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2332306
+    },
+    {
+      "path": "runtime/model_selection/card/release16_bull_reentry_participation_objective_replay_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 545
+    },
+    {
+      "path": "runtime/model_selection/card/release16_bull_reentry_participation_objective_replay_v1/soxlbacktest_reference_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2876
+    },
+    {
+      "path": "runtime/model_selection/card/release16_bull_reentry_participation_objective_replay_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 12876
+    },
+    {
+      "path": "runtime/model_selection/card/release16_bull_reentry_participation_objective_replay_v1/target_config_grid.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 811
+    },
+    {
+      "path": "runtime/model_selection/card/release16_bull_reentry_participation_objective_replay_v1/target_lift_audit.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2239
+    },
+    {
+      "path": "runtime/model_selection/card/release16_bull_reentry_participation_objective_replay_v1/target_scope_audit.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1836
+    },
+    {
+      "path": "runtime/model_selection/card/release16_bull_reentry_participation_objective_replay_v1/target_variant_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1429
     },
     {
       "path": "runtime/model_selection/card/release16_cb99_rebound_checkpoint_screen_v1/bc_slice_metrics.csv",

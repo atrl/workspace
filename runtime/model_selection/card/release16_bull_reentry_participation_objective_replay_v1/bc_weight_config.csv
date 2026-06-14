@@ -1,0 +1,2 @@
+config,rebound_multiplier,downtrend_multiplier,release_gate_multiplier,ordinary_multiplier,objective_weight_power,class_balanced_beta,weight_floor,weight_cap,normalize_mean
+release64_no_objective,6.0,2.0,64.0,1.0,0.0,0.99,0.05,80.0,True

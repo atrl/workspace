@@ -1,0 +1,5 @@
+candidate,uses_bull_reentry,enabled,min_target_position,max_target_position,min_lift,objective_weight_bonus,max_objective_weight,include_release_gate,forward_hold_days,action_values,forward_action_values,stop_action_values,group_cols,target_scope,require_train_window,exclude_downtrend,exclude_drawdown_control
+release64_current_target,False,,,,,,,,,,,,,,,,
+bull55_hold3,True,True,0.55,0.7,0.01,4.0,30.0,True,3.0,"('BUY',)","('HOLD',)","('SELL', 'TAKE_PROFIT')","('fold', 'window')",fold_local,True,True,True
+bull65_hold3,True,True,0.65,0.8,0.01,5.0,30.0,True,3.0,"('BUY',)","('HOLD',)","('SELL', 'TAKE_PROFIT')","('fold', 'window')",fold_local,True,True,True
+bull70_hold5,True,True,0.7,0.85,0.01,5.0,30.0,True,5.0,"('BUY',)","('HOLD',)","('SELL', 'TAKE_PROFIT')","('fold', 'window')",fold_local,True,True,True

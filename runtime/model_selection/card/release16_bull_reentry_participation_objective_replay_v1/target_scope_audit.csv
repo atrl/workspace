@@ -1,0 +1,13 @@
+candidate,window,target_scope,target_fold,fold,rows,train_overlap_rows,eval_overlap_rows,outside_train_eval_rows,leakage_gate,scope_issue,train_start,train_end,eval_start,eval_end
+release64_current_target,wf_2020_train,fold_local,wf_2020_train,wf_2020_train,2470,2218,0,252,True,,2010-03-11,2018-12-31,2020-01-01,2020-12-31
+release64_current_target,wf_2022_train,fold_local,wf_2022_train,wf_2022_train,505,253,0,252,True,,2010-03-11,2020-12-31,2022-01-01,2022-12-31
+release64_current_target,wf_2023_2024_train,fold_local,wf_2023_2024_train,wf_2023_2024_train,756,756,0,0,True,,2010-03-11,2022-12-31,2024-01-01,2024-12-31
+bull55_hold3,wf_2020_train,fold_local,wf_2020_train,wf_2020_train,2470,2218,0,252,True,,2010-03-11,2018-12-31,2020-01-01,2020-12-31
+bull55_hold3,wf_2022_train,fold_local,wf_2022_train,wf_2022_train,505,253,0,252,True,,2010-03-11,2020-12-31,2022-01-01,2022-12-31
+bull55_hold3,wf_2023_2024_train,fold_local,wf_2023_2024_train,wf_2023_2024_train,756,756,0,0,True,,2010-03-11,2022-12-31,2024-01-01,2024-12-31
+bull65_hold3,wf_2020_train,fold_local,wf_2020_train,wf_2020_train,2470,2218,0,252,True,,2010-03-11,2018-12-31,2020-01-01,2020-12-31
+bull65_hold3,wf_2022_train,fold_local,wf_2022_train,wf_2022_train,505,253,0,252,True,,2010-03-11,2020-12-31,2022-01-01,2022-12-31
+bull65_hold3,wf_2023_2024_train,fold_local,wf_2023_2024_train,wf_2023_2024_train,756,756,0,0,True,,2010-03-11,2022-12-31,2024-01-01,2024-12-31
+bull70_hold5,wf_2020_train,fold_local,wf_2020_train,wf_2020_train,2470,2218,0,252,True,,2010-03-11,2018-12-31,2020-01-01,2020-12-31
+bull70_hold5,wf_2022_train,fold_local,wf_2022_train,wf_2022_train,505,253,0,252,True,,2010-03-11,2020-12-31,2022-01-01,2022-12-31
+bull70_hold5,wf_2023_2024_train,fold_local,wf_2023_2024_train,wf_2023_2024_train,756,756,0,0,True,,2010-03-11,2022-12-31,2024-01-01,2024-12-31
