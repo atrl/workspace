@@ -1,6 +1,6 @@
 {
   "actor_retention_allowed": false,
-  "created_at": "2026-06-14T23:43:30.338168+00:00",
+  "created_at": "2026-06-14T23:56:35.394376+00:00",
   "current_retention_gate": {
     "closest_wf_drawdown_candidate": {
       "best_return_gap_pct": 35.569893,
@@ -70,12 +70,12 @@
       "wf_2020",
       "wf_2023_2024"
     ],
-    "recommended_min_wf_relative_return_pp": -16.01,
-    "recommended_next_action": "build_risk_gated_state_head_target_or_drawdown_drift_checkpoint_objective_then_rerun_official_three_fold_replay",
-    "recommended_next_source": "release16_state_head_revision_handoff_v1",
+    "recommended_min_wf_relative_return_pp": 21.33,
+    "recommended_next_action": "train_nonconvex_risk_gated_state_head_checkpoint_objective_then_rerun_official_three_fold_replay",
+    "recommended_next_source": "release16_risk_gated_state_head_objective_screen_v1",
     "recommended_primary_blocker": "walkforward_relative_return_gap",
-    "recommended_relative_gap_to_target_pp": 46.01,
-    "recommended_worst_wf_max_drawdown_pct": 30.56,
+    "recommended_relative_gap_to_target_pp": 8.67,
+    "recommended_worst_wf_max_drawdown_pct": 16.65,
     "required_controls_before_training": [
       "Use official daily-path metrics as the selection basis, not raw backtest metrics.",
       "Diagnose wf_2020 and wf_2023_2024 relative-return gaps before launching a full retained actor run.",

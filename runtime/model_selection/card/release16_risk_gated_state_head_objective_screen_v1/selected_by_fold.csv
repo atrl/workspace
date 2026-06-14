@@ -1,0 +1,4 @@
+return_pct,buyhold_return_pct,relative_return_pct,max_dd_pct,avg_pos,relative_gap_pp,drawdown_gap_pp,gate_loss,relative_gate,drawdown_gate,gate_pass,fold,candidate_id,family,state_weight,drawdown_threshold,cooldown_days,position_cap
+79.4267,58.093571,21.33313,16.652151,0.307464,8.66687,0.0,8.66687,False,True,False,wf_2020,dd_fallback_0.075_10d,drawdown_fallback,,0.075,10.0,
+-14.345198,-86.588072,72.242874,15.341329,0.086368,0.0,0.0,0.0,True,True,True,wf_2022,static_blend_state_0.80,static_blend,0.8,,,
+22.429328,-0.356635,22.785963,5.546722,0.097579,7.214037,0.0,7.214037,False,True,False,wf_2023_2024,position_cap_0.20,position_cap_fallback,,,,0.2
