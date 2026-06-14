@@ -1,0 +1,219 @@
+{
+  "acceptance_criteria": [
+    "target_scope_gate passes",
+    "all required walk-forward folds have train-local labels",
+    "feature frame covers all labels",
+    "BC loss improves and required slices pass accuracy gates",
+    "no actor retained or promoted from this screen"
+  ],
+  "actor_retention_allowed": false,
+  "canonical_baseline": "soxlbacktest_policy_reimplementation_v1",
+  "changed_layer": [
+    "model_selection",
+    "training_objective_contract",
+    "bc_warm_start_readiness"
+  ],
+  "closest_historical_failure_case": "release16_state_head_post_fullprobe_objective_screen_v1 failed fixed MaxDD, YTD return alignment, and multiple WF gates; full actor YTD avg position was 0.0853 versus SOXLBacktest 0.1622.",
+  "closest_historical_success_case": "release16_rulebase_reversal_drawdown_upside_checkpoint_metric_replay_v1 selected bc_initialization passed wf_2022 candidate gate with MaxDD 15.6170 and relative return 71.715 pp.",
+  "comparison_table_row_key": "release16_checkpoint_distillation_bc_readiness_v1",
+  "conclusion": "Do not launch PPO yet; repair BC target weighting/features/slice coverage before training.",
+  "created_at": "2026-06-14T19:42:06.333233+00:00",
+  "decision": "bc_contract_readiness_failed_repair_before_training",
+  "direct_comparison_baseline": "release16_checkpoint_distillation_ytd_alignment_contract_v1",
+  "expected_tradeoff": "Spend a short supervised readiness pass before launching a full retained-actor PPO run.",
+  "experiment": "release16_checkpoint_distillation_bc_readiness_v1",
+  "external_reference": "converted SOXLBacktest qlib buy/sell baseline plus release16 state-objective contract",
+  "failure_mode": "BC may fit ordinary labels while missing release/downtrend slices, causing another PPO run to underparticipate or drift above MaxDD limits.",
+  "feature_summary": {
+    "feature_count": 59,
+    "feature_frame_columns": 59,
+    "feature_frame_max_date": "2024-12-31",
+    "feature_frame_min_date": "2011-03-11",
+    "feature_frame_rows": 3475,
+    "feature_packs": [],
+    "profile": "sparse_release_bc_ppo_screen_v1"
+  },
+  "fold_bc_metrics": [
+    {
+      "after_accuracy": 0.7249343832020997,
+      "after_loss": 1.1833015501968505,
+      "batch_size": 128,
+      "bc_samples": 1905,
+      "before_accuracy": 0.30498687664041996,
+      "before_loss": 1.605351229289698,
+      "failed_required_slices": "",
+      "feature_coverage_ok": true,
+      "fit_gate": true,
+      "fold": "wf_2020",
+      "loss_improvement": 0.42204967909284763,
+      "lr": 0.001,
+      "metadata_rows": 1905,
+      "samples": 1905,
+      "slice_gate": true,
+      "status": "evaluated",
+      "steps": 400,
+      "target_fold": "wf_2020_train",
+      "target_max_date": "2018-12-31",
+      "target_min_date": "2010-03-11",
+      "target_rows": 2218,
+      "target_scope_ok": true,
+      "test_overlap_rows": 0,
+      "train_last_batch_accuracy": 0.703125,
+      "train_last_loss": 1.1994092464447021,
+      "unique_label_actions": 5,
+      "valid_overlap_rows": 252,
+      "weight_max": 14.723672866821289,
+      "weight_mean": 1.0,
+      "weight_min": 0.39480552077293396
+    },
+    {
+      "after_accuracy": 0.8735177865612648,
+      "after_loss": 1.0323631075531126,
+      "batch_size": 128,
+      "bc_samples": 253,
+      "before_accuracy": 0.1383399209486166,
+      "before_loss": 1.6142005166517417,
+      "failed_required_slices": "",
+      "feature_coverage_ok": true,
+      "fit_gate": true,
+      "fold": "wf_2022",
+      "loss_improvement": 0.5818374090986291,
+      "lr": 0.001,
+      "metadata_rows": 253,
+      "samples": 253,
+      "slice_gate": true,
+      "status": "evaluated",
+      "steps": 400,
+      "target_fold": "wf_2022_train",
+      "target_max_date": "2020-12-31",
+      "target_min_date": "2020-01-02",
+      "target_rows": 253,
+      "target_scope_ok": true,
+      "test_overlap_rows": 0,
+      "train_last_batch_accuracy": 0.8828125,
+      "train_last_loss": 0.9821596741676331,
+      "unique_label_actions": 5,
+      "valid_overlap_rows": 252,
+      "weight_max": 6.9096150398254395,
+      "weight_mean": 0.9999999403953552,
+      "weight_min": 0.3516842722892761
+    },
+    {
+      "after_accuracy": 0.7420634920634921,
+      "after_loss": 1.1672210693359375,
+      "batch_size": 128,
+      "bc_samples": 756,
+      "before_accuracy": 0.07407407407407407,
+      "before_loss": 1.6138031167328042,
+      "failed_required_slices": "release_gate_state",
+      "feature_coverage_ok": true,
+      "fit_gate": false,
+      "fold": "wf_2023_2024",
+      "loss_improvement": 0.4465820473968667,
+      "lr": 0.001,
+      "metadata_rows": 756,
+      "samples": 756,
+      "slice_gate": false,
+      "status": "evaluated",
+      "steps": 400,
+      "target_fold": "wf_2023_2024_train",
+      "target_max_date": "2022-12-30",
+      "target_min_date": "2020-01-02",
+      "target_rows": 756,
+      "target_scope_ok": true,
+      "test_overlap_rows": 0,
+      "train_last_batch_accuracy": 0.7265625,
+      "train_last_loss": 1.2640880346298218,
+      "unique_label_actions": 5,
+      "valid_overlap_rows": 0,
+      "weight_max": 9.619935989379883,
+      "weight_mean": 1.0,
+      "weight_min": 0.22609826922416687
+    }
+  ],
+  "gate_summary": {
+    "all_feature_coverage_ok": true,
+    "all_fit_gates": false,
+    "all_required_folds_evaluated": true,
+    "all_target_scope_ok": true,
+    "evaluated_fold_count": 3,
+    "release_gate_pass_count": 2,
+    "required_fold_count": 3
+  },
+  "hypothesis": "Fold-local checkpoint distillation labels are useful only if the existing BC actor can fit the required state slices without label leakage before PPO.",
+  "next_mechanism": "repair_bc_weighting_target_features_or_slice_thresholds_before_ppo",
+  "output_paths": {
+    "bc_action_distribution": "runtime/model_selection/card/release16_checkpoint_distillation_bc_readiness_v1/bc_action_distribution.csv",
+    "dataset_summary": "runtime/model_selection/card/release16_checkpoint_distillation_bc_readiness_v1/dataset_summary.csv",
+    "feature_schema": "runtime/model_selection/card/release16_checkpoint_distillation_bc_readiness_v1/feature_schema.csv",
+    "feature_summary": "runtime/model_selection/card/release16_checkpoint_distillation_bc_readiness_v1/feature_summary.json",
+    "fold_bc_metrics": "runtime/model_selection/card/release16_checkpoint_distillation_bc_readiness_v1/fold_bc_metrics.csv",
+    "sample_weight_summary": "runtime/model_selection/card/release16_checkpoint_distillation_bc_readiness_v1/sample_weight_summary.csv",
+    "selection": "runtime/model_selection/card/release16_checkpoint_distillation_bc_readiness_v1/selection.json",
+    "state_slice_bc_metrics": "runtime/model_selection/card/release16_checkpoint_distillation_bc_readiness_v1/state_slice_bc_metrics.csv",
+    "summary": "runtime/model_selection/card/release16_checkpoint_distillation_bc_readiness_v1/summary.json",
+    "target_scope_audit": "runtime/model_selection/card/release16_checkpoint_distillation_bc_readiness_v1/target_scope_audit.csv"
+  },
+  "profile": "sparse_release_bc_ppo_screen_v1",
+  "promotion_allowed": false,
+  "required_slice_rules": {
+    "all": {
+      "min_accuracy": 0.55,
+      "min_samples": 100,
+      "required": true
+    },
+    "drawdown_control_state": {
+      "min_accuracy": 0.55,
+      "min_samples": 20,
+      "required": false
+    },
+    "is_downtrend_state": {
+      "min_accuracy": 0.65,
+      "min_samples": 100,
+      "required": false
+    },
+    "is_rebound_cluster": {
+      "min_accuracy": 0.55,
+      "min_samples": 5,
+      "required": false
+    },
+    "release_gate_state": {
+      "min_accuracy": 0.6,
+      "min_samples": 5,
+      "required": true
+    }
+  },
+  "retention_gate_current": {
+    "current_best_return_pct": 224.361539,
+    "max_walkforward_drawdown_pct": 20.0,
+    "passing_profile_count": 0,
+    "reference_profile": "soxl_backtest_policy_reimplementation_v1",
+    "reference_return_pct": 132.077978,
+    "required_best_return_pct": 213.143462
+  },
+  "role": "diagnose_bc_readiness",
+  "source_decision": "release16_checkpoint_distillation_ytd_alignment_contract_no_actor_retention",
+  "target_scope_audit": {
+    "blocked_training_label_rows": 0,
+    "label_role_values": [
+      "fold_local_train_label"
+    ],
+    "max_date": "2022-12-30",
+    "min_date": "2010-03-11",
+    "oos_guard_values": [
+      "allowed_train_dates_only"
+    ],
+    "rows": 3731,
+    "target_scope_gate": true,
+    "target_scope_values": [
+      "fold_local"
+    ],
+    "training_label_allowed_rows": 3731
+  },
+  "target_window": [
+    "wf_2020",
+    "wf_2022",
+    "wf_2023_2024"
+  ],
+  "why_not_duplicate": "This screen does not rebuild the contract or rerun PPO; it verifies whether the latest fold-local target contract can be consumed by the existing BC training helper."
+}

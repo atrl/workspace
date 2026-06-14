@@ -1,0 +1,4 @@
+fold,target_fold,target_rows,valid_overlap_rows,test_overlap_rows,target_min_date,target_max_date,target_scope_ok,bc_samples,metadata_rows,unique_label_actions,feature_coverage_ok
+wf_2020,wf_2020_train,2218,252,0,2010-03-11,2018-12-31,True,1905,1905,5,True
+wf_2022,wf_2022_train,253,252,0,2020-01-02,2020-12-31,True,253,253,5,True
+wf_2023_2024,wf_2023_2024_train,756,0,0,2020-01-02,2022-12-30,True,756,756,5,True

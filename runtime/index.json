@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-14T19:24:27.840568+00:00",
+  "generated_at": "2026-06-14T19:42:37.534630+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -7890,6 +7890,66 @@
       "category": "model_selection",
       "suffix": ".json",
       "bytes": 8604
+    },
+    {
+      "path": "runtime/model_selection/card/release16_checkpoint_distillation_bc_readiness_v1/bc_action_distribution.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 621
+    },
+    {
+      "path": "runtime/model_selection/card/release16_checkpoint_distillation_bc_readiness_v1/dataset_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 413
+    },
+    {
+      "path": "runtime/model_selection/card/release16_checkpoint_distillation_bc_readiness_v1/feature_schema.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 938
+    },
+    {
+      "path": "runtime/model_selection/card/release16_checkpoint_distillation_bc_readiness_v1/feature_summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 242
+    },
+    {
+      "path": "runtime/model_selection/card/release16_checkpoint_distillation_bc_readiness_v1/fold_bc_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1291
+    },
+    {
+      "path": "runtime/model_selection/card/release16_checkpoint_distillation_bc_readiness_v1/sample_weight_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 276
+    },
+    {
+      "path": "runtime/model_selection/card/release16_checkpoint_distillation_bc_readiness_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 3981
+    },
+    {
+      "path": "runtime/model_selection/card/release16_checkpoint_distillation_bc_readiness_v1/state_slice_bc_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1587
+    },
+    {
+      "path": "runtime/model_selection/card/release16_checkpoint_distillation_bc_readiness_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 8774
+    },
+    {
+      "path": "runtime/model_selection/card/release16_checkpoint_distillation_bc_readiness_v1/target_scope_audit.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 262
     },
     {
       "path": "runtime/model_selection/card/release16_checkpoint_distillation_ytd_alignment_contract_v1/buy_sell_feature_contrast.csv",
