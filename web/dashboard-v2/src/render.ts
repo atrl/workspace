@@ -109,6 +109,7 @@ export function renderDataSourcePanel(container: HTMLElement, manifest: Manifest
     autoSection.appendChild(taskList);
     container.appendChild(autoSection);
   }
+  renderModelRuntimeStatusTable(container, manifest);
   renderUnavailableProfileTable(container, manifest);
   const retention = manifest.model_retention_gate;
   if (retention) {
@@ -207,6 +208,44 @@ function renderUnavailableProfileTable(container: HTMLElement, manifest: Manifes
   container.appendChild(section);
 }
 
+function renderModelRuntimeStatusTable(container: HTMLElement, manifest: Manifest): void {
+  const rows = manifest.model_runtime_status ?? [];
+  if (!rows.length) return;
+  const section = element('section', 'auto-update-block model-runtime-status');
+  section.appendChild(element('h3', undefined, 'Model Runtime Status'));
+  const table = element('table', 'comparison-table compact-table runtime-status-table');
+  const thead = element('thead');
+  const headerRow = element('tr');
+  for (const title of ['Model', 'Role', 'Run', 'Reason', 'Schema', 'Window', 'Source']) {
+    headerRow.appendChild(element('th', undefined, title));
+  }
+  thead.appendChild(headerRow);
+  table.appendChild(thead);
+  const tbody = element('tbody');
+  for (const row of rows) {
+    const tr = element('tr');
+    tr.dataset.role = row.role;
+    const schemaText = `${row.feature_schema_signature ?? 'n/a'} · ${row.feature_count} features · ${row.snapshot_count} snapshots`;
+    const windowText =
+      row.replay_start && row.replay_end
+        ? `${row.replay_start} to ${row.replay_end} · ${row.row_count} rows`
+        : `${row.row_count} rows`;
+    tr.appendChild(element('td', undefined, row.display_name || row.profile));
+    tr.appendChild(element('td', undefined, row.role));
+    tr.appendChild(element('td', undefined, row.runnable ? 'yes' : 'no'));
+    tr.appendChild(element('td', undefined, row.runnable_reason));
+    tr.appendChild(element('td', 'feature-snapshot-cell', schemaText));
+    tr.appendChild(element('td', 'feature-snapshot-cell', windowText));
+    tr.appendChild(element('td', 'feature-snapshot-cell', row.source_path || row.output || 'n/a'));
+    tbody.appendChild(tr);
+  }
+  table.appendChild(tbody);
+  const tableScroll = element('div', 'table-scroll');
+  tableScroll.appendChild(table);
+  section.appendChild(tableScroll);
+  container.appendChild(section);
+}
+
 export function renderOperationsPanel(container: HTMLElement, manifest: Manifest, warnings: string[] = []): void {
   container.replaceChildren();
   container.appendChild(element('h2', undefined, 'Operations'));
@@ -265,6 +304,7 @@ export function renderOperationsPanel(container: HTMLElement, manifest: Manifest
     taskList.appendChild(item);
   }
   container.appendChild(taskList);
+  renderModelRuntimeStatusTable(container, manifest);
   renderUnavailableProfileTable(container, manifest);
 
   const critical = warnings.filter((warning) => warning.includes('Replay') || warning.includes('runnable') || warning.includes('not runnable'));

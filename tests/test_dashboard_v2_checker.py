@@ -149,6 +149,52 @@ def test_check_dashboard_v2_data_fails_malformed_unavailable_profile(tmp_path: P
         check_dashboard_v2_data(root)
 
 
+def test_check_dashboard_v2_data_fails_malformed_model_runtime_status(tmp_path: Path):
+    root = tmp_path / "dashboard_data" / "v2"
+    _write_json(
+        root / "manifest.json",
+        {
+            "safe_backtest_end": "2026-01-06",
+            "default_baseline_profile": "smoke",
+            "default_comparison_profiles": ["smoke"],
+            "available_profiles": ["smoke"],
+            "model_runtime_status": [
+                {
+                    "profile": "smoke",
+                    "role": "maybe",
+                    "runnable": False,
+                    "source_kind": "qlib_model",
+                    "feature_count": 0,
+                    "snapshot_count": 0,
+                    "row_count": 1,
+                }
+            ],
+        },
+    )
+    _write_json(
+        root / "market" / "SOXL.json",
+        {"rows": [{"date": "2026-01-06", "open": 10, "high": 11, "low": 9, "close": 10.5, "volume": 1000}]},
+    )
+    _write_json(root / "models" / "smoke.json", _model_contract())
+    _write_json(
+        root / "comparison" / "default.json",
+        {
+            "baseline_profile": "smoke",
+            "compared_profiles": ["smoke"],
+            "rows": [
+                {
+                    "date": "2026-01-06",
+                    "profiles": {"smoke": {"action": "BUY"}},
+                    "action_mismatch_count": 0,
+                }
+            ],
+        },
+    )
+
+    with pytest.raises(ValueError, match="model_runtime_status"):
+        check_dashboard_v2_data(root)
+
+
 def test_check_dashboard_v2_data_fails_missing_model_position(tmp_path: Path):
     root = tmp_path / "dashboard_data" / "v2"
     _write_json(

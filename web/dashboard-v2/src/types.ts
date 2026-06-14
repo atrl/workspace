@@ -50,6 +50,29 @@ export interface UnavailableProfile {
   output?: string;
 }
 
+export type ModelRuntimeRole = 'runnable' | 'reference' | 'evidence_only' | 'unavailable';
+
+export interface ModelRuntimeStatus {
+  profile: string;
+  display_name?: string;
+  status?: string;
+  role: ModelRuntimeRole;
+  runnable: boolean;
+  runnable_reason: string;
+  source_kind: string;
+  source_path?: string;
+  feature_schema_signature?: string;
+  feature_schema_source?: string;
+  feature_count: number;
+  snapshot_count: number;
+  row_count: number;
+  replay_start?: string;
+  replay_end?: string;
+  actor?: string;
+  profile_yaml?: string;
+  output?: string;
+}
+
 export interface ModelRetentionGateStatus {
   source_path?: string;
   profiles_scanned?: number;
@@ -83,6 +106,7 @@ export interface Manifest {
   safe_backtest_end: string;
   available_profiles: string[];
   unavailable_profiles?: UnavailableProfile[];
+  model_runtime_status?: ModelRuntimeStatus[];
   profile_groups?: {
     runnable: string[];
     reference: string[];

@@ -178,6 +178,19 @@ def test_build_dashboard_v2_data_writes_manifest_market_model_and_comparison(tmp
         "scripts/build_dashboard_bundle.py",
         "scripts/check_dashboard_static_export.py",
     ]
+    runtime_status = {row["profile"]: row for row in manifest["model_runtime_status"]}
+    assert runtime_status["smoke"]["role"] == "evidence_only"
+    assert runtime_status["smoke"]["runnable"] is False
+    assert runtime_status["smoke"]["runnable_reason"] == "missing_actor_artifact"
+    assert runtime_status["smoke"]["feature_count"] == len(model["feature_columns"])
+    assert runtime_status["smoke"]["snapshot_count"] == len(model["snapshot_columns"])
+    assert runtime_status["smoke"]["source_kind"] == "qlib_model"
+    assert runtime_status["missing_actor_model"]["role"] == "unavailable"
+    assert runtime_status["missing_actor_model"]["runnable"] is False
+    assert runtime_status["missing_actor_model"]["runnable_reason"] == "missing_actor_artifact"
+    assert runtime_status["missing_actor_model"]["output"] == (
+        "runtime/model/card/missing_actor_model/missing_actor_model_soxl_daily.csv"
+    )
     assert manifest["unavailable_profiles"] == [
         {
             "profile": "missing_actor_model",

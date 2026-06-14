@@ -235,7 +235,8 @@ can hide every model after the first wide feature schema.
 
 `dashboard_data/v2/manifest.json` should make operational status explicit:
 include `auto_update.manual_refresh_command`, `auto_update.refresh_pipeline`,
-and `unavailable_profiles` derived from skipped/failed
+`model_runtime_status` for every reference/runnable/evidence-only/unavailable
+model, and `unavailable_profiles` derived from skipped/failed
 `dashboard_data/model_replay_freshness.json` rows. The first screen should show
 configured/loaded scheduler tasks, replay ready counts, and each unavailable
 model's actor/profile/output reason so missing actors do not look like missing

@@ -68,6 +68,11 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.textContent).toContain('runtime/soxl/paper_trading/dashboard_refresh.log');
     expect(panel.textContent).toContain('production/run_dashboard_refresh.sh');
     expect(panel.textContent).toContain('06:30 Tue-Sat Asia/Shanghai');
+    expect(panel.textContent).toContain('Model Runtime Status');
+    expect(panel.textContent).toContain('missing_actor_model');
+    expect(panel.textContent).toContain('unavailable');
+    expect(panel.textContent).toContain('missing_actor_artifact');
+    expect(panel.textContent).toContain('alpha123 · 2 features');
     expect(panel.textContent).toContain('Retention Gate');
     expect(panel.textContent).toContain('0 / 2 promotable');
     expect(panel.textContent).toContain('MaxDD < 20.00%');
@@ -102,6 +107,11 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.textContent).toContain('runtime/soxl/paper_trading/dashboard_refresh.log');
     expect(panel.textContent).toContain('pipeline');
     expect(panel.textContent).toContain('scripts/check_dashboard_static_export.py');
+    expect(panel.textContent).toContain('Model Runtime Status');
+    expect(panel.textContent).toContain('runnable');
+    expect(panel.textContent).toContain('reference');
+    expect(panel.textContent).toContain('missing_actor_model');
+    expect(panel.textContent).toContain('missing_actor_artifact');
     expect(panel.textContent).toContain('Unavailable Model Replays');
     expect(panel.textContent).toContain('missing_actor_model');
     expect(panel.querySelector('.task-card[data-enabled="true"]')?.textContent).toContain('configured');

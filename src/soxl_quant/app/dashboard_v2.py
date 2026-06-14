@@ -1253,6 +1253,76 @@ def _profile_groups(
     return groups
 
 
+def _model_runtime_role(payload: dict[str, Any]) -> str:
+    if payload.get("runnable"):
+        return "runnable"
+    source_kind = str(payload.get("source_kind") or "")
+    runnable_reason = str(payload.get("runnable_reason") or "")
+    if source_kind in {"soxlbacktest_qlib_buysell", "reference_baseline"} or runnable_reason == "reference_baseline":
+        return "reference"
+    return "evidence_only"
+
+
+def _model_runtime_status_manifest(
+    model_payloads: dict[str, dict[str, Any]],
+    profiles: list[str],
+    unavailable_profiles: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    for profile in profiles:
+        payload = model_payloads.get(profile)
+        if not isinstance(payload, dict):
+            continue
+        feature_columns = payload.get("feature_columns") if isinstance(payload.get("feature_columns"), list) else []
+        snapshot_columns = payload.get("snapshot_columns") if isinstance(payload.get("snapshot_columns"), list) else []
+        rows.append(
+            {
+                "profile": profile,
+                "display_name": payload.get("display_name") or profile,
+                "status": payload.get("status") or "",
+                "role": _model_runtime_role(payload),
+                "runnable": bool(payload.get("runnable")),
+                "runnable_reason": payload.get("runnable_reason") or ("ok" if payload.get("runnable") else "not_runnable"),
+                "source_kind": payload.get("source_kind") or "",
+                "source_path": payload.get("source_path") or "",
+                "feature_schema_signature": payload.get("feature_schema_signature") or "n/a",
+                "feature_schema_source": payload.get("feature_schema_source") or "n/a",
+                "feature_count": len(feature_columns),
+                "snapshot_count": len(snapshot_columns),
+                "row_count": int(payload.get("row_count") or len(payload.get("rows", []) or [])),
+                "replay_start": payload.get("replay_start"),
+                "replay_end": payload.get("replay_end"),
+            }
+        )
+
+    known_profiles = {row["profile"] for row in rows}
+    for item in unavailable_profiles:
+        profile = str(item.get("profile") or "").strip()
+        if not profile or profile in known_profiles:
+            continue
+        rows.append(
+            {
+                "profile": profile,
+                "display_name": profile,
+                "status": item.get("status") or "",
+                "role": "unavailable",
+                "runnable": False,
+                "runnable_reason": item.get("reason") or "not_replayable",
+                "source_kind": "qlib_model",
+                "source_path": item.get("output") or "",
+                "feature_schema_signature": "n/a",
+                "feature_schema_source": "n/a",
+                "feature_count": 0,
+                "snapshot_count": 0,
+                "row_count": 0,
+                "actor": item.get("actor"),
+                "profile_yaml": item.get("profile_yaml"),
+                "output": item.get("output"),
+            }
+        )
+    return rows
+
+
 def build_dashboard_v2_data(
     *,
     root: Path,
@@ -1462,13 +1532,19 @@ def build_dashboard_v2_data(
         ),
         defaults[0],
     )
+    unavailable_profiles = _unavailable_profiles_from_freshness(root, freshness)
     manifest = {
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "latest_market_date": latest_market_date,
         "safe_backtest_end": safe_backtest_end,
         "available_profiles": profiles_to_write,
-        "unavailable_profiles": _unavailable_profiles_from_freshness(root, freshness),
+        "unavailable_profiles": unavailable_profiles,
         "profile_groups": _profile_groups(model_payloads, profiles_to_write),
+        "model_runtime_status": _model_runtime_status_manifest(
+            model_payloads,
+            profiles_to_write,
+            unavailable_profiles,
+        ),
         "default_baseline_profile": baseline,
         "default_chart_profile": default_chart_profile,
         "default_comparison_profiles": defaults,

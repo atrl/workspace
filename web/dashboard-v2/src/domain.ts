@@ -430,7 +430,8 @@ export function buildBaselineFeatureContrastRows(input: {
       const baselineRow = baselineRows.get(row.date);
       const snapshot = row.feature_snapshot ?? {};
       const baselineSnapshot = baselineRow?.feature_snapshot ?? {};
-      const featureRows = Object.keys(snapshot)
+      const featureNames = [...new Set([...Object.keys(snapshot), ...Object.keys(baselineSnapshot)])];
+      const featureRows = featureNames
         .map((feature) => {
           const value = snapshot[feature] ?? null;
           const baselineValue = baselineSnapshot[feature] ?? null;

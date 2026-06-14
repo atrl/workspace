@@ -145,8 +145,24 @@ describe('dashboard v2 domain helpers', () => {
   });
 
   test('builds buy/sell feature contrasts against the selected baseline', () => {
+    const baselineWithOwnFeature = {
+      ...betaModelFixture,
+      feature_columns: [...betaModelFixture.feature_columns, 'baseline_only_signal'],
+      snapshot_columns: [...betaModelFixture.snapshot_columns, 'baseline_only_signal'],
+      rows: betaModelFixture.rows.map((row) =>
+        row.date === '2026-01-05'
+          ? {
+              ...row,
+              feature_snapshot: {
+                ...(row.feature_snapshot ?? {}),
+                baseline_only_signal: 99,
+              },
+            }
+          : row,
+      ),
+    };
     const rows = buildBaselineFeatureContrastRows({
-      models: { smoke: modelFixture, balanced_rule_residual_v22: betaModelFixture },
+      models: { smoke: modelFixture, balanced_rule_residual_v22: baselineWithOwnFeature },
       baselineProfile: 'balanced_rule_residual_v22',
       limitPerEvent: 10,
     });
@@ -164,6 +180,17 @@ describe('dashboard v2 domain helpers', () => {
     expect(modelSpecificFeature).toMatchObject({
       profile: 'smoke',
       baseline_value: null,
+      delta: null,
+    });
+    const baselineOnlyFeature = rows.find(
+      (row) => row.date === '2026-01-05' && row.feature === 'baseline_only_signal',
+    );
+    expect(baselineOnlyFeature).toMatchObject({
+      profile: 'smoke',
+      action: 'BUY',
+      baseline_action: 'SELL',
+      value: null,
+      baseline_value: 99,
       delta: null,
     });
   });

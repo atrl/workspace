@@ -10,6 +10,7 @@ from typing import Any
 REQUIRED_MARKET_FIELDS = {"date", "open", "high", "low", "close", "volume"}
 REQUIRED_MODEL_FIELDS = {"date", "strategy_nav", "buyhold_nav", "position", "action", "price"}
 ACTION_VALUES = {"BUY", "SELL", "HOLD"}
+MODEL_RUNTIME_ROLES = {"runnable", "reference", "evidence_only", "unavailable"}
 
 
 def _load(path: Path) -> dict[str, Any]:
@@ -108,6 +109,50 @@ def check_dashboard_v2_data(root: Path) -> dict[str, int]:
             missing = [field for field in ("profile", "result", "reason") if not item.get(field)]
             if missing:
                 raise ValueError(f"manifest unavailable profile missing fields: {', '.join(missing)}")
+    runtime_status = manifest.get("model_runtime_status", [])
+    if runtime_status is not None:
+        if not isinstance(runtime_status, list):
+            raise ValueError("manifest model_runtime_status must be a list")
+        runtime_profiles: set[str] = set()
+        for item in runtime_status:
+            if not isinstance(item, dict):
+                raise ValueError("manifest model_runtime_status entries must be objects")
+            missing = [
+                field
+                for field in (
+                    "profile",
+                    "role",
+                    "runnable",
+                    "runnable_reason",
+                    "source_kind",
+                    "feature_count",
+                    "snapshot_count",
+                    "row_count",
+                )
+                if field not in item
+            ]
+            if missing:
+                raise ValueError(f"manifest model_runtime_status missing fields: {', '.join(missing)}")
+            role = str(item.get("role") or "")
+            if role not in MODEL_RUNTIME_ROLES:
+                raise ValueError(f"manifest model_runtime_status role is invalid: {role}")
+            if not isinstance(item.get("runnable"), bool):
+                raise ValueError("manifest model_runtime_status runnable must be boolean")
+            for count_field in ("feature_count", "snapshot_count", "row_count"):
+                try:
+                    count = int(item[count_field])
+                except (TypeError, ValueError) as exc:
+                    raise ValueError(f"manifest model_runtime_status {count_field} must be an integer") from exc
+                if count < 0:
+                    raise ValueError(f"manifest model_runtime_status {count_field} must be non-negative")
+            profile = str(item.get("profile") or "")
+            if profile:
+                runtime_profiles.add(profile)
+        missing_runtime_rows = sorted(profile for profile in available_profile_list if profile not in runtime_profiles)
+        if runtime_status and missing_runtime_rows:
+            raise ValueError(
+                f"manifest model_runtime_status missing available profile: {', '.join(missing_runtime_rows)}"
+            )
     has_retention_gate = manifest.get("model_retention_gate") is not None
 
     market_rows = _require_rows(market, "market SOXL")

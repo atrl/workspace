@@ -1,0 +1,22 @@
+{
+  "url": "http://127.0.0.1:8768/web/dashboard-v2/dist/index.html",
+  "requiredText": {
+    "Auto Update": true,
+    "dashboard_refresh": true,
+    "Model Runtime Status": true,
+    "SOXLBacktest Buy/Sell Baseline": true,
+    "Buy/Sell Features": true,
+    "Feature Driver Matrix": true,
+    "Trade Feature vs Baseline": true,
+    "Position": true,
+    "NAV": true
+  },
+  "canvasCount": 24,
+  "visibleCanvasCount": 24,
+  "nonblankCanvasCount": 18,
+  "runStatus": "2026-05-13 to 2026-06-09 | deterministic baseline selected-window replay",
+  "firstDateInput": "2026-05-13",
+  "chartDebugKeys": [],
+  "errors": [],
+  "screenshot": "/Users/rziiiii/dev/workspace/.worktrees/dashboard-v2-model-features-fix/runtime/harness/card/dashboard_v2_model_runtime_status_v1/dashboard_v2_model_runtime_status_1440x1000.png"
+}
