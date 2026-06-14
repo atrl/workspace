@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import pandas as pd
+import pytest
 
 from src.soxl_quant.app.checkpoint_daily_export import (
     build_checkpoint_candidate_daily_export,
@@ -14,9 +15,9 @@ def test_build_checkpoint_candidate_daily_export_rebases_and_writes_path(tmp_pat
         "portfolio": pd.DataFrame({"account": [1_000_000.0, 1_100_000.0, 1_050_000.0, 1_200_000.0]}, index=dates),
         "return": 20.0,
         "sharpe": 1.25,
-        "max_dd": 4.55,
-        "bnh_return": 50.0,
-        "relative_outperformance": -30.0,
+        "max_dd": 99.0,
+        "bnh_return": 500.0,
+        "relative_outperformance": -480.0,
         "position_history": [0.0, 0.3, 0.3, 0.1],
         "trade_signals": [(dates[1], 110.0, 0.3, "buy"), (dates[3], 150.0, 0.1, "sell")],
         "effective_test_seg": ("2020-01-02", "2020-01-07"),
@@ -36,8 +37,14 @@ def test_build_checkpoint_candidate_daily_export_rebases_and_writes_path(tmp_pat
     assert export.row["daily_path_rows"] == 4
     assert export.row["daily_path_start"] == "2020-01-02"
     assert export.row["daily_path_end"] == "2020-01-07"
-    assert export.row["test_return"] == 20.0
-    assert export.row["test_relative_return"] == -30.0
+    assert export.row["test_return"] == pytest.approx(20.0)
+    assert export.row["test_buy_and_hold_return"] == 50.0
+    assert export.row["test_relative_return"] == pytest.approx(-30.0)
+    assert export.row["test_max_dd"] == pytest.approx(4.5454545)
+    assert export.row["metric_basis"] == "official_daily_path_rebased_eval_window"
+    assert export.row["raw_backtest_buy_and_hold_return"] == 500.0
+    assert export.row["raw_backtest_relative_return"] == -480.0
+    assert export.row["metric_relative_abs_diff"] == 450.0
 
     daily = pd.read_csv(export.path)
     assert daily["datetime"].tolist() == ["2020-01-02", "2020-01-03", "2020-01-06", "2020-01-07"]

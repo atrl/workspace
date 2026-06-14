@@ -7,7 +7,7 @@
     "checkpoint_selection",
     "bc_warm_start"
   ],
-  "created_at": "2026-06-14T13:25:39.792743+00:00",
+  "created_at": "2026-06-14T14:01:20.156934+00:00",
   "decision": "release16_cb99_checkpoint_metric_screen_partial_pass_no_promotion",
   "direct_comparison_baseline": "rebound_state_factor_target_repair_screen_v1",
   "drawdown_gate_operator": "<",
@@ -15,30 +15,39 @@
   "drift_relative_floor_pp": -5.0,
   "experiment": "release16_cb99_rebound_checkpoint_screen_v1",
   "failed_folds": [
-    "wf_2020"
+    "wf_2020",
+    "wf_2023_2024"
   ],
   "feature_frame_source": "build_dataset_rebuilt_full_2010_2024",
+  "material_metric_mismatch_count": 12,
+  "material_metric_mismatch_folds": [
+    "wf_2020",
+    "wf_2022",
+    "wf_2023_2024"
+  ],
+  "metric_basis": "official_daily_path_rebased_eval_window",
+  "metric_basis_reconciliation": "selected metrics are recomputed from official_daily_paths; raw backtest metrics are retained only as warmup-benchmark audit columns",
   "metrics": [
     {
-      "avg_pos": 0.3392805205658078,
-      "max_dd_pct": 14.961639240134858,
-      "relative_return_pct": -290.2720553181555,
+      "avg_pos": 0.2244455596671677,
+      "max_dd_pct": 14.96163924013486,
+      "relative_return_pct": -15.032278476982412,
       "return_pct": 43.06129213950158,
       "split_type": "walk_forward_test",
       "window": "wf_2020"
     },
     {
-      "avg_pos": 0.1611220737821177,
-      "max_dd_pct": 15.61704288012166,
-      "relative_return_pct": 63.70006424254002,
+      "avg_pos": 0.0813840878420415,
+      "max_dd_pct": 15.617042880121645,
+      "relative_return_pct": 71.71497994984345,
       "return_pct": -14.873091782550818,
       "split_type": "walk_forward_test",
       "window": "wf_2022"
     },
     {
-      "avg_pos": 0.1100130890052356,
-      "max_dd_pct": 5.618566215623794,
-      "relative_return_pct": 40.54302563801326,
+      "avg_pos": 0.0855603767424863,
+      "max_dd_pct": 5.618566215623799,
+      "relative_return_pct": 4.707958912656595,
       "return_pct": 4.351324182968153,
       "split_type": "walk_forward_test",
       "window": "wf_2023_2024"
@@ -49,12 +58,13 @@
   "profile": "sparse_release_bc_ppo_screen_v1",
   "promotion_allowed": false,
   "promotion_blocker": "Diagnostic fold-local checkpoint screen only. Retention still requires a full retained actor bundle plus fixed-split, wf_2020/wf_2022/wf_2023_2024, YTD return alignment, and dashboard replay evidence.",
+  "raw_metric_basis": "backtest_profile_reported_metrics",
   "reference_baseline": "soxlbacktest_qlib_walkforward_baseline_v1:wf_pass_ytd18_15_15_02",
   "required_fold_coverage": true,
   "role": "diagnose",
-  "selected_candidate_gate_count": 2,
+  "selected_candidate_gate_count": 1,
   "selected_drift_gate_count": 3,
-  "selected_target_gate_count": 2,
+  "selected_target_gate_count": 1,
   "sidecars": [
     "coverage.csv",
     "coverage.json",
@@ -62,6 +72,7 @@
     "ppo_selection_history.csv",
     "checkpoint_candidate_metrics.csv",
     "checkpoint_selection_by_fold.csv",
+    "metric_basis_reconciliation.csv",
     "official_daily_paths/",
     "drift_score_summary.json",
     "selection.json",

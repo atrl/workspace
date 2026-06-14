@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-14T13:26:45.332585+00:00",
+  "generated_at": "2026-06-14T14:12:20.283036+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -6191,13 +6191,13 @@
       "path": "runtime/model_selection/card/model_retention_frontier_v1/retention_frontier.csv",
       "category": "model_selection",
       "suffix": ".csv",
-      "bytes": 51429
+      "bytes": 51442
     },
     {
       "path": "runtime/model_selection/card/model_retention_frontier_v1/summary.json",
       "category": "model_selection",
       "suffix": ".json",
-      "bytes": 131520
+      "bytes": 131531
     },
     {
       "path": "runtime/model_selection/card/model_retention_walkforward_gate_v1/conclusion.md",
@@ -7709,19 +7709,19 @@
       "path": "runtime/model_selection/card/release16_cb99_rebound_checkpoint_screen_v1/checkpoint_candidate_metrics.csv",
       "category": "model_selection",
       "suffix": ".csv",
-      "bytes": 19471
+      "bytes": 22546
     },
     {
       "path": "runtime/model_selection/card/release16_cb99_rebound_checkpoint_screen_v1/checkpoint_selection_by_fold.csv",
       "category": "model_selection",
       "suffix": ".csv",
-      "bytes": 2033
+      "bytes": 2051
     },
     {
       "path": "runtime/model_selection/card/release16_cb99_rebound_checkpoint_screen_v1/conclusion.md",
       "category": "model_selection",
       "suffix": ".md",
-      "bytes": 1111
+      "bytes": 1324
     },
     {
       "path": "runtime/model_selection/card/release16_cb99_rebound_checkpoint_screen_v1/coverage.csv",
@@ -7739,7 +7739,13 @@
       "path": "runtime/model_selection/card/release16_cb99_rebound_checkpoint_screen_v1/drift_score_summary.json",
       "category": "model_selection",
       "suffix": ".json",
-      "bytes": 4679
+      "bytes": 4968
+    },
+    {
+      "path": "runtime/model_selection/card/release16_cb99_rebound_checkpoint_screen_v1/metric_basis_reconciliation.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4211
     },
     {
       "path": "runtime/model_selection/card/release16_cb99_rebound_checkpoint_screen_v1/official_daily_paths/wf_2020__bc_initialization_official_daily_path.csv",
@@ -7823,13 +7829,13 @@
       "path": "runtime/model_selection/card/release16_cb99_rebound_checkpoint_screen_v1/selection.json",
       "category": "model_selection",
       "suffix": ".json",
-      "bytes": 3363
+      "bytes": 3843
     },
     {
       "path": "runtime/model_selection/card/release16_cb99_rebound_checkpoint_screen_v1/summary.json",
       "category": "model_selection",
       "suffix": ".json",
-      "bytes": 7902
+      "bytes": 8604
     },
     {
       "path": "runtime/model_selection/card/retention_candidate_overlay_screen_v1/conclusion.md",
