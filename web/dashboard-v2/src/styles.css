@@ -292,6 +292,97 @@ h2 {
   margin-top: 8px;
 }
 
+.decision-card-grid {
+  display: grid;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.decision-card {
+  display: grid;
+  gap: 7px;
+  padding: 9px;
+  border: 1px solid #374151;
+  border-radius: 6px;
+  background: #111827;
+}
+
+.decision-card[data-action="BUY"] {
+  border-color: rgba(52, 211, 153, 0.45);
+}
+
+.decision-card[data-action="SELL"] {
+  border-color: rgba(248, 113, 113, 0.45);
+}
+
+.decision-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-width: 0;
+}
+
+.decision-card-header strong,
+.decision-action,
+.decision-card-meta,
+.decision-card-label {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.decision-card-header strong {
+  color: #f9fafb;
+}
+
+.decision-action {
+  color: #d1d5db;
+  font-weight: 700;
+}
+
+.decision-card[data-action="BUY"] .decision-action {
+  color: #34d399;
+}
+
+.decision-card[data-action="SELL"] .decision-action {
+  color: #f87171;
+}
+
+.decision-card-meta {
+  color: #9ca3af;
+  font-size: 12px;
+}
+
+.decision-card-label {
+  color: #9ca3af;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.feature-chip-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  min-width: 0;
+}
+
+.feature-chip {
+  min-width: 0;
+  max-width: 100%;
+  padding: 3px 6px;
+  border: 1px solid #374151;
+  border-radius: 6px;
+  color: #d1d5db;
+  background: #0b1220;
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+
+.feature-chip-empty {
+  color: #6b7280;
+}
+
 .panel {
   border-top: 1px solid #1f2937;
 }

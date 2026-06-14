@@ -4,6 +4,7 @@ import {
   buildBaselineFeatureContrastRows,
   buildFeatureSchemaOverlapRows,
   buildActionMarkers,
+  buildSelectedDateDecisionFeatureCards,
   canRunSelectedWindow,
   clampComparisonProfiles,
   clipRowsByDate,
@@ -163,6 +164,58 @@ describe('dashboard v2 domain helpers', () => {
       profile: 'smoke',
       baseline_value: null,
       delta: null,
+    });
+  });
+
+  test('builds selected-date decision cards with model-only features and baseline deltas', () => {
+    const cards = buildSelectedDateDecisionFeatureCards({
+      date: '2026-01-05',
+      marketRows: marketFixture.rows,
+      models: { smoke: modelFixture, balanced_rule_residual_v22: betaModelFixture },
+      baselineProfile: 'balanced_rule_residual_v22',
+    });
+
+    const smoke = cards.find((card) => card.profile === 'smoke');
+    const beta = cards.find((card) => card.profile === 'balanced_rule_residual_v22');
+
+    expect(smoke).toMatchObject({
+      action: 'BUY',
+      baseline_action: 'SELL',
+      model_only_features: [{ feature: 'alpha_signal', value: 1.25 }],
+      shared_feature_deltas: [
+        { feature: 'shared_feature', value: 10, baseline_value: 20, delta: -10 },
+      ],
+      buy_sell_features: ['alpha_signal', 'shared_feature'],
+    });
+    expect(smoke?.position_delta_vs_baseline).toBeCloseTo(0.5);
+    expect(beta).toMatchObject({
+      action: 'SELL',
+      baseline_action: 'SELL',
+      position_delta_vs_baseline: 0,
+      model_only_features: [{ feature: 'beta_signal', value: -2.5 }],
+      shared_feature_deltas: [],
+    });
+  });
+
+  test('uses latest available model row for decision cards when selected date is beyond replay end', () => {
+    const truncatedBeta = {
+      ...betaModelFixture,
+      rows: betaModelFixture.rows.filter((row) => row.date <= '2026-01-05'),
+    };
+    const cards = buildSelectedDateDecisionFeatureCards({
+      date: '2026-01-06',
+      marketRows: marketFixture.rows,
+      models: { smoke: modelFixture, balanced_rule_residual_v22: truncatedBeta },
+      baselineProfile: 'smoke',
+    });
+
+    const beta = cards.find((card) => card.profile === 'balanced_rule_residual_v22');
+
+    expect(beta).toMatchObject({
+      date: '2026-01-05',
+      is_exact_date: false,
+      action: 'SELL',
+      model_only_features: [{ feature: 'beta_signal', value: -2.5 }],
     });
   });
 

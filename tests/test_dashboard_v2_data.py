@@ -169,6 +169,8 @@ def test_build_dashboard_v2_data_writes_manifest_market_model_and_comparison(tmp
     assert manifest["auto_update"]["model_replay_freshness"]["profile_count"] == 2
     assert manifest["auto_update"]["model_replay_freshness"]["ready_count"] == 1
     assert manifest["auto_update"]["manual_refresh_command"] == "production/run_dashboard_refresh.sh"
+    assert manifest["auto_update"]["install_command"] == "production/install_dashboard_refresh_launchagent.sh"
+    assert manifest["auto_update"]["run_now_command"] == "production/install_dashboard_refresh_launchagent.sh --run-now"
     assert manifest["auto_update"]["refresh_pipeline"] == [
         "scripts/refresh_dashboard_model_replays.py",
         "scripts/build_dashboard_bundle.py",

@@ -653,6 +653,7 @@ def _auto_update_status(
     dashboard_refresh_plist = root / "production" / "com.soxl.dashboard.refresh.plist"
     scheduler = root / "production" / "run_soxl_scheduler.sh"
     dashboard_refresh = root / "production" / "run_dashboard_refresh.sh"
+    dashboard_refresh_installer = root / "production" / "install_dashboard_refresh_launchagent.sh"
     cron_text = cron_path.read_text(encoding="utf-8") if cron_path.exists() else ""
     loaded_labels = _launchagent_loaded_labels(detect_launchd=detect_launchd)
     launchagents_dir = _launchagents_dir()
@@ -733,7 +734,9 @@ def _auto_update_status(
         "launchd_detected": launchd_detected,
         "launchagents_dir": str(launchagents_dir),
         "tasks": tasks,
-        "manual_refresh_command": "production/run_dashboard_refresh.sh",
+        "manual_refresh_command": _relative_to(root, dashboard_refresh),
+        "install_command": _relative_to(root, dashboard_refresh_installer),
+        "run_now_command": f"{_relative_to(root, dashboard_refresh_installer)} --run-now",
         "refresh_pipeline": [
             "scripts/refresh_dashboard_model_replays.py",
             "scripts/build_dashboard_bundle.py",

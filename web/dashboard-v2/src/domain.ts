@@ -4,7 +4,10 @@ import type {
   BaselineFeatureContrastRow,
   ComparisonPayload,
   ComparisonRow,
+  DecisionFeatureCard,
   FeatureSchemaOverlapRow,
+  FeatureDeltaValue,
+  FeatureNameValue,
   InspectorRow,
   Manifest,
   MarketPayload,
@@ -268,6 +271,136 @@ function featureDelta(value: FeatureValue | undefined, baselineValue: FeatureVal
   const left = numericFeatureValue(value);
   const right = numericFeatureValue(baselineValue);
   return left !== null && right !== null ? left - right : null;
+}
+
+function featureEntries(
+  features: Record<string, FeatureValue>,
+  featureNames: readonly string[],
+  limit: number,
+): FeatureNameValue[] {
+  return featureNames
+    .filter((feature) => features[feature] !== undefined)
+    .sort()
+    .slice(0, limit)
+    .map((feature) => ({ feature, value: features[feature] ?? null }));
+}
+
+function topFeatureDeltas(
+  features: Record<string, FeatureValue>,
+  baselineFeatures: Record<string, FeatureValue>,
+  limit: number,
+): FeatureDeltaValue[] {
+  return Object.keys(features)
+    .filter((feature) => baselineFeatures[feature] !== undefined)
+    .map((feature) => ({
+      feature,
+      value: features[feature] ?? null,
+      baseline_value: baselineFeatures[feature] ?? null,
+      delta: featureDelta(features[feature], baselineFeatures[feature]),
+    }))
+    .sort((left, right) => {
+      const leftMissing = left.delta === null ? 1 : 0;
+      const rightMissing = right.delta === null ? 1 : 0;
+      return (
+        leftMissing - rightMissing ||
+        Math.abs(right.delta ?? 0) - Math.abs(left.delta ?? 0) ||
+        left.feature.localeCompare(right.feature)
+      );
+    })
+    .slice(0, limit);
+}
+
+function modelRowAtOrBefore(rows: readonly ModelRow[], date: string): ModelRow | undefined {
+  const sorted = [...rows].sort((left, right) => left.date.localeCompare(right.date));
+  return [...sorted].reverse().find((row) => row.date <= date) ?? sorted[0];
+}
+
+export function buildSelectedDateDecisionFeatureCards(input: {
+  date: string;
+  models: Record<string, ModelPayload>;
+  marketRows: readonly MarketRow[];
+  baselineProfile: string;
+  modelOnlyLimit?: number;
+  deltaLimit?: number;
+  buySellLimit?: number;
+}): DecisionFeatureCard[] {
+  const modelOnlyLimit = input.modelOnlyLimit ?? 4;
+  const deltaLimit = input.deltaLimit ?? 4;
+  const buySellLimit = input.buySellLimit ?? 4;
+  const market = marketRowsByDate(input.marketRows);
+  const rows = Object.entries(input.models)
+    .map(([profile, model]) => {
+      const modelRow = modelRowAtOrBefore(model.rows, input.date);
+      if (!modelRow) return null;
+      const rowSnapshot = modelRow.feature_snapshot ?? {};
+      const marketSnapshot = snapshotFromMarket(market.get(modelRow.date), model.snapshot_columns);
+      return {
+        profile,
+        display_name: model.display_name || profile,
+        date: modelRow.date,
+        action: modelRow.action,
+        position: modelRow.position,
+        is_trade: modelRow.action === 'BUY' || modelRow.action === 'SELL',
+        source_kind: model.source_kind,
+        feature_packs: model.feature_packs,
+        feature_columns: model.feature_columns,
+        features: Object.keys(rowSnapshot).length ? rowSnapshot : marketSnapshot,
+      };
+    })
+    .filter((row): row is ActionFeatureRow & { date: string } => row !== null);
+  const rowsByProfile = new Map(rows.map((row) => [row.profile, row]));
+  const baselineRow = rowsByProfile.get(input.baselineProfile);
+  const baselineFeatures = baselineRow?.features ?? {};
+  const featureSets = new Map(
+    Object.entries(input.models).map(([profile, model]) => [
+      profile,
+      new Set(model.feature_columns.length ? model.feature_columns : model.snapshot_columns),
+    ]),
+  );
+
+  return rows.map((row) => {
+    const model = input.models[row.profile];
+    const featureSet = featureSets.get(row.profile) ?? new Set<string>();
+    const otherFeatures = new Set<string>();
+    for (const [otherProfile, otherSet] of featureSets.entries()) {
+      if (otherProfile === row.profile) continue;
+      for (const feature of otherSet) otherFeatures.add(feature);
+    }
+    const snapshotFeatureNames = Object.keys(row.features);
+    const modelOnlyNames = snapshotFeatureNames.filter((feature) => {
+      const schemaOnly = featureSet.has(feature) && !otherFeatures.has(feature);
+      const absentFromBaseline = row.profile !== input.baselineProfile && baselineFeatures[feature] === undefined;
+      return schemaOnly || absentFromBaseline;
+    });
+    const topBuySell = [...(model.feature_action_summary ?? [])]
+      .sort((left, right) => {
+        const leftScore = Math.abs(left.buy_minus_sell ?? 0);
+        const rightScore = Math.abs(right.buy_minus_sell ?? 0);
+        return rightScore - leftScore || left.feature.localeCompare(right.feature);
+      })
+      .slice(0, buySellLimit)
+      .map((item) => item.feature);
+
+    return {
+      profile: row.profile,
+      display_name: row.display_name,
+      date: row.date,
+      is_exact_date: row.date === input.date,
+      action: row.action,
+      position: row.position,
+      baseline_action: baselineRow?.action ?? 'n/a',
+      position_delta_vs_baseline:
+        baselineRow === undefined ? null : row.position - baselineRow.position,
+      is_trade: row.is_trade,
+      source_kind: row.source_kind,
+      model_only_features: featureEntries(row.features, modelOnlyNames, modelOnlyLimit),
+      shared_feature_deltas:
+        row.profile === input.baselineProfile
+          ? []
+          : topFeatureDeltas(row.features, baselineFeatures, deltaLimit),
+      buy_sell_features: topBuySell,
+    } satisfies DecisionFeatureCard;
+  });
 }
 
 export function buildBaselineFeatureContrastRows(input: {

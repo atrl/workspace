@@ -23,6 +23,8 @@ export interface AutoUpdateStatus {
   launchagents_dir?: string;
   tasks: AutoUpdateTask[];
   manual_refresh_command?: string;
+  install_command?: string;
+  run_now_command?: string;
   refresh_pipeline?: string[];
   model_replay_freshness?: {
     generated_at?: string;
@@ -219,6 +221,34 @@ export interface ActionFeatureRow {
   feature_packs: string[];
   feature_columns: string[];
   features: Record<string, FeatureValue>;
+}
+
+export interface FeatureNameValue {
+  feature: string;
+  value: FeatureValue;
+}
+
+export interface FeatureDeltaValue {
+  feature: string;
+  value: FeatureValue;
+  baseline_value: FeatureValue;
+  delta: number | null;
+}
+
+export interface DecisionFeatureCard {
+  profile: string;
+  display_name: string;
+  date: string;
+  is_exact_date: boolean;
+  action: Action;
+  position: number;
+  baseline_action: Action | 'n/a';
+  position_delta_vs_baseline: number | null;
+  is_trade: boolean;
+  source_kind: string;
+  model_only_features: FeatureNameValue[];
+  shared_feature_deltas: FeatureDeltaValue[];
+  buy_sell_features: string[];
 }
 
 export interface BaselineFeatureContrastRow {

@@ -56,6 +56,8 @@ export const manifestFixture: Manifest = {
       },
     ],
     manual_refresh_command: 'production/run_dashboard_refresh.sh',
+    install_command: 'production/install_dashboard_refresh_launchagent.sh',
+    run_now_command: 'production/install_dashboard_refresh_launchagent.sh --run-now',
     refresh_pipeline: [
       'scripts/refresh_dashboard_model_replays.py',
       'scripts/build_dashboard_bundle.py',

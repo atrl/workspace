@@ -55,6 +55,9 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.textContent).toContain('Auto Update');
     expect(panel.textContent).toContain('dashboard_refresh');
     expect(panel.textContent).toContain('manual refresh');
+    expect(panel.textContent).toContain('install auto update');
+    expect(panel.textContent).toContain('production/install_dashboard_refresh_launchagent.sh');
+    expect(panel.textContent).toContain('--run-now');
     expect(panel.textContent).toContain('scripts/refresh_dashboard_model_replays.py -> scripts/build_dashboard_bundle.py');
     expect(panel.textContent).toContain('installed');
     expect(panel.textContent).toContain('loaded');
@@ -89,6 +92,7 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.textContent).toContain('com.soxl.dashboard.refresh');
     expect(panel.textContent).toContain('installed');
     expect(panel.textContent).toContain('production/run_dashboard_refresh.sh');
+    expect(panel.textContent).toContain('production/install_dashboard_refresh_launchagent.sh');
     expect(panel.textContent).toContain('runtime/soxl/paper_trading/dashboard_refresh.log');
     expect(panel.textContent).toContain('pipeline');
     expect(panel.textContent).toContain('scripts/check_dashboard_static_export.py');
@@ -195,6 +199,10 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.textContent).toContain('alpha_signal 1.25');
     expect(panel.textContent).toContain('beta_signal -2.50');
     expect(panel.textContent).toContain('Buy/Sell Feature Summary');
+    expect(panel.textContent).toContain('Selected Decision Features');
+    expect(panel.textContent).toContain('Model-only');
+    expect(panel.textContent).toContain('Shared vs baseline');
+    expect(panel.textContent).toContain('BUY/SELL drivers');
     expect(panel.textContent).toContain('Trade Feature vs Baseline');
     expect(panel.textContent).toContain('baseline SELL');
     expect(panel.textContent).toContain('-10.00');
@@ -244,10 +252,11 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.textContent).toContain('alpha_signal');
     expect(panel.textContent).toContain('beta_signal');
     expect(panel.textContent).toContain('Trade Feature vs Baseline');
+    expect(panel.textContent).toContain('Selected Decision Features');
     expect(panel.textContent).toContain('baseline SELL');
     expect(panel.textContent).toContain('BUY-SELL');
     expect(panel.textContent).toContain('Recent Buy/Sell Events');
-    expect(panel.querySelector('h3')?.textContent).toBe('Buy/Sell Feature Summary');
+    expect([...panel.querySelectorAll('h3')].map((node) => node.textContent)).toContain('Buy/Sell Feature Summary');
   });
 
   test('limits hover feature snapshots so mouse interaction stays lightweight', () => {

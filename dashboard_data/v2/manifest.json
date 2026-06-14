@@ -1,6 +1,7 @@
 {
   "auto_update": {
     "configured": true,
+    "install_command": "production/install_dashboard_refresh_launchagent.sh",
     "launchagents_dir": "/Users/rziiiii/Library/LaunchAgents",
     "launchd_detected": true,
     "manual_refresh_command": "production/run_dashboard_refresh.sh",
@@ -24,6 +25,7 @@
       "scripts/check_dashboard_static_export.py"
     ],
     "remote_deploy_required": false,
+    "run_now_command": "production/install_dashboard_refresh_launchagent.sh --run-now",
     "status_paths": {
       "production_goal_gates": "dashboard_data/production_goal_gates.json",
       "production_status": "dashboard_data/production_status.json"
@@ -78,7 +80,7 @@
     "soxl_backtest_policy_reimplementation_v1",
     "balanced_rule_residual_v19_moe_v2"
   ],
-  "generated_at": "2026-06-14T02:42:42.811074+00:00",
+  "generated_at": "2026-06-14T03:01:29.451307+00:00",
   "latest_market_date": "2026-06-10",
   "model_retention_frontier": {
     "completed_handoff_count": 82,

@@ -2,12 +2,16 @@ import {
   buildActionFeatureRows,
   buildBaselineFeatureContrastRows,
   buildFeatureSchemaOverlapRows,
+  buildSelectedDateDecisionFeatureCards,
   computeVisibleComparison,
 } from './domain';
 import type { ChartRangeCommand } from './chart';
 import type {
   ComparisonPayload,
+  DecisionFeatureCard,
   FeatureActionSummaryRow,
+  FeatureDeltaValue,
+  FeatureNameValue,
   FeatureValue,
   InspectorRow,
   Manifest,
@@ -71,6 +75,8 @@ export function renderDataSourcePanel(container: HTMLElement, manifest: Manifest
           .join(' ') || 'n/a',
       ],
       ['freshness source', auto.model_replay_freshness?.source_path ?? 'n/a'],
+      ['install auto update', auto.install_command ?? 'n/a'],
+      ['run refresh now', auto.run_now_command ?? 'n/a'],
       ['manual refresh', auto.manual_refresh_command ?? 'n/a'],
       ['refresh pipeline', auto.refresh_pipeline?.join(' -> ') ?? 'n/a'],
       ['remote deploy required', auto.remote_deploy_required ? 'yes' : 'no'],
@@ -225,6 +231,8 @@ export function renderOperationsPanel(container: HTMLElement, manifest: Manifest
         .join(' ') || 'n/a',
     ],
     ['safe replay end', auto.model_replay_freshness?.safe_backtest_end ?? 'n/a'],
+    ['install auto update', auto.install_command ?? 'n/a'],
+    ['run refresh now', auto.run_now_command ?? 'n/a'],
     ['manual refresh', auto.manual_refresh_command ?? 'n/a'],
     ['pipeline', auto.refresh_pipeline?.join(' -> ') ?? 'n/a'],
     ['next training', manifest.model_retention_frontier?.recommended_next_source ?? 'n/a'],
@@ -442,6 +450,79 @@ function renderFeatureList(features: Record<string, FeatureValue>, limit = FEATU
 function formatSignedFeatureDelta(value: number | null | undefined): string {
   if (typeof value !== 'number' || !Number.isFinite(value)) return 'n/a';
   return value > 0 ? `+${value.toFixed(2)}` : value.toFixed(2);
+}
+
+function formatFeatureChip(row: FeatureNameValue): string {
+  return `${row.feature} ${formatFeatureValue(row.value)}`;
+}
+
+function formatFeatureDeltaChip(row: FeatureDeltaValue): string {
+  const delta = formatSignedFeatureDelta(row.delta);
+  return `${row.feature} ${formatFeatureValue(row.value)} vs ${formatFeatureValue(row.baseline_value)} (${delta})`;
+}
+
+function renderChipList(
+  container: HTMLElement,
+  rows: readonly string[],
+  emptyText: string,
+): void {
+  const list = element('div', 'feature-chip-list');
+  if (rows.length) {
+    for (const text of rows) {
+      list.appendChild(element('span', 'feature-chip', text));
+    }
+  } else {
+    list.appendChild(element('span', 'feature-chip feature-chip-empty', emptyText));
+  }
+  container.appendChild(list);
+}
+
+function renderDecisionFeatureCards(
+  container: HTMLElement,
+  input: { date: string; marketRows: readonly MarketRow[]; models: Record<string, ModelPayload>; baselineProfile?: string },
+): void {
+  container.appendChild(element('h3', undefined, 'Selected Decision Features'));
+  const baselineProfile = input.baselineProfile ?? Object.keys(input.models)[0] ?? '';
+  const cards = buildSelectedDateDecisionFeatureCards({
+    date: input.date,
+    marketRows: input.marketRows,
+    models: input.models,
+    baselineProfile,
+  });
+  if (!cards.length) {
+    container.appendChild(element('p', 'empty-state', 'No selected-date decision rows.'));
+    return;
+  }
+  const grid = element('div', 'decision-card-grid');
+  for (const card of cards) {
+    grid.appendChild(renderDecisionFeatureCard(card));
+  }
+  container.appendChild(grid);
+}
+
+function renderDecisionFeatureCard(card: DecisionFeatureCard): HTMLElement {
+  const node = element('article', 'decision-card');
+  node.dataset.action = card.action;
+  node.dataset.trade = card.is_trade ? 'true' : 'false';
+  const header = element('div', 'decision-card-header');
+  header.appendChild(element('strong', undefined, card.display_name));
+  header.appendChild(element('span', 'decision-action', `${card.action} · pos ${card.position.toFixed(3)}`));
+  node.appendChild(header);
+
+  const baselineText =
+    card.position_delta_vs_baseline === null
+      ? `baseline ${card.baseline_action}`
+      : `baseline ${card.baseline_action} · pos delta ${formatSignedFeatureDelta(card.position_delta_vs_baseline)}`;
+  const dateText = card.is_exact_date ? `as of ${card.date}` : `latest row ${card.date}`;
+  node.appendChild(element('div', 'decision-card-meta', `${dateText} · ${card.source_kind} · ${baselineText}`));
+
+  node.appendChild(element('div', 'decision-card-label', 'Model-only'));
+  renderChipList(node, card.model_only_features.map(formatFeatureChip), 'none on selected date');
+  node.appendChild(element('div', 'decision-card-label', 'Shared vs baseline'));
+  renderChipList(node, card.shared_feature_deltas.map(formatFeatureDeltaChip), 'baseline row or shared deltas unavailable');
+  node.appendChild(element('div', 'decision-card-label', 'BUY/SELL drivers'));
+  renderChipList(node, card.buy_sell_features, 'no trade feature summary');
+  return node;
 }
 
 function topFeatureSummaryRows(model: ModelPayload, limit = 4): FeatureActionSummaryRow[] {
@@ -708,6 +789,7 @@ export function renderFeatureComparisonPanel(
       `${Object.keys(input.models).length} selected models | feature schemas and BUY/SELL event snapshots`,
     ),
   );
+  renderDecisionFeatureCards(container, input);
   renderFeatureActionSummaryTable(container, input.models);
   renderBaselineFeatureContrastTable(container, input.models, input.baselineProfile ?? Object.keys(input.models)[0] ?? '');
   renderRecentEventFeatureTable(container, input.models);
@@ -727,6 +809,7 @@ export function renderFeatureSpotlightPanel(
       `${input.date} | selected model snapshots and buy/sell contrasts`,
     ),
   );
+  renderDecisionFeatureCards(container, input);
   const snapshotPanel = element('section', 'feature-date-snapshot');
   snapshotPanel.id = 'feature-date-snapshot';
   renderFeatureSnapshotPanel(snapshotPanel, input);
