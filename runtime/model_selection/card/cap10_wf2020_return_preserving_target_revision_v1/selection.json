@@ -1,0 +1,26 @@
+{
+  "actor_retention_allowed": false,
+  "decision": "wf2020_return_preserving_target_revision_ready_no_promotion",
+  "experiment": "cap10_wf2020_return_preserving_target_revision_v1",
+  "next_mechanism": "build_return_preserving_wf2020_bull_participation_target_then_rerun_three_fold_bc_checkpoint_metric_replay",
+  "next_training_allowed_after_target_revision": true,
+  "promotion_allowed": false,
+  "selected_source": "cap10_three_fold_checkpoint_metric_replay_v2:wf_2020:bc_initialization",
+  "source_selection": {
+    "calibration": {
+      "experiment": "wf2020_reference_floor_gate_calibration_v1",
+      "source_card": "runtime/model_selection/card/wf2020_reference_floor_gate_calibration_v1/summary.json",
+      "target_relative_return_by_fold_pp": {
+        "wf_2020": -263.7287958891489,
+        "wf_2022": 30.0,
+        "wf_2023_2024": 30.0
+      }
+    },
+    "metric_replay": {
+      "direct_comparison_baseline": "cap10_three_fold_checkpoint_metric_replay_v2",
+      "experiment": "cap10_three_fold_checkpoint_metric_replay_v2",
+      "selected_daily_path": "runtime/model_selection/card/cap10_three_fold_checkpoint_metric_replay_v2/official_daily_paths/wf_2020__bc_initialization_official_daily_path.csv",
+      "source_card": "runtime/model_selection/card/cap10_three_fold_checkpoint_metric_replay_v2/summary.json"
+    }
+  }
+}
