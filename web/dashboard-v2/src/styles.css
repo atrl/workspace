@@ -27,7 +27,7 @@ select {
 #app {
   min-height: 100vh;
   display: grid;
-  grid-template-rows: auto minmax(0, 1fr) auto auto auto;
+  grid-template-rows: auto minmax(0, 1fr) auto auto;
 }
 
 .toolbar {
@@ -121,6 +121,18 @@ select {
   color: #6b7280;
 }
 
+.run-status {
+  max-width: min(520px, 42vw);
+  color: #9ca3af;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.run-status[data-tone="warning"] {
+  color: #f59e0b;
+}
+
 .run-group button:not(:disabled):hover,
 .chart-command-button:hover {
   background: #1f2937;
@@ -131,7 +143,7 @@ select {
   grid-template-columns: minmax(0, 1fr) clamp(380px, 28vw, 440px);
   gap: 0;
   min-height: 0;
-  height: calc(100vh - 150px);
+  height: calc(100vh - 58px);
 }
 
 .chart-column {
@@ -249,7 +261,7 @@ h2 {
 .right-stack {
   min-width: 0;
   display: grid;
-  grid-template-rows: minmax(180px, 0.8fr) auto minmax(260px, 1fr);
+  grid-template-rows: minmax(160px, 0.7fr) minmax(170px, auto) minmax(320px, 1.3fr);
   min-height: 0;
   overflow: hidden;
 }
@@ -467,6 +479,11 @@ h2 {
   .toolbar select,
   .toolbar input[type="date"] {
     max-width: 100%;
+  }
+
+  .run-status {
+    max-width: 100%;
+    white-space: normal;
   }
 
   .workspace {

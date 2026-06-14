@@ -203,3 +203,40 @@ def test_check_dashboard_v2_data_fails_when_comparison_references_unknown_profil
 
     with pytest.raises(ValueError, match="unknown profile"):
         check_dashboard_v2_data(root)
+
+
+def test_check_dashboard_v2_data_fails_post_train_preview_model(tmp_path: Path):
+    root = tmp_path / "dashboard_data" / "v2"
+    _write_json(
+        root / "manifest.json",
+        {
+            "default_baseline_profile": "bad_preview",
+            "default_comparison_profiles": ["bad_preview"],
+            "available_profiles": ["bad_preview"],
+        },
+    )
+    _write_json(
+        root / "market" / "SOXL.json",
+        {"rows": [{"date": "2026-01-06", "open": 10, "high": 11, "low": 9, "close": 10.5, "volume": 1000}]},
+    )
+    _write_json(
+        root / "models" / "bad_preview.json",
+        _model_contract(profile="bad_preview", source_kind="post_train_review"),
+    )
+    _write_json(
+        root / "comparison" / "default.json",
+        {
+            "baseline_profile": "bad_preview",
+            "compared_profiles": ["bad_preview"],
+            "rows": [
+                {
+                    "date": "2026-01-06",
+                    "profiles": {"bad_preview": {"action": "BUY"}},
+                    "action_mismatch_count": 0,
+                }
+            ],
+        },
+    )
+
+    with pytest.raises(ValueError, match="post-train preview"):
+        check_dashboard_v2_data(root)

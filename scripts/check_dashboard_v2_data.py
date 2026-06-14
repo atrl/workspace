@@ -89,6 +89,9 @@ def check_dashboard_v2_data(root: Path) -> dict[str, int]:
     model_dates_by_profile: dict[str, set[str]] = {}
     for profile in available_profile_list:
         model = _load(root / "models" / f"{profile}.json")
+        source_kind = str(model.get("source_kind") or "")
+        if source_kind == "post_train_review" or "posttrainpreview" in str(profile).lower():
+            raise ValueError(f"model {profile} is a post-train preview export; remove it from dashboard v2")
         rows = _require_rows(model, f"model {profile}")
         for field in (
             "source_kind",

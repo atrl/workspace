@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-14T01:36:58.598095+00:00",
+  "generated_at": "2026-06-14T01:51:18.184541+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -5444,6 +5444,66 @@
       "bytes": 2220
     },
     {
+      "path": "runtime/model_selection/card/fold_frontier_failure_attribution_v1/best_existing_by_fold.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1704
+    },
+    {
+      "path": "runtime/model_selection/card/fold_frontier_failure_attribution_v1/conclusion.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 1119
+    },
+    {
+      "path": "runtime/model_selection/card/fold_frontier_failure_attribution_v1/fold_candidate_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 304
+    },
+    {
+      "path": "runtime/model_selection/card/fold_frontier_failure_attribution_v1/fold_pareto_frontier.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 11359
+    },
+    {
+      "path": "runtime/model_selection/card/fold_frontier_failure_attribution_v1/normalized_candidate_frontier.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 32878
+    },
+    {
+      "path": "runtime/model_selection/card/fold_frontier_failure_attribution_v1/ranked_candidate_frontier.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 33065
+    },
+    {
+      "path": "runtime/model_selection/card/fold_frontier_failure_attribution_v1/repair_plan.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1635
+    },
+    {
+      "path": "runtime/model_selection/card/fold_frontier_failure_attribution_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 8202
+    },
+    {
+      "path": "runtime/model_selection/card/fold_frontier_failure_attribution_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 6501
+    },
+    {
+      "path": "runtime/model_selection/card/fold_frontier_failure_attribution_v1/wf2020_near_miss.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 7616
+    },
+    {
       "path": "runtime/model_selection/card/fold_local_bull_reentry_participation_target_v1/action_state_counts.csv",
       "category": "model_selection",
       "suffix": ".csv",
@@ -5837,19 +5897,19 @@
       "path": "runtime/model_selection/card/model_retention_frontier_v1/conclusion.md",
       "category": "model_selection",
       "suffix": ".md",
-      "bytes": 556
+      "bytes": 532
     },
     {
       "path": "runtime/model_selection/card/model_retention_frontier_v1/retention_frontier.csv",
       "category": "model_selection",
       "suffix": ".csv",
-      "bytes": 39762
+      "bytes": 40279
     },
     {
       "path": "runtime/model_selection/card/model_retention_frontier_v1/summary.json",
       "category": "model_selection",
       "suffix": ".json",
-      "bytes": 106574
+      "bytes": 107685
     },
     {
       "path": "runtime/model_selection/card/model_retention_walkforward_gate_v1/conclusion.md",

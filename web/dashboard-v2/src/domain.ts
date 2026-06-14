@@ -63,6 +63,21 @@ export function chooseDefaultChartProfile(
   return runnable ?? preferred[0] ?? manifest.default_baseline_profile;
 }
 
+export function runnableProfileReason(model: ModelPayload | undefined): string {
+  if (!model) return 'model data not loaded';
+  if (model.runnable) return 'ready for selected-window inference';
+  if (model.runnable_reason === 'reference_baseline' || model.source_kind === 'soxlbacktest_qlib_buysell') {
+    return 'reference baseline only';
+  }
+  if (model.runnable_reason === 'evidence_only_retained_dashboard_export') {
+    return 'retained export only';
+  }
+  if (model.runnable_reason === 'missing_actor_artifact' || model.runnable_reason === 'missing_actor') {
+    return 'missing actor artifact';
+  }
+  return model.runnable_reason ? model.runnable_reason.replaceAll('_', ' ') : 'not runnable';
+}
+
 export function chartRangeRows(
   models: Record<string, ModelPayload>,
   chartProfile: string,

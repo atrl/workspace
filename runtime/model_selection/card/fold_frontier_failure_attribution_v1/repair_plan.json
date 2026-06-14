@@ -1,0 +1,25 @@
+{
+  "decision": "fold_frontier_wf2020_timing_gap_blocks_retention",
+  "next_mechanism": "build_wf2020_near_miss_return_timing_repair_then_rerun_fold_aware_three_fold_replay",
+  "repair_constraints": [
+    "Do not restart from full risk-cap replacement; it underparticipated wf_2020 and damaged 2023-2024 relative return.",
+    "Start from the bull-reentry BC/near-miss wf_2020 surface because it is within 14.01pp return of the risk-cap floor while keeping MaxDD under 20%.",
+    "Use the 61.32% return / 20.92% MaxDD wf_2020 near-miss as the upper participation edge and repair its sub-1pp drawdown breach, rather than adding broad exposure.",
+    "Preserve already passing wf_2022 and wf_2023_2024 candidates as comparison baselines; any new target must not regress those folds."
+  ],
+  "wf2020_primary_gap": {
+    "best_maxdd_safe_candidate": "bull_reentry_three_fold_checkpoint_metric_replay_v1:bc_initialization",
+    "best_maxdd_safe_max_dd_pct": 15.489487944520992,
+    "best_maxdd_safe_return_gap_pp": 14.006591882815385,
+    "best_maxdd_safe_return_pct": 55.59795968569277,
+    "highest_return_candidate": "cap10_three_fold_checkpoint_metric_replay_v2:ppo_retained_iter_4",
+    "highest_return_max_dd_gap_pct": 0.9182850870956827,
+    "highest_return_max_dd_pct": 20.918285087095683,
+    "highest_return_pct": 61.32404958994388,
+    "near_miss_candidate": "cap10_three_fold_checkpoint_metric_replay_v2:ppo_retained_iter_4",
+    "near_miss_max_dd_gap_pct": 0.9182850870956827,
+    "near_miss_max_dd_pct": 20.918285087095683,
+    "near_miss_return_gap_pp": 8.280501978564274,
+    "near_miss_return_pct": 61.32404958994388
+  }
+}

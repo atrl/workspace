@@ -241,4 +241,20 @@ describe('dashboard v2 backtest API client', () => {
       buy_mean: 1.5,
     });
   });
+
+  test('reports a dashboard_server hint when static-server fallback is unreachable', async () => {
+    const fetchMock = vi
+      .fn()
+      .mockResolvedValueOnce({ ok: false, status: 501, json: async () => ({ error: 'static server' }) })
+      .mockRejectedValueOnce(new TypeError('connection refused'));
+    vi.stubGlobal('fetch', fetchMock);
+
+    await expect(
+      runBacktest({
+        profile: 'smoke',
+        startDate: '2026-01-05',
+        endDate: '2026-01-06',
+      }),
+    ).rejects.toThrow('scripts/dashboard_server.py');
+  });
 });

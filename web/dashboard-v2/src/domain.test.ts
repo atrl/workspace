@@ -11,6 +11,7 @@ import {
   computeKeyboardDateRange,
   computeVisibleComparison,
   chooseDefaultChartProfile,
+  runnableProfileReason,
 } from './domain';
 import { betaModelFixture, comparisonFixture, manifestFixture, marketFixture, modelFixture } from './testFixtures';
 import { viewUpdateRequiresChartRender, viewUpdateRequiresFeatureRender } from './viewState';
@@ -181,5 +182,24 @@ describe('dashboard v2 domain helpers', () => {
       start: '2026-01-02',
       end: '2026-01-09',
     });
+  });
+
+  test('explains why interactive rerun is unavailable for non-runnable profiles', () => {
+    expect(runnableProfileReason(modelFixture)).toBe('ready for selected-window inference');
+    expect(
+      runnableProfileReason({
+        ...betaModelFixture,
+        runnable: false,
+        runnable_reason: 'reference_baseline',
+        source_kind: 'soxlbacktest_qlib_buysell',
+      }),
+    ).toBe('reference baseline only');
+    expect(
+      runnableProfileReason({
+        ...betaModelFixture,
+        runnable: false,
+        runnable_reason: 'missing_actor_artifact',
+      }),
+    ).toBe('missing actor artifact');
   });
 });

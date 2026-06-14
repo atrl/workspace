@@ -1,0 +1,175 @@
+{
+  "actor_retention_allowed": false,
+  "canonical_baseline": "v19reg_v22_budget_usage_bull_guard_v1",
+  "changed_layer": [
+    "model_selection",
+    "evidence_routing",
+    "target_repair_design"
+  ],
+  "conclusion": [
+    "Existing candidates pass 2/3 folds as a combined frontier; no full retention training is allowed from this card.",
+    "wf_2020 best MaxDD-safe candidate is bull_reentry_three_fold_checkpoint_metric_replay_v1:bc_initialization at 55.60% return and 15.49% MaxDD, leaving 14.01pp to the 69.60% floor.",
+    "wf_2020 highest-return near-miss reaches 61.32% return with 20.92% MaxDD, so the next repair should target a sub-1pp drawdown breach instead of replacing the whole target with risk-cap labels.",
+    "wf_2022 and wf_2023_2024 already have passing candidates in existing checkpoint replay evidence; they should be protected comparison folds in the next run."
+  ],
+  "created_at": "2026-06-14T01:50:43.465132+00:00",
+  "decision": "fold_frontier_wf2020_timing_gap_blocks_retention",
+  "direct_comparison_baseline": "return_preserving_hybrid_target_bc_replay_v1",
+  "experiment": "fold_frontier_failure_attribution_v1",
+  "failed_folds": [
+    "wf_2020"
+  ],
+  "fold_gate_pass_count": 2,
+  "max_dd_pass_count": 3,
+  "missing_folds": [],
+  "next_mechanism": "build_wf2020_near_miss_return_timing_repair_then_rerun_fold_aware_three_fold_replay",
+  "next_training_allowed_after_replay": false,
+  "promotion_allowed": false,
+  "reference_baseline": "soxlbacktest_qlib_buysell_reference:risk_cap_35_15_05",
+  "relative_pass_count": 2,
+  "repair_plan": {
+    "decision": "fold_frontier_wf2020_timing_gap_blocks_retention",
+    "next_mechanism": "build_wf2020_near_miss_return_timing_repair_then_rerun_fold_aware_three_fold_replay",
+    "repair_constraints": [
+      "Do not restart from full risk-cap replacement; it underparticipated wf_2020 and damaged 2023-2024 relative return.",
+      "Start from the bull-reentry BC/near-miss wf_2020 surface because it is within 14.01pp return of the risk-cap floor while keeping MaxDD under 20%.",
+      "Use the 61.32% return / 20.92% MaxDD wf_2020 near-miss as the upper participation edge and repair its sub-1pp drawdown breach, rather than adding broad exposure.",
+      "Preserve already passing wf_2022 and wf_2023_2024 candidates as comparison baselines; any new target must not regress those folds."
+    ],
+    "wf2020_primary_gap": {
+      "best_maxdd_safe_candidate": "bull_reentry_three_fold_checkpoint_metric_replay_v1:bc_initialization",
+      "best_maxdd_safe_max_dd_pct": 15.489487944520992,
+      "best_maxdd_safe_return_gap_pp": 14.006591882815385,
+      "best_maxdd_safe_return_pct": 55.59795968569277,
+      "highest_return_candidate": "cap10_three_fold_checkpoint_metric_replay_v2:ppo_retained_iter_4",
+      "highest_return_max_dd_gap_pct": 0.9182850870956827,
+      "highest_return_max_dd_pct": 20.918285087095683,
+      "highest_return_pct": 61.32404958994388,
+      "near_miss_candidate": "cap10_three_fold_checkpoint_metric_replay_v2:ppo_retained_iter_4",
+      "near_miss_max_dd_gap_pct": 0.9182850870956827,
+      "near_miss_max_dd_pct": 20.918285087095683,
+      "near_miss_return_gap_pp": 8.280501978564274,
+      "near_miss_return_pct": 61.32404958994388
+    }
+  },
+  "required_wf_windows": [
+    "wf_2020",
+    "wf_2022",
+    "wf_2023_2024"
+  ],
+  "return_floor_pass_count": 2,
+  "role": "diagnose",
+  "selected_by_fold": {
+    "wf_2020": {
+      "daily_path": "",
+      "fold": "wf_2020",
+      "max_dd_gap_pct": 0.0,
+      "relative_gap_pp": 14.006591882815371,
+      "selected_avg_pos": 0.4060773955658078,
+      "selected_candidate": "bull_reentry_three_fold_checkpoint_metric_replay_v1:bc_initialization",
+      "selected_candidate_gate": false,
+      "selected_drift_gate": true,
+      "selected_iter": 0.0,
+      "selected_kind": "bc_initialization",
+      "selected_max_dd": 15.489487944520992,
+      "selected_relative_return": -277.73538777196427,
+      "selected_return": 55.59795968569277,
+      "selected_target_gate": false,
+      "source_file": "runtime/model_selection/card/bull_reentry_three_fold_checkpoint_metric_replay_v1/checkpoint_candidate_metrics.csv",
+      "status": "evaluated",
+      "target_max_dd": 20.0,
+      "target_relative_return": -263.7287958891489,
+      "wf2020_return_floor_gap_pp": 14.006591882815385
+    },
+    "wf_2022": {
+      "daily_path": "",
+      "fold": "wf_2022",
+      "max_dd_gap_pct": 0.0,
+      "relative_gap_pp": 0.0,
+      "selected_avg_pos": 0.2521146542775003,
+      "selected_candidate": "cap10_three_fold_checkpoint_drift_selector_v1:bc_initialization",
+      "selected_candidate_gate": true,
+      "selected_drift_gate": true,
+      "selected_iter": 0.0,
+      "selected_kind": "bc_initialization",
+      "selected_max_dd": 18.65720117379668,
+      "selected_relative_return": 47.13148471670295,
+      "selected_return": -6.273651517157552,
+      "selected_target_gate": true,
+      "source_file": "runtime/model_selection/card/cap10_three_fold_checkpoint_drift_selector_v1/checkpoint_candidate_metrics.csv",
+      "status": "evaluated",
+      "target_max_dd": 20.0,
+      "target_relative_return": 30.0,
+      "wf2020_return_floor_gap_pp": null
+    },
+    "wf_2023_2024": {
+      "daily_path": "",
+      "fold": "wf_2023_2024",
+      "max_dd_gap_pct": 0.0,
+      "relative_gap_pp": 0.0,
+      "selected_avg_pos": 0.2198621000606976,
+      "selected_candidate": "cap10_three_fold_checkpoint_drift_selector_v1:ppo_retained_iter_4",
+      "selected_candidate_gate": true,
+      "selected_drift_gate": true,
+      "selected_iter": 4.0,
+      "selected_kind": "ppo_retained",
+      "selected_max_dd": 10.94066707468119,
+      "selected_relative_return": 53.97099654002798,
+      "selected_return": 1.2823787092399952,
+      "selected_target_gate": true,
+      "source_file": "runtime/model_selection/card/cap10_three_fold_checkpoint_drift_selector_v1/checkpoint_candidate_metrics.csv",
+      "status": "evaluated",
+      "target_max_dd": 20.0,
+      "target_relative_return": 30.0,
+      "wf2020_return_floor_gap_pp": null
+    }
+  },
+  "sidecars": [
+    "normalized_candidate_frontier.csv",
+    "fold_candidate_summary.csv",
+    "ranked_candidate_frontier.csv",
+    "best_existing_by_fold.csv",
+    "fold_pareto_frontier.csv",
+    "wf2020_near_miss.csv",
+    "repair_plan.json",
+    "selection.json",
+    "summary.json",
+    "conclusion.md"
+  ],
+  "source_decisions": {
+    "bull_reentry_three_fold_checkpoint_metric_replay_v1": "three_fold_checkpoint_metric_replay_partial_pass_no_promotion",
+    "return_preserving_hybrid_target_bc_replay_v1": "return_preserving_hybrid_bc_replay_no_promotion",
+    "wf2020_reference_floor_gate_calibration_v1": "wf2020_reference_floor_gate_calibrated_no_promotion"
+  },
+  "source_summary": {
+    "candidate_rows_scanned": 68,
+    "cards_scanned": 6,
+    "direct_decision": "return_preserving_hybrid_bc_replay_no_promotion",
+    "direct_fold_gate_pass_count": 0,
+    "direct_selected_candidate": "hybrid_blend_nonrisk_50__riskcap_default_weight"
+  },
+  "target_max_dd_pct": 20.0,
+  "target_relative_return_by_fold_pp": {
+    "wf_2020": -263.7287958891489,
+    "wf_2022": 30.0,
+    "wf_2023_2024": 30.0
+  },
+  "training_allowed_from_this_card": false,
+  "wf2020_primary_gap": {
+    "best_maxdd_safe_candidate": "bull_reentry_three_fold_checkpoint_metric_replay_v1:bc_initialization",
+    "best_maxdd_safe_max_dd_pct": 15.489487944520992,
+    "best_maxdd_safe_return_gap_pp": 14.006591882815385,
+    "best_maxdd_safe_return_pct": 55.59795968569277,
+    "highest_return_candidate": "cap10_three_fold_checkpoint_metric_replay_v2:ppo_retained_iter_4",
+    "highest_return_max_dd_gap_pct": 0.9182850870956827,
+    "highest_return_max_dd_pct": 20.918285087095683,
+    "highest_return_pct": 61.32404958994388,
+    "near_miss_candidate": "cap10_three_fold_checkpoint_metric_replay_v2:ppo_retained_iter_4",
+    "near_miss_max_dd_gap_pct": 0.9182850870956827,
+    "near_miss_max_dd_pct": 20.918285087095683,
+    "near_miss_return_gap_pp": 8.280501978564274,
+    "near_miss_return_pct": 61.32404958994388
+  },
+  "wf2020_reference_floor_max_dd_pct": 17.94235040318888,
+  "wf2020_reference_floor_return_pct": 69.60455156850816
+}

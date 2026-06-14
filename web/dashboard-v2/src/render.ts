@@ -667,12 +667,19 @@ export function renderFeatureSpotlightPanel(
 ): void {
   container.replaceChildren();
   container.appendChild(element('h2', undefined, 'Buy/Sell Features'));
-  renderFeatureActionSummaryTable(container, input.models);
-  renderBaselineFeatureContrastTable(container, input.models, input.baselineProfile ?? Object.keys(input.models)[0] ?? '');
+  container.appendChild(
+    element(
+      'div',
+      'comparison-summary',
+      `${input.date} | selected model snapshots and buy/sell contrasts`,
+    ),
+  );
   const snapshotPanel = element('section', 'feature-date-snapshot');
   snapshotPanel.id = 'feature-date-snapshot';
   renderFeatureSnapshotPanel(snapshotPanel, input);
   container.appendChild(snapshotPanel);
+  renderFeatureActionSummaryTable(container, input.models);
+  renderBaselineFeatureContrastTable(container, input.models, input.baselineProfile ?? Object.keys(input.models)[0] ?? '');
   renderRecentEventFeatureTable(container, input.models);
   renderFeatureSchemaTable(container, input.models);
 }

@@ -246,6 +246,13 @@ async function postBacktest(url: string, request: RunBacktestRequest): Promise<R
   });
 }
 
+function dashboardServerHint(detail?: string): Error {
+  const suffix = detail ? ` (${detail})` : '';
+  return new Error(
+    `Interactive rerun unavailable${suffix}. Start the dashboard with scripts/dashboard_server.py, or set ?apiBase=http://127.0.0.1:8765 when using a separate static server.`,
+  );
+}
+
 function normalizeApiBase(value: string | null | undefined): string | null {
   const trimmed = String(value || '').trim();
   if (!trimmed) {
@@ -275,11 +282,23 @@ function configuredApiFallback(): string {
 export async function runBacktest(request: RunBacktestRequest): Promise<ModelPayload> {
   let response = await postBacktest(DASHBOARD_API_PATH, request);
   if (!response.ok && FALLBACK_STATUSES.has(response.status)) {
-    response = await postBacktest(configuredApiFallback(), request);
+    try {
+      response = await postBacktest(configuredApiFallback(), request);
+    } catch (error) {
+      const detail = error instanceof Error ? error.message : String(error);
+      throw dashboardServerHint(detail);
+    }
   }
-  const payload = (await response.json()) as ApiResponse & { error?: string };
+  let payload: (ApiResponse & { error?: string }) | null = null;
+  try {
+    payload = (await response.json()) as ApiResponse & { error?: string };
+  } catch {
+    payload = null;
+  }
   if (!response.ok) {
-    throw new Error(payload.error || `run-backtest failed: HTTP ${response.status}`);
+    if (FALLBACK_STATUSES.has(response.status)) throw dashboardServerHint(`HTTP ${response.status}`);
+    throw new Error(payload?.error || `run-backtest failed: HTTP ${response.status}`);
   }
+  if (!payload) throw new Error('run-backtest returned an invalid JSON response');
   return toModelPayload(payload, request);
 }

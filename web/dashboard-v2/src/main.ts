@@ -20,6 +20,7 @@ import {
   computeInspectorRows,
   computeInspectorRowsFromLookup,
   chooseDefaultChartProfile,
+  runnableProfileReason,
   type DateRangePreset,
   type InspectorLookup,
 } from './domain';
@@ -30,8 +31,7 @@ import {
   renderChartCommandBar,
   renderComparisonPanel,
   renderDataSourcePanel,
-  renderFeatureComparisonPanel,
-  renderFeatureDateSnapshotPanel,
+  renderFeatureSpotlightPanel,
   renderInspectorPanel,
   renderOperationsPanel,
 } from './render';
@@ -83,7 +83,6 @@ function createShell(app: HTMLElement): void {
         <section id="feature-panel" class="side-panel feature-panel"></section>
       </aside>
     </main>
-    <section id="feature-comparison-panel" class="panel feature-comparison-panel"></section>
     <section id="comparison-panel" class="panel"></section>
     <section id="source-panel" class="panel"></section>
   `;
@@ -238,12 +237,20 @@ function renderToolbar(
 
   const runGroup = document.createElement('div');
   runGroup.className = 'toolbar-group run-group';
+  const runModel = data.models[state.chartProfile];
   const runButton = document.createElement('button');
   runButton.type = 'button';
-  runButton.textContent = data.models[state.chartProfile]?.runnable ? 'Run inference' : 'Evidence only';
-  runButton.disabled = !data.models[state.chartProfile]?.runnable;
-  runButton.addEventListener('click', runInteractiveBacktest);
-  runGroup.appendChild(runButton);
+  runButton.textContent = runModel?.runnable ? 'Run selected window' : 'Cannot rerun';
+  runButton.disabled = !runModel?.runnable;
+  runButton.title = `${state.start} to ${state.end} | ${runnableProfileReason(runModel)}`;
+  runButton.addEventListener('click', () => {
+    void runInteractiveBacktest();
+  });
+  const runStatus = document.createElement('span');
+  runStatus.id = 'run-status';
+  runStatus.className = 'run-status';
+  runStatus.textContent = `${state.start} to ${state.end} | ${runnableProfileReason(runModel)}`;
+  runGroup.append(runButton, runStatus);
   container.appendChild(runGroup);
 }
 
@@ -313,10 +320,11 @@ function renderInspector(
     rows,
   );
   if (options.renderFeaturePanel !== false) {
-    renderFeatureDateSnapshotPanel(featurePanel, {
+    renderFeatureSpotlightPanel(featurePanel, {
       date: state.selectedDate,
       marketRows: data.market.rows,
       models: selectedModels(data, state.selectedProfiles),
+      baselineProfile: state.baselineProfile,
     });
   }
 }
@@ -338,7 +346,6 @@ function renderDashboard(
   const marketChart = requireElement('market-chart');
   const positionChart = requireElement('position-chart');
   const navChart = requireElement('nav-chart');
-  const featureComparison = requireElement('feature-comparison-panel');
   const comparison = requireElement('comparison-panel');
   const source = requireElement('source-panel');
   const operations = requireElement('operations-panel');
@@ -361,12 +368,6 @@ function renderDashboard(
   const positionHandles = renderPositionChart(positionChart, primary, chartDateUpdate);
   const navHandles = renderNavChart(navChart, models, state.baselineProfile, chartDateUpdate);
   const chartSyncCleanup = syncVisibleLogicalRanges([marketHandles.chart, positionHandles.chart, navHandles]);
-  renderFeatureComparisonPanel(featureComparison, {
-    date: state.hoveredDate,
-    marketRows: data.market.rows,
-    models,
-    baselineProfile: state.baselineProfile,
-  });
   renderComparisonPanel(comparison, data.comparison, state.start, state.end, state.selectedProfiles, data.models);
   renderInspector(data, state, inspectorLookup);
   const warnings = warningsFor(data, state);
@@ -450,11 +451,25 @@ async function main(): Promise<void> {
     };
     async function runInteractiveBacktest(): Promise<void> {
       const sourceProfile = apiProfileFor(state.chartProfile);
-      const rerunModel = await runBacktest({
-        profile: sourceProfile,
-        startDate: state.start,
-        endDate: state.end,
-      });
+      const statusNode = document.getElementById('run-status');
+      if (statusNode) {
+        statusNode.dataset.tone = 'muted';
+        statusNode.textContent = `running ${sourceProfile} | ${state.start} to ${state.end}`;
+      }
+      let rerunModel: ModelPayload;
+      try {
+        rerunModel = await runBacktest({
+          profile: sourceProfile,
+          startDate: state.start,
+          endDate: state.end,
+        });
+      } catch (error) {
+        if (statusNode) {
+          statusNode.dataset.tone = 'warning';
+          statusNode.textContent = error instanceof Error ? error.message : String(error);
+        }
+        return;
+      }
       data.models[rerunModel.profile] = rerunModel;
       data.manifest.available_profiles = [
         rerunModel.profile,
