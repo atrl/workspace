@@ -4,6 +4,7 @@ import {
   renderComparisonPanel,
   renderDataSourcePanel,
   renderFeatureComparisonPanel,
+  renderFeatureDateSnapshotPanel,
   renderFeatureSpotlightPanel,
   renderInspectorPanel,
   renderOperationsPanel,
@@ -168,6 +169,25 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.textContent).toContain('beta_signal');
     expect(panel.textContent).toContain('-2.50');
     expect(panel.textContent).toContain('Recent Buy/Sell Events');
+  });
+
+  test('renders selected-date feature snapshot as a lightweight side panel', () => {
+    const panel = document.createElement('section');
+
+    renderFeatureDateSnapshotPanel(panel, {
+      date: '2026-01-05',
+      marketRows: marketFixture.rows,
+      models: { smoke: modelFixture, balanced_rule_residual_v22: betaModelFixture },
+    });
+
+    expect(panel.textContent).toContain('Selected Date Features');
+    expect(panel.textContent).toContain('2026-01-05');
+    expect(panel.textContent).toContain('smoke');
+    expect(panel.textContent).toContain('balanced_rule_residual_v22');
+    expect(panel.textContent).toContain('alpha_signal 1.25');
+    expect(panel.textContent).toContain('beta_signal -2.50');
+    expect(panel.textContent).not.toContain('Buy/Sell Feature Summary');
+    expect(panel.textContent).not.toContain('Recent Buy/Sell Events');
   });
 
   test('renders complete first-screen buy and sell feature spotlight', () => {

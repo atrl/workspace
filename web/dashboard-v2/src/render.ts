@@ -631,18 +631,32 @@ export function renderFeatureSnapshotPanel(
   container.appendChild(tableScroll);
 }
 
+export function renderFeatureDateSnapshotPanel(
+  container: HTMLElement,
+  input: { date: string; marketRows: readonly MarketRow[]; models: Record<string, ModelPayload> },
+): void {
+  container.replaceChildren();
+  container.appendChild(element('h2', undefined, 'Selected Date Features'));
+  const snapshotPanel = element('section', 'feature-date-snapshot');
+  renderFeatureSnapshotPanel(snapshotPanel, input);
+  container.appendChild(snapshotPanel);
+}
+
 export function renderFeatureComparisonPanel(
   container: HTMLElement,
   input: { date: string; marketRows: readonly MarketRow[]; models: Record<string, ModelPayload>; baselineProfile?: string },
 ): void {
   container.replaceChildren();
   container.appendChild(element('h2', undefined, 'Buy/Sell Feature Comparison'));
+  container.appendChild(
+    element(
+      'div',
+      'comparison-summary',
+      `${Object.keys(input.models).length} selected models | feature schemas and BUY/SELL event snapshots`,
+    ),
+  );
   renderFeatureActionSummaryTable(container, input.models);
   renderBaselineFeatureContrastTable(container, input.models, input.baselineProfile ?? Object.keys(input.models)[0] ?? '');
-  const snapshotPanel = element('section', 'feature-date-snapshot');
-  snapshotPanel.id = 'feature-date-snapshot';
-  renderFeatureSnapshotPanel(snapshotPanel, input);
-  container.appendChild(snapshotPanel);
   renderRecentEventFeatureTable(container, input.models);
   renderFeatureSchemaTable(container, input.models);
 }

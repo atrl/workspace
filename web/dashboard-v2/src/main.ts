@@ -29,8 +29,8 @@ import {
   renderChartCommandBar,
   renderComparisonPanel,
   renderDataSourcePanel,
-  renderFeatureSpotlightPanel,
-  renderFeatureSnapshotPanel,
+  renderFeatureComparisonPanel,
+  renderFeatureDateSnapshotPanel,
   renderInspectorPanel,
   renderOperationsPanel,
 } from './render';
@@ -81,6 +81,7 @@ function createShell(app: HTMLElement): void {
         <section id="feature-panel" class="side-panel feature-panel"></section>
       </aside>
     </main>
+    <section id="feature-comparison-panel" class="panel feature-comparison-panel"></section>
     <section id="comparison-panel" class="panel"></section>
     <section id="source-panel" class="panel"></section>
   `;
@@ -300,8 +301,7 @@ function renderInspector(data: DashboardData, state: ViewState, lookup?: Inspect
     inspector,
     rows,
   );
-  const featureSnapshotPanel = document.getElementById('feature-date-snapshot') ?? featurePanel;
-  renderFeatureSnapshotPanel(featureSnapshotPanel, {
+  renderFeatureDateSnapshotPanel(featurePanel, {
     date: state.hoveredDate,
     marketRows: data.market.rows,
     models: selectedModels(data, state.selectedProfiles),
@@ -325,6 +325,7 @@ function renderDashboard(
   const marketChart = requireElement('market-chart');
   const positionChart = requireElement('position-chart');
   const navChart = requireElement('nav-chart');
+  const featureComparison = requireElement('feature-comparison-panel');
   const comparison = requireElement('comparison-panel');
   const source = requireElement('source-panel');
   const operations = requireElement('operations-panel');
@@ -340,13 +341,13 @@ function renderDashboard(
   const positionHandles = renderPositionChart(positionChart, primary, (date) => update({ hoveredDate: date }));
   const navHandles = renderNavChart(navChart, models, state.baselineProfile, (date) => update({ hoveredDate: date }));
   const chartSyncCleanup = syncVisibleLogicalRanges([marketHandles.chart, positionHandles.chart, navHandles]);
-  renderComparisonPanel(comparison, data.comparison, state.start, state.end, state.selectedProfiles, data.models);
-  renderFeatureSpotlightPanel(requireElement('feature-panel'), {
+  renderFeatureComparisonPanel(featureComparison, {
     date: state.hoveredDate,
-    marketRows: market.rows,
+    marketRows: data.market.rows,
     models,
     baselineProfile: state.baselineProfile,
   });
+  renderComparisonPanel(comparison, data.comparison, state.start, state.end, state.selectedProfiles, data.models);
   renderInspector(data, state, inspectorLookup);
   const warnings = warningsFor(data, state);
   renderOperationsPanel(operations, data.manifest, warnings);
