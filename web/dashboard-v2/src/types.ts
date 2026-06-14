@@ -34,6 +34,7 @@ export interface AutoUpdateStatus {
     profile_count?: number;
     ready_count?: number;
     source_path?: string;
+    note?: string;
   };
   status_paths?: Record<string, string>;
   remote_deploy_required?: boolean;

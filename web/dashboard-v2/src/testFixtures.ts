@@ -69,6 +69,7 @@ export const manifestFixture: Manifest = {
       profile_count: 1,
       ready_count: 1,
       source_path: 'dashboard_data/model_replay_freshness.json',
+      note: 'Refresh task is loaded; actor candidates are controlled by the strict retention gate.',
     },
     remote_deploy_required: false,
   },

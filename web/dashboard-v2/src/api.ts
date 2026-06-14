@@ -204,6 +204,16 @@ function buildFeatureActionSummary(rows: readonly ModelRow[], columns: readonly 
     });
 }
 
+function schemaSignature(columns: readonly string[]): string {
+  let hash = 0x811c9dc5;
+  const payload = columns.join('|');
+  for (let index = 0; index < payload.length; index += 1) {
+    hash ^= payload.charCodeAt(index);
+    hash = Math.imul(hash, 0x01000193);
+  }
+  return (hash >>> 0).toString(16).padStart(8, '0');
+}
+
 function toModelPayload(payload: ApiResponse, request: RunBacktestRequest): ModelPayload {
   const rows = normalizeRows(payload.rows || []);
   const effectiveStart = payload.effective_start_date || rows[0]?.date || request.startDate;
@@ -220,6 +230,8 @@ function toModelPayload(payload: ApiResponse, request: RunBacktestRequest): Mode
     runnable_reason: 'interactive_rerun',
     feature_packs: payload.feature_packs ?? [],
     feature_columns: featureColumns,
+    feature_schema_signature: schemaSignature(featureColumns),
+    feature_schema_source: 'interactive_rerun',
     snapshot_columns: snapshotColumns,
     source_path: 'api/run-backtest',
     replay_start: effectiveStart,

@@ -44,6 +44,8 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.textContent).toContain('1 / 1');
     expect(panel.textContent).toContain('current=1');
     expect(panel.textContent).toContain('model_replay_freshness.json');
+    expect(panel.textContent).toContain('replay candidate note');
+    expect(panel.textContent).toContain('strict retention gate');
     expect(panel.textContent).toContain('runnable profiles');
     expect(panel.textContent).toContain('smoke');
     expect(panel.textContent).toContain('reference profiles');
@@ -90,6 +92,8 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.textContent).toContain('runnable inference');
     expect(panel.textContent).toContain('1 / 3');
     expect(panel.textContent).toContain('current=1');
+    expect(panel.textContent).toContain('replay candidate note');
+    expect(panel.textContent).toContain('strict retention gate');
     expect(panel.textContent).toContain('dashboard_refresh');
     expect(panel.textContent).toContain('com.soxl.dashboard.refresh');
     expect(panel.textContent).toContain('installed');

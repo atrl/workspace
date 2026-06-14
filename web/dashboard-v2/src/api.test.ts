@@ -89,6 +89,8 @@ describe('dashboard v2 backtest API client', () => {
     expect(model.rows[1].feature_snapshot).toEqual({ alpha_signal: 1.25, shared_feature: 20 });
     expect(model.snapshot_columns).toEqual(['alpha_signal', 'shared_feature']);
     expect(model.feature_columns).toEqual(['alpha_signal', 'shared_feature']);
+    expect(model.feature_schema_signature).toMatch(/^[0-9a-f]{8}$/);
+    expect(model.feature_schema_source).toBe('interactive_rerun');
     expect(model.feature_action_summary).toEqual([
       {
         feature: 'alpha_signal',

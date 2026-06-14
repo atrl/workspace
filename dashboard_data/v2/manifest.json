@@ -14,6 +14,7 @@
       },
       "generated_at": "2026-06-14T04:22:06+00:00",
       "latest_data_date": "2026-06-10",
+      "note": "No replay actor candidates are exposed by model_replay_freshness.json; the refresh task still rebuilds dashboard bundles and reference/evidence exports.",
       "profile_count": 0,
       "ready_count": 0,
       "safe_backtest_end": "2026-06-09",
@@ -85,7 +86,7 @@
     "drawdown_rebound_reward_train_v1",
     "mode_conditioned_rebound_reward_train_v2"
   ],
-  "generated_at": "2026-06-14T09:40:13.476859+00:00",
+  "generated_at": "2026-06-14T09:56:32.018797+00:00",
   "latest_market_date": "2026-06-10",
   "model_retention_frontier": {
     "completed_handoff_count": 90,

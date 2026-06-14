@@ -75,6 +75,7 @@ export function renderDataSourcePanel(container: HTMLElement, manifest: Manifest
           .map(([key, value]) => `${key}=${value}`)
           .join(' ') || 'n/a',
       ],
+      ['replay candidate note', auto.model_replay_freshness?.note || 'n/a'],
       ['freshness source', auto.model_replay_freshness?.source_path ?? 'n/a'],
       ['install auto update', auto.install_command ?? 'n/a'],
       ['run refresh now', auto.run_now_command ?? 'n/a'],
@@ -232,6 +233,7 @@ export function renderOperationsPanel(container: HTMLElement, manifest: Manifest
         .join(' ') || 'n/a',
     ],
     ['safe replay end', auto.model_replay_freshness?.safe_backtest_end ?? 'n/a'],
+    ['replay candidate note', auto.model_replay_freshness?.note || 'n/a'],
     ['install auto update', auto.install_command ?? 'n/a'],
     ['run refresh now', auto.run_now_command ?? 'n/a'],
     ['manual refresh', auto.manual_refresh_command ?? 'n/a'],

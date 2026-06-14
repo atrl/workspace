@@ -776,6 +776,12 @@ def _auto_update_status(
                 derived_counts[result] += 1
         counts = derived_counts
     ready_count = int(counts.get("current", 0) or 0) + int(counts.get("refreshed", 0) or 0)
+    replay_note = ""
+    if not profile_rows:
+        replay_note = (
+            "No replay actor candidates are exposed by model_replay_freshness.json; "
+            "the refresh task still rebuilds dashboard bundles and reference/evidence exports."
+        )
     return {
         "configured": any(bool(task["configured"]) for task in tasks),
         "timezone": "Asia/Shanghai",
@@ -798,6 +804,7 @@ def _auto_update_status(
             "profile_count": len(profile_rows),
             "ready_count": ready_count,
             "source_path": _relative_to(root, freshness_path),
+            "note": replay_note,
         },
         "status_paths": {
             "production_goal_gates": _relative_to(root, root / "dashboard_data" / "production_goal_gates.json"),

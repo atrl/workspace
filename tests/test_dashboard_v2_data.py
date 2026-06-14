@@ -7,6 +7,7 @@ import pandas as pd
 import pytest
 
 from src.soxl_quant.app.dashboard_v2 import (
+    _auto_update_status,
     build_feature_action_summary,
     build_comparison_payload,
     build_dashboard_v2_data,
@@ -168,6 +169,7 @@ def test_build_dashboard_v2_data_writes_manifest_market_model_and_comparison(tmp
     assert manifest["model_retention_frontier"]["source_path"].endswith("model_retention_frontier_v1/summary.json")
     assert manifest["auto_update"]["model_replay_freshness"]["profile_count"] == 2
     assert manifest["auto_update"]["model_replay_freshness"]["ready_count"] == 1
+    assert manifest["auto_update"]["model_replay_freshness"]["note"] == ""
     assert manifest["auto_update"]["manual_refresh_command"] == "production/run_dashboard_refresh.sh"
     assert manifest["auto_update"]["install_command"] == "production/install_dashboard_refresh_launchagent.sh"
     assert manifest["auto_update"]["run_now_command"] == "production/install_dashboard_refresh_launchagent.sh --run-now"
@@ -197,6 +199,33 @@ def test_build_dashboard_v2_data_writes_manifest_market_model_and_comparison(tmp
     assert comparison["rows"][2]["profiles"]["smoke"]["buyhold_return"] == pytest.approx(0.08)
     assert comparison["rows"][2]["profiles"]["smoke"]["return_delta_vs_buyhold"] == pytest.approx(-0.05)
     assert comparison["rows"][1]["action_mismatch_count"] == 0
+
+
+def test_auto_update_status_explains_empty_replay_candidate_manifest(tmp_path: Path):
+    freshness_path = tmp_path / "dashboard_data" / "model_replay_freshness.json"
+    freshness_path.parent.mkdir(parents=True)
+    freshness = {
+        "generated_at": "2026-06-14T00:00:00+00:00",
+        "latest_data_date": "2026-06-10",
+        "safe_backtest_end": "2026-06-09",
+        "counts": {"current": 0, "refreshed": 0, "failed": 0, "skipped": 0},
+        "profiles": [],
+    }
+    for relative in [
+        "production/run_dashboard_refresh.sh",
+        "production/install_dashboard_refresh_launchagent.sh",
+        "production/com.soxl.dashboard.refresh.plist",
+    ]:
+        path = tmp_path / relative
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text("#!/bin/sh\n", encoding="utf-8")
+
+    status = _auto_update_status(tmp_path, freshness, freshness_path, detect_launchd=False)
+
+    assert status["configured"] is True
+    assert status["tasks"][2]["name"] == "dashboard_refresh"
+    assert status["model_replay_freshness"]["profile_count"] == 0
+    assert "No replay actor candidates" in status["model_replay_freshness"]["note"]
 
 
 def test_build_dashboard_v2_data_keeps_model_specific_feature_snapshots(tmp_path: Path):

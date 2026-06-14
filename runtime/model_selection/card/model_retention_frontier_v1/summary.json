@@ -2643,7 +2643,7 @@
   ],
   "summary": {
     "completed_handoff_count": 90,
-    "generated_at": "2026-06-14T09:40:04.751903+00:00",
+    "generated_at": "2026-06-14T09:56:23.220031+00:00",
     "max_walkforward_drawdown_pct": 20.0,
     "recommended_next_action": "screen drawdown-drift reward/checkpoint penalty with trend-preservation term before PPO",
     "recommended_next_source": "short_volshock_drawdown_drift_feature_audit_v1",
