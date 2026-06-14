@@ -269,6 +269,11 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.querySelector('[aria-label="Inspect candles"]')?.getAttribute('data-active')).toBe('false');
     expect(panel.querySelector('[aria-label="Click chart to set Start"]')?.getAttribute('data-active')).toBe('true');
     expect(panel.querySelector('[aria-label="Click chart to set End"]')?.getAttribute('data-active')).toBe('false');
+    expect(panel.querySelector('[aria-label="Zoom in"]')?.getAttribute('title')).toBe('Zoom in (+/=)');
+    expect(panel.querySelector('[aria-label="Follow latest"]')?.getAttribute('title')).toBe('Follow latest (End)');
+    expect(panel.querySelector('[aria-label="Click chart to set Start"]')?.getAttribute('title')).toBe(
+      'Click chart to set Start (S)',
+    );
 
     (panel.querySelector('[aria-label="Click chart to set End"]') as HTMLButtonElement).click();
     (panel.querySelector('[aria-label="Zoom in"]') as HTMLButtonElement).click();

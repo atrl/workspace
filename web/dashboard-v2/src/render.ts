@@ -355,19 +355,19 @@ export function renderActionLegend(container: HTMLElement): void {
   container.append(buy, sell, price, position);
 }
 
-const CHART_COMMANDS: readonly { command: ChartRangeCommand; label: string; icon: string }[] = [
-  { command: 'zoom_in', label: 'Zoom in', icon: '+' },
-  { command: 'zoom_out', label: 'Zoom out', icon: '-' },
-  { command: 'pan_left', label: 'Pan left', icon: '<' },
-  { command: 'pan_right', label: 'Pan right', icon: '>' },
-  { command: 'reset', label: 'Reset range', icon: 'R' },
-  { command: 'latest', label: 'Follow latest', icon: '>|' },
+const CHART_COMMANDS: readonly { command: ChartRangeCommand; label: string; icon: string; shortcut: string }[] = [
+  { command: 'zoom_in', label: 'Zoom in', icon: '+', shortcut: '+/=' },
+  { command: 'zoom_out', label: 'Zoom out', icon: '-', shortcut: '-/_' },
+  { command: 'pan_left', label: 'Pan left', icon: '<', shortcut: 'Left/H' },
+  { command: 'pan_right', label: 'Pan right', icon: '>', shortcut: 'Right/L' },
+  { command: 'reset', label: 'Reset range', icon: 'R', shortcut: 'R/Home' },
+  { command: 'latest', label: 'Follow latest', icon: '>|', shortcut: 'End' },
 ];
 
-const CHART_CLICK_MODES: readonly { mode: ChartClickMode; label: string; icon: string }[] = [
-  { mode: 'inspect', label: 'Inspect candles', icon: 'I' },
-  { mode: 'set_start', label: 'Click chart to set Start', icon: '[' },
-  { mode: 'set_end', label: 'Click chart to set End', icon: ']' },
+const CHART_CLICK_MODES: readonly { mode: ChartClickMode; label: string; icon: string; shortcut: string }[] = [
+  { mode: 'inspect', label: 'Inspect candles', icon: 'I', shortcut: 'Esc' },
+  { mode: 'set_start', label: 'Click chart to set Start', icon: '[', shortcut: 'S' },
+  { mode: 'set_end', label: 'Click chart to set End', icon: ']', shortcut: 'E' },
 ];
 
 export function renderChartCommandBar(
@@ -381,7 +381,7 @@ export function renderChartCommandBar(
   for (const item of CHART_CLICK_MODES) {
     const button = element('button', 'chart-command-button chart-mode-button', item.icon);
     button.type = 'button';
-    button.title = item.label;
+    button.title = `${item.label} (${item.shortcut})`;
     button.setAttribute('aria-label', item.label);
     button.dataset.active = item.mode === activeMode ? 'true' : 'false';
     button.addEventListener('click', () => onModeChange?.(item.mode));
@@ -391,7 +391,7 @@ export function renderChartCommandBar(
   for (const item of CHART_COMMANDS) {
     const button = element('button', 'chart-command-button', item.icon);
     button.type = 'button';
-    button.title = item.label;
+    button.title = `${item.label} (${item.shortcut})`;
     button.setAttribute('aria-label', item.label);
     button.addEventListener('click', () => onCommand(item.command));
     container.appendChild(button);

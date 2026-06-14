@@ -25,6 +25,11 @@ import {
   type DateRangePreset,
   type InspectorLookup,
 } from './domain';
+import {
+  chartKeyboardMode,
+  chartKeyboardRangeCommand,
+  isChartKeyboardEditableTarget,
+} from './keyboard';
 import { loadDashboardData, type DashboardData } from './data';
 import { runBacktest } from './api';
 import {
@@ -402,27 +407,6 @@ function renderDashboard(
   };
 }
 
-function keyboardRangeAction(event: KeyboardEvent): ChartRangeCommand | null {
-  if (event.key === '+' || event.key === '=') return 'zoom_in';
-  if (event.key === '-' || event.key === '_') return 'zoom_out';
-  if (event.key === 'ArrowLeft') return 'pan_left';
-  if (event.key === 'ArrowRight') return 'pan_right';
-  if (event.key.toLowerCase() === 'r') return 'reset';
-  return null;
-}
-
-function keyboardModeAction(event: KeyboardEvent): ChartClickMode | null {
-  if (event.key === 'Escape') return 'inspect';
-  if (event.key.toLowerCase() === 's') return 'set_start';
-  if (event.key.toLowerCase() === 'e') return 'set_end';
-  return null;
-}
-
-function isEditingTarget(target: EventTarget | null): boolean {
-  const element = target instanceof HTMLElement ? target : null;
-  return element ? ['INPUT', 'SELECT', 'TEXTAREA', 'BUTTON'].includes(element.tagName) : false;
-}
-
 async function main(): Promise<void> {
   const app = requireElement('app');
   createShell(app);
@@ -523,9 +507,9 @@ async function main(): Promise<void> {
       rerender();
     }
     window.addEventListener('keydown', (event) => {
-      if (isEditingTarget(event.target)) return;
-      const modeAction = keyboardModeAction(event);
-      const action = modeAction ? null : keyboardRangeAction(event);
+      if (isChartKeyboardEditableTarget(event.target)) return;
+      const modeAction = chartKeyboardMode(event);
+      const action = modeAction ? null : chartKeyboardRangeCommand(event);
       if (!action && !modeAction) return;
       event.preventDefault();
       if (modeAction) {
