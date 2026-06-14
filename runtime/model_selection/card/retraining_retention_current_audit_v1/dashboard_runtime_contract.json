@@ -1,0 +1,25 @@
+{
+  "available_profile_count": 5,
+  "default_baseline_profile": "soxl_backtest_policy_reimplementation_v1",
+  "default_chart_profile": "soxl_backtest_policy_reimplementation_v1",
+  "evidence_only_profiles": [
+    "state_conditioned_drawdown_rebound_reward_train_v1",
+    "drawdown_rebound_reward_train_v1",
+    "mode_conditioned_rebound_reward_train_v2",
+    "balanced_rule_residual_v19_moe_v2"
+  ],
+  "latest_market_date": "2026-06-10",
+  "model_replay_freshness_counts": {
+    "current": 0,
+    "failed": 0,
+    "refreshed": 0,
+    "skipped": 0
+  },
+  "model_replay_profile_count": 0,
+  "model_replay_ready_count": 0,
+  "reference_profiles": [
+    "soxl_backtest_policy_reimplementation_v1"
+  ],
+  "runnable_profiles": [],
+  "safe_backtest_end": "2026-06-09"
+}

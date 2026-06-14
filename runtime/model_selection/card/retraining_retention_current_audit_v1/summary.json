@@ -1,0 +1,117 @@
+{
+  "actor_retention_allowed": false,
+  "created_at": "2026-06-14T17:41:16.288601+00:00",
+  "current_retention_gate": {
+    "closest_wf_drawdown_candidate": {
+      "best_return_gap_pct": 35.569893,
+      "missing_wf_window_count": 0,
+      "profile": "mode_conditioned_rebound_reward_train_v2",
+      "wf_drawdown_gap_pct": 1.83172,
+      "worst_wf_max_drawdown_pct": 21.83172,
+      "ytd_return_pct": 177.573569
+    },
+    "closest_ytd_return_candidate": {
+      "best_return_gap_pct": 0.0,
+      "missing_wf_window_count": 3,
+      "profile": "smoke",
+      "wf_drawdown_gap_pct": null,
+      "worst_wf_max_drawdown_pct": null,
+      "ytd_return_pct": 224.361539
+    },
+    "current_best_return_pct": 224.361539,
+    "max_walkforward_drawdown_pct": 20.0,
+    "passing_profile_count": 0,
+    "passing_profiles": [],
+    "profiles_scanned": 13,
+    "reference_profile": "soxl_backtest_policy_reimplementation_v1",
+    "reference_return_pct": 132.077978,
+    "registry_keep_actor_count": 0,
+    "registry_keep_actor_strict_violation_count": 0,
+    "required_best_return_pct": 213.143462,
+    "required_wf_windows": [
+      "wf_2020",
+      "wf_2022",
+      "wf_2023_2024"
+    ]
+  },
+  "dashboard_runtime_contract": {
+    "available_profile_count": 5,
+    "default_baseline_profile": "soxl_backtest_policy_reimplementation_v1",
+    "default_chart_profile": "soxl_backtest_policy_reimplementation_v1",
+    "evidence_only_profiles": [
+      "state_conditioned_drawdown_rebound_reward_train_v1",
+      "drawdown_rebound_reward_train_v1",
+      "mode_conditioned_rebound_reward_train_v2",
+      "balanced_rule_residual_v19_moe_v2"
+    ],
+    "latest_market_date": "2026-06-10",
+    "model_replay_freshness_counts": {
+      "current": 0,
+      "failed": 0,
+      "refreshed": 0,
+      "skipped": 0
+    },
+    "model_replay_profile_count": 0,
+    "model_replay_ready_count": 0,
+    "reference_profiles": [
+      "soxl_backtest_policy_reimplementation_v1"
+    ],
+    "runnable_profiles": [],
+    "safe_backtest_end": "2026-06-09"
+  },
+  "decision": "diagnose_release16_failed_folds_before_full_retained_actor_training",
+  "experiment": "retraining_retention_current_audit_v1",
+  "frontier": {
+    "actor_retention_allowed": false,
+    "decision": "diagnose_release16_failed_folds_before_full_retained_actor_training",
+    "next_training_allowed": false,
+    "promotion_allowed": false,
+    "recommended_failed_wf_windows": [
+      "wf_2020",
+      "wf_2023_2024"
+    ],
+    "recommended_min_wf_relative_return_pp": -0.43,
+    "recommended_next_action": "diagnose_remaining_rulebase_reversal_failed_folds_before_full_retention_training",
+    "recommended_next_source": "release16_rulebase_reversal_drawdown_upside_checkpoint_metric_replay_v1",
+    "recommended_primary_blocker": "walkforward_relative_return_gap",
+    "recommended_relative_gap_to_target_pp": 30.43,
+    "recommended_worst_wf_max_drawdown_pct": 19.33,
+    "required_controls_before_training": [
+      "Use official daily-path metrics as the selection basis, not raw backtest metrics.",
+      "Diagnose wf_2020 and wf_2023_2024 relative-return gaps before launching a full retained actor run.",
+      "Keep MaxDD < 20% across wf_2020/wf_2022/wf_2023_2024 as a hard gate.",
+      "After any full actor run, rebuild model replays and dashboard bundle before retention review.",
+      "Do not retain actor checkpoints until retention_gate.csv shows strict_actor_retention_pass=True."
+    ]
+  },
+  "prior_handoff_staleness": {
+    "current_profiles_scanned": 13,
+    "current_registry_keep_actor_count": 0,
+    "prior_path": "runtime/model_selection/card/retraining_gate_gap_handoff_v1/summary.json",
+    "prior_profiles_scanned": 0,
+    "prior_registry_keep_actor_count": 7
+  },
+  "promotion_allowed": false,
+  "sidecars": [
+    "current_retention_gate.csv",
+    "soxlbacktest_qlib_alignment.csv",
+    "dashboard_model_runtime_status.csv",
+    "dashboard_runtime_contract.json",
+    "frontier_top_candidates.csv",
+    "training_handoff_current.json",
+    "requirement_status.csv"
+  ],
+  "soxlbacktest_qlib_reference": {
+    "all_windows_match": true,
+    "daily_end": "2026-06-09",
+    "daily_rows": 116,
+    "daily_start": "2026-01-02",
+    "max_abs_end_position_delta_pct": 0.0,
+    "max_abs_max_drawdown_delta_pct": 5.329070518200751e-15,
+    "max_abs_return_delta_pct": 4.440892098500626e-15,
+    "metrics_path": "runtime/production/card/soxl_backtest_policy_reimplementation_v1/legacy_comparison_metrics.csv",
+    "role": "reference_baseline",
+    "source_path": "runtime/production/card/soxl_backtest_policy_reimplementation_v1/new_policy_daily.csv",
+    "windows": 2
+  }
+}

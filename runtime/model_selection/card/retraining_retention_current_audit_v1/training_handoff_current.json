@@ -1,0 +1,23 @@
+{
+  "actor_retention_allowed": false,
+  "decision": "diagnose_release16_failed_folds_before_full_retained_actor_training",
+  "next_training_allowed": false,
+  "promotion_allowed": false,
+  "recommended_failed_wf_windows": [
+    "wf_2020",
+    "wf_2023_2024"
+  ],
+  "recommended_min_wf_relative_return_pp": -0.43,
+  "recommended_next_action": "diagnose_remaining_rulebase_reversal_failed_folds_before_full_retention_training",
+  "recommended_next_source": "release16_rulebase_reversal_drawdown_upside_checkpoint_metric_replay_v1",
+  "recommended_primary_blocker": "walkforward_relative_return_gap",
+  "recommended_relative_gap_to_target_pp": 30.43,
+  "recommended_worst_wf_max_drawdown_pct": 19.33,
+  "required_controls_before_training": [
+    "Use official daily-path metrics as the selection basis, not raw backtest metrics.",
+    "Diagnose wf_2020 and wf_2023_2024 relative-return gaps before launching a full retained actor run.",
+    "Keep MaxDD < 20% across wf_2020/wf_2022/wf_2023_2024 as a hard gate.",
+    "After any full actor run, rebuild model replays and dashboard bundle before retention review.",
+    "Do not retain actor checkpoints until retention_gate.csv shows strict_actor_retention_pass=True."
+  ]
+}

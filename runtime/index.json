@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-14T17:14:48.662438+00:00",
+  "generated_at": "2026-06-14T17:42:31.996619+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -8934,6 +8934,54 @@
       "category": "model_selection",
       "suffix": ".json",
       "bytes": 6580
+    },
+    {
+      "path": "runtime/model_selection/card/retraining_retention_current_audit_v1/current_retention_gate.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 3963
+    },
+    {
+      "path": "runtime/model_selection/card/retraining_retention_current_audit_v1/dashboard_model_runtime_status.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1923
+    },
+    {
+      "path": "runtime/model_selection/card/retraining_retention_current_audit_v1/dashboard_runtime_contract.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 763
+    },
+    {
+      "path": "runtime/model_selection/card/retraining_retention_current_audit_v1/frontier_top_candidates.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4894
+    },
+    {
+      "path": "runtime/model_selection/card/retraining_retention_current_audit_v1/requirement_status.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1425
+    },
+    {
+      "path": "runtime/model_selection/card/retraining_retention_current_audit_v1/soxlbacktest_qlib_alignment.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 694
+    },
+    {
+      "path": "runtime/model_selection/card/retraining_retention_current_audit_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 4633
+    },
+    {
+      "path": "runtime/model_selection/card/retraining_retention_current_audit_v1/training_handoff_current.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1220
     },
     {
       "path": "runtime/model_selection/card/return_preserving_bull_participation_three_fold_checkpoint_metric_replay_v1/bc_slice_metrics.csv",
