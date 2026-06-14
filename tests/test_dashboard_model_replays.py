@@ -28,6 +28,12 @@ def _write_registry(root: Path, rows: list[dict]) -> None:
     (registry / "profile.yaml").write_text(f"profiles:\n{registry_rows}\n", encoding="utf-8")
 
 
+def _write_retention_gate(root: Path, rows: list[dict]) -> None:
+    path = root / "runtime" / "model_selection" / "card" / "model_retention_walkforward_gate_v1"
+    path.mkdir(parents=True)
+    (path / "summary.json").write_text(json.dumps({"rows": rows}), encoding="utf-8")
+
+
 def _profile(root: Path, name: str, *, actor: bool = True, profile_yaml: bool = True) -> None:
     card = root / "runtime" / "model" / "card" / name
     card.mkdir(parents=True)
@@ -68,6 +74,14 @@ def test_discover_replay_candidates_requires_registry_actor_and_profile(tmp_path
     _profile(tmp_path, "no_actor", actor=False)
     _profile(tmp_path, "no_profile", profile_yaml=False)
     _profile(tmp_path, "summary_only")
+    _write_retention_gate(
+        tmp_path,
+        [
+            {"profile": "fresh", "gate_pass": True, "retention_decision": "retain_promotable", "failures": []},
+            {"profile": "no_actor", "gate_pass": True, "retention_decision": "retain_promotable", "failures": []},
+            {"profile": "no_profile", "gate_pass": True, "retention_decision": "retain_promotable", "failures": []},
+        ],
+    )
 
     candidates = discover_replay_candidates(tmp_path)
 
@@ -78,6 +92,57 @@ def test_discover_replay_candidates_requires_registry_actor_and_profile(tmp_path
     assert candidates[0].skip_reason == ""
     assert candidates[1].skip_reason == "missing_actor_artifact"
     assert candidates[2].skip_reason == "missing_profile_yaml"
+
+
+def test_discover_replay_candidates_requires_strict_retention_gate(tmp_path: Path):
+    _write_registry(
+        tmp_path,
+        [
+            {"name": "passed", "status": "canonical", "keep_actor": True},
+            {"name": "failed", "status": "candidate", "keep_actor": True},
+            {"name": "missing_gate_row", "status": "candidate", "keep_actor": True},
+        ],
+    )
+    _profile(tmp_path, "passed")
+    _profile(tmp_path, "failed")
+    _profile(tmp_path, "missing_gate_row")
+    _write_retention_gate(
+        tmp_path,
+        [
+            {"profile": "passed", "gate_pass": True, "retention_decision": "retain_promotable", "failures": []},
+            {
+                "profile": "failed",
+                "gate_pass": False,
+                "retention_decision": "retain_as_evidence_only",
+                "failures": ["wf_max_drawdown_ge_20:wf_2022", "ytd_return_below_best_alignment"],
+            },
+            {
+                "profile": "soxl_backtest_policy_reimplementation_v1",
+                "gate_pass": True,
+                "retention_decision": "keep_reference_baseline",
+                "failures": [],
+            },
+        ],
+    )
+
+    candidates = discover_replay_candidates(tmp_path)
+
+    by_name = {candidate.name: candidate for candidate in candidates}
+    assert by_name["passed"].skip_reason == ""
+    assert by_name["failed"].skip_reason == (
+        "strict_retention_gate_failed:wf_max_drawdown_ge_20:wf_2022,ytd_return_below_best_alignment"
+    )
+    assert by_name["missing_gate_row"].skip_reason == "missing_strict_retention_gate_row"
+
+
+def test_discover_replay_candidates_fails_closed_without_retention_gate_summary(tmp_path: Path):
+    _write_registry(tmp_path, [{"name": "retained", "status": "canonical", "keep_actor": True}])
+    _profile(tmp_path, "retained")
+
+    candidates = discover_replay_candidates(tmp_path)
+
+    assert [candidate.name for candidate in candidates] == ["retained"]
+    assert candidates[0].skip_reason == "missing_strict_retention_gate"
 
 
 def test_refresh_model_replays_exports_only_stale_profiles(tmp_path: Path):

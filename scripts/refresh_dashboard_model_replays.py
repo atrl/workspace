@@ -11,7 +11,7 @@ import sys
 from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Callable
+from typing import Any, Callable
 
 import yaml
 
@@ -19,6 +19,9 @@ import yaml
 ROOT = Path(__file__).resolve().parents[1]
 REGISTRY_PATH = ROOT / "runtime" / "harness" / "card" / "registry" / "profile.yaml"
 MANIFEST_PATH = ROOT / "dashboard_data" / "model_replay_freshness.json"
+RETENTION_GATE_SUMMARY = (
+    "runtime/model_selection/card/model_retention_walkforward_gate_v1/summary.json"
+)
 
 
 @dataclass(frozen=True)
@@ -47,6 +50,47 @@ def _load_registry_rows(root: Path) -> list[dict]:
     return [row for row in rows if isinstance(row, dict)]
 
 
+def _load_retention_gate_rows(root: Path) -> dict[str, dict[str, Any]] | None:
+    path = root / RETENTION_GATE_SUMMARY
+    if not path.exists():
+        return None
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    rows = payload.get("rows") if isinstance(payload, dict) else None
+    if not isinstance(rows, list):
+        return None
+    return {
+        str(row.get("profile")): row
+        for row in rows
+        if isinstance(row, dict) and row.get("profile")
+    }
+
+
+def _gate_failures(value: Any) -> list[str]:
+    if isinstance(value, list):
+        return [str(item) for item in value if str(item)]
+    if isinstance(value, str) and value:
+        return [part for part in value.split(";") if part]
+    return []
+
+
+def _strict_retention_skip_reason(
+    profile: str,
+    gate_rows: dict[str, dict[str, Any]] | None,
+) -> str:
+    if gate_rows is None:
+        return "missing_strict_retention_gate"
+    row = gate_rows.get(profile)
+    if row is None:
+        return "missing_strict_retention_gate_row"
+    if bool(row.get("gate_pass")) and str(row.get("retention_decision") or "") == "retain_promotable":
+        return ""
+    if str(row.get("retention_decision") or "") == "keep_reference_baseline":
+        return "reference_baseline_not_runnable_actor"
+    failures = _gate_failures(row.get("failures"))
+    detail = ",".join(failures) if failures else str(row.get("retention_decision") or "gate_pass_false")
+    return f"strict_retention_gate_failed:{detail}"
+
+
 def _profile_path(root: Path, profile: str) -> Path | None:
     direct = root / "runtime" / "model" / "card" / profile / "profile.yaml"
     if direct.exists():
@@ -64,6 +108,7 @@ def _profile_path(root: Path, profile: str) -> Path | None:
 
 def discover_replay_candidates(root: Path = ROOT, profile_names: set[str] | None = None) -> list[ReplayCandidate]:
     candidates: list[ReplayCandidate] = []
+    gate_rows = _load_retention_gate_rows(root)
     for row in _load_registry_rows(root):
         name = str(row.get("name") or "").strip()
         if not name:
@@ -80,6 +125,9 @@ def discover_replay_candidates(root: Path = ROOT, profile_names: set[str] | None
             skip_reasons.append("missing_actor_artifact")
         if profile_path is None:
             skip_reasons.append("missing_profile_yaml")
+        strict_skip = _strict_retention_skip_reason(name, gate_rows)
+        if strict_skip:
+            skip_reasons.append(strict_skip)
         candidates.append(
             ReplayCandidate(
                 name=name,

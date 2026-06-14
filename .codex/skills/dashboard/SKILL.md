@@ -140,6 +140,13 @@ status, a retained actor, and a resolvable `profile.yaml`. It writes
 as `model_replays=<ready>/<total>@<safe_backtest_end>`. The checker also reports
 `paper_latest_signal=<YYYY-MM-DD>` so dry-run/latest-signal freshness is visible
 even when ordinary non-dry `paper_trading` rows have not advanced.
+The refresh script now also fails closed against
+`runtime/model_selection/card/model_retention_walkforward_gate_v1/summary.json`:
+a replay is runnable only when the profile row has `gate_pass=true` and
+`retention_decision=retain_promotable`. Missing gate evidence, missing profile
+gate rows, failed rows, and `keep_reference_baseline` rows stay in
+`model_replay_freshness.json` as skipped entries instead of being exported as
+runnable inference profiles.
 
 `scripts/build_dashboard_bundle.py` runs
 `scripts/review_model_retention_gates.py` after replay freshness is available.
