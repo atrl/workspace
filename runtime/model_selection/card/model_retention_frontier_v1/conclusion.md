@@ -1,9 +1,9 @@
 # Model Retention Frontier
 
-- Rows scanned: `135`.
-- Completed handoffs: `111`.
-- Recommended next source: `release16_rulebase_reversal_failed_fold_diagnostic_v1`.
-- Recommended next action: `build_drawdown_capped_rulebase_reversal_and_wf2024_upside_participation_target_then_rerun_checkpoint_metric_replay`.
+- Rows scanned: `137`.
+- Completed handoffs: `112`.
+- Recommended next source: `release16_rulebase_reversal_drawdown_upside_checkpoint_metric_replay_v1`.
+- Recommended next action: `diagnose_remaining_rulebase_reversal_failed_folds_before_full_retention_training`.
 - Primary blocker: `walkforward_relative_return_gap`.
 - Retention gate: MaxDD `< 20.0` and YTD return floor `213.143462` versus SOXLBacktest reference `132.077978`.
 

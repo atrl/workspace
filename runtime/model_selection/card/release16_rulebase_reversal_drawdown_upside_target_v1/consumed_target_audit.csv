@@ -1,0 +1,4 @@
+fold,rows,adjusted_rows,mismatch_rows,state_flag_changed_rows,mean_source_consumed_target,mean_drawdown_upside_consumed_target,mean_delta_vs_source_consumed,sum_positive_delta,sum_negative_delta
+wf_2020_train,2470,92,0,92,0.3381342510121457,0.32696016194331984,-0.011174089068825914,0.0,-27.60000000000001
+wf_2022_train,505,0,0,0,0.19809267526870336,0.19809267526870336,0.0,0.0,0.0
+wf_2023_2024_train,756,151,0,151,0.2146207027165665,0.25361300309486345,0.03899230037829694,29.47817908599249,0.0

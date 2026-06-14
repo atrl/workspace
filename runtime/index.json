@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-14T16:51:53.908487+00:00",
+  "generated_at": "2026-06-14T17:14:48.662438+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -6185,19 +6185,19 @@
       "path": "runtime/model_selection/card/model_retention_frontier_v1/conclusion.md",
       "category": "model_selection",
       "suffix": ".md",
-      "bytes": 581
+      "bytes": 565
     },
     {
       "path": "runtime/model_selection/card/model_retention_frontier_v1/retention_frontier.csv",
       "category": "model_selection",
       "suffix": ".csv",
-      "bytes": 56202
+      "bytes": 57387
     },
     {
       "path": "runtime/model_selection/card/model_retention_frontier_v1/summary.json",
       "category": "model_selection",
       "suffix": ".json",
-      "bytes": 141948
+      "bytes": 144367
     },
     {
       "path": "runtime/model_selection/card/model_retention_walkforward_gate_v1/conclusion.md",
@@ -8472,6 +8472,210 @@
       "category": "model_selection",
       "suffix": ".csv",
       "bytes": 302
+    },
+    {
+      "path": "runtime/model_selection/card/release16_rulebase_reversal_drawdown_upside_checkpoint_metric_replay_v1/bc_slice_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1840
+    },
+    {
+      "path": "runtime/model_selection/card/release16_rulebase_reversal_drawdown_upside_checkpoint_metric_replay_v1/checkpoint_candidate_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 22813
+    },
+    {
+      "path": "runtime/model_selection/card/release16_rulebase_reversal_drawdown_upside_checkpoint_metric_replay_v1/checkpoint_selection_by_fold.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2140
+    },
+    {
+      "path": "runtime/model_selection/card/release16_rulebase_reversal_drawdown_upside_checkpoint_metric_replay_v1/conclusion.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 1708
+    },
+    {
+      "path": "runtime/model_selection/card/release16_rulebase_reversal_drawdown_upside_checkpoint_metric_replay_v1/coverage.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 782
+    },
+    {
+      "path": "runtime/model_selection/card/release16_rulebase_reversal_drawdown_upside_checkpoint_metric_replay_v1/coverage.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2549
+    },
+    {
+      "path": "runtime/model_selection/card/release16_rulebase_reversal_drawdown_upside_checkpoint_metric_replay_v1/drawdown_upside_vs_source_checkpoint_delta.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1162
+    },
+    {
+      "path": "runtime/model_selection/card/release16_rulebase_reversal_drawdown_upside_checkpoint_metric_replay_v1/drift_score_summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 5114
+    },
+    {
+      "path": "runtime/model_selection/card/release16_rulebase_reversal_drawdown_upside_checkpoint_metric_replay_v1/metric_basis_reconciliation.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4113
+    },
+    {
+      "path": "runtime/model_selection/card/release16_rulebase_reversal_drawdown_upside_checkpoint_metric_replay_v1/official_daily_paths/wf_2020__bc_initialization_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31399
+    },
+    {
+      "path": "runtime/model_selection/card/release16_rulebase_reversal_drawdown_upside_checkpoint_metric_replay_v1/official_daily_paths/wf_2020__ppo_retained_iter_0_bc_equivalent_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31399
+    },
+    {
+      "path": "runtime/model_selection/card/release16_rulebase_reversal_drawdown_upside_checkpoint_metric_replay_v1/official_daily_paths/wf_2020__ppo_retained_iter_4_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31413
+    },
+    {
+      "path": "runtime/model_selection/card/release16_rulebase_reversal_drawdown_upside_checkpoint_metric_replay_v1/official_daily_paths/wf_2020__ppo_selected_best_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31413
+    },
+    {
+      "path": "runtime/model_selection/card/release16_rulebase_reversal_drawdown_upside_checkpoint_metric_replay_v1/official_daily_paths/wf_2022__bc_initialization_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 29941
+    },
+    {
+      "path": "runtime/model_selection/card/release16_rulebase_reversal_drawdown_upside_checkpoint_metric_replay_v1/official_daily_paths/wf_2022__ppo_retained_iter_0_bc_equivalent_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 29941
+    },
+    {
+      "path": "runtime/model_selection/card/release16_rulebase_reversal_drawdown_upside_checkpoint_metric_replay_v1/official_daily_paths/wf_2022__ppo_retained_iter_4_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30848
+    },
+    {
+      "path": "runtime/model_selection/card/release16_rulebase_reversal_drawdown_upside_checkpoint_metric_replay_v1/official_daily_paths/wf_2022__ppo_selected_best_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30848
+    },
+    {
+      "path": "runtime/model_selection/card/release16_rulebase_reversal_drawdown_upside_checkpoint_metric_replay_v1/official_daily_paths/wf_2023_2024__bc_initialization_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31088
+    },
+    {
+      "path": "runtime/model_selection/card/release16_rulebase_reversal_drawdown_upside_checkpoint_metric_replay_v1/official_daily_paths/wf_2023_2024__ppo_retained_iter_0_bc_equivalent_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31088
+    },
+    {
+      "path": "runtime/model_selection/card/release16_rulebase_reversal_drawdown_upside_checkpoint_metric_replay_v1/official_daily_paths/wf_2023_2024__ppo_retained_iter_4_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31054
+    },
+    {
+      "path": "runtime/model_selection/card/release16_rulebase_reversal_drawdown_upside_checkpoint_metric_replay_v1/official_daily_paths/wf_2023_2024__ppo_selected_best_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31054
+    },
+    {
+      "path": "runtime/model_selection/card/release16_rulebase_reversal_drawdown_upside_checkpoint_metric_replay_v1/ppo_selection_history.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1050
+    },
+    {
+      "path": "runtime/model_selection/card/release16_rulebase_reversal_drawdown_upside_checkpoint_metric_replay_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 7016
+    },
+    {
+      "path": "runtime/model_selection/card/release16_rulebase_reversal_drawdown_upside_checkpoint_metric_replay_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 12021
+    },
+    {
+      "path": "runtime/model_selection/card/release16_rulebase_reversal_drawdown_upside_target_v1/conclusion.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 1284
+    },
+    {
+      "path": "runtime/model_selection/card/release16_rulebase_reversal_drawdown_upside_target_v1/consumed_target_audit.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 496
+    },
+    {
+      "path": "runtime/model_selection/card/release16_rulebase_reversal_drawdown_upside_target_v1/drawdown_upside_adjusted_rows.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 334264
+    },
+    {
+      "path": "runtime/model_selection/card/release16_rulebase_reversal_drawdown_upside_target_v1/drawdown_upside_bc_target_contract.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4144523
+    },
+    {
+      "path": "runtime/model_selection/card/release16_rulebase_reversal_drawdown_upside_target_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 8264
+    },
+    {
+      "path": "runtime/model_selection/card/release16_rulebase_reversal_drawdown_upside_target_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 11094
+    },
+    {
+      "path": "runtime/model_selection/card/release16_rulebase_reversal_drawdown_upside_target_v1/target_bucket_delta.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 949
+    },
+    {
+      "path": "runtime/model_selection/card/release16_rulebase_reversal_drawdown_upside_target_v1/target_distribution_before_after.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1266
+    },
+    {
+      "path": "runtime/model_selection/card/release16_rulebase_reversal_drawdown_upside_target_v1/target_feature_contrast.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 3351
+    },
+    {
+      "path": "runtime/model_selection/card/release16_rulebase_reversal_drawdown_upside_target_v1/target_scope_audit.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 345
     },
     {
       "path": "runtime/model_selection/card/release16_rulebase_reversal_failed_fold_diagnostic_v1/conclusion.md",

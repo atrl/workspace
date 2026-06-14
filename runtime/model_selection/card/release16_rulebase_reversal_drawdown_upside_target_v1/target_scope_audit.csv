@@ -1,0 +1,4 @@
+fold,target_fold,all_target_rows,train_target_rows,valid_overlap_rows,test_overlap_rows,changed_rows_all,changed_rows_train,changed_rows_valid,changed_rows_test,target_contract_gate
+wf_2020,wf_2020_train,2470,2218,252,0,92,92,0,0,True
+wf_2022,wf_2022_train,505,253,252,0,0,0,0,0,True
+wf_2023_2024,wf_2023_2024_train,756,756,0,0,151,151,0,0,True
