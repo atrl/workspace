@@ -1,0 +1,136 @@
+{
+  "actor_retention_allowed": false,
+  "canonical_baseline": "v19reg_v22_budget_usage_bull_guard_v1",
+  "changed_layer": [
+    "model_selection",
+    "training_objective",
+    "retention_gate_feasibility"
+  ],
+  "conclusion": [
+    "Bull/reentry revision improved wf_2020 relative return by 15.02pp, but the fold remains 307.74pp short of the +30pp relative gate.",
+    "The wf_2020 gate implies required return 363.33% because SOXL buy-and-hold is 333.33% in the replay metrics.",
+    "No available reference row satisfies both MaxDD < 20% and return >= 363.33%: legacy_default return 220.78% with MaxDD 54.28%; risk_cap_35_15_05 return 69.60% with MaxDD 17.94%.",
+    "Do not start another full retained training run from bull/reentry target tweaks alone until the wf_2020 gate is calibrated or a reference-feasible target is demonstrated."
+  ],
+  "created_at": "2026-06-14T00:22:59.758727+00:00",
+  "decision": "wf2020_post_revision_gate_feasibility_blocker_no_promotion",
+  "direct_comparison_baseline": "bull_reentry_three_fold_checkpoint_metric_replay_v1",
+  "experiment": "bull_reentry_wf2020_post_revision_gap_diagnostic_v1",
+  "failed_folds": [
+    "wf_2020"
+  ],
+  "missing_folds": [],
+  "next_mechanism": "calibrate_wf2020_retention_gate_or_run_reference_feasibility_screen_before_more_bull_reentry_training",
+  "next_training_allowed": false,
+  "post_revision_wf2020": {
+    "max_dd_pct": 15.489487944520992,
+    "relative_gap_to_gate_pp": 307.73538777196427,
+    "relative_improvement_vs_pre_revision_pp": 15.017633696289067,
+    "selected_candidate": "bc_initialization",
+    "selected_max_dd_pct": 15.489487944520992,
+    "selected_relative_return_pp": -277.73538777196427
+  },
+  "promotion_allowed": false,
+  "promotion_blocker": "No actor is trained or retained by this diagnostic. It flags the remaining wf_2020 gap and checks whether the current fold gate is feasible against available references.",
+  "reference_baseline": "soxlbacktest_qlib_buysell_reference",
+  "reference_feasibility": {
+    "gate_feasibility_blocker": true,
+    "joint_gate_pass_count_excluding_threshold": 0,
+    "legacy_default_max_dd_pct": 54.27514385862544,
+    "legacy_default_return_pct": 220.77720540428163,
+    "risk_cap_35_15_05_max_dd_pct": 17.94235040318888,
+    "risk_cap_35_15_05_return_pct": 69.60455156850816,
+    "wf_pass_ytd18_15_15_02_max_dd_pct": 12.78520723360268,
+    "wf_pass_ytd18_15_15_02_return_pct": 29.15660308837891
+  },
+  "role": "diagnose",
+  "selected_by_fold": {
+    "wf_2020": {
+      "bc_max_dd": 15.489487944520992,
+      "bc_relative_return": -277.73538777196427,
+      "candidate_count": 4,
+      "fold": "wf_2020",
+      "selected_candidate": "bc_initialization",
+      "selected_candidate_gate": false,
+      "selected_drift_gate": true,
+      "selected_iter": 0,
+      "selected_kind": "bc_initialization",
+      "selected_loss": 10.257846259065476,
+      "selected_max_dd": 15.489487944520992,
+      "selected_relative_return": -277.73538777196427,
+      "selected_target_gate": false,
+      "status": "evaluated"
+    },
+    "wf_2022": {
+      "bc_max_dd": 18.80228364916748,
+      "bc_relative_return": 65.86482008395255,
+      "candidate_count": 4,
+      "fold": "wf_2022",
+      "selected_candidate": "bc_initialization",
+      "selected_candidate_gate": true,
+      "selected_drift_gate": true,
+      "selected_iter": 0,
+      "selected_kind": "bc_initialization",
+      "selected_loss": 0.0,
+      "selected_max_dd": 18.80228364916748,
+      "selected_relative_return": 65.86482008395255,
+      "selected_target_gate": true,
+      "status": "evaluated"
+    },
+    "wf_2023_2024": {
+      "bc_max_dd": 19.9339463051674,
+      "bc_relative_return": 25.313412572656027,
+      "candidate_count": 4,
+      "fold": "wf_2023_2024",
+      "selected_candidate": "ppo_retained_iter_4",
+      "selected_candidate_gate": true,
+      "selected_drift_gate": true,
+      "selected_iter": 4,
+      "selected_kind": "ppo_retained",
+      "selected_loss": 0.004,
+      "selected_max_dd": 8.955768917531602,
+      "selected_relative_return": 35.56622898283519,
+      "selected_target_gate": true,
+      "status": "evaluated"
+    }
+  },
+  "selection_scope": "post_revision_wf2020_gap_diagnostic",
+  "sidecars": [
+    "pre_post_replay_delta.csv",
+    "wf2020_feasibility_reference_matrix.csv",
+    "target_revision_marginal_effect.csv",
+    "target_lift_audit_copy.csv",
+    "target_contract_year_coverage.csv",
+    "selection.json",
+    "summary.json",
+    "conclusion.md"
+  ],
+  "source_decisions": {
+    "new_metric_replay": "three_fold_checkpoint_metric_replay_partial_pass_no_promotion",
+    "old_metric_replay": "three_fold_checkpoint_metric_replay_partial_pass_no_promotion",
+    "old_objective_audit": "wf2020_failed_fold_requires_bull_reentry_target_revision_no_promotion",
+    "soxlbacktest_qlib_baseline": "soxlbacktest_reference_qlib_aligned_not_promotable"
+  },
+  "target_max_dd_pct": 20.0,
+  "target_relative_return_pp": 30.0,
+  "target_revision_effect": {
+    "added_rows_ge_70pct": 119,
+    "mean_target_position_delta": 0.018117813765182234,
+    "revision_rows_ge_70pct": 140,
+    "source_rows_ge_70pct": 21,
+    "wf2020_max_dd_delta_pp": 0.5047874347517478,
+    "wf2020_relative_delta_pp": 15.017633696289067
+  },
+  "training_allowed_from_this_card": false,
+  "upstream_cards": [
+    "runtime/model_selection/card/cap10_wf2020_failed_fold_objective_audit_v1",
+    "runtime/model_selection/card/fold_local_bull_reentry_participation_target_v1",
+    "runtime/model_selection/card/bull_reentry_three_fold_checkpoint_metric_replay_v1",
+    "runtime/model_selection/card/soxlbacktest_qlib_walkforward_baseline_v1"
+  ],
+  "wf2020_gate_requirements": {
+    "buyhold_return_pct": 333.33334745765706,
+    "max_drawdown_pct": 20.0,
+    "required_return_pct_for_relative_plus_30pp": 363.33334745765706
+  }
+}

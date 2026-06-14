@@ -1,0 +1,4 @@
+fold,old_selected_candidate,new_selected_candidate,old_relative_return_pp,new_relative_return_pp,relative_delta_pp,old_max_dd_pct,new_max_dd_pct,max_dd_delta_pp,old_gate,new_gate,post_revision_gap_to_relative_gate_pp,post_revision_gap_to_dd_gate_pp
+wf_2020,bc_initialization,bc_initialization,-292.75302146825334,-277.73538777196427,15.017633696289067,14.984700509769244,15.489487944520992,0.5047874347517478,False,False,307.73538777196427,0.0
+wf_2022,bc_initialization,bc_initialization,65.86482008395255,65.86482008395255,0.0,18.80228364916748,18.80228364916748,0.0,True,True,-35.86482008395255,0.0
+wf_2023_2024,ppo_retained_iter_4,ppo_retained_iter_4,35.56622898283519,35.56622898283519,0.0,8.955768917531602,8.955768917531602,0.0,True,True,-5.566228982835192,0.0

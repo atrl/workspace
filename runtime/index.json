@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-14T00:11:19.200552+00:00",
+  "generated_at": "2026-06-14T00:23:14.892016+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -3494,6 +3494,54 @@
       "bytes": 5076
     },
     {
+      "path": "runtime/model_selection/card/bull_reentry_wf2020_post_revision_gap_diagnostic_v1/conclusion.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 1030
+    },
+    {
+      "path": "runtime/model_selection/card/bull_reentry_wf2020_post_revision_gap_diagnostic_v1/pre_post_replay_delta.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 767
+    },
+    {
+      "path": "runtime/model_selection/card/bull_reentry_wf2020_post_revision_gap_diagnostic_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 5832
+    },
+    {
+      "path": "runtime/model_selection/card/bull_reentry_wf2020_post_revision_gap_diagnostic_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 5416
+    },
+    {
+      "path": "runtime/model_selection/card/bull_reentry_wf2020_post_revision_gap_diagnostic_v1/target_contract_year_coverage.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 475
+    },
+    {
+      "path": "runtime/model_selection/card/bull_reentry_wf2020_post_revision_gap_diagnostic_v1/target_lift_audit_copy.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 431
+    },
+    {
+      "path": "runtime/model_selection/card/bull_reentry_wf2020_post_revision_gap_diagnostic_v1/target_revision_marginal_effect.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 489
+    },
+    {
+      "path": "runtime/model_selection/card/bull_reentry_wf2020_post_revision_gap_diagnostic_v1/wf2020_feasibility_reference_matrix.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1696
+    },
+    {
       "path": "runtime/model_selection/card/cap10_bc_sequence_risk_state_diagnostic_v1/bc_slice_metrics.csv",
       "category": "model_selection",
       "suffix": ".csv",
@@ -5789,19 +5837,19 @@
       "path": "runtime/model_selection/card/model_retention_frontier_v1/conclusion.md",
       "category": "model_selection",
       "suffix": ".md",
-      "bytes": 539
+      "bytes": 565
     },
     {
       "path": "runtime/model_selection/card/model_retention_frontier_v1/retention_frontier.csv",
       "category": "model_selection",
       "suffix": ".csv",
-      "bytes": 37207
+      "bytes": 37703
     },
     {
       "path": "runtime/model_selection/card/model_retention_frontier_v1/summary.json",
       "category": "model_selection",
       "suffix": ".json",
-      "bytes": 100894
+      "bytes": 102036
     },
     {
       "path": "runtime/model_selection/card/model_retention_walkforward_gate_v1/conclusion.md",

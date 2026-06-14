@@ -1,0 +1,2 @@
+fold,rows,rebound_rows,downtrend_rows,rebound_downtrend_rows,current_positive_rebound_lift_rows,candidate_release_positive_lift_rows,mean_current_effective_lift,mean_candidate_release_lift,max_current_effective_lift,max_candidate_release_lift,lift_semantics_gate,release_candidate_gate,target_position_priority,min_lift
+wf_2020_train,2470,149,781,30,149,149,0.3869476510067113,0.3869476510067113,0.6498,0.6498,True,True,risk,1e-09
