@@ -79,6 +79,13 @@ VERSIONED_DASHBOARD_CONTEXT_FIELDS = {
 }
 RETAINED_DASHBOARD_EXPORT_SOURCE_KIND = "retained_dashboard_export"
 RETAINED_DASHBOARD_EXPORT_REASON = "evidence_only_retained_dashboard_export"
+DAILY_REPLAY_EVIDENCE_SOURCE_KIND = "daily_replay_evidence"
+DAILY_REPLAY_EVIDENCE_REASON = "evidence_only_daily_replay"
+DAILY_REPLAY_EVIDENCE_PROFILES = (
+    "state_conditioned_drawdown_rebound_reward_train_v1",
+    "drawdown_rebound_reward_train_v1",
+    "mode_conditioned_rebound_reward_train_v2",
+)
 DEFAULT_SNAPSHOT_COLUMNS = (
     "close",
     "rsi6",
@@ -222,6 +229,25 @@ def _retained_dashboard_model_sources(root: Path) -> dict[str, dict[str, Any]]:
     return sources
 
 
+def _daily_replay_evidence_sources(root: Path) -> dict[str, dict[str, Any]]:
+    sources: dict[str, dict[str, Any]] = {}
+    for profile_name in DAILY_REPLAY_EVIDENCE_PROFILES:
+        detail_path = root / "runtime" / "model" / "card" / profile_name / f"{profile_name}_soxl_daily.csv"
+        if not detail_path.exists():
+            continue
+        sources[profile_name] = {
+            "profile": profile_name,
+            "status": "evidence_daily_replay",
+            "output": _relative_to(root, detail_path),
+            "result": "evidence",
+            "source_kind": DAILY_REPLAY_EVIDENCE_SOURCE_KIND,
+            "display_name": profile_name,
+            "runnable": False,
+            "runnable_reason": DAILY_REPLAY_EVIDENCE_REASON,
+        }
+    return sources
+
+
 def _load_model_retention_gate(root: Path) -> dict[str, Any] | None:
     path = root / MODEL_RETENTION_GATE_SUMMARY
     if not path.exists():
@@ -342,6 +368,9 @@ def _feature_metadata(root: Path, profile_name: str, source: dict[str, Any]) -> 
     if source_kind == RETAINED_DASHBOARD_EXPORT_SOURCE_KIND:
         runnable = False
         runnable_reason = str(source.get("runnable_reason") or RETAINED_DASHBOARD_EXPORT_REASON)
+    elif source_kind == DAILY_REPLAY_EVIDENCE_SOURCE_KIND:
+        runnable = False
+        runnable_reason = str(source.get("runnable_reason") or DAILY_REPLAY_EVIDENCE_REASON)
     else:
         actor = str(source.get("actor") or "").strip()
         actor_exists = bool(actor) and (root / actor).exists()
@@ -595,7 +624,11 @@ def _load_model_feature_rows(
     feature_metadata: dict[str, Any],
     provider_uri: Path,
 ) -> tuple[FeatureRowsByDate, str | None]:
-    if feature_metadata.get("source_kind") not in {"qlib_model", RETAINED_DASHBOARD_EXPORT_SOURCE_KIND}:
+    if feature_metadata.get("source_kind") not in {
+        "qlib_model",
+        RETAINED_DASHBOARD_EXPORT_SOURCE_KIND,
+        DAILY_REPLAY_EVIDENCE_SOURCE_KIND,
+    }:
         return {}, None
     columns = feature_metadata.get("feature_columns")
     packs = feature_metadata.get("feature_packs")
@@ -1248,6 +1281,8 @@ def build_dashboard_v2_data(
         if (root / str(profile.get("output", ""))).exists()
     }
     by_name.update(_reference_model_sources(root))
+    for profile_name, source in _daily_replay_evidence_sources(root).items():
+        by_name.setdefault(profile_name, source)
     for profile_name, source in _retained_dashboard_model_sources(root).items():
         by_name.setdefault(profile_name, source)
     if selected_profiles:
@@ -1255,6 +1290,9 @@ def build_dashboard_v2_data(
     else:
         preferred = [
             SOXL_BACKTEST_REFERENCE_PROFILE,
+            "state_conditioned_drawdown_rebound_reward_train_v1",
+            "drawdown_rebound_reward_train_v1",
+            "mode_conditioned_rebound_reward_train_v2",
             "smoke",
             "balanced_rule_residual_v22",
         ]
@@ -1392,7 +1430,7 @@ def build_dashboard_v2_data(
     comparison = build_comparison_payload(
         model_payloads,
         baseline_profile=baseline,
-        compared_profiles=profiles_to_write,
+        compared_profiles=defaults,
     )
     retention_frontier = _load_model_retention_frontier(root)
     default_chart_profile = next(
@@ -1400,6 +1438,13 @@ def build_dashboard_v2_data(
             profile_name
             for profile_name in defaults
             if bool(model_payloads.get(profile_name, {}).get("runnable"))
+        ),
+        None,
+    ) or next(
+        (
+            profile_name
+            for profile_name in defaults
+            if model_payloads.get(profile_name, {}).get("source_kind") == "soxlbacktest_qlib_buysell"
         ),
         None,
     ) or next(

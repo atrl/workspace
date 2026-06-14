@@ -72,15 +72,20 @@
   },
   "available_profiles": [
     "soxl_backtest_policy_reimplementation_v1",
+    "state_conditioned_drawdown_rebound_reward_train_v1",
+    "drawdown_rebound_reward_train_v1",
+    "mode_conditioned_rebound_reward_train_v2",
     "balanced_rule_residual_v19_moe_v2"
   ],
   "default_baseline_profile": "soxl_backtest_policy_reimplementation_v1",
-  "default_chart_profile": "balanced_rule_residual_v19_moe_v2",
+  "default_chart_profile": "soxl_backtest_policy_reimplementation_v1",
   "default_comparison_profiles": [
     "soxl_backtest_policy_reimplementation_v1",
-    "balanced_rule_residual_v19_moe_v2"
+    "state_conditioned_drawdown_rebound_reward_train_v1",
+    "drawdown_rebound_reward_train_v1",
+    "mode_conditioned_rebound_reward_train_v2"
   ],
-  "generated_at": "2026-06-14T04:22:13.149196+00:00",
+  "generated_at": "2026-06-14T04:56:12.854917+00:00",
   "latest_market_date": "2026-06-10",
   "model_retention_frontier": {
     "completed_handoff_count": 83,
@@ -117,6 +122,9 @@
   },
   "profile_groups": {
     "evidence_only": [
+      "state_conditioned_drawdown_rebound_reward_train_v1",
+      "drawdown_rebound_reward_train_v1",
+      "mode_conditioned_rebound_reward_train_v2",
       "balanced_rule_residual_v19_moe_v2"
     ],
     "reference": [
@@ -128,7 +136,10 @@
   "source_paths": {
     "market": "data/processed/panels/soxl_soxx_vix_full.csv",
     "model:balanced_rule_residual_v19_moe_v2": "dashboard_data/versioned/balanced_rule_residual_v19_moe_v2/SOXL.json",
+    "model:drawdown_rebound_reward_train_v1": "runtime/model/card/drawdown_rebound_reward_train_v1/drawdown_rebound_reward_train_v1_soxl_daily.csv",
+    "model:mode_conditioned_rebound_reward_train_v2": "runtime/model/card/mode_conditioned_rebound_reward_train_v2/mode_conditioned_rebound_reward_train_v2_soxl_daily.csv",
     "model:soxl_backtest_policy_reimplementation_v1": "runtime/production/card/soxl_backtest_policy_reimplementation_v1/new_policy_daily.csv",
+    "model:state_conditioned_drawdown_rebound_reward_train_v1": "runtime/model/card/state_conditioned_drawdown_rebound_reward_train_v1/state_conditioned_drawdown_rebound_reward_train_v1_soxl_daily.csv",
     "model_replay_freshness": "dashboard_data/model_replay_freshness.json"
   },
   "unavailable_profiles": []
