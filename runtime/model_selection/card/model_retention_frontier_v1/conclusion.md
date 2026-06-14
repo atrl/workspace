@@ -1,9 +1,9 @@
 # Model Retention Frontier
 
 - Rows scanned: `120`.
-- Completed handoffs: `90`.
-- Recommended next source: `short_volshock_drawdown_drift_feature_audit_v1`.
-- Recommended next action: `screen drawdown-drift reward/checkpoint penalty with trend-preservation term before PPO`.
+- Completed handoffs: `94`.
+- Recommended next source: `state_head_fold_consensus_target_v1`.
+- Recommended next action: `discover_stable_rebound_labels_or_new_state_factor`.
 - Primary blocker: `missing_walkforward_evidence`.
 - Retention gate: MaxDD `< 20.0` and YTD return floor `213.143462` versus SOXLBacktest reference `132.077978`.
 

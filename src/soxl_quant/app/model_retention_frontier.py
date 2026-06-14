@@ -11,12 +11,38 @@ import pandas as pd
 
 
 MODEL_SELECTION_CARD_ROOT = "runtime/model_selection/card"
+DOWNSTREAM_CARD_ROOTS = (
+    MODEL_SELECTION_CARD_ROOT,
+    "runtime/reward/card",
+)
 RETENTION_GATE_SUMMARY_PATH = (
     "runtime/model_selection/card/model_retention_walkforward_gate_v1/summary.json"
 )
 DEFAULT_REQUIRED_WF_WINDOWS = ("wf_2020", "wf_2022", "wf_2023_2024")
 DEFAULT_TARGET_RELATIVE_RETURN_PP = 30.0
 EXCLUDED_CARD_NAMES = {"model_retention_walkforward_gate_v1", "model_retention_frontier_v1"}
+SOURCE_REFERENCE_FIELDS = {
+    "direct_comparison_baseline",
+    "reward_recipe_baseline",
+    "source",
+    "source_bc_decision",
+    "source_card",
+    "source_checkpoint_score_experiment",
+    "source_context",
+    "source_decision",
+    "source_decisions",
+    "source_experiment",
+    "source_failed_experiment",
+    "source_failed_fold_experiment",
+    "source_guard_experiment",
+    "source_handoff_decision",
+    "source_reward_decision",
+    "source_selection",
+    "source_target_contract",
+    "source_target_decision",
+    "source_target_experiment",
+    "source_target_selection",
+}
 
 
 def _load_json(path: Path) -> dict[str, Any]:
@@ -62,20 +88,29 @@ def _coerce_text_values(value: Any) -> list[str]:
     return [str(value)]
 
 
+def _is_source_reference_key(key: str) -> bool:
+    return key in SOURCE_REFERENCE_FIELDS or (key.startswith("source_") and key.endswith("_experiment"))
+
+
+def _source_reference_text_values(value: Any, *, key: str | None = None) -> list[str]:
+    values: list[str] = []
+    if key is not None and _is_source_reference_key(key):
+        values.extend(_coerce_text_values(value))
+    if isinstance(value, dict):
+        for child_key, child_value in value.items():
+            values.extend(_source_reference_text_values(child_value, key=str(child_key)))
+    elif isinstance(value, list | tuple | set):
+        for item in value:
+            values.extend(_source_reference_text_values(item))
+    return values
+
+
 def _source_references(payload: dict[str, Any], known_experiments: set[str]) -> list[str]:
     summary = _summary_payload(payload)
     selection = _selection_payload(summary)
     values: list[str] = []
     for container in (summary, selection):
-        for field in (
-            "source_decisions",
-            "direct_comparison_baseline",
-            "source_card",
-            "source_experiment",
-            "source_selection",
-            "source_bc_decision",
-        ):
-            values.extend(_coerce_text_values(container.get(field)))
+        values.extend(_source_reference_text_values(container))
     references: set[str] = set()
     for text in values:
         for experiment in known_experiments:
@@ -133,6 +168,33 @@ def _load_gate_summary(root: Path) -> dict[str, Any]:
             "required_wf_windows": list(DEFAULT_REQUIRED_WF_WINDOWS),
         }
     return _summary_payload(_load_json(path))
+
+
+def _experiment_name(path: Path, payload: dict[str, Any]) -> str:
+    summary = _summary_payload(payload)
+    selection = _selection_payload(summary)
+    return str(selection.get("experiment") or summary.get("experiment") or path.parent.name)
+
+
+def _load_card_payloads(
+    *,
+    root: Path,
+    card_root: str,
+    selected_names: set[str] | None = None,
+    include_errors: bool,
+) -> list[tuple[Path, dict[str, Any]]]:
+    payloads: list[tuple[Path, dict[str, Any]]] = []
+    for path in sorted((root / card_root).glob("*/summary.json")):
+        if card_root == MODEL_SELECTION_CARD_ROOT and path.parent.name in EXCLUDED_CARD_NAMES:
+            continue
+        if selected_names is not None and path.parent.name not in selected_names:
+            continue
+        try:
+            payloads.append((path, _load_json(path)))
+        except (json.JSONDecodeError, OSError) as exc:
+            if include_errors:
+                payloads.append((path, {"experiment": path.parent.name, "load_error": str(exc)}))
+    return payloads
 
 
 def _wf_metrics_from_selection(summary: dict[str, Any], selection: dict[str, Any]) -> tuple[dict[str, float], dict[str, float]]:
@@ -348,29 +410,26 @@ def _row_from_summary(path: Path, payload: dict[str, Any], gate_summary: dict[st
 def scan_model_retention_frontier(*, root: Path, card_names: Iterable[str] | None = None) -> dict[str, Any]:
     root = Path(root)
     gate_summary = _load_gate_summary(root)
-    card_root = root / MODEL_SELECTION_CARD_ROOT
     selected_names = {str(name) for name in card_names} if card_names is not None else None
-    payloads: list[tuple[Path, dict[str, Any]]] = []
-    for path in sorted(card_root.glob("*/summary.json")):
-        if path.parent.name in EXCLUDED_CARD_NAMES:
-            continue
-        if selected_names is not None and path.parent.name not in selected_names:
-            continue
-        try:
-            payloads.append((path, _load_json(path)))
-        except (json.JSONDecodeError, OSError) as exc:
-            payloads.append((path, {"experiment": path.parent.name, "load_error": str(exc)}))
-    known_experiments = {
-        str(_selection_payload(_summary_payload(payload)).get("experiment") or _summary_payload(payload).get("experiment") or path.parent.name)
-        for path, payload in payloads
-    }
+    payloads = _load_card_payloads(
+        root=root,
+        card_root=MODEL_SELECTION_CARD_ROOT,
+        selected_names=selected_names,
+        include_errors=True,
+    )
+    known_experiments = {_experiment_name(path, payload) for path, payload in payloads}
     downstream_by_source: dict[str, list[str]] = {}
-    for path, payload in payloads:
-        downstream = str(
-            _selection_payload(_summary_payload(payload)).get("experiment")
-            or _summary_payload(payload).get("experiment")
-            or path.parent.name
+    downstream_payloads: list[tuple[Path, dict[str, Any]]] = []
+    for downstream_root in DOWNSTREAM_CARD_ROOTS:
+        downstream_payloads.extend(
+            _load_card_payloads(
+                root=root,
+                card_root=downstream_root,
+                include_errors=False,
+            )
         )
+    for path, payload in downstream_payloads:
+        downstream = _experiment_name(path, payload)
         sources = set(_source_references(payload, known_experiments))
         sources.update(_sidecar_manifest_references(path.parent, known_experiments))
         sources.update(_selection_sidecar_references(path.parent, known_experiments))
@@ -432,6 +491,7 @@ def scan_model_retention_frontier(*, root: Path, card_names: Iterable[str] | Non
             "reference_return_pct": gate_summary.get("reference_return_pct"),
             "max_walkforward_drawdown_pct": gate_summary.get("max_walkforward_drawdown_pct"),
             "required_wf_windows": gate_summary.get("required_wf_windows", list(DEFAULT_REQUIRED_WF_WINDOWS)),
+            "downstream_card_roots": list(DOWNSTREAM_CARD_ROOTS),
         },
         "rows": rows,
     }

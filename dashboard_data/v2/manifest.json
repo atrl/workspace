@@ -86,13 +86,13 @@
     "drawdown_rebound_reward_train_v1",
     "mode_conditioned_rebound_reward_train_v2"
   ],
-  "generated_at": "2026-06-14T10:32:20.753518+00:00",
+  "generated_at": "2026-06-14T10:56:30.242871+00:00",
   "latest_market_date": "2026-06-10",
   "model_retention_frontier": {
-    "completed_handoff_count": 90,
+    "completed_handoff_count": 94,
     "max_walkforward_drawdown_pct": 20.0,
-    "recommended_next_action": "screen drawdown-drift reward/checkpoint penalty with trend-preservation term before PPO",
-    "recommended_next_source": "short_volshock_drawdown_drift_feature_audit_v1",
+    "recommended_next_action": "discover_stable_rebound_labels_or_new_state_factor",
+    "recommended_next_source": "state_head_fold_consensus_target_v1",
     "recommended_primary_blocker": "missing_walkforward_evidence",
     "reference_return_pct": 132.077978,
     "required_best_return_pct": 213.143462,
