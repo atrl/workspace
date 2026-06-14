@@ -1,0 +1,171 @@
+{
+  "acceptance_criteria": [
+    "all required folds have target rows and no test overlap",
+    "wf_2022 guard-fold target rows are unchanged",
+    "wf_2020 and wf_2023_2024 receive overlay target rows",
+    "no actor promotion or retention occurs from this card"
+  ],
+  "accepted_tradeoff": "Increase failed-fold training participation targets while preserving the wf_2022 guard-fold target contract unchanged.",
+  "actor_retention_allowed": false,
+  "bc_readiness_gate": false,
+  "bc_screen_allowed_next": false,
+  "canonical_baseline": "retained_soxl_harness_model_frontier",
+  "changed_layer": [
+    "model_selection",
+    "training_target_composition",
+    "bc_checkpoint_target_contract"
+  ],
+  "checkpoint_replay_allowed_next": true,
+  "closest_historical_failure_case": "release16_cb99_rebound_checkpoint_screen_v1 failed wf_2020 and wf_2023_2024 after checkpoint screening because participation targets remained sparse.",
+  "closest_historical_success_case": "rebound_state_factor_target_repair_screen_v1 stitched non-leaking three-fold targets and passed BC readiness gates.",
+  "created_at": "2026-06-14T14:48:48.036158+00:00",
+  "decision": "release16_failedfold_participation_target_overlay_ready_for_checkpoint_no_promotion",
+  "direct_comparison_baseline": "release16_failed_fold_daily_path_diagnostic_v1",
+  "distribution_summary": [
+    {
+      "fold": "wf_2020_train",
+      "mean_target_position_delta": 0.045876680161943295,
+      "mean_target_position_overlay": 0.35794222672064774,
+      "mean_target_position_source": 0.31206554655870444,
+      "rows_ge_50pct_overlay": 749,
+      "rows_ge_50pct_source": 608,
+      "rows_ge_65pct_overlay": 738,
+      "rows_ge_65pct_source": 39,
+      "share_ge_50pct_delta": 0.05708502024291495,
+      "share_ge_50pct_overlay": 0.3032388663967611,
+      "share_ge_50pct_source": 0.24615384615384617,
+      "share_ge_65pct_delta": 0.28299595141700407,
+      "share_ge_65pct_overlay": 0.2987854251012146,
+      "share_ge_65pct_source": 0.015789473684210527,
+      "share_ge_70pct_overlay": 0.008502024291497975,
+      "share_ge_70pct_source": 0.008502024291497975
+    },
+    {
+      "fold": "wf_2022_train",
+      "mean_target_position_delta": 0.0,
+      "mean_target_position_overlay": 0.19809267526870336,
+      "mean_target_position_source": 0.19809267526870336,
+      "rows_ge_50pct_overlay": 34,
+      "rows_ge_50pct_source": 34,
+      "rows_ge_65pct_overlay": 22,
+      "rows_ge_65pct_source": 22,
+      "share_ge_50pct_delta": 0.0,
+      "share_ge_50pct_overlay": 0.06732673267326733,
+      "share_ge_50pct_source": 0.06732673267326733,
+      "share_ge_65pct_delta": 0.0,
+      "share_ge_65pct_overlay": 0.04356435643564356,
+      "share_ge_65pct_source": 0.04356435643564356,
+      "share_ge_70pct_overlay": 0.04356435643564356,
+      "share_ge_70pct_source": 0.04356435643564356
+    },
+    {
+      "fold": "wf_2023_2024_train",
+      "mean_target_position_delta": 0.08191323605363554,
+      "mean_target_position_overlay": 0.23650249707147855,
+      "mean_target_position_source": 0.154589261017843,
+      "rows_ge_50pct_overlay": 227,
+      "rows_ge_50pct_source": 34,
+      "rows_ge_65pct_overlay": 26,
+      "rows_ge_65pct_source": 22,
+      "share_ge_50pct_delta": 0.25529100529100535,
+      "share_ge_50pct_overlay": 0.3002645502645503,
+      "share_ge_50pct_source": 0.04497354497354497,
+      "share_ge_65pct_delta": 0.005291005291005291,
+      "share_ge_65pct_overlay": 0.03439153439153439,
+      "share_ge_65pct_source": 0.0291005291005291,
+      "share_ge_70pct_overlay": 0.0291005291005291,
+      "share_ge_70pct_source": 0.0291005291005291
+    }
+  ],
+  "experiment": "release16_failedfold_participation_target_overlay_v1",
+  "failed_fold_overlay_counts": {
+    "wf_2020": 699,
+    "wf_2023_2024": 193
+  },
+  "failure_mode": "If the next checkpoint replay still fails return gates, the target overlay is insufficient and model/reward architecture needs revision rather than further target relabeling.",
+  "guard_fold_changed_rows": {
+    "wf_2022": 0
+  },
+  "hypothesis": "Failed folds are return-only underparticipation failures, so target rows need higher train-window participation labels before another checkpoint screen.",
+  "next_mechanism": "rerun_release16_checkpoint_screen_with_failedfold_participation_overlay",
+  "next_training_allowed_after_target_revision": true,
+  "overlay_recipe": {
+    "recipe_id": "release16_failedfold_participation_floor_v1",
+    "wf_2020": {
+      "description": "Lift existing high-participation, release/rebound, or drawdown-recovery training states to a learnable 65pct target while excluding downtrend states.",
+      "mom5_prev_threshold": 0.02,
+      "position_floor": 0.65,
+      "source_high_threshold": 0.5,
+      "strategy_drawdown_prev_threshold": 0.05
+    },
+    "wf_2022": {
+      "description": "Preserve guard-fold target rows unchanged because the source checkpoint screen already passed wf_2022."
+    },
+    "wf_2023_2024": {
+      "description": "Lift non-downtrend, positive-momentum, low-vol training states to 50pct; lift release/rebound rows to 65pct.",
+      "feature_floor": 0.5,
+      "mom21_feature_threshold": 0.12,
+      "mom21_prev_threshold": 0.0,
+      "mom5_prev_threshold": 0.02,
+      "release_floor": 0.65,
+      "rv21_max": 1.5,
+      "soxx_mom21_threshold": 0.04
+    }
+  },
+  "primary_blocker": "target_revision_ready",
+  "promotion_allowed": false,
+  "readiness_checks": {
+    "target_contract_gate": true,
+    "wf_2020_overlay_rows_gt0": true,
+    "wf_2022_guard_unchanged": true,
+    "wf_2023_2024_overlay_rows_gt0": true
+  },
+  "reference_baseline": "soxlbacktest_qlib_walkforward_baseline_v1:wf_pass_ytd18_15_15_02",
+  "role": "diagnose",
+  "sidecars": {
+    "bucket_delta": "runtime/model_selection/card/release16_failedfold_participation_target_overlay_v1/target_bucket_delta.csv",
+    "conclusion": "runtime/model_selection/card/release16_failedfold_participation_target_overlay_v1/conclusion.md",
+    "distribution": "runtime/model_selection/card/release16_failedfold_participation_target_overlay_v1/target_distribution_before_after.csv",
+    "feature_contrast": "runtime/model_selection/card/release16_failedfold_participation_target_overlay_v1/target_overlay_feature_contrast.csv",
+    "overlay_rows": "runtime/model_selection/card/release16_failedfold_participation_target_overlay_v1/target_overlay_rows.csv",
+    "scope_audit": "runtime/model_selection/card/release16_failedfold_participation_target_overlay_v1/target_scope_audit.csv",
+    "selection": "runtime/model_selection/card/release16_failedfold_participation_target_overlay_v1/selection.json",
+    "summary": "runtime/model_selection/card/release16_failedfold_participation_target_overlay_v1/summary.json",
+    "target_contract": "runtime/model_selection/card/release16_failedfold_participation_target_overlay_v1/combined_target_contract.csv"
+  },
+  "source_card": "rebound_state_factor_target_repair_screen_v1",
+  "source_checkpoint_screen": "release16_cb99_rebound_checkpoint_screen_v1",
+  "source_diagnostic_decision": "release16_failed_folds_require_participation_target_revision_no_promotion",
+  "source_failed_fold_experiment": "release16_failed_fold_daily_path_diagnostic_v1",
+  "source_target_contract": "runtime/model_selection/card/rebound_state_factor_target_repair_screen_v1/combined_target_contract.csv",
+  "source_target_decision": "rebound_state_factor_target_repair_screen_ready_for_checkpoint_no_promotion",
+  "summary": {
+    "failed_fold_overlay_counts": {
+      "wf_2020": 699,
+      "wf_2023_2024": 193
+    },
+    "guard_fold_changed_rows": {
+      "wf_2022": 0
+    },
+    "overlay_rows": 892,
+    "readiness_gate": true,
+    "source_rows": 3731,
+    "target_contract_gate": true
+  },
+  "target_bucket_delta_path": "runtime/model_selection/card/release16_failedfold_participation_target_overlay_v1/target_bucket_delta.csv",
+  "target_contract_gate": true,
+  "target_contract_path": "runtime/model_selection/card/release16_failedfold_participation_target_overlay_v1/combined_target_contract.csv",
+  "target_distribution_path": "runtime/model_selection/card/release16_failedfold_participation_target_overlay_v1/target_distribution_before_after.csv",
+  "target_feature_contrast_path": "runtime/model_selection/card/release16_failedfold_participation_target_overlay_v1/target_overlay_feature_contrast.csv",
+  "target_max_dd_pct": 20.0,
+  "target_overlay_rows_path": "runtime/model_selection/card/release16_failedfold_participation_target_overlay_v1/target_overlay_rows.csv",
+  "target_relative_return_pp": 30.0,
+  "target_revision_ready": true,
+  "target_scope_audit_path": "runtime/model_selection/card/release16_failedfold_participation_target_overlay_v1/target_scope_audit.csv",
+  "target_window": [
+    "wf_2020",
+    "wf_2023_2024"
+  ],
+  "training_allowed_from_this_card": false,
+  "why_not_duplicate": "This card writes a revised failed-fold participation target contract and audits overlay rows; it does not rerun the same checkpoint screen."
+}
