@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-14T11:40:00.401761+00:00",
+  "generated_at": "2026-06-14T12:02:31.994686+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -6185,19 +6185,19 @@
       "path": "runtime/model_selection/card/model_retention_frontier_v1/conclusion.md",
       "category": "model_selection",
       "suffix": ".md",
-      "bytes": 554
+      "bytes": 529
     },
     {
       "path": "runtime/model_selection/card/model_retention_frontier_v1/retention_frontier.csv",
       "category": "model_selection",
       "suffix": ".csv",
-      "bytes": 49421
+      "bytes": 49860
     },
     {
       "path": "runtime/model_selection/card/model_retention_frontier_v1/summary.json",
       "category": "model_selection",
       "suffix": ".json",
-      "bytes": 127058
+      "bytes": 128108
     },
     {
       "path": "runtime/model_selection/card/model_retention_walkforward_gate_v1/conclusion.md",
@@ -7374,6 +7374,78 @@
       "category": "model_selection",
       "suffix": ".json",
       "bytes": 1447
+    },
+    {
+      "path": "runtime/model_selection/card/rebound_state_factor_target_contract_v1/consensus_group_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 579272
+    },
+    {
+      "path": "runtime/model_selection/card/rebound_state_factor_target_contract_v1/consensus_targets.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 3892
+    },
+    {
+      "path": "runtime/model_selection/card/rebound_state_factor_target_contract_v1/label_fold_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4803
+    },
+    {
+      "path": "runtime/model_selection/card/rebound_state_factor_target_contract_v1/label_stability_scores.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 3264
+    },
+    {
+      "path": "runtime/model_selection/card/rebound_state_factor_target_contract_v1/lift_stability_group_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 333624
+    },
+    {
+      "path": "runtime/model_selection/card/rebound_state_factor_target_contract_v1/selected_factor_target_rows.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 16911
+    },
+    {
+      "path": "runtime/model_selection/card/rebound_state_factor_target_contract_v1/selected_target_contract.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 958027
+    },
+    {
+      "path": "runtime/model_selection/card/rebound_state_factor_target_contract_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 5526
+    },
+    {
+      "path": "runtime/model_selection/card/rebound_state_factor_target_contract_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 4271
+    },
+    {
+      "path": "runtime/model_selection/card/rebound_state_factor_target_contract_v1/target_contract_variants.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2546
+    },
+    {
+      "path": "runtime/model_selection/card/rebound_state_factor_target_contract_v1/target_lift_audit.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 3017
+    },
+    {
+      "path": "runtime/model_selection/card/rebound_state_factor_target_contract_v1/target_lift_summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1178
     },
     {
       "path": "runtime/model_selection/card/rebound_state_head_lift_guard_v1/base_context.json",
