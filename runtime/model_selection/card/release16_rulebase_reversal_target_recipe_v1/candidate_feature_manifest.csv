@@ -1,0 +1,4 @@
+feature_set,feature_count,features
+rulebase_reversal,10,"RB_PANIC_SCORE_PROXY,RB_DAILY_DROP_SEVERITY,RB_CUMULATIVE_DROP_SEVERITY,RB_RSI6_OVERSOLD,RB_VOL_REGIME,RB_BUY_COMPOSITE,RB_SELL_COMPOSITE,RB_PROFIT_TAKE_PROXY,RB_VOLUME_STRESS,RB_TREND_REVERSAL"
+momentum_drawdown,9,"mom_5,mom_21,mom_63,drawdown_21,drawdown_63,trend_gap_21,trend_gap_63,anchor_gap_180,anchor_slope_180"
+compact_state_head,11,"mom_5,mom_21,drawdown_63,vol_of_vol_21,vol_coef_21,relative_strength_21,RB_BUY_COMPOSITE,RB_TREND_REVERSAL,TRANS_PANIC_EXHAUSTION,TRANS_GAP_RECOVERY,SIGNED_TE_REVERSION_5"

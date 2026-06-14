@@ -1,0 +1,101 @@
+{
+  "actor_retention_allowed": false,
+  "bc_readiness_gate": false,
+  "bc_screen_allowed_next": false,
+  "best_effective_false_positive_rate": 0.0,
+  "best_false_negative": 263,
+  "best_false_positive": 732,
+  "best_false_positive_lift_max": 0.007300000000000084,
+  "best_false_positive_lift_mean": 9.972677595628531e-06,
+  "best_false_positive_rate": 0.34189631013545074,
+  "best_feature_set": "rulebase_reversal",
+  "best_rebound_target_mae": 0.0735492025628768,
+  "best_state_precision": 0.43735588009223675,
+  "best_state_recall": 0.6838942307692307,
+  "best_target_mae": 0.02058289153458241,
+  "best_threshold": 0.5,
+  "best_true_negative": 1409,
+  "best_true_positive": 569,
+  "canonical_baseline": "retained_soxl_harness_model_frontier",
+  "changed_layer": [
+    "target_design",
+    "model_selection"
+  ],
+  "comparison_best_feature_set": "momentum_drawdown",
+  "consensus_gate": true,
+  "created_at": "2026-06-14T16:09:33.672684+00:00",
+  "decision": "rulebase_reversal_failedfold_target_recipe_ready_for_checkpoint_screen_no_promotion",
+  "direct_comparison_baseline": "release16_failedfold_state_feature_mining_v1",
+  "experiment": "release16_rulebase_reversal_target_recipe_v1",
+  "failed_folds": [
+    "wf_2020",
+    "wf_2023_2024"
+  ],
+  "guard_folds": [
+    "wf_2022"
+  ],
+  "impact_adjusted_recipe_gate": true,
+  "metrics": [
+    {
+      "avg_pos": 0.2302025320757574,
+      "max_dd_pct": 16.65215076947679,
+      "relative_return_pct": 11.420582139672938,
+      "return_pct": 69.51415275615693,
+      "split_type": "walk_forward_test",
+      "window": "wf_2020"
+    },
+    {
+      "avg_pos": 0.0813840878420415,
+      "max_dd_pct": 15.617042880121645,
+      "relative_return_pct": 71.71497994984345,
+      "return_pct": -14.873091782550818,
+      "split_type": "walk_forward_test",
+      "window": "wf_2022"
+    },
+    {
+      "avg_pos": 0.0832406212752937,
+      "max_dd_pct": 5.546721705350144,
+      "relative_return_pct": 3.406379561040651,
+      "return_pct": 3.049744831352208,
+      "split_type": "walk_forward_test",
+      "window": "wf_2023_2024"
+    }
+  ],
+  "next_mechanism": "run_rulebase_reversal_failedfold_checkpoint_screen_against_soxlbacktest_qlib_buysell_baseline",
+  "next_training_allowed_after_target_revision": true,
+  "primary_blocker": "target_revision_ready",
+  "primary_feature_set": "rulebase_reversal",
+  "promotion_allowed": false,
+  "recipe_gate": true,
+  "reference_baseline": "soxlbacktest_qlib_walkforward_baseline_v1:wf_pass_ytd18_15_15_02",
+  "role": "diagnose",
+  "sidecars": {
+    "best_rulebase_reversal_row_scores": "runtime/model_selection/card/release16_rulebase_reversal_target_recipe_v1/best_rulebase_reversal_row_scores.csv",
+    "candidate_feature_manifest": "runtime/model_selection/card/release16_rulebase_reversal_target_recipe_v1/candidate_feature_manifest.csv",
+    "consensus_group_metrics": "runtime/model_selection/card/release16_rulebase_reversal_target_recipe_v1/consensus_group_metrics.csv",
+    "consensus_targets": "runtime/model_selection/card/release16_rulebase_reversal_target_recipe_v1/consensus_targets.csv",
+    "lift_stability_group_metrics": "runtime/model_selection/card/release16_rulebase_reversal_target_recipe_v1/lift_stability_group_metrics.csv",
+    "lift_stability_row_scores": "runtime/model_selection/card/release16_rulebase_reversal_target_recipe_v1/lift_stability_row_scores.csv",
+    "recipe_scores": "runtime/model_selection/card/release16_rulebase_reversal_target_recipe_v1/recipe_scores.csv",
+    "row_scores": "runtime/model_selection/card/release16_rulebase_reversal_target_recipe_v1/row_scores.csv",
+    "selected_rulebase_reversal_feature_contrast": "runtime/model_selection/card/release16_rulebase_reversal_target_recipe_v1/selected_rulebase_reversal_feature_contrast.csv",
+    "selected_rulebase_reversal_target_contract": "runtime/model_selection/card/release16_rulebase_reversal_target_recipe_v1/selected_rulebase_reversal_target_contract.csv",
+    "strict_recipe_scores": "runtime/model_selection/card/release16_rulebase_reversal_target_recipe_v1/strict_recipe_scores.csv",
+    "target_scope_audit": "runtime/model_selection/card/release16_rulebase_reversal_target_recipe_v1/target_scope_audit.csv"
+  },
+  "source_state_feature_mining": "release16_failedfold_state_feature_mining_v1",
+  "source_target_experiment": "release16_failedfold_participation_target_overlay_v1",
+  "stability_gate": true,
+  "strict_recipe_gate": false,
+  "summary_points": [
+    "Rulebase reversal threshold 0.5 recovers 569 of 832 train overlay-lift rows.",
+    "Impact-adjusted precision/recall/FPR are 0.437/0.684/0.342; effective FPR is 0.000.",
+    "Strict raw-FPR recipe gate is False; impact-adjusted recipe gate is True.",
+    "Target contract rows written: 569; stability gate True; consensus gate True.",
+    "No actor is promoted or retained; next step is checkpoint screening against the SOXLBacktest qlib buy/sell baseline."
+  ],
+  "target_contract_gate": true,
+  "target_contract_rows": 569,
+  "target_relative_return_pp": 30.0,
+  "target_revision_ready": true
+}

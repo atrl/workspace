@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-14T15:50:41.534765+00:00",
+  "generated_at": "2026-06-14T16:10:19.204173+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -6185,19 +6185,19 @@
       "path": "runtime/model_selection/card/model_retention_frontier_v1/conclusion.md",
       "category": "model_selection",
       "suffix": ".md",
-      "bytes": 540
+      "bytes": 541
     },
     {
       "path": "runtime/model_selection/card/model_retention_frontier_v1/retention_frontier.csv",
       "category": "model_selection",
       "suffix": ".csv",
-      "bytes": 53896
+      "bytes": 54463
     },
     {
       "path": "runtime/model_selection/card/model_retention_frontier_v1/summary.json",
       "category": "model_selection",
       "suffix": ".json",
-      "bytes": 137129
+      "bytes": 138315
     },
     {
       "path": "runtime/model_selection/card/model_retention_walkforward_gate_v1/conclusion.md",
@@ -8274,6 +8274,96 @@
       "category": "model_selection",
       "suffix": ".csv",
       "bytes": 663
+    },
+    {
+      "path": "runtime/model_selection/card/release16_rulebase_reversal_target_recipe_v1/best_rulebase_reversal_row_scores.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1358246
+    },
+    {
+      "path": "runtime/model_selection/card/release16_rulebase_reversal_target_recipe_v1/candidate_feature_manifest.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 571
+    },
+    {
+      "path": "runtime/model_selection/card/release16_rulebase_reversal_target_recipe_v1/conclusion.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 823
+    },
+    {
+      "path": "runtime/model_selection/card/release16_rulebase_reversal_target_recipe_v1/consensus_group_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 190405
+    },
+    {
+      "path": "runtime/model_selection/card/release16_rulebase_reversal_target_recipe_v1/consensus_targets.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 28138
+    },
+    {
+      "path": "runtime/model_selection/card/release16_rulebase_reversal_target_recipe_v1/lift_stability_group_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 118283
+    },
+    {
+      "path": "runtime/model_selection/card/release16_rulebase_reversal_target_recipe_v1/lift_stability_row_scores.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1446990
+    },
+    {
+      "path": "runtime/model_selection/card/release16_rulebase_reversal_target_recipe_v1/recipe_scores.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 6551
+    },
+    {
+      "path": "runtime/model_selection/card/release16_rulebase_reversal_target_recipe_v1/row_scores.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 9856449
+    },
+    {
+      "path": "runtime/model_selection/card/release16_rulebase_reversal_target_recipe_v1/selected_rulebase_reversal_feature_contrast.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1844
+    },
+    {
+      "path": "runtime/model_selection/card/release16_rulebase_reversal_target_recipe_v1/selected_rulebase_reversal_target_contract.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 239768
+    },
+    {
+      "path": "runtime/model_selection/card/release16_rulebase_reversal_target_recipe_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 5059
+    },
+    {
+      "path": "runtime/model_selection/card/release16_rulebase_reversal_target_recipe_v1/strict_recipe_scores.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 6558
+    },
+    {
+      "path": "runtime/model_selection/card/release16_rulebase_reversal_target_recipe_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 12087
+    },
+    {
+      "path": "runtime/model_selection/card/release16_rulebase_reversal_target_recipe_v1/target_scope_audit.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 536
     },
     {
       "path": "runtime/model_selection/card/retention_candidate_overlay_screen_v1/conclusion.md",

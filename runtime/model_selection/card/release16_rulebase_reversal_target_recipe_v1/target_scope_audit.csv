@@ -1,0 +1,6 @@
+check,value,pass,note
+source_train_overlay_rows,3731,True,Rows available in the prior train overlay state frame.
+failed_fold_feature_rows_scored,2973,True,Only has_feature_frame rows from failed fold train windows are scored.
+guard_fold_feature_rows_not_written,505,True,Guard fold rows are counted but excluded from the target contract.
+no_eval_windows_in_target_recipe,1,True,Every scored row comes from a *_train window.
+failed_test_label_file_not_read,1,True,missed_up_day_state_frame.csv is deliberately not read by this notebook.
