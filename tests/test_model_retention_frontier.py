@@ -534,10 +534,84 @@ def test_retention_frontier_uses_selection_sidecar_lineage_as_downstream_handoff
         _run_retention_frontier_uses_selection_sidecar_lineage_as_downstream_handoff(tmp_path)
 
 
+def test_retention_frontier_uses_top_level_selection_lineage_when_summary_exists():
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp_path = Path(tmp)
+        _run_retention_frontier_uses_top_level_selection_lineage_when_summary_exists(tmp_path)
+
+
 def test_retention_frontier_uses_reward_cards_as_downstream_handoffs():
     with tempfile.TemporaryDirectory() as tmp:
         tmp_path = Path(tmp)
         _run_retention_frontier_uses_reward_cards_as_downstream_handoffs(tmp_path)
+
+
+def test_retention_frontier_uses_factor_cards_as_downstream_handoffs():
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp_path = Path(tmp)
+        _run_retention_frontier_uses_factor_cards_as_downstream_handoffs(tmp_path)
+
+
+def _run_retention_frontier_uses_factor_cards_as_downstream_handoffs(tmp_path: Path) -> None:
+    from src.soxl_quant.app.model_retention_frontier import scan_model_retention_frontier
+
+    _write_json(
+        tmp_path / "runtime" / "model_selection" / "card" / "model_retention_walkforward_gate_v1" / "summary.json",
+        {
+            "summary": {
+                "required_best_return_pct": 213.14,
+                "reference_return_pct": 132.08,
+                "max_walkforward_drawdown_pct": 20.0,
+                "required_wf_windows": ["wf_2020", "wf_2022", "wf_2023_2024"],
+            }
+        },
+    )
+    _write_json(
+        tmp_path
+        / "runtime"
+        / "model_selection"
+        / "card"
+        / "state_head_stable_rebound_label_screen_v1"
+        / "summary.json",
+        {
+            "experiment": "state_head_stable_rebound_label_screen_v1",
+            "decision": "stable_rebound_label_screen_no_candidate_no_training",
+            "promotion_allowed": False,
+            "training_allowed": False,
+            "next_mechanism": "mine_new_rebound_state_factor_before_state_head_training",
+        },
+    )
+    _write_json(
+        tmp_path / "runtime" / "model_selection" / "card" / "next_training_screen" / "summary.json",
+        {
+            "experiment": "next_training_screen",
+            "decision": "state_head_training_screen_ready_no_promotion",
+            "promotion_allowed": False,
+            "next_mechanism": "train_state_head_if_factor_passes",
+        },
+    )
+    _write_json(
+        tmp_path / "runtime" / "factor" / "card" / "rebound_state_factor_mining_v1" / "summary.json",
+        {
+            "experiment": "rebound_state_factor_mining_v1",
+            "decision": "rebound_state_factor_screen_completed_no_direct_training",
+            "promotion_allowed": False,
+            "source_experiment": "state_head_stable_rebound_label_screen_v1",
+            "next_mechanism": "handoff_factor_result_to_state_head_screen",
+        },
+    )
+
+    result = scan_model_retention_frontier(root=tmp_path)
+    by_experiment = {row["experiment"]: row for row in result["rows"]}
+
+    assert result["summary"]["rows_scanned"] == 2
+    assert result["summary"]["completed_handoff_count"] == 1
+    assert result["summary"]["recommended_next_source"] == "next_training_screen"
+    assert by_experiment["state_head_stable_rebound_label_screen_v1"]["primary_blocker"] == "completed_handoff"
+    assert (
+        by_experiment["state_head_stable_rebound_label_screen_v1"]["handoff_completed_by"]
+        == "rebound_state_factor_mining_v1"
+    )
 
 
 def _run_retention_frontier_uses_reward_cards_as_downstream_handoffs(tmp_path: Path) -> None:
@@ -679,6 +753,58 @@ def _run_retention_frontier_uses_selection_sidecar_lineage_as_downstream_handoff
     assert by_experiment["sequence_source"]["primary_blocker"] == "completed_handoff"
     assert by_experiment["sequence_source"]["handoff_completed_by"] == "joint_bc_screen"
     assert result["summary"]["recommended_next_source"] == "joint_bc_screen"
+
+
+def _run_retention_frontier_uses_top_level_selection_lineage_when_summary_exists(tmp_path: Path) -> None:
+    from src.soxl_quant.app.model_retention_frontier import scan_model_retention_frontier
+
+    _write_json(
+        tmp_path / "runtime" / "model_selection" / "card" / "model_retention_walkforward_gate_v1" / "summary.json",
+        {
+            "summary": {
+                "required_best_return_pct": 213.14,
+                "reference_return_pct": 132.08,
+                "max_walkforward_drawdown_pct": 20.0,
+                "required_wf_windows": ["wf_2020", "wf_2022", "wf_2023_2024"],
+            }
+        },
+    )
+    _write_json(
+        tmp_path / "runtime" / "model_selection" / "card" / "alignment_screen" / "summary.json",
+        {
+            "experiment": "alignment_screen",
+            "decision": "target_alignment_no_promotion",
+            "promotion_allowed": False,
+            "next_mechanism": "train_or_checkpoint_score_state_objective_targets",
+        },
+    )
+    _write_json(
+        tmp_path / "runtime" / "model_selection" / "card" / "checkpoint_selection" / "summary.json",
+        {
+            "experiment": "checkpoint_selection",
+            "decision": "checkpoint_objective_no_promotion",
+            "promotion_allowed": False,
+            "next_mechanism": "train_state_objective_checkpoint_or_bc",
+        },
+    )
+    _write_json(
+        tmp_path / "runtime" / "model_selection" / "card" / "checkpoint_selection" / "selection.json",
+        {
+            "experiment": "checkpoint_selection",
+            "decision": "checkpoint_objective_no_promotion",
+            "direct_comparison_baseline": "alignment_screen",
+            "summary": {
+                "decision": "checkpoint_objective_no_promotion",
+                "next_mechanism": "train_state_objective_checkpoint_or_bc",
+            },
+        },
+    )
+
+    result = scan_model_retention_frontier(root=tmp_path)
+    by_experiment = {row["experiment"]: row for row in result["rows"]}
+
+    assert by_experiment["alignment_screen"]["primary_blocker"] == "completed_handoff"
+    assert by_experiment["alignment_screen"]["handoff_completed_by"] == "checkpoint_selection"
 
 
 def test_retention_frontier_recommends_actionable_row_before_actionless_diagnostic():

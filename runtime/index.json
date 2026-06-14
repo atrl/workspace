@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-14T11:19:22.619619+00:00",
+  "generated_at": "2026-06-14T11:40:00.401761+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -1896,6 +1896,48 @@
       "category": "factor",
       "suffix": ".md",
       "bytes": 911
+    },
+    {
+      "path": "runtime/factor/card/rebound_state_factor_mining_v1/factor_candidate_scores.csv",
+      "category": "factor",
+      "suffix": ".csv",
+      "bytes": 169615
+    },
+    {
+      "path": "runtime/factor/card/rebound_state_factor_mining_v1/full_history_signal_metrics.csv",
+      "category": "factor",
+      "suffix": ".csv",
+      "bytes": 105721
+    },
+    {
+      "path": "runtime/factor/card/rebound_state_factor_mining_v1/selected_factor_rows.csv",
+      "category": "factor",
+      "suffix": ".csv",
+      "bytes": 7786
+    },
+    {
+      "path": "runtime/factor/card/rebound_state_factor_mining_v1/selection.json",
+      "category": "factor",
+      "suffix": ".json",
+      "bytes": 5003
+    },
+    {
+      "path": "runtime/factor/card/rebound_state_factor_mining_v1/summary.json",
+      "category": "factor",
+      "suffix": ".json",
+      "bytes": 1766
+    },
+    {
+      "path": "runtime/factor/card/rebound_state_factor_mining_v1/target_fold_metrics.csv",
+      "category": "factor",
+      "suffix": ".csv",
+      "bytes": 102035
+    },
+    {
+      "path": "runtime/factor/card/rebound_state_factor_mining_v1/target_label_scores.csv",
+      "category": "factor",
+      "suffix": ".csv",
+      "bytes": 68879
     },
     {
       "path": "runtime/factor/card/regime_risk/card.md",
@@ -6143,19 +6185,19 @@
       "path": "runtime/model_selection/card/model_retention_frontier_v1/conclusion.md",
       "category": "model_selection",
       "suffix": ".md",
-      "bytes": 507
+      "bytes": 554
     },
     {
       "path": "runtime/model_selection/card/model_retention_frontier_v1/retention_frontier.csv",
       "category": "model_selection",
       "suffix": ".csv",
-      "bytes": 48863
+      "bytes": 49421
     },
     {
       "path": "runtime/model_selection/card/model_retention_frontier_v1/summary.json",
       "category": "model_selection",
       "suffix": ".json",
-      "bytes": 125792
+      "bytes": 127058
     },
     {
       "path": "runtime/model_selection/card/model_retention_walkforward_gate_v1/conclusion.md",
@@ -7314,6 +7356,24 @@
       "category": "model_selection",
       "suffix": ".json",
       "bytes": 3511
+    },
+    {
+      "path": "runtime/model_selection/card/rebound_state_factor_target_contract_handoff_v1/handoff_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 527
+    },
+    {
+      "path": "runtime/model_selection/card/rebound_state_factor_target_contract_handoff_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1890
+    },
+    {
+      "path": "runtime/model_selection/card/rebound_state_factor_target_contract_handoff_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1447
     },
     {
       "path": "runtime/model_selection/card/rebound_state_head_lift_guard_v1/base_context.json",

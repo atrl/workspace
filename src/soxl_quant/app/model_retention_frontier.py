@@ -13,6 +13,7 @@ import pandas as pd
 MODEL_SELECTION_CARD_ROOT = "runtime/model_selection/card"
 DOWNSTREAM_CARD_ROOTS = (
     MODEL_SELECTION_CARD_ROOT,
+    "runtime/factor/card",
     "runtime/reward/card",
 )
 RETENTION_GATE_SUMMARY_PATH = (
@@ -109,7 +110,12 @@ def _source_references(payload: dict[str, Any], known_experiments: set[str]) -> 
     summary = _summary_payload(payload)
     selection = _selection_payload(summary)
     values: list[str] = []
-    for container in (summary, selection):
+    containers = [payload]
+    if summary is not payload:
+        containers.append(summary)
+    if selection not in containers:
+        containers.append(selection)
+    for container in containers:
         values.extend(_source_reference_text_values(container))
     references: set[str] = set()
     for text in values:
