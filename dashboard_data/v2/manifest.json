@@ -86,13 +86,13 @@
     "drawdown_rebound_reward_train_v1",
     "mode_conditioned_rebound_reward_train_v2"
   ],
-  "generated_at": "2026-06-14T10:56:30.242871+00:00",
+  "generated_at": "2026-06-14T11:14:43.757139+00:00",
   "latest_market_date": "2026-06-10",
   "model_retention_frontier": {
-    "completed_handoff_count": 94,
+    "completed_handoff_count": 95,
     "max_walkforward_drawdown_pct": 20.0,
-    "recommended_next_action": "discover_stable_rebound_labels_or_new_state_factor",
-    "recommended_next_source": "state_head_fold_consensus_target_v1",
+    "recommended_next_action": "mine_new_rebound_state_factor_before_state_head_training",
+    "recommended_next_source": "state_head_stable_rebound_label_screen_v1",
     "recommended_primary_blocker": "missing_walkforward_evidence",
     "reference_return_pct": 132.077978,
     "required_best_return_pct": 213.143462,
@@ -101,7 +101,7 @@
       "wf_2022",
       "wf_2023_2024"
     ],
-    "rows_scanned": 120,
+    "rows_scanned": 121,
     "source_path": "runtime/model_selection/card/model_retention_frontier_v1/summary.json"
   },
   "model_retention_gate": {

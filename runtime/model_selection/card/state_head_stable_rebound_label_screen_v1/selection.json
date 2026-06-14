@@ -1,0 +1,50 @@
+{
+  "candidate_count": 96,
+  "changed_layer": [
+    "model_selection",
+    "training_target_composition",
+    "feature"
+  ],
+  "config": {
+    "max_label_conflict_rate": 0.0,
+    "max_positive_rate": 0.2,
+    "min_fold_coverage": 2,
+    "min_fold_positive_rows": 2,
+    "min_forward_return_lift": 0.03,
+    "min_positive_rate": 0.002,
+    "min_positive_rows": 6,
+    "min_target_lift": 0.02
+  },
+  "created_at": "2026-06-14T11:19:09.031116+00:00",
+  "decision": "stable_rebound_label_screen_no_candidate_no_training",
+  "direct_comparison_baseline": "state_head_fold_consensus_target_v1",
+  "experiment": "state_head_stable_rebound_label_screen_v1",
+  "next_mechanism": "mine_new_rebound_state_factor_before_state_head_training",
+  "passing_candidate_count": 0,
+  "promotion_allowed": false,
+  "role": "diagnose",
+  "selected_candidate": "highrv_1.4_mom21_0.50",
+  "selected_covered_folds": 2,
+  "selected_forward_return_10_lift": -0.0391562923127421,
+  "selected_forward_return_21_lift": 0.025047446359439014,
+  "selected_label_conflict_rate": 0.0,
+  "selected_label_gate": false,
+  "selected_positive_groups": 12,
+  "selected_positive_rows": 16,
+  "selected_primary_forward_return_lift": 0.04295490619199901,
+  "selected_target_lift_mean": 0.0,
+  "sidecars": [
+    "candidate_scores.csv",
+    "fold_metrics.csv",
+    "selected_label_rows.csv",
+    "selection.json",
+    "summary.json"
+  ],
+  "source_consensus": "runtime/model_selection/card/state_head_fold_consensus_target_v1/summary.json",
+  "source_experiment": "state_head_fold_consensus_target_v1",
+  "source_targets": "runtime/model_selection/card/state_objective_fold_native_teacher_router_v1/fold_native_teacher_targets.csv",
+  "target_max_dd_pct": 20.0,
+  "target_reference_return_pct": 132.077978,
+  "target_return_floor_pct": 213.143462,
+  "training_allowed": false
+}

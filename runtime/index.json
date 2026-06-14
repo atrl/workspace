@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-14T10:57:38.216526+00:00",
+  "generated_at": "2026-06-14T11:19:22.619619+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -6143,19 +6143,19 @@
       "path": "runtime/model_selection/card/model_retention_frontier_v1/conclusion.md",
       "category": "model_selection",
       "suffix": ".md",
-      "bytes": 495
+      "bytes": 507
     },
     {
       "path": "runtime/model_selection/card/model_retention_frontier_v1/retention_frontier.csv",
       "category": "model_selection",
       "suffix": ".csv",
-      "bytes": 48510
+      "bytes": 48863
     },
     {
       "path": "runtime/model_selection/card/model_retention_frontier_v1/summary.json",
       "category": "model_selection",
       "suffix": ".json",
-      "bytes": 124791
+      "bytes": 125792
     },
     {
       "path": "runtime/model_selection/card/model_retention_walkforward_gate_v1/conclusion.md",
@@ -10788,6 +10788,36 @@
       "category": "model_selection",
       "suffix": ".csv",
       "bytes": 538
+    },
+    {
+      "path": "runtime/model_selection/card/state_head_stable_rebound_label_screen_v1/candidate_scores.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 34153
+    },
+    {
+      "path": "runtime/model_selection/card/state_head_stable_rebound_label_screen_v1/fold_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 51844
+    },
+    {
+      "path": "runtime/model_selection/card/state_head_stable_rebound_label_screen_v1/selected_label_rows.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 11764
+    },
+    {
+      "path": "runtime/model_selection/card/state_head_stable_rebound_label_screen_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1832
+    },
+    {
+      "path": "runtime/model_selection/card/state_head_stable_rebound_label_screen_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2804
     },
     {
       "path": "runtime/model_selection/card/state_objective_alignment_screen_v1/alignment_scores.csv",
