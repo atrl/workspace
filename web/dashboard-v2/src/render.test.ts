@@ -171,6 +171,9 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.textContent).toContain('Auto Update');
     expect(panel.textContent).toContain('3 / 3 enabled');
     expect(panel.textContent).toContain('3 / 3 loaded');
+    expect(panel.textContent).toContain('preopen');
+    expect(panel.textContent).toContain('postclose');
+    expect(panel.textContent).toContain('dashboard_refresh');
     expect(panel.textContent).toContain('RL Runtime');
     expect(panel.textContent).toContain('0 / 5 runnable');
     expect(panel.textContent).toContain('SOXLBacktest baseline');
@@ -293,6 +296,7 @@ describe('dashboard v2 DOM render helpers', () => {
     });
 
     expect(panel.textContent).toContain('Buy/Sell Feature Comparison');
+    expect(panel.textContent).toContain('Feature Driver Matrix');
     expect(panel.textContent).toContain('Model Feature Schemas');
     expect(panel.textContent).toContain('smoke');
     expect(panel.textContent).toContain('balanced_rule_residual_v22');
@@ -304,6 +308,8 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.textContent).toContain('1: shared_feature');
     expect(panel.textContent).toContain('alpha_signal 1.25');
     expect(panel.textContent).toContain('beta_signal -2.50');
+    expect(panel.textContent).toContain('alpha123 · 2 cols');
+    expect(panel.textContent).toContain('beta456 · 2 cols');
     expect(panel.textContent).toContain('Buy/Sell Feature Summary');
     expect(panel.textContent).toContain('Selected Decision Features');
     expect(panel.textContent).toContain('Model-only');
@@ -353,6 +359,7 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.textContent).toContain('smoke');
     expect(panel.textContent).toContain('balanced_rule_residual_v22');
     expect(panel.textContent).toContain('Model Feature Schemas');
+    expect(panel.textContent).toContain('Feature Driver Matrix');
     expect(panel.textContent).toContain('alpha123');
     expect(panel.textContent).toContain('beta456');
     expect(panel.textContent).toContain('alpha_signal');
@@ -388,7 +395,9 @@ describe('dashboard v2 DOM render helpers', () => {
       baselineProfile: 'smoke',
     });
 
-    const snapshotCell = panel.querySelector('.feature-snapshot-cell');
+    const snapshotCell = [...panel.querySelectorAll('.feature-snapshot-cell')].find((node) =>
+      node.textContent?.includes('feature_0 0.00'),
+    );
     expect(snapshotCell?.textContent).toContain('feature_0 0.00');
     expect(snapshotCell?.textContent).toContain('+8 more');
     expect(snapshotCell?.textContent).not.toContain('feature_19');

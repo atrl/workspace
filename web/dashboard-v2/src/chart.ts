@@ -144,6 +144,7 @@ const TRADING_VIEW_INTERACTION_OPTIONS = {
   kineticScroll: { mouse: true, touch: true },
 } as const;
 
+const HOVER_UPDATE_THROTTLE_MS = 64;
 const chartByContainer = new WeakMap<HTMLElement, IChartApi>();
 
 function exposeChartDebug(name: string, payload: Record<string, unknown>): void {
@@ -259,21 +260,31 @@ function createDateEmitter(onDate: (date: string, interaction: ChartDateInteract
   let frameId: number | null = null;
   let lastHoverDate: string | null = null;
   let lastSelectedDate: string | null = null;
+  let lastHoverEmitAt = Number.NEGATIVE_INFINITY;
 
-  const flush = () => {
+  const scheduleFlush = () => {
+    if (frameId !== null) return;
+    frameId = requestFrame(flush);
+  };
+
+  const flush = (timestamp: number) => {
     frameId = null;
     const date = pendingDate;
-    pendingDate = null;
     if (!date || date === lastHoverDate) return;
+    if (timestamp - lastHoverEmitAt < HOVER_UPDATE_THROTTLE_MS) {
+      scheduleFlush();
+      return;
+    }
+    pendingDate = null;
     lastHoverDate = date;
+    lastHoverEmitAt = timestamp;
     onDate(date, 'hover');
   };
 
   return {
     onMove(date: string) {
       pendingDate = date;
-      if (frameId !== null) return;
-      frameId = requestFrame(flush);
+      scheduleFlush();
     },
     onClick(date: string) {
       if (frameId !== null) {

@@ -328,6 +328,34 @@ describe('dashboard v2 chart rendering', () => {
     }
   });
 
+  test('throttles crosshair hover updates across rapid animation frames', () => {
+    const container = document.createElement('div');
+    const callbacks: FrameRequestCallback[] = [];
+    const onDate = vi.fn();
+    const previousRequestAnimationFrame = window.requestAnimationFrame;
+    const previousCancelAnimationFrame = window.cancelAnimationFrame;
+    window.requestAnimationFrame = vi.fn((callback: FrameRequestCallback) => {
+      callbacks.push(callback);
+      return callbacks.length;
+    });
+    window.cancelAnimationFrame = vi.fn();
+
+    try {
+      renderMarketChart(container, marketFixture, modelFixture, onDate);
+      chartMocks.subscriptions.crosshairMove[0]?.({ time: '2026-01-02' });
+      callbacks[0](0);
+      chartMocks.subscriptions.crosshairMove[0]?.({ time: '2026-01-05' });
+      callbacks[1](16);
+      expect(onDate).toHaveBeenCalledTimes(1);
+      callbacks[2](80);
+      expect(onDate).toHaveBeenCalledTimes(2);
+      expect(onDate).toHaveBeenLastCalledWith('2026-01-05', 'hover');
+    } finally {
+      window.requestAnimationFrame = previousRequestAnimationFrame;
+      window.cancelAnimationFrame = previousCancelAnimationFrame;
+    }
+  });
+
   test('emits select events even when clicking the currently hovered candle', () => {
     const container = document.createElement('div');
     const callbacks: FrameRequestCallback[] = [];

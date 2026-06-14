@@ -91,9 +91,9 @@ function createShell(app: HTMLElement): void {
         </div>
       </section>
       <aside class="right-stack">
-        <section id="inspector" class="side-panel"></section>
-        <section id="operations-panel" class="side-panel operations-panel"></section>
         <section id="feature-panel" class="side-panel feature-panel"></section>
+        <section id="operations-panel" class="side-panel operations-panel"></section>
+        <section id="inspector" class="side-panel inspector-panel"></section>
       </aside>
     </main>
     <section id="comparison-panel" class="panel"></section>

@@ -303,6 +303,7 @@ export function renderDashboardStatusStrip(container: HTMLElement, manifest: Man
   const enabled = taskCount(tasks, 'enabled');
   const loaded = taskCount(tasks, 'loaded');
   const installed = taskCount(tasks, 'installed');
+  const taskNames = tasks.map((task) => task.name).join(', ');
   const runnableCount = manifest.profile_groups?.runnable?.length ?? 0;
   const referenceProfiles = manifest.profile_groups?.reference ?? [];
   const evidenceOnlyCount = manifest.profile_groups?.evidence_only?.length ?? 0;
@@ -317,9 +318,9 @@ export function renderDashboardStatusStrip(container: HTMLElement, manifest: Man
   container.appendChild(
     statusPill(
       'Auto Update',
-      taskTotal ? `${profileCountLabel(enabled, taskTotal, 'enabled')} · ${profileCountLabel(loaded, taskTotal, 'loaded')}` : 'not configured',
+      taskTotal ? taskNames : 'not configured',
       taskTotal
-        ? `${profileCountLabel(installed, taskTotal, 'installed')} · ${auto?.manual_refresh_command ?? 'manual refresh n/a'}`
+        ? `${profileCountLabel(enabled, taskTotal, 'enabled')} · ${profileCountLabel(loaded, taskTotal, 'loaded')} · ${profileCountLabel(installed, taskTotal, 'installed')}`
         : 'no local refresh task in manifest',
     ),
   );
@@ -675,6 +676,39 @@ function renderFeatureActionSummaryTable(
   container.appendChild(tableScroll);
 }
 
+function renderFeatureDriverMatrix(container: HTMLElement, models: Record<string, ModelPayload>): void {
+  container.appendChild(element('h3', undefined, 'Feature Driver Matrix'));
+  const rows = buildFeatureSchemaOverlapRows(models, { featureNameLimit: 5, topBuySellLimit: 5 });
+  if (!rows.length) {
+    container.appendChild(element('p', 'empty-state', 'No selected model feature drivers.'));
+    return;
+  }
+
+  const table = element('table', 'comparison-table feature-table driver-matrix-table');
+  const thead = element('thead');
+  const headerRow = element('tr');
+  for (const title of ['Model', 'Runtime', 'Schema', 'Top BUY/SELL Drivers', 'Model-only']) {
+    headerRow.appendChild(element('th', undefined, title));
+  }
+  thead.appendChild(headerRow);
+  table.appendChild(thead);
+
+  const tbody = element('tbody');
+  for (const row of rows) {
+    const tr = element('tr');
+    tr.appendChild(element('td', undefined, row.display_name));
+    tr.appendChild(element('td', undefined, `${row.source_kind} · ${row.runtime}`));
+    tr.appendChild(element('td', undefined, `${row.feature_schema_signature} · ${row.feature_count} cols`));
+    tr.appendChild(element('td', 'feature-snapshot-cell', row.top_buy_sell_features.join(', ') || 'n/a'));
+    tr.appendChild(element('td', 'feature-snapshot-cell', row.model_only_features.join(', ') || 'n/a'));
+    tbody.appendChild(tr);
+  }
+  table.appendChild(tbody);
+  const tableScroll = element('div', 'table-scroll');
+  tableScroll.appendChild(table);
+  container.appendChild(tableScroll);
+}
+
 function renderBaselineFeatureContrastTable(
   container: HTMLElement,
   models: Record<string, ModelPayload>,
@@ -881,6 +915,7 @@ export function renderFeatureComparisonPanel(
       `${Object.keys(input.models).length} selected models | feature schemas and BUY/SELL event snapshots`,
     ),
   );
+  renderFeatureDriverMatrix(container, input.models);
   renderDecisionFeatureCards(container, input);
   renderFeatureActionSummaryTable(container, input.models);
   renderBaselineFeatureContrastTable(container, input.models, input.baselineProfile ?? Object.keys(input.models)[0] ?? '');
@@ -901,6 +936,7 @@ export function renderFeatureSpotlightPanel(
       `${input.date} | selected model snapshots and buy/sell contrasts`,
     ),
   );
+  renderFeatureDriverMatrix(container, input.models);
   renderDecisionFeatureCards(container, input);
   const snapshotPanel = element('section', 'feature-date-snapshot');
   snapshotPanel.id = 'feature-date-snapshot';
