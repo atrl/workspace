@@ -1,0 +1,74 @@
+{
+  "actor_retention_allowed": false,
+  "allowed_training_branch": "release16_rulebase_reversal_drawdown_upside_state_head_actor_probe_v1",
+  "conclusion": "Open a constrained release16 rulebase-reversal drawdown/upside state-head training probe only; do not promote or retain any actor until future fixed-split, walk-forward, YTD, SOXLBacktest-reference, model-replay, and dashboard runnable-source gates all pass.",
+  "created_at": "2026-06-14T17:54:36.428537+00:00",
+  "current_retention_gate": {
+    "current_best_return_pct": 224.361539,
+    "passing_profile_count": 0,
+    "profiles_scanned": 13,
+    "reference_return_pct": 132.077978,
+    "required_best_return_pct": 213.143462
+  },
+  "decision": "constrained_release16_state_head_training_handoff_no_promotion",
+  "experiment": "retraining_execution_handoff_current_v1",
+  "failed_walkforward_folds": [
+    "wf_2020",
+    "wf_2023_2024"
+  ],
+  "hard_blocks": [
+    "Do not retain a checkpoint from any fold-local diagnostic actor.",
+    "Do not promote evidence-only dashboard profiles as runnable models.",
+    "Do not rerun the same release16 drawdown/upside checkpoint replay and call it progress; it already partial-passed only.",
+    "Do not relax SOXLBacktest qlib reference scoring or the current-best YTD return floor."
+  ],
+  "promotion_allowed": false,
+  "required_model_changes": [
+    "Consume drawdown_upside_bc_target_contract.csv as train-only supervision, not eval labels.",
+    "Add an auxiliary rulebase_reversal state head or equivalent representation loss using the top state-transfer features.",
+    "Use official daily-path replay as the checkpoint-selection metric; ignore raw metrics when they disagree.",
+    "Penalize underparticipation on low-position up-day states in wf_2020 and wf_2023_2024 while keeping MaxDD <20%.",
+    "Export replayable model outputs and rebuild dashboard_data/v2 before any retention review."
+  ],
+  "sidecars": [
+    "evidence_chain.csv",
+    "fold_gap_to_training_targets.csv",
+    "feature_handoff.csv",
+    "top_state_transfer_features.csv",
+    "current_training_contract.json",
+    "summary.json",
+    "conclusion.md"
+  ],
+  "source_target_contract": {
+    "card": "runtime/model_selection/card/release16_rulebase_reversal_drawdown_upside_target_v1",
+    "changed_eval_or_test_rows": 0,
+    "path": "runtime/model_selection/card/release16_rulebase_reversal_drawdown_upside_target_v1/drawdown_upside_bc_target_contract.csv",
+    "scope_clean": true,
+    "target_contract_ready": true,
+    "wf_2020_changed_train_rows": 92,
+    "wf_2023_2024_changed_train_rows": 151
+  },
+  "soxlbacktest_qlib_reference": {
+    "all_windows_match": true,
+    "daily_end": "2026-06-09",
+    "daily_rows": 116,
+    "daily_start": "2026-01-02",
+    "max_abs_end_position_delta_pct": 0.0,
+    "max_abs_max_drawdown_delta_pct": 5.329070518200751e-15,
+    "max_abs_return_delta_pct": 4.440892098500626e-15,
+    "metrics_path": "runtime/production/card/soxl_backtest_policy_reimplementation_v1/legacy_comparison_metrics.csv",
+    "role": "reference_baseline",
+    "source_path": "runtime/production/card/soxl_backtest_policy_reimplementation_v1/new_policy_daily.csv",
+    "windows": 2
+  },
+  "training_branch_allowed": true,
+  "validation_after_training": [
+    "fixed_split replay with dashboard-visible position/price/OHLC output",
+    "wf_2020 official daily-path relative return >=30pp and MaxDD <20%",
+    "wf_2022 official daily-path relative return >=30pp and MaxDD <20%",
+    "wf_2023_2024 official daily-path relative return >=30pp and MaxDD <20%",
+    "YTD return >= SOXLBacktest qlib reference and >= current-best alignment floor",
+    "model_replay_freshness current/refreshed count >0 for the retained profile",
+    "dashboard v2 Run source lists the retained profile as runnable"
+  ]
+}

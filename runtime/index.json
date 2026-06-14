@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-14T17:42:31.996619+00:00",
+  "generated_at": "2026-06-14T17:54:52.088128+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -8874,6 +8874,48 @@
       "category": "model_selection",
       "suffix": ".json",
       "bytes": 1388
+    },
+    {
+      "path": "runtime/model_selection/card/retraining_execution_handoff_current_v1/conclusion.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 2155
+    },
+    {
+      "path": "runtime/model_selection/card/retraining_execution_handoff_current_v1/current_training_contract.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 4098
+    },
+    {
+      "path": "runtime/model_selection/card/retraining_execution_handoff_current_v1/evidence_chain.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1645
+    },
+    {
+      "path": "runtime/model_selection/card/retraining_execution_handoff_current_v1/feature_handoff.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 10625
+    },
+    {
+      "path": "runtime/model_selection/card/retraining_execution_handoff_current_v1/fold_gap_to_training_targets.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1512
+    },
+    {
+      "path": "runtime/model_selection/card/retraining_execution_handoff_current_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 3792
+    },
+    {
+      "path": "runtime/model_selection/card/retraining_execution_handoff_current_v1/top_state_transfer_features.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 3247
     },
     {
       "path": "runtime/model_selection/card/retraining_gate_gap_handoff_v1/buy_sell_reference_alignment.csv",
