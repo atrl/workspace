@@ -1,0 +1,60 @@
+candidate,scope,gate,actual,operator,limit,passed,note
+full_actor_probe,fixed_test_2020_2026,fixed_test_max_drawdown,25.329679974531977,<,20.0,False,from full_probe summary; violates user hard drawdown gate
+full_actor_probe,ytd_2026,ytd_return_vs_soxlbacktest_reference,38.555494067096085,>=,132.077978,False,must beat converted SOXLBacktest qlib reference
+full_actor_probe,ytd_2026,ytd_return_vs_current_best_floor,38.555494067096085,>=,213.143462,False,must align to current-best floor
+full_actor_probe,ytd_2026,ytd_max_drawdown,9.559552575516284,<,20.0,True,YTD drawdown sanity
+checkpoint_bc_initialization,wf_2020,wf_relative_return,-0.4270525146105939,>=,30.0,False,walk-forward relative return floor
+checkpoint_bc_initialization,wf_2020,wf_max_drawdown,19.326906429203994,<,20.0,True,walk-forward drawdown hard gate
+checkpoint_bc_initialization,wf_2020,wf_return_nonnegative,57.6665181018734,>=,0.0,True,fold return sanity
+checkpoint_bc_initialization,wf_2022,wf_relative_return,71.71497994984345,>=,30.0,True,walk-forward relative return floor
+checkpoint_bc_initialization,wf_2022,wf_max_drawdown,15.617042880121657,<,20.0,True,walk-forward drawdown hard gate
+checkpoint_bc_initialization,wf_2022,wf_return_nonnegative,-14.873091782550818,>=,0.0,False,fold return sanity
+checkpoint_bc_initialization,wf_2023_2024,wf_relative_return,2.991717942521832,>=,30.0,False,walk-forward relative return floor
+checkpoint_bc_initialization,wf_2023_2024,wf_max_drawdown,13.624617300987696,<,20.0,True,walk-forward drawdown hard gate
+checkpoint_bc_initialization,wf_2023_2024,wf_return_nonnegative,2.635083212833389,>=,0.0,True,fold return sanity
+checkpoint_ppo_retained_iter_0_bc_equivalent,wf_2020,wf_relative_return,-0.4270525146105939,>=,30.0,False,walk-forward relative return floor
+checkpoint_ppo_retained_iter_0_bc_equivalent,wf_2020,wf_max_drawdown,19.326906429203994,<,20.0,True,walk-forward drawdown hard gate
+checkpoint_ppo_retained_iter_0_bc_equivalent,wf_2020,wf_return_nonnegative,57.6665181018734,>=,0.0,True,fold return sanity
+checkpoint_ppo_retained_iter_0_bc_equivalent,wf_2022,wf_relative_return,71.71497994984345,>=,30.0,True,walk-forward relative return floor
+checkpoint_ppo_retained_iter_0_bc_equivalent,wf_2022,wf_max_drawdown,15.617042880121657,<,20.0,True,walk-forward drawdown hard gate
+checkpoint_ppo_retained_iter_0_bc_equivalent,wf_2022,wf_return_nonnegative,-14.873091782550818,>=,0.0,False,fold return sanity
+checkpoint_ppo_retained_iter_0_bc_equivalent,wf_2023_2024,wf_relative_return,2.991717942521832,>=,30.0,False,walk-forward relative return floor
+checkpoint_ppo_retained_iter_0_bc_equivalent,wf_2023_2024,wf_max_drawdown,13.624617300987696,<,20.0,True,walk-forward drawdown hard gate
+checkpoint_ppo_retained_iter_0_bc_equivalent,wf_2023_2024,wf_return_nonnegative,2.635083212833389,>=,0.0,True,fold return sanity
+checkpoint_ppo_retained_iter_4,wf_2020,wf_relative_return,-13.714574440756166,>=,30.0,False,walk-forward relative return floor
+checkpoint_ppo_retained_iter_4,wf_2020,wf_max_drawdown,25.58505607509002,<,20.0,False,walk-forward drawdown hard gate
+checkpoint_ppo_retained_iter_4,wf_2020,wf_return_nonnegative,44.37899617572783,>=,0.0,True,fold return sanity
+checkpoint_ppo_retained_iter_4,wf_2022,wf_relative_return,68.18915911177356,>=,30.0,True,walk-forward relative return floor
+checkpoint_ppo_retained_iter_4,wf_2022,wf_max_drawdown,19.877624232519764,<,20.0,True,walk-forward drawdown hard gate
+checkpoint_ppo_retained_iter_4,wf_2022,wf_return_nonnegative,-18.39891262062071,>=,0.0,False,fold return sanity
+checkpoint_ppo_retained_iter_4,wf_2023_2024,wf_relative_return,-2.3769196222136024,>=,30.0,False,walk-forward relative return floor
+checkpoint_ppo_retained_iter_4,wf_2023_2024,wf_max_drawdown,13.164442114560416,<,20.0,True,walk-forward drawdown hard gate
+checkpoint_ppo_retained_iter_4,wf_2023_2024,wf_return_nonnegative,-2.7335543519020455,>=,0.0,False,fold return sanity
+checkpoint_ppo_selected_best,wf_2020,wf_relative_return,-13.714574440756166,>=,30.0,False,walk-forward relative return floor
+checkpoint_ppo_selected_best,wf_2020,wf_max_drawdown,25.58505607509002,<,20.0,False,walk-forward drawdown hard gate
+checkpoint_ppo_selected_best,wf_2020,wf_return_nonnegative,44.37899617572783,>=,0.0,True,fold return sanity
+checkpoint_ppo_selected_best,wf_2022,wf_relative_return,68.18915911177356,>=,30.0,True,walk-forward relative return floor
+checkpoint_ppo_selected_best,wf_2022,wf_max_drawdown,19.877624232519764,<,20.0,True,walk-forward drawdown hard gate
+checkpoint_ppo_selected_best,wf_2022,wf_return_nonnegative,-18.39891262062071,>=,0.0,False,fold return sanity
+checkpoint_ppo_selected_best,wf_2023_2024,wf_relative_return,-2.3769196222136024,>=,30.0,False,walk-forward relative return floor
+checkpoint_ppo_selected_best,wf_2023_2024,wf_max_drawdown,13.164442114560416,<,20.0,True,walk-forward drawdown hard gate
+checkpoint_ppo_selected_best,wf_2023_2024,wf_return_nonnegative,-2.7335543519020455,>=,0.0,False,fold return sanity
+full_actor_probe,wf_2020,wf_relative_return,-22.718826641345323,>=,30.0,False,walk-forward relative return floor
+full_actor_probe,wf_2020,wf_max_drawdown,19.26046607924653,<,20.0,True,walk-forward drawdown hard gate
+full_actor_probe,wf_2020,wf_return_nonnegative,35.37474397513867,>=,0.0,True,fold return sanity
+full_actor_probe,wf_2022,wf_relative_return,70.1209140810557,>=,30.0,True,walk-forward relative return floor
+full_actor_probe,wf_2022,wf_max_drawdown,18.14953508549213,<,20.0,True,walk-forward drawdown hard gate
+full_actor_probe,wf_2022,wf_return_nonnegative,-16.46715765133857,>=,0.0,False,fold return sanity
+full_actor_probe,wf_2023_2024,wf_relative_return,-7.334294062101554,>=,30.0,False,walk-forward relative return floor
+full_actor_probe,wf_2023_2024,wf_max_drawdown,20.914378220126107,<,20.0,False,walk-forward drawdown hard gate
+full_actor_probe,wf_2023_2024,wf_return_nonnegative,-7.690928791789997,>=,0.0,False,fold return sanity
+checkpoint_bc_initialization,retention,single_retained_actor_available,False,==,True,False,"checkpoint paths are fold-local diagnostic paths, not one retained actor bundle"
+checkpoint_bc_initialization,ytd_2026,ytd_return_available,False,==,True,False,no single-actor YTD replay exists for checkpoint-only candidate
+checkpoint_ppo_retained_iter_0_bc_equivalent,retention,single_retained_actor_available,False,==,True,False,"checkpoint paths are fold-local diagnostic paths, not one retained actor bundle"
+checkpoint_ppo_retained_iter_0_bc_equivalent,ytd_2026,ytd_return_available,False,==,True,False,no single-actor YTD replay exists for checkpoint-only candidate
+checkpoint_ppo_retained_iter_4,retention,single_retained_actor_available,False,==,True,False,"checkpoint paths are fold-local diagnostic paths, not one retained actor bundle"
+checkpoint_ppo_retained_iter_4,ytd_2026,ytd_return_available,False,==,True,False,no single-actor YTD replay exists for checkpoint-only candidate
+checkpoint_ppo_selected_best,retention,single_retained_actor_available,False,==,True,False,"checkpoint paths are fold-local diagnostic paths, not one retained actor bundle"
+checkpoint_ppo_selected_best,ytd_2026,ytd_return_available,False,==,True,False,no single-actor YTD replay exists for checkpoint-only candidate
+soxlbacktest_reference,ytd_2026,reference_return,132.07797795135497,reference,132.077978,True,converted qlib reference baseline; not runnable model inference
+current_best_floor,ytd_2026,current_best_alignment_floor,213.143462,floor,224.361539,True,floor derived from current-best return

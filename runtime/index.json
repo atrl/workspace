@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-14T18:33:07.049279+00:00",
+  "generated_at": "2026-06-14T18:50:08.216738+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -8946,6 +8946,78 @@
       "category": "model_selection",
       "suffix": ".csv",
       "bytes": 536
+    },
+    {
+      "path": "runtime/model_selection/card/release16_state_head_post_fullprobe_objective_screen_v1/candidate_gate_matrix.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 7528
+    },
+    {
+      "path": "runtime/model_selection/card/release16_state_head_post_fullprobe_objective_screen_v1/candidate_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1101
+    },
+    {
+      "path": "runtime/model_selection/card/release16_state_head_post_fullprobe_objective_screen_v1/conclusion.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 1133
+    },
+    {
+      "path": "runtime/model_selection/card/release16_state_head_post_fullprobe_objective_screen_v1/full_probe_metric_basis_reconciliation.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1375
+    },
+    {
+      "path": "runtime/model_selection/card/release16_state_head_post_fullprobe_objective_screen_v1/full_probe_vs_checkpoint_bc_gap.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2250
+    },
+    {
+      "path": "runtime/model_selection/card/release16_state_head_post_fullprobe_objective_screen_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2190
+    },
+    {
+      "path": "runtime/model_selection/card/release16_state_head_post_fullprobe_objective_screen_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 6530
+    },
+    {
+      "path": "runtime/model_selection/card/release16_state_head_post_fullprobe_objective_screen_v1/walkforward_candidate_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 3325
+    },
+    {
+      "path": "runtime/model_selection/card/release16_state_head_post_fullprobe_objective_screen_v1/walkforward_objective_scores.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1099
+    },
+    {
+      "path": "runtime/model_selection/card/release16_state_head_post_fullprobe_objective_screen_v1/ytd_position_comparison_vs_soxlbacktest.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 22078
+    },
+    {
+      "path": "runtime/model_selection/card/release16_state_head_post_fullprobe_objective_screen_v1/ytd_position_gap_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 392
+    },
+    {
+      "path": "runtime/model_selection/card/release16_state_head_post_fullprobe_objective_screen_v1/ytd_underparticipation_days.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4225
     },
     {
       "path": "runtime/model_selection/card/retention_candidate_overlay_screen_v1/conclusion.md",

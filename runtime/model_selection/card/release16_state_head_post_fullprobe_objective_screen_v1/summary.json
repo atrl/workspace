@@ -1,0 +1,160 @@
+{
+  "actor_retention_allowed": false,
+  "canonical_baseline": "v19reg_v22_budget_usage_bull_guard_v1",
+  "conclusion": [
+    "The full state-head actor remains non-retainable: it fails fixed MaxDD, YTD return vs SOXLBacktest/current-best, and multiple walk-forward gates.",
+    "The latest drawdown/upside checkpoint BC path keeps all three walk-forward MaxDD values below 20%, but it still fails relative-return gates on wf_2020 and wf_2023_2024 and is not a single retained actor.",
+    "Candidate comparison uses official daily-path recomputed metrics; reported full-probe worker metrics are preserved in full_probe_metric_basis_reconciliation.csv and do not change the gate decision.",
+    "PPO/full-actor training drifted away from the checkpoint path: relative return and YTD participation deteriorated rather than becoming a retainable model.",
+    "Next work should not rerun this profile unchanged; create a new contract that distills the checkpoint path, adds a YTD SOXLBacktest position-alignment floor, and enforces PPO-vs-BC drawdown drift stops before any actor retention review."
+  ],
+  "created_at": "2026-06-14T18:49:21.424615+00:00",
+  "current_best_required_return_pct": 213.143462,
+  "current_best_return_pct": 224.361539,
+  "decision": "release16_state_head_post_fullprobe_objective_screen_no_actor_retention",
+  "direct_comparison_baseline": [
+    "release16_rulebase_reversal_drawdown_upside_checkpoint_metric_replay_v1",
+    "release16_rulebase_reversal_drawdown_upside_state_head_actor_probe_v1"
+  ],
+  "experiment": "release16_state_head_post_fullprobe_objective_screen_v1",
+  "full_actor_failed_gates": [
+    "fixed_test_max_drawdown",
+    "ytd_return_vs_soxlbacktest_reference",
+    "ytd_return_vs_current_best_floor",
+    "wf_relative_return",
+    "wf_return_nonnegative",
+    "wf_relative_return",
+    "wf_max_drawdown",
+    "wf_return_nonnegative"
+  ],
+  "full_actor_summary": {
+    "all_fold_gate": false,
+    "candidate": "full_actor_probe",
+    "drawdown_loss": 9.143782201261068,
+    "fold_gate_count": 0,
+    "folds_present": 3,
+    "max_maxdd_pct": 20.914378220126107,
+    "mean_avg_position": 0.14773018865866014,
+    "min_relative_return_pp": -22.718826641345323,
+    "objective_loss": 99.19690290470794,
+    "participation_loss": 0.0,
+    "relative_loss": 90.05312070344688,
+    "total_trades": 95,
+    "window_count": 3,
+    "window_gate": false,
+    "window_pass_count": 1,
+    "worst_window": "wf_2020"
+  },
+  "full_actor_ytd": {
+    "avg_position": 0.08525600842690058,
+    "buyhold_return_pct": 326.92630294234766,
+    "candidate": "full_actor_probe",
+    "end": "2026-06-09",
+    "max_dd_pct": 9.559552575516284,
+    "relative_return_pp": -288.37080887525156,
+    "return_pct": 38.555494067096085,
+    "rows": 109,
+    "source": "full_actor_ytd",
+    "start": "2026-01-02",
+    "trade_count": 24,
+    "window": "ytd_2026"
+  },
+  "metric_basis_reconciliation": {
+    "basis_used_for_candidate_screen": "official_daily_path_recomputed",
+    "gate_status_changed_by_recompute": false,
+    "material_relative_mismatch_count": 3,
+    "material_relative_mismatch_windows": [
+      "wf_2020",
+      "wf_2022",
+      "wf_2023_2024"
+    ],
+    "reported_full_probe_basis": "full_probe_summary_worker_metrics"
+  },
+  "next_mechanism": "checkpoint_distillation_with_ytd_participation_floor_and_ppo_drift_stop",
+  "next_training_allowed_after_new_contract": true,
+  "objective_summary": {
+    "decision": "no_objective_pass_candidate",
+    "next_mechanism": "train_state_conditioned_multi_objective",
+    "required_terms": [
+      "walkforward_relative_return_gap_penalty",
+      "walkforward_drawdown_gap_penalty",
+      "high_vol_rebound_participation_floor",
+      "downtrend_drawdown_state_cap"
+    ],
+    "selected_candidate": "checkpoint_bc_initialization",
+    "selected_cluster_gate": false,
+    "selected_objective_loss": 57.43533457208876,
+    "selected_window_gate": false
+  },
+  "promotion_allowed": false,
+  "reference_baseline": "soxl_backtest_policy_reimplementation_v1",
+  "required_next_terms": [
+    "official_daily_path_checkpoint_objective_loss",
+    "ytd_soxlbacktest_position_alignment_loss",
+    "walkforward_relative_return_gap_penalty",
+    "walkforward_drawdown_gap_penalty",
+    "ppo_vs_bc_drawdown_drift_stop",
+    "retain_actor_only_after_full_fixed_wf_ytd_dashboard_replay_gates"
+  ],
+  "selected_diagnostic_candidate": "checkpoint_bc_initialization",
+  "selected_diagnostic_candidate_summary": {
+    "all_fold_gate": false,
+    "candidate": "checkpoint_bc_initialization",
+    "drawdown_loss": 0.0,
+    "fold_gate_count": 0,
+    "folds_present": 3,
+    "max_maxdd_pct": 19.326906429203994,
+    "mean_avg_position": 0.20037689289028449,
+    "min_relative_return_pp": -0.4270525146105939,
+    "objective_loss": 57.43533457208876,
+    "participation_loss": 0.0,
+    "relative_loss": 57.43533457208876,
+    "total_trades": 84,
+    "window_count": 3,
+    "window_gate": false,
+    "window_pass_count": 1,
+    "worst_window": "wf_2020"
+  },
+  "sidecars": [
+    "walkforward_candidate_metrics.csv",
+    "walkforward_objective_scores.csv",
+    "candidate_gate_matrix.csv",
+    "full_probe_metric_basis_reconciliation.csv",
+    "full_probe_vs_checkpoint_bc_gap.csv",
+    "ytd_position_comparison_vs_soxlbacktest.csv",
+    "ytd_position_gap_summary.csv",
+    "ytd_underparticipation_days.csv",
+    "candidate_summary.csv",
+    "selection.json",
+    "summary.json",
+    "conclusion.md"
+  ],
+  "soxlbacktest_reference_return_pct": 132.077978,
+  "soxlbacktest_ytd_reference": {
+    "avg_position": 0.16220733944954127,
+    "buyhold_return_pct": 326.9263184466205,
+    "candidate": "soxlbacktest_reference",
+    "end": "2026-06-09",
+    "max_dd_pct": 13.554088542803521,
+    "relative_return_pp": -194.84834049526552,
+    "return_pct": 132.07797795135497,
+    "rows": 109,
+    "source": "qlib_reference",
+    "start": "2026-01-02",
+    "trade_count": 2,
+    "window": "ytd_2026"
+  },
+  "target_max_dd_pct": 20.0,
+  "target_relative_return_pp": 30.0,
+  "training_allowed_from_this_card": false,
+  "ytd_underparticipation_summary": {
+    "all_ytd_rows": 109.0,
+    "large_gap_rows_ref_minus_full_ge25": 40.0,
+    "mean_full_position": 0.08525600842690058,
+    "mean_position_gap_ref_minus_full": 0.07695133102264073,
+    "mean_ref_position": 0.16220733944954127,
+    "underparticipation_forward_10d_price_return_mean_pct": 29.00110201218898,
+    "underparticipation_forward_5d_price_return_mean_pct": 19.067845689452152,
+    "underparticipation_rows_ref_ge35_full_le15": 20.0
+  }
+}
