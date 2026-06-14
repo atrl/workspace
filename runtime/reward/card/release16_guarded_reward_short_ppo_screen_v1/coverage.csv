@@ -1,0 +1,4 @@
+fold,target_fold,target_rows_available,train_target_rows,bull_reentry_target_rows,train_start,train_end,valid_start,valid_end,test_start,test_end,valid_overlap_rows_in_contract,test_overlap_rows_in_contract,train_target_start,train_target_end,skip,skip_reason
+wf_2020,wf_2020_train,2470,2218,14,2010-03-11,2018-12-31,2019-01-01,2019-12-31,2020-01-01,2020-12-31,252,0,2010-03-11,2018-12-31,False,
+wf_2022,wf_2022_train,505,253,1,2010-03-11,2020-12-31,2021-01-01,2021-12-31,2022-01-01,2022-12-31,252,0,2020-01-02,2020-12-31,False,
+wf_2023_2024,wf_2023_2024_train,756,756,0,2010-03-11,2022-12-31,2023-01-01,2023-12-31,2024-01-01,2024-12-31,0,0,2020-01-02,2022-12-30,False,
