@@ -1,0 +1,79 @@
+{
+  "actor_retention_allowed": false,
+  "canonical_baseline": "retained_soxl_harness_model_frontier",
+  "changed_layer": [
+    "model_selection",
+    "failure_attribution",
+    "target_to_replay_diagnostic"
+  ],
+  "created_at": "2026-06-14T15:29:22.833088+00:00",
+  "decision": "release16_overlay_failure_is_state_transfer_and_representation_gap_no_promotion",
+  "direct_comparison_baseline": "release16_failedfold_overlay_checkpoint_screen_v1",
+  "experiment": "release16_remaining_failedfold_diagnostic_v1",
+  "failed_folds": [
+    "wf_2020",
+    "wf_2023_2024"
+  ],
+  "guard_folds": [
+    "wf_2022"
+  ],
+  "metrics": [
+    {
+      "avg_pos": 0.2302025320757574,
+      "max_dd_pct": 16.65215076947679,
+      "relative_return_pct": 11.420582139672938,
+      "return_pct": 69.51415275615693,
+      "split_type": "walk_forward_test",
+      "window": "wf_2020"
+    },
+    {
+      "avg_pos": 0.0813840878420415,
+      "max_dd_pct": 15.617042880121645,
+      "relative_return_pct": 71.71497994984345,
+      "return_pct": -14.873091782550818,
+      "split_type": "walk_forward_test",
+      "window": "wf_2022"
+    },
+    {
+      "avg_pos": 0.0832406212752937,
+      "max_dd_pct": 5.546721705350144,
+      "relative_return_pct": 3.406379561040651,
+      "return_pct": 3.049744831352208,
+      "split_type": "walk_forward_test",
+      "window": "wf_2023_2024"
+    }
+  ],
+  "next_mechanism": "mine_failedfold_test_state_features_then_rebuild_representation_or_reward_objective_before_training",
+  "no_drawdown_blocker": true,
+  "primary_blocker": "walkforward_relative_return_gap",
+  "promotion_allowed": false,
+  "reference_baseline": "soxlbacktest_qlib_walkforward_baseline_v1:wf_pass_ytd18_15_15_02",
+  "role": "diagnose",
+  "selected_underexpresses_target": true,
+  "sidecars": {
+    "bc_representation_summary": "runtime/model_selection/card/release16_remaining_failedfold_diagnostic_v1/bc_representation_summary.csv",
+    "fold_gate_gap_summary": "runtime/model_selection/card/release16_remaining_failedfold_diagnostic_v1/fold_gate_gap_summary.csv",
+    "missed_up_days": "runtime/model_selection/card/release16_remaining_failedfold_diagnostic_v1/missed_up_days_after_overlay.csv",
+    "missed_up_days_summary": "runtime/model_selection/card/release16_remaining_failedfold_diagnostic_v1/missed_up_days_summary.csv",
+    "monthly_path_attribution": "runtime/model_selection/card/release16_remaining_failedfold_diagnostic_v1/monthly_overlay_vs_prior_vs_reference.csv",
+    "target_to_selected_exposure_gap": "runtime/model_selection/card/release16_remaining_failedfold_diagnostic_v1/target_to_selected_exposure_gap.csv",
+    "test_state_trigger_overlap": "runtime/model_selection/card/release16_remaining_failedfold_diagnostic_v1/test_state_trigger_overlap.csv"
+  },
+  "source_checkpoint_screen": "release16_failedfold_overlay_checkpoint_screen_v1",
+  "source_target_experiment": "release16_failedfold_participation_target_overlay_v1",
+  "summary_points": [
+    "wf_2020 improved materially after the overlay but still misses the +30pp relative-return gate.",
+    "wf_2023_2024 regressed after the overlay, so another broad participation floor is not justified.",
+    "Both remaining failures are relative-return gaps; drawdown is below the 20pct gate for the selected candidates.",
+    "Train target exposure is much higher than selected test exposure, especially share >=50pct, indicating state-transfer or representation failure rather than a completed target handoff."
+  ],
+  "target_max_dd_pct": 20.0,
+  "target_relative_return_pp": 30.0,
+  "target_window": [
+    "wf_2020",
+    "wf_2023_2024"
+  ],
+  "training_allowed_from_this_card": false,
+  "wf2020_improved_not_passed": true,
+  "wf2023_regressed_after_overlay": true
+}

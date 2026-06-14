@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-14T15:04:49.543780+00:00",
+  "generated_at": "2026-06-14T15:38:02.904064+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -6185,19 +6185,19 @@
       "path": "runtime/model_selection/card/model_retention_frontier_v1/conclusion.md",
       "category": "model_selection",
       "suffix": ".md",
-      "bytes": 543
+      "bytes": 557
     },
     {
       "path": "runtime/model_selection/card/model_retention_frontier_v1/retention_frontier.csv",
       "category": "model_selection",
       "suffix": ".csv",
-      "bytes": 52763
+      "bytes": 53345
     },
     {
       "path": "runtime/model_selection/card/model_retention_frontier_v1/summary.json",
       "category": "model_selection",
       "suffix": ".json",
-      "bytes": 134765
+      "bytes": 135977
     },
     {
       "path": "runtime/model_selection/card/model_retention_walkforward_gate_v1/conclusion.md",
@@ -8130,6 +8130,66 @@
       "category": "model_selection",
       "suffix": ".csv",
       "bytes": 560
+    },
+    {
+      "path": "runtime/model_selection/card/release16_remaining_failedfold_diagnostic_v1/bc_representation_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 890
+    },
+    {
+      "path": "runtime/model_selection/card/release16_remaining_failedfold_diagnostic_v1/conclusion.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 1959
+    },
+    {
+      "path": "runtime/model_selection/card/release16_remaining_failedfold_diagnostic_v1/fold_gate_gap_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1687
+    },
+    {
+      "path": "runtime/model_selection/card/release16_remaining_failedfold_diagnostic_v1/missed_up_days_after_overlay.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 33204
+    },
+    {
+      "path": "runtime/model_selection/card/release16_remaining_failedfold_diagnostic_v1/missed_up_days_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 500
+    },
+    {
+      "path": "runtime/model_selection/card/release16_remaining_failedfold_diagnostic_v1/monthly_overlay_vs_prior_vs_reference.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 11104
+    },
+    {
+      "path": "runtime/model_selection/card/release16_remaining_failedfold_diagnostic_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 3725
+    },
+    {
+      "path": "runtime/model_selection/card/release16_remaining_failedfold_diagnostic_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 13948
+    },
+    {
+      "path": "runtime/model_selection/card/release16_remaining_failedfold_diagnostic_v1/target_to_selected_exposure_gap.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1003
+    },
+    {
+      "path": "runtime/model_selection/card/release16_remaining_failedfold_diagnostic_v1/test_state_trigger_overlap.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 663
     },
     {
       "path": "runtime/model_selection/card/retention_candidate_overlay_screen_v1/conclusion.md",
