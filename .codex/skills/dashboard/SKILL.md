@@ -81,6 +81,20 @@ newer than the replay curve.
 dashboard build by default. Use `--skip-model-replay-refresh` only for fast
 diagnostic runs where stale model curves are acceptable.
 
+### Dashboard V2 Model Comparisons
+
+For `web/dashboard-v2`, keep deployability separate from diagnostic comparison:
+
+- The SOXLBacktest reimplementation is a `reference_baseline`, not a runnable
+  actor. Its static replay may extend to `latest_data_date`.
+- Qlib actor replay curves should remain clipped to `safe_backtest_end`.
+- Actors without a positive `final_model_retention_decision` must not be marked
+  deployable, but selected/default diagnostic actors may be shown for visual
+  model-difference review.
+- Keep the main K-line clean by showing only the currently selected Chart Model
+  position overlay. Use the Position and NAV subcharts to compare all selected
+  models.
+
 ### Interactive Main Chart Reruns
 
 For selectable-window reruns from the Main Chart, use the dashboard API server,
