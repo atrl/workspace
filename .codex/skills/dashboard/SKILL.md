@@ -95,9 +95,11 @@ For `web/dashboard-v2`, keep deployability separate from diagnostic comparison:
   exists, Dashboard V2 manifest and source panel should expose its strict
   walk-forward retention summary. Treat `passing_profile_count=0` as a visible
   hard gate blocker, even when diagnostic actors are plotted for comparison.
-- Keep the main K-line clean by showing only the currently selected Chart Model
-  position overlay. Use the Position and NAV subcharts to compare all selected
-  models.
+- Keep the main K-line candles readable: price should occupy the primary band,
+  volume and position overlays should stay in compact lower lanes, and chart
+  labels must not obscure candles. For model-difference review, use an
+  always-visible compact model difference strip plus the Position and NAV panes
+  for all selected models; keep long profile names mapped to short human labels.
 - Never compare raw cumulative actor NAV from a long replay against a shorter
   reference window. Dashboard V2 comparison payloads should keep raw
   `strategy_nav` for traceability, but compute `strategy_nav_rebased` and

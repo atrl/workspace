@@ -1,0 +1,22 @@
+{
+  "script": "http://127.0.0.1:49879/web/dashboard-v2/dist/assets/index-BG-wjqo7.js",
+  "caption": "Compare through 2026-06-11 | Price 2026-06-15 | Baseline 2026-06-15",
+  "modelRows": [
+    "SOXLBacktestEnd 2026-06-15Latest 2026-06-15Ret 136.52%MaxDD -13.55%AvgPos 0.162ΔNAV 0.00ΔPos 0.000Mismatch 0Action HOLD",
+    "BRR v22End 2026-06-11Common 2026-06-11Ret 133.34%MaxDD -26.78%AvgPos 0.271ΔNAV -3.18ΔPos -0.159Mismatch 13Action HOLD",
+    "Mode rebound v2End 2026-06-11Common 2026-06-11Ret 175.11%MaxDD -27.83%AvgPos 0.298ΔNAV +38.59ΔPos -0.159Mismatch 22Action HOLD",
+    "smokeEnd 2026-06-11Common 2026-06-11Ret 234.77%MaxDD -30.35%AvgPos 0.342ΔNAV +98.25ΔPos -0.159Mismatch 22Action HOLD",
+    "BRR v19 regEnd 2026-06-11Common 2026-06-11Ret 158.80%MaxDD -25.51%AvgPos 0.272ΔNAV +22.28ΔPos -0.159Mismatch 15Action HOLD",
+    "BRR v19End 2026-06-11Common 2026-06-11Ret 192.19%MaxDD -24.87%AvgPos 0.291ΔNAV +55.67ΔPos -0.159Mismatch 15Action HOLD"
+  ],
+  "dataStatus": "Data StatusDiagnostic actor comparisonsShown for model-difference review; actors are not final-retained.Price2026-06-15Canonical2026-06-12Replay2026-06-11BaselineSOXLBacktestBlocked12Strict Gate0/12Model datesSOXLBacktest2026-06-15BRR v222026-06-11Mode rebound v22026-06-11smoke2026-06-11BRR v19 reg2026-06-11BRR v192026-06-11Latest gapMarket 2026-06-15 | Actors 2026-06-11 | Baseline 2026-06-15 | Safe 2026-06-11Diagnostics (17)Replay safe end 2026-06-11 is before market latest 2026-06-15.Baseline comparison ends 2026-06-11; price chart extends to 2026-06-15.Strict retention gate: 0/12 passing; requires all WF windows and MaxDD < 20.00%; required return >= 213.14%.Closest WF drawdown: Mode rebound v2 21.83% (gap 1.83%).Closest return alignment: smoke 224.36%.balanced: summary lacks final_model_retention_decisionbalanced_macro_v1: summary lacks final_model_retention_decisionbalanced_rule_residual_imitation_v4: summary lacks final_model_retention_decisionbalanced_rule_residual_v19: summary lacks final_model_retention_decisionbalanced_rule_residual_v19_reg: summary lacks final_model_retention_decisionbalanced_rule_residual_v19_reg_light: summary lacks final_model_retention_decisionbalanced_rule_residual_v19_reg_v22_retest_v1: summary lacks final_model_retention_decisionbalanced_rule_residual_v22: summary lacks final_model_retention_decisiondrawdown_rebound_reward_train_v1: summary lacks final_model_retention_decisionmode_conditioned_rebound_reward_train_v2: summary lacks final_model_retention_decisionsmoke: summary lacks final_model_retention_decisionstate_conditioned_drawdown_rebound_reward_train_v1: summary lacks final_model_retention_decision",
+  "checks": {
+    "modelRowCount": 6,
+    "hasShortModeLabel": true,
+    "hasLatestBaseline": true,
+    "hasCommonActorEnd": true,
+    "hasPriceAndBaselineCaption": true
+  },
+  "consoleMessages": [],
+  "consoleErrorCount": 0
+}

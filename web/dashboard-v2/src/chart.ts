@@ -129,7 +129,7 @@ export function renderMarketChart(
     crosshair: { mode: 1 },
   });
   chart.priceScale('right').applyOptions({
-    scaleMargins: { top: 0.05, bottom: 0.36 },
+    scaleMargins: { top: 0.04, bottom: 0.28 },
   });
   const candleSeries = chart.addSeries(CandlestickSeries, {
     upColor: '#1fb981',
@@ -167,7 +167,7 @@ export function renderMarketChart(
     lastValueVisible: false,
   });
   volumeBars.priceScale().applyOptions({
-    scaleMargins: { top: 0.82, bottom: 0.02 },
+    scaleMargins: { top: 0.9, bottom: 0.02 },
   });
   volumeBars.setData(
     market.rows.map((row) => ({
@@ -188,7 +188,7 @@ export function renderMarketChart(
       title: '',
     });
     positionLine.priceScale().applyOptions({
-      scaleMargins: { top: 0.68, bottom: 0.14 },
+      scaleMargins: { top: 0.76, bottom: 0.08 },
     });
     positionLine.setData(payload.rows.map((row) => ({ time: toTime(row.date), value: row.position })));
   }

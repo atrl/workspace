@@ -62,10 +62,10 @@ function createShell(app: HTMLElement): void {
       <section class="chart-column">
         <div class="chart-title-row">
           <h1>SOXL</h1>
-          <span>K-line replay with model position overlay</span>
-          <div id="model-delta-strip" class="model-delta-strip"></div>
+          <span>K-line replay with model position lanes</span>
           <div id="action-legend" class="action-legend"></div>
         </div>
+        <div id="model-delta-strip" class="model-delta-strip"></div>
         <div id="market-chart" class="chart chart-main"></div>
         <div class="lower-charts">
           <section>

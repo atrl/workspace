@@ -32,6 +32,19 @@ function maxDate(values: readonly (string | undefined | null)[]): string | null 
   return dates.at(-1) ?? null;
 }
 
+function freshnessLabel(replayEnd: string | undefined, commonEnd: string, manifest?: Manifest): {
+  label: string;
+  status: 'latest' | 'safe';
+} {
+  if (replayEnd && replayEnd > commonEnd) {
+    return { label: `Latest ${replayEnd}`, status: 'latest' };
+  }
+  if (replayEnd && manifest?.latest_market_date && replayEnd >= manifest.latest_market_date) {
+    return { label: `Latest ${replayEnd}`, status: 'latest' };
+  }
+  return { label: `Common ${commonEnd}`, status: 'safe' };
+}
+
 export function renderDataSourcePanel(container: HTMLElement, manifest: Manifest, warnings: string[] = []): void {
   container.replaceChildren();
   container.appendChild(element('h2', undefined, 'Data Status'));
@@ -191,6 +204,8 @@ export function renderModelDeltaStrip(
   caption.textContent = captionParts.join(' | ');
   container.appendChild(caption);
   const selected = profiles.filter((profile) => comparison.compared_profiles.includes(profile));
+  const rankingByProfile = new Map((comparison.rankings ?? []).map((ranking) => [ranking.profile, ranking]));
+  const grid = element('div', 'model-diff-grid');
   for (const [index, profile] of selected.entries()) {
     const values = last.profiles[profile];
     if (!values) continue;
@@ -198,18 +213,35 @@ export function renderModelDeltaStrip(
     const mismatchCount = profileRows.filter((row) => row.profiles[profile].action_mismatch).length;
     const rebasedNav = values.strategy_nav_rebased ?? values.strategy_nav;
     const replayEnd = manifest?.profile_summaries?.[profile]?.replay_end;
-    const pill = element('span', 'model-delta-pill');
+    const ranking = rankingByProfile.get(profile);
+    const freshness = freshnessLabel(replayEnd, last.date, manifest);
+    const pill = element('article', 'model-delta-pill model-difference-row');
+    pill.dataset.freshness = freshness.status;
+    pill.dataset.profileStatus = manifest?.profile_summaries?.[profile]?.status ?? '';
     pill.title = profile;
     pill.style.borderLeftColor = MODEL_COLORS[index % MODEL_COLORS.length];
     pill.style.borderLeftWidth = '4px';
-    pill.appendChild(element('strong', undefined, formatProfileLabel(profile)));
+    pill.appendChild(element('strong', 'model-difference-name', formatProfileLabel(profile)));
     if (replayEnd) pill.appendChild(element('span', undefined, `End ${replayEnd}`));
-    pill.appendChild(element('span', undefined, `Ret ${formatSigned(rebasedNav - 100, 2)}%`));
-    pill.appendChild(element('span', undefined, `NAV ${formatSigned(values.nav_delta_vs_baseline, 2)}`));
-    pill.appendChild(element('span', undefined, `Pos ${formatSigned(values.position_delta_vs_baseline, 3)}`));
+    pill.appendChild(element('span', 'model-difference-date', freshness.label));
+    pill.appendChild(
+      element(
+        'span',
+        undefined,
+        ranking ? `Ret ${formatPct(ranking.return * 100)}` : `Ret ${formatSigned(rebasedNav - 100, 2)}%`,
+      ),
+    );
+    if (ranking) {
+      pill.appendChild(element('span', undefined, `MaxDD ${formatPct(ranking.max_drawdown * 100)}`));
+      pill.appendChild(element('span', undefined, `AvgPos ${ranking.avg_position.toFixed(3)}`));
+    }
+    pill.appendChild(element('span', undefined, `ΔNAV ${formatSigned(values.nav_delta_vs_baseline, 2)}`));
+    pill.appendChild(element('span', undefined, `ΔPos ${formatSigned(values.position_delta_vs_baseline, 3)}`));
     pill.appendChild(element('span', undefined, `Mismatch ${mismatchCount}`));
-    container.appendChild(pill);
+    pill.appendChild(element('span', undefined, `Action ${values.action}`));
+    grid.appendChild(pill);
   }
+  container.appendChild(grid);
 }
 
 export function renderActionLegend(container: HTMLElement): void {

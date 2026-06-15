@@ -224,7 +224,7 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.textContent).toContain('Strict Gate');
     expect(panel.textContent).toContain('0/12');
     expect(panel.textContent).toContain('MaxDD < 20.00%');
-    expect(panel.textContent).toContain('mode conditioned rebound reward train v2');
+    expect(panel.textContent).toContain('Mode rebound v2');
     expect(panel.textContent).toContain('21.83%');
   });
 
@@ -312,6 +312,61 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.textContent).toContain('NAV +2.00');
     expect(panel.textContent).toContain('Pos +0.200');
     expect(panel.textContent).toContain('Mismatch 2');
+  });
+
+  test('renders model differences as visible rows with latest and common-window dates', () => {
+    const panel = document.createElement('div');
+
+    renderModelDeltaStrip(
+      panel,
+      {
+        ...comparisonFixture,
+        rankings: [
+          { profile: 'smoke', return: 0.42, max_drawdown: -0.08, avg_position: 0.51, row_count: 3 },
+          {
+            profile: 'balanced_rule_residual_v22',
+            return: 0.12,
+            max_drawdown: -0.04,
+            avg_position: 0.19,
+            row_count: 3,
+          },
+        ],
+      },
+      '2026-01-02',
+      '2026-01-07',
+      undefined,
+      {
+        ...manifestFixture,
+        latest_market_date: '2026-01-07',
+        default_baseline_profile: 'balanced_rule_residual_v22',
+        profile_summaries: {
+          smoke: {
+            status: 'canonical',
+            replay_start: '2026-01-02',
+            replay_end: '2026-01-06',
+            row_count: 3,
+            source_path: 'runtime/model/card/smoke/smoke_soxl_daily.csv',
+          },
+          balanced_rule_residual_v22: {
+            status: 'reference',
+            replay_start: '2026-01-02',
+            replay_end: '2026-01-07',
+            row_count: 4,
+            source_path: 'runtime/production/card/soxl_backtest_policy_reimplementation_v1/new_policy_daily.csv',
+          },
+        },
+      },
+    );
+
+    expect(panel.querySelector('.model-diff-grid')).not.toBeNull();
+    expect(panel.querySelectorAll('.model-difference-row')).toHaveLength(2);
+    expect(panel.querySelector('[data-freshness="latest"]')?.textContent).toContain('Latest 2026-01-07');
+    expect(panel.querySelector('[data-freshness="safe"]')?.textContent).toContain('Common 2026-01-06');
+    expect(panel.textContent).toContain('Ret 42.00%');
+    expect(panel.textContent).toContain('MaxDD -8.00%');
+    expect(panel.textContent).toContain('AvgPos 0.510');
+    expect(panel.textContent).toContain('ΔNAV +2.00');
+    expect(panel.textContent).toContain('ΔPos +0.200');
   });
 
   test('renders latest baseline and market date when they extend past actor comparison rows', () => {

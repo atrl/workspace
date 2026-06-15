@@ -21,6 +21,8 @@ describe('dashboard v2 domain helpers', () => {
   test('formats long profile ids into readable display labels', () => {
     expect(formatProfileLabel('soxl_backtest_policy_reimplementation_v1')).toBe('SOXLBacktest');
     expect(formatProfileLabel('balanced_rule_residual_v22')).toBe('BRR v22');
+    expect(formatProfileLabel('mode_conditioned_rebound_reward_train_v2')).toBe('Mode rebound v2');
+    expect(formatProfileLabel('state_conditioned_drawdown_rebound_reward_train_v1')).toBe('State drawdown v1');
     expect(formatProfileLabel('smoke')).toBe('smoke');
   });
 

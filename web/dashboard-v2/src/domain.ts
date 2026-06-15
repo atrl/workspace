@@ -14,6 +14,11 @@ import type {
 
 export function formatProfileLabel(profile: string): string {
   if (profile === 'soxl_backtest_policy_reimplementation_v1') return 'SOXLBacktest';
+  if (profile === 'mode_conditioned_rebound_reward_train_v2') return 'Mode rebound v2';
+  if (profile === 'state_conditioned_drawdown_rebound_reward_train_v1') return 'State drawdown v1';
+  if (profile === 'drawdown_rebound_reward_train_v1') return 'DD rebound v1';
+  if (profile === 'balanced_rule_residual_imitation_v4') return 'BRR imitation v4';
+  if (profile === 'balanced_macro_v1') return 'Balanced macro v1';
   const balanced = profile.match(/^balanced_rule_residual_(.+)$/);
   if (balanced) return `BRR ${balanced[1].replaceAll('_', ' ')}`;
   return profile;
