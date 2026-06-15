@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-15T06:03:41.604399+00:00",
+  "generated_at": "2026-06-15T06:45:52.556979+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -6239,19 +6239,19 @@
       "path": "runtime/model_selection/card/model_retention_frontier_v1/conclusion.md",
       "category": "model_selection",
       "suffix": ".md",
-      "bytes": 565
+      "bytes": 529
     },
     {
       "path": "runtime/model_selection/card/model_retention_frontier_v1/retention_frontier.csv",
       "category": "model_selection",
       "suffix": ".csv",
-      "bytes": 71667
+      "bytes": 72102
     },
     {
       "path": "runtime/model_selection/card/model_retention_frontier_v1/summary.json",
       "category": "model_selection",
       "suffix": ".json",
-      "bytes": 176866
+      "bytes": 177883
     },
     {
       "path": "runtime/model_selection/card/model_retention_walkforward_gate_v1/conclusion.md",
@@ -11130,6 +11130,60 @@
       "category": "model_selection",
       "suffix": ".json",
       "bytes": 2805
+    },
+    {
+      "path": "runtime/model_selection/card/release16_trend_bc_slice_failure_drilldown_v1/action_position_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1159
+    },
+    {
+      "path": "runtime/model_selection/card/release16_trend_bc_slice_failure_drilldown_v1/baseline_gap_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1943
+    },
+    {
+      "path": "runtime/model_selection/card/release16_trend_bc_slice_failure_drilldown_v1/candidate_failure_matrix.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 3050
+    },
+    {
+      "path": "runtime/model_selection/card/release16_trend_bc_slice_failure_drilldown_v1/conclusion.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 745
+    },
+    {
+      "path": "runtime/model_selection/card/release16_trend_bc_slice_failure_drilldown_v1/fold_gap_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1241
+    },
+    {
+      "path": "runtime/model_selection/card/release16_trend_bc_slice_failure_drilldown_v1/recommendation.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2044
+    },
+    {
+      "path": "runtime/model_selection/card/release16_trend_bc_slice_failure_drilldown_v1/slice_failure_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4191
+    },
+    {
+      "path": "runtime/model_selection/card/release16_trend_bc_slice_failure_drilldown_v1/slice_gate_detail.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 29218
+    },
+    {
+      "path": "runtime/model_selection/card/release16_trend_bc_slice_failure_drilldown_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 4556
     },
     {
       "path": "runtime/model_selection/card/release16_wf2020_foldlocal_trend_target_v1/action_label_counts.csv",

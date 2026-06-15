@@ -1,0 +1,37 @@
+{
+  "actor_retention_allowed": false,
+  "artifact_paths": {
+    "action_position_summary": "runtime/model_selection/card/release16_trend_bc_slice_failure_drilldown_v1/action_position_summary.csv",
+    "baseline_gap_summary": "runtime/model_selection/card/release16_trend_bc_slice_failure_drilldown_v1/baseline_gap_summary.csv",
+    "candidate_failure_matrix": "runtime/model_selection/card/release16_trend_bc_slice_failure_drilldown_v1/candidate_failure_matrix.csv",
+    "fold_gap_summary": "runtime/model_selection/card/release16_trend_bc_slice_failure_drilldown_v1/fold_gap_summary.csv",
+    "slice_failure_summary": "runtime/model_selection/card/release16_trend_bc_slice_failure_drilldown_v1/slice_failure_summary.csv",
+    "slice_gate_detail": "runtime/model_selection/card/release16_trend_bc_slice_failure_drilldown_v1/slice_gate_detail.csv"
+  },
+  "bc_screen_allowed_next": false,
+  "decision": "release16_trend_bc_same_sweep_stopped_objective_handoff",
+  "experiment": "release16_trend_bc_slice_failure_drilldown_v1",
+  "full_gate_folds": 0,
+  "holdout_slice_solution_folds": 1,
+  "max_drawdown_gap_to_target_pct": 6.568903868944982,
+  "max_relative_gap_to_target_pp": 17.713537399378303,
+  "next_action": "train risk-state/drawdown-drift checkpoint objective before another official replay; do not extend the same release16 trend BC weight sweep",
+  "next_training_allowed_after_target_revision": true,
+  "ppo_allowed_next": false,
+  "primary_blocker": "target_revision_ready",
+  "promotion_allowed": false,
+  "recommended_next_mechanism": "risk_state_drawdown_drift_checkpoint_objective",
+  "relative_solution_folds": 2,
+  "required_wf_windows": [
+    "wf_2020",
+    "wf_2022",
+    "wf_2023_2024"
+  ],
+  "same_bc_weight_sweep_allowed": false,
+  "selected_min_relative_return_pp": 12.286462600621697,
+  "selected_worst_max_drawdown_pct": 26.568903868944982,
+  "source_experiment": "release16_wf2020_trend_target_bc_official_replay_v1",
+  "strict_dd_solution_folds": 1,
+  "target_max_dd_pct": 20.0,
+  "target_relative_return_pp": 30.0
+}

@@ -1,0 +1,84 @@
+{
+  "actor_retention_allowed": false,
+  "artifact_paths": {
+    "action_position_summary": "runtime/model_selection/card/release16_trend_bc_slice_failure_drilldown_v1/action_position_summary.csv",
+    "baseline_gap_summary": "runtime/model_selection/card/release16_trend_bc_slice_failure_drilldown_v1/baseline_gap_summary.csv",
+    "candidate_failure_matrix": "runtime/model_selection/card/release16_trend_bc_slice_failure_drilldown_v1/candidate_failure_matrix.csv",
+    "fold_gap_summary": "runtime/model_selection/card/release16_trend_bc_slice_failure_drilldown_v1/fold_gap_summary.csv",
+    "slice_failure_summary": "runtime/model_selection/card/release16_trend_bc_slice_failure_drilldown_v1/slice_failure_summary.csv",
+    "slice_gate_detail": "runtime/model_selection/card/release16_trend_bc_slice_failure_drilldown_v1/slice_gate_detail.csv"
+  },
+  "bc_screen_allowed_next": false,
+  "decision": "release16_trend_bc_same_sweep_stopped_objective_handoff",
+  "direct_comparison_baseline": "release16_wf2020_trend_target_bc_official_replay_v1",
+  "experiment": "release16_trend_bc_slice_failure_drilldown_v1",
+  "full_gate_folds": 0,
+  "generated_at": "2026-06-15T06:42:32.366661+00:00",
+  "holdout_slice_solution_folds": 1,
+  "max_drawdown_gap_to_target_pct": 6.568903868944982,
+  "max_relative_gap_to_target_pp": 17.713537399378303,
+  "min_wf_relative_return_pp": 12.286462600621697,
+  "next_action": "train risk-state/drawdown-drift checkpoint objective before another official replay; do not extend the same release16 trend BC weight sweep",
+  "next_mechanism": "risk_state_drawdown_drift_checkpoint_objective",
+  "next_training_allowed_after_target_revision": true,
+  "ppo_allowed_next": false,
+  "primary_blocker": "target_revision_ready",
+  "promotion_allowed": false,
+  "recommended_next_mechanism": "risk_state_drawdown_drift_checkpoint_objective",
+  "reference_baseline": "soxlbacktest_qlib_walkforward_baseline_v1",
+  "relative_solution_folds": 2,
+  "required_wf_windows": [
+    "wf_2020",
+    "wf_2022",
+    "wf_2023_2024"
+  ],
+  "risk_notes": [
+    "No release16 trend BC candidate passed the full gate in any required walk-forward fold.",
+    "wf_2020 has no relative-return or strict-DD candidate; wf_2022 has no strict-DD or holdout-slice candidate.",
+    "wf_2023_2024 has isolated DD/drift pass but still fails relative-return or slice gates depending on candidate.",
+    "Proceeding to PPO or actor retention before repairing the objective would preserve the same failure mode."
+  ],
+  "same_bc_weight_sweep_allowed": false,
+  "selected_by_fold": {
+    "wf_2020": {
+      "dominant_blocker": "no_relative_solution+no_strict_dd_solution+no_drift_gate_solution",
+      "failure_profile": "joint_return_drawdown+drift_vs_runnable_reference",
+      "selected_avg_pos": 0.4361399760778093,
+      "selected_candidate": "risk_trend_balanced",
+      "selected_max_dd": 26.568903868944982,
+      "selected_relative_return": 12.286462600621697
+    },
+    "wf_2022": {
+      "dominant_blocker": "no_strict_dd_solution+no_holdout_slice_solution+no_drift_gate_solution",
+      "failure_profile": "sparse_slice_fit+drawdown_control_gap+drift_vs_runnable_reference",
+      "selected_avg_pos": 0.1440490709987645,
+      "selected_candidate": "risk_trend_balanced",
+      "selected_max_dd": 24.711474610054086,
+      "selected_relative_return": 65.26901756236428
+    },
+    "wf_2023_2024": {
+      "dominant_blocker": "no_holdout_slice_solution",
+      "failure_profile": "sparse_slice_fit+underparticipation_relative_gap",
+      "selected_avg_pos": 0.2042100508190065,
+      "selected_candidate": "risk_trend_balanced",
+      "selected_max_dd": 14.80389322568818,
+      "selected_relative_return": 19.035720488388275
+    }
+  },
+  "selected_min_relative_return_pp": 12.286462600621697,
+  "selected_worst_max_drawdown_pct": 26.568903868944982,
+  "source_experiment": "release16_wf2020_trend_target_bc_official_replay_v1",
+  "source_path": "runtime/model_selection/card/release16_wf2020_trend_target_bc_official_replay_v1",
+  "strict_dd_solution_folds": 1,
+  "target_max_dd_pct": 20.0,
+  "target_relative_return_pp": 30.0,
+  "training_handoff": [
+    {
+      "action": "risk_state_drawdown_drift_checkpoint_objective",
+      "decision": "ready",
+      "next_action": "train risk-state/drawdown-drift checkpoint objective before another official replay; do not extend the same release16 trend BC weight sweep",
+      "source_experiment": "release16_wf2020_trend_target_bc_official_replay_v1"
+    }
+  ],
+  "worst_wf_max_drawdown_pct": 26.568903868944982
+}
