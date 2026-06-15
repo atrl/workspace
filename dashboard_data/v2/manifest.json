@@ -12,7 +12,7 @@
         "refreshed": 0,
         "skipped": 0
       },
-      "generated_at": "2026-06-15T08:18:59+00:00",
+      "generated_at": "2026-06-15T09:20:19+00:00",
       "latest_data_date": "2026-06-10",
       "note": "No replay actor candidates are exposed by model_replay_freshness.json; the refresh task still rebuilds dashboard bundles and reference/evidence exports.",
       "profile_count": 0,
@@ -90,14 +90,14 @@
     "drawdown_rebound_reward_train_v1",
     "mode_conditioned_rebound_reward_train_v2"
   ],
-  "generated_at": "2026-06-15T08:19:12.286693+00:00",
+  "generated_at": "2026-06-15T09:20:32.189200+00:00",
   "latest_market_date": "2026-06-10",
   "model_retention_frontier": {
-    "completed_handoff_count": 132,
+    "completed_handoff_count": 133,
     "max_walkforward_drawdown_pct": 20.0,
-    "recommended_next_action": "revise_reward_patch_or_checkpoint_selection_before_full_training",
-    "recommended_next_source": "release16_drawdown_drift_short_training_screen_v1",
-    "recommended_primary_blocker": "short_training_gate_failed",
+    "recommended_next_action": "train_reward_constrained_short_training_candidate_with_relative_floor_and_drawdown_gap_loss_then_official_three_fold_replay",
+    "recommended_next_source": "release16_constrained_checkpoint_repair_screen_v1",
+    "recommended_primary_blocker": "target_revision_ready",
     "reference_return_pct": 132.077978,
     "required_best_return_pct": 213.143462,
     "required_wf_windows": [
@@ -105,7 +105,7 @@
       "wf_2022",
       "wf_2023_2024"
     ],
-    "rows_scanned": 169,
+    "rows_scanned": 170,
     "source_path": "runtime/model_selection/card/model_retention_frontier_v1/summary.json"
   },
   "model_retention_gate": {

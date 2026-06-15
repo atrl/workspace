@@ -1,0 +1,28 @@
+{
+  "candidate_generation_rules": {
+    "reject_if_any_fold_max_dd_gte_pct": 20.0,
+    "reject_if_any_fold_relative_return_lt_pp": 30.0,
+    "retain_actor_only_after_official_three_fold_replay": true,
+    "select_with": "constrained_checkpoint_selector_maxdd20_relative30",
+    "train_from": "fold_local_bc_or_sparse_release_bc_warm_start"
+  },
+  "created_at": "2026-06-15T09:34:21.837375+00:00",
+  "decision": "reward_constrained_short_training_candidate_ready",
+  "experiment": "release16_constrained_checkpoint_repair_screen_v1",
+  "next_action": "train_reward_constrained_short_training_candidate_with_relative_floor_and_drawdown_gap_loss_then_official_three_fold_replay",
+  "objective_terms": [
+    "walkforward_relative_floor_gap_loss",
+    "walkforward_drawdown_gap_loss",
+    "fold_local_checkpoint_constraint_loss",
+    "official_three_fold_replay_gate"
+  ],
+  "required_wf_windows": [
+    "wf_2020",
+    "wf_2022",
+    "wf_2023_2024"
+  ],
+  "selected_diagnostic_candidate": "bc_initialization",
+  "source_experiment": "release16_drawdown_drift_short_training_screen_v1",
+  "target_max_dd_pct": 20.0,
+  "target_relative_return_pp": 30.0
+}

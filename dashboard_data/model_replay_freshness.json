@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-15T08:18:59+00:00",
+  "generated_at": "2026-06-15T09:20:19+00:00",
   "latest_data_date": "2026-06-10",
   "safe_backtest_end": "2026-06-09",
   "terminal_note": "qlib daily backtests require a following calendar boundary, so model replay curves target safe_backtest_end while paper trading/latest signal can use latest_data_date.",
