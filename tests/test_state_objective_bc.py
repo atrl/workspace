@@ -168,6 +168,30 @@ def test_state_objective_bc_sample_weights_can_prioritize_release_gate():
     assert weights[3] > weights[2] > weights[1] > weights[0]
 
 
+def test_state_objective_bc_sample_weights_can_prioritize_drawdown_control_independently():
+    metadata = pd.DataFrame(
+        {
+            "objective_weight": [1.0] * 4,
+            "is_rebound_cluster": [False, False, False, False],
+            "is_downtrend_state": [False, False, True, True],
+            "drawdown_control_state": [False, True, False, True],
+            "release_gate_state": [False, False, False, False],
+        }
+    )
+
+    weights = state_objective_bc_sample_weights(
+        metadata,
+        actions=None,
+        config=StateObjectiveBCSampleWeightConfig(
+            downtrend_multiplier=2.0,
+            drawdown_control_multiplier=7.0,
+        ),
+    )
+
+    assert np.isclose(weights.mean(), 1.0)
+    assert weights[3] > weights[1] > weights[2] > weights[0]
+
+
 def test_fit_state_objective_bc_actor_from_frame_accepts_sample_weight_config():
     profile = load_profile("risk_budget_usage_v1")
     frame = _sample_frame()
