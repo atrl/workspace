@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-15T07:10:01.975741+00:00",
+  "generated_at": "2026-06-15T07:59:14.303585+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -6239,19 +6239,19 @@
       "path": "runtime/model_selection/card/model_retention_frontier_v1/conclusion.md",
       "category": "model_selection",
       "suffix": ".md",
-      "bytes": 522
+      "bytes": 556
     },
     {
       "path": "runtime/model_selection/card/model_retention_frontier_v1/retention_frontier.csv",
       "category": "model_selection",
       "suffix": ".csv",
-      "bytes": 72594
+      "bytes": 73138
     },
     {
       "path": "runtime/model_selection/card/model_retention_frontier_v1/summary.json",
       "category": "model_selection",
       "suffix": ".json",
-      "bytes": 178984
+      "bytes": 180180
     },
     {
       "path": "runtime/model_selection/card/model_retention_walkforward_gate_v1/conclusion.md",
@@ -8658,6 +8658,144 @@
       "category": "model_selection",
       "suffix": ".json",
       "bytes": 6830
+    },
+    {
+      "path": "runtime/model_selection/card/release16_drawdown_drift_short_training_screen_v1/bc_action_distribution.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 444
+    },
+    {
+      "path": "runtime/model_selection/card/release16_drawdown_drift_short_training_screen_v1/bc_fit_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 691
+    },
+    {
+      "path": "runtime/model_selection/card/release16_drawdown_drift_short_training_screen_v1/bc_slice_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2823
+    },
+    {
+      "path": "runtime/model_selection/card/release16_drawdown_drift_short_training_screen_v1/checkpoint_candidate_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 7093
+    },
+    {
+      "path": "runtime/model_selection/card/release16_drawdown_drift_short_training_screen_v1/checkpoint_selection_by_fold.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1472
+    },
+    {
+      "path": "runtime/model_selection/card/release16_drawdown_drift_short_training_screen_v1/conclusion.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 1661
+    },
+    {
+      "path": "runtime/model_selection/card/release16_drawdown_drift_short_training_screen_v1/coverage.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 730
+    },
+    {
+      "path": "runtime/model_selection/card/release16_drawdown_drift_short_training_screen_v1/coverage.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2914
+    },
+    {
+      "path": "runtime/model_selection/card/release16_drawdown_drift_short_training_screen_v1/ppo_selection_history.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1070
+    },
+    {
+      "path": "runtime/model_selection/card/release16_drawdown_drift_short_training_screen_v1/selected_daily_paths/wf_2020__bc_initialization_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30313
+    },
+    {
+      "path": "runtime/model_selection/card/release16_drawdown_drift_short_training_screen_v1/selected_daily_paths/wf_2020__ppo_retained_iter_0_bc_equivalent_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30313
+    },
+    {
+      "path": "runtime/model_selection/card/release16_drawdown_drift_short_training_screen_v1/selected_daily_paths/wf_2020__ppo_retained_iter_4_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30300
+    },
+    {
+      "path": "runtime/model_selection/card/release16_drawdown_drift_short_training_screen_v1/selected_daily_paths/wf_2020__ppo_selected_best_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30300
+    },
+    {
+      "path": "runtime/model_selection/card/release16_drawdown_drift_short_training_screen_v1/selected_daily_paths/wf_2022__bc_initialization_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 29621
+    },
+    {
+      "path": "runtime/model_selection/card/release16_drawdown_drift_short_training_screen_v1/selected_daily_paths/wf_2022__ppo_retained_iter_0_bc_equivalent_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 29621
+    },
+    {
+      "path": "runtime/model_selection/card/release16_drawdown_drift_short_training_screen_v1/selected_daily_paths/wf_2022__ppo_retained_iter_4_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 29656
+    },
+    {
+      "path": "runtime/model_selection/card/release16_drawdown_drift_short_training_screen_v1/selected_daily_paths/wf_2022__ppo_selected_best_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 29656
+    },
+    {
+      "path": "runtime/model_selection/card/release16_drawdown_drift_short_training_screen_v1/selected_daily_paths/wf_2023_2024__bc_initialization_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30090
+    },
+    {
+      "path": "runtime/model_selection/card/release16_drawdown_drift_short_training_screen_v1/selected_daily_paths/wf_2023_2024__ppo_retained_iter_0_bc_equivalent_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30090
+    },
+    {
+      "path": "runtime/model_selection/card/release16_drawdown_drift_short_training_screen_v1/selected_daily_paths/wf_2023_2024__ppo_retained_iter_4_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30413
+    },
+    {
+      "path": "runtime/model_selection/card/release16_drawdown_drift_short_training_screen_v1/selected_daily_paths/wf_2023_2024__ppo_selected_best_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30413
+    },
+    {
+      "path": "runtime/model_selection/card/release16_drawdown_drift_short_training_screen_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 5792
+    },
+    {
+      "path": "runtime/model_selection/card/release16_drawdown_drift_short_training_screen_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 9735
     },
     {
       "path": "runtime/model_selection/card/release16_expanded_official_candidate_pool_v1/best_candidate_window_gaps.csv",

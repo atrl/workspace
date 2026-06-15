@@ -1,0 +1,4 @@
+fold,target_fold,train_rows,holdout_rows,raw_target_rows,train_start,train_end,valid_start,valid_end,test_start,test_end,train_valid_overlap_rows,train_test_overlap_rows,holdout_test_overlap_rows,train_release_gate_rows,train_downtrend_rows,train_drawdown_control_rows,holdout_release_gate_rows,holdout_downtrend_rows,holdout_drawdown_control_rows
+wf_2020,wf_2020_train,1775,443,2470,2010-03-11,2018-12-31,2019-01-01,2019-12-31,2020-01-01,2020-12-31,0,0,0,24,760,765,14,192,193
+wf_2022,wf_2022_train,200,53,253,2010-03-11,2020-12-31,2021-01-01,2021-12-31,2022-01-01,2022-12-31,0,0,0,5,96,18,3,24,6
+wf_2023_2024,wf_2023_2024_train,600,156,756,2010-03-11,2022-12-31,2023-01-01,2023-12-31,2024-01-01,2024-12-31,0,0,0,8,382,28,3,98,7
