@@ -1,0 +1,7 @@
+candidate,fold,rows,unique_position_buckets,dominant_position_bucket_share,mean_target_position,max_target_position,trend_target_rows
+base_release16_joint_contract,wf_2020_train,2470,18,0.4182186234817814,0.3747647368421052,0.9151,0
+base_release16_joint_contract,wf_2022_train,505,16,0.4277227722772277,0.33055365155473243,1.0,0
+base_release16_joint_contract,wf_2023_2024_train,756,16,0.4021164021164021,0.29206761702915857,1.0,0
+wf2020_lagged_trend_participation_floor,wf_2020_train,2470,18,0.4182186234817814,0.42782862348178136,0.9151,357
+wf2020_lagged_trend_participation_floor,wf_2022_train,505,15,0.27920792079207923,0.40652863159150715,1.0,136
+wf2020_lagged_trend_participation_floor,wf_2023_2024_train,756,15,0.291005291005291,0.34328106268864433,1.0,138

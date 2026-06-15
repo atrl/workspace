@@ -1,0 +1,9 @@
+candidate,profile,samples,unique_actions,dominant_action_share,action_entropy,sample_gate,label_distribution_gate,fold_local_scope_gate,bc_readiness_gate,bc_readiness_loss,target_scope
+base_release16_joint_contract,wf_2023_2024_train,755,5,0.36423841059602646,1.30672230462856,True,True,True,True,0.0,fold_local
+base_release16_joint_contract,wf_2022_train,505,5,0.3801980198019802,1.3169350661561725,True,True,True,True,0.0,fold_local
+base_release16_joint_contract,all_folds_actual_policy_mapping,3417,5,0.40122914837576823,1.3442523949977014,True,True,True,True,0.0,fold_local
+base_release16_joint_contract,wf_2020_train,2157,5,0.4191006026889198,1.2392488834589652,True,True,True,True,0.0,fold_local
+wf2020_lagged_trend_participation_floor,wf_2023_2024_train,755,5,0.3841059602649007,1.3281615196950258,True,True,True,True,0.0,fold_local
+wf2020_lagged_trend_participation_floor,wf_2022_train,505,5,0.41188118811881186,1.3327183776595648,True,True,True,True,0.0,fold_local
+wf2020_lagged_trend_participation_floor,all_folds_actual_policy_mapping,3417,5,0.43985952589991223,1.3032825485175177,True,True,True,True,0.0,fold_local
+wf2020_lagged_trend_participation_floor,wf_2020_train,2157,5,0.4659248956884562,1.139465062345841,True,True,True,True,0.0,fold_local
