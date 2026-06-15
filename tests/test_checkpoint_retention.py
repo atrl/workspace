@@ -8,7 +8,11 @@ from tempfile import TemporaryDirectory
 import torch
 
 from src.soxl_quant.app import artifacts as artifact_module
-from src.soxl_quant.app.artifacts import persist_retained_checkpoint_bundles
+from src.soxl_quant.app.artifacts import (
+    final_model_retention_payload,
+    persist_final_model_retention_decision,
+    persist_retained_checkpoint_bundles,
+)
 from src.soxl_quant.app.selection import select_retained_checkpoints
 from src.soxl_quant.config import CheckpointRetentionConfig, load_profile
 
@@ -268,3 +272,116 @@ def test_persist_retained_checkpoint_bundles_allows_explicit_strict_gate_pass():
         "status": "passed",
         "reason": "strict retention gate passed",
     }
+
+
+def test_final_model_retention_blocks_without_walk_forward_evaluation():
+    profile = load_profile("balanced")
+
+    decision = final_model_retention_payload(
+        profile=profile,
+        model_path=Path("runtime/model/card/balanced/soxl_balanced_actor.pt"),
+        promotion_report={
+            "eligible": False,
+            "fixed_split": {"eligible": True, "checks": {}},
+            "walk_forward": {"eligible": False, "status": "missing", "checks": {}},
+            "walk_forward_evaluated": False,
+        },
+    )
+
+    assert decision == {
+        "profile": "balanced",
+        "model_path": "runtime/model/card/balanced/soxl_balanced_actor.pt",
+        "status": "blocked",
+        "final_model_retained": False,
+        "reason": "walk-forward promotion gate not evaluated",
+        "promotion_eligible": False,
+        "walk_forward_evaluated": False,
+        "required_gates": ["fixed_split", "walk_forward", "strict_retention"],
+    }
+
+
+def test_final_model_retention_distinguishes_failed_walk_forward_from_missing():
+    profile = load_profile("balanced")
+
+    decision = final_model_retention_payload(
+        profile=profile,
+        model_path=Path("actor.pt"),
+        promotion_report={
+            "eligible": False,
+            "fixed_split": {"eligible": True, "checks": {}},
+            "walk_forward": {
+                "eligible": False,
+                "checks": {"wf_2023_2024_return": {"passed": False, "actual": -1.0, "limit": 0.0}},
+            },
+            "walk_forward_evaluated": True,
+        },
+    )
+
+    assert decision["status"] == "blocked"
+    assert decision["final_model_retained"] is False
+    assert decision["reason"] == "walk-forward promotion gate failed"
+    assert decision["walk_forward_evaluated"] is True
+
+
+def test_final_model_retention_requires_strict_gate_after_promotion_pass():
+    profile = load_profile("balanced")
+
+    decision = final_model_retention_payload(
+        profile=profile,
+        model_path=Path("actor.pt"),
+        promotion_report={
+            "eligible": True,
+            "fixed_split": {"eligible": True, "checks": {}},
+            "walk_forward": {"eligible": True, "checks": {}},
+            "walk_forward_evaluated": True,
+        },
+    )
+
+    assert decision["status"] == "blocked"
+    assert decision["final_model_retained"] is False
+    assert decision["reason"] == "strict retention gate evidence missing"
+
+
+def test_final_model_retention_passes_only_with_strict_gate_evidence():
+    profile = load_profile("balanced")
+
+    decision = final_model_retention_payload(
+        profile=profile,
+        model_path=Path("actor.pt"),
+        promotion_report={
+            "eligible": True,
+            "fixed_split": {"eligible": True, "checks": {}},
+            "walk_forward": {"eligible": True, "checks": {}},
+            "walk_forward_evaluated": True,
+        },
+        retention_gate_evidence={"profile": "balanced", "gate_pass": True},
+    )
+
+    assert decision == {
+        "profile": "balanced",
+        "model_path": "actor.pt",
+        "status": "passed",
+        "final_model_retained": True,
+        "reason": "strict retention gate passed",
+        "promotion_eligible": True,
+        "walk_forward_evaluated": True,
+        "required_gates": ["fixed_split", "walk_forward", "strict_retention"],
+    }
+
+
+def test_persist_final_model_retention_decision_updates_summary():
+    with TemporaryDirectory() as tmpdir:
+        summary = Path(tmpdir) / "summary.json"
+        summary.write_text('{"profile": "balanced", "promotion": {"eligible": false}}', encoding="utf-8")
+        decision = {
+            "profile": "balanced",
+            "status": "blocked",
+            "final_model_retained": False,
+            "reason": "walk-forward promotion gate failed",
+        }
+
+        persist_final_model_retention_decision(summary, decision)
+
+        payload = json.loads(summary.read_text(encoding="utf-8"))
+
+    assert payload["final_model_retention_decision"] == decision

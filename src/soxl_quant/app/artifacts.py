@@ -189,6 +189,57 @@ def checkpoint_retention_gate_payload(
     }
 
 
+def final_model_retention_payload(
+    *,
+    profile,
+    model_path,
+    promotion_report: Dict[str, object],
+    retention_gate_evidence: dict | None = None,
+) -> dict[str, object]:
+    """State whether the main actor is a final retained model.
+
+    Training always writes a replayable actor for audit/backtest reproduction.
+    This payload is the stricter human-facing retention decision: a model is not
+    final-retained until fixed-split promotion, walk-forward promotion, and the
+    SOXLBacktest/strict retention gate all pass.
+    """
+
+    walk_forward_evaluated = bool(promotion_report.get("walk_forward_evaluated", False))
+    promotion_eligible = bool(promotion_report.get("eligible", False))
+    payload: dict[str, object] = {
+        "profile": profile.name,
+        "model_path": str(model_path),
+        "status": "blocked",
+        "final_model_retained": False,
+        "reason": "",
+        "promotion_eligible": promotion_eligible,
+        "walk_forward_evaluated": walk_forward_evaluated,
+        "required_gates": ["fixed_split", "walk_forward", "strict_retention"],
+    }
+    if not walk_forward_evaluated:
+        payload["reason"] = "walk-forward promotion gate not evaluated"
+        return payload
+    if not promotion_eligible:
+        fixed_split = promotion_report.get("fixed_split")
+        walk_forward = promotion_report.get("walk_forward")
+        if isinstance(fixed_split, dict) and not bool(fixed_split.get("eligible", False)):
+            payload["reason"] = "fixed-split promotion gate failed"
+        elif isinstance(walk_forward, dict) and not bool(walk_forward.get("eligible", False)):
+            payload["reason"] = "walk-forward promotion gate failed"
+        else:
+            payload["reason"] = "model promotion gate failed"
+        return payload
+    gate_ok, gate_reason = strict_retention_gate_status(
+        retention_gate_evidence,
+        profile_name=profile.name,
+    )
+    payload["reason"] = gate_reason
+    if gate_ok:
+        payload["status"] = "passed"
+        payload["final_model_retained"] = True
+    return payload
+
+
 def persist_retained_checkpoint_bundles(
     profile,
     actor,
@@ -250,6 +301,7 @@ def persist_summary_bundle(
     promotion_report,
     retained_checkpoints=None,
     checkpoint_retention_decision=None,
+    final_model_retention_decision=None,
 ):
     retained_checkpoints = retained_checkpoints or []
     summary_path = summary_artifact_path(profile.name, effective_tag)
@@ -270,6 +322,7 @@ def persist_summary_bundle(
                 "model_path": str(model_path),
                 "retained_checkpoints": retained_checkpoints,
                 "checkpoint_retention_decision": checkpoint_retention_decision,
+                "final_model_retention_decision": final_model_retention_decision,
                 "valid": valid_metrics,
                 "best_score": selection["best_score"],
                 "selection_history": selection["history"],
@@ -282,6 +335,12 @@ def persist_summary_bundle(
         encoding="utf-8",
     )
     return summary_path
+
+
+def persist_final_model_retention_decision(summary_path: Path, decision: dict[str, object]) -> None:
+    payload = json.loads(summary_path.read_text(encoding="utf-8"))
+    payload["final_model_retention_decision"] = decision
+    summary_path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
 
 
 def load_actor_bundle(profile_name: str):
@@ -319,9 +378,11 @@ __all__ = [
     "build_actor_ensemble",
     "checkpoint_retention_gate_payload",
     "feature_schema_payload",
+    "final_model_retention_payload",
     "load_actor_bundle",
     "load_actor_bundles",
     "persist_actor_bundle",
+    "persist_final_model_retention_decision",
     "persist_retained_checkpoint_bundles",
     "persist_summary_bundle",
     "serialize_model_config",

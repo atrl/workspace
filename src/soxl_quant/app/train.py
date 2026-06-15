@@ -23,6 +23,7 @@ from ..settings import CSV_PATH, QLIB_DATA_PATH, ROOT
 from .artifacts import (
     artifact_tag_suffix,
     checkpoint_retention_gate_payload,
+    final_model_retention_payload,
     persist_actor_bundle,
     persist_retained_checkpoint_bundles,
     persist_summary_bundle,
@@ -228,6 +229,12 @@ def run_profile(
         promotion_report = build_promotion_report(profile, slice_result, test_proxy)
     else:
         promotion_report = build_promotion_report(profile, slice_result, test_proxy)
+    final_model_retention_decision = final_model_retention_payload(
+        profile=profile,
+        model_path=model_path,
+        promotion_report=promotion_report,
+        retention_gate_evidence=retention_gate_evidence,
+    )
     summary_path = persist_summary_bundle(
         profile=profile,
         seed=seed,
@@ -240,11 +247,13 @@ def run_profile(
         promotion_report=promotion_report,
         retained_checkpoints=retained_checkpoint_records,
         checkpoint_retention_decision=checkpoint_retention_decision,
+        final_model_retention_decision=final_model_retention_decision,
     )
     bt_result["valid"] = valid_metrics
     bt_result["selection_history"] = selection["history"]
     bt_result["retained_checkpoints"] = retained_checkpoint_records
     bt_result["checkpoint_retention_decision"] = checkpoint_retention_decision
+    bt_result["final_model_retention_decision"] = final_model_retention_decision
     bt_result["model_path"] = str(model_path)
     bt_result["summary_path"] = str(summary_path)
     bt_result["slices"] = slice_result

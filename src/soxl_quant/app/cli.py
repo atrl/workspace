@@ -6,6 +6,7 @@ from typing import Dict
 
 from ..config import list_profile_names
 from ..settings import load_profile
+from .artifacts import final_model_retention_payload, persist_final_model_retention_decision
 from .bootstrap import bootstrap_runtime
 from .promote import build_promotion_report, persist_promotion_report
 from .reporting import persist_and_print_results, print_profile_result
@@ -86,6 +87,13 @@ def main() -> None:
             )
             bt_result["promotion"] = promotion_report
             persist_promotion_report(Path(bt_result["summary_path"]), promotion_report)
+            final_retention = final_model_retention_payload(
+                profile=profile,
+                model_path=Path(str(bt_result["model_path"])),
+                promotion_report=promotion_report,
+            )
+            bt_result["final_model_retention_decision"] = final_retention
+            persist_final_model_retention_decision(Path(bt_result["summary_path"]), final_retention)
 
     persist_and_print_results(results, walk_forward_results)
 
