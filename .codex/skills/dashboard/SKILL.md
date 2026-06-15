@@ -98,6 +98,16 @@ For `web/dashboard-v2`, keep deployability separate from diagnostic comparison:
 - Keep the main K-line clean by showing only the currently selected Chart Model
   position overlay. Use the Position and NAV subcharts to compare all selected
   models.
+- Never compare raw cumulative actor NAV from a long replay against a shorter
+  reference window. Dashboard V2 comparison payloads should keep raw
+  `strategy_nav` for traceability, but compute `strategy_nav_rebased` and
+  `nav_delta_vs_baseline` from the common-window start. The frontend NAV pane
+  should also rebase visible rows to the selected window start.
+- Data Status should expose per-model `replay_end` dates for default comparison
+  profiles so users can see why SOXLBacktest may extend to `latest_data_date`
+  while Qlib actors stop at `safe_backtest_end`.
+- The first viewport should show the K-line plus Position and Rebased NAV panes
+  together; do not make users scroll before they can see model differences.
 - Mouse wheel / drag visible-range changes should update the dashboard's date
   state and comparison readouts without rebuilding chart panes. Hover-only
   updates should refresh only the inspector to avoid pointer lag.
