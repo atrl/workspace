@@ -14,6 +14,18 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.textContent).not.toContain('model_replay_freshness.json');
   });
 
+  test('keeps source warnings inside a collapsed diagnostics block', () => {
+    const panel = document.createElement('section');
+
+    renderDataSourcePanel(panel, manifestFixture, ['Replay safe end is before market latest.']);
+
+    const diagnostics = panel.querySelector<HTMLDetailsElement>('details.source-diagnostics');
+    expect(diagnostics).not.toBeNull();
+    expect(diagnostics?.open).toBe(false);
+    expect(diagnostics?.querySelector('summary')?.textContent).toContain('Diagnostics');
+    expect(diagnostics?.textContent).toContain('Replay safe end is before market latest.');
+  });
+
   test('renders inspector rows with tone classes', () => {
     const panel = document.createElement('aside');
 
@@ -65,6 +77,10 @@ describe('dashboard v2 DOM render helpers', () => {
     );
 
     expect(panel.textContent).toContain('Mismatch Days');
+    const diagnostics = panel.querySelector<HTMLDetailsElement>('details.comparison-diagnostics');
+    expect(diagnostics).not.toBeNull();
+    expect(diagnostics?.open).toBe(false);
+    expect(diagnostics?.querySelector('summary')?.textContent).toContain('Action mismatches');
     expect(panel.textContent).toContain('BUY vs HOLD');
     expect(panel.textContent).toContain('rsi6 60');
     panel.querySelector<HTMLButtonElement>('.mismatch-date-button')?.click();

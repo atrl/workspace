@@ -1,0 +1,62 @@
+{
+  "experiment": "dashboard_v2_readability_refresh_v2",
+  "generated_at": "2026-06-15T13:52:28+00:00",
+  "decision": "v2_dashboard_default_readability_and_freshness_improved",
+  "scope": [
+    "dashboard v2 first screen",
+    "SOXL market K-line",
+    "model position overlay",
+    "SOXLBacktest reference baseline comparison"
+  ],
+  "data_contract": {
+    "latest_market_date": "2026-06-12",
+    "safe_backtest_end": "2026-06-11",
+    "comparison_start": "2026-01-02",
+    "comparison_end": "2026-06-09",
+    "market_rows": 4090,
+    "comparison_rows": 109,
+    "profiles": [
+      "soxl_backtest_policy_reimplementation_v1",
+      "balanced_rule_residual_v22"
+    ],
+    "baseline_profile": "soxl_backtest_policy_reimplementation_v1"
+  },
+  "ui_changes": [
+    "moved data freshness status to the top bar",
+    "kept the default workspace focused on K-line, position, NAV, and inspector",
+    "collapsed source warnings and buy/sell mismatch diagnostics by default",
+    "switched the dashboard v2 palette from dark blue slate to neutral graphite with teal/red trading accents"
+  ],
+  "visual_evidence": {
+    "screenshot": "runtime/production/card/dashboard_v2_readability_refresh_v2/dashboard_v2_1440x1100.png",
+    "width": 1440,
+    "height": 1100,
+    "unique_colors": 3162,
+    "whiteish_pct": 0.41,
+    "blackish_pct": 0.02
+  },
+  "verification": [
+    {
+      "command": "npm test",
+      "cwd": "web/dashboard-v2",
+      "result": "3 files passed, 24 tests passed"
+    },
+    {
+      "command": "npm run build",
+      "cwd": "web/dashboard-v2",
+      "result": "tsc --noEmit and vite build passed"
+    },
+    {
+      "command": "PYTHONPATH=. qlib_venv/bin/python scripts/check_dashboard_v2_data.py dashboard_data/v2",
+      "result": "dashboard_v2_check=ok profiles=2 market_rows=4090 comparison_rows=109"
+    },
+    {
+      "command": "PYTHONPATH=. qlib_venv/bin/python -m pytest tests/test_dashboard_v2_data.py tests/test_dashboard_v2_checker.py -q",
+      "result": "12 passed"
+    }
+  ],
+  "remaining_goal_gaps": [
+    "full model retraining still has no candidate proven through the strict walk-forward retention gate",
+    "SOXLBacktest qlib reference is available as a baseline but is not a runnable inference profile"
+  ]
+}

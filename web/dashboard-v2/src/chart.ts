@@ -113,19 +113,19 @@ export function renderMarketChart(
   replaceChart(container);
   const chart = createChart(container, {
     autoSize: true,
-    layout: { background: { color: '#111827' }, textColor: '#d1d5db' },
-    grid: { vertLines: { color: '#253044' }, horzLines: { color: '#253044' } },
-    leftPriceScale: { visible: true, borderColor: '#374151' },
-    rightPriceScale: { borderColor: '#374151' },
-    timeScale: { borderColor: '#374151', timeVisible: false },
+    layout: { background: { color: '#171613' }, textColor: '#e8e1d4' },
+    grid: { vertLines: { color: '#26231d' }, horzLines: { color: '#26231d' } },
+    leftPriceScale: { visible: true, borderColor: '#343127' },
+    rightPriceScale: { borderColor: '#343127' },
+    timeScale: { borderColor: '#343127', timeVisible: false },
     crosshair: { mode: 1 },
   });
   const candleSeries = chart.addSeries(CandlestickSeries, {
-    upColor: '#0f766e',
-    downColor: '#b91c1c',
+    upColor: '#1fb981',
+    downColor: '#d96b5f',
     borderVisible: false,
-    wickUpColor: '#34d399',
-    wickDownColor: '#f87171',
+    wickUpColor: '#62d7ad',
+    wickDownColor: '#ee958b',
   });
   candleSeries.setData(
     market.rows.map((row) => ({
@@ -137,7 +137,7 @@ export function renderMarketChart(
     })),
   );
   const closeLine = chart.addSeries(LineSeries, {
-    color: '#e5e7eb',
+    color: '#e8e1d4',
     lineWidth: 1,
     priceLineVisible: false,
     title: 'SOXL Close',
@@ -145,7 +145,7 @@ export function renderMarketChart(
   closeLine.setData(market.rows.map((row) => ({ time: toTime(row.date), value: Number(row.close) })));
 
   const positionLine = chart.addSeries(LineSeries, {
-    color: '#38bdf8',
+    color: '#39b7c5',
     lineWidth: 2,
     priceScaleId: 'left',
     priceLineVisible: true,
@@ -180,12 +180,12 @@ export function renderPositionChart(container: HTMLElement, model: ModelPayload)
   replaceChart(container);
   const chart = createChart(container, {
     autoSize: true,
-    layout: { background: { color: '#0b1220' }, textColor: '#d1d5db' },
-    grid: { vertLines: { color: '#1f2937' }, horzLines: { color: '#1f2937' } },
-    rightPriceScale: { borderColor: '#374151' },
-    timeScale: { borderColor: '#374151' },
+    layout: { background: { color: '#10100e' }, textColor: '#e8e1d4' },
+    grid: { vertLines: { color: '#26231d' }, horzLines: { color: '#26231d' } },
+    rightPriceScale: { borderColor: '#343127' },
+    timeScale: { borderColor: '#343127' },
   });
-  const line = chart.addSeries(LineSeries, { color: '#38bdf8', lineWidth: 2 });
+  const line = chart.addSeries(LineSeries, { color: '#39b7c5', lineWidth: 2 });
   line.setData(model.rows.map((row) => ({ time: toTime(row.date), value: row.position })));
   chart.timeScale().fitContent();
   trackChart(container, chart);
@@ -200,12 +200,12 @@ export function renderNavChart(container: HTMLElement, models: Record<string, Mo
   replaceChart(container);
   const chart = createChart(container, {
     autoSize: true,
-    layout: { background: { color: '#0b1220' }, textColor: '#d1d5db' },
-    grid: { vertLines: { color: '#1f2937' }, horzLines: { color: '#1f2937' } },
-    rightPriceScale: { borderColor: '#374151' },
-    timeScale: { borderColor: '#374151' },
+    layout: { background: { color: '#10100e' }, textColor: '#e8e1d4' },
+    grid: { vertLines: { color: '#26231d' }, horzLines: { color: '#26231d' } },
+    rightPriceScale: { borderColor: '#343127' },
+    timeScale: { borderColor: '#343127' },
   });
-  const colors = ['#38bdf8', '#a78bfa', '#f59e0b', '#22c55e'];
+  const colors = ['#39b7c5', '#a597ff', '#d7a138', '#1fb981'];
   let primarySeries: ISeriesApi<'Line'> | null = null;
   let primaryRows: ModelPayload['rows'] | null = null;
   for (const [index, [profile, model]] of Object.entries(models).entries()) {

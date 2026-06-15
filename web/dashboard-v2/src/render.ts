@@ -30,11 +30,14 @@ export function renderDataSourcePanel(container: HTMLElement, manifest: Manifest
   }
   container.appendChild(strip);
   if (warnings.length) {
+    const diagnostics = element('details', 'source-diagnostics') as HTMLDetailsElement;
+    diagnostics.appendChild(element('summary', undefined, `Diagnostics (${warnings.length})`));
     const warningList = element('ul', 'warning-list');
     for (const warning of warnings) {
       warningList.appendChild(element('li', undefined, warning));
     }
-    container.appendChild(warningList);
+    diagnostics.appendChild(warningList);
+    container.appendChild(diagnostics);
   }
 }
 
@@ -96,8 +99,8 @@ export function renderComparisonPanel(
   }
   container.appendChild(cards);
 
-  const mismatchSection = element('section', 'mismatch-section');
-  mismatchSection.appendChild(element('h3', undefined, 'Mismatch Days'));
+  const mismatchSection = element('details', 'mismatch-section comparison-diagnostics') as HTMLDetailsElement;
+  mismatchSection.appendChild(element('summary', undefined, `Action mismatches (${mismatchRows.length})`));
   const visibleMismatchRows = mismatchRows.slice(-12);
   if (visibleMismatchRows.length === 0) {
     mismatchSection.appendChild(element('p', 'empty-note', 'No visible buy/sell action differences.'));

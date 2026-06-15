@@ -1,6 +1,18 @@
 :root {
-  color: #d1d5db;
-  background: #0b1220;
+  --bg: #10100e;
+  --panel: #171613;
+  --panel-2: #1d1c18;
+  --line: #343127;
+  --line-soft: #26231d;
+  --text: #e8e1d4;
+  --muted: #a59d90;
+  --buy: #1fb981;
+  --sell: #d96b5f;
+  --position: #39b7c5;
+  --warn: #d7a138;
+  --accent: #22c7a9;
+  color: var(--text);
+  background: var(--bg);
   font-family:
     Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
     sans-serif;
@@ -15,7 +27,7 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-  background: #0b1220;
+  background: var(--bg);
 }
 
 button,
@@ -27,27 +39,30 @@ select {
 #app {
   min-height: 100vh;
   display: grid;
-  grid-template-rows: auto minmax(0, 1fr) auto auto;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+}
+
+.topbar {
+  border-bottom: 1px solid var(--line);
+  background: var(--panel);
 }
 
 .toolbar {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 12px;
-  min-height: 56px;
-  padding: 10px 14px;
-  border-bottom: 1px solid #1f2937;
-  background: #111827;
+  gap: 10px;
+  min-height: 50px;
+  padding: 8px 12px 10px;
   overflow-x: auto;
 }
 
 .toolbar-group {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 7px;
   white-space: nowrap;
-  color: #9ca3af;
+  color: var(--muted);
 }
 
 .profile-group {
@@ -59,16 +74,16 @@ select {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  color: #e5e7eb;
+  color: var(--text);
 }
 
 input,
 select {
   min-height: 32px;
-  border: 1px solid #374151;
+  border: 1px solid var(--line);
   border-radius: 6px;
-  color: #e5e7eb;
-  background: #0b1220;
+  color: var(--text);
+  background: var(--bg);
   padding: 4px 8px;
 }
 
@@ -78,7 +93,7 @@ select {
 
 .range-group {
   gap: 0;
-  border: 1px solid #374151;
+  border: 1px solid var(--line);
   border-radius: 6px;
   overflow: hidden;
 }
@@ -92,19 +107,19 @@ select {
   min-height: 30px;
   min-width: 44px;
   border: 0;
-  border-left: 1px solid #374151;
-  color: #d1d5db;
-  background: #0b1220;
+  border-left: 1px solid var(--line);
+  color: var(--text);
+  background: var(--bg);
   cursor: pointer;
 }
 
 .range-button:hover {
-  background: #1f2937;
+  background: var(--panel-2);
 }
 
 .workspace {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 340px;
+  grid-template-columns: minmax(0, 1fr) 320px;
   gap: 0;
   min-height: 0;
 }
@@ -112,80 +127,79 @@ select {
 .chart-column {
   min-width: 0;
   display: grid;
-  grid-template-rows: auto minmax(360px, 1fr) auto;
-  border-right: 1px solid #1f2937;
+  grid-template-rows: auto minmax(420px, 1fr) auto;
+  border-right: 1px solid var(--line);
 }
 
 .chart-title-row {
-  min-height: 48px;
+  min-height: 44px;
   display: flex;
   align-items: baseline;
   gap: 10px;
-  padding: 10px 14px;
-  border-bottom: 1px solid #1f2937;
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--line-soft);
 }
 
 h1,
-h2 {
+h2,
+h3 {
   margin: 0;
   letter-spacing: 0;
 }
 
 h1 {
-  font-size: 22px;
-  color: #f9fafb;
+  font-size: 21px;
+  color: var(--text);
 }
 
 h2 {
   font-size: 13px;
-  color: #f9fafb;
+  color: var(--text);
 }
 
 h3 {
-  margin: 0;
   font-size: 12px;
-  color: #f9fafb;
-  letter-spacing: 0;
+  color: var(--text);
 }
 
 .chart-title-row span {
-  color: #9ca3af;
+  color: var(--muted);
 }
 
 .action-legend {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 7px;
   margin-left: auto;
 }
 
 .legend-item {
-  min-width: 58px;
-  min-height: 24px;
+  min-width: 54px;
+  min-height: 23px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid #374151;
+  border: 1px solid var(--line);
   border-radius: 6px;
-  color: #d1d5db;
-  background: #111827;
+  color: var(--text);
+  background: var(--panel-2);
   font-size: 12px;
   font-weight: 700;
 }
 
 .legend-buy {
-  color: #34d399;
-  border-color: rgba(52, 211, 153, 0.5);
+  color: var(--buy);
+  border-color: color-mix(in srgb, var(--buy) 50%, var(--line));
 }
 
 .legend-sell {
-  color: #f87171;
-  border-color: rgba(248, 113, 113, 0.5);
+  color: var(--sell);
+  border-color: color-mix(in srgb, var(--sell) 50%, var(--line));
 }
 
 .legend-position {
-  color: #38bdf8;
-  border-color: rgba(56, 189, 248, 0.5);
+  color: var(--position);
+  border-color: color-mix(in srgb, var(--position) 50%, var(--line));
 }
 
 .chart {
@@ -194,47 +208,60 @@ h3 {
 }
 
 .chart-main {
-  min-height: 460px;
+  min-height: 520px;
 }
 
 .chart-small {
-  min-height: 180px;
+  min-height: 168px;
 }
 
 .lower-charts {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  border-top: 1px solid #1f2937;
+  grid-template-columns: 0.85fr 1.15fr;
+  border-top: 1px solid var(--line);
 }
 
 .lower-charts section {
   min-width: 0;
-  border-right: 1px solid #1f2937;
+  border-right: 1px solid var(--line);
+}
+
+.lower-charts section:last-child {
+  border-right: 0;
 }
 
 .lower-charts h2 {
-  padding: 8px 10px;
-  border-bottom: 1px solid #1f2937;
+  padding: 7px 10px;
+  border-bottom: 1px solid var(--line-soft);
 }
 
 .side-panel,
-.panel {
-  padding: 12px;
-  background: #0f172a;
+.panel,
+.source-panel {
+  background: var(--panel);
 }
 
 .side-panel {
   min-width: 0;
   overflow: auto;
+  padding: 12px;
 }
 
 .panel {
-  border-top: 1px solid #1f2937;
+  border-top: 1px solid var(--line);
+}
+
+.compact-panel {
+  padding: 8px 12px 0;
+}
+
+.source-panel h2 {
+  display: none;
 }
 
 .inspector-list {
   display: grid;
-  gap: 6px;
+  gap: 5px;
   margin-top: 10px;
 }
 
@@ -242,65 +269,92 @@ h3 {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 8px;
-  margin-top: 10px;
 }
 
 .inspector-row,
 .source-row,
 .status-pill {
   display: grid;
-  grid-template-columns: minmax(110px, 0.7fr) minmax(0, 1.3fr);
-  gap: 10px;
-  min-height: 28px;
+  grid-template-columns: minmax(96px, 0.7fr) minmax(0, 1.3fr);
+  gap: 9px;
+  min-height: 27px;
   align-items: center;
-  border-bottom: 1px solid rgba(55, 65, 81, 0.7);
+  border-bottom: 1px solid rgba(52, 49, 39, 0.8);
 }
 
 .status-pill {
   grid-template-columns: 1fr;
-  gap: 3px;
-  min-height: 58px;
-  padding: 8px 10px;
-  border: 1px solid #1f2937;
+  gap: 2px;
+  min-height: 46px;
+  padding: 7px 9px;
+  border: 1px solid var(--line);
   border-radius: 6px;
-  background: #111827;
+  background: var(--panel-2);
 }
 
 .inspector-label,
 .source-label {
-  color: #9ca3af;
+  color: var(--muted);
   min-width: 0;
   overflow-wrap: anywhere;
 }
 
 .inspector-value,
 .source-value {
-  color: #e5e7eb;
+  color: var(--text);
   min-width: 0;
   overflow-wrap: anywhere;
 }
 
 [data-tone="buy"] .inspector-value {
-  color: #34d399;
+  color: var(--buy);
 }
 
 [data-tone="sell"] .inspector-value {
-  color: #f87171;
+  color: var(--sell);
 }
 
 [data-tone="warning"] .inspector-value {
-  color: #f59e0b;
+  color: var(--warn);
+}
+
+.source-diagnostics {
+  margin-top: 8px;
+  color: var(--muted);
+}
+
+.source-diagnostics summary,
+.comparison-shell > summary,
+.comparison-diagnostics > summary {
+  min-height: 30px;
+  cursor: pointer;
+  color: var(--text);
+  font-weight: 700;
+}
+
+.comparison-shell {
+  padding: 0;
+  background: var(--panel);
+}
+
+.comparison-shell > summary {
+  padding: 11px 14px;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+#comparison-panel {
+  padding: 12px;
 }
 
 .comparison-summary {
   margin-top: 8px;
-  color: #9ca3af;
+  color: var(--muted);
   overflow-wrap: anywhere;
 }
 
 .comparison-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
   gap: 8px;
   margin-top: 10px;
 }
@@ -310,21 +364,21 @@ h3 {
   display: grid;
   grid-template-columns: 1fr auto;
   gap: 4px 10px;
-  padding: 10px;
-  border: 1px solid #1f2937;
+  padding: 9px 10px;
+  border: 1px solid var(--line);
   border-radius: 6px;
-  background: #111827;
+  background: var(--panel-2);
 }
 
 .comparison-card-title {
   grid-column: 1 / -1;
-  color: #f9fafb;
+  color: var(--text);
   font-weight: 700;
   overflow-wrap: anywhere;
 }
 
 .metric-label {
-  color: #9ca3af;
+  color: var(--muted);
 }
 
 .table-scroll {
@@ -342,31 +396,31 @@ h3 {
 .comparison-table td {
   text-align: left;
   padding: 8px;
-  border-bottom: 1px solid #1f2937;
+  border-bottom: 1px solid var(--line);
 }
 
 .comparison-table th {
-  color: #9ca3af;
+  color: var(--muted);
   font-weight: 600;
 }
 
 .mismatch-section {
-  margin-top: 14px;
+  margin-top: 12px;
 }
 
 .mismatch-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(420px, 100%), 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(360px, 100%), 1fr));
   gap: 8px;
   margin-top: 8px;
 }
 
 .mismatch-row {
   min-width: 0;
-  padding: 9px 10px;
-  border: 1px solid #1f2937;
+  padding: 8px 9px;
+  border: 1px solid var(--line);
   border-radius: 6px;
-  background: #111827;
+  background: var(--panel-2);
 }
 
 .mismatch-row-header {
@@ -379,16 +433,16 @@ h3 {
 .mismatch-date-button {
   min-height: 26px;
   min-width: 94px;
-  border: 1px solid #374151;
+  border: 1px solid var(--line);
   border-radius: 5px;
-  color: #e5e7eb;
-  background: #0b1220;
+  color: var(--text);
+  background: var(--bg);
   cursor: pointer;
   white-space: nowrap;
 }
 
 .mismatch-date-button:hover {
-  border-color: #38bdf8;
+  border-color: var(--accent);
 }
 
 .mismatch-profile,
@@ -401,13 +455,13 @@ h3 {
 }
 
 .mismatch-profile {
-  color: #9ca3af;
+  color: var(--muted);
   flex: 1 1 auto;
 }
 
 .mismatch-actions {
   margin-left: auto;
-  color: #f59e0b;
+  color: var(--warn);
   font-weight: 700;
 }
 
@@ -415,24 +469,24 @@ h3 {
 .mismatch-features,
 .empty-note {
   margin-top: 6px;
-  color: #9ca3af;
+  color: var(--muted);
   font-size: 12px;
   line-height: 1.45;
 }
 
 .warning-list {
-  margin: 10px 0 0;
+  margin: 8px 0 0;
   padding-left: 18px;
-  color: #f59e0b;
+  color: var(--warn);
 }
 
 .load-error {
   margin: 24px;
   padding: 16px;
-  border: 1px solid #7f1d1d;
+  border: 1px solid #7f2a24;
   border-radius: 6px;
-  color: #fecaca;
-  background: #450a0a;
+  color: #ffd2ca;
+  background: #3a1110;
   white-space: pre-wrap;
 }
 
@@ -459,6 +513,10 @@ h3 {
   .toolbar select,
   .toolbar input[type="date"] {
     max-width: 100%;
+  }
+
+  .status-strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .workspace {
@@ -488,10 +546,6 @@ h3 {
     gap: 2px;
     align-items: start;
     padding: 4px 0;
-  }
-
-  .status-strip {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .comparison-table {

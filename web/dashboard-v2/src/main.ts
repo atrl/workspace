@@ -40,12 +40,15 @@ function requireElement(id: string): HTMLElement {
 
 function createShell(app: HTMLElement): void {
   app.innerHTML = `
-    <header id="toolbar" class="toolbar"></header>
+    <header class="topbar">
+      <section id="source-panel" class="source-panel compact-panel" aria-live="polite"></section>
+      <nav id="toolbar" class="toolbar" aria-label="Dashboard controls"></nav>
+    </header>
     <main id="workspace" class="workspace">
       <section class="chart-column">
         <div class="chart-title-row">
           <h1>SOXL</h1>
-          <span>TradingView-like replay review</span>
+          <span>K-line replay with model position overlay</span>
           <div id="action-legend" class="action-legend"></div>
         </div>
         <div id="market-chart" class="chart chart-main"></div>
@@ -62,8 +65,10 @@ function createShell(app: HTMLElement): void {
       </section>
       <aside id="inspector" class="side-panel"></aside>
     </main>
-    <section id="comparison-panel" class="panel"></section>
-    <section id="source-panel" class="panel"></section>
+    <details class="panel comparison-shell">
+      <summary>Model comparison and buy/sell feature differences</summary>
+      <section id="comparison-panel"></section>
+    </details>
   `;
 }
 
