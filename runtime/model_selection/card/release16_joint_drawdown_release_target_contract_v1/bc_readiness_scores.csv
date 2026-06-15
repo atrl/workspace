@@ -1,0 +1,3 @@
+profile,samples,unique_actions,dominant_action_share,action_entropy,sample_gate,label_distribution_gate,fold_local_scope_gate,bc_readiness_gate,bc_readiness_loss,target_scope
+aux_state_head_joint,3731,7,0.3042079871348164,1.442525319755179,True,True,True,True,0.0,fold_local
+strict_joint,3731,6,0.4462610560171536,1.1441577391546636,True,True,True,True,0.0,fold_local

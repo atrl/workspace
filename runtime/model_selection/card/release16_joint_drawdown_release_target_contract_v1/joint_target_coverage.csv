@@ -1,0 +1,7 @@
+fold,rows,release_gate_rows,aux_state_head_release_rows,state_head_target_rows,rebound_rows,downtrend_rows,drawdown_control_rows,effective_target_min,effective_target_max,effective_target_mean,contract_variant,release_or_aux_rows,drawdown_coverage_gate,release_coverage_gate,coverage_gate
+wf_2020_train,2470,42,0,1058,1093,970,976,0.052,0.9151,0.37476473684210526,strict_joint,1100,True,True,True
+wf_2022_train,505,9,0,0,13,236,25,0.0475882394168108,1.0,0.19709964074774597,strict_joint,9,True,False,False
+wf_2023_2024_train,756,11,0,257,266,480,35,0.0337945275690332,1.0,0.2701332914960999,strict_joint,268,True,True,True
+wf_2020_train,2470,42,0,1058,1093,970,976,0.052,0.9151,0.37476473684210526,aux_state_head_joint,1100,True,True,True
+wf_2022_train,505,9,338,0,346,236,25,0.0475882394168108,1.0,0.3305536515547325,aux_state_head_joint,347,True,True,True
+wf_2023_2024_train,756,11,455,257,464,480,35,0.0337945275690332,1.0,0.29206761702915857,aux_state_head_joint,723,True,True,True

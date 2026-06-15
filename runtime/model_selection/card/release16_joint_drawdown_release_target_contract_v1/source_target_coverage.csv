@@ -1,0 +1,4 @@
+fold,rows,start,end,release_gate_rows,state_head_target_rows,rebound_rows,downtrend_rows,drawdown_control_rows,max_objective_weight,release_or_state_head_rows
+wf_2020_train,2470,2010-03-11,2019-12-31,42,1058,1093,781,781,25.0,1100
+wf_2022_train,505,2020-01-02,2021-12-31,9,0,13,234,0,25.0,9
+wf_2023_2024_train,756,2020-01-02,2022-12-30,11,257,266,478,0,19.64821889723867,268

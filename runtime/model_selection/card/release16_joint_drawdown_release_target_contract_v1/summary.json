@@ -1,0 +1,155 @@
+{
+  "actor_retention_allowed": false,
+  "affected_folds": [
+    "wf_2022_train",
+    "wf_2023_2024_train"
+  ],
+  "aux_state_head_joint_gate": {
+    "affected_fold_coverage": [
+      {
+        "coverage_gate": true,
+        "drawdown_control_rows": 25,
+        "fold": "wf_2022_train",
+        "release_or_aux_rows": 347
+      },
+      {
+        "coverage_gate": true,
+        "drawdown_control_rows": 35,
+        "fold": "wf_2023_2024_train",
+        "release_or_aux_rows": 723
+      }
+    ],
+    "bc_readiness_gate": true,
+    "contract_variant": "aux_state_head_joint",
+    "coverage_gate": true,
+    "lift_gate": true,
+    "scope_gate": true,
+    "target_contract_gate": true
+  },
+  "bc_readiness_gate": true,
+  "bc_screen_allowed_next": true,
+  "bc_summary": {
+    "decision": "state_objective_bc_ready_for_training",
+    "next_mechanism": "run_fold_local_bc_warm_start_then_walkforward_ppo",
+    "selected_bc_readiness_gate": true,
+    "selected_bc_readiness_loss": 0.0,
+    "selected_dominant_action_share": 0.3042079871348164,
+    "selected_fold_local_scope_gate": true,
+    "selected_label_distribution_gate": true,
+    "selected_profile": "aux_state_head_joint",
+    "selected_samples": 3731,
+    "selected_target_scope": "fold_local",
+    "selected_unique_actions": 7
+  },
+  "bc_warm_start_screen_allowed_next": true,
+  "canonical_baseline": "v19reg_v22_budget_usage_bull_guard_v1",
+  "changed_layer": [
+    "target",
+    "model_selection",
+    "bc_warm_start"
+  ],
+  "created_at": "2026-06-15T02:12:57.212020+00:00",
+  "decision": "release16_joint_drawdown_aux_state_head_target_contract_ready_for_bc_screen_no_promotion",
+  "direct_comparison_baseline": "release16_nonconvex_checkpoint_bc_official_replay_v1",
+  "experiment": "release16_joint_drawdown_release_target_contract_v1",
+  "guard_fold_note": "wf_2022_train strict state-head rows remain zero by source guard semantics; aux_state_head_joint is a diagnostic target-revision candidate, not promotion evidence.",
+  "min_sparse_rows": 20,
+  "next_mechanism": "run_release16_joint_drawdown_aux_state_head_bc_holdout_slice_screen_official_replay",
+  "next_training_allowed_after_target_revision": true,
+  "ppo_allowed_next": false,
+  "primary_blocker": "target_revision_ready",
+  "promotion_allowed": false,
+  "reference_baseline": "soxlbacktest_qlib_buysell_reference",
+  "repair_requirements": [
+    {
+      "affected_folds": "wf_2022,wf_2023_2024",
+      "allowed_next": "target_contract_screen",
+      "evidence": "drawdown_control_state has 0 target rows in both folds while official MaxDD remains above target in wf_2023_2024 and near target in wf_2022",
+      "ppo_allowed": false,
+      "repair_area": "drawdown_control_target_coverage",
+      "required_next_step": "build_fold_local_drawdown_control_rows_from_train-only drawdown intervals and merge into a joint target contract"
+    },
+    {
+      "affected_folds": "wf_2022,wf_2023_2024",
+      "allowed_next": "representation_or_target_semantics_screen",
+      "evidence": "release_gate_state rows are 9/11 in the source contract and selected BC slice samples are 8/11, below the 20-row gate",
+      "ppo_allowed": false,
+      "repair_area": "release_rebound_sparse_labels",
+      "required_next_step": "use auxiliary release/rebound state head or fold-local target enrichment before another BC warm-start replay"
+    },
+    {
+      "affected_folds": "wf_2022",
+      "allowed_next": "bc_slice_gate_contract_fix",
+      "evidence": "failedfold_state_head_target_state has 0 rows because wf_2022 was the guard fold; this should be audited as source-scope coverage, not treated as a learned-slice failure by itself",
+      "ppo_allowed": false,
+      "repair_area": "guard_fold_state_head_gate_semantics",
+      "required_next_step": "make slice-gate requirements conditional on source target scope while retaining release/rebound/high-participation gates"
+    },
+    {
+      "affected_folds": "wf_2022,wf_2023_2024",
+      "allowed_next": "bc_training_objective_screen",
+      "evidence": "selected candidates collapse several sparse slices to one dominant predicted action even when feature separability is available",
+      "ppo_allowed": false,
+      "repair_area": "action_head_mapping",
+      "required_next_step": "add state-conditioned sampling/loss or auxiliary state/action head and require holdout sparse-slice action accuracy"
+    },
+    {
+      "affected_folds": "wf_2020",
+      "allowed_next": "checkpoint_or_reward_objective_screen",
+      "evidence": "slice gate passes, but official relative return is -40.58pp and MaxDD is 35.85%; this is path risk/trend capture, not sparse-slice coverage",
+      "ppo_allowed": false,
+      "repair_area": "wf_2020_path_risk",
+      "required_next_step": "pair any slice repair with drawdown-drift/checkpoint objective; do not evaluate PPO on slice readiness alone"
+    }
+  ],
+  "retained_training_allowed": false,
+  "role": "diagnose",
+  "selected_contract_variant": "aux_state_head_joint",
+  "sidecars": [
+    "source_target_coverage.csv",
+    "drawdown_control_intervals.csv",
+    "drawdown_control_training_targets.csv",
+    "strict_joint_target_contract.csv",
+    "aux_state_head_release_targets.csv",
+    "joint_auxiliary_targets.csv",
+    "joint_target_contract.csv",
+    "joint_target_coverage.csv",
+    "target_scope_audit.csv",
+    "target_lift_audit.csv",
+    "target_audit_summary.csv",
+    "bc_label_distribution.csv",
+    "bc_readiness_scores.csv",
+    "repair_delta_vs_source.csv",
+    "selection.json",
+    "summary.json",
+    "conclusion.md"
+  ],
+  "source_card": "release16_sparse_slice_fit_root_cause_v1",
+  "source_sparse_decision": "release16_sparse_slice_target_repair_required_no_training_no_promotion",
+  "source_target_contract": "release16_failedfold_state_head_target_recipe_v1",
+  "strict_joint_gate": {
+    "affected_fold_coverage": [
+      {
+        "coverage_gate": false,
+        "drawdown_control_rows": 25,
+        "fold": "wf_2022_train",
+        "release_or_aux_rows": 9
+      },
+      {
+        "coverage_gate": true,
+        "drawdown_control_rows": 35,
+        "fold": "wf_2023_2024_train",
+        "release_or_aux_rows": 268
+      }
+    ],
+    "bc_readiness_gate": true,
+    "contract_variant": "strict_joint",
+    "coverage_gate": false,
+    "lift_gate": true,
+    "scope_gate": true,
+    "target_contract_gate": false
+  },
+  "target_contract_gate": true,
+  "target_max_dd_pct": 20.0,
+  "training_allowed_from_this_card": false
+}
