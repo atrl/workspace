@@ -66,7 +66,7 @@ function createShell(app: HTMLElement): void {
             <div id="position-chart" class="chart chart-small"></div>
           </section>
           <section>
-            <h2>NAV</h2>
+            <h2>Rebased NAV</h2>
             <div id="nav-chart" class="chart chart-small"></div>
           </section>
         </div>

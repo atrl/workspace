@@ -179,6 +179,9 @@ describe('dashboard v2 domain helpers', () => {
       comparison: comparisonFixture,
     });
     expect(rows.some((row) => row.label === 'SOXL close' && row.value === '11.00')).toBe(true);
+    expect(rows.some((row) => row.label === 'SOXL open' && row.value === '10.20')).toBe(true);
+    expect(rows.some((row) => row.label === 'SOXL high' && row.value === '11.50')).toBe(true);
+    expect(rows.some((row) => row.label === 'SOXL low' && row.value === '10.10')).toBe(true);
     expect(rows.some((row) => row.label === 'smoke action' && row.value === 'BUY')).toBe(true);
     expect(rows.some((row) => row.label === 'action mismatches' && row.value === '1')).toBe(true);
   });

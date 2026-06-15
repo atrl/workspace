@@ -64,6 +64,21 @@ export function renderDataSourcePanel(container: HTMLElement, manifest: Manifest
     strip.appendChild(item);
   }
   container.appendChild(strip);
+  const profileSummaries = manifest.profile_summaries ?? {};
+  const freshnessRows = manifest.default_comparison_profiles
+    .map((profile) => [profile, profileSummaries[profile]?.replay_end] as const)
+    .filter(([, replayEnd]) => replayEnd);
+  if (freshnessRows.length > 0) {
+    const freshness = element('div', 'freshness-strip');
+    freshness.appendChild(element('span', 'source-label', 'Model dates'));
+    for (const [profile, replayEnd] of freshnessRows) {
+      const item = element('span', 'freshness-pill');
+      item.appendChild(element('span', 'freshness-name', formatProfileLabel(profile)));
+      item.appendChild(element('span', 'freshness-date', String(replayEnd)));
+      freshness.appendChild(item);
+    }
+    container.appendChild(freshness);
+  }
   const gate = manifest.strict_retention_gate;
   const gateWarnings = gate
     ? [
@@ -151,7 +166,7 @@ export function renderComparisonPanel(
     const values = last?.profiles[profile];
     const card = element('article', 'comparison-card');
     card.appendChild(element('div', 'comparison-card-title', formatProfileLabel(profile)));
-    card.appendChild(element('span', 'metric-label', 'NAV delta'));
+    card.appendChild(element('span', 'metric-label', 'Rebased NAV delta'));
     card.appendChild(element('strong', undefined, values ? values.nav_delta_vs_baseline.toFixed(2) : 'n/a'));
     card.appendChild(element('span', 'metric-label', 'Position delta'));
     card.appendChild(element('strong', undefined, values ? values.position_delta_vs_baseline.toFixed(3) : 'n/a'));

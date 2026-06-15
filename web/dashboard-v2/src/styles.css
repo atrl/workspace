@@ -126,8 +126,8 @@ select {
 
 .chart-column {
   min-width: 0;
-  display: grid;
-  grid-template-rows: auto minmax(500px, 1fr) auto;
+  display: flex;
+  flex-direction: column;
   border-right: 1px solid var(--line);
 }
 
@@ -208,14 +208,18 @@ h3 {
 }
 
 .chart-main {
-  min-height: 580px;
+  flex: 0 0 auto;
+  height: clamp(340px, 48vh, 520px);
+  min-height: 340px;
 }
 
 .chart-small {
-  min-height: 168px;
+  height: 160px;
+  min-height: 160px;
 }
 
 .lower-charts {
+  flex: 0 0 auto;
   display: grid;
   grid-template-columns: 0.85fr 1.15fr;
   border-top: 1px solid var(--line);
@@ -284,6 +288,35 @@ h3 {
   align-items: center;
   flex-wrap: wrap;
   gap: 6px 14px;
+}
+
+.freshness-strip {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 6px;
+  color: var(--muted);
+}
+
+.freshness-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 24px;
+  padding: 0 7px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--bg);
+}
+
+.freshness-name {
+  color: var(--text);
+  font-weight: 700;
+}
+
+.freshness-date {
+  color: var(--muted);
 }
 
 .inspector-row,

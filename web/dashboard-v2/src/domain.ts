@@ -278,6 +278,9 @@ export function computeInspectorRows(input: {
   ];
 
   if (marketRow) {
+    rows.push({ label: 'SOXL open', value: formatNumber(Number(marketRow.open)) });
+    rows.push({ label: 'SOXL high', value: formatNumber(Number(marketRow.high)) });
+    rows.push({ label: 'SOXL low', value: formatNumber(Number(marketRow.low)) });
     rows.push({ label: 'SOXL close', value: formatNumber(Number(marketRow.close)) });
     rows.push({ label: 'volume', value: formatNumber(Number(marketRow.volume), 0), tone: 'muted' });
     for (const key of ['vix', 'rsi', 'rsi6', 'volatility', 'spread', 'vix_zscore', 'panic_score']) {

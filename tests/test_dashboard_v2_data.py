@@ -1013,3 +1013,29 @@ def test_build_comparison_payload_reports_action_mismatches_against_baseline():
     assert payload["rows"][1]["profiles"]["challenger"]["nav_delta_vs_baseline"] == -2.0
     assert payload["rows"][1]["profiles"]["challenger"]["action_mismatch"] is True
     assert payload["rows"][1]["action_mismatch_count"] == 1
+
+
+def test_build_comparison_payload_rebases_nav_delta_to_common_window_start():
+    baseline_rows = [
+        {"date": "2026-01-02", "strategy_nav": 100.0, "position": 0.0, "action": "HOLD"},
+        {"date": "2026-01-05", "strategy_nav": 105.0, "position": 0.2, "action": "BUY"},
+    ]
+    actor_rows = [
+        {"date": "2020-01-02", "strategy_nav": 100000.0, "position": 0.0, "action": "HOLD"},
+        {"date": "2026-01-02", "strategy_nav": 1000000.0, "position": 0.0, "action": "HOLD"},
+        {"date": "2026-01-05", "strategy_nav": 1100000.0, "position": 0.7, "action": "BUY"},
+    ]
+
+    payload = build_comparison_payload(
+        {
+            "baseline": {"rows": baseline_rows},
+            "actor": {"rows": actor_rows},
+        },
+        baseline_profile="baseline",
+        compared_profiles=["baseline", "actor"],
+    )
+
+    actor = payload["rows"][1]["profiles"]["actor"]
+    assert actor["strategy_nav_rebased"] == pytest.approx(110.0)
+    assert actor["nav_delta_vs_baseline"] == pytest.approx(5.0)
+    assert actor["position_delta_vs_baseline"] == pytest.approx(0.5)

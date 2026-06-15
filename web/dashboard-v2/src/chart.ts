@@ -122,10 +122,16 @@ export function renderMarketChart(
     autoSize: true,
     layout: { background: { color: '#15171a' }, textColor: '#edf0f3' },
     grid: { vertLines: { color: '#23272c' }, horzLines: { color: '#23272c' } },
-    leftPriceScale: { visible: true, borderColor: '#30343a' },
+    leftPriceScale: { visible: false, borderColor: '#30343a' },
     rightPriceScale: { borderColor: '#30343a' },
     timeScale: { borderColor: '#30343a', timeVisible: false },
     crosshair: { mode: 1 },
+  });
+  chart.priceScale('right').applyOptions({
+    scaleMargins: { top: 0.05, bottom: 0.3 },
+  });
+  chart.priceScale('left').applyOptions({
+    scaleMargins: { top: 0.76, bottom: 0.05 },
   });
   const candleSeries = chart.addSeries(CandlestickSeries, {
     upColor: '#1fb981',
@@ -156,8 +162,9 @@ export function renderMarketChart(
     color: MODEL_COLORS[primaryIndex % MODEL_COLORS.length],
     lineWidth: 2,
     priceScaleId: 'left',
-    priceLineVisible: true,
-    title: `${formatProfileLabel(model.profile)} Position`,
+    priceLineVisible: false,
+    lastValueVisible: false,
+    title: '',
   });
   positionLine.setData(model.rows.map((row) => ({ time: toTime(row.date), value: row.position })));
   createSeriesMarkers(
@@ -224,6 +231,14 @@ export function renderPositionChart(
   };
 }
 
+function rebasedNavData(rows: ModelPayload['rows']): { time: Time; value: number }[] {
+  const first = rows.find((row) => Number.isFinite(row.strategy_nav) && row.strategy_nav !== 0)?.strategy_nav;
+  return rows.map((row) => ({
+    time: toTime(row.date),
+    value: first ? Number(((row.strategy_nav / first) * 100).toFixed(6)) : row.strategy_nav,
+  }));
+}
+
 export function renderNavChart(container: HTMLElement, models: Record<string, ModelPayload>): ChartHandles {
   replaceChart(container);
   const chart = createChart(container, {
@@ -241,7 +256,7 @@ export function renderNavChart(container: HTMLElement, models: Record<string, Mo
       lineWidth: 2,
       title: formatProfileLabel(profile),
     });
-    series.setData(model.rows.map((row) => ({ time: toTime(row.date), value: row.strategy_nav })));
+    series.setData(rebasedNavData(model.rows));
     if (!primarySeries) {
       primarySeries = series;
       primaryRows = model.rows;
@@ -255,6 +270,6 @@ export function renderNavChart(container: HTMLElement, models: Record<string, Mo
   return {
     chart,
     primarySeries,
-    valueByTime: new Map(primaryRows.map((row) => [row.date, row.strategy_nav])),
+    valueByTime: new Map(rebasedNavData(primaryRows).map((row) => [String(row.time), row.value])),
   };
 }

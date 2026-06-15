@@ -1,0 +1,27 @@
+{
+  "card": "dashboard_v2_readability_v1",
+  "generated_at": "2026-06-15T16:00:00+00:00",
+  "root_cause": "Dashboard V2 compared raw cumulative actor NAV from 2020 against a 2026 YTD SOXLBacktest reference, which made nav_delta_vs_baseline unreadable and hid model differences.",
+  "changes": [
+    "Comparison payload now keeps raw strategy_nav but adds strategy_nav_rebased and computes nav_delta_vs_baseline from the common-window start.",
+    "The frontend NAV chart rebases each visible model line to the visible window start.",
+    "Data Status now shows default model replay_end dates directly.",
+    "The main K-line keeps the selected model position overlay in a separate hidden-scale band and exposes OHLC in the inspector.",
+    "The first viewport now shows Position and Rebased NAV comparison charts below the K-line."
+  ],
+  "data_readout": {
+    "latest_market_date": "2026-06-12",
+    "safe_backtest_end": "2026-06-11",
+    "baseline_profile": "soxl_backtest_policy_reimplementation_v1",
+    "baseline_replay_end": "2026-06-12",
+    "actor_replay_end": "2026-06-11",
+    "comparison_common_end": "2026-06-11"
+  },
+  "verification": [
+    "PYTHONPATH=. qlib_venv/bin/python -m pytest tests/test_dashboard_v2_data.py tests/test_dashboard_v2_checker.py -q",
+    "cd web/dashboard-v2 && npm test && npm run build",
+    "PYTHONPATH=. qlib_venv/bin/python scripts/check_dashboard_v2_data.py dashboard_data/v2",
+    "git diff --check -- src/soxl_quant/app/dashboard_v2.py tests/test_dashboard_v2_data.py web/dashboard-v2/src/chart.test.ts web/dashboard-v2/src/chart.ts web/dashboard-v2/src/domain.test.ts web/dashboard-v2/src/domain.ts web/dashboard-v2/src/render.test.ts web/dashboard-v2/src/render.ts web/dashboard-v2/src/main.ts web/dashboard-v2/src/styles.css web/dashboard-v2/src/types.ts dashboard_data/v2/comparison/default.json dashboard_data/v2/manifest.json runtime/production/card/dashboard_v2_readability_v1"
+  ],
+  "visual_evidence": "runtime/production/card/dashboard_v2_readability_v1/kimi_dashboard_v2_readability_final_clean.png"
+}

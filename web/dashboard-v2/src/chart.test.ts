@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, test, vi } from 'vitest';
-import { renderMarketChart, renderPositionChart, syncCrosshairPositions, syncVisibleTimeRanges } from './chart';
+import { renderMarketChart, renderNavChart, renderPositionChart, syncCrosshairPositions, syncVisibleTimeRanges } from './chart';
 import { marketFixture, modelFixture } from './testFixtures';
 
 const chartMocks = vi.hoisted(() => {
@@ -9,11 +9,13 @@ const chartMocks = vi.hoisted(() => {
     remove: ReturnType<typeof vi.fn>;
     clearCrosshairPosition: ReturnType<typeof vi.fn>;
     setCrosshairPosition: ReturnType<typeof vi.fn>;
+    priceScale: ReturnType<typeof vi.fn>;
     subscribeClick: ReturnType<typeof vi.fn>;
     subscribeCrosshairMove: ReturnType<typeof vi.fn>;
     unsubscribeCrosshairMove: ReturnType<typeof vi.fn>;
     timeScaleApi: { fitContent: ReturnType<typeof vi.fn> };
   }[] = [];
+  const priceScaleRecords: { id: string; applyOptions: ReturnType<typeof vi.fn> }[] = [];
   const addSeries = vi.fn((kind: string, options: Record<string, unknown> = {}) => {
     const record = { kind, options, data: [] as unknown[] };
     seriesRecords.push(record);
@@ -31,6 +33,11 @@ const chartMocks = vi.hoisted(() => {
         remove: vi.fn(),
         clearCrosshairPosition: vi.fn(),
         setCrosshairPosition: vi.fn(),
+        priceScale: vi.fn((id: string) => {
+          const record = { id, applyOptions: vi.fn() };
+          priceScaleRecords.push(record);
+          return { applyOptions: record.applyOptions };
+        }),
         subscribeClick: vi.fn(),
         subscribeCrosshairMove: vi.fn(),
         unsubscribeCrosshairMove: vi.fn(),
@@ -42,6 +49,7 @@ const chartMocks = vi.hoisted(() => {
     createSeriesMarkers: vi.fn(),
     seriesRecords,
     chartRecords,
+    priceScaleRecords,
   };
 });
 
@@ -59,6 +67,7 @@ describe('dashboard v2 chart rendering', () => {
     chartMocks.createSeriesMarkers.mockClear();
     chartMocks.seriesRecords.length = 0;
     chartMocks.chartRecords.length = 0;
+    chartMocks.priceScaleRecords.length = 0;
   });
 
   test('renders candles with SOXL close and position overlays on the main chart', () => {
@@ -80,11 +89,27 @@ describe('dashboard v2 chart rendering', () => {
     expect(chartMocks.seriesRecords[2].options).toMatchObject({
       priceScaleId: 'left',
       lineWidth: 2,
-      title: 'BRR v22 Position',
+      priceLineVisible: false,
+      lastValueVisible: false,
+      title: '',
     });
     expect(chartMocks.seriesRecords[2].data).toEqual(
       challenger.rows.map((row) => ({ time: row.date, value: row.position })),
     );
+  });
+
+  test('separates price candles and position overlay into readable vertical bands', () => {
+    const container = document.createElement('div');
+
+    renderMarketChart(container, marketFixture, modelFixture, { smoke: modelFixture }, () => {});
+
+    expect(chartMocks.priceScaleRecords.map((record) => record.id)).toEqual(['right', 'left']);
+    expect(chartMocks.priceScaleRecords[0].applyOptions).toHaveBeenCalledWith({
+      scaleMargins: { top: 0.05, bottom: 0.3 },
+    });
+    expect(chartMocks.priceScaleRecords[1].applyOptions).toHaveBeenCalledWith({
+      scaleMargins: { top: 0.76, bottom: 0.05 },
+    });
   });
 
   test('renders multiple position model lines in the position pane', () => {
@@ -95,6 +120,45 @@ describe('dashboard v2 chart rendering', () => {
 
     expect(chartMocks.seriesRecords.map((record) => record.options.title)).toEqual(['smoke', 'BRR v22']);
     expect(chartMocks.seriesRecords[1].options).toMatchObject({ lineWidth: 2 });
+  });
+
+  test('rebases NAV lines to the visible window start for readable model comparison', () => {
+    const container = document.createElement('div');
+    const reference = {
+      ...modelFixture,
+      profile: 'soxl_backtest_policy_reimplementation_v1',
+      status: 'reference',
+      rows: [
+        { ...modelFixture.rows[0], strategy_nav: 100 },
+        { ...modelFixture.rows[1], strategy_nav: 105 },
+        { ...modelFixture.rows[2], strategy_nav: 103 },
+      ],
+    };
+    const actor = {
+      ...modelFixture,
+      profile: 'balanced_rule_residual_v22',
+      rows: [
+        { ...modelFixture.rows[0], strategy_nav: 1000000 },
+        { ...modelFixture.rows[1], strategy_nav: 1100000 },
+        { ...modelFixture.rows[2], strategy_nav: 1070000 },
+      ],
+    };
+
+    renderNavChart(container, {
+      soxl_backtest_policy_reimplementation_v1: reference,
+      balanced_rule_residual_v22: actor,
+    });
+
+    expect(chartMocks.seriesRecords[0].data).toEqual([
+      { time: '2026-01-02', value: 100 },
+      { time: '2026-01-05', value: 105 },
+      { time: '2026-01-06', value: 103 },
+    ]);
+    expect(chartMocks.seriesRecords[1].data).toEqual([
+      { time: '2026-01-02', value: 100 },
+      { time: '2026-01-05', value: 110 },
+      { time: '2026-01-06', value: 107 },
+    ]);
   });
 
   test('disposes an old chart before rendering a replacement in the same container', () => {

@@ -509,6 +509,12 @@ def compute_metrics(rows: list[dict[str, Any]]) -> dict[str, float]:
     }
 
 
+def _rebase_nav(value: float, start_value: float) -> float:
+    if start_value == 0:
+        return value
+    return value / start_value * 100.0
+
+
 def build_comparison_payload(
     model_payloads: dict[str, dict[str, Any]],
     *,
@@ -533,9 +539,14 @@ def build_comparison_payload(
         profile: float(by_profile[profile][common_dates[0]]["strategy_nav"])
         for profile in profiles
     }
+    start_navs: dict[str, float] = {
+        profile: float(by_profile[profile][common_dates[0]]["strategy_nav"])
+        for profile in profiles
+    }
     for date in common_dates:
         baseline_row = baseline_rows[date]
         baseline_nav = float(baseline_row["strategy_nav"])
+        baseline_nav_rebased = _rebase_nav(baseline_nav, start_navs[baseline_profile])
         running_peaks[baseline_profile] = max(running_peaks[baseline_profile], baseline_nav)
         running_drawdowns[baseline_profile] = baseline_nav / running_peaks[baseline_profile] - 1.0
         action_mismatch_count = 0
@@ -543,15 +554,17 @@ def build_comparison_payload(
         for profile in profiles:
             row = by_profile[profile][date]
             nav = float(row["strategy_nav"])
+            nav_rebased = _rebase_nav(nav, start_navs[profile])
             running_peaks[profile] = max(running_peaks[profile], nav)
             running_drawdowns[profile] = nav / running_peaks[profile] - 1.0
             action_mismatch = row["action"] != baseline_row["action"]
             action_mismatch_count += int(action_mismatch)
             profile_values[profile] = {
                 "strategy_nav": nav,
+                "strategy_nav_rebased": nav_rebased,
                 "position": row["position"],
                 "action": row["action"],
-                "nav_delta_vs_baseline": nav - baseline_nav,
+                "nav_delta_vs_baseline": nav_rebased - baseline_nav_rebased,
                 "position_delta_vs_baseline": row["position"] - baseline_row["position"],
                 "action_mismatch": action_mismatch,
                 "drawdown_delta_vs_baseline": running_drawdowns[profile] - running_drawdowns[baseline_profile],

@@ -125,6 +125,7 @@ export interface MarketPayload {
 
 export interface ComparisonProfileValue {
   strategy_nav: number;
+  strategy_nav_rebased?: number;
   position: number;
   action: Action;
   nav_delta_vs_baseline: number;
