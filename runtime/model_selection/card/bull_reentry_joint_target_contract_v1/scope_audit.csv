@@ -1,0 +1,2 @@
+window,target_scope,target_fold,fold,rows,train_overlap_rows,eval_overlap_rows,outside_train_eval_rows,leakage_gate,scope_issue,train_start,train_end,eval_start,eval_end
+wf_2020_train,fold_local,wf_2020_train,wf_2020_train,3,3,0,0,True,,2020-01-01,2020-12-31,2022-01-01,2022-12-31

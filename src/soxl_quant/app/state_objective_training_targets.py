@@ -1954,6 +1954,17 @@ def _collapse_joint_target_rows(group: pd.DataFrame, *, date_col: str) -> dict[s
 
     first = group.iloc[0]
     source_components = sorted(str(value) for value in group["source_component"].dropna().unique())
+    action_values = (
+        group["action"].fillna("").astype(str).str.upper()
+        if "action" in group.columns
+        else pd.Series("", index=group.index)
+    )
+    if action_values.eq("BUY").any():
+        action = "BUY"
+    elif action_values.eq("SELL").any():
+        action = "SELL"
+    else:
+        action = "HOLD"
     return {
         date_col: pd.Timestamp(first[date_col]),
         "candidate": str(first.get("candidate", "joint_target_contract")),
@@ -1968,6 +1979,7 @@ def _collapse_joint_target_rows(group: pd.DataFrame, *, date_col: str) -> dict[s
         "rebound_target_position": rebound,
         "risk_target_position_original": baseline_risk,
         "risk_target_position": float(np.clip(risk_target, 0.0, 1.0)),
+        "action": action,
         "objective_weight": float(group["objective_weight"].max()),
         "is_rebound_cluster": bool(group["is_rebound_cluster"].any()),
         "is_downtrend_state": bool(group["is_downtrend_state"].any()),
@@ -1986,6 +1998,7 @@ def build_fold_local_joint_target_contract(
     folds: Iterable[Mapping[str, object]],
     date_col: str = "datetime",
     project_auxiliary_train_rows: bool = True,
+    bull_reentry_config: BullReentryParticipationTargetConfig = BullReentryParticipationTargetConfig(),
 ) -> pd.DataFrame:
     """Combine fold-local sparse-release and drawdown-control target rows.
 
@@ -2040,7 +2053,10 @@ def build_fold_local_joint_target_contract(
         _collapse_joint_target_rows(group, date_col=date_col)
         for _, group in combined.groupby(["fold", date_col], dropna=False, sort=True)
     ]
-    return pd.DataFrame(collapsed).sort_values(["fold", date_col]).reset_index(drop=True)
+    result = pd.DataFrame(collapsed).sort_values(["fold", date_col]).reset_index(drop=True)
+    if bool(bull_reentry_config.enabled):
+        result = apply_bull_reentry_participation_target_gate(result, bull_reentry_config)
+    return result
 
 
 def summarize_state_objective_target_lift_audit(audit: pd.DataFrame) -> dict[str, object]:

@@ -1327,6 +1327,84 @@ def test_bull_reentry_participation_gate_lifts_fold_local_buy_rows_without_eval_
     assert global_row["risk_target_position"] == 0.20
 
 
+def test_joint_target_contract_applies_bull_reentry_gate_after_fold_local_collapse():
+    primary = pd.DataFrame(
+        {
+            "datetime": pd.to_datetime(["2020-03-24", "2022-03-24"]),
+            "fold": ["wf_2020_train", "wf_2020_train"],
+            "target_scope": ["fold_local", "fold_local"],
+            "action": ["BUY", "BUY"],
+            "teacher_position": [0.20, 0.20],
+            "rebound_target_position": [0.20, 0.20],
+            "risk_target_position": [0.20, 0.20],
+            "risk_target_position_original": [0.20, 0.20],
+            "is_rebound_cluster": [False, False],
+            "is_downtrend_state": [False, False],
+            "release_gate_state": [False, False],
+            "drawdown_control_state": [False, False],
+        }
+    )
+    auxiliary = pd.DataFrame(
+        {
+            "datetime": pd.to_datetime(["2020-04-01", "2020-04-03"]),
+            "fold": ["wf_2020_train", "wf_2020_train"],
+            "target_scope": ["fold_local", "fold_local"],
+            "action": ["HOLD", "BUY"],
+            "teacher_position": [0.35, 0.50],
+            "rebound_target_position": [0.35, 0.50],
+            "risk_target_position": [0.35, 0.50],
+            "risk_target_position_original": [0.35, 0.50],
+            "is_rebound_cluster": [False, True],
+            "is_downtrend_state": [False, True],
+            "release_gate_state": [True, True],
+            "drawdown_control_state": [False, True],
+        }
+    )
+    folds = [
+        {
+            "name": "wf_2020_train",
+            "train_start": "2020-01-01",
+            "train_end": "2020-12-31",
+            "eval_start": "2022-01-01",
+            "eval_end": "2022-12-31",
+        }
+    ]
+
+    joint = build_fold_local_joint_target_contract(
+        primary,
+        auxiliary,
+        folds=folds,
+        bull_reentry_config=BullReentryParticipationTargetConfig(
+            enabled=True,
+            min_target_position=0.70,
+            max_target_position=0.85,
+            objective_weight_bonus=5.0,
+        ),
+    )
+
+    by_date = joint.set_index("datetime")
+    buy_row = by_date.loc[pd.Timestamp("2020-03-24")]
+    release_row = by_date.loc[pd.Timestamp("2020-04-01")]
+    risk_row = by_date.loc[pd.Timestamp("2020-04-03")]
+
+    assert bool(buy_row["bull_reentry_target_state"]) is True
+    assert buy_row["risk_target_position_original"] == 0.20
+    assert buy_row["risk_target_position"] == 0.70
+    assert buy_row["rebound_target_position"] == 0.70
+    assert buy_row["objective_weight"] == 6.0
+    assert bool(release_row["bull_reentry_target_state"]) is True
+    assert release_row["risk_target_position"] == 0.70
+    assert bool(risk_row["bull_reentry_target_state"]) is False
+    assert risk_row["risk_target_position"] == 0.50
+    assert pd.Timestamp("2022-03-24") not in by_date.index
+
+    scope_summary = summarize_state_objective_target_scope_audit(
+        audit_state_objective_target_scope(joint, folds=folds)
+    )
+    assert scope_summary["decision"] == "state_objective_targets_training_ready"
+    assert scope_summary["eval_overlap_rows"] == 0
+
+
 def test_trend_participation_target_gate_requires_configured_features():
     targets = pd.DataFrame(
         {

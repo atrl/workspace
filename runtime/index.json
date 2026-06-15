@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-15T20:52:54.193382+00:00",
+  "generated_at": "2026-06-15T21:01:44.857208+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -5172,6 +5172,24 @@
       "category": "model",
       "suffix": ".md",
       "bytes": 3390
+    },
+    {
+      "path": "runtime/model_selection/card/bull_reentry_joint_target_contract_v1/joint_target_contract.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1224
+    },
+    {
+      "path": "runtime/model_selection/card/bull_reentry_joint_target_contract_v1/scope_audit.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 281
+    },
+    {
+      "path": "runtime/model_selection/card/bull_reentry_joint_target_contract_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 870
     },
     {
       "path": "runtime/model_selection/card/bull_reentry_participation_target_gate_v1/summary.json",
