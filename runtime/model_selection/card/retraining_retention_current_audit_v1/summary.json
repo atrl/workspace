@@ -1,6 +1,6 @@
 {
   "actor_retention_allowed": false,
-  "created_at": "2026-06-15T00:29:02.850088+00:00",
+  "created_at": "2026-06-15T00:44:15.775659+00:00",
   "current_retention_gate": {
     "closest_wf_drawdown_candidate": {
       "best_return_gap_pct": 35.569893,
@@ -70,12 +70,12 @@
       "wf_2020",
       "wf_2023_2024"
     ],
-    "recommended_min_wf_relative_return_pp": 21.33,
-    "recommended_next_action": "train_nonconvex_checkpoint_objective_with_release_slice_guard_and_drawdown_drift_stop_then_official_three_fold_replay",
-    "recommended_next_source": "release16_nonconvex_checkpoint_training_contract_v1",
-    "recommended_primary_blocker": "training_contract_ready",
-    "recommended_relative_gap_to_target_pp": 8.67,
-    "recommended_worst_wf_max_drawdown_pct": 16.65,
+    "recommended_min_wf_relative_return_pp": 14.3,
+    "recommended_next_action": "train_nonconvex_checkpoint_objective_with_relative_floor_drawdown_drift_stop_and_sparse_slice_guard_then_official_three_fold_replay",
+    "recommended_next_source": "release16_expanded_official_candidate_pool_v1",
+    "recommended_primary_blocker": "walkforward_relative_return_gap",
+    "recommended_relative_gap_to_target_pp": 15.7,
+    "recommended_worst_wf_max_drawdown_pct": 21.11,
     "required_controls_before_training": [
       "Use official daily-path metrics as the selection basis, not raw backtest metrics.",
       "Diagnose wf_2020 and wf_2023_2024 relative-return gaps before launching a full retained actor run.",

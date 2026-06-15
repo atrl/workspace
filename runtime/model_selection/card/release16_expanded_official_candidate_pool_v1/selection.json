@@ -1,0 +1,21 @@
+{
+  "actor_retention_allowed": false,
+  "best_candidate_id": "release16_bull_reentry_participation_objective_replay_v1::bull65_hold3",
+  "best_failure_profile": "joint_tradeoff",
+  "decision": "expanded_official_candidate_pool_no_full_gate_training_objective_required_no_promotion",
+  "direct_comparison_baseline": "release16_nonconvex_checkpoint_training_contract_v1",
+  "experiment": "release16_expanded_official_candidate_pool_v1",
+  "full_gate_count_15dd": 0,
+  "full_gate_count_20dd": 0,
+  "next_mechanism": "train_nonconvex_checkpoint_objective_with_relative_floor_drawdown_drift_stop_and_sparse_slice_guard_then_official_three_fold_replay",
+  "objective_terms": [
+    "official_replay_relative_return_gap_penalty",
+    "official_replay_drawdown_drift_stop_loss",
+    "release_slice_fit_guard",
+    "fold_local_drawdown_state_cap_or_penalty",
+    "wf2020_wf2023_trend_participation_floor",
+    "state_head_sparse_slice_precondition_gate"
+  ],
+  "promotion_allowed": false,
+  "source_card": "release16_nonconvex_checkpoint_training_contract_v1"
+}

@@ -1,0 +1,109 @@
+{
+  "actor_retention_allowed": false,
+  "best_candidate": "bull65_hold3",
+  "best_candidate_id": "release16_bull_reentry_participation_objective_replay_v1::bull65_hold3",
+  "best_failure_profile": "joint_tradeoff",
+  "best_gate_pass_count": 1,
+  "best_max_dd_gap_pct": 1.1061560672423525,
+  "best_max_dd_pct": 21.106156067242352,
+  "best_max_relative_gap_pp": 15.697937541734904,
+  "best_mean_avg_pos": 0.23693500161968403,
+  "best_min_relative_return_pp": 14.302062458265096,
+  "best_source_label": "release16_bull_reentry_participation_objective_replay_v1",
+  "best_total_gate_loss": 34.47785927885986,
+  "best_window_count": 3,
+  "canonical_baseline": "soxlbacktest_qlib_walkforward_baseline_v1",
+  "changed_layer": [
+    "model_selection",
+    "checkpoint_objective",
+    "official_replay_candidate_pool"
+  ],
+  "created_at": "2026-06-15T00:43:20.099307+00:00",
+  "decision": "expanded_official_candidate_pool_no_full_gate_training_objective_required_no_promotion",
+  "direct_comparison_baseline": "release16_nonconvex_checkpoint_training_contract_v1",
+  "experiment": "release16_expanded_official_candidate_pool_v1",
+  "full_gate_count_15dd": 0,
+  "full_gate_count_20dd": 0,
+  "metric_basis": "official_daily_path_recomputed_from_csv",
+  "metrics": [
+    {
+      "avg_pos": 0.42520206270201244,
+      "max_dd_pct": 21.106156067242352,
+      "relative_return_pct": 22.281638935298567,
+      "return_pct": 80.37520955178256,
+      "split_type": "walk_forward_test",
+      "window": "wf_2020"
+    },
+    {
+      "avg_pos": 0.0878368165766611,
+      "max_dd_pct": 15.07263869543488,
+      "relative_return_pct": 72.4508599964972,
+      "return_pct": -14.13721173589707,
+      "split_type": "walk_forward_test",
+      "window": "wf_2022"
+    },
+    {
+      "avg_pos": 0.1977661255803785,
+      "max_dd_pct": 13.95943427898445,
+      "relative_return_pct": 14.302062458265096,
+      "return_pct": 13.945427728576654,
+      "split_type": "walk_forward_test",
+      "window": "wf_2023_2024"
+    }
+  ],
+  "min_wf_relative_return_pp": 14.302062458265096,
+  "near_miss_count_20dd": 0,
+  "next_mechanism": "train_nonconvex_checkpoint_objective_with_relative_floor_drawdown_drift_stop_and_sparse_slice_guard_then_official_three_fold_replay",
+  "objective_terms": [
+    "official_replay_relative_return_gap_penalty",
+    "official_replay_drawdown_drift_stop_loss",
+    "release_slice_fit_guard",
+    "fold_local_drawdown_state_cap_or_penalty",
+    "wf2020_wf2023_trend_participation_floor",
+    "state_head_sparse_slice_precondition_gate"
+  ],
+  "output_paths": {
+    "best_candidate_window_gaps": "runtime/model_selection/card/release16_expanded_official_candidate_pool_v1/best_candidate_window_gaps.csv",
+    "candidate_window_metrics_20dd": "runtime/model_selection/card/release16_expanded_official_candidate_pool_v1/candidate_window_metrics_20dd.csv",
+    "official_candidate_pool_review": "runtime/model_selection/card/release16_expanded_official_candidate_pool_v1/official_candidate_pool_review.md",
+    "official_candidate_scores_15dd": "runtime/model_selection/card/release16_expanded_official_candidate_pool_v1/official_candidate_scores_15dd.csv",
+    "official_candidate_scores_20dd": "runtime/model_selection/card/release16_expanded_official_candidate_pool_v1/official_candidate_scores_20dd.csv",
+    "official_candidate_stress_scores": "runtime/model_selection/card/release16_expanded_official_candidate_pool_v1/official_candidate_stress_scores.csv",
+    "official_daily_path_window_metrics": "runtime/model_selection/card/release16_expanded_official_candidate_pool_v1/official_daily_path_window_metrics.csv",
+    "selection": "runtime/model_selection/card/release16_expanded_official_candidate_pool_v1/selection.json",
+    "source_coverage": "runtime/model_selection/card/release16_expanded_official_candidate_pool_v1/source_coverage.csv",
+    "summary": "runtime/model_selection/card/release16_expanded_official_candidate_pool_v1/summary.json"
+  },
+  "path_count": 123,
+  "ppo_allowed_next": false,
+  "primary_blocker": "walkforward_relative_return_gap",
+  "promotion_allowed": false,
+  "read_error_count": 0,
+  "reference_baseline": "soxlbacktest_qlib_walkforward_baseline_v1",
+  "role": "diagnose",
+  "source_candidate_count": 41,
+  "source_candidate_pool": "release16_official_replay_candidate_handoff_v1",
+  "source_card": "release16_nonconvex_checkpoint_training_contract_v1",
+  "source_count": 11,
+  "strict_context_max_dd_pct": 15.0,
+  "summary_points": [
+    "Expanded official daily-path pool covers 123 paths from 11 source cards and 41 source-candidates.",
+    "No candidate passed all three windows under +30pp / MaxDD < 20%",
+    "Best candidate is release16_bull_reentry_participation_objective_replay_v1::bull65_hold3 with failure_profile=joint_tradeoff, min relative=14.30pp, max DD=21.11%.",
+    "Next work must train/score a true nonconvex checkpoint objective; reusing existing official replay paths is insufficient for retention."
+  ],
+  "target_max_dd_pct": 20.0,
+  "target_relative_return_by_window_pp": {
+    "wf_2020": 30.0,
+    "wf_2022": 30.0,
+    "wf_2023_2024": 30.0
+  },
+  "target_relative_return_pp": 30.0,
+  "target_window": [
+    "wf_2020",
+    "wf_2022",
+    "wf_2023_2024"
+  ],
+  "training_contract_ready": false,
+  "worst_wf_max_drawdown_pct": 21.106156067242352
+}
