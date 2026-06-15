@@ -268,15 +268,33 @@ export function renderDataSourcePanel(container: HTMLElement, manifest: Manifest
   }
   container.appendChild(strip);
   const freshnessRows = manifest.default_comparison_profiles
-    .map((profile) => [profile, profileSummaries[profile]?.replay_end] as const)
+    .map(
+      (profile) =>
+        [
+          profile,
+          profileSummaries[profile]?.replay_end,
+          profileSummaries[profile]?.latest_signal_date,
+        ] as const,
+    )
     .filter(([, replayEnd]) => replayEnd);
   if (freshnessRows.length > 0) {
     const freshness = element('div', 'freshness-strip');
     freshness.appendChild(element('span', 'source-label', 'Model dates'));
-    for (const [profile, replayEnd] of freshnessRows) {
+    for (const [profile, replayEnd, signalDate] of freshnessRows) {
       const item = element('span', 'freshness-pill');
+      item.dataset.profile = profile;
+      if (signalDate && signalDate > String(replayEnd)) {
+        item.dataset.freshness = 'cut';
+      } else if (replayEnd === manifest.latest_market_date) {
+        item.dataset.freshness = 'latest';
+      } else {
+        item.dataset.freshness = 'common';
+      }
       item.appendChild(element('span', 'freshness-name', formatProfileLabel(profile)));
-      item.appendChild(element('span', 'freshness-date', String(replayEnd)));
+      item.appendChild(element('span', 'freshness-date', `replay ${String(replayEnd)}`));
+      if (signalDate && signalDate > String(replayEnd)) {
+        item.appendChild(element('span', 'freshness-signal', `signal ${signalDate}`));
+      }
       freshness.appendChild(item);
     }
     container.appendChild(freshness);
@@ -471,6 +489,54 @@ export function renderModelDeltaStrip(
   const deltaProfiles = available.filter((profile) => profile !== comparison.baseline_profile);
   const selected = deltaProfiles.length ? deltaProfiles : available;
   const rankingByProfile = new Map((comparison.rankings ?? []).map((ranking) => [ranking.profile, ranking]));
+  const cardGrid = element('div', 'model-difference-cards');
+  for (const [index, profile] of selected.entries()) {
+    const values = last.profiles[profile];
+    if (!values) continue;
+    const profileRows = visible.filter((row) => row.profiles[profile]);
+    const mismatchCount = profileRows.filter((row) => row.profiles[profile].action_mismatch).length;
+    const replayEnd = manifest?.profile_summaries?.[profile]?.replay_end;
+    const ranking = rankingByProfile.get(profile);
+    const freshness = freshnessLabel(replayEnd, last.date, manifest);
+    const latestSignal = models[profile]?.latest_signal;
+    const latestMismatch = latestMismatchForProfile(mismatchRows, profile);
+    const card = element('article', 'model-difference-card');
+    card.dataset.profile = profile;
+    card.dataset.freshness = freshness.status;
+    card.style.borderLeftColor = MODEL_COLORS[index % MODEL_COLORS.length];
+    card.appendChild(element('strong', 'model-difference-card-title', formatProfileLabel(profile)));
+    card.appendChild(element('span', 'model-difference-card-replay', `Replay ${replayEnd ?? 'n/a'} ${freshness.status === 'stale' ? 'cut' : freshness.status}`));
+    if (latestSignal) {
+      card.appendChild(
+        element(
+          'span',
+          'model-difference-card-signal',
+          `Latest ${latestSignal.action} ${latestSignal.position.toFixed(3)} @${latestSignal.date}`,
+        ),
+      );
+    } else if (freshness.gapLabel) {
+      card.appendChild(element('span', 'model-difference-card-signal', freshness.gapLabel));
+    }
+    const metrics = element('div', 'model-difference-card-metrics');
+    metrics.appendChild(
+      element('span', undefined, ranking ? `Ret ${formatPct(ranking.return * 100)}` : `Ret ${formatSigned((values.strategy_nav_rebased ?? values.strategy_nav) - 100, 2)}%`),
+    );
+    metrics.appendChild(element('span', undefined, ranking ? `MaxDD ${formatPct(ranking.max_drawdown * 100)}` : 'MaxDD n/a'));
+    metrics.appendChild(element('span', undefined, ranking ? `AvgPos ${ranking.avg_position.toFixed(3)}` : 'AvgPos n/a'));
+    metrics.appendChild(element('span', undefined, `ΔNAV ${formatSigned(values.nav_delta_vs_baseline, 2)}`));
+    metrics.appendChild(element('span', undefined, `ΔPos ${formatSigned(values.position_delta_vs_baseline, 3)}`));
+    metrics.appendChild(element('span', undefined, `Mismatch ${mismatchCount}`));
+    card.appendChild(metrics);
+    if (latestMismatch) {
+      const feature = element('span', 'model-difference-card-feature', mismatchFeatureLabel(latestMismatch));
+      feature.title = mismatchFeatureLabel(latestMismatch);
+      card.appendChild(feature);
+    }
+    cardGrid.appendChild(card);
+  }
+  if (cardGrid.childElementCount > 0) {
+    container.appendChild(cardGrid);
+  }
   const tableWrap = element('div', 'model-diff-table-wrap');
   const table = element('table', 'model-diff-table');
   const thead = element('thead');

@@ -1,0 +1,48 @@
+{
+  "experiment": "dashboard_v2_kline_diff_cards_v1",
+  "status": "passed",
+  "date": "2026-06-16",
+  "purpose": "Make Dashboard V2 K-line first viewport readable while exposing baseline latest date, actor safe replay cutoff, latest stateless signals, and model differences.",
+  "data_status": {
+    "soxl_kline_latest": "2026-06-15",
+    "baseline_profile": "soxl_backtest_policy_reimplementation_v1",
+    "baseline_latest": "2026-06-15",
+    "actor_replay_latest": "2026-06-12",
+    "actor_latest_signal": "2026-06-15",
+    "comparison_common_end": "2026-06-12",
+    "selected_profile_count": 6
+  },
+  "ui_changes": [
+    "Model freshness strip now shows each selected profile's replay date and latest signal date when the actor signal extends past safe replay.",
+    "Model difference cards are always visible and show replay cutoff, latest action/position, return, max drawdown, average position, NAV delta, position delta, mismatch count, and latest feature-difference context.",
+    "K-line, Position, and Rebased NAV panes are visually ordered before the expanded model-difference section.",
+    "Top status and freshness strips are constrained to viewport width and scroll horizontally instead of widening the whole page."
+  ],
+  "visual_evidence": {
+    "screenshot": "runtime/production/card/dashboard_v2_kline_diff_cards_v1/dashboard_v2_kline_diff_cards_final2_20260616.png",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "layout_metrics": {
+      "document_width": 1440,
+      "body_width": 1440,
+      "market_chart_top": 202.1875,
+      "market_chart_bottom": 526.1875,
+      "position_chart_bottom": 676.1875,
+      "nav_chart_bottom": 676.1875,
+      "model_delta_top": 676.1875,
+      "inspector_right": 1440,
+      "first_viewport_shows_position": true,
+      "first_viewport_shows_model_delta": true
+    }
+  },
+  "verification": [
+    "npm --prefix web/dashboard-v2 test -- --run",
+    "npm --prefix web/dashboard-v2 run build",
+    "PYTHONPATH=. qlib_venv/bin/python -m pytest tests/test_dashboard.py tests/test_dashboard_v2_data.py tests/test_dashboard_v2_checker.py tests/test_vercel_dashboard.py -q",
+    "PYTHONPATH=. qlib_venv/bin/python scripts/check_dashboard_v2_data.py dashboard_data/v2",
+    "PYTHONPATH=. qlib_venv/bin/python scripts/check_dashboard_static_export.py",
+    "PYTHONPATH=. qlib_venv/bin/python scripts/check_harness.py"
+  ]
+}

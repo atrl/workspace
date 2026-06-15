@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-15T22:35:16.890943+00:00",
+  "generated_at": "2026-06-15T22:53:30.541471+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -12804,6 +12804,12 @@
       "category": "production",
       "suffix": ".json",
       "bytes": 1638
+    },
+    {
+      "path": "runtime/production/card/dashboard_v2_kline_diff_cards_v1/summary.json",
+      "category": "production",
+      "suffix": ".json",
+      "bytes": 2395
     },
     {
       "path": "runtime/production/card/dashboard_v2_kline_gap_v1/summary.json",

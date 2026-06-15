@@ -91,6 +91,41 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.querySelector('.freshness-alert')?.textContent).toContain('Actor signals 2026-01-06');
   });
 
+  test('shows actor replay cutoff and latest signal date in the model freshness strip', () => {
+    const panel = document.createElement('section');
+
+    renderDataSourcePanel(panel, {
+      ...manifestFixture,
+      latest_market_date: '2026-01-07',
+      safe_backtest_end: '2026-01-06',
+      default_baseline_profile: 'soxl_backtest_policy_reimplementation_v1',
+      default_comparison_profiles: ['soxl_backtest_policy_reimplementation_v1', 'balanced_rule_residual_v22'],
+      profile_summaries: {
+        soxl_backtest_policy_reimplementation_v1: {
+          status: 'reference',
+          replay_start: '2026-01-02',
+          replay_end: '2026-01-07',
+          row_count: 4,
+          source_path: 'runtime/production/card/soxl_backtest_policy_reimplementation_v1/new_policy_daily.csv',
+        },
+        balanced_rule_residual_v22: {
+          status: 'canonical',
+          replay_start: '2026-01-02',
+          replay_end: '2026-01-06',
+          row_count: 3,
+          source_path: 'runtime/model/card/balanced_rule_residual_v22/balanced_rule_residual_v22_soxl_daily.csv',
+          latest_signal_date: '2026-01-07',
+        },
+      },
+    });
+
+    const actorFreshness = panel.querySelector('[data-profile="balanced_rule_residual_v22"]');
+    expect(actorFreshness?.textContent).toContain('BRR v22');
+    expect(actorFreshness?.textContent).toContain('replay 2026-01-06');
+    expect(actorFreshness?.textContent).toContain('signal 2026-01-07');
+    expect(actorFreshness?.getAttribute('data-freshness')).toBe('cut');
+  });
+
   test('keeps source warnings inside a collapsed diagnostics block', () => {
     const panel = document.createElement('section');
 
@@ -488,6 +523,83 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(matrix?.textContent).toContain('BUY 0.550');
     expect(matrix?.textContent).toContain('Δpos +0.350');
     expect(matrix?.textContent).toContain('signal as-of 2026-01-06');
+  });
+
+  test('renders always-visible model difference cards with replay, latest signal and common-window deltas', () => {
+    const panel = document.createElement('div');
+    const latestSmoke = {
+      ...modelFixture,
+      latest_signal: {
+        date: '2026-01-07',
+        price: 10.4,
+        position: 0.55,
+        action: 'BUY' as const,
+        replay_asof: '2026-01-06',
+        source: 'latest_signal_stateless',
+      },
+    };
+
+    renderModelDeltaStrip(
+      panel,
+      {
+        ...comparisonFixture,
+        rankings: [{ profile: 'smoke', return: 0.42, max_drawdown: -0.08, avg_position: 0.51, row_count: 3 }],
+      },
+      '2026-01-02',
+      '2026-01-07',
+      undefined,
+      {
+        ...manifestFixture,
+        latest_market_date: '2026-01-07',
+        default_baseline_profile: 'balanced_rule_residual_v22',
+        profile_summaries: {
+          smoke: {
+            status: 'canonical',
+            replay_start: '2026-01-02',
+            replay_end: '2026-01-06',
+            row_count: 3,
+            source_path: 'runtime/model/card/smoke/smoke_soxl_daily.csv',
+            latest_signal_date: '2026-01-07',
+          },
+          balanced_rule_residual_v22: {
+            status: 'reference',
+            replay_start: '2026-01-02',
+            replay_end: '2026-01-07',
+            row_count: 4,
+            source_path: 'runtime/production/card/soxl_backtest_policy_reimplementation_v1/new_policy_daily.csv',
+          },
+        },
+      },
+      [
+        {
+          date: '2026-01-05',
+          profile: 'smoke',
+          model_action: 'BUY',
+          baseline_action: 'HOLD',
+          model_position: 0.7,
+          baseline_position: 0,
+          position_delta_vs_baseline: 0.7,
+          nav_delta_vs_baseline: 5,
+          close: 11,
+          features: { rsi6: '60', vix: '18' },
+        },
+      ],
+      { smoke: latestSmoke },
+    );
+
+    const cards = panel.querySelector('.model-difference-cards');
+    expect(cards).not.toBeNull();
+    const card = cards?.querySelector('[data-profile="smoke"]');
+    expect(card?.textContent).toContain('smoke');
+    expect(card?.textContent).toContain('Replay 2026-01-06 cut');
+    expect(card?.textContent).toContain('Latest BUY 0.550 @2026-01-07');
+    expect(card?.textContent).toContain('Ret 42.00%');
+    expect(card?.textContent).toContain('MaxDD -8.00%');
+    expect(card?.textContent).toContain('AvgPos 0.510');
+    expect(card?.textContent).toContain('ΔNAV +2.00');
+    expect(card?.textContent).toContain('ΔPos +0.200');
+    expect(card?.textContent).toContain('Mismatch 2');
+    expect(card?.textContent).toContain('Last diff 2026-01-05 BUY vs HOLD');
   });
 
   test('renders a latest decision matrix for baseline versus actor signals', () => {
