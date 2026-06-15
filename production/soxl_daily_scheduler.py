@@ -257,6 +257,10 @@ def _run_dashboard_model_replay_refresh(venv_python: str) -> None:
     )
 
 
+def _run_dashboard_v2_build(venv_python: str) -> None:
+    _run([venv_python, "scripts/build_dashboard_v2_data.py"], "dashboard v2 data build")
+
+
 def main() -> None:
     args = parse_args()
     use_notify = not args.no_notify
@@ -346,6 +350,7 @@ def main() -> None:
                 _run_dashboard_model_replay_refresh(venv_python)
             dash_cmd = [venv_python, "scripts/build_backtest_dashboard.py"]
             _run(dash_cmd, "dashboard build")
+            _run_dashboard_v2_build(venv_python)
             print("[scheduler] core done", flush=True)
             if args.vercel_deploy:
                 _run_goal_gates_export(venv_python)
@@ -383,6 +388,7 @@ def main() -> None:
                         _run_dashboard_model_replay_refresh(venv_python)
                     dash_cmd = [venv_python, "scripts/build_backtest_dashboard.py"]
                     _run(dash_cmd, "dashboard build")
+                    _run_dashboard_v2_build(venv_python)
                 if use_notify:
                     notifier.send(
                         title="SOXL Daily Pipeline OK (cached dry-run)",
@@ -412,6 +418,7 @@ def main() -> None:
                         _run_dashboard_model_replay_refresh(venv_python)
                     dash_cmd = [venv_python, "scripts/build_backtest_dashboard.py"]
                     _run(dash_cmd, "dashboard build")
+                    _run_dashboard_v2_build(venv_python)
                 if use_notify:
                     notifier.send(
                         title="SOXL Daily Pipeline OK (broker dry-run fallback)",

@@ -11,7 +11,7 @@ import {
   type Time,
 } from 'lightweight-charts';
 import { buildActionMarkers, buildModelDifferenceMarkers, formatProfileLabel } from './domain';
-import type { ComparisonPayload, MarketPayload, ModelPayload } from './types';
+import type { ActionMarker, ComparisonPayload, MarketPayload, ModelPayload } from './types';
 
 const MODEL_COLORS = ['#39b7c5', '#a597ff', '#e1aa3e', '#1fb981', '#f472b6', '#f97316'];
 
@@ -34,6 +34,27 @@ function positionOverlayData(model: ModelPayload): { time: Time; value: number }
     rows.push({ time: toTime(latestSignal.date), value: Number(latestSignal.position) });
   }
   return rows;
+}
+
+function latestSignalMarkers(
+  models: Record<string, ModelPayload>,
+  start: string,
+  end: string,
+): ActionMarker[] {
+  const markers: ActionMarker[] = [];
+  for (const [index, model] of Object.values(models).entries()) {
+    const signal = model.latest_signal;
+    if (!signal || signal.date < start || signal.date > end) continue;
+    if (signal.action !== 'BUY' && signal.action !== 'SELL') continue;
+    markers.push({
+      time: signal.date,
+      position: signal.action === 'BUY' ? 'belowBar' : 'aboveBar',
+      color: MODEL_COLORS[index % MODEL_COLORS.length],
+      shape: signal.action === 'BUY' ? 'arrowUp' : 'arrowDown',
+      text: '',
+    });
+  }
+  return markers;
 }
 
 export interface ChartHandles {
@@ -211,7 +232,7 @@ export function renderMarketChart(
       lastValueVisible: false,
       priceLineVisible: false,
       priceScaleId: 'position',
-      title: `${formatProfileLabel(profile)} position`,
+      title: '',
     });
     if (!positionScaleConfigured) {
       positionLine.priceScale().applyOptions({
@@ -228,6 +249,7 @@ export function renderMarketChart(
   const markerEnd = market.rows.at(-1)?.date;
   const markers = [
     ...buildActionMarkers(model.events, { showText: false }),
+    ...(markerStart && markerEnd ? latestSignalMarkers(models, markerStart, markerEnd) : []),
     ...(comparison && markerStart && markerEnd
       ? buildModelDifferenceMarkers(comparison, comparisonProfiles, markerStart, markerEnd)
       : []),

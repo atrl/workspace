@@ -109,6 +109,7 @@ def test_dashboard_static_export_integrity_check_passes():
     assert "production_status=" in result.stdout
     assert "goal_gates=pending" in result.stdout
     assert "model_replays=" in result.stdout
+    assert "dashboard_v2=" in result.stdout
     assert "paper_latest_signal=" in result.stdout
     assert "research_backtests=" in result.stdout
 

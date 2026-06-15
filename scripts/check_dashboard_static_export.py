@@ -51,6 +51,7 @@ def check_static_export(root: Path) -> tuple[list[str], dict[str, Any]]:
         "goal_gates": "n/a",
         "model_replays": "n/a",
         "model_latest_data": "n/a",
+        "dashboard_v2": "n/a",
         "research_backtests": "n/a",
     }
 
@@ -63,6 +64,8 @@ def check_static_export(root: Path) -> tuple[list[str], dict[str, Any]]:
     production_goal_gates_path = data_dir / "production_goal_gates.json"
     model_replay_freshness_path = data_dir / "model_replay_freshness.json"
     research_backtests_path = data_dir / "research_backtests.json"
+    dashboard_v2_manifest_path = data_dir / "v2" / "manifest.json"
+    dashboard_v2_comparison_path = data_dir / "v2" / "comparison" / "default.json"
 
     for path in (
         vercel_path,
@@ -198,6 +201,31 @@ def check_static_export(root: Path) -> tuple[list[str], dict[str, Any]]:
                     if not row.get(key):
                         errors.append(f"dashboard_data/research_backtests.json row {idx} missing {key}")
 
+    if dashboard_v2_manifest_path.exists() or dashboard_v2_comparison_path.exists():
+        if not dashboard_v2_manifest_path.exists():
+            errors.append("missing dashboard v2 manifest: dashboard_data/v2/manifest.json")
+        elif not dashboard_v2_comparison_path.exists():
+            errors.append("missing dashboard v2 comparison: dashboard_data/v2/comparison/default.json")
+        else:
+            manifest_v2 = _load_json(dashboard_v2_manifest_path)
+            comparison_v2 = _load_json(dashboard_v2_comparison_path)
+            latest = manifest_v2.get("latest_market_date")
+            safe_end = manifest_v2.get("safe_backtest_end")
+            common_end = comparison_v2.get("common_end")
+            profiles = manifest_v2.get("default_comparison_profiles")
+            if not isinstance(latest, str) or not latest:
+                errors.append("dashboard_data/v2/manifest.json missing latest_market_date")
+            if not isinstance(safe_end, str) or not safe_end:
+                errors.append("dashboard_data/v2/manifest.json missing safe_backtest_end")
+            if not isinstance(common_end, str) or not common_end:
+                errors.append("dashboard_data/v2/comparison/default.json missing common_end")
+            if not isinstance(profiles, list) or not profiles:
+                errors.append("dashboard_data/v2/manifest.json missing default_comparison_profiles")
+            info["dashboard_v2"] = (
+                f"{len(profiles) if isinstance(profiles, list) else 0}"
+                f"@{common_end or 'unknown'}/latest={latest or 'unknown'}"
+            )
+
     missing = 0
     for version in versions:
         summary = version_summaries.get(version, {})
@@ -292,6 +320,7 @@ def main() -> int:
             f"production_status={info['production_status']} "
             f"goal_gates={info['goal_gates']} "
             f"model_replays={info['model_replays']} "
+            f"dashboard_v2={info['dashboard_v2']} "
             f"research_backtests={info['research_backtests']}"
         )
         return 1
@@ -305,7 +334,8 @@ def main() -> int:
         f"paper_latest_signal={info['paper_latest_signal']} "
         f"production_status={info['production_status']} "
         f"goal_gates={info['goal_gates']} "
-        f"model_replays={info['model_replays']} paper_trading"
+        f"model_replays={info['model_replays']} "
+        f"dashboard_v2={info['dashboard_v2']} paper_trading"
         f" research_backtests={info['research_backtests']}"
     )
     return 0

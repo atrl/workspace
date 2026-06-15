@@ -80,6 +80,53 @@ describe('dashboard v2 domain helpers', () => {
     });
   });
 
+  test('defaults visible range to the model comparison window when price extends past replay actors', () => {
+    const marketRows = [
+      ...marketFixture.rows,
+      { date: '2026-01-07', open: 10.7, high: 10.9, low: 10.2, close: 10.4, volume: 1400 },
+    ];
+    const referenceModel = {
+      ...modelFixture,
+      profile: 'soxl_backtest_policy_reimplementation_v1',
+      status: 'reference',
+      replay_end: '2026-01-07',
+      rows: [
+        ...modelFixture.rows,
+        {
+          date: '2026-01-07',
+          strategy_nav: 104,
+          buyhold_nav: 104,
+          position: 0.2,
+          action: 'HOLD' as const,
+          price: 10.4,
+          excess: 0,
+          excess_pct: 0.04,
+        },
+      ],
+    };
+    const actorModel = {
+      ...modelFixture,
+      profile: 'balanced_rule_residual_v22',
+      status: 'canonical',
+      replay_end: '2026-01-06',
+    };
+
+    expect(
+      computeDefaultDateRange({
+        manifest: { ...manifestFixture, latest_market_date: '2026-01-07', safe_backtest_end: '2026-01-06' },
+        marketRows,
+        models: {
+          soxl_backtest_policy_reimplementation_v1: referenceModel,
+          balanced_rule_residual_v22: actorModel,
+        },
+        comparison: comparisonFixture,
+      }),
+    ).toEqual({
+      start: '2026-01-02',
+      end: '2026-01-06',
+    });
+  });
+
   test('defaults visible range to YTD instead of all replay history', () => {
     const marketRows = [
       { date: '2025-12-31', open: 9, high: 10, low: 8, close: 9.5, volume: 900 },

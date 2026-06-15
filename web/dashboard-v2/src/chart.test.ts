@@ -130,7 +130,7 @@ describe('dashboard v2 chart rendering', () => {
       })),
     );
     expect(chartMocks.seriesRecords[4].options).toMatchObject({
-      title: 'smoke position',
+      title: '',
       priceScaleId: 'position',
       priceLineVisible: false,
       lastValueVisible: false,
@@ -139,7 +139,7 @@ describe('dashboard v2 chart rendering', () => {
       modelFixture.rows.map((row) => ({ time: row.date, value: row.position })),
     );
     expect(chartMocks.seriesRecords[5].options).toMatchObject({
-      title: 'BRR v22 position',
+      title: '',
       priceScaleId: 'position',
     });
   });
@@ -231,6 +231,63 @@ describe('dashboard v2 chart rendering', () => {
       ...modelFixture.rows.map((row) => ({ time: row.date, value: row.position })),
       { time: '2026-01-07', value: 0.55 },
     ]);
+  });
+
+  test('adds latest signal buy and sell markers on the main K-line for selected models', () => {
+    const container = document.createElement('div');
+    const market = {
+      ...marketFixture,
+      rows: [
+        ...marketFixture.rows,
+        { date: '2026-01-07', open: 10.7, high: 10.9, low: 10.2, close: 10.4, volume: 1400, ma180: 10.2 },
+      ],
+    };
+    const latestBuy = {
+      ...modelFixture,
+      latest_signal: {
+        date: '2026-01-07',
+        price: 10.4,
+        position: 0.55,
+        action: 'BUY' as const,
+        replay_asof: '2026-01-06',
+        source: 'latest_signal_stateless',
+      },
+    };
+    const latestSell = {
+      ...modelFixture,
+      profile: 'balanced_rule_residual_v22',
+      latest_signal: {
+        date: '2026-01-07',
+        price: 10.4,
+        position: 0.05,
+        action: 'SELL' as const,
+        replay_asof: '2026-01-06',
+        source: 'latest_signal_stateless',
+      },
+    };
+
+    renderMarketChart(
+      container,
+      market,
+      latestBuy,
+      { smoke: latestBuy, balanced_rule_residual_v22: latestSell },
+      () => {},
+    );
+
+    expect(chartMocks.createSeriesMarkers.mock.calls[0][1]).toContainEqual({
+      time: '2026-01-07',
+      position: 'belowBar',
+      color: '#39b7c5',
+      shape: 'arrowUp',
+      text: '',
+    });
+    expect(chartMocks.createSeriesMarkers.mock.calls[0][1]).toContainEqual({
+      time: '2026-01-07',
+      position: 'aboveBar',
+      color: '#a597ff',
+      shape: 'arrowDown',
+      text: '',
+    });
   });
 
   test('renders NAV deltas against the comparison baseline in the NAV pane', () => {

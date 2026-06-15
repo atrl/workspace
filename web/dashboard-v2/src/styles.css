@@ -201,7 +201,9 @@ h3 {
 
 .model-diff-table-wrap {
   width: 100%;
+  max-height: 126px;
   overflow-x: auto;
+  overflow-y: auto;
   border: 1px solid var(--line);
   border-radius: 6px;
   background: var(--bg);
@@ -218,7 +220,7 @@ h3 {
 .model-diff-table th,
 .model-diff-table td {
   min-width: 0;
-  padding: 5px 7px;
+  padding: 4px 6px;
   border-bottom: 1px solid var(--line-soft);
   color: #c6ccd4;
   text-align: left;
@@ -323,13 +325,13 @@ h3 {
 
 .chart-main {
   flex: 0 0 auto;
-  height: clamp(330px, 34vh, 420px);
-  min-height: 330px;
+  height: clamp(390px, 46vh, 560px);
+  min-height: 390px;
 }
 
 .chart-small {
-  height: 140px;
-  min-height: 140px;
+  height: 132px;
+  min-height: 132px;
 }
 
 .lower-charts {
