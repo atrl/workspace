@@ -1,0 +1,87 @@
+{
+  "card": "dashboard_v2_kline_model_delta_v2",
+  "generated_at": "2026-06-15T18:24:00+00:00",
+  "decision": "dashboard_v2_kline_and_model_delta_readability_improved",
+  "changes": [
+    "Main market chart now overlays a SOXL close line on top of candlesticks, with MA180 and volume retained.",
+    "Position and NAV delta panes now omit the comparison baseline zero line when actor models are selected.",
+    "The model delta strip now treats the baseline as a reference caption and shows actor cut/stale status per model.",
+    "Default actor model cards fit in one 1440px desktop viewport and expose replay gap to latest SOXL price data."
+  ],
+  "data_status": {
+    "latest_market_date": "2026-06-15",
+    "canonical_data_date": "2026-06-12",
+    "safe_backtest_end": "2026-06-11",
+    "baseline_profile": "soxl_backtest_policy_reimplementation_v1",
+    "baseline_replay_end": "2026-06-15",
+    "actor_replay_end": "2026-06-11",
+    "actor_replay_status": "current_at_safe_backtest_end",
+    "refresh_command": "PYTHONPATH=. qlib_venv/bin/python scripts/refresh_dashboard_model_replays.py --python qlib_venv/bin/python",
+    "refresh_result": "profiles=12 current=12 refreshed=0 failed=0 skipped=0 latest_data_date=2026-06-12 safe_backtest_end=2026-06-11",
+    "provider_dry_run": "polygon returned overlap through 2026-06-12; yahoo_api returned HTTP 429 for VIX"
+  },
+  "visual_verification": {
+    "screenshot": "runtime/production/card/dashboard_v2_kline_model_delta_v2/dashboard_v2_kline_model_delta_20260616_final.png",
+    "viewport": "1440x1000",
+    "model_delta_pill_count": 5,
+    "all_default_actor_cards_fit": true,
+    "market_chart_bounds": {
+      "x": 0,
+      "y": 459.8125,
+      "width": 1219.9375,
+      "height": 380
+    },
+    "has_actor_cut_label": true,
+    "has_gap_to_price_label": true,
+    "has_baseline_caption": true,
+    "console_errors": []
+  },
+  "comparison_window": {
+    "common_start": "2026-01-02",
+    "common_end": "2026-06-11",
+    "comparison_rows": 111,
+    "rankings": [
+      {
+        "profile": "smoke",
+        "return_pct": 234.77,
+        "max_drawdown_pct": -30.35
+      },
+      {
+        "profile": "balanced_rule_residual_v19",
+        "return_pct": 192.19,
+        "max_drawdown_pct": -24.87
+      },
+      {
+        "profile": "mode_conditioned_rebound_reward_train_v2",
+        "return_pct": 175.11,
+        "max_drawdown_pct": -27.83
+      },
+      {
+        "profile": "balanced_rule_residual_v19_reg",
+        "return_pct": 158.8,
+        "max_drawdown_pct": -25.51
+      },
+      {
+        "profile": "soxl_backtest_policy_reimplementation_v1",
+        "return_pct": 136.52,
+        "max_drawdown_pct": -13.55
+      },
+      {
+        "profile": "balanced_rule_residual_v22",
+        "return_pct": 133.34,
+        "max_drawdown_pct": -26.78
+      }
+    ]
+  },
+  "verification": [
+    "cd web/dashboard-v2 && npm test",
+    "cd web/dashboard-v2 && npm run build",
+    "PYTHONPATH=. qlib_venv/bin/python -m pytest tests/test_dashboard_v2_data.py tests/test_dashboard_v2_checker.py tests/test_dashboard_model_replays.py -q",
+    "PYTHONPATH=. qlib_venv/bin/python scripts/check_dashboard_v2_data.py dashboard_data/v2",
+    "Chrome screenshot via Playwright using /Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+  ],
+  "notes": [
+    "Actor replay cannot be advanced to 2026-06-15 until canonical VIX/qlib calendar advances beyond 2026-06-12; the UI now displays that as an actor cut rather than silently implying model data is current to price latest.",
+    "The SOXLBacktest path remains a reference baseline, not a runnable actor."
+  ]
+}

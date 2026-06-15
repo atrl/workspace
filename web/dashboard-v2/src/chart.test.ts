@@ -82,7 +82,7 @@ describe('dashboard v2 chart rendering', () => {
     chartMocks.priceScaleRecords.length = 0;
   });
 
-  test('renders price candles with MA and volume without model position overlays on the main chart', () => {
+  test('renders price candles with close line, MA and volume without model position overlays on the main chart', () => {
     const container = document.createElement('div');
     const challenger = { ...modelFixture, profile: 'balanced_rule_residual_v22' };
 
@@ -94,21 +94,28 @@ describe('dashboard v2 chart rendering', () => {
       () => {},
     );
 
-    expect(chartMocks.seriesRecords.map((record) => record.kind)).toEqual(['candlestick', 'line', 'histogram']);
+    expect(chartMocks.seriesRecords.map((record) => record.kind)).toEqual(['candlestick', 'line', 'line', 'histogram']);
     expect(chartMocks.seriesRecords[1].options).toMatchObject({
-      title: 'MA180',
+      title: 'SOXL close',
       priceLineVisible: false,
     });
     expect(chartMocks.seriesRecords[1].data).toEqual(
-      marketFixture.rows.map((row) => ({ time: row.date, value: row.ma180 })),
+      marketFixture.rows.map((row) => ({ time: row.date, value: row.close })),
     );
     expect(chartMocks.seriesRecords[2].options).toMatchObject({
+      title: 'MA180',
+      priceLineVisible: false,
+    });
+    expect(chartMocks.seriesRecords[2].data).toEqual(
+      marketFixture.rows.map((row) => ({ time: row.date, value: row.ma180 })),
+    );
+    expect(chartMocks.seriesRecords[3].options).toMatchObject({
       priceScaleId: 'volume',
       priceFormat: { type: 'volume' },
       priceLineVisible: false,
       lastValueVisible: false,
     });
-    expect(chartMocks.seriesRecords[2].data).toEqual(
+    expect(chartMocks.seriesRecords[3].data).toEqual(
       marketFixture.rows.map((row) => ({
         time: row.date,
         value: row.volume,
@@ -137,16 +144,11 @@ describe('dashboard v2 chart rendering', () => {
 
     renderDeltaChart(container, comparisonFixture, ['smoke', 'balanced_rule_residual_v22'], 'position_delta_vs_baseline');
 
-    expect(chartMocks.seriesRecords.map((record) => record.options.title)).toEqual(['smoke Δpos', 'BRR v22 Δpos']);
+    expect(chartMocks.seriesRecords.map((record) => record.options.title)).toEqual(['smoke Δpos']);
     expect(chartMocks.seriesRecords[0].data).toEqual([
       { time: '2026-01-02', value: 0 },
       { time: '2026-01-05', value: 0.7 },
       { time: '2026-01-06', value: 0.2 },
-    ]);
-    expect(chartMocks.seriesRecords[1].data).toEqual([
-      { time: '2026-01-02', value: 0 },
-      { time: '2026-01-05', value: 0 },
-      { time: '2026-01-06', value: 0 },
     ]);
   });
 
@@ -159,11 +161,6 @@ describe('dashboard v2 chart rendering', () => {
       { time: '2026-01-02', value: 0 },
       { time: '2026-01-05', value: 5 },
       { time: '2026-01-06', value: 2 },
-    ]);
-    expect(chartMocks.seriesRecords[1].data).toEqual([
-      { time: '2026-01-02', value: 0 },
-      { time: '2026-01-05', value: 0 },
-      { time: '2026-01-06', value: 0 },
     ]);
   });
 

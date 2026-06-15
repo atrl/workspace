@@ -34,12 +34,22 @@ function maxDate(values: readonly (string | undefined | null)[]): string | null 
 
 function freshnessLabel(replayEnd: string | undefined, commonEnd: string, manifest?: Manifest): {
   label: string;
-  status: 'latest' | 'safe';
+  status: 'latest' | 'safe' | 'stale';
+  gapLabel?: string;
 } {
+  const latestMarketDate = manifest?.latest_market_date;
+  if (replayEnd && latestMarketDate && replayEnd < latestMarketDate) {
+    const isSafeCut = manifest?.safe_backtest_end && replayEnd <= manifest.safe_backtest_end;
+    return {
+      label: `${isSafeCut ? 'Cut' : 'Stale'} ${replayEnd}`,
+      status: 'stale',
+      gapLabel: `Gap to price ${latestMarketDate}`,
+    };
+  }
   if (replayEnd && replayEnd > commonEnd) {
     return { label: `Latest ${replayEnd}`, status: 'latest' };
   }
-  if (replayEnd && manifest?.latest_market_date && replayEnd >= manifest.latest_market_date) {
+  if (replayEnd && latestMarketDate && replayEnd >= latestMarketDate) {
     return { label: `Latest ${replayEnd}`, status: 'latest' };
   }
   return { label: `Common ${commonEnd}`, status: 'safe' };
@@ -197,13 +207,17 @@ export function renderModelDeltaStrip(
     caption.dataset.tone = 'warning';
   }
   const baselineEnd = manifest?.profile_summaries?.[comparison.baseline_profile]?.replay_end;
+  captionParts.push(
+    `Baseline ${formatProfileLabel(comparison.baseline_profile)}${baselineEnd ? ` ${baselineEnd}` : ''}`,
+  );
   if (baselineEnd && baselineEnd > last.date) {
-    captionParts.push(`Baseline ${baselineEnd}`);
     caption.dataset.tone = 'warning';
   }
   caption.textContent = captionParts.join(' | ');
   container.appendChild(caption);
-  const selected = profiles.filter((profile) => comparison.compared_profiles.includes(profile));
+  const available = profiles.filter((profile) => comparison.compared_profiles.includes(profile));
+  const deltaProfiles = available.filter((profile) => profile !== comparison.baseline_profile);
+  const selected = deltaProfiles.length ? deltaProfiles : available;
   const rankingByProfile = new Map((comparison.rankings ?? []).map((ranking) => [ranking.profile, ranking]));
   const grid = element('div', 'model-diff-grid');
   for (const [index, profile] of selected.entries()) {
@@ -224,6 +238,7 @@ export function renderModelDeltaStrip(
     pill.appendChild(element('strong', 'model-difference-name', formatProfileLabel(profile)));
     if (replayEnd) pill.appendChild(element('span', undefined, `End ${replayEnd}`));
     pill.appendChild(element('span', 'model-difference-date', freshness.label));
+    if (freshness.gapLabel) pill.appendChild(element('span', 'model-difference-gap', freshness.gapLabel));
     pill.appendChild(
       element(
         'span',

@@ -304,8 +304,9 @@ describe('dashboard v2 DOM render helpers', () => {
       },
     });
 
-    expect(panel.querySelectorAll('.model-delta-pill')).toHaveLength(2);
+    expect(panel.querySelectorAll('.model-delta-pill')).toHaveLength(1);
     expect(panel.textContent).toContain('smoke');
+    expect(panel.querySelector('.model-delta-caption')?.textContent).toContain('Baseline BRR v22');
     expect(panel.textContent).toContain('Compare through 2026-01-06');
     expect(panel.textContent).toContain('End 2026-01-06');
     expect(panel.textContent).toContain('Ret +3.00%');
@@ -359,9 +360,9 @@ describe('dashboard v2 DOM render helpers', () => {
     );
 
     expect(panel.querySelector('.model-diff-grid')).not.toBeNull();
-    expect(panel.querySelectorAll('.model-difference-row')).toHaveLength(2);
-    expect(panel.querySelector('[data-freshness="latest"]')?.textContent).toContain('Latest 2026-01-07');
-    expect(panel.querySelector('[data-freshness="safe"]')?.textContent).toContain('Common 2026-01-06');
+    expect(panel.querySelectorAll('.model-difference-row')).toHaveLength(1);
+    expect(panel.querySelector('[data-freshness="stale"]')?.textContent).toContain('Cut 2026-01-06');
+    expect(panel.querySelector('[data-freshness="stale"]')?.textContent).toContain('Gap to price 2026-01-07');
     expect(panel.textContent).toContain('Ret 42.00%');
     expect(panel.textContent).toContain('MaxDD -8.00%');
     expect(panel.textContent).toContain('AvgPos 0.510');
@@ -403,7 +404,40 @@ describe('dashboard v2 DOM render helpers', () => {
 
     expect(panel.querySelector('.model-delta-caption')?.textContent).toContain('Compare through 2026-01-06');
     expect(panel.querySelector('.model-delta-caption')?.textContent).toContain('Price 2026-01-07');
-    expect(panel.querySelector('.model-delta-caption')?.textContent).toContain('Baseline 2026-01-07');
+    expect(panel.querySelector('.model-delta-caption')?.textContent).toContain('Baseline BRR v22 2026-01-07');
+  });
+
+  test('prioritizes actor model difference rows over the reference baseline', () => {
+    const panel = document.createElement('div');
+
+    renderModelDeltaStrip(panel, comparisonFixture, '2026-01-02', '2026-01-07', undefined, {
+      ...manifestFixture,
+      latest_market_date: '2026-01-07',
+      safe_backtest_end: '2026-01-06',
+      default_baseline_profile: 'balanced_rule_residual_v22',
+      profile_summaries: {
+        smoke: {
+          status: 'canonical',
+          replay_start: '2026-01-02',
+          replay_end: '2026-01-06',
+          row_count: 3,
+          source_path: 'runtime/model/card/smoke/smoke_soxl_daily.csv',
+        },
+        balanced_rule_residual_v22: {
+          status: 'reference',
+          replay_start: '2026-01-02',
+          replay_end: '2026-01-07',
+          row_count: 4,
+          source_path: 'runtime/production/card/soxl_backtest_policy_reimplementation_v1/new_policy_daily.csv',
+        },
+      },
+    });
+
+    expect(panel.querySelectorAll('.model-delta-pill')).toHaveLength(1);
+    expect(panel.querySelector('.model-difference-name')?.textContent).toBe('smoke');
+    expect(panel.querySelector('.model-delta-caption')?.textContent).toContain('Baseline BRR v22 2026-01-07');
+    expect(panel.querySelector('.model-delta-caption')?.textContent).toContain('Price 2026-01-07');
+    expect(panel.querySelector('[data-freshness="stale"]')?.textContent).toContain('Cut 2026-01-06');
   });
 
   test('renders clickable action mismatch rows with feature context', () => {

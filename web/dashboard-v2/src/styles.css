@@ -206,9 +206,9 @@ h3 {
 
 .model-delta-pill {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 4px 8px;
-  flex: 0 0 224px;
+  flex: 0 0 232px;
   min-height: 94px;
   padding: 8px 9px;
   border: 1px solid var(--line);
@@ -224,8 +224,14 @@ h3 {
   border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
 }
 
+.model-delta-pill[data-freshness="stale"] {
+  border-color: color-mix(in srgb, var(--warn) 55%, var(--line));
+  background: color-mix(in srgb, var(--warn) 7%, var(--bg));
+}
+
 .model-difference-name,
-.model-difference-date {
+.model-difference-date,
+.model-difference-gap {
   min-width: 0;
 }
 
@@ -236,7 +242,13 @@ h3 {
 }
 
 .model-difference-date {
-  white-space: nowrap;
+  white-space: normal;
+}
+
+.model-difference-gap {
+  grid-column: 1 / -1;
+  color: var(--warn);
+  white-space: normal;
 }
 
 .model-delta-pill strong {

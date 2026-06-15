@@ -149,6 +149,18 @@ export function renderMarketChart(
       close: Number(row.close),
     })),
   );
+  const closeLine = chart.addSeries(LineSeries, {
+    color: '#edf0f3',
+    lineWidth: 2,
+    priceLineVisible: false,
+    title: 'SOXL close',
+  });
+  closeLine.setData(
+    market.rows.map((row) => ({
+      time: toTime(row.date),
+      value: Number(row.close),
+    })),
+  );
   const maLine = chart.addSeries(LineSeries, {
     color: '#e1aa3e',
     lineWidth: 1,
@@ -232,7 +244,9 @@ export function renderDeltaChart(
   });
   let primarySeries: ISeriesApi<'Line'> | null = null;
   let primaryRows: { time: Time; value: number }[] | null = null;
-  const selected = profiles.filter((profile) => comparison.compared_profiles.includes(profile));
+  const available = profiles.filter((profile) => comparison.compared_profiles.includes(profile));
+  const deltas = available.filter((profile) => profile !== comparison.baseline_profile);
+  const selected = deltas.length ? deltas : available;
   for (const [index, profile] of selected.entries()) {
     const rows = deltaData(comparison, profile, metric);
     if (rows.length === 0) continue;
