@@ -161,6 +161,34 @@ def _checkpoint_tag(effective_tag: str, iter_value: int) -> str:
     return f"{effective_tag}_{suffix}" if effective_tag else suffix
 
 
+def checkpoint_retention_gate_payload(
+    profile,
+    retained_checkpoints: list[dict],
+    retention_gate_evidence: dict | None = None,
+) -> dict[str, object]:
+    if not retained_checkpoints:
+        return {
+            "profile": profile.name,
+            "status": "not_requested",
+            "reason": "no retained checkpoint candidates",
+        }
+    if not bool(getattr(profile.checkpoint_retention, "enabled", False)):
+        return {
+            "profile": profile.name,
+            "status": "disabled",
+            "reason": "checkpoint retention disabled",
+        }
+    gate_ok, gate_reason = strict_retention_gate_status(
+        retention_gate_evidence,
+        profile_name=profile.name,
+    )
+    return {
+        "profile": profile.name,
+        "status": "passed" if gate_ok else "blocked",
+        "reason": gate_reason,
+    }
+
+
 def persist_retained_checkpoint_bundles(
     profile,
     actor,
@@ -171,20 +199,18 @@ def persist_retained_checkpoint_bundles(
     retention_gate_evidence: dict | None = None,
 ) -> list[dict]:
     records: list[dict] = []
+    retention_gate_record = checkpoint_retention_gate_payload(
+        profile,
+        retained_checkpoints,
+        retention_gate_evidence,
+    )
     if retained_checkpoints and bool(getattr(profile.checkpoint_retention, "enabled", False)):
-        gate_ok, gate_reason = strict_retention_gate_status(
+        gate_ok, _gate_reason = strict_retention_gate_status(
             retention_gate_evidence,
             profile_name=profile.name,
         )
         if not gate_ok:
             return []
-        retention_gate_record = {
-            "profile": profile.name,
-            "status": "passed",
-            "reason": gate_reason,
-        }
-    else:
-        retention_gate_record = None
     for checkpoint in retained_checkpoints:
         iter_value = int(checkpoint["iter"])
         path = persist_actor_bundle(
@@ -202,7 +228,11 @@ def persist_retained_checkpoint_bundles(
                 "path": str(path),
                 "reasons": list(checkpoint.get("reasons", [])),
                 "metrics": dict(checkpoint.get("metrics", {})),
-                **({"retention_gate": retention_gate_record} if retention_gate_record else {}),
+                **(
+                    {"retention_gate": retention_gate_record}
+                    if bool(getattr(profile.checkpoint_retention, "enabled", False))
+                    else {}
+                ),
             }
         )
     return records
@@ -219,6 +249,7 @@ def persist_summary_bundle(
     test_proxy,
     promotion_report,
     retained_checkpoints=None,
+    checkpoint_retention_decision=None,
 ):
     retained_checkpoints = retained_checkpoints or []
     summary_path = summary_artifact_path(profile.name, effective_tag)
@@ -238,6 +269,7 @@ def persist_summary_bundle(
                 "warm_start": serialize_warm_start(profile),
                 "model_path": str(model_path),
                 "retained_checkpoints": retained_checkpoints,
+                "checkpoint_retention_decision": checkpoint_retention_decision,
                 "valid": valid_metrics,
                 "best_score": selection["best_score"],
                 "selection_history": selection["history"],
@@ -285,6 +317,7 @@ def build_actor_ensemble(profile_names: list[str], method: str = "mean_logits"):
 __all__ = [
     "artifact_tag_suffix",
     "build_actor_ensemble",
+    "checkpoint_retention_gate_payload",
     "feature_schema_payload",
     "load_actor_bundle",
     "load_actor_bundles",

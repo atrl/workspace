@@ -22,6 +22,7 @@ from ..policy.positioning import action_levels_for_profile
 from ..settings import CSV_PATH, QLIB_DATA_PATH, ROOT
 from .artifacts import (
     artifact_tag_suffix,
+    checkpoint_retention_gate_payload,
     persist_actor_bundle,
     persist_retained_checkpoint_bundles,
     persist_summary_bundle,
@@ -59,6 +60,7 @@ def run_profile(
     multi_asset_sources=None,
     use_moe: bool = False,
     ablate_vix: bool = False,
+    retention_gate_evidence: dict | None = None,
 ) -> Dict[str, object]:
     obs_dim = observation_dim_for_profile(profile)
     feature_columns = feature_columns_for_packs(profile.feature.packs, profile.name)
@@ -137,6 +139,11 @@ def run_profile(
     )
 
     model_path = persist_actor_bundle(profile, actor, obs_dim=obs_dim, seed=seed, effective_tag=effective_tag)
+    checkpoint_retention_decision = checkpoint_retention_gate_payload(
+        profile,
+        selection.get("retained_checkpoints", []),
+        retention_gate_evidence,
+    )
     retained_checkpoint_records = persist_retained_checkpoint_bundles(
         profile=profile,
         actor=actor,
@@ -144,6 +151,7 @@ def run_profile(
         seed=seed,
         effective_tag=effective_tag,
         retained_checkpoints=selection.get("retained_checkpoints", []),
+        retention_gate_evidence=retention_gate_evidence,
     )
     slice_result = slice_metrics(
         actor,
@@ -231,10 +239,12 @@ def run_profile(
         test_proxy=test_proxy,
         promotion_report=promotion_report,
         retained_checkpoints=retained_checkpoint_records,
+        checkpoint_retention_decision=checkpoint_retention_decision,
     )
     bt_result["valid"] = valid_metrics
     bt_result["selection_history"] = selection["history"]
     bt_result["retained_checkpoints"] = retained_checkpoint_records
+    bt_result["checkpoint_retention_decision"] = checkpoint_retention_decision
     bt_result["model_path"] = str(model_path)
     bt_result["summary_path"] = str(summary_path)
     bt_result["slices"] = slice_result
