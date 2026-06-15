@@ -12,7 +12,7 @@ import type {
   ModelRow,
 } from './types';
 
-const MODEL_COLORS = ['#39b7c5', '#a597ff', '#e1aa3e', '#1fb981', '#f472b6', '#f97316'];
+const DIFF_MARKER_COLOR = '#22c7a9';
 
 export function formatProfileLabel(profile: string): string {
   if (profile === 'soxl_backtest_policy_reimplementation_v1') return 'SOXLBacktest';
@@ -204,12 +204,6 @@ export function buildActionMarkers(
     });
 }
 
-function markerShapeForAction(action: string): ActionMarker['shape'] {
-  if (action === 'BUY') return 'arrowUp';
-  if (action === 'SELL') return 'arrowDown';
-  return 'circle';
-}
-
 function markerPositionForAction(action: string): ActionMarker['position'] {
   return action === 'BUY' ? 'belowBar' : 'aboveBar';
 }
@@ -227,24 +221,44 @@ export function buildModelDifferenceMarkers(
       profiles.indexOf(profile) === index &&
       comparison.compared_profiles.includes(profile),
   );
-  const markers: ActionMarker[] = [];
+  const grouped = new Map<
+    string,
+    {
+      time: string;
+      action: string;
+      count: number;
+    }
+  >();
   for (const row of comparison.rows) {
     if (row.date < start || row.date > end) continue;
     const baseline = row.profiles[comparison.baseline_profile];
     if (!baseline) continue;
-    for (const [index, profile] of selectedProfiles.entries()) {
+    for (const profile of selectedProfiles) {
       const value = row.profiles[profile];
       if (!value?.action_mismatch) continue;
-      markers.push({
-        time: row.date,
-        position: markerPositionForAction(value.action),
-        color: MODEL_COLORS[index % MODEL_COLORS.length],
-        shape: markerShapeForAction(value.action),
-        text: '',
-      });
+      const key = `${row.date}:${value.action}`;
+      const current = grouped.get(key);
+      if (current) {
+        current.count += 1;
+      } else {
+        grouped.set(key, { time: row.date, action: value.action, count: 1 });
+      }
     }
   }
-  return markers.slice(-limit);
+  return [...grouped.values()]
+    .sort((left, right) => {
+      const dateOrder = left.time.localeCompare(right.time);
+      if (dateOrder !== 0) return dateOrder;
+      return left.action.localeCompare(right.action);
+    })
+    .map((marker) => ({
+      time: marker.time,
+      position: markerPositionForAction(marker.action),
+      color: DIFF_MARKER_COLOR,
+      shape: 'circle' as const,
+      text: marker.count > 1 ? `D${marker.count}` : 'D',
+    }))
+    .slice(-limit);
 }
 
 export function computeVisibleComparison(

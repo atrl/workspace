@@ -185,16 +185,52 @@ describe('dashboard v2 domain helpers', () => {
       {
         time: '2026-01-05',
         position: 'belowBar',
-        color: '#39b7c5',
-        shape: 'arrowUp',
-        text: '',
+        color: '#22c7a9',
+        shape: 'circle',
+        text: 'D',
       },
       {
         time: '2026-01-06',
         position: 'aboveBar',
-        color: '#39b7c5',
-        shape: 'arrowDown',
-        text: '',
+        color: '#22c7a9',
+        shape: 'circle',
+        text: 'D',
+      },
+    ]);
+  });
+
+  test('groups same-day model-difference markers to keep the K-line readable', () => {
+    expect(
+      buildModelDifferenceMarkers(
+        {
+          ...comparisonFixture,
+          compared_profiles: ['smoke', 'balanced_rule_residual_v22', 'candidate'],
+          rows: comparisonFixture.rows.map((row) => ({
+            ...row,
+            profiles: {
+              ...row.profiles,
+              candidate: { ...row.profiles.smoke },
+            },
+          })),
+        },
+        ['smoke', 'candidate', 'balanced_rule_residual_v22'],
+        '2026-01-02',
+        '2026-01-06',
+      ),
+    ).toEqual([
+      {
+        time: '2026-01-05',
+        position: 'belowBar',
+        color: '#22c7a9',
+        shape: 'circle',
+        text: 'D2',
+      },
+      {
+        time: '2026-01-06',
+        position: 'aboveBar',
+        color: '#22c7a9',
+        shape: 'circle',
+        text: 'D2',
       },
     ]);
   });

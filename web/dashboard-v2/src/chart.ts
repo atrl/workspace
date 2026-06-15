@@ -10,7 +10,7 @@ import {
   type MouseEventParams,
   type Time,
 } from 'lightweight-charts';
-import { buildActionMarkers, formatProfileLabel } from './domain';
+import { buildActionMarkers, buildModelDifferenceMarkers, formatProfileLabel } from './domain';
 import type { ActionMarker, ComparisonPayload, MarketPayload, ModelPayload } from './types';
 
 const MODEL_COLORS = ['#39b7c5', '#a597ff', '#e1aa3e', '#1fb981', '#f472b6', '#f97316'];
@@ -259,6 +259,9 @@ export function renderMarketChart(
   const markerEnd = market.rows.at(-1)?.date;
   const markers = [
     ...buildActionMarkers(model.events, { showText: false }),
+    ...(comparison && markerStart && markerEnd
+      ? buildModelDifferenceMarkers(comparison, comparisonProfiles, markerStart, markerEnd, 60)
+      : []),
     ...(markerStart && markerEnd ? latestSignalMarkers(models, markerStart, markerEnd) : []),
   ];
   createSeriesMarkers(

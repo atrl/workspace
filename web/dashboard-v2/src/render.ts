@@ -221,20 +221,20 @@ export function renderDataSourcePanel(container: HTMLElement, manifest: Manifest
   );
   const strip = element('div', 'status-strip');
   const rows: [string, string][] = [
-    ['Price', manifest.latest_market_date],
-    ['Replay', manifest.safe_backtest_end],
+    ['SOXL K-line', manifest.latest_market_date],
+    ['Qlib safe replay', manifest.safe_backtest_end],
     ['Baseline', formatProfileLabel(manifest.default_baseline_profile)],
     ['Blocked', String(blockedCount)],
   ];
   if (baselineEnd) {
-    rows.splice(3, 0, ['Baseline End', baselineEnd]);
+    rows.splice(3, 0, ['Baseline latest', baselineEnd]);
   }
   if (actorEnd) {
-    rows.splice(baselineEnd ? 4 : 3, 0, ['Actor End', actorEnd]);
+    rows.splice(baselineEnd ? 4 : 3, 0, ['Actor replay', actorEnd]);
   }
   if (actorSignalEnd && actorSignalEnd > (actorEnd ?? '')) {
     const blockedIndex = rows.findIndex(([label]) => label === 'Blocked');
-    rows.splice(blockedIndex >= 0 ? blockedIndex : rows.length, 0, ['Actor Signal', actorSignalEnd]);
+    rows.splice(blockedIndex >= 0 ? blockedIndex : rows.length, 0, ['Actor latest signal', actorSignalEnd]);
   }
   if (manifest.canonical_data_date && manifest.canonical_data_date !== manifest.latest_market_date) {
     rows.splice(1, 0, ['Canonical', manifest.canonical_data_date]);
@@ -261,7 +261,7 @@ export function renderDataSourcePanel(container: HTMLElement, manifest: Manifest
     if (label === 'Signals' && manifest.latest_signal && !manifest.latest_signal.comparison_included) {
       item.dataset.tone = 'warning';
     }
-    if (label === 'Actor Signal') item.dataset.tone = 'warning';
+    if (label === 'Actor latest signal') item.dataset.tone = 'warning';
     item.appendChild(element('span', 'source-label', label));
     item.appendChild(element('span', 'source-value', value));
     strip.appendChild(item);
@@ -436,7 +436,7 @@ export function renderModelDeltaStrip(
     decision.appendChild(grid);
     container.appendChild(decision);
   }
-  const latestSignalRows = latestSignalDifferenceRows(comparison, models, start, end);
+  const latestSignalRows = decisionRows.length > 1 ? [] : latestSignalDifferenceRows(comparison, models, start, end);
   if (latestSignalRows.length > 0) {
     const latestStrip = element('div', 'latest-signal-strip');
     const firstSignal = latestSignalRows[0];
@@ -537,7 +537,10 @@ export function renderModelDeltaStrip(
   }
   table.appendChild(tbody);
   tableWrap.appendChild(table);
-  container.appendChild(tableWrap);
+  const history = element('details', 'model-diff-history') as HTMLDetailsElement;
+  history.appendChild(element('summary', undefined, `Historical differences (${selected.length})`));
+  history.appendChild(tableWrap);
+  container.appendChild(history);
 }
 
 export function renderActionLegend(container: HTMLElement): void {

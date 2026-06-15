@@ -15,7 +15,7 @@ describe('dashboard v2 DOM render helpers', () => {
     renderDataSourcePanel(panel, manifestFixture);
 
     expect(panel.querySelector('.status-strip')).not.toBeNull();
-    expect(panel.textContent).toContain('Replay');
+    expect(panel.textContent).toContain('Qlib safe replay');
     expect(panel.textContent).toContain('2026-01-06');
     expect(panel.textContent).not.toContain('model_replay_freshness.json');
   });
@@ -82,11 +82,11 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.querySelector('.freshness-alert')?.textContent).toContain('Market 2026-01-06');
     expect(panel.querySelector('.freshness-alert')?.textContent).toContain('Actors 2026-01-05');
     expect(panel.querySelector('.freshness-alert')?.textContent).toContain('Baseline 2026-01-06');
-    expect(panel.querySelector('.status-strip')?.textContent).toContain('Baseline End');
+    expect(panel.querySelector('.status-strip')?.textContent).toContain('Baseline latest');
     expect(panel.querySelector('.status-strip')?.textContent).toContain('2026-01-06');
-    expect(panel.querySelector('.status-strip')?.textContent).toContain('Actor End');
+    expect(panel.querySelector('.status-strip')?.textContent).toContain('Actor replay');
     expect(panel.querySelector('.status-strip')?.textContent).toContain('2026-01-05');
-    expect(panel.querySelector('.status-strip')?.textContent).toContain('Actor Signal');
+    expect(panel.querySelector('.status-strip')?.textContent).toContain('Actor latest signal');
     expect(panel.querySelector('.status-strip')?.textContent).toContain('2026-01-06');
     expect(panel.querySelector('.freshness-alert')?.textContent).toContain('Actor signals 2026-01-06');
   });
@@ -385,6 +385,7 @@ describe('dashboard v2 DOM render helpers', () => {
     );
 
     expect(panel.querySelector('.model-diff-table')).not.toBeNull();
+    expect(panel.querySelector<HTMLDetailsElement>('details.model-diff-history')?.open).toBe(false);
     expect(panel.querySelectorAll('.model-difference-row')).toHaveLength(1);
     expect(panel.textContent).toContain('smoke');
     expect(panel.querySelector('.model-delta-caption')?.textContent).toContain('Baseline BRR v22');
@@ -478,12 +479,15 @@ describe('dashboard v2 DOM render helpers', () => {
       { [referenceProfile]: referenceModel, smoke: signalModel },
     );
 
-    const latestStrip = panel.querySelector('.latest-signal-strip');
-    expect(latestStrip).not.toBeNull();
-    expect(latestStrip?.textContent).toContain('Latest signal vs SOXLBacktest HOLD 0.200 @2026-01-07');
-    expect(latestStrip?.textContent).toContain('smoke BUY 0.550');
-    expect(latestStrip?.textContent).toContain('Δpos +0.350');
-    expect(latestStrip?.textContent).toContain('replay 2026-01-06');
+    expect(panel.querySelector('.latest-signal-strip')).toBeNull();
+    const matrix = panel.querySelector('.latest-decision-matrix');
+    expect(matrix).not.toBeNull();
+    expect(matrix?.textContent).toContain('Latest 2026-01-07');
+    expect(matrix?.textContent).toContain('baseline SOXLBacktest HOLD 0.200');
+    expect(matrix?.textContent).toContain('smoke');
+    expect(matrix?.textContent).toContain('BUY 0.550');
+    expect(matrix?.textContent).toContain('Δpos +0.350');
+    expect(matrix?.textContent).toContain('signal as-of 2026-01-06');
   });
 
   test('renders a latest decision matrix for baseline versus actor signals', () => {
