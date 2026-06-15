@@ -36,6 +36,9 @@ RAW_EXTERNAL_DIR = RAW_DATA_DIR / "external"
 REMOTE_DATA_PROVIDERS = ("yfinance", "yahoo_api", "polygon", "futu")
 POLYGON_API_KEY_ENV = "POLYGON_API_KEY"
 CBOE_VIX_HISTORY_URL = "https://cdn.cboe.com/api/global/us_indices/daily_prices/VIX_History.csv"
+VIX_FORWARD_FILL_SOURCE = "ffill_raw_latest"
+VIX_PANEL_SOURCE = "panel"
+VIX_EXTERNAL_SOURCE = "external"
 DNS_ERROR_SNIPPETS = (
     "could not resolve host",
     "failed to resolve",
@@ -344,6 +347,153 @@ def _normalize_symbol_surface_frame(frame: pd.DataFrame) -> pd.DataFrame:
     return result.sort_values("date").reset_index(drop=True)
 
 
+def _normalize_external_vix_frame(frame: pd.DataFrame) -> pd.DataFrame:
+    if frame.empty:
+        return pd.DataFrame(columns=["date", "vix"])
+    date_col = "DATE" if "DATE" in frame.columns else "date"
+    value_col = "CLOSE" if "CLOSE" in frame.columns else "vix"
+    missing = [column for column in (date_col, value_col) if column not in frame.columns]
+    if missing:
+        raise ValueError(f"VIX frame missing columns: {', '.join(missing)}")
+    result = pd.DataFrame(
+        {
+            "date": pd.to_datetime(frame[date_col]).dt.normalize(),
+            "vix": pd.to_numeric(frame[value_col], errors="raise"),
+        }
+    )
+    return result.sort_values("date").drop_duplicates(subset=["date"], keep="last").reset_index(drop=True)
+
+
+def _local_raw_symbol_frame(symbol: str, root: Path = ROOT) -> pd.DataFrame | None:
+    path = root / "data" / "raw" / "symbols" / f"{symbol.upper()}.csv"
+    if not path.exists():
+        return None
+    return pd.read_csv(path, parse_dates=["date"])
+
+
+def _local_external_vix_frame(root: Path = ROOT) -> pd.DataFrame | None:
+    path = root / "data" / "raw" / "external" / "VIX.csv"
+    if not path.exists():
+        return None
+    return pd.read_csv(path)
+
+
+def extend_master_with_local_raw_latest(
+    master: pd.DataFrame,
+    *,
+    symbol_frames: dict[str, pd.DataFrame | None] | None = None,
+    vix_frame: pd.DataFrame | None = None,
+) -> tuple[pd.DataFrame, dict[str, object]]:
+    """Extend the canonical panel to local raw SOXL/SOXX dates.
+
+    This is intentionally conservative: a new row is added only when both SOXL
+    and SOXX raw symbol rows exist. If VIX is not available for that exact date,
+    the last known VIX is forward-filled and tagged in ``vix_source``.
+    """
+    base = master.copy()
+    base["date"] = pd.to_datetime(base["date"]).dt.normalize()
+    if "vix_source" not in base.columns:
+        base["vix_source"] = VIX_PANEL_SOURCE
+    else:
+        base["vix_source"] = base["vix_source"].fillna(VIX_PANEL_SOURCE)
+    before_rows = int(len(base))
+    before_last = base["date"].max() if not base.empty else pd.NaT
+
+    symbol_frames = symbol_frames or {}
+    raw_soxl = symbol_frames.get("SOXL")
+    raw_soxx = symbol_frames.get("SOXX")
+    if raw_soxl is None or raw_soxx is None:
+        return (
+            base.sort_values("date").reset_index(drop=True),
+            {
+                "before_rows": before_rows,
+                "after_rows": before_rows,
+                "new_rows": 0,
+                "before_last_date": before_last.strftime("%Y-%m-%d") if pd.notna(before_last) else None,
+                "last_date": before_last.strftime("%Y-%m-%d") if pd.notna(before_last) else None,
+                "extended_dates": [],
+                "vix_forward_filled_dates": [],
+            },
+        )
+
+    soxl = _normalize_symbol_surface_frame(raw_soxl)
+    soxx = _normalize_symbol_surface_frame(raw_soxx)
+    soxl["date"] = pd.to_datetime(soxl["date"]).dt.normalize()
+    soxx["date"] = pd.to_datetime(soxx["date"]).dt.normalize()
+    soxl = soxl.set_index("date")
+    soxx = soxx.set_index("date")
+    vix = _normalize_external_vix_frame(vix_frame) if vix_frame is not None else pd.DataFrame(columns=["date", "vix"])
+    vix_by_date = vix.set_index("date")["vix"] if not vix.empty else pd.Series(dtype=float)
+    vix_history = pd.concat(
+        [
+            base[["date", "vix"]].rename(columns={"vix": "vix"}),
+            vix[["date", "vix"]] if not vix.empty else pd.DataFrame(columns=["date", "vix"]),
+        ],
+        ignore_index=True,
+    )
+    vix_history["date"] = pd.to_datetime(vix_history["date"]).dt.normalize()
+    vix_history = (
+        vix_history.dropna(subset=["date", "vix"])
+        .drop_duplicates(subset=["date"], keep="last")
+        .sort_values("date")
+    )
+
+    existing_dates = set(base["date"])
+    candidate_dates = sorted((set(soxl.index) & set(soxx.index)) - existing_dates)
+    if pd.notna(before_last):
+        candidate_dates = [date for date in candidate_dates if date > before_last]
+
+    rows: list[dict[str, object]] = []
+    forward_filled_dates: list[str] = []
+    for date in candidate_dates:
+        soxl_row = soxl.loc[date]
+        soxx_row = soxx.loc[date]
+        if date in vix_by_date.index:
+            vix_value = float(vix_by_date.loc[date])
+            vix_source = VIX_EXTERNAL_SOURCE
+        else:
+            available_vix = vix_history[vix_history["date"] <= date]
+            if available_vix.empty:
+                continue
+            vix_value = float(available_vix.iloc[-1]["vix"])
+            vix_source = VIX_FORWARD_FILL_SOURCE
+            forward_filled_dates.append(date.strftime("%Y-%m-%d"))
+        rows.append(
+            {
+                "date": date,
+                "soxl_open": float(soxl_row["open"]),
+                "soxl_high": float(soxl_row["high"]),
+                "soxl_low": float(soxl_row["low"]),
+                "soxl_close": float(soxl_row["close"]),
+                "soxl_volume": int(soxl_row["volume"]),
+                "soxx_open": float(soxx_row["open"]),
+                "soxx_high": float(soxx_row["high"]),
+                "soxx_low": float(soxx_row["low"]),
+                "soxx_close": float(soxx_row["close"]),
+                "soxx_volume": int(soxx_row["volume"]),
+                "vix": vix_value,
+                "vix_source": vix_source,
+            }
+        )
+
+    if rows:
+        base = pd.concat([base, pd.DataFrame(rows)], ignore_index=True)
+    base = base.sort_values("date").drop_duplicates(subset=["date"], keep="last").reset_index(drop=True)
+    last_date = base["date"].max() if not base.empty else pd.NaT
+    return (
+        base,
+        {
+            "before_rows": before_rows,
+            "after_rows": int(len(base)),
+            "new_rows": int(len(base) - before_rows),
+            "before_last_date": before_last.strftime("%Y-%m-%d") if pd.notna(before_last) else None,
+            "last_date": last_date.strftime("%Y-%m-%d") if pd.notna(last_date) else None,
+            "extended_dates": [row["date"].strftime("%Y-%m-%d") for row in rows],
+            "vix_forward_filled_dates": forward_filled_dates,
+        },
+    )
+
+
 def _merge_symbol_surface(base: pd.DataFrame, latest: pd.DataFrame | None) -> pd.DataFrame:
     if latest is None or latest.empty:
         return base
@@ -363,6 +513,9 @@ def build_local_surface_frames(
 ) -> dict[str, pd.DataFrame]:
     """Derive raw/external mirror CSVs from the canonical processed panel."""
     symbol_frames = symbol_frames or {}
+    vix_frame = master[["date", "vix"]].copy()
+    if "vix_source" in master.columns:
+        vix_frame = vix_frame[master["vix_source"].fillna(VIX_PANEL_SOURCE) != VIX_FORWARD_FILL_SOURCE].copy()
     return {
         "data/raw/symbols/SOXL.csv": _merge_symbol_surface(
             _normalize_symbol_view(master, "soxl"),
@@ -374,8 +527,8 @@ def build_local_surface_frames(
         ),
         "data/raw/external/VIX.csv": pd.DataFrame(
             {
-                "DATE": pd.to_datetime(master["date"]).dt.strftime("%Y-%m-%d"),
-                "CLOSE": master["vix"].astype(float),
+                "DATE": pd.to_datetime(vix_frame["date"]).dt.strftime("%Y-%m-%d"),
+                "CLOSE": vix_frame["vix"].astype(float),
             }
         ),
     }
@@ -582,6 +735,14 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="Skip remote fetch and only sync raw/qlib surfaces from the existing canonical panel",
     )
+    parser.add_argument(
+        "--extend-from-raw",
+        action="store_true",
+        help=(
+            "With --local-only, extend the canonical panel to the latest common local "
+            "SOXL/SOXX raw date and forward-fill VIX with provenance when needed."
+        ),
+    )
     return parser.parse_args()
 
 
@@ -595,14 +756,40 @@ def main(argv: list[str] | None = None) -> dict:
     try:
         if args.local_only:
             state = _load_master_csv(CSV_PATH)
+            local_extension: dict[str, object] | None = None
+            if args.extend_from_raw:
+                state, local_extension = extend_master_with_local_raw_latest(
+                    state,
+                    symbol_frames={
+                        "SOXL": _local_raw_symbol_frame("SOXL"),
+                        "SOXX": _local_raw_symbol_frame("SOXX"),
+                    },
+                    vix_frame=_local_external_vix_frame(),
+                )
+                if not args.dry_run and local_extension.get("new_rows"):
+                    state.to_csv(CSV_PATH, index=False)
+                    print(
+                        "[update] extended canonical panel from raw "
+                        f"new_rows={local_extension['new_rows']} "
+                        f"last_date={local_extension['last_date']} "
+                        f"vix_ffill={len(local_extension['vix_forward_filled_dates'])}"
+                    )
+                elif args.dry_run:
+                    print(
+                        "[update] dry-run: skip canonical panel raw extension "
+                        f"new_rows={local_extension['new_rows']} "
+                        f"last_date={local_extension['last_date']}"
+                    )
             result = {
-                "before_rows": len(state),
+                "before_rows": local_extension.get("before_rows", len(state)) if local_extension else len(state),
                 "after_rows": len(state),
-                "new_rows": 0,
+                "new_rows": local_extension.get("new_rows", 0) if local_extension else 0,
                 "last_date": state["date"].max().strftime("%Y-%m-%d"),
                 "dry_run": args.dry_run,
                 "mode": "local-only",
             }
+            if local_extension is not None:
+                result["local_raw_extension"] = local_extension
             print(
                 f"[update] local-only rows={result['after_rows']} "
                 f"last_date={result['last_date']}"

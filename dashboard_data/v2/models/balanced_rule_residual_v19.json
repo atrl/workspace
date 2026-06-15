@@ -1906,11 +1906,11 @@
       "price": 50.279998779296875
     },
     {
-      "date": "2026-03-16",
+      "date": "2026-03-17",
       "kind": "POSITION_DECREASE",
       "position": 0.0,
-      "position_delta": -0.624796282713709,
-      "price": 53.689998626708984
+      "position_delta": -0.5986481850228662,
+      "price": 54.95000076293945
     },
     {
       "date": "2026-03-25",
@@ -1955,17 +1955,26 @@
       "price": 224.33999633789065
     }
   ],
+  "latest_signal": {
+    "action": "BUY",
+    "date": "2026-06-15",
+    "position": 0.5749999985098839,
+    "price": 271.8599853515625,
+    "raw_action": 0,
+    "replay_asof": "2026-06-12",
+    "source": "latest_signal_stateless"
+  },
   "metrics": {
     "full": {
-      "avg_position": 0.49689424336126364,
+      "avg_position": 0.49695705443636334,
       "max_drawdown": -0.5469623774337583,
-      "return": 11.97588087598572,
-      "row_count": 1619.0
+      "return": 12.377824394052125,
+      "row_count": 1620.0
     }
   },
   "profile": "balanced_rule_residual_v19",
   "profile_yaml": "runtime/model/card/balanced_rule_residual_v19/profile.yaml",
-  "replay_end": "2026-06-11",
+  "replay_end": "2026-06-12",
   "replay_start": "2020-01-02",
   "retention": {
     "code": "missing_final_retention_decision",
@@ -1974,7 +1983,7 @@
     "status": "blocked",
     "summary_path": "runtime/model/card/balanced_rule_residual_v19/soxl_balanced_rule_residual_v19_summary.json"
   },
-  "row_count": 1619,
+  "row_count": 1620,
   "rows": [
     {
       "action": "HOLD",
@@ -17552,7 +17561,7 @@
       "date": "2026-03-16",
       "excess": 2248175.776049557,
       "excess_pct": 4.006601417775727,
-      "position": 0.0,
+      "position": 0.5986481850228662,
       "price": 53.689998626708984,
       "strategy_nav": 5006601.417775727
     },
@@ -18165,6 +18174,16 @@
       "position": 0.0,
       "price": 223.9900054931641,
       "strategy_nav": 12975880.87598572
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 12057130.302755328,
+      "date": "2026-06-12",
+      "excess": 1320694.0912967976,
+      "excess_pct": 12.377824394052125,
+      "position": 0.0,
+      "price": 234.67999267578125,
+      "strategy_nav": 13377824.394052126
     }
   ],
   "source_path": "runtime/model/card/balanced_rule_residual_v19/balanced_rule_residual_v19_soxl_daily.csv",

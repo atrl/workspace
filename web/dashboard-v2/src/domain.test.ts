@@ -231,6 +231,39 @@ describe('dashboard v2 domain helpers', () => {
     expect(rows.some((row) => row.label === 'smoke NAV' && row.value === '103.00')).toBe(true);
   });
 
+  test('computes inspector model state from latest signal without replay NAV', () => {
+    const rows = computeInspectorRows({
+      date: '2026-01-07',
+      manifest: manifestFixture,
+      market: {
+        ...marketFixture,
+        rows: [
+          ...marketFixture.rows,
+          { date: '2026-01-07', open: 10.7, high: 10.9, low: 10.2, close: 10.4, volume: 1400 },
+        ],
+      },
+      models: {
+        smoke: {
+          ...modelFixture,
+          latest_signal: {
+            date: '2026-01-07',
+            price: 10.4,
+            position: 0.55,
+            action: 'BUY',
+            replay_asof: '2026-01-06',
+            source: 'latest_signal_stateless',
+          },
+        },
+      },
+      comparison: comparisonFixture,
+    });
+
+    expect(rows.some((row) => row.label === 'smoke signal' && row.value === 'latest_signal_stateless')).toBe(true);
+    expect(rows.some((row) => row.label === 'smoke replay as-of' && row.value === '2026-01-06')).toBe(true);
+    expect(rows.some((row) => row.label === 'smoke position' && row.value === '0.550')).toBe(true);
+    expect(rows.some((row) => row.label === 'smoke NAV')).toBe(false);
+  });
+
   test('treats hover-only updates as inspector updates instead of chart renders', () => {
     expect(viewUpdateRequiresChartRender({ hoveredDate: '2026-01-06' })).toBe(false);
     expect(viewUpdateRequiresChartRender({ start: '2026-01-05' })).toBe(true);

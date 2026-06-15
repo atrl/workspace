@@ -82,7 +82,7 @@ describe('dashboard v2 chart rendering', () => {
     chartMocks.priceScaleRecords.length = 0;
   });
 
-  test('renders price candles with close line, MA and volume without model position overlays on the main chart', () => {
+  test('renders price candles with close line, MA, volume and model position overlays on the main chart', () => {
     const container = document.createElement('div');
     const challenger = { ...modelFixture, profile: 'balanced_rule_residual_v22' };
 
@@ -94,7 +94,14 @@ describe('dashboard v2 chart rendering', () => {
       () => {},
     );
 
-    expect(chartMocks.seriesRecords.map((record) => record.kind)).toEqual(['candlestick', 'line', 'line', 'histogram']);
+    expect(chartMocks.seriesRecords.map((record) => record.kind)).toEqual([
+      'candlestick',
+      'line',
+      'line',
+      'histogram',
+      'line',
+      'line',
+    ]);
     expect(chartMocks.seriesRecords[1].options).toMatchObject({
       title: 'SOXL close',
       priceLineVisible: false,
@@ -122,7 +129,19 @@ describe('dashboard v2 chart rendering', () => {
         color: row.close >= row.open ? 'rgba(31, 185, 129, 0.24)' : 'rgba(217, 107, 95, 0.24)',
       })),
     );
-    expect(chartMocks.seriesRecords.some((record) => record.options.priceScaleId === 'left')).toBe(false);
+    expect(chartMocks.seriesRecords[4].options).toMatchObject({
+      title: 'smoke position',
+      priceScaleId: 'position',
+      priceLineVisible: false,
+      lastValueVisible: false,
+    });
+    expect(chartMocks.seriesRecords[4].data).toEqual(
+      modelFixture.rows.map((row) => ({ time: row.date, value: row.position })),
+    );
+    expect(chartMocks.seriesRecords[5].options).toMatchObject({
+      title: 'BRR v22 position',
+      priceScaleId: 'position',
+    });
   });
 
   test('adds selected model action-difference markers directly on the main K-line', () => {
@@ -152,12 +171,15 @@ describe('dashboard v2 chart rendering', () => {
 
     renderMarketChart(container, marketFixture, modelFixture, { smoke: modelFixture }, () => {});
 
-    expect(chartMocks.priceScaleRecords.map((record) => record.id)).toEqual(['right', 'volume']);
+    expect(chartMocks.priceScaleRecords.map((record) => record.id)).toEqual(['right', 'volume', 'position']);
     expect(chartMocks.priceScaleRecords[0].applyOptions).toHaveBeenCalledWith({
-      scaleMargins: { top: 0.04, bottom: 0.18 },
+      scaleMargins: { top: 0.04, bottom: 0.30 },
     });
     expect(chartMocks.priceScaleRecords[1].applyOptions).toHaveBeenCalledWith({
-      scaleMargins: { top: 0.84, bottom: 0.02 },
+      scaleMargins: { top: 0.88, bottom: 0.02 },
+    });
+    expect(chartMocks.priceScaleRecords[2].applyOptions).toHaveBeenCalledWith({
+      scaleMargins: { top: 0.72, bottom: 0.14 },
     });
   });
 
@@ -171,6 +193,43 @@ describe('dashboard v2 chart rendering', () => {
       { time: '2026-01-02', value: 0 },
       { time: '2026-01-05', value: 0.7 },
       { time: '2026-01-06', value: 0.2 },
+    ]);
+  });
+
+  test('clips delta panes to the current selected date range', () => {
+    const container = document.createElement('div');
+
+    renderDeltaChart(
+      container,
+      comparisonFixture,
+      ['smoke', 'balanced_rule_residual_v22'],
+      'position_delta_vs_baseline',
+      '2026-01-05',
+      '2026-01-05',
+    );
+
+    expect(chartMocks.seriesRecords[0].data).toEqual([{ time: '2026-01-05', value: 0.7 }]);
+  });
+
+  test('extends main chart position overlay with latest signal without adding NAV rows', () => {
+    const container = document.createElement('div');
+    const latestModel = {
+      ...modelFixture,
+      latest_signal: {
+        date: '2026-01-07',
+        price: 10.4,
+        position: 0.55,
+        action: 'BUY' as const,
+        replay_asof: '2026-01-06',
+        source: 'latest_signal_stateless',
+      },
+    };
+
+    renderMarketChart(container, marketFixture, latestModel, { smoke: latestModel }, () => {});
+
+    expect(chartMocks.seriesRecords[4].data).toEqual([
+      ...modelFixture.rows.map((row) => ({ time: row.date, value: row.position })),
+      { time: '2026-01-07', value: 0.55 },
     ]);
   });
 

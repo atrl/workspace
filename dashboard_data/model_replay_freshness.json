@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-06-15T18:21:40+00:00",
-  "latest_data_date": "2026-06-12",
-  "safe_backtest_end": "2026-06-11",
+  "generated_at": "2026-06-15T19:27:05+00:00",
+  "latest_data_date": "2026-06-15",
+  "safe_backtest_end": "2026-06-12",
   "terminal_note": "qlib daily backtests require a following calendar boundary, so model replay curves target safe_backtest_end while paper trading/latest signal can use latest_data_date.",
   "counts": {
-    "current": 12,
-    "refreshed": 0,
+    "current": 0,
+    "refreshed": 12,
     "failed": 0,
     "skipped": 0
   },
@@ -17,9 +17,9 @@
       "profile_yaml": "runtime/model/card/balanced/profile.yaml",
       "output": "runtime/model/card/balanced/balanced_soxl_daily.csv",
       "before_end": "2026-06-11",
-      "after_end": "2026-06-11",
-      "result": "current",
-      "reason": "already at safe_backtest_end"
+      "after_end": "2026-06-12",
+      "result": "refreshed",
+      "reason": "exported daily replay"
     },
     {
       "profile": "balanced_macro_v1",
@@ -28,9 +28,9 @@
       "profile_yaml": "runtime/model/card/balanced_macro_v1/profile.yaml",
       "output": "runtime/model/card/balanced_macro_v1/balanced_macro_v1_soxl_daily.csv",
       "before_end": "2026-06-11",
-      "after_end": "2026-06-11",
-      "result": "current",
-      "reason": "already at safe_backtest_end"
+      "after_end": "2026-06-12",
+      "result": "refreshed",
+      "reason": "exported daily replay"
     },
     {
       "profile": "balanced_rule_residual_v19",
@@ -38,10 +38,10 @@
       "actor": "runtime/model/card/balanced_rule_residual_v19/soxl_balanced_rule_residual_v19_actor.pt",
       "profile_yaml": "runtime/model/card/balanced_rule_residual_v19/profile.yaml",
       "output": "runtime/model/card/balanced_rule_residual_v19/balanced_rule_residual_v19_soxl_daily.csv",
-      "before_end": "2026-06-11",
-      "after_end": "2026-06-11",
-      "result": "current",
-      "reason": "already at safe_backtest_end"
+      "before_end": "2026-06-12",
+      "after_end": "2026-06-12",
+      "result": "refreshed",
+      "reason": "exported daily replay"
     },
     {
       "profile": "smoke",
@@ -49,10 +49,10 @@
       "actor": "runtime/model/card/smoke/soxl_smoke_actor.pt",
       "profile_yaml": "runtime/harness/card/smoke/profile.yaml",
       "output": "runtime/model/card/smoke/smoke_soxl_daily.csv",
-      "before_end": "2026-06-11",
-      "after_end": "2026-06-11",
-      "result": "current",
-      "reason": "already at safe_backtest_end"
+      "before_end": "2026-06-12",
+      "after_end": "2026-06-12",
+      "result": "refreshed",
+      "reason": "exported daily replay"
     },
     {
       "profile": "balanced_rule_residual_v22",
@@ -60,10 +60,10 @@
       "actor": "runtime/model/card/balanced_rule_residual_v22/soxl_balanced_rule_residual_v22_actor.pt",
       "profile_yaml": "runtime/model/card/balanced_rule_residual_v22/profile.yaml",
       "output": "runtime/model/card/balanced_rule_residual_v22/balanced_rule_residual_v22_soxl_daily.csv",
-      "before_end": "2026-06-11",
-      "after_end": "2026-06-11",
-      "result": "current",
-      "reason": "already at safe_backtest_end"
+      "before_end": "2026-06-12",
+      "after_end": "2026-06-12",
+      "result": "refreshed",
+      "reason": "exported daily replay"
     },
     {
       "profile": "balanced_rule_residual_imitation_v4",
@@ -72,9 +72,9 @@
       "profile_yaml": "runtime/execution/card/balanced_rule_residual_imitation_v4/profile.yaml",
       "output": "runtime/model/card/balanced_rule_residual_imitation_v4/balanced_rule_residual_imitation_v4_soxl_daily.csv",
       "before_end": "2026-06-11",
-      "after_end": "2026-06-11",
-      "result": "current",
-      "reason": "already at safe_backtest_end"
+      "after_end": "2026-06-12",
+      "result": "refreshed",
+      "reason": "exported daily replay"
     },
     {
       "profile": "drawdown_rebound_reward_train_v1",
@@ -83,9 +83,9 @@
       "profile_yaml": "runtime/reward/card/drawdown_rebound_reward_train_v1/profile.yaml",
       "output": "runtime/model/card/drawdown_rebound_reward_train_v1/drawdown_rebound_reward_train_v1_soxl_daily.csv",
       "before_end": "2026-06-11",
-      "after_end": "2026-06-11",
-      "result": "current",
-      "reason": "already at safe_backtest_end"
+      "after_end": "2026-06-12",
+      "result": "refreshed",
+      "reason": "exported daily replay"
     },
     {
       "profile": "mode_conditioned_rebound_reward_train_v2",
@@ -93,10 +93,10 @@
       "actor": "runtime/model/card/mode_conditioned_rebound_reward_train_v2/soxl_mode_conditioned_rebound_reward_train_v2_actor.pt",
       "profile_yaml": "runtime/reward/card/mode_conditioned_rebound_reward_train_v2/profile.yaml",
       "output": "runtime/model/card/mode_conditioned_rebound_reward_train_v2/mode_conditioned_rebound_reward_train_v2_soxl_daily.csv",
-      "before_end": "2026-06-11",
-      "after_end": "2026-06-11",
-      "result": "current",
-      "reason": "already at safe_backtest_end"
+      "before_end": "2026-06-12",
+      "after_end": "2026-06-12",
+      "result": "refreshed",
+      "reason": "exported daily replay"
     },
     {
       "profile": "state_conditioned_drawdown_rebound_reward_train_v1",
@@ -105,9 +105,9 @@
       "profile_yaml": "runtime/reward/card/state_conditioned_drawdown_rebound_reward_train_v1/profile.yaml",
       "output": "runtime/model/card/state_conditioned_drawdown_rebound_reward_train_v1/state_conditioned_drawdown_rebound_reward_train_v1_soxl_daily.csv",
       "before_end": "2026-06-11",
-      "after_end": "2026-06-11",
-      "result": "current",
-      "reason": "already at safe_backtest_end"
+      "after_end": "2026-06-12",
+      "result": "refreshed",
+      "reason": "exported daily replay"
     },
     {
       "profile": "balanced_rule_residual_v19_reg",
@@ -115,10 +115,10 @@
       "actor": "runtime/model/card/balanced_rule_residual_v19_reg/soxl_balanced_rule_residual_v19_reg_actor.pt",
       "profile_yaml": "runtime/model/card/balanced_rule_residual_v19_reg/profile.yaml",
       "output": "runtime/model/card/balanced_rule_residual_v19_reg/balanced_rule_residual_v19_reg_soxl_daily.csv",
-      "before_end": "2026-06-11",
-      "after_end": "2026-06-11",
-      "result": "current",
-      "reason": "already at safe_backtest_end"
+      "before_end": "2026-06-12",
+      "after_end": "2026-06-12",
+      "result": "refreshed",
+      "reason": "exported daily replay"
     },
     {
       "profile": "balanced_rule_residual_v19_reg_light",
@@ -127,9 +127,9 @@
       "profile_yaml": "runtime/model/card/balanced_rule_residual_v19_reg_light/profile.yaml",
       "output": "runtime/model/card/balanced_rule_residual_v19_reg_light/balanced_rule_residual_v19_reg_light_soxl_daily.csv",
       "before_end": "2026-06-11",
-      "after_end": "2026-06-11",
-      "result": "current",
-      "reason": "already at safe_backtest_end"
+      "after_end": "2026-06-12",
+      "result": "refreshed",
+      "reason": "exported daily replay"
     },
     {
       "profile": "balanced_rule_residual_v19_reg_v22_retest_v1",
@@ -138,9 +138,9 @@
       "profile_yaml": "runtime/model/card/balanced_rule_residual_v19_reg_v22_retest_v1/profile.yaml",
       "output": "runtime/model/card/balanced_rule_residual_v19_reg_v22_retest_v1/balanced_rule_residual_v19_reg_v22_retest_v1_soxl_daily.csv",
       "before_end": "2026-06-11",
-      "after_end": "2026-06-11",
-      "result": "current",
-      "reason": "already at safe_backtest_end"
+      "after_end": "2026-06-12",
+      "result": "refreshed",
+      "reason": "exported daily replay"
     }
   ]
 }

@@ -7,7 +7,7 @@ import pandas as pd
 
 from scripts import update_market_data
 from scripts import update_data_registry
-from scripts.update_market_data import build_local_surface_frames, update_master_csv
+from scripts.update_market_data import build_local_surface_frames, extend_master_with_local_raw_latest, update_master_csv
 
 
 def test_build_local_surface_frames_derives_raw_and_external_views():
@@ -111,6 +111,119 @@ def test_build_local_surface_frames_can_extend_raw_symbols_beyond_vix_overlap():
     assert soxl.iloc[-1]["close"] == 271.44
     assert soxx.iloc[-1]["close"] == 626.77
     assert vix["DATE"].tolist() == ["2026-06-12"]
+
+
+def test_extend_master_with_local_raw_latest_forward_fills_vix_with_provenance():
+    master = pd.DataFrame(
+        {
+            "date": pd.to_datetime(["2026-06-12"]),
+            "soxl_open": [222.22],
+            "soxl_high": [242.40],
+            "soxl_low": [214.7406],
+            "soxl_close": [234.68],
+            "soxl_volume": [50_419_140],
+            "soxx_open": [583.833],
+            "soxx_high": [602.404],
+            "soxx_low": [578.255],
+            "soxx_close": [595.967],
+            "soxx_volume": [9_947_173],
+            "vix": [17.68],
+        }
+    )
+    symbol_frames = {
+        "SOXL": pd.DataFrame(
+            {
+                "date": pd.to_datetime(["2026-06-12", "2026-06-15"]),
+                "open": [222.22, 265.91],
+                "high": [242.40, 272.66],
+                "low": [214.7406, 261.6019],
+                "close": [234.68, 271.86],
+                "volume": [50_419_140, 29_256_770],
+            }
+        ),
+        "SOXX": pd.DataFrame(
+            {
+                "date": pd.to_datetime(["2026-06-12", "2026-06-15"]),
+                "open": [583.833, 623.25],
+                "high": [602.404, 627.76],
+                "low": [578.255, 618.45],
+                "close": [595.967, 627.135],
+                "volume": [9_947_173, 5_140_008],
+            }
+        ),
+    }
+    vix_frame = pd.DataFrame({"DATE": ["2026-06-12"], "CLOSE": [17.68]})
+
+    extended, meta = extend_master_with_local_raw_latest(
+        master,
+        symbol_frames=symbol_frames,
+        vix_frame=vix_frame,
+    )
+
+    assert meta["new_rows"] == 1
+    assert meta["last_date"] == "2026-06-15"
+    assert meta["vix_forward_filled_dates"] == ["2026-06-15"]
+    latest = extended.iloc[-1]
+    assert latest["date"].strftime("%Y-%m-%d") == "2026-06-15"
+    assert latest["soxl_close"] == 271.86
+    assert latest["soxx_close"] == 627.135
+    assert latest["vix"] == 17.68
+    assert latest["vix_source"] == update_market_data.VIX_FORWARD_FILL_SOURCE
+
+    frames = build_local_surface_frames(extended)
+    assert frames["data/raw/external/VIX.csv"]["DATE"].tolist() == ["2026-06-12"]
+
+
+def test_extend_master_with_local_raw_latest_uses_exact_external_vix_when_available():
+    master = pd.DataFrame(
+        {
+            "date": pd.to_datetime(["2026-06-12"]),
+            "soxl_open": [222.22],
+            "soxl_high": [242.40],
+            "soxl_low": [214.7406],
+            "soxl_close": [234.68],
+            "soxl_volume": [50_419_140],
+            "soxx_open": [583.833],
+            "soxx_high": [602.404],
+            "soxx_low": [578.255],
+            "soxx_close": [595.967],
+            "soxx_volume": [9_947_173],
+            "vix": [17.68],
+        }
+    )
+    symbol_frames = {
+        "SOXL": pd.DataFrame(
+            {
+                "date": pd.to_datetime(["2026-06-15"]),
+                "open": [265.91],
+                "high": [272.66],
+                "low": [261.6019],
+                "close": [271.86],
+                "volume": [29_256_770],
+            }
+        ),
+        "SOXX": pd.DataFrame(
+            {
+                "date": pd.to_datetime(["2026-06-15"]),
+                "open": [623.25],
+                "high": [627.76],
+                "low": [618.45],
+                "close": [627.135],
+                "volume": [5_140_008],
+            }
+        ),
+    }
+    vix_frame = pd.DataFrame({"DATE": ["2026-06-15"], "CLOSE": [16.95]})
+
+    extended, meta = extend_master_with_local_raw_latest(
+        master,
+        symbol_frames=symbol_frames,
+        vix_frame=vix_frame,
+    )
+
+    assert meta["vix_forward_filled_dates"] == []
+    assert extended.iloc[-1]["vix"] == 16.95
+    assert extended.iloc[-1]["vix_source"] == update_market_data.VIX_EXTERNAL_SOURCE
 
 
 def test_update_master_csv_polygon_provider_uses_cboe_vix():

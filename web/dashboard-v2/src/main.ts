@@ -237,6 +237,7 @@ function renderReadoutPanels(data: DashboardData, state: ViewState, update: Upda
     state.selectedProfiles,
     data.manifest,
     mismatchRows,
+    data.models,
   );
   renderComparisonPanel(
     comparison,
@@ -273,8 +274,17 @@ function renderDashboard(data: DashboardData, state: ViewState, update: UpdateSt
     data.comparison,
     state.selectedProfiles,
     'position_delta_vs_baseline',
+    state.start,
+    state.end,
   );
-  const navHandles = renderDeltaChart(navChart, data.comparison, state.selectedProfiles, 'nav_delta_vs_baseline');
+  const navHandles = renderDeltaChart(
+    navChart,
+    data.comparison,
+    state.selectedProfiles,
+    'nav_delta_vs_baseline',
+    state.start,
+    state.end,
+  );
   const timeCleanup = syncVisibleTimeRanges(
     [marketHandles.chart, positionHandles.chart, navHandles.chart],
     (logicalRange) => {

@@ -181,16 +181,16 @@ h3 {
 .model-delta-strip {
   display: block;
   min-width: 0;
-  padding: 8px 12px 10px;
+  padding: 6px 12px 8px;
   border-bottom: 1px solid var(--line-soft);
   background: #121417;
 }
 
 .model-delta-caption {
   min-width: 0;
-  margin-bottom: 7px;
+  margin-bottom: 5px;
   color: var(--muted);
-  font-size: 12px;
+  font-size: 11px;
   line-height: 1.35;
   overflow-wrap: anywhere;
 }
@@ -200,27 +200,25 @@ h3 {
 }
 
 .model-diff-grid {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
   gap: 7px;
-  overflow-x: auto;
   padding-bottom: 2px;
 }
 
 .model-delta-pill {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 4px 8px;
-  flex: 1 1 0;
-  min-width: 190px;
-  max-width: 244px;
-  min-height: 94px;
-  padding: 8px 9px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 3px 7px;
+  min-width: 0;
+  min-height: 74px;
+  padding: 7px 8px;
   border: 1px solid var(--line);
   border-left: 4px solid var(--position);
   border-radius: 6px;
   background: var(--bg);
   color: var(--muted);
-  font-size: 12px;
+  font-size: 11px;
   line-height: 1.25;
 }
 
@@ -255,16 +253,26 @@ h3 {
   white-space: normal;
 }
 
+.model-difference-signal {
+  grid-column: 1 / -1;
+  color: var(--buy);
+  font-weight: 700;
+}
+
 .model-difference-feature {
   grid-column: 1 / -1;
   color: var(--text);
   border-top: 1px solid var(--line-soft);
-  padding-top: 5px;
+  padding-top: 4px;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
 
 .model-delta-pill strong {
   color: var(--text);
-  font-size: 13px;
+  font-size: 12px;
 }
 
 .model-delta-pill span {

@@ -342,14 +342,20 @@ export function computeInspectorRows(input: {
 
   for (const [profile, model] of Object.entries(input.models)) {
     const label = formatProfileLabel(profile);
-    const modelRow = model.rows.find((row) => row.date === input.date) ?? latestModelRowAtOrBefore(model.rows, input.date);
+    const signal = model.latest_signal?.date === input.date ? model.latest_signal : null;
+    const modelRow = signal ?? model.rows.find((row) => row.date === input.date) ?? latestModelRowAtOrBefore(model.rows, input.date);
     if (modelRow) {
-      if (modelRow.date !== input.date) {
+      if (signal) {
+        rows.push({ label: `${label} signal`, value: signal.source, tone: 'warning' });
+        rows.push({ label: `${label} replay as-of`, value: signal.replay_asof, tone: 'muted' });
+      } else if (modelRow.date !== input.date) {
         rows.push({ label: `${label} as-of`, value: modelRow.date, tone: 'muted' });
       }
       rows.push({ label: `${label} action`, value: modelRow.action, tone: rowToneForAction(modelRow.action) });
       rows.push({ label: `${label} position`, value: formatNumber(modelRow.position, 3) });
-      rows.push({ label: `${label} NAV`, value: formatNumber(modelRow.strategy_nav, 2) });
+      if (!signal && 'strategy_nav' in modelRow) {
+        rows.push({ label: `${label} NAV`, value: formatNumber(modelRow.strategy_nav, 2) });
+      }
     }
   }
 

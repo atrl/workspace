@@ -361,7 +361,7 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.textContent).toContain('smoke');
     expect(panel.querySelector('.model-delta-caption')?.textContent).toContain('Baseline BRR v22');
     expect(panel.textContent).toContain('Compare through 2026-01-06');
-    expect(panel.textContent).toContain('End 2026-01-06');
+    expect(panel.textContent).toContain('Replay 01-06');
     expect(panel.textContent).toContain('Ret +3.00%');
     expect(panel.textContent).toContain('NAV +2.00');
     expect(panel.textContent).toContain('Pos +0.200');
@@ -416,7 +416,8 @@ describe('dashboard v2 DOM render helpers', () => {
 
     expect(panel.querySelector('.model-diff-grid')).not.toBeNull();
     expect(panel.querySelectorAll('.model-difference-row')).toHaveLength(1);
-    expect(panel.querySelector('[data-freshness="stale"]')?.textContent).toContain('Cut 2026-01-06');
+    expect(panel.querySelector('[data-freshness="stale"]')?.textContent).toContain('Replay 01-06');
+    expect(panel.querySelector('[data-freshness="stale"]')?.textContent).toContain('Replay cut');
     expect(panel.querySelector('[data-freshness="stale"]')?.textContent).toContain('Gap to price 2026-01-07');
     expect(panel.textContent).toContain('Ret 42.00%');
     expect(panel.textContent).toContain('MaxDD -8.00%');
@@ -492,7 +493,8 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.querySelector('.model-difference-name')?.textContent).toBe('smoke');
     expect(panel.querySelector('.model-delta-caption')?.textContent).toContain('Baseline BRR v22 2026-01-07');
     expect(panel.querySelector('.model-delta-caption')?.textContent).toContain('Price 2026-01-07');
-    expect(panel.querySelector('[data-freshness="stale"]')?.textContent).toContain('Cut 2026-01-06');
+    expect(panel.querySelector('[data-freshness="stale"]')?.textContent).toContain('Replay 01-06');
+    expect(panel.querySelector('[data-freshness="stale"]')?.textContent).toContain('Replay cut');
   });
 
   test('renders clickable action mismatch rows with feature context', () => {

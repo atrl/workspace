@@ -26,6 +26,16 @@ function eventDate(param: MouseEventParams<Time>): string | null {
   return `${param.time.year}-${String(param.time.month).padStart(2, '0')}-${String(param.time.day).padStart(2, '0')}`;
 }
 
+function positionOverlayData(model: ModelPayload): { time: Time; value: number }[] {
+  const rows = model.rows.map((row) => ({ time: toTime(row.date), value: Number(row.position) }));
+  const latestSignal = model.latest_signal;
+  const lastReplayDate = model.rows.at(-1)?.date;
+  if (latestSignal && (!lastReplayDate || latestSignal.date > lastReplayDate)) {
+    rows.push({ time: toTime(latestSignal.date), value: Number(latestSignal.position) });
+  }
+  return rows;
+}
+
 export interface ChartHandles {
   chart: IChartApi;
   primarySeries: ISeriesApi<'Candlestick'> | ISeriesApi<'Line'>;
@@ -131,7 +141,7 @@ export function renderMarketChart(
     crosshair: { mode: 1 },
   });
   chart.priceScale('right').applyOptions({
-    scaleMargins: { top: 0.04, bottom: 0.18 },
+    scaleMargins: { top: 0.04, bottom: 0.30 },
   });
   const candleSeries = chart.addSeries(CandlestickSeries, {
     upColor: '#1fb981',
@@ -181,7 +191,7 @@ export function renderMarketChart(
     lastValueVisible: false,
   });
   volumeBars.priceScale().applyOptions({
-    scaleMargins: { top: 0.84, bottom: 0.02 },
+    scaleMargins: { top: 0.88, bottom: 0.02 },
   });
   volumeBars.setData(
     market.rows.map((row) => ({
@@ -190,6 +200,29 @@ export function renderMarketChart(
       color: Number(row.close) >= Number(row.open) ? 'rgba(31, 185, 129, 0.24)' : 'rgba(217, 107, 95, 0.24)',
     })),
   );
+
+  let positionScaleConfigured = false;
+  for (const [index, [profile, candidate]] of Object.entries(models).entries()) {
+    if (!candidate.rows.length) continue;
+    const isPrimary = profile === model.profile;
+    const positionLine = chart.addSeries(LineSeries, {
+      color: MODEL_COLORS[index % MODEL_COLORS.length],
+      lineWidth: isPrimary ? 2 : 1,
+      lastValueVisible: false,
+      priceLineVisible: false,
+      priceScaleId: 'position',
+      title: `${formatProfileLabel(profile)} position`,
+    });
+    if (!positionScaleConfigured) {
+      positionLine.priceScale().applyOptions({
+        scaleMargins: { top: 0.72, bottom: 0.14 },
+      });
+      positionScaleConfigured = true;
+    }
+    positionLine.setData(
+      positionOverlayData(candidate),
+    );
+  }
 
   const markerStart = market.rows[0]?.date;
   const markerEnd = market.rows.at(-1)?.date;
@@ -243,6 +276,8 @@ export function renderDeltaChart(
   comparison: ComparisonPayload,
   profiles: readonly string[],
   metric: DeltaMetric,
+  start?: string,
+  end?: string,
 ): ChartHandles {
   replaceChart(container);
   const chart = createChart(container, {
@@ -258,7 +293,9 @@ export function renderDeltaChart(
   const deltas = available.filter((profile) => profile !== comparison.baseline_profile);
   const selected = deltas.length ? deltas : available;
   for (const [index, profile] of selected.entries()) {
-    const rows = deltaData(comparison, profile, metric);
+    const rows = deltaData(comparison, profile, metric).filter(
+      (row) => (!start || String(row.time) >= start) && (!end || String(row.time) <= end),
+    );
     if (rows.length === 0) continue;
     const isBaseline = profile === comparison.baseline_profile;
     const line = chart.addSeries(LineSeries, {

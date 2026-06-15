@@ -2445,17 +2445,17 @@
       "price": 50.720001220703125
     },
     {
-      "date": "2026-03-16",
-      "kind": "POSITION_DECREASE",
-      "position": 0.0,
-      "position_delta": -0.310436037927866,
-      "price": 53.689998626708984
-    },
-    {
       "date": "2026-03-17",
       "kind": "BUY",
       "position": 0.0,
-      "position_delta": 0.0,
+      "position_delta": -0.2997462569561958,
+      "price": 54.95000076293945
+    },
+    {
+      "date": "2026-03-17",
+      "kind": "POSITION_DECREASE",
+      "position": 0.0,
+      "position_delta": -0.2997462569561958,
       "price": 54.95000076293945
     },
     {
@@ -2522,17 +2522,26 @@
       "price": 201.67999267578125
     }
   ],
+  "latest_signal": {
+    "action": "BUY",
+    "date": "2026-06-15",
+    "position": 0.675,
+    "price": 271.8599853515625,
+    "raw_action": 2,
+    "replay_asof": "2026-06-12",
+    "source": "latest_signal_stateless"
+  },
   "metrics": {
     "full": {
-      "avg_position": 0.5168067843738683,
+      "avg_position": 0.5166727963939808,
       "max_drawdown": -0.5451034928750236,
-      "return": 16.3138575746001,
-      "row_count": 1619.0
+      "return": 16.600359454954514,
+      "row_count": 1620.0
     }
   },
   "profile": "mode_conditioned_rebound_reward_train_v2",
   "profile_yaml": "runtime/reward/card/mode_conditioned_rebound_reward_train_v2/profile.yaml",
-  "replay_end": "2026-06-11",
+  "replay_end": "2026-06-12",
   "replay_start": "2020-01-02",
   "retention": {
     "code": "missing_final_retention_decision",
@@ -2541,7 +2550,7 @@
     "status": "blocked",
     "summary_path": "runtime/model/card/mode_conditioned_rebound_reward_train_v2/soxl_mode_conditioned_rebound_reward_train_v2_summary.json"
   },
-  "row_count": 1619,
+  "row_count": 1620,
   "rows": [
     {
       "action": "HOLD",
@@ -18119,7 +18128,7 @@
       "date": "2026-03-16",
       "excess": 4400525.387753634,
       "excess_pct": 6.1589510294798036,
-      "position": 0.0,
+      "position": 0.2997462569561958,
       "price": 53.689998626708984,
       "strategy_nav": 7158951.0294798035
     },
@@ -18732,6 +18741,16 @@
       "position": 0.0,
       "price": 223.9900054931641,
       "strategy_nav": 17313857.5746001
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 12057130.302755328,
+      "date": "2026-06-12",
+      "excess": 5543229.1521991845,
+      "excess_pct": 16.600359454954514,
+      "position": 0.0,
+      "price": 234.67999267578125,
+      "strategy_nav": 17600359.454954512
     }
   ],
   "source_path": "runtime/model/card/mode_conditioned_rebound_reward_train_v2/mode_conditioned_rebound_reward_train_v2_soxl_daily.csv",

@@ -2963,17 +2963,17 @@
       "price": 56.09000015258789
     },
     {
-      "date": "2026-03-16",
-      "kind": "POSITION_DECREASE",
-      "position": 0.0,
-      "position_delta": -0.289969379001305,
-      "price": 53.689998626708984
-    },
-    {
       "date": "2026-03-17",
       "kind": "SELL",
       "position": 0.0,
-      "position_delta": 0.0,
+      "position_delta": -0.2678313107697948,
+      "price": 54.95000076293945
+    },
+    {
+      "date": "2026-03-17",
+      "kind": "POSITION_DECREASE",
+      "position": 0.0,
+      "position_delta": -0.2678313107697948,
       "price": 54.95000076293945
     },
     {
@@ -3054,17 +3054,26 @@
       "price": 182.5399932861328
     }
   ],
+  "latest_signal": {
+    "action": "BUY",
+    "date": "2026-06-15",
+    "position": 0.9,
+    "price": 271.8599853515625,
+    "raw_action": 10,
+    "replay_asof": "2026-06-12",
+    "source": "latest_signal_stateless"
+  },
   "metrics": {
     "full": {
-      "avg_position": 0.631083206775719,
+      "avg_position": 0.6308589772102833,
       "max_drawdown": -0.658691552328363,
-      "return": 35.106978739877505,
-      "row_count": 1619.0
+      "return": 35.64468575135299,
+      "row_count": 1620.0
     }
   },
   "profile": "smoke",
   "profile_yaml": "runtime/harness/card/smoke/profile.yaml",
-  "replay_end": "2026-06-11",
+  "replay_end": "2026-06-12",
   "replay_start": "2020-01-02",
   "retention": {
     "code": "missing_final_retention_decision",
@@ -3073,7 +3082,7 @@
     "status": "blocked",
     "summary_path": "runtime/model/card/smoke/soxl_smoke_summary.json"
   },
-  "row_count": 1619,
+  "row_count": 1620,
   "rows": [
     {
       "action": "HOLD",
@@ -18651,7 +18660,7 @@
       "date": "2026-03-16",
       "excess": 10133852.545803746,
       "excess_pct": 11.892278187529916,
-      "position": 0.0,
+      "position": 0.2678313107697948,
       "price": 53.689998626708984,
       "strategy_nav": 12892278.187529916
     },
@@ -19264,6 +19273,16 @@
       "position": 0.0,
       "price": 223.9900054931641,
       "strategy_nav": 36106978.73987751
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 12057130.302755328,
+      "date": "2026-06-12",
+      "excess": 24587555.448597662,
+      "excess_pct": 35.64468575135299,
+      "position": 0.0,
+      "price": 234.67999267578125,
+      "strategy_nav": 36644685.75135299
     }
   ],
   "source_path": "runtime/model/card/smoke/smoke_soxl_daily.csv",

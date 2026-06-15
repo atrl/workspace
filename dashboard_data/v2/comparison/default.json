@@ -1,6 +1,6 @@
 {
   "baseline_profile": "soxl_backtest_policy_reimplementation_v1",
-  "common_end": "2026-06-11",
+  "common_end": "2026-06-12",
   "common_start": "2026-01-02",
   "compared_profiles": [
     "soxl_backtest_policy_reimplementation_v1",
@@ -12,46 +12,46 @@
   ],
   "rankings": [
     {
-      "avg_position": 0.3415622100619203,
+      "avg_position": 0.34090389846109775,
       "max_drawdown": -0.3034664952244138,
       "profile": "smoke",
-      "return": 2.347659735741476,
-      "row_count": 111.0
+      "return": 2.3975132592087918,
+      "row_count": 112.0
     },
     {
-      "avg_position": 0.29142845269672174,
+      "avg_position": 0.29417148602106236,
       "max_drawdown": -0.24869716016709253,
       "profile": "balanced_rule_residual_v19",
-      "return": 1.9218843893909465,
-      "row_count": 111.0
+      "return": 2.012393272917198,
+      "row_count": 112.0
     },
     {
-      "avg_position": 0.2980444786149961,
+      "avg_position": 0.2980596730644711,
       "max_drawdown": -0.2783338201138936,
       "profile": "mode_conditioned_rebound_reward_train_v2",
-      "return": 1.7510991602763335,
-      "row_count": 111.0
+      "return": 1.7966231042653908,
+      "row_count": 112.0
     },
     {
-      "avg_position": 0.2719913487098176,
+      "avg_position": 0.2749346275520041,
       "max_drawdown": -0.25513908539692565,
       "profile": "balanced_rule_residual_v19_reg",
-      "return": 1.587956734028762,
-      "row_count": 111.0
+      "return": 1.6684717413394856,
+      "row_count": 112.0
     },
     {
-      "avg_position": 0.16215135135135134,
-      "max_drawdown": -0.13554088542803522,
-      "profile": "soxl_backtest_policy_reimplementation_v1",
-      "return": 1.3651766795135498,
-      "row_count": 111.0
-    },
-    {
-      "avg_position": 0.27141598352147667,
+      "avg_position": 0.274899922089957,
       "max_drawdown": -0.26784966813057653,
       "profile": "balanced_rule_residual_v22",
-      "return": 1.3333656060910677,
-      "row_count": 111.0
+      "return": 1.412205615027629,
+      "row_count": 112.0
+    },
+    {
+      "avg_position": 0.16212410714285713,
+      "max_drawdown": -0.13554088542803522,
+      "profile": "soxl_backtest_policy_reimplementation_v1",
+      "return": 1.3864497795135495,
+      "row_count": 112.0
     }
   ],
   "rows": [
@@ -3298,8 +3298,8 @@
           "action_mismatch": false,
           "drawdown_delta_vs_baseline": -0.163593242365766,
           "nav_delta_vs_baseline": 12.737706721511486,
-          "position": 0.0,
-          "position_delta_vs_baseline": 0.0,
+          "position": 0.5986481850228662,
+          "position_delta_vs_baseline": 0.5986481850228662,
           "strategy_nav": 5006601.417775727,
           "strategy_nav_rebased": 112.73770672151149
         },
@@ -3308,8 +3308,8 @@
           "action_mismatch": false,
           "drawdown_delta_vs_baseline": -0.16471904617814026,
           "nav_delta_vs_baseline": 10.870694754696558,
-          "position": 0.0,
-          "position_delta_vs_baseline": 0.0,
+          "position": 0.601638579034707,
+          "position_delta_vs_baseline": 0.601638579034707,
           "strategy_nav": 4681060.312241649,
           "strategy_nav_rebased": 110.87069475469656
         },
@@ -3318,8 +3318,8 @@
           "action_mismatch": false,
           "drawdown_delta_vs_baseline": -0.18458978859172304,
           "nav_delta_vs_baseline": 5.688873512486708,
-          "position": 0.0,
-          "position_delta_vs_baseline": 0.0,
+          "position": 0.6616171031912796,
+          "position_delta_vs_baseline": 0.6616171031912796,
           "strategy_nav": 5746509.92677126,
           "strategy_nav_rebased": 105.68887351248671
         },
@@ -3328,8 +3328,8 @@
           "action_mismatch": false,
           "drawdown_delta_vs_baseline": -0.17171945140076117,
           "nav_delta_vs_baseline": 13.752721372470788,
-          "position": 0.0,
-          "position_delta_vs_baseline": 0.0,
+          "position": 0.2997462569561958,
+          "position_delta_vs_baseline": 0.2997462569561958,
           "strategy_nav": 7158951.0294798035,
           "strategy_nav_rebased": 113.75272137247079
         },
@@ -3338,8 +3338,8 @@
           "action_mismatch": false,
           "drawdown_delta_vs_baseline": -0.22096425046879287,
           "nav_delta_vs_baseline": 19.53080012952202,
-          "position": 0.0,
-          "position_delta_vs_baseline": 0.0,
+          "position": 0.2678313107697948,
+          "position_delta_vs_baseline": 0.2678313107697948,
           "strategy_nav": 12892278.187529916,
           "strategy_nav_rebased": 119.53080012952202
         },
@@ -7378,6 +7378,72 @@
           "position_delta_vs_baseline": 0.0,
           "strategy_nav": 236517.66795135496,
           "strategy_nav_rebased": 236.51766795135498
+        }
+      }
+    },
+    {
+      "action_mismatch_count": 0,
+      "date": "2026-06-12",
+      "profiles": {
+        "balanced_rule_residual_v19": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": -0.11417813634339546,
+          "nav_delta_vs_baseline": 62.59434934036486,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.1591,
+          "strategy_nav": 13377824.394052126,
+          "strategy_nav_rebased": 301.2393272917198
+        },
+        "balanced_rule_residual_v19_reg": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": -0.11460610851864417,
+          "nav_delta_vs_baseline": 28.20219618259361,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.1591,
+          "strategy_nav": 11266527.363574125,
+          "strategy_nav_rebased": 266.84717413394856
+        },
+        "balanced_rule_residual_v22": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": -0.1229711505623895,
+          "nav_delta_vs_baseline": 2.5755835514079592,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.1591,
+          "strategy_nav": 13115631.808235643,
+          "strategy_nav_rebased": 241.2205615027629
+        },
+        "mode_conditioned_rebound_reward_train_v2": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": -0.21363637540137248,
+          "nav_delta_vs_baseline": 41.01733247518413,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.1591,
+          "strategy_nav": 17600359.454954512,
+          "strategy_nav_rebased": 279.6623104265391
+        },
+        "smoke": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": -0.22202090445956024,
+          "nav_delta_vs_baseline": 101.10634796952425,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.1591,
+          "strategy_nav": 36644685.75135299,
+          "strategy_nav_rebased": 339.7513259208792
+        },
+        "soxl_backtest_policy_reimplementation_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": 0.0,
+          "nav_delta_vs_baseline": 0.0,
+          "position": 0.1591,
+          "position_delta_vs_baseline": 0.0,
+          "strategy_nav": 238644.97795135496,
+          "strategy_nav_rebased": 238.64497795135495
         }
       }
     }

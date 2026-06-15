@@ -62,6 +62,12 @@ export interface Manifest {
     row_count?: number | null;
     candidate_type_counts?: Record<string, number> | null;
   };
+  latest_signal?: {
+    source: string;
+    available_count: number;
+    date: string;
+    comparison_included: boolean;
+  };
   blocked_profiles?: Record<
     string,
     {
@@ -88,6 +94,7 @@ export interface Manifest {
       row_count: number;
       source_path: string;
       window?: string | null;
+      latest_signal_date?: string | null;
     }
   >;
   source_paths: Record<string, string>;
@@ -114,6 +121,16 @@ export interface ModelRow {
   excess_pct: number;
 }
 
+export interface LatestSignal {
+  date: string;
+  price: number;
+  position: number;
+  action: Action;
+  replay_asof: string;
+  source: string;
+  raw_action?: number | null;
+}
+
 export interface ModelEvent {
   date: string;
   kind: EventKind;
@@ -131,6 +148,7 @@ export interface ModelPayload {
   row_count: number;
   rows: ModelRow[];
   events: ModelEvent[];
+  latest_signal?: LatestSignal | null;
 }
 
 export interface MarketPayload {

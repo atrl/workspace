@@ -1,5 +1,5 @@
 import { computeVisibleComparison, formatProfileLabel } from './domain';
-import type { ActionMismatchRow, ComparisonPayload, InspectorRow, Manifest } from './types';
+import type { ActionMismatchRow, ComparisonPayload, InspectorRow, Manifest, ModelPayload } from './types';
 
 const MODEL_COLORS = ['#39b7c5', '#a597ff', '#e1aa3e', '#1fb981', '#f472b6', '#f97316'];
 
@@ -119,11 +119,17 @@ export function renderDataSourcePanel(container: HTMLElement, manifest: Manifest
   if (manifest.strict_candidate_retention_filter) {
     rows.push(['Final Retain', String(manifest.strict_candidate_retention_filter.actor_retention_allowed_count)]);
   }
+  if (manifest.latest_signal) {
+    rows.push(['Signals', `${manifest.latest_signal.available_count}@${manifest.latest_signal.date}`]);
+  }
   for (const [label, value] of rows) {
     const item = element('div', 'status-pill');
     if (label === 'Blocked' && blockedCount > 0) item.dataset.tone = 'warning';
     if (label === 'Strict Gate' && manifest.strict_retention_gate?.status === 'blocked') item.dataset.tone = 'warning';
     if (label === 'Final Retain' && manifest.strict_candidate_retention_filter?.status === 'blocked') {
+      item.dataset.tone = 'warning';
+    }
+    if (label === 'Signals' && manifest.latest_signal && !manifest.latest_signal.comparison_included) {
       item.dataset.tone = 'warning';
     }
     item.appendChild(element('span', 'source-label', label));
@@ -234,6 +240,7 @@ export function renderModelDeltaStrip(
   profiles: readonly string[] = comparison.compared_profiles,
   manifest?: Manifest,
   mismatchRows: readonly ActionMismatchRow[] = [],
+  models: Record<string, ModelPayload> = {},
 ): void {
   container.replaceChildren();
   const visible = computeVisibleComparison(comparison, start, end);
@@ -271,6 +278,7 @@ export function renderModelDeltaStrip(
     const replayEnd = manifest?.profile_summaries?.[profile]?.replay_end;
     const ranking = rankingByProfile.get(profile);
     const freshness = freshnessLabel(replayEnd, last.date, manifest);
+    const latestSignal = models[profile]?.latest_signal;
     const pill = element('article', 'model-delta-pill model-difference-row');
     pill.dataset.freshness = freshness.status;
     pill.dataset.profileStatus = manifest?.profile_summaries?.[profile]?.status ?? '';
@@ -278,9 +286,19 @@ export function renderModelDeltaStrip(
     pill.style.borderLeftColor = MODEL_COLORS[index % MODEL_COLORS.length];
     pill.style.borderLeftWidth = '4px';
     pill.appendChild(element('strong', 'model-difference-name', formatProfileLabel(profile)));
-    if (replayEnd) pill.appendChild(element('span', undefined, `End ${replayEnd}`));
-    pill.appendChild(element('span', 'model-difference-date', freshness.label));
-    if (freshness.gapLabel) pill.appendChild(element('span', 'model-difference-gap', freshness.gapLabel));
+    if (replayEnd) pill.appendChild(element('span', undefined, `Replay ${replayEnd.slice(5)}`));
+    pill.appendChild(element('span', 'model-difference-date', freshness.status === 'latest' ? freshness.label : 'Replay cut'));
+    if (latestSignal) {
+      pill.appendChild(
+        element(
+          'span',
+          'model-difference-signal',
+          `Signal ${latestSignal.action} ${latestSignal.position.toFixed(3)} @${latestSignal.date.slice(5)}`,
+        ),
+      );
+    } else if (freshness.gapLabel) {
+      pill.appendChild(element('span', 'model-difference-gap', freshness.gapLabel));
+    }
     pill.appendChild(
       element(
         'span',
@@ -298,7 +316,9 @@ export function renderModelDeltaStrip(
     pill.appendChild(element('span', undefined, `Action ${values.action}`));
     const latestMismatch = latestMismatchForProfile(mismatchRows, profile);
     if (latestMismatch) {
-      pill.appendChild(element('span', 'model-difference-feature', mismatchFeatureLabel(latestMismatch)));
+      const feature = element('span', 'model-difference-feature', mismatchFeatureLabel(latestMismatch));
+      feature.title = mismatchFeatureLabel(latestMismatch);
+      pill.appendChild(feature);
     }
     grid.appendChild(pill);
   }

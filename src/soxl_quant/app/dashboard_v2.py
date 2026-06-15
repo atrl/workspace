@@ -32,6 +32,7 @@ REQUIRED_MODEL_FIELDS = ("strategy_nav", "buyhold_nav", "position", "action", "p
 ACTION_VALUES = {"BUY", "SELL", "HOLD"}
 SELL_ACTION_ALIASES = {"TAKE_PROFIT", "STOP_LOSS", "STOP", "TRIM", "REDUCE"}
 FINAL_RETENTION_POLICY = "final_model_retained_or_reference"
+LATEST_SIGNAL_SOURCE = "latest_signal_stateless"
 STRICT_RETENTION_GATE_PATH = (
     "runtime/model_selection/card/model_retention_walkforward_gate_v1/summary.json"
 )
@@ -570,6 +571,127 @@ def compute_metrics(rows: list[dict[str, Any]]) -> dict[str, float]:
     }
 
 
+def _action_from_position_delta(previous_position: float, target_position: float, threshold: float = 0.01) -> str:
+    delta = target_position - previous_position
+    if delta > threshold:
+        return "BUY"
+    if delta < -threshold:
+        return "SELL"
+    return "HOLD"
+
+
+def _latest_signal_context(root: Path, latest_date: str) -> dict[str, Any] | None:
+    qlib_dir = root / "data" / "qlib" / "soxl"
+    if not (qlib_dir / "calendars" / "day.txt").exists():
+        return None
+    try:
+        from src.soxl_quant.data import build_dataset, init_qlib, segment_frame
+    except Exception:
+        return None
+    try:
+        init_qlib(qlib_dir)
+        dataset = build_dataset()
+        feature_df = segment_frame(dataset, "test")
+        latest_ts = pd.Timestamp(latest_date)
+        if latest_ts not in feature_df.index:
+            return None
+        price = dataset.handler.price_frame.droplevel("instrument")["price"].reindex(feature_df.index).ffill().bfill()
+    except Exception:
+        return None
+    return {"feature_df": feature_df, "price": price, "latest_ts": latest_ts}
+
+
+def _infer_latest_signal(
+    root: Path,
+    profile_name: str,
+    source: dict[str, Any],
+    rows: list[dict[str, Any]],
+    latest_date: str,
+    context: dict[str, Any] | None,
+) -> dict[str, Any] | None:
+    if not rows or rows[-1]["date"] >= latest_date or context is None:
+        return None
+    actor_ref = source.get("actor")
+    if not actor_ref:
+        return None
+    actor_path = root / str(actor_ref)
+    if not actor_path.exists():
+        return None
+    try:
+        import torch
+
+        from src.soxl_quant.policy.environment import TrancheLedger
+        from src.soxl_quant.policy.mode_conditioning import append_mode_one_hot
+        from src.soxl_quant.policy.observation import make_observation
+        from src.soxl_quant.policy.policy_builder import actor_action
+        from src.soxl_quant.policy.positioning import target_position_for_profile
+        from src.soxl_quant.policy.policy_builder import build_policy
+        from src.soxl_quant.settings import ACCOUNT, LOOKBACK, load_profile
+    except Exception:
+        return None
+
+    feature_df: pd.DataFrame = context["feature_df"]
+    price: pd.Series = context["price"]
+    latest_ts: pd.Timestamp = context["latest_ts"]
+    try:
+        idx = int(feature_df.index.get_loc(latest_ts))
+        if idx < LOOKBACK:
+            return None
+        profile = load_profile(profile_name)
+        ckpt = torch.load(actor_path, map_location="cpu", weights_only=False)
+        _, actor = build_policy(
+            int(ckpt["obs_dim"]),
+            profile,
+            use_moe=ckpt.get("use_moe", False),
+            hard_regime_routing=ckpt.get("use_moe", False),
+        )
+        actor.load_state_dict(ckpt["state_dict"])
+        actor.eval()
+        previous_position = float(rows[-1]["position"])
+        last_nav = float(rows[-1]["strategy_nav"])
+        peak_nav = max(float(row["strategy_nav"]) for row in rows)
+        current_drawdown = max(1.0 - last_nav / max(peak_nav, 1e-8), 0.0)
+        price_path = price.to_numpy(dtype=np.float32)
+        obs = make_observation(
+            feature_df,
+            idx,
+            previous_position,
+            last_nav if last_nav > 0 else ACCOUNT,
+            peak_nav if peak_nav > 0 else ACCOUNT,
+            TrancheLedger(),
+            price_path,
+        )
+        model_cfg = profile.model
+        if getattr(model_cfg, "use_mode_conditioned_input", False):
+            obs = append_mode_one_hot(obs, "flat_wait")
+        raw_action = actor_action(actor, obs)
+        target_position = target_position_for_profile(
+            raw_action,
+            obs,
+            config=profile.position_cap,
+            action_levels=np.asarray(getattr(model_cfg, "action_levels", ()), dtype=np.float32),
+            hard_floor=getattr(model_cfg, "hard_floor", None),
+            use_hybrid_overlay=bool(getattr(model_cfg, "use_hybrid_overlay", False)),
+            delta_levels=np.asarray(getattr(model_cfg, "delta_levels", ()), dtype=np.float32)
+            if getattr(model_cfg, "use_hybrid_overlay", False)
+            else None,
+            position_budget_config=profile.position_budget,
+            current_drawdown=current_drawdown,
+            position_mapping=str(getattr(model_cfg, "position_mapping", "default")),
+        )
+    except Exception:
+        return None
+    return {
+        "date": latest_date,
+        "price": float(price.loc[latest_ts]),
+        "position": float(target_position),
+        "action": _action_from_position_delta(previous_position, float(target_position)),
+        "replay_asof": rows[-1]["date"],
+        "source": LATEST_SIGNAL_SOURCE,
+        "raw_action": int(raw_action),
+    }
+
+
 def _rebase_nav(value: float, start_value: float) -> float:
     if start_value == 0:
         return value
@@ -674,6 +796,7 @@ def build_dashboard_v2_data(
         str(canonical_data_date) if canonical_data_date else market_latest_date,
         market_latest_date,
     )
+    latest_signal_context = _latest_signal_context(root, latest_market_date)
     ready_profiles = [
         profile
         for profile in freshness["profiles"]
@@ -748,6 +871,16 @@ def build_dashboard_v2_data(
             "metrics": {"full": compute_metrics(rows)},
             "retention": _public_retention_status(retention_status),
         }
+        latest_signal = _infer_latest_signal(
+            root,
+            profile_name,
+            source,
+            rows,
+            latest_market_date,
+            latest_signal_context,
+        )
+        if latest_signal is not None:
+            payload["latest_signal"] = latest_signal
         if source.get("window"):
             payload["window"] = source.get("window")
         model_payloads[profile_name] = payload
@@ -790,8 +923,17 @@ def build_dashboard_v2_data(
                 "row_count": payload["row_count"],
                 "source_path": payload["source_path"],
                 "window": payload.get("window"),
+                "latest_signal_date": (payload.get("latest_signal") or {}).get("date")
+                if isinstance(payload.get("latest_signal"), dict)
+                else None,
             }
             for profile_name, payload in model_payloads.items()
+        },
+        "latest_signal": {
+            "source": LATEST_SIGNAL_SOURCE,
+            "available_count": sum(1 for payload in model_payloads.values() if payload.get("latest_signal")),
+            "date": latest_market_date,
+            "comparison_included": False,
         },
         "source_paths": {
             "model_replay_freshness": _relative_to(root, freshness_path),
