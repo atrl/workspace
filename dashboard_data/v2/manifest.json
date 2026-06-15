@@ -1,25 +1,15 @@
 {
   "available_profiles": [
-    "balanced",
-    "balanced_macro_v1",
-    "balanced_rule_residual_imitation_v4",
-    "balanced_rule_residual_v19",
-    "balanced_rule_residual_v19_reg",
-    "balanced_rule_residual_v19_reg_light",
-    "balanced_rule_residual_v19_reg_v22_retest_v1",
-    "balanced_rule_residual_v22",
-    "drawdown_rebound_reward_train_v1",
-    "mode_conditioned_rebound_reward_train_v2",
-    "smoke",
     "soxl_backtest_policy_reimplementation_v1",
-    "state_conditioned_drawdown_rebound_reward_train_v1"
+    "balanced_rule_residual_v22"
   ],
   "default_baseline_profile": "soxl_backtest_policy_reimplementation_v1",
   "default_comparison_profiles": [
     "soxl_backtest_policy_reimplementation_v1",
     "balanced_rule_residual_v22"
   ],
-  "generated_at": "2026-06-15T12:44:17.720215+00:00",
+  "filtered_profile_count": 11,
+  "generated_at": "2026-06-15T13:01:59.227588+00:00",
   "latest_market_date": "2026-06-12",
   "profile_summaries": {
     "balanced_rule_residual_v22": {

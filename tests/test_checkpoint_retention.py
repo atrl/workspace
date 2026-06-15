@@ -179,3 +179,92 @@ def test_persist_retained_checkpoint_bundles_writes_actor_files_and_summary_reco
             "metrics": {"return": 1.0},
         }
     ]
+
+
+def test_persist_retained_checkpoint_bundles_blocks_enabled_retention_without_strict_gate():
+    profile = replace(
+        load_profile("balanced"),
+        checkpoint_retention=CheckpointRetentionConfig(enabled=True, keep_stage=True, keep_top_n=1),
+    )
+    actor = TinyActor()
+    retained = [
+        {
+            "iter": 20,
+            "score": 3.0,
+            "metrics": {"return": 1.0},
+            "state_dict": {"weight": torch.tensor([2.0])},
+            "reasons": ["top_n"],
+        }
+    ]
+
+    with TemporaryDirectory() as tmpdir:
+        output_dir = Path(tmpdir)
+        original_model_artifact_path = artifact_module.model_artifact_path
+        artifact_module.model_artifact_path = lambda profile_name, artifact_tag="": output_dir / (
+            f"{profile_name}_{artifact_tag}_actor.pt"
+        )
+        try:
+            records = persist_retained_checkpoint_bundles(
+                profile=profile,
+                actor=actor,
+                obs_dim=3,
+                seed=123,
+                effective_tag="unit",
+                retained_checkpoints=retained,
+            )
+        finally:
+            artifact_module.model_artifact_path = original_model_artifact_path
+
+    assert records == []
+    assert not list(output_dir.glob("*.pt"))
+
+
+def test_persist_retained_checkpoint_bundles_allows_explicit_strict_gate_pass():
+    profile = replace(
+        load_profile("balanced"),
+        checkpoint_retention=CheckpointRetentionConfig(enabled=True, keep_stage=True, keep_top_n=1),
+    )
+    actor = TinyActor()
+    retained = [
+        {
+            "iter": 20,
+            "score": 3.0,
+            "metrics": {"return": 1.0},
+            "state_dict": {"weight": torch.tensor([2.0])},
+            "reasons": ["top_n"],
+        }
+    ]
+    retention_gate_evidence = {
+        "profile": "balanced",
+        "gate_pass": True,
+        "retention_decision": "retain_promotable",
+        "failures": [],
+    }
+
+    with TemporaryDirectory() as tmpdir:
+        output_dir = Path(tmpdir)
+        original_model_artifact_path = artifact_module.model_artifact_path
+        artifact_module.model_artifact_path = lambda profile_name, artifact_tag="": output_dir / (
+            f"{profile_name}_{artifact_tag}_actor.pt"
+        )
+        try:
+            records = persist_retained_checkpoint_bundles(
+                profile=profile,
+                actor=actor,
+                obs_dim=3,
+                seed=123,
+                effective_tag="unit",
+                retained_checkpoints=retained,
+                retention_gate_evidence=retention_gate_evidence,
+            )
+        finally:
+            artifact_module.model_artifact_path = original_model_artifact_path
+
+        saved_path = Path(records[0]["path"])
+
+    assert saved_path.name == "balanced_unit_checkpoint_iter20_actor.pt"
+    assert records[0]["retention_gate"] == {
+        "profile": "balanced",
+        "status": "passed",
+        "reason": "strict retention gate passed",
+    }

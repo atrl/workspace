@@ -351,6 +351,61 @@ def scan_model_retention_gates(
     }
 
 
+def strict_retention_gate_status(
+    evidence: dict[str, Any] | None,
+    *,
+    profile_name: str | None = None,
+) -> tuple[bool, str]:
+    """Validate explicit evidence before a checkpoint actor becomes reusable.
+
+    Retention evidence can be either a row emitted by ``scan_model_retention_gates``
+    or a summary/selection payload that names the passing profiles. Missing
+    evidence is a hard block because validation-time checkpoints do not carry
+    independent walk-forward/SOXLBacktest proof.
+    """
+
+    if not isinstance(evidence, dict):
+        return False, "strict retention gate evidence missing"
+
+    if profile_name is not None and evidence.get("profile") not in (None, profile_name):
+        return False, f"strict retention gate profile mismatch: {evidence.get('profile')}"
+
+    summary = evidence.get("summary")
+    if isinstance(summary, dict) and profile_name is not None:
+        passing_profiles = summary.get("passing_profiles")
+        if isinstance(passing_profiles, list) and profile_name in {str(item) for item in passing_profiles}:
+            return True, "strict retention gate passed"
+        return False, f"profile {profile_name} is not in retention gate passing_profiles"
+
+    for flag in ("actor_retention_allowed", "promotion_allowed"):
+        if flag in evidence and not bool(evidence.get(flag)):
+            return False, f"{flag}=false"
+
+    pass_key = (
+        "gate_pass"
+        if "gate_pass" in evidence
+        else "retention_gate_pass"
+        if "retention_gate_pass" in evidence
+        else None
+    )
+    if pass_key is not None:
+        if bool(evidence.get(pass_key)):
+            return True, "strict retention gate passed"
+        failures = evidence.get("failures") or evidence.get("blocking_reasons") or [f"{pass_key}=false"]
+        if isinstance(failures, list):
+            return False, "; ".join(str(item) for item in failures)
+        return False, str(failures)
+
+    for key in ("retention_gate_pass_candidates", "passing_profiles"):
+        values = evidence.get(key)
+        if isinstance(values, list) and profile_name is not None:
+            if profile_name in {str(item) for item in values}:
+                return True, "strict retention gate passed"
+            return False, f"profile {profile_name} is not in {key}"
+
+    return False, "strict retention gate did not contain a pass marker"
+
+
 def _csv_rows(rows: Iterable[dict[str, Any]]) -> list[dict[str, Any]]:
     result = []
     for row in rows:

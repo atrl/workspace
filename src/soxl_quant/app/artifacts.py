@@ -7,6 +7,7 @@ import torch
 
 from ..data import feature_columns_for_packs, feature_schema_signature
 from ..settings import EXTRA_OBS_DIM, MODEL_DIR, N_ASSETS, model_artifact_path, summary_artifact_path
+from .model_retention_gate import strict_retention_gate_status
 
 
 def serialize_position_cap(profile) -> Dict[str, float]:
@@ -167,8 +168,23 @@ def persist_retained_checkpoint_bundles(
     seed: int,
     effective_tag: str,
     retained_checkpoints: list[dict],
+    retention_gate_evidence: dict | None = None,
 ) -> list[dict]:
     records: list[dict] = []
+    if retained_checkpoints and bool(getattr(profile.checkpoint_retention, "enabled", False)):
+        gate_ok, gate_reason = strict_retention_gate_status(
+            retention_gate_evidence,
+            profile_name=profile.name,
+        )
+        if not gate_ok:
+            return []
+        retention_gate_record = {
+            "profile": profile.name,
+            "status": "passed",
+            "reason": gate_reason,
+        }
+    else:
+        retention_gate_record = None
     for checkpoint in retained_checkpoints:
         iter_value = int(checkpoint["iter"])
         path = persist_actor_bundle(
@@ -186,6 +202,7 @@ def persist_retained_checkpoint_bundles(
                 "path": str(path),
                 "reasons": list(checkpoint.get("reasons", [])),
                 "metrics": dict(checkpoint.get("metrics", {})),
+                **({"retention_gate": retention_gate_record} if retention_gate_record else {}),
             }
         )
     return records

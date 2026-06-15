@@ -507,7 +507,8 @@ def build_dashboard_v2_data(
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "latest_market_date": latest_market_date,
         "safe_backtest_end": safe_backtest_end,
-        "available_profiles": sorted(by_name),
+        "available_profiles": defaults,
+        "filtered_profile_count": max(0, len(by_name) - len(defaults)),
         "default_baseline_profile": baseline,
         "default_comparison_profiles": defaults,
         "profile_summaries": {
