@@ -29,6 +29,9 @@ REQUIRED_MODEL_FIELDS = ("strategy_nav", "buyhold_nav", "position", "action", "p
 ACTION_VALUES = {"BUY", "SELL", "HOLD"}
 SELL_ACTION_ALIASES = {"TAKE_PROFIT", "STOP_LOSS", "STOP", "TRIM", "REDUCE"}
 FINAL_RETENTION_POLICY = "final_model_retained_or_reference"
+STRICT_RETENTION_GATE_PATH = (
+    "runtime/model_selection/card/model_retention_walkforward_gate_v1/summary.json"
+)
 
 
 @dataclass(frozen=True)
@@ -200,6 +203,34 @@ def _public_retention_status(status: dict[str, Any]) -> dict[str, Any]:
         "reason": status["reason"],
         "summary_path": status.get("summary_path"),
         "final_model_retained": status["final_model_retained"],
+    }
+
+
+def _load_strict_retention_gate(root: Path) -> dict[str, Any] | None:
+    path = root / STRICT_RETENTION_GATE_PATH
+    if not path.exists():
+        return None
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    summary = payload.get("summary") if isinstance(payload, dict) else None
+    if not isinstance(summary, dict):
+        return None
+    passing_count = int(summary.get("passing_profile_count") or 0)
+    profiles_scanned = int(summary.get("profiles_scanned") or 0)
+    return {
+        "status": "passed" if passing_count > 0 else "blocked",
+        "source_path": STRICT_RETENTION_GATE_PATH,
+        "profiles_scanned": profiles_scanned,
+        "passing_profile_count": passing_count,
+        "passing_profiles": [str(profile) for profile in summary.get("passing_profiles") or []],
+        "reference_profile": summary.get("reference_profile"),
+        "reference_return_pct": summary.get("reference_return_pct"),
+        "current_best_return_pct": summary.get("current_best_return_pct"),
+        "best_return_ratio": summary.get("best_return_ratio"),
+        "required_best_return_pct": summary.get("required_best_return_pct"),
+        "max_walkforward_drawdown_pct": summary.get("max_walkforward_drawdown_pct"),
+        "required_wf_windows": [str(window) for window in summary.get("required_wf_windows") or []],
+        "closest_wf_drawdown_candidate": summary.get("closest_wf_drawdown_candidate"),
+        "closest_ytd_return_candidate": summary.get("closest_ytd_return_candidate"),
     }
 
 
@@ -691,6 +722,9 @@ def build_dashboard_v2_data(
             },
         },
     }
+    strict_retention_gate = _load_strict_retention_gate(root)
+    if strict_retention_gate is not None:
+        manifest["strict_retention_gate"] = strict_retention_gate
     market_payload = {"symbol": "SOXL", "rows": market_payload_rows}
     manifest_path = output_dir / "manifest.json"
     market_path = output_dir / "market" / "SOXL.json"

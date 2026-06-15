@@ -12,6 +12,14 @@ function element<K extends keyof HTMLElementTagNameMap>(
   return node;
 }
 
+function formatPct(value: number | null | undefined): string {
+  return typeof value === 'number' && Number.isFinite(value) ? `${value.toFixed(2)}%` : 'n/a';
+}
+
+function readableProfile(profile: string): string {
+  return formatProfileLabel(profile).replaceAll('_', ' ');
+}
+
 export function renderDataSourcePanel(container: HTMLElement, manifest: Manifest, warnings: string[] = []): void {
   container.replaceChildren();
   container.appendChild(element('h2', undefined, 'Data Status'));
@@ -41,18 +49,48 @@ export function renderDataSourcePanel(container: HTMLElement, manifest: Manifest
     ['Baseline', formatProfileLabel(manifest.default_baseline_profile)],
     ['Blocked', String(blockedCount)],
   ];
+  if (manifest.strict_retention_gate) {
+    rows.push([
+      'Strict Gate',
+      `${manifest.strict_retention_gate.passing_profile_count}/${manifest.strict_retention_gate.profiles_scanned}`,
+    ]);
+  }
   for (const [label, value] of rows) {
     const item = element('div', 'status-pill');
     if (label === 'Blocked' && blockedCount > 0) item.dataset.tone = 'warning';
+    if (label === 'Strict Gate' && manifest.strict_retention_gate?.status === 'blocked') item.dataset.tone = 'warning';
     item.appendChild(element('span', 'source-label', label));
     item.appendChild(element('span', 'source-value', value));
     strip.appendChild(item);
   }
   container.appendChild(strip);
+  const gate = manifest.strict_retention_gate;
+  const gateWarnings = gate
+    ? [
+        [
+          `Strict retention gate: ${gate.passing_profile_count}/${gate.profiles_scanned} passing; ` +
+            `requires all WF windows and MaxDD < ${formatPct(gate.max_walkforward_drawdown_pct)}; ` +
+            `required return >= ${formatPct(gate.required_best_return_pct)}.`,
+        ],
+        gate.closest_wf_drawdown_candidate
+          ? [
+              `Closest WF drawdown: ${readableProfile(gate.closest_wf_drawdown_candidate.profile)} ` +
+                `${formatPct(gate.closest_wf_drawdown_candidate.worst_wf_max_drawdown_pct)} ` +
+                `(gap ${formatPct(gate.closest_wf_drawdown_candidate.wf_drawdown_gap_pct)}).`,
+            ]
+          : [],
+        gate.closest_ytd_return_candidate
+          ? [
+              `Closest return alignment: ${readableProfile(gate.closest_ytd_return_candidate.profile)} ` +
+                `${formatPct(gate.closest_ytd_return_candidate.ytd_return_pct)}.`,
+            ]
+          : [],
+      ].flat()
+    : [];
   const blockedWarnings = Object.entries(manifest.blocked_profiles ?? {}).map(
     ([profile, status]) => `${profile}: ${status.reason}`,
   );
-  const allWarnings = [...warnings, ...blockedWarnings];
+  const allWarnings = [...warnings, ...gateWarnings, ...blockedWarnings];
   if (allWarnings.length) {
     const diagnostics = element('details', 'source-diagnostics') as HTMLDetailsElement;
     diagnostics.appendChild(element('summary', undefined, `Diagnostics (${allWarnings.length})`));

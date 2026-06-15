@@ -107,7 +107,7 @@
     "balanced_rule_residual_v19"
   ],
   "filtered_profile_count": 9,
-  "generated_at": "2026-06-15T14:57:20.404012+00:00",
+  "generated_at": "2026-06-15T15:34:27.226358+00:00",
   "latest_market_date": "2026-06-12",
   "profile_summaries": {
     "balanced_rule_residual_v19": {
@@ -185,5 +185,39 @@
     "model:balanced_rule_residual_v22": "runtime/model/card/balanced_rule_residual_v22/balanced_rule_residual_v22_soxl_daily.csv",
     "model:soxl_backtest_policy_reimplementation_v1": "runtime/production/card/soxl_backtest_policy_reimplementation_v1/new_policy_daily.csv",
     "model_replay_freshness": "dashboard_data/model_replay_freshness.json"
+  },
+  "strict_retention_gate": {
+    "best_return_ratio": 0.95,
+    "closest_wf_drawdown_candidate": {
+      "best_return_gap_pct": 35.569893,
+      "missing_wf_window_count": 0,
+      "profile": "mode_conditioned_rebound_reward_train_v2",
+      "wf_drawdown_gap_pct": 1.83172,
+      "worst_wf_max_drawdown_pct": 21.83172,
+      "ytd_return_pct": 177.573569
+    },
+    "closest_ytd_return_candidate": {
+      "best_return_gap_pct": 0.0,
+      "missing_wf_window_count": 3,
+      "profile": "smoke",
+      "wf_drawdown_gap_pct": null,
+      "worst_wf_max_drawdown_pct": null,
+      "ytd_return_pct": 224.361539
+    },
+    "current_best_return_pct": 224.361539,
+    "max_walkforward_drawdown_pct": 20.0,
+    "passing_profile_count": 0,
+    "passing_profiles": [],
+    "profiles_scanned": 12,
+    "reference_profile": "soxl_backtest_policy_reimplementation_v1",
+    "reference_return_pct": 138.644977,
+    "required_best_return_pct": 213.143462,
+    "required_wf_windows": [
+      "wf_2020",
+      "wf_2022",
+      "wf_2023_2024"
+    ],
+    "source_path": "runtime/model_selection/card/model_retention_walkforward_gate_v1/summary.json",
+    "status": "blocked"
   }
 }

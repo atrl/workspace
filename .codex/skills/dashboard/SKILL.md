@@ -91,6 +91,10 @@ For `web/dashboard-v2`, keep deployability separate from diagnostic comparison:
 - Actors without a positive `final_model_retention_decision` must not be marked
   deployable, but selected/default diagnostic actors may be shown for visual
   model-difference review.
+- If `runtime/model_selection/card/model_retention_walkforward_gate_v1/summary.json`
+  exists, Dashboard V2 manifest and source panel should expose its strict
+  walk-forward retention summary. Treat `passing_profile_count=0` as a visible
+  hard gate blocker, even when diagnostic actors are plotted for comparison.
 - Keep the main K-line clean by showing only the currently selected Chart Model
   position overlay. Use the Position and NAV subcharts to compare all selected
   models.

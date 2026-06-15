@@ -43,6 +43,52 @@ def _write_final_retention_summary(
     return summary_path
 
 
+def _write_strict_retention_gate_summary(root: Path, *, passing: int = 0) -> Path:
+    summary_path = (
+        root
+        / "runtime"
+        / "model_selection"
+        / "card"
+        / "model_retention_walkforward_gate_v1"
+        / "summary.json"
+    )
+    summary_path.parent.mkdir(parents=True, exist_ok=True)
+    summary_path.write_text(
+        json.dumps(
+            {
+                "summary": {
+                    "profiles_scanned": 12,
+                    "passing_profile_count": passing,
+                    "passing_profiles": ["passer"] if passing else [],
+                    "reference_profile": "soxl_backtest_policy_reimplementation_v1",
+                    "reference_return_pct": 132.077978,
+                    "current_best_return_pct": 224.361539,
+                    "best_return_ratio": 0.95,
+                    "required_best_return_pct": 213.143462,
+                    "max_walkforward_drawdown_pct": 20.0,
+                    "required_wf_windows": ["wf_2020", "wf_2022", "wf_2023_2024"],
+                    "closest_wf_drawdown_candidate": {
+                        "profile": "mode_conditioned_rebound_reward_train_v2",
+                        "worst_wf_max_drawdown_pct": 21.83172,
+                        "wf_drawdown_gap_pct": 1.83172,
+                        "missing_wf_window_count": 0,
+                        "ytd_return_pct": 177.573569,
+                        "best_return_gap_pct": 35.569893,
+                    },
+                    "closest_ytd_return_candidate": {
+                        "profile": "smoke",
+                        "ytd_return_pct": 224.361539,
+                        "best_return_gap_pct": 0.0,
+                        "missing_wf_window_count": 3,
+                    },
+                }
+            }
+        ),
+        encoding="utf-8",
+    )
+    return summary_path
+
+
 def test_build_dashboard_v2_data_writes_manifest_market_model_and_comparison(tmp_path: Path):
     freshness = tmp_path / "dashboard_data" / "model_replay_freshness.json"
     freshness.parent.mkdir()
@@ -166,6 +212,73 @@ def test_build_dashboard_v2_data_writes_manifest_market_model_and_comparison(tmp
     assert model["events"][0]["kind"] == "BUY"
     assert comparison["common_start"] == "2026-01-02"
     assert comparison["rows"][1]["action_mismatch_count"] == 0
+
+
+def test_build_dashboard_v2_data_exposes_strict_retention_gate_summary(tmp_path: Path):
+    freshness = tmp_path / "dashboard_data" / "model_replay_freshness.json"
+    freshness.parent.mkdir()
+    freshness.write_text(
+        json.dumps(
+            {
+                "generated_at": "2026-06-13T00:00:00+00:00",
+                "latest_data_date": "2026-01-05",
+                "safe_backtest_end": "2026-01-05",
+                "profiles": [],
+            }
+        )
+    )
+    _write_strict_retention_gate_summary(tmp_path, passing=0)
+    reference_csv = (
+        tmp_path
+        / "runtime"
+        / "production"
+        / "card"
+        / "soxl_backtest_policy_reimplementation_v1"
+        / "new_policy_daily.csv"
+    )
+    reference_csv.parent.mkdir(parents=True)
+    _write_csv(
+        reference_csv,
+        [
+            {
+                "window": "ytd_2026",
+                "date": "2026-01-02",
+                "strategy_nav": 100.0,
+                "buyhold_nav": 100.0,
+                "position": 0.0,
+                "action": "HOLD",
+                "price": 47.24,
+            },
+            {
+                "window": "ytd_2026",
+                "date": "2026-01-05",
+                "strategy_nav": 101.0,
+                "buyhold_nav": 102.0,
+                "position": 0.1,
+                "action": "BUY",
+                "price": 49.0,
+            },
+        ],
+    )
+
+    output_dir = tmp_path / "dashboard_data" / "v2"
+    build_dashboard_v2_data(
+        root=tmp_path,
+        output_dir=output_dir,
+        freshness_path=freshness,
+        market_rows={
+            "2026-01-02": {"open": 47.0, "high": 48.0, "low": 46.0, "close": 47.24, "volume": 1000},
+            "2026-01-05": {"open": 48.0, "high": 50.0, "low": 47.0, "close": 49.0, "volume": 1000},
+        },
+    )
+
+    manifest = json.loads((output_dir / "manifest.json").read_text())
+    assert manifest["strict_retention_gate"]["status"] == "blocked"
+    assert manifest["strict_retention_gate"]["passing_profile_count"] == 0
+    assert manifest["strict_retention_gate"]["profiles_scanned"] == 12
+    assert manifest["strict_retention_gate"]["max_walkforward_drawdown_pct"] == 20.0
+    assert manifest["strict_retention_gate"]["required_best_return_pct"] == 213.143462
+    assert manifest["strict_retention_gate"]["closest_wf_drawdown_candidate"]["profile"] == "mode_conditioned_rebound_reward_train_v2"
 
 
 def test_build_dashboard_v2_data_loads_market_from_requested_root(tmp_path: Path):

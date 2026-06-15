@@ -41,6 +41,31 @@ def _require_numeric(row: dict[str, Any], fields: tuple[str, ...], label: str) -
             raise ValueError(f"{label} field {field} must be numeric") from exc
 
 
+def _require_int_field(payload: dict[str, Any], field: str, label: str) -> int:
+    value = payload.get(field)
+    if not isinstance(value, int) or value < 0:
+        raise ValueError(f"{label} {field} must be a non-negative integer")
+    return value
+
+
+def _check_strict_retention_gate(manifest: dict[str, Any]) -> None:
+    gate = manifest.get("strict_retention_gate")
+    if gate is None:
+        return
+    if not isinstance(gate, dict):
+        raise ValueError("strict_retention_gate must be an object")
+    if gate.get("status") not in {"passed", "blocked"}:
+        raise ValueError("strict_retention_gate status must be passed or blocked")
+    profiles_scanned = _require_int_field(gate, "profiles_scanned", "strict_retention_gate")
+    passing_count = _require_int_field(gate, "passing_profile_count", "strict_retention_gate")
+    if passing_count > profiles_scanned:
+        raise ValueError("strict_retention_gate passing_profile_count cannot exceed profiles_scanned")
+    if "max_walkforward_drawdown_pct" in gate:
+        _require_numeric(gate, ("max_walkforward_drawdown_pct",), "strict_retention_gate")
+    if "required_best_return_pct" in gate:
+        _require_numeric(gate, ("required_best_return_pct",), "strict_retention_gate")
+
+
 def _require_rows(payload: dict[str, Any], label: str) -> list[dict[str, Any]]:
     rows = payload.get("rows")
     if not isinstance(rows, list) or not rows:
@@ -62,6 +87,7 @@ def check_dashboard_v2_data(root: Path) -> dict[str, int]:
     unknown_defaults = sorted(profile for profile in profiles if profile not in available_profiles)
     if unknown_defaults:
         raise ValueError(f"manifest references unknown profile: {', '.join(unknown_defaults)}")
+    _check_strict_retention_gate(manifest)
 
     market_rows = _require_rows(market, "market SOXL")
     for row in market_rows:

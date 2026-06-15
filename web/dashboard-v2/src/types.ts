@@ -17,6 +17,36 @@ export interface Manifest {
     allowed_profile_count: number;
     blocked_profile_count: number;
   };
+  strict_retention_gate?: {
+    status: 'passed' | 'blocked';
+    source_path: string;
+    profiles_scanned: number;
+    passing_profile_count: number;
+    passing_profiles: string[];
+    reference_profile?: string | null;
+    reference_return_pct?: number | null;
+    current_best_return_pct?: number | null;
+    best_return_ratio?: number | null;
+    required_best_return_pct?: number | null;
+    max_walkforward_drawdown_pct?: number | null;
+    required_wf_windows: string[];
+    closest_wf_drawdown_candidate?: {
+      profile: string;
+      worst_wf_max_drawdown_pct?: number | null;
+      wf_drawdown_gap_pct?: number | null;
+      missing_wf_window_count?: number | null;
+      ytd_return_pct?: number | null;
+      best_return_gap_pct?: number | null;
+    } | null;
+    closest_ytd_return_candidate?: {
+      profile: string;
+      ytd_return_pct?: number | null;
+      best_return_gap_pct?: number | null;
+      worst_wf_max_drawdown_pct?: number | null;
+      wf_drawdown_gap_pct?: number | null;
+      missing_wf_window_count?: number | null;
+    } | null;
+  };
   blocked_profiles?: Record<
     string,
     {

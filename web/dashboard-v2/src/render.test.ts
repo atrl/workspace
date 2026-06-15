@@ -117,6 +117,48 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.querySelector('.gate-banner')?.textContent).toContain('not final-retained');
   });
 
+  test('renders strict walk-forward retention gate status', () => {
+    const panel = document.createElement('section');
+
+    renderDataSourcePanel(panel, {
+      ...manifestFixture,
+      strict_retention_gate: {
+        status: 'blocked',
+        source_path: 'runtime/model_selection/card/model_retention_walkforward_gate_v1/summary.json',
+        profiles_scanned: 12,
+        passing_profile_count: 0,
+        passing_profiles: [],
+        reference_profile: 'soxl_backtest_policy_reimplementation_v1',
+        reference_return_pct: 132.077978,
+        current_best_return_pct: 224.361539,
+        best_return_ratio: 0.95,
+        required_best_return_pct: 213.143462,
+        max_walkforward_drawdown_pct: 20,
+        required_wf_windows: ['wf_2020', 'wf_2022', 'wf_2023_2024'],
+        closest_wf_drawdown_candidate: {
+          profile: 'mode_conditioned_rebound_reward_train_v2',
+          worst_wf_max_drawdown_pct: 21.83172,
+          wf_drawdown_gap_pct: 1.83172,
+          missing_wf_window_count: 0,
+          ytd_return_pct: 177.573569,
+          best_return_gap_pct: 35.569893,
+        },
+        closest_ytd_return_candidate: {
+          profile: 'smoke',
+          ytd_return_pct: 224.361539,
+          best_return_gap_pct: 0,
+          missing_wf_window_count: 3,
+        },
+      },
+    });
+
+    expect(panel.textContent).toContain('Strict Gate');
+    expect(panel.textContent).toContain('0/12');
+    expect(panel.textContent).toContain('MaxDD < 20.00%');
+    expect(panel.textContent).toContain('mode conditioned rebound reward train v2');
+    expect(panel.textContent).toContain('21.83%');
+  });
+
   test('renders inspector rows with tone classes', () => {
     const panel = document.createElement('aside');
 
