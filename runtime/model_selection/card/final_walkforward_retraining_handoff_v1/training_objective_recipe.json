@@ -1,0 +1,56 @@
+{
+  "actor_retention_allowed": false,
+  "allowed_next_training_screen": {
+    "changed_layer": [
+      "reward",
+      "checkpoint_selection",
+      "risk_state_representation"
+    ],
+    "objective_terms": [
+      "drawdown_drift_penalty",
+      "short_volshock_state_deleverage_consistency",
+      "trend_preservation_floor",
+      "checkpoint_objective_loss",
+      "risk_state_representation_revision",
+      "official_warm_start_walkforward_gate"
+    ],
+    "reward_objective_patch": {
+      "drawdown_drift_penalty": 1.5,
+      "drawdown_drift_position_threshold": 0.05,
+      "drawdown_drift_reward_enabled": true,
+      "drawdown_drift_threshold_pct": 15.0,
+      "trend_preservation_floor_enabled": true,
+      "trend_preservation_floor_penalty": 1.0,
+      "trend_preservation_floor_position": 0.25,
+      "trend_preservation_lookback": 63,
+      "trend_preservation_min_buyhold_return_pct": 5.0
+    },
+    "scope": "short fold-local BC/PPO or checkpoint-scoring screen only",
+    "source_recipe": "short_volshock_drawdown_drift_reward_recipe_screen_v1"
+  },
+  "blocked_paths": [
+    "retain SOXLBacktest reference as actor",
+    "promote any current replay/profile from strict_candidate_retention_filter_v1",
+    "run longer PPO from cap10_joint_contract_checkpoint_drift_selector_v1 without drawdown-drift objective revision",
+    "treat state_conditioned_multi_objective_bc_screen_v1 selected candidate as retained despite >20% MaxDD"
+  ],
+  "decision": "short_foldlocal_drawdown_drift_training_screen_only_no_promotion",
+  "experiment": "final_walkforward_retraining_handoff_v1",
+  "long_ppo_allowed": false,
+  "promotion_allowed": false,
+  "reference_baseline": "soxl_backtest_policy_reimplementation_v1",
+  "reference_role": "qlib_aligned_buy_sell_reference_only",
+  "required_gates_for_future_retention": {
+    "internal_target_max_dd_pct": 15.0,
+    "max_walkforward_drawdown_pct": 20.0,
+    "required_best_return_pct": 213.143462,
+    "required_wf_windows": [
+      "wf_2020",
+      "wf_2022",
+      "wf_2023_2024"
+    ],
+    "strict_candidate_actor_retention_allowed_count_min": 1,
+    "target_relative_return_pp": 30.0
+  },
+  "short_training_screen_allowed": true
+}

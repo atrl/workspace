@@ -1,0 +1,20 @@
+{
+  "actor_retention_allowed": false,
+  "decision": "short_foldlocal_drawdown_drift_training_screen_only_no_promotion",
+  "experiment": "final_walkforward_retraining_handoff_v1",
+  "next_mechanism": "short_foldlocal_bc_or_ppo_training_screen_with_drawdown_drift_reward_and_official_wf_gate",
+  "primary_blocker": "strict retention has 0 promotable profiles and 0 actor-retention allowed; current screens are diagnostic only.",
+  "promotion_allowed": false,
+  "selected_reference_baseline": "soxl_backtest_policy_reimplementation_v1",
+  "selected_reward_recipe": "dd1.5_thr15_pos0.05_tf1_floor0.25_lb63",
+  "sidecars": [
+    "source_manifest.csv",
+    "evidence_matrix.csv",
+    "fold_gate_matrix.csv",
+    "stop_rules.csv",
+    "training_objective_recipe.json",
+    "selection.json",
+    "summary.json"
+  ],
+  "training_allowed_next": true
+}

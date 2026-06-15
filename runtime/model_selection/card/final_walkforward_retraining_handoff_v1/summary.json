@@ -1,0 +1,23 @@
+{
+  "actor_retention_allowed": false,
+  "decision": "short_foldlocal_drawdown_drift_training_screen_only_no_promotion",
+  "experiment": "final_walkforward_retraining_handoff_v1",
+  "next_action": "short_foldlocal_bc_or_ppo_training_screen_with_drawdown_drift_reward_and_official_wf_gate",
+  "promotion_allowed": false,
+  "risk_notes": [
+    "No current actor is final-retained under strict walk-forward retention.",
+    "SOXLBacktest/Qlib evidence is useful as buy/sell baseline but not deployable actor evidence.",
+    "The next training screen must optimize drawdown drift jointly with trend participation and remain no-promotion until official WF gates pass."
+  ],
+  "soxlbacktest_reference": {
+    "actor_retention_allowed": false,
+    "decision": "soxlbacktest_reference_qlib_aligned_not_promotable",
+    "promotion_allowed": false
+  },
+  "strict_candidate_retention": {
+    "actor_retention_allowed_count": 0,
+    "passing_profile_count": 0,
+    "ppo_allowed_next": false,
+    "promotable_profile_count": 0
+  }
+}

@@ -1,0 +1,6 @@
+rule,trigger,action,evidence
+strict_walkforward_gate,any required WF window missing or worst WF MaxDD >= 20%,no promotion and no actor retention,strict_candidate_retention_filter_v1 and model_retention_walkforward_gate_v1
+return_alignment_gate,YTD/common-window return below required_best_return_pct=213.143462 or below +30pp fold target,training result can remain diagnostic only,model_retention_walkforward_gate_v1; checkpoint selectors
+soxlbacktest_reference_boundary,candidate is SOXLBacktest/Qlib buy-sell reference,show as reference baseline only; never retain actor,soxlbacktest_qlib_walkforward_baseline_v1
+checkpoint_drift_stop,PPO checkpoint improves relative return but raises MaxDD drift materially,stop longer PPO; revise drawdown-drift reward/checkpoint objective first,cap10_joint_contract_checkpoint_drift_selector_v1 wf_2022 PPO iter 4
+recipe_not_actor,screen only produces reward/checkpoint recipe without official trained backtest,do not promote; allow only short fold-local training screen,short_volshock_drawdown_drift_reward_recipe_screen_v1
