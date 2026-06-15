@@ -24,13 +24,14 @@ describe('dashboard v2 domain helpers', () => {
     expect(formatProfileLabel('smoke')).toBe('smoke');
   });
 
-  test('clamps comparison profiles to two through four unique models', () => {
+  test('clamps comparison profiles to two through six unique models', () => {
     expect(clampComparisonProfiles(['a'], ['a', 'b', 'c'])).toEqual(['a', 'b']);
     expect(clampComparisonProfiles(['a', 'a', 'b', 'c', 'd', 'e'], ['a', 'b', 'c', 'd', 'e'])).toEqual([
       'a',
       'b',
       'c',
       'd',
+      'e',
     ]);
   });
 

@@ -20,10 +20,13 @@ SOXL_BACKTEST_REFERENCE_DAILY = (
 )
 DIAGNOSTIC_PROFILE_PREFERENCES = (
     "balanced_rule_residual_v22",
+    "mode_conditioned_rebound_reward_train_v2",
+    "smoke",
     "balanced_rule_residual_v19_reg",
     "balanced_rule_residual_v19",
+    "state_conditioned_drawdown_rebound_reward_train_v1",
 )
-MAX_DEFAULT_COMPARISON_PROFILES = 4
+MAX_DEFAULT_COMPARISON_PROFILES = 6
 MODEL_DATE_FIELDS = ("datetime", "date")
 REQUIRED_MODEL_FIELDS = ("strategy_nav", "buyhold_nav", "position", "action", "price")
 ACTION_VALUES = {"BUY", "SELL", "HOLD"}

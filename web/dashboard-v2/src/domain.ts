@@ -31,7 +31,7 @@ export function clampComparisonProfiles(
     if (filled.length >= 2) break;
     if (!filled.includes(profile)) filled.push(profile);
   }
-  return filled.slice(0, 4);
+  return filled.slice(0, 6);
 }
 
 export function selectDefaultChartProfile(

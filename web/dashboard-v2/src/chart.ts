@@ -13,7 +13,7 @@ import {
 import { buildActionMarkers, formatProfileLabel } from './domain';
 import type { MarketPayload, ModelPayload } from './types';
 
-const MODEL_COLORS = ['#39b7c5', '#a597ff', '#e1aa3e', '#1fb981'];
+const MODEL_COLORS = ['#39b7c5', '#a597ff', '#e1aa3e', '#1fb981', '#f472b6', '#f97316'];
 
 function toTime(date: string): Time {
   return date as Time;
@@ -123,7 +123,7 @@ export function renderMarketChart(
     autoSize: true,
     layout: { background: { color: '#15171a' }, textColor: '#edf0f3' },
     grid: { vertLines: { color: '#23272c' }, horzLines: { color: '#23272c' } },
-    leftPriceScale: { visible: false, borderColor: '#30343a' },
+    leftPriceScale: { visible: true, borderColor: '#30343a', textColor: '#a5adb8' },
     rightPriceScale: { borderColor: '#30343a' },
     timeScale: { borderColor: '#30343a', timeVisible: false, barSpacing: 8, minBarSpacing: 3 },
     crosshair: { mode: 1 },
@@ -177,19 +177,21 @@ export function renderMarketChart(
     })),
   );
 
-  const primaryIndex = Math.max(0, Object.keys(models).indexOf(model.profile));
-  const positionLine = chart.addSeries(LineSeries, {
-    color: MODEL_COLORS[primaryIndex % MODEL_COLORS.length],
-    lineWidth: 2,
-    priceScaleId: 'left',
-    priceLineVisible: false,
-    lastValueVisible: false,
-    title: '',
-  });
-  positionLine.priceScale().applyOptions({
-    scaleMargins: { top: 0.68, bottom: 0.14 },
-  });
-  positionLine.setData(model.rows.map((row) => ({ time: toTime(row.date), value: row.position })));
+  for (const [index, [profile, payload]] of Object.entries(models).entries()) {
+    const isPrimary = profile === model.profile;
+    const positionLine = chart.addSeries(LineSeries, {
+      color: MODEL_COLORS[index % MODEL_COLORS.length],
+      lineWidth: isPrimary ? 3 : 1,
+      priceScaleId: 'left',
+      priceLineVisible: false,
+      lastValueVisible: false,
+      title: '',
+    });
+    positionLine.priceScale().applyOptions({
+      scaleMargins: { top: 0.68, bottom: 0.14 },
+    });
+    positionLine.setData(payload.rows.map((row) => ({ time: toTime(row.date), value: row.position })));
+  }
   createSeriesMarkers(
     candleSeries,
     buildActionMarkers(model.events, { showText: false }).map((marker) => ({

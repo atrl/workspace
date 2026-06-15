@@ -253,6 +253,34 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.textContent).toContain('1');
   });
 
+  test('renders compact return and drawdown rankings for model differences', () => {
+    const panel = document.createElement('section');
+
+    renderComparisonPanel(
+      panel,
+      {
+        ...comparisonFixture,
+        rankings: [
+          { profile: 'smoke', return: 1.25, max_drawdown: -0.18, avg_position: 0.42, row_count: 111 },
+          {
+            profile: 'balanced_rule_residual_v22',
+            return: 0.92,
+            max_drawdown: -0.13,
+            avg_position: 0.18,
+            row_count: 111,
+          },
+        ],
+      },
+      '2026-01-02',
+      '2026-01-06',
+    );
+
+    expect(panel.querySelector('.ranking-strip')).not.toBeNull();
+    expect(panel.textContent).toContain('Ret 125.00%');
+    expect(panel.textContent).toContain('MaxDD -18.00%');
+    expect(panel.textContent).toContain('AvgPos 0.420');
+  });
+
   test('renders compact model delta strip outside the collapsed comparison panel', () => {
     const panel = document.createElement('div');
 
@@ -278,11 +306,49 @@ describe('dashboard v2 DOM render helpers', () => {
 
     expect(panel.querySelectorAll('.model-delta-pill')).toHaveLength(2);
     expect(panel.textContent).toContain('smoke');
+    expect(panel.textContent).toContain('Compare through 2026-01-06');
     expect(panel.textContent).toContain('End 2026-01-06');
     expect(panel.textContent).toContain('Ret +3.00%');
     expect(panel.textContent).toContain('NAV +2.00');
     expect(panel.textContent).toContain('Pos +0.200');
     expect(panel.textContent).toContain('Mismatch 2');
+  });
+
+  test('renders latest baseline and market date when they extend past actor comparison rows', () => {
+    const panel = document.createElement('div');
+
+    renderModelDeltaStrip(panel, comparisonFixture, '2026-01-02', '2026-01-07', undefined, {
+      ...manifestFixture,
+      latest_market_date: '2026-01-07',
+      default_baseline_profile: 'soxl_backtest_policy_reimplementation_v1',
+      profile_summaries: {
+        soxl_backtest_policy_reimplementation_v1: {
+          status: 'reference',
+          replay_start: '2026-01-02',
+          replay_end: '2026-01-07',
+          row_count: 4,
+          source_path: 'runtime/production/card/soxl_backtest_policy_reimplementation_v1/new_policy_daily.csv',
+        },
+        smoke: {
+          status: 'canonical',
+          replay_start: '2026-01-02',
+          replay_end: '2026-01-06',
+          row_count: 3,
+          source_path: 'runtime/model/card/smoke/smoke_soxl_daily.csv',
+        },
+        balanced_rule_residual_v22: {
+          status: 'canonical',
+          replay_start: '2026-01-02',
+          replay_end: '2026-01-07',
+          row_count: 4,
+          source_path: 'runtime/model/card/balanced_rule_residual_v22/balanced_rule_residual_v22_soxl_daily.csv',
+        },
+      },
+    });
+
+    expect(panel.querySelector('.model-delta-caption')?.textContent).toContain('Compare through 2026-01-06');
+    expect(panel.querySelector('.model-delta-caption')?.textContent).toContain('Price 2026-01-07');
+    expect(panel.querySelector('.model-delta-caption')?.textContent).toContain('Baseline 2026-01-07');
   });
 
   test('renders clickable action mismatch rows with feature context', () => {

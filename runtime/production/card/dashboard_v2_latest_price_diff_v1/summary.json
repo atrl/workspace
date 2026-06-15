@@ -5,10 +5,16 @@
   "browser_checks": {
     "first_view_screenshot": "runtime/production/card/dashboard_v2_latest_price_diff_v1/dashboard_v2_first_view.png",
     "has_canonical_date": true,
+    "has_compare_caption": true,
     "has_model_end_label": true,
     "has_model_return": true,
+    "has_no_old_main_overlay_labels": true,
     "has_price_latest": true,
+    "has_rankings": true,
     "has_safe_end": true,
+    "has_six_model_pills": true,
+    "six_model_kline_screenshot": "runtime/production/card/dashboard_v2_latest_price_diff_v1/dashboard_v2_six_model_kline.png",
+    "six_model_non_dark_ratio": 0.0826,
     "non_background_ratio": 0.1262
   },
   "canonical_data_date": "2026-06-12",
@@ -18,16 +24,20 @@
   "default_comparison_profiles": [
     "soxl_backtest_policy_reimplementation_v1",
     "balanced_rule_residual_v22",
+    "mode_conditioned_rebound_reward_train_v2",
+    "smoke",
     "balanced_rule_residual_v19_reg",
     "balanced_rule_residual_v19"
   ],
   "notes": [
     "SOXL/SOXX raw price rows may extend past canonical SOXL/SOXX/VIX overlap when VIX lags.",
     "Qlib actor replay remains clipped to safe_backtest_end; SOXLBacktest reference baseline may extend to price_latest_date.",
-    "Main chart now includes volume histogram plus selected model position overlay; first viewport shows model End/Ret/NAV/Pos/Mismatch deltas."
+    "Main chart now includes volume histogram plus all selected model position overlays; first viewport shows model End/Ret/NAV/Pos/Mismatch deltas.",
+    "Dashboard v2 dist now uses relative asset paths so dashboard_server does not load stale root /assets bundles."
   ],
   "price_latest_date": "2026-06-15",
   "safe_backtest_end": "2026-06-11",
   "strict_retention_passing_profile_count": 0,
-  "strict_retention_reference_return_pct": 145.736343
+  "strict_retention_reference_return_pct": 145.736343,
+  "updated_at": "2026-06-16T01:20:00+08:00"
 }

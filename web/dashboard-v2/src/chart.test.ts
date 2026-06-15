@@ -77,7 +77,7 @@ describe('dashboard v2 chart rendering', () => {
     chartMocks.priceScaleRecords.length = 0;
   });
 
-  test('renders candles with MA, volume, and position overlays on the main chart', () => {
+  test('renders candles with MA, volume, and all selected model position overlays on the main chart', () => {
     const container = document.createElement('div');
     const challenger = { ...modelFixture, profile: 'balanced_rule_residual_v22' };
 
@@ -89,7 +89,13 @@ describe('dashboard v2 chart rendering', () => {
       () => {},
     );
 
-    expect(chartMocks.seriesRecords.map((record) => record.kind)).toEqual(['candlestick', 'line', 'histogram', 'line']);
+    expect(chartMocks.seriesRecords.map((record) => record.kind)).toEqual([
+      'candlestick',
+      'line',
+      'histogram',
+      'line',
+      'line',
+    ]);
     expect(chartMocks.seriesRecords[1].options).toMatchObject({
       title: 'MA180',
       priceLineVisible: false,
@@ -112,12 +118,22 @@ describe('dashboard v2 chart rendering', () => {
     );
     expect(chartMocks.seriesRecords[3].options).toMatchObject({
       priceScaleId: 'left',
-      lineWidth: 2,
+      lineWidth: 1,
       priceLineVisible: false,
       lastValueVisible: false,
       title: '',
     });
     expect(chartMocks.seriesRecords[3].data).toEqual(
+      modelFixture.rows.map((row) => ({ time: row.date, value: row.position })),
+    );
+    expect(chartMocks.seriesRecords[4].options).toMatchObject({
+      priceScaleId: 'left',
+      lineWidth: 3,
+      priceLineVisible: false,
+      lastValueVisible: false,
+      title: '',
+    });
+    expect(chartMocks.seriesRecords[4].data).toEqual(
       challenger.rows.map((row) => ({ time: row.date, value: row.position })),
     );
   });

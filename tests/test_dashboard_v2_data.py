@@ -890,6 +890,115 @@ def test_build_dashboard_v2_data_blocks_actor_without_final_retention_decision(t
     assert actor["retention"]["final_model_retained"] is False
 
 
+def test_build_dashboard_v2_data_defaults_to_key_strict_gate_diagnostic_models(tmp_path: Path):
+    freshness = tmp_path / "dashboard_data" / "model_replay_freshness.json"
+    freshness.parent.mkdir()
+    profiles = [
+        "balanced_rule_residual_v22",
+        "mode_conditioned_rebound_reward_train_v2",
+        "smoke",
+        "balanced_rule_residual_v19_reg",
+        "balanced_rule_residual_v19",
+        "state_conditioned_drawdown_rebound_reward_train_v1",
+    ]
+    for profile in profiles:
+        model_csv = tmp_path / "runtime" / "model" / "card" / profile / f"{profile}_soxl_daily.csv"
+        model_csv.parent.mkdir(parents=True)
+        _write_csv(
+            model_csv,
+            [
+                {
+                    "datetime": "2026-01-02",
+                    "strategy_nav": 100.0,
+                    "buyhold_nav": 100.0,
+                    "position": 0.0,
+                    "action": "HOLD",
+                    "price": 47.24,
+                },
+                {
+                    "datetime": "2026-01-05",
+                    "strategy_nav": 101.0,
+                    "buyhold_nav": 102.0,
+                    "position": 0.2,
+                    "action": "BUY",
+                    "price": 49.0,
+                },
+            ],
+        )
+    reference_csv = (
+        tmp_path
+        / "runtime"
+        / "production"
+        / "card"
+        / "soxl_backtest_policy_reimplementation_v1"
+        / "new_policy_daily.csv"
+    )
+    reference_csv.parent.mkdir(parents=True)
+    _write_csv(
+        reference_csv,
+        [
+            {
+                "window": "ytd_2026",
+                "date": "2026-01-02",
+                "strategy_nav": 100.0,
+                "buyhold_nav": 100.0,
+                "position": 0.0,
+                "action": "HOLD",
+                "price": 47.24,
+            },
+            {
+                "window": "ytd_2026",
+                "date": "2026-01-05",
+                "strategy_nav": 105.0,
+                "buyhold_nav": 102.0,
+                "position": 0.2,
+                "action": "BUY",
+                "price": 49.0,
+            },
+        ],
+    )
+    freshness.write_text(
+        json.dumps(
+            {
+                "generated_at": "2026-06-13T00:00:00+00:00",
+                "latest_data_date": "2026-01-05",
+                "safe_backtest_end": "2026-01-05",
+                "profiles": [
+                    {
+                        "profile": profile,
+                        "status": "candidate",
+                        "output": f"runtime/model/card/{profile}/{profile}_soxl_daily.csv",
+                        "result": "current",
+                    }
+                    for profile in profiles
+                ],
+            }
+        )
+    )
+
+    output_dir = tmp_path / "dashboard_data" / "v2"
+    build_dashboard_v2_data(
+        root=tmp_path,
+        output_dir=output_dir,
+        freshness_path=freshness,
+        market_rows={
+            "2026-01-02": {"open": 47.0, "high": 48.0, "low": 46.0, "close": 47.24, "volume": 1000},
+            "2026-01-05": {"open": 48.0, "high": 50.0, "low": 47.0, "close": 49.0, "volume": 1000},
+        },
+    )
+
+    manifest = json.loads((output_dir / "manifest.json").read_text())
+    assert manifest["default_comparison_profiles"] == [
+        "soxl_backtest_policy_reimplementation_v1",
+        "balanced_rule_residual_v22",
+        "mode_conditioned_rebound_reward_train_v2",
+        "smoke",
+        "balanced_rule_residual_v19_reg",
+        "balanced_rule_residual_v19",
+    ]
+    assert manifest["filtered_profile_count"] == 1
+
+
 def test_build_dashboard_v2_data_keeps_reference_baseline_through_latest_market_date(tmp_path: Path):
     freshness = tmp_path / "dashboard_data" / "model_replay_freshness.json"
     freshness.parent.mkdir()
@@ -1073,9 +1182,10 @@ def test_build_dashboard_v2_data_manifest_does_not_expose_unselected_old_profile
     assert manifest["default_comparison_profiles"] == [
         "soxl_backtest_policy_reimplementation_v1",
         "balanced_rule_residual_v22",
+        "smoke",
     ]
     assert manifest["available_profiles"] == manifest["default_comparison_profiles"]
-    assert manifest["filtered_profile_count"] == 2
+    assert manifest["filtered_profile_count"] == 1
 
 
 def test_normalize_model_rows_rejects_invalid_numeric_fields(tmp_path: Path):

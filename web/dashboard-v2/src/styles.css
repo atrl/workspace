@@ -183,6 +183,19 @@ h3 {
   flex: 1 1 420px;
 }
 
+.model-delta-caption {
+  flex: 1 1 100%;
+  min-width: 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.model-delta-caption[data-tone="warning"] {
+  color: var(--warn);
+}
+
 .model-delta-pill {
   display: inline-flex;
   align-items: center;
@@ -446,6 +459,35 @@ h3 {
   margin-top: 8px;
   color: var(--muted);
   overflow-wrap: anywhere;
+}
+
+.ranking-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(210px, 100%), 1fr));
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.ranking-item {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 4px 9px;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-left-width: 4px;
+  border-radius: 6px;
+  background: var(--bg);
+}
+
+.ranking-item strong {
+  grid-column: 1 / -1;
+  overflow-wrap: anywhere;
+}
+
+.ranking-item span {
+  color: var(--muted);
+  font-size: 12px;
 }
 
 .comparison-cards {

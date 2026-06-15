@@ -141,12 +141,21 @@ export interface ComparisonRow {
   action_mismatch_count: number;
 }
 
+export interface ComparisonRanking {
+  profile: string;
+  return: number;
+  max_drawdown: number;
+  avg_position: number;
+  row_count: number;
+}
+
 export interface ComparisonPayload {
   baseline_profile: string;
   compared_profiles: string[];
   common_start: string;
   common_end: string;
   rows: ComparisonRow[];
+  rankings?: ComparisonRanking[];
 }
 
 export interface ActionMismatchRow {

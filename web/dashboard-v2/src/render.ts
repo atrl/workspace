@@ -1,6 +1,8 @@
 import { computeVisibleComparison, formatProfileLabel } from './domain';
 import type { ActionMismatchRow, ComparisonPayload, InspectorRow, Manifest } from './types';
 
+const MODEL_COLORS = ['#39b7c5', '#a597ff', '#e1aa3e', '#1fb981', '#f472b6', '#f97316'];
+
 function element<K extends keyof HTMLElementTagNameMap>(
   tag: K,
   className?: string,
@@ -175,8 +177,21 @@ export function renderModelDeltaStrip(
     container.appendChild(element('span', 'empty-note', 'No comparison rows'));
     return;
   }
+  const caption = element('div', 'model-delta-caption');
+  const captionParts = [`Compare through ${last.date}`];
+  if (manifest?.latest_market_date && manifest.latest_market_date > last.date) {
+    captionParts.push(`Price ${manifest.latest_market_date}`);
+    caption.dataset.tone = 'warning';
+  }
+  const baselineEnd = manifest?.profile_summaries?.[comparison.baseline_profile]?.replay_end;
+  if (baselineEnd && baselineEnd > last.date) {
+    captionParts.push(`Baseline ${baselineEnd}`);
+    caption.dataset.tone = 'warning';
+  }
+  caption.textContent = captionParts.join(' | ');
+  container.appendChild(caption);
   const selected = profiles.filter((profile) => comparison.compared_profiles.includes(profile));
-  for (const profile of selected) {
+  for (const [index, profile] of selected.entries()) {
     const values = last.profiles[profile];
     if (!values) continue;
     const profileRows = visible.filter((row) => row.profiles[profile]);
@@ -185,6 +200,8 @@ export function renderModelDeltaStrip(
     const replayEnd = manifest?.profile_summaries?.[profile]?.replay_end;
     const pill = element('span', 'model-delta-pill');
     pill.title = profile;
+    pill.style.borderLeftColor = MODEL_COLORS[index % MODEL_COLORS.length];
+    pill.style.borderLeftWidth = '4px';
     pill.appendChild(element('strong', undefined, formatProfileLabel(profile)));
     if (replayEnd) pill.appendChild(element('span', undefined, `End ${replayEnd}`));
     pill.appendChild(element('span', undefined, `Ret ${formatSigned(rebasedNav - 100, 2)}%`));
@@ -235,6 +252,21 @@ export function renderComparisonPanel(
     `${visible.length} comparison rows | baseline ${comparison.baseline_profile} | selected ${start} to ${end}`,
   );
   container.appendChild(header);
+
+  const rankings = comparison.rankings?.filter((item) => comparison.compared_profiles.includes(item.profile)) ?? [];
+  if (rankings.length > 0) {
+    const rankingStrip = element('div', 'ranking-strip');
+    for (const [index, ranking] of rankings.entries()) {
+      const item = element('article', 'ranking-item');
+      item.style.borderLeftColor = MODEL_COLORS[index % MODEL_COLORS.length];
+      item.appendChild(element('strong', undefined, formatProfileLabel(ranking.profile)));
+      item.appendChild(element('span', undefined, `Ret ${formatPct(ranking.return * 100)}`));
+      item.appendChild(element('span', undefined, `MaxDD ${formatPct(ranking.max_drawdown * 100)}`));
+      item.appendChild(element('span', undefined, `AvgPos ${ranking.avg_position.toFixed(3)}`));
+      rankingStrip.appendChild(item);
+    }
+    container.appendChild(rankingStrip);
+  }
 
   const cards = element('div', 'comparison-cards');
   for (const profile of comparison.compared_profiles) {

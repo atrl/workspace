@@ -14,6 +14,7 @@ function contentType(pathname: string): string {
 
 export default defineConfig({
   root: '.',
+  base: './',
   plugins: [
     {
       name: 'dashboard-data-v2-dev-server',
