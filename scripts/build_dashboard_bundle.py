@@ -15,7 +15,6 @@ UNIFIED_DASHBOARD_ENTRYPOINT = """<!doctype html>
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="refresh" content="0; url=/web/dashboard-v2/dist/index.html">
     <link rel="icon" href="data:,">
     <title>SOXL Dashboard</title>
     <style>
@@ -61,7 +60,10 @@ UNIFIED_DASHBOARD_ENTRYPOINT = """<!doctype html>
       <p><code>scripts/dashboard_server.py</code> is required for interactive reruns.</p>
     </main>
     <script>
-      window.location.replace('/web/dashboard-v2/dist/index.html');
+      const target = new URL('/web/dashboard-v2/dist/index.html', window.location.origin);
+      target.search = window.location.search;
+      target.hash = window.location.hash;
+      window.location.replace(target.toString());
     </script>
   </body>
 </html>

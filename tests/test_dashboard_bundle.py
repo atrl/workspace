@@ -56,4 +56,7 @@ def test_unified_dashboard_entrypoint_replaces_legacy_plotly_dashboard(tmp_path,
     assert "/web/dashboard-v2/dist/index.html" in html
     assert "scripts/dashboard_server.py" in html
     assert "plotly" not in html.lower()
+    assert "target.search = window.location.search" in html
+    assert "target.hash = window.location.hash" in html
+    assert '<meta http-equiv="refresh"' not in html
     assert (tmp_path / "dashboard_v2.html").read_text(encoding="utf-8") == html

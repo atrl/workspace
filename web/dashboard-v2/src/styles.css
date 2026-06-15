@@ -211,6 +211,26 @@ select {
   white-space: nowrap;
 }
 
+.run-group {
+  flex-wrap: wrap;
+  row-gap: 6px;
+  min-width: 0;
+}
+
+.run-date-field {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  white-space: nowrap;
+  color: #9ca3af;
+}
+
+.run-date-field input {
+  width: 136px;
+  min-width: 118px;
+}
+
 .run-status[data-tone="warning"] {
   color: #f59e0b;
 }

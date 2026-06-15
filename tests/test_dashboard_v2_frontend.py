@@ -14,6 +14,16 @@ def test_dashboard_v2_entrypoint_redirects_to_unified_vite_bundle():
     assert "plotly" not in html.lower()
 
 
+def test_dashboard_v2_entrypoint_preserves_query_and_hash_for_debug_tools():
+    html = (ROOT / "dashboard_v2.html").read_text(encoding="utf-8")
+
+    assert "window.location.search" in html
+    assert "window.location.hash" in html
+    assert "target.search = window.location.search" in html
+    assert "target.hash = window.location.hash" in html
+    assert '<meta http-equiv="refresh"' not in html
+
+
 def test_dashboard_v2_dist_uses_relative_asset_paths():
     html = (ROOT / "web" / "dashboard-v2" / "dist" / "index.html").read_text(encoding="utf-8")
 
@@ -43,3 +53,17 @@ def test_dashboard_v2_model_picker_wraps_without_horizontal_scroll():
 
     assert "flex-wrap: wrap;" in profile_group
     assert "overflow-x: auto;" not in profile_group
+
+
+def test_dashboard_v2_run_window_is_separate_from_chart_window():
+    source = (ROOT / "web" / "dashboard-v2" / "src" / "main.ts").read_text(encoding="utf-8")
+
+    assert "runStart: string;" in source
+    assert "runEnd: string;" in source
+    assert "Run start" in source
+    assert "Run end" in source
+    assert "Use chart range" in source
+    assert "startDate: state.runStart" in source
+    assert "endDate: state.runEnd" in source
+    assert "startDate: state.start" not in source
+    assert "endDate: state.end" not in source

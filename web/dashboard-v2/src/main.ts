@@ -62,6 +62,8 @@ interface ViewState {
   baselineProfile: string;
   chartProfile: string;
   runProfile: string;
+  runStart: string;
+  runEnd: string;
   start: string;
   end: string;
   hoveredDate: string;
@@ -258,8 +260,8 @@ function renderToolbar(
   container.appendChild(rangeGroup);
 
   for (const [labelText, key] of [
-    ['Start', 'start'],
-    ['End', 'end'],
+    ['Chart start', 'start'],
+    ['Chart end', 'end'],
   ] as const) {
     const label = document.createElement('label');
     label.className = 'toolbar-group';
@@ -276,19 +278,37 @@ function renderToolbar(
   runGroup.className = 'toolbar-group run-group';
   const runModel = data.models[state.runProfile];
   const canRun = canRunSelectedWindow(runModel);
+  for (const [labelText, key] of [
+    ['Run start', 'runStart'],
+    ['Run end', 'runEnd'],
+  ] as const) {
+    const label = document.createElement('label');
+    label.className = 'run-date-field';
+    label.append(labelText);
+    const input = document.createElement('input');
+    input.type = 'date';
+    input.value = state[key];
+    input.addEventListener('change', () => update({ [key]: input.value }));
+    label.appendChild(input);
+    runGroup.appendChild(label);
+  }
+  const useChartRange = document.createElement('button');
+  useChartRange.type = 'button';
+  useChartRange.textContent = 'Use chart range';
+  useChartRange.addEventListener('click', () => update({ runStart: state.start, runEnd: state.end }));
   const runButton = document.createElement('button');
   runButton.type = 'button';
   runButton.textContent = runWindowButtonLabel(runModel);
   runButton.disabled = !canRun;
-  runButton.title = `${state.start} to ${state.end} | ${runnableProfileReason(runModel)}`;
+  runButton.title = `${state.runStart} to ${state.runEnd} | ${runnableProfileReason(runModel)}`;
   runButton.addEventListener('click', () => {
     void runInteractiveBacktest();
   });
   const runStatus = document.createElement('span');
   runStatus.id = 'run-status';
   runStatus.className = 'run-status';
-  runStatus.textContent = `${state.start} to ${state.end} | ${runnableProfileReason(runModel)}`;
-  runGroup.append(runButton, runStatus);
+  runStatus.textContent = `${state.runStart} to ${state.runEnd} | ${runnableProfileReason(runModel)}`;
+  runGroup.append(useChartRange, runButton, runStatus);
   container.appendChild(runGroup);
 }
 
@@ -451,6 +471,8 @@ async function main(): Promise<void> {
       baselineProfile: data.manifest.default_baseline_profile,
       chartProfile: defaultChartProfile,
       runProfile: defaultRunProfile,
+      runStart: chartWindow?.start ?? common?.start ?? data.comparison.common_start,
+      runEnd: chartWindow?.end ?? common?.end ?? data.comparison.common_end,
       start: chartWindow?.start ?? common?.start ?? data.comparison.common_start,
       end: chartWindow?.end ?? common?.end ?? data.comparison.common_end,
       hoveredDate: chartWindow?.end ?? common?.end ?? data.comparison.common_end,
@@ -516,8 +538,8 @@ async function main(): Promise<void> {
       try {
         rerunModel = await runBacktest({
           profile: sourceProfile,
-          startDate: state.start,
-          endDate: state.end,
+          startDate: state.runStart,
+          endDate: state.runEnd,
         });
       } catch (error) {
         if (statusNode) {
@@ -537,6 +559,8 @@ async function main(): Promise<void> {
       );
       state.chartProfile = rerunModel.profile;
       state.runProfile = rerunModel.profile;
+      state.runStart = rerunModel.replay_start;
+      state.runEnd = rerunModel.replay_end;
       state.start = rerunModel.replay_start;
       state.end = rerunModel.replay_end;
       state.hoveredDate = rerunModel.replay_end;

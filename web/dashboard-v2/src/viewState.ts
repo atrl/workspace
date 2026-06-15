@@ -7,6 +7,8 @@ export interface ViewUpdate {
   baselineProfile?: string;
   chartProfile?: string;
   runProfile?: string;
+  runStart?: string;
+  runEnd?: string;
   start?: string;
   end?: string;
   hoveredDate?: string;
@@ -37,7 +39,7 @@ export function viewUpdateRequiresFeatureRender(update: ViewUpdate): boolean {
 }
 
 export function viewUpdateRequiresToolbarRender(update: ViewUpdate): boolean {
-  return update.runProfile !== undefined;
+  return update.runProfile !== undefined || update.runStart !== undefined || update.runEnd !== undefined;
 }
 
 export function applyChartDateInteraction(

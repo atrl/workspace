@@ -1,23 +1,37 @@
 {
-  "experiment": "dashboard_v2_interaction_fix_v1",
-  "generated_at": "2026-06-13T22:01:00+00:00",
-  "decision": "dashboard_v2_unified_entrypoint_and_interaction_fix_verified",
-  "url": "http://127.0.0.1:8871/web/dashboard-v2/dist/index.html?apiBase=http://127.0.0.1:8871",
-  "screenshot_path": "runtime/production/card/dashboard_v2_interaction_fix_v1/dashboard_v2_interaction_fix_2026-06-14.png",
-  "browser": "Google Chrome via Playwright",
-  "checks": {
-    "dashboard_server_health": true,
-    "auto_update_tasks_visible": true,
-    "profile_groups_visible": true,
-    "buy_sell_feature_panel_visible": true,
-    "model_specific_features_visible": true,
-    "market_position_nav_canvases_present": true,
-    "workspace_bottom_px": 999,
-    "viewport_height_px": 1000
+  "decision": "dashboard_v2_run_window_split_verified",
+  "scope": "Separate dashboard v2 chart window from interactive inference window, preserve entrypoint query parameters, and verify TradingView-like chart rendering.",
+  "changes": [
+    "dashboard_v2.html preserves query and hash when redirecting to the Vite bundle",
+    "dashboard v2 state now has independent runStart/runEnd values",
+    "Run baseline/model request uses runStart/runEnd instead of chart start/end",
+    "Use chart range copies chart start/end into runStart/runEnd explicitly",
+    "Run date controls wrap without resizing the chart surface"
+  ],
+  "browser_verification": {
+    "url": "http://127.0.0.1:8765/web/dashboard-v2/dist/index.html?debugChart=1",
+    "chart_start_after_edit": "2026-03-02",
+    "chart_end_after_edit": "2026-06-09",
+    "run_start_before_use_chart_range": "2026-01-02",
+    "run_end_before_use_chart_range": "2026-06-09",
+    "run_start_after_use_chart_range": "2026-03-02",
+    "run_end_after_use_chart_range": "2026-06-09",
+    "rerun_profile": "rerun:soxl_backtest_policy_reimplementation_v1:2026-03-02:2026-06-09",
+    "rerun_market_rows": 70,
+    "rerun_model_rows": 70,
+    "rerun_position_rows": 70,
+    "has_candles": true,
+    "has_soxl_close_line": true,
+    "has_position_line": true,
+    "screenshot": "runtime/production/card/dashboard_v2_interaction_fix_v1/dashboard_v2_rerun_2026-03-02_2026-06-09.png"
   },
-  "notes": [
-    "KimiBrowser was not installed locally; verification used the system Google Chrome app.",
-    "The current worktree has no runnable actor artifacts, so the run button correctly renders as Evidence only.",
-    "Use scripts/dashboard_server.py for interactive reruns; plain static servers do not provide /api/run-backtest."
-  ]
+  "runtime_status_observed": {
+    "runnable_rl_profiles": 0,
+    "reference_profiles": [
+      "soxl_backtest_policy_reimplementation_v1"
+    ],
+    "evidence_only_profiles": 4,
+    "safe_backtest_end": "2026-06-09",
+    "latest_market_date": "2026-06-10"
+  }
 }

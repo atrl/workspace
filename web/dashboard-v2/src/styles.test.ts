@@ -32,4 +32,14 @@ describe('dashboard v2 layout styles', () => {
     expect(profileGroupRule).toContain('flex-wrap: wrap;');
     expect(profileGroupRule).not.toContain('overflow-x: auto;');
   });
+
+  test('lets inference date controls wrap without resizing the chart surface', () => {
+    const css = readFileSync('src/styles.css', 'utf8');
+    const runGroupRule = css.match(/\.run-group\s*\{[^}]*\}/)?.[0] ?? '';
+    const runDateRule = css.match(/\.run-date-field\s*\{[^}]*\}/)?.[0] ?? '';
+
+    expect(runGroupRule).toContain('flex-wrap: wrap;');
+    expect(runDateRule).toContain('min-width: 0;');
+    expect(runDateRule).toContain('white-space: nowrap;');
+  });
 });

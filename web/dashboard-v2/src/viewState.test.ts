@@ -3,6 +3,7 @@ import {
   applyChartDateInteraction,
   viewUpdateRequiresChartRender,
   viewUpdateRequiresFeatureRender,
+  viewUpdateRequiresToolbarRender,
 } from './viewState';
 
 describe('dashboard v2 view state interactions', () => {
@@ -52,5 +53,12 @@ describe('dashboard v2 view state interactions', () => {
   test('treats interaction-mode changes as chrome-only updates', () => {
     expect(viewUpdateRequiresChartRender({ chartClickMode: 'set_start' })).toBe(false);
     expect(viewUpdateRequiresFeatureRender({ chartClickMode: 'set_end' })).toBe(false);
+  });
+
+  test('treats inference window edits as toolbar-only updates', () => {
+    expect(viewUpdateRequiresChartRender({ runStart: '2026-03-16' })).toBe(false);
+    expect(viewUpdateRequiresFeatureRender({ runEnd: '2026-06-09' })).toBe(false);
+    expect(viewUpdateRequiresToolbarRender({ runStart: '2026-03-16' })).toBe(true);
+    expect(viewUpdateRequiresToolbarRender({ runEnd: '2026-06-09' })).toBe(true);
   });
 });
