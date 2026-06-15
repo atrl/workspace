@@ -1,0 +1,179 @@
+{
+  "actor_retention_allowed": false,
+  "bc_screen_allowed_next": false,
+  "candidate_relative_pass_count": 1,
+  "changed_layer": [
+    "model_selection",
+    "bc_warm_start",
+    "target",
+    "official_replay"
+  ],
+  "created_at": "2026-06-15T02:42:37.728397+00:00",
+  "decision": "release16_joint_drawdown_aux_state_head_bc_holdout_slice_failed_no_promotion",
+  "direct_comparison_baseline": "release16_joint_drawdown_release_target_contract_v1",
+  "drawdown_gate_operator": "<",
+  "drift_gate_pass_count": 0,
+  "drift_summary": {
+    "baseline_gate_pass_count": 1,
+    "candidate_gate_pass_count": 0,
+    "decision": "bc_walkforward_candidate_gate_failed_no_promotion",
+    "drift_gate_pass_count": 0,
+    "failed_folds": [
+      "wf_2020",
+      "wf_2022",
+      "wf_2023_2024"
+    ],
+    "fold_gate_pass_count": 0,
+    "next_mechanism": "revise_training_targets_before_ppo",
+    "promotion_allowed": false,
+    "required_folds": [
+      "wf_2020",
+      "wf_2022",
+      "wf_2023_2024"
+    ],
+    "scored_folds": [
+      "wf_2020",
+      "wf_2022",
+      "wf_2023_2024"
+    ],
+    "slice_gate_pass_count": 0
+  },
+  "experiment": "release16_joint_drawdown_aux_state_head_bc_holdout_replay_v1",
+  "failed_folds": [
+    "wf_2020",
+    "wf_2022",
+    "wf_2023_2024"
+  ],
+  "holdout_slice_gate_pass_count": 0,
+  "max_drawdown_gap_to_target_pp": 9.516628886682039,
+  "max_relative_gap_to_target_pp": 35.31530041481881,
+  "metrics": [
+    {
+      "avg_pos": 0.31491737240978745,
+      "max_dd_pct": 20.932064406335815,
+      "relative_return_pct": -5.315300414818807,
+      "split_type": "walk_forward_test",
+      "window": "wf_2020"
+    },
+    {
+      "avg_pos": 0.14685888120876406,
+      "max_dd_pct": 29.51662888668204,
+      "relative_return_pct": 58.10964850502614,
+      "split_type": "walk_forward_test",
+      "window": "wf_2022"
+    },
+    {
+      "avg_pos": 0.21816487254711012,
+      "max_dd_pct": 17.367905153554386,
+      "relative_return_pct": 29.76792076245919,
+      "split_type": "walk_forward_test",
+      "window": "wf_2023_2024"
+    }
+  ],
+  "min_wf_relative_return_pp": -5.315300414818807,
+  "next_mechanism": "repair_action_head_sampling_or_aux_state_loss_before_official_replay",
+  "ppo_allowed_next": false,
+  "primary_blocker": "bc_candidate_or_slice_gate_failed",
+  "promotion_allowed": false,
+  "reference_baseline": "soxlbacktest_qlib_walkforward_baseline_v1",
+  "role": "diagnose",
+  "selected_by_fold": {
+    "wf_2020": {
+      "drift_gate": false,
+      "holdout_failed_slices": "all,is_rebound_cluster",
+      "holdout_slice_gate": false,
+      "max_dd_delta_vs_runnable": -0.17409166090653727,
+      "max_dd_gate_strict": false,
+      "relative_delta_vs_runnable": -27.596939350117374,
+      "relative_gate": false,
+      "selected_avg_pos": 0.31491737240978745,
+      "selected_candidate": "risk_guarded_aux",
+      "selected_candidate_gate": false,
+      "selected_max_dd": 20.932064406335815,
+      "selected_relative_return": -5.315300414818807,
+      "selected_trade_count": 39,
+      "train_failed_slices": "",
+      "train_slice_gate": true
+    },
+    "wf_2022": {
+      "drift_gate": false,
+      "holdout_failed_slices": "is_downtrend_state",
+      "holdout_slice_gate": false,
+      "max_dd_delta_vs_runnable": 14.443990191247158,
+      "max_dd_gate_strict": false,
+      "relative_delta_vs_runnable": -14.341211491471057,
+      "relative_gate": true,
+      "selected_avg_pos": 0.14685888120876406,
+      "selected_candidate": "drawdown_heavy_aux",
+      "selected_candidate_gate": false,
+      "selected_max_dd": 29.51662888668204,
+      "selected_relative_return": 58.10964850502614,
+      "selected_trade_count": 37,
+      "train_failed_slices": "",
+      "train_slice_gate": true
+    },
+    "wf_2023_2024": {
+      "drift_gate": false,
+      "holdout_failed_slices": "is_downtrend_state,drawdown_control_state",
+      "holdout_slice_gate": false,
+      "max_dd_delta_vs_runnable": 3.408470874569936,
+      "max_dd_gate_strict": true,
+      "relative_delta_vs_runnable": 15.465858304194095,
+      "relative_gate": false,
+      "selected_avg_pos": 0.21816487254711012,
+      "selected_candidate": "class_balanced_aux",
+      "selected_candidate_gate": false,
+      "selected_max_dd": 17.367905153554386,
+      "selected_relative_return": 29.76792076245919,
+      "selected_trade_count": 36,
+      "train_failed_slices": "",
+      "train_slice_gate": true
+    }
+  },
+  "selected_gate_pass_count": 0,
+  "sidecars": {
+    "bc_action_distribution": "runtime/model_selection/card/release16_joint_drawdown_aux_state_head_bc_holdout_replay_v1/bc_action_distribution.csv",
+    "bc_candidate_metrics": "runtime/model_selection/card/release16_joint_drawdown_aux_state_head_bc_holdout_replay_v1/bc_candidate_metrics.csv",
+    "bc_drift_scores": "runtime/model_selection/card/release16_joint_drawdown_aux_state_head_bc_holdout_replay_v1/bc_drift_scores.csv",
+    "bc_fit_metrics": "runtime/model_selection/card/release16_joint_drawdown_aux_state_head_bc_holdout_replay_v1/bc_fit_metrics.csv",
+    "bc_selection_by_fold": "runtime/model_selection/card/release16_joint_drawdown_aux_state_head_bc_holdout_replay_v1/bc_selection_by_fold.csv",
+    "bc_slice_metrics": "runtime/model_selection/card/release16_joint_drawdown_aux_state_head_bc_holdout_replay_v1/bc_slice_metrics.csv",
+    "conclusion": "runtime/model_selection/card/release16_joint_drawdown_aux_state_head_bc_holdout_replay_v1/conclusion.md",
+    "drawdown_interval_diagnostic": "runtime/model_selection/card/release16_joint_drawdown_aux_state_head_bc_holdout_replay_v1/drawdown_interval_diagnostic.csv",
+    "official_daily_path_manifest": "runtime/model_selection/card/release16_joint_drawdown_aux_state_head_bc_holdout_replay_v1/official_daily_path_manifest.csv",
+    "selection": "runtime/model_selection/card/release16_joint_drawdown_aux_state_head_bc_holdout_replay_v1/selection.json",
+    "soxlbacktest_baseline_comparison": "runtime/model_selection/card/release16_joint_drawdown_aux_state_head_bc_holdout_replay_v1/soxlbacktest_baseline_comparison.csv",
+    "summary": "runtime/model_selection/card/release16_joint_drawdown_aux_state_head_bc_holdout_replay_v1/summary.json",
+    "target_coverage": "runtime/model_selection/card/release16_joint_drawdown_aux_state_head_bc_holdout_replay_v1/target_coverage.csv",
+    "target_holdout_split": "runtime/model_selection/card/release16_joint_drawdown_aux_state_head_bc_holdout_replay_v1/target_holdout_split.csv"
+  },
+  "source_bc_readiness_gate": true,
+  "source_card": "release16_joint_drawdown_release_target_contract_v1",
+  "source_paths": [
+    "runtime/model_selection/card/release16_joint_drawdown_release_target_contract_v1/summary.json",
+    "runtime/model_selection/card/release16_joint_drawdown_release_target_contract_v1/joint_target_contract.csv",
+    "runtime/model_selection/card/release16_nonconvex_checkpoint_objective_score_handoff_v1/best_runnable_window_terms.csv",
+    "runtime/model_selection/card/soxlbacktest_qlib_walkforward_baseline_v1/candidate_metrics.csv"
+  ],
+  "source_target_contract": "release16_joint_drawdown_release_target_contract_v1/joint_target_contract.csv",
+  "source_target_contract_gate": true,
+  "strict_dd_pass_count": 1,
+  "summary_points": [
+    "Selected BC candidates passed 0/3 full fold gates under official warm-start replay.",
+    "Holdout slice gate passed 0/3 folds; train slice gate passed 3/3 folds.",
+    "Drift gate passed 0/3 folds.",
+    "Min selected relative return is -5.32pp and worst selected MaxDD is 29.52%.",
+    "SOXLBacktest qlib baseline comparison is written as soxlbacktest_baseline_comparison.csv.",
+    "No actor is retained from this diagnostic screen."
+  ],
+  "target_max_dd_pct": 20.0,
+  "target_relative_return_pp": 30.0,
+  "target_window": [
+    "wf_2020",
+    "wf_2022",
+    "wf_2023_2024"
+  ],
+  "train_slice_gate_pass_count": 3,
+  "training_allowed_from_this_card": false,
+  "worst_wf_max_drawdown_pct": 29.51662888668204
+}
