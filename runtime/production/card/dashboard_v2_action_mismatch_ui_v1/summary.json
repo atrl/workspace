@@ -1,0 +1,28 @@
+{
+  "created_at": "2026-06-15T19:46:01+08:00",
+  "decision": "dashboard_v2_action_mismatch_feature_context_added",
+  "scope": "frontend_ui",
+  "changes": [
+    "Added action mismatch detail rows for visible comparison windows.",
+    "Attached SOXL feature snapshots to each buy/sell mismatch row.",
+    "Made mismatch date rows clickable so the inspector jumps to that date.",
+    "Reduced mismatch grid density to four readable columns on wide screens."
+  ],
+  "browser_verification": {
+    "tool": "kimi_webbridge",
+    "url": "http://127.0.0.1:5173/",
+    "mismatch_section_present": true,
+    "mismatch_button_count": 35,
+    "click_check": "date2026-06-09 -> date2026-01-02",
+    "final_grid_columns": "464.25px 464.25px 464.25px 464.25px"
+  },
+  "screenshots": [
+    "runtime/production/card/dashboard_v2_action_mismatch_ui_v1/kimi_dashboard_action_mismatch_20260615.png",
+    "runtime/production/card/dashboard_v2_action_mismatch_ui_v1/kimi_dashboard_action_mismatch_section_20260615.png",
+    "runtime/production/card/dashboard_v2_action_mismatch_ui_v1/kimi_dashboard_action_mismatch_section_readable_20260615.png"
+  ],
+  "verification": [
+    "npm --prefix web/dashboard-v2 test -- --run",
+    "npm --prefix web/dashboard-v2 run build"
+  ]
+}

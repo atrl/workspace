@@ -1,5 +1,5 @@
 import { computeVisibleComparison } from './domain';
-import type { ComparisonPayload, InspectorRow, Manifest } from './types';
+import type { ActionMismatchRow, ComparisonPayload, InspectorRow, Manifest } from './types';
 
 function element<K extends keyof HTMLElementTagNameMap>(
   tag: K,
@@ -67,6 +67,8 @@ export function renderComparisonPanel(
   comparison: ComparisonPayload,
   start: string,
   end: string,
+  mismatchRows: readonly ActionMismatchRow[] = [],
+  onDate?: (date: string) => void,
 ): void {
   container.replaceChildren();
   container.appendChild(element('h2', undefined, 'Model Difference'));
@@ -104,4 +106,46 @@ export function renderComparisonPanel(
   const tableScroll = element('div', 'table-scroll');
   tableScroll.appendChild(table);
   container.appendChild(tableScroll);
+
+  const mismatchSection = element('section', 'mismatch-section');
+  mismatchSection.appendChild(element('h3', undefined, 'Action Mismatch Days'));
+  if (mismatchRows.length === 0) {
+    mismatchSection.appendChild(element('p', 'empty-note', 'No visible buy/sell action differences.'));
+  } else {
+    const list = element('div', 'mismatch-list');
+    for (const row of mismatchRows) {
+      const item = element('article', 'mismatch-row');
+      const dateButton = element('button', 'mismatch-date-button', row.date);
+      dateButton.type = 'button';
+      dateButton.addEventListener('click', () => onDate?.(row.date));
+      const header = element('div', 'mismatch-row-header');
+      header.append(
+        dateButton,
+        element('span', 'mismatch-profile', row.profile),
+        element('span', 'mismatch-actions', `${row.model_action} vs ${row.baseline_action}`),
+      );
+      const metrics = element(
+        'div',
+        'mismatch-metrics',
+        [
+          `pos ${row.model_position.toFixed(3)} vs ${row.baseline_position.toFixed(3)}`,
+          `delta ${row.position_delta_vs_baseline.toFixed(3)}`,
+          `nav ${row.nav_delta_vs_baseline.toFixed(2)}`,
+          row.close === null ? 'close n/a' : `close ${row.close.toFixed(2)}`,
+        ].join(' | '),
+      );
+      const featureLine = element(
+        'div',
+        'mismatch-features',
+        Object.entries(row.features)
+          .map(([key, value]) => `${key} ${value}`)
+          .join(' | '),
+      );
+      item.append(header, metrics);
+      if (featureLine.textContent) item.appendChild(featureLine);
+      list.appendChild(item);
+    }
+    mismatchSection.appendChild(list);
+  }
+  container.appendChild(mismatchSection);
 }

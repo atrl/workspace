@@ -1,5 +1,6 @@
 import type {
   ActionMarker,
+  ActionMismatchRow,
   ComparisonPayload,
   ComparisonRow,
   InspectorRow,
@@ -142,6 +143,49 @@ export function computeVisibleComparison(
   end: string,
 ): ComparisonRow[] {
   return comparison.rows.filter((row) => row.date >= start && row.date <= end);
+}
+
+const MISMATCH_FEATURE_KEYS = ['rsi6', 'spread', 'vix', 'vix_zscore', 'panic_score', 'volatility'] as const;
+
+export function computeActionMismatchRows(
+  comparison: ComparisonPayload,
+  market: MarketPayload,
+  start: string,
+  end: string,
+  limit = 40,
+): ActionMismatchRow[] {
+  const visible = computeVisibleComparison(comparison, start, end);
+  const marketByDate = new Map(market.rows.map((row) => [row.date, row]));
+  const rows: ActionMismatchRow[] = [];
+  for (const row of visible) {
+    const baseline = row.profiles[comparison.baseline_profile];
+    if (!baseline) continue;
+    const marketRow = marketByDate.get(row.date);
+    const features = Object.fromEntries(
+      MISMATCH_FEATURE_KEYS.flatMap((key) => {
+        const value = marketRow?.[key];
+        return value === undefined || value === null ? [] : [[key, String(value)]];
+      }),
+    );
+    for (const profile of comparison.compared_profiles) {
+      if (profile === comparison.baseline_profile) continue;
+      const value = row.profiles[profile];
+      if (!value?.action_mismatch) continue;
+      rows.push({
+        date: row.date,
+        profile,
+        model_action: value.action,
+        baseline_action: baseline.action,
+        model_position: value.position,
+        baseline_position: baseline.position,
+        position_delta_vs_baseline: value.position_delta_vs_baseline,
+        nav_delta_vs_baseline: value.nav_delta_vs_baseline,
+        close: typeof marketRow?.close === 'number' ? marketRow.close : null,
+        features,
+      });
+    }
+  }
+  return rows.slice(-limit);
 }
 
 function formatNumber(value: number | null | undefined, digits = 2): string {

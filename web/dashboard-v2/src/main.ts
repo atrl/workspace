@@ -3,6 +3,7 @@ import { renderMarketChart, renderNavChart, renderPositionChart } from './chart'
 import {
   clampComparisonProfiles,
   clipRowsByDate,
+  computeActionMismatchRows,
   computeCommonWindow,
   computeDateRangePreset,
   computeInspectorRows,
@@ -201,7 +202,14 @@ function renderDashboard(data: DashboardData, state: ViewState, update: (next: P
   renderPositionChart(positionChart, primary);
   renderNavChart(navChart, models);
   renderInspector(data, state);
-  renderComparisonPanel(comparison, data.comparison, state.start, state.end);
+  renderComparisonPanel(
+    comparison,
+    data.comparison,
+    state.start,
+    state.end,
+    computeActionMismatchRows(data.comparison, data.market, state.start, state.end),
+    (date) => update({ hoveredDate: date }),
+  );
   renderDataSourcePanel(source, data.manifest, warningsFor(data, state));
 }
 

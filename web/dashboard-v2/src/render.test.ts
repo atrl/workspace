@@ -36,6 +36,39 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.textContent).toContain('1');
   });
 
+  test('renders clickable action mismatch rows with feature context', () => {
+    const panel = document.createElement('section');
+    const clicked: string[] = [];
+
+    renderComparisonPanel(
+      panel,
+      comparisonFixture,
+      '2026-01-02',
+      '2026-01-06',
+      [
+        {
+          date: '2026-01-05',
+          profile: 'smoke',
+          model_action: 'BUY',
+          baseline_action: 'HOLD',
+          model_position: 0.7,
+          baseline_position: 0,
+          position_delta_vs_baseline: 0.7,
+          nav_delta_vs_baseline: 5,
+          close: 11,
+          features: { rsi6: '60', vix: '18' },
+        },
+      ],
+      (date) => clicked.push(date),
+    );
+
+    expect(panel.textContent).toContain('Action Mismatch Days');
+    expect(panel.textContent).toContain('BUY vs HOLD');
+    expect(panel.textContent).toContain('rsi6 60');
+    panel.querySelector<HTMLButtonElement>('.mismatch-date-button')?.click();
+    expect(clicked).toEqual(['2026-01-05']);
+  });
+
   test('renders visible buy and sell action labels', () => {
     const panel = document.createElement('div');
 

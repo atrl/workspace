@@ -81,6 +81,19 @@ export interface ComparisonPayload {
   rows: ComparisonRow[];
 }
 
+export interface ActionMismatchRow {
+  date: string;
+  profile: string;
+  model_action: Action;
+  baseline_action: Action;
+  model_position: number;
+  baseline_position: number;
+  position_delta_vs_baseline: number;
+  nav_delta_vs_baseline: number;
+  close: number | null;
+  features: Record<string, string>;
+}
+
 export interface InspectorRow {
   label: string;
   value: string;

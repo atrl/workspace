@@ -141,6 +141,13 @@ h2 {
   color: #f9fafb;
 }
 
+h3 {
+  margin: 0;
+  font-size: 12px;
+  color: #f9fafb;
+  letter-spacing: 0;
+}
+
 .chart-title-row span {
   color: #9ca3af;
 }
@@ -295,6 +302,76 @@ h2 {
 .comparison-table th {
   color: #9ca3af;
   font-weight: 600;
+}
+
+.mismatch-section {
+  margin-top: 14px;
+}
+
+.mismatch-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(420px, 100%), 1fr));
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.mismatch-row {
+  min-width: 0;
+  padding: 9px 10px;
+  border: 1px solid #1f2937;
+  border-radius: 6px;
+  background: #111827;
+}
+
+.mismatch-row-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.mismatch-date-button {
+  min-height: 26px;
+  min-width: 94px;
+  border: 1px solid #374151;
+  border-radius: 5px;
+  color: #e5e7eb;
+  background: #0b1220;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.mismatch-date-button:hover {
+  border-color: #38bdf8;
+}
+
+.mismatch-profile,
+.mismatch-actions,
+.mismatch-metrics,
+.mismatch-features,
+.empty-note {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.mismatch-profile {
+  color: #9ca3af;
+  flex: 1 1 auto;
+}
+
+.mismatch-actions {
+  margin-left: auto;
+  color: #f59e0b;
+  font-weight: 700;
+}
+
+.mismatch-metrics,
+.mismatch-features,
+.empty-note {
+  margin-top: 6px;
+  color: #9ca3af;
+  font-size: 12px;
+  line-height: 1.45;
 }
 
 .warning-list {

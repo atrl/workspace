@@ -3,6 +3,7 @@ import {
   buildActionMarkers,
   clampComparisonProfiles,
   clipRowsByDate,
+  computeActionMismatchRows,
   computeCommonWindow,
   computeDateRangePreset,
   computeInspectorRows,
@@ -37,6 +38,37 @@ describe('dashboard v2 domain helpers', () => {
   test('computes visible comparison deltas against baseline', () => {
     const rows = computeVisibleComparison(comparisonFixture, '2026-01-02', '2026-01-06');
     expect(rows[1].profiles.smoke.nav_delta_vs_baseline).toBe(5);
+  });
+
+  test('computes action mismatch rows with market feature snapshots', () => {
+    const rows = computeActionMismatchRows(comparisonFixture, marketFixture, '2026-01-02', '2026-01-06');
+
+    expect(rows).toEqual([
+      {
+        date: '2026-01-05',
+        profile: 'smoke',
+        model_action: 'BUY',
+        baseline_action: 'HOLD',
+        model_position: 0.7,
+        baseline_position: 0,
+        position_delta_vs_baseline: 0.7,
+        nav_delta_vs_baseline: 5,
+        close: 11,
+        features: { rsi6: '60', spread: '0.4', vix: '18' },
+      },
+      {
+        date: '2026-01-06',
+        profile: 'smoke',
+        model_action: 'SELL',
+        baseline_action: 'HOLD',
+        model_position: 0.2,
+        baseline_position: 0,
+        position_delta_vs_baseline: 0.2,
+        nav_delta_vs_baseline: 2,
+        close: 10.8,
+        features: { rsi6: '58', vix: '18.5' },
+      },
+    ]);
   });
 
   test('clips rows to selected date inputs', () => {
