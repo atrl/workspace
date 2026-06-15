@@ -214,3 +214,41 @@ def test_check_dashboard_v2_data_fails_invalid_strict_candidate_retention_filter
 
     with pytest.raises(ValueError, match="strict_candidate_retention_filter promotable_profile_count"):
         check_dashboard_v2_data(root)
+
+
+def test_check_dashboard_v2_data_fails_invalid_final_walkforward_contract(tmp_path: Path):
+    root = tmp_path / "dashboard_data" / "v2"
+    _write_json(
+        root / "manifest.json",
+        {
+            "default_comparison_profiles": ["smoke"],
+            "available_profiles": ["smoke"],
+            "final_walkforward_retention_contract": {
+                "status": "blocked",
+                "final_retained_count": 0,
+            },
+        },
+    )
+    _write_json(
+        root / "market" / "SOXL.json",
+        {"rows": [{"date": "2026-01-06", "open": 10, "high": 11, "low": 9, "close": 10.5, "volume": 1000}]},
+    )
+    _write_json(
+        root / "models" / "smoke.json",
+        {
+            "profile": "smoke",
+            "rows": [{"date": "2026-01-06", "strategy_nav": 100, "buyhold_nav": 100, "position": 0.5, "action": "BUY", "price": 10.5}],
+            "events": [],
+        },
+    )
+    _write_json(
+        root / "comparison" / "default.json",
+        {
+            "baseline_profile": "smoke",
+            "compared_profiles": ["smoke"],
+            "rows": [{"date": "2026-01-06", "profiles": {"smoke": {"action": "BUY"}}, "action_mismatch_count": 0}],
+        },
+    )
+
+    with pytest.raises(ValueError, match="final_walkforward_retention_contract strict_passing_profile_count"):
+        check_dashboard_v2_data(root)

@@ -92,6 +92,45 @@ def _check_strict_candidate_retention_filter(manifest: dict[str, Any]) -> None:
         )
 
 
+def _check_final_walkforward_retention_contract(manifest: dict[str, Any]) -> None:
+    contract = manifest.get("final_walkforward_retention_contract")
+    if contract is None:
+        return
+    if not isinstance(contract, dict):
+        raise ValueError("final_walkforward_retention_contract must be an object")
+    if contract.get("status") not in {"passed", "blocked"}:
+        raise ValueError("final_walkforward_retention_contract status must be passed or blocked")
+    final_retained_count = _require_int_field(
+        contract,
+        "final_retained_count",
+        "final_walkforward_retention_contract",
+    )
+    strict_passing_count = _require_int_field(
+        contract,
+        "strict_passing_profile_count",
+        "final_walkforward_retention_contract",
+    )
+    actor_retention_count = _require_int_field(
+        contract,
+        "candidate_filter_actor_retention_allowed_count",
+        "final_walkforward_retention_contract",
+    )
+    if final_retained_count > actor_retention_count:
+        raise ValueError(
+            "final_walkforward_retention_contract final_retained_count cannot exceed actor retention count"
+        )
+    if final_retained_count > strict_passing_count:
+        raise ValueError(
+            "final_walkforward_retention_contract final_retained_count cannot exceed strict passing count"
+        )
+    if "reference_return_pct" in contract:
+        _require_numeric(contract, ("reference_return_pct",), "final_walkforward_retention_contract")
+    if "latest_reference_return_pct" in contract:
+        _require_numeric(contract, ("latest_reference_return_pct",), "final_walkforward_retention_contract")
+    if "required_best_return_pct" in contract:
+        _require_numeric(contract, ("required_best_return_pct",), "final_walkforward_retention_contract")
+
+
 def _require_rows(payload: dict[str, Any], label: str) -> list[dict[str, Any]]:
     rows = payload.get("rows")
     if not isinstance(rows, list) or not rows:
@@ -115,6 +154,7 @@ def check_dashboard_v2_data(root: Path) -> dict[str, int]:
         raise ValueError(f"manifest references unknown profile: {', '.join(unknown_defaults)}")
     _check_strict_retention_gate(manifest)
     _check_strict_candidate_retention_filter(manifest)
+    _check_final_walkforward_retention_contract(manifest)
 
     market_rows = _require_rows(market, "market SOXL")
     for row in market_rows:

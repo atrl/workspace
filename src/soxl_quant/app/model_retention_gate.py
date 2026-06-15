@@ -351,6 +351,178 @@ def scan_model_retention_gates(
     }
 
 
+def _as_bool(value: Any) -> bool:
+    if isinstance(value, str):
+        return value.strip().lower() in {"1", "true", "yes", "y"}
+    return bool(value) if value is not None else False
+
+
+def _as_float(value: Any) -> float | None:
+    try:
+        number = float(value)
+    except (TypeError, ValueError):
+        return None
+    try:
+        if pd.isna(number):
+            return None
+    except (TypeError, ValueError):
+        return None
+    return number
+
+
+def _as_int(value: Any) -> int | None:
+    number = _as_float(value)
+    if number is None:
+        return None
+    return int(number)
+
+
+def _is_missing(value: Any) -> bool:
+    if value is None:
+        return True
+    if isinstance(value, str):
+        return value.strip() == ""
+    if isinstance(value, (list, tuple, dict, set)):
+        return False
+    try:
+        return bool(pd.isna(value))
+    except (TypeError, ValueError):
+        return False
+
+
+def _failure_list(value: Any) -> list[str]:
+    if isinstance(value, list):
+        return [str(item) for item in value if str(item)]
+    if isinstance(value, tuple):
+        return [str(item) for item in value if str(item)]
+    if isinstance(value, str):
+        if not value.strip():
+            return []
+        separator = ";" if ";" in value else ","
+        return [item.strip() for item in value.split(separator) if item.strip()]
+    return []
+
+
+def _wf_window_set(value: Any) -> set[str]:
+    if isinstance(value, str):
+        return {item.strip() for item in value.split(",") if item.strip()}
+    if isinstance(value, (list, tuple, set)):
+        return {str(item).strip() for item in value if str(item).strip()}
+    return set()
+
+
+def _rows_from_evidence(evidence: dict[str, Any]) -> list[dict[str, Any]]:
+    rows = evidence.get("rows")
+    if isinstance(rows, pd.DataFrame):
+        return rows.to_dict(orient="records")
+    if isinstance(rows, list):
+        return [dict(row) for row in rows if isinstance(row, dict)]
+    return []
+
+
+def _failed_gate_reason(evidence: dict[str, Any], pass_key: str) -> str:
+    failures = evidence.get("failures") or evidence.get("blocking_reasons") or [f"{pass_key}=false"]
+    if isinstance(failures, list):
+        return "; ".join(str(item) for item in failures)
+    return str(failures)
+
+
+def _strict_retention_row_status(
+    evidence: dict[str, Any],
+    *,
+    profile_name: str | None,
+    summary: dict[str, Any] | None = None,
+) -> tuple[bool, str]:
+    profile = str(evidence.get("profile") or "")
+    if profile_name is not None and evidence.get("profile") not in (None, profile_name):
+        return False, f"strict retention gate profile mismatch: {evidence.get('profile')}"
+    if (
+        profile == PRIMARY_REFERENCE_PROFILE
+        or str(evidence.get("status") or "") == "reference"
+        or str(evidence.get("retention_decision") or "") == "keep_reference_baseline"
+    ):
+        return False, "SOXLBacktest reference baseline cannot be retained as actor"
+
+    for flag in ("actor_retention_allowed", "promotion_allowed"):
+        if flag in evidence and not _as_bool(evidence.get(flag)):
+            return False, f"{flag}=false"
+
+    pass_key = (
+        "gate_pass"
+        if "gate_pass" in evidence
+        else "retention_gate_pass"
+        if "retention_gate_pass" in evidence
+        else None
+    )
+    if pass_key is None:
+        return False, "strict retention gate did not contain a pass marker"
+    if not _as_bool(evidence.get(pass_key)):
+        return False, _failed_gate_reason(evidence, pass_key)
+
+    required_fields = [
+        "retention_decision",
+        "failures",
+        "ytd_return_pct",
+        "required_best_return_pct",
+        "required_soxlbacktest_return_pct",
+        "wf_windows_present",
+        "worst_wf_max_drawdown_pct",
+        "missing_wf_window_count",
+    ]
+    missing_fields = [field for field in required_fields if field not in evidence or _is_missing(evidence.get(field))]
+    if missing_fields:
+        return False, "strict retention gate missing required fields: " + ", ".join(sorted(missing_fields))
+
+    failures = _failure_list(evidence.get("failures"))
+    if failures:
+        return False, "; ".join(failures)
+
+    if str(evidence.get("retention_decision") or "") != "retain_promotable":
+        return False, f"retention_decision={evidence.get('retention_decision')} is not retain_promotable"
+
+    missing_wf_window_count = _as_int(evidence.get("missing_wf_window_count"))
+    if missing_wf_window_count is None:
+        return False, "missing_wf_window_count is not numeric"
+    if missing_wf_window_count != 0:
+        return False, f"missing_wf_window_count={missing_wf_window_count}"
+
+    required_windows = REQUIRED_WF_WINDOWS
+    if summary and isinstance(summary.get("required_wf_windows"), list):
+        required_windows = tuple(str(item) for item in summary["required_wf_windows"])
+    wf_windows_present = _wf_window_set(evidence.get("wf_windows_present"))
+    missing_windows = sorted(set(required_windows).difference(wf_windows_present))
+    if missing_windows:
+        return False, "missing_wf_window:" + ",".join(missing_windows)
+
+    max_walkforward_drawdown_pct = _as_float(evidence.get("max_walkforward_drawdown_pct"))
+    if max_walkforward_drawdown_pct is None and summary:
+        max_walkforward_drawdown_pct = _as_float(summary.get("max_walkforward_drawdown_pct"))
+    if max_walkforward_drawdown_pct is None:
+        max_walkforward_drawdown_pct = 20.0
+
+    worst_wf_max_drawdown_pct = _as_float(evidence.get("worst_wf_max_drawdown_pct"))
+    if worst_wf_max_drawdown_pct is None:
+        return False, "worst_wf_max_drawdown_pct is not numeric"
+    if worst_wf_max_drawdown_pct >= max_walkforward_drawdown_pct:
+        return False, f"wf_max_drawdown_ge_{_threshold_label(max_walkforward_drawdown_pct)}"
+
+    ytd_return_pct = _as_float(evidence.get("ytd_return_pct"))
+    required_best_return_pct = _as_float(evidence.get("required_best_return_pct"))
+    required_soxlbacktest_return_pct = _as_float(evidence.get("required_soxlbacktest_return_pct"))
+    if ytd_return_pct is None:
+        return False, "ytd_return_pct is not numeric"
+    if required_best_return_pct is None:
+        return False, "required_best_return_pct is not numeric"
+    if required_soxlbacktest_return_pct is None:
+        return False, "required_soxlbacktest_return_pct is not numeric"
+    if ytd_return_pct < required_soxlbacktest_return_pct:
+        return False, "ytd_return_below_soxlbacktest_baseline"
+    if ytd_return_pct < required_best_return_pct:
+        return False, "ytd_return_below_best_alignment"
+
+    return True, "strict retention gate passed"
+
+
 def strict_retention_gate_status(
     evidence: dict[str, Any] | None,
     *,
@@ -371,15 +543,18 @@ def strict_retention_gate_status(
         return False, f"strict retention gate profile mismatch: {evidence.get('profile')}"
 
     summary = evidence.get("summary")
+    rows = _rows_from_evidence(evidence)
+    if isinstance(summary, dict) and rows and profile_name is not None:
+        for row in rows:
+            if str(row.get("profile") or "") == profile_name:
+                return _strict_retention_row_status(row, profile_name=profile_name, summary=summary)
+        return False, f"profile {profile_name} is not in retention gate rows"
+
     if isinstance(summary, dict) and profile_name is not None:
         passing_profiles = summary.get("passing_profiles")
         if isinstance(passing_profiles, list) and profile_name in {str(item) for item in passing_profiles}:
-            return True, "strict retention gate passed"
+            return False, f"strict retention gate row evidence missing for profile {profile_name}"
         return False, f"profile {profile_name} is not in retention gate passing_profiles"
-
-    for flag in ("actor_retention_allowed", "promotion_allowed"):
-        if flag in evidence and not bool(evidence.get(flag)):
-            return False, f"{flag}=false"
 
     pass_key = (
         "gate_pass"
@@ -389,18 +564,13 @@ def strict_retention_gate_status(
         else None
     )
     if pass_key is not None:
-        if bool(evidence.get(pass_key)):
-            return True, "strict retention gate passed"
-        failures = evidence.get("failures") or evidence.get("blocking_reasons") or [f"{pass_key}=false"]
-        if isinstance(failures, list):
-            return False, "; ".join(str(item) for item in failures)
-        return False, str(failures)
+        return _strict_retention_row_status(evidence, profile_name=profile_name)
 
     for key in ("retention_gate_pass_candidates", "passing_profiles"):
         values = evidence.get(key)
         if isinstance(values, list) and profile_name is not None:
             if profile_name in {str(item) for item in values}:
-                return True, "strict retention gate passed"
+                return False, f"strict retention gate row evidence missing for profile {profile_name}"
             return False, f"profile {profile_name} is not in {key}"
 
     return False, "strict retention gate did not contain a pass marker"

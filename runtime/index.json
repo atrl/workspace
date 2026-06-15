@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-15T23:19:27.178673+00:00",
+  "generated_at": "2026-06-15T23:36:00.531935+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -6930,6 +6930,30 @@
       "category": "model_selection",
       "suffix": ".json",
       "bytes": 2220
+    },
+    {
+      "path": "runtime/model_selection/card/final_walkforward_retention_contract_v1/final_retention_contract.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 6405
+    },
+    {
+      "path": "runtime/model_selection/card/final_walkforward_retention_contract_v1/final_walkforward_retention_contract.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 2939
+    },
+    {
+      "path": "runtime/model_selection/card/final_walkforward_retention_contract_v1/source_manifest.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 527
+    },
+    {
+      "path": "runtime/model_selection/card/final_walkforward_retention_contract_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 14971
     },
     {
       "path": "runtime/model_selection/card/final_walkforward_retraining_handoff_v1/evidence_matrix.csv",

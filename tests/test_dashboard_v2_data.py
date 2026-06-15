@@ -129,6 +129,42 @@ def _write_strict_candidate_retention_filter_summary(root: Path) -> Path:
     return summary_path
 
 
+def _write_final_walkforward_retention_contract_summary(root: Path) -> Path:
+    summary_path = (
+        root
+        / "runtime"
+        / "model_selection"
+        / "card"
+        / "final_walkforward_retention_contract_v1"
+        / "summary.json"
+    )
+    summary_path.parent.mkdir(parents=True, exist_ok=True)
+    summary_path.write_text(
+        json.dumps(
+            {
+                "summary": {
+                    "decision": "final_walkforward_retention_contract_no_retained_models",
+                    "reference_baseline": "soxl_backtest_policy_reimplementation_v1",
+                    "reference_return_pct": 146.043798,
+                    "latest_reference_return_pct": 146.043798,
+                    "reference_is_current": True,
+                    "strict_passing_profile_count": 0,
+                    "candidate_filter_actor_retention_allowed_count": 0,
+                    "final_retained_count": 0,
+                    "final_retained_profiles": [],
+                    "global_blockers": [],
+                    "current_best_return_pct": 224.361539,
+                    "required_best_return_pct": 213.143462,
+                    "max_walkforward_drawdown_pct": 20.0,
+                    "required_wf_windows": ["wf_2020", "wf_2022", "wf_2023_2024"],
+                }
+            }
+        ),
+        encoding="utf-8",
+    )
+    return summary_path
+
+
 def test_build_dashboard_v2_data_writes_manifest_market_model_and_comparison(tmp_path: Path):
     freshness = tmp_path / "dashboard_data" / "model_replay_freshness.json"
     freshness.parent.mkdir()
@@ -272,6 +308,7 @@ def test_build_dashboard_v2_data_exposes_strict_retention_gate_summary(tmp_path:
     )
     _write_strict_retention_gate_summary(tmp_path, passing=0)
     _write_strict_candidate_retention_filter_summary(tmp_path)
+    _write_final_walkforward_retention_contract_summary(tmp_path)
     reference_csv = (
         tmp_path
         / "runtime"
@@ -331,6 +368,13 @@ def test_build_dashboard_v2_data_exposes_strict_retention_gate_summary(tmp_path:
         manifest["strict_candidate_retention_filter"]["next_mechanism"]
         == "train_bull_trend_participation_with_drawdown_drift_stop_no_promotion"
     )
+    assert manifest["final_walkforward_retention_contract"]["status"] == "blocked"
+    assert manifest["final_walkforward_retention_contract"]["decision"] == (
+        "final_walkforward_retention_contract_no_retained_models"
+    )
+    assert manifest["final_walkforward_retention_contract"]["final_retained_count"] == 0
+    assert manifest["final_walkforward_retention_contract"]["reference_is_current"] is True
+    assert manifest["final_walkforward_retention_contract"]["latest_reference_return_pct"] == 146.043798
 
 
 def test_build_dashboard_v2_data_loads_market_from_requested_root(tmp_path: Path):

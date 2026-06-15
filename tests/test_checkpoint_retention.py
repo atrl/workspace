@@ -223,6 +223,28 @@ def test_persist_retained_checkpoint_bundles_blocks_enabled_retention_without_st
     assert not list(output_dir.glob("*.pt"))
 
 
+def _strict_gate_pass_evidence(profile: str = "balanced") -> dict[str, object]:
+    return {
+        "profile": profile,
+        "status": "candidate",
+        "source_path": f"runtime/model/card/{profile}/{profile}_soxl_daily.csv",
+        "ytd_return_pct": 220.0,
+        "ytd_max_drawdown_pct": 12.0,
+        "current_best_return_pct": 220.0,
+        "required_best_return_pct": 209.0,
+        "required_soxlbacktest_return_pct": 146.0,
+        "wf_windows_present": "wf_2020,wf_2022,wf_2023_2024",
+        "worst_wf_max_drawdown_pct": 19.0,
+        "missing_wf_window_count": 0,
+        "wf_drawdown_gap_pct": 0.0,
+        "best_return_gap_pct": 0.0,
+        "soxlbacktest_return_gap_pct": 0.0,
+        "gate_pass": True,
+        "retention_decision": "retain_promotable",
+        "failures": [],
+    }
+
+
 def test_persist_retained_checkpoint_bundles_allows_explicit_strict_gate_pass():
     profile = replace(
         load_profile("balanced"),
@@ -238,12 +260,7 @@ def test_persist_retained_checkpoint_bundles_allows_explicit_strict_gate_pass():
             "reasons": ["top_n"],
         }
     ]
-    retention_gate_evidence = {
-        "profile": "balanced",
-        "gate_pass": True,
-        "retention_decision": "retain_promotable",
-        "failures": [],
-    }
+    retention_gate_evidence = _strict_gate_pass_evidence()
 
     with TemporaryDirectory() as tmpdir:
         output_dir = Path(tmpdir)
@@ -354,7 +371,7 @@ def test_final_model_retention_passes_only_with_strict_gate_evidence():
             "walk_forward": {"eligible": True, "checks": {}},
             "walk_forward_evaluated": True,
         },
-        retention_gate_evidence={"profile": "balanced", "gate_pass": True},
+        retention_gate_evidence=_strict_gate_pass_evidence(),
     )
 
     assert decision == {
@@ -367,6 +384,49 @@ def test_final_model_retention_passes_only_with_strict_gate_evidence():
         "walk_forward_evaluated": True,
         "required_gates": ["fixed_split", "walk_forward", "strict_retention"],
     }
+
+
+def test_final_model_retention_blocks_weak_gate_pass_without_walkforward_fields():
+    profile = load_profile("balanced")
+
+    decision = final_model_retention_payload(
+        profile=profile,
+        model_path=Path("actor.pt"),
+        promotion_report={
+            "eligible": True,
+            "fixed_split": {"eligible": True, "checks": {}},
+            "walk_forward": {"eligible": True, "checks": {}},
+            "walk_forward_evaluated": True,
+        },
+        retention_gate_evidence={"profile": "balanced", "gate_pass": True},
+    )
+
+    assert decision["status"] == "blocked"
+    assert decision["final_model_retained"] is False
+    assert "strict retention gate missing required fields" in decision["reason"]
+
+
+def test_final_model_retention_blocks_soxlbacktest_reference_as_actor():
+    profile = replace(load_profile("balanced"), name="soxl_backtest_policy_reimplementation_v1")
+    evidence = _strict_gate_pass_evidence("soxl_backtest_policy_reimplementation_v1")
+    evidence["status"] = "reference"
+    evidence["retention_decision"] = "keep_reference_baseline"
+
+    decision = final_model_retention_payload(
+        profile=profile,
+        model_path=Path("reference_actor.pt"),
+        promotion_report={
+            "eligible": True,
+            "fixed_split": {"eligible": True, "checks": {}},
+            "walk_forward": {"eligible": True, "checks": {}},
+            "walk_forward_evaluated": True,
+        },
+        retention_gate_evidence=evidence,
+    )
+
+    assert decision["status"] == "blocked"
+    assert decision["final_model_retained"] is False
+    assert decision["reason"] == "SOXLBacktest reference baseline cannot be retained as actor"
 
 
 def test_persist_final_model_retention_decision_updates_summary():

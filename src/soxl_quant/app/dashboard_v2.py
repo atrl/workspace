@@ -40,6 +40,9 @@ STRICT_RETENTION_GATE_PATH = (
 STRICT_CANDIDATE_RETENTION_FILTER_PATH = (
     "runtime/model_selection/card/strict_candidate_retention_filter_v1/summary.json"
 )
+FINAL_WALKFORWARD_RETENTION_CONTRACT_PATH = (
+    "runtime/model_selection/card/final_walkforward_retention_contract_v1/summary.json"
+)
 
 
 @dataclass(frozen=True)
@@ -265,6 +268,37 @@ def _load_strict_candidate_retention_filter(root: Path) -> dict[str, Any] | None
         "next_mechanism": summary.get("next_mechanism"),
         "row_count": payload.get("row_count"),
         "candidate_type_counts": payload.get("candidate_type_counts"),
+    }
+
+
+def _load_final_walkforward_retention_contract(root: Path) -> dict[str, Any] | None:
+    path = root / FINAL_WALKFORWARD_RETENTION_CONTRACT_PATH
+    if not path.exists():
+        return None
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    summary = payload.get("summary") if isinstance(payload, dict) else None
+    if not isinstance(summary, dict):
+        return None
+    final_retained_count = int(summary.get("final_retained_count") or 0)
+    return {
+        "status": "passed" if final_retained_count > 0 else "blocked",
+        "source_path": FINAL_WALKFORWARD_RETENTION_CONTRACT_PATH,
+        "decision": summary.get("decision"),
+        "reference_baseline": summary.get("reference_baseline"),
+        "reference_return_pct": summary.get("reference_return_pct"),
+        "latest_reference_return_pct": summary.get("latest_reference_return_pct"),
+        "reference_is_current": bool(summary.get("reference_is_current")),
+        "strict_passing_profile_count": int(summary.get("strict_passing_profile_count") or 0),
+        "candidate_filter_actor_retention_allowed_count": int(
+            summary.get("candidate_filter_actor_retention_allowed_count") or 0
+        ),
+        "final_retained_count": final_retained_count,
+        "final_retained_profiles": [str(profile) for profile in summary.get("final_retained_profiles") or []],
+        "global_blockers": [str(blocker) for blocker in summary.get("global_blockers") or []],
+        "current_best_return_pct": summary.get("current_best_return_pct"),
+        "required_best_return_pct": summary.get("required_best_return_pct"),
+        "max_walkforward_drawdown_pct": summary.get("max_walkforward_drawdown_pct"),
+        "required_wf_windows": [str(window) for window in summary.get("required_wf_windows") or []],
     }
 
 
@@ -967,6 +1001,9 @@ def build_dashboard_v2_data(
     strict_candidate_retention_filter = _load_strict_candidate_retention_filter(root)
     if strict_candidate_retention_filter is not None:
         manifest["strict_candidate_retention_filter"] = strict_candidate_retention_filter
+    final_walkforward_retention_contract = _load_final_walkforward_retention_contract(root)
+    if final_walkforward_retention_contract is not None:
+        manifest["final_walkforward_retention_contract"] = final_walkforward_retention_contract
     market_payload = {"symbol": "SOXL", "rows": market_payload_rows}
     manifest_path = output_dir / "manifest.json"
     market_path = output_dir / "market" / "SOXL.json"
