@@ -108,6 +108,7 @@ describe('dashboard v2 chart rendering', () => {
 
   test('syncs visible logical time ranges across chart panes', () => {
     const subscriptions: ((range: { from: number; to: number } | null) => void)[] = [];
+    const rangeChanged = vi.fn();
     const fakeCharts = Array.from({ length: 3 }, () => {
       const api = {
         setVisibleLogicalRange: vi.fn(),
@@ -117,7 +118,7 @@ describe('dashboard v2 chart rendering', () => {
       return { timeScale: () => api };
     });
 
-    const cleanup = syncVisibleTimeRanges(fakeCharts as never);
+    const cleanup = syncVisibleTimeRanges(fakeCharts as never, rangeChanged);
     subscriptions[0]({ from: 10, to: 20 });
     subscriptions[1](null);
     cleanup();
@@ -125,6 +126,7 @@ describe('dashboard v2 chart rendering', () => {
     expect(fakeCharts[0].timeScale().setVisibleLogicalRange).not.toHaveBeenCalled();
     expect(fakeCharts[1].timeScale().setVisibleLogicalRange).toHaveBeenCalledWith({ from: 10, to: 20 });
     expect(fakeCharts[2].timeScale().setVisibleLogicalRange).toHaveBeenCalledWith({ from: 10, to: 20 });
+    expect(rangeChanged).toHaveBeenCalledWith({ from: 10, to: 20 });
     expect(fakeCharts[0].timeScale().unsubscribeVisibleLogicalRangeChange).toHaveBeenCalledTimes(1);
     expect(fakeCharts[1].timeScale().unsubscribeVisibleLogicalRangeChange).toHaveBeenCalledTimes(1);
     expect(fakeCharts[2].timeScale().unsubscribeVisibleLogicalRangeChange).toHaveBeenCalledTimes(1);

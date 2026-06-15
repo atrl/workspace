@@ -165,6 +165,20 @@ export function computeKeyboardDateRange(
   return { start: dates[nextStart], end: dates[nextStart + width - 1] };
 }
 
+export function computeDateRangeFromLogicalRange(
+  rows: readonly { date: string }[],
+  range: { from: number; to: number } | null,
+): { start: string; end: string } | null {
+  if (!range) return null;
+  const dates = sortedDates(rows);
+  if (dates.length === 0) return null;
+  const startIndex = Math.max(0, Math.min(dates.length - 1, Math.floor(range.from)));
+  const endIndex = Math.max(0, Math.min(dates.length - 1, Math.ceil(range.to)));
+  const start = Math.min(startIndex, endIndex);
+  const end = Math.max(startIndex, endIndex);
+  return { start: dates[start], end: dates[end] };
+}
+
 export function buildActionMarkers(
   events: readonly ModelEvent[],
   options: { showText?: boolean } = {},

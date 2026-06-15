@@ -7,6 +7,7 @@ import {
   computeCommonWindow,
   computeDateRangePreset,
   computeDefaultDateRange,
+  computeDateRangeFromLogicalRange,
   computeInspectorRows,
   computeKeyboardDateRange,
   computeVisibleComparison,
@@ -245,6 +246,25 @@ describe('dashboard v2 domain helpers', () => {
     expect(computeKeyboardDateRange(rows, '2026-01-05', '2026-01-08', 'reset')).toEqual({
       start: '2026-01-02',
       end: '2026-01-09',
+    });
+  });
+
+  test('maps chart logical ranges back to snapped market dates', () => {
+    const rows = [
+      { date: '2026-01-02' },
+      { date: '2026-01-05' },
+      { date: '2026-01-06' },
+      { date: '2026-01-07' },
+      { date: '2026-01-08' },
+    ];
+
+    expect(computeDateRangeFromLogicalRange(rows, { from: 1.2, to: 3.7 })).toEqual({
+      start: '2026-01-05',
+      end: '2026-01-08',
+    });
+    expect(computeDateRangeFromLogicalRange(rows, { from: -10, to: 99 })).toEqual({
+      start: '2026-01-02',
+      end: '2026-01-08',
     });
   });
 });

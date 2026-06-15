@@ -12,6 +12,7 @@ import {
   computeActionMismatchRows,
   computeCommonWindow,
   computeDateRangePreset,
+  computeDateRangeFromLogicalRange,
   computeDefaultDateRange,
   computeInspectorRows,
   computeKeyboardDateRange,
@@ -32,6 +33,12 @@ interface ViewState {
   end: string;
   hoveredDate: string;
 }
+
+interface UpdateOptions {
+  skipChartRender?: boolean;
+}
+
+type UpdateState = (next: Partial<ViewState>, options?: UpdateOptions) => void;
 
 function requireElement(id: string): HTMLElement {
   const node = document.getElementById(id);
@@ -106,7 +113,7 @@ function renderToolbar(
   container: HTMLElement,
   data: DashboardData,
   state: ViewState,
-  update: (next: Partial<ViewState>) => void,
+  update: UpdateState,
 ): void {
   container.replaceChildren();
 
@@ -207,29 +214,12 @@ function renderInspector(data: DashboardData, state: ViewState): void {
   );
 }
 
-function renderDashboard(data: DashboardData, state: ViewState, update: (next: Partial<ViewState>) => void): void {
+function renderReadoutPanels(data: DashboardData, state: ViewState, update: UpdateState): void {
   const toolbar = requireElement('toolbar');
-  const marketChart = requireElement('market-chart');
-  const positionChart = requireElement('position-chart');
-  const navChart = requireElement('nav-chart');
   const comparison = requireElement('comparison-panel');
   const source = requireElement('source-panel');
-  const actionLegend = requireElement('action-legend');
-  const { models, market, primary } = visibleContext(data, state);
 
-  disposeChartSync?.();
-  disposeChartSync = null;
   renderToolbar(toolbar, data, state, update);
-  renderActionLegend(actionLegend);
-  const marketHandles = renderMarketChart(marketChart, market, primary, models, (date) => update({ hoveredDate: date }));
-  const positionHandles = renderPositionChart(positionChart, models, primary.profile);
-  const navHandles = renderNavChart(navChart, models);
-  const timeCleanup = syncVisibleTimeRanges([marketHandles.chart, positionHandles.chart, navHandles.chart]);
-  const crosshairCleanup = syncCrosshairPositions([marketHandles, positionHandles, navHandles]);
-  disposeChartSync = () => {
-    timeCleanup();
-    crosshairCleanup();
-  };
   renderInspector(data, state);
   renderComparisonPanel(
     comparison,
@@ -240,6 +230,35 @@ function renderDashboard(data: DashboardData, state: ViewState, update: (next: P
     (date) => update({ hoveredDate: date }),
   );
   renderDataSourcePanel(source, data.manifest, warningsFor(data, state));
+}
+
+function renderDashboard(data: DashboardData, state: ViewState, update: UpdateState): void {
+  const marketChart = requireElement('market-chart');
+  const positionChart = requireElement('position-chart');
+  const navChart = requireElement('nav-chart');
+  const actionLegend = requireElement('action-legend');
+  const { models, market, primary } = visibleContext(data, state);
+
+  disposeChartSync?.();
+  disposeChartSync = null;
+  renderActionLegend(actionLegend);
+  const marketHandles = renderMarketChart(marketChart, market, primary, models, (date) => update({ hoveredDate: date }));
+  const positionHandles = renderPositionChart(positionChart, models, primary.profile);
+  const navHandles = renderNavChart(navChart, models);
+  const timeCleanup = syncVisibleTimeRanges(
+    [marketHandles.chart, positionHandles.chart, navHandles.chart],
+    (logicalRange) => {
+      const range = computeDateRangeFromLogicalRange(market.rows, logicalRange);
+      if (!range || (range.start === state.start && range.end === state.end)) return;
+      update({ ...range, hoveredDate: range.end }, { skipChartRender: true });
+    },
+  );
+  const crosshairCleanup = syncCrosshairPositions([marketHandles, positionHandles, navHandles]);
+  disposeChartSync = () => {
+    timeCleanup();
+    crosshairCleanup();
+  };
+  renderReadoutPanels(data, state, update);
 }
 
 function keyboardRangeAction(event: KeyboardEvent): KeyboardRangeAction | null {
@@ -283,11 +302,13 @@ async function main(): Promise<void> {
       end: common?.end ?? data.comparison.common_end,
       hoveredDate: common?.end ?? data.comparison.common_end,
     };
-    const update = (next: Partial<ViewState>) => {
-      if (next.hoveredDate !== undefined && next.hoveredDate === state.hoveredDate && Object.keys(next).length === 1) {
+    const update: UpdateState = (next, options = {}) => {
+      const keys = Object.keys(next);
+      const hoverOnly = next.hoveredDate !== undefined && keys.length === 1;
+      if (hoverOnly && next.hoveredDate === state.hoveredDate) {
         return;
       }
-      const needsChartRender = viewUpdateRequiresChartRender(next);
+      const needsChartRender = !options.skipChartRender && viewUpdateRequiresChartRender(next);
       Object.assign(state, next);
       if (!state.selectedProfiles.includes(state.baselineProfile)) {
         state.baselineProfile = selectDefaultChartProfile(
@@ -298,8 +319,10 @@ async function main(): Promise<void> {
       }
       if (needsChartRender) {
         renderDashboard(data, state, update);
-      } else {
+      } else if (hoverOnly) {
         renderInspector(data, state);
+      } else {
+        renderReadoutPanels(data, state, update);
       }
     };
     window.addEventListener('keydown', (event) => {

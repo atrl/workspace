@@ -43,12 +43,16 @@ function trackChart(container: HTMLElement, chart: IChartApi): void {
   chartByContainer.set(container, chart);
 }
 
-export function syncVisibleTimeRanges(charts: readonly IChartApi[]): () => void {
+export function syncVisibleTimeRanges(
+  charts: readonly IChartApi[],
+  onRangeChange?: (range: LogicalRange) => void,
+): () => void {
   let syncing = false;
   const subscriptions: { chart: IChartApi; handler: (range: LogicalRange | null) => void }[] = [];
   for (const source of charts) {
     const handler = (range: LogicalRange | null) => {
       if (syncing || !range) return;
+      onRangeChange?.(range);
       syncing = true;
       try {
         for (const target of charts) {

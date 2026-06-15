@@ -94,6 +94,9 @@ For `web/dashboard-v2`, keep deployability separate from diagnostic comparison:
 - Keep the main K-line clean by showing only the currently selected Chart Model
   position overlay. Use the Position and NAV subcharts to compare all selected
   models.
+- Mouse wheel / drag visible-range changes should update the dashboard's date
+  state and comparison readouts without rebuilding chart panes. Hover-only
+  updates should refresh only the inspector to avoid pointer lag.
 
 ### Interactive Main Chart Reruns
 

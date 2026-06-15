@@ -1,0 +1,30 @@
+{
+  "created_at": "2026-06-15T15:21:57Z",
+  "direction": "production",
+  "experiment": "dashboard_v2_range_sync_v1",
+  "decision": "dashboard_v2_chart_range_changes_update_readout_state_without_rebuilding_charts",
+  "scope": {
+    "layer": "frontend_dashboard_interaction",
+    "target": "web/dashboard-v2",
+    "model_gate_changes": false
+  },
+  "changes": [
+    "map lightweight-charts logical visible ranges back to snapped market dates",
+    "emit visible-range changes from chart sync so app state follows mouse zoom and drag",
+    "refresh toolbar, inspector, source warnings, and model comparison readouts after chart range changes without rebuilding the chart panes",
+    "keep hover-only updates limited to the inspector to avoid mouse interaction lag"
+  ],
+  "artifacts": {
+    "screenshot": "runtime/production/card/dashboard_v2_range_sync_v1/dashboard_v2_range_sync.png"
+  },
+  "verification": [
+    "cd web/dashboard-v2 && npm test -- src/domain.test.ts src/chart.test.ts",
+    "cd web/dashboard-v2 && npm test && npm run build",
+    "curl -I http://127.0.0.1:5175/",
+    "Chrome headless screenshot 1440x1000"
+  ],
+  "limitations": [
+    "In-app Browser iab session was unavailable; screenshot verification used local Chrome headless.",
+    "This pass improves chart viewport state synchronization; final retention gate execution remains a separate model-governance loop."
+  ]
+}
