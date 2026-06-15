@@ -41,17 +41,24 @@ function latestSignalMarkers(
   start: string,
   end: string,
 ): ActionMarker[] {
-  const grouped = new Map<string, { date: string; action: 'BUY' | 'SELL'; count: number }>();
-  for (const model of Object.values(models)) {
+  const grouped = new Map<
+    string,
+    { date: string; action: 'BUY' | 'SELL'; profiles: { profile: string; position: number }[] }
+  >();
+  for (const [profile, model] of Object.entries(models)) {
     const signal = model.latest_signal;
     if (!signal || signal.date < start || signal.date > end) continue;
     if (signal.action !== 'BUY' && signal.action !== 'SELL') continue;
     const key = `${signal.date}:${signal.action}`;
     const current = grouped.get(key);
     if (current) {
-      current.count += 1;
+      current.profiles.push({ profile, position: Number(signal.position) });
     } else {
-      grouped.set(key, { date: signal.date, action: signal.action, count: 1 });
+      grouped.set(key, {
+        date: signal.date,
+        action: signal.action,
+        profiles: [{ profile, position: Number(signal.position) }],
+      });
     }
   }
   return [...grouped.values()]
@@ -65,8 +72,21 @@ function latestSignalMarkers(
       position: signal.action === 'BUY' ? 'belowBar' : 'aboveBar',
       color: signal.action === 'BUY' ? '#1fb981' : '#d96b5f',
       shape: signal.action === 'BUY' ? 'arrowUp' : 'arrowDown',
-      text: `${signal.count} latest ${signal.action}`,
+      text: latestSignalMarkerText(signal.action, signal.profiles),
     }));
+}
+
+function latestSignalMarkerText(
+  action: 'BUY' | 'SELL',
+  profiles: readonly { profile: string; position: number }[],
+): string {
+  const labels = profiles.map(({ profile, position }) => `${formatProfileLabel(profile)} ${position.toFixed(3)}`);
+  if (labels.length === 1) {
+    return `${formatProfileLabel(profiles[0].profile)} ${action} ${profiles[0].position.toFixed(3)}`;
+  }
+  const visible = labels.slice(0, 3).join(', ');
+  const hidden = labels.length > 3 ? ` +${labels.length - 3}` : '';
+  return `${action} ${labels.length}: ${visible}${hidden}`;
 }
 
 export interface ChartHandles {

@@ -320,6 +320,97 @@ h3 {
   overflow: visible;
 }
 
+.latest-decision-matrix {
+  min-width: 0;
+  margin: 0 0 7px;
+  padding: 6px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--bg);
+}
+
+.latest-decision-header {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  min-width: 0;
+  margin-bottom: 5px;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.3;
+}
+
+.latest-decision-header strong {
+  color: var(--text);
+}
+
+.latest-decision-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(156px, 100%), 1fr));
+  gap: 5px;
+}
+
+.latest-decision-card {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 2px 6px;
+  padding: 5px 6px;
+  border: 1px solid var(--line);
+  border-left-width: 4px;
+  border-radius: 6px;
+  background: var(--panel-2);
+  font-size: 10.5px;
+  line-height: 1.25;
+}
+
+.latest-decision-card[data-role="baseline"] {
+  border-left-color: var(--muted);
+}
+
+.latest-decision-card[data-diff="true"][data-tone="buy"] {
+  border-left-color: var(--buy);
+}
+
+.latest-decision-card[data-diff="true"][data-tone="sell"] {
+  border-left-color: var(--sell);
+}
+
+.latest-decision-card[data-diff="true"][data-tone="muted"] {
+  border-left-color: var(--warn);
+}
+
+.latest-decision-card strong {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--text);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.latest-decision-action {
+  color: var(--text);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.latest-decision-delta,
+.latest-decision-source {
+  min-width: 0;
+  color: var(--muted);
+  overflow-wrap: anywhere;
+}
+
+.latest-decision-source {
+  text-align: right;
+}
+
+.latest-decision-card[data-diff="true"] .latest-decision-delta {
+  color: var(--warn);
+  font-weight: 700;
+}
+
 .latest-signal-title,
 .latest-signal-pill {
   flex: 0 0 auto;

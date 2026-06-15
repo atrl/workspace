@@ -265,7 +265,7 @@ describe('dashboard v2 chart rendering', () => {
     expect(chartMocks.seriesRecords.some((record) => record.options.priceScaleId === 'position')).toBe(false);
   });
 
-  test('adds aggregated latest signal buy and sell markers on the main K-line for selected models', () => {
+  test('adds named latest signal buy and sell markers on the main K-line for selected models', () => {
     const container = document.createElement('div');
     const market = {
       ...marketFixture,
@@ -311,14 +311,14 @@ describe('dashboard v2 chart rendering', () => {
       position: 'belowBar',
       color: '#1fb981',
       shape: 'arrowUp',
-      text: '1 latest BUY',
+      text: 'smoke BUY 0.550',
     });
     expect(chartMocks.createSeriesMarkers.mock.calls[0][1]).toContainEqual({
       time: '2026-01-07',
       position: 'aboveBar',
       color: '#d96b5f',
       shape: 'arrowDown',
-      text: '1 latest SELL',
+      text: 'BRR v22 SELL 0.050',
     });
   });
 
