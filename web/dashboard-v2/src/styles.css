@@ -56,6 +56,46 @@ select {
   color: #9ca3af;
 }
 
+.toolbar-details {
+  flex: 1 1 360px;
+  max-width: 100%;
+  min-width: 0;
+  border: 1px solid #374151;
+  border-radius: 6px;
+  background: #0b1220;
+  color: #d1d5db;
+}
+
+.toolbar-details summary {
+  min-height: 32px;
+  padding: 6px 10px;
+  cursor: pointer;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.toolbar-details[open] summary {
+  border-bottom: 1px solid #1f2937;
+}
+
+.toolbar-details-body {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  min-width: 0;
+  padding: 8px 10px 10px;
+}
+
+.profile-control-details {
+  flex-basis: min(560px, 100%);
+}
+
+.replay-control-details {
+  flex-basis: min(620px, 100%);
+}
+
 .status-strip {
   flex: 1 1 100%;
   display: grid;
@@ -95,29 +135,6 @@ select {
 
 .status-pill small {
   color: #9ca3af;
-}
-
-.status-task-rail {
-  grid-column: 1 / -1;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  min-width: 0;
-}
-
-.status-task-chip {
-  max-width: 100%;
-  padding: 4px 7px;
-  border: 1px solid #374151;
-  border-radius: 6px;
-  color: #d1d5db;
-  background: #111827;
-  font-size: 12px;
-  overflow-wrap: anywhere;
-}
-
-.status-task-chip[data-enabled="true"] {
-  border-color: rgba(52, 211, 153, 0.5);
 }
 
 .profile-group {
@@ -247,7 +264,7 @@ select {
   width: 100%;
   max-width: 100vw;
   min-height: 0;
-  height: clamp(620px, calc(100vh - 220px), 760px);
+  height: clamp(640px, calc(100vh - 170px), 820px);
   overflow: hidden;
 }
 
@@ -427,7 +444,7 @@ h2 {
 }
 
 .operations-panel {
-  max-height: 360px;
+  max-height: 300px;
 }
 
 .feature-panel {
@@ -549,6 +566,16 @@ h2 {
   margin-top: 10px;
 }
 
+.source-summary-grid,
+.operations-summary-grid {
+  margin-top: 8px;
+}
+
+.operations-summary-grid .source-row,
+.source-summary-grid .source-row {
+  min-height: 26px;
+}
+
 .inspector-row,
 .source-row {
   display: grid;
@@ -668,6 +695,35 @@ h2 {
 
 .auto-update-block {
   margin-top: 14px;
+}
+
+details {
+  margin-top: 10px;
+  border-top: 1px solid #1f2937;
+}
+
+details summary {
+  min-height: 34px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: #f9fafb;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0;
+  list-style-position: inside;
+}
+
+details summary:hover {
+  color: #38bdf8;
+}
+
+details[open] summary {
+  border-bottom: 1px solid #1f2937;
+}
+
+.compact-warning-list {
+  margin-top: 8px;
 }
 
 .auto-update-block h3,

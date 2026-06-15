@@ -153,6 +153,22 @@ function apiProfileFor(chartProfile: string): string {
   return chartProfile.startsWith('rerun:') ? chartProfile.split(':')[1] : chartProfile;
 }
 
+function createToolbarDetails(
+  className: string,
+  summaryText: string,
+  open: boolean,
+): { details: HTMLDetailsElement; body: HTMLDivElement } {
+  const details = document.createElement('details');
+  details.className = `toolbar-details ${className}`;
+  details.open = open;
+  const summary = document.createElement('summary');
+  summary.textContent = summaryText;
+  const body = document.createElement('div');
+  body.className = 'toolbar-details-body';
+  details.append(summary, body);
+  return { details, body };
+}
+
 function renderToolbar(
   container: HTMLElement,
   data: DashboardData,
@@ -160,89 +176,13 @@ function renderToolbar(
   update: (next: Partial<ViewState>) => void,
   runInteractiveBacktest: () => void,
 ): void {
+  const profileDetailsWasOpen = container.querySelector<HTMLDetailsElement>('.profile-control-details')?.open ?? false;
+  const replayDetailsWasOpen = container.querySelector<HTMLDetailsElement>('.replay-control-details')?.open ?? false;
   container.replaceChildren();
 
   const statusStrip = document.createElement('div');
   renderDashboardStatusStrip(statusStrip, data.manifest);
   container.appendChild(statusStrip);
-
-  const profileGroup = document.createElement('div');
-  profileGroup.className = 'toolbar-group profile-group';
-  profileGroup.append('Models');
-  for (const profile of data.manifest.available_profiles) {
-    const label = document.createElement('label');
-    label.className = 'check-label';
-    const input = document.createElement('input');
-    input.type = 'checkbox';
-    input.checked = state.selectedProfiles.includes(profile);
-    input.addEventListener('change', () => {
-      const raw = input.checked
-        ? [...state.selectedProfiles, profile]
-        : state.selectedProfiles.filter((item) => item !== profile);
-      update({ selectedProfiles: clampComparisonProfiles(raw, data.manifest.available_profiles) });
-    });
-    label.append(input, document.createTextNode(profileOptionLabel(data.models[profile], profile)));
-    profileGroup.appendChild(label);
-  }
-  container.appendChild(profileGroup);
-
-  const baselineGroup = document.createElement('label');
-  baselineGroup.className = 'toolbar-group';
-  baselineGroup.append('Baseline');
-  const baseline = document.createElement('select');
-  for (const profile of state.selectedProfiles) {
-    const option = document.createElement('option');
-    option.value = profile;
-    option.textContent = profile;
-    option.selected = profile === state.baselineProfile;
-    baseline.appendChild(option);
-  }
-  baseline.addEventListener('change', () => update({ baselineProfile: baseline.value }));
-  baselineGroup.appendChild(baseline);
-  container.appendChild(baselineGroup);
-
-  const chartGroup = document.createElement('label');
-  chartGroup.className = 'toolbar-group';
-  chartGroup.append('Chart');
-  const chartSelect = document.createElement('select');
-  for (const profile of selectableChartProfiles(data.models, state.selectedProfiles)) {
-    const option = document.createElement('option');
-    option.value = profile;
-    option.textContent = profileOptionLabel(data.models[profile], profile);
-    option.selected = profile === state.chartProfile;
-    chartSelect.appendChild(option);
-  }
-  chartSelect.addEventListener('change', () => {
-    const chartProfile = chartSelect.value;
-    const chartWindow =
-      computeDateRangePreset(chartRangeRows(data.models, chartProfile, data.market.rows), 'YTD') ??
-      computeDefaultChartWindow(data.market.rows, data.models[chartProfile]?.rows ?? []);
-    update({
-      chartProfile,
-      ...(chartWindow ?? {}),
-      hoveredDate: chartWindow?.end ?? state.hoveredDate,
-      selectedDate: chartWindow?.end ?? state.selectedDate,
-    });
-  });
-  chartGroup.appendChild(chartSelect);
-  container.appendChild(chartGroup);
-
-  const runProfileGroup = document.createElement('label');
-  runProfileGroup.className = 'toolbar-group';
-  runProfileGroup.append('Run source');
-  const runProfileSelect = document.createElement('select');
-  const runProfiles = selectableRunProfiles(data.models, data.manifest.available_profiles);
-  for (const profile of runProfiles) {
-    const option = document.createElement('option');
-    option.value = profile;
-    option.textContent = profileOptionLabel(data.models[profile], profile);
-    option.selected = profile === state.runProfile;
-    runProfileSelect.appendChild(option);
-  }
-  runProfileSelect.disabled = runProfiles.length === 0;
-  runProfileSelect.addEventListener('change', () => update({ runProfile: runProfileSelect.value }));
-  runProfileGroup.appendChild(runProfileSelect);
-  container.appendChild(runProfileGroup);
 
   const rangeGroup = document.createElement('div');
   rangeGroup.className = 'toolbar-group range-group';
@@ -274,10 +214,101 @@ function renderToolbar(
     container.appendChild(label);
   }
 
-  const runGroup = document.createElement('div');
-  runGroup.className = 'toolbar-group run-group';
   const runModel = data.models[state.runProfile];
   const canRun = canRunSelectedWindow(runModel);
+  const runProfiles = selectableRunProfiles(data.models, data.manifest.available_profiles);
+  const profileDetails = createToolbarDetails(
+    'profile-control-details',
+    `Models ${state.selectedProfiles.length}/${data.manifest.available_profiles.length} · chart ${profileOptionLabel(data.models[state.chartProfile], state.chartProfile)} · baseline ${state.baselineProfile}`,
+    profileDetailsWasOpen,
+  );
+
+  const profileGroup = document.createElement('div');
+  profileGroup.className = 'toolbar-group profile-group';
+  profileGroup.append('Compare');
+  for (const profile of data.manifest.available_profiles) {
+    const label = document.createElement('label');
+    label.className = 'check-label';
+    const input = document.createElement('input');
+    input.type = 'checkbox';
+    input.checked = state.selectedProfiles.includes(profile);
+    input.addEventListener('change', () => {
+      const raw = input.checked
+        ? [...state.selectedProfiles, profile]
+        : state.selectedProfiles.filter((item) => item !== profile);
+      update({ selectedProfiles: clampComparisonProfiles(raw, data.manifest.available_profiles) });
+    });
+    label.append(input, document.createTextNode(profileOptionLabel(data.models[profile], profile)));
+    profileGroup.appendChild(label);
+  }
+  profileDetails.body.appendChild(profileGroup);
+
+  const baselineGroup = document.createElement('label');
+  baselineGroup.className = 'toolbar-group';
+  baselineGroup.append('Baseline');
+  const baseline = document.createElement('select');
+  for (const profile of state.selectedProfiles) {
+    const option = document.createElement('option');
+    option.value = profile;
+    option.textContent = profile;
+    option.selected = profile === state.baselineProfile;
+    baseline.appendChild(option);
+  }
+  baseline.addEventListener('change', () => update({ baselineProfile: baseline.value }));
+  baselineGroup.appendChild(baseline);
+  profileDetails.body.appendChild(baselineGroup);
+
+  const chartGroup = document.createElement('label');
+  chartGroup.className = 'toolbar-group';
+  chartGroup.append('Chart');
+  const chartSelect = document.createElement('select');
+  for (const profile of selectableChartProfiles(data.models, state.selectedProfiles)) {
+    const option = document.createElement('option');
+    option.value = profile;
+    option.textContent = profileOptionLabel(data.models[profile], profile);
+    option.selected = profile === state.chartProfile;
+    chartSelect.appendChild(option);
+  }
+  chartSelect.addEventListener('change', () => {
+    const chartProfile = chartSelect.value;
+    const chartWindow =
+      computeDateRangePreset(chartRangeRows(data.models, chartProfile, data.market.rows), 'YTD') ??
+      computeDefaultChartWindow(data.market.rows, data.models[chartProfile]?.rows ?? []);
+    update({
+      chartProfile,
+      ...(chartWindow ?? {}),
+      hoveredDate: chartWindow?.end ?? state.hoveredDate,
+      selectedDate: chartWindow?.end ?? state.selectedDate,
+    });
+  });
+  chartGroup.appendChild(chartSelect);
+  profileDetails.body.appendChild(chartGroup);
+  container.appendChild(profileDetails.details);
+
+  const replayDetails = createToolbarDetails(
+    'replay-control-details',
+    `Replay ${state.runStart} to ${state.runEnd} · ${runWindowButtonLabel(runModel)}`,
+    replayDetailsWasOpen,
+  );
+
+  const runProfileGroup = document.createElement('label');
+  runProfileGroup.className = 'toolbar-group';
+  runProfileGroup.append('Run source');
+  const runProfileSelect = document.createElement('select');
+  for (const profile of runProfiles) {
+    const option = document.createElement('option');
+    option.value = profile;
+    option.textContent = profileOptionLabel(data.models[profile], profile);
+    option.selected = profile === state.runProfile;
+    runProfileSelect.appendChild(option);
+  }
+  runProfileSelect.disabled = runProfiles.length === 0;
+  runProfileSelect.addEventListener('change', () => update({ runProfile: runProfileSelect.value }));
+  runProfileGroup.appendChild(runProfileSelect);
+  replayDetails.body.appendChild(runProfileGroup);
+
+  const runGroup = document.createElement('div');
+  runGroup.className = 'toolbar-group run-group';
   for (const [labelText, key] of [
     ['Run start', 'runStart'],
     ['Run end', 'runEnd'],
@@ -309,7 +340,8 @@ function renderToolbar(
   runStatus.className = 'run-status';
   runStatus.textContent = `${state.runStart} to ${state.runEnd} | ${runnableProfileReason(runModel)}`;
   runGroup.append(useChartRange, runButton, runStatus);
-  container.appendChild(runGroup);
+  replayDetails.body.appendChild(runGroup);
+  container.appendChild(replayDetails.details);
 }
 
 function warningsFor(data: DashboardData, state: ViewState): string[] {

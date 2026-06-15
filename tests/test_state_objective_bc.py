@@ -5,6 +5,7 @@ import pandas as pd
 import torch
 
 from src.soxl_quant.app.state_objective_bc import (
+    StateObjectiveBCAuxLossConfig,
     StateObjectiveBCDataset,
     StateObjectiveBCSampleWeightConfig,
     StateObjectiveBCTrainingConfig,
@@ -31,6 +32,16 @@ def _separable_actor() -> torch.nn.Linear:
     torch.nn.init.zeros_(actor.weight)
     torch.nn.init.zeros_(actor.bias)
     return actor
+
+
+class _TinySharedActor(torch.nn.Module):
+    def __init__(self) -> None:
+        super().__init__()
+        self.preprocess = torch.nn.Sequential(torch.nn.Linear(2, 4), torch.nn.Tanh())
+        self.last = torch.nn.Linear(4, 2)
+
+    def forward(self, obs: torch.Tensor) -> torch.Tensor:
+        return self.last(self.preprocess(obs))
 
 
 def test_fit_bc_actor_reports_before_and_after_metrics_on_separable_actions():
@@ -119,6 +130,39 @@ def test_weighted_bc_actor_can_prioritize_high_weight_minority_label():
 
     assert result["weight_mean"] == weights.mean()
     assert int(logits.argmax(-1).item()) == 1
+
+
+def test_fit_bc_actor_can_train_auxiliary_state_head_for_sparse_state_labels():
+    torch.manual_seed(3)
+    obs = np.asarray(
+        [[-2.0, 0.0], [-1.5, 0.0], [-1.0, 0.0], [1.0, 0.0], [1.5, 0.0], [2.0, 0.0]],
+        dtype=np.float32,
+    )
+    actions = np.asarray([0, 0, 0, 1, 1, 1], dtype=np.int64)
+    metadata = pd.DataFrame(
+        {
+            "release_gate_state": [False, False, False, True, True, True],
+            "is_downtrend_state": [True, True, False, False, False, False],
+        }
+    )
+    actor = _TinySharedActor()
+
+    result = fit_bc_actor(
+        actor,
+        obs,
+        actions,
+        StateObjectiveBCTrainingConfig(steps=160, lr=0.03, batch_size=6, seed=19),
+        aux_state_metadata=metadata,
+        aux_loss_config=StateObjectiveBCAuxLossConfig(
+            state_columns=("release_gate_state",),
+            loss_weight=1.0,
+        ),
+    )
+
+    assert result["aux_state_head_count"] == 1
+    assert result["aux_release_gate_state_after_accuracy"] >= 0.95
+    assert result["after_accuracy"] >= 0.95
+    assert hasattr(actor, "_soxl_aux_state_heads")
 
 
 def test_state_objective_bc_sample_weights_prioritize_rebound_and_action_tail():

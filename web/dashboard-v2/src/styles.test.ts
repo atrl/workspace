@@ -42,4 +42,20 @@ describe('dashboard v2 layout styles', () => {
     expect(runDateRule).toContain('min-width: 0;');
     expect(runDateRule).toContain('white-space: nowrap;');
   });
+
+  test('keeps secondary model and replay controls behind compact toolbar disclosures', () => {
+    const css = readFileSync('src/styles.css', 'utf8');
+    const source = readFileSync('src/main.ts', 'utf8');
+    const detailsRule = css.match(/\.toolbar-details\s*\{[^}]*\}/)?.[0] ?? '';
+    const detailsBodyRule = css.match(/\.toolbar-details-body\s*\{[^}]*\}/)?.[0] ?? '';
+
+    expect(source).toContain('profile-control-details');
+    expect(source).toContain('replay-control-details');
+    expect(source).toContain('createToolbarDetails');
+    expect(source).toContain('profileDetailsWasOpen');
+    expect(source).toContain('replayDetailsWasOpen');
+    expect(detailsRule).toContain('max-width: 100%;');
+    expect(detailsRule).toContain('min-width: 0;');
+    expect(detailsBodyRule).toContain('flex-wrap: wrap;');
+  });
 });

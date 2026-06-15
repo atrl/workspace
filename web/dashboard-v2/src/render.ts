@@ -36,35 +36,47 @@ function element<K extends keyof HTMLElementTagNameMap>(
   return node;
 }
 
-export function renderDataSourcePanel(container: HTMLElement, manifest: Manifest, warnings: string[] = []): void {
-  container.replaceChildren();
-  container.appendChild(element('h2', undefined, 'Data Sources'));
-  const grid = element('div', 'source-grid');
-  const groups = manifest.profile_groups;
-  const rows: [string, string][] = [
-    ['safe_backtest_end', manifest.safe_backtest_end],
-    ['latest_market_date', manifest.latest_market_date],
-    ['generated_at', manifest.generated_at],
-    ['baseline', manifest.default_baseline_profile],
-    ['models', manifest.default_comparison_profiles.join(', ')],
-    ['runnable profiles', groups?.runnable?.join(', ') || 'none'],
-    ['reference profiles', groups?.reference?.join(', ') || 'none'],
-    ['evidence-only profiles', groups?.evidence_only?.join(', ') || 'none'],
-    ['unavailable profiles', String(manifest.unavailable_profiles?.length ?? 0)],
-    ...Object.entries(manifest.source_paths),
-  ];
+function renderKeyValueGrid(rows: readonly [string, string][], className = 'source-grid'): HTMLElement {
+  const grid = element('div', className);
   for (const [label, value] of rows) {
     const item = element('div', 'source-row');
     item.appendChild(element('span', 'source-label', label));
     item.appendChild(element('span', 'source-value', value));
     grid.appendChild(item);
   }
-  container.appendChild(grid);
+  return grid;
+}
+
+function detailsBlock(className: string, summaryText: string, open = false): HTMLDetailsElement {
+  const details = element('details', className) as HTMLDetailsElement;
+  details.open = open;
+  details.appendChild(element('summary', undefined, summaryText));
+  return details;
+}
+
+export function renderDataSourcePanel(container: HTMLElement, manifest: Manifest, warnings: string[] = []): void {
+  container.replaceChildren();
+  container.appendChild(element('h2', undefined, 'Data Sources'));
+  const groups = manifest.profile_groups;
+  const sourcePathRows: [string, string][] = Object.entries(manifest.source_paths);
+  const summaryRows: [string, string][] = [
+    ['safe_backtest_end', manifest.safe_backtest_end],
+    ['latest_market_date', manifest.latest_market_date],
+    ['generated_at', manifest.generated_at],
+    ['baseline', manifest.default_baseline_profile],
+    ['selected models', String(manifest.default_comparison_profiles.length)],
+    ['runtime roles', `run ${groups?.runnable?.length ?? 0} · ref ${groups?.reference?.length ?? 0} · evidence ${groups?.evidence_only?.length ?? 0}`],
+    ['unavailable profiles', String(manifest.unavailable_profiles?.length ?? 0)],
+  ];
+  container.appendChild(renderKeyValueGrid(summaryRows, 'source-grid source-summary-grid'));
+
+  const sourceDetails = detailsBlock('source-path-details', 'Source paths');
+  sourceDetails.appendChild(renderKeyValueGrid(sourcePathRows));
+  container.appendChild(sourceDetails);
+
   const auto = manifest.auto_update;
   if (auto) {
-    const autoSection = element('section', 'auto-update-block');
-    autoSection.appendChild(element('h3', undefined, 'Auto Update'));
-    const taskList = element('div', 'source-grid');
+    const autoSection = detailsBlock('automation-details', 'Automation details');
     const autoRows: [string, string][] = [
       ['configured', auto.configured ? 'yes' : 'no'],
       ['timezone', auto.timezone],
@@ -87,12 +99,7 @@ export function renderDataSourcePanel(container: HTMLElement, manifest: Manifest
       ['refresh pipeline', auto.refresh_pipeline?.join(' -> ') ?? 'n/a'],
       ['remote deploy required', auto.remote_deploy_required ? 'yes' : 'no'],
     ];
-    for (const [label, value] of autoRows) {
-      const item = element('div', 'source-row');
-      item.appendChild(element('span', 'source-label', label));
-      item.appendChild(element('span', 'source-value', value));
-      taskList.appendChild(item);
-    }
+    const taskList = renderKeyValueGrid(autoRows);
     for (const task of auto.tasks) {
       const stateBits = [
         task.enabled ? 'enabled' : 'disabled',
@@ -113,64 +120,55 @@ export function renderDataSourcePanel(container: HTMLElement, manifest: Manifest
     autoSection.appendChild(taskList);
     container.appendChild(autoSection);
   }
-  renderModelRuntimeStatusTable(container, manifest);
-  renderUnavailableProfileTable(container, manifest);
-  const retention = manifest.model_retention_gate;
-  if (retention) {
-    const retentionSection = element('section', 'auto-update-block');
-    retentionSection.appendChild(element('h3', undefined, 'Retention Gate'));
-    const gateRows: [string, string][] = [
-      [
-        'promotable',
-        `${retention.passing_profile_count ?? 0} / ${retention.profiles_scanned ?? 0} promotable`,
-      ],
-      [
-        'walk-forward MaxDD',
-        retention.max_walkforward_drawdown_pct !== undefined
-          ? `MaxDD < ${retention.max_walkforward_drawdown_pct.toFixed(2)}%`
-          : 'n/a',
-      ],
-      ['return floor', retention.required_best_return_pct !== undefined ? `${retention.required_best_return_pct.toFixed(2)}%` : 'n/a'],
-      ['windows', retention.required_wf_windows?.join(', ') || 'n/a'],
-      [
-        'keep_actor strict violations',
-        retention.registry_keep_actor_count !== undefined
-          ? `${retention.registry_keep_actor_strict_violation_count ?? 0} / ${retention.registry_keep_actor_count} blocked`
-          : 'n/a',
-      ],
-      ['source', retention.source_path ?? 'n/a'],
-    ];
-    const gateGrid = element('div', 'source-grid');
-    for (const [label, value] of gateRows) {
-      const item = element('div', 'source-row');
-      item.appendChild(element('span', 'source-label', label));
-      item.appendChild(element('span', 'source-value', value));
-      gateGrid.appendChild(item);
-    }
-    retentionSection.appendChild(gateGrid);
-    container.appendChild(retentionSection);
+  const runtimeDetails = detailsBlock('runtime-details', 'Model runtime details');
+  renderModelRuntimeStatusTable(runtimeDetails, manifest);
+  container.appendChild(runtimeDetails);
+  const unavailableDetails = detailsBlock('unavailable-details', 'Unavailable model details');
+  renderUnavailableProfileTable(unavailableDetails, manifest);
+  if (unavailableDetails.children.length > 1) {
+    container.appendChild(unavailableDetails);
   }
+  const retention = manifest.model_retention_gate;
   const frontier = manifest.model_retention_frontier;
-  if (frontier) {
-    const frontierSection = element('section', 'auto-update-block');
-    frontierSection.appendChild(element('h3', undefined, 'Training Frontier'));
-    const frontierRows: [string, string][] = [
+  if (retention || frontier) {
+    const retentionSection = detailsBlock('retention-details', 'Retention and training details');
+    const gateRows: [string, string][] = [
+      ...(retention
+        ? [
+            [
+              'promotable',
+              `${retention.passing_profile_count ?? 0} / ${retention.profiles_scanned ?? 0} promotable`,
+            ],
+            [
+              'walk-forward MaxDD',
+              retention.max_walkforward_drawdown_pct !== undefined
+                ? `MaxDD < ${retention.max_walkforward_drawdown_pct.toFixed(2)}%`
+                : 'n/a',
+            ],
+            ['return floor', retention.required_best_return_pct !== undefined ? `${retention.required_best_return_pct.toFixed(2)}%` : 'n/a'],
+            ['windows', retention.required_wf_windows?.join(', ') || 'n/a'],
+            [
+              'keep_actor strict violations',
+              retention.registry_keep_actor_count !== undefined
+                ? `${retention.registry_keep_actor_strict_violation_count ?? 0} / ${retention.registry_keep_actor_count} blocked`
+                : 'n/a',
+            ],
+            ['gate source', retention.source_path ?? 'n/a'],
+          ] as [string, string][]
+        : []),
+      ...(frontier
+        ? [
       ['recommended source', frontier.recommended_next_source ?? 'n/a'],
       ['recommended action', frontier.recommended_next_action ?? 'n/a'],
       ['primary blocker', frontier.recommended_primary_blocker ?? 'n/a'],
       ['rows scanned', String(frontier.rows_scanned ?? 0)],
       ['completed handoffs', String(frontier.completed_handoff_count ?? 0)],
-      ['source', frontier.source_path ?? 'n/a'],
+      ['frontier source', frontier.source_path ?? 'n/a'],
+          ] as [string, string][]
+        : []),
     ];
-    const frontierGrid = element('div', 'source-grid');
-    for (const [label, value] of frontierRows) {
-      const item = element('div', 'source-row');
-      item.appendChild(element('span', 'source-label', label));
-      item.appendChild(element('span', 'source-value', value));
-      frontierGrid.appendChild(item);
-    }
-    frontierSection.appendChild(frontierGrid);
-    container.appendChild(frontierSection);
+    retentionSection.appendChild(renderKeyValueGrid(gateRows));
+    container.appendChild(retentionSection);
   }
   if (warnings.length) {
     const warningList = element('ul', 'warning-list');
@@ -259,18 +257,35 @@ export function renderOperationsPanel(container: HTMLElement, manifest: Manifest
     return;
   }
 
-  container.appendChild(renderAutoUpdateTaskList(auto));
-
   const counts = auto.model_replay_freshness?.counts ?? {};
   const readyCount = auto.model_replay_freshness?.ready_count ?? 0;
   const profileCount = auto.model_replay_freshness?.profile_count ?? 0;
   const runnableCount = runnableProfileCount(manifest);
   const availableProfileCount = manifest.available_profiles?.length ?? 0;
-  const grid = element('div', 'source-grid operations-grid');
+  const loadedTasks = taskCount(auto.tasks, 'loaded');
+  const summaryRows: [string, string][] = [
+    ['Market data', manifest.latest_market_date],
+    ['Replay window', `safe ${auto.model_replay_freshness?.safe_backtest_end ?? manifest.safe_backtest_end}`],
+    ['Model replay', `${readyCount} / ${profileCount}`],
+    ['Runnable inference', `${runnableCount} / ${availableProfileCount}`],
+    ['Auto tasks', `${loadedTasks} / ${auto.tasks.length} loaded`],
+    ['Training blocker', manifest.model_retention_frontier?.recommended_primary_blocker ?? 'n/a'],
+  ];
+  container.appendChild(renderKeyValueGrid(summaryRows, 'source-grid operations-summary-grid'));
+
+  const critical = warnings.filter((warning) => warning.includes('Replay') || warning.includes('runnable') || warning.includes('not runnable'));
+  if (critical.length) {
+    const warningList = element('ul', 'warning-list compact-warning-list');
+    for (const warning of critical.slice(0, 3)) {
+      warningList.appendChild(element('li', undefined, warning));
+    }
+    container.appendChild(warningList);
+  }
+
+  const automationDetails = detailsBlock('automation-details', 'Automation details');
+  automationDetails.appendChild(renderAutoUpdateTaskList(auto));
   const rows: [string, string][] = [
     ['auto update', auto.configured ? 'configured' : 'not configured'],
-    ['replay ready', `${readyCount} / ${profileCount}`],
-    ['runnable inference', `${runnableCount} / ${availableProfileCount}`],
     [
       'refresh counts',
       Object.entries(counts)
@@ -287,23 +302,17 @@ export function renderOperationsPanel(container: HTMLElement, manifest: Manifest
     ['next action', manifest.model_retention_frontier?.recommended_next_action ?? 'n/a'],
     ['training blocker', manifest.model_retention_frontier?.recommended_primary_blocker ?? 'n/a'],
   ];
-  for (const [label, value] of rows) {
-    const item = element('div', 'source-row');
-    item.appendChild(element('span', 'source-label', label));
-    item.appendChild(element('span', 'source-value', value));
-    grid.appendChild(item);
-  }
-  container.appendChild(grid);
-  renderModelRuntimeStatusTable(container, manifest);
-  renderUnavailableProfileTable(container, manifest);
+  automationDetails.appendChild(renderKeyValueGrid(rows, 'source-grid operations-grid'));
+  container.appendChild(automationDetails);
 
-  const critical = warnings.filter((warning) => warning.includes('Replay') || warning.includes('runnable') || warning.includes('not runnable'));
-  if (critical.length) {
-    const warningList = element('ul', 'warning-list');
-    for (const warning of critical.slice(0, 4)) {
-      warningList.appendChild(element('li', undefined, warning));
-    }
-    container.appendChild(warningList);
+  const runtimeDetails = detailsBlock('runtime-details', 'Model runtime details');
+  renderModelRuntimeStatusTable(runtimeDetails, manifest);
+  container.appendChild(runtimeDetails);
+
+  if (manifest.unavailable_profiles?.length) {
+    const unavailableDetails = detailsBlock('unavailable-details', 'Unavailable model details');
+    renderUnavailableProfileTable(unavailableDetails, manifest);
+    container.appendChild(unavailableDetails);
   }
 }
 
@@ -382,10 +391,7 @@ export function renderDashboardStatusStrip(container: HTMLElement, manifest: Man
   const auto = manifest.auto_update;
   const tasks = auto?.tasks ?? [];
   const taskTotal = tasks.length;
-  const enabled = taskCount(tasks, 'enabled');
   const loaded = taskCount(tasks, 'loaded');
-  const installed = taskCount(tasks, 'installed');
-  const taskNames = tasks.map((task) => task.name).join(', ');
   const runnableCount = runnableProfileCount(manifest);
   const referenceProfiles = manifest.profile_groups?.reference ?? [];
   const evidenceOnlyCount = manifest.profile_groups?.evidence_only?.length ?? 0;
@@ -401,11 +407,9 @@ export function renderDashboardStatusStrip(container: HTMLElement, manifest: Man
 
   container.appendChild(
     statusPill(
-      'Auto Update',
-      taskTotal ? taskNames : 'not configured',
-      taskTotal
-        ? `${profileCountLabel(enabled, taskTotal, 'enabled')} · ${profileCountLabel(loaded, taskTotal, 'loaded')} · ${profileCountLabel(installed, taskTotal, 'installed')} · ${profileCountLabel(replayReadyCount, replayProfileCount, 'replay candidates')}`
-        : 'no local refresh task in manifest',
+      'Data',
+      `market ${latest ?? 'n/a'}`,
+      `safe replay ${safeEnd ?? 'n/a'} · replay ${replayReadyCount}/${replayProfileCount}`,
     ),
   );
   container.appendChild(
@@ -417,9 +421,9 @@ export function renderDashboardStatusStrip(container: HTMLElement, manifest: Man
   );
   container.appendChild(
     statusPill(
-      'Replay Window',
-      `safe ${safeEnd ?? 'n/a'}`,
-      `market latest ${latest ?? 'n/a'}`,
+      'Automation',
+      taskTotal ? `${loaded}/${taskTotal} loaded` : 'not configured',
+      auto?.manual_refresh_command ?? 'no local refresh command',
     ),
   );
   container.appendChild(
@@ -429,16 +433,6 @@ export function renderDashboardStatusStrip(container: HTMLElement, manifest: Man
       frontier?.recommended_primary_blocker ?? frontier?.recommended_next_action ?? 'n/a',
     ),
   );
-  if (tasks.length) {
-    const taskRail = element('div', 'status-task-rail');
-    for (const task of tasks) {
-      const chip = element('span', 'status-task-chip');
-      chip.dataset.enabled = task.enabled ? 'true' : 'false';
-      chip.textContent = `${task.name} · ${task.schedule ?? 'n/a'} · ${task.loaded ? 'loaded' : 'not loaded'}`;
-      taskRail.appendChild(chip);
-    }
-    container.appendChild(taskRail);
-  }
 }
 
 export function renderActionLegend(container: HTMLElement): void {

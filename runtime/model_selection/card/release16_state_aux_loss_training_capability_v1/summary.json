@@ -1,0 +1,65 @@
+{
+  "experiment": "release16_state_aux_loss_training_capability_v1",
+  "created_at": "2026-06-15T10:45:12.275827+00:00",
+  "source_experiment": "release16_holdout_slice_repair_candidate_screen_v1",
+  "canonical_baseline": "soxlbacktest_qlib_walkforward_baseline_v1",
+  "direct_comparison_baseline": "release16_holdout_slice_repair_candidate_screen_v1",
+  "role": "diagnose",
+  "changed_layer": [
+    "bc_warm_start",
+    "model",
+    "selection"
+  ],
+  "aux_state_loss_config": {
+    "state_columns": [
+      "release_gate_state",
+      "is_downtrend_state"
+    ],
+    "loss_weight": 1.0
+  },
+  "required_repair_terms": [
+    "checkpoint_objective_loss",
+    "drawdown_state_aux_loss",
+    "release_state_aux_loss",
+    "trend_preservation_floor"
+  ],
+  "implemented_repair_terms": [
+    "drawdown_state_aux_loss",
+    "release_state_aux_loss"
+  ],
+  "remaining_repair_terms": [
+    "checkpoint_objective_loss",
+    "trend_preservation_floor"
+  ],
+  "repeat_holdout_screen_required": true,
+  "official_replay_required_before_promotion": true,
+  "decision": "state_aux_loss_training_capability_ready_repeat_holdout_slice_screen_no_promotion",
+  "primary_blocker": "training_contract_ready",
+  "target_contract_gate": true,
+  "bc_readiness_gate": true,
+  "bc_screen_allowed_next": true,
+  "bc_aux_loss_screen_allowed_next": true,
+  "checkpoint_screen_allowed_next": false,
+  "ppo_allowed_next": false,
+  "promotion_allowed": false,
+  "actor_retention_allowed": false,
+  "target_relative_return_pp": 30.0,
+  "target_max_dd_pct": 20.0,
+  "required_wf_windows": [
+    "wf_2020",
+    "wf_2022",
+    "wf_2023_2024"
+  ],
+  "source_decision": "state_objective_holdout_repair_not_ready_no_training",
+  "source_primary_blocker": "bc_candidate_or_slice_gate_failed",
+  "synthetic_action_after_accuracy": 1.0,
+  "synthetic_release_gate_after_accuracy": 1.0,
+  "synthetic_downtrend_after_accuracy": 1.0,
+  "next_mechanism": "run_aux_state_loss_bc_holdout_slice_screen_with_trend_preservation_floor_before_checkpoint_screen",
+  "sidecars": [
+    "release16_state_aux_loss_training_capability_v1.ipynb",
+    "training_contract.json",
+    "summary.json",
+    "conclusion.md"
+  ]
+}

@@ -12,12 +12,12 @@
         "refreshed": 0,
         "skipped": 0
       },
-      "generated_at": "2026-06-15T10:29:21+00:00",
-      "latest_data_date": "2026-06-10",
+      "generated_at": "2026-06-15T11:02:35+00:00",
+      "latest_data_date": "2026-06-12",
       "note": "No replay actor candidates are exposed by model_replay_freshness.json; the refresh task still rebuilds dashboard bundles and reference/evidence exports.",
       "profile_count": 0,
       "ready_count": 0,
-      "safe_backtest_end": "2026-06-09",
+      "safe_backtest_end": "2026-06-11",
       "source_path": "dashboard_data/model_replay_freshness.json"
     },
     "refresh_pipeline": [
@@ -90,14 +90,14 @@
     "drawdown_rebound_reward_train_v1",
     "mode_conditioned_rebound_reward_train_v2"
   ],
-  "generated_at": "2026-06-15T10:29:34.635554+00:00",
-  "latest_market_date": "2026-06-10",
+  "generated_at": "2026-06-15T11:02:49.350427+00:00",
+  "latest_market_date": "2026-06-12",
   "model_retention_frontier": {
-    "completed_handoff_count": 136,
+    "completed_handoff_count": 137,
     "max_walkforward_drawdown_pct": 20.0,
-    "recommended_next_action": "train_state_conditioned_action_head_or_aux_state_loss_then_repeat_holdout_slice_screen",
-    "recommended_next_source": "release16_holdout_slice_repair_candidate_screen_v1",
-    "recommended_primary_blocker": "bc_candidate_or_slice_gate_failed",
+    "recommended_next_action": "run_aux_state_loss_bc_holdout_slice_screen_with_trend_preservation_floor_before_checkpoint_screen",
+    "recommended_next_source": "release16_state_aux_loss_training_capability_v1",
+    "recommended_primary_blocker": "training_contract_ready",
     "reference_return_pct": 132.077978,
     "required_best_return_pct": 213.143462,
     "required_wf_windows": [
@@ -105,7 +105,7 @@
       "wf_2022",
       "wf_2023_2024"
     ],
-    "rows_scanned": 173,
+    "rows_scanned": 174,
     "source_path": "runtime/model_selection/card/model_retention_frontier_v1/summary.json"
   },
   "model_retention_gate": {
@@ -225,7 +225,7 @@
     ],
     "runnable": []
   },
-  "safe_backtest_end": "2026-06-09",
+  "safe_backtest_end": "2026-06-11",
   "source_paths": {
     "market": "data/processed/panels/soxl_soxx_vix_full.csv",
     "model:balanced_rule_residual_v19_moe_v2": "dashboard_data/versioned/balanced_rule_residual_v19_moe_v2/SOXL.json",

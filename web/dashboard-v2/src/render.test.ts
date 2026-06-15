@@ -46,17 +46,16 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.textContent).toContain('model_replay_freshness.json');
     expect(panel.textContent).toContain('replay candidate note');
     expect(panel.textContent).toContain('strict retention gate');
-    expect(panel.textContent).toContain('runnable profiles');
+    expect(panel.textContent).toContain('runtime roles');
     expect(panel.textContent).toContain('smoke');
-    expect(panel.textContent).toContain('reference profiles');
+    expect(panel.textContent).toContain('run 1 · ref 1 · evidence 1');
     expect(panel.textContent).toContain('balanced_rule_residual_v22');
-    expect(panel.textContent).toContain('evidence-only profiles');
     expect(panel.textContent).toContain('candidate');
     expect(panel.textContent).toContain('unavailable profiles');
     expect(panel.textContent).toContain('Unavailable Model Replays');
     expect(panel.textContent).toContain('missing_actor_model');
     expect(panel.textContent).toContain('missing_actor_artifact');
-    expect(panel.textContent).toContain('Auto Update');
+    expect(panel.textContent).toContain('Automation details');
     expect(panel.textContent).toContain('dashboard_refresh');
     expect(panel.textContent).toContain('manual refresh');
     expect(panel.textContent).toContain('install auto update');
@@ -75,15 +74,19 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.textContent).toContain('unavailable');
     expect(panel.textContent).toContain('missing_actor_artifact');
     expect(panel.textContent).toContain('alpha123 · 2 features');
-    expect(panel.textContent).toContain('Retention Gate');
+    expect(panel.textContent).toContain('Retention and training details');
     expect(panel.textContent).toContain('0 / 2 promotable');
     expect(panel.textContent).toContain('MaxDD < 20.00%');
     expect(panel.textContent).toContain('keep_actor strict violations');
     expect(panel.textContent).toContain('2 / 3 blocked');
-    expect(panel.textContent).toContain('Training Frontier');
+    expect(panel.textContent).toContain('recommended source');
     expect(panel.textContent).toContain('cap10_metric_replay_handoff_audit_v1');
     expect(panel.textContent).toContain('inspect_failed_fold_drawdown_or_reward_drift_before_full_retention_training');
     expect(panel.textContent).toContain('walkforward_relative_return_gap');
+    expect(panel.querySelector('details.source-path-details')).not.toBeNull();
+    expect(panel.querySelector('details.automation-details')).not.toBeNull();
+    expect(panel.querySelector('details.runtime-details')).not.toBeNull();
+    expect(panel.querySelector('details.retention-details')).not.toBeNull();
   });
 
   test('renders first-screen operations status with replay counts and tasks', () => {
@@ -94,9 +97,9 @@ describe('dashboard v2 DOM render helpers', () => {
     ]);
 
     expect(panel.textContent).toContain('Operations');
-    expect(panel.textContent).toContain('replay ready');
+    expect(panel.textContent).toContain('Model replay');
     expect(panel.textContent).toContain('1 / 1');
-    expect(panel.textContent).toContain('runnable inference');
+    expect(panel.textContent).toContain('Runnable inference');
     expect(panel.textContent).toContain('1 / 3');
     expect(panel.textContent).toContain('current=1');
     expect(panel.textContent).toContain('replay candidate note');
@@ -120,6 +123,25 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.textContent).toContain('next training');
     expect(panel.textContent).toContain('cap10_metric_replay_handoff_audit_v1');
     expect(panel.textContent).toContain('walkforward_relative_return_gap');
+    expect(panel.querySelector('.operations-summary-grid')?.textContent).toContain('Market data');
+    expect(panel.querySelector('.operations-summary-grid')?.textContent).toContain('Auto tasks');
+  });
+
+  test('keeps verbose operations metadata collapsed behind details by default', () => {
+    const panel = document.createElement('section');
+
+    renderOperationsPanel(panel, manifestFixture, [
+      'Replay refresh found 0 runnable model profiles; dashboard is using retained exports/reference rows only.',
+    ]);
+
+    expect(panel.querySelector('.operations-summary-grid')).not.toBeNull();
+    expect(panel.querySelector('details.runtime-details')).not.toBeNull();
+    expect(panel.querySelector('details.automation-details')).not.toBeNull();
+    expect(panel.querySelector('details.unavailable-details')).not.toBeNull();
+    expect(panel.querySelector('details.runtime-details')?.hasAttribute('open')).toBe(false);
+    expect(panel.querySelector('details.automation-details')?.hasAttribute('open')).toBe(false);
+    expect(panel.textContent).toContain('Model replay');
+    expect(panel.textContent).toContain('Automation details');
   });
 
   test('puts auto update task cards before dense operations metadata', () => {
@@ -173,8 +195,9 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(text).toContain('preopen');
     expect(text).toContain('postclose');
     expect(text).toContain('dashboard_refresh');
-    expect(text.indexOf('Auto Update Tasks')).toBeLessThan(text.indexOf('replay ready'));
+    expect(text.indexOf('Model replay')).toBeLessThan(text.indexOf('Auto Update Tasks'));
     expect(panel.querySelectorAll('.task-card')).toHaveLength(3);
+    expect(panel.querySelector('details.automation-details .task-list')).not.toBeNull();
   });
 
   test('renders a first-screen dashboard status strip with auto update and runtime roles', () => {
@@ -239,24 +262,18 @@ describe('dashboard v2 DOM render helpers', () => {
       },
     });
 
-    expect(panel.textContent).toContain('Auto Update');
-    expect(panel.textContent).toContain('3 / 3 enabled');
-    expect(panel.textContent).toContain('3 / 3 loaded');
-    expect(panel.textContent).toContain('0 / 0 replay candidates');
-    expect(panel.textContent).toContain('preopen');
-    expect(panel.textContent).toContain('postclose');
-    expect(panel.textContent).toContain('dashboard_refresh');
+    expect(panel.textContent).toContain('Data');
+    expect(panel.textContent).toContain('market 2026-01-06');
+    expect(panel.textContent).toContain('replay 0/0');
+    expect(panel.textContent).toContain('Automation');
+    expect(panel.textContent).toContain('3/3 loaded');
     expect(panel.textContent).toContain('RL Runtime');
     expect(panel.textContent).toContain('0 / 5 runnable');
     expect(panel.textContent).toContain('SOXLBacktest baseline');
-    expect(panel.textContent).toContain('Replay Window');
-    expect(panel.textContent).toContain('safe 2026-06-09');
+    expect(panel.textContent).toContain('safe replay 2026-06-09');
     expect(panel.textContent).toContain('Training Frontier');
     expect(panel.textContent).toContain('walkforward_relative_return_gap');
-    expect(panel.textContent).toContain('preopen');
-    expect(panel.textContent).toContain('postclose');
-    expect(panel.textContent).toContain('dashboard_refresh');
-    expect(panel.querySelectorAll('.status-task-chip')).toHaveLength(3);
+    expect(panel.querySelectorAll('.status-task-chip')).toHaveLength(0);
   });
 
   test('counts interactive rerun profiles as runnable in runtime status', () => {
@@ -292,7 +309,7 @@ describe('dashboard v2 DOM render helpers', () => {
       },
     });
 
-    expect(panel.textContent).toContain('runnable inference');
+    expect(panel.textContent).toContain('Runnable inference');
     expect(panel.textContent).toContain('1 / 4');
   });
 

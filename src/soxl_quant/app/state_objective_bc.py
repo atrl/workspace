@@ -28,6 +28,12 @@ class StateObjectiveBCTrainingConfig:
 
 
 @dataclass(frozen=True)
+class StateObjectiveBCAuxLossConfig:
+    state_columns: tuple[str, ...] = ("release_gate_state", "is_downtrend_state")
+    loss_weight: float = 0.25
+
+
+@dataclass(frozen=True)
 class StateObjectiveBCSampleWeightConfig:
     rebound_multiplier: float = 1.0
     downtrend_multiplier: float = 1.0
@@ -837,6 +843,218 @@ def _supervised_pretrain_weighted(
     return {"loss": last_loss, "accuracy": last_acc, "steps": int(steps)}
 
 
+def _aux_metric_key(name: str) -> str:
+    return "".join(ch if ch.isalnum() else "_" for ch in str(name)).strip("_")
+
+
+def _actor_aux_features(actor: Any, obs_tensor: torch.Tensor) -> torch.Tensor:
+    preprocess = getattr(actor, "preprocess", None)
+    if callable(preprocess):
+        features = preprocess(obs_tensor)
+        if isinstance(features, tuple):
+            features = features[0]
+    else:
+        features = obs_tensor
+    if features.ndim > 2:
+        features = features.reshape(features.shape[0], -1)
+    return features
+
+
+def _aux_state_columns(metadata: pd.DataFrame, config: StateObjectiveBCAuxLossConfig) -> tuple[str, ...]:
+    columns = tuple(str(col) for col in config.state_columns)
+    if not columns:
+        raise ValueError("aux state loss requires at least one state column")
+    missing = [col for col in columns if col not in metadata.columns]
+    if missing:
+        raise ValueError(f"aux state metadata missing columns: {missing}")
+    return columns
+
+
+def _aux_state_targets(
+    metadata: pd.DataFrame,
+    columns: tuple[str, ...],
+    *,
+    device: torch.device,
+) -> torch.Tensor:
+    target_frame = metadata.loc[:, list(columns)].copy()
+    for col in columns:
+        target_frame[col] = target_frame[col].fillna(False).astype(bool).astype(float)
+    return torch.as_tensor(target_frame.to_numpy(dtype=np.float32), dtype=torch.float32, device=device)
+
+
+def _build_aux_state_heads(
+    actor: Any,
+    obs_tensor: torch.Tensor,
+    columns: tuple[str, ...],
+) -> torch.nn.ModuleDict:
+    with torch.no_grad():
+        features = _actor_aux_features(actor, obs_tensor[:1])
+    feature_dim = int(features.shape[-1])
+    device = obs_tensor.device
+    heads = torch.nn.ModuleDict(
+        {str(col): torch.nn.Linear(feature_dim, 1).to(device) for col in columns}
+    )
+    return heads
+
+
+def evaluate_bc_aux_state_heads(
+    actor: Any,
+    obs_array: np.ndarray,
+    metadata: pd.DataFrame,
+    *,
+    aux_heads: torch.nn.ModuleDict | None = None,
+    state_columns: tuple[str, ...] | None = None,
+    batch_size: int = 4096,
+) -> pd.DataFrame:
+    """Evaluate auxiliary state-head binary classifiers attached to a BC actor."""
+
+    heads = aux_heads if aux_heads is not None else getattr(actor, "_soxl_aux_state_heads", None)
+    if heads is None:
+        raise ValueError("actor has no auxiliary state heads to evaluate")
+    columns = tuple(state_columns or getattr(actor, "_soxl_aux_state_columns", tuple(heads.keys())))
+    if len(metadata) != len(obs_array):
+        raise ValueError(f"metadata length {len(metadata)} does not match samples {len(obs_array)}")
+    device = next(actor.parameters()).device
+    obs_tensor = torch.as_tensor(obs_array, dtype=torch.float32, device=device)
+    target_tensor = _aux_state_targets(metadata, columns, device=device)
+
+    rows: list[dict[str, float | int | str]] = []
+    loss_fn = torch.nn.BCEWithLogitsLoss(reduction="sum")
+    with torch.no_grad():
+        for col_idx, col in enumerate(columns):
+            total_loss = 0.0
+            total_correct = 0
+            total_samples = int(obs_tensor.shape[0])
+            positive_samples = int(target_tensor[:, col_idx].sum().detach().cpu().item())
+            for start in range(0, total_samples, int(batch_size)):
+                stop = min(start + int(batch_size), total_samples)
+                features = _actor_aux_features(actor, obs_tensor[start:stop])
+                logits = heads[str(col)](features).squeeze(-1)
+                labels = target_tensor[start:stop, col_idx]
+                total_loss += float(loss_fn(logits, labels).detach().cpu().item())
+                total_correct += int(((torch.sigmoid(logits) >= 0.5) == labels.bool()).sum().detach().cpu().item())
+            rows.append(
+                {
+                    "state": str(col),
+                    "samples": total_samples,
+                    "positive_samples": positive_samples,
+                    "loss": total_loss / max(total_samples, 1),
+                    "accuracy": total_correct / max(total_samples, 1),
+                }
+            )
+    return pd.DataFrame(rows)
+
+
+def _weighted_mean(losses: torch.Tensor, weights: torch.Tensor | None) -> torch.Tensor:
+    if weights is None:
+        return losses.mean()
+    return (losses * weights).sum() / weights.sum().clamp_min(1e-8)
+
+
+def _supervised_pretrain_with_aux_state_loss(
+    actor: Any,
+    obs_array: np.ndarray,
+    action_array: np.ndarray,
+    sample_weight_array: np.ndarray | None,
+    aux_state_metadata: pd.DataFrame,
+    aux_loss_config: StateObjectiveBCAuxLossConfig,
+    steps: int,
+    lr: float,
+    batch_size: int,
+) -> dict[str, Any]:
+    if steps <= 0 or len(obs_array) == 0:
+        return {
+            "loss": float("nan"),
+            "accuracy": float("nan"),
+            "steps": 0,
+            "aux_last_loss": float("nan"),
+            "aux_heads": torch.nn.ModuleDict(),
+            "aux_before": pd.DataFrame(),
+            "aux_after": pd.DataFrame(),
+        }
+    if len(aux_state_metadata) != len(obs_array):
+        raise ValueError(
+            f"aux state metadata length {len(aux_state_metadata)} does not match samples {len(obs_array)}"
+        )
+
+    device = next(actor.parameters()).device
+    obs_tensor = torch.as_tensor(obs_array, dtype=torch.float32, device=device)
+    action_tensor = torch.as_tensor(action_array, dtype=torch.long, device=device)
+    weight_tensor = (
+        torch.as_tensor(sample_weight_array, dtype=torch.float32, device=device)
+        if sample_weight_array is not None
+        else None
+    )
+    columns = _aux_state_columns(aux_state_metadata, aux_loss_config)
+    target_tensor = _aux_state_targets(aux_state_metadata, columns, device=device)
+    actor_params = list(actor.parameters())
+    heads = _build_aux_state_heads(actor, obs_tensor, columns)
+    before = evaluate_bc_aux_state_heads(
+        actor,
+        obs_array,
+        aux_state_metadata,
+        aux_heads=heads,
+        state_columns=columns,
+    )
+
+    optim = torch.optim.Adam(actor_params + list(heads.parameters()), lr=float(lr))
+    actor._soxl_aux_state_heads = heads
+    actor._soxl_aux_state_columns = columns
+    action_loss_fn = torch.nn.CrossEntropyLoss(reduction="none")
+    aux_loss_weight = float(aux_loss_config.loss_weight)
+    n = obs_tensor.shape[0]
+
+    last_loss = float("nan")
+    last_acc = float("nan")
+    last_aux_loss = float("nan")
+    for _step in range(int(steps)):
+        idx = torch.randint(0, n, (min(batch_size, n),), device=device)
+        logits = _actor_logits(actor, obs_tensor[idx])
+        labels = action_tensor[idx]
+        batch_weights = weight_tensor[idx] if weight_tensor is not None else None
+        action_losses = action_loss_fn(logits, labels)
+        action_loss = _weighted_mean(action_losses, batch_weights)
+
+        features = _actor_aux_features(actor, obs_tensor[idx])
+        state_losses = []
+        for col_idx, col in enumerate(columns):
+            state_logits = heads[str(col)](features).squeeze(-1)
+            state_labels = target_tensor[idx, col_idx]
+            state_loss = torch.nn.functional.binary_cross_entropy_with_logits(
+                state_logits,
+                state_labels,
+                reduction="none",
+            )
+            state_losses.append(_weighted_mean(state_loss, batch_weights))
+        aux_loss = torch.stack(state_losses).mean()
+        loss = action_loss + aux_loss_weight * aux_loss
+        optim.zero_grad()
+        loss.backward()
+        optim.step()
+        last_loss = float(action_loss.detach().cpu().item())
+        last_aux_loss = float(aux_loss.detach().cpu().item())
+        with torch.no_grad():
+            preds = logits.argmax(-1)
+            last_acc = float((preds == labels).float().mean().item())
+
+    after = evaluate_bc_aux_state_heads(
+        actor,
+        obs_array,
+        aux_state_metadata,
+        aux_heads=heads,
+        state_columns=columns,
+    )
+    return {
+        "loss": last_loss,
+        "accuracy": last_acc,
+        "steps": int(steps),
+        "aux_last_loss": last_aux_loss,
+        "aux_heads": heads,
+        "aux_before": before,
+        "aux_after": after,
+    }
+
+
 def fit_bc_actor(
     actor: Any,
     obs_array: np.ndarray,
@@ -844,13 +1062,31 @@ def fit_bc_actor(
     train_config: StateObjectiveBCTrainingConfig = StateObjectiveBCTrainingConfig(),
     *,
     sample_weight_array: np.ndarray | None = None,
+    aux_state_metadata: pd.DataFrame | None = None,
+    aux_loss_config: StateObjectiveBCAuxLossConfig | None = None,
 ) -> dict[str, float | int]:
     """Run supervised BC pretraining and return before/after audit metrics."""
 
     torch.manual_seed(int(train_config.seed))
     before = evaluate_bc_actor(actor, obs_array, action_array)
     weights = None
-    if sample_weight_array is None:
+    if sample_weight_array is not None:
+        weights = _validate_sample_weights(sample_weight_array, len(obs_array))
+    if aux_loss_config is not None:
+        if aux_state_metadata is None:
+            raise ValueError("aux_state_metadata is required when aux_loss_config is set")
+        train = _supervised_pretrain_with_aux_state_loss(
+            actor,
+            obs_array,
+            action_array,
+            weights,
+            aux_state_metadata,
+            aux_loss_config,
+            steps=int(train_config.steps),
+            lr=float(train_config.lr),
+            batch_size=int(train_config.batch_size),
+        )
+    elif sample_weight_array is None:
         train = supervised_pretrain(
             actor,
             obs_array,
@@ -860,7 +1096,6 @@ def fit_bc_actor(
             batch_size=int(train_config.batch_size),
         )
     else:
-        weights = _validate_sample_weights(sample_weight_array, len(obs_array))
         train = _supervised_pretrain_weighted(
             actor,
             obs_array,
@@ -891,6 +1126,26 @@ def fit_bc_actor(
                 "weight_max": float(weights.max()),
             }
         )
+    if aux_loss_config is not None:
+        aux_after = train["aux_after"]
+        aux_before = train["aux_before"]
+        result.update(
+            {
+                "aux_state_loss_weight": float(aux_loss_config.loss_weight),
+                "aux_state_head_count": int(len(aux_after)),
+                "aux_state_last_loss": float(train["aux_last_loss"]),
+            }
+        )
+        before_by_state = aux_before.set_index("state") if not aux_before.empty else pd.DataFrame()
+        for row in aux_after.to_dict("records"):
+            state = str(row["state"])
+            key = _aux_metric_key(state)
+            result[f"aux_{key}_after_accuracy"] = float(row["accuracy"])
+            result[f"aux_{key}_after_loss"] = float(row["loss"])
+            result[f"aux_{key}_positive_samples"] = int(row["positive_samples"])
+            if not before_by_state.empty and state in before_by_state.index:
+                result[f"aux_{key}_before_accuracy"] = float(before_by_state.loc[state, "accuracy"])
+                result[f"aux_{key}_before_loss"] = float(before_by_state.loc[state, "loss"])
     return result
 
 
@@ -901,6 +1156,7 @@ def fit_state_objective_bc_actor_from_frame(
     profile: StrategyConfig,
     train_config: StateObjectiveBCTrainingConfig = StateObjectiveBCTrainingConfig(),
     sample_weight_config: StateObjectiveBCSampleWeightConfig | None = None,
+    aux_loss_config: StateObjectiveBCAuxLossConfig | None = None,
     sample_size: int = 0,
     rng_seed: int = 0,
 ) -> StateObjectiveBCFitResult:
@@ -924,7 +1180,15 @@ def fit_state_objective_bc_actor_from_frame(
         if sample_weight_config is not None
         else None
     )
-    metrics = fit_bc_actor(actor, dataset.obs, dataset.actions, train_config, sample_weight_array=sample_weights)
+    metrics = fit_bc_actor(
+        actor,
+        dataset.obs,
+        dataset.actions,
+        train_config,
+        sample_weight_array=sample_weights,
+        aux_state_metadata=dataset.metadata if aux_loss_config is not None else None,
+        aux_loss_config=aux_loss_config,
+    )
     action_count = int(
         getattr(actor, "output_dim", 0)
         or (int(dataset.actions.max()) + 1 if len(dataset.actions) else 0)
@@ -941,12 +1205,14 @@ def fit_state_objective_bc_actor_from_frame(
 __all__ = [
     "StateObjectiveBCFitResult",
     "StateObjectiveBCDataset",
+    "StateObjectiveBCAuxLossConfig",
     "StateObjectiveBCSampleWeightConfig",
     "StateObjectiveBCTrainingConfig",
     "StateObjectiveHoldoutRepairConfig",
     "action_distribution_frame",
     "build_state_objective_bc_dataset_from_frame",
     "evaluate_bc_actor",
+    "evaluate_bc_aux_state_heads",
     "evaluate_bc_actor_slice_fit",
     "fit_bc_actor",
     "fit_state_objective_bc_actor_from_frame",

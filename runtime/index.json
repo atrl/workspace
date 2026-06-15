@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-15T10:29:49.783079+00:00",
+  "generated_at": "2026-06-15T11:03:04.137683+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -6239,19 +6239,19 @@
       "path": "runtime/model_selection/card/model_retention_frontier_v1/conclusion.md",
       "category": "model_selection",
       "suffix": ".md",
-      "bytes": 586
+      "bytes": 584
     },
     {
       "path": "runtime/model_selection/card/model_retention_frontier_v1/retention_frontier.csv",
       "category": "model_selection",
       "suffix": ".csv",
-      "bytes": 75492
+      "bytes": 75923
     },
     {
       "path": "runtime/model_selection/card/model_retention_frontier_v1/summary.json",
       "category": "model_selection",
       "suffix": ".json",
-      "bytes": 185030
+      "bytes": 186095
     },
     {
       "path": "runtime/model_selection/card/model_retention_walkforward_gate_v1/conclusion.md",
@@ -11394,6 +11394,24 @@
       "category": "model_selection",
       "suffix": ".csv",
       "bytes": 1608
+    },
+    {
+      "path": "runtime/model_selection/card/release16_state_aux_loss_training_capability_v1/conclusion.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 590
+    },
+    {
+      "path": "runtime/model_selection/card/release16_state_aux_loss_training_capability_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2164
+    },
+    {
+      "path": "runtime/model_selection/card/release16_state_aux_loss_training_capability_v1/training_contract.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1044
     },
     {
       "path": "runtime/model_selection/card/release16_state_head_post_fullprobe_objective_screen_v1/candidate_gate_matrix.csv",
