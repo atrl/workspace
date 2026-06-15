@@ -214,6 +214,12 @@ def test_retention_frontier_preserves_explicit_diagnostic_blocker_detail():
         _run_retention_frontier_preserves_explicit_diagnostic_blocker_detail(tmp_path)
 
 
+def test_retention_frontier_prioritizes_active_downtrend_drawdown_blocker_over_missing_evidence_noise():
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp_path = Path(tmp)
+        _run_retention_frontier_prioritizes_active_downtrend_drawdown_blocker_over_missing_evidence_noise(tmp_path)
+
+
 def _run_retention_frontier_preserves_explicit_diagnostic_blocker_detail(tmp_path: Path) -> None:
     from src.soxl_quant.app.model_retention_frontier import scan_model_retention_frontier
 
@@ -260,6 +266,55 @@ def _run_retention_frontier_preserves_explicit_diagnostic_blocker_detail(tmp_pat
     assert result["summary"]["recommended_primary_blocker"] == (
         "missing_nonleaking_wf2020_targets_and_wf2023_slice_fit_failed"
     )
+
+
+def _run_retention_frontier_prioritizes_active_downtrend_drawdown_blocker_over_missing_evidence_noise(
+    tmp_path: Path,
+) -> None:
+    from src.soxl_quant.app.model_retention_frontier import scan_model_retention_frontier
+
+    _write_json(
+        tmp_path / "runtime" / "model_selection" / "card" / "model_retention_walkforward_gate_v1" / "summary.json",
+        {
+            "summary": {
+                "required_best_return_pct": 213.14,
+                "reference_return_pct": 132.08,
+                "max_walkforward_drawdown_pct": 20.0,
+                "required_wf_windows": ["wf_2020", "wf_2022", "wf_2023_2024"],
+            }
+        },
+    )
+    _write_json(
+        tmp_path / "runtime" / "model_selection" / "card" / "old_missing_evidence" / "summary.json",
+        {
+            "experiment": "old_missing_evidence",
+            "decision": "wf2020_bull_participation_target_rebuild_required_no_promotion",
+            "promotion_allowed": False,
+            "next_mechanism": "rebuild_wf2020_bull_participation_target_before_full_retention_training",
+        },
+    )
+    _write_json(
+        tmp_path / "runtime" / "model_selection" / "card" / "active_downtrend_drawdown" / "summary.json",
+        {
+            "experiment": "active_downtrend_drawdown",
+            "decision": "release16_action_head_position_loss_partial_repair_downtrend_failed_no_promotion",
+            "promotion_allowed": False,
+            "primary_blocker": "downtrend_drawdown_holdout_slice_failed",
+            "selected_by_fold": {
+                "wf_2020": {"selected_max_dd": 25.58, "selected_relative_return": -13.66},
+                "wf_2022": {"selected_max_dd": 28.34, "selected_relative_return": 59.32},
+                "wf_2023_2024": {"selected_max_dd": 13.88, "selected_relative_return": 41.29},
+            },
+            "target_relative_return_pp": 30.0,
+            "next_mechanism": "add_explicit_downtrend_drawdown_aux_state_head_or_checkpoint_objective_before_official_replay",
+        },
+    )
+
+    result = scan_model_retention_frontier(root=tmp_path)
+
+    assert result["summary"]["recommended_next_source"] == "active_downtrend_drawdown"
+    assert result["summary"]["recommended_primary_blocker"] == "downtrend_drawdown_holdout_slice_failed"
+    assert result["rows"][0]["experiment"] == "active_downtrend_drawdown"
 
 
 def test_retention_frontier_advances_past_completed_training_contract_handoff():
