@@ -1,0 +1,2 @@
+fold,blocker,selected_candidate,selected_kind,selected_relative_return_pp,selected_max_dd_pct,selected_target_gate,selected_drift_gate,selected_candidate_gate,ppo_max_dd_drift_pct,ppo_relative_improvement_pp,ppo_drift_candidate,ppo_drift_stop
+wf_2020,trend_underparticipation,bc_initialization,bc_initialization,-285.449375,19.417943,False,True,False,5.91584,5.981494,ppo_retained_iter_4,True

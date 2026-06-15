@@ -1,0 +1,65 @@
+{
+  "experiment": "strict_retention_three_fold_handoff_v1",
+  "created_at": "2026-06-15T17:49:01.098276+00:00",
+  "decision": "train_bull_trend_participation_with_drawdown_drift_stop_no_promotion",
+  "promotion_allowed": false,
+  "actor_retention_allowed": false,
+  "ppo_allowed_next": false,
+  "diagnostic_training_allowed_next": true,
+  "reference_baseline": "soxl_backtest_policy_reimplementation_v1",
+  "reference_return_pct": 145.736343,
+  "reference_max_drawdown_pct": 13.554089,
+  "current_best_return_pct": 224.361539,
+  "required_best_return_pct": 213.143462,
+  "max_walkforward_drawdown_pct": 20.0,
+  "required_wf_windows": [
+    "wf_2020",
+    "wf_2022",
+    "wf_2023_2024"
+  ],
+  "strict_gate_passing_profile_count": 0,
+  "strict_gate_profiles_scanned": 12,
+  "soxlbacktest_reference_decision": "soxlbacktest_reference_qlib_aligned_not_promotable",
+  "soxlbacktest_selected_buy_sell_reference": "legacy_default",
+  "soxlbacktest_selected_risk_floor": "wf_pass_ytd18_15_15_02",
+  "soxlbacktest_legacy_default": {
+    "failures": "worst_wf_max_drawdown_ge_20;ytd_return_below_current_best_alignment",
+    "worst_wf_max_drawdown_pct": 84.918053,
+    "ytd_return_pct": 132.077977
+  },
+  "soxlbacktest_wf_pass_ytd18_15_15_02": {
+    "failures": "ytd_return_below_soxlbacktest_reference;ytd_return_below_current_best_alignment",
+    "worst_wf_max_drawdown_pct": 18.514585,
+    "ytd_return_pct": 18.30891
+  },
+  "bc_slice_decision": "three_fold_bc_slice_ready_for_checkpoint_screen_no_promotion",
+  "checkpoint_selector_decision": "three_fold_checkpoint_selector_partial_pass_no_promotion",
+  "checkpoint_selector_failed_folds": [
+    "wf_2020"
+  ],
+  "primary_failed_fold": "wf_2020",
+  "failed_fold_count": 1,
+  "objective_terms": [
+    "soxlbacktest_reference_alignment",
+    "walkforward_relative_return_gap_penalty",
+    "checkpoint_objective_loss",
+    "wf2020_trend_participation_floor",
+    "drawdown_drift_penalty"
+  ],
+  "stop_conditions": [
+    "do_not_promote_missing_walkforward_windows",
+    "do_not_promote_worst_wf_maxdd_ge_20",
+    "do_not_promote_ytd_return_below_best_alignment",
+    "do_not_promote_without_soxlbacktest_reference_alignment",
+    "do_not_continue_same_ppo_when_maxdd_drift_exceeds_2pp"
+  ],
+  "next_action": "train a bull-trend participation objective with drawdown-drift stop; do not continue the same PPO branch after wf_2020 MaxDD drift",
+  "sidecars": {
+    "handoff_json": "runtime/model_selection/card/strict_retention_three_fold_handoff_v1/strict_retention_handoff.json",
+    "handoff_markdown": "runtime/model_selection/card/strict_retention_three_fold_handoff_v1/strict_retention_handoff.md",
+    "fold_blockers": "runtime/model_selection/card/strict_retention_three_fold_handoff_v1/fold_blockers.csv",
+    "source_manifest": "runtime/model_selection/card/strict_retention_three_fold_handoff_v1/source_manifest.csv",
+    "summary": "runtime/model_selection/card/strict_retention_three_fold_handoff_v1/summary.json",
+    "conclusion": "runtime/model_selection/card/strict_retention_three_fold_handoff_v1/conclusion.md"
+  }
+}
