@@ -277,6 +277,34 @@ def load_feature_rows(root: Path) -> dict[str, dict[str, float | None]] | None:
     return records
 
 
+def _raw_symbol_frame(root: Path, etf: str) -> pd.DataFrame | None:
+    csv_path = root / "data" / "raw" / "symbols" / f"{etf.upper()}.csv"
+    if not csv_path.exists():
+        return None
+    frame = pd.read_csv(csv_path, parse_dates=["date"])
+    required = ["date", "open", "high", "low", "close", "volume"]
+    if not all(column in frame.columns for column in required):
+        return None
+    return frame[required].sort_values("date").reset_index(drop=True)
+
+
+def _overlay_raw_symbol_prices(frame: pd.DataFrame, raw: pd.DataFrame | None) -> pd.DataFrame:
+    if raw is None or raw.empty:
+        return frame
+    base = frame.copy()
+    base["date"] = pd.to_datetime(base["date"])
+    raw = raw.copy()
+    raw["date"] = pd.to_datetime(raw["date"])
+    base = base.set_index("date").sort_index()
+    raw = raw.set_index("date").sort_index()
+    for date in raw.index:
+        if date not in base.index:
+            base.loc[date, :] = np.nan
+    for column in ["open", "high", "low", "close", "volume"]:
+        base.loc[raw.index, column] = raw[column]
+    return base.sort_index().reset_index()
+
+
 def load_ohlc_and_indicators_for_root(root: Path, etf: str = "SOXL") -> dict[str, dict[str, Any]]:
     processed_path = root / "data" / "processed" / "panels" / "soxl_soxx_vix_full.csv"
     if etf.upper() == "SOXL" and processed_path.exists():
@@ -291,6 +319,7 @@ def load_ohlc_and_indicators_for_root(root: Path, etf: str = "SOXL") -> dict[str
                 "soxl_volume": "volume",
             }
         )
+        frame = _overlay_raw_symbol_prices(frame, _raw_symbol_frame(root, etf))
     else:
         csv_path = root / "data" / "raw" / "symbols" / f"{etf.upper()}.csv"
         if not csv_path.exists():
@@ -314,7 +343,7 @@ def load_ohlc_and_indicators_for_root(root: Path, etf: str = "SOXL") -> dict[str
         frame["vol_coef"] = 1.0
 
     if "vix" in frame.columns:
-        frame["vix"] = frame["vix"].fillna(20.0)
+        frame["vix"] = frame["vix"].ffill().bfill().fillna(20.0)
     else:
         frame["vix"] = 20.0
 
@@ -603,10 +632,15 @@ def build_dashboard_v2_data(
     freshness_path = freshness_path or root / "dashboard_data" / "model_replay_freshness.json"
     freshness = load_replay_freshness(freshness_path)
     safe_backtest_end = freshness.get("safe_backtest_end")
-    latest_market_date = freshness.get("latest_data_date")
+    canonical_data_date = freshness.get("latest_data_date")
     market_payload_rows = normalize_market_rows(
         market_rows or load_ohlc_and_indicators_for_root(root, "SOXL"),
         feature_rows if feature_rows is not None else load_feature_rows(root),
+    )
+    market_latest_date = market_payload_rows[-1]["date"]
+    latest_market_date = max(
+        str(canonical_data_date) if canonical_data_date else market_latest_date,
+        market_latest_date,
     )
     ready_profiles = [
         profile
@@ -696,6 +730,7 @@ def build_dashboard_v2_data(
     manifest = {
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "latest_market_date": latest_market_date,
+        "canonical_data_date": canonical_data_date,
         "safe_backtest_end": safe_backtest_end,
         "available_profiles": defaults,
         "deployable_profiles": [profile for profile in defaults if retention_by_name[profile]["allowed"]],

@@ -1,5 +1,6 @@
 import {
   CandlestickSeries,
+  HistogramSeries,
   LineSeries,
   createChart,
   createSeriesMarkers,
@@ -128,10 +129,7 @@ export function renderMarketChart(
     crosshair: { mode: 1 },
   });
   chart.priceScale('right').applyOptions({
-    scaleMargins: { top: 0.05, bottom: 0.3 },
-  });
-  chart.priceScale('left').applyOptions({
-    scaleMargins: { top: 0.76, bottom: 0.05 },
+    scaleMargins: { top: 0.05, bottom: 0.36 },
   });
   const candleSeries = chart.addSeries(CandlestickSeries, {
     upColor: '#1fb981',
@@ -162,6 +160,22 @@ export function renderMarketChart(
       .filter((row) => typeof row.ma180 === 'number' && Number.isFinite(row.ma180))
       .map((row) => ({ time: toTime(row.date), value: Number(row.ma180) })),
   );
+  const volumeBars = chart.addSeries(HistogramSeries, {
+    priceScaleId: 'volume',
+    priceFormat: { type: 'volume' },
+    priceLineVisible: false,
+    lastValueVisible: false,
+  });
+  volumeBars.priceScale().applyOptions({
+    scaleMargins: { top: 0.82, bottom: 0.02 },
+  });
+  volumeBars.setData(
+    market.rows.map((row) => ({
+      time: toTime(row.date),
+      value: Number(row.volume),
+      color: Number(row.close) >= Number(row.open) ? 'rgba(31, 185, 129, 0.24)' : 'rgba(217, 107, 95, 0.24)',
+    })),
+  );
 
   const primaryIndex = Math.max(0, Object.keys(models).indexOf(model.profile));
   const positionLine = chart.addSeries(LineSeries, {
@@ -171,6 +185,9 @@ export function renderMarketChart(
     priceLineVisible: false,
     lastValueVisible: false,
     title: '',
+  });
+  positionLine.priceScale().applyOptions({
+    scaleMargins: { top: 0.68, bottom: 0.14 },
   });
   positionLine.setData(model.rows.map((row) => ({ time: toTime(row.date), value: row.position })));
   createSeriesMarkers(

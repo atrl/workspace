@@ -256,10 +256,30 @@ describe('dashboard v2 DOM render helpers', () => {
   test('renders compact model delta strip outside the collapsed comparison panel', () => {
     const panel = document.createElement('div');
 
-    renderModelDeltaStrip(panel, comparisonFixture, '2026-01-02', '2026-01-06');
+    renderModelDeltaStrip(panel, comparisonFixture, '2026-01-02', '2026-01-06', undefined, {
+      ...manifestFixture,
+      profile_summaries: {
+        smoke: {
+          status: 'canonical',
+          replay_start: '2026-01-02',
+          replay_end: '2026-01-06',
+          row_count: 3,
+          source_path: 'runtime/model/card/smoke/smoke_soxl_daily.csv',
+        },
+        balanced_rule_residual_v22: {
+          status: 'canonical',
+          replay_start: '2026-01-02',
+          replay_end: '2026-01-05',
+          row_count: 2,
+          source_path: 'runtime/model/card/balanced_rule_residual_v22/balanced_rule_residual_v22_soxl_daily.csv',
+        },
+      },
+    });
 
     expect(panel.querySelectorAll('.model-delta-pill')).toHaveLength(2);
     expect(panel.textContent).toContain('smoke');
+    expect(panel.textContent).toContain('End 2026-01-06');
+    expect(panel.textContent).toContain('Ret +3.00%');
     expect(panel.textContent).toContain('NAV +2.00');
     expect(panel.textContent).toContain('Pos +0.200');
     expect(panel.textContent).toContain('Mismatch 2');

@@ -54,11 +54,14 @@ export function renderDataSourcePanel(container: HTMLElement, manifest: Manifest
   }
   const strip = element('div', 'status-strip');
   const rows: [string, string][] = [
-    ['Market', manifest.latest_market_date],
+    ['Price', manifest.latest_market_date],
     ['Replay', manifest.safe_backtest_end],
     ['Baseline', formatProfileLabel(manifest.default_baseline_profile)],
     ['Blocked', String(blockedCount)],
   ];
+  if (manifest.canonical_data_date && manifest.canonical_data_date !== manifest.latest_market_date) {
+    rows.splice(1, 0, ['Canonical', manifest.canonical_data_date]);
+  }
   if (manifest.strict_retention_gate) {
     rows.push([
       'Strict Gate',
@@ -163,6 +166,7 @@ export function renderModelDeltaStrip(
   start: string,
   end: string,
   profiles: readonly string[] = comparison.compared_profiles,
+  manifest?: Manifest,
 ): void {
   container.replaceChildren();
   const visible = computeVisibleComparison(comparison, start, end);
@@ -177,9 +181,13 @@ export function renderModelDeltaStrip(
     if (!values) continue;
     const profileRows = visible.filter((row) => row.profiles[profile]);
     const mismatchCount = profileRows.filter((row) => row.profiles[profile].action_mismatch).length;
+    const rebasedNav = values.strategy_nav_rebased ?? values.strategy_nav;
+    const replayEnd = manifest?.profile_summaries?.[profile]?.replay_end;
     const pill = element('span', 'model-delta-pill');
     pill.title = profile;
     pill.appendChild(element('strong', undefined, formatProfileLabel(profile)));
+    if (replayEnd) pill.appendChild(element('span', undefined, `End ${replayEnd}`));
+    pill.appendChild(element('span', undefined, `Ret ${formatSigned(rebasedNav - 100, 2)}%`));
     pill.appendChild(element('span', undefined, `NAV ${formatSigned(values.nav_delta_vs_baseline, 2)}`));
     pill.appendChild(element('span', undefined, `Pos ${formatSigned(values.position_delta_vs_baseline, 3)}`));
     pill.appendChild(element('span', undefined, `Mismatch ${mismatchCount}`));

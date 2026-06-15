@@ -27,7 +27,7 @@
       "avg_position": 0.16215135135135134,
       "max_drawdown": -0.13554088542803522,
       "profile": "soxl_backtest_policy_reimplementation_v1",
-      "return": 1.36517669883728,
+      "return": 1.3651766795135498,
       "row_count": 111.0
     },
     {
@@ -4784,8 +4784,8 @@
         "balanced_rule_residual_v19": {
           "action": "HOLD",
           "action_mismatch": false,
-          "drawdown_delta_vs_baseline": 0.009239665877920578,
-          "nav_delta_vs_baseline": 93.55913083941232,
+          "drawdown_delta_vs_baseline": 0.009239668168136594,
+          "nav_delta_vs_baseline": 93.55913138140446,
           "position": 0.0,
           "position_delta_vs_baseline": -0.0699,
           "strategy_nav": 14567488.944833376,
@@ -4794,8 +4794,8 @@
         "balanced_rule_residual_v19_reg": {
           "action": "HOLD",
           "action_mismatch": false,
-          "drawdown_delta_vs_baseline": 0.009239665877920578,
-          "nav_delta_vs_baseline": 56.209009777168774,
+          "drawdown_delta_vs_baseline": 0.009239668168136594,
+          "nav_delta_vs_baseline": 56.20901031916091,
           "position": 0.0,
           "position_delta_vs_baseline": -0.0699,
           "strategy_nav": 12272679.829394436,
@@ -4804,8 +4804,8 @@
         "balanced_rule_residual_v22": {
           "action": "HOLD",
           "action_mismatch": false,
-          "drawdown_delta_vs_baseline": 0.009239665877920578,
-          "nav_delta_vs_baseline": 30.086634408486702,
+          "drawdown_delta_vs_baseline": 0.009239668168136594,
+          "nav_delta_vs_baseline": 30.08663495047884,
           "position": 0.0,
           "position_delta_vs_baseline": -0.0699,
           "strategy_nav": 14384396.395637987,
@@ -4818,8 +4818,8 @@
           "nav_delta_vs_baseline": 0.0,
           "position": 0.0699,
           "position_delta_vs_baseline": 0.0,
-          "strategy_nav": 234468.8384933471,
-          "strategy_nav_rebased": 234.4688384933471
+          "strategy_nav": 234468.83795135497,
+          "strategy_nav_rebased": 234.46883795135497
         }
       }
     },
@@ -4830,8 +4830,8 @@
         "balanced_rule_residual_v19": {
           "action": "HOLD",
           "action_mismatch": false,
-          "drawdown_delta_vs_baseline": 0.004793201347338627,
-          "nav_delta_vs_baseline": 104.54649506521753,
+          "drawdown_delta_vs_baseline": 0.004793204019257535,
+          "nav_delta_vs_baseline": 104.54649569754179,
           "position": 0.0,
           "position_delta_vs_baseline": -0.0699,
           "strategy_nav": 15102160.990731811,
@@ -4840,8 +4840,8 @@
         "balanced_rule_residual_v19_reg": {
           "action": "HOLD",
           "action_mismatch": false,
-          "drawdown_delta_vs_baseline": 0.004793201347338627,
-          "nav_delta_vs_baseline": 65.86697173563113,
+          "drawdown_delta_vs_baseline": 0.004793204019257535,
+          "nav_delta_vs_baseline": 65.86697236795538,
           "position": 0.0,
           "position_delta_vs_baseline": -0.0699,
           "strategy_nav": 12724875.868212797,
@@ -4850,8 +4850,8 @@
         "balanced_rule_residual_v22": {
           "action": "HOLD",
           "action_mismatch": false,
-          "drawdown_delta_vs_baseline": 0.004793201347338627,
-          "nav_delta_vs_baseline": 39.521785258587954,
+          "drawdown_delta_vs_baseline": 0.004793204019257535,
+          "nav_delta_vs_baseline": 39.52178589091221,
           "position": 0.0,
           "position_delta_vs_baseline": -0.0699,
           "strategy_nav": 14954618.444588184,
@@ -4864,8 +4864,8 @@
           "nav_delta_vs_baseline": 0.0,
           "position": 0.0699,
           "position_delta_vs_baseline": 0.0,
-          "strategy_nav": 235521.11858367917,
-          "strategy_nav_rebased": 235.5211185836792
+          "strategy_nav": 235521.11795135497,
+          "strategy_nav_rebased": 235.52111795135494
         }
       }
     },
@@ -4876,8 +4876,8 @@
         "balanced_rule_residual_v19": {
           "action": "HOLD",
           "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.034044810522559144,
-          "nav_delta_vs_baseline": 90.76207026038304,
+          "drawdown_delta_vs_baseline": -0.034044806705531894,
+          "nav_delta_vs_baseline": 90.76207116370341,
           "position": 0.0,
           "position_delta_vs_baseline": -0.0699,
           "strategy_nav": 14431377.128427126,
@@ -4886,8 +4886,8 @@
         "balanced_rule_residual_v19_reg": {
           "action": "HOLD",
           "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.03421129589973304,
-          "nav_delta_vs_baseline": 53.75037601272737,
+          "drawdown_delta_vs_baseline": -0.03421129208270579,
+          "nav_delta_vs_baseline": 53.75037691604774,
           "position": 0.0,
           "position_delta_vs_baseline": -0.0699,
           "strategy_nav": 12157563.984667871,
@@ -4896,8 +4896,8 @@
         "balanced_rule_residual_v22": {
           "action": "HOLD",
           "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.037465379366527496,
-          "nav_delta_vs_baseline": 27.684721815288867,
+          "drawdown_delta_vs_baseline": -0.037465375549500246,
+          "nav_delta_vs_baseline": 27.684722718609237,
           "position": 0.0,
           "position_delta_vs_baseline": -0.0699,
           "strategy_nav": 14239234.59143877,
@@ -4910,8 +4910,8 @@
           "nav_delta_vs_baseline": 0.0,
           "position": 0.0699,
           "position_delta_vs_baseline": 0.0,
-          "strategy_nav": 234200.9588546753,
-          "strategy_nav_rebased": 234.20095885467532
+          "strategy_nav": 234200.95795135497,
+          "strategy_nav_rebased": 234.20095795135495
         }
       }
     },
@@ -4922,8 +4922,8 @@
         "balanced_rule_residual_v19": {
           "action": "HOLD",
           "action_mismatch": true,
-          "drawdown_delta_vs_baseline": -0.20855469871848864,
-          "nav_delta_vs_baseline": 28.824851651072322,
+          "drawdown_delta_vs_baseline": -0.20855470081785354,
+          "nav_delta_vs_baseline": 28.824851154246204,
           "position": 0.0,
           "position_delta_vs_baseline": -0.1591,
           "strategy_nav": 11417360.417001344,
@@ -4932,8 +4932,8 @@
         "balanced_rule_residual_v19_reg": {
           "action": "HOLD",
           "action_mismatch": true,
-          "drawdown_delta_vs_baseline": -0.20946924876627704,
-          "nav_delta_vs_baseline": -0.6928270019471938,
+          "drawdown_delta_vs_baseline": -0.20946925086564194,
+          "nav_delta_vs_baseline": -0.6928274987733118,
           "position": 0.0,
           "position_delta_vs_baseline": -0.1591,
           "strategy_nav": 9608475.382983305,
@@ -4942,8 +4942,8 @@
         "balanced_rule_residual_v22": {
           "action": "HOLD",
           "action_mismatch": true,
-          "drawdown_delta_vs_baseline": -0.22734482583250892,
-          "nav_delta_vs_baseline": -25.502465648838097,
+          "drawdown_delta_vs_baseline": -0.22734482793187383,
+          "nav_delta_vs_baseline": -25.502466145664215,
           "position": 0.0,
           "position_delta_vs_baseline": -0.1591,
           "strategy_nav": 11024817.832710745,
@@ -4956,8 +4956,8 @@
           "nav_delta_vs_baseline": 0.0,
           "position": 0.1591,
           "position_delta_vs_baseline": 0.0,
-          "strategy_nav": 228269.1174545288,
-          "strategy_nav_rebased": 228.26911745452884
+          "strategy_nav": 228269.11795135497,
+          "strategy_nav_rebased": 228.26911795135496
         }
       }
     },
@@ -4968,8 +4968,8 @@
         "balanced_rule_residual_v19": {
           "action": "HOLD",
           "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.16090364069030072,
-          "nav_delta_vs_baseline": 47.542512212682794,
+          "drawdown_delta_vs_baseline": -0.16090363509113448,
+          "nav_delta_vs_baseline": 47.542513537756065,
           "position": 0.0,
           "position_delta_vs_baseline": -0.1591,
           "strategy_nav": 12504000.761239626,
@@ -4978,8 +4978,8 @@
         "balanced_rule_residual_v19_reg": {
           "action": "HOLD",
           "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.1615484917519795,
-          "nav_delta_vs_baseline": 15.323023826952692,
+          "drawdown_delta_vs_baseline": -0.16154848615281325,
+          "nav_delta_vs_baseline": 15.323025152025963,
           "position": 0.0,
           "position_delta_vs_baseline": -0.1591,
           "strategy_nav": 10527495.674120998,
@@ -4988,8 +4988,8 @@
         "balanced_rule_residual_v22": {
           "action": "HOLD",
           "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.17415259677297035,
-          "nav_delta_vs_baseline": -9.939444814225169,
+          "drawdown_delta_vs_baseline": -0.1741525911738041,
+          "nav_delta_vs_baseline": -9.939443489151898,
           "position": 0.0,
           "position_delta_vs_baseline": -0.1591,
           "strategy_nav": 12183708.199837208,
@@ -5002,8 +5002,8 @@
           "nav_delta_vs_baseline": 0.0,
           "position": 0.1591,
           "position_delta_vs_baseline": 0.0,
-          "strategy_nav": 234020.2192764282,
-          "strategy_nav_rebased": 234.0202192764282
+          "strategy_nav": 234020.21795135495,
+          "strategy_nav_rebased": 234.02021795135494
         }
       }
     },
@@ -5014,8 +5014,8 @@
         "balanced_rule_residual_v19": {
           "action": "HOLD",
           "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.17699618893825209,
-          "nav_delta_vs_baseline": 41.22124951378723,
+          "drawdown_delta_vs_baseline": -0.17699619155085256,
+          "nav_delta_vs_baseline": 41.22124889550105,
           "position": 0.0,
           "position_delta_vs_baseline": -0.1591,
           "strategy_nav": 12137024.394052126,
@@ -5024,8 +5024,8 @@
         "balanced_rule_residual_v19_reg": {
           "action": "HOLD",
           "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.17773212179592834,
-          "nav_delta_vs_baseline": 9.914206838175687,
+          "drawdown_delta_vs_baseline": -0.1777321244085288,
+          "nav_delta_vs_baseline": 9.914206219889508,
           "position": 0.0,
           "position_delta_vs_baseline": -0.1591,
           "strategy_nav": 10217127.363574125,
@@ -5034,8 +5034,8 @@
         "balanced_rule_residual_v22": {
           "action": "HOLD",
           "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.1921164898737352,
-          "nav_delta_vs_baseline": -15.195333644998414,
+          "drawdown_delta_vs_baseline": -0.19211649248633567,
+          "nav_delta_vs_baseline": -15.195334263284593,
           "position": 0.0,
           "position_delta_vs_baseline": -0.1591,
           "strategy_nav": 11792331.808235643,
@@ -5048,8 +5048,8 @@
           "nav_delta_vs_baseline": 0.0,
           "position": 0.1591,
           "position_delta_vs_baseline": 0.0,
-          "strategy_nav": 232077.9773330688,
-          "strategy_nav_rebased": 232.0779773330688
+          "strategy_nav": 232077.97795135496,
+          "strategy_nav_rebased": 232.07797795135497
         }
       }
     },
@@ -5060,8 +5060,8 @@
         "balanced_rule_residual_v19": {
           "action": "HOLD",
           "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.2116709769904258,
-          "nav_delta_vs_baseline": 27.6007562936274,
+          "drawdown_delta_vs_baseline": -0.2116709785765556,
+          "nav_delta_vs_baseline": 27.60075591826117,
           "position": 0.0,
           "position_delta_vs_baseline": -0.1591,
           "strategy_nav": 11346296.439950565,
@@ -5070,8 +5070,8 @@
         "balanced_rule_residual_v19_reg": {
           "action": "HOLD",
           "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.21260316478069397,
-          "nav_delta_vs_baseline": -1.7402297252019707,
+          "drawdown_delta_vs_baseline": -0.21260316636682375,
+          "nav_delta_vs_baseline": -1.7402301005681977,
           "position": 0.0,
           "position_delta_vs_baseline": -0.1591,
           "strategy_nav": 9548373.402392482,
@@ -5080,8 +5080,8 @@
         "balanced_rule_residual_v22": {
           "action": "HOLD",
           "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.2308234849539098,
-          "nav_delta_vs_baseline": -26.520254249542887,
+          "drawdown_delta_vs_baseline": -0.2308234865400396,
+          "nav_delta_vs_baseline": -26.520254624909114,
           "position": 0.0,
           "position_delta_vs_baseline": -0.1591,
           "strategy_nav": 10949028.85718584,
@@ -5094,8 +5094,8 @@
           "nav_delta_vs_baseline": 0.0,
           "position": 0.1591,
           "position_delta_vs_baseline": 0.0,
-          "strategy_nav": 227893.0075759887,
-          "strategy_nav_rebased": 227.89300757598872
+          "strategy_nav": 227893.00795135496,
+          "strategy_nav_rebased": 227.89300795135495
         }
       }
     },
@@ -5106,8 +5106,8 @@
         "balanced_rule_residual_v19": {
           "action": "HOLD",
           "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.1402108817205645,
-          "nav_delta_vs_baseline": 55.67076905536669,
+          "drawdown_delta_vs_baseline": -0.14021087355522122,
+          "nav_delta_vs_baseline": 55.6707709877397,
           "position": 0.0,
           "position_delta_vs_baseline": -0.1591,
           "strategy_nav": 12975880.87598572,
@@ -5116,8 +5116,8 @@
         "balanced_rule_residual_v19_reg": {
           "action": "HOLD",
           "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.14073861437302237,
-          "nav_delta_vs_baseline": 22.27800351914823,
+          "drawdown_delta_vs_baseline": -0.14073860620767908,
+          "nav_delta_vs_baseline": 22.27800545152124,
           "position": 0.0,
           "position_delta_vs_baseline": -0.1591,
           "strategy_nav": 10926585.771166896,
@@ -5126,8 +5126,8 @@
         "balanced_rule_residual_v22": {
           "action": "HOLD",
           "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.1510535509062254,
-          "nav_delta_vs_baseline": -3.1811092746212353,
+          "drawdown_delta_vs_baseline": -0.15105354274088212,
+          "nav_delta_vs_baseline": -3.1811073422482252,
           "position": 0.0,
           "position_delta_vs_baseline": -0.1591,
           "strategy_nav": 12686963.322212696,
@@ -5140,8 +5140,8 @@
           "nav_delta_vs_baseline": 0.0,
           "position": 0.1591,
           "position_delta_vs_baseline": 0.0,
-          "strategy_nav": 236517.669883728,
-          "strategy_nav_rebased": 236.517669883728
+          "strategy_nav": 236517.66795135496,
+          "strategy_nav_rebased": 236.51766795135498
         }
       }
     }

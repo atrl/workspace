@@ -211,7 +211,11 @@ def _run_data_update(dry_run: bool, provider: str = "auto") -> Dict[str, object]
         try:
             print(f"[paper] data update provider={provider_name}")
             update_result = update_master_csv(dry_run=dry_run, provider=provider_name)
-            sync_local_data_surfaces(dry_run=dry_run)
+            symbol_frames = update_result.get("_symbol_frames")
+            if isinstance(symbol_frames, dict):
+                sync_local_data_surfaces(dry_run=dry_run, symbol_frames=symbol_frames)
+            else:
+                sync_local_data_surfaces(dry_run=dry_run)
             refresh_qlib(dry_run=dry_run)
             refresh_data_registry(dry_run=dry_run)
             return update_result

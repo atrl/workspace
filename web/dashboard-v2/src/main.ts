@@ -229,7 +229,7 @@ function renderReadoutPanels(data: DashboardData, state: ViewState, update: Upda
 
   renderToolbar(toolbar, data, state, update);
   renderInspector(data, state);
-  renderModelDeltaStrip(deltaStrip, data.comparison, state.start, state.end, state.selectedProfiles);
+  renderModelDeltaStrip(deltaStrip, data.comparison, state.start, state.end, state.selectedProfiles, data.manifest);
   renderComparisonPanel(
     comparison,
     data.comparison,

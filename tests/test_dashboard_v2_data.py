@@ -10,6 +10,7 @@ from src.soxl_quant.app.dashboard_v2 import (
     build_comparison_payload,
     build_dashboard_v2_data,
     derive_model_events,
+    load_ohlc_and_indicators_for_root,
     normalize_model_rows,
 )
 
@@ -352,6 +353,117 @@ def test_build_dashboard_v2_data_loads_market_from_requested_root(tmp_path: Path
     assert row["volume"] == 2000
     assert row["vix"] == 17.0
     assert row["rsi6"] is not None
+
+
+def test_load_ohlc_and_indicators_extends_price_rows_from_raw_symbol_when_vix_lags(tmp_path: Path):
+    processed = tmp_path / "data" / "processed" / "panels" / "soxl_soxx_vix_full.csv"
+    processed.parent.mkdir(parents=True)
+    _write_csv(
+        processed,
+        [
+            {
+                "date": "2026-06-12",
+                "soxl_open": 222.22,
+                "soxl_high": 242.40,
+                "soxl_low": 214.7406,
+                "soxl_close": 234.68,
+                "soxl_volume": 48_833_409,
+                "soxx_open": 584.64,
+                "soxx_high": 602.69,
+                "soxx_low": 578.53,
+                "soxx_close": 596.25,
+                "soxx_volume": 9_057_945,
+                "vix": 17.68,
+            }
+        ],
+    )
+    raw = tmp_path / "data" / "raw" / "symbols" / "SOXL.csv"
+    raw.parent.mkdir(parents=True)
+    _write_csv(
+        raw,
+        [
+            {
+                "date": "2026-06-12",
+                "open": 222.22,
+                "high": 242.40,
+                "low": 214.7406,
+                "close": 234.68,
+                "volume": 48_833_409,
+            },
+            {
+                "date": "2026-06-15",
+                "open": 265.91,
+                "high": 272.18,
+                "low": 261.6019,
+                "close": 271.44,
+                "volume": 24_818_910,
+            },
+        ],
+    )
+
+    rows = load_ohlc_and_indicators_for_root(tmp_path, "SOXL")
+
+    assert rows["2026-06-15"]["close"] == 271.44
+    assert rows["2026-06-15"]["volume"] == 24_818_910
+    assert rows["2026-06-15"]["vix"] == 17.68
+
+
+def test_build_dashboard_v2_data_manifest_uses_extended_price_latest_date(tmp_path: Path):
+    freshness = tmp_path / "dashboard_data" / "model_replay_freshness.json"
+    freshness.parent.mkdir()
+    model_csv = tmp_path / "runtime" / "model" / "card" / "smoke" / "smoke_soxl_daily.csv"
+    model_csv.parent.mkdir(parents=True)
+    _write_csv(
+        model_csv,
+        [
+            {
+                "datetime": "2026-06-12",
+                "strategy_nav": 100.0,
+                "buyhold_nav": 100.0,
+                "position": 0.0,
+                "action": "HOLD",
+                "price": 234.68,
+            }
+        ],
+    )
+    _write_final_retention_summary(tmp_path, "smoke")
+    freshness.write_text(
+        json.dumps(
+            {
+                "generated_at": "2026-06-15T00:00:00+00:00",
+                "latest_data_date": "2026-06-12",
+                "safe_backtest_end": "2026-06-12",
+                "profiles": [
+                    {
+                        "profile": "smoke",
+                        "status": "canonical",
+                        "output": "runtime/model/card/smoke/smoke_soxl_daily.csv",
+                        "result": "current",
+                    }
+                ],
+            }
+        )
+    )
+
+    output_dir = tmp_path / "dashboard_data" / "v2"
+    build_dashboard_v2_data(
+        root=tmp_path,
+        output_dir=output_dir,
+        freshness_path=freshness,
+        selected_profiles=["smoke"],
+        baseline_profile="smoke",
+        market_rows={
+            "2026-06-12": {"open": 222.22, "high": 242.40, "low": 214.7406, "close": 234.68, "volume": 48_833_409},
+            "2026-06-15": {"open": 265.91, "high": 272.18, "low": 261.6019, "close": 271.44, "volume": 24_818_910},
+        },
+    )
+
+    manifest = json.loads((output_dir / "manifest.json").read_text())
+    market = json.loads((output_dir / "market" / "SOXL.json").read_text())
+    assert manifest["latest_market_date"] == "2026-06-15"
+    assert manifest["canonical_data_date"] == "2026-06-12"
+    assert manifest["safe_backtest_end"] == "2026-06-12"
+    assert market["rows"][-1]["date"] == "2026-06-15"
 
 
 def test_build_dashboard_v2_data_adds_soxl_backtest_reference_baseline(tmp_path: Path):

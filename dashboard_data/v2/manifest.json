@@ -91,6 +91,7 @@
       "summary_path": "runtime/model/card/state_conditioned_drawdown_rebound_reward_train_v1/soxl_state_conditioned_drawdown_rebound_reward_train_v1_summary.json"
     }
   },
+  "canonical_data_date": "2026-06-12",
   "default_baseline_profile": "soxl_backtest_policy_reimplementation_v1",
   "default_comparison_profiles": [
     "soxl_backtest_policy_reimplementation_v1",
@@ -107,8 +108,8 @@
     "balanced_rule_residual_v19"
   ],
   "filtered_profile_count": 9,
-  "generated_at": "2026-06-15T16:28:18.121328+00:00",
-  "latest_market_date": "2026-06-12",
+  "generated_at": "2026-06-15T16:51:17.033658+00:00",
+  "latest_market_date": "2026-06-15",
   "profile_summaries": {
     "balanced_rule_residual_v19": {
       "replay_end": "2026-06-11",
@@ -156,7 +157,7 @@
       "window": null
     },
     "soxl_backtest_policy_reimplementation_v1": {
-      "replay_end": "2026-06-12",
+      "replay_end": "2026-06-15",
       "replay_start": "2026-01-02",
       "retention": {
         "code": "reference_baseline",
@@ -165,7 +166,7 @@
         "status": "reference_baseline",
         "summary_path": null
       },
-      "row_count": 112,
+      "row_count": 113,
       "source_path": "runtime/production/card/soxl_backtest_policy_reimplementation_v1/new_policy_daily.csv",
       "status": "reference",
       "window": "ytd_2026"
@@ -210,7 +211,7 @@
     "passing_profiles": [],
     "profiles_scanned": 12,
     "reference_profile": "soxl_backtest_policy_reimplementation_v1",
-    "reference_return_pct": 138.644977,
+    "reference_return_pct": 145.736343,
     "required_best_return_pct": 213.143462,
     "required_wf_windows": [
       "wf_2020",

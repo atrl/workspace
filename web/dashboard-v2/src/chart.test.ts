@@ -23,6 +23,12 @@ const chartMocks = vi.hoisted(() => {
       setData: vi.fn((data: unknown[]) => {
         record.data = data;
       }),
+      priceScale: vi.fn(() => {
+        const id = String(options.priceScaleId ?? 'right');
+        const scaleRecord = { id, applyOptions: vi.fn() };
+        priceScaleRecords.push(scaleRecord);
+        return { applyOptions: scaleRecord.applyOptions };
+      }),
     };
   });
   return {
@@ -55,6 +61,7 @@ const chartMocks = vi.hoisted(() => {
 
 vi.mock('lightweight-charts', () => ({
   CandlestickSeries: 'candlestick',
+  HistogramSeries: 'histogram',
   LineSeries: 'line',
   createChart: chartMocks.createChart,
   createSeriesMarkers: chartMocks.createSeriesMarkers,
@@ -70,7 +77,7 @@ describe('dashboard v2 chart rendering', () => {
     chartMocks.priceScaleRecords.length = 0;
   });
 
-  test('renders candles with MA and position overlays on the main chart', () => {
+  test('renders candles with MA, volume, and position overlays on the main chart', () => {
     const container = document.createElement('div');
     const challenger = { ...modelFixture, profile: 'balanced_rule_residual_v22' };
 
@@ -82,7 +89,7 @@ describe('dashboard v2 chart rendering', () => {
       () => {},
     );
 
-    expect(chartMocks.seriesRecords.map((record) => record.kind)).toEqual(['candlestick', 'line', 'line']);
+    expect(chartMocks.seriesRecords.map((record) => record.kind)).toEqual(['candlestick', 'line', 'histogram', 'line']);
     expect(chartMocks.seriesRecords[1].options).toMatchObject({
       title: 'MA180',
       priceLineVisible: false,
@@ -91,13 +98,26 @@ describe('dashboard v2 chart rendering', () => {
       marketFixture.rows.map((row) => ({ time: row.date, value: row.ma180 })),
     );
     expect(chartMocks.seriesRecords[2].options).toMatchObject({
+      priceScaleId: 'volume',
+      priceFormat: { type: 'volume' },
+      priceLineVisible: false,
+      lastValueVisible: false,
+    });
+    expect(chartMocks.seriesRecords[2].data).toEqual(
+      marketFixture.rows.map((row) => ({
+        time: row.date,
+        value: row.volume,
+        color: row.close >= row.open ? 'rgba(31, 185, 129, 0.24)' : 'rgba(217, 107, 95, 0.24)',
+      })),
+    );
+    expect(chartMocks.seriesRecords[3].options).toMatchObject({
       priceScaleId: 'left',
       lineWidth: 2,
       priceLineVisible: false,
       lastValueVisible: false,
       title: '',
     });
-    expect(chartMocks.seriesRecords[2].data).toEqual(
+    expect(chartMocks.seriesRecords[3].data).toEqual(
       challenger.rows.map((row) => ({ time: row.date, value: row.position })),
     );
   });
@@ -107,12 +127,15 @@ describe('dashboard v2 chart rendering', () => {
 
     renderMarketChart(container, marketFixture, modelFixture, { smoke: modelFixture }, () => {});
 
-    expect(chartMocks.priceScaleRecords.map((record) => record.id)).toEqual(['right', 'left']);
+    expect(chartMocks.priceScaleRecords.map((record) => record.id)).toEqual(['right', 'volume', 'left']);
     expect(chartMocks.priceScaleRecords[0].applyOptions).toHaveBeenCalledWith({
-      scaleMargins: { top: 0.05, bottom: 0.3 },
+      scaleMargins: { top: 0.05, bottom: 0.36 },
     });
     expect(chartMocks.priceScaleRecords[1].applyOptions).toHaveBeenCalledWith({
-      scaleMargins: { top: 0.76, bottom: 0.05 },
+      scaleMargins: { top: 0.82, bottom: 0.02 },
+    });
+    expect(chartMocks.priceScaleRecords[2].applyOptions).toHaveBeenCalledWith({
+      scaleMargins: { top: 0.68, bottom: 0.14 },
     });
   });
 

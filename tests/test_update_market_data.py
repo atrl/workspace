@@ -62,6 +62,57 @@ def test_build_local_surface_frames_derives_raw_and_external_views():
     assert vix.iloc[-1].to_dict() == {"DATE": "2026-04-27", "CLOSE": 24.5}
 
 
+def test_build_local_surface_frames_can_extend_raw_symbols_beyond_vix_overlap():
+    master = pd.DataFrame(
+        {
+            "date": pd.to_datetime(["2026-06-12"]),
+            "soxl_open": [222.22],
+            "soxl_high": [242.40],
+            "soxl_low": [214.7406],
+            "soxl_close": [234.68],
+            "soxl_volume": [48_833_409],
+            "soxx_open": [584.64],
+            "soxx_high": [602.69],
+            "soxx_low": [578.53],
+            "soxx_close": [596.25],
+            "soxx_volume": [9_057_945],
+            "vix": [17.68],
+        }
+    )
+    symbol_frames = {
+        "SOXL": pd.DataFrame(
+            {
+                "date": pd.to_datetime(["2026-06-12", "2026-06-15"]),
+                "open": [222.22, 265.91],
+                "high": [242.40, 272.18],
+                "low": [214.7406, 261.6019],
+                "close": [234.68, 271.44],
+                "volume": [48_833_409, 24_818_910],
+            }
+        ),
+        "SOXX": pd.DataFrame(
+            {
+                "date": pd.to_datetime(["2026-06-12", "2026-06-15"]),
+                "open": [584.64, 623.25],
+                "high": [602.69, 627.47],
+                "low": [578.53, 618.45],
+                "close": [596.25, 626.77],
+                "volume": [9_057_945, 4_381_522],
+            }
+        ),
+    }
+
+    frames = build_local_surface_frames(master, symbol_frames=symbol_frames)
+
+    soxl = frames["data/raw/symbols/SOXL.csv"]
+    soxx = frames["data/raw/symbols/SOXX.csv"]
+    vix = frames["data/raw/external/VIX.csv"]
+    assert soxl["date"].tolist() == ["2026-06-12", "2026-06-15"]
+    assert soxl.iloc[-1]["close"] == 271.44
+    assert soxx.iloc[-1]["close"] == 626.77
+    assert vix["DATE"].tolist() == ["2026-06-12"]
+
+
 def test_update_master_csv_polygon_provider_uses_cboe_vix():
     with TemporaryDirectory() as tmp:
         csv_path = Path(tmp) / "panel.csv"

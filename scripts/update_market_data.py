@@ -331,11 +331,47 @@ def _normalize_symbol_view(master: pd.DataFrame, prefix: str) -> pd.DataFrame:
     return frame
 
 
-def build_local_surface_frames(master: pd.DataFrame) -> dict[str, pd.DataFrame]:
+def _normalize_symbol_surface_frame(frame: pd.DataFrame) -> pd.DataFrame:
+    required = ["date", "open", "high", "low", "close", "volume"]
+    missing = [column for column in required if column not in frame.columns]
+    if missing:
+        raise ValueError(f"symbol surface frame missing columns: {', '.join(missing)}")
+    result = frame[required].copy()
+    result["date"] = pd.to_datetime(result["date"]).dt.strftime("%Y-%m-%d")
+    for column in ["open", "high", "low", "close"]:
+        result[column] = pd.to_numeric(result[column], errors="raise")
+    result["volume"] = pd.to_numeric(result["volume"], errors="raise").astype(int)
+    return result.sort_values("date").reset_index(drop=True)
+
+
+def _merge_symbol_surface(base: pd.DataFrame, latest: pd.DataFrame | None) -> pd.DataFrame:
+    if latest is None or latest.empty:
+        return base
+    latest_surface = _normalize_symbol_surface_frame(latest)
+    return (
+        pd.concat([base, latest_surface], ignore_index=True)
+        .drop_duplicates(subset=["date"], keep="last")
+        .sort_values("date")
+        .reset_index(drop=True)
+    )
+
+
+def build_local_surface_frames(
+    master: pd.DataFrame,
+    *,
+    symbol_frames: dict[str, pd.DataFrame] | None = None,
+) -> dict[str, pd.DataFrame]:
     """Derive raw/external mirror CSVs from the canonical processed panel."""
+    symbol_frames = symbol_frames or {}
     return {
-        "data/raw/symbols/SOXL.csv": _normalize_symbol_view(master, "soxl"),
-        "data/raw/symbols/SOXX.csv": _normalize_symbol_view(master, "soxx"),
+        "data/raw/symbols/SOXL.csv": _merge_symbol_surface(
+            _normalize_symbol_view(master, "soxl"),
+            symbol_frames.get("SOXL"),
+        ),
+        "data/raw/symbols/SOXX.csv": _merge_symbol_surface(
+            _normalize_symbol_view(master, "soxx"),
+            symbol_frames.get("SOXX"),
+        ),
         "data/raw/external/VIX.csv": pd.DataFrame(
             {
                 "DATE": pd.to_datetime(master["date"]).dt.strftime("%Y-%m-%d"),
@@ -348,9 +384,10 @@ def build_local_surface_frames(master: pd.DataFrame) -> dict[str, pd.DataFrame]:
 def sync_local_data_surfaces(
     csv_path: Path = CSV_PATH,
     dry_run: bool = False,
+    symbol_frames: dict[str, pd.DataFrame] | None = None,
 ) -> dict[str, object]:
     master = _load_master_csv(csv_path)
-    frames = build_local_surface_frames(master)
+    frames = build_local_surface_frames(master, symbol_frames=symbol_frames)
     for relative_path, frame in frames.items():
         target = ROOT / relative_path
         print(f"[sync] {relative_path} rows={len(frame)} last={frame.iloc[-1, 0]}")
@@ -422,6 +459,10 @@ def update_master_csv(
     soxl = _normalize_provider_dates(soxl)
     soxx = _normalize_provider_dates(soxx)
     vix = _normalize_provider_dates(vix)
+    symbol_frames = {
+        "SOXL": soxl[["date", "open", "high", "low", "close", "volume"]].copy(),
+        "SOXX": soxx[["date", "open", "high", "low", "close", "volume"]].copy(),
+    }
     source_ranges = {
         "SOXL": _date_range_summary(soxl),
         "SOXX": _date_range_summary(soxx),
@@ -496,6 +537,7 @@ def update_master_csv(
         "dry_run": dry_run,
         "source_ranges": source_ranges,
         "overlap_last_date": overlap_last_date,
+        "_symbol_frames": symbol_frames,
     }
 
 
@@ -571,7 +613,11 @@ def main(argv: list[str] | None = None) -> dict:
                 force_full=args.force_full,
                 provider=args.provider,
             )
-        sync_local_data_surfaces(dry_run=args.dry_run)
+        symbol_frames = result.get("_symbol_frames") if isinstance(result, dict) else None
+        if isinstance(symbol_frames, dict):
+            sync_local_data_surfaces(dry_run=args.dry_run, symbol_frames=symbol_frames)
+        else:
+            sync_local_data_surfaces(dry_run=args.dry_run)
         if not args.skip_qlib:
             refresh_qlib(dry_run=args.dry_run)
         refresh_data_registry(dry_run=args.dry_run)

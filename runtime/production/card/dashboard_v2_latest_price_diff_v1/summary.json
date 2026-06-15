@@ -1,0 +1,33 @@
+{
+  "baseline_profile": "soxl_backtest_policy_reimplementation_v1",
+  "baseline_replay_end": "2026-06-15",
+  "baseline_ytd_return_pct": 145.73634295135497,
+  "browser_checks": {
+    "first_view_screenshot": "runtime/production/card/dashboard_v2_latest_price_diff_v1/dashboard_v2_first_view.png",
+    "has_canonical_date": true,
+    "has_model_end_label": true,
+    "has_model_return": true,
+    "has_price_latest": true,
+    "has_safe_end": true,
+    "non_background_ratio": 0.1262
+  },
+  "canonical_data_date": "2026-06-12",
+  "comparison_common_end": "2026-06-11",
+  "created_at": "2026-06-15T16:55:16+00:00",
+  "decision": "dashboard_v2_price_latest_and_model_difference_visible",
+  "default_comparison_profiles": [
+    "soxl_backtest_policy_reimplementation_v1",
+    "balanced_rule_residual_v22",
+    "balanced_rule_residual_v19_reg",
+    "balanced_rule_residual_v19"
+  ],
+  "notes": [
+    "SOXL/SOXX raw price rows may extend past canonical SOXL/SOXX/VIX overlap when VIX lags.",
+    "Qlib actor replay remains clipped to safe_backtest_end; SOXLBacktest reference baseline may extend to price_latest_date.",
+    "Main chart now includes volume histogram plus selected model position overlay; first viewport shows model End/Ret/NAV/Pos/Mismatch deltas."
+  ],
+  "price_latest_date": "2026-06-15",
+  "safe_backtest_end": "2026-06-11",
+  "strict_retention_passing_profile_count": 0,
+  "strict_retention_reference_return_pct": 145.736343
+}

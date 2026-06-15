@@ -5,6 +5,7 @@ export type Tone = 'buy' | 'sell' | 'warning' | 'muted';
 export interface Manifest {
   generated_at: string;
   latest_market_date: string;
+  canonical_data_date?: string | null;
   safe_backtest_end: string;
   available_profiles: string[];
   deployable_profiles?: string[];
