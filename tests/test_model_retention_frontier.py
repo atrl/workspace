@@ -1209,6 +1209,12 @@ def test_retention_frontier_prioritizes_full_evidence_bc_failure_over_missing_ev
         _run_retention_frontier_prioritizes_full_evidence_bc_failure_over_missing_evidence(tmp_path)
 
 
+def test_retention_frontier_prioritizes_sparse_slice_repair_after_bc_handoff():
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp_path = Path(tmp)
+        _run_retention_frontier_prioritizes_sparse_slice_repair_after_bc_handoff(tmp_path)
+
+
 def _run_retention_frontier_prioritizes_full_evidence_bc_failure_over_missing_evidence(
     tmp_path: Path,
 ) -> None:
@@ -1257,6 +1263,67 @@ def _run_retention_frontier_prioritizes_full_evidence_bc_failure_over_missing_ev
     assert by_experiment["bc_screen_failed"]["primary_blocker"] == "bc_candidate_or_slice_gate_failed"
     assert by_experiment["old_missing_evidence"]["primary_blocker"] == "missing_walkforward_evidence"
     assert result["summary"]["recommended_next_source"] == "bc_screen_failed"
+
+
+def _run_retention_frontier_prioritizes_sparse_slice_repair_after_bc_handoff(tmp_path: Path) -> None:
+    from src.soxl_quant.app.model_retention_frontier import scan_model_retention_frontier
+
+    _write_json(
+        tmp_path / "runtime" / "model_selection" / "card" / "model_retention_walkforward_gate_v1" / "summary.json",
+        {
+            "summary": {
+                "required_best_return_pct": 213.14,
+                "reference_return_pct": 132.08,
+                "max_walkforward_drawdown_pct": 20.0,
+                "required_wf_windows": ["wf_2020", "wf_2022", "wf_2023_2024"],
+            }
+        },
+    )
+    _write_json(
+        tmp_path / "runtime" / "model_selection" / "card" / "old_missing_evidence" / "summary.json",
+        {
+            "experiment": "old_missing_evidence",
+            "decision": "old_diagnostic_no_replay_yet",
+            "promotion_allowed": False,
+            "next_mechanism": "build_missing_walkforward_replay",
+        },
+    )
+    _write_json(
+        tmp_path / "runtime" / "model_selection" / "card" / "bc_screen_failed" / "summary.json",
+        {
+            "experiment": "bc_screen_failed",
+            "decision": "bc_slice_failed_no_promotion",
+            "promotion_allowed": False,
+            "primary_blocker": "bc_candidate_or_slice_gate_failed",
+            "selected_by_fold": {
+                "wf_2020": {"selected_max_dd": 35.85, "selected_relative_return": -40.58},
+                "wf_2022": {"selected_max_dd": 17.62, "selected_relative_return": 77.13},
+                "wf_2023_2024": {"selected_max_dd": 25.53, "selected_relative_return": 20.61},
+            },
+            "target_relative_return_pp": 30.0,
+            "next_mechanism": "repair_sparse_slice_fit_or_state_head_feature_before_ppo",
+        },
+    )
+    _write_json(
+        tmp_path / "runtime" / "model_selection" / "card" / "sparse_slice_diagnostic" / "summary.json",
+        {
+            "experiment": "sparse_slice_diagnostic",
+            "decision": "sparse_slice_root_cause_no_training_no_promotion",
+            "promotion_allowed": False,
+            "primary_blocker": "sparse_slice_target_repair_required",
+            "source_card": "bc_screen_failed",
+            "next_mechanism": "build_fold_local_joint_drawdown_release_targets_and_aux_state_head_before_bc_replay",
+        },
+    )
+
+    result = scan_model_retention_frontier(root=tmp_path)
+    by_experiment = {row["experiment"]: row for row in result["rows"]}
+
+    assert by_experiment["bc_screen_failed"]["primary_blocker"] == "completed_handoff"
+    assert by_experiment["sparse_slice_diagnostic"]["primary_blocker"] == "sparse_slice_target_repair_required"
+    assert by_experiment["old_missing_evidence"]["primary_blocker"] == "missing_walkforward_evidence"
+    assert result["summary"]["recommended_next_source"] == "sparse_slice_diagnostic"
+    assert result["summary"]["recommended_primary_blocker"] == "sparse_slice_target_repair_required"
 
 
 def _run_retention_frontier_prioritizes_target_revision_ready_failed_fold_audit(tmp_path: Path) -> None:

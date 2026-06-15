@@ -1,0 +1,7 @@
+target_label,feature_set,features,feature_count,folds,covered_folds,coverage_gate,holdout_auc_min,holdout_auc_mean,holdout_accuracy_min,holdout_accuracy_mean,representation_gate
+drawdown_control_state,momentum_drawdown,"mom_5,mom_21,drawdown_63",3,3,0,False,,,,,False
+failedfold_state_head_target_state,rulebase_reversal,"RB_PANIC_SCORE_PROXY,RB_DAILY_DROP_SEVERITY,RB_CUMULATIVE_DROP_SEVERITY,RB_RSI6_OVERSOLD,RB_VOL_REGIME,RB_BUY_COMPOSITE,RB_SELL_COMPOSITE,RB_PROFIT_TAKE_PROXY,RB_VOLUME_STRESS,RB_TREND_REVERSAL",10,3,2,False,0.8753382250883089,0.9052040011843275,0.7936507936507936,0.8172707409549514,False
+is_downtrend_state,trend_quality,"mom_63,anchor_gap_180,anchor_slope_180,trend_gap_63,decay_63",5,3,3,True,0.7888951966442741,0.8342593147021292,0.6831683168316832,0.7166262989000526,True
+is_high_participation_target,momentum_drawdown,"mom_5,mom_21,drawdown_63",3,3,3,True,0.6483546917873841,0.7971618756702221,0.4297029702970297,0.6329157920611803,False
+is_rebound_cluster,relative_strength_spread,"relative_strength_21,tracking_error_21,tracking_error_vol_21,soxl_soxx_ratio_widen_21,soxl_soxx_ratio_z_252",5,3,3,True,0.7576031916526009,0.8015927044867227,0.35247524752475246,0.58182958807416,False
+release_gate_state,momentum_drawdown,"mom_5,mom_21,drawdown_63",3,3,3,True,0.689810860280659,0.753829215096158,0.6362433862433863,0.7940094835265933,True

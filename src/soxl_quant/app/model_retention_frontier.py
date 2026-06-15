@@ -342,6 +342,7 @@ def _frontier_sort_key(row: dict[str, Any]) -> tuple[float, str]:
         "walkforward_drawdown_gap": 30.0,
         "return_alignment_gap": 40.0,
         "bc_candidate_or_slice_gate_failed": 30.0,
+        "sparse_slice_target_repair_required": 30.0,
         "missing_walkforward_evidence": 50.0,
         "missing_nonleaking_wf2020_targets": 50.0,
         "missing_nonleaking_wf2020_targets_and_wf2023_slice_fit_failed": 50.0,

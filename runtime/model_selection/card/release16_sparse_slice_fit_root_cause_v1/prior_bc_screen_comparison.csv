@@ -1,0 +1,4 @@
+fold,prior_candidate,current_candidate,prior_relative_return,current_relative_return,relative_delta_current_minus_prior,prior_max_dd,current_max_dd,max_dd_delta_current_minus_prior,prior_slice_gate,current_slice_gate,prior_candidate_gate,current_candidate_gate
+wf_2020,bc_initialization,risk_guarded,27.840730986022617,-40.5841056381,-68.42483662412262,26.374298542028697,35.85099103981264,9.476692497783944,False,True,False,False
+wf_2022,bc_initialization,risk_guarded,72.36330737187106,77.13166897312175,4.768361601250689,15.487774149897104,17.626753384580486,2.138979234683381,False,False,False,False
+wf_2023_2024,bc_initialization,release_heavy,-16.012653048650925,20.61175147247697,36.6244045211279,30.55998911589769,25.53136867251088,-5.02862044338681,False,False,False,False
