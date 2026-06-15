@@ -892,6 +892,7 @@ def build_dashboard_v2_data(
         baseline_profile=baseline,
         compared_profiles=defaults,
     )
+    latest_signal_count = sum(1 for payload in model_payloads.values() if payload.get("latest_signal"))
     manifest = {
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "latest_market_date": latest_market_date,
@@ -931,9 +932,9 @@ def build_dashboard_v2_data(
         },
         "latest_signal": {
             "source": LATEST_SIGNAL_SOURCE,
-            "available_count": sum(1 for payload in model_payloads.values() if payload.get("latest_signal")),
+            "available_count": latest_signal_count,
             "date": latest_market_date,
-            "comparison_included": False,
+            "comparison_included": latest_signal_count > 0,
         },
         "source_paths": {
             "model_replay_freshness": _relative_to(root, freshness_path),

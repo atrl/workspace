@@ -1,31 +1,34 @@
 {
-  "checked_at": "2026-06-11T00:54:06.468606+00:00",
-  "root": "/Users/rziiiii/.openclaw/workspace",
+  "checked_at": "2026-06-15T22:07:31.977413+00:00",
+  "root": "/Users/rziiiii/dev/workspace",
   "status": "blocked_no_credentials",
   "static_export": {
-    "generated_at": "2026-06-11 08:53:59",
-    "versions": 50,
+    "generated_at": "2026-06-16 06:07:04",
+    "versions": 3,
     "missing": 0,
     "model_versions": 106,
-    "latest": "paper_trading",
+    "latest": "soxl_backtest_policy_reimplementation_v1",
     "paper_trading_rows": 2,
     "paper_trading_end": "2026-06-08",
+    "paper_latest_signal": "2026-06-15",
     "production_status": "blocked_no_credentials",
     "goal_gates": "pending",
-    "model_replays": "13/13@2026-06-09",
+    "model_replays": "12/12@2026-06-12",
+    "model_latest_data": "2026-06-15",
+    "dashboard_v2": "6@2026-06-12/latest=2026-06-15",
     "research_backtests": 30
   },
   "static_errors": [],
   "vercel_cli": "/opt/homebrew/bin/vercel",
   "env_file": {
-    "path": "/Users/rziiiii/.openclaw/soxl.env",
-    "present": true,
+    "path": "",
+    "present": false,
     "loaded_keys": [],
     "applied_keys": []
   },
   "auth": {
     "status": "blocked_no_credentials",
-    "detail": "Set VERCEL_TOKEN or run vercel login. CLI detail: Error: No existing credentials found. Please run `vercel login` or pass \"--token\"\nLearn More: https://err.sh/vercel/no-credentials-found"
+    "detail": "Set VERCEL_TOKEN or run vercel login. CLI detail: Error: No existing credentials found. Please run `vercel login` or pass \"--token\"\nLearn More: https://err.sh/vercel/no-credentials-found\n\n\nUpdate available! v50.32.5  v54.11.1\nChangelog: https://github.com/vercel/vercel/releases/tag/vercel%4054.11.1\nRun `npm i -g vercel@latest` to update.\n\nThe latest update may fix any errors that occurred."
   },
   "project": {
     "status": "missing_project_link",
@@ -33,5 +36,5 @@
   },
   "deploy_requested": false,
   "deployment_url": null,
-  "detail": "Set VERCEL_TOKEN or run vercel login. CLI detail: Error: No existing credentials found. Please run `vercel login` or pass \"--token\"\nLearn More: https://err.sh/vercel/no-credentials-found"
+  "detail": "Set VERCEL_TOKEN or run vercel login. CLI detail: Error: No existing credentials found. Please run `vercel login` or pass \"--token\"\nLearn More: https://err.sh/vercel/no-credentials-found\n\n\nUpdate available! v50.32.5  v54.11.1\nChangelog: https://github.com/vercel/vercel/releases/tag/vercel%4054.11.1\nRun `npm i -g vercel@latest` to update.\n\nThe latest update may fix any errors that occurred."
 }

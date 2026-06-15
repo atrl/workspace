@@ -1,0 +1,48 @@
+{
+  "card": "dashboard_v2_kline_latest_model_diff_v1",
+  "date": "2026-06-16",
+  "issue": "K-line and model differences were hard to read; old static dashboard defaulted to stale paper_trading rows while latest actor signals were only visible as metadata.",
+  "changes": [
+    "Dashboard V2 keeps SOXLBacktest as the default action comparison baseline.",
+    "Dashboard V2 latest model signal board is explicitly labelled and shows actor latest signals against the baseline.",
+    "Dashboard V2 K-line height and model-difference table height were increased for readability.",
+    "Dashboard V2 main K-line no longer overlays historical model-difference markers; historical differences remain in the difference table and position/NAV panes.",
+    "Dashboard V2 manifest marks latest actor signals as comparison_included when signals are available.",
+    "Static dashboard latest_version now prefers the newest data window when paper_trading rows lag its latest signal.",
+    "Static export checker allows a non-paper latest_version only when paper_trading rows lag the latest signal."
+  ],
+  "freshness": {
+    "static_latest_version": "soxl_backtest_policy_reimplementation_v1",
+    "static_latest_end": "2026-06-15",
+    "paper_trading_end": "2026-06-08",
+    "paper_latest_signal": "2026-06-15",
+    "dashboard_v2_profiles": 6,
+    "dashboard_v2_common_end": "2026-06-12",
+    "dashboard_v2_latest_market_date": "2026-06-15",
+    "dashboard_v2_latest_signal_available_count": 5,
+    "dashboard_v2_latest_signal_comparison_included": true
+  },
+  "visual_evidence": {
+    "screenshot": "runtime/production/card/dashboard_v2_kline_latest_model_diff_v1/dashboard_v2_kline_latest_model_diff_20260616.png",
+    "viewport": "1440x1100",
+    "non_white_ratio": 0.9998,
+    "non_dark_ratio": 0.1394,
+    "dom_checks": {
+      "Latest model signals": 1,
+      "SOXLBacktest": 13,
+      "Actor Signal": 1,
+      "Signals": 1,
+      "2026-06-15": 17,
+      "BRR v22": 14,
+      "Mode rebound v2": 16,
+      "smoke": 19
+    }
+  },
+  "verification": [
+    "npm --prefix web/dashboard-v2 test -- --run",
+    "npm --prefix web/dashboard-v2 run build",
+    "PYTHONPATH=. qlib_venv/bin/python -m pytest tests/test_dashboard.py tests/test_dashboard_v2_data.py tests/test_dashboard_v2_checker.py tests/test_vercel_dashboard.py -q",
+    "PYTHONPATH=. qlib_venv/bin/python scripts/check_dashboard_static_export.py",
+    "PYTHONPATH=. qlib_venv/bin/python scripts/check_dashboard_v2_data.py"
+  ]
+}

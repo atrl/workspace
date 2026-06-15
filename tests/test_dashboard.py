@@ -133,6 +133,49 @@ def test_select_latest_version_prefers_paper_trading_for_static_dashboard():
     assert select_latest_version(versioned) == "paper_trading"
 
 
+def test_select_latest_version_does_not_prefer_stale_paper_rows_over_fresh_reference():
+    versioned = {
+        "soxl_backtest_policy_reimplementation_v1": {
+            "_meta": {
+                "updated_at": 300,
+                "source_kind": "reference_baseline",
+            },
+            "windows": {"SOXL": {"start": "2026-01-02", "end": "2026-06-15", "rows": 113}},
+        },
+        "paper_trading": {
+            "_meta": {
+                "updated_at": 100,
+                "source_kind": "paper_trading",
+            },
+            "detailed": {
+                "SOXL": {
+                    "meta": {"latest_signal_date": "2026-06-15"},
+                    "rows": [
+                        {"datetime": "2026-06-04"},
+                        {"datetime": "2026-06-08"},
+                    ],
+                }
+            },
+            "windows": {"SOXL": {"start": "2026-06-04", "end": "2026-06-08", "rows": 2}},
+        },
+    }
+    assert select_latest_version(versioned) == "soxl_backtest_policy_reimplementation_v1"
+
+
+def test_select_latest_version_prefers_newer_window_over_newer_file_timestamp():
+    versioned = {
+        "soxl_backtest_policy_reimplementation_v1": {
+            "_meta": {"updated_at": 100, "source_kind": "reference_baseline"},
+            "windows": {"SOXL": {"start": "2026-01-02", "end": "2026-06-15", "rows": 113}},
+        },
+        "balanced_rule_residual_v19_moe_v2": {
+            "_meta": {"updated_at": 500, "source_kind": "retained_dashboard_export"},
+            "windows": {"SOXL": {"start": "2020-01-02", "end": "2026-05-19", "rows": 1603}},
+        },
+    }
+    assert select_latest_version(versioned) == "soxl_backtest_policy_reimplementation_v1"
+
+
 def test_select_best_version_maps_soxl_prefix():
     model_versions = [
         {"name": "soxl_balanced_rule_residual_v1", "test_sharpe": 0.96},
@@ -1009,7 +1052,8 @@ def test_soxlbacktest_reference_version_exports_buy_sell_baseline():
     actions = {row["action"] for row in rows}
 
     assert payload["_meta"]["source_kind"] == "reference_baseline"
-    assert payload["windows"]["SOXL"] == {"start": "2026-01-02", "end": "2026-06-09", "rows": 109}
+    assert payload["windows"]["SOXL"] == {"start": rows[0]["datetime"], "end": rows[-1]["datetime"], "rows": len(rows)}
+    assert payload["windows"]["SOXL"]["end"] == "2026-06-15"
     assert detail["summary"]["source_profile"] == "soxl_backtest_policy_reimplementation_v1"
     assert detail["summary"]["window"] == "ytd_2026"
     assert "BUY" in actions

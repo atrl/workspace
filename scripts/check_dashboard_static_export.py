@@ -36,6 +36,39 @@ def _headers_by_source(config: dict[str, Any]) -> dict[str, list[dict[str, str]]
     return headers
 
 
+def _summary_window_end(version_summaries: dict[str, Any], version: str, etf: str = "SOXL") -> str:
+    summary = version_summaries.get(version, {})
+    if not isinstance(summary, dict):
+        return ""
+    windows = summary.get("windows", {})
+    if not isinstance(windows, dict):
+        return ""
+    window = windows.get(etf, {})
+    if not isinstance(window, dict):
+        return ""
+    return str(window.get("end") or "")
+
+
+def _paper_latest_signal_date(data_dir: Path, etf: str = "SOXL") -> str:
+    payload_path = data_dir / "versioned" / "paper_trading" / f"{etf}.json"
+    if not payload_path.exists():
+        return ""
+    try:
+        payload = _load_json(payload_path)
+    except Exception:
+        return ""
+    meta = payload.get("meta") if isinstance(payload, dict) else None
+    if not isinstance(meta, dict):
+        return ""
+    return str(meta.get("latest_signal_date") or meta.get("latest_data_date") or "")
+
+
+def _paper_rows_lag_latest_signal(data_dir: Path, version_summaries: dict[str, Any]) -> bool:
+    paper_end = _summary_window_end(version_summaries, "paper_trading")
+    paper_latest = _paper_latest_signal_date(data_dir)
+    return bool(paper_end and paper_latest and paper_end < paper_latest)
+
+
 def check_static_export(root: Path) -> tuple[list[str], dict[str, Any]]:
     errors: list[str] = []
     info: dict[str, Any] = {
@@ -95,6 +128,7 @@ def check_static_export(root: Path) -> tuple[list[str], dict[str, Any]]:
     model_versions = _load_json(model_versions_path)
     versions = index.get("versions", [])
     version_summaries = index.get("version_summaries", {})
+    paper_rows_lag_latest = _paper_rows_lag_latest_signal(data_dir, version_summaries)
     etfs = index.get("etfs", [])
     info.update(
         {
@@ -109,7 +143,7 @@ def check_static_export(root: Path) -> tuple[list[str], dict[str, Any]]:
         errors.append("dashboard_data/index.json has no versions")
     if "paper_trading" not in versions:
         errors.append("dashboard_data/index.json does not include paper_trading")
-    elif index.get("latest_version") != "paper_trading":
+    elif index.get("latest_version") != "paper_trading" and not paper_rows_lag_latest:
         errors.append("latest_version must be paper_trading when paper_trading is exported")
     if index.get("latest_version") not in versions:
         errors.append("latest_version is not listed in versions")
@@ -134,7 +168,7 @@ def check_static_export(root: Path) -> tuple[list[str], dict[str, Any]]:
             status_static = production_status.get("static_export", {})
             if not isinstance(status_static, dict):
                 errors.append("dashboard_data/production_status.json static_export must be an object")
-            elif status_static.get("latest") != index.get("latest_version"):
+            elif status_static.get("latest") != index.get("latest_version") and not paper_rows_lag_latest:
                 errors.append("dashboard_data/production_status.json latest does not match dashboard_data/index.json")
 
     if production_goal_gates_path.exists():

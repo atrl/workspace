@@ -132,7 +132,7 @@ describe('dashboard v2 chart rendering', () => {
     expect(chartMocks.seriesRecords.some((record) => record.options.priceScaleId === 'position')).toBe(false);
   });
 
-  test('adds selected model action-difference markers directly on the main K-line', () => {
+  test('keeps historical action-difference markers out of the main K-line', () => {
     const container = document.createElement('div');
 
     renderMarketChart(
@@ -149,8 +149,6 @@ describe('dashboard v2 chart rendering', () => {
     expect(chartMocks.createSeriesMarkers.mock.calls[0][1]).toEqual([
       { time: '2026-01-05', position: 'belowBar', color: '#0f766e', shape: 'arrowUp', text: '' },
       { time: '2026-01-06', position: 'aboveBar', color: '#b91c1c', shape: 'arrowDown', text: '' },
-      { time: '2026-01-05', position: 'belowBar', color: '#39b7c5', shape: 'arrowUp', text: '' },
-      { time: '2026-01-06', position: 'aboveBar', color: '#39b7c5', shape: 'arrowDown', text: '' },
     ]);
   });
 

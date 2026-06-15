@@ -153,7 +153,7 @@ describe('dashboard v2 domain helpers', () => {
     });
   });
 
-  test('selects a replayable actor as the default chart model ahead of reference baseline', () => {
+  test('preserves the explicit reference baseline as the default action comparison model', () => {
     expect(
       selectDefaultChartProfile(
         ['soxl_backtest_policy_reimplementation_v1', 'balanced_rule_residual_v22'],
@@ -171,7 +171,7 @@ describe('dashboard v2 domain helpers', () => {
         },
         'soxl_backtest_policy_reimplementation_v1',
       ),
-    ).toBe('balanced_rule_residual_v22');
+    ).toBe('soxl_backtest_policy_reimplementation_v1');
   });
 
   test('builds action markers from event rows instead of price movement', () => {

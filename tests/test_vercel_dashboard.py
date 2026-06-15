@@ -104,7 +104,7 @@ def test_dashboard_static_export_integrity_check_passes():
 
     assert result.returncode == 0, result.stdout + result.stderr
     assert "missing=0" in result.stdout
-    assert "latest=paper_trading" in result.stdout
+    assert "latest=" in result.stdout
     assert "paper_trading" in result.stdout
     assert "production_status=" in result.stdout
     assert "goal_gates=pending" in result.stdout
@@ -208,6 +208,121 @@ def test_dashboard_static_export_rejects_stale_paper_latest_signal():
 
     assert info["paper_latest_signal"] == "2026-05-21"
     assert any("paper_trading latest signal is stale" in error for error in errors)
+
+
+def test_dashboard_static_export_allows_non_paper_latest_when_paper_rows_lag_latest_signal():
+    from scripts.check_dashboard_static_export import check_static_export
+
+    with TemporaryDirectory() as tmpdir:
+        root = Path(tmpdir)
+        data_dir = root / "dashboard_data"
+        paper_dir = data_dir / "versioned" / "paper_trading"
+        reference_dir = data_dir / "versioned" / "soxl_backtest_policy_reimplementation_v1"
+        paper_dir.mkdir(parents=True)
+        reference_dir.mkdir(parents=True)
+        (root / "dashboard.html").write_text("<html></html>", encoding="utf-8")
+        (root / "vercel.json").write_text(
+            json.dumps(
+                {
+                    "rewrites": [{"source": "/", "destination": "/dashboard.html"}],
+                    "headers": [
+                        {
+                            "source": source,
+                            "headers": [{"key": "Cache-Control", "value": "public, max-age=0, must-revalidate"}],
+                        }
+                        for source in ("/", "/dashboard.html", "/dashboard_data/:path*")
+                    ],
+                }
+            ),
+            encoding="utf-8",
+        )
+        (data_dir / "index.json").write_text(
+            json.dumps(
+                {
+                    "versions": ["soxl_backtest_policy_reimplementation_v1", "paper_trading"],
+                    "latest_version": "soxl_backtest_policy_reimplementation_v1",
+                    "version_summaries": {
+                        "soxl_backtest_policy_reimplementation_v1": {
+                            "etfs": ["SOXL"],
+                            "windows": {"SOXL": {"rows": 2, "end": "2026-06-15"}},
+                            "meta": {"source_kind": "reference_baseline"},
+                        },
+                        "paper_trading": {
+                            "etfs": ["SOXL"],
+                            "windows": {"SOXL": {"rows": 1, "end": "2026-06-08"}},
+                            "meta": {"source_kind": "paper_trading"},
+                        },
+                    },
+                    "etfs": ["SOXL"],
+                }
+            ),
+            encoding="utf-8",
+        )
+        (data_dir / "model_versions.json").write_text("[]", encoding="utf-8")
+        (data_dir / "model_replay_freshness.json").write_text(
+            json.dumps(
+                {
+                    "counts": {"current": 1, "refreshed": 0, "failed": 0, "skipped": 0},
+                    "profiles": [{"name": "balanced_rule_residual_v22"}],
+                    "safe_backtest_end": "2026-06-12",
+                    "latest_data_date": "2026-06-15",
+                }
+            ),
+            encoding="utf-8",
+        )
+        (data_dir / "production_status.json").write_text(
+            json.dumps(
+                {
+                    "status": "blocked_no_credentials",
+                    "auth_status": "blocked_no_credentials",
+                    "project_status": "missing_project_link",
+                    "static_export": {"latest": "paper_trading"},
+                }
+            ),
+            encoding="utf-8",
+        )
+        (data_dir / "research_backtests.json").write_text(
+            json.dumps([{"experiment": "x", "decision": "y", "summary_path": "z"}]),
+            encoding="utf-8",
+        )
+        (reference_dir / "SOXL.json").write_text(
+            json.dumps(
+                {
+                    "rows": [
+                        {"datetime": "2026-06-12", "strategy_nav": 1.0, "buyhold_nav": 1.0},
+                        {"datetime": "2026-06-15", "strategy_nav": 1.1, "buyhold_nav": 1.2},
+                    ],
+                }
+            ),
+            encoding="utf-8",
+        )
+        (paper_dir / "SOXL.json").write_text(
+            json.dumps(
+                {
+                    "meta": {
+                        "source_kind": "paper_trading",
+                        "latest_signal_date": "2026-06-15",
+                    },
+                    "rows": [
+                        {
+                            "datetime": "2026-06-08",
+                            "strategy_nav": 1.0,
+                            "buyhold_nav": 1.0,
+                            "price": 190.56,
+                            "position": 0.35,
+                            "action": "BUY",
+                        }
+                    ],
+                }
+            ),
+            encoding="utf-8",
+        )
+
+        errors, info = check_static_export(root)
+
+    assert info["latest"] == "soxl_backtest_policy_reimplementation_v1"
+    assert not any("latest_version must be paper_trading" in error for error in errors)
+    assert not any("production_status.json latest does not match" in error for error in errors)
 
 
 def test_dashboard_static_export_rejects_sensitive_paper_review_fields():

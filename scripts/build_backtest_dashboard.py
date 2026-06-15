@@ -744,7 +744,53 @@ def select_best_version(model_versions: list[dict], versioned: dict[str, dict]) 
     return best_version
 
 
-def _latest_source_priority(source_kind: str) -> int:
+def _payload_window_end(payload: dict) -> str:
+    windows = payload.get("windows")
+    if isinstance(windows, dict):
+        ends = [
+            str(window.get("end") or "")
+            for window in windows.values()
+            if isinstance(window, dict) and window.get("end")
+        ]
+        if ends:
+            return max(ends)
+    detailed = payload.get("detailed")
+    if isinstance(detailed, dict):
+        ends = []
+        for detail in detailed.values():
+            rows = detail.get("rows") if isinstance(detail, dict) else None
+            if isinstance(rows, list) and rows:
+                last = rows[-1]
+                if isinstance(last, dict):
+                    end = last.get("datetime") or last.get("date")
+                    if end:
+                        ends.append(str(end))
+        if ends:
+            return max(ends)
+    return ""
+
+
+def _is_stale_paper_trading_payload(payload: dict, meta: dict) -> bool:
+    latest_signal_date = str(meta.get("latest_signal_date") or meta.get("latest_data_date") or "")
+    if not latest_signal_date:
+        detailed = payload.get("detailed")
+        if isinstance(detailed, dict):
+            detail_dates = []
+            for detail in detailed.values():
+                detail_meta = detail.get("meta") if isinstance(detail, dict) else None
+                if isinstance(detail_meta, dict):
+                    date = detail_meta.get("latest_signal_date") or detail_meta.get("latest_data_date")
+                    if date:
+                        detail_dates.append(str(date))
+            if detail_dates:
+                latest_signal_date = max(detail_dates)
+    row_end = _payload_window_end(payload)
+    return bool(latest_signal_date and row_end and row_end < latest_signal_date)
+
+
+def _latest_source_priority(source_kind: str, payload: dict, meta: dict) -> int:
+    if source_kind == "paper_trading" and _is_stale_paper_trading_payload(payload, meta):
+        return -1
     priorities = {
         "paper_trading": 1,
     }
@@ -754,14 +800,23 @@ def _latest_source_priority(source_kind: str) -> int:
 def select_latest_version(versioned: dict[str, dict]) -> str:
     latest_version = ""
     latest_priority = -1
+    latest_window_end = ""
     latest_updated_at = -float("inf")
     for tag, payload in versioned.items():
         meta = payload.get("_meta", {})
         updated_at = meta.get("updated_at", float("-inf"))
         source_kind = meta.get("source_kind", "generalization_version")
-        priority = _latest_source_priority(source_kind)
-        if priority > latest_priority or (priority == latest_priority and updated_at > latest_updated_at):
+        priority = _latest_source_priority(source_kind, payload, meta)
+        window_end = _payload_window_end(payload)
+        if (
+            priority > latest_priority
+            or (
+                priority == latest_priority
+                and (window_end > latest_window_end or (window_end == latest_window_end and updated_at > latest_updated_at))
+            )
+        ):
             latest_priority = priority
+            latest_window_end = window_end
             latest_updated_at = updated_at
             latest_version = tag
     return latest_version

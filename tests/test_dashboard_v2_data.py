@@ -13,6 +13,7 @@ from src.soxl_quant.app.dashboard_v2 import (
     load_ohlc_and_indicators_for_root,
     normalize_model_rows,
 )
+import src.soxl_quant.app.dashboard_v2 as dashboard_v2_module
 
 
 def _write_csv(path: Path, rows: list[dict[str, object]]) -> None:
@@ -511,6 +512,139 @@ def test_build_dashboard_v2_data_manifest_uses_extended_price_latest_date(tmp_pa
     assert manifest["canonical_data_date"] == "2026-06-12"
     assert manifest["safe_backtest_end"] == "2026-06-12"
     assert market["rows"][-1]["date"] == "2026-06-15"
+
+
+def test_build_dashboard_v2_data_marks_latest_actor_signals_as_comparison_included(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+):
+    freshness = tmp_path / "dashboard_data" / "model_replay_freshness.json"
+    freshness.parent.mkdir()
+    actor_csv = tmp_path / "runtime" / "model" / "card" / "smoke" / "smoke_soxl_daily.csv"
+    actor_csv.parent.mkdir(parents=True)
+    _write_csv(
+        actor_csv,
+        [
+            {
+                "datetime": "2026-01-02",
+                "strategy_nav": 100.0,
+                "buyhold_nav": 100.0,
+                "position": 0.0,
+                "action": "HOLD",
+                "price": 47.24,
+            },
+            {
+                "datetime": "2026-01-06",
+                "strategy_nav": 110.0,
+                "buyhold_nav": 108.0,
+                "position": 0.2,
+                "action": "HOLD",
+                "price": 50.0,
+            },
+        ],
+    )
+    reference_csv = (
+        tmp_path
+        / "runtime"
+        / "production"
+        / "card"
+        / "soxl_backtest_policy_reimplementation_v1"
+        / "new_policy_daily.csv"
+    )
+    reference_csv.parent.mkdir(parents=True)
+    _write_csv(
+        reference_csv,
+        [
+            {
+                "window": "ytd_2026",
+                "date": "2026-01-02",
+                "strategy_nav": 100.0,
+                "buyhold_nav": 100.0,
+                "position": 0.0,
+                "action": "HOLD",
+                "price": 47.24,
+            },
+            {
+                "window": "ytd_2026",
+                "date": "2026-01-06",
+                "strategy_nav": 103.0,
+                "buyhold_nav": 108.0,
+                "position": 0.1,
+                "action": "HOLD",
+                "price": 50.0,
+            },
+            {
+                "window": "ytd_2026",
+                "date": "2026-01-07",
+                "strategy_nav": 104.0,
+                "buyhold_nav": 109.0,
+                "position": 0.1,
+                "action": "HOLD",
+                "price": 51.0,
+            },
+        ],
+    )
+    freshness.write_text(
+        json.dumps(
+            {
+                "generated_at": "2026-01-07T00:00:00+00:00",
+                "latest_data_date": "2026-01-07",
+                "safe_backtest_end": "2026-01-06",
+                "profiles": [
+                    {
+                        "profile": "smoke",
+                        "status": "canonical",
+                        "actor": "runtime/model/card/smoke/soxl_smoke_actor.pt",
+                        "profile_yaml": "runtime/harness/card/smoke/profile.yaml",
+                        "output": "runtime/model/card/smoke/smoke_soxl_daily.csv",
+                        "result": "current",
+                    }
+                ],
+            }
+        )
+    )
+    _write_final_retention_summary(tmp_path, "smoke", retained=False)
+    monkeypatch.setattr(dashboard_v2_module, "_latest_signal_context", lambda _root, _date: {"ok": True})
+    monkeypatch.setattr(
+        dashboard_v2_module,
+        "_infer_latest_signal",
+        lambda _root, profile_name, _source, rows, latest_date, _context: {
+            "date": latest_date,
+            "price": 51.0,
+            "position": 0.55,
+            "action": "BUY",
+            "replay_asof": rows[-1]["date"],
+            "source": "latest_signal_stateless",
+            "raw_action": 3,
+        }
+        if profile_name == "smoke"
+        else None,
+    )
+
+    output_dir = tmp_path / "dashboard_data" / "v2"
+    build_dashboard_v2_data(
+        root=tmp_path,
+        output_dir=output_dir,
+        freshness_path=freshness,
+        market_rows={
+            "2026-01-02": {"open": 47.0, "high": 48.0, "low": 46.0, "close": 47.24, "volume": 1000},
+            "2026-01-06": {"open": 49.0, "high": 51.0, "low": 48.0, "close": 50.0, "volume": 1000},
+            "2026-01-07": {"open": 50.0, "high": 52.0, "low": 49.0, "close": 51.0, "volume": 1000},
+        },
+        selected_profiles=["soxl_backtest_policy_reimplementation_v1", "smoke"],
+        baseline_profile="soxl_backtest_policy_reimplementation_v1",
+    )
+
+    manifest = json.loads((output_dir / "manifest.json").read_text())
+    actor = json.loads((output_dir / "models" / "smoke.json").read_text())
+    assert actor["latest_signal"]["date"] == "2026-01-07"
+    assert manifest["profile_summaries"]["smoke"]["latest_signal_date"] == "2026-01-07"
+    assert manifest["latest_signal"] == {
+        "source": "latest_signal_stateless",
+        "available_count": 1,
+        "date": "2026-01-07",
+        "comparison_included": True,
+    }
 
 
 def test_build_dashboard_v2_data_adds_soxl_backtest_reference_baseline(tmp_path: Path):

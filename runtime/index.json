@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-15T21:48:54.978467+00:00",
+  "generated_at": "2026-06-15T22:14:31.911773+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -5189,7 +5189,7 @@
       "path": "runtime/model_selection/card/bull_reentry_bc_warmstart_gate_v1/source_manifest.csv",
       "category": "model_selection",
       "suffix": ".csv",
-      "bytes": 418
+      "bytes": 415
     },
     {
       "path": "runtime/model_selection/card/bull_reentry_bc_warmstart_gate_v1/summary.json",
@@ -12812,6 +12812,12 @@
       "bytes": 1958
     },
     {
+      "path": "runtime/production/card/dashboard_v2_kline_latest_model_diff_v1/summary.json",
+      "category": "production",
+      "suffix": ".json",
+      "bytes": 2478
+    },
+    {
       "path": "runtime/production/card/dashboard_v2_kline_model_delta_v2/summary.json",
       "category": "production",
       "suffix": ".json",
@@ -13445,13 +13451,13 @@
       "path": "runtime/production/card/vercel_remote_deploy_v1/notes.md",
       "category": "production",
       "suffix": ".md",
-      "bytes": 511
+      "bytes": 744
     },
     {
       "path": "runtime/production/card/vercel_remote_deploy_v1/vercel_deployment_check.json",
       "category": "production",
       "suffix": ".json",
-      "bytes": 1475
+      "bytes": 2023
     },
     {
       "path": "runtime/production/card/vercel_scheduled_deploy_v1/notes.md",

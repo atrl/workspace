@@ -407,7 +407,8 @@ export function renderModelDeltaStrip(
     const decision = element('div', 'latest-decision-matrix');
     const baselineRow = decisionRows.find((row) => row.isBaseline);
     const header = element('div', 'latest-decision-header');
-    header.appendChild(element('strong', undefined, `Latest ${decisionRows[0].targetDate}`));
+    header.appendChild(element('strong', undefined, 'Latest model signals'));
+    header.appendChild(element('span', undefined, `Latest ${decisionRows[0].targetDate}`));
     if (baselineRow) {
       header.appendChild(
         element(

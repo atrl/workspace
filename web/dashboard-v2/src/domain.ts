@@ -46,9 +46,9 @@ export function selectDefaultChartProfile(
   models: Record<string, ModelPayload>,
   fallbackProfile: string,
 ): string {
+  if (selectedProfiles.includes(fallbackProfile) && models[fallbackProfile]) return fallbackProfile;
   const actorProfile = selectedProfiles.find((profile) => models[profile]?.status !== 'reference');
   if (actorProfile) return actorProfile;
-  if (selectedProfiles.includes(fallbackProfile)) return fallbackProfile;
   return selectedProfiles[0] ?? fallbackProfile;
 }
 

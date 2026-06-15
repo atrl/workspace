@@ -595,6 +595,7 @@ describe('dashboard v2 DOM render helpers', () => {
 
     const matrix = panel.querySelector('.latest-decision-matrix');
     expect(matrix).not.toBeNull();
+    expect(matrix?.textContent).toContain('Latest model signals');
     expect(matrix?.textContent).toContain('Latest 2026-01-07');
     expect(matrix?.textContent).toContain('baseline SOXLBacktest HOLD 0.200');
     expect(matrix?.textContent).toContain('BRR v22');
