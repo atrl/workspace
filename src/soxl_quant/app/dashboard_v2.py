@@ -35,6 +35,9 @@ FINAL_RETENTION_POLICY = "final_model_retained_or_reference"
 STRICT_RETENTION_GATE_PATH = (
     "runtime/model_selection/card/model_retention_walkforward_gate_v1/summary.json"
 )
+STRICT_CANDIDATE_RETENTION_FILTER_PATH = (
+    "runtime/model_selection/card/strict_candidate_retention_filter_v1/summary.json"
+)
 
 
 @dataclass(frozen=True)
@@ -234,6 +237,32 @@ def _load_strict_retention_gate(root: Path) -> dict[str, Any] | None:
         "required_wf_windows": [str(window) for window in summary.get("required_wf_windows") or []],
         "closest_wf_drawdown_candidate": summary.get("closest_wf_drawdown_candidate"),
         "closest_ytd_return_candidate": summary.get("closest_ytd_return_candidate"),
+    }
+
+
+def _load_strict_candidate_retention_filter(root: Path) -> dict[str, Any] | None:
+    path = root / STRICT_CANDIDATE_RETENTION_FILTER_PATH
+    if not path.exists():
+        return None
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    summary = payload.get("summary") if isinstance(payload, dict) else None
+    if not isinstance(summary, dict):
+        return None
+    promotable_count = int(summary.get("promotable_profile_count") or 0)
+    actor_retention_count = int(summary.get("actor_retention_allowed_count") or 0)
+    return {
+        "status": "passed" if promotable_count > 0 and actor_retention_count > 0 else "blocked",
+        "source_path": STRICT_CANDIDATE_RETENTION_FILTER_PATH,
+        "decision": summary.get("decision"),
+        "reference_baseline": summary.get("reference_baseline"),
+        "passing_profile_count": int(summary.get("passing_profile_count") or 0),
+        "promotable_profile_count": promotable_count,
+        "actor_retention_allowed_count": actor_retention_count,
+        "reference_visible_count": int(summary.get("reference_visible_count") or 0),
+        "ppo_allowed_next": bool(summary.get("ppo_allowed_next")),
+        "next_mechanism": summary.get("next_mechanism"),
+        "row_count": payload.get("row_count"),
+        "candidate_type_counts": payload.get("candidate_type_counts"),
     }
 
 
@@ -776,6 +805,9 @@ def build_dashboard_v2_data(
     strict_retention_gate = _load_strict_retention_gate(root)
     if strict_retention_gate is not None:
         manifest["strict_retention_gate"] = strict_retention_gate
+    strict_candidate_retention_filter = _load_strict_candidate_retention_filter(root)
+    if strict_candidate_retention_filter is not None:
+        manifest["strict_candidate_retention_filter"] = strict_candidate_retention_filter
     market_payload = {"symbol": "SOXL", "rows": market_payload_rows}
     manifest_path = output_dir / "manifest.json"
     market_path = output_dir / "market" / "SOXL.json"

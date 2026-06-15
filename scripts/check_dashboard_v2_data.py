@@ -66,6 +66,32 @@ def _check_strict_retention_gate(manifest: dict[str, Any]) -> None:
         _require_numeric(gate, ("required_best_return_pct",), "strict_retention_gate")
 
 
+def _check_strict_candidate_retention_filter(manifest: dict[str, Any]) -> None:
+    filter_payload = manifest.get("strict_candidate_retention_filter")
+    if filter_payload is None:
+        return
+    if not isinstance(filter_payload, dict):
+        raise ValueError("strict_candidate_retention_filter must be an object")
+    if filter_payload.get("status") not in {"passed", "blocked"}:
+        raise ValueError("strict_candidate_retention_filter status must be passed or blocked")
+    promotable_count = _require_int_field(
+        filter_payload,
+        "promotable_profile_count",
+        "strict_candidate_retention_filter",
+    )
+    actor_retention_count = _require_int_field(
+        filter_payload,
+        "actor_retention_allowed_count",
+        "strict_candidate_retention_filter",
+    )
+    _require_int_field(filter_payload, "passing_profile_count", "strict_candidate_retention_filter")
+    _require_int_field(filter_payload, "reference_visible_count", "strict_candidate_retention_filter")
+    if actor_retention_count > promotable_count:
+        raise ValueError(
+            "strict_candidate_retention_filter actor_retention_allowed_count cannot exceed promotable_profile_count"
+        )
+
+
 def _require_rows(payload: dict[str, Any], label: str) -> list[dict[str, Any]]:
     rows = payload.get("rows")
     if not isinstance(rows, list) or not rows:
@@ -88,6 +114,7 @@ def check_dashboard_v2_data(root: Path) -> dict[str, int]:
     if unknown_defaults:
         raise ValueError(f"manifest references unknown profile: {', '.join(unknown_defaults)}")
     _check_strict_retention_gate(manifest)
+    _check_strict_candidate_retention_filter(manifest)
 
     market_rows = _require_rows(market, "market SOXL")
     for row in market_rows:

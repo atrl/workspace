@@ -1,0 +1,30 @@
+{
+  "experiment": "dashboard_v2_decision_markers_v1",
+  "decision": "dashboard_v2_kline_model_difference_markers_ready_for_review",
+  "screenshot": "runtime/production/card/dashboard_v2_decision_markers_v1/dashboard_v2_decision_markers_1440_final.png",
+  "viewport": {
+    "width": 1440,
+    "height": 1000
+  },
+  "visual_checks": {
+    "non_dark_pixel_pct": 11.69,
+    "non_background_pixel_pct": 38.25,
+    "first_viewport_model_cards_visible": 5,
+    "kline_difference_marker_text": "hidden",
+    "toolbar_date_controls_visible": true
+  },
+  "data_status": {
+    "latest_market_date": "2026-06-15",
+    "canonical_data_date": "2026-06-12",
+    "safe_backtest_end": "2026-06-11",
+    "actor_retention_allowed_count": 0,
+    "strict_candidate_retention_decision": "strict_candidate_retention_filter_no_promotable_candidates"
+  },
+  "verification": [
+    "cd web/dashboard-v2 && npm test",
+    "cd web/dashboard-v2 && npm run build",
+    "PYTHONPATH=. qlib_venv/bin/python -m pytest tests/test_dashboard_v2_data.py tests/test_dashboard_v2_checker.py tests/test_strict_candidate_retention_filter.py -q",
+    "PYTHONPATH=. qlib_venv/bin/python scripts/check_dashboard_v2_data.py dashboard_data/v2",
+    "Google Chrome headless screenshot at 1440x1000"
+  ]
+}

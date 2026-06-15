@@ -1,6 +1,7 @@
 import { describe, expect, test } from 'vitest';
 import {
   buildActionMarkers,
+  buildModelDifferenceMarkers,
   clampComparisonProfiles,
   clipRowsByDate,
   computeActionMismatchRows,
@@ -128,6 +129,27 @@ describe('dashboard v2 domain helpers', () => {
 
   test('builds action markers from event rows instead of price movement', () => {
     expect(buildActionMarkers(modelFixture.events).map((marker) => marker.text)).toEqual(['BUY', 'SELL']);
+  });
+
+  test('builds visible model-difference markers for buy/sell action mismatches against baseline', () => {
+    expect(
+      buildModelDifferenceMarkers(comparisonFixture, ['smoke', 'balanced_rule_residual_v22'], '2026-01-02', '2026-01-06'),
+    ).toEqual([
+      {
+        time: '2026-01-05',
+        position: 'belowBar',
+        color: '#39b7c5',
+        shape: 'arrowUp',
+        text: '',
+      },
+      {
+        time: '2026-01-06',
+        position: 'aboveBar',
+        color: '#39b7c5',
+        shape: 'arrowDown',
+        text: '',
+      },
+    ]);
   });
 
   test('computes visible comparison deltas against baseline', () => {

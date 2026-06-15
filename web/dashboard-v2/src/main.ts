@@ -225,16 +225,25 @@ function renderReadoutPanels(data: DashboardData, state: ViewState, update: Upda
   const comparison = requireElement('comparison-panel');
   const source = requireElement('source-panel');
   const deltaStrip = requireElement('model-delta-strip');
+  const mismatchRows = computeActionMismatchRows(data.comparison, data.market, state.start, state.end);
 
   renderToolbar(toolbar, data, state, update);
   renderInspector(data, state);
-  renderModelDeltaStrip(deltaStrip, data.comparison, state.start, state.end, state.selectedProfiles, data.manifest);
+  renderModelDeltaStrip(
+    deltaStrip,
+    data.comparison,
+    state.start,
+    state.end,
+    state.selectedProfiles,
+    data.manifest,
+    mismatchRows,
+  );
   renderComparisonPanel(
     comparison,
     data.comparison,
     state.start,
     state.end,
-    computeActionMismatchRows(data.comparison, data.market, state.start, state.end),
+    mismatchRows,
     (date) => update({ hoveredDate: date }),
   );
   renderDataSourcePanel(source, data.manifest, warningsFor(data, state));
@@ -250,7 +259,15 @@ function renderDashboard(data: DashboardData, state: ViewState, update: UpdateSt
   disposeChartSync?.();
   disposeChartSync = null;
   renderActionLegend(actionLegend);
-  const marketHandles = renderMarketChart(marketChart, market, primary, models, (date) => update({ hoveredDate: date }));
+  const marketHandles = renderMarketChart(
+    marketChart,
+    market,
+    primary,
+    models,
+    (date) => update({ hoveredDate: date }),
+    data.comparison,
+    state.selectedProfiles,
+  );
   const positionHandles = renderDeltaChart(
     positionChart,
     data.comparison,

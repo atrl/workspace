@@ -228,6 +228,38 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.textContent).toContain('21.83%');
   });
 
+  test('renders strict candidate retention filter status and next mechanism', () => {
+    const panel = document.createElement('section');
+
+    renderDataSourcePanel(panel, {
+      ...manifestFixture,
+      strict_candidate_retention_filter: {
+        status: 'blocked',
+        source_path: 'runtime/model_selection/card/strict_candidate_retention_filter_v1/summary.json',
+        decision: 'strict_candidate_retention_filter_no_promotable_candidates',
+        reference_baseline: 'soxl_backtest_policy_reimplementation_v1',
+        passing_profile_count: 0,
+        promotable_profile_count: 0,
+        actor_retention_allowed_count: 0,
+        reference_visible_count: 2,
+        ppo_allowed_next: false,
+        next_mechanism: 'train_bull_trend_participation_with_drawdown_drift_stop_no_promotion',
+        row_count: 15,
+        candidate_type_counts: {
+          checkpoint_selector: 1,
+          profile: 12,
+          qlib_reference_screen: 1,
+          reference_baseline: 1,
+        },
+      },
+    } as any);
+
+    expect(panel.textContent).toContain('Final Retain');
+    expect(panel.textContent).toContain('0');
+    expect(panel.textContent).toContain('Candidate retention filter: 0 promotable, 0 actor-retained');
+    expect(panel.textContent).toContain('train_bull_trend_participation_with_drawdown_drift_stop_no_promotion');
+  });
+
   test('renders inspector rows with tone classes', () => {
     const panel = document.createElement('aside');
 
@@ -284,25 +316,46 @@ describe('dashboard v2 DOM render helpers', () => {
   test('renders compact model delta strip outside the collapsed comparison panel', () => {
     const panel = document.createElement('div');
 
-    renderModelDeltaStrip(panel, comparisonFixture, '2026-01-02', '2026-01-06', undefined, {
-      ...manifestFixture,
-      profile_summaries: {
-        smoke: {
-          status: 'canonical',
-          replay_start: '2026-01-02',
-          replay_end: '2026-01-06',
-          row_count: 3,
-          source_path: 'runtime/model/card/smoke/smoke_soxl_daily.csv',
-        },
-        balanced_rule_residual_v22: {
-          status: 'canonical',
-          replay_start: '2026-01-02',
-          replay_end: '2026-01-05',
-          row_count: 2,
-          source_path: 'runtime/model/card/balanced_rule_residual_v22/balanced_rule_residual_v22_soxl_daily.csv',
+    renderModelDeltaStrip(
+      panel,
+      comparisonFixture,
+      '2026-01-02',
+      '2026-01-06',
+      undefined,
+      {
+        ...manifestFixture,
+        profile_summaries: {
+          smoke: {
+            status: 'canonical',
+            replay_start: '2026-01-02',
+            replay_end: '2026-01-06',
+            row_count: 3,
+            source_path: 'runtime/model/card/smoke/smoke_soxl_daily.csv',
+          },
+          balanced_rule_residual_v22: {
+            status: 'canonical',
+            replay_start: '2026-01-02',
+            replay_end: '2026-01-05',
+            row_count: 2,
+            source_path: 'runtime/model/card/balanced_rule_residual_v22/balanced_rule_residual_v22_soxl_daily.csv',
+          },
         },
       },
-    });
+      [
+        {
+          date: '2026-01-05',
+          profile: 'smoke',
+          model_action: 'BUY',
+          baseline_action: 'HOLD',
+          model_position: 0.7,
+          baseline_position: 0,
+          position_delta_vs_baseline: 0.7,
+          nav_delta_vs_baseline: 5,
+          close: 11,
+          features: { rsi6: '60', vix: '18', spread: '0.4' },
+        },
+      ],
+    );
 
     expect(panel.querySelectorAll('.model-delta-pill')).toHaveLength(1);
     expect(panel.textContent).toContain('smoke');
@@ -313,6 +366,8 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.textContent).toContain('NAV +2.00');
     expect(panel.textContent).toContain('Pos +0.200');
     expect(panel.textContent).toContain('Mismatch 2');
+    expect(panel.textContent).toContain('Last diff 2026-01-05 BUY vs HOLD');
+    expect(panel.textContent).toContain('rsi6 60');
   });
 
   test('renders model differences as visible rows with latest and common-window dates', () => {
@@ -506,5 +561,6 @@ describe('dashboard v2 DOM render helpers', () => {
 
     expect(panel.textContent).toContain('BUY');
     expect(panel.textContent).toContain('SELL');
+    expect(panel.textContent).toContain('DIFF');
   });
 });

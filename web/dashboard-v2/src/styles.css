@@ -49,12 +49,12 @@ select {
 
 .toolbar {
   display: flex;
-  align-items: center;
-  flex-wrap: nowrap;
+  align-items: flex-start;
+  flex-wrap: wrap;
   gap: 10px;
   min-height: 46px;
   padding: 7px 12px 9px;
-  overflow-x: auto;
+  overflow-x: visible;
 }
 
 .toolbar-group {
@@ -66,15 +66,17 @@ select {
 }
 
 .profile-group {
-  flex: 1 1 auto;
+  flex: 1 1 620px;
   flex-wrap: nowrap;
   min-width: 0;
+  max-width: 100%;
   overflow-x: auto;
 }
 
 .check-label {
   display: inline-flex;
   align-items: center;
+  flex: 0 0 auto;
   gap: 4px;
   color: var(--text);
 }
@@ -208,7 +210,9 @@ h3 {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 4px 8px;
-  flex: 0 0 232px;
+  flex: 1 1 0;
+  min-width: 190px;
+  max-width: 244px;
   min-height: 94px;
   padding: 8px 9px;
   border: 1px solid var(--line);
@@ -251,6 +255,13 @@ h3 {
   white-space: normal;
 }
 
+.model-difference-feature {
+  grid-column: 1 / -1;
+  color: var(--text);
+  border-top: 1px solid var(--line-soft);
+  padding-top: 5px;
+}
+
 .model-delta-pill strong {
   color: var(--text);
   font-size: 13px;
@@ -287,6 +298,11 @@ h3 {
 .legend-sell {
   color: var(--sell);
   border-color: color-mix(in srgb, var(--sell) 50%, var(--line));
+}
+
+.legend-diff {
+  color: var(--accent);
+  border-color: color-mix(in srgb, var(--accent) 50%, var(--line));
 }
 
 .legend-position {

@@ -48,6 +48,20 @@ export interface Manifest {
       missing_wf_window_count?: number | null;
     } | null;
   };
+  strict_candidate_retention_filter?: {
+    status: 'passed' | 'blocked';
+    source_path: string;
+    decision?: string | null;
+    reference_baseline?: string | null;
+    passing_profile_count: number;
+    promotable_profile_count: number;
+    actor_retention_allowed_count: number;
+    reference_visible_count: number;
+    ppo_allowed_next: boolean;
+    next_mechanism?: string | null;
+    row_count?: number | null;
+    candidate_type_counts?: Record<string, number> | null;
+  };
   blocked_profiles?: Record<
     string,
     {
@@ -181,6 +195,6 @@ export interface ActionMarker {
   time: string;
   position: 'aboveBar' | 'belowBar';
   color: string;
-  shape: 'arrowUp' | 'arrowDown';
-  text?: 'BUY' | 'SELL' | '';
+  shape: 'arrowUp' | 'arrowDown' | 'circle';
+  text?: string;
 }

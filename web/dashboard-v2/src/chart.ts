@@ -10,7 +10,7 @@ import {
   type MouseEventParams,
   type Time,
 } from 'lightweight-charts';
-import { buildActionMarkers, formatProfileLabel } from './domain';
+import { buildActionMarkers, buildModelDifferenceMarkers, formatProfileLabel } from './domain';
 import type { ComparisonPayload, MarketPayload, ModelPayload } from './types';
 
 const MODEL_COLORS = ['#39b7c5', '#a597ff', '#e1aa3e', '#1fb981', '#f472b6', '#f97316'];
@@ -117,6 +117,8 @@ export function renderMarketChart(
   model: ModelPayload,
   models: Record<string, ModelPayload>,
   onDate: (date: string) => void,
+  comparison?: ComparisonPayload,
+  comparisonProfiles: readonly string[] = Object.keys(models),
 ): ChartHandles {
   replaceChart(container);
   const chart = createChart(container, {
@@ -189,9 +191,17 @@ export function renderMarketChart(
     })),
   );
 
+  const markerStart = market.rows[0]?.date;
+  const markerEnd = market.rows.at(-1)?.date;
+  const markers = [
+    ...buildActionMarkers(model.events, { showText: false }),
+    ...(comparison && markerStart && markerEnd
+      ? buildModelDifferenceMarkers(comparison, comparisonProfiles, markerStart, markerEnd)
+      : []),
+  ];
   createSeriesMarkers(
     candleSeries,
-    buildActionMarkers(model.events, { showText: false }).map((marker) => ({
+    markers.map((marker) => ({
       ...marker,
       time: toTime(marker.time),
     })),

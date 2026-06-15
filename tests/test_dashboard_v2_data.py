@@ -90,6 +90,44 @@ def _write_strict_retention_gate_summary(root: Path, *, passing: int = 0) -> Pat
     return summary_path
 
 
+def _write_strict_candidate_retention_filter_summary(root: Path) -> Path:
+    summary_path = (
+        root
+        / "runtime"
+        / "model_selection"
+        / "card"
+        / "strict_candidate_retention_filter_v1"
+        / "summary.json"
+    )
+    summary_path.parent.mkdir(parents=True, exist_ok=True)
+    summary_path.write_text(
+        json.dumps(
+            {
+                "experiment": "strict_candidate_retention_filter_v1",
+                "row_count": 15,
+                "candidate_type_counts": {
+                    "checkpoint_selector": 1,
+                    "profile": 12,
+                    "qlib_reference_screen": 1,
+                    "reference_baseline": 1,
+                },
+                "summary": {
+                    "decision": "strict_candidate_retention_filter_no_promotable_candidates",
+                    "passing_profile_count": 0,
+                    "promotable_profile_count": 0,
+                    "actor_retention_allowed_count": 0,
+                    "reference_visible_count": 2,
+                    "ppo_allowed_next": False,
+                    "next_mechanism": "train_bull_trend_participation_with_drawdown_drift_stop_no_promotion",
+                    "reference_baseline": "soxl_backtest_policy_reimplementation_v1",
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
+    return summary_path
+
+
 def test_build_dashboard_v2_data_writes_manifest_market_model_and_comparison(tmp_path: Path):
     freshness = tmp_path / "dashboard_data" / "model_replay_freshness.json"
     freshness.parent.mkdir()
@@ -229,6 +267,7 @@ def test_build_dashboard_v2_data_exposes_strict_retention_gate_summary(tmp_path:
         )
     )
     _write_strict_retention_gate_summary(tmp_path, passing=0)
+    _write_strict_candidate_retention_filter_summary(tmp_path)
     reference_csv = (
         tmp_path
         / "runtime"
@@ -280,6 +319,14 @@ def test_build_dashboard_v2_data_exposes_strict_retention_gate_summary(tmp_path:
     assert manifest["strict_retention_gate"]["max_walkforward_drawdown_pct"] == 20.0
     assert manifest["strict_retention_gate"]["required_best_return_pct"] == 213.143462
     assert manifest["strict_retention_gate"]["closest_wf_drawdown_candidate"]["profile"] == "mode_conditioned_rebound_reward_train_v2"
+    assert manifest["strict_candidate_retention_filter"]["status"] == "blocked"
+    assert manifest["strict_candidate_retention_filter"]["decision"] == "strict_candidate_retention_filter_no_promotable_candidates"
+    assert manifest["strict_candidate_retention_filter"]["promotable_profile_count"] == 0
+    assert manifest["strict_candidate_retention_filter"]["actor_retention_allowed_count"] == 0
+    assert (
+        manifest["strict_candidate_retention_filter"]["next_mechanism"]
+        == "train_bull_trend_participation_with_drawdown_drift_stop_no_promotion"
+    )
 
 
 def test_build_dashboard_v2_data_loads_market_from_requested_root(tmp_path: Path):

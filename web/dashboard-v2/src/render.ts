@@ -55,6 +55,29 @@ function freshnessLabel(replayEnd: string | undefined, commonEnd: string, manife
   return { label: `Common ${commonEnd}`, status: 'safe' };
 }
 
+function latestMismatchForProfile(
+  mismatchRows: readonly ActionMismatchRow[],
+  profile: string,
+): ActionMismatchRow | undefined {
+  return [...mismatchRows].reverse().find((row) => row.profile === profile);
+}
+
+function mismatchFeatureLabel(row: ActionMismatchRow): string {
+  const features = Object.entries(row.features)
+    .slice(0, 3)
+    .map(([key, value]) => `${key} ${formatFeatureValue(value)}`)
+    .join(' | ');
+  const prefix = `Last diff ${row.date} ${row.model_action} vs ${row.baseline_action}`;
+  return features ? `${prefix} | ${features}` : prefix;
+}
+
+function formatFeatureValue(value: string): string {
+  const number = Number(value);
+  if (!Number.isFinite(number)) return value;
+  if (Math.abs(number - Math.round(number)) < 0.005) return String(Math.round(number));
+  return number.toFixed(2);
+}
+
 export function renderDataSourcePanel(container: HTMLElement, manifest: Manifest, warnings: string[] = []): void {
   container.replaceChildren();
   container.appendChild(element('h2', undefined, 'Data Status'));
@@ -93,10 +116,16 @@ export function renderDataSourcePanel(container: HTMLElement, manifest: Manifest
       `${manifest.strict_retention_gate.passing_profile_count}/${manifest.strict_retention_gate.profiles_scanned}`,
     ]);
   }
+  if (manifest.strict_candidate_retention_filter) {
+    rows.push(['Final Retain', String(manifest.strict_candidate_retention_filter.actor_retention_allowed_count)]);
+  }
   for (const [label, value] of rows) {
     const item = element('div', 'status-pill');
     if (label === 'Blocked' && blockedCount > 0) item.dataset.tone = 'warning';
     if (label === 'Strict Gate' && manifest.strict_retention_gate?.status === 'blocked') item.dataset.tone = 'warning';
+    if (label === 'Final Retain' && manifest.strict_candidate_retention_filter?.status === 'blocked') {
+      item.dataset.tone = 'warning';
+    }
     item.appendChild(element('span', 'source-label', label));
     item.appendChild(element('span', 'source-value', value));
     strip.appendChild(item);
@@ -169,10 +198,22 @@ export function renderDataSourcePanel(container: HTMLElement, manifest: Manifest
           : [],
       ].flat()
     : [];
+  const candidateFilter = manifest.strict_candidate_retention_filter;
+  const candidateWarnings = candidateFilter
+    ? [
+        [
+          `Candidate retention filter: ${candidateFilter.promotable_profile_count} promotable, ` +
+            `${candidateFilter.actor_retention_allowed_count} actor-retained; ` +
+            `decision ${candidateFilter.decision ?? candidateFilter.status}.`,
+        ],
+        candidateFilter.next_mechanism ? [`Next mechanism: ${candidateFilter.next_mechanism}.`] : [],
+        [`PPO allowed next: ${String(candidateFilter.ppo_allowed_next)}.`],
+      ].flat()
+    : [];
   const blockedWarnings = Object.entries(manifest.blocked_profiles ?? {}).map(
     ([profile, status]) => `${profile}: ${status.reason}`,
   );
-  const allWarnings = [...warnings, ...gateWarnings, ...blockedWarnings];
+  const allWarnings = [...warnings, ...gateWarnings, ...candidateWarnings, ...blockedWarnings];
   if (allWarnings.length) {
     const diagnostics = element('details', 'source-diagnostics') as HTMLDetailsElement;
     diagnostics.appendChild(element('summary', undefined, `Diagnostics (${allWarnings.length})`));
@@ -192,6 +233,7 @@ export function renderModelDeltaStrip(
   end: string,
   profiles: readonly string[] = comparison.compared_profiles,
   manifest?: Manifest,
+  mismatchRows: readonly ActionMismatchRow[] = [],
 ): void {
   container.replaceChildren();
   const visible = computeVisibleComparison(comparison, start, end);
@@ -254,6 +296,10 @@ export function renderModelDeltaStrip(
     pill.appendChild(element('span', undefined, `ΔPos ${formatSigned(values.position_delta_vs_baseline, 3)}`));
     pill.appendChild(element('span', undefined, `Mismatch ${mismatchCount}`));
     pill.appendChild(element('span', undefined, `Action ${values.action}`));
+    const latestMismatch = latestMismatchForProfile(mismatchRows, profile);
+    if (latestMismatch) {
+      pill.appendChild(element('span', 'model-difference-feature', mismatchFeatureLabel(latestMismatch)));
+    }
     grid.appendChild(pill);
   }
   container.appendChild(grid);
@@ -263,7 +309,8 @@ export function renderActionLegend(container: HTMLElement): void {
   container.replaceChildren();
   const buy = element('span', 'legend-item legend-buy', 'BUY');
   const sell = element('span', 'legend-item legend-sell', 'SELL');
-  container.append(buy, sell);
+  const diff = element('span', 'legend-item legend-diff', 'DIFF');
+  container.append(buy, sell, diff);
 }
 
 export function renderInspectorPanel(container: HTMLElement, rows: InspectorRow[]): void {

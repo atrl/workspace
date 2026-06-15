@@ -125,6 +125,28 @@ describe('dashboard v2 chart rendering', () => {
     expect(chartMocks.seriesRecords.some((record) => record.options.priceScaleId === 'left')).toBe(false);
   });
 
+  test('adds selected model action-difference markers directly on the main K-line', () => {
+    const container = document.createElement('div');
+
+    renderMarketChart(
+      container,
+      marketFixture,
+      modelFixture,
+      { smoke: modelFixture },
+      () => {},
+      comparisonFixture,
+      ['smoke', 'balanced_rule_residual_v22'],
+    );
+
+    expect(chartMocks.createSeriesMarkers).toHaveBeenCalledTimes(1);
+    expect(chartMocks.createSeriesMarkers.mock.calls[0][1]).toEqual([
+      { time: '2026-01-05', position: 'belowBar', color: '#0f766e', shape: 'arrowUp', text: '' },
+      { time: '2026-01-06', position: 'aboveBar', color: '#b91c1c', shape: 'arrowDown', text: '' },
+      { time: '2026-01-05', position: 'belowBar', color: '#39b7c5', shape: 'arrowUp', text: '' },
+      { time: '2026-01-06', position: 'aboveBar', color: '#39b7c5', shape: 'arrowDown', text: '' },
+    ]);
+  });
+
   test('keeps price and volume in readable vertical bands', () => {
     const container = document.createElement('div');
 

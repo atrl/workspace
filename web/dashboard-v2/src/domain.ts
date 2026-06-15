@@ -12,6 +12,8 @@ import type {
   ModelRow,
 } from './types';
 
+const MODEL_COLORS = ['#39b7c5', '#a597ff', '#e1aa3e', '#1fb981', '#f472b6', '#f97316'];
+
 export function formatProfileLabel(profile: string): string {
   if (profile === 'soxl_backtest_policy_reimplementation_v1') return 'SOXLBacktest';
   if (profile === 'mode_conditioned_rebound_reward_train_v2') return 'Mode rebound v2';
@@ -201,6 +203,49 @@ export function buildActionMarkers(
         text: showText ? text : '',
       };
     });
+}
+
+function markerShapeForAction(action: string): ActionMarker['shape'] {
+  if (action === 'BUY') return 'arrowUp';
+  if (action === 'SELL') return 'arrowDown';
+  return 'circle';
+}
+
+function markerPositionForAction(action: string): ActionMarker['position'] {
+  return action === 'BUY' ? 'belowBar' : 'aboveBar';
+}
+
+export function buildModelDifferenceMarkers(
+  comparison: ComparisonPayload,
+  profiles: readonly string[],
+  start: string,
+  end: string,
+  limit = 80,
+): ActionMarker[] {
+  const selectedProfiles = profiles.filter(
+    (profile, index) =>
+      profile !== comparison.baseline_profile &&
+      profiles.indexOf(profile) === index &&
+      comparison.compared_profiles.includes(profile),
+  );
+  const markers: ActionMarker[] = [];
+  for (const row of comparison.rows) {
+    if (row.date < start || row.date > end) continue;
+    const baseline = row.profiles[comparison.baseline_profile];
+    if (!baseline) continue;
+    for (const [index, profile] of selectedProfiles.entries()) {
+      const value = row.profiles[profile];
+      if (!value?.action_mismatch) continue;
+      markers.push({
+        time: row.date,
+        position: markerPositionForAction(value.action),
+        color: MODEL_COLORS[index % MODEL_COLORS.length],
+        shape: markerShapeForAction(value.action),
+        text: '',
+      });
+    }
+  }
+  return markers.slice(-limit);
 }
 
 export function computeVisibleComparison(
