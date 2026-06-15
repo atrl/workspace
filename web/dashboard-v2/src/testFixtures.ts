@@ -105,6 +105,7 @@ export const manifestFixture: Manifest = {
     install_command: 'production/install_dashboard_refresh_launchagent.sh',
     run_now_command: 'production/install_dashboard_refresh_launchagent.sh --run-now',
     refresh_pipeline: [
+      'scripts/export_legacy_soxl_policy_replay.py',
       'scripts/refresh_dashboard_model_replays.py',
       'scripts/review_model_retention_gates.py',
       'scripts/review_model_retention_frontier.py',

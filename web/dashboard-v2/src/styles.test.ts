@@ -11,13 +11,18 @@ describe('dashboard v2 layout styles', () => {
     expect(workspaceRule).not.toContain('height: 100%;');
   });
 
-  test('prioritizes feature and operations panels above the hover inspector', () => {
+  test('keeps diagnostics out of the right rail so chart reading stays compact', () => {
     const css = readFileSync('src/styles.css', 'utf8');
+    const source = readFileSync('src/main.ts', 'utf8');
     const rightStackRule = css.match(/\.right-stack\s*\{[^}]*\}/)?.[0] ?? '';
     const inspectorRule = css.match(/\.inspector-panel\s*\{[^}]*\}/)?.[0] ?? '';
+    const diagnosticsRule = css.match(/\.diagnostics-drawer\s*\{[^}]*\}/)?.[0] ?? '';
 
-    expect(rightStackRule).toContain('grid-template-rows: minmax(300px, 1.15fr) minmax(170px, auto) minmax(120px, 0.55fr);');
-    expect(inspectorRule).toContain('max-height: 260px;');
+    expect(source).toContain('class="diagnostics-drawer"');
+    expect(source).not.toContain('<section id="operations-panel" class="side-panel operations-panel"></section>');
+    expect(rightStackRule).toContain('grid-template-rows: minmax(220px, 0.75fr) minmax(320px, 1fr);');
+    expect(inspectorRule).toContain('max-height: none;');
+    expect(diagnosticsRule).toContain('max-height: min(42vh, 520px);');
   });
 
   test('keeps desktop layout constrained while model labels wrap inside toolbar', () => {

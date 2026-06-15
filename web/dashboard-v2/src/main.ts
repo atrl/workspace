@@ -101,14 +101,19 @@ function createShell(app: HTMLElement): void {
         </div>
       </section>
       <aside class="right-stack">
-        <section id="feature-panel" class="side-panel feature-panel"></section>
-        <section id="operations-panel" class="side-panel operations-panel"></section>
         <section id="inspector" class="side-panel inspector-panel"></section>
+        <section id="feature-panel" class="side-panel feature-panel"></section>
       </aside>
     </main>
-    <section id="comparison-panel" class="panel"></section>
     <section id="feature-comparison-panel" class="panel feature-comparison-main"></section>
-    <section id="source-panel" class="panel"></section>
+    <section id="comparison-panel" class="panel compact-comparison-panel"></section>
+    <details class="diagnostics-drawer">
+      <summary>Data and automation diagnostics</summary>
+      <div class="diagnostics-grid">
+        <section id="operations-panel" class="panel operations-panel"></section>
+        <section id="source-panel" class="panel source-panel"></section>
+      </div>
+    </details>
   `;
 }
 

@@ -97,6 +97,7 @@ def main() -> int:
     args = parser.parse_args()
 
     python = sys.executable
+    _run([python, "scripts/export_legacy_soxl_policy_replay.py"], "SOXLBacktest baseline replay export")
     _run([python, "scripts/build_backtest_dashboard.py"], "dashboard.html build")
     if not args.skip_retention_gate:
         _run([python, "scripts/review_model_retention_gates.py"], "model retention gate review")

@@ -385,6 +385,15 @@ function statusPill(title: string, value: string, detail: string): HTMLElement {
   return pill;
 }
 
+function modelCurveFreshness(manifest: Manifest): { latestEnd: string; staleCount: number; total: number } {
+  const rows = (manifest.model_runtime_status ?? []).filter((row) => row.role !== 'unavailable' && row.replay_end);
+  if (!rows.length) return { latestEnd: 'n/a', staleCount: 0, total: 0 };
+  const latestEnd = rows.map((row) => row.replay_end as string).sort().at(-1) ?? 'n/a';
+  const safeEnd = manifest.safe_backtest_end;
+  const staleCount = rows.filter((row) => row.replay_end && row.replay_end < safeEnd).length;
+  return { latestEnd, staleCount, total: rows.length };
+}
+
 export function renderDashboardStatusStrip(container: HTMLElement, manifest: Manifest): void {
   container.replaceChildren();
   container.className = 'status-strip';
@@ -404,12 +413,13 @@ export function renderDashboardStatusStrip(container: HTMLElement, manifest: Man
   const replayReadyCount = auto?.model_replay_freshness?.ready_count ?? 0;
   const replayProfileCount = auto?.model_replay_freshness?.profile_count ?? 0;
   const frontier = manifest.model_retention_frontier;
+  const curveFreshness = modelCurveFreshness(manifest);
 
   container.appendChild(
     statusPill(
       'Data',
       `market ${latest ?? 'n/a'}`,
-      `safe replay ${safeEnd ?? 'n/a'} · replay ${replayReadyCount}/${replayProfileCount}`,
+      `safe replay ${safeEnd ?? 'n/a'} · curves ${curveFreshness.latestEnd} · stale ${curveFreshness.staleCount}/${curveFreshness.total} · replay ${replayReadyCount}/${replayProfileCount}`,
     ),
   );
   container.appendChild(

@@ -174,6 +174,7 @@ def test_build_dashboard_v2_data_writes_manifest_market_model_and_comparison(tmp
     assert manifest["auto_update"]["install_command"] == "production/install_dashboard_refresh_launchagent.sh"
     assert manifest["auto_update"]["run_now_command"] == "production/install_dashboard_refresh_launchagent.sh --run-now"
     assert manifest["auto_update"]["refresh_pipeline"] == [
+        "scripts/export_legacy_soxl_policy_replay.py",
         "scripts/refresh_dashboard_model_replays.py",
         "scripts/review_model_retention_gates.py",
         "scripts/review_model_retention_frontier.py",

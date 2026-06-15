@@ -1070,7 +1070,7 @@ def test_soxlbacktest_reference_version_exports_buy_sell_baseline():
     actions = {row["action"] for row in rows}
 
     assert payload["_meta"]["source_kind"] == "reference_baseline"
-    assert payload["windows"]["SOXL"] == {"start": "2026-01-02", "end": "2026-06-09", "rows": 109}
+    assert payload["windows"]["SOXL"] == {"start": "2026-01-02", "end": "2026-06-11", "rows": 111}
     assert detail["summary"]["source_profile"] == "soxl_backtest_policy_reimplementation_v1"
     assert detail["summary"]["window"] == "ytd_2026"
     assert "BUY" in actions

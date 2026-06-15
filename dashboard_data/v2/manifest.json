@@ -12,7 +12,7 @@
         "refreshed": 0,
         "skipped": 0
       },
-      "generated_at": "2026-06-15T11:02:35+00:00",
+      "generated_at": "2026-06-15T11:29:51+00:00",
       "latest_data_date": "2026-06-12",
       "note": "No replay actor candidates are exposed by model_replay_freshness.json; the refresh task still rebuilds dashboard bundles and reference/evidence exports.",
       "profile_count": 0,
@@ -21,6 +21,7 @@
       "source_path": "dashboard_data/model_replay_freshness.json"
     },
     "refresh_pipeline": [
+      "scripts/export_legacy_soxl_policy_replay.py",
       "scripts/refresh_dashboard_model_replays.py",
       "scripts/review_model_retention_gates.py",
       "scripts/review_model_retention_frontier.py",
@@ -90,14 +91,14 @@
     "drawdown_rebound_reward_train_v1",
     "mode_conditioned_rebound_reward_train_v2"
   ],
-  "generated_at": "2026-06-15T11:02:49.350427+00:00",
+  "generated_at": "2026-06-15T11:30:04.244518+00:00",
   "latest_market_date": "2026-06-12",
   "model_retention_frontier": {
-    "completed_handoff_count": 137,
+    "completed_handoff_count": 138,
     "max_walkforward_drawdown_pct": 20.0,
-    "recommended_next_action": "run_aux_state_loss_bc_holdout_slice_screen_with_trend_preservation_floor_before_checkpoint_screen",
-    "recommended_next_source": "release16_state_aux_loss_training_capability_v1",
-    "recommended_primary_blocker": "training_contract_ready",
+    "recommended_next_action": "escalate_to_checkpoint_objective_loss_or_target_semantics_for_downtrend_drawdown_holdout_before_ppo",
+    "recommended_next_source": "release16_aux_state_loss_bc_holdout_slice_screen_v1",
+    "recommended_primary_blocker": "downtrend_drawdown_holdout_slice_failed",
     "reference_return_pct": 132.077978,
     "required_best_return_pct": 213.143462,
     "required_wf_windows": [
@@ -105,7 +106,7 @@
       "wf_2022",
       "wf_2023_2024"
     ],
-    "rows_scanned": 174,
+    "rows_scanned": 175,
     "source_path": "runtime/model_selection/card/model_retention_frontier_v1/summary.json"
   },
   "model_retention_gate": {
@@ -133,10 +134,10 @@
       "feature_schema_signature": "0ede55bc8174",
       "feature_schema_source": "replay_inline_snapshot",
       "profile": "soxl_backtest_policy_reimplementation_v1",
-      "replay_end": "2026-06-09",
+      "replay_end": "2026-06-11",
       "replay_start": "2026-01-02",
       "role": "reference",
-      "row_count": 109,
+      "row_count": 111,
       "runnable": false,
       "runnable_reason": "reference_baseline",
       "snapshot_count": 4,

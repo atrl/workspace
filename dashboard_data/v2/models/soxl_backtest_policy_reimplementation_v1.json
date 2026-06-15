@@ -128,25 +128,25 @@
   "feature_schema_source": "replay_inline_snapshot",
   "metrics": {
     "full": {
-      "avg_position": 0.1622073394495413,
-      "buyhold_return": 3.2692631844662046,
-      "excess_return": -1.948483404952655,
+      "avg_position": 0.16215135135135134,
+      "buyhold_return": 3.741532431022338,
+      "excess_return": -2.3763557515087883,
       "max_drawdown": -0.13554088542803522,
-      "return": 1.3207797795135496,
-      "row_count": 109.0
+      "return": 1.3651766795135498,
+      "row_count": 111.0
     }
   },
   "min_wf_relative_return_pct": null,
   "profile": "soxl_backtest_policy_reimplementation_v1",
   "profile_yaml": null,
-  "replay_end": "2026-06-09",
+  "replay_end": "2026-06-11",
   "replay_start": "2026-01-02",
   "required_best_return_pct": null,
   "required_soxlbacktest_return_pct": 132.077978,
   "retention_decision": "keep_reference_baseline",
   "retention_failures": [],
   "retention_gate_pass": true,
-  "row_count": 109,
+  "row_count": 111,
   "rows": [
     {
       "action": "HOLD",
@@ -1891,6 +1891,38 @@
       "position": 0.1591,
       "price": 201.68,
       "strategy_nav": 232077.97795135496
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 382408.9618573085,
+      "date": "2026-06-10",
+      "excess": -154515.95390595356,
+      "excess_pct": 1.2789300795135494,
+      "feature_snapshot": {
+        "HV_20": 1.930071663164599,
+        "HV_30": 1.7805857918310652,
+        "VOL_COEF": 1.930071663164599,
+        "panic_score": -74.6796028648804
+      },
+      "position": 0.1591,
+      "price": 180.65,
+      "strategy_nav": 227893.00795135496
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 474153.2431022338,
+      "date": "2026-06-11",
+      "excess": -237635.57515087884,
+      "excess_pct": 1.3651766795135498,
+      "feature_snapshot": {
+        "HV_20": 2.0633211249513677,
+        "HV_30": 1.8649788308224748,
+        "VOL_COEF": 2.0,
+        "panic_score": 13.909244787845791
+      },
+      "position": 0.1591,
+      "price": 223.99,
+      "strategy_nav": 236517.66795135496
     }
   ],
   "runnable": false,

@@ -29,7 +29,7 @@ select {
   width: 100%;
   max-width: 100vw;
   display: grid;
-  grid-template-rows: auto minmax(0, 1fr) auto auto;
+  grid-template-rows: auto minmax(0, 1fr) auto auto auto;
   overflow-x: hidden;
 }
 
@@ -259,7 +259,7 @@ select {
 
 .workspace {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) clamp(380px, 28vw, 440px);
+  grid-template-columns: minmax(0, 1fr) clamp(320px, 24vw, 390px);
   gap: 0;
   width: 100%;
   max-width: 100vw;
@@ -416,7 +416,7 @@ h2 {
 .right-stack {
   min-width: 0;
   display: grid;
-  grid-template-rows: minmax(300px, 1.15fr) minmax(170px, auto) minmax(120px, 0.55fr);
+  grid-template-rows: minmax(220px, 0.75fr) minmax(320px, 1fr);
   min-height: 0;
   overflow: hidden;
 }
@@ -444,7 +444,7 @@ h2 {
 }
 
 .operations-panel {
-  max-height: 300px;
+  min-height: 0;
 }
 
 .feature-panel {
@@ -452,7 +452,35 @@ h2 {
 }
 
 .inspector-panel {
-  max-height: 260px;
+  max-height: none;
+}
+
+.diagnostics-drawer {
+  max-height: min(42vh, 520px);
+  margin-top: 0;
+  overflow: auto;
+  border-top: 1px solid #1f2937;
+  background: #0f172a;
+}
+
+.diagnostics-drawer summary {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  min-height: 40px;
+  padding: 0 12px;
+  background: #0f172a;
+}
+
+.diagnostics-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  padding: 0 12px 12px;
+}
+
+.diagnostics-grid > .panel {
+  border-top: 0;
 }
 
 .feature-date-snapshot {

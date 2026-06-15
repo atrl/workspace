@@ -86,6 +86,7 @@ def test_legacy_policy_replay_accepts_risk_parameter_overrides():
 
 def test_export_legacy_soxl_policy_replay_writes_sidecars(tmp_path):
     from scripts.export_legacy_soxl_policy_replay import write_legacy_soxl_policy_replay_outputs
+    from scripts.refresh_dashboard_model_replays import safe_backtest_end
 
     summary = write_legacy_soxl_policy_replay_outputs(tmp_path)
 
@@ -97,12 +98,20 @@ def test_export_legacy_soxl_policy_replay_writes_sidecars(tmp_path):
         "summary.json",
     }
     assert expected_files == {path.name for path in tmp_path.iterdir()}
+    daily = pd.read_csv(tmp_path / "new_policy_daily.csv")
+    expected_safe_end = safe_backtest_end()
+    assert daily["date"].max() == expected_safe_end
+    assert summary["windows"]["ytd_2026"]["new_policy"]["end"] == expected_safe_end
+    assert summary["windows"]["june_2026"]["new_policy"]["end"] == expected_safe_end
     assert summary["windows"]["ytd_2026"]["new_policy"]["trade_count"] == 3
-    assert summary["windows"]["june_2026"]["new_policy"]["trade_count"] == 1
+    assert summary["windows"]["june_2026"]["new_policy"]["trade_count"] == 2
+    assert summary["windows"]["june_2026"]["legacy_comparison_new_policy"]["trade_count"] == 1
 
     metrics = pd.read_csv(tmp_path / "legacy_comparison_metrics.csv")
     ytd = metrics.loc[metrics["window"] == "ytd_2026"].iloc[0]
     june = metrics.loc[metrics["window"] == "june_2026"].iloc[0]
+    assert ytd["comparison_end"] == "2026-06-09"
+    assert june["comparison_end"] == "2026-06-09"
     assert abs(float(ytd["return_delta_pct"])) <= 0.05
     assert abs(float(june["return_delta_pct"])) <= 0.05
 

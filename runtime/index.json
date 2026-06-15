@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-15T11:03:04.137683+00:00",
+  "generated_at": "2026-06-15T11:32:54.483784+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -6239,19 +6239,19 @@
       "path": "runtime/model_selection/card/model_retention_frontier_v1/conclusion.md",
       "category": "model_selection",
       "suffix": ".md",
-      "bytes": 584
+      "bytes": 606
     },
     {
       "path": "runtime/model_selection/card/model_retention_frontier_v1/retention_frontier.csv",
       "category": "model_selection",
       "suffix": ".csv",
-      "bytes": 75923
+      "bytes": 76608
     },
     {
       "path": "runtime/model_selection/card/model_retention_frontier_v1/summary.json",
       "category": "model_selection",
       "suffix": ".json",
-      "bytes": 186095
+      "bytes": 187420
     },
     {
       "path": "runtime/model_selection/card/model_retention_walkforward_gate_v1/conclusion.md",
@@ -7911,6 +7911,168 @@
     },
     {
       "path": "runtime/model_selection/card/release16_action_head_position_loss_screen_v1/target_holdout_split.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1259595
+    },
+    {
+      "path": "runtime/model_selection/card/release16_aux_state_loss_bc_holdout_slice_screen_v1/bc_action_calibration.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 32712
+    },
+    {
+      "path": "runtime/model_selection/card/release16_aux_state_loss_bc_holdout_slice_screen_v1/bc_action_distribution.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 3930
+    },
+    {
+      "path": "runtime/model_selection/card/release16_aux_state_loss_bc_holdout_slice_screen_v1/bc_candidate_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 62124
+    },
+    {
+      "path": "runtime/model_selection/card/release16_aux_state_loss_bc_holdout_slice_screen_v1/bc_drift_scores.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1199
+    },
+    {
+      "path": "runtime/model_selection/card/release16_aux_state_loss_bc_holdout_slice_screen_v1/bc_fit_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 12918
+    },
+    {
+      "path": "runtime/model_selection/card/release16_aux_state_loss_bc_holdout_slice_screen_v1/bc_selection_by_fold.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1581
+    },
+    {
+      "path": "runtime/model_selection/card/release16_aux_state_loss_bc_holdout_slice_screen_v1/bc_slice_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 24169
+    },
+    {
+      "path": "runtime/model_selection/card/release16_aux_state_loss_bc_holdout_slice_screen_v1/conclusion.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 1188
+    },
+    {
+      "path": "runtime/model_selection/card/release16_aux_state_loss_bc_holdout_slice_screen_v1/drawdown_interval_diagnostic.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 3976
+    },
+    {
+      "path": "runtime/model_selection/card/release16_aux_state_loss_bc_holdout_slice_screen_v1/official_daily_path_manifest.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2823
+    },
+    {
+      "path": "runtime/model_selection/card/release16_aux_state_loss_bc_holdout_slice_screen_v1/official_daily_paths/wf_2020__aux_downtrend_drawdown_high_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31728
+    },
+    {
+      "path": "runtime/model_selection/card/release16_aux_state_loss_bc_holdout_slice_screen_v1/official_daily_paths/wf_2020__aux_joint_state_high_weight_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31757
+    },
+    {
+      "path": "runtime/model_selection/card/release16_aux_state_loss_bc_holdout_slice_screen_v1/official_daily_paths/wf_2020__aux_release_downtrend_balanced_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31705
+    },
+    {
+      "path": "runtime/model_selection/card/release16_aux_state_loss_bc_holdout_slice_screen_v1/official_daily_paths/wf_2020__aux_release_drawdown_trend_floor_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31635
+    },
+    {
+      "path": "runtime/model_selection/card/release16_aux_state_loss_bc_holdout_slice_screen_v1/official_daily_paths/wf_2022__aux_downtrend_drawdown_high_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30780
+    },
+    {
+      "path": "runtime/model_selection/card/release16_aux_state_loss_bc_holdout_slice_screen_v1/official_daily_paths/wf_2022__aux_joint_state_high_weight_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30775
+    },
+    {
+      "path": "runtime/model_selection/card/release16_aux_state_loss_bc_holdout_slice_screen_v1/official_daily_paths/wf_2022__aux_release_downtrend_balanced_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30603
+    },
+    {
+      "path": "runtime/model_selection/card/release16_aux_state_loss_bc_holdout_slice_screen_v1/official_daily_paths/wf_2022__aux_release_drawdown_trend_floor_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30206
+    },
+    {
+      "path": "runtime/model_selection/card/release16_aux_state_loss_bc_holdout_slice_screen_v1/official_daily_paths/wf_2023_2024__aux_downtrend_drawdown_high_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31508
+    },
+    {
+      "path": "runtime/model_selection/card/release16_aux_state_loss_bc_holdout_slice_screen_v1/official_daily_paths/wf_2023_2024__aux_joint_state_high_weight_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31584
+    },
+    {
+      "path": "runtime/model_selection/card/release16_aux_state_loss_bc_holdout_slice_screen_v1/official_daily_paths/wf_2023_2024__aux_release_downtrend_balanced_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31266
+    },
+    {
+      "path": "runtime/model_selection/card/release16_aux_state_loss_bc_holdout_slice_screen_v1/official_daily_paths/wf_2023_2024__aux_release_drawdown_trend_floor_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31289
+    },
+    {
+      "path": "runtime/model_selection/card/release16_aux_state_loss_bc_holdout_slice_screen_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 4900
+    },
+    {
+      "path": "runtime/model_selection/card/release16_aux_state_loss_bc_holdout_slice_screen_v1/soxlbacktest_baseline_comparison.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 7667
+    },
+    {
+      "path": "runtime/model_selection/card/release16_aux_state_loss_bc_holdout_slice_screen_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 8806
+    },
+    {
+      "path": "runtime/model_selection/card/release16_aux_state_loss_bc_holdout_slice_screen_v1/target_coverage.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1588
+    },
+    {
+      "path": "runtime/model_selection/card/release16_aux_state_loss_bc_holdout_slice_screen_v1/target_holdout_split.csv",
       "category": "model_selection",
       "suffix": ".csv",
       "bytes": 1259595
@@ -17879,25 +18041,25 @@
       "path": "runtime/production/card/soxl_backtest_policy_reimplementation_v1/legacy_comparison_metrics.csv",
       "category": "production",
       "suffix": ".csv",
-      "bytes": 614
+      "bytes": 684
     },
     {
       "path": "runtime/production/card/soxl_backtest_policy_reimplementation_v1/new_policy_daily.csv",
       "category": "production",
       "suffix": ".csv",
-      "bytes": 20859
+      "bytes": 21515
     },
     {
       "path": "runtime/production/card/soxl_backtest_policy_reimplementation_v1/new_policy_trades.csv",
       "category": "production",
       "suffix": ".csv",
-      "bytes": 1210
+      "bytes": 1511
     },
     {
       "path": "runtime/production/card/soxl_backtest_policy_reimplementation_v1/summary.json",
       "category": "production",
       "suffix": ".json",
-      "bytes": 5930
+      "bytes": 7176
     },
     {
       "path": "runtime/production/card/soxl_backtest_policy_reimplementation_v1/trade_timing_diagnostics.csv",

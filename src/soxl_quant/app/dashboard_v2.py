@@ -794,6 +794,7 @@ def _auto_update_status(
         "install_command": _relative_to(root, dashboard_refresh_installer),
         "run_now_command": f"{_relative_to(root, dashboard_refresh_installer)} --run-now",
         "refresh_pipeline": [
+            "scripts/export_legacy_soxl_policy_replay.py",
             "scripts/refresh_dashboard_model_replays.py",
             "scripts/review_model_retention_gates.py",
             "scripts/review_model_retention_frontier.py",
