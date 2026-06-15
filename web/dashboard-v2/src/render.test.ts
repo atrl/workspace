@@ -65,6 +65,58 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(warningPill?.textContent).toContain('2');
   });
 
+  test('marks visible blocked actors as diagnostic comparisons', () => {
+    const panel = document.createElement('section');
+
+    renderDataSourcePanel(panel, {
+      ...manifestFixture,
+      default_baseline_profile: 'soxl_backtest_policy_reimplementation_v1',
+      default_comparison_profiles: ['soxl_backtest_policy_reimplementation_v1', 'balanced_rule_residual_v22'],
+      profile_summaries: {
+        soxl_backtest_policy_reimplementation_v1: {
+          status: 'reference',
+          replay_start: '2026-01-02',
+          replay_end: '2026-01-06',
+          row_count: 3,
+          source_path: 'runtime/production/card/soxl_backtest_policy_reimplementation_v1/new_policy_daily.csv',
+        },
+        balanced_rule_residual_v22: {
+          status: 'canonical',
+          replay_start: '2026-01-02',
+          replay_end: '2026-01-05',
+          row_count: 2,
+          source_path: 'runtime/model/card/balanced_rule_residual_v22/balanced_rule_residual_v22_soxl_daily.csv',
+          retention: {
+            code: 'missing_final_retention_decision',
+            status: 'blocked',
+            reason: 'summary lacks final_model_retention_decision',
+            summary_path: 'runtime/model/card/balanced_rule_residual_v22/soxl_balanced_rule_residual_v22_summary.json',
+            final_model_retained: false,
+          },
+        },
+      },
+      diagnostic_profiles: ['balanced_rule_residual_v22'],
+      retention_filter: {
+        policy: 'final_model_retained_or_reference',
+        input_profile_count: 2,
+        allowed_profile_count: 1,
+        blocked_profile_count: 1,
+      },
+      blocked_profiles: {
+        balanced_rule_residual_v22: {
+          code: 'missing_final_retention_decision',
+          status: 'blocked',
+          reason: 'summary lacks final_model_retention_decision',
+          summary_path: 'runtime/model/card/balanced_rule_residual_v22/soxl_balanced_rule_residual_v22_summary.json',
+          final_model_retained: false,
+        },
+      },
+    });
+
+    expect(panel.querySelector('.gate-banner')?.textContent).toContain('Diagnostic actor comparisons');
+    expect(panel.querySelector('.gate-banner')?.textContent).toContain('not final-retained');
+  });
+
   test('renders inspector rows with tone classes', () => {
     const panel = document.createElement('aside');
 

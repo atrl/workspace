@@ -18,6 +18,12 @@ SOXL_BACKTEST_REFERENCE_WINDOW = "ytd_2026"
 SOXL_BACKTEST_REFERENCE_DAILY = (
     "runtime/production/card/soxl_backtest_policy_reimplementation_v1/new_policy_daily.csv"
 )
+DIAGNOSTIC_PROFILE_PREFERENCES = (
+    "balanced_rule_residual_v22",
+    "balanced_rule_residual_v19_reg",
+    "balanced_rule_residual_v19",
+)
+MAX_DEFAULT_COMPARISON_PROFILES = 4
 MODEL_DATE_FIELDS = ("datetime", "date")
 REQUIRED_MODEL_FIELDS = ("strategy_nav", "buyhold_nav", "position", "action", "price")
 ACTION_VALUES = {"BUY", "SELL", "HOLD"}
@@ -195,6 +201,32 @@ def _public_retention_status(status: dict[str, Any]) -> dict[str, Any]:
         "summary_path": status.get("summary_path"),
         "final_model_retained": status["final_model_retained"],
     }
+
+
+def _diagnostic_defaults(
+    by_name: dict[str, dict[str, Any]],
+    retention_by_name: dict[str, dict[str, Any]],
+    selected_profiles: list[str] | None,
+) -> list[str]:
+    if selected_profiles:
+        candidates = [profile for profile in selected_profiles if profile in by_name]
+    else:
+        candidates = list(DIAGNOSTIC_PROFILE_PREFERENCES)
+    return [
+        profile
+        for profile in _dedupe_preserve_order(candidates)
+        if profile in by_name and not retention_by_name[profile]["allowed"]
+    ]
+
+
+def _model_safe_backtest_end(
+    source: dict[str, Any],
+    retention_status: dict[str, Any],
+    safe_backtest_end: str | None,
+) -> str | None:
+    if source.get("status") == "reference" or retention_status["code"] == "reference_baseline":
+        return None
+    return str(safe_backtest_end) if safe_backtest_end else None
 
 
 def load_feature_rows(root: Path) -> dict[str, dict[str, float | None]] | None:
@@ -561,7 +593,9 @@ def build_dashboard_v2_data(
             defaults.extend(name for name in allowed_by_name if name not in defaults)
     if baseline_profile and baseline_profile in allowed_by_name and baseline_profile not in defaults:
         defaults = [baseline_profile] + defaults
-    defaults = [profile for profile in _dedupe_preserve_order(defaults) if profile in allowed_by_name][:4]
+    deployable_defaults = [profile for profile in _dedupe_preserve_order(defaults) if profile in allowed_by_name]
+    diagnostic_defaults = _diagnostic_defaults(by_name, retention_by_name, selected_profiles)
+    defaults = _dedupe_preserve_order([*deployable_defaults, *diagnostic_defaults])[:MAX_DEFAULT_COMPARISON_PROFILES]
     if not defaults:
         raise ValueError("no replayable profiles selected for dashboard v2")
     baseline = baseline_profile or (
@@ -582,11 +616,12 @@ def build_dashboard_v2_data(
     model_payloads: dict[str, dict[str, Any]] = {}
     model_paths: dict[str, Path] = {}
     for profile_name in defaults:
-        source = allowed_by_name[profile_name]
+        source = by_name[profile_name]
+        retention_status = retention_by_name[profile_name]
         replay_path = root / str(source["output"])
         rows = normalize_model_rows(
             replay_path,
-            safe_backtest_end=str(safe_backtest_end) if safe_backtest_end else None,
+            safe_backtest_end=_model_safe_backtest_end(source, retention_status, safe_backtest_end),
             window=source.get("window"),
         )
         payload = {
@@ -601,7 +636,7 @@ def build_dashboard_v2_data(
             "rows": rows,
             "events": derive_model_events(rows),
             "metrics": {"full": compute_metrics(rows)},
-            "retention": _public_retention_status(retention_by_name[profile_name]),
+            "retention": _public_retention_status(retention_status),
         }
         if source.get("window"):
             payload["window"] = source.get("window")
@@ -619,6 +654,8 @@ def build_dashboard_v2_data(
         "latest_market_date": latest_market_date,
         "safe_backtest_end": safe_backtest_end,
         "available_profiles": defaults,
+        "deployable_profiles": [profile for profile in defaults if retention_by_name[profile]["allowed"]],
+        "diagnostic_profiles": [profile for profile in defaults if not retention_by_name[profile]["allowed"]],
         "filtered_profile_count": max(0, len(by_name) - len(defaults)),
         "retention_filter": {
             "policy": FINAL_RETENTION_POLICY,

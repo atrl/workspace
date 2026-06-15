@@ -221,8 +221,8 @@ function renderDashboard(data: DashboardData, state: ViewState, update: (next: P
   disposeChartSync = null;
   renderToolbar(toolbar, data, state, update);
   renderActionLegend(actionLegend);
-  const marketHandles = renderMarketChart(marketChart, market, primary, (date) => update({ hoveredDate: date }));
-  const positionHandles = renderPositionChart(positionChart, primary);
+  const marketHandles = renderMarketChart(marketChart, market, primary, models, (date) => update({ hoveredDate: date }));
+  const positionHandles = renderPositionChart(positionChart, models, primary.profile);
   const navHandles = renderNavChart(navChart, models);
   const timeCleanup = syncVisibleTimeRanges([marketHandles.chart, positionHandles.chart, navHandles.chart]);
   const crosshairCleanup = syncCrosshairPositions([marketHandles, positionHandles, navHandles]);

@@ -2,21 +2,33 @@
   "created_at": "2026-06-15T14:40:56Z",
   "direction": "production",
   "experiment": "dashboard_v2_retention_readability_v1",
-  "decision": "dashboard_v2_defaults_to_reference_until_final_retained_actor_exists",
+  "decision": "dashboard_v2_shows_diagnostic_model_comparisons_without_marking_blocked_actors_deployable",
   "data_contract": {
     "latest_market_date": "2026-06-12",
     "safe_backtest_end": "2026-06-11",
     "default_comparison_profiles": [
+      "soxl_backtest_policy_reimplementation_v1",
+      "balanced_rule_residual_v22",
+      "balanced_rule_residual_v19_reg",
+      "balanced_rule_residual_v19"
+    ],
+    "deployable_profiles": [
       "soxl_backtest_policy_reimplementation_v1"
+    ],
+    "diagnostic_profiles": [
+      "balanced_rule_residual_v22",
+      "balanced_rule_residual_v19_reg",
+      "balanced_rule_residual_v19"
     ],
     "blocked_profile_count": 12,
     "blocked_reason": "actor summaries lack final_model_retention_decision"
   },
   "ui_changes": [
     "compact top data status",
-    "visible final-retention gate banner",
+    "visible diagnostic actor comparison banner",
     "short profile display labels",
-    "inspector uses latest model row at or before hovered market date"
+    "inspector uses latest model row at or before hovered market date",
+    "main K-line shows current chart model position while Position and NAV panes compare all selected models"
   ],
   "artifacts": {
     "screenshot": "runtime/production/card/dashboard_v2_retention_readability_v1/dashboard_v2_final.png",
@@ -27,6 +39,6 @@
     "PYTHONPATH=. qlib_venv/bin/python -m pytest tests/test_dashboard_v2_data.py tests/test_dashboard_v2_checker.py tests/test_legacy_soxl_policy.py -q",
     "npm test && npm run build (web/dashboard-v2)",
     "PYTHONPATH=. qlib_venv/bin/python scripts/check_dashboard_v2_data.py dashboard_data/v2",
-    "Chrome headless screenshot 1440x1000 non_bg_ratio=0.0845"
+    "Chrome headless screenshot 1440x1000 non_bg_ratio=0.1023"
   ]
 }

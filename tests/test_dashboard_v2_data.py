@@ -652,11 +652,92 @@ def test_build_dashboard_v2_data_blocks_actor_without_final_retention_decision(t
     )
 
     manifest = json.loads((output_dir / "manifest.json").read_text())
-    assert manifest["default_comparison_profiles"] == ["soxl_backtest_policy_reimplementation_v1"]
+    assert manifest["default_comparison_profiles"] == [
+        "soxl_backtest_policy_reimplementation_v1",
+        actor_name,
+    ]
+    assert manifest["deployable_profiles"] == ["soxl_backtest_policy_reimplementation_v1"]
+    assert manifest["diagnostic_profiles"] == [actor_name]
     assert manifest["retention_filter"]["policy"] == "final_model_retained_or_reference"
     assert manifest["blocked_profiles"][actor_name]["code"] == "missing_final_retention_decision"
     assert "final_model_retention_decision" in manifest["blocked_profiles"][actor_name]["reason"]
-    assert not (output_dir / "models" / f"{actor_name}.json").exists()
+    actor = json.loads((output_dir / "models" / f"{actor_name}.json").read_text())
+    assert actor["retention"]["final_model_retained"] is False
+
+
+def test_build_dashboard_v2_data_keeps_reference_baseline_through_latest_market_date(tmp_path: Path):
+    freshness = tmp_path / "dashboard_data" / "model_replay_freshness.json"
+    freshness.parent.mkdir()
+    freshness.write_text(
+        json.dumps(
+            {
+                "generated_at": "2026-06-13T00:00:00+00:00",
+                "latest_data_date": "2026-01-06",
+                "safe_backtest_end": "2026-01-05",
+                "profiles": [],
+            }
+        )
+    )
+    reference_csv = (
+        tmp_path
+        / "runtime"
+        / "production"
+        / "card"
+        / "soxl_backtest_policy_reimplementation_v1"
+        / "new_policy_daily.csv"
+    )
+    reference_csv.parent.mkdir(parents=True)
+    _write_csv(
+        reference_csv,
+        [
+            {
+                "window": "ytd_2026",
+                "date": "2026-01-02",
+                "strategy_nav": 100.0,
+                "buyhold_nav": 100.0,
+                "position": 0.0,
+                "action": "HOLD",
+                "price": 47.24,
+            },
+            {
+                "window": "ytd_2026",
+                "date": "2026-01-05",
+                "strategy_nav": 101.0,
+                "buyhold_nav": 102.0,
+                "position": 0.1,
+                "action": "BUY",
+                "price": 49.0,
+            },
+            {
+                "window": "ytd_2026",
+                "date": "2026-01-06",
+                "strategy_nav": 102.0,
+                "buyhold_nav": 103.0,
+                "position": 0.1,
+                "action": "HOLD",
+                "price": 50.0,
+            },
+        ],
+    )
+
+    output_dir = tmp_path / "dashboard_data" / "v2"
+    build_dashboard_v2_data(
+        root=tmp_path,
+        output_dir=output_dir,
+        freshness_path=freshness,
+        market_rows={
+            "2026-01-02": {"open": 47.0, "high": 48.0, "low": 46.0, "close": 47.24, "volume": 1000},
+            "2026-01-05": {"open": 48.0, "high": 50.0, "low": 47.0, "close": 49.0, "volume": 1000},
+            "2026-01-06": {"open": 49.0, "high": 51.0, "low": 48.0, "close": 50.0, "volume": 1000},
+        },
+    )
+
+    reference = json.loads(
+        (output_dir / "models" / "soxl_backtest_policy_reimplementation_v1.json").read_text()
+    )
+    comparison = json.loads((output_dir / "comparison" / "default.json").read_text())
+    assert reference["replay_end"] == "2026-01-06"
+    assert comparison["common_end"] == "2026-01-06"
 
 
 def test_build_dashboard_v2_data_manifest_does_not_expose_unselected_old_profiles(tmp_path: Path):

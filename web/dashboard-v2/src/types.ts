@@ -7,6 +7,8 @@ export interface Manifest {
   latest_market_date: string;
   safe_backtest_end: string;
   available_profiles: string[];
+  deployable_profiles?: string[];
+  diagnostic_profiles?: string[];
   default_baseline_profile: string;
   default_comparison_profiles: string[];
   retention_filter?: {

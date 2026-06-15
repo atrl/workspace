@@ -46,15 +46,15 @@
   ],
   "metrics": {
     "full": {
-      "avg_position": 0.16215135135135134,
+      "avg_position": 0.16212410714285713,
       "max_drawdown": -0.13554088542803522,
-      "return": 1.36517669883728,
-      "row_count": 111.0
+      "return": 1.3864497733306878,
+      "row_count": 112.0
     }
   },
   "profile": "soxl_backtest_policy_reimplementation_v1",
   "profile_yaml": null,
-  "replay_end": "2026-06-11",
+  "replay_end": "2026-06-12",
   "replay_start": "2026-01-02",
   "retention": {
     "code": "reference_baseline",
@@ -63,7 +63,7 @@
     "status": "reference_baseline",
     "summary_path": null
   },
-  "row_count": 111,
+  "row_count": 112,
   "rows": [
     {
       "action": "HOLD",
@@ -1174,6 +1174,16 @@
       "position": 0.1591,
       "price": 223.9900054931641,
       "strategy_nav": 236517.669883728
+    },
+    {
+      "action": "HOLD",
+      "buyhold_nav": 496782.3546516815,
+      "date": "2026-06-12",
+      "excess": -258137.3773186127,
+      "excess_pct": 1.3864497733306878,
+      "position": 0.1591,
+      "price": 234.67999267578125,
+      "strategy_nav": 238644.9773330688
     }
   ],
   "source_path": "runtime/production/card/soxl_backtest_policy_reimplementation_v1/new_policy_daily.csv",

@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, test, vi } from 'vitest';
-import { renderMarketChart, syncCrosshairPositions, syncVisibleTimeRanges } from './chart';
+import { renderMarketChart, renderPositionChart, syncCrosshairPositions, syncVisibleTimeRanges } from './chart';
 import { marketFixture, modelFixture } from './testFixtures';
 
 const chartMocks = vi.hoisted(() => {
@@ -63,8 +63,15 @@ describe('dashboard v2 chart rendering', () => {
 
   test('renders candles with SOXL close and position overlays on the main chart', () => {
     const container = document.createElement('div');
+    const challenger = { ...modelFixture, profile: 'balanced_rule_residual_v22' };
 
-    renderMarketChart(container, marketFixture, modelFixture, () => {});
+    renderMarketChart(
+      container,
+      marketFixture,
+      challenger,
+      { smoke: modelFixture, balanced_rule_residual_v22: challenger },
+      () => {},
+    );
 
     expect(chartMocks.seriesRecords.map((record) => record.kind)).toEqual(['candlestick', 'line', 'line']);
     expect(chartMocks.seriesRecords[1].data).toEqual(
@@ -72,18 +79,29 @@ describe('dashboard v2 chart rendering', () => {
     );
     expect(chartMocks.seriesRecords[2].options).toMatchObject({
       priceScaleId: 'left',
-      title: 'Position',
+      lineWidth: 2,
+      title: 'BRR v22 Position',
     });
     expect(chartMocks.seriesRecords[2].data).toEqual(
-      modelFixture.rows.map((row) => ({ time: row.date, value: row.position })),
+      challenger.rows.map((row) => ({ time: row.date, value: row.position })),
     );
+  });
+
+  test('renders multiple position model lines in the position pane', () => {
+    const container = document.createElement('div');
+    const challenger = { ...modelFixture, profile: 'balanced_rule_residual_v22' };
+
+    renderPositionChart(container, { smoke: modelFixture, balanced_rule_residual_v22: challenger }, 'balanced_rule_residual_v22');
+
+    expect(chartMocks.seriesRecords.map((record) => record.options.title)).toEqual(['smoke', 'BRR v22']);
+    expect(chartMocks.seriesRecords[1].options).toMatchObject({ lineWidth: 2 });
   });
 
   test('disposes an old chart before rendering a replacement in the same container', () => {
     const container = document.createElement('div');
 
-    renderMarketChart(container, marketFixture, modelFixture, () => {});
-    renderMarketChart(container, marketFixture, modelFixture, () => {});
+    renderMarketChart(container, marketFixture, modelFixture, { smoke: modelFixture }, () => {});
+    renderMarketChart(container, marketFixture, modelFixture, { smoke: modelFixture }, () => {});
 
     expect(chartMocks.chartRecords[0].remove).toHaveBeenCalledTimes(1);
   });

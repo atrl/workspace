@@ -12,6 +12,8 @@ import {
 import { buildActionMarkers, formatProfileLabel } from './domain';
 import type { MarketPayload, ModelPayload } from './types';
 
+const MODEL_COLORS = ['#39b7c5', '#a597ff', '#e1aa3e', '#1fb981'];
+
 function toTime(date: string): Time {
   return date as Time;
 }
@@ -108,6 +110,7 @@ export function renderMarketChart(
   container: HTMLElement,
   market: MarketPayload,
   model: ModelPayload,
+  models: Record<string, ModelPayload>,
   onDate: (date: string) => void,
 ): ChartHandles {
   replaceChart(container);
@@ -144,12 +147,13 @@ export function renderMarketChart(
   });
   closeLine.setData(market.rows.map((row) => ({ time: toTime(row.date), value: Number(row.close) })));
 
+  const primaryIndex = Math.max(0, Object.keys(models).indexOf(model.profile));
   const positionLine = chart.addSeries(LineSeries, {
-    color: '#39b7c5',
+    color: MODEL_COLORS[primaryIndex % MODEL_COLORS.length],
     lineWidth: 2,
     priceScaleId: 'left',
     priceLineVisible: true,
-    title: 'Position',
+    title: `${formatProfileLabel(model.profile)} Position`,
   });
   positionLine.setData(model.rows.map((row) => ({ time: toTime(row.date), value: row.position })));
   createSeriesMarkers(
@@ -176,7 +180,11 @@ export function renderMarketChart(
   };
 }
 
-export function renderPositionChart(container: HTMLElement, model: ModelPayload): ChartHandles {
+export function renderPositionChart(
+  container: HTMLElement,
+  models: Record<string, ModelPayload>,
+  primaryProfile: string,
+): ChartHandles {
   replaceChart(container);
   const chart = createChart(container, {
     autoSize: true,
@@ -185,14 +193,30 @@ export function renderPositionChart(container: HTMLElement, model: ModelPayload)
     rightPriceScale: { borderColor: '#30343a' },
     timeScale: { borderColor: '#30343a' },
   });
-  const line = chart.addSeries(LineSeries, { color: '#39b7c5', lineWidth: 2 });
-  line.setData(model.rows.map((row) => ({ time: toTime(row.date), value: row.position })));
+  let primarySeries: ISeriesApi<'Line'> | null = null;
+  let primaryRows: ModelPayload['rows'] | null = null;
+  for (const [index, [profile, model]] of Object.entries(models).entries()) {
+    const isPrimary = profile === primaryProfile;
+    const line = chart.addSeries(LineSeries, {
+      color: MODEL_COLORS[index % MODEL_COLORS.length],
+      lineWidth: isPrimary ? 2 : 1,
+      title: formatProfileLabel(profile),
+    });
+    line.setData(model.rows.map((row) => ({ time: toTime(row.date), value: row.position })));
+    if (isPrimary || !primarySeries) {
+      primarySeries = line;
+      primaryRows = model.rows;
+    }
+  }
+  if (!primarySeries || !primaryRows) {
+    throw new Error('position chart requires at least one model');
+  }
   chart.timeScale().fitContent();
   trackChart(container, chart);
   return {
     chart,
-    primarySeries: line,
-    valueByTime: new Map(model.rows.map((row) => [row.date, row.position])),
+    primarySeries,
+    valueByTime: new Map(primaryRows.map((row) => [row.date, row.position])),
   };
 }
 
@@ -205,12 +229,11 @@ export function renderNavChart(container: HTMLElement, models: Record<string, Mo
     rightPriceScale: { borderColor: '#30343a' },
     timeScale: { borderColor: '#30343a' },
   });
-  const colors = ['#39b7c5', '#a597ff', '#d7a138', '#1fb981'];
   let primarySeries: ISeriesApi<'Line'> | null = null;
   let primaryRows: ModelPayload['rows'] | null = null;
   for (const [index, [profile, model]] of Object.entries(models).entries()) {
     const series = chart.addSeries(LineSeries, {
-      color: colors[index % colors.length],
+      color: MODEL_COLORS[index % MODEL_COLORS.length],
       lineWidth: 2,
       title: formatProfileLabel(profile),
     });

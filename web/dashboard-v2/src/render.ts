@@ -20,7 +20,15 @@ export function renderDataSourcePanel(container: HTMLElement, manifest: Manifest
   const visibleActorCount = manifest.default_comparison_profiles.filter(
     (profile) => manifest.profile_summaries?.[profile]?.status !== 'reference',
   ).length;
-  if (blockedCount > 0 && visibleActorCount === 0) {
+  const visibleDiagnosticCount = manifest.default_comparison_profiles.filter((profile) =>
+    manifest.diagnostic_profiles?.includes(profile),
+  ).length;
+  if (visibleDiagnosticCount > 0) {
+    const banner = element('div', 'gate-banner');
+    banner.appendChild(element('strong', undefined, 'Diagnostic actor comparisons'));
+    banner.appendChild(element('span', undefined, 'Shown for model-difference review; actors are not final-retained.'));
+    container.appendChild(banner);
+  } else if (blockedCount > 0 && visibleActorCount === 0) {
     const banner = element('div', 'gate-banner');
     banner.appendChild(element('strong', undefined, 'No final-retained actor'));
     banner.appendChild(element('span', undefined, 'Showing SOXLBacktest reference baseline only.'));

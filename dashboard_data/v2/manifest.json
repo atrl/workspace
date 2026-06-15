@@ -1,6 +1,9 @@
 {
   "available_profiles": [
-    "soxl_backtest_policy_reimplementation_v1"
+    "soxl_backtest_policy_reimplementation_v1",
+    "balanced_rule_residual_v22",
+    "balanced_rule_residual_v19_reg",
+    "balanced_rule_residual_v19"
   ],
   "blocked_profiles": {
     "balanced": {
@@ -90,14 +93,70 @@
   },
   "default_baseline_profile": "soxl_backtest_policy_reimplementation_v1",
   "default_comparison_profiles": [
+    "soxl_backtest_policy_reimplementation_v1",
+    "balanced_rule_residual_v22",
+    "balanced_rule_residual_v19_reg",
+    "balanced_rule_residual_v19"
+  ],
+  "deployable_profiles": [
     "soxl_backtest_policy_reimplementation_v1"
   ],
-  "filtered_profile_count": 12,
-  "generated_at": "2026-06-15T14:30:10.036913+00:00",
+  "diagnostic_profiles": [
+    "balanced_rule_residual_v22",
+    "balanced_rule_residual_v19_reg",
+    "balanced_rule_residual_v19"
+  ],
+  "filtered_profile_count": 9,
+  "generated_at": "2026-06-15T14:57:20.404012+00:00",
   "latest_market_date": "2026-06-12",
   "profile_summaries": {
-    "soxl_backtest_policy_reimplementation_v1": {
+    "balanced_rule_residual_v19": {
       "replay_end": "2026-06-11",
+      "replay_start": "2020-01-02",
+      "retention": {
+        "code": "missing_final_retention_decision",
+        "final_model_retained": false,
+        "reason": "summary lacks final_model_retention_decision",
+        "status": "blocked",
+        "summary_path": "runtime/model/card/balanced_rule_residual_v19/soxl_balanced_rule_residual_v19_summary.json"
+      },
+      "row_count": 1619,
+      "source_path": "runtime/model/card/balanced_rule_residual_v19/balanced_rule_residual_v19_soxl_daily.csv",
+      "status": "archived",
+      "window": null
+    },
+    "balanced_rule_residual_v19_reg": {
+      "replay_end": "2026-06-11",
+      "replay_start": "2020-01-02",
+      "retention": {
+        "code": "missing_final_retention_decision",
+        "final_model_retained": false,
+        "reason": "summary lacks final_model_retention_decision",
+        "status": "blocked",
+        "summary_path": "runtime/model/card/balanced_rule_residual_v19_reg/soxl_balanced_rule_residual_v19_reg_summary.json"
+      },
+      "row_count": 1619,
+      "source_path": "runtime/model/card/balanced_rule_residual_v19_reg/balanced_rule_residual_v19_reg_soxl_daily.csv",
+      "status": "candidate",
+      "window": null
+    },
+    "balanced_rule_residual_v22": {
+      "replay_end": "2026-06-11",
+      "replay_start": "2020-01-02",
+      "retention": {
+        "code": "missing_final_retention_decision",
+        "final_model_retained": false,
+        "reason": "summary lacks final_model_retention_decision",
+        "status": "blocked",
+        "summary_path": "runtime/model/card/balanced_rule_residual_v22/soxl_balanced_rule_residual_v22_summary.json"
+      },
+      "row_count": 1619,
+      "source_path": "runtime/model/card/balanced_rule_residual_v22/balanced_rule_residual_v22_soxl_daily.csv",
+      "status": "canonical",
+      "window": null
+    },
+    "soxl_backtest_policy_reimplementation_v1": {
+      "replay_end": "2026-06-12",
       "replay_start": "2026-01-02",
       "retention": {
         "code": "reference_baseline",
@@ -106,7 +165,7 @@
         "status": "reference_baseline",
         "summary_path": null
       },
-      "row_count": 111,
+      "row_count": 112,
       "source_path": "runtime/production/card/soxl_backtest_policy_reimplementation_v1/new_policy_daily.csv",
       "status": "reference",
       "window": "ytd_2026"
@@ -121,6 +180,9 @@
   "safe_backtest_end": "2026-06-11",
   "source_paths": {
     "market": "data/processed/panels/soxl_soxx_vix_full.csv",
+    "model:balanced_rule_residual_v19": "runtime/model/card/balanced_rule_residual_v19/balanced_rule_residual_v19_soxl_daily.csv",
+    "model:balanced_rule_residual_v19_reg": "runtime/model/card/balanced_rule_residual_v19_reg/balanced_rule_residual_v19_reg_soxl_daily.csv",
+    "model:balanced_rule_residual_v22": "runtime/model/card/balanced_rule_residual_v22/balanced_rule_residual_v22_soxl_daily.csv",
     "model:soxl_backtest_policy_reimplementation_v1": "runtime/production/card/soxl_backtest_policy_reimplementation_v1/new_policy_daily.csv",
     "model_replay_freshness": "dashboard_data/model_replay_freshness.json"
   }
