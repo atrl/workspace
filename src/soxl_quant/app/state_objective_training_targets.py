@@ -115,6 +115,27 @@ class TrendParticipationTargetConfig:
 
 
 @dataclass(frozen=True)
+class BullReentryParticipationTargetConfig:
+    enabled: bool = False
+    min_target_position: float = 0.60
+    max_target_position: float = 0.85
+    objective_weight_bonus: float = 5.0
+    include_release_gate: bool = True
+    exclude_downtrend: bool = True
+    exclude_drawdown_control: bool = True
+
+    def __post_init__(self) -> None:
+        if not 0.0 <= float(self.min_target_position) <= 1.0:
+            raise ValueError("min_target_position must be within [0, 1]")
+        if not 0.0 <= float(self.max_target_position) <= 1.0:
+            raise ValueError("max_target_position must be within [0, 1]")
+        if float(self.min_target_position) > float(self.max_target_position):
+            raise ValueError("min_target_position must be <= max_target_position")
+        if float(self.objective_weight_bonus) < 0.0:
+            raise ValueError("objective_weight_bonus must be non-negative")
+
+
+@dataclass(frozen=True)
 class ShortVolshockDeRiskTargetConfig:
     target_cap: float = 0.05
     min_feature_hits: int = 2
@@ -1126,6 +1147,131 @@ def apply_trend_participation_target_gate(
     result["trend_participation_target_reason"] = np.where(
         target_state,
         "fold_local_high_trend_low_vol_participation",
+        "",
+    )
+    return result.reset_index(drop=True)
+
+
+def apply_bull_reentry_participation_target_gate(
+    targets: pd.DataFrame,
+    config: BullReentryParticipationTargetConfig = BullReentryParticipationTargetConfig(),
+) -> pd.DataFrame:
+    """Lift fold-local bull re-entry targets without using evaluation rows."""
+
+    if "datetime" not in targets.columns:
+        raise ValueError("targets missing required column: datetime")
+    required_targets = {"teacher_position", "rebound_target_position", "risk_target_position"}
+    missing_targets = sorted(required_targets - set(targets.columns))
+    if missing_targets:
+        raise ValueError(f"targets missing columns: {missing_targets}")
+
+    result = targets.copy()
+    result["datetime"] = pd.to_datetime(result["datetime"])
+    for column in ("teacher_position", "rebound_target_position", "risk_target_position"):
+        result[column] = pd.to_numeric(result[column], errors="coerce").fillna(0.0).clip(0.0, 1.0)
+    if "risk_target_position_original" not in result.columns:
+        result["risk_target_position_original"] = result["risk_target_position"]
+    else:
+        result["risk_target_position_original"] = pd.to_numeric(
+            result["risk_target_position_original"],
+            errors="coerce",
+        ).fillna(result["risk_target_position"]).clip(0.0, 1.0)
+    if "objective_weight" not in result.columns:
+        result["objective_weight"] = 1.0
+    result["objective_weight"] = pd.to_numeric(result["objective_weight"], errors="coerce").fillna(1.0)
+    if "rebound_participation_weight" not in result.columns:
+        result["rebound_participation_weight"] = 0.0
+    result["rebound_participation_weight"] = pd.to_numeric(
+        result["rebound_participation_weight"],
+        errors="coerce",
+    ).fillna(0.0)
+    for column in ("is_downtrend_state", "drawdown_control_state", "release_gate_state"):
+        if column not in result.columns:
+            result[column] = False
+        result[column] = result[column].fillna(False).astype(bool)
+
+    if "target_scope" in result.columns:
+        fold_local_ready = result["target_scope"].fillna("").astype(str).eq("fold_local")
+    else:
+        fold_local_ready = pd.Series(True, index=result.index)
+
+    date_values = result["datetime"].dt.normalize()
+    if {"train_start", "train_end"}.issubset(result.columns):
+        train_start = pd.to_datetime(result["train_start"], errors="coerce").dt.normalize()
+        train_end = pd.to_datetime(result["train_end"], errors="coerce").dt.normalize()
+        train_ready = train_start.notna() & train_end.notna() & (date_values >= train_start) & (date_values <= train_end)
+    else:
+        train_ready = pd.Series(True, index=result.index)
+    if {"eval_start", "eval_end"}.issubset(result.columns):
+        eval_start = pd.to_datetime(result["eval_start"], errors="coerce").dt.normalize()
+        eval_end = pd.to_datetime(result["eval_end"], errors="coerce").dt.normalize()
+        eval_overlap = eval_start.notna() & eval_end.notna() & (date_values >= eval_start) & (date_values <= eval_end)
+    else:
+        eval_overlap = pd.Series(False, index=result.index)
+
+    action_ready = (
+        result["action"].fillna("").astype(str).str.upper().eq("BUY")
+        if "action" in result.columns
+        else pd.Series(False, index=result.index)
+    )
+    release_ready = result["release_gate_state"] if bool(config.include_release_gate) else pd.Series(False, index=result.index)
+    downtrend_ready = ~result["is_downtrend_state"] if bool(config.exclude_downtrend) else pd.Series(True, index=result.index)
+    drawdown_ready = (
+        ~result["drawdown_control_state"]
+        if bool(config.exclude_drawdown_control)
+        else pd.Series(True, index=result.index)
+    )
+    signal_ready = action_ready | release_ready
+    target_state = (
+        bool(config.enabled)
+        & fold_local_ready
+        & train_ready
+        & ~eval_overlap
+        & signal_ready
+        & downtrend_ready
+        & drawdown_ready
+    )
+
+    target_position = np.minimum(
+        float(config.max_target_position),
+        np.maximum(result["risk_target_position"], float(config.min_target_position)),
+    )
+    result["bull_reentry_signal_ready"] = signal_ready.astype(bool)
+    result["bull_reentry_train_window_ready"] = (train_ready & ~eval_overlap).astype(bool)
+    result["bull_reentry_target_state"] = target_state.astype(bool)
+    result["bull_reentry_target_position"] = np.where(
+        target_state,
+        target_position,
+        result["risk_target_position"],
+    )
+    result["bull_reentry_target_lift"] = np.where(
+        target_state,
+        (result["bull_reentry_target_position"] - result["risk_target_position"]).clip(lower=0.0),
+        0.0,
+    ).round(10)
+    result["risk_target_position"] = np.where(
+        target_state,
+        np.maximum(result["risk_target_position"], result["bull_reentry_target_position"]),
+        result["risk_target_position"],
+    )
+    result["rebound_target_position"] = np.where(
+        target_state,
+        np.maximum(result["rebound_target_position"], result["bull_reentry_target_position"]),
+        result["rebound_target_position"],
+    )
+    result["objective_weight"] = np.where(
+        target_state,
+        result["objective_weight"] + float(config.objective_weight_bonus),
+        result["objective_weight"],
+    )
+    result["rebound_participation_weight"] = np.where(
+        target_state,
+        np.maximum(result["rebound_participation_weight"], float(config.objective_weight_bonus)),
+        result["rebound_participation_weight"],
+    )
+    result["bull_reentry_target_reason"] = np.where(
+        target_state,
+        "fold_local_bull_reentry_participation",
         "",
     )
     return result.reset_index(drop=True)
@@ -2387,6 +2533,7 @@ def summarize_state_objective_checkpoint_selection(scored: pd.DataFrame) -> dict
 
 
 __all__ = [
+    "BullReentryParticipationTargetConfig",
     "StateObjectiveBCReadinessConfig",
     "StateObjectiveCheckpointSelectionConfig",
     "StateObjectiveDrawdownControlTargetConfig",
@@ -2395,6 +2542,7 @@ __all__ = [
     "StateObjectiveTrainingTargetConfig",
     "ShortVolshockDeRiskTargetConfig",
     "TrendParticipationTargetConfig",
+    "apply_bull_reentry_participation_target_gate",
     "apply_state_objective_sparse_release_gate",
     "apply_short_volshock_de_risk_target_gate",
     "apply_trend_participation_target_gate",

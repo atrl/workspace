@@ -154,17 +154,22 @@ describe('dashboard v2 chart rendering', () => {
     ]);
   });
 
-  test('keeps price and volume in readable vertical bands', () => {
+  test('keeps price candles dominant and volume in a compact lower lane', () => {
     const container = document.createElement('div');
 
     renderMarketChart(container, marketFixture, modelFixture, { smoke: modelFixture }, () => {});
 
     expect(chartMocks.priceScaleRecords.map((record) => record.id)).toEqual(['right', 'volume']);
     expect(chartMocks.priceScaleRecords[0].applyOptions).toHaveBeenCalledWith({
-      scaleMargins: { top: 0.04, bottom: 0.24 },
+      scaleMargins: { top: 0.04, bottom: 0.18 },
     });
     expect(chartMocks.priceScaleRecords[1].applyOptions).toHaveBeenCalledWith({
-      scaleMargins: { top: 0.86, bottom: 0.02 },
+      scaleMargins: { top: 0.90, bottom: 0.02 },
+    });
+    expect(chartMocks.seriesRecords[1].options).toMatchObject({
+      color: 'rgba(237, 240, 243, 0.54)',
+      lineWidth: 1,
+      lastValueVisible: false,
     });
   });
 

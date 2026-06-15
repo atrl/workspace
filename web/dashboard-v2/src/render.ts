@@ -170,7 +170,7 @@ export function renderDataSourcePanel(container: HTMLElement, manifest: Manifest
     manifest.safe_backtest_end < manifest.latest_market_date
   ) {
     const alert = element('div', 'freshness-alert');
-    alert.appendChild(element('strong', undefined, 'Latest gap'));
+    alert.appendChild(element('strong', undefined, 'Replay split'));
     alert.appendChild(
       element(
         'span',
@@ -255,10 +255,17 @@ export function renderModelDeltaStrip(
     container.appendChild(element('span', 'empty-note', 'No comparison rows'));
     return;
   }
+  const summary = element('div', 'model-delta-summary');
+  summary.textContent = [
+    `${profiles.length} models`,
+    `${visible.length} common rows`,
+    `${start} to ${end}`,
+  ].join(' | ');
+  container.appendChild(summary);
   const caption = element('div', 'model-delta-caption');
-  const captionParts = [`Compare through ${last.date}`];
+  const captionParts = [`Common comparison ${last.date}`];
   if (manifest?.latest_market_date && manifest.latest_market_date > last.date) {
-    captionParts.push(`Price ${manifest.latest_market_date}`);
+    captionParts.push(`SOXL K-line ${manifest.latest_market_date}`);
     caption.dataset.tone = 'warning';
   }
   const baselineEnd = manifest?.profile_summaries?.[comparison.baseline_profile]?.replay_end;
@@ -268,9 +275,10 @@ export function renderModelDeltaStrip(
       .map((profile) => manifest?.profile_summaries?.[profile]?.replay_end),
   );
   captionParts.push(
-    `Baseline ${formatProfileLabel(comparison.baseline_profile)}${baselineEnd ? ` ${baselineEnd}` : ''}`,
+    `Baseline ${formatProfileLabel(comparison.baseline_profile)}${baselineEnd ? ` latest ${baselineEnd}` : ''}`,
   );
-  if (actorEnd) captionParts.push(`Actors ${actorEnd}`);
+  if (actorEnd) captionParts.push(`Qlib actors safe replay ${actorEnd}`);
+  if (manifest?.safe_backtest_end) captionParts.push(`safe end ${manifest.safe_backtest_end}`);
   if (baselineEnd && baselineEnd > last.date) {
     caption.dataset.tone = 'warning';
   }

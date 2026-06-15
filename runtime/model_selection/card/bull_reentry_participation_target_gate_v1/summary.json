@@ -1,0 +1,40 @@
+{
+  "actor_retention_allowed": false,
+  "conclusion": [
+    "The gate creates fold-local bull re-entry participation labels from BUY or release-gate states.",
+    "It does not touch evaluation rows, global-scope labels, or rows already flagged as downtrend/drawdown-control risk.",
+    "This is a target-generation contract only; no actor is promotable until full walk-forward retention gates pass."
+  ],
+  "config": {
+    "exclude_downtrend": true,
+    "exclude_drawdown_control": true,
+    "include_release_gate": true,
+    "max_target_position": 0.85,
+    "min_target_position": 0.7,
+    "objective_weight_bonus": 5.0
+  },
+  "decision": "bull_reentry_target_gate_ready_for_fold_local_training_only",
+  "eval_overlap_target_rows": 0,
+  "experiment": "bull_reentry_participation_target_gate_v1",
+  "generated_at": "2026-06-15T20:34:25.988134+00:00",
+  "global_scope_target_rows": 0,
+  "max_bull_reentry_target_lift": 0.5,
+  "mean_target_position_when_active": 0.7,
+  "next_mechanism": "fold_local_bull_reentry_bc_warm_start_then_full_walkforward_retention_gate",
+  "promotion_allowed": false,
+  "required_retention_gates": {
+    "max_walkforward_drawdown_pct": 20.0,
+    "reference_baseline": "soxl_backtest_policy_reimplementation_v1",
+    "reference_role": "qlib_reference_baseline_not_actor",
+    "required_best_return_pct": 213.143462,
+    "required_wf_windows": [
+      "wf_2020",
+      "wf_2022",
+      "wf_2023_2024"
+    ]
+  },
+  "risk_conflict_target_rows": 0,
+  "rows": 5,
+  "target_state_rows": 2,
+  "training_allowed_next": true
+}

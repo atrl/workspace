@@ -384,7 +384,7 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.querySelectorAll('.model-difference-row')).toHaveLength(1);
     expect(panel.textContent).toContain('smoke');
     expect(panel.querySelector('.model-delta-caption')?.textContent).toContain('Baseline BRR v22');
-    expect(panel.textContent).toContain('Compare through 2026-01-06');
+    expect(panel.textContent).toContain('Common comparison 2026-01-06');
     expect(panel.textContent).toContain('Signal BUY 0.550 @01-07');
     expect(panel.textContent).toContain('Ret +3.00%');
     expect(panel.textContent).toContain('+2.00');
@@ -451,10 +451,23 @@ describe('dashboard v2 DOM render helpers', () => {
 
   test('renders latest baseline and market date when they extend past actor comparison rows', () => {
     const panel = document.createElement('div');
+    const referenceComparison = {
+      ...comparisonFixture,
+      baseline_profile: 'soxl_backtest_policy_reimplementation_v1',
+      compared_profiles: ['soxl_backtest_policy_reimplementation_v1', 'smoke'],
+      rows: comparisonFixture.rows.map((row) => ({
+        ...row,
+        profiles: {
+          soxl_backtest_policy_reimplementation_v1: row.profiles.balanced_rule_residual_v22,
+          smoke: row.profiles.smoke,
+        },
+      })),
+    };
 
-    renderModelDeltaStrip(panel, comparisonFixture, '2026-01-02', '2026-01-07', undefined, {
+    renderModelDeltaStrip(panel, referenceComparison, '2026-01-02', '2026-01-07', undefined, {
       ...manifestFixture,
       latest_market_date: '2026-01-07',
+      safe_backtest_end: '2026-01-06',
       default_baseline_profile: 'soxl_backtest_policy_reimplementation_v1',
       profile_summaries: {
         soxl_backtest_policy_reimplementation_v1: {
@@ -471,19 +484,16 @@ describe('dashboard v2 DOM render helpers', () => {
           row_count: 3,
           source_path: 'runtime/model/card/smoke/smoke_soxl_daily.csv',
         },
-        balanced_rule_residual_v22: {
-          status: 'canonical',
-          replay_start: '2026-01-02',
-          replay_end: '2026-01-07',
-          row_count: 4,
-          source_path: 'runtime/model/card/balanced_rule_residual_v22/balanced_rule_residual_v22_soxl_daily.csv',
-        },
       },
     });
 
-    expect(panel.querySelector('.model-delta-caption')?.textContent).toContain('Compare through 2026-01-06');
-    expect(panel.querySelector('.model-delta-caption')?.textContent).toContain('Price 2026-01-07');
-    expect(panel.querySelector('.model-delta-caption')?.textContent).toContain('Baseline BRR v22 2026-01-07');
+    expect(panel.querySelector('.model-delta-summary')?.textContent).toContain('2 models');
+    expect(panel.querySelector('.model-delta-summary')?.textContent).toContain('3 common rows');
+    expect(panel.querySelector('.model-delta-caption')?.textContent).toContain('Common comparison 2026-01-06');
+    expect(panel.querySelector('.model-delta-caption')?.textContent).toContain('SOXL K-line 2026-01-07');
+    expect(panel.querySelector('.model-delta-caption')?.textContent).toContain('Baseline SOXLBacktest latest 2026-01-07');
+    expect(panel.querySelector('.model-delta-caption')?.textContent).toContain('Qlib actors safe replay 2026-01-06');
+    expect(panel.querySelector('.model-delta-caption')?.textContent).toContain('safe end 2026-01-06');
   });
 
   test('prioritizes actor model difference rows over the reference baseline', () => {
@@ -514,8 +524,8 @@ describe('dashboard v2 DOM render helpers', () => {
 
     expect(panel.querySelectorAll('.model-difference-row')).toHaveLength(1);
     expect(panel.querySelector('.model-difference-name')?.textContent).toBe('smoke');
-    expect(panel.querySelector('.model-delta-caption')?.textContent).toContain('Baseline BRR v22 2026-01-07');
-    expect(panel.querySelector('.model-delta-caption')?.textContent).toContain('Price 2026-01-07');
+    expect(panel.querySelector('.model-delta-caption')?.textContent).toContain('Baseline BRR v22 latest 2026-01-07');
+    expect(panel.querySelector('.model-delta-caption')?.textContent).toContain('SOXL K-line 2026-01-07');
     expect(panel.querySelector('[data-freshness="stale"]')?.textContent).toContain('2026-01-06 cut');
   });
 

@@ -147,7 +147,7 @@ function renderToolbar(
 
   const baselineGroup = document.createElement('label');
   baselineGroup.className = 'toolbar-group';
-  baselineGroup.append('Chart Model');
+  baselineGroup.append('Action Model');
   const baseline = document.createElement('select');
   for (const profile of state.selectedProfiles) {
     const option = document.createElement('option');
@@ -201,7 +201,9 @@ function warningsFor(data: DashboardData, state: ViewState): string[] {
     warnings.push(`Replay safe end ${data.manifest.safe_backtest_end} is before market latest ${data.manifest.latest_market_date}.`);
   }
   if (data.comparison.common_end < state.end) {
-    warnings.push(`Baseline comparison ends ${data.comparison.common_end}; price chart extends to ${state.end}.`);
+    warnings.push(
+      `Common model comparison ends ${data.comparison.common_end}; SOXL price and reference baseline may extend to ${state.end}.`,
+    );
   }
   return warnings;
 }

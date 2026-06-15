@@ -1,0 +1,32 @@
+{
+  "experiment": "dashboard_v2_latest_baseline_kline_v1",
+  "direction": "production",
+  "generated_at": "2026-06-16T04:52:00+08:00",
+  "decision": "dashboard_v2_baseline_latest_and_kline_readability_updated",
+  "latest_market_date": "2026-06-15",
+  "soxlbacktest_reference_end": "2026-06-15",
+  "soxlbacktest_reference_latest_price": 271.86,
+  "qlib_actor_safe_replay_end": "2026-06-12",
+  "common_comparison_end": "2026-06-12",
+  "visible_model_difference_rows": 5,
+  "browser_viewport": {
+    "width": 1900,
+    "height": 765
+  },
+  "browser_layout_check": {
+    "market_chart_top_px": 327.75,
+    "market_chart_height_px": 340,
+    "position_nav_top_px": 667.75
+  },
+  "artifacts": {
+    "screenshot": "runtime/production/card/dashboard_v2_latest_baseline_kline_v1/dashboard_v2_latest_baseline_kline_20260616_final.png",
+    "source_dashboard": "web/dashboard-v2",
+    "v2_manifest": "dashboard_data/v2/manifest.json",
+    "soxlbacktest_reference_model": "dashboard_data/v2/models/soxl_backtest_policy_reimplementation_v1.json"
+  },
+  "notes": [
+    "SOXLBacktest reference baseline was regenerated from current local SOXL raw data; latest reference price now matches dashboard market close for 2026-06-15.",
+    "Dashboard V2 now labels the split between latest SOXL K-line/reference baseline and qlib actor safe replay instead of implying the baseline is stale.",
+    "The compact model-difference strip shows all five non-baseline comparison rows in the checked desktop viewport."
+  ]
+}

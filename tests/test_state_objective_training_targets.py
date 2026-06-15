@@ -4,6 +4,7 @@ import pandas as pd
 
 from src.soxl_quant.app import state_objective_training_targets
 from src.soxl_quant.app.state_objective_training_targets import (
+    BullReentryParticipationTargetConfig,
     StateObjectiveDrawdownControlTargetConfig,
     StateObjectiveBCReadinessConfig,
     StateObjectiveReboundTargetEnrichmentConfig,
@@ -11,6 +12,7 @@ from src.soxl_quant.app.state_objective_training_targets import (
     StateObjectiveTrainingTargetConfig,
     TrendParticipationTargetConfig,
     apply_state_objective_sparse_release_gate,
+    apply_bull_reentry_participation_target_gate,
     apply_trend_participation_target_gate,
     audit_state_objective_target_lift,
     audit_state_objective_target_scope,
@@ -1251,6 +1253,78 @@ def test_trend_participation_target_gate_lifts_guarded_train_rows_without_downtr
         baseline_risk_position_col="risk_target_position_original",
     )
     assert lift.iloc[0]["current_positive_rebound_lift_rows"] == 1
+
+
+def test_bull_reentry_participation_gate_lifts_fold_local_buy_rows_without_eval_or_risk_leakage():
+    targets = pd.DataFrame(
+        {
+            "datetime": pd.to_datetime(
+                [
+                    "2020-03-24",
+                    "2020-04-01",
+                    "2022-01-03",
+                    "2020-04-03",
+                    "2020-04-06",
+                ]
+            ),
+            "fold": ["wf_2020_train"] * 5,
+            "window": ["wf_2020_train"] * 5,
+            "target_scope": ["fold_local", "fold_local", "fold_local", "fold_local", "global"],
+            "train_start": ["2020-01-01"] * 5,
+            "train_end": ["2020-12-31"] * 5,
+            "eval_start": ["2022-01-01"] * 5,
+            "eval_end": ["2022-12-31"] * 5,
+            "action": ["BUY", "HOLD", "BUY", "BUY", "BUY"],
+            "teacher_position": [0.20, 0.35, 0.25, 0.50, 0.20],
+            "rebound_target_position": [0.20, 0.35, 0.25, 0.50, 0.20],
+            "risk_target_position_original": [0.20, 0.35, 0.25, 0.50, 0.20],
+            "risk_target_position": [0.20, 0.35, 0.25, 0.50, 0.20],
+            "objective_weight": [1.0, 2.0, 1.0, 5.0, 1.0],
+            "rebound_participation_weight": [0.0, 0.0, 0.0, 1.0, 0.0],
+            "is_rebound_cluster": [False, False, False, True, False],
+            "is_downtrend_state": [False, False, False, True, False],
+            "drawdown_control_state": [False, False, False, True, False],
+            "release_gate_state": [False, True, False, True, False],
+        }
+    )
+
+    result = apply_bull_reentry_participation_target_gate(
+        targets,
+        BullReentryParticipationTargetConfig(
+            enabled=True,
+            min_target_position=0.70,
+            max_target_position=0.85,
+            objective_weight_bonus=5.0,
+            include_release_gate=True,
+            exclude_downtrend=True,
+            exclude_drawdown_control=True,
+        ),
+    )
+
+    by_date = result.set_index("datetime")
+    lifted_buy = by_date.loc[pd.Timestamp("2020-03-24")]
+    lifted_release = by_date.loc[pd.Timestamp("2020-04-01")]
+    eval_row = by_date.loc[pd.Timestamp("2022-01-03")]
+    risk_row = by_date.loc[pd.Timestamp("2020-04-03")]
+    global_row = by_date.loc[pd.Timestamp("2020-04-06")]
+
+    assert bool(lifted_buy["bull_reentry_target_state"]) is True
+    assert lifted_buy["risk_target_position_original"] == 0.20
+    assert lifted_buy["risk_target_position"] == 0.70
+    assert lifted_buy["rebound_target_position"] == 0.70
+    assert lifted_buy["bull_reentry_target_lift"] == 0.50
+    assert lifted_buy["objective_weight"] == 6.0
+    assert lifted_buy["rebound_participation_weight"] == 5.0
+    assert lifted_buy["bull_reentry_target_reason"] == "fold_local_bull_reentry_participation"
+
+    assert bool(lifted_release["bull_reentry_target_state"]) is True
+    assert lifted_release["risk_target_position"] == 0.70
+    assert bool(eval_row["bull_reentry_target_state"]) is False
+    assert eval_row["risk_target_position"] == 0.25
+    assert bool(risk_row["bull_reentry_target_state"]) is False
+    assert risk_row["risk_target_position"] == 0.50
+    assert bool(global_row["bull_reentry_target_state"]) is False
+    assert global_row["risk_target_position"] == 0.20
 
 
 def test_trend_participation_target_gate_requires_configured_features():
