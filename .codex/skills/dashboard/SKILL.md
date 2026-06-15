@@ -15,6 +15,13 @@ Generate and maintain the SOXL dashboard surfaces:
 For new frontend work, prefer `web/dashboard-v2` unless the task explicitly
 targets the legacy static HTML.
 
+The canonical local/static entrypoints are `dashboard.html` and
+`dashboard_v2.html`; both redirect to `web/dashboard-v2/dist/index.html` and
+must preserve query/hash state so debug URLs such as `?debugChart=1` and
+`?apiBase=...#...` survive the redirect. Keep
+`scripts/build_dashboard_bundle.py` and the checked-in root HTML entrypoints in
+sync whenever this redirect contract changes.
+
 ## Dashboard v2 Frontend Rules
 
 Use these rules before editing TradingView-like interactions:
@@ -38,12 +45,17 @@ Use these rules before editing TradingView-like interactions:
 6. All linked chart panes should behave as one inspection surface. Main,
    Position, and NAV panes should emit hover/click dates into the same
    inspector/feature panel path; do not make subcharts passive visuals.
-7. Start/End inputs set the visible chart window. The Run button calls
+7. `Chart start/end` set only the visible chart window. `Run start/end` set
+   the inference request window. `Use chart range` is the only control that
+   copies the visible chart range into the run window. The Run button calls
    `/api/run-backtest`, falling back to `127.0.0.1:8765` or a configured
    `?apiBase=` server when static hosting returns `501`, `405`, or `404`.
-   Keep the Chart profile and Run source separate: evidence-only profiles may
-   remain selectable for visual comparison, but selected-window reruns should
-   only offer runnable actors or deterministic reference baselines.
+   Keep the Chart profile and Run source separate: evidence-only models may
+   remain selectable for visual comparison, but must not be offered as runnable
+   inference. In review notes, use the exact phrase "evidence-only models must
+   not be offered as runnable inference" for this failure mode. Selected-window
+   reruns should only offer runnable actors or deterministic reference
+   baselines.
 8. Model JSON must expose model-specific `feature_columns`,
    `snapshot_columns`, row/event `feature_snapshot`, and retention-gate fields
    when the retention audit exists. The UI should show buy/sell feature
@@ -187,7 +199,7 @@ not a plain static server:
 
 ```bash
 qlib_venv/bin/python scripts/dashboard_server.py --port 8765
-# open http://127.0.0.1:8765/dashboard.html
+# open http://127.0.0.1:8765/dashboard_v2.html?debugChart=1
 ```
 
 If another local server already owns 8765, run the API on a free port and open
@@ -197,12 +209,14 @@ the v2 frontend with an explicit API base:
 qlib_venv/bin/python scripts/dashboard_server.py --port 8766
 cd web/dashboard-v2
 npm run dev -- --host 127.0.0.1
-# open http://127.0.0.1:<vite-port>/?apiBase=http://127.0.0.1:8766
+# open http://127.0.0.1:<vite-port>/?apiBase=http://127.0.0.1:8766&debugChart=1
 ```
 
-The chart Start/End inputs control only the visible chart window. The Run Model
-Backtest inputs use the replayable model window, so they are not locked to the
-short `paper_trading` display range. For profiles listed in
+The `Chart start/end` inputs control only the visible chart window. The
+`Run start/end` inputs use the replayable model window, so they are not locked
+to the short `paper_trading` display range. `Use chart range` intentionally
+copies the current visible chart dates into `Run start/end`; changing chart
+dates alone must not mutate the run window. For profiles listed in
 `dashboard_data/model_replay_freshness.json`, the API should warm up from the
 model replay CSV start and full `TEST_SEG`, then slice to the requested dates so
 `position`, `strategy_nav`, and `action` align with the saved model replay CSV.
@@ -222,21 +236,26 @@ can inspect static data. Backend model inference still needs
 fall back to that API if its own origin returns `501`/`405`/`404` for
 `/api/run-backtest`.
 
-When debugging Main Chart freezes, check for repeated Plotly event registration
-first. `renderChart()` is called by range, version, zoom, rerun, and segment
-controls, so `plotly_hover`, `plotly_click`, and `plotly_doubleclick` handlers
-must be bound once per chart DOM node and read fresh rows from node-owned state.
-Do not close over per-render `rows` in repeatedly registered handlers; hover
-lookups should use a date map instead of scanning the row array on every mouse
-move.
+When debugging Main Chart freezes in `web/dashboard-v2`, start with
+`renderMarketChart()`, `renderPositionChart()`, and `renderNavChart()`: each
+must remove the previous chart for a container before creating a new one, and
+hover/crosshair callbacks must only schedule inspector updates. Range buttons
+and keyboard shortcuts should call `applyChartRangeCommand()` on existing chart
+handles. The subcharts should also use the shared date-event wiring so clicking
+or hovering Position/NAV updates the same selected date as the main candle pane.
+For legacy Plotly only, check repeated `plotly_hover`, `plotly_click`, and
+`plotly_doubleclick` registrations in `renderChart()`.
 
-For `web/dashboard-v2`, the equivalent freeze check is: `renderMarketChart()`,
-`renderPositionChart()`, and `renderNavChart()` must remove the previous chart
-for a container before creating a new one, and hover/crosshair callbacks must
-only schedule inspector updates. Range buttons and keyboard shortcuts should
-call `applyChartRangeCommand()` on existing chart handles. The subcharts should
-also use the shared date-event wiring so clicking or hovering Position/NAV
-updates the same selected date as the main candle pane.
+For browser verification, prefer Kimi WebBridge when the in-app Browser is not
+available or when the user explicitly asks for `kimibrowser`. Check
+`~/.kimi-webbridge/bin/kimi-webbridge status` first; healthy means
+`running=true` and `extension_connected=true`. Open
+`http://127.0.0.1:8765/dashboard_v2.html?debugChart=1`, exercise
+`Chart start/end`, `Use chart range`, and `Run baseline window`, then inspect
+`window.__SOXL_DASHBOARD_CHART_DEBUG__`. The debug object should show market
+price rows, model rows, position rows, candles, the SOXL close line, and the
+position line. Save a screenshot under the relevant runtime card for any visual
+fix.
 
 Dashboard V2 currently has two inspection surfaces: root `dashboard_v2.html`
 and the typed source under `web/dashboard-v2/`. Do not fix only one surface.
