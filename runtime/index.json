@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-15T21:01:44.857208+00:00",
+  "generated_at": "2026-06-15T21:20:36.329496+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -12822,6 +12822,12 @@
       "category": "production",
       "suffix": ".json",
       "bytes": 2183
+    },
+    {
+      "path": "runtime/production/card/dashboard_v2_latest_signal_readability_v1/summary.json",
+      "category": "production",
+      "suffix": ".json",
+      "bytes": 2539
     },
     {
       "path": "runtime/production/card/dashboard_v2_range_sync_v1/summary.json",

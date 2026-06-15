@@ -62,6 +62,50 @@ function latestMismatchForProfile(
   return [...mismatchRows].reverse().find((row) => row.profile === profile);
 }
 
+function latestModelRowAtOrBefore(model: ModelPayload | undefined, date: string): ModelPayload['rows'][number] | null {
+  if (!model) return null;
+  return [...model.rows].filter((row) => row.date <= date).sort((a, b) => a.date.localeCompare(b.date)).at(-1) ?? null;
+}
+
+function latestSignalDifferenceRows(
+  comparison: ComparisonPayload,
+  models: Record<string, ModelPayload>,
+  start: string,
+  end: string,
+): {
+  date: string;
+  profile: string;
+  baselineProfile: string;
+  modelAction: string;
+  baselineAction: string;
+  modelPosition: number;
+  baselinePosition: number;
+  positionDelta: number;
+  replayAsof: string;
+}[] {
+  const baseline = models[comparison.baseline_profile];
+  return comparison.compared_profiles.flatMap((profile) => {
+    if (profile === comparison.baseline_profile) return [];
+    const signal = models[profile]?.latest_signal;
+    if (!signal || signal.date < start || signal.date > end) return [];
+    const baselineRow = latestModelRowAtOrBefore(baseline, signal.date);
+    if (!baselineRow) return [];
+    return [
+      {
+        date: signal.date,
+        profile,
+        baselineProfile: comparison.baseline_profile,
+        modelAction: signal.action,
+        baselineAction: baselineRow.action,
+        modelPosition: signal.position,
+        baselinePosition: baselineRow.position,
+        positionDelta: signal.position - baselineRow.position,
+        replayAsof: signal.replay_asof,
+      },
+    ];
+  });
+}
+
 function mismatchFeatureLabel(row: ActionMismatchRow): string {
   const features = Object.entries(row.features)
     .slice(0, 3)
@@ -284,6 +328,37 @@ export function renderModelDeltaStrip(
   }
   caption.textContent = captionParts.join(' | ');
   container.appendChild(caption);
+  const latestSignalRows = latestSignalDifferenceRows(comparison, models, start, end);
+  if (latestSignalRows.length > 0) {
+    const latestStrip = element('div', 'latest-signal-strip');
+    const firstSignal = latestSignalRows[0];
+    const comparableBaseline = latestSignalRows.every(
+      (row) =>
+        row.date === firstSignal.date &&
+        row.baselineProfile === firstSignal.baselineProfile &&
+        row.baselineAction === firstSignal.baselineAction &&
+        row.baselinePosition === firstSignal.baselinePosition,
+    );
+    latestStrip.appendChild(
+      element(
+        'span',
+        'latest-signal-title',
+        comparableBaseline
+          ? `Latest signal vs ${formatProfileLabel(firstSignal.baselineProfile)} ` +
+              `${firstSignal.baselineAction} ${firstSignal.baselinePosition.toFixed(3)} @${firstSignal.date}`
+          : 'Latest signal differences',
+      ),
+    );
+    for (const row of latestSignalRows) {
+      const item = element('span', 'latest-signal-pill');
+      item.dataset.tone = row.modelAction === 'BUY' ? 'buy' : row.modelAction === 'SELL' ? 'sell' : 'muted';
+      item.textContent =
+        `${formatProfileLabel(row.profile)} ${row.modelAction} ${row.modelPosition.toFixed(3)} ` +
+        `| Δpos ${formatSigned(row.positionDelta, 3)} | replay ${row.replayAsof}`;
+      latestStrip.appendChild(item);
+    }
+    container.appendChild(latestStrip);
+  }
   const available = profiles.filter((profile) => comparison.compared_profiles.includes(profile));
   const deltaProfiles = available.filter((profile) => profile !== comparison.baseline_profile);
   const selected = deltaProfiles.length ? deltaProfiles : available;

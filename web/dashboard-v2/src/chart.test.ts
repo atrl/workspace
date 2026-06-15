@@ -265,7 +265,7 @@ describe('dashboard v2 chart rendering', () => {
     expect(chartMocks.seriesRecords.some((record) => record.options.priceScaleId === 'position')).toBe(false);
   });
 
-  test('adds latest signal buy and sell markers on the main K-line for selected models', () => {
+  test('adds aggregated latest signal buy and sell markers on the main K-line for selected models', () => {
     const container = document.createElement('div');
     const market = {
       ...marketFixture,
@@ -309,16 +309,16 @@ describe('dashboard v2 chart rendering', () => {
     expect(chartMocks.createSeriesMarkers.mock.calls[0][1]).toContainEqual({
       time: '2026-01-07',
       position: 'belowBar',
-      color: '#39b7c5',
+      color: '#1fb981',
       shape: 'arrowUp',
-      text: '',
+      text: '1 latest BUY',
     });
     expect(chartMocks.createSeriesMarkers.mock.calls[0][1]).toContainEqual({
       time: '2026-01-07',
       position: 'aboveBar',
-      color: '#a597ff',
+      color: '#d96b5f',
       shape: 'arrowDown',
-      text: '',
+      text: '1 latest SELL',
     });
   });
 

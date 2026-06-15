@@ -6,7 +6,7 @@ import {
   renderInspectorPanel,
   renderModelDeltaStrip,
 } from './render';
-import { comparisonFixture, manifestFixture } from './testFixtures';
+import { comparisonFixture, manifestFixture, modelFixture } from './testFixtures';
 
 describe('dashboard v2 DOM render helpers', () => {
   test('renders data source provenance and safe replay window', () => {
@@ -392,6 +392,94 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.textContent).toContain('2');
     expect(panel.textContent).toContain('Last diff 2026-01-05 BUY vs HOLD');
     expect(panel.textContent).toContain('rsi6 60');
+  });
+
+  test('renders latest signal differences against the latest baseline row', () => {
+    const panel = document.createElement('div');
+    const referenceProfile = 'soxl_backtest_policy_reimplementation_v1';
+    const referenceModel = {
+      profile: referenceProfile,
+      status: 'reference',
+      source_path: 'runtime/production/card/soxl_backtest_policy_reimplementation_v1/new_policy_daily.csv',
+      replay_start: '2026-01-02',
+      replay_end: '2026-01-07',
+      row_count: 4,
+      rows: [
+        ...modelFixture.rows,
+        {
+          date: '2026-01-07',
+          strategy_nav: 105,
+          buyhold_nav: 110,
+          position: 0.2,
+          action: 'HOLD' as const,
+          price: 10.4,
+          excess: -5,
+          excess_pct: 0.05,
+        },
+      ],
+      events: [],
+    };
+    const signalModel = {
+      ...modelFixture,
+      latest_signal: {
+        date: '2026-01-07',
+        price: 10.4,
+        position: 0.55,
+        action: 'BUY' as const,
+        replay_asof: '2026-01-06',
+        source: 'latest_signal_stateless',
+      },
+    };
+    const referenceComparison = {
+      ...comparisonFixture,
+      baseline_profile: referenceProfile,
+      compared_profiles: [referenceProfile, 'smoke'],
+      rows: comparisonFixture.rows.map((row) => ({
+        ...row,
+        profiles: {
+          [referenceProfile]: row.profiles.balanced_rule_residual_v22,
+          smoke: row.profiles.smoke,
+        },
+      })),
+    };
+
+    renderModelDeltaStrip(
+      panel,
+      referenceComparison,
+      '2026-01-02',
+      '2026-01-07',
+      undefined,
+      {
+        ...manifestFixture,
+        latest_market_date: '2026-01-07',
+        default_baseline_profile: referenceProfile,
+        profile_summaries: {
+          [referenceProfile]: {
+            status: 'reference',
+            replay_start: '2026-01-02',
+            replay_end: '2026-01-07',
+            row_count: 4,
+            source_path: 'runtime/production/card/soxl_backtest_policy_reimplementation_v1/new_policy_daily.csv',
+          },
+          smoke: {
+            status: 'canonical',
+            replay_start: '2026-01-02',
+            replay_end: '2026-01-06',
+            row_count: 3,
+            source_path: 'runtime/model/card/smoke/smoke_soxl_daily.csv',
+          },
+        },
+      },
+      [],
+      { [referenceProfile]: referenceModel, smoke: signalModel },
+    );
+
+    const latestStrip = panel.querySelector('.latest-signal-strip');
+    expect(latestStrip).not.toBeNull();
+    expect(latestStrip?.textContent).toContain('Latest signal vs SOXLBacktest HOLD 0.200 @2026-01-07');
+    expect(latestStrip?.textContent).toContain('smoke BUY 0.550');
+    expect(latestStrip?.textContent).toContain('Δpos +0.350');
+    expect(latestStrip?.textContent).toContain('replay 2026-01-06');
   });
 
   test('renders model differences as visible rows with latest and common-window dates', () => {

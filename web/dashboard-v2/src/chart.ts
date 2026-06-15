@@ -41,20 +41,32 @@ function latestSignalMarkers(
   start: string,
   end: string,
 ): ActionMarker[] {
-  const markers: ActionMarker[] = [];
-  for (const [index, model] of Object.values(models).entries()) {
+  const grouped = new Map<string, { date: string; action: 'BUY' | 'SELL'; count: number }>();
+  for (const model of Object.values(models)) {
     const signal = model.latest_signal;
     if (!signal || signal.date < start || signal.date > end) continue;
     if (signal.action !== 'BUY' && signal.action !== 'SELL') continue;
-    markers.push({
+    const key = `${signal.date}:${signal.action}`;
+    const current = grouped.get(key);
+    if (current) {
+      current.count += 1;
+    } else {
+      grouped.set(key, { date: signal.date, action: signal.action, count: 1 });
+    }
+  }
+  return [...grouped.values()]
+    .sort((left, right) => {
+      const dateOrder = left.date.localeCompare(right.date);
+      if (dateOrder !== 0) return dateOrder;
+      return left.action.localeCompare(right.action);
+    })
+    .map((signal) => ({
       time: signal.date,
       position: signal.action === 'BUY' ? 'belowBar' : 'aboveBar',
-      color: MODEL_COLORS[index % MODEL_COLORS.length],
+      color: signal.action === 'BUY' ? '#1fb981' : '#d96b5f',
       shape: signal.action === 'BUY' ? 'arrowUp' : 'arrowDown',
-      text: '',
-    });
-  }
-  return markers;
+      text: `${signal.count} latest ${signal.action}`,
+    }));
 }
 
 export interface ChartHandles {

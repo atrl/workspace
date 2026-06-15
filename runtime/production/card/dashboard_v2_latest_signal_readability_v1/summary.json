@@ -1,0 +1,49 @@
+{
+  "experiment": "dashboard_v2_latest_signal_readability_v1",
+  "direction": "production",
+  "status": "verified",
+  "latest_market_date": "2026-06-15",
+  "safe_backtest_end": "2026-06-12",
+  "baseline_profile": "soxl_backtest_policy_reimplementation_v1",
+  "baseline_replay_end": "2026-06-15",
+  "actor_replay_end": "2026-06-12",
+  "latest_signal_date": "2026-06-15",
+  "latest_signal_actor_count": 5,
+  "changes": [
+    "Main K-line latest-signal markers are aggregated by date/action instead of overlapping per-model empty labels.",
+    "The visible model-difference strip now compares each latest actor signal against the latest SOXLBacktest baseline row.",
+    "Data Status shows per-model replay dates by default so baseline latest and actor safe replay end are visible.",
+    "The first viewport exposes K-line, Position, and Rebased NAV panes in a 765px browser viewport."
+  ],
+  "visual_check": {
+    "tool": "Kimi WebBridge",
+    "url": "http://127.0.0.1:49880/",
+    "viewport_height": 765,
+    "model_delta_strip_top": 202.6953125,
+    "model_delta_strip_bottom": 399.734375,
+    "market_chart_top": 399.734375,
+    "market_chart_bottom": 679.734375,
+    "lower_charts_top": 679.734375,
+    "screenshot": "runtime/production/card/dashboard_v2_latest_signal_readability_v1/dashboard_v2_latest_signal_readability_20260616.png",
+    "screenshot_size": "3800x1530",
+    "non_dark_pixel_pct": 9.54
+  },
+  "latest_signal_readout": [
+    "BRR v22 BUY 0.625 | delta_pos +0.466 | replay 2026-06-12",
+    "Mode rebound v2 BUY 0.675 | delta_pos +0.516 | replay 2026-06-12",
+    "smoke BUY 0.900 | delta_pos +0.741 | replay 2026-06-12",
+    "BRR v19 reg BUY 0.575 | delta_pos +0.416 | replay 2026-06-12",
+    "BRR v19 BUY 0.575 | delta_pos +0.416 | replay 2026-06-12"
+  ],
+  "verification": [
+    "npm --prefix web/dashboard-v2 test -- --run src/chart.test.ts src/render.test.ts",
+    "PYTHONPATH=. qlib_venv/bin/python scripts/refresh_dashboard_model_replays.py --python qlib_venv/bin/python",
+    "PYTHONPATH=. qlib_venv/bin/python scripts/export_legacy_soxl_policy_replay.py",
+    "PYTHONPATH=. qlib_venv/bin/python scripts/build_dashboard_v2_data.py",
+    "npm --prefix web/dashboard-v2 run build",
+    "PYTHONPATH=. qlib_venv/bin/python scripts/check_dashboard_v2_data.py",
+    "npm --prefix web/dashboard-v2 test -- --run",
+    "PYTHONPATH=. qlib_venv/bin/python scripts/check_dashboard_static_export.py",
+    "PYTHONPATH=. qlib_venv/bin/python -m pytest tests/test_dashboard_v2_data.py tests/test_dashboard_v2_checker.py -q"
+  ]
+}
